@@ -3,6 +3,9 @@
 
 #inclib "zip"
 
+'' At least when using a static libzip, zlib needs to be linked in too.
+#inclib "z"
+
 '' The following symbols have been renamed:
 ''     constant ZIP_SOURCE_FREE => ZIP_SOURCE_FREE_
 ''     #define ZIP_STAT_INDEX => ZIP_STAT_INDEX_
