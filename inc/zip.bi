@@ -21,7 +21,9 @@ type zip_file as zip_file_
 #define LIBZIP_VERSION_MINOR 11
 #define LIBZIP_VERSION_MICRO 0
 
-#include "inttypes.h"
+#include "crt/stdint.bi"
+#include "crt/time.bi"
+#include "crt/stdio.bi"
 
 type zip_int8_t as byte
 
@@ -58,10 +60,6 @@ type zip_int64_t as longint
 type zip_uint64_t as ulongint
 
 #define ZIP_UINT64_MAX UINT64_MAX
-
-#include "sys/types.h"
-#include "stdio.h"
-#include "time.h"
 
 #define ZIP_CREATE 1
 #define ZIP_EXCL 2
