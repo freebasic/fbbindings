@@ -1,3 +1,4 @@
+'' libzip 0.11.2
 #pragma once
 
 #inclib "zip"
