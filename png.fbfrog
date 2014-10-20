@@ -1,0 +1,31 @@
+-include limits.h
+
+-removedefine PNG_H
+-removedefine PNGCONF_H
+-removedefine PNGLCONF_H
+-removedefine PNG_CONST
+-removedefine PNG_UINT_31_MAX
+-removedefine PNG_UINT_32_MAX
+-removedefine PNG_SIZE_MAX
+-removedefine png_info_init
+-removedefine png_composite
+-removedefine png_composite_16
+-removedefine PNG_FP_MAX
+-removedefine png_get_uint_32
+-removedefine png_get_uint_16
+-removedefine png_get_int_32
+-removedefine PNG_get_uint_32
+-removedefine PNG_get_uint_16
+-removedefine PNG_get_int_32
+-removedefine PNG_FUNCTION
+-removedefine PNG_EXPORT
+-removedefine PNG_EXPORT_VAR
+-removedefine PNG_EXPORT_TYPE
+-removedefine PNG_UNUSED
+-removedefine PNG_EXPORTA
+-removedefine PNG_CALLBACK
+-removedefine PNG_FP_EXPORT
+-removedefine PNG_FIXED_EXPORT
+
+-define PNG_NO_TYPECAST_NULL
+-define PNG_NO_PEDANTIC_WARNINGS
