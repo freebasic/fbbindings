@@ -1,7 +1,13 @@
 FBFROG := fbfrog
 
-.PHONY: default libzip
+.PHONY: default cunit libzip
 default:
+
+CUNIT_VERSION := 2.1-2
+CUNIT_TITLE := CUnit-$(CUNIT_VERSION)
+cunit:
+	./downloadextract.sh $(CUNIT_TITLE) $(CUNIT_TITLE)-src.tar.bz2 "http://sourceforge.net/projects/cunit/files/CUnit/$(CUNIT_VERSION)/$(CUNIT_TITLE)-src.tar.bz2/download"
+	$(FBFROG) cunit.fbfrog -o inc extracted/$(CUNIT_TITLE)/CUnit/Headers/CUnit.h
 
 LIBZIP_VERSION := 0.11.2
 libzip:
