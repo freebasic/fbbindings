@@ -16,7 +16,6 @@ extern "C"
 #define CU_FALSE 0
 #define CU_MAX(a, b) iif((a) >= (b), (a), (b))
 #define CU_MIN(a, b) iif((a) >= (b), (b), (a))
-#define CU_EXPORT
 
 #include "errno.h"
 
