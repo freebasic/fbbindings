@@ -3,6 +3,18 @@ FBFROG := fbfrog
 .PHONY: default cunit libpng12 libpng14 libpng15 libpng16 libzip
 default:
 
+CLANG_VERSION := 3.5.0
+CLANG_TITLE := cfe-$(CLANG_VERSION).src
+clang:
+	./downloadextract.sh $(CLANG_TITLE) $(CLANG_TITLE).tar.xz "http://llvm.org/releases/$(CLANG_VERSION)/$(CLANG_TITLE).tar.xz"
+	mkdir -p inc/clang-c
+	$(FBFROG) -o inc/clang-c/BuildSystem.bi           extracted/$(CLANG_TITLE)/include/clang-c/BuildSystem.h           -incdir extracted/$(CLANG_TITLE)/include -filterout '*'
+	$(FBFROG) -o inc/clang-c/CXCompilationDatabase.bi extracted/$(CLANG_TITLE)/include/clang-c/CXCompilationDatabase.h -incdir extracted/$(CLANG_TITLE)/include -filterout '*'
+	$(FBFROG) -o inc/clang-c/CXErrorCode.bi           extracted/$(CLANG_TITLE)/include/clang-c/CXErrorCode.h           -incdir extracted/$(CLANG_TITLE)/include -filterout '*'
+	$(FBFROG) -o inc/clang-c/CXString.bi              extracted/$(CLANG_TITLE)/include/clang-c/CXString.h              -incdir extracted/$(CLANG_TITLE)/include -filterout '*'
+	$(FBFROG) -o inc/clang-c/Documentation.bi         extracted/$(CLANG_TITLE)/include/clang-c/Documentation.h         -incdir extracted/$(CLANG_TITLE)/include -filterout '*'
+	$(FBFROG) -o inc/clang-c/Index.bi                 extracted/$(CLANG_TITLE)/include/clang-c/Index.h                 -incdir extracted/$(CLANG_TITLE)/include -filterout '*'
+
 CUNIT_VERSION := 2.1-2
 CUNIT_TITLE := CUnit-$(CUNIT_VERSION)
 cunit:
