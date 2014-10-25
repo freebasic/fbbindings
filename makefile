@@ -33,6 +33,13 @@ ffi:
 		if [ ! -f include/ffi.h ]; then ./configure --disable-builddir; fi
 	$(FBFROG) ffi.fbfrog -o inc extracted/$(FFI_TITLE)/include/ffi.h
 
+JIT_TITLE := libjit-a8293e141b79c28734a3633a81a43f92f29fc2d7
+jit:
+	./downloadextract.sh $(JIT_TITLE) $(JIT_TITLE).tar.gz "http://git.savannah.gnu.org/cgit/libjit.git/snapshot/$(JIT_TITLE).tar.gz"
+	cd extracted/$(JIT_TITLE) && \
+		if [ ! -f include/jit/jit-arch.h ]; then ./auto_gen.sh && ./configure && make; fi
+	$(FBFROG) jit.fbfrog -o inc extracted/$(JIT_TITLE)/include/jit/jit.h -incdir extracted/$(JIT_TITLE)/include
+
 PNG12_TITLE := libpng-1.2.50
 png12:
 	./downloadextract.sh $(PNG12_TITLE) $(PNG12_TITLE).tar.xz "http://downloads.sourceforge.net/libpng/$(PNG12_TITLE).tar.xz?download"
