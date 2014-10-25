@@ -1,8 +1,8 @@
 FBFROG := fbfrog
 
-.PHONY: all clang cunit png12 png14 png15 png16 zip
-
-all: clang cunit png12 png14 png15 png16 zip
+ALL := clang cunit ffi jit png12 png14 png15 png16 zip
+.PHONY: all $(ALL)
+all: $(ALL)
 
 CLANG_VERSION := 3.5.0
 CLANG_TITLE := cfe-$(CLANG_VERSION).src
