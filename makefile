@@ -64,8 +64,7 @@ png16:
 	   extracted/$(PNG16_TITLE)/pnglibconf.h
 	$(FBFROG) png.fbfrog -o inc/png16.bi extracted/$(PNG16_TITLE)/png.h
 
-ZIP_VERSION := 0.11.2
-ZIP_TITLE := libzip-$(ZIP_VERSION)
+ZIP_TITLE := libzip-0.11.2
 zip:
 	./downloadextract.sh $(ZIP_TITLE) $(ZIP_TITLE).tar.xz "http://www.nih.at/libzip/$(ZIP_TITLE).tar.xz"
 	# Need to compile libzip in order to get zipconf.h
