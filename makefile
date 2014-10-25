@@ -1,8 +1,8 @@
 FBFROG := fbfrog
 
-.PHONY: all clang cunit libpng12 libpng14 libpng15 libpng16 libzip
+.PHONY: all clang cunit png12 png14 png15 png16 zip
 
-all: clang cunit libpng12 libpng14 libpng15 libpng16 libzip
+all: clang cunit png12 png14 png15 png16 zip
 
 CLANG_VERSION := 3.5.0
 CLANG_TITLE := cfe-$(CLANG_VERSION).src
@@ -22,39 +22,39 @@ cunit:
 	./downloadextract.sh $(CUNIT_TITLE) $(CUNIT_TITLE)-src.tar.bz2 "http://sourceforge.net/projects/cunit/files/CUnit/$(CUNIT_VERSION)/$(CUNIT_TITLE)-src.tar.bz2/download"
 	$(FBFROG) cunit.fbfrog -o inc extracted/$(CUNIT_TITLE)/CUnit/Headers/CUnit.h
 
-LIBPNG12_TITLE := libpng-1.2.50
-libpng12:
-	./downloadextract.sh $(LIBPNG12_TITLE) $(LIBPNG12_TITLE).tar.xz "http://downloads.sourceforge.net/libpng/$(LIBPNG12_TITLE).tar.xz?download"
-	$(FBFROG) png.fbfrog -o inc/png12.bi extracted/$(LIBPNG12_TITLE)/png.h
+PNG12_TITLE := libpng-1.2.50
+png12:
+	./downloadextract.sh $(PNG12_TITLE) $(PNG12_TITLE).tar.xz "http://downloads.sourceforge.net/libpng/$(PNG12_TITLE).tar.xz?download"
+	$(FBFROG) png.fbfrog -o inc/png12.bi extracted/$(PNG12_TITLE)/png.h
 
-LIBPNG14_TITLE := libpng-1.4.12
-libpng14:
-	./downloadextract.sh $(LIBPNG14_TITLE) $(LIBPNG14_TITLE).tar.xz "http://downloads.sourceforge.net/libpng/$(LIBPNG14_TITLE).tar.xz?download"
-	$(FBFROG) png.fbfrog -o inc/png14.bi extracted/$(LIBPNG14_TITLE)/png.h
+PNG14_TITLE := libpng-1.4.12
+png14:
+	./downloadextract.sh $(PNG14_TITLE) $(PNG14_TITLE).tar.xz "http://downloads.sourceforge.net/libpng/$(PNG14_TITLE).tar.xz?download"
+	$(FBFROG) png.fbfrog -o inc/png14.bi extracted/$(PNG14_TITLE)/png.h
 
-LIBPNG15_TITLE := libpng-1.5.17
-libpng15:
-	./downloadextract.sh $(LIBPNG15_TITLE) $(LIBPNG15_TITLE).tar.xz "http://downloads.sourceforge.net/libpng/$(LIBPNG15_TITLE).tar.xz?download"
-	cp extracted/$(LIBPNG15_TITLE)/scripts/pnglibconf.h.prebuilt \
-	   extracted/$(LIBPNG15_TITLE)/pnglibconf.h
-	$(FBFROG) png.fbfrog -o inc/png15.bi extracted/$(LIBPNG15_TITLE)/png.h
+PNG15_TITLE := libpng-1.5.17
+png15:
+	./downloadextract.sh $(PNG15_TITLE) $(PNG15_TITLE).tar.xz "http://downloads.sourceforge.net/libpng/$(PNG15_TITLE).tar.xz?download"
+	cp extracted/$(PNG15_TITLE)/scripts/pnglibconf.h.prebuilt \
+	   extracted/$(PNG15_TITLE)/pnglibconf.h
+	$(FBFROG) png.fbfrog -o inc/png15.bi extracted/$(PNG15_TITLE)/png.h
 
-LIBPNG16_TITLE := libpng-1.6.6
-libpng16:
-	./downloadextract.sh $(LIBPNG16_TITLE) $(LIBPNG16_TITLE).tar.xz "http://downloads.sourceforge.net/libpng/$(LIBPNG16_TITLE).tar.xz?download"
-	cp extracted/$(LIBPNG16_TITLE)/scripts/pnglibconf.h.prebuilt \
-	   extracted/$(LIBPNG16_TITLE)/pnglibconf.h
-	$(FBFROG) png.fbfrog -o inc/png16.bi extracted/$(LIBPNG16_TITLE)/png.h
+PNG16_TITLE := libpng-1.6.6
+png16:
+	./downloadextract.sh $(PNG16_TITLE) $(PNG16_TITLE).tar.xz "http://downloads.sourceforge.net/libpng/$(PNG16_TITLE).tar.xz?download"
+	cp extracted/$(PNG16_TITLE)/scripts/pnglibconf.h.prebuilt \
+	   extracted/$(PNG16_TITLE)/pnglibconf.h
+	$(FBFROG) png.fbfrog -o inc/png16.bi extracted/$(PNG16_TITLE)/png.h
 
-LIBZIP_VERSION := 0.11.2
-LIBZIP_TITLE := libzip-$(LIBZIP_VERSION)
-libzip:
-	./downloadextract.sh $(LIBZIP_TITLE) $(LIBZIP_TITLE).tar.xz "http://www.nih.at/libzip/$(LIBZIP_TITLE).tar.xz"
+ZIP_VERSION := 0.11.2
+ZIP_TITLE := libzip-$(ZIP_VERSION)
+zip:
+	./downloadextract.sh $(ZIP_TITLE) $(ZIP_TITLE).tar.xz "http://www.nih.at/libzip/$(ZIP_TITLE).tar.xz"
 	# Need to compile libzip in order to get zipconf.h
 	# (luckily it's the same for all targets)
-	cd extracted/$(LIBZIP_TITLE) && \
+	cd extracted/$(ZIP_TITLE) && \
 		if [ ! -f lib/zipconf.h ]; then ./configure && make; fi
-	$(FBFROG) zip.fbfrog -o inc extracted/$(LIBZIP_TITLE)/lib/zip.h
+	$(FBFROG) zip.fbfrog -o inc extracted/$(ZIP_TITLE)/lib/zip.h
 
 ZLIB_TITLE := zlib-1.2.8
 zlib:
