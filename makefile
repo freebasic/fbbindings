@@ -1,6 +1,6 @@
 FBFROG := fbfrog
 
-ALL := cgui clang cunit ffi jit pdcurses png12 png14 png15 png16 zip
+ALL := cgui clang cunit ffi jit ncurses pdcurses png12 png14 png15 png16 zip
 .PHONY: all $(ALL)
 all: $(ALL)
 
@@ -43,6 +43,16 @@ jit:
 	cd extracted/$(JIT_TITLE) && \
 		if [ ! -f include/jit/jit-arch.h ]; then ./auto_gen.sh && ./configure && make; fi
 	$(FBFROG) jit.fbfrog -o inc extracted/$(JIT_TITLE)/include/jit/jit.h -incdir extracted/$(JIT_TITLE)/include
+
+NCURSES_TITLE := ncurses-5.9
+ncurses:
+	./downloadextract.sh $(NCURSES_TITLE) $(NCURSES_TITLE).tar.gz "http://ftp.gnu.org/pub/gnu/ncurses/$(NCURSES_TITLE).tar.gz"
+	cd extracted/$(NCURSES_TITLE) && \
+		if [ ! -f include/curses.h ]; then ./configure && cd include && make; fi
+	mkdir -p inc/ncurses
+	$(FBFROG) ncurses.fbfrog -o inc/ncurses/curses.bi  extracted/$(NCURSES_TITLE)/include/curses.h
+	$(FBFROG) ncurses.fbfrog -o inc/ncurses/term.bi    extracted/$(NCURSES_TITLE)/include/term.h
+	$(FBFROG) ncurses.fbfrog -o inc/ncurses/termcap.bi extracted/$(NCURSES_TITLE)/include/termcap.h
 
 pdcurses:
 	./downloadextract.sh PDCurses-3.4 PDCurses-3.4.tar.gz "http://sourceforge.net/projects/pdcurses/files/pdcurses/3.4/PDCurses-3.4.tar.gz/download"
