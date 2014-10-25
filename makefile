@@ -55,3 +55,8 @@ libzip:
 	cd extracted/$(LIBZIP_TITLE) && \
 		if [ ! -f lib/zipconf.h ]; then ./configure && make; fi
 	$(FBFROG) zip.fbfrog -o inc extracted/$(LIBZIP_TITLE)/lib/zip.h
+
+ZLIB_TITLE := zlib-1.2.8
+zlib:
+	./downloadextract.sh $(ZLIB_TITLE) $(ZLIB_TITLE).tar.xz "http://zlib.net/$(ZLIB_TITLE).tar.xz"
+	$(FBFROG) zlib.fbfrog -o inc extracted/$(ZLIB_TITLE)/zlib.h

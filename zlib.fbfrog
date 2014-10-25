@@ -1,0 +1,12 @@
+-removedefine UNALIGNED_OK
+-removedefine STDC
+-removedefine STDC99
+-removedefine z_const
+-removedefine MAX_MEM_LEVEL
+-removedefine MAX_WBITS
+-removedefine OF
+-removedefine Z_ARG
+-removedefine ZEXTERN
+-removedefine ZEXPORT
+-removedefine ZEXPORTVA
+-removedefine FAR
