@@ -1,6 +1,6 @@
 FBFROG := fbfrog
 
-ALL := cgui clang cunit ffi jit png12 png14 png15 png16 zip
+ALL := cgui clang cunit ffi jit pdcurses png12 png14 png15 png16 zip
 .PHONY: all $(ALL)
 all: $(ALL)
 
@@ -43,6 +43,13 @@ jit:
 	cd extracted/$(JIT_TITLE) && \
 		if [ ! -f include/jit/jit-arch.h ]; then ./auto_gen.sh && ./configure && make; fi
 	$(FBFROG) jit.fbfrog -o inc extracted/$(JIT_TITLE)/include/jit/jit.h -incdir extracted/$(JIT_TITLE)/include
+
+pdcurses:
+	./downloadextract.sh PDCurses-3.4 PDCurses-3.4.tar.gz "http://sourceforge.net/projects/pdcurses/files/pdcurses/3.4/PDCurses-3.4.tar.gz/download"
+	mkdir -p inc/pdcurses
+	$(FBFROG) pdcurses.fbfrog -o inc/pdcurses/curses.bi extracted/PDCurses-3.4/curses.h
+	$(FBFROG) pdcurses.fbfrog -o inc/pdcurses/panel.bi extracted/PDCurses-3.4/panel.h -filterout '*curses.h'
+	$(FBFROG) pdcurses.fbfrog -o inc/pdcurses/term.bi extracted/PDCurses-3.4/term.h -filterout '*curses.h'
 
 PNG12_TITLE := libpng-1.2.50
 png12:
