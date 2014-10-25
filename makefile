@@ -1,8 +1,12 @@
 FBFROG := fbfrog
 
-ALL := clang cunit ffi jit png12 png14 png15 png16 zip
+ALL := cgui clang cunit ffi jit png12 png14 png15 png16 zip
 .PHONY: all $(ALL)
 all: $(ALL)
+
+cgui:
+	./downloadextract.sh cgui cgui-2.0.3.tar.gz "http://sourceforge.net/projects/cgui/files/2.0.3/cgui-2.0.3.tar.gz/download"
+	$(FBFROG) cgui.fbfrog -o inc extracted/cgui/include/cgui.h
 
 CLANG_VERSION := 3.5.0
 CLANG_TITLE := cfe-$(CLANG_VERSION).src
