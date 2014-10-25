@@ -1,7 +1,8 @@
 FBFROG := fbfrog
 
-.PHONY: default cunit libpng12 libpng14 libpng15 libpng16 libzip
-default:
+.PHONY: all clang cunit libpng12 libpng14 libpng15 libpng16 libzip
+
+all: clang cunit libpng12 libpng14 libpng15 libpng16 libzip
 
 CLANG_VERSION := 3.5.0
 CLANG_TITLE := cfe-$(CLANG_VERSION).src
