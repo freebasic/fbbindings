@@ -1,5 +1,11 @@
 #pragma once
 
+#include once "crt/limits.bi"
+#include once "crt/stddef.bi"
+#include once "crt/stdio.bi"
+#include once "crt/setjmp.bi"
+#include once "crt/time.bi"
+
 '' The following symbols have been renamed:
 ''     #define PNG_READ_tEXt_SUPPORTED => PNG_READ_tEXt_SUPPORTED_
 ''     #define PNG_WRITE_tEXt_SUPPORTED => PNG_WRITE_tEXt_SUPPORTED_
@@ -215,13 +221,6 @@ type png_control as png_control_
 #define PNG_Z_DEFAULT_STRATEGY 1
 #define PNG_sCAL_PRECISION 5
 #define PNG_sRGB_PROFILE_CHECKS 2
-
-#include "limits.h"
-#include "stddef.h"
-#include "stdio.h"
-#include "setjmp.h"
-#include "time.h"
-
 #define PNG_USE_READ_MACROS
 #define PNGARG(arglist) arglist
 

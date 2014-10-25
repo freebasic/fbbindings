@@ -1,6 +1,12 @@
 #pragma once
 
 #include once "crt/long.bi"
+#include once "crt/time.bi"
+#include once "clang-c/Platform.bi"
+#include once "clang-c/CXErrorCode.bi"
+#include once "clang-c/CXString.bi"
+#include once "clang-c/BuildSystem.bi"
+#include once "clang-c/Documentation.bi"
 
 extern "C"
 
@@ -8,9 +14,6 @@ type CXTranslationUnitImpl as CXTranslationUnitImpl_
 type CXCursorSetImpl as CXCursorSetImpl_
 
 #define CLANG_C_INDEX_H
-
-#include "time.h"
-
 #define CINDEX_VERSION_MAJOR 0
 #define CINDEX_VERSION_MINOR 27
 #define CINDEX_VERSION_ENCODE(major, minor) (((major) * 10000) + ((minor) * 1))

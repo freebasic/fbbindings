@@ -1,6 +1,12 @@
 #pragma once
 
 #include once "crt/long.bi"
+#include once "zlib.bi"
+#include once "crt/stdio.bi"
+#include once "sys/types.bi"
+#include once "crt/setjmp.bi"
+#include once "crt/string.bi"
+#include once "crt/time.bi"
 
 '' The following symbols have been renamed:
 ''     #define PNG_LIBPNG_VER => PNG_LIBPNG_VER_
@@ -10,6 +16,7 @@
 
 extern "C"
 
+type png_struct_def as png_struct_def_
 type tm as tm_
 
 #define PNG_LIBPNG_VER_STRING "1.2.50"
@@ -30,9 +37,6 @@ type tm as tm_
 #define PNG_LIBPNG_BUILD_SPECIAL 32
 #define PNG_LIBPNG_BUILD_BASE_TYPE PNG_LIBPNG_BUILD_STABLE
 #define PNG_LIBPNG_VER_ 10250
-
-#include "zlib.h"
-
 #define PNG_1_2_X
 #define PNG_WARN_UNINITIALIZED_ROW 1
 #define PNG_ZBUF_SIZE 8192
@@ -46,19 +50,9 @@ type tm as tm_
 #define PNG_MNG_FEATURES_SUPPORTED
 #define PNG_FLOATING_POINT_SUPPORTED
 #define PNG_STDIO_SUPPORTED
-
-#include "stdio.h"
-
 #define PNG_CONSOLE_IO_SUPPORTED
 #define PNGARG(arglist) arglist
-
-#include "sys/types.h"
-
 #define PNG_SETJMP_SUPPORTED
-
-#include "setjmp.h"
-#include "string.h"
-
 #define PNG_NO_iTXt_SUPPORTED
 #define PNG_NO_READ_iTXt
 #define PNG_NO_WRITE_iTXt
@@ -185,8 +179,6 @@ type tm as tm_
 #define PNG_WRITE_FILTER_SUPPORTED
 #define PNG_WRITE_UNKNOWN_CHUNKS_SUPPORTED
 #define PNG_INFO_IMAGE_SUPPORTED
-
-#include "time.h"
 
 type png_uint_32 as culong
 type png_int_32 as clong
@@ -565,7 +557,7 @@ type png_unknown_chunk_ptr as sub(byval as png_structp)
 type png_malloc_ptr as function(byval as png_structp, byval as png_size_t) as png_voidp
 type png_free_ptr as sub(byval as png_structp, byval as png_voidp)
 
-type png_struct_def
+type png_struct_def_
 	jmpbuf as jmp_buf
 	error_fn as png_error_ptr
 	warning_fn as png_error_ptr

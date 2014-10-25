@@ -1,5 +1,8 @@
 #pragma once
 
+#include once "clang-c/Platform.bi"
+#include once "clang-c/CXString.bi"
+
 extern "C"
 
 #define CLANG_CXCOMPILATIONDATABASE_H

@@ -1,5 +1,7 @@
 #pragma once
 
+#include once "clang-c/Platform.bi"
+
 #define CLANG_C_CXERRORCODE_H
 
 type CXErrorCode as long

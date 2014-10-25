@@ -1,5 +1,9 @@
 #pragma once
 
+#include once "clang-c/Platform.bi"
+#include once "clang-c/CXErrorCode.bi"
+#include once "clang-c/CXString.bi"
+
 extern "C"
 
 type CXVirtualFileOverlayImpl as CXVirtualFileOverlayImpl_

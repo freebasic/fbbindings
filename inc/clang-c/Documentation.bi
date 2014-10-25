@@ -1,5 +1,7 @@
 #pragma once
 
+#include once "clang-c/Index.bi"
+
 extern "C"
 
 #define CLANG_C_DOCUMENTATION_H

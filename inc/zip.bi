@@ -2,8 +2,13 @@
 
 #inclib "zip"
 
+#include once "inttypes.bi"
+#include once "sys/types.bi"
+#include once "crt/stdio.bi"
+#include once "crt/time.bi"
+
 '' The following symbols have been renamed:
-''     constant ZIP_SOURCE_FREE => ZIP_SOURCE_FREE_
+''     enum constant ZIP_SOURCE_FREE => ZIP_SOURCE_FREE_
 ''     #define ZIP_STAT_INDEX => ZIP_STAT_INDEX_
 
 extern "C"
@@ -16,8 +21,6 @@ type zip_file as zip_file_
 #define LIBZIP_VERSION_MAJOR 0
 #define LIBZIP_VERSION_MINOR 11
 #define LIBZIP_VERSION_MICRO 0
-
-#include "inttypes.h"
 
 type zip_int8_t as byte
 
@@ -54,11 +57,6 @@ type zip_int64_t as longint
 type zip_uint64_t as ulongint
 
 #define ZIP_UINT64_MAX UINT64_MAX
-
-#include "sys/types.h"
-#include "stdio.h"
-#include "time.h"
-
 #define ZIP_CREATE 1
 #define ZIP_EXCL 2
 #define ZIP_CHECKCONS 4

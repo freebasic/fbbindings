@@ -1,5 +1,7 @@
 #pragma once
 
+#include once "clang-c/Platform.bi"
+
 extern "C"
 
 #define CLANG_CXSTRING_H

@@ -1,6 +1,13 @@
 #pragma once
 
 #include once "crt/long.bi"
+#include once "zlib.bi"
+#include once "crt/limits.bi"
+#include once "crt/stdio.bi"
+#include once "sys/types.bi"
+#include once "crt/setjmp.bi"
+#include once "crt/string.bi"
+#include once "crt/time.bi"
 
 '' The following symbols have been renamed:
 ''     #define PNG_READ_TEXT_SUPPORTED => PNG_READ_TEXT_SUPPORTED_
@@ -10,6 +17,7 @@
 
 extern "C"
 
+type png_struct_def as png_struct_def_
 type tm as tm_
 
 #define PNG_LIBPNG_VER_STRING "1.4.12"
@@ -30,10 +38,6 @@ type tm as tm_
 #define PNG_LIBPNG_BUILD_SPECIAL 32
 #define PNG_LIBPNG_BUILD_BASE_TYPE PNG_LIBPNG_BUILD_STABLE
 #define PNG_LIBPNG_VER 10412
-
-#include "zlib.h"
-#include "limits.h"
-
 #define PNG_ZBUF_SIZE 8192
 #define PNG_READ_SUPPORTED
 #define PNG_WRITE_SUPPORTED
@@ -47,19 +51,9 @@ type tm as tm_
 #define PNG_FLOATING_POINT_SUPPORTED
 #define PNG_CALLOC_SUPPORTED
 #define PNG_STDIO_SUPPORTED
-
-#include "stdio.h"
-
 #define PNG_CONSOLE_IO_SUPPORTED
 #define PNGARG(arglist) arglist
-
-#include "sys/types.h"
-
 #define PNG_SETJMP_SUPPORTED
-
-#include "setjmp.h"
-#include "string.h"
-
 #define PNG_QUANTIZE_RED_BITS 5
 #define PNG_QUANTIZE_GREEN_BITS 5
 #define PNG_QUANTIZE_BLUE_BITS 5
@@ -191,8 +185,6 @@ type tm as tm_
 #define PNG_WRITE_FILTER_SUPPORTED
 #define PNG_WRITE_UNKNOWN_CHUNKS_SUPPORTED
 #define PNG_INFO_IMAGE_SUPPORTED
-
-#include "time.h"
 
 type png_uint_32 as ulong
 type png_int_32 as long
@@ -553,7 +545,7 @@ type png_longjmp_ptr as sub(byval as jmp_buf, byval as long)
 type png_malloc_ptr as function(byval as png_structp, byval as png_alloc_size_t) as png_voidp
 type png_free_ptr as sub(byval as png_structp, byval as png_voidp)
 
-type png_struct_def
+type png_struct_def_
 	jmpbuf as jmp_buf
 	longjmp_fn as png_longjmp_ptr
 	error_fn as png_error_ptr
