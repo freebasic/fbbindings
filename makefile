@@ -22,6 +22,17 @@ cunit:
 	./downloadextract.sh $(CUNIT_TITLE) $(CUNIT_TITLE)-src.tar.bz2 "http://sourceforge.net/projects/cunit/files/CUnit/$(CUNIT_VERSION)/$(CUNIT_TITLE)-src.tar.bz2/download"
 	$(FBFROG) cunit.fbfrog -o inc extracted/$(CUNIT_TITLE)/CUnit/Headers/CUnit.h
 
+FFI_TITLE := libffi-3.1
+ffi:
+	./downloadextract.sh $(FFI_TITLE) $(FFI_TITLE).tar.gz "ftp://sourceware.org/pub/libffi/$(FFI_TITLE).tar.gz"
+	# Run libffi's configure script in order to get ffi.h (and ffitarget.h)
+	# TODO: the chosen ffi.h/ffitarget.h settings depend on the host system,
+	# so it'd be better to generate the proper ffi.h manually for the
+	# targets we need.
+	cd extracted/$(FFI_TITLE) && \
+		if [ ! -f include/ffi.h ]; then ./configure --disable-builddir; fi
+	$(FBFROG) ffi.fbfrog -o inc extracted/$(FFI_TITLE)/include/ffi.h
+
 PNG12_TITLE := libpng-1.2.50
 png12:
 	./downloadextract.sh $(PNG12_TITLE) $(PNG12_TITLE).tar.xz "http://downloads.sourceforge.net/libpng/$(PNG12_TITLE).tar.xz?download"
