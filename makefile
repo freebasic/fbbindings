@@ -1,8 +1,11 @@
 FBFROG := fbfrog
 
 ALL := cgui clang cunit ffi jit ncurses pdcurses png12 png14 png15 png16 zip
-.PHONY: all $(ALL)
+.PHONY: all clean $(ALL)
 all: $(ALL)
+
+clean:
+	rm -rf extracted/*
 
 cgui:
 	./downloadextract.sh cgui cgui-2.0.3.tar.gz "http://sourceforge.net/projects/cgui/files/2.0.3/cgui-2.0.3.tar.gz/download"
