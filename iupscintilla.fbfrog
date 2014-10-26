@@ -1,0 +1,4 @@
+-declarebool SCINTILLA_H
+-ifdef SCINTILLA_H
+	-define SCINTILLA_H 1
+-endif

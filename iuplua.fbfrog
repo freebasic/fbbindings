@@ -1,0 +1,7 @@
+-declaredefines LUA_NOOBJECT LUA_TNONE -unchecked
+-select
+-case LUA_NOOBJECT
+	-define LUA_NOOBJECT 1
+-case LUA_TNONE
+	-define LUA_TNONE 1
+-endselect

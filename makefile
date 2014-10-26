@@ -1,6 +1,6 @@
 FBFROG := fbfrog
 
-ALL := cgui clang cunit ffi jit ncurses pdcurses png12 png14 png15 png16 zip
+ALL := cgui clang cunit ffi iup jit ncurses pdcurses png12 png14 png15 png16 zip
 .PHONY: all clean $(ALL)
 all: $(ALL)
 
@@ -39,6 +39,54 @@ ffi:
 	cd extracted/$(FFI_TITLE) && \
 		if [ ! -f include/ffi.h ]; then ./configure --disable-builddir; fi
 	$(FBFROG) ffi.fbfrog -o inc extracted/$(FFI_TITLE)/include/ffi.h
+
+IUP_VERSION := 3.11.2
+IUP_TITLE := iup-3.11.2_Sources
+iup:
+	./downloadextract.sh iup $(IUP_TITLE).tar.gz "http://sourceforge.net/projects/iup/files/$(IUP_VERSION)/Docs%20and%20Sources/$(IUP_TITLE).tar.gz/download"
+	mkdir -p inc/IUP
+	$(FBFROG) -o inc/IUP -filterout '*' extracted/iup/include/iupcb.h
+	$(FBFROG) -o inc/IUP -filterout '*' extracted/iup/include/iupcbox.h
+	$(FBFROG) -o inc/IUP -filterout '*' extracted/iup/include/iupcbs.h
+	$(FBFROG) -o inc/IUP -filterout '*' extracted/iup/include/iupcells.h
+	$(FBFROG) -o inc/IUP -filterout '*' extracted/iup/include/iupcolorbar.h
+	$(FBFROG) -o inc/IUP -filterout '*' extracted/iup/include/iupcontrols.h
+	$(FBFROG) -o inc/IUP -filterout '*' extracted/iup/include/iupdef.h
+	$(FBFROG) -o inc/IUP -filterout '*' extracted/iup/include/iupdial.h
+	$(FBFROG) -o inc/IUP -filterout '*' extracted/iup/include/iupgauge.h
+	$(FBFROG) -o inc/IUP -filterout '*' extracted/iup/include/iupgc.h
+	$(FBFROG) -o inc/IUP -filterout '*' extracted/iup/include/iupgetparam.h
+	$(FBFROG) -o inc/IUP -filterout '*' extracted/iup/include/iupglcontrols.h
+	$(FBFROG) -o inc/IUP -filterout '*' extracted/iup/include/iupgl.h
+	$(FBFROG) -o inc/IUP -filterout '*' extracted/iup/include/iup.h
+	$(FBFROG) -o inc/IUP -filterout '*' extracted/iup/include/iupim.h		iupim.fbfrog
+	$(FBFROG) -o inc/IUP -filterout '*' extracted/iup/include/iupkey.h
+	$(FBFROG) -o inc/IUP -filterout '*' extracted/iup/include/iupluacontrols.h	iuplua.fbfrog
+	$(FBFROG) -o inc/IUP -filterout '*' extracted/iup/include/iupluaglcontrols.h	iuplua.fbfrog
+	$(FBFROG) -o inc/IUP -filterout '*' extracted/iup/include/iupluagl.h		iuplua.fbfrog
+	$(FBFROG) -o inc/IUP -filterout '*' extracted/iup/include/iuplua.h		iuplua.fbfrog
+	$(FBFROG) -o inc/IUP -filterout '*' extracted/iup/include/iupluaim.h		iuplua.fbfrog
+	$(FBFROG) -o inc/IUP -filterout '*' extracted/iup/include/iupluamatrixex.h	iuplua.fbfrog
+	$(FBFROG) -o inc/IUP -filterout '*' extracted/iup/include/iuplua_mglplot.h	iuplua.fbfrog
+	$(FBFROG) -o inc/IUP -filterout '*' extracted/iup/include/iupluaole.h		iuplua.fbfrog
+	$(FBFROG) -o inc/IUP -filterout '*' extracted/iup/include/iuplua_pplot.h	iuplua.fbfrog
+	$(FBFROG) -o inc/IUP -filterout '*' extracted/iup/include/iuplua_scintilla.h	iuplua.fbfrog iupscintilla.fbfrog
+	$(FBFROG) -o inc/IUP -filterout '*' extracted/iup/include/iupluatuio.h		iuplua.fbfrog
+	$(FBFROG) -o inc/IUP -filterout '*' extracted/iup/include/iupluaweb.h		iuplua.fbfrog
+	$(FBFROG) -o inc/IUP -filterout '*' extracted/iup/include/iupmask.h
+	$(FBFROG) -o inc/IUP -filterout '*' extracted/iup/include/iupmatrixex.h
+	$(FBFROG) -o inc/IUP -filterout '*' extracted/iup/include/iupmatrix.h
+	$(FBFROG) -o inc/IUP -filterout '*' extracted/iup/include/iup_mglplot.h
+	$(FBFROG) -o inc/IUP -filterout '*' extracted/iup/include/iupole.h
+	$(FBFROG) -o inc/IUP -filterout '*' extracted/iup/include/iup_pplot.h
+	$(FBFROG) -o inc/IUP -filterout '*' extracted/iup/include/iupsbox.h
+	$(FBFROG) -o inc/IUP -filterout '*' extracted/iup/include/iup_scintilla.h	iupscintilla.fbfrog
+	$(FBFROG) -o inc/IUP -filterout '*' extracted/iup/include/iupspin.h
+	$(FBFROG) -o inc/IUP -filterout '*' extracted/iup/include/iuptabs.h
+	$(FBFROG) -o inc/IUP -filterout '*' extracted/iup/include/iuptree.h
+	$(FBFROG) -o inc/IUP -filterout '*' extracted/iup/include/iuptuio.h
+	$(FBFROG) -o inc/IUP -filterout '*' extracted/iup/include/iupval.h
+	$(FBFROG) -o inc/IUP -filterout '*' extracted/iup/include/iupweb.h
 
 JIT_TITLE := libjit-a8293e141b79c28734a3633a81a43f92f29fc2d7
 jit:

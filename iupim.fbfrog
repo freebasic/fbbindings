@@ -1,0 +1,4 @@
+-declarebool __IM_IMAGE_H
+-ifdef __IM_IMAGE_H
+	-define __IM_IMAGE_H 1
+-endif
