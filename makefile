@@ -1,11 +1,18 @@
 FBFROG := fbfrog
 
-ALL := cgui clang cunit ffi iup jit ncurses pdcurses png12 png14 png15 png16 zip
+ALL := allegro cgui clang cunit ffi iup jit ncurses pdcurses png12 png14 png15 png16 zip
 .PHONY: all clean $(ALL)
 all: $(ALL)
 
 clean:
 	rm -rf extracted/*
+
+ALLEGRO_VERSION := 5.0.10
+ALLEGRO_TITLE := allegro-$(ALLEGRO_VERSION)
+allegro:
+	./downloadextract.sh $(ALLEGRO_TITLE) $(ALLEGRO_TITLE).tar.gz "http://sourceforge.net/projects/alleg/files/allegro/$(ALLEGRO_VERSION)/$(ALLEGRO_TITLE).tar.gz/download"
+	mkdir -p inc/allegro5
+	$(FBFROG) allegro5.fbfrog -o inc/allegro5 extracted/$(ALLEGRO_TITLE)/include/allegro5/allegro.h -incdir extracted/$(ALLEGRO_TITLE)/include
 
 cgui:
 	./downloadextract.sh cgui cgui-2.0.3.tar.gz "http://sourceforge.net/projects/cgui/files/2.0.3/cgui-2.0.3.tar.gz/download"
