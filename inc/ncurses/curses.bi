@@ -208,25 +208,8 @@ type NCURSES_BOOL as ubyte
 #define COLOR_CYAN 6
 #define COLOR_WHITE 7
 
-'' TODO: unrecognized construct:
-'' extern chtype acs_map[];
-'' ---------------------------------------------------------------------------
-'' expected expression but found ']'
-''     extern chtype acs_map [ ] ;
-''                             ^
-'' extracted/ncurses-5.9/include/curses.h(250): construct found here
-''     extern NCURSES_EXPORT_VAR(chtype) acs_map[];
-''     ^~~~~~
-
-'' TODO: unrecognized construct:
-'' #define NCURSES_ACS(c) (acs_map[NCURSES_CAST(unsigned char,c)])
-'' ---------------------------------------------------------------------------
-'' extracted/ncurses-5.9/include/curses.h(253): expected expression but found 'unsigned'
-''     #define NCURSES_ACS(c) (acs_map[NCURSES_CAST(unsigned char,c)])
-''                                                  ^~~~~~~~
-'' context as seen by fbfrog:
-''     # define NCURSES_ACS ( c ) ( acs_map [ NCURSES_CAST ( unsigned char , c ) ] 
-''                                                           ^~~~~~~~
+'' TODO: extern chtype acs_map[];
+'' TODO: #define NCURSES_ACS(c) (acs_map[NCURSES_CAST(unsigned char,c)])
 
 #define ACS_ULCORNER NCURSES_ACS(asc("l"))
 #define ACS_LLCORNER NCURSES_ACS(asc("m"))
@@ -673,65 +656,12 @@ declare function wgetscrreg(byval as const WINDOW_ ptr, byval as long ptr, byval
 #define A_TOP NCURSES_BITS(cast(culong, 1), 21)
 #define A_VERTICAL NCURSES_BITS(cast(culong, 1), 22)
 
-'' TODO: unrecognized construct:
-'' #define getyx(win,y,x) (y = getcury(win), x = getcurx(win))
-'' ---------------------------------------------------------------------------
-'' extracted/ncurses-5.9/include/curses.h(1057): expected ')' to close '(...)' parenthesized expression but found '='
-''     #define getyx(win,y,x)    (y = getcury(win), x = getcurx(win))
-''                                  ^
-'' context as seen by fbfrog:
-''     # define getyx ( win , y , x ) ( y = getcury ( win ) , x = getcurx ( win ) )
-''                                        ^
-
-'' TODO: unrecognized construct:
-'' #define getbegyx(win,y,x) (y = getbegy(win), x = getbegx(win))
-'' ---------------------------------------------------------------------------
-'' extracted/ncurses-5.9/include/curses.h(1058): expected ')' to close '(...)' parenthesized expression but found '='
-''     #define getbegyx(win,y,x) (y = getbegy(win), x = getbegx(win))
-''                                  ^
-'' context as seen by fbfrog:
-''     # define getbegyx ( win , y , x ) ( y = getbegy ( win ) , x = getbegx ( win 
-''                                           ^
-
-'' TODO: unrecognized construct:
-'' #define getmaxyx(win,y,x) (y = getmaxy(win), x = getmaxx(win))
-'' ---------------------------------------------------------------------------
-'' extracted/ncurses-5.9/include/curses.h(1059): expected ')' to close '(...)' parenthesized expression but found '='
-''     #define getmaxyx(win,y,x) (y = getmaxy(win), x = getmaxx(win))
-''                                  ^
-'' context as seen by fbfrog:
-''     # define getmaxyx ( win , y , x ) ( y = getmaxy ( win ) , x = getmaxx ( win 
-''                                           ^
-
-'' TODO: unrecognized construct:
-'' #define getparyx(win,y,x) (y = getpary(win), x = getparx(win))
-'' ---------------------------------------------------------------------------
-'' extracted/ncurses-5.9/include/curses.h(1060): expected ')' to close '(...)' parenthesized expression but found '='
-''     #define getparyx(win,y,x) (y = getpary(win), x = getparx(win))
-''                                  ^
-'' context as seen by fbfrog:
-''     # define getparyx ( win , y , x ) ( y = getpary ( win ) , x = getparx ( win 
-''                                           ^
-
-'' TODO: unrecognized construct:
-'' #define getsyx(y,x) do { if (newscr) { if (is_leaveok(newscr)) (y) = (x) = -1; else getyx(newscr,(y), (x)); } } while(0)
-'' ---------------------------------------------------------------------------
-'' extracted/ncurses-5.9/include/curses.h(1062): expected expression but found 'do'
-''     #define getsyx(y,x) do { if (newscr) { \
-''                         ^~
-'' context as seen by fbfrog:
-''     # define getsyx ( y , x ) do { if ( newscr ) { if ( is_leaveok ( newscr ) ) 
-''                               ^~
-
-'' TODO: unrecognized construct:
-'' #define setsyx(y,x) do { if (newscr) { if ((y) == -1 && (x) == -1) leaveok(newscr, TRUE); else { leaveok(newscr, FALSE); wmove(newscr, (y), (x)); } } } while(0)
-'' ---------------------------------------------------------------------------
-'' extracted/ncurses-5.9/include/curses.h(1070): expected expression but found 'do'
-''     #define setsyx(y,x) do { if (newscr) { \
-''                         ^~
-'' context as seen by fbfrog:
-''     # define setsyx ( y , x ) do { if ( newscr ) { if ( ( y ) == - 1 && ( x ) ==
-''                               ^~
+'' TODO: #define getyx(win,y,x) (y = getcury(win), x = getcurx(win))
+'' TODO: #define getbegyx(win,y,x) (y = getbegy(win), x = getbegx(win))
+'' TODO: #define getmaxyx(win,y,x) (y = getmaxy(win), x = getmaxx(win))
+'' TODO: #define getparyx(win,y,x) (y = getpary(win), x = getparx(win))
+'' TODO: #define getsyx(y,x) do { if (newscr) { if (is_leaveok(newscr)) (y) = (x) = -1; else getyx(newscr,(y), (x)); } } while(0)
+'' TODO: #define setsyx(y,x) do { if (newscr) { if ((y) == -1 && (x) == -1) leaveok(newscr, TRUE); else { leaveok(newscr, FALSE); wmove(newscr, (y), (x)); } } } while(0)
 
 #define wgetstr_(w, s) wgetnstr(w, s, -1)
 #define getnstr_(s, n) wgetnstr(stdscr, s, n)
@@ -743,15 +673,7 @@ declare function wgetscrreg(byval as const WINDOW_ ptr, byval as long ptr, byval
 #define nocrmode() nocbreak()
 #define gettmode()
 
-'' TODO: unrecognized construct:
-'' #define getattrs(win) NCURSES_CAST(int, (win) ? (win)->_attrs : A_NORMAL)
-'' ---------------------------------------------------------------------------
-'' extracted/ncurses-5.9/include/curses.h(1100): expected expression but found 'int'
-''     #define getattrs(win)  NCURSES_CAST(int, (win) ? (win)->_attrs : A_NORMAL)
-''                                         ^~~
-'' context as seen by fbfrog:
-''     # define getattrs ( win ) NCURSES_CAST ( int , ( win ) ? ( win ) -> _attrs :
-''                                              ^~~
+'' TODO: #define getattrs(win) NCURSES_CAST(int, (win) ? (win)->_attrs : A_NORMAL)
 
 #define getcurx_(win) iif((win), (win)->_curx, ERR_)
 #define getcury_(win) iif((win), (win)->_cury, ERR_)
@@ -766,15 +688,7 @@ declare function wgetscrreg(byval as const WINDOW_ ptr, byval as long ptr, byval
 #define wattron_(win, at) wattr_on(win, NCURSES_CAST(attr_t, at), NULL)
 #define wattroff_(win, at) wattr_off(win, NCURSES_CAST(attr_t, at), NULL)
 
-'' TODO: unrecognized construct:
-'' #define wattrset(win,at) ((win) ? ((win)->_attrs = NCURSES_CAST(attr_t, at), OK) : ERR)
-'' ---------------------------------------------------------------------------
-'' extracted/ncurses-5.9/include/curses.h(1126): expected ')' to close '(...)' parenthesized expression but found '='
-''           ? ((win)->_attrs = NCURSES_CAST(attr_t, at), \
-''                            ^
-'' context as seen by fbfrog:
-''      at ) ( ( win ) ? ( ( win ) -> _attrs = NCURSES_CAST ( attr_t , at ) , OK ) 
-''                                           ^
+'' TODO: #define wattrset(win,at) ((win) ? ((win)->_attrs = NCURSES_CAST(attr_t, at), OK) : ERR)
 
 #define scroll_(win) wscrl(win, 1)
 #define touchwin_(win) wtouchln((win), 0, getmaxy_(win), 1)
@@ -792,15 +706,7 @@ declare function wgetscrreg(byval as const WINDOW_ ptr, byval as long ptr, byval
 #define waddchstr_(win, str) waddchnstr(win, str, -1)
 #define COLOR_PAIR_(n) NCURSES_BITS(n, 0)
 
-'' TODO: unrecognized construct:
-'' #define PAIR_NUMBER(a) (NCURSES_CAST(int,((NCURSES_CAST(unsigned long,a) & A_COLOR) >> NCURSES_ATTR_SHIFT)))
-'' ---------------------------------------------------------------------------
-'' extracted/ncurses-5.9/include/curses.h(1158): expected expression but found 'int'
-''     #define PAIR_NUMBER(a) (NCURSES_CAST(int,((NCURSES_CAST(unsigned long,a) & A
-''                                          ^~~
-'' context as seen by fbfrog:
-''     # define PAIR_NUMBER ( a ) ( NCURSES_CAST ( int , ( ( NCURSES_CAST ( unsigne
-''                                                 ^~~
+'' TODO: #define PAIR_NUMBER(a) (NCURSES_CAST(int,((NCURSES_CAST(unsigned long,a) & A_COLOR) >> NCURSES_ATTR_SHIFT)))
 
 #define addch_(ch) waddch(stdscr, ch)
 #define addchnstr_(str, n) waddchnstr(stdscr, str, n)
@@ -890,25 +796,8 @@ declare function wgetscrreg(byval as const WINDOW_ ptr, byval as long ptr, byval
 #define slk_attr_off_(a, v) iif((v), ERR_, slk_attroff(a))
 #define slk_attr_on_(a, v) iif((v), ERR_, slk_attron(a))
 
-'' TODO: unrecognized construct:
-'' #define wattr_set(win,a,p,opts) ((win)->_attrs = (((a) & ~A_COLOR) | (attr_t)COLOR_PAIR(p)), OK)
-'' ---------------------------------------------------------------------------
-'' extracted/ncurses-5.9/include/curses.h(1274): expected ')' to close '(...)' parenthesized expression but found '='
-''     #define wattr_set(win,a,p,opts)  ((win)->_attrs = (((a) & ~A_COLOR) | (attr_
-''                                                     ^
-'' context as seen by fbfrog:
-''      , a , p , opts ) ( ( win ) -> _attrs = ( ( ( a ) & ~ A_COLOR ) | ( attr_t )
-''                                           ^
-
-'' TODO: unrecognized construct:
-'' #define wattr_get(win,a,p,opts) ((void)((a) != (void *)0 && (*(a) = (win)->_attrs)), (void)((p) != (void *)0 && (*(p) = (short)PAIR_NUMBER((win)->_attrs))), OK)
-'' ---------------------------------------------------------------------------
-'' extracted/ncurses-5.9/include/curses.h(1275): expected ')' to close '(...)' parenthesized expression but found '='
-''     tr_get(win,a,p,opts)  ((void)((a) != (void *)0 && (*(a) = (win)->_attrs)), \
-''                                                             ^
-'' context as seen by fbfrog:
-''      ( ( a ) != ( void * ) 0 && ( * ( a ) = ( win ) -> _attrs ) ) , ( void ) ( (
-''                                           ^
+'' TODO: #define wattr_set(win,a,p,opts) ((win)->_attrs = (((a) & ~A_COLOR) | (attr_t)COLOR_PAIR(p)), OK)
+'' TODO: #define wattr_get(win,a,p,opts) ((void)((a) != (void *)0 && (*(a) = (win)->_attrs)), (void)((p) != (void *)0 && (*(p) = (short)PAIR_NUMBER((win)->_attrs))), OK)
 
 #define vw_printw_ vwprintw
 #define vw_scanw_ vwscanw
@@ -926,29 +815,13 @@ declare function wgetscrreg(byval as const WINDOW_ ptr, byval as long ptr, byval
 #define is_syncok_(win) iif((win), (win)->_sync, FALSE)
 #define wgetparent_(win) iif((win), (win)->_parent, 0)
 
-'' TODO: unrecognized construct:
-'' #define wgetscrreg(win,t,b) ((win) ? (*(t) = (win)->_regtop, *(b) = (win)->_regbottom, OK) : ERR)
-'' ---------------------------------------------------------------------------
-'' extracted/ncurses-5.9/include/curses.h(1316): expected ')' to close '(...)' parenthesized expression but found '='
-''     #define wgetscrreg(win,t,b) ((win) ? (*(t) = (win)->_regtop, *(b) = (win)->_
-''                                                ^
-'' context as seen by fbfrog:
-''     ( win , t , b ) ( ( win ) ? ( * ( t ) = ( win ) -> _regtop , * ( b ) = ( win
-''                                           ^
+'' TODO: #define wgetscrreg(win,t,b) ((win) ? (*(t) = (win)->_regtop, *(b) = (win)->_regbottom, OK) : ERR)
 
 extern curscr as WINDOW_ ptr
 extern newscr as WINDOW_ ptr
 extern stdscr as WINDOW_ ptr
 
-'' TODO: unrecognized construct:
-'' extern char ttytype[];
-'' ---------------------------------------------------------------------------
-'' expected expression but found ']'
-''     extern char ttytype [ ] ;
-''                           ^
-'' extracted/ncurses-5.9/include/curses.h(1359): construct found here
-''     extern NCURSES_EXPORT_VAR(char) ttytype[];
-''     ^~~~~~
+'' TODO: extern char ttytype[];
 
 extern COLORS as long
 extern COLOR_PAIRS as long

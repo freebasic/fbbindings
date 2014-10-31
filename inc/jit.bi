@@ -1551,15 +1551,7 @@ extern jit_opcodes(0 to 438) as const jit_opcode_info_t
 #define _JIT_UNWIND_H
 #define _JIT_ARCH_X86_H
 
-'' TODO: unrecognized construct:
-'' #define _JIT_ARCH_GET_CURRENT_FRAME(f) do { register void *__f asm("ebp"); f = __f; } while(0)
-'' ---------------------------------------------------------------------------
-'' extracted/libjit-a8293e141b79c28734a3633a81a43f92f29fc2d7/include/jit/jit-arch.h(30): expected expression but found 'do'
-''      do {     \
-''      ^~
-'' context as seen by fbfrog:
-''     # define _JIT_ARCH_GET_CURRENT_FRAME ( f ) do { register void * __f asm ( "e
-''                                                ^~
+'' TODO: #define _JIT_ARCH_GET_CURRENT_FRAME(f) do { register void *__f asm("ebp"); f = __f; } while(0)
 
 type jit_unwind_context_t
 	frame as any ptr
@@ -1686,15 +1678,7 @@ declare function _jit_get_frame_address(byval start as any ptr, byval n as ulong
 #define jit_get_frame_address(n) _jit_get_frame_address(jit_get_current_frame(), (n))
 #define JIT_FAST_GET_CURRENT_FRAME 1
 
-'' TODO: unrecognized construct:
-'' # define jit_get_current_frame() ({ void *address; _JIT_ARCH_GET_CURRENT_FRAME(address); address; })
-'' ---------------------------------------------------------------------------
-'' extracted/libjit-a8293e141b79c28734a3633a81a43f92f29fc2d7/include/jit/jit-walk.h(53): expected expression but found '{'
-''      ({      \
-''       ^
-'' context as seen by fbfrog:
-''     # define jit_get_current_frame ( ) ( { void * address ; _JIT_ARCH_GET_CURREN
-''                                          ^
+'' TODO: # define jit_get_current_frame() ({ void *address; _JIT_ARCH_GET_CURRENT_FRAME(address); address; })
 
 declare function _jit_get_next_frame_address(byval frame as any ptr) as any ptr
 
@@ -1709,15 +1693,7 @@ type jit_crawl_mark_t
 	mark as any ptr
 end type
 
-'' TODO: unrecognized construct:
-'' #define jit_declare_crawl_mark(name) jit_crawl_mark_t name = {0}
-'' ---------------------------------------------------------------------------
-'' extracted/libjit-a8293e141b79c28734a3633a81a43f92f29fc2d7/include/jit/jit-walk.h(133): failed to parse full #define body
-''     #define jit_declare_crawl_mark(name) jit_crawl_mark_t name = {0}
-''                                                           ^~~~
-'' context as seen by fbfrog:
-''     # define jit_declare_crawl_mark ( name ) jit_crawl_mark_t name = { 0 } 
-''                                                               ^~~~
+'' TODO: #define jit_declare_crawl_mark(name) jit_crawl_mark_t name = {0}
 
 declare function jit_frame_contains_crawl_mark(byval frame as any ptr, byval mark as jit_crawl_mark_t ptr) as long
 

@@ -78,15 +78,7 @@ end type
 #define MOUSE_POS_REPORT (Mouse_status.changes and PDC_MOUSE_POSITION)
 #define BUTTON_CHANGED(x) (Mouse_status.changes and (1 shl ((x) - 1)))
 
-'' TODO: unrecognized construct:
-'' #define BUTTON_STATUS(x) (Mouse_status.button[(x) - 1])
-'' ---------------------------------------------------------------------------
-'' extracted/PDCurses-3.4/curses.h(156): expected ']' for [] indexing operator but found '-'
-''     #define BUTTON_STATUS(x)        (Mouse_status.button[(x) - 1])
-''                                                              ^
-'' context as seen by fbfrog:
-''     # define BUTTON_STATUS ( x ) ( Mouse_status . button [ ( x ) - 1 ] ) 
-''                                                                  ^
+'' TODO: #define BUTTON_STATUS(x) (Mouse_status.button[(x) - 1])
 
 #define MOUSE_WHEEL_UP (Mouse_status.changes and PDC_MOUSE_WHEEL_UP)
 #define MOUSE_WHEEL_DOWN (Mouse_status.changes and PDC_MOUSE_WHEEL_DOWN)
@@ -224,25 +216,8 @@ end type
 	extern     TABSIZE as long
 	dim shared TABSIZE as long
 
-	'' TODO: unrecognized construct:
-	'' __attribute__((dllimport)) chtype acs_map[];
-	'' ---------------------------------------------------------------------------
-	'' expected expression but found ']'
-	''     __attribute__ ( ( dllimport ) ) chtype acs_map [ ] ;
-	''                                                      ^
-	'' extracted/PDCurses-3.4/curses.h(347): construct found here
-	''     PDCEX  chtype       acs_map[];    /* alternate character set map */
-	''            ^~~~~~
-
-	'' TODO: unrecognized construct:
-	'' __attribute__((dllimport)) char ttytype[];
-	'' ---------------------------------------------------------------------------
-	'' expected expression but found ']'
-	''     __attribute__ ( ( dllimport ) ) char ttytype [ ] ;
-	''                                                    ^
-	'' extracted/PDCurses-3.4/curses.h(348): construct found here
-	''     PDCEX  char         ttytype[];    /* terminal name/description */
-	''            ^~~~
+	'' TODO: __attribute__((dllimport)) chtype acs_map[];
+	'' TODO: __attribute__((dllimport)) char ttytype[];
 #else
 	extern LINES as long
 	extern COLS as long
@@ -254,25 +229,8 @@ end type
 	extern COLOR_PAIRS as long
 	extern TABSIZE as long
 
-	'' TODO: unrecognized construct:
-	'' extern chtype acs_map[];
-	'' ---------------------------------------------------------------------------
-	'' expected expression but found ']'
-	''     extern chtype acs_map [ ] ;
-	''                             ^
-	'' extracted/PDCurses-3.4/curses.h(347): construct found here
-	''     PDCEX  chtype       acs_map[];    /* alternate character set map */
-	''            ^~~~~~
-
-	'' TODO: unrecognized construct:
-	'' extern char ttytype[];
-	'' ---------------------------------------------------------------------------
-	'' expected expression but found ']'
-	''     extern char ttytype [ ] ;
-	''                           ^
-	'' extracted/PDCurses-3.4/curses.h(348): construct found here
-	''     PDCEX  char         ttytype[];    /* terminal name/description */
-	''            ^~~~
+	'' TODO: extern chtype acs_map[];
+	'' TODO: extern char ttytype[];
 #endif
 
 #define A_NORMAL cast(chtype, 0)
@@ -1079,66 +1037,15 @@ declare function PDC_save_key_modifiers(byval as bool) as long
 #define COLOR_PAIR(n) (cast(chtype, (n) shl PDC_COLOR_SHIFT) and A_COLOR)
 #define PAIR_NUMBER(n) (((n) and A_COLOR) shr PDC_COLOR_SHIFT)
 
-'' TODO: unrecognized construct:
-'' #define getbegyx(w, y, x) (y = getbegy(w), x = getbegx(w))
-'' ---------------------------------------------------------------------------
-'' extracted/PDCurses-3.4/curses.h(1346): expected ')' to close '(...)' parenthesized expression but found '='
-''     #define getbegyx(w, y, x)  (y = getbegy(w), x = getbegx(w))
-''                                   ^
-'' context as seen by fbfrog:
-''     # define getbegyx ( w , y , x ) ( y = getbegy ( w ) , x = getbegx ( w ) ) 
-''                                         ^
-
-'' TODO: unrecognized construct:
-'' #define getmaxyx(w, y, x) (y = getmaxy(w), x = getmaxx(w))
-'' ---------------------------------------------------------------------------
-'' extracted/PDCurses-3.4/curses.h(1347): expected ')' to close '(...)' parenthesized expression but found '='
-''     #define getmaxyx(w, y, x)  (y = getmaxy(w), x = getmaxx(w))
-''                                   ^
-'' context as seen by fbfrog:
-''     # define getmaxyx ( w , y , x ) ( y = getmaxy ( w ) , x = getmaxx ( w ) ) 
-''                                         ^
-
-'' TODO: unrecognized construct:
-'' #define getparyx(w, y, x) (y = getpary(w), x = getparx(w))
-'' ---------------------------------------------------------------------------
-'' extracted/PDCurses-3.4/curses.h(1348): expected ')' to close '(...)' parenthesized expression but found '='
-''     #define getparyx(w, y, x)  (y = getpary(w), x = getparx(w))
-''                                   ^
-'' context as seen by fbfrog:
-''     # define getparyx ( w , y , x ) ( y = getpary ( w ) , x = getparx ( w ) ) 
-''                                         ^
-
-'' TODO: unrecognized construct:
-'' #define getyx(w, y, x) (y = getcury(w), x = getcurx(w))
-'' ---------------------------------------------------------------------------
-'' extracted/PDCurses-3.4/curses.h(1349): expected ')' to close '(...)' parenthesized expression but found '='
-''     #define getyx(w, y, x)     (y = getcury(w), x = getcurx(w))
-''                                   ^
-'' context as seen by fbfrog:
-''     # define getyx ( w , y , x ) ( y = getcury ( w ) , x = getcurx ( w ) ) 
-''                                      ^
+'' TODO: #define getbegyx(w, y, x) (y = getbegy(w), x = getbegx(w))
+'' TODO: #define getmaxyx(w, y, x) (y = getmaxy(w), x = getmaxx(w))
+'' TODO: #define getparyx(w, y, x) (y = getpary(w), x = getparx(w))
+'' TODO: #define getyx(w, y, x) (y = getcury(w), x = getcurx(w))
 
 #macro getsyx(y, x)
 	scope
-		'' TODO: unrecognized construct:
-		'' if (curscr->_leaveit) (y)=(x)=-1;
-		'' ---------------------------------------------------------------------------
-		'' extracted/PDCurses-3.4/curses.h(1351): expected expression but found 'if'
-		''     #define getsyx(y, x)       { if (curscr->_leaveit) (y)=(x)=-1; \
-		''                                  ^~
-		'' context as seen by fbfrog:
-		''     # define getsyx ( y , x ) { if ( curscr -> _leaveit ) ( y ) = ( x ) = - 1 ; 
-		''                                 ^~
-		'' TODO: unrecognized construct:
-		'' else getyx(curscr,(y),(x));
-		'' ---------------------------------------------------------------------------
-		'' extracted/PDCurses-3.4/curses.h(1352): expected expression but found 'else'
-		''                                  else getyx(curscr,(y),(x)); }
-		''                                  ^~~~
-		'' context as seen by fbfrog:
-		''     r -> _leaveit ) ( y ) = ( x ) = - 1 ; else getyx ( curscr , ( y ) , ( x ) ) 
-		''                                           ^~~~
+		'' TODO: if (curscr->_leaveit) (y)=(x)=-1;
+		'' TODO: else getyx(curscr,(y),(x));
 	end scope
 #endmacro
 #define PDC_CLIP_SUCCESS 0

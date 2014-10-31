@@ -78,35 +78,9 @@ type ALLEGRO_COND as ALLEGRO_COND_
 #define __al_included_allegro5_astdbool_h
 #define READ3BYTES(p) (((*cptr(ubyte ptr, (p))) or ((*cptr(ubyte ptr, (p) + 1)) shl 8)) or ((*cptr(ubyte ptr, (p) + 2)) shl 16))
 
-'' TODO: unrecognized construct:
-'' #define WRITE3BYTES(p,c) ((*(unsigned char *)(p) = (c)), (*((unsigned char *)(p) + 1) = (c) >> 8), (*((unsigned char *)(p) + 2) = (c) >> 16))
-'' ---------------------------------------------------------------------------
-'' extracted/allegro-5.0.10/include/allegro5/internal/alconfig.h(230): expected ')' to close '(...)' parenthesized expression but found '='
-''        #define WRITE3BYTES(p,c)  ((*(unsigned char *)(p) = (c)),             \
-''                                                          ^
-'' context as seen by fbfrog:
-''     , c ) ( ( * ( unsigned char * ) ( p ) = ( c ) ) , ( * ( ( unsigned char * ) 
-''                                           ^
-
-'' TODO: unrecognized construct:
-'' #define bmp_write16(addr, c) (*((uint16_t *)(addr)) = (c))
-'' ---------------------------------------------------------------------------
-'' extracted/allegro-5.0.10/include/allegro5/internal/alconfig.h(251): expected ')' to close '(...)' parenthesized expression but found '='
-''     #define bmp_write16(addr, c)        (*((uint16_t *)(addr)) = (c))
-''                                                                ^
-'' context as seen by fbfrog:
-''     # define bmp_write16 ( addr , c ) ( * ( ( uint16_t * ) ( addr ) ) = ( c ) ) 
-''                                                                       ^
-
-'' TODO: unrecognized construct:
-'' #define bmp_write32(addr, c) (*((uint32_t *)(addr)) = (c))
-'' ---------------------------------------------------------------------------
-'' extracted/allegro-5.0.10/include/allegro5/internal/alconfig.h(252): expected ')' to close '(...)' parenthesized expression but found '='
-''     #define bmp_write32(addr, c)        (*((uint32_t *)(addr)) = (c))
-''                                                                ^
-'' context as seen by fbfrog:
-''     # define bmp_write32 ( addr , c ) ( * ( ( uint32_t * ) ( addr ) ) = ( c ) ) 
-''                                                                       ^
+'' TODO: #define WRITE3BYTES(p,c) ((*(unsigned char *)(p) = (c)), (*((unsigned char *)(p) + 1) = (c) >> 8), (*((unsigned char *)(p) + 2) = (c) >> 16))
+'' TODO: #define bmp_write16(addr, c) (*((uint16_t *)(addr)) = (c))
+'' TODO: #define bmp_write32(addr, c) (*((uint32_t *)(addr)) = (c))
 
 #define bmp_read16(addr) (*cptr(ushort ptr, (addr)))
 #define bmp_read32(addr) (*cptr(ulong ptr, (addr)))
@@ -520,15 +494,7 @@ declare sub al_register_assert_handler(byval handler as sub(byval expr as const 
 #define ALLEGRO_ASSERT_CONCAT_(a, b) a##b
 #define ALLEGRO_ASSERT_CONCAT(a, b) ALLEGRO_ASSERT_CONCAT_(a, b)
 
-'' TODO: unrecognized construct:
-'' #define ALLEGRO_STATIC_ASSERT(module, e) struct ALLEGRO_ASSERT_CONCAT(static_assert_##module##_line_, __LINE__) { unsigned int bf : !!(e); }
-'' ---------------------------------------------------------------------------
-'' extracted/allegro-5.0.10/include/allegro5/debug.h(78): expected ')' for '(...)' parenthesized declarator but found 'static_assert_'
-''        struct ALLEGRO_ASSERT_CONCAT(static_assert_##module##_line_, __LINE__) \
-''                                     ^~~~~~~~~~~~~~
-'' context as seen by fbfrog:
-''      , e ) struct ALLEGRO_ASSERT_CONCAT ( static_assert_ ## module ## _line_ , _
-''                                           ^~~~~~~~~~~~~~
+'' TODO: #define ALLEGRO_STATIC_ASSERT(module, e) struct ALLEGRO_ASSERT_CONCAT(static_assert_##module##_line_, __LINE__) { unsigned int bf : !!(e); }
 
 #define __al_included_allegro5_display_h
 #define __al_included_allegro5_events_h
@@ -810,258 +776,39 @@ declare function al_fixatan(byval x as al_fixed) as al_fixed
 declare function al_fixatan2(byval y as al_fixed, byval x as al_fixed) as al_fixed
 
 #ifdef __FB_WIN32__
-	'' TODO: unrecognized construct:
-	'' extern __attribute__((dllimport)) al_fixed _al_fix_cos_tbl[];
-	'' ---------------------------------------------------------------------------
-	'' expected expression but found ']'
-	''     extern __attribute__ ( ( dllimport ) ) al_fixed _al_fix_cos_tbl [ ] ;
-	''                                                                       ^
-	'' extracted/allegro-5.0.10/include/allegro5/fmaths.h(34): construct found here
-	''     AL_ARRAY(al_fixed, _al_fix_cos_tbl);
-	''                                        ^
-	'' extracted/allegro-5.0.10/include/allegro5/platform/almngw32.h(53): token found here
-	''     #define AL_ARRAY(type, name)                 extern _AL_DLL type name[]
-	''                                                                           ^
-
-	'' TODO: unrecognized construct:
-	'' extern __attribute__((dllimport)) al_fixed _al_fix_tan_tbl[];
-	'' ---------------------------------------------------------------------------
-	'' expected expression but found ']'
-	''     extern __attribute__ ( ( dllimport ) ) al_fixed _al_fix_tan_tbl [ ] ;
-	''                                                                       ^
-	'' extracted/allegro-5.0.10/include/allegro5/fmaths.h(35): construct found here
-	''     AL_ARRAY(al_fixed, _al_fix_tan_tbl);
-	''                                        ^
-	'' extracted/allegro-5.0.10/include/allegro5/platform/almngw32.h(53): token found here
-	''     #define AL_ARRAY(type, name)                 extern _AL_DLL type name[]
-	''                                                                           ^
-
-	'' TODO: unrecognized construct:
-	'' extern __attribute__((dllimport)) al_fixed _al_fix_acos_tbl[];
-	'' ---------------------------------------------------------------------------
-	'' expected expression but found ']'
-	''     extern __attribute__ ( ( dllimport ) ) al_fixed _al_fix_acos_tbl [ ] ;
-	''                                                                        ^
-	'' extracted/allegro-5.0.10/include/allegro5/fmaths.h(36): construct found here
-	''     AL_ARRAY(al_fixed, _al_fix_acos_tbl);
-	''                                         ^
-	'' extracted/allegro-5.0.10/include/allegro5/platform/almngw32.h(53): token found here
-	''     #define AL_ARRAY(type, name)                 extern _AL_DLL type name[]
-	''                                                                           ^
+	'' TODO: extern __attribute__((dllimport)) al_fixed _al_fix_cos_tbl[];
+	'' TODO: extern __attribute__((dllimport)) al_fixed _al_fix_tan_tbl[];
+	'' TODO: extern __attribute__((dllimport)) al_fixed _al_fix_acos_tbl[];
 #else
-	'' TODO: unrecognized construct:
-	'' extern al_fixed _al_fix_cos_tbl[];
-	'' ---------------------------------------------------------------------------
-	'' expected expression but found ']'
-	''     extern al_fixed _al_fix_cos_tbl [ ] ;
-	''                                       ^
-	'' extracted/allegro-5.0.10/include/allegro5/fmaths.h(34): construct found here
-	''     AL_ARRAY(al_fixed, _al_fix_cos_tbl);
-	''                                        ^
-	'' extracted/allegro-5.0.10/include/allegro5/internal/alconfig.h(168): token found here
-	''        #define AL_ARRAY(type, name)                    extern type name[]
-	''                                                                         ^
-
-	'' TODO: unrecognized construct:
-	'' extern al_fixed _al_fix_tan_tbl[];
-	'' ---------------------------------------------------------------------------
-	'' expected expression but found ']'
-	''     extern al_fixed _al_fix_tan_tbl [ ] ;
-	''                                       ^
-	'' extracted/allegro-5.0.10/include/allegro5/fmaths.h(35): construct found here
-	''     AL_ARRAY(al_fixed, _al_fix_tan_tbl);
-	''                                        ^
-	'' extracted/allegro-5.0.10/include/allegro5/internal/alconfig.h(168): token found here
-	''        #define AL_ARRAY(type, name)                    extern type name[]
-	''                                                                         ^
-
-	'' TODO: unrecognized construct:
-	'' extern al_fixed _al_fix_acos_tbl[];
-	'' ---------------------------------------------------------------------------
-	'' expected expression but found ']'
-	''     extern al_fixed _al_fix_acos_tbl [ ] ;
-	''                                        ^
-	'' extracted/allegro-5.0.10/include/allegro5/fmaths.h(36): construct found here
-	''     AL_ARRAY(al_fixed, _al_fix_acos_tbl);
-	''                                         ^
-	'' extracted/allegro-5.0.10/include/allegro5/internal/alconfig.h(168): token found here
-	''        #define AL_ARRAY(type, name)                    extern type name[]
-	''                                                                         ^
+	'' TODO: extern al_fixed _al_fix_cos_tbl[];
+	'' TODO: extern al_fixed _al_fix_tan_tbl[];
+	'' TODO: extern al_fixed _al_fix_acos_tbl[];
 #endif
 
 #define __al_included_allegro5_inline_fmaths_inl
 
-'' TODO: unrecognized construct:
-'' extern __inline__ al_fixed al_ftofix (double x);
-'' ---------------------------------------------------------------------------
-'' expected ';' to finish this declaration but found 'al_ftofix'
-''     extern __inline__ al_fixed al_ftofix ( double x ) ;
-''                                ^~~~~~~~~
-'' extracted/allegro-5.0.10/include/allegro5/internal/alconfig.h(74): construct found here
-''                 extern __inline__ type name args;         \
-''                 ^~~~~~
-
-'' TODO: unrecognized construct:
-'' extern __inline__ al_fixed al_ftofix (double x){ if (x > 32767.0) { al_set_errno(ERANGE); return 0x7FFFFFFF; } if (x < -32767.0) { al_set_errno(ERANGE); return -0x7FFFFFFF; } return (al_fixed)(x * 65536.0 + (x < 0 ? -0.5 : 0.5));}extern __inline__ double al_fixtof (al_fixed x);
-'' ---------------------------------------------------------------------------
-'' expected ';' to finish this declaration but found 'al_ftofix'
-''     extern __inline__ al_fixed al_ftofix ( double x ) { if ( x > 32767.0 ) { al_
-''                                ^~~~~~~~~
-'' extracted/allegro-5.0.10/include/allegro5/internal/alconfig.h(75): construct found here
-''                 extern __inline__ type name args code
-''                 ^~~~~~
-
-'' TODO: unrecognized construct:
-'' extern __inline__ double al_fixtof (al_fixed x){ return (double)x / 65536.0;}extern __inline__ al_fixed al_fixadd (al_fixed x, al_fixed y);
-'' ---------------------------------------------------------------------------
-'' expected identifier for the symbol declared in this declaration but found 'double'
-''     extern __inline__ double al_fixtof ( al_fixed x ) { return ( double ) x / 65
-''                       ^~~~~~
-'' extracted/allegro-5.0.10/include/allegro5/internal/alconfig.h(75): construct found here
-''                 extern __inline__ type name args code
-''                 ^~~~~~
-
-'' TODO: unrecognized construct:
-'' extern __inline__ al_fixed al_fixadd (al_fixed x, al_fixed y){ al_fixed result = x + y; if (result >= 0) { if ((x < 0) && (y < 0)) { al_set_errno(ERANGE); return -0x7FFFFFFF; } else return result; } else { if ((x > 0) && (y > 0)) { al_set_errno(ERANGE); return 0x7FFFFFFF; } else return result; }}extern __inline__ al_fixed al_fixsub (al_fixed x, al_fixed y);
-'' ---------------------------------------------------------------------------
-'' expected ';' to finish this declaration but found 'al_fixadd'
-''     extern __inline__ al_fixed al_fixadd ( al_fixed x , al_fixed y ) { al_fixed 
-''                                ^~~~~~~~~
-'' extracted/allegro-5.0.10/include/allegro5/internal/alconfig.h(75): construct found here
-''                 extern __inline__ type name args code
-''                 ^~~~~~
-
-'' TODO: unrecognized construct:
-'' extern __inline__ al_fixed al_fixsub (al_fixed x, al_fixed y){ al_fixed result = x - y; if (result >= 0) { if ((x < 0) && (y > 0)) { al_set_errno(ERANGE); return -0x7FFFFFFF; } else return result; } else { if ((x > 0) && (y < 0)) { al_set_errno(ERANGE); return 0x7FFFFFFF; } else return result; }} extern __inline__ al_fixed al_fixmul (al_fixed x, al_fixed y);
-'' ---------------------------------------------------------------------------
-'' expected ';' to finish this declaration but found 'al_fixsub'
-''     extern __inline__ al_fixed al_fixsub ( al_fixed x , al_fixed y ) { al_fixed 
-''                                ^~~~~~~~~
-'' extracted/allegro-5.0.10/include/allegro5/internal/alconfig.h(75): construct found here
-''                 extern __inline__ type name args code
-''                 ^~~~~~
+'' TODO: extern __inline__ al_fixed al_ftofix (double x);
+'' TODO: extern __inline__ al_fixed al_ftofix (double x){ if (x > 32767.0) { al_set_errno(ERANGE); return 0x7FFFFFFF; } if (x < -32767.0) { al_set_errno(ERANGE); return -0x7FFFFFFF; } return (al_fixed)(x * 65536.0 + (x < 0 ? -0.5 : 0.5));}extern __inline__ double al_fixtof (al_fixed x);
+'' TODO: extern __inline__ double al_fixtof (al_fixed x){ return (double)x / 65536.0;}extern __inline__ al_fixed al_fixadd (al_fixed x, al_fixed y);
+'' TODO: extern __inline__ al_fixed al_fixadd (al_fixed x, al_fixed y){ al_fixed result = x + y; if (result >= 0) { if ((x < 0) && (y < 0)) { al_set_errno(ERANGE); return -0x7FFFFFFF; } else return result; } else { if ((x > 0) && (y > 0)) { al_set_errno(ERANGE); return 0x7FFFFFFF; } else return result; }}extern __inline__ al_fixed al_fixsub (al_fixed x, al_fixed y);
+'' TODO: extern __inline__ al_fixed al_fixsub (al_fixed x, al_fixed y){ al_fixed result = x - y; if (result >= 0) { if ((x < 0) && (y > 0)) { al_set_errno(ERANGE); return -0x7FFFFFFF; } else return result; } else { if ((x > 0) && (y < 0)) { al_set_errno(ERANGE); return 0x7FFFFFFF; } else return result; }} extern __inline__ al_fixed al_fixmul (al_fixed x, al_fixed y);
 
 #if (defined(__FB_LINUX__) and (not defined(__FB_64BIT__))) or defined(__FB_WIN32__)
-	'' TODO: unrecognized construct:
-	'' extern __inline__ al_fixed al_fixmul (al_fixed x, al_fixed y) { return al_ftofix(al_fixtof(x) * al_fixtof(y)); }extern __inline__ al_fixed al_fixdiv (al_fixed x, al_fixed y);
-	'' ---------------------------------------------------------------------------
-	'' expected ';' to finish this declaration but found 'al_fixmul'
-	''     extern __inline__ al_fixed al_fixmul ( al_fixed x , al_fixed y ) { return al
-	''                                ^~~~~~~~~
-	'' extracted/allegro-5.0.10/include/allegro5/internal/alconfig.h(75): construct found here
-	''                 extern __inline__ type name args code
-	''                 ^~~~~~
+	'' TODO: extern __inline__ al_fixed al_fixmul (al_fixed x, al_fixed y) { return al_ftofix(al_fixtof(x) * al_fixtof(y)); }extern __inline__ al_fixed al_fixdiv (al_fixed x, al_fixed y);
 #else
-	'' TODO: unrecognized construct:
-	'' extern __inline__ al_fixed al_fixmul (al_fixed x, al_fixed y) { long long lx = x; long long ly = y; long long lres = (lx*ly); if (lres > 0x7FFFFFFF0000LL) { al_set_errno(ERANGE); return 0x7FFFFFFF; } else if (lres < -0x7FFFFFFF0000LL) { al_set_errno(ERANGE); return 0x80000000; } else { int res = lres >> 16; return res; } }extern __inline__ al_fixed al_fixdiv (al_fixed x, al_fixed y);
-	'' ---------------------------------------------------------------------------
-	'' expected ';' to finish this declaration but found 'al_fixmul'
-	''     extern __inline__ al_fixed al_fixmul ( al_fixed x , al_fixed y ) { long long
-	''                                ^~~~~~~~~
-	'' extracted/allegro-5.0.10/include/allegro5/internal/alconfig.h(75): construct found here
-	''                 extern __inline__ type name args code
-	''                 ^~~~~~
+	'' TODO: extern __inline__ al_fixed al_fixmul (al_fixed x, al_fixed y) { long long lx = x; long long ly = y; long long lres = (lx*ly); if (lres > 0x7FFFFFFF0000LL) { al_set_errno(ERANGE); return 0x7FFFFFFF; } else if (lres < -0x7FFFFFFF0000LL) { al_set_errno(ERANGE); return 0x80000000; } else { int res = lres >> 16; return res; } }extern __inline__ al_fixed al_fixdiv (al_fixed x, al_fixed y);
 #endif
 
-'' TODO: unrecognized construct:
-'' extern __inline__ al_fixed al_fixdiv (al_fixed x, al_fixed y){ if (y == 0) { al_set_errno(ERANGE); return (x < 0) ? -0x7FFFFFFF : 0x7FFFFFFF; } else return al_ftofix(al_fixtof(x) / al_fixtof(y));}extern __inline__ int al_fixfloor (al_fixed x);
-'' ---------------------------------------------------------------------------
-'' expected ';' to finish this declaration but found 'al_fixdiv'
-''     extern __inline__ al_fixed al_fixdiv ( al_fixed x , al_fixed y ) { if ( y ==
-''                                ^~~~~~~~~
-'' extracted/allegro-5.0.10/include/allegro5/internal/alconfig.h(75): construct found here
-''                 extern __inline__ type name args code
-''                 ^~~~~~
-
-'' TODO: unrecognized construct:
-'' extern __inline__ int al_fixfloor (al_fixed x){ if (x >= 0) return (x >> 16); else return ~((~x) >> 16);}extern __inline__ int al_fixceil (al_fixed x);
-'' ---------------------------------------------------------------------------
-'' expected identifier for the symbol declared in this declaration but found 'int'
-''     extern __inline__ int al_fixfloor ( al_fixed x ) { if ( x >= 0 ) return ( x 
-''                       ^~~
-'' extracted/allegro-5.0.10/include/allegro5/internal/alconfig.h(75): construct found here
-''                 extern __inline__ type name args code
-''                 ^~~~~~
-
-'' TODO: unrecognized construct:
-'' extern __inline__ int al_fixceil (al_fixed x){ if (x > 0x7FFF0000) { al_set_errno(ERANGE); return 0x7FFF; } return al_fixfloor(x + 0xFFFF);}extern __inline__ al_fixed al_itofix (int x);
-'' ---------------------------------------------------------------------------
-'' expected identifier for the symbol declared in this declaration but found 'int'
-''     extern __inline__ int al_fixceil ( al_fixed x ) { if ( x > 0x7FFF0000 ) { al
-''                       ^~~
-'' extracted/allegro-5.0.10/include/allegro5/internal/alconfig.h(75): construct found here
-''                 extern __inline__ type name args code
-''                 ^~~~~~
-
-'' TODO: unrecognized construct:
-'' extern __inline__ al_fixed al_itofix (int x){ return x << 16;}extern __inline__ int al_fixtoi (al_fixed x);
-'' ---------------------------------------------------------------------------
-'' expected ';' to finish this declaration but found 'al_itofix'
-''     extern __inline__ al_fixed al_itofix ( int x ) { return x << 16 ; } extern _
-''                                ^~~~~~~~~
-'' extracted/allegro-5.0.10/include/allegro5/internal/alconfig.h(75): construct found here
-''                 extern __inline__ type name args code
-''                 ^~~~~~
-
-'' TODO: unrecognized construct:
-'' extern __inline__ int al_fixtoi (al_fixed x){ return al_fixfloor(x) + ((x & 0x8000) >> 15);}extern __inline__ al_fixed al_fixcos (al_fixed x);
-'' ---------------------------------------------------------------------------
-'' expected identifier for the symbol declared in this declaration but found 'int'
-''     extern __inline__ int al_fixtoi ( al_fixed x ) { return al_fixfloor ( x ) + 
-''                       ^~~
-'' extracted/allegro-5.0.10/include/allegro5/internal/alconfig.h(75): construct found here
-''                 extern __inline__ type name args code
-''                 ^~~~~~
-
-'' TODO: unrecognized construct:
-'' extern __inline__ al_fixed al_fixcos (al_fixed x){ return _al_fix_cos_tbl[((x + 0x4000) >> 15) & 0x1FF];}extern __inline__ al_fixed al_fixsin (al_fixed x);
-'' ---------------------------------------------------------------------------
-'' expected ';' to finish this declaration but found 'al_fixcos'
-''     extern __inline__ al_fixed al_fixcos ( al_fixed x ) { return _al_fix_cos_tbl
-''                                ^~~~~~~~~
-'' extracted/allegro-5.0.10/include/allegro5/internal/alconfig.h(75): construct found here
-''                 extern __inline__ type name args code
-''                 ^~~~~~
-
-'' TODO: unrecognized construct:
-'' extern __inline__ al_fixed al_fixsin (al_fixed x){ return _al_fix_cos_tbl[((x - 0x400000 + 0x4000) >> 15) & 0x1FF];}extern __inline__ al_fixed al_fixtan (al_fixed x);
-'' ---------------------------------------------------------------------------
-'' expected ';' to finish this declaration but found 'al_fixsin'
-''     extern __inline__ al_fixed al_fixsin ( al_fixed x ) { return _al_fix_cos_tbl
-''                                ^~~~~~~~~
-'' extracted/allegro-5.0.10/include/allegro5/internal/alconfig.h(75): construct found here
-''                 extern __inline__ type name args code
-''                 ^~~~~~
-
-'' TODO: unrecognized construct:
-'' extern __inline__ al_fixed al_fixtan (al_fixed x){ return _al_fix_tan_tbl[((x + 0x4000) >> 15) & 0xFF];}extern __inline__ al_fixed al_fixacos (al_fixed x);
-'' ---------------------------------------------------------------------------
-'' expected ';' to finish this declaration but found 'al_fixtan'
-''     extern __inline__ al_fixed al_fixtan ( al_fixed x ) { return _al_fix_tan_tbl
-''                                ^~~~~~~~~
-'' extracted/allegro-5.0.10/include/allegro5/internal/alconfig.h(75): construct found here
-''                 extern __inline__ type name args code
-''                 ^~~~~~
-
-'' TODO: unrecognized construct:
-'' extern __inline__ al_fixed al_fixacos (al_fixed x){ if ((x < -65536) || (x > 65536)) { al_set_errno(EDOM); return 0; } return _al_fix_acos_tbl[(x+65536+127)>>8];}extern __inline__ al_fixed al_fixasin (al_fixed x);
-'' ---------------------------------------------------------------------------
-'' expected ';' to finish this declaration but found 'al_fixacos'
-''     extern __inline__ al_fixed al_fixacos ( al_fixed x ) { if ( ( x < - 65536 ) 
-''                                ^~~~~~~~~~
-'' extracted/allegro-5.0.10/include/allegro5/internal/alconfig.h(75): construct found here
-''                 extern __inline__ type name args code
-''                 ^~~~~~
-
-'' TODO: unrecognized construct:
-'' extern __inline__ al_fixed al_fixasin (al_fixed x){ if ((x < -65536) || (x > 65536)) { al_set_errno(EDOM); return 0; } return 0x00400000 - _al_fix_acos_tbl[(x+65536+127)>>8];}
-'' ---------------------------------------------------------------------------
-'' expected ';' to finish this declaration but found 'al_fixasin'
-''     extern __inline__ al_fixed al_fixasin ( al_fixed x ) { if ( ( x < - 65536 ) 
-''                                ^~~~~~~~~~
-'' extracted/allegro-5.0.10/include/allegro5/internal/alconfig.h(75): construct found here
-''                 extern __inline__ type name args code
-''                 ^~~~~~
+'' TODO: extern __inline__ al_fixed al_fixdiv (al_fixed x, al_fixed y){ if (y == 0) { al_set_errno(ERANGE); return (x < 0) ? -0x7FFFFFFF : 0x7FFFFFFF; } else return al_ftofix(al_fixtof(x) / al_fixtof(y));}extern __inline__ int al_fixfloor (al_fixed x);
+'' TODO: extern __inline__ int al_fixfloor (al_fixed x){ if (x >= 0) return (x >> 16); else return ~((~x) >> 16);}extern __inline__ int al_fixceil (al_fixed x);
+'' TODO: extern __inline__ int al_fixceil (al_fixed x){ if (x > 0x7FFF0000) { al_set_errno(ERANGE); return 0x7FFF; } return al_fixfloor(x + 0xFFFF);}extern __inline__ al_fixed al_itofix (int x);
+'' TODO: extern __inline__ al_fixed al_itofix (int x){ return x << 16;}extern __inline__ int al_fixtoi (al_fixed x);
+'' TODO: extern __inline__ int al_fixtoi (al_fixed x){ return al_fixfloor(x) + ((x & 0x8000) >> 15);}extern __inline__ al_fixed al_fixcos (al_fixed x);
+'' TODO: extern __inline__ al_fixed al_fixcos (al_fixed x){ return _al_fix_cos_tbl[((x + 0x4000) >> 15) & 0x1FF];}extern __inline__ al_fixed al_fixsin (al_fixed x);
+'' TODO: extern __inline__ al_fixed al_fixsin (al_fixed x){ return _al_fix_cos_tbl[((x - 0x400000 + 0x4000) >> 15) & 0x1FF];}extern __inline__ al_fixed al_fixtan (al_fixed x);
+'' TODO: extern __inline__ al_fixed al_fixtan (al_fixed x){ return _al_fix_tan_tbl[((x + 0x4000) >> 15) & 0xFF];}extern __inline__ al_fixed al_fixacos (al_fixed x);
+'' TODO: extern __inline__ al_fixed al_fixacos (al_fixed x){ if ((x < -65536) || (x > 65536)) { al_set_errno(EDOM); return 0; } return _al_fix_acos_tbl[(x+65536+127)>>8];}extern __inline__ al_fixed al_fixasin (al_fixed x);
+'' TODO: extern __inline__ al_fixed al_fixasin (al_fixed x){ if ((x < -65536) || (x > 65536)) { al_set_errno(EDOM); return 0; } return 0x00400000 - _al_fix_acos_tbl[(x+65536+127)>>8];}
 
 #define __al_included_allegro5_fshook_h
 
@@ -1570,15 +1317,7 @@ declare function al_check_inverse(byval trans as const ALLEGRO_TRANSFORM ptr, by
 
 	extern import _al_joydrv_directx as ALLEGRO_JOYSTICK_DRIVER
 
-	'' TODO: unrecognized construct:
-	'' #define _AL_JOYSTICK_DRIVER_DIRECTX { AL_JOY_TYPE_DIRECTX, &_al_joydrv_directx, true },
-	'' ---------------------------------------------------------------------------
-	'' extracted/allegro-5.0.10/include/allegro5/platform/alwin.h(57): failed to parse full #define body
-	''        { AL_JOY_TYPE_DIRECTX,  &_al_joydrv_directx,    true  },
-	''                                                               ^
-	'' context as seen by fbfrog:
-	''     TICK_DRIVER_DIRECTX { AL_JOY_TYPE_DIRECTX , & _al_joydrv_directx , true } , 
-	''                                                                               ^
+	'' TODO: #define _AL_JOYSTICK_DRIVER_DIRECTX { AL_JOY_TYPE_DIRECTX, &_al_joydrv_directx, true },
 #endif
 
 end extern

@@ -62,55 +62,11 @@ declare function CguiParseLabels(byval state as long) as long
 #define DIR_DOWN &h10
 #define AUTOINDICATOR &h007fffff
 
-'' TODO: unrecognized construct:
-'' #define TOPLEFT DIR_TOPLEFT,AUTOINDICATOR
-'' ---------------------------------------------------------------------------
-'' extracted/cgui/include/cgui.h(66): failed to parse full #define body
-''     #define TOPLEFT         DIR_TOPLEFT,AUTOINDICATOR
-''                                        ^
-'' context as seen by fbfrog:
-''     # define TOPLEFT DIR_TOPLEFT , AUTOINDICATOR 
-''                                  ^
-
-'' TODO: unrecognized construct:
-'' #define RIGHT DIR_RIGHT,AUTOINDICATOR
-'' ---------------------------------------------------------------------------
-'' extracted/cgui/include/cgui.h(67): failed to parse full #define body
-''     #define RIGHT           DIR_RIGHT,AUTOINDICATOR
-''                                      ^
-'' context as seen by fbfrog:
-''     # define RIGHT DIR_RIGHT , AUTOINDICATOR 
-''                              ^
-
-'' TODO: unrecognized construct:
-'' #define DOWNLEFT DIR_DOWNLEFT,AUTOINDICATOR
-'' ---------------------------------------------------------------------------
-'' extracted/cgui/include/cgui.h(68): failed to parse full #define body
-''     #define DOWNLEFT        DIR_DOWNLEFT,AUTOINDICATOR
-''                                         ^
-'' context as seen by fbfrog:
-''     # define DOWNLEFT DIR_DOWNLEFT , AUTOINDICATOR 
-''                                    ^
-
-'' TODO: unrecognized construct:
-'' #define LEFT DIR_LEFT,AUTOINDICATOR
-'' ---------------------------------------------------------------------------
-'' extracted/cgui/include/cgui.h(70): failed to parse full #define body
-''     #define LEFT            DIR_LEFT,AUTOINDICATOR
-''                                     ^
-'' context as seen by fbfrog:
-''     # define LEFT DIR_LEFT , AUTOINDICATOR 
-''                            ^
-
-'' TODO: unrecognized construct:
-'' #define DOWN DIR_DOWN,AUTOINDICATOR
-'' ---------------------------------------------------------------------------
-'' extracted/cgui/include/cgui.h(71): failed to parse full #define body
-''     #define DOWN            DIR_DOWN,AUTOINDICATOR
-''                                     ^
-'' context as seen by fbfrog:
-''     # define DOWN DIR_DOWN , AUTOINDICATOR 
-''                            ^
+'' TODO: #define TOPLEFT DIR_TOPLEFT,AUTOINDICATOR
+'' TODO: #define RIGHT DIR_RIGHT,AUTOINDICATOR
+'' TODO: #define DOWNLEFT DIR_DOWNLEFT,AUTOINDICATOR
+'' TODO: #define LEFT DIR_LEFT,AUTOINDICATOR
+'' TODO: #define DOWN DIR_DOWN,AUTOINDICATOR
 
 #define ALIGNCENTRE &h00800000
 #define ALIGNBOTTOM &h01000000
@@ -121,25 +77,8 @@ declare function CguiParseLabels(byval state as long) as long
 #define EQUALWIDTH &h20000000
 #define EQUALHEIGHT &h40000000
 
-'' TODO: unrecognized construct:
-'' #define ADAPTIVE 0,AUTOINDICATOR
-'' ---------------------------------------------------------------------------
-'' extracted/cgui/include/cgui.h(89): failed to parse full #define body
-''     #define ADAPTIVE        0,AUTOINDICATOR
-''                              ^
-'' context as seen by fbfrog:
-''     # define ADAPTIVE 0 , AUTOINDICATOR 
-''                         ^
-
-'' TODO: unrecognized construct:
-'' #define FILLSCREEN 1,AUTOINDICATOR
-'' ---------------------------------------------------------------------------
-'' extracted/cgui/include/cgui.h(90): failed to parse full #define body
-''     #define FILLSCREEN      1,AUTOINDICATOR
-''                              ^
-'' context as seen by fbfrog:
-''     # define FILLSCREEN 1 , AUTOINDICATOR 
-''                           ^
+'' TODO: #define ADAPTIVE 0,AUTOINDICATOR
+'' TODO: #define FILLSCREEN 1,AUTOINDICATOR
 
 declare function MkDialogue(byval width_ as long, byval height as long, byval label as const zstring ptr, byval attr as long) as long
 
@@ -500,45 +439,10 @@ declare sub SimulateHotKeys(byval control as long, byval key as long)
 declare sub UseHotKeys(byval s as zstring ptr)
 declare sub AutoHotKeys(byval mode as long)
 
-#if defined(__FB_WIN32__) and defined(CGUI_STATICLINK)
-	'' TODO: unrecognized construct:
-	'' extern int cgui_colors[];
-	'' ---------------------------------------------------------------------------
-	'' expected expression but found ']'
-	''     extern int cgui_colors [ ] ;
-	''                              ^
-	'' extracted/cgui/include/cgui.h(427): construct found here
-	''     CGUI_ARRAY(int ,cgui_colors);
-	''                                 ^
-	'' extracted/cgui/include/cgui/cguicfg.h(209): token found here
-	''        #define CGUI_ARRAY(type, name)            extern _CGUI_DLL type name[]
-	''                                                                             ^
-#elseif defined(__FB_WIN32__) and (not defined(CGUI_STATICLINK))
-	'' TODO: unrecognized construct:
-	'' extern __attribute__((dllimport)) int cgui_colors[];
-	'' ---------------------------------------------------------------------------
-	'' expected expression but found ']'
-	''     extern __attribute__ ( ( dllimport ) ) int cgui_colors [ ] ;
-	''                                                              ^
-	'' extracted/cgui/include/cgui.h(427): construct found here
-	''     CGUI_ARRAY(int ,cgui_colors);
-	''                                 ^
-	'' extracted/cgui/include/cgui/cguicfg.h(209): token found here
-	''        #define CGUI_ARRAY(type, name)            extern _CGUI_DLL type name[]
-	''                                                                             ^
+#if defined(CGUI_STATICLINK) or ((not defined(CGUI_STATICLINK)) and (defined(__FB_DOS__) or defined(__FB_LINUX__)))
+	'' TODO: extern int cgui_colors[];
 #else
-	'' TODO: unrecognized construct:
-	'' extern int cgui_colors[];
-	'' ---------------------------------------------------------------------------
-	'' expected expression but found ']'
-	''     extern int cgui_colors [ ] ;
-	''                              ^
-	'' extracted/cgui/include/cgui.h(427): construct found here
-	''     CGUI_ARRAY(int ,cgui_colors);
-	''                                 ^
-	'' extracted/cgui/include/cgui/cguicfg.h(321): token found here
-	''        #define CGUI_ARRAY(type, name)                  extern type name[]
-	''                                                                         ^
+	'' TODO: extern __attribute__((dllimport)) int cgui_colors[];
 #endif
 
 type t_cgui_colors as long

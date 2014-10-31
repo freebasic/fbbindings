@@ -146,15 +146,7 @@ declare sub ffi_java_ptrarray_to_raw(byval cif as ffi_cif ptr, byval args as any
 declare sub ffi_java_raw_to_ptrarray(byval cif as ffi_cif ptr, byval raw as ffi_java_raw ptr, byval args as any ptr ptr)
 declare function ffi_java_raw_size(byval cif as ffi_cif ptr) as uinteger
 
-'' TODO: unrecognized construct:
-'' typedef struct { char tramp[10]; ffi_cif *cif; void (*fun)(ffi_cif*,void*,void**,void*); void *user_data;} ffi_closure __attribute__((aligned (8)));
-'' ---------------------------------------------------------------------------
-'' unknown attribute 'aligned'
-''     * ) ; void * user_data ; } ffi_closure __attribute__ ( ( aligned ( 8 ) ) ) ;
-''                                                              ^~~~~~~
-'' extracted/libffi-3.1/include/ffi.h(304): construct found here
-''     typedef struct {
-''     ^~~~~~~
+'' TODO: typedef struct { char tramp[10]; ffi_cif *cif; void (*fun)(ffi_cif*,void*,void**,void*); void *user_data;} ffi_closure __attribute__((aligned (8)));
 
 declare function ffi_closure_alloc(byval size as uinteger, byval code as any ptr ptr) as any ptr
 declare sub ffi_closure_free(byval as any ptr)
