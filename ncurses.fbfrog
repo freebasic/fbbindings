@@ -1,0 +1,15 @@
+-removedefine NCURSES_PUBLIC_VAR
+-removedefine NCURSES_WRAPPED_VAR
+-removedefine NCURSES_STATIC
+-removedefine NCURSES_IMPEXP
+-removedefine NCURSES_API
+-removedefine NCURSES_EXPORT
+-removedefine NCURSES_EXPORT_VAR
+-removedefine NCURSES_INLINE
+-removedefine NCURSES_CAST
+-removedefine NCURSES_CONST
+
+-removedefine GCC_PRINTFLIKE
+-removedefine GCC_SCANFLIKE
+-removedefine GCC_NORETURN
+-removedefine GCC_UNUSED

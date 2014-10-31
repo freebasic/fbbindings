@@ -1,0 +1,23 @@
+-removedefine _CGUI_DLL
+-removedefine CGUI_VAR
+-removedefine CGUI_ARRAY
+-removedefine CGUI_FUNC
+-removedefine CGUI_METHOD
+-removedefine CGUI_FUNCPTR
+-removedefine CGUI_BEGIN_INLINE
+-removedefine CGUI_PRINTF_FUNC
+-removedefine CGUI_CONST_FUNC
+-removedefine CGUI_END_OF_INLINE
+-removedefine CGUI_END_OF_LOCAL_INLINE
+-removedefine CGUI_INLINE
+-removedefine CGUI_LOCAL_INLINE
+-removedefine CGUI_FUNC_DEPRECATED
+-removedefine CGUI_PRINTFUNC_DEPRECATED
+-removedefine CGUI_INLINE_DEPRECATED
+-removedefine nouse
+-removedefine inline
+
+-declarebool CGUI_STATICLINK
+-ifdef CGUI_STATICLINK
+	-define CGUI_STATICLINK 1
+-endif

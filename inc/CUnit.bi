@@ -1,13 +1,16 @@
 #pragma once
 
+#include once "crt/string.bi"
+#include once "crt/math.bi"
+#include once "crt/errno.bi"
+#include once "crt/setjmp.bi"
+#include once "crt/stdio.bi"
+
 '' The following symbols have been renamed:
 ''     #define CU_ADD_TEST => CU_ADD_TEST_
 ''     #define CU_TEST => CU_TEST_
 
 extern "C"
-
-#include "string.h"
-#include "math.h"
 
 #define CU_VERSION "2.1-2"
 #define CU_MAX_TEST_NAME_LENGTH 256
@@ -16,8 +19,6 @@ extern "C"
 #define CU_FALSE 0
 #define CU_MAX(a, b) iif((a) >= (b), (a), (b))
 #define CU_MIN(a, b) iif((a) >= (b), (b), (a))
-
-#include "errno.h"
 
 type CU_ErrorCode as long
 enum
@@ -54,8 +55,6 @@ declare function CU_get_error_msg() as const zstring ptr
 declare sub CU_set_error_action(byval action as CU_ErrorAction)
 declare function CU_get_error_action() as CU_ErrorAction
 declare sub CU_set_error(byval error_ as CU_ErrorCode)
-
-#include "setjmp.h"
 
 type CU_InitializeFunc as function() as long
 type CU_CleanupFunc as function() as long
@@ -145,8 +144,6 @@ declare function CU_get_suite_by_name(byval szSuiteName as const zstring ptr, by
 declare function CU_get_suite_by_index(byval index as ulong, byval pRegistry as CU_pTestRegistry) as CU_pSuite
 declare function CU_get_test_by_name(byval szTestName as const zstring ptr, byval pSuite as CU_pSuite) as CU_pTest
 declare function CU_get_test_by_index(byval index as ulong, byval pSuite as CU_pSuite) as CU_pTest
-
-#include "stdio.h"
 
 type CU_FailureTypes as long
 enum

@@ -1,0 +1,6 @@
+-include limits.h
+
+-removedefine FFI_EXTERN
+
+-removedefine X86
+-removedefine X86_ANY
