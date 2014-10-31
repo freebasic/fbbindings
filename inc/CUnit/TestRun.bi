@@ -32,6 +32,7 @@ end type
 type CU_pFailureRecord as CU_FailureRecord ptr
 
 type CU_RunSummary
+	PackageName as zstring * 50
 	nSuitesRun as ulong
 	nSuitesFailed as ulong
 	nSuitesInactive as ulong

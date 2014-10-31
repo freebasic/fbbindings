@@ -30,10 +30,14 @@ clang:
 	$(FBFROG) -o inc/clang-c/Documentation.bi         extracted/$(CLANG_TITLE)/include/clang-c/Documentation.h         -incdir extracted/$(CLANG_TITLE)/include -filterout '*'
 	$(FBFROG) -o inc/clang-c/Index.bi                 extracted/$(CLANG_TITLE)/include/clang-c/Index.h                 -incdir extracted/$(CLANG_TITLE)/include -filterout '*'
 
-CUNIT_VERSION := 2.1-2
+CUNIT_VERSION := 2.1-3
 CUNIT_TITLE := CUnit-$(CUNIT_VERSION)
 cunit:
-	./downloadextract.sh $(CUNIT_TITLE) $(CUNIT_TITLE)-src.tar.bz2 "http://sourceforge.net/projects/cunit/files/CUnit/$(CUNIT_VERSION)/$(CUNIT_TITLE)-src.tar.bz2/download"
+	./downloadextract.sh $(CUNIT_TITLE) $(CUNIT_TITLE).tar.bz2 "http://sourceforge.net/projects/cunit/files/CUnit/$(CUNIT_VERSION)/$(CUNIT_TITLE).tar.bz2/download"
+	cd extracted/$(CUNIT_TITLE)/CUnit/Headers && \
+		if [ ! -f CUnit.h ]; then \
+			sed -e 's/@VERSION@-@RELEASE@/$(CUNIT_VERSION)/g' < CUnit.h.in > CUnit.h; \
+		fi
 	mkdir -p inc/CUnit
 	$(FBFROG) cunit.fbfrog -filterout '*' -o inc/CUnit/Automated.bi extracted/$(CUNIT_TITLE)/CUnit/Headers/Automated.h
 	$(FBFROG) cunit.fbfrog -filterout '*' -o inc/CUnit/Basic.bi     extracted/$(CUNIT_TITLE)/CUnit/Headers/Basic.h

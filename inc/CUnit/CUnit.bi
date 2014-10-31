@@ -10,7 +10,7 @@
 ''     #define CU_TEST => CU_TEST_
 
 #define CUNIT_CUNIT_H_SEEN
-#define CU_VERSION "2.1-2"
+#define CU_VERSION "2.1-3"
 #define CU_MAX_TEST_NAME_LENGTH 256
 #define CU_MAX_SUITE_NAME_LENGTH 256
 #define CU_TRUE 1
@@ -94,42 +94,42 @@
 #endmacro
 #macro CU_ASSERT_PTR_EQUAL(actual, expected)
 	scope
-		CU_assertImplementation(cptr(any ptr, -((actual) = cptr(any ptr, (expected)))), __LINE__, ((("CU_ASSERT_PTR_EQUAL(" + #actual) + ",") + #expected) + ")", __FILE__, "", CU_FALSE)
+		CU_assertImplementation(cptr(const any ptr, -((actual) = cptr(const any ptr, (expected)))), __LINE__, ((("CU_ASSERT_PTR_EQUAL(" + #actual) + ",") + #expected) + ")", __FILE__, "", CU_FALSE)
 	end scope
 #endmacro
 #macro CU_ASSERT_PTR_EQUAL_FATAL(actual, expected)
 	scope
-		CU_assertImplementation(cptr(any ptr, -((actual) = cptr(any ptr, (expected)))), __LINE__, ((("CU_ASSERT_PTR_EQUAL_FATAL(" + #actual) + ",") + #expected) + ")", __FILE__, "", CU_TRUE)
+		CU_assertImplementation(cptr(const any ptr, -((actual) = cptr(const any ptr, (expected)))), __LINE__, ((("CU_ASSERT_PTR_EQUAL_FATAL(" + #actual) + ",") + #expected) + ")", __FILE__, "", CU_TRUE)
 	end scope
 #endmacro
 #macro CU_ASSERT_PTR_NOT_EQUAL(actual, expected)
 	scope
-		CU_assertImplementation(cptr(any ptr, -((actual) <> cptr(any ptr, (expected)))), __LINE__, ((("CU_ASSERT_PTR_NOT_EQUAL(" + #actual) + ",") + #expected) + ")", __FILE__, "", CU_FALSE)
+		CU_assertImplementation(cptr(const any ptr, -((actual) <> cptr(const any ptr, (expected)))), __LINE__, ((("CU_ASSERT_PTR_NOT_EQUAL(" + #actual) + ",") + #expected) + ")", __FILE__, "", CU_FALSE)
 	end scope
 #endmacro
 #macro CU_ASSERT_PTR_NOT_EQUAL_FATAL(actual, expected)
 	scope
-		CU_assertImplementation(cptr(any ptr, -((actual) <> cptr(any ptr, (expected)))), __LINE__, ((("CU_ASSERT_PTR_NOT_EQUAL_FATAL(" + #actual) + ",") + #expected) + ")", __FILE__, "", CU_TRUE)
+		CU_assertImplementation(cptr(const any ptr, -((actual) <> cptr(const any ptr, (expected)))), __LINE__, ((("CU_ASSERT_PTR_NOT_EQUAL_FATAL(" + #actual) + ",") + #expected) + ")", __FILE__, "", CU_TRUE)
 	end scope
 #endmacro
 #macro CU_ASSERT_PTR_NULL(value)
 	scope
-		CU_assertImplementation(-(NULL = cptr(any ptr, (value))), __LINE__, ("CU_ASSERT_PTR_NULL(" + #value) + ")", __FILE__, "", CU_FALSE)
+		CU_assertImplementation(-(NULL = cptr(const any ptr, (value))), __LINE__, ("CU_ASSERT_PTR_NULL(" + #value) + ")", __FILE__, "", CU_FALSE)
 	end scope
 #endmacro
 #macro CU_ASSERT_PTR_NULL_FATAL(value)
 	scope
-		CU_assertImplementation(-(NULL = cptr(any ptr, (value))), __LINE__, ("CU_ASSERT_PTR_NULL_FATAL(" + #value) + ")", __FILE__, "", CU_TRUE)
+		CU_assertImplementation(-(NULL = cptr(const any ptr, (value))), __LINE__, ("CU_ASSERT_PTR_NULL_FATAL(" + #value) + ")", __FILE__, "", CU_TRUE)
 	end scope
 #endmacro
 #macro CU_ASSERT_PTR_NOT_NULL(value)
 	scope
-		CU_assertImplementation(-(NULL <> cptr(any ptr, (value))), __LINE__, ("CU_ASSERT_PTR_NOT_NULL(" + #value) + ")", __FILE__, "", CU_FALSE)
+		CU_assertImplementation(-(NULL <> cptr(const any ptr, (value))), __LINE__, ("CU_ASSERT_PTR_NOT_NULL(" + #value) + ")", __FILE__, "", CU_FALSE)
 	end scope
 #endmacro
 #macro CU_ASSERT_PTR_NOT_NULL_FATAL(value)
 	scope
-		CU_assertImplementation(-(NULL <> cptr(any ptr, (value))), __LINE__, ("CU_ASSERT_PTR_NOT_NULL_FATAL(" + #value) + ")", __FILE__, "", CU_TRUE)
+		CU_assertImplementation(-(NULL <> cptr(const any ptr, (value))), __LINE__, ("CU_ASSERT_PTR_NOT_NULL_FATAL(" + #value) + ")", __FILE__, "", CU_TRUE)
 	end scope
 #endmacro
 #macro CU_ASSERT_STRING_EQUAL(actual, expected)
