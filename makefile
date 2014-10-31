@@ -34,7 +34,16 @@ CUNIT_VERSION := 2.1-2
 CUNIT_TITLE := CUnit-$(CUNIT_VERSION)
 cunit:
 	./downloadextract.sh $(CUNIT_TITLE) $(CUNIT_TITLE)-src.tar.bz2 "http://sourceforge.net/projects/cunit/files/CUnit/$(CUNIT_VERSION)/$(CUNIT_TITLE)-src.tar.bz2/download"
-	$(FBFROG) cunit.fbfrog -o inc extracted/$(CUNIT_TITLE)/CUnit/Headers/CUnit.h
+	mkdir -p inc/CUnit
+	$(FBFROG) cunit.fbfrog -filterout '*' -o inc/CUnit/Automated.bi extracted/$(CUNIT_TITLE)/CUnit/Headers/Automated.h
+	$(FBFROG) cunit.fbfrog -filterout '*' -o inc/CUnit/Basic.bi     extracted/$(CUNIT_TITLE)/CUnit/Headers/Basic.h
+	$(FBFROG) cunit.fbfrog -filterout '*' -o inc/CUnit/Console.bi   extracted/$(CUNIT_TITLE)/CUnit/Headers/Console.h
+	$(FBFROG) cunit.fbfrog -filterout '*' -o inc/CUnit/CUCurses.bi  extracted/$(CUNIT_TITLE)/CUnit/Headers/CUCurses.h
+	$(FBFROG) cunit.fbfrog -filterout '*' -o inc/CUnit/CUError.bi   extracted/$(CUNIT_TITLE)/CUnit/Headers/CUError.h
+	$(FBFROG) cunit.fbfrog -filterout '*' -o inc/CUnit/CUnit.bi     extracted/$(CUNIT_TITLE)/CUnit/Headers/CUnit.h
+	$(FBFROG) cunit.fbfrog -filterout '*' -o inc/CUnit/TestDB.bi    extracted/$(CUNIT_TITLE)/CUnit/Headers/TestDB.h
+	$(FBFROG) cunit.fbfrog -filterout '*' -o inc/CUnit/TestRun.bi   extracted/$(CUNIT_TITLE)/CUnit/Headers/TestRun.h
+	$(FBFROG) cunit.fbfrog -filterout '*' -o inc/CUnit/Util.bi      extracted/$(CUNIT_TITLE)/CUnit/Headers/Util.h
 
 FFI_TITLE := libffi-3.1
 ffi:
