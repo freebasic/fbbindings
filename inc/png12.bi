@@ -182,7 +182,7 @@ type png_int_16 as short
 type png_byte as ubyte
 type png_size_t as uinteger
 
-#define png_sizeof(x) sizeof((x))
+#define png_sizeof(x) sizeof(x)
 
 type png_fixed_point as png_int_32
 type png_voidp as any ptr
