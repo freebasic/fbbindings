@@ -2,9 +2,6 @@
 
 #include once "crt/setjmp.bi"
 #include once "crt/time.bi"
-#include once "crt/limits.bi"
-#include once "crt/string.bi"
-#include once "crt/stdio.bi"
 
 '' The following symbols have been renamed:
 ''     #define PNG_READ_tEXt_SUPPORTED => PNG_READ_tEXt_SUPPORTED_
