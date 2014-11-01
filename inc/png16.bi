@@ -1,5 +1,6 @@
 #pragma once
 
+#include once "crt/long.bi"
 #include once "crt/stdio.bi"
 #include once "crt/setjmp.bi"
 #include once "crt/time.bi"
@@ -9,11 +10,18 @@
 ''     #define PNG_WRITE_tEXt_SUPPORTED => PNG_WRITE_tEXt_SUPPORTED_
 ''     #define PNG_tEXt_SUPPORTED => PNG_tEXt_SUPPORTED_
 ''     #define png_libpng_ver => png_libpng_ver_
+''     #define PNG_get_uint_32 => PNG_get_uint_32_
+''     #define PNG_get_uint_16 => PNG_get_uint_16_
+''     #define PNG_get_int_32 => PNG_get_int_32_
+''     #define png_get_uint_32 => png_get_uint_32__
+''     #define png_get_uint_16 => png_get_uint_16__
+''     #define png_get_int_32 => png_get_int_32__
 
 extern "C"
 
 type png_control as png_control_
 
+#define PNG_H
 #define PNG_LIBPNG_VER_STRING "1.6.6"
 #define PNG_HEADER_VERSION_STRING !" libpng version 1.6.6 - September 16, 2013\n"
 #define PNG_LIBPNG_VER_SONUM 16
@@ -32,6 +40,7 @@ type png_control as png_control_
 #define PNG_LIBPNG_BUILD_SPECIAL 32
 #define PNG_LIBPNG_BUILD_BASE_TYPE PNG_LIBPNG_BUILD_STABLE
 #define PNG_LIBPNG_VER 10606
+#define PNGLCONF_H
 #define PNG_16BIT_SUPPORTED
 #define PNG_ALIGNED_MEMORY_SUPPORTED
 #define PNG_BENIGN_ERRORS_SUPPORTED
@@ -216,28 +225,8 @@ type png_control as png_control_
 #define PNG_Z_DEFAULT_STRATEGY 1
 #define PNG_sCAL_PRECISION 5
 #define PNG_sRGB_PROFILE_CHECKS 2
+#define PNGCONF_H
 #define PNG_USE_READ_MACROS
-#define PNGARG(arglist) arglist
-
-#ifdef __FB_WIN32__
-	#define PNGCAPI __cdecl
-	#define PNG_DLL_EXPORT __declspec(dllexport)
-	#define PNG_DLL_IMPORT __declspec(dllimport)
-#else
-	#define PNGCAPI
-#endif
-
-#define PNGCBAPI PNGCAPI
-#define PNGAPI PNGCAPI
-#define PNG_IMPEXP
-#define PNG_EMPTY
-#define PNG_REMOVED(ordinal, type, name, args, attributes)
-#define PNG_DEPRECATED
-#define PNG_USE_RESULT
-#define PNG_NORETURN
-#define PNG_ALLOCATED
-#define PNG_PRIVATE
-#define PNG_RESTRICT
 
 type png_byte as ubyte
 type png_int_16 as short
@@ -411,8 +400,12 @@ type png_unknown_chunkpp as png_unknown_chunk ptr ptr
 #define PNG_HAVE_IHDR &h01
 #define PNG_HAVE_PLTE &h02
 #define PNG_AFTER_IDAT &h08
+#define PNG_UINT_31_MAX cast(png_uint_32, cast(clong, &h7fffffff))
+#define PNG_UINT_32_MAX cast(png_uint_32, -1)
+#define PNG_SIZE_MAX cast(png_size_t, -1)
 #define PNG_FP_1 100000
 #define PNG_FP_HALF 50000
+#define PNG_FP_MAX cast(png_fixed_point, cast(clong, &h7fffffff))
 #define PNG_FP_MIN (-PNG_FP_MAX)
 #define PNG_COLOR_MASK_PALETTE 1
 #define PNG_COLOR_MASK_COLOR 2
@@ -863,6 +856,18 @@ declare function png_get_io_chunk_type(byval png_ptr as png_const_structrp) as p
 #define PNG_PASS_MASK(pass, off) (((&h110145AF shr (((7 - (off)) - (pass)) shl 2)) and &hF) or ((&h01145AF0 shr (((7 - (off)) - (pass)) shl 2)) and &hF0))
 #define PNG_ROW_IN_INTERLACE_PASS(y, pass) ((PNG_PASS_MASK(pass, 0) shr ((y) and 7)) and 1)
 #define PNG_COL_IN_INTERLACE_PASS(x, pass) ((PNG_PASS_MASK(pass, 1) shr ((x) and 7)) and 1)
+#macro png_composite(composite, fg, alpha, bg)
+	scope
+		dim temp as png_uint_16 = cast(png_uint_16, cast(png_uint_16, (fg) * cast(png_uint_16, (alpha) + cast(png_uint_16, (bg) * cast(png_uint_16, (255 - cast(png_uint_16, (alpha))) + 128)))))
+		'' TODO: (composite) = (png_byte)((temp + (temp >> 8)) >> 8);
+	end scope
+#endmacro
+#macro png_composite_16(composite, fg, alpha, bg)
+	scope
+		dim temp as png_uint_32 = cast(png_uint_32, cast(png_uint_32, (fg) * cast(png_uint_32, (alpha) + cast(png_uint_32, ((bg) * (65535 - cast(png_uint_32, (alpha)))) + 32768))))
+		'' TODO: (composite) = (png_uint_16)((temp + (temp >> 16)) >> 16);
+	end scope
+#endmacro
 
 declare function png_get_uint_32(byval buf as png_const_bytep) as png_uint_32
 declare function png_get_uint_16(byval buf as png_const_bytep) as png_uint_16
@@ -872,6 +877,12 @@ declare sub png_save_uint_32(byval buf as png_bytep, byval i as png_uint_32)
 declare sub png_save_int_32(byval buf as png_bytep, byval i as png_int_32)
 declare sub png_save_uint_16(byval buf as png_bytep, byval i as ulong)
 
+#define PNG_get_uint_32_(buf) (((cast(png_uint_32, (*(buf)) shl 24) + cast(png_uint_32, (*((buf) + 1)) shl 16)) + cast(png_uint_32, (*((buf) + 2)) shl 8)) + cast(png_uint_32, *((buf) + 3)))
+#define PNG_get_uint_16_(buf) cast(png_uint_16, culng((*(buf)) shl 8) + culng(*((buf) + 1)))
+#define PNG_get_int_32_(buf) cast(png_int_32, iif((*(buf)) and &h80, -cast(png_int_32, (png_get_uint_32__(buf) xor cast(clong, &hffffffff)) + 1), cast(png_int_32, png_get_uint_32__(buf))))
+#define png_get_uint_32__(buf) PNG_get_uint_32_(buf)
+#define png_get_uint_16__(buf) PNG_get_uint_16_(buf)
+#define png_get_int_32__(buf) PNG_get_int_32_(buf)
 #define PNG_IMAGE_VERSION 1
 
 type png_controlp as png_control ptr
