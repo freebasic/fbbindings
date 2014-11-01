@@ -14,9 +14,6 @@
 
 extern "C"
 
-type png_struct_def as png_struct_def_
-type png_info_def as png_info_def_
-type tm as tm_
 type png_control as png_control_
 
 #define PNG_LIBPNG_VER_STRING "1.6.6"

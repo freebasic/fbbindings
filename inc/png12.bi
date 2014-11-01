@@ -16,9 +16,6 @@
 
 extern "C"
 
-type png_struct_def as png_struct_def_
-type tm as tm_
-
 #define PNG_LIBPNG_VER_STRING "1.2.50"
 #define PNG_HEADER_VERSION_STRING !" libpng version 1.2.50 - July 10, 2012\n"
 #define PNG_LIBPNG_VER_SONUM 0
@@ -557,7 +554,7 @@ type png_unknown_chunk_ptr as sub(byval as png_structp)
 type png_malloc_ptr as function(byval as png_structp, byval as png_size_t) as png_voidp
 type png_free_ptr as sub(byval as png_structp, byval as png_voidp)
 
-type png_struct_def_
+type png_struct_def
 	jmpbuf as jmp_buf
 	error_fn as png_error_ptr
 	warning_fn as png_error_ptr
