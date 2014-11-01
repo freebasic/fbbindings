@@ -3,7 +3,7 @@
 #include once "crt/long.bi"
 #include once "zlib.bi"
 #include once "crt/stdio.bi"
-#include once "sys/types.bi"
+#include once "crt/sys/types.bi"
 #include once "crt/setjmp.bi"
 #include once "crt/string.bi"
 #include once "crt/time.bi"
@@ -19,6 +19,7 @@ extern "C"
 type png_struct_def as png_struct_def_
 type tm as tm_
 
+#define PNG_H
 #define PNG_LIBPNG_VER_STRING "1.2.50"
 #define PNG_HEADER_VERSION_STRING !" libpng version 1.2.50 - July 10, 2012\n"
 #define PNG_LIBPNG_VER_SONUM 0
@@ -37,6 +38,7 @@ type tm as tm_
 #define PNG_LIBPNG_BUILD_SPECIAL 32
 #define PNG_LIBPNG_BUILD_BASE_TYPE PNG_LIBPNG_BUILD_STABLE
 #define PNG_LIBPNG_VER_ 10250
+#define PNGCONF_H
 #define PNG_1_2_X
 #define PNG_WARN_UNINITIALIZED_ROW 1
 #define PNG_ZBUF_SIZE 8192
@@ -51,7 +53,6 @@ type tm as tm_
 #define PNG_FLOATING_POINT_SUPPORTED
 #define PNG_STDIO_SUPPORTED
 #define PNG_CONSOLE_IO_SUPPORTED
-#define PNGARG(arglist) arglist
 #define PNG_SETJMP_SUPPORTED
 #define PNG_NO_iTXt_SUPPORTED
 #define PNG_NO_READ_iTXt
@@ -188,8 +189,6 @@ type png_byte as ubyte
 type png_size_t as uinteger
 
 #define png_sizeof(x) sizeof((x))
-#define FAR
-#define FARDATA
 
 type png_fixed_point as png_int_32
 type png_voidp as any ptr
@@ -218,25 +217,8 @@ type png_zcharpp as charf ptr ptr
 type png_zstreamp as z_stream ptr
 
 #define PNG_USE_GLOBAL_ARRAYS
-
-#ifdef __FB_WIN32__
-	#define PNG_NO_MODULEDEF
-	#define PNGAPI __cdecl
-#else
-	#define PNGAPI
-#endif
-
-#define PNG_IMPEXP
-#define PNG_DEPRECATED
-#define PNG_USE_RESULT
-#define PNG_NORETURN
-#define PNG_ALLOCATED
-#define PNG_DEPSTRUCT
-#define PNG_PRIVATE
 #define PNG_ABORT() abort()
 #define png_jmpbuf(png_ptr) (png_ptr)->jmpbuf
-#define CVT_PTR(ptr) (ptr)
-#define CVT_PTR_NOCHECK(ptr) (ptr)
 #define png_snprintf snprintf
 #define png_snprintf2 snprintf
 #define png_snprintf6 snprintf
@@ -450,6 +432,9 @@ type png_info as png_info_struct
 type png_infop as png_info ptr
 type png_infopp as png_info ptr ptr
 
+#define PNG_UINT_31_MAX cast(png_uint_32, cast(clong, &h7fffffff))
+#define PNG_UINT_32_MAX cast(png_uint_32, -1)
+#define PNG_SIZE_MAX cast(png_size_t, -1)
 #define PNG_MAX_UINT PNG_UINT_31_MAX
 #define PNG_COLOR_MASK_PALETTE 1
 #define PNG_COLOR_MASK_COLOR 2
@@ -718,6 +703,9 @@ declare sub png_write_chunk_data(byval png_ptr as png_structp, byval data_ as pn
 declare sub png_write_chunk_end(byval png_ptr as png_structp)
 declare function png_create_info_struct(byval png_ptr as png_structp) as png_infop
 declare sub png_info_init(byval info_ptr as png_infop)
+
+'' TODO: #define png_info_init(info_ptr) png_info_init_3(&info_ptr, png_sizeof(png_info));
+
 declare sub png_info_init_3(byval info_ptr as png_infopp, byval png_info_struct_size as png_size_t)
 declare sub png_write_info_before_PLTE(byval png_ptr as png_structp, byval info_ptr as png_infop)
 declare sub png_write_info(byval png_ptr as png_structp, byval info_ptr as png_infop)
@@ -977,6 +965,20 @@ declare sub png_set_strip_error_numbers(byval png_ptr as png_structp, byval stri
 declare sub png_set_user_limits(byval png_ptr as png_structp, byval user_width_max as png_uint_32, byval user_height_max as png_uint_32)
 declare function png_get_user_width_max(byval png_ptr as png_structp) as png_uint_32
 declare function png_get_user_height_max(byval png_ptr as png_structp) as png_uint_32
+
+#macro png_composite(composite, fg, alpha, bg)
+	scope
+		dim temp as png_uint_16 = cast(png_uint_16, cast(png_uint_16, (fg) * cast(png_uint_16, (alpha) + cast(png_uint_16, (bg) * cast(png_uint_16, (255 - cast(png_uint_16, (alpha))) + cast(png_uint_16, 128))))))
+		'' TODO: (composite) = (png_byte)((temp + (temp >> 8)) >> 8);
+	end scope
+#endmacro
+#macro png_composite_16(composite, fg, alpha, bg)
+	scope
+		dim temp as png_uint_32 = cast(png_uint_32, cast(png_uint_32, (fg) * cast(png_uint_32, (alpha) + cast(png_uint_32, (bg) * cast(png_uint_32, (cast(clong, 65535) - cast(png_uint_32, (alpha))) + cast(png_uint_32, cast(clong, 32768)))))))
+		'' TODO: (composite) = (png_uint_16)((temp + (temp >> 16)) >> 16);
+	end scope
+#endmacro
+
 declare function png_get_uint_32(byval buf as png_bytep) as png_uint_32
 declare function png_get_uint_16(byval buf as png_bytep) as png_uint_16
 declare function png_get_int_32(byval buf as png_bytep) as png_int_32
