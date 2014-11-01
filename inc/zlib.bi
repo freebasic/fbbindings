@@ -2,7 +2,6 @@
 
 #include once "crt/long.bi"
 #include once "crt/limits.bi"
-#include once "sys/types.bi"
 #include once "crt/stdarg.bi"
 
 #ifdef __FB_WIN32__
