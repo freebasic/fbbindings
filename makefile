@@ -1,6 +1,6 @@
 FBFROG := fbfrog
 
-ALL := allegro cgui clang cunit ffi iup jit ncurses pdcurses png12 png14 png15 png16 zip
+ALL := allegro cgui clang cunit ffi iup jit ncurses pdcurses png png12 png14 png15 png16 zip
 .PHONY: all clean $(ALL)
 all: $(ALL)
 
@@ -131,6 +131,8 @@ pdcurses:
 	$(FBFROG) pdcurses.fbfrog -o inc/pdcurses/curses.bi extracted/PDCurses-3.4/curses.h
 	$(FBFROG) pdcurses.fbfrog -o inc/pdcurses/panel.bi extracted/PDCurses-3.4/panel.h -filterout '*curses.h'
 	$(FBFROG) pdcurses.fbfrog -o inc/pdcurses/term.bi extracted/PDCurses-3.4/term.h -filterout '*curses.h'
+
+png: png12 png14 png15 png16
 
 PNG12_TITLE := libpng-1.2.50
 png12:
