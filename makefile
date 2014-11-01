@@ -1,11 +1,17 @@
 FBFROG := fbfrog
+FBC := fbc
 
 ALL := allegro cgui clang cunit ffi iup jit ncurses pdcurses png12 png14 png15 png16 zip
-.PHONY: all clean $(ALL)
+
+.PHONY: all clean tests $(ALL)
+
 all: $(ALL)
 
 clean:
 	rm -rf extracted/*
+
+tests:
+	$(FBC) -c tests/*.bas -v && rm -f tests/*.o
 
 ALLEGRO_VERSION := 5.0.10
 ALLEGRO_TITLE := allegro-$(ALLEGRO_VERSION)
