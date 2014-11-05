@@ -16,13 +16,13 @@
 extern "C"
 
 #define PNG_H
-#define PNG_LIBPNG_VER_STRING "1.5.17"
-#define PNG_HEADER_VERSION_STRING !" libpng version 1.5.17 - June 27, 2013\n"
+#define PNG_LIBPNG_VER_STRING "1.5.19"
+#define PNG_HEADER_VERSION_STRING !" libpng version 1.5.19 - August 21, 2014\n"
 #define PNG_LIBPNG_VER_SONUM 15
 #define PNG_LIBPNG_VER_DLLNUM 15
 #define PNG_LIBPNG_VER_MAJOR 1
 #define PNG_LIBPNG_VER_MINOR 5
-#define PNG_LIBPNG_VER_RELEASE 17
+#define PNG_LIBPNG_VER_RELEASE 19
 #define PNG_LIBPNG_VER_BUILD 0
 #define PNG_LIBPNG_BUILD_ALPHA 1
 #define PNG_LIBPNG_BUILD_BETA 2
@@ -33,7 +33,7 @@ extern "C"
 #define PNG_LIBPNG_BUILD_PRIVATE 16
 #define PNG_LIBPNG_BUILD_SPECIAL 32
 #define PNG_LIBPNG_BUILD_BASE_TYPE PNG_LIBPNG_BUILD_STABLE
-#define PNG_LIBPNG_VER 10517
+#define PNG_LIBPNG_VER 10519
 #define PNGLCONF_H
 #define PNG_16BIT_SUPPORTED
 #define PNG_ALIGNED_MEMORY_SUPPORTED
@@ -185,7 +185,6 @@ extern "C"
 #define PNG_tRNS_SUPPORTED
 #define PNG_zTXt_SUPPORTED
 #define PNG_API_RULE 0
-#define PNG_CALLOC_SUPPORTED
 #define PNG_COST_SHIFT 3
 #define PNG_DEFAULT_READ_MACROS 1
 #define PNG_GAMMA_THRESHOLD_FIXED 5000
@@ -245,7 +244,7 @@ type png_alloc_size_t as png_size_t
 #define PNG_LIBPNG_BUILD_TYPE PNG_LIBPNG_BUILD_BASE_TYPE
 #define png_libpng_ver_ png_get_header_ver(NULL)
 
-type png_libpng_version_1_5_17 as zstring ptr
+type png_libpng_version_1_5_19 as zstring ptr
 
 type png_color_struct
 	red as png_byte

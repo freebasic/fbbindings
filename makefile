@@ -140,24 +140,24 @@ pdcurses:
 
 png: png12 png14 png15 png16
 
-PNG12_TITLE := libpng-1.2.50
+PNG12_TITLE := libpng-1.2.51
 png12:
 	./downloadextract.sh $(PNG12_TITLE) $(PNG12_TITLE).tar.xz "http://downloads.sourceforge.net/libpng/$(PNG12_TITLE).tar.xz?download"
 	$(FBFROG) png.fbfrog -o inc/png12.bi extracted/$(PNG12_TITLE)/png.h
 
-PNG14_TITLE := libpng-1.4.12
+PNG14_TITLE := libpng-1.4.13
 png14:
 	./downloadextract.sh $(PNG14_TITLE) $(PNG14_TITLE).tar.xz "http://downloads.sourceforge.net/libpng/$(PNG14_TITLE).tar.xz?download"
 	$(FBFROG) png.fbfrog -o inc/png14.bi extracted/$(PNG14_TITLE)/png.h
 
-PNG15_TITLE := libpng-1.5.17
+PNG15_TITLE := libpng-1.5.19
 png15:
 	./downloadextract.sh $(PNG15_TITLE) $(PNG15_TITLE).tar.xz "http://downloads.sourceforge.net/libpng/$(PNG15_TITLE).tar.xz?download"
 	cp extracted/$(PNG15_TITLE)/scripts/pnglibconf.h.prebuilt \
 	   extracted/$(PNG15_TITLE)/pnglibconf.h
 	$(FBFROG) png.fbfrog -o inc/png15.bi extracted/$(PNG15_TITLE)/png.h
 
-PNG16_TITLE := libpng-1.6.6
+PNG16_TITLE := libpng-1.6.14
 png16:
 	./downloadextract.sh $(PNG16_TITLE) $(PNG16_TITLE).tar.xz "http://downloads.sourceforge.net/libpng/$(PNG16_TITLE).tar.xz?download"
 	cp extracted/$(PNG16_TITLE)/scripts/pnglibconf.h.prebuilt \

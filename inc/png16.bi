@@ -22,13 +22,13 @@ extern "C"
 type png_control as png_control_
 
 #define PNG_H
-#define PNG_LIBPNG_VER_STRING "1.6.6"
-#define PNG_HEADER_VERSION_STRING !" libpng version 1.6.6 - September 16, 2013\n"
+#define PNG_LIBPNG_VER_STRING "1.6.14"
+#define PNG_HEADER_VERSION_STRING !" libpng version 1.6.14 - October 23, 2014\n"
 #define PNG_LIBPNG_VER_SONUM 16
 #define PNG_LIBPNG_VER_DLLNUM 16
 #define PNG_LIBPNG_VER_MAJOR 1
 #define PNG_LIBPNG_VER_MINOR 6
-#define PNG_LIBPNG_VER_RELEASE 6
+#define PNG_LIBPNG_VER_RELEASE 14
 #define PNG_LIBPNG_VER_BUILD 0
 #define PNG_LIBPNG_BUILD_ALPHA 1
 #define PNG_LIBPNG_BUILD_BETA 2
@@ -39,7 +39,7 @@ type png_control as png_control_
 #define PNG_LIBPNG_BUILD_PRIVATE 16
 #define PNG_LIBPNG_BUILD_SPECIAL 32
 #define PNG_LIBPNG_BUILD_BASE_TYPE PNG_LIBPNG_BUILD_STABLE
-#define PNG_LIBPNG_VER 10606
+#define PNG_LIBPNG_VER 10614
 #define PNGLCONF_H
 #define PNG_16BIT_SUPPORTED
 #define PNG_ALIGNED_MEMORY_SUPPORTED
@@ -205,7 +205,6 @@ type png_control as png_control_
 #define PNG_tRNS_SUPPORTED
 #define PNG_zTXt_SUPPORTED
 #define PNG_API_RULE 0
-#define PNG_CALLOC_SUPPORTED
 #define PNG_COST_SHIFT 3
 #define PNG_DEFAULT_READ_MACROS 1
 #define PNG_GAMMA_THRESHOLD_FIXED 5000
@@ -272,7 +271,7 @@ type png_charppp as zstring ptr ptr ptr
 #define PNG_LIBPNG_BUILD_TYPE PNG_LIBPNG_BUILD_BASE_TYPE
 #define png_libpng_ver_ png_get_header_ver(NULL)
 
-type png_libpng_version_1_6_6 as zstring ptr
+type png_libpng_version_1_6_14 as zstring ptr
 type png_struct as png_struct_def
 type png_const_structp as const png_struct ptr
 type png_structp as png_struct ptr
@@ -957,7 +956,8 @@ declare sub png_set_check_for_invalid_index(byval png_ptr as png_structrp, byval
 declare function png_get_palette_max(byval png_ptr as png_const_structp, byval info_ptr as png_const_infop) as long
 
 #define PNG_MAXIMUM_INFLATE_WINDOW 2
-#define PNG_OPTION_NEXT 4
+#define PNG_SKIP_sRGB_CHECK_PROFILE 4
+#define PNG_OPTION_NEXT 6
 #define PNG_OPTION_UNSET 0
 #define PNG_OPTION_INVALID 1
 #define PNG_OPTION_OFF 2
