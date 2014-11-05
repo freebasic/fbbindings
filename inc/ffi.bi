@@ -168,13 +168,7 @@ union ffi_raw
 	sint as ffi_sarg
 	uint as ffi_arg
 	flt as single
-
-	#ifdef __FB_64BIT__
-		data as zstring * 8
-	#else
-		data as zstring * 4
-	#endif
-
+	data as zstring * FFI_SIZEOF_ARG
 	ptr as any ptr
 end union
 

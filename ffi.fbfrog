@@ -1,6 +1,7 @@
 -include limits.h
 -removedefine FFI_EXTERN
 -noexpand FFI_TRAMPOLINE_SIZE
+-noexpand FFI_SIZEOF_ARG
 
 -nodefaultscript
 
