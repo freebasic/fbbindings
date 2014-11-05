@@ -196,13 +196,12 @@ declare sub ffi_java_ptrarray_to_raw(byval cif as ffi_cif ptr, byval args as any
 declare sub ffi_java_raw_to_ptrarray(byval cif as ffi_cif ptr, byval raw as ffi_java_raw ptr, byval args as any ptr ptr)
 declare function ffi_java_raw_size(byval cif as ffi_cif ptr) as uinteger
 
-#if defined(__FB_WIN32__) and defined(__FB_64BIT__)
-	'' TODO: typedef struct { char tramp[29]; ffi_cif *cif; void (*fun)(ffi_cif*,void*,void**,void*); void *user_data;} ffi_closure __attribute__((aligned (8)));
-#elseif defined(__FB_WIN32__) and (not defined(__FB_64BIT__))
-	'' TODO: typedef struct { char tramp[52]; ffi_cif *cif; void (*fun)(ffi_cif*,void*,void**,void*); void *user_data;} ffi_closure __attribute__((aligned (8)));
-#else
-	'' TODO: typedef struct { char tramp[10]; ffi_cif *cif; void (*fun)(ffi_cif*,void*,void**,void*); void *user_data;} ffi_closure __attribute__((aligned (8)));
-#endif
+type ffi_closure
+	tramp as zstring * FFI_TRAMPOLINE_SIZE
+	cif as ffi_cif ptr
+	fun as sub(byval as ffi_cif ptr, byval as any ptr, byval as any ptr ptr, byval as any ptr)
+	user_data as any ptr
+end type
 
 declare function ffi_closure_alloc(byval size as uinteger, byval code as any ptr ptr) as any ptr
 declare sub ffi_closure_free(byval as any ptr)
@@ -210,14 +209,7 @@ declare function ffi_prep_closure(byval as ffi_closure ptr, byval as ffi_cif ptr
 declare function ffi_prep_closure_loc(byval as ffi_closure ptr, byval as ffi_cif ptr, byval fun as sub(byval as ffi_cif ptr, byval as any ptr, byval as any ptr ptr, byval as any ptr), byval user_data as any ptr, byval codeloc as any ptr) as ffi_status
 
 type ffi_raw_closure
-	#if defined(__FB_WIN32__) and defined(__FB_64BIT__)
-		tramp as zstring * 29
-	#elseif defined(__FB_WIN32__) and (not defined(__FB_64BIT__))
-		tramp as zstring * 52
-	#else
-		tramp as zstring * 10
-	#endif
-
+	tramp as zstring * FFI_TRAMPOLINE_SIZE
 	cif as ffi_cif ptr
 
 	#if defined(__FB_WIN32__) and defined(__FB_64BIT__)
@@ -230,14 +222,7 @@ type ffi_raw_closure
 end type
 
 type ffi_java_raw_closure
-	#if defined(__FB_WIN32__) and defined(__FB_64BIT__)
-		tramp as zstring * 29
-	#elseif defined(__FB_WIN32__) and (not defined(__FB_64BIT__))
-		tramp as zstring * 52
-	#else
-		tramp as zstring * 10
-	#endif
-
+	tramp as zstring * FFI_TRAMPOLINE_SIZE
 	cif as ffi_cif ptr
 
 	#if defined(__FB_WIN32__) and defined(__FB_64BIT__)
