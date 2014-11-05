@@ -235,7 +235,7 @@ declare function ffi_prep_cif(byval cif as ffi_cif ptr, byval abi as ffi_abi, by
 declare function ffi_prep_cif_var(byval cif as ffi_cif ptr, byval abi as ffi_abi, byval nfixedargs as ulong, byval ntotalargs as ulong, byval rtype as ffi_type ptr, byval atypes as ffi_type ptr ptr) as ffi_status
 declare sub ffi_call(byval cif as ffi_cif ptr, byval fn as sub(), byval rvalue as any ptr, byval avalue as any ptr ptr)
 
-#define FFI_FN(f) cptr(sub(), f)
+#define FFI_FN(f) cptr(sub cdecl(), f)
 #define FFI_TYPE_VOID_ 0
 #define FFI_TYPE_INT 1
 #define FFI_TYPE_FLOAT_ 2
