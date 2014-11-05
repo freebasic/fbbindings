@@ -680,7 +680,7 @@ declare function png_get_compression_buffer_size(byval png_ptr as png_const_stru
 declare sub png_set_compression_buffer_size(byval png_ptr as png_structp, byval size as png_size_t)
 declare function png_set_longjmp_fn(byval png_ptr as png_structp, byval longjmp_fn as png_longjmp_ptr, byval jmp_buf_size as uinteger) as jmp_buf ptr
 
-#define png_jmpbuf(png_ptr) (*png_set_longjmp_fn((png_ptr), longjmp, sizeof(jmp_buf)))
+#define png_jmpbuf(png_ptr) png_set_longjmp_fn((png_ptr), @longjmp, sizeof(jmp_buf))
 
 declare function png_reset_zstream(byval png_ptr as png_structp) as long
 declare function png_create_read_struct_2(byval user_png_ver as png_const_charp, byval error_ptr as png_voidp, byval error_fn as png_error_ptr, byval warn_fn as png_error_ptr, byval mem_ptr as png_voidp, byval malloc_fn as png_malloc_ptr, byval free_fn as png_free_ptr) as png_structp

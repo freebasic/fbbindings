@@ -212,7 +212,7 @@ type png_zstreamp as z_stream ptr
 
 #define PNG_USE_GLOBAL_ARRAYS
 #define PNG_ABORT() abort()
-#define png_jmpbuf(png_ptr) (png_ptr)->jmpbuf
+#define png_jmpbuf(png_ptr) (@(png_ptr)->jmpbuf)
 #define png_snprintf snprintf
 #define png_snprintf2 snprintf
 #define png_snprintf6 snprintf

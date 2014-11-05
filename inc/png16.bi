@@ -524,7 +524,7 @@ declare function png_get_compression_buffer_size(byval png_ptr as png_const_stru
 declare sub png_set_compression_buffer_size(byval png_ptr as png_structrp, byval size as png_size_t)
 declare function png_set_longjmp_fn(byval png_ptr as png_structrp, byval longjmp_fn as png_longjmp_ptr, byval jmp_buf_size as uinteger) as jmp_buf ptr
 
-#define png_jmpbuf(png_ptr) (*png_set_longjmp_fn((png_ptr), longjmp, sizeof(jmp_buf)))
+#define png_jmpbuf(png_ptr) png_set_longjmp_fn((png_ptr), @longjmp, sizeof(jmp_buf))
 
 declare sub png_longjmp(byval png_ptr as png_const_structrp, byval val_ as long)
 declare function png_reset_zstream(byval png_ptr as png_structrp) as long
