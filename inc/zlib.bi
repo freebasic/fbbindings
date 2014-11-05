@@ -2,7 +2,7 @@
 
 #include once "crt/long.bi"
 #include once "crt/limits.bi"
-#include once "sys/types.bi"
+#include once "crt/sys/types.bi"
 #include once "crt/stdarg.bi"
 
 #ifdef __FB_WIN32__
@@ -10,6 +10,8 @@
 #endif
 
 '' The following symbols have been renamed:
+''     inside struct z_stream_s:
+''         field opaque => opaque_
 ''     typedef Byte => Byte_
 ''     typedef uLong => uLong_
 ''     #define zlib_version => zlib_version_
@@ -47,8 +49,8 @@ type z_crc_t as culong
 #define ZLIB_VER_REVISION 8
 #define ZLIB_VER_SUBREVISION 0
 
-type alloc_func as function(byval opaque as voidpf, byval items as uInt, byval size as uInt) as voidpf
-type free_func as sub(byval opaque as voidpf, byval address as voidpf)
+type alloc_func as function(byval opaque_ as voidpf, byval items as uInt, byval size as uInt) as voidpf
+type free_func as sub(byval opaque_ as voidpf, byval address as voidpf)
 
 type z_stream_s
 	next_in as Bytef ptr
@@ -61,7 +63,7 @@ type z_stream_s
 	state as internal_state ptr
 	zalloc as alloc_func
 	zfree as free_func
-	opaque as voidpf
+	opaque_ as voidpf
 	data_type as long
 	adler as uLong_
 	reserved as uLong_
@@ -201,15 +203,7 @@ end type
 
 declare function gzgetc_(byval file as gzFile) as long
 
-'' TODO: unrecognized construct:
-'' # define gzgetc(g) ((g)->have ? ((g)->have--, (g)->pos++, *((g)->next)++) : gzgetc(g))
-'' ---------------------------------------------------------------------------
-'' extracted/zlib-1.2.8/zlib.h(1682): expected ')' to close '(...)' parenthesized expression but found '--'
-''               ((g)->have ? ((g)->have--, (g)->pos++, *((g)->next)++) : gzgetc(g)
-''                                      ^~
-'' context as seen by fbfrog:
-''     # define gzgetc ( g ) ( ( g ) -> have ? ( ( g ) -> have -- , ( g ) -> pos ++
-''                                                             ^~
+'' TODO: # define gzgetc(g) ((g)->have ? ((g)->have--, (g)->pos++, *((g)->next)++) : gzgetc(g))
 
 declare function gzopen(byval as const zstring ptr, byval as const zstring ptr) as gzFile
 declare function gzseek(byval as gzFile, byval as clong, byval as long) as clong
