@@ -55,24 +55,19 @@ enum
 
 	#if defined(__FB_WIN32__) and defined(__FB_64BIT__)
 		FFI_WIN64
-	#else
+	#elseif defined(__FB_WIN32__)
 		FFI_SYSV
-	#endif
-
-	#if defined(__FB_WIN32__) and (not defined(__FB_64BIT__))
 		FFI_STDCALL
-	#elseif defined(__FB_LINUX__)
-		FFI_UNIX64
-	#endif
-
-	#if (defined(__FB_LINUX__) and defined(__FB_64BIT__)) or (not defined(__FB_64BIT__))
 		FFI_THISCALL
 		FFI_FASTCALL
-	#endif
-
-	#if defined(__FB_WIN32__) and (not defined(__FB_64BIT__))
 		FFI_MS_CDECL
-	#elseif defined(__FB_LINUX__)
+	#elseif defined(__FB_64BIT__)
+		FFI_SYSV
+	#else
+		FFI_SYSV
+		FFI_UNIX64
+		FFI_THISCALL
+		FFI_FASTCALL
 		FFI_STDCALL
 	#endif
 
