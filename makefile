@@ -11,7 +11,7 @@ clean:
 	rm -rf extracted/*
 
 tests:
-	$(FBC) -c tests/*.bas -v && rm -f tests/*.o
+	$(FBC) -rr tests/*.bas -v && rm -f tests/*.asm
 
 ALLEGRO_VERSION := 5.0.10
 ALLEGRO_TITLE := allegro-$(ALLEGRO_VERSION)
