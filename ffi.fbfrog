@@ -2,5 +2,16 @@
 
 -removedefine FFI_EXTERN
 
--removedefine X86
--removedefine X86_ANY
+-nodefaultscript
+
+-declaredefines __FB_WIN32__ __FB_LINUX__ -unchecked
+
+-select
+-case __FB_WIN32__ -define __FBFROG_WIN32__
+-case __FB_LINUX__ -define __FBFROG_LINUX__
+-endselect
+
+-declarebool __FB_64BIT__
+-ifdef __FB_64BIT__
+	-define __FBFROG_64BIT__
+-endif
