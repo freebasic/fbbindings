@@ -1,4 +1,6 @@
 #pragma once
+#inclib "png"
+#inclib "z"
 
 #include once "crt/long.bi"
 #include once "crt/stdio.bi"
