@@ -1,9 +1,5 @@
 #pragma once
 
-#if (defined(__FB_LINUX__) and defined(__FB_64BIT__)) or (not defined(__FB_64BIT__))
-	#include once "crt/long.bi"
-#endif
-
 #include once "crt/stddef.bi"
 #include once "crt/limits.bi"
 
@@ -38,15 +34,12 @@ extern "C"
 #define LIBFFI_TARGET_H
 #define X86_ANY
 
+type ffi_arg as uinteger
+type ffi_sarg as integer
+
 #if defined(__FB_WIN32__) and defined(__FB_64BIT__)
 	#define FFI_SIZEOF_ARG 8
 	#define USE_BUILTIN_FFS 0
-
-	type ffi_arg as ulongint
-	type ffi_sarg as longint
-#else
-	type ffi_arg as culong
-	type ffi_sarg as clong
 #endif
 
 type ffi_abi as long
