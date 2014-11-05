@@ -2,12 +2,7 @@
 #inclib "z"
 
 #include once "crt/long.bi"
-#include once "crt/limits.bi"
 #include once "crt/stdarg.bi"
-
-#ifdef __FB_WIN32__
-	#include once "crt/stddef.bi"
-#endif
 
 '' The following symbols have been renamed:
 ''     typedef Byte => Byte_
