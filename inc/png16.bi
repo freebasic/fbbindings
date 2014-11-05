@@ -3,6 +3,8 @@
 #inclib "z"
 
 #include once "crt/long.bi"
+#include once "crt/limits.bi"
+#include once "crt/stddef.bi"
 #include once "crt/stdio.bi"
 #include once "crt/setjmp.bi"
 #include once "crt/time.bi"

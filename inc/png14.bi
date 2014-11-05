@@ -4,7 +4,11 @@
 
 #include once "crt/long.bi"
 #include once "zlib.bi"
+#include once "crt/limits.bi"
+#include once "crt/stdio.bi"
+#include once "crt/sys/types.bi"
 #include once "crt/setjmp.bi"
+#include once "crt/string.bi"
 #include once "crt/time.bi"
 
 '' The following symbols have been renamed:
