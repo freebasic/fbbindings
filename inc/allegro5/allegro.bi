@@ -7,7 +7,7 @@
 #include once "crt/stdlib.bi"
 #include once "crt/time.bi"
 #include once "crt/string.bi"
-#include once "sys/types.bi"
+#include once "crt/sys/types.bi"
 #include once "allegro5/platform/alplatf.bi"
 
 #ifdef __FB_WIN32__

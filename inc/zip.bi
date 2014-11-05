@@ -3,7 +3,7 @@
 #inclib "zip"
 
 #include once "inttypes.bi"
-#include once "sys/types.bi"
+#include once "crt/sys/types.bi"
 #include once "crt/stdio.bi"
 #include once "crt/time.bi"
 

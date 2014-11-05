@@ -490,7 +490,7 @@ type png_progressive_end_ptr as sub(byval as png_structp, byval as png_infop)
 type png_progressive_row_ptr as sub(byval as png_structp, byval as png_bytep, byval as png_uint_32, byval as long)
 type png_user_transform_ptr as sub(byval as png_structp, byval as png_row_infop, byval as png_bytep)
 type png_user_chunk_ptr as function(byval as png_structp, byval as png_unknown_chunkp) as long
-type png_longjmp_ptr as sub(byval as jmp_buf, byval as long)
+type png_longjmp_ptr as sub(byval as jmp_buf ptr, byval as long)
 
 #define PNG_TRANSFORM_IDENTITY &h0000
 #define PNG_TRANSFORM_STRIP_16 &h0001
