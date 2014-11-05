@@ -21,13 +21,13 @@ type png_struct_def as png_struct_def_
 type tm as tm_
 
 #define PNG_H
-#define PNG_LIBPNG_VER_STRING "1.4.12"
-#define PNG_HEADER_VERSION_STRING !" libpng version 1.4.12 - July 10, 2012\n"
+#define PNG_LIBPNG_VER_STRING "1.4.13"
+#define PNG_HEADER_VERSION_STRING !" libpng version 1.4.13 - February 6, 2014\n"
 #define PNG_LIBPNG_VER_SONUM 14
 #define PNG_LIBPNG_VER_DLLNUM 14
 #define PNG_LIBPNG_VER_MAJOR 1
 #define PNG_LIBPNG_VER_MINOR 4
-#define PNG_LIBPNG_VER_RELEASE 12
+#define PNG_LIBPNG_VER_RELEASE 13
 #define PNG_LIBPNG_VER_BUILD 0
 #define PNG_LIBPNG_BUILD_ALPHA 1
 #define PNG_LIBPNG_BUILD_BETA 2
@@ -38,7 +38,7 @@ type tm as tm_
 #define PNG_LIBPNG_BUILD_PRIVATE 16
 #define PNG_LIBPNG_BUILD_SPECIAL 32
 #define PNG_LIBPNG_BUILD_BASE_TYPE PNG_LIBPNG_BUILD_STABLE
-#define PNG_LIBPNG_VER 10412
+#define PNG_LIBPNG_VER 10413
 #define PNGCONF_H
 #define PNG_ZBUF_SIZE 8192
 #define PNG_READ_SUPPORTED
@@ -111,7 +111,7 @@ type tm as tm_
 #define PNG_USER_LIMITS_SUPPORTED
 #define PNG_USER_WIDTH_MAX cast(clong, 1000000)
 #define PNG_USER_HEIGHT_MAX cast(clong, 1000000)
-#define PNG_USER_CHUNK_CACHE_MAX 0
+#define PNG_USER_CHUNK_CACHE_MAX 32767
 #define PNG_USER_CHUNK_MALLOC_MAX 0
 #define PNG_IO_STATE_SUPPORTED
 #define PNG_LITERAL_SHARP &h23
@@ -672,7 +672,7 @@ type png_struct_def_
 	io_state as png_uint_32
 end type
 
-type version_1_4_12 as png_structp
+type version_1_4_13 as png_structp
 type png_structpp as png_struct ptr ptr
 
 declare function png_access_version_number() as png_uint_32
