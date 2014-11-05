@@ -1,6 +1,9 @@
 #pragma once
 
-#include once "crt/long.bi"
+#if (defined(__FB_LINUX__) and defined(__FB_64BIT__)) or (not defined(__FB_64BIT__))
+	#include once "crt/long.bi"
+#endif
+
 #include once "crt/stddef.bi"
 #include once "crt/limits.bi"
 
@@ -23,25 +26,64 @@
 extern "C"
 
 #define LIBFFI_H
-#define LIBFFI_TARGET_H
 
-type ffi_arg as culong
-type ffi_sarg as clong
+#if defined(__FB_WIN32__) and defined(__FB_64BIT__)
+	#define X86_WIN64
+#elseif defined(__FB_WIN32__) and (not defined(__FB_64BIT__))
+	#define X86_WIN32
+#else
+	#define X86
+#endif
+
+#define LIBFFI_TARGET_H
+#define X86_ANY
+
+#if defined(__FB_WIN32__) and defined(__FB_64BIT__)
+	#define FFI_SIZEOF_ARG 8
+	#define USE_BUILTIN_FFS 0
+
+	type ffi_arg as ulongint
+	type ffi_sarg as longint
+#else
+	type ffi_arg as culong
+	type ffi_sarg as clong
+#endif
 
 type ffi_abi as long
 enum
 	FFI_FIRST_ABI = 0
-	FFI_SYSV
-	FFI_UNIX64
-	FFI_THISCALL
-	FFI_FASTCALL
-	FFI_STDCALL
+
+	#if defined(__FB_WIN32__) and defined(__FB_64BIT__)
+		FFI_WIN64
+	#else
+		FFI_SYSV
+	#endif
+
+	#if defined(__FB_WIN32__) and (not defined(__FB_64BIT__))
+		FFI_STDCALL
+	#elseif defined(__FB_LINUX__)
+		FFI_UNIX64
+	#endif
+
+	#if (defined(__FB_LINUX__) and defined(__FB_64BIT__)) or (not defined(__FB_64BIT__))
+		FFI_THISCALL
+		FFI_FASTCALL
+	#endif
+
+	#if defined(__FB_WIN32__) and (not defined(__FB_64BIT__))
+		FFI_MS_CDECL
+	#elseif defined(__FB_LINUX__)
+		FFI_STDCALL
+	#endif
+
 	FFI_LAST_ABI
 
-	#if defined(__FB_64BIT__) and (defined(__FB_WIN32__) or defined(__FB_LINUX__))
-		FFI_DEFAULT_ABI = FFI_UNIX64
-	#else
+	#if defined(__FB_WIN32__) and defined(__FB_64BIT__)
+		FFI_DEFAULT_ABI = FFI_WIN64
+	#elseif not defined(__FB_64BIT__)
 		FFI_DEFAULT_ABI = FFI_SYSV
+	#else
+		FFI_DEFAULT_ABI = FFI_UNIX64
 	#endif
 end enum
 
@@ -50,8 +92,21 @@ end enum
 #define FFI_TYPE_SMALL_STRUCT_2B (FFI_TYPE_LAST + 2)
 #define FFI_TYPE_SMALL_STRUCT_4B (FFI_TYPE_LAST + 3)
 #define FFI_TYPE_MS_STRUCT (FFI_TYPE_LAST + 4)
-#define FFI_TRAMPOLINE_SIZE 10
-#define FFI_NATIVE_RAW_API 1
+
+#if defined(__FB_WIN32__) and defined(__FB_64BIT__)
+	#define FFI_TRAMPOLINE_SIZE 29
+	#define FFI_NATIVE_RAW_API 0
+	#define FFI_NO_RAW_API 1
+#elseif defined(__FB_WIN32__) and (not defined(__FB_64BIT__))
+	#define FFI_TRAMPOLINE_SIZE 52
+#else
+	#define FFI_TRAMPOLINE_SIZE 10
+#endif
+
+#if (defined(__FB_LINUX__) and defined(__FB_64BIT__)) or (not defined(__FB_64BIT__))
+	#define FFI_NATIVE_RAW_API 1
+#endif
+
 #define FFI_64_BIT_MAX 9223372036854775807
 #define FFI_LONG_LONG_MAX LLONG_MAX
 
@@ -71,7 +126,7 @@ type ffi_type as _ffi_type
 #define ffi_type_uint ffi_type_uint32
 #define ffi_type_sint ffi_type_sint32
 
-#if (defined(__FB_LINUX__) and (not defined(__FB_64BIT__))) or defined(__FB_DOS__) or defined(__FB_WIN32__)
+#if (defined(__FB_LINUX__) and (not defined(__FB_64BIT__))) or defined(__FB_WIN32__)
 	#define ffi_type_ulong ffi_type_uint32
 	#define ffi_type_slong ffi_type_sint32
 #else
@@ -113,9 +168,9 @@ end type
 
 declare function ffi_prep_cif_core(byval cif as ffi_cif ptr, byval abi as ffi_abi, byval isvariadic as ulong, byval nfixedargs as ulong, byval ntotalargs as ulong, byval rtype as ffi_type ptr, byval atypes as ffi_type ptr ptr) as ffi_status
 
-#if (defined(__FB_LINUX__) and (not defined(__FB_64BIT__))) or defined(__FB_DOS__) or defined(__FB_WIN32__)
+#ifndef __FB_64BIT__
 	#define FFI_SIZEOF_ARG 4
-#else
+#elseif defined(__FB_LINUX__) and defined(__FB_64BIT__)
 	#define FFI_SIZEOF_ARG 8
 #endif
 
@@ -126,10 +181,10 @@ union ffi_raw
 	uint as ffi_arg
 	flt as single
 
-	#if (defined(__FB_LINUX__) and (not defined(__FB_64BIT__))) or defined(__FB_DOS__) or defined(__FB_WIN32__)
-		data as zstring * 4
-	#else
+	#ifdef __FB_64BIT__
 		data as zstring * 8
+	#else
+		data as zstring * 4
 	#endif
 
 	ptr as any ptr
@@ -146,7 +201,13 @@ declare sub ffi_java_ptrarray_to_raw(byval cif as ffi_cif ptr, byval args as any
 declare sub ffi_java_raw_to_ptrarray(byval cif as ffi_cif ptr, byval raw as ffi_java_raw ptr, byval args as any ptr ptr)
 declare function ffi_java_raw_size(byval cif as ffi_cif ptr) as uinteger
 
-'' TODO: typedef struct { char tramp[10]; ffi_cif *cif; void (*fun)(ffi_cif*,void*,void**,void*); void *user_data;} ffi_closure __attribute__((aligned (8)));
+#if defined(__FB_WIN32__) and defined(__FB_64BIT__)
+	'' TODO: typedef struct { char tramp[29]; ffi_cif *cif; void (*fun)(ffi_cif*,void*,void**,void*); void *user_data;} ffi_closure __attribute__((aligned (8)));
+#elseif defined(__FB_WIN32__) and (not defined(__FB_64BIT__))
+	'' TODO: typedef struct { char tramp[52]; ffi_cif *cif; void (*fun)(ffi_cif*,void*,void**,void*); void *user_data;} ffi_closure __attribute__((aligned (8)));
+#else
+	'' TODO: typedef struct { char tramp[10]; ffi_cif *cif; void (*fun)(ffi_cif*,void*,void**,void*); void *user_data;} ffi_closure __attribute__((aligned (8)));
+#endif
 
 declare function ffi_closure_alloc(byval size as uinteger, byval code as any ptr ptr) as any ptr
 declare sub ffi_closure_free(byval as any ptr)
@@ -154,15 +215,41 @@ declare function ffi_prep_closure(byval as ffi_closure ptr, byval as ffi_cif ptr
 declare function ffi_prep_closure_loc(byval as ffi_closure ptr, byval as ffi_cif ptr, byval fun as sub(byval as ffi_cif ptr, byval as any ptr, byval as any ptr ptr, byval as any ptr), byval user_data as any ptr, byval codeloc as any ptr) as ffi_status
 
 type ffi_raw_closure
-	tramp as zstring * 10
+	#if defined(__FB_WIN32__) and defined(__FB_64BIT__)
+		tramp as zstring * 29
+	#elseif defined(__FB_WIN32__) and (not defined(__FB_64BIT__))
+		tramp as zstring * 52
+	#else
+		tramp as zstring * 10
+	#endif
+
 	cif as ffi_cif ptr
+
+	#if defined(__FB_WIN32__) and defined(__FB_64BIT__)
+		translate_args as sub(byval as ffi_cif ptr, byval as any ptr, byval as any ptr ptr, byval as any ptr)
+		this_closure as any ptr
+	#endif
+
 	fun as sub(byval as ffi_cif ptr, byval as any ptr, byval as ffi_raw ptr, byval as any ptr)
 	user_data as any ptr
 end type
 
 type ffi_java_raw_closure
-	tramp as zstring * 10
+	#if defined(__FB_WIN32__) and defined(__FB_64BIT__)
+		tramp as zstring * 29
+	#elseif defined(__FB_WIN32__) and (not defined(__FB_64BIT__))
+		tramp as zstring * 52
+	#else
+		tramp as zstring * 10
+	#endif
+
 	cif as ffi_cif ptr
+
+	#if defined(__FB_WIN32__) and defined(__FB_64BIT__)
+		translate_args as sub(byval as ffi_cif ptr, byval as any ptr, byval as any ptr ptr, byval as any ptr)
+		this_closure as any ptr
+	#endif
+
 	fun as sub(byval as ffi_cif ptr, byval as any ptr, byval as ffi_java_raw ptr, byval as any ptr)
 	user_data as any ptr
 end type

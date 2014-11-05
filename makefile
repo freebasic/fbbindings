@@ -52,13 +52,27 @@ cunit:
 FFI_TITLE := libffi-3.1
 ffi:
 	./downloadextract.sh $(FFI_TITLE) $(FFI_TITLE).tar.gz "ftp://sourceware.org/pub/libffi/$(FFI_TITLE).tar.gz"
-	# Run libffi's configure script in order to get ffi.h (and ffitarget.h)
-	# TODO: the chosen ffi.h/ffitarget.h settings depend on the host system,
-	# so it'd be better to generate the proper ffi.h manually for the
-	# targets we need.
-	cd extracted/$(FFI_TITLE) && \
-		if [ ! -f include/ffi.h ]; then ./configure --disable-builddir; fi
-	$(FBFROG) ffi.fbfrog -o inc extracted/$(FFI_TITLE)/include/ffi.h
+	# libffi's configure script generates ffi.h based on ffi.h.in (inserting @TARGET@)
+	# and symlinks ffitarget.h to ../src/<arch>/ffitarget.h.
+	# Both are target-specific, but since the process it's not very complex,
+	# we can avoid running configure for all our targets and generate the
+	# headers manually instead.
+	cd extracted/$(FFI_TITLE)/include && \
+		sed -e 's/@TARGET@/X86/g'       -e 's/@HAVE_LONG_DOUBLE@/1/g' -e 's/@FFI_EXEC_TRAMPOLINE_TABLE@/0/g' < ffi.h.in > ffi-x86.h       && \
+		sed -e 's/@TARGET@/X86_WIN32/g' -e 's/@HAVE_LONG_DOUBLE@/1/g' -e 's/@FFI_EXEC_TRAMPOLINE_TABLE@/0/g' < ffi.h.in > ffi-x86-win32.h && \
+		sed -e 's/@TARGET@/X86_WIN64/g' -e 's/@HAVE_LONG_DOUBLE@/1/g' -e 's/@FFI_EXEC_TRAMPOLINE_TABLE@/0/g' < ffi.h.in > ffi-x86-win64.h
+
+	$(FBFROG) ffi.fbfrog -o inc/ffi.bi \
+		-ifdef __FB_WIN32__						\
+			-ifdef __FB_64BIT__					\
+				extracted/$(FFI_TITLE)/include/ffi-x86-win64.h	\
+			-else							\
+				extracted/$(FFI_TITLE)/include/ffi-x86-win32.h	\
+			-endif							\
+		-else								\
+			extracted/$(FFI_TITLE)/include/ffi-x86.h		\
+		-endif								\
+		-incdir extracted/$(FFI_TITLE)/src/x86
 
 IUP_VERSION := 3.11.2
 IUP_TITLE := iup-3.11.2_Sources
