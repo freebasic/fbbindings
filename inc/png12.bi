@@ -696,9 +696,9 @@ declare sub png_write_chunk_start(byval png_ptr as png_structp, byval chunk_name
 declare sub png_write_chunk_data(byval png_ptr as png_structp, byval data_ as png_bytep, byval length as png_size_t)
 declare sub png_write_chunk_end(byval png_ptr as png_structp)
 declare function png_create_info_struct(byval png_ptr as png_structp) as png_infop
-declare sub png_info_init(byval info_ptr as png_infop)
+declare sub png_info_init_ alias "png_info_init"(byval info_ptr as png_infop)
 
-'' TODO: #define png_info_init(info_ptr) png_info_init_3(&info_ptr, png_sizeof(png_info));
+#define png_info_init(info_ptr) png_info_init_3(@info_ptr, png_sizeof(png_info))
 
 declare sub png_info_init_3(byval info_ptr as png_infopp, byval png_info_struct_size as png_size_t)
 declare sub png_write_info_before_PLTE(byval png_ptr as png_structp, byval info_ptr as png_infop)
