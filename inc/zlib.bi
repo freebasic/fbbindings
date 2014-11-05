@@ -199,17 +199,6 @@ type gzFile_s_
 end type
 
 declare function gzgetc_(byval file as gzFile) as long
-
-'' TODO: unrecognized construct:
-'' # define gzgetc(g) ((g)->have ? ((g)->have--, (g)->pos++, *((g)->next)++) : gzgetc(g))
-'' ---------------------------------------------------------------------------
-'' extracted/zlib-1.2.8/zlib.h(1682): expected ')' to close '(...)' parenthesized expression but found '--'
-''               ((g)->have ? ((g)->have--, (g)->pos++, *((g)->next)++) : gzgetc(g)
-''                                      ^~
-'' context as seen by fbfrog:
-''     # define gzgetc ( g ) ( ( g ) -> have ? ( ( g ) -> have -- , ( g ) -> pos ++
-''                                                             ^~
-
 declare function gzopen(byval as const zstring ptr, byval as const zstring ptr) as gzFile
 declare function gzseek(byval as gzFile, byval as clong, byval as long) as clong
 declare function gztell(byval as gzFile) as clong
