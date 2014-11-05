@@ -5,6 +5,8 @@
 #include once "crt/stdarg.bi"
 
 '' The following symbols have been renamed:
+''     inside struct z_stream_s:
+''         field opaque => opaque_
 ''     typedef Byte => Byte_
 ''     typedef uLong => uLong_
 ''     #define zlib_version => zlib_version_
@@ -42,8 +44,8 @@ type z_crc_t as culong
 #define ZLIB_VER_REVISION 8
 #define ZLIB_VER_SUBREVISION 0
 
-type alloc_func as function(byval opaque as voidpf, byval items as uInt, byval size as uInt) as voidpf
-type free_func as sub(byval opaque as voidpf, byval address as voidpf)
+type alloc_func as function(byval opaque_ as voidpf, byval items as uInt, byval size as uInt) as voidpf
+type free_func as sub(byval opaque_ as voidpf, byval address as voidpf)
 
 type z_stream_s
 	next_in as Bytef ptr
@@ -56,7 +58,7 @@ type z_stream_s
 	state as internal_state ptr
 	zalloc as alloc_func
 	zfree as free_func
-	opaque as voidpf
+	opaque_ as voidpf
 	data_type as long
 	adler as uLong_
 	reserved as uLong_

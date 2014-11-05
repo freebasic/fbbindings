@@ -1,7 +1,7 @@
 FBFROG := fbfrog
 FBC := fbc
 
-ALL := allegro cgui clang cunit ffi iup jit ncurses pdcurses png png12 png14 png15 png16 zip
+ALL := allegro cgui clang cunit ffi iup jit ncurses pdcurses png png12 png14 png15 png16 zip zlib
 
 .PHONY: all clean tests $(ALL)
 
