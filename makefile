@@ -123,9 +123,27 @@ iup:
 JIT_TITLE := libjit-a8293e141b79c28734a3633a81a43f92f29fc2d7
 jit:
 	./downloadextract.sh $(JIT_TITLE) $(JIT_TITLE).tar.gz "http://git.savannah.gnu.org/cgit/libjit.git/snapshot/$(JIT_TITLE).tar.gz"
+
+	# libjit symlinks jit-arch.h to jit-arch-{x86|x86-64}.h and generates
+	# jit-opcode.h (and jit-opcode-x86.h) during its build process.
 	cd extracted/$(JIT_TITLE) && \
-		if [ ! -f include/jit/jit-arch.h ]; then ./auto_gen.sh && ./configure && make; fi
-	$(FBFROG) jit.fbfrog -o inc extracted/$(JIT_TITLE)/include/jit/jit.h -incdir extracted/$(JIT_TITLE)/include
+		if [ ! -f include/jit/jit-opcode.h ]; then \
+			./auto_gen.sh && ./configure && make; \
+		fi
+
+	cd extracted/$(JIT_TITLE)/include/jit			&& \
+		rm -f jit-arch.h				&& \
+		mkdir -p x86/jit x86_64/jit			&& \
+		cp jit-arch-x86.h    x86/jit/jit-arch.h		&& \
+		cp jit-arch-x86-64.h x86_64/jit/jit-arch.h
+
+	$(FBFROG) jit.fbfrog -o inc extracted/$(JIT_TITLE)/include/jit/jit.h	\
+		-incdir extracted/$(JIT_TITLE)/include				\
+		-ifdef __FB_64BIT__						\
+			-incdir extracted/$(JIT_TITLE)/include/jit/x86_64	\
+		-else								\
+			-incdir extracted/$(JIT_TITLE)/include/jit/x86		\
+		-endif
 
 NCURSES_TITLE := ncurses-5.9
 ncurses:
