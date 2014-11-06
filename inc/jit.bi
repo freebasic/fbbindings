@@ -1,4 +1,5 @@
 #pragma once
+#inclib "jit"
 
 #include once "crt/longdouble.bi"
 
