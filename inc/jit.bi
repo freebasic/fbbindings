@@ -1551,7 +1551,18 @@ extern jit_opcodes(0 to 438) as const jit_opcode_info_t
 #define _JIT_UNWIND_H
 #define _JIT_ARCH_X86_H
 
-'' TODO: #define _JIT_ARCH_GET_CURRENT_FRAME(f) do { register void *__f asm("ebp"); f = __f; } while(0)
+#macro _JIT_ARCH_GET_CURRENT_FRAME(f)
+	scope
+		dim __f as any ptr
+		#ifdef __FB_64BIT__
+			asm mov qword ptr [__f], rbp
+		#else
+			asm mov dword ptr [__f], ebp
+		#endif
+		f = __f
+	end scope
+#endmacro
+
 
 type jit_unwind_context_t
 	frame as any ptr
@@ -1678,7 +1689,11 @@ declare function _jit_get_frame_address(byval start as any ptr, byval n as ulong
 #define jit_get_frame_address(n) _jit_get_frame_address(jit_get_current_frame(), (n))
 #define JIT_FAST_GET_CURRENT_FRAME 1
 
-'' TODO: # define jit_get_current_frame() ({ void *address; _JIT_ARCH_GET_CURRENT_FRAME(address); address; })
+private function jit_get_current_frame() as any ptr
+	dim address as any ptr
+	_JIT_ARCH_GET_CURRENT_FRAME(address)
+	function = address
+end function
 
 declare function _jit_get_next_frame_address(byval frame as any ptr) as any ptr
 
@@ -1693,7 +1708,7 @@ type jit_crawl_mark_t
 	mark as any ptr
 end type
 
-'' TODO: #define jit_declare_crawl_mark(name) jit_crawl_mark_t name = {0}
+#define jit_declare_crawl_mark(name) dim as jit_crawl_mark_t name = {0}
 
 declare function jit_frame_contains_crawl_mark(byval frame as any ptr, byval mark as jit_crawl_mark_t ptr) as long
 
