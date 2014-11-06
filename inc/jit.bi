@@ -37,7 +37,6 @@ type jit_objmodel as jit_objmodel_
 type jitom_class as jitom_class_
 type jitom_field as jitom_field_
 type jitom_method as jitom_method_
-type jit_opcode_info as jit_opcode_info_
 
 #if defined(__FB_64BIT__) and (defined(__FB_WIN32__) or defined(__FB_LINUX__))
 	type _jit_arch_frame as _jit_arch_frame_
@@ -1475,7 +1474,7 @@ declare function jitom_type_get_class(byval type_ as jit_type_t) as jitom_class_
 
 type jit_opcode_info_t as jit_opcode_info
 
-type jit_opcode_info_
+type jit_opcode_info
 	name as const zstring ptr
 	flags as long
 end type
