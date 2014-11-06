@@ -1649,7 +1649,7 @@ declare function jit_snprintf(byval str_ as zstring ptr, byval len_ as ulong, by
 
 #define _JIT_VALUE_H
 
-union __dummyid_12_extracted_libjit_a8293e141b79c28734a3633a81a43f92f29fc2d7_include_jit_jit_value
+union __dummyid_jit_value
 	ptr_value as any ptr
 	int_value as jit_int
 	uint_value as jit_uint
@@ -1664,7 +1664,7 @@ end union
 
 type jit_constant_t
 	as jit_type_t type
-	un as __dummyid_12_extracted_libjit_a8293e141b79c28734a3633a81a43f92f29fc2d7_include_jit_jit_value
+	un as __dummyid_jit_value
 end type
 
 declare function jit_value_create(byval func as jit_function_t, byval type_ as jit_type_t) as jit_value_t
