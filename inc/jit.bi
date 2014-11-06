@@ -20,28 +20,6 @@
 
 extern "C"
 
-type _jit_context as _jit_context_
-type _jit_function as _jit_function_
-type _jit_block as _jit_block_
-type _jit_insn as _jit_insn_
-type _jit_value as _jit_value_
-type _jit_type as _jit_type_
-type jit_stack_trace as jit_stack_trace_
-type jit_memory_manager as jit_memory_manager_
-type jit_closure_va_list as jit_closure_va_list_
-type jit_debugger as jit_debugger_
-type jit_readelf as jit_readelf_
-type jit_writeelf as jit_writeelf_
-type _jit_meta as _jit_meta_
-type jit_objmodel as jit_objmodel_
-type jitom_class as jitom_class_
-type jitom_field as jitom_field_
-type jitom_method as jitom_method_
-
-#if defined(__FB_64BIT__) and (defined(__FB_WIN32__) or defined(__FB_LINUX__))
-	type _jit_arch_frame as _jit_arch_frame_
-#endif
-
 #define _JIT_H
 #define _JIT_DEFS_H
 
