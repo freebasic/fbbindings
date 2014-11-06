@@ -1572,9 +1572,25 @@ extern jit_opcodes(0 to 438) as const jit_opcode_info_t
 		end scope
 	#endmacro
 
-	'' TODO: #define _JIT_ARCH_GET_NEXT_FRAME(n, f) do { (n) = (void *)((f) ? ((_jit_arch_frame_t *)(f))->next_frame : 0); } while(0)
-	'' TODO: #define _JIT_ARCH_GET_RETURN_ADDRESS(r, f) do { (r) = (void *)((f) ? ((_jit_arch_frame_t *)(f))->return_address : 0); } while(0)
-	'' TODO: #define _JIT_ARCH_GET_CURRENT_RETURN(r) do { void *__frame; _JIT_ARCH_GET_CURRENT_FRAME(__frame); _JIT_ARCH_GET_RETURN_ADDRESS((r), __frame); } while(0)
+	#macro _JIT_ARCH_GET_NEXT_FRAME(n, f)
+		scope
+			(n) = cptr(any ptr, iif((f), cptr(_jit_arch_frame_t ptr, (f))->next_frame, 0))
+		end scope
+	#endmacro
+
+	#macro _JIT_ARCH_GET_RETURN_ADDRESS(r, f)
+		scope
+			(r) = cptr(any ptr, iif((f), cptr(_jit_arch_frame_t ptr, (f))->return_address, 0))
+		end scope
+	#endmacro
+
+	#macro _JIT_ARCH_GET_CURRENT_RETURN(r)
+		scope
+			dim __frame as any ptr
+			_JIT_ARCH_GET_CURRENT_FRAME(__frame)
+			_JIT_ARCH_GET_RETURN_ADDRESS((r), __frame)
+		end scope
+	#endmacro
 #else
 	#define _JIT_ARCH_X86_H
 
@@ -1711,30 +1727,16 @@ declare function _jit_get_frame_address(byval start as any ptr, byval n as ulong
 
 #define jit_get_frame_address(n) _jit_get_frame_address(jit_get_current_frame(), (n))
 #define JIT_FAST_GET_CURRENT_FRAME 1
-
-private function jit_get_current_frame() as any ptr
-	dim address as any ptr
-	_JIT_ARCH_GET_CURRENT_FRAME(address)
-	function = address
-end function
+#define jit_get_current_frame() jit_get_frame_address(0)
 
 declare function _jit_get_next_frame_address(byval frame as any ptr) as any ptr
 
-#if defined(__FB_64BIT__) and (defined(__FB_WIN32__) or defined(__FB_LINUX__))
-	'' TODO: # define jit_get_next_frame_address(frame) ({ void *address; _JIT_ARCH_GET_NEXT_FRAME(address, (frame)); address; })
-#else
-	#define jit_get_next_frame_address(frame) _jit_get_next_frame_address(frame)
-#endif
+#define jit_get_next_frame_address(frame) _jit_get_next_frame_address(frame)
 
 declare function _jit_get_return_address(byval frame as any ptr, byval frame0 as any ptr, byval return0 as any ptr) as any ptr
 
-#if defined(__FB_64BIT__) and (defined(__FB_WIN32__) or defined(__FB_LINUX__))
-	'' TODO: # define jit_get_return_address(frame) ({ void *address; _JIT_ARCH_GET_RETURN_ADDRESS(address, (frame)); address; })
-	'' TODO: # define jit_get_current_return() ({ void *address; _JIT_ARCH_GET_CURRENT_RETURN(address); address; })
-#else
-	#define jit_get_return_address(frame) _jit_get_return_address((frame), __builtin_frame_address(0), __builtin_return_address(0))
-	#define jit_get_current_return() __builtin_return_address(0)
-#endif
+#define jit_get_return_address(frame) (_jit_get_return_address((frame), 0, 0))
+#define jit_get_current_return() (jit_get_return_address(jit_get_current_frame()))
 
 type jit_crawl_mark_t
 	mark as any ptr
