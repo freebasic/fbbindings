@@ -1,1 +1,1 @@
-#include once "../inc/ffi.bi"
+#include "ffi.bi"

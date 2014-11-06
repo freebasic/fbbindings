@@ -1,1 +1,1 @@
-#include once "../inc/png16.bi"
+#include "png16.bi"

@@ -1,1 +1,1 @@
-#include once "../inc/jit.bi"
+#include "jit.bi"

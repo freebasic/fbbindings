@@ -1,1 +1,1 @@
-#include once "../inc/zlib.bi"
+#include "zlib.bi"

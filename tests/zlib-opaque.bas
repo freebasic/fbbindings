@@ -2,4 +2,4 @@
 '' which uses "opaque" as identifier
 #define OPAQUE 2
 
-#include once "../inc/zlib.bi"
+#include "zlib.bi"
