@@ -86,7 +86,7 @@ type luaL_Buffer
 	size as uinteger
 	n as uinteger
 	L as lua_State ptr
-	initb as zstring * BUFSIZ
+	initb as zstring * LUAL_BUFFERSIZE
 end type
 
 '' TODO: #define luaL_addchar(B,c) ((void)((B)->n < (B)->size || luaL_prepbuffsize((B), 1)), ((B)->b[(B)->n++] = (c)))

@@ -8,3 +8,4 @@
 -removedefine LUAI_DDEF
 
 -noexpand LUA_IDSIZE
+-noexpand LUAL_BUFFERSIZE
