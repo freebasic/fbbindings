@@ -8,6 +8,7 @@
 '' The following symbols have been renamed:
 ''     #define LUA_NUMBER => LUA_NUMBER_
 ''     #define LUA_INTEGER => LUA_INTEGER_
+''     #define LUA_VERSION => LUA_VERSION_
 ''     #define lua_yield => lua_yield_
 
 extern "C"
@@ -26,31 +27,41 @@ type CallInfo as CallInfo_
 	#define LUA_LDIR !"!\\lua\\"
 	#define LUA_CDIR !"!\\"
 
-	'' TODO: #define LUA_PATH_DEFAULT LUA_LDIR"\?.lua;" LUA_LDIR"\?\\init.lua;" LUA_CDIR"\?.lua;" LUA_CDIR"\?\\init.lua;" ".\\\?.lua"
-	'' TODO: #define LUA_CPATH_DEFAULT LUA_CDIR"\?.dll;" LUA_CDIR"loadall.dll;" ".\\\?.dll"
+	#define LUA_PATH_DEFAULT _
+		LUA_LDIR "?.lua;" LUA_LDIR !"?\\init.lua;" _
+		LUA_CDIR "?.lua;" LUA_CDIR !"?\\init.lua;" !".\\?.lua"
+
+	#define LUA_CPATH_DEFAULT _
+		LUA_CDIR "?.dll;" LUA_CDIR  "loadall.dll;" !".\\?.dll"
 
 	#define LUA_DIRSEP !"\\"
 #else
-	'' TODO: #define LUA_VDIR LUA_VERSION_MAJOR "." LUA_VERSION_MINOR "/"
-
+	#define LUA_VDIR LUA_VERSION_MAJOR "." LUA_VERSION_MINOR "/"
 	#define LUA_ROOT "/usr/local/"
+	#define LUA_LDIR LUA_ROOT "share/lua/" LUA_VDIR
+	#define LUA_CDIR LUA_ROOT "lib/lua/" LUA_VDIR
 
-	'' TODO: #define LUA_LDIR LUA_ROOT "share/lua/" LUA_VDIR
-	'' TODO: #define LUA_CDIR LUA_ROOT "lib/lua/" LUA_VDIR
-	'' TODO: #define LUA_PATH_DEFAULT LUA_LDIR"\?.lua;" LUA_LDIR"\?/init.lua;" LUA_CDIR"\?.lua;" LUA_CDIR"\?/init.lua;" "./\?.lua"
-	'' TODO: #define LUA_CPATH_DEFAULT LUA_CDIR"\?.so;" LUA_CDIR"loadall.so;" "./\?.so"
+	#define LUA_PATH_DEFAULT _
+		LUA_LDIR "?.lua;" LUA_LDIR "?/init.lua;" _
+		LUA_CDIR "?.lua;" LUA_CDIR "?/init.lua;" "./?.lua"
+
+	#define LUA_CPATH_DEFAULT _
+		LUA_CDIR "?.so;" LUA_CDIR "loadall.so;" "./?.so"
 
 	#define LUA_DIRSEP "/"
 #endif
 
 #define LUA_ENV "_ENV"
-
-'' TODO: #define LUA_QL(x) "\'" x "\'"
-
+#define LUA_QL(x) "'" x "'"
 #define LUA_QS LUA_QL("%s")
 #define LUA_IDSIZE 60
 
-'' TODO: #define luai_writestringerror(s,p) (fprintf(stderr, (s), (p)), fflush(stderr))
+#macro luai_writestringerror(s, p)
+	scope
+		fprintf(stderr, (s), (p))
+		fflush(stderr)
+	end scope
+#endmacro
 
 #define LUAI_MAXSHORTLEN 40
 #define LUAI_BITSINT 16
@@ -70,8 +81,7 @@ type CallInfo as CallInfo_
 #define l_mathop(x) (x)
 #define lua_str2number(s, p) strtod((s), (p))
 #define LUA_INTEGER_ integer
-
-'' TODO: #define LUA_UNSIGNED unsigned LUA_INT32
+#define LUA_UNSIGNED culong
 
 #define LUA_IEEE754TRICK
 
@@ -89,11 +99,9 @@ type CallInfo as CallInfo_
 #define LUA_VERSION_MINOR "2"
 #define LUA_VERSION_NUM 502
 #define LUA_VERSION_RELEASE "3"
-
-'' TODO: #define LUA_VERSION "Lua " LUA_VERSION_MAJOR "." LUA_VERSION_MINOR
-'' TODO: #define LUA_RELEASE LUA_VERSION "." LUA_VERSION_RELEASE
-'' TODO: #define LUA_COPYRIGHT LUA_RELEASE "  Copyright (C) 1994-2013 Lua.org, PUC-Rio"
-
+#define LUA_VERSION_ "Lua " LUA_VERSION_MAJOR "." LUA_VERSION_MINOR
+#define LUA_RELEASE LUA_VERSION_ "." LUA_VERSION_RELEASE
+#define LUA_COPYRIGHT LUA_RELEASE "  Copyright (C) 1994-2013 Lua.org, PUC-Rio"
 #define LUA_AUTHORS "R. Ierusalimschy, L. H. de Figueiredo, W. Celes"
 #define LUA_SIGNATURE !"\27Lua"
 #define LUA_MULTRET (-1)
@@ -132,7 +140,7 @@ type lua_Number as double
 type lua_Integer as integer
 type lua_Unsigned as culong
 
-'' TODO: extern const char lua_ident[];
+extern lua_ident as const zstring * len("$LuaVersion: " LUA_COPYRIGHT " $" "$LuaAuthors: " LUA_AUTHORS " $")
 
 declare function lua_newstate(byval f as lua_Alloc, byval ud as any ptr) as lua_State ptr
 declare sub lua_close(byval L as lua_State ptr)
@@ -256,9 +264,12 @@ declare sub lua_setallocf(byval L as lua_State ptr, byval f as lua_Alloc, byval 
 #define lua_tounsigned(L, i) lua_tounsignedx(L, i, NULL)
 #define lua_pop(L, n) lua_settop(L, (-(n)) - 1)
 #define lua_newtable(L) lua_createtable(L, 0, 0)
-
-'' TODO: #define lua_register(L,n,f) (lua_pushcfunction(L, (f)), lua_setglobal(L, (n)))
-
+#macro lua_register(L, n, f)
+	scope
+		lua_pushcfunction(L, (f))
+		lua_setglobal(L, (n))
+	end scope
+#endmacro
 #define lua_pushcfunction(L, f) lua_pushcclosure(L, (f), 0)
 #define lua_isfunction(L, n) (lua_type(L, (n)) = LUA_TFUNCTION)
 #define lua_istable(L, n) (lua_type(L, (n)) = LUA_TTABLE)
@@ -268,9 +279,7 @@ declare sub lua_setallocf(byval L as lua_State ptr, byval f as lua_Alloc, byval 
 #define lua_isthread(L, n) (lua_type(L, (n)) = LUA_TTHREAD)
 #define lua_isnone(L, n) (lua_type(L, (n)) = LUA_TNONE)
 #define lua_isnoneornil(L, n) (lua_type(L, (n)) <= 0)
-
-'' TODO: #define lua_pushliteral(L, s) lua_pushlstring(L, "" s, (sizeof(s)/sizeof(char))-1)
-
+#define lua_pushliteral(L, s) lua_pushlstring(L, "" s, len(s)-1)
 #define lua_pushglobaltable(L) lua_rawgeti(L, LUA_REGISTRYINDEX, LUA_RIDX_GLOBALS)
 #define lua_tostring(L, i) lua_tolstring(L, (i), NULL)
 #define LUA_HOOKCALL 0
