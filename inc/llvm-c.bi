@@ -1,11 +1,9 @@
 #pragma once
 
 #include once "crt/math.bi"
-#include once "inttypes.bi"
 #include once "crt/stdint.bi"
 #include once "crt/sys/types.bi"
 #include once "crt/stddef.bi"
-#include once "stdbool.bi"
 
 '' The following symbols have been renamed:
 ''     procedure LLVMInitializeCore => LLVMInitializeCore_
