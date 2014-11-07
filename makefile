@@ -1,6 +1,6 @@
 FBFROG := fbfrog
 
-ALL := allegro cgui clang cunit ffi iup jit ncurses pdcurses png png12 png14 png15 png16 zip zlib
+ALL := allegro cgui clang cunit ffi iup jit llvm ncurses pdcurses png png12 png14 png15 png16 zip zlib
 
 .PHONY: all clean $(ALL)
 
@@ -144,6 +144,41 @@ jit:
 		-else								\
 			-incdir extracted/$(JIT_TITLE)/include/jit/x86		\
 		-endif
+
+LLVM_VERSION := 3.5.0
+LLVM_TITLE := llvm-$(LLVM_VERSION).src
+llvm:
+	./downloadextract.sh $(LLVM_TITLE) $(LLVM_TITLE).tar.xz "http://llvm.org/releases/$(LLVM_VERSION)/$(LLVM_TITLE).tar.xz"
+
+	cd extracted/$(LLVM_TITLE) && \
+		if [ ! -f include/llvm/Config/Targets.def ]; then ./configure --prefix=/usr; fi
+
+	$(FBFROG) -o inc/llvm-c.bi \
+		-define __STDC_LIMIT_MACROS 1 \
+		-define __STDC_CONSTANT_MACROS 1 \
+		-incdir extracted/$(LLVM_TITLE)/include \
+		extracted/$(LLVM_TITLE)/include/llvm-c/Analysis.h		\
+		extracted/$(LLVM_TITLE)/include/llvm-c/BitReader.h		\
+		extracted/$(LLVM_TITLE)/include/llvm-c/BitWriter.h		\
+		extracted/$(LLVM_TITLE)/include/llvm-c/Core.h			\
+		extracted/$(LLVM_TITLE)/include/llvm-c/Disassembler.h		\
+		extracted/$(LLVM_TITLE)/include/llvm-c/ExecutionEngine.h	\
+		extracted/$(LLVM_TITLE)/include/llvm-c/Initialization.h		\
+		extracted/$(LLVM_TITLE)/include/llvm-c/IRReader.h		\
+		extracted/$(LLVM_TITLE)/include/llvm-c/Linker.h			\
+		extracted/$(LLVM_TITLE)/include/llvm-c/LinkTimeOptimizer.h	\
+		extracted/$(LLVM_TITLE)/include/llvm-c/lto.h			\
+		extracted/$(LLVM_TITLE)/include/llvm-c/Object.h			\
+		extracted/$(LLVM_TITLE)/include/llvm-c/Support.h		\
+		extracted/$(LLVM_TITLE)/include/llvm-c/Target.h			\
+		extracted/$(LLVM_TITLE)/include/llvm-c/TargetMachine.h		\
+		-removedefine HAVE_INTTYPES_H	\
+		-removedefine HAVE_STDINT_H	\
+		-removedefine HAVE_UINT64_T	\
+		-removedefine INT64_MAX		\
+		-removedefine INT64_MIN		\
+		-removedefine UINT64_MAX	\
+		-removedefine HUGE_VALF
 
 NCURSES_TITLE := ncurses-5.9
 ncurses:
