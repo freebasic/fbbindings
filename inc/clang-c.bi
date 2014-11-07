@@ -2,18 +2,57 @@
 
 #include once "crt/long.bi"
 #include once "crt/time.bi"
-#include once "clang-c/Platform.bi"
-#include once "clang-c/CXErrorCode.bi"
-#include once "clang-c/CXString.bi"
-#include once "clang-c/BuildSystem.bi"
-#include once "clang-c/Documentation.bi"
 
 extern "C"
 
+type CXVirtualFileOverlayImpl as CXVirtualFileOverlayImpl_
+type CXModuleMapDescriptorImpl as CXModuleMapDescriptorImpl_
 type CXTranslationUnitImpl as CXTranslationUnitImpl_
 type CXCursorSetImpl as CXCursorSetImpl_
 
 #define CLANG_C_INDEX_H
+#define CLANG_C_PLATFORM_H
+#define CLANG_C_CXERRORCODE_H
+
+type CXErrorCode as long
+enum
+	CXError_Success = 0
+	CXError_Failure = 1
+	CXError_Crashed = 2
+	CXError_InvalidArguments = 3
+	CXError_ASTReadError = 4
+end enum
+
+#define CLANG_CXSTRING_H
+
+type CXString
+	data as const any ptr
+	private_flags as ulong
+end type
+
+declare function clang_getCString(byval string_ as CXString) as const zstring ptr
+declare sub clang_disposeString(byval string_ as CXString)
+
+#define CLANG_C_BUILD_SYSTEM_H
+
+declare function clang_getBuildSessionTimestamp() as ulongint
+
+type CXVirtualFileOverlay as CXVirtualFileOverlayImpl ptr
+
+declare function clang_VirtualFileOverlay_create(byval options as ulong) as CXVirtualFileOverlay
+declare function clang_VirtualFileOverlay_addFileMapping(byval as CXVirtualFileOverlay, byval virtualPath as const zstring ptr, byval realPath as const zstring ptr) as CXErrorCode
+declare function clang_VirtualFileOverlay_setCaseSensitivity(byval as CXVirtualFileOverlay, byval caseSensitive as long) as CXErrorCode
+declare function clang_VirtualFileOverlay_writeToBuffer(byval as CXVirtualFileOverlay, byval options as ulong, byval out_buffer_ptr as zstring ptr ptr, byval out_buffer_size as ulong ptr) as CXErrorCode
+declare sub clang_VirtualFileOverlay_dispose(byval as CXVirtualFileOverlay)
+
+type CXModuleMapDescriptor as CXModuleMapDescriptorImpl ptr
+
+declare function clang_ModuleMapDescriptor_create(byval options as ulong) as CXModuleMapDescriptor
+declare function clang_ModuleMapDescriptor_setFrameworkModuleName(byval as CXModuleMapDescriptor, byval name_ as const zstring ptr) as CXErrorCode
+declare function clang_ModuleMapDescriptor_setUmbrellaHeader(byval as CXModuleMapDescriptor, byval name_ as const zstring ptr) as CXErrorCode
+declare function clang_ModuleMapDescriptor_writeToBuffer(byval as CXModuleMapDescriptor, byval options as ulong, byval out_buffer_ptr as zstring ptr ptr, byval out_buffer_size as ulong ptr) as CXErrorCode
+declare sub clang_ModuleMapDescriptor_dispose(byval as CXModuleMapDescriptor)
+
 #define CINDEX_VERSION_MAJOR 0
 #define CINDEX_VERSION_MINOR 27
 #define CINDEX_VERSION_ENCODE(major, minor) (((major) * 10000) + ((minor) * 1))
@@ -1152,5 +1191,106 @@ declare function clang_indexSourceFile(byval as CXIndexAction, byval client_data
 declare function clang_indexTranslationUnit(byval as CXIndexAction, byval client_data as CXClientData, byval index_callbacks as IndexerCallbacks ptr, byval index_callbacks_size as ulong, byval index_options as ulong, byval as CXTranslationUnit) as long
 declare sub clang_indexLoc_getFileLocation(byval loc_ as CXIdxLoc, byval indexFile as CXIdxClientFile ptr, byval file as CXFile ptr, byval line_ as ulong ptr, byval column as ulong ptr, byval offset as ulong ptr)
 declare function clang_indexLoc_getCXSourceLocation(byval loc_ as CXIdxLoc) as CXSourceLocation
+
+#define CLANG_C_DOCUMENTATION_H
+
+type CXComment
+	ASTNode as const any ptr
+	TranslationUnit as CXTranslationUnit
+end type
+
+declare function clang_Cursor_getParsedComment(byval C as CXCursor) as CXComment
+
+type CXCommentKind as long
+enum
+	CXComment_Null = 0
+	CXComment_Text = 1
+	CXComment_InlineCommand = 2
+	CXComment_HTMLStartTag = 3
+	CXComment_HTMLEndTag = 4
+	CXComment_Paragraph = 5
+	CXComment_BlockCommand = 6
+	CXComment_ParamCommand = 7
+	CXComment_TParamCommand = 8
+	CXComment_VerbatimBlockCommand = 9
+	CXComment_VerbatimBlockLine = 10
+	CXComment_VerbatimLine = 11
+	CXComment_FullComment = 12
+end enum
+
+type CXCommentInlineCommandRenderKind as long
+enum
+	CXCommentInlineCommandRenderKind_Normal
+	CXCommentInlineCommandRenderKind_Bold
+	CXCommentInlineCommandRenderKind_Monospaced
+	CXCommentInlineCommandRenderKind_Emphasized
+end enum
+
+type CXCommentParamPassDirection as long
+enum
+	CXCommentParamPassDirection_In
+	CXCommentParamPassDirection_Out
+	CXCommentParamPassDirection_InOut
+end enum
+
+declare function clang_Comment_getKind(byval Comment as CXComment) as CXCommentKind
+declare function clang_Comment_getNumChildren(byval Comment as CXComment) as ulong
+declare function clang_Comment_getChild(byval Comment as CXComment, byval ChildIdx as ulong) as CXComment
+declare function clang_Comment_isWhitespace(byval Comment as CXComment) as ulong
+declare function clang_InlineContentComment_hasTrailingNewline(byval Comment as CXComment) as ulong
+declare function clang_TextComment_getText(byval Comment as CXComment) as CXString
+declare function clang_InlineCommandComment_getCommandName(byval Comment as CXComment) as CXString
+declare function clang_InlineCommandComment_getRenderKind(byval Comment as CXComment) as CXCommentInlineCommandRenderKind
+declare function clang_InlineCommandComment_getNumArgs(byval Comment as CXComment) as ulong
+declare function clang_InlineCommandComment_getArgText(byval Comment as CXComment, byval ArgIdx as ulong) as CXString
+declare function clang_HTMLTagComment_getTagName(byval Comment as CXComment) as CXString
+declare function clang_HTMLStartTagComment_isSelfClosing(byval Comment as CXComment) as ulong
+declare function clang_HTMLStartTag_getNumAttrs(byval Comment as CXComment) as ulong
+declare function clang_HTMLStartTag_getAttrName(byval Comment as CXComment, byval AttrIdx as ulong) as CXString
+declare function clang_HTMLStartTag_getAttrValue(byval Comment as CXComment, byval AttrIdx as ulong) as CXString
+declare function clang_BlockCommandComment_getCommandName(byval Comment as CXComment) as CXString
+declare function clang_BlockCommandComment_getNumArgs(byval Comment as CXComment) as ulong
+declare function clang_BlockCommandComment_getArgText(byval Comment as CXComment, byval ArgIdx as ulong) as CXString
+declare function clang_BlockCommandComment_getParagraph(byval Comment as CXComment) as CXComment
+declare function clang_ParamCommandComment_getParamName(byval Comment as CXComment) as CXString
+declare function clang_ParamCommandComment_isParamIndexValid(byval Comment as CXComment) as ulong
+declare function clang_ParamCommandComment_getParamIndex(byval Comment as CXComment) as ulong
+declare function clang_ParamCommandComment_isDirectionExplicit(byval Comment as CXComment) as ulong
+declare function clang_ParamCommandComment_getDirection(byval Comment as CXComment) as CXCommentParamPassDirection
+declare function clang_TParamCommandComment_getParamName(byval Comment as CXComment) as CXString
+declare function clang_TParamCommandComment_isParamPositionValid(byval Comment as CXComment) as ulong
+declare function clang_TParamCommandComment_getDepth(byval Comment as CXComment) as ulong
+declare function clang_TParamCommandComment_getIndex(byval Comment as CXComment, byval Depth as ulong) as ulong
+declare function clang_VerbatimBlockLineComment_getText(byval Comment as CXComment) as CXString
+declare function clang_VerbatimLineComment_getText(byval Comment as CXComment) as CXString
+declare function clang_HTMLTagComment_getAsString(byval Comment as CXComment) as CXString
+declare function clang_FullComment_getAsHTML(byval Comment as CXComment) as CXString
+declare function clang_FullComment_getAsXML(byval Comment as CXComment) as CXString
+
+#define CLANG_CXCOMPILATIONDATABASE_H
+
+type CXCompilationDatabase as any ptr
+type CXCompileCommands as any ptr
+type CXCompileCommand as any ptr
+
+type CXCompilationDatabase_Error as long
+enum
+	CXCompilationDatabase_NoError = 0
+	CXCompilationDatabase_CanNotLoadDatabase = 1
+end enum
+
+declare function clang_CompilationDatabase_fromDirectory(byval BuildDir as const zstring ptr, byval ErrorCode as CXCompilationDatabase_Error ptr) as CXCompilationDatabase
+declare sub clang_CompilationDatabase_dispose(byval as CXCompilationDatabase)
+declare function clang_CompilationDatabase_getCompileCommands(byval as CXCompilationDatabase, byval CompleteFileName as const zstring ptr) as CXCompileCommands
+declare function clang_CompilationDatabase_getAllCompileCommands(byval as CXCompilationDatabase) as CXCompileCommands
+declare sub clang_CompileCommands_dispose(byval as CXCompileCommands)
+declare function clang_CompileCommands_getSize(byval as CXCompileCommands) as ulong
+declare function clang_CompileCommands_getCommand(byval as CXCompileCommands, byval I as ulong) as CXCompileCommand
+declare function clang_CompileCommand_getDirectory(byval as CXCompileCommand) as CXString
+declare function clang_CompileCommand_getNumArgs(byval as CXCompileCommand) as ulong
+declare function clang_CompileCommand_getArg(byval as CXCompileCommand, byval I as ulong) as CXString
+declare function clang_CompileCommand_getNumMappedSources(byval as CXCompileCommand) as ulong
+declare function clang_CompileCommand_getMappedSourcePath(byval as CXCompileCommand, byval I as ulong) as CXString
+declare function clang_CompileCommand_getMappedSourceContent(byval as CXCompileCommand, byval I as ulong) as CXString
 
 end extern
