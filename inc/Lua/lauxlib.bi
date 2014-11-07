@@ -78,8 +78,12 @@ declare sub luaL_requiref(byval L as lua_State ptr, byval modname as const zstri
 #define luaL_checklong(L, n) cast(clong, luaL_checkinteger(L, (n)))
 #define luaL_optlong(L, n, d) cast(clong, luaL_optinteger(L, (n), (d)))
 #define luaL_typename(L, i) lua_typename(L, lua_type(L, (i)))
-#define luaL_dofile(L, fn) (luaL_loadfile(L, fn) orelse lua_pcall(L, 0, LUA_MULTRET, 0))
-#define luaL_dostring(L, s) (luaL_loadstring(L, s) orelse lua_pcall(L, 0, LUA_MULTRET, 0))
+private function luaL_dofile(byval L as lua_State ptr, byval fn as const zstring ptr) as long
+	function = (luaL_loadfile(L, fn) orelse lua_pcall(L, 0, LUA_MULTRET, 0))
+end function
+private function luaL_dostring(byval L as lua_State ptr, byval s as const zstring ptr) as long
+	function = (luaL_loadstring(L, s) orelse lua_pcall(L, 0, LUA_MULTRET, 0))
+end function
 #define luaL_getmetatable(L, n) lua_getfield(L, LUA_REGISTRYINDEX, (n))
 #define luaL_opt(L, f, n, d) iif(lua_isnoneornil(L, (n)), (d), f(L, (n)))
 #define luaL_loadbuffer(L, s, sz, n) luaL_loadbufferx(L, s, sz, n, NULL)
