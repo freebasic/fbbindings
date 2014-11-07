@@ -1,4 +1,5 @@
 #pragma once
+#inclib "lua"
 
 #include once "crt/stdarg.bi"
 #include once "crt/stddef.bi"
