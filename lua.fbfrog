@@ -1,0 +1,8 @@
+-removedefine LUA_API
+-removedefine LUALIB_API
+-removedefine LUAMOD_API
+-removedefine LUAI_FUNC
+-removedefine LUAI_DDEC
+-removedefine LUAI_DDEF
+
+-noexpand LUA_IDSIZE

@@ -1,6 +1,6 @@
 FBFROG := fbfrog
 
-ALL := allegro cgui clang cunit ffi iup jit llvm ncurses pdcurses png png12 png14 png15 png16 zip zlib
+ALL := allegro cgui clang cunit ffi iup jit llvm lua ncurses pdcurses png png12 png14 png15 png16 zip zlib
 
 .PHONY: all clean $(ALL)
 
@@ -180,6 +180,14 @@ llvm:
 		-removedefine INT64_MIN		\
 		-removedefine UINT64_MAX	\
 		-removedefine HUGE_VALF
+
+LUA_TITLE := lua-5.2.3
+lua:
+	./downloadextract.sh $(LUA_TITLE) $(LUA_TITLE).tar.gz "http://www.lua.org/ftp/$(LUA_TITLE).tar.gz"
+	mkdir -p inc/Lua
+	$(FBFROG) lua.fbfrog -o inc/Lua/lua.bi     extracted/$(LUA_TITLE)/src/lua.h
+	$(FBFROG) lua.fbfrog -o inc/Lua/lualib.bi  extracted/$(LUA_TITLE)/src/lualib.h  -filterout '*lua.h'
+	$(FBFROG) lua.fbfrog -o inc/Lua/lauxlib.bi extracted/$(LUA_TITLE)/src/lauxlib.h -filterout '*lua.h'
 
 NCURSES_TITLE := ncurses-5.9
 ncurses:
