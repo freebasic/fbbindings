@@ -64,9 +64,12 @@ declare sub luaL_traceback(byval L as lua_State ptr, byval L1 as lua_State ptr, 
 declare sub luaL_requiref(byval L as lua_State ptr, byval modname as const zstring ptr, byval openf as lua_CFunction, byval glb as long)
 
 #define luaL_newlibtable(L, l_) lua_createtable(L, 0, (ubound(l_) - lbound(l_) + 1) - 1)
-
-'' TODO: #define luaL_newlib(L,l) (luaL_newlibtable(L,l), luaL_setfuncs(L,l,0))
-
+#macro luaL_newlib(L, l_)
+	scope
+		luaL_newlibtable(L, l_)
+		luaL_setfuncs(L, l_, 0)
+	end scope
+#endmacro
 #define luaL_argcheck(L, cond, numarg, extramsg) cast(any, -((cond) orelse luaL_argerror(L, (numarg), (extramsg))))
 #define luaL_checkstring(L, n) luaL_checklstring(L, (n), NULL)
 #define luaL_optstring(L, n, d) luaL_optlstring(L, (n), (d), NULL)
