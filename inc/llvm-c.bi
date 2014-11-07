@@ -914,12 +914,24 @@ declare function LLVMDisasmInstruction(byval DC as LLVMDisasmContextRef, byval B
 #define LLVM_BINDIR "/usr/bin"
 #define LLVM_CONFIGTIME "Fri Nov  7 17:30:50 CET 2014"
 #define LLVM_DATADIR "/usr/share/llvm"
-#define LLVM_DEFAULT_TARGET_TRIPLE "i686-pc-linux-gnu"
+#ifdef __FB_WIN32__
+	#ifdef __FB_64BIT__
+		#define LLVM_DEFAULT_TARGET_TRIPLE "x86_64-w64-mingw32"
+	#else
+		#define LLVM_DEFAULT_TARGET_TRIPLE "i686-w64-mingw32"
+	#endif
+#else
+	#ifdef __FB_64BIT__
+		#define LLVM_DEFAULT_TARGET_TRIPLE "x86_64-pc-linux-gnu"
+	#else
+		#define LLVM_DEFAULT_TARGET_TRIPLE "i686-pc-linux-gnu"
+	#endif
+#endif
 #define LLVM_DOCSDIR "/usr/share/doc/llvm"
 #define LLVM_ENABLE_THREADS 1
 #define LLVM_ETCDIR "/usr/etc/llvm"
 #define LLVM_HAS_ATOMICS 1
-#define LLVM_HOST_TRIPLE "i686-pc-linux-gnu"
+#define LLVM_HOST_TRIPLE LLVM_DEFAULT_TARGET_TRIPLE
 #define LLVM_INCLUDEDIR "/usr/include"
 #define LLVM_INFODIR "/usr/info"
 #define LLVM_MANDIR "/usr/man"
@@ -930,7 +942,9 @@ declare function LLVMDisasmInstruction(byval DC as LLVMDisasmContextRef, byval B
 #define LLVM_NATIVE_TARGET LLVMInitializeX86Target
 #define LLVM_NATIVE_TARGETINFO LLVMInitializeX86TargetInfo
 #define LLVM_NATIVE_TARGETMC LLVMInitializeX86TargetMC
-#define LLVM_ON_UNIX 1
+#ifdef __FB_UNIX__
+	#define LLVM_ON_UNIX 1
+#endif
 #define LLVM_PREFIX "/usr"
 #define LLVM_USE_INTEL_JITEVENTS 0
 #define LLVM_USE_OPROFILE 0
