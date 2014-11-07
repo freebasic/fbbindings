@@ -17,8 +17,6 @@ type DATAFILE as DATAFILE_
 #define CGUI_H
 #define CGUI_HAS_INLINE
 #define CGUI_INLINE_PROVIDE_CODE
-#define cgui_va_arg_p(a, b) va_arg(*a, b)
-#define CGUI_PRINTFUNC(type, name, args, a, b) CGUI_FUNC(type, name, args)
 #define CGUI_VERSION_MAJOR 2
 #define CGUI_VERSION_MINOR 0
 #define CGUI_VERSION_PATCH 3
