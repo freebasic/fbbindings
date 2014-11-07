@@ -1,3 +1,5 @@
+-include limits.h
+
 -removedefine LUA_API
 -removedefine LUALIB_API
 -removedefine LUAMOD_API
