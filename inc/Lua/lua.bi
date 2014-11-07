@@ -7,6 +7,7 @@
 '' The following symbols have been renamed:
 ''     #define LUA_NUMBER => LUA_NUMBER_
 ''     #define LUA_INTEGER => LUA_INTEGER_
+''     #define LUA_UNSIGNED => LUA_UNSIGNED_
 ''     #define LUA_VERSION => LUA_VERSION_
 ''     #define lua_yield => lua_yield_
 
@@ -80,7 +81,7 @@ type CallInfo as CallInfo_
 #define l_mathop(x) (x)
 #define lua_str2number(s, p) strtod((s), (p))
 #define LUA_INTEGER_ integer
-#define LUA_UNSIGNED ulong
+#define LUA_UNSIGNED_ ulong
 
 #define LUA_IEEE754TRICK
 
