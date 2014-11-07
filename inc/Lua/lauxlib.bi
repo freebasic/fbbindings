@@ -89,7 +89,7 @@ type luaL_Buffer
 	size as uinteger
 	n as uinteger
 	L as lua_State ptr
-	initb as zstring * BUFSIZ
+	initb as zstring * LUAL_BUFFERSIZE
 end type
 
 #macro luaL_addchar(B,c)
@@ -118,5 +118,10 @@ type luaL_Stream
 	f as FILE ptr
 	closef as lua_CFunction
 end type
+
+declare sub luaL_pushmodule(byval L as lua_State ptr, byval modname as const zstring ptr, byval sizehint as long)
+declare sub luaL_openlib(byval L as lua_State ptr, byval libname as const zstring ptr, byval l_ as const luaL_Reg ptr, byval nup as long)
+
+#define luaL_register(L, n, l) luaL_openlib(L, (n), (l), 0)
 
 end extern
