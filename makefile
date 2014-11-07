@@ -80,6 +80,7 @@ IUP_VERSION := 3.11.2
 IUP_TITLE := iup-3.11.2_Sources
 iup:
 	./downloadextract.sh iup $(IUP_TITLE).tar.gz "http://sourceforge.net/projects/iup/files/$(IUP_VERSION)/Docs%20and%20Sources/$(IUP_TITLE).tar.gz/download"
+	find extracted/iup/ -type d -exec chmod +x '{}' ';'
 	mkdir -p inc/IUP
 	$(FBFROG) -o inc/IUP -filterout '*' extracted/iup/include/iupcb.h
 	$(FBFROG) -o inc/IUP -filterout '*' extracted/iup/include/iupcbox.h
