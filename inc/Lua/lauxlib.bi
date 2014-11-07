@@ -89,7 +89,7 @@ type luaL_Buffer
 	size as uinteger
 	n as uinteger
 	L as lua_State ptr
-	initb as zstring * LUAL_BUFFERSIZE
+	initb(0 to LUAL_BUFFERSIZE-1) as byte
 end type
 
 #macro luaL_addchar(B,c)
