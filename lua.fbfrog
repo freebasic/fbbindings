@@ -9,3 +9,5 @@
 
 -noexpand LUA_IDSIZE
 -noexpand LUAL_BUFFERSIZE
+
+-define LUA_COMPAT_MODULE 1
