@@ -1,6 +1,5 @@
 #pragma once
 
-#include once "crt/long.bi"
 #include once "crt/stdarg.bi"
 #include once "crt/stddef.bi"
 #include once "crt/limits.bi"
@@ -53,11 +52,11 @@ type CallInfo as CallInfo_
 '' TODO: #define luai_writestringerror(s,p) (fprintf(stderr, (s), (p)), fflush(stderr))
 
 #define LUAI_MAXSHORTLEN 40
-#define LUAI_BITSINT 16
-#define LUA_INT32 clong
-#define LUAI_UMEM culong
-#define LUAI_MEM clong
-#define LUAI_MAXSTACK 15000
+#define LUAI_BITSINT 32
+#define LUA_INT32 long
+#define LUAI_UMEM uinteger
+#define LUAI_MEM integer
+#define LUAI_MAXSTACK 1000000
 #define LUAI_FIRSTPSEUDOIDX ((-LUAI_MAXSTACK) - 1000)
 #define LUAL_BUFFERSIZE BUFSIZ
 #define LUA_NUMBER_DOUBLE
@@ -130,7 +129,7 @@ type lua_Alloc as function(byval ud as any ptr, byval ptr_ as any ptr, byval osi
 
 type lua_Number as double
 type lua_Integer as integer
-type lua_Unsigned as culong
+type lua_Unsigned as ulong
 
 '' TODO: extern const char lua_ident[];
 
