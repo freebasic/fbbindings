@@ -1,6 +1,1 @@
-#include "clang-c/BuildSystem.bi"
-#include "clang-c/CXCompilationDatabase.bi"
-#include "clang-c/CXErrorCode.bi"
-#include "clang-c/CXString.bi"
-#include "clang-c/Documentation.bi"
-#include "clang-c/Index.bi"
+#include "clang-c.bi"
