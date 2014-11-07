@@ -70,7 +70,11 @@ declare sub luaL_requiref(byval L as lua_State ptr, byval modname as const zstri
 		luaL_setfuncs(L, l_, 0)
 	end scope
 #endmacro
-#define luaL_argcheck(L, cond, numarg, extramsg) cast(any, -((cond) orelse luaL_argerror(L, (numarg), (extramsg))))
+#macro luaL_argcheck(L, cond, numarg, extramsg)
+	if (cond) = 0 then
+		luaL_argerror(L, (numarg), (extramsg))
+	end if
+#endmacro
 #define luaL_checkstring(L, n) luaL_checklstring(L, (n), NULL)
 #define luaL_optstring(L, n, d) luaL_optlstring(L, (n), (d), NULL)
 #define luaL_checkint(L, n) clng(luaL_checkinteger(L, (n)))
