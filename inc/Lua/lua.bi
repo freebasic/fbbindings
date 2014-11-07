@@ -80,7 +80,7 @@ type CallInfo as CallInfo_
 #define l_mathop(x) (x)
 #define lua_str2number(s, p) strtod((s), (p))
 #define LUA_INTEGER_ integer
-#define LUA_UNSIGNED culong
+#define LUA_UNSIGNED ulong
 
 #define LUA_IEEE754TRICK
 
