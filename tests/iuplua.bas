@@ -1,3 +1,7 @@
+#include "Lua/lua.bi"
+
+#include "IUP/iup.bi"
+
 #include "IUP/iuplua.bi"
 #include "IUP/iupluacontrols.bi"
 #include "IUP/iupluagl.bi"
