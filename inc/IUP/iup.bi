@@ -5,8 +5,6 @@
 
 extern "C"
 
-type Ihandle_ as Ihandle__
-
 #define __IUP_H
 #define IUP_NAME "IUP - Portable User Interface"
 #define IUP_COPYRIGHT "Copyright (C) 1994-2014 Tecgraf, PUC-Rio."
