@@ -35,6 +35,7 @@ clang:
 	$(FBFROG) -o inc/clang-c/CXString.bi              extracted/$(CLANG_TITLE)/include/clang-c/CXString.h              -incdir extracted/$(CLANG_TITLE)/include -filterout '*'
 	$(FBFROG) -o inc/clang-c/Documentation.bi         extracted/$(CLANG_TITLE)/include/clang-c/Documentation.h         -incdir extracted/$(CLANG_TITLE)/include -filterout '*'
 	$(FBFROG) -o inc/clang-c/Index.bi                 extracted/$(CLANG_TITLE)/include/clang-c/Index.h                 -incdir extracted/$(CLANG_TITLE)/include -filterout '*'
+	$(FBFROG) -o inc/clang-c/Platform.bi              extracted/$(CLANG_TITLE)/include/clang-c/Platform.h              -incdir extracted/$(CLANG_TITLE)/include -filterout '*' -removedefine CINDEX_LINKAGE
 
 CUNIT_VERSION := 2.1-3
 CUNIT_TITLE := CUnit-$(CUNIT_VERSION)
