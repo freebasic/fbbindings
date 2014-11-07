@@ -122,6 +122,6 @@ end type
 declare sub luaL_pushmodule(byval L as lua_State ptr, byval modname as const zstring ptr, byval sizehint as long)
 declare sub luaL_openlib(byval L as lua_State ptr, byval libname as const zstring ptr, byval l_ as const luaL_Reg ptr, byval nup as long)
 
-#define luaL_register(L, n, l) luaL_openlib(L, (n), (l), 0)
+#define luaL_register(L, n, l_) luaL_openlib(L, (n), (l_), 0)
 
 end extern
