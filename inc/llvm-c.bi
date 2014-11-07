@@ -1207,7 +1207,7 @@ declare function llvm_optimize_modules(byval lto as llvm_lto_t, byval output_fil
 
 #define LLVM_C_LTO_H
 
-type lto_bool_t as bool
+type lto_bool_t as byte
 
 #define LTO_API_VERSION 10
 
