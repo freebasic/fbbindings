@@ -653,12 +653,30 @@ declare function wgetscrreg(byval as const WINDOW_ ptr, byval as long ptr, byval
 #define A_TOP NCURSES_BITS(cast(culong, 1), 21)
 #define A_VERTICAL NCURSES_BITS(cast(culong, 1), 22)
 
-'' TODO: #define getyx(win,y,x) (y = getcury(win), x = getcurx(win))
-'' TODO: #define getbegyx(win,y,x) (y = getbegy(win), x = getbegx(win))
-'' TODO: #define getmaxyx(win,y,x) (y = getmaxy(win), x = getmaxx(win))
-'' TODO: #define getparyx(win,y,x) (y = getpary(win), x = getparx(win))
-'' TODO: #define getsyx(y,x) do { if (newscr) { if (is_leaveok(newscr)) (y) = (x) = -1; else getyx(newscr,(y), (x)); } } while(0)
-'' TODO: #define setsyx(y,x) do { if (newscr) { if ((y) == -1 && (x) == -1) leaveok(newscr, TRUE); else { leaveok(newscr, FALSE); wmove(newscr, (y), (x)); } } } while(0)
+#define getyx(win,y,x) y = getcury(win) : x = getcurx(win)
+#define getbegyx(win,y,x) y = getbegy(win) : x = getbegx(win)
+#define getmaxyx(win,y,x) y = getmaxy(win) : x = getmaxx(win)
+#define getparyx(win,y,x) y = getpary(win) : x = getparx(win)
+#macro getsyx(y, x)
+	if newscr then
+		if is_leaveok(newscr) then
+			(y) = -1
+			(x) = -1
+		else
+			getyx(newscr, (y), (x))
+		end if
+	end if
+#endmacro
+#macro setsyx(y, x)
+	if newscr then
+		if (y) = -1 andalso (x) = -1 then
+			leaveok(newscr, TRUE)
+		else
+			leaveok(newscr, FALSE)
+			wmove(newscr, (y), (x))
+		end if
+	end if
+#endmacro
 
 #define wgetstr_(w, s) wgetnstr(w, s, -1)
 #define getnstr_(s, n) wgetnstr(stdscr, s, n)
@@ -669,9 +687,7 @@ declare function wgetscrreg(byval as const WINDOW_ ptr, byval as long ptr, byval
 #define crmode() cbreak()
 #define nocrmode() nocbreak()
 #define gettmode()
-
-'' TODO: #define getattrs(win) NCURSES_CAST(int, (win) ? (win)->_attrs : A_NORMAL)
-
+#define getattrs_(win) clng(iif((win), (win)->_attrs, A_NORMAL))
 #define getcurx_(win) iif((win), (win)->_curx, ERR_)
 #define getcury_(win) iif((win), (win)->_cury, ERR_)
 #define getbegx_(win) iif((win), (win)->_begx, ERR_)
@@ -702,9 +718,7 @@ declare function wgetscrreg(byval as const WINDOW_ ptr, byval as long ptr, byval
 #define waddstr_(win, str) waddnstr(win, str, -1)
 #define waddchstr_(win, str) waddchnstr(win, str, -1)
 #define COLOR_PAIR_(n) NCURSES_BITS(n, 0)
-
-'' TODO: #define PAIR_NUMBER(a) (NCURSES_CAST(int,((NCURSES_CAST(unsigned long,a) & A_COLOR) >> NCURSES_ATTR_SHIFT)))
-
+#define PAIR_NUMBER(a) clng((cast(culong,a) and A_COLOR) shr NCURSES_ATTR_SHIFT)
 #define addch_(ch) waddch(stdscr, ch)
 #define addchnstr_(str, n) waddchnstr(stdscr, str, n)
 #define addchstr_(str) waddchstr_(stdscr, str)
@@ -792,10 +806,15 @@ declare function wgetscrreg(byval as const WINDOW_ ptr, byval as long ptr, byval
 #define getbkgd_(win) (win)->_bkgd
 #define slk_attr_off_(a, v) iif((v), ERR_, slk_attroff(a))
 #define slk_attr_on_(a, v) iif((v), ERR_, slk_attron(a))
-
-'' TODO: #define wattr_set(win,a,p,opts) ((win)->_attrs = (((a) & ~A_COLOR) | (attr_t)COLOR_PAIR(p)), OK)
-'' TODO: #define wattr_get(win,a,p,opts) ((void)((a) != (void *)0 && (*(a) = (win)->_attrs)), (void)((p) != (void *)0 && (*(p) = (short)PAIR_NUMBER((win)->_attrs))), OK)
-
+#define wattr_set(win,a,p,opts) (win)->_attrs = (((a) and not A_COLOR) or cast(attr_t, COLOR_PAIR(p)))
+#macro wattr_get(win,a,p,opts)
+	if a then
+		*(a) = (win)->_attrs
+	end if
+	if p then
+		*(p) = cshort(PAIR_NUMBER((win)->_attrs))
+	end if
+#endmacro
 #define vw_printw_ vwprintw
 #define vw_scanw_ vwscanw
 #define is_cleared_(win) iif((win), (win)->_clear, FALSE)
@@ -812,7 +831,15 @@ declare function wgetscrreg(byval as const WINDOW_ ptr, byval as long ptr, byval
 #define is_syncok_(win) iif((win), (win)->_sync, FALSE)
 #define wgetparent_(win) iif((win), (win)->_parent, 0)
 
-'' TODO: #define wgetscrreg(win,t,b) ((win) ? (*(t) = (win)->_regtop, *(b) = (win)->_regbottom, OK) : ERR)
+private function wgetscrreg(byval win as WINDOW_ ptr, byval t as short ptr, byval b as short ptr) as integer
+	if win then
+		*t = win->_regtop
+		*b = win->_regbottom
+		function = OK
+	else
+		function = ERR_
+	end if
+end function
 
 extern curscr as WINDOW_ ptr
 extern newscr as WINDOW_ ptr
