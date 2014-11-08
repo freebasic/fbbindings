@@ -30,7 +30,6 @@ extern "C"
 #define CHTYPE_LONG 1
 #define FALSE 0
 #define TRUE 1
-#define NULL cptr(any ptr, 0)
 #define ERR_ (-1)
 #define OK 0
 
