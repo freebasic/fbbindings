@@ -196,24 +196,15 @@ type SCREEN_
 end type
 
 #if defined(__FB_WIN32__) and defined(PDC_DLL_BUILD)
-	extern     LINES as long
-	dim shared LINES as long
-	extern     COLS as long
-	dim shared COLS as long
-	extern     stdscr as WINDOW_ ptr
-	dim shared stdscr as WINDOW_ ptr
-	extern     curscr as WINDOW_ ptr
-	dim shared curscr as WINDOW_ ptr
-	extern     SP as SCREEN ptr
-	dim shared SP as SCREEN ptr
-	extern     Mouse_status as MOUSE_STATUS
-	dim shared Mouse_status as MOUSE_STATUS
-	extern     COLORS as long
-	dim shared COLORS as long
-	extern     COLOR_PAIRS as long
-	dim shared COLOR_PAIRS as long
-	extern     TABSIZE as long
-	dim shared TABSIZE as long
+	extern import LINES as long
+	extern import COLS as long
+	extern import stdscr as WINDOW_ ptr
+	extern import curscr as WINDOW_ ptr
+	extern import SP as SCREEN_ ptr
+	extern import Mouse_status as MOUSE_STATUS
+	extern import COLORS as long
+	extern import COLOR_PAIRS as long
+	extern import TABSIZE as long
 
 	'' TODO: __attribute__((dllimport)) chtype acs_map[];
 	'' TODO: __attribute__((dllimport)) char ttytype[];
@@ -222,7 +213,7 @@ end type
 	extern COLS as long
 	extern stdscr as WINDOW_ ptr
 	extern curscr as WINDOW_ ptr
-	extern SP as SCREEN ptr
+	extern SP as SCREEN_ ptr
 	extern Mouse_status as MOUSE_STATUS
 	extern COLORS as long
 	extern COLOR_PAIRS as long
@@ -634,7 +625,7 @@ declare function def_shell_mode() as long
 declare function delay_output(byval as long) as long
 declare function delch() as long
 declare function deleteln() as long
-declare sub delscreen(byval as SCREEN ptr)
+declare sub delscreen(byval as SCREEN_ ptr)
 declare function delwin(byval as WINDOW_ ptr) as long
 declare function derwin(byval as WINDOW_ ptr, byval as long, byval as long, byval as long, byval as long) as WINDOW_ ptr
 declare function doupdate() as long
@@ -732,7 +723,7 @@ declare function mvwscanw(byval as WINDOW_ ptr, byval as long, byval as long, by
 declare function mvwvline(byval as WINDOW_ ptr, byval as long, byval as long, byval as chtype, byval as long) as long
 declare function napms(byval as long) as long
 declare function newpad(byval as long, byval as long) as WINDOW_ ptr
-declare function newterm(byval as const zstring ptr, byval as FILE ptr, byval as FILE ptr) as SCREEN ptr
+declare function newterm(byval as const zstring ptr, byval as FILE ptr, byval as FILE ptr) as SCREEN_ ptr
 declare function newwin(byval as long, byval as long, byval as long, byval as long) as WINDOW_ ptr
 declare function nl() as long
 declare function nocbreak() as long
@@ -767,7 +758,7 @@ declare function scr_set(byval as const zstring ptr) as long
 declare function scrl(byval as long) as long
 declare function scroll(byval as WINDOW_ ptr) as long
 declare function scrollok(byval as WINDOW_ ptr, byval as bool) as long
-declare function set_term(byval as SCREEN ptr) as SCREEN ptr
+declare function set_term(byval as SCREEN_ ptr) as SCREEN_ ptr
 declare function setscrreg(byval as long, byval as long) as long
 declare function slk_attroff(byval as const chtype) as long
 declare function slk_attr_off(byval as const attr_t, byval as any ptr) as long
