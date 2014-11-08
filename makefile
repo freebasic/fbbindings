@@ -159,6 +159,7 @@ llvm:
 		if [ ! -f include/llvm/Config/Targets.def ]; then ./configure --prefix=/usr; fi
 
 	$(FBFROG) -o inc/llvm-c.bi \
+		-include stdbool.h \
 		-define __STDC_LIMIT_MACROS 1 \
 		-define __STDC_CONSTANT_MACROS 1 \
 		-incdir extracted/$(LLVM_TITLE)/include \
