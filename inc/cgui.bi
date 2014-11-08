@@ -10,9 +10,11 @@
 
 extern "C"
 
+#ifndef FONT
 type BITMAP as BITMAP_
 type FONT as FONT_
 type DATAFILE as DATAFILE_
+#endif
 
 #if defined(CGUI_STATICLINK) or ((not defined(CGUI_STATICLINK)) and (defined(__FB_DOS__) or defined(__FB_LINUX__)))
 	#define EXTERNVAR extern
