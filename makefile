@@ -199,17 +199,13 @@ ncurses:
 	./downloadextract.sh $(NCURSES_TITLE) $(NCURSES_TITLE).tar.gz "http://ftp.gnu.org/pub/gnu/ncurses/$(NCURSES_TITLE).tar.gz"
 	cd extracted/$(NCURSES_TITLE) && \
 		if [ ! -f include/curses.h ]; then ./configure && cd include && make; fi
-	mkdir -p inc/ncurses
-	$(FBFROG) ncurses.fbfrog -o inc/ncurses/curses.bi  extracted/$(NCURSES_TITLE)/include/curses.h
-	$(FBFROG) ncurses.fbfrog -o inc/ncurses/term.bi    extracted/$(NCURSES_TITLE)/include/term.h
-	$(FBFROG) ncurses.fbfrog -o inc/ncurses/termcap.bi extracted/$(NCURSES_TITLE)/include/termcap.h
+	mkdir -p inc/curses
+	$(FBFROG) ncurses.fbfrog -o inc/curses/ncurses.bi  extracted/$(NCURSES_TITLE)/include/curses.h
 
 pdcurses:
 	./downloadextract.sh PDCurses-3.4 PDCurses-3.4.tar.gz "http://sourceforge.net/projects/pdcurses/files/pdcurses/3.4/PDCurses-3.4.tar.gz/download"
-	mkdir -p inc/pdcurses
-	$(FBFROG) pdcurses.fbfrog -o inc/pdcurses/curses.bi extracted/PDCurses-3.4/curses.h
-	$(FBFROG) pdcurses.fbfrog -o inc/pdcurses/panel.bi extracted/PDCurses-3.4/panel.h -filterout '*curses.h'
-	$(FBFROG) pdcurses.fbfrog -o inc/pdcurses/term.bi extracted/PDCurses-3.4/term.h -filterout '*curses.h'
+	mkdir -p inc/curses
+	$(FBFROG) pdcurses.fbfrog -o inc/curses/pdcurses.bi extracted/PDCurses-3.4/curses.h
 
 png: png12 png14 png15 png16
 
