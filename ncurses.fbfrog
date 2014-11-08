@@ -8,7 +8,6 @@
 -removedefine NCURSES_EXPORT
 -removedefine NCURSES_EXPORT_VAR
 -removedefine NCURSES_INLINE
--removedefine NCURSES_CAST
 -removedefine NCURSES_CONST
 
 -removedefine GCC_PRINTFLIKE
