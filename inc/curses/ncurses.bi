@@ -53,6 +53,9 @@ type mmask_t as culong
 type NCURSES_BOOL as ubyte
 
 #define NCURSES_BOOL_ bool
+
+'' TODO: #define NCURSES_CAST(type,value) (type)(value)
+
 #define WA_ATTRIBUTES A_ATTRIBUTES
 #define WA_NORMAL A_NORMAL
 #define WA_STANDOUT A_STANDOUT
