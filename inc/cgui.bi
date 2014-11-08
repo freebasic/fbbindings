@@ -1,4 +1,5 @@
 #pragma once
+#inclib "cgui"
 
 #include once "crt/long.bi"
 #include once "crt/stdio.bi"
