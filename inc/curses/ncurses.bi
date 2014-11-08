@@ -434,9 +434,11 @@ declare sub nofilter()
 #define wstandend(win) wattrset(win, A_NORMAL)
 #define wattron(win, at) wattr_on(win, NCURSES_CAST(attr_t, at), NULL)
 #define wattroff(win, at) wattr_off(win, NCURSES_CAST(attr_t, at), NULL)
-
-'' TODO: #define wattrset(win,at) ((win) ? ((win)->_attrs = NCURSES_CAST(attr_t, at), OK) : ERR)
-
+#macro wattrset(win,at)
+	if (win) then
+		(win)->_attrs = NCURSES_CAST(attr_t, at)
+	end if
+#endmacro
 #define scroll(win) wscrl(win, 1)
 #define touchwin(win) wtouchln((win), 0, getmaxy(win), 1)
 #define touchline(win, s, c) wtouchln((win), s, c, 1)
