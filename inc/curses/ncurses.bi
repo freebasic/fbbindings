@@ -204,7 +204,8 @@ type NCURSES_BOOL as ubyte
 #define COLOR_CYAN 6
 #define COLOR_WHITE 7
 
-'' TODO: extern chtype acs_map[];
+#define ACS_LEN 128
+extern acs_map(0 to ACS_LEN-1) as chtype
 '' TODO: #define NCURSES_ACS(c) (acs_map[NCURSES_CAST(unsigned char,c)])
 
 #define ACS_ULCORNER NCURSES_ACS(asc("l"))
