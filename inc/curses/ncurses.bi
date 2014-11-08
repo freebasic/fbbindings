@@ -206,7 +206,7 @@ type NCURSES_BOOL as ubyte
 
 #define ACS_LEN 128
 extern acs_map(0 to ACS_LEN-1) as chtype
-'' TODO: #define NCURSES_ACS(c) (acs_map[NCURSES_CAST(unsigned char,c)])
+#define NCURSES_ACS(c) (acs_map(cubyte(c)))
 
 #define ACS_ULCORNER NCURSES_ACS(asc("l"))
 #define ACS_LLCORNER NCURSES_ACS(asc("m"))
