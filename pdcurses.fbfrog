@@ -1,4 +1,5 @@
 -removedefine PDCEX
+-removedefine NULL
 
 -declarebool PDC_WIDE
 -ifdef PDC_WIDE
