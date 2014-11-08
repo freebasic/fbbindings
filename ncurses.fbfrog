@@ -1,3 +1,5 @@
+-include stdbool.h
+
 -removedefine NCURSES_PUBLIC_VAR
 -removedefine NCURSES_WRAPPED_VAR
 -removedefine NCURSES_STATIC

@@ -289,15 +289,15 @@ type _win_st_
 	_flags as short
 	_attrs as attr_t
 	_bkgd as chtype
-	_notimeout as bool
-	_clear as bool
-	_leaveok as bool
-	_scroll as bool
-	_idlok as bool
-	_idcok as bool
-	_immed as bool
-	_sync as bool
-	_use_keypad as bool
+	_notimeout as byte
+	_clear as byte
+	_leaveok as byte
+	_scroll as byte
+	_idlok as byte
+	_idcok as byte
+	_immed as byte
+	_sync as byte
+	_use_keypad as byte
 	_delay as long
 	_line as ldat ptr
 	_regtop as short
@@ -329,11 +329,11 @@ declare function bkgd(byval as chtype) as long
 declare sub bkgdset(byval as chtype)
 declare function border(byval as chtype, byval as chtype, byval as chtype, byval as chtype, byval as chtype, byval as chtype, byval as chtype, byval as chtype) as long
 declare function box(byval as WINDOW_ ptr, byval as chtype, byval as chtype) as long
-declare function can_change_color() as bool
+declare function can_change_color() as byte
 declare function cbreak() as long
 declare function chgat(byval as long, byval as attr_t, byval as short, byval as const any ptr) as long
 declare function clear_ alias "clear"() as long
-declare function clearok(byval as WINDOW_ ptr, byval as bool) as long
+declare function clearok(byval as WINDOW_ ptr, byval as byte) as long
 declare function clrtobot() as long
 declare function clrtoeol() as long
 declare function color_content(byval as short, byval as short ptr, byval as short ptr, byval as short ptr) as long
@@ -365,13 +365,13 @@ declare function getnstr(byval as zstring ptr, byval as long) as long
 declare function getstr(byval as zstring ptr) as long
 declare function getwin(byval as FILE ptr) as WINDOW_ ptr
 declare function halfdelay(byval as long) as long
-declare function has_colors() as bool
-declare function has_ic() as bool
-declare function has_il() as bool
+declare function has_colors() as byte
+declare function has_ic() as byte
+declare function has_il() as byte
 declare function hline(byval as chtype, byval as long) as long
-declare sub idcok(byval as WINDOW_ ptr, byval as bool)
-declare function idlok(byval as WINDOW_ ptr, byval as bool) as long
-declare sub immedok(byval as WINDOW_ ptr, byval as bool)
+declare sub idcok(byval as WINDOW_ ptr, byval as byte)
+declare function idlok(byval as WINDOW_ ptr, byval as byte) as long
+declare sub immedok(byval as WINDOW_ ptr, byval as byte)
 declare function inch() as chtype
 declare function inchnstr(byval as chtype ptr, byval as long) as long
 declare function inchstr(byval as chtype ptr) as long
@@ -385,16 +385,16 @@ declare function insertln() as long
 declare function insnstr(byval as const zstring ptr, byval as long) as long
 declare function insstr(byval as const zstring ptr) as long
 declare function instr_ alias "instr"(byval as zstring ptr) as long
-declare function intrflush(byval as WINDOW_ ptr, byval as bool) as long
-declare function isendwin() as bool
-declare function is_linetouched(byval as WINDOW_ ptr, byval as long) as bool
-declare function is_wintouched(byval as WINDOW_ ptr) as bool
+declare function intrflush(byval as WINDOW_ ptr, byval as byte) as long
+declare function isendwin() as byte
+declare function is_linetouched(byval as WINDOW_ ptr, byval as long) as byte
+declare function is_wintouched(byval as WINDOW_ ptr) as byte
 declare function keyname(byval as long) as zstring ptr
-declare function keypad(byval as WINDOW_ ptr, byval as bool) as long
+declare function keypad(byval as WINDOW_ ptr, byval as byte) as long
 declare function killchar() as byte
-declare function leaveok(byval as WINDOW_ ptr, byval as bool) as long
+declare function leaveok(byval as WINDOW_ ptr, byval as byte) as long
 declare function longname() as zstring ptr
-declare function meta(byval as WINDOW_ ptr, byval as bool) as long
+declare function meta(byval as WINDOW_ ptr, byval as byte) as long
 declare function move(byval as long, byval as long) as long
 declare function mvaddch(byval as long, byval as long, byval as const chtype) as long
 declare function mvaddchnstr(byval as long, byval as long, byval as const chtype ptr, byval as long) as long
@@ -449,12 +449,12 @@ declare function newterm(byval as zstring ptr, byval as FILE ptr, byval as FILE 
 declare function newwin(byval as long, byval as long, byval as long, byval as long) as WINDOW_ ptr
 declare function nl() as long
 declare function nocbreak() as long
-declare function nodelay(byval as WINDOW_ ptr, byval as bool) as long
+declare function nodelay(byval as WINDOW_ ptr, byval as byte) as long
 declare function noecho() as long
 declare function nonl() as long
 declare sub noqiflush()
 declare function noraw() as long
-declare function notimeout(byval as WINDOW_ ptr, byval as bool) as long
+declare function notimeout(byval as WINDOW_ ptr, byval as byte) as long
 declare function overlay(byval as const WINDOW_ ptr, byval as WINDOW_ ptr) as long
 declare function overwrite(byval as const WINDOW_ ptr, byval as WINDOW_ ptr) as long
 declare function pair_content(byval as short, byval as short ptr, byval as short ptr) as long
@@ -478,7 +478,7 @@ declare function scr_dump(byval as const zstring ptr) as long
 declare function scr_init(byval as const zstring ptr) as long
 declare function scrl(byval as long) as long
 declare function scroll(byval as WINDOW_ ptr) as long
-declare function scrollok(byval as WINDOW_ ptr, byval as bool) as long
+declare function scrollok(byval as WINDOW_ ptr, byval as byte) as long
 declare function scr_restore(byval as const zstring ptr) as long
 declare function scr_set(byval as const zstring ptr) as long
 declare function setscrreg(byval as long, byval as long) as long
@@ -504,7 +504,7 @@ declare function standend() as long
 declare function start_color() as long
 declare function subpad(byval as WINDOW_ ptr, byval as long, byval as long, byval as long, byval as long) as WINDOW_ ptr
 declare function subwin(byval as WINDOW_ ptr, byval as long, byval as long, byval as long, byval as long) as WINDOW_ ptr
-declare function syncok(byval as WINDOW_ ptr, byval as bool) as long
+declare function syncok(byval as WINDOW_ ptr, byval as byte) as long
 declare function termattrs() as chtype
 declare function termname() as zstring ptr
 declare sub timeout(byval as long)
@@ -513,7 +513,7 @@ declare function touchwin(byval as WINDOW_ ptr) as long
 declare function typeahead(byval as long) as long
 declare function ungetch(byval as long) as long
 declare function untouchwin(byval as WINDOW_ ptr) as long
-declare sub use_env(byval as bool)
+declare sub use_env(byval as byte)
 declare function vidattr(byval as chtype) as long
 declare function vidputs(byval as chtype, byval as NCURSES_OUTC) as long
 declare function vline(byval as chtype, byval as long) as long
@@ -597,38 +597,38 @@ declare function getpary(byval as const WINDOW_ ptr) as long
 type NCURSES_WINDOW_CB as function(byval as WINDOW_ ptr, byval as any ptr) as long
 type NCURSES_SCREEN_CB as function(byval as SCREEN___ ptr, byval as any ptr) as long
 
-declare function is_term_resized(byval as long, byval as long) as bool
+declare function is_term_resized(byval as long, byval as long) as byte
 declare function keybound(byval as long, byval as long) as zstring ptr
 declare function curses_version() as const zstring ptr
 declare function assume_default_colors(byval as long, byval as long) as long
 declare function define_key(byval as const zstring ptr, byval as long) as long
 declare function get_escdelay() as long
 declare function key_defined(byval as const zstring ptr) as long
-declare function keyok(byval as long, byval as bool) as long
+declare function keyok(byval as long, byval as byte) as long
 declare function resize_term(byval as long, byval as long) as long
 declare function resizeterm(byval as long, byval as long) as long
 declare function set_escdelay(byval as long) as long
 declare function set_tabsize(byval as long) as long
 declare function use_default_colors() as long
-declare function use_extended_names(byval as bool) as long
+declare function use_extended_names(byval as byte) as long
 declare function use_legacy_coding(byval as long) as long
 declare function use_screen(byval as SCREEN___ ptr, byval as NCURSES_SCREEN_CB, byval as any ptr) as long
 declare function use_window(byval as WINDOW_ ptr, byval as NCURSES_WINDOW_CB, byval as any ptr) as long
 declare function wresize(byval as WINDOW_ ptr, byval as long, byval as long) as long
 declare sub nofilter()
 declare function wgetparent(byval as const WINDOW_ ptr) as WINDOW_ ptr
-declare function is_cleared(byval as const WINDOW_ ptr) as bool
-declare function is_idcok(byval as const WINDOW_ ptr) as bool
-declare function is_idlok(byval as const WINDOW_ ptr) as bool
-declare function is_immedok(byval as const WINDOW_ ptr) as bool
-declare function is_keypad(byval as const WINDOW_ ptr) as bool
-declare function is_leaveok(byval as const WINDOW_ ptr) as bool
-declare function is_nodelay(byval as const WINDOW_ ptr) as bool
-declare function is_notimeout(byval as const WINDOW_ ptr) as bool
-declare function is_pad(byval as const WINDOW_ ptr) as bool
-declare function is_scrollok(byval as const WINDOW_ ptr) as bool
-declare function is_subwin(byval as const WINDOW_ ptr) as bool
-declare function is_syncok(byval as const WINDOW_ ptr) as bool
+declare function is_cleared(byval as const WINDOW_ ptr) as byte
+declare function is_idcok(byval as const WINDOW_ ptr) as byte
+declare function is_idlok(byval as const WINDOW_ ptr) as byte
+declare function is_immedok(byval as const WINDOW_ ptr) as byte
+declare function is_keypad(byval as const WINDOW_ ptr) as byte
+declare function is_leaveok(byval as const WINDOW_ ptr) as byte
+declare function is_nodelay(byval as const WINDOW_ ptr) as byte
+declare function is_notimeout(byval as const WINDOW_ ptr) as byte
+declare function is_pad(byval as const WINDOW_ ptr) as byte
+declare function is_scrollok(byval as const WINDOW_ ptr) as byte
+declare function is_subwin(byval as const WINDOW_ ptr) as byte
+declare function is_syncok(byval as const WINDOW_ ptr) as byte
 declare function wgetscrreg(byval as const WINDOW_ ptr, byval as long ptr, byval as long ptr) as long
 
 #define NCURSES_SP_FUNCS 0
@@ -977,14 +977,14 @@ type MEVENT
 	bstate as mmask_t
 end type
 
-declare function has_mouse() as bool
+declare function has_mouse() as byte
 declare function getmouse_ alias "getmouse"(byval as MEVENT ptr) as long
 declare function ungetmouse(byval as MEVENT ptr) as long
 declare function mousemask(byval as mmask_t, byval as mmask_t ptr) as mmask_t
-declare function wenclose(byval as const WINDOW_ ptr, byval as long, byval as long) as bool
+declare function wenclose(byval as const WINDOW_ ptr, byval as long, byval as long) as byte
 declare function mouseinterval(byval as long) as long
-declare function wmouse_trafo(byval as const WINDOW_ ptr, byval as long ptr, byval as long ptr, byval as bool) as bool
-declare function mouse_trafo(byval as long ptr, byval as long ptr, byval as bool) as bool
+declare function wmouse_trafo(byval as const WINDOW_ ptr, byval as long ptr, byval as long ptr, byval as byte) as byte
+declare function mouse_trafo(byval as long ptr, byval as long ptr, byval as byte) as byte
 
 #define mouse_trafo_(y, x, to_screen) wmouse_trafo(stdscr, y, x, to_screen)
 
