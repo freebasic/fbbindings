@@ -845,7 +845,8 @@ extern curscr as WINDOW_ ptr
 extern newscr as WINDOW_ ptr
 extern stdscr as WINDOW_ ptr
 
-'' TODO: extern char ttytype[];
+#define NAMESIZE 256
+extern ttytype as zstring * NAMESIZE
 
 extern COLORS as long
 extern COLOR_PAIRS as long
