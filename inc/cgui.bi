@@ -7,7 +7,6 @@
 
 '' The following symbols have been renamed:
 ''     procedure Remove => Remove_
-''     #define ON => ON_
 
 extern "C"
 
@@ -53,40 +52,40 @@ EXTERNVAR cgui_rev as long
 EXTERNVAR cgui_minor_rev as long
 EXTERNVAR cgui_release_date as long
 
-#define DIR_TOPLEFT 1
-#define DIR_RIGHT 2
-#define DIR_LEFT 4
-#define DIR_DOWNLEFT 8
-#define DIR_DOWN &h10
-#define AUTOINDICATOR &h007fffff
-#define TOPLEFT DIR_TOPLEFT,AUTOINDICATOR
-#define RIGHT DIR_RIGHT,AUTOINDICATOR
-#define DOWNLEFT DIR_DOWNLEFT,AUTOINDICATOR
-#define LEFT DIR_LEFT,AUTOINDICATOR
-#define DOWN DIR_DOWN,AUTOINDICATOR
-#define ALIGNCENTRE &h00800000
-#define ALIGNBOTTOM &h01000000
-#define ALIGNRIGHT &h02000000
-#define HORIZONTAL &h04000000
-#define VERTICAL &h08000000
-#define FILLSPACE &h10000000
-#define EQUALWIDTH &h20000000
-#define EQUALHEIGHT &h40000000
-#define ADAPTIVE 0,AUTOINDICATOR
-#define FILLSCREEN 1,AUTOINDICATOR
+#define CGUI_DIR_TOPLEFT 1
+#define CGUI_DIR_RIGHT 2
+#define CGUI_DIR_LEFT 4
+#define CGUI_DIR_DOWNLEFT 8
+#define CGUI_DIR_DOWN &h10
+#define CGUI_AUTOINDICATOR &h007fffff
+#define CGUI_TOPLEFT CGUI_DIR_TOPLEFT,CGUI_AUTOINDICATOR
+#define CGUI_RIGHT CGUI_DIR_RIGHT,CGUI_AUTOINDICATOR
+#define CGUI_DOWNLEFT CGUI_DIR_DOWNLEFT,CGUI_AUTOINDICATOR
+#define CGUI_LEFT CGUI_DIR_LEFT,CGUI_AUTOINDICATOR
+#define CGUI_DOWN CGUI_DIR_DOWN,CGUI_AUTOINDICATOR
+#define CGUI_ALIGNCENTRE &h00800000
+#define CGUI_ALIGNBOTTOM &h01000000
+#define CGUI_ALIGNRIGHT &h02000000
+#define CGUI_HORIZONTAL &h04000000
+#define CGUI_VERTICAL &h08000000
+#define CGUI_FILLSPACE &h10000000
+#define CGUI_EQUALWIDTH &h20000000
+#define CGUI_EQUALHEIGHT &h40000000
+#define CGUI_ADAPTIVE 0,CGUI_AUTOINDICATOR
+#define CGUI_FILLSCREEN 1,CGUI_AUTOINDICATOR
 
 declare function MkDialogue(byval width_ as long, byval height as long, byval label as const zstring ptr, byval attr as long) as long
 
-#define W_SIBLING (1 shl 0)
-#define W_NOMOVE (1 shl 2)
-#define W_FLOATING (1 shl 3)
-#define W_TOP (1 shl 4)
-#define W_BOTTOM (1 shl 5)
-#define W_LEFT (1 shl 6)
-#define W_RIGHT (1 shl 7)
-#define W_CENTRE_H (W_LEFT or W_RIGHT)
-#define W_CENTRE_V (W_TOP or W_BOTTOM)
-#define W_CENTRE (W_CENTRE_H or W_CENTRE_V)
+#define CGUI_W_SIBLING (1 shl 0)
+#define CGUI_W_NOMOVE (1 shl 2)
+#define CGUI_W_FLOATING (1 shl 3)
+#define CGUI_W_TOP (1 shl 4)
+#define CGUI_W_BOTTOM (1 shl 5)
+#define CGUI_W_LEFT (1 shl 6)
+#define CGUI_W_RIGHT (1 shl 7)
+#define CGUI_W_CENTRE_H (CGUI_W_LEFT or CGUI_W_RIGHT)
+#define CGUI_W_CENTRE_V (CGUI_W_TOP or CGUI_W_BOTTOM)
+#define CGUI_W_CENTRE (CGUI_W_CENTRE_H or CGUI_W_CENTRE_V)
 
 declare sub DisplayWin()
 declare sub CloseWin(byval dummy as any ptr)
@@ -101,7 +100,7 @@ declare sub RedrawScreen()
 declare sub ScrMode(byval CallBack as sub())
 declare function MkProgressWindow(byval wlabel as const zstring ptr, byval blabel as const zstring ptr, byval w as long) as long
 
-#define ID_DESKTOP cgui_desktop_id
+#define CGUI_ID_DESKTOP cgui_desktop_id
 
 EXTERNVAR cgui_desktop_id as long
 
@@ -119,8 +118,8 @@ declare function MkGroove() as long
 declare function AddButton(byval x as long, byval y as long, byval label as const zstring ptr, byval CallBack as sub(byval data_ as any ptr), byval data_ as any ptr) as long
 declare function AddCheck(byval x as long, byval y as long, byval label as const zstring ptr, byval sel as long ptr) as long
 
-#define R_HORIZONTAL 0
-#define R_VERTICAL 1
+#define CGUI_R_HORIZONTAL 0
+#define CGUI_R_VERTICAL 1
 
 declare function AddFlip(byval x as long, byval y as long, byval label as const zstring ptr, byval strs as const zstring const ptr ptr, byval sel as long ptr) as long
 declare function AddDropDown(byval x as long, byval y as long, byval width_ as long, byval label as const zstring ptr, byval sel as long ptr, byval data_ as const any ptr, byval n as long, byval CallBack as sub(byval data_ as const any ptr, byval i as long, byval s as zstring ptr)) as long
@@ -137,16 +136,16 @@ declare function GetRulerTabList(byval id as long, byval n as long ptr) as long 
 declare function FlipRulerTab(byval id as long, byval x as long) as long
 declare function AddTabRuler(byval x as long, byval y as long, byval width_ as long, byval height as long, byval dx as long, byval options as long, byval CallBack as sub(byval data_ as any ptr, byval x as long, byval tabs as long ptr, byval n as long), byval data_ as any ptr) as long
 
-#define TR_SHOWPOS 1
+#define CGUI_TR_SHOWPOS 1
 
 declare function UpdateProgressValue(byval id as long, byval percent as long) as long
 declare function AddProgressBar(byval x as long, byval y as long, byval w as long, byval h as long) as long
 
-#define SL_SCALE 1
-#define SL_LABEL 2
-#define SL_STYLE1 4
-#define SL_STYLE2 8
-#define SL_STYLE3 &h20
+#define CGUI_SL_SCALE 1
+#define CGUI_SL_LABEL 2
+#define CGUI_SL_STYLE1 4
+#define CGUI_SL_STYLE2 8
+#define CGUI_SL_STYLE3 &h20
 
 declare function AddSlider(byval x as long, byval y as long, byval length as long, byval ctrl as long ptr, byval start as long, byval end_ as long, byval option_ as long, byval id as long) as long
 declare function AddSliderFloat(byval x as long, byval y as long, byval length as long, byval ctrl as single ptr, byval start as single, byval end_ as single, byval ndecimals as long, byval option_ as long, byval id as long) as long
@@ -158,50 +157,50 @@ declare sub TextboxHighlighting(byval id as long, byval bgcolor as long, byval t
 declare sub TextboxScrollDownOneLine(byval id as long)
 declare function TextboxGetHighlightedText(byval id as long) as const zstring ptr
 
-#define TB_FRAMERAISE &h80000000
-#define TB_FRAMESINK &h40000000
-#define TB_PREFORMAT &h20000000
-#define TB_LINEFEED_ &h10000000
-#define TB_FIXFONT &h08000000
-#define TB_WHITE &h04000000
-#define TB_TEXTFILE &h02000000
-#define TB_FOCUS_END &h01000000
+#define CGUI_TB_FRAMERAISE &h80000000
+#define CGUI_TB_FRAMESINK &h40000000
+#define CGUI_TB_PREFORMAT &h20000000
+#define CGUI_TB_LINEFEED_ &h10000000
+#define CGUI_TB_FIXFONT &h08000000
+#define CGUI_TB_WHITE &h04000000
+#define CGUI_TB_TEXTFILE &h02000000
+#define CGUI_TB_FOCUS_END &h01000000
 
 declare function UpdateTextBoxText(byval id as long, byval s as const zstring ptr) as long
 declare function AddEditBox(byval x as long, byval y as long, byval width_ as long, byval label as const zstring ptr, byval format as long, byval string_buffer_size as long, byval data_ as any ptr) as long
 
-#define TERMINATE_EDIT 999
+#define CGUI_TERMINATE_EDIT 999
 
 declare sub CguiEditBoxSetSelectionMode(byval mode as long)
 declare sub GetEditData(byval scan as long ptr, byval ascii as long ptr, byval offset as long ptr)
 declare sub SetEditData(byval scan as long, byval ascii as long, byval offset as long)
 declare function TabOnCR(byval id as long) as long
 
-#define FBYTE 1
-#define FSHORT 2
-#define FINT 3
-#define FLONG 4
-#define FSTRING 5
-#define FPTRSTR 6
-#define FPOINTS 7
-#define FBPOINTS 8
-#define FFLOAT 9
-#define FHEX1 10
-#define FHEX2 11
-#define FHEX4 12
-#define FOCT1 13
-#define FOCT2 14
-#define FOCT3 15
-#define FOCT4 16
-#define FNAME &h20
-#define FBLANK0 &h40
-#define FUNDEF &h6000
-#define B_UNDEF_VAL &hFF
-#define S_UNDEF_VAL &h8000
-#define I_UNDEF_VAL cast(clong, &h80000000)
-#define L_UNDEF_VAL cast(clong, &h80000000)
-#define P_UNDEF_VAL &h8000
-#define BP_UNDEF_VAL &h80
+#define CGUI_FBYTE 1
+#define CGUI_FSHORT 2
+#define CGUI_FINT 3
+#define CGUI_FLONG 4
+#define CGUI_FSTRING 5
+#define CGUI_FPTRSTR 6
+#define CGUI_FPOINTS 7
+#define CGUI_FBPOINTS 8
+#define CGUI_FFLOAT 9
+#define CGUI_FHEX1 10
+#define CGUI_FHEX2 11
+#define CGUI_FHEX4 12
+#define CGUI_FOCT1 13
+#define CGUI_FOCT2 14
+#define CGUI_FOCT3 15
+#define CGUI_FOCT4 16
+#define CGUI_FNAME &h20
+#define CGUI_FBLANK0 &h40
+#define CGUI_FUNDEF &h6000
+#define CGUI_B_UNDEF_VAL &hFF
+#define CGUI_S_UNDEF_VAL &h8000
+#define CGUI_I_UNDEF_VAL cast(clong, &h80000000)
+#define CGUI_L_UNDEF_VAL cast(clong, &h80000000)
+#define CGUI_P_UNDEF_VAL &h8000
+#define CGUI_BP_UNDEF_VAL &h80
 
 declare sub Refresh(byval id as long)
 declare sub DeActivate(byval id as long)
@@ -209,46 +208,46 @@ declare sub Activate(byval id as long)
 declare function CguiLoadImage(byval filename as const zstring ptr, byval imagename as const zstring ptr, byval transp as long, byval id as long) as long
 declare function InsertPoint(byval id as long) as long
 
-#define IMAGE_BMP 0
-#define IMAGE_TRANS_BMP 1
-#define IMAGE_RLE_SPRITE 2
-#define IMAGE_CMP_SPRITE 3
+#define CGUI_IMAGE_BMP 0
+#define CGUI_IMAGE_TRANS_BMP 1
+#define CGUI_IMAGE_RLE_SPRITE 2
+#define CGUI_IMAGE_CMP_SPRITE 3
 
 declare function RegisterImage(byval data_ as any ptr, byval imagename as const zstring ptr, byval type_ as long, byval id as long) as long
 declare function GetRegisteredImage(byval name_ as const zstring ptr, byval type_ as long ptr, byval id as long) as const any ptr
 
-#define LEFT_MOUSE 1
-#define RIGHT_MOUSE 2
+#define CGUI_LEFT_MOUSE 1
+#define CGUI_RIGHT_MOUSE 2
 
 declare sub SetObjectSlidable(byval id as long, byval Slider as function(byval x as long, byval y as long, byval src as any ptr, byval id as long, byval reason as long) as long, byval buttons as long, byval data_ as any ptr)
 declare sub SetObjectDouble(byval id as long, byval DoubleCall as sub(byval as any ptr), byval data_ as any ptr, byval button as long)
 declare sub SetObjectGrippable(byval id as long, byval Grip as function(byval src as any ptr, byval id as long, byval reason as long) as any ptr, byval flags as long, byval buttons as long, byval data_ as any ptr)
 declare sub SetObjectDroppable(byval id as long, byval Drop as function(byval dest as any ptr, byval id as long, byval src as any ptr, byval reason as long, byval flags as long) as long, byval flags as long, byval data_ as any ptr)
 
-#define DD_GRIPPED 0
-#define DD_UNGRIPPED 1
-#define DD_SUCCESS 2
-#define DD_OVER_GRIP 3
-#define DD_OVER_DROP 4
-#define DD_END_OVER_DROP 5
-#define SL_OVER 6
-#define SL_OVER_END 7
-#define SL_STARTED 8
-#define SL_PROGRESS 9
-#define SL_STOPPED 10
+#define CGUI_DD_GRIPPED 0
+#define CGUI_DD_UNGRIPPED 1
+#define CGUI_DD_SUCCESS 2
+#define CGUI_DD_OVER_GRIP 3
+#define CGUI_DD_OVER_DROP 4
+#define CGUI_DD_END_OVER_DROP 5
+#define CGUI_SL_OVER 6
+#define CGUI_SL_OVER_END 7
+#define CGUI_SL_STARTED 8
+#define CGUI_SL_PROGRESS 9
+#define CGUI_SL_STOPPED 10
 
 declare function ToolTipText(byval id as long, byval text as const zstring ptr) as long
 declare sub CguiSetToolTipDelay(byval delay as long)
 declare sub CguiSetToolTipAnimation(byval step_ as long, byval delay as long)
 declare function SetView(byval id as long, byval flags as long) as long
 
-#define SV_HIDE_LABEL 1
-#define SV_HIDE_ICON 2
-#define SV_NO_TOOLTIP 4
-#define SV_ONLY_BRIEF 8
-#define SV_ONLY_LONG 16
-#define SV_PREFERE_BRIEF 32
-#define SV_PREFERE_LONG 0
+#define CGUI_SV_HIDE_LABEL 1
+#define CGUI_SV_HIDE_ICON 2
+#define CGUI_SV_NO_TOOLTIP 4
+#define CGUI_SV_ONLY_BRIEF 8
+#define CGUI_SV_ONLY_LONG 16
+#define CGUI_SV_PREFERE_BRIEF 32
+#define CGUI_SV_PREFERE_LONG 0
 
 declare function RegisterDragFlag(byval flag as long) as long
 declare function UnRegisterDragFlag(byval flag as long) as long
@@ -265,8 +264,8 @@ declare sub SetBlitLimit(byval x1 as long, byval y1 as long, byval x2 as long, b
 
 EXTERNVAR cgui_use_vsync as long
 
-#define CT_BORDER 1
-#define CT_OBJECT_TABLE 2
+#define CGUI_CT_BORDER 1
+#define CGUI_CT_OBJECT_TABLE 2
 
 declare function StartContainer(byval x as long, byval y as long, byval width_ as long, byval height as long, byval label as const zstring ptr, byval options as long) as long
 declare sub EndContainer()
@@ -277,14 +276,14 @@ declare sub SetDistance(byval xdist as long, byval ydist as long)
 declare sub ReBuildContainer(byval id as long)
 declare sub EmptyContainer(byval id as long)
 
-#define OFF 0
-#define ON_ 1
-#define ROW_STRIKE (1 shl 31)
-#define ROW_UNDERLINE (1 shl 30)
-#define ROW_CHECK (1 shl 29)
-#define ROW_UNCHECK (1 shl 28)
-#define COL_RIGHT_ALIGN (1 shl 27)
-#define ROW_COLUMN_UNDERLINE (1 shl 26)
+#define CGUI_OFF 0
+#define CGUI_ON 1
+#define CGUI_ROW_STRIKE (1 shl 31)
+#define CGUI_ROW_UNDERLINE (1 shl 30)
+#define CGUI_ROW_CHECK (1 shl 29)
+#define CGUI_ROW_UNCHECK (1 shl 28)
+#define CGUI_COL_RIGHT_ALIGN (1 shl 27)
+#define CGUI_ROW_COLUMN_UNDERLINE (1 shl 26)
 
 declare function AddList(byval x as long, byval y as long, byval listdata as any ptr, byval n as long ptr, byval width_ as long, byval events as long, byval TextFormatter as function(byval as any ptr, byval as zstring ptr) as long, byval Action as sub(byval id as long, byval as any ptr), byval norows as long) as long
 declare function SetLinkedList(byval id as long, byval NextCreater as function(byval list as any ptr, byval prev as any ptr) as any ptr) as long
@@ -305,7 +304,7 @@ declare function GetListIndex(byval id as long) as long
 declare function HookExit(byval id as long, byval ExitFun as sub(byval data_ as any ptr), byval data_ as any ptr) as long
 declare function NotifyFocusMove(byval listid as long, byval CallBack as sub(byval id as long, byval rowobject as any ptr)) as long
 
-#define TR_HIDE_ROOT &h00000001
+#define CGUI_TR_HIDE_ROOT &h00000001
 
 declare function ListTreeView(byval listid as long, byval width_ as long, byval IsLeaf as function(byval rowobject as any ptr) as long, byval options as long) as long
 declare function ListTreeSetNodesExpandedState(byval listid as long, byval IsExpanded as function(byval data_ as any ptr) as long) as long
@@ -326,9 +325,9 @@ EXTERNVAR CGUI_list_vspace as long
 EXTERNVAR CGUI_list_fixfont as long
 EXTERNVAR cgui_list_fix_digits as long
 
-#define LIST_COLUMNS_ADJUSTABLE (1 shl 0)
-#define LIST_COLUMNS_ADJUSTABLE_KEEP_BOX_WIDTH (1 shl 1)
-#define LIST_COLUMNS_DELIMITER (1 shl 2)
+#define CGUI_LIST_COLUMNS_ADJUSTABLE (1 shl 0)
+#define CGUI_LIST_COLUMNS_ADJUSTABLE_KEEP_BOX_WIDTH (1 shl 1)
+#define CGUI_LIST_COLUMNS_DELIMITER (1 shl 2)
 
 declare function MkVerticalBrowser(byval x as long, byval y as long, byval CallBack as sub(byval data_ as any ptr), byval data_ as any ptr, byval viewpos as long ptr) as long
 declare function MkHorizontalBrowser(byval x as long, byval y as long, byval CallBack as sub(byval data_ as any ptr), byval data_ as any ptr, byval viewpos as long ptr) as long
@@ -339,41 +338,41 @@ declare function FileSelect(byval masks as const zstring ptr, byval rpath as con
 declare sub FileManager(byval winheader as const zstring ptr, byval flags as long)
 declare function UnPackSelection(byval flist as zstring ptr ptr) as zstring ptr
 
-#define FS_BROWSE_DAT (1 shl 0)
-#define FS_DISABLE_EDIT_DAT (1 shl 1)
-#define FS_WARN_EXISTING_FILE (1 shl 2)
-#define FS_FORBID_EXISTING_FILE (1 shl 3)
-#define FS_REQUIRE_EXISTING_FILE (1 shl 4)
-#define FS_SELECT_DIR (1 shl 5)
-#define FS_DISABLE_CREATE_DIR (1 shl 6)
-#define FS_DISABLE_DELETING (1 shl 7)
-#define FS_DISABLE_COPYING (1 shl 8)
-#define FS_SHOW_MENU (1 shl 9)
-#define FS_NO_SETTINGS_IN_CONFIG (1 shl 10)
-#define FS_MULTIPLE_SELECTION (1 shl 11)
-#define FS_NO_DRAG_DROP (1 shl 12)
-#define FS_DIRECT_SELECT_BY_DOUBLE_CLICK (1 shl 13)
-#define FS_SAVE_AS (1 shl 14)
-#define FS_SHOW_DIR_TREE (1 shl 15)
-#define FS_SHOW_DIRS_IN_FILE_VIEW (1 shl 16)
-#define FS_HIDE_LOCATION (1 shl 17)
-#define FS_HIDE_UP_BUTTON (1 shl 18)
-#define FS_HIDE_UP_DIRECTORY (1 shl 19)
-#define FS_FILE_FILTER_IS_READ_ONLY (1 shl 20)
-#define FM_HIDE_FILE_VEW (1 shl 21)
-#define FM_DO_NOT_SHOW_MENU (1 shl 22)
-#define FM_NO_FLOATING (1 shl 23)
-#define FM_BROWSE_DAT FS_BROWSE_DAT
-#define FM_DISABLE_EDIT_DAT FS_DISABLE_EDIT_DAT
-#define FM_DISABLE_CREATE_DIR FS_DISABLE_CREATE_DIR
-#define FM_DISABLE_DELETING FS_DISABLE_DELETING
-#define FM_DISABLE_COPYING FS_DISABLE_COPYING
-#define FM_NO_SETTINGS_IN_CONFIG FS_NO_SETTINGS_IN_CONFIG
-#define FM_SHOW_DIR_TREE FM_SHOW_DIR_TREE
-#define FM_SHOW_DIRS_IN_FILE_VIEW FS_SHOW_DIRS_IN_FILE_VIEW
-#define FM_HIDE_LOCATION FS_HIDE_LOCATION
-#define FM_HIDE_UP_BUTTON FS_HIDE_UP_BUTTON
-#define FM_HIDE_UP_DIRECTORY FS_HIDE_UP_DIRECTORY
+#define CGUI_FS_BROWSE_DAT (1 shl 0)
+#define CGUI_FS_DISABLE_EDIT_DAT (1 shl 1)
+#define CGUI_FS_WARN_EXISTING_FILE (1 shl 2)
+#define CGUI_FS_FORBID_EXISTING_FILE (1 shl 3)
+#define CGUI_FS_REQUIRE_EXISTING_FILE (1 shl 4)
+#define CGUI_FS_SELECT_DIR (1 shl 5)
+#define CGUI_FS_DISABLE_CREATE_DIR (1 shl 6)
+#define CGUI_FS_DISABLE_DELETING (1 shl 7)
+#define CGUI_FS_DISABLE_COPYING (1 shl 8)
+#define CGUI_FS_SHOW_MENU (1 shl 9)
+#define CGUI_FS_NO_SETTINGS_IN_CONFIG (1 shl 10)
+#define CGUI_FS_MULTIPLE_SELECTION (1 shl 11)
+#define CGUI_FS_NO_DRAG_DROP (1 shl 12)
+#define CGUI_FS_DIRECT_SELECT_BY_DOUBLE_CLICK (1 shl 13)
+#define CGUI_FS_SAVE_AS (1 shl 14)
+#define CGUI_FS_SHOW_DIR_TREE (1 shl 15)
+#define CGUI_FS_SHOW_DIRS_IN_FILE_VIEW (1 shl 16)
+#define CGUI_FS_HIDE_LOCATION (1 shl 17)
+#define CGUI_FS_HIDE_UP_BUTTON (1 shl 18)
+#define CGUI_FS_HIDE_UP_DIRECTORY (1 shl 19)
+#define CGUI_FS_FILE_FILTER_IS_READ_ONLY (1 shl 20)
+#define CGUI_FM_HIDE_FILE_VEW (1 shl 21)
+#define CGUI_FM_DO_NOT_SHOW_MENU (1 shl 22)
+#define CGUI_FM_NO_FLOATING (1 shl 23)
+#define CGUI_FM_BROWSE_DAT CGUI_FS_BROWSE_DAT
+#define CGUI_FM_DISABLE_EDIT_DAT CGUI_FS_DISABLE_EDIT_DAT
+#define CGUI_FM_DISABLE_CREATE_DIR CGUI_FS_DISABLE_CREATE_DIR
+#define CGUI_FM_DISABLE_DELETING CGUI_FS_DISABLE_DELETING
+#define CGUI_FM_DISABLE_COPYING CGUI_FS_DISABLE_COPYING
+#define CGUI_FM_NO_SETTINGS_IN_CONFIG CGUI_FS_NO_SETTINGS_IN_CONFIG
+#define CGUI_FM_SHOW_DIR_TREE CGUI_FM_SHOW_DIR_TREE
+#define CGUI_FM_SHOW_DIRS_IN_FILE_VIEW CGUI_FS_SHOW_DIRS_IN_FILE_VIEW
+#define CGUI_FM_HIDE_LOCATION CGUI_FS_HIDE_LOCATION
+#define CGUI_FM_HIDE_UP_BUTTON CGUI_FS_HIDE_UP_BUTTON
+#define CGUI_FM_HIDE_UP_DIRECTORY CGUI_FS_HIDE_UP_DIRECTORY
 
 declare sub CguiUseIcons(byval filename as const zstring ptr)
 declare function CreateTabWindow(byval x as long, byval y as long, byval width_ as long, byval height as long, byval status as long ptr) as long
@@ -470,9 +469,9 @@ declare sub NameCase(byval text as zstring ptr)
 declare sub Sound(byval freq as long, byval duration as long)
 declare function AddClock(byval x as long, byval y as long, byval options as long) as long
 
-#define CLOCK_SHOW_SECONDS 1
-#define CLOCK_SHOW_MINUTES 2
-#define CLOCK_NO_DIALOGUE 4
+#define CGUI_CLOCK_SHOW_SECONDS 1
+#define CGUI_CLOCK_SHOW_MINUTES 2
+#define CGUI_CLOCK_NO_DIALOGUE 4
 
 declare function ToUpper(byval chr_ as long) as long
 declare function SaveDatafileObject(byval path as const zstring ptr, byval data_ as any ptr, byval type_ as long) as long
@@ -488,13 +487,13 @@ declare sub RemoveOverlayPointer()
 declare sub MkTextPointer(byval f as FONT ptr, byval text as const zstring ptr)
 declare sub SelectCursor(byval cursor_no as long)
 
-#define CURS_ILLEGAL 0
-#define CURS_DRAGGABLE 1
-#define CURS_DRAG_V 2
-#define CURS_DRAG_H 3
-#define CURS_CROSS 4
-#define CURS_BUSY 5
-#define CURS_DEFAULT 6
+#define CGUI_CURS_ILLEGAL 0
+#define CGUI_CURS_DRAGGABLE 1
+#define CGUI_CURS_DRAG_V 2
+#define CGUI_CURS_DRAG_H 3
+#define CGUI_CURS_CROSS 4
+#define CGUI_CURS_BUSY 5
+#define CGUI_CURS_DEFAULT 6
 
 declare sub CguiSetMouseInput(byval MouseInput as sub(byval x as long ptr, byval y as long ptr, byval z as long ptr, byval buttons as long ptr), byval ForcePos as sub(byval x as long, byval y as long), byval SetRange as sub(byval x as long, byval y as long, byval w as long, byval h as long))
 declare sub SetMousePos(byval x as long, byval y as long)
@@ -512,14 +511,14 @@ declare function GetSizeOffset(byval id as long, byval x as long ptr, byval y as
 declare function SetSizeOffset(byval id as long, byval x as long, byval y as long) as long
 declare function MakeStretchable(byval id as long, byval Notify as sub(byval as any ptr), byval data_ as any ptr, byval options as long) as long
 
-#define NO_VERTICAL 1
-#define NO_HORIZONTAL 2
+#define CGUI_NO_VERTICAL 1
+#define CGUI_NO_HORIZONTAL 2
 
 EXTERNVAR continous_update_resize as long
 
-#define FRAMERAISE TB_FRAMERAISE
-#define FRAMESINK TB_FRAMESINK
-#define W_NOMODAL W_FLOATING
-#define W_CHILD 0
+#define CGUI_FRAMERAISE CGUI_TB_FRAMERAISE
+#define CGUI_FRAMESINK CGUI_TB_FRAMESINK
+#define CGUI_W_NOMODAL CGUI_W_FLOATING
+#define CGUI_W_CHILD 0
 
 end extern
