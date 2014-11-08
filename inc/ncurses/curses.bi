@@ -3,7 +3,6 @@
 #include once "crt/long.bi"
 #include once "crt/stdio.bi"
 #include once "crt/stdarg.bi"
-#include once "stdbool.bi"
 
 '' The following symbols have been renamed:
 ''     typedef screen => screen__
