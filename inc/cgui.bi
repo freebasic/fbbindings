@@ -6,6 +6,7 @@
 #include once "crt/stdlib.bi"
 
 '' The following symbols have been renamed:
+''     procedure Remove => Remove_
 ''     #define ON => ON_
 
 extern "C"
@@ -252,7 +253,7 @@ declare function SetView(byval id as long, byval flags as long) as long
 declare function RegisterDragFlag(byval flag as long) as long
 declare function UnRegisterDragFlag(byval flag as long) as long
 declare function SetMouseButtons(byval id as long, byval buttons as long) as long
-declare sub Remove(byval id as long)
+declare sub Remove_ alias "Remove"(byval id as long)
 declare sub Destroy(byval id as long)
 declare function GetPressedButton(byval id as long) as long
 declare sub PointerOn(byval id as long)
