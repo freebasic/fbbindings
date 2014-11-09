@@ -6,7 +6,7 @@
 #include once "crt/stdio.bi"
 
 #ifdef PDC_WIDE
-	#include once "wchar.bi"
+	#include once "crt/wchar.bi"
 #endif
 
 '' The following symbols have been renamed:
