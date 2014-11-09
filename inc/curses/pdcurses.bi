@@ -874,7 +874,7 @@ declare function wvline(byval as WINDOW_ ptr, byval as chtype, byval as long) as
 	declare function in_wch(byval as cchar_t ptr) as long
 	declare function in_wchnstr(byval as cchar_t ptr, byval as long) as long
 	declare function in_wchstr(byval as cchar_t ptr) as long
-	declare function key_name(byval as wstring) as zstring ptr
+	declare function key_name(byval as wchar_t) as zstring ptr
 	declare function killwchar(byval as wstring ptr) as long
 	declare function mvaddnwstr(byval as long, byval as long, byval as const wstring ptr, byval as long) as long
 	declare function mvaddwstr(byval as long, byval as long, byval as const wstring ptr) as long
@@ -915,7 +915,7 @@ declare function wvline(byval as WINDOW_ ptr, byval as chtype, byval as long) as
 	declare function pecho_wchar(byval as WINDOW_ ptr, byval as const cchar_t ptr) as long
 	declare function setcchar(byval as cchar_t ptr, byval as const wstring ptr, byval as const attr_t, byval as short, byval as const any ptr) as long
 	declare function slk_wset(byval as long, byval as const wstring ptr, byval as long) as long
-	declare function unget_wch(byval as const wstring) as long
+	declare function unget_wch(byval as const wchar_t) as long
 	declare function vline_set(byval as const cchar_t ptr, byval as long) as long
 	declare function waddnwstr(byval as WINDOW_ ptr, byval as const wstring ptr, byval as long) as long
 	declare function waddwstr(byval as WINDOW_ ptr, byval as const wstring ptr) as long
