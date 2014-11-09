@@ -76,9 +76,7 @@ end type
 #define MOUSE_MOVED (Mouse_status.changes and PDC_MOUSE_MOVED)
 #define MOUSE_POS_REPORT (Mouse_status.changes and PDC_MOUSE_POSITION)
 #define BUTTON_CHANGED(x) (Mouse_status.changes and (1 shl ((x) - 1)))
-
-'' TODO: #define BUTTON_STATUS(x) (Mouse_status.button[(x) - 1])
-
+#define BUTTON_STATUS(x) (Mouse_status.button((x) - 1))
 #define MOUSE_WHEEL_UP (Mouse_status.changes and PDC_MOUSE_WHEEL_UP)
 #define MOUSE_WHEEL_DOWN (Mouse_status.changes and PDC_MOUSE_WHEEL_DOWN)
 #define BUTTON1_RELEASED cast(clong, &h00000001)
@@ -205,9 +203,8 @@ end type
 	extern import COLORS as long
 	extern import COLOR_PAIRS as long
 	extern import TABSIZE as long
-
-	'' TODO: __attribute__((dllimport)) chtype acs_map[];
-	'' TODO: __attribute__((dllimport)) char ttytype[];
+	extern import acs_map(0 to 128-1) as chtype
+	extern import ttytype as zstring * 128
 #else
 	extern LINES as long
 	extern COLS as long
@@ -218,9 +215,8 @@ end type
 	extern COLORS as long
 	extern COLOR_PAIRS as long
 	extern TABSIZE as long
-
-	'' TODO: extern chtype acs_map[];
-	'' TODO: extern char ttytype[];
+	extern acs_map(0 to 128-1) as chtype
+	extern ttytype as zstring * 128
 #endif
 
 #define A_NORMAL cast(chtype, 0)
@@ -1026,17 +1022,17 @@ declare function PDC_save_key_modifiers(byval as bool) as long
 #define ungetch(ch) PDC_ungetch(ch)
 #define COLOR_PAIR(n) (cast(chtype, (n) shl PDC_COLOR_SHIFT) and A_COLOR)
 #define PAIR_NUMBER(n) (((n) and A_COLOR) shr PDC_COLOR_SHIFT)
-
-'' TODO: #define getbegyx(w, y, x) (y = getbegy(w), x = getbegx(w))
-'' TODO: #define getmaxyx(w, y, x) (y = getmaxy(w), x = getmaxx(w))
-'' TODO: #define getparyx(w, y, x) (y = getpary(w), x = getparx(w))
-'' TODO: #define getyx(w, y, x) (y = getcury(w), x = getcurx(w))
-
+#define getbegyx(w, y, x) y = getbegy(w) : x = getbegx(w))
+#define getmaxyx(w, y, x) y = getmaxy(w) : x = getmaxx(w))
+#define getparyx(w, y, x) y = getpary(w) : x = getparx(w))
+#define getyx(w, y, x) y = getcury(w) : x = getcurx(w))
 #macro getsyx(y, x)
-	scope
-		'' TODO: if (curscr->_leaveit) (y)=(x)=-1;
-		'' TODO: else getyx(curscr,(y),(x));
-	end scope
+	if (curscr->_leaveit) then
+		(y) = -1
+		(x) = -1
+	else
+		getyx(curscr, (y), (x))
+	end if
 #endmacro
 #define PDC_CLIP_SUCCESS 0
 #define PDC_CLIP_ACCESS_ERROR 1
