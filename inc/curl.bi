@@ -7,8 +7,8 @@
 #include once "crt/time.bi"
 
 #ifdef __FB_WIN32__
-	#include once "winsock2.bi"
-	#include once "ws2tcpip.bi"
+	#include once "win/winsock2.bi"
+	#include once "win/ws2tcpip.bi"
 #else
 	#include once "crt/sys/socket.bi"
 	#include once "crt/sys/select.bi"
