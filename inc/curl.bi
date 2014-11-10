@@ -1,4 +1,5 @@
 #pragma once
+#inclib "curl"
 
 #include once "crt/long.bi"
 #include once "crt/stdio.bi"
