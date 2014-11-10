@@ -1,6 +1,6 @@
 FBFROG := fbfrog
 
-ALL := allegro cgui clang cunit ffi iup jit llvm lua ncurses pdcurses png png12 png14 png15 png16 zip zlib
+ALL := allegro4 allegro5 cgui clang cunit ffi iup jit llvm lua ncurses pdcurses png png12 png14 png15 png16 zip zlib
 
 .PHONY: all clean $(ALL)
 
@@ -9,12 +9,22 @@ all: $(ALL)
 clean:
 	rm -rf extracted/*
 
-ALLEGRO_VERSION := 5.0.10
-ALLEGRO_TITLE := allegro-$(ALLEGRO_VERSION)
-allegro:
-	./downloadextract.sh $(ALLEGRO_TITLE) $(ALLEGRO_TITLE).tar.gz "http://sourceforge.net/projects/alleg/files/allegro/$(ALLEGRO_VERSION)/$(ALLEGRO_TITLE).tar.gz/download"
+ALLEGRO4_VERSION := 4.4.2
+ALLEGRO4_TITLE := allegro-$(ALLEGRO4_VERSION)
+allegro4:
+	./downloadextract.sh $(ALLEGRO4_TITLE) $(ALLEGRO4_TITLE).tar.gz "http://cdn.allegro.cc/file/library/allegro/$(ALLEGRO4_VERSION)/$(ALLEGRO4_TITLE).tar.gz"
+	$(FBFROG) allegro.fbfrog allegro4.fbfrog -o inc/allegro.bi \
+		extracted/$(ALLEGRO4_TITLE)/include/allegro.h \
+		-incdir extracted/$(ALLEGRO4_TITLE)/include
+
+ALLEGRO5_VERSION := 5.0.10
+ALLEGRO5_TITLE := allegro-$(ALLEGRO5_VERSION)
+allegro5:
+	./downloadextract.sh $(ALLEGRO5_TITLE) $(ALLEGRO5_TITLE).tar.gz "http://cdn.allegro.cc/file/library/allegro/$(ALLEGRO5_VERSION)/$(ALLEGRO5_TITLE).tar.gz"
 	mkdir -p inc/allegro5
-	$(FBFROG) allegro5.fbfrog -o inc/allegro5 extracted/$(ALLEGRO_TITLE)/include/allegro5/allegro.h -incdir extracted/$(ALLEGRO_TITLE)/include
+	$(FBFROG) allegro.fbfrog allegro5.fbfrog -o inc/allegro5/allegro.bi \
+		extracted/$(ALLEGRO5_TITLE)/include/allegro5/allegro.h \
+		-incdir extracted/$(ALLEGRO5_TITLE)/include
 
 cgui:
 	./downloadextract.sh cgui cgui-2.0.3.tar.gz "http://sourceforge.net/projects/cgui/files/2.0.3/cgui-2.0.3.tar.gz/download"

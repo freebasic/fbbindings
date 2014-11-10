@@ -68,7 +68,6 @@ type ALLEGRO_COND as ALLEGRO_COND_
 	#define ALLEGRO_PLATFORM_STR "MinGW32"
 	#define ALLEGRO_WINDOWS
 	#define ALLEGRO_LITTLE_ENDIAN
-	#define _AL_DLL __declspec(dllimport)
 	#define ENUM_CURRENT_SETTINGS (DWORD - 1)
 #else
 	#define ALLEGRO_PLATFORM_STR "Unix"
