@@ -81,15 +81,15 @@ type curl_slist as curl_slist_
 #define __CURL_CURLRULES_H
 
 #if (defined(__FB_LINUX__) and (not defined(__FB_64BIT__))) or defined(__FB_DOS__) or defined(__FB_WIN32__)
-	type __curl_rule_01__ as zstring * iif(sizeof(clong) = 4, 1, -1)
+	type __curl_rule_01__ as zstring * (iif(sizeof(clong) = 4, 1, -1))
 #else
-	type __curl_rule_01__ as zstring * iif(sizeof(clong) = 8, 1, -1)
+	type __curl_rule_01__ as zstring * (iif(sizeof(clong) = 8, 1, -1))
 #endif
 
-type __curl_rule_02__ as zstring * iif(sizeof(curl_off_t) = 8, 1, -1)
-type __curl_rule_03__ as zstring * iif(sizeof(curl_off_t) >= sizeof(clong), 1, -1)
-type __curl_rule_04__ as zstring * iif(sizeof(curl_socklen_t) = 4, 1, -1)
-type __curl_rule_05__ as zstring * iif(sizeof(curl_socklen_t) >= sizeof(long), 1, -1)
+type __curl_rule_02__ as zstring * (iif(sizeof(curl_off_t) = 8, 1, -1))
+type __curl_rule_03__ as zstring * (iif(sizeof(curl_off_t) >= sizeof(clong), 1, -1))
+type __curl_rule_04__ as zstring * (iif(sizeof(curl_socklen_t) = 4, 1, -1))
+type __curl_rule_05__ as zstring * (iif(sizeof(curl_socklen_t) >= sizeof(long), 1, -1))
 
 #define CURL_ISOCPP
 #define __CURL_OFF_T_C_HLPR2(Val, Suffix) Val##Suffix
