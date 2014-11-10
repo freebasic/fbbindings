@@ -22,7 +22,6 @@
 extern "C"
 
 type curl_slist as curl_slist_
-type sockaddr as sockaddr_
 
 #define __CURL_CURL_H
 #define __CURL_CURLVER_H
