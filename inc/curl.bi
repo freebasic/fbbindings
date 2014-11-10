@@ -14,8 +14,6 @@
 	#include once "crt/sys/select.bi"
 #endif
 
-#include once "typecheck-gcc.bi"
-
 '' The following symbols have been renamed:
 ''     struct CURLMsg => CURLMsg_
 ''     #define curl_multi_socket => curl_multi_socket_
