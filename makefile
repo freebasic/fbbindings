@@ -204,7 +204,9 @@ llvm:
 		-removedefine INT64_MAX		\
 		-removedefine INT64_MIN		\
 		-removedefine UINT64_MAX	\
-		-removedefine HUGE_VALF
+		-removedefine HUGE_VALF		\
+		-removedefine LLVM_FOR_EACH_VALUE_SUBCLASS	\
+		-removedefine LLVM_DECLARE_VALUE_CAST
 
 LUA_TITLE := lua-5.2.3
 lua:
