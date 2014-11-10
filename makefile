@@ -51,6 +51,22 @@ cunit:
 	$(FBFROG) cunit.fbfrog -filterout '*' -o inc/CUnit/TestRun.bi   extracted/$(CUNIT_TITLE)/CUnit/Headers/TestRun.h
 	$(FBFROG) cunit.fbfrog -filterout '*' -o inc/CUnit/Util.bi      extracted/$(CUNIT_TITLE)/CUnit/Headers/Util.h
 
+
+CURL_TITLE := curl-7.39.0
+curl:
+	./downloadextract.sh $(CURL_TITLE) $(CURL_TITLE).tar.lzma "http://curl.haxx.se/download/$(CURL_TITLE).tar.lzma"
+	$(FBFROG) -o inc/curl.bi extracted/$(CURL_TITLE)/include/curl/curl.h \
+		-removedefine CINIT \
+		-removedefine CURL_EXTERN \
+		-noexpand CURLOPTTYPE_LONG \
+		-noexpand CURLOPTTYPE_OBJECTPOINT \
+		-noexpand CURLOPTTYPE_FUNCTIONPOINT \
+		-noexpand CURLOPTTYPE_OFF_T \
+		-noexpand CURLINFO_STRING \
+		-noexpand CURLINFO_LONG \
+		-noexpand CURLINFO_DOUBLE \
+		-noexpand CURLINFO_SLIST
+
 FFI_TITLE := libffi-3.1
 ffi:
 	./downloadextract.sh $(FFI_TITLE) $(FFI_TITLE).tar.gz "ftp://sourceware.org/pub/libffi/$(FFI_TITLE).tar.gz"
