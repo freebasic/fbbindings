@@ -35,12 +35,7 @@ extern "C"
 #define OK 0
 
 type bool as ubyte
-
-#if defined(__FB_WIN32__) or (defined(__FB_LINUX__) and (not defined(__FB_64BIT__))) or defined(__FB_DOS__)
-	type chtype as culong
-#else
-	type chtype as ulong
-#endif
+type chtype as ulong
 
 #ifdef PDC_WIDE
 	type cchar_t as chtype
