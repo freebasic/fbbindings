@@ -35,11 +35,8 @@ type curl_slist as curl_slist_
 #define LIBCURL_TIMESTAMP "Wed Nov  5 07:24:58 UTC 2014"
 #define __CURL_CURLBUILD_H
 
-#if (defined(__FB_LINUX__) and (not defined(__FB_64BIT__))) or defined(__FB_DOS__) or defined(__FB_WIN32__)
-	#define CURL_SIZEOF_LONG 4
-#endif
-
 #ifdef __FB_WIN32__
+	#define CURL_SIZEOF_LONG 4
 	#define CURL_FORMAT_CURL_OFF_T "I64d"
 	#define CURL_FORMAT_CURL_OFF_TU "I64u"
 	#define CURL_FORMAT_OFF_T "%I64d"
@@ -49,35 +46,24 @@ type curl_slist as curl_slist_
 	#define CURL_FORMAT_CURL_OFF_TU "lu"
 	#define CURL_FORMAT_OFF_T "%ld"
 #else
+	#define CURL_SIZEOF_LONG 4
 	#define CURL_FORMAT_CURL_OFF_T "lld"
 	#define CURL_FORMAT_CURL_OFF_TU "llu"
 	#define CURL_FORMAT_OFF_T "%lld"
 #endif
 
 #define CURL_SIZEOF_CURL_OFF_T 8
-
-#if (defined(__FB_LINUX__) and (not defined(__FB_64BIT__))) or defined(__FB_DOS__) or defined(__FB_WIN32__)
-	#define CURL_SUFFIX_CURL_OFF_T LL
-	#define CURL_SUFFIX_CURL_OFF_TU ULL
-#else
-	#define CURL_SUFFIX_CURL_OFF_T L
-	#define CURL_SUFFIX_CURL_OFF_TU UL
-#endif
-
+#define CURL_SUFFIX_CURL_OFF_T LL
+#define CURL_SUFFIX_CURL_OFF_TU ULL
 #define CURL_SIZEOF_CURL_SOCKLEN_T 4
 
 #if defined(__FB_DOS__) or defined(__FB_WIN32__)
 	type curl_socklen_t as long
-#elseif defined(__FB_LINUX__) and (not defined(__FB_64BIT__))
+#else
 	type curl_socklen_t as socklen_t
 #endif
 
-#if (defined(__FB_LINUX__) and (not defined(__FB_64BIT__))) or defined(__FB_DOS__) or defined(__FB_WIN32__)
-	type curl_off_t as longint
-#else
-	type curl_socklen_t as socklen_t
-	type curl_off_t as clong
-#endif
+type curl_off_t as longint
 
 #define __CURL_CURLRULES_H
 
