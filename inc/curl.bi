@@ -16,7 +16,7 @@
 
 '' The following symbols have been renamed:
 ''     struct CURLMsg => CURLMsg_
-''     #define curl_multi_socket => curl_multi_socket_
+''     procedure curl_multi_socket => curl_multi_socket_
 
 extern "C"
 
@@ -1210,11 +1210,11 @@ declare function curl_multi_strerror(byval as CURLMcode) as const zstring ptr
 type curl_socket_callback as function(byval easy as CURL ptr, byval s as curl_socket_t, byval what as long, byval userp as any ptr, byval socketp as any ptr) as long
 type curl_multi_timer_callback as function(byval multi as CURLM ptr, byval timeout_ms as clong, byval userp as any ptr) as long
 
-declare function curl_multi_socket(byval multi_handle as CURLM ptr, byval s as curl_socket_t, byval running_handles as long ptr) as CURLMcode
+declare function curl_multi_socket_ alias "curl_multi_socket"(byval multi_handle as CURLM ptr, byval s as curl_socket_t, byval running_handles as long ptr) as CURLMcode
 declare function curl_multi_socket_action(byval multi_handle as CURLM ptr, byval s as curl_socket_t, byval ev_bitmask as long, byval running_handles as long ptr) as CURLMcode
 declare function curl_multi_socket_all(byval multi_handle as CURLM ptr, byval running_handles as long ptr) as CURLMcode
 
-#define curl_multi_socket_(x, y, z) curl_multi_socket_action(x, y, 0, z)
+#define curl_multi_socket(x, y, z) curl_multi_socket_action(x, y, 0, z)
 
 declare function curl_multi_timeout(byval multi_handle as CURLM ptr, byval milliseconds as clong ptr) as CURLMcode
 
