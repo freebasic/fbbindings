@@ -1271,7 +1271,11 @@ declare function lto_module_create(byval path as const zstring ptr) as lto_modul
 declare function lto_module_create_from_memory(byval mem as const any ptr, byval length as uinteger) as lto_module_t
 declare function lto_module_create_from_memory_with_path(byval mem as const any ptr, byval length as uinteger, byval path as const zstring ptr) as lto_module_t
 declare function lto_module_create_from_fd(byval fd as long, byval path as const zstring ptr, byval file_size as uinteger) as lto_module_t
-declare function lto_module_create_from_fd_at_offset(byval fd as long, byval path as const zstring ptr, byval file_size as uinteger, byval map_size as uinteger, byval offset as off_t) as lto_module_t
+#ifdef __FB_WIN32__
+	declare function lto_module_create_from_fd_at_offset(byval fd as long, byval path as const zstring ptr, byval file_size as uinteger, byval map_size as uinteger, byval offset as _off_t) as lto_module_t
+#else
+	declare function lto_module_create_from_fd_at_offset(byval fd as long, byval path as const zstring ptr, byval file_size as uinteger, byval map_size as uinteger, byval offset as off_t) as lto_module_t
+#endif
 declare sub lto_module_dispose(byval mod_ as lto_module_t)
 declare function lto_module_get_target_triple(byval mod_ as lto_module_t) as const zstring ptr
 declare sub lto_module_set_target_triple(byval mod_ as lto_module_t, byval triple as const zstring ptr)
