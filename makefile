@@ -67,7 +67,9 @@ curl:
 		-removedefine curl_easy_setopt \
 		-removedefine curl_easy_getinfo \
 		-removedefine curl_share_setopt \
-		-removedefine curl_multi_setopt
+		-removedefine curl_multi_setopt \
+		\
+		-filterout '*typecheck-gcc.h'
 
 FFI_TITLE := libffi-3.1
 ffi:
