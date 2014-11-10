@@ -5,11 +5,6 @@
 
 extern "C"
 
-type CXVirtualFileOverlayImpl as CXVirtualFileOverlayImpl_
-type CXModuleMapDescriptorImpl as CXModuleMapDescriptorImpl_
-type CXTranslationUnitImpl as CXTranslationUnitImpl_
-type CXCursorSetImpl as CXCursorSetImpl_
-
 #define CLANG_C_INDEX_H
 #define CLANG_C_PLATFORM_H
 #define CLANG_C_CXERRORCODE_H
