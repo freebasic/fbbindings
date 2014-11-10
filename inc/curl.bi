@@ -4,7 +4,7 @@
 
 #ifdef __FB_LINUX__
 	#include once "crt/sys/types.bi"
-	#include once "sys/socket.bi"
+	#include once "crt/sys/socket.bi"
 #endif
 
 #include once "crt/stdio.bi"
@@ -20,7 +20,7 @@
 	#include once "winsock2.bi"
 	#include once "ws2tcpip.bi"
 #elseif defined(__FB_DOS__)
-	#include once "sys/socket.bi"
+	#include once "crt/sys/socket.bi"
 #endif
 
 #if defined(__FB_DOS__) or defined(__FB_LINUX__)
