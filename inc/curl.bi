@@ -1,30 +1,16 @@
 #pragma once
 
 #include once "crt/long.bi"
-
-#ifdef __FB_LINUX__
-	#include once "crt/sys/types.bi"
-	#include once "sys/socket.bi"
-#endif
-
 #include once "crt/stdio.bi"
 #include once "crt/limits.bi"
-
-#if defined(__FB_DOS__) or defined(__FB_WIN32__)
-	#include once "crt/sys/types.bi"
-#endif
-
+#include once "crt/sys/types.bi"
 #include once "crt/time.bi"
 
 #ifdef __FB_WIN32__
 	#include once "winsock2.bi"
 	#include once "ws2tcpip.bi"
-#elseif defined(__FB_DOS__)
-	#include once "sys/socket.bi"
-#endif
-
-#if defined(__FB_DOS__) or defined(__FB_LINUX__)
-	#include once "sys/time.bi"
+#else
+	#include once "crt/sys/socket.bi"
 #endif
 
 '' The following symbols have been renamed:
