@@ -373,9 +373,6 @@ declare function LLVMX86MMXTypeInContext(byval C as LLVMContextRef) as LLVMTypeR
 declare function LLVMVoidType() as LLVMTypeRef
 declare function LLVMLabelType() as LLVMTypeRef
 declare function LLVMX86MMXType() as LLVMTypeRef
-
-'' TODO: #define LLVM_FOR_EACH_VALUE_SUBCLASS(macro) macro(Argument) macro(BasicBlock) macro(InlineAsm) macro(MDNode) macro(MDString) macro(User) macro(Constant) macro(BlockAddress) macro(ConstantAggregateZero) macro(ConstantArray) macro(ConstantDataSequential) macro(ConstantDataArray) macro(ConstantDataVector) macro(ConstantExpr) macro(ConstantFP) macro(ConstantInt) macro(ConstantPointerNull) macro(ConstantStruct) macro(ConstantVector) macro(GlobalValue) macro(GlobalAlias) macro(GlobalObject) macro(Function) macro(GlobalVariable) macro(UndefValue) macro(Instruction) macro(BinaryOperator) macro(CallInst) macro(IntrinsicInst) macro(DbgInfoIntrinsic) macro(DbgDeclareInst) macro(MemIntrinsic) macro(MemCpyInst) macro(MemMoveInst) macro(MemSetInst) macro(CmpInst) macro(FCmpInst) macro(ICmpInst) macro(ExtractElementInst) macro(GetElementPtrInst) macro(InsertElementInst) macro(InsertValueInst) macro(LandingPadInst) macro(PHINode) macro(SelectInst) macro(ShuffleVectorInst) macro(StoreInst) macro(TerminatorInst) macro(BranchInst) macro(IndirectBrInst) macro(InvokeInst) macro(ReturnInst) macro(SwitchInst) macro(UnreachableInst) macro(ResumeInst) macro(UnaryInstruction) macro(AllocaInst) macro(CastInst) macro(AddrSpaceCastInst) macro(BitCastInst) macro(FPExtInst) macro(FPToSIInst) macro(FPToUIInst) macro(FPTruncInst) macro(IntToPtrInst) macro(PtrToIntInst) macro(SExtInst) macro(SIToFPInst) macro(TruncInst) macro(UIToFPInst) macro(ZExtInst) macro(ExtractValueInst) macro(LoadInst) macro(VAArgInst)
-
 declare function LLVMTypeOf(byval Val_ as LLVMValueRef) as LLVMTypeRef
 declare function LLVMGetValueName(byval Val_ as LLVMValueRef) as const zstring ptr
 declare sub LLVMSetValueName(byval Val_ as LLVMValueRef, byval Name_ as const zstring ptr)
@@ -384,9 +381,6 @@ declare function LLVMPrintValueToString(byval Val_ as LLVMValueRef) as zstring p
 declare sub LLVMReplaceAllUsesWith(byval OldVal as LLVMValueRef, byval NewVal as LLVMValueRef)
 declare function LLVMIsConstant(byval Val_ as LLVMValueRef) as LLVMBool
 declare function LLVMIsUndef(byval Val_ as LLVMValueRef) as LLVMBool
-
-'' TODO: #define LLVM_DECLARE_VALUE_CAST(name) LLVMValueRef LLVMIsA##name(LLVMValueRef Val);
-
 declare function LLVMIsAArgument(byval Val_ as LLVMValueRef) as LLVMValueRef
 declare function LLVMIsABasicBlock(byval Val_ as LLVMValueRef) as LLVMValueRef
 declare function LLVMIsAInlineAsm(byval Val_ as LLVMValueRef) as LLVMValueRef
