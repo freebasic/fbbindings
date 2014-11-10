@@ -5,9 +5,6 @@
 #include once "crt/sys/types.bi"
 #include once "crt/stddef.bi"
 
-'' The following symbols have been renamed:
-''     procedure LLVMInitializeCore => LLVMInitializeCore_
-
 extern "C"
 
 #define LLVM_C_ANALYSIS_H
@@ -1139,7 +1136,6 @@ declare sub LLVMDisposeMCJITMemoryManager(byval MM as LLVMMCJITMemoryManagerRef)
 
 #define LLVM_C_INITIALIZEPASSES_H
 
-declare sub LLVMInitializeCore_ alias "LLVMInitializeCore"(byval R as LLVMPassRegistryRef)
 declare sub LLVMInitializeTransformUtils(byval R as LLVMPassRegistryRef)
 declare sub LLVMInitializeScalarOpts(byval R as LLVMPassRegistryRef)
 declare sub LLVMInitializeObjCARCOpts(byval R as LLVMPassRegistryRef)
