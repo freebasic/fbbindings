@@ -10,32 +10,6 @@
 
 extern "C"
 
-type LLVMOpaqueMemoryBuffer as LLVMOpaqueMemoryBuffer_
-type LLVMOpaqueContext as LLVMOpaqueContext_
-type LLVMOpaqueModule as LLVMOpaqueModule_
-type LLVMOpaqueType as LLVMOpaqueType_
-type LLVMOpaqueValue as LLVMOpaqueValue_
-type LLVMOpaqueBasicBlock as LLVMOpaqueBasicBlock_
-type LLVMOpaqueBuilder as LLVMOpaqueBuilder_
-type LLVMOpaqueModuleProvider as LLVMOpaqueModuleProvider_
-type LLVMOpaquePassManager as LLVMOpaquePassManager_
-type LLVMOpaquePassRegistry as LLVMOpaquePassRegistry_
-type LLVMOpaqueUse as LLVMOpaqueUse_
-type LLVMOpaqueDiagnosticInfo as LLVMOpaqueDiagnosticInfo_
-type LLVMOpaqueTargetData as LLVMOpaqueTargetData_
-type LLVMOpaqueTargetLibraryInfotData as LLVMOpaqueTargetLibraryInfotData_
-type LLVMOpaqueTargetMachine as LLVMOpaqueTargetMachine_
-type LLVMTarget as LLVMTarget_
-type LLVMOpaqueGenericValue as LLVMOpaqueGenericValue_
-type LLVMOpaqueExecutionEngine as LLVMOpaqueExecutionEngine_
-type LLVMOpaqueMCJITMemoryManager as LLVMOpaqueMCJITMemoryManager_
-type LLVMOpaqueLTOModule as LLVMOpaqueLTOModule_
-type LLVMOpaqueLTOCodeGenerator as LLVMOpaqueLTOCodeGenerator_
-type LLVMOpaqueObjectFile as LLVMOpaqueObjectFile_
-type LLVMOpaqueSectionIterator as LLVMOpaqueSectionIterator_
-type LLVMOpaqueSymbolIterator as LLVMOpaqueSymbolIterator_
-type LLVMOpaqueRelocationIterator as LLVMOpaqueRelocationIterator_
-
 #define LLVM_C_ANALYSIS_H
 #define LLVM_C_CORE_H
 #define LLVM_C_SUPPORT_H
