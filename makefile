@@ -54,6 +54,7 @@ curl:
 	$(FBFROG) -o inc/curl.bi extracted/$(CURL_TITLE)/include/curl/curl.h \
 		-removedefine CINIT \
 		-removedefine CURL_EXTERN \
+		\
 		-noexpand CURLOPTTYPE_LONG \
 		-noexpand CURLOPTTYPE_OBJECTPOINT \
 		-noexpand CURLOPTTYPE_FUNCTIONPOINT \
@@ -61,7 +62,12 @@ curl:
 		-noexpand CURLINFO_STRING \
 		-noexpand CURLINFO_LONG \
 		-noexpand CURLINFO_DOUBLE \
-		-noexpand CURLINFO_SLIST
+		-noexpand CURLINFO_SLIST \
+		\
+		-removedefine curl_easy_setopt \
+		-removedefine curl_easy_getinfo \
+		-removedefine curl_share_setopt \
+		-removedefine curl_multi_setopt
 
 FFI_TITLE := libffi-3.1
 ffi:
