@@ -11,6 +11,7 @@
 	#include once "ws2tcpip.bi"
 #else
 	#include once "crt/sys/socket.bi"
+	#include once "crt/sys/select.bi"
 #endif
 
 '' The following symbols have been renamed:
