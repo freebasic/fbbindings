@@ -1,4 +1,5 @@
 #pragma once
+#inclib "pdcurses"
 
 #include once "crt/long.bi"
 #include once "crt/stdarg.bi"
