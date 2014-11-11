@@ -158,7 +158,6 @@ type PACKFILE_VTABLE as PACKFILE_VTABLE_
 	#define ALLEGRO_NO_STRICMP
 	#define ALLEGRO_NO_STRLWR
 	#define ALLEGRO_NO_STRUPR
-	#define ALLEGRO_NO_MEMCMP
 #elseif defined(__FB_DOS__)
 	#define ALLEGRO_USE_CONSTRUCTOR
 
@@ -242,10 +241,6 @@ type PACKFILE_VTABLE as PACKFILE_VTABLE_
 	declare function _alemu_strupr(byval string_ as zstring ptr) as zstring ptr
 
 	#define strupr _alemu_strupr
-
-	declare function _alemu_memcmp(byval s1 as const any ptr, byval s2 as const any ptr, byval num as uinteger) as long
-
-	#define memcmp _alemu_memcmp
 #endif
 
 #if defined(__FB_WIN32__) or defined(__FB_LINUX__)
