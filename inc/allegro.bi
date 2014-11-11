@@ -62,7 +62,7 @@
 ''         #define GFX_DIRECTX_OVL => GFX_DIRECTX_OVL_
 ''         #define GFX_GDI => GFX_GDI_
 ''     #elseif defined(__FB_LINUX__)
-''         #define TIMERDRV_UNIX_SIGALRM => TIMERDRV_UNIX_SIGALRM_
+''         #define TIMERDRV_UNIX_PTHREADS => TIMERDRV_UNIX_PTHREADS_
 ''         #define SYSTEM_LINUX => SYSTEM_LINUX_
 ''         #define MOUSEDRV_LINUX_PS2 => MOUSEDRV_LINUX_PS2_
 ''         #define MOUSEDRV_LINUX_IPS2 => MOUSEDRV_LINUX_IPS2_
@@ -139,10 +139,6 @@ type PACKFILE_VTABLE as PACKFILE_VTABLE_
 
 #ifdef __FB_WIN32__
 	#define ALLEGRO_USE_CONSTRUCTOR
-	#define ALLEGRO_MULTITHREADED
-	#define ENUM_CURRENT_SETTINGS (DWORD - 1)
-	#define ALLEGRO_ASM_PREFIX "_"
-	#define ALLEGRO_ASMCAPA_HEADER "obj/mingw32/asmcapa.h"
 #elseif defined(__FB_LINUX__)
 	#define ALLEGRO_PLATFORM_STR "Unix"
 #else
@@ -154,11 +150,12 @@ type PACKFILE_VTABLE as PACKFILE_VTABLE_
 	#define ALLEGRO_VRAM_SINGLE_SURFACE
 #endif
 
-#ifdef __FB_LINUX__
-	#define ALLEGRO_NO_STRICMP
-	#define ALLEGRO_NO_STRLWR
-	#define ALLEGRO_NO_STRUPR
-	#define ALLEGRO_NO_MEMCMP
+#if defined(__FB_WIN32__) or defined(__FB_LINUX__)
+	#define ALLEGRO_MULTITHREADED
+#endif
+
+#ifdef __FB_WIN32__
+	#define ENUM_CURRENT_SETTINGS (DWORD - 1)
 #elseif defined(__FB_DOS__)
 	#define ALLEGRO_USE_CONSTRUCTOR
 
@@ -186,7 +183,19 @@ type PACKFILE_VTABLE as PACKFILE_VTABLE_
 	#define bmp_read16(addr) _farnspeekw(addr)
 	#define bmp_read32(addr) _farnspeekl(addr)
 	#define bmp_read24(addr) (_farnspeekl(addr) and &hFFFFFF)
+#endif
+
+#if defined(__FB_DOS__) or defined(__FB_WIN32__)
 	#define ALLEGRO_ASM_PREFIX "_"
+#endif
+
+#ifdef __FB_WIN32__
+	#define ALLEGRO_ASMCAPA_HEADER "obj/mingw32/asmcapa.h"
+#elseif defined(__FB_LINUX__)
+	#define ALLEGRO_NO_STRICMP
+	#define ALLEGRO_NO_STRLWR
+	#define ALLEGRO_NO_STRUPR
+#else
 	#define ALLEGRO_ASM_USE_FS
 	#define ALLEGRO_ASMCAPA_HEADER "obj/djgpp/asmcapa.h"
 #endif
@@ -242,10 +251,6 @@ type PACKFILE_VTABLE as PACKFILE_VTABLE_
 	declare function _alemu_strupr(byval string_ as zstring ptr) as zstring ptr
 
 	#define strupr _alemu_strupr
-
-	declare function _alemu_memcmp(byval s1 as const any ptr, byval s2 as const any ptr, byval num as uinteger) as long
-
-	#define memcmp _alemu_memcmp
 #endif
 
 #if defined(__FB_WIN32__) or defined(__FB_LINUX__)
@@ -3149,10 +3154,10 @@ declare function timer_is_using_retrace() as long
 	extern __crt0_argc as long
 	extern __crt0_argv as zstring ptr ptr
 
-	#define TIMERDRV_UNIX_PTHREADS AL_ID(asc("P"), asc("T"), asc("H"), asc("R"))
-	#define TIMERDRV_UNIX_SIGALRM_ AL_ID(asc("A"), asc("L"), asc("R"), asc("M"))
+	#define TIMERDRV_UNIX_PTHREADS_ AL_ID(asc("P"), asc("T"), asc("H"), asc("R"))
+	#define TIMERDRV_UNIX_SIGALRM AL_ID(asc("A"), asc("L"), asc("R"), asc("M"))
 
-	extern timerdrv_unix_sigalrm as TIMER_DRIVER
+	extern timerdrv_unix_pthreads as TIMER_DRIVER
 
 	#define DIGI_OSS AL_ID(asc("O"), asc("S"), asc("S"), asc("D"))
 	#define MIDI_OSS AL_ID(asc("O"), asc("S"), asc("S"), asc("M"))

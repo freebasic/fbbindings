@@ -1,17 +1,3 @@
--select
--case __FB_LINUX__
-	-define ALLEGRO_LINUX
-	-define ALLEGRO_UNIX
-	-define ALLEGRO_HAVE_LINUX_JOYSTICK_H
--case __FB_WIN32__
-	-define ALLEGRO_MINGW32
--case __FB_DOS__
+-ifdef __FB_DOS__
 	-define ALLEGRO_DJGPP
--endselect
-
--define ALLEGRO_NO_ASM
--define ALLEGRO_USE_C
--define ALLEGRO_LITTLE_ENDIAN
--define ALLEGRO_HAVE_INTTYPES_H
--define ALLEGRO_HAVE_STDBOOL_H
--define ALLEGRO_HAVE_STDINT_H
+-endif

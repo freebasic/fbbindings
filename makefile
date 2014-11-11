@@ -17,7 +17,7 @@ ALLEGRO4_VERSION := 4.4.2
 ALLEGRO4_TITLE := allegro-$(ALLEGRO4_VERSION)
 allegro4:
 	./downloadextract.sh $(ALLEGRO4_TITLE) $(ALLEGRO4_TITLE).tar.gz "http://cdn.allegro.cc/file/library/allegro/$(ALLEGRO4_VERSION)/$(ALLEGRO4_TITLE).tar.gz"
-	$(FBFROG) allegro.fbfrog allegro4.fbfrog -o inc/allegro.bi \
+	$(FBFROG) allegro4.fbfrog allegro.fbfrog -o inc/allegro.bi \
 		extracted/$(ALLEGRO4_TITLE)/include/allegro.h \
 		-incdir extracted/$(ALLEGRO4_TITLE)/include
 
@@ -26,7 +26,7 @@ ALLEGRO5_TITLE := allegro-$(ALLEGRO5_VERSION)
 allegro5:
 	./downloadextract.sh $(ALLEGRO5_TITLE) $(ALLEGRO5_TITLE).tar.gz "http://cdn.allegro.cc/file/library/allegro/$(ALLEGRO5_VERSION)/$(ALLEGRO5_TITLE).tar.gz"
 	mkdir -p inc/allegro5
-	$(FBFROG) allegro.fbfrog allegro5.fbfrog -o inc/allegro5/allegro.bi \
+	$(FBFROG) allegro5.fbfrog allegro.fbfrog -o inc/allegro5/allegro.bi \
 		extracted/$(ALLEGRO5_TITLE)/include/allegro5/allegro.h \
 		-incdir extracted/$(ALLEGRO5_TITLE)/include
 
