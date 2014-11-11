@@ -1,3 +1,7 @@
+-ifdef __FB_LINUX__
+	-define ALLEGRO_HAVE_LIBPTHREAD
+-endif
+
 -removedefine AL_ALIAS
 -removedefine AL_ALIAS_VOID_RET
 -removedefine AL_ARRAY
