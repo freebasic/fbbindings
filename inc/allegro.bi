@@ -12,8 +12,6 @@
 '' The following symbols have been renamed:
 ''     typedef RGB => RGB__
 ''     #define MID => MID_
-''     #define ABS => ABS_
-''     #define SGN => SGN_
 ''     #define SYSTEM_NONE => SYSTEM_NONE_
 ''     #define ASSERT => ASSERT_
 ''     #define MOUSEDRV_NONE => MOUSEDRV_NONE_
@@ -280,8 +278,6 @@ type PACKFILE_VTABLE as PACKFILE_VTABLE_
 #define MAX(x, y) iif((x) > (y), (x), (y))
 #define MID_(x, y, z) iif((x) > (y), iif((y) > (z), (y), iif((x) > (z), (z), (x))), iif((y) > (z), iif((z) > (x), (z), (x)), (y)))
 #define CLAMP(x, y, z) MAX((x), MIN((y), (z)))
-#define ABS_(x) iif((x) >= 0, (x), -(x))
-#define SGN_(x) iif((x) >= 0, 1, -1)
 #define AL_PI 3.14159265358979323846
 #define AL_ID(a, b, c, d) (((((a) shl 24) or ((b) shl 16)) or ((c) shl 8)) or (d))
 

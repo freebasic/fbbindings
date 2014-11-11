@@ -47,3 +47,6 @@
 -removedefine LONG_LONG
 -removedefine RET_VOLATILE
 -removedefine ZERO_SIZE_ARRAY
+
+-removedefine ABS
+-removedefine SGN
