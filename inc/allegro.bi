@@ -8,33 +8,6 @@
 #include once "crt/stdlib.bi"
 #include once "crt/time.bi"
 #include once "crt/string.bi"
-#include once "allegro/platform/alplatf.bi"
-
-#ifdef __FB_WIN32__
-	#include once "io.bi"
-#elseif defined(__FB_DOS__)
-	#include once "pc.bi"
-	#include once "dir.bi"
-	#include once "dpmi.bi"
-	#include once "go32.bi"
-#endif
-
-#include once "fcntl.bi"
-
-#ifdef __FB_WIN32__
-	#include once "direct.bi"
-	#include once "malloc.bi"
-#else
-	#include once "unistd.bi"
-#endif
-
-#ifdef __FB_LINUX__
-	#include once "allegro/platform/alunixac.bi"
-#elseif defined(__FB_DOS__)
-	#include once "sys/farptr.bi"
-#endif
-
-#include once "inttypes.bi"
 
 '' The following symbols have been renamed:
 ''     typedef RGB => RGB__
