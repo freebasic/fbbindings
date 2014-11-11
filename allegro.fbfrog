@@ -1,6 +1,21 @@
--ifdef __FB_LINUX__
+-select
+-case __FB_LINUX__
+	-define ALLEGRO_LINUX
+	-define ALLEGRO_UNIX
+	-define ALLEGRO_HAVE_LINUX_JOYSTICK_H
 	-define ALLEGRO_HAVE_LIBPTHREAD
--endif
+-case __FB_WIN32__
+	-define ALLEGRO_MINGW32
+-endselect
+
+-define ALLEGRO_NO_ASM
+-define ALLEGRO_USE_C
+-define ALLEGRO_LITTLE_ENDIAN
+-define ALLEGRO_HAVE_INTTYPES_H
+-define ALLEGRO_HAVE_STDBOOL_H
+-define ALLEGRO_HAVE_STDINT_H
+-define ALLEGRO_HAVE_MEMCMP
+-define ALLEGRO_HAVE_SYS_TYPES_H
 
 -removedefine AL_ALIAS
 -removedefine AL_ALIAS_VOID_RET
