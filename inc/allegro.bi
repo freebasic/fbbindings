@@ -1791,7 +1791,7 @@ declare function generate_optimized_palette(byval image as BITMAP ptr, byval pal
 declare sub create_rgb_table(byval table as RGB_MAP ptr, byval pal as RGB_ ptr, byval callback as sub(byval pos_ as long))
 declare sub create_light_table(byval table as COLOR_MAP ptr, byval pal as RGB_ ptr, byval r as long, byval g as long, byval b as long, byval callback as sub(byval pos_ as long))
 declare sub create_trans_table(byval table as COLOR_MAP ptr, byval pal as RGB_ ptr, byval r as long, byval g as long, byval b as long, byval callback as sub(byval pos_ as long))
-declare sub create_color_table(byval table as COLOR_MAP ptr, byval pal as RGB_ ptr, byval blend as sub(byval pal as const PALETTE_, byval x as long, byval y as long, byval rgb_ as RGB_ ptr), byval callback as sub(byval pos_ as long))
+declare sub create_color_table(byval table as COLOR_MAP ptr, byval pal as RGB_ ptr, byval blend as sub(byval pal as RGB_ ptr, byval x as long, byval y as long, byval rgb_ as RGB_ ptr), byval callback as sub(byval pos_ as long))
 declare sub create_blender_table(byval table as COLOR_MAP ptr, byval pal as RGB_ ptr, byval callback as sub(byval pos_ as long))
 
 type BLENDER_FUNC as function(byval x as culong, byval y as culong, byval n as culong) as culong
