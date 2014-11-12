@@ -205,9 +205,8 @@ end type
 	extern import COLORS as long
 	extern import COLOR_PAIRS as long
 	extern import TABSIZE as long
-
-	'' TODO: __attribute__((dllimport)) chtype acs_map[];
-	'' TODO: __attribute__((dllimport)) char ttytype[];
+	extern import acs_map(0 to ...) as chtype
+	extern import ttytype as zstring * ...
 #else
 	extern LINES as long
 	extern COLS as long
@@ -218,9 +217,8 @@ end type
 	extern COLORS as long
 	extern COLOR_PAIRS as long
 	extern TABSIZE as long
-
-	'' TODO: extern chtype acs_map[];
-	'' TODO: extern char ttytype[];
+	extern acs_map(0 to ...) as chtype
+	extern ttytype as zstring * ...
 #endif
 
 #define A_NORMAL cast(chtype, 0)

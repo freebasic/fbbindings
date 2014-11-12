@@ -131,7 +131,7 @@ type lua_Number as double
 type lua_Integer as integer
 type lua_Unsigned as ulong
 
-'' TODO: extern const char lua_ident[];
+extern lua_ident as const zstring * ...
 
 declare function lua_newstate(byval f as lua_Alloc, byval ud as any ptr) as lua_State ptr
 declare sub lua_close(byval L as lua_State ptr)

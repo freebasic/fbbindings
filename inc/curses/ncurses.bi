@@ -82,7 +82,8 @@ type NCURSES_BOOL as ubyte
 #define COLOR_CYAN 6
 #define COLOR_WHITE 7
 
-'' TODO: extern chtype acs_map[];
+extern acs_map(0 to ...) as chtype
+
 '' TODO: #define NCURSES_ACS(c) (acs_map[NCURSES_CAST(unsigned char,c)])
 
 #define ACS_ULCORNER NCURSES_ACS(asc("l"))
@@ -559,9 +560,7 @@ declare sub nofilter()
 extern curscr as WINDOW_ ptr
 extern newscr as WINDOW_ ptr
 extern stdscr as WINDOW_ ptr
-
-'' TODO: extern char ttytype[];
-
+extern ttytype as zstring * ...
 extern COLORS as long
 extern COLOR_PAIRS as long
 extern COLS as long

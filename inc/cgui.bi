@@ -438,9 +438,9 @@ declare sub UseHotKeys(byval s as zstring ptr)
 declare sub AutoHotKeys(byval mode as long)
 
 #if defined(CGUI_STATICLINK) or ((not defined(CGUI_STATICLINK)) and (defined(__FB_DOS__) or defined(__FB_LINUX__)))
-	'' TODO: extern int cgui_colors[];
+	extern cgui_colors(0 to ...) as long
 #else
-	'' TODO: extern __attribute__((dllimport)) int cgui_colors[];
+	extern import cgui_colors(0 to ...) as long
 #endif
 
 type t_cgui_colors as long

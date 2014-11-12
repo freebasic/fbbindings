@@ -906,7 +906,7 @@ declare function LLVMDisasmInstruction(byval DC as LLVMDisasmContextRef, byval B
 #define LLVM_C_TARGET_H
 #define LLVM_CONFIG_H
 #define LLVM_BINDIR "/usr/bin"
-#define LLVM_CONFIGTIME "Fri Nov  7 17:30:50 CET 2014"
+#define LLVM_CONFIGTIME "Wed Nov 12 17:14:45 CET 2014"
 #define LLVM_DATADIR "/usr/share/llvm"
 #define LLVM_DEFAULT_TARGET_TRIPLE "i686-pc-linux-gnu"
 #define LLVM_DOCSDIR "/usr/share/doc/llvm"
@@ -1007,8 +1007,113 @@ declare sub LLVMInitializePowerPCDisassembler()
 declare sub LLVMInitializeSparcDisassembler()
 declare sub LLVMInitializeX86Disassembler()
 
-'' TODO: static inline void LLVMInitializeAllTargetInfos(void) {LLVMInitializeR600TargetInfo(); LLVMInitializeSystemZTargetInfo(); LLVMInitializeHexagonTargetInfo(); LLVMInitializeNVPTXTargetInfo(); LLVMInitializeCppBackendTargetInfo(); LLVMInitializeMSP430TargetInfo(); LLVMInitializeXCoreTargetInfo(); LLVMInitializeMipsTargetInfo(); LLVMInitializeAArch64TargetInfo(); LLVMInitializeARMTargetInfo(); LLVMInitializePowerPCTargetInfo(); LLVMInitializeSparcTargetInfo(); LLVMInitializeX86TargetInfo();}static inline void LLVMInitializeAllTargets(void) {LLVMInitializeR600Target(); LLVMInitializeSystemZTarget(); LLVMInitializeHexagonTarget(); LLVMInitializeNVPTXTarget(); LLVMInitializeCppBackendTarget(); LLVMInitializeMSP430Target(); LLVMInitializeXCoreTarget(); LLVMInitializeMipsTarget(); LLVMInitializeAArch64Target(); LLVMInitializeARMTarget(); LLVMInitializePowerPCTarget(); LLVMInitializeSparcTarget(); LLVMInitializeX86Target();}static inline void LLVMInitializeAllTargetMCs(void) {LLVMInitializeR600TargetMC(); LLVMInitializeSystemZTargetMC(); LLVMInitializeHexagonTargetMC(); LLVMInitializeNVPTXTargetMC(); LLVMInitializeCppBackendTargetMC(); LLVMInitializeMSP430TargetMC(); LLVMInitializeXCoreTargetMC(); LLVMInitializeMipsTargetMC(); LLVMInitializeAArch64TargetMC(); LLVMInitializeARMTargetMC(); LLVMInitializePowerPCTargetMC(); LLVMInitializeSparcTargetMC(); LLVMInitializeX86TargetMC();}static inline void LLVMInitializeAllAsmPrinters(void) {LLVMInitializeR600AsmPrinter(); LLVMInitializeSystemZAsmPrinter(); LLVMInitializeHexagonAsmPrinter(); LLVMInitializeNVPTXAsmPrinter(); LLVMInitializeMSP430AsmPrinter(); LLVMInitializeXCoreAsmPrinter(); LLVMInitializeMipsAsmPrinter(); LLVMInitializeAArch64AsmPrinter(); LLVMInitializeARMAsmPrinter(); LLVMInitializePowerPCAsmPrinter(); LLVMInitializeSparcAsmPrinter(); LLVMInitializeX86AsmPrinter();}static inline void LLVMInitializeAllAsmParsers(void) {LLVMInitializeSystemZAsmParser(); LLVMInitializeMipsAsmParser(); LLVMInitializeAArch64AsmParser(); LLVMInitializeARMAsmParser(); LLVMInitializePowerPCAsmParser(); LLVMInitializeSparcAsmParser(); LLVMInitializeX86AsmParser();}static inline void LLVMInitializeAllDisassemblers(void) {LLVMInitializeSystemZDisassembler(); LLVMInitializeXCoreDisassembler(); LLVMInitializeMipsDisassembler(); LLVMInitializeAArch64Disassembler(); LLVMInitializeARMDisassembler(); LLVMInitializePowerPCDisassembler(); LLVMInitializeSparcDisassembler(); LLVMInitializeX86Disassembler();}static inline LLVMBool LLVMInitializeNativeTarget(void) { LLVMInitializeX86TargetInfo(); LLVMInitializeX86Target(); LLVMInitializeX86TargetMC(); return 0;}static inline LLVMBool LLVMInitializeNativeAsmParser(void) { LLVMInitializeX86AsmParser(); return 0;}static inline LLVMBool LLVMInitializeNativeAsmPrinter(void) { LLVMInitializeX86AsmPrinter(); return 0;}static inline LLVMBool LLVMInitializeNativeDisassembler(void) { LLVMInitializeX86Disassembler(); return 0;}LLVMTargetDataRef LLVMCreateTargetData(const char *StringRep);
+sub LLVMInitializeAllTargetInfos()
+	LLVMInitializeR600TargetInfo()
+	LLVMInitializeSystemZTargetInfo()
+	LLVMInitializeHexagonTargetInfo()
+	LLVMInitializeNVPTXTargetInfo()
+	LLVMInitializeCppBackendTargetInfo()
+	LLVMInitializeMSP430TargetInfo()
+	LLVMInitializeXCoreTargetInfo()
+	LLVMInitializeMipsTargetInfo()
+	LLVMInitializeAArch64TargetInfo()
+	LLVMInitializeARMTargetInfo()
+	LLVMInitializePowerPCTargetInfo()
+	LLVMInitializeSparcTargetInfo()
+	LLVMInitializeX86TargetInfo()
+end sub
 
+sub LLVMInitializeAllTargets()
+	LLVMInitializeR600Target()
+	LLVMInitializeSystemZTarget()
+	LLVMInitializeHexagonTarget()
+	LLVMInitializeNVPTXTarget()
+	LLVMInitializeCppBackendTarget()
+	LLVMInitializeMSP430Target()
+	LLVMInitializeXCoreTarget()
+	LLVMInitializeMipsTarget()
+	LLVMInitializeAArch64Target()
+	LLVMInitializeARMTarget()
+	LLVMInitializePowerPCTarget()
+	LLVMInitializeSparcTarget()
+	LLVMInitializeX86Target()
+end sub
+
+sub LLVMInitializeAllTargetMCs()
+	LLVMInitializeR600TargetMC()
+	LLVMInitializeSystemZTargetMC()
+	LLVMInitializeHexagonTargetMC()
+	LLVMInitializeNVPTXTargetMC()
+	LLVMInitializeCppBackendTargetMC()
+	LLVMInitializeMSP430TargetMC()
+	LLVMInitializeXCoreTargetMC()
+	LLVMInitializeMipsTargetMC()
+	LLVMInitializeAArch64TargetMC()
+	LLVMInitializeARMTargetMC()
+	LLVMInitializePowerPCTargetMC()
+	LLVMInitializeSparcTargetMC()
+	LLVMInitializeX86TargetMC()
+end sub
+
+sub LLVMInitializeAllAsmPrinters()
+	LLVMInitializeR600AsmPrinter()
+	LLVMInitializeSystemZAsmPrinter()
+	LLVMInitializeHexagonAsmPrinter()
+	LLVMInitializeNVPTXAsmPrinter()
+	LLVMInitializeMSP430AsmPrinter()
+	LLVMInitializeXCoreAsmPrinter()
+	LLVMInitializeMipsAsmPrinter()
+	LLVMInitializeAArch64AsmPrinter()
+	LLVMInitializeARMAsmPrinter()
+	LLVMInitializePowerPCAsmPrinter()
+	LLVMInitializeSparcAsmPrinter()
+	LLVMInitializeX86AsmPrinter()
+end sub
+
+sub LLVMInitializeAllAsmParsers()
+	LLVMInitializeSystemZAsmParser()
+	LLVMInitializeMipsAsmParser()
+	LLVMInitializeAArch64AsmParser()
+	LLVMInitializeARMAsmParser()
+	LLVMInitializePowerPCAsmParser()
+	LLVMInitializeSparcAsmParser()
+	LLVMInitializeX86AsmParser()
+end sub
+
+sub LLVMInitializeAllDisassemblers()
+	LLVMInitializeSystemZDisassembler()
+	LLVMInitializeXCoreDisassembler()
+	LLVMInitializeMipsDisassembler()
+	LLVMInitializeAArch64Disassembler()
+	LLVMInitializeARMDisassembler()
+	LLVMInitializePowerPCDisassembler()
+	LLVMInitializeSparcDisassembler()
+	LLVMInitializeX86Disassembler()
+end sub
+
+function LLVMInitializeNativeTarget() as LLVMBool
+	LLVMInitializeX86TargetInfo()
+	LLVMInitializeX86Target()
+	LLVMInitializeX86TargetMC()
+	'' TODO: return 0;
+end function
+
+function LLVMInitializeNativeAsmParser() as LLVMBool
+	LLVMInitializeX86AsmParser()
+	'' TODO: return 0;
+end function
+
+function LLVMInitializeNativeAsmPrinter() as LLVMBool
+	LLVMInitializeX86AsmPrinter()
+	'' TODO: return 0;
+end function
+
+function LLVMInitializeNativeDisassembler() as LLVMBool
+	LLVMInitializeX86Disassembler()
+	'' TODO: return 0;
+end function
+
+declare function LLVMCreateTargetData(byval StringRep as const zstring ptr) as LLVMTargetDataRef
 declare sub LLVMAddTargetData(byval TD as LLVMTargetDataRef, byval PM as LLVMPassManagerRef)
 declare sub LLVMAddTargetLibraryInfo(byval TLI as LLVMTargetLibraryInfoRef, byval PM as LLVMPassManagerRef)
 declare function LLVMCopyStringRepOfTargetData(byval TD as LLVMTargetDataRef) as zstring ptr
