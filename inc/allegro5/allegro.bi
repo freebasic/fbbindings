@@ -16,7 +16,6 @@ extern "C"
 
 type ALLEGRO_BITMAP as ALLEGRO_BITMAP_
 type ALLEGRO_PATH as ALLEGRO_PATH_
-type _al_tagbstring as _al_tagbstring_
 type ALLEGRO_FILE as ALLEGRO_FILE_
 type ALLEGRO_CONFIG as ALLEGRO_CONFIG_
 type ALLEGRO_CONFIG_SECTION as ALLEGRO_CONFIG_SECTION_
@@ -239,7 +238,7 @@ type ALLEGRO_USTR_INFO as _al_tagbstring
 
 #define __al_tagbstring_defined
 
-type _al_tagbstring_
+type _al_tagbstring
 	mlen as long
 	slen as long
 	data as ubyte ptr
