@@ -13,18 +13,158 @@
 ''     typedef RGB => RGB_
 ''     #define PALLETE => PALLETE_
 ''     #define MID => MID_
+''     #define EMPTY_STRING => EMPTY_STRING_
 ''     #define SYSTEM_NONE => SYSTEM_NONE_
 ''     #define ASSERT => ASSERT_
+''     procedure set_window_title => set_window_title_
+''     procedure desktop_color_depth => desktop_color_depth_
+''     procedure get_desktop_resolution => get_desktop_resolution_
 ''     #define MOUSEDRV_NONE => MOUSEDRV_NONE_
 ''     #define DRAW_SPRITE_H_FLIP => DRAW_SPRITE_H_FLIP_
 ''     #define DRAW_SPRITE_V_FLIP => DRAW_SPRITE_V_FLIP_
 ''     #define DRAW_SPRITE_VH_FLIP => DRAW_SPRITE_VH_FLIP_
 ''     variable screen => screen_
+''     procedure _default_ds => _default_ds_
+''     procedure bmp_write_line => bmp_write_line_
+''     procedure bmp_read_line => bmp_read_line_
+''     procedure bmp_unwrite_line => bmp_unwrite_line_
+''     procedure is_windowed_mode => is_windowed_mode_
+''     procedure clear_to_color => clear_to_color_
+''     procedure bitmap_color_depth => bitmap_color_depth_
+''     procedure bitmap_mask_color => bitmap_mask_color_
+''     procedure is_same_bitmap => is_same_bitmap_
+''     procedure is_linear_bitmap => is_linear_bitmap_
+''     procedure is_planar_bitmap => is_planar_bitmap_
+''     procedure is_memory_bitmap => is_memory_bitmap_
+''     procedure is_screen_bitmap => is_screen_bitmap_
+''     procedure is_video_bitmap => is_video_bitmap_
+''     procedure is_system_bitmap => is_system_bitmap_
+''     procedure is_sub_bitmap => is_sub_bitmap_
+''     procedure acquire_bitmap => acquire_bitmap_
+''     procedure release_bitmap => release_bitmap_
+''     procedure acquire_screen => acquire_screen_
+''     procedure release_screen => release_screen_
+''     procedure is_inside_bitmap => is_inside_bitmap_
+''     procedure get_clip_rect => get_clip_rect_
+''     procedure set_clip_state => set_clip_state_
+''     procedure get_clip_state => get_clip_state_
+''     procedure makecol15 => makecol15_
+''     procedure makecol16 => makecol16_
+''     procedure makecol24 => makecol24_
+''     procedure makecol32 => makecol32_
+''     procedure makeacol32 => makeacol32_
+''     procedure getr8 => getr8_
+''     procedure getg8 => getg8_
+''     procedure getb8 => getb8_
+''     procedure getr15 => getr15_
+''     procedure getg15 => getg15_
+''     procedure getb15 => getb15_
+''     procedure getr16 => getr16_
+''     procedure getg16 => getg16_
+''     procedure getb16 => getb16_
+''     procedure getr24 => getr24_
+''     procedure getg24 => getg24_
+''     procedure getb24 => getb24_
+''     procedure getr32 => getr32_
+''     procedure getg32 => getg32_
+''     procedure getb32 => getb32_
+''     procedure geta32 => geta32_
+''     #if defined(__FB_WIN32__) or defined(__FB_LINUX__)
+''         procedure _set_color => _set_color_
+''     #endif
+''     procedure getpixel => getpixel_
+''     procedure putpixel => putpixel_
+''     procedure _allegro_vline => _allegro_vline_
+''     procedure _allegro_hline => _allegro_hline_
+''     procedure line => line_
+''     procedure line => line__
+''     procedure fastline => fastline_
+''     procedure rectfill => rectfill_
+''     procedure triangle => triangle_
+''     procedure polygon => polygon_
+''     procedure rect => rect_
+''     procedure circle => circle_
+''     procedure circle => circle__
+''     procedure circlefill => circlefill_
+''     procedure ellipse => ellipse_
+''     procedure ellipsefill => ellipsefill_
+''     procedure arc => arc_
+''     procedure spline => spline_
+''     procedure floodfill => floodfill_
+''     procedure polygon3d => polygon3d_
+''     procedure polygon3d_f => polygon3d_f_
+''     procedure triangle3d => triangle3d_
+''     procedure triangle3d_f => triangle3d_f_
+''     procedure quad3d => quad3d_
+''     procedure quad3d_f => quad3d_f_
+''     procedure draw_sprite => draw_sprite_
+''     procedure draw_sprite_ex => draw_sprite_ex_
+''     procedure draw_sprite_v_flip => draw_sprite_v_flip__
+''     procedure draw_sprite_h_flip => draw_sprite_h_flip__
+''     procedure draw_sprite_vh_flip => draw_sprite_vh_flip__
+''     procedure draw_trans_sprite => draw_trans_sprite_
+''     procedure draw_lit_sprite => draw_lit_sprite_
+''     procedure draw_gouraud_sprite => draw_gouraud_sprite_
+''     procedure draw_character_ex => draw_character_ex_
+''     procedure rotate_sprite => rotate_sprite_
+''     procedure rotate_sprite_v_flip => rotate_sprite_v_flip_
+''     procedure rotate_scaled_sprite => rotate_scaled_sprite_
+''     procedure rotate_scaled_sprite_v_flip => rotate_scaled_sprite_v_flip_
+''     procedure pivot_sprite => pivot_sprite_
+''     procedure pivot_sprite_v_flip => pivot_sprite_v_flip_
+''     procedure pivot_scaled_sprite => pivot_scaled_sprite_
+''     procedure pivot_scaled_sprite_v_flip => pivot_scaled_sprite_v_flip_
+''     procedure _putpixel => _putpixel_
+''     procedure _getpixel => _getpixel_
+''     procedure _putpixel15 => _putpixel15_
+''     procedure _getpixel15 => _getpixel15_
+''     procedure _putpixel16 => _putpixel16_
+''     procedure _getpixel16 => _getpixel16_
+''     procedure _putpixel24 => _putpixel24_
+''     procedure _getpixel24 => _getpixel24_
+''     procedure _putpixel32 => _putpixel32_
+''     procedure _getpixel32 => _getpixel32_
+''     procedure draw_rle_sprite => draw_rle_sprite_
+''     procedure draw_trans_rle_sprite => draw_trans_rle_sprite_
+''     procedure draw_lit_rle_sprite => draw_lit_rle_sprite_
 ''     #define MIDI_DIGMID => MIDI_DIGMID_
 ''     #define EOF => EOF_
+''     procedure ftofix => ftofix_
+''     procedure fixtof => fixtof_
+''     procedure fixadd => fixadd_
+''     procedure fixsub => fixsub_
+''     procedure fixmul => fixmul_
+''     procedure fixdiv => fixdiv_
+''     procedure fixfloor => fixfloor_
+''     procedure fixceil => fixceil_
+''     procedure itofix => itofix_
+''     procedure fixtoi => fixtoi_
+''     procedure fixcos => fixcos_
+''     procedure fixsin => fixsin_
+''     procedure fixtan => fixtan_
+''     procedure fixacos => fixacos_
+''     procedure fixasin => fixasin_
+''     procedure apply_matrix => apply_matrix_
+''     procedure dot_product => dot_product_
+''     procedure dot_product_f => dot_product_f_
+''     procedure persp_project => persp_project_
+''     procedure persp_project_f => persp_project_f_
+''     procedure clear => clear_
 ''     #define cpu_fpu => cpu_fpu_
 ''     #define cpu_mmx => cpu_mmx_
 ''     #define cpu_3dnow => cpu_3dnow_
+''     procedure file_select => file_select_
+''     procedure textout => textout_
+''     procedure textout_centre => textout_centre_
+''     procedure textout_right => textout_right_
+''     procedure textout_justify => textout_justify_
+''     procedure draw_character => draw_character_
+''     procedure gui_textout => gui_textout_
+''     procedure set_window_close_button => set_window_close_button_
+''     procedure set_window_close_hook => set_window_close_hook_
+''     procedure yield_timeslice => yield_timeslice_
+''     procedure set_file_encoding => set_file_encoding_
+''     procedure get_file_encoding => get_file_encoding_
 ''     #ifdef __FB_WIN32__
 ''         #define SYSTEM_DIRECTX => SYSTEM_DIRECTX_
 ''         #define GFX_DIRECTX_ACCEL => GFX_DIRECTX_ACCEL_
@@ -56,6 +196,7 @@
 ''         #define GFX_MODEX => GFX_MODEX_
 ''         #define GFX_VBEAF => GFX_VBEAF_
 ''         #define GFX_XTENDED => GFX_XTENDED_
+''         procedure _set_color => _set_color_
 ''         #define DIGI_SB10 => DIGI_SB10_
 ''         #define DIGI_SB15 => DIGI_SB15_
 ''         #define DIGI_SB20 => DIGI_SB20_
@@ -96,7 +237,7 @@ type PACKFILE_VTABLE as PACKFILE_VTABLE_
 	#define ALLEGRO_COLOR32
 #endif
 
-#ifdef __FB_WIN32__
+#if defined(__FB_WIN32__) and (not defined(ALLEGRO_STATICLINK))
 	#define _AL_DLL import
 #else
 	#define _AL_DLL
@@ -104,7 +245,15 @@ type PACKFILE_VTABLE as PACKFILE_VTABLE_
 
 #ifdef __FB_WIN32__
 	#define ALLEGRO_HAVE_STDINT_H 1
+#endif
+
+#if defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)
+	#define ALLEGRO_PLATFORM_STR "MinGW32.s"
+#elseif defined(__FB_WIN32__) and (not defined(ALLEGRO_STATICLINK))
 	#define ALLEGRO_PLATFORM_STR "MinGW32"
+#endif
+
+#ifdef __FB_WIN32__
 	#define ALLEGRO_WINDOWS
 #elseif defined(__FB_DOS__)
 	#define ALLEGRO_PLATFORM_STR "djgpp"
@@ -238,7 +387,7 @@ type PACKFILE_VTABLE as PACKFILE_VTABLE_
 #endif
 
 #if defined(__FB_WIN32__) or defined(__FB_LINUX__)
-	#define _video_ds() _default_ds()
+	#define _video_ds() _default_ds_()
 	#define _farsetsel(seg)
 	#define _farnspokeb(addr, val) *cptr(ubyte ptr, (addr)) = (val)
 	#define _farnspokew(addr, val) *cptr(ushort ptr, (addr)) = (val)
@@ -333,7 +482,7 @@ declare function uwidth_max(byval type_ as long) as long
 
 #define uconvert_ascii(s, buf) uconvert(s, U_ASCII, buf, U_CURRENT, sizeof((buf)))
 #define uconvert_toascii(s, buf) uconvert(s, U_CURRENT, buf, U_ASCII, sizeof((buf)))
-#define EMPTY_STRING !"\0\0\0"
+#define EMPTY_STRING_ !"\0\0\0"
 
 extern _AL_DLL empty_string as zstring * 4
 extern ugetc as function(byval s as const zstring ptr) as long
@@ -461,9 +610,9 @@ extern _AL_DLL os_multitasking as long
 
 declare function _install_allegro_version_check(byval system_id as long, byval errno_ptr as long ptr, byval atexit_ptr as function(byval func as sub()) as long, byval version as long) as long
 
-extern __inline__ int install_allegro (int system_id, int *errno_ptr, int (*atexit_ptr) (void (*func) (void))) {
-	return _install_allegro_version_check(system_id, errno_ptr, atexit_ptr, (((4)<<16)|((4)<<8)|(2)));
-}
+private function install_allegro(byval system_id as long, byval errno_ptr as long ptr, byval atexit_ptr as function(byval func as sub()) as long) as long
+	return _install_allegro_version_check(system_id, errno_ptr, atexit_ptr, (((4) shl 16) or ((4) shl 8) or (2)))
+end function
 
 #define allegro_init() _install_allegro_version_check(SYSTEM_AUTODETECT, @errno, cptr(function cdecl(byval as sub cdecl()) as long, atexit), MAKE_VERSION(ALLEGRO_VERSION, ALLEGRO_SUB_VERSION, ALLEGRO_WIP_VERSION))
 
@@ -538,18 +687,16 @@ declare sub check_cpu()
 #define CPU_MODEL_POWERPC_7400 10
 #define CPU_MODEL_POWERPC_7450 11
 
-#ifdef __FB_WIN32__
-	'' TODO: extern __attribute__((dllimport)) char cpu_vendor[];
-
-	extern import cpu_family as long
-	extern import cpu_model as long
-	extern import cpu_capabilities as long
-#else
-	'' TODO: extern char cpu_vendor[];
-
+#if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
+	extern cpu_vendor as zstring * ...
 	extern cpu_family as long
 	extern cpu_model as long
 	extern cpu_capabilities as long
+#else
+	extern import cpu_vendor as zstring * ...
+	extern import cpu_family as long
+	extern import cpu_model as long
+	extern import cpu_capabilities as long
 #endif
 
 type SYSTEM_DRIVER
@@ -594,16 +741,14 @@ type SYSTEM_DRIVER
 	timer_drivers as function() as _DRIVER_INFO ptr
 end type
 
-#ifdef __FB_WIN32__
-	extern import system_none as SYSTEM_DRIVER
-	extern import system_driver as SYSTEM_DRIVER ptr
-
-	'' TODO: extern __attribute__((dllimport)) _DRIVER_INFO _system_driver_list[];
-#else
+#if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
 	extern system_none as SYSTEM_DRIVER
 	extern system_driver as SYSTEM_DRIVER ptr
-
-	'' TODO: extern _DRIVER_INFO _system_driver_list[];
+	extern _system_driver_list(0 to ...) as _DRIVER_INFO
+#else
+	extern import system_none as SYSTEM_DRIVER
+	extern import system_driver as SYSTEM_DRIVER ptr
+	extern import _system_driver_list(0 to ...) as _DRIVER_INFO
 #endif
 
 #define ALLEGRO_SYSTEM_INL
@@ -617,10 +762,25 @@ declare sub register_trace_handler(byval handler as function(byval msg as const 
 #define ASSERT_(condition)
 #define TRACE iif(1, cast(any, 0), al_trace)
 
-'' TODO: extern __inline__ void set_window_title (const char *name);
-'' TODO: extern __inline__ void set_window_title (const char *name){; if (system_driver->set_window_title) system_driver->set_window_title(name);}extern __inline__ int desktop_color_depth (void);
-'' TODO: extern __inline__ int desktop_color_depth (void){; if (system_driver->desktop_color_depth) return system_driver->desktop_color_depth(); else return 0;}extern __inline__ int get_desktop_resolution (int *width, int *height);
-'' TODO: extern __inline__ int get_desktop_resolution (int *width, int *height){; if (system_driver->get_desktop_resolution) return system_driver->get_desktop_resolution(width, height); else return -1;}
+declare sub set_window_title(byval name_ as const zstring ptr)
+
+sub set_window_title_ alias "set_window_title"(byval name_ as const zstring ptr)
+	'' TODO: if (system_driver->set_window_title) system_driver->set_window_title(name);
+end sub
+
+declare function desktop_color_depth() as long
+
+function desktop_color_depth_ alias "desktop_color_depth"() as long
+	'' TODO: if (system_driver->desktop_color_depth) return system_driver->desktop_color_depth();
+	'' TODO: else return 0;
+end function
+
+declare function get_desktop_resolution(byval width_ as long ptr, byval height as long ptr) as long
+
+function get_desktop_resolution_ alias "get_desktop_resolution"(byval width_ as long ptr, byval height as long ptr) as long
+	'' TODO: if (system_driver->get_desktop_resolution) return system_driver->get_desktop_resolution(width, height);
+	'' TODO: else return -1;
+end function
 
 #define ALLEGRO_MOUSE_H
 #define MOUSEDRV_AUTODETECT (-1)
@@ -644,16 +804,14 @@ type MOUSE_DRIVER
 	select_system_cursor as function(byval cursor as long) as long
 end type
 
-#ifdef __FB_WIN32__
-	extern import mousedrv_none as MOUSE_DRIVER
-	extern import mouse_driver as MOUSE_DRIVER ptr
-
-	'' TODO: extern __attribute__((dllimport)) _DRIVER_INFO _mouse_driver_list[];
-#else
+#if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
 	extern mousedrv_none as MOUSE_DRIVER
 	extern mouse_driver as MOUSE_DRIVER ptr
-
-	'' TODO: extern _DRIVER_INFO _mouse_driver_list[];
+	extern _mouse_driver_list(0 to ...) as _DRIVER_INFO
+#else
+	extern import mousedrv_none as MOUSE_DRIVER
+	extern import mouse_driver as MOUSE_DRIVER ptr
+	extern import _mouse_driver_list(0 to ...) as _DRIVER_INFO
 #endif
 
 declare function install_mouse() as long
@@ -671,18 +829,7 @@ declare sub disable_hardware_cursor()
 #define MOUSE_CURSOR_EDIT 5
 #define AL_NUM_MOUSE_CURSORS 6
 
-#ifdef __FB_WIN32__
-	extern import mouse_sprite as BITMAP ptr
-	extern import mouse_x_focus as long
-	extern import mouse_y_focus as long
-	extern import mouse_x as long
-	extern import mouse_y as long
-	extern import mouse_z as long
-	extern import mouse_w as long
-	extern import mouse_b as long
-	extern import mouse_pos as long
-	extern import freeze_mouse_flag as long
-#else
+#if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
 	extern mouse_sprite as BITMAP ptr
 	extern mouse_x_focus as long
 	extern mouse_y_focus as long
@@ -693,6 +840,17 @@ declare sub disable_hardware_cursor()
 	extern mouse_b as long
 	extern mouse_pos as long
 	extern freeze_mouse_flag as long
+#else
+	extern import mouse_sprite as BITMAP ptr
+	extern import mouse_x_focus as long
+	extern import mouse_y_focus as long
+	extern import mouse_x as long
+	extern import mouse_y as long
+	extern import mouse_z as long
+	extern import mouse_w as long
+	extern import mouse_b as long
+	extern import mouse_pos as long
+	extern import freeze_mouse_flag as long
 #endif
 
 #define MOUSE_FLAG_MOVE 1
@@ -747,14 +905,12 @@ type TIMER_DRIVER
 	rest as sub(byval tyme as ulong, byval callback as sub())
 end type
 
-#ifdef __FB_WIN32__
-	extern import timer_driver as TIMER_DRIVER ptr
-
-	'' TODO: extern __attribute__((dllimport)) _DRIVER_INFO _timer_driver_list[];
-#else
+#if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
 	extern timer_driver as TIMER_DRIVER ptr
-
-	'' TODO: extern _DRIVER_INFO _timer_driver_list[];
+	extern _timer_driver_list(0 to ...) as _DRIVER_INFO
+#else
+	extern import timer_driver as TIMER_DRIVER ptr
+	extern import _timer_driver_list(0 to ...) as _DRIVER_INFO
 #endif
 
 declare function install_timer() as long
@@ -766,10 +922,10 @@ declare function install_param_int_ex(byval proc as sub(byval param as any ptr),
 declare function install_param_int(byval proc as sub(byval param as any ptr), byval param as any ptr, byval speed as clong) as long
 declare sub remove_param_int(byval proc as sub(byval param as any ptr), byval param as any ptr)
 
-#ifdef __FB_WIN32__
-	extern import retrace_count as long
-#else
+#if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
 	extern retrace_count as long
+#else
+	extern import retrace_count as long
 #endif
 
 declare sub rest(byval tyme as ulong)
@@ -794,14 +950,12 @@ type KEYBOARD_DRIVER
 	scancode_to_name as function(byval scancode as long) as const zstring ptr
 end type
 
-#ifdef __FB_WIN32__
-	extern import keyboard_driver as KEYBOARD_DRIVER ptr
-
-	'' TODO: extern __attribute__((dllimport)) _DRIVER_INFO _keyboard_driver_list[];
-#else
+#if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
 	extern keyboard_driver as KEYBOARD_DRIVER ptr
-
-	'' TODO: extern _DRIVER_INFO _keyboard_driver_list[];
+	extern _keyboard_driver_list(0 to ...) as _DRIVER_INFO
+#else
+	extern import keyboard_driver as KEYBOARD_DRIVER ptr
+	extern import _keyboard_driver_list(0 to ...) as _DRIVER_INFO
 #endif
 
 declare function install_keyboard() as long
@@ -815,18 +969,16 @@ extern keyboard_lowlevel_callback as sub(byval scancode as long)
 
 declare sub install_keyboard_hooks(byval keypressed as function() as long, byval readkey as function() as long)
 
-#ifdef __FB_WIN32__
-	'' TODO: extern __attribute__((dllimport)) volatile char key[];
-
-	extern import key_shifts as long
-	extern import three_finger_flag as long
-	extern import key_led_flag as long
-#else
-	'' TODO: extern volatile char key[];
-
+#if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
+	extern key as zstring * ...
 	extern key_shifts as long
 	extern three_finger_flag as long
 	extern key_led_flag as long
+#else
+	extern import key as zstring * ...
+	extern import key_shifts as long
+	extern import three_finger_flag as long
+	extern import key_led_flag as long
 #endif
 
 declare function keypressed() as long
@@ -1177,14 +1329,12 @@ end type
 #define JOYFLAG_ANALOG JOYFLAG_ANALOGUE
 #define JOYFLAG_CALIB_ANALOG JOYFLAG_CALIB_ANALOGUE
 
-#ifdef __FB_WIN32__
-	'' TODO: extern __attribute__((dllimport)) JOYSTICK_INFO joy[];
-
-	extern import num_joysticks as long
-#else
-	'' TODO: extern JOYSTICK_INFO joy[];
-
+#if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
+	extern joy(0 to ...) as JOYSTICK_INFO
 	extern num_joysticks as long
+#else
+	extern import joy(0 to ...) as JOYSTICK_INFO
+	extern import num_joysticks as long
 #endif
 
 type JOYSTICK_DRIVER
@@ -1201,16 +1351,14 @@ type JOYSTICK_DRIVER
 	calibrate as function(byval n as long) as long
 end type
 
-#ifdef __FB_WIN32__
-	extern import joystick_none as JOYSTICK_DRIVER
-	extern import joystick_driver as JOYSTICK_DRIVER ptr
-
-	'' TODO: extern __attribute__((dllimport)) _DRIVER_INFO _joystick_driver_list[];
-#else
+#if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
 	extern joystick_none as JOYSTICK_DRIVER
 	extern joystick_driver as JOYSTICK_DRIVER ptr
-
-	'' TODO: extern _DRIVER_INFO _joystick_driver_list[];
+	extern _joystick_driver_list(0 to ...) as _DRIVER_INFO
+#else
+	extern import joystick_none as JOYSTICK_DRIVER
+	extern import joystick_driver as JOYSTICK_DRIVER ptr
+	extern import _joystick_driver_list(0 to ...) as _DRIVER_INFO
 #endif
 
 '' TODO: #define BEGIN_JOYSTICK_DRIVER_LIST _DRIVER_INFO _joystick_driver_list[] = {
@@ -1240,12 +1388,12 @@ end type
 
 type fixed as long
 
-#ifdef __FB_WIN32__
-	extern import fixtorad_r as const fixed
-	extern import radtofix_r as const fixed
-#else
+#if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
 	extern fixtorad_r as const fixed
 	extern radtofix_r as const fixed
+#else
+	extern import fixtorad_r as const fixed
+	extern import radtofix_r as const fixed
 #endif
 
 type V3D
@@ -1284,10 +1432,10 @@ end type
 #define POLYTYPE_MAX 15
 #define POLYTYPE_ZBUF 16
 
-#ifdef __FB_WIN32__
-	extern import scene_gap as single
-#else
+#if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
 	extern scene_gap as single
+#else
+	extern import scene_gap as single
 #endif
 
 declare sub _soft_polygon3d(byval bmp as BITMAP ptr, byval type_ as long, byval texture as BITMAP ptr, byval vc as long, byval vtx as V3D ptr ptr)
@@ -1393,14 +1541,12 @@ type GFX_DRIVER
 	windowed as long
 end type
 
-#ifdef __FB_WIN32__
-	extern import gfx_driver as GFX_DRIVER ptr
-
-	'' TODO: extern __attribute__((dllimport)) _DRIVER_INFO _gfx_driver_list[];
-#else
+#if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
 	extern gfx_driver as GFX_DRIVER ptr
-
-	'' TODO: extern _DRIVER_INFO _gfx_driver_list[];
+	extern _gfx_driver_list(0 to ...) as _DRIVER_INFO
+#else
+	extern import gfx_driver as GFX_DRIVER ptr
+	extern import _gfx_driver_list(0 to ...) as _DRIVER_INFO
 #endif
 
 '' TODO: #define BEGIN_GFX_DRIVER_LIST _DRIVER_INFO _gfx_driver_list[] = {
@@ -1434,10 +1580,10 @@ end type
 #define GFX_HW_SYS_STRETCH_BLIT &h02000000
 #define GFX_HW_SYS_STRETCH_BLIT_MASKED &h04000000
 
-#ifdef __FB_WIN32__
-	extern import gfx_capabilities as long
-#else
+#if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
 	extern gfx_capabilities as long
+#else
+	extern import gfx_capabilities as long
 #endif
 
 type GFX_VTABLE_
@@ -1505,18 +1651,18 @@ type GFX_VTABLE_
 	draw_sprite_ex as sub(byval bmp as BITMAP ptr, byval sprite as BITMAP ptr, byval x as long, byval y as long, byval mode as long, byval flip_ as long)
 end type
 
-#ifdef __FB_WIN32__
-	extern import __linear_vtable8 as GFX_VTABLE
-	extern import __linear_vtable15 as GFX_VTABLE
-	extern import __linear_vtable16 as GFX_VTABLE
-	extern import __linear_vtable24 as GFX_VTABLE
-	extern import __linear_vtable32 as GFX_VTABLE
-#else
+#if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
 	extern __linear_vtable8 as GFX_VTABLE
 	extern __linear_vtable15 as GFX_VTABLE
 	extern __linear_vtable16 as GFX_VTABLE
 	extern __linear_vtable24 as GFX_VTABLE
 	extern __linear_vtable32 as GFX_VTABLE
+#else
+	extern import __linear_vtable8 as GFX_VTABLE
+	extern import __linear_vtable15 as GFX_VTABLE
+	extern import __linear_vtable16 as GFX_VTABLE
+	extern import __linear_vtable24 as GFX_VTABLE
+	extern import __linear_vtable32 as GFX_VTABLE
 #endif
 
 type _VTABLE_INFO
@@ -1524,10 +1670,10 @@ type _VTABLE_INFO
 	vtable as GFX_VTABLE ptr
 end type
 
-#ifdef __FB_WIN32__
-	'' TODO: extern __attribute__((dllimport)) _VTABLE_INFO _vtable_list[];
+#if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
+	extern _vtable_list(0 to ...) as _VTABLE_INFO
 #else
-	'' TODO: extern _VTABLE_INFO _vtable_list[];
+	extern import _vtable_list(0 to ...) as _VTABLE_INFO
 #endif
 
 '' TODO: #define BEGIN_COLOR_DEPTH_LIST _VTABLE_INFO _vtable_list[] = {
@@ -1555,8 +1701,7 @@ type BITMAP_
 	x_ofs as long
 	y_ofs as long
 	seg as long
-
-	'' TODO: unsigned char * line[];
+	line(0 to ...) as ubyte ptr
 end type
 
 #define BMP_ID_VIDEO &h80000000
@@ -1568,10 +1713,10 @@ end type
 #define BMP_ID_AUTOLOCK &h02000000
 #define BMP_ID_MASK &h01FFFFFF
 
-#ifdef __FB_WIN32__
-	extern import screen_ alias "screen" as BITMAP ptr
-#else
+#if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
 	extern screen_ alias "screen" as BITMAP ptr
+#else
+	extern import screen_ alias "screen" as BITMAP ptr
 #endif
 
 #define SCREEN_W iif(gfx_driver, gfx_driver->w, 0)
@@ -1670,46 +1815,175 @@ declare sub lock_bitmap(byval bmp as BITMAP ptr)
 
 #define ALLEGRO_GFX_INL
 
-'' TODO: extern __inline__ int _default_ds (void);
-'' TODO: extern __inline__ int _default_ds (void){ return 0;}typedef uintptr_t (*_BMP_BANK_SWITCHER) (BITMAP *bmp, int lyne);
+declare function _default_ds() as long
 
+function _default_ds_ alias "_default_ds"() as long
+	'' TODO: return 0;
+end function
+
+type _BMP_BANK_SWITCHER as function(byval bmp as BITMAP ptr, byval lyne as long) as uinteger
 type _BMP_UNBANK_SWITCHER as sub(byval bmp as BITMAP ptr)
 
-'' TODO: extern __inline__ uintptr_t bmp_write_line (BITMAP *bmp, int lyne);
-'' TODO: extern __inline__ uintptr_t bmp_write_line (BITMAP *bmp, int lyne){ _BMP_BANK_SWITCHER switcher = (_BMP_BANK_SWITCHER)bmp->write_bank; return switcher(bmp, lyne);}extern __inline__ uintptr_t bmp_read_line (BITMAP *bmp, int lyne);
-'' TODO: extern __inline__ uintptr_t bmp_read_line (BITMAP *bmp, int lyne){ _BMP_BANK_SWITCHER switcher = (_BMP_BANK_SWITCHER)bmp->read_bank; return switcher(bmp, lyne);}extern __inline__ void bmp_unwrite_line (BITMAP *bmp);
-'' TODO: extern __inline__ void bmp_unwrite_line (BITMAP *bmp){ _BMP_UNBANK_SWITCHER switcher = (_BMP_UNBANK_SWITCHER)bmp->vtable->unwrite_bank; switcher(bmp);}extern __inline__ int is_windowed_mode (void);
-'' TODO: extern __inline__ int is_windowed_mode (void){; return gfx_driver->windowed;}extern __inline__ void clear_to_color (BITMAP *bitmap, int color);
-'' TODO: extern __inline__ void clear_to_color (BITMAP *bitmap, int color){; bitmap->vtable->clear_to_color(bitmap, color);}extern __inline__ int bitmap_color_depth (BITMAP *bmp);
-'' TODO: extern __inline__ int bitmap_color_depth (BITMAP *bmp){; return bmp->vtable->color_depth;}extern __inline__ int bitmap_mask_color (BITMAP *bmp);
-'' TODO: extern __inline__ int bitmap_mask_color (BITMAP *bmp){; return bmp->vtable->mask_color;}extern __inline__ int is_same_bitmap (BITMAP *bmp1, BITMAP *bmp2);
-'' TODO: extern __inline__ int is_same_bitmap (BITMAP *bmp1, BITMAP *bmp2){ unsigned long m1; unsigned long m2; if ((!bmp1) || (!bmp2)) return 0; if (bmp1 == bmp2) return -1; m1 = bmp1->id & 0x01FFFFFF; m2 = bmp2->id & 0x01FFFFFF; return ((m1) && (m1 == m2));}extern __inline__ int is_linear_bitmap (BITMAP *bmp);
-'' TODO: extern __inline__ int is_linear_bitmap (BITMAP *bmp){; return (bmp->id & 0x10000000) == 0;}extern __inline__ int is_planar_bitmap (BITMAP *bmp);
-'' TODO: extern __inline__ int is_planar_bitmap (BITMAP *bmp){; return (bmp->id & 0x10000000) != 0;}extern __inline__ int is_memory_bitmap (BITMAP *bmp);
-'' TODO: extern __inline__ int is_memory_bitmap (BITMAP *bmp){; return (bmp->id & (0x80000000 | 0x40000000)) == 0;}extern __inline__ int is_screen_bitmap (BITMAP *bmp);
-'' TODO: extern __inline__ int is_screen_bitmap (BITMAP *bmp){; return is_same_bitmap(bmp, screen);}extern __inline__ int is_video_bitmap (BITMAP *bmp);
-'' TODO: extern __inline__ int is_video_bitmap (BITMAP *bmp){; return (bmp->id & 0x80000000) != 0;}extern __inline__ int is_system_bitmap (BITMAP *bmp);
-'' TODO: extern __inline__ int is_system_bitmap (BITMAP *bmp){; return (bmp->id & 0x40000000) != 0;}extern __inline__ int is_sub_bitmap (BITMAP *bmp);
-'' TODO: extern __inline__ int is_sub_bitmap (BITMAP *bmp){; return (bmp->id & 0x20000000) != 0;}extern __inline__ void acquire_bitmap (BITMAP *bmp);
-'' TODO: extern __inline__ void acquire_bitmap (BITMAP *bmp){; if (bmp->vtable->acquire) bmp->vtable->acquire(bmp);}extern __inline__ void release_bitmap (BITMAP *bmp);
-'' TODO: extern __inline__ void release_bitmap (BITMAP *bmp){; if (bmp->vtable->release) bmp->vtable->release(bmp);}extern __inline__ void acquire_screen (void);
-'' TODO: extern __inline__ void acquire_screen (void){ acquire_bitmap(screen);}extern __inline__ void release_screen (void);
-'' TODO: extern __inline__ void release_screen (void){ release_bitmap(screen);}extern __inline__ int is_inside_bitmap (BITMAP *bmp, int x, int y, int clip);
-'' TODO: extern __inline__ int is_inside_bitmap (BITMAP *bmp, int x, int y, int clip){; if (clip) { if (bmp->clip) return (x >= bmp->cl) && (y >= bmp->ct) && (x < bmp->cr) && (y < bmp->cb); else return -1; } else return (unsigned int)x < (unsigned int)bmp->w && (unsigned int)y < (unsigned int)bmp->h;}extern __inline__ void get_clip_rect (BITMAP *bitmap, int *x1, int *y_1, int *x2, int *y2);
-'' TODO: extern __inline__ void get_clip_rect (BITMAP *bitmap, int *x1, int *y_1, int *x2, int *y2){; *x1 = bitmap->cl; *y_1 = bitmap->ct; *x2 = bitmap->cr-1; *y2 = bitmap->cb-1;}extern __inline__ void set_clip_state (BITMAP *bitmap, int state);
-'' TODO: extern __inline__ void set_clip_state (BITMAP *bitmap, int state){; bitmap->clip = state;}extern __inline__ int get_clip_state (BITMAP *bitmap);
-'' TODO: extern __inline__ int get_clip_state (BITMAP *bitmap){; return bitmap->clip;}
+declare function bmp_write_line(byval bmp as BITMAP ptr, byval lyne as long) as uinteger
+
+function bmp_write_line_ alias "bmp_write_line"(byval bmp as BITMAP ptr, byval lyne as long) as uinteger
+	dim switcher as _BMP_BANK_SWITCHER = cast(_BMP_BANK_SWITCHER, bmp->write_bank)
+	'' TODO: return switcher(bmp, lyne);
+end function
+
+declare function bmp_read_line(byval bmp as BITMAP ptr, byval lyne as long) as uinteger
+
+function bmp_read_line_ alias "bmp_read_line"(byval bmp as BITMAP ptr, byval lyne as long) as uinteger
+	dim switcher as _BMP_BANK_SWITCHER = cast(_BMP_BANK_SWITCHER, bmp->read_bank)
+	'' TODO: return switcher(bmp, lyne);
+end function
+
+declare sub bmp_unwrite_line(byval bmp as BITMAP ptr)
+
+sub bmp_unwrite_line_ alias "bmp_unwrite_line"(byval bmp as BITMAP ptr)
+	dim switcher as _BMP_UNBANK_SWITCHER = cast(_BMP_UNBANK_SWITCHER, bmp->vtable->unwrite_bank)
+	switcher(bmp)
+end sub
+
+declare function is_windowed_mode() as long
+
+function is_windowed_mode_ alias "is_windowed_mode"() as long
+	'' TODO: return gfx_driver->windowed;
+end function
+
+declare sub clear_to_color(byval bitmap as BITMAP ptr, byval color_ as long)
+
+sub clear_to_color_ alias "clear_to_color"(byval bitmap as BITMAP ptr, byval color_ as long)
+	bitmap->vtable->clear_to_color_(bitmap, color_)
+end sub
+
+declare function bitmap_color_depth(byval bmp as BITMAP ptr) as long
+
+function bitmap_color_depth_ alias "bitmap_color_depth"(byval bmp as BITMAP ptr) as long
+	'' TODO: return bmp->vtable->color_depth;
+end function
+
+declare function bitmap_mask_color(byval bmp as BITMAP ptr) as long
+
+function bitmap_mask_color_ alias "bitmap_mask_color"(byval bmp as BITMAP ptr) as long
+	'' TODO: return bmp->vtable->mask_color;
+end function
+
+declare function is_same_bitmap(byval bmp1 as BITMAP ptr, byval bmp2 as BITMAP ptr) as long
+
+function is_same_bitmap_ alias "is_same_bitmap"(byval bmp1 as BITMAP ptr, byval bmp2 as BITMAP ptr) as long
+	dim m1 as culong
+	dim m2 as culong
+	'' TODO: if ((!bmp1) || (!bmp2)) return 0;
+	'' TODO: if (bmp1 == bmp2) return -1;
+	'' TODO: m1 = bmp1->id & 0x01FFFFFF;
+	'' TODO: m2 = bmp2->id & 0x01FFFFFF;
+	'' TODO: return ((m1) && (m1 == m2));
+end function
+
+declare function is_linear_bitmap(byval bmp as BITMAP ptr) as long
+
+function is_linear_bitmap_ alias "is_linear_bitmap"(byval bmp as BITMAP ptr) as long
+	'' TODO: return (bmp->id & 0x10000000) == 0;
+end function
+
+declare function is_planar_bitmap(byval bmp as BITMAP ptr) as long
+
+function is_planar_bitmap_ alias "is_planar_bitmap"(byval bmp as BITMAP ptr) as long
+	'' TODO: return (bmp->id & 0x10000000) != 0;
+end function
+
+declare function is_memory_bitmap(byval bmp as BITMAP ptr) as long
+
+function is_memory_bitmap_ alias "is_memory_bitmap"(byval bmp as BITMAP ptr) as long
+	'' TODO: return (bmp->id & (0x80000000 | 0x40000000)) == 0;
+end function
+
+declare function is_screen_bitmap(byval bmp as BITMAP ptr) as long
+
+function is_screen_bitmap_ alias "is_screen_bitmap"(byval bmp as BITMAP ptr) as long
+	'' TODO: return is_same_bitmap(bmp, screen);
+end function
+
+declare function is_video_bitmap(byval bmp as BITMAP ptr) as long
+
+function is_video_bitmap_ alias "is_video_bitmap"(byval bmp as BITMAP ptr) as long
+	'' TODO: return (bmp->id & 0x80000000) != 0;
+end function
+
+declare function is_system_bitmap(byval bmp as BITMAP ptr) as long
+
+function is_system_bitmap_ alias "is_system_bitmap"(byval bmp as BITMAP ptr) as long
+	'' TODO: return (bmp->id & 0x40000000) != 0;
+end function
+
+declare function is_sub_bitmap(byval bmp as BITMAP ptr) as long
+
+function is_sub_bitmap_ alias "is_sub_bitmap"(byval bmp as BITMAP ptr) as long
+	'' TODO: return (bmp->id & 0x20000000) != 0;
+end function
+
+declare sub acquire_bitmap(byval bmp as BITMAP ptr)
+
+sub acquire_bitmap_ alias "acquire_bitmap"(byval bmp as BITMAP ptr)
+	'' TODO: if (bmp->vtable->acquire) bmp->vtable->acquire(bmp);
+end sub
+
+declare sub release_bitmap(byval bmp as BITMAP ptr)
+
+sub release_bitmap_ alias "release_bitmap"(byval bmp as BITMAP ptr)
+	'' TODO: if (bmp->vtable->release) bmp->vtable->release(bmp);
+end sub
+
+declare sub acquire_screen()
+
+sub acquire_screen_ alias "acquire_screen"()
+	acquire_bitmap_(screen_)
+end sub
+
+declare sub release_screen()
+
+sub release_screen_ alias "release_screen"()
+	release_bitmap_(screen_)
+end sub
+
+declare function is_inside_bitmap(byval bmp as BITMAP ptr, byval x as long, byval y as long, byval clip as long) as long
+
+function is_inside_bitmap_ alias "is_inside_bitmap"(byval bmp as BITMAP ptr, byval x as long, byval y as long, byval clip as long) as long
+	'' TODO: if (clip) { if (bmp->clip) return (x >= bmp->cl) && (y >= bmp->ct) && (x < bmp->cr) && (y < bmp->cb); else return -1; } else return (unsigned int)x < (unsigned int)bmp->w && (unsigned int)y < (unsigned int)bmp->h;
+end function
+
+declare sub get_clip_rect(byval bitmap as BITMAP ptr, byval x1 as long ptr, byval y_1 as long ptr, byval x2 as long ptr, byval y2 as long ptr)
+
+sub get_clip_rect_ alias "get_clip_rect"(byval bitmap as BITMAP ptr, byval x1 as long ptr, byval y_1 as long ptr, byval x2 as long ptr, byval y2 as long ptr)
+	'' TODO: *x1 = bitmap->cl;
+	'' TODO: *y_1 = bitmap->ct;
+	'' TODO: *x2 = bitmap->cr-1;
+	'' TODO: *y2 = bitmap->cb-1;
+end sub
+
+declare sub set_clip_state(byval bitmap as BITMAP ptr, byval state as long)
+
+sub set_clip_state_ alias "set_clip_state"(byval bitmap as BITMAP ptr, byval state as long)
+	'' TODO: bitmap->clip = state;
+end sub
+
+declare function get_clip_state(byval bitmap as BITMAP ptr) as long
+
+function get_clip_state_ alias "get_clip_state"(byval bitmap as BITMAP ptr) as long
+	'' TODO: return bitmap->clip;
+end function
 
 #define ALLEGRO_COLOR_H
 
-#ifdef __FB_WIN32__
-	extern import black_palette(0 to 255) as RGB_
-	extern import desktop_palette(0 to 255) as RGB_
-	extern import default_palette(0 to 255) as RGB_
-#else
+#if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
 	extern black_palette(0 to 255) as RGB_
 	extern desktop_palette(0 to 255) as RGB_
 	extern default_palette(0 to 255) as RGB_
+#else
+	extern import black_palette(0 to 255) as RGB_
+	extern import desktop_palette(0 to 255) as RGB_
+	extern import default_palette(0 to 255) as RGB_
 #endif
 
 type RGB_MAP
@@ -1720,27 +1994,7 @@ type COLOR_MAP
 	data(0 to 255, 0 to 255) as ubyte
 end type
 
-#ifdef __FB_WIN32__
-	extern import rgb_map as RGB_MAP ptr
-	extern import color_map as COLOR_MAP ptr
-	extern import _current_palette(0 to 255) as RGB_
-	extern import _rgb_r_shift_15 as long
-	extern import _rgb_g_shift_15 as long
-	extern import _rgb_b_shift_15 as long
-	extern import _rgb_r_shift_16 as long
-	extern import _rgb_g_shift_16 as long
-	extern import _rgb_b_shift_16 as long
-	extern import _rgb_r_shift_24 as long
-	extern import _rgb_g_shift_24 as long
-	extern import _rgb_b_shift_24 as long
-	extern import _rgb_r_shift_32 as long
-	extern import _rgb_g_shift_32 as long
-	extern import _rgb_b_shift_32 as long
-	extern import _rgb_a_shift_32 as long
-
-	'' TODO: extern __attribute__((dllimport)) int _rgb_scale_5[];
-	'' TODO: extern __attribute__((dllimport)) int _rgb_scale_6[];
-#else
+#if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
 	extern rgb_map as RGB_MAP ptr
 	extern color_map as COLOR_MAP ptr
 	extern _current_palette(0 to 255) as RGB_
@@ -1757,9 +2011,27 @@ end type
 	extern _rgb_g_shift_32 as long
 	extern _rgb_b_shift_32 as long
 	extern _rgb_a_shift_32 as long
-
-	'' TODO: extern int _rgb_scale_5[];
-	'' TODO: extern int _rgb_scale_6[];
+	extern _rgb_scale_5(0 to ...) as long
+	extern _rgb_scale_6(0 to ...) as long
+#else
+	extern import rgb_map as RGB_MAP ptr
+	extern import color_map as COLOR_MAP ptr
+	extern import _current_palette(0 to 255) as RGB_
+	extern import _rgb_r_shift_15 as long
+	extern import _rgb_g_shift_15 as long
+	extern import _rgb_b_shift_15 as long
+	extern import _rgb_r_shift_16 as long
+	extern import _rgb_g_shift_16 as long
+	extern import _rgb_b_shift_16 as long
+	extern import _rgb_r_shift_24 as long
+	extern import _rgb_g_shift_24 as long
+	extern import _rgb_b_shift_24 as long
+	extern import _rgb_r_shift_32 as long
+	extern import _rgb_g_shift_32 as long
+	extern import _rgb_b_shift_32 as long
+	extern import _rgb_a_shift_32 as long
+	extern import _rgb_scale_5(0 to ...) as long
+	extern import _rgb_scale_6(0 to ...) as long
 #endif
 
 #define MASK_COLOR_8 0
@@ -1768,10 +2040,10 @@ end type
 #define MASK_COLOR_24 &hFF00FF
 #define MASK_COLOR_32 &hFF00FF
 
-#ifdef __FB_WIN32__
-	extern import palette_color as long ptr
-#else
+#if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
 	extern palette_color as long ptr
+#else
+	extern import palette_color as long ptr
 #endif
 
 declare sub set_color(byval idx as long, byval p as const RGB_ ptr)
@@ -1837,33 +2109,138 @@ declare function geta_depth(byval color_depth as long, byval c as long) as long
 
 #define ALLEGRO_COLOR_INL
 
-'' TODO: extern __inline__ int makecol15 (int r, int g, int b);
-'' TODO: extern __inline__ int makecol15 (int r, int g, int b){ return (((r >> 3) << _rgb_r_shift_15) | ((g >> 3) << _rgb_g_shift_15) | ((b >> 3) << _rgb_b_shift_15));}extern __inline__ int makecol16 (int r, int g, int b);
-'' TODO: extern __inline__ int makecol16 (int r, int g, int b){ return (((r >> 3) << _rgb_r_shift_16) | ((g >> 2) << _rgb_g_shift_16) | ((b >> 3) << _rgb_b_shift_16));}extern __inline__ int makecol24 (int r, int g, int b);
-'' TODO: extern __inline__ int makecol24 (int r, int g, int b){ return ((r << _rgb_r_shift_24) | (g << _rgb_g_shift_24) | (b << _rgb_b_shift_24));}extern __inline__ int makecol32 (int r, int g, int b);
-'' TODO: extern __inline__ int makecol32 (int r, int g, int b){ return ((r << _rgb_r_shift_32) | (g << _rgb_g_shift_32) | (b << _rgb_b_shift_32));}extern __inline__ int makeacol32 (int r, int g, int b, int a);
-'' TODO: extern __inline__ int makeacol32 (int r, int g, int b, int a){ return ((r << _rgb_r_shift_32) | (g << _rgb_g_shift_32) | (b << _rgb_b_shift_32) | (a << _rgb_a_shift_32));}extern __inline__ int getr8 (int c);
-'' TODO: extern __inline__ int getr8 (int c){ return _rgb_scale_6[(int)_current_palette[c].r];}extern __inline__ int getg8 (int c);
-'' TODO: extern __inline__ int getg8 (int c){ return _rgb_scale_6[(int)_current_palette[c].g];}extern __inline__ int getb8 (int c);
-'' TODO: extern __inline__ int getb8 (int c){ return _rgb_scale_6[(int)_current_palette[c].b];}extern __inline__ int getr15 (int c);
-'' TODO: extern __inline__ int getr15 (int c){ return _rgb_scale_5[(c >> _rgb_r_shift_15) & 0x1F];}extern __inline__ int getg15 (int c);
-'' TODO: extern __inline__ int getg15 (int c){ return _rgb_scale_5[(c >> _rgb_g_shift_15) & 0x1F];}extern __inline__ int getb15 (int c);
-'' TODO: extern __inline__ int getb15 (int c){ return _rgb_scale_5[(c >> _rgb_b_shift_15) & 0x1F];}extern __inline__ int getr16 (int c);
-'' TODO: extern __inline__ int getr16 (int c){ return _rgb_scale_5[(c >> _rgb_r_shift_16) & 0x1F];}extern __inline__ int getg16 (int c);
-'' TODO: extern __inline__ int getg16 (int c){ return _rgb_scale_6[(c >> _rgb_g_shift_16) & 0x3F];}extern __inline__ int getb16 (int c);
-'' TODO: extern __inline__ int getb16 (int c){ return _rgb_scale_5[(c >> _rgb_b_shift_16) & 0x1F];}extern __inline__ int getr24 (int c);
-'' TODO: extern __inline__ int getr24 (int c){ return ((c >> _rgb_r_shift_24) & 0xFF);}extern __inline__ int getg24 (int c);
-'' TODO: extern __inline__ int getg24 (int c){ return ((c >> _rgb_g_shift_24) & 0xFF);}extern __inline__ int getb24 (int c);
-'' TODO: extern __inline__ int getb24 (int c){ return ((c >> _rgb_b_shift_24) & 0xFF);}extern __inline__ int getr32 (int c);
-'' TODO: extern __inline__ int getr32 (int c){ return ((c >> _rgb_r_shift_32) & 0xFF);}extern __inline__ int getg32 (int c);
-'' TODO: extern __inline__ int getg32 (int c){ return ((c >> _rgb_g_shift_32) & 0xFF);}extern __inline__ int getb32 (int c);
-'' TODO: extern __inline__ int getb32 (int c){ return ((c >> _rgb_b_shift_32) & 0xFF);}extern __inline__ int geta32 (int c);
+declare function makecol15(byval r as long, byval g as long, byval b as long) as long
+
+function makecol15_ alias "makecol15"(byval r as long, byval g as long, byval b as long) as long
+	'' TODO: return (((r >> 3) << _rgb_r_shift_15) | ((g >> 3) << _rgb_g_shift_15) | ((b >> 3) << _rgb_b_shift_15));
+end function
+
+declare function makecol16(byval r as long, byval g as long, byval b as long) as long
+
+function makecol16_ alias "makecol16"(byval r as long, byval g as long, byval b as long) as long
+	'' TODO: return (((r >> 3) << _rgb_r_shift_16) | ((g >> 2) << _rgb_g_shift_16) | ((b >> 3) << _rgb_b_shift_16));
+end function
+
+declare function makecol24(byval r as long, byval g as long, byval b as long) as long
+
+function makecol24_ alias "makecol24"(byval r as long, byval g as long, byval b as long) as long
+	'' TODO: return ((r << _rgb_r_shift_24) | (g << _rgb_g_shift_24) | (b << _rgb_b_shift_24));
+end function
+
+declare function makecol32(byval r as long, byval g as long, byval b as long) as long
+
+function makecol32_ alias "makecol32"(byval r as long, byval g as long, byval b as long) as long
+	'' TODO: return ((r << _rgb_r_shift_32) | (g << _rgb_g_shift_32) | (b << _rgb_b_shift_32));
+end function
+
+declare function makeacol32(byval r as long, byval g as long, byval b as long, byval a as long) as long
+
+function makeacol32_ alias "makeacol32"(byval r as long, byval g as long, byval b as long, byval a as long) as long
+	'' TODO: return ((r << _rgb_r_shift_32) | (g << _rgb_g_shift_32) | (b << _rgb_b_shift_32) | (a << _rgb_a_shift_32));
+end function
+
+declare function getr8(byval c as long) as long
+
+function getr8_ alias "getr8"(byval c as long) as long
+	'' TODO: return _rgb_scale_6[(int)_current_palette[c].r];
+end function
+
+declare function getg8(byval c as long) as long
+
+function getg8_ alias "getg8"(byval c as long) as long
+	'' TODO: return _rgb_scale_6[(int)_current_palette[c].g];
+end function
+
+declare function getb8(byval c as long) as long
+
+function getb8_ alias "getb8"(byval c as long) as long
+	'' TODO: return _rgb_scale_6[(int)_current_palette[c].b];
+end function
+
+declare function getr15(byval c as long) as long
+
+function getr15_ alias "getr15"(byval c as long) as long
+	'' TODO: return _rgb_scale_5[(c >> _rgb_r_shift_15) & 0x1F];
+end function
+
+declare function getg15(byval c as long) as long
+
+function getg15_ alias "getg15"(byval c as long) as long
+	'' TODO: return _rgb_scale_5[(c >> _rgb_g_shift_15) & 0x1F];
+end function
+
+declare function getb15(byval c as long) as long
+
+function getb15_ alias "getb15"(byval c as long) as long
+	'' TODO: return _rgb_scale_5[(c >> _rgb_b_shift_15) & 0x1F];
+end function
+
+declare function getr16(byval c as long) as long
+
+function getr16_ alias "getr16"(byval c as long) as long
+	'' TODO: return _rgb_scale_5[(c >> _rgb_r_shift_16) & 0x1F];
+end function
+
+declare function getg16(byval c as long) as long
+
+function getg16_ alias "getg16"(byval c as long) as long
+	'' TODO: return _rgb_scale_6[(c >> _rgb_g_shift_16) & 0x3F];
+end function
+
+declare function getb16(byval c as long) as long
+
+function getb16_ alias "getb16"(byval c as long) as long
+	'' TODO: return _rgb_scale_5[(c >> _rgb_b_shift_16) & 0x1F];
+end function
+
+declare function getr24(byval c as long) as long
+
+function getr24_ alias "getr24"(byval c as long) as long
+	'' TODO: return ((c >> _rgb_r_shift_24) & 0xFF);
+end function
+
+declare function getg24(byval c as long) as long
+
+function getg24_ alias "getg24"(byval c as long) as long
+	'' TODO: return ((c >> _rgb_g_shift_24) & 0xFF);
+end function
+
+declare function getb24(byval c as long) as long
+
+function getb24_ alias "getb24"(byval c as long) as long
+	'' TODO: return ((c >> _rgb_b_shift_24) & 0xFF);
+end function
+
+declare function getr32(byval c as long) as long
+
+function getr32_ alias "getr32"(byval c as long) as long
+	'' TODO: return ((c >> _rgb_r_shift_32) & 0xFF);
+end function
+
+declare function getg32(byval c as long) as long
+
+function getg32_ alias "getg32"(byval c as long) as long
+	'' TODO: return ((c >> _rgb_g_shift_32) & 0xFF);
+end function
+
+declare function getb32(byval c as long) as long
+
+function getb32_ alias "getb32"(byval c as long) as long
+	'' TODO: return ((c >> _rgb_b_shift_32) & 0xFF);
+end function
+
+declare function geta32(byval c as long) as long
+
+function geta32_ alias "geta32"(byval c as long) as long
+	'' TODO: return ((c >> _rgb_a_shift_32) & 0xFF);
+end function
 
 #if defined(__FB_WIN32__) or defined(__FB_LINUX__)
-	'' TODO: extern __inline__ int geta32 (int c){ return ((c >> _rgb_a_shift_32) & 0xFF);}extern __inline__ void _set_color (int idx, const RGB *p);
-	'' TODO: extern __inline__ void _set_color (int idx, const RGB *p){ set_color(idx, p);}
-#else
-	'' TODO: extern __inline__ int geta32 (int c){ return ((c >> _rgb_a_shift_32) & 0xFF);}
+	declare sub _set_color(byval idx as long, byval p as const RGB__ ptr)
+
+	sub _set_color_ alias "_set_color"(byval idx as long, byval p as const RGB__ ptr)
+		set_color(idx, p)
+	end sub
 #endif
 
 #define ALLEGRO_DRAW_H
@@ -1917,70 +2294,462 @@ declare sub pivot_scaled_sprite_v_flip_lit(byval bmp as BITMAP ptr, byval sprite
 
 #define ALLEGRO_DRAW_INL
 
-'' TODO: extern __inline__ int getpixel (BITMAP *bmp, int x, int y);
-'' TODO: extern __inline__ int getpixel (BITMAP *bmp, int x, int y){; return bmp->vtable->getpixel(bmp, x, y);}extern __inline__ void putpixel (BITMAP *bmp, int x, int y, int color);
-'' TODO: extern __inline__ void putpixel (BITMAP *bmp, int x, int y, int color){; bmp->vtable->putpixel(bmp, x, y, color);}extern __inline__ void _allegro_vline (BITMAP *bmp, int x, int y_1, int y2, int color);
-'' TODO: extern __inline__ void _allegro_vline (BITMAP *bmp, int x, int y_1, int y2, int color){; bmp->vtable->vline(bmp, x, y_1, y2, color);}extern __inline__ void _allegro_hline (BITMAP *bmp, int x1, int y, int x2, int color);
-'' TODO: extern __inline__ void _allegro_hline (BITMAP *bmp, int x1, int y, int x2, int color){; bmp->vtable->hline(bmp, x1, y, x2, color);} static __attribute__((unused)) __inline__ void vline(BITMAP *bmp, int x, int y_1, int y2, int color) { _allegro_vline(bmp, x, y_1, y2, color); } static __attribute__((unused)) __inline__ void hline(BITMAP *bmp, int x1, int y, int x2, int color) { _allegro_hline(bmp, x1, y, x2, color); }extern __inline__ void line (BITMAP *bmp, int x1, int y_1, int x2, int y2, int color);
-'' TODO: extern __inline__ void line (BITMAP *bmp, int x1, int y_1, int x2, int y2, int color){; bmp->vtable->line(bmp, x1, y_1, x2, y2, color);}extern __inline__ void fastline (BITMAP *bmp, int x1, int y_1, int x2, int y2, int color);
-'' TODO: extern __inline__ void fastline (BITMAP *bmp, int x1, int y_1, int x2, int y2, int color){; bmp->vtable->fastline(bmp, x1, y_1, x2, y2, color);}extern __inline__ void rectfill (BITMAP *bmp, int x1, int y_1, int x2, int y2, int color);
-'' TODO: extern __inline__ void rectfill (BITMAP *bmp, int x1, int y_1, int x2, int y2, int color){; bmp->vtable->rectfill(bmp, x1, y_1, x2, y2, color);}extern __inline__ void triangle (BITMAP *bmp, int x1, int y_1, int x2, int y2, int x3, int y3, int color);
-'' TODO: extern __inline__ void triangle (BITMAP *bmp, int x1, int y_1, int x2, int y2, int x3, int y3, int color){; bmp->vtable->triangle(bmp, x1, y_1, x2, y2, x3, y3, color);}extern __inline__ void polygon (BITMAP *bmp, int vertices, const int *points, int color);
-'' TODO: extern __inline__ void polygon (BITMAP *bmp, int vertices, const int *points, int color){; bmp->vtable->polygon(bmp, vertices, points, color);}extern __inline__ void rect (BITMAP *bmp, int x1, int y_1, int x2, int y2, int color);
-'' TODO: extern __inline__ void rect (BITMAP *bmp, int x1, int y_1, int x2, int y2, int color){; bmp->vtable->rect(bmp, x1, y_1, x2, y2, color);}extern __inline__ void circle (BITMAP *bmp, int x, int y, int radius, int color);
-'' TODO: extern __inline__ void circle (BITMAP *bmp, int x, int y, int radius, int color){; bmp->vtable->circle(bmp, x, y, radius, color);}extern __inline__ void circlefill (BITMAP *bmp, int x, int y, int radius, int color);
-'' TODO: extern __inline__ void circlefill (BITMAP *bmp, int x, int y, int radius, int color){; bmp->vtable->circlefill(bmp, x, y, radius, color);}extern __inline__ void ellipse (BITMAP *bmp, int x, int y, int rx, int ry, int color);
-'' TODO: extern __inline__ void ellipse (BITMAP *bmp, int x, int y, int rx, int ry, int color){; bmp->vtable->ellipse(bmp, x, y, rx, ry, color);}extern __inline__ void ellipsefill (BITMAP *bmp, int x, int y, int rx, int ry, int color);
-'' TODO: extern __inline__ void ellipsefill (BITMAP *bmp, int x, int y, int rx, int ry, int color){; bmp->vtable->ellipsefill(bmp, x, y, rx, ry, color);}extern __inline__ void arc (BITMAP *bmp, int x, int y, fixed ang1, fixed ang2, int r, int color);
-'' TODO: extern __inline__ void arc (BITMAP *bmp, int x, int y, fixed ang1, fixed ang2, int r, int color){; bmp->vtable->arc(bmp, x, y, ang1, ang2, r, color);}extern __inline__ void spline (BITMAP *bmp, const int points[8], int color);
-'' TODO: extern __inline__ void spline (BITMAP *bmp, const int points[8], int color){; bmp->vtable->spline(bmp, points, color);}extern __inline__ void floodfill (BITMAP *bmp, int x, int y, int color);
-'' TODO: extern __inline__ void floodfill (BITMAP *bmp, int x, int y, int color){; bmp->vtable->floodfill(bmp, x, y, color);}extern __inline__ void polygon3d (BITMAP *bmp, int type, BITMAP *texture, int vc, V3D *vtx[]);
-'' TODO: extern __inline__ void polygon3d (BITMAP *bmp, int type, BITMAP *texture, int vc, V3D *vtx[]){; bmp->vtable->polygon3d(bmp, type, texture, vc, vtx);}extern __inline__ void polygon3d_f (BITMAP *bmp, int type, BITMAP *texture, int vc, V3D_f *vtx[]);
-'' TODO: extern __inline__ void polygon3d_f (BITMAP *bmp, int type, BITMAP *texture, int vc, V3D_f *vtx[]){; bmp->vtable->polygon3d_f(bmp, type, texture, vc, vtx);}extern __inline__ void triangle3d (BITMAP *bmp, int type, BITMAP *texture, V3D *v1, V3D *v2, V3D *v3);
-'' TODO: extern __inline__ void triangle3d (BITMAP *bmp, int type, BITMAP *texture, V3D *v1, V3D *v2, V3D *v3){; bmp->vtable->triangle3d(bmp, type, texture, v1, v2, v3);}extern __inline__ void triangle3d_f (BITMAP *bmp, int type, BITMAP *texture, V3D_f *v1, V3D_f *v2, V3D_f *v3);
-'' TODO: extern __inline__ void triangle3d_f (BITMAP *bmp, int type, BITMAP *texture, V3D_f *v1, V3D_f *v2, V3D_f *v3){; bmp->vtable->triangle3d_f(bmp, type, texture, v1, v2, v3);}extern __inline__ void quad3d (BITMAP *bmp, int type, BITMAP *texture, V3D *v1, V3D *v2, V3D *v3, V3D *v4);
-'' TODO: extern __inline__ void quad3d (BITMAP *bmp, int type, BITMAP *texture, V3D *v1, V3D *v2, V3D *v3, V3D *v4){; bmp->vtable->quad3d(bmp, type, texture, v1, v2, v3, v4);}extern __inline__ void quad3d_f (BITMAP *bmp, int type, BITMAP *texture, V3D_f *v1, V3D_f *v2, V3D_f *v3, V3D_f *v4);
-'' TODO: extern __inline__ void quad3d_f (BITMAP *bmp, int type, BITMAP *texture, V3D_f *v1, V3D_f *v2, V3D_f *v3, V3D_f *v4){; bmp->vtable->quad3d_f(bmp, type, texture, v1, v2, v3, v4);}extern __inline__ void draw_sprite (BITMAP *bmp, BITMAP *sprite, int x, int y);
-'' TODO: extern __inline__ void draw_sprite (BITMAP *bmp, BITMAP *sprite, int x, int y){;; if (sprite->vtable->color_depth == 8) { bmp->vtable->draw_256_sprite(bmp, sprite, x, y); } else {; bmp->vtable->draw_sprite(bmp, sprite, x, y); }}extern __inline__ void draw_sprite_ex (BITMAP *bmp, BITMAP *sprite, int x, int y, int mode, int flip);
-'' TODO: extern __inline__ void draw_sprite_ex (BITMAP *bmp, BITMAP *sprite, int x, int y, int mode, int flip){;; if (mode == 2) {; bmp->vtable->draw_sprite_ex(bmp, sprite, x, y, mode, flip); } else {; bmp->vtable->draw_sprite_ex(bmp, sprite, x, y, mode, flip); }}extern __inline__ void draw_sprite_v_flip (BITMAP *bmp, BITMAP *sprite, int x, int y);
-'' TODO: extern __inline__ void draw_sprite_v_flip (BITMAP *bmp, BITMAP *sprite, int x, int y) {;;; bmp->vtable->draw_sprite_v_flip(bmp, sprite, x, y);}extern __inline__ void draw_sprite_h_flip (BITMAP *bmp, BITMAP *sprite, int x, int y);
-'' TODO: extern __inline__ void draw_sprite_h_flip (BITMAP *bmp, BITMAP *sprite, int x, int y) {;;; bmp->vtable->draw_sprite_h_flip(bmp, sprite, x, y);}extern __inline__ void draw_sprite_vh_flip (BITMAP *bmp, BITMAP *sprite, int x, int y);
-'' TODO: extern __inline__ void draw_sprite_vh_flip (BITMAP *bmp, BITMAP *sprite, int x, int y){;;; bmp->vtable->draw_sprite_vh_flip(bmp, sprite, x, y);}extern __inline__ void draw_trans_sprite (BITMAP *bmp, BITMAP *sprite, int x, int y);
-'' TODO: extern __inline__ void draw_trans_sprite (BITMAP *bmp, BITMAP *sprite, int x, int y){;; if (sprite->vtable->color_depth == 32) {; bmp->vtable->draw_trans_rgba_sprite(bmp, sprite, x, y); } else {; bmp->vtable->draw_trans_sprite(bmp, sprite, x, y); }}extern __inline__ void draw_lit_sprite (BITMAP *bmp, BITMAP *sprite, int x, int y, int color);
-'' TODO: extern __inline__ void draw_lit_sprite (BITMAP *bmp, BITMAP *sprite, int x, int y, int color){;;; bmp->vtable->draw_lit_sprite(bmp, sprite, x, y, color);}extern __inline__ void draw_gouraud_sprite (BITMAP *bmp, BITMAP *sprite, int x, int y, int c1, int c2, int c3, int c4);
-'' TODO: extern __inline__ void draw_gouraud_sprite (BITMAP *bmp, BITMAP *sprite, int x, int y, int c1, int c2, int c3, int c4){;;; bmp->vtable->draw_gouraud_sprite(bmp, sprite, x, y, c1, c2, c3, c4);}extern __inline__ void draw_character_ex (BITMAP *bmp, BITMAP *sprite, int x, int y, int color, int bg);
-'' TODO: extern __inline__ void draw_character_ex (BITMAP *bmp, BITMAP *sprite, int x, int y, int color, int bg){;;; bmp->vtable->draw_character(bmp, sprite, x, y, color, bg);}extern __inline__ void rotate_sprite (BITMAP *bmp, BITMAP *sprite, int x, int y, fixed angle);
-'' TODO: extern __inline__ void rotate_sprite (BITMAP *bmp, BITMAP *sprite, int x, int y, fixed angle){;; bmp->vtable->pivot_scaled_sprite_flip(bmp, sprite, (x<<16) + (sprite->w * 0x10000) / 2, (y<<16) + (sprite->h * 0x10000) / 2, sprite->w << 15, sprite->h << 15, angle, 0x10000, 0);}extern __inline__ void rotate_sprite_v_flip (BITMAP *bmp, BITMAP *sprite, int x, int y, fixed angle);
-'' TODO: extern __inline__ void rotate_sprite_v_flip (BITMAP *bmp, BITMAP *sprite, int x, int y, fixed angle){;; bmp->vtable->pivot_scaled_sprite_flip(bmp, sprite, (x<<16) + (sprite->w * 0x10000) / 2, (y<<16) + (sprite->h * 0x10000) / 2, sprite->w << 15, sprite->h << 15, angle, 0x10000, -1);}extern __inline__ void rotate_scaled_sprite (BITMAP *bmp, BITMAP *sprite, int x, int y, fixed angle, fixed scale);
-'' TODO: extern __inline__ void rotate_scaled_sprite (BITMAP *bmp, BITMAP *sprite, int x, int y, fixed angle, fixed scale){;; bmp->vtable->pivot_scaled_sprite_flip(bmp, sprite, (x<<16) + (sprite->w * scale) / 2, (y<<16) + (sprite->h * scale) / 2, sprite->w << 15, sprite->h << 15, angle, scale, 0);}extern __inline__ void rotate_scaled_sprite_v_flip (BITMAP *bmp, BITMAP *sprite, int x, int y, fixed angle, fixed scale);
-'' TODO: extern __inline__ void rotate_scaled_sprite_v_flip (BITMAP *bmp, BITMAP *sprite, int x, int y, fixed angle, fixed scale){;; bmp->vtable->pivot_scaled_sprite_flip(bmp, sprite, (x<<16) + (sprite->w * scale) / 2, (y<<16) + (sprite->h * scale) / 2, sprite->w << 15, sprite->h << 15, angle, scale, -1);}extern __inline__ void pivot_sprite (BITMAP *bmp, BITMAP *sprite, int x, int y, int cx, int cy, fixed angle);
-'' TODO: extern __inline__ void pivot_sprite (BITMAP *bmp, BITMAP *sprite, int x, int y, int cx, int cy, fixed angle){;; bmp->vtable->pivot_scaled_sprite_flip(bmp, sprite, x<<16, y<<16, cx<<16, cy<<16, angle, 0x10000, 0);}extern __inline__ void pivot_sprite_v_flip (BITMAP *bmp, BITMAP *sprite, int x, int y, int cx, int cy, fixed angle);
-'' TODO: extern __inline__ void pivot_sprite_v_flip (BITMAP *bmp, BITMAP *sprite, int x, int y, int cx, int cy, fixed angle){;; bmp->vtable->pivot_scaled_sprite_flip(bmp, sprite, x<<16, y<<16, cx<<16, cy<<16, angle, 0x10000, -1);}extern __inline__ void pivot_scaled_sprite (BITMAP *bmp, BITMAP *sprite, int x, int y, int cx, int cy, fixed angle, fixed scale);
-'' TODO: extern __inline__ void pivot_scaled_sprite (BITMAP *bmp, BITMAP *sprite, int x, int y, int cx, int cy, fixed angle, fixed scale){;; bmp->vtable->pivot_scaled_sprite_flip(bmp, sprite, x<<16, y<<16, cx<<16, cy<<16, angle, scale, 0);}extern __inline__ void pivot_scaled_sprite_v_flip (BITMAP *bmp, BITMAP *sprite, int x, int y, int cx, int cy, fixed angle, fixed scale);
-'' TODO: extern __inline__ void pivot_scaled_sprite_v_flip (BITMAP *bmp, BITMAP *sprite, int x, int y, int cx, int cy, fixed angle, fixed scale){;; bmp->vtable->pivot_scaled_sprite_flip(bmp, sprite, x<<16, y<<16, cx<<16, cy<<16, angle, scale, -1);}extern __inline__ void _putpixel (BITMAP *bmp, int x, int y, int color);
+declare function getpixel(byval bmp as BITMAP ptr, byval x as long, byval y as long) as long
+
+function getpixel_ alias "getpixel"(byval bmp as BITMAP ptr, byval x as long, byval y as long) as long
+	'' TODO: return bmp->vtable->getpixel(bmp, x, y);
+end function
+
+declare sub putpixel(byval bmp as BITMAP ptr, byval x as long, byval y as long, byval color_ as long)
+
+sub putpixel_ alias "putpixel"(byval bmp as BITMAP ptr, byval x as long, byval y as long, byval color_ as long)
+	bmp->vtable->putpixel_(bmp, x, y, color_)
+end sub
+
+declare sub _allegro_vline(byval bmp as BITMAP ptr, byval x as long, byval y_1 as long, byval y2 as long, byval color_ as long)
+
+sub _allegro_vline_ alias "_allegro_vline"(byval bmp as BITMAP ptr, byval x as long, byval y_1 as long, byval y2 as long, byval color_ as long)
+	bmp->vtable->vline(bmp, x, y_1, y2, color_)
+end sub
+
+declare sub _allegro_hline(byval bmp as BITMAP ptr, byval x1 as long, byval y as long, byval x2 as long, byval color_ as long)
+
+sub _allegro_hline_ alias "_allegro_hline"(byval bmp as BITMAP ptr, byval x1 as long, byval y as long, byval x2 as long, byval color_ as long)
+	bmp->vtable->hline(bmp, x1, y, x2, color_)
+end sub
+
+sub vline(byval bmp as BITMAP ptr, byval x as long, byval y_1 as long, byval y2 as long, byval color_ as long)
+	_allegro_vline_(bmp, x, y_1, y2, color_)
+end sub
+
+sub hline(byval bmp as BITMAP ptr, byval x1 as long, byval y as long, byval x2 as long, byval color_ as long)
+	_allegro_hline_(bmp, x1, y, x2, color_)
+end sub
+
+declare sub line_ alias "line"(byval bmp as BITMAP ptr, byval x1 as long, byval y_1 as long, byval x2 as long, byval y2 as long, byval color_ as long)
+
+sub line__ alias "line"(byval bmp as BITMAP ptr, byval x1 as long, byval y_1 as long, byval x2 as long, byval y2 as long, byval color_ as long)
+	bmp->vtable->line_(bmp, x1, y_1, x2, y2, color_)
+end sub
+
+declare sub fastline(byval bmp as BITMAP ptr, byval x1 as long, byval y_1 as long, byval x2 as long, byval y2 as long, byval color_ as long)
+
+sub fastline_ alias "fastline"(byval bmp as BITMAP ptr, byval x1 as long, byval y_1 as long, byval x2 as long, byval y2 as long, byval color_ as long)
+	bmp->vtable->fastline_(bmp, x1, y_1, x2, y2, color_)
+end sub
+
+declare sub rectfill(byval bmp as BITMAP ptr, byval x1 as long, byval y_1 as long, byval x2 as long, byval y2 as long, byval color_ as long)
+
+sub rectfill_ alias "rectfill"(byval bmp as BITMAP ptr, byval x1 as long, byval y_1 as long, byval x2 as long, byval y2 as long, byval color_ as long)
+	bmp->vtable->rectfill_(bmp, x1, y_1, x2, y2, color_)
+end sub
+
+declare sub triangle(byval bmp as BITMAP ptr, byval x1 as long, byval y_1 as long, byval x2 as long, byval y2 as long, byval x3 as long, byval y3 as long, byval color_ as long)
+
+sub triangle_ alias "triangle"(byval bmp as BITMAP ptr, byval x1 as long, byval y_1 as long, byval x2 as long, byval y2 as long, byval x3 as long, byval y3 as long, byval color_ as long)
+	bmp->vtable->triangle_(bmp, x1, y_1, x2, y2, x3, y3, color_)
+end sub
+
+declare sub polygon(byval bmp as BITMAP ptr, byval vertices as long, byval points as const long ptr, byval color_ as long)
+
+sub polygon_ alias "polygon"(byval bmp as BITMAP ptr, byval vertices as long, byval points as const long ptr, byval color_ as long)
+	bmp->vtable->polygon_(bmp, vertices, points, color_)
+end sub
+
+declare sub rect(byval bmp as BITMAP ptr, byval x1 as long, byval y_1 as long, byval x2 as long, byval y2 as long, byval color_ as long)
+
+sub rect_ alias "rect"(byval bmp as BITMAP ptr, byval x1 as long, byval y_1 as long, byval x2 as long, byval y2 as long, byval color_ as long)
+	bmp->vtable->rect_(bmp, x1, y_1, x2, y2, color_)
+end sub
+
+declare sub circle_ alias "circle"(byval bmp as BITMAP ptr, byval x as long, byval y as long, byval radius as long, byval color_ as long)
+
+sub circle__ alias "circle"(byval bmp as BITMAP ptr, byval x as long, byval y as long, byval radius as long, byval color_ as long)
+	bmp->vtable->circle_(bmp, x, y, radius, color_)
+end sub
+
+declare sub circlefill(byval bmp as BITMAP ptr, byval x as long, byval y as long, byval radius as long, byval color_ as long)
+
+sub circlefill_ alias "circlefill"(byval bmp as BITMAP ptr, byval x as long, byval y as long, byval radius as long, byval color_ as long)
+	bmp->vtable->circlefill_(bmp, x, y, radius, color_)
+end sub
+
+declare sub ellipse(byval bmp as BITMAP ptr, byval x as long, byval y as long, byval rx as long, byval ry as long, byval color_ as long)
+
+sub ellipse_ alias "ellipse"(byval bmp as BITMAP ptr, byval x as long, byval y as long, byval rx as long, byval ry as long, byval color_ as long)
+	bmp->vtable->ellipse_(bmp, x, y, rx, ry, color_)
+end sub
+
+declare sub ellipsefill(byval bmp as BITMAP ptr, byval x as long, byval y as long, byval rx as long, byval ry as long, byval color_ as long)
+
+sub ellipsefill_ alias "ellipsefill"(byval bmp as BITMAP ptr, byval x as long, byval y as long, byval rx as long, byval ry as long, byval color_ as long)
+	bmp->vtable->ellipsefill_(bmp, x, y, rx, ry, color_)
+end sub
+
+declare sub arc(byval bmp as BITMAP ptr, byval x as long, byval y as long, byval ang1 as fixed, byval ang2 as fixed, byval r as long, byval color_ as long)
+
+sub arc_ alias "arc"(byval bmp as BITMAP ptr, byval x as long, byval y as long, byval ang1 as fixed, byval ang2 as fixed, byval r as long, byval color_ as long)
+	bmp->vtable->arc_(bmp, x, y, ang1, ang2, r, color_)
+end sub
+
+declare sub spline(byval bmp as BITMAP ptr, byval points as const long ptr, byval color_ as long)
+
+sub spline_ alias "spline"(byval bmp as BITMAP ptr, byval points as const long ptr, byval color_ as long)
+	bmp->vtable->spline_(bmp, points, color_)
+end sub
+
+declare sub floodfill(byval bmp as BITMAP ptr, byval x as long, byval y as long, byval color_ as long)
+
+sub floodfill_ alias "floodfill"(byval bmp as BITMAP ptr, byval x as long, byval y as long, byval color_ as long)
+	bmp->vtable->floodfill_(bmp, x, y, color_)
+end sub
+
+declare sub polygon3d(byval bmp as BITMAP ptr, byval type_ as long, byval texture as BITMAP ptr, byval vc as long, byval vtx as V3D ptr ptr)
+
+sub polygon3d_ alias "polygon3d"(byval bmp as BITMAP ptr, byval type_ as long, byval texture as BITMAP ptr, byval vc as long, byval vtx as V3D ptr ptr)
+	bmp->vtable->polygon3d_(bmp, type_, texture, vc, vtx)
+end sub
+
+declare sub polygon3d_f(byval bmp as BITMAP ptr, byval type_ as long, byval texture as BITMAP ptr, byval vc as long, byval vtx as V3D_f ptr ptr)
+
+sub polygon3d_f_ alias "polygon3d_f"(byval bmp as BITMAP ptr, byval type_ as long, byval texture as BITMAP ptr, byval vc as long, byval vtx as V3D_f ptr ptr)
+	bmp->vtable->polygon3d_f_(bmp, type_, texture, vc, vtx)
+end sub
+
+declare sub triangle3d(byval bmp as BITMAP ptr, byval type_ as long, byval texture as BITMAP ptr, byval v1 as V3D ptr, byval v2 as V3D ptr, byval v3 as V3D ptr)
+
+sub triangle3d_ alias "triangle3d"(byval bmp as BITMAP ptr, byval type_ as long, byval texture as BITMAP ptr, byval v1 as V3D ptr, byval v2 as V3D ptr, byval v3 as V3D ptr)
+	bmp->vtable->triangle3d_(bmp, type_, texture, v1, v2, v3)
+end sub
+
+declare sub triangle3d_f(byval bmp as BITMAP ptr, byval type_ as long, byval texture as BITMAP ptr, byval v1 as V3D_f ptr, byval v2 as V3D_f ptr, byval v3 as V3D_f ptr)
+
+sub triangle3d_f_ alias "triangle3d_f"(byval bmp as BITMAP ptr, byval type_ as long, byval texture as BITMAP ptr, byval v1 as V3D_f ptr, byval v2 as V3D_f ptr, byval v3 as V3D_f ptr)
+	bmp->vtable->triangle3d_f_(bmp, type_, texture, v1, v2, v3)
+end sub
+
+declare sub quad3d(byval bmp as BITMAP ptr, byval type_ as long, byval texture as BITMAP ptr, byval v1 as V3D ptr, byval v2 as V3D ptr, byval v3 as V3D ptr, byval v4 as V3D ptr)
+
+sub quad3d_ alias "quad3d"(byval bmp as BITMAP ptr, byval type_ as long, byval texture as BITMAP ptr, byval v1 as V3D ptr, byval v2 as V3D ptr, byval v3 as V3D ptr, byval v4 as V3D ptr)
+	bmp->vtable->quad3d_(bmp, type_, texture, v1, v2, v3, v4)
+end sub
+
+declare sub quad3d_f(byval bmp as BITMAP ptr, byval type_ as long, byval texture as BITMAP ptr, byval v1 as V3D_f ptr, byval v2 as V3D_f ptr, byval v3 as V3D_f ptr, byval v4 as V3D_f ptr)
+
+sub quad3d_f_ alias "quad3d_f"(byval bmp as BITMAP ptr, byval type_ as long, byval texture as BITMAP ptr, byval v1 as V3D_f ptr, byval v2 as V3D_f ptr, byval v3 as V3D_f ptr, byval v4 as V3D_f ptr)
+	bmp->vtable->quad3d_f_(bmp, type_, texture, v1, v2, v3, v4)
+end sub
+
+declare sub draw_sprite(byval bmp as BITMAP ptr, byval sprite as BITMAP ptr, byval x as long, byval y as long)
+
+sub draw_sprite_ alias "draw_sprite"(byval bmp as BITMAP ptr, byval sprite as BITMAP ptr, byval x as long, byval y as long)
+	'' TODO: if (sprite->vtable->color_depth == 8) { bmp->vtable->draw_256_sprite(bmp, sprite, x, y); } else {; bmp->vtable->draw_sprite(bmp, sprite, x, y); }
+end sub
+
+declare sub draw_sprite_ex(byval bmp as BITMAP ptr, byval sprite as BITMAP ptr, byval x as long, byval y as long, byval mode as long, byval flip_ as long)
+
+sub draw_sprite_ex_ alias "draw_sprite_ex"(byval bmp as BITMAP ptr, byval sprite as BITMAP ptr, byval x as long, byval y as long, byval mode as long, byval flip_ as long)
+	'' TODO: if (mode == 2) {; bmp->vtable->draw_sprite_ex(bmp, sprite, x, y, mode, flip); } else {; bmp->vtable->draw_sprite_ex(bmp, sprite, x, y, mode, flip); }
+end sub
+
+declare sub draw_sprite_v_flip(byval bmp as BITMAP ptr, byval sprite as BITMAP ptr, byval x as long, byval y as long)
+
+sub draw_sprite_v_flip__ alias "draw_sprite_v_flip"(byval bmp as BITMAP ptr, byval sprite as BITMAP ptr, byval x as long, byval y as long)
+	bmp->vtable->draw_sprite_v_flip__(bmp, sprite, x, y)
+end sub
+
+declare sub draw_sprite_h_flip(byval bmp as BITMAP ptr, byval sprite as BITMAP ptr, byval x as long, byval y as long)
+
+sub draw_sprite_h_flip__ alias "draw_sprite_h_flip"(byval bmp as BITMAP ptr, byval sprite as BITMAP ptr, byval x as long, byval y as long)
+	bmp->vtable->draw_sprite_h_flip__(bmp, sprite, x, y)
+end sub
+
+declare sub draw_sprite_vh_flip(byval bmp as BITMAP ptr, byval sprite as BITMAP ptr, byval x as long, byval y as long)
+
+sub draw_sprite_vh_flip__ alias "draw_sprite_vh_flip"(byval bmp as BITMAP ptr, byval sprite as BITMAP ptr, byval x as long, byval y as long)
+	bmp->vtable->draw_sprite_vh_flip__(bmp, sprite, x, y)
+end sub
+
+declare sub draw_trans_sprite(byval bmp as BITMAP ptr, byval sprite as BITMAP ptr, byval x as long, byval y as long)
+
+sub draw_trans_sprite_ alias "draw_trans_sprite"(byval bmp as BITMAP ptr, byval sprite as BITMAP ptr, byval x as long, byval y as long)
+	'' TODO: if (sprite->vtable->color_depth == 32) {; bmp->vtable->draw_trans_rgba_sprite(bmp, sprite, x, y); } else {; bmp->vtable->draw_trans_sprite(bmp, sprite, x, y); }
+end sub
+
+declare sub draw_lit_sprite(byval bmp as BITMAP ptr, byval sprite as BITMAP ptr, byval x as long, byval y as long, byval color_ as long)
+
+sub draw_lit_sprite_ alias "draw_lit_sprite"(byval bmp as BITMAP ptr, byval sprite as BITMAP ptr, byval x as long, byval y as long, byval color_ as long)
+	bmp->vtable->draw_lit_sprite_(bmp, sprite, x, y, color_)
+end sub
+
+declare sub draw_gouraud_sprite(byval bmp as BITMAP ptr, byval sprite as BITMAP ptr, byval x as long, byval y as long, byval c1 as long, byval c2 as long, byval c3 as long, byval c4 as long)
+
+sub draw_gouraud_sprite_ alias "draw_gouraud_sprite"(byval bmp as BITMAP ptr, byval sprite as BITMAP ptr, byval x as long, byval y as long, byval c1 as long, byval c2 as long, byval c3 as long, byval c4 as long)
+	bmp->vtable->draw_gouraud_sprite_(bmp, sprite, x, y, c1, c2, c3, c4)
+end sub
+
+declare sub draw_character_ex(byval bmp as BITMAP ptr, byval sprite as BITMAP ptr, byval x as long, byval y as long, byval color_ as long, byval bg as long)
+
+sub draw_character_ex_ alias "draw_character_ex"(byval bmp as BITMAP ptr, byval sprite as BITMAP ptr, byval x as long, byval y as long, byval color_ as long, byval bg as long)
+	bmp->vtable->draw_character_(bmp, sprite, x, y, color_, bg)
+end sub
+
+declare sub rotate_sprite(byval bmp as BITMAP ptr, byval sprite as BITMAP ptr, byval x as long, byval y as long, byval angle as fixed)
+
+sub rotate_sprite_ alias "rotate_sprite"(byval bmp as BITMAP ptr, byval sprite as BITMAP ptr, byval x as long, byval y as long, byval angle as fixed)
+	bmp->vtable->pivot_scaled_sprite_flip(bmp, sprite, (x shl 16) + ((sprite->w * &h10000) / 2), (y shl 16) + ((sprite->h * &h10000) / 2), sprite->w shl 15, sprite->h shl 15, angle, &h10000, 0)
+end sub
+
+declare sub rotate_sprite_v_flip(byval bmp as BITMAP ptr, byval sprite as BITMAP ptr, byval x as long, byval y as long, byval angle as fixed)
+
+sub rotate_sprite_v_flip_ alias "rotate_sprite_v_flip"(byval bmp as BITMAP ptr, byval sprite as BITMAP ptr, byval x as long, byval y as long, byval angle as fixed)
+	bmp->vtable->pivot_scaled_sprite_flip(bmp, sprite, (x shl 16) + ((sprite->w * &h10000) / 2), (y shl 16) + ((sprite->h * &h10000) / 2), sprite->w shl 15, sprite->h shl 15, angle, &h10000, -1)
+end sub
+
+declare sub rotate_scaled_sprite(byval bmp as BITMAP ptr, byval sprite as BITMAP ptr, byval x as long, byval y as long, byval angle as fixed, byval scale as fixed)
+
+sub rotate_scaled_sprite_ alias "rotate_scaled_sprite"(byval bmp as BITMAP ptr, byval sprite as BITMAP ptr, byval x as long, byval y as long, byval angle as fixed, byval scale as fixed)
+	bmp->vtable->pivot_scaled_sprite_flip(bmp, sprite, (x shl 16) + ((sprite->w * scale) / 2), (y shl 16) + ((sprite->h * scale) / 2), sprite->w shl 15, sprite->h shl 15, angle, scale, 0)
+end sub
+
+declare sub rotate_scaled_sprite_v_flip(byval bmp as BITMAP ptr, byval sprite as BITMAP ptr, byval x as long, byval y as long, byval angle as fixed, byval scale as fixed)
+
+sub rotate_scaled_sprite_v_flip_ alias "rotate_scaled_sprite_v_flip"(byval bmp as BITMAP ptr, byval sprite as BITMAP ptr, byval x as long, byval y as long, byval angle as fixed, byval scale as fixed)
+	bmp->vtable->pivot_scaled_sprite_flip(bmp, sprite, (x shl 16) + ((sprite->w * scale) / 2), (y shl 16) + ((sprite->h * scale) / 2), sprite->w shl 15, sprite->h shl 15, angle, scale, -1)
+end sub
+
+declare sub pivot_sprite(byval bmp as BITMAP ptr, byval sprite as BITMAP ptr, byval x as long, byval y as long, byval cx as long, byval cy as long, byval angle as fixed)
+
+sub pivot_sprite_ alias "pivot_sprite"(byval bmp as BITMAP ptr, byval sprite as BITMAP ptr, byval x as long, byval y as long, byval cx as long, byval cy as long, byval angle as fixed)
+	bmp->vtable->pivot_scaled_sprite_flip(bmp, sprite, x shl 16, y shl 16, cx shl 16, cy shl 16, angle, &h10000, 0)
+end sub
+
+declare sub pivot_sprite_v_flip(byval bmp as BITMAP ptr, byval sprite as BITMAP ptr, byval x as long, byval y as long, byval cx as long, byval cy as long, byval angle as fixed)
+
+sub pivot_sprite_v_flip_ alias "pivot_sprite_v_flip"(byval bmp as BITMAP ptr, byval sprite as BITMAP ptr, byval x as long, byval y as long, byval cx as long, byval cy as long, byval angle as fixed)
+	bmp->vtable->pivot_scaled_sprite_flip(bmp, sprite, x shl 16, y shl 16, cx shl 16, cy shl 16, angle, &h10000, -1)
+end sub
+
+declare sub pivot_scaled_sprite(byval bmp as BITMAP ptr, byval sprite as BITMAP ptr, byval x as long, byval y as long, byval cx as long, byval cy as long, byval angle as fixed, byval scale as fixed)
+
+sub pivot_scaled_sprite_ alias "pivot_scaled_sprite"(byval bmp as BITMAP ptr, byval sprite as BITMAP ptr, byval x as long, byval y as long, byval cx as long, byval cy as long, byval angle as fixed, byval scale as fixed)
+	bmp->vtable->pivot_scaled_sprite_flip(bmp, sprite, x shl 16, y shl 16, cx shl 16, cy shl 16, angle, scale, 0)
+end sub
+
+declare sub pivot_scaled_sprite_v_flip(byval bmp as BITMAP ptr, byval sprite as BITMAP ptr, byval x as long, byval y as long, byval cx as long, byval cy as long, byval angle as fixed, byval scale as fixed)
+
+sub pivot_scaled_sprite_v_flip_ alias "pivot_scaled_sprite_v_flip"(byval bmp as BITMAP ptr, byval sprite as BITMAP ptr, byval x as long, byval y as long, byval cx as long, byval cy as long, byval angle as fixed, byval scale as fixed)
+	bmp->vtable->pivot_scaled_sprite_flip(bmp, sprite, x shl 16, y shl 16, cx shl 16, cy shl 16, angle, scale, -1)
+end sub
+
+declare sub _putpixel(byval bmp as BITMAP ptr, byval x as long, byval y as long, byval color_ as long)
 
 #if defined(__FB_WIN32__) or defined(__FB_LINUX__)
-	'' TODO: extern __inline__ void _putpixel (BITMAP *bmp, int x, int y, int color){ uintptr_t addr;; addr = bmp_write_line(bmp, y); (*((uint8_t *)(addr+x)) = (color)); bmp_unwrite_line(bmp);}extern __inline__ int _getpixel (BITMAP *bmp, int x, int y);
-	'' TODO: extern __inline__ int _getpixel (BITMAP *bmp, int x, int y){ uintptr_t addr; int c;; addr = bmp_read_line(bmp, y); c = (*((uint8_t *)(addr+x))); bmp_unwrite_line(bmp); return c;}extern __inline__ void _putpixel15 (BITMAP *bmp, int x, int y, int color);
-	'' TODO: extern __inline__ void _putpixel15 (BITMAP *bmp, int x, int y, int color){ uintptr_t addr;; addr = bmp_write_line(bmp, y); (*((uint16_t *)(addr+x*sizeof(short))) = (color)); bmp_unwrite_line(bmp);}extern __inline__ int _getpixel15 (BITMAP *bmp, int x, int y);
-	'' TODO: extern __inline__ int _getpixel15 (BITMAP *bmp, int x, int y){ uintptr_t addr; int c;; addr = bmp_read_line(bmp, y); c = (*((uint16_t *)(addr+x*sizeof(short)))); bmp_unwrite_line(bmp); return c;}extern __inline__ void _putpixel16 (BITMAP *bmp, int x, int y, int color);
-	'' TODO: extern __inline__ void _putpixel16 (BITMAP *bmp, int x, int y, int color){ uintptr_t addr;; addr = bmp_write_line(bmp, y); (*((uint16_t *)(addr+x*sizeof(short))) = (color)); bmp_unwrite_line(bmp);}extern __inline__ int _getpixel16 (BITMAP *bmp, int x, int y);
-	'' TODO: extern __inline__ int _getpixel16 (BITMAP *bmp, int x, int y){ uintptr_t addr; int c;; addr = bmp_read_line(bmp, y); c = (*((uint16_t *)(addr+x*sizeof(short)))); bmp_unwrite_line(bmp); return c;}extern __inline__ void _putpixel24 (BITMAP *bmp, int x, int y, int color);
-	'' TODO: extern __inline__ void _putpixel24 (BITMAP *bmp, int x, int y, int color){ uintptr_t addr;; addr = bmp_write_line(bmp, y); bmp_write24(addr+x*3, color); bmp_unwrite_line(bmp);}extern __inline__ int _getpixel24 (BITMAP *bmp, int x, int y);
-	'' TODO: extern __inline__ int _getpixel24 (BITMAP *bmp, int x, int y){ uintptr_t addr; int c;; addr = bmp_read_line(bmp, y); c = bmp_read24(addr+x*3); bmp_unwrite_line(bmp); return c;}extern __inline__ void _putpixel32 (BITMAP *bmp, int x, int y, int color);
-	'' TODO: extern __inline__ void _putpixel32 (BITMAP *bmp, int x, int y, int color){ uintptr_t addr;; addr = bmp_write_line(bmp, y); (*((uint32_t *)(addr+x*sizeof(int32_t))) = (color)); bmp_unwrite_line(bmp);}extern __inline__ int _getpixel32 (BITMAP *bmp, int x, int y);
-	'' TODO: extern __inline__ int _getpixel32 (BITMAP *bmp, int x, int y){ uintptr_t addr; int c;; addr = bmp_read_line(bmp, y); c = (*((uint32_t *)(addr+x*sizeof(int32_t)))); bmp_unwrite_line(bmp); return c;}
+	sub _putpixel_ alias "_putpixel"(byval bmp as BITMAP ptr, byval x as long, byval y as long, byval color_ as long)
+		dim addr as uinteger
+		'' TODO: addr = bmp_write_line(bmp, y);
+		'' TODO: (*((uint8_t *)(addr+x)) = (color));
+		bmp_unwrite_line_(bmp)
+	end sub
 #else
-	'' TODO: extern __inline__ void _putpixel (BITMAP *bmp, int x, int y, int color){ uintptr_t addr; _farsetsel((bmp)->seg); addr = bmp_write_line(bmp, y); _farnspokeb(addr+x, color); bmp_unwrite_line(bmp);}extern __inline__ int _getpixel (BITMAP *bmp, int x, int y);
-	'' TODO: extern __inline__ int _getpixel (BITMAP *bmp, int x, int y){ uintptr_t addr; int c; _farsetsel((bmp)->seg); addr = bmp_read_line(bmp, y); c = _farnspeekb(addr+x); bmp_unwrite_line(bmp); return c;}extern __inline__ void _putpixel15 (BITMAP *bmp, int x, int y, int color);
-	'' TODO: extern __inline__ void _putpixel15 (BITMAP *bmp, int x, int y, int color){ uintptr_t addr; _farsetsel((bmp)->seg); addr = bmp_write_line(bmp, y); _farnspokew(addr+x*sizeof(short), color); bmp_unwrite_line(bmp);}extern __inline__ int _getpixel15 (BITMAP *bmp, int x, int y);
-	'' TODO: extern __inline__ int _getpixel15 (BITMAP *bmp, int x, int y){ uintptr_t addr; int c; _farsetsel((bmp)->seg); addr = bmp_read_line(bmp, y); c = _farnspeekw(addr+x*sizeof(short)); bmp_unwrite_line(bmp); return c;}extern __inline__ void _putpixel16 (BITMAP *bmp, int x, int y, int color);
-	'' TODO: extern __inline__ void _putpixel16 (BITMAP *bmp, int x, int y, int color){ uintptr_t addr; _farsetsel((bmp)->seg); addr = bmp_write_line(bmp, y); _farnspokew(addr+x*sizeof(short), color); bmp_unwrite_line(bmp);}extern __inline__ int _getpixel16 (BITMAP *bmp, int x, int y);
-	'' TODO: extern __inline__ int _getpixel16 (BITMAP *bmp, int x, int y){ uintptr_t addr; int c; _farsetsel((bmp)->seg); addr = bmp_read_line(bmp, y); c = _farnspeekw(addr+x*sizeof(short)); bmp_unwrite_line(bmp); return c;}extern __inline__ void _putpixel24 (BITMAP *bmp, int x, int y, int color);
-	'' TODO: extern __inline__ void _putpixel24 (BITMAP *bmp, int x, int y, int color){ uintptr_t addr; _farsetsel((bmp)->seg); addr = bmp_write_line(bmp, y); ({ _farnspokew(addr+x*3, color&0xFFFF); _farnspokeb(addr+x*3+2, color>>16); }); bmp_unwrite_line(bmp);}extern __inline__ int _getpixel24 (BITMAP *bmp, int x, int y);
-	'' TODO: extern __inline__ int _getpixel24 (BITMAP *bmp, int x, int y){ uintptr_t addr; int c; _farsetsel((bmp)->seg); addr = bmp_read_line(bmp, y); c = (_farnspeekl(addr+x*3) & 0xFFFFFF); bmp_unwrite_line(bmp); return c;}extern __inline__ void _putpixel32 (BITMAP *bmp, int x, int y, int color);
-	'' TODO: extern __inline__ void _putpixel32 (BITMAP *bmp, int x, int y, int color){ uintptr_t addr; _farsetsel((bmp)->seg); addr = bmp_write_line(bmp, y); _farnspokel(addr+x*sizeof(int32_t), color); bmp_unwrite_line(bmp);}extern __inline__ int _getpixel32 (BITMAP *bmp, int x, int y);
-	'' TODO: extern __inline__ int _getpixel32 (BITMAP *bmp, int x, int y){ uintptr_t addr; int c; _farsetsel((bmp)->seg); addr = bmp_read_line(bmp, y); c = _farnspeekl(addr+x*sizeof(int32_t)); bmp_unwrite_line(bmp); return c;}
+	sub _putpixel_ alias "_putpixel"(byval bmp as BITMAP ptr, byval x as long, byval y as long, byval color_ as long)
+		dim addr as uinteger
+		_farsetsel(bmp->seg)
+		'' TODO: addr = bmp_write_line(bmp, y);
+		_farnspokeb(addr + x, color_)
+		bmp_unwrite_line_(bmp)
+	end sub
+#endif
+
+declare function _getpixel(byval bmp as BITMAP ptr, byval x as long, byval y as long) as long
+
+#if defined(__FB_WIN32__) or defined(__FB_LINUX__)
+	function _getpixel_ alias "_getpixel"(byval bmp as BITMAP ptr, byval x as long, byval y as long) as long
+		dim addr as uinteger
+		dim c as long
+		'' TODO: addr = bmp_read_line(bmp, y);
+		'' TODO: c = (*((uint8_t *)(addr+x)));
+		bmp_unwrite_line_(bmp)
+		'' TODO: return c;
+	end function
+#else
+	function _getpixel_ alias "_getpixel"(byval bmp as BITMAP ptr, byval x as long, byval y as long) as long
+		dim addr as uinteger
+		dim c as long
+		_farsetsel(bmp->seg)
+		'' TODO: addr = bmp_read_line(bmp, y);
+		'' TODO: c = _farnspeekb(addr+x);
+		bmp_unwrite_line_(bmp)
+		'' TODO: return c;
+	end function
+#endif
+
+declare sub _putpixel15(byval bmp as BITMAP ptr, byval x as long, byval y as long, byval color_ as long)
+
+#if defined(__FB_WIN32__) or defined(__FB_LINUX__)
+	sub _putpixel15_ alias "_putpixel15"(byval bmp as BITMAP ptr, byval x as long, byval y as long, byval color_ as long)
+		dim addr as uinteger
+		'' TODO: addr = bmp_write_line(bmp, y);
+		'' TODO: (*((uint16_t *)(addr+x*sizeof(short))) = (color));
+		bmp_unwrite_line_(bmp)
+	end sub
+#else
+	sub _putpixel15_ alias "_putpixel15"(byval bmp as BITMAP ptr, byval x as long, byval y as long, byval color_ as long)
+		dim addr as uinteger
+		_farsetsel(bmp->seg)
+		'' TODO: addr = bmp_write_line(bmp, y);
+		_farnspokew(addr + (x * sizeof(short)), color_)
+		bmp_unwrite_line_(bmp)
+	end sub
+#endif
+
+declare function _getpixel15(byval bmp as BITMAP ptr, byval x as long, byval y as long) as long
+
+#if defined(__FB_WIN32__) or defined(__FB_LINUX__)
+	function _getpixel15_ alias "_getpixel15"(byval bmp as BITMAP ptr, byval x as long, byval y as long) as long
+		dim addr as uinteger
+		dim c as long
+		'' TODO: addr = bmp_read_line(bmp, y);
+		'' TODO: c = (*((uint16_t *)(addr+x*sizeof(short))));
+		bmp_unwrite_line_(bmp)
+		'' TODO: return c;
+	end function
+#else
+	function _getpixel15_ alias "_getpixel15"(byval bmp as BITMAP ptr, byval x as long, byval y as long) as long
+		dim addr as uinteger
+		dim c as long
+		_farsetsel(bmp->seg)
+		'' TODO: addr = bmp_read_line(bmp, y);
+		'' TODO: c = _farnspeekw(addr+x*sizeof(short));
+		bmp_unwrite_line_(bmp)
+		'' TODO: return c;
+	end function
+#endif
+
+declare sub _putpixel16(byval bmp as BITMAP ptr, byval x as long, byval y as long, byval color_ as long)
+
+#if defined(__FB_WIN32__) or defined(__FB_LINUX__)
+	sub _putpixel16_ alias "_putpixel16"(byval bmp as BITMAP ptr, byval x as long, byval y as long, byval color_ as long)
+		dim addr as uinteger
+		'' TODO: addr = bmp_write_line(bmp, y);
+		'' TODO: (*((uint16_t *)(addr+x*sizeof(short))) = (color));
+		bmp_unwrite_line_(bmp)
+	end sub
+#else
+	sub _putpixel16_ alias "_putpixel16"(byval bmp as BITMAP ptr, byval x as long, byval y as long, byval color_ as long)
+		dim addr as uinteger
+		_farsetsel(bmp->seg)
+		'' TODO: addr = bmp_write_line(bmp, y);
+		_farnspokew(addr + (x * sizeof(short)), color_)
+		bmp_unwrite_line_(bmp)
+	end sub
+#endif
+
+declare function _getpixel16(byval bmp as BITMAP ptr, byval x as long, byval y as long) as long
+
+#if defined(__FB_WIN32__) or defined(__FB_LINUX__)
+	function _getpixel16_ alias "_getpixel16"(byval bmp as BITMAP ptr, byval x as long, byval y as long) as long
+		dim addr as uinteger
+		dim c as long
+		'' TODO: addr = bmp_read_line(bmp, y);
+		'' TODO: c = (*((uint16_t *)(addr+x*sizeof(short))));
+		bmp_unwrite_line_(bmp)
+		'' TODO: return c;
+	end function
+#else
+	function _getpixel16_ alias "_getpixel16"(byval bmp as BITMAP ptr, byval x as long, byval y as long) as long
+		dim addr as uinteger
+		dim c as long
+		_farsetsel(bmp->seg)
+		'' TODO: addr = bmp_read_line(bmp, y);
+		'' TODO: c = _farnspeekw(addr+x*sizeof(short));
+		bmp_unwrite_line_(bmp)
+		'' TODO: return c;
+	end function
+#endif
+
+declare sub _putpixel24(byval bmp as BITMAP ptr, byval x as long, byval y as long, byval color_ as long)
+
+#if defined(__FB_WIN32__) or defined(__FB_LINUX__)
+	sub _putpixel24_ alias "_putpixel24"(byval bmp as BITMAP ptr, byval x as long, byval y as long, byval color_ as long)
+		dim addr as uinteger
+		'' TODO: addr = bmp_write_line(bmp, y);
+		bmp_write24_(addr + (x * 3), color_)
+		bmp_unwrite_line_(bmp)
+	end sub
+#else
+	sub _putpixel24_ alias "_putpixel24"(byval bmp as BITMAP ptr, byval x as long, byval y as long, byval color_ as long)
+		dim addr as uinteger
+		_farsetsel(bmp->seg)
+		'' TODO: addr = bmp_write_line(bmp, y);
+		'' TODO: ({ _farnspokew(addr+x*3, color&0xFFFF); _farnspokeb(addr+x*3+2, color>>16); });
+		bmp_unwrite_line_(bmp)
+	end sub
+#endif
+
+declare function _getpixel24(byval bmp as BITMAP ptr, byval x as long, byval y as long) as long
+
+#if defined(__FB_WIN32__) or defined(__FB_LINUX__)
+	function _getpixel24_ alias "_getpixel24"(byval bmp as BITMAP ptr, byval x as long, byval y as long) as long
+		dim addr as uinteger
+		dim c as long
+		'' TODO: addr = bmp_read_line(bmp, y);
+		'' TODO: c = bmp_read24(addr+x*3);
+		bmp_unwrite_line_(bmp)
+		'' TODO: return c;
+	end function
+#else
+	function _getpixel24_ alias "_getpixel24"(byval bmp as BITMAP ptr, byval x as long, byval y as long) as long
+		dim addr as uinteger
+		dim c as long
+		_farsetsel(bmp->seg)
+		'' TODO: addr = bmp_read_line(bmp, y);
+		'' TODO: c = (_farnspeekl(addr+x*3) & 0xFFFFFF);
+		bmp_unwrite_line_(bmp)
+		'' TODO: return c;
+	end function
+#endif
+
+declare sub _putpixel32(byval bmp as BITMAP ptr, byval x as long, byval y as long, byval color_ as long)
+
+#if defined(__FB_WIN32__) or defined(__FB_LINUX__)
+	sub _putpixel32_ alias "_putpixel32"(byval bmp as BITMAP ptr, byval x as long, byval y as long, byval color_ as long)
+		dim addr as uinteger
+		'' TODO: addr = bmp_write_line(bmp, y);
+		'' TODO: (*((uint32_t *)(addr+x*sizeof(int32_t))) = (color));
+		bmp_unwrite_line_(bmp)
+	end sub
+#else
+	sub _putpixel32_ alias "_putpixel32"(byval bmp as BITMAP ptr, byval x as long, byval y as long, byval color_ as long)
+		dim addr as uinteger
+		_farsetsel(bmp->seg)
+		'' TODO: addr = bmp_write_line(bmp, y);
+		_farnspokel(addr + (x * sizeof(long)), color_)
+		bmp_unwrite_line_(bmp)
+	end sub
+#endif
+
+declare function _getpixel32(byval bmp as BITMAP ptr, byval x as long, byval y as long) as long
+
+#if defined(__FB_WIN32__) or defined(__FB_LINUX__)
+	function _getpixel32_ alias "_getpixel32"(byval bmp as BITMAP ptr, byval x as long, byval y as long) as long
+		dim addr as uinteger
+		dim c as long
+		'' TODO: addr = bmp_read_line(bmp, y);
+		'' TODO: c = (*((uint32_t *)(addr+x*sizeof(int32_t))));
+		bmp_unwrite_line_(bmp)
+		'' TODO: return c;
+	end function
+#else
+	function _getpixel32_ alias "_getpixel32"(byval bmp as BITMAP ptr, byval x as long, byval y as long) as long
+		dim addr as uinteger
+		dim c as long
+		_farsetsel(bmp->seg)
+		'' TODO: addr = bmp_read_line(bmp, y);
+		'' TODO: c = _farnspeekl(addr+x*sizeof(int32_t));
+		bmp_unwrite_line_(bmp)
+		'' TODO: return c;
+	end function
 #endif
 
 #define ALLEGRO_RLE_H
@@ -1990,8 +2759,7 @@ type RLE_SPRITE_
 	h as long
 	color_depth as long
 	size as long
-
-	'' TODO: signed char dat[];
+	dat(0 to ...) as byte
 end type
 
 declare function get_rle_sprite(byval bitmap as BITMAP ptr) as RLE_SPRITE ptr
@@ -1999,10 +2767,23 @@ declare sub destroy_rle_sprite(byval sprite as RLE_SPRITE ptr)
 
 #define ALLEGRO_RLE_INL
 
-'' TODO: extern __inline__ void draw_rle_sprite (struct BITMAP *bmp, const struct RLE_SPRITE *sprite, int x, int y);
-'' TODO: extern __inline__ void draw_rle_sprite (struct BITMAP *bmp, const struct RLE_SPRITE *sprite, int x, int y){;;; bmp->vtable->draw_rle_sprite(bmp, sprite, x, y);}extern __inline__ void draw_trans_rle_sprite (struct BITMAP *bmp, const struct RLE_SPRITE *sprite, int x, int y);
-'' TODO: extern __inline__ void draw_trans_rle_sprite (struct BITMAP *bmp, const struct RLE_SPRITE *sprite, int x, int y){;; if (sprite->color_depth == 32) {; bmp->vtable->draw_trans_rgba_rle_sprite(bmp, sprite, x, y); } else {; bmp->vtable->draw_trans_rle_sprite(bmp, sprite, x, y); }}extern __inline__ void draw_lit_rle_sprite (struct BITMAP *bmp, const struct RLE_SPRITE *sprite, int x, int y, int color);
-'' TODO: extern __inline__ void draw_lit_rle_sprite (struct BITMAP *bmp, const struct RLE_SPRITE *sprite, int x, int y, int color){;;; bmp->vtable->draw_lit_rle_sprite(bmp, sprite, x, y, color);}
+declare sub draw_rle_sprite(byval bmp as BITMAP ptr, byval sprite as const RLE_SPRITE ptr, byval x as long, byval y as long)
+
+sub draw_rle_sprite_ alias "draw_rle_sprite"(byval bmp as BITMAP ptr, byval sprite as const RLE_SPRITE ptr, byval x as long, byval y as long)
+	bmp->vtable->draw_rle_sprite_(bmp, sprite, x, y)
+end sub
+
+declare sub draw_trans_rle_sprite(byval bmp as BITMAP ptr, byval sprite as const RLE_SPRITE ptr, byval x as long, byval y as long)
+
+sub draw_trans_rle_sprite_ alias "draw_trans_rle_sprite"(byval bmp as BITMAP ptr, byval sprite as const RLE_SPRITE ptr, byval x as long, byval y as long)
+	'' TODO: if (sprite->color_depth == 32) {; bmp->vtable->draw_trans_rgba_rle_sprite(bmp, sprite, x, y); } else {; bmp->vtable->draw_trans_rle_sprite(bmp, sprite, x, y); }
+end sub
+
+declare sub draw_lit_rle_sprite(byval bmp as BITMAP ptr, byval sprite as const RLE_SPRITE ptr, byval x as long, byval y as long, byval color_ as long)
+
+sub draw_lit_rle_sprite_ alias "draw_lit_rle_sprite"(byval bmp as BITMAP ptr, byval sprite as const RLE_SPRITE ptr, byval x as long, byval y as long, byval color_ as long)
+	bmp->vtable->draw_lit_rle_sprite_(bmp, sprite, x, y, color_)
+end sub
 
 #define ALLEGRO_COMPILED_H
 
@@ -2014,12 +2795,12 @@ declare sub draw_compiled_sprite(byval bmp as BITMAP ptr, byval sprite as const 
 
 #define ALLEGRO_TEXT_H
 
-#ifdef __FB_WIN32__
-	extern import font as FONT ptr
-	extern import allegro_404_char as long
-#else
+#if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
 	extern font as FONT ptr
 	extern allegro_404_char as long
+#else
+	extern import font as FONT ptr
+	extern import allegro_404_char as long
 #endif
 
 declare sub textout_ex(byval bmp as BITMAP ptr, byval f as const FONT ptr, byval str_ as const zstring ptr, byval x as long, byval y as long, byval color_ as long, byval bg as long)
@@ -2039,8 +2820,7 @@ declare sub destroy_font(byval f as FONT ptr)
 type FONT_GLYPH_
 	w as short
 	h as short
-
-	'' TODO: unsigned char dat[];
+	dat(0 to ...) as ubyte
 end type
 
 type FONT_
@@ -2085,16 +2865,7 @@ declare sub close_fli()
 declare function next_fli_frame(byval loop_ as long) as long
 declare sub reset_fli_variables()
 
-#ifdef __FB_WIN32__
-	extern import fli_bitmap as BITMAP ptr
-	extern import fli_palette(0 to 255) as RGB_
-	extern import fli_bmp_dirty_from as long
-	extern import fli_bmp_dirty_to as long
-	extern import fli_pal_dirty_from as long
-	extern import fli_pal_dirty_to as long
-	extern import fli_frame as long
-	extern import fli_timer as long
-#else
+#if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
 	extern fli_bitmap as BITMAP ptr
 	extern fli_palette(0 to 255) as RGB_
 	extern fli_bmp_dirty_from as long
@@ -2103,6 +2874,15 @@ declare sub reset_fli_variables()
 	extern fli_pal_dirty_to as long
 	extern fli_frame as long
 	extern fli_timer as long
+#else
+	extern import fli_bitmap as BITMAP ptr
+	extern import fli_palette(0 to 255) as RGB_
+	extern import fli_bmp_dirty_from as long
+	extern import fli_bmp_dirty_to as long
+	extern import fli_pal_dirty_from as long
+	extern import fli_pal_dirty_to as long
+	extern import fli_frame as long
+	extern import fli_timer as long
 #endif
 
 #define ALLEGRO_GUI_H
@@ -2234,34 +3014,26 @@ declare function d_textbox_proc(byval msg as long, byval d as DIALOG ptr, byval 
 declare function d_slider_proc(byval msg as long, byval d as DIALOG ptr, byval c as long) as long
 declare function d_menu_proc(byval msg as long, byval d as DIALOG ptr, byval c as long) as long
 
-#ifdef __FB_WIN32__
-	extern import gui_shadow_box_proc as DIALOG_PROC
-	extern import gui_ctext_proc as DIALOG_PROC
-	extern import gui_button_proc as DIALOG_PROC
-	extern import gui_edit_proc as DIALOG_PROC
-	extern import gui_list_proc as DIALOG_PROC
-	extern import gui_text_list_proc as DIALOG_PROC
-#else
+#if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
 	extern gui_shadow_box_proc as DIALOG_PROC
 	extern gui_ctext_proc as DIALOG_PROC
 	extern gui_button_proc as DIALOG_PROC
 	extern gui_edit_proc as DIALOG_PROC
 	extern gui_list_proc as DIALOG_PROC
 	extern gui_text_list_proc as DIALOG_PROC
+#else
+	extern import gui_shadow_box_proc as DIALOG_PROC
+	extern import gui_ctext_proc as DIALOG_PROC
+	extern import gui_button_proc as DIALOG_PROC
+	extern import gui_edit_proc as DIALOG_PROC
+	extern import gui_list_proc as DIALOG_PROC
+	extern import gui_text_list_proc as DIALOG_PROC
 #endif
 
 extern gui_menu_draw_menu as sub(byval x as long, byval y as long, byval w as long, byval h as long)
 extern gui_menu_draw_menu_item as sub(byval m as MENU ptr, byval x as long, byval y as long, byval w as long, byval h as long, byval bar as long, byval sel as long)
 
-#ifdef __FB_WIN32__
-	extern import active_dialog as DIALOG ptr
-	extern import active_menu as MENU ptr
-	extern import gui_mouse_focus as long
-	extern import gui_fg_color as long
-	extern import gui_mg_color as long
-	extern import gui_bg_color as long
-	extern import gui_font_baseline as long
-#else
+#if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
 	extern active_dialog as DIALOG ptr
 	extern active_menu as MENU ptr
 	extern gui_mouse_focus as long
@@ -2269,6 +3041,14 @@ extern gui_menu_draw_menu_item as sub(byval m as MENU ptr, byval x as long, byva
 	extern gui_mg_color as long
 	extern gui_bg_color as long
 	extern gui_font_baseline as long
+#else
+	extern import active_dialog as DIALOG ptr
+	extern import active_menu as MENU ptr
+	extern import gui_mouse_focus as long
+	extern import gui_fg_color as long
+	extern import gui_mg_color as long
+	extern import gui_bg_color as long
+	extern import gui_font_baseline as long
 #endif
 
 extern gui_mouse_x as function() as long
@@ -2372,25 +3152,25 @@ type DIGI_DRIVER
 	rec_read as function(byval buf as any ptr) as long
 end type
 
-#ifdef __FB_WIN32__
-	'' TODO: extern __attribute__((dllimport)) _DRIVER_INFO _digi_driver_list[];
+#if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
+	extern _digi_driver_list(0 to ...) as _DRIVER_INFO
 #else
-	'' TODO: extern _DRIVER_INFO _digi_driver_list[];
+	extern import _digi_driver_list(0 to ...) as _DRIVER_INFO
 #endif
 
 '' TODO: #define BEGIN_DIGI_DRIVER_LIST _DRIVER_INFO _digi_driver_list[] = {
 '' TODO: #define END_DIGI_DRIVER_LIST { 0, NULL, 0 } };
 
-#ifdef __FB_WIN32__
-	extern import digi_driver as DIGI_DRIVER ptr
-	extern import digi_input_driver as DIGI_DRIVER ptr
-	extern import digi_card as long
-	extern import digi_input_card as long
-#else
+#if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
 	extern digi_driver as DIGI_DRIVER ptr
 	extern digi_input_driver as DIGI_DRIVER ptr
 	extern digi_card as long
 	extern digi_input_card as long
+#else
+	extern import digi_driver as DIGI_DRIVER ptr
+	extern import digi_input_driver as DIGI_DRIVER ptr
+	extern import digi_card as long
+	extern import digi_input_card as long
 #endif
 
 declare function detect_digi_driver(byval driver_id as long) as long
@@ -2478,14 +3258,14 @@ declare sub free_audio_stream_buffer(byval stream as AUDIOSTREAM ptr)
 #define MIDI_VOICES 64
 #define MIDI_TRACKS 32
 
-type __dummyid_115_extracted_allegro_4_4_2_include_allegro_midi
+type __dummyid_5_extracted_allegro_4_4_2_include_allegro_midi
 	data as ubyte ptr
 	len as long
 end type
 
 type MIDI
 	divisions as long
-	track(0 to 31) as __dummyid_115_extracted_allegro_4_4_2_include_allegro_midi
+	track(0 to 31) as __dummyid_5_extracted_allegro_4_4_2_include_allegro_midi
 end type
 
 #define MIDI_AUTODETECT (-1)
@@ -2519,30 +3299,19 @@ type MIDI_DRIVER
 	set_vibrato as sub(byval voice as long, byval amount as long)
 end type
 
-#ifdef __FB_WIN32__
-	extern import midi_digmid as MIDI_DRIVER
-
-	'' TODO: extern __attribute__((dllimport)) _DRIVER_INFO _midi_driver_list[];
-#else
+#if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
 	extern midi_digmid as MIDI_DRIVER
-
-	'' TODO: extern _DRIVER_INFO _midi_driver_list[];
+	extern _midi_driver_list(0 to ...) as _DRIVER_INFO
+#else
+	extern import midi_digmid as MIDI_DRIVER
+	extern import _midi_driver_list(0 to ...) as _DRIVER_INFO
 #endif
 
 '' TODO: #define BEGIN_MIDI_DRIVER_LIST _DRIVER_INFO _midi_driver_list[] = {
 '' TODO: #define END_MIDI_DRIVER_LIST { 0, NULL, 0 } };
 '' TODO: #define MIDI_DRIVER_DIGMID { MIDI_DIGMID, &midi_digmid, TRUE },
 
-#ifdef __FB_WIN32__
-	extern import midi_driver as MIDI_DRIVER ptr
-	extern import midi_input_driver as MIDI_DRIVER ptr
-	extern import midi_card as long
-	extern import midi_input_card as long
-	extern import midi_pos as clong
-	extern import midi_time as clong
-	extern import midi_loop_start as clong
-	extern import midi_loop_end as clong
-#else
+#if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
 	extern midi_driver as MIDI_DRIVER ptr
 	extern midi_input_driver as MIDI_DRIVER ptr
 	extern midi_card as long
@@ -2551,6 +3320,15 @@ end type
 	extern midi_time as clong
 	extern midi_loop_start as clong
 	extern midi_loop_end as clong
+#else
+	extern import midi_driver as MIDI_DRIVER ptr
+	extern import midi_input_driver as MIDI_DRIVER ptr
+	extern import midi_card as long
+	extern import midi_input_card as long
+	extern import midi_pos as clong
+	extern import midi_time as clong
+	extern import midi_loop_start as clong
+	extern import midi_loop_end as clong
 #endif
 
 declare function detect_midi_driver(byval driver_id as long) as long
@@ -2789,41 +3567,120 @@ declare function fixhypot(byval x as fixed, byval y as fixed) as fixed
 declare function fixatan(byval x as fixed) as fixed
 declare function fixatan2(byval y as fixed, byval x as fixed) as fixed
 
-#ifdef __FB_WIN32__
-	'' TODO: extern __attribute__((dllimport)) fixed _cos_tbl[];
-	'' TODO: extern __attribute__((dllimport)) fixed _tan_tbl[];
-	'' TODO: extern __attribute__((dllimport)) fixed _acos_tbl[];
+#if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
+	extern _cos_tbl(0 to ...) as fixed
+	extern _tan_tbl(0 to ...) as fixed
+	extern _acos_tbl(0 to ...) as fixed
 #else
-	'' TODO: extern fixed _cos_tbl[];
-	'' TODO: extern fixed _tan_tbl[];
-	'' TODO: extern fixed _acos_tbl[];
+	extern import _cos_tbl(0 to ...) as fixed
+	extern import _tan_tbl(0 to ...) as fixed
+	extern import _acos_tbl(0 to ...) as fixed
 #endif
 
 #define ALLEGRO_FMATHS_INL
 #define ALLEGRO_USE_C
 
-'' TODO: extern __inline__ fixed ftofix (double x);
-'' TODO: extern __inline__ fixed ftofix (double x){ if (x > 32767.0) { *allegro_errno = ERANGE; return 0x7FFFFFFF; } if (x < -32767.0) { *allegro_errno = ERANGE; return -0x7FFFFFFF; } return (fixed)(x * 65536.0 + (x < 0 ? -0.5 : 0.5));}extern __inline__ double fixtof (fixed x);
-'' TODO: extern __inline__ double fixtof (fixed x){ return (double)x / 65536.0;}extern __inline__ fixed fixadd (fixed x, fixed y);
-'' TODO: extern __inline__ fixed fixadd (fixed x, fixed y){ fixed result = x + y; if (result >= 0) { if ((x < 0) && (y < 0)) { *allegro_errno = ERANGE; return -0x7FFFFFFF; } else return result; } else { if ((x > 0) && (y > 0)) { *allegro_errno = ERANGE; return 0x7FFFFFFF; } else return result; }}extern __inline__ fixed fixsub (fixed x, fixed y);
-'' TODO: extern __inline__ fixed fixsub (fixed x, fixed y){ fixed result = x - y; if (result >= 0) { if ((x < 0) && (y > 0)) { *allegro_errno = ERANGE; return -0x7FFFFFFF; } else return result; } else { if ((x > 0) && (y < 0)) { *allegro_errno = ERANGE; return 0x7FFFFFFF; } else return result; }} extern __inline__ fixed fixmul (fixed x, fixed y);
+declare function ftofix(byval x as double) as fixed
+
+function ftofix_ alias "ftofix"(byval x as double) as fixed
+	'' TODO: if (x > 32767.0) { *allegro_errno = ERANGE; return 0x7FFFFFFF; } if (x < -32767.0) { *allegro_errno = ERANGE; return -0x7FFFFFFF; } return (fixed)(x * 65536.0 + (x < 0 ? -0.5 : 0.5));
+end function
+
+declare function fixtof(byval x as fixed) as double
+
+function fixtof_ alias "fixtof"(byval x as fixed) as double
+	'' TODO: return (double)x / 65536.0;
+end function
+
+declare function fixadd(byval x as fixed, byval y as fixed) as fixed
+
+function fixadd_ alias "fixadd"(byval x as fixed, byval y as fixed) as fixed
+	dim result as fixed = x + y
+	'' TODO: if (result >= 0) { if ((x < 0) && (y < 0)) { *allegro_errno = ERANGE; return -0x7FFFFFFF; } else return result; } else { if ((x > 0) && (y > 0)) { *allegro_errno = ERANGE; return 0x7FFFFFFF; } else return result; }
+end function
+
+declare function fixsub(byval x as fixed, byval y as fixed) as fixed
+
+function fixsub_ alias "fixsub"(byval x as fixed, byval y as fixed) as fixed
+	dim result as fixed = x - y
+	'' TODO: if (result >= 0) { if ((x < 0) && (y > 0)) { *allegro_errno = ERANGE; return -0x7FFFFFFF; } else return result; } else { if ((x > 0) && (y < 0)) { *allegro_errno = ERANGE; return 0x7FFFFFFF; } else return result; }
+end function
+
+declare function fixmul(byval x as fixed, byval y as fixed) as fixed
 
 #if (defined(__FB_LINUX__) and (not defined(__FB_64BIT__))) or defined(__FB_DOS__) or defined(__FB_WIN32__)
-	'' TODO: extern __inline__ fixed fixmul (fixed x, fixed y) { return ftofix(fixtof(x) * fixtof(y)); }extern __inline__ fixed fixdiv (fixed x, fixed y);
+	function fixmul_ alias "fixmul"(byval x as fixed, byval y as fixed) as fixed
+		'' TODO: return ftofix(fixtof(x) * fixtof(y));
+	end function
 #else
-	'' TODO: extern __inline__ fixed fixmul (fixed x, fixed y) { long long lx = x; long long ly = y; long long lres = (lx*ly); if (lres > 0x7FFFFFFF0000LL) { *allegro_errno = ERANGE; return 0x7FFFFFFF; } else if (lres < -0x7FFFFFFF0000LL) { *allegro_errno = ERANGE; return 0x80000000; } else { int res = lres >> 16; return res; } }extern __inline__ fixed fixdiv (fixed x, fixed y);
+	function fixmul_ alias "fixmul"(byval x as fixed, byval y as fixed) as fixed
+		dim lx as longint = x
+		dim ly as longint = y
+		dim lres as longint = lx * ly
+		'' TODO: if (lres > 0x7FFFFFFF0000LL) { *allegro_errno = ERANGE; return 0x7FFFFFFF; } else if (lres < -0x7FFFFFFF0000LL) { *allegro_errno = ERANGE; return 0x80000000; } else { int res = lres >> 16; return res; }
+	end function
 #endif
 
-'' TODO: extern __inline__ fixed fixdiv (fixed x, fixed y){ if (y == 0) { *allegro_errno = ERANGE; return (x < 0) ? -0x7FFFFFFF : 0x7FFFFFFF; } else return ftofix(fixtof(x) / fixtof(y));}extern __inline__ int fixfloor (fixed x);
-'' TODO: extern __inline__ int fixfloor (fixed x){ if (x >= 0) return (x >> 16); else return ~((~x) >> 16);}extern __inline__ int fixceil (fixed x);
-'' TODO: extern __inline__ int fixceil (fixed x){ if (x > 0x7FFF0000) { *allegro_errno = ERANGE; return 0x7FFF; } return fixfloor(x + 0xFFFF);}extern __inline__ fixed itofix (int x);
-'' TODO: extern __inline__ fixed itofix (int x){ return x << 16;}extern __inline__ int fixtoi (fixed x);
-'' TODO: extern __inline__ int fixtoi (fixed x){ return fixfloor(x) + ((x & 0x8000) >> 15);}extern __inline__ fixed fixcos (fixed x);
-'' TODO: extern __inline__ fixed fixcos (fixed x){ return _cos_tbl[((x + 0x4000) >> 15) & 0x1FF];}extern __inline__ fixed fixsin (fixed x);
-'' TODO: extern __inline__ fixed fixsin (fixed x){ return _cos_tbl[((x - 0x400000 + 0x4000) >> 15) & 0x1FF];}extern __inline__ fixed fixtan (fixed x);
-'' TODO: extern __inline__ fixed fixtan (fixed x){ return _tan_tbl[((x + 0x4000) >> 15) & 0xFF];}extern __inline__ fixed fixacos (fixed x);
-'' TODO: extern __inline__ fixed fixacos (fixed x){ if ((x < -65536) || (x > 65536)) { *allegro_errno = EDOM; return 0; } return _acos_tbl[(x+65536+127)>>8];}extern __inline__ fixed fixasin (fixed x);
-'' TODO: extern __inline__ fixed fixasin (fixed x){ if ((x < -65536) || (x > 65536)) { *allegro_errno = EDOM; return 0; } return 0x00400000 - _acos_tbl[(x+65536+127)>>8];}
+declare function fixdiv(byval x as fixed, byval y as fixed) as fixed
+
+function fixdiv_ alias "fixdiv"(byval x as fixed, byval y as fixed) as fixed
+	'' TODO: if (y == 0) { *allegro_errno = ERANGE; return (x < 0) ? -0x7FFFFFFF : 0x7FFFFFFF; } else return ftofix(fixtof(x) / fixtof(y));
+end function
+
+declare function fixfloor(byval x as fixed) as long
+
+function fixfloor_ alias "fixfloor"(byval x as fixed) as long
+	'' TODO: if (x >= 0) return (x >> 16);
+	'' TODO: else return ~((~x) >> 16);
+end function
+
+declare function fixceil(byval x as fixed) as long
+
+function fixceil_ alias "fixceil"(byval x as fixed) as long
+	'' TODO: if (x > 0x7FFF0000) { *allegro_errno = ERANGE; return 0x7FFF; } return fixfloor(x + 0xFFFF);
+end function
+
+declare function itofix(byval x as long) as fixed
+
+function itofix_ alias "itofix"(byval x as long) as fixed
+	'' TODO: return x << 16;
+end function
+
+declare function fixtoi(byval x as fixed) as long
+
+function fixtoi_ alias "fixtoi"(byval x as fixed) as long
+	'' TODO: return fixfloor(x) + ((x & 0x8000) >> 15);
+end function
+
+declare function fixcos(byval x as fixed) as fixed
+
+function fixcos_ alias "fixcos"(byval x as fixed) as fixed
+	'' TODO: return _cos_tbl[((x + 0x4000) >> 15) & 0x1FF];
+end function
+
+declare function fixsin(byval x as fixed) as fixed
+
+function fixsin_ alias "fixsin"(byval x as fixed) as fixed
+	'' TODO: return _cos_tbl[((x - 0x400000 + 0x4000) >> 15) & 0x1FF];
+end function
+
+declare function fixtan(byval x as fixed) as fixed
+
+function fixtan_ alias "fixtan"(byval x as fixed) as fixed
+	'' TODO: return _tan_tbl[((x + 0x4000) >> 15) & 0xFF];
+end function
+
+declare function fixacos(byval x as fixed) as fixed
+
+function fixacos_ alias "fixacos"(byval x as fixed) as fixed
+	'' TODO: if ((x < -65536) || (x > 65536)) { *allegro_errno = EDOM; return 0; } return _acos_tbl[(x+65536+127)>>8];
+end function
+
+declare function fixasin(byval x as fixed) as fixed
+
+function fixasin_ alias "fixasin"(byval x as fixed) as fixed
+	'' TODO: if ((x < -65536) || (x > 65536)) { *allegro_errno = EDOM; return 0; } return 0x00400000 - _acos_tbl[(x+65536+127)>>8];
+end function
 
 #define ALLEGRO_MATRIX_H
 
@@ -2837,12 +3694,12 @@ type MATRIX_f
 	t(0 to 2) as single
 end type
 
-#ifdef __FB_WIN32__
-	extern import identity_matrix as MATRIX
-	extern import identity_matrix_f as MATRIX_f
-#else
+#if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
 	extern identity_matrix as MATRIX
 	extern identity_matrix_f as MATRIX_f
+#else
+	extern import identity_matrix as MATRIX
+	extern import identity_matrix_f as MATRIX_f
 #endif
 
 declare sub get_translation_matrix(byval m as MATRIX ptr, byval x as fixed, byval y as fixed, byval z as fixed)
@@ -2875,8 +3732,13 @@ declare sub apply_matrix_f(byval m as const MATRIX_f ptr, byval x as single, byv
 
 #define ALLEGRO_MATRIX_INL
 
-'' TODO: extern __inline__ void apply_matrix (MATRIX *m, fixed x, fixed y, fixed z, fixed *xout, fixed *yout, fixed *zout);
-'' TODO: extern __inline__ void apply_matrix (MATRIX *m, fixed x, fixed y, fixed z, fixed *xout, fixed *yout, fixed *zout){ *xout = (fixmul(x, m->v[0][0]) + fixmul(y, m->v[0][1]) + fixmul(z, m->v[0][2]) + m->t[0]); *yout = (fixmul(x, m->v[1][0]) + fixmul(y, m->v[1][1]) + fixmul(z, m->v[1][2]) + m->t[1]); *zout = (fixmul(x, m->v[2][0]) + fixmul(y, m->v[2][1]) + fixmul(z, m->v[2][2]) + m->t[2]);}
+declare sub apply_matrix(byval m as MATRIX ptr, byval x as fixed, byval y as fixed, byval z as fixed, byval xout as fixed ptr, byval yout as fixed ptr, byval zout as fixed ptr)
+
+sub apply_matrix_ alias "apply_matrix"(byval m as MATRIX ptr, byval x as fixed, byval y as fixed, byval z as fixed, byval xout as fixed ptr, byval yout as fixed ptr, byval zout as fixed ptr)
+	'' TODO: *xout = (fixmul(x, m->v[0][0]) + fixmul(y, m->v[0][1]) + fixmul(z, m->v[0][2]) + m->t[0]);
+	'' TODO: *yout = (fixmul(x, m->v[1][0]) + fixmul(y, m->v[1][1]) + fixmul(z, m->v[1][2]) + m->t[1]);
+	'' TODO: *zout = (fixmul(x, m->v[2][0]) + fixmul(y, m->v[2][1]) + fixmul(z, m->v[2][2]) + m->t[2]);
+end sub
 
 #define ALLEGRO_QUAT_H
 
@@ -2887,10 +3749,10 @@ type QUAT
 	z as single
 end type
 
-#ifdef __FB_WIN32__
-	extern import identity_quat as QUAT
-#else
+#if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
 	extern identity_quat as QUAT
+#else
+	extern import identity_quat as QUAT
 #endif
 
 declare sub quat_mul(byval p as const QUAT ptr, byval q as const QUAT ptr, byval out_ as QUAT ptr)
@@ -2917,16 +3779,7 @@ declare sub normalize_vector_f(byval x as single ptr, byval y as single ptr, byv
 declare sub cross_product(byval x1 as fixed, byval y_1 as fixed, byval z1 as fixed, byval x2 as fixed, byval y2 as fixed, byval z2 as fixed, byval xout as fixed ptr, byval yout as fixed ptr, byval zout as fixed ptr)
 declare sub cross_product_f(byval x1 as single, byval y_1 as single, byval z1 as single, byval x2 as single, byval y2 as single, byval z2 as single, byval xout as single ptr, byval yout as single ptr, byval zout as single ptr)
 
-#ifdef __FB_WIN32__
-	extern import _persp_xscale as fixed
-	extern import _persp_yscale as fixed
-	extern import _persp_xoffset as fixed
-	extern import _persp_yoffset as fixed
-	extern import _persp_xscale_f as single
-	extern import _persp_yscale_f as single
-	extern import _persp_xoffset_f as single
-	extern import _persp_yoffset_f as single
-#else
+#if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
 	extern _persp_xscale as fixed
 	extern _persp_yscale as fixed
 	extern _persp_xoffset as fixed
@@ -2935,6 +3788,15 @@ declare sub cross_product_f(byval x1 as single, byval y_1 as single, byval z1 as
 	extern _persp_yscale_f as single
 	extern _persp_xoffset_f as single
 	extern _persp_yoffset_f as single
+#else
+	extern import _persp_xscale as fixed
+	extern import _persp_yscale as fixed
+	extern import _persp_xoffset as fixed
+	extern import _persp_yoffset as fixed
+	extern import _persp_xscale_f as single
+	extern import _persp_yscale_f as single
+	extern import _persp_xoffset_f as single
+	extern import _persp_yoffset_f as single
 #endif
 
 declare sub set_projection_viewport(byval x as long, byval y as long, byval w as long, byval h as long)
@@ -2943,15 +3805,98 @@ declare sub matrix_to_quat(byval m as const MATRIX_f ptr, byval q as QUAT ptr)
 
 #define ALLEGRO_3DMATHS_INL
 
-'' TODO: extern __inline__ fixed dot_product (fixed x1, fixed y_1, fixed z1, fixed x2, fixed y2, fixed z2);
-'' TODO: extern __inline__ fixed dot_product (fixed x1, fixed y_1, fixed z1, fixed x2, fixed y2, fixed z2){ return fixmul(x1, x2) + fixmul(y_1, y2) + fixmul(z1, z2);}extern __inline__ float dot_product_f (float x1, float y_1, float z1, float x2, float y2, float z2);
-'' TODO: extern __inline__ float dot_product_f (float x1, float y_1, float z1, float x2, float y2, float z2){ return (x1 * x2) + (y_1 * y2) + (z1 * z2);}extern __inline__ void persp_project (fixed x, fixed y, fixed z, fixed *xout, fixed *yout);
-'' TODO: extern __inline__ void persp_project (fixed x, fixed y, fixed z, fixed *xout, fixed *yout){ *xout = fixmul(fixdiv(x, z), _persp_xscale) + _persp_xoffset; *yout = fixmul(fixdiv(y, z), _persp_yscale) + _persp_yoffset;}extern __inline__ void persp_project_f (float x, float y, float z, float *xout, float *yout);
-'' TODO: extern __inline__ void persp_project_f (float x, float y, float z, float *xout, float *yout){ float z1 = 1.0f / z; *xout = ((x * z1) * _persp_xscale_f) + _persp_xoffset_f; *yout = ((y * z1) * _persp_yscale_f) + _persp_yoffset_f;}
+declare function dot_product(byval x1 as fixed, byval y_1 as fixed, byval z1 as fixed, byval x2 as fixed, byval y2 as fixed, byval z2 as fixed) as fixed
+
+function dot_product_ alias "dot_product"(byval x1 as fixed, byval y_1 as fixed, byval z1 as fixed, byval x2 as fixed, byval y2 as fixed, byval z2 as fixed) as fixed
+	'' TODO: return fixmul(x1, x2) + fixmul(y_1, y2) + fixmul(z1, z2);
+end function
+
+declare function dot_product_f(byval x1 as single, byval y_1 as single, byval z1 as single, byval x2 as single, byval y2 as single, byval z2 as single) as single
+
+function dot_product_f_ alias "dot_product_f"(byval x1 as single, byval y_1 as single, byval z1 as single, byval x2 as single, byval y2 as single, byval z2 as single) as single
+	'' TODO: return (x1 * x2) + (y_1 * y2) + (z1 * z2);
+end function
+
+declare sub persp_project(byval x as fixed, byval y as fixed, byval z as fixed, byval xout as fixed ptr, byval yout as fixed ptr)
+
+sub persp_project_ alias "persp_project"(byval x as fixed, byval y as fixed, byval z as fixed, byval xout as fixed ptr, byval yout as fixed ptr)
+	'' TODO: *xout = fixmul(fixdiv(x, z), _persp_xscale) + _persp_xoffset;
+	'' TODO: *yout = fixmul(fixdiv(y, z), _persp_yscale) + _persp_yoffset;
+end sub
+
+declare sub persp_project_f(byval x as single, byval y as single, byval z as single, byval xout as single ptr, byval yout as single ptr)
+
+sub persp_project_f_ alias "persp_project_f"(byval x as single, byval y as single, byval z as single, byval xout as single ptr, byval yout as single ptr)
+	dim z1 as single = 1.0f / z
+	'' TODO: *xout = ((x * z1) * _persp_xscale_f) + _persp_xoffset_f;
+	'' TODO: *yout = ((y * z1) * _persp_yscale_f) + _persp_yoffset_f;
+end sub
 
 #define ALLEGRO_COMPAT_H
 
-'' TODO: static __attribute__((unused)) __inline__ void clear(BITMAP *bmp) { clear_bitmap(bmp); } static __attribute__((unused)) __inline__ fixed fadd(fixed x, fixed y) { return fixadd(x, y); } static __attribute__((unused)) __inline__ fixed fsub(fixed x, fixed y) { return fixsub(x, y); } static __attribute__((unused)) __inline__ fixed fmul(fixed x, fixed y) { return fixmul(x, y); } static __attribute__((unused)) __inline__ fixed fdiv(fixed x, fixed y) { return fixdiv(x, y); } static __attribute__((unused)) __inline__ int fceil(fixed x) { return fixceil(x); } static __attribute__((unused)) __inline__ int ffloor(fixed x) { return fixfloor(x); } static __attribute__((unused)) __inline__ fixed fcos(fixed x) { return fixcos(x); } static __attribute__((unused)) __inline__ fixed fsin(fixed x) { return fixsin(x); } static __attribute__((unused)) __inline__ fixed ftan(fixed x) { return fixtan(x); } static __attribute__((unused)) __inline__ fixed facos(fixed x) { return fixacos(x); } static __attribute__((unused)) __inline__ fixed fasin(fixed x) { return fixasin(x); } static __attribute__((unused)) __inline__ fixed fatan(fixed x) { return fixatan(x); } static __attribute__((unused)) __inline__ fixed fatan2(fixed y, fixed x) { return fixatan2(y, x); } static __attribute__((unused)) __inline__ fixed fsqrt(fixed x) { return fixsqrt(x); } static __attribute__((unused)) __inline__ fixed fhypot(fixed x, fixed y) { return fixhypot(x, y); }
+sub clear_ alias "clear"(byval bmp as BITMAP ptr)
+	clear_bitmap(bmp)
+end sub
+
+function fadd(byval x as fixed, byval y as fixed) as fixed
+	'' TODO: return fixadd(x, y);
+end function
+
+function fsub(byval x as fixed, byval y as fixed) as fixed
+	'' TODO: return fixsub(x, y);
+end function
+
+function fmul(byval x as fixed, byval y as fixed) as fixed
+	'' TODO: return fixmul(x, y);
+end function
+
+function fdiv(byval x as fixed, byval y as fixed) as fixed
+	'' TODO: return fixdiv(x, y);
+end function
+
+function fceil(byval x as fixed) as long
+	'' TODO: return fixceil(x);
+end function
+
+function ffloor(byval x as fixed) as long
+	'' TODO: return fixfloor(x);
+end function
+
+function fcos(byval x as fixed) as fixed
+	'' TODO: return fixcos(x);
+end function
+
+function fsin(byval x as fixed) as fixed
+	'' TODO: return fixsin(x);
+end function
+
+function ftan(byval x as fixed) as fixed
+	'' TODO: return fixtan(x);
+end function
+
+function facos(byval x as fixed) as fixed
+	'' TODO: return fixacos(x);
+end function
+
+function fasin(byval x as fixed) as fixed
+	'' TODO: return fixasin(x);
+end function
+
+function fatan(byval x as fixed) as fixed
+	'' TODO: return fixatan(x);
+end function
+
+function fatan2(byval y as fixed, byval x as fixed) as fixed
+	'' TODO: return fixatan2(y, x);
+end function
+
+function fsqrt(byval x as fixed) as fixed
+	'' TODO: return fixsqrt(x);
+end function
+
+function fhypot(byval x as fixed, byval y as fixed) as fixed
+	'' TODO: return fixhypot(x, y);
+end function
 
 #define KB_NORMAL 1
 #define KB_EXTENDED 2
@@ -3011,67 +3956,97 @@ declare function initialise_joystick() as long
 #define OLD_FILESEL_WIDTH (-1)
 #define OLD_FILESEL_HEIGHT (-1)
 
-'' TODO: extern __inline__ __attribute__ ((deprecated)) int file_select (const char *message, char *path, const char *ext);
+declare function file_select(byval message as const zstring ptr, byval path as zstring ptr, byval ext as const zstring ptr) as long
 
-#ifdef __FB_WIN32__
-	'' TODO: extern __inline__ __attribute__ ((deprecated)) int file_select (const char *message, char *path, const char *ext){ return file_select_ex(message, path, ext, 1024, -1, -1);}extern __attribute__ ((deprecated)) int for_each_file (const char *name, int attrib, void (*callback) (const char *filename, int attrib, int param), int param);
-#else
-	'' TODO: extern __inline__ __attribute__ ((deprecated)) int file_select (const char *message, char *path, const char *ext){ return file_select_ex(message, path, ext, 1024, -1, -1);}__attribute__ ((deprecated)) int for_each_file (const char *name, int attrib, void (*callback) (const char *filename, int attrib, int param), int param);
-#endif
+function file_select_ alias "file_select"(byval message as const zstring ptr, byval path as zstring ptr, byval ext as const zstring ptr) as long
+	'' TODO: return file_select_ex(message, path, ext, 1024, -1, -1);
+end function
 
+declare function for_each_file(byval name_ as const zstring ptr, byval attrib as long, byval callback as sub(byval filename as const zstring ptr, byval attrib as long, byval param as long), byval param as long) as long
 declare function file_size(byval filename as const zstring ptr) as clong
 
-#ifdef __FB_WIN32__
-	extern import _textmode as long
-#else
+#if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
 	extern _textmode as long
+#else
+	extern import _textmode as long
 #endif
 
 declare function text_mode(byval mode as long) as long
+declare sub textout(byval bmp as BITMAP ptr, byval f as const FONT ptr, byval str_ as const zstring ptr, byval x as long, byval y as long, byval color_ as long)
 
-'' TODO: extern __inline__ __attribute__ ((deprecated)) void textout (struct BITMAP *bmp, const FONT *f, const char *str, int x, int y, int color);
-'' TODO: extern __inline__ __attribute__ ((deprecated)) void textout (struct BITMAP *bmp, const FONT *f, const char *str, int x, int y, int color){ textout_ex(bmp, f, str, x, y, color, _textmode);}extern __inline__ __attribute__ ((deprecated)) void textout_centre (struct BITMAP *bmp, const FONT *f, const char *str, int x, int y, int color);
-'' TODO: extern __inline__ __attribute__ ((deprecated)) void textout_centre (struct BITMAP *bmp, const FONT *f, const char *str, int x, int y, int color){ textout_centre_ex(bmp, f, str, x, y, color, _textmode);}extern __inline__ __attribute__ ((deprecated)) void textout_right (struct BITMAP *bmp, const FONT *f, const char *str, int x, int y, int color);
-'' TODO: extern __inline__ __attribute__ ((deprecated)) void textout_right (struct BITMAP *bmp, const FONT *f, const char *str, int x, int y, int color){ textout_right_ex(bmp, f, str, x, y, color, _textmode);}extern __inline__ __attribute__ ((deprecated)) void textout_justify (struct BITMAP *bmp, const FONT *f, const char *str, int x1, int x2, int y, int diff, int color);
+sub textout_ alias "textout"(byval bmp as BITMAP ptr, byval f as const FONT ptr, byval str_ as const zstring ptr, byval x as long, byval y as long, byval color_ as long)
+	textout_ex(bmp, f, str_, x, y, color_, _textmode)
+end sub
 
-#ifdef __FB_WIN32__
-	'' TODO: extern __inline__ __attribute__ ((deprecated)) void textout_justify (struct BITMAP *bmp, const FONT *f, const char *str, int x1, int x2, int y, int diff, int color){ textout_justify_ex(bmp, f, str, x1, x2, y, diff, color, _textmode);}extern __attribute__ ((deprecated)) void textprintf (struct BITMAP *bmp, const FONT *f, int x, int y, int color, const char *format, ...) __attribute__ ((format (printf, 6, 7)));
-#else
-	'' TODO: extern __inline__ __attribute__ ((deprecated)) void textout_justify (struct BITMAP *bmp, const FONT *f, const char *str, int x1, int x2, int y, int diff, int color){ textout_justify_ex(bmp, f, str, x1, x2, y, diff, color, _textmode);}__attribute__ ((deprecated)) void textprintf (struct BITMAP *bmp, const FONT *f, int x, int y, int color, const char *format, ...) __attribute__ ((format (printf, 6, 7)));
-#endif
+declare sub textout_centre(byval bmp as BITMAP ptr, byval f as const FONT ptr, byval str_ as const zstring ptr, byval x as long, byval y as long, byval color_ as long)
 
+sub textout_centre_ alias "textout_centre"(byval bmp as BITMAP ptr, byval f as const FONT ptr, byval str_ as const zstring ptr, byval x as long, byval y as long, byval color_ as long)
+	textout_centre_ex(bmp, f, str_, x, y, color_, _textmode)
+end sub
+
+declare sub textout_right(byval bmp as BITMAP ptr, byval f as const FONT ptr, byval str_ as const zstring ptr, byval x as long, byval y as long, byval color_ as long)
+
+sub textout_right_ alias "textout_right"(byval bmp as BITMAP ptr, byval f as const FONT ptr, byval str_ as const zstring ptr, byval x as long, byval y as long, byval color_ as long)
+	textout_right_ex(bmp, f, str_, x, y, color_, _textmode)
+end sub
+
+declare sub textout_justify(byval bmp as BITMAP ptr, byval f as const FONT ptr, byval str_ as const zstring ptr, byval x1 as long, byval x2 as long, byval y as long, byval diff as long, byval color_ as long)
+
+sub textout_justify_ alias "textout_justify"(byval bmp as BITMAP ptr, byval f as const FONT ptr, byval str_ as const zstring ptr, byval x1 as long, byval x2 as long, byval y as long, byval diff as long, byval color_ as long)
+	textout_justify_ex(bmp, f, str_, x1, x2, y, diff, color_, _textmode)
+end sub
+
+declare sub textprintf(byval bmp as BITMAP ptr, byval f as const FONT ptr, byval x as long, byval y as long, byval color_ as long, byval format as const zstring ptr, ...)
 declare sub textprintf_centre(byval bmp as BITMAP ptr, byval f as const FONT ptr, byval x as long, byval y as long, byval color_ as long, byval format as const zstring ptr, ...)
 declare sub textprintf_right(byval bmp as BITMAP ptr, byval f as const FONT ptr, byval x as long, byval y as long, byval color_ as long, byval format as const zstring ptr, ...)
 declare sub textprintf_justify(byval bmp as BITMAP ptr, byval f as const FONT ptr, byval x1 as long, byval x2 as long, byval y as long, byval diff as long, byval color_ as long, byval format as const zstring ptr, ...)
+declare sub draw_character(byval bmp as BITMAP ptr, byval sprite as BITMAP ptr, byval x as long, byval y as long, byval color_ as long)
 
-'' TODO: extern __inline__ __attribute__ ((deprecated)) void draw_character (BITMAP *bmp, BITMAP *sprite, int x, int y, int color);
-'' TODO: extern __inline__ __attribute__ ((deprecated)) void draw_character (BITMAP *bmp, BITMAP *sprite, int x, int y, int color){ draw_character_ex(bmp, sprite, x, y, color, _textmode);}extern __inline__ __attribute__ ((deprecated)) int gui_textout (struct BITMAP *bmp, const char *s, int x, int y, int color, int centre);
-'' TODO: extern __inline__ __attribute__ ((deprecated)) int gui_textout (struct BITMAP *bmp, const char *s, int x, int y, int color, int centre){ return gui_textout_ex(bmp, s, x, y, color, _textmode, centre);}extern __inline__ __attribute__ ((deprecated)) int set_window_close_button (int enable);
-'' TODO: extern __inline__ __attribute__ ((deprecated)) int set_window_close_button (int enable){ (void)enable; return 0;}extern __inline__ __attribute__ ((deprecated)) void set_window_close_hook (void (*proc)(void));
+sub draw_character_ alias "draw_character"(byval bmp as BITMAP ptr, byval sprite as BITMAP ptr, byval x as long, byval y as long, byval color_ as long)
+	draw_character_ex_(bmp, sprite, x, y, color_, _textmode)
+end sub
 
-#ifdef __FB_WIN32__
-	'' TODO: extern __inline__ __attribute__ ((deprecated)) void set_window_close_hook (void (*proc)(void)){ set_close_button_callback(proc);}extern __attribute__ ((deprecated)) void set_clip (BITMAP *bitmap, int x1, int y_1, int x2, int y2);
-#else
-	'' TODO: extern __inline__ __attribute__ ((deprecated)) void set_window_close_hook (void (*proc)(void)){ set_close_button_callback(proc);}__attribute__ ((deprecated)) void set_clip (BITMAP *bitmap, int x1, int y_1, int x2, int y2);
-#endif
+declare function gui_textout(byval bmp as BITMAP ptr, byval s as const zstring ptr, byval x as long, byval y as long, byval color_ as long, byval centre as long) as long
 
-'' TODO: extern __inline__ __attribute__ ((deprecated)) void yield_timeslice (void);
+function gui_textout_ alias "gui_textout"(byval bmp as BITMAP ptr, byval s as const zstring ptr, byval x as long, byval y as long, byval color_ as long, byval centre as long) as long
+	'' TODO: return gui_textout_ex(bmp, s, x, y, color, _textmode, centre);
+end function
 
-#ifdef __FB_WIN32__
-	'' TODO: extern __inline__ __attribute__ ((deprecated)) void yield_timeslice (void){; if (system_driver->yield_timeslice) system_driver->yield_timeslice();}extern __attribute__((dllimport)) void (*retrace_proc) (void);
-#else
-	'' TODO: extern __inline__ __attribute__ ((deprecated)) void yield_timeslice (void){; if (system_driver->yield_timeslice) system_driver->yield_timeslice();}extern void (*retrace_proc) (void);
-#endif
+declare function set_window_close_button(byval enable as long) as long
 
-'' TODO: extern __inline__ __attribute__ ((deprecated)) void set_file_encoding (int encoding);
-'' TODO: extern __inline__ __attribute__ ((deprecated)) void set_file_encoding (int encoding){ set_filename_encoding(encoding);}extern __inline__ __attribute__ ((deprecated)) int get_file_encoding (void);
+function set_window_close_button_ alias "set_window_close_button"(byval enable as long) as long
+	cast(any, enable)
+	'' TODO: return 0;
+end function
 
-#ifdef __FB_WIN32__
-	'' TODO: extern __inline__ __attribute__ ((deprecated)) int get_file_encoding (void){ return get_filename_encoding();} extern __attribute__ ((deprecated)) int timer_can_simulate_retrace (void);
-#else
-	'' TODO: extern __inline__ __attribute__ ((deprecated)) int get_file_encoding (void){ return get_filename_encoding();} __attribute__ ((deprecated)) int timer_can_simulate_retrace (void);
-#endif
+declare sub set_window_close_hook(byval proc as sub())
 
+sub set_window_close_hook_ alias "set_window_close_hook"(byval proc as sub())
+	set_close_button_callback(proc)
+end sub
+
+declare sub set_clip(byval bitmap as BITMAP ptr, byval x1 as long, byval y_1 as long, byval x2 as long, byval y2 as long)
+declare sub yield_timeslice()
+
+sub yield_timeslice_ alias "yield_timeslice"()
+	'' TODO: if (system_driver->yield_timeslice) system_driver->yield_timeslice();
+end sub
+
+extern retrace_proc as sub()
+
+declare sub set_file_encoding(byval encoding_ as long)
+
+sub set_file_encoding_ alias "set_file_encoding"(byval encoding_ as long)
+	set_filename_encoding(encoding_)
+end sub
+
+declare function get_file_encoding() as long
+
+function get_file_encoding_ alias "get_file_encoding"() as long
+	'' TODO: return get_filename_encoding();
+end function
+
+declare function timer_can_simulate_retrace() as long
 declare sub timer_simulate_retrace(byval enable as long)
 declare function timer_is_using_retrace() as long
 
@@ -3085,9 +4060,15 @@ declare function timer_is_using_retrace() as long
 	'' TODO: #define END_OF_MAIN() int __stdcall WinMain(void *hInst, void *hPrev, char *Cmd, int nShow) { return _WinMain((void *)_mangled_main, hInst, hPrev, Cmd, nShow); }
 
 	#define SYSTEM_DIRECTX_ AL_ID(asc("D"), asc("X"), asc(" "), asc(" "))
+#endif
 
+#if defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)
+	extern system_directx as SYSTEM_DRIVER
+#elseif defined(__FB_WIN32__) and (not defined(ALLEGRO_STATICLINK))
 	extern import system_directx as SYSTEM_DRIVER
+#endif
 
+#ifdef __FB_WIN32__
 	#define TIMER_WIN32_HIGH_PERF AL_ID(asc("W"), asc("3"), asc("2"), asc("H"))
 	#define TIMER_WIN32_LOW_PERF AL_ID(asc("W"), asc("3"), asc("2"), asc("L"))
 	#define KEYBOARD_DIRECTX AL_ID(asc("D"), asc("X"), asc(" "), asc(" "))
@@ -3099,14 +4080,25 @@ declare function timer_is_using_retrace() as long
 	#define GFX_DIRECTX_WIN_ AL_ID(asc("D"), asc("X"), asc("W"), asc("N"))
 	#define GFX_DIRECTX_OVL_ AL_ID(asc("D"), asc("X"), asc("O"), asc("V"))
 	#define GFX_GDI_ AL_ID(asc("G"), asc("D"), asc("I"), asc("B"))
+#endif
 
+#if defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)
+	extern gfx_directx_accel as GFX_DRIVER
+	extern gfx_directx_safe as GFX_DRIVER
+	extern gfx_directx_soft as GFX_DRIVER
+	extern gfx_directx_win as GFX_DRIVER
+	extern gfx_directx_ovl as GFX_DRIVER
+	extern gfx_gdi as GFX_DRIVER
+#elseif defined(__FB_WIN32__) and (not defined(ALLEGRO_STATICLINK))
 	extern import gfx_directx_accel as GFX_DRIVER
 	extern import gfx_directx_safe as GFX_DRIVER
 	extern import gfx_directx_soft as GFX_DRIVER
 	extern import gfx_directx_win as GFX_DRIVER
 	extern import gfx_directx_ovl as GFX_DRIVER
 	extern import gfx_gdi as GFX_DRIVER
+#endif
 
+#ifdef __FB_WIN32__
 	'' TODO: #define GFX_DRIVER_DIRECTX { GFX_DIRECTX_ACCEL, &gfx_directx_accel, TRUE }, { GFX_DIRECTX_SOFT, &gfx_directx_soft, TRUE }, { GFX_DIRECTX_SAFE, &gfx_directx_safe, TRUE }, { GFX_DIRECTX_WIN, &gfx_directx_win, TRUE }, { GFX_DIRECTX_OVL, &gfx_directx_ovl, TRUE }, { GFX_GDI, &gfx_gdi, FALSE },
 
 	#define DIGI_DIRECTX(n) AL_ID(asc("D"), asc("X"), asc("A") + (n), asc(" "))
@@ -3117,10 +4109,17 @@ declare function timer_is_using_retrace() as long
 	#define MIDI_WIN32_IN(n) AL_ID(asc("W"), asc("3"), asc("2"), asc("A") + (n))
 	#define JOY_TYPE_DIRECTX AL_ID(asc("D"), asc("X"), asc(" "), asc(" "))
 	#define JOY_TYPE_WIN32 AL_ID(asc("W"), asc("3"), asc("2"), asc(" "))
+#endif
 
+#if defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)
+	extern joystick_directx as JOYSTICK_DRIVER
+	extern joystick_win32 as JOYSTICK_DRIVER
+#elseif defined(__FB_WIN32__) and (not defined(ALLEGRO_STATICLINK))
 	extern import joystick_directx as JOYSTICK_DRIVER
 	extern import joystick_win32 as JOYSTICK_DRIVER
+#endif
 
+#ifdef __FB_WIN32__
 	'' TODO: #define JOYSTICK_DRIVER_DIRECTX { JOY_TYPE_DIRECTX, &joystick_directx, TRUE },
 	'' TODO: #define JOYSTICK_DRIVER_WIN32 { JOY_TYPE_WIN32, &joystick_win32, TRUE },
 #elseif defined(__FB_LINUX__)
@@ -3329,8 +4328,15 @@ declare function timer_is_using_retrace() as long
 #endif
 
 #ifdef __FB_DOS__
-	'' TODO: extern __inline__ void _set_color (int index, const RGB *p);
-	'' TODO: extern __inline__ void _set_color (int index, const RGB *p){ outportb(0x3C8, index); outportb(0x3C9, p->r); outportb(0x3C9, p->g); outportb(0x3C9, p->b); _current_palette[index] = *p;}
+	declare sub _set_color(byval index as long, byval p as const RGB__ ptr)
+
+	sub _set_color_ alias "_set_color"(byval index as long, byval p as const RGB__ ptr)
+		outportb(&h3C8, index)
+		outportb(&h3C9, p->r)
+		outportb(&h3C9, p->g)
+		outportb(&h3C9, p->b)
+		'' TODO: _current_palette[index] = *p;
+	end sub
 
 	#define DIGI_SB10_ AL_ID(asc("S"), asc("B"), asc("1"), asc("0"))
 	#define DIGI_SB15_ AL_ID(asc("S"), asc("B"), asc("1"), asc("5"))

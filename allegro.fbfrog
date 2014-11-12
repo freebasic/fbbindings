@@ -8,6 +8,10 @@
 	-define ALLEGRO_HAVE_LIBPTHREAD
 -case __FB_WIN32__
 	-define ALLEGRO_MINGW32
+	-declarebool ALLEGRO_STATICLINK
+	-ifdef ALLEGRO_STATICLINK
+		-define ALLEGRO_STATICLINK
+	-endif
 -endselect
 
 -define ALLEGRO_NO_ASM

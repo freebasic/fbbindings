@@ -243,6 +243,30 @@ pdcurses:
 	mkdir -p inc/curses
 	$(FBFROG) pdcurses.fbfrog -o inc/curses/pdcurses.bi extracted/PDCurses-3.4/curses.h
 
+#
+# libpng:
+#
+# There are multiple libpng release series, 1.2.x, 1.4.x, 1.5.x, etc. and they
+# are incompatible: For example, using the 1.5.14 header with the 1.2.50
+# library results in:
+#     libpng warning: Application was compiled with png.h from libpng-1.5.14
+#     libpng warning: Application  is  running with png.c from libpng-1.2.50
+# (and png_create_read_struct() fails because of the version mismatch)
+# The same problem can also happen in the other direction: For example, header
+# 1.2 isn't compatible with library 1.5.
+#
+# The problem is that different systems have different libpng versions
+# installed, and the FreeBASIC binding cannot just support one version, because
+# then it wouldn't work on the other systems. At the time of writing, the latest
+# libpng series is 1.6, but Debian/Ubuntu use the 1.2 series.
+#
+# Thus, it seems like FreeBASIC bindings for multiple libpng versions are
+# needed. FB programs should just #include png.bi, but depending on the system
+# they may need the 1.2, 1.5, 1.6, etc. version of the libpng API. This could be
+# handled by having a #define which tells png.bi which API version to use. This
+# way it should be possible to compile the same source code for the
+# system-specific libpng version.
+#
 png: png12 png14 png15 png16
 
 PNG12_TITLE := libpng-1.2.51

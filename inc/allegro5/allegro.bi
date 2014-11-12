@@ -10,6 +10,21 @@
 #include once "crt/sys/types.bi"
 
 '' The following symbols have been renamed:
+''     procedure al_ftofix => al_ftofix_
+''     procedure al_fixtof => al_fixtof_
+''     procedure al_fixadd => al_fixadd_
+''     procedure al_fixsub => al_fixsub_
+''     procedure al_fixmul => al_fixmul_
+''     procedure al_fixdiv => al_fixdiv_
+''     procedure al_fixfloor => al_fixfloor_
+''     procedure al_fixceil => al_fixceil_
+''     procedure al_itofix => al_itofix_
+''     procedure al_fixtoi => al_fixtoi_
+''     procedure al_fixcos => al_fixcos_
+''     procedure al_fixsin => al_fixsin_
+''     procedure al_fixtan => al_fixtan_
+''     procedure al_fixacos => al_fixacos_
+''     procedure al_fixasin => al_fixasin_
 ''     #define EOF => EOF_
 
 extern "C"
@@ -41,8 +56,13 @@ type ALLEGRO_COND as ALLEGRO_COND_
 #define __al_included_allegro5_allegro_h
 #define __al_included_allegro5_base_h
 
-#ifdef __FB_WIN32__
+#if defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)
+	#define ALLEGRO_PLATFORM_STR "MinGW32.s"
+#elseif defined(__FB_WIN32__) and (not defined(ALLEGRO_STATICLINK))
 	#define ALLEGRO_PLATFORM_STR "MinGW32"
+#endif
+
+#ifdef __FB_WIN32__
 	#define ALLEGRO_WINDOWS
 	#define ALLEGRO_LITTLE_ENDIAN
 	#define ENUM_CURRENT_SETTINGS (DWORD - 1)
@@ -736,12 +756,12 @@ declare sub al_set_errno(byval errnum as long)
 
 type al_fixed as long
 
-#ifdef __FB_WIN32__
-	extern import al_fixtorad_r as const al_fixed
-	extern import al_radtofix_r as const al_fixed
-#else
+#if (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
 	extern al_fixtorad_r as const al_fixed
 	extern al_radtofix_r as const al_fixed
+#else
+	extern import al_fixtorad_r as const al_fixed
+	extern import al_radtofix_r as const al_fixed
 #endif
 
 #define __al_included_allegro5_fmaths_h
@@ -751,40 +771,119 @@ declare function al_fixhypot(byval x as al_fixed, byval y as al_fixed) as al_fix
 declare function al_fixatan(byval x as al_fixed) as al_fixed
 declare function al_fixatan2(byval y as al_fixed, byval x as al_fixed) as al_fixed
 
-#ifdef __FB_WIN32__
-	'' TODO: extern __attribute__((dllimport)) al_fixed _al_fix_cos_tbl[];
-	'' TODO: extern __attribute__((dllimport)) al_fixed _al_fix_tan_tbl[];
-	'' TODO: extern __attribute__((dllimport)) al_fixed _al_fix_acos_tbl[];
+#if (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
+	extern _al_fix_cos_tbl(0 to ...) as al_fixed
+	extern _al_fix_tan_tbl(0 to ...) as al_fixed
+	extern _al_fix_acos_tbl(0 to ...) as al_fixed
 #else
-	'' TODO: extern al_fixed _al_fix_cos_tbl[];
-	'' TODO: extern al_fixed _al_fix_tan_tbl[];
-	'' TODO: extern al_fixed _al_fix_acos_tbl[];
+	extern import _al_fix_cos_tbl(0 to ...) as al_fixed
+	extern import _al_fix_tan_tbl(0 to ...) as al_fixed
+	extern import _al_fix_acos_tbl(0 to ...) as al_fixed
 #endif
 
 #define __al_included_allegro5_inline_fmaths_inl
 
-'' TODO: extern __inline__ al_fixed al_ftofix (double x);
-'' TODO: extern __inline__ al_fixed al_ftofix (double x){ if (x > 32767.0) { al_set_errno(ERANGE); return 0x7FFFFFFF; } if (x < -32767.0) { al_set_errno(ERANGE); return -0x7FFFFFFF; } return (al_fixed)(x * 65536.0 + (x < 0 ? -0.5 : 0.5));}extern __inline__ double al_fixtof (al_fixed x);
-'' TODO: extern __inline__ double al_fixtof (al_fixed x){ return (double)x / 65536.0;}extern __inline__ al_fixed al_fixadd (al_fixed x, al_fixed y);
-'' TODO: extern __inline__ al_fixed al_fixadd (al_fixed x, al_fixed y){ al_fixed result = x + y; if (result >= 0) { if ((x < 0) && (y < 0)) { al_set_errno(ERANGE); return -0x7FFFFFFF; } else return result; } else { if ((x > 0) && (y > 0)) { al_set_errno(ERANGE); return 0x7FFFFFFF; } else return result; }}extern __inline__ al_fixed al_fixsub (al_fixed x, al_fixed y);
-'' TODO: extern __inline__ al_fixed al_fixsub (al_fixed x, al_fixed y){ al_fixed result = x - y; if (result >= 0) { if ((x < 0) && (y > 0)) { al_set_errno(ERANGE); return -0x7FFFFFFF; } else return result; } else { if ((x > 0) && (y < 0)) { al_set_errno(ERANGE); return 0x7FFFFFFF; } else return result; }} extern __inline__ al_fixed al_fixmul (al_fixed x, al_fixed y);
+declare function al_ftofix(byval x as double) as al_fixed
+
+function al_ftofix_ alias "al_ftofix"(byval x as double) as al_fixed
+	'' TODO: if (x > 32767.0) { al_set_errno(ERANGE); return 0x7FFFFFFF; } if (x < -32767.0) { al_set_errno(ERANGE); return -0x7FFFFFFF; } return (al_fixed)(x * 65536.0 + (x < 0 ? -0.5 : 0.5));
+end function
+
+declare function al_fixtof(byval x as al_fixed) as double
+
+function al_fixtof_ alias "al_fixtof"(byval x as al_fixed) as double
+	'' TODO: return (double)x / 65536.0;
+end function
+
+declare function al_fixadd(byval x as al_fixed, byval y as al_fixed) as al_fixed
+
+function al_fixadd_ alias "al_fixadd"(byval x as al_fixed, byval y as al_fixed) as al_fixed
+	dim result as al_fixed = x + y
+	'' TODO: if (result >= 0) { if ((x < 0) && (y < 0)) { al_set_errno(ERANGE); return -0x7FFFFFFF; } else return result; } else { if ((x > 0) && (y > 0)) { al_set_errno(ERANGE); return 0x7FFFFFFF; } else return result; }
+end function
+
+declare function al_fixsub(byval x as al_fixed, byval y as al_fixed) as al_fixed
+
+function al_fixsub_ alias "al_fixsub"(byval x as al_fixed, byval y as al_fixed) as al_fixed
+	dim result as al_fixed = x - y
+	'' TODO: if (result >= 0) { if ((x < 0) && (y > 0)) { al_set_errno(ERANGE); return -0x7FFFFFFF; } else return result; } else { if ((x > 0) && (y < 0)) { al_set_errno(ERANGE); return 0x7FFFFFFF; } else return result; }
+end function
+
+declare function al_fixmul(byval x as al_fixed, byval y as al_fixed) as al_fixed
 
 #if (defined(__FB_LINUX__) and (not defined(__FB_64BIT__))) or defined(__FB_WIN32__)
-	'' TODO: extern __inline__ al_fixed al_fixmul (al_fixed x, al_fixed y) { return al_ftofix(al_fixtof(x) * al_fixtof(y)); }extern __inline__ al_fixed al_fixdiv (al_fixed x, al_fixed y);
+	function al_fixmul_ alias "al_fixmul"(byval x as al_fixed, byval y as al_fixed) as al_fixed
+		'' TODO: return al_ftofix(al_fixtof(x) * al_fixtof(y));
+	end function
 #else
-	'' TODO: extern __inline__ al_fixed al_fixmul (al_fixed x, al_fixed y) { long long lx = x; long long ly = y; long long lres = (lx*ly); if (lres > 0x7FFFFFFF0000LL) { al_set_errno(ERANGE); return 0x7FFFFFFF; } else if (lres < -0x7FFFFFFF0000LL) { al_set_errno(ERANGE); return 0x80000000; } else { int res = lres >> 16; return res; } }extern __inline__ al_fixed al_fixdiv (al_fixed x, al_fixed y);
+	function al_fixmul_ alias "al_fixmul"(byval x as al_fixed, byval y as al_fixed) as al_fixed
+		dim lx as longint = x
+		dim ly as longint = y
+		dim lres as longint = lx * ly
+		'' TODO: if (lres > 0x7FFFFFFF0000LL) { al_set_errno(ERANGE); return 0x7FFFFFFF; } else if (lres < -0x7FFFFFFF0000LL) { al_set_errno(ERANGE); return 0x80000000; } else { int res = lres >> 16; return res; }
+	end function
 #endif
 
-'' TODO: extern __inline__ al_fixed al_fixdiv (al_fixed x, al_fixed y){ if (y == 0) { al_set_errno(ERANGE); return (x < 0) ? -0x7FFFFFFF : 0x7FFFFFFF; } else return al_ftofix(al_fixtof(x) / al_fixtof(y));}extern __inline__ int al_fixfloor (al_fixed x);
-'' TODO: extern __inline__ int al_fixfloor (al_fixed x){ if (x >= 0) return (x >> 16); else return ~((~x) >> 16);}extern __inline__ int al_fixceil (al_fixed x);
-'' TODO: extern __inline__ int al_fixceil (al_fixed x){ if (x > 0x7FFF0000) { al_set_errno(ERANGE); return 0x7FFF; } return al_fixfloor(x + 0xFFFF);}extern __inline__ al_fixed al_itofix (int x);
-'' TODO: extern __inline__ al_fixed al_itofix (int x){ return x << 16;}extern __inline__ int al_fixtoi (al_fixed x);
-'' TODO: extern __inline__ int al_fixtoi (al_fixed x){ return al_fixfloor(x) + ((x & 0x8000) >> 15);}extern __inline__ al_fixed al_fixcos (al_fixed x);
-'' TODO: extern __inline__ al_fixed al_fixcos (al_fixed x){ return _al_fix_cos_tbl[((x + 0x4000) >> 15) & 0x1FF];}extern __inline__ al_fixed al_fixsin (al_fixed x);
-'' TODO: extern __inline__ al_fixed al_fixsin (al_fixed x){ return _al_fix_cos_tbl[((x - 0x400000 + 0x4000) >> 15) & 0x1FF];}extern __inline__ al_fixed al_fixtan (al_fixed x);
-'' TODO: extern __inline__ al_fixed al_fixtan (al_fixed x){ return _al_fix_tan_tbl[((x + 0x4000) >> 15) & 0xFF];}extern __inline__ al_fixed al_fixacos (al_fixed x);
-'' TODO: extern __inline__ al_fixed al_fixacos (al_fixed x){ if ((x < -65536) || (x > 65536)) { al_set_errno(EDOM); return 0; } return _al_fix_acos_tbl[(x+65536+127)>>8];}extern __inline__ al_fixed al_fixasin (al_fixed x);
-'' TODO: extern __inline__ al_fixed al_fixasin (al_fixed x){ if ((x < -65536) || (x > 65536)) { al_set_errno(EDOM); return 0; } return 0x00400000 - _al_fix_acos_tbl[(x+65536+127)>>8];}
+declare function al_fixdiv(byval x as al_fixed, byval y as al_fixed) as al_fixed
+
+function al_fixdiv_ alias "al_fixdiv"(byval x as al_fixed, byval y as al_fixed) as al_fixed
+	'' TODO: if (y == 0) { al_set_errno(ERANGE); return (x < 0) ? -0x7FFFFFFF : 0x7FFFFFFF; } else return al_ftofix(al_fixtof(x) / al_fixtof(y));
+end function
+
+declare function al_fixfloor(byval x as al_fixed) as long
+
+function al_fixfloor_ alias "al_fixfloor"(byval x as al_fixed) as long
+	'' TODO: if (x >= 0) return (x >> 16);
+	'' TODO: else return ~((~x) >> 16);
+end function
+
+declare function al_fixceil(byval x as al_fixed) as long
+
+function al_fixceil_ alias "al_fixceil"(byval x as al_fixed) as long
+	'' TODO: if (x > 0x7FFF0000) { al_set_errno(ERANGE); return 0x7FFF; } return al_fixfloor(x + 0xFFFF);
+end function
+
+declare function al_itofix(byval x as long) as al_fixed
+
+function al_itofix_ alias "al_itofix"(byval x as long) as al_fixed
+	'' TODO: return x << 16;
+end function
+
+declare function al_fixtoi(byval x as al_fixed) as long
+
+function al_fixtoi_ alias "al_fixtoi"(byval x as al_fixed) as long
+	'' TODO: return al_fixfloor(x) + ((x & 0x8000) >> 15);
+end function
+
+declare function al_fixcos(byval x as al_fixed) as al_fixed
+
+function al_fixcos_ alias "al_fixcos"(byval x as al_fixed) as al_fixed
+	'' TODO: return _al_fix_cos_tbl[((x + 0x4000) >> 15) & 0x1FF];
+end function
+
+declare function al_fixsin(byval x as al_fixed) as al_fixed
+
+function al_fixsin_ alias "al_fixsin"(byval x as al_fixed) as al_fixed
+	'' TODO: return _al_fix_cos_tbl[((x - 0x400000 + 0x4000) >> 15) & 0x1FF];
+end function
+
+declare function al_fixtan(byval x as al_fixed) as al_fixed
+
+function al_fixtan_ alias "al_fixtan"(byval x as al_fixed) as al_fixed
+	'' TODO: return _al_fix_tan_tbl[((x + 0x4000) >> 15) & 0xFF];
+end function
+
+declare function al_fixacos(byval x as al_fixed) as al_fixed
+
+function al_fixacos_ alias "al_fixacos"(byval x as al_fixed) as al_fixed
+	'' TODO: if ((x < -65536) || (x > 65536)) { al_set_errno(EDOM); return 0; } return _al_fix_acos_tbl[(x+65536+127)>>8];
+end function
+
+declare function al_fixasin(byval x as al_fixed) as al_fixed
+
+function al_fixasin_ alias "al_fixasin"(byval x as al_fixed) as al_fixed
+	'' TODO: if ((x < -65536) || (x > 65536)) { al_set_errno(EDOM); return 0; } return 0x00400000 - _al_fix_acos_tbl[(x+65536+127)>>8];
+end function
 
 #define __al_included_allegro5_fshook_h
 
@@ -868,12 +967,12 @@ declare function al_get_display_mode(byval index as long, byval mode as ALLEGRO_
 #define _AL_MAX_JOYSTICK_STICKS 8
 #define _AL_MAX_JOYSTICK_BUTTONS 32
 
-type __dummyid_4_extracted_allegro_5_0_10_include_allegro5_joystick
+type __dummyid_0_extracted_allegro_5_0_10_include_allegro5_joystick
 	axis(0 to 2) as single
 end type
 
 type ALLEGRO_JOYSTICK_STATE
-	stick(0 to 7) as __dummyid_4_extracted_allegro_5_0_10_include_allegro5_joystick
+	stick(0 to 7) as __dummyid_0_extracted_allegro_5_0_10_include_allegro5_joystick
 	button(0 to 31) as long
 end type
 
@@ -1062,12 +1161,12 @@ declare sub al_get_keyboard_state(byval ret_state as ALLEGRO_KEYBOARD_STATE ptr)
 declare function al_key_down(byval as const ALLEGRO_KEYBOARD_STATE ptr, byval keycode as long) as byte
 declare function al_get_keyboard_event_source() as ALLEGRO_EVENT_SOURCE ptr
 
-#ifdef __FB_WIN32__
-	extern import _al_three_finger_flag as byte
-	extern import _al_key_led_flag as byte
-#else
+#if (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
 	extern _al_three_finger_flag as byte
 	extern _al_key_led_flag as byte
+#else
+	extern import _al_three_finger_flag as byte
+	extern import _al_key_led_flag as byte
 #endif
 
 #define __al_included_allegro5_memory_h
@@ -1290,9 +1389,15 @@ declare function al_check_inverse(byval trans as const ALLEGRO_TRANSFORM ptr, by
 	declare function _WinMain(byval _main as any ptr, byval hInst as any ptr, byval hPrev as any ptr, byval Cmd as zstring ptr, byval nShow as long) as long
 
 	#define AL_JOY_TYPE_DIRECTX AL_ID(asc("D"), asc("X"), asc(" "), asc(" "))
+#endif
 
+#if defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)
+	extern _al_joydrv_directx as ALLEGRO_JOYSTICK_DRIVER
+#elseif defined(__FB_WIN32__) and (not defined(ALLEGRO_STATICLINK))
 	extern import _al_joydrv_directx as ALLEGRO_JOYSTICK_DRIVER
+#endif
 
+#ifdef __FB_WIN32__
 	'' TODO: #define _AL_JOYSTICK_DRIVER_DIRECTX { AL_JOY_TYPE_DIRECTX, &_al_joydrv_directx, true },
 #endif
 
