@@ -1,3 +1,5 @@
+-include stdbool.h
+
 -select
 -case __FB_LINUX__
 	-define ALLEGRO_LINUX
