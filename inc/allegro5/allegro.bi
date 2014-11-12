@@ -8,28 +8,6 @@
 #include once "crt/time.bi"
 #include once "crt/string.bi"
 #include once "crt/sys/types.bi"
-#include once "allegro5/platform/alplatf.bi"
-
-#ifdef __FB_WIN32__
-	#include once "io.bi"
-#endif
-
-#include once "fcntl.bi"
-
-#ifdef __FB_WIN32__
-	#include once "direct.bi"
-	#include once "malloc.bi"
-#else
-	#include once "unistd.bi"
-#endif
-
-#include once "inttypes.bi"
-#include once "stdbool.bi"
-#include once "crt/assert.bi"
-
-#ifdef __FB_WIN32__
-	#include once "windows.bi"
-#endif
 
 '' The following symbols have been renamed:
 ''     #define EOF => EOF_
