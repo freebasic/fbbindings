@@ -140,7 +140,7 @@ type NCURSES_BOOL as ubyte
 #define _NOCHANGE (-1)
 #define _NEWINDEX (-1)
 
-type SCREEN___ as screen
+type SCREEN___ as screen__
 type WINDOW_ as _win_st
 type attr_t as chtype
 
