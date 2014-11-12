@@ -1772,27 +1772,27 @@ end type
 #endif
 
 declare sub set_color(byval idx as long, byval p as const RGB_ ptr)
-declare sub set_palette(byval p as RGB_ ptr)
-declare sub set_palette_range(byval p as RGB_ ptr, byval from as long, byval to_ as long, byval retracesync as long)
+declare sub set_palette(byval p as const RGB_ ptr)
+declare sub set_palette_range(byval p as const RGB_ ptr, byval from as long, byval to_ as long, byval retracesync as long)
 declare sub get_color(byval idx as long, byval p as RGB_ ptr)
 declare sub get_palette(byval p as RGB_ ptr)
 declare sub get_palette_range(byval p as RGB_ ptr, byval from as long, byval to_ as long)
-declare sub fade_interpolate(byval source as RGB_ ptr, byval dest as RGB_ ptr, byval output_ as RGB_ ptr, byval pos_ as long, byval from as long, byval to_ as long)
-declare sub fade_from_range(byval source as RGB_ ptr, byval dest as RGB_ ptr, byval speed as long, byval from as long, byval to_ as long)
-declare sub fade_in_range(byval p as RGB_ ptr, byval speed as long, byval from as long, byval to_ as long)
+declare sub fade_interpolate(byval source as const RGB_ ptr, byval dest as const RGB_ ptr, byval output_ as RGB_ ptr, byval pos_ as long, byval from as long, byval to_ as long)
+declare sub fade_from_range(byval source as const RGB_ ptr, byval dest as const RGB_ ptr, byval speed as long, byval from as long, byval to_ as long)
+declare sub fade_in_range(byval p as const RGB_ ptr, byval speed as long, byval from as long, byval to_ as long)
 declare sub fade_out_range(byval speed as long, byval from as long, byval to_ as long)
-declare sub fade_from(byval source as RGB_ ptr, byval dest as RGB_ ptr, byval speed as long)
-declare sub fade_in(byval p as RGB_ ptr, byval speed as long)
+declare sub fade_from(byval source as const RGB_ ptr, byval dest as const RGB_ ptr, byval speed as long)
+declare sub fade_in(byval p as const RGB_ ptr, byval speed as long)
 declare sub fade_out(byval speed as long)
-declare sub select_palette(byval p as RGB_ ptr)
+declare sub select_palette(byval p as const RGB_ ptr)
 declare sub unselect_palette()
 declare sub generate_332_palette(byval pal as RGB_ ptr)
 declare function generate_optimized_palette(byval image as BITMAP ptr, byval pal as RGB_ ptr, byval rsvdcols as const byte ptr) as long
-declare sub create_rgb_table(byval table as RGB_MAP ptr, byval pal as RGB_ ptr, byval callback as sub(byval pos_ as long))
-declare sub create_light_table(byval table as COLOR_MAP ptr, byval pal as RGB_ ptr, byval r as long, byval g as long, byval b as long, byval callback as sub(byval pos_ as long))
-declare sub create_trans_table(byval table as COLOR_MAP ptr, byval pal as RGB_ ptr, byval r as long, byval g as long, byval b as long, byval callback as sub(byval pos_ as long))
-declare sub create_color_table(byval table as COLOR_MAP ptr, byval pal as RGB_ ptr, byval blend as sub(byval pal as RGB_ ptr, byval x as long, byval y as long, byval rgb_ as RGB_ ptr), byval callback as sub(byval pos_ as long))
-declare sub create_blender_table(byval table as COLOR_MAP ptr, byval pal as RGB_ ptr, byval callback as sub(byval pos_ as long))
+declare sub create_rgb_table(byval table as RGB_MAP ptr, byval pal as const RGB_ ptr, byval callback as sub(byval pos_ as long))
+declare sub create_light_table(byval table as COLOR_MAP ptr, byval pal as const RGB_ ptr, byval r as long, byval g as long, byval b as long, byval callback as sub(byval pos_ as long))
+declare sub create_trans_table(byval table as COLOR_MAP ptr, byval pal as const RGB_ ptr, byval r as long, byval g as long, byval b as long, byval callback as sub(byval pos_ as long))
+declare sub create_color_table(byval table as COLOR_MAP ptr, byval pal as const RGB_ ptr, byval blend as sub(byval pal as const RGB_ ptr, byval x as long, byval y as long, byval rgb_ as RGB_ ptr), byval callback as sub(byval pos_ as long))
+declare sub create_blender_table(byval table as COLOR_MAP ptr, byval pal as const RGB_ ptr, byval callback as sub(byval pos_ as long))
 
 type BLENDER_FUNC as function(byval x as culong, byval y as culong, byval n as culong) as culong
 
@@ -1815,7 +1815,7 @@ declare sub set_saturation_blender(byval r as long, byval g as long, byval b as 
 declare sub set_screen_blender(byval r as long, byval g as long, byval b as long, byval a as long)
 declare sub hsv_to_rgb(byval h as single, byval s as single, byval v as single, byval r as long ptr, byval g as long ptr, byval b as long ptr)
 declare sub rgb_to_hsv(byval r as long, byval g as long, byval b as long, byval h as single ptr, byval s as single ptr, byval v as single ptr)
-declare function bestfit_color(byval pal as RGB_ ptr, byval r as long, byval g as long, byval b as long) as long
+declare function bestfit_color(byval pal as const RGB_ ptr, byval r as long, byval g as long, byval b as long) as long
 declare function makecol(byval r as long, byval g as long, byval b as long) as long
 declare function makecol8(byval r as long, byval g as long, byval b as long) as long
 declare function makecol_depth(byval color_depth as long, byval r as long, byval g as long, byval b as long) as long
