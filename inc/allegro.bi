@@ -97,6 +97,12 @@ type PACKFILE_VTABLE as PACKFILE_VTABLE_
 #endif
 
 #ifdef __FB_WIN32__
+	#define _AL_DLL import
+#else
+	#define _AL_DLL
+#endif
+
+#ifdef __FB_WIN32__
 	#define ALLEGRO_HAVE_STDINT_H 1
 	#define ALLEGRO_PLATFORM_STR "MinGW32"
 	#define ALLEGRO_WINDOWS
@@ -137,16 +143,19 @@ type PACKFILE_VTABLE as PACKFILE_VTABLE_
 	#define LOCK_CODE(c, s) _go32_dpmi_lock_code(cptr(any ptr, c), s)
 	#define UNLOCK_DATA(d, s) _unlock_dpmi_data(cptr(any ptr, d), s)
 	#define LOCK_VARIABLE(x) LOCK_DATA(cptr(any ptr, @x), sizeof((x)))
-	#define LOCK_FUNCTION(x) LOCK_CODE(cptr(any ptr, x), cint(x##_end - cint(x)))
+	#define LOCK_FUNCTION(x) LOCK_CODE(cptr(any ptr, x), cint(x##_end) - cint(x))
 	#define ALLEGRO_LFN 0
 	#define _video_ds() _dos_ds
 	#define bmp_select(bmp) _farsetsel((bmp)->seg)
 	#define bmp_write8(addr, c) _farnspokeb(addr, c)
 	#define bmp_write15(addr, c) _farnspokew(addr, c)
 	#define bmp_write16(addr, c) _farnspokew(addr, c)
-
-	'' TODO: #define bmp_write24(addr, c) ({ _farnspokew(addr, c&0xFFFF); _farnspokeb(addr+2, c>>16); })
-
+	#macro bmp_write24(addr, c)
+		scope
+			_farnspokew(addr, c and &hFFFF)
+			_farnspokeb(addr + 2, c shr 16)
+		end scope
+	#endmacro
 	#define bmp_write32(addr, c) _farnspokel(addr, c)
 	#define bmp_read8(addr) _farnspeekb(addr)
 	#define bmp_read15(addr) _farnspeekw(addr)
@@ -177,7 +186,12 @@ type PACKFILE_VTABLE as PACKFILE_VTABLE_
 	#define uint64_t ulongint
 #endif
 
-'' TODO: #define _AL_SINCOS(x, s, c) do { (c) = cos(x); (s) = sin(x); } while (0)
+#macro _AL_SINCOS(x, s, c)
+	scope
+		(c) = cos(x)
+		(s) = sin(x)
+	end scope
+#endmacro
 
 #if defined(__FB_DOS__) or defined(__FB_LINUX__)
 	#define END_OF_MAIN()
@@ -226,36 +240,47 @@ type PACKFILE_VTABLE as PACKFILE_VTABLE_
 #if defined(__FB_WIN32__) or defined(__FB_LINUX__)
 	#define _video_ds() _default_ds()
 	#define _farsetsel(seg)
-
-	'' TODO: #define _farnspokeb(addr, val) (*((uint8_t *)(addr)) = (val))
-	'' TODO: #define _farnspokew(addr, val) (*((uint16_t *)(addr)) = (val))
-	'' TODO: #define _farnspokel(addr, val) (*((uint32_t *)(addr)) = (val))
-
+	#define _farnspokeb(addr, val) *cptr(ubyte ptr, (addr)) = (val)
+	#define _farnspokew(addr, val) *cptr(ushort ptr, (addr)) = (val)
+	#define _farnspokel(addr, val) *cptr(ulong ptr, (addr)) = (val)
 	#define _farnspeekb(addr) (*cptr(ubyte ptr, (addr)))
 	#define _farnspeekw(addr) (*cptr(ushort ptr, (addr)))
 	#define _farnspeekl(addr) (*cptr(ulong ptr, (addr)))
 #endif
 
 #define READ3BYTES(p) (((*cptr(ubyte ptr, (p))) or ((*cptr(ubyte ptr, (p) + 1)) shl 8)) or ((*cptr(ubyte ptr, (p) + 2)) shl 16))
-
-'' TODO: #define WRITE3BYTES(p,c) ((*(unsigned char *)(p) = (c)), (*((unsigned char *)(p) + 1) = (c) >> 8), (*((unsigned char *)(p) + 2) = (c) >> 16))
+#macro WRITE3BYTES(p, c)
+	scope
+		*cptr(ubyte ptr, (p)) = (c)
+		*cptr(ubyte ptr, (p) + 1) = (c) shr 8
+		*cptr(ubyte ptr, (p) + 2) = (c) shr 16
+	end scope
+#endmacro
 
 #if defined(__FB_WIN32__) or defined(__FB_LINUX__)
 	#define bmp_select(bmp)
 
-	'' TODO: #define bmp_write8(addr, c) (*((uint8_t *)(addr)) = (c))
-	'' TODO: #define bmp_write15(addr, c) (*((uint16_t *)(addr)) = (c))
-	'' TODO: #define bmp_write16(addr, c) (*((uint16_t *)(addr)) = (c))
-	'' TODO: #define bmp_write32(addr, c) (*((uint32_t *)(addr)) = (c))
+	#define bmp_write8(addr, c) *cptr(ubyte ptr, (addr)) = (c)
+	#define bmp_write15(addr, c) *cptr(ushort ptr, (addr)) = (c)
+	#define bmp_write16(addr, c) *cptr(ushort ptr, (addr)) = (c)
+	#define bmp_write32(addr, c) *cptr(ulong ptr, (addr)) = (c)
 
 	#define bmp_read8(addr) (*cptr(ubyte ptr, (addr)))
 	#define bmp_read15(addr) (*cptr(ushort ptr, (addr)))
 	#define bmp_read16(addr) (*cptr(ushort ptr, (addr)))
 	#define bmp_read32(addr) (*cptr(ulong ptr, (addr)))
 
-	'' TODO: extern __inline__ int bmp_read24 (uintptr_t addr);
-	'' TODO: extern __inline__ int bmp_read24 (uintptr_t addr) { unsigned char *p = (unsigned char *)addr; int c; c = ((*(unsigned char *)(p)) | (*((unsigned char *)(p) + 1) << 8) | (*((unsigned char *)(p) + 2) << 16)); return c; } extern __inline__ void bmp_write24 (uintptr_t addr, int c);
-	'' TODO: extern __inline__ void bmp_write24 (uintptr_t addr, int c) { unsigned char *p = (unsigned char *)addr; ((*(unsigned char *)(p) = (c)), (*((unsigned char *)(p) + 1) = (c) >> 8), (*((unsigned char *)(p) + 2) = (c) >> 16)); }
+	private function bmp_read24(byval addr as uinteger) as long
+		dim p as ubyte ptr = cptr(ubyte ptr, addr)
+		function = (*p) or (p[1] shl 8) or (p[2] shl 16)
+	end function
+
+	private sub bmp_write24(byval addr as uinteger, byval c as long)
+		dim p as ubyte ptr = cptr(ubyte ptr, addr)
+		*p = (c)
+		p[1] = (c) shr 8
+		p[2] = (c) shr 16
+	end sub
 #endif
 
 #define AL_RAND() rand()
@@ -280,11 +305,7 @@ type PACKFILE_VTABLE as PACKFILE_VTABLE_
 #define AL_PI 3.14159265358979323846
 #define AL_ID(a, b, c, d) (((((a) shl 24) or ((b) shl 16)) or ((c) shl 8)) or (d))
 
-#ifdef __FB_WIN32__
-	extern import allegro_errno as long ptr
-#else
-	extern allegro_errno as long ptr
-#endif
+extern _AL_DLL allegro_errno as long ptr
 
 type _DRIVER_INFO
 	id as long
@@ -314,12 +335,7 @@ declare function uwidth_max(byval type_ as long) as long
 #define uconvert_toascii(s, buf) uconvert(s, U_CURRENT, buf, U_ASCII, sizeof((buf)))
 #define EMPTY_STRING !"\0\0\0"
 
-#ifdef __FB_WIN32__
-	'' TODO: extern __attribute__((dllimport)) char empty_string[];
-#else
-	'' TODO: extern char empty_string[];
-#endif
-
+extern _AL_DLL empty_string as zstring * 4
 extern ugetc as function(byval s as const zstring ptr) as long
 extern ugetx as function(byval s as zstring ptr ptr) as long
 extern ugetxc as function(byval s as const zstring ptr ptr) as long
@@ -401,13 +417,8 @@ declare sub free_config_entries(byval names as const zstring ptr ptr ptr)
 
 #define ALLEGRO_ERROR_SIZE 256
 
-#ifdef __FB_WIN32__
-	'' TODO: extern __attribute__((dllimport)) char allegro_id[];
-	'' TODO: extern __attribute__((dllimport)) char allegro_error[];
-#else
-	'' TODO: extern char allegro_id[];
-	'' TODO: extern char allegro_error[];
-#endif
+extern _AL_DLL allegro_id as zstring * len("Allegro " ALLEGRO_VERSION_STR ", " ALLEGRO_PLATFORM_STR)
+extern _AL_DLL allegro_error as zstring * ALLEGRO_ERROR_SIZE
 
 #define OSTYPE_UNKNOWN 0
 #define OSTYPE_WIN3 AL_ID(asc("W"), asc("I"), asc("N"), asc("3"))
@@ -439,17 +450,10 @@ declare sub free_config_entries(byval names as const zstring ptr ptr ptr)
 #define OSTYPE_MACOSX AL_ID(asc("M"), asc("A"), asc("C"), asc("X"))
 #define OSTYPE_PSP AL_ID(asc("K"), asc("P"), asc("S"), asc("P"))
 
-#ifdef __FB_WIN32__
-	extern import os_type as long
-	extern import os_version as long
-	extern import os_revision as long
-	extern import os_multitasking as long
-#else
-	extern os_type as long
-	extern os_version as long
-	extern os_revision as long
-	extern os_multitasking as long
-#endif
+extern _AL_DLL os_type as long
+extern _AL_DLL os_version as long
+extern _AL_DLL os_revision as long
+extern _AL_DLL os_multitasking as long
 
 #define SYSTEM_AUTODETECT 0
 #define SYSTEM_NONE_ AL_ID(asc("N"), asc("O"), asc("N"), asc("E"))
@@ -457,8 +461,9 @@ declare sub free_config_entries(byval names as const zstring ptr ptr ptr)
 
 declare function _install_allegro_version_check(byval system_id as long, byval errno_ptr as long ptr, byval atexit_ptr as function(byval func as sub()) as long, byval version as long) as long
 
-'' TODO: extern __inline__ int install_allegro (int system_id, int *errno_ptr, int (*atexit_ptr) (void (*func) (void)));
-'' TODO: extern __inline__ int install_allegro (int system_id, int *errno_ptr, int (*atexit_ptr) (void (*func) (void))){ return _install_allegro_version_check(system_id, errno_ptr, atexit_ptr, (((4)<<16)|((4)<<8)|(2)));}
+extern __inline__ int install_allegro (int system_id, int *errno_ptr, int (*atexit_ptr) (void (*func) (void))) {
+	return _install_allegro_version_check(system_id, errno_ptr, atexit_ptr, (((4)<<16)|((4)<<8)|(2)));
+}
 
 #define allegro_init() _install_allegro_version_check(SYSTEM_AUTODETECT, @errno, cptr(function cdecl(byval as sub cdecl()) as long, atexit), MAKE_VERSION(ALLEGRO_VERSION, ALLEGRO_SUB_VERSION, ALLEGRO_WIP_VERSION))
 
