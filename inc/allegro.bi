@@ -1298,7 +1298,7 @@ declare function clip3d_f(byval type_ as long, byval min_z as single, byval max_
 declare function polygon_z_normal(byval v1 as const V3D ptr, byval v2 as const V3D ptr, byval v3 as const V3D ptr) as fixed
 declare function polygon_z_normal_f(byval v1 as const V3D_f ptr, byval v2 as const V3D_f ptr, byval v3 as const V3D_f ptr) as single
 
-type ZBUFFER as BITMAP
+type ZBUFFER as BITMAP_
 
 declare function create_zbuffer(byval bmp as BITMAP ptr) as ZBUFFER ptr
 declare function create_sub_zbuffer(byval parent as ZBUFFER ptr, byval x as long, byval y as long, byval width_ as long, byval height as long) as ZBUFFER ptr
