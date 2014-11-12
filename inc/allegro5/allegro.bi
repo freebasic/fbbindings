@@ -64,8 +64,13 @@ type ALLEGRO_COND as ALLEGRO_COND_
 #define __al_included_allegro5_allegro_h
 #define __al_included_allegro5_base_h
 
-#ifdef __FB_WIN32__
+#if defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)
+	#define ALLEGRO_PLATFORM_STR "MinGW32.s"
+#elseif defined(__FB_WIN32__) and (not defined(ALLEGRO_STATICLINK))
 	#define ALLEGRO_PLATFORM_STR "MinGW32"
+#endif
+
+#ifdef __FB_WIN32__
 	#define ALLEGRO_WINDOWS
 	#define ALLEGRO_LITTLE_ENDIAN
 	#define ENUM_CURRENT_SETTINGS (DWORD - 1)
@@ -759,12 +764,12 @@ declare sub al_set_errno(byval errnum as long)
 
 type al_fixed as long
 
-#ifdef __FB_WIN32__
-	extern import al_fixtorad_r as const al_fixed
-	extern import al_radtofix_r as const al_fixed
-#else
+#if (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
 	extern al_fixtorad_r as const al_fixed
 	extern al_radtofix_r as const al_fixed
+#else
+	extern import al_fixtorad_r as const al_fixed
+	extern import al_radtofix_r as const al_fixed
 #endif
 
 #define __al_included_allegro5_fmaths_h
@@ -774,14 +779,14 @@ declare function al_fixhypot(byval x as al_fixed, byval y as al_fixed) as al_fix
 declare function al_fixatan(byval x as al_fixed) as al_fixed
 declare function al_fixatan2(byval y as al_fixed, byval x as al_fixed) as al_fixed
 
-#ifdef __FB_WIN32__
-	'' TODO: extern __attribute__((dllimport)) al_fixed _al_fix_cos_tbl[];
-	'' TODO: extern __attribute__((dllimport)) al_fixed _al_fix_tan_tbl[];
-	'' TODO: extern __attribute__((dllimport)) al_fixed _al_fix_acos_tbl[];
-#else
+#if (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
 	'' TODO: extern al_fixed _al_fix_cos_tbl[];
 	'' TODO: extern al_fixed _al_fix_tan_tbl[];
 	'' TODO: extern al_fixed _al_fix_acos_tbl[];
+#else
+	'' TODO: extern __attribute__((dllimport)) al_fixed _al_fix_cos_tbl[];
+	'' TODO: extern __attribute__((dllimport)) al_fixed _al_fix_tan_tbl[];
+	'' TODO: extern __attribute__((dllimport)) al_fixed _al_fix_acos_tbl[];
 #endif
 
 #define __al_included_allegro5_inline_fmaths_inl
@@ -1085,12 +1090,12 @@ declare sub al_get_keyboard_state(byval ret_state as ALLEGRO_KEYBOARD_STATE ptr)
 declare function al_key_down(byval as const ALLEGRO_KEYBOARD_STATE ptr, byval keycode as long) as byte
 declare function al_get_keyboard_event_source() as ALLEGRO_EVENT_SOURCE ptr
 
-#ifdef __FB_WIN32__
-	extern import _al_three_finger_flag as byte
-	extern import _al_key_led_flag as byte
-#else
+#if (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
 	extern _al_three_finger_flag as byte
 	extern _al_key_led_flag as byte
+#else
+	extern import _al_three_finger_flag as byte
+	extern import _al_key_led_flag as byte
 #endif
 
 #define __al_included_allegro5_memory_h
@@ -1313,9 +1318,15 @@ declare function al_check_inverse(byval trans as const ALLEGRO_TRANSFORM ptr, by
 	declare function _WinMain(byval _main as any ptr, byval hInst as any ptr, byval hPrev as any ptr, byval Cmd as zstring ptr, byval nShow as long) as long
 
 	#define AL_JOY_TYPE_DIRECTX AL_ID(asc("D"), asc("X"), asc(" "), asc(" "))
+#endif
 
+#if defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)
+	extern _al_joydrv_directx as ALLEGRO_JOYSTICK_DRIVER
+#elseif defined(__FB_WIN32__) and (not defined(ALLEGRO_STATICLINK))
 	extern import _al_joydrv_directx as ALLEGRO_JOYSTICK_DRIVER
+#endif
 
+#ifdef __FB_WIN32__
 	'' TODO: #define _AL_JOYSTICK_DRIVER_DIRECTX { AL_JOY_TYPE_DIRECTX, &_al_joydrv_directx, true },
 #endif
 
