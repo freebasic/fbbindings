@@ -578,10 +578,10 @@ type ALLEGRO_USER_EVENT
 	source as ALLEGRO_EVENT_SOURCE ptr
 	timestamp as double
 	__internal__descr as ALLEGRO_USER_EVENT_DESCRIPTOR ptr
-	data1 as intptr_t
-	data2 as intptr_t
-	data3 as intptr_t
-	data4 as intptr_t
+	data1 as integer
+	data2 as integer
+	data3 as integer
+	data4 as integer
 end type
 
 union ALLEGRO_EVENT
@@ -599,8 +599,8 @@ declare sub al_init_user_event_source(byval as ALLEGRO_EVENT_SOURCE ptr)
 declare sub al_destroy_user_event_source(byval as ALLEGRO_EVENT_SOURCE ptr)
 declare function al_emit_user_event(byval as ALLEGRO_EVENT_SOURCE ptr, byval as ALLEGRO_EVENT ptr, byval dtor as sub(byval as ALLEGRO_USER_EVENT ptr)) as byte
 declare sub al_unref_user_event(byval as ALLEGRO_USER_EVENT ptr)
-declare sub al_set_event_source_data(byval as ALLEGRO_EVENT_SOURCE ptr, byval data_ as intptr_t)
-declare function al_get_event_source_data(byval as const ALLEGRO_EVENT_SOURCE ptr) as intptr_t
+declare sub al_set_event_source_data(byval as ALLEGRO_EVENT_SOURCE ptr, byval data_ as integer)
+declare function al_get_event_source_data(byval as const ALLEGRO_EVENT_SOURCE ptr) as integer
 declare function al_create_event_queue() as ALLEGRO_EVENT_QUEUE ptr
 declare sub al_destroy_event_queue(byval as ALLEGRO_EVENT_QUEUE ptr)
 declare sub al_register_event_source(byval as ALLEGRO_EVENT_QUEUE ptr, byval as ALLEGRO_EVENT_SOURCE ptr)

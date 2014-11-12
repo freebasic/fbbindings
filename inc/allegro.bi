@@ -137,9 +137,7 @@ type PACKFILE_VTABLE as PACKFILE_VTABLE_
 	#define LOCK_CODE(c, s) _go32_dpmi_lock_code(cptr(any ptr, c), s)
 	#define UNLOCK_DATA(d, s) _unlock_dpmi_data(cptr(any ptr, d), s)
 	#define LOCK_VARIABLE(x) LOCK_DATA(cptr(any ptr, @x), sizeof((x)))
-
-	'' TODO: #define LOCK_FUNCTION(x) LOCK_CODE((void *)x, (intptr_t)x##_end - (intptr_t)x)
-
+	#define LOCK_FUNCTION(x) LOCK_CODE(cptr(any ptr, x), cint(x##_end - cint(x)))
 	#define ALLEGRO_LFN 0
 	#define _video_ds() _dos_ds
 	#define bmp_select(bmp) _farsetsel((bmp)->seg)
