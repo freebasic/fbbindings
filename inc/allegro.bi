@@ -1361,8 +1361,8 @@ end type
 	extern import _joystick_driver_list(0 to ...) as _DRIVER_INFO
 #endif
 
-'' TODO: #define BEGIN_JOYSTICK_DRIVER_LIST _DRIVER_INFO _joystick_driver_list[] = {
-'' TODO: #define END_JOYSTICK_DRIVER_LIST { JOY_TYPE_NONE, &joystick_none, TRUE }, { 0, NULL, 0 } };
+#define BEGIN_JOYSTICK_DRIVER_LIST dim as _DRIVER_INFO _joystick_driver_list(0 to ...) = {
+#define END_JOYSTICK_DRIVER_LIST ( JOY_TYPE_NONE, @joystick_none, TRUE ), ( 0, NULL, 0 ) }
 
 declare function install_joystick(byval type_ as long) as long
 declare sub remove_joystick()
@@ -1549,8 +1549,8 @@ end type
 	extern import _gfx_driver_list(0 to ...) as _DRIVER_INFO
 #endif
 
-'' TODO: #define BEGIN_GFX_DRIVER_LIST _DRIVER_INFO _gfx_driver_list[] = {
-'' TODO: #define END_GFX_DRIVER_LIST { 0, NULL, 0 } };
+#define BEGIN_GFX_DRIVER_LIST dim as _DRIVER_INFO _gfx_driver_list(0 to ...) = {
+#define END_GFX_DRIVER_LIST ( 0, NULL, 0 ) }
 
 #define GFX_CAN_SCROLL &h00000001
 #define GFX_CAN_TRIPLE_BUFFER &h00000002
@@ -1676,13 +1676,13 @@ end type
 	extern import _vtable_list(0 to ...) as _VTABLE_INFO
 #endif
 
-'' TODO: #define BEGIN_COLOR_DEPTH_LIST _VTABLE_INFO _vtable_list[] = {
-'' TODO: #define END_COLOR_DEPTH_LIST { 0, NULL } };
-'' TODO: #define COLOR_DEPTH_8 { 8, &__linear_vtable8 },
-'' TODO: #define COLOR_DEPTH_15 { 15, &__linear_vtable15 },
-'' TODO: #define COLOR_DEPTH_16 { 16, &__linear_vtable16 },
-'' TODO: #define COLOR_DEPTH_24 { 24, &__linear_vtable24 },
-'' TODO: #define COLOR_DEPTH_32 { 32, &__linear_vtable32 },
+#define BEGIN_COLOR_DEPTH_LIST dim as _VTABLE_INFO _vtable_list(0 to ...) = {
+#define END_COLOR_DEPTH_LIST ( 0, NULL ) }
+#define COLOR_DEPTH_8 ( 8, @__linear_vtable8 ),
+#define COLOR_DEPTH_15 ( 15, @__linear_vtable15 ),
+#define COLOR_DEPTH_16 ( 16, @__linear_vtable16 ),
+#define COLOR_DEPTH_24 ( 24, @__linear_vtable24 ),
+#define COLOR_DEPTH_32 ( 32, @__linear_vtable32 ),
 
 type BITMAP_
 	w as long
