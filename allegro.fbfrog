@@ -1,5 +1,9 @@
 -include stdbool.h
 
+-define ALLEGRO_NO_CLEAR_BITMAP_ALIAS
+-define ALLEGRO_NO_FIX_ALIASES
+-include allegro-helper.h
+
 -select
 -case __FB_LINUX__
 	-define ALLEGRO_LINUX
