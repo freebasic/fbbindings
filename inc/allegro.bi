@@ -2174,8 +2174,8 @@ end type
 
 extern _AL_DLL _digi_driver_list(0 to ...) as _DRIVER_INFO
 
-'' TODO: #define BEGIN_DIGI_DRIVER_LIST _DRIVER_INFO _digi_driver_list[] = {
-'' TODO: #define END_DIGI_DRIVER_LIST { 0, NULL, 0 } };
+#define BEGIN_DIGI_DRIVER_LIST dim as _DRIVER_INFO _digi_driver_list(0 to ...) = {
+#define END_DIGI_DRIVER_LIST ( 0, NULL, 0 ) }
 
 extern _AL_DLL digi_driver as DIGI_DRIVER ptr
 extern _AL_DLL digi_input_driver as DIGI_DRIVER ptr
@@ -2311,9 +2311,9 @@ end type
 extern _AL_DLL midi_digmid as MIDI_DRIVER
 extern _AL_DLL _midi_driver_list(0 to ...) as _DRIVER_INFO
 
-'' TODO: #define BEGIN_MIDI_DRIVER_LIST _DRIVER_INFO _midi_driver_list[] = {
-'' TODO: #define END_MIDI_DRIVER_LIST { 0, NULL, 0 } };
-'' TODO: #define MIDI_DRIVER_DIGMID { MIDI_DIGMID, &midi_digmid, TRUE },
+#define BEGIN_MIDI_DRIVER_LIST dim as _DRIVER_INFO _midi_driver_list(0 to ...) = {
+#define END_MIDI_DRIVER_LIST ( 0, NULL, 0 ) }
+#define MIDI_DRIVER_DIGMID ( MIDI_DIGMID, @midi_digmid, TRUE ),
 
 extern _AL_DLL midi_driver as MIDI_DRIVER ptr
 extern _AL_DLL midi_input_driver as MIDI_DRIVER ptr
@@ -2781,12 +2781,20 @@ declare function timer_is_using_retrace() as long
 	#define main _mangled_main
 	#define NO_STRICT
 
-	'' TODO: #define END_OF_MAIN() int __stdcall WinMain(void *hInst, void *hPrev, char *Cmd, int nShow) { return _WinMain((void *)_mangled_main, hInst, hPrev, Cmd, nShow); }
+	#macro END_OF_MAIN()
+		function WinMain stdcall alias "WinMain" _
+			( _
+				byval hInst as any ptr, _
+				byval hPrev as any ptr, _
+				byval Cmd as zstring ptr, _
+				byval nShow as long _
+			) as long
+			return _WinMain(@_mangled_main, hInst, hPrev, Cmd, nShow)
+		end function
+	#endmacro
 
 	#define SYSTEM_DIRECTX_ AL_ID(asc("D"), asc("X"), asc(" "), asc(" "))
-#endif
 
-#ifdef __FB_WIN32__
 	extern _AL_DLL system_directx as SYSTEM_DRIVER
 
 	#define TIMER_WIN32_HIGH_PERF AL_ID(asc("W"), asc("3"), asc("2"), asc("H"))
@@ -2808,8 +2816,7 @@ declare function timer_is_using_retrace() as long
 	extern _AL_DLL gfx_directx_ovl as GFX_DRIVER
 	extern _AL_DLL gfx_gdi as GFX_DRIVER
 
-	'' TODO: #define GFX_DRIVER_DIRECTX { GFX_DIRECTX_ACCEL, &gfx_directx_accel, TRUE }, { GFX_DIRECTX_SOFT, &gfx_directx_soft, TRUE }, { GFX_DIRECTX_SAFE, &gfx_directx_safe, TRUE }, { GFX_DIRECTX_WIN, &gfx_directx_win, TRUE }, { GFX_DIRECTX_OVL, &gfx_directx_ovl, TRUE }, { GFX_GDI, &gfx_gdi, FALSE },
-
+	#define GFX_DRIVER_DIRECTX ( GFX_DIRECTX_ACCEL, @gfx_directx_accel, TRUE ), ( GFX_DIRECTX_SOFT, @gfx_directx_soft, TRUE ), ( GFX_DIRECTX_SAFE, @gfx_directx_safe, TRUE ), ( GFX_DIRECTX_WIN, @gfx_directx_win, TRUE ), ( GFX_DIRECTX_OVL, @gfx_directx_ovl, TRUE ), ( GFX_GDI, @gfx_gdi, FALSE ),
 	#define DIGI_DIRECTX(n) AL_ID(asc("D"), asc("X"), asc("A") + (n), asc(" "))
 	#define DIGI_DIRECTAMX(n) AL_ID(asc("A"), asc("X"), asc("A") + (n), asc(" "))
 	#define DIGI_WAVOUTID(n) AL_ID(asc("W"), asc("O"), asc("A") + (n), asc(" "))
@@ -2822,8 +2829,8 @@ declare function timer_is_using_retrace() as long
 	extern _AL_DLL joystick_directx as JOYSTICK_DRIVER
 	extern _AL_DLL joystick_win32 as JOYSTICK_DRIVER
 
-	'' TODO: #define JOYSTICK_DRIVER_DIRECTX { JOY_TYPE_DIRECTX, &joystick_directx, TRUE },
-	'' TODO: #define JOYSTICK_DRIVER_WIN32 { JOY_TYPE_WIN32, &joystick_win32, TRUE },
+	#define JOYSTICK_DRIVER_DIRECTX ( JOY_TYPE_DIRECTX, @joystick_directx, TRUE ),
+	#define JOYSTICK_DRIVER_WIN32 ( JOY_TYPE_WIN32, @joystick_win32, TRUE ),
 #elseif defined(__FB_LINUX__)
 	extern __crt0_argc as long
 	extern __crt0_argv as zstring ptr ptr
@@ -2966,19 +2973,19 @@ declare function timer_is_using_retrace() as long
 	extern joystick_sg2f as JOYSTICK_DRIVER
 	extern joystick_ww as JOYSTICK_DRIVER
 
-	'' TODO: #define JOYSTICK_DRIVER_STANDARD { JOY_TYPE_STANDARD, &joystick_standard, TRUE }, { JOY_TYPE_2PADS, &joystick_2pads, FALSE }, { JOY_TYPE_4BUTTON, &joystick_4button, FALSE }, { JOY_TYPE_6BUTTON, &joystick_6button, FALSE }, { JOY_TYPE_8BUTTON, &joystick_8button, FALSE }, { JOY_TYPE_FSPRO, &joystick_fspro, FALSE }, { JOY_TYPE_WINGEX, &joystick_wingex, FALSE },
-	'' TODO: #define JOYSTICK_DRIVER_SIDEWINDER { JOY_TYPE_SIDEWINDER, &joystick_sw, TRUE }, { JOY_TYPE_SIDEWINDER_AG, &joystick_sw_ag, TRUE }, { JOY_TYPE_SIDEWINDER_PP, &joystick_sw_pp, TRUE },
-	'' TODO: #define JOYSTICK_DRIVER_GAMEPAD_PRO { JOY_TYPE_GAMEPAD_PRO, &joystick_gpro, TRUE },
-	'' TODO: #define JOYSTICK_DRIVER_GRIP { JOY_TYPE_GRIP, &joystick_grip, TRUE }, { JOY_TYPE_GRIP4, &joystick_grip4, TRUE },
-	'' TODO: #define JOYSTICK_DRIVER_SNESPAD { JOY_TYPE_SNESPAD_LPT1, &joystick_sp1, FALSE }, { JOY_TYPE_SNESPAD_LPT2, &joystick_sp2, FALSE }, { JOY_TYPE_SNESPAD_LPT3, &joystick_sp3, FALSE },
-	'' TODO: #define JOYSTICK_DRIVER_PSXPAD { JOY_TYPE_PSXPAD_LPT1, &joystick_psx1, FALSE }, { JOY_TYPE_PSXPAD_LPT2, &joystick_psx2, FALSE }, { JOY_TYPE_PSXPAD_LPT3, &joystick_psx3, FALSE },
-	'' TODO: #define JOYSTICK_DRIVER_N64PAD { JOY_TYPE_N64PAD_LPT1, &joystick_n641, FALSE }, { JOY_TYPE_N64PAD_LPT2, &joystick_n642, FALSE }, { JOY_TYPE_N64PAD_LPT3, &joystick_n643, FALSE },
-	'' TODO: #define JOYSTICK_DRIVER_DB9 { JOY_TYPE_DB9_LPT1, &joystick_db91, FALSE }, { JOY_TYPE_DB9_LPT2, &joystick_db92, FALSE }, { JOY_TYPE_DB9_LPT3, &joystick_db93, FALSE },
-	'' TODO: #define JOYSTICK_DRIVER_TURBOGRAFX { JOY_TYPE_TURBOGRAFX_LPT1,&joystick_tgx1, FALSE }, { JOY_TYPE_TURBOGRAFX_LPT2,&joystick_tgx2, FALSE }, { JOY_TYPE_TURBOGRAFX_LPT3,&joystick_tgx3, FALSE },
-	'' TODO: #define JOYSTICK_DRIVER_IFSEGA_ISA { JOY_TYPE_IFSEGA_ISA, &joystick_sg1, FALSE },
-	'' TODO: #define JOYSTICK_DRIVER_IFSEGA_PCI { JOY_TYPE_IFSEGA_PCI, &joystick_sg2, FALSE },
-	'' TODO: #define JOYSTICK_DRIVER_IFSEGA_PCI_FAST { JOY_TYPE_IFSEGA_PCI_FAST,&joystick_sg2f, FALSE },
-	'' TODO: #define JOYSTICK_DRIVER_WINGWARRIOR { JOY_TYPE_WINGWARRIOR, &joystick_ww, TRUE },
+	#define JOYSTICK_DRIVER_STANDARD ( JOY_TYPE_STANDARD, @joystick_standard, TRUE ), ( JOY_TYPE_2PADS, @joystick_2pads, FALSE ), ( JOY_TYPE_4BUTTON, @joystick_4button, FALSE ), ( JOY_TYPE_6BUTTON, @joystick_6button, FALSE ), ( JOY_TYPE_8BUTTON, @joystick_8button, FALSE ), ( JOY_TYPE_FSPRO, @joystick_fspro, FALSE ), ( JOY_TYPE_WINGEX, @joystick_wingex, FALSE ),
+	#define JOYSTICK_DRIVER_SIDEWINDER ( JOY_TYPE_SIDEWINDER, @joystick_sw, TRUE ), ( JOY_TYPE_SIDEWINDER_AG, @joystick_sw_ag, TRUE ), ( JOY_TYPE_SIDEWINDER_PP, @joystick_sw_pp, TRUE ),
+	#define JOYSTICK_DRIVER_GAMEPAD_PRO ( JOY_TYPE_GAMEPAD_PRO, @joystick_gpro, TRUE ),
+	#define JOYSTICK_DRIVER_GRIP ( JOY_TYPE_GRIP, @joystick_grip, TRUE ), ( JOY_TYPE_GRIP4, @joystick_grip4, TRUE ),
+	#define JOYSTICK_DRIVER_SNESPAD ( JOY_TYPE_SNESPAD_LPT1, @joystick_sp1, FALSE ), ( JOY_TYPE_SNESPAD_LPT2, @joystick_sp2, FALSE ), ( JOY_TYPE_SNESPAD_LPT3, @joystick_sp3, FALSE ),
+	#define JOYSTICK_DRIVER_PSXPAD ( JOY_TYPE_PSXPAD_LPT1, @joystick_psx1, FALSE ), ( JOY_TYPE_PSXPAD_LPT2, @joystick_psx2, FALSE ), ( JOY_TYPE_PSXPAD_LPT3, @joystick_psx3, FALSE ),
+	#define JOYSTICK_DRIVER_N64PAD ( JOY_TYPE_N64PAD_LPT1, @joystick_n641, FALSE ), ( JOY_TYPE_N64PAD_LPT2, @joystick_n642, FALSE ), ( JOY_TYPE_N64PAD_LPT3, @joystick_n643, FALSE ),
+	#define JOYSTICK_DRIVER_DB9 ( JOY_TYPE_DB9_LPT1, @joystick_db91, FALSE ), ( JOY_TYPE_DB9_LPT2, @joystick_db92, FALSE ), ( JOY_TYPE_DB9_LPT3, @joystick_db93, FALSE ),
+	#define JOYSTICK_DRIVER_TURBOGRAFX ( JOY_TYPE_TURBOGRAFX_LPT1,@joystick_tgx1, FALSE ), ( JOY_TYPE_TURBOGRAFX_LPT2,@joystick_tgx2, FALSE ), ( JOY_TYPE_TURBOGRAFX_LPT3,@joystick_tgx3, FALSE ),
+	#define JOYSTICK_DRIVER_IFSEGA_ISA ( JOY_TYPE_IFSEGA_ISA, @joystick_sg1, FALSE ),
+	#define JOYSTICK_DRIVER_IFSEGA_PCI ( JOY_TYPE_IFSEGA_PCI, @joystick_sg2, FALSE ),
+	#define JOYSTICK_DRIVER_IFSEGA_PCI_FAST ( JOY_TYPE_IFSEGA_PCI_FAST,@joystick_sg2f, FALSE ),
+	#define JOYSTICK_DRIVER_WINGWARRIOR ( JOY_TYPE_WINGWARRIOR, @joystick_ww, TRUE ),
 
 	#define joy_FSPRO_trigger joy_b1
 	#define joy_FSPRO_butleft joy_b2
@@ -3015,14 +3022,14 @@ declare function timer_is_using_retrace() as long
 	extern gfx_vbeaf as GFX_DRIVER
 	extern gfx_xtended as GFX_DRIVER
 
-	'' TODO: #define GFX_DRIVER_VGA { GFX_VGA, &gfx_vga, TRUE },
-	'' TODO: #define GFX_DRIVER_MODEX { GFX_MODEX, &gfx_modex, TRUE },
-	'' TODO: #define GFX_DRIVER_VBEAF { GFX_VBEAF, &gfx_vbeaf, TRUE },
-	'' TODO: #define GFX_DRIVER_VESA3 { GFX_VESA3, &gfx_vesa_3, TRUE },
-	'' TODO: #define GFX_DRIVER_VESA2L { GFX_VESA2L, &gfx_vesa_2l, TRUE },
-	'' TODO: #define GFX_DRIVER_VESA2B { GFX_VESA2B, &gfx_vesa_2b, TRUE },
-	'' TODO: #define GFX_DRIVER_XTENDED { GFX_XTENDED, &gfx_xtended, FALSE },
-	'' TODO: #define GFX_DRIVER_VESA1 { GFX_VESA1, &gfx_vesa_1, TRUE },
+	#define GFX_DRIVER_VGA ( GFX_VGA, @gfx_vga, TRUE ),
+	#define GFX_DRIVER_MODEX ( GFX_MODEX, @gfx_modex, TRUE ),
+	#define GFX_DRIVER_VBEAF ( GFX_VBEAF, @gfx_vbeaf, TRUE ),
+	#define GFX_DRIVER_VESA3 ( GFX_VESA3, @gfx_vesa_3, TRUE ),
+	#define GFX_DRIVER_VESA2L ( GFX_VESA2L, @gfx_vesa_2l, TRUE ),
+	#define GFX_DRIVER_VESA2B ( GFX_VESA2B, @gfx_vesa_2b, TRUE ),
+	#define GFX_DRIVER_XTENDED ( GFX_XTENDED, @gfx_xtended, FALSE ),
+	#define GFX_DRIVER_VESA1 ( GFX_VESA1, @gfx_vesa_1, TRUE ),
 #endif
 
 #if defined(__FB_DOS__) or defined(__FB_LINUX__)
@@ -3062,14 +3069,14 @@ declare function timer_is_using_retrace() as long
 	extern midi_mpu401 as MIDI_DRIVER
 	extern midi_awe32 as MIDI_DRIVER
 
-	'' TODO: #define DIGI_DRIVER_WINSOUNDSYS { DIGI_WINSOUNDSYS, &digi_wss, FALSE },
-	'' TODO: #define DIGI_DRIVER_AUDIODRIVE { DIGI_AUDIODRIVE, &digi_audiodrive, TRUE },
-	'' TODO: #define DIGI_DRIVER_SOUNDSCAPE { DIGI_SOUNDSCAPE, &digi_soundscape, TRUE },
-	'' TODO: #define DIGI_DRIVER_SB { DIGI_SB16, &digi_sb16, TRUE }, { DIGI_SBPRO, &digi_sbpro, TRUE }, { DIGI_SB20, &digi_sb20, TRUE }, { DIGI_SB15, &digi_sb15, TRUE }, { DIGI_SB10, &digi_sb10, TRUE },
-	'' TODO: #define MIDI_DRIVER_AWE32 { MIDI_AWE32, &midi_awe32, TRUE },
-	'' TODO: #define MIDI_DRIVER_ADLIB { MIDI_OPL3, &midi_opl3, TRUE }, { MIDI_2XOPL2, &midi_2xopl2, TRUE }, { MIDI_OPL2, &midi_opl2, TRUE },
-	'' TODO: #define MIDI_DRIVER_SB_OUT { MIDI_SB_OUT, &midi_sb_out, FALSE },
-	'' TODO: #define MIDI_DRIVER_MPU { MIDI_MPU, &midi_mpu401, FALSE },
+	#define DIGI_DRIVER_WINSOUNDSYS ( DIGI_WINSOUNDSYS, @digi_wss, FALSE ),
+	#define DIGI_DRIVER_AUDIODRIVE ( DIGI_AUDIODRIVE, @digi_audiodrive, TRUE ),
+	#define DIGI_DRIVER_SOUNDSCAPE ( DIGI_SOUNDSCAPE, @digi_soundscape, TRUE ),
+	#define DIGI_DRIVER_SB ( DIGI_SB16, @digi_sb16, TRUE ), ( DIGI_SBPRO, @digi_sbpro, TRUE ), ( DIGI_SB20, @digi_sb20, TRUE ), ( DIGI_SB15, @digi_sb15, TRUE ), ( DIGI_SB10, @digi_sb10, TRUE ),
+	#define MIDI_DRIVER_AWE32 ( MIDI_AWE32, @midi_awe32, TRUE ),
+	#define MIDI_DRIVER_ADLIB ( MIDI_OPL3, @midi_opl3, TRUE ), ( MIDI_2XOPL2, @midi_2xopl2, TRUE ), ( MIDI_OPL2, @midi_opl2, TRUE ),
+	#define MIDI_DRIVER_SB_OUT ( MIDI_SB_OUT, @midi_sb_out, FALSE ),
+	#define MIDI_DRIVER_MPU ( MIDI_MPU, @midi_mpu401, FALSE ),
 
 	declare function load_ibk(byval filename as const zstring ptr, byval drums as long) as long
 #endif
