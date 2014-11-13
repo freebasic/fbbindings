@@ -58,11 +58,15 @@ type ALLEGRO_COND as ALLEGRO_COND_
 #define __al_included_allegro5_astdint_h
 #define __al_included_allegro5_astdbool_h
 #define READ3BYTES(p) (((*cptr(ubyte ptr, (p))) or ((*cptr(ubyte ptr, (p) + 1)) shl 8)) or ((*cptr(ubyte ptr, (p) + 2)) shl 16))
-
-'' TODO: #define WRITE3BYTES(p,c) ((*(unsigned char *)(p) = (c)), (*((unsigned char *)(p) + 1) = (c) >> 8), (*((unsigned char *)(p) + 2) = (c) >> 16))
-'' TODO: #define bmp_write16(addr, c) (*((uint16_t *)(addr)) = (c))
-'' TODO: #define bmp_write32(addr, c) (*((uint32_t *)(addr)) = (c))
-
+#macro WRITE3BYTES(p, c)
+	scope
+		*cptr(ubyte ptr, (p)) = (c)
+		*cptr(ubyte ptr, (p) + 1) = (c) shr 8
+		*cptr(ubyte ptr, (p) + 2) = (c) shr 16
+	end scope
+#endmacro
+#define bmp_write16(addr, c) *cptr(ushort ptr, (addr)) = (c)
+#define bmp_write32(addr, c) *cptr(ulong ptr, (addr)) = (c)
 #define bmp_read16(addr) (*cptr(ushort ptr, (addr)))
 #define bmp_read32(addr) (*cptr(ulong ptr, (addr)))
 #define AL_RAND() rand()
@@ -1294,16 +1298,14 @@ declare function al_check_inverse(byval trans as const ALLEGRO_TRANSFORM ptr, by
 	declare function _WinMain(byval _main as any ptr, byval hInst as any ptr, byval hPrev as any ptr, byval Cmd as zstring ptr, byval nShow as long) as long
 
 	#define AL_JOY_TYPE_DIRECTX AL_ID(asc("D"), asc("X"), asc(" "), asc(" "))
-#endif
 
-#if defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)
-	extern _al_joydrv_directx as ALLEGRO_JOYSTICK_DRIVER
-#elseif defined(__FB_WIN32__) and (not defined(ALLEGRO_STATICLINK))
-	extern import _al_joydrv_directx as ALLEGRO_JOYSTICK_DRIVER
-#endif
+	#ifdef ALLEGRO_STATICLINK
+		extern _al_joydrv_directx as ALLEGRO_JOYSTICK_DRIVER
+	#else
+		extern import _al_joydrv_directx as ALLEGRO_JOYSTICK_DRIVER
+	#endif
 
-#ifdef __FB_WIN32__
-	'' TODO: #define _AL_JOYSTICK_DRIVER_DIRECTX { AL_JOY_TYPE_DIRECTX, &_al_joydrv_directx, true },
+	#define _AL_JOYSTICK_DRIVER_DIRECTX ( AL_JOY_TYPE_DIRECTX, @_al_joydrv_directx, true ),
 #endif
 
 end extern
