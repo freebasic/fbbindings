@@ -587,7 +587,8 @@ end type
 
 extern _AL_DLL system_none as SYSTEM_DRIVER
 extern _AL_DLL system_driver as SYSTEM_DRIVER ptr
-extern _AL_DLL _system_driver_list(0 to ...) as _DRIVER_INFO
+#define _system_driver_list(i) ((@___system_driver_list)[i])
+extern _AL_DLL ___system_driver_list alias "_system_driver_list" as _DRIVER_INFO
 
 #define ALLEGRO_SYSTEM_INL
 #define ALLEGRO_DEBUG_H
@@ -628,7 +629,8 @@ end type
 
 extern _AL_DLL mousedrv_none as MOUSE_DRIVER
 extern _AL_DLL mouse_driver as MOUSE_DRIVER ptr
-extern _AL_DLL _mouse_driver_list(0 to ...) as _DRIVER_INFO
+#define _mouse_driver_list(i) ((@___mouse_driver_list)[i])
+extern _AL_DLL ___mouse_driver_list alias "_mouse_driver_list" as _DRIVER_INFO
 
 declare function install_mouse() as long
 declare sub remove_mouse()
@@ -709,7 +711,8 @@ type TIMER_DRIVER
 end type
 
 extern _AL_DLL timer_driver as TIMER_DRIVER ptr
-extern _AL_DLL _timer_driver_list(0 to ...) as _DRIVER_INFO
+#define _timer_driver_list(i) ((@___timer_driver_list)[i])
+extern _AL_DLL ___timer_driver_list alias "_timer_driver_list" as _DRIVER_INFO
 
 declare function install_timer() as long
 declare sub remove_timer()
@@ -745,7 +748,8 @@ type KEYBOARD_DRIVER
 end type
 
 extern _AL_DLL keyboard_driver as KEYBOARD_DRIVER ptr
-extern _AL_DLL _keyboard_driver_list(0 to ...) as _DRIVER_INFO
+#define _keyboard_driver_list(i) ((@___keyboard_driver_list)[i])
+extern _AL_DLL ___keyboard_driver_list alias "_keyboard_driver_list" as _DRIVER_INFO
 
 declare function install_keyboard() as long
 declare sub remove_keyboard()
@@ -1112,7 +1116,8 @@ end type
 #define JOYFLAG_ANALOG JOYFLAG_ANALOGUE
 #define JOYFLAG_CALIB_ANALOG JOYFLAG_CALIB_ANALOGUE
 
-extern _AL_DLL joy(0 to ...) as JOYSTICK_INFO
+#define joy(i) ((@__joy)[i])
+extern _AL_DLL __joy alias "joy" as JOYSTICK_INFO
 extern _AL_DLL num_joysticks as long
 
 type JOYSTICK_DRIVER
@@ -1131,7 +1136,8 @@ end type
 
 extern _AL_DLL joystick_none as JOYSTICK_DRIVER
 extern _AL_DLL joystick_driver as JOYSTICK_DRIVER ptr
-extern _AL_DLL _joystick_driver_list(0 to ...) as _DRIVER_INFO
+#define _joystick_driver_list(i) ((@___joystick_driver_list)[i])
+extern _AL_DLL ___joystick_driver_list alias "_joystick_driver_list" as _DRIVER_INFO
 
 #define BEGIN_JOYSTICK_DRIVER_LIST dim as _DRIVER_INFO _joystick_driver_list(0 to ...) = {
 #define END_JOYSTICK_DRIVER_LIST ( JOY_TYPE_NONE, @joystick_none, TRUE ), ( 0, NULL, 0 ) }
@@ -1305,7 +1311,8 @@ type GFX_DRIVER
 end type
 
 extern _AL_DLL gfx_driver as GFX_DRIVER ptr
-extern _AL_DLL _gfx_driver_list(0 to ...) as _DRIVER_INFO
+#define _gfx_driver_list(i) ((@___gfx_driver_list)[i])
+extern _AL_DLL ___gfx_driver_list alias "_gfx_driver_list" as _DRIVER_INFO
 
 #define BEGIN_GFX_DRIVER_LIST dim as _DRIVER_INFO _gfx_driver_list(0 to ...) = {
 #define END_GFX_DRIVER_LIST ( 0, NULL, 0 ) }
@@ -1416,7 +1423,8 @@ type _VTABLE_INFO
 	vtable as GFX_VTABLE ptr
 end type
 
-extern _AL_DLL _vtable_list(0 to ...) as _VTABLE_INFO
+#define _vtable_list(i) ((@___vtable_list)[i])
+extern _AL_DLL ___vtable_list alias "_vtable_list" as _VTABLE_INFO
 
 #define BEGIN_COLOR_DEPTH_LIST dim as _VTABLE_INFO _vtable_list(0 to ...) = {
 #define END_COLOR_DEPTH_LIST ( 0, NULL ) }
@@ -1612,8 +1620,10 @@ extern _AL_DLL _rgb_r_shift_32 as long
 extern _AL_DLL _rgb_g_shift_32 as long
 extern _AL_DLL _rgb_b_shift_32 as long
 extern _AL_DLL _rgb_a_shift_32 as long
-extern _AL_DLL _rgb_scale_5(0 to ...) as long
-extern _AL_DLL _rgb_scale_6(0 to ...) as long
+#define _rgb_scale_5(i) ((@___rgb_scale_5)[i])
+extern _AL_DLL ___rgb_scale_5 alias "_rgb_scale_5" as long
+#define _rgb_scale_6(i) ((@___rgb_scale_6)[i])
+extern _AL_DLL ___rgb_scale_6 alias "_rgb_scale_6" as long
 
 #define MASK_COLOR_8 0
 #define MASK_COLOR_15 &h7C1F
@@ -2174,7 +2184,8 @@ type DIGI_DRIVER
 	rec_read as function(byval buf as any ptr) as long
 end type
 
-extern _AL_DLL _digi_driver_list(0 to ...) as _DRIVER_INFO
+#define _digi_driver_list(i) ((@___digi_driver_list)[i])
+extern _AL_DLL ___digi_driver_list alias "_digi_driver_list" as _DRIVER_INFO
 
 #define BEGIN_DIGI_DRIVER_LIST dim as _DRIVER_INFO _digi_driver_list(0 to ...) = {
 #define END_DIGI_DRIVER_LIST ( 0, NULL, 0 ) }
@@ -2311,7 +2322,8 @@ type MIDI_DRIVER
 end type
 
 extern _AL_DLL midi_digmid as MIDI_DRIVER
-extern _AL_DLL _midi_driver_list(0 to ...) as _DRIVER_INFO
+#define _midi_driver_list(i) ((@___midi_driver_list)[i])
+extern _AL_DLL ___midi_driver_list alias "_midi_driver_list" as _DRIVER_INFO
 
 #define BEGIN_MIDI_DRIVER_LIST dim as _DRIVER_INFO _midi_driver_list(0 to ...) = {
 #define END_MIDI_DRIVER_LIST ( 0, NULL, 0 ) }
@@ -2562,9 +2574,12 @@ declare function fixhypot(byval x as fixed, byval y as fixed) as fixed
 declare function fixatan(byval x as fixed) as fixed
 declare function fixatan2(byval y as fixed, byval x as fixed) as fixed
 
-extern _AL_DLL _cos_tbl(0 to ...) as fixed
-extern _AL_DLL _tan_tbl(0 to ...) as fixed
-extern _AL_DLL _acos_tbl(0 to ...) as fixed
+#define _cos_tbl(i) ((@___cos_tbl)[i])
+extern _AL_DLL ___cos_tbl alias "_cos_tbl" as fixed
+#define _tan_tbl(i) ((@___tan_tbl)[i])
+extern _AL_DLL ___tan_tbl alias "_tan_tbl" as fixed
+#define _acos_tbl(i) ((@___acos_tbl)[i])
+extern _AL_DLL ___acos_tbl alias "_acos_tbl" as fixed
 
 #define ALLEGRO_FMATHS_INL
 #define ALLEGRO_USE_C
