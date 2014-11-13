@@ -611,7 +611,7 @@ extern _AL_DLL os_multitasking as long
 declare function _install_allegro_version_check(byval system_id as long, byval errno_ptr as long ptr, byval atexit_ptr as function(byval func as sub()) as long, byval version as long) as long
 
 private function install_allegro(byval system_id as long, byval errno_ptr as long ptr, byval atexit_ptr as function(byval func as sub()) as long) as long
-	return _install_allegro_version_check(system_id, errno_ptr, atexit_ptr, (((4) shl 16) or ((4) shl 8) or (2)))
+	return _install_allegro_version_check(system_id, errno_ptr, atexit_ptr, MAKE_VERSION(ALLEGRO_VERSION, ALLEGRO_SUB_VERSION, ALLEGRO_WIP_VERSION))
 end function
 
 #define allegro_init() _install_allegro_version_check(SYSTEM_AUTODETECT, @errno, cptr(function cdecl(byval as sub cdecl()) as long, atexit), MAKE_VERSION(ALLEGRO_VERSION, ALLEGRO_SUB_VERSION, ALLEGRO_WIP_VERSION))
@@ -1818,7 +1818,7 @@ declare sub lock_bitmap(byval bmp as BITMAP ptr)
 declare function _default_ds() as long
 
 function _default_ds_ alias "_default_ds"() as long
-	'' TODO: return 0;
+	return 0
 end function
 
 type _BMP_BANK_SWITCHER as function(byval bmp as BITMAP ptr, byval lyne as long) as uinteger
@@ -1828,14 +1828,14 @@ declare function bmp_write_line(byval bmp as BITMAP ptr, byval lyne as long) as 
 
 function bmp_write_line_ alias "bmp_write_line"(byval bmp as BITMAP ptr, byval lyne as long) as uinteger
 	dim switcher as _BMP_BANK_SWITCHER = cast(_BMP_BANK_SWITCHER, bmp->write_bank)
-	'' TODO: return switcher(bmp, lyne);
+	return switcher(bmp, lyne)
 end function
 
 declare function bmp_read_line(byval bmp as BITMAP ptr, byval lyne as long) as uinteger
 
 function bmp_read_line_ alias "bmp_read_line"(byval bmp as BITMAP ptr, byval lyne as long) as uinteger
 	dim switcher as _BMP_BANK_SWITCHER = cast(_BMP_BANK_SWITCHER, bmp->read_bank)
-	'' TODO: return switcher(bmp, lyne);
+	return switcher(bmp, lyne)
 end function
 
 declare sub bmp_unwrite_line(byval bmp as BITMAP ptr)
@@ -1848,7 +1848,7 @@ end sub
 declare function is_windowed_mode() as long
 
 function is_windowed_mode_ alias "is_windowed_mode"() as long
-	'' TODO: return gfx_driver->windowed;
+	return gfx_driver->windowed
 end function
 
 declare sub clear_to_color(byval bitmap as BITMAP ptr, byval color_ as long)
@@ -1860,13 +1860,13 @@ end sub
 declare function bitmap_color_depth(byval bmp as BITMAP ptr) as long
 
 function bitmap_color_depth_ alias "bitmap_color_depth"(byval bmp as BITMAP ptr) as long
-	'' TODO: return bmp->vtable->color_depth;
+	return bmp->vtable->color_depth
 end function
 
 declare function bitmap_mask_color(byval bmp as BITMAP ptr) as long
 
 function bitmap_mask_color_ alias "bitmap_mask_color"(byval bmp as BITMAP ptr) as long
-	'' TODO: return bmp->vtable->mask_color;
+	return bmp->vtable->mask_color
 end function
 
 declare function is_same_bitmap(byval bmp1 as BITMAP ptr, byval bmp2 as BITMAP ptr) as long
@@ -1876,51 +1876,51 @@ function is_same_bitmap_ alias "is_same_bitmap"(byval bmp1 as BITMAP ptr, byval 
 	dim m2 as culong
 	'' TODO: if ((!bmp1) || (!bmp2)) return 0;
 	'' TODO: if (bmp1 == bmp2) return -1;
-	'' TODO: m1 = bmp1->id & 0x01FFFFFF;
-	'' TODO: m2 = bmp2->id & 0x01FFFFFF;
-	'' TODO: return ((m1) && (m1 == m2));
+	'' TODO: m1 = bmp1->id & BMP_ID_MASK;
+	'' TODO: m2 = bmp2->id & BMP_ID_MASK;
+	return -(m1 andalso (m1 = m2))
 end function
 
 declare function is_linear_bitmap(byval bmp as BITMAP ptr) as long
 
 function is_linear_bitmap_ alias "is_linear_bitmap"(byval bmp as BITMAP ptr) as long
-	'' TODO: return (bmp->id & 0x10000000) == 0;
+	return -((bmp->id and BMP_ID_PLANAR) = 0)
 end function
 
 declare function is_planar_bitmap(byval bmp as BITMAP ptr) as long
 
 function is_planar_bitmap_ alias "is_planar_bitmap"(byval bmp as BITMAP ptr) as long
-	'' TODO: return (bmp->id & 0x10000000) != 0;
+	return -((bmp->id and BMP_ID_PLANAR) <> 0)
 end function
 
 declare function is_memory_bitmap(byval bmp as BITMAP ptr) as long
 
 function is_memory_bitmap_ alias "is_memory_bitmap"(byval bmp as BITMAP ptr) as long
-	'' TODO: return (bmp->id & (0x80000000 | 0x40000000)) == 0;
+	return -((bmp->id and (BMP_ID_VIDEO or BMP_ID_SYSTEM)) = 0)
 end function
 
 declare function is_screen_bitmap(byval bmp as BITMAP ptr) as long
 
 function is_screen_bitmap_ alias "is_screen_bitmap"(byval bmp as BITMAP ptr) as long
-	'' TODO: return is_same_bitmap(bmp, screen);
+	return is_same_bitmap_(bmp, screen_)
 end function
 
 declare function is_video_bitmap(byval bmp as BITMAP ptr) as long
 
 function is_video_bitmap_ alias "is_video_bitmap"(byval bmp as BITMAP ptr) as long
-	'' TODO: return (bmp->id & 0x80000000) != 0;
+	return -((bmp->id and BMP_ID_VIDEO) <> 0)
 end function
 
 declare function is_system_bitmap(byval bmp as BITMAP ptr) as long
 
 function is_system_bitmap_ alias "is_system_bitmap"(byval bmp as BITMAP ptr) as long
-	'' TODO: return (bmp->id & 0x40000000) != 0;
+	return -((bmp->id and BMP_ID_SYSTEM) <> 0)
 end function
 
 declare function is_sub_bitmap(byval bmp as BITMAP ptr) as long
 
 function is_sub_bitmap_ alias "is_sub_bitmap"(byval bmp as BITMAP ptr) as long
-	'' TODO: return (bmp->id & 0x20000000) != 0;
+	return -((bmp->id and BMP_ID_SUB) <> 0)
 end function
 
 declare sub acquire_bitmap(byval bmp as BITMAP ptr)
@@ -1971,7 +1971,7 @@ end sub
 declare function get_clip_state(byval bitmap as BITMAP ptr) as long
 
 function get_clip_state_ alias "get_clip_state"(byval bitmap as BITMAP ptr) as long
-	'' TODO: return bitmap->clip;
+	return bitmap->clip
 end function
 
 #define ALLEGRO_COLOR_H
@@ -2112,49 +2112,49 @@ declare function geta_depth(byval color_depth as long, byval c as long) as long
 declare function makecol15(byval r as long, byval g as long, byval b as long) as long
 
 function makecol15_ alias "makecol15"(byval r as long, byval g as long, byval b as long) as long
-	'' TODO: return (((r >> 3) << _rgb_r_shift_15) | ((g >> 3) << _rgb_g_shift_15) | ((b >> 3) << _rgb_b_shift_15));
+	return (((r shr 3) shl _rgb_r_shift_15) or ((g shr 3) shl _rgb_g_shift_15)) or ((b shr 3) shl _rgb_b_shift_15)
 end function
 
 declare function makecol16(byval r as long, byval g as long, byval b as long) as long
 
 function makecol16_ alias "makecol16"(byval r as long, byval g as long, byval b as long) as long
-	'' TODO: return (((r >> 3) << _rgb_r_shift_16) | ((g >> 2) << _rgb_g_shift_16) | ((b >> 3) << _rgb_b_shift_16));
+	return (((r shr 3) shl _rgb_r_shift_16) or ((g shr 2) shl _rgb_g_shift_16)) or ((b shr 3) shl _rgb_b_shift_16)
 end function
 
 declare function makecol24(byval r as long, byval g as long, byval b as long) as long
 
 function makecol24_ alias "makecol24"(byval r as long, byval g as long, byval b as long) as long
-	'' TODO: return ((r << _rgb_r_shift_24) | (g << _rgb_g_shift_24) | (b << _rgb_b_shift_24));
+	return ((r shl _rgb_r_shift_24) or (g shl _rgb_g_shift_24)) or (b shl _rgb_b_shift_24)
 end function
 
 declare function makecol32(byval r as long, byval g as long, byval b as long) as long
 
 function makecol32_ alias "makecol32"(byval r as long, byval g as long, byval b as long) as long
-	'' TODO: return ((r << _rgb_r_shift_32) | (g << _rgb_g_shift_32) | (b << _rgb_b_shift_32));
+	return ((r shl _rgb_r_shift_32) or (g shl _rgb_g_shift_32)) or (b shl _rgb_b_shift_32)
 end function
 
 declare function makeacol32(byval r as long, byval g as long, byval b as long, byval a as long) as long
 
 function makeacol32_ alias "makeacol32"(byval r as long, byval g as long, byval b as long, byval a as long) as long
-	'' TODO: return ((r << _rgb_r_shift_32) | (g << _rgb_g_shift_32) | (b << _rgb_b_shift_32) | (a << _rgb_a_shift_32));
+	return (((r shl _rgb_r_shift_32) or (g shl _rgb_g_shift_32)) or (b shl _rgb_b_shift_32)) or (a shl _rgb_a_shift_32)
 end function
 
 declare function getr8(byval c as long) as long
 
 function getr8_ alias "getr8"(byval c as long) as long
-	'' TODO: return _rgb_scale_6[(int)_current_palette[c].r];
+	return _rgb_scale_6[clng(_current_palette[c].r)]
 end function
 
 declare function getg8(byval c as long) as long
 
 function getg8_ alias "getg8"(byval c as long) as long
-	'' TODO: return _rgb_scale_6[(int)_current_palette[c].g];
+	return _rgb_scale_6[clng(_current_palette[c].g)]
 end function
 
 declare function getb8(byval c as long) as long
 
 function getb8_ alias "getb8"(byval c as long) as long
-	'' TODO: return _rgb_scale_6[(int)_current_palette[c].b];
+	return _rgb_scale_6[clng(_current_palette[c].b)]
 end function
 
 declare function getr15(byval c as long) as long
@@ -2196,43 +2196,43 @@ end function
 declare function getr24(byval c as long) as long
 
 function getr24_ alias "getr24"(byval c as long) as long
-	'' TODO: return ((c >> _rgb_r_shift_24) & 0xFF);
+	return (c shr _rgb_r_shift_24) and &hFF
 end function
 
 declare function getg24(byval c as long) as long
 
 function getg24_ alias "getg24"(byval c as long) as long
-	'' TODO: return ((c >> _rgb_g_shift_24) & 0xFF);
+	return (c shr _rgb_g_shift_24) and &hFF
 end function
 
 declare function getb24(byval c as long) as long
 
 function getb24_ alias "getb24"(byval c as long) as long
-	'' TODO: return ((c >> _rgb_b_shift_24) & 0xFF);
+	return (c shr _rgb_b_shift_24) and &hFF
 end function
 
 declare function getr32(byval c as long) as long
 
 function getr32_ alias "getr32"(byval c as long) as long
-	'' TODO: return ((c >> _rgb_r_shift_32) & 0xFF);
+	return (c shr _rgb_r_shift_32) and &hFF
 end function
 
 declare function getg32(byval c as long) as long
 
 function getg32_ alias "getg32"(byval c as long) as long
-	'' TODO: return ((c >> _rgb_g_shift_32) & 0xFF);
+	return (c shr _rgb_g_shift_32) and &hFF
 end function
 
 declare function getb32(byval c as long) as long
 
 function getb32_ alias "getb32"(byval c as long) as long
-	'' TODO: return ((c >> _rgb_b_shift_32) & 0xFF);
+	return (c shr _rgb_b_shift_32) and &hFF
 end function
 
 declare function geta32(byval c as long) as long
 
 function geta32_ alias "geta32"(byval c as long) as long
-	'' TODO: return ((c >> _rgb_a_shift_32) & 0xFF);
+	return (c shr _rgb_a_shift_32) and &hFF
 end function
 
 #if defined(__FB_WIN32__) or defined(__FB_LINUX__)
@@ -2297,7 +2297,7 @@ declare sub pivot_scaled_sprite_v_flip_lit(byval bmp as BITMAP ptr, byval sprite
 declare function getpixel(byval bmp as BITMAP ptr, byval x as long, byval y as long) as long
 
 function getpixel_ alias "getpixel"(byval bmp as BITMAP ptr, byval x as long, byval y as long) as long
-	'' TODO: return bmp->vtable->getpixel(bmp, x, y);
+	return bmp->vtable->getpixel_(bmp, x, y)
 end function
 
 declare sub putpixel(byval bmp as BITMAP ptr, byval x as long, byval y as long, byval color_ as long)
@@ -2570,7 +2570,7 @@ declare function _getpixel(byval bmp as BITMAP ptr, byval x as long, byval y as 
 		'' TODO: addr = bmp_read_line(bmp, y);
 		'' TODO: c = (*((uint8_t *)(addr+x)));
 		bmp_unwrite_line_(bmp)
-		'' TODO: return c;
+		return c
 	end function
 #else
 	function _getpixel_ alias "_getpixel"(byval bmp as BITMAP ptr, byval x as long, byval y as long) as long
@@ -2580,7 +2580,7 @@ declare function _getpixel(byval bmp as BITMAP ptr, byval x as long, byval y as 
 		'' TODO: addr = bmp_read_line(bmp, y);
 		'' TODO: c = _farnspeekb(addr+x);
 		bmp_unwrite_line_(bmp)
-		'' TODO: return c;
+		return c
 	end function
 #endif
 
@@ -2612,7 +2612,7 @@ declare function _getpixel15(byval bmp as BITMAP ptr, byval x as long, byval y a
 		'' TODO: addr = bmp_read_line(bmp, y);
 		'' TODO: c = (*((uint16_t *)(addr+x*sizeof(short))));
 		bmp_unwrite_line_(bmp)
-		'' TODO: return c;
+		return c
 	end function
 #else
 	function _getpixel15_ alias "_getpixel15"(byval bmp as BITMAP ptr, byval x as long, byval y as long) as long
@@ -2622,7 +2622,7 @@ declare function _getpixel15(byval bmp as BITMAP ptr, byval x as long, byval y a
 		'' TODO: addr = bmp_read_line(bmp, y);
 		'' TODO: c = _farnspeekw(addr+x*sizeof(short));
 		bmp_unwrite_line_(bmp)
-		'' TODO: return c;
+		return c
 	end function
 #endif
 
@@ -2654,7 +2654,7 @@ declare function _getpixel16(byval bmp as BITMAP ptr, byval x as long, byval y a
 		'' TODO: addr = bmp_read_line(bmp, y);
 		'' TODO: c = (*((uint16_t *)(addr+x*sizeof(short))));
 		bmp_unwrite_line_(bmp)
-		'' TODO: return c;
+		return c
 	end function
 #else
 	function _getpixel16_ alias "_getpixel16"(byval bmp as BITMAP ptr, byval x as long, byval y as long) as long
@@ -2664,7 +2664,7 @@ declare function _getpixel16(byval bmp as BITMAP ptr, byval x as long, byval y a
 		'' TODO: addr = bmp_read_line(bmp, y);
 		'' TODO: c = _farnspeekw(addr+x*sizeof(short));
 		bmp_unwrite_line_(bmp)
-		'' TODO: return c;
+		return c
 	end function
 #endif
 
@@ -2696,7 +2696,7 @@ declare function _getpixel24(byval bmp as BITMAP ptr, byval x as long, byval y a
 		'' TODO: addr = bmp_read_line(bmp, y);
 		'' TODO: c = bmp_read24(addr+x*3);
 		bmp_unwrite_line_(bmp)
-		'' TODO: return c;
+		return c
 	end function
 #else
 	function _getpixel24_ alias "_getpixel24"(byval bmp as BITMAP ptr, byval x as long, byval y as long) as long
@@ -2706,7 +2706,7 @@ declare function _getpixel24(byval bmp as BITMAP ptr, byval x as long, byval y a
 		'' TODO: addr = bmp_read_line(bmp, y);
 		'' TODO: c = (_farnspeekl(addr+x*3) & 0xFFFFFF);
 		bmp_unwrite_line_(bmp)
-		'' TODO: return c;
+		return c
 	end function
 #endif
 
@@ -2738,7 +2738,7 @@ declare function _getpixel32(byval bmp as BITMAP ptr, byval x as long, byval y a
 		'' TODO: addr = bmp_read_line(bmp, y);
 		'' TODO: c = (*((uint32_t *)(addr+x*sizeof(int32_t))));
 		bmp_unwrite_line_(bmp)
-		'' TODO: return c;
+		return c
 	end function
 #else
 	function _getpixel32_ alias "_getpixel32"(byval bmp as BITMAP ptr, byval x as long, byval y as long) as long
@@ -2748,7 +2748,7 @@ declare function _getpixel32(byval bmp as BITMAP ptr, byval x as long, byval y a
 		'' TODO: addr = bmp_read_line(bmp, y);
 		'' TODO: c = _farnspeekl(addr+x*sizeof(int32_t));
 		bmp_unwrite_line_(bmp)
-		'' TODO: return c;
+		return c
 	end function
 #endif
 
@@ -3589,7 +3589,7 @@ end function
 declare function fixtof(byval x as fixed) as double
 
 function fixtof_ alias "fixtof"(byval x as fixed) as double
-	'' TODO: return (double)x / 65536.0;
+	return cast(double, x / 65536.0)
 end function
 
 declare function fixadd(byval x as fixed, byval y as fixed) as fixed
@@ -3610,7 +3610,7 @@ declare function fixmul(byval x as fixed, byval y as fixed) as fixed
 
 #if (defined(__FB_LINUX__) and (not defined(__FB_64BIT__))) or defined(__FB_DOS__) or defined(__FB_WIN32__)
 	function fixmul_ alias "fixmul"(byval x as fixed, byval y as fixed) as fixed
-		'' TODO: return ftofix(fixtof(x) * fixtof(y));
+		return ftofix_(fixtof_(x) * fixtof_(y))
 	end function
 #else
 	function fixmul_ alias "fixmul"(byval x as fixed, byval y as fixed) as fixed
@@ -3643,13 +3643,13 @@ end function
 declare function itofix(byval x as long) as fixed
 
 function itofix_ alias "itofix"(byval x as long) as fixed
-	'' TODO: return x << 16;
+	return x shl 16
 end function
 
 declare function fixtoi(byval x as fixed) as long
 
 function fixtoi_ alias "fixtoi"(byval x as fixed) as long
-	'' TODO: return fixfloor(x) + ((x & 0x8000) >> 15);
+	return fixfloor_(x) + ((x and &h8000) shr 15)
 end function
 
 declare function fixcos(byval x as fixed) as fixed
@@ -3808,13 +3808,13 @@ declare sub matrix_to_quat(byval m as const MATRIX_f ptr, byval q as QUAT ptr)
 declare function dot_product(byval x1 as fixed, byval y_1 as fixed, byval z1 as fixed, byval x2 as fixed, byval y2 as fixed, byval z2 as fixed) as fixed
 
 function dot_product_ alias "dot_product"(byval x1 as fixed, byval y_1 as fixed, byval z1 as fixed, byval x2 as fixed, byval y2 as fixed, byval z2 as fixed) as fixed
-	'' TODO: return fixmul(x1, x2) + fixmul(y_1, y2) + fixmul(z1, z2);
+	return (fixmul_(x1, x2) + fixmul_(y_1, y2)) + fixmul_(z1, z2)
 end function
 
 declare function dot_product_f(byval x1 as single, byval y_1 as single, byval z1 as single, byval x2 as single, byval y2 as single, byval z2 as single) as single
 
 function dot_product_f_ alias "dot_product_f"(byval x1 as single, byval y_1 as single, byval z1 as single, byval x2 as single, byval y2 as single, byval z2 as single) as single
-	'' TODO: return (x1 * x2) + (y_1 * y2) + (z1 * z2);
+	return ((x1 * x2) + (y_1 * y2)) + (z1 * z2)
 end function
 
 declare sub persp_project(byval x as fixed, byval y as fixed, byval z as fixed, byval xout as fixed ptr, byval yout as fixed ptr)
@@ -3839,63 +3839,63 @@ sub clear_ alias "clear"(byval bmp as BITMAP ptr)
 end sub
 
 function fadd(byval x as fixed, byval y as fixed) as fixed
-	'' TODO: return fixadd(x, y);
+	return fixadd_(x, y)
 end function
 
 function fsub(byval x as fixed, byval y as fixed) as fixed
-	'' TODO: return fixsub(x, y);
+	return fixsub_(x, y)
 end function
 
 function fmul(byval x as fixed, byval y as fixed) as fixed
-	'' TODO: return fixmul(x, y);
+	return fixmul_(x, y)
 end function
 
 function fdiv(byval x as fixed, byval y as fixed) as fixed
-	'' TODO: return fixdiv(x, y);
+	return fixdiv_(x, y)
 end function
 
 function fceil(byval x as fixed) as long
-	'' TODO: return fixceil(x);
+	return fixceil_(x)
 end function
 
 function ffloor(byval x as fixed) as long
-	'' TODO: return fixfloor(x);
+	return fixfloor_(x)
 end function
 
 function fcos(byval x as fixed) as fixed
-	'' TODO: return fixcos(x);
+	return fixcos_(x)
 end function
 
 function fsin(byval x as fixed) as fixed
-	'' TODO: return fixsin(x);
+	return fixsin_(x)
 end function
 
 function ftan(byval x as fixed) as fixed
-	'' TODO: return fixtan(x);
+	return fixtan_(x)
 end function
 
 function facos(byval x as fixed) as fixed
-	'' TODO: return fixacos(x);
+	return fixacos_(x)
 end function
 
 function fasin(byval x as fixed) as fixed
-	'' TODO: return fixasin(x);
+	return fixasin_(x)
 end function
 
 function fatan(byval x as fixed) as fixed
-	'' TODO: return fixatan(x);
+	return fixatan(x)
 end function
 
 function fatan2(byval y as fixed, byval x as fixed) as fixed
-	'' TODO: return fixatan2(y, x);
+	return fixatan2(y, x)
 end function
 
 function fsqrt(byval x as fixed) as fixed
-	'' TODO: return fixsqrt(x);
+	return fixsqrt(x)
 end function
 
 function fhypot(byval x as fixed, byval y as fixed) as fixed
-	'' TODO: return fixhypot(x, y);
+	return fixhypot(x, y)
 end function
 
 #define KB_NORMAL 1
@@ -3959,7 +3959,7 @@ declare function initialise_joystick() as long
 declare function file_select(byval message as const zstring ptr, byval path as zstring ptr, byval ext as const zstring ptr) as long
 
 function file_select_ alias "file_select"(byval message as const zstring ptr, byval path as zstring ptr, byval ext as const zstring ptr) as long
-	'' TODO: return file_select_ex(message, path, ext, 1024, -1, -1);
+	return file_select_ex(message, path, ext, 1024, -1, -1)
 end function
 
 declare function for_each_file(byval name_ as const zstring ptr, byval attrib as long, byval callback as sub(byval filename as const zstring ptr, byval attrib as long, byval param as long), byval param as long) as long
@@ -4009,14 +4009,14 @@ end sub
 declare function gui_textout(byval bmp as BITMAP ptr, byval s as const zstring ptr, byval x as long, byval y as long, byval color_ as long, byval centre as long) as long
 
 function gui_textout_ alias "gui_textout"(byval bmp as BITMAP ptr, byval s as const zstring ptr, byval x as long, byval y as long, byval color_ as long, byval centre as long) as long
-	'' TODO: return gui_textout_ex(bmp, s, x, y, color, _textmode, centre);
+	return gui_textout_ex(bmp, s, x, y, color_, _textmode, centre)
 end function
 
 declare function set_window_close_button(byval enable as long) as long
 
 function set_window_close_button_ alias "set_window_close_button"(byval enable as long) as long
 	cast(any, enable)
-	'' TODO: return 0;
+	return 0
 end function
 
 declare sub set_window_close_hook(byval proc as sub())
@@ -4043,7 +4043,7 @@ end sub
 declare function get_file_encoding() as long
 
 function get_file_encoding_ alias "get_file_encoding"() as long
-	'' TODO: return get_filename_encoding();
+	return get_filename_encoding()
 end function
 
 declare function timer_can_simulate_retrace() as long
