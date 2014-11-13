@@ -1451,7 +1451,7 @@ type BITMAP_
 	x_ofs as long
 	y_ofs as long
 	seg as long
-	line(0 to ...) as ubyte ptr
+	line as ubyte ptr
 end type
 
 #define BMP_ID_VIDEO &h80000000
@@ -1840,7 +1840,7 @@ type RLE_SPRITE_
 	h as long
 	color_depth as long
 	size as long
-	dat(0 to ...) as byte
+	dat as byte
 end type
 
 declare function get_rle_sprite(byval bitmap as BITMAP ptr) as RLE_SPRITE ptr
@@ -1882,7 +1882,7 @@ declare sub destroy_font(byval f as FONT ptr)
 type FONT_GLYPH_
 	w as short
 	h as short
-	dat(0 to ...) as ubyte
+	dat as ubyte
 end type
 
 type FONT_
