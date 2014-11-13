@@ -1,3 +1,13 @@
 -ifdef __FB_DOS__
 	-define ALLEGRO_DJGPP
 -endif
+
+-noexpand BMP_ID_MASK
+-noexpand BMP_ID_PLANAR
+-noexpand BMP_ID_VIDEO
+-noexpand BMP_ID_SYSTEM
+-noexpand BMP_ID_SUB
+-noexpand MAKE_VERSION
+-noexpand ALLEGRO_VERSION
+-noexpand ALLEGRO_SUB_VERSION
+-noexpand ALLEGRO_WIP_VERSION

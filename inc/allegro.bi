@@ -651,7 +651,7 @@ declare function _install_allegro_version_check(byval system_id as long, byval e
 declare function install_allegro(byval system_id as long, byval errno_ptr as long ptr, byval atexit_ptr as function(byval func as sub()) as long) as long
 
 function install_allegro_ alias "install_allegro"(byval system_id as long, byval errno_ptr as long ptr, byval atexit_ptr as function(byval func as sub()) as long) as long
-	return _install_allegro_version_check(system_id, errno_ptr, atexit_ptr, ((4 shl 16) or (4 shl 8)) or 2)
+	return _install_allegro_version_check(system_id, errno_ptr, atexit_ptr, MAKE_VERSION(ALLEGRO_VERSION, ALLEGRO_SUB_VERSION, ALLEGRO_WIP_VERSION))
 end function
 
 #define allegro_init() _install_allegro_version_check(SYSTEM_AUTODETECT, @errno, cptr(function cdecl(byval as sub cdecl()) as long, atexit), MAKE_VERSION(ALLEGRO_VERSION, ALLEGRO_SUB_VERSION, ALLEGRO_WIP_VERSION))
@@ -1916,27 +1916,27 @@ function is_same_bitmap_ alias "is_same_bitmap"(byval bmp1 as BITMAP ptr, byval 
 	dim m2 as culong
 	'' TODO: if ((!bmp1) || (!bmp2)) return 0;
 	'' TODO: if (bmp1 == bmp2) return -1;
-	'' TODO: m1 = bmp1->id & 0x01FFFFFF;
-	'' TODO: m2 = bmp2->id & 0x01FFFFFF;
+	'' TODO: m1 = bmp1->id & BMP_ID_MASK;
+	'' TODO: m2 = bmp2->id & BMP_ID_MASK;
 	return -(m1 andalso (m1 = m2))
 end function
 
 declare function is_linear_bitmap(byval bmp as BITMAP ptr) as long
 
 function is_linear_bitmap_ alias "is_linear_bitmap"(byval bmp as BITMAP ptr) as long
-	return -((bmp->id and &h10000000) = 0)
+	return -((bmp->id and BMP_ID_PLANAR) = 0)
 end function
 
 declare function is_planar_bitmap(byval bmp as BITMAP ptr) as long
 
 function is_planar_bitmap_ alias "is_planar_bitmap"(byval bmp as BITMAP ptr) as long
-	return -((bmp->id and &h10000000) <> 0)
+	return -((bmp->id and BMP_ID_PLANAR) <> 0)
 end function
 
 declare function is_memory_bitmap(byval bmp as BITMAP ptr) as long
 
 function is_memory_bitmap_ alias "is_memory_bitmap"(byval bmp as BITMAP ptr) as long
-	return -((bmp->id and (&h80000000 or &h40000000)) = 0)
+	return -((bmp->id and (BMP_ID_VIDEO or BMP_ID_SYSTEM)) = 0)
 end function
 
 declare function is_screen_bitmap(byval bmp as BITMAP ptr) as long
@@ -1948,19 +1948,19 @@ end function
 declare function is_video_bitmap(byval bmp as BITMAP ptr) as long
 
 function is_video_bitmap_ alias "is_video_bitmap"(byval bmp as BITMAP ptr) as long
-	return -((bmp->id and &h80000000) <> 0)
+	return -((bmp->id and BMP_ID_VIDEO) <> 0)
 end function
 
 declare function is_system_bitmap(byval bmp as BITMAP ptr) as long
 
 function is_system_bitmap_ alias "is_system_bitmap"(byval bmp as BITMAP ptr) as long
-	return -((bmp->id and &h40000000) <> 0)
+	return -((bmp->id and BMP_ID_SYSTEM) <> 0)
 end function
 
 declare function is_sub_bitmap(byval bmp as BITMAP ptr) as long
 
 function is_sub_bitmap_ alias "is_sub_bitmap"(byval bmp as BITMAP ptr) as long
-	return -((bmp->id and &h20000000) <> 0)
+	return -((bmp->id and BMP_ID_SUB) <> 0)
 end function
 
 declare sub acquire_bitmap(byval bmp as BITMAP ptr)
