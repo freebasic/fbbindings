@@ -32,21 +32,6 @@
 #endif
 
 '' The following symbols have been renamed:
-''     procedure al_ftofix => al_ftofix_
-''     procedure al_fixtof => al_fixtof_
-''     procedure al_fixadd => al_fixadd_
-''     procedure al_fixsub => al_fixsub_
-''     procedure al_fixmul => al_fixmul_
-''     procedure al_fixdiv => al_fixdiv_
-''     procedure al_fixfloor => al_fixfloor_
-''     procedure al_fixceil => al_fixceil_
-''     procedure al_itofix => al_itofix_
-''     procedure al_fixtoi => al_fixtoi_
-''     procedure al_fixcos => al_fixcos_
-''     procedure al_fixsin => al_fixsin_
-''     procedure al_fixtan => al_fixtan_
-''     procedure al_fixacos => al_fixacos_
-''     procedure al_fixasin => al_fixasin_
 ''     #define EOF => EOF_
 
 extern "C"
@@ -807,106 +792,20 @@ declare function al_fixatan2(byval y as al_fixed, byval x as al_fixed) as al_fix
 #define __al_included_allegro5_inline_fmaths_inl
 
 declare function al_ftofix(byval x as double) as al_fixed
-
-function al_ftofix_ alias "al_ftofix"(byval x as double) as al_fixed
-	'' TODO: if (x > 32767.0) { al_set_errno(ERANGE); return 0x7FFFFFFF; } if (x < -32767.0) { al_set_errno(ERANGE); return -0x7FFFFFFF; } return (al_fixed)(x * 65536.0 + (x < 0 ? -0.5 : 0.5));
-end function
-
 declare function al_fixtof(byval x as al_fixed) as double
-
-function al_fixtof_ alias "al_fixtof"(byval x as al_fixed) as double
-	'' TODO: return (double)x / 65536.0;
-end function
-
 declare function al_fixadd(byval x as al_fixed, byval y as al_fixed) as al_fixed
-
-function al_fixadd_ alias "al_fixadd"(byval x as al_fixed, byval y as al_fixed) as al_fixed
-	dim result as al_fixed = x + y
-	'' TODO: if (result >= 0) { if ((x < 0) && (y < 0)) { al_set_errno(ERANGE); return -0x7FFFFFFF; } else return result; } else { if ((x > 0) && (y > 0)) { al_set_errno(ERANGE); return 0x7FFFFFFF; } else return result; }
-end function
-
 declare function al_fixsub(byval x as al_fixed, byval y as al_fixed) as al_fixed
-
-function al_fixsub_ alias "al_fixsub"(byval x as al_fixed, byval y as al_fixed) as al_fixed
-	dim result as al_fixed = x - y
-	'' TODO: if (result >= 0) { if ((x < 0) && (y > 0)) { al_set_errno(ERANGE); return -0x7FFFFFFF; } else return result; } else { if ((x > 0) && (y < 0)) { al_set_errno(ERANGE); return 0x7FFFFFFF; } else return result; }
-end function
-
 declare function al_fixmul(byval x as al_fixed, byval y as al_fixed) as al_fixed
-
-#if (defined(__FB_LINUX__) and (not defined(__FB_64BIT__))) or defined(__FB_WIN32__)
-	function al_fixmul_ alias "al_fixmul"(byval x as al_fixed, byval y as al_fixed) as al_fixed
-		'' TODO: return al_ftofix(al_fixtof(x) * al_fixtof(y));
-	end function
-#else
-	function al_fixmul_ alias "al_fixmul"(byval x as al_fixed, byval y as al_fixed) as al_fixed
-		dim lx as longint = x
-		dim ly as longint = y
-		dim lres as longint = lx * ly
-		'' TODO: if (lres > 0x7FFFFFFF0000LL) { al_set_errno(ERANGE); return 0x7FFFFFFF; } else if (lres < -0x7FFFFFFF0000LL) { al_set_errno(ERANGE); return 0x80000000; } else { int res = lres >> 16; return res; }
-	end function
-#endif
-
 declare function al_fixdiv(byval x as al_fixed, byval y as al_fixed) as al_fixed
-
-function al_fixdiv_ alias "al_fixdiv"(byval x as al_fixed, byval y as al_fixed) as al_fixed
-	'' TODO: if (y == 0) { al_set_errno(ERANGE); return (x < 0) ? -0x7FFFFFFF : 0x7FFFFFFF; } else return al_ftofix(al_fixtof(x) / al_fixtof(y));
-end function
-
 declare function al_fixfloor(byval x as al_fixed) as long
-
-function al_fixfloor_ alias "al_fixfloor"(byval x as al_fixed) as long
-	'' TODO: if (x >= 0) return (x >> 16);
-	'' TODO: else return ~((~x) >> 16);
-end function
-
 declare function al_fixceil(byval x as al_fixed) as long
-
-function al_fixceil_ alias "al_fixceil"(byval x as al_fixed) as long
-	'' TODO: if (x > 0x7FFF0000) { al_set_errno(ERANGE); return 0x7FFF; } return al_fixfloor(x + 0xFFFF);
-end function
-
 declare function al_itofix(byval x as long) as al_fixed
-
-function al_itofix_ alias "al_itofix"(byval x as long) as al_fixed
-	'' TODO: return x << 16;
-end function
-
 declare function al_fixtoi(byval x as al_fixed) as long
-
-function al_fixtoi_ alias "al_fixtoi"(byval x as al_fixed) as long
-	'' TODO: return al_fixfloor(x) + ((x & 0x8000) >> 15);
-end function
-
 declare function al_fixcos(byval x as al_fixed) as al_fixed
-
-function al_fixcos_ alias "al_fixcos"(byval x as al_fixed) as al_fixed
-	'' TODO: return _al_fix_cos_tbl[((x + 0x4000) >> 15) & 0x1FF];
-end function
-
 declare function al_fixsin(byval x as al_fixed) as al_fixed
-
-function al_fixsin_ alias "al_fixsin"(byval x as al_fixed) as al_fixed
-	'' TODO: return _al_fix_cos_tbl[((x - 0x400000 + 0x4000) >> 15) & 0x1FF];
-end function
-
 declare function al_fixtan(byval x as al_fixed) as al_fixed
-
-function al_fixtan_ alias "al_fixtan"(byval x as al_fixed) as al_fixed
-	'' TODO: return _al_fix_tan_tbl[((x + 0x4000) >> 15) & 0xFF];
-end function
-
 declare function al_fixacos(byval x as al_fixed) as al_fixed
-
-function al_fixacos_ alias "al_fixacos"(byval x as al_fixed) as al_fixed
-	'' TODO: if ((x < -65536) || (x > 65536)) { al_set_errno(EDOM); return 0; } return _al_fix_acos_tbl[(x+65536+127)>>8];
-end function
-
 declare function al_fixasin(byval x as al_fixed) as al_fixed
-
-function al_fixasin_ alias "al_fixasin"(byval x as al_fixed) as al_fixed
-	'' TODO: if ((x < -65536) || (x > 65536)) { al_set_errno(EDOM); return 0; } return 0x00400000 - _al_fix_acos_tbl[(x+65536+127)>>8];
-end function
 
 #define __al_included_allegro5_fshook_h
 
