@@ -537,7 +537,8 @@ declare sub check_cpu()
 #define CPU_MODEL_POWERPC_7400 10
 #define CPU_MODEL_POWERPC_7450 11
 
-extern _AL_DLL cpu_vendor as zstring * ...
+#define _AL_CPU_VENDOR_SIZE 32
+extern _AL_DLL cpu_vendor as zstring * _AL_CPU_VENDOR_SIZE
 extern _AL_DLL cpu_family as long
 extern _AL_DLL cpu_model as long
 extern _AL_DLL cpu_capabilities as long
@@ -757,7 +758,6 @@ extern keyboard_lowlevel_callback as sub(byval scancode as long)
 
 declare sub install_keyboard_hooks(byval keypressed as function() as long, byval readkey as function() as long)
 
-extern _AL_DLL key as zstring * ...
 extern _AL_DLL key_shifts as long
 extern _AL_DLL three_finger_flag as long
 extern _AL_DLL key_led_flag as long
@@ -1072,6 +1072,8 @@ end enum
 #define MAX_JOYSTICK_AXIS 3
 #define MAX_JOYSTICK_STICKS 5
 #define MAX_JOYSTICK_BUTTONS 32
+
+extern _AL_DLL key as zstring * KEY_MAX
 
 type JOYSTICK_AXIS_INFO
 	pos as long
