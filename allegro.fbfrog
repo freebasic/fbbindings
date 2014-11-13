@@ -1,3 +1,4 @@
+-fixunsizedarrays
 -include stdbool.h
 
 -define ALLEGRO_NO_CLEAR_BITMAP_ALIAS

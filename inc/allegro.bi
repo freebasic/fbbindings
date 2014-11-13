@@ -624,11 +624,13 @@ end type
 #if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
 	extern system_none as SYSTEM_DRIVER
 	extern system_driver as SYSTEM_DRIVER ptr
-	extern _system_driver_list(0 to ...) as _DRIVER_INFO
+	#define _system_driver_list(i) ((@___system_driver_list)[i])
+	extern ___system_driver_list alias "_system_driver_list" as _DRIVER_INFO
 #else
 	extern import system_none as SYSTEM_DRIVER
 	extern import system_driver as SYSTEM_DRIVER ptr
-	extern import _system_driver_list(0 to ...) as _DRIVER_INFO
+	#define _system_driver_list(i) ((@___system_driver_list)[i])
+	extern import ___system_driver_list alias "_system_driver_list" as _DRIVER_INFO
 #endif
 
 #define ALLEGRO_SYSTEM_INL
@@ -671,11 +673,13 @@ end type
 #if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
 	extern mousedrv_none as MOUSE_DRIVER
 	extern mouse_driver as MOUSE_DRIVER ptr
-	extern _mouse_driver_list(0 to ...) as _DRIVER_INFO
+	#define _mouse_driver_list(i) ((@___mouse_driver_list)[i])
+	extern ___mouse_driver_list alias "_mouse_driver_list" as _DRIVER_INFO
 #else
 	extern import mousedrv_none as MOUSE_DRIVER
 	extern import mouse_driver as MOUSE_DRIVER ptr
-	extern import _mouse_driver_list(0 to ...) as _DRIVER_INFO
+	#define _mouse_driver_list(i) ((@___mouse_driver_list)[i])
+	extern import ___mouse_driver_list alias "_mouse_driver_list" as _DRIVER_INFO
 #endif
 
 declare function install_mouse() as long
@@ -771,10 +775,12 @@ end type
 
 #if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
 	extern timer_driver as TIMER_DRIVER ptr
-	extern _timer_driver_list(0 to ...) as _DRIVER_INFO
+	#define _timer_driver_list(i) ((@___timer_driver_list)[i])
+	extern ___timer_driver_list alias "_timer_driver_list" as _DRIVER_INFO
 #else
 	extern import timer_driver as TIMER_DRIVER ptr
-	extern import _timer_driver_list(0 to ...) as _DRIVER_INFO
+	#define _timer_driver_list(i) ((@___timer_driver_list)[i])
+	extern import ___timer_driver_list alias "_timer_driver_list" as _DRIVER_INFO
 #endif
 
 declare function install_timer() as long
@@ -816,10 +822,12 @@ end type
 
 #if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
 	extern keyboard_driver as KEYBOARD_DRIVER ptr
-	extern _keyboard_driver_list(0 to ...) as _DRIVER_INFO
+	#define _keyboard_driver_list(i) ((@___keyboard_driver_list)[i])
+	extern ___keyboard_driver_list alias "_keyboard_driver_list" as _DRIVER_INFO
 #else
 	extern import keyboard_driver as KEYBOARD_DRIVER ptr
-	extern import _keyboard_driver_list(0 to ...) as _DRIVER_INFO
+	#define _keyboard_driver_list(i) ((@___keyboard_driver_list)[i])
+	extern import ___keyboard_driver_list alias "_keyboard_driver_list" as _DRIVER_INFO
 #endif
 
 declare function install_keyboard() as long
@@ -1194,10 +1202,12 @@ end type
 #define JOYFLAG_CALIB_ANALOG JOYFLAG_CALIB_ANALOGUE
 
 #if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
-	extern joy(0 to ...) as JOYSTICK_INFO
+	#define joy(i) ((@__joy)[i])
+	extern __joy alias "joy" as JOYSTICK_INFO
 	extern num_joysticks as long
 #else
-	extern import joy(0 to ...) as JOYSTICK_INFO
+	#define joy(i) ((@__joy)[i])
+	extern import __joy alias "joy" as JOYSTICK_INFO
 	extern import num_joysticks as long
 #endif
 
@@ -1218,11 +1228,13 @@ end type
 #if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
 	extern joystick_none as JOYSTICK_DRIVER
 	extern joystick_driver as JOYSTICK_DRIVER ptr
-	extern _joystick_driver_list(0 to ...) as _DRIVER_INFO
+	#define _joystick_driver_list(i) ((@___joystick_driver_list)[i])
+	extern ___joystick_driver_list alias "_joystick_driver_list" as _DRIVER_INFO
 #else
 	extern import joystick_none as JOYSTICK_DRIVER
 	extern import joystick_driver as JOYSTICK_DRIVER ptr
-	extern import _joystick_driver_list(0 to ...) as _DRIVER_INFO
+	#define _joystick_driver_list(i) ((@___joystick_driver_list)[i])
+	extern import ___joystick_driver_list alias "_joystick_driver_list" as _DRIVER_INFO
 #endif
 
 '' TODO: #define BEGIN_JOYSTICK_DRIVER_LIST _DRIVER_INFO _joystick_driver_list[] = {
@@ -1407,10 +1419,12 @@ end type
 
 #if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
 	extern gfx_driver as GFX_DRIVER ptr
-	extern _gfx_driver_list(0 to ...) as _DRIVER_INFO
+	#define _gfx_driver_list(i) ((@___gfx_driver_list)[i])
+	extern ___gfx_driver_list alias "_gfx_driver_list" as _DRIVER_INFO
 #else
 	extern import gfx_driver as GFX_DRIVER ptr
-	extern import _gfx_driver_list(0 to ...) as _DRIVER_INFO
+	#define _gfx_driver_list(i) ((@___gfx_driver_list)[i])
+	extern import ___gfx_driver_list alias "_gfx_driver_list" as _DRIVER_INFO
 #endif
 
 '' TODO: #define BEGIN_GFX_DRIVER_LIST _DRIVER_INFO _gfx_driver_list[] = {
@@ -1535,9 +1549,11 @@ type _VTABLE_INFO
 end type
 
 #if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
-	extern _vtable_list(0 to ...) as _VTABLE_INFO
+	#define _vtable_list(i) ((@___vtable_list)[i])
+	extern ___vtable_list alias "_vtable_list" as _VTABLE_INFO
 #else
-	extern import _vtable_list(0 to ...) as _VTABLE_INFO
+	#define _vtable_list(i) ((@___vtable_list)[i])
+	extern import ___vtable_list alias "_vtable_list" as _VTABLE_INFO
 #endif
 
 '' TODO: #define BEGIN_COLOR_DEPTH_LIST _VTABLE_INFO _vtable_list[] = {
@@ -1745,8 +1761,10 @@ end type
 	extern _rgb_g_shift_32 as long
 	extern _rgb_b_shift_32 as long
 	extern _rgb_a_shift_32 as long
-	extern _rgb_scale_5(0 to ...) as long
-	extern _rgb_scale_6(0 to ...) as long
+	#define _rgb_scale_5(i) ((@___rgb_scale_5)[i])
+	extern ___rgb_scale_5 alias "_rgb_scale_5" as long
+	#define _rgb_scale_6(i) ((@___rgb_scale_6)[i])
+	extern ___rgb_scale_6 alias "_rgb_scale_6" as long
 #else
 	extern import rgb_map as RGB_MAP ptr
 	extern import color_map as COLOR_MAP ptr
@@ -1764,8 +1782,10 @@ end type
 	extern import _rgb_g_shift_32 as long
 	extern import _rgb_b_shift_32 as long
 	extern import _rgb_a_shift_32 as long
-	extern import _rgb_scale_5(0 to ...) as long
-	extern import _rgb_scale_6(0 to ...) as long
+	#define _rgb_scale_5(i) ((@___rgb_scale_5)[i])
+	extern import ___rgb_scale_5 alias "_rgb_scale_5" as long
+	#define _rgb_scale_6(i) ((@___rgb_scale_6)[i])
+	extern import ___rgb_scale_6 alias "_rgb_scale_6" as long
 #endif
 
 #define MASK_COLOR_8 0
@@ -2367,9 +2387,11 @@ type DIGI_DRIVER
 end type
 
 #if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
-	extern _digi_driver_list(0 to ...) as _DRIVER_INFO
+	#define _digi_driver_list(i) ((@___digi_driver_list)[i])
+	extern ___digi_driver_list alias "_digi_driver_list" as _DRIVER_INFO
 #else
-	extern import _digi_driver_list(0 to ...) as _DRIVER_INFO
+	#define _digi_driver_list(i) ((@___digi_driver_list)[i])
+	extern import ___digi_driver_list alias "_digi_driver_list" as _DRIVER_INFO
 #endif
 
 '' TODO: #define BEGIN_DIGI_DRIVER_LIST _DRIVER_INFO _digi_driver_list[] = {
@@ -2515,10 +2537,12 @@ end type
 
 #if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
 	extern midi_digmid as MIDI_DRIVER
-	extern _midi_driver_list(0 to ...) as _DRIVER_INFO
+	#define _midi_driver_list(i) ((@___midi_driver_list)[i])
+	extern ___midi_driver_list alias "_midi_driver_list" as _DRIVER_INFO
 #else
 	extern import midi_digmid as MIDI_DRIVER
-	extern import _midi_driver_list(0 to ...) as _DRIVER_INFO
+	#define _midi_driver_list(i) ((@___midi_driver_list)[i])
+	extern import ___midi_driver_list alias "_midi_driver_list" as _DRIVER_INFO
 #endif
 
 '' TODO: #define BEGIN_MIDI_DRIVER_LIST _DRIVER_INFO _midi_driver_list[] = {
@@ -2782,13 +2806,19 @@ declare function fixatan(byval x as fixed) as fixed
 declare function fixatan2(byval y as fixed, byval x as fixed) as fixed
 
 #if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
-	extern _cos_tbl(0 to ...) as fixed
-	extern _tan_tbl(0 to ...) as fixed
-	extern _acos_tbl(0 to ...) as fixed
+	#define _cos_tbl(i) ((@___cos_tbl)[i])
+	extern ___cos_tbl alias "_cos_tbl" as fixed
+	#define _tan_tbl(i) ((@___tan_tbl)[i])
+	extern ___tan_tbl alias "_tan_tbl" as fixed
+	#define _acos_tbl(i) ((@___acos_tbl)[i])
+	extern ___acos_tbl alias "_acos_tbl" as fixed
 #else
-	extern import _cos_tbl(0 to ...) as fixed
-	extern import _tan_tbl(0 to ...) as fixed
-	extern import _acos_tbl(0 to ...) as fixed
+	#define _cos_tbl(i) ((@___cos_tbl)[i])
+	extern import ___cos_tbl alias "_cos_tbl" as fixed
+	#define _tan_tbl(i) ((@___tan_tbl)[i])
+	extern import ___tan_tbl alias "_tan_tbl" as fixed
+	#define _acos_tbl(i) ((@___acos_tbl)[i])
+	extern import ___acos_tbl alias "_acos_tbl" as fixed
 #endif
 
 #define ALLEGRO_FMATHS_INL

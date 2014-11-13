@@ -780,13 +780,19 @@ declare function al_fixatan(byval x as al_fixed) as al_fixed
 declare function al_fixatan2(byval y as al_fixed, byval x as al_fixed) as al_fixed
 
 #if (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
-	extern _al_fix_cos_tbl(0 to ...) as al_fixed
-	extern _al_fix_tan_tbl(0 to ...) as al_fixed
-	extern _al_fix_acos_tbl(0 to ...) as al_fixed
+	#define _al_fix_cos_tbl(i) ((@___al_fix_cos_tbl)[i])
+	extern ___al_fix_cos_tbl alias "_al_fix_cos_tbl" as al_fixed
+	#define _al_fix_tan_tbl(i) ((@___al_fix_tan_tbl)[i])
+	extern ___al_fix_tan_tbl alias "_al_fix_tan_tbl" as al_fixed
+	#define _al_fix_acos_tbl(i) ((@___al_fix_acos_tbl)[i])
+	extern ___al_fix_acos_tbl alias "_al_fix_acos_tbl" as al_fixed
 #else
-	extern import _al_fix_cos_tbl(0 to ...) as al_fixed
-	extern import _al_fix_tan_tbl(0 to ...) as al_fixed
-	extern import _al_fix_acos_tbl(0 to ...) as al_fixed
+	#define _al_fix_cos_tbl(i) ((@___al_fix_cos_tbl)[i])
+	extern import ___al_fix_cos_tbl alias "_al_fix_cos_tbl" as al_fixed
+	#define _al_fix_tan_tbl(i) ((@___al_fix_tan_tbl)[i])
+	extern import ___al_fix_tan_tbl alias "_al_fix_tan_tbl" as al_fixed
+	#define _al_fix_acos_tbl(i) ((@___al_fix_acos_tbl)[i])
+	extern import ___al_fix_acos_tbl alias "_al_fix_acos_tbl" as al_fixed
 #endif
 
 #define __al_included_allegro5_inline_fmaths_inl
