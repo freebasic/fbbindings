@@ -1,4 +1,5 @@
 #pragma once
+#inclib "allegro"
 
 #include once "crt/errno.bi"
 #include once "crt/limits.bi"
