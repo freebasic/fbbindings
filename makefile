@@ -1,6 +1,6 @@
 FBFROG := fbfrog
 
-ALL := allegro4 allegro5 cgui clang cunit ffi iup jit llvm lua ncurses pdcurses png png12 png14 png15 png16 zip zlib
+ALL := allegro4 allegro4-algif allegro4-alpng allegro5 cgui clang cunit ffi iup jit llvm lua ncurses pdcurses png png12 png14 png15 png16 zip zlib
 
 .PHONY: all clean $(ALL)
 
@@ -11,11 +11,36 @@ clean:
 
 ALLEGRO4_VERSION := 4.4.2
 ALLEGRO4_TITLE := allegro-$(ALLEGRO4_VERSION)
-allegro4:
+allegro4-extract:
 	./downloadextract.sh $(ALLEGRO4_TITLE) $(ALLEGRO4_TITLE).tar.gz "http://cdn.allegro.cc/file/library/allegro/$(ALLEGRO4_VERSION)/$(ALLEGRO4_TITLE).tar.gz"
+allegro4: allegro4-extract
 	$(FBFROG) allegro4.fbfrog allegro.fbfrog -o inc/allegro.bi \
 		extracted/$(ALLEGRO4_TITLE)/include/allegro.h \
 		-incdir extracted/$(ALLEGRO4_TITLE)/include
+
+allegro4-algif: allegro4-extract
+	./downloadextract.sh algif_1.3 algif_1.3.zip "http://prdownloads.sourceforge.net/algif/algif_1.3.zip?download"
+	mkdir -p inc/allegro
+	$(FBFROG) allegro4.fbfrog allegro.fbfrog \
+		-incdir extracted/$(ALLEGRO4_TITLE)/include \
+		extracted/algif_1.3/src/algif.h \
+		-o inc/allegro/algif.bi -filterout '*'
+
+ALPNG_TARBALL := tarballs/alpng13.tar.gz
+allegro4-alpng: allegro4-extract
+	if [ ! -f "$(ALPNG_TARBALL)" ]; then \
+		wget --no-verbose "http://sourceforge.net/projects/alpng/files/alpng/1.3/alpng13.tar.gz/download" -O "$(ALPNG_TARBALL)"; \
+	fi
+	if [ ! -d extracted/alpng13 ]; then \
+		mkdir -p extracted/alpng13; \
+		tar xf "$(ALPNG_TARBALL)" -C extracted/alpng13; \
+	fi
+	mkdir -p inc/allegro
+	$(FBFROG) allegro4.fbfrog allegro.fbfrog \
+		-incdir extracted/$(ALLEGRO4_TITLE)/include \
+		-include allegro.h \
+		extracted/alpng13/src/alpng.h \
+		-o inc/allegro/alpng.bi -filterout '*'
 
 ALLEGRO5_VERSION := 5.0.10
 ALLEGRO5_TITLE := allegro-$(ALLEGRO5_VERSION)
