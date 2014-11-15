@@ -41,6 +41,12 @@ type ALLEGRO_COND as ALLEGRO_COND_
 #define __al_included_allegro5_allegro_h
 #define __al_included_allegro5_base_h
 
+#if defined(__FB_WIN32__) and (not defined(ALLEGRO_STATICLINK))
+	#define _AL_DLL import
+#else
+	#define _AL_DLL
+#endif
+
 #if defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)
 	#define ALLEGRO_PLATFORM_STR "MinGW32.s"
 #elseif defined(__FB_WIN32__) and (not defined(ALLEGRO_STATICLINK))
@@ -745,13 +751,8 @@ declare sub al_set_errno(byval errnum as long)
 
 type al_fixed as long
 
-#if (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
-	extern al_fixtorad_r as const al_fixed
-	extern al_radtofix_r as const al_fixed
-#else
-	extern import al_fixtorad_r as const al_fixed
-	extern import al_radtofix_r as const al_fixed
-#endif
+extern _AL_DLL al_fixtorad_r as const al_fixed
+extern _AL_DLL al_radtofix_r as const al_fixed
 
 #define __al_included_allegro5_fmaths_h
 
@@ -760,21 +761,12 @@ declare function al_fixhypot(byval x as al_fixed, byval y as al_fixed) as al_fix
 declare function al_fixatan(byval x as al_fixed) as al_fixed
 declare function al_fixatan2(byval y as al_fixed, byval x as al_fixed) as al_fixed
 
-#if (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
-	#define _al_fix_cos_tbl(i) ((@___al_fix_cos_tbl)[i])
-	extern ___al_fix_cos_tbl alias "_al_fix_cos_tbl" as al_fixed
-	#define _al_fix_tan_tbl(i) ((@___al_fix_tan_tbl)[i])
-	extern ___al_fix_tan_tbl alias "_al_fix_tan_tbl" as al_fixed
-	#define _al_fix_acos_tbl(i) ((@___al_fix_acos_tbl)[i])
-	extern ___al_fix_acos_tbl alias "_al_fix_acos_tbl" as al_fixed
-#else
-	#define _al_fix_cos_tbl(i) ((@___al_fix_cos_tbl)[i])
-	extern import ___al_fix_cos_tbl alias "_al_fix_cos_tbl" as al_fixed
-	#define _al_fix_tan_tbl(i) ((@___al_fix_tan_tbl)[i])
-	extern import ___al_fix_tan_tbl alias "_al_fix_tan_tbl" as al_fixed
-	#define _al_fix_acos_tbl(i) ((@___al_fix_acos_tbl)[i])
-	extern import ___al_fix_acos_tbl alias "_al_fix_acos_tbl" as al_fixed
-#endif
+#define _al_fix_cos_tbl(i) ((@___al_fix_cos_tbl)[i])
+extern _AL_DLL ___al_fix_cos_tbl alias "_al_fix_cos_tbl" as al_fixed
+#define _al_fix_tan_tbl(i) ((@___al_fix_tan_tbl)[i])
+extern _AL_DLL ___al_fix_tan_tbl alias "_al_fix_tan_tbl" as al_fixed
+#define _al_fix_acos_tbl(i) ((@___al_fix_acos_tbl)[i])
+extern _AL_DLL ___al_fix_acos_tbl alias "_al_fix_acos_tbl" as al_fixed
 
 #define __al_included_allegro5_inline_fmaths_inl
 
@@ -1070,13 +1062,8 @@ declare sub al_get_keyboard_state(byval ret_state as ALLEGRO_KEYBOARD_STATE ptr)
 declare function al_key_down(byval as const ALLEGRO_KEYBOARD_STATE ptr, byval keycode as long) as byte
 declare function al_get_keyboard_event_source() as ALLEGRO_EVENT_SOURCE ptr
 
-#if (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
-	extern _al_three_finger_flag as byte
-	extern _al_key_led_flag as byte
-#else
-	extern import _al_three_finger_flag as byte
-	extern import _al_key_led_flag as byte
-#endif
+extern _AL_DLL _al_three_finger_flag as byte
+extern _AL_DLL _al_key_led_flag as byte
 
 #define __al_included_allegro5_memory_h
 
@@ -1299,11 +1286,7 @@ declare function al_check_inverse(byval trans as const ALLEGRO_TRANSFORM ptr, by
 
 	#define AL_JOY_TYPE_DIRECTX AL_ID(asc("D"), asc("X"), asc(" "), asc(" "))
 
-	#ifdef ALLEGRO_STATICLINK
-		extern _al_joydrv_directx as ALLEGRO_JOYSTICK_DRIVER
-	#else
-		extern import _al_joydrv_directx as ALLEGRO_JOYSTICK_DRIVER
-	#endif
+	extern _AL_DLL _al_joydrv_directx as ALLEGRO_JOYSTICK_DRIVER
 
 	#define _AL_JOYSTICK_DRIVER_DIRECTX ( AL_JOY_TYPE_DIRECTX, @_al_joydrv_directx, true ),
 #endif
