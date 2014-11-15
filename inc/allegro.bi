@@ -17,7 +17,6 @@
 #include once "crt/string.bi"
 
 '' The following symbols have been renamed:
-''     #define MID => MID_
 ''     #define EMPTY_STRING => EMPTY_STRING_
 ''     #define SYSTEM_NONE => SYSTEM_NONE_
 ''     #define ASSERT => ASSERT_
@@ -302,7 +301,7 @@ type PACKFILE_VTABLE as PACKFILE_VTABLE_
 #define FALSE 0
 #define MIN(x, y) iif((x) < (y), (x), (y))
 #define MAX(x, y) iif((x) > (y), (x), (y))
-#define MID_(x, y, z) iif((x) > (y), iif((y) > (z), (y), iif((x) > (z), (z), (x))), iif((y) > (z), iif((z) > (x), (z), (x)), (y)))
+#define AL_MID(x, y, z) iif((x) > (y), iif((y) > (z), (y), iif((x) > (z), (z), (x))), iif((y) > (z), iif((z) > (x), (z), (x)), (y)))
 #define CLAMP(x, y, z) MAX((x), MIN((y), (z)))
 #define AL_PI 3.14159265358979323846
 #define AL_ID(a, b, c, d) (((((a) shl 24) or ((b) shl 16)) or ((c) shl 8)) or (d))
