@@ -3003,7 +3003,6 @@ declare sub persp_project_f(byval x as single, byval y as single, byval z as sin
 
 declare function initialise_joystick() as long
 
-#define PALLETE RGB__
 #define black_pallete black_palette
 #define desktop_pallete desktop_palette
 #define set_pallete set_palette
