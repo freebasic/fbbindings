@@ -19,7 +19,6 @@
 '' The following symbols have been renamed:
 ''     #define EMPTY_STRING => EMPTY_STRING_
 ''     #define SYSTEM_NONE => SYSTEM_NONE_
-''     #define ASSERT => ASSERT_
 ''     #define MOUSEDRV_NONE => MOUSEDRV_NONE_
 ''     #define DRAW_SPRITE_H_FLIP => DRAW_SPRITE_H_FLIP_
 ''     #define DRAW_SPRITE_V_FLIP => DRAW_SPRITE_V_FLIP_
@@ -596,10 +595,6 @@ declare sub al_assert(byval file as const zstring ptr, byval linenr as long)
 declare sub al_trace(byval msg as const zstring ptr, ...)
 declare sub register_assert_handler(byval handler as function(byval msg as const zstring ptr) as long)
 declare sub register_trace_handler(byval handler as function(byval msg as const zstring ptr) as long)
-
-#define ASSERT_(condition)
-#define TRACE iif(1, cast(any, 0), al_trace)
-
 declare sub set_window_title(byval name_ as const zstring ptr)
 declare function desktop_color_depth() as long
 declare function get_desktop_resolution(byval width_ as long ptr, byval height as long ptr) as long

@@ -63,7 +63,8 @@
 -removedefine ALLEGRO_ASSERT_CONCAT_
 -removedefine ALLEGRO_ASSERT_CONCAT
 -removedefine ALLEGRO_STATIC_ASSERT
-
+-removedefine ASSERT
+-removedefine TRACE
 -removedefine ABS
 -removedefine SGN
 -removedefine PALLETE
