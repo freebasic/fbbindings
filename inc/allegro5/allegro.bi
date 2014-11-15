@@ -1162,7 +1162,7 @@ declare function al_show_mouse_cursor(byval display as ALLEGRO_DISPLAY ptr) as b
 declare function al_hide_mouse_cursor(byval display as ALLEGRO_DISPLAY ptr) as byte
 
 #define __al_included_allegro5_system_h
-#define al_init() al_install_system(ALLEGRO_VERSION_INT, atexit)
+#define al_init() al_install_system(ALLEGRO_VERSION_INT, @atexit)
 
 declare function al_install_system(byval version as long, byval atexit_ptr as function(byval as sub()) as long) as byte
 declare sub al_uninstall_system()
