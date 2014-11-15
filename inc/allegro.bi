@@ -12,7 +12,6 @@
 
 '' The following symbols have been renamed:
 ''     typedef RGB => RGB_
-''     #define PALLETE => PALLETE_
 ''     #define MID => MID_
 ''     #define EMPTY_STRING => EMPTY_STRING_
 ''     #define SYSTEM_NONE => SYSTEM_NONE_
@@ -2737,7 +2736,6 @@ declare sub persp_project_f(byval x as single, byval y as single, byval z as sin
 
 declare function initialise_joystick() as long
 
-#define PALLETE_ RGB_
 #define black_pallete black_palette
 #define desktop_pallete desktop_palette
 #define set_pallete set_palette

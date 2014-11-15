@@ -65,3 +65,4 @@
 
 -removedefine ABS
 -removedefine SGN
+-removedefine PALLETE
