@@ -761,6 +761,8 @@ extern keyboard_lowlevel_callback as sub(byval scancode as long)
 
 declare sub install_keyboard_hooks(byval keypressed as function() as long, byval readkey as function() as long)
 
+#define key(i) ((@__key)[i])
+extern _AL_DLL __key alias "key" as byte
 extern _AL_DLL key_shifts as long
 extern _AL_DLL three_finger_flag as long
 extern _AL_DLL key_led_flag as long
@@ -1075,8 +1077,6 @@ end enum
 #define MAX_JOYSTICK_AXIS 3
 #define MAX_JOYSTICK_STICKS 5
 #define MAX_JOYSTICK_BUTTONS 32
-
-extern _AL_DLL key as zstring * KEY_MAX
 
 type JOYSTICK_AXIS_INFO
 	pos as long
