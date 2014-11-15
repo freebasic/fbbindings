@@ -1,6 +1,14 @@
 FBFROG := fbfrog
 
-ALL := allegro4 allegro4-algif allegro4-alpng allegro5 cgui clang cunit ffi iup jit llvm lua ncurses pdcurses png png12 png14 png15 png16 zip zlib
+ALL := allegro4 allegro4-algif allegro4-alpng allegro5
+ALL += cgui clang cunit
+ALL += ffi
+ALL += iup
+ALL += jit
+ALL += llvm lua
+ALL += ncurses
+ALL += pdcurses png png12 png14 png15 png16
+ALL += zip zlib
 
 .PHONY: all clean $(ALL)
 
