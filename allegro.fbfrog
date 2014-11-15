@@ -1,6 +1,7 @@
 -fixunsizedarrays
 -fbfroginclude stdbool.h
 
+-define ALLEGRO_NO_MAGIC_MAIN
 -define ALLEGRO_NO_CLEAR_BITMAP_ALIAS
 -define ALLEGRO_NO_FIX_ALIASES
 -fbfroginclude allegro-helper.h

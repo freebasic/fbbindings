@@ -216,9 +216,7 @@ type PACKFILE_VTABLE as PACKFILE_VTABLE_
 
 '' TODO: #define _AL_SINCOS(x, s, c) do { (c) = cos(x); (s) = sin(x); } while (0)
 
-#if defined(__FB_DOS__) or defined(__FB_LINUX__)
-	#define END_OF_MAIN()
-#endif
+#define END_OF_MAIN()
 
 #if defined(__FB_WIN32__) or defined(__FB_LINUX__)
 	#define LOCK_DATA(d, s)
@@ -3056,12 +3054,6 @@ declare function timer_is_using_retrace() as long
 
 #ifdef __FB_WIN32__
 	declare function _WinMain(byval _main as any ptr, byval hInst as any ptr, byval hPrev as any ptr, byval Cmd as zstring ptr, byval nShow as long) as long
-
-	#define ALLEGRO_MAGIC_MAIN
-	#define main _mangled_main
-	#define NO_STRICT
-
-	'' TODO: #define END_OF_MAIN() int __stdcall WinMain(void *hInst, void *hPrev, char *Cmd, int nShow) { return _WinMain((void *)_mangled_main, hInst, hPrev, Cmd, nShow); }
 
 	#define SYSTEM_DIRECTX_ AL_ID(asc("D"), asc("X"), asc(" "), asc(" "))
 #endif
