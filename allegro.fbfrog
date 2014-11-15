@@ -1,9 +1,9 @@
 -fixunsizedarrays
--include stdbool.h
+-fbfroginclude stdbool.h
 
 -define ALLEGRO_NO_CLEAR_BITMAP_ALIAS
 -define ALLEGRO_NO_FIX_ALIASES
--include allegro-helper.h
+-fbfroginclude allegro-helper.h
 
 -select
 -case __FB_LINUX__

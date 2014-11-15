@@ -1,4 +1,4 @@
--include limits.h
+-fbfroginclude limits.h
 
 -removedefine LUA_API
 -removedefine LUALIB_API
