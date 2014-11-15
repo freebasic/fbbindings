@@ -1,6 +1,12 @@
 #pragma once
 #inclib "alleg"
 
+#undef screen
+#undef circle
+#undef line
+#undef palette
+#undef rgb
+
 #include once "crt/long.bi"
 #include once "crt/errno.bi"
 #include once "crt/limits.bi"
@@ -11,7 +17,6 @@
 #include once "crt/string.bi"
 
 '' The following symbols have been renamed:
-''     typedef RGB => RGB_
 ''     #define MID => MID_
 ''     #define EMPTY_STRING => EMPTY_STRING_
 ''     #define SYSTEM_NONE => SYSTEM_NONE_
@@ -20,9 +25,6 @@
 ''     #define DRAW_SPRITE_H_FLIP => DRAW_SPRITE_H_FLIP_
 ''     #define DRAW_SPRITE_V_FLIP => DRAW_SPRITE_V_FLIP_
 ''     #define DRAW_SPRITE_VH_FLIP => DRAW_SPRITE_VH_FLIP_
-''     variable screen => screen_
-''     procedure line => line_
-''     procedure circle => circle_
 ''     #define MIDI_DIGMID => MIDI_DIGMID_
 ''     #define EOF => EOF_
 ''     #define cpu_fpu => cpu_fpu_
@@ -76,7 +78,7 @@
 extern "C"
 
 type BITMAP as BITMAP_
-type RGB_ as RGB__
+type RGB as RGB_
 type GFX_VTABLE as GFX_VTABLE_
 type GFX_MODE as GFX_MODE_
 type RLE_SPRITE as RLE_SPRITE_
@@ -564,7 +566,7 @@ type SYSTEM_DRIVER
 	created_sub_bitmap as sub(byval bmp as BITMAP ptr, byval parent as BITMAP ptr)
 	destroy_bitmap as function(byval bitmap as BITMAP ptr) as long
 	read_hardware_palette as sub()
-	set_palette_range as sub(byval p as const RGB_ ptr, byval from as long, byval to_ as long, byval retracesync as long)
+	set_palette_range as sub(byval p as const RGB ptr, byval from as long, byval to_ as long, byval retracesync as long)
 	get_vtable as function(byval color_depth as long) as GFX_VTABLE ptr
 	set_display_switch_mode as function(byval mode as long) as long
 	display_switch_lock as sub(byval lock_ as long, byval foreground as long)
@@ -1152,7 +1154,7 @@ declare function calibrate_joystick(byval n as long) as long
 
 #define ALLEGRO_PALETTE_H
 
-type RGB__
+type RGB_
 	r as ubyte
 	g as ubyte
 	b as ubyte
@@ -1281,7 +1283,7 @@ type GFX_DRIVER
 	exit as sub(byval b as BITMAP ptr)
 	scroll as function(byval x as long, byval y as long) as long
 	vsync as sub()
-	set_palette as sub(byval p as const RGB_ ptr, byval from as long, byval to_ as long, byval retracesync as long)
+	set_palette as sub(byval p as const RGB ptr, byval from as long, byval to_ as long, byval retracesync as long)
 	request_scroll as function(byval x as long, byval y as long) as long
 	poll_scroll as function() as long
 	enable_triple_buffer as sub()
@@ -1463,12 +1465,12 @@ end type
 #define BMP_ID_AUTOLOCK &h02000000
 #define BMP_ID_MASK &h01FFFFFF
 
-extern _AL_DLL screen_ alias "screen" as BITMAP ptr
+extern _AL_DLL screen as BITMAP ptr
 
 #define SCREEN_W iif(gfx_driver, gfx_driver->w, 0)
 #define SCREEN_H iif(gfx_driver, gfx_driver->h, 0)
-#define VIRTUAL_W iif(screen_, screen_->w, 0)
-#define VIRTUAL_H iif(screen_, screen_->h, 0)
+#define VIRTUAL_W iif(screen, screen->w, 0)
+#define VIRTUAL_H iif(screen, screen->h, 0)
 #define COLORCONV_NONE 0
 #define COLORCONV_8_TO_15 1
 #define COLORCONV_8_TO_16 2
@@ -1592,9 +1594,9 @@ declare function get_clip_state(byval bitmap as BITMAP ptr) as long
 
 #define ALLEGRO_COLOR_H
 
-extern _AL_DLL black_palette(0 to 255) as RGB_
-extern _AL_DLL desktop_palette(0 to 255) as RGB_
-extern _AL_DLL default_palette(0 to 255) as RGB_
+extern _AL_DLL black_palette(0 to 255) as RGB
+extern _AL_DLL desktop_palette(0 to 255) as RGB
+extern _AL_DLL default_palette(0 to 255) as RGB
 
 type RGB_MAP
 	data(0 to 31, 0 to 31, 0 to 31) as ubyte
@@ -1606,7 +1608,7 @@ end type
 
 extern _AL_DLL rgb_map as RGB_MAP ptr
 extern _AL_DLL color_map as COLOR_MAP ptr
-extern _AL_DLL _current_palette(0 to 255) as RGB_
+extern _AL_DLL _current_palette(0 to 255) as RGB
 extern _AL_DLL _rgb_r_shift_15 as long
 extern _AL_DLL _rgb_g_shift_15 as long
 extern _AL_DLL _rgb_b_shift_15 as long
@@ -1633,28 +1635,28 @@ extern _AL_DLL ___rgb_scale_6 alias "_rgb_scale_6" as long
 
 extern _AL_DLL palette_color as long ptr
 
-declare sub set_color(byval idx as long, byval p as const RGB_ ptr)
-declare sub set_palette(byval p as const RGB_ ptr)
-declare sub set_palette_range(byval p as const RGB_ ptr, byval from as long, byval to_ as long, byval retracesync as long)
-declare sub get_color(byval idx as long, byval p as RGB_ ptr)
-declare sub get_palette(byval p as RGB_ ptr)
-declare sub get_palette_range(byval p as RGB_ ptr, byval from as long, byval to_ as long)
-declare sub fade_interpolate(byval source as const RGB_ ptr, byval dest as const RGB_ ptr, byval output_ as RGB_ ptr, byval pos_ as long, byval from as long, byval to_ as long)
-declare sub fade_from_range(byval source as const RGB_ ptr, byval dest as const RGB_ ptr, byval speed as long, byval from as long, byval to_ as long)
-declare sub fade_in_range(byval p as const RGB_ ptr, byval speed as long, byval from as long, byval to_ as long)
+declare sub set_color(byval idx as long, byval p as const RGB ptr)
+declare sub set_palette(byval p as const RGB ptr)
+declare sub set_palette_range(byval p as const RGB ptr, byval from as long, byval to_ as long, byval retracesync as long)
+declare sub get_color(byval idx as long, byval p as RGB ptr)
+declare sub get_palette(byval p as RGB ptr)
+declare sub get_palette_range(byval p as RGB ptr, byval from as long, byval to_ as long)
+declare sub fade_interpolate(byval source as const RGB ptr, byval dest as const RGB ptr, byval output_ as RGB ptr, byval pos_ as long, byval from as long, byval to_ as long)
+declare sub fade_from_range(byval source as const RGB ptr, byval dest as const RGB ptr, byval speed as long, byval from as long, byval to_ as long)
+declare sub fade_in_range(byval p as const RGB ptr, byval speed as long, byval from as long, byval to_ as long)
 declare sub fade_out_range(byval speed as long, byval from as long, byval to_ as long)
-declare sub fade_from(byval source as const RGB_ ptr, byval dest as const RGB_ ptr, byval speed as long)
-declare sub fade_in(byval p as const RGB_ ptr, byval speed as long)
+declare sub fade_from(byval source as const RGB ptr, byval dest as const RGB ptr, byval speed as long)
+declare sub fade_in(byval p as const RGB ptr, byval speed as long)
 declare sub fade_out(byval speed as long)
-declare sub select_palette(byval p as const RGB_ ptr)
+declare sub select_palette(byval p as const RGB ptr)
 declare sub unselect_palette()
-declare sub generate_332_palette(byval pal as RGB_ ptr)
-declare function generate_optimized_palette(byval image as BITMAP ptr, byval pal as RGB_ ptr, byval rsvdcols as const byte ptr) as long
-declare sub create_rgb_table(byval table as RGB_MAP ptr, byval pal as const RGB_ ptr, byval callback as sub(byval pos_ as long))
-declare sub create_light_table(byval table as COLOR_MAP ptr, byval pal as const RGB_ ptr, byval r as long, byval g as long, byval b as long, byval callback as sub(byval pos_ as long))
-declare sub create_trans_table(byval table as COLOR_MAP ptr, byval pal as const RGB_ ptr, byval r as long, byval g as long, byval b as long, byval callback as sub(byval pos_ as long))
-declare sub create_color_table(byval table as COLOR_MAP ptr, byval pal as const RGB_ ptr, byval blend as sub(byval pal as const RGB_ ptr, byval x as long, byval y as long, byval rgb_ as RGB_ ptr), byval callback as sub(byval pos_ as long))
-declare sub create_blender_table(byval table as COLOR_MAP ptr, byval pal as const RGB_ ptr, byval callback as sub(byval pos_ as long))
+declare sub generate_332_palette(byval pal as RGB ptr)
+declare function generate_optimized_palette(byval image as BITMAP ptr, byval pal as RGB ptr, byval rsvdcols as const byte ptr) as long
+declare sub create_rgb_table(byval table as RGB_MAP ptr, byval pal as const RGB ptr, byval callback as sub(byval pos_ as long))
+declare sub create_light_table(byval table as COLOR_MAP ptr, byval pal as const RGB ptr, byval r as long, byval g as long, byval b as long, byval callback as sub(byval pos_ as long))
+declare sub create_trans_table(byval table as COLOR_MAP ptr, byval pal as const RGB ptr, byval r as long, byval g as long, byval b as long, byval callback as sub(byval pos_ as long))
+declare sub create_color_table(byval table as COLOR_MAP ptr, byval pal as const RGB ptr, byval blend as sub(byval pal as const RGB ptr, byval x as long, byval y as long, byval RGB as RGB ptr), byval callback as sub(byval pos_ as long))
+declare sub create_blender_table(byval table as COLOR_MAP ptr, byval pal as const RGB ptr, byval callback as sub(byval pos_ as long))
 
 type BLENDER_FUNC as function(byval x as culong, byval y as culong, byval n as culong) as culong
 
@@ -1677,7 +1679,7 @@ declare sub set_saturation_blender(byval r as long, byval g as long, byval b as 
 declare sub set_screen_blender(byval r as long, byval g as long, byval b as long, byval a as long)
 declare sub hsv_to_rgb(byval h as single, byval s as single, byval v as single, byval r as long ptr, byval g as long ptr, byval b as long ptr)
 declare sub rgb_to_hsv(byval r as long, byval g as long, byval b as long, byval h as single ptr, byval s as single ptr, byval v as single ptr)
-declare function bestfit_color(byval pal as const RGB_ ptr, byval r as long, byval g as long, byval b as long) as long
+declare function bestfit_color(byval pal as const RGB ptr, byval r as long, byval g as long, byval b as long) as long
 declare function makecol(byval r as long, byval g as long, byval b as long) as long
 declare function makecol8(byval r as long, byval g as long, byval b as long) as long
 declare function makecol_depth(byval color_depth as long, byval r as long, byval g as long, byval b as long) as long
@@ -1719,7 +1721,7 @@ declare function getb32(byval c as long) as long
 declare function geta32(byval c as long) as long
 
 #if defined(__FB_WIN32__) or defined(__FB_LINUX__)
-	declare sub _set_color(byval idx as long, byval p as const RGB__ ptr)
+	declare sub _set_color(byval idx as long, byval p as const RGB ptr)
 #endif
 
 #define ALLEGRO_DRAW_H
@@ -1779,13 +1781,13 @@ declare sub _allegro_vline(byval bmp as BITMAP ptr, byval x as long, byval y_1 a
 declare sub _allegro_hline(byval bmp as BITMAP ptr, byval x1 as long, byval y as long, byval x2 as long, byval color_ as long)
 declare sub vline(byval bmp as BITMAP ptr, byval x as long, byval y_1 as long, byval y2 as long, byval color_ as long)
 declare sub hline(byval bmp as BITMAP ptr, byval x1 as long, byval y as long, byval x2 as long, byval color_ as long)
-declare sub line_ alias "line"(byval bmp as BITMAP ptr, byval x1 as long, byval y_1 as long, byval x2 as long, byval y2 as long, byval color_ as long)
+declare sub line(byval bmp as BITMAP ptr, byval x1 as long, byval y_1 as long, byval x2 as long, byval y2 as long, byval color_ as long)
 declare sub fastline(byval bmp as BITMAP ptr, byval x1 as long, byval y_1 as long, byval x2 as long, byval y2 as long, byval color_ as long)
 declare sub rectfill(byval bmp as BITMAP ptr, byval x1 as long, byval y_1 as long, byval x2 as long, byval y2 as long, byval color_ as long)
 declare sub triangle(byval bmp as BITMAP ptr, byval x1 as long, byval y_1 as long, byval x2 as long, byval y2 as long, byval x3 as long, byval y3 as long, byval color_ as long)
 declare sub polygon(byval bmp as BITMAP ptr, byval vertices as long, byval points as const long ptr, byval color_ as long)
 declare sub rect(byval bmp as BITMAP ptr, byval x1 as long, byval y_1 as long, byval x2 as long, byval y2 as long, byval color_ as long)
-declare sub circle_ alias "circle"(byval bmp as BITMAP ptr, byval x as long, byval y as long, byval radius as long, byval color_ as long)
+declare sub circle(byval bmp as BITMAP ptr, byval x as long, byval y as long, byval radius as long, byval color_ as long)
 declare sub circlefill(byval bmp as BITMAP ptr, byval x as long, byval y as long, byval radius as long, byval color_ as long)
 declare sub ellipse(byval bmp as BITMAP ptr, byval x as long, byval y as long, byval rx as long, byval ry as long, byval color_ as long)
 declare sub ellipsefill(byval bmp as BITMAP ptr, byval x as long, byval y as long, byval rx as long, byval ry as long, byval color_ as long)
@@ -1890,14 +1892,14 @@ declare function is_trans_font(byval f as FONT ptr) as long
 declare function is_color_font(byval f as FONT ptr) as long
 declare function is_mono_font(byval f as FONT ptr) as long
 declare function is_compatible_font(byval f1 as FONT ptr, byval f2 as FONT ptr) as long
-declare sub register_font_file_type(byval ext as const zstring ptr, byval load as function(byval filename as const zstring ptr, byval pal as RGB_ ptr, byval param as any ptr) as FONT ptr)
-declare function load_font(byval filename as const zstring ptr, byval pal as RGB_ ptr, byval param as any ptr) as FONT ptr
-declare function load_dat_font(byval filename as const zstring ptr, byval pal as RGB_ ptr, byval param as any ptr) as FONT ptr
-declare function load_bios_font(byval filename as const zstring ptr, byval pal as RGB_ ptr, byval param as any ptr) as FONT ptr
-declare function load_grx_font(byval filename as const zstring ptr, byval pal as RGB_ ptr, byval param as any ptr) as FONT ptr
-declare function load_grx_or_bios_font(byval filename as const zstring ptr, byval pal as RGB_ ptr, byval param as any ptr) as FONT ptr
-declare function load_bitmap_font(byval fname as const zstring ptr, byval pal as RGB_ ptr, byval param as any ptr) as FONT ptr
-declare function load_txt_font(byval fname as const zstring ptr, byval pal as RGB_ ptr, byval param as any ptr) as FONT ptr
+declare sub register_font_file_type(byval ext as const zstring ptr, byval load as function(byval filename as const zstring ptr, byval pal as RGB ptr, byval param as any ptr) as FONT ptr)
+declare function load_font(byval filename as const zstring ptr, byval pal as RGB ptr, byval param as any ptr) as FONT ptr
+declare function load_dat_font(byval filename as const zstring ptr, byval pal as RGB ptr, byval param as any ptr) as FONT ptr
+declare function load_bios_font(byval filename as const zstring ptr, byval pal as RGB ptr, byval param as any ptr) as FONT ptr
+declare function load_grx_font(byval filename as const zstring ptr, byval pal as RGB ptr, byval param as any ptr) as FONT ptr
+declare function load_grx_or_bios_font(byval filename as const zstring ptr, byval pal as RGB ptr, byval param as any ptr) as FONT ptr
+declare function load_bitmap_font(byval fname as const zstring ptr, byval pal as RGB ptr, byval param as any ptr) as FONT ptr
+declare function load_txt_font(byval fname as const zstring ptr, byval pal as RGB ptr, byval param as any ptr) as FONT ptr
 declare function grab_font_from_bitmap(byval bmp as BITMAP ptr) as FONT ptr
 declare function get_font_ranges(byval f as FONT ptr) as long
 declare function get_font_range_begin(byval f as FONT ptr, byval range as long) as long
@@ -1921,7 +1923,7 @@ declare function next_fli_frame(byval loop_ as long) as long
 declare sub reset_fli_variables()
 
 extern _AL_DLL fli_bitmap as BITMAP ptr
-extern _AL_DLL fli_palette(0 to 255) as RGB_
+extern _AL_DLL fli_palette(0 to 255) as RGB
 extern _AL_DLL fli_bmp_dirty_from as long
 extern _AL_DLL fli_bmp_dirty_to as long
 extern _AL_DLL fli_pal_dirty_from as long
@@ -2543,22 +2545,22 @@ declare function find_datafile_object(byval dat as const DATAFILE ptr, byval obj
 declare function get_datafile_property(byval dat as const DATAFILE ptr, byval type_ as long) as const zstring ptr
 declare sub register_datafile_object(byval id_ as long, byval load as function(byval f as PACKFILE ptr, byval size as clong) as any ptr, byval destroy as sub(byval data_ as any ptr))
 declare sub fixup_datafile(byval data_ as DATAFILE ptr)
-declare function load_bitmap(byval filename as const zstring ptr, byval pal as RGB_ ptr) as BITMAP ptr
-declare function load_bmp(byval filename as const zstring ptr, byval pal as RGB_ ptr) as BITMAP ptr
-declare function load_bmp_pf(byval f as PACKFILE ptr, byval pal as RGB_ ptr) as BITMAP ptr
-declare function load_lbm(byval filename as const zstring ptr, byval pal as RGB_ ptr) as BITMAP ptr
-declare function load_pcx(byval filename as const zstring ptr, byval pal as RGB_ ptr) as BITMAP ptr
-declare function load_pcx_pf(byval f as PACKFILE ptr, byval pal as RGB_ ptr) as BITMAP ptr
-declare function load_tga(byval filename as const zstring ptr, byval pal as RGB_ ptr) as BITMAP ptr
-declare function load_tga_pf(byval f as PACKFILE ptr, byval pal as RGB_ ptr) as BITMAP ptr
-declare function save_bitmap(byval filename as const zstring ptr, byval bmp as BITMAP ptr, byval pal as const RGB_ ptr) as long
-declare function save_bmp(byval filename as const zstring ptr, byval bmp as BITMAP ptr, byval pal as const RGB_ ptr) as long
-declare function save_bmp_pf(byval f as PACKFILE ptr, byval bmp as BITMAP ptr, byval pal as const RGB_ ptr) as long
-declare function save_pcx(byval filename as const zstring ptr, byval bmp as BITMAP ptr, byval pal as const RGB_ ptr) as long
-declare function save_pcx_pf(byval f as PACKFILE ptr, byval bmp as BITMAP ptr, byval pal as const RGB_ ptr) as long
-declare function save_tga(byval filename as const zstring ptr, byval bmp as BITMAP ptr, byval pal as const RGB_ ptr) as long
-declare function save_tga_pf(byval f as PACKFILE ptr, byval bmp as BITMAP ptr, byval pal as const RGB_ ptr) as long
-declare sub register_bitmap_file_type(byval ext as const zstring ptr, byval load as function(byval filename as const zstring ptr, byval pal as RGB_ ptr) as BITMAP ptr, byval save as function(byval filename as const zstring ptr, byval bmp as BITMAP ptr, byval pal as const RGB_ ptr) as long)
+declare function load_bitmap(byval filename as const zstring ptr, byval pal as RGB ptr) as BITMAP ptr
+declare function load_bmp(byval filename as const zstring ptr, byval pal as RGB ptr) as BITMAP ptr
+declare function load_bmp_pf(byval f as PACKFILE ptr, byval pal as RGB ptr) as BITMAP ptr
+declare function load_lbm(byval filename as const zstring ptr, byval pal as RGB ptr) as BITMAP ptr
+declare function load_pcx(byval filename as const zstring ptr, byval pal as RGB ptr) as BITMAP ptr
+declare function load_pcx_pf(byval f as PACKFILE ptr, byval pal as RGB ptr) as BITMAP ptr
+declare function load_tga(byval filename as const zstring ptr, byval pal as RGB ptr) as BITMAP ptr
+declare function load_tga_pf(byval f as PACKFILE ptr, byval pal as RGB ptr) as BITMAP ptr
+declare function save_bitmap(byval filename as const zstring ptr, byval bmp as BITMAP ptr, byval pal as const RGB ptr) as long
+declare function save_bmp(byval filename as const zstring ptr, byval bmp as BITMAP ptr, byval pal as const RGB ptr) as long
+declare function save_bmp_pf(byval f as PACKFILE ptr, byval bmp as BITMAP ptr, byval pal as const RGB ptr) as long
+declare function save_pcx(byval filename as const zstring ptr, byval bmp as BITMAP ptr, byval pal as const RGB ptr) as long
+declare function save_pcx_pf(byval f as PACKFILE ptr, byval bmp as BITMAP ptr, byval pal as const RGB ptr) as long
+declare function save_tga(byval filename as const zstring ptr, byval bmp as BITMAP ptr, byval pal as const RGB ptr) as long
+declare function save_tga_pf(byval f as PACKFILE ptr, byval bmp as BITMAP ptr, byval pal as const RGB ptr) as long
+declare sub register_bitmap_file_type(byval ext as const zstring ptr, byval load as function(byval filename as const zstring ptr, byval pal as RGB ptr) as BITMAP ptr, byval save as function(byval filename as const zstring ptr, byval bmp as BITMAP ptr, byval pal as const RGB ptr) as long)
 
 #define ALLEGRO_FMATH_H
 
@@ -3046,7 +3048,7 @@ declare function timer_is_using_retrace() as long
 #endif
 
 #ifdef __FB_DOS__
-	declare sub _set_color(byval index as long, byval p as const RGB__ ptr)
+	declare sub _set_color(byval index as long, byval p as const RGB ptr)
 
 	#define DIGI_SB10_ AL_ID(asc("S"), asc("B"), asc("1"), asc("0"))
 	#define DIGI_SB15_ AL_ID(asc("S"), asc("B"), asc("1"), asc("5"))
