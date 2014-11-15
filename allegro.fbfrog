@@ -1,9 +1,9 @@
 -fixunsizedarrays
--include stdbool.h
+-fbfroginclude stdbool.h
 
 -define ALLEGRO_NO_CLEAR_BITMAP_ALIAS
 -define ALLEGRO_NO_FIX_ALIASES
--include allegro-helper.h
+-fbfroginclude allegro-helper.h
 
 -select
 -case __FB_LINUX__
@@ -58,6 +58,10 @@
 -removedefine LONG_LONG
 -removedefine RET_VOLATILE
 -removedefine ZERO_SIZE_ARRAY
+-removedefine ALLEGRO_ASSERT
+-removedefine ALLEGRO_ASSERT_CONCAT_
+-removedefine ALLEGRO_ASSERT_CONCAT
+-removedefine ALLEGRO_STATIC_ASSERT
 
 -removedefine ABS
 -removedefine SGN

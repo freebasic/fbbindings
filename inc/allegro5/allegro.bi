@@ -481,12 +481,6 @@ extern _al_user_assert_handler as sub(byval expr as const zstring ptr, byval fil
 
 declare sub al_register_assert_handler(byval handler as sub(byval expr as const zstring ptr, byval file as const zstring ptr, byval line_ as long, byval func as const zstring ptr))
 
-#define ALLEGRO_ASSERT(e) iif((e), cast(any, 0), iif(_al_user_assert_handler, _al_user_assert_handler(#e, __FILE__, __LINE__, __func__), assert(e)))
-#define ALLEGRO_ASSERT_CONCAT_(a, b) a##b
-#define ALLEGRO_ASSERT_CONCAT(a, b) ALLEGRO_ASSERT_CONCAT_(a, b)
-
-'' TODO: #define ALLEGRO_STATIC_ASSERT(module, e) struct ALLEGRO_ASSERT_CONCAT(static_assert_##module##_line_, __LINE__) { unsigned int bf : !!(e); }
-
 #define __al_included_allegro5_display_h
 #define __al_included_allegro5_events_h
 
