@@ -1,0 +1,1 @@
+#include "allegro/alpng.bi"
