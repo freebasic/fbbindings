@@ -22,14 +22,14 @@ ALLEGRO4_TITLE := allegro-$(ALLEGRO4_VERSION)
 allegro4-extract:
 	./downloadextract.sh $(ALLEGRO4_TITLE) $(ALLEGRO4_TITLE).tar.gz "http://cdn.allegro.cc/file/library/allegro/$(ALLEGRO4_VERSION)/$(ALLEGRO4_TITLE).tar.gz"
 allegro4: allegro4-extract
-	$(FBFROG) allegro4.fbfrog allegro.fbfrog -o inc/allegro.bi \
+	$(FBFROG) allegro4.fbfrog -o inc/allegro.bi \
 		extracted/$(ALLEGRO4_TITLE)/include/allegro.h \
 		-incdir extracted/$(ALLEGRO4_TITLE)/include
 
 allegro4-algif: allegro4-extract
 	./downloadextract.sh algif_1.3 algif_1.3.zip "http://prdownloads.sourceforge.net/algif/algif_1.3.zip?download"
 	mkdir -p inc/allegro
-	$(FBFROG) allegro4.fbfrog allegro.fbfrog \
+	$(FBFROG) allegro4.fbfrog \
 		-incdir extracted/$(ALLEGRO4_TITLE)/include \
 		extracted/algif_1.3/src/algif.h \
 		-o inc/allegro/algif.bi -filterout '*'
@@ -44,7 +44,7 @@ allegro4-alpng: allegro4-extract
 		tar xf "$(ALPNG_TARBALL)" -C extracted/alpng13; \
 	fi
 	mkdir -p inc/allegro
-	$(FBFROG) allegro4.fbfrog allegro.fbfrog \
+	$(FBFROG) allegro4.fbfrog \
 		-incdir extracted/$(ALLEGRO4_TITLE)/include \
 		-include allegro.h \
 		extracted/alpng13/src/alpng.h \
@@ -52,12 +52,22 @@ allegro4-alpng: allegro4-extract
 
 ALLEGRO5_VERSION := 5.0.10
 ALLEGRO5_TITLE := allegro-$(ALLEGRO5_VERSION)
+ALLEGRO5_OPTIONS := allegro5.fbfrog -incdir extracted/$(ALLEGRO5_TITLE)/include -o inc/allegro5/
+ALLEGRO5_ADDON_OPTIONS := $(ALLEGRO5_OPTIONS) -filterout '*'
 allegro5:
 	./downloadextract.sh $(ALLEGRO5_TITLE) $(ALLEGRO5_TITLE).tar.gz "http://cdn.allegro.cc/file/library/allegro/$(ALLEGRO5_VERSION)/$(ALLEGRO5_TITLE).tar.gz"
 	mkdir -p inc/allegro5
-	$(FBFROG) allegro5.fbfrog allegro.fbfrog -o inc/allegro5/allegro.bi \
-		extracted/$(ALLEGRO5_TITLE)/include/allegro5/allegro.h \
-		-incdir extracted/$(ALLEGRO5_TITLE)/include
+	$(FBFROG) $(ALLEGRO5_OPTIONS) extracted/$(ALLEGRO5_TITLE)/include/allegro5/allegro.h
+	$(FBFROG) $(ALLEGRO5_ADDON_OPTIONS) extracted/$(ALLEGRO5_TITLE)/addons/acodec/allegro5/allegro_acodec.h
+	$(FBFROG) $(ALLEGRO5_ADDON_OPTIONS) extracted/$(ALLEGRO5_TITLE)/addons/audio/allegro5/allegro_audio.h
+	$(FBFROG) $(ALLEGRO5_ADDON_OPTIONS) extracted/$(ALLEGRO5_TITLE)/addons/color/allegro5/allegro_color.h
+	$(FBFROG) $(ALLEGRO5_ADDON_OPTIONS) extracted/$(ALLEGRO5_TITLE)/addons/font/allegro5/allegro_font.h
+	$(FBFROG) $(ALLEGRO5_ADDON_OPTIONS) extracted/$(ALLEGRO5_TITLE)/addons/image/allegro5/allegro_image.h -include allegro5/allegro.h
+	$(FBFROG) $(ALLEGRO5_ADDON_OPTIONS) extracted/$(ALLEGRO5_TITLE)/addons/memfile/allegro5/allegro_memfile.h
+	$(FBFROG) $(ALLEGRO5_ADDON_OPTIONS) extracted/$(ALLEGRO5_TITLE)/addons/native_dialog/allegro5/allegro_native_dialog.h
+	$(FBFROG) $(ALLEGRO5_ADDON_OPTIONS) extracted/$(ALLEGRO5_TITLE)/addons/physfs/allegro5/allegro_physfs.h
+	$(FBFROG) $(ALLEGRO5_ADDON_OPTIONS) extracted/$(ALLEGRO5_TITLE)/addons/primitives/allegro5/allegro_primitives.h
+	$(FBFROG) $(ALLEGRO5_ADDON_OPTIONS) extracted/$(ALLEGRO5_TITLE)/addons/ttf/allegro5/allegro_ttf.h
 
 cgui:
 	./downloadextract.sh cgui cgui-2.0.3.tar.gz "http://sourceforge.net/projects/cgui/files/2.0.3/cgui-2.0.3.tar.gz/download"
