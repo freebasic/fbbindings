@@ -9,3 +9,30 @@
 -ifdef __FB_64BIT__
 	-define __FBFROG_64BIT__
 -endif
+
+allegro.fbfrog
+
+-removedefine _ALLEGRO_ACODEC_DLL
+-removedefine _ALLEGRO_KCM_AUDIO_DLL
+-removedefine _ALLEGRO_COLOR_DLL
+-removedefine _ALLEGRO_FONT_DLL
+-removedefine _ALLEGRO_IIO_DLL
+-removedefine _ALLEGRO_MEMFILE_DLL
+-removedefine _ALLEGRO_DIALOG_DLL
+-removedefine _ALLEGRO_PHYSFS_DLL
+-removedefine _ALLEGRO_PRIM_DLL
+-removedefine _ALLEGRO_TTF_DLL
+
+-removedefine ALLEGRO_ACODEC_FUNC
+-removedefine ALLEGRO_KCM_AUDIO_FUNC
+-removedefine ALLEGRO_COLOR_FUNC
+-removedefine ALLEGRO_FONT_FUNC
+-removedefine ALLEGRO_FONT_METHOD
+-removedefine ALLEGRO_FONT_FUNCPTR
+-removedefine ALLEGRO_FONT_PRINTFUNC
+-removedefine ALLEGRO_IIO_FUNC
+-removedefine ALLEGRO_MEMFILE_FUNC
+-removedefine ALLEGRO_DIALOG_FUNC
+-removedefine ALLEGRO_PHYSFS_FUNC
+-removedefine ALLEGRO_PRIM_FUNC
+-removedefine ALLEGRO_TTF_FUNC

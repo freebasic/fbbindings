@@ -1,3 +1,5 @@
 -ifdef __FB_DOS__
 	-define ALLEGRO_DJGPP
 -endif
+
+allegro.fbfrog
