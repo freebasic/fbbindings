@@ -332,6 +332,42 @@ png16:
 	   extracted/$(PNG16_TITLE)/pnglibconf.h
 	$(FBFROG) png.fbfrog -o inc/png16.bi extracted/$(PNG16_TITLE)/png.h
 
+################################################################################
+# Windows API, thanks to the MinGW-w64 project
+
+MINGWW64_TITLE := mingw-w64-v3.3.0
+winapi-extract:
+	./downloadextract.sh $(MINGWW64_TITLE) $(MINGWW64_TITLE).tar.bz2 "http://sourceforge.net/projects/mingw-w64/files/mingw-w64/mingw-w64-release/$(MINGWW64_TITLE).tar.bz2/download"
+	cd extracted/$(MINGWW64_TITLE)/mingw-w64-headers/crt && \
+		sed -e 's/@MINGW_HAS_SECURE_API@/#define MINGW_HAS_SECURE_API 1/g' < _mingw.h.in > _mingw.h
+	mkdir -p inc/win
+
+WINAPI_FLAGS := winapi.fbfrog -o inc/win/
+WINAPI_FLAGS += -incdir extracted/$(MINGWW64_TITLE)/mingw-w64-headers/crt/
+WINAPI_FLAGS += -incdir extracted/$(MINGWW64_TITLE)/mingw-w64-headers/include/
+WINAPI_FLAGS += -filterout '*'
+WINAPI_FLAGS += -filterin '*pshpack*.h'
+WINAPI_FLAGS += -filterin '*poppack.h'
+
+# winapi.mk lists all the headers we want to translate
+include winapi.mk
+
+# Some headers need additional options on top of the common WINAPI_FLAGS
+WINAPI_FLAGS_commctrl := -include windows.h
+
+# Make a winapi-* target for each *.h header. It's too slow to always
+# (re)translate all of them in one go, so this allows updating individual
+# headers. And there are too many headers to list the targets manually...
+define declare-winapi-target
+  winapi: winapi-$(1)
+  winapi-$(1): winapi-extract
+	$$(FBFROG) $$(WINAPI_FLAGS) $$(WINAPI_FLAGS_$(1)) extracted/$$(MINGWW64_TITLE)/mingw-w64-headers/include/$(1).h
+
+endef
+$(eval $(foreach i,$(WINAPI_BASE),$(call declare-winapi-target,$(i))))
+
+################################################################################
+
 ZIP_TITLE := libzip-0.11.2
 zip:
 	./downloadextract.sh $(ZIP_TITLE) $(ZIP_TITLE).tar.xz "http://www.nih.at/libzip/$(ZIP_TITLE).tar.xz"
