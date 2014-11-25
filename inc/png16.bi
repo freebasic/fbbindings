@@ -891,10 +891,6 @@ declare sub png_save_uint_16(byval buf as png_bytep, byval i as ulong)
 
 type png_controlp as png_control ptr
 
-#define PNG_IMAGE_WARNING 1
-#define PNG_IMAGE_ERROR 2
-#define PNG_IMAGE_FAILED(png_cntrl) (((png_cntrl).warning_or_error and &h03) > 1)
-
 type png_image
 	opaque as png_controlp
 	version as png_uint_32
@@ -909,6 +905,9 @@ end type
 
 type png_imagep as png_image ptr
 
+#define PNG_IMAGE_WARNING 1
+#define PNG_IMAGE_ERROR 2
+#define PNG_IMAGE_FAILED(png_cntrl) (((png_cntrl).warning_or_error and &h03) > 1)
 #define PNG_FORMAT_FLAG_ALPHA &h01
 #define PNG_FORMAT_FLAG_COLOR &h02
 #define PNG_FORMAT_FLAG_LINEAR &h04

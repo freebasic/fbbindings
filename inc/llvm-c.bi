@@ -1095,22 +1095,22 @@ function LLVMInitializeNativeTarget() as LLVMBool
 	LLVMInitializeX86TargetInfo()
 	LLVMInitializeX86Target()
 	LLVMInitializeX86TargetMC()
-	'' TODO: return 0;
+	return 0
 end function
 
 function LLVMInitializeNativeAsmParser() as LLVMBool
 	LLVMInitializeX86AsmParser()
-	'' TODO: return 0;
+	return 0
 end function
 
 function LLVMInitializeNativeAsmPrinter() as LLVMBool
 	LLVMInitializeX86AsmPrinter()
-	'' TODO: return 0;
+	return 0
 end function
 
 function LLVMInitializeNativeDisassembler() as LLVMBool
 	LLVMInitializeX86Disassembler()
-	'' TODO: return 0;
+	return 0
 end function
 
 declare function LLVMCreateTargetData(byval StringRep as const zstring ptr) as LLVMTargetDataRef
