@@ -18,8 +18,6 @@
 
 extern "C"
 
-type png_info_def as png_info_def_
-type png_struct_def as png_struct_def_
 type tm as tm_
 
 #define PNG_H
@@ -837,12 +835,14 @@ declare function png_get_io_chunk_type(byval png_ptr as png_const_structp) as pn
 #macro png_composite(composite, fg, alpha, bg)
 	scope
 		dim temp as png_uint_16 = cast(png_uint_16, cast(png_uint_16, (fg) * cast(png_uint_16, (alpha) + cast(png_uint_16, (bg) * cast(png_uint_16, (255 - cast(png_uint_16, (alpha))) + 128)))))
+		(composite)
 		'' TODO: (composite) = (png_byte)((temp + (temp >> 8)) >> 8);
 	end scope
 #endmacro
 #macro png_composite_16(composite, fg, alpha, bg)
 	scope
 		dim temp as png_uint_32 = cast(png_uint_32, cast(png_uint_32, (fg) * cast(png_uint_32, (alpha) + cast(png_uint_32, ((bg) * (65535 - cast(png_uint_32, (alpha)))) + 32768))))
+		(composite)
 		'' TODO: (composite) = (png_uint_16)((temp + (temp >> 16)) >> 16);
 	end scope
 #endmacro

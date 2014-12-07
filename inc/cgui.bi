@@ -10,8 +10,8 @@
 
 extern "C"
 
-type BITMAP as BITMAP_
 type FONT as FONT_
+type BITMAP as BITMAP_
 type DATAFILE as DATAFILE_
 
 #define CGUI_H

@@ -17,7 +17,6 @@
 
 extern "C"
 
-type png_struct_def as png_struct_def_
 type tm as tm_
 
 #define PNG_H
@@ -531,7 +530,7 @@ type png_longjmp_ptr as sub(byval as jmp_buf ptr, byval as long)
 type png_malloc_ptr as function(byval as png_structp, byval as png_alloc_size_t) as png_voidp
 type png_free_ptr as sub(byval as png_structp, byval as png_voidp)
 
-type png_struct_def_
+type png_struct_def
 	jmpbuf as jmp_buf
 	longjmp_fn as png_longjmp_ptr
 	error_fn as png_error_ptr
@@ -946,12 +945,14 @@ declare function png_get_io_chunk_name(byval png_ptr as png_structp) as png_byte
 #macro png_composite(composite, fg, alpha, bg)
 	scope
 		dim temp as png_uint_16 = cast(png_uint_16, cast(png_uint_16, (fg) * cast(png_uint_16, (alpha) + cast(png_uint_16, (bg) * cast(png_uint_16, (255 - cast(png_uint_16, (alpha))) + cast(png_uint_16, 128))))))
+		(composite)
 		'' TODO: (composite) = (png_byte)((temp + (temp >> 8)) >> 8);
 	end scope
 #endmacro
 #macro png_composite_16(composite, fg, alpha, bg)
 	scope
 		dim temp as png_uint_32 = cast(png_uint_32, cast(png_uint_32, (fg) * cast(png_uint_32, (alpha) + cast(png_uint_32, (bg) * cast(png_uint_32, (cast(clong, 65535) - cast(png_uint_32, (alpha))) + cast(png_uint_32, cast(clong, 32768)))))))
+		(composite)
 		'' TODO: (composite) = (png_uint_16)((temp + (temp >> 16)) >> 16);
 	end scope
 #endmacro

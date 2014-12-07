@@ -20,29 +20,6 @@
 
 extern "C"
 
-type _jit_context as _jit_context_
-type _jit_function as _jit_function_
-type _jit_block as _jit_block_
-type _jit_insn as _jit_insn_
-type _jit_value as _jit_value_
-type _jit_type as _jit_type_
-type jit_stack_trace as jit_stack_trace_
-type jit_memory_manager as jit_memory_manager_
-type jit_closure_va_list as jit_closure_va_list_
-type jit_debugger as jit_debugger_
-type jit_readelf as jit_readelf_
-type jit_writeelf as jit_writeelf_
-type _jit_meta as _jit_meta_
-type jit_objmodel as jit_objmodel_
-type jitom_class as jitom_class_
-type jitom_field as jitom_field_
-type jitom_method as jitom_method_
-type jit_opcode_info as jit_opcode_info_
-
-#if defined(__FB_64BIT__) and (defined(__FB_WIN32__) or defined(__FB_LINUX__))
-	type _jit_arch_frame as _jit_arch_frame_
-#endif
-
 #define _JIT_H
 #define _JIT_DEFS_H
 
@@ -99,7 +76,7 @@ type jit_memory_context_t as any ptr
 type jit_function_info_t as any ptr
 type jit_memory_manager_t as const jit_memory_manager ptr
 
-type jit_memory_manager_
+type jit_memory_manager
 	create as function(byval context as jit_context_t) as jit_memory_context_t
 	destroy as sub(byval memctx as jit_memory_context_t)
 	find_function_info as function(byval memctx as jit_memory_context_t, byval pc as any ptr) as jit_function_info_t
@@ -1475,7 +1452,7 @@ declare function jitom_type_get_class(byval type_ as jit_type_t) as jitom_class_
 
 type jit_opcode_info_t as jit_opcode_info
 
-type jit_opcode_info_
+type jit_opcode_info
 	name as const zstring ptr
 	flags as long
 end type
@@ -1559,7 +1536,7 @@ extern jit_opcodes(0 to 438) as const jit_opcode_info_t
 
 	type _jit_arch_frame_t as _jit_arch_frame
 
-	type _jit_arch_frame_
+	type _jit_arch_frame
 		next_frame as _jit_arch_frame_t ptr
 		return_address as any ptr
 	end type
@@ -1621,7 +1598,7 @@ declare function jit_snprintf(byval str_ as zstring ptr, byval len_ as ulong, by
 
 #define _JIT_VALUE_H
 
-union __dummyid_12_extracted_libjit_a8293e141b79c28734a3633a81a43f92f29fc2d7_include_jit_jit_value
+union __un
 	ptr_value as any ptr
 	int_value as jit_int
 	uint_value as jit_uint
@@ -1636,7 +1613,7 @@ end union
 
 type jit_constant_t
 	as jit_type_t type
-	un as __dummyid_12_extracted_libjit_a8293e141b79c28734a3633a81a43f92f29fc2d7_include_jit_jit_value
+	un as __un
 end type
 
 declare function jit_value_create(byval func as jit_function_t, byval type_ as jit_type_t) as jit_value_t

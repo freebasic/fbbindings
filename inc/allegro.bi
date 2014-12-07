@@ -100,19 +100,19 @@
 
 extern "C"
 
-type BITMAP as BITMAP_
 type RGB__ as RGB_
+type BITMAP as BITMAP_
 type GFX_VTABLE as GFX_VTABLE_
 type GFX_MODE as GFX_MODE_
 type RLE_SPRITE as RLE_SPRITE_
 type FONT_GLYPH as FONT_GLYPH_
-type FONT as FONT_
 type FONT_VTABLE as FONT_VTABLE_
+type FONT as FONT_
 type DIALOG as DIALOG_
 type PACKFILE as PACKFILE_
+type PACKFILE_VTABLE as PACKFILE_VTABLE_
 type LZSS_PACK_DATA as LZSS_PACK_DATA_
 type LZSS_UNPACK_DATA as LZSS_UNPACK_DATA_
-type PACKFILE_VTABLE as PACKFILE_VTABLE_
 
 #define ALLEGRO_H
 #define ALLEGRO_BASE_H
@@ -349,17 +349,23 @@ declare function uwidth_max(byval type_ as long) as long
 
 #if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
 	extern empty_string as zstring * ...
+	extern ugetc as function(byval s as const zstring ptr) as long
+	extern ugetx as function(byval s as zstring ptr ptr) as long
+	extern ugetxc as function(byval s as const zstring ptr ptr) as long
+	extern usetc as function(byval s as zstring ptr, byval c as long) as long
+	extern uwidth as function(byval s as const zstring ptr) as long
+	extern ucwidth as function(byval c as long) as long
+	extern uisok as function(byval c as long) as long
 #else
 	extern import empty_string as zstring * ...
+	extern import ugetc as function(byval s as const zstring ptr) as long
+	extern import ugetx as function(byval s as zstring ptr ptr) as long
+	extern import ugetxc as function(byval s as const zstring ptr ptr) as long
+	extern import usetc as function(byval s as zstring ptr, byval c as long) as long
+	extern import uwidth as function(byval s as const zstring ptr) as long
+	extern import ucwidth as function(byval c as long) as long
+	extern import uisok as function(byval c as long) as long
 #endif
-
-extern ugetc as function(byval s as const zstring ptr) as long
-extern ugetx as function(byval s as zstring ptr ptr) as long
-extern ugetxc as function(byval s as const zstring ptr ptr) as long
-extern usetc as function(byval s as zstring ptr, byval c as long) as long
-extern uwidth as function(byval s as const zstring ptr) as long
-extern ucwidth as function(byval c as long) as long
-extern uisok as function(byval c as long) as long
 
 declare function uoffset(byval s as const zstring ptr, byval idx as long) as long
 declare function ugetat(byval s as const zstring ptr, byval idx as long) as long
@@ -724,7 +730,11 @@ declare sub disable_hardware_cursor()
 #define MOUSE_FLAG_MOVE_Z 128
 #define MOUSE_FLAG_MOVE_W 256
 
-extern mouse_callback as sub(byval flags as long)
+#if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
+	extern mouse_callback as sub(byval flags as long)
+#else
+	extern import mouse_callback as sub(byval flags as long)
+#endif
 
 declare sub show_mouse(byval bmp as BITMAP ptr)
 declare sub scare_mouse()
@@ -828,9 +838,15 @@ declare sub remove_keyboard()
 declare function poll_keyboard() as long
 declare function keyboard_needs_poll() as long
 
-extern keyboard_callback as function(byval key as long) as long
-extern keyboard_ucallback as function(byval key as long, byval scancode as long ptr) as long
-extern keyboard_lowlevel_callback as sub(byval scancode as long)
+#if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
+	extern keyboard_callback as function(byval key as long) as long
+	extern keyboard_ucallback as function(byval key as long, byval scancode as long ptr) as long
+	extern keyboard_lowlevel_callback as sub(byval scancode as long)
+#else
+	extern import keyboard_callback as function(byval key as long) as long
+	extern import keyboard_ucallback as function(byval key as long, byval scancode as long ptr) as long
+	extern import keyboard_lowlevel_callback as sub(byval scancode as long)
+#endif
 
 declare sub install_keyboard_hooks(byval keypressed as function() as long, byval readkey as function() as long)
 
@@ -2248,19 +2264,8 @@ declare function d_menu_proc(byval msg as long, byval d as DIALOG ptr, byval c a
 	extern gui_edit_proc as DIALOG_PROC
 	extern gui_list_proc as DIALOG_PROC
 	extern gui_text_list_proc as DIALOG_PROC
-#else
-	extern import gui_shadow_box_proc as DIALOG_PROC
-	extern import gui_ctext_proc as DIALOG_PROC
-	extern import gui_button_proc as DIALOG_PROC
-	extern import gui_edit_proc as DIALOG_PROC
-	extern import gui_list_proc as DIALOG_PROC
-	extern import gui_text_list_proc as DIALOG_PROC
-#endif
-
-extern gui_menu_draw_menu as sub(byval x as long, byval y as long, byval w as long, byval h as long)
-extern gui_menu_draw_menu_item as sub(byval m as MENU ptr, byval x as long, byval y as long, byval w as long, byval h as long, byval bar as long, byval sel as long)
-
-#if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
+	extern gui_menu_draw_menu as sub(byval x as long, byval y as long, byval w as long, byval h as long)
+	extern gui_menu_draw_menu_item as sub(byval m as MENU ptr, byval x as long, byval y as long, byval w as long, byval h as long, byval bar as long, byval sel as long)
 	extern active_dialog as DIALOG ptr
 	extern active_menu as MENU ptr
 	extern gui_mouse_focus as long
@@ -2268,7 +2273,19 @@ extern gui_menu_draw_menu_item as sub(byval m as MENU ptr, byval x as long, byva
 	extern gui_mg_color as long
 	extern gui_bg_color as long
 	extern gui_font_baseline as long
+	extern gui_mouse_x as function() as long
+	extern gui_mouse_y as function() as long
+	extern gui_mouse_z as function() as long
+	extern gui_mouse_b as function() as long
 #else
+	extern import gui_shadow_box_proc as DIALOG_PROC
+	extern import gui_ctext_proc as DIALOG_PROC
+	extern import gui_button_proc as DIALOG_PROC
+	extern import gui_edit_proc as DIALOG_PROC
+	extern import gui_list_proc as DIALOG_PROC
+	extern import gui_text_list_proc as DIALOG_PROC
+	extern import gui_menu_draw_menu as sub(byval x as long, byval y as long, byval w as long, byval h as long)
+	extern import gui_menu_draw_menu_item as sub(byval m as MENU ptr, byval x as long, byval y as long, byval w as long, byval h as long, byval bar as long, byval sel as long)
 	extern import active_dialog as DIALOG ptr
 	extern import active_menu as MENU ptr
 	extern import gui_mouse_focus as long
@@ -2276,12 +2293,11 @@ extern gui_menu_draw_menu_item as sub(byval m as MENU ptr, byval x as long, byva
 	extern import gui_mg_color as long
 	extern import gui_bg_color as long
 	extern import gui_font_baseline as long
+	extern import gui_mouse_x as function() as long
+	extern import gui_mouse_y as function() as long
+	extern import gui_mouse_z as function() as long
+	extern import gui_mouse_b as function() as long
 #endif
-
-extern gui_mouse_x as function() as long
-extern gui_mouse_y as function() as long
-extern gui_mouse_z as function() as long
-extern gui_mouse_b as function() as long
 
 declare sub gui_set_screen(byval bmp as BITMAP ptr)
 declare function gui_get_screen() as BITMAP ptr
@@ -2461,7 +2477,11 @@ declare function start_sound_input(byval rate as long, byval bits as long, byval
 declare sub stop_sound_input()
 declare function read_sound_input(byval buffer as any ptr) as long
 
-extern digi_recorder as sub()
+#if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
+	extern digi_recorder as sub()
+#else
+	extern import digi_recorder as sub()
+#endif
 
 declare sub lock_sample(byval spl as SAMPLE ptr)
 declare sub register_sample_file_type(byval ext as const zstring ptr, byval load as function(byval filename as const zstring ptr) as SAMPLE ptr, byval save as function(byval filename as const zstring ptr, byval spl as SAMPLE ptr) as long)
@@ -2487,14 +2507,14 @@ declare sub free_audio_stream_buffer(byval stream as AUDIOSTREAM ptr)
 #define MIDI_VOICES 64
 #define MIDI_TRACKS 32
 
-type __dummyid_5_extracted_allegro_4_4_2_include_allegro_midi
+type __MIDI_track
 	data as ubyte ptr
 	len as long
 end type
 
 type MIDI
 	divisions as long
-	track(0 to 31) as __dummyid_5_extracted_allegro_4_4_2_include_allegro_midi
+	track(0 to 31) as __MIDI_track
 end type
 
 #define MIDI_AUTODETECT (-1)
@@ -2575,10 +2595,17 @@ declare function get_midi_length(byval midi as MIDI ptr) as long
 declare sub midi_out(byval data_ as ubyte ptr, byval length as long)
 declare function load_midi_patches() as long
 
-extern midi_msg_callback as sub(byval msg as long, byval byte1 as long, byval byte2 as long)
-extern midi_meta_callback as sub(byval type_ as long, byval data_ as const ubyte ptr, byval length as long)
-extern midi_sysex_callback as sub(byval data_ as const ubyte ptr, byval length as long)
-extern midi_recorder as sub(byval data_ as ubyte)
+#if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
+	extern midi_msg_callback as sub(byval msg as long, byval byte1 as long, byval byte2 as long)
+	extern midi_meta_callback as sub(byval type_ as long, byval data_ as const ubyte ptr, byval length as long)
+	extern midi_sysex_callback as sub(byval data_ as const ubyte ptr, byval length as long)
+	extern midi_recorder as sub(byval data_ as ubyte)
+#else
+	extern import midi_msg_callback as sub(byval msg as long, byval byte1 as long, byval byte2 as long)
+	extern import midi_meta_callback as sub(byval type_ as long, byval data_ as const ubyte ptr, byval length as long)
+	extern import midi_sysex_callback as sub(byval data_ as const ubyte ptr, byval length as long)
+	extern import midi_recorder as sub(byval data_ as ubyte)
+#endif
 
 declare sub lock_midi(byval midi as MIDI ptr)
 declare sub reserve_voices(byval digi_voices_ as long, byval midi_voices_ as long)
@@ -3039,7 +3066,11 @@ declare sub set_window_close_hook(byval proc as sub())
 declare sub set_clip(byval bitmap as BITMAP ptr, byval x1 as long, byval y_1 as long, byval x2 as long, byval y2 as long)
 declare sub yield_timeslice()
 
-extern retrace_proc as sub()
+#if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
+	extern retrace_proc as sub()
+#else
+	extern import retrace_proc as sub()
+#endif
 
 declare sub set_file_encoding(byval encoding_ as long)
 declare function get_file_encoding() as long
