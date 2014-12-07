@@ -1,7 +1,7 @@
 FBFROG := fbfrog
 
 ALL := allegro4 allegro4-algif allegro4-alpng allegro5
-ALL += cgui clang cunit
+ALL += cgui clang cunit curl
 ALL += ffi
 ALL += iup
 ALL += jit
