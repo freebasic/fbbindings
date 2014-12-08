@@ -339,7 +339,9 @@ MINGWW64_TITLE := mingw-w64-v3.3.0
 winapi-extract:
 	./downloadextract.sh $(MINGWW64_TITLE) $(MINGWW64_TITLE).tar.bz2 "http://sourceforge.net/projects/mingw-w64/files/mingw-w64/mingw-w64-release/$(MINGWW64_TITLE).tar.bz2/download"
 	cd extracted/$(MINGWW64_TITLE)/mingw-w64-headers/crt && \
-		sed -e 's/@MINGW_HAS_SECURE_API@/#define MINGW_HAS_SECURE_API 1/g' < _mingw.h.in > _mingw.h
+		sed -e 's/@MINGW_HAS_SECURE_API@/#define MINGW_HAS_SECURE_API 1/g' < _mingw.h.in > _mingw.h && \
+		sed -e 's/MINGW_HAS_DX$$/1/g' < sdks/_mingw_directx.h.in > sdks/_mingw_directx.h && \
+		sed -e 's/MINGW_HAS_DDK$$/1/g' < sdks/_mingw_ddk.h.in > sdks/_mingw_ddk.h
 	mkdir -p inc/win
 
 WINAPI_FLAGS := winapi.fbfrog -o inc/win/
@@ -353,7 +355,11 @@ WINAPI_FLAGS += -filterin '*poppack.h'
 include winapi.mk
 
 # Some headers need additional options on top of the common WINAPI_FLAGS
-WINAPI_FLAGS_commctrl := -include windows.h
+WINAPI_FLAGS_amaudio += -include windows.h
+WINAPI_FLAGS_commctrl += -include windows.h
+
+WINAPI_PATH_BASE    := extracted/$(MINGWW64_TITLE)/mingw-w64-headers/include
+WINAPI_PATH_DIRECTX := extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include
 
 # Make a winapi-* target for each *.h header. It's too slow to always
 # (re)translate all of them in one go, so this allows updating individual
@@ -361,10 +367,11 @@ WINAPI_FLAGS_commctrl := -include windows.h
 define declare-winapi-target
   winapi: winapi-$(1)
   winapi-$(1): winapi-extract
-	$$(FBFROG) $$(WINAPI_FLAGS) $$(WINAPI_FLAGS_$(1)) extracted/$$(MINGWW64_TITLE)/mingw-w64-headers/include/$(1).h
+	$$(FBFROG) $$(WINAPI_FLAGS) $$(WINAPI_FLAGS_$(1)) $$(WINAPI_PATH_$(2))/$(1).h
 
 endef
-$(eval $(foreach i,$(WINAPI_BASE),$(call declare-winapi-target,$(i))))
+$(eval $(foreach i,$(WINAPI_BASE),$(call declare-winapi-target,$(i),BASE)))
+$(eval $(foreach i,$(WINAPI_DIRECTX),$(call declare-winapi-target,$(i),DIRECTX)))
 
 ################################################################################
 

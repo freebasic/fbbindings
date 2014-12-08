@@ -1,7 +1,7 @@
 WINAPI_BASE := accctrl
 WINAPI_BASE += aclapi
 WINAPI_BASE += aclui
-WINAPI_BASE += amaudio
+WINAPI_DIRECTX += amaudio
 WINAPI_BASE += amvideo
 WINAPI_BASE += audevcod
 WINAPI_BASE += basetsd
