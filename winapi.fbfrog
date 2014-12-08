@@ -12,3 +12,6 @@
 -endif
 
 -define __CRT__NO_INLINE
+
+-removedefine ACLUIAPI
+-removedefine INTERFACE
