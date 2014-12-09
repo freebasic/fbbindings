@@ -266,8 +266,8 @@ lua:
 	./downloadextract.sh $(LUA_TITLE) $(LUA_TITLE).tar.gz "http://www.lua.org/ftp/$(LUA_TITLE).tar.gz"
 	mkdir -p inc/Lua
 	$(FBFROG) lua.fbfrog -o inc/Lua/lua.bi     extracted/$(LUA_TITLE)/src/lua.h
-	$(FBFROG) lua.fbfrog -o inc/Lua/lualib.bi  extracted/$(LUA_TITLE)/src/lualib.h  -filterout '*lua.h'
-	$(FBFROG) lua.fbfrog -o inc/Lua/lauxlib.bi extracted/$(LUA_TITLE)/src/lauxlib.h -filterout '*lua.h'
+	$(FBFROG) lua.fbfrog -o inc/Lua/lualib.bi  extracted/$(LUA_TITLE)/src/lualib.h  -filterout '*'
+	$(FBFROG) lua.fbfrog -o inc/Lua/lauxlib.bi extracted/$(LUA_TITLE)/src/lauxlib.h -filterout '*'
 
 NCURSES_TITLE := ncurses-5.9
 ncurses:
