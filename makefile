@@ -371,8 +371,8 @@ WINAPI_PATH_DIRECTX := extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/in
 # (re)translate all of them in one go, so this allows updating individual
 # headers. And there are too many headers to list the targets manually...
 define declare-winapi-target
-  winapi: winapi-$(1)
-  winapi-$(1): winapi-extract
+  winapi: inc/win/$(1).bi
+  inc/win/$(1).bi:
 	$$(FBFROG) $$(WINAPI_FLAGS) $$(WINAPI_FLAGS_$(1)) $$(WINAPI_PATH_$(2))/$(1).h
 
 endef
