@@ -347,6 +347,7 @@ winapi-extract:
 WINAPI_FLAGS := winapi.fbfrog -o inc/win/
 WINAPI_FLAGS += -incdir extracted/$(MINGWW64_TITLE)/mingw-w64-headers/crt/
 WINAPI_FLAGS += -incdir extracted/$(MINGWW64_TITLE)/mingw-w64-headers/include/
+WINAPI_FLAGS += -incdir extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include
 WINAPI_FLAGS += -filterout '*'
 WINAPI_FLAGS += -filterin '*pshpack*.h'
 WINAPI_FLAGS += -filterin '*poppack.h'
@@ -361,6 +362,7 @@ WINAPI_FLAGS_commdlg += -include windows.h -filterin '*commdlg.h'
 WINAPI_FLAGS_cpl += -include windows.h
 WINAPI_FLAGS_custcntl += -include windows.h
 WINAPI_FLAGS_d3d9types += -include windows.h
+WINAPI_FLAGS_d3dx9anim += -include d3dx9.h -filterin '*d3dx9anim.h'
 
 WINAPI_PATH_BASE    := extracted/$(MINGWW64_TITLE)/mingw-w64-headers/include
 WINAPI_PATH_DIRECTX := extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include
