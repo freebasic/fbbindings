@@ -42,3 +42,4 @@
 -removedefine IFACEMETHOD_
 -removedefine IFACEMETHODV
 -removedefine IFACEMETHODV_
+-removedefine WINCOMMDLGAPI
