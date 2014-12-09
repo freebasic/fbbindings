@@ -359,6 +359,7 @@ WINAPI_FLAGS_amaudio += -include windows.h
 WINAPI_FLAGS_commctrl += -include windows.h
 WINAPI_FLAGS_commdlg += -include windows.h -filterin '*commdlg.h'
 WINAPI_FLAGS_cpl += -include windows.h
+WINAPI_FLAGS_custcntl += -include windows.h
 
 WINAPI_PATH_BASE    := extracted/$(MINGWW64_TITLE)/mingw-w64-headers/include
 WINAPI_PATH_DIRECTX := extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include
