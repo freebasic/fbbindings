@@ -5,18 +5,21 @@
 
 '' The following symbols have been renamed:
 ''     enum constant Unlock => Unlock_
-''     #define OUT => OUT_
 ''     typedef STRING => STRING_
 
-extern "C"
+#ifdef __FB_64BIT__
+	extern "C"
+#else
+	extern "Windows"
+#endif
 
 #define _NTSECAPI_
 #define _NTSTATUS_PSDK
 
-type NTSTATUS as LONG
-type PNTSTATUS as LONG ptr
-type LSA_OPERATIONAL_MODE as ULONG
-type PLSA_OPERATIONAL_MODE as ULONG ptr
+type NTSTATUS as LONG_
+type PNTSTATUS as LONG_ ptr
+type LSA_OPERATIONAL_MODE as ULONG_
+type PLSA_OPERATIONAL_MODE as ULONG_ ptr
 
 #define LSA_MODE_PASSWORD_PROTECTED __MSABI_LONG(&h00000001)
 #define LSA_MODE_INDIVIDUAL_ACCOUNTS __MSABI_LONG(&h00000002)
@@ -79,8 +82,8 @@ type PSE_ADT_PARAMETER_TYPE as _SE_ADT_PARAMETER_TYPE ptr
 
 type _SE_ADT_OBJECT_TYPE
 	ObjectType as GUID
-	Flags as USHORT
-	Level as USHORT
+	Flags as USHORT_
+	Level as USHORT_
 	AccessMask as ACCESS_MASK
 end type
 
@@ -89,7 +92,7 @@ type PSE_ADT_OBJECT_TYPE as _SE_ADT_OBJECT_TYPE ptr
 
 type _SE_ADT_PARAMETER_ARRAY_ENTRY
 	as SE_ADT_PARAMETER_TYPE Type
-	Length as ULONG
+	Length as ULONG_
 	Data(0 to 1) as ULONG_PTR
 	Address as PVOID
 end type
@@ -101,12 +104,12 @@ type PSE_ADT_PARAMETER_ARRAY_ENTRY as _SE_ADT_PARAMETER_ARRAY_ENTRY ptr
 #define SE_MAX_GENERIC_AUDIT_PARAMETERS 28
 
 type _SE_ADT_PARAMETER_ARRAY
-	CategoryId as ULONG
-	AuditId as ULONG
-	ParameterCount as ULONG
-	Length as ULONG
-	as USHORT Type
-	Flags as ULONG
+	CategoryId as ULONG_
+	AuditId as ULONG_
+	ParameterCount as ULONG_
+	Length as ULONG_
+	as USHORT_ Type
+	Flags as ULONG_
 	Parameters(0 to 31) as SE_ADT_PARAMETER_ARRAY_ENTRY
 end type
 
@@ -136,13 +139,10 @@ type PPOLICY_AUDIT_EVENT_TYPE as _POLICY_AUDIT_EVENT_TYPE ptr
 #define POLICY_AUDIT_EVENT_FAILURE __MSABI_LONG(&h00000002)
 #define POLICY_AUDIT_EVENT_NONE __MSABI_LONG(&h00000004)
 #define POLICY_AUDIT_EVENT_MASK (((POLICY_AUDIT_EVENT_SUCCESS or POLICY_AUDIT_EVENT_FAILURE) or POLICY_AUDIT_EVENT_UNCHANGED) or POLICY_AUDIT_EVENT_NONE)
-#define IN
-#define OUT_
-#define OPTIONAL
 
 type _LSA_UNICODE_STRING
-	Length as USHORT
-	MaximumLength as USHORT
+	Length as USHORT_
+	MaximumLength as USHORT_
 	Buffer as PWSTR
 end type
 
@@ -150,8 +150,8 @@ type LSA_UNICODE_STRING as _LSA_UNICODE_STRING
 type PLSA_UNICODE_STRING as _LSA_UNICODE_STRING ptr
 
 type _LSA_STRING
-	Length as USHORT
-	MaximumLength as USHORT
+	Length as USHORT_
+	MaximumLength as USHORT_
 	Buffer as PCHAR
 end type
 
@@ -159,10 +159,10 @@ type LSA_STRING as _LSA_STRING
 type PLSA_STRING as _LSA_STRING ptr
 
 type _LSA_OBJECT_ATTRIBUTES
-	Length as ULONG
+	Length as ULONG_
 	RootDirectory as HANDLE
 	ObjectName as PLSA_UNICODE_STRING
-	Attributes as ULONG
+	Attributes as ULONG_
 	SecurityDescriptor as PVOID
 	SecurityQualityOfService as PVOID
 end type
@@ -170,18 +170,15 @@ end type
 type LSA_OBJECT_ATTRIBUTES as _LSA_OBJECT_ATTRIBUTES
 type PLSA_OBJECT_ATTRIBUTES as _LSA_OBJECT_ATTRIBUTES ptr
 
-'' TODO: #define LSA_SUCCESS(Error) ((LONG)(Error) >= 0)
+#define LSA_SUCCESS(Error) cast(LONG_, -((Error) >= 0))
 
-extern     NTAPI as NTSTATUS
-dim shared NTAPI as NTSTATUS
-
-'' TODO: NTSTATUS NTAPI LsaRegisterLogonProcess(PLSA_STRING LogonProcessName,PHANDLE LsaHandle,PLSA_OPERATIONAL_MODE SecurityMode);
-'' TODO: NTSTATUS NTAPI LsaLogonUser(HANDLE LsaHandle,PLSA_STRING OriginName,SECURITY_LOGON_TYPE LogonType,ULONG AuthenticationPackage,PVOID AuthenticationInformation,ULONG AuthenticationInformationLength,PTOKEN_GROUPS LocalGroups,PTOKEN_SOURCE SourceContext,PVOID *ProfileBuffer,PULONG ProfileBufferLength,PLUID LogonId,PHANDLE Token,PQUOTA_LIMITS Quotas,PNTSTATUS SubStatus);
-'' TODO: NTSTATUS NTAPI LsaLookupAuthenticationPackage(HANDLE LsaHandle,PLSA_STRING PackageName,PULONG AuthenticationPackage);
-'' TODO: NTSTATUS NTAPI LsaFreeReturnBuffer (PVOID Buffer);
-'' TODO: NTSTATUS NTAPI LsaCallAuthenticationPackage(HANDLE LsaHandle,ULONG AuthenticationPackage,PVOID ProtocolSubmitBuffer,ULONG SubmitBufferLength,PVOID *ProtocolReturnBuffer,PULONG ReturnBufferLength,PNTSTATUS ProtocolStatus);
-'' TODO: NTSTATUS NTAPI LsaDeregisterLogonProcess(HANDLE LsaHandle);
-'' TODO: NTSTATUS NTAPI LsaConnectUntrusted(PHANDLE LsaHandle);
+declare function LsaRegisterLogonProcess(byval LogonProcessName as PLSA_STRING, byval LsaHandle as PHANDLE, byval SecurityMode as PLSA_OPERATIONAL_MODE) as NTSTATUS
+declare function LsaLogonUser(byval LsaHandle as HANDLE, byval OriginName as PLSA_STRING, byval LogonType as SECURITY_LOGON_TYPE, byval AuthenticationPackage as ULONG_, byval AuthenticationInformation as PVOID, byval AuthenticationInformationLength as ULONG_, byval LocalGroups as PTOKEN_GROUPS, byval SourceContext as PTOKEN_SOURCE, byval ProfileBuffer as PVOID ptr, byval ProfileBufferLength as PULONG, byval LogonId as PLUID, byval Token as PHANDLE, byval Quotas as PQUOTA_LIMITS, byval SubStatus as PNTSTATUS) as NTSTATUS
+declare function LsaLookupAuthenticationPackage(byval LsaHandle as HANDLE, byval PackageName as PLSA_STRING, byval AuthenticationPackage as PULONG) as NTSTATUS
+declare function LsaFreeReturnBuffer(byval Buffer as PVOID) as NTSTATUS
+declare function LsaCallAuthenticationPackage(byval LsaHandle as HANDLE, byval AuthenticationPackage as ULONG_, byval ProtocolSubmitBuffer as PVOID, byval SubmitBufferLength as ULONG_, byval ProtocolReturnBuffer as PVOID ptr, byval ReturnBufferLength as PULONG, byval ProtocolStatus as PNTSTATUS) as NTSTATUS
+declare function LsaDeregisterLogonProcess(byval LsaHandle as HANDLE) as NTSTATUS
+declare function LsaConnectUntrusted(byval LsaHandle as PHANDLE) as NTSTATUS
 
 #define POLICY_VIEW_LOCAL_INFORMATION __MSABI_LONG(&h00000001)
 #define POLICY_VIEW_AUDIT_INFORMATION __MSABI_LONG(&h00000002)
@@ -210,7 +207,7 @@ type LSA_TRUST_INFORMATION as _LSA_TRUST_INFORMATION
 type PLSA_TRUST_INFORMATION as _LSA_TRUST_INFORMATION ptr
 
 type _LSA_REFERENCED_DOMAIN_LIST
-	Entries as ULONG
+	Entries as ULONG_
 	Domains as PLSA_TRUST_INFORMATION
 end type
 
@@ -219,8 +216,8 @@ type PLSA_REFERENCED_DOMAIN_LIST as _LSA_REFERENCED_DOMAIN_LIST ptr
 
 type _LSA_TRANSLATED_SID
 	Use as SID_NAME_USE
-	RelativeId as ULONG
-	DomainIndex as LONG
+	RelativeId as ULONG_
+	DomainIndex as LONG_
 end type
 
 type LSA_TRANSLATED_SID as _LSA_TRANSLATED_SID
@@ -229,8 +226,8 @@ type PLSA_TRANSLATED_SID as _LSA_TRANSLATED_SID ptr
 type _LSA_TRANSLATED_SID2
 	Use as SID_NAME_USE
 	Sid as PSID
-	DomainIndex as LONG
-	Flags as ULONG
+	DomainIndex as LONG_
+	Flags as ULONG_
 end type
 
 type LSA_TRANSLATED_SID2 as _LSA_TRANSLATED_SID2
@@ -239,7 +236,7 @@ type PLSA_TRANSLATED_SID2 as _LSA_TRANSLATED_SID2 ptr
 type _LSA_TRANSLATED_NAME
 	Use as SID_NAME_USE
 	Name as LSA_UNICODE_STRING
-	DomainIndex as LONG
+	DomainIndex as LONG_
 end type
 
 type LSA_TRANSLATED_NAME as _LSA_TRANSLATED_NAME
@@ -253,8 +250,8 @@ end enum
 
 type POLICY_LSA_SERVER_ROLE as _POLICY_LSA_SERVER_ROLE
 type PPOLICY_LSA_SERVER_ROLE as _POLICY_LSA_SERVER_ROLE ptr
-type POLICY_AUDIT_EVENT_OPTIONS as ULONG
-type PPOLICY_AUDIT_EVENT_OPTIONS as ULONG ptr
+type POLICY_AUDIT_EVENT_OPTIONS as ULONG_
+type PPOLICY_AUDIT_EVENT_OPTIONS as ULONG_ ptr
 
 type _POLICY_INFORMATION_CLASS as long
 enum
@@ -277,12 +274,12 @@ type POLICY_INFORMATION_CLASS as _POLICY_INFORMATION_CLASS
 type PPOLICY_INFORMATION_CLASS as _POLICY_INFORMATION_CLASS ptr
 
 type _POLICY_AUDIT_LOG_INFO
-	AuditLogPercentFull as ULONG
-	MaximumLogSize as ULONG
+	AuditLogPercentFull as ULONG_
+	MaximumLogSize as ULONG_
 	AuditRetentionPeriod as LARGE_INTEGER
 	AuditLogFullShutdownInProgress as BOOLEAN
 	TimeToShutdown as LARGE_INTEGER
-	NextAuditRecordId as ULONG
+	NextAuditRecordId as ULONG_
 end type
 
 type POLICY_AUDIT_LOG_INFO as _POLICY_AUDIT_LOG_INFO
@@ -291,7 +288,7 @@ type PPOLICY_AUDIT_LOG_INFO as _POLICY_AUDIT_LOG_INFO ptr
 type _POLICY_AUDIT_EVENTS_INFO
 	AuditingMode as BOOLEAN
 	EventAuditingOptions as PPOLICY_AUDIT_EVENT_OPTIONS
-	MaximumAuditEventCount as ULONG
+	MaximumAuditEventCount as ULONG_
 end type
 
 type POLICY_AUDIT_EVENTS_INFO as _POLICY_AUDIT_EVENTS_INFO
@@ -386,7 +383,7 @@ type POLICY_DOMAIN_INFORMATION_CLASS as _POLICY_DOMAIN_INFORMATION_CLASS
 type PPOLICY_DOMAIN_INFORMATION_CLASS as _POLICY_DOMAIN_INFORMATION_CLASS ptr
 
 type _POLICY_DOMAIN_EFS_INFO
-	InfoLength as ULONG
+	InfoLength as ULONG_
 	EfsBlob as PUCHAR
 end type
 
@@ -396,7 +393,7 @@ type PPOLICY_DOMAIN_EFS_INFO as _POLICY_DOMAIN_EFS_INFO ptr
 #define POLICY_KERBEROS_VALIDATE_CLIENT &h00000080
 
 type _POLICY_DOMAIN_KERBEROS_TICKET_INFO
-	AuthenticationOptions as ULONG
+	AuthenticationOptions as ULONG_
 	MaxServiceTicketAge as LARGE_INTEGER
 	MaxTicketAge as LARGE_INTEGER
 	MaxRenewAge as LARGE_INTEGER
@@ -450,7 +447,7 @@ type TRUSTED_DOMAIN_NAME_INFO as _TRUSTED_DOMAIN_NAME_INFO
 type PTRUSTED_DOMAIN_NAME_INFO as _TRUSTED_DOMAIN_NAME_INFO ptr
 
 type _TRUSTED_CONTROLLERS_INFO
-	Entries as ULONG
+	Entries as ULONG_
 	Names as PLSA_UNICODE_STRING
 end type
 
@@ -458,7 +455,7 @@ type TRUSTED_CONTROLLERS_INFO as _TRUSTED_CONTROLLERS_INFO
 type PTRUSTED_CONTROLLERS_INFO as _TRUSTED_CONTROLLERS_INFO ptr
 
 type _TRUSTED_POSIX_OFFSET_INFO
-	Offset as ULONG
+	Offset as ULONG_
 end type
 
 type TRUSTED_POSIX_OFFSET_INFO as _TRUSTED_POSIX_OFFSET_INFO
@@ -496,9 +493,9 @@ type _TRUSTED_DOMAIN_INFORMATION_EX
 	Name as LSA_UNICODE_STRING
 	FlatName as LSA_UNICODE_STRING
 	Sid as PSID
-	TrustDirection as ULONG
-	TrustType as ULONG
-	TrustAttributes as ULONG
+	TrustDirection as ULONG_
+	TrustType as ULONG_
+	TrustAttributes as ULONG_
 end type
 
 type TRUSTED_DOMAIN_INFORMATION_EX as _TRUSTED_DOMAIN_INFORMATION_EX
@@ -508,10 +505,10 @@ type _TRUSTED_DOMAIN_INFORMATION_EX2
 	Name as LSA_UNICODE_STRING
 	FlatName as LSA_UNICODE_STRING
 	Sid as PSID
-	TrustDirection as ULONG
-	TrustType as ULONG
-	TrustAttributes as ULONG
-	ForestTrustLength as ULONG
+	TrustDirection as ULONG_
+	TrustType as ULONG_
+	TrustAttributes as ULONG_
+	ForestTrustLength as ULONG_
 	ForestTrustInfo as PUCHAR
 end type
 
@@ -525,8 +522,8 @@ type PTRUSTED_DOMAIN_INFORMATION_EX2 as _TRUSTED_DOMAIN_INFORMATION_EX2 ptr
 
 type _LSA_AUTH_INFORMATION
 	LastUpdateTime as LARGE_INTEGER
-	AuthType as ULONG
-	AuthInfoLength as ULONG
+	AuthType as ULONG_
+	AuthInfoLength as ULONG_
 	AuthInfo as PUCHAR
 end type
 
@@ -534,10 +531,10 @@ type LSA_AUTH_INFORMATION as _LSA_AUTH_INFORMATION
 type PLSA_AUTH_INFORMATION as _LSA_AUTH_INFORMATION ptr
 
 type _TRUSTED_DOMAIN_AUTH_INFORMATION
-	IncomingAuthInfos as ULONG
+	IncomingAuthInfos as ULONG_
 	IncomingAuthenticationInformation as PLSA_AUTH_INFORMATION
 	IncomingPreviousAuthenticationInformation as PLSA_AUTH_INFORMATION
-	OutgoingAuthInfos as ULONG
+	OutgoingAuthInfos as ULONG_
 	OutgoingAuthenticationInformation as PLSA_AUTH_INFORMATION
 	OutgoingPreviousAuthenticationInformation as PLSA_AUTH_INFORMATION
 end type
@@ -592,7 +589,7 @@ type PLSA_FOREST_TRUST_DOMAIN_INFO as _LSA_FOREST_TRUST_DOMAIN_INFO ptr
 #define MAX_FOREST_TRUST_BINARY_DATA_SIZE (128 * 1024)
 
 type _LSA_FOREST_TRUST_BINARY_DATA
-	Length as ULONG
+	Length as ULONG_
 	Buffer as PUCHAR
 end type
 
@@ -606,7 +603,7 @@ union ___LSA_FOREST_TRUST_RECORD_ForestTrustData
 end union
 
 type _LSA_FOREST_TRUST_RECORD
-	Flags as ULONG
+	Flags as ULONG_
 	ForestTrustType as LSA_FOREST_TRUST_RECORD_TYPE
 	Time as LARGE_INTEGER
 	ForestTrustData as ___LSA_FOREST_TRUST_RECORD_ForestTrustData
@@ -618,7 +615,7 @@ type PLSA_FOREST_TRUST_RECORD as _LSA_FOREST_TRUST_RECORD ptr
 #define MAX_RECORDS_IN_FOREST_TRUST_INFO 4000
 
 type _LSA_FOREST_TRUST_INFORMATION
-	RecordCount as ULONG
+	RecordCount as ULONG_
 	Entries as PLSA_FOREST_TRUST_RECORD ptr
 end type
 
@@ -633,9 +630,9 @@ enum
 end enum
 
 type _LSA_FOREST_TRUST_COLLISION_RECORD
-	Index as ULONG
+	Index as ULONG_
 	as LSA_FOREST_TRUST_COLLISION_RECORD_TYPE Type
-	Flags as ULONG
+	Flags as ULONG_
 	Name as LSA_UNICODE_STRING
 end type
 
@@ -643,14 +640,14 @@ type LSA_FOREST_TRUST_COLLISION_RECORD as _LSA_FOREST_TRUST_COLLISION_RECORD
 type PLSA_FOREST_TRUST_COLLISION_RECORD as _LSA_FOREST_TRUST_COLLISION_RECORD ptr
 
 type _LSA_FOREST_TRUST_COLLISION_INFORMATION
-	RecordCount as ULONG
+	RecordCount as ULONG_
 	Entries as PLSA_FOREST_TRUST_COLLISION_RECORD ptr
 end type
 
 type LSA_FOREST_TRUST_COLLISION_INFORMATION as _LSA_FOREST_TRUST_COLLISION_INFORMATION
 type PLSA_FOREST_TRUST_COLLISION_INFORMATION as _LSA_FOREST_TRUST_COLLISION_INFORMATION ptr
-type LSA_ENUMERATION_HANDLE as ULONG
-type PLSA_ENUMERATION_HANDLE as ULONG ptr
+type LSA_ENUMERATION_HANDLE as ULONG_
+type PLSA_ENUMERATION_HANDLE as ULONG_ ptr
 
 type _LSA_ENUMERATION_INFORMATION
 	Sid as PSID
@@ -659,17 +656,17 @@ end type
 type LSA_ENUMERATION_INFORMATION as _LSA_ENUMERATION_INFORMATION
 type PLSA_ENUMERATION_INFORMATION as _LSA_ENUMERATION_INFORMATION ptr
 
-'' TODO: NTSTATUS NTAPI LsaFreeMemory(PVOID Buffer);
-'' TODO: NTSTATUS NTAPI LsaClose(LSA_HANDLE ObjectHandle);
+declare function LsaFreeMemory(byval Buffer as PVOID) as NTSTATUS
+declare function LsaClose(byval ObjectHandle as LSA_HANDLE) as NTSTATUS
 
 type _SECURITY_LOGON_SESSION_DATA
-	Size as ULONG
+	Size as ULONG_
 	LogonId as LUID
 	UserName as LSA_UNICODE_STRING
 	LogonDomain as LSA_UNICODE_STRING
 	AuthenticationPackage as LSA_UNICODE_STRING
-	LogonType as ULONG
-	Session as ULONG
+	LogonType as ULONG_
+	Session as ULONG_
 	Sid as PSID
 	LogonTime as LARGE_INTEGER
 	LogonServer as LSA_UNICODE_STRING
@@ -680,48 +677,48 @@ end type
 type SECURITY_LOGON_SESSION_DATA as _SECURITY_LOGON_SESSION_DATA
 type PSECURITY_LOGON_SESSION_DATA as _SECURITY_LOGON_SESSION_DATA ptr
 
-'' TODO: NTSTATUS NTAPI LsaEnumerateLogonSessions(PULONG LogonSessionCount,PLUID *LogonSessionList);
-'' TODO: NTSTATUS NTAPI LsaGetLogonSessionData(PLUID LogonId,PSECURITY_LOGON_SESSION_DATA *ppLogonSessionData);
-'' TODO: NTSTATUS NTAPI LsaOpenPolicy(PLSA_UNICODE_STRING SystemName,PLSA_OBJECT_ATTRIBUTES ObjectAttributes,ACCESS_MASK DesiredAccess,PLSA_HANDLE PolicyHandle);
-'' TODO: NTSTATUS NTAPI LsaQueryInformationPolicy(LSA_HANDLE PolicyHandle,POLICY_INFORMATION_CLASS InformationClass,PVOID *Buffer);
-'' TODO: NTSTATUS NTAPI LsaSetInformationPolicy(LSA_HANDLE PolicyHandle,POLICY_INFORMATION_CLASS InformationClass,PVOID Buffer);
-'' TODO: NTSTATUS NTAPI LsaQueryDomainInformationPolicy(LSA_HANDLE PolicyHandle,POLICY_DOMAIN_INFORMATION_CLASS InformationClass,PVOID *Buffer);
-'' TODO: NTSTATUS NTAPI LsaSetDomainInformationPolicy(LSA_HANDLE PolicyHandle,POLICY_DOMAIN_INFORMATION_CLASS InformationClass,PVOID Buffer);
-'' TODO: NTSTATUS NTAPI LsaRegisterPolicyChangeNotification(POLICY_NOTIFICATION_INFORMATION_CLASS InformationClass,HANDLE NotificationEventHandle);
-'' TODO: NTSTATUS NTAPI LsaUnregisterPolicyChangeNotification(POLICY_NOTIFICATION_INFORMATION_CLASS InformationClass,HANDLE NotificationEventHandle);
-'' TODO: NTSTATUS NTAPI LsaEnumerateTrustedDomains(LSA_HANDLE PolicyHandle,PLSA_ENUMERATION_HANDLE EnumerationContext,PVOID *Buffer,ULONG PreferedMaximumLength,PULONG CountReturned);
-'' TODO: NTSTATUS NTAPI LsaLookupNames(LSA_HANDLE PolicyHandle,ULONG Count,PLSA_UNICODE_STRING Names,PLSA_REFERENCED_DOMAIN_LIST *ReferencedDomains,PLSA_TRANSLATED_SID *Sids);
-'' TODO: NTSTATUS NTAPI LsaLookupNames2(LSA_HANDLE PolicyHandle,ULONG Flags,ULONG Count,PLSA_UNICODE_STRING Names,PLSA_REFERENCED_DOMAIN_LIST *ReferencedDomains,PLSA_TRANSLATED_SID2 *Sids);
-'' TODO: NTSTATUS NTAPI LsaLookupSids(LSA_HANDLE PolicyHandle,ULONG Count,PSID *Sids,PLSA_REFERENCED_DOMAIN_LIST *ReferencedDomains,PLSA_TRANSLATED_NAME *Names);
+declare function LsaEnumerateLogonSessions(byval LogonSessionCount as PULONG, byval LogonSessionList as PLUID ptr) as NTSTATUS
+declare function LsaGetLogonSessionData(byval LogonId as PLUID, byval ppLogonSessionData as PSECURITY_LOGON_SESSION_DATA ptr) as NTSTATUS
+declare function LsaOpenPolicy(byval SystemName as PLSA_UNICODE_STRING, byval ObjectAttributes as PLSA_OBJECT_ATTRIBUTES, byval DesiredAccess as ACCESS_MASK, byval PolicyHandle as PLSA_HANDLE) as NTSTATUS
+declare function LsaQueryInformationPolicy(byval PolicyHandle as LSA_HANDLE, byval InformationClass as POLICY_INFORMATION_CLASS, byval Buffer as PVOID ptr) as NTSTATUS
+declare function LsaSetInformationPolicy(byval PolicyHandle as LSA_HANDLE, byval InformationClass as POLICY_INFORMATION_CLASS, byval Buffer as PVOID) as NTSTATUS
+declare function LsaQueryDomainInformationPolicy(byval PolicyHandle as LSA_HANDLE, byval InformationClass as POLICY_DOMAIN_INFORMATION_CLASS, byval Buffer as PVOID ptr) as NTSTATUS
+declare function LsaSetDomainInformationPolicy(byval PolicyHandle as LSA_HANDLE, byval InformationClass as POLICY_DOMAIN_INFORMATION_CLASS, byval Buffer as PVOID) as NTSTATUS
+declare function LsaRegisterPolicyChangeNotification(byval InformationClass as POLICY_NOTIFICATION_INFORMATION_CLASS, byval NotificationEventHandle as HANDLE) as NTSTATUS
+declare function LsaUnregisterPolicyChangeNotification(byval InformationClass as POLICY_NOTIFICATION_INFORMATION_CLASS, byval NotificationEventHandle as HANDLE) as NTSTATUS
+declare function LsaEnumerateTrustedDomains(byval PolicyHandle as LSA_HANDLE, byval EnumerationContext as PLSA_ENUMERATION_HANDLE, byval Buffer as PVOID ptr, byval PreferedMaximumLength as ULONG_, byval CountReturned as PULONG) as NTSTATUS
+declare function LsaLookupNames(byval PolicyHandle as LSA_HANDLE, byval Count as ULONG_, byval Names as PLSA_UNICODE_STRING, byval ReferencedDomains as PLSA_REFERENCED_DOMAIN_LIST ptr, byval Sids as PLSA_TRANSLATED_SID ptr) as NTSTATUS
+declare function LsaLookupNames2(byval PolicyHandle as LSA_HANDLE, byval Flags as ULONG_, byval Count as ULONG_, byval Names as PLSA_UNICODE_STRING, byval ReferencedDomains as PLSA_REFERENCED_DOMAIN_LIST ptr, byval Sids as PLSA_TRANSLATED_SID2 ptr) as NTSTATUS
+declare function LsaLookupSids(byval PolicyHandle as LSA_HANDLE, byval Count as ULONG_, byval Sids as PSID ptr, byval ReferencedDomains as PLSA_REFERENCED_DOMAIN_LIST ptr, byval Names as PLSA_TRANSLATED_NAME ptr) as NTSTATUS
 
-#define SE_INTERACTIVE_LOGON_NAME TEXT("SeInteractiveLogonRight")
-#define SE_NETWORK_LOGON_NAME TEXT("SeNetworkLogonRight")
-#define SE_BATCH_LOGON_NAME TEXT("SeBatchLogonRight")
-#define SE_SERVICE_LOGON_NAME TEXT("SeServiceLogonRight")
-#define SE_DENY_INTERACTIVE_LOGON_NAME TEXT("SeDenyInteractiveLogonRight")
-#define SE_DENY_NETWORK_LOGON_NAME TEXT("SeDenyNetworkLogonRight")
-#define SE_DENY_BATCH_LOGON_NAME TEXT("SeDenyBatchLogonRight")
-#define SE_DENY_SERVICE_LOGON_NAME TEXT("SeDenyServiceLogonRight")
-#define SE_REMOTE_INTERACTIVE_LOGON_NAME TEXT("SeRemoteInteractiveLogonRight")
-#define SE_DENY_REMOTE_INTERACTIVE_LOGON_NAME TEXT("SeDenyRemoteInteractiveLogonRight")
+#define SE_INTERACTIVE_LOGON_NAME TEXT_("SeInteractiveLogonRight")
+#define SE_NETWORK_LOGON_NAME TEXT_("SeNetworkLogonRight")
+#define SE_BATCH_LOGON_NAME TEXT_("SeBatchLogonRight")
+#define SE_SERVICE_LOGON_NAME TEXT_("SeServiceLogonRight")
+#define SE_DENY_INTERACTIVE_LOGON_NAME TEXT_("SeDenyInteractiveLogonRight")
+#define SE_DENY_NETWORK_LOGON_NAME TEXT_("SeDenyNetworkLogonRight")
+#define SE_DENY_BATCH_LOGON_NAME TEXT_("SeDenyBatchLogonRight")
+#define SE_DENY_SERVICE_LOGON_NAME TEXT_("SeDenyServiceLogonRight")
+#define SE_REMOTE_INTERACTIVE_LOGON_NAME TEXT_("SeRemoteInteractiveLogonRight")
+#define SE_DENY_REMOTE_INTERACTIVE_LOGON_NAME TEXT_("SeDenyRemoteInteractiveLogonRight")
 
-'' TODO: NTSTATUS NTAPI LsaEnumerateAccountsWithUserRight(LSA_HANDLE PolicyHandle,PLSA_UNICODE_STRING UserRight,PVOID *Buffer,PULONG CountReturned);
-'' TODO: NTSTATUS NTAPI LsaEnumerateAccountRights(LSA_HANDLE PolicyHandle,PSID AccountSid,PLSA_UNICODE_STRING *UserRights,PULONG CountOfRights);
-'' TODO: NTSTATUS NTAPI LsaAddAccountRights(LSA_HANDLE PolicyHandle,PSID AccountSid,PLSA_UNICODE_STRING UserRights,ULONG CountOfRights);
-'' TODO: NTSTATUS NTAPI LsaRemoveAccountRights(LSA_HANDLE PolicyHandle,PSID AccountSid,BOOLEAN AllRights,PLSA_UNICODE_STRING UserRights,ULONG CountOfRights);
-'' TODO: NTSTATUS NTAPI LsaOpenTrustedDomainByName(LSA_HANDLE PolicyHandle,PLSA_UNICODE_STRING TrustedDomainName,ACCESS_MASK DesiredAccess,PLSA_HANDLE TrustedDomainHandle);
-'' TODO: NTSTATUS NTAPI LsaQueryTrustedDomainInfo(LSA_HANDLE PolicyHandle,PSID TrustedDomainSid,TRUSTED_INFORMATION_CLASS InformationClass,PVOID *Buffer);
-'' TODO: NTSTATUS NTAPI LsaSetTrustedDomainInformation(LSA_HANDLE PolicyHandle,PSID TrustedDomainSid,TRUSTED_INFORMATION_CLASS InformationClass,PVOID Buffer);
-'' TODO: NTSTATUS NTAPI LsaDeleteTrustedDomain(LSA_HANDLE PolicyHandle,PSID TrustedDomainSid);
-'' TODO: NTSTATUS NTAPI LsaQueryTrustedDomainInfoByName(LSA_HANDLE PolicyHandle,PLSA_UNICODE_STRING TrustedDomainName,TRUSTED_INFORMATION_CLASS InformationClass,PVOID *Buffer);
-'' TODO: NTSTATUS NTAPI LsaSetTrustedDomainInfoByName(LSA_HANDLE PolicyHandle,PLSA_UNICODE_STRING TrustedDomainName,TRUSTED_INFORMATION_CLASS InformationClass,PVOID Buffer);
-'' TODO: NTSTATUS NTAPI LsaEnumerateTrustedDomainsEx(LSA_HANDLE PolicyHandle,PLSA_ENUMERATION_HANDLE EnumerationContext,PVOID *Buffer,ULONG PreferedMaximumLength,PULONG CountReturned);
-'' TODO: NTSTATUS NTAPI LsaCreateTrustedDomainEx(LSA_HANDLE PolicyHandle,PTRUSTED_DOMAIN_INFORMATION_EX TrustedDomainInformation,PTRUSTED_DOMAIN_AUTH_INFORMATION AuthenticationInformation,ACCESS_MASK DesiredAccess,PLSA_HANDLE TrustedDomainHandle);
-'' TODO: NTSTATUS NTAPI LsaQueryForestTrustInformation(LSA_HANDLE PolicyHandle,PLSA_UNICODE_STRING TrustedDomainName,PLSA_FOREST_TRUST_INFORMATION *ForestTrustInfo);
-'' TODO: NTSTATUS NTAPI LsaSetForestTrustInformation(LSA_HANDLE PolicyHandle,PLSA_UNICODE_STRING TrustedDomainName,PLSA_FOREST_TRUST_INFORMATION ForestTrustInfo,BOOLEAN CheckOnly,PLSA_FOREST_TRUST_COLLISION_INFORMATION *CollisionInfo);
-'' TODO: NTSTATUS NTAPI LsaStorePrivateData(LSA_HANDLE PolicyHandle,PLSA_UNICODE_STRING KeyName,PLSA_UNICODE_STRING PrivateData);
-'' TODO: NTSTATUS NTAPI LsaRetrievePrivateData(LSA_HANDLE PolicyHandle,PLSA_UNICODE_STRING KeyName,PLSA_UNICODE_STRING *PrivateData);
-'' TODO: ULONG NTAPI LsaNtStatusToWinError(NTSTATUS Status);
+declare function LsaEnumerateAccountsWithUserRight(byval PolicyHandle as LSA_HANDLE, byval UserRight as PLSA_UNICODE_STRING, byval Buffer as PVOID ptr, byval CountReturned as PULONG) as NTSTATUS
+declare function LsaEnumerateAccountRights(byval PolicyHandle as LSA_HANDLE, byval AccountSid as PSID, byval UserRights as PLSA_UNICODE_STRING ptr, byval CountOfRights as PULONG) as NTSTATUS
+declare function LsaAddAccountRights(byval PolicyHandle as LSA_HANDLE, byval AccountSid as PSID, byval UserRights as PLSA_UNICODE_STRING, byval CountOfRights as ULONG_) as NTSTATUS
+declare function LsaRemoveAccountRights(byval PolicyHandle as LSA_HANDLE, byval AccountSid as PSID, byval AllRights as BOOLEAN, byval UserRights as PLSA_UNICODE_STRING, byval CountOfRights as ULONG_) as NTSTATUS
+declare function LsaOpenTrustedDomainByName(byval PolicyHandle as LSA_HANDLE, byval TrustedDomainName as PLSA_UNICODE_STRING, byval DesiredAccess as ACCESS_MASK, byval TrustedDomainHandle as PLSA_HANDLE) as NTSTATUS
+declare function LsaQueryTrustedDomainInfo(byval PolicyHandle as LSA_HANDLE, byval TrustedDomainSid as PSID, byval InformationClass as TRUSTED_INFORMATION_CLASS, byval Buffer as PVOID ptr) as NTSTATUS
+declare function LsaSetTrustedDomainInformation(byval PolicyHandle as LSA_HANDLE, byval TrustedDomainSid as PSID, byval InformationClass as TRUSTED_INFORMATION_CLASS, byval Buffer as PVOID) as NTSTATUS
+declare function LsaDeleteTrustedDomain(byval PolicyHandle as LSA_HANDLE, byval TrustedDomainSid as PSID) as NTSTATUS
+declare function LsaQueryTrustedDomainInfoByName(byval PolicyHandle as LSA_HANDLE, byval TrustedDomainName as PLSA_UNICODE_STRING, byval InformationClass as TRUSTED_INFORMATION_CLASS, byval Buffer as PVOID ptr) as NTSTATUS
+declare function LsaSetTrustedDomainInfoByName(byval PolicyHandle as LSA_HANDLE, byval TrustedDomainName as PLSA_UNICODE_STRING, byval InformationClass as TRUSTED_INFORMATION_CLASS, byval Buffer as PVOID) as NTSTATUS
+declare function LsaEnumerateTrustedDomainsEx(byval PolicyHandle as LSA_HANDLE, byval EnumerationContext as PLSA_ENUMERATION_HANDLE, byval Buffer as PVOID ptr, byval PreferedMaximumLength as ULONG_, byval CountReturned as PULONG) as NTSTATUS
+declare function LsaCreateTrustedDomainEx(byval PolicyHandle as LSA_HANDLE, byval TrustedDomainInformation as PTRUSTED_DOMAIN_INFORMATION_EX, byval AuthenticationInformation as PTRUSTED_DOMAIN_AUTH_INFORMATION, byval DesiredAccess as ACCESS_MASK, byval TrustedDomainHandle as PLSA_HANDLE) as NTSTATUS
+declare function LsaQueryForestTrustInformation(byval PolicyHandle as LSA_HANDLE, byval TrustedDomainName as PLSA_UNICODE_STRING, byval ForestTrustInfo as PLSA_FOREST_TRUST_INFORMATION ptr) as NTSTATUS
+declare function LsaSetForestTrustInformation(byval PolicyHandle as LSA_HANDLE, byval TrustedDomainName as PLSA_UNICODE_STRING, byval ForestTrustInfo as PLSA_FOREST_TRUST_INFORMATION, byval CheckOnly as BOOLEAN, byval CollisionInfo as PLSA_FOREST_TRUST_COLLISION_INFORMATION ptr) as NTSTATUS
+declare function LsaStorePrivateData(byval PolicyHandle as LSA_HANDLE, byval KeyName as PLSA_UNICODE_STRING, byval PrivateData as PLSA_UNICODE_STRING) as NTSTATUS
+declare function LsaRetrievePrivateData(byval PolicyHandle as LSA_HANDLE, byval KeyName as PLSA_UNICODE_STRING, byval PrivateData as PLSA_UNICODE_STRING ptr) as NTSTATUS
+declare function LsaNtStatusToWinError(byval Status as NTSTATUS) as ULONG_
 
 #define _NTLSA_IFS_
 
@@ -746,17 +743,17 @@ type NEGOTIATE_PACKAGE_PREFIX as _NEGOTIATE_PACKAGE_PREFIX
 type PNEGOTIATE_PACKAGE_PREFIX as _NEGOTIATE_PACKAGE_PREFIX ptr
 
 type _NEGOTIATE_PACKAGE_PREFIXES
-	MessageType as ULONG
-	PrefixCount as ULONG
-	Offset as ULONG
-	Pad as ULONG
+	MessageType as ULONG_
+	PrefixCount as ULONG_
+	Offset as ULONG_
+	Pad as ULONG_
 end type
 
 type NEGOTIATE_PACKAGE_PREFIXES as _NEGOTIATE_PACKAGE_PREFIXES
 type PNEGOTIATE_PACKAGE_PREFIXES as _NEGOTIATE_PACKAGE_PREFIXES ptr
 
 type _NEGOTIATE_CALLER_NAME_REQUEST
-	MessageType as ULONG
+	MessageType as ULONG_
 	LogonId as LUID
 end type
 
@@ -764,7 +761,7 @@ type NEGOTIATE_CALLER_NAME_REQUEST as _NEGOTIATE_CALLER_NAME_REQUEST
 type PNEGOTIATE_CALLER_NAME_REQUEST as _NEGOTIATE_CALLER_NAME_REQUEST ptr
 
 type _NEGOTIATE_CALLER_NAME_RESPONSE
-	MessageType as ULONG
+	MessageType as ULONG_
 	CallerName as PWSTR
 end type
 
@@ -784,9 +781,9 @@ type PSTRING as LSA_STRING ptr
 #define _DOMAIN_PASSWORD_INFORMATION_DEFINED
 
 type _DOMAIN_PASSWORD_INFORMATION
-	MinPasswordLength as USHORT
-	PasswordHistoryLength as USHORT
-	PasswordProperties as ULONG
+	MinPasswordLength as USHORT_
+	PasswordHistoryLength as USHORT_
+	PasswordProperties as ULONG_
 	MaxPasswordAge as LARGE_INTEGER
 	MinPasswordAge as LARGE_INTEGER
 end type
@@ -802,16 +799,16 @@ type PDOMAIN_PASSWORD_INFORMATION as _DOMAIN_PASSWORD_INFORMATION ptr
 #define DOMAIN_REFUSE_PASSWORD_CHANGE __MSABI_LONG(&h00000020)
 #define _PASSWORD_NOTIFICATION_DEFINED
 
-type PSAM_PASSWORD_NOTIFICATION_ROUTINE as function(byval UserName as PUNICODE_STRING, byval RelativeId as ULONG, byval NewPassword as PUNICODE_STRING) as NTSTATUS
+type PSAM_PASSWORD_NOTIFICATION_ROUTINE as function cdecl(byval UserName as PUNICODE_STRING, byval RelativeId as ULONG_, byval NewPassword as PUNICODE_STRING) as NTSTATUS
 
 #define SAM_PASSWORD_CHANGE_NOTIFY_ROUTINE "PasswordChangeNotify"
 
-type PSAM_INIT_NOTIFICATION_ROUTINE as function() as BOOLEAN
+type PSAM_INIT_NOTIFICATION_ROUTINE as function cdecl() as BOOLEAN
 
 #define SAM_INIT_NOTIFICATION_ROUTINE "InitializeChangeNotify"
 #define SAM_PASSWORD_FILTER_ROUTINE "PasswordFilter"
 
-type PSAM_PASSWORD_FILTER_ROUTINE as function(byval AccountName as PUNICODE_STRING, byval FullName as PUNICODE_STRING, byval Password as PUNICODE_STRING, byval SetOperation as BOOLEAN) as BOOLEAN
+type PSAM_PASSWORD_FILTER_ROUTINE as function cdecl(byval AccountName as PUNICODE_STRING, byval FullName as PUNICODE_STRING, byval Password as PUNICODE_STRING, byval SetOperation as BOOLEAN) as BOOLEAN
 
 #define MSV1_0_PACKAGE_NAME "MICROSOFT_AUTHENTICATION_PACKAGE_V1_0"
 #define MSV1_0_PACKAGE_NAMEW wstr("MICROSOFT_AUTHENTICATION_PACKAGE_V1_0")
@@ -853,8 +850,8 @@ type PMSV1_0_INTERACTIVE_LOGON as _MSV1_0_INTERACTIVE_LOGON ptr
 
 type _MSV1_0_INTERACTIVE_PROFILE
 	MessageType as MSV1_0_PROFILE_BUFFER_TYPE
-	LogonCount as USHORT
-	BadPasswordCount as USHORT
+	LogonCount as USHORT_
+	BadPasswordCount as USHORT_
 	LogonTime as LARGE_INTEGER
 	LogoffTime as LARGE_INTEGER
 	KickOffTime as LARGE_INTEGER
@@ -867,7 +864,7 @@ type _MSV1_0_INTERACTIVE_PROFILE
 	ProfilePath as UNICODE_STRING
 	HomeDirectoryDrive as UNICODE_STRING
 	LogonServer as UNICODE_STRING
-	UserFlags as ULONG
+	UserFlags as ULONG_
 end type
 
 type MSV1_0_INTERACTIVE_PROFILE as _MSV1_0_INTERACTIVE_PROFILE
@@ -907,7 +904,7 @@ type _MSV1_0_LM20_LOGON
 	ChallengeToClient(0 to 7) as UCHAR
 	CaseSensitiveChallengeResponse as STRING_
 	CaseInsensitiveChallengeResponse as STRING_
-	ParameterControl as ULONG
+	ParameterControl as ULONG_
 end type
 
 type MSV1_0_LM20_LOGON as _MSV1_0_LM20_LOGON
@@ -921,8 +918,8 @@ type _MSV1_0_SUBAUTH_LOGON
 	ChallengeToClient(0 to 7) as UCHAR
 	AuthenticationInfo1 as STRING_
 	AuthenticationInfo2 as STRING_
-	ParameterControl as ULONG
-	SubAuthPackageId as ULONG
+	ParameterControl as ULONG_
+	SubAuthPackageId as ULONG_
 end type
 
 type MSV1_0_SUBAUTH_LOGON as _MSV1_0_SUBAUTH_LOGON
@@ -945,7 +942,7 @@ type _MSV1_0_LM20_LOGON_PROFILE
 	MessageType as MSV1_0_PROFILE_BUFFER_TYPE
 	KickOffTime as LARGE_INTEGER
 	LogoffTime as LARGE_INTEGER
-	UserFlags as ULONG
+	UserFlags as ULONG_
 	UserSessionKey(0 to 15) as UCHAR
 	LogonDomainName as UNICODE_STRING
 	LanmanSessionKey(0 to 7) as UCHAR
@@ -962,8 +959,8 @@ type PMSV1_0_LM20_LOGON_PROFILE as _MSV1_0_LM20_LOGON_PROFILE ptr
 #define MSV1_0_CRED_VERSION 0
 
 type _MSV1_0_SUPPLEMENTAL_CREDENTIAL
-	Version as ULONG
-	Flags as ULONG
+	Version as ULONG_
+	Flags as ULONG_
 	LmPassword(0 to 15) as UCHAR
 	NtPassword(0 to 15) as UCHAR
 end type
@@ -981,11 +978,11 @@ type _MSV1_0_NTLM3_RESPONSE
 	Response(0 to 15) as UCHAR
 	RespType as UCHAR
 	HiRespType as UCHAR
-	Flags as USHORT
-	MsgWord as ULONG
+	Flags as USHORT_
+	MsgWord as ULONG_
 	TimeStamp as ULONGLONG
 	ChallengeFromClient(0 to 7) as UCHAR
-	AvPairsOff as ULONG
+	AvPairsOff as ULONG_
 	Buffer(0 to 0) as UCHAR
 end type
 
@@ -1007,8 +1004,8 @@ enum
 end enum
 
 type _MSV1_0_AV_PAIR
-	AvId as USHORT
-	AvLen as USHORT
+	AvId as USHORT_
+	AvLen as USHORT_
 end type
 
 type MSV1_0_AV_PAIR as _MSV1_0_AV_PAIR
@@ -1059,9 +1056,9 @@ type _MSV1_0_PASSTHROUGH_REQUEST
 	MessageType as MSV1_0_PROTOCOL_MESSAGE_TYPE
 	DomainName as UNICODE_STRING
 	PackageName as UNICODE_STRING
-	DataLength as ULONG
+	DataLength as ULONG_
 	LogonData as PUCHAR
-	Pad as ULONG
+	Pad as ULONG_
 end type
 
 type MSV1_0_PASSTHROUGH_REQUEST as _MSV1_0_PASSTHROUGH_REQUEST
@@ -1069,8 +1066,8 @@ type PMSV1_0_PASSTHROUGH_REQUEST as _MSV1_0_PASSTHROUGH_REQUEST ptr
 
 type _MSV1_0_PASSTHROUGH_RESPONSE
 	MessageType as MSV1_0_PROTOCOL_MESSAGE_TYPE
-	Pad as ULONG
-	DataLength as ULONG
+	Pad as ULONG_
+	DataLength as ULONG_
 	ValidationData as PUCHAR
 end type
 
@@ -1079,8 +1076,8 @@ type PMSV1_0_PASSTHROUGH_RESPONSE as _MSV1_0_PASSTHROUGH_RESPONSE ptr
 
 type _MSV1_0_SUBAUTH_REQUEST
 	MessageType as MSV1_0_PROTOCOL_MESSAGE_TYPE
-	SubAuthPackageId as ULONG
-	SubAuthInfoLength as ULONG
+	SubAuthPackageId as ULONG_
+	SubAuthInfoLength as ULONG_
 	SubAuthSubmitBuffer as PUCHAR
 end type
 
@@ -1089,7 +1086,7 @@ type PMSV1_0_SUBAUTH_REQUEST as _MSV1_0_SUBAUTH_REQUEST ptr
 
 type _MSV1_0_SUBAUTH_RESPONSE
 	MessageType as MSV1_0_PROTOCOL_MESSAGE_TYPE
-	SubAuthInfoLength as ULONG
+	SubAuthInfoLength as ULONG_
 	SubAuthReturnBuffer as PUCHAR
 end type
 
@@ -1100,14 +1097,14 @@ type PMSV1_0_SUBAUTH_RESPONSE as _MSV1_0_SUBAUTH_RESPONSE ptr
 #define RtlEncryptMemory SystemFunction040
 #define RtlDecryptMemory SystemFunction041
 
-declare function SystemFunction036(byval RandomBuffer as PVOID, byval RandomBufferLength as ULONG) as BOOLEAN
+declare function SystemFunction036 cdecl(byval RandomBuffer as PVOID, byval RandomBufferLength as ULONG_) as BOOLEAN
 
 #define RTL_ENCRYPT_MEMORY_SIZE 8
 #define RTL_ENCRYPT_OPTION_CROSS_PROCESS &h01
 #define RTL_ENCRYPT_OPTION_SAME_LOGON &h02
 
-declare function SystemFunction040(byval Memory as PVOID, byval MemorySize as ULONG, byval OptionFlags as ULONG) as NTSTATUS
-declare function SystemFunction041(byval Memory as PVOID, byval MemorySize as ULONG, byval OptionFlags as ULONG) as NTSTATUS
+declare function SystemFunction040 cdecl(byval Memory as PVOID, byval MemorySize as ULONG_, byval OptionFlags as ULONG_) as NTSTATUS
+declare function SystemFunction041 cdecl(byval Memory as PVOID, byval MemorySize as ULONG_, byval OptionFlags as ULONG_) as NTSTATUS
 
 #define KERBEROS_VERSION 5
 #define KERBEROS_REVISION 6
@@ -1243,7 +1240,7 @@ type PKERB_INTERACTIVE_UNLOCK_LOGON as _KERB_INTERACTIVE_UNLOCK_LOGON ptr
 type _KERB_SMART_CARD_LOGON
 	MessageType as KERB_LOGON_SUBMIT_TYPE
 	Pin as UNICODE_STRING
-	CspDataLength as ULONG
+	CspDataLength as ULONG_
 	CspData as PUCHAR
 end type
 
@@ -1260,9 +1257,9 @@ type PKERB_SMART_CARD_UNLOCK_LOGON as _KERB_SMART_CARD_UNLOCK_LOGON ptr
 
 type _KERB_TICKET_LOGON
 	MessageType as KERB_LOGON_SUBMIT_TYPE
-	Flags as ULONG
-	ServiceTicketLength as ULONG
-	TicketGrantingTicketLength as ULONG
+	Flags as ULONG_
+	ServiceTicketLength as ULONG_
+	TicketGrantingTicketLength as ULONG_
 	ServiceTicket as PUCHAR
 	TicketGrantingTicket as PUCHAR
 end type
@@ -1282,7 +1279,7 @@ type PKERB_TICKET_UNLOCK_LOGON as _KERB_TICKET_UNLOCK_LOGON ptr
 
 type _KERB_S4U_LOGON
 	MessageType as KERB_LOGON_SUBMIT_TYPE
-	Flags as ULONG
+	Flags as ULONG_
 	ClientUpn as UNICODE_STRING
 	ClientRealm as UNICODE_STRING
 end type
@@ -1302,8 +1299,8 @@ type PKERB_PROFILE_BUFFER_TYPE as _KERB_PROFILE_BUFFER_TYPE ptr
 
 type _KERB_INTERACTIVE_PROFILE
 	MessageType as KERB_PROFILE_BUFFER_TYPE
-	LogonCount as USHORT
-	BadPasswordCount as USHORT
+	LogonCount as USHORT_
+	BadPasswordCount as USHORT_
 	LogonTime as LARGE_INTEGER
 	LogoffTime as LARGE_INTEGER
 	KickOffTime as LARGE_INTEGER
@@ -1316,7 +1313,7 @@ type _KERB_INTERACTIVE_PROFILE
 	ProfilePath as UNICODE_STRING
 	HomeDirectoryDrive as UNICODE_STRING
 	LogonServer as UNICODE_STRING
-	UserFlags as ULONG
+	UserFlags as ULONG_
 end type
 
 type KERB_INTERACTIVE_PROFILE as _KERB_INTERACTIVE_PROFILE
@@ -1324,7 +1321,7 @@ type PKERB_INTERACTIVE_PROFILE as _KERB_INTERACTIVE_PROFILE ptr
 
 type _KERB_SMART_CARD_PROFILE
 	Profile as KERB_INTERACTIVE_PROFILE
-	CertificateSize as ULONG
+	CertificateSize as ULONG_
 	CertificateData as PUCHAR
 end type
 
@@ -1332,8 +1329,8 @@ type KERB_SMART_CARD_PROFILE as _KERB_SMART_CARD_PROFILE
 type PKERB_SMART_CARD_PROFILE as _KERB_SMART_CARD_PROFILE ptr
 
 type KERB_CRYPTO_KEY
-	KeyType as LONG
-	Length as ULONG
+	KeyType as LONG_
+	Length as ULONG_
 	Value as PUCHAR
 end type
 
@@ -1389,8 +1386,8 @@ type _KERB_TICKET_CACHE_INFO
 	StartTime as LARGE_INTEGER
 	EndTime as LARGE_INTEGER
 	RenewTime as LARGE_INTEGER
-	EncryptionType as LONG
-	TicketFlags as ULONG
+	EncryptionType as LONG_
+	TicketFlags as ULONG_
 end type
 
 type KERB_TICKET_CACHE_INFO as _KERB_TICKET_CACHE_INFO
@@ -1404,8 +1401,8 @@ type _KERB_TICKET_CACHE_INFO_EX
 	StartTime as LARGE_INTEGER
 	EndTime as LARGE_INTEGER
 	RenewTime as LARGE_INTEGER
-	EncryptionType as LONG
-	TicketFlags as ULONG
+	EncryptionType as LONG_
+	TicketFlags as ULONG_
 end type
 
 type KERB_TICKET_CACHE_INFO_EX as _KERB_TICKET_CACHE_INFO_EX
@@ -1419,9 +1416,9 @@ type _KERB_TICKET_CACHE_INFO_EX2
 	StartTime as LARGE_INTEGER
 	EndTime as LARGE_INTEGER
 	RenewTime as LARGE_INTEGER
-	EncryptionType as LONG
-	TicketFlags as ULONG
-	SessionKeyType as ULONG
+	EncryptionType as LONG_
+	TicketFlags as ULONG_
+	SessionKeyType as ULONG_
 end type
 
 type KERB_TICKET_CACHE_INFO_EX2 as _KERB_TICKET_CACHE_INFO_EX2
@@ -1429,8 +1426,8 @@ type PKERB_TICKET_CACHE_INFO_EX2 as _KERB_TICKET_CACHE_INFO_EX2 ptr
 
 type _KERB_QUERY_TKT_CACHE_RESPONSE
 	MessageType as KERB_PROTOCOL_MESSAGE_TYPE
-	CountOfTickets as ULONG
-	Tickets(0 to ANYSIZE_ARRAY - 1) as KERB_TICKET_CACHE_INFO
+	CountOfTickets as ULONG_
+	Tickets(0 to 0) as KERB_TICKET_CACHE_INFO
 end type
 
 type KERB_QUERY_TKT_CACHE_RESPONSE as _KERB_QUERY_TKT_CACHE_RESPONSE
@@ -1438,8 +1435,8 @@ type PKERB_QUERY_TKT_CACHE_RESPONSE as _KERB_QUERY_TKT_CACHE_RESPONSE ptr
 
 type _KERB_QUERY_TKT_CACHE_EX_RESPONSE
 	MessageType as KERB_PROTOCOL_MESSAGE_TYPE
-	CountOfTickets as ULONG
-	Tickets(0 to ANYSIZE_ARRAY - 1) as KERB_TICKET_CACHE_INFO_EX
+	CountOfTickets as ULONG_
+	Tickets(0 to 0) as KERB_TICKET_CACHE_INFO_EX
 end type
 
 type KERB_QUERY_TKT_CACHE_EX_RESPONSE as _KERB_QUERY_TKT_CACHE_EX_RESPONSE
@@ -1447,8 +1444,8 @@ type PKERB_QUERY_TKT_CACHE_EX_RESPONSE as _KERB_QUERY_TKT_CACHE_EX_RESPONSE ptr
 
 type _KERB_QUERY_TKT_CACHE_EX2_RESPONSE
 	MessageType as KERB_PROTOCOL_MESSAGE_TYPE
-	CountOfTickets as ULONG
-	Tickets(0 to ANYSIZE_ARRAY - 1) as KERB_TICKET_CACHE_INFO_EX2
+	CountOfTickets as ULONG_
+	Tickets(0 to 0) as KERB_TICKET_CACHE_INFO_EX2
 end type
 
 type KERB_QUERY_TKT_CACHE_EX2_RESPONSE as _KERB_QUERY_TKT_CACHE_EX2_RESPONSE
@@ -1474,8 +1471,8 @@ type PSecHandle as _SecHandle ptr
 #define KERB_ETYPE_DEFAULT &h0
 
 type _KERB_AUTH_DATA
-	as ULONG Type
-	Length as ULONG
+	as ULONG_ Type
+	Length as ULONG_
 	Data as PUCHAR
 end type
 
@@ -1483,8 +1480,8 @@ type KERB_AUTH_DATA as _KERB_AUTH_DATA
 type PKERB_AUTH_DATA as _KERB_AUTH_DATA ptr
 
 type _KERB_NET_ADDRESS
-	Family as ULONG
-	Length as ULONG
+	Family as ULONG_
+	Length as ULONG_
 	Address as PCHAR
 end type
 
@@ -1492,17 +1489,17 @@ type KERB_NET_ADDRESS as _KERB_NET_ADDRESS
 type PKERB_NET_ADDRESS as _KERB_NET_ADDRESS ptr
 
 type _KERB_NET_ADDRESSES
-	Number as ULONG
-	Addresses(0 to ANYSIZE_ARRAY - 1) as KERB_NET_ADDRESS
+	Number as ULONG_
+	Addresses(0 to 0) as KERB_NET_ADDRESS
 end type
 
 type KERB_NET_ADDRESSES as _KERB_NET_ADDRESSES
 type PKERB_NET_ADDRESSES as _KERB_NET_ADDRESSES ptr
 
 type _KERB_EXTERNAL_NAME
-	NameType as SHORT
-	NameCount as USHORT
-	Names(0 to ANYSIZE_ARRAY - 1) as UNICODE_STRING
+	NameType as SHORT_
+	NameCount as USHORT_
+	Names(0 to 0) as UNICODE_STRING
 end type
 
 type KERB_EXTERNAL_NAME as _KERB_EXTERNAL_NAME
@@ -1516,14 +1513,14 @@ type _KERB_EXTERNAL_TICKET
 	TargetDomainName as UNICODE_STRING
 	AltTargetDomainName as UNICODE_STRING
 	SessionKey as KERB_CRYPTO_KEY
-	TicketFlags as ULONG
-	Flags as ULONG
+	TicketFlags as ULONG_
+	Flags as ULONG_
 	KeyExpirationTime as LARGE_INTEGER
 	StartTime as LARGE_INTEGER
 	EndTime as LARGE_INTEGER
 	RenewUntil as LARGE_INTEGER
 	TimeSkew as LARGE_INTEGER
-	EncodedTicketSize as ULONG
+	EncodedTicketSize as ULONG_
 	EncodedTicket as PUCHAR
 end type
 
@@ -1534,9 +1531,9 @@ type _KERB_RETRIEVE_TKT_REQUEST
 	MessageType as KERB_PROTOCOL_MESSAGE_TYPE
 	LogonId as LUID
 	TargetName as UNICODE_STRING
-	TicketFlags as ULONG
-	CacheOptions as ULONG
-	EncryptionType as LONG
+	TicketFlags as ULONG_
+	CacheOptions as ULONG_
+	EncryptionType as LONG_
 	CredentialsHandle as SecHandle
 end type
 
@@ -1565,7 +1562,7 @@ type PKERB_PURGE_TKT_CACHE_REQUEST as _KERB_PURGE_TKT_CACHE_REQUEST ptr
 type _KERB_PURGE_TKT_CACHE_EX_REQUEST
 	MessageType as KERB_PROTOCOL_MESSAGE_TYPE
 	LogonId as LUID
-	Flags as ULONG
+	Flags as ULONG_
 	TicketTemplate as KERB_TICKET_CACHE_INFO_EX
 end type
 
@@ -1588,7 +1585,7 @@ type _KERB_SETPASSWORD_REQUEST
 	MessageType as KERB_PROTOCOL_MESSAGE_TYPE
 	LogonId as LUID
 	CredentialsHandle as SecHandle
-	Flags as ULONG
+	Flags as ULONG_
 	DomainName as UNICODE_STRING
 	AccountName as UNICODE_STRING
 	Password as UNICODE_STRING
@@ -1601,7 +1598,7 @@ type _KERB_SETPASSWORD_EX_REQUEST
 	MessageType as KERB_PROTOCOL_MESSAGE_TYPE
 	LogonId as LUID
 	CredentialsHandle as SecHandle
-	Flags as ULONG
+	Flags as ULONG_
 	AccountRealm as UNICODE_STRING
 	AccountName as UNICODE_STRING
 	Password as UNICODE_STRING
@@ -1609,7 +1606,7 @@ type _KERB_SETPASSWORD_EX_REQUEST
 	ClientName as UNICODE_STRING
 	Impersonating as BOOLEAN
 	KdcAddress as UNICODE_STRING
-	KdcAddressType as ULONG
+	KdcAddressType as ULONG_
 end type
 
 type KERB_SETPASSWORD_EX_REQUEST as _KERB_SETPASSWORD_EX_REQUEST
@@ -1622,12 +1619,12 @@ type PKERB_SETPASSWORD_EX_REQUEST as _KERB_SETPASSWORD_EX_REQUEST ptr
 type _KERB_DECRYPT_REQUEST
 	MessageType as KERB_PROTOCOL_MESSAGE_TYPE
 	LogonId as LUID
-	Flags as ULONG
-	CryptoType as LONG
-	KeyUsage as LONG
+	Flags as ULONG_
+	CryptoType as LONG_
+	KeyUsage as LONG_
 	Key as KERB_CRYPTO_KEY
-	EncryptedDataSize as ULONG
-	InitialVectorSize as ULONG
+	EncryptedDataSize as ULONG_
+	InitialVectorSize as ULONG_
 	InitialVector as PUCHAR
 	EncryptedData as PUCHAR
 end type
@@ -1638,7 +1635,7 @@ type PKERB_DECRYPT_REQUEST as _KERB_DECRYPT_REQUEST ptr
 #define KERB_DECRYPT_FLAG_DEFAULT_KEY &h00000001
 
 type _KERB_DECRYPT_RESPONSE
-	DecryptedData(0 to ANYSIZE_ARRAY - 1) as UCHAR
+	DecryptedData(0 to 0) as UCHAR
 end type
 
 type KERB_DECRYPT_RESPONSE as _KERB_DECRYPT_RESPONSE
@@ -1648,7 +1645,7 @@ type _KERB_ADD_BINDING_CACHE_ENTRY_REQUEST
 	MessageType as KERB_PROTOCOL_MESSAGE_TYPE
 	RealmName as UNICODE_STRING
 	KdcAddress as UNICODE_STRING
-	AddressType as ULONG
+	AddressType as ULONG_
 end type
 
 type KERB_ADD_BINDING_CACHE_ENTRY_REQUEST as _KERB_ADD_BINDING_CACHE_ENTRY_REQUEST
@@ -1658,7 +1655,7 @@ type _KERB_REFRESH_SCCRED_REQUEST
 	MessageType as KERB_PROTOCOL_MESSAGE_TYPE
 	CredentialBlob as UNICODE_STRING
 	LogonId as LUID
-	Flags as ULONG
+	Flags as ULONG_
 end type
 
 type KERB_REFRESH_SCCRED_REQUEST as _KERB_REFRESH_SCCRED_REQUEST
@@ -1673,7 +1670,7 @@ type _KERB_ADD_CREDENTIALS_REQUEST
 	DomainName as UNICODE_STRING
 	Password as UNICODE_STRING
 	LogonId as LUID
-	Flags as ULONG
+	Flags as ULONG_
 end type
 
 type KERB_ADD_CREDENTIALS_REQUEST as _KERB_ADD_CREDENTIALS_REQUEST
@@ -1687,7 +1684,7 @@ type _KERB_TRANSFER_CRED_REQUEST
 	MessageType as KERB_PROTOCOL_MESSAGE_TYPE
 	OriginLogonId as LUID
 	DestinationLogonId as LUID
-	Flags as ULONG
+	Flags as ULONG_
 end type
 
 type KERB_TRANSFER_CRED_REQUEST as _KERB_TRANSFER_CRED_REQUEST
