@@ -1,30 +1,34 @@
 #pragma once
 
+#include once "crt/wchar.bi"
+#include once "crt/long.bi"
+
 '' The following symbols have been renamed:
 ''     #define EXPORT => EXPORT_
 
-extern "C"
+#ifdef __FB_64BIT__
+	extern "C"
+#else
+	extern "Windows"
+#endif
 
 #define MAPI_H
 #define EXPORT_
 
-type __LONG32 as ulong
-
-'' TODO: typedef unsigned __LONG32 *LPULONG;
-'' TODO: typedef unsigned __LONG32 FLAGS;
+type LPULONG as culong ptr
+type FLAGS as culong
 
 #define __LHANDLE
 
 type LHANDLE as ULONG_PTR
 type LPLHANDLE as ULONG_PTR ptr
-type LPBYTE as ubyte ptr
 
 #define lhSessionNull cast(LHANDLE, 0)
 
 type MapiFileDesc
-	ulReserved as ULONG
-	flFlags as ULONG
-	nPosition as ULONG
+	ulReserved as ULONG_
+	flFlags as ULONG_
+	nPosition as ULONG_
 	lpszPathName as LPSTR
 	lpszFileName as LPSTR
 	lpFileType as LPVOID
@@ -36,21 +40,21 @@ type lpMapiFileDesc as MapiFileDesc ptr
 #define MAPI_OLE_STATIC &h00000002
 
 type MapiFileTagExt
-	ulReserved as ULONG
-	cbTag as ULONG
+	ulReserved as ULONG_
+	cbTag as ULONG_
 	lpTag as LPBYTE
-	cbEncoding as ULONG
+	cbEncoding as ULONG_
 	lpEncoding as LPBYTE
 end type
 
 type lpMapiFileTagExt as MapiFileTagExt ptr
 
 type MapiRecipDesc
-	ulReserved as ULONG
-	ulRecipClass as ULONG
+	ulReserved as ULONG_
+	ulRecipClass as ULONG_
 	lpszName as LPSTR
 	lpszAddress as LPSTR
-	ulEIDSize as ULONG
+	ulEIDSize as ULONG_
 	lpEntryID as LPVOID
 end type
 
@@ -62,7 +66,7 @@ type lpMapiRecipDesc as MapiRecipDesc ptr
 #define MAPI_BCC 3
 
 type MapiMessage
-	ulReserved as ULONG
+	ulReserved as ULONG_
 	lpszSubject as LPSTR
 	lpszNoteText as LPSTR
 	lpszMessageType as LPSTR
@@ -70,9 +74,9 @@ type MapiMessage
 	lpszConversationID as LPSTR
 	flFlags as FLAGS
 	lpOriginator as lpMapiRecipDesc
-	nRecipCount as ULONG
+	nRecipCount as ULONG_
 	lpRecips as lpMapiRecipDesc
-	nFileCount as ULONG
+	nFileCount as ULONG_
 	lpFiles as lpMapiFileDesc
 end type
 
@@ -96,88 +100,53 @@ type lpMapiMessage as MapiMessage ptr
 #define MAPI_BODY_AS_FILE &h00000200
 #define MAPI_AB_NOMODIFY &h00000400
 
-'' TODO: typedef ULONG (WINAPI MAPILOGON)(ULONG_PTR ulUIParam,LPSTR lpszProfileName,LPSTR lpszPassword,FLAGS flFlags,ULONG ulReserved,LPLHANDLE lplhSession);
+type LPMAPILOGON as function(byval ulUIParam as ULONG_PTR, byval lpszProfileName as LPSTR, byval lpszPassword as LPSTR, byval flFlags as FLAGS, byval ulReserved as ULONG_, byval lplhSession as LPLHANDLE) as ULONG_
 
-type LPMAPILOGON as MAPILOGON ptr
+declare function MAPILogon(byval ulUIParam as ULONG_PTR, byval lpszProfileName as LPSTR, byval lpszPassword as LPSTR, byval flFlags as FLAGS, byval ulReserved as ULONG_, byval lplhSession as LPLHANDLE) as ULONG_
 
-extern     MAPILogon as MAPILOGON
-dim shared MAPILogon as MAPILOGON
+type LPMAPILOGOFF as function(byval lhSession as LHANDLE, byval ulUIParam as ULONG_PTR, byval flFlags as FLAGS, byval ulReserved as ULONG_) as ULONG_
 
-'' TODO: typedef ULONG (WINAPI MAPILOGOFF)(LHANDLE lhSession,ULONG_PTR ulUIParam,FLAGS flFlags,ULONG ulReserved);
+declare function MAPILogoff(byval lhSession as LHANDLE, byval ulUIParam as ULONG_PTR, byval flFlags as FLAGS, byval ulReserved as ULONG_) as ULONG_
 
-type LPMAPILOGOFF as MAPILOGOFF ptr
+type LPMAPISENDMAIL as function(byval lhSession as LHANDLE, byval ulUIParam as ULONG_PTR, byval lpMessage as lpMapiMessage, byval flFlags as FLAGS, byval ulReserved as ULONG_) as ULONG_
 
-extern     MAPILogoff as MAPILOGOFF
-dim shared MAPILogoff as MAPILOGOFF
+declare function MAPISendMail(byval lhSession as LHANDLE, byval ulUIParam as ULONG_PTR, byval lpMessage as lpMapiMessage, byval flFlags as FLAGS, byval ulReserved as ULONG_) as ULONG_
 
-'' TODO: typedef ULONG (WINAPI MAPISENDMAIL)(LHANDLE lhSession,ULONG_PTR ulUIParam,lpMapiMessage lpMessage,FLAGS flFlags,ULONG ulReserved);
+type LPMAPISENDDOCUMENTS as function(byval ulUIParam as ULONG_PTR, byval lpszDelimChar as LPSTR, byval lpszFilePaths as LPSTR, byval lpszFileNames as LPSTR, byval ulReserved as ULONG_) as ULONG_
 
-type LPMAPISENDMAIL as MAPISENDMAIL ptr
+declare function MAPISendDocuments(byval ulUIParam as ULONG_PTR, byval lpszDelimChar as LPSTR, byval lpszFilePaths as LPSTR, byval lpszFileNames as LPSTR, byval ulReserved as ULONG_) as ULONG_
 
-extern     MAPISendMail as MAPISENDMAIL
-dim shared MAPISendMail as MAPISENDMAIL
+type LPMAPIFINDNEXT as function(byval lhSession as LHANDLE, byval ulUIParam as ULONG_PTR, byval lpszMessageType as LPSTR, byval lpszSeedMessageID as LPSTR, byval flFlags as FLAGS, byval ulReserved as ULONG_, byval lpszMessageID as LPSTR) as ULONG_
 
-'' TODO: typedef ULONG (WINAPI MAPISENDDOCUMENTS)(ULONG_PTR ulUIParam,LPSTR lpszDelimChar,LPSTR lpszFilePaths,LPSTR lpszFileNames,ULONG ulReserved);
+declare function MAPIFindNext(byval lhSession as LHANDLE, byval ulUIParam as ULONG_PTR, byval lpszMessageType as LPSTR, byval lpszSeedMessageID as LPSTR, byval flFlags as FLAGS, byval ulReserved as ULONG_, byval lpszMessageID as LPSTR) as ULONG_
 
-type LPMAPISENDDOCUMENTS as MAPISENDDOCUMENTS ptr
+type LPMAPIREADMAIL as function(byval lhSession as LHANDLE, byval ulUIParam as ULONG_PTR, byval lpszMessageID as LPSTR, byval flFlags as FLAGS, byval ulReserved as ULONG_, byval lppMessage as lpMapiMessage ptr) as ULONG_
 
-extern     MAPISendDocuments as MAPISENDDOCUMENTS
-dim shared MAPISendDocuments as MAPISENDDOCUMENTS
+declare function MAPIReadMail(byval lhSession as LHANDLE, byval ulUIParam as ULONG_PTR, byval lpszMessageID as LPSTR, byval flFlags as FLAGS, byval ulReserved as ULONG_, byval lppMessage as lpMapiMessage ptr) as ULONG_
 
-'' TODO: typedef ULONG (WINAPI MAPIFINDNEXT)(LHANDLE lhSession,ULONG_PTR ulUIParam,LPSTR lpszMessageType,LPSTR lpszSeedMessageID,FLAGS flFlags,ULONG ulReserved,LPSTR lpszMessageID);
+type LPMAPISAVEMAIL as function(byval lhSession as LHANDLE, byval ulUIParam as ULONG_PTR, byval lpMessage as lpMapiMessage, byval flFlags as FLAGS, byval ulReserved as ULONG_, byval lpszMessageID as LPSTR) as ULONG_
 
-type LPMAPIFINDNEXT as MAPIFINDNEXT ptr
+declare function MAPISaveMail(byval lhSession as LHANDLE, byval ulUIParam as ULONG_PTR, byval lpMessage as lpMapiMessage, byval flFlags as FLAGS, byval ulReserved as ULONG_, byval lpszMessageID as LPSTR) as ULONG_
 
-extern     MAPIFindNext as MAPIFINDNEXT
-dim shared MAPIFindNext as MAPIFINDNEXT
+type LPMAPIDELETEMAIL as function(byval lhSession as LHANDLE, byval ulUIParam as ULONG_PTR, byval lpszMessageID as LPSTR, byval flFlags as FLAGS, byval ulReserved as ULONG_) as ULONG_
 
-'' TODO: typedef ULONG (WINAPI MAPIREADMAIL)(LHANDLE lhSession,ULONG_PTR ulUIParam,LPSTR lpszMessageID,FLAGS flFlags,ULONG ulReserved,lpMapiMessage *lppMessage);
+declare function MAPIDeleteMail(byval lhSession as LHANDLE, byval ulUIParam as ULONG_PTR, byval lpszMessageID as LPSTR, byval flFlags as FLAGS, byval ulReserved as ULONG_) as ULONG_
 
-type LPMAPIREADMAIL as MAPIREADMAIL ptr
+type LPMAPIFREEBUFFER as function(byval pv as LPVOID) as ULONG_
 
-extern     MAPIReadMail as MAPIREADMAIL
-dim shared MAPIReadMail as MAPIREADMAIL
+declare function MAPIFreeBuffer(byval pv as LPVOID) as ULONG_
 
-'' TODO: typedef ULONG (WINAPI MAPISAVEMAIL)(LHANDLE lhSession,ULONG_PTR ulUIParam,lpMapiMessage lpMessage,FLAGS flFlags,ULONG ulReserved,LPSTR lpszMessageID);
+type LPMAPIADDRESS as function(byval lhSession as LHANDLE, byval ulUIParam as ULONG_PTR, byval lpszCaption as LPSTR, byval nEditFields as ULONG_, byval lpszLabels as LPSTR, byval nRecips as ULONG_, byval lpRecips as lpMapiRecipDesc, byval flFlags as FLAGS, byval ulReserved as ULONG_, byval lpnNewRecips as LPULONG, byval lppNewRecips as lpMapiRecipDesc ptr) as ULONG_
 
-type LPMAPISAVEMAIL as MAPISAVEMAIL ptr
+declare function MAPIAddress(byval lhSession as LHANDLE, byval ulUIParam as ULONG_PTR, byval lpszCaption as LPSTR, byval nEditFields as ULONG_, byval lpszLabels as LPSTR, byval nRecips as ULONG_, byval lpRecips as lpMapiRecipDesc, byval flFlags as FLAGS, byval ulReserved as ULONG_, byval lpnNewRecips as LPULONG, byval lppNewRecips as lpMapiRecipDesc ptr) as ULONG_
 
-extern     MAPISaveMail as MAPISAVEMAIL
-dim shared MAPISaveMail as MAPISAVEMAIL
+type LPMAPIDETAILS as function(byval lhSession as LHANDLE, byval ulUIParam as ULONG_PTR, byval lpRecip as lpMapiRecipDesc, byval flFlags as FLAGS, byval ulReserved as ULONG_) as ULONG_
 
-'' TODO: typedef ULONG (WINAPI MAPIDELETEMAIL)(LHANDLE lhSession,ULONG_PTR ulUIParam,LPSTR lpszMessageID,FLAGS flFlags,ULONG ulReserved);
+declare function MAPIDetails(byval lhSession as LHANDLE, byval ulUIParam as ULONG_PTR, byval lpRecip as lpMapiRecipDesc, byval flFlags as FLAGS, byval ulReserved as ULONG_) as ULONG_
 
-type LPMAPIDELETEMAIL as MAPIDELETEMAIL ptr
+type LPMAPIRESOLVENAME as function(byval lhSession as LHANDLE, byval ulUIParam as ULONG_PTR, byval lpszName as LPSTR, byval flFlags as FLAGS, byval ulReserved as ULONG_, byval lppRecip as lpMapiRecipDesc ptr) as ULONG_
 
-extern     MAPIDeleteMail as MAPIDELETEMAIL
-dim shared MAPIDeleteMail as MAPIDELETEMAIL
-
-'' TODO: typedef ULONG ( WINAPI *LPMAPIFREEBUFFER)(LPVOID pv);
-
-extern     WINAPI as ULONG
-dim shared WINAPI as ULONG
-
-'' TODO: ULONG WINAPI MAPIFreeBuffer(LPVOID pv);
-'' TODO: typedef ULONG (WINAPI MAPIADDRESS)(LHANDLE lhSession,ULONG_PTR ulUIParam,LPSTR lpszCaption,ULONG nEditFields,LPSTR lpszLabels,ULONG nRecips,lpMapiRecipDesc lpRecips,FLAGS flFlags,ULONG ulReserved,LPULONG lpnNewRecips,lpMapiRecipDesc *lppNewRecips);
-
-type LPMAPIADDRESS as MAPIADDRESS ptr
-
-extern     MAPIAddress as MAPIADDRESS
-dim shared MAPIAddress as MAPIADDRESS
-
-'' TODO: typedef ULONG (WINAPI MAPIDETAILS)(LHANDLE lhSession,ULONG_PTR ulUIParam,lpMapiRecipDesc lpRecip,FLAGS flFlags,ULONG ulReserved);
-
-type LPMAPIDETAILS as MAPIDETAILS ptr
-
-extern     MAPIDetails as MAPIDETAILS
-dim shared MAPIDetails as MAPIDETAILS
-
-'' TODO: typedef ULONG (WINAPI MAPIRESOLVENAME)(LHANDLE lhSession,ULONG_PTR ulUIParam,LPSTR lpszName,FLAGS flFlags,ULONG ulReserved,lpMapiRecipDesc *lppRecip);
-
-type LPMAPIRESOLVENAME as MAPIRESOLVENAME ptr
-
-extern     MAPIResolveName as MAPIRESOLVENAME
-dim shared MAPIResolveName as MAPIRESOLVENAME
+declare function MAPIResolveName(byval lhSession as LHANDLE, byval ulUIParam as ULONG_PTR, byval lpszName as LPSTR, byval flFlags as FLAGS, byval ulReserved as ULONG_, byval lppRecip as lpMapiRecipDesc ptr) as ULONG_
 
 #define SUCCESS_SUCCESS 0
 #define MAPI_USER_ABORT 1

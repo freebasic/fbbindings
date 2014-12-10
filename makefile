@@ -374,6 +374,7 @@ WINAPI_FLAGS_imm += -include windows.h
 WINAPI_FLAGS_iphlpapi += -include windows.h
 WINAPI_FLAGS_iprtrmib += -include windows.h
 WINAPI_FLAGS_isguids += -include windef.h
+WINAPI_FLAGS_mapi += -include windef.h
 WINAPI_FLAGS_mmsystem += -include windows.h
 WINAPI_FLAGS_msacm += -include windows.h -include mmreg.h
 WINAPI_FLAGS_nb30 += -include windef.h
