@@ -66,3 +66,5 @@
 -removedefine SHFOLDERAPI
 -removedefine THEMEAPI
 -removedefine THEMEAPI_
+-removedefine WINOLEAUTAPI
+-removedefine WINOLEAUTAPI_
