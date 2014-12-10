@@ -1,16 +1,19 @@
 #pragma once
 
-extern "C"
+#include once "crt/wchar.bi"
+
+#ifdef __FB_64BIT__
+	extern "C"
+#else
+	extern "Windows"
+#endif
 
 #define _INC_SCRNSAVE
 
-extern     WINAPI as LRESULT
-dim shared WINAPI as LRESULT
-
 #ifdef UNICODE
-	'' TODO: LRESULT WINAPI ScreenSaverProcW(HWND hWnd,UINT message,WPARAM wParam,LPARAM lParam);
+	declare function ScreenSaverProcW(byval hWnd as HWND, byval message as UINT, byval wParam as WPARAM, byval lParam as LPARAM) as LRESULT
 #else
-	'' TODO: LRESULT WINAPI ScreenSaverProc(HWND hWnd,UINT message,WPARAM wParam,LPARAM lParam);
+	declare function ScreenSaverProc(byval hWnd as HWND, byval message as UINT, byval wParam as WPARAM, byval lParam as LPARAM) as LRESULT
 #endif
 
 #define IDS_DESCRIPTION 1
@@ -32,9 +35,9 @@ dim shared WINAPI as LRESULT
 	#define ScreenSaverProc ScreenSaverProcW
 #endif
 
-'' TODO: LRESULT WINAPI DefScreenSaverProc(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam);
-'' TODO: WINBOOL WINAPI ScreenSaverConfigureDialog(HWND hDlg,UINT message,WPARAM wParam,LPARAM lParam);
-'' TODO: WINBOOL WINAPI RegisterDialogClasses(HANDLE hInst);
+declare function DefScreenSaverProc(byval hWnd as HWND, byval msg as UINT, byval wParam as WPARAM, byval lParam as LPARAM) as LRESULT
+declare function ScreenSaverConfigureDialog(byval hDlg as HWND, byval message as UINT, byval wParam as WPARAM, byval lParam as LPARAM) as WINBOOL
+declare function RegisterDialogClasses(byval hInst as HANDLE) as WINBOOL
 
 #define WS_GT (WS_GROUP or WS_TABSTOP)
 #define MAXFILELEN 13
@@ -55,6 +58,6 @@ extern MyHelpMessage as UINT
 
 #define SCRM_VERIFYPW WM_APP
 
-'' TODO: void WINAPI ScreenSaverChangePassword(HWND hParent);
+declare sub ScreenSaverChangePassword(byval hParent as HWND)
 
 end extern

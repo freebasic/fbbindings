@@ -394,6 +394,7 @@ WINAPI_FLAGS_rpcdcep += -include windows.h
 WINAPI_FLAGS_rpcndr += -include windows.h
 WINAPI_FLAGS_rpcnsi += -include windows.h
 WINAPI_FLAGS_rpcnsip += -include rpc.h -filterin '*rpcnsip.h'
+WINAPI_FLAGS_scrnsave += -include windef.h
 WINAPI_FLAGS_secext += -define SECURITY_WIN32 1
 WINAPI_FLAGS_security += -define SECURITY_WIN32 1
 WINAPI_FLAGS_setupapi += -include windows.h
