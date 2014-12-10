@@ -1,8 +1,13 @@
 #pragma once
 
+#include once "crt/wchar.bi"
 #include once "_mingw_unicode.bi"
 
-extern "C"
+#ifdef __FB_64BIT__
+	extern "C"
+#else
+	extern "Windows"
+#endif
 
 #define _NSPAPI_INCLUDED
 #define _tagBLOB_DEFINED
@@ -10,30 +15,12 @@ extern "C"
 #define _LPBLOB_DEFINED
 
 type _BLOB
-	cbSize as ULONG
-	pBlobData as BYTE ptr
+	cbSize as ULONG_
+	pBlobData as BYTE_ ptr
 end type
 
 type BLOB as _BLOB
 type LPBLOB as _BLOB ptr
-
-#define GUID_DEFINED
-
-type _GUID
-	__LONG32 as ulong
-
-	'' TODO: unsigned __LONG32 Data1;
-
-	Data2 as ushort
-	Data3 as ushort
-	Data4(0 to 7) as ubyte
-end type
-
-type GUID as _GUID
-
-#define __LPGUID_DEFINED__
-
-type LPGUID as GUID ptr
 
 #define SERVICE_RESOURCE &h00000001
 #define SERVICE_SERVICE &h00000002
@@ -230,8 +217,8 @@ type _SERVICE_ADDRESS
 	dwAddressFlags as DWORD
 	dwAddressLength as DWORD
 	dwPrincipalLength as DWORD
-	lpAddress as BYTE ptr
-	lpPrincipal as BYTE ptr
+	lpAddress as BYTE_ ptr
+	lpPrincipal as BYTE_ ptr
 end type
 
 type SERVICE_ADDRESS as _SERVICE_ADDRESS
@@ -323,7 +310,7 @@ type LPNS_SERVICE_INFOW as _NS_SERVICE_INFOW ptr
 
 type _SOCKET_ADDRESS
 	lpSockaddr as LPSOCKADDR
-	iSockaddrLength as INT
+	iSockaddrLength as INT_
 end type
 
 type SOCKET_ADDRESS as _SOCKET_ADDRESS
@@ -333,8 +320,8 @@ type LPSOCKET_ADDRESS as _SOCKET_ADDRESS ptr
 type _CSADDR_INFO
 	LocalAddr as SOCKET_ADDRESS
 	RemoteAddr as SOCKET_ADDRESS
-	iSocketType as INT
-	iProtocol as INT
+	iSocketType as INT_
+	iProtocol as INT_
 end type
 
 type CSADDR_INFO as _CSADDR_INFO
@@ -343,11 +330,11 @@ type LPCSADDR_INFO as _CSADDR_INFO ptr
 
 type _PROTOCOL_INFOA
 	dwServiceFlags as DWORD
-	iAddressFamily as INT
-	iMaxSockAddr as INT
-	iMinSockAddr as INT
-	iSocketType as INT
-	iProtocol as INT
+	iAddressFamily as INT_
+	iMaxSockAddr as INT_
+	iMinSockAddr as INT_
+	iSocketType as INT_
+	iProtocol as INT_
 	dwMessageSize as DWORD
 	lpProtocol as LPSTR
 end type
@@ -358,11 +345,11 @@ type LPPROTOCOL_INFOA as _PROTOCOL_INFOA ptr
 
 type _PROTOCOL_INFOW
 	dwServiceFlags as DWORD
-	iAddressFamily as INT
-	iMaxSockAddr as INT
-	iMinSockAddr as INT
-	iSocketType as INT
-	iProtocol as INT
+	iAddressFamily as INT_
+	iMaxSockAddr as INT_
+	iMinSockAddr as INT_
+	iSocketType as INT_
+	iProtocol as INT_
 	dwMessageSize as DWORD
 	lpProtocol as LPWSTR
 end type
@@ -427,8 +414,8 @@ type LPNETRESOURCE2W as _NETRESOURCE2W ptr
 	type LPNETRESOURCE2 as LPNETRESOURCE2A
 #endif
 
-type LPFN_NSPAPI as function(byval as VOID) as DWORD
-type LPSERVICE_CALLBACK_PROC as function(byval lParam as LPARAM, byval hAsyncTaskHandle as HANDLE) as VOID
+type LPFN_NSPAPI as function cdecl() as DWORD
+type LPSERVICE_CALLBACK_PROC as sub cdecl(byval lParam as LPARAM, byval hAsyncTaskHandle as HANDLE)
 
 type _SERVICE_ASYNC_INFO
 	lpServiceCallbackProc as LPSERVICE_CALLBACK_PROC
@@ -447,20 +434,17 @@ type LPSERVICE_ASYNC_INFO as _SERVICE_ASYNC_INFO ptr
 #define SetService __MINGW_NAME_AW(SetService)
 #define GetService __MINGW_NAME_AW(GetService)
 
-extern     WINAPI as INT
-dim shared WINAPI as INT
-
-'' TODO: INT WINAPI EnumProtocolsA(LPINT lpiProtocols,LPVOID lpProtocolBuffer,LPDWORD lpdwBufferLength);
-'' TODO: INT WINAPI EnumProtocolsW(LPINT lpiProtocols,LPVOID lpProtocolBuffer,LPDWORD lpdwBufferLength);
-'' TODO: INT WINAPI GetAddressByNameA(DWORD dwNameSpace,LPGUID lpServiceType,LPSTR lpServiceName,LPINT lpiProtocols,DWORD dwResolution,LPSERVICE_ASYNC_INFO lpServiceAsyncInfo,LPVOID lpCsaddrBuffer,LPDWORD lpdwBufferLength,LPSTR lpAliasBuffer,LPDWORD lpdwAliasBufferLength);
-'' TODO: INT WINAPI GetAddressByNameW(DWORD dwNameSpace,LPGUID lpServiceType,LPWSTR lpServiceName,LPINT lpiProtocols,DWORD dwResolution,LPSERVICE_ASYNC_INFO lpServiceAsyncInfo,LPVOID lpCsaddrBuffer,LPDWORD lpdwBufferLength,LPWSTR lpAliasBuffer,LPDWORD lpdwAliasBufferLength);
-'' TODO: INT WINAPI GetTypeByNameA(LPSTR lpServiceName,LPGUID lpServiceType);
-'' TODO: INT WINAPI GetTypeByNameW(LPWSTR lpServiceName,LPGUID lpServiceType);
-'' TODO: INT WINAPI GetNameByTypeA(LPGUID lpServiceType,LPSTR lpServiceName,DWORD dwNameLength);
-'' TODO: INT WINAPI GetNameByTypeW(LPGUID lpServiceType,LPWSTR lpServiceName,DWORD dwNameLength);
-'' TODO: INT WINAPI SetServiceA(DWORD dwNameSpace,DWORD dwOperation,DWORD dwFlags,LPSERVICE_INFOA lpServiceInfo,LPSERVICE_ASYNC_INFO lpServiceAsyncInfo,LPDWORD lpdwStatusFlags);
-'' TODO: INT WINAPI SetServiceW(DWORD dwNameSpace,DWORD dwOperation,DWORD dwFlags,LPSERVICE_INFOW lpServiceInfo,LPSERVICE_ASYNC_INFO lpServiceAsyncInfo,LPDWORD lpdwStatusFlags);
-'' TODO: INT WINAPI GetServiceA(DWORD dwNameSpace,LPGUID lpGuid,LPSTR lpServiceName,DWORD dwProperties,LPVOID lpBuffer,LPDWORD lpdwBufferSize,LPSERVICE_ASYNC_INFO lpServiceAsyncInfo);
-'' TODO: INT WINAPI GetServiceW(DWORD dwNameSpace,LPGUID lpGuid,LPWSTR lpServiceName,DWORD dwProperties,LPVOID lpBuffer,LPDWORD lpdwBufferSize,LPSERVICE_ASYNC_INFO lpServiceAsyncInfo);
+declare function EnumProtocolsA(byval lpiProtocols as LPINT, byval lpProtocolBuffer as LPVOID, byval lpdwBufferLength as LPDWORD) as INT_
+declare function EnumProtocolsW(byval lpiProtocols as LPINT, byval lpProtocolBuffer as LPVOID, byval lpdwBufferLength as LPDWORD) as INT_
+declare function GetAddressByNameA(byval dwNameSpace as DWORD, byval lpServiceType as LPGUID, byval lpServiceName as LPSTR, byval lpiProtocols as LPINT, byval dwResolution as DWORD, byval lpServiceAsyncInfo as LPSERVICE_ASYNC_INFO, byval lpCsaddrBuffer as LPVOID, byval lpdwBufferLength as LPDWORD, byval lpAliasBuffer as LPSTR, byval lpdwAliasBufferLength as LPDWORD) as INT_
+declare function GetAddressByNameW(byval dwNameSpace as DWORD, byval lpServiceType as LPGUID, byval lpServiceName as LPWSTR, byval lpiProtocols as LPINT, byval dwResolution as DWORD, byval lpServiceAsyncInfo as LPSERVICE_ASYNC_INFO, byval lpCsaddrBuffer as LPVOID, byval lpdwBufferLength as LPDWORD, byval lpAliasBuffer as LPWSTR, byval lpdwAliasBufferLength as LPDWORD) as INT_
+declare function GetTypeByNameA(byval lpServiceName as LPSTR, byval lpServiceType as LPGUID) as INT_
+declare function GetTypeByNameW(byval lpServiceName as LPWSTR, byval lpServiceType as LPGUID) as INT_
+declare function GetNameByTypeA(byval lpServiceType as LPGUID, byval lpServiceName as LPSTR, byval dwNameLength as DWORD) as INT_
+declare function GetNameByTypeW(byval lpServiceType as LPGUID, byval lpServiceName as LPWSTR, byval dwNameLength as DWORD) as INT_
+declare function SetServiceA(byval dwNameSpace as DWORD, byval dwOperation as DWORD, byval dwFlags as DWORD, byval lpServiceInfo as LPSERVICE_INFOA, byval lpServiceAsyncInfo as LPSERVICE_ASYNC_INFO, byval lpdwStatusFlags as LPDWORD) as INT_
+declare function SetServiceW(byval dwNameSpace as DWORD, byval dwOperation as DWORD, byval dwFlags as DWORD, byval lpServiceInfo as LPSERVICE_INFOW, byval lpServiceAsyncInfo as LPSERVICE_ASYNC_INFO, byval lpdwStatusFlags as LPDWORD) as INT_
+declare function GetServiceA(byval dwNameSpace as DWORD, byval lpGuid as LPGUID, byval lpServiceName as LPSTR, byval dwProperties as DWORD, byval lpBuffer as LPVOID, byval lpdwBufferSize as LPDWORD, byval lpServiceAsyncInfo as LPSERVICE_ASYNC_INFO) as INT_
+declare function GetServiceW(byval dwNameSpace as DWORD, byval lpGuid as LPGUID, byval lpServiceName as LPWSTR, byval dwProperties as DWORD, byval lpBuffer as LPVOID, byval lpdwBufferSize as LPDWORD, byval lpServiceAsyncInfo as LPSERVICE_ASYNC_INFO) as INT_
 
 end extern
