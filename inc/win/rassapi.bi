@@ -1,8 +1,13 @@
 #pragma once
 
+#include once "crt/wchar.bi"
 #include once "lmcons.bi"
 
-extern "C"
+#ifdef __FB_64BIT__
+	extern "C"
+#else
+	extern "Windows"
+#endif
 
 #define _RASSAPI_H_
 #define RASSAPI_MAX_PHONENUMBER_SIZE 128
@@ -48,12 +53,12 @@ end union
 type RAS_PARAMETERS
 	P_Key(0 to 31) as CHAR
 	P_Type as RAS_PARAMS_FORMAT
-	P_Attributes as BYTE
+	P_Attributes as BYTE_
 	P_Value as RAS_PARAMS_VALUE
 end type
 
 type _RAS_USER_0
-	bfPrivilege as BYTE
+	bfPrivilege as BYTE_
 	szPhoneNumber(0 to (128 + 1) - 1) as WCHAR
 end type
 
@@ -89,7 +94,7 @@ type PRAS_PORT_0 as _RAS_PORT_0 ptr
 #define REMOTE_LISTEN &h0010
 #define PORT_MULTILINKED &h0020
 
-type IPADDR as ULONG
+type IPADDR as ULONG_
 
 #define RAS_IPADDRESSLEN 15
 #define RAS_IPXADDRESSLEN 22
@@ -195,21 +200,18 @@ end type
 type RAS_SERVER_0 as _RAS_SERVER_0
 type PRAS_SERVER_0 as _RAS_SERVER_0 ptr
 
-extern     WINAPI as DWORD
-dim shared WINAPI as DWORD
-
-'' TODO: DWORD WINAPI RasAdminServerGetInfo(const WCHAR *lpszServer,PRAS_SERVER_0 pRasServer0);
-'' TODO: DWORD WINAPI RasAdminGetUserAccountServer(const WCHAR *lpszDomain,const WCHAR *lpszServer,LPWSTR lpszUserAccountServer);
-'' TODO: DWORD WINAPI RasAdminUserGetInfo(const WCHAR *lpszUserAccountServer,const WCHAR *lpszUser,PRAS_USER_0 pRasUser0);
-'' TODO: DWORD WINAPI RasAdminUserSetInfo(const WCHAR *lpszUserAccountServer,const WCHAR *lpszUser,const PRAS_USER_0 pRasUser0);
-'' TODO: DWORD WINAPI RasAdminPortEnum(const WCHAR *lpszServer,PRAS_PORT_0 *ppRasPort0,WORD *pcEntriesRead);
-'' TODO: DWORD WINAPI RasAdminPortGetInfo(const WCHAR *lpszServer,const WCHAR *lpszPort,RAS_PORT_1 *pRasPort1,RAS_PORT_STATISTICS *pRasStats,RAS_PARAMETERS **ppRasParams);
-'' TODO: DWORD WINAPI RasAdminPortClearStatistics(const WCHAR *lpszServer,const WCHAR *lpszPort);
-'' TODO: DWORD WINAPI RasAdminPortDisconnect(const WCHAR *lpszServer,const WCHAR *lpszPort);
-'' TODO: DWORD WINAPI RasAdminFreeBuffer(PVOID Pointer);
-'' TODO: WINBOOL WINAPI RasAdminAcceptNewConnection (RAS_PORT_1 *pRasPort1,RAS_PORT_STATISTICS *pRasStats,RAS_PARAMETERS *pRasParams);
-'' TODO: VOID WINAPI RasAdminConnectionHangupNotification (RAS_PORT_1 *pRasPort1,RAS_PORT_STATISTICS *pRasStats,RAS_PARAMETERS *pRasParams);
-'' TODO: DWORD WINAPI RasAdminGetIpAddressForUser (WCHAR *lpszUserName,WCHAR *lpszPortName,IPADDR *pipAddress,WINBOOL *bNotifyRelease);
-'' TODO: VOID WINAPI RasAdminReleaseIpAddress (WCHAR *lpszUserName,WCHAR *lpszPortName,IPADDR *pipAddress);
+declare function RasAdminServerGetInfo(byval lpszServer as const WCHAR ptr, byval pRasServer0 as PRAS_SERVER_0) as DWORD
+declare function RasAdminGetUserAccountServer(byval lpszDomain as const WCHAR ptr, byval lpszServer as const WCHAR ptr, byval lpszUserAccountServer as LPWSTR) as DWORD
+declare function RasAdminUserGetInfo(byval lpszUserAccountServer as const WCHAR ptr, byval lpszUser as const WCHAR ptr, byval pRasUser0 as PRAS_USER_0) as DWORD
+declare function RasAdminUserSetInfo(byval lpszUserAccountServer as const WCHAR ptr, byval lpszUser as const WCHAR ptr, byval pRasUser0 as const PRAS_USER_0) as DWORD
+declare function RasAdminPortEnum(byval lpszServer as const WCHAR ptr, byval ppRasPort0 as PRAS_PORT_0 ptr, byval pcEntriesRead as WORD ptr) as DWORD
+declare function RasAdminPortGetInfo(byval lpszServer as const WCHAR ptr, byval lpszPort as const WCHAR ptr, byval pRasPort1 as RAS_PORT_1 ptr, byval pRasStats as RAS_PORT_STATISTICS ptr, byval ppRasParams as RAS_PARAMETERS ptr ptr) as DWORD
+declare function RasAdminPortClearStatistics(byval lpszServer as const WCHAR ptr, byval lpszPort as const WCHAR ptr) as DWORD
+declare function RasAdminPortDisconnect(byval lpszServer as const WCHAR ptr, byval lpszPort as const WCHAR ptr) as DWORD
+declare function RasAdminFreeBuffer(byval Pointer_ as PVOID) as DWORD
+declare function RasAdminAcceptNewConnection(byval pRasPort1 as RAS_PORT_1 ptr, byval pRasStats as RAS_PORT_STATISTICS ptr, byval pRasParams as RAS_PARAMETERS ptr) as WINBOOL
+declare sub RasAdminConnectionHangupNotification(byval pRasPort1 as RAS_PORT_1 ptr, byval pRasStats as RAS_PORT_STATISTICS ptr, byval pRasParams as RAS_PARAMETERS ptr)
+declare function RasAdminGetIpAddressForUser(byval lpszUserName as WCHAR ptr, byval lpszPortName as WCHAR ptr, byval pipAddress as IPADDR ptr, byval bNotifyRelease as WINBOOL ptr) as DWORD
+declare sub RasAdminReleaseIpAddress(byval lpszUserName as WCHAR ptr, byval lpszPortName as WCHAR ptr, byval pipAddress as IPADDR ptr)
 
 end extern
