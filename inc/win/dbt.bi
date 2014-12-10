@@ -7,10 +7,6 @@
 #define _DBT_H
 #define WM_DEVICECHANGE &h0219
 #define DBTFAR far
-#define _WCHAR_T_DEFINED
-
-type wchar_t as ushort
-
 #define BSF_QUERY &h00000001
 #define BSF_IGNORECURRENTTASK &h00000002
 #define BSF_FLUSHDISK &h00000004
@@ -49,19 +45,16 @@ type _DEV_BROADCAST_HDR
 end type
 
 type DEV_BROADCAST_HDR as _DEV_BROADCAST_HDR
-type far as DEV_BROADCAST_HDR
-
-'' TODO: typedef DEV_BROADCAST_HDR far *PDEV_BROADCAST_HDR;
-
+type PDEV_BROADCAST_HDR as DEV_BROADCAST_HDR ptr
 type pVolLockBroadcast as VolLockBroadcast ptr
 
 type VolLockBroadcast
 	vlb_dbh as _DEV_BROADCAST_HDR
 	vlb_owner as DWORD
-	vlb_perms as BYTE
-	vlb_lockType as BYTE
-	vlb_drive as BYTE
-	vlb_flags as BYTE
+	vlb_perms as BYTE_
+	vlb_lockType as BYTE_
+	vlb_drive as BYTE_
+	vlb_flags as BYTE_
 end type
 
 #define LOCKP_ALLOW_WRITES &h01
@@ -105,8 +98,7 @@ type _DEV_BROADCAST_OEM
 end type
 
 type DEV_BROADCAST_OEM as _DEV_BROADCAST_OEM
-
-'' TODO: typedef DEV_BROADCAST_OEM far *PDEV_BROADCAST_OEM;
+type PDEV_BROADCAST_OEM as DEV_BROADCAST_OEM ptr
 
 type _DEV_BROADCAST_DEVNODE
 	dbcd_size as DWORD
@@ -116,8 +108,7 @@ type _DEV_BROADCAST_DEVNODE
 end type
 
 type DEV_BROADCAST_DEVNODE as _DEV_BROADCAST_DEVNODE
-
-'' TODO: typedef DEV_BROADCAST_DEVNODE far *PDEV_BROADCAST_DEVNODE;
+type PDEV_BROADCAST_DEVNODE as DEV_BROADCAST_DEVNODE ptr
 
 type _DEV_BROADCAST_VOLUME
 	dbcv_size as DWORD
@@ -128,8 +119,7 @@ type _DEV_BROADCAST_VOLUME
 end type
 
 type DEV_BROADCAST_VOLUME as _DEV_BROADCAST_VOLUME
-
-'' TODO: typedef DEV_BROADCAST_VOLUME far *PDEV_BROADCAST_VOLUME;
+type PDEV_BROADCAST_VOLUME as DEV_BROADCAST_VOLUME ptr
 
 #define DBTF_MEDIA &h0001
 #define DBTF_NET &h0002
@@ -152,8 +142,7 @@ type _DEV_BROADCAST_PORT_W
 end type
 
 type DEV_BROADCAST_PORT_W as _DEV_BROADCAST_PORT_W
-
-'' TODO: typedef struct _DEV_BROADCAST_PORT_W { DWORD dbcp_size; DWORD dbcp_devicetype; DWORD dbcp_reserved; wchar_t dbcp_name[1];} DEV_BROADCAST_PORT_W,far *PDEV_BROADCAST_PORT_W;
+type PDEV_BROADCAST_PORT_W as _DEV_BROADCAST_PORT_W ptr
 
 #ifdef UNICODE
 	type DEV_BROADCAST_PORT as DEV_BROADCAST_PORT_W
@@ -172,8 +161,7 @@ type _DEV_BROADCAST_NET
 end type
 
 type DEV_BROADCAST_NET as _DEV_BROADCAST_NET
-
-'' TODO: typedef DEV_BROADCAST_NET far *PDEV_BROADCAST_NET;
+type PDEV_BROADCAST_NET as DEV_BROADCAST_NET ptr
 
 type _DEV_BROADCAST_DEVICEINTERFACE_A
 	dbcc_size as DWORD
@@ -212,8 +200,8 @@ type _DEV_BROADCAST_HANDLE
 	dbch_handle as HANDLE
 	dbch_hdevnotify as HDEVNOTIFY
 	dbch_eventguid as GUID
-	dbch_nameoffset as LONG
-	dbch_data(0 to 0) as BYTE
+	dbch_nameoffset as LONG_
+	dbch_data(0 to 0) as BYTE_
 end type
 
 type DEV_BROADCAST_HANDLE as _DEV_BROADCAST_HANDLE
@@ -226,8 +214,8 @@ type _DEV_BROADCAST_HANDLE32
 	dbch_handle as ULONG32
 	dbch_hdevnotify as ULONG32
 	dbch_eventguid as GUID
-	dbch_nameoffset as LONG
-	dbch_data(0 to 0) as BYTE
+	dbch_nameoffset as LONG_
+	dbch_data(0 to 0) as BYTE_
 end type
 
 type DEV_BROADCAST_HANDLE32 as _DEV_BROADCAST_HANDLE32
@@ -240,8 +228,8 @@ type _DEV_BROADCAST_HANDLE64
 	dbch_handle as ULONG64
 	dbch_hdevnotify as ULONG64
 	dbch_eventguid as GUID
-	dbch_nameoffset as LONG
-	dbch_data(0 to 0) as BYTE
+	dbch_nameoffset as LONG_
+	dbch_data(0 to 0) as BYTE_
 end type
 
 type DEV_BROADCAST_HANDLE64 as _DEV_BROADCAST_HANDLE64
