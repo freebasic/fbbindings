@@ -387,6 +387,7 @@ WINAPI_FLAGS_secext += -define SECURITY_WIN32 1
 WINAPI_FLAGS_security += -define SECURITY_WIN32 1
 WINAPI_FLAGS_setupapi += -include windows.h
 WINAPI_FLAGS_shellapi += -include windows.h
+WINAPI_FLAGS_sqlext += -include windef.h
 WINAPI_FLAGS_sspi += -define SECURITY_WIN32 1
 WINAPI_FLAGS_tlhelp32 += -include windef.h
 WINAPI_FLAGS_uxtheme += -include windows.h

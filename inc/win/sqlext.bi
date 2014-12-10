@@ -1,9 +1,14 @@
 #pragma once
 
+#include once "crt/wchar.bi"
 #include once "sql.bi"
 #include once "sqlucode.bi"
 
-extern "Windows"
+#ifdef __FB_64BIT__
+	extern "C"
+#else
+	extern "Windows"
+#endif
 
 #define __SQLEXT
 #define SQL_SPEC_MAJOR 3
@@ -1132,7 +1137,7 @@ declare function SQLAllocHandleStd(byval fHandleType as SQLSMALLINT, byval hInpu
 
 declare function TraceOpenLogFile(byval as LPWSTR, byval as LPWSTR, byval as DWORD) as RETCODE
 declare function TraceCloseLogFile() as RETCODE
-declare function TraceReturn(byval as RETCODE, byval as RETCODE) as VOID
+declare sub TraceReturn(byval as RETCODE, byval as RETCODE)
 declare function TraceVersion() as DWORD
 
 #define TRACE_ON __MSABI_LONG(&h00000001)
@@ -1151,8 +1156,15 @@ type tagODBC_VS_ARGS
 	pguidEvent as const GUID ptr
 	dwFlags as DWORD
 
-	'' TODO: __C89_NAMELESS union { WCHAR *wszArg; CHAR *szArg; };
-	'' TODO: __C89_NAMELESS union { WCHAR *wszCorrelation; CHAR *szCorrelation; };
+	union
+		wszArg as WCHAR ptr
+		szArg as CHAR ptr
+	end union
+
+	union
+		wszCorrelation as WCHAR ptr
+		szCorrelation as CHAR ptr
+	end union
 
 	RetCode as RETCODE
 end type
@@ -1160,6 +1172,6 @@ end type
 type ODBC_VS_ARGS as tagODBC_VS_ARGS
 type PODBC_VS_ARGS as tagODBC_VS_ARGS ptr
 
-declare function FireVSDebugEvent(byval as PODBC_VS_ARGS) as VOID
+declare sub FireVSDebugEvent(byval as PODBC_VS_ARGS)
 
 end extern
