@@ -430,6 +430,7 @@ WINAPI_FLAGS_winsvc += -include windows.h -filterin '*/winsvc.h'
 WINAPI_FLAGS_winuser += -include windef.h
 WINAPI_FLAGS_winver += -include windef.h
 
+WINAPI_PATH_CRT     := extracted/$(MINGWW64_TITLE)/mingw-w64-headers/crt
 WINAPI_PATH_BASE    := extracted/$(MINGWW64_TITLE)/mingw-w64-headers/include
 WINAPI_PATH_DIRECTX := extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include
 
@@ -442,6 +443,7 @@ define declare-winapi-target
 	$$(FBFROG) $$(WINAPI_FLAGS) $$(WINAPI_FLAGS_$(1)) $$(WINAPI_PATH_$(2))/$(1).h
 
 endef
+$(eval $(foreach i,$(WINAPI_CRT),$(call declare-winapi-target,$(i),CRT)))
 $(eval $(foreach i,$(WINAPI_BASE),$(call declare-winapi-target,$(i),BASE)))
 $(eval $(foreach i,$(WINAPI_DIRECTX),$(call declare-winapi-target,$(i),DIRECTX)))
 
