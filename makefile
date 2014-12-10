@@ -373,6 +373,7 @@ WINAPI_FLAGS_ntsecpkg += -include winnt.h -define SECURITY_WIN32 1 -include sspi
 WINAPI_FLAGS_oleauto += -include windows.h
 WINAPI_FLAGS_ole += -include windef.h
 WINAPI_FLAGS_prsht += -include windows.h
+WINAPI_FLAGS_psapi += -include windef.h
 WINAPI_FLAGS_ras += -include windows.h
 WINAPI_FLAGS_rasdlg += -include windows.h
 WINAPI_FLAGS_rpcdce += -include windows.h

@@ -1,8 +1,13 @@
 #pragma once
 
+#include once "crt/wchar.bi"
 #include once "_mingw_unicode.bi"
 
-extern "C"
+#ifdef __FB_64BIT__
+	extern "C"
+#else
+	extern "Windows"
+#endif
 
 #define _PSAPI_H_
 #define GetModuleBaseName __MINGW_NAME_AW(GetModuleBaseName)
@@ -18,15 +23,12 @@ extern "C"
 #define LIST_MODULES_64BIT &h02
 #define LIST_MODULES_ALL (LIST_MODULES_32BIT or LIST_MODULES_64BIT)
 
-extern     WINAPI as WINBOOL
-dim shared WINAPI as WINBOOL
-
-'' TODO: WINBOOL WINAPI EnumProcesses(DWORD *lpidProcess,DWORD cb,DWORD *cbNeeded);
-'' TODO: WINBOOL WINAPI EnumProcessModules(HANDLE hProcess,HMODULE *lphModule,DWORD cb,LPDWORD lpcbNeeded);
-'' TODO: DWORD WINAPI GetModuleBaseNameA(HANDLE hProcess,HMODULE hModule,LPSTR lpBaseName,DWORD nSize);
-'' TODO: DWORD WINAPI GetModuleBaseNameW(HANDLE hProcess,HMODULE hModule,LPWSTR lpBaseName,DWORD nSize);
-'' TODO: DWORD WINAPI GetModuleFileNameExA(HANDLE hProcess,HMODULE hModule,LPSTR lpFilename,DWORD nSize);
-'' TODO: DWORD WINAPI GetModuleFileNameExW(HANDLE hProcess,HMODULE hModule,LPWSTR lpFilename,DWORD nSize);
+declare function EnumProcesses(byval lpidProcess as DWORD ptr, byval cb as DWORD, byval cbNeeded as DWORD ptr) as WINBOOL
+declare function EnumProcessModules(byval hProcess as HANDLE, byval lphModule as HMODULE ptr, byval cb as DWORD, byval lpcbNeeded as LPDWORD) as WINBOOL
+declare function GetModuleBaseNameA(byval hProcess as HANDLE, byval hModule as HMODULE, byval lpBaseName as LPSTR, byval nSize as DWORD) as DWORD
+declare function GetModuleBaseNameW(byval hProcess as HANDLE, byval hModule as HMODULE, byval lpBaseName as LPWSTR, byval nSize as DWORD) as DWORD
+declare function GetModuleFileNameExA(byval hProcess as HANDLE, byval hModule as HMODULE, byval lpFilename as LPSTR, byval nSize as DWORD) as DWORD
+declare function GetModuleFileNameExW(byval hProcess as HANDLE, byval hModule as HMODULE, byval lpFilename as LPWSTR, byval nSize as DWORD) as DWORD
 
 type _MODULEINFO
 	lpBaseOfDll as LPVOID
@@ -37,11 +39,11 @@ end type
 type MODULEINFO as _MODULEINFO
 type LPMODULEINFO as _MODULEINFO ptr
 
-'' TODO: WINBOOL WINAPI GetModuleInformation(HANDLE hProcess,HMODULE hModule,LPMODULEINFO lpmodinfo,DWORD cb);
-'' TODO: WINBOOL WINAPI EmptyWorkingSet(HANDLE hProcess);
-'' TODO: WINBOOL WINAPI QueryWorkingSet(HANDLE hProcess,PVOID pv,DWORD cb);
-'' TODO: WINBOOL WINAPI QueryWorkingSetEx(HANDLE hProcess,PVOID pv,DWORD cb);
-'' TODO: WINBOOL WINAPI InitializeProcessForWsWatch(HANDLE hProcess);
+declare function GetModuleInformation(byval hProcess as HANDLE, byval hModule as HMODULE, byval lpmodinfo as LPMODULEINFO, byval cb as DWORD) as WINBOOL
+declare function EmptyWorkingSet(byval hProcess as HANDLE) as WINBOOL
+declare function QueryWorkingSet(byval hProcess as HANDLE, byval pv as PVOID, byval cb as DWORD) as WINBOOL
+declare function QueryWorkingSetEx(byval hProcess as HANDLE, byval pv as PVOID, byval cb as DWORD) as WINBOOL
+declare function InitializeProcessForWsWatch(byval hProcess as HANDLE) as WINBOOL
 
 type _PSAPI_WS_WATCH_INFORMATION
 	FaultingPc as LPVOID
@@ -51,26 +53,26 @@ end type
 type PSAPI_WS_WATCH_INFORMATION as _PSAPI_WS_WATCH_INFORMATION
 type PPSAPI_WS_WATCH_INFORMATION as _PSAPI_WS_WATCH_INFORMATION ptr
 
-'' TODO: WINBOOL WINAPI GetWsChanges(HANDLE hProcess,PPSAPI_WS_WATCH_INFORMATION lpWatchInfo,DWORD cb);
-'' TODO: DWORD WINAPI GetMappedFileNameW(HANDLE hProcess,LPVOID lpv,LPWSTR lpFilename,DWORD nSize);
-'' TODO: DWORD WINAPI GetMappedFileNameA(HANDLE hProcess,LPVOID lpv,LPSTR lpFilename,DWORD nSize);
-'' TODO: WINBOOL WINAPI EnumDeviceDrivers(LPVOID *lpImageBase,DWORD cb,LPDWORD lpcbNeeded);
-'' TODO: DWORD WINAPI GetDeviceDriverBaseNameA(LPVOID ImageBase,LPSTR lpBaseName,DWORD nSize);
-'' TODO: DWORD WINAPI GetDeviceDriverBaseNameW(LPVOID ImageBase,LPWSTR lpBaseName,DWORD nSize);
-'' TODO: DWORD WINAPI GetDeviceDriverFileNameA(LPVOID ImageBase,LPSTR lpFilename,DWORD nSize);
-'' TODO: DWORD WINAPI GetDeviceDriverFileNameW(LPVOID ImageBase,LPWSTR lpFilename,DWORD nSize);
+declare function GetWsChanges(byval hProcess as HANDLE, byval lpWatchInfo as PPSAPI_WS_WATCH_INFORMATION, byval cb as DWORD) as WINBOOL
+declare function GetMappedFileNameW(byval hProcess as HANDLE, byval lpv as LPVOID, byval lpFilename as LPWSTR, byval nSize as DWORD) as DWORD
+declare function GetMappedFileNameA(byval hProcess as HANDLE, byval lpv as LPVOID, byval lpFilename as LPSTR, byval nSize as DWORD) as DWORD
+declare function EnumDeviceDrivers(byval lpImageBase as LPVOID ptr, byval cb as DWORD, byval lpcbNeeded as LPDWORD) as WINBOOL
+declare function GetDeviceDriverBaseNameA(byval ImageBase as LPVOID, byval lpBaseName as LPSTR, byval nSize as DWORD) as DWORD
+declare function GetDeviceDriverBaseNameW(byval ImageBase as LPVOID, byval lpBaseName as LPWSTR, byval nSize as DWORD) as DWORD
+declare function GetDeviceDriverFileNameA(byval ImageBase as LPVOID, byval lpFilename as LPSTR, byval nSize as DWORD) as DWORD
+declare function GetDeviceDriverFileNameW(byval ImageBase as LPVOID, byval lpFilename as LPWSTR, byval nSize as DWORD) as DWORD
 
 type _PROCESS_MEMORY_COUNTERS
 	cb as DWORD
 	PageFaultCount as DWORD
-	PeakWorkingSetSize as SIZE_T
-	WorkingSetSize as SIZE_T
-	QuotaPeakPagedPoolUsage as SIZE_T
-	QuotaPagedPoolUsage as SIZE_T
-	QuotaPeakNonPagedPoolUsage as SIZE_T
-	QuotaNonPagedPoolUsage as SIZE_T
-	PagefileUsage as SIZE_T
-	PeakPagefileUsage as SIZE_T
+	PeakWorkingSetSize as SIZE_T_
+	WorkingSetSize as SIZE_T_
+	QuotaPeakPagedPoolUsage as SIZE_T_
+	QuotaPagedPoolUsage as SIZE_T_
+	QuotaPeakNonPagedPoolUsage as SIZE_T_
+	QuotaNonPagedPoolUsage as SIZE_T_
+	PagefileUsage as SIZE_T_
+	PeakPagefileUsage as SIZE_T_
 end type
 
 type PROCESS_MEMORY_COUNTERS as _PROCESS_MEMORY_COUNTERS
@@ -79,34 +81,34 @@ type PPROCESS_MEMORY_COUNTERS as PROCESS_MEMORY_COUNTERS ptr
 type _PROCESS_MEMORY_COUNTERS_EX
 	cb as DWORD
 	PageFaultCount as DWORD
-	PeakWorkingSetSize as SIZE_T
-	WorkingSetSize as SIZE_T
-	QuotaPeakPagedPoolUsage as SIZE_T
-	QuotaPagedPoolUsage as SIZE_T
-	QuotaPeakNonPagedPoolUsage as SIZE_T
-	QuotaNonPagedPoolUsage as SIZE_T
-	PagefileUsage as SIZE_T
-	PeakPagefileUsage as SIZE_T
-	PrivateUsage as SIZE_T
+	PeakWorkingSetSize as SIZE_T_
+	WorkingSetSize as SIZE_T_
+	QuotaPeakPagedPoolUsage as SIZE_T_
+	QuotaPagedPoolUsage as SIZE_T_
+	QuotaPeakNonPagedPoolUsage as SIZE_T_
+	QuotaNonPagedPoolUsage as SIZE_T_
+	PagefileUsage as SIZE_T_
+	PeakPagefileUsage as SIZE_T_
+	PrivateUsage as SIZE_T_
 end type
 
 type PROCESS_MEMORY_COUNTERS_EX as _PROCESS_MEMORY_COUNTERS_EX
 type PPROCESS_MEMORY_COUNTERS_EX as PROCESS_MEMORY_COUNTERS_EX ptr
 
-'' TODO: WINBOOL WINAPI GetProcessMemoryInfo(HANDLE Process,PPROCESS_MEMORY_COUNTERS ppsmemCounters,DWORD cb);
+declare function GetProcessMemoryInfo(byval Process as HANDLE, byval ppsmemCounters as PPROCESS_MEMORY_COUNTERS, byval cb as DWORD) as WINBOOL
 
 type _PERFORMANCE_INFORMATION
 	cb as DWORD
-	CommitTotal as SIZE_T
-	CommitLimit as SIZE_T
-	CommitPeak as SIZE_T
-	PhysicalTotal as SIZE_T
-	PhysicalAvailable as SIZE_T
-	SystemCache as SIZE_T
-	KernelTotal as SIZE_T
-	KernelPaged as SIZE_T
-	KernelNonpaged as SIZE_T
-	PageSize as SIZE_T
+	CommitTotal as SIZE_T_
+	CommitLimit as SIZE_T_
+	CommitPeak as SIZE_T_
+	PhysicalTotal as SIZE_T_
+	PhysicalAvailable as SIZE_T_
+	SystemCache as SIZE_T_
+	KernelTotal as SIZE_T_
+	KernelPaged as SIZE_T_
+	KernelNonpaged as SIZE_T_
+	PageSize as SIZE_T_
 	HandleCount as DWORD
 	ProcessCount as DWORD
 	ThreadCount as DWORD
@@ -117,25 +119,25 @@ type PPERFORMANCE_INFORMATION as _PERFORMANCE_INFORMATION ptr
 type PERFORMACE_INFORMATION as _PERFORMANCE_INFORMATION
 type PPERFORMACE_INFORMATION as _PERFORMANCE_INFORMATION ptr
 
-'' TODO: WINBOOL WINAPI GetPerformanceInfo (PPERFORMACE_INFORMATION pPerformanceInformation,DWORD cb);
+declare function GetPerformanceInfo(byval pPerformanceInformation as PPERFORMACE_INFORMATION, byval cb as DWORD) as WINBOOL
 
 type _ENUM_PAGE_FILE_INFORMATION
 	cb as DWORD
 	Reserved as DWORD
-	TotalSize as SIZE_T
-	TotalInUse as SIZE_T
-	PeakUsage as SIZE_T
+	TotalSize as SIZE_T_
+	TotalInUse as SIZE_T_
+	PeakUsage as SIZE_T_
 end type
 
 type ENUM_PAGE_FILE_INFORMATION as _ENUM_PAGE_FILE_INFORMATION
 type PENUM_PAGE_FILE_INFORMATION as _ENUM_PAGE_FILE_INFORMATION ptr
-type PENUM_PAGE_FILE_CALLBACKW as function(byval pContext as LPVOID, byval pPageFileInfo as PENUM_PAGE_FILE_INFORMATION, byval lpFilename as LPCWSTR) as WINBOOL
-type PENUM_PAGE_FILE_CALLBACKA as function(byval pContext as LPVOID, byval pPageFileInfo as PENUM_PAGE_FILE_INFORMATION, byval lpFilename as LPCSTR) as WINBOOL
+type PENUM_PAGE_FILE_CALLBACKW as function cdecl(byval pContext as LPVOID, byval pPageFileInfo as PENUM_PAGE_FILE_INFORMATION, byval lpFilename as LPCWSTR) as WINBOOL
+type PENUM_PAGE_FILE_CALLBACKA as function cdecl(byval pContext as LPVOID, byval pPageFileInfo as PENUM_PAGE_FILE_INFORMATION, byval lpFilename as LPCSTR) as WINBOOL
 
-'' TODO: WINBOOL WINAPI EnumPageFilesW (PENUM_PAGE_FILE_CALLBACKW pCallBackRoutine,LPVOID pContext);
-'' TODO: WINBOOL WINAPI EnumPageFilesA (PENUM_PAGE_FILE_CALLBACKA pCallBackRoutine,LPVOID pContext);
-'' TODO: DWORD WINAPI GetProcessImageFileNameA(HANDLE hProcess,LPSTR lpImageFileName,DWORD nSize);
-'' TODO: DWORD WINAPI GetProcessImageFileNameW(HANDLE hProcess,LPWSTR lpImageFileName,DWORD nSize);
+declare function EnumPageFilesW(byval pCallBackRoutine as PENUM_PAGE_FILE_CALLBACKW, byval pContext as LPVOID) as WINBOOL
+declare function EnumPageFilesA(byval pCallBackRoutine as PENUM_PAGE_FILE_CALLBACKA, byval pContext as LPVOID) as WINBOOL
+declare function GetProcessImageFileNameA(byval hProcess as HANDLE, byval lpImageFileName as LPSTR, byval nSize as DWORD) as DWORD
+declare function GetProcessImageFileNameW(byval hProcess as HANDLE, byval lpImageFileName as LPWSTR, byval nSize as DWORD) as DWORD
 
 type _PSAPI_WS_WATCH_INFORMATION_EX
 	BasicInfo as PSAPI_WS_WATCH_INFORMATION
@@ -146,17 +148,24 @@ end type
 type PSAPI_WS_WATCH_INFORMATION_EX as _PSAPI_WS_WATCH_INFORMATION_EX
 type PPSAPI_WS_WATCH_INFORMATION_EX as _PSAPI_WS_WATCH_INFORMATION_EX ptr
 
-'' TODO: WINBOOL WINAPI GetWsChangesEx( HANDLE hProcess, PPSAPI_WS_WATCH_INFORMATION_EX lpWatchInfoEx, DWORD cb);
-'' TODO: WINBOOL WINAPI EnumProcessModulesEx( HANDLE hProcess, HMODULE *lphModule, DWORD cb, LPDWORD lpcbNeeded, DWORD dwFilterFlag);
+declare function GetWsChangesEx(byval hProcess as HANDLE, byval lpWatchInfoEx as PPSAPI_WS_WATCH_INFORMATION_EX, byval cb as DWORD) as WINBOOL
+declare function EnumProcessModulesEx(byval hProcess as HANDLE, byval lphModule as HMODULE ptr, byval cb as DWORD, byval lpcbNeeded as LPDWORD, byval dwFilterFlag as DWORD) as WINBOOL
 
 union _PSAPI_WORKING_SET_BLOCK
 	Flags as ULONG_PTR
 
-	#ifdef __FB_64BIT__
-		'' TODO: __C89_NAMELESS struct { ULONG_PTR Protection :5; ULONG_PTR ShareCount :3; ULONG_PTR Shared :1; ULONG_PTR Reserved :3; ULONG_PTR VirtualPage :52; } ;
-	#else
-		'' TODO: __C89_NAMELESS struct { ULONG_PTR Protection :5; ULONG_PTR ShareCount :3; ULONG_PTR Shared :1; ULONG_PTR Reserved :3; ULONG_PTR VirtualPage :20; } ;
-	#endif
+	type
+		Protection : 5 as ULONG_PTR
+		ShareCount : 3 as ULONG_PTR
+		Shared : 1 as ULONG_PTR
+		Reserved : 3 as ULONG_PTR
+
+		#ifdef __FB_64BIT__
+			VirtualPage : 52 as ULONG_PTR
+		#else
+			VirtualPage : 20 as ULONG_PTR
+		#endif
+	end type
 end union
 
 type PSAPI_WORKING_SET_BLOCK as _PSAPI_WORKING_SET_BLOCK
@@ -173,7 +182,15 @@ type PPSAPI_WORKING_SET_INFORMATION as _PSAPI_WORKING_SET_INFORMATION ptr
 union _PSAPI_WORKING_SET_EX_BLOCK
 	Flags as ULONG_PTR
 
-	'' TODO: __C89_NAMELESS struct { ULONG_PTR Valid :1; ULONG_PTR ShareCount :3; ULONG_PTR Win32Protection :11; ULONG_PTR Shared :1; ULONG_PTR Node :6; ULONG_PTR Locked :1; ULONG_PTR LargePage :1; } DUMMYSTRUCTNAME;
+	type
+		Valid : 1 as ULONG_PTR
+		ShareCount : 3 as ULONG_PTR
+		Win32Protection : 11 as ULONG_PTR
+		Shared : 1 as ULONG_PTR
+		Node : 6 as ULONG_PTR
+		Locked : 1 as ULONG_PTR
+		LargePage : 1 as ULONG_PTR
+	end type
 end union
 
 type PSAPI_WORKING_SET_EX_BLOCK as _PSAPI_WORKING_SET_EX_BLOCK
