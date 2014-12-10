@@ -1,27 +1,33 @@
 #pragma once
 
-extern "C"
+#include once "crt/wchar.bi"
+
+#ifdef __FB_64BIT__
+	extern "C"
+#else
+	extern "Windows"
+#endif
 
 type _GLOBAL_MACHINE_POWER_POLICY
-	Revision as ULONG
+	Revision as ULONG_
 	LidOpenWakeAc as SYSTEM_POWER_STATE
 	LidOpenWakeDc as SYSTEM_POWER_STATE
-	BroadcastCapacityResolution as ULONG
+	BroadcastCapacityResolution as ULONG_
 end type
 
 type GLOBAL_MACHINE_POWER_POLICY as _GLOBAL_MACHINE_POWER_POLICY
 type PGLOBAL_MACHINE_POWER_POLICY as _GLOBAL_MACHINE_POWER_POLICY ptr
 
 type _GLOBAL_USER_POWER_POLICY
-	Revision as ULONG
+	Revision as ULONG_
 	PowerButtonAc as POWER_ACTION_POLICY
 	PowerButtonDc as POWER_ACTION_POLICY
 	SleepButtonAc as POWER_ACTION_POLICY
 	SleepButtonDc as POWER_ACTION_POLICY
 	LidCloseAc as POWER_ACTION_POLICY
 	LidCloseDc as POWER_ACTION_POLICY
-	DischargePolicy(0 to NUM_DISCHARGE_POLICIES - 1) as SYSTEM_POWER_LEVEL
-	GlobalFlags as ULONG
+	DischargePolicy(0 to 3) as SYSTEM_POWER_LEVEL
+	GlobalFlags as ULONG_
 end type
 
 type GLOBAL_USER_POWER_POLICY as _GLOBAL_USER_POWER_POLICY
@@ -36,15 +42,15 @@ type GLOBAL_POWER_POLICY as _GLOBAL_POWER_POLICY
 type PGLOBAL_POWER_POLICY as _GLOBAL_POWER_POLICY ptr
 
 type _MACHINE_POWER_POLICY
-	Revision as ULONG
+	Revision as ULONG_
 	MinSleepAc as SYSTEM_POWER_STATE
 	MinSleepDc as SYSTEM_POWER_STATE
 	ReducedLatencySleepAc as SYSTEM_POWER_STATE
 	ReducedLatencySleepDc as SYSTEM_POWER_STATE
-	DozeTimeoutAc as ULONG
-	DozeTimeoutDc as ULONG
-	DozeS4TimeoutAc as ULONG
-	DozeS4TimeoutDc as ULONG
+	DozeTimeoutAc as ULONG_
+	DozeTimeoutDc as ULONG_
+	DozeS4TimeoutAc as ULONG_
+	DozeS4TimeoutDc as ULONG_
 	MinThrottleAc as UCHAR
 	MinThrottleDc as UCHAR
 	pad1(0 to 1) as UCHAR
@@ -56,7 +62,7 @@ type MACHINE_POWER_POLICY as _MACHINE_POWER_POLICY
 type PMACHINE_POWER_POLICY as _MACHINE_POWER_POLICY ptr
 
 type _MACHINE_PROCESSOR_POWER_POLICY
-	Revision as ULONG
+	Revision as ULONG_
 	ProcessorPolicyAc as PROCESSOR_POWER_POLICY
 	ProcessorPolicyDc as PROCESSOR_POWER_POLICY
 end type
@@ -65,22 +71,22 @@ type MACHINE_PROCESSOR_POWER_POLICY as _MACHINE_PROCESSOR_POWER_POLICY
 type PMACHINE_PROCESSOR_POWER_POLICY as _MACHINE_PROCESSOR_POWER_POLICY ptr
 
 type _USER_POWER_POLICY
-	Revision as ULONG
+	Revision as ULONG_
 	IdleAc as POWER_ACTION_POLICY
 	IdleDc as POWER_ACTION_POLICY
-	IdleTimeoutAc as ULONG
-	IdleTimeoutDc as ULONG
+	IdleTimeoutAc as ULONG_
+	IdleTimeoutDc as ULONG_
 	IdleSensitivityAc as UCHAR
 	IdleSensitivityDc as UCHAR
 	ThrottlePolicyAc as UCHAR
 	ThrottlePolicyDc as UCHAR
 	MaxSleepAc as SYSTEM_POWER_STATE
 	MaxSleepDc as SYSTEM_POWER_STATE
-	Reserved(0 to 1) as ULONG
-	VideoTimeoutAc as ULONG
-	VideoTimeoutDc as ULONG
-	SpindownTimeoutAc as ULONG
-	SpindownTimeoutDc as ULONG
+	Reserved(0 to 1) as ULONG_
+	VideoTimeoutAc as ULONG_
+	VideoTimeoutDc as ULONG_
+	SpindownTimeoutAc as ULONG_
+	SpindownTimeoutDc as ULONG_
 	OptimizeForPowerAc as BOOLEAN
 	OptimizeForPowerDc as BOOLEAN
 	FanThrottleToleranceAc as UCHAR
@@ -105,37 +111,34 @@ type PPOWER_POLICY as _POWER_POLICY ptr
 #define EnablePasswordLogon &h04
 #define EnableWakeOnRing &h08
 #define EnableVideoDimDisplay &h10
-#define NEWSCHEME (UINT - 1)
+#define NEWSCHEME cast(UINT, -1)
 
-'' TODO: typedef BOOLEAN (CALLBACK *PWRSCHEMESENUMPROC)(UINT,DWORD,LPTSTR,DWORD,LPTSTR,PPOWER_POLICY,LPARAM);
-'' TODO: typedef BOOLEAN (CALLBACK *PFNNTINITIATEPWRACTION)(POWER_ACTION,SYSTEM_POWER_STATE,ULONG,BOOLEAN);
+type PWRSCHEMESENUMPROC as function(byval as UINT, byval as DWORD, byval as LPTSTR, byval as DWORD, byval as LPTSTR, byval as PPOWER_POLICY, byval as LPARAM) as BOOLEAN
+type PFNNTINITIATEPWRACTION as function(byval as POWER_ACTION, byval as SYSTEM_POWER_STATE, byval as ULONG_, byval as BOOLEAN) as BOOLEAN
 
-extern     WINAPI as BOOLEAN
-dim shared WINAPI as BOOLEAN
-
-'' TODO: BOOLEAN WINAPI GetPwrDiskSpindownRange(PUINT,PUINT);
-'' TODO: BOOLEAN WINAPI EnumPwrSchemes(PWRSCHEMESENUMPROC,LPARAM);
-'' TODO: BOOLEAN WINAPI ReadGlobalPwrPolicy(PGLOBAL_POWER_POLICY);
-'' TODO: BOOLEAN WINAPI ReadPwrScheme(UINT,PPOWER_POLICY);
-'' TODO: BOOLEAN WINAPI WritePwrScheme(PUINT,LPTSTR,LPTSTR,PPOWER_POLICY);
-'' TODO: BOOLEAN WINAPI WriteGlobalPwrPolicy(PGLOBAL_POWER_POLICY);
-'' TODO: BOOLEAN WINAPI DeletePwrScheme(UINT);
-'' TODO: BOOLEAN WINAPI GetActivePwrScheme(PUINT);
-'' TODO: BOOLEAN WINAPI SetActivePwrScheme(UINT,PGLOBAL_POWER_POLICY,PPOWER_POLICY);
-'' TODO: BOOLEAN WINAPI GetPwrCapabilities(PSYSTEM_POWER_CAPABILITIES);
-'' TODO: BOOLEAN WINAPI IsPwrSuspendAllowed(VOID);
-'' TODO: BOOLEAN WINAPI IsPwrHibernateAllowed(VOID);
-'' TODO: BOOLEAN WINAPI IsPwrShutdownAllowed(VOID);
-'' TODO: BOOLEAN WINAPI IsAdminOverrideActive(PADMINISTRATOR_POWER_POLICY);
-'' TODO: BOOLEAN WINAPI SetSuspendState(BOOLEAN,BOOLEAN,BOOLEAN);
-'' TODO: BOOLEAN WINAPI GetCurrentPowerPolicies(PGLOBAL_POWER_POLICY,PPOWER_POLICY);
-'' TODO: BOOLEAN WINAPI CanUserWritePwrScheme(VOID);
-'' TODO: BOOLEAN WINAPI ReadProcessorPwrScheme(UINT,PMACHINE_PROCESSOR_POWER_POLICY);
-'' TODO: BOOLEAN WINAPI WriteProcessorPwrScheme(UINT,PMACHINE_PROCESSOR_POWER_POLICY);
-'' TODO: BOOLEAN WINAPI ValidatePowerPolicies(PGLOBAL_POWER_POLICY,PPOWER_POLICY);
+declare function GetPwrDiskSpindownRange(byval as PUINT, byval as PUINT) as BOOLEAN
+declare function EnumPwrSchemes(byval as PWRSCHEMESENUMPROC, byval as LPARAM) as BOOLEAN
+declare function ReadGlobalPwrPolicy(byval as PGLOBAL_POWER_POLICY) as BOOLEAN
+declare function ReadPwrScheme(byval as UINT, byval as PPOWER_POLICY) as BOOLEAN
+declare function WritePwrScheme(byval as PUINT, byval as LPTSTR, byval as LPTSTR, byval as PPOWER_POLICY) as BOOLEAN
+declare function WriteGlobalPwrPolicy(byval as PGLOBAL_POWER_POLICY) as BOOLEAN
+declare function DeletePwrScheme(byval as UINT) as BOOLEAN
+declare function GetActivePwrScheme(byval as PUINT) as BOOLEAN
+declare function SetActivePwrScheme(byval as UINT, byval as PGLOBAL_POWER_POLICY, byval as PPOWER_POLICY) as BOOLEAN
+declare function GetPwrCapabilities(byval as PSYSTEM_POWER_CAPABILITIES) as BOOLEAN
+declare function IsPwrSuspendAllowed() as BOOLEAN
+declare function IsPwrHibernateAllowed() as BOOLEAN
+declare function IsPwrShutdownAllowed() as BOOLEAN
+declare function IsAdminOverrideActive(byval as PADMINISTRATOR_POWER_POLICY) as BOOLEAN
+declare function SetSuspendState(byval as BOOLEAN, byval as BOOLEAN, byval as BOOLEAN) as BOOLEAN
+declare function GetCurrentPowerPolicies(byval as PGLOBAL_POWER_POLICY, byval as PPOWER_POLICY) as BOOLEAN
+declare function CanUserWritePwrScheme() as BOOLEAN
+declare function ReadProcessorPwrScheme(byval as UINT, byval as PMACHINE_PROCESSOR_POWER_POLICY) as BOOLEAN
+declare function WriteProcessorPwrScheme(byval as UINT, byval as PMACHINE_PROCESSOR_POWER_POLICY) as BOOLEAN
+declare function ValidatePowerPolicies(byval as PGLOBAL_POWER_POLICY, byval as PPOWER_POLICY) as BOOLEAN
 
 #define _OVERRIDE_NTSTATUS_
 
-'' TODO: LONG WINAPI CallNtPowerInformation(POWER_INFORMATION_LEVEL,PVOID,ULONG,PVOID,ULONG);
+declare function CallNtPowerInformation(byval as POWER_INFORMATION_LEVEL, byval as PVOID, byval as ULONG_, byval as PVOID, byval as ULONG_) as LONG_
 
 end extern
