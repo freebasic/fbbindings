@@ -1,4 +1,6 @@
-WINAPI_BASE := accctrl
+WINAPI_CRT += _mingw
+WINAPI_CRT += _mingw_unicode
+WINAPI_BASE += accctrl
 WINAPI_BASE += aclapi
 WINAPI_BASE += aclui
 WINAPI_DIRECTX += amaudio
