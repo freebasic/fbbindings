@@ -68,3 +68,4 @@
 -removedefine THEMEAPI_
 -removedefine WINOLEAUTAPI
 -removedefine WINOLEAUTAPI_
+-removedefine WINCOMMCTRLAPI
