@@ -1,6 +1,12 @@
 #pragma once
 
-extern "C"
+#include once "crt/wchar.bi"
+
+#ifdef __FB_64BIT__
+	extern "C"
+#else
+	extern "Windows"
+#endif
 
 #define NCB_INCLUDED
 #define NCBNAMSZ 16
@@ -17,9 +23,7 @@ type _NCB
 	ncb_name(0 to 15) as UCHAR
 	ncb_rto as UCHAR
 	ncb_sto as UCHAR
-
-	'' TODO: void (CALLBACK *ncb_post)(struct _NCB *);
-
+	ncb_post as sub(byval as _NCB ptr)
 	ncb_lana_num as UCHAR
 	ncb_cmd_cplt as UCHAR
 
@@ -145,9 +149,9 @@ type FIND_NAME_BUFFER as _FIND_NAME_BUFFER
 type PFIND_NAME_BUFFER as _FIND_NAME_BUFFER ptr
 
 type _ACTION_HEADER
-	transport_id as ULONG
-	action_code as USHORT
-	reserved as USHORT
+	transport_id as ULONG_
+	action_code as USHORT_
+	reserved as USHORT_
 end type
 
 type ACTION_HEADER as _ACTION_HEADER
@@ -222,10 +226,8 @@ type PACTION_HEADER as _ACTION_HEADER ptr
 #define NRC_SYSTEM &h40
 #define NRC_PENDING &hff
 
-extern     WINAPI as UCHAR
-dim shared WINAPI as UCHAR
+declare function Netbios(byval pncb as PNCB) as UCHAR
 
-'' TODO: UCHAR WINAPI Netbios(PNCB pncb);
 '' TODO: #define NCB_POST void CALLBACK
 
 end extern
