@@ -1,8 +1,13 @@
 #pragma once
 
+#include once "crt/wchar.bi"
 #include once "_mingw_unicode.bi"
 
-extern "C"
+#ifdef __FB_64BIT__
+	extern "C"
+#else
+	extern "Windows"
+#endif
 
 #define _WINSPOOL_
 
@@ -1197,11 +1202,8 @@ type LPPRINTER_ENUM_VALUESW as _PRINTER_ENUM_VALUESW ptr
 
 #define EnumPrinters __MINGW_NAME_AW(EnumPrinters)
 
-extern     WINAPI as WINBOOL
-dim shared WINAPI as WINBOOL
-
-'' TODO: WINBOOL WINAPI EnumPrintersA(DWORD Flags,LPSTR Name,DWORD Level,LPBYTE pPrinterEnum,DWORD cbBuf,LPDWORD pcbNeeded,LPDWORD pcReturned);
-'' TODO: WINBOOL WINAPI EnumPrintersW(DWORD Flags,LPWSTR Name,DWORD Level,LPBYTE pPrinterEnum,DWORD cbBuf,LPDWORD pcbNeeded,LPDWORD pcReturned);
+declare function EnumPrintersA(byval Flags as DWORD, byval Name_ as LPSTR, byval Level as DWORD, byval pPrinterEnum as LPBYTE, byval cbBuf as DWORD, byval pcbNeeded as LPDWORD, byval pcReturned as LPDWORD) as WINBOOL
+declare function EnumPrintersW(byval Flags as DWORD, byval Name_ as LPWSTR, byval Level as DWORD, byval pPrinterEnum as LPBYTE, byval cbBuf as DWORD, byval pcbNeeded as LPDWORD, byval pcReturned as LPDWORD) as WINBOOL
 
 #define PRINTER_ENUM_DEFAULT &h00000001
 #define PRINTER_ENUM_LOCAL &h00000002
@@ -1260,87 +1262,85 @@ dim shared WINAPI as WINBOOL
 #define DeletePrinterDataEx __MINGW_NAME_AW(DeletePrinterDataEx)
 #define DeletePrinterKey __MINGW_NAME_AW(DeletePrinterKey)
 
-'' TODO: WINBOOL WINAPI OpenPrinterA(LPSTR pPrinterName,LPHANDLE phPrinter,LPPRINTER_DEFAULTSA pDefault);
-'' TODO: WINBOOL WINAPI OpenPrinterW(LPWSTR pPrinterName,LPHANDLE phPrinter,LPPRINTER_DEFAULTSW pDefault);
-'' TODO: WINBOOL WINAPI ResetPrinterA(HANDLE hPrinter,LPPRINTER_DEFAULTSA pDefault);
-'' TODO: WINBOOL WINAPI ResetPrinterW(HANDLE hPrinter,LPPRINTER_DEFAULTSW pDefault);
-'' TODO: WINBOOL WINAPI SetJobA(HANDLE hPrinter,DWORD JobId,DWORD Level,LPBYTE pJob,DWORD Command);
-'' TODO: WINBOOL WINAPI SetJobW(HANDLE hPrinter,DWORD JobId,DWORD Level,LPBYTE pJob,DWORD Command);
-'' TODO: WINBOOL WINAPI GetJobA(HANDLE hPrinter,DWORD JobId,DWORD Level,LPBYTE pJob,DWORD cbBuf,LPDWORD pcbNeeded);
-'' TODO: WINBOOL WINAPI GetJobW(HANDLE hPrinter,DWORD JobId,DWORD Level,LPBYTE pJob,DWORD cbBuf,LPDWORD pcbNeeded);
-'' TODO: WINBOOL WINAPI EnumJobsA(HANDLE hPrinter,DWORD FirstJob,DWORD NoJobs,DWORD Level,LPBYTE pJob,DWORD cbBuf,LPDWORD pcbNeeded,LPDWORD pcReturned);
-'' TODO: WINBOOL WINAPI EnumJobsW(HANDLE hPrinter,DWORD FirstJob,DWORD NoJobs,DWORD Level,LPBYTE pJob,DWORD cbBuf,LPDWORD pcbNeeded,LPDWORD pcReturned);
-'' TODO: HANDLE WINAPI AddPrinterA(LPSTR pName,DWORD Level,LPBYTE pPrinter);
-'' TODO: HANDLE WINAPI AddPrinterW(LPWSTR pName,DWORD Level,LPBYTE pPrinter);
-'' TODO: WINBOOL WINAPI DeletePrinter(HANDLE hPrinter);
-'' TODO: WINBOOL WINAPI SetPrinterA(HANDLE hPrinter,DWORD Level,LPBYTE pPrinter,DWORD Command);
-'' TODO: WINBOOL WINAPI SetPrinterW(HANDLE hPrinter,DWORD Level,LPBYTE pPrinter,DWORD Command);
-'' TODO: WINBOOL WINAPI GetPrinterA(HANDLE hPrinter,DWORD Level,LPBYTE pPrinter,DWORD cbBuf,LPDWORD pcbNeeded);
-'' TODO: WINBOOL WINAPI GetPrinterW(HANDLE hPrinter,DWORD Level,LPBYTE pPrinter,DWORD cbBuf,LPDWORD pcbNeeded);
-'' TODO: WINBOOL WINAPI AddPrinterDriverA(LPSTR pName,DWORD Level,LPBYTE pDriverInfo);
-'' TODO: WINBOOL WINAPI AddPrinterDriverW(LPWSTR pName,DWORD Level,LPBYTE pDriverInfo);
-'' TODO: WINBOOL WINAPI AddPrinterDriverExA(LPSTR pName,DWORD Level,LPBYTE pDriverInfo,DWORD dwFileCopyFlags);
-'' TODO: WINBOOL WINAPI AddPrinterDriverExW(LPWSTR pName,DWORD Level,LPBYTE pDriverInfo,DWORD dwFileCopyFlags);
-'' TODO: WINBOOL WINAPI EnumPrinterDriversA(LPSTR pName,LPSTR pEnvironment,DWORD Level,LPBYTE pDriverInfo,DWORD cbBuf,LPDWORD pcbNeeded,LPDWORD pcReturned);
-'' TODO: WINBOOL WINAPI EnumPrinterDriversW(LPWSTR pName,LPWSTR pEnvironment,DWORD Level,LPBYTE pDriverInfo,DWORD cbBuf,LPDWORD pcbNeeded,LPDWORD pcReturned);
-'' TODO: WINBOOL WINAPI GetPrinterDriverA(HANDLE hPrinter,LPSTR pEnvironment,DWORD Level,LPBYTE pDriverInfo,DWORD cbBuf,LPDWORD pcbNeeded);
-'' TODO: WINBOOL WINAPI GetPrinterDriverW(HANDLE hPrinter,LPWSTR pEnvironment,DWORD Level,LPBYTE pDriverInfo,DWORD cbBuf,LPDWORD pcbNeeded);
-'' TODO: WINBOOL WINAPI GetPrinterDriverDirectoryA(LPSTR pName,LPSTR pEnvironment,DWORD Level,LPBYTE pDriverDirectory,DWORD cbBuf,LPDWORD pcbNeeded);
-'' TODO: WINBOOL WINAPI GetPrinterDriverDirectoryW(LPWSTR pName,LPWSTR pEnvironment,DWORD Level,LPBYTE pDriverDirectory,DWORD cbBuf,LPDWORD pcbNeeded);
-'' TODO: WINBOOL WINAPI DeletePrinterDriverA(LPSTR pName,LPSTR pEnvironment,LPSTR pDriverName);
-'' TODO: WINBOOL WINAPI DeletePrinterDriverW(LPWSTR pName,LPWSTR pEnvironment,LPWSTR pDriverName);
-'' TODO: WINBOOL WINAPI DeletePrinterDriverExA(LPSTR pName,LPSTR pEnvironment,LPSTR pDriverName,DWORD dwDeleteFlag,DWORD dwVersionFlag);
-'' TODO: WINBOOL WINAPI DeletePrinterDriverExW(LPWSTR pName,LPWSTR pEnvironment,LPWSTR pDriverName,DWORD dwDeleteFlag,DWORD dwVersionFlag);
-'' TODO: WINBOOL WINAPI AddPrintProcessorA(LPSTR pName,LPSTR pEnvironment,LPSTR pPathName,LPSTR pPrintProcessorName);
-'' TODO: WINBOOL WINAPI AddPrintProcessorW(LPWSTR pName,LPWSTR pEnvironment,LPWSTR pPathName,LPWSTR pPrintProcessorName);
-'' TODO: WINBOOL WINAPI EnumPrintProcessorsA(LPSTR pName,LPSTR pEnvironment,DWORD Level,LPBYTE pPrintProcessorInfo,DWORD cbBuf,LPDWORD pcbNeeded,LPDWORD pcReturned);
-'' TODO: WINBOOL WINAPI EnumPrintProcessorsW(LPWSTR pName,LPWSTR pEnvironment,DWORD Level,LPBYTE pPrintProcessorInfo,DWORD cbBuf,LPDWORD pcbNeeded,LPDWORD pcReturned);
-'' TODO: WINBOOL WINAPI GetPrintProcessorDirectoryA(LPSTR pName,LPSTR pEnvironment,DWORD Level,LPBYTE pPrintProcessorInfo,DWORD cbBuf,LPDWORD pcbNeeded);
-'' TODO: WINBOOL WINAPI GetPrintProcessorDirectoryW(LPWSTR pName,LPWSTR pEnvironment,DWORD Level,LPBYTE pPrintProcessorInfo,DWORD cbBuf,LPDWORD pcbNeeded);
-'' TODO: WINBOOL WINAPI EnumPrintProcessorDatatypesA(LPSTR pName,LPSTR pPrintProcessorName,DWORD Level,LPBYTE pDatatypes,DWORD cbBuf,LPDWORD pcbNeeded,LPDWORD pcReturned);
-'' TODO: WINBOOL WINAPI EnumPrintProcessorDatatypesW(LPWSTR pName,LPWSTR pPrintProcessorName,DWORD Level,LPBYTE pDatatypes,DWORD cbBuf,LPDWORD pcbNeeded,LPDWORD pcReturned);
-'' TODO: WINBOOL WINAPI DeletePrintProcessorA(LPSTR pName,LPSTR pEnvironment,LPSTR pPrintProcessorName);
-'' TODO: WINBOOL WINAPI DeletePrintProcessorW(LPWSTR pName,LPWSTR pEnvironment,LPWSTR pPrintProcessorName);
-'' TODO: DWORD WINAPI StartDocPrinterA(HANDLE hPrinter,DWORD Level,LPBYTE pDocInfo);
-'' TODO: DWORD WINAPI StartDocPrinterW(HANDLE hPrinter,DWORD Level,LPBYTE pDocInfo);
-'' TODO: WINBOOL WINAPI StartPagePrinter(HANDLE hPrinter);
-'' TODO: WINBOOL WINAPI WritePrinter(HANDLE hPrinter,LPVOID pBuf,DWORD cbBuf,LPDWORD pcWritten);
-'' TODO: WINBOOL WINAPI FlushPrinter(HANDLE hPrinter,LPVOID pBuf,DWORD cbBuf,LPDWORD pcWritten,DWORD cSleep);
-'' TODO: WINBOOL WINAPI EndPagePrinter(HANDLE hPrinter);
-'' TODO: WINBOOL WINAPI AbortPrinter(HANDLE hPrinter);
-'' TODO: WINBOOL WINAPI ReadPrinter(HANDLE hPrinter,LPVOID pBuf,DWORD cbBuf,LPDWORD pNoBytesRead);
-'' TODO: WINBOOL WINAPI EndDocPrinter(HANDLE hPrinter);
-'' TODO: WINBOOL WINAPI AddJobA(HANDLE hPrinter,DWORD Level,LPBYTE pData,DWORD cbBuf,LPDWORD pcbNeeded);
-'' TODO: WINBOOL WINAPI AddJobW(HANDLE hPrinter,DWORD Level,LPBYTE pData,DWORD cbBuf,LPDWORD pcbNeeded);
-'' TODO: WINBOOL WINAPI ScheduleJob(HANDLE hPrinter,DWORD JobId);
-'' TODO: WINBOOL WINAPI PrinterProperties(HWND hWnd,HANDLE hPrinter);
-'' TODO: LONG WINAPI DocumentPropertiesA(HWND hWnd,HANDLE hPrinter,LPSTR pDeviceName,PDEVMODEA pDevModeOutput,PDEVMODEA pDevModeInput,DWORD fMode);
-'' TODO: LONG WINAPI DocumentPropertiesW(HWND hWnd,HANDLE hPrinter,LPWSTR pDeviceName,PDEVMODEW pDevModeOutput,PDEVMODEW pDevModeInput,DWORD fMode);
-'' TODO: LONG WINAPI AdvancedDocumentPropertiesA(HWND hWnd,HANDLE hPrinter,LPSTR pDeviceName,PDEVMODEA pDevModeOutput,PDEVMODEA pDevModeInput);
-'' TODO: LONG WINAPI AdvancedDocumentPropertiesW(HWND hWnd,HANDLE hPrinter,LPWSTR pDeviceName,PDEVMODEW pDevModeOutput,PDEVMODEW pDevModeInput);
-
-declare function ExtDeviceMode(byval hWnd as HWND, byval hInst as HANDLE, byval pDevModeOutput as LPDEVMODEA, byval pDeviceName as LPSTR, byval pPort as LPSTR, byval pDevModeInput as LPDEVMODEA, byval pProfile as LPSTR, byval fMode as DWORD) as LONG
-
-'' TODO: DWORD WINAPI GetPrinterDataA(HANDLE hPrinter,LPSTR pValueName,LPDWORD pType,LPBYTE pData,DWORD nSize,LPDWORD pcbNeeded);
-'' TODO: DWORD WINAPI GetPrinterDataW(HANDLE hPrinter,LPWSTR pValueName,LPDWORD pType,LPBYTE pData,DWORD nSize,LPDWORD pcbNeeded);
-'' TODO: DWORD WINAPI GetPrinterDataExA(HANDLE hPrinter,LPCSTR pKeyName,LPCSTR pValueName,LPDWORD pType,LPBYTE pData,DWORD nSize,LPDWORD pcbNeeded);
-'' TODO: DWORD WINAPI GetPrinterDataExW(HANDLE hPrinter,LPCWSTR pKeyName,LPCWSTR pValueName,LPDWORD pType,LPBYTE pData,DWORD nSize,LPDWORD pcbNeeded);
-'' TODO: DWORD WINAPI EnumPrinterDataA(HANDLE hPrinter,DWORD dwIndex,LPSTR pValueName,DWORD cbValueName,LPDWORD pcbValueName,LPDWORD pType,LPBYTE pData,DWORD cbData,LPDWORD pcbData);
-'' TODO: DWORD WINAPI EnumPrinterDataW(HANDLE hPrinter,DWORD dwIndex,LPWSTR pValueName,DWORD cbValueName,LPDWORD pcbValueName,LPDWORD pType,LPBYTE pData,DWORD cbData,LPDWORD pcbData);
-'' TODO: DWORD WINAPI EnumPrinterDataExA(HANDLE hPrinter,LPCSTR pKeyName,LPBYTE pEnumValues,DWORD cbEnumValues,LPDWORD pcbEnumValues,LPDWORD pnEnumValues);
-'' TODO: DWORD WINAPI EnumPrinterDataExW(HANDLE hPrinter,LPCWSTR pKeyName,LPBYTE pEnumValues,DWORD cbEnumValues,LPDWORD pcbEnumValues,LPDWORD pnEnumValues);
-'' TODO: DWORD WINAPI EnumPrinterKeyA(HANDLE hPrinter,LPCSTR pKeyName,LPSTR pSubkey,DWORD cbSubkey,LPDWORD pcbSubkey);
-'' TODO: DWORD WINAPI EnumPrinterKeyW(HANDLE hPrinter,LPCWSTR pKeyName,LPWSTR pSubkey,DWORD cbSubkey,LPDWORD pcbSubkey);
-'' TODO: DWORD WINAPI SetPrinterDataA(HANDLE hPrinter,LPSTR pValueName,DWORD Type,LPBYTE pData,DWORD cbData);
-'' TODO: DWORD WINAPI SetPrinterDataW(HANDLE hPrinter,LPWSTR pValueName,DWORD Type,LPBYTE pData,DWORD cbData);
-'' TODO: DWORD WINAPI SetPrinterDataExA(HANDLE hPrinter,LPCSTR pKeyName,LPCSTR pValueName,DWORD Type,LPBYTE pData,DWORD cbData);
-'' TODO: DWORD WINAPI SetPrinterDataExW(HANDLE hPrinter,LPCWSTR pKeyName,LPCWSTR pValueName,DWORD Type,LPBYTE pData,DWORD cbData);
-'' TODO: DWORD WINAPI DeletePrinterDataA(HANDLE hPrinter,LPSTR pValueName);
-'' TODO: DWORD WINAPI DeletePrinterDataW(HANDLE hPrinter,LPWSTR pValueName);
-'' TODO: DWORD WINAPI DeletePrinterDataExA(HANDLE hPrinter,LPCSTR pKeyName,LPCSTR pValueName);
-'' TODO: DWORD WINAPI DeletePrinterDataExW(HANDLE hPrinter,LPCWSTR pKeyName,LPCWSTR pValueName);
-'' TODO: DWORD WINAPI DeletePrinterKeyA(HANDLE hPrinter,LPCSTR pKeyName);
-'' TODO: DWORD WINAPI DeletePrinterKeyW(HANDLE hPrinter,LPCWSTR pKeyName);
+declare function OpenPrinterA(byval pPrinterName as LPSTR, byval phPrinter as LPHANDLE, byval pDefault as LPPRINTER_DEFAULTSA) as WINBOOL
+declare function OpenPrinterW(byval pPrinterName as LPWSTR, byval phPrinter as LPHANDLE, byval pDefault as LPPRINTER_DEFAULTSW) as WINBOOL
+declare function ResetPrinterA(byval hPrinter as HANDLE, byval pDefault as LPPRINTER_DEFAULTSA) as WINBOOL
+declare function ResetPrinterW(byval hPrinter as HANDLE, byval pDefault as LPPRINTER_DEFAULTSW) as WINBOOL
+declare function SetJobA(byval hPrinter as HANDLE, byval JobId as DWORD, byval Level as DWORD, byval pJob as LPBYTE, byval Command_ as DWORD) as WINBOOL
+declare function SetJobW(byval hPrinter as HANDLE, byval JobId as DWORD, byval Level as DWORD, byval pJob as LPBYTE, byval Command_ as DWORD) as WINBOOL
+declare function GetJobA(byval hPrinter as HANDLE, byval JobId as DWORD, byval Level as DWORD, byval pJob as LPBYTE, byval cbBuf as DWORD, byval pcbNeeded as LPDWORD) as WINBOOL
+declare function GetJobW(byval hPrinter as HANDLE, byval JobId as DWORD, byval Level as DWORD, byval pJob as LPBYTE, byval cbBuf as DWORD, byval pcbNeeded as LPDWORD) as WINBOOL
+declare function EnumJobsA(byval hPrinter as HANDLE, byval FirstJob as DWORD, byval NoJobs as DWORD, byval Level as DWORD, byval pJob as LPBYTE, byval cbBuf as DWORD, byval pcbNeeded as LPDWORD, byval pcReturned as LPDWORD) as WINBOOL
+declare function EnumJobsW(byval hPrinter as HANDLE, byval FirstJob as DWORD, byval NoJobs as DWORD, byval Level as DWORD, byval pJob as LPBYTE, byval cbBuf as DWORD, byval pcbNeeded as LPDWORD, byval pcReturned as LPDWORD) as WINBOOL
+declare function AddPrinterA(byval pName as LPSTR, byval Level as DWORD, byval pPrinter as LPBYTE) as HANDLE
+declare function AddPrinterW(byval pName as LPWSTR, byval Level as DWORD, byval pPrinter as LPBYTE) as HANDLE
+declare function DeletePrinter(byval hPrinter as HANDLE) as WINBOOL
+declare function SetPrinterA(byval hPrinter as HANDLE, byval Level as DWORD, byval pPrinter as LPBYTE, byval Command_ as DWORD) as WINBOOL
+declare function SetPrinterW(byval hPrinter as HANDLE, byval Level as DWORD, byval pPrinter as LPBYTE, byval Command_ as DWORD) as WINBOOL
+declare function GetPrinterA(byval hPrinter as HANDLE, byval Level as DWORD, byval pPrinter as LPBYTE, byval cbBuf as DWORD, byval pcbNeeded as LPDWORD) as WINBOOL
+declare function GetPrinterW(byval hPrinter as HANDLE, byval Level as DWORD, byval pPrinter as LPBYTE, byval cbBuf as DWORD, byval pcbNeeded as LPDWORD) as WINBOOL
+declare function AddPrinterDriverA(byval pName as LPSTR, byval Level as DWORD, byval pDriverInfo as LPBYTE) as WINBOOL
+declare function AddPrinterDriverW(byval pName as LPWSTR, byval Level as DWORD, byval pDriverInfo as LPBYTE) as WINBOOL
+declare function AddPrinterDriverExA(byval pName as LPSTR, byval Level as DWORD, byval pDriverInfo as LPBYTE, byval dwFileCopyFlags as DWORD) as WINBOOL
+declare function AddPrinterDriverExW(byval pName as LPWSTR, byval Level as DWORD, byval pDriverInfo as LPBYTE, byval dwFileCopyFlags as DWORD) as WINBOOL
+declare function EnumPrinterDriversA(byval pName as LPSTR, byval pEnvironment as LPSTR, byval Level as DWORD, byval pDriverInfo as LPBYTE, byval cbBuf as DWORD, byval pcbNeeded as LPDWORD, byval pcReturned as LPDWORD) as WINBOOL
+declare function EnumPrinterDriversW(byval pName as LPWSTR, byval pEnvironment as LPWSTR, byval Level as DWORD, byval pDriverInfo as LPBYTE, byval cbBuf as DWORD, byval pcbNeeded as LPDWORD, byval pcReturned as LPDWORD) as WINBOOL
+declare function GetPrinterDriverA(byval hPrinter as HANDLE, byval pEnvironment as LPSTR, byval Level as DWORD, byval pDriverInfo as LPBYTE, byval cbBuf as DWORD, byval pcbNeeded as LPDWORD) as WINBOOL
+declare function GetPrinterDriverW(byval hPrinter as HANDLE, byval pEnvironment as LPWSTR, byval Level as DWORD, byval pDriverInfo as LPBYTE, byval cbBuf as DWORD, byval pcbNeeded as LPDWORD) as WINBOOL
+declare function GetPrinterDriverDirectoryA(byval pName as LPSTR, byval pEnvironment as LPSTR, byval Level as DWORD, byval pDriverDirectory as LPBYTE, byval cbBuf as DWORD, byval pcbNeeded as LPDWORD) as WINBOOL
+declare function GetPrinterDriverDirectoryW(byval pName as LPWSTR, byval pEnvironment as LPWSTR, byval Level as DWORD, byval pDriverDirectory as LPBYTE, byval cbBuf as DWORD, byval pcbNeeded as LPDWORD) as WINBOOL
+declare function DeletePrinterDriverA(byval pName as LPSTR, byval pEnvironment as LPSTR, byval pDriverName as LPSTR) as WINBOOL
+declare function DeletePrinterDriverW(byval pName as LPWSTR, byval pEnvironment as LPWSTR, byval pDriverName as LPWSTR) as WINBOOL
+declare function DeletePrinterDriverExA(byval pName as LPSTR, byval pEnvironment as LPSTR, byval pDriverName as LPSTR, byval dwDeleteFlag as DWORD, byval dwVersionFlag as DWORD) as WINBOOL
+declare function DeletePrinterDriverExW(byval pName as LPWSTR, byval pEnvironment as LPWSTR, byval pDriverName as LPWSTR, byval dwDeleteFlag as DWORD, byval dwVersionFlag as DWORD) as WINBOOL
+declare function AddPrintProcessorA(byval pName as LPSTR, byval pEnvironment as LPSTR, byval pPathName as LPSTR, byval pPrintProcessorName as LPSTR) as WINBOOL
+declare function AddPrintProcessorW(byval pName as LPWSTR, byval pEnvironment as LPWSTR, byval pPathName as LPWSTR, byval pPrintProcessorName as LPWSTR) as WINBOOL
+declare function EnumPrintProcessorsA(byval pName as LPSTR, byval pEnvironment as LPSTR, byval Level as DWORD, byval pPrintProcessorInfo as LPBYTE, byval cbBuf as DWORD, byval pcbNeeded as LPDWORD, byval pcReturned as LPDWORD) as WINBOOL
+declare function EnumPrintProcessorsW(byval pName as LPWSTR, byval pEnvironment as LPWSTR, byval Level as DWORD, byval pPrintProcessorInfo as LPBYTE, byval cbBuf as DWORD, byval pcbNeeded as LPDWORD, byval pcReturned as LPDWORD) as WINBOOL
+declare function GetPrintProcessorDirectoryA(byval pName as LPSTR, byval pEnvironment as LPSTR, byval Level as DWORD, byval pPrintProcessorInfo as LPBYTE, byval cbBuf as DWORD, byval pcbNeeded as LPDWORD) as WINBOOL
+declare function GetPrintProcessorDirectoryW(byval pName as LPWSTR, byval pEnvironment as LPWSTR, byval Level as DWORD, byval pPrintProcessorInfo as LPBYTE, byval cbBuf as DWORD, byval pcbNeeded as LPDWORD) as WINBOOL
+declare function EnumPrintProcessorDatatypesA(byval pName as LPSTR, byval pPrintProcessorName as LPSTR, byval Level as DWORD, byval pDatatypes as LPBYTE, byval cbBuf as DWORD, byval pcbNeeded as LPDWORD, byval pcReturned as LPDWORD) as WINBOOL
+declare function EnumPrintProcessorDatatypesW(byval pName as LPWSTR, byval pPrintProcessorName as LPWSTR, byval Level as DWORD, byval pDatatypes as LPBYTE, byval cbBuf as DWORD, byval pcbNeeded as LPDWORD, byval pcReturned as LPDWORD) as WINBOOL
+declare function DeletePrintProcessorA(byval pName as LPSTR, byval pEnvironment as LPSTR, byval pPrintProcessorName as LPSTR) as WINBOOL
+declare function DeletePrintProcessorW(byval pName as LPWSTR, byval pEnvironment as LPWSTR, byval pPrintProcessorName as LPWSTR) as WINBOOL
+declare function StartDocPrinterA(byval hPrinter as HANDLE, byval Level as DWORD, byval pDocInfo as LPBYTE) as DWORD
+declare function StartDocPrinterW(byval hPrinter as HANDLE, byval Level as DWORD, byval pDocInfo as LPBYTE) as DWORD
+declare function StartPagePrinter(byval hPrinter as HANDLE) as WINBOOL
+declare function WritePrinter(byval hPrinter as HANDLE, byval pBuf as LPVOID, byval cbBuf as DWORD, byval pcWritten as LPDWORD) as WINBOOL
+declare function FlushPrinter(byval hPrinter as HANDLE, byval pBuf as LPVOID, byval cbBuf as DWORD, byval pcWritten as LPDWORD, byval cSleep as DWORD) as WINBOOL
+declare function EndPagePrinter(byval hPrinter as HANDLE) as WINBOOL
+declare function AbortPrinter(byval hPrinter as HANDLE) as WINBOOL
+declare function ReadPrinter(byval hPrinter as HANDLE, byval pBuf as LPVOID, byval cbBuf as DWORD, byval pNoBytesRead as LPDWORD) as WINBOOL
+declare function EndDocPrinter(byval hPrinter as HANDLE) as WINBOOL
+declare function AddJobA(byval hPrinter as HANDLE, byval Level as DWORD, byval pData as LPBYTE, byval cbBuf as DWORD, byval pcbNeeded as LPDWORD) as WINBOOL
+declare function AddJobW(byval hPrinter as HANDLE, byval Level as DWORD, byval pData as LPBYTE, byval cbBuf as DWORD, byval pcbNeeded as LPDWORD) as WINBOOL
+declare function ScheduleJob(byval hPrinter as HANDLE, byval JobId as DWORD) as WINBOOL
+declare function PrinterProperties(byval hWnd as HWND, byval hPrinter as HANDLE) as WINBOOL
+declare function DocumentPropertiesA(byval hWnd as HWND, byval hPrinter as HANDLE, byval pDeviceName as LPSTR, byval pDevModeOutput as PDEVMODEA, byval pDevModeInput as PDEVMODEA, byval fMode as DWORD) as LONG_
+declare function DocumentPropertiesW(byval hWnd as HWND, byval hPrinter as HANDLE, byval pDeviceName as LPWSTR, byval pDevModeOutput as PDEVMODEW, byval pDevModeInput as PDEVMODEW, byval fMode as DWORD) as LONG_
+declare function AdvancedDocumentPropertiesA(byval hWnd as HWND, byval hPrinter as HANDLE, byval pDeviceName as LPSTR, byval pDevModeOutput as PDEVMODEA, byval pDevModeInput as PDEVMODEA) as LONG_
+declare function AdvancedDocumentPropertiesW(byval hWnd as HWND, byval hPrinter as HANDLE, byval pDeviceName as LPWSTR, byval pDevModeOutput as PDEVMODEW, byval pDevModeInput as PDEVMODEW) as LONG_
+declare function ExtDeviceMode cdecl(byval hWnd as HWND, byval hInst as HANDLE, byval pDevModeOutput as LPDEVMODEA, byval pDeviceName as LPSTR, byval pPort as LPSTR, byval pDevModeInput as LPDEVMODEA, byval pProfile as LPSTR, byval fMode as DWORD) as LONG_
+declare function GetPrinterDataA(byval hPrinter as HANDLE, byval pValueName as LPSTR, byval pType as LPDWORD, byval pData as LPBYTE, byval nSize as DWORD, byval pcbNeeded as LPDWORD) as DWORD
+declare function GetPrinterDataW(byval hPrinter as HANDLE, byval pValueName as LPWSTR, byval pType as LPDWORD, byval pData as LPBYTE, byval nSize as DWORD, byval pcbNeeded as LPDWORD) as DWORD
+declare function GetPrinterDataExA(byval hPrinter as HANDLE, byval pKeyName as LPCSTR, byval pValueName as LPCSTR, byval pType as LPDWORD, byval pData as LPBYTE, byval nSize as DWORD, byval pcbNeeded as LPDWORD) as DWORD
+declare function GetPrinterDataExW(byval hPrinter as HANDLE, byval pKeyName as LPCWSTR, byval pValueName as LPCWSTR, byval pType as LPDWORD, byval pData as LPBYTE, byval nSize as DWORD, byval pcbNeeded as LPDWORD) as DWORD
+declare function EnumPrinterDataA(byval hPrinter as HANDLE, byval dwIndex as DWORD, byval pValueName as LPSTR, byval cbValueName as DWORD, byval pcbValueName as LPDWORD, byval pType as LPDWORD, byval pData as LPBYTE, byval cbData as DWORD, byval pcbData as LPDWORD) as DWORD
+declare function EnumPrinterDataW(byval hPrinter as HANDLE, byval dwIndex as DWORD, byval pValueName as LPWSTR, byval cbValueName as DWORD, byval pcbValueName as LPDWORD, byval pType as LPDWORD, byval pData as LPBYTE, byval cbData as DWORD, byval pcbData as LPDWORD) as DWORD
+declare function EnumPrinterDataExA(byval hPrinter as HANDLE, byval pKeyName as LPCSTR, byval pEnumValues as LPBYTE, byval cbEnumValues as DWORD, byval pcbEnumValues as LPDWORD, byval pnEnumValues as LPDWORD) as DWORD
+declare function EnumPrinterDataExW(byval hPrinter as HANDLE, byval pKeyName as LPCWSTR, byval pEnumValues as LPBYTE, byval cbEnumValues as DWORD, byval pcbEnumValues as LPDWORD, byval pnEnumValues as LPDWORD) as DWORD
+declare function EnumPrinterKeyA(byval hPrinter as HANDLE, byval pKeyName as LPCSTR, byval pSubkey as LPSTR, byval cbSubkey as DWORD, byval pcbSubkey as LPDWORD) as DWORD
+declare function EnumPrinterKeyW(byval hPrinter as HANDLE, byval pKeyName as LPCWSTR, byval pSubkey as LPWSTR, byval cbSubkey as DWORD, byval pcbSubkey as LPDWORD) as DWORD
+declare function SetPrinterDataA(byval hPrinter as HANDLE, byval pValueName as LPSTR, byval Type_ as DWORD, byval pData as LPBYTE, byval cbData as DWORD) as DWORD
+declare function SetPrinterDataW(byval hPrinter as HANDLE, byval pValueName as LPWSTR, byval Type_ as DWORD, byval pData as LPBYTE, byval cbData as DWORD) as DWORD
+declare function SetPrinterDataExA(byval hPrinter as HANDLE, byval pKeyName as LPCSTR, byval pValueName as LPCSTR, byval Type_ as DWORD, byval pData as LPBYTE, byval cbData as DWORD) as DWORD
+declare function SetPrinterDataExW(byval hPrinter as HANDLE, byval pKeyName as LPCWSTR, byval pValueName as LPCWSTR, byval Type_ as DWORD, byval pData as LPBYTE, byval cbData as DWORD) as DWORD
+declare function DeletePrinterDataA(byval hPrinter as HANDLE, byval pValueName as LPSTR) as DWORD
+declare function DeletePrinterDataW(byval hPrinter as HANDLE, byval pValueName as LPWSTR) as DWORD
+declare function DeletePrinterDataExA(byval hPrinter as HANDLE, byval pKeyName as LPCSTR, byval pValueName as LPCSTR) as DWORD
+declare function DeletePrinterDataExW(byval hPrinter as HANDLE, byval pKeyName as LPCWSTR, byval pValueName as LPCWSTR) as DWORD
+declare function DeletePrinterKeyA(byval hPrinter as HANDLE, byval pKeyName as LPCSTR) as DWORD
+declare function DeletePrinterKeyW(byval hPrinter as HANDLE, byval pKeyName as LPCWSTR) as DWORD
 
 #define PRINTER_NOTIFY_TYPE &h00
 #define JOB_NOTIFY_TYPE &h01
@@ -1467,7 +1467,7 @@ type PBINARY_CONTAINER as _BINARY_CONTAINER ptr
 
 union ___BIDI_DATA_u
 	bData as WINBOOL
-	iData as LONG
+	iData as LONG_
 	sData as LPWSTR
 	fData as FLOAT
 	biData as BINARY_CONTAINER
@@ -1553,11 +1553,11 @@ end enum
 #define ERROR_BIDI_DEVICE_OFFLINE (ERROR_BIDI_ERROR_BASE + 4)
 #define ERROR_BIDI_SCHEMA_NOT_SUPPORTED (ERROR_BIDI_ERROR_BASE + 5)
 
-'' TODO: DWORD WINAPI WaitForPrinterChange(HANDLE hPrinter,DWORD Flags);
-'' TODO: HANDLE WINAPI FindFirstPrinterChangeNotification(HANDLE hPrinter,DWORD fdwFlags,DWORD fdwOptions,LPVOID pPrinterNotifyOptions);
-'' TODO: WINBOOL WINAPI FindNextPrinterChangeNotification(HANDLE hChange,PDWORD pdwChange,LPVOID pPrinterNotifyOptions,LPVOID *ppPrinterNotifyInfo);
-'' TODO: WINBOOL WINAPI FreePrinterNotifyInfo (PPRINTER_NOTIFY_INFO pPrinterNotifyInfo);
-'' TODO: WINBOOL WINAPI FindClosePrinterChangeNotification(HANDLE hChange);
+declare function WaitForPrinterChange(byval hPrinter as HANDLE, byval Flags as DWORD) as DWORD
+declare function FindFirstPrinterChangeNotification(byval hPrinter as HANDLE, byval fdwFlags as DWORD, byval fdwOptions as DWORD, byval pPrinterNotifyOptions as LPVOID) as HANDLE
+declare function FindNextPrinterChangeNotification(byval hChange as HANDLE, byval pdwChange as PDWORD, byval pPrinterNotifyOptions as LPVOID, byval ppPrinterNotifyInfo as LPVOID ptr) as WINBOOL
+declare function FreePrinterNotifyInfo(byval pPrinterNotifyInfo as PPRINTER_NOTIFY_INFO) as WINBOOL
+declare function FindClosePrinterChangeNotification(byval hChange as HANDLE) as WINBOOL
 
 #define PRINTER_CHANGE_ADD_PRINTER &h00000001
 #define PRINTER_CHANGE_SET_PRINTER &h00000002
@@ -1605,8 +1605,8 @@ end enum
 #define AddPrinterConnection __MINGW_NAME_AW(AddPrinterConnection)
 #define DeletePrinterConnection __MINGW_NAME_AW(DeletePrinterConnection)
 
-'' TODO: DWORD WINAPI PrinterMessageBoxA(HANDLE hPrinter,DWORD Error,HWND hWnd,LPSTR pText,LPSTR pCaption,DWORD dwType);
-'' TODO: DWORD WINAPI PrinterMessageBoxW(HANDLE hPrinter,DWORD Error,HWND hWnd,LPWSTR pText,LPWSTR pCaption,DWORD dwType);
+declare function PrinterMessageBoxA(byval hPrinter as HANDLE, byval Error_ as DWORD, byval hWnd as HWND, byval pText as LPSTR, byval pCaption as LPSTR, byval dwType as DWORD) as DWORD
+declare function PrinterMessageBoxW(byval hPrinter as HANDLE, byval Error_ as DWORD, byval hWnd as HWND, byval pText as LPWSTR, byval pCaption as LPWSTR, byval dwType as DWORD) as DWORD
 
 #define PRINTER_ERROR_INFORMATION &h80000000
 #define PRINTER_ERROR_WARNING &h40000000
@@ -1615,46 +1615,46 @@ end enum
 #define PRINTER_ERROR_JAM &h00000002
 #define PRINTER_ERROR_OUTOFTONER &h00000004
 
-'' TODO: WINBOOL WINAPI ClosePrinter(HANDLE hPrinter);
-'' TODO: WINBOOL WINAPI AddFormA(HANDLE hPrinter,DWORD Level,LPBYTE pForm);
-'' TODO: WINBOOL WINAPI AddFormW(HANDLE hPrinter,DWORD Level,LPBYTE pForm);
-'' TODO: WINBOOL WINAPI DeleteFormA(HANDLE hPrinter,LPSTR pFormName);
-'' TODO: WINBOOL WINAPI DeleteFormW(HANDLE hPrinter,LPWSTR pFormName);
-'' TODO: WINBOOL WINAPI GetFormA(HANDLE hPrinter,LPSTR pFormName,DWORD Level,LPBYTE pForm,DWORD cbBuf,LPDWORD pcbNeeded);
-'' TODO: WINBOOL WINAPI GetFormW(HANDLE hPrinter,LPWSTR pFormName,DWORD Level,LPBYTE pForm,DWORD cbBuf,LPDWORD pcbNeeded);
-'' TODO: WINBOOL WINAPI SetFormA(HANDLE hPrinter,LPSTR pFormName,DWORD Level,LPBYTE pForm);
-'' TODO: WINBOOL WINAPI SetFormW(HANDLE hPrinter,LPWSTR pFormName,DWORD Level,LPBYTE pForm);
-'' TODO: WINBOOL WINAPI EnumFormsA(HANDLE hPrinter,DWORD Level,LPBYTE pForm,DWORD cbBuf,LPDWORD pcbNeeded,LPDWORD pcReturned);
-'' TODO: WINBOOL WINAPI EnumFormsW(HANDLE hPrinter,DWORD Level,LPBYTE pForm,DWORD cbBuf,LPDWORD pcbNeeded,LPDWORD pcReturned);
-'' TODO: WINBOOL WINAPI EnumMonitorsA(LPSTR pName,DWORD Level,LPBYTE pMonitor,DWORD cbBuf,LPDWORD pcbNeeded,LPDWORD pcReturned);
-'' TODO: WINBOOL WINAPI EnumMonitorsW(LPWSTR pName,DWORD Level,LPBYTE pMonitor,DWORD cbBuf,LPDWORD pcbNeeded,LPDWORD pcReturned);
-'' TODO: WINBOOL WINAPI AddMonitorA(LPSTR pName,DWORD Level,LPBYTE pMonitorInfo);
-'' TODO: WINBOOL WINAPI AddMonitorW(LPWSTR pName,DWORD Level,LPBYTE pMonitorInfo);
-'' TODO: WINBOOL WINAPI DeleteMonitorA(LPSTR pName,LPSTR pEnvironment,LPSTR pMonitorName);
-'' TODO: WINBOOL WINAPI DeleteMonitorW(LPWSTR pName,LPWSTR pEnvironment,LPWSTR pMonitorName);
-'' TODO: WINBOOL WINAPI EnumPortsA(LPSTR pName,DWORD Level,LPBYTE pPorts,DWORD cbBuf,LPDWORD pcbNeeded,LPDWORD pcReturned);
-'' TODO: WINBOOL WINAPI EnumPortsW(LPWSTR pName,DWORD Level,LPBYTE pPorts,DWORD cbBuf,LPDWORD pcbNeeded,LPDWORD pcReturned);
-'' TODO: WINBOOL WINAPI AddPortA(LPSTR pName,HWND hWnd,LPSTR pMonitorName);
-'' TODO: WINBOOL WINAPI AddPortW(LPWSTR pName,HWND hWnd,LPWSTR pMonitorName);
-'' TODO: WINBOOL WINAPI ConfigurePortA(LPSTR pName,HWND hWnd,LPSTR pPortName);
-'' TODO: WINBOOL WINAPI ConfigurePortW(LPWSTR pName,HWND hWnd,LPWSTR pPortName);
-'' TODO: WINBOOL WINAPI DeletePortA(LPSTR pName,HWND hWnd,LPSTR pPortName);
-'' TODO: WINBOOL WINAPI DeletePortW(LPWSTR pName,HWND hWnd,LPWSTR pPortName);
-'' TODO: WINBOOL WINAPI XcvDataW(HANDLE hXcv,PCWSTR pszDataName,PBYTE pInputData,DWORD cbInputData,PBYTE pOutputData,DWORD cbOutputData,PDWORD pcbOutputNeeded,PDWORD pdwStatus);
+declare function ClosePrinter(byval hPrinter as HANDLE) as WINBOOL
+declare function AddFormA(byval hPrinter as HANDLE, byval Level as DWORD, byval pForm as LPBYTE) as WINBOOL
+declare function AddFormW(byval hPrinter as HANDLE, byval Level as DWORD, byval pForm as LPBYTE) as WINBOOL
+declare function DeleteFormA(byval hPrinter as HANDLE, byval pFormName as LPSTR) as WINBOOL
+declare function DeleteFormW(byval hPrinter as HANDLE, byval pFormName as LPWSTR) as WINBOOL
+declare function GetFormA(byval hPrinter as HANDLE, byval pFormName as LPSTR, byval Level as DWORD, byval pForm as LPBYTE, byval cbBuf as DWORD, byval pcbNeeded as LPDWORD) as WINBOOL
+declare function GetFormW(byval hPrinter as HANDLE, byval pFormName as LPWSTR, byval Level as DWORD, byval pForm as LPBYTE, byval cbBuf as DWORD, byval pcbNeeded as LPDWORD) as WINBOOL
+declare function SetFormA(byval hPrinter as HANDLE, byval pFormName as LPSTR, byval Level as DWORD, byval pForm as LPBYTE) as WINBOOL
+declare function SetFormW(byval hPrinter as HANDLE, byval pFormName as LPWSTR, byval Level as DWORD, byval pForm as LPBYTE) as WINBOOL
+declare function EnumFormsA(byval hPrinter as HANDLE, byval Level as DWORD, byval pForm as LPBYTE, byval cbBuf as DWORD, byval pcbNeeded as LPDWORD, byval pcReturned as LPDWORD) as WINBOOL
+declare function EnumFormsW(byval hPrinter as HANDLE, byval Level as DWORD, byval pForm as LPBYTE, byval cbBuf as DWORD, byval pcbNeeded as LPDWORD, byval pcReturned as LPDWORD) as WINBOOL
+declare function EnumMonitorsA(byval pName as LPSTR, byval Level as DWORD, byval pMonitor as LPBYTE, byval cbBuf as DWORD, byval pcbNeeded as LPDWORD, byval pcReturned as LPDWORD) as WINBOOL
+declare function EnumMonitorsW(byval pName as LPWSTR, byval Level as DWORD, byval pMonitor as LPBYTE, byval cbBuf as DWORD, byval pcbNeeded as LPDWORD, byval pcReturned as LPDWORD) as WINBOOL
+declare function AddMonitorA(byval pName as LPSTR, byval Level as DWORD, byval pMonitorInfo as LPBYTE) as WINBOOL
+declare function AddMonitorW(byval pName as LPWSTR, byval Level as DWORD, byval pMonitorInfo as LPBYTE) as WINBOOL
+declare function DeleteMonitorA(byval pName as LPSTR, byval pEnvironment as LPSTR, byval pMonitorName as LPSTR) as WINBOOL
+declare function DeleteMonitorW(byval pName as LPWSTR, byval pEnvironment as LPWSTR, byval pMonitorName as LPWSTR) as WINBOOL
+declare function EnumPortsA(byval pName as LPSTR, byval Level as DWORD, byval pPorts as LPBYTE, byval cbBuf as DWORD, byval pcbNeeded as LPDWORD, byval pcReturned as LPDWORD) as WINBOOL
+declare function EnumPortsW(byval pName as LPWSTR, byval Level as DWORD, byval pPorts as LPBYTE, byval cbBuf as DWORD, byval pcbNeeded as LPDWORD, byval pcReturned as LPDWORD) as WINBOOL
+declare function AddPortA(byval pName as LPSTR, byval hWnd as HWND, byval pMonitorName as LPSTR) as WINBOOL
+declare function AddPortW(byval pName as LPWSTR, byval hWnd as HWND, byval pMonitorName as LPWSTR) as WINBOOL
+declare function ConfigurePortA(byval pName as LPSTR, byval hWnd as HWND, byval pPortName as LPSTR) as WINBOOL
+declare function ConfigurePortW(byval pName as LPWSTR, byval hWnd as HWND, byval pPortName as LPWSTR) as WINBOOL
+declare function DeletePortA(byval pName as LPSTR, byval hWnd as HWND, byval pPortName as LPSTR) as WINBOOL
+declare function DeletePortW(byval pName as LPWSTR, byval hWnd as HWND, byval pPortName as LPWSTR) as WINBOOL
+declare function XcvDataW(byval hXcv as HANDLE, byval pszDataName as PCWSTR, byval pInputData as PBYTE, byval cbInputData as DWORD, byval pOutputData as PBYTE, byval cbOutputData as DWORD, byval pcbOutputNeeded as PDWORD, byval pdwStatus as PDWORD) as WINBOOL
 
 #define XcvData XcvDataW
 
-'' TODO: WINBOOL WINAPI GetDefaultPrinterA(LPSTR pszBuffer,LPDWORD pcchBuffer);
-'' TODO: WINBOOL WINAPI GetDefaultPrinterW(LPWSTR pszBuffer,LPDWORD pcchBuffer);
-'' TODO: WINBOOL WINAPI SetDefaultPrinterA(LPCSTR pszPrinter);
-'' TODO: WINBOOL WINAPI SetDefaultPrinterW(LPCWSTR pszPrinter);
-'' TODO: WINBOOL WINAPI SetPortA(LPSTR pName,LPSTR pPortName,DWORD dwLevel,LPBYTE pPortInfo);
-'' TODO: WINBOOL WINAPI SetPortW(LPWSTR pName,LPWSTR pPortName,DWORD dwLevel,LPBYTE pPortInfo);
-'' TODO: WINBOOL WINAPI AddPrinterConnectionA(LPSTR pName);
-'' TODO: WINBOOL WINAPI AddPrinterConnectionW(LPWSTR pName);
-'' TODO: WINBOOL WINAPI DeletePrinterConnectionA(LPSTR pName);
-'' TODO: WINBOOL WINAPI DeletePrinterConnectionW(LPWSTR pName);
-'' TODO: HANDLE WINAPI ConnectToPrinterDlg(HWND hwnd,DWORD Flags);
+declare function GetDefaultPrinterA(byval pszBuffer as LPSTR, byval pcchBuffer as LPDWORD) as WINBOOL
+declare function GetDefaultPrinterW(byval pszBuffer as LPWSTR, byval pcchBuffer as LPDWORD) as WINBOOL
+declare function SetDefaultPrinterA(byval pszPrinter as LPCSTR) as WINBOOL
+declare function SetDefaultPrinterW(byval pszPrinter as LPCWSTR) as WINBOOL
+declare function SetPortA(byval pName as LPSTR, byval pPortName as LPSTR, byval dwLevel as DWORD, byval pPortInfo as LPBYTE) as WINBOOL
+declare function SetPortW(byval pName as LPWSTR, byval pPortName as LPWSTR, byval dwLevel as DWORD, byval pPortInfo as LPBYTE) as WINBOOL
+declare function AddPrinterConnectionA(byval pName as LPSTR) as WINBOOL
+declare function AddPrinterConnectionW(byval pName as LPWSTR) as WINBOOL
+declare function DeletePrinterConnectionA(byval pName as LPSTR) as WINBOOL
+declare function DeletePrinterConnectionW(byval pName as LPWSTR) as WINBOOL
+declare function ConnectToPrinterDlg(byval hwnd as HWND, byval Flags as DWORD) as HANDLE
 
 type _PROVIDOR_INFO_1A
 	pName as LPSTR
@@ -1716,36 +1716,36 @@ type LPPROVIDOR_INFO_2W as _PROVIDOR_INFO_2W ptr
 #define DeletePrintProvidor __MINGW_NAME_AW(DeletePrintProvidor)
 #define IsValidDevmode __MINGW_NAME_AW(IsValidDevmode)
 
-'' TODO: WINBOOL WINAPI AddPrintProvidorA(LPSTR pName,DWORD level,LPBYTE pProvidorInfo);
-'' TODO: WINBOOL WINAPI AddPrintProvidorW(LPWSTR pName,DWORD level,LPBYTE pProvidorInfo);
-'' TODO: WINBOOL WINAPI DeletePrintProvidorA(LPSTR pName,LPSTR pEnvironment,LPSTR pPrintProvidorName);
-'' TODO: WINBOOL WINAPI DeletePrintProvidorW(LPWSTR pName,LPWSTR pEnvironment,LPWSTR pPrintProvidorName);
-'' TODO: WINBOOL WINAPI IsValidDevmodeA (PDEVMODEA pDevmode,size_t DevmodeSize);
-'' TODO: WINBOOL WINAPI IsValidDevmodeW (PDEVMODEW pDevmode,size_t DevmodeSize);
+declare function AddPrintProvidorA(byval pName as LPSTR, byval level as DWORD, byval pProvidorInfo as LPBYTE) as WINBOOL
+declare function AddPrintProvidorW(byval pName as LPWSTR, byval level as DWORD, byval pProvidorInfo as LPBYTE) as WINBOOL
+declare function DeletePrintProvidorA(byval pName as LPSTR, byval pEnvironment as LPSTR, byval pPrintProvidorName as LPSTR) as WINBOOL
+declare function DeletePrintProvidorW(byval pName as LPWSTR, byval pEnvironment as LPWSTR, byval pPrintProvidorName as LPWSTR) as WINBOOL
+declare function IsValidDevmodeA(byval pDevmode as PDEVMODEA, byval DevmodeSize as uinteger) as WINBOOL
+declare function IsValidDevmodeW(byval pDevmode as PDEVMODEW, byval DevmodeSize as uinteger) as WINBOOL
 
-#define SPLREG_DEFAULT_SPOOL_DIRECTORY TEXT("DefaultSpoolDirectory")
-#define SPLREG_PORT_THREAD_PRIORITY_DEFAULT TEXT("PortThreadPriorityDefault")
-#define SPLREG_PORT_THREAD_PRIORITY TEXT("PortThreadPriority")
-#define SPLREG_SCHEDULER_THREAD_PRIORITY_DEFAULT TEXT("SchedulerThreadPriorityDefault")
-#define SPLREG_SCHEDULER_THREAD_PRIORITY TEXT("SchedulerThreadPriority")
-#define SPLREG_BEEP_ENABLED TEXT("BeepEnabled")
-#define SPLREG_NET_POPUP TEXT("NetPopup")
-#define SPLREG_RETRY_POPUP TEXT("RetryPopup")
-#define SPLREG_NET_POPUP_TO_COMPUTER TEXT("NetPopupToComputer")
-#define SPLREG_EVENT_LOG TEXT("EventLog")
-#define SPLREG_MAJOR_VERSION TEXT("MajorVersion")
-#define SPLREG_MINOR_VERSION TEXT("MinorVersion")
-#define SPLREG_ARCHITECTURE TEXT("Architecture")
-#define SPLREG_OS_VERSION TEXT("OSVersion")
-#define SPLREG_OS_VERSIONEX TEXT("OSVersionEx")
-#define SPLREG_DS_PRESENT TEXT("DsPresent")
-#define SPLREG_DS_PRESENT_FOR_USER TEXT("DsPresentForUser")
-#define SPLREG_REMOTE_FAX TEXT("RemoteFax")
-#define SPLREG_RESTART_JOB_ON_POOL_ERROR TEXT("RestartJobOnPoolError")
-#define SPLREG_RESTART_JOB_ON_POOL_ENABLED TEXT("RestartJobOnPoolEnabled")
-#define SPLREG_DNS_MACHINE_NAME TEXT("DNSMachineName")
-#define SPLREG_ALLOW_USER_MANAGEFORMS TEXT("AllowUserManageForms")
-#define SPLREG_WEBSHAREMGMT TEXT("WebShareMgmt")
+#define SPLREG_DEFAULT_SPOOL_DIRECTORY TEXT_("DefaultSpoolDirectory")
+#define SPLREG_PORT_THREAD_PRIORITY_DEFAULT TEXT_("PortThreadPriorityDefault")
+#define SPLREG_PORT_THREAD_PRIORITY TEXT_("PortThreadPriority")
+#define SPLREG_SCHEDULER_THREAD_PRIORITY_DEFAULT TEXT_("SchedulerThreadPriorityDefault")
+#define SPLREG_SCHEDULER_THREAD_PRIORITY TEXT_("SchedulerThreadPriority")
+#define SPLREG_BEEP_ENABLED TEXT_("BeepEnabled")
+#define SPLREG_NET_POPUP TEXT_("NetPopup")
+#define SPLREG_RETRY_POPUP TEXT_("RetryPopup")
+#define SPLREG_NET_POPUP_TO_COMPUTER TEXT_("NetPopupToComputer")
+#define SPLREG_EVENT_LOG TEXT_("EventLog")
+#define SPLREG_MAJOR_VERSION TEXT_("MajorVersion")
+#define SPLREG_MINOR_VERSION TEXT_("MinorVersion")
+#define SPLREG_ARCHITECTURE TEXT_("Architecture")
+#define SPLREG_OS_VERSION TEXT_("OSVersion")
+#define SPLREG_OS_VERSIONEX TEXT_("OSVersionEx")
+#define SPLREG_DS_PRESENT TEXT_("DsPresent")
+#define SPLREG_DS_PRESENT_FOR_USER TEXT_("DsPresentForUser")
+#define SPLREG_REMOTE_FAX TEXT_("RemoteFax")
+#define SPLREG_RESTART_JOB_ON_POOL_ERROR TEXT_("RestartJobOnPoolError")
+#define SPLREG_RESTART_JOB_ON_POOL_ENABLED TEXT_("RestartJobOnPoolEnabled")
+#define SPLREG_DNS_MACHINE_NAME TEXT_("DNSMachineName")
+#define SPLREG_ALLOW_USER_MANAGEFORMS TEXT_("AllowUserManageForms")
+#define SPLREG_WEBSHAREMGMT TEXT_("WebShareMgmt")
 #define SERVER_ACCESS_ADMINISTER &h00000001
 #define SERVER_ACCESS_ENUMERATE &h00000002
 #define PRINTER_ACCESS_ADMINISTER &h00000004
@@ -1764,58 +1764,58 @@ type LPPROVIDOR_INFO_2W as _PROVIDOR_INFO_2W ptr
 #define JOB_READ (STANDARD_RIGHTS_READ or JOB_ACCESS_READ)
 #define JOB_WRITE (STANDARD_RIGHTS_WRITE or JOB_ACCESS_ADMINISTER)
 #define JOB_EXECUTE (STANDARD_RIGHTS_EXECUTE or JOB_ACCESS_ADMINISTER)
-#define SPLDS_SPOOLER_KEY TEXT("DsSpooler")
-#define SPLDS_DRIVER_KEY TEXT("DsDriver")
-#define SPLDS_USER_KEY TEXT("DsUser")
-#define SPLDS_ASSET_NUMBER TEXT("assetNumber")
-#define SPLDS_BYTES_PER_MINUTE TEXT("bytesPerMinute")
-#define SPLDS_DESCRIPTION TEXT("description")
-#define SPLDS_DRIVER_NAME TEXT("driverName")
-#define SPLDS_DRIVER_VERSION TEXT("driverVersion")
-#define SPLDS_LOCATION TEXT("location")
-#define SPLDS_PORT_NAME TEXT("portName")
-#define SPLDS_PRINT_ATTRIBUTES TEXT("printAttributes")
-#define SPLDS_PRINT_BIN_NAMES TEXT("printBinNames")
-#define SPLDS_PRINT_COLLATE TEXT("printCollate")
-#define SPLDS_PRINT_COLOR TEXT("printColor")
-#define SPLDS_PRINT_DUPLEX_SUPPORTED TEXT("printDuplexSupported")
-#define SPLDS_PRINT_END_TIME TEXT("printEndTime")
-#define SPLDS_PRINTER_CLASS TEXT("printQueue")
-#define SPLDS_PRINTER_NAME TEXT("printerName")
-#define SPLDS_PRINT_KEEP_PRINTED_JOBS TEXT("printKeepPrintedJobs")
-#define SPLDS_PRINT_LANGUAGE TEXT("printLanguage")
-#define SPLDS_PRINT_MAC_ADDRESS TEXT("printMACAddress")
-#define SPLDS_PRINT_MAX_X_EXTENT TEXT("printMaxXExtent")
-#define SPLDS_PRINT_MAX_Y_EXTENT TEXT("printMaxYExtent")
-#define SPLDS_PRINT_MAX_RESOLUTION_SUPPORTED TEXT("printMaxResolutionSupported")
-#define SPLDS_PRINT_MEDIA_READY TEXT("printMediaReady")
-#define SPLDS_PRINT_MEDIA_SUPPORTED TEXT("printMediaSupported")
-#define SPLDS_PRINT_MEMORY TEXT("printMemory")
-#define SPLDS_PRINT_MIN_X_EXTENT TEXT("printMinXExtent")
-#define SPLDS_PRINT_MIN_Y_EXTENT TEXT("printMinYExtent")
-#define SPLDS_PRINT_NETWORK_ADDRESS TEXT("printNetworkAddress")
-#define SPLDS_PRINT_NOTIFY TEXT("printNotify")
-#define SPLDS_PRINT_NUMBER_UP TEXT("printNumberUp")
-#define SPLDS_PRINT_ORIENTATIONS_SUPPORTED TEXT("printOrientationsSupported")
-#define SPLDS_PRINT_OWNER TEXT("printOwner")
-#define SPLDS_PRINT_PAGES_PER_MINUTE TEXT("printPagesPerMinute")
-#define SPLDS_PRINT_RATE TEXT("printRate")
-#define SPLDS_PRINT_RATE_UNIT TEXT("printRateUnit")
-#define SPLDS_PRINT_SEPARATOR_FILE TEXT("printSeparatorFile")
-#define SPLDS_PRINT_SHARE_NAME TEXT("printShareName")
-#define SPLDS_PRINT_SPOOLING TEXT("printSpooling")
-#define SPLDS_PRINT_STAPLING_SUPPORTED TEXT("printStaplingSupported")
-#define SPLDS_PRINT_START_TIME TEXT("printStartTime")
-#define SPLDS_PRINT_STATUS TEXT("printStatus")
-#define SPLDS_PRIORITY TEXT("priority")
-#define SPLDS_SERVER_NAME TEXT("serverName")
-#define SPLDS_SHORT_SERVER_NAME TEXT("shortServerName")
-#define SPLDS_UNC_NAME TEXT("uNCName")
-#define SPLDS_URL TEXT("url")
-#define SPLDS_FLAGS TEXT("flags")
-#define SPLDS_VERSION_NUMBER TEXT("versionNumber")
-#define SPLDS_PRINTER_NAME_ALIASES TEXT("printerNameAliases")
-#define SPLDS_PRINTER_LOCATIONS TEXT("printerLocations")
-#define SPLDS_PRINTER_MODEL TEXT("printerModel")
+#define SPLDS_SPOOLER_KEY TEXT_("DsSpooler")
+#define SPLDS_DRIVER_KEY TEXT_("DsDriver")
+#define SPLDS_USER_KEY TEXT_("DsUser")
+#define SPLDS_ASSET_NUMBER TEXT_("assetNumber")
+#define SPLDS_BYTES_PER_MINUTE TEXT_("bytesPerMinute")
+#define SPLDS_DESCRIPTION TEXT_("description")
+#define SPLDS_DRIVER_NAME TEXT_("driverName")
+#define SPLDS_DRIVER_VERSION TEXT_("driverVersion")
+#define SPLDS_LOCATION TEXT_("location")
+#define SPLDS_PORT_NAME TEXT_("portName")
+#define SPLDS_PRINT_ATTRIBUTES TEXT_("printAttributes")
+#define SPLDS_PRINT_BIN_NAMES TEXT_("printBinNames")
+#define SPLDS_PRINT_COLLATE TEXT_("printCollate")
+#define SPLDS_PRINT_COLOR TEXT_("printColor")
+#define SPLDS_PRINT_DUPLEX_SUPPORTED TEXT_("printDuplexSupported")
+#define SPLDS_PRINT_END_TIME TEXT_("printEndTime")
+#define SPLDS_PRINTER_CLASS TEXT_("printQueue")
+#define SPLDS_PRINTER_NAME TEXT_("printerName")
+#define SPLDS_PRINT_KEEP_PRINTED_JOBS TEXT_("printKeepPrintedJobs")
+#define SPLDS_PRINT_LANGUAGE TEXT_("printLanguage")
+#define SPLDS_PRINT_MAC_ADDRESS TEXT_("printMACAddress")
+#define SPLDS_PRINT_MAX_X_EXTENT TEXT_("printMaxXExtent")
+#define SPLDS_PRINT_MAX_Y_EXTENT TEXT_("printMaxYExtent")
+#define SPLDS_PRINT_MAX_RESOLUTION_SUPPORTED TEXT_("printMaxResolutionSupported")
+#define SPLDS_PRINT_MEDIA_READY TEXT_("printMediaReady")
+#define SPLDS_PRINT_MEDIA_SUPPORTED TEXT_("printMediaSupported")
+#define SPLDS_PRINT_MEMORY TEXT_("printMemory")
+#define SPLDS_PRINT_MIN_X_EXTENT TEXT_("printMinXExtent")
+#define SPLDS_PRINT_MIN_Y_EXTENT TEXT_("printMinYExtent")
+#define SPLDS_PRINT_NETWORK_ADDRESS TEXT_("printNetworkAddress")
+#define SPLDS_PRINT_NOTIFY TEXT_("printNotify")
+#define SPLDS_PRINT_NUMBER_UP TEXT_("printNumberUp")
+#define SPLDS_PRINT_ORIENTATIONS_SUPPORTED TEXT_("printOrientationsSupported")
+#define SPLDS_PRINT_OWNER TEXT_("printOwner")
+#define SPLDS_PRINT_PAGES_PER_MINUTE TEXT_("printPagesPerMinute")
+#define SPLDS_PRINT_RATE TEXT_("printRate")
+#define SPLDS_PRINT_RATE_UNIT TEXT_("printRateUnit")
+#define SPLDS_PRINT_SEPARATOR_FILE TEXT_("printSeparatorFile")
+#define SPLDS_PRINT_SHARE_NAME TEXT_("printShareName")
+#define SPLDS_PRINT_SPOOLING TEXT_("printSpooling")
+#define SPLDS_PRINT_STAPLING_SUPPORTED TEXT_("printStaplingSupported")
+#define SPLDS_PRINT_START_TIME TEXT_("printStartTime")
+#define SPLDS_PRINT_STATUS TEXT_("printStatus")
+#define SPLDS_PRIORITY TEXT_("priority")
+#define SPLDS_SERVER_NAME TEXT_("serverName")
+#define SPLDS_SHORT_SERVER_NAME TEXT_("shortServerName")
+#define SPLDS_UNC_NAME TEXT_("uNCName")
+#define SPLDS_URL TEXT_("url")
+#define SPLDS_FLAGS TEXT_("flags")
+#define SPLDS_VERSION_NUMBER TEXT_("versionNumber")
+#define SPLDS_PRINTER_NAME_ALIASES TEXT_("printerNameAliases")
+#define SPLDS_PRINTER_LOCATIONS TEXT_("printerLocations")
+#define SPLDS_PRINTER_MODEL TEXT_("printerModel")
 
 end extern

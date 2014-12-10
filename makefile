@@ -420,6 +420,7 @@ WINAPI_FLAGS_winioctl += -include windef.h
 WINAPI_FLAGS_winnetwk += -include windef.h
 WINAPI_FLAGS_winperf += -include windef.h
 WINAPI_FLAGS_winreg += -include windows.h -filterin '*/winreg.h'
+WINAPI_FLAGS_winspool += -include windef.h
 WINAPI_FLAGS_winsvc += -include windows.h
 WINAPI_FLAGS_winuser += -include windef.h
 WINAPI_FLAGS_winver += -include windef.h
