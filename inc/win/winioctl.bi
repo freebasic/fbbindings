@@ -1,5 +1,34 @@
 #pragma once
 
+#include once "crt/wchar.bi"
+
+extern "C"
+
+extern GUID_DEVINTERFACE_DISK as const GUID
+extern GUID_DEVINTERFACE_CDROM as const GUID
+extern GUID_DEVINTERFACE_PARTITION as const GUID
+extern GUID_DEVINTERFACE_TAPE as const GUID
+extern GUID_DEVINTERFACE_WRITEONCEDISK as const GUID
+extern GUID_DEVINTERFACE_VOLUME as const GUID
+extern GUID_DEVINTERFACE_MEDIUMCHANGER as const GUID
+extern GUID_DEVINTERFACE_FLOPPY as const GUID
+extern GUID_DEVINTERFACE_CDCHANGER as const GUID
+extern GUID_DEVINTERFACE_STORAGEPORT as const GUID
+extern GUID_DEVINTERFACE_COMPORT as const GUID
+extern GUID_DEVINTERFACE_SERENUM_BUS_ENUMERATOR as const GUID
+
+#define DiskClassGuid GUID_DEVINTERFACE_DISK
+#define CdRomClassGuid GUID_DEVINTERFACE_CDROM
+#define PartitionClassGuid GUID_DEVINTERFACE_PARTITION
+#define TapeClassGuid GUID_DEVINTERFACE_TAPE
+#define WriteOnceDiskClassGuid GUID_DEVINTERFACE_WRITEONCEDISK
+#define VolumeClassGuid GUID_DEVINTERFACE_VOLUME
+#define MediumChangerClassGuid GUID_DEVINTERFACE_MEDIUMCHANGER
+#define FloppyClassGuid GUID_DEVINTERFACE_FLOPPY
+#define CdChangerClassGuid GUID_DEVINTERFACE_CDCHANGER
+#define StoragePortClassGuid GUID_DEVINTERFACE_STORAGEPORT
+#define GUID_CLASS_COMPORT GUID_DEVINTERFACE_COMPORT
+#define GUID_SERENUM_BUS_ENUMERATOR GUID_DEVINTERFACE_SERENUM_BUS_ENUMERATOR
 #define _WINIOCTL_
 #define _DEVIOCTL_
 #define DEVICE_TYPE DWORD
@@ -63,9 +92,7 @@
 #define FILE_DEVICE_FIPS &h0000003A
 #define FILE_DEVICE_INFINIBAND &h0000003B
 #define CTL_CODE(DeviceType, Function, Method, Access) (((((DeviceType) shl 16) or ((Access) shl 14)) or ((Function) shl 2)) or (Method))
-
-'' TODO: #define DEVICE_TYPE_FROM_CTL_CODE(ctrlCode) (((DWORD)(ctrlCode & 0xffff0000)) >> 16)
-
+#define DEVICE_TYPE_FROM_CTL_CODE(ctrlCode) (cast(DWORD, ctrlCode and &hffff0000) shr 16)
 #define METHOD_BUFFERED 0
 #define METHOD_IN_DIRECT 1
 #define METHOD_OUT_DIRECT 2
@@ -124,7 +151,7 @@ type STORAGE_DEVICE_NUMBER as _STORAGE_DEVICE_NUMBER
 type PSTORAGE_DEVICE_NUMBER as _STORAGE_DEVICE_NUMBER ptr
 
 type _STORAGE_BUS_RESET_REQUEST
-	PathId as BYTE
+	PathId as BYTE_
 end type
 
 type STORAGE_BUS_RESET_REQUEST as _STORAGE_BUS_RESET_REQUEST
@@ -132,10 +159,10 @@ type PSTORAGE_BUS_RESET_REQUEST as _STORAGE_BUS_RESET_REQUEST ptr
 
 type STORAGE_BREAK_RESERVATION_REQUEST
 	Length as DWORD
-	_unused as BYTE
-	PathId as BYTE
-	TargetId as BYTE
-	Lun as BYTE
+	_unused as BYTE_
+	PathId as BYTE_
+	TargetId as BYTE_
+	Lun as BYTE_
 end type
 
 type PSTORAGE_BREAK_RESERVATION_REQUEST as STORAGE_BREAK_RESERVATION_REQUEST ptr
@@ -162,8 +189,8 @@ type _TAPE_STATISTICS
 	UnrecoveredWrites as LARGE_INTEGER
 	RecoveredReads as LARGE_INTEGER
 	UnrecoveredReads as LARGE_INTEGER
-	CompressionRatioReads as BYTE
-	CompressionRatioWrites as BYTE
+	CompressionRatioReads as BYTE_
+	CompressionRatioWrites as BYTE_
 end type
 
 type TAPE_STATISTICS as _TAPE_STATISTICS
@@ -303,8 +330,8 @@ type ___DEVICE_MEDIA_INFO_RemovableDiskInfo
 end type
 
 type ___DEVICE_MEDIA_INFO_ScsiInformation
-	MediumType as BYTE
-	DensityCode as BYTE
+	MediumType as BYTE_
+	DensityCode as BYTE_
 end type
 
 union ___DEVICE_MEDIA_INFO_BusSpecificData
@@ -343,7 +370,7 @@ type PGET_MEDIA_TYPES as _GET_MEDIA_TYPES ptr
 
 type _STORAGE_PREDICT_FAILURE
 	PredictFailure as DWORD
-	VendorSpecific(0 to 511) as BYTE
+	VendorSpecific(0 to 511) as BYTE_
 end type
 
 type STORAGE_PREDICT_FAILURE as _STORAGE_PREDICT_FAILURE
@@ -500,7 +527,7 @@ type _PARTITION_INFORMATION
 	PartitionLength as LARGE_INTEGER
 	HiddenSectors as DWORD
 	PartitionNumber as DWORD
-	PartitionType as BYTE
+	PartitionType as BYTE_
 	BootIndicator as BOOLEAN
 	RecognizedPartition as BOOLEAN
 	RewritePartition as BOOLEAN
@@ -510,7 +537,7 @@ type PARTITION_INFORMATION as _PARTITION_INFORMATION
 type PPARTITION_INFORMATION as _PARTITION_INFORMATION ptr
 
 type _SET_PARTITION_INFORMATION
-	PartitionType as BYTE
+	PartitionType as BYTE_
 end type
 
 type SET_PARTITION_INFORMATION as _SET_PARTITION_INFORMATION
@@ -577,7 +604,7 @@ type PPARTITION_INFORMATION_GPT as _PARTITION_INFORMATION_GPT ptr
 #define GPT_BASIC_DATA_ATTRIBUTE_READ_ONLY &h1000000000000000
 
 type _PARTITION_INFORMATION_MBR
-	PartitionType as BYTE
+	PartitionType as BYTE_
 	BootIndicator as BOOLEAN
 	RecognizedPartition as BOOLEAN
 	HiddenSectors as DWORD
@@ -591,7 +618,10 @@ type SET_PARTITION_INFORMATION_GPT as PARTITION_INFORMATION_GPT
 type _SET_PARTITION_INFORMATION_EX
 	PartitionStyle as PARTITION_STYLE
 
-	'' TODO: __C89_NAMELESS union { SET_PARTITION_INFORMATION_MBR Mbr; SET_PARTITION_INFORMATION_GPT Gpt; } DUMMYUNIONNAME;
+	union
+		Mbr as SET_PARTITION_INFORMATION_MBR
+		Gpt as SET_PARTITION_INFORMATION_GPT
+	end union
 end type
 
 type SET_PARTITION_INFORMATION_EX as _SET_PARTITION_INFORMATION_EX
@@ -615,7 +645,10 @@ type PCREATE_DISK_MBR as _CREATE_DISK_MBR ptr
 type _CREATE_DISK
 	PartitionStyle as PARTITION_STYLE
 
-	'' TODO: __C89_NAMELESS union { CREATE_DISK_MBR Mbr; CREATE_DISK_GPT Gpt; } DUMMYUNIONNAME;
+	union
+		Mbr as CREATE_DISK_MBR
+		Gpt as CREATE_DISK_GPT
+	end union
 end type
 
 type CREATE_DISK as _CREATE_DISK
@@ -635,7 +668,10 @@ type _PARTITION_INFORMATION_EX
 	PartitionNumber as DWORD
 	RewritePartition as BOOLEAN
 
-	'' TODO: __C89_NAMELESS union { PARTITION_INFORMATION_MBR Mbr; PARTITION_INFORMATION_GPT Gpt; } DUMMYUNIONNAME;
+	union
+		Mbr as PARTITION_INFORMATION_MBR
+		Gpt as PARTITION_INFORMATION_GPT
+	end union
 end type
 
 type PARTITION_INFORMATION_EX as _PARTITION_INFORMATION_EX
@@ -662,7 +698,10 @@ type _DRIVE_LAYOUT_INFORMATION_EX
 	PartitionStyle as DWORD
 	PartitionCount as DWORD
 
-	'' TODO: __C89_NAMELESS union { DRIVE_LAYOUT_INFORMATION_MBR Mbr; DRIVE_LAYOUT_INFORMATION_GPT Gpt; } DUMMYUNIONNAME;
+	union
+		Mbr as DRIVE_LAYOUT_INFORMATION_MBR
+		Gpt as DRIVE_LAYOUT_INFORMATION_GPT
+	end union
 
 	PartitionEntry(0 to 0) as PARTITION_INFORMATION_EX
 end type
@@ -708,30 +747,46 @@ type _DISK_DETECTION_INFO
 	SizeOfDetectInfo as DWORD
 	DetectionType as DETECTION_TYPE
 
-	'' TODO: __C89_NAMELESS union { __C89_NAMELESS struct { DISK_INT13_INFO Int13; DISK_EX_INT13_INFO ExInt13; } DUMMYSTRUCTNAME; } DUMMYUNIONNAME;
+	union
+		type
+			Int13 as DISK_INT13_INFO
+			ExInt13 as DISK_EX_INT13_INFO
+		end type
+	end union
 end type
 
 type DISK_DETECTION_INFO as _DISK_DETECTION_INFO
 type PDISK_DETECTION_INFO as _DISK_DETECTION_INFO ptr
 
+type ___DISK_PARTITION_INFO_Mbr
+	Signature as DWORD
+	CheckSum as DWORD
+end type
+
+type ___DISK_PARTITION_INFO_Gpt
+	DiskId as GUID
+end type
+
 type _DISK_PARTITION_INFO
 	SizeOfPartitionInfo as DWORD
 	PartitionStyle as PARTITION_STYLE
 
-	'' TODO: __C89_NAMELESS union { struct { DWORD Signature; DWORD CheckSum; } Mbr; struct { GUID DiskId; } Gpt; } DUMMYUNIONNAME;
+	union
+		Mbr as ___DISK_PARTITION_INFO_Mbr
+		Gpt as ___DISK_PARTITION_INFO_Gpt
+	end union
 end type
 
 type DISK_PARTITION_INFO as _DISK_PARTITION_INFO
 type PDISK_PARTITION_INFO as _DISK_PARTITION_INFO ptr
 
 #define DiskGeometryGetPartition(Geometry) cast(PDISK_PARTITION_INFO, (Geometry)->Data)
-
-'' TODO: #define DiskGeometryGetDetect(Geometry) ((PDISK_DETECTION_INFO)(((DWORD_PTR)DiskGeometryGetPartition(Geometry)+ DiskGeometryGetPartition(Geometry)->SizeOfPartitionInfo)))
+#define DiskGeometryGetDetect(Geometry) cast(PDISK_DETECTION_INFO, cast(DWORD_PTR, DiskGeometryGetPartition(Geometry) + DiskGeometryGetPartition(Geometry)->SizeOfPartitionInfo))
 
 type _DISK_GEOMETRY_EX
 	Geometry as DISK_GEOMETRY
 	DiskSize as LARGE_INTEGER
-	Data(0 to 0) as BYTE
+	Data(0 to 0) as BYTE_
 end type
 
 type DISK_GEOMETRY_EX as _DISK_GEOMETRY_EX
@@ -752,6 +807,17 @@ enum
 	KeepReadData
 end enum
 
+type ___DISK_CACHE_INFORMATION_ScalarPrefetch
+	Minimum as WORD
+	Maximum as WORD
+	MaximumBlocks as WORD
+end type
+
+type ___DISK_CACHE_INFORMATION_BlockPrefetch
+	Minimum as WORD
+	Maximum as WORD
+end type
+
 type _DISK_CACHE_INFORMATION
 	ParametersSavable as BOOLEAN
 	ReadCacheEnabled as BOOLEAN
@@ -761,7 +827,10 @@ type _DISK_CACHE_INFORMATION
 	DisablePrefetchTransferLength as WORD
 	PrefetchScalar as BOOLEAN
 
-	'' TODO: __C89_NAMELESS union { struct { WORD Minimum; WORD Maximum; WORD MaximumBlocks; } ScalarPrefetch; struct { WORD Minimum; WORD Maximum; } BlockPrefetch; } DUMMYUNIONNAME;
+	union
+		ScalarPrefetch as ___DISK_CACHE_INFORMATION_ScalarPrefetch
+		BlockPrefetch as ___DISK_CACHE_INFORMATION_BlockPrefetch
+	end union
 end type
 
 type DISK_CACHE_INFORMATION as _DISK_CACHE_INFORMATION
@@ -830,7 +899,7 @@ type _DISK_RECORD
 	EndTime as LARGE_INTEGER
 	VirtualAddress as PVOID
 	NumberOfBytes as DWORD
-	DeviceNumber as BYTE
+	DeviceNumber as BYTE_
 	ReadRequest as BOOLEAN
 end type
 
@@ -838,7 +907,7 @@ type DISK_RECORD as _DISK_RECORD
 type PDISK_RECORD as _DISK_RECORD ptr
 
 type _DISK_LOGGING
-	Function as BYTE
+	Function as BYTE_
 	BufferAddress as PVOID
 	BufferSize as DWORD
 end type
@@ -893,10 +962,10 @@ type BIN_RESULTS as _BIN_RESULTS
 type PBIN_RESULTS as _BIN_RESULTS ptr
 
 type _GETVERSIONINPARAMS field = 1
-	bVersion as BYTE
-	bRevision as BYTE
-	bReserved as BYTE
-	bIDEDeviceMap as BYTE
+	bVersion as BYTE_
+	bRevision as BYTE_
+	bReserved as BYTE_
+	bIDEDeviceMap as BYTE_
 	fCapabilities as DWORD
 	dwReserved(0 to 3) as DWORD
 end type
@@ -906,14 +975,14 @@ type PGETVERSIONINPARAMS as _GETVERSIONINPARAMS ptr
 type LPGETVERSIONINPARAMS as _GETVERSIONINPARAMS ptr
 
 type _IDEREGS field = 1
-	bFeaturesReg as BYTE
-	bSectorCountReg as BYTE
-	bSectorNumberReg as BYTE
-	bCylLowReg as BYTE
-	bCylHighReg as BYTE
-	bDriveHeadReg as BYTE
-	bCommandReg as BYTE
-	bReserved as BYTE
+	bFeaturesReg as BYTE_
+	bSectorCountReg as BYTE_
+	bSectorNumberReg as BYTE_
+	bCylLowReg as BYTE_
+	bCylHighReg as BYTE_
+	bDriveHeadReg as BYTE_
+	bCommandReg as BYTE_
+	bReserved as BYTE_
 end type
 
 type IDEREGS as _IDEREGS
@@ -927,10 +996,10 @@ type LPIDEREGS as _IDEREGS ptr
 type _SENDCMDINPARAMS field = 1
 	cBufferSize as DWORD
 	irDriveRegs as IDEREGS
-	bDriveNumber as BYTE
-	bReserved(0 to 2) as BYTE
+	bDriveNumber as BYTE_
+	bReserved(0 to 2) as BYTE_
 	dwReserved(0 to 3) as DWORD
-	bBuffer(0 to 0) as BYTE
+	bBuffer(0 to 0) as BYTE_
 end type
 
 type SENDCMDINPARAMS as _SENDCMDINPARAMS
@@ -944,9 +1013,9 @@ type LPSENDCMDINPARAMS as _SENDCMDINPARAMS ptr
 #define SMART_CYL_HI &hC2
 
 type _DRIVERSTATUS field = 1
-	bDriverError as BYTE
-	bIDEError as BYTE
-	bReserved(0 to 1) as BYTE
+	bDriverError as BYTE_
+	bIDEError as BYTE_
+	bReserved(0 to 1) as BYTE_
 	dwReserved(0 to 1) as DWORD
 end type
 
@@ -957,7 +1026,7 @@ type LPDRIVERSTATUS as _DRIVERSTATUS ptr
 type _SENDCMDOUTPARAMS field = 1
 	cBufferSize as DWORD
 	DriverStatus as DRIVERSTATUS
-	bBuffer(0 to 0) as BYTE
+	bBuffer(0 to 0) as BYTE_
 end type
 
 type SENDCMDOUTPARAMS as _SENDCMDOUTPARAMS
@@ -1113,17 +1182,17 @@ type _GET_CHANGER_PARAMETERS
 	DriveCleanTimeout as DWORD
 	Features0 as DWORD
 	Features1 as DWORD
-	MoveFromTransport as BYTE
-	MoveFromSlot as BYTE
-	MoveFromIePort as BYTE
-	MoveFromDrive as BYTE
-	ExchangeFromTransport as BYTE
-	ExchangeFromSlot as BYTE
-	ExchangeFromIePort as BYTE
-	ExchangeFromDrive as BYTE
-	LockUnlockCapabilities as BYTE
-	PositionCapabilities as BYTE
-	Reserved1(0 to 1) as BYTE
+	MoveFromTransport as BYTE_
+	MoveFromSlot as BYTE_
+	MoveFromIePort as BYTE_
+	MoveFromDrive as BYTE_
+	ExchangeFromTransport as BYTE_
+	ExchangeFromSlot as BYTE_
+	ExchangeFromIePort as BYTE_
+	ExchangeFromDrive as BYTE_
+	LockUnlockCapabilities as BYTE_
+	PositionCapabilities as BYTE_
+	Reserved1(0 to 1) as BYTE_
 	Reserved2(0 to 1) as DWORD
 end type
 
@@ -1131,11 +1200,11 @@ type GET_CHANGER_PARAMETERS as _GET_CHANGER_PARAMETERS
 type PGET_CHANGER_PARAMETERS as _GET_CHANGER_PARAMETERS ptr
 
 type _CHANGER_PRODUCT_DATA
-	VendorId(0 to 7) as BYTE
-	ProductId(0 to 15) as BYTE
-	Revision(0 to 3) as BYTE
-	SerialNumber(0 to 31) as BYTE
-	DeviceType as BYTE
+	VendorId(0 to 7) as BYTE_
+	ProductId(0 to 15) as BYTE_
+	Revision(0 to 3) as BYTE_
+	SerialNumber(0 to 31) as BYTE_
+	DeviceType as BYTE_
 end type
 
 type CHANGER_PRODUCT_DATA as _CHANGER_PRODUCT_DATA
@@ -1167,11 +1236,11 @@ type _CHANGER_ELEMENT_STATUS
 	SrcElementAddress as CHANGER_ELEMENT
 	Flags as DWORD
 	ExceptionCode as DWORD
-	TargetId as BYTE
-	Lun as BYTE
+	TargetId as BYTE_
+	Lun as BYTE_
 	Reserved as WORD
-	PrimaryVolumeID(0 to 35) as BYTE
-	AlternateVolumeID(0 to 35) as BYTE
+	PrimaryVolumeID(0 to 35) as BYTE_
+	AlternateVolumeID(0 to 35) as BYTE_
 end type
 
 type CHANGER_ELEMENT_STATUS as _CHANGER_ELEMENT_STATUS
@@ -1182,14 +1251,14 @@ type _CHANGER_ELEMENT_STATUS_EX
 	SrcElementAddress as CHANGER_ELEMENT
 	Flags as DWORD
 	ExceptionCode as DWORD
-	TargetId as BYTE
-	Lun as BYTE
+	TargetId as BYTE_
+	Lun as BYTE_
 	Reserved as WORD
-	PrimaryVolumeID(0 to 35) as BYTE
-	AlternateVolumeID(0 to 35) as BYTE
-	VendorIdentification(0 to 7) as BYTE
-	ProductIdentification(0 to 15) as BYTE
-	SerialNumber(0 to 31) as BYTE
+	PrimaryVolumeID(0 to 35) as BYTE_
+	AlternateVolumeID(0 to 35) as BYTE_
+	VendorIdentification(0 to 7) as BYTE_
+	ProductIdentification(0 to 15) as BYTE_
+	SerialNumber(0 to 31) as BYTE_
 end type
 
 type CHANGER_ELEMENT_STATUS_EX as _CHANGER_ELEMENT_STATUS_EX
@@ -1259,7 +1328,7 @@ type PCHANGER_MOVE_MEDIUM as _CHANGER_MOVE_MEDIUM ptr
 type _CHANGER_SEND_VOLUME_TAG_INFORMATION
 	StartingElement as CHANGER_ELEMENT
 	ActionCode as DWORD
-	VolumeIDTemplate(0 to 39) as BYTE
+	VolumeIDTemplate(0 to 39) as BYTE_
 end type
 
 type CHANGER_SEND_VOLUME_TAG_INFORMATION as _CHANGER_SEND_VOLUME_TAG_INFORMATION
@@ -1312,25 +1381,23 @@ type PCHANGER_DEVICE_PROBLEM_TYPE as _CHANGER_DEVICE_PROBLEM_TYPE ptr
 #define IOCTL_SERENUM_REMOVE_HARDWARE CTL_CODE(FILE_DEVICE_SERENUM, 129, METHOD_BUFFERED, FILE_ANY_ACCESS)
 #define IOCTL_SERENUM_PORT_DESC CTL_CODE(FILE_DEVICE_SERENUM, 130, METHOD_BUFFERED, FILE_ANY_ACCESS)
 #define IOCTL_SERENUM_GET_PORT_NAME CTL_CODE(FILE_DEVICE_SERENUM, 131, METHOD_BUFFERED, FILE_ANY_ACCESS)
-
-'' TODO: #define SERIAL_LSRMST_ESCAPE ((BYTE)0x00)
-'' TODO: #define SERIAL_LSRMST_LSR_DATA ((BYTE)0x01)
-'' TODO: #define SERIAL_LSRMST_LSR_NODATA ((BYTE)0x02)
-'' TODO: #define SERIAL_LSRMST_MST ((BYTE)0x03)
-'' TODO: #define SERIAL_IOC_FCR_FIFO_ENABLE ((DWORD)0x00000001)
-'' TODO: #define SERIAL_IOC_FCR_RCVR_RESET ((DWORD)0x00000002)
-'' TODO: #define SERIAL_IOC_FCR_XMIT_RESET ((DWORD)0x00000004)
-'' TODO: #define SERIAL_IOC_FCR_DMA_MODE ((DWORD)0x00000008)
-'' TODO: #define SERIAL_IOC_FCR_RES1 ((DWORD)0x00000010)
-'' TODO: #define SERIAL_IOC_FCR_RES2 ((DWORD)0x00000020)
-'' TODO: #define SERIAL_IOC_FCR_RCVR_TRIGGER_LSB ((DWORD)0x00000040)
-'' TODO: #define SERIAL_IOC_FCR_RCVR_TRIGGER_MSB ((DWORD)0x00000080)
-'' TODO: #define SERIAL_IOC_MCR_DTR ((DWORD)0x00000001)
-'' TODO: #define SERIAL_IOC_MCR_RTS ((DWORD)0x00000002)
-'' TODO: #define SERIAL_IOC_MCR_OUT1 ((DWORD)0x00000004)
-'' TODO: #define SERIAL_IOC_MCR_OUT2 ((DWORD)0x00000008)
-'' TODO: #define SERIAL_IOC_MCR_LOOP ((DWORD)0x00000010)
-
+#define SERIAL_LSRMST_ESCAPE cast(BYTE_, &h00)
+#define SERIAL_LSRMST_LSR_DATA cast(BYTE_, &h01)
+#define SERIAL_LSRMST_LSR_NODATA cast(BYTE_, &h02)
+#define SERIAL_LSRMST_MST cast(BYTE_, &h03)
+#define SERIAL_IOC_FCR_FIFO_ENABLE cast(DWORD, &h00000001)
+#define SERIAL_IOC_FCR_RCVR_RESET cast(DWORD, &h00000002)
+#define SERIAL_IOC_FCR_XMIT_RESET cast(DWORD, &h00000004)
+#define SERIAL_IOC_FCR_DMA_MODE cast(DWORD, &h00000008)
+#define SERIAL_IOC_FCR_RES1 cast(DWORD, &h00000010)
+#define SERIAL_IOC_FCR_RES2 cast(DWORD, &h00000020)
+#define SERIAL_IOC_FCR_RCVR_TRIGGER_LSB cast(DWORD, &h00000040)
+#define SERIAL_IOC_FCR_RCVR_TRIGGER_MSB cast(DWORD, &h00000080)
+#define SERIAL_IOC_MCR_DTR cast(DWORD, &h00000001)
+#define SERIAL_IOC_MCR_RTS cast(DWORD, &h00000002)
+#define SERIAL_IOC_MCR_OUT1 cast(DWORD, &h00000004)
+#define SERIAL_IOC_MCR_OUT2 cast(DWORD, &h00000008)
+#define SERIAL_IOC_MCR_LOOP cast(DWORD, &h00000010)
 #define _FILESYSTEMFSCTL_
 #define FSCTL_REQUEST_OPLOCK_LEVEL_1 CTL_CODE(FILE_DEVICE_FILE_SYSTEM, 0, METHOD_BUFFERED, FILE_ANY_ACCESS)
 #define FSCTL_REQUEST_OPLOCK_LEVEL_2 CTL_CODE(FILE_DEVICE_FILE_SYSTEM, 1, METHOD_BUFFERED, FILE_ANY_ACCESS)
@@ -1403,7 +1470,7 @@ type PATHNAME_BUFFER as _PATHNAME_BUFFER
 type PPATHNAME_BUFFER as _PATHNAME_BUFFER ptr
 
 type _FSCTL_QUERY_FAT_BPB_BUFFER
-	First0x24BytesOfBootSector(0 to 35) as BYTE
+	First0x24BytesOfBootSector(0 to 35) as BYTE_
 end type
 
 type FSCTL_QUERY_FAT_BPB_BUFFER as _FSCTL_QUERY_FAT_BPB_BUFFER
@@ -1445,7 +1512,7 @@ type PSTARTING_LCN_INPUT_BUFFER as STARTING_LCN_INPUT_BUFFER ptr
 type VOLUME_BITMAP_BUFFER
 	StartingLcn as LARGE_INTEGER
 	BitmapSize as LARGE_INTEGER
-	Buffer(0 to 0) as BYTE
+	Buffer(0 to 0) as BYTE_
 end type
 
 type PVOLUME_BITMAP_BUFFER as VOLUME_BITMAP_BUFFER ptr
@@ -1478,7 +1545,7 @@ type PNTFS_FILE_RECORD_INPUT_BUFFER as NTFS_FILE_RECORD_INPUT_BUFFER ptr
 type NTFS_FILE_RECORD_OUTPUT_BUFFER
 	FileReferenceNumber as LARGE_INTEGER
 	FileRecordLength as DWORD
-	FileRecordBuffer(0 to 0) as BYTE
+	FileRecordBuffer(0 to 0) as BYTE_
 end type
 
 type PNTFS_FILE_RECORD_OUTPUT_BUFFER as NTFS_FILE_RECORD_OUTPUT_BUFFER ptr
@@ -1805,9 +1872,17 @@ type NTFS_STATISTICS as _NTFS_STATISTICS
 type PNTFS_STATISTICS as _NTFS_STATISTICS ptr
 
 type _FILE_OBJECTID_BUFFER
-	ObjectId(0 to 15) as BYTE
+	ObjectId(0 to 15) as BYTE_
 
-	'' TODO: __C89_NAMELESS union { __C89_NAMELESS struct { BYTE BirthVolumeId[16]; BYTE BirthObjectId[16]; BYTE DomainId[16]; } DUMMYSTRUCTNAME; BYTE ExtendedInfo[48]; } DUMMYUNIONNAME;
+	union
+		type
+			BirthVolumeId(0 to 15) as BYTE_
+			BirthObjectId(0 to 15) as BYTE_
+			DomainId(0 to 15) as BYTE_
+		end type
+
+		ExtendedInfo(0 to 47) as BYTE_
+	end union
 end type
 
 type FILE_OBJECTID_BUFFER as _FILE_OBJECTID_BUFFER
@@ -1838,7 +1913,7 @@ type PFILE_ALLOCATED_RANGE_BUFFER as _FILE_ALLOCATED_RANGE_BUFFER ptr
 
 type _ENCRYPTION_BUFFER
 	EncryptionOperation as DWORD
-	as BYTE Private(0 to 0)
+	as BYTE_ Private(0 to 0)
 end type
 
 type ENCRYPTION_BUFFER as _ENCRYPTION_BUFFER
@@ -1874,12 +1949,12 @@ type _ENCRYPTED_DATA_INFO
 	BytesWithinFileSize as DWORD
 	BytesWithinValidDataLength as DWORD
 	CompressionFormat as WORD
-	DataUnitShift as BYTE
-	ChunkShift as BYTE
-	ClusterShift as BYTE
-	EncryptionFormat as BYTE
+	DataUnitShift as BYTE_
+	ChunkShift as BYTE_
+	ClusterShift as BYTE_
+	EncryptionFormat as BYTE_
 	NumberOfDataBlocks as WORD
-	DataBlockSize(0 to ANYSIZE_ARRAY - 1) as DWORD
+	DataBlockSize(0 to 0) as DWORD
 end type
 
 type ENCRYPTED_DATA_INFO as _ENCRYPTED_DATA_INFO
@@ -1946,7 +2021,7 @@ type PSTORAGE_QUERY_TYPE as _STORAGE_QUERY_TYPE ptr
 type _STORAGE_PROPERTY_QUERY
 	PropertyId as STORAGE_PROPERTY_ID
 	QueryType as STORAGE_QUERY_TYPE
-	AdditionalParameters(0 to 0) as BYTE
+	AdditionalParameters(0 to 0) as BYTE_
 end type
 
 type STORAGE_PROPERTY_QUERY as _STORAGE_PROPERTY_QUERY
@@ -1955,8 +2030,8 @@ type PSTORAGE_PROPERTY_QUERY as _STORAGE_PROPERTY_QUERY ptr
 type _STORAGE_DEVICE_DESCRIPTOR
 	Version as DWORD
 	Size as DWORD
-	DeviceType as BYTE
-	DeviceTypeModifier as BYTE
+	DeviceType as BYTE_
+	DeviceTypeModifier as BYTE_
 	RemovableMedia as BOOLEAN
 	CommandQueueing as BOOLEAN
 	VendorIdOffset as DWORD
@@ -1965,7 +2040,7 @@ type _STORAGE_DEVICE_DESCRIPTOR
 	SerialNumberOffset as DWORD
 	BusType as STORAGE_BUS_TYPE
 	RawPropertiesLength as DWORD
-	RawDeviceProperties(0 to 0) as BYTE
+	RawDeviceProperties(0 to 0) as BYTE_
 end type
 
 type STORAGE_DEVICE_DESCRIPTOR as _STORAGE_DEVICE_DESCRIPTOR
@@ -1981,7 +2056,7 @@ type _STORAGE_ADAPTER_DESCRIPTOR
 	AdapterScansDown as BOOLEAN
 	CommandQueueing as BOOLEAN
 	AcceleratedTransfer as BOOLEAN
-	BusType as BYTE
+	BusType as BYTE_
 	BusMajorVersion as WORD
 	BusMinorVersion as WORD
 end type
@@ -1993,7 +2068,7 @@ type _STORAGE_DEVICE_ID_DESCRIPTOR
 	Version as DWORD
 	Size as DWORD
 	NumberOfIdentifiers as DWORD
-	Identifiers(0 to 0) as BYTE
+	Identifiers(0 to 0) as BYTE_
 end type
 
 type STORAGE_DEVICE_ID_DESCRIPTOR as _STORAGE_DEVICE_ID_DESCRIPTOR
@@ -2006,8 +2081,7 @@ end type
 type VOLUME_GET_GPT_ATTRIBUTES_INFORMATION as _VOLUME_GET_GPT_ATTRIBUTES_INFORMATION
 type PVOLUME_GET_GPT_ATTRIBUTES_INFORMATION as _VOLUME_GET_GPT_ATTRIBUTES_INFORMATION ptr
 
-'' TODO: #define IOCTL_VOLUME_BASE ((DWORD) 'V')
-
+#define IOCTL_VOLUME_BASE cast(DWORD, asc("V"))
 #define IOCTL_VOLUME_GET_VOLUME_DISK_EXTENTS CTL_CODE(IOCTL_VOLUME_BASE, 0, METHOD_BUFFERED, FILE_ANY_ACCESS)
 #define IOCTL_VOLUME_SUPPORTS_ONLINE_OFFLINE CTL_CODE(IOCTL_VOLUME_BASE, 1, METHOD_BUFFERED, FILE_ANY_ACCESS)
 #define IOCTL_VOLUME_ONLINE CTL_CODE(IOCTL_VOLUME_BASE, 2, METHOD_BUFFERED, FILE_READ_ACCESS or FILE_WRITE_ACCESS)
@@ -2037,3 +2111,5 @@ end type
 
 type VOLUME_DISK_EXTENTS as _VOLUME_DISK_EXTENTS
 type PVOLUME_DISK_EXTENTS as _VOLUME_DISK_EXTENTS ptr
+
+end extern

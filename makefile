@@ -397,6 +397,7 @@ WINAPI_FLAGS_winbase += -include windows.h -filterin '*winbase.h'
 WINAPI_FLAGS_winber += -include windef.h
 WINAPI_FLAGS_wincon += -include windows.h
 WINAPI_FLAGS_wingdi += -include windows.h
+WINAPI_FLAGS_winioctl += -include windef.h
 WINAPI_FLAGS_winnetwk += -include windef.h
 WINAPI_FLAGS_winsvc += -include windows.h
 WINAPI_FLAGS_winuser += -include windef.h
