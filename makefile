@@ -365,6 +365,7 @@ WINAPI_FLAGS_d3d9types += -include windows.h
 WINAPI_FLAGS_d3dx9anim += -include d3dx9.h -filterin '*d3dx9anim.h'
 WINAPI_FLAGS_ddeml += -include windows.h
 WINAPI_FLAGS_dmdls += -include windef.h
+WINAPI_FLAGS_dxerr8 += -include windef.h
 WINAPI_FLAGS_dxerr9 += -include windef.h
 WINAPI_FLAGS_errors += -include windef.h
 WINAPI_FLAGS_imm += -include windows.h

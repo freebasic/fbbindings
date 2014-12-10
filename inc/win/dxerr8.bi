@@ -1,26 +1,28 @@
 #pragma once
 
+#include once "crt/wchar.bi"
 #include once "_mingw_unicode.bi"
 
-extern "C"
+#ifdef __FB_64BIT__
+	extern "C"
+#else
+	extern "Windows"
+#endif
 
 #define __WINE_DXERR8_H
 
-extern     WINAPI as const zstring ptr
-dim shared WINAPI as const zstring ptr
-
-'' TODO: const char* WINAPI DXGetErrorString8A(HRESULT hr);
-'' TODO: const WCHAR* WINAPI DXGetErrorString8W(HRESULT hr);
+declare function DXGetErrorString8A(byval hr as HRESULT) as const zstring ptr
+declare function DXGetErrorString8W(byval hr as HRESULT) as const WCHAR ptr
 
 #define DXGetErrorString8 __MINGW_NAME_AW(DXGetErrorString8)
 
-'' TODO: const char* WINAPI DXGetErrorDescription8A(HRESULT hr);
-'' TODO: const WCHAR* WINAPI DXGetErrorDescription8W(HRESULT hr);
+declare function DXGetErrorDescription8A(byval hr as HRESULT) as const zstring ptr
+declare function DXGetErrorDescription8W(byval hr as HRESULT) as const WCHAR ptr
 
 #define DXGetErrorDescription8 __MINGW_NAME_AW(DXGetErrorDescription8)
 
-'' TODO: HRESULT WINAPI DXTraceA(const char* strFile, DWORD dwLine, HRESULT hr, const char* strMsg, WINBOOL bPopMsgBox);
-'' TODO: HRESULT WINAPI DXTraceW(const char* strFile, DWORD dwLine, HRESULT hr, const WCHAR* strMsg, WINBOOL bPopMsgBox);
+declare function DXTraceA(byval strFile as const zstring ptr, byval dwLine as DWORD, byval hr as HRESULT, byval strMsg as const zstring ptr, byval bPopMsgBox as WINBOOL) as HRESULT
+declare function DXTraceW(byval strFile as const zstring ptr, byval dwLine as DWORD, byval hr as HRESULT, byval strMsg as const WCHAR ptr, byval bPopMsgBox as WINBOOL) as HRESULT
 
 #define DXTrace __MINGW_NAME_AW(DXTrace)
 #define DXTRACE_MSG(str) __MSABI_LONG(0)
