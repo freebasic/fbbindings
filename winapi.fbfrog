@@ -54,3 +54,4 @@
 -removedefine BOOLAPI
 -removedefine WINOLECTLAPI
 -removedefine WINOLECTLAPI_
+-removedefine VOL

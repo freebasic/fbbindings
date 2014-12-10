@@ -16,8 +16,6 @@ type IDirectPlay4Vtbl as IDirectPlay4Vtbl_
 
 #define __WINE_DPLAY_H
 
-'' TODO: #define VOL volatile
-
 type LPVOIDV as any ptr
 
 extern CLSID_DirectPlay as const GUID
