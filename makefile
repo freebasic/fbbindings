@@ -391,6 +391,7 @@ WINAPI_FLAGS_psapi += -include windef.h
 WINAPI_FLAGS_ras += -include windows.h
 WINAPI_FLAGS_rasdlg += -include windows.h
 WINAPI_FLAGS_rassapi += -include windef.h
+WINAPI_FLAGS_richedit += -include windows.h
 WINAPI_FLAGS_richole += -include windows.h
 WINAPI_FLAGS_rpcdce += -include windows.h
 WINAPI_FLAGS_rpcdcep += -include windows.h
