@@ -322,13 +322,7 @@ type _OLESERVERVTBL
 	Create as function(byval as LPOLESERVER, byval as LHSERVERDOC, byval as LPCSTR, byval as LPCSTR, byval as LPOLESERVERDOC ptr) as OLESTATUS
 	CreateFromTemplate as function(byval as LPOLESERVER, byval as LHSERVERDOC, byval as LPCSTR, byval as LPCSTR, byval as LPCSTR, byval as LPOLESERVERDOC ptr) as OLESTATUS
 	Edit as function(byval as LPOLESERVER, byval as LHSERVERDOC, byval as LPCSTR, byval as LPCSTR, byval as LPOLESERVERDOC ptr) as OLESTATUS
-
-	#ifdef __FB_64BIT__
-		'' TODO: _Analysis_noreturn_ OLESTATUS ( *Exit) (LPOLESERVER);
-	#else
-		'' TODO: _Analysis_noreturn_ OLESTATUS (__attribute__((__stdcall__)) *Exit) (LPOLESERVER);
-	#endif
-
+	Exit as function(byval as LPOLESERVER) as OLESTATUS
 	Release as function(byval as LPOLESERVER) as OLESTATUS
 	Execute as function(byval as LPOLESERVER, byval as HANDLE) as OLESTATUS
 end type
