@@ -1,30 +1,16 @@
 #pragma once
 
+#include once "crt/wchar.bi"
 #include once "_mingw.bi"
 #include once "_mingw_unicode.bi"
 
-extern "C"
+#ifdef __FB_64BIT__
+	extern "C"
+#else
+	extern "Windows"
+#endif
 
 #define VER_H
-
-type tagVS_FIXEDFILEINFO
-	dwSignature as DWORD
-	dwStrucVersion as DWORD
-	dwFileVersionMS as DWORD
-	dwFileVersionLS as DWORD
-	dwProductVersionMS as DWORD
-	dwProductVersionLS as DWORD
-	dwFileFlagsMask as DWORD
-	dwFileFlags as DWORD
-	dwFileOS as DWORD
-	dwFileType as DWORD
-	dwFileSubtype as DWORD
-	dwFileDateMS as DWORD
-	dwFileDateLS as DWORD
-end type
-
-type VS_FIXEDFILEINFO as tagVS_FIXEDFILEINFO
-
 #define VS_FILE_INFO RT_VERSION
 #define VS_VERSION_INFO 1
 #define VS_USER_DEFINED 100
@@ -103,6 +89,25 @@ type VS_FIXEDFILEINFO as tagVS_FIXEDFILEINFO
 #define VIF_BUFFTOOSMALL __MSABI_LONG(&h00040000)
 #define VIF_CANNOTLOADLZ32 __MSABI_LONG(&h00080000)
 #define VIF_CANNOTLOADCABINET __MSABI_LONG(&h00100000)
+
+type tagVS_FIXEDFILEINFO
+	dwSignature as DWORD
+	dwStrucVersion as DWORD
+	dwFileVersionMS as DWORD
+	dwFileVersionLS as DWORD
+	dwProductVersionMS as DWORD
+	dwProductVersionLS as DWORD
+	dwFileFlagsMask as DWORD
+	dwFileFlags as DWORD
+	dwFileOS as DWORD
+	dwFileType as DWORD
+	dwFileSubtype as DWORD
+	dwFileDateMS as DWORD
+	dwFileDateLS as DWORD
+end type
+
+type VS_FIXEDFILEINFO as tagVS_FIXEDFILEINFO
+
 #define VerFindFile __MINGW_NAME_AW(VerFindFile)
 #define VerInstallFile __MINGW_NAME_AW(VerInstallFile)
 #define GetFileVersionInfoSize __MINGW_NAME_AW(GetFileVersionInfoSize)
@@ -110,20 +115,17 @@ type VS_FIXEDFILEINFO as tagVS_FIXEDFILEINFO
 #define VerLanguageName __MINGW_NAME_AW(VerLanguageName)
 #define VerQueryValue __MINGW_NAME_AW(VerQueryValue)
 
-extern     WINAPI as DWORD
-dim shared WINAPI as DWORD
-
-'' TODO: DWORD WINAPI VerFindFileA(DWORD uFlags,LPSTR szFileName,LPSTR szWinDir,LPSTR szAppDir,LPSTR szCurDir,PUINT lpuCurDirLen,LPSTR szDestDir,PUINT lpuDestDirLen);
-'' TODO: DWORD WINAPI VerFindFileW(DWORD uFlags,LPWSTR szFileName,LPWSTR szWinDir,LPWSTR szAppDir,LPWSTR szCurDir,PUINT lpuCurDirLen,LPWSTR szDestDir,PUINT lpuDestDirLen);
-'' TODO: DWORD WINAPI VerInstallFileA(DWORD uFlags,LPSTR szSrcFileName,LPSTR szDestFileName,LPSTR szSrcDir,LPSTR szDestDir,LPSTR szCurDir,LPSTR szTmpFile,PUINT lpuTmpFileLen);
-'' TODO: DWORD WINAPI VerInstallFileW(DWORD uFlags,LPWSTR szSrcFileName,LPWSTR szDestFileName,LPWSTR szSrcDir,LPWSTR szDestDir,LPWSTR szCurDir,LPWSTR szTmpFile,PUINT lpuTmpFileLen);
-'' TODO: DWORD WINAPI GetFileVersionInfoSizeA(LPCSTR lptstrFilename,LPDWORD lpdwHandle);
-'' TODO: DWORD WINAPI GetFileVersionInfoSizeW(LPCWSTR lptstrFilename,LPDWORD lpdwHandle);
-'' TODO: WINBOOL WINAPI GetFileVersionInfoA(LPCSTR lptstrFilename,DWORD dwHandle,DWORD dwLen,LPVOID lpData);
-'' TODO: WINBOOL WINAPI GetFileVersionInfoW(LPCWSTR lptstrFilename,DWORD dwHandle,DWORD dwLen,LPVOID lpData);
-'' TODO: DWORD WINAPI VerLanguageNameA(DWORD wLang,LPSTR szLang,DWORD nSize);
-'' TODO: DWORD WINAPI VerLanguageNameW(DWORD wLang,LPWSTR szLang,DWORD nSize);
-'' TODO: WINBOOL WINAPI VerQueryValueA(const LPVOID pBlock,LPCSTR lpSubBlock,LPVOID *lplpBuffer,PUINT puLen);
-'' TODO: WINBOOL WINAPI VerQueryValueW(const LPVOID pBlock,LPCWSTR lpSubBlock,LPVOID *lplpBuffer,PUINT puLen);
+declare function VerFindFileA(byval uFlags as DWORD, byval szFileName as LPSTR, byval szWinDir as LPSTR, byval szAppDir as LPSTR, byval szCurDir as LPSTR, byval lpuCurDirLen as PUINT, byval szDestDir as LPSTR, byval lpuDestDirLen as PUINT) as DWORD
+declare function VerFindFileW(byval uFlags as DWORD, byval szFileName as LPWSTR, byval szWinDir as LPWSTR, byval szAppDir as LPWSTR, byval szCurDir as LPWSTR, byval lpuCurDirLen as PUINT, byval szDestDir as LPWSTR, byval lpuDestDirLen as PUINT) as DWORD
+declare function VerInstallFileA(byval uFlags as DWORD, byval szSrcFileName as LPSTR, byval szDestFileName as LPSTR, byval szSrcDir as LPSTR, byval szDestDir as LPSTR, byval szCurDir as LPSTR, byval szTmpFile as LPSTR, byval lpuTmpFileLen as PUINT) as DWORD
+declare function VerInstallFileW(byval uFlags as DWORD, byval szSrcFileName as LPWSTR, byval szDestFileName as LPWSTR, byval szSrcDir as LPWSTR, byval szDestDir as LPWSTR, byval szCurDir as LPWSTR, byval szTmpFile as LPWSTR, byval lpuTmpFileLen as PUINT) as DWORD
+declare function GetFileVersionInfoSizeA(byval lptstrFilename as LPCSTR, byval lpdwHandle as LPDWORD) as DWORD
+declare function GetFileVersionInfoSizeW(byval lptstrFilename as LPCWSTR, byval lpdwHandle as LPDWORD) as DWORD
+declare function GetFileVersionInfoA(byval lptstrFilename as LPCSTR, byval dwHandle as DWORD, byval dwLen as DWORD, byval lpData as LPVOID) as WINBOOL
+declare function GetFileVersionInfoW(byval lptstrFilename as LPCWSTR, byval dwHandle as DWORD, byval dwLen as DWORD, byval lpData as LPVOID) as WINBOOL
+declare function VerLanguageNameA(byval wLang as DWORD, byval szLang as LPSTR, byval nSize as DWORD) as DWORD
+declare function VerLanguageNameW(byval wLang as DWORD, byval szLang as LPWSTR, byval nSize as DWORD) as DWORD
+declare function VerQueryValueA(byval pBlock as const LPVOID, byval lpSubBlock as LPCSTR, byval lplpBuffer as LPVOID ptr, byval puLen as PUINT) as WINBOOL
+declare function VerQueryValueW(byval pBlock as const LPVOID, byval lpSubBlock as LPCWSTR, byval lplpBuffer as LPVOID ptr, byval puLen as PUINT) as WINBOOL
 
 end extern

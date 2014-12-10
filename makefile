@@ -396,6 +396,7 @@ WINAPI_FLAGS_wingdi += -include windows.h
 WINAPI_FLAGS_winnetwk += -include windef.h
 WINAPI_FLAGS_winsvc += -include windows.h
 WINAPI_FLAGS_winuser += -include windef.h
+WINAPI_FLAGS_winver += -include windef.h
 
 WINAPI_PATH_BASE    := extracted/$(MINGWW64_TITLE)/mingw-w64-headers/include
 WINAPI_PATH_DIRECTX := extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include
