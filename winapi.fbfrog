@@ -52,3 +52,5 @@
 -removedefine URLCACHEAPI
 -removedefine URLCACHEAPI_
 -removedefine BOOLAPI
+-removedefine WINOLECTLAPI
+-removedefine WINOLECTLAPI_

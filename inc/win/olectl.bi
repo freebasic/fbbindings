@@ -23,9 +23,6 @@
 
 #define _OLECTL_H_
 
-'' TODO: #define WINOLECTLAPI EXTERN_C DECLSPEC_IMPORT HRESULT WINAPI
-'' TODO: #define WINOLECTLAPI_(type) EXTERN_C DECLSPEC_IMPORT type WINAPI
-
 extern IID_IPropertyFrame as const GUID
 extern CLSID_CFontPropPage as const GUID
 extern CLSID_CColorPropPage as const GUID
