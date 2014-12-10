@@ -1,17 +1,22 @@
 #pragma once
 
+#include once "crt/wchar.bi"
 #include once "_mingw_unicode.bi"
 #include once "vfwmsgs.bi"
 
-extern "C"
+#ifdef __FB_64BIT__
+	extern "C"
+#else
+	extern "Windows"
+#endif
 
 #define __ERRORS__
 #define AMOVIEAPI
 #define VFW_FIRST_CODE &h200
 #define MAX_ERROR_TEXT_LEN 160
 
-'' TODO: typedef WINBOOL (WINAPI* AMGETERRORTEXTPROCA)(HRESULT,char*,DWORD);
-'' TODO: typedef WINBOOL (WINAPI* AMGETERRORTEXTPROCW)(HRESULT,WCHAR*,DWORD);
+type AMGETERRORTEXTPROCA as function(byval as HRESULT, byval as zstring ptr, byval as DWORD) as WINBOOL
+type AMGETERRORTEXTPROCW as function(byval as HRESULT, byval as WCHAR ptr, byval as DWORD) as WINBOOL
 
 #ifdef UNICODE
 	type AMGETERRORTEXTPROC as AMGETERRORTEXTPROCW
@@ -19,11 +24,8 @@ extern "C"
 	type AMGETERRORTEXTPROC as AMGETERRORTEXTPROCA
 #endif
 
-extern     WINAPI as DWORD
-dim shared WINAPI as DWORD
-
-'' TODO: DWORD WINAPI AMGetErrorTextA(HRESULT,LPSTR,DWORD);
-'' TODO: DWORD WINAPI AMGetErrorTextW(HRESULT,LPWSTR,DWORD);
+declare function AMGetErrorTextA(byval as HRESULT, byval as LPSTR, byval as DWORD) as DWORD
+declare function AMGetErrorTextW(byval as HRESULT, byval as LPWSTR, byval as DWORD) as DWORD
 
 #define AMGetErrorText __MINGW_NAME_AW(AMGetErrorText)
 
