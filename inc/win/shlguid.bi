@@ -1,7 +1,6 @@
 #pragma once
 
 #include once "crt/wchar.bi"
-#include once "winapifamily.bi"
 #include once "_mingw_unicode.bi"
 #include once "isguids.bi"
 #include once "exdisp.bi"
@@ -10,7 +9,6 @@
 
 extern "C"
 
-#define _WIN32_IE &h0501
 #define STR_MYDOCS_CLSID "{450D8FBA-AD25-11D0-98A8-0800361B1103}"
 #define PSGUID_INTERNETSHORTCUT (&h000214a0, 0, 0, &hc0, 0, 0, 0, 0, 0, 0, &h46)
 #define PSGUID_INTERNETSITE (__MSABI_LONG(&h000214a1), 0, 0, &hc0, 0, 0, 0, 0, 0, 0, &h46)
@@ -22,72 +20,72 @@ extern "C"
 #define SID_SShellBrowser IID_IShellBrowser
 #define SID_SShellDesktop CLSID_ShellDesktop
 
-'' TODO: DEFINE_GUID (CLSID_NetworkDomain, 0x46e06680, 0x4bf0, 0x11d1, 0x83, 0xee, 0x00, 0xa0, 0xc9, 0x0d, 0xc8, 0x49);
-'' TODO: DEFINE_GUID (CLSID_NetworkServer, 0xc0542a90, 0x4bf0, 0x11d1, 0x83, 0xee, 0x00, 0xa0, 0xc9, 0x0d, 0xc8, 0x49);
-'' TODO: DEFINE_GUID (CLSID_NetworkShare, 0x54a754c0, 0x4bf0, 0x11d1, 0x83, 0xee, 0x00, 0xa0, 0xc9, 0x0d, 0xc8, 0x49);
-'' TODO: DEFINE_GUID (CLSID_MyComputer, 0x20d04fe0, 0x3aea, 0x1069, 0xa2, 0xd8, 0x08, 0x00, 0x2b, 0x30, 0x30, 0x9d);
-'' TODO: DEFINE_GUID (CLSID_Internet, 0x871c5380, 0x42a0, 0x1069, 0xa2, 0xea, 0x08, 0x00, 0x2b, 0x30, 0x30, 0x9d);
-'' TODO: DEFINE_GUID (CLSID_RecycleBin, 0x645ff040, 0x5081, 0x101b, 0x9f, 0x08, 0x00, 0xaa, 0x00, 0x2f, 0x95, 0x4e);
-'' TODO: DEFINE_GUID (CLSID_ControlPanel, 0x21ec2020, 0x3aea, 0x1069, 0xa2, 0xdd, 0x08, 0x00, 0x2b, 0x30, 0x30, 0x9d);
-'' TODO: DEFINE_GUID (CLSID_Printers, 0x2227a280, 0x3aea, 0x1069, 0xa2, 0xde, 0x08, 0x00, 0x2b, 0x30, 0x30, 0x9d);
-'' TODO: DEFINE_GUID (CLSID_MyDocuments, 0x450d8fba, 0xad25, 0x11d0, 0x98, 0xa8, 0x08, 0x00, 0x36, 0x1b, 0x11, 0x03);
-'' TODO: DEFINE_GUID (CATID_BrowsableShellExt, __MSABI_LONG(0x00021490), 0, 0, 0xc0, 0, 0, 0, 0, 0, 0, 0x46);
-'' TODO: DEFINE_GUID (CATID_BrowseInPlace, __MSABI_LONG(0x00021491), 0, 0, 0xc0, 0, 0, 0, 0, 0, 0, 0x46);
-'' TODO: DEFINE_GUID (CATID_DeskBand, __MSABI_LONG(0x00021492), 0, 0, 0xc0, 0, 0, 0, 0, 0, 0, 0x46);
-'' TODO: DEFINE_GUID (CATID_InfoBand, __MSABI_LONG(0x00021493), 0, 0, 0xc0, 0, 0, 0, 0, 0, 0, 0x46);
-'' TODO: DEFINE_GUID (CATID_CommBand, __MSABI_LONG(0x00021494), 0, 0, 0xc0, 0, 0, 0, 0, 0, 0, 0x46);
-'' TODO: DEFINE_GUID (FMTID_Intshcut, __MSABI_LONG(0x000214a0), 0, 0, 0xc0, 0, 0, 0, 0, 0, 0, 0x46);
-'' TODO: DEFINE_GUID (FMTID_InternetSite, __MSABI_LONG(0x000214a1), 0, 0, 0xc0, 0, 0, 0, 0, 0, 0, 0x46);
-'' TODO: DEFINE_GUID (CGID_Explorer, __MSABI_LONG(0x000214d0), 0, 0, 0xc0, 0, 0, 0, 0, 0, 0, 0x46);
-'' TODO: DEFINE_GUID (CGID_ShellDocView, __MSABI_LONG(0x000214d1), 0, 0, 0xc0, 0, 0, 0, 0, 0, 0, 0x46);
-'' TODO: DEFINE_GUID (CGID_ShellServiceObject, __MSABI_LONG(0x000214d2), 0, 0, 0xc0, 0, 0, 0, 0, 0, 0, 0x46);
-'' TODO: DEFINE_GUID (CGID_ExplorerBarDoc, __MSABI_LONG(0x000214d3), 0, 0, 0xc0, 0, 0, 0, 0, 0, 0, 0x46);
-'' TODO: DEFINE_GUID (IID_INewShortcutHookA, __MSABI_LONG(0x000214e1), 0, 0, 0xc0, 0, 0, 0, 0, 0, 0, 0x46);
-'' TODO: DEFINE_GUID (IID_IExtractIconA, __MSABI_LONG(0x000214eb), 0, 0, 0xc0, 0, 0, 0, 0, 0, 0, 0x46);
-'' TODO: DEFINE_GUID (IID_IShellDetails, __MSABI_LONG(0x000214ec), 0, 0, 0xc0, 0, 0, 0, 0, 0, 0, 0x46);
-'' TODO: DEFINE_GUID (IID_ICopyHookA, __MSABI_LONG(0x000214ef), 0, 0, 0xc0, 0, 0, 0, 0, 0, 0, 0x46);
-'' TODO: DEFINE_GUID (IID_IFileViewerA, __MSABI_LONG(0x000214f0), 0, 0, 0xc0, 0, 0, 0, 0, 0, 0, 0x46);
-'' TODO: DEFINE_GUID (IID_IFileViewerSite, __MSABI_LONG(0x000214f3), 0, 0, 0xc0, 0, 0, 0, 0, 0, 0, 0x46);
-'' TODO: DEFINE_GUID (IID_IShellExecuteHookA, __MSABI_LONG(0x000214f5), 0, 0, 0xc0, 0, 0, 0, 0, 0, 0, 0x46);
-'' TODO: DEFINE_GUID (IID_IPropSheetPage, __MSABI_LONG(0x000214f6), 0, 0, 0xc0, 0, 0, 0, 0, 0, 0, 0x46);
-'' TODO: DEFINE_GUID (IID_INewShortcutHookW, __MSABI_LONG(0x000214f7), 0, 0, 0xc0, 0, 0, 0, 0, 0, 0, 0x46);
-'' TODO: DEFINE_GUID (IID_IFileViewerW, __MSABI_LONG(0x000214f8), 0, 0, 0xc0, 0, 0, 0, 0, 0, 0, 0x46);
-'' TODO: DEFINE_GUID (IID_IExtractIconW, __MSABI_LONG(0x000214fa), 0, 0, 0xc0, 0, 0, 0, 0, 0, 0, 0x46);
-'' TODO: DEFINE_GUID (IID_IShellExecuteHookW, __MSABI_LONG(0x000214fb), 0, 0, 0xc0, 0, 0, 0, 0, 0, 0, 0x46);
-'' TODO: DEFINE_GUID (IID_ICopyHookW, __MSABI_LONG(0x000214fc), 0, 0, 0xc0, 0, 0, 0, 0, 0, 0, 0x46);
-'' TODO: DEFINE_GUID (IID_IQueryInfo, __MSABI_LONG(0x00021500), 0, 0, 0xc0, 0, 0, 0, 0, 0, 0, 0x46);
-'' TODO: DEFINE_GUID (IID_IBriefcaseStg, __MSABI_LONG(0x8bce1fa1), 0x0921, 0x101b, 0xb1, 0xff, 0x00, 0xdd, 0x01, 0x0c, 0xcc, 0x48);
-'' TODO: DEFINE_GUID (IID_IURLSearchHook, __MSABI_LONG(0xac60f6a0), 0x0fd9, 0x11d0, 0x99, 0xcb, 0x00, 0xc0, 0x4f, 0xd6, 0x44, 0x97);
-'' TODO: DEFINE_GUID (IID_ISearchContext, __MSABI_LONG(0x09f656a2), 0x41af, 0x480c, 0x88, 0xf7, 0x16, 0xcc, 0x0d, 0x16, 0x46, 0x15);
-'' TODO: DEFINE_GUID (IID_IURLSearchHook2, __MSABI_LONG(0x5ee44da4), 0x6d32, 0x46e3, 0x86, 0xbc, 0x07, 0x54, 0x0d, 0xed, 0xd0, 0xe0);
-'' TODO: DEFINE_GUID (IID_IDefViewID, __MSABI_LONG(0x985f64f0), 0xd410, 0x4e02, 0xbe, 0x22, 0xda, 0x07, 0xf2, 0xb5, 0xc5, 0xe1);
-'' TODO: DEFINE_GUID (CLSID_FolderShortcut, __MSABI_LONG(0x0afaced1), 0xe828, 0x11d1, 0x91, 0x87, 0xb5, 0x32, 0xf1, 0xe9, 0x57, 0x5d);
-'' TODO: DEFINE_GUID (IID_IDockingWindowSite, 0x2a342fc2, 0x7b26, 0x11d0, 0x8c, 0xa9, 0x0, 0xa0, 0xc9, 0x2d, 0xbf, 0xe8);
-'' TODO: DEFINE_GUID (IID_IDockingWindowFrame, 0x47d2657a, 0x7b27, 0x11d0, 0x8c, 0xa9, 0x0, 0xa0, 0xc9, 0x2d, 0xbf, 0xe8);
-'' TODO: DEFINE_GUID (IID_IShellIconOverlay, __MSABI_LONG(0x7d688a70), 0xc613, 0x11d0, 0x99, 0x9b, 0x00, 0xc0, 0x4f, 0xd6, 0x55, 0xe1);
-'' TODO: DEFINE_GUID (IID_IShellIconOverlayIdentifier, __MSABI_LONG(0x0c6c4200), 0xc589, 0x11d0, 0x99, 0x9a, 0x00, 0xc0, 0x4f, 0xd6, 0x55, 0xe1);
-'' TODO: DEFINE_GUID (IID_IShellFolderViewCB, __MSABI_LONG(0x2047e320), 0xf2a9, 0x11ce, 0xae, 0x65, 0x08, 0x00, 0x2b, 0x2e, 0x12, 0x62);
-'' TODO: DEFINE_GUID (CLSID_CFSIconOverlayManager, __MSABI_LONG(0x63b51f81), 0xc868, 0x11d0, 0x99, 0x9c, 0x00, 0xc0, 0x4f, 0xd6, 0x55, 0xe1);
-'' TODO: DEFINE_GUID (IID_IShellIconOverlayManager, __MSABI_LONG(0xf10b5e34), 0xdd3b, 0x42a7, 0xaa, 0x7d, 0x2f, 0x4e, 0xc5, 0x4b, 0xb0, 0x9b);
-'' TODO: DEFINE_GUID (IID_IThumbnailCapture, 0x4ea39266, 0x7211, 0x409f, 0xb6, 0x22, 0xf6, 0x3d, 0xbd, 0x16, 0xc5, 0x33);
-'' TODO: DEFINE_GUID (IID_IShellImageStore, 0x48c8118c, 0xb924, 0x11d1, 0x98, 0xd5, 0x0, 0xc0, 0x4f, 0xb6, 0x87, 0xda);
-'' TODO: DEFINE_GUID (CLSID_ShellThumbnailDiskCache, 0x1ebdcf80, 0xa200, 0x11d0, 0xa3, 0xa4, 0x0, 0xc0, 0x4f, 0xd7, 0x6, 0xec);
-'' TODO: DEFINE_GUID (SID_DefView, 0x6d12fe80, 0x7911, 0x11cf, 0x95, 0x34, 0x00, 0x00, 0xc0, 0x5b, 0xae, 0x0b);
-'' TODO: DEFINE_GUID (CGID_DefView, 0x4af07f10, 0xd231, 0x11d0, 0xb9, 0x42, 0x0, 0xa0, 0xc9, 0x3, 0x12, 0xe1);
-'' TODO: DEFINE_GUID (CLSID_MenuBand, 0x5b4dae26, 0xb807, 0x11d0, 0x98, 0x15, 0x0, 0xc0, 0x4f, 0xd9, 0x19, 0x72);
-'' TODO: DEFINE_GUID (IID_IShellFolderBand, 0x7fe80cc8, 0xc247, 0x11d0, 0xb9, 0x3a, 0x0, 0xa0, 0xc9, 0x3, 0x12, 0xe1);
-'' TODO: DEFINE_GUID (IID_IDefViewFrame, __MSABI_LONG(0x710eb7a0), 0x45ed, 0x11d0, 0x92, 0x4a, 0x00, 0x20, 0xaf, 0xc7, 0xac, 0x4d);
-'' TODO: DEFINE_GUID (VID_LargeIcons, __MSABI_LONG(0x0057d0e0), 0x3573, 0x11cf, 0xae, 0x69, 0x08, 0x00, 0x2b, 0x2e, 0x12, 0x62);
-'' TODO: DEFINE_GUID (VID_SmallIcons, __MSABI_LONG(0x089000c0), 0x3573, 0x11cf, 0xae, 0x69, 0x08, 0x00, 0x2b, 0x2e, 0x12, 0x62);
-'' TODO: DEFINE_GUID (VID_List, __MSABI_LONG(0x0e1fa5e0), 0x3573, 0x11cf, 0xae, 0x69, 0x08, 0x00, 0x2b, 0x2e, 0x12, 0x62);
-'' TODO: DEFINE_GUID (VID_Details, __MSABI_LONG(0x137e7700), 0x3573, 0x11cf, 0xae, 0x69, 0x08, 0x00, 0x2b, 0x2e, 0x12, 0x62);
-'' TODO: DEFINE_GUID (VID_Tile, __MSABI_LONG(0x65f125e5), 0x7be1, 0x4810, 0xba, 0x9d, 0xd2, 0x71, 0xc8, 0x43, 0x2c, 0xe3);
-'' TODO: DEFINE_GUID (VID_Content, __MSABI_LONG(0x30c2c434), 0x0889, 0x4c8d, 0x98, 0x5d, 0xa9, 0xf7, 0x18, 0x30, 0xb0, 0xa9);
-'' TODO: DEFINE_GUID (VID_Thumbnails, 0x8bebb290, 0x52d0, 0x11d0, 0xb7, 0xf4, 0x0, 0xc0, 0x4f, 0xd7, 0x6, 0xec);
-'' TODO: DEFINE_GUID (VID_ThumbStrip, 0x8eefa624, 0xd1e9, 0x445b, 0x94, 0xb7, 0x74, 0xfb, 0xce, 0x2e, 0xa1, 0x1a);
-'' TODO: DEFINE_GUID (SID_SInPlaceBrowser, 0x1d2ae02b, 0x3655, 0x46cc, 0xb6, 0x3a, 0x28, 0x59, 0x88, 0x15, 0x3b, 0xca);
-'' TODO: DEFINE_GUID (IID_IDiscardableBrowserProperty, 0x49c3de7c, 0xd329, 0x11d0, 0xab, 0x73, 0x00, 0xc0, 0x4f, 0xc3, 0x3e, 0x80);
-'' TODO: DEFINE_GUID (IID_IShellChangeNotify, __MSABI_LONG(0xd82be2b1), 0x5764, 0x11d0, 0xa9, 0x6e, 0x00, 0xc0, 0x4f, 0xd7, 0x05, 0xa2);
+extern CLSID_NetworkDomain as const GUID
+extern CLSID_NetworkServer as const GUID
+extern CLSID_NetworkShare as const GUID
+extern CLSID_MyComputer as const GUID
+extern CLSID_Internet as const GUID
+extern CLSID_RecycleBin as const GUID
+extern CLSID_ControlPanel as const GUID
+extern CLSID_Printers as const GUID
+extern CLSID_MyDocuments as const GUID
+extern CATID_BrowsableShellExt as const GUID
+extern CATID_BrowseInPlace as const GUID
+extern CATID_DeskBand as const GUID
+extern CATID_InfoBand as const GUID
+extern CATID_CommBand as const GUID
+extern FMTID_Intshcut as const GUID
+extern FMTID_InternetSite as const GUID
+extern CGID_Explorer as const GUID
+extern CGID_ShellDocView as const GUID
+extern CGID_ShellServiceObject as const GUID
+extern CGID_ExplorerBarDoc as const GUID
+extern IID_INewShortcutHookA as const GUID
+extern IID_IExtractIconA as const GUID
+extern IID_IShellDetails as const GUID
+extern IID_ICopyHookA as const GUID
+extern IID_IFileViewerA as const GUID
+extern IID_IFileViewerSite as const GUID
+extern IID_IShellExecuteHookA as const GUID
+extern IID_IPropSheetPage as const GUID
+extern IID_INewShortcutHookW as const GUID
+extern IID_IFileViewerW as const GUID
+extern IID_IExtractIconW as const GUID
+extern IID_IShellExecuteHookW as const GUID
+extern IID_ICopyHookW as const GUID
+extern IID_IQueryInfo as const GUID
+extern IID_IBriefcaseStg as const GUID
+extern IID_IURLSearchHook as const GUID
+extern IID_ISearchContext as const GUID
+extern IID_IURLSearchHook2 as const GUID
+extern IID_IDefViewID as const GUID
+extern CLSID_FolderShortcut as const GUID
+extern IID_IDockingWindowSite as const GUID
+extern IID_IDockingWindowFrame as const GUID
+extern IID_IShellIconOverlay as const GUID
+extern IID_IShellIconOverlayIdentifier as const GUID
+extern IID_IShellFolderViewCB as const GUID
+extern CLSID_CFSIconOverlayManager as const GUID
+extern IID_IShellIconOverlayManager as const GUID
+extern IID_IThumbnailCapture as const GUID
+extern IID_IShellImageStore as const GUID
+extern CLSID_ShellThumbnailDiskCache as const GUID
+extern SID_DefView as const GUID
+extern CGID_DefView as const GUID
+extern CLSID_MenuBand as const GUID
+extern IID_IShellFolderBand as const GUID
+extern IID_IDefViewFrame as const GUID
+extern VID_LargeIcons as const GUID
+extern VID_SmallIcons as const GUID
+extern VID_List as const GUID
+extern VID_Details as const GUID
+extern VID_Tile as const GUID
+extern VID_Content as const GUID
+extern VID_Thumbnails as const GUID
+extern VID_ThumbStrip as const GUID
+extern SID_SInPlaceBrowser as const GUID
+extern IID_IDiscardableBrowserProperty as const GUID
+extern IID_IShellChangeNotify as const GUID
 
 #define IID_IFileViewer __MINGW_NAME_AW(IID_IFileViewer)
 #define IID_IShellLink __MINGW_NAME_AW(IID_IShellLink)
@@ -112,6 +110,7 @@ extern CLSID_ACLHistory as const GUID
 extern CLSID_ACListISF as const GUID
 extern CLSID_ACLMRU as const GUID
 extern CLSID_ACLMulti as const GUID
+extern CLSID_ACLCustomMRU as const GUID
 extern CLSID_ProgressDialog as const GUID
 extern IID_IProgressDialog as const GUID
 extern SID_STopLevelBrowser as const GUID
@@ -252,6 +251,7 @@ extern BHID_DataObject as const GUID
 extern BHID_AssociationArray as const GUID
 extern BHID_Filter as const GUID
 extern BHID_EnumAssocHandlers as const GUID
+extern SID_CtxQueryAssociations as const GUID
 extern IID_IDocViewSite as const GUID
 extern CLSID_QuickLinks as const GUID
 extern CLSID_ISFBand as const GUID
