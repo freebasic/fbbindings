@@ -1,6 +1,5 @@
 #pragma once
 
-#include once "crt/wchar.bi"
 #include once "_mingw_unicode.bi"
 #include once "windows.bi"
 #include once "shellapi.bi"

@@ -1,6 +1,5 @@
 #pragma once
 
-#include once "crt/wchar.bi"
 #include once "crt/long.bi"
 #include once "objbase.bi"
 #include once "_mingw_dxhelper.bi"

@@ -1,7 +1,5 @@
 #pragma once
 
-#include once "crt/wchar.bi"
-
 #define VFW_S_NO_MORE_ITEMS cast(HRESULT, &h00040103)
 #define VFW_S_DUPLICATE_NAME cast(HRESULT, &h0004022D)
 #define VFW_S_STATE_INTERMEDIATE cast(HRESULT, &h00040237)

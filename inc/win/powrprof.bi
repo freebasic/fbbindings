@@ -1,7 +1,5 @@
 #pragma once
 
-#include once "crt/wchar.bi"
-
 #ifdef __FB_64BIT__
 	extern "C"
 #else

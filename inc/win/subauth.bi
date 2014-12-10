@@ -1,7 +1,5 @@
 #pragma once
 
-#include once "crt/wchar.bi"
-
 '' The following symbols have been renamed:
 ''     typedef STRING => STRING_
 

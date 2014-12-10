@@ -1,6 +1,5 @@
 #pragma once
 
-#include once "crt/wchar.bi"
 #include once "winapifamily.bi"
 #include once "datetimeapi.bi"
 #include once "libloaderapi.bi"

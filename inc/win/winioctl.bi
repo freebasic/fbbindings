@@ -1,7 +1,5 @@
 #pragma once
 
-#include once "crt/wchar.bi"
-
 extern "C"
 
 extern GUID_DEVINTERFACE_DISK as const GUID

@@ -1,6 +1,5 @@
 #pragma once
 
-#include once "crt/wchar.bi"
 #include once "windef.bi"
 #include once "schnlsp.bi"
 

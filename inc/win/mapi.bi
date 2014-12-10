@@ -1,6 +1,5 @@
 #pragma once
 
-#include once "crt/wchar.bi"
 #include once "crt/long.bi"
 
 '' The following symbols have been renamed:

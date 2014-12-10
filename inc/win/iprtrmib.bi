@@ -1,6 +1,5 @@
 #pragma once
 
-#include once "crt/wchar.bi"
 #include once "mprapi.bi"
 #include once "ipmib.bi"
 #include once "ipifcons.bi"

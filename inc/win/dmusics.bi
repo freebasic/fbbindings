@@ -1,6 +1,5 @@
 #pragma once
 
-#include once "crt/wchar.bi"
 #include once "dmusicc.bi"
 
 #ifdef __FB_64BIT__

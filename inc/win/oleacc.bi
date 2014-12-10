@@ -1,6 +1,5 @@
 #pragma once
 
-#include once "crt/wchar.bi"
 #include once "rpc.bi"
 #include once "rpcndr.bi"
 #include once "ole2.bi"

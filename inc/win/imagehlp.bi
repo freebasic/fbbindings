@@ -1,6 +1,5 @@
 #pragma once
 
-#include once "crt/wchar.bi"
 #include once "_mingw_unicode.bi"
 #include once "wintrust.bi"
 #include once "psdk_inc/_dbg_LOAD_IMAGE.bi"

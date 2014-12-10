@@ -1,6 +1,5 @@
 #pragma once
 
-#include once "crt/wchar.bi"
 #include once "winsock2.bi"
 #include once "psdk_inc/_xmitfile.bi"
 

@@ -1,6 +1,5 @@
 #pragma once
 
-#include once "crt/wchar.bi"
 #include once "minwindef.bi"
 
 '' The following symbols have been renamed:

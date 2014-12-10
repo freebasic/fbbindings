@@ -1,6 +1,5 @@
 #pragma once
 
-#include once "crt/wchar.bi"
 #include once "ddraw.bi"
 #include once "d3drmobj.bi"
 

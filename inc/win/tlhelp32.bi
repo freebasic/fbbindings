@@ -1,7 +1,5 @@
 #pragma once
 
-#include once "crt/wchar.bi"
-
 #ifdef UNICODE
 	'' The following symbols have been renamed:
 	''     #define Process32First => Process32First_

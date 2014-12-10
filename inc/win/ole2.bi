@@ -1,6 +1,5 @@
 #pragma once
 
-#include once "crt/wchar.bi"
 #include once "winapifamily.bi"
 #include once "winerror.bi"
 #include once "objbase.bi"

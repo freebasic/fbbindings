@@ -1,7 +1,5 @@
 #pragma once
 
-#include once "crt/wchar.bi"
-
 #define __WINE_D3D9TYPES_H
 #define D3DCLEAR_TARGET __MSABI_LONG(&h00000001)
 #define D3DCLEAR_ZBUFFER __MSABI_LONG(&h00000002)

@@ -1,7 +1,5 @@
 #pragma once
 
-#include once "crt/wchar.bi"
-
 #define __WINE_DMUSIC_ERROR_H
 #define FACILITY_DIRECTMUSIC &h878
 #define DMUS_ERRBASE &h1000

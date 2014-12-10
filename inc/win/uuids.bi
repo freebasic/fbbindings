@@ -1,7 +1,5 @@
 #pragma once
 
-#include once "crt/wchar.bi"
-
 '' The following symbols have been renamed:
 ''     variable MEDIASUBTYPE_dvsd => MEDIASUBTYPE_dvsd_
 ''     variable FORMAT_VIDEOINFO2 => FORMAT_VIDEOINFO2_

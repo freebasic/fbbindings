@@ -1,7 +1,5 @@
 #pragma once
 
-#include once "crt/wchar.bi"
-
 '' The following symbols have been renamed:
 ''     enum constant Unlock => Unlock_
 

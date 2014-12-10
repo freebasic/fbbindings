@@ -1,6 +1,5 @@
 #pragma once
 
-#include once "crt/wchar.bi"
 #include once "iprtrmib.bi"
 #include once "ipexport.bi"
 #include once "iptypes.bi"

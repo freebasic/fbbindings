@@ -1,6 +1,5 @@
 #pragma once
 
-#include once "crt/wchar.bi"
 #include once "dls1.bi"
 
 #define __WINE_DMUSIC_DLS_H

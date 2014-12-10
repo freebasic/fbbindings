@@ -1,6 +1,5 @@
 #pragma once
 
-#include once "crt/wchar.bi"
 #include once "ole2.bi"
 #include once "dplay8.bi"
 

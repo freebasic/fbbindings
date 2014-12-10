@@ -1,7 +1,5 @@
 #pragma once
 
-#include once "crt/wchar.bi"
-
 extern "C"
 
 #define _WINBER_DEFINED_

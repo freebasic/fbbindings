@@ -1,6 +1,5 @@
 #pragma once
 
-#include once "crt/wchar.bi"
 #include once "d3dx9.bi"
 
 #ifdef __FB_64BIT__

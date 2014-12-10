@@ -1,6 +1,5 @@
 #pragma once
 
-#include once "crt/wchar.bi"
 #include once "crt/long.bi"
 #include once "windows.bi"
 #include once "crt/limits.bi"
