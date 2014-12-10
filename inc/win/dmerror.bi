@@ -1,11 +1,11 @@
 #pragma once
 
+#include once "crt/wchar.bi"
+
 #define __WINE_DMUSIC_ERROR_H
 #define FACILITY_DIRECTMUSIC &h878
 #define DMUS_ERRBASE &h1000
-
-'' TODO: #define MAKE_HRESULT(sev,fac,code) ((HRESULT) (((ULONG)(sev)<<31) | ((ULONG)(fac)<<16) | ((ULONG)(code))) )
-
+#define MAKE_HRESULT(sev, fac, code) cast(HRESULT, (cast(ULONG_, (sev) shl 31) or cast(ULONG_, (fac) shl 16)) or cast(ULONG_, (code)))
 #define MAKE_DMHRESULTSUCCESS(code) MAKE_HRESULT(0, FACILITY_DIRECTMUSIC, DMUS_ERRBASE + (code))
 #define MAKE_DMHRESULTERROR(code) MAKE_HRESULT(1, FACILITY_DIRECTMUSIC, DMUS_ERRBASE + (code))
 #define DMUS_S_PARTIALLOAD MAKE_DMHRESULTSUCCESS(&h091)
