@@ -21,40 +21,33 @@
 
 type SEC_WCHAR as WCHAR
 type SEC_CHAR as CHAR
-type SECURITY_STATUS as LONG
+type SECURITY_STATUS as LONG_
 
 #define __SECSTATUS_DEFINED__
-#define WINAPI __stdcall
-#define SEC_TEXT TEXT
+#define SEC_TEXT TEXT_
 #define SEC_FAR
 #define __SEC_FAR
 #define SEC_ENTRY WINAPI
 
 #ifdef UNICODE
 	type SECURITY_PSTR as SEC_WCHAR ptr
-
-	'' TODO: typedef CONST SEC_WCHAR *SECURITY_PCSTR;
+	type SECURITY_PCSTR as const SEC_WCHAR ptr
 #else
 	type SECURITY_PSTR as SEC_CHAR ptr
-
-	'' TODO: typedef CONST SEC_CHAR *SECURITY_PCSTR;
+	type SECURITY_PCSTR as const SEC_CHAR ptr
 #endif
 
 '' TODO: #define SecInvalidateHandle(x) ((PSecHandle) x)->dwLower = ((ULONG_PTR) ((INT_PTR)-1)); ((PSecHandle) x)->dwUpper = ((ULONG_PTR) ((INT_PTR)-1));
-'' TODO: #define SecIsValidHandle(x) ((((PSecHandle) x)->dwLower!=((ULONG_PTR) ((INT_PTR) -1))) && (((PSecHandle) x)->dwUpper!=((ULONG_PTR) ((INT_PTR) -1))))
+
+#define SecIsValidHandle(x) ((cast(PSecHandle, x)->dwLower <> cast(ULONG_PTR, cast(INT_PTR, -1))) andalso (cast(PSecHandle, x)->dwUpper <> cast(ULONG_PTR, cast(INT_PTR, -1))))
 
 type CredHandle as SecHandle
 type PCredHandle as PSecHandle
 type CtxtHandle as SecHandle
 type PCtxtHandle as PSecHandle
-
-type _SECURITY_INTEGER
-	LowPart as culong
-	HighPart as clong
-end type
-
-type SECURITY_INTEGER as _SECURITY_INTEGER
-type PSECURITY_INTEGER as _SECURITY_INTEGER ptr
+type _SECURITY_INTEGER as LARGE_INTEGER
+type SECURITY_INTEGER as LARGE_INTEGER
+type PSECURITY_INTEGER as LARGE_INTEGER ptr
 type TimeStamp as SECURITY_INTEGER
 type PTimeStamp as SECURITY_INTEGER ptr
 
@@ -770,15 +763,15 @@ type SecDelegationType as _SecDelegationType
 type PSecDelegationType as _SecDelegationType ptr
 
 declare function DelegateSecurityContext(byval phContext as PCtxtHandle, byval pszTarget as SEC_CHAR ptr, byval DelegationType as SecDelegationType, byval pExpiry as PTimeStamp, byval pPackageParameters as PSecBuffer, byval pOutput as PSecBufferDesc) as SECURITY_STATUS
-declare function ExportSecurityContext(byval phContext as PCtxtHandle, byval fFlags as ULONG, byval pPackedContext as PSecBuffer, byval pToken as any ptr ptr) as SECURITY_STATUS
+declare function ExportSecurityContext(byval phContext as PCtxtHandle, byval fFlags as ULONG_, byval pPackedContext as PSecBuffer, byval pToken as any ptr ptr) as SECURITY_STATUS
 
-type EXPORT_SECURITY_CONTEXT_FN as function(byval as PCtxtHandle, byval as ULONG, byval as PSecBuffer, byval as any ptr ptr) as SECURITY_STATUS
+type EXPORT_SECURITY_CONTEXT_FN as function(byval as PCtxtHandle, byval as ULONG_, byval as PSecBuffer, byval as any ptr ptr) as SECURITY_STATUS
 
 declare function ImportSecurityContextW(byval pszPackage as SEC_WCHAR ptr, byval pPackedContext as PSecBuffer, byval Token as any ptr, byval phContext as PCtxtHandle) as SECURITY_STATUS
 
-type IMPORT_SECURITY_CONTEXT_FN_W as function(byval as SEC_WCHAR ptr, byval as PSecBuffer, byval as VOID ptr, byval as PCtxtHandle) as SECURITY_STATUS
+type IMPORT_SECURITY_CONTEXT_FN_W as function(byval as SEC_WCHAR ptr, byval as PSecBuffer, byval as any ptr, byval as PCtxtHandle) as SECURITY_STATUS
 
-declare function ImportSecurityContextA(byval pszPackage as SEC_CHAR ptr, byval pPackedContext as PSecBuffer, byval Token as VOID ptr, byval phContext as PCtxtHandle) as SECURITY_STATUS
+declare function ImportSecurityContextA(byval pszPackage as SEC_CHAR ptr, byval pPackedContext as PSecBuffer, byval Token as any ptr, byval phContext as PCtxtHandle) as SECURITY_STATUS
 
 type IMPORT_SECURITY_CONTEXT_FN_A as function(byval as SEC_CHAR ptr, byval as PSecBuffer, byval as any ptr, byval as PCtxtHandle) as SECURITY_STATUS
 
@@ -881,8 +874,8 @@ type INIT_SECURITY_INTERFACE_W as function() as PSecurityFunctionTableW
 #define InitSecurityInterface __MINGW_NAME_AW(InitSecurityInterface)
 #define INIT_SECURITY_INTERFACE __MINGW_NAME_UAW(INIT_SECURITY_INTERFACE)
 
-declare function SaslEnumerateProfilesA(byval ProfileList as LPSTR ptr, byval ProfileCount as ULONG ptr) as SECURITY_STATUS
-declare function SaslEnumerateProfilesW(byval ProfileList as LPWSTR ptr, byval ProfileCount as ULONG ptr) as SECURITY_STATUS
+declare function SaslEnumerateProfilesA(byval ProfileList as LPSTR ptr, byval ProfileCount as ULONG_ ptr) as SECURITY_STATUS
+declare function SaslEnumerateProfilesW(byval ProfileList as LPWSTR ptr, byval ProfileCount as ULONG_ ptr) as SECURITY_STATUS
 
 #define SaslEnumerateProfiles __MINGW_NAME_AW(SaslEnumerateProfiles)
 
@@ -916,8 +909,8 @@ end enum
 
 type SASL_AUTHZID_STATE as _SASL_AUTHZID_STATE
 
-declare function SaslSetContextOption(byval ContextHandle as PCtxtHandle, byval Option_ as ULONG, byval Value as PVOID, byval Size as ULONG) as SECURITY_STATUS
-declare function SaslGetContextOption(byval ContextHandle as PCtxtHandle, byval Option_ as ULONG, byval Value as PVOID, byval Size as ULONG, byval Needed as PULONG) as SECURITY_STATUS
+declare function SaslSetContextOption(byval ContextHandle as PCtxtHandle, byval Option_ as ULONG_, byval Value as PVOID, byval Size as ULONG_) as SECURITY_STATUS
+declare function SaslGetContextOption(byval ContextHandle as PCtxtHandle, byval Option_ as ULONG_, byval Value as PVOID, byval Size as ULONG_, byval Needed as PULONG) as SECURITY_STATUS
 
 #define _AUTH_IDENTITY_DEFINED
 #define SEC_WINNT_AUTH_IDENTITY_ANSI &h1
