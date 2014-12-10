@@ -69,27 +69,109 @@ extern in6addr_loopback as const in6_addr
 
 #define WS2TCPIP_INLINE __CRT_INLINE
 
-declare function IN6_ADDR_EQUAL(byval as const in6_addr ptr, byval as const in6_addr ptr) as long
-declare function IN6_IS_ADDR_UNSPECIFIED(byval as const in6_addr ptr) as long
-declare function IN6_IS_ADDR_LOOPBACK(byval as const in6_addr ptr) as long
-declare function IN6_IS_ADDR_MULTICAST(byval as const in6_addr ptr) as long
-declare function IN6_IS_ADDR_LINKLOCAL(byval as const in6_addr ptr) as long
-declare function IN6_IS_ADDR_SITELOCAL(byval as const in6_addr ptr) as long
-declare function IN6_IS_ADDR_V4MAPPED(byval as const in6_addr ptr) as long
-declare function IN6_IS_ADDR_V4COMPAT(byval as const in6_addr ptr) as long
-declare function IN6_IS_ADDR_MC_NODELOCAL(byval as const in6_addr ptr) as long
-declare function IN6_IS_ADDR_MC_LINKLOCAL(byval as const in6_addr ptr) as long
-declare function IN6_IS_ADDR_MC_SITELOCAL(byval as const in6_addr ptr) as long
-declare function IN6_IS_ADDR_MC_ORGLOCAL(byval as const in6_addr ptr) as long
-declare function IN6_IS_ADDR_MC_GLOBAL(byval as const in6_addr ptr) as long
-declare function IN6ADDR_ISANY(byval as const sockaddr_in6 ptr) as long
-declare function IN6ADDR_ISLOOPBACK(byval as const sockaddr_in6 ptr) as long
-declare sub IN6_SET_ADDR_UNSPECIFIED(byval as in6_addr ptr)
-declare sub IN6_SET_ADDR_LOOPBACK(byval as in6_addr ptr)
-declare sub IN6ADDR_SETANY(byval as sockaddr_in6 ptr)
-declare sub IN6ADDR_SETLOOPBACK(byval as sockaddr_in6 ptr)
+function IN6_ADDR_EQUAL(byval as const in6_addr ptr, byval as const in6_addr ptr) as long
+	return -(memcmp(a, b, sizeof(in6_addr)) = 0)
+end function
 
-'' TODO: extern inline __attribute__((__gnu_inline__)) int IN6_ADDR_EQUAL(const struct in6_addr *a,const struct in6_addr *b) { return (memcmp(a,b,sizeof(struct in6_addr))==0); }extern inline __attribute__((__gnu_inline__)) int IN6_IS_ADDR_UNSPECIFIED(const struct in6_addr *a) { return ((a->u.Word[0]==0) && (a->u.Word[1]==0) && (a->u.Word[2]==0) && (a->u.Word[3]==0) && (a->u.Word[4]==0) && (a->u.Word[5]==0) && (a->u.Word[6]==0) && (a->u.Word[7]==0)); }extern inline __attribute__((__gnu_inline__)) int IN6_IS_ADDR_LOOPBACK(const struct in6_addr *a) { return ((a->u.Word[0]==0) && (a->u.Word[1]==0) && (a->u.Word[2]==0) && (a->u.Word[3]==0) && (a->u.Word[4]==0) && (a->u.Word[5]==0) && (a->u.Word[6]==0) && (a->u.Word[7]==0x0100)); }extern inline __attribute__((__gnu_inline__)) int IN6_IS_ADDR_MULTICAST(const struct in6_addr *a) { return (a->u.Byte[0]==0xff); }extern inline __attribute__((__gnu_inline__)) int IN6_IS_ADDR_LINKLOCAL(const struct in6_addr *a) { return ((a->u.Byte[0]==0xfe) && ((a->u.Byte[1] & 0xc0)==0x80)); }extern inline __attribute__((__gnu_inline__)) int IN6_IS_ADDR_SITELOCAL(const struct in6_addr *a) { return ((a->u.Byte[0]==0xfe) && ((a->u.Byte[1] & 0xc0)==0xc0)); }extern inline __attribute__((__gnu_inline__)) int IN6_IS_ADDR_V4MAPPED(const struct in6_addr *a) { return ((a->u.Word[0]==0) && (a->u.Word[1]==0) && (a->u.Word[2]==0) && (a->u.Word[3]==0) && (a->u.Word[4]==0) && (a->u.Word[5]==0xffff)); }extern inline __attribute__((__gnu_inline__)) int IN6_IS_ADDR_V4COMPAT(const struct in6_addr *a) { return ((a->u.Word[0]==0) && (a->u.Word[1]==0) && (a->u.Word[2]==0) && (a->u.Word[3]==0) && (a->u.Word[4]==0) && (a->u.Word[5]==0) && !((a->u.Word[6]==0) && (a->u.Byte[14]==0) && ((a->u.Byte[15]==0) || (a->u.Byte[15]==1)))); }extern inline __attribute__((__gnu_inline__)) int IN6_IS_ADDR_MC_NODELOCAL(const struct in6_addr *a) { return IN6_IS_ADDR_MULTICAST(a) && ((a->u.Byte[1] & 0xf)==1); }extern inline __attribute__((__gnu_inline__)) int IN6_IS_ADDR_MC_LINKLOCAL(const struct in6_addr *a) { return IN6_IS_ADDR_MULTICAST(a) && ((a->u.Byte[1] & 0xf)==2); }extern inline __attribute__((__gnu_inline__)) int IN6_IS_ADDR_MC_SITELOCAL(const struct in6_addr *a) { return IN6_IS_ADDR_MULTICAST(a) && ((a->u.Byte[1] & 0xf)==5); }extern inline __attribute__((__gnu_inline__)) int IN6_IS_ADDR_MC_ORGLOCAL(const struct in6_addr *a) { return IN6_IS_ADDR_MULTICAST(a) && ((a->u.Byte[1] & 0xf)==8); }extern inline __attribute__((__gnu_inline__)) int IN6_IS_ADDR_MC_GLOBAL(const struct in6_addr *a) { return IN6_IS_ADDR_MULTICAST(a) && ((a->u.Byte[1] & 0xf)==0xe); }extern inline __attribute__((__gnu_inline__)) int IN6ADDR_ISANY(const struct sockaddr_in6 *a) { return ((a->sin6_family==23) && IN6_IS_ADDR_UNSPECIFIED(&a->sin6_addr)); }extern inline __attribute__((__gnu_inline__)) int IN6ADDR_ISLOOPBACK(const struct sockaddr_in6 *a) { return ((a->sin6_family==23) && IN6_IS_ADDR_LOOPBACK(&a->sin6_addr)); }extern inline __attribute__((__gnu_inline__)) void IN6_SET_ADDR_UNSPECIFIED(struct in6_addr *a) { memset(a->u.Byte,0,sizeof(struct in6_addr)); }extern inline __attribute__((__gnu_inline__)) void IN6_SET_ADDR_LOOPBACK(struct in6_addr *a) { memset(a->u.Byte,0,sizeof(struct in6_addr)); a->u.Byte[15] = 1;}extern inline __attribute__((__gnu_inline__)) void IN6ADDR_SETANY(struct sockaddr_in6 *a) { a->sin6_family = 23; a->sin6_port = 0; a->sin6_flowinfo = 0; IN6_SET_ADDR_UNSPECIFIED(&a->sin6_addr); a->sin6_scope_id = 0;}extern inline __attribute__((__gnu_inline__)) void IN6ADDR_SETLOOPBACK(struct sockaddr_in6 *a) { a->sin6_family = 23; a->sin6_port = 0; a->sin6_flowinfo = 0; IN6_SET_ADDR_LOOPBACK(&a->sin6_addr); a->sin6_scope_id = 0;}typedef struct _INTERFACE_INFO_EX { u_long iiFlags; SOCKET_ADDRESS iiAddress; SOCKET_ADDRESS iiBroadcastAddress; SOCKET_ADDRESS iiNetmask;} INTERFACE_INFO_EX,*LPINTERFACE_INFO_EX;
+function IN6_IS_ADDR_UNSPECIFIED(byval as const in6_addr ptr) as long
+	return -((((((((a->u.Word[0] = 0) andalso (a->u.Word[1] = 0)) andalso (a->u.Word[2] = 0)) andalso (a->u.Word[3] = 0)) andalso (a->u.Word[4] = 0)) andalso (a->u.Word[5] = 0)) andalso (a->u.Word[6] = 0)) andalso (a->u.Word[7] = 0))
+end function
+
+function IN6_IS_ADDR_LOOPBACK(byval as const in6_addr ptr) as long
+	return -((((((((a->u.Word[0] = 0) andalso (a->u.Word[1] = 0)) andalso (a->u.Word[2] = 0)) andalso (a->u.Word[3] = 0)) andalso (a->u.Word[4] = 0)) andalso (a->u.Word[5] = 0)) andalso (a->u.Word[6] = 0)) andalso (a->u.Word[7] = &h0100))
+end function
+
+function IN6_IS_ADDR_MULTICAST(byval as const in6_addr ptr) as long
+	return -(a->u.Byte[0] = &hff)
+end function
+
+function IN6_IS_ADDR_LINKLOCAL(byval as const in6_addr ptr) as long
+	return -((a->u.Byte[0] = &hfe) andalso ((a->u.Byte[1] and &hc0) = &h80))
+end function
+
+function IN6_IS_ADDR_SITELOCAL(byval as const in6_addr ptr) as long
+	return -((a->u.Byte[0] = &hfe) andalso ((a->u.Byte[1] and &hc0) = &hc0))
+end function
+
+function IN6_IS_ADDR_V4MAPPED(byval as const in6_addr ptr) as long
+	return -((((((a->u.Word[0] = 0) andalso (a->u.Word[1] = 0)) andalso (a->u.Word[2] = 0)) andalso (a->u.Word[3] = 0)) andalso (a->u.Word[4] = 0)) andalso (a->u.Word[5] = &hffff))
+end function
+
+function IN6_IS_ADDR_V4COMPAT(byval as const in6_addr ptr) as long
+	return -(((((((a->u.Word[0] = 0) andalso (a->u.Word[1] = 0)) andalso (a->u.Word[2] = 0)) andalso (a->u.Word[3] = 0)) andalso (a->u.Word[4] = 0)) andalso (a->u.Word[5] = 0)) andalso ((((a->u.Word[6] = 0) andalso (a->u.Byte[14] = 0)) andalso ((a->u.Byte[15] = 0) orelse (a->u.Byte[15] = 1))) = 0))
+end function
+
+function IN6_IS_ADDR_MC_NODELOCAL(byval as const in6_addr ptr) as long
+	return -(IN6_IS_ADDR_MULTICAST(a) andalso ((a->u.Byte[1] and &hf) = 1))
+end function
+
+function IN6_IS_ADDR_MC_LINKLOCAL(byval as const in6_addr ptr) as long
+	return -(IN6_IS_ADDR_MULTICAST(a) andalso ((a->u.Byte[1] and &hf) = 2))
+end function
+
+function IN6_IS_ADDR_MC_SITELOCAL(byval as const in6_addr ptr) as long
+	return -(IN6_IS_ADDR_MULTICAST(a) andalso ((a->u.Byte[1] and &hf) = 5))
+end function
+
+function IN6_IS_ADDR_MC_ORGLOCAL(byval as const in6_addr ptr) as long
+	return -(IN6_IS_ADDR_MULTICAST(a) andalso ((a->u.Byte[1] and &hf) = 8))
+end function
+
+function IN6_IS_ADDR_MC_GLOBAL(byval as const in6_addr ptr) as long
+	return -(IN6_IS_ADDR_MULTICAST(a) andalso ((a->u.Byte[1] and &hf) = &he))
+end function
+
+function IN6ADDR_ISANY(byval as const sockaddr_in6 ptr) as long
+	return -((a->sin6_family = 23) andalso IN6_IS_ADDR_UNSPECIFIED(@a->sin6_addr))
+end function
+
+function IN6ADDR_ISLOOPBACK(byval as const sockaddr_in6 ptr) as long
+	return -((a->sin6_family = 23) andalso IN6_IS_ADDR_LOOPBACK(@a->sin6_addr))
+end function
+
+sub IN6_SET_ADDR_UNSPECIFIED(byval as in6_addr ptr)
+	memset(a->u.Byte, 0, sizeof(in6_addr))
+end sub
+
+sub IN6_SET_ADDR_LOOPBACK(byval as in6_addr ptr)
+	memset(a->u.Byte, 0, sizeof(in6_addr))
+	a->u.Byte[15]
+	'' TODO: a->u.Byte[15] = 1;
+end sub
+
+sub IN6ADDR_SETANY(byval as sockaddr_in6 ptr)
+	a->sin6_family
+	'' TODO: a->sin6_family = 23;
+	a->sin6_port
+	'' TODO: a->sin6_port = 0;
+	a->sin6_flowinfo
+	'' TODO: a->sin6_flowinfo = 0;
+	IN6_SET_ADDR_UNSPECIFIED(@a->sin6_addr)
+	a->sin6_scope_id
+	'' TODO: a->sin6_scope_id = 0;
+end sub
+
+sub IN6ADDR_SETLOOPBACK(byval as sockaddr_in6 ptr)
+	a->sin6_family
+	'' TODO: a->sin6_family = 23;
+	a->sin6_port
+	'' TODO: a->sin6_port = 0;
+	a->sin6_flowinfo
+	'' TODO: a->sin6_flowinfo = 0;
+	IN6_SET_ADDR_LOOPBACK(@a->sin6_addr)
+	a->sin6_scope_id
+	'' TODO: a->sin6_scope_id = 0;
+end sub
+
+type _INTERFACE_INFO_EX
+	iiFlags as u_long
+	iiAddress as SOCKET_ADDRESS
+	iiBroadcastAddress as SOCKET_ADDRESS
+	iiNetmask as SOCKET_ADDRESS
+end type
+
+type INTERFACE_INFO_EX as _INTERFACE_INFO_EX
+type LPINTERFACE_INFO_EX as _INTERFACE_INFO_EX ptr
 
 #define IFF_UP &h00000001
 #define IFF_BROADCAST &h00000002

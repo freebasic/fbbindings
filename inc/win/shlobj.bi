@@ -2122,11 +2122,12 @@ type LPSHELLFLAGSTATE as SHELLFLAGSTATE ptr
 declare sub SHGetSettings(byval psfs as SHELLFLAGSTATE ptr, byval dwMask as DWORD)
 declare function SHBindToParent(byval pidl as LPCITEMIDLIST, byval riid as const IID const ptr, byval ppv as any ptr ptr, byval ppidlLast as LPCITEMIDLIST ptr) as HRESULT
 
-#ifdef __FB_64BIT__
-	'' TODO: extern __inline__ __attribute__((__always_inline__,__gnu_inline__)) WINBOOL IDListContainerIsConsistent(LPCITEMIDLIST p, UINT sz) { UINT c = sizeof (p->mkid.cb); while (c <= sz && p->mkid.cb >= sizeof (p->mkid.cb) && p->mkid.cb <= (sz - c)) { c += p->mkid.cb; p = ((LPITEMIDLIST)((void *) (((BYTE *) ((p)))+ (((p)->mkid.cb))))); } return c <= sz && p->mkid.cb == 0; } extern __attribute__((dllimport)) HRESULT SHParseDisplayName (PCWSTR pszName, IBindCtx *pbc, LPITEMIDLIST *ppidl, SFGAOF sfgaoIn, SFGAOF *psfgaoOut);
-#else
-	'' TODO: extern __inline__ __attribute__((__always_inline__,__gnu_inline__)) WINBOOL IDListContainerIsConsistent(LPCITEMIDLIST p, UINT sz) { UINT c = sizeof (p->mkid.cb); while (c <= sz && p->mkid.cb >= sizeof (p->mkid.cb) && p->mkid.cb <= (sz - c)) { c += p->mkid.cb; p = ((LPITEMIDLIST)((void *) (((BYTE *) ((p)))+ (((p)->mkid.cb))))); } return c <= sz && p->mkid.cb == 0; } extern __attribute__((dllimport)) HRESULT __attribute__((__stdcall__)) SHParseDisplayName (PCWSTR pszName, IBindCtx *pbc, LPITEMIDLIST *ppidl, SFGAOF sfgaoIn, SFGAOF *psfgaoOut);
-#endif
+function IDListContainerIsConsistent cdecl(byval p as LPCITEMIDLIST, byval sz as UINT) as WINBOOL
+	dim c as UINT = sizeof(p->mkid.cb)
+	'' TODO: while (c <= sz && p->mkid.cb >= sizeof (p->mkid.cb) && p->mkid.cb <= (sz - c)) { c += p->mkid.cb; p = ((LPITEMIDLIST)((void *) (((BYTE *) ((p)))+ (((p)->mkid.cb))))); } return c <= sz && p->mkid.cb == 0;
+end function
+
+declare function SHParseDisplayName(byval pszName as PCWSTR, byval pbc as IBindCtx ptr, byval ppidl as LPITEMIDLIST ptr, byval sfgaoIn as SFGAOF, byval psfgaoOut as SFGAOF ptr) as HRESULT
 
 #define SHPPFW_NONE &h00000000
 #define SHPPFW_DEFAULT SHPPFW_DIRCREATE

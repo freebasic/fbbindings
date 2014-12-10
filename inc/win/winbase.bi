@@ -928,7 +928,49 @@ type POFSTRUCT as _OFSTRUCT ptr
 #ifdef __FB_64BIT__
 	#define InterlockedIncrement _InterlockedIncrement
 #else
-	'' TODO: extern __inline__ __attribute__((__always_inline__,__gnu_inline__)) LONGLONG InterlockedAnd64 (LONGLONG volatile *Destination, LONGLONG Value) { LONGLONG Old; do { Old = *Destination; } while (InterlockedCompareExchange64 (Destination, Old &Value, Old) != Old); return Old; } extern __inline__ __attribute__((__always_inline__,__gnu_inline__)) LONGLONG InterlockedOr64 (LONGLONG volatile *Destination, LONGLONG Value) { LONGLONG Old; do { Old = *Destination; } while (InterlockedCompareExchange64 (Destination, Old | Value, Old) != Old); return Old; } extern __inline__ __attribute__((__always_inline__,__gnu_inline__)) LONGLONG InterlockedXor64 (LONGLONG volatile *Destination, LONGLONG Value) { LONGLONG Old; do { Old = *Destination; } while (InterlockedCompareExchange64 (Destination, Old ^ Value, Old) != Old); return Old; } extern __inline__ __attribute__((__always_inline__,__gnu_inline__)) LONGLONG InterlockedIncrement64 (LONGLONG volatile *Addend) { LONGLONG Old; do { Old = *Addend; } while (InterlockedCompareExchange64 (Addend, Old + 1, Old) != Old); return Old + 1; } extern __inline__ __attribute__((__always_inline__,__gnu_inline__)) LONGLONG InterlockedDecrement64 (LONGLONG volatile *Addend) { LONGLONG Old; do { Old = *Addend; } while (InterlockedCompareExchange64 (Addend, Old - 1, Old) != Old); return Old - 1; } extern __inline__ __attribute__((__always_inline__,__gnu_inline__)) LONGLONG InterlockedExchange64 (LONGLONG volatile *Target, LONGLONG Value) { LONGLONG Old; do { Old = *Target; } while (InterlockedCompareExchange64 (Target, Value, Old) != Old); return Old; } extern __inline__ __attribute__((__always_inline__,__gnu_inline__)) LONGLONG InterlockedExchangeAdd64 (LONGLONG volatile *Addend, LONGLONG Value) { LONGLONG Old; do { Old = *Addend; } while (InterlockedCompareExchange64 (Addend, Old + Value, Old) != Old); return Old; } int __attribute__((__stdcall__)) WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nShowCmd);
+	function InterlockedAnd64 cdecl(byval Destination as LONGLONG ptr, byval Value as LONGLONG) as LONGLONG
+		dim Old as LONGLONG
+		'' TODO: do { Old = *Destination; } while (InterlockedCompareExchange64 (Destination, Old &Value, Old) != Old);
+		return Old
+	end function
+
+	function InterlockedOr64 cdecl(byval Destination as LONGLONG ptr, byval Value as LONGLONG) as LONGLONG
+		dim Old as LONGLONG
+		'' TODO: do { Old = *Destination; } while (InterlockedCompareExchange64 (Destination, Old | Value, Old) != Old);
+		return Old
+	end function
+
+	function InterlockedXor64 cdecl(byval Destination as LONGLONG ptr, byval Value as LONGLONG) as LONGLONG
+		dim Old as LONGLONG
+		'' TODO: do { Old = *Destination; } while (InterlockedCompareExchange64 (Destination, Old ^ Value, Old) != Old);
+		return Old
+	end function
+
+	function InterlockedIncrement64 cdecl(byval Addend as LONGLONG ptr) as LONGLONG
+		dim Old as LONGLONG
+		'' TODO: do { Old = *Addend; } while (InterlockedCompareExchange64 (Addend, Old + 1, Old) != Old);
+		return Old + 1
+	end function
+
+	function InterlockedDecrement64 cdecl(byval Addend as LONGLONG ptr) as LONGLONG
+		dim Old as LONGLONG
+		'' TODO: do { Old = *Addend; } while (InterlockedCompareExchange64 (Addend, Old - 1, Old) != Old);
+		return Old - 1
+	end function
+
+	function InterlockedExchange64 cdecl(byval Target as LONGLONG ptr, byval Value as LONGLONG) as LONGLONG
+		dim Old as LONGLONG
+		'' TODO: do { Old = *Target; } while (InterlockedCompareExchange64 (Target, Value, Old) != Old);
+		return Old
+	end function
+
+	function InterlockedExchangeAdd64 cdecl(byval Addend as LONGLONG ptr, byval Value as LONGLONG) as LONGLONG
+		dim Old as LONGLONG
+		'' TODO: do { Old = *Addend; } while (InterlockedCompareExchange64 (Addend, Old + Value, Old) != Old);
+		return Old
+	end function
+
+	declare function WinMain(byval hInstance as HINSTANCE, byval hPrevInstance as HINSTANCE, byval lpCmdLine as LPSTR, byval nShowCmd as long) as long
 
 	#define InterlockedCompareExchangePointer(Destination, ExChange, Comperand) cast(PVOID, cast(LONG_PTR, InterlockedCompareExchange(cptr(LONG_ ptr, (Destination)), cast(LONG_, cast(LONG_PTR, (ExChange))), cast(LONG_, cast(LONG_PTR, (Comperand))))))
 	#define InterlockedDecrementAcquire InterlockedDecrement
@@ -976,9 +1018,6 @@ type POFSTRUCT as _OFSTRUCT ptr
 	#define InterlockedOr16 _InterlockedOr16
 	#define InterlockedXor16 _InterlockedXor16
 
-	declare function _InterlockedAnd(byval Destination as LONG_ ptr, byval Value as LONG_) as LONG_
-	declare function _InterlockedOr(byval Destination as LONG_ ptr, byval Value as LONG_) as LONG_
-	declare function _InterlockedXor(byval Destination as LONG_ ptr, byval Value as LONG_) as LONG_
 	declare function _InterlockedAnd8(byval Destination as zstring ptr, byval Value as byte) as byte
 	declare function _InterlockedOr8(byval Destination as zstring ptr, byval Value as byte) as byte
 	declare function _InterlockedXor8(byval Destination as zstring ptr, byval Value as byte) as byte

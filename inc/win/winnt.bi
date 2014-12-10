@@ -32,10 +32,17 @@
 	extern "C"
 #else
 	extern "Windows"
+
+	type _TEB as _TEB_
 #endif
 
 type _RTL_CRITICAL_SECTION as _RTL_CRITICAL_SECTION_
 type _ACTIVATION_CONTEXT as _ACTIVATION_CONTEXT_
+
+#ifdef __FB_64BIT__
+	type _TEB as _TEB_
+#endif
+
 type name__ as name_
 
 #define _WINNT_
@@ -1184,10 +1191,15 @@ type PSCOPE_TABLE_AMD64 as _SCOPE_TABLE_AMD64 ptr
 	#define InterlockedIncrementSizeT(a) InterlockedIncrement64(cptr(LONG64 ptr, a))
 	#define InterlockedDecrementSizeT(a) InterlockedDecrement64(cptr(LONG64 ptr, a))
 
-	declare function _InterlockedAdd(byval Addend as LONG_ ptr, byval Value as LONG_) as LONG_
+	function _InterlockedAdd(byval Addend as LONG_ ptr, byval Value as LONG_) as LONG_
+		return _InterlockedExchangeAdd(Addend, Value) + Value
+	end function
 
-	'' TODO: extern __inline__ __attribute__((__always_inline__,__gnu_inline__)) LONG _InterlockedAdd(LONG volatile *Addend,LONG Value) { return _InterlockedExchangeAdd(Addend,Value) + Value; } LONG64 _InterlockedAdd64(LONG64 volatile *Addend,LONG64 Value);
-	'' TODO: extern __inline__ __attribute__((__always_inline__,__gnu_inline__)) LONG64 _InterlockedAdd64(LONG64 volatile *Addend,LONG64 Value) { return _InterlockedExchangeAdd64(Addend,Value) + Value; } unsigned int __getcallerseflags(void);
+	function _InterlockedAdd64(byval Addend as LONG64 ptr, byval Value as LONG64) as LONG64
+		return _InterlockedExchangeAdd64(Addend, Value) + Value
+	end function
+
+	declare function __getcallerseflags() as ulong
 
 	#define CacheLineFlush(Address) _mm_clflush(Address)
 	#define FastFence __faststorefence
@@ -1212,9 +1224,15 @@ type PSCOPE_TABLE_AMD64 as _SCOPE_TABLE_AMD64 ptr
 #else
 	#define YieldProcessor __buildpause
 
-	declare sub MemoryBarrier cdecl()
+	sub MemoryBarrier cdecl()
+		dim Barrier as ubyte
+		__asm__
+		'' TODO: __asm__ __volatile__("xchg{b %%| }al, %0" :"=m" (Barrier) : : "eax", "memory");
+	end sub
 
-	'' TODO: extern __inline__ __attribute__((__always_inline__,__gnu_inline__)) void MemoryBarrier(void){unsigned char Barrier;__asm__ __volatile__("xchg{b %%| }al, %0" :"=m" (Barrier) : : "eax", "memory");} struct _TEB *NtCurrentTeb(void);
+	function NtCurrentTeb cdecl() as _TEB ptr
+		return cptr(_TEB ptr, __readfsdword(&h18))
+	end function
 
 	#define PreFetchCacheLine(l, a)
 	#define ReadForWriteAccess(p) (*(p))
@@ -1222,8 +1240,13 @@ type PSCOPE_TABLE_AMD64 as _SCOPE_TABLE_AMD64 ptr
 	#define PF_NON_TEMPORAL_LEVEL_ALL
 	#define PcTeb &h18
 
-	declare function GetCurrentFiber cdecl() as PVOID
-	declare function GetFiberData cdecl() as PVOID
+	function GetCurrentFiber cdecl() as PVOID
+		return cast(PVOID, __readfsdword(&h10))
+	end function
+
+	function GetFiberData cdecl() as PVOID
+		return *cptr(PVOID ptr, GetCurrentFiber())
+	end function
 #endif
 
 #define DbgRaiseAssertionFailure __int2c
@@ -1257,7 +1280,19 @@ type PSCOPE_TABLE_AMD64 as _SCOPE_TABLE_AMD64 ptr
 	declare function MultiplyExtract128(byval Multiplier as LONG64, byval Multiplicand as LONG64, byval Shift as BYTE_) as LONG64
 	declare function UnsignedMultiplyExtract128(byval Multiplier as DWORD64, byval Multiplicand as DWORD64, byval Shift as BYTE_) as DWORD64
 #else
-	'' TODO: extern inline __attribute__((__gnu_inline__)) struct _TEB *NtCurrentTeb(void) { return (struct _TEB *)__readfsdword(0x18); } extern inline __attribute__((__gnu_inline__)) PVOID GetCurrentFiber(void) { return(PVOID)__readfsdword(0x10); } extern inline __attribute__((__gnu_inline__)) PVOID GetFiberData(void) { return *(PVOID *)GetCurrentFiber(); } typedef struct _FLOATING_SAVE_AREA { DWORD ControlWord; DWORD StatusWord; DWORD TagWord; DWORD ErrorOffset; DWORD ErrorSelector; DWORD DataOffset; DWORD DataSelector; BYTE RegisterArea[80]; DWORD Cr0NpxState; } FLOATING_SAVE_AREA;
+	type _FLOATING_SAVE_AREA
+		ControlWord as DWORD
+		StatusWord as DWORD
+		TagWord as DWORD
+		ErrorOffset as DWORD
+		ErrorSelector as DWORD
+		DataOffset as DWORD
+		DataSelector as DWORD
+		RegisterArea(0 to 79) as BYTE_
+		Cr0NpxState as DWORD
+	end type
+
+	type FLOATING_SAVE_AREA as _FLOATING_SAVE_AREA
 #endif
 
 #define EXCEPTION_READ_FAULT 0
@@ -7969,15 +8004,90 @@ type PTP_WAIT_CALLBACK as sub(byval Instance as PTP_CALLBACK_INSTANCE, byval Con
 type TP_IO as _TP_IO
 type PTP_IO as _TP_IO ptr
 
+sub TpInitializeCallbackEnviron cdecl(byval cbe as PTP_CALLBACK_ENVIRON)
+	cbe->Pool
+	'' TODO: cbe->Pool = ((void *)0);
+	cbe->CleanupGroup
+	'' TODO: cbe->CleanupGroup = ((void *)0);
+	cbe->CleanupGroupCancelCallback
+	'' TODO: cbe->CleanupGroupCancelCallback = ((void *)0);
+	cbe->RaceDll
+	'' TODO: cbe->RaceDll = ((void *)0);
+	cbe->ActivationContext
+	'' TODO: cbe->ActivationContext = ((void *)0);
+	cbe->FinalizationCallback
+	'' TODO: cbe->FinalizationCallback = ((void *)0);
+	cbe->u.Flags
+	'' TODO: cbe->u.Flags = 0;
+	cbe->Version
+	'' TODO: cbe->Version = 1;
+end sub
+
+sub TpSetCallbackThreadpool cdecl(byval cbe as PTP_CALLBACK_ENVIRON, byval pool as PTP_POOL)
+	cbe->Pool
+	'' TODO: cbe->Pool = pool;
+end sub
+
+sub TpSetCallbackCleanupGroup cdecl(byval cbe as PTP_CALLBACK_ENVIRON, byval cleanup_group as PTP_CLEANUP_GROUP, byval cleanup_group_cb as PTP_CLEANUP_GROUP_CANCEL_CALLBACK)
+	cbe->CleanupGroup
+	'' TODO: cbe->CleanupGroup = cleanup_group;
+	cbe->CleanupGroupCancelCallback
+	'' TODO: cbe->CleanupGroupCancelCallback = cleanup_group_cb;
+end sub
+
+sub TpSetCallbackActivationContext cdecl(byval cbe as PTP_CALLBACK_ENVIRON, byval actx as _ACTIVATION_CONTEXT ptr)
+	cbe->ActivationContext
+	'' TODO: cbe->ActivationContext = actx;
+end sub
+
+sub TpSetCallbackNoActivationContext cdecl(byval cbe as PTP_CALLBACK_ENVIRON)
+	cbe->ActivationContext
+	'' TODO: cbe->ActivationContext = (struct _ACTIVATION_CONTEXT *) (LONG_PTR) -1;
+end sub
+
+sub TpSetCallbackLongFunction cdecl(byval cbe as PTP_CALLBACK_ENVIRON)
+	cbe->u.s.LongFunction
+	'' TODO: cbe->u.s.LongFunction = 1;
+end sub
+
+sub TpSetCallbackRaceWithDll cdecl(byval cbe as PTP_CALLBACK_ENVIRON, byval h as PVOID)
+	cbe->RaceDll
+	'' TODO: cbe->RaceDll = h;
+end sub
+
+sub TpSetCallbackFinalizationCallback cdecl(byval cbe as PTP_CALLBACK_ENVIRON, byval fini_cb as PTP_SIMPLE_CALLBACK)
+	cbe->FinalizationCallback
+	'' TODO: cbe->FinalizationCallback = fini_cb;
+end sub
+
+sub TpSetCallbackPersistent cdecl(byval cbe as PTP_CALLBACK_ENVIRON)
+	cbe->u.s.Persistent
+	'' TODO: cbe->u.s.Persistent = 1;
+end sub
+
+sub TpDestroyCallbackEnviron cdecl(byval cbe as PTP_CALLBACK_ENVIRON)
+	'' TODO: {(cbe) = (cbe);
+end sub
+
 #ifdef __FB_64BIT__
-	'' TODO: extern __inline__ __attribute__((__always_inline__,__gnu_inline__)) void TpInitializeCallbackEnviron (PTP_CALLBACK_ENVIRON cbe) { cbe->Pool = ((void *)0); cbe->CleanupGroup = ((void *)0); cbe->CleanupGroupCancelCallback = ((void *)0); cbe->RaceDll = ((void *)0); cbe->ActivationContext = ((void *)0); cbe->FinalizationCallback = ((void *)0); cbe->u.Flags = 0; cbe->Version = 1; } extern __inline__ __attribute__((__always_inline__,__gnu_inline__)) void TpSetCallbackThreadpool (PTP_CALLBACK_ENVIRON cbe, PTP_POOL pool) { cbe->Pool = pool; } extern __inline__ __attribute__((__always_inline__,__gnu_inline__)) void TpSetCallbackCleanupGroup (PTP_CALLBACK_ENVIRON cbe, PTP_CLEANUP_GROUP cleanup_group, PTP_CLEANUP_GROUP_CANCEL_CALLBACK cleanup_group_cb) { cbe->CleanupGroup = cleanup_group; cbe->CleanupGroupCancelCallback = cleanup_group_cb; } extern __inline__ __attribute__((__always_inline__,__gnu_inline__)) void TpSetCallbackActivationContext (PTP_CALLBACK_ENVIRON cbe, struct _ACTIVATION_CONTEXT *actx) { cbe->ActivationContext = actx; } extern __inline__ __attribute__((__always_inline__,__gnu_inline__)) void TpSetCallbackNoActivationContext (PTP_CALLBACK_ENVIRON cbe) { cbe->ActivationContext = (struct _ACTIVATION_CONTEXT *) (LONG_PTR) -1; } extern __inline__ __attribute__((__always_inline__,__gnu_inline__)) void TpSetCallbackLongFunction (PTP_CALLBACK_ENVIRON cbe) { cbe->u.s.LongFunction = 1; } extern __inline__ __attribute__((__always_inline__,__gnu_inline__)) void TpSetCallbackRaceWithDll (PTP_CALLBACK_ENVIRON cbe, PVOID h) { cbe->RaceDll = h; } extern __inline__ __attribute__((__always_inline__,__gnu_inline__)) void TpSetCallbackFinalizationCallback (PTP_CALLBACK_ENVIRON cbe, PTP_SIMPLE_CALLBACK fini_cb) { cbe->FinalizationCallback = fini_cb; } extern __inline__ __attribute__((__always_inline__,__gnu_inline__)) void TpSetCallbackPersistent (PTP_CALLBACK_ENVIRON cbe) { cbe->u.s.Persistent = 1; } extern __inline__ __attribute__((__always_inline__,__gnu_inline__)) void TpDestroyCallbackEnviron (PTP_CALLBACK_ENVIRON cbe) { {(cbe) = (cbe);}; } struct _TEB *NtCurrentTeb(void);
+	'' TODO: } struct _TEB *NtCurrentTeb(void);
 
-	declare function GetCurrentFiber() as PVOID
-	declare function GetFiberData() as PVOID
+	function GetCurrentFiber() as PVOID
+		return cast(PVOID, __readgsqword(cast(LONG_, cast(LONG_PTR, @cptr(NT_TIB ptr, 0)->FiberData))))
+	end function
 
-	'' TODO: extern __inline__ __attribute__((__always_inline__,__gnu_inline__)) struct _TEB *NtCurrentTeb(void) { return (struct _TEB *)__readgsqword(((LONG)(LONG_PTR)&(((NT_TIB *)0)->Self))); } extern __inline__ __attribute__((__always_inline__,__gnu_inline__)) PVOID GetCurrentFiber(void) { return(PVOID)__readgsqword(((LONG)(LONG_PTR)&(((NT_TIB *)0)->FiberData))); } extern __inline__ __attribute__((__always_inline__,__gnu_inline__)) PVOID GetFiberData(void) { return *(PVOID *)GetCurrentFiber(); } typedef GUID CRM_PROTOCOL_ID,*PCRM_PROTOCOL_ID;
+	function GetFiberData() as PVOID
+		return *cptr(PVOID ptr, GetCurrentFiber())
+	end function
+
+	function NtCurrentTeb() as _TEB ptr
+		return cptr(_TEB ptr, __readgsqword(cast(LONG_, cast(LONG_PTR, @cptr(NT_TIB ptr, 0)->Self))))
+	end function
+
+	type CRM_PROTOCOL_ID as GUID
+	type PCRM_PROTOCOL_ID as GUID ptr
 #else
-	'' TODO: extern __inline__ __attribute__((__always_inline__,__gnu_inline__)) void TpInitializeCallbackEnviron (PTP_CALLBACK_ENVIRON cbe) { cbe->Pool = ((void *)0); cbe->CleanupGroup = ((void *)0); cbe->CleanupGroupCancelCallback = ((void *)0); cbe->RaceDll = ((void *)0); cbe->ActivationContext = ((void *)0); cbe->FinalizationCallback = ((void *)0); cbe->u.Flags = 0; cbe->Version = 1; } extern __inline__ __attribute__((__always_inline__,__gnu_inline__)) void TpSetCallbackThreadpool (PTP_CALLBACK_ENVIRON cbe, PTP_POOL pool) { cbe->Pool = pool; } extern __inline__ __attribute__((__always_inline__,__gnu_inline__)) void TpSetCallbackCleanupGroup (PTP_CALLBACK_ENVIRON cbe, PTP_CLEANUP_GROUP cleanup_group, PTP_CLEANUP_GROUP_CANCEL_CALLBACK cleanup_group_cb) { cbe->CleanupGroup = cleanup_group; cbe->CleanupGroupCancelCallback = cleanup_group_cb; } extern __inline__ __attribute__((__always_inline__,__gnu_inline__)) void TpSetCallbackActivationContext (PTP_CALLBACK_ENVIRON cbe, struct _ACTIVATION_CONTEXT *actx) { cbe->ActivationContext = actx; } extern __inline__ __attribute__((__always_inline__,__gnu_inline__)) void TpSetCallbackNoActivationContext (PTP_CALLBACK_ENVIRON cbe) { cbe->ActivationContext = (struct _ACTIVATION_CONTEXT *) (LONG_PTR) -1; } extern __inline__ __attribute__((__always_inline__,__gnu_inline__)) void TpSetCallbackLongFunction (PTP_CALLBACK_ENVIRON cbe) { cbe->u.s.LongFunction = 1; } extern __inline__ __attribute__((__always_inline__,__gnu_inline__)) void TpSetCallbackRaceWithDll (PTP_CALLBACK_ENVIRON cbe, PVOID h) { cbe->RaceDll = h; } extern __inline__ __attribute__((__always_inline__,__gnu_inline__)) void TpSetCallbackFinalizationCallback (PTP_CALLBACK_ENVIRON cbe, PTP_SIMPLE_CALLBACK fini_cb) { cbe->FinalizationCallback = fini_cb; } extern __inline__ __attribute__((__always_inline__,__gnu_inline__)) void TpSetCallbackPersistent (PTP_CALLBACK_ENVIRON cbe) { cbe->u.s.Persistent = 1; } extern __inline__ __attribute__((__always_inline__,__gnu_inline__)) void TpDestroyCallbackEnviron (PTP_CALLBACK_ENVIRON cbe) { {(cbe) = (cbe);}; } typedef GUID CRM_PROTOCOL_ID,*PCRM_PROTOCOL_ID;
+	'' TODO: } typedef GUID CRM_PROTOCOL_ID,*PCRM_PROTOCOL_ID;
 #endif
 
 #define _NTTMAPI_
