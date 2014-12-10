@@ -1,0 +1,78 @@
+-nodefaultscript
+
+-define __FBFROG_WIN32__
+-declarebool __FB_64BIT__
+-ifdef __FB_64BIT__
+	-define __FBFROG_64BIT__
+-endif
+
+-declarebool UNICODE
+-ifdef UNICODE
+	-define UNICODE
+-endif
+
+-define __CRT__NO_INLINE
+
+-removedefine ACLUIAPI
+-removedefine INTERFACE
+-removedefine EXTERN_C
+-removedefine STDMETHODCALLTYPE
+-removedefine STDMETHODVCALLTYPE
+-removedefine STDAPICALLTYPE
+-removedefine STDAPIVCALLTYPE
+-removedefine STDAPI
+-removedefine STDAPI_
+-removedefine STDMETHODIMP
+-removedefine STDMETHODIMP_
+-removedefine STDAPIV
+-removedefine STDAPIV_
+-removedefine STDMETHODIMPV
+-removedefine STDMETHODIMPV_
+-removedefine interface
+-removedefine STDMETHOD
+-removedefine STDMETHOD_
+-removedefine STDMETHODV
+-removedefine STDMETHODV_
+-removedefine PURE
+-removedefine THIS
+-removedefine THIS_
+-removedefine DECLARE_INTERFACE
+-removedefine DECLARE_INTERFACE_
+-removedefine IFACEMETHOD
+-removedefine IFACEMETHOD_
+-removedefine IFACEMETHODV
+-removedefine IFACEMETHODV_
+-removedefine WINCOMMDLGAPI
+-removedefine LWSTDAPI
+-removedefine LWSTDAPI_
+-removedefine LWSTDAPIV
+-removedefine LWSTDAPIV_
+-removedefine INTERNETAPI
+-removedefine INTERNETAPI_
+-removedefine URLCACHEAPI
+-removedefine URLCACHEAPI_
+-removedefine BOOLAPI
+-removedefine WINOLECTLAPI
+-removedefine WINOLECTLAPI_
+-removedefine VOL
+-removedefine SHSTDAPI
+-removedefine SHSTDAPI_
+-removedefine SHDOCAPI
+-removedefine SHDOCAPI_
+-removedefine SHSTDDOCAPI
+-removedefine SHSTDDOCAPI_
+-removedefine BROWSEUIAPI
+-removedefine BROWSEUIAPI_
+-removedefine SHFOLDERAPI
+-removedefine THEMEAPI
+-removedefine THEMEAPI_
+-removedefine WINOLEAUTAPI
+-removedefine WINOLEAUTAPI_
+-removedefine WINCOMMCTRLAPI
+-removedefine __RPC_CALLEE
+-removedefine RPC_VAR_ENTRY
+-removedefine __MIDL_DECLSPEC_DLLIMPORT
+-removedefine __MIDL_DECLSPEC_DLLEXPORT
+-removedefine WINSHELLAPI
+-removedefine WINGDIAPI
+-removedefine WINSPOOLAPI

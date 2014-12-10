@@ -2,7 +2,7 @@ FBFROG := fbfrog
 FBC := fbc
 
 ALL := allegro4 allegro4-algif allegro4-alpng allegro5
-ALL += cgui clang cunit
+ALL += cgui clang cunit curl
 ALL += ffi
 ALL += iup
 ALL += jit
@@ -270,8 +270,8 @@ lua:
 	./downloadextract.sh $(LUA_TITLE) $(LUA_TITLE).tar.gz "http://www.lua.org/ftp/$(LUA_TITLE).tar.gz"
 	mkdir -p inc/Lua
 	$(FBFROG) lua.fbfrog -o inc/Lua/lua.bi     extracted/$(LUA_TITLE)/src/lua.h
-	$(FBFROG) lua.fbfrog -o inc/Lua/lualib.bi  extracted/$(LUA_TITLE)/src/lualib.h  -filterout '*lua.h'
-	$(FBFROG) lua.fbfrog -o inc/Lua/lauxlib.bi extracted/$(LUA_TITLE)/src/lauxlib.h -filterout '*lua.h'
+	$(FBFROG) lua.fbfrog -o inc/Lua/lualib.bi  extracted/$(LUA_TITLE)/src/lualib.h  -filterout '*'
+	$(FBFROG) lua.fbfrog -o inc/Lua/lauxlib.bi extracted/$(LUA_TITLE)/src/lauxlib.h -filterout '*'
 
 NCURSES_TITLE := ncurses-5.9
 ncurses:
@@ -335,6 +335,121 @@ png16:
 	cp extracted/$(PNG16_TITLE)/scripts/pnglibconf.h.prebuilt \
 	   extracted/$(PNG16_TITLE)/pnglibconf.h
 	$(FBFROG) png.fbfrog -o inc/png16.bi extracted/$(PNG16_TITLE)/png.h
+
+################################################################################
+# Windows API, thanks to the MinGW-w64 project
+
+MINGWW64_TITLE := mingw-w64-v3.3.0
+winapi-extract:
+	./downloadextract.sh $(MINGWW64_TITLE) $(MINGWW64_TITLE).tar.bz2 "http://sourceforge.net/projects/mingw-w64/files/mingw-w64/mingw-w64-release/$(MINGWW64_TITLE).tar.bz2/download"
+	cd extracted/$(MINGWW64_TITLE)/mingw-w64-headers/crt && \
+		sed -e 's/@MINGW_HAS_SECURE_API@/#define MINGW_HAS_SECURE_API 1/g' < _mingw.h.in > _mingw.h && \
+		sed -e 's/MINGW_HAS_DX$$/1/g' < sdks/_mingw_directx.h.in > sdks/_mingw_directx.h && \
+		sed -e 's/MINGW_HAS_DDK$$/1/g' < sdks/_mingw_ddk.h.in > sdks/_mingw_ddk.h
+	mkdir -p inc/win
+
+WINAPI_FLAGS := winapi.fbfrog -o inc/win/
+WINAPI_FLAGS += -incdir extracted/$(MINGWW64_TITLE)/mingw-w64-headers/crt/
+WINAPI_FLAGS += -incdir extracted/$(MINGWW64_TITLE)/mingw-w64-headers/include/
+WINAPI_FLAGS += -incdir extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include
+WINAPI_FLAGS += -filterout '*'
+WINAPI_FLAGS += -filterin '*pshpack*.h'
+WINAPI_FLAGS += -filterin '*poppack.h'
+
+# winapi.mk lists all the headers we want to translate
+include winapi.mk
+
+# Some headers need additional options on top of the common WINAPI_FLAGS
+WINAPI_FLAGS_amaudio += -include windows.h
+WINAPI_FLAGS_commctrl += -include windows.h
+WINAPI_FLAGS_commdlg += -include windows.h -filterin '*commdlg.h'
+WINAPI_FLAGS_cpl += -include windows.h
+WINAPI_FLAGS_custcntl += -include windows.h
+WINAPI_FLAGS_d3d9types += -include windows.h
+WINAPI_FLAGS_d3dx9anim += -include d3dx9.h -filterin '*d3dx9anim.h'
+WINAPI_FLAGS_dbt += -include windef.h
+WINAPI_FLAGS_ddeml += -include windows.h -filterin '*/ddeml.h'
+WINAPI_FLAGS_dmdls += -include windef.h
+WINAPI_FLAGS_dmerror += -include windef.h
+WINAPI_FLAGS_dxerr8 += -include windef.h
+WINAPI_FLAGS_dxerr9 += -include windef.h
+WINAPI_FLAGS_errors += -include windef.h
+WINAPI_FLAGS_imm += -include windows.h -filterin '*/imm.h'
+WINAPI_FLAGS_intshcut += -include windows.h
+WINAPI_FLAGS_iphlpapi += -include windows.h
+WINAPI_FLAGS_iprtrmib += -include windows.h
+WINAPI_FLAGS_isguids += -include windef.h
+WINAPI_FLAGS_lzexpand += -include windows.h -filterin '*/lzexpand.h'
+WINAPI_FLAGS_mapi += -include windef.h
+WINAPI_FLAGS_mmsystem += -include windows.h -filterin '*/mmsystem.h'
+WINAPI_FLAGS_msacm += -include windows.h -include mmreg.h
+WINAPI_FLAGS_nb30 += -include windef.h
+WINAPI_FLAGS_nspapi += -include windef.h
+WINAPI_FLAGS_ntsecapi += -include windef.h
+WINAPI_FLAGS_ntsecpkg += -include winnt.h -define SECURITY_WIN32 1 -include sspi.h
+WINAPI_FLAGS_oleauto += -include windows.h -filterin '*/oleauto.h'
+WINAPI_FLAGS_ole += -include windef.h -define _Analysis_noreturn_ ""
+WINAPI_FLAGS_powrprof += -include windef.h
+WINAPI_FLAGS_prsht += -include windows.h -filterin '*/prsht.h'
+WINAPI_FLAGS_psapi += -include windef.h
+WINAPI_FLAGS_ras += -include windows.h
+WINAPI_FLAGS_rasdlg += -include windows.h
+WINAPI_FLAGS_rassapi += -include windef.h
+WINAPI_FLAGS_richedit += -include windows.h
+WINAPI_FLAGS_richole += -include windows.h
+WINAPI_FLAGS_rpcdce += -include windows.h -filterin '*/rpcdce.h'
+WINAPI_FLAGS_rpcdcep += -include windows.h -filterin '*/rpcdcep.h'
+WINAPI_FLAGS_rpcndr += -include windows.h -filterin '*/rpcndr.h'
+WINAPI_FLAGS_rpcnsi += -include windows.h -filterin '*/rpcnsi.h'
+WINAPI_FLAGS_rpcnsip += -include rpc.h -filterin '*rpcnsip.h'
+WINAPI_FLAGS_scrnsave += -include windef.h
+WINAPI_FLAGS_secext += -define SECURITY_WIN32 1
+WINAPI_FLAGS_security += -define SECURITY_WIN32 1
+WINAPI_FLAGS_setupapi += -include windows.h
+WINAPI_FLAGS_shellapi += -include windows.h -filterin '*/shellapi.h'
+WINAPI_FLAGS_shlguid += -include windef.h
+WINAPI_FLAGS_sqlext += -include windef.h
+WINAPI_FLAGS_sqltypes += -include windef.h
+WINAPI_FLAGS_sspi += -define SECURITY_WIN32 1 -include windef.h
+WINAPI_FLAGS_subauth += -include windef.h
+WINAPI_FLAGS_tlhelp32 += -include windef.h
+WINAPI_FLAGS_uuids += -include windef.h -filterin '*ksuuids.h'
+WINAPI_FLAGS_uxtheme += -include windows.h
+WINAPI_FLAGS_vfw += -include windows.h
+WINAPI_FLAGS_vfwmsgs += -include windows.h
+WINAPI_FLAGS_winbase += -include windows.h -filterin '*winbase.h'
+WINAPI_FLAGS_winber += -include windef.h
+WINAPI_FLAGS_wincon += -include windows.h -filterin '*/wincon.h'
+WINAPI_FLAGS_wincrypt += -include windows.h -filterin '*/wincrypt.h'
+WINAPI_FLAGS_winerror += -include windows.h -filterin '*/winerror.h'
+WINAPI_FLAGS_wingdi += -include windows.h -filterin '*/wingdi.h'
+WINAPI_FLAGS_wininet += -include windef.h
+WINAPI_FLAGS_winioctl += -include windef.h
+WINAPI_FLAGS_winnetwk += -include windef.h
+WINAPI_FLAGS_winnt += -include windows.h -filterin '*/winnt.h'
+WINAPI_FLAGS_winperf += -include windef.h
+WINAPI_FLAGS_winreg += -include windows.h -filterin '*/winreg.h'
+WINAPI_FLAGS_winspool += -include windef.h
+WINAPI_FLAGS_winsvc += -include windows.h -filterin '*/winsvc.h'
+WINAPI_FLAGS_winuser += -include windef.h
+WINAPI_FLAGS_winver += -include windef.h
+
+WINAPI_PATH_BASE    := extracted/$(MINGWW64_TITLE)/mingw-w64-headers/include
+WINAPI_PATH_DIRECTX := extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include
+
+# Make a winapi-* target for each *.h header. It's too slow to always
+# (re)translate all of them in one go, so this allows updating individual
+# headers. And there are too many headers to list the targets manually...
+define declare-winapi-target
+  winapi: inc/win/$(1).bi
+  inc/win/$(1).bi:
+	$$(FBFROG) $$(WINAPI_FLAGS) $$(WINAPI_FLAGS_$(1)) $$(WINAPI_PATH_$(2))/$(1).h
+
+endef
+$(eval $(foreach i,$(WINAPI_BASE),$(call declare-winapi-target,$(i),BASE)))
+$(eval $(foreach i,$(WINAPI_DIRECTX),$(call declare-winapi-target,$(i),DIRECTX)))
+
+################################################################################
 
 ZIP_TITLE := libzip-0.11.2
 zip:

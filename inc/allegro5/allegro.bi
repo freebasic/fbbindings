@@ -478,7 +478,11 @@ declare sub _al_trace_suffix(byval msg as const zstring ptr, ...)
 #define ALLEGRO_WARN ALLEGRO_TRACE_LEVEL(2)
 #define ALLEGRO_ERROR ALLEGRO_TRACE_LEVEL(3)
 
-extern _al_user_assert_handler as sub(byval expr as const zstring ptr, byval file as const zstring ptr, byval line_ as long, byval func as const zstring ptr)
+#if (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
+	extern _al_user_assert_handler as sub(byval expr as const zstring ptr, byval file as const zstring ptr, byval line_ as long, byval func as const zstring ptr)
+#else
+	extern import _al_user_assert_handler as sub(byval expr as const zstring ptr, byval file as const zstring ptr, byval line_ as long, byval func as const zstring ptr)
+#endif
 
 declare sub al_register_assert_handler(byval handler as sub(byval expr as const zstring ptr, byval file as const zstring ptr, byval line_ as long, byval func as const zstring ptr))
 
@@ -863,12 +867,12 @@ declare function al_get_display_mode(byval index as long, byval mode as ALLEGRO_
 #define _AL_MAX_JOYSTICK_STICKS 8
 #define _AL_MAX_JOYSTICK_BUTTONS 32
 
-type __dummyid_0_extracted_allegro_5_0_10_include_allegro5_joystick
+type __ALLEGRO_JOYSTICK_STATE_stick
 	axis(0 to 2) as single
 end type
 
 type ALLEGRO_JOYSTICK_STATE
-	stick(0 to 7) as __dummyid_0_extracted_allegro_5_0_10_include_allegro5_joystick
+	stick(0 to 7) as __ALLEGRO_JOYSTICK_STATE_stick
 	button(0 to 31) as long
 end type
 

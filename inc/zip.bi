@@ -17,8 +17,8 @@
 extern "C"
 
 type zip as zip_
-type zip_source as zip_source_
 type zip_file as zip_file_
+type zip_source as zip_source_
 
 #define LIBZIP_VERSION "0.11.2"
 #define LIBZIP_VERSION_MAJOR 0
