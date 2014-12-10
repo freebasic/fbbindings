@@ -1,10 +1,6 @@
 #pragma once
 
-#include once "winapifamily.bi"
-
-'' The following symbols have been renamed:
-''     variable ULONG => ULONG_
-''     variable INT => INT_
+#include once "crt/wchar.bi"
 
 extern "C"
 
@@ -20,37 +16,18 @@ type ber_uint_t as ulong
 type ber_len_t as ulong
 type ber_slen_t as long
 
-extern     BerElement as DECLSPEC_IMPORT
-dim shared BerElement as DECLSPEC_IMPORT
-
-'' TODO: DECLSPEC_IMPORT BerElement *__attribute__((__cdecl__)) ber_init (BERVAL *pBerVal);
-
-extern     VOID as DECLSPEC_IMPORT
-dim shared VOID as DECLSPEC_IMPORT
-
-'' TODO: DECLSPEC_IMPORT VOID __attribute__((__cdecl__)) ber_free (BerElement *pBerElement, INT fbuf);
-'' TODO: DECLSPEC_IMPORT VOID __attribute__((__cdecl__)) ber_bvfree (BERVAL *pBerVal);
-'' TODO: DECLSPEC_IMPORT VOID __attribute__((__cdecl__)) ber_bvecfree (PBERVAL *pBerVal);
-
-extern     BERVAL as DECLSPEC_IMPORT
-dim shared BERVAL as DECLSPEC_IMPORT
-
-'' TODO: DECLSPEC_IMPORT BERVAL *__attribute__((__cdecl__)) ber_bvdup (BERVAL *pBerVal);
-'' TODO: DECLSPEC_IMPORT BerElement *__attribute__((__cdecl__)) ber_alloc_t (INT options);
-
-extern     ULONG_ alias "ULONG" as DECLSPEC_IMPORT
-dim shared ULONG_ as DECLSPEC_IMPORT
-
-'' TODO: DECLSPEC_IMPORT ULONG __attribute__((__cdecl__)) ber_skip_tag (BerElement *pBerElement, ULONG *pLen);
-'' TODO: DECLSPEC_IMPORT ULONG __attribute__((__cdecl__)) ber_peek_tag (BerElement *pBerElement, ULONG *pLen);
-'' TODO: DECLSPEC_IMPORT ULONG __attribute__((__cdecl__)) ber_first_element (BerElement *pBerElement, ULONG *pLen, CHAR **ppOpaque);
-'' TODO: DECLSPEC_IMPORT ULONG __attribute__((__cdecl__)) ber_next_element (BerElement *pBerElement, ULONG *pLen, CHAR *opaque);
-
-extern     INT_ alias "INT" as DECLSPEC_IMPORT
-dim shared INT_ as DECLSPEC_IMPORT
-
-'' TODO: DECLSPEC_IMPORT INT __attribute__((__cdecl__)) ber_flatten (BerElement *pBerElement, PBERVAL *pBerVal);
-'' TODO: DECLSPEC_IMPORT INT __attribute__((__cdecl__)) ber_printf (BerElement *pBerElement, PSTR fmt,...);
-'' TODO: DECLSPEC_IMPORT ULONG __attribute__((__cdecl__)) ber_scanf (BerElement *pBerElement, PSTR fmt,...);
+declare function ber_init(byval pBerVal as BERVAL ptr) as BerElement ptr
+declare sub ber_free(byval pBerElement as BerElement ptr, byval fbuf as INT_)
+declare sub ber_bvfree(byval pBerVal as BERVAL ptr)
+declare sub ber_bvecfree(byval pBerVal as PBERVAL ptr)
+declare function ber_bvdup(byval pBerVal as BERVAL ptr) as BERVAL ptr
+declare function ber_alloc_t(byval options as INT_) as BerElement ptr
+declare function ber_skip_tag(byval pBerElement as BerElement ptr, byval pLen as ULONG_ ptr) as ULONG_
+declare function ber_peek_tag(byval pBerElement as BerElement ptr, byval pLen as ULONG_ ptr) as ULONG_
+declare function ber_first_element(byval pBerElement as BerElement ptr, byval pLen as ULONG_ ptr, byval ppOpaque as CHAR ptr ptr) as ULONG_
+declare function ber_next_element(byval pBerElement as BerElement ptr, byval pLen as ULONG_ ptr, byval opaque as CHAR ptr) as ULONG_
+declare function ber_flatten(byval pBerElement as BerElement ptr, byval pBerVal as PBERVAL ptr) as INT_
+declare function ber_printf(byval pBerElement as BerElement ptr, byval fmt as PSTR, ...) as INT_
+declare function ber_scanf(byval pBerElement as BerElement ptr, byval fmt as PSTR, ...) as ULONG_
 
 end extern
