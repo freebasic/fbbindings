@@ -375,6 +375,7 @@ WINAPI_FLAGS_intshcut += -include windows.h
 WINAPI_FLAGS_iphlpapi += -include windows.h
 WINAPI_FLAGS_iprtrmib += -include windows.h
 WINAPI_FLAGS_isguids += -include windef.h
+WINAPI_FLAGS_lzexpand += -include windows.h -filterin '*/lzexpand.h'
 WINAPI_FLAGS_mapi += -include windef.h
 WINAPI_FLAGS_mmsystem += -include windows.h
 WINAPI_FLAGS_msacm += -include windows.h -include mmreg.h

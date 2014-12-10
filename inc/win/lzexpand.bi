@@ -1,8 +1,13 @@
 #pragma once
 
+#include once "crt/wchar.bi"
 #include once "_mingw_unicode.bi"
 
-extern "C"
+#ifdef __FB_64BIT__
+	extern "C"
+#else
+	extern "Windows"
+#endif
 
 #define _LZEXPAND_
 #define LZERROR_BADINHANDLE (-1)
@@ -16,20 +21,17 @@ extern "C"
 #define GetExpandedName __MINGW_NAME_AW(GetExpandedName)
 #define LZOpenFile __MINGW_NAME_AW(LZOpenFile)
 
-extern     WINAPI as INT
-dim shared WINAPI as INT
-
-'' TODO: INT WINAPI LZStart(VOID);
-'' TODO: VOID WINAPI LZDone(VOID);
-'' TODO: LONG WINAPI CopyLZFile(INT,INT);
-'' TODO: LONG WINAPI LZCopy(INT,INT);
-'' TODO: INT WINAPI LZInit(INT);
-'' TODO: INT WINAPI GetExpandedNameA(LPSTR,LPSTR);
-'' TODO: INT WINAPI GetExpandedNameW(LPWSTR,LPWSTR);
-'' TODO: INT WINAPI LZOpenFileA(LPSTR,LPOFSTRUCT,WORD);
-'' TODO: INT WINAPI LZOpenFileW(LPWSTR,LPOFSTRUCT,WORD);
-'' TODO: LONG WINAPI LZSeek(INT,LONG,INT);
-'' TODO: INT WINAPI LZRead(INT,LPSTR,INT);
-'' TODO: VOID WINAPI LZClose(INT);
+declare function LZStart() as INT_
+declare sub LZDone()
+declare function CopyLZFile(byval as INT_, byval as INT_) as LONG_
+declare function LZCopy(byval as INT_, byval as INT_) as LONG_
+declare function LZInit(byval as INT_) as INT_
+declare function GetExpandedNameA(byval as LPSTR, byval as LPSTR) as INT_
+declare function GetExpandedNameW(byval as LPWSTR, byval as LPWSTR) as INT_
+declare function LZOpenFileA(byval as LPSTR, byval as LPOFSTRUCT, byval as WORD) as INT_
+declare function LZOpenFileW(byval as LPWSTR, byval as LPOFSTRUCT, byval as WORD) as INT_
+declare function LZSeek(byval as INT_, byval as LONG_, byval as INT_) as LONG_
+declare function LZRead(byval as INT_, byval as LPSTR, byval as INT_) as INT_
+declare sub LZClose(byval as INT_)
 
 end extern
