@@ -1,19 +1,19 @@
 #pragma once
 
+#include once "crt/wchar.bi"
 #include once "dls1.bi"
 
 #define __WINE_DMUSIC_DLS_H
 
-type GCENT as LONG
-type PCENT as LONG
-type PERCENT as LONG
-type TCENT as LONG
+type GCENT as LONG_
+type PCENT as LONG_
+type PERCENT as LONG_
+type TCENT as LONG_
 type REFERENCE_TIME as LONGLONG
 type LPREFERENCE_TIME as LONGLONG ptr
 type FOURCC as DWORD
 
-'' TODO: #define mmioFOURCC(ch0,ch1,ch2,ch3) ((DWORD)(BYTE)(ch0) | ((DWORD)(BYTE)(ch1) << 8) | ((DWORD)(BYTE)(ch2) << 16) | ((DWORD)(BYTE)(ch3) << 24 ))
-
+#define mmioFOURCC(ch0, ch1, ch2, ch3) cast(DWORD, cast(BYTE_, (((ch0) or cast(DWORD, cast(BYTE_, (ch1) shl 8))) or cast(DWORD, cast(BYTE_, (ch2) shl 16))) or cast(DWORD, cast(BYTE_, (ch3) shl 24))))
 #define DMUS_DEFAULT_SIZE_OFFSETTABLE &h1
 #define DMUS_DOWNLOADINFO_INSTRUMENT &h1
 #define DMUS_DOWNLOADINFO_WAVE &h2
@@ -69,26 +69,26 @@ type _DMUS_DOWNLOADINFO
 end type
 
 type _DMUS_OFFSETTABLE
-	ulOffsetTable(0 to 0) as ULONG
+	ulOffsetTable(0 to 0) as ULONG_
 end type
 
 type _DMUS_INSTRUMENT
-	ulPatch as ULONG
-	ulFirstRegionIdx as ULONG
-	ulGlobalArtIdx as ULONG
-	ulFirstExtCkIdx as ULONG
-	ulCopyrightIdx as ULONG
-	ulFlags as ULONG
+	ulPatch as ULONG_
+	ulFirstRegionIdx as ULONG_
+	ulGlobalArtIdx as ULONG_
+	ulFirstExtCkIdx as ULONG_
+	ulCopyrightIdx as ULONG_
+	ulFlags as ULONG_
 end type
 
 type _DMUS_REGION
 	RangeKey as RGNRANGE
 	RangeVelocity as RGNRANGE
-	fusOptions as USHORT
-	usKeyGroup as USHORT
-	ulRegionArtIdx as ULONG
-	ulNextRegionIdx as ULONG
-	ulFirstExtCkIdx as ULONG
+	fusOptions as USHORT_
+	usKeyGroup as USHORT_
+	ulRegionArtIdx as ULONG_
+	ulNextRegionIdx as ULONG_
+	ulFirstExtCkIdx as ULONG_
 	WaveLink as WAVELINK
 	WSMP as WSMPL
 	WLOOP(0 to 0) as _rloop
@@ -134,37 +134,37 @@ type _DMUS_ARTICPARAMS
 end type
 
 type _DMUS_ARTICULATION
-	ulArt1Idx as ULONG
-	ulFirstExtCkIdx as ULONG
+	ulArt1Idx as ULONG_
+	ulFirstExtCkIdx as ULONG_
 end type
 
 type _DMUS_ARTICULATION2
-	ulArtIdx as ULONG
-	ulFirstExtCkIdx as ULONG
-	ulNextArtIdx as ULONG
+	ulArtIdx as ULONG_
+	ulFirstExtCkIdx as ULONG_
+	ulNextArtIdx as ULONG_
 end type
 
 type _DMUS_EXTENSIONCHUNK
-	cbSize as ULONG
-	ulNextExtCkIdx as ULONG
+	cbSize as ULONG_
+	ulNextExtCkIdx as ULONG_
 	ExtCkID as FOURCC
-	byExtCk(0 to 3) as BYTE
+	byExtCk(0 to 3) as BYTE_
 end type
 
 type _DMUS_COPYRIGHT
-	cbSize as ULONG
-	byCopyright(0 to 3) as BYTE
+	cbSize as ULONG_
+	byCopyright(0 to 3) as BYTE_
 end type
 
 type _DMUS_WAVEDATA
-	cbSize as ULONG
-	byData(0 to 3) as BYTE
+	cbSize as ULONG_
+	byData(0 to 3) as BYTE_
 end type
 
 type _DMUS_WAVE
-	ulFirstExtCkIdx as ULONG
-	ulCopyrightIdx as ULONG
-	ulWaveDataIdx as ULONG
+	ulFirstExtCkIdx as ULONG_
+	ulCopyrightIdx as ULONG_
+	ulWaveDataIdx as ULONG_
 	WaveformatEx as WAVEFORMATEX
 end type
 
@@ -174,13 +174,13 @@ type _DMUS_NOTERANGE
 end type
 
 type _DMUS_WAVEARTDL
-	ulDownloadIdIdx as ULONG
-	ulBus as ULONG
-	ulBuffers as ULONG
-	ulMasterDLId as ULONG
-	usOptions as USHORT
+	ulDownloadIdIdx as ULONG_
+	ulBus as ULONG_
+	ulBuffers as ULONG_
+	ulMasterDLId as ULONG_
+	usOptions as USHORT_
 end type
 
 type _DMUS_WAVEDL
-	cbWaveData as ULONG
+	cbWaveData as ULONG_
 end type

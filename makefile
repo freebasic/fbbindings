@@ -364,6 +364,7 @@ WINAPI_FLAGS_custcntl += -include windows.h
 WINAPI_FLAGS_d3d9types += -include windows.h
 WINAPI_FLAGS_d3dx9anim += -include d3dx9.h -filterin '*d3dx9anim.h'
 WINAPI_FLAGS_ddeml += -include windows.h
+WINAPI_FLAGS_dmdls += -include windef.h
 WINAPI_FLAGS_imm += -include windows.h
 WINAPI_FLAGS_iphlpapi += -include windows.h
 WINAPI_FLAGS_iprtrmib += -include windows.h
