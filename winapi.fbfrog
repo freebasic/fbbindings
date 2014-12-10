@@ -55,3 +55,12 @@
 -removedefine WINOLECTLAPI
 -removedefine WINOLECTLAPI_
 -removedefine VOL
+-removedefine SHSTDAPI
+-removedefine SHSTDAPI_
+-removedefine SHDOCAPI
+-removedefine SHDOCAPI_
+-removedefine SHSTDDOCAPI
+-removedefine SHSTDDOCAPI_
+-removedefine BROWSEUIAPI
+-removedefine BROWSEUIAPI_
+-removedefine SHFOLDERAPI
