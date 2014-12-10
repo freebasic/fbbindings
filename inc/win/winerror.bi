@@ -1,5 +1,6 @@
 #pragma once
 
+#include once "crt/wchar.bi"
 #include once "fltwinerror.bi"
 
 #define _WINERROR_
@@ -37,9 +38,7 @@
 #define FACILITY_AUDCLNT 2185
 #define ERROR_SUCCESS __MSABI_LONG(0)
 #define NO_ERROR __MSABI_LONG(0)
-
-'' TODO: #define SEC_E_OK ((HRESULT)0x00000000)
-
+#define SEC_E_OK cast(HRESULT, &h00000000)
 #define ERROR_INVALID_FUNCTION __MSABI_LONG(1)
 #define ERROR_FILE_NOT_FOUND __MSABI_LONG(2)
 #define ERROR_PATH_NOT_FOUND __MSABI_LONG(3)
@@ -1891,9 +1890,9 @@
 #define ERROR_IPSEC_IKE_NEG_STATUS_END __MSABI_LONG(13884)
 #define SEVERITY_SUCCESS 0
 #define SEVERITY_ERROR 1
+#define SUCCEEDED(hr) cast(HRESULT, -((hr) >= 0))
+#define FAILED(hr) cast(HRESULT, -((hr) < 0))
 
-'' TODO: #define SUCCEEDED(hr) ((HRESULT)(hr) >= 0)
-'' TODO: #define FAILED(hr) ((HRESULT)(hr) < 0)
 '' TODO: #define IS_ERROR(Status) ((unsigned __LONG32)(Status) >> 31==SEVERITY_ERROR)
 
 #define HRESULT_CODE(hr) ((hr) and &hFFFF)
@@ -1907,17 +1906,13 @@
 '' TODO: #define MAKE_SCODE(sev,fac,code) ((SCODE) (((unsigned __LONG32)(sev)<<31) | ((unsigned __LONG32)(fac)<<16) | ((unsigned __LONG32)(code))))
 
 #define FACILITY_NT_BIT &h10000000
-
-'' TODO: #define __HRESULT_FROM_WIN32(x) ((HRESULT)(x) <= 0 ? ((HRESULT)(x)) : ((HRESULT) (((x) & 0x0000FFFF) | (FACILITY_WIN32 << 16) | 0x80000000)))
-
+#define __HRESULT_FROM_WIN32(x) cast(HRESULT, iif((x) <= 0, cast(HRESULT, (x)), cast(HRESULT, (((x) and &h0000FFFF) or (FACILITY_WIN32 shl 16)) or &h80000000)))
 #define HRESULT_FROM_WIN32(x) __HRESULT_FROM_WIN32(x)
-
-'' TODO: #define HRESULT_FROM_NT(x) ((HRESULT) ((x) | FACILITY_NT_BIT))
-'' TODO: #define GetScode(hr) ((SCODE) (hr))
-'' TODO: #define ResultFromScode(sc) ((HRESULT) (sc))
-'' TODO: #define PropagateResult(hrPrevious,scBase) ((HRESULT) scBase)
-'' TODO: #define _HRESULT_TYPEDEF_(_sc) ((HRESULT)_sc)
-
+#define HRESULT_FROM_NT(x) cast(HRESULT, (x) or FACILITY_NT_BIT)
+#define GetScode(hr) cast(SCODE, (hr))
+#define ResultFromScode(sc) cast(HRESULT, (sc))
+#define PropagateResult(hrPrevious, scBase) cast(HRESULT, scBase)
+#define _HRESULT_TYPEDEF_(_sc) cast(HRESULT, _sc)
 #define NOERROR 0
 #define E_UNEXPECTED _HRESULT_TYPEDEF_(&h8000FFFF)
 #define E_NOTIMPL _HRESULT_TYPEDEF_(&h80004001)
@@ -1973,14 +1968,12 @@
 #define CO_E_THREADPOOL_CONFIG _HRESULT_TYPEDEF_(&h80004031)
 #define CO_E_SXS_CONFIG _HRESULT_TYPEDEF_(&h80004032)
 #define CO_E_MALFORMED_SPN _HRESULT_TYPEDEF_(&h80004033)
-
-'' TODO: #define S_OK ((HRESULT)0x00000000)
-'' TODO: #define S_FALSE ((HRESULT)0x00000001)
-'' TODO: #define OLE_E_FIRST ((HRESULT)0x80040000)
-'' TODO: #define OLE_E_LAST ((HRESULT)0x800400FF)
-'' TODO: #define OLE_S_FIRST ((HRESULT)0x00040000)
-'' TODO: #define OLE_S_LAST ((HRESULT)0x000400FF)
-
+#define S_OK cast(HRESULT, &h00000000)
+#define S_FALSE cast(HRESULT, &h00000001)
+#define OLE_E_FIRST cast(HRESULT, &h80040000)
+#define OLE_E_LAST cast(HRESULT, &h800400FF)
+#define OLE_S_FIRST cast(HRESULT, &h00040000)
+#define OLE_S_LAST cast(HRESULT, &h000400FF)
 #define OLE_E_OLEVERB _HRESULT_TYPEDEF_(&h80040000)
 #define OLE_E_ADVF _HRESULT_TYPEDEF_(&h80040001)
 #define OLE_E_ENUM_NOMORE _HRESULT_TYPEDEF_(&h80040002)
@@ -2842,9 +2835,7 @@
 #define CERT_E_UNTRUSTEDCA _HRESULT_TYPEDEF_(&h800B0112)
 #define CERT_E_INVALID_POLICY _HRESULT_TYPEDEF_(&h800B0113)
 #define CERT_E_INVALID_NAME _HRESULT_TYPEDEF_(&h800B0114)
-
-'' TODO: #define HRESULT_FROM_SETUPAPI(x) ((((x) & (APPLICATION_ERROR_MASK|ERROR_SEVERITY_ERROR))==(APPLICATION_ERROR_MASK|ERROR_SEVERITY_ERROR)) ? ((HRESULT) (((x) & 0x0000FFFF) | (FACILITY_SETUPAPI << 16) | 0x80000000)) : HRESULT_FROM_WIN32(x))
-
+#define HRESULT_FROM_SETUPAPI(x) iif(((x) and (APPLICATION_ERROR_MASK or ERROR_SEVERITY_ERROR)) = (APPLICATION_ERROR_MASK or ERROR_SEVERITY_ERROR), cast(HRESULT, (((x) and &h0000FFFF) or (FACILITY_SETUPAPI shl 16)) or &h80000000), HRESULT_FROM_WIN32(x))
 #define SPAPI_E_EXPECTED_SECTION_NAME _HRESULT_TYPEDEF_(&h800F0000)
 #define SPAPI_E_BAD_SECTION_NAME_LINE _HRESULT_TYPEDEF_(&h800F0001)
 #define SPAPI_E_SECTION_NAME_TOO_LONG _HRESULT_TYPEDEF_(&h800F0002)
