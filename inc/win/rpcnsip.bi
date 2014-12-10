@@ -1,0 +1,26 @@
+#pragma once
+
+extern "C"
+
+#define __RPCNSIP_H__
+
+type RPC_IMPORT_CONTEXT_P
+	LookupContext as RPC_NS_HANDLE
+	ProposedHandle as RPC_BINDING_HANDLE
+	Bindings as RPC_BINDING_VECTOR ptr
+end type
+
+type PRPC_IMPORT_CONTEXT_P as RPC_IMPORT_CONTEXT_P ptr
+
+extern     RPC_STATUS as RPCNSAPI
+dim shared RPC_STATUS as RPCNSAPI
+
+'' TODO: RPCNSAPI RPC_STATUS RPC_ENTRY I_RpcNsGetBuffer(PRPC_MESSAGE Message);
+'' TODO: RPCNSAPI RPC_STATUS RPC_ENTRY I_RpcNsSendReceive(PRPC_MESSAGE Message,RPC_BINDING_HANDLE *Handle);
+'' TODO: RPCNSAPI void RPC_ENTRY I_RpcNsRaiseException(PRPC_MESSAGE Message,RPC_STATUS Status);
+'' TODO: RPCNSAPI RPC_STATUS RPC_ENTRY I_RpcReBindBuffer(PRPC_MESSAGE Message);
+'' TODO: RPCNSAPI RPC_STATUS RPC_ENTRY I_NsServerBindSearch();
+'' TODO: RPCNSAPI RPC_STATUS RPC_ENTRY I_NsClientBindSearch();
+'' TODO: RPCNSAPI void RPC_ENTRY I_NsClientBindDone();
+
+end extern

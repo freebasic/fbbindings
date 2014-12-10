@@ -1,0 +1,2667 @@
+#pragma once
+
+#include once "crt/wchar.bi"
+#include once "_mingw_unicode.bi"
+#include once "commctrl.bi"
+
+#ifdef __FB_64BIT__
+	extern "C"
+#else
+	extern "Windows"
+#endif
+
+#define _INC_SETUPAPI
+#define WINSETUPAPI DECLSPEC_IMPORT
+#define _SETUPAPI_VER &h0502
+
+type HINF as PVOID
+
+#define LINE_LEN 256
+#define MAX_INF_STRING_LENGTH 4096
+#define MAX_INF_SECTION_NAME_LENGTH 255
+#define MAX_TITLE_LEN 60
+#define MAX_INSTRUCTION_LEN 256
+#define MAX_LABEL_LEN 30
+#define MAX_SERVICE_NAME_LEN 256
+#define MAX_SUBTITLE_LEN 256
+#define SP_MAX_MACHINENAME_LENGTH (MAX_PATH + 3)
+
+#ifdef __FB_64BIT__
+	type _INFCONTEXT field = 8
+		Inf as PVOID
+		CurrentInf as PVOID
+		Section as UINT
+		Line as UINT
+	end type
+#else
+	type _INFCONTEXT field = 1
+		Inf as PVOID
+		CurrentInf as PVOID
+		Section as UINT
+		Line as UINT
+	end type
+#endif
+
+type INFCONTEXT as _INFCONTEXT
+type PINFCONTEXT as _INFCONTEXT ptr
+
+#ifdef __FB_64BIT__
+	type _SP_INF_INFORMATION field = 8
+		InfStyle as DWORD
+		InfCount as DWORD
+		VersionData(0 to 0) as BYTE_
+	end type
+#else
+	type _SP_INF_INFORMATION field = 1
+		InfStyle as DWORD
+		InfCount as DWORD
+		VersionData(0 to 0) as BYTE_
+	end type
+#endif
+
+type SP_INF_INFORMATION as _SP_INF_INFORMATION
+type PSP_INF_INFORMATION as _SP_INF_INFORMATION ptr
+
+#ifdef __FB_64BIT__
+	type _SP_ALTPLATFORM_INFO_V2 field = 8
+		cbSize as DWORD
+		Platform as DWORD
+		MajorVersion as DWORD
+		MinorVersion as DWORD
+		ProcessorArchitecture as WORD
+
+		union field = 8
+			Reserved as WORD
+			Flags as WORD
+		end union
+
+		FirstValidatedMajorVersion as DWORD
+		FirstValidatedMinorVersion as DWORD
+	end type
+#else
+	type _SP_ALTPLATFORM_INFO_V2 field = 1
+		cbSize as DWORD
+		Platform as DWORD
+		MajorVersion as DWORD
+		MinorVersion as DWORD
+		ProcessorArchitecture as WORD
+
+		union field = 1
+			Reserved as WORD
+			Flags as WORD
+		end union
+
+		FirstValidatedMajorVersion as DWORD
+		FirstValidatedMinorVersion as DWORD
+	end type
+#endif
+
+type SP_ALTPLATFORM_INFO_V2 as _SP_ALTPLATFORM_INFO_V2
+type PSP_ALTPLATFORM_INFO_V2 as _SP_ALTPLATFORM_INFO_V2 ptr
+
+#ifdef __FB_64BIT__
+	type _SP_ALTPLATFORM_INFO_V1 field = 8
+		cbSize as DWORD
+		Platform as DWORD
+		MajorVersion as DWORD
+		MinorVersion as DWORD
+		ProcessorArchitecture as WORD
+		Reserved as WORD
+	end type
+#else
+	type _SP_ALTPLATFORM_INFO_V1 field = 1
+		cbSize as DWORD
+		Platform as DWORD
+		MajorVersion as DWORD
+		MinorVersion as DWORD
+		ProcessorArchitecture as WORD
+		Reserved as WORD
+	end type
+#endif
+
+type SP_ALTPLATFORM_INFO_V1 as _SP_ALTPLATFORM_INFO_V1
+type PSP_ALTPLATFORM_INFO_V1 as _SP_ALTPLATFORM_INFO_V1 ptr
+type SP_ALTPLATFORM_INFO as SP_ALTPLATFORM_INFO_V2
+type PSP_ALTPLATFORM_INFO as PSP_ALTPLATFORM_INFO_V2
+
+#define SP_ALTPLATFORM_FLAGS_VERSION_RANGE &h0001
+
+#ifdef __FB_64BIT__
+	type _SP_ORIGINAL_FILE_INFO_A field = 8
+		cbSize as DWORD
+		OriginalInfName(0 to 259) as CHAR
+		OriginalCatalogName(0 to 259) as CHAR
+	end type
+#else
+	type _SP_ORIGINAL_FILE_INFO_A field = 1
+		cbSize as DWORD
+		OriginalInfName(0 to 259) as CHAR
+		OriginalCatalogName(0 to 259) as CHAR
+	end type
+#endif
+
+type SP_ORIGINAL_FILE_INFO_A as _SP_ORIGINAL_FILE_INFO_A
+type PSP_ORIGINAL_FILE_INFO_A as _SP_ORIGINAL_FILE_INFO_A ptr
+
+#ifdef __FB_64BIT__
+	type _SP_ORIGINAL_FILE_INFO_W field = 8
+		cbSize as DWORD
+		OriginalInfName(0 to 259) as WCHAR
+		OriginalCatalogName(0 to 259) as WCHAR
+	end type
+#else
+	type _SP_ORIGINAL_FILE_INFO_W field = 1
+		cbSize as DWORD
+		OriginalInfName(0 to 259) as WCHAR
+		OriginalCatalogName(0 to 259) as WCHAR
+	end type
+#endif
+
+type SP_ORIGINAL_FILE_INFO_W as _SP_ORIGINAL_FILE_INFO_W
+type PSP_ORIGINAL_FILE_INFO_W as _SP_ORIGINAL_FILE_INFO_W ptr
+
+#ifdef UNICODE
+	type SP_ORIGINAL_FILE_INFO as SP_ORIGINAL_FILE_INFO_W
+	type PSP_ORIGINAL_FILE_INFO as PSP_ORIGINAL_FILE_INFO_W
+#else
+	type SP_ORIGINAL_FILE_INFO as SP_ORIGINAL_FILE_INFO_A
+	type PSP_ORIGINAL_FILE_INFO as PSP_ORIGINAL_FILE_INFO_A
+#endif
+
+#define INF_STYLE_NONE &h00000000
+#define INF_STYLE_OLDNT &h00000001
+#define INF_STYLE_WIN4 &h00000002
+#define INF_STYLE_CACHE_ENABLE &h00000010
+#define INF_STYLE_CACHE_DISABLE &h00000020
+#define INF_STYLE_CACHE_IGNORE &h00000040
+#define DIRID_ABSOLUTE (-1)
+#define DIRID_ABSOLUTE_16BIT &hffff
+#define DIRID_NULL 0
+#define DIRID_SRCPATH 1
+#define DIRID_WINDOWS 10
+#define DIRID_SYSTEM 11
+#define DIRID_DRIVERS 12
+#define DIRID_IOSUBSYS DIRID_DRIVERS
+#define DIRID_INF 17
+#define DIRID_HELP 18
+#define DIRID_FONTS 20
+#define DIRID_VIEWERS 21
+#define DIRID_COLOR 23
+#define DIRID_APPS 24
+#define DIRID_SHARED 25
+#define DIRID_BOOT 30
+#define DIRID_SYSTEM16 50
+#define DIRID_SPOOL 51
+#define DIRID_SPOOLDRIVERS 52
+#define DIRID_USERPROFILE 53
+#define DIRID_LOADER 54
+#define DIRID_PRINTPROCESSOR 55
+#define DIRID_DEFAULT DIRID_SYSTEM
+#define DIRID_COMMON_STARTMENU 16406
+#define DIRID_COMMON_PROGRAMS 16407
+#define DIRID_COMMON_STARTUP 16408
+#define DIRID_COMMON_DESKTOPDIRECTORY 16409
+#define DIRID_COMMON_FAVORITES 16415
+#define DIRID_COMMON_APPDATA 16419
+#define DIRID_PROGRAM_FILES 16422
+#define DIRID_SYSTEM_X86 16425
+#define DIRID_PROGRAM_FILES_X86 16426
+#define DIRID_PROGRAM_FILES_COMMON 16427
+#define DIRID_PROGRAM_FILES_COMMONX86 16428
+#define DIRID_COMMON_TEMPLATES 16429
+#define DIRID_COMMON_DOCUMENTS 16430
+#define DIRID_USER &h8000
+
+type PSP_FILE_CALLBACK_A as function(byval Context as PVOID, byval Notification as UINT, byval Param1 as UINT_PTR, byval Param2 as UINT_PTR) as UINT
+type PSP_FILE_CALLBACK_W as function(byval Context as PVOID, byval Notification as UINT, byval Param1 as UINT_PTR, byval Param2 as UINT_PTR) as UINT
+
+#define PSP_FILE_CALLBACK __MINGW_NAME_UAW(PSP_FILE_CALLBACK)
+#define SPFILENOTIFY_STARTQUEUE &h00000001
+#define SPFILENOTIFY_ENDQUEUE &h00000002
+#define SPFILENOTIFY_STARTSUBQUEUE &h00000003
+#define SPFILENOTIFY_ENDSUBQUEUE &h00000004
+#define SPFILENOTIFY_STARTDELETE &h00000005
+#define SPFILENOTIFY_ENDDELETE &h00000006
+#define SPFILENOTIFY_DELETEERROR &h00000007
+#define SPFILENOTIFY_STARTRENAME &h00000008
+#define SPFILENOTIFY_ENDRENAME &h00000009
+#define SPFILENOTIFY_RENAMEERROR &h0000000a
+#define SPFILENOTIFY_STARTCOPY &h0000000b
+#define SPFILENOTIFY_ENDCOPY &h0000000c
+#define SPFILENOTIFY_COPYERROR &h0000000d
+#define SPFILENOTIFY_NEEDMEDIA &h0000000e
+#define SPFILENOTIFY_QUEUESCAN &h0000000f
+#define SPFILENOTIFY_CABINETINFO &h00000010
+#define SPFILENOTIFY_FILEINCABINET &h00000011
+#define SPFILENOTIFY_NEEDNEWCABINET &h00000012
+#define SPFILENOTIFY_FILEEXTRACTED &h00000013
+#define SPFILENOTIFY_FILEOPDELAYED &h00000014
+#define SPFILENOTIFY_STARTBACKUP &h00000015
+#define SPFILENOTIFY_BACKUPERROR &h00000016
+#define SPFILENOTIFY_ENDBACKUP &h00000017
+#define SPFILENOTIFY_QUEUESCAN_EX &h00000018
+#define SPFILENOTIFY_STARTREGISTRATION &h00000019
+#define SPFILENOTIFY_ENDREGISTRATION &h00000020
+#define SPFILENOTIFY_QUEUESCAN_SIGNERINFO &h00000040
+#define SPFILENOTIFY_LANGMISMATCH &h00010000
+#define SPFILENOTIFY_TARGETEXISTS &h00020000
+#define SPFILENOTIFY_TARGETNEWER &h00040000
+#define FILEOP_COPY 0
+#define FILEOP_RENAME 1
+#define FILEOP_DELETE 2
+#define FILEOP_BACKUP 3
+#define FILEOP_ABORT 0
+#define FILEOP_DOIT 1
+#define FILEOP_SKIP 2
+#define FILEOP_RETRY FILEOP_DOIT
+#define FILEOP_NEWPATH 4
+#define COPYFLG_WARN_IF_SKIP &h00000001
+#define COPYFLG_NOSKIP &h00000002
+#define COPYFLG_NOVERSIONCHECK &h00000004
+#define COPYFLG_FORCE_FILE_IN_USE &h00000008
+#define COPYFLG_NO_OVERWRITE &h00000010
+#define COPYFLG_NO_VERSION_DIALOG &h00000020
+#define COPYFLG_OVERWRITE_OLDER_ONLY &h00000040
+#define COPYFLG_REPLACEONLY &h00000400
+#define COPYFLG_NODECOMP &h00000800
+#define COPYFLG_REPLACE_BOOT_FILE &h00001000
+#define COPYFLG_NOPRUNE &h00002000
+#define DELFLG_IN_USE &h00000001
+#define DELFLG_IN_USE1 &h00010000
+
+#ifdef __FB_64BIT__
+	type _FILEPATHS_A field = 8
+		Target as PCSTR
+		Source as PCSTR
+		Win32Error as UINT
+		Flags as DWORD
+	end type
+#else
+	type _FILEPATHS_A field = 1
+		Target as PCSTR
+		Source as PCSTR
+		Win32Error as UINT
+		Flags as DWORD
+	end type
+#endif
+
+type FILEPATHS_A as _FILEPATHS_A
+type PFILEPATHS_A as _FILEPATHS_A ptr
+
+#ifdef __FB_64BIT__
+	type _FILEPATHS_W field = 8
+		Target as PCWSTR
+		Source as PCWSTR
+		Win32Error as UINT
+		Flags as DWORD
+	end type
+#else
+	type _FILEPATHS_W field = 1
+		Target as PCWSTR
+		Source as PCWSTR
+		Win32Error as UINT
+		Flags as DWORD
+	end type
+#endif
+
+type FILEPATHS_W as _FILEPATHS_W
+type PFILEPATHS_W as _FILEPATHS_W ptr
+
+#ifdef UNICODE
+	type FILEPATHS as FILEPATHS_W
+	type PFILEPATHS as PFILEPATHS_W
+#else
+	type FILEPATHS as FILEPATHS_A
+	type PFILEPATHS as PFILEPATHS_A
+#endif
+
+#ifdef __FB_64BIT__
+	type _FILEPATHS_SIGNERINFO_A field = 8
+		Target as PCSTR
+		Source as PCSTR
+		Win32Error as UINT
+		Flags as DWORD
+		DigitalSigner as PCSTR
+		Version as PCSTR
+		CatalogFile as PCSTR
+	end type
+#else
+	type _FILEPATHS_SIGNERINFO_A field = 1
+		Target as PCSTR
+		Source as PCSTR
+		Win32Error as UINT
+		Flags as DWORD
+		DigitalSigner as PCSTR
+		Version as PCSTR
+		CatalogFile as PCSTR
+	end type
+#endif
+
+type FILEPATHS_SIGNERINFO_A as _FILEPATHS_SIGNERINFO_A
+type PFILEPATHS_SIGNERINFO_A as _FILEPATHS_SIGNERINFO_A ptr
+
+#ifdef __FB_64BIT__
+	type _FILEPATHS_SIGNERINFO_W field = 8
+		Target as PCWSTR
+		Source as PCWSTR
+		Win32Error as UINT
+		Flags as DWORD
+		DigitalSigner as PCWSTR
+		Version as PCWSTR
+		CatalogFile as PCWSTR
+	end type
+#else
+	type _FILEPATHS_SIGNERINFO_W field = 1
+		Target as PCWSTR
+		Source as PCWSTR
+		Win32Error as UINT
+		Flags as DWORD
+		DigitalSigner as PCWSTR
+		Version as PCWSTR
+		CatalogFile as PCWSTR
+	end type
+#endif
+
+type FILEPATHS_SIGNERINFO_W as _FILEPATHS_SIGNERINFO_W
+type PFILEPATHS_SIGNERINFO_W as _FILEPATHS_SIGNERINFO_W ptr
+
+#ifdef UNICODE
+	type FILEPATHS_SIGNERINFO as FILEPATHS_SIGNERINFO_W
+	type PFILEPATHS_SIGNERINFO as PFILEPATHS_SIGNERINFO_W
+#else
+	type FILEPATHS_SIGNERINFO as FILEPATHS_SIGNERINFO_A
+	type PFILEPATHS_SIGNERINFO as PFILEPATHS_SIGNERINFO_A
+#endif
+
+#ifdef __FB_64BIT__
+	type _SOURCE_MEDIA_A field = 8
+		Reserved as PCSTR
+		Tagfile as PCSTR
+		Description as PCSTR
+		SourcePath as PCSTR
+		SourceFile as PCSTR
+		Flags as DWORD
+	end type
+#else
+	type _SOURCE_MEDIA_A field = 1
+		Reserved as PCSTR
+		Tagfile as PCSTR
+		Description as PCSTR
+		SourcePath as PCSTR
+		SourceFile as PCSTR
+		Flags as DWORD
+	end type
+#endif
+
+type SOURCE_MEDIA_A as _SOURCE_MEDIA_A
+type PSOURCE_MEDIA_A as _SOURCE_MEDIA_A ptr
+
+#ifdef __FB_64BIT__
+	type _SOURCE_MEDIA_W field = 8
+		Reserved as PCWSTR
+		Tagfile as PCWSTR
+		Description as PCWSTR
+		SourcePath as PCWSTR
+		SourceFile as PCWSTR
+		Flags as DWORD
+	end type
+#else
+	type _SOURCE_MEDIA_W field = 1
+		Reserved as PCWSTR
+		Tagfile as PCWSTR
+		Description as PCWSTR
+		SourcePath as PCWSTR
+		SourceFile as PCWSTR
+		Flags as DWORD
+	end type
+#endif
+
+type SOURCE_MEDIA_W as _SOURCE_MEDIA_W
+type PSOURCE_MEDIA_W as _SOURCE_MEDIA_W ptr
+
+#ifdef UNICODE
+	type SOURCE_MEDIA as SOURCE_MEDIA_W
+	type PSOURCE_MEDIA as PSOURCE_MEDIA_W
+#else
+	type SOURCE_MEDIA as SOURCE_MEDIA_A
+	type PSOURCE_MEDIA as PSOURCE_MEDIA_A
+#endif
+
+#ifdef __FB_64BIT__
+	type _CABINET_INFO_A field = 8
+		CabinetPath as PCSTR
+		CabinetFile as PCSTR
+		DiskName as PCSTR
+		SetId as USHORT_
+		CabinetNumber as USHORT_
+	end type
+#else
+	type _CABINET_INFO_A field = 1
+		CabinetPath as PCSTR
+		CabinetFile as PCSTR
+		DiskName as PCSTR
+		SetId as USHORT_
+		CabinetNumber as USHORT_
+	end type
+#endif
+
+type CABINET_INFO_A as _CABINET_INFO_A
+type PCABINET_INFO_A as _CABINET_INFO_A ptr
+
+#ifdef __FB_64BIT__
+	type _CABINET_INFO_W field = 8
+		CabinetPath as PCWSTR
+		CabinetFile as PCWSTR
+		DiskName as PCWSTR
+		SetId as USHORT_
+		CabinetNumber as USHORT_
+	end type
+#else
+	type _CABINET_INFO_W field = 1
+		CabinetPath as PCWSTR
+		CabinetFile as PCWSTR
+		DiskName as PCWSTR
+		SetId as USHORT_
+		CabinetNumber as USHORT_
+	end type
+#endif
+
+type CABINET_INFO_W as _CABINET_INFO_W
+type PCABINET_INFO_W as _CABINET_INFO_W ptr
+
+#ifdef UNICODE
+	type CABINET_INFO as CABINET_INFO_W
+	type PCABINET_INFO as PCABINET_INFO_W
+#else
+	type CABINET_INFO as CABINET_INFO_A
+	type PCABINET_INFO as PCABINET_INFO_A
+#endif
+
+#ifdef __FB_64BIT__
+	type _FILE_IN_CABINET_INFO_A field = 8
+		NameInCabinet as PCSTR
+		FileSize as DWORD
+		Win32Error as DWORD
+		DosDate as WORD
+		DosTime as WORD
+		DosAttribs as WORD
+		FullTargetName(0 to 259) as CHAR
+	end type
+#else
+	type _FILE_IN_CABINET_INFO_A field = 1
+		NameInCabinet as PCSTR
+		FileSize as DWORD
+		Win32Error as DWORD
+		DosDate as WORD
+		DosTime as WORD
+		DosAttribs as WORD
+		FullTargetName(0 to 259) as CHAR
+	end type
+#endif
+
+type FILE_IN_CABINET_INFO_A as _FILE_IN_CABINET_INFO_A
+type PFILE_IN_CABINET_INFO_A as _FILE_IN_CABINET_INFO_A ptr
+
+#ifdef __FB_64BIT__
+	type _FILE_IN_CABINET_INFO_W field = 8
+		NameInCabinet as PCWSTR
+		FileSize as DWORD
+		Win32Error as DWORD
+		DosDate as WORD
+		DosTime as WORD
+		DosAttribs as WORD
+		FullTargetName(0 to 259) as WCHAR
+	end type
+#else
+	type _FILE_IN_CABINET_INFO_W field = 1
+		NameInCabinet as PCWSTR
+		FileSize as DWORD
+		Win32Error as DWORD
+		DosDate as WORD
+		DosTime as WORD
+		DosAttribs as WORD
+		FullTargetName(0 to 259) as WCHAR
+	end type
+#endif
+
+type FILE_IN_CABINET_INFO_W as _FILE_IN_CABINET_INFO_W
+type PFILE_IN_CABINET_INFO_W as _FILE_IN_CABINET_INFO_W ptr
+
+#ifdef UNICODE
+	type FILE_IN_CABINET_INFO as FILE_IN_CABINET_INFO_W
+	type PFILE_IN_CABINET_INFO as PFILE_IN_CABINET_INFO_W
+#else
+	type FILE_IN_CABINET_INFO as FILE_IN_CABINET_INFO_A
+	type PFILE_IN_CABINET_INFO as PFILE_IN_CABINET_INFO_A
+#endif
+
+#ifdef __FB_64BIT__
+	type _SP_REGISTER_CONTROL_STATUSA field = 8
+		cbSize as DWORD
+		FileName as PCSTR
+		Win32Error as DWORD
+		FailureCode as DWORD
+	end type
+#else
+	type _SP_REGISTER_CONTROL_STATUSA field = 1
+		cbSize as DWORD
+		FileName as PCSTR
+		Win32Error as DWORD
+		FailureCode as DWORD
+	end type
+#endif
+
+type SP_REGISTER_CONTROL_STATUSA as _SP_REGISTER_CONTROL_STATUSA
+type PSP_REGISTER_CONTROL_STATUSA as _SP_REGISTER_CONTROL_STATUSA ptr
+
+#ifdef __FB_64BIT__
+	type _SP_REGISTER_CONTROL_STATUSW field = 8
+		cbSize as DWORD
+		FileName as PCWSTR
+		Win32Error as DWORD
+		FailureCode as DWORD
+	end type
+#else
+	type _SP_REGISTER_CONTROL_STATUSW field = 1
+		cbSize as DWORD
+		FileName as PCWSTR
+		Win32Error as DWORD
+		FailureCode as DWORD
+	end type
+#endif
+
+type SP_REGISTER_CONTROL_STATUSW as _SP_REGISTER_CONTROL_STATUSW
+type PSP_REGISTER_CONTROL_STATUSW as _SP_REGISTER_CONTROL_STATUSW ptr
+
+#ifdef UNICODE
+	type SP_REGISTER_CONTROL_STATUS as SP_REGISTER_CONTROL_STATUSW
+	type PSP_REGISTER_CONTROL_STATUS as PSP_REGISTER_CONTROL_STATUSW
+#else
+	type SP_REGISTER_CONTROL_STATUS as SP_REGISTER_CONTROL_STATUSA
+	type PSP_REGISTER_CONTROL_STATUS as PSP_REGISTER_CONTROL_STATUSA
+#endif
+
+#define SPREG_SUCCESS &h00000000
+#define SPREG_LOADLIBRARY &h00000001
+#define SPREG_GETPROCADDR &h00000002
+#define SPREG_REGSVR &h00000003
+#define SPREG_DLLINSTALL &h00000004
+#define SPREG_TIMEOUT &h00000005
+#define SPREG_UNKNOWN &hFFFFFFFF
+
+type HSPFILEQ as PVOID
+
+#ifdef __FB_64BIT__
+	type _SP_FILE_COPY_PARAMS_A field = 8
+		cbSize as DWORD
+		QueueHandle as HSPFILEQ
+		SourceRootPath as PCSTR
+		SourcePath as PCSTR
+		SourceFilename as PCSTR
+		SourceDescription as PCSTR
+		SourceTagfile as PCSTR
+		TargetDirectory as PCSTR
+		TargetFilename as PCSTR
+		CopyStyle as DWORD
+		LayoutInf as HINF
+		SecurityDescriptor as PCSTR
+	end type
+#else
+	type _SP_FILE_COPY_PARAMS_A field = 1
+		cbSize as DWORD
+		QueueHandle as HSPFILEQ
+		SourceRootPath as PCSTR
+		SourcePath as PCSTR
+		SourceFilename as PCSTR
+		SourceDescription as PCSTR
+		SourceTagfile as PCSTR
+		TargetDirectory as PCSTR
+		TargetFilename as PCSTR
+		CopyStyle as DWORD
+		LayoutInf as HINF
+		SecurityDescriptor as PCSTR
+	end type
+#endif
+
+type SP_FILE_COPY_PARAMS_A as _SP_FILE_COPY_PARAMS_A
+type PSP_FILE_COPY_PARAMS_A as _SP_FILE_COPY_PARAMS_A ptr
+
+#ifdef __FB_64BIT__
+	type _SP_FILE_COPY_PARAMS_W field = 8
+		cbSize as DWORD
+		QueueHandle as HSPFILEQ
+		SourceRootPath as PCWSTR
+		SourcePath as PCWSTR
+		SourceFilename as PCWSTR
+		SourceDescription as PCWSTR
+		SourceTagfile as PCWSTR
+		TargetDirectory as PCWSTR
+		TargetFilename as PCWSTR
+		CopyStyle as DWORD
+		LayoutInf as HINF
+		SecurityDescriptor as PCWSTR
+	end type
+#else
+	type _SP_FILE_COPY_PARAMS_W field = 1
+		cbSize as DWORD
+		QueueHandle as HSPFILEQ
+		SourceRootPath as PCWSTR
+		SourcePath as PCWSTR
+		SourceFilename as PCWSTR
+		SourceDescription as PCWSTR
+		SourceTagfile as PCWSTR
+		TargetDirectory as PCWSTR
+		TargetFilename as PCWSTR
+		CopyStyle as DWORD
+		LayoutInf as HINF
+		SecurityDescriptor as PCWSTR
+	end type
+#endif
+
+type SP_FILE_COPY_PARAMS_W as _SP_FILE_COPY_PARAMS_W
+type PSP_FILE_COPY_PARAMS_W as _SP_FILE_COPY_PARAMS_W ptr
+
+#ifdef UNICODE
+	type SP_FILE_COPY_PARAMS as SP_FILE_COPY_PARAMS_W
+	type PSP_FILE_COPY_PARAMS as PSP_FILE_COPY_PARAMS_W
+#else
+	type SP_FILE_COPY_PARAMS as SP_FILE_COPY_PARAMS_A
+	type PSP_FILE_COPY_PARAMS as PSP_FILE_COPY_PARAMS_A
+#endif
+
+type HDSKSPC as PVOID
+type HDEVINFO as PVOID
+
+#ifdef __FB_64BIT__
+	type _SP_DEVINFO_DATA field = 8
+		cbSize as DWORD
+		ClassGuid as GUID
+		DevInst as DWORD
+		Reserved as ULONG_PTR
+	end type
+#else
+	type _SP_DEVINFO_DATA field = 1
+		cbSize as DWORD
+		ClassGuid as GUID
+		DevInst as DWORD
+		Reserved as ULONG_PTR
+	end type
+#endif
+
+type SP_DEVINFO_DATA as _SP_DEVINFO_DATA
+type PSP_DEVINFO_DATA as _SP_DEVINFO_DATA ptr
+
+#ifdef __FB_64BIT__
+	type _SP_DEVICE_INTERFACE_DATA field = 8
+		cbSize as DWORD
+		InterfaceClassGuid as GUID
+		Flags as DWORD
+		Reserved as ULONG_PTR
+	end type
+#else
+	type _SP_DEVICE_INTERFACE_DATA field = 1
+		cbSize as DWORD
+		InterfaceClassGuid as GUID
+		Flags as DWORD
+		Reserved as ULONG_PTR
+	end type
+#endif
+
+type SP_DEVICE_INTERFACE_DATA as _SP_DEVICE_INTERFACE_DATA
+type PSP_DEVICE_INTERFACE_DATA as _SP_DEVICE_INTERFACE_DATA ptr
+
+#define SPINT_ACTIVE &h00000001
+#define SPINT_DEFAULT &h00000002
+#define SPINT_REMOVED &h00000004
+
+type SP_INTERFACE_DEVICE_DATA as SP_DEVICE_INTERFACE_DATA
+type PSP_INTERFACE_DEVICE_DATA as PSP_DEVICE_INTERFACE_DATA
+
+#define SPID_ACTIVE SPINT_ACTIVE
+#define SPID_DEFAULT SPINT_DEFAULT
+#define SPID_REMOVED SPINT_REMOVED
+
+#ifdef __FB_64BIT__
+	type _SP_DEVICE_INTERFACE_DETAIL_DATA_A field = 8
+		cbSize as DWORD
+		DevicePath(0 to 0) as CHAR
+	end type
+#else
+	type _SP_DEVICE_INTERFACE_DETAIL_DATA_A field = 1
+		cbSize as DWORD
+		DevicePath(0 to 0) as CHAR
+	end type
+#endif
+
+type SP_DEVICE_INTERFACE_DETAIL_DATA_A as _SP_DEVICE_INTERFACE_DETAIL_DATA_A
+type PSP_DEVICE_INTERFACE_DETAIL_DATA_A as _SP_DEVICE_INTERFACE_DETAIL_DATA_A ptr
+
+#ifdef __FB_64BIT__
+	type _SP_DEVICE_INTERFACE_DETAIL_DATA_W field = 8
+		cbSize as DWORD
+		DevicePath(0 to 0) as WCHAR
+	end type
+#else
+	type _SP_DEVICE_INTERFACE_DETAIL_DATA_W field = 1
+		cbSize as DWORD
+		DevicePath(0 to 0) as WCHAR
+	end type
+#endif
+
+type SP_DEVICE_INTERFACE_DETAIL_DATA_W as _SP_DEVICE_INTERFACE_DETAIL_DATA_W
+type PSP_DEVICE_INTERFACE_DETAIL_DATA_W as _SP_DEVICE_INTERFACE_DETAIL_DATA_W ptr
+
+#ifdef UNICODE
+	type SP_DEVICE_INTERFACE_DETAIL_DATA as SP_DEVICE_INTERFACE_DETAIL_DATA_W
+	type PSP_DEVICE_INTERFACE_DETAIL_DATA as PSP_DEVICE_INTERFACE_DETAIL_DATA_W
+#else
+	type SP_DEVICE_INTERFACE_DETAIL_DATA as SP_DEVICE_INTERFACE_DETAIL_DATA_A
+	type PSP_DEVICE_INTERFACE_DETAIL_DATA as PSP_DEVICE_INTERFACE_DETAIL_DATA_A
+#endif
+
+type SP_INTERFACE_DEVICE_DETAIL_DATA_W as SP_DEVICE_INTERFACE_DETAIL_DATA_W
+type PSP_INTERFACE_DEVICE_DETAIL_DATA_W as PSP_DEVICE_INTERFACE_DETAIL_DATA_W
+type SP_INTERFACE_DEVICE_DETAIL_DATA_A as SP_DEVICE_INTERFACE_DETAIL_DATA_A
+type PSP_INTERFACE_DEVICE_DETAIL_DATA_A as PSP_DEVICE_INTERFACE_DETAIL_DATA_A
+
+#ifdef UNICODE
+	type SP_INTERFACE_DEVICE_DETAIL_DATA as SP_INTERFACE_DEVICE_DETAIL_DATA_W
+	type PSP_INTERFACE_DEVICE_DETAIL_DATA as PSP_INTERFACE_DEVICE_DETAIL_DATA_W
+#else
+	type SP_INTERFACE_DEVICE_DETAIL_DATA as SP_INTERFACE_DEVICE_DETAIL_DATA_A
+	type PSP_INTERFACE_DEVICE_DETAIL_DATA as PSP_INTERFACE_DEVICE_DETAIL_DATA_A
+#endif
+
+#ifdef __FB_64BIT__
+	type _SP_DEVINFO_LIST_DETAIL_DATA_A field = 8
+		cbSize as DWORD
+		ClassGuid as GUID
+		RemoteMachineHandle as HANDLE
+		RemoteMachineName(0 to (260 + 3) - 1) as CHAR
+	end type
+#else
+	type _SP_DEVINFO_LIST_DETAIL_DATA_A field = 1
+		cbSize as DWORD
+		ClassGuid as GUID
+		RemoteMachineHandle as HANDLE
+		RemoteMachineName(0 to (260 + 3) - 1) as CHAR
+	end type
+#endif
+
+type SP_DEVINFO_LIST_DETAIL_DATA_A as _SP_DEVINFO_LIST_DETAIL_DATA_A
+type PSP_DEVINFO_LIST_DETAIL_DATA_A as _SP_DEVINFO_LIST_DETAIL_DATA_A ptr
+
+#ifdef __FB_64BIT__
+	type _SP_DEVINFO_LIST_DETAIL_DATA_W field = 8
+		cbSize as DWORD
+		ClassGuid as GUID
+		RemoteMachineHandle as HANDLE
+		RemoteMachineName(0 to (260 + 3) - 1) as WCHAR
+	end type
+#else
+	type _SP_DEVINFO_LIST_DETAIL_DATA_W field = 1
+		cbSize as DWORD
+		ClassGuid as GUID
+		RemoteMachineHandle as HANDLE
+		RemoteMachineName(0 to (260 + 3) - 1) as WCHAR
+	end type
+#endif
+
+type SP_DEVINFO_LIST_DETAIL_DATA_W as _SP_DEVINFO_LIST_DETAIL_DATA_W
+type PSP_DEVINFO_LIST_DETAIL_DATA_W as _SP_DEVINFO_LIST_DETAIL_DATA_W ptr
+
+#ifdef UNICODE
+	type SP_DEVINFO_LIST_DETAIL_DATA as SP_DEVINFO_LIST_DETAIL_DATA_W
+	type PSP_DEVINFO_LIST_DETAIL_DATA as PSP_DEVINFO_LIST_DETAIL_DATA_W
+#else
+	type SP_DEVINFO_LIST_DETAIL_DATA as SP_DEVINFO_LIST_DETAIL_DATA_A
+	type PSP_DEVINFO_LIST_DETAIL_DATA as PSP_DEVINFO_LIST_DETAIL_DATA_A
+#endif
+
+#define DIF_SELECTDEVICE &h00000001
+#define DIF_INSTALLDEVICE &h00000002
+#define DIF_ASSIGNRESOURCES &h00000003
+#define DIF_PROPERTIES &h00000004
+#define DIF_REMOVE &h00000005
+#define DIF_FIRSTTIMESETUP &h00000006
+#define DIF_FOUNDDEVICE &h00000007
+#define DIF_SELECTCLASSDRIVERS &h00000008
+#define DIF_VALIDATECLASSDRIVERS &h00000009
+#define DIF_INSTALLCLASSDRIVERS &h0000000A
+#define DIF_CALCDISKSPACE &h0000000B
+#define DIF_DESTROYPRIVATEDATA &h0000000C
+#define DIF_VALIDATEDRIVER &h0000000D
+#define DIF_DETECT &h0000000F
+#define DIF_INSTALLWIZARD &h00000010
+#define DIF_DESTROYWIZARDDATA &h00000011
+#define DIF_PROPERTYCHANGE &h00000012
+#define DIF_ENABLECLASS &h00000013
+#define DIF_DETECTVERIFY &h00000014
+#define DIF_INSTALLDEVICEFILES &h00000015
+#define DIF_UNREMOVE &h00000016
+#define DIF_SELECTBESTCOMPATDRV &h00000017
+#define DIF_ALLOW_INSTALL &h00000018
+#define DIF_REGISTERDEVICE &h00000019
+#define DIF_NEWDEVICEWIZARD_PRESELECT &h0000001A
+#define DIF_NEWDEVICEWIZARD_SELECT &h0000001B
+#define DIF_NEWDEVICEWIZARD_PREANALYZE &h0000001C
+#define DIF_NEWDEVICEWIZARD_POSTANALYZE &h0000001D
+#define DIF_NEWDEVICEWIZARD_FINISHINSTALL &h0000001E
+#define DIF_UNUSED1 &h0000001F
+#define DIF_INSTALLINTERFACES &h00000020
+#define DIF_DETECTCANCEL &h00000021
+#define DIF_REGISTER_COINSTALLERS &h00000022
+#define DIF_ADDPROPERTYPAGE_ADVANCED &h00000023
+#define DIF_ADDPROPERTYPAGE_BASIC &h00000024
+#define DIF_RESERVED1 &h00000025
+#define DIF_TROUBLESHOOTER &h00000026
+#define DIF_POWERMESSAGEWAKE &h00000027
+#define DIF_ADDREMOTEPROPERTYPAGE_ADVANCED &h00000028
+#define DIF_UPDATEDRIVER_UI &h00000029
+#define DIF_RESERVED2 &h00000030
+#define DIF_MOVEDEVICE &h0000000E
+
+type DI_FUNCTION as UINT
+
+#ifdef __FB_64BIT__
+	type _SP_DEVINSTALL_PARAMS_A field = 8
+		cbSize as DWORD
+		Flags as DWORD
+		FlagsEx as DWORD
+		hwndParent as HWND
+
+		#if defined(__FB_64BIT__) and defined(UNICODE)
+			InstallMsgHandler as PSP_FILE_CALLBACK_W
+		#elseif defined(__FB_64BIT__) and (not defined(UNICODE))
+			InstallMsgHandler as PSP_FILE_CALLBACK_A
+		#endif
+
+		InstallMsgHandlerContext as PVOID
+		FileQueue as HSPFILEQ
+		ClassInstallReserved as ULONG_PTR
+		Reserved as DWORD
+		DriverPath(0 to 259) as CHAR
+	end type
+#else
+	type _SP_DEVINSTALL_PARAMS_A field = 1
+		cbSize as DWORD
+		Flags as DWORD
+		FlagsEx as DWORD
+		hwndParent as HWND
+
+		#if (not defined(__FB_64BIT__)) and defined(UNICODE)
+			InstallMsgHandler as PSP_FILE_CALLBACK_W
+		#elseif (not defined(__FB_64BIT__)) and (not defined(UNICODE))
+			InstallMsgHandler as PSP_FILE_CALLBACK_A
+		#endif
+
+		InstallMsgHandlerContext as PVOID
+		FileQueue as HSPFILEQ
+		ClassInstallReserved as ULONG_PTR
+		Reserved as DWORD
+		DriverPath(0 to 259) as CHAR
+	end type
+#endif
+
+type SP_DEVINSTALL_PARAMS_A as _SP_DEVINSTALL_PARAMS_A
+type PSP_DEVINSTALL_PARAMS_A as _SP_DEVINSTALL_PARAMS_A ptr
+
+#ifdef __FB_64BIT__
+	type _SP_DEVINSTALL_PARAMS_W field = 8
+		cbSize as DWORD
+		Flags as DWORD
+		FlagsEx as DWORD
+		hwndParent as HWND
+
+		#if defined(__FB_64BIT__) and defined(UNICODE)
+			InstallMsgHandler as PSP_FILE_CALLBACK_W
+		#elseif defined(__FB_64BIT__) and (not defined(UNICODE))
+			InstallMsgHandler as PSP_FILE_CALLBACK_A
+		#endif
+
+		InstallMsgHandlerContext as PVOID
+		FileQueue as HSPFILEQ
+		ClassInstallReserved as ULONG_PTR
+		Reserved as DWORD
+		DriverPath(0 to 259) as WCHAR
+	end type
+#else
+	type _SP_DEVINSTALL_PARAMS_W field = 1
+		cbSize as DWORD
+		Flags as DWORD
+		FlagsEx as DWORD
+		hwndParent as HWND
+
+		#if (not defined(__FB_64BIT__)) and defined(UNICODE)
+			InstallMsgHandler as PSP_FILE_CALLBACK_W
+		#elseif (not defined(__FB_64BIT__)) and (not defined(UNICODE))
+			InstallMsgHandler as PSP_FILE_CALLBACK_A
+		#endif
+
+		InstallMsgHandlerContext as PVOID
+		FileQueue as HSPFILEQ
+		ClassInstallReserved as ULONG_PTR
+		Reserved as DWORD
+		DriverPath(0 to 259) as WCHAR
+	end type
+#endif
+
+type SP_DEVINSTALL_PARAMS_W as _SP_DEVINSTALL_PARAMS_W
+type PSP_DEVINSTALL_PARAMS_W as _SP_DEVINSTALL_PARAMS_W ptr
+
+#ifdef UNICODE
+	type SP_DEVINSTALL_PARAMS as SP_DEVINSTALL_PARAMS_W
+	type PSP_DEVINSTALL_PARAMS as PSP_DEVINSTALL_PARAMS_W
+#else
+	type SP_DEVINSTALL_PARAMS as SP_DEVINSTALL_PARAMS_A
+	type PSP_DEVINSTALL_PARAMS as PSP_DEVINSTALL_PARAMS_A
+#endif
+
+#define DI_SHOWOEM __MSABI_LONG(&h00000001)
+#define DI_SHOWCOMPAT __MSABI_LONG(&h00000002)
+#define DI_SHOWCLASS __MSABI_LONG(&h00000004)
+#define DI_SHOWALL __MSABI_LONG(&h00000007)
+#define DI_NOVCP __MSABI_LONG(&h00000008)
+#define DI_DIDCOMPAT __MSABI_LONG(&h00000010)
+#define DI_DIDCLASS __MSABI_LONG(&h00000020)
+#define DI_AUTOASSIGNRES __MSABI_LONG(&h00000040)
+#define DI_NEEDRESTART __MSABI_LONG(&h00000080)
+#define DI_NEEDREBOOT __MSABI_LONG(&h00000100)
+#define DI_NOBROWSE __MSABI_LONG(&h00000200)
+#define DI_MULTMFGS __MSABI_LONG(&h00000400)
+#define DI_DISABLED __MSABI_LONG(&h00000800)
+#define DI_GENERALPAGE_ADDED __MSABI_LONG(&h00001000)
+#define DI_RESOURCEPAGE_ADDED __MSABI_LONG(&h00002000)
+#define DI_PROPERTIES_CHANGE __MSABI_LONG(&h00004000)
+#define DI_INF_IS_SORTED __MSABI_LONG(&h00008000)
+#define DI_ENUMSINGLEINF __MSABI_LONG(&h00010000)
+#define DI_DONOTCALLCONFIGMG __MSABI_LONG(&h00020000)
+#define DI_INSTALLDISABLED __MSABI_LONG(&h00040000)
+#define DI_COMPAT_FROM_CLASS __MSABI_LONG(&h00080000)
+#define DI_CLASSINSTALLPARAMS __MSABI_LONG(&h00100000)
+#define DI_NODI_DEFAULTACTION __MSABI_LONG(&h00200000)
+#define DI_QUIETINSTALL __MSABI_LONG(&h00800000)
+#define DI_NOFILECOPY __MSABI_LONG(&h01000000)
+#define DI_FORCECOPY __MSABI_LONG(&h02000000)
+#define DI_DRIVERPAGE_ADDED __MSABI_LONG(&h04000000)
+#define DI_USECI_SELECTSTRINGS __MSABI_LONG(&h08000000)
+#define DI_OVERRIDE_INFFLAGS __MSABI_LONG(&h10000000)
+#define DI_PROPS_NOCHANGEUSAGE __MSABI_LONG(&h20000000)
+#define DI_NOSELECTICONS __MSABI_LONG(&h40000000)
+#define DI_NOWRITE_IDS __MSABI_LONG(&h80000000)
+#define DI_FLAGSEX_USEOLDINFSEARCH __MSABI_LONG(&h00000001)
+#define DI_FLAGSEX_RESERVED2 __MSABI_LONG(&h00000002)
+#define DI_FLAGSEX_CI_FAILED __MSABI_LONG(&h00000004)
+#define DI_FLAGSEX_DIDINFOLIST __MSABI_LONG(&h00000010)
+#define DI_FLAGSEX_DIDCOMPATINFO __MSABI_LONG(&h00000020)
+#define DI_FLAGSEX_FILTERCLASSES __MSABI_LONG(&h00000040)
+#define DI_FLAGSEX_SETFAILEDINSTALL __MSABI_LONG(&h00000080)
+#define DI_FLAGSEX_DEVICECHANGE __MSABI_LONG(&h00000100)
+#define DI_FLAGSEX_ALWAYSWRITEIDS __MSABI_LONG(&h00000200)
+#define DI_FLAGSEX_PROPCHANGE_PENDING __MSABI_LONG(&h00000400)
+#define DI_FLAGSEX_ALLOWEXCLUDEDDRVS __MSABI_LONG(&h00000800)
+#define DI_FLAGSEX_NOUIONQUERYREMOVE __MSABI_LONG(&h00001000)
+#define DI_FLAGSEX_USECLASSFORCOMPAT __MSABI_LONG(&h00002000)
+#define DI_FLAGSEX_RESERVED3 __MSABI_LONG(&h00004000)
+#define DI_FLAGSEX_NO_DRVREG_MODIFY __MSABI_LONG(&h00008000)
+#define DI_FLAGSEX_IN_SYSTEM_SETUP __MSABI_LONG(&h00010000)
+#define DI_FLAGSEX_INET_DRIVER __MSABI_LONG(&h00020000)
+#define DI_FLAGSEX_APPENDDRIVERLIST __MSABI_LONG(&h00040000)
+#define DI_FLAGSEX_PREINSTALLBACKUP __MSABI_LONG(&h00080000)
+#define DI_FLAGSEX_BACKUPONREPLACE __MSABI_LONG(&h00100000)
+#define DI_FLAGSEX_DRIVERLIST_FROM_URL __MSABI_LONG(&h00200000)
+#define DI_FLAGSEX_RESERVED1 __MSABI_LONG(&h00400000)
+#define DI_FLAGSEX_EXCLUDE_OLD_INET_DRIVERS __MSABI_LONG(&h00800000)
+#define DI_FLAGSEX_POWERPAGE_ADDED __MSABI_LONG(&h01000000)
+#define DI_FLAGSEX_FILTERSIMILARDRIVERS __MSABI_LONG(&h02000000)
+#define DI_FLAGSEX_INSTALLEDDRIVER __MSABI_LONG(&h04000000)
+#define DI_FLAGSEX_NO_CLASSLIST_NODE_MERGE __MSABI_LONG(&h08000000)
+#define DI_FLAGSEX_ALTPLATFORM_DRVSEARCH __MSABI_LONG(&h10000000)
+#define DI_FLAGSEX_RESTART_DEVICE_ONLY __MSABI_LONG(&h20000000)
+
+#ifdef __FB_64BIT__
+	type _SP_CLASSINSTALL_HEADER field = 8
+		cbSize as DWORD
+		InstallFunction as DI_FUNCTION
+	end type
+#else
+	type _SP_CLASSINSTALL_HEADER field = 1
+		cbSize as DWORD
+		InstallFunction as DI_FUNCTION
+	end type
+#endif
+
+type SP_CLASSINSTALL_HEADER as _SP_CLASSINSTALL_HEADER
+type PSP_CLASSINSTALL_HEADER as _SP_CLASSINSTALL_HEADER ptr
+
+#ifdef __FB_64BIT__
+	type _SP_ENABLECLASS_PARAMS field = 8
+		ClassInstallHeader as SP_CLASSINSTALL_HEADER
+		ClassGuid as GUID
+		EnableMessage as DWORD
+	end type
+#else
+	type _SP_ENABLECLASS_PARAMS field = 1
+		ClassInstallHeader as SP_CLASSINSTALL_HEADER
+		ClassGuid as GUID
+		EnableMessage as DWORD
+	end type
+#endif
+
+type SP_ENABLECLASS_PARAMS as _SP_ENABLECLASS_PARAMS
+type PSP_ENABLECLASS_PARAMS as _SP_ENABLECLASS_PARAMS ptr
+
+#define ENABLECLASS_QUERY 0
+#define ENABLECLASS_SUCCESS 1
+#define ENABLECLASS_FAILURE 2
+#define DICS_ENABLE &h00000001
+#define DICS_DISABLE &h00000002
+#define DICS_PROPCHANGE &h00000003
+#define DICS_START &h00000004
+#define DICS_STOP &h00000005
+#define DICS_FLAG_GLOBAL &h00000001
+#define DICS_FLAG_CONFIGSPECIFIC &h00000002
+#define DICS_FLAG_CONFIGGENERAL &h00000004
+
+#ifdef __FB_64BIT__
+	type _SP_PROPCHANGE_PARAMS field = 8
+		ClassInstallHeader as SP_CLASSINSTALL_HEADER
+		StateChange as DWORD
+		Scope as DWORD
+		HwProfile as DWORD
+	end type
+#else
+	type _SP_PROPCHANGE_PARAMS field = 1
+		ClassInstallHeader as SP_CLASSINSTALL_HEADER
+		StateChange as DWORD
+		Scope as DWORD
+		HwProfile as DWORD
+	end type
+#endif
+
+type SP_PROPCHANGE_PARAMS as _SP_PROPCHANGE_PARAMS
+type PSP_PROPCHANGE_PARAMS as _SP_PROPCHANGE_PARAMS ptr
+
+#ifdef __FB_64BIT__
+	type _SP_REMOVEDEVICE_PARAMS field = 8
+		ClassInstallHeader as SP_CLASSINSTALL_HEADER
+		Scope as DWORD
+		HwProfile as DWORD
+	end type
+#else
+	type _SP_REMOVEDEVICE_PARAMS field = 1
+		ClassInstallHeader as SP_CLASSINSTALL_HEADER
+		Scope as DWORD
+		HwProfile as DWORD
+	end type
+#endif
+
+type SP_REMOVEDEVICE_PARAMS as _SP_REMOVEDEVICE_PARAMS
+type PSP_REMOVEDEVICE_PARAMS as _SP_REMOVEDEVICE_PARAMS ptr
+
+#define DI_REMOVEDEVICE_GLOBAL &h00000001
+#define DI_REMOVEDEVICE_CONFIGSPECIFIC &h00000002
+
+#ifdef __FB_64BIT__
+	type _SP_UNREMOVEDEVICE_PARAMS field = 8
+		ClassInstallHeader as SP_CLASSINSTALL_HEADER
+		Scope as DWORD
+		HwProfile as DWORD
+	end type
+#else
+	type _SP_UNREMOVEDEVICE_PARAMS field = 1
+		ClassInstallHeader as SP_CLASSINSTALL_HEADER
+		Scope as DWORD
+		HwProfile as DWORD
+	end type
+#endif
+
+type SP_UNREMOVEDEVICE_PARAMS as _SP_UNREMOVEDEVICE_PARAMS
+type PSP_UNREMOVEDEVICE_PARAMS as _SP_UNREMOVEDEVICE_PARAMS ptr
+
+#define DI_UNREMOVEDEVICE_CONFIGSPECIFIC &h00000002
+
+#ifdef __FB_64BIT__
+	type _SP_SELECTDEVICE_PARAMS_A field = 8
+		ClassInstallHeader as SP_CLASSINSTALL_HEADER
+		Title(0 to 59) as CHAR
+		Instructions(0 to 255) as CHAR
+		ListLabel(0 to 29) as CHAR
+		SubTitle(0 to 255) as CHAR
+		Reserved(0 to 1) as BYTE_
+	end type
+#else
+	type _SP_SELECTDEVICE_PARAMS_A field = 1
+		ClassInstallHeader as SP_CLASSINSTALL_HEADER
+		Title(0 to 59) as CHAR
+		Instructions(0 to 255) as CHAR
+		ListLabel(0 to 29) as CHAR
+		SubTitle(0 to 255) as CHAR
+		Reserved(0 to 1) as BYTE_
+	end type
+#endif
+
+type SP_SELECTDEVICE_PARAMS_A as _SP_SELECTDEVICE_PARAMS_A
+type PSP_SELECTDEVICE_PARAMS_A as _SP_SELECTDEVICE_PARAMS_A ptr
+
+#ifdef __FB_64BIT__
+	type _SP_SELECTDEVICE_PARAMS_W field = 8
+		ClassInstallHeader as SP_CLASSINSTALL_HEADER
+		Title(0 to 59) as WCHAR
+		Instructions(0 to 255) as WCHAR
+		ListLabel(0 to 29) as WCHAR
+		SubTitle(0 to 255) as WCHAR
+	end type
+#else
+	type _SP_SELECTDEVICE_PARAMS_W field = 1
+		ClassInstallHeader as SP_CLASSINSTALL_HEADER
+		Title(0 to 59) as WCHAR
+		Instructions(0 to 255) as WCHAR
+		ListLabel(0 to 29) as WCHAR
+		SubTitle(0 to 255) as WCHAR
+	end type
+#endif
+
+type SP_SELECTDEVICE_PARAMS_W as _SP_SELECTDEVICE_PARAMS_W
+type PSP_SELECTDEVICE_PARAMS_W as _SP_SELECTDEVICE_PARAMS_W ptr
+
+#ifdef UNICODE
+	type SP_SELECTDEVICE_PARAMS as SP_SELECTDEVICE_PARAMS_W
+	type PSP_SELECTDEVICE_PARAMS as PSP_SELECTDEVICE_PARAMS_W
+#else
+	type SP_SELECTDEVICE_PARAMS as SP_SELECTDEVICE_PARAMS_A
+	type PSP_SELECTDEVICE_PARAMS as PSP_SELECTDEVICE_PARAMS_A
+#endif
+
+type PDETECT_PROGRESS_NOTIFY as function(byval ProgressNotifyParam as PVOID, byval DetectComplete as DWORD) as WINBOOL
+
+#ifdef __FB_64BIT__
+	type _SP_DETECTDEVICE_PARAMS field = 8
+		ClassInstallHeader as SP_CLASSINSTALL_HEADER
+		DetectProgressNotify as PDETECT_PROGRESS_NOTIFY
+		ProgressNotifyParam as PVOID
+	end type
+#else
+	type _SP_DETECTDEVICE_PARAMS field = 1
+		ClassInstallHeader as SP_CLASSINSTALL_HEADER
+		DetectProgressNotify as PDETECT_PROGRESS_NOTIFY
+		ProgressNotifyParam as PVOID
+	end type
+#endif
+
+type SP_DETECTDEVICE_PARAMS as _SP_DETECTDEVICE_PARAMS
+type PSP_DETECTDEVICE_PARAMS as _SP_DETECTDEVICE_PARAMS ptr
+
+#define MAX_INSTALLWIZARD_DYNAPAGES 20
+
+#ifdef __FB_64BIT__
+	type _SP_INSTALLWIZARD_DATA field = 8
+		ClassInstallHeader as SP_CLASSINSTALL_HEADER
+		Flags as DWORD
+		DynamicPages(0 to 19) as HPROPSHEETPAGE
+		NumDynamicPages as DWORD
+		DynamicPageFlags as DWORD
+		PrivateFlags as DWORD
+		PrivateData as LPARAM
+		hwndWizardDlg as HWND
+	end type
+#else
+	type _SP_INSTALLWIZARD_DATA field = 1
+		ClassInstallHeader as SP_CLASSINSTALL_HEADER
+		Flags as DWORD
+		DynamicPages(0 to 19) as HPROPSHEETPAGE
+		NumDynamicPages as DWORD
+		DynamicPageFlags as DWORD
+		PrivateFlags as DWORD
+		PrivateData as LPARAM
+		hwndWizardDlg as HWND
+	end type
+#endif
+
+type SP_INSTALLWIZARD_DATA as _SP_INSTALLWIZARD_DATA
+type PSP_INSTALLWIZARD_DATA as _SP_INSTALLWIZARD_DATA ptr
+
+#define NDW_INSTALLFLAG_DIDFACTDEFS &h00000001
+#define NDW_INSTALLFLAG_HARDWAREALLREADYIN &h00000002
+#define NDW_INSTALLFLAG_NEEDRESTART DI_NEEDRESTART
+#define NDW_INSTALLFLAG_NEEDREBOOT DI_NEEDREBOOT
+#define NDW_INSTALLFLAG_NEEDSHUTDOWN &h00000200
+#define NDW_INSTALLFLAG_EXPRESSINTRO &h00000400
+#define NDW_INSTALLFLAG_SKIPISDEVINSTALLED &h00000800
+#define NDW_INSTALLFLAG_NODETECTEDDEVS &h00001000
+#define NDW_INSTALLFLAG_INSTALLSPECIFIC &h00002000
+#define NDW_INSTALLFLAG_SKIPCLASSLIST &h00004000
+#define NDW_INSTALLFLAG_CI_PICKED_OEM &h00008000
+#define NDW_INSTALLFLAG_PCMCIAMODE &h00010000
+#define NDW_INSTALLFLAG_PCMCIADEVICE &h00020000
+#define NDW_INSTALLFLAG_USERCANCEL &h00040000
+#define NDW_INSTALLFLAG_KNOWNCLASS &h00080000
+#define DYNAWIZ_FLAG_PAGESADDED &h00000001
+#define DYNAWIZ_FLAG_ANALYZE_HANDLECONFLICT &h00000008
+#define DYNAWIZ_FLAG_INSTALLDET_NEXT &h00000002
+#define DYNAWIZ_FLAG_INSTALLDET_PREV &h00000004
+#define MIN_IDD_DYNAWIZ_RESOURCE_ID 10000
+#define MAX_IDD_DYNAWIZ_RESOURCE_ID 11000
+#define IDD_DYNAWIZ_FIRSTPAGE 10000
+#define IDD_DYNAWIZ_SELECT_PREVPAGE 10001
+#define IDD_DYNAWIZ_SELECT_NEXTPAGE 10002
+#define IDD_DYNAWIZ_ANALYZE_PREVPAGE 10003
+#define IDD_DYNAWIZ_ANALYZE_NEXTPAGE 10004
+#define IDD_DYNAWIZ_SELECTDEV_PAGE 10009
+#define IDD_DYNAWIZ_ANALYZEDEV_PAGE 10010
+#define IDD_DYNAWIZ_INSTALLDETECTEDDEVS_PAGE 10011
+#define IDD_DYNAWIZ_SELECTCLASS_PAGE 10012
+#define IDD_DYNAWIZ_INSTALLDETECTED_PREVPAGE 10006
+#define IDD_DYNAWIZ_INSTALLDETECTED_NEXTPAGE 10007
+#define IDD_DYNAWIZ_INSTALLDETECTED_NODEVS 10008
+
+#ifdef __FB_64BIT__
+	type _SP_NEWDEVICEWIZARD_DATA field = 8
+		ClassInstallHeader as SP_CLASSINSTALL_HEADER
+		Flags as DWORD
+		DynamicPages(0 to 19) as HPROPSHEETPAGE
+		NumDynamicPages as DWORD
+		hwndWizardDlg as HWND
+	end type
+#else
+	type _SP_NEWDEVICEWIZARD_DATA field = 1
+		ClassInstallHeader as SP_CLASSINSTALL_HEADER
+		Flags as DWORD
+		DynamicPages(0 to 19) as HPROPSHEETPAGE
+		NumDynamicPages as DWORD
+		hwndWizardDlg as HWND
+	end type
+#endif
+
+type SP_NEWDEVICEWIZARD_DATA as _SP_NEWDEVICEWIZARD_DATA
+type PSP_NEWDEVICEWIZARD_DATA as _SP_NEWDEVICEWIZARD_DATA ptr
+type SP_ADDPROPERTYPAGE_DATA as SP_NEWDEVICEWIZARD_DATA
+type PSP_ADDPROPERTYPAGE_DATA as PSP_NEWDEVICEWIZARD_DATA
+
+#ifdef __FB_64BIT__
+	type _SP_TROUBLESHOOTER_PARAMS_A field = 8
+		ClassInstallHeader as SP_CLASSINSTALL_HEADER
+		ChmFile(0 to 259) as CHAR
+		HtmlTroubleShooter(0 to 259) as CHAR
+	end type
+#else
+	type _SP_TROUBLESHOOTER_PARAMS_A field = 1
+		ClassInstallHeader as SP_CLASSINSTALL_HEADER
+		ChmFile(0 to 259) as CHAR
+		HtmlTroubleShooter(0 to 259) as CHAR
+	end type
+#endif
+
+type SP_TROUBLESHOOTER_PARAMS_A as _SP_TROUBLESHOOTER_PARAMS_A
+type PSP_TROUBLESHOOTER_PARAMS_A as _SP_TROUBLESHOOTER_PARAMS_A ptr
+
+#ifdef __FB_64BIT__
+	type _SP_TROUBLESHOOTER_PARAMS_W field = 8
+		ClassInstallHeader as SP_CLASSINSTALL_HEADER
+		ChmFile(0 to 259) as WCHAR
+		HtmlTroubleShooter(0 to 259) as WCHAR
+	end type
+#else
+	type _SP_TROUBLESHOOTER_PARAMS_W field = 1
+		ClassInstallHeader as SP_CLASSINSTALL_HEADER
+		ChmFile(0 to 259) as WCHAR
+		HtmlTroubleShooter(0 to 259) as WCHAR
+	end type
+#endif
+
+type SP_TROUBLESHOOTER_PARAMS_W as _SP_TROUBLESHOOTER_PARAMS_W
+type PSP_TROUBLESHOOTER_PARAMS_W as _SP_TROUBLESHOOTER_PARAMS_W ptr
+
+#ifdef UNICODE
+	type SP_TROUBLESHOOTER_PARAMS as SP_TROUBLESHOOTER_PARAMS_W
+	type PSP_TROUBLESHOOTER_PARAMS as PSP_TROUBLESHOOTER_PARAMS_W
+#else
+	type SP_TROUBLESHOOTER_PARAMS as SP_TROUBLESHOOTER_PARAMS_A
+	type PSP_TROUBLESHOOTER_PARAMS as PSP_TROUBLESHOOTER_PARAMS_A
+#endif
+
+#ifdef __FB_64BIT__
+	type _SP_POWERMESSAGEWAKE_PARAMS_A field = 8
+		ClassInstallHeader as SP_CLASSINSTALL_HEADER
+		PowerMessageWake(0 to (256 * 2) - 1) as CHAR
+	end type
+#else
+	type _SP_POWERMESSAGEWAKE_PARAMS_A field = 1
+		ClassInstallHeader as SP_CLASSINSTALL_HEADER
+		PowerMessageWake(0 to (256 * 2) - 1) as CHAR
+	end type
+#endif
+
+type SP_POWERMESSAGEWAKE_PARAMS_A as _SP_POWERMESSAGEWAKE_PARAMS_A
+type PSP_POWERMESSAGEWAKE_PARAMS_A as _SP_POWERMESSAGEWAKE_PARAMS_A ptr
+
+#ifdef __FB_64BIT__
+	type _SP_POWERMESSAGEWAKE_PARAMS_W field = 8
+		ClassInstallHeader as SP_CLASSINSTALL_HEADER
+		PowerMessageWake(0 to (256 * 2) - 1) as WCHAR
+	end type
+#else
+	type _SP_POWERMESSAGEWAKE_PARAMS_W field = 1
+		ClassInstallHeader as SP_CLASSINSTALL_HEADER
+		PowerMessageWake(0 to (256 * 2) - 1) as WCHAR
+	end type
+#endif
+
+type SP_POWERMESSAGEWAKE_PARAMS_W as _SP_POWERMESSAGEWAKE_PARAMS_W
+type PSP_POWERMESSAGEWAKE_PARAMS_W as _SP_POWERMESSAGEWAKE_PARAMS_W ptr
+
+#ifdef UNICODE
+	type SP_POWERMESSAGEWAKE_PARAMS as SP_POWERMESSAGEWAKE_PARAMS_W
+	type PSP_POWERMESSAGEWAKE_PARAMS as PSP_POWERMESSAGEWAKE_PARAMS_W
+#else
+	type SP_POWERMESSAGEWAKE_PARAMS as SP_POWERMESSAGEWAKE_PARAMS_A
+	type PSP_POWERMESSAGEWAKE_PARAMS as PSP_POWERMESSAGEWAKE_PARAMS_A
+#endif
+
+#ifdef __FB_64BIT__
+	type _SP_DRVINFO_DATA_V2_A field = 8
+		cbSize as DWORD
+		DriverType as DWORD
+		Reserved as ULONG_PTR
+		Description(0 to 255) as CHAR
+		MfgName(0 to 255) as CHAR
+		ProviderName(0 to 255) as CHAR
+		DriverDate as FILETIME
+		DriverVersion as DWORDLONG
+	end type
+#else
+	type _SP_DRVINFO_DATA_V2_A field = 1
+		cbSize as DWORD
+		DriverType as DWORD
+		Reserved as ULONG_PTR
+		Description(0 to 255) as CHAR
+		MfgName(0 to 255) as CHAR
+		ProviderName(0 to 255) as CHAR
+		DriverDate as FILETIME
+		DriverVersion as DWORDLONG
+	end type
+#endif
+
+type SP_DRVINFO_DATA_V2_A as _SP_DRVINFO_DATA_V2_A
+type PSP_DRVINFO_DATA_V2_A as _SP_DRVINFO_DATA_V2_A ptr
+
+#ifdef __FB_64BIT__
+	type _SP_DRVINFO_DATA_V2_W field = 8
+		cbSize as DWORD
+		DriverType as DWORD
+		Reserved as ULONG_PTR
+		Description(0 to 255) as WCHAR
+		MfgName(0 to 255) as WCHAR
+		ProviderName(0 to 255) as WCHAR
+		DriverDate as FILETIME
+		DriverVersion as DWORDLONG
+	end type
+#else
+	type _SP_DRVINFO_DATA_V2_W field = 1
+		cbSize as DWORD
+		DriverType as DWORD
+		Reserved as ULONG_PTR
+		Description(0 to 255) as WCHAR
+		MfgName(0 to 255) as WCHAR
+		ProviderName(0 to 255) as WCHAR
+		DriverDate as FILETIME
+		DriverVersion as DWORDLONG
+	end type
+#endif
+
+type SP_DRVINFO_DATA_V2_W as _SP_DRVINFO_DATA_V2_W
+type PSP_DRVINFO_DATA_V2_W as _SP_DRVINFO_DATA_V2_W ptr
+
+#ifdef __FB_64BIT__
+	type _SP_DRVINFO_DATA_V1_A field = 8
+		cbSize as DWORD
+		DriverType as DWORD
+		Reserved as ULONG_PTR
+		Description(0 to 255) as CHAR
+		MfgName(0 to 255) as CHAR
+		ProviderName(0 to 255) as CHAR
+	end type
+#else
+	type _SP_DRVINFO_DATA_V1_A field = 1
+		cbSize as DWORD
+		DriverType as DWORD
+		Reserved as ULONG_PTR
+		Description(0 to 255) as CHAR
+		MfgName(0 to 255) as CHAR
+		ProviderName(0 to 255) as CHAR
+	end type
+#endif
+
+type SP_DRVINFO_DATA_V1_A as _SP_DRVINFO_DATA_V1_A
+type PSP_DRVINFO_DATA_V1_A as _SP_DRVINFO_DATA_V1_A ptr
+
+#ifdef __FB_64BIT__
+	type _SP_DRVINFO_DATA_V1_W field = 8
+		cbSize as DWORD
+		DriverType as DWORD
+		Reserved as ULONG_PTR
+		Description(0 to 255) as WCHAR
+		MfgName(0 to 255) as WCHAR
+		ProviderName(0 to 255) as WCHAR
+	end type
+#else
+	type _SP_DRVINFO_DATA_V1_W field = 1
+		cbSize as DWORD
+		DriverType as DWORD
+		Reserved as ULONG_PTR
+		Description(0 to 255) as WCHAR
+		MfgName(0 to 255) as WCHAR
+		ProviderName(0 to 255) as WCHAR
+	end type
+#endif
+
+type SP_DRVINFO_DATA_V1_W as _SP_DRVINFO_DATA_V1_W
+type PSP_DRVINFO_DATA_V1_W as _SP_DRVINFO_DATA_V1_W ptr
+
+#ifdef UNICODE
+	type SP_DRVINFO_DATA_V1 as SP_DRVINFO_DATA_V1_W
+	type PSP_DRVINFO_DATA_V1 as PSP_DRVINFO_DATA_V1_W
+	type SP_DRVINFO_DATA_V2 as SP_DRVINFO_DATA_V2_W
+	type PSP_DRVINFO_DATA_V2 as PSP_DRVINFO_DATA_V2_W
+#else
+	type SP_DRVINFO_DATA_V1 as SP_DRVINFO_DATA_V1_A
+	type PSP_DRVINFO_DATA_V1 as PSP_DRVINFO_DATA_V1_A
+	type SP_DRVINFO_DATA_V2 as SP_DRVINFO_DATA_V2_A
+	type PSP_DRVINFO_DATA_V2 as PSP_DRVINFO_DATA_V2_A
+#endif
+
+type SP_DRVINFO_DATA_A as SP_DRVINFO_DATA_V2_A
+type PSP_DRVINFO_DATA_A as PSP_DRVINFO_DATA_V2_A
+type SP_DRVINFO_DATA_W as SP_DRVINFO_DATA_V2_W
+type PSP_DRVINFO_DATA_W as PSP_DRVINFO_DATA_V2_W
+type SP_DRVINFO_DATA as SP_DRVINFO_DATA_V2
+type PSP_DRVINFO_DATA as PSP_DRVINFO_DATA_V2
+
+#ifdef __FB_64BIT__
+	type _SP_DRVINFO_DETAIL_DATA_A field = 8
+		cbSize as DWORD
+		InfDate as FILETIME
+		CompatIDsOffset as DWORD
+		CompatIDsLength as DWORD
+		Reserved as ULONG_PTR
+		SectionName(0 to 255) as CHAR
+		InfFileName(0 to 259) as CHAR
+		DrvDescription(0 to 255) as CHAR
+		HardwareID(0 to 0) as CHAR
+	end type
+#else
+	type _SP_DRVINFO_DETAIL_DATA_A field = 1
+		cbSize as DWORD
+		InfDate as FILETIME
+		CompatIDsOffset as DWORD
+		CompatIDsLength as DWORD
+		Reserved as ULONG_PTR
+		SectionName(0 to 255) as CHAR
+		InfFileName(0 to 259) as CHAR
+		DrvDescription(0 to 255) as CHAR
+		HardwareID(0 to 0) as CHAR
+	end type
+#endif
+
+type SP_DRVINFO_DETAIL_DATA_A as _SP_DRVINFO_DETAIL_DATA_A
+type PSP_DRVINFO_DETAIL_DATA_A as _SP_DRVINFO_DETAIL_DATA_A ptr
+
+#ifdef __FB_64BIT__
+	type _SP_DRVINFO_DETAIL_DATA_W field = 8
+		cbSize as DWORD
+		InfDate as FILETIME
+		CompatIDsOffset as DWORD
+		CompatIDsLength as DWORD
+		Reserved as ULONG_PTR
+		SectionName(0 to 255) as WCHAR
+		InfFileName(0 to 259) as WCHAR
+		DrvDescription(0 to 255) as WCHAR
+		HardwareID(0 to 0) as WCHAR
+	end type
+#else
+	type _SP_DRVINFO_DETAIL_DATA_W field = 1
+		cbSize as DWORD
+		InfDate as FILETIME
+		CompatIDsOffset as DWORD
+		CompatIDsLength as DWORD
+		Reserved as ULONG_PTR
+		SectionName(0 to 255) as WCHAR
+		InfFileName(0 to 259) as WCHAR
+		DrvDescription(0 to 255) as WCHAR
+		HardwareID(0 to 0) as WCHAR
+	end type
+#endif
+
+type SP_DRVINFO_DETAIL_DATA_W as _SP_DRVINFO_DETAIL_DATA_W
+type PSP_DRVINFO_DETAIL_DATA_W as _SP_DRVINFO_DETAIL_DATA_W ptr
+
+#ifdef UNICODE
+	type SP_DRVINFO_DETAIL_DATA as SP_DRVINFO_DETAIL_DATA_W
+	type PSP_DRVINFO_DETAIL_DATA as PSP_DRVINFO_DETAIL_DATA_W
+#else
+	type SP_DRVINFO_DETAIL_DATA as SP_DRVINFO_DETAIL_DATA_A
+	type PSP_DRVINFO_DETAIL_DATA as PSP_DRVINFO_DETAIL_DATA_A
+#endif
+
+#ifdef __FB_64BIT__
+	type _SP_DRVINSTALL_PARAMS field = 8
+		cbSize as DWORD
+		Rank as DWORD
+		Flags as DWORD
+		PrivateData as DWORD_PTR
+		Reserved as DWORD
+	end type
+#else
+	type _SP_DRVINSTALL_PARAMS field = 1
+		cbSize as DWORD
+		Rank as DWORD
+		Flags as DWORD
+		PrivateData as DWORD_PTR
+		Reserved as DWORD
+	end type
+#endif
+
+type SP_DRVINSTALL_PARAMS as _SP_DRVINSTALL_PARAMS
+type PSP_DRVINSTALL_PARAMS as _SP_DRVINSTALL_PARAMS ptr
+
+#define DNF_DUPDESC &h00000001
+#define DNF_OLDDRIVER &h00000002
+#define DNF_EXCLUDEFROMLIST &h00000004
+#define DNF_NODRIVER &h00000008
+#define DNF_LEGACYINF &h00000010
+#define DNF_CLASS_DRIVER &h00000020
+#define DNF_COMPATIBLE_DRIVER &h00000040
+#define DNF_INET_DRIVER &h00000080
+#define DNF_UNUSED1 &h00000100
+#define DNF_INDEXED_DRIVER &h00000200
+#define DNF_OLD_INET_DRIVER &h00000400
+#define DNF_BAD_DRIVER &h00000800
+#define DNF_DUPPROVIDER &h00001000
+#define DNF_INF_IS_SIGNED &h00002000
+#define DNF_OEM_F6_INF &h00004000
+#define DNF_DUPDRIVERVER &h00008000
+#define DNF_BASIC_DRIVER &h00010000
+#define DNF_AUTHENTICODE_SIGNED &h00020000
+#define DRIVER_HARDWAREID_RANK &h00000FFF
+#define DRIVER_COMPATID_RANK &h00003FFF
+#define DRIVER_UNTRUSTED_RANK &h00008000
+#define DRIVER_UNTRUSTED_HARDWAREID_RANK &h00008FFF
+#define DRIVER_UNTRUSTED_COMPATID_RANK &h0000BFFF
+#define DRIVER_W9X_SUSPECT_RANK &h0000C000
+#define DRIVER_W9X_SUSPECT_HARDWAREID_RANK &h0000CFFF
+#define DRIVER_W9X_SUSPECT_COMPATID_RANK &h0000FFFF
+
+type PSP_DETSIG_CMPPROC as function(byval DeviceInfoSet as HDEVINFO, byval NewDeviceData as PSP_DEVINFO_DATA, byval ExistingDeviceData as PSP_DEVINFO_DATA, byval CompareContext as PVOID) as DWORD
+
+#ifdef __FB_64BIT__
+	type _COINSTALLER_CONTEXT_DATA field = 8
+		PostProcessing as WINBOOL
+		InstallResult as DWORD
+		PrivateData as PVOID
+	end type
+#else
+	type _COINSTALLER_CONTEXT_DATA field = 1
+		PostProcessing as WINBOOL
+		InstallResult as DWORD
+		PrivateData as PVOID
+	end type
+#endif
+
+type COINSTALLER_CONTEXT_DATA as _COINSTALLER_CONTEXT_DATA
+type PCOINSTALLER_CONTEXT_DATA as _COINSTALLER_CONTEXT_DATA ptr
+
+#ifdef __FB_64BIT__
+	type _SP_CLASSIMAGELIST_DATA field = 8
+		cbSize as DWORD
+		ImageList as HIMAGELIST
+		Reserved as ULONG_PTR
+	end type
+#else
+	type _SP_CLASSIMAGELIST_DATA field = 1
+		cbSize as DWORD
+		ImageList as HIMAGELIST
+		Reserved as ULONG_PTR
+	end type
+#endif
+
+type SP_CLASSIMAGELIST_DATA as _SP_CLASSIMAGELIST_DATA
+type PSP_CLASSIMAGELIST_DATA as _SP_CLASSIMAGELIST_DATA ptr
+
+#ifdef __FB_64BIT__
+	type _SP_PROPSHEETPAGE_REQUEST field = 8
+		cbSize as DWORD
+		PageRequested as DWORD
+		DeviceInfoSet as HDEVINFO
+		DeviceInfoData as PSP_DEVINFO_DATA
+	end type
+#else
+	type _SP_PROPSHEETPAGE_REQUEST field = 1
+		cbSize as DWORD
+		PageRequested as DWORD
+		DeviceInfoSet as HDEVINFO
+		DeviceInfoData as PSP_DEVINFO_DATA
+	end type
+#endif
+
+type SP_PROPSHEETPAGE_REQUEST as _SP_PROPSHEETPAGE_REQUEST
+type PSP_PROPSHEETPAGE_REQUEST as _SP_PROPSHEETPAGE_REQUEST ptr
+
+#define SPPSR_SELECT_DEVICE_RESOURCES 1
+#define SPPSR_ENUM_BASIC_DEVICE_PROPERTIES 2
+#define SPPSR_ENUM_ADV_DEVICE_PROPERTIES 3
+
+#ifdef __FB_64BIT__
+	type _SP_BACKUP_QUEUE_PARAMS_V2_A field = 8
+		cbSize as DWORD
+		FullInfPath(0 to 259) as CHAR
+		FilenameOffset as INT_
+		ReinstallInstance(0 to 259) as CHAR
+	end type
+#else
+	type _SP_BACKUP_QUEUE_PARAMS_V2_A field = 1
+		cbSize as DWORD
+		FullInfPath(0 to 259) as CHAR
+		FilenameOffset as INT_
+		ReinstallInstance(0 to 259) as CHAR
+	end type
+#endif
+
+type SP_BACKUP_QUEUE_PARAMS_V2_A as _SP_BACKUP_QUEUE_PARAMS_V2_A
+type PSP_BACKUP_QUEUE_PARAMS_V2_A as _SP_BACKUP_QUEUE_PARAMS_V2_A ptr
+
+#ifdef __FB_64BIT__
+	type _SP_BACKUP_QUEUE_PARAMS_V2_W field = 8
+		cbSize as DWORD
+		FullInfPath(0 to 259) as WCHAR
+		FilenameOffset as INT_
+		ReinstallInstance(0 to 259) as WCHAR
+	end type
+#else
+	type _SP_BACKUP_QUEUE_PARAMS_V2_W field = 1
+		cbSize as DWORD
+		FullInfPath(0 to 259) as WCHAR
+		FilenameOffset as INT_
+		ReinstallInstance(0 to 259) as WCHAR
+	end type
+#endif
+
+type SP_BACKUP_QUEUE_PARAMS_V2_W as _SP_BACKUP_QUEUE_PARAMS_V2_W
+type PSP_BACKUP_QUEUE_PARAMS_V2_W as _SP_BACKUP_QUEUE_PARAMS_V2_W ptr
+
+#ifdef __FB_64BIT__
+	type _SP_BACKUP_QUEUE_PARAMS_V1_A field = 8
+		cbSize as DWORD
+		FullInfPath(0 to 259) as CHAR
+		FilenameOffset as INT_
+	end type
+#else
+	type _SP_BACKUP_QUEUE_PARAMS_V1_A field = 1
+		cbSize as DWORD
+		FullInfPath(0 to 259) as CHAR
+		FilenameOffset as INT_
+	end type
+#endif
+
+type SP_BACKUP_QUEUE_PARAMS_V1_A as _SP_BACKUP_QUEUE_PARAMS_V1_A
+type PSP_BACKUP_QUEUE_PARAMS_V1_A as _SP_BACKUP_QUEUE_PARAMS_V1_A ptr
+
+#ifdef __FB_64BIT__
+	type _SP_BACKUP_QUEUE_PARAMS_V1_W field = 8
+		cbSize as DWORD
+		FullInfPath(0 to 259) as WCHAR
+		FilenameOffset as INT_
+	end type
+#else
+	type _SP_BACKUP_QUEUE_PARAMS_V1_W field = 1
+		cbSize as DWORD
+		FullInfPath(0 to 259) as WCHAR
+		FilenameOffset as INT_
+	end type
+#endif
+
+type SP_BACKUP_QUEUE_PARAMS_V1_W as _SP_BACKUP_QUEUE_PARAMS_V1_W
+type PSP_BACKUP_QUEUE_PARAMS_V1_W as _SP_BACKUP_QUEUE_PARAMS_V1_W ptr
+
+#ifdef UNICODE
+	type SP_BACKUP_QUEUE_PARAMS_V1 as SP_BACKUP_QUEUE_PARAMS_V1_W
+	type PSP_BACKUP_QUEUE_PARAMS_V1 as PSP_BACKUP_QUEUE_PARAMS_V1_W
+	type SP_BACKUP_QUEUE_PARAMS_V2 as SP_BACKUP_QUEUE_PARAMS_V2_W
+	type PSP_BACKUP_QUEUE_PARAMS_V2 as PSP_BACKUP_QUEUE_PARAMS_V2_W
+#else
+	type SP_BACKUP_QUEUE_PARAMS_V1 as SP_BACKUP_QUEUE_PARAMS_V1_A
+	type PSP_BACKUP_QUEUE_PARAMS_V1 as PSP_BACKUP_QUEUE_PARAMS_V1_A
+	type SP_BACKUP_QUEUE_PARAMS_V2 as SP_BACKUP_QUEUE_PARAMS_V2_A
+	type PSP_BACKUP_QUEUE_PARAMS_V2 as PSP_BACKUP_QUEUE_PARAMS_V2_A
+#endif
+
+type SP_BACKUP_QUEUE_PARAMS_A as SP_BACKUP_QUEUE_PARAMS_V2_A
+type PSP_BACKUP_QUEUE_PARAMS_A as PSP_BACKUP_QUEUE_PARAMS_V2_A
+type SP_BACKUP_QUEUE_PARAMS_W as SP_BACKUP_QUEUE_PARAMS_V2_W
+type PSP_BACKUP_QUEUE_PARAMS_W as PSP_BACKUP_QUEUE_PARAMS_V2_W
+type SP_BACKUP_QUEUE_PARAMS as SP_BACKUP_QUEUE_PARAMS_V2
+type PSP_BACKUP_QUEUE_PARAMS as PSP_BACKUP_QUEUE_PARAMS_V2
+
+#define ERROR_EXPECTED_SECTION_NAME ((APPLICATION_ERROR_MASK or ERROR_SEVERITY_ERROR) or 0)
+#define ERROR_BAD_SECTION_NAME_LINE ((APPLICATION_ERROR_MASK or ERROR_SEVERITY_ERROR) or 1)
+#define ERROR_SECTION_NAME_TOO_LONG ((APPLICATION_ERROR_MASK or ERROR_SEVERITY_ERROR) or 2)
+#define ERROR_GENERAL_SYNTAX ((APPLICATION_ERROR_MASK or ERROR_SEVERITY_ERROR) or 3)
+#define ERROR_WRONG_INF_STYLE ((APPLICATION_ERROR_MASK or ERROR_SEVERITY_ERROR) or &h100)
+#define ERROR_SECTION_NOT_FOUND ((APPLICATION_ERROR_MASK or ERROR_SEVERITY_ERROR) or &h101)
+#define ERROR_LINE_NOT_FOUND ((APPLICATION_ERROR_MASK or ERROR_SEVERITY_ERROR) or &h102)
+#define ERROR_NO_BACKUP ((APPLICATION_ERROR_MASK or ERROR_SEVERITY_ERROR) or &h103)
+#define ERROR_NO_ASSOCIATED_CLASS ((APPLICATION_ERROR_MASK or ERROR_SEVERITY_ERROR) or &h200)
+#define ERROR_CLASS_MISMATCH ((APPLICATION_ERROR_MASK or ERROR_SEVERITY_ERROR) or &h201)
+#define ERROR_DUPLICATE_FOUND ((APPLICATION_ERROR_MASK or ERROR_SEVERITY_ERROR) or &h202)
+#define ERROR_NO_DRIVER_SELECTED ((APPLICATION_ERROR_MASK or ERROR_SEVERITY_ERROR) or &h203)
+#define ERROR_KEY_DOES_NOT_EXIST ((APPLICATION_ERROR_MASK or ERROR_SEVERITY_ERROR) or &h204)
+#define ERROR_INVALID_DEVINST_NAME ((APPLICATION_ERROR_MASK or ERROR_SEVERITY_ERROR) or &h205)
+#define ERROR_INVALID_CLASS ((APPLICATION_ERROR_MASK or ERROR_SEVERITY_ERROR) or &h206)
+#define ERROR_DEVINST_ALREADY_EXISTS ((APPLICATION_ERROR_MASK or ERROR_SEVERITY_ERROR) or &h207)
+#define ERROR_DEVINFO_NOT_REGISTERED ((APPLICATION_ERROR_MASK or ERROR_SEVERITY_ERROR) or &h208)
+#define ERROR_INVALID_REG_PROPERTY ((APPLICATION_ERROR_MASK or ERROR_SEVERITY_ERROR) or &h209)
+#define ERROR_NO_INF ((APPLICATION_ERROR_MASK or ERROR_SEVERITY_ERROR) or &h20A)
+#define ERROR_NO_SUCH_DEVINST ((APPLICATION_ERROR_MASK or ERROR_SEVERITY_ERROR) or &h20B)
+#define ERROR_CANT_LOAD_CLASS_ICON ((APPLICATION_ERROR_MASK or ERROR_SEVERITY_ERROR) or &h20C)
+#define ERROR_INVALID_CLASS_INSTALLER ((APPLICATION_ERROR_MASK or ERROR_SEVERITY_ERROR) or &h20D)
+#define ERROR_DI_DO_DEFAULT ((APPLICATION_ERROR_MASK or ERROR_SEVERITY_ERROR) or &h20E)
+#define ERROR_DI_NOFILECOPY ((APPLICATION_ERROR_MASK or ERROR_SEVERITY_ERROR) or &h20F)
+#define ERROR_INVALID_HWPROFILE ((APPLICATION_ERROR_MASK or ERROR_SEVERITY_ERROR) or &h210)
+#define ERROR_NO_DEVICE_SELECTED ((APPLICATION_ERROR_MASK or ERROR_SEVERITY_ERROR) or &h211)
+#define ERROR_DEVINFO_LIST_LOCKED ((APPLICATION_ERROR_MASK or ERROR_SEVERITY_ERROR) or &h212)
+#define ERROR_DEVINFO_DATA_LOCKED ((APPLICATION_ERROR_MASK or ERROR_SEVERITY_ERROR) or &h213)
+#define ERROR_DI_BAD_PATH ((APPLICATION_ERROR_MASK or ERROR_SEVERITY_ERROR) or &h214)
+#define ERROR_NO_CLASSINSTALL_PARAMS ((APPLICATION_ERROR_MASK or ERROR_SEVERITY_ERROR) or &h215)
+#define ERROR_FILEQUEUE_LOCKED ((APPLICATION_ERROR_MASK or ERROR_SEVERITY_ERROR) or &h216)
+#define ERROR_BAD_SERVICE_INSTALLSECT ((APPLICATION_ERROR_MASK or ERROR_SEVERITY_ERROR) or &h217)
+#define ERROR_NO_CLASS_DRIVER_LIST ((APPLICATION_ERROR_MASK or ERROR_SEVERITY_ERROR) or &h218)
+#define ERROR_NO_ASSOCIATED_SERVICE ((APPLICATION_ERROR_MASK or ERROR_SEVERITY_ERROR) or &h219)
+#define ERROR_NO_DEFAULT_DEVICE_INTERFACE ((APPLICATION_ERROR_MASK or ERROR_SEVERITY_ERROR) or &h21A)
+#define ERROR_DEVICE_INTERFACE_ACTIVE ((APPLICATION_ERROR_MASK or ERROR_SEVERITY_ERROR) or &h21B)
+#define ERROR_DEVICE_INTERFACE_REMOVED ((APPLICATION_ERROR_MASK or ERROR_SEVERITY_ERROR) or &h21C)
+#define ERROR_BAD_INTERFACE_INSTALLSECT ((APPLICATION_ERROR_MASK or ERROR_SEVERITY_ERROR) or &h21D)
+#define ERROR_NO_SUCH_INTERFACE_CLASS ((APPLICATION_ERROR_MASK or ERROR_SEVERITY_ERROR) or &h21E)
+#define ERROR_INVALID_REFERENCE_STRING ((APPLICATION_ERROR_MASK or ERROR_SEVERITY_ERROR) or &h21F)
+#define ERROR_INVALID_MACHINENAME ((APPLICATION_ERROR_MASK or ERROR_SEVERITY_ERROR) or &h220)
+#define ERROR_REMOTE_COMM_FAILURE ((APPLICATION_ERROR_MASK or ERROR_SEVERITY_ERROR) or &h221)
+#define ERROR_MACHINE_UNAVAILABLE ((APPLICATION_ERROR_MASK or ERROR_SEVERITY_ERROR) or &h222)
+#define ERROR_NO_CONFIGMGR_SERVICES ((APPLICATION_ERROR_MASK or ERROR_SEVERITY_ERROR) or &h223)
+#define ERROR_INVALID_PROPPAGE_PROVIDER ((APPLICATION_ERROR_MASK or ERROR_SEVERITY_ERROR) or &h224)
+#define ERROR_NO_SUCH_DEVICE_INTERFACE ((APPLICATION_ERROR_MASK or ERROR_SEVERITY_ERROR) or &h225)
+#define ERROR_DI_POSTPROCESSING_REQUIRED ((APPLICATION_ERROR_MASK or ERROR_SEVERITY_ERROR) or &h226)
+#define ERROR_INVALID_COINSTALLER ((APPLICATION_ERROR_MASK or ERROR_SEVERITY_ERROR) or &h227)
+#define ERROR_NO_COMPAT_DRIVERS ((APPLICATION_ERROR_MASK or ERROR_SEVERITY_ERROR) or &h228)
+#define ERROR_NO_DEVICE_ICON ((APPLICATION_ERROR_MASK or ERROR_SEVERITY_ERROR) or &h229)
+#define ERROR_INVALID_INF_LOGCONFIG ((APPLICATION_ERROR_MASK or ERROR_SEVERITY_ERROR) or &h22A)
+#define ERROR_DI_DONT_INSTALL ((APPLICATION_ERROR_MASK or ERROR_SEVERITY_ERROR) or &h22B)
+#define ERROR_INVALID_FILTER_DRIVER ((APPLICATION_ERROR_MASK or ERROR_SEVERITY_ERROR) or &h22C)
+#define ERROR_NON_WINDOWS_NT_DRIVER ((APPLICATION_ERROR_MASK or ERROR_SEVERITY_ERROR) or &h22D)
+#define ERROR_NON_WINDOWS_DRIVER ((APPLICATION_ERROR_MASK or ERROR_SEVERITY_ERROR) or &h22E)
+#define ERROR_NO_CATALOG_FOR_OEM_INF ((APPLICATION_ERROR_MASK or ERROR_SEVERITY_ERROR) or &h22F)
+#define ERROR_DEVINSTALL_QUEUE_NONNATIVE ((APPLICATION_ERROR_MASK or ERROR_SEVERITY_ERROR) or &h230)
+#define ERROR_NOT_DISABLEABLE ((APPLICATION_ERROR_MASK or ERROR_SEVERITY_ERROR) or &h231)
+#define ERROR_CANT_REMOVE_DEVINST ((APPLICATION_ERROR_MASK or ERROR_SEVERITY_ERROR) or &h232)
+#define ERROR_INVALID_TARGET ((APPLICATION_ERROR_MASK or ERROR_SEVERITY_ERROR) or &h233)
+#define ERROR_DRIVER_NONNATIVE ((APPLICATION_ERROR_MASK or ERROR_SEVERITY_ERROR) or &h234)
+#define ERROR_IN_WOW64 ((APPLICATION_ERROR_MASK or ERROR_SEVERITY_ERROR) or &h235)
+#define ERROR_SET_SYSTEM_RESTORE_POINT ((APPLICATION_ERROR_MASK or ERROR_SEVERITY_ERROR) or &h236)
+#define ERROR_INCORRECTLY_COPIED_INF ((APPLICATION_ERROR_MASK or ERROR_SEVERITY_ERROR) or &h237)
+#define ERROR_SCE_DISABLED ((APPLICATION_ERROR_MASK or ERROR_SEVERITY_ERROR) or &h238)
+#define ERROR_UNKNOWN_EXCEPTION ((APPLICATION_ERROR_MASK or ERROR_SEVERITY_ERROR) or &h239)
+#define ERROR_PNP_REGISTRY_ERROR ((APPLICATION_ERROR_MASK or ERROR_SEVERITY_ERROR) or &h23A)
+#define ERROR_REMOTE_REQUEST_UNSUPPORTED ((APPLICATION_ERROR_MASK or ERROR_SEVERITY_ERROR) or &h23B)
+#define ERROR_NOT_AN_INSTALLED_OEM_INF ((APPLICATION_ERROR_MASK or ERROR_SEVERITY_ERROR) or &h23C)
+#define ERROR_INF_IN_USE_BY_DEVICES ((APPLICATION_ERROR_MASK or ERROR_SEVERITY_ERROR) or &h23D)
+#define ERROR_DI_FUNCTION_OBSOLETE ((APPLICATION_ERROR_MASK or ERROR_SEVERITY_ERROR) or &h23E)
+#define ERROR_NO_AUTHENTICODE_CATALOG ((APPLICATION_ERROR_MASK or ERROR_SEVERITY_ERROR) or &h23F)
+#define ERROR_AUTHENTICODE_DISALLOWED ((APPLICATION_ERROR_MASK or ERROR_SEVERITY_ERROR) or &h240)
+#define ERROR_AUTHENTICODE_TRUSTED_PUBLISHER ((APPLICATION_ERROR_MASK or ERROR_SEVERITY_ERROR) or &h241)
+#define ERROR_AUTHENTICODE_TRUST_NOT_ESTABLISHED ((APPLICATION_ERROR_MASK or ERROR_SEVERITY_ERROR) or &h242)
+#define ERROR_AUTHENTICODE_PUBLISHER_NOT_TRUSTED ((APPLICATION_ERROR_MASK or ERROR_SEVERITY_ERROR) or &h243)
+#define ERROR_SIGNATURE_OSATTRIBUTE_MISMATCH ((APPLICATION_ERROR_MASK or ERROR_SEVERITY_ERROR) or &h244)
+#define ERROR_ONLY_VALIDATE_VIA_AUTHENTICODE ((APPLICATION_ERROR_MASK or ERROR_SEVERITY_ERROR) or &h245)
+#define ERROR_UNRECOVERABLE_STACK_OVERFLOW ((APPLICATION_ERROR_MASK or ERROR_SEVERITY_ERROR) or &h300)
+#define EXCEPTION_SPAPI_UNRECOVERABLE_STACK_OVERFLOW ERROR_UNRECOVERABLE_STACK_OVERFLOW
+#define ERROR_NO_DEFAULT_INTERFACE_DEVICE ERROR_NO_DEFAULT_DEVICE_INTERFACE
+#define ERROR_INTERFACE_DEVICE_ACTIVE ERROR_DEVICE_INTERFACE_ACTIVE
+#define ERROR_INTERFACE_DEVICE_REMOVED ERROR_DEVICE_INTERFACE_REMOVED
+#define ERROR_NO_SUCH_INTERFACE_DEVICE ERROR_NO_SUCH_DEVICE_INTERFACE
+#define ERROR_NOT_INSTALLED ((APPLICATION_ERROR_MASK or ERROR_SEVERITY_ERROR) or &h1000)
+
+declare function SetupGetInfInformationA(byval InfSpec as LPCVOID, byval SearchControl as DWORD, byval ReturnBuffer as PSP_INF_INFORMATION, byval ReturnBufferSize as DWORD, byval RequiredSize as PDWORD) as WINBOOL
+declare function SetupGetInfInformationW(byval InfSpec as LPCVOID, byval SearchControl as DWORD, byval ReturnBuffer as PSP_INF_INFORMATION, byval ReturnBufferSize as DWORD, byval RequiredSize as PDWORD) as WINBOOL
+
+#define INFINFO_INF_SPEC_IS_HINF 1
+#define INFINFO_INF_NAME_IS_ABSOLUTE 2
+#define INFINFO_DEFAULT_SEARCH 3
+#define INFINFO_REVERSE_DEFAULT_SEARCH 4
+#define INFINFO_INF_PATH_LIST_SEARCH 5
+#define SetupGetInfInformation __MINGW_NAME_AW(SetupGetInfInformation)
+#define SetupQueryInfFileInformation __MINGW_NAME_AW(SetupQueryInfFileInformation)
+#define SetupQueryInfOriginalFileInformation __MINGW_NAME_AW(SetupQueryInfOriginalFileInformation)
+#define SetupQueryInfVersionInformation __MINGW_NAME_AW(SetupQueryInfVersionInformation)
+#define SetupGetInfFileList __MINGW_NAME_AW(SetupGetInfFileList)
+#define SetupOpenInfFile __MINGW_NAME_AW(SetupOpenInfFile)
+#define SetupOpenAppendInfFile __MINGW_NAME_AW(SetupOpenAppendInfFile)
+#define SetupFindFirstLine __MINGW_NAME_AW(SetupFindFirstLine)
+#define SetupFindNextMatchLine __MINGW_NAME_AW(SetupFindNextMatchLine)
+#define SetupGetLineByIndex __MINGW_NAME_AW(SetupGetLineByIndex)
+#define SetupGetLineCount __MINGW_NAME_AW(SetupGetLineCount)
+#define SetupGetLineText __MINGW_NAME_AW(SetupGetLineText)
+#define SetupGetStringField __MINGW_NAME_AW(SetupGetStringField)
+#define SetupGetMultiSzField __MINGW_NAME_AW(SetupGetMultiSzField)
+#define SetupGetFileCompressionInfo __MINGW_NAME_AW(SetupGetFileCompressionInfo)
+#define SetupGetFileCompressionInfoEx __MINGW_NAME_AW(SetupGetFileCompressionInfoEx)
+#define SetupDecompressOrCopyFile __MINGW_NAME_AW(SetupDecompressOrCopyFile)
+#define SetupGetSourceFileLocation __MINGW_NAME_AW(SetupGetSourceFileLocation)
+#define SetupGetSourceFileSize __MINGW_NAME_AW(SetupGetSourceFileSize)
+#define SetupGetTargetPath __MINGW_NAME_AW(SetupGetTargetPath)
+#define SetupSetSourceList __MINGW_NAME_AW(SetupSetSourceList)
+#define SetupAddToSourceList __MINGW_NAME_AW(SetupAddToSourceList)
+#define SetupRemoveFromSourceList __MINGW_NAME_AW(SetupRemoveFromSourceList)
+#define SetupQuerySourceList __MINGW_NAME_AW(SetupQuerySourceList)
+#define SetupFreeSourceList __MINGW_NAME_AW(SetupFreeSourceList)
+#define SetupPromptForDisk __MINGW_NAME_AW(SetupPromptForDisk)
+#define SetupCopyError __MINGW_NAME_AW(SetupCopyError)
+#define SetupRenameError __MINGW_NAME_AW(SetupRenameError)
+#define SetupDeleteError __MINGW_NAME_AW(SetupDeleteError)
+#define SetupBackupError __MINGW_NAME_AW(SetupBackupError)
+#define SRCLIST_TEMPORARY &h00000001
+#define SRCLIST_NOBROWSE &h00000002
+#define SRCLIST_SYSTEM &h00000010
+#define SRCLIST_USER &h00000020
+#define SRCLIST_SYSIFADMIN &h00000040
+#define SRCLIST_SUBDIRS &h00000100
+#define SRCLIST_APPEND &h00000200
+#define SRCLIST_NOSTRIPPLATFORM &h00000400
+#define FILE_COMPRESSION_NONE 0
+#define FILE_COMPRESSION_WINLZA 1
+#define FILE_COMPRESSION_MSZIP 2
+#define FILE_COMPRESSION_NTCAB 3
+
+declare function SetupQueryInfFileInformationA(byval InfInformation as PSP_INF_INFORMATION, byval InfIndex as UINT, byval ReturnBuffer as PSTR, byval ReturnBufferSize as DWORD, byval RequiredSize as PDWORD) as WINBOOL
+declare function SetupQueryInfFileInformationW(byval InfInformation as PSP_INF_INFORMATION, byval InfIndex as UINT, byval ReturnBuffer as PWSTR, byval ReturnBufferSize as DWORD, byval RequiredSize as PDWORD) as WINBOOL
+declare function SetupQueryInfOriginalFileInformationA(byval InfInformation as PSP_INF_INFORMATION, byval InfIndex as UINT, byval AlternatePlatformInfo as PSP_ALTPLATFORM_INFO, byval OriginalFileInfo as PSP_ORIGINAL_FILE_INFO_A) as WINBOOL
+declare function SetupQueryInfOriginalFileInformationW(byval InfInformation as PSP_INF_INFORMATION, byval InfIndex as UINT, byval AlternatePlatformInfo as PSP_ALTPLATFORM_INFO, byval OriginalFileInfo as PSP_ORIGINAL_FILE_INFO_W) as WINBOOL
+declare function SetupQueryInfVersionInformationA(byval InfInformation as PSP_INF_INFORMATION, byval InfIndex as UINT, byval Key as PCSTR, byval ReturnBuffer as PSTR, byval ReturnBufferSize as DWORD, byval RequiredSize as PDWORD) as WINBOOL
+declare function SetupQueryInfVersionInformationW(byval InfInformation as PSP_INF_INFORMATION, byval InfIndex as UINT, byval Key as PCWSTR, byval ReturnBuffer as PWSTR, byval ReturnBufferSize as DWORD, byval RequiredSize as PDWORD) as WINBOOL
+declare function SetupGetInfFileListA(byval DirectoryPath as PCSTR, byval InfStyle as DWORD, byval ReturnBuffer as PSTR, byval ReturnBufferSize as DWORD, byval RequiredSize as PDWORD) as WINBOOL
+declare function SetupGetInfFileListW(byval DirectoryPath as PCWSTR, byval InfStyle as DWORD, byval ReturnBuffer as PWSTR, byval ReturnBufferSize as DWORD, byval RequiredSize as PDWORD) as WINBOOL
+declare function SetupOpenInfFileW(byval FileName as PCWSTR, byval InfClass as PCWSTR, byval InfStyle as DWORD, byval ErrorLine as PUINT) as HINF
+declare function SetupOpenInfFileA(byval FileName as PCSTR, byval InfClass as PCSTR, byval InfStyle as DWORD, byval ErrorLine as PUINT) as HINF
+declare function SetupOpenMasterInf() as HINF
+declare function SetupOpenAppendInfFileW(byval FileName as PCWSTR, byval InfHandle as HINF, byval ErrorLine as PUINT) as WINBOOL
+declare function SetupOpenAppendInfFileA(byval FileName as PCSTR, byval InfHandle as HINF, byval ErrorLine as PUINT) as WINBOOL
+declare sub SetupCloseInfFile(byval InfHandle as HINF)
+declare function SetupFindFirstLineA(byval InfHandle as HINF, byval Section as PCSTR, byval Key as PCSTR, byval Context as PINFCONTEXT) as WINBOOL
+declare function SetupFindFirstLineW(byval InfHandle as HINF, byval Section as PCWSTR, byval Key as PCWSTR, byval Context as PINFCONTEXT) as WINBOOL
+declare function SetupFindNextLine(byval ContextIn as PINFCONTEXT, byval ContextOut as PINFCONTEXT) as WINBOOL
+declare function SetupFindNextMatchLineA(byval ContextIn as PINFCONTEXT, byval Key as PCSTR, byval ContextOut as PINFCONTEXT) as WINBOOL
+declare function SetupFindNextMatchLineW(byval ContextIn as PINFCONTEXT, byval Key as PCWSTR, byval ContextOut as PINFCONTEXT) as WINBOOL
+declare function SetupGetLineByIndexA(byval InfHandle as HINF, byval Section as PCSTR, byval Index as DWORD, byval Context as PINFCONTEXT) as WINBOOL
+declare function SetupGetLineByIndexW(byval InfHandle as HINF, byval Section as PCWSTR, byval Index as DWORD, byval Context as PINFCONTEXT) as WINBOOL
+declare function SetupGetLineCountA(byval InfHandle as HINF, byval Section as PCSTR) as LONG_
+declare function SetupGetLineCountW(byval InfHandle as HINF, byval Section as PCWSTR) as LONG_
+declare function SetupGetLineTextA(byval Context as PINFCONTEXT, byval InfHandle as HINF, byval Section as PCSTR, byval Key as PCSTR, byval ReturnBuffer as PSTR, byval ReturnBufferSize as DWORD, byval RequiredSize as PDWORD) as WINBOOL
+declare function SetupGetLineTextW(byval Context as PINFCONTEXT, byval InfHandle as HINF, byval Section as PCWSTR, byval Key as PCWSTR, byval ReturnBuffer as PWSTR, byval ReturnBufferSize as DWORD, byval RequiredSize as PDWORD) as WINBOOL
+declare function SetupGetFieldCount(byval Context as PINFCONTEXT) as DWORD
+declare function SetupGetStringFieldA(byval Context as PINFCONTEXT, byval FieldIndex as DWORD, byval ReturnBuffer as PSTR, byval ReturnBufferSize as DWORD, byval RequiredSize as PDWORD) as WINBOOL
+declare function SetupGetStringFieldW(byval Context as PINFCONTEXT, byval FieldIndex as DWORD, byval ReturnBuffer as PWSTR, byval ReturnBufferSize as DWORD, byval RequiredSize as PDWORD) as WINBOOL
+declare function SetupGetIntField(byval Context as PINFCONTEXT, byval FieldIndex as DWORD, byval IntegerValue as PINT) as WINBOOL
+declare function SetupGetMultiSzFieldA(byval Context as PINFCONTEXT, byval FieldIndex as DWORD, byval ReturnBuffer as PSTR, byval ReturnBufferSize as DWORD, byval RequiredSize as LPDWORD) as WINBOOL
+declare function SetupGetMultiSzFieldW(byval Context as PINFCONTEXT, byval FieldIndex as DWORD, byval ReturnBuffer as PWSTR, byval ReturnBufferSize as DWORD, byval RequiredSize as LPDWORD) as WINBOOL
+declare function SetupGetBinaryField(byval Context as PINFCONTEXT, byval FieldIndex as DWORD, byval ReturnBuffer as PBYTE, byval ReturnBufferSize as DWORD, byval RequiredSize as LPDWORD) as WINBOOL
+declare function SetupGetFileCompressionInfoA(byval SourceFileName as PCSTR, byval ActualSourceFileName as PSTR ptr, byval SourceFileSize as PDWORD, byval TargetFileSize as PDWORD, byval CompressionType as PUINT) as DWORD
+declare function SetupGetFileCompressionInfoW(byval SourceFileName as PCWSTR, byval ActualSourceFileName as PWSTR ptr, byval SourceFileSize as PDWORD, byval TargetFileSize as PDWORD, byval CompressionType as PUINT) as DWORD
+declare function SetupGetFileCompressionInfoExA(byval SourceFileName as PCSTR, byval ActualSourceFileNameBuffer as PSTR, byval ActualSourceFileNameBufferLen as DWORD, byval RequiredBufferLen as PDWORD, byval SourceFileSize as PDWORD, byval TargetFileSize as PDWORD, byval CompressionType as PUINT) as WINBOOL
+declare function SetupGetFileCompressionInfoExW(byval SourceFileName as PCWSTR, byval ActualSourceFileNameBuffer as PWSTR, byval ActualSourceFileNameBufferLen as DWORD, byval RequiredBufferLen as PDWORD, byval SourceFileSize as PDWORD, byval TargetFileSize as PDWORD, byval CompressionType as PUINT) as WINBOOL
+declare function SetupDecompressOrCopyFileA(byval SourceFileName as PCSTR, byval TargetFileName as PCSTR, byval CompressionType as PUINT) as DWORD
+declare function SetupDecompressOrCopyFileW(byval SourceFileName as PCWSTR, byval TargetFileName as PCWSTR, byval CompressionType as PUINT) as DWORD
+declare function SetupGetSourceFileLocationA(byval InfHandle as HINF, byval InfContext as PINFCONTEXT, byval FileName as PCSTR, byval SourceId as PUINT, byval ReturnBuffer as PSTR, byval ReturnBufferSize as DWORD, byval RequiredSize as PDWORD) as WINBOOL
+declare function SetupGetSourceFileLocationW(byval InfHandle as HINF, byval InfContext as PINFCONTEXT, byval FileName as PCWSTR, byval SourceId as PUINT, byval ReturnBuffer as PWSTR, byval ReturnBufferSize as DWORD, byval RequiredSize as PDWORD) as WINBOOL
+declare function SetupGetSourceFileSizeA(byval InfHandle as HINF, byval InfContext as PINFCONTEXT, byval FileName as PCSTR, byval Section as PCSTR, byval FileSize as PDWORD, byval RoundingFactor as UINT) as WINBOOL
+declare function SetupGetSourceFileSizeW(byval InfHandle as HINF, byval InfContext as PINFCONTEXT, byval FileName as PCWSTR, byval Section as PCWSTR, byval FileSize as PDWORD, byval RoundingFactor as UINT) as WINBOOL
+declare function SetupGetTargetPathA(byval InfHandle as HINF, byval InfContext as PINFCONTEXT, byval Section as PCSTR, byval ReturnBuffer as PSTR, byval ReturnBufferSize as DWORD, byval RequiredSize as PDWORD) as WINBOOL
+declare function SetupGetTargetPathW(byval InfHandle as HINF, byval InfContext as PINFCONTEXT, byval Section as PCWSTR, byval ReturnBuffer as PWSTR, byval ReturnBufferSize as DWORD, byval RequiredSize as PDWORD) as WINBOOL
+declare function SetupSetSourceListA(byval Flags as DWORD, byval SourceList as PCSTR ptr, byval SourceCount as UINT) as WINBOOL
+declare function SetupSetSourceListW(byval Flags as DWORD, byval SourceList as PCWSTR ptr, byval SourceCount as UINT) as WINBOOL
+declare function SetupCancelTemporarySourceList() as WINBOOL
+declare function SetupAddToSourceListA(byval Flags as DWORD, byval Source as PCSTR) as WINBOOL
+declare function SetupAddToSourceListW(byval Flags as DWORD, byval Source as PCWSTR) as WINBOOL
+declare function SetupRemoveFromSourceListA(byval Flags as DWORD, byval Source as PCSTR) as WINBOOL
+declare function SetupRemoveFromSourceListW(byval Flags as DWORD, byval Source as PCWSTR) as WINBOOL
+declare function SetupQuerySourceListA(byval Flags as DWORD, byval List as PCSTR ptr ptr, byval Count as PUINT) as WINBOOL
+declare function SetupQuerySourceListW(byval Flags as DWORD, byval List as PCWSTR ptr ptr, byval Count as PUINT) as WINBOOL
+declare function SetupFreeSourceListA(byval List as PCSTR ptr ptr, byval Count as UINT) as WINBOOL
+declare function SetupFreeSourceListW(byval List as PCWSTR ptr ptr, byval Count as UINT) as WINBOOL
+declare function SetupPromptForDiskA(byval hwndParent as HWND, byval DialogTitle as PCSTR, byval DiskName as PCSTR, byval PathToSource as PCSTR, byval FileSought as PCSTR, byval TagFile as PCSTR, byval DiskPromptStyle as DWORD, byval PathBuffer as PSTR, byval PathBufferSize as DWORD, byval PathRequiredSize as PDWORD) as UINT
+declare function SetupPromptForDiskW(byval hwndParent as HWND, byval DialogTitle as PCWSTR, byval DiskName as PCWSTR, byval PathToSource as PCWSTR, byval FileSought as PCWSTR, byval TagFile as PCWSTR, byval DiskPromptStyle as DWORD, byval PathBuffer as PWSTR, byval PathBufferSize as DWORD, byval PathRequiredSize as PDWORD) as UINT
+declare function SetupCopyErrorA(byval hwndParent as HWND, byval DialogTitle as PCSTR, byval DiskName as PCSTR, byval PathToSource as PCSTR, byval SourceFile as PCSTR, byval TargetPathFile as PCSTR, byval Win32ErrorCode as UINT, byval Style as DWORD, byval PathBuffer as PSTR, byval PathBufferSize as DWORD, byval PathRequiredSize as PDWORD) as UINT
+declare function SetupCopyErrorW(byval hwndParent as HWND, byval DialogTitle as PCWSTR, byval DiskName as PCWSTR, byval PathToSource as PCWSTR, byval SourceFile as PCWSTR, byval TargetPathFile as PCWSTR, byval Win32ErrorCode as UINT, byval Style as DWORD, byval PathBuffer as PWSTR, byval PathBufferSize as DWORD, byval PathRequiredSize as PDWORD) as UINT
+declare function SetupRenameErrorA(byval hwndParent as HWND, byval DialogTitle as PCSTR, byval SourceFile as PCSTR, byval TargetFile as PCSTR, byval Win32ErrorCode as UINT, byval Style as DWORD) as UINT
+declare function SetupRenameErrorW(byval hwndParent as HWND, byval DialogTitle as PCWSTR, byval SourceFile as PCWSTR, byval TargetFile as PCWSTR, byval Win32ErrorCode as UINT, byval Style as DWORD) as UINT
+declare function SetupDeleteErrorA(byval hwndParent as HWND, byval DialogTitle as PCSTR, byval File as PCSTR, byval Win32ErrorCode as UINT, byval Style as DWORD) as UINT
+declare function SetupDeleteErrorW(byval hwndParent as HWND, byval DialogTitle as PCWSTR, byval File as PCWSTR, byval Win32ErrorCode as UINT, byval Style as DWORD) as UINT
+declare function SetupBackupErrorA(byval hwndParent as HWND, byval DialogTitle as PCSTR, byval SourceFile as PCSTR, byval TargetFile as PCSTR, byval Win32ErrorCode as UINT, byval Style as DWORD) as UINT
+declare function SetupBackupErrorW(byval hwndParent as HWND, byval DialogTitle as PCWSTR, byval SourceFile as PCWSTR, byval TargetFile as PCWSTR, byval Win32ErrorCode as UINT, byval Style as DWORD) as UINT
+
+#define IDF_NOBROWSE &h00000001
+#define IDF_NOSKIP &h00000002
+#define IDF_NODETAILS &h00000004
+#define IDF_NOCOMPRESSED &h00000008
+#define IDF_CHECKFIRST &h00000100
+#define IDF_NOBEEP &h00000200
+#define IDF_NOFOREGROUND &h00000400
+#define IDF_WARNIFSKIP &h00000800
+#define IDF_NOREMOVABLEMEDIAPROMPT &h00001000
+#define IDF_USEDISKNAMEASPROMPT &h00002000
+#define IDF_OEMDISK &h80000000
+#define DPROMPT_SUCCESS 0
+#define DPROMPT_CANCEL 1
+#define DPROMPT_SKIPFILE 2
+#define DPROMPT_BUFFERTOOSMALL 3
+#define DPROMPT_OUTOFMEMORY 4
+#define SETDIRID_NOT_FULL_PATH &h00000001
+#define SRCINFO_PATH 1
+#define SRCINFO_TAGFILE 2
+#define SRCINFO_DESCRIPTION 3
+#define SRCINFO_FLAGS 4
+#define SRCINFO_TAGFILE2 5
+#define SRC_FLAGS_CABFILE &h0010
+#define SetupSetDirectoryId __MINGW_NAME_AW(SetupSetDirectoryId)
+#define SetupSetDirectoryIdEx __MINGW_NAME_AW(SetupSetDirectoryIdEx)
+#define SetupGetSourceInfo __MINGW_NAME_AW(SetupGetSourceInfo)
+#define SetupInstallFile __MINGW_NAME_AW(SetupInstallFile)
+#define SetupInstallFileEx __MINGW_NAME_AW(SetupInstallFileEx)
+
+declare function SetupSetDirectoryIdA(byval InfHandle as HINF, byval Id as DWORD, byval Directory as PCSTR) as WINBOOL
+declare function SetupSetDirectoryIdW(byval InfHandle as HINF, byval Id as DWORD, byval Directory as PCWSTR) as WINBOOL
+declare function SetupSetDirectoryIdExA(byval InfHandle as HINF, byval Id as DWORD, byval Directory as PCSTR, byval Flags as DWORD, byval Reserved1 as DWORD, byval Reserved2 as PVOID) as WINBOOL
+declare function SetupSetDirectoryIdExW(byval InfHandle as HINF, byval Id as DWORD, byval Directory as PCWSTR, byval Flags as DWORD, byval Reserved1 as DWORD, byval Reserved2 as PVOID) as WINBOOL
+declare function SetupGetSourceInfoA(byval InfHandle as HINF, byval SourceId as UINT, byval InfoDesired as UINT, byval ReturnBuffer as PSTR, byval ReturnBufferSize as DWORD, byval RequiredSize as PDWORD) as WINBOOL
+declare function SetupGetSourceInfoW(byval InfHandle as HINF, byval SourceId as UINT, byval InfoDesired as UINT, byval ReturnBuffer as PWSTR, byval ReturnBufferSize as DWORD, byval RequiredSize as PDWORD) as WINBOOL
+declare function SetupInstallFileA(byval InfHandle as HINF, byval InfContext as PINFCONTEXT, byval SourceFile as PCSTR, byval SourcePathRoot as PCSTR, byval DestinationName as PCSTR, byval CopyStyle as DWORD, byval CopyMsgHandler as PSP_FILE_CALLBACK_A, byval Context as PVOID) as WINBOOL
+declare function SetupInstallFileW(byval InfHandle as HINF, byval InfContext as PINFCONTEXT, byval SourceFile as PCWSTR, byval SourcePathRoot as PCWSTR, byval DestinationName as PCWSTR, byval CopyStyle as DWORD, byval CopyMsgHandler as PSP_FILE_CALLBACK_W, byval Context as PVOID) as WINBOOL
+declare function SetupInstallFileExA(byval InfHandle as HINF, byval InfContext as PINFCONTEXT, byval SourceFile as PCSTR, byval SourcePathRoot as PCSTR, byval DestinationName as PCSTR, byval CopyStyle as DWORD, byval CopyMsgHandler as PSP_FILE_CALLBACK_A, byval Context as PVOID, byval FileWasInUse as PBOOL) as WINBOOL
+declare function SetupInstallFileExW(byval InfHandle as HINF, byval InfContext as PINFCONTEXT, byval SourceFile as PCWSTR, byval SourcePathRoot as PCWSTR, byval DestinationName as PCWSTR, byval CopyStyle as DWORD, byval CopyMsgHandler as PSP_FILE_CALLBACK_W, byval Context as PVOID, byval FileWasInUse as PBOOL) as WINBOOL
+
+#define SP_COPY_DELETESOURCE &h0000001
+#define SP_COPY_REPLACEONLY &h0000002
+#define SP_COPY_NEWER &h0000004
+#define SP_COPY_NEWER_OR_SAME SP_COPY_NEWER
+#define SP_COPY_NOOVERWRITE &h0000008
+#define SP_COPY_NODECOMP &h0000010
+#define SP_COPY_LANGUAGEAWARE &h0000020
+#define SP_COPY_SOURCE_ABSOLUTE &h0000040
+#define SP_COPY_SOURCEPATH_ABSOLUTE &h0000080
+#define SP_COPY_IN_USE_NEEDS_REBOOT &h0000100
+#define SP_COPY_FORCE_IN_USE &h0000200
+#define SP_COPY_NOSKIP &h0000400
+#define SP_FLAG_CABINETCONTINUATION &h0000800
+#define SP_COPY_FORCE_NOOVERWRITE &h0001000
+#define SP_COPY_FORCE_NEWER &h0002000
+#define SP_COPY_WARNIFSKIP &h0004000
+#define SP_COPY_NOBROWSE &h0008000
+#define SP_COPY_NEWER_ONLY &h0010000
+#define SP_COPY_SOURCE_SIS_MASTER &h0020000
+#define SP_COPY_OEMINF_CATALOG_ONLY &h0040000
+#define SP_COPY_REPLACE_BOOT_FILE &h0080000
+#define SP_COPY_NOPRUNE &h0100000
+#define SP_COPY_OEM_F6_INF &h0200000
+#define SP_BACKUP_BACKUPPASS &h00000001
+#define SP_BACKUP_DEMANDPASS &h00000002
+#define SP_BACKUP_SPECIAL &h00000004
+#define SP_BACKUP_BOOTFILE &h00000008
+#define SetupSetFileQueueAlternatePlatform __MINGW_NAME_AW(SetupSetFileQueueAlternatePlatform)
+#define SetupQueueDeleteSection __MINGW_NAME_AW(SetupQueueDeleteSection)
+#define SetupQueueRename __MINGW_NAME_AW(SetupQueueRename)
+#define SetupQueueRenameSection __MINGW_NAME_AW(SetupQueueRenameSection)
+#define SetupCommitFileQueue __MINGW_NAME_AW(SetupCommitFileQueue)
+#define SetupScanFileQueue __MINGW_NAME_AW(SetupScanFileQueue)
+#define SetupSetPlatformPathOverride __MINGW_NAME_AW(SetupSetPlatformPathOverride)
+#define SetupQueueCopy __MINGW_NAME_AW(SetupQueueCopy)
+#define SetupQueueCopyIndirect __MINGW_NAME_AW(SetupQueueCopyIndirect)
+#define SetupQueueDefaultCopy __MINGW_NAME_AW(SetupQueueDefaultCopy)
+#define SetupQueueCopySection __MINGW_NAME_AW(SetupQueueCopySection)
+#define SetupQueueDelete __MINGW_NAME_AW(SetupQueueDelete)
+
+declare function SetupOpenFileQueue() as HSPFILEQ
+declare function SetupCloseFileQueue(byval QueueHandle as HSPFILEQ) as WINBOOL
+declare function SetupSetFileQueueAlternatePlatformA(byval QueueHandle as HSPFILEQ, byval AlternatePlatformInfo as PSP_ALTPLATFORM_INFO, byval AlternateDefaultCatalogFile as PCSTR) as WINBOOL
+declare function SetupSetFileQueueAlternatePlatformW(byval QueueHandle as HSPFILEQ, byval AlternatePlatformInfo as PSP_ALTPLATFORM_INFO, byval AlternateDefaultCatalogFile as PCWSTR) as WINBOOL
+declare function SetupSetPlatformPathOverrideA(byval Override as PCSTR) as WINBOOL
+declare function SetupSetPlatformPathOverrideW(byval Override as PCWSTR) as WINBOOL
+declare function SetupQueueCopyA(byval QueueHandle as HSPFILEQ, byval SourceRootPath as PCSTR, byval SourcePath as PCSTR, byval SourceFilename as PCSTR, byval SourceDescription as PCSTR, byval SourceTagfile as PCSTR, byval TargetDirectory as PCSTR, byval TargetFilename as PCSTR, byval CopyStyle as DWORD) as WINBOOL
+declare function SetupQueueCopyW(byval QueueHandle as HSPFILEQ, byval SourceRootPath as PCWSTR, byval SourcePath as PCWSTR, byval SourceFilename as PCWSTR, byval SourceDescription as PCWSTR, byval SourceTagfile as PCWSTR, byval TargetDirectory as PCWSTR, byval TargetFilename as PCWSTR, byval CopyStyle as DWORD) as WINBOOL
+declare function SetupQueueCopyIndirectA(byval CopyParams as PSP_FILE_COPY_PARAMS_A) as WINBOOL
+declare function SetupQueueCopyIndirectW(byval CopyParams as PSP_FILE_COPY_PARAMS_W) as WINBOOL
+declare function SetupQueueDefaultCopyA(byval QueueHandle as HSPFILEQ, byval InfHandle as HINF, byval SourceRootPath as PCSTR, byval SourceFilename as PCSTR, byval TargetFilename as PCSTR, byval CopyStyle as DWORD) as WINBOOL
+declare function SetupQueueDefaultCopyW(byval QueueHandle as HSPFILEQ, byval InfHandle as HINF, byval SourceRootPath as PCWSTR, byval SourceFilename as PCWSTR, byval TargetFilename as PCWSTR, byval CopyStyle as DWORD) as WINBOOL
+declare function SetupQueueCopySectionA(byval QueueHandle as HSPFILEQ, byval SourceRootPath as PCSTR, byval InfHandle as HINF, byval ListInfHandle as HINF, byval Section as PCSTR, byval CopyStyle as DWORD) as WINBOOL
+declare function SetupQueueCopySectionW(byval QueueHandle as HSPFILEQ, byval SourceRootPath as PCWSTR, byval InfHandle as HINF, byval ListInfHandle as HINF, byval Section as PCWSTR, byval CopyStyle as DWORD) as WINBOOL
+declare function SetupQueueDeleteA(byval QueueHandle as HSPFILEQ, byval PathPart1 as PCSTR, byval PathPart2 as PCSTR) as WINBOOL
+declare function SetupQueueDeleteW(byval QueueHandle as HSPFILEQ, byval PathPart1 as PCWSTR, byval PathPart2 as PCWSTR) as WINBOOL
+declare function SetupQueueDeleteSectionA(byval QueueHandle as HSPFILEQ, byval InfHandle as HINF, byval ListInfHandle as HINF, byval Section as PCSTR) as WINBOOL
+declare function SetupQueueDeleteSectionW(byval QueueHandle as HSPFILEQ, byval InfHandle as HINF, byval ListInfHandle as HINF, byval Section as PCWSTR) as WINBOOL
+declare function SetupQueueRenameA(byval QueueHandle as HSPFILEQ, byval SourcePath as PCSTR, byval SourceFilename as PCSTR, byval TargetPath as PCSTR, byval TargetFilename as PCSTR) as WINBOOL
+declare function SetupQueueRenameW(byval QueueHandle as HSPFILEQ, byval SourcePath as PCWSTR, byval SourceFilename as PCWSTR, byval TargetPath as PCWSTR, byval TargetFilename as PCWSTR) as WINBOOL
+declare function SetupQueueRenameSectionA(byval QueueHandle as HSPFILEQ, byval InfHandle as HINF, byval ListInfHandle as HINF, byval Section as PCSTR) as WINBOOL
+declare function SetupQueueRenameSectionW(byval QueueHandle as HSPFILEQ, byval InfHandle as HINF, byval ListInfHandle as HINF, byval Section as PCWSTR) as WINBOOL
+declare function SetupCommitFileQueueA(byval Owner as HWND, byval QueueHandle as HSPFILEQ, byval MsgHandler as PSP_FILE_CALLBACK_A, byval Context as PVOID) as WINBOOL
+declare function SetupCommitFileQueueW(byval Owner as HWND, byval QueueHandle as HSPFILEQ, byval MsgHandler as PSP_FILE_CALLBACK_W, byval Context as PVOID) as WINBOOL
+declare function SetupScanFileQueueA(byval FileQueue as HSPFILEQ, byval Flags as DWORD, byval Window_ as HWND, byval CallbackRoutine as PSP_FILE_CALLBACK_A, byval CallbackContext as PVOID, byval Result as PDWORD) as WINBOOL
+declare function SetupScanFileQueueW(byval FileQueue as HSPFILEQ, byval Flags as DWORD, byval Window_ as HWND, byval CallbackRoutine as PSP_FILE_CALLBACK_W, byval CallbackContext as PVOID, byval Result as PDWORD) as WINBOOL
+
+#define SPQ_SCAN_FILE_PRESENCE &h00000001
+#define SPQ_SCAN_FILE_VALIDITY &h00000002
+#define SPQ_SCAN_USE_CALLBACK &h00000004
+#define SPQ_SCAN_USE_CALLBACKEX &h00000008
+#define SPQ_SCAN_INFORM_USER &h00000010
+#define SPQ_SCAN_PRUNE_COPY_QUEUE &h00000020
+#define SPQ_SCAN_USE_CALLBACK_SIGNERINFO &h00000040
+#define SPQ_SCAN_PRUNE_DELREN &h00000080
+#define SPQ_DELAYED_COPY &h00000001
+
+declare function SetupGetFileQueueCount(byval FileQueue as HSPFILEQ, byval SubQueueFileOp as UINT, byval NumOperations as PUINT) as WINBOOL
+declare function SetupGetFileQueueFlags(byval FileQueue as HSPFILEQ, byval Flags as PDWORD) as WINBOOL
+declare function SetupSetFileQueueFlags(byval FileQueue as HSPFILEQ, byval FlagMask as DWORD, byval Flags as DWORD) as WINBOOL
+
+#define SPQ_FLAG_BACKUP_AWARE &h00000001
+#define SPQ_FLAG_ABORT_IF_UNSIGNED &h00000002
+#define SPQ_FLAG_FILES_MODIFIED &h00000004
+#define SPQ_FLAG_VALID &h00000007
+#define SPOST_NONE 0
+#define SPOST_PATH 1
+#define SPOST_URL 2
+#define SPOST_MAX 3
+#define SetupCopyOEMInf __MINGW_NAME_AW(SetupCopyOEMInf)
+
+declare function SetupCopyOEMInfA(byval SourceInfFileName as PCSTR, byval OEMSourceMediaLocation as PCSTR, byval OEMSourceMediaType as DWORD, byval CopyStyle as DWORD, byval DestinationInfFileName as PSTR, byval DestinationInfFileNameSize as DWORD, byval RequiredSize as PDWORD, byval DestinationInfFileNameComponent as PSTR ptr) as WINBOOL
+declare function SetupCopyOEMInfW(byval SourceInfFileName as PCWSTR, byval OEMSourceMediaLocation as PCWSTR, byval OEMSourceMediaType as DWORD, byval CopyStyle as DWORD, byval DestinationInfFileName as PWSTR, byval DestinationInfFileNameSize as DWORD, byval RequiredSize as PDWORD, byval DestinationInfFileNameComponent as PWSTR ptr) as WINBOOL
+
+#define SUOI_FORCEDELETE &h00000001
+#define SetupUninstallOEMInf __MINGW_NAME_AW(SetupUninstallOEMInf)
+#define SetupCreateDiskSpaceList __MINGW_NAME_AW(SetupCreateDiskSpaceList)
+
+declare function SetupUninstallOEMInfA(byval InfFileName as PCSTR, byval Flags as DWORD, byval Reserved as PVOID) as WINBOOL
+declare function SetupUninstallOEMInfW(byval InfFileName as PCWSTR, byval Flags as DWORD, byval Reserved as PVOID) as WINBOOL
+declare function SetupUninstallNewlyCopiedInfs(byval FileQueue as HSPFILEQ, byval Flags as DWORD, byval Reserved as PVOID) as WINBOOL
+declare function SetupCreateDiskSpaceListA(byval Reserved1 as PVOID, byval Reserved2 as DWORD, byval Flags as UINT) as HDSKSPC
+declare function SetupCreateDiskSpaceListW(byval Reserved1 as PVOID, byval Reserved2 as DWORD, byval Flags as UINT) as HDSKSPC
+
+#define SPDSL_IGNORE_DISK &h00000001
+#define SPDSL_DISALLOW_NEGATIVE_ADJUST &h00000002
+#define SetupDuplicateDiskSpaceList __MINGW_NAME_AW(SetupDuplicateDiskSpaceList)
+#define SetupQueryDrivesInDiskSpaceList __MINGW_NAME_AW(SetupQueryDrivesInDiskSpaceList)
+#define SetupQuerySpaceRequiredOnDrive __MINGW_NAME_AW(SetupQuerySpaceRequiredOnDrive)
+#define SetupAdjustDiskSpaceList __MINGW_NAME_AW(SetupAdjustDiskSpaceList)
+#define SetupAddToDiskSpaceList __MINGW_NAME_AW(SetupAddToDiskSpaceList)
+#define SetupAddSectionToDiskSpaceList __MINGW_NAME_AW(SetupAddSectionToDiskSpaceList)
+#define SetupAddInstallSectionToDiskSpaceList __MINGW_NAME_AW(SetupAddInstallSectionToDiskSpaceList)
+#define SetupRemoveFromDiskSpaceList __MINGW_NAME_AW(SetupRemoveFromDiskSpaceList)
+#define SetupRemoveSectionFromDiskSpaceList __MINGW_NAME_AW(SetupRemoveSectionFromDiskSpaceList)
+#define SetupRemoveInstallSectionFromDiskSpaceList __MINGW_NAME_AW(SetupRemoveInstallSectionFromDiskSpaceList)
+#define SetupIterateCabinet __MINGW_NAME_AW(SetupIterateCabinet)
+
+declare function SetupDuplicateDiskSpaceListA(byval DiskSpace as HDSKSPC, byval Reserved1 as PVOID, byval Reserved2 as DWORD, byval Flags as UINT) as HDSKSPC
+declare function SetupDuplicateDiskSpaceListW(byval DiskSpace as HDSKSPC, byval Reserved1 as PVOID, byval Reserved2 as DWORD, byval Flags as UINT) as HDSKSPC
+declare function SetupDestroyDiskSpaceList(byval DiskSpace as HDSKSPC) as WINBOOL
+declare function SetupQueryDrivesInDiskSpaceListA(byval DiskSpace as HDSKSPC, byval ReturnBuffer as PSTR, byval ReturnBufferSize as DWORD, byval RequiredSize as PDWORD) as WINBOOL
+declare function SetupQueryDrivesInDiskSpaceListW(byval DiskSpace as HDSKSPC, byval ReturnBuffer as PWSTR, byval ReturnBufferSize as DWORD, byval RequiredSize as PDWORD) as WINBOOL
+declare function SetupQuerySpaceRequiredOnDriveA(byval DiskSpace as HDSKSPC, byval DriveSpec as PCSTR, byval SpaceRequired as LONGLONG ptr, byval Reserved1 as PVOID, byval Reserved2 as UINT) as WINBOOL
+declare function SetupQuerySpaceRequiredOnDriveW(byval DiskSpace as HDSKSPC, byval DriveSpec as PCWSTR, byval SpaceRequired as LONGLONG ptr, byval Reserved1 as PVOID, byval Reserved2 as UINT) as WINBOOL
+declare function SetupAdjustDiskSpaceListA(byval DiskSpace as HDSKSPC, byval DriveRoot as LPCSTR, byval Amount as LONGLONG, byval Reserved1 as PVOID, byval Reserved2 as UINT) as WINBOOL
+declare function SetupAdjustDiskSpaceListW(byval DiskSpace as HDSKSPC, byval DriveRoot as LPCWSTR, byval Amount as LONGLONG, byval Reserved1 as PVOID, byval Reserved2 as UINT) as WINBOOL
+declare function SetupAddToDiskSpaceListA(byval DiskSpace as HDSKSPC, byval TargetFilespec as PCSTR, byval FileSize as LONGLONG, byval Operation as UINT, byval Reserved1 as PVOID, byval Reserved2 as UINT) as WINBOOL
+declare function SetupAddToDiskSpaceListW(byval DiskSpace as HDSKSPC, byval TargetFilespec as PCWSTR, byval FileSize as LONGLONG, byval Operation as UINT, byval Reserved1 as PVOID, byval Reserved2 as UINT) as WINBOOL
+declare function SetupAddSectionToDiskSpaceListA(byval DiskSpace as HDSKSPC, byval InfHandle as HINF, byval ListInfHandle as HINF, byval SectionName as PCSTR, byval Operation as UINT, byval Reserved1 as PVOID, byval Reserved2 as UINT) as WINBOOL
+declare function SetupAddSectionToDiskSpaceListW(byval DiskSpace as HDSKSPC, byval InfHandle as HINF, byval ListInfHandle as HINF, byval SectionName as PCWSTR, byval Operation as UINT, byval Reserved1 as PVOID, byval Reserved2 as UINT) as WINBOOL
+declare function SetupAddInstallSectionToDiskSpaceListA(byval DiskSpace as HDSKSPC, byval InfHandle as HINF, byval LayoutInfHandle as HINF, byval SectionName as PCSTR, byval Reserved1 as PVOID, byval Reserved2 as UINT) as WINBOOL
+declare function SetupAddInstallSectionToDiskSpaceListW(byval DiskSpace as HDSKSPC, byval InfHandle as HINF, byval LayoutInfHandle as HINF, byval SectionName as PCWSTR, byval Reserved1 as PVOID, byval Reserved2 as UINT) as WINBOOL
+declare function SetupRemoveFromDiskSpaceListA(byval DiskSpace as HDSKSPC, byval TargetFilespec as PCSTR, byval Operation as UINT, byval Reserved1 as PVOID, byval Reserved2 as UINT) as WINBOOL
+declare function SetupRemoveFromDiskSpaceListW(byval DiskSpace as HDSKSPC, byval TargetFilespec as PCWSTR, byval Operation as UINT, byval Reserved1 as PVOID, byval Reserved2 as UINT) as WINBOOL
+declare function SetupRemoveSectionFromDiskSpaceListA(byval DiskSpace as HDSKSPC, byval InfHandle as HINF, byval ListInfHandle as HINF, byval SectionName as PCSTR, byval Operation as UINT, byval Reserved1 as PVOID, byval Reserved2 as UINT) as WINBOOL
+declare function SetupRemoveSectionFromDiskSpaceListW(byval DiskSpace as HDSKSPC, byval InfHandle as HINF, byval ListInfHandle as HINF, byval SectionName as PCWSTR, byval Operation as UINT, byval Reserved1 as PVOID, byval Reserved2 as UINT) as WINBOOL
+declare function SetupRemoveInstallSectionFromDiskSpaceListA(byval DiskSpace as HDSKSPC, byval InfHandle as HINF, byval LayoutInfHandle as HINF, byval SectionName as PCSTR, byval Reserved1 as PVOID, byval Reserved2 as UINT) as WINBOOL
+declare function SetupRemoveInstallSectionFromDiskSpaceListW(byval DiskSpace as HDSKSPC, byval InfHandle as HINF, byval LayoutInfHandle as HINF, byval SectionName as PCWSTR, byval Reserved1 as PVOID, byval Reserved2 as UINT) as WINBOOL
+declare function SetupIterateCabinetA(byval CabinetFile as PCSTR, byval Reserved as DWORD, byval MsgHandler as PSP_FILE_CALLBACK_A, byval Context as PVOID) as WINBOOL
+declare function SetupIterateCabinetW(byval CabinetFile as PCWSTR, byval Reserved as DWORD, byval MsgHandler as PSP_FILE_CALLBACK_W, byval Context as PVOID) as WINBOOL
+declare function SetupPromptReboot(byval FileQueue as HSPFILEQ, byval Owner as HWND, byval ScanOnly as WINBOOL) as INT_
+
+#define SPFILEQ_FILE_IN_USE &h00000001
+#define SPFILEQ_REBOOT_RECOMMENDED &h00000002
+#define SPFILEQ_REBOOT_IN_PROGRESS &h00000004
+#define SetupDefaultQueueCallback __MINGW_NAME_AW(SetupDefaultQueueCallback)
+
+declare function SetupInitDefaultQueueCallback(byval OwnerWindow as HWND) as PVOID
+declare function SetupInitDefaultQueueCallbackEx(byval OwnerWindow as HWND, byval AlternateProgressWindow as HWND, byval ProgressMessage as UINT, byval Reserved1 as DWORD, byval Reserved2 as PVOID) as PVOID
+declare sub SetupTermDefaultQueueCallback(byval Context as PVOID)
+declare function SetupDefaultQueueCallbackA(byval Context as PVOID, byval Notification as UINT, byval Param1 as UINT_PTR, byval Param2 as UINT_PTR) as UINT
+declare function SetupDefaultQueueCallbackW(byval Context as PVOID, byval Notification as UINT, byval Param1 as UINT_PTR, byval Param2 as UINT_PTR) as UINT
+
+#define FLG_ADDREG_DELREG_BIT &h00008000
+#define FLG_ADDREG_BINVALUETYPE &h00000001
+#define FLG_ADDREG_NOCLOBBER &h00000002
+#define FLG_ADDREG_DELVAL &h00000004
+#define FLG_ADDREG_APPEND &h00000008
+#define FLG_ADDREG_KEYONLY &h00000010
+#define FLG_ADDREG_OVERWRITEONLY &h00000020
+#define FLG_ADDREG_64BITKEY &h00001000
+#define FLG_ADDREG_KEYONLY_COMMON &h00002000
+#define FLG_ADDREG_32BITKEY &h00004000
+#define FLG_ADDREG_TYPE_MASK (&hFFFF0000 or FLG_ADDREG_BINVALUETYPE)
+#define FLG_ADDREG_TYPE_SZ &h00000000
+#define FLG_ADDREG_TYPE_MULTI_SZ &h00010000
+#define FLG_ADDREG_TYPE_EXPAND_SZ &h00020000
+#define FLG_ADDREG_TYPE_BINARY (&h00000000 or FLG_ADDREG_BINVALUETYPE)
+#define FLG_ADDREG_TYPE_DWORD (&h00010000 or FLG_ADDREG_BINVALUETYPE)
+#define FLG_ADDREG_TYPE_NONE (&h00020000 or FLG_ADDREG_BINVALUETYPE)
+#define FLG_DELREG_VALUE &h00000000
+#define FLG_DELREG_TYPE_MASK FLG_ADDREG_TYPE_MASK
+#define FLG_DELREG_TYPE_SZ FLG_ADDREG_TYPE_SZ
+#define FLG_DELREG_TYPE_MULTI_SZ FLG_ADDREG_TYPE_MULTI_SZ
+#define FLG_DELREG_TYPE_EXPAND_SZ FLG_ADDREG_TYPE_EXPAND_SZ
+#define FLG_DELREG_TYPE_BINARY FLG_ADDREG_TYPE_BINARY
+#define FLG_DELREG_TYPE_DWORD FLG_ADDREG_TYPE_DWORD
+#define FLG_DELREG_TYPE_NONE FLG_ADDREG_TYPE_NONE
+#define FLG_DELREG_64BITKEY FLG_ADDREG_64BITKEY
+#define FLG_DELREG_KEYONLY_COMMON FLG_ADDREG_KEYONLY_COMMON
+#define FLG_DELREG_32BITKEY FLG_ADDREG_32BITKEY
+#define FLG_DELREG_OPERATION_MASK &h000000FE
+#define FLG_DELREG_MULTI_SZ_DELSTRING ((FLG_DELREG_TYPE_MULTI_SZ or FLG_ADDREG_DELREG_BIT) or &h00000002)
+#define FLG_BITREG_CLEARBITS &h00000000
+#define FLG_BITREG_SETBITS &h00000001
+#define FLG_BITREG_64BITKEY &h00001000
+#define FLG_BITREG_32BITKEY &h00004000
+#define FLG_INI2REG_64BITKEY &h00001000
+#define FLG_INI2REG_32BITKEY &h00004000
+#define FLG_REGSVR_DLLREGISTER &h00000001
+#define FLG_REGSVR_DLLINSTALL &h00000002
+#define FLG_PROFITEM_CURRENTUSER &h00000001
+#define FLG_PROFITEM_DELETE &h00000002
+#define FLG_PROFITEM_GROUP &h00000004
+#define FLG_PROFITEM_CSIDL &h00000008
+#define SetupInstallFromInfSection __MINGW_NAME_AW(SetupInstallFromInfSection)
+
+declare function SetupInstallFromInfSectionA(byval Owner as HWND, byval InfHandle as HINF, byval SectionName as PCSTR, byval Flags as UINT, byval RelativeKeyRoot as HKEY, byval SourceRootPath as PCSTR, byval CopyFlags as UINT, byval MsgHandler as PSP_FILE_CALLBACK_A, byval Context as PVOID, byval DeviceInfoSet as HDEVINFO, byval DeviceInfoData as PSP_DEVINFO_DATA) as WINBOOL
+declare function SetupInstallFromInfSectionW(byval Owner as HWND, byval InfHandle as HINF, byval SectionName as PCWSTR, byval Flags as UINT, byval RelativeKeyRoot as HKEY, byval SourceRootPath as PCWSTR, byval CopyFlags as UINT, byval MsgHandler as PSP_FILE_CALLBACK_W, byval Context as PVOID, byval DeviceInfoSet as HDEVINFO, byval DeviceInfoData as PSP_DEVINFO_DATA) as WINBOOL
+
+#define SPINST_LOGCONFIG &h00000001
+#define SPINST_INIFILES &h00000002
+#define SPINST_REGISTRY &h00000004
+#define SPINST_INI2REG &h00000008
+#define SPINST_FILES &h00000010
+#define SPINST_BITREG &h00000020
+#define SPINST_REGSVR &h00000040
+#define SPINST_UNREGSVR &h00000080
+#define SPINST_PROFILEITEMS &h00000100
+#define SPINST_COPYINF &h00000200
+#define SPINST_ALL &h000003ff
+#define SPINST_SINGLESECTION &h00010000
+#define SPINST_LOGCONFIG_IS_FORCED &h00020000
+#define SPINST_LOGCONFIGS_ARE_OVERRIDES &h00040000
+#define SPINST_REGISTERCALLBACKAWARE &h00080000
+#define SetupInstallFilesFromInfSection __MINGW_NAME_AW(SetupInstallFilesFromInfSection)
+
+declare function SetupInstallFilesFromInfSectionA(byval InfHandle as HINF, byval LayoutInfHandle as HINF, byval FileQueue as HSPFILEQ, byval SectionName as PCSTR, byval SourceRootPath as PCSTR, byval CopyFlags as UINT) as WINBOOL
+declare function SetupInstallFilesFromInfSectionW(byval InfHandle as HINF, byval LayoutInfHandle as HINF, byval FileQueue as HSPFILEQ, byval SectionName as PCWSTR, byval SourceRootPath as PCWSTR, byval CopyFlags as UINT) as WINBOOL
+
+#define SPSVCINST_TAGTOFRONT &h00000001
+#define SPSVCINST_ASSOCSERVICE &h00000002
+#define SPSVCINST_DELETEEVENTLOGENTRY &h00000004
+#define SPSVCINST_NOCLOBBER_DISPLAYNAME &h00000008
+#define SPSVCINST_NOCLOBBER_STARTTYPE &h00000010
+#define SPSVCINST_NOCLOBBER_ERRORCONTROL &h00000020
+#define SPSVCINST_NOCLOBBER_LOADORDERGROUP &h00000040
+#define SPSVCINST_NOCLOBBER_DEPENDENCIES &h00000080
+#define SPSVCINST_NOCLOBBER_DESCRIPTION &h00000100
+#define SPSVCINST_STOPSERVICE &h00000200
+#define SPSVCINST_CLOBBER_SECURITY &h00000400
+#define SPFILELOG_SYSTEMLOG &h00000001
+#define SPFILELOG_FORCENEW &h00000002
+#define SPFILELOG_QUERYONLY &h00000004
+#define SPFILELOG_OEMFILE &h00000001
+
+type HSPFILELOG as PVOID
+
+#define SetupInstallServicesFromInfSection __MINGW_NAME_AW(SetupInstallServicesFromInfSection)
+#define SetupInstallServicesFromInfSectionEx __MINGW_NAME_AW(SetupInstallServicesFromInfSectionEx)
+#define InstallHinfSection __MINGW_NAME_AW(InstallHinfSection)
+#define SetupInitializeFileLog __MINGW_NAME_AW(SetupInitializeFileLog)
+#define SetupLogFile __MINGW_NAME_AW(SetupLogFile)
+#define SetupRemoveFileLogEntry __MINGW_NAME_AW(SetupRemoveFileLogEntry)
+
+declare function SetupInstallServicesFromInfSectionA(byval InfHandle as HINF, byval SectionName as PCSTR, byval Flags as DWORD) as WINBOOL
+declare function SetupInstallServicesFromInfSectionW(byval InfHandle as HINF, byval SectionName as PCWSTR, byval Flags as DWORD) as WINBOOL
+declare function SetupInstallServicesFromInfSectionExA(byval InfHandle as HINF, byval SectionName as PCSTR, byval Flags as DWORD, byval DeviceInfoSet as HDEVINFO, byval DeviceInfoData as PSP_DEVINFO_DATA, byval Reserved1 as PVOID, byval Reserved2 as PVOID) as WINBOOL
+declare function SetupInstallServicesFromInfSectionExW(byval InfHandle as HINF, byval SectionName as PCWSTR, byval Flags as DWORD, byval DeviceInfoSet as HDEVINFO, byval DeviceInfoData as PSP_DEVINFO_DATA, byval Reserved1 as PVOID, byval Reserved2 as PVOID) as WINBOOL
+declare sub InstallHinfSectionA(byval Window_ as HWND, byval ModuleHandle as HINSTANCE, byval CommandLine as PCSTR, byval ShowCommand as INT_)
+declare sub InstallHinfSectionW(byval Window_ as HWND, byval ModuleHandle as HINSTANCE, byval CommandLine as PCWSTR, byval ShowCommand as INT_)
+declare function SetupInitializeFileLogA(byval LogFileName as PCSTR, byval Flags as DWORD) as HSPFILELOG
+declare function SetupInitializeFileLogW(byval LogFileName as PCWSTR, byval Flags as DWORD) as HSPFILELOG
+declare function SetupTerminateFileLog(byval FileLogHandle as HSPFILELOG) as WINBOOL
+declare function SetupLogFileA(byval FileLogHandle as HSPFILELOG, byval LogSectionName as PCSTR, byval SourceFilename as PCSTR, byval TargetFilename as PCSTR, byval Checksum as DWORD, byval DiskTagfile as PCSTR, byval DiskDescription as PCSTR, byval OtherInfo as PCSTR, byval Flags as DWORD) as WINBOOL
+declare function SetupLogFileW(byval FileLogHandle as HSPFILELOG, byval LogSectionName as PCWSTR, byval SourceFilename as PCWSTR, byval TargetFilename as PCWSTR, byval Checksum as DWORD, byval DiskTagfile as PCWSTR, byval DiskDescription as PCWSTR, byval OtherInfo as PCWSTR, byval Flags as DWORD) as WINBOOL
+declare function SetupRemoveFileLogEntryA(byval FileLogHandle as HSPFILELOG, byval LogSectionName as PCSTR, byval TargetFilename as PCSTR) as WINBOOL
+declare function SetupRemoveFileLogEntryW(byval FileLogHandle as HSPFILELOG, byval LogSectionName as PCWSTR, byval TargetFilename as PCWSTR) as WINBOOL
+
+type SetupFileLogInfo as long
+enum
+	SetupFileLogSourceFilename
+	SetupFileLogChecksum
+	SetupFileLogDiskTagfile
+	SetupFileLogDiskDescription
+	SetupFileLogOtherInfo
+	SetupFileLogMax
+end enum
+
+#define SetupQueryFileLog __MINGW_NAME_AW(SetupQueryFileLog)
+
+declare function SetupQueryFileLogA(byval FileLogHandle as HSPFILELOG, byval LogSectionName as PCSTR, byval TargetFilename as PCSTR, byval DesiredInfo as SetupFileLogInfo, byval DataOut as PSTR, byval ReturnBufferSize as DWORD, byval RequiredSize as PDWORD) as WINBOOL
+declare function SetupQueryFileLogW(byval FileLogHandle as HSPFILELOG, byval LogSectionName as PCWSTR, byval TargetFilename as PCWSTR, byval DesiredInfo as SetupFileLogInfo, byval DataOut as PWSTR, byval ReturnBufferSize as DWORD, byval RequiredSize as PDWORD) as WINBOOL
+
+#define LogSeverity DWORD
+#define LogSevInformation &h00000000
+#define LogSevWarning &h00000001
+#define LogSevError &h00000002
+#define LogSevFatalError &h00000003
+#define LogSevMaximum &h00000004
+#define DICD_GENERATE_ID &h00000001
+#define DICD_INHERIT_CLASSDRVS &h00000002
+#define DIOD_INHERIT_CLASSDRVS &h00000002
+#define DIOD_CANCEL_REMOVE &h00000004
+#define DIODI_NO_ADD &h00000001
+#define SPRDI_FIND_DUPS &h00000001
+#define SPDIT_NODRIVER &h00000000
+#define SPDIT_CLASSDRIVER &h00000001
+#define SPDIT_COMPATDRIVER &h00000002
+#define SetupLogError __MINGW_NAME_AW(SetupLogError)
+#define SetupGetBackupInformation __MINGW_NAME_AW(SetupGetBackupInformation)
+#define SetupPrepareQueueForRestore __MINGW_NAME_AW(SetupPrepareQueueForRestore)
+#define SetupDiCreateDeviceInfoListEx __MINGW_NAME_AW(SetupDiCreateDeviceInfoListEx)
+#define SetupDiGetDeviceInfoListDetail __MINGW_NAME_AW(SetupDiGetDeviceInfoListDetail)
+#define SetupDiCreateDeviceInfo __MINGW_NAME_AW(SetupDiCreateDeviceInfo)
+#define SetupDiOpenDeviceInfo __MINGW_NAME_AW(SetupDiOpenDeviceInfo)
+#define SetupDiGetDeviceInstanceId __MINGW_NAME_AW(SetupDiGetDeviceInstanceId)
+#define SetupDiCreateDeviceInterface __MINGW_NAME_AW(SetupDiCreateDeviceInterface)
+#define SetupDiCreateInterfaceDevice __MINGW_NAME_AW(SetupDiCreateDeviceInterface)
+#define SetupDiOpenDeviceInterface __MINGW_NAME_AW(SetupDiOpenDeviceInterface)
+
+declare function SetupOpenLog(byval Erase_ as WINBOOL) as WINBOOL
+declare function SetupLogErrorA(byval MessageString as LPCSTR, byval Severity as DWORD) as WINBOOL
+declare function SetupLogErrorW(byval MessageString as LPCWSTR, byval Severity as DWORD) as WINBOOL
+declare sub SetupCloseLog()
+declare function SetupGetBackupInformationA(byval QueueHandle as HSPFILEQ, byval BackupParams as PSP_BACKUP_QUEUE_PARAMS_A) as WINBOOL
+declare function SetupGetBackupInformationW(byval QueueHandle as HSPFILEQ, byval BackupParams as PSP_BACKUP_QUEUE_PARAMS_W) as WINBOOL
+declare function SetupPrepareQueueForRestoreA(byval QueueHandle as HSPFILEQ, byval BackupPath as PCSTR, byval RestoreFlags as DWORD) as WINBOOL
+declare function SetupPrepareQueueForRestoreW(byval QueueHandle as HSPFILEQ, byval BackupPath as PCWSTR, byval RestoreFlags as DWORD) as WINBOOL
+declare function SetupSetNonInteractiveMode(byval NonInteractiveFlag as WINBOOL) as WINBOOL
+declare function SetupGetNonInteractiveMode() as WINBOOL
+declare function SetupDiCreateDeviceInfoList(byval ClassGuid as const GUID ptr, byval hwndParent as HWND) as HDEVINFO
+declare function SetupDiCreateDeviceInfoListExA(byval ClassGuid as const GUID ptr, byval hwndParent as HWND, byval MachineName as PCSTR, byval Reserved as PVOID) as HDEVINFO
+declare function SetupDiCreateDeviceInfoListExW(byval ClassGuid as const GUID ptr, byval hwndParent as HWND, byval MachineName as PCWSTR, byval Reserved as PVOID) as HDEVINFO
+declare function SetupDiGetDeviceInfoListClass(byval DeviceInfoSet as HDEVINFO, byval ClassGuid as LPGUID) as WINBOOL
+declare function SetupDiGetDeviceInfoListDetailA(byval DeviceInfoSet as HDEVINFO, byval DeviceInfoSetDetailData as PSP_DEVINFO_LIST_DETAIL_DATA_A) as WINBOOL
+declare function SetupDiGetDeviceInfoListDetailW(byval DeviceInfoSet as HDEVINFO, byval DeviceInfoSetDetailData as PSP_DEVINFO_LIST_DETAIL_DATA_W) as WINBOOL
+declare function SetupDiCreateDeviceInfoA(byval DeviceInfoSet as HDEVINFO, byval DeviceName as PCSTR, byval ClassGuid as const GUID ptr, byval DeviceDescription as PCSTR, byval hwndParent as HWND, byval CreationFlags as DWORD, byval DeviceInfoData as PSP_DEVINFO_DATA) as WINBOOL
+declare function SetupDiCreateDeviceInfoW(byval DeviceInfoSet as HDEVINFO, byval DeviceName as PCWSTR, byval ClassGuid as const GUID ptr, byval DeviceDescription as PCWSTR, byval hwndParent as HWND, byval CreationFlags as DWORD, byval DeviceInfoData as PSP_DEVINFO_DATA) as WINBOOL
+declare function SetupDiOpenDeviceInfoA(byval DeviceInfoSet as HDEVINFO, byval DeviceInstanceId as PCSTR, byval hwndParent as HWND, byval OpenFlags as DWORD, byval DeviceInfoData as PSP_DEVINFO_DATA) as WINBOOL
+declare function SetupDiOpenDeviceInfoW(byval DeviceInfoSet as HDEVINFO, byval DeviceInstanceId as PCWSTR, byval hwndParent as HWND, byval OpenFlags as DWORD, byval DeviceInfoData as PSP_DEVINFO_DATA) as WINBOOL
+declare function SetupDiGetDeviceInstanceIdA(byval DeviceInfoSet as HDEVINFO, byval DeviceInfoData as PSP_DEVINFO_DATA, byval DeviceInstanceId as PSTR, byval DeviceInstanceIdSize as DWORD, byval RequiredSize as PDWORD) as WINBOOL
+declare function SetupDiGetDeviceInstanceIdW(byval DeviceInfoSet as HDEVINFO, byval DeviceInfoData as PSP_DEVINFO_DATA, byval DeviceInstanceId as PWSTR, byval DeviceInstanceIdSize as DWORD, byval RequiredSize as PDWORD) as WINBOOL
+declare function SetupDiDeleteDeviceInfo(byval DeviceInfoSet as HDEVINFO, byval DeviceInfoData as PSP_DEVINFO_DATA) as WINBOOL
+declare function SetupDiEnumDeviceInfo(byval DeviceInfoSet as HDEVINFO, byval MemberIndex as DWORD, byval DeviceInfoData as PSP_DEVINFO_DATA) as WINBOOL
+declare function SetupDiDestroyDeviceInfoList(byval DeviceInfoSet as HDEVINFO) as WINBOOL
+declare function SetupDiEnumDeviceInterfaces(byval DeviceInfoSet as HDEVINFO, byval DeviceInfoData as PSP_DEVINFO_DATA, byval InterfaceClassGuid as const GUID ptr, byval MemberIndex as DWORD, byval DeviceInterfaceData as PSP_DEVICE_INTERFACE_DATA) as WINBOOL
+
+#define SetupDiEnumInterfaceDevice SetupDiEnumDeviceInterfaces
+
+declare function SetupDiCreateDeviceInterfaceA(byval DeviceInfoSet as HDEVINFO, byval DeviceInfoData as PSP_DEVINFO_DATA, byval InterfaceClassGuid as const GUID ptr, byval ReferenceString as PCSTR, byval CreationFlags as DWORD, byval DeviceInterfaceData as PSP_DEVICE_INTERFACE_DATA) as WINBOOL
+declare function SetupDiCreateDeviceInterfaceW(byval DeviceInfoSet as HDEVINFO, byval DeviceInfoData as PSP_DEVINFO_DATA, byval InterfaceClassGuid as const GUID ptr, byval ReferenceString as PCWSTR, byval CreationFlags as DWORD, byval DeviceInterfaceData as PSP_DEVICE_INTERFACE_DATA) as WINBOOL
+
+#define SetupDiCreateInterfaceDeviceW SetupDiCreateDeviceInterfaceW
+#define SetupDiCreateInterfaceDeviceA SetupDiCreateDeviceInterfaceA
+
+declare function SetupDiOpenDeviceInterfaceA(byval DeviceInfoSet as HDEVINFO, byval DevicePath as PCSTR, byval OpenFlags as DWORD, byval DeviceInterfaceData as PSP_DEVICE_INTERFACE_DATA) as WINBOOL
+declare function SetupDiOpenDeviceInterfaceW(byval DeviceInfoSet as HDEVINFO, byval DevicePath as PCWSTR, byval OpenFlags as DWORD, byval DeviceInterfaceData as PSP_DEVICE_INTERFACE_DATA) as WINBOOL
+
+#define SetupDiOpenInterfaceDeviceW SetupDiOpenDeviceInterfaceW
+#define SetupDiOpenInterfaceDeviceA SetupDiOpenDeviceInterfaceA
+#define SetupDiOpenInterfaceDevice __MINGW_NAME_AW(SetupDiOpenDeviceInterface)
+#define SetupDiGetDeviceInterfaceDetail __MINGW_NAME_AW(SetupDiGetDeviceInterfaceDetail)
+#define SetupDiGetInterfaceDeviceDetail __MINGW_NAME_AW(SetupDiGetDeviceInterfaceDetail)
+#define SetupDiEnumDriverInfo __MINGW_NAME_AW(SetupDiEnumDriverInfo)
+#define SetupDiGetSelectedDriver __MINGW_NAME_AW(SetupDiGetSelectedDriver)
+#define SetupDiSetSelectedDriver __MINGW_NAME_AW(SetupDiSetSelectedDriver)
+#define SetupDiGetDriverInfoDetail __MINGW_NAME_AW(SetupDiGetDriverInfoDetail)
+
+declare function SetupDiGetDeviceInterfaceAlias(byval DeviceInfoSet as HDEVINFO, byval DeviceInterfaceData as PSP_DEVICE_INTERFACE_DATA, byval AliasInterfaceClassGuid as const GUID ptr, byval AliasDeviceInterfaceData as PSP_DEVICE_INTERFACE_DATA) as WINBOOL
+
+#define SetupDiGetInterfaceDeviceAlias SetupDiGetDeviceInterfaceAlias
+
+declare function SetupDiDeleteDeviceInterfaceData(byval DeviceInfoSet as HDEVINFO, byval DeviceInterfaceData as PSP_DEVICE_INTERFACE_DATA) as WINBOOL
+
+#define SetupDiDeleteInterfaceDeviceData SetupDiDeleteDeviceInterfaceData
+
+declare function SetupDiRemoveDeviceInterface(byval DeviceInfoSet as HDEVINFO, byval DeviceInterfaceData as PSP_DEVICE_INTERFACE_DATA) as WINBOOL
+
+#define SetupDiRemoveInterfaceDevice SetupDiRemoveDeviceInterface
+
+declare function SetupDiGetDeviceInterfaceDetailA(byval DeviceInfoSet as HDEVINFO, byval DeviceInterfaceData as PSP_DEVICE_INTERFACE_DATA, byval DeviceInterfaceDetailData as PSP_DEVICE_INTERFACE_DETAIL_DATA_A, byval DeviceInterfaceDetailDataSize as DWORD, byval RequiredSize as PDWORD, byval DeviceInfoData as PSP_DEVINFO_DATA) as WINBOOL
+declare function SetupDiGetDeviceInterfaceDetailW(byval DeviceInfoSet as HDEVINFO, byval DeviceInterfaceData as PSP_DEVICE_INTERFACE_DATA, byval DeviceInterfaceDetailData as PSP_DEVICE_INTERFACE_DETAIL_DATA_W, byval DeviceInterfaceDetailDataSize as DWORD, byval RequiredSize as PDWORD, byval DeviceInfoData as PSP_DEVINFO_DATA) as WINBOOL
+
+#define SetupDiGetInterfaceDeviceDetailW SetupDiGetDeviceInterfaceDetailW
+#define SetupDiGetInterfaceDeviceDetailA SetupDiGetDeviceInterfaceDetailA
+
+declare function SetupDiInstallDeviceInterfaces(byval DeviceInfoSet as HDEVINFO, byval DeviceInfoData as PSP_DEVINFO_DATA) as WINBOOL
+
+#define SetupDiInstallInterfaceDevices SetupDiInstallDeviceInterfaces
+
+declare function SetupDiSetDeviceInterfaceDefault(byval DeviceInfoSet as HDEVINFO, byval DeviceInterfaceData as PSP_DEVICE_INTERFACE_DATA, byval Flags as DWORD, byval Reserved as PVOID) as WINBOOL
+declare function SetupDiRegisterDeviceInfo(byval DeviceInfoSet as HDEVINFO, byval DeviceInfoData as PSP_DEVINFO_DATA, byval Flags as DWORD, byval CompareProc as PSP_DETSIG_CMPPROC, byval CompareContext as PVOID, byval DupDeviceInfoData as PSP_DEVINFO_DATA) as WINBOOL
+declare function SetupDiBuildDriverInfoList(byval DeviceInfoSet as HDEVINFO, byval DeviceInfoData as PSP_DEVINFO_DATA, byval DriverType as DWORD) as WINBOOL
+declare function SetupDiCancelDriverInfoSearch(byval DeviceInfoSet as HDEVINFO) as WINBOOL
+declare function SetupDiEnumDriverInfoA(byval DeviceInfoSet as HDEVINFO, byval DeviceInfoData as PSP_DEVINFO_DATA, byval DriverType as DWORD, byval MemberIndex as DWORD, byval DriverInfoData as PSP_DRVINFO_DATA_A) as WINBOOL
+declare function SetupDiEnumDriverInfoW(byval DeviceInfoSet as HDEVINFO, byval DeviceInfoData as PSP_DEVINFO_DATA, byval DriverType as DWORD, byval MemberIndex as DWORD, byval DriverInfoData as PSP_DRVINFO_DATA_W) as WINBOOL
+declare function SetupDiGetSelectedDriverA(byval DeviceInfoSet as HDEVINFO, byval DeviceInfoData as PSP_DEVINFO_DATA, byval DriverInfoData as PSP_DRVINFO_DATA_A) as WINBOOL
+declare function SetupDiGetSelectedDriverW(byval DeviceInfoSet as HDEVINFO, byval DeviceInfoData as PSP_DEVINFO_DATA, byval DriverInfoData as PSP_DRVINFO_DATA_W) as WINBOOL
+declare function SetupDiSetSelectedDriverA(byval DeviceInfoSet as HDEVINFO, byval DeviceInfoData as PSP_DEVINFO_DATA, byval DriverInfoData as PSP_DRVINFO_DATA_A) as WINBOOL
+declare function SetupDiSetSelectedDriverW(byval DeviceInfoSet as HDEVINFO, byval DeviceInfoData as PSP_DEVINFO_DATA, byval DriverInfoData as PSP_DRVINFO_DATA_W) as WINBOOL
+declare function SetupDiGetDriverInfoDetailA(byval DeviceInfoSet as HDEVINFO, byval DeviceInfoData as PSP_DEVINFO_DATA, byval DriverInfoData as PSP_DRVINFO_DATA_A, byval DriverInfoDetailData as PSP_DRVINFO_DETAIL_DATA_A, byval DriverInfoDetailDataSize as DWORD, byval RequiredSize as PDWORD) as WINBOOL
+declare function SetupDiGetDriverInfoDetailW(byval DeviceInfoSet as HDEVINFO, byval DeviceInfoData as PSP_DEVINFO_DATA, byval DriverInfoData as PSP_DRVINFO_DATA_W, byval DriverInfoDetailData as PSP_DRVINFO_DETAIL_DATA_W, byval DriverInfoDetailDataSize as DWORD, byval RequiredSize as PDWORD) as WINBOOL
+declare function SetupDiDestroyDriverInfoList(byval DeviceInfoSet as HDEVINFO, byval DeviceInfoData as PSP_DEVINFO_DATA, byval DriverType as DWORD) as WINBOOL
+
+#define DIGCF_DEFAULT &h00000001
+#define DIGCF_PRESENT &h00000002
+#define DIGCF_ALLCLASSES &h00000004
+#define DIGCF_PROFILE &h00000008
+#define DIGCF_DEVICEINTERFACE &h00000010
+#define DIGCF_INTERFACEDEVICE DIGCF_DEVICEINTERFACE
+#define DIBCI_NOINSTALLCLASS &h00000001
+#define DIBCI_NODISPLAYCLASS &h00000002
+#define SetupDiGetClassDevs __MINGW_NAME_AW(SetupDiGetClassDevs)
+#define SetupDiGetClassDevsEx __MINGW_NAME_AW(SetupDiGetClassDevsEx)
+#define SetupDiGetINFClass __MINGW_NAME_AW(SetupDiGetINFClass)
+#define SetupDiBuildClassInfoListEx __MINGW_NAME_AW(SetupDiBuildClassInfoListEx)
+#define SetupDiGetClassDescription __MINGW_NAME_AW(SetupDiGetClassDescription)
+#define SetupDiGetClassDescriptionEx __MINGW_NAME_AW(SetupDiGetClassDescriptionEx)
+#define SetupDiInstallClass __MINGW_NAME_AW(SetupDiInstallClass)
+#define SetupDiInstallClassEx __MINGW_NAME_AW(SetupDiInstallClassEx)
+#define SetupDiOpenClassRegKeyEx __MINGW_NAME_AW(SetupDiOpenClassRegKeyEx)
+#define SetupDiCreateDeviceInterfaceRegKey __MINGW_NAME_AW(SetupDiCreateDeviceInterfaceRegKey)
+#define SetupDiCreateInterfaceDeviceRegKey __MINGW_NAME_AW(SetupDiCreateDeviceInterfaceRegKey)
+#define SetupDiCreateDevRegKey __MINGW_NAME_AW(SetupDiCreateDevRegKey)
+#define SetupDiGetHwProfileListEx __MINGW_NAME_AW(SetupDiGetHwProfileListEx)
+
+declare function SetupDiGetClassDevsA(byval ClassGuid as const GUID ptr, byval Enumerator as PCSTR, byval hwndParent as HWND, byval Flags as DWORD) as HDEVINFO
+declare function SetupDiGetClassDevsW(byval ClassGuid as const GUID ptr, byval Enumerator as PCWSTR, byval hwndParent as HWND, byval Flags as DWORD) as HDEVINFO
+declare function SetupDiGetClassDevsExA(byval ClassGuid as const GUID ptr, byval Enumerator as PCSTR, byval hwndParent as HWND, byval Flags as DWORD, byval DeviceInfoSet as HDEVINFO, byval MachineName as PCSTR, byval Reserved as PVOID) as HDEVINFO
+declare function SetupDiGetClassDevsExW(byval ClassGuid as const GUID ptr, byval Enumerator as PCWSTR, byval hwndParent as HWND, byval Flags as DWORD, byval DeviceInfoSet as HDEVINFO, byval MachineName as PCWSTR, byval Reserved as PVOID) as HDEVINFO
+declare function SetupDiGetINFClassA(byval InfName as PCSTR, byval ClassGuid as LPGUID, byval ClassName as PSTR, byval ClassNameSize as DWORD, byval RequiredSize as PDWORD) as WINBOOL
+declare function SetupDiGetINFClassW(byval InfName as PCWSTR, byval ClassGuid as LPGUID, byval ClassName as PWSTR, byval ClassNameSize as DWORD, byval RequiredSize as PDWORD) as WINBOOL
+declare function SetupDiBuildClassInfoList(byval Flags as DWORD, byval ClassGuidList as LPGUID, byval ClassGuidListSize as DWORD, byval RequiredSize as PDWORD) as WINBOOL
+declare function SetupDiBuildClassInfoListExA(byval Flags as DWORD, byval ClassGuidList as LPGUID, byval ClassGuidListSize as DWORD, byval RequiredSize as PDWORD, byval MachineName as PCSTR, byval Reserved as PVOID) as WINBOOL
+declare function SetupDiBuildClassInfoListExW(byval Flags as DWORD, byval ClassGuidList as LPGUID, byval ClassGuidListSize as DWORD, byval RequiredSize as PDWORD, byval MachineName as PCWSTR, byval Reserved as PVOID) as WINBOOL
+declare function SetupDiGetClassDescriptionA(byval ClassGuid as const GUID ptr, byval ClassDescription as PSTR, byval ClassDescriptionSize as DWORD, byval RequiredSize as PDWORD) as WINBOOL
+declare function SetupDiGetClassDescriptionW(byval ClassGuid as const GUID ptr, byval ClassDescription as PWSTR, byval ClassDescriptionSize as DWORD, byval RequiredSize as PDWORD) as WINBOOL
+declare function SetupDiGetClassDescriptionExA(byval ClassGuid as const GUID ptr, byval ClassDescription as PSTR, byval ClassDescriptionSize as DWORD, byval RequiredSize as PDWORD, byval MachineName as PCSTR, byval Reserved as PVOID) as WINBOOL
+declare function SetupDiGetClassDescriptionExW(byval ClassGuid as const GUID ptr, byval ClassDescription as PWSTR, byval ClassDescriptionSize as DWORD, byval RequiredSize as PDWORD, byval MachineName as PCWSTR, byval Reserved as PVOID) as WINBOOL
+declare function SetupDiCallClassInstaller(byval InstallFunction as DI_FUNCTION, byval DeviceInfoSet as HDEVINFO, byval DeviceInfoData as PSP_DEVINFO_DATA) as WINBOOL
+declare function SetupDiSelectDevice(byval DeviceInfoSet as HDEVINFO, byval DeviceInfoData as PSP_DEVINFO_DATA) as WINBOOL
+declare function SetupDiSelectBestCompatDrv(byval DeviceInfoSet as HDEVINFO, byval DeviceInfoData as PSP_DEVINFO_DATA) as WINBOOL
+declare function SetupDiInstallDevice(byval DeviceInfoSet as HDEVINFO, byval DeviceInfoData as PSP_DEVINFO_DATA) as WINBOOL
+declare function SetupDiInstallDriverFiles(byval DeviceInfoSet as HDEVINFO, byval DeviceInfoData as PSP_DEVINFO_DATA) as WINBOOL
+declare function SetupDiRegisterCoDeviceInstallers(byval DeviceInfoSet as HDEVINFO, byval DeviceInfoData as PSP_DEVINFO_DATA) as WINBOOL
+declare function SetupDiRemoveDevice(byval DeviceInfoSet as HDEVINFO, byval DeviceInfoData as PSP_DEVINFO_DATA) as WINBOOL
+declare function SetupDiUnremoveDevice(byval DeviceInfoSet as HDEVINFO, byval DeviceInfoData as PSP_DEVINFO_DATA) as WINBOOL
+declare function SetupDiRestartDevices(byval DeviceInfoSet as HDEVINFO, byval DeviceInfoData as PSP_DEVINFO_DATA) as WINBOOL
+declare function SetupDiChangeState(byval DeviceInfoSet as HDEVINFO, byval DeviceInfoData as PSP_DEVINFO_DATA) as WINBOOL
+declare function SetupDiInstallClassA(byval hwndParent as HWND, byval InfFileName as PCSTR, byval Flags as DWORD, byval FileQueue as HSPFILEQ) as WINBOOL
+declare function SetupDiInstallClassW(byval hwndParent as HWND, byval InfFileName as PCWSTR, byval Flags as DWORD, byval FileQueue as HSPFILEQ) as WINBOOL
+declare function SetupDiInstallClassExA(byval hwndParent as HWND, byval InfFileName as PCSTR, byval Flags as DWORD, byval FileQueue as HSPFILEQ, byval InterfaceClassGuid as const GUID ptr, byval Reserved1 as PVOID, byval Reserved2 as PVOID) as WINBOOL
+declare function SetupDiInstallClassExW(byval hwndParent as HWND, byval InfFileName as PCWSTR, byval Flags as DWORD, byval FileQueue as HSPFILEQ, byval InterfaceClassGuid as const GUID ptr, byval Reserved1 as PVOID, byval Reserved2 as PVOID) as WINBOOL
+declare function SetupDiOpenClassRegKey(byval ClassGuid as const GUID ptr, byval samDesired as REGSAM) as HKEY
+
+#define DIOCR_INSTALLER &h00000001
+#define DIOCR_INTERFACE &h00000002
+
+declare function SetupDiOpenClassRegKeyExA(byval ClassGuid as const GUID ptr, byval samDesired as REGSAM, byval Flags as DWORD, byval MachineName as PCSTR, byval Reserved as PVOID) as HKEY
+declare function SetupDiOpenClassRegKeyExW(byval ClassGuid as const GUID ptr, byval samDesired as REGSAM, byval Flags as DWORD, byval MachineName as PCWSTR, byval Reserved as PVOID) as HKEY
+declare function SetupDiCreateDeviceInterfaceRegKeyA(byval DeviceInfoSet as HDEVINFO, byval DeviceInterfaceData as PSP_DEVICE_INTERFACE_DATA, byval Reserved as DWORD, byval samDesired as REGSAM, byval InfHandle as HINF, byval InfSectionName as PCSTR) as HKEY
+declare function SetupDiCreateDeviceInterfaceRegKeyW(byval DeviceInfoSet as HDEVINFO, byval DeviceInterfaceData as PSP_DEVICE_INTERFACE_DATA, byval Reserved as DWORD, byval samDesired as REGSAM, byval InfHandle as HINF, byval InfSectionName as PCWSTR) as HKEY
+
+#define SetupDiCreateInterfaceDeviceRegKeyW SetupDiCreateDeviceInterfaceRegKeyW
+#define SetupDiCreateInterfaceDeviceRegKeyA SetupDiCreateDeviceInterfaceRegKeyA
+
+declare function SetupDiOpenDeviceInterfaceRegKey(byval DeviceInfoSet as HDEVINFO, byval DeviceInterfaceData as PSP_DEVICE_INTERFACE_DATA, byval Reserved as DWORD, byval samDesired as REGSAM) as HKEY
+
+#define SetupDiOpenInterfaceDeviceRegKey SetupDiOpenDeviceInterfaceRegKey
+
+declare function SetupDiDeleteDeviceInterfaceRegKey(byval DeviceInfoSet as HDEVINFO, byval DeviceInterfaceData as PSP_DEVICE_INTERFACE_DATA, byval Reserved as DWORD) as WINBOOL
+
+#define SetupDiDeleteInterfaceDeviceRegKey SetupDiDeleteDeviceInterfaceRegKey
+#define DIREG_DEV &h00000001
+#define DIREG_DRV &h00000002
+#define DIREG_BOTH &h00000004
+
+declare function SetupDiCreateDevRegKeyA(byval DeviceInfoSet as HDEVINFO, byval DeviceInfoData as PSP_DEVINFO_DATA, byval Scope_ as DWORD, byval HwProfile as DWORD, byval KeyType as DWORD, byval InfHandle as HINF, byval InfSectionName as PCSTR) as HKEY
+declare function SetupDiCreateDevRegKeyW(byval DeviceInfoSet as HDEVINFO, byval DeviceInfoData as PSP_DEVINFO_DATA, byval Scope_ as DWORD, byval HwProfile as DWORD, byval KeyType as DWORD, byval InfHandle as HINF, byval InfSectionName as PCWSTR) as HKEY
+declare function SetupDiOpenDevRegKey(byval DeviceInfoSet as HDEVINFO, byval DeviceInfoData as PSP_DEVINFO_DATA, byval Scope_ as DWORD, byval HwProfile as DWORD, byval KeyType as DWORD, byval samDesired as REGSAM) as HKEY
+declare function SetupDiDeleteDevRegKey(byval DeviceInfoSet as HDEVINFO, byval DeviceInfoData as PSP_DEVINFO_DATA, byval Scope_ as DWORD, byval HwProfile as DWORD, byval KeyType as DWORD) as WINBOOL
+declare function SetupDiGetHwProfileList(byval HwProfileList as PDWORD, byval HwProfileListSize as DWORD, byval RequiredSize as PDWORD, byval CurrentlyActiveIndex as PDWORD) as WINBOOL
+declare function SetupDiGetHwProfileListExA(byval HwProfileList as PDWORD, byval HwProfileListSize as DWORD, byval RequiredSize as PDWORD, byval CurrentlyActiveIndex as PDWORD, byval MachineName as PCSTR, byval Reserved as PVOID) as WINBOOL
+declare function SetupDiGetHwProfileListExW(byval HwProfileList as PDWORD, byval HwProfileListSize as DWORD, byval RequiredSize as PDWORD, byval CurrentlyActiveIndex as PDWORD, byval MachineName as PCWSTR, byval Reserved as PVOID) as WINBOOL
+
+#define SPDRP_DEVICEDESC &h00000000
+#define SPDRP_HARDWAREID &h00000001
+#define SPDRP_COMPATIBLEIDS &h00000002
+#define SPDRP_UNUSED0 &h00000003
+#define SPDRP_SERVICE &h00000004
+#define SPDRP_UNUSED1 &h00000005
+#define SPDRP_UNUSED2 &h00000006
+#define SPDRP_CLASS &h00000007
+#define SPDRP_CLASSGUID &h00000008
+#define SPDRP_DRIVER &h00000009
+#define SPDRP_CONFIGFLAGS &h0000000A
+#define SPDRP_MFG &h0000000B
+#define SPDRP_FRIENDLYNAME &h0000000C
+#define SPDRP_LOCATION_INFORMATION &h0000000D
+#define SPDRP_PHYSICAL_DEVICE_OBJECT_NAME &h0000000E
+#define SPDRP_CAPABILITIES &h0000000F
+#define SPDRP_UI_NUMBER &h00000010
+#define SPDRP_UPPERFILTERS &h00000011
+#define SPDRP_LOWERFILTERS &h00000012
+#define SPDRP_BUSTYPEGUID &h00000013
+#define SPDRP_LEGACYBUSTYPE &h00000014
+#define SPDRP_BUSNUMBER &h00000015
+#define SPDRP_ENUMERATOR_NAME &h00000016
+#define SPDRP_SECURITY &h00000017
+#define SPDRP_SECURITY_SDS &h00000018
+#define SPDRP_DEVTYPE &h00000019
+#define SPDRP_EXCLUSIVE &h0000001A
+#define SPDRP_CHARACTERISTICS &h0000001B
+#define SPDRP_ADDRESS &h0000001C
+#define SPDRP_UI_NUMBER_DESC_FORMAT &h0000001D
+#define SPDRP_DEVICE_POWER_DATA &h0000001E
+#define SPDRP_REMOVAL_POLICY &h0000001F
+#define SPDRP_REMOVAL_POLICY_HW_DEFAULT &h00000020
+#define SPDRP_REMOVAL_POLICY_OVERRIDE &h00000021
+#define SPDRP_INSTALL_STATE &h00000022
+#define SPDRP_LOCATION_PATHS &h00000023
+#define SPDRP_MAXIMUM_PROPERTY &h00000024
+#define SPCRP_SECURITY &h00000017
+#define SPCRP_SECURITY_SDS &h00000018
+#define SPCRP_DEVTYPE &h00000019
+#define SPCRP_EXCLUSIVE &h0000001A
+#define SPCRP_CHARACTERISTICS &h0000001B
+#define SPCRP_MAXIMUM_PROPERTY &h0000001C
+#define SetupDiGetDeviceRegistryProperty __MINGW_NAME_AW(SetupDiGetDeviceRegistryProperty)
+#define SetupDiGetClassRegistryProperty __MINGW_NAME_AW(SetupDiGetClassRegistryProperty)
+#define SetupDiSetDeviceRegistryProperty __MINGW_NAME_AW(SetupDiSetDeviceRegistryProperty)
+#define SetupDiSetClassRegistryProperty __MINGW_NAME_AW(SetupDiSetClassRegistryProperty)
+#define SetupDiGetDeviceInstallParams __MINGW_NAME_AW(SetupDiGetDeviceInstallParams)
+#define SetupDiGetClassInstallParams __MINGW_NAME_AW(SetupDiGetClassInstallParams)
+#define SetupDiSetDeviceInstallParams __MINGW_NAME_AW(SetupDiSetDeviceInstallParams)
+#define SetupDiSetClassInstallParams __MINGW_NAME_AW(SetupDiSetClassInstallParams)
+#define SetupDiGetDriverInstallParams __MINGW_NAME_AW(SetupDiGetDriverInstallParams)
+#define SetupDiSetDriverInstallParams __MINGW_NAME_AW(SetupDiSetDriverInstallParams)
+#define SetupDiGetClassImageListEx __MINGW_NAME_AW(SetupDiGetClassImageListEx)
+#define SetupDiGetClassDevPropertySheets __MINGW_NAME_AW(SetupDiGetClassDevPropertySheets)
+#define SetupDiClassNameFromGuid __MINGW_NAME_AW(SetupDiClassNameFromGuid)
+#define SetupDiClassNameFromGuidEx __MINGW_NAME_AW(SetupDiClassNameFromGuidEx)
+#define SetupDiClassGuidsFromName __MINGW_NAME_AW(SetupDiClassGuidsFromName)
+#define SetupDiClassGuidsFromNameEx __MINGW_NAME_AW(SetupDiClassGuidsFromNameEx)
+#define SetupDiGetHwProfileFriendlyName __MINGW_NAME_AW(SetupDiGetHwProfileFriendlyName)
+#define SetupDiGetHwProfileFriendlyNameEx __MINGW_NAME_AW(SetupDiGetHwProfileFriendlyNameEx)
+#define SetupDiGetActualModelsSection __MINGW_NAME_AW(SetupDiGetActualModelsSection)
+#define SetupDiGetActualSectionToInstall __MINGW_NAME_AW(SetupDiGetActualSectionToInstall)
+#define SetupDiGetActualSectionToInstallEx __MINGW_NAME_AW(SetupDiGetActualSectionToInstallEx)
+#define SetupEnumInfSections __MINGW_NAME_AW(SetupEnumInfSections)
+
+declare function SetupDiGetDeviceRegistryPropertyA(byval DeviceInfoSet as HDEVINFO, byval DeviceInfoData as PSP_DEVINFO_DATA, byval Property_ as DWORD, byval PropertyRegDataType as PDWORD, byval PropertyBuffer as PBYTE, byval PropertyBufferSize as DWORD, byval RequiredSize as PDWORD) as WINBOOL
+declare function SetupDiGetDeviceRegistryPropertyW(byval DeviceInfoSet as HDEVINFO, byval DeviceInfoData as PSP_DEVINFO_DATA, byval Property_ as DWORD, byval PropertyRegDataType as PDWORD, byval PropertyBuffer as PBYTE, byval PropertyBufferSize as DWORD, byval RequiredSize as PDWORD) as WINBOOL
+declare function SetupDiGetClassRegistryPropertyA(byval ClassGuid as const GUID ptr, byval Property_ as DWORD, byval PropertyRegDataType as PDWORD, byval PropertyBuffer as PBYTE, byval PropertyBufferSize as DWORD, byval RequiredSize as PDWORD, byval MachineName as PCSTR, byval Reserved as PVOID) as WINBOOL
+declare function SetupDiGetClassRegistryPropertyW(byval ClassGuid as const GUID ptr, byval Property_ as DWORD, byval PropertyRegDataType as PDWORD, byval PropertyBuffer as PBYTE, byval PropertyBufferSize as DWORD, byval RequiredSize as PDWORD, byval MachineName as PCWSTR, byval Reserved as PVOID) as WINBOOL
+declare function SetupDiSetDeviceRegistryPropertyA(byval DeviceInfoSet as HDEVINFO, byval DeviceInfoData as PSP_DEVINFO_DATA, byval Property_ as DWORD, byval PropertyBuffer as const BYTE_ ptr, byval PropertyBufferSize as DWORD) as WINBOOL
+declare function SetupDiSetDeviceRegistryPropertyW(byval DeviceInfoSet as HDEVINFO, byval DeviceInfoData as PSP_DEVINFO_DATA, byval Property_ as DWORD, byval PropertyBuffer as const BYTE_ ptr, byval PropertyBufferSize as DWORD) as WINBOOL
+declare function SetupDiSetClassRegistryPropertyA(byval ClassGuid as const GUID ptr, byval Property_ as DWORD, byval PropertyBuffer as const BYTE_ ptr, byval PropertyBufferSize as DWORD, byval MachineName as PCSTR, byval Reserved as PVOID) as WINBOOL
+declare function SetupDiSetClassRegistryPropertyW(byval ClassGuid as const GUID ptr, byval Property_ as DWORD, byval PropertyBuffer as const BYTE_ ptr, byval PropertyBufferSize as DWORD, byval MachineName as PCWSTR, byval Reserved as PVOID) as WINBOOL
+declare function SetupDiGetDeviceInstallParamsA(byval DeviceInfoSet as HDEVINFO, byval DeviceInfoData as PSP_DEVINFO_DATA, byval DeviceInstallParams as PSP_DEVINSTALL_PARAMS_A) as WINBOOL
+declare function SetupDiGetDeviceInstallParamsW(byval DeviceInfoSet as HDEVINFO, byval DeviceInfoData as PSP_DEVINFO_DATA, byval DeviceInstallParams as PSP_DEVINSTALL_PARAMS_W) as WINBOOL
+declare function SetupDiGetClassInstallParamsA(byval DeviceInfoSet as HDEVINFO, byval DeviceInfoData as PSP_DEVINFO_DATA, byval ClassInstallParams as PSP_CLASSINSTALL_HEADER, byval ClassInstallParamsSize as DWORD, byval RequiredSize as PDWORD) as WINBOOL
+declare function SetupDiGetClassInstallParamsW(byval DeviceInfoSet as HDEVINFO, byval DeviceInfoData as PSP_DEVINFO_DATA, byval ClassInstallParams as PSP_CLASSINSTALL_HEADER, byval ClassInstallParamsSize as DWORD, byval RequiredSize as PDWORD) as WINBOOL
+declare function SetupDiSetDeviceInstallParamsA(byval DeviceInfoSet as HDEVINFO, byval DeviceInfoData as PSP_DEVINFO_DATA, byval DeviceInstallParams as PSP_DEVINSTALL_PARAMS_A) as WINBOOL
+declare function SetupDiSetDeviceInstallParamsW(byval DeviceInfoSet as HDEVINFO, byval DeviceInfoData as PSP_DEVINFO_DATA, byval DeviceInstallParams as PSP_DEVINSTALL_PARAMS_W) as WINBOOL
+declare function SetupDiSetClassInstallParamsA(byval DeviceInfoSet as HDEVINFO, byval DeviceInfoData as PSP_DEVINFO_DATA, byval ClassInstallParams as PSP_CLASSINSTALL_HEADER, byval ClassInstallParamsSize as DWORD) as WINBOOL
+declare function SetupDiSetClassInstallParamsW(byval DeviceInfoSet as HDEVINFO, byval DeviceInfoData as PSP_DEVINFO_DATA, byval ClassInstallParams as PSP_CLASSINSTALL_HEADER, byval ClassInstallParamsSize as DWORD) as WINBOOL
+declare function SetupDiGetDriverInstallParamsA(byval DeviceInfoSet as HDEVINFO, byval DeviceInfoData as PSP_DEVINFO_DATA, byval DriverInfoData as PSP_DRVINFO_DATA_A, byval DriverInstallParams as PSP_DRVINSTALL_PARAMS) as WINBOOL
+declare function SetupDiGetDriverInstallParamsW(byval DeviceInfoSet as HDEVINFO, byval DeviceInfoData as PSP_DEVINFO_DATA, byval DriverInfoData as PSP_DRVINFO_DATA_W, byval DriverInstallParams as PSP_DRVINSTALL_PARAMS) as WINBOOL
+declare function SetupDiSetDriverInstallParamsA(byval DeviceInfoSet as HDEVINFO, byval DeviceInfoData as PSP_DEVINFO_DATA, byval DriverInfoData as PSP_DRVINFO_DATA_A, byval DriverInstallParams as PSP_DRVINSTALL_PARAMS) as WINBOOL
+declare function SetupDiSetDriverInstallParamsW(byval DeviceInfoSet as HDEVINFO, byval DeviceInfoData as PSP_DEVINFO_DATA, byval DriverInfoData as PSP_DRVINFO_DATA_W, byval DriverInstallParams as PSP_DRVINSTALL_PARAMS) as WINBOOL
+declare function SetupDiLoadClassIcon(byval ClassGuid as const GUID ptr, byval LargeIcon as HICON ptr, byval MiniIconIndex as PINT) as WINBOOL
+
+#define DMI_MASK &h00000001
+#define DMI_BKCOLOR &h00000002
+#define DMI_USERECT &h00000004
+
+declare function SetupDiDrawMiniIcon(byval hdc as HDC, byval rc as RECT, byval MiniIconIndex as INT_, byval Flags as DWORD) as INT_
+declare function SetupDiGetClassBitmapIndex(byval ClassGuid as const GUID ptr, byval MiniIconIndex as PINT) as WINBOOL
+declare function SetupDiGetClassImageList(byval ClassImageListData as PSP_CLASSIMAGELIST_DATA) as WINBOOL
+declare function SetupDiGetClassImageListExA(byval ClassImageListData as PSP_CLASSIMAGELIST_DATA, byval MachineName as PCSTR, byval Reserved as PVOID) as WINBOOL
+declare function SetupDiGetClassImageListExW(byval ClassImageListData as PSP_CLASSIMAGELIST_DATA, byval MachineName as PCWSTR, byval Reserved as PVOID) as WINBOOL
+declare function SetupDiGetClassImageIndex(byval ClassImageListData as PSP_CLASSIMAGELIST_DATA, byval ClassGuid as const GUID ptr, byval ImageIndex as PINT) as WINBOOL
+declare function SetupDiDestroyClassImageList(byval ClassImageListData as PSP_CLASSIMAGELIST_DATA) as WINBOOL
+
+#define DIGCDP_FLAG_BASIC &h00000001
+#define DIGCDP_FLAG_ADVANCED &h00000002
+#define DIGCDP_FLAG_REMOTE_BASIC &h00000003
+#define DIGCDP_FLAG_REMOTE_ADVANCED &h00000004
+
+declare function SetupDiGetClassDevPropertySheetsA(byval DeviceInfoSet as HDEVINFO, byval DeviceInfoData as PSP_DEVINFO_DATA, byval PropertySheetHeader as LPPROPSHEETHEADERA, byval PropertySheetHeaderPageListSize as DWORD, byval RequiredSize as PDWORD, byval PropertySheetType as DWORD) as WINBOOL
+declare function SetupDiGetClassDevPropertySheetsW(byval DeviceInfoSet as HDEVINFO, byval DeviceInfoData as PSP_DEVINFO_DATA, byval PropertySheetHeader as LPPROPSHEETHEADERW, byval PropertySheetHeaderPageListSize as DWORD, byval RequiredSize as PDWORD, byval PropertySheetType as DWORD) as WINBOOL
+
+#define IDI_RESOURCEFIRST 159
+#define IDI_RESOURCE 159
+#define IDI_RESOURCELAST 161
+#define IDI_RESOURCEOVERLAYFIRST 161
+#define IDI_RESOURCEOVERLAYLAST 161
+#define IDI_CONFLICT 161
+#define IDI_CLASSICON_OVERLAYFIRST 500
+#define IDI_CLASSICON_OVERLAYLAST 502
+#define IDI_PROBLEM_OVL 500
+#define IDI_DISABLED_OVL 501
+#define IDI_FORCED_OVL 502
+
+declare function SetupDiAskForOEMDisk(byval DeviceInfoSet as HDEVINFO, byval DeviceInfoData as PSP_DEVINFO_DATA) as WINBOOL
+declare function SetupDiSelectOEMDrv(byval hwndParent as HWND, byval DeviceInfoSet as HDEVINFO, byval DeviceInfoData as PSP_DEVINFO_DATA) as WINBOOL
+declare function SetupDiClassNameFromGuidA(byval ClassGuid as const GUID ptr, byval ClassName as PSTR, byval ClassNameSize as DWORD, byval RequiredSize as PDWORD) as WINBOOL
+declare function SetupDiClassNameFromGuidW(byval ClassGuid as const GUID ptr, byval ClassName as PWSTR, byval ClassNameSize as DWORD, byval RequiredSize as PDWORD) as WINBOOL
+declare function SetupDiClassNameFromGuidExA(byval ClassGuid as const GUID ptr, byval ClassName as PSTR, byval ClassNameSize as DWORD, byval RequiredSize as PDWORD, byval MachineName as PCSTR, byval Reserved as PVOID) as WINBOOL
+declare function SetupDiClassNameFromGuidExW(byval ClassGuid as const GUID ptr, byval ClassName as PWSTR, byval ClassNameSize as DWORD, byval RequiredSize as PDWORD, byval MachineName as PCWSTR, byval Reserved as PVOID) as WINBOOL
+declare function SetupDiClassGuidsFromNameA(byval ClassName as PCSTR, byval ClassGuidList as LPGUID, byval ClassGuidListSize as DWORD, byval RequiredSize as PDWORD) as WINBOOL
+declare function SetupDiClassGuidsFromNameW(byval ClassName as PCWSTR, byval ClassGuidList as LPGUID, byval ClassGuidListSize as DWORD, byval RequiredSize as PDWORD) as WINBOOL
+declare function SetupDiClassGuidsFromNameExA(byval ClassName as PCSTR, byval ClassGuidList as LPGUID, byval ClassGuidListSize as DWORD, byval RequiredSize as PDWORD, byval MachineName as PCSTR, byval Reserved as PVOID) as WINBOOL
+declare function SetupDiClassGuidsFromNameExW(byval ClassName as PCWSTR, byval ClassGuidList as LPGUID, byval ClassGuidListSize as DWORD, byval RequiredSize as PDWORD, byval MachineName as PCWSTR, byval Reserved as PVOID) as WINBOOL
+declare function SetupDiGetHwProfileFriendlyNameA(byval HwProfile as DWORD, byval FriendlyName as PSTR, byval FriendlyNameSize as DWORD, byval RequiredSize as PDWORD) as WINBOOL
+declare function SetupDiGetHwProfileFriendlyNameW(byval HwProfile as DWORD, byval FriendlyName as PWSTR, byval FriendlyNameSize as DWORD, byval RequiredSize as PDWORD) as WINBOOL
+declare function SetupDiGetHwProfileFriendlyNameExA(byval HwProfile as DWORD, byval FriendlyName as PSTR, byval FriendlyNameSize as DWORD, byval RequiredSize as PDWORD, byval MachineName as PCSTR, byval Reserved as PVOID) as WINBOOL
+declare function SetupDiGetHwProfileFriendlyNameExW(byval HwProfile as DWORD, byval FriendlyName as PWSTR, byval FriendlyNameSize as DWORD, byval RequiredSize as PDWORD, byval MachineName as PCWSTR, byval Reserved as PVOID) as WINBOOL
+
+#define SPWPT_SELECTDEVICE &h00000001
+#define SPWP_USE_DEVINFO_DATA &h00000001
+
+declare function SetupDiGetWizardPage(byval DeviceInfoSet as HDEVINFO, byval DeviceInfoData as PSP_DEVINFO_DATA, byval InstallWizardData as PSP_INSTALLWIZARD_DATA, byval PageType as DWORD, byval Flags as DWORD) as HPROPSHEETPAGE
+declare function SetupDiGetSelectedDevice(byval DeviceInfoSet as HDEVINFO, byval DeviceInfoData as PSP_DEVINFO_DATA) as WINBOOL
+declare function SetupDiSetSelectedDevice(byval DeviceInfoSet as HDEVINFO, byval DeviceInfoData as PSP_DEVINFO_DATA) as WINBOOL
+declare function SetupDiGetActualModelsSectionA(byval Context as PINFCONTEXT, byval AlternatePlatformInfo as PSP_ALTPLATFORM_INFO, byval InfSectionWithExt as PSTR, byval InfSectionWithExtSize as DWORD, byval RequiredSize as PDWORD, byval Reserved as PVOID) as WINBOOL
+declare function SetupDiGetActualModelsSectionW(byval Context as PINFCONTEXT, byval AlternatePlatformInfo as PSP_ALTPLATFORM_INFO, byval InfSectionWithExt as PWSTR, byval InfSectionWithExtSize as DWORD, byval RequiredSize as PDWORD, byval Reserved as PVOID) as WINBOOL
+declare function SetupDiGetActualSectionToInstallA(byval InfHandle as HINF, byval InfSectionName as PCSTR, byval InfSectionWithExt as PSTR, byval InfSectionWithExtSize as DWORD, byval RequiredSize as PDWORD, byval Extension as PSTR ptr) as WINBOOL
+declare function SetupDiGetActualSectionToInstallW(byval InfHandle as HINF, byval InfSectionName as PCWSTR, byval InfSectionWithExt as PWSTR, byval InfSectionWithExtSize as DWORD, byval RequiredSize as PDWORD, byval Extension as PWSTR ptr) as WINBOOL
+declare function SetupDiGetActualSectionToInstallExA(byval InfHandle as HINF, byval InfSectionName as PCSTR, byval AlternatePlatformInfo as PSP_ALTPLATFORM_INFO, byval InfSectionWithExt as PSTR, byval InfSectionWithExtSize as DWORD, byval RequiredSize as PDWORD, byval Extension as PSTR ptr, byval Reserved as PVOID) as WINBOOL
+declare function SetupDiGetActualSectionToInstallExW(byval InfHandle as HINF, byval InfSectionName as PCWSTR, byval AlternatePlatformInfo as PSP_ALTPLATFORM_INFO, byval InfSectionWithExt as PWSTR, byval InfSectionWithExtSize as DWORD, byval RequiredSize as PDWORD, byval Extension as PWSTR ptr, byval Reserved as PVOID) as WINBOOL
+declare function SetupEnumInfSectionsA(byval InfHandle as HINF, byval Index as UINT, byval Buffer as PSTR, byval Size as UINT, byval SizeNeeded as UINT ptr) as WINBOOL
+declare function SetupEnumInfSectionsW(byval InfHandle as HINF, byval Index as UINT, byval Buffer as PWSTR, byval Size as UINT, byval SizeNeeded as UINT ptr) as WINBOOL
+
+#ifdef __FB_64BIT__
+	type _SP_INF_SIGNER_INFO_A field = 8
+		cbSize as DWORD
+		CatalogFile(0 to 259) as CHAR
+		DigitalSigner(0 to 259) as CHAR
+		DigitalSignerVersion(0 to 259) as CHAR
+	end type
+#else
+	type _SP_INF_SIGNER_INFO_A field = 1
+		cbSize as DWORD
+		CatalogFile(0 to 259) as CHAR
+		DigitalSigner(0 to 259) as CHAR
+		DigitalSignerVersion(0 to 259) as CHAR
+	end type
+#endif
+
+type SP_INF_SIGNER_INFO_A as _SP_INF_SIGNER_INFO_A
+type PSP_INF_SIGNER_INFO_A as _SP_INF_SIGNER_INFO_A ptr
+
+#ifdef __FB_64BIT__
+	type _SP_INF_SIGNER_INFO_W field = 8
+		cbSize as DWORD
+		CatalogFile(0 to 259) as WCHAR
+		DigitalSigner(0 to 259) as WCHAR
+		DigitalSignerVersion(0 to 259) as WCHAR
+	end type
+#else
+	type _SP_INF_SIGNER_INFO_W field = 1
+		cbSize as DWORD
+		CatalogFile(0 to 259) as WCHAR
+		DigitalSigner(0 to 259) as WCHAR
+		DigitalSignerVersion(0 to 259) as WCHAR
+	end type
+#endif
+
+type SP_INF_SIGNER_INFO_W as _SP_INF_SIGNER_INFO_W
+type PSP_INF_SIGNER_INFO_W as _SP_INF_SIGNER_INFO_W ptr
+
+#ifdef UNICODE
+	type SP_INF_SIGNER_INFO as SP_INF_SIGNER_INFO_W
+	type PSP_INF_SIGNER_INFO as PSP_INF_SIGNER_INFO_W
+#else
+	type SP_INF_SIGNER_INFO as SP_INF_SIGNER_INFO_A
+	type PSP_INF_SIGNER_INFO as PSP_INF_SIGNER_INFO_A
+#endif
+
+#define SetupVerifyInfFile __MINGW_NAME_AW(SetupVerifyInfFile)
+#define SetupDiGetCustomDeviceProperty __MINGW_NAME_AW(SetupDiGetCustomDeviceProperty)
+#define SetupConfigureWmiFromInfSection __MINGW_NAME_AW(SetupConfigureWmiFromInfSection)
+
+declare function SetupVerifyInfFileA(byval InfName as PCSTR, byval AltPlatformInfo as PSP_ALTPLATFORM_INFO, byval InfSignerInfo as PSP_INF_SIGNER_INFO_A) as WINBOOL
+declare function SetupVerifyInfFileW(byval InfName as PCWSTR, byval AltPlatformInfo as PSP_ALTPLATFORM_INFO, byval InfSignerInfo as PSP_INF_SIGNER_INFO_W) as WINBOOL
+
+#define DICUSTOMDEVPROP_MERGE_MULTISZ &h00000001
+
+declare function SetupDiGetCustomDevicePropertyA(byval DeviceInfoSet as HDEVINFO, byval DeviceInfoData as PSP_DEVINFO_DATA, byval CustomPropertyName as PCSTR, byval Flags as DWORD, byval PropertyRegDataType as PDWORD, byval PropertyBuffer as PBYTE, byval PropertyBufferSize as DWORD, byval RequiredSize as PDWORD) as WINBOOL
+declare function SetupDiGetCustomDevicePropertyW(byval DeviceInfoSet as HDEVINFO, byval DeviceInfoData as PSP_DEVINFO_DATA, byval CustomPropertyName as PCWSTR, byval Flags as DWORD, byval PropertyRegDataType as PDWORD, byval PropertyBuffer as PBYTE, byval PropertyBufferSize as DWORD, byval RequiredSize as PDWORD) as WINBOOL
+
+#define SCWMI_CLOBBER_SECURITY &h00000001
+
+declare function SetupConfigureWmiFromInfSectionA(byval InfHandle as HINF, byval SectionName as PCSTR, byval Flags as DWORD) as WINBOOL
+declare function SetupConfigureWmiFromInfSectionW(byval InfHandle as HINF, byval SectionName as PCWSTR, byval Flags as DWORD) as WINBOOL
+
+end extern
