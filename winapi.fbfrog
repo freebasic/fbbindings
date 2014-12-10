@@ -74,3 +74,5 @@
 -removedefine __MIDL_DECLSPEC_DLLIMPORT
 -removedefine __MIDL_DECLSPEC_DLLEXPORT
 -removedefine WINSHELLAPI
+-removedefine WINGDIAPI
+-removedefine WINSPOOLAPI

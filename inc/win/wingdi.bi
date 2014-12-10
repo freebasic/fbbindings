@@ -1,0 +1,4479 @@
+#pragma once
+
+#include once "crt/long.bi"
+#include once "_mingw_unicode.bi"
+
+'' The following symbols have been renamed:
+''     #define ERROR => ERROR_
+''     #define ABORTDOC => ABORTDOC_
+''     #define SETABORTPROC => SETABORTPROC_
+''     #define ENDDOC => ENDDOC_
+''     #define SETMITERLIMIT => SETMITERLIMIT_
+''     #define STRETCHBLT => STRETCHBLT_
+''     #define RGB => RGB_
+''     #define BITSPIXEL => BITSPIXEL_
+''     #define PLANES => PLANES_
+''     #define StartDoc => StartDoc_
+''     #define ExtTextOut => ExtTextOut_
+
+#ifdef __FB_64BIT__
+	extern "C"
+#else
+	extern "Windows"
+#endif
+
+#define _WINGDI_
+#define R2_BLACK 1
+#define R2_NOTMERGEPEN 2
+#define R2_MASKNOTPEN 3
+#define R2_NOTCOPYPEN 4
+#define R2_MASKPENNOT 5
+#define R2_NOT 6
+#define R2_XORPEN 7
+#define R2_NOTMASKPEN 8
+#define R2_MASKPEN 9
+#define R2_NOTXORPEN 10
+#define R2_NOP 11
+#define R2_MERGENOTPEN 12
+#define R2_COPYPEN 13
+#define R2_MERGEPENNOT 14
+#define R2_MERGEPEN 15
+#define R2_WHITE 16
+#define R2_LAST 16
+#define SRCCOPY cast(DWORD, &h00CC0020)
+#define SRCPAINT cast(DWORD, &h00EE0086)
+#define SRCAND cast(DWORD, &h008800C6)
+#define SRCINVERT cast(DWORD, &h00660046)
+#define SRCERASE cast(DWORD, &h00440328)
+#define NOTSRCCOPY cast(DWORD, &h00330008)
+#define NOTSRCERASE cast(DWORD, &h001100A6)
+#define MERGECOPY cast(DWORD, &h00C000CA)
+#define MERGEPAINT cast(DWORD, &h00BB0226)
+#define PATCOPY cast(DWORD, &h00F00021)
+#define PATPAINT cast(DWORD, &h00FB0A09)
+#define PATINVERT cast(DWORD, &h005A0049)
+#define DSTINVERT cast(DWORD, &h00550009)
+#define BLACKNESS cast(DWORD, &h00000042)
+#define WHITENESS cast(DWORD, &h00FF0062)
+#define NOMIRRORBITMAP cast(DWORD, &h80000000)
+#define CAPTUREBLT cast(DWORD, &h40000000)
+#define MAKEROP4(fore, back) cast(DWORD, (((back) shl 8) and &hFF000000) or (fore))
+#define GDI_ERROR __MSABI_LONG(&hFFFFFFFF)
+#define HGDI_ERROR LongToHandle(&hFFFFFFFF)
+#define ERROR_ 0
+#define NULLREGION 1
+#define SIMPLEREGION 2
+#define COMPLEXREGION 3
+#define RGN_ERROR ERROR_
+#define RGN_AND 1
+#define RGN_OR 2
+#define RGN_XOR 3
+#define RGN_DIFF 4
+#define RGN_COPY 5
+#define RGN_MIN RGN_AND
+#define RGN_MAX RGN_COPY
+#define BLACKONWHITE 1
+#define WHITEONBLACK 2
+#define COLORONCOLOR 3
+#define HALFTONE 4
+#define MAXSTRETCHBLTMODE 4
+#define STRETCH_ANDSCANS BLACKONWHITE
+#define STRETCH_ORSCANS WHITEONBLACK
+#define STRETCH_DELETESCANS COLORONCOLOR
+#define STRETCH_HALFTONE HALFTONE
+#define ALTERNATE 1
+#define WINDING 2
+#define POLYFILL_LAST 2
+#define LAYOUT_RTL &h00000001
+#define LAYOUT_BTT &h00000002
+#define LAYOUT_VBH &h00000004
+#define LAYOUT_ORIENTATIONMASK ((LAYOUT_RTL or LAYOUT_BTT) or LAYOUT_VBH)
+#define LAYOUT_BITMAPORIENTATIONPRESERVED &h00000008
+#define TA_NOUPDATECP 0
+#define TA_UPDATECP 1
+#define TA_LEFT 0
+#define TA_RIGHT 2
+#define TA_CENTER 6
+#define TA_TOP 0
+#define TA_BOTTOM 8
+#define TA_BASELINE 24
+#define TA_RTLREADING 256
+#define TA_MASK (((TA_BASELINE + TA_CENTER) + TA_UPDATECP) + TA_RTLREADING)
+#define VTA_BASELINE TA_BASELINE
+#define VTA_LEFT TA_BOTTOM
+#define VTA_RIGHT TA_TOP
+#define VTA_CENTER TA_CENTER
+#define VTA_BOTTOM TA_RIGHT
+#define VTA_TOP TA_LEFT
+#define ETO_OPAQUE &h0002
+#define ETO_CLIPPED &h0004
+#define ETO_GLYPH_INDEX &h0010
+#define ETO_RTLREADING &h0080
+#define ETO_NUMERICSLOCAL &h0400
+#define ETO_NUMERICSLATIN &h0800
+#define ETO_IGNORELANGUAGE &h1000
+#define ETO_PDY &h2000
+#define ASPECT_FILTERING &h0001
+#define DCB_RESET &h0001
+#define DCB_ACCUMULATE &h0002
+#define DCB_DIRTY DCB_ACCUMULATE
+#define DCB_SET (DCB_RESET or DCB_ACCUMULATE)
+#define DCB_ENABLE &h0004
+#define DCB_DISABLE &h0008
+#define META_SETBKCOLOR &h0201
+#define META_SETBKMODE &h0102
+#define META_SETMAPMODE &h0103
+#define META_SETROP2 &h0104
+#define META_SETRELABS &h0105
+#define META_SETPOLYFILLMODE &h0106
+#define META_SETSTRETCHBLTMODE &h0107
+#define META_SETTEXTCHAREXTRA &h0108
+#define META_SETTEXTCOLOR &h0209
+#define META_SETTEXTJUSTIFICATION &h020A
+#define META_SETWINDOWORG &h020B
+#define META_SETWINDOWEXT &h020C
+#define META_SETVIEWPORTORG &h020D
+#define META_SETVIEWPORTEXT &h020E
+#define META_OFFSETWINDOWORG &h020F
+#define META_SCALEWINDOWEXT &h0410
+#define META_OFFSETVIEWPORTORG &h0211
+#define META_SCALEVIEWPORTEXT &h0412
+#define META_LINETO &h0213
+#define META_MOVETO &h0214
+#define META_EXCLUDECLIPRECT &h0415
+#define META_INTERSECTCLIPRECT &h0416
+#define META_ARC &h0817
+#define META_ELLIPSE &h0418
+#define META_FLOODFILL &h0419
+#define META_PIE &h081A
+#define META_RECTANGLE &h041B
+#define META_ROUNDRECT &h061C
+#define META_PATBLT &h061D
+#define META_SAVEDC &h001E
+#define META_SETPIXEL &h041F
+#define META_OFFSETCLIPRGN &h0220
+#define META_TEXTOUT &h0521
+#define META_BITBLT &h0922
+#define META_STRETCHBLT &h0B23
+#define META_POLYGON &h0324
+#define META_POLYLINE &h0325
+#define META_ESCAPE &h0626
+#define META_RESTOREDC &h0127
+#define META_FILLREGION &h0228
+#define META_FRAMEREGION &h0429
+#define META_INVERTREGION &h012A
+#define META_PAINTREGION &h012B
+#define META_SELECTCLIPREGION &h012C
+#define META_SELECTOBJECT &h012D
+#define META_SETTEXTALIGN &h012E
+#define META_CHORD &h0830
+#define META_SETMAPPERFLAGS &h0231
+#define META_EXTTEXTOUT &h0a32
+#define META_SETDIBTODEV &h0d33
+#define META_SELECTPALETTE &h0234
+#define META_REALIZEPALETTE &h0035
+#define META_ANIMATEPALETTE &h0436
+#define META_SETPALENTRIES &h0037
+#define META_POLYPOLYGON &h0538
+#define META_RESIZEPALETTE &h0139
+#define META_DIBBITBLT &h0940
+#define META_DIBSTRETCHBLT &h0b41
+#define META_DIBCREATEPATTERNBRUSH &h0142
+#define META_STRETCHDIB &h0f43
+#define META_EXTFLOODFILL &h0548
+#define META_SETLAYOUT &h0149
+#define META_DELETEOBJECT &h01f0
+#define META_CREATEPALETTE &h00f7
+#define META_CREATEPATTERNBRUSH &h01F9
+#define META_CREATEPENINDIRECT &h02FA
+#define META_CREATEFONTINDIRECT &h02FB
+#define META_CREATEBRUSHINDIRECT &h02FC
+#define META_CREATEREGION &h06FF
+
+type _DRAWPATRECT
+	ptPosition as POINT_
+	ptSize as POINT_
+	wStyle as WORD
+	wPattern as WORD
+end type
+
+type DRAWPATRECT as _DRAWPATRECT
+type PDRAWPATRECT as _DRAWPATRECT ptr
+
+#define NEWFRAME 1
+#define ABORTDOC_ 2
+#define NEXTBAND 3
+#define SETCOLORTABLE 4
+#define GETCOLORTABLE 5
+#define FLUSHOUTPUT 6
+#define DRAFTMODE 7
+#define QUERYESCSUPPORT 8
+#define SETABORTPROC_ 9
+#define STARTDOC 10
+#define ENDDOC_ 11
+#define GETPHYSPAGESIZE 12
+#define GETPRINTINGOFFSET 13
+#define GETSCALINGFACTOR 14
+#define MFCOMMENT 15
+#define GETPENWIDTH 16
+#define SETCOPYCOUNT 17
+#define SELECTPAPERSOURCE 18
+#define DEVICEDATA 19
+#define PASSTHROUGH 19
+#define GETTECHNOLGY 20
+#define GETTECHNOLOGY 20
+#define SETLINECAP 21
+#define SETLINEJOIN 22
+#define SETMITERLIMIT_ 23
+#define BANDINFO 24
+#define DRAWPATTERNRECT 25
+#define GETVECTORPENSIZE 26
+#define GETVECTORBRUSHSIZE 27
+#define ENABLEDUPLEX 28
+#define GETSETPAPERBINS 29
+#define GETSETPRINTORIENT 30
+#define ENUMPAPERBINS 31
+#define SETDIBSCALING 32
+#define EPSPRINTING 33
+#define ENUMPAPERMETRICS 34
+#define GETSETPAPERMETRICS 35
+#define POSTSCRIPT_DATA 37
+#define POSTSCRIPT_IGNORE 38
+#define MOUSETRAILS 39
+#define GETDEVICEUNITS 42
+#define GETEXTENDEDTEXTMETRICS 256
+#define GETEXTENTTABLE 257
+#define GETPAIRKERNTABLE 258
+#define GETTRACKKERNTABLE 259
+#define EXTTEXTOUT 512
+#define GETFACENAME 513
+#define DOWNLOADFACE 514
+#define ENABLERELATIVEWIDTHS 768
+#define ENABLEPAIRKERNING 769
+#define SETKERNTRACK 770
+#define SETALLJUSTVALUES 771
+#define SETCHARSET 772
+#define STRETCHBLT_ 2048
+#define METAFILE_DRIVER 2049
+#define GETSETSCREENPARAMS 3072
+#define QUERYDIBSUPPORT 3073
+#define BEGIN_PATH 4096
+#define CLIP_TO_PATH 4097
+#define END_PATH 4098
+#define EXT_DEVICE_CAPS 4099
+#define RESTORE_CTM 4100
+#define SAVE_CTM 4101
+#define SET_ARC_DIRECTION 4102
+#define SET_BACKGROUND_COLOR 4103
+#define SET_POLY_MODE 4104
+#define SET_SCREEN_ANGLE 4105
+#define SET_SPREAD 4106
+#define TRANSFORM_CTM 4107
+#define SET_CLIP_BOX 4108
+#define SET_BOUNDS 4109
+#define SET_MIRROR_MODE 4110
+#define OPENCHANNEL 4110
+#define DOWNLOADHEADER 4111
+#define CLOSECHANNEL 4112
+#define POSTSCRIPT_PASSTHROUGH 4115
+#define ENCAPSULATED_POSTSCRIPT 4116
+#define POSTSCRIPT_IDENTIFY 4117
+#define POSTSCRIPT_INJECTION 4118
+#define CHECKJPEGFORMAT 4119
+#define CHECKPNGFORMAT 4120
+#define GET_PS_FEATURESETTING 4121
+#define GDIPLUS_TS_QUERYVER 4122
+#define GDIPLUS_TS_RECORD 4123
+#define SPCLPASSTHROUGH2 4568
+#define PSIDENT_GDICENTRIC 0
+#define PSIDENT_PSCENTRIC 1
+
+type _PSINJECTDATA
+	DataBytes as DWORD
+	InjectionPoint as WORD
+	PageNumber as WORD
+end type
+
+type PSINJECTDATA as _PSINJECTDATA
+type PPSINJECTDATA as _PSINJECTDATA ptr
+
+#define PSINJECT_BEGINSTREAM 1
+#define PSINJECT_PSADOBE 2
+#define PSINJECT_PAGESATEND 3
+#define PSINJECT_PAGES 4
+#define PSINJECT_DOCNEEDEDRES 5
+#define PSINJECT_DOCSUPPLIEDRES 6
+#define PSINJECT_PAGEORDER 7
+#define PSINJECT_ORIENTATION 8
+#define PSINJECT_BOUNDINGBOX 9
+#define PSINJECT_DOCUMENTPROCESSCOLORS 10
+#define PSINJECT_COMMENTS 11
+#define PSINJECT_BEGINDEFAULTS 12
+#define PSINJECT_ENDDEFAULTS 13
+#define PSINJECT_BEGINPROLOG 14
+#define PSINJECT_ENDPROLOG 15
+#define PSINJECT_BEGINSETUP 16
+#define PSINJECT_ENDSETUP 17
+#define PSINJECT_TRAILER 18
+#define PSINJECT_EOF 19
+#define PSINJECT_ENDSTREAM 20
+#define PSINJECT_DOCUMENTPROCESSCOLORSATEND 21
+#define PSINJECT_PAGENUMBER 100
+#define PSINJECT_BEGINPAGESETUP 101
+#define PSINJECT_ENDPAGESETUP 102
+#define PSINJECT_PAGETRAILER 103
+#define PSINJECT_PLATECOLOR 104
+#define PSINJECT_SHOWPAGE 105
+#define PSINJECT_PAGEBBOX 106
+#define PSINJECT_ENDPAGECOMMENTS 107
+#define PSINJECT_VMSAVE 200
+#define PSINJECT_VMRESTORE 201
+#define FEATURESETTING_NUP 0
+#define FEATURESETTING_OUTPUT 1
+#define FEATURESETTING_PSLEVEL 2
+#define FEATURESETTING_CUSTPAPER 3
+#define FEATURESETTING_MIRROR 4
+#define FEATURESETTING_NEGATIVE 5
+#define FEATURESETTING_PROTOCOL 6
+#define FEATURESETTING_PRIVATE_BEGIN &h1000
+#define FEATURESETTING_PRIVATE_END &h1FFF
+
+type _PSFEATURE_OUTPUT
+	bPageIndependent as WINBOOL
+	bSetPageDevice as WINBOOL
+end type
+
+type PSFEATURE_OUTPUT as _PSFEATURE_OUTPUT
+type PPSFEATURE_OUTPUT as _PSFEATURE_OUTPUT ptr
+
+type _PSFEATURE_CUSTPAPER
+	lOrientation as LONG_
+	lWidth as LONG_
+	lHeight as LONG_
+	lWidthOffset as LONG_
+	lHeightOffset as LONG_
+end type
+
+type PSFEATURE_CUSTPAPER as _PSFEATURE_CUSTPAPER
+type PPSFEATURE_CUSTPAPER as _PSFEATURE_CUSTPAPER ptr
+
+#define PSPROTOCOL_ASCII 0
+#define PSPROTOCOL_BCP 1
+#define PSPROTOCOL_TBCP 2
+#define PSPROTOCOL_BINARY 3
+#define QDI_SETDIBITS 1
+#define QDI_GETDIBITS 2
+#define QDI_DIBTOSCREEN 4
+#define QDI_STRETCHDIB 8
+#define SP_NOTREPORTED &h4000
+#define SP_ERROR (-1)
+#define SP_APPABORT (-2)
+#define SP_USERABORT (-3)
+#define SP_OUTOFDISK (-4)
+#define SP_OUTOFMEMORY (-5)
+#define PR_JOBSTATUS &h0000
+#define OBJ_PEN 1
+#define OBJ_BRUSH 2
+#define OBJ_DC 3
+#define OBJ_METADC 4
+#define OBJ_PAL 5
+#define OBJ_FONT 6
+#define OBJ_BITMAP 7
+#define OBJ_REGION 8
+#define OBJ_METAFILE 9
+#define OBJ_MEMDC 10
+#define OBJ_EXTPEN 11
+#define OBJ_ENHMETADC 12
+#define OBJ_ENHMETAFILE 13
+#define OBJ_COLORSPACE 14
+#define GDI_OBJ_LAST OBJ_COLORSPACE
+#define MWT_IDENTITY 1
+#define MWT_LEFTMULTIPLY 2
+#define MWT_RIGHTMULTIPLY 3
+#define MWT_MIN MWT_IDENTITY
+#define MWT_MAX MWT_RIGHTMULTIPLY
+#define _XFORM_
+
+type tagXFORM
+	eM11 as FLOAT
+	eM12 as FLOAT
+	eM21 as FLOAT
+	eM22 as FLOAT
+	eDx as FLOAT
+	eDy as FLOAT
+end type
+
+type XFORM as tagXFORM
+type PXFORM as tagXFORM ptr
+type LPXFORM as tagXFORM ptr
+
+type tagBITMAP
+	bmType as LONG_
+	bmWidth as LONG_
+	bmHeight as LONG_
+	bmWidthBytes as LONG_
+	bmPlanes as WORD
+	bmBitsPixel as WORD
+	bmBits as LPVOID
+end type
+
+type BITMAP as tagBITMAP
+type PBITMAP as tagBITMAP ptr
+type NPBITMAP as tagBITMAP ptr
+type LPBITMAP as tagBITMAP ptr
+
+type tagRGBTRIPLE field = 1
+	rgbtBlue as BYTE_
+	rgbtGreen as BYTE_
+	rgbtRed as BYTE_
+end type
+
+type RGBTRIPLE as tagRGBTRIPLE
+
+type tagRGBQUAD
+	rgbBlue as BYTE_
+	rgbGreen as BYTE_
+	rgbRed as BYTE_
+	rgbReserved as BYTE_
+end type
+
+type RGBQUAD as tagRGBQUAD
+type LPRGBQUAD as RGBQUAD ptr
+
+#define CS_ENABLE __MSABI_LONG(&h00000001)
+#define CS_DISABLE __MSABI_LONG(&h00000002)
+#define CS_DELETE_TRANSFORM __MSABI_LONG(&h00000003)
+#define LCS_SIGNATURE asc("PSOC")
+#define LCS_sRGB asc("sRGB")
+#define LCS_WINDOWS_COLOR_SPACE asc("Win ")
+
+type LCSCSTYPE as LONG_
+
+#define LCS_CALIBRATED_RGB __MSABI_LONG(&h00000000)
+
+type LCSGAMUTMATCH as LONG_
+
+#define LCS_GM_BUSINESS __MSABI_LONG(&h00000001)
+#define LCS_GM_GRAPHICS __MSABI_LONG(&h00000002)
+#define LCS_GM_IMAGES __MSABI_LONG(&h00000004)
+#define LCS_GM_ABS_COLORIMETRIC __MSABI_LONG(&h00000008)
+#define CM_OUT_OF_GAMUT 255
+#define CM_IN_GAMUT 0
+#define ICM_ADDPROFILE 1
+#define ICM_DELETEPROFILE 2
+#define ICM_QUERYPROFILE 3
+#define ICM_SETDEFAULTPROFILE 4
+#define ICM_REGISTERICMATCHER 5
+#define ICM_UNREGISTERICMATCHER 6
+#define ICM_QUERYMATCH 7
+#define GetKValue(cmyk) cast(BYTE_, (cmyk))
+#define GetYValue(cmyk) cast(BYTE_, (cmyk) shr 8)
+#define GetMValue(cmyk) cast(BYTE_, (cmyk) shr 16)
+#define GetCValue(cmyk) cast(BYTE_, (cmyk) shr 24)
+#define CMYK(c, m, y, k) cast(COLORREF, (cast(BYTE_, (k) or cast(WORD, cast(BYTE_, (y)) shl 8)) or (cast(DWORD, cast(BYTE_, (m))) shl 16)) or (cast(DWORD, cast(BYTE_, (c))) shl 24))
+
+type FXPT16DOT16 as clong
+type LPFXPT16DOT16 as clong ptr
+type FXPT2DOT30 as clong
+type LPFXPT2DOT30 as clong ptr
+
+type tagCIEXYZ
+	ciexyzX as FXPT2DOT30
+	ciexyzY as FXPT2DOT30
+	ciexyzZ as FXPT2DOT30
+end type
+
+type CIEXYZ as tagCIEXYZ
+type LPCIEXYZ as CIEXYZ ptr
+
+type tagICEXYZTRIPLE
+	ciexyzRed as CIEXYZ
+	ciexyzGreen as CIEXYZ
+	ciexyzBlue as CIEXYZ
+end type
+
+type CIEXYZTRIPLE as tagICEXYZTRIPLE
+type LPCIEXYZTRIPLE as CIEXYZTRIPLE ptr
+
+type tagLOGCOLORSPACEA
+	lcsSignature as DWORD
+	lcsVersion as DWORD
+	lcsSize as DWORD
+	lcsCSType as LCSCSTYPE
+	lcsIntent as LCSGAMUTMATCH
+	lcsEndpoints as CIEXYZTRIPLE
+	lcsGammaRed as DWORD
+	lcsGammaGreen as DWORD
+	lcsGammaBlue as DWORD
+	lcsFilename(0 to 259) as CHAR
+end type
+
+type LOGCOLORSPACEA as tagLOGCOLORSPACEA
+type LPLOGCOLORSPACEA as tagLOGCOLORSPACEA ptr
+
+type tagLOGCOLORSPACEW
+	lcsSignature as DWORD
+	lcsVersion as DWORD
+	lcsSize as DWORD
+	lcsCSType as LCSCSTYPE
+	lcsIntent as LCSGAMUTMATCH
+	lcsEndpoints as CIEXYZTRIPLE
+	lcsGammaRed as DWORD
+	lcsGammaGreen as DWORD
+	lcsGammaBlue as DWORD
+	lcsFilename(0 to 259) as WCHAR
+end type
+
+type LOGCOLORSPACEW as tagLOGCOLORSPACEW
+type LPLOGCOLORSPACEW as tagLOGCOLORSPACEW ptr
+
+#ifdef UNICODE
+	type LOGCOLORSPACE as LOGCOLORSPACEW
+	type LPLOGCOLORSPACE as LPLOGCOLORSPACEW
+#else
+	type LOGCOLORSPACE as LOGCOLORSPACEA
+	type LPLOGCOLORSPACE as LPLOGCOLORSPACEA
+#endif
+
+type tagBITMAPCOREHEADER
+	bcSize as DWORD
+	bcWidth as WORD
+	bcHeight as WORD
+	bcPlanes as WORD
+	bcBitCount as WORD
+end type
+
+type BITMAPCOREHEADER as tagBITMAPCOREHEADER
+type LPBITMAPCOREHEADER as tagBITMAPCOREHEADER ptr
+type PBITMAPCOREHEADER as tagBITMAPCOREHEADER ptr
+
+type tagBITMAPINFOHEADER
+	biSize as DWORD
+	biWidth as LONG_
+	biHeight as LONG_
+	biPlanes as WORD
+	biBitCount as WORD
+	biCompression as DWORD
+	biSizeImage as DWORD
+	biXPelsPerMeter as LONG_
+	biYPelsPerMeter as LONG_
+	biClrUsed as DWORD
+	biClrImportant as DWORD
+end type
+
+type BITMAPINFOHEADER as tagBITMAPINFOHEADER
+type LPBITMAPINFOHEADER as tagBITMAPINFOHEADER ptr
+type PBITMAPINFOHEADER as tagBITMAPINFOHEADER ptr
+
+type BITMAPV4HEADER
+	bV4Size as DWORD
+	bV4Width as LONG_
+	bV4Height as LONG_
+	bV4Planes as WORD
+	bV4BitCount as WORD
+	bV4V4Compression as DWORD
+	bV4SizeImage as DWORD
+	bV4XPelsPerMeter as LONG_
+	bV4YPelsPerMeter as LONG_
+	bV4ClrUsed as DWORD
+	bV4ClrImportant as DWORD
+	bV4RedMask as DWORD
+	bV4GreenMask as DWORD
+	bV4BlueMask as DWORD
+	bV4AlphaMask as DWORD
+	bV4CSType as DWORD
+	bV4Endpoints as CIEXYZTRIPLE
+	bV4GammaRed as DWORD
+	bV4GammaGreen as DWORD
+	bV4GammaBlue as DWORD
+end type
+
+type LPBITMAPV4HEADER as BITMAPV4HEADER ptr
+type PBITMAPV4HEADER as BITMAPV4HEADER ptr
+
+type BITMAPV5HEADER
+	bV5Size as DWORD
+	bV5Width as LONG_
+	bV5Height as LONG_
+	bV5Planes as WORD
+	bV5BitCount as WORD
+	bV5Compression as DWORD
+	bV5SizeImage as DWORD
+	bV5XPelsPerMeter as LONG_
+	bV5YPelsPerMeter as LONG_
+	bV5ClrUsed as DWORD
+	bV5ClrImportant as DWORD
+	bV5RedMask as DWORD
+	bV5GreenMask as DWORD
+	bV5BlueMask as DWORD
+	bV5AlphaMask as DWORD
+	bV5CSType as DWORD
+	bV5Endpoints as CIEXYZTRIPLE
+	bV5GammaRed as DWORD
+	bV5GammaGreen as DWORD
+	bV5GammaBlue as DWORD
+	bV5Intent as DWORD
+	bV5ProfileData as DWORD
+	bV5ProfileSize as DWORD
+	bV5Reserved as DWORD
+end type
+
+type LPBITMAPV5HEADER as BITMAPV5HEADER ptr
+type PBITMAPV5HEADER as BITMAPV5HEADER ptr
+
+#define PROFILE_LINKED asc("LINK")
+#define PROFILE_EMBEDDED asc("MBED")
+#define BI_RGB __MSABI_LONG(0)
+#define BI_RLE8 __MSABI_LONG(1)
+#define BI_RLE4 __MSABI_LONG(2)
+#define BI_BITFIELDS __MSABI_LONG(3)
+#define BI_JPEG __MSABI_LONG(4)
+#define BI_PNG __MSABI_LONG(5)
+
+type tagBITMAPINFO
+	bmiHeader as BITMAPINFOHEADER
+	bmiColors(0 to 0) as RGBQUAD
+end type
+
+type BITMAPINFO as tagBITMAPINFO
+type LPBITMAPINFO as tagBITMAPINFO ptr
+type PBITMAPINFO as tagBITMAPINFO ptr
+
+type tagBITMAPCOREINFO
+	bmciHeader as BITMAPCOREHEADER
+	bmciColors(0 to 0) as RGBTRIPLE
+end type
+
+type BITMAPCOREINFO as tagBITMAPCOREINFO
+type LPBITMAPCOREINFO as tagBITMAPCOREINFO ptr
+type PBITMAPCOREINFO as tagBITMAPCOREINFO ptr
+
+type tagBITMAPFILEHEADER field = 2
+	bfType as WORD
+	bfSize as DWORD
+	bfReserved1 as WORD
+	bfReserved2 as WORD
+	bfOffBits as DWORD
+end type
+
+type BITMAPFILEHEADER as tagBITMAPFILEHEADER
+type LPBITMAPFILEHEADER as tagBITMAPFILEHEADER ptr
+type PBITMAPFILEHEADER as tagBITMAPFILEHEADER ptr
+
+type tagFONTSIGNATURE
+	fsUsb(0 to 3) as DWORD
+	fsCsb(0 to 1) as DWORD
+end type
+
+type FONTSIGNATURE as tagFONTSIGNATURE
+type PFONTSIGNATURE as tagFONTSIGNATURE ptr
+type LPFONTSIGNATURE as tagFONTSIGNATURE ptr
+
+#define MAKEPOINTS(l) (*cptr(POINTS ptr, @(l)))
+
+type tagCHARSETINFO
+	ciCharset as UINT
+	ciACP as UINT
+	fs as FONTSIGNATURE
+end type
+
+type CHARSETINFO as tagCHARSETINFO
+type PCHARSETINFO as tagCHARSETINFO ptr
+type NPCHARSETINFO as tagCHARSETINFO ptr
+type LPCHARSETINFO as tagCHARSETINFO ptr
+
+#define TCI_SRCCHARSET 1
+#define TCI_SRCCODEPAGE 2
+#define TCI_SRCFONTSIG 3
+#define TCI_SRCLOCALE &h1000
+
+type tagLOCALESIGNATURE
+	lsUsb(0 to 3) as DWORD
+	lsCsbDefault(0 to 1) as DWORD
+	lsCsbSupported(0 to 1) as DWORD
+end type
+
+type LOCALESIGNATURE as tagLOCALESIGNATURE
+type PLOCALESIGNATURE as tagLOCALESIGNATURE ptr
+type LPLOCALESIGNATURE as tagLOCALESIGNATURE ptr
+
+type tagHANDLETABLE
+	objectHandle(0 to 0) as HGDIOBJ
+end type
+
+type HANDLETABLE as tagHANDLETABLE
+type PHANDLETABLE as tagHANDLETABLE ptr
+type LPHANDLETABLE as tagHANDLETABLE ptr
+
+type tagMETARECORD
+	rdSize as DWORD
+	rdFunction as WORD
+	rdParm(0 to 0) as WORD
+end type
+
+type METARECORD as tagMETARECORD
+type PMETARECORD as tagMETARECORD ptr
+type LPMETARECORD as tagMETARECORD ptr
+
+type tagMETAFILEPICT
+	mm as LONG_
+	xExt as LONG_
+	yExt as LONG_
+	hMF as HMETAFILE
+end type
+
+type METAFILEPICT as tagMETAFILEPICT
+type LPMETAFILEPICT as tagMETAFILEPICT ptr
+
+type tagMETAHEADER field = 2
+	mtType as WORD
+	mtHeaderSize as WORD
+	mtVersion as WORD
+	mtSize as DWORD
+	mtNoObjects as WORD
+	mtMaxRecord as DWORD
+	mtNoParameters as WORD
+end type
+
+type METAHEADER as tagMETAHEADER
+type PMETAHEADER as tagMETAHEADER ptr
+type LPMETAHEADER as tagMETAHEADER ptr
+
+type tagENHMETARECORD
+	iType as DWORD
+	nSize as DWORD
+	dParm(0 to 0) as DWORD
+end type
+
+type ENHMETARECORD as tagENHMETARECORD
+type PENHMETARECORD as tagENHMETARECORD ptr
+type LPENHMETARECORD as tagENHMETARECORD ptr
+
+type tagENHMETAHEADER
+	iType as DWORD
+	nSize as DWORD
+	rclBounds as RECTL
+	rclFrame as RECTL
+	dSignature as DWORD
+	nVersion as DWORD
+	nBytes as DWORD
+	nRecords as DWORD
+	nHandles as WORD
+	sReserved as WORD
+	nDescription as DWORD
+	offDescription as DWORD
+	nPalEntries as DWORD
+	szlDevice as SIZEL
+	szlMillimeters as SIZEL
+	cbPixelFormat as DWORD
+	offPixelFormat as DWORD
+	bOpenGL as DWORD
+	szlMicrometers as SIZEL
+end type
+
+type ENHMETAHEADER as tagENHMETAHEADER
+type PENHMETAHEADER as tagENHMETAHEADER ptr
+type LPENHMETAHEADER as tagENHMETAHEADER ptr
+
+#define TMPF_FIXED_PITCH &h01
+#define TMPF_VECTOR &h02
+#define TMPF_DEVICE &h08
+#define TMPF_TRUETYPE &h04
+
+#ifdef UNICODE
+	type BCHAR as WCHAR
+#else
+	type BCHAR as BYTE_
+#endif
+
+#define _TEXTMETRIC_DEFINED
+
+type tagTEXTMETRICA field = 4
+	tmHeight as LONG_
+	tmAscent as LONG_
+	tmDescent as LONG_
+	tmInternalLeading as LONG_
+	tmExternalLeading as LONG_
+	tmAveCharWidth as LONG_
+	tmMaxCharWidth as LONG_
+	tmWeight as LONG_
+	tmOverhang as LONG_
+	tmDigitizedAspectX as LONG_
+	tmDigitizedAspectY as LONG_
+	tmFirstChar as BYTE_
+	tmLastChar as BYTE_
+	tmDefaultChar as BYTE_
+	tmBreakChar as BYTE_
+	tmItalic as BYTE_
+	tmUnderlined as BYTE_
+	tmStruckOut as BYTE_
+	tmPitchAndFamily as BYTE_
+	tmCharSet as BYTE_
+end type
+
+type TEXTMETRICA as tagTEXTMETRICA
+type PTEXTMETRICA as tagTEXTMETRICA ptr
+type NPTEXTMETRICA as tagTEXTMETRICA ptr
+type LPTEXTMETRICA as tagTEXTMETRICA ptr
+
+type tagTEXTMETRICW field = 4
+	tmHeight as LONG_
+	tmAscent as LONG_
+	tmDescent as LONG_
+	tmInternalLeading as LONG_
+	tmExternalLeading as LONG_
+	tmAveCharWidth as LONG_
+	tmMaxCharWidth as LONG_
+	tmWeight as LONG_
+	tmOverhang as LONG_
+	tmDigitizedAspectX as LONG_
+	tmDigitizedAspectY as LONG_
+	tmFirstChar as WCHAR
+	tmLastChar as WCHAR
+	tmDefaultChar as WCHAR
+	tmBreakChar as WCHAR
+	tmItalic as BYTE_
+	tmUnderlined as BYTE_
+	tmStruckOut as BYTE_
+	tmPitchAndFamily as BYTE_
+	tmCharSet as BYTE_
+end type
+
+type TEXTMETRICW as tagTEXTMETRICW
+type PTEXTMETRICW as tagTEXTMETRICW ptr
+type NPTEXTMETRICW as tagTEXTMETRICW ptr
+type LPTEXTMETRICW as tagTEXTMETRICW ptr
+
+#ifdef UNICODE
+	type TEXTMETRIC as TEXTMETRICW
+	type PTEXTMETRIC as PTEXTMETRICW
+	type NPTEXTMETRIC as NPTEXTMETRICW
+	type LPTEXTMETRIC as LPTEXTMETRICW
+#else
+	type TEXTMETRIC as TEXTMETRICA
+	type PTEXTMETRIC as PTEXTMETRICA
+	type NPTEXTMETRIC as NPTEXTMETRICA
+	type LPTEXTMETRIC as LPTEXTMETRICA
+#endif
+
+type tagNEWTEXTMETRICA field = 4
+	tmHeight as LONG_
+	tmAscent as LONG_
+	tmDescent as LONG_
+	tmInternalLeading as LONG_
+	tmExternalLeading as LONG_
+	tmAveCharWidth as LONG_
+	tmMaxCharWidth as LONG_
+	tmWeight as LONG_
+	tmOverhang as LONG_
+	tmDigitizedAspectX as LONG_
+	tmDigitizedAspectY as LONG_
+	tmFirstChar as BYTE_
+	tmLastChar as BYTE_
+	tmDefaultChar as BYTE_
+	tmBreakChar as BYTE_
+	tmItalic as BYTE_
+	tmUnderlined as BYTE_
+	tmStruckOut as BYTE_
+	tmPitchAndFamily as BYTE_
+	tmCharSet as BYTE_
+	ntmFlags as DWORD
+	ntmSizeEM as UINT
+	ntmCellHeight as UINT
+	ntmAvgWidth as UINT
+end type
+
+type NEWTEXTMETRICA as tagNEWTEXTMETRICA
+type PNEWTEXTMETRICA as tagNEWTEXTMETRICA ptr
+type NPNEWTEXTMETRICA as tagNEWTEXTMETRICA ptr
+type LPNEWTEXTMETRICA as tagNEWTEXTMETRICA ptr
+
+#define NTM_REGULAR __MSABI_LONG(&h00000040)
+#define NTM_BOLD __MSABI_LONG(&h00000020)
+#define NTM_ITALIC __MSABI_LONG(&h00000001)
+#define NTM_NONNEGATIVE_AC &h00010000
+#define NTM_PS_OPENTYPE &h00020000
+#define NTM_TT_OPENTYPE &h00040000
+#define NTM_MULTIPLEMASTER &h00080000
+#define NTM_TYPE1 &h00100000
+#define NTM_DSIG &h00200000
+
+type tagNEWTEXTMETRICW field = 4
+	tmHeight as LONG_
+	tmAscent as LONG_
+	tmDescent as LONG_
+	tmInternalLeading as LONG_
+	tmExternalLeading as LONG_
+	tmAveCharWidth as LONG_
+	tmMaxCharWidth as LONG_
+	tmWeight as LONG_
+	tmOverhang as LONG_
+	tmDigitizedAspectX as LONG_
+	tmDigitizedAspectY as LONG_
+	tmFirstChar as WCHAR
+	tmLastChar as WCHAR
+	tmDefaultChar as WCHAR
+	tmBreakChar as WCHAR
+	tmItalic as BYTE_
+	tmUnderlined as BYTE_
+	tmStruckOut as BYTE_
+	tmPitchAndFamily as BYTE_
+	tmCharSet as BYTE_
+	ntmFlags as DWORD
+	ntmSizeEM as UINT
+	ntmCellHeight as UINT
+	ntmAvgWidth as UINT
+end type
+
+type NEWTEXTMETRICW as tagNEWTEXTMETRICW
+type PNEWTEXTMETRICW as tagNEWTEXTMETRICW ptr
+type NPNEWTEXTMETRICW as tagNEWTEXTMETRICW ptr
+type LPNEWTEXTMETRICW as tagNEWTEXTMETRICW ptr
+
+#ifdef UNICODE
+	type NEWTEXTMETRIC as NEWTEXTMETRICW
+	type PNEWTEXTMETRIC as PNEWTEXTMETRICW
+	type NPNEWTEXTMETRIC as NPNEWTEXTMETRICW
+	type LPNEWTEXTMETRIC as LPNEWTEXTMETRICW
+#else
+	type NEWTEXTMETRIC as NEWTEXTMETRICA
+	type PNEWTEXTMETRIC as PNEWTEXTMETRICA
+	type NPNEWTEXTMETRIC as NPNEWTEXTMETRICA
+	type LPNEWTEXTMETRIC as LPNEWTEXTMETRICA
+#endif
+
+type tagNEWTEXTMETRICEXA
+	ntmTm as NEWTEXTMETRICA
+	ntmFontSig as FONTSIGNATURE
+end type
+
+type NEWTEXTMETRICEXA as tagNEWTEXTMETRICEXA
+
+type tagNEWTEXTMETRICEXW
+	ntmTm as NEWTEXTMETRICW
+	ntmFontSig as FONTSIGNATURE
+end type
+
+type NEWTEXTMETRICEXW as tagNEWTEXTMETRICEXW
+
+#ifdef UNICODE
+	type NEWTEXTMETRICEX as NEWTEXTMETRICEXW
+#else
+	type NEWTEXTMETRICEX as NEWTEXTMETRICEXA
+#endif
+
+type tagPELARRAY
+	paXCount as LONG_
+	paYCount as LONG_
+	paXExt as LONG_
+	paYExt as LONG_
+	paRGBs as BYTE_
+end type
+
+type PELARRAY as tagPELARRAY
+type PPELARRAY as tagPELARRAY ptr
+type NPPELARRAY as tagPELARRAY ptr
+type LPPELARRAY as tagPELARRAY ptr
+
+type tagLOGBRUSH
+	lbStyle as UINT
+	lbColor as COLORREF
+	lbHatch as ULONG_PTR
+end type
+
+type LOGBRUSH as tagLOGBRUSH
+type PLOGBRUSH as tagLOGBRUSH ptr
+type NPLOGBRUSH as tagLOGBRUSH ptr
+type LPLOGBRUSH as tagLOGBRUSH ptr
+
+type tagLOGBRUSH32
+	lbStyle as UINT
+	lbColor as COLORREF
+	lbHatch as ULONG_
+end type
+
+type LOGBRUSH32 as tagLOGBRUSH32
+type PLOGBRUSH32 as tagLOGBRUSH32 ptr
+type NPLOGBRUSH32 as tagLOGBRUSH32 ptr
+type LPLOGBRUSH32 as tagLOGBRUSH32 ptr
+type PATTERN as LOGBRUSH
+type PPATTERN as PATTERN ptr
+type NPPATTERN as PATTERN ptr
+type LPPATTERN as PATTERN ptr
+
+type tagLOGPEN
+	lopnStyle as UINT
+	lopnWidth as POINT_
+	lopnColor as COLORREF
+end type
+
+type LOGPEN as tagLOGPEN
+type PLOGPEN as tagLOGPEN ptr
+type NPLOGPEN as tagLOGPEN ptr
+type LPLOGPEN as tagLOGPEN ptr
+
+type tagEXTLOGPEN
+	elpPenStyle as DWORD
+	elpWidth as DWORD
+	elpBrushStyle as UINT
+	elpColor as COLORREF
+	elpHatch as ULONG_PTR
+	elpNumEntries as DWORD
+	elpStyleEntry(0 to 0) as DWORD
+end type
+
+type EXTLOGPEN as tagEXTLOGPEN
+type PEXTLOGPEN as tagEXTLOGPEN ptr
+type NPEXTLOGPEN as tagEXTLOGPEN ptr
+type LPEXTLOGPEN as tagEXTLOGPEN ptr
+
+type tagEXTLOGPEN32
+	elpPenStyle as DWORD
+	elpWidth as DWORD
+	elpBrushStyle as UINT
+	elpColor as COLORREF
+	elpHatch as ULONG_
+	elpNumEntries as DWORD
+	elpStyleEntry(0 to 0) as DWORD
+end type
+
+type EXTLOGPEN32 as tagEXTLOGPEN32
+type PEXTLOGPEN32 as tagEXTLOGPEN32 ptr
+type NPEXTLOGPEN32 as tagEXTLOGPEN32 ptr
+type LPEXTLOGPEN32 as tagEXTLOGPEN32 ptr
+
+#define _PALETTEENTRY_DEFINED
+
+type tagPALETTEENTRY
+	peRed as BYTE_
+	peGreen as BYTE_
+	peBlue as BYTE_
+	peFlags as BYTE_
+end type
+
+type PALETTEENTRY as tagPALETTEENTRY
+type PPALETTEENTRY as tagPALETTEENTRY ptr
+type LPPALETTEENTRY as tagPALETTEENTRY ptr
+
+#define _LOGPALETTE_DEFINED
+
+type tagLOGPALETTE
+	palVersion as WORD
+	palNumEntries as WORD
+	palPalEntry(0 to 0) as PALETTEENTRY
+end type
+
+type LOGPALETTE as tagLOGPALETTE
+type PLOGPALETTE as tagLOGPALETTE ptr
+type NPLOGPALETTE as tagLOGPALETTE ptr
+type LPLOGPALETTE as tagLOGPALETTE ptr
+
+#define LF_FACESIZE 32
+
+type tagLOGFONTA
+	lfHeight as LONG_
+	lfWidth as LONG_
+	lfEscapement as LONG_
+	lfOrientation as LONG_
+	lfWeight as LONG_
+	lfItalic as BYTE_
+	lfUnderline as BYTE_
+	lfStrikeOut as BYTE_
+	lfCharSet as BYTE_
+	lfOutPrecision as BYTE_
+	lfClipPrecision as BYTE_
+	lfQuality as BYTE_
+	lfPitchAndFamily as BYTE_
+	lfFaceName(0 to 31) as CHAR
+end type
+
+type LOGFONTA as tagLOGFONTA
+type PLOGFONTA as tagLOGFONTA ptr
+type NPLOGFONTA as tagLOGFONTA ptr
+type LPLOGFONTA as tagLOGFONTA ptr
+
+type tagLOGFONTW
+	lfHeight as LONG_
+	lfWidth as LONG_
+	lfEscapement as LONG_
+	lfOrientation as LONG_
+	lfWeight as LONG_
+	lfItalic as BYTE_
+	lfUnderline as BYTE_
+	lfStrikeOut as BYTE_
+	lfCharSet as BYTE_
+	lfOutPrecision as BYTE_
+	lfClipPrecision as BYTE_
+	lfQuality as BYTE_
+	lfPitchAndFamily as BYTE_
+	lfFaceName(0 to 31) as WCHAR
+end type
+
+type LOGFONTW as tagLOGFONTW
+type PLOGFONTW as tagLOGFONTW ptr
+type NPLOGFONTW as tagLOGFONTW ptr
+type LPLOGFONTW as tagLOGFONTW ptr
+
+#ifdef UNICODE
+	type LOGFONT as LOGFONTW
+	type PLOGFONT as PLOGFONTW
+	type NPLOGFONT as NPLOGFONTW
+	type LPLOGFONT as LPLOGFONTW
+#else
+	type LOGFONT as LOGFONTA
+	type PLOGFONT as PLOGFONTA
+	type NPLOGFONT as NPLOGFONTA
+	type LPLOGFONT as LPLOGFONTA
+#endif
+
+#define LF_FULLFACESIZE 64
+
+type tagENUMLOGFONTA
+	elfLogFont as LOGFONTA
+	elfFullName(0 to 63) as BYTE_
+	elfStyle(0 to 31) as BYTE_
+end type
+
+type ENUMLOGFONTA as tagENUMLOGFONTA
+type LPENUMLOGFONTA as tagENUMLOGFONTA ptr
+
+type tagENUMLOGFONTW
+	elfLogFont as LOGFONTW
+	elfFullName(0 to 63) as WCHAR
+	elfStyle(0 to 31) as WCHAR
+end type
+
+type ENUMLOGFONTW as tagENUMLOGFONTW
+type LPENUMLOGFONTW as tagENUMLOGFONTW ptr
+
+#ifdef UNICODE
+	type ENUMLOGFONT as ENUMLOGFONTW
+	type LPENUMLOGFONT as LPENUMLOGFONTW
+#else
+	type ENUMLOGFONT as ENUMLOGFONTA
+	type LPENUMLOGFONT as LPENUMLOGFONTA
+#endif
+
+type tagENUMLOGFONTEXA
+	elfLogFont as LOGFONTA
+	elfFullName(0 to 63) as BYTE_
+	elfStyle(0 to 31) as BYTE_
+	elfScript(0 to 31) as BYTE_
+end type
+
+type ENUMLOGFONTEXA as tagENUMLOGFONTEXA
+type LPENUMLOGFONTEXA as tagENUMLOGFONTEXA ptr
+
+type tagENUMLOGFONTEXW
+	elfLogFont as LOGFONTW
+	elfFullName(0 to 63) as WCHAR
+	elfStyle(0 to 31) as WCHAR
+	elfScript(0 to 31) as WCHAR
+end type
+
+type ENUMLOGFONTEXW as tagENUMLOGFONTEXW
+type LPENUMLOGFONTEXW as tagENUMLOGFONTEXW ptr
+
+#ifdef UNICODE
+	type ENUMLOGFONTEX as ENUMLOGFONTEXW
+	type LPENUMLOGFONTEX as LPENUMLOGFONTEXW
+#else
+	type ENUMLOGFONTEX as ENUMLOGFONTEXA
+	type LPENUMLOGFONTEX as LPENUMLOGFONTEXA
+#endif
+
+#define OUT_DEFAULT_PRECIS 0
+#define OUT_STRING_PRECIS 1
+#define OUT_CHARACTER_PRECIS 2
+#define OUT_STROKE_PRECIS 3
+#define OUT_TT_PRECIS 4
+#define OUT_DEVICE_PRECIS 5
+#define OUT_RASTER_PRECIS 6
+#define OUT_TT_ONLY_PRECIS 7
+#define OUT_OUTLINE_PRECIS 8
+#define OUT_SCREEN_OUTLINE_PRECIS 9
+#define OUT_PS_ONLY_PRECIS 10
+#define CLIP_DEFAULT_PRECIS 0
+#define CLIP_CHARACTER_PRECIS 1
+#define CLIP_STROKE_PRECIS 2
+#define CLIP_MASK &hf
+#define CLIP_LH_ANGLES (1 shl 4)
+#define CLIP_TT_ALWAYS (2 shl 4)
+#define CLIP_EMBEDDED (8 shl 4)
+#define DEFAULT_QUALITY 0
+#define DRAFT_QUALITY 1
+#define PROOF_QUALITY 2
+#define NONANTIALIASED_QUALITY 3
+#define ANTIALIASED_QUALITY 4
+#define CLEARTYPE_QUALITY 5
+#define CLEARTYPE_NATURAL_QUALITY 6
+#define DEFAULT_PITCH 0
+#define FIXED_PITCH 1
+#define VARIABLE_PITCH 2
+#define MONO_FONT 8
+#define ANSI_CHARSET 0
+#define DEFAULT_CHARSET 1
+#define SYMBOL_CHARSET 2
+#define SHIFTJIS_CHARSET 128
+#define HANGEUL_CHARSET 129
+#define HANGUL_CHARSET 129
+#define GB2312_CHARSET 134
+#define CHINESEBIG5_CHARSET 136
+#define OEM_CHARSET 255
+#define JOHAB_CHARSET 130
+#define HEBREW_CHARSET 177
+#define ARABIC_CHARSET 178
+#define GREEK_CHARSET 161
+#define TURKISH_CHARSET 162
+#define VIETNAMESE_CHARSET 163
+#define THAI_CHARSET 222
+#define EASTEUROPE_CHARSET 238
+#define RUSSIAN_CHARSET 204
+#define MAC_CHARSET 77
+#define BALTIC_CHARSET 186
+#define FS_LATIN1 __MSABI_LONG(&h00000001)
+#define FS_LATIN2 __MSABI_LONG(&h00000002)
+#define FS_CYRILLIC __MSABI_LONG(&h00000004)
+#define FS_GREEK __MSABI_LONG(&h00000008)
+#define FS_TURKISH __MSABI_LONG(&h00000010)
+#define FS_HEBREW __MSABI_LONG(&h00000020)
+#define FS_ARABIC __MSABI_LONG(&h00000040)
+#define FS_BALTIC __MSABI_LONG(&h00000080)
+#define FS_VIETNAMESE __MSABI_LONG(&h00000100)
+#define FS_THAI __MSABI_LONG(&h00010000)
+#define FS_JISJAPAN __MSABI_LONG(&h00020000)
+#define FS_CHINESESIMP __MSABI_LONG(&h00040000)
+#define FS_WANSUNG __MSABI_LONG(&h00080000)
+#define FS_CHINESETRAD __MSABI_LONG(&h00100000)
+#define FS_JOHAB __MSABI_LONG(&h00200000)
+#define FS_SYMBOL __MSABI_LONG(&h80000000)
+#define FF_DONTCARE (0 shl 4)
+#define FF_ROMAN (1 shl 4)
+#define FF_SWISS (2 shl 4)
+#define FF_MODERN (3 shl 4)
+#define FF_SCRIPT (4 shl 4)
+#define FF_DECORATIVE (5 shl 4)
+#define FW_DONTCARE 0
+#define FW_THIN 100
+#define FW_EXTRALIGHT 200
+#define FW_LIGHT 300
+#define FW_NORMAL 400
+#define FW_MEDIUM 500
+#define FW_SEMIBOLD 600
+#define FW_BOLD 700
+#define FW_EXTRABOLD 800
+#define FW_HEAVY 900
+#define FW_ULTRALIGHT FW_EXTRALIGHT
+#define FW_REGULAR FW_NORMAL
+#define FW_DEMIBOLD FW_SEMIBOLD
+#define FW_ULTRABOLD FW_EXTRABOLD
+#define FW_BLACK FW_HEAVY
+#define PANOSE_COUNT 10
+#define PAN_FAMILYTYPE_INDEX 0
+#define PAN_SERIFSTYLE_INDEX 1
+#define PAN_WEIGHT_INDEX 2
+#define PAN_PROPORTION_INDEX 3
+#define PAN_CONTRAST_INDEX 4
+#define PAN_STROKEVARIATION_INDEX 5
+#define PAN_ARMSTYLE_INDEX 6
+#define PAN_LETTERFORM_INDEX 7
+#define PAN_MIDLINE_INDEX 8
+#define PAN_XHEIGHT_INDEX 9
+#define PAN_CULTURE_LATIN 0
+
+type tagPANOSE
+	bFamilyType as BYTE_
+	bSerifStyle as BYTE_
+	bWeight as BYTE_
+	bProportion as BYTE_
+	bContrast as BYTE_
+	bStrokeVariation as BYTE_
+	bArmStyle as BYTE_
+	bLetterform as BYTE_
+	bMidline as BYTE_
+	bXHeight as BYTE_
+end type
+
+type PANOSE as tagPANOSE
+type LPPANOSE as tagPANOSE ptr
+
+#define PAN_ANY 0
+#define PAN_NO_FIT 1
+#define PAN_FAMILY_TEXT_DISPLAY 2
+#define PAN_FAMILY_SCRIPT 3
+#define PAN_FAMILY_DECORATIVE 4
+#define PAN_FAMILY_PICTORIAL 5
+#define PAN_SERIF_COVE 2
+#define PAN_SERIF_OBTUSE_COVE 3
+#define PAN_SERIF_SQUARE_COVE 4
+#define PAN_SERIF_OBTUSE_SQUARE_COVE 5
+#define PAN_SERIF_SQUARE 6
+#define PAN_SERIF_THIN 7
+#define PAN_SERIF_BONE 8
+#define PAN_SERIF_EXAGGERATED 9
+#define PAN_SERIF_TRIANGLE 10
+#define PAN_SERIF_NORMAL_SANS 11
+#define PAN_SERIF_OBTUSE_SANS 12
+#define PAN_SERIF_PERP_SANS 13
+#define PAN_SERIF_FLARED 14
+#define PAN_SERIF_ROUNDED 15
+#define PAN_WEIGHT_VERY_LIGHT 2
+#define PAN_WEIGHT_LIGHT 3
+#define PAN_WEIGHT_THIN 4
+#define PAN_WEIGHT_BOOK 5
+#define PAN_WEIGHT_MEDIUM 6
+#define PAN_WEIGHT_DEMI 7
+#define PAN_WEIGHT_BOLD 8
+#define PAN_WEIGHT_HEAVY 9
+#define PAN_WEIGHT_BLACK 10
+#define PAN_WEIGHT_NORD 11
+#define PAN_PROP_OLD_STYLE 2
+#define PAN_PROP_MODERN 3
+#define PAN_PROP_EVEN_WIDTH 4
+#define PAN_PROP_EXPANDED 5
+#define PAN_PROP_CONDENSED 6
+#define PAN_PROP_VERY_EXPANDED 7
+#define PAN_PROP_VERY_CONDENSED 8
+#define PAN_PROP_MONOSPACED 9
+#define PAN_CONTRAST_NONE 2
+#define PAN_CONTRAST_VERY_LOW 3
+#define PAN_CONTRAST_LOW 4
+#define PAN_CONTRAST_MEDIUM_LOW 5
+#define PAN_CONTRAST_MEDIUM 6
+#define PAN_CONTRAST_MEDIUM_HIGH 7
+#define PAN_CONTRAST_HIGH 8
+#define PAN_CONTRAST_VERY_HIGH 9
+#define PAN_STROKE_GRADUAL_DIAG 2
+#define PAN_STROKE_GRADUAL_TRAN 3
+#define PAN_STROKE_GRADUAL_VERT 4
+#define PAN_STROKE_GRADUAL_HORZ 5
+#define PAN_STROKE_RAPID_VERT 6
+#define PAN_STROKE_RAPID_HORZ 7
+#define PAN_STROKE_INSTANT_VERT 8
+#define PAN_STRAIGHT_ARMS_HORZ 2
+#define PAN_STRAIGHT_ARMS_WEDGE 3
+#define PAN_STRAIGHT_ARMS_VERT 4
+#define PAN_STRAIGHT_ARMS_SINGLE_SERIF 5
+#define PAN_STRAIGHT_ARMS_DOUBLE_SERIF 6
+#define PAN_BENT_ARMS_HORZ 7
+#define PAN_BENT_ARMS_WEDGE 8
+#define PAN_BENT_ARMS_VERT 9
+#define PAN_BENT_ARMS_SINGLE_SERIF 10
+#define PAN_BENT_ARMS_DOUBLE_SERIF 11
+#define PAN_LETT_NORMAL_CONTACT 2
+#define PAN_LETT_NORMAL_WEIGHTED 3
+#define PAN_LETT_NORMAL_BOXED 4
+#define PAN_LETT_NORMAL_FLATTENED 5
+#define PAN_LETT_NORMAL_ROUNDED 6
+#define PAN_LETT_NORMAL_OFF_CENTER 7
+#define PAN_LETT_NORMAL_SQUARE 8
+#define PAN_LETT_OBLIQUE_CONTACT 9
+#define PAN_LETT_OBLIQUE_WEIGHTED 10
+#define PAN_LETT_OBLIQUE_BOXED 11
+#define PAN_LETT_OBLIQUE_FLATTENED 12
+#define PAN_LETT_OBLIQUE_ROUNDED 13
+#define PAN_LETT_OBLIQUE_OFF_CENTER 14
+#define PAN_LETT_OBLIQUE_SQUARE 15
+#define PAN_MIDLINE_STANDARD_TRIMMED 2
+#define PAN_MIDLINE_STANDARD_POINTED 3
+#define PAN_MIDLINE_STANDARD_SERIFED 4
+#define PAN_MIDLINE_HIGH_TRIMMED 5
+#define PAN_MIDLINE_HIGH_POINTED 6
+#define PAN_MIDLINE_HIGH_SERIFED 7
+#define PAN_MIDLINE_CONSTANT_TRIMMED 8
+#define PAN_MIDLINE_CONSTANT_POINTED 9
+#define PAN_MIDLINE_CONSTANT_SERIFED 10
+#define PAN_MIDLINE_LOW_TRIMMED 11
+#define PAN_MIDLINE_LOW_POINTED 12
+#define PAN_MIDLINE_LOW_SERIFED 13
+#define PAN_XHEIGHT_CONSTANT_SMALL 2
+#define PAN_XHEIGHT_CONSTANT_STD 3
+#define PAN_XHEIGHT_CONSTANT_LARGE 4
+#define PAN_XHEIGHT_DUCKING_SMALL 5
+#define PAN_XHEIGHT_DUCKING_STD 6
+#define PAN_XHEIGHT_DUCKING_LARGE 7
+#define ELF_VENDOR_SIZE 4
+
+type tagEXTLOGFONTA
+	elfLogFont as LOGFONTA
+	elfFullName(0 to 63) as BYTE_
+	elfStyle(0 to 31) as BYTE_
+	elfVersion as DWORD
+	elfStyleSize as DWORD
+	elfMatch as DWORD
+	elfReserved as DWORD
+	elfVendorId(0 to 3) as BYTE_
+	elfCulture as DWORD
+	elfPanose as PANOSE
+end type
+
+type EXTLOGFONTA as tagEXTLOGFONTA
+type PEXTLOGFONTA as tagEXTLOGFONTA ptr
+type NPEXTLOGFONTA as tagEXTLOGFONTA ptr
+type LPEXTLOGFONTA as tagEXTLOGFONTA ptr
+
+type tagEXTLOGFONTW
+	elfLogFont as LOGFONTW
+	elfFullName(0 to 63) as WCHAR
+	elfStyle(0 to 31) as WCHAR
+	elfVersion as DWORD
+	elfStyleSize as DWORD
+	elfMatch as DWORD
+	elfReserved as DWORD
+	elfVendorId(0 to 3) as BYTE_
+	elfCulture as DWORD
+	elfPanose as PANOSE
+end type
+
+type EXTLOGFONTW as tagEXTLOGFONTW
+type PEXTLOGFONTW as tagEXTLOGFONTW ptr
+type NPEXTLOGFONTW as tagEXTLOGFONTW ptr
+type LPEXTLOGFONTW as tagEXTLOGFONTW ptr
+
+#ifdef UNICODE
+	type EXTLOGFONT as EXTLOGFONTW
+	type PEXTLOGFONT as PEXTLOGFONTW
+	type NPEXTLOGFONT as NPEXTLOGFONTW
+	type LPEXTLOGFONT as LPEXTLOGFONTW
+#else
+	type EXTLOGFONT as EXTLOGFONTA
+	type PEXTLOGFONT as PEXTLOGFONTA
+	type NPEXTLOGFONT as NPEXTLOGFONTA
+	type LPEXTLOGFONT as LPEXTLOGFONTA
+#endif
+
+#define ELF_VERSION 0
+#define ELF_CULTURE_LATIN 0
+#define RASTER_FONTTYPE &h0001
+#define DEVICE_FONTTYPE &h002
+#define TRUETYPE_FONTTYPE &h004
+#define RGB_(r, g, b) cast(COLORREF, cast(BYTE_, (r) or cast(WORD, cast(BYTE_, (g)) shl 8)) or (cast(DWORD, cast(BYTE_, (b))) shl 16))
+#define PALETTERGB(r, g, b) (&h02000000 or RGB_(r, g, b))
+#define PALETTEINDEX(i) cast(COLORREF, &h01000000 or cast(DWORD, cast(WORD, (i))))
+#define PC_RESERVED &h01
+#define PC_EXPLICIT &h02
+#define PC_NOCOLLAPSE &h04
+#define GetRValue(rgb) LOBYTE_(rgb)
+#define GetGValue(rgb) LOBYTE_(cast(WORD, (rgb)) shr 8)
+#define GetBValue(rgb) LOBYTE_((rgb) shr 16)
+#define TRANSPARENT 1
+#define OPAQUE 2
+#define BKMODE_LAST 2
+#define GM_COMPATIBLE 1
+#define GM_ADVANCED 2
+#define GM_LAST 2
+#define PT_CLOSEFIGURE &h01
+#define PT_LINETO &h02
+#define PT_BEZIERTO &h04
+#define PT_MOVETO &h06
+#define MM_TEXT 1
+#define MM_LOMETRIC 2
+#define MM_HIMETRIC 3
+#define MM_LOENGLISH 4
+#define MM_HIENGLISH 5
+#define MM_TWIPS 6
+#define MM_ISOTROPIC 7
+#define MM_ANISOTROPIC 8
+#define MM_MIN MM_TEXT
+#define MM_MAX MM_ANISOTROPIC
+#define MM_MAX_FIXEDSCALE MM_TWIPS
+#define ABSOLUTE 1
+#define RELATIVE 2
+#define WHITE_BRUSH 0
+#define LTGRAY_BRUSH 1
+#define GRAY_BRUSH 2
+#define DKGRAY_BRUSH 3
+#define BLACK_BRUSH 4
+#define NULL_BRUSH 5
+#define HOLLOW_BRUSH NULL_BRUSH
+#define WHITE_PEN 6
+#define BLACK_PEN 7
+#define NULL_PEN 8
+#define OEM_FIXED_FONT 10
+#define ANSI_FIXED_FONT 11
+#define ANSI_VAR_FONT 12
+#define SYSTEM_FONT 13
+#define DEVICE_DEFAULT_FONT 14
+#define DEFAULT_PALETTE 15
+#define SYSTEM_FIXED_FONT 16
+#define DEFAULT_GUI_FONT 17
+#define DC_BRUSH 18
+#define DC_PEN 19
+#define STOCK_LAST 19
+#define CLR_INVALID &hFFFFFFFF
+#define BS_SOLID 0
+#define BS_NULL 1
+#define BS_HOLLOW BS_NULL
+#define BS_HATCHED 2
+#define BS_PATTERN 3
+#define BS_INDEXED 4
+#define BS_DIBPATTERN 5
+#define BS_DIBPATTERNPT 6
+#define BS_PATTERN8X8 7
+#define BS_DIBPATTERN8X8 8
+#define BS_MONOPATTERN 9
+#define HS_HORIZONTAL 0
+#define HS_VERTICAL 1
+#define HS_FDIAGONAL 2
+#define HS_BDIAGONAL 3
+#define HS_CROSS 4
+#define HS_DIAGCROSS 5
+#define HS_API_MAX 12
+#define PS_SOLID 0
+#define PS_DASH 1
+#define PS_DOT 2
+#define PS_DASHDOT 3
+#define PS_DASHDOTDOT 4
+#define PS_NULL 5
+#define PS_INSIDEFRAME 6
+#define PS_USERSTYLE 7
+#define PS_ALTERNATE 8
+#define PS_STYLE_MASK &h0000000F
+#define PS_ENDCAP_ROUND &h00000000
+#define PS_ENDCAP_SQUARE &h00000100
+#define PS_ENDCAP_FLAT &h00000200
+#define PS_ENDCAP_MASK &h00000F00
+#define PS_JOIN_ROUND &h00000000
+#define PS_JOIN_BEVEL &h00001000
+#define PS_JOIN_MITER &h00002000
+#define PS_JOIN_MASK &h0000F000
+#define PS_COSMETIC &h00000000
+#define PS_GEOMETRIC &h00010000
+#define PS_TYPE_MASK &h000F0000
+#define AD_COUNTERCLOCKWISE 1
+#define AD_CLOCKWISE 2
+#define DRIVERVERSION 0
+#define TECHNOLOGY 2
+#define HORZSIZE 4
+#define VERTSIZE 6
+#define HORZRES 8
+#define VERTRES 10
+#define BITSPIXEL_ 12
+#define PLANES_ 14
+#define NUMBRUSHES 16
+#define NUMPENS 18
+#define NUMMARKERS 20
+#define NUMFONTS 22
+#define NUMCOLORS 24
+#define PDEVICESIZE 26
+#define CURVECAPS 28
+#define LINECAPS 30
+#define POLYGONALCAPS 32
+#define TEXTCAPS 34
+#define CLIPCAPS 36
+#define RASTERCAPS 38
+#define ASPECTX 40
+#define ASPECTY 42
+#define ASPECTXY 44
+#define LOGPIXELSX 88
+#define LOGPIXELSY 90
+#define SIZEPALETTE 104
+#define NUMRESERVED 106
+#define COLORRES 108
+#define PHYSICALWIDTH 110
+#define PHYSICALHEIGHT 111
+#define PHYSICALOFFSETX 112
+#define PHYSICALOFFSETY 113
+#define SCALINGFACTORX 114
+#define SCALINGFACTORY 115
+#define VREFRESH 116
+#define DESKTOPVERTRES 117
+#define DESKTOPHORZRES 118
+#define BLTALIGNMENT 119
+#define SHADEBLENDCAPS 120
+#define COLORMGMTCAPS 121
+#define DT_PLOTTER 0
+#define DT_RASDISPLAY 1
+#define DT_RASPRINTER 2
+#define DT_RASCAMERA 3
+#define DT_CHARSTREAM 4
+#define DT_METAFILE 5
+#define DT_DISPFILE 6
+#define CC_NONE 0
+#define CC_CIRCLES 1
+#define CC_PIE 2
+#define CC_CHORD 4
+#define CC_ELLIPSES 8
+#define CC_WIDE 16
+#define CC_STYLED 32
+#define CC_WIDESTYLED 64
+#define CC_INTERIORS 128
+#define CC_ROUNDRECT 256
+#define LC_NONE 0
+#define LC_POLYLINE 2
+#define LC_MARKER 4
+#define LC_POLYMARKER 8
+#define LC_WIDE 16
+#define LC_STYLED 32
+#define LC_WIDESTYLED 64
+#define LC_INTERIORS 128
+#define PC_NONE 0
+#define PC_POLYGON 1
+#define PC_RECTANGLE 2
+#define PC_WINDPOLYGON 4
+#define PC_TRAPEZOID 4
+#define PC_SCANLINE 8
+#define PC_WIDE 16
+#define PC_STYLED 32
+#define PC_WIDESTYLED 64
+#define PC_INTERIORS 128
+#define PC_POLYPOLYGON 256
+#define PC_PATHS 512
+#define CP_NONE 0
+#define CP_RECTANGLE 1
+#define CP_REGION 2
+#define TC_OP_CHARACTER &h00000001
+#define TC_OP_STROKE &h00000002
+#define TC_CP_STROKE &h00000004
+#define TC_CR_90 &h00000008
+#define TC_CR_ANY &h00000010
+#define TC_SF_X_YINDEP &h00000020
+#define TC_SA_DOUBLE &h00000040
+#define TC_SA_INTEGER &h00000080
+#define TC_SA_CONTIN &h00000100
+#define TC_EA_DOUBLE &h00000200
+#define TC_IA_ABLE &h00000400
+#define TC_UA_ABLE &h00000800
+#define TC_SO_ABLE &h00001000
+#define TC_RA_ABLE &h00002000
+#define TC_VA_ABLE &h00004000
+#define TC_RESERVED &h00008000
+#define TC_SCROLLBLT &h00010000
+#define RC_NONE
+#define RC_BITBLT 1
+#define RC_BANDING 2
+#define RC_SCALING 4
+#define RC_BITMAP64 8
+#define RC_GDI20_OUTPUT &h0010
+#define RC_GDI20_STATE &h0020
+#define RC_SAVEBITMAP &h0040
+#define RC_DI_BITMAP &h0080
+#define RC_PALETTE &h0100
+#define RC_DIBTODEV &h0200
+#define RC_BIGFONT &h0400
+#define RC_STRETCHBLT &h0800
+#define RC_FLOODFILL &h1000
+#define RC_STRETCHDIB &h2000
+#define RC_OP_DX_OUTPUT &h4000
+#define RC_DEVBITS &h8000
+#define SB_NONE &h00000000
+#define SB_CONST_ALPHA &h00000001
+#define SB_PIXEL_ALPHA &h00000002
+#define SB_PREMULT_ALPHA &h00000004
+#define SB_GRAD_RECT &h00000010
+#define SB_GRAD_TRI &h00000020
+#define CM_NONE &h00000000
+#define CM_DEVICE_ICM &h00000001
+#define CM_GAMMA_RAMP &h00000002
+#define CM_CMYK_COLOR &h00000004
+#define DIB_RGB_COLORS 0
+#define DIB_PAL_COLORS 1
+#define SYSPAL_ERROR 0
+#define SYSPAL_STATIC 1
+#define SYSPAL_NOSTATIC 2
+#define SYSPAL_NOSTATIC256 3
+#define CBM_INIT __MSABI_LONG(&h04)
+#define FLOODFILLBORDER 0
+#define FLOODFILLSURFACE 1
+#define CCHDEVICENAME 32
+#define CCHFORMNAME 32
+
+type _devicemodeA
+	dmDeviceName(0 to 31) as BYTE_
+	dmSpecVersion as WORD
+	dmDriverVersion as WORD
+	dmSize as WORD
+	dmDriverExtra as WORD
+	dmFields as DWORD
+
+	union
+		type
+			dmOrientation as short
+			dmPaperSize as short
+			dmPaperLength as short
+			dmPaperWidth as short
+			dmScale as short
+			dmCopies as short
+			dmDefaultSource as short
+			dmPrintQuality as short
+		end type
+
+		type
+			dmPosition as POINTL
+			dmDisplayOrientation as DWORD
+			dmDisplayFixedOutput as DWORD
+		end type
+	end union
+
+	dmColor as short
+	dmDuplex as short
+	dmYResolution as short
+	dmTTOption as short
+	dmCollate as short
+	dmFormName(0 to 31) as BYTE_
+	dmLogPixels as WORD
+	dmBitsPerPel as DWORD
+	dmPelsWidth as DWORD
+	dmPelsHeight as DWORD
+
+	union
+		dmDisplayFlags as DWORD
+		dmNup as DWORD
+	end union
+
+	dmDisplayFrequency as DWORD
+	dmICMMethod as DWORD
+	dmICMIntent as DWORD
+	dmMediaType as DWORD
+	dmDitherType as DWORD
+	dmReserved1 as DWORD
+	dmReserved2 as DWORD
+	dmPanningWidth as DWORD
+	dmPanningHeight as DWORD
+end type
+
+type DEVMODEA as _devicemodeA
+type PDEVMODEA as _devicemodeA ptr
+type NPDEVMODEA as _devicemodeA ptr
+type LPDEVMODEA as _devicemodeA ptr
+
+type _devicemodeW
+	dmDeviceName(0 to 31) as WCHAR
+	dmSpecVersion as WORD
+	dmDriverVersion as WORD
+	dmSize as WORD
+	dmDriverExtra as WORD
+	dmFields as DWORD
+
+	union
+		type
+			dmOrientation as short
+			dmPaperSize as short
+			dmPaperLength as short
+			dmPaperWidth as short
+			dmScale as short
+			dmCopies as short
+			dmDefaultSource as short
+			dmPrintQuality as short
+		end type
+
+		type
+			dmPosition as POINTL
+			dmDisplayOrientation as DWORD
+			dmDisplayFixedOutput as DWORD
+		end type
+	end union
+
+	dmColor as short
+	dmDuplex as short
+	dmYResolution as short
+	dmTTOption as short
+	dmCollate as short
+	dmFormName(0 to 31) as WCHAR
+	dmLogPixels as WORD
+	dmBitsPerPel as DWORD
+	dmPelsWidth as DWORD
+	dmPelsHeight as DWORD
+
+	union
+		dmDisplayFlags as DWORD
+		dmNup as DWORD
+	end union
+
+	dmDisplayFrequency as DWORD
+	dmICMMethod as DWORD
+	dmICMIntent as DWORD
+	dmMediaType as DWORD
+	dmDitherType as DWORD
+	dmReserved1 as DWORD
+	dmReserved2 as DWORD
+	dmPanningWidth as DWORD
+	dmPanningHeight as DWORD
+end type
+
+type DEVMODEW as _devicemodeW
+type PDEVMODEW as _devicemodeW ptr
+type NPDEVMODEW as _devicemodeW ptr
+type LPDEVMODEW as _devicemodeW ptr
+
+#ifdef UNICODE
+	type DEVMODE as DEVMODEW
+	type PDEVMODE as PDEVMODEW
+	type NPDEVMODE as NPDEVMODEW
+	type LPDEVMODE as LPDEVMODEW
+#else
+	type DEVMODE as DEVMODEA
+	type PDEVMODE as PDEVMODEA
+	type NPDEVMODE as NPDEVMODEA
+	type LPDEVMODE as LPDEVMODEA
+#endif
+
+#define DM_SPECVERSION &h0401
+#define DM_ORIENTATION __MSABI_LONG(&h00000001)
+#define DM_PAPERSIZE __MSABI_LONG(&h00000002)
+#define DM_PAPERLENGTH __MSABI_LONG(&h00000004)
+#define DM_PAPERWIDTH __MSABI_LONG(&h00000008)
+#define DM_SCALE __MSABI_LONG(&h00000010)
+#define DM_POSITION __MSABI_LONG(&h00000020)
+#define DM_NUP __MSABI_LONG(&h00000040)
+#define DM_DISPLAYORIENTATION __MSABI_LONG(&h00000080)
+#define DM_COPIES __MSABI_LONG(&h00000100)
+#define DM_DEFAULTSOURCE __MSABI_LONG(&h00000200)
+#define DM_PRINTQUALITY __MSABI_LONG(&h00000400)
+#define DM_COLOR __MSABI_LONG(&h00000800)
+#define DM_DUPLEX __MSABI_LONG(&h00001000)
+#define DM_YRESOLUTION __MSABI_LONG(&h00002000)
+#define DM_TTOPTION __MSABI_LONG(&h00004000)
+#define DM_COLLATE __MSABI_LONG(&h00008000)
+#define DM_FORMNAME __MSABI_LONG(&h00010000)
+#define DM_LOGPIXELS __MSABI_LONG(&h00020000)
+#define DM_BITSPERPEL __MSABI_LONG(&h00040000)
+#define DM_PELSWIDTH __MSABI_LONG(&h00080000)
+#define DM_PELSHEIGHT __MSABI_LONG(&h00100000)
+#define DM_DISPLAYFLAGS __MSABI_LONG(&h00200000)
+#define DM_DISPLAYFREQUENCY __MSABI_LONG(&h00400000)
+#define DM_ICMMETHOD __MSABI_LONG(&h00800000)
+#define DM_ICMINTENT __MSABI_LONG(&h01000000)
+#define DM_MEDIATYPE __MSABI_LONG(&h02000000)
+#define DM_DITHERTYPE __MSABI_LONG(&h04000000)
+#define DM_PANNINGWIDTH __MSABI_LONG(&h08000000)
+#define DM_PANNINGHEIGHT __MSABI_LONG(&h10000000)
+#define DM_DISPLAYFIXEDOUTPUT __MSABI_LONG(&h20000000)
+#define DMORIENT_PORTRAIT 1
+#define DMORIENT_LANDSCAPE 2
+#define DMPAPER_FIRST DMPAPER_LETTER
+#define DMPAPER_LETTER 1
+#define DMPAPER_LETTERSMALL 2
+#define DMPAPER_TABLOID 3
+#define DMPAPER_LEDGER 4
+#define DMPAPER_LEGAL 5
+#define DMPAPER_STATEMENT 6
+#define DMPAPER_EXECUTIVE 7
+#define DMPAPER_A3 8
+#define DMPAPER_A4 9
+#define DMPAPER_A4SMALL 10
+#define DMPAPER_A5 11
+#define DMPAPER_B4 12
+#define DMPAPER_B5 13
+#define DMPAPER_FOLIO 14
+#define DMPAPER_QUARTO 15
+#define DMPAPER_10X14 16
+#define DMPAPER_11X17 17
+#define DMPAPER_NOTE 18
+#define DMPAPER_ENV_9 19
+#define DMPAPER_ENV_10 20
+#define DMPAPER_ENV_11 21
+#define DMPAPER_ENV_12 22
+#define DMPAPER_ENV_14 23
+#define DMPAPER_CSHEET 24
+#define DMPAPER_DSHEET 25
+#define DMPAPER_ESHEET 26
+#define DMPAPER_ENV_DL 27
+#define DMPAPER_ENV_C5 28
+#define DMPAPER_ENV_C3 29
+#define DMPAPER_ENV_C4 30
+#define DMPAPER_ENV_C6 31
+#define DMPAPER_ENV_C65 32
+#define DMPAPER_ENV_B4 33
+#define DMPAPER_ENV_B5 34
+#define DMPAPER_ENV_B6 35
+#define DMPAPER_ENV_ITALY 36
+#define DMPAPER_ENV_MONARCH 37
+#define DMPAPER_ENV_PERSONAL 38
+#define DMPAPER_FANFOLD_US 39
+#define DMPAPER_FANFOLD_STD_GERMAN 40
+#define DMPAPER_FANFOLD_LGL_GERMAN 41
+#define DMPAPER_ISO_B4 42
+#define DMPAPER_JAPANESE_POSTCARD 43
+#define DMPAPER_9X11 44
+#define DMPAPER_10X11 45
+#define DMPAPER_15X11 46
+#define DMPAPER_ENV_INVITE 47
+#define DMPAPER_RESERVED_48 48
+#define DMPAPER_RESERVED_49 49
+#define DMPAPER_LETTER_EXTRA 50
+#define DMPAPER_LEGAL_EXTRA 51
+#define DMPAPER_TABLOID_EXTRA 52
+#define DMPAPER_A4_EXTRA 53
+#define DMPAPER_LETTER_TRANSVERSE 54
+#define DMPAPER_A4_TRANSVERSE 55
+#define DMPAPER_LETTER_EXTRA_TRANSVERSE 56
+#define DMPAPER_A_PLUS 57
+#define DMPAPER_B_PLUS 58
+#define DMPAPER_LETTER_PLUS 59
+#define DMPAPER_A4_PLUS 60
+#define DMPAPER_A5_TRANSVERSE 61
+#define DMPAPER_B5_TRANSVERSE 62
+#define DMPAPER_A3_EXTRA 63
+#define DMPAPER_A5_EXTRA 64
+#define DMPAPER_B5_EXTRA 65
+#define DMPAPER_A2 66
+#define DMPAPER_A3_TRANSVERSE 67
+#define DMPAPER_A3_EXTRA_TRANSVERSE 68
+#define DMPAPER_DBL_JAPANESE_POSTCARD 69
+#define DMPAPER_A6 70
+#define DMPAPER_JENV_KAKU2 71
+#define DMPAPER_JENV_KAKU3 72
+#define DMPAPER_JENV_CHOU3 73
+#define DMPAPER_JENV_CHOU4 74
+#define DMPAPER_LETTER_ROTATED 75
+#define DMPAPER_A3_ROTATED 76
+#define DMPAPER_A4_ROTATED 77
+#define DMPAPER_A5_ROTATED 78
+#define DMPAPER_B4_JIS_ROTATED 79
+#define DMPAPER_B5_JIS_ROTATED 80
+#define DMPAPER_JAPANESE_POSTCARD_ROTATED 81
+#define DMPAPER_DBL_JAPANESE_POSTCARD_ROTATED 82
+#define DMPAPER_A6_ROTATED 83
+#define DMPAPER_JENV_KAKU2_ROTATED 84
+#define DMPAPER_JENV_KAKU3_ROTATED 85
+#define DMPAPER_JENV_CHOU3_ROTATED 86
+#define DMPAPER_JENV_CHOU4_ROTATED 87
+#define DMPAPER_B6_JIS 88
+#define DMPAPER_B6_JIS_ROTATED 89
+#define DMPAPER_12X11 90
+#define DMPAPER_JENV_YOU4 91
+#define DMPAPER_JENV_YOU4_ROTATED 92
+#define DMPAPER_P16K 93
+#define DMPAPER_P32K 94
+#define DMPAPER_P32KBIG 95
+#define DMPAPER_PENV_1 96
+#define DMPAPER_PENV_2 97
+#define DMPAPER_PENV_3 98
+#define DMPAPER_PENV_4 99
+#define DMPAPER_PENV_5 100
+#define DMPAPER_PENV_6 101
+#define DMPAPER_PENV_7 102
+#define DMPAPER_PENV_8 103
+#define DMPAPER_PENV_9 104
+#define DMPAPER_PENV_10 105
+#define DMPAPER_P16K_ROTATED 106
+#define DMPAPER_P32K_ROTATED 107
+#define DMPAPER_P32KBIG_ROTATED 108
+#define DMPAPER_PENV_1_ROTATED 109
+#define DMPAPER_PENV_2_ROTATED 110
+#define DMPAPER_PENV_3_ROTATED 111
+#define DMPAPER_PENV_4_ROTATED 112
+#define DMPAPER_PENV_5_ROTATED 113
+#define DMPAPER_PENV_6_ROTATED 114
+#define DMPAPER_PENV_7_ROTATED 115
+#define DMPAPER_PENV_8_ROTATED 116
+#define DMPAPER_PENV_9_ROTATED 117
+#define DMPAPER_PENV_10_ROTATED 118
+#define DMPAPER_LAST DMPAPER_PENV_10_ROTATED
+#define DMPAPER_USER 256
+#define DMBIN_FIRST DMBIN_UPPER
+#define DMBIN_UPPER 1
+#define DMBIN_ONLYONE 1
+#define DMBIN_LOWER 2
+#define DMBIN_MIDDLE 3
+#define DMBIN_MANUAL 4
+#define DMBIN_ENVELOPE 5
+#define DMBIN_ENVMANUAL 6
+#define DMBIN_AUTO 7
+#define DMBIN_TRACTOR 8
+#define DMBIN_SMALLFMT 9
+#define DMBIN_LARGEFMT 10
+#define DMBIN_LARGECAPACITY 11
+#define DMBIN_CASSETTE 14
+#define DMBIN_FORMSOURCE 15
+#define DMBIN_LAST DMBIN_FORMSOURCE
+#define DMBIN_USER 256
+#define DMRES_DRAFT (-1)
+#define DMRES_LOW (-2)
+#define DMRES_MEDIUM (-3)
+#define DMRES_HIGH (-4)
+#define DMCOLOR_MONOCHROME 1
+#define DMCOLOR_COLOR 2
+#define DMDUP_SIMPLEX 1
+#define DMDUP_VERTICAL 2
+#define DMDUP_HORIZONTAL 3
+#define DMTT_BITMAP 1
+#define DMTT_DOWNLOAD 2
+#define DMTT_SUBDEV 3
+#define DMTT_DOWNLOAD_OUTLINE 4
+#define DMCOLLATE_FALSE 0
+#define DMCOLLATE_TRUE 1
+#define DMDO_DEFAULT 0
+#define DMDO_90 1
+#define DMDO_180 2
+#define DMDO_270 3
+#define DMDFO_DEFAULT 0
+#define DMDFO_STRETCH 1
+#define DMDFO_CENTER 2
+#define DM_INTERLACED &h00000002
+#define DMDISPLAYFLAGS_TEXTMODE &h00000004
+#define DMNUP_SYSTEM 1
+#define DMNUP_ONEUP 2
+#define DMICMMETHOD_NONE 1
+#define DMICMMETHOD_SYSTEM 2
+#define DMICMMETHOD_DRIVER 3
+#define DMICMMETHOD_DEVICE 4
+#define DMICMMETHOD_USER 256
+#define DMICM_SATURATE 1
+#define DMICM_CONTRAST 2
+#define DMICM_COLORIMETRIC 3
+#define DMICM_ABS_COLORIMETRIC 4
+#define DMICM_USER 256
+#define DMMEDIA_STANDARD 1
+#define DMMEDIA_TRANSPARENCY 2
+#define DMMEDIA_GLOSSY 3
+#define DMMEDIA_USER 256
+#define DMDITHER_NONE 1
+#define DMDITHER_COARSE 2
+#define DMDITHER_FINE 3
+#define DMDITHER_LINEART 4
+#define DMDITHER_ERRORDIFFUSION 5
+#define DMDITHER_RESERVED6 6
+#define DMDITHER_RESERVED7 7
+#define DMDITHER_RESERVED8 8
+#define DMDITHER_RESERVED9 9
+#define DMDITHER_GRAYSCALE 10
+#define DMDITHER_USER 256
+
+type _DISPLAY_DEVICEA
+	cb as DWORD
+	DeviceName(0 to 31) as CHAR
+	DeviceString(0 to 127) as CHAR
+	StateFlags as DWORD
+	DeviceID(0 to 127) as CHAR
+	DeviceKey(0 to 127) as CHAR
+end type
+
+type DISPLAY_DEVICEA as _DISPLAY_DEVICEA
+type PDISPLAY_DEVICEA as _DISPLAY_DEVICEA ptr
+type LPDISPLAY_DEVICEA as _DISPLAY_DEVICEA ptr
+
+type _DISPLAY_DEVICEW
+	cb as DWORD
+	DeviceName(0 to 31) as WCHAR
+	DeviceString(0 to 127) as WCHAR
+	StateFlags as DWORD
+	DeviceID(0 to 127) as WCHAR
+	DeviceKey(0 to 127) as WCHAR
+end type
+
+type DISPLAY_DEVICEW as _DISPLAY_DEVICEW
+type PDISPLAY_DEVICEW as _DISPLAY_DEVICEW ptr
+type LPDISPLAY_DEVICEW as _DISPLAY_DEVICEW ptr
+
+#ifdef UNICODE
+	type DISPLAY_DEVICE as DISPLAY_DEVICEW
+	type PDISPLAY_DEVICE as PDISPLAY_DEVICEW
+	type LPDISPLAY_DEVICE as LPDISPLAY_DEVICEW
+#else
+	type DISPLAY_DEVICE as DISPLAY_DEVICEA
+	type PDISPLAY_DEVICE as PDISPLAY_DEVICEA
+	type LPDISPLAY_DEVICE as LPDISPLAY_DEVICEA
+#endif
+
+#define DISPLAY_DEVICE_ATTACHED_TO_DESKTOP &h00000001
+#define DISPLAY_DEVICE_MULTI_DRIVER &h00000002
+#define DISPLAY_DEVICE_PRIMARY_DEVICE &h00000004
+#define DISPLAY_DEVICE_MIRRORING_DRIVER &h00000008
+#define DISPLAY_DEVICE_VGA_COMPATIBLE &h00000010
+#define DISPLAY_DEVICE_REMOVABLE &h00000020
+#define DISPLAY_DEVICE_TS_COMPATIBLE &h00200000
+#define DISPLAY_DEVICE_MODESPRUNED &h08000000
+#define DISPLAY_DEVICE_REMOTE &h04000000
+#define DISPLAY_DEVICE_DISCONNECT &h02000000
+#define DISPLAY_DEVICE_ACTIVE &h00000001
+#define DISPLAY_DEVICE_ATTACHED &h00000002
+#define RDH_RECTANGLES 1
+
+type _RGNDATAHEADER
+	dwSize as DWORD
+	iType as DWORD
+	nCount as DWORD
+	nRgnSize as DWORD
+	rcBound as RECT
+end type
+
+type RGNDATAHEADER as _RGNDATAHEADER
+type PRGNDATAHEADER as _RGNDATAHEADER ptr
+
+type _RGNDATA
+	rdh as RGNDATAHEADER
+	Buffer as zstring * 1
+end type
+
+type RGNDATA as _RGNDATA
+type PRGNDATA as _RGNDATA ptr
+type NPRGNDATA as _RGNDATA ptr
+type LPRGNDATA as _RGNDATA ptr
+
+#define SYSRGN 4
+
+type _ABC
+	abcA as long
+	abcB as UINT
+	abcC as long
+end type
+
+type ABC as _ABC
+type PABC as _ABC ptr
+type NPABC as _ABC ptr
+type LPABC as _ABC ptr
+
+type _ABCFLOAT
+	abcfA as FLOAT
+	abcfB as FLOAT
+	abcfC as FLOAT
+end type
+
+type ABCFLOAT as _ABCFLOAT
+type PABCFLOAT as _ABCFLOAT ptr
+type NPABCFLOAT as _ABCFLOAT ptr
+type LPABCFLOAT as _ABCFLOAT ptr
+
+type _OUTLINETEXTMETRICA
+	otmSize as UINT
+	otmTextMetrics as TEXTMETRICA
+	otmFiller as BYTE_
+	otmPanoseNumber as PANOSE
+	otmfsSelection as UINT
+	otmfsType as UINT
+	otmsCharSlopeRise as long
+	otmsCharSlopeRun as long
+	otmItalicAngle as long
+	otmEMSquare as UINT
+	otmAscent as long
+	otmDescent as long
+	otmLineGap as UINT
+	otmsCapEmHeight as UINT
+	otmsXHeight as UINT
+	otmrcFontBox as RECT
+	otmMacAscent as long
+	otmMacDescent as long
+	otmMacLineGap as UINT
+	otmusMinimumPPEM as UINT
+	otmptSubscriptSize as POINT_
+	otmptSubscriptOffset as POINT_
+	otmptSuperscriptSize as POINT_
+	otmptSuperscriptOffset as POINT_
+	otmsStrikeoutSize as UINT
+	otmsStrikeoutPosition as long
+	otmsUnderscoreSize as long
+	otmsUnderscorePosition as long
+	otmpFamilyName as PSTR
+	otmpFaceName as PSTR
+	otmpStyleName as PSTR
+	otmpFullName as PSTR
+end type
+
+type OUTLINETEXTMETRICA as _OUTLINETEXTMETRICA
+type POUTLINETEXTMETRICA as _OUTLINETEXTMETRICA ptr
+type NPOUTLINETEXTMETRICA as _OUTLINETEXTMETRICA ptr
+type LPOUTLINETEXTMETRICA as _OUTLINETEXTMETRICA ptr
+
+type _OUTLINETEXTMETRICW
+	otmSize as UINT
+	otmTextMetrics as TEXTMETRICW
+	otmFiller as BYTE_
+	otmPanoseNumber as PANOSE
+	otmfsSelection as UINT
+	otmfsType as UINT
+	otmsCharSlopeRise as long
+	otmsCharSlopeRun as long
+	otmItalicAngle as long
+	otmEMSquare as UINT
+	otmAscent as long
+	otmDescent as long
+	otmLineGap as UINT
+	otmsCapEmHeight as UINT
+	otmsXHeight as UINT
+	otmrcFontBox as RECT
+	otmMacAscent as long
+	otmMacDescent as long
+	otmMacLineGap as UINT
+	otmusMinimumPPEM as UINT
+	otmptSubscriptSize as POINT_
+	otmptSubscriptOffset as POINT_
+	otmptSuperscriptSize as POINT_
+	otmptSuperscriptOffset as POINT_
+	otmsStrikeoutSize as UINT
+	otmsStrikeoutPosition as long
+	otmsUnderscoreSize as long
+	otmsUnderscorePosition as long
+	otmpFamilyName as PSTR
+	otmpFaceName as PSTR
+	otmpStyleName as PSTR
+	otmpFullName as PSTR
+end type
+
+type OUTLINETEXTMETRICW as _OUTLINETEXTMETRICW
+type POUTLINETEXTMETRICW as _OUTLINETEXTMETRICW ptr
+type NPOUTLINETEXTMETRICW as _OUTLINETEXTMETRICW ptr
+type LPOUTLINETEXTMETRICW as _OUTLINETEXTMETRICW ptr
+
+#ifdef UNICODE
+	type OUTLINETEXTMETRIC as OUTLINETEXTMETRICW
+	type POUTLINETEXTMETRIC as POUTLINETEXTMETRICW
+	type NPOUTLINETEXTMETRIC as NPOUTLINETEXTMETRICW
+	type LPOUTLINETEXTMETRIC as LPOUTLINETEXTMETRICW
+#else
+	type OUTLINETEXTMETRIC as OUTLINETEXTMETRICA
+	type POUTLINETEXTMETRIC as POUTLINETEXTMETRICA
+	type NPOUTLINETEXTMETRIC as NPOUTLINETEXTMETRICA
+	type LPOUTLINETEXTMETRIC as LPOUTLINETEXTMETRICA
+#endif
+
+type tagPOLYTEXTA
+	x as long
+	y as long
+	n as UINT
+	lpstr as LPCSTR
+	uiFlags as UINT
+	rcl as RECT
+	pdx as long ptr
+end type
+
+type POLYTEXTA as tagPOLYTEXTA
+type PPOLYTEXTA as tagPOLYTEXTA ptr
+type NPPOLYTEXTA as tagPOLYTEXTA ptr
+type LPPOLYTEXTA as tagPOLYTEXTA ptr
+
+type tagPOLYTEXTW
+	x as long
+	y as long
+	n as UINT
+	lpstr as LPCWSTR
+	uiFlags as UINT
+	rcl as RECT
+	pdx as long ptr
+end type
+
+type POLYTEXTW as tagPOLYTEXTW
+type PPOLYTEXTW as tagPOLYTEXTW ptr
+type NPPOLYTEXTW as tagPOLYTEXTW ptr
+type LPPOLYTEXTW as tagPOLYTEXTW ptr
+
+#ifdef UNICODE
+	type POLYTEXT as POLYTEXTW
+	type PPOLYTEXT as PPOLYTEXTW
+	type NPPOLYTEXT as NPPOLYTEXTW
+	type LPPOLYTEXT as LPPOLYTEXTW
+#else
+	type POLYTEXT as POLYTEXTA
+	type PPOLYTEXT as PPOLYTEXTA
+	type NPPOLYTEXT as NPPOLYTEXTA
+	type LPPOLYTEXT as LPPOLYTEXTA
+#endif
+
+type _FIXED
+	fract as WORD
+	value as short
+end type
+
+type FIXED as _FIXED
+
+type _MAT2
+	eM11 as FIXED
+	eM12 as FIXED
+	eM21 as FIXED
+	eM22 as FIXED
+end type
+
+type MAT2 as _MAT2
+type LPMAT2 as _MAT2 ptr
+
+type _GLYPHMETRICS
+	gmBlackBoxX as UINT
+	gmBlackBoxY as UINT
+	gmptGlyphOrigin as POINT_
+	gmCellIncX as short
+	gmCellIncY as short
+end type
+
+type GLYPHMETRICS as _GLYPHMETRICS
+type LPGLYPHMETRICS as _GLYPHMETRICS ptr
+
+#define GGO_METRICS 0
+#define GGO_BITMAP 1
+#define GGO_NATIVE 2
+#define GGO_BEZIER 3
+#define GGO_GRAY2_BITMAP 4
+#define GGO_GRAY4_BITMAP 5
+#define GGO_GRAY8_BITMAP 6
+#define GGO_GLYPH_INDEX &h0080
+#define GGO_UNHINTED &h0100
+#define TT_POLYGON_TYPE 24
+#define TT_PRIM_LINE 1
+#define TT_PRIM_QSPLINE 2
+#define TT_PRIM_CSPLINE 3
+
+type tagPOINTFX
+	x as FIXED
+	y as FIXED
+end type
+
+type POINTFX as tagPOINTFX
+type LPPOINTFX as tagPOINTFX ptr
+
+type tagTTPOLYCURVE
+	wType as WORD
+	cpfx as WORD
+	apfx(0 to 0) as POINTFX
+end type
+
+type TTPOLYCURVE as tagTTPOLYCURVE
+type LPTTPOLYCURVE as tagTTPOLYCURVE ptr
+
+type tagTTPOLYGONHEADER
+	cb as DWORD
+	dwType as DWORD
+	pfxStart as POINTFX
+end type
+
+type TTPOLYGONHEADER as tagTTPOLYGONHEADER
+type LPTTPOLYGONHEADER as tagTTPOLYGONHEADER ptr
+
+#define GCP_DBCS &h0001
+#define GCP_REORDER &h0002
+#define GCP_USEKERNING &h0008
+#define GCP_GLYPHSHAPE &h0010
+#define GCP_LIGATE &h0020
+#define GCP_DIACRITIC &h0100
+#define GCP_KASHIDA &h0400
+#define GCP_ERROR &h8000
+#define FLI_MASK &h103B
+#define GCP_JUSTIFY __MSABI_LONG(&h00010000)
+#define FLI_GLYPHS __MSABI_LONG(&h00040000)
+#define GCP_CLASSIN __MSABI_LONG(&h00080000)
+#define GCP_MAXEXTENT __MSABI_LONG(&h00100000)
+#define GCP_JUSTIFYIN __MSABI_LONG(&h00200000)
+#define GCP_DISPLAYZWG __MSABI_LONG(&h00400000)
+#define GCP_SYMSWAPOFF __MSABI_LONG(&h00800000)
+#define GCP_NUMERICOVERRIDE __MSABI_LONG(&h01000000)
+#define GCP_NEUTRALOVERRIDE __MSABI_LONG(&h02000000)
+#define GCP_NUMERICSLATIN __MSABI_LONG(&h04000000)
+#define GCP_NUMERICSLOCAL __MSABI_LONG(&h08000000)
+#define GCPCLASS_LATIN 1
+#define GCPCLASS_HEBREW 2
+#define GCPCLASS_ARABIC 2
+#define GCPCLASS_NEUTRAL 3
+#define GCPCLASS_LOCALNUMBER 4
+#define GCPCLASS_LATINNUMBER 5
+#define GCPCLASS_LATINNUMERICTERMINATOR 6
+#define GCPCLASS_LATINNUMERICSEPARATOR 7
+#define GCPCLASS_NUMERICSEPARATOR 8
+#define GCPCLASS_PREBOUNDLTR &h80
+#define GCPCLASS_PREBOUNDRTL &h40
+#define GCPCLASS_POSTBOUNDLTR &h20
+#define GCPCLASS_POSTBOUNDRTL &h10
+#define GCPGLYPH_LINKBEFORE &h8000
+#define GCPGLYPH_LINKAFTER &h4000
+
+type tagGCP_RESULTSA
+	lStructSize as DWORD
+	lpOutString as LPSTR
+	lpOrder as UINT ptr
+	lpDx as long ptr
+	lpCaretPos as long ptr
+	lpClass as LPSTR
+	lpGlyphs as LPWSTR
+	nGlyphs as UINT
+	nMaxFit as long
+end type
+
+type GCP_RESULTSA as tagGCP_RESULTSA
+type LPGCP_RESULTSA as tagGCP_RESULTSA ptr
+
+type tagGCP_RESULTSW
+	lStructSize as DWORD
+	lpOutString as LPWSTR
+	lpOrder as UINT ptr
+	lpDx as long ptr
+	lpCaretPos as long ptr
+	lpClass as LPSTR
+	lpGlyphs as LPWSTR
+	nGlyphs as UINT
+	nMaxFit as long
+end type
+
+type GCP_RESULTSW as tagGCP_RESULTSW
+type LPGCP_RESULTSW as tagGCP_RESULTSW ptr
+
+#ifdef UNICODE
+	type GCP_RESULTS as GCP_RESULTSW
+	type LPGCP_RESULTS as LPGCP_RESULTSW
+#else
+	type GCP_RESULTS as GCP_RESULTSA
+	type LPGCP_RESULTS as LPGCP_RESULTSA
+#endif
+
+type _RASTERIZER_STATUS
+	nSize as short
+	wFlags as short
+	nLanguageID as short
+end type
+
+type RASTERIZER_STATUS as _RASTERIZER_STATUS
+type LPRASTERIZER_STATUS as _RASTERIZER_STATUS ptr
+
+#define TT_AVAILABLE &h0001
+#define TT_ENABLED &h0002
+
+type tagPIXELFORMATDESCRIPTOR
+	nSize as WORD
+	nVersion as WORD
+	dwFlags as DWORD
+	iPixelType as BYTE_
+	cColorBits as BYTE_
+	cRedBits as BYTE_
+	cRedShift as BYTE_
+	cGreenBits as BYTE_
+	cGreenShift as BYTE_
+	cBlueBits as BYTE_
+	cBlueShift as BYTE_
+	cAlphaBits as BYTE_
+	cAlphaShift as BYTE_
+	cAccumBits as BYTE_
+	cAccumRedBits as BYTE_
+	cAccumGreenBits as BYTE_
+	cAccumBlueBits as BYTE_
+	cAccumAlphaBits as BYTE_
+	cDepthBits as BYTE_
+	cStencilBits as BYTE_
+	cAuxBuffers as BYTE_
+	iLayerType as BYTE_
+	bReserved as BYTE_
+	dwLayerMask as DWORD
+	dwVisibleMask as DWORD
+	dwDamageMask as DWORD
+end type
+
+type PIXELFORMATDESCRIPTOR as tagPIXELFORMATDESCRIPTOR
+type PPIXELFORMATDESCRIPTOR as tagPIXELFORMATDESCRIPTOR ptr
+type LPPIXELFORMATDESCRIPTOR as tagPIXELFORMATDESCRIPTOR ptr
+
+#define PFD_TYPE_RGBA 0
+#define PFD_TYPE_COLORINDEX 1
+#define PFD_MAIN_PLANE 0
+#define PFD_OVERLAY_PLANE 1
+#define PFD_UNDERLAY_PLANE (-1)
+#define PFD_DOUBLEBUFFER &h00000001
+#define PFD_STEREO &h00000002
+#define PFD_DRAW_TO_WINDOW &h00000004
+#define PFD_DRAW_TO_BITMAP &h00000008
+#define PFD_SUPPORT_GDI &h00000010
+#define PFD_SUPPORT_OPENGL &h00000020
+#define PFD_GENERIC_FORMAT &h00000040
+#define PFD_NEED_PALETTE &h00000080
+#define PFD_NEED_SYSTEM_PALETTE &h00000100
+#define PFD_SWAP_EXCHANGE &h00000200
+#define PFD_SWAP_COPY &h00000400
+#define PFD_SWAP_LAYER_BUFFERS &h00000800
+#define PFD_GENERIC_ACCELERATED &h00001000
+#define PFD_SUPPORT_DIRECTDRAW &h00002000
+#define PFD_DIRECT3D_ACCELERATED &h00004000
+#define PFD_SUPPORT_COMPOSITION &h00008000
+#define PFD_DEPTH_DONTCARE &h20000000
+#define PFD_DOUBLEBUFFER_DONTCARE &h40000000
+#define PFD_STEREO_DONTCARE &h80000000
+
+type OLDFONTENUMPROCA as function(byval as const LOGFONTA ptr, byval as const TEXTMETRICA ptr, byval as DWORD, byval as LPARAM) as long
+type OLDFONTENUMPROCW as function(byval as const LOGFONTW ptr, byval as const TEXTMETRICW ptr, byval as DWORD, byval as LPARAM) as long
+
+#define OLDFONTENUMPROC __MINGW_NAME_AW(OLDFONTENUMPROC)
+
+type FONTENUMPROCA as OLDFONTENUMPROCA
+type FONTENUMPROCW as OLDFONTENUMPROCW
+
+#ifdef UNICODE
+	type FONTENUMPROC as FONTENUMPROCW
+#else
+	type FONTENUMPROC as FONTENUMPROCA
+#endif
+
+type GOBJENUMPROC as function(byval as LPVOID, byval as LPARAM) as long
+type LINEDDAPROC as sub(byval as long, byval as long, byval as LPARAM)
+
+#define AddFontResource __MINGW_NAME_AW(AddFontResource)
+#define CopyMetaFile __MINGW_NAME_AW(CopyMetaFile)
+#define CreateDC __MINGW_NAME_AW(CreateDC)
+#define CreateFontIndirect __MINGW_NAME_AW(CreateFontIndirect)
+#define CreateFont __MINGW_NAME_AW(CreateFont)
+#define CreateIC __MINGW_NAME_AW(CreateIC)
+#define CreateMetaFile __MINGW_NAME_AW(CreateMetaFile)
+#define CreateScalableFontResource __MINGW_NAME_AW(CreateScalableFontResource)
+
+declare function AddFontResourceA(byval as LPCSTR) as long
+declare function AddFontResourceW(byval as LPCWSTR) as long
+declare function AnimatePalette(byval hPal as HPALETTE, byval iStartIndex as UINT, byval cEntries as UINT, byval ppe as const PALETTEENTRY ptr) as WINBOOL
+declare function Arc(byval hdc as HDC, byval x1 as long, byval y1 as long, byval x2 as long, byval y2 as long, byval x3 as long, byval y3 as long, byval x4 as long, byval y4 as long) as WINBOOL
+declare function BitBlt(byval hdc as HDC, byval x as long, byval y as long, byval cx as long, byval cy as long, byval hdcSrc as HDC, byval x1 as long, byval y1 as long, byval rop as DWORD) as WINBOOL
+declare function CancelDC(byval hdc as HDC) as WINBOOL
+declare function Chord(byval hdc as HDC, byval x1 as long, byval y1 as long, byval x2 as long, byval y2 as long, byval x3 as long, byval y3 as long, byval x4 as long, byval y4 as long) as WINBOOL
+declare function ChoosePixelFormat(byval hdc as HDC, byval ppfd as const PIXELFORMATDESCRIPTOR ptr) as long
+declare function CloseMetaFile(byval hdc as HDC) as HMETAFILE
+declare function CombineRgn(byval hrgnDst as HRGN, byval hrgnSrc1 as HRGN, byval hrgnSrc2 as HRGN, byval iMode as long) as long
+declare function CopyMetaFileA(byval as HMETAFILE, byval as LPCSTR) as HMETAFILE
+declare function CopyMetaFileW(byval as HMETAFILE, byval as LPCWSTR) as HMETAFILE
+declare function CreateBitmap(byval nWidth as long, byval nHeight as long, byval nPlanes as UINT, byval nBitCount as UINT, byval lpBits as const any ptr) as HBITMAP
+declare function CreateBitmapIndirect(byval pbm as const BITMAP ptr) as HBITMAP
+declare function CreateBrushIndirect(byval plbrush as const LOGBRUSH ptr) as HBRUSH
+declare function CreateCompatibleBitmap(byval hdc as HDC, byval cx as long, byval cy as long) as HBITMAP
+declare function CreateDiscardableBitmap(byval hdc as HDC, byval cx as long, byval cy as long) as HBITMAP
+declare function CreateCompatibleDC(byval hdc as HDC) as HDC
+declare function CreateDCA(byval pwszDriver as LPCSTR, byval pwszDevice as LPCSTR, byval pszPort as LPCSTR, byval pdm as const DEVMODEA ptr) as HDC
+declare function CreateDCW(byval pwszDriver as LPCWSTR, byval pwszDevice as LPCWSTR, byval pszPort as LPCWSTR, byval pdm as const DEVMODEW ptr) as HDC
+declare function CreateDIBitmap(byval hdc as HDC, byval pbmih as const BITMAPINFOHEADER ptr, byval flInit as DWORD, byval pjBits as const any ptr, byval pbmi as const BITMAPINFO ptr, byval iUsage as UINT) as HBITMAP
+declare function CreateDIBPatternBrush(byval h as HGLOBAL, byval iUsage as UINT) as HBRUSH
+declare function CreateDIBPatternBrushPt(byval lpPackedDIB as const any ptr, byval iUsage as UINT) as HBRUSH
+declare function CreateEllipticRgn(byval x1 as long, byval y1 as long, byval x2 as long, byval y2 as long) as HRGN
+declare function CreateEllipticRgnIndirect(byval lprect as const RECT ptr) as HRGN
+declare function CreateFontIndirectA(byval lplf as const LOGFONTA ptr) as HFONT
+declare function CreateFontIndirectW(byval lplf as const LOGFONTW ptr) as HFONT
+declare function CreateFontA(byval cHeight as long, byval cWidth as long, byval cEscapement as long, byval cOrientation as long, byval cWeight as long, byval bItalic as DWORD, byval bUnderline as DWORD, byval bStrikeOut as DWORD, byval iCharSet as DWORD, byval iOutPrecision as DWORD, byval iClipPrecision as DWORD, byval iQuality as DWORD, byval iPitchAndFamily as DWORD, byval pszFaceName as LPCSTR) as HFONT
+declare function CreateFontW(byval cHeight as long, byval cWidth as long, byval cEscapement as long, byval cOrientation as long, byval cWeight as long, byval bItalic as DWORD, byval bUnderline as DWORD, byval bStrikeOut as DWORD, byval iCharSet as DWORD, byval iOutPrecision as DWORD, byval iClipPrecision as DWORD, byval iQuality as DWORD, byval iPitchAndFamily as DWORD, byval pszFaceName as LPCWSTR) as HFONT
+declare function CreateHatchBrush(byval iHatch as long, byval color_ as COLORREF) as HBRUSH
+declare function CreateICA(byval pszDriver as LPCSTR, byval pszDevice as LPCSTR, byval pszPort as LPCSTR, byval pdm as const DEVMODEA ptr) as HDC
+declare function CreateICW(byval pszDriver as LPCWSTR, byval pszDevice as LPCWSTR, byval pszPort as LPCWSTR, byval pdm as const DEVMODEW ptr) as HDC
+declare function CreateMetaFileA(byval pszFile as LPCSTR) as HDC
+declare function CreateMetaFileW(byval pszFile as LPCWSTR) as HDC
+declare function CreatePalette(byval plpal as const LOGPALETTE ptr) as HPALETTE
+declare function CreatePen(byval iStyle as long, byval cWidth as long, byval color_ as COLORREF) as HPEN
+declare function CreatePenIndirect(byval plpen as const LOGPEN ptr) as HPEN
+declare function CreatePolyPolygonRgn(byval pptl as const POINT_ ptr, byval pc as const INT_ ptr, byval cPoly as long, byval iMode as long) as HRGN
+declare function CreatePatternBrush(byval hbm as HBITMAP) as HBRUSH
+declare function CreateRectRgn(byval x1 as long, byval y1 as long, byval x2 as long, byval y2 as long) as HRGN
+declare function CreateRectRgnIndirect(byval lprect as const RECT ptr) as HRGN
+declare function CreateRoundRectRgn(byval x1 as long, byval y1 as long, byval x2 as long, byval y2 as long, byval w as long, byval h as long) as HRGN
+declare function CreateScalableFontResourceA(byval fdwHidden as DWORD, byval lpszFont as LPCSTR, byval lpszFile as LPCSTR, byval lpszPath as LPCSTR) as WINBOOL
+declare function CreateScalableFontResourceW(byval fdwHidden as DWORD, byval lpszFont as LPCWSTR, byval lpszFile as LPCWSTR, byval lpszPath as LPCWSTR) as WINBOOL
+declare function CreateSolidBrush(byval color_ as COLORREF) as HBRUSH
+declare function DeleteDC(byval hdc as HDC) as WINBOOL
+declare function DeleteMetaFile(byval hmf as HMETAFILE) as WINBOOL
+declare function DeleteObject(byval ho as HGDIOBJ) as WINBOOL
+declare function DescribePixelFormat(byval hdc as HDC, byval iPixelFormat as long, byval nBytes as UINT, byval ppfd as LPPIXELFORMATDESCRIPTOR) as long
+
+type LPFNDEVMODE as function(byval as HWND, byval as HMODULE, byval as LPDEVMODE, byval as LPSTR, byval as LPSTR, byval as LPDEVMODE, byval as LPSTR, byval as UINT) as UINT
+type LPFNDEVCAPS as function(byval as LPSTR, byval as LPSTR, byval as UINT, byval as LPSTR, byval as LPDEVMODE) as DWORD
+
+#define DM_UPDATE 1
+#define DM_COPY 2
+#define DM_PROMPT 4
+#define DM_MODIFY 8
+#define DM_IN_BUFFER DM_MODIFY
+#define DM_IN_PROMPT DM_PROMPT
+#define DM_OUT_BUFFER DM_COPY
+#define DM_OUT_DEFAULT DM_UPDATE
+#define DC_FIELDS 1
+#define DC_PAPERS 2
+#define DC_PAPERSIZE 3
+#define DC_MINEXTENT 4
+#define DC_MAXEXTENT 5
+#define DC_BINS 6
+#define DC_DUPLEX 7
+#define DC_SIZE 8
+#define DC_EXTRA 9
+#define DC_VERSION 10
+#define DC_DRIVER 11
+#define DC_BINNAMES 12
+#define DC_ENUMRESOLUTIONS 13
+#define DC_FILEDEPENDENCIES 14
+#define DC_TRUETYPE 15
+#define DC_PAPERNAMES 16
+#define DC_ORIENTATION 17
+#define DC_COPIES 18
+#define DC_BINADJUST 19
+#define DC_EMF_COMPLIANT 20
+#define DC_DATATYPE_PRODUCED 21
+#define DC_COLLATE 22
+#define DC_MANUFACTURER 23
+#define DC_MODEL 24
+#define DC_PERSONALITY 25
+#define DC_PRINTRATE 26
+#define DC_PRINTRATEUNIT 27
+#define PRINTRATEUNIT_PPM 1
+#define PRINTRATEUNIT_CPS 2
+#define PRINTRATEUNIT_LPM 3
+#define PRINTRATEUNIT_IPM 4
+#define DC_PRINTERMEM 28
+#define DC_MEDIAREADY 29
+#define DC_STAPLE 30
+#define DC_PRINTRATEPPM 31
+#define DC_COLORDEVICE 32
+#define DC_NUP 33
+#define DC_MEDIATYPENAMES 34
+#define DC_MEDIATYPES 35
+#define DCTT_BITMAP __MSABI_LONG(&h0000001)
+#define DCTT_DOWNLOAD __MSABI_LONG(&h0000002)
+#define DCTT_SUBDEV __MSABI_LONG(&h0000004)
+#define DCTT_DOWNLOAD_OUTLINE __MSABI_LONG(&h0000008)
+#define DCBA_FACEUPNONE &h0000
+#define DCBA_FACEUPCENTER &h0001
+#define DCBA_FACEUPLEFT &h0002
+#define DCBA_FACEUPRIGHT &h0003
+#define DCBA_FACEDOWNNONE &h0100
+#define DCBA_FACEDOWNCENTER &h0101
+#define DCBA_FACEDOWNLEFT &h0102
+#define DCBA_FACEDOWNRIGHT &h0103
+#define DeviceCapabilities __MINGW_NAME_AW(DeviceCapabilities)
+#define EnumFontFamiliesEx __MINGW_NAME_AW(EnumFontFamiliesEx)
+#define EnumFontFamilies __MINGW_NAME_AW(EnumFontFamilies)
+#define EnumFonts __MINGW_NAME_AW(EnumFonts)
+#define GetCharWidth __MINGW_NAME_AW(GetCharWidth)
+#define GetCharWidth32 __MINGW_NAME_AW(GetCharWidth32)
+#define GetCharWidthFloat __MINGW_NAME_AW(GetCharWidthFloat)
+#define GetCharABCWidths __MINGW_NAME_AW(GetCharABCWidths)
+#define GetCharABCWidthsFloat __MINGW_NAME_AW(GetCharABCWidthsFloat)
+#define GetGlyphOutline __MINGW_NAME_AW(GetGlyphOutline)
+#define GetMetaFile __MINGW_NAME_AW(GetMetaFile)
+
+declare function DeviceCapabilitiesA(byval pDevice as LPCSTR, byval pPort as LPCSTR, byval fwCapability as WORD, byval pOutput as LPSTR, byval pDevMode as const DEVMODEA ptr) as long
+declare function DeviceCapabilitiesW(byval pDevice as LPCWSTR, byval pPort as LPCWSTR, byval fwCapability as WORD, byval pOutput as LPWSTR, byval pDevMode as const DEVMODEW ptr) as long
+declare function DrawEscape(byval hdc as HDC, byval iEscape as long, byval cjIn as long, byval lpIn as LPCSTR) as long
+declare function Ellipse(byval hdc as HDC, byval left_ as long, byval top as long, byval right_ as long, byval bottom as long) as WINBOOL
+declare function EnumFontFamiliesExA(byval hdc as HDC, byval lpLogfont as LPLOGFONTA, byval lpProc as FONTENUMPROCA, byval lParam as LPARAM, byval dwFlags as DWORD) as long
+declare function EnumFontFamiliesExW(byval hdc as HDC, byval lpLogfont as LPLOGFONTW, byval lpProc as FONTENUMPROCW, byval lParam as LPARAM, byval dwFlags as DWORD) as long
+declare function EnumFontFamiliesA(byval hdc as HDC, byval lpLogfont as LPCSTR, byval lpProc as FONTENUMPROCA, byval lParam as LPARAM) as long
+declare function EnumFontFamiliesW(byval hdc as HDC, byval lpLogfont as LPCWSTR, byval lpProc as FONTENUMPROCW, byval lParam as LPARAM) as long
+declare function EnumFontsA(byval hdc as HDC, byval lpLogfont as LPCSTR, byval lpProc as FONTENUMPROCA, byval lParam as LPARAM) as long
+declare function EnumFontsW(byval hdc as HDC, byval lpLogfont as LPCWSTR, byval lpProc as FONTENUMPROCW, byval lParam as LPARAM) as long
+declare function EnumObjects(byval hdc as HDC, byval nType as long, byval lpFunc as GOBJENUMPROC, byval lParam as LPARAM) as long
+declare function EqualRgn(byval hrgn1 as HRGN, byval hrgn2 as HRGN) as WINBOOL
+declare function Escape(byval hdc as HDC, byval iEscape as long, byval cjIn as long, byval pvIn as LPCSTR, byval pvOut as LPVOID) as long
+declare function ExtEscape(byval hdc as HDC, byval iEscape as long, byval cjInput as long, byval lpInData as LPCSTR, byval cjOutput as long, byval lpOutData as LPSTR) as long
+declare function ExcludeClipRect(byval hdc as HDC, byval left_ as long, byval top as long, byval right_ as long, byval bottom as long) as long
+declare function ExtCreateRegion(byval lpx as const XFORM ptr, byval nCount as DWORD, byval lpData as const RGNDATA ptr) as HRGN
+declare function ExtFloodFill(byval hdc as HDC, byval x as long, byval y as long, byval color_ as COLORREF, byval type_ as UINT) as WINBOOL
+declare function FillRgn(byval hdc as HDC, byval hrgn as HRGN, byval hbr as HBRUSH) as WINBOOL
+declare function FloodFill(byval hdc as HDC, byval x as long, byval y as long, byval color_ as COLORREF) as WINBOOL
+declare function FrameRgn(byval hdc as HDC, byval hrgn as HRGN, byval hbr as HBRUSH, byval w as long, byval h as long) as WINBOOL
+declare function GetROP2(byval hdc as HDC) as long
+declare function GetAspectRatioFilterEx(byval hdc as HDC, byval lpsize as LPSIZE) as WINBOOL
+declare function GetBkColor(byval hdc as HDC) as COLORREF
+declare function GetDCBrushColor(byval hdc as HDC) as COLORREF
+declare function GetDCPenColor(byval hdc as HDC) as COLORREF
+declare function GetBkMode(byval hdc as HDC) as long
+declare function GetBitmapBits(byval hbit as HBITMAP, byval cb as LONG_, byval lpvBits as LPVOID) as LONG_
+declare function GetBitmapDimensionEx(byval hbit as HBITMAP, byval lpsize as LPSIZE) as WINBOOL
+declare function GetBoundsRect(byval hdc as HDC, byval lprect as LPRECT, byval flags as UINT) as UINT
+declare function GetBrushOrgEx(byval hdc as HDC, byval lppt as LPPOINT) as WINBOOL
+declare function GetCharWidthA(byval hdc as HDC, byval iFirst as UINT, byval iLast as UINT, byval lpBuffer as LPINT) as WINBOOL
+declare function GetCharWidthW(byval hdc as HDC, byval iFirst as UINT, byval iLast as UINT, byval lpBuffer as LPINT) as WINBOOL
+declare function GetCharWidth32A(byval hdc as HDC, byval iFirst as UINT, byval iLast as UINT, byval lpBuffer as LPINT) as WINBOOL
+declare function GetCharWidth32W(byval hdc as HDC, byval iFirst as UINT, byval iLast as UINT, byval lpBuffer as LPINT) as WINBOOL
+declare function GetCharWidthFloatA(byval hdc as HDC, byval iFirst as UINT, byval iLast as UINT, byval lpBuffer as PFLOAT) as WINBOOL
+declare function GetCharWidthFloatW(byval hdc as HDC, byval iFirst as UINT, byval iLast as UINT, byval lpBuffer as PFLOAT) as WINBOOL
+declare function GetCharABCWidthsA(byval hdc as HDC, byval wFirst as UINT, byval wLast as UINT, byval lpABC as LPABC) as WINBOOL
+declare function GetCharABCWidthsW(byval hdc as HDC, byval wFirst as UINT, byval wLast as UINT, byval lpABC as LPABC) as WINBOOL
+declare function GetCharABCWidthsFloatA(byval hdc as HDC, byval iFirst as UINT, byval iLast as UINT, byval lpABC as LPABCFLOAT) as WINBOOL
+declare function GetCharABCWidthsFloatW(byval hdc as HDC, byval iFirst as UINT, byval iLast as UINT, byval lpABC as LPABCFLOAT) as WINBOOL
+declare function GetClipBox(byval hdc as HDC, byval lprect as LPRECT) as long
+declare function GetClipRgn(byval hdc as HDC, byval hrgn as HRGN) as long
+declare function GetMetaRgn(byval hdc as HDC, byval hrgn as HRGN) as long
+declare function GetCurrentObject(byval hdc as HDC, byval type_ as UINT) as HGDIOBJ
+declare function GetCurrentPositionEx(byval hdc as HDC, byval lppt as LPPOINT) as WINBOOL
+declare function GetDeviceCaps(byval hdc as HDC, byval index as long) as long
+declare function GetDIBits(byval hdc as HDC, byval hbm as HBITMAP, byval start as UINT, byval cLines as UINT, byval lpvBits as LPVOID, byval lpbmi as LPBITMAPINFO, byval usage as UINT) as long
+declare function GetFontData(byval hdc as HDC, byval dwTable as DWORD, byval dwOffset as DWORD, byval pvBuffer as PVOID, byval cjBuffer as DWORD) as DWORD
+declare function GetGlyphOutlineA(byval hdc as HDC, byval uChar as UINT, byval fuFormat as UINT, byval lpgm as LPGLYPHMETRICS, byval cjBuffer as DWORD, byval pvBuffer as LPVOID, byval lpmat2 as const MAT2 ptr) as DWORD
+declare function GetGlyphOutlineW(byval hdc as HDC, byval uChar as UINT, byval fuFormat as UINT, byval lpgm as LPGLYPHMETRICS, byval cjBuffer as DWORD, byval pvBuffer as LPVOID, byval lpmat2 as const MAT2 ptr) as DWORD
+declare function GetGraphicsMode(byval hdc as HDC) as long
+declare function GetMapMode(byval hdc as HDC) as long
+declare function GetMetaFileBitsEx(byval hMF as HMETAFILE, byval cbBuffer as UINT, byval lpData as LPVOID) as UINT
+declare function GetMetaFileA(byval lpName as LPCSTR) as HMETAFILE
+declare function GetMetaFileW(byval lpName as LPCWSTR) as HMETAFILE
+declare function GetNearestColor(byval hdc as HDC, byval color_ as COLORREF) as COLORREF
+declare function GetNearestPaletteIndex(byval h as HPALETTE, byval color_ as COLORREF) as UINT
+declare function GetObjectType(byval h as HGDIOBJ) as DWORD
+
+#define GetOutlineTextMetrics __MINGW_NAME_AW(GetOutlineTextMetrics)
+
+declare function GetOutlineTextMetricsA(byval hdc as HDC, byval cjCopy as UINT, byval potm as LPOUTLINETEXTMETRICA) as UINT
+declare function GetOutlineTextMetricsW(byval hdc as HDC, byval cjCopy as UINT, byval potm as LPOUTLINETEXTMETRICW) as UINT
+
+#define GetTextExtentPoint __MINGW_NAME_AW(GetTextExtentPoint)
+#define GetTextExtentPoint32 __MINGW_NAME_AW(GetTextExtentPoint32)
+#define GetTextExtentExPoint __MINGW_NAME_AW(GetTextExtentExPoint)
+#define GetCharacterPlacement __MINGW_NAME_AW(GetCharacterPlacement)
+
+declare function GetPaletteEntries(byval hpal as HPALETTE, byval iStart as UINT, byval cEntries as UINT, byval pPalEntries as LPPALETTEENTRY) as UINT
+declare function GetPixel(byval hdc as HDC, byval x as long, byval y as long) as COLORREF
+declare function GetPixelFormat(byval hdc as HDC) as long
+declare function GetPolyFillMode(byval hdc as HDC) as long
+declare function GetRasterizerCaps(byval lpraststat as LPRASTERIZER_STATUS, byval cjBytes as UINT) as WINBOOL
+declare function GetRandomRgn(byval hdc as HDC, byval hrgn as HRGN, byval i as INT_) as long
+declare function GetRegionData(byval hrgn as HRGN, byval nCount as DWORD, byval lpRgnData as LPRGNDATA) as DWORD
+declare function GetRgnBox(byval hrgn as HRGN, byval lprc as LPRECT) as long
+declare function GetStockObject(byval i as long) as HGDIOBJ
+declare function GetStretchBltMode(byval hdc as HDC) as long
+declare function GetSystemPaletteEntries(byval hdc as HDC, byval iStart as UINT, byval cEntries as UINT, byval pPalEntries as LPPALETTEENTRY) as UINT
+declare function GetSystemPaletteUse(byval hdc as HDC) as UINT
+declare function GetTextCharacterExtra(byval hdc as HDC) as long
+declare function GetTextAlign(byval hdc as HDC) as UINT
+declare function GetTextColor(byval hdc as HDC) as COLORREF
+declare function GetTextExtentPointA(byval hdc as HDC, byval lpString as LPCSTR, byval c as long, byval lpsz as LPSIZE) as WINBOOL
+declare function GetTextExtentPointW(byval hdc as HDC, byval lpString as LPCWSTR, byval c as long, byval lpsz as LPSIZE) as WINBOOL
+declare function GetTextExtentPoint32A(byval hdc as HDC, byval lpString as LPCSTR, byval c as long, byval psizl as LPSIZE) as WINBOOL
+declare function GetTextExtentPoint32W(byval hdc as HDC, byval lpString as LPCWSTR, byval c as long, byval psizl as LPSIZE) as WINBOOL
+declare function GetTextExtentExPointA(byval hdc as HDC, byval lpszString as LPCSTR, byval cchString as long, byval nMaxExtent as long, byval lpnFit as LPINT, byval lpnDx as LPINT, byval lpSize as LPSIZE) as WINBOOL
+declare function GetTextExtentExPointW(byval hdc as HDC, byval lpszString as LPCWSTR, byval cchString as long, byval nMaxExtent as long, byval lpnFit as LPINT, byval lpnDx as LPINT, byval lpSize as LPSIZE) as WINBOOL
+declare function GetTextCharset(byval hdc as HDC) as long
+declare function GetTextCharsetInfo(byval hdc as HDC, byval lpSig as LPFONTSIGNATURE, byval dwFlags as DWORD) as long
+declare function TranslateCharsetInfo(byval lpSrc as DWORD ptr, byval lpCs as LPCHARSETINFO, byval dwFlags as DWORD) as WINBOOL
+declare function GetFontLanguageInfo(byval hdc as HDC) as DWORD
+declare function GetCharacterPlacementA(byval hdc as HDC, byval lpString as LPCSTR, byval nCount as long, byval nMexExtent as long, byval lpResults as LPGCP_RESULTSA, byval dwFlags as DWORD) as DWORD
+declare function GetCharacterPlacementW(byval hdc as HDC, byval lpString as LPCWSTR, byval nCount as long, byval nMexExtent as long, byval lpResults as LPGCP_RESULTSW, byval dwFlags as DWORD) as DWORD
+
+type tagWCRANGE
+	wcLow as WCHAR
+	cGlyphs as USHORT_
+end type
+
+type WCRANGE as tagWCRANGE
+type PWCRANGE as tagWCRANGE ptr
+type LPWCRANGE as tagWCRANGE ptr
+
+type tagGLYPHSET
+	cbThis as DWORD
+	flAccel as DWORD
+	cGlyphsSupported as DWORD
+	cRanges as DWORD
+	ranges(0 to 0) as WCRANGE
+end type
+
+type GLYPHSET as tagGLYPHSET
+type PGLYPHSET as tagGLYPHSET ptr
+type LPGLYPHSET as tagGLYPHSET ptr
+
+#define GS_8BIT_INDICES &h00000001
+#define GGI_MARK_NONEXISTING_GLYPHS &h0001
+#define GetGlyphIndices __MINGW_NAME_AW(GetGlyphIndices)
+
+declare function GetFontUnicodeRanges(byval hdc as HDC, byval lpgs as LPGLYPHSET) as DWORD
+declare function GetGlyphIndicesA(byval hdc as HDC, byval lpstr as LPCSTR, byval c as long, byval pgi as LPWORD, byval fl as DWORD) as DWORD
+declare function GetGlyphIndicesW(byval hdc as HDC, byval lpstr as LPCWSTR, byval c as long, byval pgi as LPWORD, byval fl as DWORD) as DWORD
+declare function GetTextExtentPointI(byval hdc as HDC, byval pgiIn as LPWORD, byval cgi as long, byval psize as LPSIZE) as WINBOOL
+declare function GetTextExtentExPointI(byval hdc as HDC, byval lpwszString as LPWORD, byval cwchString as long, byval nMaxExtent as long, byval lpnFit as LPINT, byval lpnDx as LPINT, byval lpSize as LPSIZE) as WINBOOL
+declare function GetCharWidthI(byval hdc as HDC, byval giFirst as UINT, byval cgi as UINT, byval pgi as LPWORD, byval piWidths as LPINT) as WINBOOL
+declare function GetCharABCWidthsI(byval hdc as HDC, byval giFirst as UINT, byval cgi as UINT, byval pgi as LPWORD, byval pabc as LPABC) as WINBOOL
+
+#define STAMP_DESIGNVECTOR ((&h8000000 + asc("d")) + (asc("v") shl 8))
+#define STAMP_AXESLIST ((&h8000000 + asc("a")) + (asc("l") shl 8))
+#define MM_MAX_NUMAXES 16
+
+type tagDESIGNVECTOR
+	dvReserved as DWORD
+	dvNumAxes as DWORD
+	dvValues(0 to 15) as LONG_
+end type
+
+type DESIGNVECTOR as tagDESIGNVECTOR
+type PDESIGNVECTOR as tagDESIGNVECTOR ptr
+type LPDESIGNVECTOR as tagDESIGNVECTOR ptr
+
+#define AddFontResourceEx __MINGW_NAME_AW(AddFontResourceEx)
+#define RemoveFontResourceEx __MINGW_NAME_AW(RemoveFontResourceEx)
+
+declare function AddFontResourceExA(byval name_ as LPCSTR, byval fl as DWORD, byval res as PVOID) as long
+declare function AddFontResourceExW(byval name_ as LPCWSTR, byval fl as DWORD, byval res as PVOID) as long
+declare function RemoveFontResourceExA(byval name_ as LPCSTR, byval fl as DWORD, byval pdv as PVOID) as WINBOOL
+declare function RemoveFontResourceExW(byval name_ as LPCWSTR, byval fl as DWORD, byval pdv as PVOID) as WINBOOL
+declare function AddFontMemResourceEx(byval pFileView as PVOID, byval cjSize as DWORD, byval pvResrved as PVOID, byval pNumFonts as DWORD ptr) as HANDLE
+declare function RemoveFontMemResourceEx(byval h as HANDLE) as WINBOOL
+
+#define FR_PRIVATE &h10
+#define FR_NOT_ENUM &h20
+#define MM_MAX_AXES_NAMELEN 16
+
+type tagAXISINFOA
+	axMinValue as LONG_
+	axMaxValue as LONG_
+	axAxisName(0 to 15) as BYTE_
+end type
+
+type AXISINFOA as tagAXISINFOA
+type PAXISINFOA as tagAXISINFOA ptr
+type LPAXISINFOA as tagAXISINFOA ptr
+
+type tagAXISINFOW
+	axMinValue as LONG_
+	axMaxValue as LONG_
+	axAxisName(0 to 15) as WCHAR
+end type
+
+type AXISINFOW as tagAXISINFOW
+type PAXISINFOW as tagAXISINFOW ptr
+type LPAXISINFOW as tagAXISINFOW ptr
+
+#ifdef UNICODE
+	type AXISINFO as AXISINFOW
+	type PAXISINFO as PAXISINFOW
+	type LPAXISINFO as LPAXISINFOW
+#else
+	type AXISINFO as AXISINFOA
+	type PAXISINFO as PAXISINFOA
+	type LPAXISINFO as LPAXISINFOA
+#endif
+
+type tagAXESLISTA
+	axlReserved as DWORD
+	axlNumAxes as DWORD
+	axlAxisInfo(0 to 15) as AXISINFOA
+end type
+
+type AXESLISTA as tagAXESLISTA
+type PAXESLISTA as tagAXESLISTA ptr
+type LPAXESLISTA as tagAXESLISTA ptr
+
+type tagAXESLISTW
+	axlReserved as DWORD
+	axlNumAxes as DWORD
+	axlAxisInfo(0 to 15) as AXISINFOW
+end type
+
+type AXESLISTW as tagAXESLISTW
+type PAXESLISTW as tagAXESLISTW ptr
+type LPAXESLISTW as tagAXESLISTW ptr
+
+#ifdef UNICODE
+	type AXESLIST as AXESLISTW
+	type PAXESLIST as PAXESLISTW
+	type LPAXESLIST as LPAXESLISTW
+#else
+	type AXESLIST as AXESLISTA
+	type PAXESLIST as PAXESLISTA
+	type LPAXESLIST as LPAXESLISTA
+#endif
+
+type tagENUMLOGFONTEXDVA
+	elfEnumLogfontEx as ENUMLOGFONTEXA
+	elfDesignVector as DESIGNVECTOR
+end type
+
+type ENUMLOGFONTEXDVA as tagENUMLOGFONTEXDVA
+type PENUMLOGFONTEXDVA as tagENUMLOGFONTEXDVA ptr
+type LPENUMLOGFONTEXDVA as tagENUMLOGFONTEXDVA ptr
+
+type tagENUMLOGFONTEXDVW
+	elfEnumLogfontEx as ENUMLOGFONTEXW
+	elfDesignVector as DESIGNVECTOR
+end type
+
+type ENUMLOGFONTEXDVW as tagENUMLOGFONTEXDVW
+type PENUMLOGFONTEXDVW as tagENUMLOGFONTEXDVW ptr
+type LPENUMLOGFONTEXDVW as tagENUMLOGFONTEXDVW ptr
+
+#ifdef UNICODE
+	type ENUMLOGFONTEXDV as ENUMLOGFONTEXDVW
+	type PENUMLOGFONTEXDV as PENUMLOGFONTEXDVW
+	type LPENUMLOGFONTEXDV as LPENUMLOGFONTEXDVW
+#else
+	type ENUMLOGFONTEXDV as ENUMLOGFONTEXDVA
+	type PENUMLOGFONTEXDV as PENUMLOGFONTEXDVA
+	type LPENUMLOGFONTEXDV as LPENUMLOGFONTEXDVA
+#endif
+
+#define CreateFontIndirectEx __MINGW_NAME_AW(CreateFontIndirectEx)
+
+declare function CreateFontIndirectExA(byval as const ENUMLOGFONTEXDVA ptr) as HFONT
+declare function CreateFontIndirectExW(byval as const ENUMLOGFONTEXDVW ptr) as HFONT
+
+type tagENUMTEXTMETRICA
+	etmNewTextMetricEx as NEWTEXTMETRICEXA
+	etmAxesList as AXESLISTA
+end type
+
+type ENUMTEXTMETRICA as tagENUMTEXTMETRICA
+type PENUMTEXTMETRICA as tagENUMTEXTMETRICA ptr
+type LPENUMTEXTMETRICA as tagENUMTEXTMETRICA ptr
+
+type tagENUMTEXTMETRICW
+	etmNewTextMetricEx as NEWTEXTMETRICEXW
+	etmAxesList as AXESLISTW
+end type
+
+type ENUMTEXTMETRICW as tagENUMTEXTMETRICW
+type PENUMTEXTMETRICW as tagENUMTEXTMETRICW ptr
+type LPENUMTEXTMETRICW as tagENUMTEXTMETRICW ptr
+
+#ifdef UNICODE
+	type ENUMTEXTMETRIC as ENUMTEXTMETRICW
+	type PENUMTEXTMETRIC as PENUMTEXTMETRICW
+	type LPENUMTEXTMETRIC as LPENUMTEXTMETRICW
+#else
+	type ENUMTEXTMETRIC as ENUMTEXTMETRICA
+	type PENUMTEXTMETRIC as PENUMTEXTMETRICA
+	type LPENUMTEXTMETRIC as LPENUMTEXTMETRICA
+#endif
+
+#define ResetDC __MINGW_NAME_AW(ResetDC)
+#define RemoveFontResource __MINGW_NAME_AW(RemoveFontResource)
+
+declare function GetViewportExtEx(byval hdc as HDC, byval lpsize as LPSIZE) as WINBOOL
+declare function GetViewportOrgEx(byval hdc as HDC, byval lppoint as LPPOINT) as WINBOOL
+declare function GetWindowExtEx(byval hdc as HDC, byval lpsize as LPSIZE) as WINBOOL
+declare function GetWindowOrgEx(byval hdc as HDC, byval lppoint as LPPOINT) as WINBOOL
+declare function IntersectClipRect(byval hdc as HDC, byval left_ as long, byval top as long, byval right_ as long, byval bottom as long) as long
+declare function InvertRgn(byval hdc as HDC, byval hrgn as HRGN) as WINBOOL
+declare function LineDDA(byval xStart as long, byval yStart as long, byval xEnd as long, byval yEnd as long, byval lpProc as LINEDDAPROC, byval data_ as LPARAM) as WINBOOL
+declare function LineTo(byval hdc as HDC, byval x as long, byval y as long) as WINBOOL
+declare function MaskBlt(byval hdcDest as HDC, byval xDest as long, byval yDest as long, byval width_ as long, byval height as long, byval hdcSrc as HDC, byval xSrc as long, byval ySrc as long, byval hbmMask as HBITMAP, byval xMask as long, byval yMask as long, byval rop as DWORD) as WINBOOL
+declare function PlgBlt(byval hdcDest as HDC, byval lpPoint as const POINT_ ptr, byval hdcSrc as HDC, byval xSrc as long, byval ySrc as long, byval width_ as long, byval height as long, byval hbmMask as HBITMAP, byval xMask as long, byval yMask as long) as WINBOOL
+declare function OffsetClipRgn(byval hdc as HDC, byval x as long, byval y as long) as long
+declare function OffsetRgn(byval hrgn as HRGN, byval x as long, byval y as long) as long
+declare function PatBlt(byval hdc as HDC, byval x as long, byval y as long, byval w as long, byval h as long, byval rop as DWORD) as WINBOOL
+declare function Pie(byval hdc as HDC, byval left_ as long, byval top as long, byval right_ as long, byval bottom as long, byval xr1 as long, byval yr1 as long, byval xr2 as long, byval yr2 as long) as WINBOOL
+declare function PlayMetaFile(byval hdc as HDC, byval hmf as HMETAFILE) as WINBOOL
+declare function PaintRgn(byval hdc as HDC, byval hrgn as HRGN) as WINBOOL
+declare function PolyPolygon(byval hdc as HDC, byval apt as const POINT_ ptr, byval asz as const INT_ ptr, byval csz as long) as WINBOOL
+declare function PtInRegion(byval hrgn as HRGN, byval x as long, byval y as long) as WINBOOL
+declare function PtVisible(byval hdc as HDC, byval x as long, byval y as long) as WINBOOL
+declare function RectInRegion(byval hrgn as HRGN, byval lprect as const RECT ptr) as WINBOOL
+declare function RectVisible(byval hdc as HDC, byval lprect as const RECT ptr) as WINBOOL
+declare function Rectangle(byval hdc as HDC, byval left_ as long, byval top as long, byval right_ as long, byval bottom as long) as WINBOOL
+declare function RestoreDC(byval hdc as HDC, byval nSavedDC as long) as WINBOOL
+declare function ResetDCA(byval hdc as HDC, byval lpdm as const DEVMODEA ptr) as HDC
+declare function ResetDCW(byval hdc as HDC, byval lpdm as const DEVMODEW ptr) as HDC
+declare function RealizePalette(byval hdc as HDC) as UINT
+declare function RemoveFontResourceA(byval lpFileName as LPCSTR) as WINBOOL
+declare function RemoveFontResourceW(byval lpFileName as LPCWSTR) as WINBOOL
+declare function RoundRect(byval hdc as HDC, byval left_ as long, byval top as long, byval right_ as long, byval bottom as long, byval width_ as long, byval height as long) as WINBOOL
+declare function ResizePalette(byval hpal as HPALETTE, byval n as UINT) as WINBOOL
+declare function SaveDC(byval hdc as HDC) as long
+declare function SelectClipRgn(byval hdc as HDC, byval hrgn as HRGN) as long
+declare function ExtSelectClipRgn(byval hdc as HDC, byval hrgn as HRGN, byval mode as long) as long
+declare function SetMetaRgn(byval hdc as HDC) as long
+declare function SelectObject(byval hdc as HDC, byval h as HGDIOBJ) as HGDIOBJ
+declare function SelectPalette(byval hdc as HDC, byval hPal as HPALETTE, byval bForceBkgd as WINBOOL) as HPALETTE
+declare function SetBkColor(byval hdc as HDC, byval color_ as COLORREF) as COLORREF
+declare function SetDCBrushColor(byval hdc as HDC, byval color_ as COLORREF) as COLORREF
+declare function SetDCPenColor(byval hdc as HDC, byval color_ as COLORREF) as COLORREF
+declare function SetBkMode(byval hdc as HDC, byval mode as long) as long
+declare function SetBitmapBits(byval hbm as HBITMAP, byval cb as DWORD, byval pvBits as const any ptr) as LONG_
+declare function SetBoundsRect(byval hdc as HDC, byval lprect as const RECT ptr, byval flags as UINT) as UINT
+declare function SetDIBits(byval hdc as HDC, byval hbm as HBITMAP, byval start as UINT, byval cLines as UINT, byval lpBits as const any ptr, byval lpbmi as const BITMAPINFO ptr, byval ColorUse as UINT) as long
+declare function SetDIBitsToDevice(byval hdc as HDC, byval xDest as long, byval yDest as long, byval w as DWORD, byval h as DWORD, byval xSrc as long, byval ySrc as long, byval StartScan as UINT, byval cLines as UINT, byval lpvBits as const any ptr, byval lpbmi as const BITMAPINFO ptr, byval ColorUse as UINT) as long
+declare function SetMapperFlags(byval hdc as HDC, byval flags as DWORD) as DWORD
+declare function SetGraphicsMode(byval hdc as HDC, byval iMode as long) as long
+declare function SetMapMode(byval hdc as HDC, byval iMode as long) as long
+declare function SetLayout(byval hdc as HDC, byval l as DWORD) as DWORD
+declare function GetLayout(byval hdc as HDC) as DWORD
+declare function SetMetaFileBitsEx(byval cbBuffer as UINT, byval lpData as const BYTE_ ptr) as HMETAFILE
+declare function SetPaletteEntries(byval hpal as HPALETTE, byval iStart as UINT, byval cEntries as UINT, byval pPalEntries as const PALETTEENTRY ptr) as UINT
+declare function SetPixel(byval hdc as HDC, byval x as long, byval y as long, byval color_ as COLORREF) as COLORREF
+declare function SetPixelV(byval hdc as HDC, byval x as long, byval y as long, byval color_ as COLORREF) as WINBOOL
+declare function SetPixelFormat(byval hdc as HDC, byval format as long, byval ppfd as const PIXELFORMATDESCRIPTOR ptr) as WINBOOL
+declare function SetPolyFillMode(byval hdc as HDC, byval mode as long) as long
+declare function StretchBlt(byval hdcDest as HDC, byval xDest as long, byval yDest as long, byval wDest as long, byval hDest as long, byval hdcSrc as HDC, byval xSrc as long, byval ySrc as long, byval wSrc as long, byval hSrc as long, byval rop as DWORD) as WINBOOL
+declare function SetRectRgn(byval hrgn as HRGN, byval left_ as long, byval top as long, byval right_ as long, byval bottom as long) as WINBOOL
+declare function StretchDIBits(byval hdc as HDC, byval xDest as long, byval yDest as long, byval DestWidth as long, byval DestHeight as long, byval xSrc as long, byval ySrc as long, byval SrcWidth as long, byval SrcHeight as long, byval lpBits as const any ptr, byval lpbmi as const BITMAPINFO ptr, byval iUsage as UINT, byval rop as DWORD) as long
+declare function SetROP2(byval hdc as HDC, byval rop2 as long) as long
+declare function SetStretchBltMode(byval hdc as HDC, byval mode as long) as long
+declare function SetSystemPaletteUse(byval hdc as HDC, byval use as UINT) as UINT
+declare function SetTextCharacterExtra(byval hdc as HDC, byval extra as long) as long
+declare function SetTextColor(byval hdc as HDC, byval color_ as COLORREF) as COLORREF
+declare function SetTextAlign(byval hdc as HDC, byval align as UINT) as UINT
+declare function SetTextJustification(byval hdc as HDC, byval extra as long, byval count as long) as WINBOOL
+declare function UpdateColors(byval hdc as HDC) as WINBOOL
+
+type COLOR16 as USHORT_
+
+type _TRIVERTEX
+	x as LONG_
+	y as LONG_
+	Red as COLOR16
+	Green as COLOR16
+	Blue as COLOR16
+	Alpha as COLOR16
+end type
+
+type TRIVERTEX as _TRIVERTEX
+type PTRIVERTEX as _TRIVERTEX ptr
+type LPTRIVERTEX as _TRIVERTEX ptr
+
+type _GRADIENT_TRIANGLE
+	Vertex1 as ULONG_
+	Vertex2 as ULONG_
+	Vertex3 as ULONG_
+end type
+
+type GRADIENT_TRIANGLE as _GRADIENT_TRIANGLE
+type PGRADIENT_TRIANGLE as _GRADIENT_TRIANGLE ptr
+type LPGRADIENT_TRIANGLE as _GRADIENT_TRIANGLE ptr
+
+type _GRADIENT_RECT
+	UpperLeft as ULONG_
+	LowerRight as ULONG_
+end type
+
+type GRADIENT_RECT as _GRADIENT_RECT
+type PGRADIENT_RECT as _GRADIENT_RECT ptr
+type LPGRADIENT_RECT as _GRADIENT_RECT ptr
+
+type _BLENDFUNCTION
+	BlendOp as BYTE_
+	BlendFlags as BYTE_
+	SourceConstantAlpha as BYTE_
+	AlphaFormat as BYTE_
+end type
+
+type BLENDFUNCTION as _BLENDFUNCTION
+type PBLENDFUNCTION as _BLENDFUNCTION ptr
+
+#define AC_SRC_OVER &h00
+#define AC_SRC_ALPHA &h01
+
+declare function AlphaBlend(byval hdcDest as HDC, byval xoriginDest as long, byval yoriginDest as long, byval wDest as long, byval hDest as long, byval hdcSrc as HDC, byval xoriginSrc as long, byval yoriginSrc as long, byval wSrc as long, byval hSrc as long, byval ftn as BLENDFUNCTION) as WINBOOL
+declare function GdiAlphaBlend(byval hdcDest as HDC, byval xoriginDest as long, byval yoriginDest as long, byval wDest as long, byval hDest as long, byval hdcSrc as HDC, byval xoriginSrc as long, byval yoriginSrc as long, byval wSrc as long, byval hSrc as long, byval ftn as BLENDFUNCTION) as WINBOOL
+declare function TransparentBlt(byval hdcDest as HDC, byval xoriginDest as long, byval yoriginDest as long, byval wDest as long, byval hDest as long, byval hdcSrc as HDC, byval xoriginSrc as long, byval yoriginSrc as long, byval wSrc as long, byval hSrc as long, byval crTransparent as UINT) as WINBOOL
+declare function GdiTransparentBlt(byval hdcDest as HDC, byval xoriginDest as long, byval yoriginDest as long, byval wDest as long, byval hDest as long, byval hdcSrc as HDC, byval xoriginSrc as long, byval yoriginSrc as long, byval wSrc as long, byval hSrc as long, byval crTransparent as UINT) as WINBOOL
+
+#define GRADIENT_FILL_RECT_H &h00000000
+#define GRADIENT_FILL_RECT_V &h00000001
+#define GRADIENT_FILL_TRIANGLE &h00000002
+#define GRADIENT_FILL_OP_FLAG &h000000ff
+
+declare function GradientFill(byval hdc as HDC, byval pVertex as PTRIVERTEX, byval nVertex as ULONG_, byval pMesh as PVOID, byval nMesh as ULONG_, byval ulMode as ULONG_) as WINBOOL
+declare function GdiGradientFill(byval hdc as HDC, byval pVertex as PTRIVERTEX, byval nVertex as ULONG_, byval pMesh as PVOID, byval nMesh as ULONG_, byval ulMode as ULONG_) as WINBOOL
+
+#define CopyEnhMetaFile __MINGW_NAME_AW(CopyEnhMetaFile)
+#define CreateEnhMetaFile __MINGW_NAME_AW(CreateEnhMetaFile)
+#define GetEnhMetaFile __MINGW_NAME_AW(GetEnhMetaFile)
+#define GetEnhMetaFileDescription __MINGW_NAME_AW(GetEnhMetaFileDescription)
+
+declare function PlayMetaFileRecord(byval hdc as HDC, byval lpHandleTable as LPHANDLETABLE, byval lpMR as LPMETARECORD, byval noObjs as UINT) as WINBOOL
+
+type MFENUMPROC as function(byval hdc as HDC, byval lpht as HANDLETABLE ptr, byval lpMR as METARECORD ptr, byval nObj as long, byval lParam as LPARAM) as long
+
+declare function EnumMetaFile(byval hdc as HDC, byval hmf as HMETAFILE, byval lpProc as MFENUMPROC, byval lParam as LPARAM) as WINBOOL
+
+type ENHMFENUMPROC as function(byval hdc as HDC, byval lpht as HANDLETABLE ptr, byval lpmr as const ENHMETARECORD ptr, byval hHandles as long, byval data_ as LPARAM) as long
+
+declare function CloseEnhMetaFile(byval hdc as HDC) as HENHMETAFILE
+declare function CopyEnhMetaFileA(byval hEnh as HENHMETAFILE, byval lpFileName as LPCSTR) as HENHMETAFILE
+declare function CopyEnhMetaFileW(byval hEnh as HENHMETAFILE, byval lpFileName as LPCWSTR) as HENHMETAFILE
+declare function CreateEnhMetaFileA(byval hdc as HDC, byval lpFilename as LPCSTR, byval lprc as const RECT ptr, byval lpDesc as LPCSTR) as HDC
+declare function CreateEnhMetaFileW(byval hdc as HDC, byval lpFilename as LPCWSTR, byval lprc as const RECT ptr, byval lpDesc as LPCWSTR) as HDC
+declare function DeleteEnhMetaFile(byval hmf as HENHMETAFILE) as WINBOOL
+declare function EnumEnhMetaFile(byval hdc as HDC, byval hmf as HENHMETAFILE, byval lpProc as ENHMFENUMPROC, byval lpParam as LPVOID, byval lpRect as const RECT ptr) as WINBOOL
+declare function GetEnhMetaFileA(byval lpName as LPCSTR) as HENHMETAFILE
+declare function GetEnhMetaFileW(byval lpName as LPCWSTR) as HENHMETAFILE
+declare function GetEnhMetaFileBits(byval hEMF as HENHMETAFILE, byval nSize as UINT, byval lpData as LPBYTE) as UINT
+declare function GetEnhMetaFileDescriptionA(byval hemf as HENHMETAFILE, byval cchBuffer as UINT, byval lpDescription as LPSTR) as UINT
+declare function GetEnhMetaFileDescriptionW(byval hemf as HENHMETAFILE, byval cchBuffer as UINT, byval lpDescription as LPWSTR) as UINT
+declare function GetEnhMetaFileHeader(byval hemf as HENHMETAFILE, byval nSize as UINT, byval lpEnhMetaHeader as LPENHMETAHEADER) as UINT
+declare function GetEnhMetaFilePaletteEntries(byval hemf as HENHMETAFILE, byval nNumEntries as UINT, byval lpPaletteEntries as LPPALETTEENTRY) as UINT
+declare function GetEnhMetaFilePixelFormat(byval hemf as HENHMETAFILE, byval cbBuffer as UINT, byval ppfd as PIXELFORMATDESCRIPTOR ptr) as UINT
+declare function GetWinMetaFileBits(byval hemf as HENHMETAFILE, byval cbData16 as UINT, byval pData16 as LPBYTE, byval iMapMode as INT_, byval hdcRef as HDC) as UINT
+declare function PlayEnhMetaFile(byval hdc as HDC, byval hmf as HENHMETAFILE, byval lprect as const RECT ptr) as WINBOOL
+declare function PlayEnhMetaFileRecord(byval hdc as HDC, byval pht as LPHANDLETABLE, byval pmr as const ENHMETARECORD ptr, byval cht as UINT) as WINBOOL
+declare function SetEnhMetaFileBits(byval nSize as UINT, byval pb as const BYTE_ ptr) as HENHMETAFILE
+declare function SetWinMetaFileBits(byval nSize as UINT, byval lpMeta16Data as const BYTE_ ptr, byval hdcRef as HDC, byval lpMFP as const METAFILEPICT ptr) as HENHMETAFILE
+declare function GdiComment(byval hdc as HDC, byval nSize as UINT, byval lpData as const BYTE_ ptr) as WINBOOL
+
+#define GetTextMetrics __MINGW_NAME_AW(GetTextMetrics)
+
+declare function GetTextMetricsA(byval hdc as HDC, byval lptm as LPTEXTMETRICA) as WINBOOL
+declare function GetTextMetricsW(byval hdc as HDC, byval lptm as LPTEXTMETRICW) as WINBOOL
+
+type tagDIBSECTION
+	dsBm as BITMAP
+	dsBmih as BITMAPINFOHEADER
+	dsBitfields(0 to 2) as DWORD
+	dshSection as HANDLE
+	dsOffset as DWORD
+end type
+
+type DIBSECTION as tagDIBSECTION
+type LPDIBSECTION as tagDIBSECTION ptr
+type PDIBSECTION as tagDIBSECTION ptr
+
+declare function AngleArc(byval hdc as HDC, byval x as long, byval y as long, byval r as DWORD, byval StartAngle as FLOAT, byval SweepAngle as FLOAT) as WINBOOL
+declare function PolyPolyline(byval hdc as HDC, byval apt as const POINT_ ptr, byval asz as const DWORD ptr, byval csz as DWORD) as WINBOOL
+declare function GetWorldTransform(byval hdc as HDC, byval lpxf as LPXFORM) as WINBOOL
+declare function SetWorldTransform(byval hdc as HDC, byval lpxf as const XFORM ptr) as WINBOOL
+declare function ModifyWorldTransform(byval hdc as HDC, byval lpxf as const XFORM ptr, byval mode as DWORD) as WINBOOL
+declare function CombineTransform(byval lpxfOut as LPXFORM, byval lpxf1 as const XFORM ptr, byval lpxf2 as const XFORM ptr) as WINBOOL
+declare function CreateDIBSection(byval hdc as HDC, byval lpbmi as const BITMAPINFO ptr, byval usage as UINT, byval ppvBits as any ptr ptr, byval hSection as HANDLE, byval offset as DWORD) as HBITMAP
+declare function GetDIBColorTable(byval hdc as HDC, byval iStart as UINT, byval cEntries as UINT, byval prgbq as RGBQUAD ptr) as UINT
+declare function SetDIBColorTable(byval hdc as HDC, byval iStart as UINT, byval cEntries as UINT, byval prgbq as const RGBQUAD ptr) as UINT
+
+#define CA_NEGATIVE &h0001
+#define CA_LOG_FILTER &h0002
+#define ILLUMINANT_DEVICE_DEFAULT 0
+#define ILLUMINANT_A 1
+#define ILLUMINANT_B 2
+#define ILLUMINANT_C 3
+#define ILLUMINANT_D50 4
+#define ILLUMINANT_D55 5
+#define ILLUMINANT_D65 6
+#define ILLUMINANT_D75 7
+#define ILLUMINANT_F2 8
+#define ILLUMINANT_MAX_INDEX ILLUMINANT_F2
+#define ILLUMINANT_TUNGSTEN ILLUMINANT_A
+#define ILLUMINANT_DAYLIGHT ILLUMINANT_C
+#define ILLUMINANT_FLUORESCENT ILLUMINANT_F2
+#define ILLUMINANT_NTSC ILLUMINANT_C
+#define RGB_GAMMA_MIN cast(WORD, &o2500)
+#define RGB_GAMMA_MAX cast(WORD, 65000)
+#define REFERENCE_WHITE_MIN cast(WORD, 6000)
+#define REFERENCE_WHITE_MAX cast(WORD, 10000)
+#define REFERENCE_BLACK_MIN cast(WORD, 0)
+#define REFERENCE_BLACK_MAX cast(WORD, 4000)
+#define COLOR_ADJ_MIN cast(SHORT_, -100)
+#define COLOR_ADJ_MAX cast(SHORT_, 100)
+
+type tagCOLORADJUSTMENT
+	caSize as WORD
+	caFlags as WORD
+	caIlluminantIndex as WORD
+	caRedGamma as WORD
+	caGreenGamma as WORD
+	caBlueGamma as WORD
+	caReferenceBlack as WORD
+	caReferenceWhite as WORD
+	caContrast as SHORT_
+	caBrightness as SHORT_
+	caColorfulness as SHORT_
+	caRedGreenTint as SHORT_
+end type
+
+type COLORADJUSTMENT as tagCOLORADJUSTMENT
+type PCOLORADJUSTMENT as tagCOLORADJUSTMENT ptr
+type LPCOLORADJUSTMENT as tagCOLORADJUSTMENT ptr
+
+declare function SetColorAdjustment(byval hdc as HDC, byval lpca as const COLORADJUSTMENT ptr) as WINBOOL
+declare function GetColorAdjustment(byval hdc as HDC, byval lpca as LPCOLORADJUSTMENT) as WINBOOL
+declare function CreateHalftonePalette(byval hdc as HDC) as HPALETTE
+
+type ABORTPROC as function(byval as HDC, byval as long) as WINBOOL
+
+type _DOCINFOA
+	cbSize as long
+	lpszDocName as LPCSTR
+	lpszOutput as LPCSTR
+	lpszDatatype as LPCSTR
+	fwType as DWORD
+end type
+
+type DOCINFOA as _DOCINFOA
+type LPDOCINFOA as _DOCINFOA ptr
+
+type _DOCINFOW
+	cbSize as long
+	lpszDocName as LPCWSTR
+	lpszOutput as LPCWSTR
+	lpszDatatype as LPCWSTR
+	fwType as DWORD
+end type
+
+type DOCINFOW as _DOCINFOW
+type LPDOCINFOW as _DOCINFOW ptr
+
+#ifdef UNICODE
+	type DOCINFO as DOCINFOW
+	type LPDOCINFO as LPDOCINFOW
+#else
+	type DOCINFO as DOCINFOA
+	type LPDOCINFO as LPDOCINFOA
+#endif
+
+#define DI_APPBANDING &h00000001
+#define DI_ROPS_READ_DESTINATION &h00000002
+#define StartDoc_ __MINGW_NAME_AW(StartDoc)
+#define GetObject __MINGW_NAME_AW(GetObject)
+#define TextOut __MINGW_NAME_AW(TextOut)
+#define ExtTextOut_ __MINGW_NAME_AW(ExtTextOut)
+#define PolyTextOut __MINGW_NAME_AW(PolyTextOut)
+#define GetTextFace __MINGW_NAME_AW(GetTextFace)
+
+declare function StartDocA(byval hdc as HDC, byval lpdi as const DOCINFOA ptr) as long
+declare function StartDocW(byval hdc as HDC, byval lpdi as const DOCINFOW ptr) as long
+declare function EndDoc(byval hdc as HDC) as long
+declare function StartPage(byval hdc as HDC) as long
+declare function EndPage(byval hdc as HDC) as long
+declare function AbortDoc(byval hdc as HDC) as long
+declare function SetAbortProc(byval hdc as HDC, byval lpProc as ABORTPROC) as long
+declare function AbortPath(byval hdc as HDC) as WINBOOL
+declare function ArcTo(byval hdc as HDC, byval left_ as long, byval top as long, byval right_ as long, byval bottom as long, byval xr1 as long, byval yr1 as long, byval xr2 as long, byval yr2 as long) as WINBOOL
+declare function BeginPath(byval hdc as HDC) as WINBOOL
+declare function CloseFigure(byval hdc as HDC) as WINBOOL
+declare function EndPath(byval hdc as HDC) as WINBOOL
+declare function FillPath(byval hdc as HDC) as WINBOOL
+declare function FlattenPath(byval hdc as HDC) as WINBOOL
+declare function GetPath(byval hdc as HDC, byval apt as LPPOINT, byval aj as LPBYTE, byval cpt as long) as long
+declare function PathToRegion(byval hdc as HDC) as HRGN
+declare function PolyDraw(byval hdc as HDC, byval apt as const POINT_ ptr, byval aj as const BYTE_ ptr, byval cpt as long) as WINBOOL
+declare function SelectClipPath(byval hdc as HDC, byval mode as long) as WINBOOL
+declare function SetArcDirection(byval hdc as HDC, byval dir_ as long) as long
+declare function SetMiterLimit(byval hdc as HDC, byval limit as FLOAT, byval old as PFLOAT) as WINBOOL
+declare function StrokeAndFillPath(byval hdc as HDC) as WINBOOL
+declare function StrokePath(byval hdc as HDC) as WINBOOL
+declare function WidenPath(byval hdc as HDC) as WINBOOL
+declare function ExtCreatePen(byval iPenStyle as DWORD, byval cWidth as DWORD, byval plbrush as const LOGBRUSH ptr, byval cStyle as DWORD, byval pstyle as const DWORD ptr) as HPEN
+declare function GetMiterLimit(byval hdc as HDC, byval plimit as PFLOAT) as WINBOOL
+declare function GetArcDirection(byval hdc as HDC) as long
+declare function GetObjectA(byval h as HANDLE, byval c as long, byval pv as LPVOID) as long
+declare function GetObjectW(byval h as HANDLE, byval c as long, byval pv as LPVOID) as long
+declare function MoveToEx(byval hdc as HDC, byval x as long, byval y as long, byval lppt as LPPOINT) as WINBOOL
+declare function TextOutA(byval hdc as HDC, byval x as long, byval y as long, byval lpString as LPCSTR, byval c as long) as WINBOOL
+declare function TextOutW(byval hdc as HDC, byval x as long, byval y as long, byval lpString as LPCWSTR, byval c as long) as WINBOOL
+declare function ExtTextOutA(byval hdc as HDC, byval x as long, byval y as long, byval options as UINT, byval lprect as const RECT ptr, byval lpString as LPCSTR, byval c as UINT, byval lpDx as const INT_ ptr) as WINBOOL
+declare function ExtTextOutW(byval hdc as HDC, byval x as long, byval y as long, byval options as UINT, byval lprect as const RECT ptr, byval lpString as LPCWSTR, byval c as UINT, byval lpDx as const INT_ ptr) as WINBOOL
+declare function PolyTextOutA(byval hdc as HDC, byval ppt as const POLYTEXTA ptr, byval nstrings as long) as WINBOOL
+declare function PolyTextOutW(byval hdc as HDC, byval ppt as const POLYTEXTW ptr, byval nstrings as long) as WINBOOL
+declare function CreatePolygonRgn(byval pptl as const POINT_ ptr, byval cPoint as long, byval iMode as long) as HRGN
+declare function DPtoLP(byval hdc as HDC, byval lppt as LPPOINT, byval c as long) as WINBOOL
+declare function LPtoDP(byval hdc as HDC, byval lppt as LPPOINT, byval c as long) as WINBOOL
+declare function Polygon(byval hdc as HDC, byval apt as const POINT_ ptr, byval cpt as long) as WINBOOL
+declare function Polyline(byval hdc as HDC, byval apt as const POINT_ ptr, byval cpt as long) as WINBOOL
+declare function PolyBezier(byval hdc as HDC, byval apt as const POINT_ ptr, byval cpt as DWORD) as WINBOOL
+declare function PolyBezierTo(byval hdc as HDC, byval apt as const POINT_ ptr, byval cpt as DWORD) as WINBOOL
+declare function PolylineTo(byval hdc as HDC, byval apt as const POINT_ ptr, byval cpt as DWORD) as WINBOOL
+declare function SetViewportExtEx(byval hdc as HDC, byval x as long, byval y as long, byval lpsz as LPSIZE) as WINBOOL
+declare function SetViewportOrgEx(byval hdc as HDC, byval x as long, byval y as long, byval lppt as LPPOINT) as WINBOOL
+declare function SetWindowExtEx(byval hdc as HDC, byval x as long, byval y as long, byval lpsz as LPSIZE) as WINBOOL
+declare function SetWindowOrgEx(byval hdc as HDC, byval x as long, byval y as long, byval lppt as LPPOINT) as WINBOOL
+declare function OffsetViewportOrgEx(byval hdc as HDC, byval x as long, byval y as long, byval lppt as LPPOINT) as WINBOOL
+declare function OffsetWindowOrgEx(byval hdc as HDC, byval x as long, byval y as long, byval lppt as LPPOINT) as WINBOOL
+declare function ScaleViewportExtEx(byval hdc as HDC, byval xn as long, byval dx as long, byval yn as long, byval yd as long, byval lpsz as LPSIZE) as WINBOOL
+declare function ScaleWindowExtEx(byval hdc as HDC, byval xn as long, byval xd as long, byval yn as long, byval yd as long, byval lpsz as LPSIZE) as WINBOOL
+declare function SetBitmapDimensionEx(byval hbm as HBITMAP, byval w as long, byval h as long, byval lpsz as LPSIZE) as WINBOOL
+declare function SetBrushOrgEx(byval hdc as HDC, byval x as long, byval y as long, byval lppt as LPPOINT) as WINBOOL
+declare function GetTextFaceA(byval hdc as HDC, byval c as long, byval lpName as LPSTR) as long
+declare function GetTextFaceW(byval hdc as HDC, byval c as long, byval lpName as LPWSTR) as long
+
+#define FONTMAPPER_MAX 10
+
+type tagKERNINGPAIR
+	wFirst as WORD
+	wSecond as WORD
+	iKernAmount as long
+end type
+
+type KERNINGPAIR as tagKERNINGPAIR
+type LPKERNINGPAIR as tagKERNINGPAIR ptr
+
+#define GetKerningPairs __MINGW_NAME_AW(GetKerningPairs)
+
+declare function GetKerningPairsA(byval hdc as HDC, byval nPairs as DWORD, byval lpKernPair as LPKERNINGPAIR) as DWORD
+declare function GetKerningPairsW(byval hdc as HDC, byval nPairs as DWORD, byval lpKernPair as LPKERNINGPAIR) as DWORD
+declare function GetDCOrgEx(byval hdc as HDC, byval lppt as LPPOINT) as WINBOOL
+declare function FixBrushOrgEx(byval hdc as HDC, byval x as long, byval y as long, byval ptl as LPPOINT) as WINBOOL
+declare function UnrealizeObject(byval h as HGDIOBJ) as WINBOOL
+declare function GdiFlush() as WINBOOL
+declare function GdiSetBatchLimit(byval dw as DWORD) as DWORD
+declare function GdiGetBatchLimit() as DWORD
+
+#define ICM_OFF 1
+#define ICM_ON 2
+#define ICM_QUERY 3
+#define ICM_DONE_OUTSIDEDC 4
+
+type ICMENUMPROCA as function(byval as LPSTR, byval as LPARAM) as long
+type ICMENUMPROCW as function(byval as LPWSTR, byval as LPARAM) as long
+
+#define ICMENUMPROC __MINGW_NAME_AW(ICMENUMPROC)
+#define EnumICMProfiles __MINGW_NAME_AW(EnumICMProfiles)
+#define UpdateICMRegKey __MINGW_NAME_AW(UpdateICMRegKey)
+#define GetLogColorSpace __MINGW_NAME_AW(GetLogColorSpace)
+#define CreateColorSpace __MINGW_NAME_AW(CreateColorSpace)
+#define GetICMProfile __MINGW_NAME_AW(GetICMProfile)
+#define SetICMProfile __MINGW_NAME_AW(SetICMProfile)
+
+declare function SetICMMode(byval hdc as HDC, byval mode as long) as long
+declare function CheckColorsInGamut(byval hdc as HDC, byval lpRGBTriple as LPVOID, byval dlpBuffer as LPVOID, byval nCount as DWORD) as WINBOOL
+declare function GetColorSpace(byval hdc as HDC) as HCOLORSPACE
+declare function GetLogColorSpaceA(byval hColorSpace as HCOLORSPACE, byval lpBuffer as LPLOGCOLORSPACEA, byval nSize as DWORD) as WINBOOL
+declare function GetLogColorSpaceW(byval hColorSpace as HCOLORSPACE, byval lpBuffer as LPLOGCOLORSPACEW, byval nSize as DWORD) as WINBOOL
+declare function CreateColorSpaceA(byval lplcs as LPLOGCOLORSPACEA) as HCOLORSPACE
+declare function CreateColorSpaceW(byval lplcs as LPLOGCOLORSPACEW) as HCOLORSPACE
+declare function SetColorSpace(byval hdc as HDC, byval hcs as HCOLORSPACE) as HCOLORSPACE
+declare function DeleteColorSpace(byval hcs as HCOLORSPACE) as WINBOOL
+declare function GetICMProfileA(byval hdc as HDC, byval pBufSize as LPDWORD, byval pszFilename as LPSTR) as WINBOOL
+declare function GetICMProfileW(byval hdc as HDC, byval pBufSize as LPDWORD, byval pszFilename as LPWSTR) as WINBOOL
+declare function SetICMProfileA(byval hdc as HDC, byval lpFileName as LPSTR) as WINBOOL
+declare function SetICMProfileW(byval hdc as HDC, byval lpFileName as LPWSTR) as WINBOOL
+declare function GetDeviceGammaRamp(byval hdc as HDC, byval lpRamp as LPVOID) as WINBOOL
+declare function SetDeviceGammaRamp(byval hdc as HDC, byval lpRamp as LPVOID) as WINBOOL
+declare function ColorMatchToTarget(byval hdc as HDC, byval hdcTarget as HDC, byval action as DWORD) as WINBOOL
+declare function EnumICMProfilesA(byval hdc as HDC, byval lpProc as ICMENUMPROCA, byval lParam as LPARAM) as long
+declare function EnumICMProfilesW(byval hdc as HDC, byval lpProc as ICMENUMPROCW, byval lParam as LPARAM) as long
+declare function UpdateICMRegKeyA(byval reserved as DWORD, byval lpszCMID as LPSTR, byval lpszFileName as LPSTR, byval command_ as UINT) as WINBOOL
+declare function UpdateICMRegKeyW(byval reserved as DWORD, byval lpszCMID as LPWSTR, byval lpszFileName as LPWSTR, byval command_ as UINT) as WINBOOL
+declare function ColorCorrectPalette(byval hdc as HDC, byval hPal as HPALETTE, byval deFirst as DWORD, byval num as DWORD) as WINBOOL
+
+#define ENHMETA_SIGNATURE &h464D4520
+#define ENHMETA_STOCK_OBJECT &h80000000
+#define EMR_HEADER 1
+#define EMR_POLYBEZIER 2
+#define EMR_POLYGON 3
+#define EMR_POLYLINE 4
+#define EMR_POLYBEZIERTO 5
+#define EMR_POLYLINETO 6
+#define EMR_POLYPOLYLINE 7
+#define EMR_POLYPOLYGON 8
+#define EMR_SETWINDOWEXTEX 9
+#define EMR_SETWINDOWORGEX 10
+#define EMR_SETVIEWPORTEXTEX 11
+#define EMR_SETVIEWPORTORGEX 12
+#define EMR_SETBRUSHORGEX 13
+#define EMR_EOF 14
+#define EMR_SETPIXELV 15
+#define EMR_SETMAPPERFLAGS 16
+#define EMR_SETMAPMODE 17
+#define EMR_SETBKMODE 18
+#define EMR_SETPOLYFILLMODE 19
+#define EMR_SETROP2 20
+#define EMR_SETSTRETCHBLTMODE 21
+#define EMR_SETTEXTALIGN 22
+#define EMR_SETCOLORADJUSTMENT 23
+#define EMR_SETTEXTCOLOR 24
+#define EMR_SETBKCOLOR 25
+#define EMR_OFFSETCLIPRGN 26
+#define EMR_MOVETOEX 27
+#define EMR_SETMETARGN 28
+#define EMR_EXCLUDECLIPRECT 29
+#define EMR_INTERSECTCLIPRECT 30
+#define EMR_SCALEVIEWPORTEXTEX 31
+#define EMR_SCALEWINDOWEXTEX 32
+#define EMR_SAVEDC 33
+#define EMR_RESTOREDC 34
+#define EMR_SETWORLDTRANSFORM 35
+#define EMR_MODIFYWORLDTRANSFORM 36
+#define EMR_SELECTOBJECT 37
+#define EMR_CREATEPEN 38
+#define EMR_CREATEBRUSHINDIRECT 39
+#define EMR_DELETEOBJECT 40
+#define EMR_ANGLEARC 41
+#define EMR_ELLIPSE 42
+#define EMR_RECTANGLE 43
+#define EMR_ROUNDRECT 44
+#define EMR_ARC 45
+#define EMR_CHORD 46
+#define EMR_PIE 47
+#define EMR_SELECTPALETTE 48
+#define EMR_CREATEPALETTE 49
+#define EMR_SETPALETTEENTRIES 50
+#define EMR_RESIZEPALETTE 51
+#define EMR_REALIZEPALETTE 52
+#define EMR_EXTFLOODFILL 53
+#define EMR_LINETO 54
+#define EMR_ARCTO 55
+#define EMR_POLYDRAW 56
+#define EMR_SETARCDIRECTION 57
+#define EMR_SETMITERLIMIT 58
+#define EMR_BEGINPATH 59
+#define EMR_ENDPATH 60
+#define EMR_CLOSEFIGURE 61
+#define EMR_FILLPATH 62
+#define EMR_STROKEANDFILLPATH 63
+#define EMR_STROKEPATH 64
+#define EMR_FLATTENPATH 65
+#define EMR_WIDENPATH 66
+#define EMR_SELECTCLIPPATH 67
+#define EMR_ABORTPATH 68
+#define EMR_GDICOMMENT 70
+#define EMR_FILLRGN 71
+#define EMR_FRAMERGN 72
+#define EMR_INVERTRGN 73
+#define EMR_PAINTRGN 74
+#define EMR_EXTSELECTCLIPRGN 75
+#define EMR_BITBLT 76
+#define EMR_STRETCHBLT 77
+#define EMR_MASKBLT 78
+#define EMR_PLGBLT 79
+#define EMR_SETDIBITSTODEVICE 80
+#define EMR_STRETCHDIBITS 81
+#define EMR_EXTCREATEFONTINDIRECTW 82
+#define EMR_EXTTEXTOUTA 83
+#define EMR_EXTTEXTOUTW 84
+#define EMR_POLYBEZIER16 85
+#define EMR_POLYGON16 86
+#define EMR_POLYLINE16 87
+#define EMR_POLYBEZIERTO16 88
+#define EMR_POLYLINETO16 89
+#define EMR_POLYPOLYLINE16 90
+#define EMR_POLYPOLYGON16 91
+#define EMR_POLYDRAW16 92
+#define EMR_CREATEMONOBRUSH 93
+#define EMR_CREATEDIBPATTERNBRUSHPT 94
+#define EMR_EXTCREATEPEN 95
+#define EMR_POLYTEXTOUTA 96
+#define EMR_POLYTEXTOUTW 97
+#define EMR_SETICMMODE 98
+#define EMR_CREATECOLORSPACE 99
+#define EMR_SETCOLORSPACE 100
+#define EMR_DELETECOLORSPACE 101
+#define EMR_GLSRECORD 102
+#define EMR_GLSBOUNDEDRECORD 103
+#define EMR_PIXELFORMAT 104
+#define EMR_RESERVED_105 105
+#define EMR_RESERVED_106 106
+#define EMR_RESERVED_107 107
+#define EMR_RESERVED_108 108
+#define EMR_RESERVED_109 109
+#define EMR_RESERVED_110 110
+#define EMR_COLORCORRECTPALETTE 111
+#define EMR_SETICMPROFILEA 112
+#define EMR_SETICMPROFILEW 113
+#define EMR_ALPHABLEND 114
+#define EMR_SETLAYOUT 115
+#define EMR_TRANSPARENTBLT 116
+#define EMR_RESERVED_117 117
+#define EMR_GRADIENTFILL 118
+#define EMR_RESERVED_119 119
+#define EMR_RESERVED_120 120
+#define EMR_COLORMATCHTOTARGETW 121
+#define EMR_CREATECOLORSPACEW 122
+#define EMR_MIN 1
+#define EMR_MAX 122
+
+type tagEMR
+	iType as DWORD
+	nSize as DWORD
+end type
+
+type EMR as tagEMR
+type PEMR as tagEMR ptr
+
+type tagEMRTEXT
+	ptlReference as POINTL
+	nChars as DWORD
+	offString as DWORD
+	fOptions as DWORD
+	rcl as RECTL
+	offDx as DWORD
+end type
+
+type EMRTEXT as tagEMRTEXT
+type PEMRTEXT as tagEMRTEXT ptr
+
+type tagABORTPATH
+	emr as EMR
+end type
+
+type EMRABORTPATH as tagABORTPATH
+type PEMRABORTPATH as tagABORTPATH ptr
+type EMRBEGINPATH as tagABORTPATH
+type PEMRBEGINPATH as tagABORTPATH ptr
+type EMRENDPATH as tagABORTPATH
+type PEMRENDPATH as tagABORTPATH ptr
+type EMRCLOSEFIGURE as tagABORTPATH
+type PEMRCLOSEFIGURE as tagABORTPATH ptr
+type EMRFLATTENPATH as tagABORTPATH
+type PEMRFLATTENPATH as tagABORTPATH ptr
+type EMRWIDENPATH as tagABORTPATH
+type PEMRWIDENPATH as tagABORTPATH ptr
+type EMRSETMETARGN as tagABORTPATH
+type PEMRSETMETARGN as tagABORTPATH ptr
+type EMRSAVEDC as tagABORTPATH
+type PEMRSAVEDC as tagABORTPATH ptr
+type EMRREALIZEPALETTE as tagABORTPATH
+type PEMRREALIZEPALETTE as tagABORTPATH ptr
+
+type tagEMRSELECTCLIPPATH
+	emr as EMR
+	iMode as DWORD
+end type
+
+type EMRSELECTCLIPPATH as tagEMRSELECTCLIPPATH
+type PEMRSELECTCLIPPATH as tagEMRSELECTCLIPPATH ptr
+type EMRSETBKMODE as tagEMRSELECTCLIPPATH
+type PEMRSETBKMODE as tagEMRSELECTCLIPPATH ptr
+type EMRSETMAPMODE as tagEMRSELECTCLIPPATH
+type PEMRSETMAPMODE as tagEMRSELECTCLIPPATH ptr
+type EMRSETLAYOUT as tagEMRSELECTCLIPPATH
+type PEMRSETLAYOUT as tagEMRSELECTCLIPPATH ptr
+type EMRSETPOLYFILLMODE as tagEMRSELECTCLIPPATH
+type PEMRSETPOLYFILLMODE as tagEMRSELECTCLIPPATH ptr
+type EMRSETROP2 as tagEMRSELECTCLIPPATH
+type PEMRSETROP2 as tagEMRSELECTCLIPPATH ptr
+type EMRSETSTRETCHBLTMODE as tagEMRSELECTCLIPPATH
+type PEMRSETSTRETCHBLTMODE as tagEMRSELECTCLIPPATH ptr
+type EMRSETICMMODE as tagEMRSELECTCLIPPATH
+type PEMRSETICMMODE as tagEMRSELECTCLIPPATH ptr
+type EMRSETTEXTALIGN as tagEMRSELECTCLIPPATH
+type PEMRSETTEXTALIGN as tagEMRSELECTCLIPPATH ptr
+
+type tagEMRSETMITERLIMIT
+	emr as EMR
+	eMiterLimit as FLOAT
+end type
+
+type EMRSETMITERLIMIT as tagEMRSETMITERLIMIT
+type PEMRSETMITERLIMIT as tagEMRSETMITERLIMIT ptr
+
+type tagEMRRESTOREDC
+	emr as EMR
+	iRelative as LONG_
+end type
+
+type EMRRESTOREDC as tagEMRRESTOREDC
+type PEMRRESTOREDC as tagEMRRESTOREDC ptr
+
+type tagEMRSETARCDIRECTION
+	emr as EMR
+	iArcDirection as DWORD
+end type
+
+type EMRSETARCDIRECTION as tagEMRSETARCDIRECTION
+type PEMRSETARCDIRECTION as tagEMRSETARCDIRECTION ptr
+
+type tagEMRSETMAPPERFLAGS
+	emr as EMR
+	dwFlags as DWORD
+end type
+
+type EMRSETMAPPERFLAGS as tagEMRSETMAPPERFLAGS
+type PEMRSETMAPPERFLAGS as tagEMRSETMAPPERFLAGS ptr
+
+type tagEMRSETTEXTCOLOR
+	emr as EMR
+	crColor as COLORREF
+end type
+
+type EMRSETBKCOLOR as tagEMRSETTEXTCOLOR
+type PEMRSETBKCOLOR as tagEMRSETTEXTCOLOR ptr
+type EMRSETTEXTCOLOR as tagEMRSETTEXTCOLOR
+type PEMRSETTEXTCOLOR as tagEMRSETTEXTCOLOR ptr
+
+type tagEMRSELECTOBJECT
+	emr as EMR
+	ihObject as DWORD
+end type
+
+type EMRSELECTOBJECT as tagEMRSELECTOBJECT
+type PEMRSELECTOBJECT as tagEMRSELECTOBJECT ptr
+type EMRDELETEOBJECT as tagEMRSELECTOBJECT
+type PEMRDELETEOBJECT as tagEMRSELECTOBJECT ptr
+
+type tagEMRSELECTPALETTE
+	emr as EMR
+	ihPal as DWORD
+end type
+
+type EMRSELECTPALETTE as tagEMRSELECTPALETTE
+type PEMRSELECTPALETTE as tagEMRSELECTPALETTE ptr
+
+type tagEMRRESIZEPALETTE
+	emr as EMR
+	ihPal as DWORD
+	cEntries as DWORD
+end type
+
+type EMRRESIZEPALETTE as tagEMRRESIZEPALETTE
+type PEMRRESIZEPALETTE as tagEMRRESIZEPALETTE ptr
+
+type tagEMRSETPALETTEENTRIES
+	emr as EMR
+	ihPal as DWORD
+	iStart as DWORD
+	cEntries as DWORD
+	aPalEntries(0 to 0) as PALETTEENTRY
+end type
+
+type EMRSETPALETTEENTRIES as tagEMRSETPALETTEENTRIES
+type PEMRSETPALETTEENTRIES as tagEMRSETPALETTEENTRIES ptr
+
+type tagEMRSETCOLORADJUSTMENT
+	emr as EMR
+	ColorAdjustment as COLORADJUSTMENT
+end type
+
+type EMRSETCOLORADJUSTMENT as tagEMRSETCOLORADJUSTMENT
+type PEMRSETCOLORADJUSTMENT as tagEMRSETCOLORADJUSTMENT ptr
+
+type tagEMRGDICOMMENT
+	emr as EMR
+	cbData as DWORD
+	Data(0 to 0) as BYTE_
+end type
+
+type EMRGDICOMMENT as tagEMRGDICOMMENT
+type PEMRGDICOMMENT as tagEMRGDICOMMENT ptr
+
+type tagEMREOF
+	emr as EMR
+	nPalEntries as DWORD
+	offPalEntries as DWORD
+	nSizeLast as DWORD
+end type
+
+type EMREOF as tagEMREOF
+type PEMREOF as tagEMREOF ptr
+
+type tagEMRLINETO
+	emr as EMR
+	ptl as POINTL
+end type
+
+type EMRLINETO as tagEMRLINETO
+type PEMRLINETO as tagEMRLINETO ptr
+type EMRMOVETOEX as tagEMRLINETO
+type PEMRMOVETOEX as tagEMRLINETO ptr
+
+type tagEMROFFSETCLIPRGN
+	emr as EMR
+	ptlOffset as POINTL
+end type
+
+type EMROFFSETCLIPRGN as tagEMROFFSETCLIPRGN
+type PEMROFFSETCLIPRGN as tagEMROFFSETCLIPRGN ptr
+
+type tagEMRFILLPATH
+	emr as EMR
+	rclBounds as RECTL
+end type
+
+type EMRFILLPATH as tagEMRFILLPATH
+type PEMRFILLPATH as tagEMRFILLPATH ptr
+type EMRSTROKEANDFILLPATH as tagEMRFILLPATH
+type PEMRSTROKEANDFILLPATH as tagEMRFILLPATH ptr
+type EMRSTROKEPATH as tagEMRFILLPATH
+type PEMRSTROKEPATH as tagEMRFILLPATH ptr
+
+type tagEMREXCLUDECLIPRECT
+	emr as EMR
+	rclClip as RECTL
+end type
+
+type EMREXCLUDECLIPRECT as tagEMREXCLUDECLIPRECT
+type PEMREXCLUDECLIPRECT as tagEMREXCLUDECLIPRECT ptr
+type EMRINTERSECTCLIPRECT as tagEMREXCLUDECLIPRECT
+type PEMRINTERSECTCLIPRECT as tagEMREXCLUDECLIPRECT ptr
+
+type tagEMRSETVIEWPORTORGEX
+	emr as EMR
+	ptlOrigin as POINTL
+end type
+
+type EMRSETVIEWPORTORGEX as tagEMRSETVIEWPORTORGEX
+type PEMRSETVIEWPORTORGEX as tagEMRSETVIEWPORTORGEX ptr
+type EMRSETWINDOWORGEX as tagEMRSETVIEWPORTORGEX
+type PEMRSETWINDOWORGEX as tagEMRSETVIEWPORTORGEX ptr
+type EMRSETBRUSHORGEX as tagEMRSETVIEWPORTORGEX
+type PEMRSETBRUSHORGEX as tagEMRSETVIEWPORTORGEX ptr
+
+type tagEMRSETVIEWPORTEXTEX
+	emr as EMR
+	szlExtent as SIZEL
+end type
+
+type EMRSETVIEWPORTEXTEX as tagEMRSETVIEWPORTEXTEX
+type PEMRSETVIEWPORTEXTEX as tagEMRSETVIEWPORTEXTEX ptr
+type EMRSETWINDOWEXTEX as tagEMRSETVIEWPORTEXTEX
+type PEMRSETWINDOWEXTEX as tagEMRSETVIEWPORTEXTEX ptr
+
+type tagEMRSCALEVIEWPORTEXTEX
+	emr as EMR
+	xNum as LONG_
+	xDenom as LONG_
+	yNum as LONG_
+	yDenom as LONG_
+end type
+
+type EMRSCALEVIEWPORTEXTEX as tagEMRSCALEVIEWPORTEXTEX
+type PEMRSCALEVIEWPORTEXTEX as tagEMRSCALEVIEWPORTEXTEX ptr
+type EMRSCALEWINDOWEXTEX as tagEMRSCALEVIEWPORTEXTEX
+type PEMRSCALEWINDOWEXTEX as tagEMRSCALEVIEWPORTEXTEX ptr
+
+type tagEMRSETWORLDTRANSFORM
+	emr as EMR
+	xform as XFORM
+end type
+
+type EMRSETWORLDTRANSFORM as tagEMRSETWORLDTRANSFORM
+type PEMRSETWORLDTRANSFORM as tagEMRSETWORLDTRANSFORM ptr
+
+type tagEMRMODIFYWORLDTRANSFORM
+	emr as EMR
+	xform as XFORM
+	iMode as DWORD
+end type
+
+type EMRMODIFYWORLDTRANSFORM as tagEMRMODIFYWORLDTRANSFORM
+type PEMRMODIFYWORLDTRANSFORM as tagEMRMODIFYWORLDTRANSFORM ptr
+
+type tagEMRSETPIXELV
+	emr as EMR
+	ptlPixel as POINTL
+	crColor as COLORREF
+end type
+
+type EMRSETPIXELV as tagEMRSETPIXELV
+type PEMRSETPIXELV as tagEMRSETPIXELV ptr
+
+type tagEMREXTFLOODFILL
+	emr as EMR
+	ptlStart as POINTL
+	crColor as COLORREF
+	iMode as DWORD
+end type
+
+type EMREXTFLOODFILL as tagEMREXTFLOODFILL
+type PEMREXTFLOODFILL as tagEMREXTFLOODFILL ptr
+
+type tagEMRELLIPSE
+	emr as EMR
+	rclBox as RECTL
+end type
+
+type EMRELLIPSE as tagEMRELLIPSE
+type PEMRELLIPSE as tagEMRELLIPSE ptr
+type EMRRECTANGLE as tagEMRELLIPSE
+type PEMRRECTANGLE as tagEMRELLIPSE ptr
+
+type tagEMRROUNDRECT
+	emr as EMR
+	rclBox as RECTL
+	szlCorner as SIZEL
+end type
+
+type EMRROUNDRECT as tagEMRROUNDRECT
+type PEMRROUNDRECT as tagEMRROUNDRECT ptr
+
+type tagEMRARC
+	emr as EMR
+	rclBox as RECTL
+	ptlStart as POINTL
+	ptlEnd as POINTL
+end type
+
+type EMRARC as tagEMRARC
+type PEMRARC as tagEMRARC ptr
+type EMRARCTO as tagEMRARC
+type PEMRARCTO as tagEMRARC ptr
+type EMRCHORD as tagEMRARC
+type PEMRCHORD as tagEMRARC ptr
+type EMRPIE as tagEMRARC
+type PEMRPIE as tagEMRARC ptr
+
+type tagEMRANGLEARC
+	emr as EMR
+	ptlCenter as POINTL
+	nRadius as DWORD
+	eStartAngle as FLOAT
+	eSweepAngle as FLOAT
+end type
+
+type EMRANGLEARC as tagEMRANGLEARC
+type PEMRANGLEARC as tagEMRANGLEARC ptr
+
+type tagEMRPOLYLINE
+	emr as EMR
+	rclBounds as RECTL
+	cptl as DWORD
+	aptl(0 to 0) as POINTL
+end type
+
+type EMRPOLYLINE as tagEMRPOLYLINE
+type PEMRPOLYLINE as tagEMRPOLYLINE ptr
+type EMRPOLYBEZIER as tagEMRPOLYLINE
+type PEMRPOLYBEZIER as tagEMRPOLYLINE ptr
+type EMRPOLYGON as tagEMRPOLYLINE
+type PEMRPOLYGON as tagEMRPOLYLINE ptr
+type EMRPOLYBEZIERTO as tagEMRPOLYLINE
+type PEMRPOLYBEZIERTO as tagEMRPOLYLINE ptr
+type EMRPOLYLINETO as tagEMRPOLYLINE
+type PEMRPOLYLINETO as tagEMRPOLYLINE ptr
+
+type tagEMRPOLYLINE16
+	emr as EMR
+	rclBounds as RECTL
+	cpts as DWORD
+	apts(0 to 0) as POINTS
+end type
+
+type EMRPOLYLINE16 as tagEMRPOLYLINE16
+type PEMRPOLYLINE16 as tagEMRPOLYLINE16 ptr
+type EMRPOLYBEZIER16 as tagEMRPOLYLINE16
+type PEMRPOLYBEZIER16 as tagEMRPOLYLINE16 ptr
+type EMRPOLYGON16 as tagEMRPOLYLINE16
+type PEMRPOLYGON16 as tagEMRPOLYLINE16 ptr
+type EMRPOLYBEZIERTO16 as tagEMRPOLYLINE16
+type PEMRPOLYBEZIERTO16 as tagEMRPOLYLINE16 ptr
+type EMRPOLYLINETO16 as tagEMRPOLYLINE16
+type PEMRPOLYLINETO16 as tagEMRPOLYLINE16 ptr
+
+type tagEMRPOLYDRAW
+	emr as EMR
+	rclBounds as RECTL
+	cptl as DWORD
+	aptl(0 to 0) as POINTL
+	abTypes(0 to 0) as BYTE_
+end type
+
+type EMRPOLYDRAW as tagEMRPOLYDRAW
+type PEMRPOLYDRAW as tagEMRPOLYDRAW ptr
+
+type tagEMRPOLYDRAW16
+	emr as EMR
+	rclBounds as RECTL
+	cpts as DWORD
+	apts(0 to 0) as POINTS
+	abTypes(0 to 0) as BYTE_
+end type
+
+type EMRPOLYDRAW16 as tagEMRPOLYDRAW16
+type PEMRPOLYDRAW16 as tagEMRPOLYDRAW16 ptr
+
+type tagEMRPOLYPOLYLINE
+	emr as EMR
+	rclBounds as RECTL
+	nPolys as DWORD
+	cptl as DWORD
+	aPolyCounts(0 to 0) as DWORD
+	aptl(0 to 0) as POINTL
+end type
+
+type EMRPOLYPOLYLINE as tagEMRPOLYPOLYLINE
+type PEMRPOLYPOLYLINE as tagEMRPOLYPOLYLINE ptr
+type EMRPOLYPOLYGON as tagEMRPOLYPOLYLINE
+type PEMRPOLYPOLYGON as tagEMRPOLYPOLYLINE ptr
+
+type tagEMRPOLYPOLYLINE16
+	emr as EMR
+	rclBounds as RECTL
+	nPolys as DWORD
+	cpts as DWORD
+	aPolyCounts(0 to 0) as DWORD
+	apts(0 to 0) as POINTS
+end type
+
+type EMRPOLYPOLYLINE16 as tagEMRPOLYPOLYLINE16
+type PEMRPOLYPOLYLINE16 as tagEMRPOLYPOLYLINE16 ptr
+type EMRPOLYPOLYGON16 as tagEMRPOLYPOLYLINE16
+type PEMRPOLYPOLYGON16 as tagEMRPOLYPOLYLINE16 ptr
+
+type tagEMRINVERTRGN
+	emr as EMR
+	rclBounds as RECTL
+	cbRgnData as DWORD
+	RgnData(0 to 0) as BYTE_
+end type
+
+type EMRINVERTRGN as tagEMRINVERTRGN
+type PEMRINVERTRGN as tagEMRINVERTRGN ptr
+type EMRPAINTRGN as tagEMRINVERTRGN
+type PEMRPAINTRGN as tagEMRINVERTRGN ptr
+
+type tagEMRFILLRGN
+	emr as EMR
+	rclBounds as RECTL
+	cbRgnData as DWORD
+	ihBrush as DWORD
+	RgnData(0 to 0) as BYTE_
+end type
+
+type EMRFILLRGN as tagEMRFILLRGN
+type PEMRFILLRGN as tagEMRFILLRGN ptr
+
+type tagEMRFRAMERGN
+	emr as EMR
+	rclBounds as RECTL
+	cbRgnData as DWORD
+	ihBrush as DWORD
+	szlStroke as SIZEL
+	RgnData(0 to 0) as BYTE_
+end type
+
+type EMRFRAMERGN as tagEMRFRAMERGN
+type PEMRFRAMERGN as tagEMRFRAMERGN ptr
+
+type tagEMREXTSELECTCLIPRGN
+	emr as EMR
+	cbRgnData as DWORD
+	iMode as DWORD
+	RgnData(0 to 0) as BYTE_
+end type
+
+type EMREXTSELECTCLIPRGN as tagEMREXTSELECTCLIPRGN
+type PEMREXTSELECTCLIPRGN as tagEMREXTSELECTCLIPRGN ptr
+
+type tagEMREXTTEXTOUTA
+	emr as EMR
+	rclBounds as RECTL
+	iGraphicsMode as DWORD
+	exScale as FLOAT
+	eyScale as FLOAT
+	emrtext as EMRTEXT
+end type
+
+type EMREXTTEXTOUTA as tagEMREXTTEXTOUTA
+type PEMREXTTEXTOUTA as tagEMREXTTEXTOUTA ptr
+type EMREXTTEXTOUTW as tagEMREXTTEXTOUTA
+type PEMREXTTEXTOUTW as tagEMREXTTEXTOUTA ptr
+
+type tagEMRPOLYTEXTOUTA
+	emr as EMR
+	rclBounds as RECTL
+	iGraphicsMode as DWORD
+	exScale as FLOAT
+	eyScale as FLOAT
+	cStrings as LONG_
+	aemrtext(0 to 0) as EMRTEXT
+end type
+
+type EMRPOLYTEXTOUTA as tagEMRPOLYTEXTOUTA
+type PEMRPOLYTEXTOUTA as tagEMRPOLYTEXTOUTA ptr
+type EMRPOLYTEXTOUTW as tagEMRPOLYTEXTOUTA
+type PEMRPOLYTEXTOUTW as tagEMRPOLYTEXTOUTA ptr
+
+type tagEMRBITBLT
+	emr as EMR
+	rclBounds as RECTL
+	xDest as LONG_
+	yDest as LONG_
+	cxDest as LONG_
+	cyDest as LONG_
+	dwRop as DWORD
+	xSrc as LONG_
+	ySrc as LONG_
+	xformSrc as XFORM
+	crBkColorSrc as COLORREF
+	iUsageSrc as DWORD
+	offBmiSrc as DWORD
+	cbBmiSrc as DWORD
+	offBitsSrc as DWORD
+	cbBitsSrc as DWORD
+end type
+
+type EMRBITBLT as tagEMRBITBLT
+type PEMRBITBLT as tagEMRBITBLT ptr
+
+type tagEMRSTRETCHBLT
+	emr as EMR
+	rclBounds as RECTL
+	xDest as LONG_
+	yDest as LONG_
+	cxDest as LONG_
+	cyDest as LONG_
+	dwRop as DWORD
+	xSrc as LONG_
+	ySrc as LONG_
+	xformSrc as XFORM
+	crBkColorSrc as COLORREF
+	iUsageSrc as DWORD
+	offBmiSrc as DWORD
+	cbBmiSrc as DWORD
+	offBitsSrc as DWORD
+	cbBitsSrc as DWORD
+	cxSrc as LONG_
+	cySrc as LONG_
+end type
+
+type EMRSTRETCHBLT as tagEMRSTRETCHBLT
+type PEMRSTRETCHBLT as tagEMRSTRETCHBLT ptr
+
+type tagEMRMASKBLT
+	emr as EMR
+	rclBounds as RECTL
+	xDest as LONG_
+	yDest as LONG_
+	cxDest as LONG_
+	cyDest as LONG_
+	dwRop as DWORD
+	xSrc as LONG_
+	ySrc as LONG_
+	xformSrc as XFORM
+	crBkColorSrc as COLORREF
+	iUsageSrc as DWORD
+	offBmiSrc as DWORD
+	cbBmiSrc as DWORD
+	offBitsSrc as DWORD
+	cbBitsSrc as DWORD
+	xMask as LONG_
+	yMask as LONG_
+	iUsageMask as DWORD
+	offBmiMask as DWORD
+	cbBmiMask as DWORD
+	offBitsMask as DWORD
+	cbBitsMask as DWORD
+end type
+
+type EMRMASKBLT as tagEMRMASKBLT
+type PEMRMASKBLT as tagEMRMASKBLT ptr
+
+type tagEMRPLGBLT
+	emr as EMR
+	rclBounds as RECTL
+	aptlDest(0 to 2) as POINTL
+	xSrc as LONG_
+	ySrc as LONG_
+	cxSrc as LONG_
+	cySrc as LONG_
+	xformSrc as XFORM
+	crBkColorSrc as COLORREF
+	iUsageSrc as DWORD
+	offBmiSrc as DWORD
+	cbBmiSrc as DWORD
+	offBitsSrc as DWORD
+	cbBitsSrc as DWORD
+	xMask as LONG_
+	yMask as LONG_
+	iUsageMask as DWORD
+	offBmiMask as DWORD
+	cbBmiMask as DWORD
+	offBitsMask as DWORD
+	cbBitsMask as DWORD
+end type
+
+type EMRPLGBLT as tagEMRPLGBLT
+type PEMRPLGBLT as tagEMRPLGBLT ptr
+
+type tagEMRSETDIBITSTODEVICE
+	emr as EMR
+	rclBounds as RECTL
+	xDest as LONG_
+	yDest as LONG_
+	xSrc as LONG_
+	ySrc as LONG_
+	cxSrc as LONG_
+	cySrc as LONG_
+	offBmiSrc as DWORD
+	cbBmiSrc as DWORD
+	offBitsSrc as DWORD
+	cbBitsSrc as DWORD
+	iUsageSrc as DWORD
+	iStartScan as DWORD
+	cScans as DWORD
+end type
+
+type EMRSETDIBITSTODEVICE as tagEMRSETDIBITSTODEVICE
+type PEMRSETDIBITSTODEVICE as tagEMRSETDIBITSTODEVICE ptr
+
+type tagEMRSTRETCHDIBITS
+	emr as EMR
+	rclBounds as RECTL
+	xDest as LONG_
+	yDest as LONG_
+	xSrc as LONG_
+	ySrc as LONG_
+	cxSrc as LONG_
+	cySrc as LONG_
+	offBmiSrc as DWORD
+	cbBmiSrc as DWORD
+	offBitsSrc as DWORD
+	cbBitsSrc as DWORD
+	iUsageSrc as DWORD
+	dwRop as DWORD
+	cxDest as LONG_
+	cyDest as LONG_
+end type
+
+type EMRSTRETCHDIBITS as tagEMRSTRETCHDIBITS
+type PEMRSTRETCHDIBITS as tagEMRSTRETCHDIBITS ptr
+
+type tagEMREXTCREATEFONTINDIRECTW
+	emr as EMR
+	ihFont as DWORD
+	elfw as EXTLOGFONTW
+end type
+
+type EMREXTCREATEFONTINDIRECTW as tagEMREXTCREATEFONTINDIRECTW
+type PEMREXTCREATEFONTINDIRECTW as tagEMREXTCREATEFONTINDIRECTW ptr
+
+type tagEMRCREATEPALETTE
+	emr as EMR
+	ihPal as DWORD
+	lgpl as LOGPALETTE
+end type
+
+type EMRCREATEPALETTE as tagEMRCREATEPALETTE
+type PEMRCREATEPALETTE as tagEMRCREATEPALETTE ptr
+
+type tagEMRCREATEPEN
+	emr as EMR
+	ihPen as DWORD
+	lopn as LOGPEN
+end type
+
+type EMRCREATEPEN as tagEMRCREATEPEN
+type PEMRCREATEPEN as tagEMRCREATEPEN ptr
+
+type tagEMREXTCREATEPEN
+	emr as EMR
+	ihPen as DWORD
+	offBmi as DWORD
+	cbBmi as DWORD
+	offBits as DWORD
+	cbBits as DWORD
+	elp as EXTLOGPEN
+end type
+
+type EMREXTCREATEPEN as tagEMREXTCREATEPEN
+type PEMREXTCREATEPEN as tagEMREXTCREATEPEN ptr
+
+type tagEMRCREATEBRUSHINDIRECT
+	emr as EMR
+	ihBrush as DWORD
+	lb as LOGBRUSH32
+end type
+
+type EMRCREATEBRUSHINDIRECT as tagEMRCREATEBRUSHINDIRECT
+type PEMRCREATEBRUSHINDIRECT as tagEMRCREATEBRUSHINDIRECT ptr
+
+type tagEMRCREATEMONOBRUSH
+	emr as EMR
+	ihBrush as DWORD
+	iUsage as DWORD
+	offBmi as DWORD
+	cbBmi as DWORD
+	offBits as DWORD
+	cbBits as DWORD
+end type
+
+type EMRCREATEMONOBRUSH as tagEMRCREATEMONOBRUSH
+type PEMRCREATEMONOBRUSH as tagEMRCREATEMONOBRUSH ptr
+
+type tagEMRCREATEDIBPATTERNBRUSHPT
+	emr as EMR
+	ihBrush as DWORD
+	iUsage as DWORD
+	offBmi as DWORD
+	cbBmi as DWORD
+	offBits as DWORD
+	cbBits as DWORD
+end type
+
+type EMRCREATEDIBPATTERNBRUSHPT as tagEMRCREATEDIBPATTERNBRUSHPT
+type PEMRCREATEDIBPATTERNBRUSHPT as tagEMRCREATEDIBPATTERNBRUSHPT ptr
+
+type tagEMRFORMAT
+	dSignature as DWORD
+	nVersion as DWORD
+	cbData as DWORD
+	offData as DWORD
+end type
+
+type EMRFORMAT as tagEMRFORMAT
+type PEMRFORMAT as tagEMRFORMAT ptr
+
+type tagEMRGLSRECORD
+	emr as EMR
+	cbData as DWORD
+	Data(0 to 0) as BYTE_
+end type
+
+type EMRGLSRECORD as tagEMRGLSRECORD
+type PEMRGLSRECORD as tagEMRGLSRECORD ptr
+
+type tagEMRGLSBOUNDEDRECORD
+	emr as EMR
+	rclBounds as RECTL
+	cbData as DWORD
+	Data(0 to 0) as BYTE_
+end type
+
+type EMRGLSBOUNDEDRECORD as tagEMRGLSBOUNDEDRECORD
+type PEMRGLSBOUNDEDRECORD as tagEMRGLSBOUNDEDRECORD ptr
+
+type tagEMRPIXELFORMAT
+	emr as EMR
+	pfd as PIXELFORMATDESCRIPTOR
+end type
+
+type EMRPIXELFORMAT as tagEMRPIXELFORMAT
+type PEMRPIXELFORMAT as tagEMRPIXELFORMAT ptr
+
+type tagEMRCREATECOLORSPACE
+	emr as EMR
+	ihCS as DWORD
+	lcs as LOGCOLORSPACEA
+end type
+
+type EMRCREATECOLORSPACE as tagEMRCREATECOLORSPACE
+type PEMRCREATECOLORSPACE as tagEMRCREATECOLORSPACE ptr
+
+type tagEMRSETCOLORSPACE
+	emr as EMR
+	ihCS as DWORD
+end type
+
+type EMRSETCOLORSPACE as tagEMRSETCOLORSPACE
+type PEMRSETCOLORSPACE as tagEMRSETCOLORSPACE ptr
+type EMRSELECTCOLORSPACE as tagEMRSETCOLORSPACE
+type PEMRSELECTCOLORSPACE as tagEMRSETCOLORSPACE ptr
+type EMRDELETECOLORSPACE as tagEMRSETCOLORSPACE
+type PEMRDELETECOLORSPACE as tagEMRSETCOLORSPACE ptr
+
+type tagEMREXTESCAPE
+	emr as EMR
+	iEscape as INT_
+	cbEscData as INT_
+	EscData(0 to 0) as BYTE_
+end type
+
+type EMREXTESCAPE as tagEMREXTESCAPE
+type PEMREXTESCAPE as tagEMREXTESCAPE ptr
+type EMRDRAWESCAPE as tagEMREXTESCAPE
+type PEMRDRAWESCAPE as tagEMREXTESCAPE ptr
+
+type tagEMRNAMEDESCAPE
+	emr as EMR
+	iEscape as INT_
+	cbDriver as INT_
+	cbEscData as INT_
+	EscData(0 to 0) as BYTE_
+end type
+
+type EMRNAMEDESCAPE as tagEMRNAMEDESCAPE
+type PEMRNAMEDESCAPE as tagEMRNAMEDESCAPE ptr
+
+#define SETICMPROFILE_EMBEDED &h00000001
+
+type tagEMRSETICMPROFILE
+	emr as EMR
+	dwFlags as DWORD
+	cbName as DWORD
+	cbData as DWORD
+	Data(0 to 0) as BYTE_
+end type
+
+type EMRSETICMPROFILE as tagEMRSETICMPROFILE
+type PEMRSETICMPROFILE as tagEMRSETICMPROFILE ptr
+type EMRSETICMPROFILEA as tagEMRSETICMPROFILE
+type PEMRSETICMPROFILEA as tagEMRSETICMPROFILE ptr
+type EMRSETICMPROFILEW as tagEMRSETICMPROFILE
+type PEMRSETICMPROFILEW as tagEMRSETICMPROFILE ptr
+
+#define CREATECOLORSPACE_EMBEDED &h00000001
+
+type tagEMRCREATECOLORSPACEW
+	emr as EMR
+	ihCS as DWORD
+	lcs as LOGCOLORSPACEW
+	dwFlags as DWORD
+	cbData as DWORD
+	Data(0 to 0) as BYTE_
+end type
+
+type EMRCREATECOLORSPACEW as tagEMRCREATECOLORSPACEW
+type PEMRCREATECOLORSPACEW as tagEMRCREATECOLORSPACEW ptr
+
+#define COLORMATCHTOTARGET_EMBEDED &h00000001
+
+type tagCOLORMATCHTOTARGET
+	emr as EMR
+	dwAction as DWORD
+	dwFlags as DWORD
+	cbName as DWORD
+	cbData as DWORD
+	Data(0 to 0) as BYTE_
+end type
+
+type EMRCOLORMATCHTOTARGET as tagCOLORMATCHTOTARGET
+type PEMRCOLORMATCHTOTARGET as tagCOLORMATCHTOTARGET ptr
+
+type tagCOLORCORRECTPALETTE
+	emr as EMR
+	ihPalette as DWORD
+	nFirstEntry as DWORD
+	nPalEntries as DWORD
+	nReserved as DWORD
+end type
+
+type EMRCOLORCORRECTPALETTE as tagCOLORCORRECTPALETTE
+type PEMRCOLORCORRECTPALETTE as tagCOLORCORRECTPALETTE ptr
+
+type tagEMRALPHABLEND
+	emr as EMR
+	rclBounds as RECTL
+	xDest as LONG_
+	yDest as LONG_
+	cxDest as LONG_
+	cyDest as LONG_
+	dwRop as DWORD
+	xSrc as LONG_
+	ySrc as LONG_
+	xformSrc as XFORM
+	crBkColorSrc as COLORREF
+	iUsageSrc as DWORD
+	offBmiSrc as DWORD
+	cbBmiSrc as DWORD
+	offBitsSrc as DWORD
+	cbBitsSrc as DWORD
+	cxSrc as LONG_
+	cySrc as LONG_
+end type
+
+type EMRALPHABLEND as tagEMRALPHABLEND
+type PEMRALPHABLEND as tagEMRALPHABLEND ptr
+
+type tagEMRGRADIENTFILL
+	emr as EMR
+	rclBounds as RECTL
+	nVer as DWORD
+	nTri as DWORD
+	ulMode as ULONG_
+	Ver(0 to 0) as TRIVERTEX
+end type
+
+type EMRGRADIENTFILL as tagEMRGRADIENTFILL
+type PEMRGRADIENTFILL as tagEMRGRADIENTFILL ptr
+
+type tagEMRTRANSPARENTBLT
+	emr as EMR
+	rclBounds as RECTL
+	xDest as LONG_
+	yDest as LONG_
+	cxDest as LONG_
+	cyDest as LONG_
+	dwRop as DWORD
+	xSrc as LONG_
+	ySrc as LONG_
+	xformSrc as XFORM
+	crBkColorSrc as COLORREF
+	iUsageSrc as DWORD
+	offBmiSrc as DWORD
+	cbBmiSrc as DWORD
+	offBitsSrc as DWORD
+	cbBitsSrc as DWORD
+	cxSrc as LONG_
+	cySrc as LONG_
+end type
+
+type EMRTRANSPARENTBLT as tagEMRTRANSPARENTBLT
+type PEMRTRANSPARENTBLT as tagEMRTRANSPARENTBLT ptr
+
+#define GDICOMMENT_IDENTIFIER &h43494447
+#define GDICOMMENT_WINDOWS_METAFILE &h80000001
+#define GDICOMMENT_BEGINGROUP &h00000002
+#define GDICOMMENT_ENDGROUP &h00000003
+#define GDICOMMENT_MULTIFORMATS &h40000004
+#define EPS_SIGNATURE &h46535045
+#define GDICOMMENT_UNICODE_STRING &h00000040
+#define GDICOMMENT_UNICODE_END &h00000080
+#define wglUseFontBitmaps __MINGW_NAME_AW(wglUseFontBitmaps)
+
+declare function wglCopyContext(byval as HGLRC, byval as HGLRC, byval as UINT) as WINBOOL
+declare function wglCreateContext(byval as HDC) as HGLRC
+declare function wglCreateLayerContext(byval as HDC, byval as long) as HGLRC
+declare function wglDeleteContext(byval as HGLRC) as WINBOOL
+declare function wglGetCurrentContext() as HGLRC
+declare function wglGetCurrentDC() as HDC
+declare function wglGetProcAddress(byval as LPCSTR) as PROC
+declare function wglMakeCurrent(byval as HDC, byval as HGLRC) as WINBOOL
+declare function wglShareLists(byval as HGLRC, byval as HGLRC) as WINBOOL
+declare function wglUseFontBitmapsA(byval as HDC, byval as DWORD, byval as DWORD, byval as DWORD) as WINBOOL
+declare function wglUseFontBitmapsW(byval as HDC, byval as DWORD, byval as DWORD, byval as DWORD) as WINBOOL
+declare function SwapBuffers(byval as HDC) as WINBOOL
+
+type _POINTFLOAT
+	x as FLOAT
+	y as FLOAT
+end type
+
+type POINTFLOAT as _POINTFLOAT
+type PPOINTFLOAT as _POINTFLOAT ptr
+
+type _GLYPHMETRICSFLOAT
+	gmfBlackBoxX as FLOAT
+	gmfBlackBoxY as FLOAT
+	gmfptGlyphOrigin as POINTFLOAT
+	gmfCellIncX as FLOAT
+	gmfCellIncY as FLOAT
+end type
+
+type GLYPHMETRICSFLOAT as _GLYPHMETRICSFLOAT
+type PGLYPHMETRICSFLOAT as _GLYPHMETRICSFLOAT ptr
+type LPGLYPHMETRICSFLOAT as _GLYPHMETRICSFLOAT ptr
+
+#define WGL_FONT_LINES 0
+#define WGL_FONT_POLYGONS 1
+#define wglUseFontOutlines __MINGW_NAME_AW(wglUseFontOutlines)
+
+declare function wglUseFontOutlinesA(byval as HDC, byval as DWORD, byval as DWORD, byval as DWORD, byval as FLOAT, byval as FLOAT, byval as long, byval as LPGLYPHMETRICSFLOAT) as WINBOOL
+declare function wglUseFontOutlinesW(byval as HDC, byval as DWORD, byval as DWORD, byval as DWORD, byval as FLOAT, byval as FLOAT, byval as long, byval as LPGLYPHMETRICSFLOAT) as WINBOOL
+
+type tagLAYERPLANEDESCRIPTOR
+	nSize as WORD
+	nVersion as WORD
+	dwFlags as DWORD
+	iPixelType as BYTE_
+	cColorBits as BYTE_
+	cRedBits as BYTE_
+	cRedShift as BYTE_
+	cGreenBits as BYTE_
+	cGreenShift as BYTE_
+	cBlueBits as BYTE_
+	cBlueShift as BYTE_
+	cAlphaBits as BYTE_
+	cAlphaShift as BYTE_
+	cAccumBits as BYTE_
+	cAccumRedBits as BYTE_
+	cAccumGreenBits as BYTE_
+	cAccumBlueBits as BYTE_
+	cAccumAlphaBits as BYTE_
+	cDepthBits as BYTE_
+	cStencilBits as BYTE_
+	cAuxBuffers as BYTE_
+	iLayerPlane as BYTE_
+	bReserved as BYTE_
+	crTransparent as COLORREF
+end type
+
+type LAYERPLANEDESCRIPTOR as tagLAYERPLANEDESCRIPTOR
+type PLAYERPLANEDESCRIPTOR as tagLAYERPLANEDESCRIPTOR ptr
+type LPLAYERPLANEDESCRIPTOR as tagLAYERPLANEDESCRIPTOR ptr
+
+#define LPD_DOUBLEBUFFER &h00000001
+#define LPD_STEREO &h00000002
+#define LPD_SUPPORT_GDI &h00000010
+#define LPD_SUPPORT_OPENGL &h00000020
+#define LPD_SHARE_DEPTH &h00000040
+#define LPD_SHARE_STENCIL &h00000080
+#define LPD_SHARE_ACCUM &h00000100
+#define LPD_SWAP_EXCHANGE &h00000200
+#define LPD_SWAP_COPY &h00000400
+#define LPD_TRANSPARENT &h00001000
+#define LPD_TYPE_RGBA 0
+#define LPD_TYPE_COLORINDEX 1
+#define WGL_SWAP_MAIN_PLANE &h00000001
+#define WGL_SWAP_OVERLAY1 &h00000002
+#define WGL_SWAP_OVERLAY2 &h00000004
+#define WGL_SWAP_OVERLAY3 &h00000008
+#define WGL_SWAP_OVERLAY4 &h00000010
+#define WGL_SWAP_OVERLAY5 &h00000020
+#define WGL_SWAP_OVERLAY6 &h00000040
+#define WGL_SWAP_OVERLAY7 &h00000080
+#define WGL_SWAP_OVERLAY8 &h00000100
+#define WGL_SWAP_OVERLAY9 &h00000200
+#define WGL_SWAP_OVERLAY10 &h00000400
+#define WGL_SWAP_OVERLAY11 &h00000800
+#define WGL_SWAP_OVERLAY12 &h00001000
+#define WGL_SWAP_OVERLAY13 &h00002000
+#define WGL_SWAP_OVERLAY14 &h00004000
+#define WGL_SWAP_OVERLAY15 &h00008000
+#define WGL_SWAP_UNDERLAY1 &h00010000
+#define WGL_SWAP_UNDERLAY2 &h00020000
+#define WGL_SWAP_UNDERLAY3 &h00040000
+#define WGL_SWAP_UNDERLAY4 &h00080000
+#define WGL_SWAP_UNDERLAY5 &h00100000
+#define WGL_SWAP_UNDERLAY6 &h00200000
+#define WGL_SWAP_UNDERLAY7 &h00400000
+#define WGL_SWAP_UNDERLAY8 &h00800000
+#define WGL_SWAP_UNDERLAY9 &h01000000
+#define WGL_SWAP_UNDERLAY10 &h02000000
+#define WGL_SWAP_UNDERLAY11 &h04000000
+#define WGL_SWAP_UNDERLAY12 &h08000000
+#define WGL_SWAP_UNDERLAY13 &h10000000
+#define WGL_SWAP_UNDERLAY14 &h20000000
+#define WGL_SWAP_UNDERLAY15 &h40000000
+
+declare function wglDescribeLayerPlane(byval as HDC, byval as long, byval as long, byval as UINT, byval as LPLAYERPLANEDESCRIPTOR) as WINBOOL
+declare function wglSetLayerPaletteEntries(byval as HDC, byval as long, byval as long, byval as long, byval as const COLORREF ptr) as long
+declare function wglGetLayerPaletteEntries(byval as HDC, byval as long, byval as long, byval as long, byval as COLORREF ptr) as long
+declare function wglRealizeLayerPalette(byval as HDC, byval as long, byval as WINBOOL) as WINBOOL
+declare function wglSwapLayerBuffers(byval as HDC, byval as UINT) as WINBOOL
+
+type _WGLSWAP
+	hdc as HDC
+	uiFlags as UINT
+end type
+
+type WGLSWAP as _WGLSWAP
+type PWGLSWAP as _WGLSWAP ptr
+type LPWGLSWAP as _WGLSWAP ptr
+
+#define WGL_SWAPMULTIPLE_MAX 16
+
+declare function wglSwapMultipleBuffers(byval as UINT, byval as const WGLSWAP ptr) as DWORD
+
+end extern
