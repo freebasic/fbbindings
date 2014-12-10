@@ -1,0 +1,751 @@
+#pragma once
+
+#include once "crt/long.bi"
+#include once "_mingw_unicode.bi"
+#include once "specstrings.bi"
+#include once "guiddef.bi"
+#include once "rpcdcep.bi"
+
+#ifdef __FB_64BIT__
+	extern "C"
+#else
+	extern "Windows"
+#endif
+
+#define __RPCDCE_H__
+
+type RPC_CSTR as ubyte ptr
+type RPC_WSTR as ushort ptr
+type RPC_BINDING_HANDLE as I_RPC_HANDLE
+type handle_t as RPC_BINDING_HANDLE
+
+#define rpc_binding_handle_t RPC_BINDING_HANDLE
+#define UUID_DEFINED
+
+type UUID as GUID
+
+#define uuid_t UUID
+
+#ifdef __FB_64BIT__
+	type _RPC_BINDING_VECTOR field = 8
+		Count as culong
+		BindingH(0 to 0) as RPC_BINDING_HANDLE
+	end type
+#else
+	type _RPC_BINDING_VECTOR
+		Count as culong
+		BindingH(0 to 0) as RPC_BINDING_HANDLE
+	end type
+#endif
+
+type RPC_BINDING_VECTOR as _RPC_BINDING_VECTOR
+
+#define rpc_binding_vector_t RPC_BINDING_VECTOR
+
+#ifdef __FB_64BIT__
+	type _UUID_VECTOR field = 8
+		Count as culong
+		Uuid(0 to 0) as UUID ptr
+	end type
+#else
+	type _UUID_VECTOR
+		Count as culong
+		Uuid(0 to 0) as UUID ptr
+	end type
+#endif
+
+type UUID_VECTOR as _UUID_VECTOR
+
+#define uuid_vector_t UUID_VECTOR
+
+type RPC_IF_HANDLE as any ptr
+
+#define IFID_DEFINED
+
+#ifdef __FB_64BIT__
+	type _RPC_IF_ID field = 8
+		Uuid as UUID
+		VersMajor as ushort
+		VersMinor as ushort
+	end type
+#else
+	type _RPC_IF_ID
+		Uuid as UUID
+		VersMajor as ushort
+		VersMinor as ushort
+	end type
+#endif
+
+type RPC_IF_ID as _RPC_IF_ID
+
+#define RPC_C_BINDING_INFINITE_TIMEOUT 10
+#define RPC_C_BINDING_MIN_TIMEOUT 0
+#define RPC_C_BINDING_DEFAULT_TIMEOUT 5
+#define RPC_C_BINDING_MAX_TIMEOUT 9
+#define RPC_C_CANCEL_INFINITE_TIMEOUT (-1)
+#define RPC_C_LISTEN_MAX_CALLS_DEFAULT 1234
+#define RPC_C_PROTSEQ_MAX_REQS_DEFAULT 10
+#define RPC_C_BIND_TO_ALL_NICS 1
+#define RPC_C_USE_INTERNET_PORT &h1
+#define RPC_C_USE_INTRANET_PORT &h2
+#define RPC_C_DONT_FAIL &h4
+#define RPC_C_MQ_TEMPORARY &h0000
+#define RPC_C_MQ_PERMANENT &h0001
+#define RPC_C_MQ_CLEAR_ON_OPEN &h0002
+#define RPC_C_MQ_USE_EXISTING_SECURITY &h0004
+#define RPC_C_MQ_AUTHN_LEVEL_NONE &h0000
+#define RPC_C_MQ_AUTHN_LEVEL_PKT_INTEGRITY &h0008
+#define RPC_C_MQ_AUTHN_LEVEL_PKT_PRIVACY &h0010
+#define RPC_C_OPT_MQ_DELIVERY 1
+#define RPC_C_OPT_MQ_PRIORITY 2
+#define RPC_C_OPT_MQ_JOURNAL 3
+#define RPC_C_OPT_MQ_ACKNOWLEDGE 4
+#define RPC_C_OPT_MQ_AUTHN_SERVICE 5
+#define RPC_C_OPT_MQ_AUTHN_LEVEL 6
+#define RPC_C_OPT_MQ_TIME_TO_REACH_QUEUE 7
+#define RPC_C_OPT_MQ_TIME_TO_BE_RECEIVED 8
+#define RPC_C_OPT_BINDING_NONCAUSAL 9
+#define RPC_C_OPT_SECURITY_CALLBACK 10
+#define RPC_C_OPT_UNIQUE_BINDING 11
+#define RPC_C_OPT_CALL_TIMEOUT 12
+#define RPC_C_OPT_DONT_LINGER 13
+#define RPC_C_OPT_MAX_OPTIONS 14
+#define RPC_C_MQ_EXPRESS 0
+#define RPC_C_MQ_RECOVERABLE 1
+#define RPC_C_MQ_JOURNAL_NONE 0
+#define RPC_C_MQ_JOURNAL_DEADLETTER 1
+#define RPC_C_MQ_JOURNAL_ALWAYS 2
+#define RPC_C_FULL_CERT_CHAIN &h0001
+
+#ifdef __FB_64BIT__
+	type _RPC_PROTSEQ_VECTORA field = 8
+		Count as ulong
+		Protseq(0 to 0) as ubyte ptr
+	end type
+#else
+	type _RPC_PROTSEQ_VECTORA
+		Count as ulong
+		Protseq(0 to 0) as ubyte ptr
+	end type
+#endif
+
+type RPC_PROTSEQ_VECTORA as _RPC_PROTSEQ_VECTORA
+
+#ifdef __FB_64BIT__
+	type _RPC_PROTSEQ_VECTORW field = 8
+		Count as ulong
+		Protseq(0 to 0) as ushort ptr
+	end type
+#else
+	type _RPC_PROTSEQ_VECTORW
+		Count as ulong
+		Protseq(0 to 0) as ushort ptr
+	end type
+#endif
+
+type RPC_PROTSEQ_VECTORW as _RPC_PROTSEQ_VECTORW
+
+#define RPC_PROTSEQ_VECTOR __MINGW_NAME_AW(RPC_PROTSEQ_VECTOR)
+
+#ifdef __FB_64BIT__
+	type _RPC_POLICY field = 8
+		Length as ulong
+		EndpointFlags as culong
+		NICFlags as culong
+	end type
+#else
+	type _RPC_POLICY
+		Length as ulong
+		EndpointFlags as culong
+		NICFlags as culong
+	end type
+#endif
+
+type RPC_POLICY as _RPC_POLICY
+type PRPC_POLICY as _RPC_POLICY ptr
+
+#define RPC_MGR_EPV any
+
+#ifdef __FB_64BIT__
+	type RPC_STATS_VECTOR field = 8
+		Count as ulong
+		Stats(0 to 0) as culong
+	end type
+#else
+	type RPC_STATS_VECTOR
+		Count as ulong
+		Stats(0 to 0) as culong
+	end type
+#endif
+
+#define RPC_C_STATS_CALLS_IN 0
+#define RPC_C_STATS_CALLS_OUT 1
+#define RPC_C_STATS_PKTS_IN 2
+#define RPC_C_STATS_PKTS_OUT 3
+
+#ifdef __FB_64BIT__
+	type RPC_IF_ID_VECTOR field = 8
+		Count as culong
+		IfId(0 to 0) as RPC_IF_ID ptr
+	end type
+#else
+	type RPC_IF_ID_VECTOR
+		Count as culong
+		IfId(0 to 0) as RPC_IF_ID ptr
+	end type
+#endif
+
+#define RpcBindingFromStringBinding __MINGW_NAME_AW(RpcBindingFromStringBinding)
+#define RpcBindingToStringBinding __MINGW_NAME_AW(RpcBindingToStringBinding)
+#define RpcStringBindingCompose __MINGW_NAME_AW(RpcStringBindingCompose)
+#define RpcStringBindingParse __MINGW_NAME_AW(RpcStringBindingParse)
+#define RpcStringFree __MINGW_NAME_AW(RpcStringFree)
+#define RpcNetworkIsProtseqValid __MINGW_NAME_AW(RpcNetworkIsProtseqValid)
+#define RpcNetworkInqProtseqs __MINGW_NAME_AW(RpcNetworkInqProtseqs)
+#define RpcProtseqVectorFree __MINGW_NAME_AW(RpcProtseqVectorFree)
+#define RpcServerUseProtseq __MINGW_NAME_AW(RpcServerUseProtseq)
+#define RpcServerUseProtseqEx __MINGW_NAME_AW(RpcServerUseProtseqEx)
+#define RpcServerUseProtseqEp __MINGW_NAME_AW(RpcServerUseProtseqEp)
+#define RpcServerUseProtseqEpEx __MINGW_NAME_AW(RpcServerUseProtseqEpEx)
+#define RpcServerUseProtseqIf __MINGW_NAME_AW(RpcServerUseProtseqIf)
+#define RpcServerUseProtseqIfEx __MINGW_NAME_AW(RpcServerUseProtseqIfEx)
+#define RpcMgmtInqServerPrincName __MINGW_NAME_AW(RpcMgmtInqServerPrincName)
+#define RpcServerInqDefaultPrincName __MINGW_NAME_AW(RpcServerInqDefaultPrincName)
+#define RpcNsBindingInqEntryName __MINGW_NAME_AW(RpcNsBindingInqEntryName)
+
+declare function RpcBindingCopy(byval SourceBinding as RPC_BINDING_HANDLE, byval DestinationBinding as RPC_BINDING_HANDLE ptr) as RPC_STATUS
+declare function RpcBindingFree(byval Binding as RPC_BINDING_HANDLE ptr) as RPC_STATUS
+declare function RpcBindingSetOption(byval hBinding as RPC_BINDING_HANDLE, byval option_ as culong, byval optionValue as ULONG_PTR) as RPC_STATUS
+declare function RpcBindingInqOption(byval hBinding as RPC_BINDING_HANDLE, byval option_ as culong, byval pOptionValue as ULONG_PTR ptr) as RPC_STATUS
+declare function RpcBindingFromStringBindingA(byval StringBinding as RPC_CSTR, byval Binding as RPC_BINDING_HANDLE ptr) as RPC_STATUS
+declare function RpcBindingFromStringBindingW(byval StringBinding as RPC_WSTR, byval Binding as RPC_BINDING_HANDLE ptr) as RPC_STATUS
+declare function RpcSsGetContextBinding(byval ContextHandle as any ptr, byval Binding as RPC_BINDING_HANDLE ptr) as RPC_STATUS
+declare function RpcBindingInqObject(byval Binding as RPC_BINDING_HANDLE, byval ObjectUuid as UUID ptr) as RPC_STATUS
+declare function RpcBindingReset(byval Binding as RPC_BINDING_HANDLE) as RPC_STATUS
+declare function RpcBindingSetObject(byval Binding as RPC_BINDING_HANDLE, byval ObjectUuid as UUID ptr) as RPC_STATUS
+declare function RpcMgmtInqDefaultProtectLevel(byval AuthnSvc as culong, byval AuthnLevel as culong ptr) as RPC_STATUS
+declare function RpcBindingToStringBindingA(byval Binding as RPC_BINDING_HANDLE, byval StringBinding as RPC_CSTR ptr) as RPC_STATUS
+declare function RpcBindingToStringBindingW(byval Binding as RPC_BINDING_HANDLE, byval StringBinding as RPC_WSTR ptr) as RPC_STATUS
+declare function RpcBindingVectorFree(byval BindingVector as RPC_BINDING_VECTOR ptr ptr) as RPC_STATUS
+declare function RpcStringBindingComposeA(byval ObjUuid as RPC_CSTR, byval Protseq as RPC_CSTR, byval NetworkAddr as RPC_CSTR, byval Endpoint as RPC_CSTR, byval Options as RPC_CSTR, byval StringBinding as RPC_CSTR ptr) as RPC_STATUS
+declare function RpcStringBindingComposeW(byval ObjUuid as RPC_WSTR, byval Protseq as RPC_WSTR, byval NetworkAddr as RPC_WSTR, byval Endpoint as RPC_WSTR, byval Options as RPC_WSTR, byval StringBinding as RPC_WSTR ptr) as RPC_STATUS
+declare function RpcStringBindingParseA(byval StringBinding as RPC_CSTR, byval ObjUuid as RPC_CSTR ptr, byval Protseq as RPC_CSTR ptr, byval NetworkAddr as RPC_CSTR ptr, byval Endpoint as RPC_CSTR ptr, byval NetworkOptions as RPC_CSTR ptr) as RPC_STATUS
+declare function RpcStringBindingParseW(byval StringBinding as RPC_WSTR, byval ObjUuid as RPC_WSTR ptr, byval Protseq as RPC_WSTR ptr, byval NetworkAddr as RPC_WSTR ptr, byval Endpoint as RPC_WSTR ptr, byval NetworkOptions as RPC_WSTR ptr) as RPC_STATUS
+declare function RpcStringFreeA(byval String_ as RPC_CSTR ptr) as RPC_STATUS
+declare function RpcStringFreeW(byval String_ as RPC_WSTR ptr) as RPC_STATUS
+declare function RpcIfInqId(byval RpcIfHandle as RPC_IF_HANDLE, byval RpcIfId as RPC_IF_ID ptr) as RPC_STATUS
+declare function RpcNetworkIsProtseqValidA(byval Protseq as RPC_CSTR) as RPC_STATUS
+declare function RpcNetworkIsProtseqValidW(byval Protseq as RPC_WSTR) as RPC_STATUS
+declare function RpcMgmtInqComTimeout(byval Binding as RPC_BINDING_HANDLE, byval Timeout as ulong ptr) as RPC_STATUS
+declare function RpcMgmtSetComTimeout(byval Binding as RPC_BINDING_HANDLE, byval Timeout as ulong) as RPC_STATUS
+declare function RpcMgmtSetCancelTimeout(byval Timeout as clong) as RPC_STATUS
+declare function RpcNetworkInqProtseqsA(byval ProtseqVector as RPC_PROTSEQ_VECTORA ptr ptr) as RPC_STATUS
+declare function RpcNetworkInqProtseqsW(byval ProtseqVector as RPC_PROTSEQ_VECTORW ptr ptr) as RPC_STATUS
+declare function RpcObjectInqType(byval ObjUuid as UUID ptr, byval TypeUuid as UUID ptr) as RPC_STATUS
+declare function RpcObjectSetInqFn(byval InquiryFn as sub(byval ObjectUuid as UUID ptr, byval TypeUuid as UUID ptr, byval Status as RPC_STATUS ptr)) as RPC_STATUS
+declare function RpcObjectSetType(byval ObjUuid as UUID ptr, byval TypeUuid as UUID ptr) as RPC_STATUS
+declare function RpcProtseqVectorFreeA(byval ProtseqVector as RPC_PROTSEQ_VECTORA ptr ptr) as RPC_STATUS
+declare function RpcProtseqVectorFreeW(byval ProtseqVector as RPC_PROTSEQ_VECTORW ptr ptr) as RPC_STATUS
+declare function RpcServerInqBindings(byval BindingVector as RPC_BINDING_VECTOR ptr ptr) as RPC_STATUS
+declare function RpcServerInqIf(byval IfSpec as RPC_IF_HANDLE, byval MgrTypeUuid as UUID ptr, byval MgrEpv as any ptr ptr) as RPC_STATUS
+declare function RpcServerListen(byval MinimumCallThreads as ulong, byval MaxCalls as ulong, byval DontWait as ulong) as RPC_STATUS
+declare function RpcServerRegisterIf(byval IfSpec as RPC_IF_HANDLE, byval MgrTypeUuid as UUID ptr, byval MgrEpv as any ptr) as RPC_STATUS
+declare function RpcServerRegisterIfEx(byval IfSpec as RPC_IF_HANDLE, byval MgrTypeUuid as UUID ptr, byval MgrEpv as any ptr, byval Flags as ulong, byval MaxCalls as ulong, byval IfCallback as function(byval InterfaceUuid as RPC_IF_HANDLE, byval Context as any ptr) as RPC_STATUS) as RPC_STATUS
+declare function RpcServerRegisterIf2(byval IfSpec as RPC_IF_HANDLE, byval MgrTypeUuid as UUID ptr, byval MgrEpv as any ptr, byval Flags as ulong, byval MaxCalls as ulong, byval MaxRpcSize as ulong, byval IfCallbackFn as function(byval InterfaceUuid as RPC_IF_HANDLE, byval Context as any ptr) as RPC_STATUS) as RPC_STATUS
+declare function RpcServerUnregisterIf(byval IfSpec as RPC_IF_HANDLE, byval MgrTypeUuid as UUID ptr, byval WaitForCallsToComplete as ulong) as RPC_STATUS
+declare function RpcServerUnregisterIfEx(byval IfSpec as RPC_IF_HANDLE, byval MgrTypeUuid as UUID ptr, byval RundownContextHandles as long) as RPC_STATUS
+declare function RpcServerUseAllProtseqs(byval MaxCalls as ulong, byval SecurityDescriptor as any ptr) as RPC_STATUS
+declare function RpcServerUseAllProtseqsEx(byval MaxCalls as ulong, byval SecurityDescriptor as any ptr, byval Policy as PRPC_POLICY) as RPC_STATUS
+declare function RpcServerUseAllProtseqsIf(byval MaxCalls as ulong, byval IfSpec as RPC_IF_HANDLE, byval SecurityDescriptor as any ptr) as RPC_STATUS
+declare function RpcServerUseAllProtseqsIfEx(byval MaxCalls as ulong, byval IfSpec as RPC_IF_HANDLE, byval SecurityDescriptor as any ptr, byval Policy as PRPC_POLICY) as RPC_STATUS
+declare function RpcServerUseProtseqA(byval Protseq as RPC_CSTR, byval MaxCalls as ulong, byval SecurityDescriptor as any ptr) as RPC_STATUS
+declare function RpcServerUseProtseqExA(byval Protseq as RPC_CSTR, byval MaxCalls as ulong, byval SecurityDescriptor as any ptr, byval Policy as PRPC_POLICY) as RPC_STATUS
+declare function RpcServerUseProtseqW(byval Protseq as RPC_WSTR, byval MaxCalls as ulong, byval SecurityDescriptor as any ptr) as RPC_STATUS
+declare function RpcServerUseProtseqExW(byval Protseq as RPC_WSTR, byval MaxCalls as ulong, byval SecurityDescriptor as any ptr, byval Policy as PRPC_POLICY) as RPC_STATUS
+declare function RpcServerUseProtseqEpA(byval Protseq as RPC_CSTR, byval MaxCalls as ulong, byval Endpoint as RPC_CSTR, byval SecurityDescriptor as any ptr) as RPC_STATUS
+declare function RpcServerUseProtseqEpExA(byval Protseq as RPC_CSTR, byval MaxCalls as ulong, byval Endpoint as RPC_CSTR, byval SecurityDescriptor as any ptr, byval Policy as PRPC_POLICY) as RPC_STATUS
+declare function RpcServerUseProtseqEpW(byval Protseq as RPC_WSTR, byval MaxCalls as ulong, byval Endpoint as RPC_WSTR, byval SecurityDescriptor as any ptr) as RPC_STATUS
+declare function RpcServerUseProtseqEpExW(byval Protseq as RPC_WSTR, byval MaxCalls as ulong, byval Endpoint as RPC_WSTR, byval SecurityDescriptor as any ptr, byval Policy as PRPC_POLICY) as RPC_STATUS
+declare function RpcServerUseProtseqIfA(byval Protseq as RPC_CSTR, byval MaxCalls as ulong, byval IfSpec as RPC_IF_HANDLE, byval SecurityDescriptor as any ptr) as RPC_STATUS
+declare function RpcServerUseProtseqIfExA(byval Protseq as RPC_CSTR, byval MaxCalls as ulong, byval IfSpec as RPC_IF_HANDLE, byval SecurityDescriptor as any ptr, byval Policy as PRPC_POLICY) as RPC_STATUS
+declare function RpcServerUseProtseqIfW(byval Protseq as RPC_WSTR, byval MaxCalls as ulong, byval IfSpec as RPC_IF_HANDLE, byval SecurityDescriptor as any ptr) as RPC_STATUS
+declare function RpcServerUseProtseqIfExW(byval Protseq as RPC_WSTR, byval MaxCalls as ulong, byval IfSpec as RPC_IF_HANDLE, byval SecurityDescriptor as any ptr, byval Policy as PRPC_POLICY) as RPC_STATUS
+declare sub RpcServerYield()
+declare function RpcMgmtStatsVectorFree(byval StatsVector as RPC_STATS_VECTOR ptr ptr) as RPC_STATUS
+declare function RpcMgmtInqStats(byval Binding as RPC_BINDING_HANDLE, byval Statistics as RPC_STATS_VECTOR ptr ptr) as RPC_STATUS
+declare function RpcMgmtIsServerListening(byval Binding as RPC_BINDING_HANDLE) as RPC_STATUS
+declare function RpcMgmtStopServerListening(byval Binding as RPC_BINDING_HANDLE) as RPC_STATUS
+declare function RpcMgmtWaitServerListen() as RPC_STATUS
+declare function RpcMgmtSetServerStackSize(byval ThreadStackSize as culong) as RPC_STATUS
+declare sub RpcSsDontSerializeContext()
+declare function RpcMgmtEnableIdleCleanup() as RPC_STATUS
+declare function RpcMgmtInqIfIds(byval Binding as RPC_BINDING_HANDLE, byval IfIdVector as RPC_IF_ID_VECTOR ptr ptr) as RPC_STATUS
+declare function RpcIfIdVectorFree(byval IfIdVector as RPC_IF_ID_VECTOR ptr ptr) as RPC_STATUS
+declare function RpcMgmtInqServerPrincNameA(byval Binding as RPC_BINDING_HANDLE, byval AuthnSvc as culong, byval ServerPrincName as RPC_CSTR ptr) as RPC_STATUS
+declare function RpcMgmtInqServerPrincNameW(byval Binding as RPC_BINDING_HANDLE, byval AuthnSvc as culong, byval ServerPrincName as RPC_WSTR ptr) as RPC_STATUS
+declare function RpcServerInqDefaultPrincNameA(byval AuthnSvc as culong, byval PrincName as RPC_CSTR ptr) as RPC_STATUS
+declare function RpcServerInqDefaultPrincNameW(byval AuthnSvc as culong, byval PrincName as RPC_WSTR ptr) as RPC_STATUS
+declare function RpcEpResolveBinding(byval Binding as RPC_BINDING_HANDLE, byval IfSpec as RPC_IF_HANDLE) as RPC_STATUS
+declare function RpcNsBindingInqEntryNameA(byval Binding as RPC_BINDING_HANDLE, byval EntryNameSyntax as culong, byval EntryName as RPC_CSTR ptr) as RPC_STATUS
+declare function RpcNsBindingInqEntryNameW(byval Binding as RPC_BINDING_HANDLE, byval EntryNameSyntax as culong, byval EntryName as RPC_WSTR ptr) as RPC_STATUS
+
+type RPC_AUTH_IDENTITY_HANDLE as any ptr
+type RPC_AUTHZ_HANDLE as any ptr
+
+#define RPC_C_AUTHN_LEVEL_DEFAULT 0
+#define RPC_C_AUTHN_LEVEL_NONE 1
+#define RPC_C_AUTHN_LEVEL_CONNECT 2
+#define RPC_C_AUTHN_LEVEL_CALL 3
+#define RPC_C_AUTHN_LEVEL_PKT 4
+#define RPC_C_AUTHN_LEVEL_PKT_INTEGRITY 5
+#define RPC_C_AUTHN_LEVEL_PKT_PRIVACY 6
+#define RPC_C_IMP_LEVEL_DEFAULT 0
+#define RPC_C_IMP_LEVEL_ANONYMOUS 1
+#define RPC_C_IMP_LEVEL_IDENTIFY 2
+#define RPC_C_IMP_LEVEL_IMPERSONATE 3
+#define RPC_C_IMP_LEVEL_DELEGATE 4
+#define RPC_C_QOS_IDENTITY_STATIC 0
+#define RPC_C_QOS_IDENTITY_DYNAMIC 1
+#define RPC_C_QOS_CAPABILITIES_DEFAULT &h0
+#define RPC_C_QOS_CAPABILITIES_MUTUAL_AUTH &h1
+#define RPC_C_QOS_CAPABILITIES_MAKE_FULLSIC &h2
+#define RPC_C_QOS_CAPABILITIES_ANY_AUTHORITY &h4
+#define RPC_C_QOS_CAPABILITIES_IGNORE_DELEGATE_FAILURE &h8
+#define RPC_C_QOS_CAPABILITIES_LOCAL_MA_HINT &h10
+#define RPC_C_PROTECT_LEVEL_DEFAULT RPC_C_AUTHN_LEVEL_DEFAULT
+#define RPC_C_PROTECT_LEVEL_NONE RPC_C_AUTHN_LEVEL_NONE
+#define RPC_C_PROTECT_LEVEL_CONNECT RPC_C_AUTHN_LEVEL_CONNECT
+#define RPC_C_PROTECT_LEVEL_CALL RPC_C_AUTHN_LEVEL_CALL
+#define RPC_C_PROTECT_LEVEL_PKT RPC_C_AUTHN_LEVEL_PKT
+#define RPC_C_PROTECT_LEVEL_PKT_INTEGRITY RPC_C_AUTHN_LEVEL_PKT_INTEGRITY
+#define RPC_C_PROTECT_LEVEL_PKT_PRIVACY RPC_C_AUTHN_LEVEL_PKT_PRIVACY
+#define RPC_C_AUTHN_NONE 0
+#define RPC_C_AUTHN_DCE_PRIVATE 1
+#define RPC_C_AUTHN_DCE_PUBLIC 2
+#define RPC_C_AUTHN_DEC_PUBLIC 4
+#define RPC_C_AUTHN_GSS_NEGOTIATE 9
+#define RPC_C_AUTHN_WINNT 10
+#define RPC_C_AUTHN_GSS_SCHANNEL 14
+#define RPC_C_AUTHN_GSS_KERBEROS 16
+#define RPC_C_AUTHN_DPA 17
+#define RPC_C_AUTHN_MSN 18
+#define RPC_C_AUTHN_DIGEST 21
+#define RPC_C_AUTHN_MQ 100
+#define RPC_C_AUTHN_DEFAULT __MSABI_LONG(&hFFFFFFFF)
+#define RPC_C_NO_CREDENTIALS cast(RPC_AUTH_IDENTITY_HANDLE, MAXUINT_PTR)
+#define RPC_C_SECURITY_QOS_VERSION __MSABI_LONG(1)
+#define RPC_C_SECURITY_QOS_VERSION_1 __MSABI_LONG(1)
+
+#ifdef __FB_64BIT__
+	type _RPC_SECURITY_QOS field = 8
+		Version as culong
+		Capabilities as culong
+		IdentityTracking as culong
+		ImpersonationType as culong
+	end type
+#else
+	type _RPC_SECURITY_QOS
+		Version as culong
+		Capabilities as culong
+		IdentityTracking as culong
+		ImpersonationType as culong
+	end type
+#endif
+
+type RPC_SECURITY_QOS as _RPC_SECURITY_QOS
+type PRPC_SECURITY_QOS as _RPC_SECURITY_QOS ptr
+
+#define _AUTH_IDENTITY_DEFINED
+#define SEC_WINNT_AUTH_IDENTITY_ANSI &h1
+#define SEC_WINNT_AUTH_IDENTITY_UNICODE &h2
+
+#ifdef __FB_64BIT__
+	type _SEC_WINNT_AUTH_IDENTITY_W field = 8
+		User as ushort ptr
+		UserLength as culong
+		Domain as ushort ptr
+		DomainLength as culong
+		Password as ushort ptr
+		PasswordLength as culong
+		Flags as culong
+	end type
+#else
+	type _SEC_WINNT_AUTH_IDENTITY_W
+		User as ushort ptr
+		UserLength as culong
+		Domain as ushort ptr
+		DomainLength as culong
+		Password as ushort ptr
+		PasswordLength as culong
+		Flags as culong
+	end type
+#endif
+
+type SEC_WINNT_AUTH_IDENTITY_W as _SEC_WINNT_AUTH_IDENTITY_W
+type PSEC_WINNT_AUTH_IDENTITY_W as _SEC_WINNT_AUTH_IDENTITY_W ptr
+
+#ifdef __FB_64BIT__
+	type _SEC_WINNT_AUTH_IDENTITY_A field = 8
+		User as ubyte ptr
+		UserLength as culong
+		Domain as ubyte ptr
+		DomainLength as culong
+		Password as ubyte ptr
+		PasswordLength as culong
+		Flags as culong
+	end type
+#else
+	type _SEC_WINNT_AUTH_IDENTITY_A
+		User as ubyte ptr
+		UserLength as culong
+		Domain as ubyte ptr
+		DomainLength as culong
+		Password as ubyte ptr
+		PasswordLength as culong
+		Flags as culong
+	end type
+#endif
+
+type SEC_WINNT_AUTH_IDENTITY_A as _SEC_WINNT_AUTH_IDENTITY_A
+type PSEC_WINNT_AUTH_IDENTITY_A as _SEC_WINNT_AUTH_IDENTITY_A ptr
+
+#define SEC_WINNT_AUTH_IDENTITY __MINGW_NAME_UAW(SEC_WINNT_AUTH_IDENTITY)
+#define PSEC_WINNT_AUTH_IDENTITY __MINGW_NAME_UAW(PSEC_WINNT_AUTH_IDENTITY)
+#define _SEC_WINNT_AUTH_IDENTITY __MINGW_NAME_UAW(_SEC_WINNT_AUTH_IDENTITY)
+#define RPC_C_SECURITY_QOS_VERSION_2 __MSABI_LONG(2)
+#define RPC_C_AUTHN_INFO_TYPE_HTTP 1
+#define RPC_C_HTTP_AUTHN_TARGET_SERVER 1
+#define RPC_C_HTTP_AUTHN_TARGET_PROXY 2
+#define RPC_C_HTTP_AUTHN_SCHEME_BASIC &h00000001
+#define RPC_C_HTTP_AUTHN_SCHEME_NTLM &h00000002
+#define RPC_C_HTTP_AUTHN_SCHEME_PASSPORT &h00000004
+#define RPC_C_HTTP_AUTHN_SCHEME_DIGEST &h00000008
+#define RPC_C_HTTP_AUTHN_SCHEME_NEGOTIATE &h00000010
+#define RPC_C_HTTP_AUTHN_SCHEME_CERT &h00010000
+#define RPC_C_HTTP_FLAG_USE_SSL 1
+#define RPC_C_HTTP_FLAG_USE_FIRST_AUTH_SCHEME 2
+#define RPC_C_HTTP_FLAG_IGNORE_CERT_CN_INVALID 8
+
+#ifdef __FB_64BIT__
+	type _RPC_HTTP_TRANSPORT_CREDENTIALS_W field = 8
+		TransportCredentials as SEC_WINNT_AUTH_IDENTITY_W ptr
+		Flags as culong
+		AuthenticationTarget as culong
+		NumberOfAuthnSchemes as culong
+		AuthnSchemes as culong ptr
+		ServerCertificateSubject as ushort ptr
+	end type
+#else
+	type _RPC_HTTP_TRANSPORT_CREDENTIALS_W
+		TransportCredentials as SEC_WINNT_AUTH_IDENTITY_W ptr
+		Flags as culong
+		AuthenticationTarget as culong
+		NumberOfAuthnSchemes as culong
+		AuthnSchemes as culong ptr
+		ServerCertificateSubject as ushort ptr
+	end type
+#endif
+
+type RPC_HTTP_TRANSPORT_CREDENTIALS_W as _RPC_HTTP_TRANSPORT_CREDENTIALS_W
+type PRPC_HTTP_TRANSPORT_CREDENTIALS_W as _RPC_HTTP_TRANSPORT_CREDENTIALS_W ptr
+
+#ifdef __FB_64BIT__
+	type _RPC_HTTP_TRANSPORT_CREDENTIALS_A field = 8
+		TransportCredentials as SEC_WINNT_AUTH_IDENTITY_A ptr
+		Flags as culong
+		AuthenticationTarget as culong
+		NumberOfAuthnSchemes as culong
+		AuthnSchemes as culong ptr
+		ServerCertificateSubject as ubyte ptr
+	end type
+#else
+	type _RPC_HTTP_TRANSPORT_CREDENTIALS_A
+		TransportCredentials as SEC_WINNT_AUTH_IDENTITY_A ptr
+		Flags as culong
+		AuthenticationTarget as culong
+		NumberOfAuthnSchemes as culong
+		AuthnSchemes as culong ptr
+		ServerCertificateSubject as ubyte ptr
+	end type
+#endif
+
+type RPC_HTTP_TRANSPORT_CREDENTIALS_A as _RPC_HTTP_TRANSPORT_CREDENTIALS_A
+type PRPC_HTTP_TRANSPORT_CREDENTIALS_A as _RPC_HTTP_TRANSPORT_CREDENTIALS_A ptr
+
+#ifdef __FB_64BIT__
+	union ___RPC_SECURITY_QOS_V2_W_u field = 8
+		HttpCredentials as RPC_HTTP_TRANSPORT_CREDENTIALS_W ptr
+	end union
+
+	type _RPC_SECURITY_QOS_V2_W field = 8
+		Version as culong
+		Capabilities as culong
+		IdentityTracking as culong
+		ImpersonationType as culong
+		AdditionalSecurityInfoType as culong
+		u as ___RPC_SECURITY_QOS_V2_W_u
+	end type
+#else
+	union ___RPC_SECURITY_QOS_V2_W_u
+		HttpCredentials as RPC_HTTP_TRANSPORT_CREDENTIALS_W ptr
+	end union
+
+	type _RPC_SECURITY_QOS_V2_W
+		Version as culong
+		Capabilities as culong
+		IdentityTracking as culong
+		ImpersonationType as culong
+		AdditionalSecurityInfoType as culong
+		u as ___RPC_SECURITY_QOS_V2_W_u
+	end type
+#endif
+
+type RPC_SECURITY_QOS_V2_W as _RPC_SECURITY_QOS_V2_W
+type PRPC_SECURITY_QOS_V2_W as _RPC_SECURITY_QOS_V2_W ptr
+
+#ifdef __FB_64BIT__
+	union ___RPC_SECURITY_QOS_V2_A_u field = 8
+		HttpCredentials as RPC_HTTP_TRANSPORT_CREDENTIALS_A ptr
+	end union
+
+	type _RPC_SECURITY_QOS_V2_A field = 8
+		Version as culong
+		Capabilities as culong
+		IdentityTracking as culong
+		ImpersonationType as culong
+		AdditionalSecurityInfoType as culong
+		u as ___RPC_SECURITY_QOS_V2_A_u
+	end type
+#else
+	union ___RPC_SECURITY_QOS_V2_A_u
+		HttpCredentials as RPC_HTTP_TRANSPORT_CREDENTIALS_A ptr
+	end union
+
+	type _RPC_SECURITY_QOS_V2_A
+		Version as culong
+		Capabilities as culong
+		IdentityTracking as culong
+		ImpersonationType as culong
+		AdditionalSecurityInfoType as culong
+		u as ___RPC_SECURITY_QOS_V2_A_u
+	end type
+#endif
+
+type RPC_SECURITY_QOS_V2_A as _RPC_SECURITY_QOS_V2_A
+type PRPC_SECURITY_QOS_V2_A as _RPC_SECURITY_QOS_V2_A ptr
+
+#define RPC_C_SECURITY_QOS_VERSION_3 __MSABI_LONG(3)
+
+#ifdef __FB_64BIT__
+	union ___RPC_SECURITY_QOS_V3_W_u field = 8
+		HttpCredentials as RPC_HTTP_TRANSPORT_CREDENTIALS_W ptr
+	end union
+
+	type _RPC_SECURITY_QOS_V3_W field = 8
+		Version as culong
+		Capabilities as culong
+		IdentityTracking as culong
+		ImpersonationType as culong
+		AdditionalSecurityInfoType as culong
+		u as ___RPC_SECURITY_QOS_V3_W_u
+		Sid as any ptr
+	end type
+#else
+	union ___RPC_SECURITY_QOS_V3_W_u
+		HttpCredentials as RPC_HTTP_TRANSPORT_CREDENTIALS_W ptr
+	end union
+
+	type _RPC_SECURITY_QOS_V3_W
+		Version as culong
+		Capabilities as culong
+		IdentityTracking as culong
+		ImpersonationType as culong
+		AdditionalSecurityInfoType as culong
+		u as ___RPC_SECURITY_QOS_V3_W_u
+		Sid as any ptr
+	end type
+#endif
+
+type RPC_SECURITY_QOS_V3_W as _RPC_SECURITY_QOS_V3_W
+type PRPC_SECURITY_QOS_V3_W as _RPC_SECURITY_QOS_V3_W ptr
+
+#ifdef __FB_64BIT__
+	union ___RPC_SECURITY_QOS_V3_A_u field = 8
+		HttpCredentials as RPC_HTTP_TRANSPORT_CREDENTIALS_A ptr
+	end union
+
+	type _RPC_SECURITY_QOS_V3_A field = 8
+		Version as culong
+		Capabilities as culong
+		IdentityTracking as culong
+		ImpersonationType as culong
+		AdditionalSecurityInfoType as culong
+		u as ___RPC_SECURITY_QOS_V3_A_u
+		Sid as any ptr
+	end type
+#else
+	union ___RPC_SECURITY_QOS_V3_A_u
+		HttpCredentials as RPC_HTTP_TRANSPORT_CREDENTIALS_A ptr
+	end union
+
+	type _RPC_SECURITY_QOS_V3_A
+		Version as culong
+		Capabilities as culong
+		IdentityTracking as culong
+		ImpersonationType as culong
+		AdditionalSecurityInfoType as culong
+		u as ___RPC_SECURITY_QOS_V3_A_u
+		Sid as any ptr
+	end type
+#endif
+
+type RPC_SECURITY_QOS_V3_A as _RPC_SECURITY_QOS_V3_A
+type PRPC_SECURITY_QOS_V3_A as _RPC_SECURITY_QOS_V3_A ptr
+
+#define RPC_SECURITY_QOS_V2 __MINGW_NAME_UAW(RPC_SECURITY_QOS_V2)
+#define PRPC_SECURITY_QOS_V2 __MINGW_NAME_UAW(PRPC_SECURITY_QOS_V2)
+#define _RPC_SECURITY_QOS_V2 __MINGW_NAME_UAW(_RPC_SECURITY_QOS_V2)
+#define RPC_HTTP_TRANSPORT_CREDENTIALS __MINGW_NAME_UAW(RPC_HTTP_TRANSPORT_CREDENTIALS)
+#define PRPC_HTTP_TRANSPORT_CREDENTIALS __MINGW_NAME_UAW(PRPC_HTTP_TRANSPORT_CREDENTIALS)
+#define _RPC_HTTP_TRANSPORT_CREDENTIALS __MINGW_NAME_UAW(_RPC_HTTP_TRANSPORT_CREDENTIALS)
+#define RPC_SECURITY_QOS_V3 __MINGW_NAME_UAW(RPC_SECURITY_QOS_V3)
+#define PRPC_SECURITY_QOS_V3 __MINGW_NAME_UAW(PRPC_SECURITY_QOS_V3)
+#define _RPC_SECURITY_QOS_V3 __MINGW_NAME_UAW(_RPC_SECURITY_QOS_V3)
+
+type _RPC_HTTP_REDIRECTOR_STAGE as long
+enum
+	RPCHTTP_RS_REDIRECT = 1
+	RPCHTTP_RS_ACCESS_1
+	RPCHTTP_RS_SESSION
+	RPCHTTP_RS_ACCESS_2
+	RPCHTTP_RS_INTERFACE
+end enum
+
+type RPC_HTTP_REDIRECTOR_STAGE as _RPC_HTTP_REDIRECTOR_STAGE
+type RPC_NEW_HTTP_PROXY_CHANNEL as function(byval RedirectorStage as RPC_HTTP_REDIRECTOR_STAGE, byval ServerName as ushort ptr, byval ServerPort as ushort ptr, byval RemoteUser as ushort ptr, byval AuthType as ushort ptr, byval ResourceUuid as any ptr, byval Metadata as any ptr, byval SessionId as any ptr, byval Interface as any ptr, byval Reserved as any ptr, byval Flags as culong, byval NewServerName as ushort ptr ptr, byval NewServerPort as ushort ptr ptr) as RPC_STATUS
+type RPC_HTTP_PROXY_FREE_STRING as sub(byval String_ as ushort ptr)
+
+#define RPC_C_AUTHZ_NONE 0
+#define RPC_C_AUTHZ_NAME 1
+#define RPC_C_AUTHZ_DCE 2
+#define RPC_C_AUTHZ_DEFAULT &hffffffff
+
+declare function RpcImpersonateClient(byval BindingHandle as RPC_BINDING_HANDLE) as RPC_STATUS
+declare function RpcRevertToSelfEx(byval BindingHandle as RPC_BINDING_HANDLE) as RPC_STATUS
+declare function RpcRevertToSelf() as RPC_STATUS
+declare function RpcBindingInqAuthClientA(byval ClientBinding as RPC_BINDING_HANDLE, byval Privs as RPC_AUTHZ_HANDLE ptr, byval ServerPrincName as RPC_CSTR ptr, byval AuthnLevel as culong ptr, byval AuthnSvc as culong ptr, byval AuthzSvc as culong ptr) as RPC_STATUS
+declare function RpcBindingInqAuthClientW(byval ClientBinding as RPC_BINDING_HANDLE, byval Privs as RPC_AUTHZ_HANDLE ptr, byval ServerPrincName as RPC_WSTR ptr, byval AuthnLevel as culong ptr, byval AuthnSvc as culong ptr, byval AuthzSvc as culong ptr) as RPC_STATUS
+declare function RpcBindingInqAuthClientExA(byval ClientBinding as RPC_BINDING_HANDLE, byval Privs as RPC_AUTHZ_HANDLE ptr, byval ServerPrincName as RPC_CSTR ptr, byval AuthnLevel as culong ptr, byval AuthnSvc as culong ptr, byval AuthzSvc as culong ptr, byval Flags as culong) as RPC_STATUS
+declare function RpcBindingInqAuthClientExW(byval ClientBinding as RPC_BINDING_HANDLE, byval Privs as RPC_AUTHZ_HANDLE ptr, byval ServerPrincName as RPC_WSTR ptr, byval AuthnLevel as culong ptr, byval AuthnSvc as culong ptr, byval AuthzSvc as culong ptr, byval Flags as culong) as RPC_STATUS
+declare function RpcBindingInqAuthInfoA(byval Binding as RPC_BINDING_HANDLE, byval ServerPrincName as RPC_CSTR ptr, byval AuthnLevel as culong ptr, byval AuthnSvc as culong ptr, byval AuthIdentity as RPC_AUTH_IDENTITY_HANDLE ptr, byval AuthzSvc as culong ptr) as RPC_STATUS
+declare function RpcBindingInqAuthInfoW(byval Binding as RPC_BINDING_HANDLE, byval ServerPrincName as RPC_WSTR ptr, byval AuthnLevel as culong ptr, byval AuthnSvc as culong ptr, byval AuthIdentity as RPC_AUTH_IDENTITY_HANDLE ptr, byval AuthzSvc as culong ptr) as RPC_STATUS
+declare function RpcBindingSetAuthInfoA(byval Binding as RPC_BINDING_HANDLE, byval ServerPrincName as RPC_CSTR, byval AuthnLevel as culong, byval AuthnSvc as culong, byval AuthIdentity as RPC_AUTH_IDENTITY_HANDLE, byval AuthzSvc as culong) as RPC_STATUS
+declare function RpcBindingSetAuthInfoExA(byval Binding as RPC_BINDING_HANDLE, byval ServerPrincName as RPC_CSTR, byval AuthnLevel as culong, byval AuthnSvc as culong, byval AuthIdentity as RPC_AUTH_IDENTITY_HANDLE, byval AuthzSvc as culong, byval SecurityQos as RPC_SECURITY_QOS ptr) as RPC_STATUS
+declare function RpcBindingSetAuthInfoW(byval Binding as RPC_BINDING_HANDLE, byval ServerPrincName as RPC_WSTR, byval AuthnLevel as culong, byval AuthnSvc as culong, byval AuthIdentity as RPC_AUTH_IDENTITY_HANDLE, byval AuthzSvc as culong) as RPC_STATUS
+declare function RpcBindingSetAuthInfoExW(byval Binding as RPC_BINDING_HANDLE, byval ServerPrincName as RPC_WSTR, byval AuthnLevel as culong, byval AuthnSvc as culong, byval AuthIdentity as RPC_AUTH_IDENTITY_HANDLE, byval AuthzSvc as culong, byval SecurityQOS as RPC_SECURITY_QOS ptr) as RPC_STATUS
+declare function RpcBindingInqAuthInfoExA(byval Binding as RPC_BINDING_HANDLE, byval ServerPrincName as RPC_CSTR ptr, byval AuthnLevel as culong ptr, byval AuthnSvc as culong ptr, byval AuthIdentity as RPC_AUTH_IDENTITY_HANDLE ptr, byval AuthzSvc as culong ptr, byval RpcQosVersion as culong, byval SecurityQOS as RPC_SECURITY_QOS ptr) as RPC_STATUS
+declare function RpcBindingInqAuthInfoExW(byval Binding as RPC_BINDING_HANDLE, byval ServerPrincName as RPC_WSTR ptr, byval AuthnLevel as culong ptr, byval AuthnSvc as culong ptr, byval AuthIdentity as RPC_AUTH_IDENTITY_HANDLE ptr, byval AuthzSvc as culong ptr, byval RpcQosVersion as culong, byval SecurityQOS as RPC_SECURITY_QOS ptr) as RPC_STATUS
+
+type RPC_AUTH_KEY_RETRIEVAL_FN as sub(byval Arg as any ptr, byval ServerPrincName as ushort ptr, byval KeyVer as culong, byval Key as any ptr ptr, byval Status as RPC_STATUS ptr)
+
+declare function RpcServerRegisterAuthInfoA(byval ServerPrincName as RPC_CSTR, byval AuthnSvc as culong, byval GetKeyFn as RPC_AUTH_KEY_RETRIEVAL_FN, byval Arg as any ptr) as RPC_STATUS
+declare function RpcServerRegisterAuthInfoW(byval ServerPrincName as RPC_WSTR, byval AuthnSvc as culong, byval GetKeyFn as RPC_AUTH_KEY_RETRIEVAL_FN, byval Arg as any ptr) as RPC_STATUS
+
+#define RpcBindingInqAuthClient __MINGW_NAME_AW(RpcBindingInqAuthClient)
+#define RpcBindingInqAuthClientEx __MINGW_NAME_AW(RpcBindingInqAuthClientEx)
+#define RpcBindingInqAuthInfo __MINGW_NAME_AW(RpcBindingInqAuthInfo)
+#define RpcBindingSetAuthInfo __MINGW_NAME_AW(RpcBindingSetAuthInfo)
+#define RpcServerRegisterAuthInfo __MINGW_NAME_AW(RpcServerRegisterAuthInfo)
+#define RpcBindingInqAuthInfoEx __MINGW_NAME_AW(RpcBindingInqAuthInfoEx)
+#define RpcBindingSetAuthInfoEx __MINGW_NAME_AW(RpcBindingSetAuthInfoEx)
+
+#ifdef __FB_64BIT__
+	type RPC_CLIENT_INFORMATION1 field = 8
+		UserName as ubyte ptr
+		ComputerName as ubyte ptr
+		Privilege as ushort
+		AuthFlags as culong
+	end type
+#else
+	type RPC_CLIENT_INFORMATION1
+		UserName as ubyte ptr
+		ComputerName as ubyte ptr
+		Privilege as ushort
+		AuthFlags as culong
+	end type
+#endif
+
+type PRPC_CLIENT_INFORMATION1 as RPC_CLIENT_INFORMATION1 ptr
+
+#define UuidFromString __MINGW_NAME_AW(UuidFromString)
+#define UuidToString __MINGW_NAME_AW(UuidToString)
+#define RpcEpRegisterNoReplace __MINGW_NAME_AW(RpcEpRegisterNoReplace)
+#define RpcEpRegister __MINGW_NAME_AW(RpcEpRegister)
+#define DceErrorInqText __MINGW_NAME_AW(DceErrorInqText)
+#define DCE_C_ERROR_STRING_LEN 256
+
+declare function RpcBindingServerFromClient(byval ClientBinding as RPC_BINDING_HANDLE, byval ServerBinding as RPC_BINDING_HANDLE ptr) as RPC_STATUS
+declare sub RpcRaiseException(byval exception as RPC_STATUS)
+declare function RpcTestCancel() as RPC_STATUS
+declare function RpcServerTestCancel(byval BindingHandle as RPC_BINDING_HANDLE) as RPC_STATUS
+declare function RpcCancelThread(byval Thread as any ptr) as RPC_STATUS
+declare function RpcCancelThreadEx(byval Thread as any ptr, byval Timeout as clong) as RPC_STATUS
+declare function UuidCreate(byval Uuid as UUID ptr) as RPC_STATUS
+declare function UuidCreateSequential(byval Uuid as UUID ptr) as RPC_STATUS
+declare function UuidToStringA(byval Uuid as UUID ptr, byval StringUuid as RPC_CSTR ptr) as RPC_STATUS
+declare function UuidFromStringA(byval StringUuid as RPC_CSTR, byval Uuid as UUID ptr) as RPC_STATUS
+declare function UuidToStringW(byval Uuid as UUID ptr, byval StringUuid as RPC_WSTR ptr) as RPC_STATUS
+declare function UuidFromStringW(byval StringUuid as RPC_WSTR, byval Uuid as UUID ptr) as RPC_STATUS
+declare function UuidCompare(byval Uuid1 as UUID ptr, byval Uuid2 as UUID ptr, byval Status as RPC_STATUS ptr) as long
+declare function UuidCreateNil(byval NilUuid as UUID ptr) as RPC_STATUS
+declare function UuidEqual(byval Uuid1 as UUID ptr, byval Uuid2 as UUID ptr, byval Status as RPC_STATUS ptr) as long
+declare function UuidHash(byval Uuid as UUID ptr, byval Status as RPC_STATUS ptr) as ushort
+declare function UuidIsNil(byval Uuid as UUID ptr, byval Status as RPC_STATUS ptr) as long
+declare function RpcEpRegisterNoReplaceA(byval IfSpec as RPC_IF_HANDLE, byval BindingVector as RPC_BINDING_VECTOR ptr, byval UuidVector as UUID_VECTOR ptr, byval Annotation as RPC_CSTR) as RPC_STATUS
+declare function RpcEpRegisterNoReplaceW(byval IfSpec as RPC_IF_HANDLE, byval BindingVector as RPC_BINDING_VECTOR ptr, byval UuidVector as UUID_VECTOR ptr, byval Annotation as RPC_WSTR) as RPC_STATUS
+declare function RpcEpRegisterA(byval IfSpec as RPC_IF_HANDLE, byval BindingVector as RPC_BINDING_VECTOR ptr, byval UuidVector as UUID_VECTOR ptr, byval Annotation as RPC_CSTR) as RPC_STATUS
+declare function RpcEpRegisterW(byval IfSpec as RPC_IF_HANDLE, byval BindingVector as RPC_BINDING_VECTOR ptr, byval UuidVector as UUID_VECTOR ptr, byval Annotation as RPC_WSTR) as RPC_STATUS
+declare function RpcEpUnregister(byval IfSpec as RPC_IF_HANDLE, byval BindingVector as RPC_BINDING_VECTOR ptr, byval UuidVector as UUID_VECTOR ptr) as RPC_STATUS
+declare function DceErrorInqTextA(byval RpcStatus as RPC_STATUS, byval ErrorText as RPC_CSTR) as RPC_STATUS
+declare function DceErrorInqTextW(byval RpcStatus as RPC_STATUS, byval ErrorText as RPC_WSTR) as RPC_STATUS
+
+type RPC_EP_INQ_HANDLE as I_RPC_HANDLE ptr
+
+#define RPC_C_EP_ALL_ELTS 0
+#define RPC_C_EP_MATCH_BY_IF 1
+#define RPC_C_EP_MATCH_BY_OBJ 2
+#define RPC_C_EP_MATCH_BY_BOTH 3
+#define RPC_C_VERS_ALL 1
+#define RPC_C_VERS_COMPATIBLE 2
+#define RPC_C_VERS_EXACT 3
+#define RPC_C_VERS_MAJOR_ONLY 4
+#define RPC_C_VERS_UPTO 5
+#define RpcMgmtEpEltInqNext __MINGW_NAME_AW(RpcMgmtEpEltInqNext)
+
+declare function RpcMgmtEpEltInqBegin(byval EpBinding as RPC_BINDING_HANDLE, byval InquiryType as culong, byval IfId as RPC_IF_ID ptr, byval VersOption as culong, byval ObjectUuid as UUID ptr, byval InquiryContext as RPC_EP_INQ_HANDLE ptr) as RPC_STATUS
+declare function RpcMgmtEpEltInqDone(byval InquiryContext as RPC_EP_INQ_HANDLE ptr) as RPC_STATUS
+declare function RpcMgmtEpEltInqNextA(byval InquiryContext as RPC_EP_INQ_HANDLE, byval IfId as RPC_IF_ID ptr, byval Binding as RPC_BINDING_HANDLE ptr, byval ObjectUuid as UUID ptr, byval Annotation as RPC_CSTR ptr) as RPC_STATUS
+declare function RpcMgmtEpEltInqNextW(byval InquiryContext as RPC_EP_INQ_HANDLE, byval IfId as RPC_IF_ID ptr, byval Binding as RPC_BINDING_HANDLE ptr, byval ObjectUuid as UUID ptr, byval Annotation as RPC_WSTR ptr) as RPC_STATUS
+declare function RpcMgmtEpUnregister(byval EpBinding as RPC_BINDING_HANDLE, byval IfId as RPC_IF_ID ptr, byval Binding as RPC_BINDING_HANDLE, byval ObjectUuid as UUID ptr) as RPC_STATUS
+
+type RPC_MGMT_AUTHORIZATION_FN as function(byval ClientBinding as RPC_BINDING_HANDLE, byval RequestedMgmtOperation as culong, byval Status as RPC_STATUS ptr) as long
+
+#define RPC_C_MGMT_INQ_IF_IDS 0
+#define RPC_C_MGMT_INQ_PRINC_NAME 1
+#define RPC_C_MGMT_INQ_STATS 2
+#define RPC_C_MGMT_IS_SERVER_LISTEN 3
+#define RPC_C_MGMT_STOP_SERVER_LISTEN 4
+
+declare function RpcMgmtSetAuthorizationFn(byval AuthorizationFn as RPC_MGMT_AUTHORIZATION_FN) as RPC_STATUS
+
+#define RPC_C_PARM_MAX_PACKET_LENGTH 1
+#define RPC_C_PARM_BUFFER_LENGTH 2
+#define RPC_IF_AUTOLISTEN &h0001
+#define RPC_IF_OLE &h0002
+#define RPC_IF_ALLOW_UNKNOWN_AUTHORITY &h0004
+#define RPC_IF_ALLOW_SECURE_ONLY &h0008
+#define RPC_IF_ALLOW_CALLBACKS_WITH_NO_AUTH &h0010
+#define RPC_IF_ALLOW_LOCAL_ONLY &h0020
+#define RPC_IF_SEC_NO_CACHE &h0040
+
+end extern
