@@ -130,5 +130,22 @@
 -removedefine __CRT_UUID_DECL
 -removedefine __MINGW_TYPEDEF_AW
 -removedefine __MINGW_TYPEDEF_UAW
+-removedefine IN
+-removedefine OUT
+-removedefine OPTIONAL
+-removedefine far
+-removedefine near
+-removedefine pascal
+-removedefine cdecl
+-removedefine CDECL
+-removedefine CALLBACK
+-removedefine WINAPI
+-removedefine WINAPIV
+-removedefine APIENTRY
+-removedefine APIPRIVATE
+-removedefine PASCAL
+-removedefine WINAPI_INLINE
+-removedefine FAR
+-removedefine NEAR
 
 -removeproc __debugbreak
