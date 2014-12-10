@@ -1,17 +1,20 @@
 #pragma once
 
+#include once "crt/wchar.bi"
 #include once "_mingw_unicode.bi"
 #include once "reason.bi"
 
 '' The following symbols have been renamed:
 ''     typedef PVALUEA => PVALUEA_
 ''     typedef PVALUEW => PVALUEW_
-''     variable LONG => LONG_
 
-extern "C"
+#ifdef __FB_64BIT__
+	extern "C"
+#else
+	extern "Windows"
+#endif
 
 #define _WINREG_
-#define WINVER &h0502
 #define RRF_RT_REG_NONE &h00000001
 #define RRF_RT_REG_SZ &h00000002
 #define RRF_RT_REG_EXPAND_SZ &h00000004
@@ -28,16 +31,15 @@ extern "C"
 type REGSAM as ACCESS_MASK
 type LSTATUS as LONG_
 
-'' TODO: #define HKEY_CLASSES_ROOT ((HKEY) (ULONG_PTR)((LONG)0x80000000))
-'' TODO: #define HKEY_CURRENT_USER ((HKEY) (ULONG_PTR)((LONG)0x80000001))
-'' TODO: #define HKEY_LOCAL_MACHINE ((HKEY) (ULONG_PTR)((LONG)0x80000002))
-'' TODO: #define HKEY_USERS ((HKEY) (ULONG_PTR)((LONG)0x80000003))
-'' TODO: #define HKEY_PERFORMANCE_DATA ((HKEY) (ULONG_PTR)((LONG)0x80000004))
-'' TODO: #define HKEY_PERFORMANCE_TEXT ((HKEY) (ULONG_PTR)((LONG)0x80000050))
-'' TODO: #define HKEY_PERFORMANCE_NLSTEXT ((HKEY) (ULONG_PTR)((LONG)0x80000060))
-'' TODO: #define HKEY_CURRENT_CONFIG ((HKEY) (ULONG_PTR)((LONG)0x80000005))
-'' TODO: #define HKEY_DYN_DATA ((HKEY) (ULONG_PTR)((LONG)0x80000006))
-
+#define HKEY_CLASSES_ROOT cast(HKEY, cast(ULONG_PTR, cast(LONG_, &h80000000)))
+#define HKEY_CURRENT_USER cast(HKEY, cast(ULONG_PTR, cast(LONG_, &h80000001)))
+#define HKEY_LOCAL_MACHINE cast(HKEY, cast(ULONG_PTR, cast(LONG_, &h80000002)))
+#define HKEY_USERS cast(HKEY, cast(ULONG_PTR, cast(LONG_, &h80000003)))
+#define HKEY_PERFORMANCE_DATA cast(HKEY, cast(ULONG_PTR, cast(LONG_, &h80000004)))
+#define HKEY_PERFORMANCE_TEXT cast(HKEY, cast(ULONG_PTR, cast(LONG_, &h80000050)))
+#define HKEY_PERFORMANCE_NLSTEXT cast(HKEY, cast(ULONG_PTR, cast(LONG_, &h80000060)))
+#define HKEY_CURRENT_CONFIG cast(HKEY, cast(ULONG_PTR, cast(LONG_, &h80000005)))
+#define HKEY_DYN_DATA cast(HKEY, cast(ULONG_PTR, cast(LONG_, &h80000006)))
 #define REG_SECURE_CONNECTION 1
 #define _PROVIDER_STRUCTS_DEFINED
 #define PROVIDER_KEEPS_VALUE_LENGTH &h1
@@ -78,7 +80,7 @@ type PPVALUEW as pvalueW ptr
 	type PPVALUE as PPVALUEA
 #endif
 
-type PQUERYHANDLER as function(byval keycontext as LPVOID, byval val_list as PVALCONTEXT, byval num_vals as DWORD, byval outputbuffer as LPVOID, byval total_outlen as DWORD ptr, byval input_blen as DWORD) as DWORD
+type PQUERYHANDLER as function cdecl(byval keycontext as LPVOID, byval val_list as PVALCONTEXT, byval num_vals as DWORD, byval outputbuffer as LPVOID, byval total_outlen as DWORD ptr, byval input_blen as DWORD) as DWORD
 
 type provider_info
 	pi_R0_1val as PQUERYHANDLER
@@ -148,77 +150,70 @@ type PVALENTW as value_entW ptr
 #define InitiateSystemShutdown __MINGW_NAME_AW(InitiateSystemShutdown)
 #define AbortSystemShutdown __MINGW_NAME_AW(AbortSystemShutdown)
 
-extern     LONG_ alias "LONG" as WINADVAPI
-dim shared LONG_ as WINADVAPI
-
-'' TODO: WINADVAPI LONG WINAPI RegCloseKey(HKEY hKey);
-'' TODO: WINADVAPI LONG WINAPI RegOverridePredefKey(HKEY hKey,HKEY hNewHKey);
-'' TODO: WINADVAPI LONG WINAPI RegOpenUserClassesRoot(HANDLE hToken,DWORD dwOptions,REGSAM samDesired,PHKEY phkResult);
-'' TODO: WINADVAPI LONG WINAPI RegOpenCurrentUser(REGSAM samDesired,PHKEY phkResult);
-'' TODO: WINADVAPI LONG WINAPI RegDisablePredefinedCache();
-'' TODO: WINADVAPI LONG WINAPI RegConnectRegistryA(LPCSTR lpMachineName,HKEY hKey,PHKEY phkResult);
-'' TODO: WINADVAPI LONG WINAPI RegConnectRegistryW(LPCWSTR lpMachineName,HKEY hKey,PHKEY phkResult);
-'' TODO: WINADVAPI LONG WINAPI RegConnectRegistryExA(LPCSTR lpMachineName,HKEY hKey,ULONG Flags,PHKEY phkResult);
-'' TODO: WINADVAPI LONG WINAPI RegConnectRegistryExW(LPCWSTR lpMachineName,HKEY hKey,ULONG Flags,PHKEY phkResult);
-'' TODO: WINADVAPI LONG WINAPI RegCreateKeyA(HKEY hKey,LPCSTR lpSubKey,PHKEY phkResult);
-'' TODO: WINADVAPI LONG WINAPI RegCreateKeyW(HKEY hKey,LPCWSTR lpSubKey,PHKEY phkResult);
-'' TODO: WINADVAPI LONG WINAPI RegCreateKeyExA(HKEY hKey,LPCSTR lpSubKey,DWORD Reserved,LPSTR lpClass,DWORD dwOptions,REGSAM samDesired,LPSECURITY_ATTRIBUTES lpSecurityAttributes,PHKEY phkResult,LPDWORD lpdwDisposition);
-'' TODO: WINADVAPI LONG WINAPI RegCreateKeyExW(HKEY hKey,LPCWSTR lpSubKey,DWORD Reserved,LPWSTR lpClass,DWORD dwOptions,REGSAM samDesired,LPSECURITY_ATTRIBUTES lpSecurityAttributes,PHKEY phkResult,LPDWORD lpdwDisposition);
-'' TODO: WINADVAPI LONG WINAPI RegDeleteKeyA(HKEY hKey,LPCSTR lpSubKey);
-'' TODO: WINADVAPI LONG WINAPI RegDeleteKeyW(HKEY hKey,LPCWSTR lpSubKey);
-'' TODO: WINADVAPI LONG WINAPI RegDeleteKeyExA(HKEY hKey,LPCSTR lpSubKey,REGSAM samDesired,DWORD Reserved);
-'' TODO: WINADVAPI LONG WINAPI RegDeleteKeyExW(HKEY hKey,LPCWSTR lpSubKey,REGSAM samDesired,DWORD Reserved);
-'' TODO: WINADVAPI LONG WINAPI RegDisableReflectionKey(HKEY hBase);
-'' TODO: WINADVAPI LONG WINAPI RegEnableReflectionKey(HKEY hBase);
-'' TODO: WINADVAPI LONG WINAPI RegQueryReflectionKey(HKEY hBase,WINBOOL *bIsReflectionDisabled);
-'' TODO: WINADVAPI LONG WINAPI RegDeleteValueA(HKEY hKey,LPCSTR lpValueName);
-'' TODO: WINADVAPI LONG WINAPI RegDeleteValueW(HKEY hKey,LPCWSTR lpValueName);
-'' TODO: WINADVAPI LONG WINAPI RegEnumKeyA(HKEY hKey,DWORD dwIndex,LPSTR lpName,DWORD cchName);
-'' TODO: WINADVAPI LONG WINAPI RegEnumKeyW(HKEY hKey,DWORD dwIndex,LPWSTR lpName,DWORD cchName);
-'' TODO: WINADVAPI LONG WINAPI RegEnumKeyExA(HKEY hKey,DWORD dwIndex,LPSTR lpName,LPDWORD lpcchName,LPDWORD lpReserved,LPSTR lpClass,LPDWORD lpcchClass,PFILETIME lpftLastWriteTime);
-'' TODO: WINADVAPI LONG WINAPI RegEnumKeyExW(HKEY hKey,DWORD dwIndex,LPWSTR lpName,LPDWORD lpcchName,LPDWORD lpReserved,LPWSTR lpClass,LPDWORD lpcchClass,PFILETIME lpftLastWriteTime);
-'' TODO: WINADVAPI LONG WINAPI RegEnumValueA(HKEY hKey,DWORD dwIndex,LPSTR lpValueName,LPDWORD lpcchValueName,LPDWORD lpReserved,LPDWORD lpType,LPBYTE lpData,LPDWORD lpcbData);
-'' TODO: WINADVAPI LONG WINAPI RegEnumValueW(HKEY hKey,DWORD dwIndex,LPWSTR lpValueName,LPDWORD lpcchValueName,LPDWORD lpReserved,LPDWORD lpType,LPBYTE lpData,LPDWORD lpcbData);
-'' TODO: WINADVAPI LONG WINAPI RegFlushKey(HKEY hKey);
-'' TODO: WINADVAPI LONG WINAPI RegGetKeySecurity(HKEY hKey,SECURITY_INFORMATION SecurityInformation,PSECURITY_DESCRIPTOR pSecurityDescriptor,LPDWORD lpcbSecurityDescriptor);
-'' TODO: WINADVAPI LONG WINAPI RegLoadKeyA(HKEY hKey,LPCSTR lpSubKey,LPCSTR lpFile);
-'' TODO: WINADVAPI LONG WINAPI RegLoadKeyW(HKEY hKey,LPCWSTR lpSubKey,LPCWSTR lpFile);
-'' TODO: WINADVAPI LONG WINAPI RegNotifyChangeKeyValue(HKEY hKey,WINBOOL bWatchSubtree,DWORD dwNotifyFilter,HANDLE hEvent,WINBOOL fAsynchronous);
-'' TODO: WINADVAPI LONG WINAPI RegOpenKeyA(HKEY hKey,LPCSTR lpSubKey,PHKEY phkResult);
-'' TODO: WINADVAPI LONG WINAPI RegOpenKeyW(HKEY hKey,LPCWSTR lpSubKey,PHKEY phkResult);
-'' TODO: WINADVAPI LONG WINAPI RegOpenKeyExA(HKEY hKey,LPCSTR lpSubKey,DWORD ulOptions,REGSAM samDesired,PHKEY phkResult);
-'' TODO: WINADVAPI LONG WINAPI RegOpenKeyExW(HKEY hKey,LPCWSTR lpSubKey,DWORD ulOptions,REGSAM samDesired,PHKEY phkResult);
-'' TODO: WINADVAPI LONG WINAPI RegQueryInfoKeyA(HKEY hKey,LPSTR lpClass,LPDWORD lpcchClass,LPDWORD lpReserved,LPDWORD lpcSubKeys,LPDWORD lpcbMaxSubKeyLen,LPDWORD lpcbMaxClassLen,LPDWORD lpcValues,LPDWORD lpcbMaxValueNameLen,LPDWORD lpcbMaxValueLen,LPDWORD lpcbSecurityDescriptor,PFILETIME lpftLastWriteTime);
-'' TODO: WINADVAPI LONG WINAPI RegQueryInfoKeyW(HKEY hKey,LPWSTR lpClass,LPDWORD lpcchClass,LPDWORD lpReserved,LPDWORD lpcSubKeys,LPDWORD lpcbMaxSubKeyLen,LPDWORD lpcbMaxClassLen,LPDWORD lpcValues,LPDWORD lpcbMaxValueNameLen,LPDWORD lpcbMaxValueLen,LPDWORD lpcbSecurityDescriptor,PFILETIME lpftLastWriteTime);
-'' TODO: WINADVAPI LONG WINAPI RegQueryValueA(HKEY hKey,LPCSTR lpSubKey,LPSTR lpData,PLONG lpcbData);
-'' TODO: WINADVAPI LONG WINAPI RegQueryValueW(HKEY hKey,LPCWSTR lpSubKey,LPWSTR lpData,PLONG lpcbData);
-'' TODO: WINADVAPI LONG WINAPI RegQueryMultipleValuesA(HKEY hKey,PVALENTA val_list,DWORD num_vals,LPSTR lpValueBuf,LPDWORD ldwTotsize);
-'' TODO: WINADVAPI LONG WINAPI RegQueryMultipleValuesW(HKEY hKey,PVALENTW val_list,DWORD num_vals,LPWSTR lpValueBuf,LPDWORD ldwTotsize);
-'' TODO: WINADVAPI LONG WINAPI RegQueryValueExA(HKEY hKey,LPCSTR lpValueName,LPDWORD lpReserved,LPDWORD lpType,LPBYTE lpData,LPDWORD lpcbData);
-'' TODO: WINADVAPI LONG WINAPI RegQueryValueExW(HKEY hKey,LPCWSTR lpValueName,LPDWORD lpReserved,LPDWORD lpType,LPBYTE lpData,LPDWORD lpcbData);
-'' TODO: WINADVAPI LONG WINAPI RegReplaceKeyA(HKEY hKey,LPCSTR lpSubKey,LPCSTR lpNewFile,LPCSTR lpOldFile);
-'' TODO: WINADVAPI LONG WINAPI RegReplaceKeyW(HKEY hKey,LPCWSTR lpSubKey,LPCWSTR lpNewFile,LPCWSTR lpOldFile);
-'' TODO: WINADVAPI LONG WINAPI RegRestoreKeyA(HKEY hKey,LPCSTR lpFile,DWORD dwFlags);
-'' TODO: WINADVAPI LONG WINAPI RegRestoreKeyW(HKEY hKey,LPCWSTR lpFile,DWORD dwFlags);
-'' TODO: WINADVAPI LONG WINAPI RegSaveKeyA(HKEY hKey,LPCSTR lpFile,LPSECURITY_ATTRIBUTES lpSecurityAttributes);
-'' TODO: WINADVAPI LONG WINAPI RegSaveKeyW(HKEY hKey,LPCWSTR lpFile,LPSECURITY_ATTRIBUTES lpSecurityAttributes);
-'' TODO: WINADVAPI LONG WINAPI RegSetKeySecurity(HKEY hKey,SECURITY_INFORMATION SecurityInformation,PSECURITY_DESCRIPTOR pSecurityDescriptor);
-'' TODO: WINADVAPI LONG WINAPI RegSetValueA(HKEY hKey,LPCSTR lpSubKey,DWORD dwType,LPCSTR lpData,DWORD cbData);
-'' TODO: WINADVAPI LONG WINAPI RegSetValueW(HKEY hKey,LPCWSTR lpSubKey,DWORD dwType,LPCWSTR lpData,DWORD cbData);
-'' TODO: WINADVAPI LONG WINAPI RegSetValueExA(HKEY hKey,LPCSTR lpValueName,DWORD Reserved,DWORD dwType,CONST BYTE *lpData,DWORD cbData);
-'' TODO: WINADVAPI LONG WINAPI RegSetValueExW(HKEY hKey,LPCWSTR lpValueName,DWORD Reserved,DWORD dwType,CONST BYTE *lpData,DWORD cbData);
-'' TODO: WINADVAPI LONG WINAPI RegUnLoadKeyA(HKEY hKey,LPCSTR lpSubKey);
-'' TODO: WINADVAPI LONG WINAPI RegUnLoadKeyW(HKEY hKey,LPCWSTR lpSubKey);
-'' TODO: WINADVAPI LONG WINAPI RegGetValueA(HKEY hkey,LPCSTR lpSubKey,LPCSTR lpValue,DWORD dwFlags,LPDWORD pdwType,PVOID pvData,LPDWORD pcbData);
-'' TODO: WINADVAPI LONG WINAPI RegGetValueW(HKEY hkey,LPCWSTR lpSubKey,LPCWSTR lpValue,DWORD dwFlags,LPDWORD pdwType,PVOID pvData,LPDWORD pcbData);
-
-extern     WINBOOL as WINADVAPI
-dim shared WINBOOL as WINADVAPI
-
-'' TODO: WINADVAPI WINBOOL WINAPI InitiateSystemShutdownA(LPSTR lpMachineName,LPSTR lpMessage,DWORD dwTimeout,WINBOOL bForceAppsClosed,WINBOOL bRebootAfterShutdown);
-'' TODO: WINADVAPI WINBOOL WINAPI InitiateSystemShutdownW(LPWSTR lpMachineName,LPWSTR lpMessage,DWORD dwTimeout,WINBOOL bForceAppsClosed,WINBOOL bRebootAfterShutdown);
-'' TODO: WINADVAPI WINBOOL WINAPI AbortSystemShutdownA(LPSTR lpMachineName);
-'' TODO: WINADVAPI WINBOOL WINAPI AbortSystemShutdownW(LPWSTR lpMachineName);
+declare function RegCloseKey(byval hKey as HKEY) as LONG_
+declare function RegOverridePredefKey(byval hKey as HKEY, byval hNewHKey as HKEY) as LONG_
+declare function RegOpenUserClassesRoot(byval hToken as HANDLE, byval dwOptions as DWORD, byval samDesired as REGSAM, byval phkResult as PHKEY) as LONG_
+declare function RegOpenCurrentUser(byval samDesired as REGSAM, byval phkResult as PHKEY) as LONG_
+declare function RegDisablePredefinedCache() as LONG_
+declare function RegConnectRegistryA(byval lpMachineName as LPCSTR, byval hKey as HKEY, byval phkResult as PHKEY) as LONG_
+declare function RegConnectRegistryW(byval lpMachineName as LPCWSTR, byval hKey as HKEY, byval phkResult as PHKEY) as LONG_
+declare function RegConnectRegistryExA(byval lpMachineName as LPCSTR, byval hKey as HKEY, byval Flags as ULONG_, byval phkResult as PHKEY) as LONG_
+declare function RegConnectRegistryExW(byval lpMachineName as LPCWSTR, byval hKey as HKEY, byval Flags as ULONG_, byval phkResult as PHKEY) as LONG_
+declare function RegCreateKeyA(byval hKey as HKEY, byval lpSubKey as LPCSTR, byval phkResult as PHKEY) as LONG_
+declare function RegCreateKeyW(byval hKey as HKEY, byval lpSubKey as LPCWSTR, byval phkResult as PHKEY) as LONG_
+declare function RegCreateKeyExA(byval hKey as HKEY, byval lpSubKey as LPCSTR, byval Reserved as DWORD, byval lpClass as LPSTR, byval dwOptions as DWORD, byval samDesired as REGSAM, byval lpSecurityAttributes as LPSECURITY_ATTRIBUTES, byval phkResult as PHKEY, byval lpdwDisposition as LPDWORD) as LONG_
+declare function RegCreateKeyExW(byval hKey as HKEY, byval lpSubKey as LPCWSTR, byval Reserved as DWORD, byval lpClass as LPWSTR, byval dwOptions as DWORD, byval samDesired as REGSAM, byval lpSecurityAttributes as LPSECURITY_ATTRIBUTES, byval phkResult as PHKEY, byval lpdwDisposition as LPDWORD) as LONG_
+declare function RegDeleteKeyA(byval hKey as HKEY, byval lpSubKey as LPCSTR) as LONG_
+declare function RegDeleteKeyW(byval hKey as HKEY, byval lpSubKey as LPCWSTR) as LONG_
+declare function RegDeleteKeyExA(byval hKey as HKEY, byval lpSubKey as LPCSTR, byval samDesired as REGSAM, byval Reserved as DWORD) as LONG_
+declare function RegDeleteKeyExW(byval hKey as HKEY, byval lpSubKey as LPCWSTR, byval samDesired as REGSAM, byval Reserved as DWORD) as LONG_
+declare function RegDisableReflectionKey(byval hBase as HKEY) as LONG_
+declare function RegEnableReflectionKey(byval hBase as HKEY) as LONG_
+declare function RegQueryReflectionKey(byval hBase as HKEY, byval bIsReflectionDisabled as WINBOOL ptr) as LONG_
+declare function RegDeleteValueA(byval hKey as HKEY, byval lpValueName as LPCSTR) as LONG_
+declare function RegDeleteValueW(byval hKey as HKEY, byval lpValueName as LPCWSTR) as LONG_
+declare function RegEnumKeyA(byval hKey as HKEY, byval dwIndex as DWORD, byval lpName as LPSTR, byval cchName as DWORD) as LONG_
+declare function RegEnumKeyW(byval hKey as HKEY, byval dwIndex as DWORD, byval lpName as LPWSTR, byval cchName as DWORD) as LONG_
+declare function RegEnumKeyExA(byval hKey as HKEY, byval dwIndex as DWORD, byval lpName as LPSTR, byval lpcchName as LPDWORD, byval lpReserved as LPDWORD, byval lpClass as LPSTR, byval lpcchClass as LPDWORD, byval lpftLastWriteTime as PFILETIME) as LONG_
+declare function RegEnumKeyExW(byval hKey as HKEY, byval dwIndex as DWORD, byval lpName as LPWSTR, byval lpcchName as LPDWORD, byval lpReserved as LPDWORD, byval lpClass as LPWSTR, byval lpcchClass as LPDWORD, byval lpftLastWriteTime as PFILETIME) as LONG_
+declare function RegEnumValueA(byval hKey as HKEY, byval dwIndex as DWORD, byval lpValueName as LPSTR, byval lpcchValueName as LPDWORD, byval lpReserved as LPDWORD, byval lpType as LPDWORD, byval lpData as LPBYTE, byval lpcbData as LPDWORD) as LONG_
+declare function RegEnumValueW(byval hKey as HKEY, byval dwIndex as DWORD, byval lpValueName as LPWSTR, byval lpcchValueName as LPDWORD, byval lpReserved as LPDWORD, byval lpType as LPDWORD, byval lpData as LPBYTE, byval lpcbData as LPDWORD) as LONG_
+declare function RegFlushKey(byval hKey as HKEY) as LONG_
+declare function RegGetKeySecurity(byval hKey as HKEY, byval SecurityInformation as SECURITY_INFORMATION, byval pSecurityDescriptor as PSECURITY_DESCRIPTOR, byval lpcbSecurityDescriptor as LPDWORD) as LONG_
+declare function RegLoadKeyA(byval hKey as HKEY, byval lpSubKey as LPCSTR, byval lpFile as LPCSTR) as LONG_
+declare function RegLoadKeyW(byval hKey as HKEY, byval lpSubKey as LPCWSTR, byval lpFile as LPCWSTR) as LONG_
+declare function RegNotifyChangeKeyValue(byval hKey as HKEY, byval bWatchSubtree as WINBOOL, byval dwNotifyFilter as DWORD, byval hEvent as HANDLE, byval fAsynchronous as WINBOOL) as LONG_
+declare function RegOpenKeyA(byval hKey as HKEY, byval lpSubKey as LPCSTR, byval phkResult as PHKEY) as LONG_
+declare function RegOpenKeyW(byval hKey as HKEY, byval lpSubKey as LPCWSTR, byval phkResult as PHKEY) as LONG_
+declare function RegOpenKeyExA(byval hKey as HKEY, byval lpSubKey as LPCSTR, byval ulOptions as DWORD, byval samDesired as REGSAM, byval phkResult as PHKEY) as LONG_
+declare function RegOpenKeyExW(byval hKey as HKEY, byval lpSubKey as LPCWSTR, byval ulOptions as DWORD, byval samDesired as REGSAM, byval phkResult as PHKEY) as LONG_
+declare function RegQueryInfoKeyA(byval hKey as HKEY, byval lpClass as LPSTR, byval lpcchClass as LPDWORD, byval lpReserved as LPDWORD, byval lpcSubKeys as LPDWORD, byval lpcbMaxSubKeyLen as LPDWORD, byval lpcbMaxClassLen as LPDWORD, byval lpcValues as LPDWORD, byval lpcbMaxValueNameLen as LPDWORD, byval lpcbMaxValueLen as LPDWORD, byval lpcbSecurityDescriptor as LPDWORD, byval lpftLastWriteTime as PFILETIME) as LONG_
+declare function RegQueryInfoKeyW(byval hKey as HKEY, byval lpClass as LPWSTR, byval lpcchClass as LPDWORD, byval lpReserved as LPDWORD, byval lpcSubKeys as LPDWORD, byval lpcbMaxSubKeyLen as LPDWORD, byval lpcbMaxClassLen as LPDWORD, byval lpcValues as LPDWORD, byval lpcbMaxValueNameLen as LPDWORD, byval lpcbMaxValueLen as LPDWORD, byval lpcbSecurityDescriptor as LPDWORD, byval lpftLastWriteTime as PFILETIME) as LONG_
+declare function RegQueryValueA(byval hKey as HKEY, byval lpSubKey as LPCSTR, byval lpData as LPSTR, byval lpcbData as PLONG) as LONG_
+declare function RegQueryValueW(byval hKey as HKEY, byval lpSubKey as LPCWSTR, byval lpData as LPWSTR, byval lpcbData as PLONG) as LONG_
+declare function RegQueryMultipleValuesA(byval hKey as HKEY, byval val_list as PVALENTA, byval num_vals as DWORD, byval lpValueBuf as LPSTR, byval ldwTotsize as LPDWORD) as LONG_
+declare function RegQueryMultipleValuesW(byval hKey as HKEY, byval val_list as PVALENTW, byval num_vals as DWORD, byval lpValueBuf as LPWSTR, byval ldwTotsize as LPDWORD) as LONG_
+declare function RegQueryValueExA(byval hKey as HKEY, byval lpValueName as LPCSTR, byval lpReserved as LPDWORD, byval lpType as LPDWORD, byval lpData as LPBYTE, byval lpcbData as LPDWORD) as LONG_
+declare function RegQueryValueExW(byval hKey as HKEY, byval lpValueName as LPCWSTR, byval lpReserved as LPDWORD, byval lpType as LPDWORD, byval lpData as LPBYTE, byval lpcbData as LPDWORD) as LONG_
+declare function RegReplaceKeyA(byval hKey as HKEY, byval lpSubKey as LPCSTR, byval lpNewFile as LPCSTR, byval lpOldFile as LPCSTR) as LONG_
+declare function RegReplaceKeyW(byval hKey as HKEY, byval lpSubKey as LPCWSTR, byval lpNewFile as LPCWSTR, byval lpOldFile as LPCWSTR) as LONG_
+declare function RegRestoreKeyA(byval hKey as HKEY, byval lpFile as LPCSTR, byval dwFlags as DWORD) as LONG_
+declare function RegRestoreKeyW(byval hKey as HKEY, byval lpFile as LPCWSTR, byval dwFlags as DWORD) as LONG_
+declare function RegSaveKeyA(byval hKey as HKEY, byval lpFile as LPCSTR, byval lpSecurityAttributes as LPSECURITY_ATTRIBUTES) as LONG_
+declare function RegSaveKeyW(byval hKey as HKEY, byval lpFile as LPCWSTR, byval lpSecurityAttributes as LPSECURITY_ATTRIBUTES) as LONG_
+declare function RegSetKeySecurity(byval hKey as HKEY, byval SecurityInformation as SECURITY_INFORMATION, byval pSecurityDescriptor as PSECURITY_DESCRIPTOR) as LONG_
+declare function RegSetValueA(byval hKey as HKEY, byval lpSubKey as LPCSTR, byval dwType as DWORD, byval lpData as LPCSTR, byval cbData as DWORD) as LONG_
+declare function RegSetValueW(byval hKey as HKEY, byval lpSubKey as LPCWSTR, byval dwType as DWORD, byval lpData as LPCWSTR, byval cbData as DWORD) as LONG_
+declare function RegSetValueExA(byval hKey as HKEY, byval lpValueName as LPCSTR, byval Reserved as DWORD, byval dwType as DWORD, byval lpData as const BYTE_ ptr, byval cbData as DWORD) as LONG_
+declare function RegSetValueExW(byval hKey as HKEY, byval lpValueName as LPCWSTR, byval Reserved as DWORD, byval dwType as DWORD, byval lpData as const BYTE_ ptr, byval cbData as DWORD) as LONG_
+declare function RegUnLoadKeyA(byval hKey as HKEY, byval lpSubKey as LPCSTR) as LONG_
+declare function RegUnLoadKeyW(byval hKey as HKEY, byval lpSubKey as LPCWSTR) as LONG_
+declare function RegGetValueA(byval hkey as HKEY, byval lpSubKey as LPCSTR, byval lpValue as LPCSTR, byval dwFlags as DWORD, byval pdwType as LPDWORD, byval pvData as PVOID, byval pcbData as LPDWORD) as LONG_
+declare function RegGetValueW(byval hkey as HKEY, byval lpSubKey as LPCWSTR, byval lpValue as LPCWSTR, byval dwFlags as DWORD, byval pdwType as LPDWORD, byval pvData as PVOID, byval pcbData as LPDWORD) as LONG_
+declare function InitiateSystemShutdownA(byval lpMachineName as LPSTR, byval lpMessage as LPSTR, byval dwTimeout as DWORD, byval bForceAppsClosed as WINBOOL, byval bRebootAfterShutdown as WINBOOL) as WINBOOL
+declare function InitiateSystemShutdownW(byval lpMachineName as LPWSTR, byval lpMessage as LPWSTR, byval dwTimeout as DWORD, byval bForceAppsClosed as WINBOOL, byval bRebootAfterShutdown as WINBOOL) as WINBOOL
+declare function AbortSystemShutdownA(byval lpMachineName as LPSTR) as WINBOOL
+declare function AbortSystemShutdownW(byval lpMachineName as LPWSTR) as WINBOOL
 
 #define REASON_SWINSTALL (SHTDN_REASON_MAJOR_SOFTWARE or SHTDN_REASON_MINOR_INSTALLATION)
 #define REASON_HWINSTALL (SHTDN_REASON_MAJOR_HARDWARE or SHTDN_REASON_MINOR_INSTALLATION)
@@ -233,10 +228,10 @@ dim shared WINBOOL as WINADVAPI
 #define InitiateSystemShutdownEx __MINGW_NAME_AW(InitiateSystemShutdownEx)
 #define RegSaveKeyEx __MINGW_NAME_AW(RegSaveKeyEx)
 
-'' TODO: WINADVAPI WINBOOL WINAPI InitiateSystemShutdownExA(LPSTR lpMachineName,LPSTR lpMessage,DWORD dwTimeout,WINBOOL bForceAppsClosed,WINBOOL bRebootAfterShutdown,DWORD dwReason);
-'' TODO: WINADVAPI WINBOOL WINAPI InitiateSystemShutdownExW(LPWSTR lpMachineName,LPWSTR lpMessage,DWORD dwTimeout,WINBOOL bForceAppsClosed,WINBOOL bRebootAfterShutdown,DWORD dwReason);
-'' TODO: WINADVAPI LONG WINAPI RegSaveKeyExA(HKEY hKey,LPCSTR lpFile,LPSECURITY_ATTRIBUTES lpSecurityAttributes,DWORD Flags);
-'' TODO: WINADVAPI LONG WINAPI RegSaveKeyExW(HKEY hKey,LPCWSTR lpFile,LPSECURITY_ATTRIBUTES lpSecurityAttributes,DWORD Flags);
-'' TODO: WINADVAPI LONG WINAPI Wow64Win32ApiEntry (DWORD dwFuncNumber,DWORD dwFlag,DWORD dwRes);
+declare function InitiateSystemShutdownExA(byval lpMachineName as LPSTR, byval lpMessage as LPSTR, byval dwTimeout as DWORD, byval bForceAppsClosed as WINBOOL, byval bRebootAfterShutdown as WINBOOL, byval dwReason as DWORD) as WINBOOL
+declare function InitiateSystemShutdownExW(byval lpMachineName as LPWSTR, byval lpMessage as LPWSTR, byval dwTimeout as DWORD, byval bForceAppsClosed as WINBOOL, byval bRebootAfterShutdown as WINBOOL, byval dwReason as DWORD) as WINBOOL
+declare function RegSaveKeyExA(byval hKey as HKEY, byval lpFile as LPCSTR, byval lpSecurityAttributes as LPSECURITY_ATTRIBUTES, byval Flags as DWORD) as LONG_
+declare function RegSaveKeyExW(byval hKey as HKEY, byval lpFile as LPCWSTR, byval lpSecurityAttributes as LPSECURITY_ATTRIBUTES, byval Flags as DWORD) as LONG_
+declare function Wow64Win32ApiEntry(byval dwFuncNumber as DWORD, byval dwFlag as DWORD, byval dwRes as DWORD) as LONG_
 
 end extern
