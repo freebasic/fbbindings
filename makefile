@@ -371,6 +371,7 @@ WINAPI_FLAGS_dxerr8 += -include windef.h
 WINAPI_FLAGS_dxerr9 += -include windef.h
 WINAPI_FLAGS_errors += -include windef.h
 WINAPI_FLAGS_imm += -include windows.h
+WINAPI_FLAGS_intshcut += -include windows.h
 WINAPI_FLAGS_iphlpapi += -include windows.h
 WINAPI_FLAGS_iprtrmib += -include windows.h
 WINAPI_FLAGS_isguids += -include windef.h
