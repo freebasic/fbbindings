@@ -32,11 +32,6 @@ type IQueryAssociationsVtbl as IQueryAssociationsVtbl_
 
 #define _INC_SHLWAPI
 
-'' TODO: #define LWSTDAPI EXTERN_C DECLSPEC_IMPORT HRESULT WINAPI
-'' TODO: #define LWSTDAPI_(type) EXTERN_C DECLSPEC_IMPORT type WINAPI
-'' TODO: #define LWSTDAPIV EXTERN_C DECLSPEC_IMPORT HRESULT STDAPIVCALLTYPE
-'' TODO: #define LWSTDAPIV_(type) EXTERN_C DECLSPEC_IMPORT type STDAPIVCALLTYPE
-
 declare function StrChrA(byval lpStart as LPCSTR, byval wMatch as WORD) as LPSTR
 declare function StrChrW(byval lpStart as LPCWSTR, byval wMatch as WCHAR) as LPWSTR
 declare function StrChrIA(byval lpStart as LPCSTR, byval wMatch as WORD) as LPSTR

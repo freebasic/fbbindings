@@ -43,3 +43,7 @@
 -removedefine IFACEMETHODV
 -removedefine IFACEMETHODV_
 -removedefine WINCOMMDLGAPI
+-removedefine LWSTDAPI
+-removedefine LWSTDAPI_
+-removedefine LWSTDAPIV
+-removedefine LWSTDAPIV_
