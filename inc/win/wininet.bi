@@ -1,24 +1,22 @@
 #pragma once
 
+#include once "crt/wchar.bi"
+#include once "crt/long.bi"
 #include once "_mingw_unicode.bi"
 #include once "specstrings.bi"
 
 '' The following symbols have been renamed:
 ''     union __Value => __Value_
 
-extern "C"
+#ifdef __FB_64BIT__
+	extern "C"
+#else
+	extern "Windows"
+#endif
 
 #define _WININET_
 
 type HINTERNET as LPVOID
-
-'' TODO: #define INTERNETAPI EXTERN_C DECLSPEC_IMPORT HRESULT WINAPI
-'' TODO: #define INTERNETAPI_(type) EXTERN_C DECLSPEC_IMPORT type WINAPI
-'' TODO: #define URLCACHEAPI EXTERN_C DECLSPEC_IMPORT HRESULT WINAPI
-'' TODO: #define URLCACHEAPI_(type) EXTERN_C DECLSPEC_IMPORT type WINAPI
-
-#define BOOLAPI INTERNETAPI_(WINBOOL)
-
 type LPHINTERNET as HINTERNET ptr
 type INTERNET_PORT as WORD
 type LPINTERNET_PORT as INTERNET_PORT ptr
@@ -37,7 +35,7 @@ type LPINTERNET_PORT as INTERNET_PORT ptr
 #define INTERNET_MAX_PATH_LENGTH 2048
 #define INTERNET_MAX_SCHEME_LENGTH 32
 #define INTERNET_MAX_URL_LENGTH ((INTERNET_MAX_SCHEME_LENGTH + sizeof("://")) + INTERNET_MAX_PATH_LENGTH)
-#define INTERNET_KEEP_ALIVE_UNKNOWN (DWORD - 1)
+#define INTERNET_KEEP_ALIVE_UNKNOWN cast(DWORD, -1)
 #define INTERNET_KEEP_ALIVE_ENABLED 1
 #define INTERNET_KEEP_ALIVE_DISABLED 0
 #define INTERNET_REQFLAG_FROM_CACHE &h00000001
@@ -525,17 +523,12 @@ type LPINTERNET_BUFFERSW as _INTERNET_BUFFERSW ptr
 #else
 	type INTERNET_BUFFERS as INTERNET_BUFFERSA
 	type LPINTERNET_BUFFERS as LPINTERNET_BUFFERSA
+
+	declare function InternetTimeFromSystemTime(byval pst as const SYSTEMTIME ptr, byval dwRFC as DWORD, byval lpszTime as LPSTR, byval cbTime as DWORD) as WINBOOL
 #endif
 
-extern     DECLSPEC_IMPORT as EXTERN_C
-dim shared DECLSPEC_IMPORT as EXTERN_C
-
-#ifndef UNICODE
-	'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI InternetTimeFromSystemTime(CONST SYSTEMTIME *pst,DWORD dwRFC,LPSTR lpszTime,DWORD cbTime);
-#endif
-
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI InternetTimeFromSystemTimeA(CONST SYSTEMTIME *pst,DWORD dwRFC,LPSTR lpszTime,DWORD cbTime);
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI InternetTimeFromSystemTimeW(CONST SYSTEMTIME *pst,DWORD dwRFC,LPWSTR lpszTime,DWORD cbTime);
+declare function InternetTimeFromSystemTimeA(byval pst as const SYSTEMTIME ptr, byval dwRFC as DWORD, byval lpszTime as LPSTR, byval cbTime as DWORD) as WINBOOL
+declare function InternetTimeFromSystemTimeW(byval pst as const SYSTEMTIME ptr, byval dwRFC as DWORD, byval lpszTime as LPWSTR, byval cbTime as DWORD) as WINBOOL
 
 #define INTERNET_RFC1123_FORMAT 0
 #define INTERNET_RFC1123_BUFSIZE 30
@@ -547,19 +540,19 @@ dim shared DECLSPEC_IMPORT as EXTERN_C
 #ifdef UNICODE
 	#define InternetTimeToSystemTime InternetTimeToSystemTimeW
 #else
-	'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI InternetTimeToSystemTime(LPCSTR lpszTime,SYSTEMTIME *pst,DWORD dwReserved);
+	declare function InternetTimeToSystemTime(byval lpszTime as LPCSTR, byval pst as SYSTEMTIME ptr, byval dwReserved as DWORD) as WINBOOL
 #endif
 
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI InternetTimeToSystemTimeA(LPCSTR lpszTime,SYSTEMTIME *pst,DWORD dwReserved);
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI InternetTimeToSystemTimeW(LPCWSTR lpszTime,SYSTEMTIME *pst,DWORD dwReserved);
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI InternetCrackUrlA(LPCSTR lpszUrl,DWORD dwUrlLength,DWORD dwFlags,LPURL_COMPONENTSA lpUrlComponents);
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI InternetCrackUrlW(LPCWSTR lpszUrl,DWORD dwUrlLength,DWORD dwFlags,LPURL_COMPONENTSW lpUrlComponents);
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI InternetCreateUrlA(LPURL_COMPONENTSA lpUrlComponents,DWORD dwFlags,LPSTR lpszUrl,LPDWORD lpdwUrlLength);
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI InternetCreateUrlW(LPURL_COMPONENTSW lpUrlComponents,DWORD dwFlags,LPWSTR lpszUrl,LPDWORD lpdwUrlLength);
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI InternetCanonicalizeUrlA(LPCSTR lpszUrl,LPSTR lpszBuffer,LPDWORD lpdwBufferLength,DWORD dwFlags);
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI InternetCanonicalizeUrlW(LPCWSTR lpszUrl,LPWSTR lpszBuffer,LPDWORD lpdwBufferLength,DWORD dwFlags);
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI InternetCombineUrlA(LPCSTR lpszBaseUrl,LPCSTR lpszRelativeUrl,LPSTR lpszBuffer,LPDWORD lpdwBufferLength,DWORD dwFlags);
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI InternetCombineUrlW(LPCWSTR lpszBaseUrl,LPCWSTR lpszRelativeUrl,LPWSTR lpszBuffer,LPDWORD lpdwBufferLength,DWORD dwFlags);
+declare function InternetTimeToSystemTimeA(byval lpszTime as LPCSTR, byval pst as SYSTEMTIME ptr, byval dwReserved as DWORD) as WINBOOL
+declare function InternetTimeToSystemTimeW(byval lpszTime as LPCWSTR, byval pst as SYSTEMTIME ptr, byval dwReserved as DWORD) as WINBOOL
+declare function InternetCrackUrlA(byval lpszUrl as LPCSTR, byval dwUrlLength as DWORD, byval dwFlags as DWORD, byval lpUrlComponents as LPURL_COMPONENTSA) as WINBOOL
+declare function InternetCrackUrlW(byval lpszUrl as LPCWSTR, byval dwUrlLength as DWORD, byval dwFlags as DWORD, byval lpUrlComponents as LPURL_COMPONENTSW) as WINBOOL
+declare function InternetCreateUrlA(byval lpUrlComponents as LPURL_COMPONENTSA, byval dwFlags as DWORD, byval lpszUrl as LPSTR, byval lpdwUrlLength as LPDWORD) as WINBOOL
+declare function InternetCreateUrlW(byval lpUrlComponents as LPURL_COMPONENTSW, byval dwFlags as DWORD, byval lpszUrl as LPWSTR, byval lpdwUrlLength as LPDWORD) as WINBOOL
+declare function InternetCanonicalizeUrlA(byval lpszUrl as LPCSTR, byval lpszBuffer as LPSTR, byval lpdwBufferLength as LPDWORD, byval dwFlags as DWORD) as WINBOOL
+declare function InternetCanonicalizeUrlW(byval lpszUrl as LPCWSTR, byval lpszBuffer as LPWSTR, byval lpdwBufferLength as LPDWORD, byval dwFlags as DWORD) as WINBOOL
+declare function InternetCombineUrlA(byval lpszBaseUrl as LPCSTR, byval lpszRelativeUrl as LPCSTR, byval lpszBuffer as LPSTR, byval lpdwBufferLength as LPDWORD, byval dwFlags as DWORD) as WINBOOL
+declare function InternetCombineUrlW(byval lpszBaseUrl as LPCWSTR, byval lpszRelativeUrl as LPCWSTR, byval lpszBuffer as LPWSTR, byval lpdwBufferLength as LPDWORD, byval dwFlags as DWORD) as WINBOOL
 
 #define ICU_ESCAPE &h80000000
 #define ICU_USERNAME &h40000000
@@ -571,8 +564,8 @@ dim shared DECLSPEC_IMPORT as EXTERN_C
 #define ICU_ENCODE_PERCENT &h00001000
 #define InternetOpen __MINGW_NAME_AW(InternetOpen)
 
-'' TODO: EXTERN_C DECLSPEC_IMPORT HINTERNET WINAPI InternetOpenA(LPCSTR lpszAgent,DWORD dwAccessType,LPCSTR lpszProxy,LPCSTR lpszProxyBypass,DWORD dwFlags);
-'' TODO: EXTERN_C DECLSPEC_IMPORT HINTERNET WINAPI InternetOpenW(LPCWSTR lpszAgent,DWORD dwAccessType,LPCWSTR lpszProxy,LPCWSTR lpszProxyBypass,DWORD dwFlags);
+declare function InternetOpenA(byval lpszAgent as LPCSTR, byval dwAccessType as DWORD, byval lpszProxy as LPCSTR, byval lpszProxyBypass as LPCSTR, byval dwFlags as DWORD) as HINTERNET
+declare function InternetOpenW(byval lpszAgent as LPCWSTR, byval dwAccessType as DWORD, byval lpszProxy as LPCWSTR, byval lpszProxyBypass as LPCWSTR, byval dwFlags as DWORD) as HINTERNET
 
 #define INTERNET_OPEN_TYPE_PRECONFIG 0
 #define INTERNET_OPEN_TYPE_DIRECT 1
@@ -583,9 +576,9 @@ dim shared DECLSPEC_IMPORT as EXTERN_C
 #define CERN_PROXY_INTERNET_ACCESS INTERNET_OPEN_TYPE_PROXY
 #define InternetConnect __MINGW_NAME_AW(InternetConnect)
 
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI InternetCloseHandle(HINTERNET hInternet);
-'' TODO: EXTERN_C DECLSPEC_IMPORT HINTERNET WINAPI InternetConnectA(HINTERNET hInternet,LPCSTR lpszServerName,INTERNET_PORT nServerPort,LPCSTR lpszUserName,LPCSTR lpszPassword,DWORD dwService,DWORD dwFlags,DWORD_PTR dwContext);
-'' TODO: EXTERN_C DECLSPEC_IMPORT HINTERNET WINAPI InternetConnectW(HINTERNET hInternet,LPCWSTR lpszServerName,INTERNET_PORT nServerPort,LPCWSTR lpszUserName,LPCWSTR lpszPassword,DWORD dwService,DWORD dwFlags,DWORD_PTR dwContext);
+declare function InternetCloseHandle(byval hInternet as HINTERNET) as WINBOOL
+declare function InternetConnectA(byval hInternet as HINTERNET, byval lpszServerName as LPCSTR, byval nServerPort as INTERNET_PORT, byval lpszUserName as LPCSTR, byval lpszPassword as LPCSTR, byval dwService as DWORD, byval dwFlags as DWORD, byval dwContext as DWORD_PTR) as HINTERNET
+declare function InternetConnectW(byval hInternet as HINTERNET, byval lpszServerName as LPCWSTR, byval nServerPort as INTERNET_PORT, byval lpszUserName as LPCWSTR, byval lpszPassword as LPCWSTR, byval dwService as DWORD, byval dwFlags as DWORD, byval dwContext as DWORD_PTR) as HINTERNET
 
 #define INTERNET_SERVICE_FTP 1
 #define INTERNET_SERVICE_GOPHER 2
@@ -593,11 +586,11 @@ dim shared DECLSPEC_IMPORT as EXTERN_C
 #define InternetOpenUrl __MINGW_NAME_AW(InternetOpenUrl)
 #define InternetReadFileEx __MINGW_NAME_AW(InternetReadFileEx)
 
-'' TODO: EXTERN_C DECLSPEC_IMPORT HINTERNET WINAPI InternetOpenUrlA(HINTERNET hInternet,LPCSTR lpszUrl,LPCSTR lpszHeaders,DWORD dwHeadersLength,DWORD dwFlags,DWORD_PTR dwContext);
-'' TODO: EXTERN_C DECLSPEC_IMPORT HINTERNET WINAPI InternetOpenUrlW(HINTERNET hInternet,LPCWSTR lpszUrl,LPCWSTR lpszHeaders,DWORD dwHeadersLength,DWORD dwFlags,DWORD_PTR dwContext);
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI InternetReadFile(HINTERNET hFile,LPVOID lpBuffer,DWORD dwNumberOfBytesToRead,LPDWORD lpdwNumberOfBytesRead);
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI InternetReadFileExA(HINTERNET hFile,LPINTERNET_BUFFERSA lpBuffersOut,DWORD dwFlags,DWORD_PTR dwContext);
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI InternetReadFileExW(HINTERNET hFile,LPINTERNET_BUFFERSW lpBuffersOut,DWORD dwFlags,DWORD_PTR dwContext);
+declare function InternetOpenUrlA(byval hInternet as HINTERNET, byval lpszUrl as LPCSTR, byval lpszHeaders as LPCSTR, byval dwHeadersLength as DWORD, byval dwFlags as DWORD, byval dwContext as DWORD_PTR) as HINTERNET
+declare function InternetOpenUrlW(byval hInternet as HINTERNET, byval lpszUrl as LPCWSTR, byval lpszHeaders as LPCWSTR, byval dwHeadersLength as DWORD, byval dwFlags as DWORD, byval dwContext as DWORD_PTR) as HINTERNET
+declare function InternetReadFile(byval hFile as HINTERNET, byval lpBuffer as LPVOID, byval dwNumberOfBytesToRead as DWORD, byval lpdwNumberOfBytesRead as LPDWORD) as WINBOOL
+declare function InternetReadFileExA(byval hFile as HINTERNET, byval lpBuffersOut as LPINTERNET_BUFFERSA, byval dwFlags as DWORD, byval dwContext as DWORD_PTR) as WINBOOL
+declare function InternetReadFileExW(byval hFile as HINTERNET, byval lpBuffersOut as LPINTERNET_BUFFERSW, byval dwFlags as DWORD, byval dwContext as DWORD_PTR) as WINBOOL
 
 #define IRF_ASYNC WININET_API_FLAG_ASYNC
 #define IRF_SYNC WININET_API_FLAG_SYNC
@@ -608,19 +601,19 @@ dim shared DECLSPEC_IMPORT as EXTERN_C
 #define InternetSetOption __MINGW_NAME_AW(InternetSetOption)
 #define InternetSetOptionEx __MINGW_NAME_AW(InternetSetOptionEx)
 
-'' TODO: EXTERN_C DECLSPEC_IMPORT DWORD WINAPI InternetSetFilePointer(HINTERNET hFile,LONG lDistanceToMove,PVOID pReserved,DWORD dwMoveMethod,DWORD_PTR dwContext);
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI InternetWriteFile(HINTERNET hFile,LPCVOID lpBuffer,DWORD dwNumberOfBytesToWrite,LPDWORD lpdwNumberOfBytesWritten);
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI InternetQueryDataAvailable(HINTERNET hFile,LPDWORD lpdwNumberOfBytesAvailable,DWORD dwFlags,DWORD_PTR dwContext);
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI InternetFindNextFileA(HINTERNET hFind,LPVOID lpvFindData);
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI InternetFindNextFileW(HINTERNET hFind,LPVOID lpvFindData);
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI InternetQueryOptionA(HINTERNET hInternet,DWORD dwOption,LPVOID lpBuffer,LPDWORD lpdwBufferLength);
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI InternetQueryOptionW(HINTERNET hInternet,DWORD dwOption,LPVOID lpBuffer,LPDWORD lpdwBufferLength);
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI InternetSetOptionA(HINTERNET hInternet,DWORD dwOption,LPVOID lpBuffer,DWORD dwBufferLength);
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI InternetSetOptionW(HINTERNET hInternet,DWORD dwOption,LPVOID lpBuffer,DWORD dwBufferLength);
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI InternetSetOptionExA(HINTERNET hInternet,DWORD dwOption,LPVOID lpBuffer,DWORD dwBufferLength,DWORD dwFlags);
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI InternetSetOptionExW(HINTERNET hInternet,DWORD dwOption,LPVOID lpBuffer,DWORD dwBufferLength,DWORD dwFlags);
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI InternetLockRequestFile(HINTERNET hInternet,HANDLE *lphLockRequestInfo);
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI InternetUnlockRequestFile(HANDLE hLockRequestInfo);
+declare function InternetSetFilePointer(byval hFile as HINTERNET, byval lDistanceToMove as LONG_, byval pReserved as PVOID, byval dwMoveMethod as DWORD, byval dwContext as DWORD_PTR) as DWORD
+declare function InternetWriteFile(byval hFile as HINTERNET, byval lpBuffer as LPCVOID, byval dwNumberOfBytesToWrite as DWORD, byval lpdwNumberOfBytesWritten as LPDWORD) as WINBOOL
+declare function InternetQueryDataAvailable(byval hFile as HINTERNET, byval lpdwNumberOfBytesAvailable as LPDWORD, byval dwFlags as DWORD, byval dwContext as DWORD_PTR) as WINBOOL
+declare function InternetFindNextFileA(byval hFind as HINTERNET, byval lpvFindData as LPVOID) as WINBOOL
+declare function InternetFindNextFileW(byval hFind as HINTERNET, byval lpvFindData as LPVOID) as WINBOOL
+declare function InternetQueryOptionA(byval hInternet as HINTERNET, byval dwOption as DWORD, byval lpBuffer as LPVOID, byval lpdwBufferLength as LPDWORD) as WINBOOL
+declare function InternetQueryOptionW(byval hInternet as HINTERNET, byval dwOption as DWORD, byval lpBuffer as LPVOID, byval lpdwBufferLength as LPDWORD) as WINBOOL
+declare function InternetSetOptionA(byval hInternet as HINTERNET, byval dwOption as DWORD, byval lpBuffer as LPVOID, byval dwBufferLength as DWORD) as WINBOOL
+declare function InternetSetOptionW(byval hInternet as HINTERNET, byval dwOption as DWORD, byval lpBuffer as LPVOID, byval dwBufferLength as DWORD) as WINBOOL
+declare function InternetSetOptionExA(byval hInternet as HINTERNET, byval dwOption as DWORD, byval lpBuffer as LPVOID, byval dwBufferLength as DWORD, byval dwFlags as DWORD) as WINBOOL
+declare function InternetSetOptionExW(byval hInternet as HINTERNET, byval dwOption as DWORD, byval lpBuffer as LPVOID, byval dwBufferLength as DWORD, byval dwFlags as DWORD) as WINBOOL
+declare function InternetLockRequestFile(byval hInternet as HINTERNET, byval lphLockRequestInfo as HANDLE ptr) as WINBOOL
+declare function InternetUnlockRequestFile(byval hLockRequestInfo as HANDLE) as WINBOOL
 
 #define ISO_GLOBAL &h00000001
 #define ISO_REGISTRY &h00000002
@@ -759,20 +752,20 @@ dim shared DECLSPEC_IMPORT as EXTERN_C
 #define AUTODIAL_MODE_NO_NETWORK_PRESENT 4
 #define InternetGetLastResponseInfo __MINGW_NAME_AW(InternetGetLastResponseInfo)
 
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI InternetGetLastResponseInfoA(LPDWORD lpdwError,LPSTR lpszBuffer,LPDWORD lpdwBufferLength);
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI InternetGetLastResponseInfoW(LPDWORD lpdwError,LPWSTR lpszBuffer,LPDWORD lpdwBufferLength);
-'' TODO: typedef VOID (CALLBACK *INTERNET_STATUS_CALLBACK)(HINTERNET hInternet,DWORD_PTR dwContext,DWORD dwInternetStatus,LPVOID lpvStatusInformation,DWORD dwStatusInformationLength);
+declare function InternetGetLastResponseInfoA(byval lpdwError as LPDWORD, byval lpszBuffer as LPSTR, byval lpdwBufferLength as LPDWORD) as WINBOOL
+declare function InternetGetLastResponseInfoW(byval lpdwError as LPDWORD, byval lpszBuffer as LPWSTR, byval lpdwBufferLength as LPDWORD) as WINBOOL
 
+type INTERNET_STATUS_CALLBACK as sub(byval hInternet as HINTERNET, byval dwContext as DWORD_PTR, byval dwInternetStatus as DWORD, byval lpvStatusInformation as LPVOID, byval dwStatusInformationLength as DWORD)
 type LPINTERNET_STATUS_CALLBACK as INTERNET_STATUS_CALLBACK ptr
 
 #ifdef UNICODE
 	#define InternetSetStatusCallback InternetSetStatusCallbackW
 #else
-	'' TODO: EXTERN_C DECLSPEC_IMPORT INTERNET_STATUS_CALLBACK WINAPI InternetSetStatusCallback(HINTERNET hInternet,INTERNET_STATUS_CALLBACK lpfnInternetCallback);
+	declare function InternetSetStatusCallback(byval hInternet as HINTERNET, byval lpfnInternetCallback as INTERNET_STATUS_CALLBACK) as INTERNET_STATUS_CALLBACK
 #endif
 
-'' TODO: EXTERN_C DECLSPEC_IMPORT INTERNET_STATUS_CALLBACK WINAPI InternetSetStatusCallbackA(HINTERNET hInternet,INTERNET_STATUS_CALLBACK lpfnInternetCallback);
-'' TODO: EXTERN_C DECLSPEC_IMPORT INTERNET_STATUS_CALLBACK WINAPI InternetSetStatusCallbackW(HINTERNET hInternet,INTERNET_STATUS_CALLBACK lpfnInternetCallback);
+declare function InternetSetStatusCallbackA(byval hInternet as HINTERNET, byval lpfnInternetCallback as INTERNET_STATUS_CALLBACK) as INTERNET_STATUS_CALLBACK
+declare function InternetSetStatusCallbackW(byval hInternet as HINTERNET, byval lpfnInternetCallback as INTERNET_STATUS_CALLBACK) as INTERNET_STATUS_CALLBACK
 
 #define INTERNET_STATUS_RESOLVING_NAME 10
 #define INTERNET_STATUS_NAME_RESOLVED 11
@@ -875,8 +868,7 @@ end enum
 	end type
 #endif
 
-'' TODO: #define INTERNET_INVALID_STATUS_CALLBACK ((INTERNET_STATUS_CALLBACK)(INT_PTR)-1)
-
+#define INTERNET_INVALID_STATUS_CALLBACK cast(INTERNET_STATUS_CALLBACK, cast(INT_PTR, -1))
 #define FTP_TRANSFER_TYPE_UNKNOWN &h00000000
 #define FTP_TRANSFER_TYPE_ASCII &h00000001
 #define FTP_TRANSFER_TYPE_BINARY &h00000002
@@ -893,31 +885,31 @@ end enum
 #define FtpGetCurrentDirectory __MINGW_NAME_AW(FtpGetCurrentDirectory)
 #define FtpCommand __MINGW_NAME_AW(FtpCommand)
 
-'' TODO: EXTERN_C DECLSPEC_IMPORT HINTERNET WINAPI FtpFindFirstFileA(HINTERNET hConnect,LPCSTR lpszSearchFile,LPWIN32_FIND_DATAA lpFindFileData,DWORD dwFlags,DWORD_PTR dwContext);
-'' TODO: EXTERN_C DECLSPEC_IMPORT HINTERNET WINAPI FtpFindFirstFileW(HINTERNET hConnect,LPCWSTR lpszSearchFile,LPWIN32_FIND_DATAW lpFindFileData,DWORD dwFlags,DWORD_PTR dwContext);
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI FtpGetFileA(HINTERNET hConnect,LPCSTR lpszRemoteFile,LPCSTR lpszNewFile,WINBOOL fFailIfExists,DWORD dwFlagsAndAttributes,DWORD dwFlags,DWORD_PTR dwContext);
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI FtpGetFileW(HINTERNET hConnect,LPCWSTR lpszRemoteFile,LPCWSTR lpszNewFile,WINBOOL fFailIfExists,DWORD dwFlagsAndAttributes,DWORD dwFlags,DWORD_PTR dwContext);
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI FtpPutFileA(HINTERNET hConnect,LPCSTR lpszLocalFile,LPCSTR lpszNewRemoteFile,DWORD dwFlags,DWORD_PTR dwContext);
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI FtpPutFileW(HINTERNET hConnect,LPCWSTR lpszLocalFile,LPCWSTR lpszNewRemoteFile,DWORD dwFlags,DWORD_PTR dwContext);
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI FtpGetFileEx(HINTERNET hFtpSession,LPCSTR lpszRemoteFile,LPCWSTR lpszNewFile,WINBOOL fFailIfExists,DWORD dwFlagsAndAttributes,DWORD dwFlags,DWORD_PTR dwContext);
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI FtpPutFileEx(HINTERNET hFtpSession,LPCWSTR lpszLocalFile,LPCSTR lpszNewRemoteFile,DWORD dwFlags,DWORD_PTR dwContext);
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI FtpDeleteFileA(HINTERNET hConnect,LPCSTR lpszFileName);
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI FtpDeleteFileW(HINTERNET hConnect,LPCWSTR lpszFileName);
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI FtpRenameFileA(HINTERNET hConnect,LPCSTR lpszExisting,LPCSTR lpszNew);
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI FtpRenameFileW(HINTERNET hConnect,LPCWSTR lpszExisting,LPCWSTR lpszNew);
-'' TODO: EXTERN_C DECLSPEC_IMPORT HINTERNET WINAPI FtpOpenFileA(HINTERNET hConnect,LPCSTR lpszFileName,DWORD dwAccess,DWORD dwFlags,DWORD_PTR dwContext);
-'' TODO: EXTERN_C DECLSPEC_IMPORT HINTERNET WINAPI FtpOpenFileW(HINTERNET hConnect,LPCWSTR lpszFileName,DWORD dwAccess,DWORD dwFlags,DWORD_PTR dwContext);
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI FtpCreateDirectoryA(HINTERNET hConnect,LPCSTR lpszDirectory);
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI FtpCreateDirectoryW(HINTERNET hConnect,LPCWSTR lpszDirectory);
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI FtpRemoveDirectoryA(HINTERNET hConnect,LPCSTR lpszDirectory);
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI FtpRemoveDirectoryW(HINTERNET hConnect,LPCWSTR lpszDirectory);
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI FtpSetCurrentDirectoryA(HINTERNET hConnect,LPCSTR lpszDirectory);
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI FtpSetCurrentDirectoryW(HINTERNET hConnect,LPCWSTR lpszDirectory);
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI FtpGetCurrentDirectoryA(HINTERNET hConnect,LPSTR lpszCurrentDirectory,LPDWORD lpdwCurrentDirectory);
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI FtpGetCurrentDirectoryW(HINTERNET hConnect,LPWSTR lpszCurrentDirectory,LPDWORD lpdwCurrentDirectory);
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI FtpCommandA(HINTERNET hConnect,WINBOOL fExpectResponse,DWORD dwFlags,LPCSTR lpszCommand,DWORD_PTR dwContext,HINTERNET *phFtpCommand);
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI FtpCommandW(HINTERNET hConnect,WINBOOL fExpectResponse,DWORD dwFlags,LPCWSTR lpszCommand,DWORD_PTR dwContext,HINTERNET *phFtpCommand);
-'' TODO: EXTERN_C DECLSPEC_IMPORT DWORD WINAPI FtpGetFileSize(HINTERNET hFile,LPDWORD lpdwFileSizeHigh);
+declare function FtpFindFirstFileA(byval hConnect as HINTERNET, byval lpszSearchFile as LPCSTR, byval lpFindFileData as LPWIN32_FIND_DATAA, byval dwFlags as DWORD, byval dwContext as DWORD_PTR) as HINTERNET
+declare function FtpFindFirstFileW(byval hConnect as HINTERNET, byval lpszSearchFile as LPCWSTR, byval lpFindFileData as LPWIN32_FIND_DATAW, byval dwFlags as DWORD, byval dwContext as DWORD_PTR) as HINTERNET
+declare function FtpGetFileA(byval hConnect as HINTERNET, byval lpszRemoteFile as LPCSTR, byval lpszNewFile as LPCSTR, byval fFailIfExists as WINBOOL, byval dwFlagsAndAttributes as DWORD, byval dwFlags as DWORD, byval dwContext as DWORD_PTR) as WINBOOL
+declare function FtpGetFileW(byval hConnect as HINTERNET, byval lpszRemoteFile as LPCWSTR, byval lpszNewFile as LPCWSTR, byval fFailIfExists as WINBOOL, byval dwFlagsAndAttributes as DWORD, byval dwFlags as DWORD, byval dwContext as DWORD_PTR) as WINBOOL
+declare function FtpPutFileA(byval hConnect as HINTERNET, byval lpszLocalFile as LPCSTR, byval lpszNewRemoteFile as LPCSTR, byval dwFlags as DWORD, byval dwContext as DWORD_PTR) as WINBOOL
+declare function FtpPutFileW(byval hConnect as HINTERNET, byval lpszLocalFile as LPCWSTR, byval lpszNewRemoteFile as LPCWSTR, byval dwFlags as DWORD, byval dwContext as DWORD_PTR) as WINBOOL
+declare function FtpGetFileEx(byval hFtpSession as HINTERNET, byval lpszRemoteFile as LPCSTR, byval lpszNewFile as LPCWSTR, byval fFailIfExists as WINBOOL, byval dwFlagsAndAttributes as DWORD, byval dwFlags as DWORD, byval dwContext as DWORD_PTR) as WINBOOL
+declare function FtpPutFileEx(byval hFtpSession as HINTERNET, byval lpszLocalFile as LPCWSTR, byval lpszNewRemoteFile as LPCSTR, byval dwFlags as DWORD, byval dwContext as DWORD_PTR) as WINBOOL
+declare function FtpDeleteFileA(byval hConnect as HINTERNET, byval lpszFileName as LPCSTR) as WINBOOL
+declare function FtpDeleteFileW(byval hConnect as HINTERNET, byval lpszFileName as LPCWSTR) as WINBOOL
+declare function FtpRenameFileA(byval hConnect as HINTERNET, byval lpszExisting as LPCSTR, byval lpszNew as LPCSTR) as WINBOOL
+declare function FtpRenameFileW(byval hConnect as HINTERNET, byval lpszExisting as LPCWSTR, byval lpszNew as LPCWSTR) as WINBOOL
+declare function FtpOpenFileA(byval hConnect as HINTERNET, byval lpszFileName as LPCSTR, byval dwAccess as DWORD, byval dwFlags as DWORD, byval dwContext as DWORD_PTR) as HINTERNET
+declare function FtpOpenFileW(byval hConnect as HINTERNET, byval lpszFileName as LPCWSTR, byval dwAccess as DWORD, byval dwFlags as DWORD, byval dwContext as DWORD_PTR) as HINTERNET
+declare function FtpCreateDirectoryA(byval hConnect as HINTERNET, byval lpszDirectory as LPCSTR) as WINBOOL
+declare function FtpCreateDirectoryW(byval hConnect as HINTERNET, byval lpszDirectory as LPCWSTR) as WINBOOL
+declare function FtpRemoveDirectoryA(byval hConnect as HINTERNET, byval lpszDirectory as LPCSTR) as WINBOOL
+declare function FtpRemoveDirectoryW(byval hConnect as HINTERNET, byval lpszDirectory as LPCWSTR) as WINBOOL
+declare function FtpSetCurrentDirectoryA(byval hConnect as HINTERNET, byval lpszDirectory as LPCSTR) as WINBOOL
+declare function FtpSetCurrentDirectoryW(byval hConnect as HINTERNET, byval lpszDirectory as LPCWSTR) as WINBOOL
+declare function FtpGetCurrentDirectoryA(byval hConnect as HINTERNET, byval lpszCurrentDirectory as LPSTR, byval lpdwCurrentDirectory as LPDWORD) as WINBOOL
+declare function FtpGetCurrentDirectoryW(byval hConnect as HINTERNET, byval lpszCurrentDirectory as LPWSTR, byval lpdwCurrentDirectory as LPDWORD) as WINBOOL
+declare function FtpCommandA(byval hConnect as HINTERNET, byval fExpectResponse as WINBOOL, byval dwFlags as DWORD, byval lpszCommand as LPCSTR, byval dwContext as DWORD_PTR, byval phFtpCommand as HINTERNET ptr) as WINBOOL
+declare function FtpCommandW(byval hConnect as HINTERNET, byval fExpectResponse as WINBOOL, byval dwFlags as DWORD, byval lpszCommand as LPCWSTR, byval dwContext as DWORD_PTR, byval phFtpCommand as HINTERNET ptr) as WINBOOL
+declare function FtpGetFileSize(byval hFile as HINTERNET, byval lpdwFileSizeHigh as LPDWORD) as DWORD
 
 #define MAX_GOPHER_DISPLAY_TEXT 128
 #define MAX_GOPHER_SELECTOR_TEXT 256
@@ -1000,19 +992,17 @@ type LPGOPHER_FIND_DATAW as GOPHER_FIND_DATAW ptr
 #define GOPHER_TYPE_UNKNOWN &h20000000
 #define GOPHER_TYPE_ASK &h40000000
 #define GOPHER_TYPE_GOPHER_PLUS &h80000000
-
-'' TODO: #define IS_GOPHER_FILE(type) (WINBOOL)(((type) & GOPHER_TYPE_FILE_MASK) ? TRUE : FALSE)
-'' TODO: #define IS_GOPHER_DIRECTORY(type) (WINBOOL)(((type) & GOPHER_TYPE_DIRECTORY) ? TRUE : FALSE)
-'' TODO: #define IS_GOPHER_PHONE_SERVER(type) (WINBOOL)(((type) & GOPHER_TYPE_CSO) ? TRUE : FALSE)
-'' TODO: #define IS_GOPHER_ERROR(type) (WINBOOL)(((type) & GOPHER_TYPE_ERROR) ? TRUE : FALSE)
-'' TODO: #define IS_GOPHER_INDEX_SERVER(type) (WINBOOL)(((type) & GOPHER_TYPE_INDEX_SERVER) ? TRUE : FALSE)
-'' TODO: #define IS_GOPHER_TELNET_SESSION(type) (WINBOOL)(((type) & GOPHER_TYPE_TELNET) ? TRUE : FALSE)
-'' TODO: #define IS_GOPHER_BACKUP_SERVER(type) (WINBOOL)(((type) & GOPHER_TYPE_REDUNDANT) ? TRUE : FALSE)
-'' TODO: #define IS_GOPHER_TN3270_SESSION(type) (WINBOOL)(((type) & GOPHER_TYPE_TN3270) ? TRUE : FALSE)
-'' TODO: #define IS_GOPHER_ASK(type) (WINBOOL)(((type) & GOPHER_TYPE_ASK) ? TRUE : FALSE)
-'' TODO: #define IS_GOPHER_PLUS(type) (WINBOOL)(((type) & GOPHER_TYPE_GOPHER_PLUS) ? TRUE : FALSE)
-'' TODO: #define IS_GOPHER_TYPE_KNOWN(type) (WINBOOL)(((type) & GOPHER_TYPE_UNKNOWN) ? FALSE : TRUE)
-
+#define IS_GOPHER_FILE(type) cast(WINBOOL, iif((type) and GOPHER_TYPE_FILE_MASK, TRUE, FALSE))
+#define IS_GOPHER_DIRECTORY(type) cast(WINBOOL, iif((type) and GOPHER_TYPE_DIRECTORY, TRUE, FALSE))
+#define IS_GOPHER_PHONE_SERVER(type) cast(WINBOOL, iif((type) and GOPHER_TYPE_CSO, TRUE, FALSE))
+#define IS_GOPHER_ERROR(type) cast(WINBOOL, iif((type) and GOPHER_TYPE_ERROR, TRUE, FALSE))
+#define IS_GOPHER_INDEX_SERVER(type) cast(WINBOOL, iif((type) and GOPHER_TYPE_INDEX_SERVER, TRUE, FALSE))
+#define IS_GOPHER_TELNET_SESSION(type) cast(WINBOOL, iif((type) and GOPHER_TYPE_TELNET, TRUE, FALSE))
+#define IS_GOPHER_BACKUP_SERVER(type) cast(WINBOOL, iif((type) and GOPHER_TYPE_REDUNDANT, TRUE, FALSE))
+#define IS_GOPHER_TN3270_SESSION(type) cast(WINBOOL, iif((type) and GOPHER_TYPE_TN3270, TRUE, FALSE))
+#define IS_GOPHER_ASK(type) cast(WINBOOL, iif((type) and GOPHER_TYPE_ASK, TRUE, FALSE))
+#define IS_GOPHER_PLUS(type) cast(WINBOOL, iif((type) and GOPHER_TYPE_GOPHER_PLUS, TRUE, FALSE))
+#define IS_GOPHER_TYPE_KNOWN(type) cast(WINBOOL, iif((type) and GOPHER_TYPE_UNKNOWN, FALSE, TRUE))
 #define GOPHER_TYPE_FILE_MASK (((((((((((((GOPHER_TYPE_TEXT_FILE or GOPHER_TYPE_MAC_BINHEX) or GOPHER_TYPE_DOS_ARCHIVE) or GOPHER_TYPE_UNIX_UUENCODED) or GOPHER_TYPE_BINARY) or GOPHER_TYPE_GIF) or GOPHER_TYPE_IMAGE) or GOPHER_TYPE_BITMAP) or GOPHER_TYPE_MOVIE) or GOPHER_TYPE_SOUND) or GOPHER_TYPE_HTML) or GOPHER_TYPE_PDF) or GOPHER_TYPE_CALENDAR) or GOPHER_TYPE_INLINE)
 
 #ifdef __FB_64BIT__
@@ -1055,11 +1045,11 @@ type LPGOPHER_TTL_ATTRIBUTE_TYPE as GOPHER_TTL_ATTRIBUTE_TYPE ptr
 
 #ifdef __FB_64BIT__
 	type GOPHER_SCORE_ATTRIBUTE_TYPE field = 8
-		Score as INT
+		Score as INT_
 	end type
 #else
 	type GOPHER_SCORE_ATTRIBUTE_TYPE field = 4
-		Score as INT
+		Score as INT_
 	end type
 #endif
 
@@ -1067,13 +1057,13 @@ type LPGOPHER_SCORE_ATTRIBUTE_TYPE as GOPHER_SCORE_ATTRIBUTE_TYPE ptr
 
 #ifdef __FB_64BIT__
 	type GOPHER_SCORE_RANGE_ATTRIBUTE_TYPE field = 8
-		LowerBound as INT
-		UpperBound as INT
+		LowerBound as INT_
+		UpperBound as INT_
 	end type
 #else
 	type GOPHER_SCORE_RANGE_ATTRIBUTE_TYPE field = 4
-		LowerBound as INT
-		UpperBound as INT
+		LowerBound as INT_
+		UpperBound as INT_
 	end type
 #endif
 
@@ -1117,21 +1107,21 @@ type LPGOPHER_LOCATION_ATTRIBUTE_TYPE as GOPHER_LOCATION_ATTRIBUTE_TYPE ptr
 
 #ifdef __FB_64BIT__
 	type GOPHER_GEOGRAPHICAL_LOCATION_ATTRIBUTE_TYPE field = 8
-		DegreesNorth as INT
-		MinutesNorth as INT
-		SecondsNorth as INT
-		DegreesEast as INT
-		MinutesEast as INT
-		SecondsEast as INT
+		DegreesNorth as INT_
+		MinutesNorth as INT_
+		SecondsNorth as INT_
+		DegreesEast as INT_
+		MinutesEast as INT_
+		SecondsEast as INT_
 	end type
 #else
 	type GOPHER_GEOGRAPHICAL_LOCATION_ATTRIBUTE_TYPE field = 4
-		DegreesNorth as INT
-		MinutesNorth as INT
-		SecondsNorth as INT
-		DegreesEast as INT
-		MinutesEast as INT
-		SecondsEast as INT
+		DegreesNorth as INT_
+		MinutesNorth as INT_
+		SecondsNorth as INT_
+		DegreesEast as INT_
+		MinutesEast as INT_
+		SecondsEast as INT_
 	end type
 #endif
 
@@ -1139,11 +1129,11 @@ type LPGOPHER_GEOGRAPHICAL_LOCATION_ATTRIBUTE_TYPE as GOPHER_GEOGRAPHICAL_LOCATI
 
 #ifdef __FB_64BIT__
 	type GOPHER_TIMEZONE_ATTRIBUTE_TYPE field = 8
-		Zone as INT
+		Zone as INT_
 	end type
 #else
 	type GOPHER_TIMEZONE_ATTRIBUTE_TYPE field = 4
-		Zone as INT
+		Zone as INT_
 	end type
 #endif
 
@@ -1300,26 +1290,26 @@ type LPGOPHER_ATTRIBUTE_TYPE as GOPHER_ATTRIBUTE_TYPE ptr
 #define MAX_GOPHER_CATEGORY_NAME 128
 #define MAX_GOPHER_ATTRIBUTE_NAME 128
 #define MIN_GOPHER_ATTRIBUTE_LENGTH 256
-#define GOPHER_INFO_CATEGORY TEXT("+INFO")
-#define GOPHER_ADMIN_CATEGORY TEXT("+ADMIN")
-#define GOPHER_VIEWS_CATEGORY TEXT("+VIEWS")
-#define GOPHER_ABSTRACT_CATEGORY TEXT("+ABSTRACT")
-#define GOPHER_VERONICA_CATEGORY TEXT("+VERONICA")
-#define GOPHER_ADMIN_ATTRIBUTE TEXT("Admin")
-#define GOPHER_MOD_DATE_ATTRIBUTE TEXT("Mod-Date")
-#define GOPHER_TTL_ATTRIBUTE TEXT("TTL")
-#define GOPHER_SCORE_ATTRIBUTE TEXT("Score")
-#define GOPHER_RANGE_ATTRIBUTE TEXT("Score-range")
-#define GOPHER_SITE_ATTRIBUTE TEXT("Site")
-#define GOPHER_ORG_ATTRIBUTE TEXT("Org")
-#define GOPHER_LOCATION_ATTRIBUTE TEXT("Loc")
-#define GOPHER_GEOG_ATTRIBUTE TEXT("Geog")
-#define GOPHER_TIMEZONE_ATTRIBUTE TEXT("TZ")
-#define GOPHER_PROVIDER_ATTRIBUTE TEXT("Provider")
-#define GOPHER_VERSION_ATTRIBUTE TEXT("Version")
-#define GOPHER_ABSTRACT_ATTRIBUTE TEXT("Abstract")
-#define GOPHER_VIEW_ATTRIBUTE TEXT("View")
-#define GOPHER_TREEWALK_ATTRIBUTE TEXT("treewalk")
+#define GOPHER_INFO_CATEGORY TEXT_("+INFO")
+#define GOPHER_ADMIN_CATEGORY TEXT_("+ADMIN")
+#define GOPHER_VIEWS_CATEGORY TEXT_("+VIEWS")
+#define GOPHER_ABSTRACT_CATEGORY TEXT_("+ABSTRACT")
+#define GOPHER_VERONICA_CATEGORY TEXT_("+VERONICA")
+#define GOPHER_ADMIN_ATTRIBUTE TEXT_("Admin")
+#define GOPHER_MOD_DATE_ATTRIBUTE TEXT_("Mod-Date")
+#define GOPHER_TTL_ATTRIBUTE TEXT_("TTL")
+#define GOPHER_SCORE_ATTRIBUTE TEXT_("Score")
+#define GOPHER_RANGE_ATTRIBUTE TEXT_("Score-range")
+#define GOPHER_SITE_ATTRIBUTE TEXT_("Site")
+#define GOPHER_ORG_ATTRIBUTE TEXT_("Org")
+#define GOPHER_LOCATION_ATTRIBUTE TEXT_("Loc")
+#define GOPHER_GEOG_ATTRIBUTE TEXT_("Geog")
+#define GOPHER_TIMEZONE_ATTRIBUTE TEXT_("TZ")
+#define GOPHER_PROVIDER_ATTRIBUTE TEXT_("Provider")
+#define GOPHER_VERSION_ATTRIBUTE TEXT_("Version")
+#define GOPHER_ABSTRACT_ATTRIBUTE TEXT_("Abstract")
+#define GOPHER_VIEW_ATTRIBUTE TEXT_("View")
+#define GOPHER_TREEWALK_ATTRIBUTE TEXT_("treewalk")
 #define GOPHER_ATTRIBUTE_ID_BASE &habcccc00
 #define GOPHER_CATEGORY_ID_ALL (GOPHER_ATTRIBUTE_ID_BASE + 1)
 #define GOPHER_CATEGORY_ID_INFO (GOPHER_ATTRIBUTE_ID_BASE + 2)
@@ -1352,17 +1342,19 @@ type LPGOPHER_ATTRIBUTE_TYPE as GOPHER_ATTRIBUTE_TYPE ptr
 #define GopherOpenFile __MINGW_NAME_AW(GopherOpenFile)
 #define GopherGetAttribute __MINGW_NAME_AW(GopherGetAttribute)
 
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI GopherCreateLocatorA(LPCSTR lpszHost,INTERNET_PORT nServerPort,LPCSTR lpszDisplayString,LPCSTR lpszSelectorString,DWORD dwGopherType,LPSTR lpszLocator,LPDWORD lpdwBufferLength);
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI GopherCreateLocatorW(LPCWSTR lpszHost,INTERNET_PORT nServerPort,LPCWSTR lpszDisplayString,LPCWSTR lpszSelectorString,DWORD dwGopherType,LPWSTR lpszLocator,LPDWORD lpdwBufferLength);
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI GopherGetLocatorTypeA(LPCSTR lpszLocator,LPDWORD lpdwGopherType);
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI GopherGetLocatorTypeW(LPCWSTR lpszLocator,LPDWORD lpdwGopherType);
-'' TODO: EXTERN_C DECLSPEC_IMPORT HINTERNET WINAPI GopherFindFirstFileA(HINTERNET hConnect,LPCSTR lpszLocator,LPCSTR lpszSearchString,LPGOPHER_FIND_DATAA lpFindData,DWORD dwFlags,DWORD_PTR dwContext);
-'' TODO: EXTERN_C DECLSPEC_IMPORT HINTERNET WINAPI GopherFindFirstFileW(HINTERNET hConnect,LPCWSTR lpszLocator,LPCWSTR lpszSearchString,LPGOPHER_FIND_DATAW lpFindData,DWORD dwFlags,DWORD_PTR dwContext);
-'' TODO: EXTERN_C DECLSPEC_IMPORT HINTERNET WINAPI GopherOpenFileA(HINTERNET hConnect,LPCSTR lpszLocator,LPCSTR lpszView,DWORD dwFlags,DWORD_PTR dwContext);
-'' TODO: EXTERN_C DECLSPEC_IMPORT HINTERNET WINAPI GopherOpenFileW(HINTERNET hConnect,LPCWSTR lpszLocator,LPCWSTR lpszView,DWORD dwFlags,DWORD_PTR dwContext);
-'' TODO: typedef WINBOOL (CALLBACK *GOPHER_ATTRIBUTE_ENUMERATOR)(LPGOPHER_ATTRIBUTE_TYPE lpAttributeInfo,DWORD dwError);
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI GopherGetAttributeA(HINTERNET hConnect,LPCSTR lpszLocator,LPCSTR lpszAttributeName,LPBYTE lpBuffer,DWORD dwBufferLength,LPDWORD lpdwCharactersReturned,GOPHER_ATTRIBUTE_ENUMERATOR lpfnEnumerator,DWORD_PTR dwContext);
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI GopherGetAttributeW(HINTERNET hConnect,LPCWSTR lpszLocator,LPCWSTR lpszAttributeName,LPBYTE lpBuffer,DWORD dwBufferLength,LPDWORD lpdwCharactersReturned,GOPHER_ATTRIBUTE_ENUMERATOR lpfnEnumerator,DWORD_PTR dwContext);
+declare function GopherCreateLocatorA(byval lpszHost as LPCSTR, byval nServerPort as INTERNET_PORT, byval lpszDisplayString as LPCSTR, byval lpszSelectorString as LPCSTR, byval dwGopherType as DWORD, byval lpszLocator as LPSTR, byval lpdwBufferLength as LPDWORD) as WINBOOL
+declare function GopherCreateLocatorW(byval lpszHost as LPCWSTR, byval nServerPort as INTERNET_PORT, byval lpszDisplayString as LPCWSTR, byval lpszSelectorString as LPCWSTR, byval dwGopherType as DWORD, byval lpszLocator as LPWSTR, byval lpdwBufferLength as LPDWORD) as WINBOOL
+declare function GopherGetLocatorTypeA(byval lpszLocator as LPCSTR, byval lpdwGopherType as LPDWORD) as WINBOOL
+declare function GopherGetLocatorTypeW(byval lpszLocator as LPCWSTR, byval lpdwGopherType as LPDWORD) as WINBOOL
+declare function GopherFindFirstFileA(byval hConnect as HINTERNET, byval lpszLocator as LPCSTR, byval lpszSearchString as LPCSTR, byval lpFindData as LPGOPHER_FIND_DATAA, byval dwFlags as DWORD, byval dwContext as DWORD_PTR) as HINTERNET
+declare function GopherFindFirstFileW(byval hConnect as HINTERNET, byval lpszLocator as LPCWSTR, byval lpszSearchString as LPCWSTR, byval lpFindData as LPGOPHER_FIND_DATAW, byval dwFlags as DWORD, byval dwContext as DWORD_PTR) as HINTERNET
+declare function GopherOpenFileA(byval hConnect as HINTERNET, byval lpszLocator as LPCSTR, byval lpszView as LPCSTR, byval dwFlags as DWORD, byval dwContext as DWORD_PTR) as HINTERNET
+declare function GopherOpenFileW(byval hConnect as HINTERNET, byval lpszLocator as LPCWSTR, byval lpszView as LPCWSTR, byval dwFlags as DWORD, byval dwContext as DWORD_PTR) as HINTERNET
+
+type GOPHER_ATTRIBUTE_ENUMERATOR as function(byval lpAttributeInfo as LPGOPHER_ATTRIBUTE_TYPE, byval dwError as DWORD) as WINBOOL
+
+declare function GopherGetAttributeA(byval hConnect as HINTERNET, byval lpszLocator as LPCSTR, byval lpszAttributeName as LPCSTR, byval lpBuffer as LPBYTE, byval dwBufferLength as DWORD, byval lpdwCharactersReturned as LPDWORD, byval lpfnEnumerator as GOPHER_ATTRIBUTE_ENUMERATOR, byval dwContext as DWORD_PTR) as WINBOOL
+declare function GopherGetAttributeW(byval hConnect as HINTERNET, byval lpszLocator as LPCWSTR, byval lpszAttributeName as LPCWSTR, byval lpBuffer as LPBYTE, byval dwBufferLength as DWORD, byval lpdwCharactersReturned as LPDWORD, byval lpfnEnumerator as GOPHER_ATTRIBUTE_ENUMERATOR, byval dwContext as DWORD_PTR) as WINBOOL
 
 #define HTTP_MAJOR_VERSION 1
 #define HTTP_MINOR_VERSION 0
@@ -1500,10 +1492,10 @@ type LPGOPHER_ATTRIBUTE_TYPE as GOPHER_ATTRIBUTE_TYPE ptr
 #define HttpOpenRequest __MINGW_NAME_AW(HttpOpenRequest)
 #define HttpAddRequestHeaders __MINGW_NAME_AW(HttpAddRequestHeaders)
 
-'' TODO: EXTERN_C DECLSPEC_IMPORT HINTERNET WINAPI HttpOpenRequestA(HINTERNET hConnect,LPCSTR lpszVerb,LPCSTR lpszObjectName,LPCSTR lpszVersion,LPCSTR lpszReferrer,LPCSTR *lplpszAcceptTypes,DWORD dwFlags,DWORD_PTR dwContext);
-'' TODO: EXTERN_C DECLSPEC_IMPORT HINTERNET WINAPI HttpOpenRequestW(HINTERNET hConnect,LPCWSTR lpszVerb,LPCWSTR lpszObjectName,LPCWSTR lpszVersion,LPCWSTR lpszReferrer,LPCWSTR *lplpszAcceptTypes,DWORD dwFlags,DWORD_PTR dwContext);
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI HttpAddRequestHeadersA(HINTERNET hRequest,LPCSTR lpszHeaders,DWORD dwHeadersLength,DWORD dwModifiers);
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI HttpAddRequestHeadersW(HINTERNET hRequest,LPCWSTR lpszHeaders,DWORD dwHeadersLength,DWORD dwModifiers);
+declare function HttpOpenRequestA(byval hConnect as HINTERNET, byval lpszVerb as LPCSTR, byval lpszObjectName as LPCSTR, byval lpszVersion as LPCSTR, byval lpszReferrer as LPCSTR, byval lplpszAcceptTypes as LPCSTR ptr, byval dwFlags as DWORD, byval dwContext as DWORD_PTR) as HINTERNET
+declare function HttpOpenRequestW(byval hConnect as HINTERNET, byval lpszVerb as LPCWSTR, byval lpszObjectName as LPCWSTR, byval lpszVersion as LPCWSTR, byval lpszReferrer as LPCWSTR, byval lplpszAcceptTypes as LPCWSTR ptr, byval dwFlags as DWORD, byval dwContext as DWORD_PTR) as HINTERNET
+declare function HttpAddRequestHeadersA(byval hRequest as HINTERNET, byval lpszHeaders as LPCSTR, byval dwHeadersLength as DWORD, byval dwModifiers as DWORD) as WINBOOL
+declare function HttpAddRequestHeadersW(byval hRequest as HINTERNET, byval lpszHeaders as LPCWSTR, byval dwHeadersLength as DWORD, byval dwModifiers as DWORD) as WINBOOL
 
 #define HTTP_ADDREQ_INDEX_MASK &h0000FFFF
 #define HTTP_ADDREQ_FLAGS_MASK &hFFFF0000
@@ -1516,10 +1508,10 @@ type LPGOPHER_ATTRIBUTE_TYPE as GOPHER_ATTRIBUTE_TYPE ptr
 #define HttpSendRequest __MINGW_NAME_AW(HttpSendRequest)
 #define HttpSendRequestEx __MINGW_NAME_AW(HttpSendRequestEx)
 
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI HttpSendRequestA(HINTERNET hRequest,LPCSTR lpszHeaders,DWORD dwHeadersLength,LPVOID lpOptional,DWORD dwOptionalLength);
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI HttpSendRequestW(HINTERNET hRequest,LPCWSTR lpszHeaders,DWORD dwHeadersLength,LPVOID lpOptional,DWORD dwOptionalLength);
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI HttpSendRequestExA(HINTERNET hRequest,LPINTERNET_BUFFERSA lpBuffersIn,LPINTERNET_BUFFERSA lpBuffersOut,DWORD dwFlags,DWORD_PTR dwContext);
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI HttpSendRequestExW(HINTERNET hRequest,LPINTERNET_BUFFERSW lpBuffersIn,LPINTERNET_BUFFERSW lpBuffersOut,DWORD dwFlags,DWORD_PTR dwContext);
+declare function HttpSendRequestA(byval hRequest as HINTERNET, byval lpszHeaders as LPCSTR, byval dwHeadersLength as DWORD, byval lpOptional as LPVOID, byval dwOptionalLength as DWORD) as WINBOOL
+declare function HttpSendRequestW(byval hRequest as HINTERNET, byval lpszHeaders as LPCWSTR, byval dwHeadersLength as DWORD, byval lpOptional as LPVOID, byval dwOptionalLength as DWORD) as WINBOOL
+declare function HttpSendRequestExA(byval hRequest as HINTERNET, byval lpBuffersIn as LPINTERNET_BUFFERSA, byval lpBuffersOut as LPINTERNET_BUFFERSA, byval dwFlags as DWORD, byval dwContext as DWORD_PTR) as WINBOOL
+declare function HttpSendRequestExW(byval hRequest as HINTERNET, byval lpBuffersIn as LPINTERNET_BUFFERSW, byval lpBuffersOut as LPINTERNET_BUFFERSW, byval dwFlags as DWORD, byval dwContext as DWORD_PTR) as WINBOOL
 
 #define HSR_ASYNC WININET_API_FLAG_ASYNC
 #define HSR_SYNC WININET_API_FLAG_SYNC
@@ -1530,10 +1522,10 @@ type LPGOPHER_ATTRIBUTE_TYPE as GOPHER_ATTRIBUTE_TYPE ptr
 #define HttpEndRequest __MINGW_NAME_AW(HttpEndRequest)
 #define HttpQueryInfo __MINGW_NAME_AW(HttpQueryInfo)
 
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI HttpEndRequestA(HINTERNET hRequest,LPINTERNET_BUFFERSA lpBuffersOut,DWORD dwFlags,DWORD_PTR dwContext);
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI HttpEndRequestW(HINTERNET hRequest,LPINTERNET_BUFFERSW lpBuffersOut,DWORD dwFlags,DWORD_PTR dwContext);
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI HttpQueryInfoA(HINTERNET hRequest,DWORD dwInfoLevel,LPVOID lpBuffer,LPDWORD lpdwBufferLength,LPDWORD lpdwIndex);
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI HttpQueryInfoW(HINTERNET hRequest,DWORD dwInfoLevel,LPVOID lpBuffer,LPDWORD lpdwBufferLength,LPDWORD lpdwIndex);
+declare function HttpEndRequestA(byval hRequest as HINTERNET, byval lpBuffersOut as LPINTERNET_BUFFERSA, byval dwFlags as DWORD, byval dwContext as DWORD_PTR) as WINBOOL
+declare function HttpEndRequestW(byval hRequest as HINTERNET, byval lpBuffersOut as LPINTERNET_BUFFERSW, byval dwFlags as DWORD, byval dwContext as DWORD_PTR) as WINBOOL
+declare function HttpQueryInfoA(byval hRequest as HINTERNET, byval dwInfoLevel as DWORD, byval lpBuffer as LPVOID, byval lpdwBufferLength as LPDWORD, byval lpdwIndex as LPDWORD) as WINBOOL
+declare function HttpQueryInfoW(byval hRequest as HINTERNET, byval dwInfoLevel as DWORD, byval lpBuffer as LPVOID, byval lpdwBufferLength as LPDWORD, byval lpdwIndex as LPDWORD) as WINBOOL
 
 #define INTERNET_COOKIE_IS_SECURE &h01
 #define INTERNET_COOKIE_IS_SESSION &h02
@@ -1551,17 +1543,17 @@ type LPGOPHER_ATTRIBUTE_TYPE as GOPHER_ATTRIBUTE_TYPE ptr
 #define InternetGetCookieEx __MINGW_NAME_AW(InternetGetCookieEx)
 #define InternetCheckConnection __MINGW_NAME_AW(InternetCheckConnection)
 
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI InternetSetCookieA(LPCSTR lpszUrl,LPCSTR lpszCookieName,LPCSTR lpszCookieData);
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI InternetSetCookieW(LPCWSTR lpszUrl,LPCWSTR lpszCookieName,LPCWSTR lpszCookieData);
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI InternetGetCookieA(LPCSTR lpszUrl,LPCSTR lpszCookieName,LPSTR lpszCookieData,LPDWORD lpdwSize);
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI InternetGetCookieW(LPCWSTR lpszUrl,LPCWSTR lpszCookieName,LPWSTR lpszCookieData,LPDWORD lpdwSize);
-'' TODO: EXTERN_C DECLSPEC_IMPORT DWORD WINAPI InternetSetCookieExA(LPCSTR lpszUrl,LPCSTR lpszCookieName,LPCSTR lpszCookieData,DWORD dwFlags,DWORD_PTR dwReserved);
-'' TODO: EXTERN_C DECLSPEC_IMPORT DWORD WINAPI InternetSetCookieExW(LPCWSTR lpszUrl,LPCWSTR lpszCookieName,LPCWSTR lpszCookieData,DWORD dwFlags,DWORD_PTR dwReserved);
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI InternetGetCookieExA(LPCSTR lpszUrl,LPCSTR lpszCookieName,LPSTR lpszCookieData,LPDWORD lpdwSize,DWORD dwFlags,LPVOID lpReserved);
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI InternetGetCookieExW(LPCWSTR lpszUrl,LPCWSTR lpszCookieName,LPWSTR lpszCookieData,LPDWORD lpdwSize,DWORD dwFlags,LPVOID lpReserved);
-'' TODO: EXTERN_C DECLSPEC_IMPORT DWORD WINAPI InternetAttemptConnect(DWORD dwReserved);
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI InternetCheckConnectionA(LPCSTR lpszUrl,DWORD dwFlags,DWORD dwReserved);
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI InternetCheckConnectionW(LPCWSTR lpszUrl,DWORD dwFlags,DWORD dwReserved);
+declare function InternetSetCookieA(byval lpszUrl as LPCSTR, byval lpszCookieName as LPCSTR, byval lpszCookieData as LPCSTR) as WINBOOL
+declare function InternetSetCookieW(byval lpszUrl as LPCWSTR, byval lpszCookieName as LPCWSTR, byval lpszCookieData as LPCWSTR) as WINBOOL
+declare function InternetGetCookieA(byval lpszUrl as LPCSTR, byval lpszCookieName as LPCSTR, byval lpszCookieData as LPSTR, byval lpdwSize as LPDWORD) as WINBOOL
+declare function InternetGetCookieW(byval lpszUrl as LPCWSTR, byval lpszCookieName as LPCWSTR, byval lpszCookieData as LPWSTR, byval lpdwSize as LPDWORD) as WINBOOL
+declare function InternetSetCookieExA(byval lpszUrl as LPCSTR, byval lpszCookieName as LPCSTR, byval lpszCookieData as LPCSTR, byval dwFlags as DWORD, byval dwReserved as DWORD_PTR) as DWORD
+declare function InternetSetCookieExW(byval lpszUrl as LPCWSTR, byval lpszCookieName as LPCWSTR, byval lpszCookieData as LPCWSTR, byval dwFlags as DWORD, byval dwReserved as DWORD_PTR) as DWORD
+declare function InternetGetCookieExA(byval lpszUrl as LPCSTR, byval lpszCookieName as LPCSTR, byval lpszCookieData as LPSTR, byval lpdwSize as LPDWORD, byval dwFlags as DWORD, byval lpReserved as LPVOID) as WINBOOL
+declare function InternetGetCookieExW(byval lpszUrl as LPCWSTR, byval lpszCookieName as LPCWSTR, byval lpszCookieData as LPWSTR, byval lpdwSize as LPDWORD, byval dwFlags as DWORD, byval lpReserved as LPVOID) as WINBOOL
+declare function InternetAttemptConnect(byval dwReserved as DWORD) as DWORD
+declare function InternetCheckConnectionA(byval lpszUrl as LPCSTR, byval dwFlags as DWORD, byval dwReserved as DWORD) as WINBOOL
+declare function InternetCheckConnectionW(byval lpszUrl as LPCWSTR, byval dwFlags as DWORD, byval dwReserved as DWORD) as WINBOOL
 
 #define FLAG_ICC_FORCE_CONNECTION &h00000001
 #define FLAGS_ERROR_UI_FILTER_FOR_ERRORS &h01
@@ -1570,9 +1562,9 @@ type LPGOPHER_ATTRIBUTE_TYPE as GOPHER_ATTRIBUTE_TYPE ptr
 #define FLAGS_ERROR_UI_FLAGS_NO_UI &h08
 #define FLAGS_ERROR_UI_SERIALIZE_DIALOGS &h10
 
-declare function InternetAuthNotifyCallback(byval dwContext as DWORD_PTR, byval dwReturn as DWORD, byval lpReserved as LPVOID) as DWORD
+declare function InternetAuthNotifyCallback cdecl(byval dwContext as DWORD_PTR, byval dwReturn as DWORD, byval lpReserved as LPVOID) as DWORD
 
-'' TODO: typedef DWORD (CALLBACK *PFN_AUTH_NOTIFY) (DWORD_PTR,DWORD,LPVOID);
+type PFN_AUTH_NOTIFY as function(byval as DWORD_PTR, byval as DWORD, byval as LPVOID) as DWORD
 
 #ifdef __FB_64BIT__
 	type INTERNET_AUTH_NOTIFY_DATA field = 8
@@ -1593,13 +1585,13 @@ declare function InternetAuthNotifyCallback(byval dwContext as DWORD_PTR, byval 
 #ifdef UNICODE
 	#define InternetConfirmZoneCrossing InternetConfirmZoneCrossingW
 #else
-	'' TODO: EXTERN_C DECLSPEC_IMPORT DWORD WINAPI InternetConfirmZoneCrossing(HWND hWnd,LPSTR szUrlPrev,LPSTR szUrlNew,WINBOOL bPost);
+	declare function InternetConfirmZoneCrossing(byval hWnd as HWND, byval szUrlPrev as LPSTR, byval szUrlNew as LPSTR, byval bPost as WINBOOL) as DWORD
 #endif
 
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI ResumeSuspendedDownload(HINTERNET hRequest,DWORD dwResultCode);
-'' TODO: EXTERN_C DECLSPEC_IMPORT DWORD WINAPI InternetErrorDlg(HWND hWnd,HINTERNET hRequest,DWORD dwError,DWORD dwFlags,LPVOID *lppvData);
-'' TODO: EXTERN_C DECLSPEC_IMPORT DWORD WINAPI InternetConfirmZoneCrossingA(HWND hWnd,LPSTR szUrlPrev,LPSTR szUrlNew,WINBOOL bPost);
-'' TODO: EXTERN_C DECLSPEC_IMPORT DWORD WINAPI InternetConfirmZoneCrossingW(HWND hWnd,LPWSTR szUrlPrev,LPWSTR szUrlNew,WINBOOL bPost);
+declare function ResumeSuspendedDownload(byval hRequest as HINTERNET, byval dwResultCode as DWORD) as WINBOOL
+declare function InternetErrorDlg(byval hWnd as HWND, byval hRequest as HINTERNET, byval dwError as DWORD, byval dwFlags as DWORD, byval lppvData as LPVOID ptr) as DWORD
+declare function InternetConfirmZoneCrossingA(byval hWnd as HWND, byval szUrlPrev as LPSTR, byval szUrlNew as LPSTR, byval bPost as WINBOOL) as DWORD
+declare function InternetConfirmZoneCrossingW(byval hWnd as HWND, byval szUrlPrev as LPWSTR, byval szUrlNew as LPWSTR, byval bPost as WINBOOL) as DWORD
 
 #define INTERNET_ERROR_BASE 12000
 #define ERROR_INTERNET_OUT_OF_HANDLES (INTERNET_ERROR_BASE + 1)
@@ -1723,7 +1715,10 @@ declare function InternetAuthNotifyCallback(byval dwContext as DWORD_PTR, byval 
 		dwHeaderInfoSize as DWORD
 		lpszFileExtension as LPSTR
 
-		'' TODO: __C89_NAMELESS union { DWORD dwReserved; DWORD dwExemptDelta; };
+		union field = 8
+			dwReserved as DWORD
+			dwExemptDelta as DWORD
+		end union
 	end type
 #else
 	type _INTERNET_CACHE_ENTRY_INFOA field = 4
@@ -1743,7 +1738,10 @@ declare function InternetAuthNotifyCallback(byval dwContext as DWORD_PTR, byval 
 		dwHeaderInfoSize as DWORD
 		lpszFileExtension as LPSTR
 
-		'' TODO: __C89_NAMELESS union { DWORD dwReserved; DWORD dwExemptDelta; };
+		union field = 4
+			dwReserved as DWORD
+			dwExemptDelta as DWORD
+		end union
 	end type
 #endif
 
@@ -1768,7 +1766,10 @@ type LPINTERNET_CACHE_ENTRY_INFOA as _INTERNET_CACHE_ENTRY_INFOA ptr
 		dwHeaderInfoSize as DWORD
 		lpszFileExtension as LPWSTR
 
-		'' TODO: __C89_NAMELESS union { DWORD dwReserved; DWORD dwExemptDelta; };
+		union field = 8
+			dwReserved as DWORD
+			dwExemptDelta as DWORD
+		end union
 	end type
 #else
 	type _INTERNET_CACHE_ENTRY_INFOW field = 4
@@ -1788,7 +1789,10 @@ type LPINTERNET_CACHE_ENTRY_INFOA as _INTERNET_CACHE_ENTRY_INFOA ptr
 		dwHeaderInfoSize as DWORD
 		lpszFileExtension as LPWSTR
 
-		'' TODO: __C89_NAMELESS union { DWORD dwReserved; DWORD dwExemptDelta; };
+		union field = 4
+			dwReserved as DWORD
+			dwExemptDelta as DWORD
+		end union
 	end type
 #endif
 
@@ -1904,30 +1908,30 @@ type LPINTERNET_CACHE_GROUP_INFOW as _INTERNET_CACHE_GROUP_INFOW ptr
 #define SetUrlCacheGroupAttribute __MINGW_NAME_AW(SetUrlCacheGroupAttribute)
 #define GetUrlCacheEntryInfoEx __MINGW_NAME_AW(GetUrlCacheEntryInfoEx)
 
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI CreateUrlCacheEntryA(LPCSTR lpszUrlName,DWORD dwExpectedFileSize,LPCSTR lpszFileExtension,LPSTR lpszFileName,DWORD dwReserved);
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI CreateUrlCacheEntryW(LPCWSTR lpszUrlName,DWORD dwExpectedFileSize,LPCWSTR lpszFileExtension,LPWSTR lpszFileName,DWORD dwReserved);
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI CommitUrlCacheEntryA(LPCSTR lpszUrlName,LPCSTR lpszLocalFileName,FILETIME ExpireTime,FILETIME LastModifiedTime,DWORD CacheEntryType,LPBYTE lpHeaderInfo,DWORD dwHeaderSize,LPCSTR lpszFileExtension,LPCSTR lpszOriginalUrl);
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI CommitUrlCacheEntryW(LPCWSTR lpszUrlName,LPCWSTR lpszLocalFileName,FILETIME ExpireTime,FILETIME LastModifiedTime,DWORD CacheEntryType,LPWSTR lpszHeaderInfo,DWORD dwHeaders,LPCWSTR lpszFileExtension,LPCWSTR lpszOriginalUrl);
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI RetrieveUrlCacheEntryFileA(LPCSTR lpszUrlName,LPINTERNET_CACHE_ENTRY_INFOA lpCacheEntryInfo,LPDWORD lpcbCacheEntryInfo,DWORD dwReserved);
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI RetrieveUrlCacheEntryFileW(LPCWSTR lpszUrlName,LPINTERNET_CACHE_ENTRY_INFOW lpCacheEntryInfo,LPDWORD lpcbCacheEntryInfo,DWORD dwReserved);
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI UnlockUrlCacheEntryFileA(LPCSTR lpszUrlName,DWORD dwReserved);
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI UnlockUrlCacheEntryFileW(LPCWSTR lpszUrlName,DWORD dwReserved);
-'' TODO: EXTERN_C DECLSPEC_IMPORT HANDLE WINAPI RetrieveUrlCacheEntryStreamA(LPCSTR lpszUrlName,LPINTERNET_CACHE_ENTRY_INFOA lpCacheEntryInfo,LPDWORD lpcbCacheEntryInfo,WINBOOL fRandomRead,DWORD dwReserved);
-'' TODO: EXTERN_C DECLSPEC_IMPORT HANDLE WINAPI RetrieveUrlCacheEntryStreamW(LPCWSTR lpszUrlName,LPINTERNET_CACHE_ENTRY_INFOW lpCacheEntryInfo,LPDWORD lpcbCacheEntryInfo,WINBOOL fRandomRead,DWORD dwReserved);
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI ReadUrlCacheEntryStream(HANDLE hUrlCacheStream,DWORD dwLocation,LPVOID lpBuffer,LPDWORD lpdwLen,DWORD Reserved);
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI UnlockUrlCacheEntryStream(HANDLE hUrlCacheStream,DWORD Reserved);
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI GetUrlCacheEntryInfoA(LPCSTR lpszUrlName,LPINTERNET_CACHE_ENTRY_INFOA lpCacheEntryInfo,LPDWORD lpcbCacheEntryInfo);
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI GetUrlCacheEntryInfoW(LPCWSTR lpszUrlName,LPINTERNET_CACHE_ENTRY_INFOW lpCacheEntryInfo,LPDWORD lpcbCacheEntryInfo);
-'' TODO: EXTERN_C DECLSPEC_IMPORT HANDLE WINAPI FindFirstUrlCacheGroup(DWORD dwFlags,DWORD dwFilter,LPVOID lpSearchCondition,DWORD dwSearchCondition,GROUPID *lpGroupId,LPVOID lpReserved);
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI FindNextUrlCacheGroup(HANDLE hFind,GROUPID *lpGroupId,LPVOID lpReserved);
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI GetUrlCacheGroupAttributeA(GROUPID gid,DWORD dwFlags,DWORD dwAttributes,LPINTERNET_CACHE_GROUP_INFOA lpGroupInfo,LPDWORD lpdwGroupInfo,LPVOID lpReserved);
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI GetUrlCacheGroupAttributeW(GROUPID gid,DWORD dwFlags,DWORD dwAttributes,LPINTERNET_CACHE_GROUP_INFOW lpGroupInfo,LPDWORD lpdwGroupInfo,LPVOID lpReserved);
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI SetUrlCacheGroupAttributeA(GROUPID gid,DWORD dwFlags,DWORD dwAttributes,LPINTERNET_CACHE_GROUP_INFOA lpGroupInfo,LPVOID lpReserved);
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI SetUrlCacheGroupAttributeW(GROUPID gid,DWORD dwFlags,DWORD dwAttributes,LPINTERNET_CACHE_GROUP_INFOW lpGroupInfo,LPVOID lpReserved);
-'' TODO: EXTERN_C DECLSPEC_IMPORT GROUPID WINAPI CreateUrlCacheGroup(DWORD dwFlags,LPVOID lpReserved);
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI DeleteUrlCacheGroup(GROUPID GroupId,DWORD dwFlags,LPVOID lpReserved);
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI GetUrlCacheEntryInfoExA(LPCSTR lpszUrl,LPINTERNET_CACHE_ENTRY_INFOA lpCacheEntryInfo,LPDWORD lpcbCacheEntryInfo,LPSTR lpszRedirectUrl,LPDWORD lpcbRedirectUrl,LPVOID lpReserved,DWORD dwFlags);
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI GetUrlCacheEntryInfoExW(LPCWSTR lpszUrl,LPINTERNET_CACHE_ENTRY_INFOW lpCacheEntryInfo,LPDWORD lpcbCacheEntryInfo,LPWSTR lpszRedirectUrl,LPDWORD lpcbRedirectUrl,LPVOID lpReserved,DWORD dwFlags);
+declare function CreateUrlCacheEntryA(byval lpszUrlName as LPCSTR, byval dwExpectedFileSize as DWORD, byval lpszFileExtension as LPCSTR, byval lpszFileName as LPSTR, byval dwReserved as DWORD) as WINBOOL
+declare function CreateUrlCacheEntryW(byval lpszUrlName as LPCWSTR, byval dwExpectedFileSize as DWORD, byval lpszFileExtension as LPCWSTR, byval lpszFileName as LPWSTR, byval dwReserved as DWORD) as WINBOOL
+declare function CommitUrlCacheEntryA(byval lpszUrlName as LPCSTR, byval lpszLocalFileName as LPCSTR, byval ExpireTime as FILETIME, byval LastModifiedTime as FILETIME, byval CacheEntryType as DWORD, byval lpHeaderInfo as LPBYTE, byval dwHeaderSize as DWORD, byval lpszFileExtension as LPCSTR, byval lpszOriginalUrl as LPCSTR) as WINBOOL
+declare function CommitUrlCacheEntryW(byval lpszUrlName as LPCWSTR, byval lpszLocalFileName as LPCWSTR, byval ExpireTime as FILETIME, byval LastModifiedTime as FILETIME, byval CacheEntryType as DWORD, byval lpszHeaderInfo as LPWSTR, byval dwHeaders as DWORD, byval lpszFileExtension as LPCWSTR, byval lpszOriginalUrl as LPCWSTR) as WINBOOL
+declare function RetrieveUrlCacheEntryFileA(byval lpszUrlName as LPCSTR, byval lpCacheEntryInfo as LPINTERNET_CACHE_ENTRY_INFOA, byval lpcbCacheEntryInfo as LPDWORD, byval dwReserved as DWORD) as WINBOOL
+declare function RetrieveUrlCacheEntryFileW(byval lpszUrlName as LPCWSTR, byval lpCacheEntryInfo as LPINTERNET_CACHE_ENTRY_INFOW, byval lpcbCacheEntryInfo as LPDWORD, byval dwReserved as DWORD) as WINBOOL
+declare function UnlockUrlCacheEntryFileA(byval lpszUrlName as LPCSTR, byval dwReserved as DWORD) as WINBOOL
+declare function UnlockUrlCacheEntryFileW(byval lpszUrlName as LPCWSTR, byval dwReserved as DWORD) as WINBOOL
+declare function RetrieveUrlCacheEntryStreamA(byval lpszUrlName as LPCSTR, byval lpCacheEntryInfo as LPINTERNET_CACHE_ENTRY_INFOA, byval lpcbCacheEntryInfo as LPDWORD, byval fRandomRead as WINBOOL, byval dwReserved as DWORD) as HANDLE
+declare function RetrieveUrlCacheEntryStreamW(byval lpszUrlName as LPCWSTR, byval lpCacheEntryInfo as LPINTERNET_CACHE_ENTRY_INFOW, byval lpcbCacheEntryInfo as LPDWORD, byval fRandomRead as WINBOOL, byval dwReserved as DWORD) as HANDLE
+declare function ReadUrlCacheEntryStream(byval hUrlCacheStream as HANDLE, byval dwLocation as DWORD, byval lpBuffer as LPVOID, byval lpdwLen as LPDWORD, byval Reserved as DWORD) as WINBOOL
+declare function UnlockUrlCacheEntryStream(byval hUrlCacheStream as HANDLE, byval Reserved as DWORD) as WINBOOL
+declare function GetUrlCacheEntryInfoA(byval lpszUrlName as LPCSTR, byval lpCacheEntryInfo as LPINTERNET_CACHE_ENTRY_INFOA, byval lpcbCacheEntryInfo as LPDWORD) as WINBOOL
+declare function GetUrlCacheEntryInfoW(byval lpszUrlName as LPCWSTR, byval lpCacheEntryInfo as LPINTERNET_CACHE_ENTRY_INFOW, byval lpcbCacheEntryInfo as LPDWORD) as WINBOOL
+declare function FindFirstUrlCacheGroup(byval dwFlags as DWORD, byval dwFilter as DWORD, byval lpSearchCondition as LPVOID, byval dwSearchCondition as DWORD, byval lpGroupId as GROUPID ptr, byval lpReserved as LPVOID) as HANDLE
+declare function FindNextUrlCacheGroup(byval hFind as HANDLE, byval lpGroupId as GROUPID ptr, byval lpReserved as LPVOID) as WINBOOL
+declare function GetUrlCacheGroupAttributeA(byval gid as GROUPID, byval dwFlags as DWORD, byval dwAttributes as DWORD, byval lpGroupInfo as LPINTERNET_CACHE_GROUP_INFOA, byval lpdwGroupInfo as LPDWORD, byval lpReserved as LPVOID) as WINBOOL
+declare function GetUrlCacheGroupAttributeW(byval gid as GROUPID, byval dwFlags as DWORD, byval dwAttributes as DWORD, byval lpGroupInfo as LPINTERNET_CACHE_GROUP_INFOW, byval lpdwGroupInfo as LPDWORD, byval lpReserved as LPVOID) as WINBOOL
+declare function SetUrlCacheGroupAttributeA(byval gid as GROUPID, byval dwFlags as DWORD, byval dwAttributes as DWORD, byval lpGroupInfo as LPINTERNET_CACHE_GROUP_INFOA, byval lpReserved as LPVOID) as WINBOOL
+declare function SetUrlCacheGroupAttributeW(byval gid as GROUPID, byval dwFlags as DWORD, byval dwAttributes as DWORD, byval lpGroupInfo as LPINTERNET_CACHE_GROUP_INFOW, byval lpReserved as LPVOID) as WINBOOL
+declare function CreateUrlCacheGroup(byval dwFlags as DWORD, byval lpReserved as LPVOID) as GROUPID
+declare function DeleteUrlCacheGroup(byval GroupId as GROUPID, byval dwFlags as DWORD, byval lpReserved as LPVOID) as WINBOOL
+declare function GetUrlCacheEntryInfoExA(byval lpszUrl as LPCSTR, byval lpCacheEntryInfo as LPINTERNET_CACHE_ENTRY_INFOA, byval lpcbCacheEntryInfo as LPDWORD, byval lpszRedirectUrl as LPSTR, byval lpcbRedirectUrl as LPDWORD, byval lpReserved as LPVOID, byval dwFlags as DWORD) as WINBOOL
+declare function GetUrlCacheEntryInfoExW(byval lpszUrl as LPCWSTR, byval lpCacheEntryInfo as LPINTERNET_CACHE_ENTRY_INFOW, byval lpcbCacheEntryInfo as LPDWORD, byval lpszRedirectUrl as LPWSTR, byval lpcbRedirectUrl as LPDWORD, byval lpReserved as LPVOID, byval dwFlags as DWORD) as WINBOOL
 
 #define CACHE_ENTRY_ATTRIBUTE_FC &h00000004
 #define CACHE_ENTRY_HITRATE_FC &h00000010
@@ -1949,48 +1953,46 @@ type LPINTERNET_CACHE_GROUP_INFOW as _INTERNET_CACHE_GROUP_INFOW ptr
 	#define DeleteUrlCacheEntry DeleteUrlCacheEntryW
 	#define SetUrlCacheEntryGroup SetUrlCacheEntryGroupW
 #else
-	'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI SetUrlCacheEntryGroup(LPCSTR lpszUrlName,DWORD dwFlags,GROUPID GroupId,LPBYTE pbGroupAttributes,DWORD cbGroupAttributes,LPVOID lpReserved);
-	'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI DeleteUrlCacheEntry(LPCSTR lpszUrlName);
-	'' TODO: EXTERN_C DECLSPEC_IMPORT DWORD WINAPI InternetDial(HWND hwndParent,LPSTR lpszConnectoid,DWORD dwFlags,LPDWORD lpdwConnection,DWORD dwReserved);
-	'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI InternetGoOnline(LPSTR lpszURL,HWND hwndParent,DWORD dwFlags);
+	declare function SetUrlCacheEntryGroup(byval lpszUrlName as LPCSTR, byval dwFlags as DWORD, byval GroupId as GROUPID, byval pbGroupAttributes as LPBYTE, byval cbGroupAttributes as DWORD, byval lpReserved as LPVOID) as WINBOOL
+	declare function DeleteUrlCacheEntry(byval lpszUrlName as LPCSTR) as WINBOOL
+	declare function InternetDial(byval hwndParent as HWND, byval lpszConnectoid as LPSTR, byval dwFlags as DWORD, byval lpdwConnection as LPDWORD, byval dwReserved as DWORD) as DWORD
+	declare function InternetGoOnline(byval lpszURL as LPSTR, byval hwndParent as HWND, byval dwFlags as DWORD) as WINBOOL
 #endif
 
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI SetUrlCacheEntryInfoA(LPCSTR lpszUrlName,LPINTERNET_CACHE_ENTRY_INFOA lpCacheEntryInfo,DWORD dwFieldControl);
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI SetUrlCacheEntryInfoW(LPCWSTR lpszUrlName,LPINTERNET_CACHE_ENTRY_INFOW lpCacheEntryInfo,DWORD dwFieldControl);
-'' TODO: EXTERN_C DECLSPEC_IMPORT GROUPID WINAPI CreateUrlCacheGroup(DWORD dwFlags,LPVOID lpReserved);
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI DeleteUrlCacheGroup(GROUPID GroupId,DWORD dwFlags,LPVOID lpReserved);
+declare function SetUrlCacheEntryInfoA(byval lpszUrlName as LPCSTR, byval lpCacheEntryInfo as LPINTERNET_CACHE_ENTRY_INFOA, byval dwFieldControl as DWORD) as WINBOOL
+declare function SetUrlCacheEntryInfoW(byval lpszUrlName as LPCWSTR, byval lpCacheEntryInfo as LPINTERNET_CACHE_ENTRY_INFOW, byval dwFieldControl as DWORD) as WINBOOL
 
 #define INTERNET_CACHE_GROUP_ADD 0
 #define INTERNET_CACHE_GROUP_REMOVE 1
 
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI SetUrlCacheEntryGroupA(LPCSTR lpszUrlName,DWORD dwFlags,GROUPID GroupId,LPBYTE pbGroupAttributes,DWORD cbGroupAttributes,LPVOID lpReserved);
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI SetUrlCacheEntryGroupW(LPCWSTR lpszUrlName,DWORD dwFlags,GROUPID GroupId,LPBYTE pbGroupAttributes,DWORD cbGroupAttributes,LPVOID lpReserved);
-'' TODO: EXTERN_C DECLSPEC_IMPORT HANDLE WINAPI FindFirstUrlCacheEntryExA(LPCSTR lpszUrlSearchPattern,DWORD dwFlags,DWORD dwFilter,GROUPID GroupId,LPINTERNET_CACHE_ENTRY_INFOA lpFirstCacheEntryInfo,LPDWORD lpcbEntryInfo,LPVOID lpGroupAttributes,LPDWORD lpcbGroupAttributes,LPVOID lpReserved);
-'' TODO: EXTERN_C DECLSPEC_IMPORT HANDLE WINAPI FindFirstUrlCacheEntryExW(LPCWSTR lpszUrlSearchPattern,DWORD dwFlags,DWORD dwFilter,GROUPID GroupId,LPINTERNET_CACHE_ENTRY_INFOW lpFirstCacheEntryInfo,LPDWORD lpcbEntryInfo,LPVOID lpGroupAttributes,LPDWORD lpcbGroupAttributes,LPVOID lpReserved);
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI FindNextUrlCacheEntryExA(HANDLE hEnumHandle,LPINTERNET_CACHE_ENTRY_INFOA lpNextCacheEntryInfo,LPDWORD lpcbEntryInfo,LPVOID lpGroupAttributes,LPDWORD lpcbGroupAttributes,LPVOID lpReserved);
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI FindNextUrlCacheEntryExW(HANDLE hEnumHandle,LPINTERNET_CACHE_ENTRY_INFOW lpNextCacheEntryInfo,LPDWORD lpcbEntryInfo,LPVOID lpGroupAttributes,LPDWORD lpcbGroupAttributes,LPVOID lpReserved);
-'' TODO: EXTERN_C DECLSPEC_IMPORT HANDLE WINAPI FindFirstUrlCacheEntryA(LPCSTR lpszUrlSearchPattern,LPINTERNET_CACHE_ENTRY_INFOA lpFirstCacheEntryInfo,LPDWORD lpcbCacheEntryInfo);
-'' TODO: EXTERN_C DECLSPEC_IMPORT HANDLE WINAPI FindFirstUrlCacheEntryW(LPCWSTR lpszUrlSearchPattern,LPINTERNET_CACHE_ENTRY_INFOW lpFirstCacheEntryInfo,LPDWORD lpcbCacheEntryInfo);
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI FindNextUrlCacheEntryA(HANDLE hEnumHandle,LPINTERNET_CACHE_ENTRY_INFOA lpNextCacheEntryInfo,LPDWORD lpcbCacheEntryInfo);
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI FindNextUrlCacheEntryW(HANDLE hEnumHandle,LPINTERNET_CACHE_ENTRY_INFOW lpNextCacheEntryInfo,LPDWORD lpcbCacheEntryInfo);
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI FindCloseUrlCache(HANDLE hEnumHandle);
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI DeleteUrlCacheEntryA(LPCSTR lpszUrlName);
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI DeleteUrlCacheEntryW(LPCWSTR lpszUrlName);
-'' TODO: EXTERN_C DECLSPEC_IMPORT DWORD WINAPI InternetDialA(HWND hwndParent,LPSTR lpszConnectoid,DWORD dwFlags,DWORD_PTR *lpdwConnection,DWORD dwReserved);
-'' TODO: EXTERN_C DECLSPEC_IMPORT DWORD WINAPI InternetDialW(HWND hwndParent,LPWSTR lpszConnectoid,DWORD dwFlags,DWORD_PTR *lpdwConnection,DWORD dwReserved);
+declare function SetUrlCacheEntryGroupA(byval lpszUrlName as LPCSTR, byval dwFlags as DWORD, byval GroupId as GROUPID, byval pbGroupAttributes as LPBYTE, byval cbGroupAttributes as DWORD, byval lpReserved as LPVOID) as WINBOOL
+declare function SetUrlCacheEntryGroupW(byval lpszUrlName as LPCWSTR, byval dwFlags as DWORD, byval GroupId as GROUPID, byval pbGroupAttributes as LPBYTE, byval cbGroupAttributes as DWORD, byval lpReserved as LPVOID) as WINBOOL
+declare function FindFirstUrlCacheEntryExA(byval lpszUrlSearchPattern as LPCSTR, byval dwFlags as DWORD, byval dwFilter as DWORD, byval GroupId as GROUPID, byval lpFirstCacheEntryInfo as LPINTERNET_CACHE_ENTRY_INFOA, byval lpcbEntryInfo as LPDWORD, byval lpGroupAttributes as LPVOID, byval lpcbGroupAttributes as LPDWORD, byval lpReserved as LPVOID) as HANDLE
+declare function FindFirstUrlCacheEntryExW(byval lpszUrlSearchPattern as LPCWSTR, byval dwFlags as DWORD, byval dwFilter as DWORD, byval GroupId as GROUPID, byval lpFirstCacheEntryInfo as LPINTERNET_CACHE_ENTRY_INFOW, byval lpcbEntryInfo as LPDWORD, byval lpGroupAttributes as LPVOID, byval lpcbGroupAttributes as LPDWORD, byval lpReserved as LPVOID) as HANDLE
+declare function FindNextUrlCacheEntryExA(byval hEnumHandle as HANDLE, byval lpNextCacheEntryInfo as LPINTERNET_CACHE_ENTRY_INFOA, byval lpcbEntryInfo as LPDWORD, byval lpGroupAttributes as LPVOID, byval lpcbGroupAttributes as LPDWORD, byval lpReserved as LPVOID) as WINBOOL
+declare function FindNextUrlCacheEntryExW(byval hEnumHandle as HANDLE, byval lpNextCacheEntryInfo as LPINTERNET_CACHE_ENTRY_INFOW, byval lpcbEntryInfo as LPDWORD, byval lpGroupAttributes as LPVOID, byval lpcbGroupAttributes as LPDWORD, byval lpReserved as LPVOID) as WINBOOL
+declare function FindFirstUrlCacheEntryA(byval lpszUrlSearchPattern as LPCSTR, byval lpFirstCacheEntryInfo as LPINTERNET_CACHE_ENTRY_INFOA, byval lpcbCacheEntryInfo as LPDWORD) as HANDLE
+declare function FindFirstUrlCacheEntryW(byval lpszUrlSearchPattern as LPCWSTR, byval lpFirstCacheEntryInfo as LPINTERNET_CACHE_ENTRY_INFOW, byval lpcbCacheEntryInfo as LPDWORD) as HANDLE
+declare function FindNextUrlCacheEntryA(byval hEnumHandle as HANDLE, byval lpNextCacheEntryInfo as LPINTERNET_CACHE_ENTRY_INFOA, byval lpcbCacheEntryInfo as LPDWORD) as WINBOOL
+declare function FindNextUrlCacheEntryW(byval hEnumHandle as HANDLE, byval lpNextCacheEntryInfo as LPINTERNET_CACHE_ENTRY_INFOW, byval lpcbCacheEntryInfo as LPDWORD) as WINBOOL
+declare function FindCloseUrlCache(byval hEnumHandle as HANDLE) as WINBOOL
+declare function DeleteUrlCacheEntryA(byval lpszUrlName as LPCSTR) as WINBOOL
+declare function DeleteUrlCacheEntryW(byval lpszUrlName as LPCWSTR) as WINBOOL
+declare function InternetDialA(byval hwndParent as HWND, byval lpszConnectoid as LPSTR, byval dwFlags as DWORD, byval lpdwConnection as DWORD_PTR ptr, byval dwReserved as DWORD) as DWORD
+declare function InternetDialW(byval hwndParent as HWND, byval lpszConnectoid as LPWSTR, byval dwFlags as DWORD, byval lpdwConnection as DWORD_PTR ptr, byval dwReserved as DWORD) as DWORD
 
 #define INTERNET_DIAL_FORCE_PROMPT &h2000
 #define INTERNET_DIAL_SHOW_OFFLINE &h4000
 #define INTERNET_DIAL_UNATTENDED &h8000
 
-'' TODO: EXTERN_C DECLSPEC_IMPORT DWORD WINAPI InternetHangUp(DWORD_PTR dwConnection,DWORD dwReserved);
+declare function InternetHangUp(byval dwConnection as DWORD_PTR, byval dwReserved as DWORD) as DWORD
 
 #define INTERENT_GOONLINE_REFRESH &h00000001
 #define INTERENT_GOONLINE_MASK &h00000001
 
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI InternetGoOnlineA(LPSTR lpszURL,HWND hwndParent,DWORD dwFlags);
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI InternetGoOnlineW(LPWSTR lpszURL,HWND hwndParent,DWORD dwFlags);
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI InternetAutodial(DWORD dwFlags,HWND hwndParent);
+declare function InternetGoOnlineA(byval lpszURL as LPSTR, byval hwndParent as HWND, byval dwFlags as DWORD) as WINBOOL
+declare function InternetGoOnlineW(byval lpszURL as LPWSTR, byval hwndParent as HWND, byval dwFlags as DWORD) as WINBOOL
+declare function InternetAutodial(byval dwFlags as DWORD, byval hwndParent as HWND) as WINBOOL
 
 #define INTERNET_AUTODIAL_FORCE_ONLINE 1
 #define INTERNET_AUTODIAL_FORCE_UNATTENDED 2
@@ -1998,20 +2000,20 @@ type LPINTERNET_CACHE_GROUP_INFOW as _INTERNET_CACHE_GROUP_INFOW ptr
 #define INTERNET_AUTODIAL_OVERRIDE_NET_PRESENT 8
 #define INTERNET_AUTODIAL_FLAGS_MASK (((INTERNET_AUTODIAL_FORCE_ONLINE or INTERNET_AUTODIAL_FORCE_UNATTENDED) or INTERNET_AUTODIAL_FAILIFSECURITYCHECK) or INTERNET_AUTODIAL_OVERRIDE_NET_PRESENT)
 
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI InternetAutodialHangup(DWORD dwReserved);
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI InternetGetConnectedState(LPDWORD lpdwFlags,DWORD dwReserved);
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI InternetGetConnectedStateExA(LPDWORD lpdwFlags,LPSTR lpszConnectionName,DWORD dwBufLen,DWORD dwReserved);
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI InternetGetConnectedStateExW(LPDWORD lpdwFlags,LPWSTR lpszConnectionName,DWORD dwBufLen,DWORD dwReserved);
+declare function InternetAutodialHangup(byval dwReserved as DWORD) as WINBOOL
+declare function InternetGetConnectedState(byval lpdwFlags as LPDWORD, byval dwReserved as DWORD) as WINBOOL
+declare function InternetGetConnectedStateExA(byval lpdwFlags as LPDWORD, byval lpszConnectionName as LPSTR, byval dwBufLen as DWORD, byval dwReserved as DWORD) as WINBOOL
+declare function InternetGetConnectedStateExW(byval lpdwFlags as LPDWORD, byval lpszConnectionName as LPWSTR, byval dwBufLen as DWORD, byval dwReserved as DWORD) as WINBOOL
 
 #define PROXY_AUTO_DETECT_TYPE_DHCP 1
 #define PROXY_AUTO_DETECT_TYPE_DNS_A 2
 
 #ifdef __FB_64BIT__
 	type AutoProxyHelperVtbl field = 8
-		'' TODO: WINBOOL (WINAPI *IsResolvable)(LPSTR lpszHost);
-		'' TODO: DWORD (WINAPI *GetIPAddress)(LPSTR lpszIPAddress,LPDWORD lpdwIPAddressSize);
-		'' TODO: DWORD (WINAPI *ResolveHostName)(LPSTR lpszHostName,LPSTR lpszIPAddress,LPDWORD lpdwIPAddressSize);
-		'' TODO: WINBOOL (WINAPI *IsInNet)(LPSTR lpszIPAddress,LPSTR lpszDest,LPSTR lpszMask);
+		IsResolvable as function(byval lpszHost as LPSTR) as WINBOOL
+		GetIPAddress as function(byval lpszIPAddress as LPSTR, byval lpdwIPAddressSize as LPDWORD) as DWORD
+		ResolveHostName as function(byval lpszHostName as LPSTR, byval lpszIPAddress as LPSTR, byval lpdwIPAddressSize as LPDWORD) as DWORD
+		IsInNet as function(byval lpszIPAddress as LPSTR, byval lpszDest as LPSTR, byval lpszMask as LPSTR) as WINBOOL
 	end type
 
 	type AUTO_PROXY_SCRIPT_BUFFER field = 8
@@ -2021,10 +2023,10 @@ type LPINTERNET_CACHE_GROUP_INFOW as _INTERNET_CACHE_GROUP_INFOW ptr
 	end type
 #else
 	type AutoProxyHelperVtbl field = 4
-		'' TODO: WINBOOL (WINAPI *IsResolvable)(LPSTR lpszHost);
-		'' TODO: DWORD (WINAPI *GetIPAddress)(LPSTR lpszIPAddress,LPDWORD lpdwIPAddressSize);
-		'' TODO: DWORD (WINAPI *ResolveHostName)(LPSTR lpszHostName,LPSTR lpszIPAddress,LPDWORD lpdwIPAddressSize);
-		'' TODO: WINBOOL (WINAPI *IsInNet)(LPSTR lpszIPAddress,LPSTR lpszDest,LPSTR lpszMask);
+		IsResolvable as function(byval lpszHost as LPSTR) as WINBOOL
+		GetIPAddress as function(byval lpszIPAddress as LPSTR, byval lpdwIPAddressSize as LPDWORD) as DWORD
+		ResolveHostName as function(byval lpszHostName as LPSTR, byval lpszIPAddress as LPSTR, byval lpdwIPAddressSize as LPDWORD) as DWORD
+		IsInNet as function(byval lpszIPAddress as LPSTR, byval lpszDest as LPSTR, byval lpszMask as LPSTR) as WINBOOL
 	end type
 
 	type AUTO_PROXY_SCRIPT_BUFFER field = 4
@@ -2046,21 +2048,21 @@ type LPAUTO_PROXY_SCRIPT_BUFFER as AUTO_PROXY_SCRIPT_BUFFER ptr
 	end type
 #endif
 
-'' TODO: typedef WINBOOL (CALLBACK *pfnInternetInitializeAutoProxyDll)(DWORD dwVersion,LPSTR lpszDownloadedTempFile,LPSTR lpszMime,AutoProxyHelperFunctions *lpAutoProxyCallbacks,LPAUTO_PROXY_SCRIPT_BUFFER lpAutoProxyScriptBuffer);
-'' TODO: typedef WINBOOL (CALLBACK *pfnInternetDeInitializeAutoProxyDll)(LPSTR lpszMime,DWORD dwReserved);
-'' TODO: typedef WINBOOL (CALLBACK *pfnInternetGetProxyInfo)(LPCSTR lpszUrl,DWORD dwUrlLength,LPSTR lpszUrlHostName,DWORD dwUrlHostNameLength,LPSTR *lplpszProxyHostName,LPDWORD lpdwProxyHostNameLength);
+type pfnInternetInitializeAutoProxyDll as function(byval dwVersion as DWORD, byval lpszDownloadedTempFile as LPSTR, byval lpszMime as LPSTR, byval lpAutoProxyCallbacks as AutoProxyHelperFunctions ptr, byval lpAutoProxyScriptBuffer as LPAUTO_PROXY_SCRIPT_BUFFER) as WINBOOL
+type pfnInternetDeInitializeAutoProxyDll as function(byval lpszMime as LPSTR, byval dwReserved as DWORD) as WINBOOL
+type pfnInternetGetProxyInfo as function(byval lpszUrl as LPCSTR, byval dwUrlLength as DWORD, byval lpszUrlHostName as LPSTR, byval dwUrlHostNameLength as DWORD, byval lplpszProxyHostName as LPSTR ptr, byval lpdwProxyHostNameLength as LPDWORD) as WINBOOL
 
 #ifdef UNICODE
 	#define InternetGetConnectedStateEx InternetGetConnectedStateExW
 #else
-	'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI InternetGetConnectedStateEx(LPDWORD lpdwFlags,LPSTR lpszConnectionName,DWORD dwNameLen,DWORD dwReserved);
+	declare function InternetGetConnectedStateEx(byval lpdwFlags as LPDWORD, byval lpszConnectionName as LPSTR, byval dwNameLen as DWORD, byval dwReserved as DWORD) as WINBOOL
 #endif
 
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI InternetInitializeAutoProxyDll(DWORD dwReserved);
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI InternetDeInitializeAutoProxyDll(LPSTR lpszMime,DWORD dwReserved);
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI InternetGetProxyInfo(LPCSTR lpszUrl,DWORD dwUrlLength,LPSTR lpszUrlHostName,DWORD dwUrlHostNameLength,LPSTR *lplpszProxyHostName,LPDWORD lpdwProxyHostNameLength);
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI DetectAutoProxyUrl(LPSTR lpszAutoProxyUrl,DWORD dwAutoProxyUrlLength,DWORD dwDetectFlags);
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI CreateMD5SSOHash(PWSTR pszChallengeInfo,PWSTR pwszRealm,PWSTR pwszTarget,PBYTE pbHexHash);
+declare function InternetInitializeAutoProxyDll(byval dwReserved as DWORD) as WINBOOL
+declare function InternetDeInitializeAutoProxyDll(byval lpszMime as LPSTR, byval dwReserved as DWORD) as WINBOOL
+declare function InternetGetProxyInfo(byval lpszUrl as LPCSTR, byval dwUrlLength as DWORD, byval lpszUrlHostName as LPSTR, byval dwUrlHostNameLength as DWORD, byval lplpszProxyHostName as LPSTR ptr, byval lpdwProxyHostNameLength as LPDWORD) as WINBOOL
+declare function DetectAutoProxyUrl(byval lpszAutoProxyUrl as LPSTR, byval dwAutoProxyUrlLength as DWORD, byval dwDetectFlags as DWORD) as WINBOOL
+declare function CreateMD5SSOHash(byval pszChallengeInfo as PWSTR, byval pwszRealm as PWSTR, byval pwszTarget as PWSTR, byval pbHexHash as PBYTE) as WINBOOL
 
 #define INTERNET_CONNECTION_MODEM &h01
 #define INTERNET_CONNECTION_LAN &h02
@@ -2070,7 +2072,7 @@ type LPAUTO_PROXY_SCRIPT_BUFFER as AUTO_PROXY_SCRIPT_BUFFER ptr
 #define INTERNET_CONNECTION_OFFLINE &h20
 #define INTERNET_CONNECTION_CONFIGURED &h40
 
-'' TODO: typedef DWORD (CALLBACK *PFN_DIAL_HANDLER) (HWND,LPCSTR,DWORD,LPDWORD);
+type PFN_DIAL_HANDLER as function(byval as HWND, byval as LPCSTR, byval as DWORD, byval as LPDWORD) as DWORD
 
 #define INTERNET_CUSTOMDIAL_CONNECT 0
 #define INTERNET_CUSTOMDIAL_UNATTENDED 1
@@ -2086,21 +2088,21 @@ type LPAUTO_PROXY_SCRIPT_BUFFER as AUTO_PROXY_SCRIPT_BUFFER ptr
 #ifdef UNICODE
 	#define InternetSetDialState InternetSetDialStateW
 #else
-	'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI InternetSetDialState(LPCSTR lpszConnectoid,DWORD dwState,DWORD dwReserved);
+	declare function InternetSetDialState(byval lpszConnectoid as LPCSTR, byval dwState as DWORD, byval dwReserved as DWORD) as WINBOOL
 #endif
 
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI InternetSetDialStateA(LPCSTR lpszConnectoid,DWORD dwState,DWORD dwReserved);
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI InternetSetDialStateW(LPCWSTR lpszConnectoid,DWORD dwState,DWORD dwReserved);
+declare function InternetSetDialStateA(byval lpszConnectoid as LPCSTR, byval dwState as DWORD, byval dwReserved as DWORD) as WINBOOL
+declare function InternetSetDialStateW(byval lpszConnectoid as LPCWSTR, byval dwState as DWORD, byval dwReserved as DWORD) as WINBOOL
 
 #define INTERNET_DIALSTATE_DISCONNECTED 1
 
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI InternetSetPerSiteCookieDecisionA(LPCSTR pchHostName,DWORD dwDecision);
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI InternetSetPerSiteCookieDecisionW(LPCWSTR pchHostName,DWORD dwDecision);
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI InternetGetPerSiteCookieDecisionA(LPCSTR pchHostName,unsigned __LONG32 *pResult);
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI InternetGetPerSiteCookieDecisionW(LPCWSTR pchHostName,unsigned __LONG32 *pResult);
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI InternetClearAllPerSiteCookieDecisions();
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI InternetEnumPerSiteCookieDecisionA(LPSTR pszSiteName,unsigned __LONG32 *pcSiteNameSize,unsigned __LONG32 *pdwDecision,unsigned __LONG32 dwIndex);
-'' TODO: EXTERN_C DECLSPEC_IMPORT WINBOOL WINAPI InternetEnumPerSiteCookieDecisionW(LPWSTR pszSiteName,unsigned __LONG32 *pcSiteNameSize,unsigned __LONG32 *pdwDecision,unsigned __LONG32 dwIndex);
+declare function InternetSetPerSiteCookieDecisionA(byval pchHostName as LPCSTR, byval dwDecision as DWORD) as WINBOOL
+declare function InternetSetPerSiteCookieDecisionW(byval pchHostName as LPCWSTR, byval dwDecision as DWORD) as WINBOOL
+declare function InternetGetPerSiteCookieDecisionA(byval pchHostName as LPCSTR, byval pResult as culong ptr) as WINBOOL
+declare function InternetGetPerSiteCookieDecisionW(byval pchHostName as LPCWSTR, byval pResult as culong ptr) as WINBOOL
+declare function InternetClearAllPerSiteCookieDecisions() as WINBOOL
+declare function InternetEnumPerSiteCookieDecisionA(byval pszSiteName as LPSTR, byval pcSiteNameSize as culong ptr, byval pdwDecision as culong ptr, byval dwIndex as culong) as WINBOOL
+declare function InternetEnumPerSiteCookieDecisionW(byval pszSiteName as LPWSTR, byval pcSiteNameSize as culong ptr, byval pdwDecision as culong ptr, byval dwIndex as culong) as WINBOOL
 
 #define INTERNET_IDENTITY_FLAG_PRIVATE_CACHE &h01
 #define INTERNET_IDENTITY_FLAG_SHARED_CACHE &h02
@@ -2123,7 +2125,7 @@ type LPAUTO_PROXY_SCRIPT_BUFFER as AUTO_PROXY_SCRIPT_BUFFER ptr
 #define PRIVACY_TYPE_FIRST_PARTY 0
 #define PRIVACY_TYPE_THIRD_PARTY 1
 
-'' TODO: EXTERN_C DECLSPEC_IMPORT DWORD WINAPI PrivacySetZonePreferenceW(DWORD dwZone,DWORD dwType,DWORD dwTemplate,LPCWSTR pszPreference);
-'' TODO: EXTERN_C DECLSPEC_IMPORT DWORD WINAPI PrivacyGetZonePreferenceW(DWORD dwZone,DWORD dwType,LPDWORD pdwTemplate,LPWSTR pszBuffer,LPDWORD pdwBufferLength);
+declare function PrivacySetZonePreferenceW(byval dwZone as DWORD, byval dwType as DWORD, byval dwTemplate as DWORD, byval pszPreference as LPCWSTR) as DWORD
+declare function PrivacyGetZonePreferenceW(byval dwZone as DWORD, byval dwType as DWORD, byval pdwTemplate as LPDWORD, byval pszBuffer as LPWSTR, byval pdwBufferLength as LPDWORD) as DWORD
 
 end extern

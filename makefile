@@ -414,6 +414,7 @@ WINAPI_FLAGS_winber += -include windef.h
 WINAPI_FLAGS_wincon += -include windows.h
 WINAPI_FLAGS_winerror += -include windows.h -filterin '*/winerror.h'
 WINAPI_FLAGS_wingdi += -include windows.h
+WINAPI_FLAGS_wininet += -include windef.h
 WINAPI_FLAGS_winioctl += -include windef.h
 WINAPI_FLAGS_winnetwk += -include windef.h
 WINAPI_FLAGS_winperf += -include windef.h

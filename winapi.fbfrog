@@ -47,3 +47,8 @@
 -removedefine LWSTDAPI_
 -removedefine LWSTDAPIV
 -removedefine LWSTDAPIV_
+-removedefine INTERNETAPI
+-removedefine INTERNETAPI_
+-removedefine URLCACHEAPI
+-removedefine URLCACHEAPI_
+-removedefine BOOLAPI
