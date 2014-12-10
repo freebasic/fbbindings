@@ -1,11 +1,11 @@
 #pragma once
 
+#include once "crt/wchar.bi"
+#include once "crt/long.bi"
+
 '' The following symbols have been renamed:
 ''     #define EXPORT => EXPORT_
-''     typedef USHORT => USHORT_
 ''     typedef PTR => PTR_
-
-extern "C"
 
 #define __SQLTYPES
 #define ODBCVER &h0351
@@ -18,10 +18,8 @@ type SQLDATE as ubyte
 type SQLDECIMAL as ubyte
 type SQLDOUBLE as double
 type SQLFLOAT as double
-type SQLINTEGER as __LONG32
-type __LONG32 as ulong
-
-'' TODO: typedef unsigned __LONG32 SQLUINTEGER;
+type SQLINTEGER as clong
+type SQLUINTEGER as culong
 
 #ifdef __FB_64BIT__
 	type SQLLEN as INT64
@@ -56,27 +54,12 @@ type SQLHENV as SQLHANDLE
 type SQLHDBC as SQLHANDLE
 type SQLHSTMT as SQLHANDLE
 type SQLHDESC as SQLHANDLE
-
-#define BASETYPES
-
-'' TODO: typedef unsigned __LONG32 ULONG;
-
-type PULONG as ULONG ptr
-type USHORT_ as ushort
-type PUSHORT as USHORT_ ptr
-type UCHAR as ubyte
-type PUCHAR as UCHAR ptr
-type PSZ as zstring ptr
 type SCHAR as byte
-type SDWORD as __LONG32
+type SDWORD as clong
 type SWORD as short
-
-'' TODO: typedef unsigned __LONG32 UDWORD;
-
+type UDWORD as culong
 type UWORD as ushort
-
-'' TODO: typedef signed __LONG32 SLONG;
-
+type SLONG as clong
 type SSHORT as short
 type SDOUBLE as double
 type LDOUBLE as double
@@ -170,8 +153,8 @@ type SQL_INTERVAL_STRUCT as tagSQL_INTERVAL_STRUCT
 
 #define ODBCINT64 longint
 
-'' TODO: __MINGW_EXTENSION typedef __int64 SQLBIGINT;
-'' TODO: __MINGW_EXTENSION typedef unsigned __int64 SQLUBIGINT;
+type SQLBIGINT as longint
+type SQLUBIGINT as ulongint
 
 #define SQL_MAX_NUMERIC_LEN 16
 
@@ -183,15 +166,7 @@ type tagSQL_NUMERIC_STRUCT
 end type
 
 type SQL_NUMERIC_STRUCT as tagSQL_NUMERIC_STRUCT
-
-type tagSQLGUID
-	Data1 as DWORD
-	Data2 as WORD
-	Data3 as WORD
-	Data4(0 to 7) as BYTE
-end type
-
-type SQLGUID as tagSQLGUID
+type SQLGUID as GUID
 
 #ifdef __FB_64BIT__
 	type BOOKMARK as SQLULEN
@@ -199,12 +174,10 @@ type SQLGUID as tagSQLGUID
 	type BOOKMARK as SQLUINTEGER
 #endif
 
-type SQLWCHAR as ushort
+type SQLWCHAR as wchar_t
 
 #ifdef UNICODE
 	type SQLTCHAR as SQLWCHAR
 #else
 	type SQLTCHAR as SQLCHAR
 #endif
-
-end extern
