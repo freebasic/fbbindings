@@ -445,6 +445,10 @@ endef
 $(eval $(foreach i,$(WINAPI_BASE),$(call declare-winapi-target,$(i),BASE)))
 $(eval $(foreach i,$(WINAPI_DIRECTX),$(call declare-winapi-target,$(i),DIRECTX)))
 
+winapi: inc/windows.bi
+inc/windows.bi:
+	$(FBFROG) $(WINAPI_FLAGS) -o inc $(WINAPI_PATH_BASE)/windows.h
+
 ################################################################################
 
 ZIP_TITLE := libzip-0.11.2
