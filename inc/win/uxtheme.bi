@@ -11,9 +11,6 @@
 
 #define _UXTHEME_H_
 
-'' TODO: #define THEMEAPI EXTERN_C DECLSPEC_IMPORT HRESULT WINAPI
-'' TODO: #define THEMEAPI_(type) EXTERN_C DECLSPEC_IMPORT type WINAPI
-
 type HTHEME as HANDLE
 
 declare function OpenThemeData(byval hwnd as HWND, byval pszClassList as LPCWSTR) as HTHEME

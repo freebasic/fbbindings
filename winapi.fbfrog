@@ -64,3 +64,5 @@
 -removedefine BROWSEUIAPI
 -removedefine BROWSEUIAPI_
 -removedefine SHFOLDERAPI
+-removedefine THEMEAPI
+-removedefine THEMEAPI_
