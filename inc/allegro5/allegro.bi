@@ -80,11 +80,9 @@ type ALLEGRO_COND as ALLEGRO_COND_
 #define __al_included_allegro5_astdint_h
 #define __al_included_allegro5_astdbool_h
 #define READ3BYTES(p) (((*cptr(ubyte ptr, (p))) or ((*cptr(ubyte ptr, (p) + 1)) shl 8)) or ((*cptr(ubyte ptr, (p) + 2)) shl 16))
-
-'' TODO: #define WRITE3BYTES(p,c) ((*(unsigned char *)(p) = (c)), (*((unsigned char *)(p) + 1) = (c) >> 8), (*((unsigned char *)(p) + 2) = (c) >> 16))
-'' TODO: #define bmp_write16(addr, c) (*((uint16_t *)(addr)) = (c))
-'' TODO: #define bmp_write32(addr, c) (*((uint32_t *)(addr)) = (c))
-
+#define WRITE3BYTES(p, c) '' TODO: ((*(unsigned char *)(p) = (c)), (*((unsigned char *)(p) + 1) = (c) >> 8), (*((unsigned char *)(p) + 2) = (c) >> 16))
+#define bmp_write16(addr, c) '' TODO: (*((uint16_t *)(addr)) = (c))
+#define bmp_write32(addr, c) '' TODO: (*((uint32_t *)(addr)) = (c))
 #define bmp_read16(addr) (*cptr(ushort ptr, (addr)))
 #define bmp_read32(addr) (*cptr(ulong ptr, (addr)))
 #define AL_RAND() rand()
@@ -1323,7 +1321,7 @@ declare function al_check_inverse(byval trans as const ALLEGRO_TRANSFORM ptr, by
 #endif
 
 #ifdef __FB_WIN32__
-	'' TODO: #define _AL_JOYSTICK_DRIVER_DIRECTX { AL_JOY_TYPE_DIRECTX, &_al_joydrv_directx, true },
+	#define _AL_JOYSTICK_DRIVER_DIRECTX '' TODO: { AL_JOY_TYPE_DIRECTX, &_al_joydrv_directx, true },
 #endif
 
 end extern

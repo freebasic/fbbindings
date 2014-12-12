@@ -6,6 +6,8 @@
 #include once "crt/stdlib.bi"
 
 '' The following symbols have been renamed:
+''     #define RIGHT => RIGHT_
+''     #define LEFT => LEFT_
 ''     #define ON => ON_
 
 extern "C"
@@ -59,13 +61,11 @@ declare function CguiParseLabels(byval state as long) as long
 #define DIR_DOWNLEFT 8
 #define DIR_DOWN &h10
 #define AUTOINDICATOR &h007fffff
-
-'' TODO: #define TOPLEFT DIR_TOPLEFT,AUTOINDICATOR
-'' TODO: #define RIGHT DIR_RIGHT,AUTOINDICATOR
-'' TODO: #define DOWNLEFT DIR_DOWNLEFT,AUTOINDICATOR
-'' TODO: #define LEFT DIR_LEFT,AUTOINDICATOR
-'' TODO: #define DOWN DIR_DOWN,AUTOINDICATOR
-
+#define TOPLEFT '' TODO: DIR_TOPLEFT,AUTOINDICATOR
+#define RIGHT_ '' TODO: DIR_RIGHT,AUTOINDICATOR
+#define DOWNLEFT '' TODO: DIR_DOWNLEFT,AUTOINDICATOR
+#define LEFT_ '' TODO: DIR_LEFT,AUTOINDICATOR
+#define DOWN '' TODO: DIR_DOWN,AUTOINDICATOR
 #define ALIGNCENTRE &h00800000
 #define ALIGNBOTTOM &h01000000
 #define ALIGNRIGHT &h02000000
@@ -74,9 +74,8 @@ declare function CguiParseLabels(byval state as long) as long
 #define FILLSPACE &h10000000
 #define EQUALWIDTH &h20000000
 #define EQUALHEIGHT &h40000000
-
-'' TODO: #define ADAPTIVE 0,AUTOINDICATOR
-'' TODO: #define FILLSCREEN 1,AUTOINDICATOR
+#define ADAPTIVE '' TODO: 0,AUTOINDICATOR
+#define FILLSCREEN '' TODO: 1,AUTOINDICATOR
 
 declare function MkDialogue(byval width_ as long, byval height as long, byval label as const zstring ptr, byval attr as long) as long
 

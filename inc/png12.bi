@@ -9,10 +9,11 @@
 #include once "crt/time.bi"
 
 '' The following symbols have been renamed:
-''     #define PNG_LIBPNG_VER => PNG_LIBPNG_VER_
 ''     #define PNG_READ_TEXT_SUPPORTED => PNG_READ_TEXT_SUPPORTED_
 ''     #define PNG_TEXT_SUPPORTED => PNG_TEXT_SUPPORTED_
 ''     #define PNG_WRITE_TEXT_SUPPORTED => PNG_WRITE_TEXT_SUPPORTED_
+''     #define PNG_LIBPNG_VER => PNG_LIBPNG_VER_
+''     #define png_info_init => png_info_init_
 
 extern "C"
 
@@ -703,7 +704,7 @@ declare sub png_write_chunk_end(byval png_ptr as png_structp)
 declare function png_create_info_struct(byval png_ptr as png_structp) as png_infop
 declare sub png_info_init(byval info_ptr as png_infop)
 
-'' TODO: #define png_info_init(info_ptr) png_info_init_3(&info_ptr, png_sizeof(png_info));
+#define png_info_init_(info_ptr) '' TODO: png_info_init_3(&info_ptr, png_sizeof(png_info));
 
 declare sub png_info_init_3(byval info_ptr as png_infopp, byval png_info_struct_size as png_size_t)
 declare sub png_write_info_before_PLTE(byval png_ptr as png_structp, byval info_ptr as png_infop)

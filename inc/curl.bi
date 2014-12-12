@@ -1197,7 +1197,7 @@ enum
 	CURLMSG_LAST
 end enum
 
-union __CURLMsg_data
+union __CURLMsg__data
 	whatever as any ptr
 	result as CURLcode
 end union
@@ -1205,7 +1205,7 @@ end union
 type CURLMsg_
 	msg as CURLMSG
 	easy_handle as CURL ptr
-	data as __CURLMsg_data
+	data as __CURLMsg__data
 end type
 
 #define CURL_WAIT_POLLIN &h0001

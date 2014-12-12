@@ -6,9 +6,9 @@
 #include once "stdbool.bi"
 
 '' The following symbols have been renamed:
-''     struct screen => screen_
 ''     #define NCURSES_BOOL => NCURSES_BOOL_
 ''     #define ERR => ERR_
+''     struct screen => screen_
 ''     typedef SCREEN => SCREEN__
 ''     typedef WINDOW => WINDOW_
 ''     procedure beep => beep_
@@ -51,9 +51,7 @@ type mmask_t as culong
 type NCURSES_BOOL as ubyte
 
 #define NCURSES_BOOL_ bool
-
-'' TODO: #define NCURSES_CAST(type,value) (type)(value)
-
+#define NCURSES_CAST(type, value) '' TODO: (type)(value)
 #define WA_ATTRIBUTES A_ATTRIBUTES
 #define WA_NORMAL A_NORMAL
 #define WA_STANDOUT A_STANDOUT
@@ -82,8 +80,7 @@ type NCURSES_BOOL as ubyte
 
 extern acs_map(0 to ...) as chtype
 
-'' TODO: #define NCURSES_ACS(c) (acs_map[NCURSES_CAST(unsigned char,c)])
-
+#define NCURSES_ACS(c) '' TODO: (acs_map[NCURSES_CAST(unsigned char,c)])
 #define ACS_ULCORNER NCURSES_ACS(asc("l"))
 #define ACS_LLCORNER NCURSES_ACS(asc("m"))
 #define ACS_URCORNER NCURSES_ACS(asc("k"))
@@ -393,14 +390,12 @@ declare sub nofilter()
 #define A_RIGHT NCURSES_BITS(cast(culong, 1), 20)
 #define A_TOP NCURSES_BITS(cast(culong, 1), 21)
 #define A_VERTICAL NCURSES_BITS(cast(culong, 1), 22)
-
-'' TODO: #define getyx(win,y,x) (y = getcury(win), x = getcurx(win))
-'' TODO: #define getbegyx(win,y,x) (y = getbegy(win), x = getbegx(win))
-'' TODO: #define getmaxyx(win,y,x) (y = getmaxy(win), x = getmaxx(win))
-'' TODO: #define getparyx(win,y,x) (y = getpary(win), x = getparx(win))
-'' TODO: #define getsyx(y,x) do { if (newscr) { if (is_leaveok(newscr)) (y) = (x) = -1; else getyx(newscr,(y), (x)); } } while(0)
-'' TODO: #define setsyx(y,x) do { if (newscr) { if ((y) == -1 && (x) == -1) leaveok(newscr, TRUE); else { leaveok(newscr, FALSE); wmove(newscr, (y), (x)); } } } while(0)
-
+#define getyx(win, y, x) '' TODO: (y = getcury(win), x = getcurx(win))
+#define getbegyx(win, y, x) '' TODO: (y = getbegy(win), x = getbegx(win))
+#define getmaxyx(win, y, x) '' TODO: (y = getmaxy(win), x = getmaxx(win))
+#define getparyx(win, y, x) '' TODO: (y = getpary(win), x = getparx(win))
+#define getsyx(y, x) '' TODO: do { if (newscr) { if (is_leaveok(newscr)) (y) = (x) = -1; else getyx(newscr,(y), (x)); } } while(0)
+#define setsyx(y, x) '' TODO: do { if (newscr) { if ((y) == -1 && (x) == -1) leaveok(newscr, TRUE); else { leaveok(newscr, FALSE); wmove(newscr, (y), (x)); } } } while(0)
 #define wgetstr(w, s) wgetnstr(w, s, -1)
 #define getnstr(s, n) wgetnstr(stdscr, s, n)
 #define setterm(term) setupterm(term, 1, cptr(long ptr, 0))
@@ -410,9 +405,7 @@ declare sub nofilter()
 #define crmode() cbreak()
 #define nocrmode() nocbreak()
 #define gettmode()
-
-'' TODO: #define getattrs(win) NCURSES_CAST(int, (win) ? (win)->_attrs : A_NORMAL)
-
+#define getattrs(win) '' TODO: NCURSES_CAST(int, (win) ? (win)->_attrs : A_NORMAL)
 #define getcurx(win) iif((win), (win)->_curx, ERR_)
 #define getcury(win) iif((win), (win)->_cury, ERR_)
 #define getbegx(win) iif((win), (win)->_begx, ERR_)
@@ -425,9 +418,7 @@ declare sub nofilter()
 #define wstandend(win) wattrset(win, A_NORMAL)
 #define wattron(win, at) wattr_on(win, NCURSES_CAST(attr_t, at), NULL)
 #define wattroff(win, at) wattr_off(win, NCURSES_CAST(attr_t, at), NULL)
-
-'' TODO: #define wattrset(win,at) ((win) ? ((win)->_attrs = NCURSES_CAST(attr_t, at), OK) : ERR)
-
+#define wattrset(win, at) '' TODO: ((win) ? ((win)->_attrs = NCURSES_CAST(attr_t, at), OK) : ERR)
 #define scroll(win) wscrl(win, 1)
 #define touchwin(win) wtouchln((win), 0, getmaxy(win), 1)
 #define touchline(win, s, c) wtouchln((win), s, c, 1)
@@ -443,9 +434,7 @@ declare sub nofilter()
 #define waddstr(win, str) waddnstr(win, str, -1)
 #define waddchstr(win, str) waddchnstr(win, str, -1)
 #define COLOR_PAIR(n) NCURSES_BITS(n, 0)
-
-'' TODO: #define PAIR_NUMBER(a) (NCURSES_CAST(int,((NCURSES_CAST(unsigned long,a) & A_COLOR) >> NCURSES_ATTR_SHIFT)))
-
+#define PAIR_NUMBER(a) '' TODO: (NCURSES_CAST(int,((NCURSES_CAST(unsigned long,a) & A_COLOR) >> NCURSES_ATTR_SHIFT)))
 #define addch(ch) waddch(stdscr, ch)
 #define addchnstr(str, n) waddchnstr(stdscr, str, n)
 #define addchstr(str) waddchstr(stdscr, str)
@@ -533,10 +522,8 @@ declare sub nofilter()
 #define getbkgd(win) (win)->_bkgd
 #define slk_attr_off_(a, v) iif((v), ERR_, slk_attroff(a))
 #define slk_attr_on_(a, v) iif((v), ERR_, slk_attron(a))
-
-'' TODO: #define wattr_set(win,a,p,opts) ((win)->_attrs = (((a) & ~A_COLOR) | (attr_t)COLOR_PAIR(p)), OK)
-'' TODO: #define wattr_get(win,a,p,opts) ((void)((a) != (void *)0 && (*(a) = (win)->_attrs)), (void)((p) != (void *)0 && (*(p) = (short)PAIR_NUMBER((win)->_attrs))), OK)
-
+#define wattr_set(win, a, p, opts) '' TODO: ((win)->_attrs = (((a) & ~A_COLOR) | (attr_t)COLOR_PAIR(p)), OK)
+#define wattr_get(win, a, p, opts) '' TODO: ((void)((a) != (void *)0 && (*(a) = (win)->_attrs)), (void)((p) != (void *)0 && (*(p) = (short)PAIR_NUMBER((win)->_attrs))), OK)
 #define vw_printw vwprintw
 #define vw_scanw vwscanw
 #define is_cleared(win) iif((win), (win)->_clear, FALSE)
@@ -552,8 +539,7 @@ declare sub nofilter()
 #define is_subwin(win) iif((win), -(((win)->_flags and _SUBWIN) <> 0), FALSE)
 #define is_syncok(win) iif((win), (win)->_sync, FALSE)
 #define wgetparent(win) iif((win), (win)->_parent, 0)
-
-'' TODO: #define wgetscrreg(win,t,b) ((win) ? (*(t) = (win)->_regtop, *(b) = (win)->_regbottom, OK) : ERR)
+#define wgetscrreg(win, t, b) '' TODO: ((win) ? (*(t) = (win)->_regtop, *(b) = (win)->_regbottom, OK) : ERR)
 
 extern curscr as WINDOW_ ptr
 extern newscr as WINDOW_ ptr

@@ -64,9 +64,7 @@ declare sub luaL_traceback(byval L as lua_State ptr, byval L1 as lua_State ptr, 
 declare sub luaL_requiref(byval L as lua_State ptr, byval modname as const zstring ptr, byval openf as lua_CFunction, byval glb as long)
 
 #define luaL_newlibtable(L, l) lua_createtable(L, 0, (sizeof((l)) / sizeof((l)[0])) - 1)
-
-'' TODO: #define luaL_newlib(L,l) (luaL_newlibtable(L,l), luaL_setfuncs(L,l,0))
-
+#define luaL_newlib(L, l) '' TODO: (luaL_newlibtable(L,l), luaL_setfuncs(L,l,0))
 #define luaL_argcheck(L, cond, numarg, extramsg) cast(any, -((cond) orelse luaL_argerror(L, (numarg), (extramsg))))
 #define luaL_checkstring(L, n) luaL_checklstring(L, (n), NULL)
 #define luaL_optstring(L, n, d) luaL_optlstring(L, (n), (d), NULL)
@@ -89,8 +87,8 @@ type luaL_Buffer
 	initb as zstring * LUAL_BUFFERSIZE
 end type
 
-'' TODO: #define luaL_addchar(B,c) ((void)((B)->n < (B)->size || luaL_prepbuffsize((B), 1)), ((B)->b[(B)->n++] = (c)))
-'' TODO: #define luaL_addsize(B,s) ((B)->n += (s))
+#define luaL_addchar(B, c) '' TODO: ((void)((B)->n < (B)->size || luaL_prepbuffsize((B), 1)), ((B)->b[(B)->n++] = (c)))
+#define luaL_addsize(B, s) '' TODO: ((B)->n += (s))
 
 declare sub luaL_buffinit(byval L as lua_State ptr, byval B as luaL_Buffer ptr)
 declare function luaL_prepbuffsize(byval B as luaL_Buffer ptr, byval sz as uinteger) as zstring ptr

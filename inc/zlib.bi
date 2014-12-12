@@ -10,11 +10,12 @@
 #endif
 
 '' The following symbols have been renamed:
-''     inside struct z_stream_s:
-''         field opaque => opaque_
 ''     typedef Byte => Byte_
 ''     typedef uLong => uLong_
+''     inside struct z_stream_s:
+''         field opaque => opaque_
 ''     #define zlib_version => zlib_version_
+''     #define gzgetc => gzgetc__
 
 extern "C"
 
@@ -202,7 +203,7 @@ end type
 
 declare function gzgetc_(byval file as gzFile) as long
 
-'' TODO: # define gzgetc(g) ((g)->have ? ((g)->have--, (g)->pos++, *((g)->next)++) : gzgetc(g))
+#define gzgetc__(g) '' TODO: ((g)->have ? ((g)->have--, (g)->pos++, *((g)->next)++) : gzgetc(g))
 
 declare function gzopen(byval as const zstring ptr, byval as const zstring ptr) as gzFile
 declare function gzseek(byval as gzFile, byval as clong, byval as long) as clong

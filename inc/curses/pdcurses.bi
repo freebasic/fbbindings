@@ -76,9 +76,7 @@ end type
 #define MOUSE_MOVED (Mouse_status.changes and PDC_MOUSE_MOVED)
 #define MOUSE_POS_REPORT (Mouse_status.changes and PDC_MOUSE_POSITION)
 #define BUTTON_CHANGED(x) (Mouse_status.changes and (1 shl ((x) - 1)))
-
-'' TODO: #define BUTTON_STATUS(x) (Mouse_status.button[(x) - 1])
-
+#define BUTTON_STATUS(x) '' TODO: (Mouse_status.button[(x) - 1])
 #define MOUSE_WHEEL_UP (Mouse_status.changes and PDC_MOUSE_WHEEL_UP)
 #define MOUSE_WHEEL_DOWN (Mouse_status.changes and PDC_MOUSE_WHEEL_DOWN)
 #define BUTTON1_RELEASED cast(clong, &h00000001)
@@ -1024,12 +1022,10 @@ declare function PDC_save_key_modifiers(byval as bool) as long
 #define ungetch(ch) PDC_ungetch(ch)
 #define COLOR_PAIR(n) (cast(chtype, (n) shl PDC_COLOR_SHIFT) and A_COLOR)
 #define PAIR_NUMBER(n) (((n) and A_COLOR) shr PDC_COLOR_SHIFT)
-
-'' TODO: #define getbegyx(w, y, x) (y = getbegy(w), x = getbegx(w))
-'' TODO: #define getmaxyx(w, y, x) (y = getmaxy(w), x = getmaxx(w))
-'' TODO: #define getparyx(w, y, x) (y = getpary(w), x = getparx(w))
-'' TODO: #define getyx(w, y, x) (y = getcury(w), x = getcurx(w))
-
+#define getbegyx(w, y, x) '' TODO: (y = getbegy(w), x = getbegx(w))
+#define getmaxyx(w, y, x) '' TODO: (y = getmaxy(w), x = getmaxx(w))
+#define getparyx(w, y, x) '' TODO: (y = getpary(w), x = getparx(w))
+#define getyx(w, y, x) '' TODO: (y = getcury(w), x = getcurx(w))
 #macro getsyx(y, x)
 	scope
 		'' TODO: if (curscr->_leaveit) (y)=(x)=-1;

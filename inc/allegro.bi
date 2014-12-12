@@ -37,17 +37,22 @@
 #include once "inttypes.bi"
 
 '' The following symbols have been renamed:
-''     typedef RGB => RGB__
 ''     #define MID => MID_
 ''     #define EMPTY_STRING => EMPTY_STRING_
+''     typedef RGB => RGB_
 ''     #define SYSTEM_NONE => SYSTEM_NONE_
 ''     #define MOUSEDRV_NONE => MOUSEDRV_NONE_
-''     #define DRAW_SPRITE_H_FLIP => DRAW_SPRITE_H_FLIP_
-''     #define DRAW_SPRITE_V_FLIP => DRAW_SPRITE_V_FLIP_
-''     #define DRAW_SPRITE_VH_FLIP => DRAW_SPRITE_VH_FLIP_
+''     typedef PALETTE => PALETTE_
+''     inside struct GFX_VTABLE:
+''         field draw_sprite_v_flip => draw_sprite_v_flip_
+''         field draw_sprite_h_flip => draw_sprite_h_flip_
+''         field draw_sprite_vh_flip => draw_sprite_vh_flip_
 ''     variable screen => screen_
 ''     procedure line => line_
 ''     procedure circle => circle_
+''     #define DRAW_SPRITE_V_FLIP => DRAW_SPRITE_V_FLIP_
+''     #define DRAW_SPRITE_H_FLIP => DRAW_SPRITE_H_FLIP_
+''     #define DRAW_SPRITE_VH_FLIP => DRAW_SPRITE_VH_FLIP_
 ''     #define MIDI_DIGMID => MIDI_DIGMID_
 ''     #define EOF => EOF_
 ''     #define cpu_fpu => cpu_fpu_
@@ -100,7 +105,7 @@
 
 extern "C"
 
-type RGB__ as RGB_
+type RGB_ as RGB__
 type BITMAP as BITMAP_
 type GFX_VTABLE as GFX_VTABLE_
 type GFX_MODE as GFX_MODE_
@@ -180,9 +185,7 @@ type LZSS_UNPACK_DATA as LZSS_UNPACK_DATA_
 	#define bmp_write8(addr, c) _farnspokeb(addr, c)
 	#define bmp_write15(addr, c) _farnspokew(addr, c)
 	#define bmp_write16(addr, c) _farnspokew(addr, c)
-
-	'' TODO: #define bmp_write24(addr, c) ({ _farnspokew(addr, c&0xFFFF); _farnspokeb(addr+2, c>>16); })
-
+	#define bmp_write24(addr, c) '' TODO: ({ _farnspokew(addr, c&0xFFFF); _farnspokeb(addr+2, c>>16); })
 	#define bmp_write32(addr, c) _farnspokel(addr, c)
 	#define bmp_read8(addr) _farnspeekb(addr)
 	#define bmp_read15(addr) _farnspeekw(addr)
@@ -213,8 +216,7 @@ type LZSS_UNPACK_DATA as LZSS_UNPACK_DATA_
 	#define uint64_t ulongint
 #endif
 
-'' TODO: #define _AL_SINCOS(x, s, c) do { (c) = cos(x); (s) = sin(x); } while (0)
-
+#define _AL_SINCOS(x, s, c) '' TODO: do { (c) = cos(x); (s) = sin(x); } while (0)
 #define END_OF_MAIN()
 
 #if defined(__FB_WIN32__) or defined(__FB_LINUX__)
@@ -260,28 +262,23 @@ type LZSS_UNPACK_DATA as LZSS_UNPACK_DATA_
 #if defined(__FB_WIN32__) or defined(__FB_LINUX__)
 	#define _video_ds() _default_ds()
 	#define _farsetsel(seg)
-
-	'' TODO: #define _farnspokeb(addr, val) (*((uint8_t *)(addr)) = (val))
-	'' TODO: #define _farnspokew(addr, val) (*((uint16_t *)(addr)) = (val))
-	'' TODO: #define _farnspokel(addr, val) (*((uint32_t *)(addr)) = (val))
-
+	#define _farnspokeb(addr, val) '' TODO: (*((uint8_t *)(addr)) = (val))
+	#define _farnspokew(addr, val) '' TODO: (*((uint16_t *)(addr)) = (val))
+	#define _farnspokel(addr, val) '' TODO: (*((uint32_t *)(addr)) = (val))
 	#define _farnspeekb(addr) (*cptr(ubyte ptr, (addr)))
 	#define _farnspeekw(addr) (*cptr(ushort ptr, (addr)))
 	#define _farnspeekl(addr) (*cptr(ulong ptr, (addr)))
 #endif
 
 #define READ3BYTES(p) (((*cptr(ubyte ptr, (p))) or ((*cptr(ubyte ptr, (p) + 1)) shl 8)) or ((*cptr(ubyte ptr, (p) + 2)) shl 16))
-
-'' TODO: #define WRITE3BYTES(p,c) ((*(unsigned char *)(p) = (c)), (*((unsigned char *)(p) + 1) = (c) >> 8), (*((unsigned char *)(p) + 2) = (c) >> 16))
+#define WRITE3BYTES(p, c) '' TODO: ((*(unsigned char *)(p) = (c)), (*((unsigned char *)(p) + 1) = (c) >> 8), (*((unsigned char *)(p) + 2) = (c) >> 16))
 
 #if defined(__FB_WIN32__) or defined(__FB_LINUX__)
 	#define bmp_select(bmp)
-
-	'' TODO: #define bmp_write8(addr, c) (*((uint8_t *)(addr)) = (c))
-	'' TODO: #define bmp_write15(addr, c) (*((uint16_t *)(addr)) = (c))
-	'' TODO: #define bmp_write16(addr, c) (*((uint16_t *)(addr)) = (c))
-	'' TODO: #define bmp_write32(addr, c) (*((uint32_t *)(addr)) = (c))
-
+	#define bmp_write8(addr, c) '' TODO: (*((uint8_t *)(addr)) = (c))
+	#define bmp_write15(addr, c) '' TODO: (*((uint16_t *)(addr)) = (c))
+	#define bmp_write16(addr, c) '' TODO: (*((uint16_t *)(addr)) = (c))
+	#define bmp_write32(addr, c) '' TODO: (*((uint32_t *)(addr)) = (c))
 	#define bmp_read8(addr) (*cptr(ubyte ptr, (addr)))
 	#define bmp_read15(addr) (*cptr(ushort ptr, (addr)))
 	#define bmp_read16(addr) (*cptr(ushort ptr, (addr)))
@@ -603,7 +600,7 @@ type SYSTEM_DRIVER
 	created_sub_bitmap as sub(byval bmp as BITMAP ptr, byval parent as BITMAP ptr)
 	destroy_bitmap as function(byval bitmap as BITMAP ptr) as long
 	read_hardware_palette as sub()
-	set_palette_range as sub(byval p as const RGB__ ptr, byval from as long, byval to_ as long, byval retracesync as long)
+	set_palette_range as sub(byval p as const RGB_ ptr, byval from as long, byval to_ as long, byval retracesync as long)
 	get_vtable as function(byval color_depth as long) as GFX_VTABLE ptr
 	set_display_switch_mode as function(byval mode as long) as long
 	display_switch_lock as sub(byval lock_ as long, byval foreground as long)
@@ -1246,8 +1243,8 @@ end type
 	extern import ___joystick_driver_list alias "_joystick_driver_list" as _DRIVER_INFO
 #endif
 
-'' TODO: #define BEGIN_JOYSTICK_DRIVER_LIST _DRIVER_INFO _joystick_driver_list[] = {
-'' TODO: #define END_JOYSTICK_DRIVER_LIST { JOY_TYPE_NONE, &joystick_none, TRUE }, { 0, NULL, 0 } };
+#define BEGIN_JOYSTICK_DRIVER_LIST '' TODO: _DRIVER_INFO _joystick_driver_list[] = {
+#define END_JOYSTICK_DRIVER_LIST '' TODO: { JOY_TYPE_NONE, &joystick_none, TRUE }, { 0, NULL, 0 } };
 
 declare function install_joystick(byval type_ as long) as long
 declare sub remove_joystick()
@@ -1259,7 +1256,7 @@ declare function calibrate_joystick(byval n as long) as long
 
 #define ALLEGRO_PALETTE_H
 
-type RGB_
+type RGB__
 	r as ubyte
 	g as ubyte
 	b as ubyte
@@ -1397,7 +1394,7 @@ type GFX_DRIVER
 	exit as sub(byval b as BITMAP ptr)
 	scroll as function(byval x as long, byval y as long) as long
 	vsync as sub()
-	set_palette as sub(byval p as const RGB__ ptr, byval from as long, byval to_ as long, byval retracesync as long)
+	set_palette as sub(byval p as const RGB_ ptr, byval from as long, byval to_ as long, byval retracesync as long)
 	request_scroll as function(byval x as long, byval y as long) as long
 	poll_scroll as function() as long
 	enable_triple_buffer as sub()
@@ -1436,9 +1433,8 @@ end type
 	extern import ___gfx_driver_list alias "_gfx_driver_list" as _DRIVER_INFO
 #endif
 
-'' TODO: #define BEGIN_GFX_DRIVER_LIST _DRIVER_INFO _gfx_driver_list[] = {
-'' TODO: #define END_GFX_DRIVER_LIST { 0, NULL, 0 } };
-
+#define BEGIN_GFX_DRIVER_LIST '' TODO: _DRIVER_INFO _gfx_driver_list[] = {
+#define END_GFX_DRIVER_LIST '' TODO: { 0, NULL, 0 } };
 #define GFX_CAN_SCROLL &h00000001
 #define GFX_CAN_TRIPLE_BUFFER &h00000002
 #define GFX_HW_CURSOR &h00000004
@@ -1493,9 +1489,9 @@ type GFX_VTABLE_
 	triangle as sub(byval bmp as BITMAP ptr, byval x1 as long, byval y_1 as long, byval x2 as long, byval y2 as long, byval x3 as long, byval y3 as long, byval color_ as long)
 	draw_sprite as sub(byval bmp as BITMAP ptr, byval sprite as BITMAP ptr, byval x as long, byval y as long)
 	draw_256_sprite as sub(byval bmp as BITMAP ptr, byval sprite as BITMAP ptr, byval x as long, byval y as long)
-	draw_sprite_v_flip as sub(byval bmp as BITMAP ptr, byval sprite as BITMAP ptr, byval x as long, byval y as long)
-	draw_sprite_h_flip as sub(byval bmp as BITMAP ptr, byval sprite as BITMAP ptr, byval x as long, byval y as long)
-	draw_sprite_vh_flip as sub(byval bmp as BITMAP ptr, byval sprite as BITMAP ptr, byval x as long, byval y as long)
+	draw_sprite_v_flip_ as sub(byval bmp as BITMAP ptr, byval sprite as BITMAP ptr, byval x as long, byval y as long)
+	draw_sprite_h_flip_ as sub(byval bmp as BITMAP ptr, byval sprite as BITMAP ptr, byval x as long, byval y as long)
+	draw_sprite_vh_flip_ as sub(byval bmp as BITMAP ptr, byval sprite as BITMAP ptr, byval x as long, byval y as long)
 	draw_trans_sprite as sub(byval bmp as BITMAP ptr, byval sprite as BITMAP ptr, byval x as long, byval y as long)
 	draw_trans_rgba_sprite as sub(byval bmp as BITMAP ptr, byval sprite as BITMAP ptr, byval x as long, byval y as long)
 	draw_lit_sprite as sub(byval bmp as BITMAP ptr, byval sprite as BITMAP ptr, byval x as long, byval y as long, byval color_ as long)
@@ -1565,13 +1561,13 @@ end type
 	extern import ___vtable_list alias "_vtable_list" as _VTABLE_INFO
 #endif
 
-'' TODO: #define BEGIN_COLOR_DEPTH_LIST _VTABLE_INFO _vtable_list[] = {
-'' TODO: #define END_COLOR_DEPTH_LIST { 0, NULL } };
-'' TODO: #define COLOR_DEPTH_8 { 8, &__linear_vtable8 },
-'' TODO: #define COLOR_DEPTH_15 { 15, &__linear_vtable15 },
-'' TODO: #define COLOR_DEPTH_16 { 16, &__linear_vtable16 },
-'' TODO: #define COLOR_DEPTH_24 { 24, &__linear_vtable24 },
-'' TODO: #define COLOR_DEPTH_32 { 32, &__linear_vtable32 },
+#define BEGIN_COLOR_DEPTH_LIST '' TODO: _VTABLE_INFO _vtable_list[] = {
+#define END_COLOR_DEPTH_LIST '' TODO: { 0, NULL } };
+#define COLOR_DEPTH_8 '' TODO: { 8, &__linear_vtable8 },
+#define COLOR_DEPTH_15 '' TODO: { 15, &__linear_vtable15 },
+#define COLOR_DEPTH_16 '' TODO: { 16, &__linear_vtable16 },
+#define COLOR_DEPTH_24 '' TODO: { 24, &__linear_vtable24 },
+#define COLOR_DEPTH_32 '' TODO: { 32, &__linear_vtable32 },
 
 type BITMAP_
 	w as long
@@ -1736,13 +1732,13 @@ declare function get_clip_state(byval bitmap as BITMAP ptr) as long
 #define ALLEGRO_COLOR_H
 
 #if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
-	extern black_palette(0 to 255) as RGB__
-	extern desktop_palette(0 to 255) as RGB__
-	extern default_palette(0 to 255) as RGB__
+	extern black_palette(0 to 255) as RGB_
+	extern desktop_palette(0 to 255) as RGB_
+	extern default_palette(0 to 255) as RGB_
 #else
-	extern import black_palette(0 to 255) as RGB__
-	extern import desktop_palette(0 to 255) as RGB__
-	extern import default_palette(0 to 255) as RGB__
+	extern import black_palette(0 to 255) as RGB_
+	extern import desktop_palette(0 to 255) as RGB_
+	extern import default_palette(0 to 255) as RGB_
 #endif
 
 type RGB_MAP
@@ -1756,7 +1752,7 @@ end type
 #if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
 	extern rgb_map as RGB_MAP ptr
 	extern color_map as COLOR_MAP ptr
-	extern _current_palette(0 to 255) as RGB__
+	extern _current_palette(0 to 255) as RGB_
 	extern _rgb_r_shift_15 as long
 	extern _rgb_g_shift_15 as long
 	extern _rgb_b_shift_15 as long
@@ -1777,7 +1773,7 @@ end type
 #else
 	extern import rgb_map as RGB_MAP ptr
 	extern import color_map as COLOR_MAP ptr
-	extern import _current_palette(0 to 255) as RGB__
+	extern import _current_palette(0 to 255) as RGB_
 	extern import _rgb_r_shift_15 as long
 	extern import _rgb_g_shift_15 as long
 	extern import _rgb_b_shift_15 as long
@@ -1809,28 +1805,28 @@ end type
 	extern import palette_color as long ptr
 #endif
 
-declare sub set_color(byval idx as long, byval p as const RGB__ ptr)
-declare sub set_palette(byval p as const RGB__ ptr)
-declare sub set_palette_range(byval p as const RGB__ ptr, byval from as long, byval to_ as long, byval retracesync as long)
-declare sub get_color(byval idx as long, byval p as RGB__ ptr)
-declare sub get_palette(byval p as RGB__ ptr)
-declare sub get_palette_range(byval p as RGB__ ptr, byval from as long, byval to_ as long)
-declare sub fade_interpolate(byval source as const RGB__ ptr, byval dest as const RGB__ ptr, byval output_ as RGB__ ptr, byval pos_ as long, byval from as long, byval to_ as long)
-declare sub fade_from_range(byval source as const RGB__ ptr, byval dest as const RGB__ ptr, byval speed as long, byval from as long, byval to_ as long)
-declare sub fade_in_range(byval p as const RGB__ ptr, byval speed as long, byval from as long, byval to_ as long)
+declare sub set_color(byval idx as long, byval p as const RGB_ ptr)
+declare sub set_palette(byval p as const RGB_ ptr)
+declare sub set_palette_range(byval p as const RGB_ ptr, byval from as long, byval to_ as long, byval retracesync as long)
+declare sub get_color(byval idx as long, byval p as RGB_ ptr)
+declare sub get_palette(byval p as RGB_ ptr)
+declare sub get_palette_range(byval p as RGB_ ptr, byval from as long, byval to_ as long)
+declare sub fade_interpolate(byval source as const RGB_ ptr, byval dest as const RGB_ ptr, byval output_ as RGB_ ptr, byval pos_ as long, byval from as long, byval to_ as long)
+declare sub fade_from_range(byval source as const RGB_ ptr, byval dest as const RGB_ ptr, byval speed as long, byval from as long, byval to_ as long)
+declare sub fade_in_range(byval p as const RGB_ ptr, byval speed as long, byval from as long, byval to_ as long)
 declare sub fade_out_range(byval speed as long, byval from as long, byval to_ as long)
-declare sub fade_from(byval source as const RGB__ ptr, byval dest as const RGB__ ptr, byval speed as long)
-declare sub fade_in(byval p as const RGB__ ptr, byval speed as long)
+declare sub fade_from(byval source as const RGB_ ptr, byval dest as const RGB_ ptr, byval speed as long)
+declare sub fade_in(byval p as const RGB_ ptr, byval speed as long)
 declare sub fade_out(byval speed as long)
-declare sub select_palette(byval p as const RGB__ ptr)
+declare sub select_palette(byval p as const RGB_ ptr)
 declare sub unselect_palette()
-declare sub generate_332_palette(byval pal as RGB__ ptr)
-declare function generate_optimized_palette(byval image as BITMAP ptr, byval pal as RGB__ ptr, byval rsvdcols as const byte ptr) as long
-declare sub create_rgb_table(byval table as RGB_MAP ptr, byval pal as const RGB__ ptr, byval callback as sub(byval pos_ as long))
-declare sub create_light_table(byval table as COLOR_MAP ptr, byval pal as const RGB__ ptr, byval r as long, byval g as long, byval b as long, byval callback as sub(byval pos_ as long))
-declare sub create_trans_table(byval table as COLOR_MAP ptr, byval pal as const RGB__ ptr, byval r as long, byval g as long, byval b as long, byval callback as sub(byval pos_ as long))
-declare sub create_color_table(byval table as COLOR_MAP ptr, byval pal as const RGB__ ptr, byval blend as sub(byval pal as const RGB__ ptr, byval x as long, byval y as long, byval rgb_ as RGB__ ptr), byval callback as sub(byval pos_ as long))
-declare sub create_blender_table(byval table as COLOR_MAP ptr, byval pal as const RGB__ ptr, byval callback as sub(byval pos_ as long))
+declare sub generate_332_palette(byval pal as RGB_ ptr)
+declare function generate_optimized_palette(byval image as BITMAP ptr, byval pal as RGB_ ptr, byval rsvdcols as const byte ptr) as long
+declare sub create_rgb_table(byval table as RGB_MAP ptr, byval pal as const RGB_ ptr, byval callback as sub(byval pos_ as long))
+declare sub create_light_table(byval table as COLOR_MAP ptr, byval pal as const RGB_ ptr, byval r as long, byval g as long, byval b as long, byval callback as sub(byval pos_ as long))
+declare sub create_trans_table(byval table as COLOR_MAP ptr, byval pal as const RGB_ ptr, byval r as long, byval g as long, byval b as long, byval callback as sub(byval pos_ as long))
+declare sub create_color_table(byval table as COLOR_MAP ptr, byval pal as const RGB_ ptr, byval blend as sub(byval pal as const RGB_ ptr, byval x as long, byval y as long, byval rgb_ as RGB_ ptr), byval callback as sub(byval pos_ as long))
+declare sub create_blender_table(byval table as COLOR_MAP ptr, byval pal as const RGB_ ptr, byval callback as sub(byval pos_ as long))
 
 type BLENDER_FUNC as function(byval x as culong, byval y as culong, byval n as culong) as culong
 
@@ -1853,7 +1849,7 @@ declare sub set_saturation_blender(byval r as long, byval g as long, byval b as 
 declare sub set_screen_blender(byval r as long, byval g as long, byval b as long, byval a as long)
 declare sub hsv_to_rgb(byval h as single, byval s as single, byval v as single, byval r as long ptr, byval g as long ptr, byval b as long ptr)
 declare sub rgb_to_hsv(byval r as long, byval g as long, byval b as long, byval h as single ptr, byval s as single ptr, byval v as single ptr)
-declare function bestfit_color(byval pal as const RGB__ ptr, byval r as long, byval g as long, byval b as long) as long
+declare function bestfit_color(byval pal as const RGB_ ptr, byval r as long, byval g as long, byval b as long) as long
 declare function makecol(byval r as long, byval g as long, byval b as long) as long
 declare function makecol8(byval r as long, byval g as long, byval b as long) as long
 declare function makecol_depth(byval color_depth as long, byval r as long, byval g as long, byval b as long) as long
@@ -1895,7 +1891,7 @@ declare function getb32(byval c as long) as long
 declare function geta32(byval c as long) as long
 
 #if defined(__FB_WIN32__) or defined(__FB_LINUX__)
-	declare sub _set_color(byval idx as long, byval p as const RGB__ ptr)
+	declare sub _set_color(byval idx as long, byval p as const RGB_ ptr)
 #endif
 
 #define ALLEGRO_DRAW_H
@@ -2078,14 +2074,14 @@ declare function is_trans_font(byval f as FONT ptr) as long
 declare function is_color_font(byval f as FONT ptr) as long
 declare function is_mono_font(byval f as FONT ptr) as long
 declare function is_compatible_font(byval f1 as FONT ptr, byval f2 as FONT ptr) as long
-declare sub register_font_file_type(byval ext as const zstring ptr, byval load as function(byval filename as const zstring ptr, byval pal as RGB__ ptr, byval param as any ptr) as FONT ptr)
-declare function load_font(byval filename as const zstring ptr, byval pal as RGB__ ptr, byval param as any ptr) as FONT ptr
-declare function load_dat_font(byval filename as const zstring ptr, byval pal as RGB__ ptr, byval param as any ptr) as FONT ptr
-declare function load_bios_font(byval filename as const zstring ptr, byval pal as RGB__ ptr, byval param as any ptr) as FONT ptr
-declare function load_grx_font(byval filename as const zstring ptr, byval pal as RGB__ ptr, byval param as any ptr) as FONT ptr
-declare function load_grx_or_bios_font(byval filename as const zstring ptr, byval pal as RGB__ ptr, byval param as any ptr) as FONT ptr
-declare function load_bitmap_font(byval fname as const zstring ptr, byval pal as RGB__ ptr, byval param as any ptr) as FONT ptr
-declare function load_txt_font(byval fname as const zstring ptr, byval pal as RGB__ ptr, byval param as any ptr) as FONT ptr
+declare sub register_font_file_type(byval ext as const zstring ptr, byval load as function(byval filename as const zstring ptr, byval pal as RGB_ ptr, byval param as any ptr) as FONT ptr)
+declare function load_font(byval filename as const zstring ptr, byval pal as RGB_ ptr, byval param as any ptr) as FONT ptr
+declare function load_dat_font(byval filename as const zstring ptr, byval pal as RGB_ ptr, byval param as any ptr) as FONT ptr
+declare function load_bios_font(byval filename as const zstring ptr, byval pal as RGB_ ptr, byval param as any ptr) as FONT ptr
+declare function load_grx_font(byval filename as const zstring ptr, byval pal as RGB_ ptr, byval param as any ptr) as FONT ptr
+declare function load_grx_or_bios_font(byval filename as const zstring ptr, byval pal as RGB_ ptr, byval param as any ptr) as FONT ptr
+declare function load_bitmap_font(byval fname as const zstring ptr, byval pal as RGB_ ptr, byval param as any ptr) as FONT ptr
+declare function load_txt_font(byval fname as const zstring ptr, byval pal as RGB_ ptr, byval param as any ptr) as FONT ptr
 declare function grab_font_from_bitmap(byval bmp as BITMAP ptr) as FONT ptr
 declare function get_font_ranges(byval f as FONT ptr) as long
 declare function get_font_range_begin(byval f as FONT ptr, byval range as long) as long
@@ -2110,7 +2106,7 @@ declare sub reset_fli_variables()
 
 #if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
 	extern fli_bitmap as BITMAP ptr
-	extern fli_palette(0 to 255) as RGB__
+	extern fli_palette(0 to 255) as RGB_
 	extern fli_bmp_dirty_from as long
 	extern fli_bmp_dirty_to as long
 	extern fli_pal_dirty_from as long
@@ -2119,7 +2115,7 @@ declare sub reset_fli_variables()
 	extern fli_timer as long
 #else
 	extern import fli_bitmap as BITMAP ptr
-	extern import fli_palette(0 to 255) as RGB__
+	extern import fli_palette(0 to 255) as RGB_
 	extern import fli_bmp_dirty_from as long
 	extern import fli_bmp_dirty_to as long
 	extern import fli_pal_dirty_from as long
@@ -2403,8 +2399,8 @@ end type
 	extern import ___digi_driver_list alias "_digi_driver_list" as _DRIVER_INFO
 #endif
 
-'' TODO: #define BEGIN_DIGI_DRIVER_LIST _DRIVER_INFO _digi_driver_list[] = {
-'' TODO: #define END_DIGI_DRIVER_LIST { 0, NULL, 0 } };
+#define BEGIN_DIGI_DRIVER_LIST '' TODO: _DRIVER_INFO _digi_driver_list[] = {
+#define END_DIGI_DRIVER_LIST '' TODO: { 0, NULL, 0 } };
 
 #if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
 	extern digi_driver as DIGI_DRIVER ptr
@@ -2558,9 +2554,9 @@ end type
 	extern import ___midi_driver_list alias "_midi_driver_list" as _DRIVER_INFO
 #endif
 
-'' TODO: #define BEGIN_MIDI_DRIVER_LIST _DRIVER_INFO _midi_driver_list[] = {
-'' TODO: #define END_MIDI_DRIVER_LIST { 0, NULL, 0 } };
-'' TODO: #define MIDI_DRIVER_DIGMID { MIDI_DIGMID, &midi_digmid, TRUE },
+#define BEGIN_MIDI_DRIVER_LIST '' TODO: _DRIVER_INFO _midi_driver_list[] = {
+#define END_MIDI_DRIVER_LIST '' TODO: { 0, NULL, 0 } };
+#define MIDI_DRIVER_DIGMID '' TODO: { MIDI_DIGMID, &midi_digmid, TRUE },
 
 #if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
 	extern midi_driver as MIDI_DRIVER ptr
@@ -2801,22 +2797,22 @@ declare function find_datafile_object(byval dat as const DATAFILE ptr, byval obj
 declare function get_datafile_property(byval dat as const DATAFILE ptr, byval type_ as long) as const zstring ptr
 declare sub register_datafile_object(byval id_ as long, byval load as function(byval f as PACKFILE ptr, byval size as clong) as any ptr, byval destroy as sub(byval data_ as any ptr))
 declare sub fixup_datafile(byval data_ as DATAFILE ptr)
-declare function load_bitmap(byval filename as const zstring ptr, byval pal as RGB__ ptr) as BITMAP ptr
-declare function load_bmp(byval filename as const zstring ptr, byval pal as RGB__ ptr) as BITMAP ptr
-declare function load_bmp_pf(byval f as PACKFILE ptr, byval pal as RGB__ ptr) as BITMAP ptr
-declare function load_lbm(byval filename as const zstring ptr, byval pal as RGB__ ptr) as BITMAP ptr
-declare function load_pcx(byval filename as const zstring ptr, byval pal as RGB__ ptr) as BITMAP ptr
-declare function load_pcx_pf(byval f as PACKFILE ptr, byval pal as RGB__ ptr) as BITMAP ptr
-declare function load_tga(byval filename as const zstring ptr, byval pal as RGB__ ptr) as BITMAP ptr
-declare function load_tga_pf(byval f as PACKFILE ptr, byval pal as RGB__ ptr) as BITMAP ptr
-declare function save_bitmap(byval filename as const zstring ptr, byval bmp as BITMAP ptr, byval pal as const RGB__ ptr) as long
-declare function save_bmp(byval filename as const zstring ptr, byval bmp as BITMAP ptr, byval pal as const RGB__ ptr) as long
-declare function save_bmp_pf(byval f as PACKFILE ptr, byval bmp as BITMAP ptr, byval pal as const RGB__ ptr) as long
-declare function save_pcx(byval filename as const zstring ptr, byval bmp as BITMAP ptr, byval pal as const RGB__ ptr) as long
-declare function save_pcx_pf(byval f as PACKFILE ptr, byval bmp as BITMAP ptr, byval pal as const RGB__ ptr) as long
-declare function save_tga(byval filename as const zstring ptr, byval bmp as BITMAP ptr, byval pal as const RGB__ ptr) as long
-declare function save_tga_pf(byval f as PACKFILE ptr, byval bmp as BITMAP ptr, byval pal as const RGB__ ptr) as long
-declare sub register_bitmap_file_type(byval ext as const zstring ptr, byval load as function(byval filename as const zstring ptr, byval pal as RGB__ ptr) as BITMAP ptr, byval save as function(byval filename as const zstring ptr, byval bmp as BITMAP ptr, byval pal as const RGB__ ptr) as long)
+declare function load_bitmap(byval filename as const zstring ptr, byval pal as RGB_ ptr) as BITMAP ptr
+declare function load_bmp(byval filename as const zstring ptr, byval pal as RGB_ ptr) as BITMAP ptr
+declare function load_bmp_pf(byval f as PACKFILE ptr, byval pal as RGB_ ptr) as BITMAP ptr
+declare function load_lbm(byval filename as const zstring ptr, byval pal as RGB_ ptr) as BITMAP ptr
+declare function load_pcx(byval filename as const zstring ptr, byval pal as RGB_ ptr) as BITMAP ptr
+declare function load_pcx_pf(byval f as PACKFILE ptr, byval pal as RGB_ ptr) as BITMAP ptr
+declare function load_tga(byval filename as const zstring ptr, byval pal as RGB_ ptr) as BITMAP ptr
+declare function load_tga_pf(byval f as PACKFILE ptr, byval pal as RGB_ ptr) as BITMAP ptr
+declare function save_bitmap(byval filename as const zstring ptr, byval bmp as BITMAP ptr, byval pal as const RGB_ ptr) as long
+declare function save_bmp(byval filename as const zstring ptr, byval bmp as BITMAP ptr, byval pal as const RGB_ ptr) as long
+declare function save_bmp_pf(byval f as PACKFILE ptr, byval bmp as BITMAP ptr, byval pal as const RGB_ ptr) as long
+declare function save_pcx(byval filename as const zstring ptr, byval bmp as BITMAP ptr, byval pal as const RGB_ ptr) as long
+declare function save_pcx_pf(byval f as PACKFILE ptr, byval bmp as BITMAP ptr, byval pal as const RGB_ ptr) as long
+declare function save_tga(byval filename as const zstring ptr, byval bmp as BITMAP ptr, byval pal as const RGB_ ptr) as long
+declare function save_tga_pf(byval f as PACKFILE ptr, byval bmp as BITMAP ptr, byval pal as const RGB_ ptr) as long
+declare sub register_bitmap_file_type(byval ext as const zstring ptr, byval load as function(byval filename as const zstring ptr, byval pal as RGB_ ptr) as BITMAP ptr, byval save as function(byval filename as const zstring ptr, byval bmp as BITMAP ptr, byval pal as const RGB_ ptr) as long)
 
 #define ALLEGRO_FMATH_H
 
@@ -3121,8 +3117,7 @@ declare function timer_is_using_retrace() as long
 #endif
 
 #ifdef __FB_WIN32__
-	'' TODO: #define GFX_DRIVER_DIRECTX { GFX_DIRECTX_ACCEL, &gfx_directx_accel, TRUE }, { GFX_DIRECTX_SOFT, &gfx_directx_soft, TRUE }, { GFX_DIRECTX_SAFE, &gfx_directx_safe, TRUE }, { GFX_DIRECTX_WIN, &gfx_directx_win, TRUE }, { GFX_DIRECTX_OVL, &gfx_directx_ovl, TRUE }, { GFX_GDI, &gfx_gdi, FALSE },
-
+	#define GFX_DRIVER_DIRECTX '' TODO: { GFX_DIRECTX_ACCEL, &gfx_directx_accel, TRUE }, { GFX_DIRECTX_SOFT, &gfx_directx_soft, TRUE }, { GFX_DIRECTX_SAFE, &gfx_directx_safe, TRUE }, { GFX_DIRECTX_WIN, &gfx_directx_win, TRUE }, { GFX_DIRECTX_OVL, &gfx_directx_ovl, TRUE }, { GFX_GDI, &gfx_gdi, FALSE },
 	#define DIGI_DIRECTX(n) AL_ID(asc("D"), asc("X"), asc("A") + (n), asc(" "))
 	#define DIGI_DIRECTAMX(n) AL_ID(asc("A"), asc("X"), asc("A") + (n), asc(" "))
 	#define DIGI_WAVOUTID(n) AL_ID(asc("W"), asc("O"), asc("A") + (n), asc(" "))
@@ -3142,8 +3137,8 @@ declare function timer_is_using_retrace() as long
 #endif
 
 #ifdef __FB_WIN32__
-	'' TODO: #define JOYSTICK_DRIVER_DIRECTX { JOY_TYPE_DIRECTX, &joystick_directx, TRUE },
-	'' TODO: #define JOYSTICK_DRIVER_WIN32 { JOY_TYPE_WIN32, &joystick_win32, TRUE },
+	#define JOYSTICK_DRIVER_DIRECTX '' TODO: { JOY_TYPE_DIRECTX, &joystick_directx, TRUE },
+	#define JOYSTICK_DRIVER_WIN32 '' TODO: { JOY_TYPE_WIN32, &joystick_win32, TRUE },
 #elseif defined(__FB_LINUX__)
 	extern __crt0_argc as long
 	extern __crt0_argv as zstring ptr ptr
@@ -3286,20 +3281,19 @@ declare function timer_is_using_retrace() as long
 	extern joystick_sg2f as JOYSTICK_DRIVER
 	extern joystick_ww as JOYSTICK_DRIVER
 
-	'' TODO: #define JOYSTICK_DRIVER_STANDARD { JOY_TYPE_STANDARD, &joystick_standard, TRUE }, { JOY_TYPE_2PADS, &joystick_2pads, FALSE }, { JOY_TYPE_4BUTTON, &joystick_4button, FALSE }, { JOY_TYPE_6BUTTON, &joystick_6button, FALSE }, { JOY_TYPE_8BUTTON, &joystick_8button, FALSE }, { JOY_TYPE_FSPRO, &joystick_fspro, FALSE }, { JOY_TYPE_WINGEX, &joystick_wingex, FALSE },
-	'' TODO: #define JOYSTICK_DRIVER_SIDEWINDER { JOY_TYPE_SIDEWINDER, &joystick_sw, TRUE }, { JOY_TYPE_SIDEWINDER_AG, &joystick_sw_ag, TRUE }, { JOY_TYPE_SIDEWINDER_PP, &joystick_sw_pp, TRUE },
-	'' TODO: #define JOYSTICK_DRIVER_GAMEPAD_PRO { JOY_TYPE_GAMEPAD_PRO, &joystick_gpro, TRUE },
-	'' TODO: #define JOYSTICK_DRIVER_GRIP { JOY_TYPE_GRIP, &joystick_grip, TRUE }, { JOY_TYPE_GRIP4, &joystick_grip4, TRUE },
-	'' TODO: #define JOYSTICK_DRIVER_SNESPAD { JOY_TYPE_SNESPAD_LPT1, &joystick_sp1, FALSE }, { JOY_TYPE_SNESPAD_LPT2, &joystick_sp2, FALSE }, { JOY_TYPE_SNESPAD_LPT3, &joystick_sp3, FALSE },
-	'' TODO: #define JOYSTICK_DRIVER_PSXPAD { JOY_TYPE_PSXPAD_LPT1, &joystick_psx1, FALSE }, { JOY_TYPE_PSXPAD_LPT2, &joystick_psx2, FALSE }, { JOY_TYPE_PSXPAD_LPT3, &joystick_psx3, FALSE },
-	'' TODO: #define JOYSTICK_DRIVER_N64PAD { JOY_TYPE_N64PAD_LPT1, &joystick_n641, FALSE }, { JOY_TYPE_N64PAD_LPT2, &joystick_n642, FALSE }, { JOY_TYPE_N64PAD_LPT3, &joystick_n643, FALSE },
-	'' TODO: #define JOYSTICK_DRIVER_DB9 { JOY_TYPE_DB9_LPT1, &joystick_db91, FALSE }, { JOY_TYPE_DB9_LPT2, &joystick_db92, FALSE }, { JOY_TYPE_DB9_LPT3, &joystick_db93, FALSE },
-	'' TODO: #define JOYSTICK_DRIVER_TURBOGRAFX { JOY_TYPE_TURBOGRAFX_LPT1,&joystick_tgx1, FALSE }, { JOY_TYPE_TURBOGRAFX_LPT2,&joystick_tgx2, FALSE }, { JOY_TYPE_TURBOGRAFX_LPT3,&joystick_tgx3, FALSE },
-	'' TODO: #define JOYSTICK_DRIVER_IFSEGA_ISA { JOY_TYPE_IFSEGA_ISA, &joystick_sg1, FALSE },
-	'' TODO: #define JOYSTICK_DRIVER_IFSEGA_PCI { JOY_TYPE_IFSEGA_PCI, &joystick_sg2, FALSE },
-	'' TODO: #define JOYSTICK_DRIVER_IFSEGA_PCI_FAST { JOY_TYPE_IFSEGA_PCI_FAST,&joystick_sg2f, FALSE },
-	'' TODO: #define JOYSTICK_DRIVER_WINGWARRIOR { JOY_TYPE_WINGWARRIOR, &joystick_ww, TRUE },
-
+	#define JOYSTICK_DRIVER_STANDARD '' TODO: { JOY_TYPE_STANDARD, &joystick_standard, TRUE }, { JOY_TYPE_2PADS, &joystick_2pads, FALSE }, { JOY_TYPE_4BUTTON, &joystick_4button, FALSE }, { JOY_TYPE_6BUTTON, &joystick_6button, FALSE }, { JOY_TYPE_8BUTTON, &joystick_8button, FALSE }, { JOY_TYPE_FSPRO, &joystick_fspro, FALSE }, { JOY_TYPE_WINGEX, &joystick_wingex, FALSE },
+	#define JOYSTICK_DRIVER_SIDEWINDER '' TODO: { JOY_TYPE_SIDEWINDER, &joystick_sw, TRUE }, { JOY_TYPE_SIDEWINDER_AG, &joystick_sw_ag, TRUE }, { JOY_TYPE_SIDEWINDER_PP, &joystick_sw_pp, TRUE },
+	#define JOYSTICK_DRIVER_GAMEPAD_PRO '' TODO: { JOY_TYPE_GAMEPAD_PRO, &joystick_gpro, TRUE },
+	#define JOYSTICK_DRIVER_GRIP '' TODO: { JOY_TYPE_GRIP, &joystick_grip, TRUE }, { JOY_TYPE_GRIP4, &joystick_grip4, TRUE },
+	#define JOYSTICK_DRIVER_SNESPAD '' TODO: { JOY_TYPE_SNESPAD_LPT1, &joystick_sp1, FALSE }, { JOY_TYPE_SNESPAD_LPT2, &joystick_sp2, FALSE }, { JOY_TYPE_SNESPAD_LPT3, &joystick_sp3, FALSE },
+	#define JOYSTICK_DRIVER_PSXPAD '' TODO: { JOY_TYPE_PSXPAD_LPT1, &joystick_psx1, FALSE }, { JOY_TYPE_PSXPAD_LPT2, &joystick_psx2, FALSE }, { JOY_TYPE_PSXPAD_LPT3, &joystick_psx3, FALSE },
+	#define JOYSTICK_DRIVER_N64PAD '' TODO: { JOY_TYPE_N64PAD_LPT1, &joystick_n641, FALSE }, { JOY_TYPE_N64PAD_LPT2, &joystick_n642, FALSE }, { JOY_TYPE_N64PAD_LPT3, &joystick_n643, FALSE },
+	#define JOYSTICK_DRIVER_DB9 '' TODO: { JOY_TYPE_DB9_LPT1, &joystick_db91, FALSE }, { JOY_TYPE_DB9_LPT2, &joystick_db92, FALSE }, { JOY_TYPE_DB9_LPT3, &joystick_db93, FALSE },
+	#define JOYSTICK_DRIVER_TURBOGRAFX '' TODO: { JOY_TYPE_TURBOGRAFX_LPT1,&joystick_tgx1, FALSE }, { JOY_TYPE_TURBOGRAFX_LPT2,&joystick_tgx2, FALSE }, { JOY_TYPE_TURBOGRAFX_LPT3,&joystick_tgx3, FALSE },
+	#define JOYSTICK_DRIVER_IFSEGA_ISA '' TODO: { JOY_TYPE_IFSEGA_ISA, &joystick_sg1, FALSE },
+	#define JOYSTICK_DRIVER_IFSEGA_PCI '' TODO: { JOY_TYPE_IFSEGA_PCI, &joystick_sg2, FALSE },
+	#define JOYSTICK_DRIVER_IFSEGA_PCI_FAST '' TODO: { JOY_TYPE_IFSEGA_PCI_FAST,&joystick_sg2f, FALSE },
+	#define JOYSTICK_DRIVER_WINGWARRIOR '' TODO: { JOY_TYPE_WINGWARRIOR, &joystick_ww, TRUE },
 	#define joy_FSPRO_trigger joy_b1
 	#define joy_FSPRO_butleft joy_b2
 	#define joy_FSPRO_butright joy_b3
@@ -3335,14 +3329,14 @@ declare function timer_is_using_retrace() as long
 	extern gfx_vbeaf as GFX_DRIVER
 	extern gfx_xtended as GFX_DRIVER
 
-	'' TODO: #define GFX_DRIVER_VGA { GFX_VGA, &gfx_vga, TRUE },
-	'' TODO: #define GFX_DRIVER_MODEX { GFX_MODEX, &gfx_modex, TRUE },
-	'' TODO: #define GFX_DRIVER_VBEAF { GFX_VBEAF, &gfx_vbeaf, TRUE },
-	'' TODO: #define GFX_DRIVER_VESA3 { GFX_VESA3, &gfx_vesa_3, TRUE },
-	'' TODO: #define GFX_DRIVER_VESA2L { GFX_VESA2L, &gfx_vesa_2l, TRUE },
-	'' TODO: #define GFX_DRIVER_VESA2B { GFX_VESA2B, &gfx_vesa_2b, TRUE },
-	'' TODO: #define GFX_DRIVER_XTENDED { GFX_XTENDED, &gfx_xtended, FALSE },
-	'' TODO: #define GFX_DRIVER_VESA1 { GFX_VESA1, &gfx_vesa_1, TRUE },
+	#define GFX_DRIVER_VGA '' TODO: { GFX_VGA, &gfx_vga, TRUE },
+	#define GFX_DRIVER_MODEX '' TODO: { GFX_MODEX, &gfx_modex, TRUE },
+	#define GFX_DRIVER_VBEAF '' TODO: { GFX_VBEAF, &gfx_vbeaf, TRUE },
+	#define GFX_DRIVER_VESA3 '' TODO: { GFX_VESA3, &gfx_vesa_3, TRUE },
+	#define GFX_DRIVER_VESA2L '' TODO: { GFX_VESA2L, &gfx_vesa_2l, TRUE },
+	#define GFX_DRIVER_VESA2B '' TODO: { GFX_VESA2B, &gfx_vesa_2b, TRUE },
+	#define GFX_DRIVER_XTENDED '' TODO: { GFX_XTENDED, &gfx_xtended, FALSE },
+	#define GFX_DRIVER_VESA1 '' TODO: { GFX_VESA1, &gfx_vesa_1, TRUE },
 #endif
 
 #if defined(__FB_DOS__) or defined(__FB_LINUX__)
@@ -3350,7 +3344,7 @@ declare function timer_is_using_retrace() as long
 #endif
 
 #ifdef __FB_DOS__
-	declare sub _set_color(byval index as long, byval p as const RGB__ ptr)
+	declare sub _set_color(byval index as long, byval p as const RGB_ ptr)
 
 	#define DIGI_SB10_ AL_ID(asc("S"), asc("B"), asc("1"), asc("0"))
 	#define DIGI_SB15_ AL_ID(asc("S"), asc("B"), asc("1"), asc("5"))
@@ -3382,14 +3376,14 @@ declare function timer_is_using_retrace() as long
 	extern midi_mpu401 as MIDI_DRIVER
 	extern midi_awe32 as MIDI_DRIVER
 
-	'' TODO: #define DIGI_DRIVER_WINSOUNDSYS { DIGI_WINSOUNDSYS, &digi_wss, FALSE },
-	'' TODO: #define DIGI_DRIVER_AUDIODRIVE { DIGI_AUDIODRIVE, &digi_audiodrive, TRUE },
-	'' TODO: #define DIGI_DRIVER_SOUNDSCAPE { DIGI_SOUNDSCAPE, &digi_soundscape, TRUE },
-	'' TODO: #define DIGI_DRIVER_SB { DIGI_SB16, &digi_sb16, TRUE }, { DIGI_SBPRO, &digi_sbpro, TRUE }, { DIGI_SB20, &digi_sb20, TRUE }, { DIGI_SB15, &digi_sb15, TRUE }, { DIGI_SB10, &digi_sb10, TRUE },
-	'' TODO: #define MIDI_DRIVER_AWE32 { MIDI_AWE32, &midi_awe32, TRUE },
-	'' TODO: #define MIDI_DRIVER_ADLIB { MIDI_OPL3, &midi_opl3, TRUE }, { MIDI_2XOPL2, &midi_2xopl2, TRUE }, { MIDI_OPL2, &midi_opl2, TRUE },
-	'' TODO: #define MIDI_DRIVER_SB_OUT { MIDI_SB_OUT, &midi_sb_out, FALSE },
-	'' TODO: #define MIDI_DRIVER_MPU { MIDI_MPU, &midi_mpu401, FALSE },
+	#define DIGI_DRIVER_WINSOUNDSYS '' TODO: { DIGI_WINSOUNDSYS, &digi_wss, FALSE },
+	#define DIGI_DRIVER_AUDIODRIVE '' TODO: { DIGI_AUDIODRIVE, &digi_audiodrive, TRUE },
+	#define DIGI_DRIVER_SOUNDSCAPE '' TODO: { DIGI_SOUNDSCAPE, &digi_soundscape, TRUE },
+	#define DIGI_DRIVER_SB '' TODO: { DIGI_SB16, &digi_sb16, TRUE }, { DIGI_SBPRO, &digi_sbpro, TRUE }, { DIGI_SB20, &digi_sb20, TRUE }, { DIGI_SB15, &digi_sb15, TRUE }, { DIGI_SB10, &digi_sb10, TRUE },
+	#define MIDI_DRIVER_AWE32 '' TODO: { MIDI_AWE32, &midi_awe32, TRUE },
+	#define MIDI_DRIVER_ADLIB '' TODO: { MIDI_OPL3, &midi_opl3, TRUE }, { MIDI_2XOPL2, &midi_2xopl2, TRUE }, { MIDI_OPL2, &midi_opl2, TRUE },
+	#define MIDI_DRIVER_SB_OUT '' TODO: { MIDI_SB_OUT, &midi_sb_out, FALSE },
+	#define MIDI_DRIVER_MPU '' TODO: { MIDI_MPU, &midi_mpu401, FALSE },
 
 	declare function load_ibk(byval filename as const zstring ptr, byval drums as long) as long
 #endif
