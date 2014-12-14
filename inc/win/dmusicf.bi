@@ -3,6 +3,10 @@
 #include once "windows.bi"
 #include once "objbase.bi"
 
+'' The following symbols have been renamed:
+''     inside struct _DMUS_IO_CURVE_ITEM:
+''         field bType => bType_
+
 #define __WINE_DMUSIC_FILEFORMATS_H
 #define COM_NO_WINDOWS_H
 
@@ -403,9 +407,9 @@ type _DMUS_IO_SEQ_ITEM field = 8
 	mtDuration as MUSIC_TIME
 	dwPChannel as DWORD
 	nOffset as short
-	bStatus as BYTE_
-	bByte1 as BYTE_
-	bByte2 as BYTE_
+	bStatus as BYTE
+	bByte1 as BYTE
+	bByte2 as BYTE
 end type
 
 type _DMUS_IO_CURVE_ITEM field = 8
@@ -417,10 +421,10 @@ type _DMUS_IO_CURVE_ITEM field = 8
 	nStartValue as short
 	nEndValue as short
 	nResetValue as short
-	bType as BYTE_
-	bCurveShape as BYTE_
-	bCCData as BYTE_
-	bFlags as BYTE_
+	bType_ as BYTE
+	bCurveShape as BYTE
+	bCCData as BYTE
+	bFlags as BYTE
 	wParamType as WORD
 	wMergeIndex as WORD
 end type
@@ -453,8 +457,8 @@ type _DMUS_MUTE_PARAM field = 8
 end type
 
 type _DMUS_IO_TIMESIG field = 2
-	bBeatsPerMeasure as BYTE_
-	bBeat as BYTE_
+	bBeatsPerMeasure as BYTE
+	bBeat as BYTE
 	wGridsPerBeat as WORD
 end type
 
@@ -470,12 +474,12 @@ end type
 
 type _DMUS_IO_PATTERN field = 2
 	timeSig as DMUS_IO_TIMESIG
-	bGrooveBottom as BYTE_
-	bGrooveTop as BYTE_
+	bGrooveBottom as BYTE
+	bGrooveTop as BYTE
 	wEmbellishment as WORD
 	wNbrMeasures as WORD
-	bDestGrooveBottom as BYTE_
-	bDestGrooveTop as BYTE_
+	bDestGrooveBottom as BYTE
+	bDestGrooveTop as BYTE
 	dwFlags as DWORD
 end type
 
@@ -484,20 +488,20 @@ type _DMUS_IO_STYLEPART field = 2
 	dwVariationChoices(0 to 31) as DWORD
 	guidPartID as GUID
 	wNbrMeasures as WORD
-	bPlayModeFlags as BYTE_
-	bInvertUpper as BYTE_
-	bInvertLower as BYTE_
-	bPad(0 to 2) as BYTE_
+	bPlayModeFlags as BYTE
+	bInvertUpper as BYTE
+	bInvertLower as BYTE
+	bPad(0 to 2) as BYTE
 	dwFlags as DWORD
 end type
 
 type _DMUS_IO_PARTREF field = 2
 	guidPartID as GUID
 	wLogicalPartID as WORD
-	bVariationLockID as BYTE_
-	bSubChordLevel as BYTE_
-	bPriority as BYTE_
-	bRandomVariation as BYTE_
+	bVariationLockID as BYTE
+	bSubChordLevel as BYTE
+	bPriority as BYTE
+	bRandomVariation as BYTE
 	wPad as WORD
 	dwPChannel as DWORD
 end type
@@ -508,13 +512,13 @@ type _DMUS_IO_STYLENOTE field = 2
 	mtDuration as MUSIC_TIME
 	nTimeOffset as short
 	wMusicValue as WORD
-	bVelocity as BYTE_
-	bTimeRange as BYTE_
-	bDurRange as BYTE_
-	bVelRange as BYTE_
-	bInversionID as BYTE_
-	bPlayModeFlags as BYTE_
-	bNoteFlags as BYTE_
+	bVelocity as BYTE
+	bTimeRange as BYTE
+	bDurRange as BYTE
+	bVelRange as BYTE
+	bInversionID as BYTE
+	bPlayModeFlags as BYTE
+	bNoteFlags as BYTE
 end type
 
 type _DMUS_IO_STYLECURVE field = 2
@@ -526,10 +530,10 @@ type _DMUS_IO_STYLECURVE field = 2
 	nStartValue as short
 	nEndValue as short
 	nResetValue as short
-	bEventType as BYTE_
-	bCurveShape as BYTE_
-	bCCData as BYTE_
-	bFlags as BYTE_
+	bEventType as BYTE
+	bCurveShape as BYTE
+	bCCData as BYTE
+	bFlags as BYTE
 	wParamType as WORD
 	wMergeIndex as WORD
 end type
@@ -543,15 +547,15 @@ end type
 type _DMUS_IO_STYLERESOLUTION field = 2
 	dwVariation as DWORD
 	wMusicValue as WORD
-	bInversionID as BYTE_
-	bPlayModeFlags as BYTE_
+	bInversionID as BYTE
+	bPlayModeFlags as BYTE
 end type
 
 type _DMUS_IO_STYLE_ANTICIPATION field = 2
 	mtGridStart as MUSIC_TIME
 	dwVariation as DWORD
 	nTimeOffset as short
-	bTimeRange as BYTE_
+	bTimeRange as BYTE
 end type
 
 type _DMUS_IO_MOTIFSETTINGS field = 2
@@ -566,8 +570,8 @@ type _DMUS_IO_CHORD
 	wszName(0 to 15) as WCHAR
 	mtTime as MUSIC_TIME
 	wMeasure as WORD
-	bBeat as BYTE_
-	bFlags as BYTE_
+	bBeat as BYTE
+	bFlags as BYTE
 end type
 
 type _DMUS_IO_SUBCHORD
@@ -575,23 +579,23 @@ type _DMUS_IO_SUBCHORD
 	dwScalePattern as DWORD
 	dwInversionPoints as DWORD
 	dwLevels as DWORD
-	bChordRoot as BYTE_
-	bScaleRoot as BYTE_
+	bChordRoot as BYTE
+	bScaleRoot as BYTE
 end type
 
 type _DMUS_IO_COMMAND
 	mtTime as MUSIC_TIME
 	wMeasure as WORD
-	bBeat as BYTE_
-	bCommand as BYTE_
-	bGrooveLevel as BYTE_
-	bGrooveRange as BYTE_
-	bRepeatMode as BYTE_
+	bBeat as BYTE
+	bCommand as BYTE
+	bGrooveLevel as BYTE
+	bGrooveRange as BYTE
+	bRepeatMode as BYTE
 end type
 
 type _DMUS_IO_TOOL_HEADER
 	guidClassID as GUID
-	lIndex as LONG_
+	lIndex as LONG
 	cPChannels as DWORD
 	ckid as FOURCC
 	fccType as FOURCC
@@ -636,8 +640,8 @@ type _DMUS_IO_INSTRUMENT
 	dwNoteRanges(0 to 3) as DWORD
 	dwPChannel as DWORD
 	dwFlags as DWORD
-	bPan as BYTE_
-	bVolume as BYTE_
+	bPan as BYTE
+	bVolume as BYTE
 	nTranspose as short
 	dwChannelPriority as DWORD
 	nPitchBendRange as short
@@ -649,12 +653,12 @@ type _DMUS_IO_WAVE_HEADER
 end type
 
 type _DMUS_IO_WAVE_TRACK_HEADER
-	lVolume as LONG_
+	lVolume as LONG
 	dwFlags as DWORD
 end type
 
 type _DMUS_IO_WAVE_PART_HEADER
-	lVolume as LONG_
+	lVolume as LONG
 	dwVariations as DWORD
 	dwPChannel as DWORD
 	dwLockToPart as DWORD
@@ -663,8 +667,8 @@ type _DMUS_IO_WAVE_PART_HEADER
 end type
 
 type _DMUS_IO_WAVE_ITEM_HEADER
-	lVolume as LONG_
-	lPitch as LONG_
+	lVolume as LONG
+	lPitch as LONG
 	dwVariations as DWORD
 	rtTime as REFERENCE_TIME
 	rtStartOffset as REFERENCE_TIME
@@ -732,8 +736,8 @@ type _DMUS_IO_CHORDMAP_SUBCHORD
 	dwChordPattern as DWORD
 	dwScalePattern as DWORD
 	dwInvertPattern as DWORD
-	bChordRoot as BYTE_
-	bScaleRoot as BYTE_
+	bChordRoot as BYTE
+	bScaleRoot as BYTE
 	wCFlags as WORD
 	dwLevels as DWORD
 end type
@@ -774,8 +778,8 @@ end type
 
 type _DMUS_IO_TIMESIGNATURE_ITEM
 	lTime as MUSIC_TIME
-	bBeatsPerMeasure as BYTE_
-	bBeat as BYTE_
+	bBeatsPerMeasure as BYTE
+	bBeat as BYTE
 	wGridsPerBeat as WORD
 end type
 
@@ -838,8 +842,8 @@ end type
 type _DSOUND_IO_DSBUFFERDESC
 	dwFlags as DWORD
 	nChannels as WORD
-	lVolume as LONG_
-	lPan as LONG_
+	lVolume as LONG
+	lPan as LONG
 	dwReserved as DWORD
 end type
 

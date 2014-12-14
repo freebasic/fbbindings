@@ -14,8 +14,8 @@
 #define _LPBLOB_DEFINED
 
 type _BLOB
-	cbSize as ULONG_
-	pBlobData as BYTE_ ptr
+	cbSize as ULONG
+	pBlobData as BYTE ptr
 end type
 
 type BLOB as _BLOB
@@ -216,8 +216,8 @@ type _SERVICE_ADDRESS
 	dwAddressFlags as DWORD
 	dwAddressLength as DWORD
 	dwPrincipalLength as DWORD
-	lpAddress as BYTE_ ptr
-	lpPrincipal as BYTE_ ptr
+	lpAddress as BYTE ptr
+	lpPrincipal as BYTE ptr
 end type
 
 type SERVICE_ADDRESS as _SERVICE_ADDRESS

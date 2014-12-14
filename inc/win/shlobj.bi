@@ -56,7 +56,6 @@ type INamedPropertyBagVtbl as INamedPropertyBagVtbl_
 #define _SHLOBJ_H_
 #define _WIN32_IE &h0501
 #define SNDMSG SendMessage
-#define WINSHELLAPI DECLSPEC_IMPORT
 
 declare function SHGetMalloc(byval ppMalloc as IMalloc ptr ptr) as HRESULT
 declare function SHAlloc(byval cb as SIZE_T_) as any ptr
@@ -326,8 +325,8 @@ end type
 
 type INewShortcutHookAVtbl_ field = 1
 	QueryInterface as function(byval This as INewShortcutHookA ptr, byval riid as const IID const ptr, byval ppv as any ptr ptr) as HRESULT
-	AddRef as function(byval This as INewShortcutHookA ptr) as ULONG_
-	Release as function(byval This as INewShortcutHookA ptr) as ULONG_
+	AddRef as function(byval This as INewShortcutHookA ptr) as ULONG
+	Release as function(byval This as INewShortcutHookA ptr) as ULONG
 	SetReferent as function(byval This as INewShortcutHookA ptr, byval pcszReferent as PCSTR, byval hwnd as HWND) as HRESULT
 	GetReferent as function(byval This as INewShortcutHookA ptr, byval pszReferent as PSTR, byval cchReferent as long) as HRESULT
 	SetFolder as function(byval This as INewShortcutHookA ptr, byval pcszFolder as PCSTR) as HRESULT
@@ -342,8 +341,8 @@ end type
 
 type INewShortcutHookWVtbl_ field = 1
 	QueryInterface as function(byval This as INewShortcutHookW ptr, byval riid as const IID const ptr, byval ppv as any ptr ptr) as HRESULT
-	AddRef as function(byval This as INewShortcutHookW ptr) as ULONG_
-	Release as function(byval This as INewShortcutHookW ptr) as ULONG_
+	AddRef as function(byval This as INewShortcutHookW ptr) as ULONG
+	Release as function(byval This as INewShortcutHookW ptr) as ULONG
 	SetReferent as function(byval This as INewShortcutHookW ptr, byval pcszReferent as PCWSTR, byval hwnd as HWND) as HRESULT
 	GetReferent as function(byval This as INewShortcutHookW ptr, byval pszReferent as PWSTR, byval cchReferent as long) as HRESULT
 	SetFolder as function(byval This as INewShortcutHookW ptr, byval pcszFolder as PCWSTR) as HRESULT
@@ -425,12 +424,10 @@ declare function ILCreateFromPathW(byval pszPath as PCWSTR) as LPITEMIDLIST
 
 declare function SHILCreateFromPath(byval pszPath as PCWSTR, byval ppidl as LPITEMIDLIST ptr, byval rgfInOut as DWORD ptr) as HRESULT
 
-#define VOID_OFFSET(pv, cb) cptr(any ptr, cptr(BYTE_ ptr, (pv)) + (cb))
+#define VOID_OFFSET(pv, cb) cptr(any ptr, cptr(BYTE ptr, (pv)) + (cb))
 #define ILCloneFull ILClone
 #define ILCloneChild ILCloneFirst
-
-'' TODO: #define ILSkip(P, C) ((PUIDLIST_RELATIVE)VOID_OFFSET ((P),(C)))
-
+#define ILSkip(P, C) '' TODO: ((PUIDLIST_RELATIVE)VOID_OFFSET ((P),(C)))
 #define ILNext(P) ILSkip(P, (P)->mkid.cb)
 #define ILIsAligned(P) ((cast(DWORD_PTR, (P)) and (sizeof(any ptr) - 1)) = 0)
 #define ILIsEmpty(P) (((P) = 0) orelse ((P)->mkid.cb = 0))
@@ -449,8 +446,7 @@ declare function SHCreateDirectoryExW(byval hwnd as HWND, byval pszPath as LPCWS
 declare function SHOpenFolderAndSelectItems(byval pidlFolder as LPCITEMIDLIST, byval cidl as UINT, byval apidl as LPCITEMIDLIST ptr, byval dwFlags as DWORD) as HRESULT
 declare function SHCreateShellItem(byval pidlParent as LPCITEMIDLIST, byval psfParent as IShellFolder ptr, byval pidl as LPCITEMIDLIST, byval ppsi as IShellItem ptr ptr) as HRESULT
 
-'' TODO: #define REGSTR_PATH_SPECIAL_FOLDERS REGSTR_PATH_EXPLORER TEXT ("\\Shell Folders")
-
+#define REGSTR_PATH_SPECIAL_FOLDERS '' TODO: REGSTR_PATH_EXPLORER TEXT ("\\Shell Folders")
 #define CSIDL_DESKTOP &h0000
 #define CSIDL_INTERNET &h0001
 #define CSIDL_PROGRAMS &h0002
@@ -770,11 +766,11 @@ end type
 
 type IEnumShellImageStoreVtbl_ field = 1
 	QueryInterface as function(byval This as IEnumShellImageStore ptr, byval riid as const IID const ptr, byval ppv as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IEnumShellImageStore ptr) as ULONG_
-	Release as function(byval This as IEnumShellImageStore ptr) as ULONG_
+	AddRef as function(byval This as IEnumShellImageStore ptr) as ULONG
+	Release as function(byval This as IEnumShellImageStore ptr) as ULONG
 	Reset as function(byval This as IEnumShellImageStore ptr) as HRESULT
-	Next as function(byval This as IEnumShellImageStore ptr, byval celt as ULONG_, byval prgElt as PENUMSHELLIMAGESTOREDATA ptr, byval pceltFetched as ULONG_ ptr) as HRESULT
-	Skip as function(byval This as IEnumShellImageStore ptr, byval celt as ULONG_) as HRESULT
+	Next as function(byval This as IEnumShellImageStore ptr, byval celt as ULONG, byval prgElt as PENUMSHELLIMAGESTOREDATA ptr, byval pceltFetched as ULONG ptr) as HRESULT
+	Skip as function(byval This as IEnumShellImageStore ptr, byval celt as ULONG) as HRESULT
 	Clone as function(byval This as IEnumShellImageStore ptr, byval ppEnum as IEnumShellImageStore ptr ptr) as HRESULT
 end type
 
@@ -789,8 +785,8 @@ end type
 
 type IShellImageStoreVtbl_ field = 1
 	QueryInterface as function(byval This as IShellImageStore ptr, byval riid as const IID const ptr, byval ppv as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IShellImageStore ptr) as ULONG_
-	Release as function(byval This as IShellImageStore ptr) as ULONG_
+	AddRef as function(byval This as IShellImageStore ptr) as ULONG
+	Release as function(byval This as IShellImageStore ptr) as ULONG
 	Open as function(byval This as IShellImageStore ptr, byval dwMode as DWORD, byval pdwLock as DWORD ptr) as HRESULT
 	Create as function(byval This as IShellImageStore ptr, byval dwMode as DWORD, byval pdwLock as DWORD ptr) as HRESULT
 	ReleaseLock as function(byval This as IShellImageStore ptr, byval pdwLock as const DWORD ptr) as HRESULT
@@ -898,8 +894,8 @@ type LPSHCOLUMNINFO as SHCOLUMNINFO ptr
 type LPCSHCOLUMNINFO as const SHCOLUMNINFO ptr
 
 type SHCOLUMNINIT field = 8
-	dwFlags as ULONG_
-	dwReserved as ULONG_
+	dwFlags as ULONG
+	dwReserved as ULONG
 	wszFolder(0 to 259) as WCHAR
 end type
 
@@ -909,9 +905,9 @@ type LPCSHCOLUMNINIT as const SHCOLUMNINIT ptr
 #define SHCDF_UPDATEITEM &h00000001
 
 type SHCOLUMNDATA field = 8
-	dwFlags as ULONG_
+	dwFlags as ULONG
 	dwFileAttributes as DWORD
-	dwReserved as ULONG_
+	dwReserved as ULONG
 	pwszExt as WCHAR ptr
 	wszFile(0 to 259) as WCHAR
 end type
@@ -925,42 +921,42 @@ end type
 
 type IColumnProviderVtbl_ field = 1
 	QueryInterface as function(byval This as IColumnProvider ptr, byval riid as const IID const ptr, byval ppv as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IColumnProvider ptr) as ULONG_
-	Release as function(byval This as IColumnProvider ptr) as ULONG_
+	AddRef as function(byval This as IColumnProvider ptr) as ULONG
+	Release as function(byval This as IColumnProvider ptr) as ULONG
 	Initialize as function(byval This as IColumnProvider ptr, byval psci as LPCSHCOLUMNINIT) as HRESULT
 	GetColumnInfo as function(byval This as IColumnProvider ptr, byval dwIndex as DWORD, byval psci as SHCOLUMNINFO ptr) as HRESULT
 	GetItemData as function(byval This as IColumnProvider ptr, byval pscid as LPCSHCOLUMNID, byval pscd as LPCSHCOLUMNDATA, byval pvarData as VARIANT ptr) as HRESULT
 end type
 
-#define CFSTR_SHELLIDLIST TEXT_("Shell IDList Array")
-#define CFSTR_SHELLIDLISTOFFSET TEXT_("Shell Object Offsets")
-#define CFSTR_NETRESOURCES TEXT_("Net Resource")
-#define CFSTR_FILEDESCRIPTORA TEXT_("FileGroupDescriptor")
-#define CFSTR_FILEDESCRIPTORW TEXT_("FileGroupDescriptorW")
-#define CFSTR_FILECONTENTS TEXT_("FileContents")
-#define CFSTR_FILENAMEA TEXT_("FileName")
-#define CFSTR_FILENAMEW TEXT_("FileNameW")
-#define CFSTR_PRINTERGROUP TEXT_("PrinterFriendlyName")
-#define CFSTR_FILENAMEMAPA TEXT_("FileNameMap")
-#define CFSTR_FILENAMEMAPW TEXT_("FileNameMapW")
-#define CFSTR_SHELLURL TEXT_("UniformResourceLocator")
+#define CFSTR_SHELLIDLIST TEXT("Shell IDList Array")
+#define CFSTR_SHELLIDLISTOFFSET TEXT("Shell Object Offsets")
+#define CFSTR_NETRESOURCES TEXT("Net Resource")
+#define CFSTR_FILEDESCRIPTORA TEXT("FileGroupDescriptor")
+#define CFSTR_FILEDESCRIPTORW TEXT("FileGroupDescriptorW")
+#define CFSTR_FILECONTENTS TEXT("FileContents")
+#define CFSTR_FILENAMEA TEXT("FileName")
+#define CFSTR_FILENAMEW TEXT("FileNameW")
+#define CFSTR_PRINTERGROUP TEXT("PrinterFriendlyName")
+#define CFSTR_FILENAMEMAPA TEXT("FileNameMap")
+#define CFSTR_FILENAMEMAPW TEXT("FileNameMapW")
+#define CFSTR_SHELLURL TEXT("UniformResourceLocator")
 #define CFSTR_INETURLA CFSTR_SHELLURL
-#define CFSTR_INETURLW TEXT_("UniformResourceLocatorW")
-#define CFSTR_PREFERREDDROPEFFECT TEXT_("Preferred DropEffect")
-#define CFSTR_PERFORMEDDROPEFFECT TEXT_("Performed DropEffect")
-#define CFSTR_PASTESUCCEEDED TEXT_("Paste Succeeded")
-#define CFSTR_INDRAGLOOP TEXT_("InShellDragLoop")
-#define CFSTR_MOUNTEDVOLUME TEXT_("MountedVolume")
-#define CFSTR_PERSISTEDDATAOBJECT TEXT_("PersistedDataObject")
-#define CFSTR_TARGETCLSID TEXT_("TargetCLSID")
-#define CFSTR_LOGICALPERFORMEDDROPEFFECT TEXT_("Logical Performed DropEffect")
-#define CFSTR_AUTOPLAY_SHELLIDLISTS TEXT_("Autoplay Enumerated IDList Array")
-#define CFSTR_UNTRUSTEDDRAGDROP TEXT_("UntrustedDragDrop")
-#define CFSTR_FILE_ATTRIBUTES_ARRAY TEXT_("File Attributes Array")
-#define CFSTR_INVOKECOMMAND_DROPPARAM TEXT_("InvokeCommand DropParam")
-#define CFSTR_SHELLDROPHANDLER TEXT_("DropHandlerCLSID")
-#define CFSTR_DROPDESCRIPTION TEXT_("DropDescription")
-#define CFSTR_ZONEIDENTIFIER TEXT_("ZoneIdentifier")
+#define CFSTR_INETURLW TEXT("UniformResourceLocatorW")
+#define CFSTR_PREFERREDDROPEFFECT TEXT("Preferred DropEffect")
+#define CFSTR_PERFORMEDDROPEFFECT TEXT("Performed DropEffect")
+#define CFSTR_PASTESUCCEEDED TEXT("Paste Succeeded")
+#define CFSTR_INDRAGLOOP TEXT("InShellDragLoop")
+#define CFSTR_MOUNTEDVOLUME TEXT("MountedVolume")
+#define CFSTR_PERSISTEDDATAOBJECT TEXT("PersistedDataObject")
+#define CFSTR_TARGETCLSID TEXT("TargetCLSID")
+#define CFSTR_LOGICALPERFORMEDDROPEFFECT TEXT("Logical Performed DropEffect")
+#define CFSTR_AUTOPLAY_SHELLIDLISTS TEXT("Autoplay Enumerated IDList Array")
+#define CFSTR_UNTRUSTEDDRAGDROP TEXT("UntrustedDragDrop")
+#define CFSTR_FILE_ATTRIBUTES_ARRAY TEXT("File Attributes Array")
+#define CFSTR_INVOKECOMMAND_DROPPARAM TEXT("InvokeCommand DropParam")
+#define CFSTR_SHELLDROPHANDLER TEXT("DropHandlerCLSID")
+#define CFSTR_DROPDESCRIPTION TEXT("DropDescription")
+#define CFSTR_ZONEIDENTIFIER TEXT("ZoneIdentifier")
 #define CFSTR_FILEDESCRIPTOR __MINGW_NAME_AW(CFSTR_FILEDESCRIPTOR)
 #define CFSTR_FILENAME __MINGW_NAME_AW(CFSTR_FILENAME)
 #define CFSTR_FILENAMEMAP __MINGW_NAME_AW(CFSTR_FILENAMEMAP)
@@ -1116,14 +1112,14 @@ type SHChangeNotifyEntry as _SHChangeNotifyEntry
 #define SHCNF_PATH __MINGW_NAME_AW(SHCNF_PATH)
 #define SHCNF_PRINTER __MINGW_NAME_AW(SHCNF_PRINTER)
 
-declare sub SHChangeNotify(byval wEventId as LONG_, byval uFlags as UINT, byval dwItem1 as LPCVOID, byval dwItem2 as LPCVOID)
+declare sub SHChangeNotify(byval wEventId as LONG, byval uFlags as UINT, byval dwItem1 as LPCVOID, byval dwItem2 as LPCVOID)
 
 type IShellChangeNotify field = 1
 	lpVtbl as IShellChangeNotifyVtbl ptr
 end type
 
 type IShellChangeNotifyVtbl_ field = 1
-	OnChange as function(byval This as IShellChangeNotify ptr, byval lEvent as LONG_, byval pidl1 as LPCITEMIDLIST, byval pidl2 as LPCITEMIDLIST) as HRESULT
+	OnChange as function(byval This as IShellChangeNotify ptr, byval lEvent as LONG, byval pidl1 as LPCITEMIDLIST, byval pidl2 as LPCITEMIDLIST) as HRESULT
 end type
 
 type IQueryInfo field = 1
@@ -1155,23 +1151,23 @@ end enum
 declare sub SHAddToRecentDocs(byval uFlags as UINT, byval pv as LPCVOID)
 
 type _SHChangeDWORDAsIDList field = 1
-	cb as USHORT_
+	cb as USHORT
 	dwItem1 as DWORD
 	dwItem2 as DWORD
-	cbZero as USHORT_
+	cbZero as USHORT
 end type
 
 type SHChangeDWORDAsIDList as _SHChangeDWORDAsIDList
 type LPSHChangeDWORDAsIDList as _SHChangeDWORDAsIDList ptr
 
 type _SHChangeUpdateImageIDList field = 1
-	cb as USHORT_
+	cb as USHORT
 	iIconIndex as long
 	iCurIndex as long
 	uFlags as UINT
 	dwProcessID as DWORD
 	szName(0 to 259) as WCHAR
-	cbZero as USHORT_
+	cbZero as USHORT
 end type
 
 type SHChangeUpdateImageIDList as _SHChangeUpdateImageIDList
@@ -1180,9 +1176,9 @@ type LPSHChangeUpdateImageIDList as _SHChangeUpdateImageIDList ptr
 declare function SHHandleUpdateImage(byval pidlExtra as LPCITEMIDLIST) as long
 
 type _SHChangeProductKeyAsIDList field = 1
-	cb as USHORT_
+	cb as USHORT
 	wszProductKey(0 to 38) as WCHAR
-	cbZero as USHORT_
+	cbZero as USHORT
 end type
 
 type SHChangeProductKeyAsIDList as _SHChangeProductKeyAsIDList
@@ -1193,8 +1189,8 @@ declare sub SHUpdateImageW(byval pszHashItem as LPCWSTR, byval iIndex as long, b
 
 #define SHUpdateImage __MINGW_NAME_AW(SHUpdateImage)
 
-declare function SHChangeNotifyRegister(byval hwnd as HWND, byval fSources as long, byval fEvents as LONG_, byval wMsg as UINT, byval cEntries as long, byval pshcne as const SHChangeNotifyEntry ptr) as ULONG_
-declare function SHChangeNotifyDeregister(byval ulID as ULONG_) as WINBOOL
+declare function SHChangeNotifyRegister(byval hwnd as HWND, byval fSources as long, byval fEvents as LONG, byval wMsg as UINT, byval cEntries as long, byval pshcne as const SHChangeNotifyEntry ptr) as ULONG
+declare function SHChangeNotifyDeregister(byval ulID as ULONG) as WINBOOL
 
 type SCNRT_STATUS as long
 enum
@@ -1202,7 +1198,7 @@ enum
 	SCNRT_DISABLE = 1
 end enum
 
-declare function SHChangeNotification_Lock(byval hChange as HANDLE, byval dwProcId as DWORD, byval pppidl as LPITEMIDLIST ptr ptr, byval plEvent as LONG_ ptr) as HANDLE
+declare function SHChangeNotification_Lock(byval hChange as HANDLE, byval dwProcId as DWORD, byval pppidl as LPITEMIDLIST ptr ptr, byval plEvent as LONG ptr) as HANDLE
 declare function SHChangeNotification_Unlock(byval hLock as HANDLE) as WINBOOL
 declare function SHGetRealIDL(byval psf as IShellFolder ptr, byval pidlSimple as LPCITEMIDLIST, byval ppidlReal as LPITEMIDLIST ptr) as HRESULT
 declare function SHGetInstanceExplorer(byval ppunk as IUnknown ptr ptr) as HRESULT
@@ -1320,7 +1316,7 @@ declare function IsNetDrive(byval iDrive as long) as long
 #define MM_SUBMENUSHAVEIDS __MSABI_LONG(&h00000002)
 #define MM_DONTREMOVESEPS __MSABI_LONG(&h00000004)
 
-declare function Shell_MergeMenus(byval hmDst as HMENU, byval hmSrc as HMENU, byval uInsert as UINT, byval uIDAdjust as UINT, byval uIDAdjustMax as UINT, byval uFlags as ULONG_) as UINT
+declare function Shell_MergeMenus(byval hmDst as HMENU, byval hmSrc as HMENU, byval uInsert as UINT, byval uIDAdjust as UINT, byval uIDAdjustMax as UINT, byval uFlags as ULONG) as UINT
 declare function SHObjectProperties(byval hwnd as HWND, byval shopObjectType as DWORD, byval pszObjectName as PCWSTR, byval pszPropertyPage as PCWSTR) as WINBOOL
 
 #define SHOP_PRINTERNAME &h00000001
@@ -1543,7 +1539,7 @@ declare function Win32DeleteFile(byval pszPath as PCWSTR) as WINBOOL
 #define PPCF_FORCEQUALIFY &h00000040
 #define PPCF_LONGESTPOSSIBLE &h00000080
 
-declare function PathProcessCommand(byval pszSrc as PCWSTR, byval pszDest as PWSTR, byval cchDest as long, byval dwFlags as DWORD) as LONG_
+declare function PathProcessCommand(byval pszSrc as PCWSTR, byval pszDest as PWSTR, byval cchDest as long, byval dwFlags as DWORD) as LONG
 declare function SHRestricted(byval rest as RESTRICTIONS) as DWORD
 declare function SignalFileOpen(byval pidl as LPCITEMIDLIST) as WINBOOL
 declare function SHLoadOLE(byval lParam as LPARAM) as HRESULT
@@ -1903,7 +1899,7 @@ type _CSFV field = 8
 	pshf as IShellFolder ptr
 	psvOuter as IShellView ptr
 	pidl as LPCITEMIDLIST
-	lEvents as LONG_
+	lEvents as LONG
 	pfnCallback as LPFNVIEWCALLBACK
 	fvm as FOLDERVIEWMODE
 end type
@@ -2009,7 +2005,7 @@ type SHELLSTATEA field = 1
 	fNoNetCrawling : 1 as WINBOOL
 	dwWin95Unused as DWORD
 	uWin95Unused as UINT
-	lParamSort as LONG_
+	lParamSort as LONG
 	iSortDirection as long
 	version as UINT
 	uNotUsed as UINT
@@ -2045,7 +2041,7 @@ type SHELLSTATEW field = 1
 	fNoNetCrawling : 1 as WINBOOL
 	dwWin95Unused as DWORD
 	uWin95Unused as UINT
-	lParamSort as LONG_
+	lParamSort as LONG
 	iSortDirection as long
 	version as UINT
 	uNotUsed as UINT
@@ -2154,8 +2150,8 @@ end type
 
 declare function SoftwareUpdateMessageBox(byval hWnd as HWND, byval pszDistUnit as PCWSTR, byval dwFlags as DWORD, byval psdi as LPSOFTDISTINFO) as DWORD
 declare function SHPropStgCreate(byval psstg as IPropertySetStorage ptr, byval fmtid as const IID const ptr, byval pclsid as const CLSID ptr, byval grfFlags as DWORD, byval grfMode as DWORD, byval dwDisposition as DWORD, byval ppstg as IPropertyStorage ptr ptr, byval puCodePage as UINT ptr) as HRESULT
-declare function SHPropStgReadMultiple(byval pps as IPropertyStorage ptr, byval uCodePage as UINT, byval cpspec as ULONG_, byval rgpspec as const PROPSPEC ptr, byval rgvar as PROPVARIANT ptr) as HRESULT
-declare function SHPropStgWriteMultiple(byval pps as IPropertyStorage ptr, byval puCodePage as UINT ptr, byval cpspec as ULONG_, byval rgpspec as const PROPSPEC ptr, byval rgvar as PROPVARIANT ptr, byval propidNameFirst as PROPID) as HRESULT
+declare function SHPropStgReadMultiple(byval pps as IPropertyStorage ptr, byval uCodePage as UINT, byval cpspec as ULONG, byval rgpspec as const PROPSPEC ptr, byval rgvar as PROPVARIANT ptr) as HRESULT
+declare function SHPropStgWriteMultiple(byval pps as IPropertyStorage ptr, byval puCodePage as UINT ptr, byval cpspec as ULONG, byval rgpspec as const PROPSPEC ptr, byval rgvar as PROPVARIANT ptr, byval propidNameFirst as PROPID) as HRESULT
 declare function SHCreateFileExtractIconA(byval pszFile as LPCSTR, byval dwFileAttributes as DWORD, byval riid as const IID const ptr, byval ppv as any ptr ptr) as HRESULT
 declare function SHCreateFileExtractIconW(byval pszFile as LPCWSTR, byval dwFileAttributes as DWORD, byval riid as const IID const ptr, byval ppv as any ptr ptr) as HRESULT
 
@@ -2172,8 +2168,8 @@ declare function SHRunControlPanel(byval lpcszCmdLine as PCWSTR, byval hwndMsgPa
 declare function PickIconDlg(byval hwnd as HWND, byval pszIconPath as PWSTR, byval cchIconPath as UINT, byval piIconIndex as long ptr) as long
 
 type tagAAMENUFILENAME field = 8
-	cbTotal as SHORT_
-	rgbReserved(0 to 11) as BYTE_
+	cbTotal as SHORT
+	rgbReserved(0 to 11) as BYTE
 	szFileName(0 to 0) as WCHAR
 end type
 

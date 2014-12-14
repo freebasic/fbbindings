@@ -9,11 +9,18 @@
 '' The following symbols have been renamed:
 ''     #define OleUIInsertObject => OleUIInsertObject_
 ''     #define OleUIPasteSpecial => OleUIPasteSpecial_
-''     #define LPOLEUILINKCONTAINER => LPOLEUILINKCONTAINER_
+''     inside struct tagOLEUIEDITLINKSW:
+''         field lpOleUILinkContainer => lpOleUILinkContainer_
+''     inside struct tagOLEUIEDITLINKSA:
+''         field lpOleUILinkContainer => lpOleUILinkContainer_
 ''     #define OleUIEditLinks => OleUIEditLinks_
 ''     #define OleUIChangeIcon => OleUIChangeIcon_
 ''     #define OleUIConvert => OleUIConvert_
 ''     #define OleUIBusy => OleUIBusy_
+''     inside struct tagOLEUICHANGESOURCEW:
+''         field lpOleUILinkContainer => lpOleUILinkContainer_
+''     inside struct tagOLEUICHANGESOURCEA:
+''         field lpOleUILinkContainer => lpOleUILinkContainer_
 ''     #define OleUIChangeSource => OleUIChangeSource_
 
 #ifdef __FB_64BIT__
@@ -169,16 +176,16 @@ type tagOLEUIOBJECTPROPSA as tagOLEUIOBJECTPROPSA_
 
 type LPFNOLEUIHOOK as function(byval as HWND, byval as UINT, byval as WPARAM, byval as LPARAM) as UINT
 
-#define OLESTDDELIM TEXT_(!"\\")
-#define SZOLEUI_MSG_HELP TEXT_("OLEUI_MSG_HELP")
-#define SZOLEUI_MSG_ENDDIALOG TEXT_("OLEUI_MSG_ENDDIALOG")
-#define SZOLEUI_MSG_BROWSE TEXT_("OLEUI_MSG_BROWSE")
-#define SZOLEUI_MSG_CHANGEICON TEXT_("OLEUI_MSG_CHANGEICON")
-#define SZOLEUI_MSG_CLOSEBUSYDIALOG TEXT_("OLEUI_MSG_CLOSEBUSYDIALOG")
-#define SZOLEUI_MSG_CONVERT TEXT_("OLEUI_MSG_CONVERT")
-#define SZOLEUI_MSG_CHANGESOURCE TEXT_("OLEUI_MSG_CHANGESOURCE")
-#define SZOLEUI_MSG_ADDCONTROL TEXT_("OLEUI_MSG_ADDCONTROL")
-#define SZOLEUI_MSG_BROWSE_OFN TEXT_("OLEUI_MSG_BROWSE_OFN")
+#define OLESTDDELIM TEXT(!"\\")
+#define SZOLEUI_MSG_HELP TEXT("OLEUI_MSG_HELP")
+#define SZOLEUI_MSG_ENDDIALOG TEXT("OLEUI_MSG_ENDDIALOG")
+#define SZOLEUI_MSG_BROWSE TEXT("OLEUI_MSG_BROWSE")
+#define SZOLEUI_MSG_CHANGEICON TEXT("OLEUI_MSG_CHANGEICON")
+#define SZOLEUI_MSG_CLOSEBUSYDIALOG TEXT("OLEUI_MSG_CLOSEBUSYDIALOG")
+#define SZOLEUI_MSG_CONVERT TEXT("OLEUI_MSG_CONVERT")
+#define SZOLEUI_MSG_CHANGESOURCE TEXT("OLEUI_MSG_CHANGESOURCE")
+#define SZOLEUI_MSG_ADDCONTROL TEXT("OLEUI_MSG_ADDCONTROL")
+#define SZOLEUI_MSG_BROWSE_OFN TEXT("OLEUI_MSG_BROWSE_OFN")
 #define ID_BROWSE_CHANGEICON 1
 #define ID_BROWSE_INSERTFILE 2
 #define ID_BROWSE_ADDCONTROL 3
@@ -433,13 +440,13 @@ end type
 
 type IOleUILinkContainerWVtbl_ field = 8
 	QueryInterface as function(byval This as IOleUILinkContainerW ptr, byval riid as const IID const ptr, byval ppvObj as LPVOID ptr) as HRESULT
-	AddRef as function(byval This as IOleUILinkContainerW ptr) as ULONG_
-	Release as function(byval This as IOleUILinkContainerW ptr) as ULONG_
+	AddRef as function(byval This as IOleUILinkContainerW ptr) as ULONG
+	Release as function(byval This as IOleUILinkContainerW ptr) as ULONG
 	GetNextLink as function(byval This as IOleUILinkContainerW ptr, byval dwLink as DWORD) as DWORD
 	SetLinkUpdateOptions as function(byval This as IOleUILinkContainerW ptr, byval dwLink as DWORD, byval dwUpdateOpt as DWORD) as HRESULT
 	GetLinkUpdateOptions as function(byval This as IOleUILinkContainerW ptr, byval dwLink as DWORD, byval lpdwUpdateOpt as DWORD ptr) as HRESULT
-	SetLinkSource as function(byval This as IOleUILinkContainerW ptr, byval dwLink as DWORD, byval lpszDisplayName as LPWSTR, byval lenFileName as ULONG_, byval pchEaten as ULONG_ ptr, byval fValidateSource as WINBOOL) as HRESULT
-	GetLinkSource as function(byval This as IOleUILinkContainerW ptr, byval dwLink as DWORD, byval lplpszDisplayName as LPWSTR ptr, byval lplenFileName as ULONG_ ptr, byval lplpszFullLinkType as LPWSTR ptr, byval lplpszShortLinkType as LPWSTR ptr, byval lpfSourceAvailable as WINBOOL ptr, byval lpfIsSelected as WINBOOL ptr) as HRESULT
+	SetLinkSource as function(byval This as IOleUILinkContainerW ptr, byval dwLink as DWORD, byval lpszDisplayName as LPWSTR, byval lenFileName as ULONG, byval pchEaten as ULONG ptr, byval fValidateSource as WINBOOL) as HRESULT
+	GetLinkSource as function(byval This as IOleUILinkContainerW ptr, byval dwLink as DWORD, byval lplpszDisplayName as LPWSTR ptr, byval lplenFileName as ULONG ptr, byval lplpszFullLinkType as LPWSTR ptr, byval lplpszShortLinkType as LPWSTR ptr, byval lpfSourceAvailable as WINBOOL ptr, byval lpfIsSelected as WINBOOL ptr) as HRESULT
 	OpenLinkSource as function(byval This as IOleUILinkContainerW ptr, byval dwLink as DWORD) as HRESULT
 	UpdateLink as function(byval This as IOleUILinkContainerW ptr, byval dwLink as DWORD, byval fErrorMessage as WINBOOL, byval fReserved as WINBOOL) as HRESULT
 	CancelLink as function(byval This as IOleUILinkContainerW ptr, byval dwLink as DWORD) as HRESULT
@@ -453,13 +460,13 @@ end type
 
 type IOleUILinkContainerAVtbl_ field = 8
 	QueryInterface as function(byval This as IOleUILinkContainerA ptr, byval riid as const IID const ptr, byval ppvObj as LPVOID ptr) as HRESULT
-	AddRef as function(byval This as IOleUILinkContainerA ptr) as ULONG_
-	Release as function(byval This as IOleUILinkContainerA ptr) as ULONG_
+	AddRef as function(byval This as IOleUILinkContainerA ptr) as ULONG
+	Release as function(byval This as IOleUILinkContainerA ptr) as ULONG
 	GetNextLink as function(byval This as IOleUILinkContainerA ptr, byval dwLink as DWORD) as DWORD
 	SetLinkUpdateOptions as function(byval This as IOleUILinkContainerA ptr, byval dwLink as DWORD, byval dwUpdateOpt as DWORD) as HRESULT
 	GetLinkUpdateOptions as function(byval This as IOleUILinkContainerA ptr, byval dwLink as DWORD, byval lpdwUpdateOpt as DWORD ptr) as HRESULT
-	SetLinkSource as function(byval This as IOleUILinkContainerA ptr, byval dwLink as DWORD, byval lpszDisplayName as LPSTR, byval lenFileName as ULONG_, byval pchEaten as ULONG_ ptr, byval fValidateSource as WINBOOL) as HRESULT
-	GetLinkSource as function(byval This as IOleUILinkContainerA ptr, byval dwLink as DWORD, byval lplpszDisplayName as LPSTR ptr, byval lplenFileName as ULONG_ ptr, byval lplpszFullLinkType as LPSTR ptr, byval lplpszShortLinkType as LPSTR ptr, byval lpfSourceAvailable as WINBOOL ptr, byval lpfIsSelected as WINBOOL ptr) as HRESULT
+	SetLinkSource as function(byval This as IOleUILinkContainerA ptr, byval dwLink as DWORD, byval lpszDisplayName as LPSTR, byval lenFileName as ULONG, byval pchEaten as ULONG ptr, byval fValidateSource as WINBOOL) as HRESULT
+	GetLinkSource as function(byval This as IOleUILinkContainerA ptr, byval dwLink as DWORD, byval lplpszDisplayName as LPSTR ptr, byval lplenFileName as ULONG ptr, byval lplpszFullLinkType as LPSTR ptr, byval lplpszShortLinkType as LPSTR ptr, byval lpfSourceAvailable as WINBOOL ptr, byval lpfIsSelected as WINBOOL ptr) as HRESULT
 	OpenLinkSource as function(byval This as IOleUILinkContainerA ptr, byval dwLink as DWORD) as HRESULT
 	UpdateLink as function(byval This as IOleUILinkContainerA ptr, byval dwLink as DWORD, byval fErrorMessage as WINBOOL, byval fReserved as WINBOOL) as HRESULT
 	CancelLink as function(byval This as IOleUILinkContainerA ptr, byval dwLink as DWORD) as HRESULT
@@ -468,7 +475,7 @@ end type
 type LPOLEUILINKCONTAINERA as IOleUILinkContainerA ptr
 
 #define IOleUILinkContainer __MINGW_NAME_AW(IOleUILinkContainer)
-#define LPOLEUILINKCONTAINER_ __MINGW_NAME_AW(LPOLEUILINKCONTAINER)
+#define LPOLEUILINKCONTAINER __MINGW_NAME_AW(LPOLEUILINKCONTAINER)
 #define IOleUILinkContainerVtbl __MINGW_NAME_AW_EXT(IOleUILinkContainer, Vtbl)
 
 type tagOLEUIEDITLINKSW field = 8
@@ -481,7 +488,7 @@ type tagOLEUIEDITLINKSW field = 8
 	hInstance as HINSTANCE
 	lpszTemplate as LPCWSTR
 	hResource as HRSRC
-	lpOleUILinkContainer as LPOLEUILINKCONTAINERW
+	lpOleUILinkContainer_ as LPOLEUILINKCONTAINERW
 end type
 
 type OLEUIEDITLINKSW as tagOLEUIEDITLINKSW
@@ -498,7 +505,7 @@ type tagOLEUIEDITLINKSA field = 8
 	hInstance as HINSTANCE
 	lpszTemplate as LPCSTR
 	hResource as HRSRC
-	lpOleUILinkContainer as LPOLEUILINKCONTAINERA
+	lpOleUILinkContainer_ as LPOLEUILINKCONTAINERA
 end type
 
 type OLEUIEDITLINKSA as tagOLEUIEDITLINKSA
@@ -578,7 +585,7 @@ declare function OleUIChangeIconA(byval as LPOLEUICHANGEICONA) as UINT
 #define OLEUI_CIERR_MUSTHAVECLSID (OLEUI_ERR_STANDARDMAX + 0)
 #define OLEUI_CIERR_MUSTHAVECURRENTMETAFILE (OLEUI_ERR_STANDARDMAX + 1)
 #define OLEUI_CIERR_SZICONEXEINVALID (OLEUI_ERR_STANDARDMAX + 2)
-#define PROP_HWND_CHGICONDLG TEXT_("HWND_CIDLG")
+#define PROP_HWND_CHGICONDLG TEXT("HWND_CIDLG")
 
 type tagOLEUICONVERTW field = 8
 	cbStruct as DWORD
@@ -729,10 +736,10 @@ type tagOLEUICHANGESOURCEW field = 8
 	hResource as HRSRC
 	lpOFN as OPENFILENAMEW ptr
 	dwReserved1(0 to 3) as DWORD
-	lpOleUILinkContainer as LPOLEUILINKCONTAINERW
+	lpOleUILinkContainer_ as LPOLEUILINKCONTAINERW
 	dwLink as DWORD
 	lpszDisplayName as LPWSTR
-	nFileLength as ULONG_
+	nFileLength as ULONG
 	lpszFrom as LPWSTR
 	lpszTo as LPWSTR
 end type
@@ -753,10 +760,10 @@ type tagOLEUICHANGESOURCEA field = 8
 	hResource as HRSRC
 	lpOFN as OPENFILENAMEA ptr
 	dwReserved1(0 to 3) as DWORD
-	lpOleUILinkContainer as LPOLEUILINKCONTAINERA
+	lpOleUILinkContainer_ as LPOLEUILINKCONTAINERA
 	dwLink as DWORD
 	lpszDisplayName as LPSTR
-	nFileLength as ULONG_
+	nFileLength as ULONG
 	lpszFrom as LPSTR
 	lpszTo as LPSTR
 end type
@@ -792,8 +799,8 @@ end type
 
 type IOleUIObjInfoWVtbl_ field = 8
 	QueryInterface as function(byval This as IOleUIObjInfoW ptr, byval riid as const IID const ptr, byval ppvObj as LPVOID ptr) as HRESULT
-	AddRef as function(byval This as IOleUIObjInfoW ptr) as ULONG_
-	Release as function(byval This as IOleUIObjInfoW ptr) as ULONG_
+	AddRef as function(byval This as IOleUIObjInfoW ptr) as ULONG
+	Release as function(byval This as IOleUIObjInfoW ptr) as ULONG
 	GetObjectInfo as function(byval This as IOleUIObjInfoW ptr, byval dwObject as DWORD, byval lpdwObjSize as DWORD ptr, byval lplpszLabel as LPWSTR ptr, byval lplpszType as LPWSTR ptr, byval lplpszShortType as LPWSTR ptr, byval lplpszLocation as LPWSTR ptr) as HRESULT
 	GetConvertInfo as function(byval This as IOleUIObjInfoW ptr, byval dwObject as DWORD, byval lpClassID as CLSID ptr, byval lpwFormat as WORD ptr, byval lpConvertDefaultClassID as CLSID ptr, byval lplpClsidExclude as LPCLSID ptr, byval lpcClsidExclude as UINT ptr) as HRESULT
 	ConvertObject as function(byval This as IOleUIObjInfoW ptr, byval dwObject as DWORD, byval clsidNew as const IID const ptr) as HRESULT
@@ -809,8 +816,8 @@ end type
 
 type IOleUIObjInfoAVtbl_ field = 8
 	QueryInterface as function(byval This as IOleUIObjInfoA ptr, byval riid as const IID const ptr, byval ppvObj as LPVOID ptr) as HRESULT
-	AddRef as function(byval This as IOleUIObjInfoA ptr) as ULONG_
-	Release as function(byval This as IOleUIObjInfoA ptr) as ULONG_
+	AddRef as function(byval This as IOleUIObjInfoA ptr) as ULONG
+	Release as function(byval This as IOleUIObjInfoA ptr) as ULONG
 	GetObjectInfo as function(byval This as IOleUIObjInfoA ptr, byval dwObject as DWORD, byval lpdwObjSize as DWORD ptr, byval lplpszLabel as LPSTR ptr, byval lplpszType as LPSTR ptr, byval lplpszShortType as LPSTR ptr, byval lplpszLocation as LPSTR ptr) as HRESULT
 	GetConvertInfo as function(byval This as IOleUIObjInfoA ptr, byval dwObject as DWORD, byval lpClassID as CLSID ptr, byval lpwFormat as WORD ptr, byval lpConvertDefaultClassID as CLSID ptr, byval lplpClsidExclude as LPCLSID ptr, byval lpcClsidExclude as UINT ptr) as HRESULT
 	ConvertObject as function(byval This as IOleUIObjInfoA ptr, byval dwObject as DWORD, byval clsidNew as const IID const ptr) as HRESULT
@@ -830,13 +837,13 @@ end type
 
 type IOleUILinkInfoWVtbl_ field = 8
 	QueryInterface as function(byval This as IOleUILinkInfoW ptr, byval riid as const IID const ptr, byval ppvObj as LPVOID ptr) as HRESULT
-	AddRef as function(byval This as IOleUILinkInfoW ptr) as ULONG_
-	Release as function(byval This as IOleUILinkInfoW ptr) as ULONG_
+	AddRef as function(byval This as IOleUILinkInfoW ptr) as ULONG
+	Release as function(byval This as IOleUILinkInfoW ptr) as ULONG
 	GetNextLink as function(byval This as IOleUILinkInfoW ptr, byval dwLink as DWORD) as DWORD
 	SetLinkUpdateOptions as function(byval This as IOleUILinkInfoW ptr, byval dwLink as DWORD, byval dwUpdateOpt as DWORD) as HRESULT
 	GetLinkUpdateOptions as function(byval This as IOleUILinkInfoW ptr, byval dwLink as DWORD, byval lpdwUpdateOpt as DWORD ptr) as HRESULT
-	SetLinkSource as function(byval This as IOleUILinkInfoW ptr, byval dwLink as DWORD, byval lpszDisplayName as LPWSTR, byval lenFileName as ULONG_, byval pchEaten as ULONG_ ptr, byval fValidateSource as WINBOOL) as HRESULT
-	GetLinkSource as function(byval This as IOleUILinkInfoW ptr, byval dwLink as DWORD, byval lplpszDisplayName as LPWSTR ptr, byval lplenFileName as ULONG_ ptr, byval lplpszFullLinkType as LPWSTR ptr, byval lplpszShortLinkType as LPWSTR ptr, byval lpfSourceAvailable as WINBOOL ptr, byval lpfIsSelected as WINBOOL ptr) as HRESULT
+	SetLinkSource as function(byval This as IOleUILinkInfoW ptr, byval dwLink as DWORD, byval lpszDisplayName as LPWSTR, byval lenFileName as ULONG, byval pchEaten as ULONG ptr, byval fValidateSource as WINBOOL) as HRESULT
+	GetLinkSource as function(byval This as IOleUILinkInfoW ptr, byval dwLink as DWORD, byval lplpszDisplayName as LPWSTR ptr, byval lplenFileName as ULONG ptr, byval lplpszFullLinkType as LPWSTR ptr, byval lplpszShortLinkType as LPWSTR ptr, byval lpfSourceAvailable as WINBOOL ptr, byval lpfIsSelected as WINBOOL ptr) as HRESULT
 	OpenLinkSource as function(byval This as IOleUILinkInfoW ptr, byval dwLink as DWORD) as HRESULT
 	UpdateLink as function(byval This as IOleUILinkInfoW ptr, byval dwLink as DWORD, byval fErrorMessage as WINBOOL, byval fReserved as WINBOOL) as HRESULT
 	CancelLink as function(byval This as IOleUILinkInfoW ptr, byval dwLink as DWORD) as HRESULT
@@ -851,13 +858,13 @@ end type
 
 type IOleUILinkInfoAVtbl_ field = 8
 	QueryInterface as function(byval This as IOleUILinkInfoA ptr, byval riid as const IID const ptr, byval ppvObj as LPVOID ptr) as HRESULT
-	AddRef as function(byval This as IOleUILinkInfoA ptr) as ULONG_
-	Release as function(byval This as IOleUILinkInfoA ptr) as ULONG_
+	AddRef as function(byval This as IOleUILinkInfoA ptr) as ULONG
+	Release as function(byval This as IOleUILinkInfoA ptr) as ULONG
 	GetNextLink as function(byval This as IOleUILinkInfoA ptr, byval dwLink as DWORD) as DWORD
 	SetLinkUpdateOptions as function(byval This as IOleUILinkInfoA ptr, byval dwLink as DWORD, byval dwUpdateOpt as DWORD) as HRESULT
 	GetLinkUpdateOptions as function(byval This as IOleUILinkInfoA ptr, byval dwLink as DWORD, byval lpdwUpdateOpt as DWORD ptr) as HRESULT
-	SetLinkSource as function(byval This as IOleUILinkInfoA ptr, byval dwLink as DWORD, byval lpszDisplayName as LPSTR, byval lenFileName as ULONG_, byval pchEaten as ULONG_ ptr, byval fValidateSource as WINBOOL) as HRESULT
-	GetLinkSource as function(byval This as IOleUILinkInfoA ptr, byval dwLink as DWORD, byval lplpszDisplayName as LPSTR ptr, byval lplenFileName as ULONG_ ptr, byval lplpszFullLinkType as LPSTR ptr, byval lplpszShortLinkType as LPSTR ptr, byval lpfSourceAvailable as WINBOOL ptr, byval lpfIsSelected as WINBOOL ptr) as HRESULT
+	SetLinkSource as function(byval This as IOleUILinkInfoA ptr, byval dwLink as DWORD, byval lpszDisplayName as LPSTR, byval lenFileName as ULONG, byval pchEaten as ULONG ptr, byval fValidateSource as WINBOOL) as HRESULT
+	GetLinkSource as function(byval This as IOleUILinkInfoA ptr, byval dwLink as DWORD, byval lplpszDisplayName as LPSTR ptr, byval lplenFileName as ULONG ptr, byval lplpszFullLinkType as LPSTR ptr, byval lplpszShortLinkType as LPSTR ptr, byval lpfSourceAvailable as WINBOOL ptr, byval lpfIsSelected as WINBOOL ptr) as HRESULT
 	OpenLinkSource as function(byval This as IOleUILinkInfoA ptr, byval dwLink as DWORD) as HRESULT
 	UpdateLink as function(byval This as IOleUILinkInfoA ptr, byval dwLink as DWORD, byval fErrorMessage as WINBOOL, byval fReserved as WINBOOL) as HRESULT
 	CancelLink as function(byval This as IOleUILinkInfoA ptr, byval dwLink as DWORD) as HRESULT

@@ -194,8 +194,8 @@ end type
 
 type IDirect3DVtbl_
 	QueryInterface as function(byval This as IDirect3D ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirect3D ptr) as ULONG_
-	Release as function(byval This as IDirect3D ptr) as ULONG_
+	AddRef as function(byval This as IDirect3D ptr) as ULONG
+	Release as function(byval This as IDirect3D ptr) as ULONG
 	Initialize as function(byval This as IDirect3D ptr, byval riid as const IID const ptr) as HRESULT
 	EnumDevices as function(byval This as IDirect3D ptr, byval cb as LPD3DENUMDEVICESCALLBACK, byval ctx as any ptr) as HRESULT
 	CreateLight as function(byval This as IDirect3D ptr, byval light as IDirect3DLight ptr ptr, byval outer as IUnknown ptr) as HRESULT
@@ -220,8 +220,8 @@ end type
 
 type IDirect3D2Vtbl_
 	QueryInterface as function(byval This as IDirect3D2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirect3D2 ptr) as ULONG_
-	Release as function(byval This as IDirect3D2 ptr) as ULONG_
+	AddRef as function(byval This as IDirect3D2 ptr) as ULONG
+	Release as function(byval This as IDirect3D2 ptr) as ULONG
 	EnumDevices as function(byval This as IDirect3D2 ptr, byval cb as LPD3DENUMDEVICESCALLBACK, byval ctx as any ptr) as HRESULT
 	CreateLight as function(byval This as IDirect3D2 ptr, byval light as IDirect3DLight ptr ptr, byval outer as IUnknown ptr) as HRESULT
 	CreateMaterial as function(byval This as IDirect3D2 ptr, byval material as IDirect3DMaterial2 ptr ptr, byval outer as IUnknown ptr) as HRESULT
@@ -246,8 +246,8 @@ end type
 
 type IDirect3D3Vtbl_
 	QueryInterface as function(byval This as IDirect3D3 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirect3D3 ptr) as ULONG_
-	Release as function(byval This as IDirect3D3 ptr) as ULONG_
+	AddRef as function(byval This as IDirect3D3 ptr) as ULONG
+	Release as function(byval This as IDirect3D3 ptr) as ULONG
 	EnumDevices as function(byval This as IDirect3D3 ptr, byval cb as LPD3DENUMDEVICESCALLBACK, byval ctx as any ptr) as HRESULT
 	CreateLight as function(byval This as IDirect3D3 ptr, byval light as IDirect3DLight ptr ptr, byval outer as IUnknown ptr) as HRESULT
 	CreateMaterial as function(byval This as IDirect3D3 ptr, byval material as IDirect3DMaterial3 ptr ptr, byval outer as IUnknown ptr) as HRESULT
@@ -278,8 +278,8 @@ end type
 
 type IDirect3D7Vtbl_
 	QueryInterface as function(byval This as IDirect3D7 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirect3D7 ptr) as ULONG_
-	Release as function(byval This as IDirect3D7 ptr) as ULONG_
+	AddRef as function(byval This as IDirect3D7 ptr) as ULONG
+	Release as function(byval This as IDirect3D7 ptr) as ULONG
 	EnumDevices as function(byval This as IDirect3D7 ptr, byval cb as LPD3DENUMDEVICESCALLBACK7, byval ctx as any ptr) as HRESULT
 	CreateDevice as function(byval This as IDirect3D7 ptr, byval rclsid as const IID const ptr, byval surface as IDirectDrawSurface7 ptr, byval device as IDirect3DDevice7 ptr ptr) as HRESULT
 	CreateVertexBuffer as function(byval This as IDirect3D7 ptr, byval desc as D3DVERTEXBUFFERDESC ptr, byval buffer as IDirect3DVertexBuffer7 ptr ptr, byval flags as DWORD) as HRESULT
@@ -302,8 +302,8 @@ end type
 
 type IDirect3DLightVtbl_
 	QueryInterface as function(byval This as IDirect3DLight ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirect3DLight ptr) as ULONG_
-	Release as function(byval This as IDirect3DLight ptr) as ULONG_
+	AddRef as function(byval This as IDirect3DLight ptr) as ULONG
+	Release as function(byval This as IDirect3DLight ptr) as ULONG
 	Initialize as function(byval This as IDirect3DLight ptr, byval d3d as IDirect3D ptr) as HRESULT
 	SetLight as function(byval This as IDirect3DLight ptr, byval data_ as D3DLIGHT ptr) as HRESULT
 	GetLight as function(byval This as IDirect3DLight ptr, byval data_ as D3DLIGHT ptr) as HRESULT
@@ -322,8 +322,8 @@ end type
 
 type IDirect3DMaterialVtbl_
 	QueryInterface as function(byval This as IDirect3DMaterial ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirect3DMaterial ptr) as ULONG_
-	Release as function(byval This as IDirect3DMaterial ptr) as ULONG_
+	AddRef as function(byval This as IDirect3DMaterial ptr) as ULONG
+	Release as function(byval This as IDirect3DMaterial ptr) as ULONG
 	Initialize as function(byval This as IDirect3DMaterial ptr, byval d3d as IDirect3D ptr) as HRESULT
 	SetMaterial as function(byval This as IDirect3DMaterial ptr, byval data_ as D3DMATERIAL ptr) as HRESULT
 	GetMaterial as function(byval This as IDirect3DMaterial ptr, byval data_ as D3DMATERIAL ptr) as HRESULT
@@ -348,8 +348,8 @@ end type
 
 type IDirect3DMaterial2Vtbl_
 	QueryInterface as function(byval This as IDirect3DMaterial2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirect3DMaterial2 ptr) as ULONG_
-	Release as function(byval This as IDirect3DMaterial2 ptr) as ULONG_
+	AddRef as function(byval This as IDirect3DMaterial2 ptr) as ULONG
+	Release as function(byval This as IDirect3DMaterial2 ptr) as ULONG
 	SetMaterial as function(byval This as IDirect3DMaterial2 ptr, byval data_ as D3DMATERIAL ptr) as HRESULT
 	GetMaterial as function(byval This as IDirect3DMaterial2 ptr, byval data_ as D3DMATERIAL ptr) as HRESULT
 	GetHandle as function(byval This as IDirect3DMaterial2 ptr, byval device as IDirect3DDevice2 ptr, byval handle as D3DMATERIALHANDLE ptr) as HRESULT
@@ -368,8 +368,8 @@ end type
 
 type IDirect3DMaterial3Vtbl_
 	QueryInterface as function(byval This as IDirect3DMaterial3 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirect3DMaterial3 ptr) as ULONG_
-	Release as function(byval This as IDirect3DMaterial3 ptr) as ULONG_
+	AddRef as function(byval This as IDirect3DMaterial3 ptr) as ULONG
+	Release as function(byval This as IDirect3DMaterial3 ptr) as ULONG
 	SetMaterial as function(byval This as IDirect3DMaterial3 ptr, byval data_ as D3DMATERIAL ptr) as HRESULT
 	GetMaterial as function(byval This as IDirect3DMaterial3 ptr, byval data_ as D3DMATERIAL ptr) as HRESULT
 	GetHandle as function(byval This as IDirect3DMaterial3 ptr, byval device as IDirect3DDevice3 ptr, byval handle as D3DMATERIALHANDLE ptr) as HRESULT
@@ -388,8 +388,8 @@ end type
 
 type IDirect3DTextureVtbl_
 	QueryInterface as function(byval This as IDirect3DTexture ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirect3DTexture ptr) as ULONG_
-	Release as function(byval This as IDirect3DTexture ptr) as ULONG_
+	AddRef as function(byval This as IDirect3DTexture ptr) as ULONG
+	Release as function(byval This as IDirect3DTexture ptr) as ULONG
 	Initialize as function(byval This as IDirect3DTexture ptr, byval device as IDirect3DDevice ptr, byval surface as IDirectDrawSurface ptr) as HRESULT
 	GetHandle as function(byval This as IDirect3DTexture ptr, byval device as IDirect3DDevice ptr, byval handle as D3DTEXTUREHANDLE ptr) as HRESULT
 	PaletteChanged as function(byval This as IDirect3DTexture ptr, byval dwStart as DWORD, byval dwCount as DWORD) as HRESULT
@@ -412,8 +412,8 @@ end type
 
 type IDirect3DTexture2Vtbl_
 	QueryInterface as function(byval This as IDirect3DTexture2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirect3DTexture2 ptr) as ULONG_
-	Release as function(byval This as IDirect3DTexture2 ptr) as ULONG_
+	AddRef as function(byval This as IDirect3DTexture2 ptr) as ULONG
+	Release as function(byval This as IDirect3DTexture2 ptr) as ULONG
 	GetHandle as function(byval This as IDirect3DTexture2 ptr, byval device as IDirect3DDevice2 ptr, byval handle as D3DTEXTUREHANDLE ptr) as HRESULT
 	PaletteChanged as function(byval This as IDirect3DTexture2 ptr, byval dwStart as DWORD, byval dwCount as DWORD) as HRESULT
 	Load as function(byval This as IDirect3DTexture2 ptr, byval texture as IDirect3DTexture2 ptr) as HRESULT
@@ -432,8 +432,8 @@ end type
 
 type IDirect3DViewportVtbl_
 	QueryInterface as function(byval This as IDirect3DViewport ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirect3DViewport ptr) as ULONG_
-	Release as function(byval This as IDirect3DViewport ptr) as ULONG_
+	AddRef as function(byval This as IDirect3DViewport ptr) as ULONG
+	Release as function(byval This as IDirect3DViewport ptr) as ULONG
 	Initialize as function(byval This as IDirect3DViewport ptr, byval d3d as IDirect3D ptr) as HRESULT
 	GetViewport as function(byval This as IDirect3DViewport ptr, byval data_ as D3DVIEWPORT ptr) as HRESULT
 	SetViewport as function(byval This as IDirect3DViewport ptr, byval data_ as D3DVIEWPORT ptr) as HRESULT
@@ -472,8 +472,8 @@ end type
 
 type IDirect3DViewport2Vtbl_
 	QueryInterface as function(byval This as IDirect3DViewport2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirect3DViewport2 ptr) as ULONG_
-	Release as function(byval This as IDirect3DViewport2 ptr) as ULONG_
+	AddRef as function(byval This as IDirect3DViewport2 ptr) as ULONG
+	Release as function(byval This as IDirect3DViewport2 ptr) as ULONG
 	Initialize as function(byval This as IDirect3DViewport2 ptr, byval d3d as IDirect3D ptr) as HRESULT
 	GetViewport as function(byval This as IDirect3DViewport2 ptr, byval data_ as D3DVIEWPORT ptr) as HRESULT
 	SetViewport as function(byval This as IDirect3DViewport2 ptr, byval data_ as D3DVIEWPORT ptr) as HRESULT
@@ -516,8 +516,8 @@ end type
 
 type IDirect3DViewport3Vtbl_
 	QueryInterface as function(byval This as IDirect3DViewport3 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirect3DViewport3 ptr) as ULONG_
-	Release as function(byval This as IDirect3DViewport3 ptr) as ULONG_
+	AddRef as function(byval This as IDirect3DViewport3 ptr) as ULONG
+	Release as function(byval This as IDirect3DViewport3 ptr) as ULONG
 	Initialize as function(byval This as IDirect3DViewport3 ptr, byval d3d as IDirect3D ptr) as HRESULT
 	GetViewport as function(byval This as IDirect3DViewport3 ptr, byval data_ as D3DVIEWPORT ptr) as HRESULT
 	SetViewport as function(byval This as IDirect3DViewport3 ptr, byval data_ as D3DVIEWPORT ptr) as HRESULT
@@ -566,8 +566,8 @@ end type
 
 type IDirect3DExecuteBufferVtbl_
 	QueryInterface as function(byval This as IDirect3DExecuteBuffer ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirect3DExecuteBuffer ptr) as ULONG_
-	Release as function(byval This as IDirect3DExecuteBuffer ptr) as ULONG_
+	AddRef as function(byval This as IDirect3DExecuteBuffer ptr) as ULONG
+	Release as function(byval This as IDirect3DExecuteBuffer ptr) as ULONG
 	Initialize as function(byval This as IDirect3DExecuteBuffer ptr, byval device as IDirect3DDevice ptr, byval desc as D3DEXECUTEBUFFERDESC ptr) as HRESULT
 	Lock as function(byval This as IDirect3DExecuteBuffer ptr, byval desc as D3DEXECUTEBUFFERDESC ptr) as HRESULT
 	Unlock as function(byval This as IDirect3DExecuteBuffer ptr) as HRESULT
@@ -594,8 +594,8 @@ end type
 
 type IDirect3DDeviceVtbl_
 	QueryInterface as function(byval This as IDirect3DDevice ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirect3DDevice ptr) as ULONG_
-	Release as function(byval This as IDirect3DDevice ptr) as ULONG_
+	AddRef as function(byval This as IDirect3DDevice ptr) as ULONG
+	Release as function(byval This as IDirect3DDevice ptr) as ULONG
 	Initialize as function(byval This as IDirect3DDevice ptr, byval d3d as IDirect3D ptr, byval guid as GUID ptr, byval desc as D3DDEVICEDESC ptr) as HRESULT
 	GetCaps as function(byval This as IDirect3DDevice ptr, byval hal_desc as D3DDEVICEDESC ptr, byval hel_desc as D3DDEVICEDESC ptr) as HRESULT
 	SwapTextureHandles as function(byval This as IDirect3DDevice ptr, byval tex1 as IDirect3DTexture ptr, byval tex2 as IDirect3DTexture ptr) as HRESULT
@@ -646,8 +646,8 @@ end type
 
 type IDirect3DDevice2Vtbl_
 	QueryInterface as function(byval This as IDirect3DDevice2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirect3DDevice2 ptr) as ULONG_
-	Release as function(byval This as IDirect3DDevice2 ptr) as ULONG_
+	AddRef as function(byval This as IDirect3DDevice2 ptr) as ULONG
+	Release as function(byval This as IDirect3DDevice2 ptr) as ULONG
 	GetCaps as function(byval This as IDirect3DDevice2 ptr, byval hal_desc as D3DDEVICEDESC ptr, byval hel_desc as D3DDEVICEDESC ptr) as HRESULT
 	SwapTextureHandles as function(byval This as IDirect3DDevice2 ptr, byval tex1 as IDirect3DTexture2 ptr, byval tex2 as IDirect3DTexture2 ptr) as HRESULT
 	GetStats as function(byval This as IDirect3DDevice2 ptr, byval stats as D3DSTATS ptr) as HRESULT
@@ -720,8 +720,8 @@ end type
 
 type IDirect3DDevice3Vtbl_
 	QueryInterface as function(byval This as IDirect3DDevice3 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirect3DDevice3 ptr) as ULONG_
-	Release as function(byval This as IDirect3DDevice3 ptr) as ULONG_
+	AddRef as function(byval This as IDirect3DDevice3 ptr) as ULONG
+	Release as function(byval This as IDirect3DDevice3 ptr) as ULONG
 	GetCaps as function(byval This as IDirect3DDevice3 ptr, byval hal_desc as D3DDEVICEDESC ptr, byval hel_desc as D3DDEVICEDESC ptr) as HRESULT
 	GetStats as function(byval This as IDirect3DDevice3 ptr, byval stats as D3DSTATS ptr) as HRESULT
 	AddViewport as function(byval This as IDirect3DDevice3 ptr, byval viewport as IDirect3DViewport3 ptr) as HRESULT
@@ -812,8 +812,8 @@ end type
 
 type IDirect3DDevice7Vtbl_
 	QueryInterface as function(byval This as IDirect3DDevice7 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirect3DDevice7 ptr) as ULONG_
-	Release as function(byval This as IDirect3DDevice7 ptr) as ULONG_
+	AddRef as function(byval This as IDirect3DDevice7 ptr) as ULONG
+	Release as function(byval This as IDirect3DDevice7 ptr) as ULONG
 	GetCaps as function(byval This as IDirect3DDevice7 ptr, byval desc as D3DDEVICEDESC7 ptr) as HRESULT
 	EnumTextureFormats as function(byval This as IDirect3DDevice7 ptr, byval cb as LPD3DENUMPIXELFORMATSCALLBACK, byval ctx as any ptr) as HRESULT
 	BeginScene as function(byval This as IDirect3DDevice7 ptr) as HRESULT
@@ -918,8 +918,8 @@ end type
 
 type IDirect3DVertexBufferVtbl_
 	QueryInterface as function(byval This as IDirect3DVertexBuffer ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirect3DVertexBuffer ptr) as ULONG_
-	Release as function(byval This as IDirect3DVertexBuffer ptr) as ULONG_
+	AddRef as function(byval This as IDirect3DVertexBuffer ptr) as ULONG
+	Release as function(byval This as IDirect3DVertexBuffer ptr) as ULONG
 	Lock as function(byval This as IDirect3DVertexBuffer ptr, byval flags as DWORD, byval data_ as any ptr ptr, byval data_size as DWORD ptr) as HRESULT
 	Unlock as function(byval This as IDirect3DVertexBuffer ptr) as HRESULT
 	ProcessVertices as function(byval This as IDirect3DVertexBuffer ptr, byval vertex_op as DWORD, byval dst_idx as DWORD, byval count as DWORD, byval src_buffer as IDirect3DVertexBuffer ptr, byval src_idx as DWORD, byval device as IDirect3DDevice3 ptr, byval flags as DWORD) as HRESULT
@@ -942,8 +942,8 @@ end type
 
 type IDirect3DVertexBuffer7Vtbl_
 	QueryInterface as function(byval This as IDirect3DVertexBuffer7 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirect3DVertexBuffer7 ptr) as ULONG_
-	Release as function(byval This as IDirect3DVertexBuffer7 ptr) as ULONG_
+	AddRef as function(byval This as IDirect3DVertexBuffer7 ptr) as ULONG
+	Release as function(byval This as IDirect3DVertexBuffer7 ptr) as ULONG
 	Lock as function(byval This as IDirect3DVertexBuffer7 ptr, byval flags as DWORD, byval data_ as any ptr ptr, byval data_size as DWORD ptr) as HRESULT
 	Unlock as function(byval This as IDirect3DVertexBuffer7 ptr) as HRESULT
 	ProcessVertices as function(byval This as IDirect3DVertexBuffer7 ptr, byval vertex_op as DWORD, byval dst_idx as DWORD, byval count as DWORD, byval src_buffer as IDirect3DVertexBuffer7 ptr, byval src_idx as DWORD, byval device as IDirect3DDevice7 ptr, byval flags as DWORD) as HRESULT

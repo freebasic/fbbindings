@@ -498,8 +498,8 @@ end type
 
 type ID3DXBufferVtbl_
 	QueryInterface as function(byval This as ID3DXBuffer ptr, byval riid as const IID const ptr, byval out_ as any ptr ptr) as HRESULT
-	AddRef as function(byval This as ID3DXBuffer ptr) as ULONG_
-	Release as function(byval This as ID3DXBuffer ptr) as ULONG_
+	AddRef as function(byval This as ID3DXBuffer ptr) as ULONG
+	Release as function(byval This as ID3DXBuffer ptr) as ULONG
 	GetBufferPointer as function(byval This as ID3DXBuffer ptr) as any ptr
 	GetBufferSize as function(byval This as ID3DXBuffer ptr) as DWORD
 end type
@@ -516,10 +516,10 @@ type _D3DXFONT_DESCA
 	Weight as UINT
 	MipLevels as UINT
 	Italic as WINBOOL
-	CharSet as BYTE_
-	OutputPrecision as BYTE_
-	Quality as BYTE_
-	PitchAndFamily as BYTE_
+	CharSet as BYTE
+	OutputPrecision as BYTE
+	Quality as BYTE
+	PitchAndFamily as BYTE
 	FaceName(0 to 31) as CHAR
 end type
 
@@ -532,10 +532,10 @@ type _D3DXFONT_DESCW
 	Weight as UINT
 	MipLevels as UINT
 	Italic as WINBOOL
-	CharSet as BYTE_
-	OutputPrecision as BYTE_
-	Quality as BYTE_
-	PitchAndFamily as BYTE_
+	CharSet as BYTE
+	OutputPrecision as BYTE
+	Quality as BYTE
+	PitchAndFamily as BYTE
 	FaceName(0 to 31) as WCHAR
 end type
 
@@ -556,8 +556,8 @@ end type
 
 type ID3DXFontVtbl_
 	QueryInterface as function(byval This as ID3DXFont ptr, byval riid as const IID const ptr, byval out_ as any ptr ptr) as HRESULT
-	AddRef as function(byval This as ID3DXFont ptr) as ULONG_
-	Release as function(byval This as ID3DXFont ptr) as ULONG_
+	AddRef as function(byval This as ID3DXFont ptr) as ULONG
+	Release as function(byval This as ID3DXFont ptr) as ULONG
 	GetDevice as function(byval This as ID3DXFont ptr, byval device as IDirect3DDevice9 ptr ptr) as HRESULT
 	GetDescA as function(byval This as ID3DXFont ptr, byval desc as D3DXFONT_DESCA ptr) as HRESULT
 	GetDescW as function(byval This as ID3DXFont ptr, byval desc as D3DXFONT_DESCW ptr) as HRESULT
@@ -604,8 +604,8 @@ end type
 
 type ID3DXLineVtbl_
 	QueryInterface as function(byval This as ID3DXLine ptr, byval riid as const IID const ptr, byval out_ as any ptr ptr) as HRESULT
-	AddRef as function(byval This as ID3DXLine ptr) as ULONG_
-	Release as function(byval This as ID3DXLine ptr) as ULONG_
+	AddRef as function(byval This as ID3DXLine ptr) as ULONG
+	Release as function(byval This as ID3DXLine ptr) as ULONG
 	GetDevice as function(byval This as ID3DXLine ptr, byval device as IDirect3DDevice9 ptr ptr) as HRESULT
 	Begin as function(byval This as ID3DXLine ptr) as HRESULT
 	Draw as function(byval This as ID3DXLine ptr, byval vertexlist as const D3DXVECTOR2 ptr, byval vertexlistcount as DWORD, byval color_ as D3DCOLOR) as HRESULT
@@ -662,8 +662,8 @@ end type
 
 type ID3DXRenderToEnvMapVtbl_
 	QueryInterface as function(byval This as ID3DXRenderToEnvMap ptr, byval riid as const IID const ptr, byval out_ as any ptr ptr) as HRESULT
-	AddRef as function(byval This as ID3DXRenderToEnvMap ptr) as ULONG_
-	Release as function(byval This as ID3DXRenderToEnvMap ptr) as ULONG_
+	AddRef as function(byval This as ID3DXRenderToEnvMap ptr) as ULONG
+	Release as function(byval This as ID3DXRenderToEnvMap ptr) as ULONG
 	GetDevice as function(byval This as ID3DXRenderToEnvMap ptr, byval device as IDirect3DDevice9 ptr ptr) as HRESULT
 	GetDesc as function(byval This as ID3DXRenderToEnvMap ptr, byval desc as D3DXRTE_DESC ptr) as HRESULT
 	BeginCube as function(byval This as ID3DXRenderToEnvMap ptr, byval cubetex as IDirect3DCubeTexture9 ptr) as HRESULT
@@ -705,8 +705,8 @@ end type
 
 type ID3DXRenderToSurfaceVtbl_
 	QueryInterface as function(byval This as ID3DXRenderToSurface ptr, byval riid as const IID const ptr, byval out_ as any ptr ptr) as HRESULT
-	AddRef as function(byval This as ID3DXRenderToSurface ptr) as ULONG_
-	Release as function(byval This as ID3DXRenderToSurface ptr) as ULONG_
+	AddRef as function(byval This as ID3DXRenderToSurface ptr) as ULONG
+	Release as function(byval This as ID3DXRenderToSurface ptr) as ULONG
 	GetDevice as function(byval This as ID3DXRenderToSurface ptr, byval device as IDirect3DDevice9 ptr ptr) as HRESULT
 	GetDesc as function(byval This as ID3DXRenderToSurface ptr, byval desc as D3DXRTS_DESC ptr) as HRESULT
 	BeginScene as function(byval This as ID3DXRenderToSurface ptr, byval surface as IDirect3DSurface9 ptr, byval viewport as const D3DVIEWPORT9 ptr) as HRESULT
@@ -731,8 +731,8 @@ end type
 
 type ID3DXSpriteVtbl_
 	QueryInterface as function(byval This as ID3DXSprite ptr, byval riid as const IID const ptr, byval object_ as any ptr ptr) as HRESULT
-	AddRef as function(byval This as ID3DXSprite ptr) as ULONG_
-	Release as function(byval This as ID3DXSprite ptr) as ULONG_
+	AddRef as function(byval This as ID3DXSprite ptr) as ULONG
+	Release as function(byval This as ID3DXSprite ptr) as ULONG
 	GetDevice as function(byval This as ID3DXSprite ptr, byval device as IDirect3DDevice9 ptr ptr) as HRESULT
 	GetTransform as function(byval This as ID3DXSprite ptr, byval transform as D3DXMATRIX ptr) as HRESULT
 	SetTransform as function(byval This as ID3DXSprite ptr, byval transform as const D3DXMATRIX ptr) as HRESULT

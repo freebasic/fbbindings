@@ -1,6 +1,5 @@
 #pragma once
 
-#include once "crt/long.bi"
 #include once "windows.bi"
 #include once "crt/limits.bi"
 
@@ -25,12 +24,12 @@ type HSNMP_VBL as HANDLE
 type LPHSNMP_VBL as HANDLE ptr
 type smiBYTE as ubyte
 type smiLPBYTE as ubyte ptr
-type smiINT as clong
-type smiLPINT as clong ptr
+type smiINT as long
+type smiLPINT as long ptr
 type smiINT32 as smiINT
 type smiLPINT32 as smiINT ptr
-type smiUINT32 as culong
-type smiLPUINT32 as culong ptr
+type smiUINT32 as ulong
+type smiLPUINT32 as ulong ptr
 
 type smiOCTETS
 	len as smiUINT32
@@ -193,7 +192,6 @@ type SNMPAPI_STATUS as smiUINT32
 #define SNMPAPI_TL_TIMEOUT 108
 #define SNMPAPI_TL_PDU_TOO_BIG 109
 #define SNMPAPI_TL_OTHER 199
-#define SNMPAPI_CALL WINAPI
 #define MAXVENDORINFO 32
 
 type smiVENDORINFO

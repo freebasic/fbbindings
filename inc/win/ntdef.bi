@@ -1,7 +1,6 @@
 #pragma once
 
 #include once "crt/wchar.bi"
-#include once "crt/long.bi"
 #include once "_mingw.bi"
 #include once "crt/ctype.bi"
 #include once "basetsd.bi"
@@ -11,13 +10,8 @@
 #include once "crt/string.bi"
 
 '' The following symbols have been renamed:
-''     #define OUT => OUT_
-''     typedef SHORT => SHORT_
-''     typedef LONG => LONG_
+''     #define CONST => CONST_
 ''     typedef INT => INT_
-''     typedef DOUBLE => DOUBLE_
-''     typedef USHORT => USHORT_
-''     typedef ULONG => ULONG_
 ''     typedef CSHORT => CSHORT_
 ''     typedef STRING => STRING_
 
@@ -33,28 +27,21 @@
 	#define _AMD64_
 #endif
 
-#define IN
-#define OUT_
-#define OPTIONAL
 #define NOTHING
 #define CRITICAL
-#define FAR
 #define ANYSIZE_ARRAY 1
 #define FALSE 0
 #define TRUE 1
-
-'' TODO: #define NULL64 ((void * POINTER_64)0)
+#define NULL64 '' TODO: ((void * POINTER_64)0)
 
 #ifdef __FB_64BIT__
 	#define ALIGNMENT_MACHINE
-	#define UNALIGNED __unaligned
 	#define UNALIGNED64 __unaligned
 	#define MAX_NATURAL_ALIGNMENT sizeof(ULONGLONG)
 	#define MEMORY_ALLOCATION_ALIGNMENT 16
 #else
-	#define UNALIGNED
 	#define UNALIGNED64
-	#define MAX_NATURAL_ALIGNMENT sizeof(ULONG_)
+	#define MAX_NATURAL_ALIGNMENT sizeof(ULONG)
 	#define MEMORY_ALLOCATION_ALIGNMENT 8
 #endif
 
@@ -62,43 +49,10 @@
 #define ARGUMENT_PRESENT(ArgumentPointer) cptr(CHAR ptr, -(cast(ULONG_PTR, (ArgumentPointer)) <> cptr(CHAR ptr, NULL)))
 #define CONTAINING_RECORD(address, type, field) cptr(type ptr, cast(ULONG_PTR, address) - cast(ULONG_PTR, @cptr(type ptr, 0)->field))
 #define FIELD_OFFSET(Type, Field) __builtin_offsetof(Type, Field)
-
-'' TODO: #define TYPE_ALIGNMENT(t) FIELD_OFFSET(struct { char x; t test; }, test)
-
-#define PROBE_ALIGNMENT(v) TYPE_ALIGNMENT(ULONG_)
-
-#ifdef __FB_64BIT__
-	#define FASTCALL
-#else
-	#define FASTCALL __fastcall
-#endif
-
-#define NTAPI __stdcall
+#define TYPE_ALIGNMENT(t) '' TODO: FIELD_OFFSET(struct { char x; t test; }, test)
+#define PROBE_ALIGNMENT(v) TYPE_ALIGNMENT(ULONG)
 #define NOP_FUNCTION cast(any, 0)
-#define DECLSPEC_IMPORT __declspec(dllimport)
-#define DECLSPEC_NORETURN __declspec(noreturn)
-#define DECLSPEC_ADDRSAFE
-#define NTSYSAPI DECLSPEC_IMPORT
-#define NTSYSCALLAPI DECLSPEC_IMPORT
-#define FORCEINLINE __forceinline
-#define NTAPI_INLINE NTAPI
 #define SYSTEM_CACHE_ALIGNMENT_SIZE 64
-#define DECLSPEC_CACHEALIGN DECLSPEC_ALIGN(SYSTEM_CACHE_ALIGNMENT_SIZE)
-#define DECLSPEC_SELECTANY __declspec(selectany)
-#macro UNREFERENCED_PARAMETER(P)
-	scope
-		(P)
-		'' TODO: (P) = (P);
-	end scope
-#endmacro
-#macro UNREFERENCED_LOCAL_VARIABLE(L)
-	scope
-		(L)
-		'' TODO: (L) = (L);
-	end scope
-#endmacro
-#define DBG_UNREFERENCED_PARAMETER(P) (P)
-#define DBG_UNREFERENCED_LOCAL_VARIABLE(L) (L)
 #define min(a, b) iif((a) < (b), (a), (b))
 #define max(a, b) iif((a) > (b), (a), (b))
 #define BASETYPES
@@ -106,37 +60,34 @@
 type PVOID as any ptr
 type PVOID64 as any ptr
 type HANDLE as PVOID
-
-'' TODO: #define DECLARE_HANDLE(n) typedef HANDLE n
-
 type PHANDLE as HANDLE ptr
 
 #define VOID any
 
 type CHAR as byte
-type SHORT_ as short
-type LONG_ as clong
+type SHORT as short
+type LONG as long
 type INT_ as long
-type DOUBLE_ as double
+type DOUBLE as double
 type UCHAR as ubyte
 type PUCHAR as ubyte ptr
-type USHORT_ as ushort
+type USHORT as ushort
 type PUSHORT as ushort ptr
-type ULONG_ as culong
-type PULONG as culong ptr
+type ULONG as ulong
+type PULONG as ulong ptr
 type PCUCHAR as const UCHAR ptr
-type PCUSHORT as const USHORT_ ptr
-type PCULONG as const ULONG_ ptr
+type PCUSHORT as const USHORT ptr
+type PCULONG as const ULONG ptr
 type FCHAR as UCHAR
-type FSHORT as USHORT_
-type FLONG as ULONG_
+type FSHORT as USHORT
+type FLONG as ULONG
 type BOOLEAN as UCHAR
 type PBOOLEAN as UCHAR ptr
-type LOGICAL as ULONG_
-type PLOGICAL as ULONG_ ptr
-type PSHORT as SHORT_ ptr
-type PLONG as LONG_ ptr
-type NTSTATUS as LONG_
+type LOGICAL as ULONG
+type PLOGICAL as ULONG ptr
+type PSHORT as SHORT ptr
+type PLONG as LONG ptr
+type NTSTATUS as LONG
 type PNTSTATUS as NTSTATUS ptr
 type SCHAR as byte
 type PSCHAR as SCHAR ptr
@@ -150,7 +101,7 @@ type LPBOOL as WINBOOL ptr
 
 #define _HRESULT_DEFINED
 
-type HRESULT as LONG_
+type HRESULT as LONG
 
 #define _ULONGLONG_
 
@@ -204,11 +155,11 @@ type CCHAR as byte
 type PCCHAR as zstring ptr
 type CSHORT_ as short
 type PCSHORT as short ptr
-type CLONG as ULONG_
-type PCLONG as ULONG_ ptr
-type LCID as ULONG_
+type CLONG as ULONG
+type PCLONG as ULONG ptr
+type LCID as ULONG
 type PLCID as PULONG
-type LANGID as USHORT_
+type LANGID as USHORT
 
 type _QUAD
 	union
@@ -225,14 +176,14 @@ type PUQUAD as _QUAD ptr
 #define _LARGE_INTEGER_DEFINED
 
 type ___LARGE_INTEGER_u
-	LowPart as ULONG_
-	HighPart as LONG_
+	LowPart as ULONG
+	HighPart as LONG
 end type
 
 union _LARGE_INTEGER
 	type
-		LowPart as ULONG_
-		HighPart as LONG_
+		LowPart as ULONG
+		HighPart as LONG
 	end type
 
 	u as ___LARGE_INTEGER_u
@@ -243,14 +194,14 @@ type LARGE_INTEGER as _LARGE_INTEGER
 type PLARGE_INTEGER as _LARGE_INTEGER ptr
 
 type ___ULARGE_INTEGER_u
-	LowPart as ULONG_
-	HighPart as ULONG_
+	LowPart as ULONG
+	HighPart as ULONG
 end type
 
 union _ULARGE_INTEGER
 	type
-		LowPart as ULONG_
-		HighPart as ULONG_
+		LowPart as ULONG
+		HighPart as ULONG
 	end type
 
 	u as ___ULARGE_INTEGER_u
@@ -261,8 +212,8 @@ type ULARGE_INTEGER as _ULARGE_INTEGER
 type PULARGE_INTEGER as _ULARGE_INTEGER ptr
 
 type _LUID
-	LowPart as ULONG_
-	HighPart as LONG_
+	LowPart as ULONG
+	HighPart as LONG
 end type
 
 type LUID as _LUID
@@ -271,14 +222,14 @@ type PHYSICAL_ADDRESS as LARGE_INTEGER
 type PPHYSICAL_ADDRESS as LARGE_INTEGER ptr
 
 #define NT_SUCCESS(Status) (cast(NTSTATUS, (Status)) >= 0)
-#define NT_INFORMATION(Status) ((cast(ULONG_, (Status)) shr 30) = 1)
-#define NT_WARNING(Status) ((cast(ULONG_, (Status)) shr 30) = 2)
-#define NT_ERROR(Status) ((cast(ULONG_, (Status)) shr 30) = 3)
+#define NT_INFORMATION(Status) ((cast(ULONG, (Status)) shr 30) = 1)
+#define NT_WARNING(Status) ((cast(ULONG, (Status)) shr 30) = 2)
+#define NT_ERROR(Status) ((cast(ULONG, (Status)) shr 30) = 3)
 #define __UNICODE_STRING_DEFINED
 
 type _UNICODE_STRING
-	Length as USHORT_
-	MaximumLength as USHORT_
+	Length as USHORT
+	MaximumLength as USHORT
 	Buffer as PWSTR
 end type
 
@@ -289,8 +240,8 @@ type PCUNICODE_STRING as const UNICODE_STRING ptr
 #define UNICODE_NULL cast(WCHAR, 0)
 
 type _CSTRING
-	Length as USHORT_
-	MaximumLength as USHORT_
+	Length as USHORT
+	MaximumLength as USHORT
 	Buffer as const CHAR ptr
 end type
 
@@ -301,8 +252,8 @@ type PCSTRING as _CSTRING ptr
 #define __STRING_DEFINED
 
 type _STRING
-	Length as USHORT_
-	MaximumLength as USHORT_
+	Length as USHORT
+	MaximumLength as USHORT
 	Buffer as PCHAR
 end type
 
@@ -317,9 +268,9 @@ type CANSI_STRING as STRING_
 type PCANSI_STRING as PSTRING
 
 type _STRING32
-	Length as USHORT_
-	MaximumLength as USHORT_
-	Buffer as ULONG_
+	Length as USHORT
+	MaximumLength as USHORT
+	Buffer as ULONG
 end type
 
 type STRING32 as _STRING32
@@ -330,8 +281,8 @@ type ANSI_STRING32 as _STRING32
 type PANSI_STRING32 as _STRING32 ptr
 
 type _STRING64
-	Length as USHORT_
-	MaximumLength as USHORT_
+	Length as USHORT
+	MaximumLength as USHORT
 	Buffer as ULONGLONG
 end type
 
@@ -342,22 +293,22 @@ type PUNICODE_STRING64 as _STRING64 ptr
 type ANSI_STRING64 as _STRING64
 type PANSI_STRING64 as _STRING64 ptr
 
-#define MAKELANGID(p, s) ((cast(USHORT_, (s)) shl 10) or cast(USHORT_, (p)))
-#define PRIMARYLANGID(lgid) cast(USHORT_, (lgid) and &h3ff)
-#define SUBLANGID(lgid) cast(USHORT_, (lgid) shr 10)
+#define MAKELANGID(p, s) ((cast(USHORT, (s)) shl 10) or cast(USHORT, (p)))
+#define PRIMARYLANGID(lgid) cast(USHORT, (lgid) and &h3ff)
+#define SUBLANGID(lgid) cast(USHORT, (lgid) shr 10)
 #define NLS_VALID_LOCALE_MASK &h000fffff
-#define MAKELCID(lgid, srtid) cast(ULONG_, (cast(ULONG_, cast(USHORT_, (srtid))) shl 16) or cast(ULONG_, cast(USHORT_, (lgid))))
-#define MAKESORTLCID(lgid, srtid, ver) cast(ULONG_, MAKELCID(lgid, srtid) or (cast(ULONG_, cast(USHORT_, (ver))) shl 20))
-#define LANGIDFROMLCID(lcid) cast(USHORT_, (lcid))
-#define SORTIDFROMLCID(lcid) cast(USHORT_, (cast(ULONG_, (lcid)) shr 16) and &hf)
-#define SORTVERSIONFROMLCID(lcid) cast(USHORT_, (cast(ULONG_, (lcid)) shr 20) and &hf)
+#define MAKELCID(lgid, srtid) cast(ULONG, (cast(ULONG, cast(USHORT, (srtid))) shl 16) or cast(ULONG, cast(USHORT, (lgid))))
+#define MAKESORTLCID(lgid, srtid, ver) cast(ULONG, MAKELCID(lgid, srtid) or (cast(ULONG, cast(USHORT, (ver))) shl 20))
+#define LANGIDFROMLCID(lcid) cast(USHORT, (lcid))
+#define SORTIDFROMLCID(lcid) cast(USHORT, (cast(ULONG, (lcid)) shr 16) and &hf)
+#define SORTVERSIONFROMLCID(lcid) cast(USHORT, (cast(ULONG, (lcid)) shr 20) and &hf)
 #define __OBJECT_ATTRIBUTES_DEFINED
 
 type _OBJECT_ATTRIBUTES
-	Length as ULONG_
+	Length as ULONG
 	RootDirectory as HANDLE
 	ObjectName as PUNICODE_STRING
-	Attributes as ULONG_
+	Attributes as ULONG
 	SecurityDescriptor as PVOID
 	SecurityQualityOfService as PVOID
 end type
@@ -438,8 +389,8 @@ type PLIST_ENTRY as _LIST_ENTRY ptr
 type PRLIST_ENTRY as _LIST_ENTRY ptr
 
 type LIST_ENTRY32
-	Flink as ULONG_
-	Blink as ULONG_
+	Flink as ULONG
+	Blink as ULONG
 end type
 
 type PLIST_ENTRY32 as LIST_ENTRY32 ptr
@@ -461,7 +412,7 @@ type PSINGLE_LIST_ENTRY as _SINGLE_LIST_ENTRY ptr
 #define ___PROCESSOR_NUMBER_DEFINED
 
 type _PROCESSOR_NUMBER
-	Group as USHORT_
+	Group as USHORT
 	Number as UCHAR
 	Reserved as UCHAR
 end type
@@ -477,8 +428,8 @@ type PEXCEPTION_ROUTINE as function(byval ExceptionRecord as _EXCEPTION_RECORD p
 
 type _GROUP_AFFINITY
 	Mask as KAFFINITY
-	Group as USHORT_
-	Reserved(0 to 2) as USHORT_
+	Group as USHORT
+	Reserved(0 to 2) as USHORT
 end type
 
 type GROUP_AFFINITY as _GROUP_AFFINITY
@@ -510,9 +461,6 @@ type PGROUP_AFFINITY as _GROUP_AFFINITY ptr
 #define Int64ShllMod32(a, b) cast(ULONGLONG, (a) shl (b))
 #define Int64ShraMod32(a, b) cast(LONGLONG, (a) shr (b))
 #define Int64ShrlMod32(a, b) cast(ULONGLONG, (a) shr (b))
-
-'' TODO: #define C_ASSERT(expr) extern char (*c_assert(void)) [(expr) ? 1 : -1]
-
 #define VER_WORKSTATION_NT &h40000000
 #define VER_SERVER_NT &h80000000
 #define VER_SUITE_SMALLBUSINESS &h00000001
@@ -690,19 +638,19 @@ type PGROUP_AFFINITY as _GROUP_AFFINITY ptr
 #define FILE_OPEN_FOR_FREE_SPACE_QUERY &h00800000
 
 type ___REPARSE_DATA_BUFFER_SymbolicLinkReparseBuffer
-	SubstituteNameOffset as USHORT_
-	SubstituteNameLength as USHORT_
-	PrintNameOffset as USHORT_
-	PrintNameLength as USHORT_
-	Flags as ULONG_
+	SubstituteNameOffset as USHORT
+	SubstituteNameLength as USHORT
+	PrintNameOffset as USHORT
+	PrintNameLength as USHORT
+	Flags as ULONG
 	PathBuffer(0 to 0) as WCHAR
 end type
 
 type ___REPARSE_DATA_BUFFER_MountPointReparseBuffer
-	SubstituteNameOffset as USHORT_
-	SubstituteNameLength as USHORT_
-	PrintNameOffset as USHORT_
-	PrintNameLength as USHORT_
+	SubstituteNameOffset as USHORT
+	SubstituteNameLength as USHORT
+	PrintNameOffset as USHORT
+	PrintNameLength as USHORT
 	PathBuffer(0 to 0) as WCHAR
 end type
 
@@ -711,9 +659,9 @@ type ___REPARSE_DATA_BUFFER_GenericReparseBuffer
 end type
 
 type _REPARSE_DATA_BUFFER
-	ReparseTag as ULONG_
-	ReparseDataLength as USHORT_
-	Reserved as USHORT_
+	ReparseTag as ULONG
+	ReparseDataLength as USHORT
+	Reserved as USHORT
 
 	union
 		SymbolicLinkReparseBuffer as ___REPARSE_DATA_BUFFER_SymbolicLinkReparseBuffer

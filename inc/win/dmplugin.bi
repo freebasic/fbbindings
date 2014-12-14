@@ -58,7 +58,7 @@ type LPDIRECTMUSICGRAPH as IDirectMusicGraph ptr
 type IDirectMusicGraph8 as IDirectMusicGraph
 type LPDIRECTMUSICGRAPH8 as IDirectMusicGraph ptr
 type DMUS_PMSG as _DMUS_PMSG
-type MUSIC_TIME as LONG_
+type MUSIC_TIME as LONG
 
 #define DMUS_TRACK_PARAMF_CLOCK &h1
 
@@ -85,8 +85,8 @@ end type
 
 type IDirectMusicToolVtbl_ field = 8
 	QueryInterface as function(byval This as IDirectMusicTool ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirectMusicTool ptr) as ULONG_
-	Release as function(byval This as IDirectMusicTool ptr) as ULONG_
+	AddRef as function(byval This as IDirectMusicTool ptr) as ULONG
+	Release as function(byval This as IDirectMusicTool ptr) as ULONG
 	Init as function(byval This as IDirectMusicTool ptr, byval pGraph as IDirectMusicGraph ptr) as HRESULT
 	GetMsgDeliveryType as function(byval This as IDirectMusicTool ptr, byval pdwDeliveryType as DWORD ptr) as HRESULT
 	GetMediaTypeArraySize as function(byval This as IDirectMusicTool ptr, byval pdwNumElements as DWORD ptr) as HRESULT
@@ -111,8 +111,8 @@ end type
 
 type IDirectMusicTool8Vtbl_ field = 8
 	QueryInterface as function(byval This as IDirectMusicTool8 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirectMusicTool8 ptr) as ULONG_
-	Release as function(byval This as IDirectMusicTool8 ptr) as ULONG_
+	AddRef as function(byval This as IDirectMusicTool8 ptr) as ULONG
+	Release as function(byval This as IDirectMusicTool8 ptr) as ULONG
 	Init as function(byval This as IDirectMusicTool8 ptr, byval pGraph as IDirectMusicGraph ptr) as HRESULT
 	GetMsgDeliveryType as function(byval This as IDirectMusicTool8 ptr, byval pdwDeliveryType as DWORD ptr) as HRESULT
 	GetMediaTypeArraySize as function(byval This as IDirectMusicTool8 ptr, byval pdwNumElements as DWORD ptr) as HRESULT
@@ -139,8 +139,8 @@ end type
 
 type IDirectMusicTrackVtbl_ field = 8
 	QueryInterface as function(byval This as IDirectMusicTrack ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirectMusicTrack ptr) as ULONG_
-	Release as function(byval This as IDirectMusicTrack ptr) as ULONG_
+	AddRef as function(byval This as IDirectMusicTrack ptr) as ULONG
+	Release as function(byval This as IDirectMusicTrack ptr) as ULONG
 	Init as function(byval This as IDirectMusicTrack ptr, byval pSegment as IDirectMusicSegment ptr) as HRESULT
 	InitPlay as function(byval This as IDirectMusicTrack ptr, byval pSegmentState as IDirectMusicSegmentState ptr, byval pPerformance as IDirectMusicPerformance ptr, byval ppStateData as any ptr ptr, byval dwVirtualTrackID as DWORD, byval dwFlags as DWORD) as HRESULT
 	EndPlay as function(byval This as IDirectMusicTrack ptr, byval pStateData as any ptr) as HRESULT
@@ -173,8 +173,8 @@ end type
 
 type IDirectMusicTrack8Vtbl_ field = 8
 	QueryInterface as function(byval This as IDirectMusicTrack8 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirectMusicTrack8 ptr) as ULONG_
-	Release as function(byval This as IDirectMusicTrack8 ptr) as ULONG_
+	AddRef as function(byval This as IDirectMusicTrack8 ptr) as ULONG
+	Release as function(byval This as IDirectMusicTrack8 ptr) as ULONG
 	Init as function(byval This as IDirectMusicTrack8 ptr, byval pSegment as IDirectMusicSegment ptr) as HRESULT
 	InitPlay as function(byval This as IDirectMusicTrack8 ptr, byval pSegmentState as IDirectMusicSegmentState ptr, byval pPerformance as IDirectMusicPerformance ptr, byval ppStateData as any ptr ptr, byval dwVirtualTrackID as DWORD, byval dwFlags as DWORD) as HRESULT
 	EndPlay as function(byval This as IDirectMusicTrack8 ptr, byval pStateData as any ptr) as HRESULT

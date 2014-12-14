@@ -83,7 +83,6 @@ type CallInfo as CallInfo_
 #define lua_str2number(s, p) strtod((s), (p))
 #define LUA_INTEGER_ integer
 #define LUA_UNSIGNED_ ulong
-
 #define LUA_IEEE754TRICK
 
 #if defined(__FB_DOS__) or ((not defined(__FB_64BIT__)) and (defined(__FB_WIN32__) or defined(__FB_LINUX__)))

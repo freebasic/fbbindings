@@ -82,7 +82,7 @@ type tagPROCESSENTRY32W
 	th32ModuleID as DWORD
 	cntThreads as DWORD
 	th32ParentProcessID as DWORD
-	pcPriClassBase as LONG_
+	pcPriClassBase as LONG
 	dwFlags as DWORD
 	szExeFile(0 to 259) as WCHAR
 end type
@@ -102,7 +102,7 @@ type tagPROCESSENTRY32
 	th32ModuleID as DWORD
 	cntThreads as DWORD
 	th32ParentProcessID as DWORD
-	pcPriClassBase as LONG_
+	pcPriClassBase as LONG
 	dwFlags as DWORD
 	szExeFile(0 to 259) as CHAR
 end type
@@ -127,8 +127,8 @@ type tagTHREADENTRY32
 	cntUsage as DWORD
 	th32ThreadID as DWORD
 	th32OwnerProcessID as DWORD
-	tpBasePri as LONG_
-	tpDeltaPri as LONG_
+	tpBasePri as LONG
+	tpDeltaPri as LONG
 	dwFlags as DWORD
 end type
 
@@ -145,7 +145,7 @@ type tagMODULEENTRY32W
 	th32ProcessID as DWORD
 	GlblcntUsage as DWORD
 	ProccntUsage as DWORD
-	modBaseAddr as BYTE_ ptr
+	modBaseAddr as BYTE ptr
 	modBaseSize as DWORD
 	hModule as HMODULE
 	szModule(0 to (255 + 1) - 1) as WCHAR
@@ -165,7 +165,7 @@ type tagMODULEENTRY32
 	th32ProcessID as DWORD
 	GlblcntUsage as DWORD
 	ProccntUsage as DWORD
-	modBaseAddr as BYTE_ ptr
+	modBaseAddr as BYTE ptr
 	modBaseSize as DWORD
 	hModule as HMODULE
 	szModule as zstring * 255 + 1

@@ -342,8 +342,8 @@ end type
 
 type ID3DXBaseMeshVtbl_
 	QueryInterface as function(byval This as ID3DXBaseMesh ptr, byval riid as const IID const ptr, byval out_ as any ptr ptr) as HRESULT
-	AddRef as function(byval This as ID3DXBaseMesh ptr) as ULONG_
-	Release as function(byval This as ID3DXBaseMesh ptr) as ULONG_
+	AddRef as function(byval This as ID3DXBaseMesh ptr) as ULONG
+	Release as function(byval This as ID3DXBaseMesh ptr) as ULONG
 	DrawSubset as function(byval This as ID3DXBaseMesh ptr, byval attrib_id as DWORD) as HRESULT
 	GetNumFaces as function(byval This as ID3DXBaseMesh ptr) as DWORD
 	GetNumVertices as function(byval This as ID3DXBaseMesh ptr) as DWORD
@@ -373,8 +373,8 @@ end type
 
 type ID3DXMeshVtbl_
 	QueryInterface as function(byval This as ID3DXMesh ptr, byval riid as const IID const ptr, byval out_ as any ptr ptr) as HRESULT
-	AddRef as function(byval This as ID3DXMesh ptr) as ULONG_
-	Release as function(byval This as ID3DXMesh ptr) as ULONG_
+	AddRef as function(byval This as ID3DXMesh ptr) as ULONG
+	Release as function(byval This as ID3DXMesh ptr) as ULONG
 	DrawSubset as function(byval This as ID3DXMesh ptr, byval attrib_id as DWORD) as HRESULT
 	GetNumFaces as function(byval This as ID3DXMesh ptr) as DWORD
 	GetNumVertices as function(byval This as ID3DXMesh ptr) as DWORD
@@ -409,8 +409,8 @@ end type
 
 type ID3DXPMeshVtbl_
 	QueryInterface as function(byval This as ID3DXPMesh ptr, byval riid as const IID const ptr, byval out_ as any ptr ptr) as HRESULT
-	AddRef as function(byval This as ID3DXPMesh ptr) as ULONG_
-	Release as function(byval This as ID3DXPMesh ptr) as ULONG_
+	AddRef as function(byval This as ID3DXPMesh ptr) as ULONG
+	Release as function(byval This as ID3DXPMesh ptr) as ULONG
 	DrawSubset as function(byval This as ID3DXPMesh ptr, byval attrib_id as DWORD) as HRESULT
 	GetNumFaces as function(byval This as ID3DXPMesh ptr) as DWORD
 	GetNumVertices as function(byval This as ID3DXPMesh ptr) as DWORD
@@ -455,8 +455,8 @@ end type
 
 type ID3DXSPMeshVtbl_
 	QueryInterface as function(byval This as ID3DXSPMesh ptr, byval riid as const IID const ptr, byval out_ as any ptr ptr) as HRESULT
-	AddRef as function(byval This as ID3DXSPMesh ptr) as ULONG_
-	Release as function(byval This as ID3DXSPMesh ptr) as ULONG_
+	AddRef as function(byval This as ID3DXSPMesh ptr) as ULONG
+	Release as function(byval This as ID3DXSPMesh ptr) as ULONG
 	GetNumFaces as function(byval This as ID3DXSPMesh ptr) as DWORD
 	GetNumVertices as function(byval This as ID3DXSPMesh ptr) as DWORD
 	GetNumFVF as function(byval This as ID3DXSPMesh ptr) as DWORD
@@ -481,8 +481,8 @@ end type
 
 type ID3DXPatchMeshVtbl_
 	QueryInterface as function(byval This as ID3DXPatchMesh ptr, byval riid as const IID const ptr, byval out_ as any ptr ptr) as HRESULT
-	AddRef as function(byval This as ID3DXPatchMesh ptr) as ULONG_
-	Release as function(byval This as ID3DXPatchMesh ptr) as ULONG_
+	AddRef as function(byval This as ID3DXPatchMesh ptr) as ULONG
+	Release as function(byval This as ID3DXPatchMesh ptr) as ULONG
 	GetNumPatches as function(byval This as ID3DXPatchMesh ptr) as DWORD
 	GetNumVertices as function(byval This as ID3DXPatchMesh ptr) as DWORD
 	GetDeclaration as function(byval This as ID3DXPatchMesh ptr, byval declaration as D3DVERTEXELEMENT9 ptr) as HRESULT
@@ -514,8 +514,8 @@ end type
 
 type ID3DXSkinInfoVtbl_
 	QueryInterface as function(byval This as ID3DXSkinInfo ptr, byval riid as const IID const ptr, byval out_ as any ptr ptr) as HRESULT
-	AddRef as function(byval This as ID3DXSkinInfo ptr) as ULONG_
-	Release as function(byval This as ID3DXSkinInfo ptr) as ULONG_
+	AddRef as function(byval This as ID3DXSkinInfo ptr) as ULONG
+	Release as function(byval This as ID3DXSkinInfo ptr) as ULONG
 	SetBoneInfluence as function(byval This as ID3DXSkinInfo ptr, byval bone as DWORD, byval num_influences as DWORD, byval vertices as const DWORD ptr, byval weights as const FLOAT ptr) as HRESULT
 	SetBoneVertexInfluence as function(byval This as ID3DXSkinInfo ptr, byval bone_num as DWORD, byval influence_num as DWORD, byval weight as single) as HRESULT
 	GetNumBoneInfluences as function(byval This as ID3DXSkinInfo ptr, byval bone as DWORD) as DWORD
@@ -548,8 +548,8 @@ end type
 
 type ID3DXPRTBufferVtbl_
 	QueryInterface as function(byval This as ID3DXPRTBuffer ptr, byval riid as const IID const ptr, byval out_ as any ptr ptr) as HRESULT
-	AddRef as function(byval This as ID3DXPRTBuffer ptr) as ULONG_
-	Release as function(byval This as ID3DXPRTBuffer ptr) as ULONG_
+	AddRef as function(byval This as ID3DXPRTBuffer ptr) as ULONG
+	Release as function(byval This as ID3DXPRTBuffer ptr) as ULONG
 	GetNumSamples as function(byval This as ID3DXPRTBuffer ptr) as UINT
 	GetNumCoeffs as function(byval This as ID3DXPRTBuffer ptr) as UINT
 	GetNumChannels as function(byval This as ID3DXPRTBuffer ptr) as UINT
@@ -574,8 +574,8 @@ end type
 
 type ID3DXPRTCompBufferVtbl_
 	QueryInterface as function(byval This as ID3DXPRTCompBuffer ptr, byval riid as const IID const ptr, byval out_ as any ptr ptr) as HRESULT
-	AddRef as function(byval This as ID3DXPRTCompBuffer ptr) as ULONG_
-	Release as function(byval This as ID3DXPRTCompBuffer ptr) as ULONG_
+	AddRef as function(byval This as ID3DXPRTCompBuffer ptr) as ULONG
+	Release as function(byval This as ID3DXPRTCompBuffer ptr) as ULONG
 	GetNumSamples as function(byval This as ID3DXPRTCompBuffer ptr) as UINT
 	GetNumCoeffs as function(byval This as ID3DXPRTCompBuffer ptr) as UINT
 	GetNumChannels as function(byval This as ID3DXPRTCompBuffer ptr) as UINT
@@ -598,8 +598,8 @@ end type
 
 type ID3DXTextureGutterHelperVtbl_
 	QueryInterface as function(byval This as ID3DXTextureGutterHelper ptr, byval riid as const IID const ptr, byval out_ as any ptr ptr) as HRESULT
-	AddRef as function(byval This as ID3DXTextureGutterHelper ptr) as ULONG_
-	Release as function(byval This as ID3DXTextureGutterHelper ptr) as ULONG_
+	AddRef as function(byval This as ID3DXTextureGutterHelper ptr) as ULONG
+	Release as function(byval This as ID3DXTextureGutterHelper ptr) as ULONG
 	GetWidth as function(byval This as ID3DXTextureGutterHelper ptr) as UINT
 	GetHeight as function(byval This as ID3DXTextureGutterHelper ptr) as UINT
 	ApplyGuttersFloat as function(byval This as ID3DXTextureGutterHelper ptr, byval data_in as FLOAT ptr, byval num_coeffs as UINT, byval width_ as UINT, byval height as UINT) as HRESULT
@@ -609,11 +609,11 @@ type ID3DXTextureGutterHelperVtbl_
 	GetFaceMap as function(byval This as ID3DXTextureGutterHelper ptr, byval face_data as UINT ptr) as HRESULT
 	GetBaryMap as function(byval This as ID3DXTextureGutterHelper ptr, byval bary_data as D3DXVECTOR2 ptr) as HRESULT
 	GetTexelMap as function(byval This as ID3DXTextureGutterHelper ptr, byval texel_data as D3DXVECTOR2 ptr) as HRESULT
-	GetGutterMap as function(byval This as ID3DXTextureGutterHelper ptr, byval gutter_data as BYTE_ ptr) as HRESULT
+	GetGutterMap as function(byval This as ID3DXTextureGutterHelper ptr, byval gutter_data as BYTE ptr) as HRESULT
 	SetFaceMap as function(byval This as ID3DXTextureGutterHelper ptr, byval face_data as UINT ptr) as HRESULT
 	SetBaryMap as function(byval This as ID3DXTextureGutterHelper ptr, byval bary_data as D3DXVECTOR2 ptr) as HRESULT
 	SetTexelMap as function(byval This as ID3DXTextureGutterHelper ptr, byval texel_data as D3DXVECTOR2 ptr) as HRESULT
-	SetGutterMap as function(byval This as ID3DXTextureGutterHelper ptr, byval gutter_data as BYTE_ ptr) as HRESULT
+	SetGutterMap as function(byval This as ID3DXTextureGutterHelper ptr, byval gutter_data as BYTE ptr) as HRESULT
 end type
 
 type ID3DXPRTEngine
@@ -622,8 +622,8 @@ end type
 
 type ID3DXPRTEngineVtbl_
 	QueryInterface as function(byval This as ID3DXPRTEngine ptr, byval riid as const IID const ptr, byval out_ as any ptr ptr) as HRESULT
-	AddRef as function(byval This as ID3DXPRTEngine ptr) as ULONG_
-	Release as function(byval This as ID3DXPRTEngine ptr) as ULONG_
+	AddRef as function(byval This as ID3DXPRTEngine ptr) as ULONG
+	Release as function(byval This as ID3DXPRTEngine ptr) as ULONG
 	SetMeshMaterials as function(byval This as ID3DXPRTEngine ptr, byval materials as const D3DXSHMATERIAL ptr ptr, byval num_meshes as UINT, byval num_channels as UINT, byval set_albedo as WINBOOL, byval length_scale as FLOAT) as HRESULT
 	SetPerVertexAlbedo as function(byval This as ID3DXPRTEngine ptr, byval data_in as const any ptr, byval num_channels as UINT, byval stride as UINT) as HRESULT
 	SetPerTexelAlbedo as function(byval This as ID3DXPRTEngine ptr, byval albedo_texture as IDirect3DTexture9 ptr, byval num_channels as UINT, byval gh as ID3DXTextureGutterHelper ptr) as HRESULT

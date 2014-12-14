@@ -1,12 +1,11 @@
 #pragma once
 
-#include once "crt/long.bi"
 #include once "basetsd.bi"
 #include once "rpcnsip.bi"
 #include once "rpcsal.bi"
 
 '' The following symbols have been renamed:
-''     typedef byte => byte__
+''     typedef byte => byte_
 ''     typedef boolean => boolean_
 
 #ifdef __FB_64BIT__
@@ -44,15 +43,13 @@ type <error-recovery> as <error-recovery>_
 #define TARGET_IS_NT40_OR_LATER 1
 #define TARGET_IS_NT351_OR_WIN95_OR_LATER 1
 
-type byte__ as ubyte
-type cs_byte as byte__
+type byte_ as ubyte
+type cs_byte as byte_
 type boolean_ as ubyte
 
 #define _HYPER_DEFINED
 #define hyper longint
-
-'' TODO: #define MIDL_uhyper unsigned __int64
-
+#define MIDL_uhyper '' TODO: unsigned __int64
 #define __MIDL_user_allocate_free_DEFINED__
 
 declare function MIDL_user_allocate(byval as SIZE_T_) as any ptr
@@ -75,7 +72,7 @@ type NDR_NOTIFY_ROUTINE as sub()
 type NDR_NOTIFY2_ROUTINE as sub(byval flag as boolean_)
 
 type _SCONTEXT_QUEUE field = 8
-	NumberOfObjects as culong
+	NumberOfObjects as ulong
 	ArrayOfObjects as NDR_SCONTEXT ptr
 end type
 
@@ -84,13 +81,13 @@ type PSCONTEXT_QUEUE as _SCONTEXT_QUEUE ptr
 
 declare function NDRCContextBinding(byval CContext as NDR_CCONTEXT) as RPC_BINDING_HANDLE
 declare sub NDRCContextMarshall(byval CContext as NDR_CCONTEXT, byval pBuff as any ptr)
-declare sub NDRCContextUnmarshall(byval pCContext as NDR_CCONTEXT ptr, byval hBinding as RPC_BINDING_HANDLE, byval pBuff as any ptr, byval DataRepresentation as culong)
+declare sub NDRCContextUnmarshall(byval pCContext as NDR_CCONTEXT ptr, byval hBinding as RPC_BINDING_HANDLE, byval pBuff as any ptr, byval DataRepresentation as ulong)
 declare sub NDRSContextMarshall(byval CContext as NDR_SCONTEXT, byval pBuff as any ptr, byval userRunDownIn as NDR_RUNDOWN)
-declare function NDRSContextUnmarshall(byval pBuff as any ptr, byval DataRepresentation as culong) as NDR_SCONTEXT
+declare function NDRSContextUnmarshall(byval pBuff as any ptr, byval DataRepresentation as ulong) as NDR_SCONTEXT
 declare sub NDRSContextMarshallEx(byval BindingHandle as RPC_BINDING_HANDLE, byval CContext as NDR_SCONTEXT, byval pBuff as any ptr, byval userRunDownIn as NDR_RUNDOWN)
-declare sub NDRSContextMarshall2(byval BindingHandle as RPC_BINDING_HANDLE, byval CContext as NDR_SCONTEXT, byval pBuff as any ptr, byval userRunDownIn as NDR_RUNDOWN, byval CtxGuard as any ptr, byval Flags as culong)
-declare function NDRSContextUnmarshallEx(byval BindingHandle as RPC_BINDING_HANDLE, byval pBuff as any ptr, byval DataRepresentation as culong) as NDR_SCONTEXT
-declare function NDRSContextUnmarshall2(byval BindingHandle as RPC_BINDING_HANDLE, byval pBuff as any ptr, byval DataRepresentation as culong, byval CtxGuard as any ptr, byval Flags as culong) as NDR_SCONTEXT
+declare sub NDRSContextMarshall2(byval BindingHandle as RPC_BINDING_HANDLE, byval CContext as NDR_SCONTEXT, byval pBuff as any ptr, byval userRunDownIn as NDR_RUNDOWN, byval CtxGuard as any ptr, byval Flags as ulong)
+declare function NDRSContextUnmarshallEx(byval BindingHandle as RPC_BINDING_HANDLE, byval pBuff as any ptr, byval DataRepresentation as ulong) as NDR_SCONTEXT
+declare function NDRSContextUnmarshall2(byval BindingHandle as RPC_BINDING_HANDLE, byval pBuff as any ptr, byval DataRepresentation as ulong, byval CtxGuard as any ptr, byval Flags as ulong) as NDR_SCONTEXT
 declare sub RpcSsDestroyClientContext(byval ContextHandle as any ptr ptr)
 
 #macro byte_from_ndr(source, target)
@@ -140,51 +137,48 @@ declare sub RpcSsDestroyClientContext(byval ContextHandle as any ptr ptr)
 #define MIDL_memset(s, c, n) memset(s, c, n)
 #define _ERROR_STATUS_T_DEFINED
 
-type error_status_t as culong
+type error_status_t as ulong
 
-'' TODO: #define _midl_ma1(p,cast) *(*(cast **)&p)++
-'' TODO: #define _midl_ma2(p,cast) *(*(cast **)&p)++
-'' TODO: #define _midl_ma4(p,cast) *(*(cast **)&p)++
-'' TODO: #define _midl_ma8(p,cast) *(*(cast **)&p)++
-'' TODO: #define _midl_unma1(p,cast) *((cast *)p)++
-'' TODO: #define _midl_unma2(p,cast) *((cast *)p)++
-'' TODO: #define _midl_unma3(p,cast) *((cast *)p)++
-'' TODO: #define _midl_unma4(p,cast) *((cast *)p)++
-'' TODO: #define _midl_fa2(p) (p = (RPC_BUFPTR)((ULONG_PTR)(p+1) & ~0x1))
-'' TODO: #define _midl_fa4(p) (p = (RPC_BUFPTR)((ULONG_PTR)(p+3) & ~0x3))
-'' TODO: #define _midl_fa8(p) (p = (RPC_BUFPTR)((ULONG_PTR)(p+7) & ~0x7))
-'' TODO: #define _midl_addp(p,n) (p += n)
-'' TODO: #define _midl_marsh_lhs(p,cast) *(*(cast **)&p)++
-'' TODO: #define _midl_marsh_up(mp,p) *(*(unsigned __LONG32 **)&mp)++ = (unsigned __LONG32)p
-'' TODO: #define _midl_advmp(mp) *(*(unsigned __LONG32 **)&mp)++
-'' TODO: #define _midl_unmarsh_up(p) (*(*(unsigned __LONG32 **)&p)++)
-'' TODO: #define NdrMarshConfStringHdr(p,s,l) (_midl_ma4(p,unsigned __LONG32) = s,_midl_ma4(p,unsigned __LONG32) = 0,_midl_ma4(p,unsigned __LONG32) = l)
-'' TODO: #define NdrUnMarshConfStringHdr(p,s,l) (s=_midl_unma4(p,unsigned __LONG32),(_midl_addp(p,4)),(l=_midl_unma4(p,unsigned __LONG32)))
-'' TODO: #define NdrMarshCCtxtHdl(pc,p) (NDRCContextMarshall((NDR_CCONTEXT)pc,p),p+20)
-'' TODO: #define NdrUnMarshCCtxtHdl(pc,p,h,drep) (NDRCContextUnmarshall((NDR_CCONTEXT)pc,h,p,drep),p+20)
-'' TODO: #define NdrUnMarshSCtxtHdl(pc,p,drep) (pc = NdrSContextUnMarshall(p,drep))
-
+#define _midl_ma1(p, cast) '' TODO: *(*(cast **)&p)++
+#define _midl_ma2(p, cast) '' TODO: *(*(cast **)&p)++
+#define _midl_ma4(p, cast) '' TODO: *(*(cast **)&p)++
+#define _midl_ma8(p, cast) '' TODO: *(*(cast **)&p)++
+#define _midl_unma1(p, cast) '' TODO: *((cast *)p)++
+#define _midl_unma2(p, cast) '' TODO: *((cast *)p)++
+#define _midl_unma3(p, cast) '' TODO: *((cast *)p)++
+#define _midl_unma4(p, cast) '' TODO: *((cast *)p)++
+#define _midl_fa2(p) '' TODO: (p = (RPC_BUFPTR)((ULONG_PTR)(p+1) & ~0x1))
+#define _midl_fa4(p) '' TODO: (p = (RPC_BUFPTR)((ULONG_PTR)(p+3) & ~0x3))
+#define _midl_fa8(p) '' TODO: (p = (RPC_BUFPTR)((ULONG_PTR)(p+7) & ~0x7))
+#define _midl_addp(p, n) '' TODO: (p += n)
+#define _midl_marsh_lhs(p, cast) '' TODO: *(*(cast **)&p)++
+#define _midl_marsh_up(mp, p) '' TODO: *(*(unsigned __LONG32 **)&mp)++ = (unsigned __LONG32)p
+#define _midl_advmp(mp) '' TODO: *(*(unsigned __LONG32 **)&mp)++
+#define _midl_unmarsh_up(p) '' TODO: (*(*(unsigned __LONG32 **)&p)++)
+#define NdrMarshConfStringHdr(p, s, l) '' TODO: (_midl_ma4(p,unsigned __LONG32) = s,_midl_ma4(p,unsigned __LONG32) = 0,_midl_ma4(p,unsigned __LONG32) = l)
+#define NdrUnMarshConfStringHdr(p, s, l) '' TODO: (s=_midl_unma4(p,unsigned __LONG32),(_midl_addp(p,4)),(l=_midl_unma4(p,unsigned __LONG32)))
+#define NdrMarshCCtxtHdl(pc, p) '' TODO: (NDRCContextMarshall((NDR_CCONTEXT)pc,p),p+20)
+#define NdrUnMarshCCtxtHdl(pc, p, h, drep) '' TODO: (NDRCContextUnmarshall((NDR_CCONTEXT)pc,h,p,drep),p+20)
+#define NdrUnMarshSCtxtHdl(pc, p, drep) '' TODO: (pc = NdrSContextUnMarshall(p,drep))
 #define NdrMarshSCtxtHdl(pc, p, rd) NdrSContextMarshall(cast(NDR_SCONTEXT, pc), p, cast(NDR_RUNDOWN, rd))
 #define NdrFieldOffset(s, f) cast(LONG_PTR, @cptr(s ptr, 0)->f)
-
-'' TODO: #define NdrFieldPad(s,f,p,t) ((unsigned __LONG32)(NdrFieldOffset(s,f) - NdrFieldOffset(s,p)) - sizeof(t))
-'' TODO: #define NdrFcShort(s) (unsigned char)(s & 0xff),(unsigned char)(s >> 8)
-'' TODO: #define NdrFcLong(s) (unsigned char)(s & 0xff),(unsigned char)((s & 0x0000ff00) >> 8),(unsigned char)((s & 0x00ff0000) >> 16),(unsigned char)(s >> 24)
-
+#define NdrFieldPad(s, f, p, t) '' TODO: ((unsigned __LONG32)(NdrFieldOffset(s,f) - NdrFieldOffset(s,p)) - sizeof(t))
+#define NdrFcShort(s) '' TODO: (unsigned char)(s & 0xff),(unsigned char)(s >> 8)
+#define NdrFcLong(s) '' TODO: (unsigned char)(s & 0xff),(unsigned char)((s & 0x0000ff00) >> 8),(unsigned char)((s & 0x00ff0000) >> 16),(unsigned char)(s >> 24)
 #define RPC_BAD_STUB_DATA_EXCEPTION_FILTER ((((RpcExceptionCode() = STATUS_ACCESS_VIOLATION) orelse (RpcExceptionCode() = STATUS_DATATYPE_MISALIGNMENT)) orelse (RpcExceptionCode() = RPC_X_BAD_STUB_DATA)) orelse (RpcExceptionCode() = RPC_S_INVALID_BOUND))
 
 type RPC_BUFPTR as ubyte ptr
-type RPC_LENGTH as culong
+type RPC_LENGTH as ulong
 type EXPR_EVAL as sub(byval as _MIDL_STUB_MESSAGE ptr)
 type PFORMAT_STRING as const ubyte ptr
 
 type ARRAY_INFO field = 8
-	Dimension as clong
-	BufferConformanceMark as culong ptr
-	BufferVarianceMark as culong ptr
-	MaxCountArray as culong ptr
-	OffsetArray as culong ptr
-	ActualCountArray as culong ptr
+	Dimension as long
+	BufferConformanceMark as ulong ptr
+	BufferVarianceMark as ulong ptr
+	MaxCountArray as ulong ptr
+	OffsetArray as ulong ptr
+	ActualCountArray as ulong ptr
 end type
 
 type PARRAY_INFO as ARRAY_INFO ptr
@@ -192,8 +186,8 @@ type PNDR_ASYNC_MESSAGE as _NDR_ASYNC_MESSAGE ptr
 type PNDR_CORRELATION_INFO as _NDR_CORRELATION_INFO ptr
 
 type CS_STUB_INFO field = 8
-	WireCodeset as culong
-	DesiredReceivingCodeset as culong
+	WireCodeset as ulong
+	DesiredReceivingCodeset as ulong
 	CSArrayInfo as any ptr
 end type
 
@@ -206,8 +200,8 @@ type _MIDL_STUB_MESSAGE_ field = 8
 	BufferStart as ubyte ptr
 	BufferEnd as ubyte ptr
 	BufferMark as ubyte ptr
-	BufferLength as culong
-	MemorySize as culong
+	BufferLength as ulong
+	MemorySize as ulong
 	Memory as ubyte ptr
 	IsClient as ubyte
 	Pad as ubyte
@@ -221,8 +215,8 @@ type _MIDL_STUB_MESSAGE_ field = 8
 	uFlags as ubyte
 	UniquePtrCount as ushort
 	MaxCount as ULONG_PTR
-	Offset as culong
-	ActualCount as culong
+	Offset as ulong
+	ActualCount as ulong
 	pfnAllocate as function(byval as uinteger) as any ptr
 	pfnFree as sub(byval as any ptr)
 	StackTop as ubyte ptr
@@ -231,8 +225,8 @@ type _MIDL_STUB_MESSAGE_ field = 8
 	SavedHandle as handle_t
 	StubDesc as const _MIDL_STUB_DESC ptr
 	FullPtrXlatTables as _FULL_PTR_XLAT_TABLES ptr
-	FullPtrRefId as culong
-	PointerLength as culong
+	FullPtrRefId as ulong
+	PointerLength as ulong
 	fInDontFree : 1 as long
 	fDontCallFreeInst : 1 as long
 	fInOnlyParam : 1 as long
@@ -243,17 +237,17 @@ type _MIDL_STUB_MESSAGE_ field = 8
 	fHasMemoryValidateCallback : 1 as long
 	fUnused : 8 as long
 	fUnused2 : 16 as long
-	dwDestContext as culong
+	dwDestContext as ulong
 	pvDestContext as any ptr
 	SavedContextHandles as NDR_SCONTEXT ptr
-	ParamNumber as clong
+	ParamNumber as long
 	pRpcChannelBuffer as IRpcChannelBuffer ptr
 	pArrayInfo as PARRAY_INFO
-	SizePtrCountArray as culong ptr
-	SizePtrOffsetArray as culong ptr
-	SizePtrLengthArray as culong ptr
+	SizePtrCountArray as ulong ptr
+	SizePtrOffsetArray as ulong ptr
+	SizePtrLengthArray as ulong ptr
 	pArgQueue as any ptr
-	dwStubPhase as culong
+	dwStubPhase as ulong
 	LowStackMark as any ptr
 	pAsyncMsg as PNDR_ASYNC_MESSAGE
 	pCorrInfo as PNDR_CORRELATION_INFO
@@ -294,7 +288,7 @@ end type
 type GENERIC_BINDING_INFO as __GENERIC_BINDING_INFO
 type PGENERIC_BINDING_INFO as __GENERIC_BINDING_INFO ptr
 
-'' TODO: #define NDR_SHAREABLE __inline
+#define NDR_SHAREABLE '' TODO: __inline
 
 type XMIT_HELPER_ROUTINE as sub(byval as PMIDL_STUB_MESSAGE)
 
@@ -307,10 +301,10 @@ end type
 
 type XMIT_ROUTINE_QUINTUPLE as _XMIT_ROUTINE_QUINTUPLE
 type PXMIT_ROUTINE_QUINTUPLE as _XMIT_ROUTINE_QUINTUPLE ptr
-type USER_MARSHAL_SIZING_ROUTINE as function(byval as ULONG_ ptr, byval as ULONG_, byval as any ptr) as ULONG_
-type USER_MARSHAL_MARSHALLING_ROUTINE as function(byval as ULONG_ ptr, byval as ubyte ptr, byval as any ptr) as ubyte ptr
-type USER_MARSHAL_UNMARSHALLING_ROUTINE as function(byval as ULONG_ ptr, byval as ubyte ptr, byval as any ptr) as ubyte ptr
-type USER_MARSHAL_FREEING_ROUTINE as sub(byval as ULONG_ ptr, byval as any ptr)
+type USER_MARSHAL_SIZING_ROUTINE as function(byval as ULONG ptr, byval as ULONG, byval as any ptr) as ULONG
+type USER_MARSHAL_MARSHALLING_ROUTINE as function(byval as ULONG ptr, byval as ubyte ptr, byval as any ptr) as ubyte ptr
+type USER_MARSHAL_UNMARSHALLING_ROUTINE as function(byval as ULONG ptr, byval as ubyte ptr, byval as any ptr) as ubyte ptr
+type USER_MARSHAL_FREEING_ROUTINE as sub(byval as ULONG ptr, byval as any ptr)
 
 type _USER_MARSHAL_ROUTINE_QUADRUPLE field = 8
 	pfnBufferSize as USER_MARSHAL_SIZING_ROUTINE
@@ -334,10 +328,10 @@ end enum
 type USER_MARSHAL_CB_TYPE as _USER_MARSHAL_CB_TYPE
 
 type _USER_MARSHAL_CB field = 8
-	Flags as culong
+	Flags as ulong
 	pStubMsg as PMIDL_STUB_MESSAGE
 	pReserve as PFORMAT_STRING
-	Signature as culong
+	Signature as ulong
 	CBType as USER_MARSHAL_CB_TYPE
 	pFormat as PFORMAT_STRING
 	pTypeFormat as PFORMAT_STRING
@@ -373,13 +367,13 @@ enum
 end enum
 
 type IDL_CS_CONVERT as _IDL_CS_CONVERT
-type CS_TYPE_NET_SIZE_ROUTINE as sub(byval hBinding as RPC_BINDING_HANDLE, byval ulNetworkCodeSet as culong, byval ulLocalBufferSize as culong, byval conversionType as IDL_CS_CONVERT ptr, byval pulNetworkBufferSize as culong ptr, byval pStatus as error_status_t ptr)
-type CS_TYPE_LOCAL_SIZE_ROUTINE as sub(byval hBinding as RPC_BINDING_HANDLE, byval ulNetworkCodeSet as culong, byval ulNetworkBufferSize as culong, byval conversionType as IDL_CS_CONVERT ptr, byval pulLocalBufferSize as culong ptr, byval pStatus as error_status_t ptr)
-type CS_TYPE_TO_NETCS_ROUTINE as sub(byval hBinding as RPC_BINDING_HANDLE, byval ulNetworkCodeSet as culong, byval pLocalData as any ptr, byval ulLocalDataLength as culong, byval pNetworkData as byte__ ptr, byval pulNetworkDataLength as culong ptr, byval pStatus as error_status_t ptr)
-type CS_TYPE_FROM_NETCS_ROUTINE as sub(byval hBinding as RPC_BINDING_HANDLE, byval ulNetworkCodeSet as culong, byval pNetworkData as byte__ ptr, byval ulNetworkDataLength as culong, byval ulLocalBufferSize as culong, byval pLocalData as any ptr, byval pulLocalDataLength as culong ptr, byval pStatus as error_status_t ptr)
-type CS_TAG_GETTING_ROUTINE as sub(byval hBinding as RPC_BINDING_HANDLE, byval fServerSide as long, byval pulSendingTag as culong ptr, byval pulDesiredReceivingTag as culong ptr, byval pulReceivingTag as culong ptr, byval pStatus as error_status_t ptr)
+type CS_TYPE_NET_SIZE_ROUTINE as sub(byval hBinding as RPC_BINDING_HANDLE, byval ulNetworkCodeSet as ulong, byval ulLocalBufferSize as ulong, byval conversionType as IDL_CS_CONVERT ptr, byval pulNetworkBufferSize as ulong ptr, byval pStatus as error_status_t ptr)
+type CS_TYPE_LOCAL_SIZE_ROUTINE as sub(byval hBinding as RPC_BINDING_HANDLE, byval ulNetworkCodeSet as ulong, byval ulNetworkBufferSize as ulong, byval conversionType as IDL_CS_CONVERT ptr, byval pulLocalBufferSize as ulong ptr, byval pStatus as error_status_t ptr)
+type CS_TYPE_TO_NETCS_ROUTINE as sub(byval hBinding as RPC_BINDING_HANDLE, byval ulNetworkCodeSet as ulong, byval pLocalData as any ptr, byval ulLocalDataLength as ulong, byval pNetworkData as byte_ ptr, byval pulNetworkDataLength as ulong ptr, byval pStatus as error_status_t ptr)
+type CS_TYPE_FROM_NETCS_ROUTINE as sub(byval hBinding as RPC_BINDING_HANDLE, byval ulNetworkCodeSet as ulong, byval pNetworkData as byte_ ptr, byval ulNetworkDataLength as ulong, byval ulLocalBufferSize as ulong, byval pLocalData as any ptr, byval pulLocalDataLength as ulong ptr, byval pStatus as error_status_t ptr)
+type CS_TAG_GETTING_ROUTINE as sub(byval hBinding as RPC_BINDING_HANDLE, byval fServerSide as long, byval pulSendingTag as ulong ptr, byval pulDesiredReceivingTag as ulong ptr, byval pulReceivingTag as ulong ptr, byval pStatus as error_status_t ptr)
 
-declare sub RpcCsGetTags(byval hBinding as RPC_BINDING_HANDLE, byval fServerSide as long, byval pulSendingTag as culong ptr, byval pulDesiredReceivingTag as culong ptr, byval pulReceivingTag as culong ptr, byval pStatus as error_status_t ptr)
+declare sub RpcCsGetTags(byval hBinding as RPC_BINDING_HANDLE, byval fServerSide as long, byval pulSendingTag as ulong ptr, byval pulDesiredReceivingTag as ulong ptr, byval pulReceivingTag as ulong ptr, byval pStatus as error_status_t ptr)
 
 type _NDR_CS_SIZE_CONVERT_ROUTINES field = 8
 	pfnNetSize as CS_TYPE_NET_SIZE_ROUTINE
@@ -414,9 +408,9 @@ type _MIDL_STUB_DESC_ field = 8
 	aXmitQuintuple as const XMIT_ROUTINE_QUINTUPLE ptr
 	pFormatTypes as const ubyte ptr
 	fCheckBounds as long
-	Version as culong
+	Version as ulong
 	pMallocFreeStruct as MALLOC_FREE_STRUCT ptr
-	MIDLVersion as clong
+	MIDLVersion as long
 	CommFaultOffsets as const COMM_FAULT_OFFSETS ptr
 	aUserMarshalQuadruple as const USER_MARSHAL_ROUTINE_QUADRUPLE ptr
 	NotifyRoutineTable as const NDR_NOTIFY_ROUTINE ptr
@@ -437,7 +431,7 @@ end type
 
 type MIDL_FORMAT_STRING as _MIDL_FORMAT_STRING
 type STUB_THUNK as sub(byval as PMIDL_STUB_MESSAGE)
-type SERVER_ROUTINE as function() as clong
+type SERVER_ROUTINE as function() as long
 
 type _MIDL_SERVER_INFO_ field = 8
 	pStubDesc as PMIDL_STUB_DESC
@@ -495,7 +489,7 @@ end enum
 type _FULL_PTR_TO_REFID_ELEMENT field = 8
 	Next as _FULL_PTR_TO_REFID_ELEMENT ptr
 	Pointer as any ptr
-	RefId as culong
+	RefId as ulong
 	State as ubyte
 end type
 
@@ -505,27 +499,27 @@ type PFULL_PTR_TO_REFID_ELEMENT as _FULL_PTR_TO_REFID_ELEMENT ptr
 type ___FULL_PTR_XLAT_TABLES_RefIdToPointer field = 8
 	XlatTable as any ptr ptr
 	StateTable as ubyte ptr
-	NumberOfEntries as culong
+	NumberOfEntries as ulong
 end type
 
 type ___FULL_PTR_XLAT_TABLES_PointerToRefId field = 8
 	XlatTable as PFULL_PTR_TO_REFID_ELEMENT ptr
-	NumberOfBuckets as culong
-	HashMask as culong
+	NumberOfBuckets as ulong
+	HashMask as ulong
 end type
 
 type _FULL_PTR_XLAT_TABLES_ field = 8
 	RefIdToPointer as ___FULL_PTR_XLAT_TABLES_RefIdToPointer
 	PointerToRefId as ___FULL_PTR_XLAT_TABLES_PointerToRefId
-	NextRefId as culong
+	NextRefId as ulong
 	XlatSide as XLAT_SIDE
 end type
 
 type FULL_PTR_XLAT_TABLES as _FULL_PTR_XLAT_TABLES
 type PFULL_PTR_XLAT_TABLES as _FULL_PTR_XLAT_TABLES ptr
 
-declare function NdrClientGetSupportedSyntaxes(byval pInf as RPC_CLIENT_INTERFACE ptr, byval pCount as culong ptr, byval pArr as MIDL_SYNTAX_INFO ptr ptr) as RPC_STATUS
-declare function NdrServerGetSupportedSyntaxes(byval pInf as RPC_SERVER_INTERFACE ptr, byval pCount as culong ptr, byval pArr as MIDL_SYNTAX_INFO ptr ptr, byval pPreferSyntaxIndex as culong ptr) as RPC_STATUS
+declare function NdrClientGetSupportedSyntaxes(byval pInf as RPC_CLIENT_INTERFACE ptr, byval pCount as ulong ptr, byval pArr as MIDL_SYNTAX_INFO ptr ptr) as RPC_STATUS
+declare function NdrServerGetSupportedSyntaxes(byval pInf as RPC_SERVER_INTERFACE ptr, byval pCount as ulong ptr, byval pArr as MIDL_SYNTAX_INFO ptr ptr, byval pPreferSyntaxIndex as ulong ptr) as RPC_STATUS
 declare sub NdrSimpleTypeMarshall(byval pStubMsg as PMIDL_STUB_MESSAGE, byval pMemory as ubyte ptr, byval FormatChar as ubyte)
 declare function NdrPointerMarshall(byval pStubMsg as PMIDL_STUB_MESSAGE, byval pMemory as ubyte ptr, byval pFormat as PFORMAT_STRING) as ubyte ptr
 declare function NdrCsArrayMarshall(byval pStubMsg as PMIDL_STUB_MESSAGE, byval pMemory as ubyte ptr, byval pFormat as PFORMAT_STRING) as ubyte ptr
@@ -554,7 +548,7 @@ declare sub NdrSimpleTypeUnmarshall(byval pStubMsg as PMIDL_STUB_MESSAGE, byval 
 declare function NdrCsArrayUnmarshall(byval pStubMsg as PMIDL_STUB_MESSAGE, byval ppMemory as ubyte ptr ptr, byval pFormat as PFORMAT_STRING, byval fMustAlloc as ubyte) as ubyte ptr
 declare function NdrCsTagUnmarshall(byval pStubMsg as PMIDL_STUB_MESSAGE, byval ppMemory as ubyte ptr ptr, byval pFormat as PFORMAT_STRING, byval fMustAlloc as ubyte) as ubyte ptr
 declare function NdrRangeUnmarshall(byval pStubMsg as PMIDL_STUB_MESSAGE, byval ppMemory as ubyte ptr ptr, byval pFormat as PFORMAT_STRING, byval fMustAlloc as ubyte) as ubyte ptr
-declare sub NdrCorrelationInitialize(byval pStubMsg as PMIDL_STUB_MESSAGE, byval pMemory as any ptr, byval CacheSize as culong, byval flags as culong)
+declare sub NdrCorrelationInitialize(byval pStubMsg as PMIDL_STUB_MESSAGE, byval pMemory as any ptr, byval CacheSize as ulong, byval flags as ulong)
 declare sub NdrCorrelationPass(byval pStubMsg as PMIDL_STUB_MESSAGE)
 declare sub NdrCorrelationFree(byval pStubMsg as PMIDL_STUB_MESSAGE)
 declare function NdrPointerUnmarshall(byval pStubMsg as PMIDL_STUB_MESSAGE, byval ppMemory as ubyte ptr ptr, byval pFormat as PFORMAT_STRING, byval fMustAlloc as ubyte) as ubyte ptr
@@ -600,25 +594,25 @@ declare sub NdrXmitOrRepAsBufferSize(byval pStubMsg as PMIDL_STUB_MESSAGE, byval
 declare sub NdrUserMarshalBufferSize(byval pStubMsg as PMIDL_STUB_MESSAGE, byval pMemory as ubyte ptr, byval pFormat as PFORMAT_STRING)
 declare sub NdrInterfacePointerBufferSize(byval pStubMsg as PMIDL_STUB_MESSAGE, byval pMemory as ubyte ptr, byval pFormat as PFORMAT_STRING)
 declare sub NdrContextHandleSize(byval pStubMsg as PMIDL_STUB_MESSAGE, byval pMemory as ubyte ptr, byval pFormat as PFORMAT_STRING)
-declare function NdrPointerMemorySize(byval pStubMsg as PMIDL_STUB_MESSAGE, byval pFormat as PFORMAT_STRING) as culong
-declare function NdrCsArrayMemorySize(byval pStubMsg as PMIDL_STUB_MESSAGE, byval pFormat as PFORMAT_STRING) as culong
-declare function NdrCsTagMemorySize(byval pStubMsg as PMIDL_STUB_MESSAGE, byval pFormat as PFORMAT_STRING) as culong
-declare function NdrSimpleStructMemorySize(byval pStubMsg as PMIDL_STUB_MESSAGE, byval pFormat as PFORMAT_STRING) as culong
-declare function NdrConformantStructMemorySize(byval pStubMsg as PMIDL_STUB_MESSAGE, byval pFormat as PFORMAT_STRING) as culong
-declare function NdrConformantVaryingStructMemorySize(byval pStubMsg as PMIDL_STUB_MESSAGE, byval pFormat as PFORMAT_STRING) as culong
-declare function NdrComplexStructMemorySize(byval pStubMsg as PMIDL_STUB_MESSAGE, byval pFormat as PFORMAT_STRING) as culong
-declare function NdrFixedArrayMemorySize(byval pStubMsg as PMIDL_STUB_MESSAGE, byval pFormat as PFORMAT_STRING) as culong
-declare function NdrConformantArrayMemorySize(byval pStubMsg as PMIDL_STUB_MESSAGE, byval pFormat as PFORMAT_STRING) as culong
-declare function NdrConformantVaryingArrayMemorySize(byval pStubMsg as PMIDL_STUB_MESSAGE, byval pFormat as PFORMAT_STRING) as culong
-declare function NdrVaryingArrayMemorySize(byval pStubMsg as PMIDL_STUB_MESSAGE, byval pFormat as PFORMAT_STRING) as culong
-declare function NdrComplexArrayMemorySize(byval pStubMsg as PMIDL_STUB_MESSAGE, byval pFormat as PFORMAT_STRING) as culong
-declare function NdrConformantStringMemorySize(byval pStubMsg as PMIDL_STUB_MESSAGE, byval pFormat as PFORMAT_STRING) as culong
-declare function NdrNonConformantStringMemorySize(byval pStubMsg as PMIDL_STUB_MESSAGE, byval pFormat as PFORMAT_STRING) as culong
-declare function NdrEncapsulatedUnionMemorySize(byval pStubMsg as PMIDL_STUB_MESSAGE, byval pFormat as PFORMAT_STRING) as culong
-declare function NdrNonEncapsulatedUnionMemorySize(byval pStubMsg as PMIDL_STUB_MESSAGE, byval pFormat as PFORMAT_STRING) as culong
-declare function NdrXmitOrRepAsMemorySize(byval pStubMsg as PMIDL_STUB_MESSAGE, byval pFormat as PFORMAT_STRING) as culong
-declare function NdrUserMarshalMemorySize(byval pStubMsg as PMIDL_STUB_MESSAGE, byval pFormat as PFORMAT_STRING) as culong
-declare function NdrInterfacePointerMemorySize(byval pStubMsg as PMIDL_STUB_MESSAGE, byval pFormat as PFORMAT_STRING) as culong
+declare function NdrPointerMemorySize(byval pStubMsg as PMIDL_STUB_MESSAGE, byval pFormat as PFORMAT_STRING) as ulong
+declare function NdrCsArrayMemorySize(byval pStubMsg as PMIDL_STUB_MESSAGE, byval pFormat as PFORMAT_STRING) as ulong
+declare function NdrCsTagMemorySize(byval pStubMsg as PMIDL_STUB_MESSAGE, byval pFormat as PFORMAT_STRING) as ulong
+declare function NdrSimpleStructMemorySize(byval pStubMsg as PMIDL_STUB_MESSAGE, byval pFormat as PFORMAT_STRING) as ulong
+declare function NdrConformantStructMemorySize(byval pStubMsg as PMIDL_STUB_MESSAGE, byval pFormat as PFORMAT_STRING) as ulong
+declare function NdrConformantVaryingStructMemorySize(byval pStubMsg as PMIDL_STUB_MESSAGE, byval pFormat as PFORMAT_STRING) as ulong
+declare function NdrComplexStructMemorySize(byval pStubMsg as PMIDL_STUB_MESSAGE, byval pFormat as PFORMAT_STRING) as ulong
+declare function NdrFixedArrayMemorySize(byval pStubMsg as PMIDL_STUB_MESSAGE, byval pFormat as PFORMAT_STRING) as ulong
+declare function NdrConformantArrayMemorySize(byval pStubMsg as PMIDL_STUB_MESSAGE, byval pFormat as PFORMAT_STRING) as ulong
+declare function NdrConformantVaryingArrayMemorySize(byval pStubMsg as PMIDL_STUB_MESSAGE, byval pFormat as PFORMAT_STRING) as ulong
+declare function NdrVaryingArrayMemorySize(byval pStubMsg as PMIDL_STUB_MESSAGE, byval pFormat as PFORMAT_STRING) as ulong
+declare function NdrComplexArrayMemorySize(byval pStubMsg as PMIDL_STUB_MESSAGE, byval pFormat as PFORMAT_STRING) as ulong
+declare function NdrConformantStringMemorySize(byval pStubMsg as PMIDL_STUB_MESSAGE, byval pFormat as PFORMAT_STRING) as ulong
+declare function NdrNonConformantStringMemorySize(byval pStubMsg as PMIDL_STUB_MESSAGE, byval pFormat as PFORMAT_STRING) as ulong
+declare function NdrEncapsulatedUnionMemorySize(byval pStubMsg as PMIDL_STUB_MESSAGE, byval pFormat as PFORMAT_STRING) as ulong
+declare function NdrNonEncapsulatedUnionMemorySize(byval pStubMsg as PMIDL_STUB_MESSAGE, byval pFormat as PFORMAT_STRING) as ulong
+declare function NdrXmitOrRepAsMemorySize(byval pStubMsg as PMIDL_STUB_MESSAGE, byval pFormat as PFORMAT_STRING) as ulong
+declare function NdrUserMarshalMemorySize(byval pStubMsg as PMIDL_STUB_MESSAGE, byval pFormat as PFORMAT_STRING) as ulong
+declare function NdrInterfacePointerMemorySize(byval pStubMsg as PMIDL_STUB_MESSAGE, byval pFormat as PFORMAT_STRING) as ulong
 declare sub NdrPointerFree(byval pStubMsg as PMIDL_STUB_MESSAGE, byval pMemory as ubyte ptr, byval pFormat as PFORMAT_STRING)
 declare sub NdrCsArrayFree(byval pStubMsg as PMIDL_STUB_MESSAGE, byval pMemory as ubyte ptr, byval pFormat as PFORMAT_STRING)
 declare sub NdrSimpleStructFree(byval pStubMsg as PMIDL_STUB_MESSAGE, byval pMemory as ubyte ptr, byval pFormat as PFORMAT_STRING)
@@ -636,7 +630,7 @@ declare sub NdrByteCountPointerFree(byval pStubMsg as PMIDL_STUB_MESSAGE, byval 
 declare sub NdrXmitOrRepAsFree(byval pStubMsg as PMIDL_STUB_MESSAGE, byval pMemory as ubyte ptr, byval pFormat as PFORMAT_STRING)
 declare sub NdrUserMarshalFree(byval pStubMsg as PMIDL_STUB_MESSAGE, byval pMemory as ubyte ptr, byval pFormat as PFORMAT_STRING)
 declare sub NdrInterfacePointerFree(byval pStubMsg as PMIDL_STUB_MESSAGE, byval pMemory as ubyte ptr, byval pFormat as PFORMAT_STRING)
-declare sub NdrConvert2(byval pStubMsg as PMIDL_STUB_MESSAGE, byval pFormat as PFORMAT_STRING, byval NumberParams as clong)
+declare sub NdrConvert2(byval pStubMsg as PMIDL_STUB_MESSAGE, byval pFormat as PFORMAT_STRING, byval NumberParams as long)
 declare sub NdrConvert(byval pStubMsg as PMIDL_STUB_MESSAGE, byval pFormat as PFORMAT_STRING)
 
 #define USER_MARSHAL_FC_BYTE 1
@@ -652,16 +646,16 @@ declare sub NdrConvert(byval pStubMsg as PMIDL_STUB_MESSAGE, byval pFormat as PF
 #define USER_MARSHAL_FC_HYPER 11
 #define USER_MARSHAL_FC_DOUBLE 12
 
-declare function NdrUserMarshalSimpleTypeConvert(byval pFlags as culong ptr, byval pBuffer as ubyte ptr, byval FormatChar as ubyte) as ubyte ptr
+declare function NdrUserMarshalSimpleTypeConvert(byval pFlags as ulong ptr, byval pBuffer as ubyte ptr, byval FormatChar as ubyte) as ubyte ptr
 declare sub NdrClientInitializeNew(byval pRpcMsg as PRPC_MESSAGE, byval pStubMsg as PMIDL_STUB_MESSAGE, byval pStubDescriptor as PMIDL_STUB_DESC, byval ProcNum as ulong)
 declare function NdrServerInitializeNew(byval pRpcMsg as PRPC_MESSAGE, byval pStubMsg as PMIDL_STUB_MESSAGE, byval pStubDescriptor as PMIDL_STUB_DESC) as ubyte ptr
-declare sub NdrServerInitializePartial(byval pRpcMsg as PRPC_MESSAGE, byval pStubMsg as PMIDL_STUB_MESSAGE, byval pStubDescriptor as PMIDL_STUB_DESC, byval RequestedBufferSize as culong)
+declare sub NdrServerInitializePartial(byval pRpcMsg as PRPC_MESSAGE, byval pStubMsg as PMIDL_STUB_MESSAGE, byval pStubDescriptor as PMIDL_STUB_DESC, byval RequestedBufferSize as ulong)
 declare sub NdrClientInitialize(byval pRpcMsg as PRPC_MESSAGE, byval pStubMsg as PMIDL_STUB_MESSAGE, byval pStubDescriptor as PMIDL_STUB_DESC, byval ProcNum as ulong)
 declare function NdrServerInitialize(byval pRpcMsg as PRPC_MESSAGE, byval pStubMsg as PMIDL_STUB_MESSAGE, byval pStubDescriptor as PMIDL_STUB_DESC) as ubyte ptr
 declare function NdrServerInitializeUnmarshall(byval pStubMsg as PMIDL_STUB_MESSAGE, byval pStubDescriptor as PMIDL_STUB_DESC, byval pRpcMsg as PRPC_MESSAGE) as ubyte ptr
 declare sub NdrServerInitializeMarshall(byval pRpcMsg as PRPC_MESSAGE, byval pStubMsg as PMIDL_STUB_MESSAGE)
-declare function NdrGetBuffer(byval pStubMsg as PMIDL_STUB_MESSAGE, byval BufferLength as culong, byval Handle as RPC_BINDING_HANDLE) as ubyte ptr
-declare function NdrNsGetBuffer(byval pStubMsg as PMIDL_STUB_MESSAGE, byval BufferLength as culong, byval Handle as RPC_BINDING_HANDLE) as ubyte ptr
+declare function NdrGetBuffer(byval pStubMsg as PMIDL_STUB_MESSAGE, byval BufferLength as ulong, byval Handle as RPC_BINDING_HANDLE) as ubyte ptr
+declare function NdrNsGetBuffer(byval pStubMsg as PMIDL_STUB_MESSAGE, byval BufferLength as ulong, byval Handle as RPC_BINDING_HANDLE) as ubyte ptr
 declare function NdrSendReceive(byval pStubMsg as PMIDL_STUB_MESSAGE, byval pBufferEnd as ubyte ptr) as ubyte ptr
 declare function NdrNsSendReceive(byval pStubMsg as PMIDL_STUB_MESSAGE, byval pBufferEnd as ubyte ptr, byval pAutoHandle as RPC_BINDING_HANDLE ptr) as ubyte ptr
 declare sub NdrFreeBuffer(byval pStubMsg as PMIDL_STUB_MESSAGE)
@@ -689,26 +683,26 @@ enum
 end enum
 
 declare sub NdrAsyncServerCall(byval pRpcMsg as PRPC_MESSAGE)
-declare function NdrAsyncStubCall(byval pThis as IRpcStubBuffer ptr, byval pChannel as IRpcChannelBuffer ptr, byval pRpcMsg as PRPC_MESSAGE, byval pdwStubPhase as culong ptr) as clong
-declare function NdrDcomAsyncStubCall(byval pThis as IRpcStubBuffer ptr, byval pChannel as IRpcChannelBuffer ptr, byval pRpcMsg as PRPC_MESSAGE, byval pdwStubPhase as culong ptr) as clong
-declare function NdrStubCall2(byval pThis as IRpcStubBuffer ptr, byval pChannel as IRpcChannelBuffer ptr, byval pRpcMsg as PRPC_MESSAGE, byval pdwStubPhase as culong ptr) as clong
+declare function NdrAsyncStubCall(byval pThis as IRpcStubBuffer ptr, byval pChannel as IRpcChannelBuffer ptr, byval pRpcMsg as PRPC_MESSAGE, byval pdwStubPhase as ulong ptr) as long
+declare function NdrDcomAsyncStubCall(byval pThis as IRpcStubBuffer ptr, byval pChannel as IRpcChannelBuffer ptr, byval pRpcMsg as PRPC_MESSAGE, byval pdwStubPhase as ulong ptr) as long
+declare function NdrStubCall2(byval pThis as IRpcStubBuffer ptr, byval pChannel as IRpcChannelBuffer ptr, byval pRpcMsg as PRPC_MESSAGE, byval pdwStubPhase as ulong ptr) as long
 declare sub NdrServerCall2(byval pRpcMsg as PRPC_MESSAGE)
-declare function NdrStubCall(byval pThis as IRpcStubBuffer ptr, byval pChannel as IRpcChannelBuffer ptr, byval pRpcMsg as PRPC_MESSAGE, byval pdwStubPhase as culong ptr) as clong
+declare function NdrStubCall(byval pThis as IRpcStubBuffer ptr, byval pChannel as IRpcChannelBuffer ptr, byval pRpcMsg as PRPC_MESSAGE, byval pdwStubPhase as ulong ptr) as long
 declare sub NdrServerCall(byval pRpcMsg as PRPC_MESSAGE)
 declare function NdrServerUnmarshall(byval pChannel as IRpcChannelBuffer ptr, byval pRpcMsg as PRPC_MESSAGE, byval pStubMsg as PMIDL_STUB_MESSAGE, byval pStubDescriptor as PMIDL_STUB_DESC, byval pFormat as PFORMAT_STRING, byval pParamList as any ptr) as long
 declare sub NdrServerMarshall(byval pThis as IRpcStubBuffer ptr, byval pChannel as IRpcChannelBuffer ptr, byval pStubMsg as PMIDL_STUB_MESSAGE, byval pFormat as PFORMAT_STRING)
-declare function NdrMapCommAndFaultStatus(byval pStubMsg as PMIDL_STUB_MESSAGE, byval pCommStatus as culong ptr, byval pFaultStatus as culong ptr, byval Status as RPC_STATUS) as RPC_STATUS
+declare function NdrMapCommAndFaultStatus(byval pStubMsg as PMIDL_STUB_MESSAGE, byval pCommStatus as ulong ptr, byval pFaultStatus as ulong ptr, byval Status as RPC_STATUS) as RPC_STATUS
 declare function NdrSH_UPDecision(byval pStubMsg as PMIDL_STUB_MESSAGE, byval pPtrInMem as ubyte ptr ptr, byval pBuffer as RPC_BUFPTR) as long
 declare function NdrSH_TLUPDecision(byval pStubMsg as PMIDL_STUB_MESSAGE, byval pPtrInMem as ubyte ptr ptr) as long
 declare function NdrSH_TLUPDecisionBuffer(byval pStubMsg as PMIDL_STUB_MESSAGE, byval pPtrInMem as ubyte ptr ptr) as long
-declare function NdrSH_IfAlloc(byval pStubMsg as PMIDL_STUB_MESSAGE, byval pPtrInMem as ubyte ptr ptr, byval Count as culong) as long
-declare function NdrSH_IfAllocRef(byval pStubMsg as PMIDL_STUB_MESSAGE, byval pPtrInMem as ubyte ptr ptr, byval Count as culong) as long
-declare function NdrSH_IfAllocSet(byval pStubMsg as PMIDL_STUB_MESSAGE, byval pPtrInMem as ubyte ptr ptr, byval Count as culong) as long
-declare function NdrSH_IfCopy(byval pStubMsg as PMIDL_STUB_MESSAGE, byval pPtrInMem as ubyte ptr ptr, byval Count as culong) as RPC_BUFPTR
-declare function NdrSH_IfAllocCopy(byval pStubMsg as PMIDL_STUB_MESSAGE, byval pPtrInMem as ubyte ptr ptr, byval Count as culong) as RPC_BUFPTR
-declare function NdrSH_Copy(byval pStubMsg as ubyte ptr, byval pPtrInMem as ubyte ptr, byval Count as culong) as culong
+declare function NdrSH_IfAlloc(byval pStubMsg as PMIDL_STUB_MESSAGE, byval pPtrInMem as ubyte ptr ptr, byval Count as ulong) as long
+declare function NdrSH_IfAllocRef(byval pStubMsg as PMIDL_STUB_MESSAGE, byval pPtrInMem as ubyte ptr ptr, byval Count as ulong) as long
+declare function NdrSH_IfAllocSet(byval pStubMsg as PMIDL_STUB_MESSAGE, byval pPtrInMem as ubyte ptr ptr, byval Count as ulong) as long
+declare function NdrSH_IfCopy(byval pStubMsg as PMIDL_STUB_MESSAGE, byval pPtrInMem as ubyte ptr ptr, byval Count as ulong) as RPC_BUFPTR
+declare function NdrSH_IfAllocCopy(byval pStubMsg as PMIDL_STUB_MESSAGE, byval pPtrInMem as ubyte ptr ptr, byval Count as ulong) as RPC_BUFPTR
+declare function NdrSH_Copy(byval pStubMsg as ubyte ptr, byval pPtrInMem as ubyte ptr, byval Count as ulong) as ulong
 declare sub NdrSH_IfFree(byval pMessage as PMIDL_STUB_MESSAGE, byval pPtr as ubyte ptr)
-declare function NdrSH_StringMarshall(byval pMessage as PMIDL_STUB_MESSAGE, byval pMemory as ubyte ptr, byval Count as culong, byval Size as long) as RPC_BUFPTR
+declare function NdrSH_StringMarshall(byval pMessage as PMIDL_STUB_MESSAGE, byval pMemory as ubyte ptr, byval Count as ulong, byval Size as long) as RPC_BUFPTR
 declare function NdrSH_StringUnMarshall(byval pMessage as PMIDL_STUB_MESSAGE, byval pMemory as ubyte ptr ptr, byval Size as long) as RPC_BUFPTR
 
 type RPC_SS_THREAD_HANDLE as any ptr
@@ -718,9 +712,9 @@ declare sub RpcSsDisableAllocate()
 declare sub RpcSsEnableAllocate()
 declare sub RpcSsFree(byval NodeToFree as any ptr)
 declare function RpcSsGetThreadHandle() as RPC_SS_THREAD_HANDLE
-declare sub RpcSsSetClientAllocFree(byval ClientAlloc as function(byval Size as uinteger) as any ptr, byval ClientFree as sub(byval Ptr______ as any ptr))
+declare sub RpcSsSetClientAllocFree(byval ClientAlloc as function(byval Size as uinteger) as any ptr, byval ClientFree as sub(byval Ptr_ as any ptr))
 declare sub RpcSsSetThreadHandle(byval Id as RPC_SS_THREAD_HANDLE)
-declare sub RpcSsSwapClientAllocFree(byval ClientAlloc as function(byval Size as uinteger) as any ptr, byval ClientFree as sub(byval Ptr______ as any ptr), byval OldClientAlloc as typeof(function(byval Size as uinteger) as any ptr) ptr, byval OldClientFree as typeof(sub(byval Ptr______ as any ptr)) ptr)
+declare sub RpcSsSwapClientAllocFree(byval ClientAlloc as function(byval Size as uinteger) as any ptr, byval ClientFree as sub(byval Ptr_ as any ptr), byval OldClientAlloc as typeof(function(byval Size as uinteger) as any ptr) ptr, byval OldClientFree as typeof(sub(byval Ptr_ as any ptr)) ptr)
 declare function RpcSmAllocate(byval Size as uinteger, byval pStatus as RPC_STATUS ptr) as any ptr
 declare function RpcSmClientFree(byval pNodeToFree as any ptr) as RPC_STATUS
 declare function RpcSmDestroyClientContext(byval ContextHandle as any ptr ptr) as RPC_STATUS
@@ -728,9 +722,9 @@ declare function RpcSmDisableAllocate() as RPC_STATUS
 declare function RpcSmEnableAllocate() as RPC_STATUS
 declare function RpcSmFree(byval NodeToFree as any ptr) as RPC_STATUS
 declare function RpcSmGetThreadHandle(byval pStatus as RPC_STATUS ptr) as RPC_SS_THREAD_HANDLE
-declare function RpcSmSetClientAllocFree(byval ClientAlloc as function(byval Size as uinteger) as any ptr, byval ClientFree as sub(byval Ptr______ as any ptr)) as RPC_STATUS
+declare function RpcSmSetClientAllocFree(byval ClientAlloc as function(byval Size as uinteger) as any ptr, byval ClientFree as sub(byval Ptr_ as any ptr)) as RPC_STATUS
 declare function RpcSmSetThreadHandle(byval Id as RPC_SS_THREAD_HANDLE) as RPC_STATUS
-declare function RpcSmSwapClientAllocFree(byval ClientAlloc as function(byval Size as uinteger) as any ptr, byval ClientFree as sub(byval Ptr______ as any ptr), byval OldClientAlloc as typeof(function(byval Size as uinteger) as any ptr) ptr, byval OldClientFree as typeof(sub(byval Ptr______ as any ptr)) ptr) as RPC_STATUS
+declare function RpcSmSwapClientAllocFree(byval ClientAlloc as function(byval Size as uinteger) as any ptr, byval ClientFree as sub(byval Ptr_ as any ptr), byval OldClientAlloc as typeof(function(byval Size as uinteger) as any ptr) ptr, byval OldClientFree as typeof(sub(byval Ptr_ as any ptr)) ptr) as RPC_STATUS
 declare sub NdrRpcSsEnableAllocate(byval pMessage as PMIDL_STUB_MESSAGE)
 declare sub NdrRpcSsDisableAllocate(byval pMessage as PMIDL_STUB_MESSAGE)
 declare sub NdrRpcSmSetClientToOsf(byval pMessage as PMIDL_STUB_MESSAGE)
@@ -738,23 +732,23 @@ declare function NdrRpcSmClientAllocate(byval Size as uinteger) as any ptr
 declare sub NdrRpcSmClientFree(byval NodeToFree as any ptr)
 declare function NdrRpcSsDefaultAllocate(byval Size as uinteger) as any ptr
 declare sub NdrRpcSsDefaultFree(byval NodeToFree as any ptr)
-declare function NdrFullPointerXlatInit(byval NumberOfPointers as culong, byval XlatSide as XLAT_SIDE) as PFULL_PTR_XLAT_TABLES
+declare function NdrFullPointerXlatInit(byval NumberOfPointers as ulong, byval XlatSide as XLAT_SIDE) as PFULL_PTR_XLAT_TABLES
 declare sub NdrFullPointerXlatFree(byval pXlatTables as PFULL_PTR_XLAT_TABLES)
-declare function NdrFullPointerQueryPointer(byval pXlatTables as PFULL_PTR_XLAT_TABLES, byval pPointer as any ptr, byval QueryType as ubyte, byval pRefId as culong ptr) as long
-declare function NdrFullPointerQueryRefId(byval pXlatTables as PFULL_PTR_XLAT_TABLES, byval RefId as culong, byval QueryType as ubyte, byval ppPointer as any ptr ptr) as long
-declare sub NdrFullPointerInsertRefId(byval pXlatTables as PFULL_PTR_XLAT_TABLES, byval RefId as culong, byval pPointer as any ptr)
+declare function NdrFullPointerQueryPointer(byval pXlatTables as PFULL_PTR_XLAT_TABLES, byval pPointer as any ptr, byval QueryType as ubyte, byval pRefId as ulong ptr) as long
+declare function NdrFullPointerQueryRefId(byval pXlatTables as PFULL_PTR_XLAT_TABLES, byval RefId as ulong, byval QueryType as ubyte, byval ppPointer as any ptr ptr) as long
+declare sub NdrFullPointerInsertRefId(byval pXlatTables as PFULL_PTR_XLAT_TABLES, byval RefId as ulong, byval pPointer as any ptr)
 declare function NdrFullPointerFree(byval pXlatTables as PFULL_PTR_XLAT_TABLES, byval Pointer_ as any ptr) as long
 declare function NdrAllocate(byval pStubMsg as PMIDL_STUB_MESSAGE, byval Len_ as uinteger) as any ptr
 declare sub NdrClearOutParameters(byval pStubMsg as PMIDL_STUB_MESSAGE, byval pFormat as PFORMAT_STRING, byval ArgAddr as any ptr)
 declare function NdrOleAllocate(byval Size as uinteger) as any ptr
 declare sub NdrOleFree(byval NodeToFree as any ptr)
 
-'' TODO: #define MIDL_INTERFACE(x) struct
-'' TODO: #define EXTERN_GUID(itf,l1,s1,s2,c1,c2,c3,c4,c5,c6,c7,c8) const IID DECLSPEC_SELECTANY itf = {l1,s1,s2,{c1,c2,c3,c4,c5,c6,c7,c8}}
+#define MIDL_INTERFACE(x) '' TODO: struct
+#define EXTERN_GUID(itf, l1, s1, s2, c1, c2, c3, c4, c5, c6, c7, c8) '' TODO: const IID DECLSPEC_SELECTANY itf = {l1,s1,s2,{c1,c2,c3,c4,c5,c6,c7,c8}}
 
 type _NDR_USER_MARSHAL_INFO_LEVEL1 field = 8
 	Buffer as any ptr
-	BufferSize as culong
+	BufferSize as ulong
 	pfnAllocate as function(byval as uinteger) as any ptr
 	pfnFree as sub(byval as any ptr)
 	pRpcChannelBuffer as IRpcChannelBuffer ptr
@@ -764,7 +758,7 @@ end type
 type NDR_USER_MARSHAL_INFO_LEVEL1 as _NDR_USER_MARSHAL_INFO_LEVEL1
 
 type _NDR_USER_MARSHAL_INFO field = 8
-	InformationLevel as culong
+	InformationLevel as ulong
 
 	union field = 8
 		Level1 as NDR_USER_MARSHAL_INFO_LEVEL1
@@ -773,17 +767,17 @@ end type
 
 type NDR_USER_MARSHAL_INFO as _NDR_USER_MARSHAL_INFO
 
-declare function NdrGetUserMarshalInfo(byval pFlags as culong ptr, byval InformationLevel as culong, byval pMarshalInfo as NDR_USER_MARSHAL_INFO ptr) as RPC_STATUS
+declare function NdrGetUserMarshalInfo(byval pFlags as ulong ptr, byval InformationLevel as ulong, byval pMarshalInfo as NDR_USER_MARSHAL_INFO ptr) as RPC_STATUS
 declare function NdrCreateServerInterfaceFromStub(byval pStub as IRpcStubBuffer ptr, byval pServerIf as RPC_SERVER_INTERFACE ptr) as RPC_STATUS
-declare function NdrClientCall3 cdecl(byval pProxyInfo as MIDL_STUBLESS_PROXY_INFO ptr, byval nProcNum as culong, byval pReturnValue as any ptr, ...) as CLIENT_CALL_RETURN
-declare function Ndr64AsyncClientCall cdecl(byval pProxyInfo as MIDL_STUBLESS_PROXY_INFO ptr, byval nProcNum as culong, byval pReturnValue as any ptr, ...) as CLIENT_CALL_RETURN
-declare function Ndr64DcomAsyncClientCall cdecl(byval pProxyInfo as MIDL_STUBLESS_PROXY_INFO ptr, byval nProcNum as culong, byval pReturnValue as any ptr, ...) as CLIENT_CALL_RETURN
+declare function NdrClientCall3 cdecl(byval pProxyInfo as MIDL_STUBLESS_PROXY_INFO ptr, byval nProcNum as ulong, byval pReturnValue as any ptr, ...) as CLIENT_CALL_RETURN
+declare function Ndr64AsyncClientCall cdecl(byval pProxyInfo as MIDL_STUBLESS_PROXY_INFO ptr, byval nProcNum as ulong, byval pReturnValue as any ptr, ...) as CLIENT_CALL_RETURN
+declare function Ndr64DcomAsyncClientCall cdecl(byval pProxyInfo as MIDL_STUBLESS_PROXY_INFO ptr, byval nProcNum as ulong, byval pReturnValue as any ptr, ...) as CLIENT_CALL_RETURN
 declare sub Ndr64AsyncServerCall(byval pRpcMsg as PRPC_MESSAGE)
 declare sub Ndr64AsyncServerCall64(byval pRpcMsg as PRPC_MESSAGE)
 declare sub Ndr64AsyncServerCallAll(byval pRpcMsg as PRPC_MESSAGE)
-declare function Ndr64AsyncStubCall(byval pThis as IRpcStubBuffer ptr, byval pChannel as IRpcChannelBuffer ptr, byval pRpcMsg as PRPC_MESSAGE, byval pdwStubPhase as culong ptr) as clong
-declare function Ndr64DcomAsyncStubCall(byval pThis as IRpcStubBuffer ptr, byval pChannel as IRpcChannelBuffer ptr, byval pRpcMsg as PRPC_MESSAGE, byval pdwStubPhase as culong ptr) as clong
-declare function NdrStubCall3(byval pThis as IRpcStubBuffer ptr, byval pChannel as IRpcChannelBuffer ptr, byval pRpcMsg as PRPC_MESSAGE, byval pdwStubPhase as culong ptr) as clong
+declare function Ndr64AsyncStubCall(byval pThis as IRpcStubBuffer ptr, byval pChannel as IRpcChannelBuffer ptr, byval pRpcMsg as PRPC_MESSAGE, byval pdwStubPhase as ulong ptr) as long
+declare function Ndr64DcomAsyncStubCall(byval pThis as IRpcStubBuffer ptr, byval pChannel as IRpcChannelBuffer ptr, byval pRpcMsg as PRPC_MESSAGE, byval pdwStubPhase as ulong ptr) as long
+declare function NdrStubCall3(byval pThis as IRpcStubBuffer ptr, byval pChannel as IRpcChannelBuffer ptr, byval pRpcMsg as PRPC_MESSAGE, byval pdwStubPhase as ulong ptr) as long
 declare sub NdrServerCallAll(byval pRpcMsg as PRPC_MESSAGE)
 declare sub NdrServerCallNdr64(byval pRpcMsg as PRPC_MESSAGE)
 declare sub NdrServerCall3(byval pRpcMsg as PRPC_MESSAGE)

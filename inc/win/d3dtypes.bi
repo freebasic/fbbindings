@@ -16,7 +16,7 @@
 #define D3DDivide(a, b) cast(single, cast(double, (a) / cast(double, (b))))
 #define D3DMultiply(a, b) ((a) * (b))
 
-type D3DFIXED as LONG_
+type D3DFIXED as LONG
 
 #define CI_GETALPHA(ci) ((ci) shr 24)
 #define CI_GETINDEX(ci) (((ci) shr 8) and &hffff)
@@ -29,8 +29,8 @@ type D3DFIXED as LONG_
 #define RGBA_GETGREEN(rgb) (((rgb) shr 8) and &hff)
 #define RGBA_GETBLUE(rgb) ((rgb) and &hff)
 #define RGBA_MAKE(r, g, b, a) cast(D3DCOLOR, ((((a) shl 24) or ((r) shl 16)) or ((g) shl 8)) or (b))
-#define D3DRGB(r, g, b) (((&hff000000 or (cast(LONG_, (r) * 255) shl 16)) or (cast(LONG_, (g) * 255) shl 8)) or cast(LONG_, (b) * 255))
-#define D3DRGBA(r, g, b, a) ((((cast(LONG_, (a) * 255) shl 24) or (cast(LONG_, (r) * 255) shl 16)) or (cast(LONG_, (g) * 255) shl 8)) or cast(LONG_, (b) * 255))
+#define D3DRGB(r, g, b) (((&hff000000 or (cast(LONG, (r) * 255) shl 16)) or (cast(LONG, (g) * 255) shl 8)) or cast(LONG, (b) * 255))
+#define D3DRGBA(r, g, b, a) ((((cast(LONG, (a) * 255) shl 24) or (cast(LONG, (r) * 255) shl 16)) or (cast(LONG, (g) * 255) shl 8)) or cast(LONG, (b) * 255))
 #define RGB_GETRED(rgb) (((rgb) shr 16) and &hff)
 #define RGB_GETGREEN(rgb) (((rgb) shr 8) and &hff)
 #define RGB_GETBLUE(rgb) ((rgb) and &hff)
@@ -108,23 +108,23 @@ type LPD3DCOLORVALUE as _D3DCOLORVALUE ptr
 
 type _D3DRECT
 	union
-		x1 as LONG_
-		lX1 as LONG_
+		x1 as LONG
+		lX1 as LONG
 	end union
 
 	union
-		y1 as LONG_
-		lY1 as LONG_
+		y1 as LONG
+		lY1 as LONG
 	end union
 
 	union
-		x2 as LONG_
-		lX2 as LONG_
+		x2 as LONG
+		lX2 as LONG
 	end union
 
 	union
-		y2 as LONG_
-		lY2 as LONG_
+		y2 as LONG
+		lY2 as LONG
 	end union
 end type
 
@@ -605,8 +605,8 @@ end enum
 type D3DOPCODE as _D3DOPCODE
 
 type _D3DINSTRUCTION
-	bOpcode as BYTE_
-	bSize as BYTE_
+	bOpcode as BYTE
+	bSize as BYTE
 	wCount as WORD
 end type
 
@@ -622,8 +622,8 @@ type D3DTEXTURELOAD as _D3DTEXTURELOAD
 type LPD3DTEXTURELOAD as _D3DTEXTURELOAD ptr
 
 type _D3DPICKRECORD
-	bOpcode as BYTE_
-	bPad as BYTE_
+	bOpcode as BYTE
+	bPad as BYTE
 	dwOffset as DWORD
 	dvZ as D3DVALUE
 end type

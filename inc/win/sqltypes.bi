@@ -1,16 +1,12 @@
 #pragma once
 
 #include once "crt/wchar.bi"
-#include once "crt/long.bi"
 
 '' The following symbols have been renamed:
-''     #define EXPORT => EXPORT_
 ''     typedef PTR => PTR_
 
 #define __SQLTYPES
 #define ODBCVER &h0351
-#define EXPORT_
-#define SQL_API __stdcall
 
 type SQLCHAR as ubyte
 type SQLSCHAR as byte
@@ -18,8 +14,8 @@ type SQLDATE as ubyte
 type SQLDECIMAL as ubyte
 type SQLDOUBLE as double
 type SQLFLOAT as double
-type SQLINTEGER as clong
-type SQLUINTEGER as culong
+type SQLINTEGER as long
+type SQLUINTEGER as ulong
 
 #ifdef __FB_64BIT__
 	type SQLLEN as INT64
@@ -55,11 +51,11 @@ type SQLHDBC as SQLHANDLE
 type SQLHSTMT as SQLHANDLE
 type SQLHDESC as SQLHANDLE
 type SCHAR as byte
-type SDWORD as clong
+type SDWORD as long
 type SWORD as short
-type UDWORD as culong
+type UDWORD as ulong
 type UWORD as ushort
-type SLONG as clong
+type SLONG as long
 type SSHORT as short
 type SDOUBLE as double
 type LDOUBLE as double

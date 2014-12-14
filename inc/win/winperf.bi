@@ -16,7 +16,7 @@ type _PERF_DATA_BLOCK field = 8
 	TotalByteLength as DWORD
 	HeaderLength as DWORD
 	NumObjectTypes as DWORD
-	DefaultObject as LONG_
+	DefaultObject as LONG
 	SystemTime as SYSTEMTIME
 	PerfTime as LARGE_INTEGER
 	PerfFreq as LARGE_INTEGER
@@ -53,8 +53,8 @@ type _PERF_OBJECT_TYPE field = 8
 
 	DetailLevel as DWORD
 	NumCounters as DWORD
-	DefaultCounter as LONG_
-	NumInstances as LONG_
+	DefaultCounter as LONG
+	NumInstances as LONG
 	CodePage as DWORD
 	PerfTime as LARGE_INTEGER
 	PerfFreq as LARGE_INTEGER
@@ -160,7 +160,7 @@ type _PERF_COUNTER_DEFINITION field = 8
 		CounterHelpTitle as LPWSTR
 	#endif
 
-	DefaultScale as LONG_
+	DefaultScale as LONG
 	DetailLevel as DWORD
 	CounterType as DWORD
 	CounterSize as DWORD
@@ -176,7 +176,7 @@ type _PERF_INSTANCE_DEFINITION field = 8
 	ByteLength as DWORD
 	ParentObjectTitleIndex as DWORD
 	ParentObjectInstance as DWORD
-	UniqueID as LONG_
+	UniqueID as LONG
 	NameOffset as DWORD
 	NameLength as DWORD
 end type
@@ -191,9 +191,9 @@ end type
 type PERF_COUNTER_BLOCK as _PERF_COUNTER_BLOCK
 type PPERF_COUNTER_BLOCK as _PERF_COUNTER_BLOCK ptr
 
-#define PERF_QUERY_OBJECTS cast(LONG_, &h80000000)
-#define PERF_QUERY_GLOBAL cast(LONG_, &h80000001)
-#define PERF_QUERY_COSTLY cast(LONG_, &h80000002)
+#define PERF_QUERY_OBJECTS cast(LONG, &h80000000)
+#define PERF_QUERY_GLOBAL cast(LONG, &h80000001)
+#define PERF_QUERY_COSTLY cast(LONG, &h80000002)
 #define MAX_PERF_OBJECTS_IN_QUERY_FUNCTION __MSABI_LONG(64)
 #define WINPERF_LOG_NONE 0
 #define WINPERF_LOG_USER 1

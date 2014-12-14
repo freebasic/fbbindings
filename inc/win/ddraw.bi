@@ -868,7 +868,7 @@ type _DDSURFACEDESC
 	dwWidth as DWORD
 
 	union
-		lPitch as LONG_
+		lPitch as LONG
 		dwLinearSize as DWORD
 	end union
 
@@ -901,7 +901,7 @@ type _DDSURFACEDESC2
 	dwWidth as DWORD
 
 	union
-		lPitch as LONG_
+		lPitch as LONG
 		dwLinearSize as DWORD
 	end union
 
@@ -939,20 +939,20 @@ type DDSURFACEDESC2 as _DDSURFACEDESC2
 type LPDDSURFACEDESC2 as _DDSURFACEDESC2 ptr
 
 type _DDARGB
-	blue as BYTE_
-	green as BYTE_
-	red as BYTE_
-	alpha as BYTE_
+	blue as BYTE
+	green as BYTE
+	red as BYTE
+	alpha as BYTE
 end type
 
 type DDARGB as _DDARGB
 type LPDDARGB as _DDARGB ptr
 
 type _DDRGBA
-	red as BYTE_
-	green as BYTE_
-	blue as BYTE_
-	alpha as BYTE_
+	red as BYTE
+	green as BYTE
+	blue as BYTE
+	alpha as BYTE
 end type
 
 type DDRGBA as _DDRGBA
@@ -969,13 +969,13 @@ type LPDDRGBA as _DDRGBA ptr
 type DDCOLORCONTROL
 	dwSize as DWORD
 	dwFlags as DWORD
-	lBrightness as LONG_
-	lContrast as LONG_
-	lHue as LONG_
-	lSaturation as LONG_
-	lSharpness as LONG_
-	lGamma as LONG_
-	lColorEnable as LONG_
+	lBrightness as LONG
+	lContrast as LONG
+	lHue as LONG
+	lSaturation as LONG
+	lSharpness as LONG
+	lGamma as LONG
+	lColorEnable as LONG
 	dwReserved1 as DWORD
 end type
 
@@ -1178,8 +1178,8 @@ end type
 
 type IDirectDrawPaletteVtbl_
 	QueryInterface as function(byval This as IDirectDrawPalette ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirectDrawPalette ptr) as ULONG_
-	Release as function(byval This as IDirectDrawPalette ptr) as ULONG_
+	AddRef as function(byval This as IDirectDrawPalette ptr) as ULONG
+	Release as function(byval This as IDirectDrawPalette ptr) as ULONG
 	GetCaps as function(byval This as IDirectDrawPalette ptr, byval lpdwCaps as LPDWORD) as HRESULT
 	GetEntries as function(byval This as IDirectDrawPalette ptr, byval dwFlags as DWORD, byval dwBase as DWORD, byval dwNumEntries as DWORD, byval lpEntries as LPPALETTEENTRY) as HRESULT
 	Initialize as function(byval This as IDirectDrawPalette ptr, byval lpDD as LPDIRECTDRAW, byval dwFlags as DWORD, byval lpDDColorTable as LPPALETTEENTRY) as HRESULT
@@ -1200,8 +1200,8 @@ end type
 
 type IDirectDrawClipperVtbl_
 	QueryInterface as function(byval This as IDirectDrawClipper ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirectDrawClipper ptr) as ULONG_
-	Release as function(byval This as IDirectDrawClipper ptr) as ULONG_
+	AddRef as function(byval This as IDirectDrawClipper ptr) as ULONG
+	Release as function(byval This as IDirectDrawClipper ptr) as ULONG
 	GetClipList as function(byval This as IDirectDrawClipper ptr, byval lpRect as LPRECT, byval lpClipList as LPRGNDATA, byval lpdwSize as LPDWORD) as HRESULT
 	GetHWnd as function(byval This as IDirectDrawClipper ptr, byval lphWnd as HWND ptr) as HRESULT
 	Initialize as function(byval This as IDirectDrawClipper ptr, byval lpDD as LPDIRECTDRAW, byval dwFlags as DWORD) as HRESULT
@@ -1226,8 +1226,8 @@ end type
 
 type IDirectDrawVtbl_
 	QueryInterface as function(byval This as IDirectDraw ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirectDraw ptr) as ULONG_
-	Release as function(byval This as IDirectDraw ptr) as ULONG_
+	AddRef as function(byval This as IDirectDraw ptr) as ULONG
+	Release as function(byval This as IDirectDraw ptr) as ULONG
 	Compact as function(byval This as IDirectDraw ptr) as HRESULT
 	CreateClipper as function(byval This as IDirectDraw ptr, byval dwFlags as DWORD, byval lplpDDClipper as LPDIRECTDRAWCLIPPER ptr, byval pUnkOuter as IUnknown ptr) as HRESULT
 	CreatePalette as function(byval This as IDirectDraw ptr, byval dwFlags as DWORD, byval lpColorTable as LPPALETTEENTRY, byval lplpDDPalette as LPDIRECTDRAWPALETTE ptr, byval pUnkOuter as IUnknown ptr) as HRESULT
@@ -1292,8 +1292,8 @@ end type
 
 type IDirectDraw2Vtbl_
 	QueryInterface as function(byval This as IDirectDraw2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirectDraw2 ptr) as ULONG_
-	Release as function(byval This as IDirectDraw2 ptr) as ULONG_
+	AddRef as function(byval This as IDirectDraw2 ptr) as ULONG
+	Release as function(byval This as IDirectDraw2 ptr) as ULONG
 	Compact as function(byval This as IDirectDraw2 ptr) as HRESULT
 	CreateClipper as function(byval This as IDirectDraw2 ptr, byval dwFlags as DWORD, byval lplpDDClipper as LPDIRECTDRAWCLIPPER ptr, byval pUnkOuter as IUnknown ptr) as HRESULT
 	CreatePalette as function(byval This as IDirectDraw2 ptr, byval dwFlags as DWORD, byval lpColorTable as LPPALETTEENTRY, byval lplpDDPalette as LPDIRECTDRAWPALETTE ptr, byval pUnkOuter as IUnknown ptr) as HRESULT
@@ -1348,8 +1348,8 @@ end type
 
 type IDirectDraw3Vtbl_
 	QueryInterface as function(byval This as IDirectDraw3 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirectDraw3 ptr) as ULONG_
-	Release as function(byval This as IDirectDraw3 ptr) as ULONG_
+	AddRef as function(byval This as IDirectDraw3 ptr) as ULONG
+	Release as function(byval This as IDirectDraw3 ptr) as ULONG
 	Compact as function(byval This as IDirectDraw3 ptr) as HRESULT
 	CreateClipper as function(byval This as IDirectDraw3 ptr, byval dwFlags as DWORD, byval lplpDDClipper as LPDIRECTDRAWCLIPPER ptr, byval pUnkOuter as IUnknown ptr) as HRESULT
 	CreatePalette as function(byval This as IDirectDraw3 ptr, byval dwFlags as DWORD, byval lpColorTable as LPPALETTEENTRY, byval lplpDDPalette as LPDIRECTDRAWPALETTE ptr, byval pUnkOuter as IUnknown ptr) as HRESULT
@@ -1406,8 +1406,8 @@ end type
 
 type IDirectDraw4Vtbl_
 	QueryInterface as function(byval This as IDirectDraw4 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirectDraw4 ptr) as ULONG_
-	Release as function(byval This as IDirectDraw4 ptr) as ULONG_
+	AddRef as function(byval This as IDirectDraw4 ptr) as ULONG
+	Release as function(byval This as IDirectDraw4 ptr) as ULONG
 	Compact as function(byval This as IDirectDraw4 ptr) as HRESULT
 	CreateClipper as function(byval This as IDirectDraw4 ptr, byval dwFlags as DWORD, byval lplpDDClipper as LPDIRECTDRAWCLIPPER ptr, byval pUnkOuter as IUnknown ptr) as HRESULT
 	CreatePalette as function(byval This as IDirectDraw4 ptr, byval dwFlags as DWORD, byval lpColorTable as LPPALETTEENTRY, byval lplpDDPalette as LPDIRECTDRAWPALETTE ptr, byval pUnkOuter as IUnknown ptr) as HRESULT
@@ -1470,8 +1470,8 @@ end type
 
 type IDirectDraw7Vtbl_
 	QueryInterface as function(byval This as IDirectDraw7 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirectDraw7 ptr) as ULONG_
-	Release as function(byval This as IDirectDraw7 ptr) as ULONG_
+	AddRef as function(byval This as IDirectDraw7 ptr) as ULONG
+	Release as function(byval This as IDirectDraw7 ptr) as ULONG
 	Compact as function(byval This as IDirectDraw7 ptr) as HRESULT
 	CreateClipper as function(byval This as IDirectDraw7 ptr, byval dwFlags as DWORD, byval lplpDDClipper as LPDIRECTDRAWCLIPPER ptr, byval pUnkOuter as IUnknown ptr) as HRESULT
 	CreatePalette as function(byval This as IDirectDraw7 ptr, byval dwFlags as DWORD, byval lpColorTable as LPPALETTEENTRY, byval lplpDDPalette as LPDIRECTDRAWPALETTE ptr, byval pUnkOuter as IUnknown ptr) as HRESULT
@@ -1538,8 +1538,8 @@ end type
 
 type IDirectDrawSurfaceVtbl_
 	QueryInterface as function(byval This as IDirectDrawSurface ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirectDrawSurface ptr) as ULONG_
-	Release as function(byval This as IDirectDrawSurface ptr) as ULONG_
+	AddRef as function(byval This as IDirectDrawSurface ptr) as ULONG
+	Release as function(byval This as IDirectDrawSurface ptr) as ULONG
 	AddAttachedSurface as function(byval This as IDirectDrawSurface ptr, byval lpDDSAttachedSurface as LPDIRECTDRAWSURFACE) as HRESULT
 	AddOverlayDirtyRect as function(byval This as IDirectDrawSurface ptr, byval lpRect as LPRECT) as HRESULT
 	Blt as function(byval This as IDirectDrawSurface ptr, byval lpDestRect as LPRECT, byval lpDDSrcSurface as LPDIRECTDRAWSURFACE, byval lpSrcRect as LPRECT, byval dwFlags as DWORD, byval lpDDBltFx as LPDDBLTFX) as HRESULT
@@ -1567,7 +1567,7 @@ type IDirectDrawSurfaceVtbl_
 	Restore as function(byval This as IDirectDrawSurface ptr) as HRESULT
 	SetClipper as function(byval This as IDirectDrawSurface ptr, byval lpDDClipper as LPDIRECTDRAWCLIPPER) as HRESULT
 	SetColorKey as function(byval This as IDirectDrawSurface ptr, byval dwFlags as DWORD, byval lpDDColorKey as LPDDCOLORKEY) as HRESULT
-	SetOverlayPosition as function(byval This as IDirectDrawSurface ptr, byval lX as LONG_, byval lY as LONG_) as HRESULT
+	SetOverlayPosition as function(byval This as IDirectDrawSurface ptr, byval lX as LONG, byval lY as LONG) as HRESULT
 	SetPalette as function(byval This as IDirectDrawSurface ptr, byval lpDDPalette as LPDIRECTDRAWPALETTE) as HRESULT
 	Unlock as function(byval This as IDirectDrawSurface ptr, byval lpSurfaceData as LPVOID) as HRESULT
 	UpdateOverlay as function(byval This as IDirectDrawSurface ptr, byval lpSrcRect as LPRECT, byval lpDDDestSurface as LPDIRECTDRAWSURFACE, byval lpDestRect as LPRECT, byval dwFlags as DWORD, byval lpDDOverlayFx as LPDDOVERLAYFX) as HRESULT
@@ -1618,8 +1618,8 @@ end type
 
 type IDirectDrawSurface2Vtbl_
 	QueryInterface as function(byval This as IDirectDrawSurface2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirectDrawSurface2 ptr) as ULONG_
-	Release as function(byval This as IDirectDrawSurface2 ptr) as ULONG_
+	AddRef as function(byval This as IDirectDrawSurface2 ptr) as ULONG
+	Release as function(byval This as IDirectDrawSurface2 ptr) as ULONG
 	AddAttachedSurface as function(byval This as IDirectDrawSurface2 ptr, byval lpDDSAttachedSurface as LPDIRECTDRAWSURFACE2) as HRESULT
 	AddOverlayDirtyRect as function(byval This as IDirectDrawSurface2 ptr, byval lpRect as LPRECT) as HRESULT
 	Blt as function(byval This as IDirectDrawSurface2 ptr, byval lpDestRect as LPRECT, byval lpDDSrcSurface as LPDIRECTDRAWSURFACE2, byval lpSrcRect as LPRECT, byval dwFlags as DWORD, byval lpDDBltFx as LPDDBLTFX) as HRESULT
@@ -1647,7 +1647,7 @@ type IDirectDrawSurface2Vtbl_
 	Restore as function(byval This as IDirectDrawSurface2 ptr) as HRESULT
 	SetClipper as function(byval This as IDirectDrawSurface2 ptr, byval lpDDClipper as LPDIRECTDRAWCLIPPER) as HRESULT
 	SetColorKey as function(byval This as IDirectDrawSurface2 ptr, byval dwFlags as DWORD, byval lpDDColorKey as LPDDCOLORKEY) as HRESULT
-	SetOverlayPosition as function(byval This as IDirectDrawSurface2 ptr, byval lX as LONG_, byval lY as LONG_) as HRESULT
+	SetOverlayPosition as function(byval This as IDirectDrawSurface2 ptr, byval lX as LONG, byval lY as LONG) as HRESULT
 	SetPalette as function(byval This as IDirectDrawSurface2 ptr, byval lpDDPalette as LPDIRECTDRAWPALETTE) as HRESULT
 	Unlock as function(byval This as IDirectDrawSurface2 ptr, byval lpSurfaceData as LPVOID) as HRESULT
 	UpdateOverlay as function(byval This as IDirectDrawSurface2 ptr, byval lpSrcRect as LPRECT, byval lpDDDestSurface as LPDIRECTDRAWSURFACE2, byval lpDestRect as LPRECT, byval dwFlags as DWORD, byval lpDDOverlayFx as LPDDOVERLAYFX) as HRESULT
@@ -1704,8 +1704,8 @@ end type
 
 type IDirectDrawSurface3Vtbl_
 	QueryInterface as function(byval This as IDirectDrawSurface3 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirectDrawSurface3 ptr) as ULONG_
-	Release as function(byval This as IDirectDrawSurface3 ptr) as ULONG_
+	AddRef as function(byval This as IDirectDrawSurface3 ptr) as ULONG
+	Release as function(byval This as IDirectDrawSurface3 ptr) as ULONG
 	AddAttachedSurface as function(byval This as IDirectDrawSurface3 ptr, byval lpDDSAttachedSurface as LPDIRECTDRAWSURFACE3) as HRESULT
 	AddOverlayDirtyRect as function(byval This as IDirectDrawSurface3 ptr, byval lpRect as LPRECT) as HRESULT
 	Blt as function(byval This as IDirectDrawSurface3 ptr, byval lpDestRect as LPRECT, byval lpDDSrcSurface as LPDIRECTDRAWSURFACE3, byval lpSrcRect as LPRECT, byval dwFlags as DWORD, byval lpDDBltFx as LPDDBLTFX) as HRESULT
@@ -1733,7 +1733,7 @@ type IDirectDrawSurface3Vtbl_
 	Restore as function(byval This as IDirectDrawSurface3 ptr) as HRESULT
 	SetClipper as function(byval This as IDirectDrawSurface3 ptr, byval lpDDClipper as LPDIRECTDRAWCLIPPER) as HRESULT
 	SetColorKey as function(byval This as IDirectDrawSurface3 ptr, byval dwFlags as DWORD, byval lpDDColorKey as LPDDCOLORKEY) as HRESULT
-	SetOverlayPosition as function(byval This as IDirectDrawSurface3 ptr, byval lX as LONG_, byval lY as LONG_) as HRESULT
+	SetOverlayPosition as function(byval This as IDirectDrawSurface3 ptr, byval lX as LONG, byval lY as LONG) as HRESULT
 	SetPalette as function(byval This as IDirectDrawSurface3 ptr, byval lpDDPalette as LPDIRECTDRAWPALETTE) as HRESULT
 	Unlock as function(byval This as IDirectDrawSurface3 ptr, byval lpSurfaceData as LPVOID) as HRESULT
 	UpdateOverlay as function(byval This as IDirectDrawSurface3 ptr, byval lpSrcRect as LPRECT, byval lpDDDestSurface as LPDIRECTDRAWSURFACE3, byval lpDestRect as LPRECT, byval dwFlags as DWORD, byval lpDDOverlayFx as LPDDOVERLAYFX) as HRESULT
@@ -1792,8 +1792,8 @@ end type
 
 type IDirectDrawSurface4Vtbl_
 	QueryInterface as function(byval This as IDirectDrawSurface4 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirectDrawSurface4 ptr) as ULONG_
-	Release as function(byval This as IDirectDrawSurface4 ptr) as ULONG_
+	AddRef as function(byval This as IDirectDrawSurface4 ptr) as ULONG
+	Release as function(byval This as IDirectDrawSurface4 ptr) as ULONG
 	AddAttachedSurface as function(byval This as IDirectDrawSurface4 ptr, byval lpDDSAttachedSurface as LPDIRECTDRAWSURFACE4) as HRESULT
 	AddOverlayDirtyRect as function(byval This as IDirectDrawSurface4 ptr, byval lpRect as LPRECT) as HRESULT
 	Blt as function(byval This as IDirectDrawSurface4 ptr, byval lpDestRect as LPRECT, byval lpDDSrcSurface as LPDIRECTDRAWSURFACE4, byval lpSrcRect as LPRECT, byval dwFlags as DWORD, byval lpDDBltFx as LPDDBLTFX) as HRESULT
@@ -1821,7 +1821,7 @@ type IDirectDrawSurface4Vtbl_
 	Restore as function(byval This as IDirectDrawSurface4 ptr) as HRESULT
 	SetClipper as function(byval This as IDirectDrawSurface4 ptr, byval lpDDClipper as LPDIRECTDRAWCLIPPER) as HRESULT
 	SetColorKey as function(byval This as IDirectDrawSurface4 ptr, byval dwFlags as DWORD, byval lpDDColorKey as LPDDCOLORKEY) as HRESULT
-	SetOverlayPosition as function(byval This as IDirectDrawSurface4 ptr, byval lX as LONG_, byval lY as LONG_) as HRESULT
+	SetOverlayPosition as function(byval This as IDirectDrawSurface4 ptr, byval lX as LONG, byval lY as LONG) as HRESULT
 	SetPalette as function(byval This as IDirectDrawSurface4 ptr, byval lpDDPalette as LPDIRECTDRAWPALETTE) as HRESULT
 	Unlock as function(byval This as IDirectDrawSurface4 ptr, byval lpSurfaceData as LPRECT) as HRESULT
 	UpdateOverlay as function(byval This as IDirectDrawSurface4 ptr, byval lpSrcRect as LPRECT, byval lpDDDestSurface as LPDIRECTDRAWSURFACE4, byval lpDestRect as LPRECT, byval dwFlags as DWORD, byval lpDDOverlayFx as LPDDOVERLAYFX) as HRESULT
@@ -1890,8 +1890,8 @@ end type
 
 type IDirectDrawSurface7Vtbl_
 	QueryInterface as function(byval This as IDirectDrawSurface7 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirectDrawSurface7 ptr) as ULONG_
-	Release as function(byval This as IDirectDrawSurface7 ptr) as ULONG_
+	AddRef as function(byval This as IDirectDrawSurface7 ptr) as ULONG
+	Release as function(byval This as IDirectDrawSurface7 ptr) as ULONG
 	AddAttachedSurface as function(byval This as IDirectDrawSurface7 ptr, byval lpDDSAttachedSurface as LPDIRECTDRAWSURFACE7) as HRESULT
 	AddOverlayDirtyRect as function(byval This as IDirectDrawSurface7 ptr, byval lpRect as LPRECT) as HRESULT
 	Blt as function(byval This as IDirectDrawSurface7 ptr, byval lpDestRect as LPRECT, byval lpDDSrcSurface as LPDIRECTDRAWSURFACE7, byval lpSrcRect as LPRECT, byval dwFlags as DWORD, byval lpDDBltFx as LPDDBLTFX) as HRESULT
@@ -1919,7 +1919,7 @@ type IDirectDrawSurface7Vtbl_
 	Restore as function(byval This as IDirectDrawSurface7 ptr) as HRESULT
 	SetClipper as function(byval This as IDirectDrawSurface7 ptr, byval lpDDClipper as LPDIRECTDRAWCLIPPER) as HRESULT
 	SetColorKey as function(byval This as IDirectDrawSurface7 ptr, byval dwFlags as DWORD, byval lpDDColorKey as LPDDCOLORKEY) as HRESULT
-	SetOverlayPosition as function(byval This as IDirectDrawSurface7 ptr, byval lX as LONG_, byval lY as LONG_) as HRESULT
+	SetOverlayPosition as function(byval This as IDirectDrawSurface7 ptr, byval lX as LONG, byval lY as LONG) as HRESULT
 	SetPalette as function(byval This as IDirectDrawSurface7 ptr, byval lpDDPalette as LPDIRECTDRAWPALETTE) as HRESULT
 	Unlock as function(byval This as IDirectDrawSurface7 ptr, byval lpSurfaceData as LPRECT) as HRESULT
 	UpdateOverlay as function(byval This as IDirectDrawSurface7 ptr, byval lpSrcRect as LPRECT, byval lpDDDestSurface as LPDIRECTDRAWSURFACE7, byval lpDestRect as LPRECT, byval dwFlags as DWORD, byval lpDDOverlayFx as LPDDOVERLAYFX) as HRESULT
@@ -1996,8 +1996,8 @@ end type
 
 type IDirectDrawColorControlVtbl_
 	QueryInterface as function(byval This as IDirectDrawColorControl ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirectDrawColorControl ptr) as ULONG_
-	Release as function(byval This as IDirectDrawColorControl ptr) as ULONG_
+	AddRef as function(byval This as IDirectDrawColorControl ptr) as ULONG
+	Release as function(byval This as IDirectDrawColorControl ptr) as ULONG
 	GetColorControls as function(byval This as IDirectDrawColorControl ptr, byval lpColorControl as LPDDCOLORCONTROL) as HRESULT
 	SetColorControls as function(byval This as IDirectDrawColorControl ptr, byval lpColorControl as LPDDCOLORCONTROL) as HRESULT
 end type
@@ -2014,8 +2014,8 @@ end type
 
 type IDirectDrawGammaControlVtbl_
 	QueryInterface as function(byval This as IDirectDrawGammaControl ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirectDrawGammaControl ptr) as ULONG_
-	Release as function(byval This as IDirectDrawGammaControl ptr) as ULONG_
+	AddRef as function(byval This as IDirectDrawGammaControl ptr) as ULONG
+	Release as function(byval This as IDirectDrawGammaControl ptr) as ULONG
 	GetGammaRamp as function(byval This as IDirectDrawGammaControl ptr, byval dwFlags as DWORD, byval lpGammaRamp as LPDDGAMMARAMP) as HRESULT
 	SetGammaRamp as function(byval This as IDirectDrawGammaControl ptr, byval dwFlags as DWORD, byval lpGammaRamp as LPDDGAMMARAMP) as HRESULT
 end type

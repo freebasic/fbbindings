@@ -337,7 +337,7 @@ type LPSHNAMEMAPPINGW as _SHNAMEMAPPINGW ptr
 #ifdef __FB_64BIT__
 	type _SHELLEXECUTEINFOA
 		cbSize as DWORD
-		fMask as ULONG_
+		fMask as ULONG
 		hwnd as HWND
 		lpVerb as LPCSTR
 		lpFile as LPCSTR
@@ -360,7 +360,7 @@ type LPSHNAMEMAPPINGW as _SHNAMEMAPPINGW ptr
 #else
 	type _SHELLEXECUTEINFOA field = 1
 		cbSize as DWORD
-		fMask as ULONG_
+		fMask as ULONG
 		hwnd as HWND
 		lpVerb as LPCSTR
 		lpFile as LPCSTR
@@ -388,7 +388,7 @@ type LPSHELLEXECUTEINFOA as _SHELLEXECUTEINFOA ptr
 #ifdef __FB_64BIT__
 	type _SHELLEXECUTEINFOW
 		cbSize as DWORD
-		fMask as ULONG_
+		fMask as ULONG
 		hwnd as HWND
 		lpVerb as LPCWSTR
 		lpFile as LPCWSTR
@@ -411,7 +411,7 @@ type LPSHELLEXECUTEINFOA as _SHELLEXECUTEINFOA ptr
 #else
 	type _SHELLEXECUTEINFOW field = 1
 		cbSize as DWORD
-		fMask as ULONG_
+		fMask as ULONG
 		hwnd as HWND
 		lpVerb as LPCWSTR
 		lpFile as LPCWSTR
@@ -452,7 +452,7 @@ declare function ShellExecuteExW(byval pExecInfo as SHELLEXECUTEINFOW ptr) as WI
 #ifdef __FB_64BIT__
 	type _SHCREATEPROCESSINFOW
 		cbSize as DWORD
-		fMask as ULONG_
+		fMask as ULONG
 		hwnd as HWND
 		pszFile as LPCWSTR
 		pszParameters as LPCWSTR
@@ -468,7 +468,7 @@ declare function ShellExecuteExW(byval pExecInfo as SHELLEXECUTEINFOW ptr) as WI
 #else
 	type _SHCREATEPROCESSINFOW field = 1
 		cbSize as DWORD
-		fMask as ULONG_
+		fMask as ULONG
 		hwnd as HWND
 		pszFile as LPCWSTR
 		pszParameters as LPCWSTR
@@ -814,7 +814,7 @@ declare function SHSetUnreadMailCountW(byval pszMailAddress as LPCWSTR, byval dw
 #define SHGetUnreadMailCount __MINGW_NAME_AW(SHGetUnreadMailCount)
 #define SHSetUnreadMailCount __MINGW_NAME_AW(SHSetUnreadMailCount)
 
-declare function SHTestTokenMembership(byval hToken as HANDLE, byval ulRID as ULONG_) as WINBOOL
+declare function SHTestTokenMembership(byval hToken as HANDLE, byval ulRID as ULONG) as WINBOOL
 declare function SHGetImageList(byval iImageList as long, byval riid as const IID const ptr, byval ppvObj as any ptr ptr) as HRESULT
 
 #define SHIL_LARGE 0

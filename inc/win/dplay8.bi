@@ -227,7 +227,7 @@ type PDPN_APPLICATION_DESC as _DPN_APPLICATION_DESC ptr
 
 type _BUFFERDESC
 	dwBufferSize as DWORD
-	pBufferData as BYTE_ ptr
+	pBufferData as BYTE ptr
 end type
 
 type BUFFERDESC as _BUFFERDESC
@@ -647,8 +647,8 @@ end type
 
 type IDirectPlay8ClientVtbl_
 	QueryInterface as function(byval This as IDirectPlay8Client ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirectPlay8Client ptr) as ULONG_
-	Release as function(byval This as IDirectPlay8Client ptr) as ULONG_
+	AddRef as function(byval This as IDirectPlay8Client ptr) as ULONG
+	Release as function(byval This as IDirectPlay8Client ptr) as ULONG
 	Initialize as function(byval This as IDirectPlay8Client ptr, byval pvUserContext as const PVOID, byval pfn as const PFNDPNMESSAGEHANDLER, byval dwFlags as const DWORD) as HRESULT
 	EnumServiceProviders as function(byval This as IDirectPlay8Client ptr, byval pguidServiceProvider as const GUID const ptr, byval pguidApplication as const GUID const ptr, byval pSPInfoBuffer as DPN_SERVICE_PROVIDER_INFO const ptr, byval pcbEnumData as const PDWORD, byval pcReturned as const PDWORD, byval dwFlags as const DWORD) as HRESULT
 	EnumHosts as function(byval This as IDirectPlay8Client ptr, byval pApplicationDesc as const PDPN_APPLICATION_DESC, byval pAddrHost as IDirectPlay8Address const ptr, byval pDeviceInfo as IDirectPlay8Address const ptr, byval pUserEnumData as const PVOID, byval dwUserEnumDataSize as const DWORD, byval dwEnumCount as const DWORD, byval dwRetryInterval as const DWORD, byval dwTimeOut as const DWORD, byval pvUserContext as const PVOID, byval pAsyncHandle as DPNHANDLE const ptr, byval dwFlags as const DWORD) as HRESULT
@@ -699,8 +699,8 @@ end type
 
 type IDirectPlay8ServerVtbl_
 	QueryInterface as function(byval This as IDirectPlay8Server ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirectPlay8Server ptr) as ULONG_
-	Release as function(byval This as IDirectPlay8Server ptr) as ULONG_
+	AddRef as function(byval This as IDirectPlay8Server ptr) as ULONG
+	Release as function(byval This as IDirectPlay8Server ptr) as ULONG
 	Initialize as function(byval This as IDirectPlay8Server ptr, byval pvUserContext as const PVOID, byval pfn as const PFNDPNMESSAGEHANDLER, byval dwFlags as const DWORD) as HRESULT
 	EnumServiceProviders as function(byval This as IDirectPlay8Server ptr, byval pguidServiceProvider as const GUID const ptr, byval pguidApplication as const GUID const ptr, byval pSPInfoBuffer as DPN_SERVICE_PROVIDER_INFO const ptr, byval pcbEnumData as const PDWORD, byval pcReturned as const PDWORD, byval dwFlags as const DWORD) as HRESULT
 	CancelAsyncOperation as function(byval This as IDirectPlay8Server ptr, byval hAsyncHandle as const DPNHANDLE, byval dwFlags as const DWORD) as HRESULT
@@ -775,8 +775,8 @@ end type
 
 type IDirectPlay8PeerVtbl_
 	QueryInterface as function(byval This as IDirectPlay8Peer ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirectPlay8Peer ptr) as ULONG_
-	Release as function(byval This as IDirectPlay8Peer ptr) as ULONG_
+	AddRef as function(byval This as IDirectPlay8Peer ptr) as ULONG
+	Release as function(byval This as IDirectPlay8Peer ptr) as ULONG
 	Initialize as function(byval This as IDirectPlay8Peer ptr, byval pvUserContext as const PVOID, byval pfn as const PFNDPNMESSAGEHANDLER, byval dwFlags as const DWORD) as HRESULT
 	EnumServiceProviders as function(byval This as IDirectPlay8Peer ptr, byval pguidServiceProvider as const GUID const ptr, byval pguidApplication as const GUID const ptr, byval pSPInfoBuffer as DPN_SERVICE_PROVIDER_INFO const ptr, byval pcbEnumData as DWORD const ptr, byval pcReturned as DWORD const ptr, byval dwFlags as const DWORD) as HRESULT
 	CancelAsyncOperation as function(byval This as IDirectPlay8Peer ptr, byval hAsyncHandle as const DPNHANDLE, byval dwFlags as const DWORD) as HRESULT
@@ -857,8 +857,8 @@ end type
 
 type IDirectPlay8ThreadPoolVtbl_
 	QueryInterface as function(byval This as IDirectPlay8ThreadPool ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirectPlay8ThreadPool ptr) as ULONG_
-	Release as function(byval This as IDirectPlay8ThreadPool ptr) as ULONG_
+	AddRef as function(byval This as IDirectPlay8ThreadPool ptr) as ULONG
+	Release as function(byval This as IDirectPlay8ThreadPool ptr) as ULONG
 	Initialize as function(byval This as IDirectPlay8ThreadPool ptr, byval pvUserContext as const PVOID, byval pfn as const PFNDPNMESSAGEHANDLER, byval dwFlags as const DWORD) as HRESULT
 	Close as function(byval This as IDirectPlay8ThreadPool ptr, byval dwFlags as const DWORD) as HRESULT
 	GetThreadCount as function(byval This as IDirectPlay8ThreadPool ptr, byval dwProcessorNum as const DWORD, byval pdwNumThreads as DWORD const ptr, byval dwFlags as const DWORD) as HRESULT
@@ -881,8 +881,8 @@ end type
 
 type IDirectPlay8NATResolverVtbl_
 	QueryInterface as function(byval This as IDirectPlay8NATResolver ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirectPlay8NATResolver ptr) as ULONG_
-	Release as function(byval This as IDirectPlay8NATResolver ptr) as ULONG_
+	AddRef as function(byval This as IDirectPlay8NATResolver ptr) as ULONG
+	Release as function(byval This as IDirectPlay8NATResolver ptr) as ULONG
 	Initialize as function(byval This as IDirectPlay8NATResolver ptr, byval pvUserContext as const PVOID, byval pfn as const PFNDPNMESSAGEHANDLER, byval dwFlags as const DWORD) as HRESULT
 	Start as function(byval This as IDirectPlay8NATResolver ptr, byval ppDevices as IDirectPlay8Address ptr const ptr, byval dwNumDevices as const DWORD, byval dwFlags as const DWORD) as HRESULT
 	Close as function(byval This as IDirectPlay8NATResolver ptr, byval dwFlags as const DWORD) as HRESULT

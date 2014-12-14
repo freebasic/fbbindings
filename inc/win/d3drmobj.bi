@@ -6,6 +6,8 @@
 
 '' The following symbols have been renamed:
 ''     #define VIRTUAL => VIRTUAL_
+''     inside struct IDirect3DRMProgressiveMeshVtbl:
+''         field Duplicate => Duplicate_
 
 #ifdef __FB_64BIT__
 	extern "C"
@@ -251,8 +253,8 @@ type D3DRMDOWNSAMPLECALLBACK as function cdecl(byval texture as IDirect3DRMTextu
 type D3DRMVALIDATIONCALLBACK as function cdecl(byval texture as IDirect3DRMTexture3 ptr, byval ctx as any ptr, byval flags as DWORD, byval rect_count as DWORD, byval rects as RECT ptr) as HRESULT
 
 type _D3DRMPICKDESC
-	ulFaceIdx as ULONG_
-	lGroupIdx as LONG_
+	ulFaceIdx as ULONG
+	lGroupIdx as LONG
 	vPosition as D3DVECTOR
 end type
 
@@ -260,8 +262,8 @@ type D3DRMPICKDESC as _D3DRMPICKDESC
 type LPD3DRMPICKDESC as _D3DRMPICKDESC ptr
 
 type _D3DRMPICKDESC2
-	ulFaceIdx as ULONG_
-	lGroupIdx as LONG_
+	ulFaceIdx as ULONG
+	lGroupIdx as LONG
 	vPosition as D3DVECTOR
 	tu as D3DVALUE
 	tv as D3DVALUE
@@ -278,8 +280,8 @@ end type
 
 type IDirect3DRMObjectVtbl_
 	QueryInterface as function(byval This as IDirect3DRMObject ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirect3DRMObject ptr) as ULONG_
-	Release as function(byval This as IDirect3DRMObject ptr) as ULONG_
+	AddRef as function(byval This as IDirect3DRMObject ptr) as ULONG
+	Release as function(byval This as IDirect3DRMObject ptr) as ULONG
 	Clone as function(byval This as IDirect3DRMObject ptr, byval outer as IUnknown ptr, byval iid as const IID const ptr, byval out_ as any ptr ptr) as HRESULT
 	AddDestroyCallback as function(byval This as IDirect3DRMObject ptr, byval cb as D3DRMOBJECTCALLBACK, byval ctx as any ptr) as HRESULT
 	DeleteDestroyCallback as function(byval This as IDirect3DRMObject ptr, byval cb as D3DRMOBJECTCALLBACK, byval ctx as any ptr) as HRESULT
@@ -313,8 +315,8 @@ end type
 
 type IDirect3DRMObject2Vtbl_
 	QueryInterface as function(byval This as IDirect3DRMObject2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirect3DRMObject2 ptr) as ULONG_
-	Release as function(byval This as IDirect3DRMObject2 ptr) as ULONG_
+	AddRef as function(byval This as IDirect3DRMObject2 ptr) as ULONG
+	Release as function(byval This as IDirect3DRMObject2 ptr) as ULONG
 	AddDestroyCallback as function(byval This as IDirect3DRMObject2 ptr, byval cb as D3DRMOBJECTCALLBACK, byval ctx as any ptr) as HRESULT
 	Clone as function(byval This as IDirect3DRMObject2 ptr, byval outer as IUnknown ptr, byval iid as const IID const ptr, byval out_ as any ptr ptr) as HRESULT
 	DeleteDestroyCallback as function(byval This as IDirect3DRMObject2 ptr, byval cb as D3DRMOBJECTCALLBACK, byval ctx as any ptr) as HRESULT
@@ -345,8 +347,8 @@ end type
 
 type IDirect3DRMVisualVtbl_
 	QueryInterface as function(byval This as IDirect3DRMVisual ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirect3DRMVisual ptr) as ULONG_
-	Release as function(byval This as IDirect3DRMVisual ptr) as ULONG_
+	AddRef as function(byval This as IDirect3DRMVisual ptr) as ULONG
+	Release as function(byval This as IDirect3DRMVisual ptr) as ULONG
 	Clone as function(byval This as IDirect3DRMVisual ptr, byval outer as IUnknown ptr, byval iid as const IID const ptr, byval out_ as any ptr ptr) as HRESULT
 	AddDestroyCallback as function(byval This as IDirect3DRMVisual ptr, byval cb as D3DRMOBJECTCALLBACK, byval ctx as any ptr) as HRESULT
 	DeleteDestroyCallback as function(byval This as IDirect3DRMVisual ptr, byval cb as D3DRMOBJECTCALLBACK, byval ctx as any ptr) as HRESULT
@@ -380,8 +382,8 @@ end type
 
 type IDirect3DRMDeviceVtbl_
 	QueryInterface as function(byval This as IDirect3DRMDevice ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirect3DRMDevice ptr) as ULONG_
-	Release as function(byval This as IDirect3DRMDevice ptr) as ULONG_
+	AddRef as function(byval This as IDirect3DRMDevice ptr) as ULONG
+	Release as function(byval This as IDirect3DRMDevice ptr) as ULONG
 	Clone as function(byval This as IDirect3DRMDevice ptr, byval outer as IUnknown ptr, byval iid as const IID const ptr, byval out_ as any ptr ptr) as HRESULT
 	AddDestroyCallback as function(byval This as IDirect3DRMDevice ptr, byval cb as D3DRMOBJECTCALLBACK, byval ctx as any ptr) as HRESULT
 	DeleteDestroyCallback as function(byval This as IDirect3DRMDevice ptr, byval cb as D3DRMOBJECTCALLBACK, byval ctx as any ptr) as HRESULT
@@ -396,7 +398,7 @@ type IDirect3DRMDeviceVtbl_
 		GetClassNameA as function(byval This as IDirect3DRMDevice ptr, byval size as DWORD ptr, byval name_ as zstring ptr) as HRESULT
 	#endif
 
-	Init as function(byval This as IDirect3DRMDevice ptr, byval width_ as ULONG_, byval height as ULONG_) as HRESULT
+	Init as function(byval This as IDirect3DRMDevice ptr, byval width_ as ULONG, byval height as ULONG) as HRESULT
 	InitFromD3D as function(byval This as IDirect3DRMDevice ptr, byval d3d as IDirect3D ptr, byval d3d_device as IDirect3DDevice ptr) as HRESULT
 	InitFromClipper as function(byval This as IDirect3DRMDevice ptr, byval clipper as IDirectDrawClipper ptr, byval guid as GUID ptr, byval width_ as long, byval height as long) as HRESULT
 	Update as function(byval This as IDirect3DRMDevice ptr) as HRESULT
@@ -462,8 +464,8 @@ end type
 
 type IDirect3DRMDevice2Vtbl_
 	QueryInterface as function(byval This as IDirect3DRMDevice2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirect3DRMDevice2 ptr) as ULONG_
-	Release as function(byval This as IDirect3DRMDevice2 ptr) as ULONG_
+	AddRef as function(byval This as IDirect3DRMDevice2 ptr) as ULONG
+	Release as function(byval This as IDirect3DRMDevice2 ptr) as ULONG
 	Clone as function(byval This as IDirect3DRMDevice2 ptr, byval outer as IUnknown ptr, byval iid as const IID const ptr, byval out_ as any ptr ptr) as HRESULT
 	AddDestroyCallback as function(byval This as IDirect3DRMDevice2 ptr, byval cb as D3DRMOBJECTCALLBACK, byval ctx as any ptr) as HRESULT
 	DeleteDestroyCallback as function(byval This as IDirect3DRMDevice2 ptr, byval cb as D3DRMOBJECTCALLBACK, byval ctx as any ptr) as HRESULT
@@ -478,7 +480,7 @@ type IDirect3DRMDevice2Vtbl_
 		GetClassNameA as function(byval This as IDirect3DRMDevice2 ptr, byval size as DWORD ptr, byval name_ as zstring ptr) as HRESULT
 	#endif
 
-	Init as function(byval This as IDirect3DRMDevice2 ptr, byval width_ as ULONG_, byval height as ULONG_) as HRESULT
+	Init as function(byval This as IDirect3DRMDevice2 ptr, byval width_ as ULONG, byval height as ULONG) as HRESULT
 	InitFromD3D as function(byval This as IDirect3DRMDevice2 ptr, byval d3d as IDirect3D ptr, byval d3d_device as IDirect3DDevice ptr) as HRESULT
 	InitFromClipper as function(byval This as IDirect3DRMDevice2 ptr, byval clipper as IDirectDrawClipper ptr, byval guid as GUID ptr, byval width_ as long, byval height as long) as HRESULT
 	Update as function(byval This as IDirect3DRMDevice2 ptr) as HRESULT
@@ -554,8 +556,8 @@ end type
 
 type IDirect3DRMDevice3Vtbl_
 	QueryInterface as function(byval This as IDirect3DRMDevice3 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirect3DRMDevice3 ptr) as ULONG_
-	Release as function(byval This as IDirect3DRMDevice3 ptr) as ULONG_
+	AddRef as function(byval This as IDirect3DRMDevice3 ptr) as ULONG
+	Release as function(byval This as IDirect3DRMDevice3 ptr) as ULONG
 	Clone as function(byval This as IDirect3DRMDevice3 ptr, byval outer as IUnknown ptr, byval iid as const IID const ptr, byval out_ as any ptr ptr) as HRESULT
 	AddDestroyCallback as function(byval This as IDirect3DRMDevice3 ptr, byval cb as D3DRMOBJECTCALLBACK, byval ctx as any ptr) as HRESULT
 	DeleteDestroyCallback as function(byval This as IDirect3DRMDevice3 ptr, byval cb as D3DRMOBJECTCALLBACK, byval ctx as any ptr) as HRESULT
@@ -570,7 +572,7 @@ type IDirect3DRMDevice3Vtbl_
 		GetClassNameA as function(byval This as IDirect3DRMDevice3 ptr, byval size as DWORD ptr, byval name_ as zstring ptr) as HRESULT
 	#endif
 
-	Init as function(byval This as IDirect3DRMDevice3 ptr, byval width_ as ULONG_, byval height as ULONG_) as HRESULT
+	Init as function(byval This as IDirect3DRMDevice3 ptr, byval width_ as ULONG, byval height as ULONG) as HRESULT
 	InitFromD3D as function(byval This as IDirect3DRMDevice3 ptr, byval d3d as IDirect3D ptr, byval d3d_device as IDirect3DDevice ptr) as HRESULT
 	InitFromClipper as function(byval This as IDirect3DRMDevice3 ptr, byval clipper as IDirectDrawClipper ptr, byval guid as GUID ptr, byval width_ as long, byval height as long) as HRESULT
 	Update as function(byval This as IDirect3DRMDevice3 ptr) as HRESULT
@@ -656,8 +658,8 @@ end type
 
 type IDirect3DRMViewportVtbl_
 	QueryInterface as function(byval This as IDirect3DRMViewport ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirect3DRMViewport ptr) as ULONG_
-	Release as function(byval This as IDirect3DRMViewport ptr) as ULONG_
+	AddRef as function(byval This as IDirect3DRMViewport ptr) as ULONG
+	Release as function(byval This as IDirect3DRMViewport ptr) as ULONG
 	Clone as function(byval This as IDirect3DRMViewport ptr, byval outer as IUnknown ptr, byval iid as const IID const ptr, byval out_ as any ptr ptr) as HRESULT
 	AddDestroyCallback as function(byval This as IDirect3DRMViewport ptr, byval cb as D3DRMOBJECTCALLBACK, byval ctx as any ptr) as HRESULT
 	DeleteDestroyCallback as function(byval This as IDirect3DRMViewport ptr, byval cb as D3DRMOBJECTCALLBACK, byval ctx as any ptr) as HRESULT
@@ -683,16 +685,16 @@ type IDirect3DRMViewportVtbl_
 	SetProjection as function(byval This as IDirect3DRMViewport ptr, byval as D3DRMPROJECTIONTYPE) as HRESULT
 	Transform as function(byval This as IDirect3DRMViewport ptr, byval d as D3DRMVECTOR4D ptr, byval s as D3DVECTOR ptr) as HRESULT
 	InverseTransform as function(byval This as IDirect3DRMViewport ptr, byval d as D3DVECTOR ptr, byval s as D3DRMVECTOR4D ptr) as HRESULT
-	Configure as function(byval This as IDirect3DRMViewport ptr, byval x as LONG_, byval y as LONG_, byval width_ as DWORD, byval height as DWORD) as HRESULT
+	Configure as function(byval This as IDirect3DRMViewport ptr, byval x as LONG, byval y as LONG, byval width_ as DWORD, byval height as DWORD) as HRESULT
 	ForceUpdate as function(byval This as IDirect3DRMViewport ptr, byval x1 as DWORD, byval y1 as DWORD, byval x2 as DWORD, byval y2 as DWORD) as HRESULT
 	SetPlane as function(byval This as IDirect3DRMViewport ptr, byval left_ as D3DVALUE, byval right_ as D3DVALUE, byval bottom as D3DVALUE, byval top as D3DVALUE) as HRESULT
 	GetCamera as function(byval This as IDirect3DRMViewport ptr, byval camera as IDirect3DRMFrame ptr ptr) as HRESULT
 	GetDevice as function(byval This as IDirect3DRMViewport ptr, byval device as IDirect3DRMDevice ptr ptr) as HRESULT
 	GetPlane as function(byval This as IDirect3DRMViewport ptr, byval left_ as D3DVALUE ptr, byval right_ as D3DVALUE ptr, byval bottom as D3DVALUE ptr, byval top as D3DVALUE ptr) as HRESULT
-	Pick as function(byval This as IDirect3DRMViewport ptr, byval x as LONG_, byval y as LONG_, byval visuals as IDirect3DRMPickedArray ptr ptr) as HRESULT
+	Pick as function(byval This as IDirect3DRMViewport ptr, byval x as LONG, byval y as LONG, byval visuals as IDirect3DRMPickedArray ptr ptr) as HRESULT
 	GetUniformScaling as function(byval This as IDirect3DRMViewport ptr) as WINBOOL
-	GetX as function(byval This as IDirect3DRMViewport ptr) as LONG_
-	GetY as function(byval This as IDirect3DRMViewport ptr) as LONG_
+	GetX as function(byval This as IDirect3DRMViewport ptr) as LONG
+	GetY as function(byval This as IDirect3DRMViewport ptr) as LONG
 	GetWidth as function(byval This as IDirect3DRMViewport ptr) as DWORD
 	GetHeight as function(byval This as IDirect3DRMViewport ptr) as DWORD
 	GetField as function(byval This as IDirect3DRMViewport ptr) as D3DVALUE
@@ -748,8 +750,8 @@ end type
 
 type IDirect3DRMViewport2Vtbl_
 	QueryInterface as function(byval This as IDirect3DRMViewport2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirect3DRMViewport2 ptr) as ULONG_
-	Release as function(byval This as IDirect3DRMViewport2 ptr) as ULONG_
+	AddRef as function(byval This as IDirect3DRMViewport2 ptr) as ULONG
+	Release as function(byval This as IDirect3DRMViewport2 ptr) as ULONG
 	Clone as function(byval This as IDirect3DRMViewport2 ptr, byval outer as IUnknown ptr, byval iid as const IID const ptr, byval out_ as any ptr ptr) as HRESULT
 	AddDestroyCallback as function(byval This as IDirect3DRMViewport2 ptr, byval cb as D3DRMOBJECTCALLBACK, byval ctx as any ptr) as HRESULT
 	DeleteDestroyCallback as function(byval This as IDirect3DRMViewport2 ptr, byval cb as D3DRMOBJECTCALLBACK, byval ctx as any ptr) as HRESULT
@@ -775,16 +777,16 @@ type IDirect3DRMViewport2Vtbl_
 	SetProjection as function(byval This as IDirect3DRMViewport2 ptr, byval as D3DRMPROJECTIONTYPE) as HRESULT
 	Transform as function(byval This as IDirect3DRMViewport2 ptr, byval d as D3DRMVECTOR4D ptr, byval s as D3DVECTOR ptr) as HRESULT
 	InverseTransform as function(byval This as IDirect3DRMViewport2 ptr, byval d as D3DVECTOR ptr, byval s as D3DRMVECTOR4D ptr) as HRESULT
-	Configure as function(byval This as IDirect3DRMViewport2 ptr, byval x as LONG_, byval y as LONG_, byval width_ as DWORD, byval height as DWORD) as HRESULT
+	Configure as function(byval This as IDirect3DRMViewport2 ptr, byval x as LONG, byval y as LONG, byval width_ as DWORD, byval height as DWORD) as HRESULT
 	ForceUpdate as function(byval This as IDirect3DRMViewport2 ptr, byval x1 as DWORD, byval y1 as DWORD, byval x2 as DWORD, byval y2 as DWORD) as HRESULT
 	SetPlane as function(byval This as IDirect3DRMViewport2 ptr, byval left_ as D3DVALUE, byval right_ as D3DVALUE, byval bottom as D3DVALUE, byval top as D3DVALUE) as HRESULT
 	GetCamera as function(byval This as IDirect3DRMViewport2 ptr, byval camera as IDirect3DRMFrame3 ptr ptr) as HRESULT
 	GetDevice as function(byval This as IDirect3DRMViewport2 ptr, byval device as IDirect3DRMDevice3 ptr ptr) as HRESULT
 	GetPlane as function(byval This as IDirect3DRMViewport2 ptr, byval left_ as D3DVALUE ptr, byval right_ as D3DVALUE ptr, byval bottom as D3DVALUE ptr, byval top as D3DVALUE ptr) as HRESULT
-	Pick as function(byval This as IDirect3DRMViewport2 ptr, byval x as LONG_, byval y as LONG_, byval visuals as IDirect3DRMPickedArray ptr ptr) as HRESULT
+	Pick as function(byval This as IDirect3DRMViewport2 ptr, byval x as LONG, byval y as LONG, byval visuals as IDirect3DRMPickedArray ptr ptr) as HRESULT
 	GetUniformScaling as function(byval This as IDirect3DRMViewport2 ptr) as WINBOOL
-	GetX as function(byval This as IDirect3DRMViewport2 ptr) as LONG_
-	GetY as function(byval This as IDirect3DRMViewport2 ptr) as LONG_
+	GetX as function(byval This as IDirect3DRMViewport2 ptr) as LONG
+	GetY as function(byval This as IDirect3DRMViewport2 ptr) as LONG
 	GetWidth as function(byval This as IDirect3DRMViewport2 ptr) as DWORD
 	GetHeight as function(byval This as IDirect3DRMViewport2 ptr) as DWORD
 	GetField as function(byval This as IDirect3DRMViewport2 ptr) as D3DVALUE
@@ -844,8 +846,8 @@ end type
 
 type IDirect3DRMFrameVtbl_
 	QueryInterface as function(byval This as IDirect3DRMFrame ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirect3DRMFrame ptr) as ULONG_
-	Release as function(byval This as IDirect3DRMFrame ptr) as ULONG_
+	AddRef as function(byval This as IDirect3DRMFrame ptr) as ULONG
+	Release as function(byval This as IDirect3DRMFrame ptr) as ULONG
 	Clone as function(byval This as IDirect3DRMFrame ptr, byval outer as IUnknown ptr, byval iid as const IID const ptr, byval out_ as any ptr ptr) as HRESULT
 	AddDestroyCallback as function(byval This as IDirect3DRMFrame ptr, byval cb as D3DRMOBJECTCALLBACK, byval ctx as any ptr) as HRESULT
 	DeleteDestroyCallback as function(byval This as IDirect3DRMFrame ptr, byval cb as D3DRMOBJECTCALLBACK, byval ctx as any ptr) as HRESULT
@@ -996,8 +998,8 @@ end type
 
 type IDirect3DRMFrame2Vtbl_
 	QueryInterface as function(byval This as IDirect3DRMFrame2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirect3DRMFrame2 ptr) as ULONG_
-	Release as function(byval This as IDirect3DRMFrame2 ptr) as ULONG_
+	AddRef as function(byval This as IDirect3DRMFrame2 ptr) as ULONG
+	Release as function(byval This as IDirect3DRMFrame2 ptr) as ULONG
 	Clone as function(byval This as IDirect3DRMFrame2 ptr, byval outer as IUnknown ptr, byval iid as const IID const ptr, byval out_ as any ptr ptr) as HRESULT
 	AddDestroyCallback as function(byval This as IDirect3DRMFrame2 ptr, byval cb as D3DRMOBJECTCALLBACK, byval ctx as any ptr) as HRESULT
 	DeleteDestroyCallback as function(byval This as IDirect3DRMFrame2 ptr, byval cb as D3DRMOBJECTCALLBACK, byval ctx as any ptr) as HRESULT
@@ -1178,8 +1180,8 @@ end type
 
 type IDirect3DRMFrame3Vtbl_
 	QueryInterface as function(byval This as IDirect3DRMFrame3 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirect3DRMFrame3 ptr) as ULONG_
-	Release as function(byval This as IDirect3DRMFrame3 ptr) as ULONG_
+	AddRef as function(byval This as IDirect3DRMFrame3 ptr) as ULONG
+	Release as function(byval This as IDirect3DRMFrame3 ptr) as ULONG
 	Clone as function(byval This as IDirect3DRMFrame3 ptr, byval outer as IUnknown ptr, byval iid as const IID const ptr, byval out_ as any ptr ptr) as HRESULT
 	AddDestroyCallback as function(byval This as IDirect3DRMFrame3 ptr, byval cb as D3DRMOBJECTCALLBACK, byval ctx as any ptr) as HRESULT
 	DeleteDestroyCallback as function(byval This as IDirect3DRMFrame3 ptr, byval cb as D3DRMOBJECTCALLBACK, byval ctx as any ptr) as HRESULT
@@ -1370,8 +1372,8 @@ end type
 
 type IDirect3DRMMeshVtbl_
 	QueryInterface as function(byval This as IDirect3DRMMesh ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirect3DRMMesh ptr) as ULONG_
-	Release as function(byval This as IDirect3DRMMesh ptr) as ULONG_
+	AddRef as function(byval This as IDirect3DRMMesh ptr) as ULONG
+	Release as function(byval This as IDirect3DRMMesh ptr) as ULONG
 	Clone as function(byval This as IDirect3DRMMesh ptr, byval outer as IUnknown ptr, byval iid as const IID const ptr, byval out_ as any ptr ptr) as HRESULT
 	AddDestroyCallback as function(byval This as IDirect3DRMMesh ptr, byval cb as D3DRMOBJECTCALLBACK, byval ctx as any ptr) as HRESULT
 	DeleteDestroyCallback as function(byval This as IDirect3DRMMesh ptr, byval cb as D3DRMOBJECTCALLBACK, byval ctx as any ptr) as HRESULT
@@ -1444,8 +1446,8 @@ end type
 
 type IDirect3DRMProgressiveMeshVtbl_
 	QueryInterface as function(byval This as IDirect3DRMProgressiveMesh ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirect3DRMProgressiveMesh ptr) as ULONG_
-	Release as function(byval This as IDirect3DRMProgressiveMesh ptr) as ULONG_
+	AddRef as function(byval This as IDirect3DRMProgressiveMesh ptr) as ULONG
+	Release as function(byval This as IDirect3DRMProgressiveMesh ptr) as ULONG
 	Clone as function(byval This as IDirect3DRMProgressiveMesh ptr, byval outer as IUnknown ptr, byval iid as const IID const ptr, byval out_ as any ptr ptr) as HRESULT
 	AddDestroyCallback as function(byval This as IDirect3DRMProgressiveMesh ptr, byval cb as D3DRMOBJECTCALLBACK, byval ctx as any ptr) as HRESULT
 	DeleteDestroyCallback as function(byval This as IDirect3DRMProgressiveMesh ptr, byval cb as D3DRMOBJECTCALLBACK, byval ctx as any ptr) as HRESULT
@@ -1474,7 +1476,7 @@ type IDirect3DRMProgressiveMeshVtbl_
 	SetDetail as function(byval This as IDirect3DRMProgressiveMesh ptr, byval d3dVal_ as D3DVALUE) as HRESULT
 	RegisterEvents as function(byval This as IDirect3DRMProgressiveMesh ptr, byval event as HANDLE, byval flags as DWORD, byval reserved as DWORD) as HRESULT
 	CreateMesh as function(byval This as IDirect3DRMProgressiveMesh ptr, byval mesh as IDirect3DRMMesh ptr ptr) as HRESULT
-	Duplicate as function(byval This as IDirect3DRMProgressiveMesh ptr, byval mesh as IDirect3DRMProgressiveMesh ptr ptr) as HRESULT
+	Duplicate_ as function(byval This as IDirect3DRMProgressiveMesh ptr, byval mesh as IDirect3DRMProgressiveMesh ptr ptr) as HRESULT
 	GetBox as function(byval This as IDirect3DRMProgressiveMesh ptr, byval box as D3DRMBOX ptr) as HRESULT
 	SetQuality as function(byval This as IDirect3DRMProgressiveMesh ptr, byval quality as D3DRMRENDERQUALITY) as HRESULT
 	GetQuality as function(byval This as IDirect3DRMProgressiveMesh ptr, byval quality as D3DRMRENDERQUALITY ptr) as HRESULT
@@ -1516,8 +1518,8 @@ end type
 
 type IDirect3DRMShadowVtbl_
 	QueryInterface as function(byval This as IDirect3DRMShadow ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirect3DRMShadow ptr) as ULONG_
-	Release as function(byval This as IDirect3DRMShadow ptr) as ULONG_
+	AddRef as function(byval This as IDirect3DRMShadow ptr) as ULONG
+	Release as function(byval This as IDirect3DRMShadow ptr) as ULONG
 	Clone as function(byval This as IDirect3DRMShadow ptr, byval outer as IUnknown ptr, byval iid as const IID const ptr, byval out_ as any ptr ptr) as HRESULT
 	AddDestroyCallback as function(byval This as IDirect3DRMShadow ptr, byval cb as D3DRMOBJECTCALLBACK, byval ctx as any ptr) as HRESULT
 	DeleteDestroyCallback as function(byval This as IDirect3DRMShadow ptr, byval cb as D3DRMOBJECTCALLBACK, byval ctx as any ptr) as HRESULT
@@ -1554,8 +1556,8 @@ end type
 
 type IDirect3DRMShadow2Vtbl_
 	QueryInterface as function(byval This as IDirect3DRMShadow2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirect3DRMShadow2 ptr) as ULONG_
-	Release as function(byval This as IDirect3DRMShadow2 ptr) as ULONG_
+	AddRef as function(byval This as IDirect3DRMShadow2 ptr) as ULONG
+	Release as function(byval This as IDirect3DRMShadow2 ptr) as ULONG
 	Clone as function(byval This as IDirect3DRMShadow2 ptr, byval outer as IUnknown ptr, byval iid as const IID const ptr, byval out_ as any ptr ptr) as HRESULT
 	AddDestroyCallback as function(byval This as IDirect3DRMShadow2 ptr, byval cb as D3DRMOBJECTCALLBACK, byval ctx as any ptr) as HRESULT
 	DeleteDestroyCallback as function(byval This as IDirect3DRMShadow2 ptr, byval cb as D3DRMOBJECTCALLBACK, byval ctx as any ptr) as HRESULT
@@ -1608,8 +1610,8 @@ end type
 
 type IDirect3DRMFaceVtbl_
 	QueryInterface as function(byval This as IDirect3DRMFace ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirect3DRMFace ptr) as ULONG_
-	Release as function(byval This as IDirect3DRMFace ptr) as ULONG_
+	AddRef as function(byval This as IDirect3DRMFace ptr) as ULONG
+	Release as function(byval This as IDirect3DRMFace ptr) as ULONG
 	Clone as function(byval This as IDirect3DRMFace ptr, byval outer as IUnknown ptr, byval iid as const IID const ptr, byval out_ as any ptr ptr) as HRESULT
 	AddDestroyCallback as function(byval This as IDirect3DRMFace ptr, byval cb as D3DRMOBJECTCALLBACK, byval ctx as any ptr) as HRESULT
 	DeleteDestroyCallback as function(byval This as IDirect3DRMFace ptr, byval cb as D3DRMOBJECTCALLBACK, byval ctx as any ptr) as HRESULT
@@ -1681,8 +1683,8 @@ end type
 
 type IDirect3DRMFace2Vtbl_
 	QueryInterface as function(byval This as IDirect3DRMFace2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirect3DRMFace2 ptr) as ULONG_
-	Release as function(byval This as IDirect3DRMFace2 ptr) as ULONG_
+	AddRef as function(byval This as IDirect3DRMFace2 ptr) as ULONG
+	Release as function(byval This as IDirect3DRMFace2 ptr) as ULONG
 	Clone as function(byval This as IDirect3DRMFace2 ptr, byval outer as IUnknown ptr, byval iid as const IID const ptr, byval out_ as any ptr ptr) as HRESULT
 	AddDestroyCallback as function(byval This as IDirect3DRMFace2 ptr, byval cb as D3DRMOBJECTCALLBACK, byval ctx as any ptr) as HRESULT
 	DeleteDestroyCallback as function(byval This as IDirect3DRMFace2 ptr, byval cb as D3DRMOBJECTCALLBACK, byval ctx as any ptr) as HRESULT
@@ -1754,8 +1756,8 @@ end type
 
 type IDirect3DRMMeshBuilderVtbl_
 	QueryInterface as function(byval This as IDirect3DRMMeshBuilder ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirect3DRMMeshBuilder ptr) as ULONG_
-	Release as function(byval This as IDirect3DRMMeshBuilder ptr) as ULONG_
+	AddRef as function(byval This as IDirect3DRMMeshBuilder ptr) as ULONG
+	Release as function(byval This as IDirect3DRMMeshBuilder ptr) as ULONG
 	Clone as function(byval This as IDirect3DRMMeshBuilder ptr, byval outer as IUnknown ptr, byval iid as const IID const ptr, byval out_ as any ptr ptr) as HRESULT
 	AddDestroyCallback as function(byval This as IDirect3DRMMeshBuilder ptr, byval cb as D3DRMOBJECTCALLBACK, byval ctx as any ptr) as HRESULT
 	DeleteDestroyCallback as function(byval This as IDirect3DRMMeshBuilder ptr, byval cb as D3DRMOBJECTCALLBACK, byval ctx as any ptr) as HRESULT
@@ -1866,8 +1868,8 @@ end type
 
 type IDirect3DRMMeshBuilder2Vtbl_
 	QueryInterface as function(byval This as IDirect3DRMMeshBuilder2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirect3DRMMeshBuilder2 ptr) as ULONG_
-	Release as function(byval This as IDirect3DRMMeshBuilder2 ptr) as ULONG_
+	AddRef as function(byval This as IDirect3DRMMeshBuilder2 ptr) as ULONG
+	Release as function(byval This as IDirect3DRMMeshBuilder2 ptr) as ULONG
 	Clone as function(byval This as IDirect3DRMMeshBuilder2 ptr, byval outer as IUnknown ptr, byval iid as const IID const ptr, byval out_ as any ptr ptr) as HRESULT
 	AddDestroyCallback as function(byval This as IDirect3DRMMeshBuilder2 ptr, byval cb as D3DRMOBJECTCALLBACK, byval ctx as any ptr) as HRESULT
 	DeleteDestroyCallback as function(byval This as IDirect3DRMMeshBuilder2 ptr, byval cb as D3DRMOBJECTCALLBACK, byval ctx as any ptr) as HRESULT
@@ -1982,8 +1984,8 @@ end type
 
 type IDirect3DRMMeshBuilder3Vtbl_
 	QueryInterface as function(byval This as IDirect3DRMMeshBuilder3 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirect3DRMMeshBuilder3 ptr) as ULONG_
-	Release as function(byval This as IDirect3DRMMeshBuilder3 ptr) as ULONG_
+	AddRef as function(byval This as IDirect3DRMMeshBuilder3 ptr) as ULONG
+	Release as function(byval This as IDirect3DRMMeshBuilder3 ptr) as ULONG
 	Clone as function(byval This as IDirect3DRMMeshBuilder3 ptr, byval outer as IUnknown ptr, byval iid as const IID const ptr, byval out_ as any ptr ptr) as HRESULT
 	AddDestroyCallback as function(byval This as IDirect3DRMMeshBuilder3 ptr, byval cb as D3DRMOBJECTCALLBACK, byval ctx as any ptr) as HRESULT
 	DeleteDestroyCallback as function(byval This as IDirect3DRMMeshBuilder3 ptr, byval cb as D3DRMOBJECTCALLBACK, byval ctx as any ptr) as HRESULT
@@ -2135,8 +2137,8 @@ end type
 
 type IDirect3DRMLightVtbl_
 	QueryInterface as function(byval This as IDirect3DRMLight ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirect3DRMLight ptr) as ULONG_
-	Release as function(byval This as IDirect3DRMLight ptr) as ULONG_
+	AddRef as function(byval This as IDirect3DRMLight ptr) as ULONG
+	Release as function(byval This as IDirect3DRMLight ptr) as ULONG
 	Clone as function(byval This as IDirect3DRMLight ptr, byval outer as IUnknown ptr, byval iid as const IID const ptr, byval out_ as any ptr ptr) as HRESULT
 	AddDestroyCallback as function(byval This as IDirect3DRMLight ptr, byval cb as D3DRMOBJECTCALLBACK, byval ctx as any ptr) as HRESULT
 	DeleteDestroyCallback as function(byval This as IDirect3DRMLight ptr, byval cb as D3DRMOBJECTCALLBACK, byval ctx as any ptr) as HRESULT
@@ -2209,8 +2211,8 @@ end type
 
 type IDirect3DRMTextureVtbl_
 	QueryInterface as function(byval This as IDirect3DRMTexture ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirect3DRMTexture ptr) as ULONG_
-	Release as function(byval This as IDirect3DRMTexture ptr) as ULONG_
+	AddRef as function(byval This as IDirect3DRMTexture ptr) as ULONG
+	Release as function(byval This as IDirect3DRMTexture ptr) as ULONG
 	Clone as function(byval This as IDirect3DRMTexture ptr, byval outer as IUnknown ptr, byval iid as const IID const ptr, byval out_ as any ptr ptr) as HRESULT
 	AddDestroyCallback as function(byval This as IDirect3DRMTexture ptr, byval cb as D3DRMOBJECTCALLBACK, byval ctx as any ptr) as HRESULT
 	DeleteDestroyCallback as function(byval This as IDirect3DRMTexture ptr, byval cb as D3DRMOBJECTCALLBACK, byval ctx as any ptr) as HRESULT
@@ -2232,12 +2234,12 @@ type IDirect3DRMTextureVtbl_
 	SetColors as function(byval This as IDirect3DRMTexture ptr, byval as DWORD) as HRESULT
 	SetShades as function(byval This as IDirect3DRMTexture ptr, byval as DWORD) as HRESULT
 	SetDecalSize as function(byval This as IDirect3DRMTexture ptr, byval width_ as D3DVALUE, byval height as D3DVALUE) as HRESULT
-	SetDecalOrigin as function(byval This as IDirect3DRMTexture ptr, byval x as LONG_, byval y as LONG_) as HRESULT
+	SetDecalOrigin as function(byval This as IDirect3DRMTexture ptr, byval x as LONG, byval y as LONG) as HRESULT
 	SetDecalScale as function(byval This as IDirect3DRMTexture ptr, byval as DWORD) as HRESULT
 	SetDecalTransparency as function(byval This as IDirect3DRMTexture ptr, byval as WINBOOL) as HRESULT
 	SetDecalTransparentColor as function(byval This as IDirect3DRMTexture ptr, byval as D3DCOLOR) as HRESULT
 	GetDecalSize as function(byval This as IDirect3DRMTexture ptr, byval width_return as D3DVALUE ptr, byval height_return as D3DVALUE ptr) as HRESULT
-	GetDecalOrigin as function(byval This as IDirect3DRMTexture ptr, byval x_return as LONG_ ptr, byval y_return as LONG_ ptr) as HRESULT
+	GetDecalOrigin as function(byval This as IDirect3DRMTexture ptr, byval x_return as LONG ptr, byval y_return as LONG ptr) as HRESULT
 	GetImage as function(byval This as IDirect3DRMTexture ptr) as D3DRMIMAGE ptr
 	GetShades as function(byval This as IDirect3DRMTexture ptr) as DWORD
 	GetColors as function(byval This as IDirect3DRMTexture ptr) as DWORD
@@ -2283,8 +2285,8 @@ end type
 
 type IDirect3DRMTexture2Vtbl_
 	QueryInterface as function(byval This as IDirect3DRMTexture2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirect3DRMTexture2 ptr) as ULONG_
-	Release as function(byval This as IDirect3DRMTexture2 ptr) as ULONG_
+	AddRef as function(byval This as IDirect3DRMTexture2 ptr) as ULONG
+	Release as function(byval This as IDirect3DRMTexture2 ptr) as ULONG
 	Clone as function(byval This as IDirect3DRMTexture2 ptr, byval outer as IUnknown ptr, byval iid as const IID const ptr, byval out_ as any ptr ptr) as HRESULT
 	AddDestroyCallback as function(byval This as IDirect3DRMTexture2 ptr, byval cb as D3DRMOBJECTCALLBACK, byval ctx as any ptr) as HRESULT
 	DeleteDestroyCallback as function(byval This as IDirect3DRMTexture2 ptr, byval cb as D3DRMOBJECTCALLBACK, byval ctx as any ptr) as HRESULT
@@ -2306,12 +2308,12 @@ type IDirect3DRMTexture2Vtbl_
 	SetColors as function(byval This as IDirect3DRMTexture2 ptr, byval as DWORD) as HRESULT
 	SetShades as function(byval This as IDirect3DRMTexture2 ptr, byval as DWORD) as HRESULT
 	SetDecalSize as function(byval This as IDirect3DRMTexture2 ptr, byval width_ as D3DVALUE, byval height as D3DVALUE) as HRESULT
-	SetDecalOrigin as function(byval This as IDirect3DRMTexture2 ptr, byval x as LONG_, byval y as LONG_) as HRESULT
+	SetDecalOrigin as function(byval This as IDirect3DRMTexture2 ptr, byval x as LONG, byval y as LONG) as HRESULT
 	SetDecalScale as function(byval This as IDirect3DRMTexture2 ptr, byval as DWORD) as HRESULT
 	SetDecalTransparency as function(byval This as IDirect3DRMTexture2 ptr, byval as WINBOOL) as HRESULT
 	SetDecalTransparentColor as function(byval This as IDirect3DRMTexture2 ptr, byval as D3DCOLOR) as HRESULT
 	GetDecalSize as function(byval This as IDirect3DRMTexture2 ptr, byval width_return as D3DVALUE ptr, byval height_return as D3DVALUE ptr) as HRESULT
-	GetDecalOrigin as function(byval This as IDirect3DRMTexture2 ptr, byval x_return as LONG_ ptr, byval y_return as LONG_ ptr) as HRESULT
+	GetDecalOrigin as function(byval This as IDirect3DRMTexture2 ptr, byval x_return as LONG ptr, byval y_return as LONG ptr) as HRESULT
 	GetImage as function(byval This as IDirect3DRMTexture2 ptr) as D3DRMIMAGE ptr
 	GetShades as function(byval This as IDirect3DRMTexture2 ptr) as DWORD
 	GetColors as function(byval This as IDirect3DRMTexture2 ptr) as DWORD
@@ -2363,8 +2365,8 @@ end type
 
 type IDirect3DRMTexture3Vtbl_
 	QueryInterface as function(byval This as IDirect3DRMTexture3 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirect3DRMTexture3 ptr) as ULONG_
-	Release as function(byval This as IDirect3DRMTexture3 ptr) as ULONG_
+	AddRef as function(byval This as IDirect3DRMTexture3 ptr) as ULONG
+	Release as function(byval This as IDirect3DRMTexture3 ptr) as ULONG
 	Clone as function(byval This as IDirect3DRMTexture3 ptr, byval outer as IUnknown ptr, byval iid as const IID const ptr, byval out_ as any ptr ptr) as HRESULT
 	AddDestroyCallback as function(byval This as IDirect3DRMTexture3 ptr, byval cb as D3DRMOBJECTCALLBACK, byval ctx as any ptr) as HRESULT
 	DeleteDestroyCallback as function(byval This as IDirect3DRMTexture3 ptr, byval cb as D3DRMOBJECTCALLBACK, byval ctx as any ptr) as HRESULT
@@ -2386,12 +2388,12 @@ type IDirect3DRMTexture3Vtbl_
 	SetColors as function(byval This as IDirect3DRMTexture3 ptr, byval as DWORD) as HRESULT
 	SetShades as function(byval This as IDirect3DRMTexture3 ptr, byval as DWORD) as HRESULT
 	SetDecalSize as function(byval This as IDirect3DRMTexture3 ptr, byval width_ as D3DVALUE, byval height as D3DVALUE) as HRESULT
-	SetDecalOrigin as function(byval This as IDirect3DRMTexture3 ptr, byval x as LONG_, byval y as LONG_) as HRESULT
+	SetDecalOrigin as function(byval This as IDirect3DRMTexture3 ptr, byval x as LONG, byval y as LONG) as HRESULT
 	SetDecalScale as function(byval This as IDirect3DRMTexture3 ptr, byval as DWORD) as HRESULT
 	SetDecalTransparency as function(byval This as IDirect3DRMTexture3 ptr, byval as WINBOOL) as HRESULT
 	SetDecalTransparentColor as function(byval This as IDirect3DRMTexture3 ptr, byval as D3DCOLOR) as HRESULT
 	GetDecalSize as function(byval This as IDirect3DRMTexture3 ptr, byval width_return as D3DVALUE ptr, byval height_return as D3DVALUE ptr) as HRESULT
-	GetDecalOrigin as function(byval This as IDirect3DRMTexture3 ptr, byval x_return as LONG_ ptr, byval y_return as LONG_ ptr) as HRESULT
+	GetDecalOrigin as function(byval This as IDirect3DRMTexture3 ptr, byval x_return as LONG ptr, byval y_return as LONG ptr) as HRESULT
 	GetImage as function(byval This as IDirect3DRMTexture3 ptr) as D3DRMIMAGE ptr
 	GetShades as function(byval This as IDirect3DRMTexture3 ptr) as DWORD
 	GetColors as function(byval This as IDirect3DRMTexture3 ptr) as DWORD
@@ -2402,8 +2404,8 @@ type IDirect3DRMTexture3Vtbl_
 	InitFromResource2 as function(byval This as IDirect3DRMTexture3 ptr, byval module as HMODULE, byval name_ as const zstring ptr, byval type_ as const zstring ptr) as HRESULT
 	GenerateMIPMap as function(byval This as IDirect3DRMTexture3 ptr, byval as DWORD) as HRESULT
 	GetSurface as function(byval This as IDirect3DRMTexture3 ptr, byval flags as DWORD, byval surface as IDirectDrawSurface ptr ptr) as HRESULT
-	SetCacheOptions as function(byval This as IDirect3DRMTexture3 ptr, byval lImportance as LONG_, byval dwFlags as DWORD) as HRESULT
-	GetCacheOptions as function(byval This as IDirect3DRMTexture3 ptr, byval importance as LONG_ ptr, byval flags as DWORD ptr) as HRESULT
+	SetCacheOptions as function(byval This as IDirect3DRMTexture3 ptr, byval lImportance as LONG, byval dwFlags as DWORD) as HRESULT
+	GetCacheOptions as function(byval This as IDirect3DRMTexture3 ptr, byval importance as LONG ptr, byval flags as DWORD ptr) as HRESULT
 	SetDownsampleCallback as function(byval This as IDirect3DRMTexture3 ptr, byval cb as D3DRMDOWNSAMPLECALLBACK, byval ctx as any ptr) as HRESULT
 	SetValidationCallback as function(byval This as IDirect3DRMTexture3 ptr, byval cb as D3DRMVALIDATIONCALLBACK, byval ctx as any ptr) as HRESULT
 end type
@@ -2453,8 +2455,8 @@ end type
 
 type IDirect3DRMWrapVtbl_
 	QueryInterface as function(byval This as IDirect3DRMWrap ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirect3DRMWrap ptr) as ULONG_
-	Release as function(byval This as IDirect3DRMWrap ptr) as ULONG_
+	AddRef as function(byval This as IDirect3DRMWrap ptr) as ULONG
+	Release as function(byval This as IDirect3DRMWrap ptr) as ULONG
 	Clone as function(byval This as IDirect3DRMWrap ptr, byval outer as IUnknown ptr, byval iid as const IID const ptr, byval out_ as any ptr ptr) as HRESULT
 	AddDestroyCallback as function(byval This as IDirect3DRMWrap ptr, byval cb as D3DRMOBJECTCALLBACK, byval ctx as any ptr) as HRESULT
 	DeleteDestroyCallback as function(byval This as IDirect3DRMWrap ptr, byval cb as D3DRMOBJECTCALLBACK, byval ctx as any ptr) as HRESULT
@@ -2495,8 +2497,8 @@ end type
 
 type IDirect3DRMMaterialVtbl_
 	QueryInterface as function(byval This as IDirect3DRMMaterial ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirect3DRMMaterial ptr) as ULONG_
-	Release as function(byval This as IDirect3DRMMaterial ptr) as ULONG_
+	AddRef as function(byval This as IDirect3DRMMaterial ptr) as ULONG
+	Release as function(byval This as IDirect3DRMMaterial ptr) as ULONG
 	Clone as function(byval This as IDirect3DRMMaterial ptr, byval outer as IUnknown ptr, byval iid as const IID const ptr, byval out_ as any ptr ptr) as HRESULT
 	AddDestroyCallback as function(byval This as IDirect3DRMMaterial ptr, byval cb as D3DRMOBJECTCALLBACK, byval ctx as any ptr) as HRESULT
 	DeleteDestroyCallback as function(byval This as IDirect3DRMMaterial ptr, byval cb as D3DRMOBJECTCALLBACK, byval ctx as any ptr) as HRESULT
@@ -2543,8 +2545,8 @@ end type
 
 type IDirect3DRMMaterial2Vtbl_
 	QueryInterface as function(byval This as IDirect3DRMMaterial2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirect3DRMMaterial2 ptr) as ULONG_
-	Release as function(byval This as IDirect3DRMMaterial2 ptr) as ULONG_
+	AddRef as function(byval This as IDirect3DRMMaterial2 ptr) as ULONG
+	Release as function(byval This as IDirect3DRMMaterial2 ptr) as ULONG
 	Clone as function(byval This as IDirect3DRMMaterial2 ptr, byval outer as IUnknown ptr, byval iid as const IID const ptr, byval out_ as any ptr ptr) as HRESULT
 	AddDestroyCallback as function(byval This as IDirect3DRMMaterial2 ptr, byval cb as D3DRMOBJECTCALLBACK, byval ctx as any ptr) as HRESULT
 	DeleteDestroyCallback as function(byval This as IDirect3DRMMaterial2 ptr, byval cb as D3DRMOBJECTCALLBACK, byval ctx as any ptr) as HRESULT
@@ -2595,8 +2597,8 @@ end type
 
 type IDirect3DRMAnimationVtbl_
 	QueryInterface as function(byval This as IDirect3DRMAnimation ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirect3DRMAnimation ptr) as ULONG_
-	Release as function(byval This as IDirect3DRMAnimation ptr) as ULONG_
+	AddRef as function(byval This as IDirect3DRMAnimation ptr) as ULONG
+	Release as function(byval This as IDirect3DRMAnimation ptr) as ULONG
 	Clone as function(byval This as IDirect3DRMAnimation ptr, byval outer as IUnknown ptr, byval iid as const IID const ptr, byval out_ as any ptr ptr) as HRESULT
 	AddDestroyCallback as function(byval This as IDirect3DRMAnimation ptr, byval cb as D3DRMOBJECTCALLBACK, byval ctx as any ptr) as HRESULT
 	DeleteDestroyCallback as function(byval This as IDirect3DRMAnimation ptr, byval cb as D3DRMOBJECTCALLBACK, byval ctx as any ptr) as HRESULT
@@ -2647,8 +2649,8 @@ end type
 
 type IDirect3DRMAnimation2Vtbl_
 	QueryInterface as function(byval This as IDirect3DRMAnimation2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirect3DRMAnimation2 ptr) as ULONG_
-	Release as function(byval This as IDirect3DRMAnimation2 ptr) as ULONG_
+	AddRef as function(byval This as IDirect3DRMAnimation2 ptr) as ULONG
+	Release as function(byval This as IDirect3DRMAnimation2 ptr) as ULONG
 	Clone as function(byval This as IDirect3DRMAnimation2 ptr, byval outer as IUnknown ptr, byval iid as const IID const ptr, byval out_ as any ptr ptr) as HRESULT
 	AddDestroyCallback as function(byval This as IDirect3DRMAnimation2 ptr, byval cb as D3DRMOBJECTCALLBACK, byval ctx as any ptr) as HRESULT
 	DeleteDestroyCallback as function(byval This as IDirect3DRMAnimation2 ptr, byval cb as D3DRMOBJECTCALLBACK, byval ctx as any ptr) as HRESULT
@@ -2709,8 +2711,8 @@ end type
 
 type IDirect3DRMAnimationSetVtbl_
 	QueryInterface as function(byval This as IDirect3DRMAnimationSet ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirect3DRMAnimationSet ptr) as ULONG_
-	Release as function(byval This as IDirect3DRMAnimationSet ptr) as ULONG_
+	AddRef as function(byval This as IDirect3DRMAnimationSet ptr) as ULONG
+	Release as function(byval This as IDirect3DRMAnimationSet ptr) as ULONG
 	Clone as function(byval This as IDirect3DRMAnimationSet ptr, byval outer as IUnknown ptr, byval iid as const IID const ptr, byval out_ as any ptr ptr) as HRESULT
 	AddDestroyCallback as function(byval This as IDirect3DRMAnimationSet ptr, byval cb as D3DRMOBJECTCALLBACK, byval ctx as any ptr) as HRESULT
 	DeleteDestroyCallback as function(byval This as IDirect3DRMAnimationSet ptr, byval cb as D3DRMOBJECTCALLBACK, byval ctx as any ptr) as HRESULT
@@ -2753,8 +2755,8 @@ end type
 
 type IDirect3DRMAnimationSet2Vtbl_
 	QueryInterface as function(byval This as IDirect3DRMAnimationSet2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirect3DRMAnimationSet2 ptr) as ULONG_
-	Release as function(byval This as IDirect3DRMAnimationSet2 ptr) as ULONG_
+	AddRef as function(byval This as IDirect3DRMAnimationSet2 ptr) as ULONG
+	Release as function(byval This as IDirect3DRMAnimationSet2 ptr) as ULONG
 	Clone as function(byval This as IDirect3DRMAnimationSet2 ptr, byval outer as IUnknown ptr, byval iid as const IID const ptr, byval out_ as any ptr ptr) as HRESULT
 	AddDestroyCallback as function(byval This as IDirect3DRMAnimationSet2 ptr, byval cb as D3DRMOBJECTCALLBACK, byval ctx as any ptr) as HRESULT
 	DeleteDestroyCallback as function(byval This as IDirect3DRMAnimationSet2 ptr, byval cb as D3DRMOBJECTCALLBACK, byval ctx as any ptr) as HRESULT
@@ -2799,8 +2801,8 @@ end type
 
 type IDirect3DRMUserVisualVtbl_
 	QueryInterface as function(byval This as IDirect3DRMUserVisual ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirect3DRMUserVisual ptr) as ULONG_
-	Release as function(byval This as IDirect3DRMUserVisual ptr) as ULONG_
+	AddRef as function(byval This as IDirect3DRMUserVisual ptr) as ULONG
+	Release as function(byval This as IDirect3DRMUserVisual ptr) as ULONG
 	Clone as function(byval This as IDirect3DRMUserVisual ptr, byval outer as IUnknown ptr, byval iid as const IID const ptr, byval out_ as any ptr ptr) as HRESULT
 	AddDestroyCallback as function(byval This as IDirect3DRMUserVisual ptr, byval cb as D3DRMOBJECTCALLBACK, byval ctx as any ptr) as HRESULT
 	DeleteDestroyCallback as function(byval This as IDirect3DRMUserVisual ptr, byval cb as D3DRMOBJECTCALLBACK, byval ctx as any ptr) as HRESULT
@@ -2837,8 +2839,8 @@ end type
 
 type IDirect3DRMArrayVtbl_
 	QueryInterface as function(byval This as IDirect3DRMArray ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirect3DRMArray ptr) as ULONG_
-	Release as function(byval This as IDirect3DRMArray ptr) as ULONG_
+	AddRef as function(byval This as IDirect3DRMArray ptr) as ULONG
+	Release as function(byval This as IDirect3DRMArray ptr) as ULONG
 	GetSize as function(byval This as IDirect3DRMArray ptr) as DWORD
 end type
 
@@ -2853,8 +2855,8 @@ end type
 
 type IDirect3DRMObjectArrayVtbl_
 	QueryInterface as function(byval This as IDirect3DRMObjectArray ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirect3DRMObjectArray ptr) as ULONG_
-	Release as function(byval This as IDirect3DRMObjectArray ptr) as ULONG_
+	AddRef as function(byval This as IDirect3DRMObjectArray ptr) as ULONG
+	Release as function(byval This as IDirect3DRMObjectArray ptr) as ULONG
 	GetSize as function(byval This as IDirect3DRMObjectArray ptr) as DWORD
 	GetElement as function(byval This as IDirect3DRMObjectArray ptr, byval index as DWORD, byval element as IDirect3DRMObject ptr ptr) as HRESULT
 end type
@@ -2871,8 +2873,8 @@ end type
 
 type IDirect3DRMDeviceArrayVtbl_
 	QueryInterface as function(byval This as IDirect3DRMDeviceArray ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirect3DRMDeviceArray ptr) as ULONG_
-	Release as function(byval This as IDirect3DRMDeviceArray ptr) as ULONG_
+	AddRef as function(byval This as IDirect3DRMDeviceArray ptr) as ULONG
+	Release as function(byval This as IDirect3DRMDeviceArray ptr) as ULONG
 	GetSize as function(byval This as IDirect3DRMDeviceArray ptr) as DWORD
 	GetElement as function(byval This as IDirect3DRMDeviceArray ptr, byval index as DWORD, byval element as IDirect3DRMDevice ptr ptr) as HRESULT
 end type
@@ -2889,8 +2891,8 @@ end type
 
 type IDirect3DRMFrameArrayVtbl_
 	QueryInterface as function(byval This as IDirect3DRMFrameArray ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirect3DRMFrameArray ptr) as ULONG_
-	Release as function(byval This as IDirect3DRMFrameArray ptr) as ULONG_
+	AddRef as function(byval This as IDirect3DRMFrameArray ptr) as ULONG
+	Release as function(byval This as IDirect3DRMFrameArray ptr) as ULONG
 	GetSize as function(byval This as IDirect3DRMFrameArray ptr) as DWORD
 	GetElement as function(byval This as IDirect3DRMFrameArray ptr, byval index as DWORD, byval element as IDirect3DRMFrame ptr ptr) as HRESULT
 end type
@@ -2907,8 +2909,8 @@ end type
 
 type IDirect3DRMViewportArrayVtbl_
 	QueryInterface as function(byval This as IDirect3DRMViewportArray ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirect3DRMViewportArray ptr) as ULONG_
-	Release as function(byval This as IDirect3DRMViewportArray ptr) as ULONG_
+	AddRef as function(byval This as IDirect3DRMViewportArray ptr) as ULONG
+	Release as function(byval This as IDirect3DRMViewportArray ptr) as ULONG
 	GetSize as function(byval This as IDirect3DRMViewportArray ptr) as DWORD
 	GetElement as function(byval This as IDirect3DRMViewportArray ptr, byval index as DWORD, byval element as IDirect3DRMViewport ptr ptr) as HRESULT
 end type
@@ -2925,8 +2927,8 @@ end type
 
 type IDirect3DRMVisualArrayVtbl_
 	QueryInterface as function(byval This as IDirect3DRMVisualArray ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirect3DRMVisualArray ptr) as ULONG_
-	Release as function(byval This as IDirect3DRMVisualArray ptr) as ULONG_
+	AddRef as function(byval This as IDirect3DRMVisualArray ptr) as ULONG
+	Release as function(byval This as IDirect3DRMVisualArray ptr) as ULONG
 	GetSize as function(byval This as IDirect3DRMVisualArray ptr) as DWORD
 	GetElement as function(byval This as IDirect3DRMVisualArray ptr, byval index as DWORD, byval element as IDirect3DRMVisual ptr ptr) as HRESULT
 end type
@@ -2943,8 +2945,8 @@ end type
 
 type IDirect3DRMAnimationArrayVtbl_
 	QueryInterface as function(byval This as IDirect3DRMAnimationArray ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirect3DRMAnimationArray ptr) as ULONG_
-	Release as function(byval This as IDirect3DRMAnimationArray ptr) as ULONG_
+	AddRef as function(byval This as IDirect3DRMAnimationArray ptr) as ULONG
+	Release as function(byval This as IDirect3DRMAnimationArray ptr) as ULONG
 	GetSize as function(byval This as IDirect3DRMAnimationArray ptr) as DWORD
 	GetElement as function(byval This as IDirect3DRMAnimationArray ptr, byval index as DWORD, byval element as IDirect3DRMAnimation2 ptr ptr) as HRESULT
 end type
@@ -2961,8 +2963,8 @@ end type
 
 type IDirect3DRMPickedArrayVtbl_
 	QueryInterface as function(byval This as IDirect3DRMPickedArray ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirect3DRMPickedArray ptr) as ULONG_
-	Release as function(byval This as IDirect3DRMPickedArray ptr) as ULONG_
+	AddRef as function(byval This as IDirect3DRMPickedArray ptr) as ULONG
+	Release as function(byval This as IDirect3DRMPickedArray ptr) as ULONG
 	GetSize as function(byval This as IDirect3DRMPickedArray ptr) as DWORD
 	GetPick as function(byval This as IDirect3DRMPickedArray ptr, byval index as DWORD, byval visual as IDirect3DRMVisual ptr ptr, byval frame_array as IDirect3DRMFrameArray ptr ptr, byval pick_desc as D3DRMPICKDESC ptr) as HRESULT
 end type
@@ -2979,8 +2981,8 @@ end type
 
 type IDirect3DRMLightArrayVtbl_
 	QueryInterface as function(byval This as IDirect3DRMLightArray ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirect3DRMLightArray ptr) as ULONG_
-	Release as function(byval This as IDirect3DRMLightArray ptr) as ULONG_
+	AddRef as function(byval This as IDirect3DRMLightArray ptr) as ULONG
+	Release as function(byval This as IDirect3DRMLightArray ptr) as ULONG
 	GetSize as function(byval This as IDirect3DRMLightArray ptr) as DWORD
 	GetElement as function(byval This as IDirect3DRMLightArray ptr, byval index as DWORD, byval element as IDirect3DRMLight ptr ptr) as HRESULT
 end type
@@ -2997,8 +2999,8 @@ end type
 
 type IDirect3DRMFaceArrayVtbl_
 	QueryInterface as function(byval This as IDirect3DRMFaceArray ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirect3DRMFaceArray ptr) as ULONG_
-	Release as function(byval This as IDirect3DRMFaceArray ptr) as ULONG_
+	AddRef as function(byval This as IDirect3DRMFaceArray ptr) as ULONG
+	Release as function(byval This as IDirect3DRMFaceArray ptr) as ULONG
 	GetSize as function(byval This as IDirect3DRMFaceArray ptr) as DWORD
 	GetElement as function(byval This as IDirect3DRMFaceArray ptr, byval index as DWORD, byval element as IDirect3DRMFace ptr ptr) as HRESULT
 end type
@@ -3015,8 +3017,8 @@ end type
 
 type IDirect3DRMPicked2ArrayVtbl_
 	QueryInterface as function(byval This as IDirect3DRMPicked2Array ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirect3DRMPicked2Array ptr) as ULONG_
-	Release as function(byval This as IDirect3DRMPicked2Array ptr) as ULONG_
+	AddRef as function(byval This as IDirect3DRMPicked2Array ptr) as ULONG
+	Release as function(byval This as IDirect3DRMPicked2Array ptr) as ULONG
 	GetSize as function(byval This as IDirect3DRMPicked2Array ptr) as DWORD
 	GetPick as function(byval This as IDirect3DRMPicked2Array ptr, byval index as DWORD, byval visual as IDirect3DRMVisual ptr ptr, byval frame_array as IDirect3DRMFrameArray ptr ptr, byval pick_desc as D3DRMPICKDESC2 ptr) as HRESULT
 end type
@@ -3033,8 +3035,8 @@ end type
 
 type IDirect3DRMInterpolatorVtbl_
 	QueryInterface as function(byval This as IDirect3DRMInterpolator ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirect3DRMInterpolator ptr) as ULONG_
-	Release as function(byval This as IDirect3DRMInterpolator ptr) as ULONG_
+	AddRef as function(byval This as IDirect3DRMInterpolator ptr) as ULONG
+	Release as function(byval This as IDirect3DRMInterpolator ptr) as ULONG
 	Clone as function(byval This as IDirect3DRMInterpolator ptr, byval outer as IUnknown ptr, byval iid as const IID const ptr, byval out_ as any ptr ptr) as HRESULT
 	AddDestroyCallback as function(byval This as IDirect3DRMInterpolator ptr, byval cb as D3DRMOBJECTCALLBACK, byval ctx as any ptr) as HRESULT
 	DeleteDestroyCallback as function(byval This as IDirect3DRMInterpolator ptr, byval cb as D3DRMOBJECTCALLBACK, byval ctx as any ptr) as HRESULT
@@ -3081,8 +3083,8 @@ end type
 
 type IDirect3DRMClippedVisualVtbl_
 	QueryInterface as function(byval This as IDirect3DRMClippedVisual ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirect3DRMClippedVisual ptr) as ULONG_
-	Release as function(byval This as IDirect3DRMClippedVisual ptr) as ULONG_
+	AddRef as function(byval This as IDirect3DRMClippedVisual ptr) as ULONG
+	Release as function(byval This as IDirect3DRMClippedVisual ptr) as ULONG
 	Clone as function(byval This as IDirect3DRMClippedVisual ptr, byval outer as IUnknown ptr, byval iid as const IID const ptr, byval out_ as any ptr ptr) as HRESULT
 	AddDestroyCallback as function(byval This as IDirect3DRMClippedVisual ptr, byval cb as D3DRMOBJECTCALLBACK, byval ctx as any ptr) as HRESULT
 	DeleteDestroyCallback as function(byval This as IDirect3DRMClippedVisual ptr, byval cb as D3DRMOBJECTCALLBACK, byval ctx as any ptr) as HRESULT

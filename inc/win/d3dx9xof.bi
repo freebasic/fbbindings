@@ -78,8 +78,8 @@ end type
 
 type ID3DXFileVtbl_
 	QueryInterface as function(byval This as ID3DXFile ptr, byval iid as const IID const ptr, byval out_ as any ptr ptr) as HRESULT
-	AddRef as function(byval This as ID3DXFile ptr) as ULONG_
-	Release as function(byval This as ID3DXFile ptr) as ULONG_
+	AddRef as function(byval This as ID3DXFile ptr) as ULONG
+	Release as function(byval This as ID3DXFile ptr) as ULONG
 	CreateEnumObject as function(byval This as ID3DXFile ptr, byval src as const any ptr, byval type_ as D3DXF_FILELOADOPTIONS, byval enum_obj as ID3DXFileEnumObject ptr ptr) as HRESULT
 	CreateSaveObject as function(byval This as ID3DXFile ptr, byval data_ as const any ptr, byval flags as D3DXF_FILESAVEOPTIONS, byval format as D3DXF_FILEFORMAT, byval save_obj as ID3DXFileSaveObject ptr ptr) as HRESULT
 	RegisterTemplates as function(byval This as ID3DXFile ptr, byval data_ as const any ptr, byval data_size as SIZE_T_) as HRESULT
@@ -92,8 +92,8 @@ end type
 
 type ID3DXFileSaveObjectVtbl_
 	QueryInterface as function(byval This as ID3DXFileSaveObject ptr, byval iid as const IID const ptr, byval out_ as any ptr ptr) as HRESULT
-	AddRef as function(byval This as ID3DXFileSaveObject ptr) as ULONG_
-	Release as function(byval This as ID3DXFileSaveObject ptr) as ULONG_
+	AddRef as function(byval This as ID3DXFileSaveObject ptr) as ULONG
+	Release as function(byval This as ID3DXFileSaveObject ptr) as ULONG
 	GetFile as function(byval This as ID3DXFileSaveObject ptr, byval file as ID3DXFile ptr ptr) as HRESULT
 	AddDataObject as function(byval This as ID3DXFileSaveObject ptr, byval template_guid as const GUID const ptr, byval name_ as const zstring ptr, byval guid as const GUID ptr, byval data_size as SIZE_T_, byval data_ as const any ptr, byval obj as ID3DXFileSaveData ptr ptr) as HRESULT
 	Save as function(byval This as ID3DXFileSaveObject ptr) as HRESULT
@@ -105,8 +105,8 @@ end type
 
 type ID3DXFileSaveDataVtbl_
 	QueryInterface as function(byval This as ID3DXFileSaveData ptr, byval iid as const IID const ptr, byval out_ as any ptr ptr) as HRESULT
-	AddRef as function(byval This as ID3DXFileSaveData ptr) as ULONG_
-	Release as function(byval This as ID3DXFileSaveData ptr) as ULONG_
+	AddRef as function(byval This as ID3DXFileSaveData ptr) as ULONG
+	Release as function(byval This as ID3DXFileSaveData ptr) as ULONG
 	GetSave as function(byval This as ID3DXFileSaveData ptr, byval save_obj as ID3DXFileSaveObject ptr ptr) as HRESULT
 	GetName as function(byval This as ID3DXFileSaveData ptr, byval name_ as zstring ptr, byval size as SIZE_T_ ptr) as HRESULT
 	GetId as function(byval This as ID3DXFileSaveData ptr, byval as LPGUID) as HRESULT
@@ -121,8 +121,8 @@ end type
 
 type ID3DXFileEnumObjectVtbl_
 	QueryInterface as function(byval This as ID3DXFileEnumObject ptr, byval iid as const IID const ptr, byval out_ as any ptr ptr) as HRESULT
-	AddRef as function(byval This as ID3DXFileEnumObject ptr) as ULONG_
-	Release as function(byval This as ID3DXFileEnumObject ptr) as ULONG_
+	AddRef as function(byval This as ID3DXFileEnumObject ptr) as ULONG
+	Release as function(byval This as ID3DXFileEnumObject ptr) as ULONG
 	GetFile as function(byval This as ID3DXFileEnumObject ptr, byval file as ID3DXFile ptr ptr) as HRESULT
 	GetChildren as function(byval This as ID3DXFileEnumObject ptr, byval as SIZE_T_ ptr) as HRESULT
 	GetChild as function(byval This as ID3DXFileEnumObject ptr, byval id as SIZE_T_, byval child as ID3DXFileData ptr ptr) as HRESULT
@@ -136,8 +136,8 @@ end type
 
 type ID3DXFileDataVtbl_
 	QueryInterface as function(byval This as ID3DXFileData ptr, byval iid as const IID const ptr, byval out_ as any ptr ptr) as HRESULT
-	AddRef as function(byval This as ID3DXFileData ptr) as ULONG_
-	Release as function(byval This as ID3DXFileData ptr) as ULONG_
+	AddRef as function(byval This as ID3DXFileData ptr) as ULONG
+	Release as function(byval This as ID3DXFileData ptr) as ULONG
 	GetEnum as function(byval This as ID3DXFileData ptr, byval enum_obj as ID3DXFileEnumObject ptr ptr) as HRESULT
 	GetName as function(byval This as ID3DXFileData ptr, byval name_ as zstring ptr, byval size as SIZE_T_ ptr) as HRESULT
 	GetId as function(byval This as ID3DXFileData ptr, byval as LPGUID) as HRESULT

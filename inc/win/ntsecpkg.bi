@@ -1,8 +1,5 @@
 #pragma once
 
-'' The following symbols have been renamed:
-''     enum constant Unlock => Unlock_
-
 #ifdef __FB_64BIT__
 	extern "C"
 #else
@@ -631,7 +628,7 @@ type KSEC_CONTEXT_TYPE as _KSEC_CONTEXT_TYPE
 
 type _KSEC_LIST_ENTRY
 	List as LIST_ENTRY
-	RefCount as LONG_
+	RefCount as LONG
 	Signature as ULONG
 	OwningList as PVOID
 	Reserved as PVOID
@@ -640,19 +637,19 @@ end type
 type KSEC_LIST_ENTRY as _KSEC_LIST_ENTRY
 type PKSEC_LIST_ENTRY as _KSEC_LIST_ENTRY ptr
 
-'' TODO: #define KsecInitializeListEntry(Entry,SigValue) ((PKSEC_LIST_ENTRY) Entry)->List.Flink = ((PKSEC_LIST_ENTRY) Entry)->List.Blink = NULL; ((PKSEC_LIST_ENTRY) Entry)->RefCount = 1; ((PKSEC_LIST_ENTRY) Entry)->Signature = SigValue; ((PKSEC_LIST_ENTRY) Entry)->OwningList = NULL; ((PKSEC_LIST_ENTRY) Entry)->Reserved = NULL;
+#define KsecInitializeListEntry(Entry, SigValue) '' TODO: ((PKSEC_LIST_ENTRY) Entry)->List.Flink = ((PKSEC_LIST_ENTRY) Entry)->List.Blink = NULL; ((PKSEC_LIST_ENTRY) Entry)->RefCount = 1; ((PKSEC_LIST_ENTRY) Entry)->Signature = SigValue; ((PKSEC_LIST_ENTRY) Entry)->OwningList = NULL; ((PKSEC_LIST_ENTRY) Entry)->Reserved = NULL;
 
 declare function KSecCreateContextList(byval Type_ as KSEC_CONTEXT_TYPE) as PVOID
 declare sub KSecInsertListEntry(byval List as PVOID, byval Entry as PKSEC_LIST_ENTRY)
 declare function KSecReferenceListEntry(byval Entry as PKSEC_LIST_ENTRY, byval Signature as ULONG, byval RemoveNoRef as BOOLEAN) as NTSTATUS
-declare sub KSecDereferenceListEntry(byval Entry as PKSEC_LIST_ENTRY, byval Delete_ as BOOLEAN ptr)
+declare sub KSecDereferenceListEntry(byval Entry as PKSEC_LIST_ENTRY, byval Delete__ as BOOLEAN ptr)
 declare function KSecSerializeWinntAuthData(byval pvAuthData as PVOID, byval Size as PULONG, byval SerializedData as PVOID ptr) as NTSTATUS
 declare function KSecSerializeSchannelAuthData(byval pvAuthData as PVOID, byval Size as PULONG, byval SerializedData as PVOID ptr) as NTSTATUS
 
 type PKSEC_CREATE_CONTEXT_LIST as function(byval Type_ as KSEC_CONTEXT_TYPE) as PVOID
 type PKSEC_INSERT_LIST_ENTRY as sub(byval List as PVOID, byval Entry as PKSEC_LIST_ENTRY)
 type PKSEC_REFERENCE_LIST_ENTRY as function(byval Entry as PKSEC_LIST_ENTRY, byval Signature as ULONG, byval RemoveNoRef as BOOLEAN) as NTSTATUS
-type PKSEC_DEREFERENCE_LIST_ENTRY as sub(byval Entry as PKSEC_LIST_ENTRY, byval Delete_ as BOOLEAN ptr)
+type PKSEC_DEREFERENCE_LIST_ENTRY as sub(byval Entry as PKSEC_LIST_ENTRY, byval Delete__ as BOOLEAN ptr)
 type PKSEC_SERIALIZE_WINNT_AUTH_DATA as function(byval pvAuthData as PVOID, byval Size as PULONG, byval SerializedData as PVOID ptr) as NTSTATUS
 type PKSEC_SERIALIZE_SCHANNEL_AUTH_DATA as function(byval pvAuthData as PVOID, byval Size as PULONG, byval SerializedData as PVOID ptr) as NTSTATUS
 

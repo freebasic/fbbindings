@@ -58,7 +58,7 @@ type LPDPLDATA_PLAYERGUID as tagDPLDATA_PLAYERGUID ptr
 
 type tagDPLDATA_PLAYERSCORE
 	dwScoreCount as DWORD
-	Score(0 to 0) as LONG_
+	Score(0 to 0) as LONG
 end type
 
 type DPLDATA_PLAYERSCORE as tagDPLDATA_PLAYERSCORE
@@ -262,8 +262,8 @@ end type
 
 type IDirectPlayLobbyVtbl_
 	QueryInterface as function(byval This as IDirectPlayLobby ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirectPlayLobby ptr) as ULONG_
-	Release as function(byval This as IDirectPlayLobby ptr) as ULONG_
+	AddRef as function(byval This as IDirectPlayLobby ptr) as ULONG
+	Release as function(byval This as IDirectPlayLobby ptr) as ULONG
 	Connect as function(byval This as IDirectPlayLobby ptr, byval as DWORD, byval as LPDIRECTPLAY2 ptr, byval as IUnknown ptr) as HRESULT
 	CreateAddress as function(byval This as IDirectPlayLobby ptr, byval as const GUID const ptr, byval as const GUID const ptr, byval as LPCVOID, byval as DWORD, byval as LPVOID, byval as LPDWORD) as HRESULT
 	EnumAddress as function(byval This as IDirectPlayLobby ptr, byval as LPDPENUMADDRESSCALLBACK, byval as LPCVOID, byval as DWORD, byval as LPVOID) as HRESULT
@@ -283,8 +283,8 @@ end type
 
 type IDirectPlayLobby2Vtbl_
 	QueryInterface as function(byval This as IDirectPlayLobby2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirectPlayLobby2 ptr) as ULONG_
-	Release as function(byval This as IDirectPlayLobby2 ptr) as ULONG_
+	AddRef as function(byval This as IDirectPlayLobby2 ptr) as ULONG
+	Release as function(byval This as IDirectPlayLobby2 ptr) as ULONG
 	Connect as function(byval This as IDirectPlayLobby2 ptr, byval as DWORD, byval as LPDIRECTPLAY2 ptr, byval as IUnknown ptr) as HRESULT
 	CreateAddress as function(byval This as IDirectPlayLobby2 ptr, byval as const GUID const ptr, byval as const GUID const ptr, byval as LPCVOID, byval as DWORD, byval as LPVOID, byval as LPDWORD) as HRESULT
 	EnumAddress as function(byval This as IDirectPlayLobby2 ptr, byval as LPDPENUMADDRESSCALLBACK, byval as LPCVOID, byval as DWORD, byval as LPVOID) as HRESULT
@@ -305,8 +305,8 @@ end type
 
 type IDirectPlayLobby3Vtbl_
 	QueryInterface as function(byval This as IDirectPlayLobby3 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirectPlayLobby3 ptr) as ULONG_
-	Release as function(byval This as IDirectPlayLobby3 ptr) as ULONG_
+	AddRef as function(byval This as IDirectPlayLobby3 ptr) as ULONG
+	Release as function(byval This as IDirectPlayLobby3 ptr) as ULONG
 	Connect as function(byval This as IDirectPlayLobby3 ptr, byval as DWORD, byval as LPDIRECTPLAY2 ptr, byval as IUnknown ptr) as HRESULT
 	CreateAddress as function(byval This as IDirectPlayLobby3 ptr, byval as const GUID const ptr, byval as const GUID const ptr, byval as LPCVOID, byval as DWORD, byval as LPVOID, byval as LPDWORD) as HRESULT
 	EnumAddress as function(byval This as IDirectPlayLobby3 ptr, byval as LPDPENUMADDRESSCALLBACK, byval as LPCVOID, byval as DWORD, byval as LPVOID) as HRESULT

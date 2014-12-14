@@ -1,6 +1,5 @@
 #pragma once
 
-#include once "crt/long.bi"
 #include once "rpc.bi"
 #include once "rpcndr.bi"
 #include once "ole2.bi"
@@ -19,47 +18,47 @@ extern IWinTypes_v0_1_c_ifspec as RPC_IF_HANDLE
 extern IWinTypes_v0_1_s_ifspec as RPC_IF_HANDLE
 
 type tagRemHGLOBAL field = 8
-	fNullHGlobal as LONG_
-	cbData as ULONG_
-	data(0 to 0) as byte__
+	fNullHGlobal as LONG
+	cbData as ULONG
+	data(0 to 0) as byte_
 end type
 
 type RemHGLOBAL as tagRemHGLOBAL
 
 type tagRemHMETAFILEPICT field = 8
-	mm as LONG_
-	xExt as LONG_
-	yExt as LONG_
-	cbData as ULONG_
-	data(0 to 0) as byte__
+	mm as LONG
+	xExt as LONG
+	yExt as LONG
+	cbData as ULONG
+	data(0 to 0) as byte_
 end type
 
 type RemHMETAFILEPICT as tagRemHMETAFILEPICT
 
 type tagRemHENHMETAFILE field = 8
-	cbData as ULONG_
-	data(0 to 0) as byte__
+	cbData as ULONG
+	data(0 to 0) as byte_
 end type
 
 type RemHENHMETAFILE as tagRemHENHMETAFILE
 
 type tagRemHBITMAP field = 8
-	cbData as ULONG_
-	data(0 to 0) as byte__
+	cbData as ULONG
+	data(0 to 0) as byte_
 end type
 
 type RemHBITMAP as tagRemHBITMAP
 
 type tagRemHPALETTE field = 8
-	cbData as ULONG_
-	data(0 to 0) as byte__
+	cbData as ULONG
+	data(0 to 0) as byte_
 end type
 
 type RemHPALETTE as tagRemHPALETTE
 
 type tagRemBRUSH field = 8
-	cbData as ULONG_
-	data(0 to 0) as byte__
+	cbData as ULONG
+	data(0 to 0) as byte_
 end type
 
 type RemHBRUSH as tagRemBRUSH
@@ -120,7 +119,7 @@ union ___userCLIPFORMAT_u field = 8
 end union
 
 type _userCLIPFORMAT field = 8
-	fContext as LONG_
+	fContext as LONG
 	u as ___userCLIPFORMAT_u
 end type
 
@@ -129,25 +128,25 @@ type wireCLIPFORMAT as userCLIPFORMAT ptr
 type CLIPFORMAT as WORD
 
 union ___GDI_NONREMOTE_u field = 8
-	hInproc as LONG_
+	hInproc as LONG
 	hRemote as DWORD_BLOB ptr
 end union
 
 type _GDI_NONREMOTE field = 8
-	fContext as LONG_
+	fContext as LONG
 	u as ___GDI_NONREMOTE_u
 end type
 
 type GDI_NONREMOTE as _GDI_NONREMOTE
 
 union ___userHGLOBAL_u field = 8
-	hInproc as LONG_
+	hInproc as LONG
 	hRemote as FLAGGED_BYTE_BLOB ptr
 	hInproc64 as INT64
 end union
 
 type _userHGLOBAL field = 8
-	fContext as LONG_
+	fContext as LONG
 	u as ___userHGLOBAL_u
 end type
 
@@ -155,99 +154,99 @@ type userHGLOBAL as _userHGLOBAL
 type wireHGLOBAL as userHGLOBAL ptr
 
 union ___userHMETAFILE_u field = 8
-	hInproc as LONG_
+	hInproc as LONG
 	hRemote as BYTE_BLOB ptr
 	hInproc64 as INT64
 end union
 
 type _userHMETAFILE field = 8
-	fContext as LONG_
+	fContext as LONG
 	u as ___userHMETAFILE_u
 end type
 
 type userHMETAFILE as _userHMETAFILE
 
 type _remoteMETAFILEPICT field = 8
-	mm as LONG_
-	xExt as LONG_
-	yExt as LONG_
+	mm as LONG
+	xExt as LONG
+	yExt as LONG
 	hMF as userHMETAFILE ptr
 end type
 
 type remoteMETAFILEPICT as _remoteMETAFILEPICT
 
 union ___userHMETAFILEPICT_u field = 8
-	hInproc as LONG_
+	hInproc as LONG
 	hRemote as remoteMETAFILEPICT ptr
 	hInproc64 as INT64
 end union
 
 type _userHMETAFILEPICT field = 8
-	fContext as LONG_
+	fContext as LONG
 	u as ___userHMETAFILEPICT_u
 end type
 
 type userHMETAFILEPICT as _userHMETAFILEPICT
 
 union ___userHENHMETAFILE_u field = 8
-	hInproc as LONG_
+	hInproc as LONG
 	hRemote as BYTE_BLOB ptr
 	hInproc64 as INT64
 end union
 
 type _userHENHMETAFILE field = 8
-	fContext as LONG_
+	fContext as LONG
 	u as ___userHENHMETAFILE_u
 end type
 
 type userHENHMETAFILE as _userHENHMETAFILE
 
 type _userBITMAP field = 8
-	bmType as LONG_
-	bmWidth as LONG_
-	bmHeight as LONG_
-	bmWidthBytes as LONG_
+	bmType as LONG
+	bmWidth as LONG
+	bmHeight as LONG
+	bmWidthBytes as LONG
 	bmPlanes as WORD
 	bmBitsPixel as WORD
-	cbSize as ULONG_
-	pBuffer(0 to 0) as byte__
+	cbSize as ULONG
+	pBuffer(0 to 0) as byte_
 end type
 
 type userBITMAP as _userBITMAP
 
 union ___userHBITMAP_u field = 8
-	hInproc as LONG_
+	hInproc as LONG
 	hRemote as userBITMAP ptr
 	hInproc64 as INT64
 end union
 
 type _userHBITMAP field = 8
-	fContext as LONG_
+	fContext as LONG
 	u as ___userHBITMAP_u
 end type
 
 type userHBITMAP as _userHBITMAP
 
 union ___userHPALETTE_u field = 8
-	hInproc as LONG_
+	hInproc as LONG
 	hRemote as LOGPALETTE ptr
 	hInproc64 as INT64
 end union
 
 type _userHPALETTE field = 8
-	fContext as LONG_
+	fContext as LONG
 	u as ___userHPALETTE_u
 end type
 
 type userHPALETTE as _userHPALETTE
 
 union ___RemotableHandle_u field = 8
-	hInproc as LONG_
-	hRemote as LONG_
+	hInproc as LONG
+	hRemote as LONG
 end union
 
 type _RemotableHandle field = 8
-	fContext as LONG_
+	fContext as LONG
 	u as ___RemotableHandle_u
 end type
 
@@ -274,8 +273,8 @@ type DATE_ as double
 
 union tagCY field = 8
 	type field = 8
-		Lo as culong
-		Hi as clong
+		Lo as ulong
+		Hi as long
 	end type
 
 	int64 as LONGLONG
@@ -285,23 +284,23 @@ type CY as tagCY
 type LPCY as CY ptr
 
 type tagDEC field = 8
-	wReserved as USHORT_
+	wReserved as USHORT
 
 	union field = 8
 		type field = 8
-			scale as BYTE_
-			sign as BYTE_
+			scale as BYTE
+			sign as BYTE
 		end type
 
-		signscale as USHORT_
+		signscale as USHORT
 	end union
 
-	Hi32 as ULONG_
+	Hi32 as ULONG
 
 	union field = 8
 		type field = 8
-			Lo32 as ULONG_
-			Mid32 as ULONG_
+			Lo32 as ULONG
+			Mid32 as ULONG
 		end type
 
 		Lo64 as ULONGLONG
@@ -310,7 +309,7 @@ end type
 
 type DECIMAL as tagDEC
 
-#define DECIMAL_NEG cast(BYTE_, &h80)
+#define DECIMAL_NEG cast(BYTE, &h80)
 #macro DECIMAL_SETZERO(dec)
 	scope
 		(dec).Lo64
@@ -328,13 +327,12 @@ type BSTR as OLECHAR ptr
 type LPBSTR as BSTR ptr
 type VARIANT_BOOL as short
 
-'' TODO: #define _VARIANT_BOOL /##/
-
+#define _VARIANT_BOOL '' TODO: /##/
 #define _tagBSTRBLOB_DEFINED
 
 type tagBSTRBLOB field = 8
-	cbSize as ULONG_
-	pData as BYTE_ ptr
+	cbSize as ULONG
+	pData as BYTE ptr
 end type
 
 type BSTRBLOB as tagBSTRBLOB
@@ -344,9 +342,9 @@ type LPBSTRBLOB as tagBSTRBLOB ptr
 #define VARIANT_FALSE cast(VARIANT_BOOL, 0)
 
 type tagCLIPDATA field = 8
-	cbSize as ULONG_
-	ulClipFmt as LONG_
-	pClipData as BYTE_ ptr
+	cbSize as ULONG
+	ulClipFmt as LONG
+	pClipData as BYTE ptr
 end type
 
 type CLIPDATA as tagCLIPDATA
@@ -411,7 +409,7 @@ enum
 	VT_TYPEMASK = &hfff
 end enum
 
-type PROPID as ULONG_
+type PROPID as ULONG
 
 #define PROPERTYKEY_DEFINED
 

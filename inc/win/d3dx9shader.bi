@@ -121,8 +121,8 @@ end type
 
 type ID3DXConstantTableVtbl_
 	QueryInterface as function(byval This as ID3DXConstantTable ptr, byval iid as const IID const ptr, byval out_ as any ptr ptr) as HRESULT
-	AddRef as function(byval This as ID3DXConstantTable ptr) as ULONG_
-	Release as function(byval This as ID3DXConstantTable ptr) as ULONG_
+	AddRef as function(byval This as ID3DXConstantTable ptr) as ULONG
+	Release as function(byval This as ID3DXConstantTable ptr) as ULONG
 	GetBufferPointer as function(byval This as ID3DXConstantTable ptr) as any ptr
 	GetBufferSize as function(byval This as ID3DXConstantTable ptr) as DWORD
 	GetDesc as function(byval This as ID3DXConstantTable ptr, byval pDesc as D3DXCONSTANTTABLE_DESC ptr) as HRESULT

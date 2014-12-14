@@ -11,7 +11,6 @@
 #endif
 
 #define _USERENV_H_
-#define USERENVAPI DECLSPEC_IMPORT
 #define PI_NOUI &h00000001
 #define PI_APPLYPOLICY &h00000002
 #define LoadUserProfile __MINGW_NAME_AW(LoadUserProfile)
@@ -131,18 +130,18 @@ declare function FreeGPOListW(byval pGPOList as PGROUP_POLICY_OBJECTW) as WINBOO
 declare function GetAppliedGPOListA(byval dwFlags as DWORD, byval pMachineName as LPCSTR, byval pSidUser as PSID, byval pGuidExtension as GUID ptr, byval ppGPOList as PGROUP_POLICY_OBJECTA ptr) as DWORD
 declare function GetAppliedGPOListW(byval dwFlags as DWORD, byval pMachineName as LPCWSTR, byval pSidUser as PSID, byval pGuidExtension as GUID ptr, byval ppGPOList as PGROUP_POLICY_OBJECTW ptr) as DWORD
 
-#define GP_DLLNAME TEXT_("DllName")
-#define GP_ENABLEASYNCHRONOUSPROCESSING TEXT_("EnableAsynchronousProcessing")
-#define GP_MAXNOGPOLISTCHANGESINTERVAL TEXT_("MaxNoGPOListChangesInterval")
-#define GP_NOBACKGROUNDPOLICY TEXT_("NoBackgroundPolicy")
-#define GP_NOGPOLISTCHANGES TEXT_("NoGPOListChanges")
-#define GP_NOMACHINEPOLICY TEXT_("NoMachinePolicy")
-#define GP_NOSLOWLINK TEXT_("NoSlowLink")
-#define GP_NOTIFYLINKTRANSITION TEXT_("NotifyLinkTransition")
-#define GP_NOUSERPOLICY TEXT_("NoUserPolicy")
-#define GP_PERUSERLOCALSETTINGS TEXT_("PerUserLocalSettings")
-#define GP_PROCESSGROUPPOLICY TEXT_("ProcessGroupPolicy")
-#define GP_REQUIRESSUCCESSFULREGISTRY TEXT_("RequiresSuccessfulRegistry")
+#define GP_DLLNAME TEXT("DllName")
+#define GP_ENABLEASYNCHRONOUSPROCESSING TEXT("EnableAsynchronousProcessing")
+#define GP_MAXNOGPOLISTCHANGESINTERVAL TEXT("MaxNoGPOListChangesInterval")
+#define GP_NOBACKGROUNDPOLICY TEXT("NoBackgroundPolicy")
+#define GP_NOGPOLISTCHANGES TEXT("NoGPOListChanges")
+#define GP_NOMACHINEPOLICY TEXT("NoMachinePolicy")
+#define GP_NOSLOWLINK TEXT("NoSlowLink")
+#define GP_NOTIFYLINKTRANSITION TEXT("NotifyLinkTransition")
+#define GP_NOUSERPOLICY TEXT("NoUserPolicy")
+#define GP_PERUSERLOCALSETTINGS TEXT("PerUserLocalSettings")
+#define GP_PROCESSGROUPPOLICY TEXT("ProcessGroupPolicy")
+#define GP_REQUIRESSUCCESSFULREGISTRY TEXT("RequiresSuccessfulRegistry")
 #define GPO_INFO_FLAG_MACHINE &h00000001
 #define GPO_INFO_FLAG_BACKGROUND &h00000010
 #define GPO_INFO_FLAG_SLOWLINK &h00000020

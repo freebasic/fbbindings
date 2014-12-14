@@ -3,9 +3,6 @@
 #include once "_mingw_unicode.bi"
 #include once "sspi.bi"
 
-'' The following symbols have been renamed:
-''     enum constant Unlock => Unlock_
-
 #ifdef __FB_64BIT__
 	extern "C"
 #else

@@ -157,7 +157,7 @@ type _D3DXTRACK_DESC
 	Priority as D3DXPRIORITY_TYPE
 	Weight as FLOAT
 	Speed as FLOAT
-	Position as DOUBLE_
+	Position as DOUBLE
 	Enable as WINBOOL
 end type
 
@@ -167,14 +167,14 @@ type LPD3DXTRACK_DESC as _D3DXTRACK_DESC ptr
 type _D3DXEVENT_DESC
 	as D3DXEVENT_TYPE Type
 	Track as UINT
-	StartTime as DOUBLE_
-	Duration as DOUBLE_
+	StartTime as DOUBLE
+	Duration as DOUBLE
 	Transition as D3DXTRANSITION_TYPE
 
 	union
 		Weight as FLOAT
 		Speed as FLOAT
-		Position as DOUBLE_
+		Position as DOUBLE
 		Enable as WINBOOL
 	end union
 end type
@@ -232,15 +232,15 @@ end type
 
 type ID3DXAnimationSetVtbl_
 	QueryInterface as function(byval This as ID3DXAnimationSet ptr, byval riid as const IID const ptr, byval out_ as any ptr ptr) as HRESULT
-	AddRef as function(byval This as ID3DXAnimationSet ptr) as ULONG_
-	Release as function(byval This as ID3DXAnimationSet ptr) as ULONG_
+	AddRef as function(byval This as ID3DXAnimationSet ptr) as ULONG
+	Release as function(byval This as ID3DXAnimationSet ptr) as ULONG
 	GetName as function(byval This as ID3DXAnimationSet ptr) as const zstring ptr
-	GetPeriod as function(byval This as ID3DXAnimationSet ptr) as DOUBLE_
-	GetPeriodicPosition as function(byval This as ID3DXAnimationSet ptr, byval position as DOUBLE_) as DOUBLE_
+	GetPeriod as function(byval This as ID3DXAnimationSet ptr) as DOUBLE
+	GetPeriodicPosition as function(byval This as ID3DXAnimationSet ptr, byval position as DOUBLE) as DOUBLE
 	GetNumAnimations as function(byval This as ID3DXAnimationSet ptr) as UINT
 	GetAnimationNameByIndex as function(byval This as ID3DXAnimationSet ptr, byval index as UINT, byval name_ as const zstring ptr ptr) as HRESULT
 	GetAnimationIndexByName as function(byval This as ID3DXAnimationSet ptr, byval name_ as const zstring ptr, byval index as UINT ptr) as HRESULT
-	GetSRT as function(byval This as ID3DXAnimationSet ptr, byval periodic_position as DOUBLE_, byval animation as UINT, byval scale as D3DXVECTOR3 ptr, byval rotation as D3DXQUATERNION ptr, byval translation as D3DXVECTOR3 ptr) as HRESULT
+	GetSRT as function(byval This as ID3DXAnimationSet ptr, byval periodic_position as DOUBLE, byval animation as UINT, byval scale as D3DXVECTOR3 ptr, byval rotation as D3DXQUATERNION ptr, byval translation as D3DXVECTOR3 ptr) as HRESULT
 	GetCallback as function(byval This as ID3DXAnimationSet ptr, byval position as double, byval flags as DWORD, byval callback_position as double ptr, byval callback_data as any ptr ptr) as HRESULT
 end type
 
@@ -250,18 +250,18 @@ end type
 
 type ID3DXKeyframedAnimationSetVtbl_
 	QueryInterface as function(byval This as ID3DXKeyframedAnimationSet ptr, byval riid as const IID const ptr, byval out_ as any ptr ptr) as HRESULT
-	AddRef as function(byval This as ID3DXKeyframedAnimationSet ptr) as ULONG_
-	Release as function(byval This as ID3DXKeyframedAnimationSet ptr) as ULONG_
+	AddRef as function(byval This as ID3DXKeyframedAnimationSet ptr) as ULONG
+	Release as function(byval This as ID3DXKeyframedAnimationSet ptr) as ULONG
 	GetName as function(byval This as ID3DXKeyframedAnimationSet ptr) as const zstring ptr
-	GetPeriod as function(byval This as ID3DXKeyframedAnimationSet ptr) as DOUBLE_
-	GetPeriodicPosition as function(byval This as ID3DXKeyframedAnimationSet ptr, byval position as DOUBLE_) as DOUBLE_
+	GetPeriod as function(byval This as ID3DXKeyframedAnimationSet ptr) as DOUBLE
+	GetPeriodicPosition as function(byval This as ID3DXKeyframedAnimationSet ptr, byval position as DOUBLE) as DOUBLE
 	GetNumAnimations as function(byval This as ID3DXKeyframedAnimationSet ptr) as UINT
 	GetAnimationNameByIndex as function(byval This as ID3DXKeyframedAnimationSet ptr, byval index as UINT, byval name_ as const zstring ptr ptr) as HRESULT
 	GetAnimationIndexByName as function(byval This as ID3DXKeyframedAnimationSet ptr, byval name_ as const zstring ptr, byval index as UINT ptr) as HRESULT
-	GetSRT as function(byval This as ID3DXKeyframedAnimationSet ptr, byval periodic_position as DOUBLE_, byval animation as UINT, byval scale as D3DXVECTOR3 ptr, byval rotation as D3DXQUATERNION ptr, byval translation as D3DXVECTOR3 ptr) as HRESULT
+	GetSRT as function(byval This as ID3DXKeyframedAnimationSet ptr, byval periodic_position as DOUBLE, byval animation as UINT, byval scale as D3DXVECTOR3 ptr, byval rotation as D3DXQUATERNION ptr, byval translation as D3DXVECTOR3 ptr) as HRESULT
 	GetCallback as function(byval This as ID3DXKeyframedAnimationSet ptr, byval position as double, byval flags as DWORD, byval callback_position as double ptr, byval callback_data as any ptr ptr) as HRESULT
 	GetPlaybackType as function(byval This as ID3DXKeyframedAnimationSet ptr) as D3DXPLAYBACK_TYPE
-	GetSourceTicksPerSecond as function(byval This as ID3DXKeyframedAnimationSet ptr) as DOUBLE_
+	GetSourceTicksPerSecond as function(byval This as ID3DXKeyframedAnimationSet ptr) as DOUBLE
 	GetNumScaleKeys as function(byval This as ID3DXKeyframedAnimationSet ptr, byval animation as UINT) as UINT
 	GetScaleKeys as function(byval This as ID3DXKeyframedAnimationSet ptr, byval animation as UINT, byval scale_keys as LPD3DXKEY_VECTOR3) as HRESULT
 	GetScaleKey as function(byval This as ID3DXKeyframedAnimationSet ptr, byval animation as UINT, byval key as UINT, byval scale_key as LPD3DXKEY_VECTOR3) as HRESULT
@@ -292,18 +292,18 @@ end type
 
 type ID3DXCompressedAnimationSetVtbl_
 	QueryInterface as function(byval This as ID3DXCompressedAnimationSet ptr, byval riid as const IID const ptr, byval out_ as any ptr ptr) as HRESULT
-	AddRef as function(byval This as ID3DXCompressedAnimationSet ptr) as ULONG_
-	Release as function(byval This as ID3DXCompressedAnimationSet ptr) as ULONG_
+	AddRef as function(byval This as ID3DXCompressedAnimationSet ptr) as ULONG
+	Release as function(byval This as ID3DXCompressedAnimationSet ptr) as ULONG
 	GetName as function(byval This as ID3DXCompressedAnimationSet ptr) as const zstring ptr
-	GetPeriod as function(byval This as ID3DXCompressedAnimationSet ptr) as DOUBLE_
-	GetPeriodicPosition as function(byval This as ID3DXCompressedAnimationSet ptr, byval position as DOUBLE_) as DOUBLE_
+	GetPeriod as function(byval This as ID3DXCompressedAnimationSet ptr) as DOUBLE
+	GetPeriodicPosition as function(byval This as ID3DXCompressedAnimationSet ptr, byval position as DOUBLE) as DOUBLE
 	GetNumAnimations as function(byval This as ID3DXCompressedAnimationSet ptr) as UINT
 	GetAnimationNameByIndex as function(byval This as ID3DXCompressedAnimationSet ptr, byval index as UINT, byval name_ as const zstring ptr ptr) as HRESULT
 	GetAnimationIndexByName as function(byval This as ID3DXCompressedAnimationSet ptr, byval name_ as const zstring ptr, byval index as UINT ptr) as HRESULT
-	GetSRT as function(byval This as ID3DXCompressedAnimationSet ptr, byval periodic_position as DOUBLE_, byval animation as UINT, byval scale as D3DXVECTOR3 ptr, byval rotation as D3DXQUATERNION ptr, byval translation as D3DXVECTOR3 ptr) as HRESULT
+	GetSRT as function(byval This as ID3DXCompressedAnimationSet ptr, byval periodic_position as DOUBLE, byval animation as UINT, byval scale as D3DXVECTOR3 ptr, byval rotation as D3DXQUATERNION ptr, byval translation as D3DXVECTOR3 ptr) as HRESULT
 	GetCallback as function(byval This as ID3DXCompressedAnimationSet ptr, byval position as double, byval flags as DWORD, byval callback_position as double ptr, byval callback_data as any ptr ptr) as HRESULT
 	GetPlaybackType as function(byval This as ID3DXCompressedAnimationSet ptr) as D3DXPLAYBACK_TYPE
-	GetSourceTicksPerSecond as function(byval This as ID3DXCompressedAnimationSet ptr) as DOUBLE_
+	GetSourceTicksPerSecond as function(byval This as ID3DXCompressedAnimationSet ptr) as DOUBLE
 	GetCompressedData as function(byval This as ID3DXCompressedAnimationSet ptr, byval compressed_data as ID3DXBuffer ptr ptr) as HRESULT
 	GetNumCallbackKeys as function(byval This as ID3DXCompressedAnimationSet ptr) as UINT
 	GetCallbackKeys as function(byval This as ID3DXCompressedAnimationSet ptr, byval callback_keys as LPD3DXKEY_CALLBACK) as HRESULT
@@ -323,8 +323,8 @@ end type
 
 type ID3DXAnimationControllerVtbl_
 	QueryInterface as function(byval This as ID3DXAnimationController ptr, byval riid as const IID const ptr, byval out_ as any ptr ptr) as HRESULT
-	AddRef as function(byval This as ID3DXAnimationController ptr) as ULONG_
-	Release as function(byval This as ID3DXAnimationController ptr) as ULONG_
+	AddRef as function(byval This as ID3DXAnimationController ptr) as ULONG
+	Release as function(byval This as ID3DXAnimationController ptr) as ULONG
 	GetMaxNumAnimationOutputs as function(byval This as ID3DXAnimationController ptr) as UINT
 	GetMaxNumAnimationSets as function(byval This as ID3DXAnimationController ptr) as UINT
 	GetMaxNumTracks as function(byval This as ID3DXAnimationController ptr) as UINT
@@ -337,23 +337,23 @@ type ID3DXAnimationControllerVtbl_
 	GetAnimationSetByName as function(byval This as ID3DXAnimationController ptr, byval name_ as const zstring ptr, byval anim_set as ID3DXAnimationSet ptr ptr) as HRESULT
 	AdvanceTime as function(byval This as ID3DXAnimationController ptr, byval time_delta as double, byval callback_handler as ID3DXAnimationCallbackHandler ptr ptr) as HRESULT
 	ResetTime as function(byval This as ID3DXAnimationController ptr) as HRESULT
-	GetTime as function(byval This as ID3DXAnimationController ptr) as DOUBLE_
+	GetTime as function(byval This as ID3DXAnimationController ptr) as DOUBLE
 	SetTrackAnimationSet as function(byval This as ID3DXAnimationController ptr, byval track as UINT, byval anim_set as ID3DXAnimationSet ptr) as HRESULT
 	GetTrackAnimationSet as function(byval This as ID3DXAnimationController ptr, byval track as UINT, byval anim_set as ID3DXAnimationSet ptr ptr) as HRESULT
 	GetTrackPriority as function(byval This as ID3DXAnimationController ptr, byval track as UINT, byval priority as D3DXPRIORITY_TYPE ptr) as HRESULT
 	SetTrackSpeed as function(byval This as ID3DXAnimationController ptr, byval track as UINT, byval speed as FLOAT) as HRESULT
 	SetTrackWeight as function(byval This as ID3DXAnimationController ptr, byval track as UINT, byval weight as FLOAT) as HRESULT
-	SetTrackPosition as function(byval This as ID3DXAnimationController ptr, byval track as UINT, byval position as DOUBLE_) as HRESULT
+	SetTrackPosition as function(byval This as ID3DXAnimationController ptr, byval track as UINT, byval position as DOUBLE) as HRESULT
 	SetTrackEnable as function(byval This as ID3DXAnimationController ptr, byval track as UINT, byval enable as WINBOOL) as HRESULT
 	SetTrackDesc as function(byval This as ID3DXAnimationController ptr, byval track as UINT, byval desc as LPD3DXTRACK_DESC) as HRESULT
 	GetTrackDesc as function(byval This as ID3DXAnimationController ptr, byval track as UINT, byval desc as LPD3DXTRACK_DESC) as HRESULT
 	SetPriorityBlend as function(byval This as ID3DXAnimationController ptr, byval blend_weight as FLOAT) as HRESULT
 	GetPriorityBlend as function(byval This as ID3DXAnimationController ptr) as FLOAT
-	KeyTrackSpeed as function(byval This as ID3DXAnimationController ptr, byval track as UINT, byval new_speed as FLOAT, byval start_time as DOUBLE_, byval duration as DOUBLE_, byval transition as D3DXTRANSITION_TYPE) as D3DXEVENTHANDLE
-	KeyTrackWeight as function(byval This as ID3DXAnimationController ptr, byval track as UINT, byval new_weight as FLOAT, byval start_time as DOUBLE_, byval duration as DOUBLE_, byval transition as D3DXTRANSITION_TYPE) as D3DXEVENTHANDLE
-	KeyTrackPosition as function(byval This as ID3DXAnimationController ptr, byval track as UINT, byval new_position as DOUBLE_, byval start_time as DOUBLE_) as D3DXEVENTHANDLE
-	KeyTrackEnable as function(byval This as ID3DXAnimationController ptr, byval track as UINT, byval new_enable as WINBOOL, byval start_time as DOUBLE_) as D3DXEVENTHANDLE
-	KeyPriorityBlend as function(byval This as ID3DXAnimationController ptr, byval new_blend_weight as FLOAT, byval start_time as DOUBLE_, byval duration as DOUBLE_, byval transition as D3DXTRANSITION_TYPE) as D3DXEVENTHANDLE
+	KeyTrackSpeed as function(byval This as ID3DXAnimationController ptr, byval track as UINT, byval new_speed as FLOAT, byval start_time as DOUBLE, byval duration as DOUBLE, byval transition as D3DXTRANSITION_TYPE) as D3DXEVENTHANDLE
+	KeyTrackWeight as function(byval This as ID3DXAnimationController ptr, byval track as UINT, byval new_weight as FLOAT, byval start_time as DOUBLE, byval duration as DOUBLE, byval transition as D3DXTRANSITION_TYPE) as D3DXEVENTHANDLE
+	KeyTrackPosition as function(byval This as ID3DXAnimationController ptr, byval track as UINT, byval new_position as DOUBLE, byval start_time as DOUBLE) as D3DXEVENTHANDLE
+	KeyTrackEnable as function(byval This as ID3DXAnimationController ptr, byval track as UINT, byval new_enable as WINBOOL, byval start_time as DOUBLE) as D3DXEVENTHANDLE
+	KeyPriorityBlend as function(byval This as ID3DXAnimationController ptr, byval new_blend_weight as FLOAT, byval start_time as DOUBLE, byval duration as DOUBLE, byval transition as D3DXTRANSITION_TYPE) as D3DXEVENTHANDLE
 	UnkeyEvent as function(byval This as ID3DXAnimationController ptr, byval event as D3DXEVENTHANDLE) as HRESULT
 	UnkeyAllTrackEvents as function(byval This as ID3DXAnimationController ptr, byval track as UINT) as HRESULT
 	UnkeyAllPriorityBlends as function(byval This as ID3DXAnimationController ptr) as HRESULT

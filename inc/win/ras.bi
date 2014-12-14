@@ -7,8 +7,12 @@
 #include once "lmcons.bi"
 
 '' The following symbols have been renamed:
-''     #define RASCONNSTATE => RASCONNSTATE_
-''     #define RASEAPINFO => RASEAPINFO_
+''     inside struct tagRASCONNSTATUSW:
+''         field rasconnstate => rasconnstate_
+''     inside struct tagRASCONNSTATUSA:
+''         field rasconnstate => rasconnstate_
+''     inside struct tagRASDIALEXTENSIONS:
+''         field RasEapInfo => RasEapInfo_
 ''     #define RASCTRYINFO => RASCTRYINFO_
 ''     #define RASIPADDR => RASIPADDR_
 
@@ -78,14 +82,12 @@ type tagRASCONNA field = 4
 end type
 
 #define RASCONN __MINGW_NAME_AW(RASCONN)
-
-'' TODO: #define LPRASCONNW RASCONNW*
-'' TODO: #define LPRASCONNA RASCONNA*
-'' TODO: #define LPRASCONN RASCONN*
-
+#define LPRASCONNW '' TODO: RASCONNW*
+#define LPRASCONNA '' TODO: RASCONNA*
+#define LPRASCONN '' TODO: RASCONN*
 #define RASCS_PAUSED &h1000
 #define RASCS_DONE &h2000
-#define RASCONNSTATE_ tagRASCONNSTATE
+#define RASCONNSTATE tagRASCONNSTATE
 
 type tagRASCONNSTATE as long
 enum
@@ -122,13 +124,12 @@ enum
 	RASCS_Disconnected
 end enum
 
-'' TODO: #define LPRASCONNSTATE RASCONNSTATE*
-
+#define LPRASCONNSTATE '' TODO: RASCONNSTATE*
 #define RASCONNSTATUSW tagRASCONNSTATUSW
 
 type tagRASCONNSTATUSW field = 4
 	dwSize as DWORD
-	rasconnstate as tagRASCONNSTATE
+	rasconnstate_ as tagRASCONNSTATE
 	dwError as DWORD
 	szDeviceType(0 to (16 + 1) - 1) as WCHAR
 	szDeviceName(0 to (128 + 1) - 1) as WCHAR
@@ -139,7 +140,7 @@ end type
 
 type tagRASCONNSTATUSA field = 4
 	dwSize as DWORD
-	rasconnstate as tagRASCONNSTATE
+	rasconnstate_ as tagRASCONNSTATE
 	dwError as DWORD
 	szDeviceType(0 to (16 + 1) - 1) as CHAR
 	szDeviceName(0 to (128 + 1) - 1) as CHAR
@@ -147,11 +148,9 @@ type tagRASCONNSTATUSA field = 4
 end type
 
 #define RASCONNSTATUS __MINGW_NAME_AW(RASCONNSTATUS)
-
-'' TODO: #define LPRASCONNSTATUSW RASCONNSTATUSW*
-'' TODO: #define LPRASCONNSTATUSA RASCONNSTATUSA*
-'' TODO: #define LPRASCONNSTATUS RASCONNSTATUS*
-
+#define LPRASCONNSTATUSW '' TODO: RASCONNSTATUSW*
+#define LPRASCONNSTATUSA '' TODO: RASCONNSTATUSA*
+#define LPRASCONNSTATUS '' TODO: RASCONNSTATUS*
 #define RASDIALPARAMSW tagRASDIALPARAMSW
 
 type tagRASDIALPARAMSW field = 4
@@ -181,16 +180,14 @@ type tagRASDIALPARAMSA field = 4
 end type
 
 #define RASDIALPARAMS __MINGW_NAME_AW(RASDIALPARAMS)
-
-'' TODO: #define LPRASDIALPARAMSW RASDIALPARAMSW*
-'' TODO: #define LPRASDIALPARAMSA RASDIALPARAMSA*
-'' TODO: #define LPRASDIALPARAMS RASDIALPARAMS*
-
-#define RASEAPINFO_ tagRASEAPINFO
+#define LPRASDIALPARAMSW '' TODO: RASDIALPARAMSW*
+#define LPRASDIALPARAMSA '' TODO: RASDIALPARAMSA*
+#define LPRASDIALPARAMS '' TODO: RASDIALPARAMS*
+#define RASEAPINFO tagRASEAPINFO
 
 type tagRASEAPINFO field = 4
 	dwSizeofEapInfo as DWORD
-	pbEapInfo as BYTE_ ptr
+	pbEapInfo as BYTE ptr
 end type
 
 #define RASDIALEXTENSIONS tagRASDIALEXTENSIONS
@@ -201,11 +198,10 @@ type tagRASDIALEXTENSIONS field = 4
 	hwndParent as HWND
 	reserved as ULONG_PTR
 	reserved1 as ULONG_PTR
-	RasEapInfo as tagRASEAPINFO
+	RasEapInfo_ as tagRASEAPINFO
 end type
 
-'' TODO: #define LPRASDIALEXTENSIONS RASDIALEXTENSIONS*
-
+#define LPRASDIALEXTENSIONS '' TODO: RASDIALEXTENSIONS*
 #define RDEOPT_UsePrefixSuffix &h00000001
 #define RDEOPT_PausedStates &h00000002
 #define RDEOPT_IgnoreModemSpeaker &h00000004
@@ -241,11 +237,9 @@ type tagRASENTRYNAMEA field = 4
 end type
 
 #define RASENTRYNAME __MINGW_NAME_AW(RASENTRYNAME)
-
-'' TODO: #define LPRASENTRYNAMEW RASENTRYNAMEW*
-'' TODO: #define LPRASENTRYNAMEA RASENTRYNAMEA*
-'' TODO: #define LPRASENTRYNAME RASENTRYNAME*
-
+#define LPRASENTRYNAMEW '' TODO: RASENTRYNAMEW*
+#define LPRASENTRYNAMEA '' TODO: RASENTRYNAMEA*
+#define LPRASENTRYNAME '' TODO: RASENTRYNAME*
 #define RASPROJECTION tagRASPROJECTION
 
 type tagRASPROJECTION as long
@@ -259,15 +253,14 @@ enum
 	RASP_Slip = &h20000
 end enum
 
-'' TODO: #define LPRASPROJECTION RASPROJECTION *
-
+#define LPRASPROJECTION '' TODO: RASPROJECTION *
 #define RASAMBW tagRASAMBW
 
 type tagRASAMBW field = 4
 	dwSize as DWORD
 	dwError as DWORD
 	szNetBiosError(0 to (16 + 1) - 1) as WCHAR
-	bLana as BYTE_
+	bLana as BYTE
 end type
 
 #define RASAMBA tagRASAMBA
@@ -276,15 +269,13 @@ type tagRASAMBA field = 4
 	dwSize as DWORD
 	dwError as DWORD
 	szNetBiosError(0 to (16 + 1) - 1) as CHAR
-	bLana as BYTE_
+	bLana as BYTE
 end type
 
 #define RASAMB __MINGW_NAME_AW(RASAMB)
-
-'' TODO: #define LPRASAMBW RASAMBW*
-'' TODO: #define LPRASAMBA RASAMBA*
-'' TODO: #define LPRASAMB RASAMB*
-
+#define LPRASAMBW '' TODO: RASAMBW*
+#define LPRASAMBA '' TODO: RASAMBA*
+#define LPRASAMB '' TODO: RASAMB*
 #define RASPPPNBFW tagRASPPPNBFW
 
 type tagRASPPPNBFW field = 4
@@ -293,7 +284,7 @@ type tagRASPPPNBFW field = 4
 	dwNetBiosError as DWORD
 	szNetBiosError(0 to (16 + 1) - 1) as WCHAR
 	szWorkstationName(0 to (16 + 1) - 1) as WCHAR
-	bLana as BYTE_
+	bLana as BYTE
 end type
 
 #define RASPPPNBFA tagRASPPPNBFA
@@ -304,15 +295,13 @@ type tagRASPPPNBFA field = 4
 	dwNetBiosError as DWORD
 	szNetBiosError(0 to (16 + 1) - 1) as CHAR
 	szWorkstationName(0 to (16 + 1) - 1) as CHAR
-	bLana as BYTE_
+	bLana as BYTE
 end type
 
 #define RASPPPNBF __MINGW_NAME_AW(RASPPPNBF)
-
-'' TODO: #define LPRASPPPNBFW RASPPPNBFW*
-'' TODO: #define LPRASPPPNBFA RASPPPNBFA*
-'' TODO: #define LPRASPPPNBF RASPPPNBF*
-
+#define LPRASPPPNBFW '' TODO: RASPPPNBFW*
+#define LPRASPPPNBFA '' TODO: RASPPPNBFA*
+#define LPRASPPPNBF '' TODO: RASPPPNBF*
 #define RASPPPIPXW tagRASIPXW
 
 type tagRASIPXW field = 4
@@ -330,11 +319,9 @@ type tagRASPPPIPXA field = 4
 end type
 
 #define RASPPPIPX __MINGW_NAME_AW(RASPPPIPX)
-
-'' TODO: #define LPRASPPPIPXW RASPPPIPXW *
-'' TODO: #define LPRASPPPIPXA RASPPPIPXA *
-'' TODO: #define LPRASPPPIPX RASPPPIPX *
-
+#define LPRASPPPIPXW '' TODO: RASPPPIPXW *
+#define LPRASPPPIPXA '' TODO: RASPPPIPXA *
+#define LPRASPPPIPX '' TODO: RASPPPIPX *
 #define RASIPO_VJ &h00000001
 #define RASPPPIPW tagRASPPPIPW
 
@@ -359,11 +346,9 @@ type tagRASPPPIPA field = 4
 end type
 
 #define RASPPPIP __MINGW_NAME_AW(RASPPPIP)
-
-'' TODO: #define LPRASPPPIPW RASPPPIPW*
-'' TODO: #define LPRASPPPIPA RASPPPIPA*
-'' TODO: #define LPRASPPPIP RASPPPIP*
-
+#define LPRASPPPIPW '' TODO: RASPPPIPW*
+#define LPRASPPPIPA '' TODO: RASPPPIPA*
+#define LPRASPPPIP '' TODO: RASPPPIP*
 #define RASLCPAP_PAP &hC023
 #define RASLCPAP_SPAP &hC027
 #define RASLCPAP_CHAP &hC223
@@ -417,11 +402,9 @@ type tagRASPPPLCPA field = 4
 end type
 
 #define RASPPPLCP __MINGW_NAME_AW(RASPPPLCP)
-
-'' TODO: #define LPRASPPPLCPW RASPPPLCPW *
-'' TODO: #define LPRASPPPLCPA RASPPPLCPA *
-'' TODO: #define LPRASPPPLCP RASPPPLCP *
-
+#define LPRASPPPLCPW '' TODO: RASPPPLCPW *
+#define LPRASPPPLCPA '' TODO: RASPPPLCPA *
+#define LPRASPPPLCP '' TODO: RASPPPLCP *
 #define RASSLIPW tagRASSLIPW
 
 type tagRASSLIPW field = 4
@@ -439,11 +422,9 @@ type tagRASSLIPA field = 4
 end type
 
 #define RASSLIP __MINGW_NAME_AW(RASSLIP)
-
-'' TODO: #define LPRASSLIPW RASSLIPW*
-'' TODO: #define LPRASSLIPA RASSLIPA*
-'' TODO: #define LPRASSLIP RASSLIP*
-
+#define LPRASSLIPW '' TODO: RASSLIPW*
+#define LPRASSLIPA '' TODO: RASSLIPA*
+#define LPRASSLIP '' TODO: RASSLIP*
 #define RASCCPCA_MPPC &h00000006
 #define RASCCPCA_STAC &h00000005
 #define RASCCPO_Compression &h00000001
@@ -462,8 +443,7 @@ type tagRASPPPCCP field = 4
 	dwServerOptions as DWORD
 end type
 
-'' TODO: #define LPRASPPPCCP RASPPPCCP *
-
+#define LPRASPPPCCP '' TODO: RASPPPCCP *
 #define RASDIALEVENT "RasDialEvent"
 #define WM_RASDIALEVENT &hCCCD
 
@@ -488,11 +468,9 @@ type tagRASDEVINFOA field = 4
 end type
 
 #define RASDEVINFO __MINGW_NAME_AW(RASDEVINFO)
-
-'' TODO: #define LPRASDEVINFOW RASDEVINFOW*
-'' TODO: #define LPRASDEVINFOA RASDEVINFOA*
-'' TODO: #define LPRASDEVINFO RASDEVINFO*
-
+#define LPRASDEVINFOW '' TODO: RASDEVINFOW*
+#define LPRASDEVINFOA '' TODO: RASDEVINFOA*
+#define LPRASDEVINFO '' TODO: RASDEVINFO*
 #define RASCTRYINFO_ RASCTRYINFO
 
 type RASCTRYINFO field = 4
@@ -505,18 +483,16 @@ end type
 
 #define RASCTRYINFOW RASCTRYINFO_
 #define RASCTRYINFOA RASCTRYINFO_
-
-'' TODO: #define LPRASCTRYINFOW RASCTRYINFOW*
-'' TODO: #define LPRASCTRYINFOA RASCTRYINFOW*
-'' TODO: #define LPRASCTRYINFO RASCTRYINFO*
-
+#define LPRASCTRYINFOW '' TODO: RASCTRYINFOW*
+#define LPRASCTRYINFOA '' TODO: RASCTRYINFOW*
+#define LPRASCTRYINFO '' TODO: RASCTRYINFO*
 #define RASIPADDR_ RASIPADDR
 
 type RASIPADDR field = 4
-	a as BYTE_
-	b as BYTE_
-	c as BYTE_
-	d as BYTE_
+	a as BYTE
+	b as BYTE
+	c as BYTE
+	d as BYTE
 end type
 
 #define ET_None 0
@@ -635,11 +611,9 @@ type tagRASENTRYW field = 4
 end type
 
 #define RASENTRY __MINGW_NAME_AW(RASENTRY)
-
-'' TODO: #define LPRASENTRYW RASENTRYW*
-'' TODO: #define LPRASENTRYA RASENTRYA*
-'' TODO: #define LPRASENTRY RASENTRY*
-
+#define LPRASENTRYW '' TODO: RASENTRYW*
+#define LPRASENTRYA '' TODO: RASENTRYA*
+#define LPRASENTRY '' TODO: RASENTRY*
 #define RASEO_UseCountryAndAreaCodes &h00000001
 #define RASEO_SpecificIpAddr &h00000002
 #define RASEO_SpecificNameServers &h00000004
@@ -687,20 +661,20 @@ end type
 #define RASFP_Ppp &h00000001
 #define RASFP_Slip &h00000002
 #define RASFP_Ras &h00000004
-#define RASDT_Modem TEXT_("modem")
-#define RASDT_Isdn TEXT_("isdn")
-#define RASDT_X25 TEXT_("x25")
-#define RASDT_Vpn TEXT_("vpn")
-#define RASDT_Pad TEXT_("pad")
-#define RASDT_Generic TEXT_("GENERIC")
-#define RASDT_Serial TEXT_("SERIAL")
-#define RASDT_FrameRelay TEXT_("FRAMERELAY")
-#define RASDT_Atm TEXT_("ATM")
-#define RASDT_Sonet TEXT_("SONET")
-#define RASDT_SW56 TEXT_("SW56")
-#define RASDT_Irda TEXT_("IRDA")
-#define RASDT_Parallel TEXT_("PARALLEL")
-#define RASDT_PPPoE TEXT_("PPPoE")
+#define RASDT_Modem TEXT("modem")
+#define RASDT_Isdn TEXT("isdn")
+#define RASDT_X25 TEXT("x25")
+#define RASDT_Vpn TEXT("vpn")
+#define RASDT_Pad TEXT("pad")
+#define RASDT_Generic TEXT("GENERIC")
+#define RASDT_Serial TEXT("SERIAL")
+#define RASDT_FrameRelay TEXT("FRAMERELAY")
+#define RASDT_Atm TEXT("ATM")
+#define RASDT_Sonet TEXT("SONET")
+#define RASDT_SW56 TEXT("SW56")
+#define RASDT_Irda TEXT("IRDA")
+#define RASDT_Parallel TEXT("PARALLEL")
+#define RASDT_PPPoE TEXT("PPPoE")
 #define RASET_Phone 1
 #define RASET_Vpn 2
 #define RASET_Direct 3
@@ -723,12 +697,11 @@ type tagRASADPARAMS field = 4
 	dwSize as DWORD
 	hwndOwner as HWND
 	dwFlags as DWORD
-	xDlg as LONG_
-	yDlg as LONG_
+	xDlg as LONG
+	yDlg as LONG
 end type
 
-'' TODO: #define LPRASADPARAMS RASADPARAMS*
-
+#define LPRASADPARAMS '' TODO: RASADPARAMS*
 #define RASADFLG_PositionDlg &h00000001
 
 type RASADFUNCA as function(byval as LPSTR, byval as LPSTR, byval as tagRASADPARAMS ptr, byval as LPDWORD) as WINBOOL
@@ -758,11 +731,9 @@ type tagRASSUBENTRYW field = 4
 end type
 
 #define RASSUBENTRY __MINGW_NAME_AW(RASSUBENTRY)
-
-'' TODO: #define LPRASSUBENTRYW RASSUBENTRYW*
-'' TODO: #define LPRASSUBENTRYA RASSUBENTRYA*
-'' TODO: #define LPRASSUBENTRY RASSUBENTRY*
-
+#define LPRASSUBENTRYW '' TODO: RASSUBENTRYW*
+#define LPRASSUBENTRYA '' TODO: RASSUBENTRYA*
+#define LPRASSUBENTRY '' TODO: RASSUBENTRY*
 #define RASCREDENTIALSA tagRASCREDENTIALSA
 
 type tagRASCREDENTIALSA field = 4
@@ -784,11 +755,9 @@ type tagRASCREDENTIALSW field = 4
 end type
 
 #define RASCREDENTIALS __MINGW_NAME_AW(RASCREDENTIALS)
-
-'' TODO: #define LPRASCREDENTIALSW RASCREDENTIALSW*
-'' TODO: #define LPRASCREDENTIALSA RASCREDENTIALSA*
-'' TODO: #define LPRASCREDENTIALS RASCREDENTIALS*
-
+#define LPRASCREDENTIALSW '' TODO: RASCREDENTIALSW*
+#define LPRASCREDENTIALSA '' TODO: RASCREDENTIALSA*
+#define LPRASCREDENTIALS '' TODO: RASCREDENTIALS*
 #define RASCM_UserName &h00000001
 #define RASCM_Password &h00000002
 #define RASCM_Domain &h00000004
@@ -815,11 +784,9 @@ type tagRASAUTODIALENTRYW field = 4
 end type
 
 #define RASAUTODIALENTRY __MINGW_NAME_AW(RASAUTODIALENTRY)
-
-'' TODO: #define LPRASAUTODIALENTRYW RASAUTODIALENTRYW*
-'' TODO: #define LPRASAUTODIALENTRYA RASAUTODIALENTRYA*
-'' TODO: #define LPRASAUTODIALENTRY RASAUTODIALENTRY*
-
+#define LPRASAUTODIALENTRYW '' TODO: RASAUTODIALENTRYW*
+#define LPRASAUTODIALENTRYA '' TODO: RASAUTODIALENTRYA*
+#define LPRASAUTODIALENTRY '' TODO: RASAUTODIALENTRY*
 #define RASADP_DisableConnectionQuery 0
 #define RASADP_LoginSessionDisable 1
 #define RASADP_SavedAddressesLimit 2
@@ -833,7 +800,7 @@ end type
 type tagRASEAPUSERIDENTITYA field = 4
 	szUserName(0 to (256 + 1) - 1) as CHAR
 	dwSizeofEapInfo as DWORD
-	pbEapInfo(0 to 0) as BYTE_
+	pbEapInfo(0 to 0) as BYTE
 end type
 
 #define RASEAPUSERIDENTITYW tagRASEAPUSERIDENTITYW
@@ -841,13 +808,12 @@ end type
 type tagRASEAPUSERIDENTITYW field = 4
 	szUserName(0 to (256 + 1) - 1) as WCHAR
 	dwSizeofEapInfo as DWORD
-	pbEapInfo(0 to 0) as BYTE_
+	pbEapInfo(0 to 0) as BYTE
 end type
 
 #define RASEAPUSERIDENTITY __MINGW_NAME_AW(RASEAPUSERIDENTITY)
-
-'' TODO: #define LPRASEAPUSERIDENTITYW RASEAPUSERIDENTITYW*
-'' TODO: #define LPRASEAPUSERIDENTITYA RASEAPUSERIDENTITYA*
+#define LPRASEAPUSERIDENTITYW '' TODO: RASEAPUSERIDENTITYW*
+#define LPRASEAPUSERIDENTITYA '' TODO: RASEAPUSERIDENTITYA*
 
 type PFNRASGETBUFFER as function(byval ppBuffer as PBYTE ptr, byval pdwSize as PDWORD) as DWORD
 type PFNRASFREEBUFFER as function(byval pBufer as PBYTE) as DWORD
@@ -865,10 +831,10 @@ type PFNRASRETRIEVEBUFFER as function(byval hPort as HANDLE, byval pBuffer as PB
 
 type tagRASCOMMSETTINGS field = 4
 	dwSize as DWORD
-	bParity as BYTE_
-	bStop as BYTE_
-	bByteSize as BYTE_
-	bAlign as BYTE_
+	bParity as BYTE
+	bStop as BYTE
+	bByteSize as BYTE
+	bAlign as BYTE
 end type
 
 type PFNRASSETCOMMSETTINGS as function(byval hPort as HANDLE, byval pRasCommSettings as tagRASCOMMSETTINGS ptr, byval pvReserved as PVOID) as DWORD
@@ -966,9 +932,9 @@ type PRAS_STATS as _RAS_STATS ptr
 type RasCustomHangUpFn as function(byval hRasConn as HRASCONN) as DWORD
 
 #ifdef UNICODE
-	type RasCustomDialFn as function(byval hInstDll as HINSTANCE, byval lpRasDialExtensions as tagRASDIALEXTENSIONS ptr, byval lpszPhonebook as LPCWSTR, byval lpRasDialParams as tagRASDIALPARAMSW ptr, byval dwNotifierType as DWORD, byval lpvNotifier as LPVOID, byval lphRasConn_ as HRASCONN ptr, byval dwFlags as DWORD) as DWORD
+	type RasCustomDialFn as function(byval hInstDll as HINSTANCE, byval lpRasDialExtensions_ as tagRASDIALEXTENSIONS ptr, byval lpszPhonebook as LPCWSTR, byval lpRasDialParams_ as tagRASDIALPARAMSW ptr, byval dwNotifierType as DWORD, byval lpvNotifier as LPVOID, byval lphRasConn_ as HRASCONN ptr, byval dwFlags as DWORD) as DWORD
 #else
-	type RasCustomDialFn as function(byval hInstDll as HINSTANCE, byval lpRasDialExtensions as tagRASDIALEXTENSIONS ptr, byval lpszPhonebook as LPCWSTR, byval lpRasDialParams as tagRASDIALPARAMSA ptr, byval dwNotifierType as DWORD, byval lpvNotifier as LPVOID, byval lphRasConn_ as HRASCONN ptr, byval dwFlags as DWORD) as DWORD
+	type RasCustomDialFn as function(byval hInstDll as HINSTANCE, byval lpRasDialExtensions_ as tagRASDIALEXTENSIONS ptr, byval lpszPhonebook as LPCWSTR, byval lpRasDialParams_ as tagRASDIALPARAMSA ptr, byval dwNotifierType as DWORD, byval lpvNotifier as LPVOID, byval lphRasConn_ as HRASCONN ptr, byval dwFlags as DWORD) as DWORD
 #endif
 
 type RasCustomDeleteEntryNotifyFn as function(byval lpszPhonebook as LPCWSTR, byval lpszEntry as LPCWSTR, byval dwFlags as DWORD) as DWORD
@@ -983,14 +949,14 @@ declare function RasGetLinkStatistics(byval hRasConn as HRASCONN, byval dwSubEnt
 declare function RasGetConnectionStatistics(byval hRasConn as HRASCONN, byval lpStatistics as RAS_STATS ptr) as DWORD
 declare function RasClearLinkStatistics(byval hRasConn as HRASCONN, byval dwSubEntry as DWORD) as DWORD
 declare function RasClearConnectionStatistics(byval hRasConn as HRASCONN) as DWORD
-declare function RasGetEapUserDataA(byval hToken as HANDLE, byval pszPhonebook as LPCSTR, byval pszEntry as LPCSTR, byval pbEapData as BYTE_ ptr, byval pdwSizeofEapData as DWORD ptr) as DWORD
-declare function RasGetEapUserDataW(byval hToken as HANDLE, byval pszPhonebook as LPCWSTR, byval pszEntry as LPCWSTR, byval pbEapData as BYTE_ ptr, byval pdwSizeofEapData as DWORD ptr) as DWORD
-declare function RasSetEapUserDataA(byval hToken as HANDLE, byval pszPhonebook as LPCSTR, byval pszEntry as LPCSTR, byval pbEapData as BYTE_ ptr, byval dwSizeofEapData as DWORD) as DWORD
-declare function RasSetEapUserDataW(byval hToken as HANDLE, byval pszPhonebook as LPCWSTR, byval pszEntry as LPCWSTR, byval pbEapData as BYTE_ ptr, byval dwSizeofEapData as DWORD) as DWORD
-declare function RasGetCustomAuthDataA(byval pszPhonebook as LPCSTR, byval pszEntry as LPCSTR, byval pbCustomAuthData as BYTE_ ptr, byval pdwSizeofCustomAuthData as DWORD ptr) as DWORD
-declare function RasGetCustomAuthDataW(byval pszPhonebook as LPCWSTR, byval pszEntry as LPCWSTR, byval pbCustomAuthData as BYTE_ ptr, byval pdwSizeofCustomAuthData as DWORD ptr) as DWORD
-declare function RasSetCustomAuthDataA(byval pszPhonebook as LPCSTR, byval pszEntry as LPCSTR, byval pbCustomAuthData as BYTE_ ptr, byval dwSizeofCustomAuthData as DWORD) as DWORD
-declare function RasSetCustomAuthDataW(byval pszPhonebook as LPCWSTR, byval pszEntry as LPCWSTR, byval pbCustomAuthData as BYTE_ ptr, byval dwSizeofCustomAuthData as DWORD) as DWORD
+declare function RasGetEapUserDataA(byval hToken as HANDLE, byval pszPhonebook as LPCSTR, byval pszEntry as LPCSTR, byval pbEapData as BYTE ptr, byval pdwSizeofEapData as DWORD ptr) as DWORD
+declare function RasGetEapUserDataW(byval hToken as HANDLE, byval pszPhonebook as LPCWSTR, byval pszEntry as LPCWSTR, byval pbEapData as BYTE ptr, byval pdwSizeofEapData as DWORD ptr) as DWORD
+declare function RasSetEapUserDataA(byval hToken as HANDLE, byval pszPhonebook as LPCSTR, byval pszEntry as LPCSTR, byval pbEapData as BYTE ptr, byval dwSizeofEapData as DWORD) as DWORD
+declare function RasSetEapUserDataW(byval hToken as HANDLE, byval pszPhonebook as LPCWSTR, byval pszEntry as LPCWSTR, byval pbEapData as BYTE ptr, byval dwSizeofEapData as DWORD) as DWORD
+declare function RasGetCustomAuthDataA(byval pszPhonebook as LPCSTR, byval pszEntry as LPCSTR, byval pbCustomAuthData as BYTE ptr, byval pdwSizeofCustomAuthData as DWORD ptr) as DWORD
+declare function RasGetCustomAuthDataW(byval pszPhonebook as LPCWSTR, byval pszEntry as LPCWSTR, byval pbCustomAuthData as BYTE ptr, byval pdwSizeofCustomAuthData as DWORD ptr) as DWORD
+declare function RasSetCustomAuthDataA(byval pszPhonebook as LPCSTR, byval pszEntry as LPCSTR, byval pbCustomAuthData as BYTE ptr, byval dwSizeofCustomAuthData as DWORD) as DWORD
+declare function RasSetCustomAuthDataW(byval pszPhonebook as LPCWSTR, byval pszEntry as LPCWSTR, byval pbCustomAuthData as BYTE ptr, byval dwSizeofCustomAuthData as DWORD) as DWORD
 declare function RasGetEapUserIdentityW(byval pszPhonebook as LPCWSTR, byval pszEntry as LPCWSTR, byval dwFlags as DWORD, byval hwnd as HWND, byval ppRasEapUserIdentity as tagRASEAPUSERIDENTITYW ptr ptr) as DWORD
 declare function RasGetEapUserIdentityA(byval pszPhonebook as LPCSTR, byval pszEntry as LPCSTR, byval dwFlags as DWORD, byval hwnd as HWND, byval ppRasEapUserIdentity as tagRASEAPUSERIDENTITYA ptr ptr) as DWORD
 declare sub RasFreeEapUserIdentityW(byval pRasEapUserIdentity as tagRASEAPUSERIDENTITYW ptr)

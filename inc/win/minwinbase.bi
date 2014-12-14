@@ -167,8 +167,8 @@ end type
 type _PROCESS_HEAP_ENTRY
 	lpData as PVOID
 	cbData as DWORD
-	cbOverhead as BYTE_
-	iRegionIndex as BYTE_
+	cbOverhead as BYTE
+	iRegionIndex as BYTE
 	wFlags as WORD
 
 	union
@@ -189,8 +189,8 @@ type PPROCESS_HEAP_ENTRY as _PROCESS_HEAP_ENTRY ptr
 
 type ___REASON_CONTEXT_Detailed
 	LocalizedReasonModule as HMODULE
-	LocalizedReasonId as ULONG_
-	ReasonStringCount as ULONG_
+	LocalizedReasonId as ULONG
+	ReasonStringCount as ULONG
 	ReasonStrings as LPWSTR ptr
 end type
 
@@ -200,7 +200,7 @@ union ___REASON_CONTEXT_Reason
 end union
 
 type _REASON_CONTEXT
-	Version as ULONG_
+	Version as ULONG
 	Flags as DWORD
 	Reason as ___REASON_CONTEXT_Reason
 end type

@@ -11,10 +11,11 @@
 #include once "crt/time.bi"
 
 '' The following symbols have been renamed:
-''     #define PNG_LIBPNG_VER => PNG_LIBPNG_VER_
 ''     #define PNG_READ_TEXT_SUPPORTED => PNG_READ_TEXT_SUPPORTED_
 ''     #define PNG_TEXT_SUPPORTED => PNG_TEXT_SUPPORTED_
 ''     #define PNG_WRITE_TEXT_SUPPORTED => PNG_WRITE_TEXT_SUPPORTED_
+''     #define PNG_LIBPNG_VER => PNG_LIBPNG_VER_
+''     #define png_info_init => png_info_init_
 
 extern "C"
 

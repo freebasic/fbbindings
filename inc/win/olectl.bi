@@ -1,6 +1,5 @@
 #pragma once
 
-#include once "crt/long.bi"
 #include once "ocidl.bi"
 
 '' The following symbols have been renamed:
@@ -51,14 +50,14 @@ extern GUID_FONTSTRIKETHROUGH as const GUID
 extern GUID_HANDLE as const GUID
 
 type tagOCPFIPARAMS field = 8
-	cbStructSize as ULONG_
+	cbStructSize as ULONG
 	hWndOwner as HWND
 	x as long
 	y as long
 	lpszCaption as LPCOLESTR
-	cObjects as ULONG_
+	cObjects as ULONG
 	lplpUnk as LPUNKNOWN ptr
-	cPages as ULONG_
+	cPages as ULONG
 	lpPages as CLSID ptr
 	lcid as LCID
 	dispidInitialProperty as DISPID
@@ -67,14 +66,14 @@ end type
 type OCPFIPARAMS as tagOCPFIPARAMS
 type LPOCPFIPARAMS as tagOCPFIPARAMS ptr
 
-'' TODO: #define FONTSIZE(n) { n##0000,0 }
+#define FONTSIZE(n) '' TODO: { n##0000,0 }
 
 type tagFONTDESC field = 8
 	cbSizeofstruct as UINT
 	lpstrName as LPOLESTR
 	cySize as CY
-	sWeight as SHORT_
-	sCharset as SHORT_
+	sWeight as SHORT
+	sCharset as SHORT
 	fItalic as WINBOOL
 	fUnderline as WINBOOL
 	fStrikethrough as WINBOOL
@@ -123,10 +122,10 @@ end type
 
 type PICTDESC as tagPICTDESC
 type LPPICTDESC as tagPICTDESC ptr
-type OLE_XPOS_PIXELS as clong
-type OLE_YPOS_PIXELS as clong
-type OLE_XSIZE_PIXELS as clong
-type OLE_YSIZE_PIXELS as clong
+type OLE_XPOS_PIXELS as long
+type OLE_YPOS_PIXELS as long
+type OLE_XSIZE_PIXELS as long
+type OLE_YSIZE_PIXELS as long
 type OLE_XPOS_CONTAINER as single
 type OLE_YPOS_CONTAINER as single
 type OLE_XSIZE_CONTAINER as single
@@ -255,13 +254,13 @@ type OLE_ENABLEDEFAULTBOOL as VARIANT_BOOL
 
 declare function DllRegisterServer() as HRESULT
 declare function DllUnregisterServer() as HRESULT
-declare function OleCreatePropertyFrame(byval hwndOwner as HWND, byval x as UINT, byval y as UINT, byval lpszCaption as LPCOLESTR, byval cObjects as ULONG_, byval ppUnk as LPUNKNOWN ptr, byval cPages as ULONG_, byval pPageClsID as LPCLSID, byval lcid as LCID, byval dwReserved as DWORD, byval pvReserved as LPVOID) as HRESULT
+declare function OleCreatePropertyFrame(byval hwndOwner as HWND, byval x as UINT, byval y as UINT, byval lpszCaption as LPCOLESTR, byval cObjects as ULONG, byval ppUnk as LPUNKNOWN ptr, byval cPages as ULONG, byval pPageClsID as LPCLSID, byval lcid as LCID, byval dwReserved as DWORD, byval pvReserved as LPVOID) as HRESULT
 declare function OleCreatePropertyFrameIndirect(byval lpParams as LPOCPFIPARAMS) as HRESULT
 declare function OleTranslateColor(byval clr as OLE_COLOR, byval hpal as HPALETTE, byval lpcolorref as COLORREF ptr) as HRESULT
 declare function OleCreateFontIndirect(byval lpFontDesc as LPFONTDESC, byval riid as const IID const ptr, byval lplpvObj as LPVOID ptr) as HRESULT
 declare function OleCreatePictureIndirect(byval lpPictDesc as LPPICTDESC, byval riid as const IID const ptr, byval fOwn as WINBOOL, byval lplpvObj as LPVOID ptr) as HRESULT
-declare function OleLoadPicture(byval lpstream as LPSTREAM, byval lSize as LONG_, byval fRunmode as WINBOOL, byval riid as const IID const ptr, byval lplpvObj as LPVOID ptr) as HRESULT
-declare function OleLoadPictureEx(byval lpstream as LPSTREAM, byval lSize as LONG_, byval fRunmode as WINBOOL, byval riid as const IID const ptr, byval xSizeDesired as DWORD, byval ySizeDesired as DWORD, byval dwFlags as DWORD, byval lplpvObj as LPVOID ptr) as HRESULT
+declare function OleLoadPicture(byval lpstream as LPSTREAM, byval lSize as LONG, byval fRunmode as WINBOOL, byval riid as const IID const ptr, byval lplpvObj as LPVOID ptr) as HRESULT
+declare function OleLoadPictureEx(byval lpstream as LPSTREAM, byval lSize as LONG, byval fRunmode as WINBOOL, byval riid as const IID const ptr, byval xSizeDesired as DWORD, byval ySizeDesired as DWORD, byval dwFlags as DWORD, byval lplpvObj as LPVOID ptr) as HRESULT
 declare function OleLoadPicturePath(byval szURLorPath as LPOLESTR, byval punkCaller as LPUNKNOWN, byval dwReserved as DWORD, byval clrReserved as OLE_COLOR, byval riid as const IID const ptr, byval ppvRet as LPVOID ptr) as HRESULT
 declare function OleLoadPictureFile(byval varFileName as VARIANT, byval lplpdispPicture as LPDISPATCH ptr) as HRESULT
 declare function OleLoadPictureFileEx(byval varFileName as VARIANT, byval xSizeDesired as DWORD, byval ySizeDesired as DWORD, byval dwFlags as DWORD, byval lplpdispPicture as LPDISPATCH ptr) as HRESULT

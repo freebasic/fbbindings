@@ -77,8 +77,8 @@ extern IID_IHostDialogHelper as const IID
 
 type IHostDialogHelperVtbl
 	QueryInterface as function(byval This as IHostDialogHelper ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IHostDialogHelper ptr) as ULONG_
-	Release as function(byval This as IHostDialogHelper ptr) as ULONG_
+	AddRef as function(byval This as IHostDialogHelper ptr) as ULONG
+	Release as function(byval This as IHostDialogHelper ptr) as ULONG
 	ShowHTMLDialog as function(byval This as IHostDialogHelper ptr, byval hwndParent as HWND, byval pMk as IMoniker ptr, byval pvarArgIn as VARIANT ptr, byval pchOptions as WCHAR ptr, byval pvarArgOut as VARIANT ptr, byval punkHost as IUnknown ptr) as HRESULT
 end type
 
@@ -146,7 +146,7 @@ extern __MIDL_itf_mshtmhst_0277_v0_0_s_ifspec as RPC_IF_HANDLE
 #define __IDocHostUIHandler_INTERFACE_DEFINED__
 
 type _DOCHOSTUIINFO
-	cbSize as ULONG_
+	cbSize as ULONG
 	dwFlags as DWORD
 	dwDoubleClick as DWORD
 	pchHostCss as OLECHAR ptr
@@ -159,8 +159,8 @@ extern IID_IDocHostUIHandler as const IID
 
 type IDocHostUIHandlerVtbl
 	QueryInterface as function(byval This as IDocHostUIHandler ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDocHostUIHandler ptr) as ULONG_
-	Release as function(byval This as IDocHostUIHandler ptr) as ULONG_
+	AddRef as function(byval This as IDocHostUIHandler ptr) as ULONG
+	Release as function(byval This as IDocHostUIHandler ptr) as ULONG
 	ShowContextMenu as function(byval This as IDocHostUIHandler ptr, byval dwID as DWORD, byval ppt as POINT_ ptr, byval pcmdtReserved as IUnknown ptr, byval pdispReserved as IDispatch ptr) as HRESULT
 	GetHostInfo as function(byval This as IDocHostUIHandler ptr, byval pInfo as DOCHOSTUIINFO ptr) as HRESULT
 	ShowUI as function(byval This as IDocHostUIHandler ptr, byval dwID as DWORD, byval pActiveObject as IOleInPlaceActiveObject ptr, byval pCommandTarget as IOleCommandTarget ptr, byval pFrame as IOleInPlaceFrame ptr, byval pDoc as IOleInPlaceUIWindow ptr) as HRESULT
@@ -225,8 +225,8 @@ extern IID_IDocHostUIHandler2 as const IID
 
 type IDocHostUIHandler2Vtbl
 	QueryInterface as function(byval This as IDocHostUIHandler2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDocHostUIHandler2 ptr) as ULONG_
-	Release as function(byval This as IDocHostUIHandler2 ptr) as ULONG_
+	AddRef as function(byval This as IDocHostUIHandler2 ptr) as ULONG
+	Release as function(byval This as IDocHostUIHandler2 ptr) as ULONG
 	ShowContextMenu as function(byval This as IDocHostUIHandler2 ptr, byval dwID as DWORD, byval ppt as POINT_ ptr, byval pcmdtReserved as IUnknown ptr, byval pdispReserved as IDispatch ptr) as HRESULT
 	GetHostInfo as function(byval This as IDocHostUIHandler2 ptr, byval pInfo as DOCHOSTUIINFO ptr) as HRESULT
 	ShowUI as function(byval This as IDocHostUIHandler2 ptr, byval dwID as DWORD, byval pActiveObject as IOleInPlaceActiveObject ptr, byval pCommandTarget as IOleCommandTarget ptr, byval pFrame as IOleInPlaceFrame ptr, byval pDoc as IOleInPlaceUIWindow ptr) as HRESULT
@@ -268,8 +268,8 @@ extern IID_ICustomDoc as const IID
 
 type ICustomDocVtbl
 	QueryInterface as function(byval This as ICustomDoc ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as ICustomDoc ptr) as ULONG_
-	Release as function(byval This as ICustomDoc ptr) as ULONG_
+	AddRef as function(byval This as ICustomDoc ptr) as ULONG
+	Release as function(byval This as ICustomDoc ptr) as ULONG
 	SetUIHandler as function(byval This as ICustomDoc ptr, byval pUIHandler as IDocHostUIHandler ptr) as HRESULT
 end type
 
@@ -286,8 +286,8 @@ extern IID_IDocHostShowUI as const IID
 
 type IDocHostShowUIVtbl
 	QueryInterface as function(byval This as IDocHostShowUI ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDocHostShowUI ptr) as ULONG_
-	Release as function(byval This as IDocHostShowUI ptr) as ULONG_
+	AddRef as function(byval This as IDocHostShowUI ptr) as ULONG
+	Release as function(byval This as IDocHostShowUI ptr) as ULONG
 	ShowMessage as function(byval This as IDocHostShowUI ptr, byval hwnd as HWND, byval lpstrText as LPOLESTR, byval lpstrCaption as LPOLESTR, byval dwType as DWORD, byval lpstrHelpFile as LPOLESTR, byval dwHelpContext as DWORD, byval plResult as LRESULT ptr) as HRESULT
 	ShowHelp as function(byval This as IDocHostShowUI ptr, byval hwnd as HWND, byval pszHelpFile as LPOLESTR, byval uCommand as UINT, byval dwData as DWORD, byval ptMouse as POINT_, byval pDispatchObjectHit as IDispatch ptr) as HRESULT
 end type
@@ -313,8 +313,8 @@ extern IID_IClassFactoryEx as const IID
 
 type IClassFactoryExVtbl
 	QueryInterface as function(byval This as IClassFactoryEx ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IClassFactoryEx ptr) as ULONG_
-	Release as function(byval This as IClassFactoryEx ptr) as ULONG_
+	AddRef as function(byval This as IClassFactoryEx ptr) as ULONG
+	Release as function(byval This as IClassFactoryEx ptr) as ULONG
 	CreateInstance as function(byval This as IClassFactoryEx ptr, byval pUnkOuter as IUnknown ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	LockServer as function(byval This as IClassFactoryEx ptr, byval fLock as WINBOOL) as HRESULT
 	CreateInstanceWithContext as function(byval This as IClassFactoryEx ptr, byval punkContext as IUnknown ptr, byval punkOuter as IUnknown ptr, byval riid as const IID const ptr, byval ppv as any ptr ptr) as HRESULT
@@ -333,25 +333,25 @@ extern IID_IHTMLOMWindowServices as const IID
 
 type IHTMLOMWindowServicesVtbl
 	QueryInterface as function(byval This as IHTMLOMWindowServices ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IHTMLOMWindowServices ptr) as ULONG_
-	Release as function(byval This as IHTMLOMWindowServices ptr) as ULONG_
-	moveTo as function(byval This as IHTMLOMWindowServices ptr, byval x as LONG_, byval y as LONG_) as HRESULT
-	moveBy as function(byval This as IHTMLOMWindowServices ptr, byval x as LONG_, byval y as LONG_) as HRESULT
-	resizeTo as function(byval This as IHTMLOMWindowServices ptr, byval x as LONG_, byval y as LONG_) as HRESULT
-	resizeBy as function(byval This as IHTMLOMWindowServices ptr, byval x as LONG_, byval y as LONG_) as HRESULT
+	AddRef as function(byval This as IHTMLOMWindowServices ptr) as ULONG
+	Release as function(byval This as IHTMLOMWindowServices ptr) as ULONG
+	moveTo as function(byval This as IHTMLOMWindowServices ptr, byval x as LONG, byval y as LONG) as HRESULT
+	moveBy as function(byval This as IHTMLOMWindowServices ptr, byval x as LONG, byval y as LONG) as HRESULT
+	resizeTo as function(byval This as IHTMLOMWindowServices ptr, byval x as LONG, byval y as LONG) as HRESULT
+	resizeBy as function(byval This as IHTMLOMWindowServices ptr, byval x as LONG, byval y as LONG) as HRESULT
 end type
 
 type IHTMLOMWindowServices_
 	lpVtbl as IHTMLOMWindowServicesVtbl ptr
 end type
 
-declare function IHTMLOMWindowServices_moveTo_Proxy(byval This as IHTMLOMWindowServices ptr, byval x as LONG_, byval y as LONG_) as HRESULT
+declare function IHTMLOMWindowServices_moveTo_Proxy(byval This as IHTMLOMWindowServices ptr, byval x as LONG, byval y as LONG) as HRESULT
 declare sub IHTMLOMWindowServices_moveTo_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IHTMLOMWindowServices_moveBy_Proxy(byval This as IHTMLOMWindowServices ptr, byval x as LONG_, byval y as LONG_) as HRESULT
+declare function IHTMLOMWindowServices_moveBy_Proxy(byval This as IHTMLOMWindowServices ptr, byval x as LONG, byval y as LONG) as HRESULT
 declare sub IHTMLOMWindowServices_moveBy_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IHTMLOMWindowServices_resizeTo_Proxy(byval This as IHTMLOMWindowServices ptr, byval x as LONG_, byval y as LONG_) as HRESULT
+declare function IHTMLOMWindowServices_resizeTo_Proxy(byval This as IHTMLOMWindowServices ptr, byval x as LONG, byval y as LONG) as HRESULT
 declare sub IHTMLOMWindowServices_resizeTo_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IHTMLOMWindowServices_resizeBy_Proxy(byval This as IHTMLOMWindowServices ptr, byval x as LONG_, byval y as LONG_) as HRESULT
+declare function IHTMLOMWindowServices_resizeBy_Proxy(byval This as IHTMLOMWindowServices ptr, byval x as LONG, byval y as LONG) as HRESULT
 declare sub IHTMLOMWindowServices_resizeBy_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 
 #define SID_SHTMLOMWindowServices IID_IHTMLOMWindowServices

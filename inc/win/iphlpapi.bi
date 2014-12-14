@@ -53,28 +53,28 @@ declare function NhpAllocateAndGetInterfaceInfoFromStack(byval ppTable as IP_INT
 declare function GetBestInterface(byval dwDestAddr as IPAddr, byval pdwBestIfIndex as PDWORD) as DWORD
 declare function GetBestInterfaceEx(byval pDestAddr as sockaddr ptr, byval pdwBestIfIndex as PDWORD) as DWORD
 declare function GetBestRoute(byval dwDestAddr as DWORD, byval dwSourceAddr as DWORD, byval pBestRoute as PMIB_IPFORWARDROW) as DWORD
-declare function GetExtendedTcpTable(byval pTcpTable as PVOID, byval pdwSize as PDWORD, byval bOrder as BOOL, byval ulAf as ULONG_, byval TableClass as TCP_TABLE_CLASS, byval Reserved as ULONG_) as DWORD
+declare function GetExtendedTcpTable(byval pTcpTable as PVOID, byval pdwSize as PDWORD, byval bOrder as BOOL, byval ulAf as ULONG, byval TableClass as TCP_TABLE_CLASS, byval Reserved as ULONG) as DWORD
 declare function NotifyAddrChange(byval Handle as PHANDLE, byval overlapped as LPOVERLAPPED) as DWORD
 declare function NotifyRouteChange(byval Handle as PHANDLE, byval overlapped as LPOVERLAPPED) as DWORD
 declare function CancelIPChangeNotify(byval notifyOverlapped as LPOVERLAPPED) as WINBOOL
 declare function GetAdapterIndex(byval AdapterName as LPWSTR, byval IfIndex as PULONG) as DWORD
 declare function AddIPAddress(byval Address as IPAddr, byval IpMask as IPMask, byval IfIndex as DWORD, byval NTEContext as PULONG, byval NTEInstance as PULONG) as DWORD
-declare function DeleteIPAddress(byval NTEContext as ULONG_) as DWORD
+declare function DeleteIPAddress(byval NTEContext as ULONG) as DWORD
 declare function GetNetworkParams(byval pFixedInfo as PFIXED_INFO, byval pOutBufLen as PULONG) as DWORD
 declare function GetAdaptersInfo(byval pAdapterInfo as PIP_ADAPTER_INFO, byval pOutBufLen as PULONG) as DWORD
 declare function GetAdapterOrderMap() as PIP_ADAPTER_ORDER_MAP
-declare function GetPerAdapterInfo(byval IfIndex as ULONG_, byval pPerAdapterInfo as PIP_PER_ADAPTER_INFO, byval pOutBufLen as PULONG) as DWORD
+declare function GetPerAdapterInfo(byval IfIndex as ULONG, byval pPerAdapterInfo as PIP_PER_ADAPTER_INFO, byval pOutBufLen as PULONG) as DWORD
 declare function IpReleaseAddress(byval AdapterInfo as PIP_ADAPTER_INDEX_MAP) as DWORD
 declare function IpRenewAddress(byval AdapterInfo as PIP_ADAPTER_INDEX_MAP) as DWORD
 declare function SendARP(byval DestIP as IPAddr, byval SrcIP as IPAddr, byval pMacAddr as PULONG, byval PhyAddrLen as PULONG) as DWORD
-declare function GetRTTAndHopCount(byval DestIpAddress as IPAddr, byval HopCount as PULONG, byval MaxHops as ULONG_, byval RTT as PULONG) as WINBOOL
+declare function GetRTTAndHopCount(byval DestIpAddress as IPAddr, byval HopCount as PULONG, byval MaxHops as ULONG, byval RTT as PULONG) as WINBOOL
 declare function GetFriendlyIfIndex(byval IfIndex as DWORD) as DWORD
 declare function EnableRouter(byval pHandle as HANDLE ptr, byval pOverlapped as OVERLAPPED ptr) as DWORD
 declare function UnenableRouter(byval pOverlapped as OVERLAPPED ptr, byval lpdwEnableCount as LPDWORD) as DWORD
 declare function DisableMediaSense(byval pHandle as HANDLE ptr, byval pOverLapped as OVERLAPPED ptr) as DWORD
 declare function RestoreMediaSense(byval pOverlapped as OVERLAPPED ptr, byval lpdwEnableCount as LPDWORD) as DWORD
 declare function GetIpErrorString(byval ErrorCode as IP_STATUS, byval Buffer as PWCHAR, byval Size as PDWORD) as DWORD
-declare function GetExtendedUdpTable(byval pUdpTable as PVOID, byval pdwSize as PDWORD, byval bOrder as WINBOOL, byval ulAf as ULONG_, byval TableClass as UDP_TABLE_CLASS, byval Reserved as ULONG_) as DWORD
+declare function GetExtendedUdpTable(byval pUdpTable as PVOID, byval pdwSize as PDWORD, byval bOrder as WINBOOL, byval ulAf as ULONG, byval TableClass as UDP_TABLE_CLASS, byval Reserved as ULONG) as DWORD
 declare function GetOwnerModuleFromTcp6Entry(byval pTcpEntry as PMIB_TCP6ROW_OWNER_MODULE, byval Class_ as TCPIP_OWNER_MODULE_INFO_CLASS, byval Buffer as PVOID, byval pdwSize as PDWORD) as DWORD
 declare function GetOwnerModuleFromTcpEntry(byval pTcpEntry as PMIB_TCPROW_OWNER_MODULE, byval Class_ as TCPIP_OWNER_MODULE_INFO_CLASS, byval Buffer as PVOID, byval pdwSize as PDWORD) as DWORD
 declare function GetOwnerModuleFromUdp6Entry(byval pUdpEntry as PMIB_UDP6ROW_OWNER_MODULE, byval Class_ as TCPIP_OWNER_MODULE_INFO_CLASS, byval Buffer as PVOID, byval pdwSize as PDWORD) as DWORD

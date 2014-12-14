@@ -1,6 +1,5 @@
 #pragma once
 
-#include once "crt/long.bi"
 #include once "_mingw_unicode.bi"
 
 '' The following symbols have been renamed:
@@ -191,7 +190,7 @@ type TEXTMODE as tagTextMode
 #define IMF_SMODE_NONE &h0002
 
 type _imecomptext field = 4
-	cb as LONG_
+	cb as LONG
 	flags as DWORD
 end type
 
@@ -297,22 +296,22 @@ type IMECOMPTEXT as _imecomptext
 #define IMF_FORCEINACTIVE &h0080
 #define IMF_FORCEREMEMBER &h0100
 #define IMF_MULTIPLEEDIT &h0400
-#define WBF_CLASS cast(BYTE_, &h0F)
-#define WBF_ISWHITE cast(BYTE_, &h10)
-#define WBF_BREAKLINE cast(BYTE_, &h20)
-#define WBF_BREAKAFTER cast(BYTE_, &h40)
+#define WBF_CLASS cast(BYTE, &h0F)
+#define WBF_ISWHITE cast(BYTE, &h10)
+#define WBF_BREAKLINE cast(BYTE, &h20)
+#define WBF_BREAKAFTER cast(BYTE, &h40)
 
-type EDITWORDBREAKPROCEX as function cdecl(byval pchText as zstring ptr, byval cchText as LONG_, byval bCharSet as BYTE_, byval action as INT_) as LONG_
+type EDITWORDBREAKPROCEX as function cdecl(byval pchText as zstring ptr, byval cchText as LONG, byval bCharSet as BYTE, byval action as INT_) as LONG
 
 type _charformat field = 4
 	cbSize as UINT
 	dwMask as DWORD
 	dwEffects as DWORD
-	yHeight as LONG_
-	yOffset as LONG_
+	yHeight as LONG
+	yOffset as LONG
 	crTextColor as COLORREF
-	bCharSet as BYTE_
-	bPitchAndFamily as BYTE_
+	bCharSet as BYTE
+	bPitchAndFamily as BYTE
 	szFaceName as zstring * 32
 end type
 
@@ -322,11 +321,11 @@ type _charformatw field = 4
 	cbSize as UINT
 	dwMask as DWORD
 	dwEffects as DWORD
-	yHeight as LONG_
-	yOffset as LONG_
+	yHeight as LONG
+	yOffset as LONG
 	crTextColor as COLORREF
-	bCharSet as BYTE_
-	bPitchAndFamily as BYTE_
+	bCharSet as BYTE
+	bPitchAndFamily as BYTE
 	szFaceName(0 to 31) as WCHAR
 end type
 
@@ -338,23 +337,23 @@ type _charformat2w field = 4
 	cbSize as UINT
 	dwMask as DWORD
 	dwEffects as DWORD
-	yHeight as LONG_
-	yOffset as LONG_
+	yHeight as LONG
+	yOffset as LONG
 	crTextColor as COLORREF
-	bCharSet as BYTE_
-	bPitchAndFamily as BYTE_
+	bCharSet as BYTE
+	bPitchAndFamily as BYTE
 	szFaceName(0 to 31) as WCHAR
 	wWeight as WORD
-	sSpacing as SHORT_
+	sSpacing as SHORT
 	crBackColor as COLORREF
 	lcid as LCID
 	dwReserved as DWORD
-	sStyle as SHORT_
+	sStyle as SHORT
 	wKerning as WORD
-	bUnderlineType as BYTE_
-	bAnimation as BYTE_
-	bRevAuthor as BYTE_
-	bReserved1 as BYTE_
+	bUnderlineType as BYTE
+	bAnimation as BYTE
+	bRevAuthor as BYTE
+	bReserved1 as BYTE
 end type
 
 type CHARFORMAT2W as _charformat2w
@@ -363,22 +362,22 @@ type _charformat2a field = 4
 	cbSize as UINT
 	dwMask as DWORD
 	dwEffects as DWORD
-	yHeight as LONG_
-	yOffset as LONG_
+	yHeight as LONG
+	yOffset as LONG
 	crTextColor as COLORREF
-	bCharSet as BYTE_
-	bPitchAndFamily as BYTE_
+	bCharSet as BYTE
+	bPitchAndFamily as BYTE
 	szFaceName as zstring * 32
 	wWeight as WORD
-	sSpacing as SHORT_
+	sSpacing as SHORT
 	crBackColor as COLORREF
 	lcid as LCID
 	dwReserved as DWORD
-	sStyle as SHORT_
+	sStyle as SHORT
 	wKerning as WORD
-	bUnderlineType as BYTE_
-	bAnimation as BYTE_
-	bRevAuthor as BYTE_
+	bUnderlineType as BYTE
+	bAnimation as BYTE
+	bRevAuthor as BYTE
 end type
 
 type CHARFORMAT2A as _charformat2a
@@ -471,8 +470,8 @@ type CHARFORMAT2A as _charformat2a
 #define SCF_ASSOCIATEFONT2 &h0040
 
 type _charrange field = 4
-	cpMin as LONG_
-	cpMax as LONG_
+	cpMin as LONG
+	cpMax as LONG
 end type
 
 type CHARRANGE as _charrange
@@ -493,7 +492,7 @@ type TEXTRANGEW as _textrangew
 
 #define TEXTRANGE __MINGW_NAME_AW(TEXTRANGE)
 
-type EDITSTREAMCALLBACK as function(byval dwCookie as DWORD_PTR, byval pbBuff as LPBYTE, byval cb as LONG_, byval pcb as LONG_ ptr) as DWORD
+type EDITSTREAMCALLBACK as function(byval dwCookie as DWORD_PTR, byval pbBuff as LPBYTE, byval cb as LONG, byval pcb as LONG ptr) as DWORD
 
 type _editstream field = 4
 	dwCookie as DWORD_PTR
@@ -572,12 +571,12 @@ type _paraformat field = 4
 	dwMask as DWORD
 	wNumbering as WORD
 	wEffects as WORD
-	dxStartIndent as LONG_
-	dxRightIndent as LONG_
-	dxOffset as LONG_
+	dxStartIndent as LONG
+	dxRightIndent as LONG
+	dxOffset as LONG
 	wAlignment as WORD
-	cTabCount as SHORT_
-	rgxTabs(0 to 31) as LONG_
+	cTabCount as SHORT
+	rgxTabs(0 to 31) as LONG
 end type
 
 type PARAFORMAT as _paraformat
@@ -587,18 +586,18 @@ type _paraformat2 field = 4
 	dwMask as DWORD
 	wNumbering as WORD
 	wEffects as WORD
-	dxStartIndent as LONG_
-	dxRightIndent as LONG_
-	dxOffset as LONG_
+	dxStartIndent as LONG
+	dxRightIndent as LONG
+	dxOffset as LONG
 	wAlignment as WORD
-	cTabCount as SHORT_
-	rgxTabs(0 to 31) as LONG_
-	dySpaceBefore as LONG_
-	dySpaceAfter as LONG_
-	dyLineSpacing as LONG_
-	sStyle as SHORT_
-	bLineSpacingRule as BYTE_
-	bOutlineLevel as BYTE_
+	cTabCount as SHORT
+	rgxTabs(0 to 31) as LONG
+	dySpaceBefore as LONG
+	dySpaceAfter as LONG
+	dyLineSpacing as LONG
+	sStyle as SHORT
+	bLineSpacingRule as BYTE
+	bOutlineLevel as BYTE
 	wShadingWeight as WORD
 	wShadingStyle as WORD
 	wNumberingStart as WORD
@@ -714,7 +713,7 @@ type SELCHANGE as _selchange
 type _endropfiles field = 4
 	nmhdr as NMHDR
 	hDrop as HANDLE
-	cp as LONG_
+	cp as LONG
 	fProtected as WINBOOL
 end type
 
@@ -732,16 +731,16 @@ type ENPROTECTED as _enprotected
 
 type _ensaveclipboard field = 4
 	nmhdr as NMHDR
-	cObjectCount as LONG_
-	cch as LONG_
+	cObjectCount as LONG
+	cch as LONG
 end type
 
 type ENSAVECLIPBOARD as _ensaveclipboard
 
 type _enoleopfailed field = 4
 	nmhdr as NMHDR
-	iob as LONG_
-	lOper as LONG_
+	iob as LONG
+	lOper as LONG
 	hr as HRESULT
 end type
 
@@ -751,8 +750,8 @@ type ENOLEOPFAILED as _enoleopfailed
 
 type _objectpositions field = 4
 	nmhdr as NMHDR
-	cObjectCount as LONG_
-	pcpPositions as LONG_ ptr
+	cObjectCount as LONG
+	pcpPositions as LONG ptr
 end type
 
 type OBJECTPOSITIONS as _objectpositions
@@ -797,9 +796,9 @@ end type
 
 type COMPCOLOR as _compcolor
 
-#define CF_RTF TEXT_("Rich Text Format")
-#define CF_RTFNOOBJS TEXT_("Rich Text Format Without Objects")
-#define CF_RETEXTOBJ TEXT_("RichEdit Text and Objects")
+#define CF_RTF TEXT("Rich Text Format")
+#define CF_RTFNOOBJS TEXT("Rich Text Format Without Objects")
+#define CF_RETEXTOBJ TEXT("RichEdit Text and Objects")
 
 type _repastespecial field = 4
 	dwAspect as DWORD
@@ -897,18 +896,18 @@ type KHYPH as tagKHYPH
 
 type hyphresult field = 4
 	khyph as KHYPH
-	ichHyph as clong
+	ichHyph as long
 	chHyph as WCHAR
 end type
 
 type HYPHRESULT_ as hyphresult
 
-declare sub HyphenateProc(byval pszWord as WCHAR ptr, byval langid as LANGID, byval ichExceed as clong, byval phyphresult as HYPHRESULT_ ptr)
+declare sub HyphenateProc(byval pszWord as WCHAR ptr, byval langid as LANGID, byval ichExceed as long, byval phyphresult as HYPHRESULT_ ptr)
 
 type tagHyphenateInfo field = 4
-	cbSize as SHORT_
-	dxHyphenateZone as SHORT_
-	pfnHyphenate as sub(byval as WCHAR ptr, byval as LANGID, byval as clong, byval as HYPHRESULT_ ptr)
+	cbSize as SHORT
+	dxHyphenateZone as SHORT
+	pfnHyphenate as sub(byval as WCHAR ptr, byval as LANGID, byval as long, byval as HYPHRESULT_ ptr)
 end type
 
 type HYPHENATEINFO as tagHyphenateInfo

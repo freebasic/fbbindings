@@ -4,8 +4,8 @@
 #include once "ras.bi"
 
 '' The following symbols have been renamed:
-''     #define RASENTRYDLGW => RASENTRYDLGW_
 ''     #define RASENTRYDLGA => RASENTRYDLGA_
+''     #define RASENTRYDLGW => RASENTRYDLGW_
 ''     #define RasEntryDlg => RasEntryDlg_
 ''     #define RasDialDlg => RasDialDlg_
 
@@ -51,11 +51,9 @@ type tagRASNOUSERA field = 4
 end type
 
 #define RASNOUSER __MINGW_NAME_AW(RASNOUSER)
-
-'' TODO: #define LPRASNOUSERW RASNOUSERW*
-'' TODO: #define LPRASNOUSERA RASNOUSERA*
-'' TODO: #define LPRASNOUSER RASNOUSER*
-
+#define LPRASNOUSERW '' TODO: RASNOUSERW*
+#define LPRASNOUSERA '' TODO: RASNOUSERA*
+#define LPRASNOUSER '' TODO: RASNOUSER*
 #define RASPBDFLAG_PositionDlg &h00000001
 #define RASPBDFLAG_ForceCloseOnDial &h00000002
 #define RASPBDFLAG_NoUser &h00000010
@@ -66,8 +64,8 @@ type tagRASPBDLGW field = 4
 	dwSize as DWORD
 	hwndOwner as HWND
 	dwFlags as DWORD
-	xDlg as LONG_
-	yDlg as LONG_
+	xDlg as LONG
+	yDlg as LONG
 	dwCallbackId as ULONG_PTR
 	pCallback as RASPBDLGFUNCW
 	dwError as DWORD
@@ -81,8 +79,8 @@ type tagRASPBDLGA field = 4
 	dwSize as DWORD
 	hwndOwner as HWND
 	dwFlags as DWORD
-	xDlg as LONG_
-	yDlg as LONG_
+	xDlg as LONG
+	yDlg as LONG
 	dwCallbackId as ULONG_PTR
 	pCallback as RASPBDLGFUNCA
 	dwError as DWORD
@@ -92,11 +90,9 @@ end type
 
 #define RASPBDLG __MINGW_NAME_AW(RASPBDLG)
 #define RASPBDLGFUNC __MINGW_NAME_AW(RASPBDLGFUNC)
-
-'' TODO: #define LPRASPBDLGW RASPBDLGW*
-'' TODO: #define LPRASPBDLGA RASPBDLGA*
-'' TODO: #define LPRASPBDLG RASPBDLG*
-
+#define LPRASPBDLGW '' TODO: RASPBDLGW*
+#define LPRASPBDLGA '' TODO: RASPBDLGA*
+#define LPRASPBDLG '' TODO: RASPBDLG*
 #define RASEDFLAG_PositionDlg &h00000001
 #define RASEDFLAG_NewEntry &h00000002
 #define RASEDFLAG_CloneEntry &h00000004
@@ -114,8 +110,8 @@ type tagRASENTRYDLGW field = 4
 	dwSize as DWORD
 	hwndOwner as HWND
 	dwFlags as DWORD
-	xDlg as LONG_
-	yDlg as LONG_
+	xDlg as LONG
+	yDlg as LONG
 	szEntry(0 to (256 + 1) - 1) as WCHAR
 	dwError as DWORD
 	reserved as ULONG_PTR
@@ -128,8 +124,8 @@ type tagRASENTRYDLGA field = 4
 	dwSize as DWORD
 	hwndOwner as HWND
 	dwFlags as DWORD
-	xDlg as LONG_
-	yDlg as LONG_
+	xDlg as LONG
+	yDlg as LONG
 	szEntry(0 to (256 + 1) - 1) as CHAR
 	dwError as DWORD
 	reserved as ULONG_PTR
@@ -137,11 +133,9 @@ type tagRASENTRYDLGA field = 4
 end type
 
 #define RASENTRYDLG __MINGW_NAME_AW(RASENTRYDLG)
-
-'' TODO: #define LPRASENTRYDLGW RASENTRYDLGW*
-'' TODO: #define LPRASENTRYDLGA RASENTRYDLGA*
-'' TODO: #define LPRASENTRYDLG RASENTRYDLG*
-
+#define LPRASENTRYDLGW '' TODO: RASENTRYDLGW*
+#define LPRASENTRYDLGA '' TODO: RASENTRYDLGA*
+#define LPRASENTRYDLG '' TODO: RASENTRYDLG*
 #define RASDDFLAG_PositionDlg &h00000001
 #define RASDDFLAG_NoPrompt &h00000002
 #define RASDDFLAG_LinkFailure &h80000000
@@ -151,15 +145,15 @@ type tagRASDIALDLG field = 4
 	dwSize as DWORD
 	hwndOwner as HWND
 	dwFlags as DWORD
-	xDlg as LONG_
-	yDlg as LONG_
+	xDlg as LONG
+	yDlg as LONG
 	dwSubEntry as DWORD
 	dwError as DWORD
 	reserved as ULONG_PTR
 	reserved2 as ULONG_PTR
 end type
 
-'' TODO: #define LPRASDIALDLG RASDIALDLG*
+#define LPRASDIALDLG '' TODO: RASDIALDLG*
 
 type RasCustomDialDlgFn as function(byval hInstDll as HINSTANCE, byval dwFlags as DWORD, byval lpszPhonebook as LPWSTR, byval lpszEntry as LPWSTR, byval lpszPhoneNumber as LPWSTR, byval lpInfo as tagRASDIALDLG ptr, byval pvInfo as PVOID) as WINBOOL
 

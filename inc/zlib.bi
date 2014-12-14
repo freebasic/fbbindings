@@ -5,10 +5,10 @@
 #include once "crt/stdarg.bi"
 
 '' The following symbols have been renamed:
-''     inside struct z_stream_s:
-''         field opaque => opaque_
 ''     typedef Byte => Byte_
 ''     typedef uLong => uLong_
+''     inside struct z_stream_s:
+''         field opaque => opaque_
 ''     #define zlib_version => zlib_version_
 
 extern "C"

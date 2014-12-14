@@ -122,10 +122,10 @@ type LPCOLORREF as DWORD ptr
 #define HFILE_ERROR cast(HFILE, -1)
 
 type tagRECT
-	left as LONG_
-	top as LONG_
-	right as LONG_
-	bottom as LONG_
+	left as LONG
+	top as LONG
+	right as LONG
+	bottom as LONG
 end type
 
 type RECT as tagRECT
@@ -135,10 +135,10 @@ type LPRECT as tagRECT ptr
 type LPCRECT as const RECT ptr
 
 type _RECTL
-	left as LONG_
-	top as LONG_
-	right as LONG_
-	bottom as LONG_
+	left as LONG
+	top as LONG
+	right as LONG
+	bottom as LONG
 end type
 
 type RECTL as _RECTL
@@ -147,8 +147,8 @@ type LPRECTL as _RECTL ptr
 type LPCRECTL as const RECTL ptr
 
 type tagPOINT
-	x as LONG_
-	y as LONG_
+	x as LONG
+	y as LONG
 end type
 
 type POINT_ as tagPOINT
@@ -157,16 +157,16 @@ type NPPOINT as tagPOINT ptr
 type LPPOINT as tagPOINT ptr
 
 type _POINTL
-	x as LONG_
-	y as LONG_
+	x as LONG
+	y as LONG
 end type
 
 type POINTL as _POINTL
 type PPOINTL as _POINTL ptr
 
 type tagSIZE
-	cx as LONG_
-	cy as LONG_
+	cx as LONG
+	cy as LONG
 end type
 
 type SIZE as tagSIZE
@@ -177,8 +177,8 @@ type PSIZEL as SIZE ptr
 type LPSIZEL as SIZE ptr
 
 type tagPOINTS
-	x as SHORT_
-	y as SHORT_
+	x as SHORT
+	y as SHORT
 end type
 
 type POINTS as tagPOINTS

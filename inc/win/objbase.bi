@@ -87,7 +87,7 @@ declare sub CoFreeAllLibraries()
 declare function CoGetInstanceFromFile(byval pServerInfo as COSERVERINFO ptr, byval pClsid as CLSID ptr, byval punkOuter as IUnknown ptr, byval dwClsCtx as DWORD, byval grfMode as DWORD, byval pwszName as OLECHAR ptr, byval dwCount as DWORD, byval pResults as MULTI_QI ptr) as HRESULT
 declare function CoGetInstanceFromIStorage(byval pServerInfo as COSERVERINFO ptr, byval pClsid as CLSID ptr, byval punkOuter as IUnknown ptr, byval dwClsCtx as DWORD, byval pstg as IStorage ptr, byval dwCount as DWORD, byval pResults as MULTI_QI ptr) as HRESULT
 declare function CoAllowSetForegroundWindow(byval pUnk as IUnknown ptr, byval lpvReserved as LPVOID) as HRESULT
-declare function DcomChannelSetHResult(byval pvReserved as LPVOID, byval pulReserved as ULONG_ ptr, byval appsHR as HRESULT) as HRESULT
+declare function DcomChannelSetHResult(byval pvReserved as LPVOID, byval pulReserved as ULONG ptr, byval appsHR as HRESULT) as HRESULT
 declare function CoIsOle1Class(byval rclsid as const IID const ptr) as WINBOOL
 declare function CLSIDFromProgIDEx(byval lpszProgID as LPCOLESTR, byval lpclsid as LPCLSID) as HRESULT
 declare function CoFileTimeToDosDateTime(byval lpFileTime as FILETIME ptr, byval lpDosDate as LPWORD, byval lpDosTime as LPWORD) as WINBOOL
@@ -113,9 +113,9 @@ declare function StgGetIFillLockBytesOnFile(byval pwcsName as const OLECHAR ptr,
 #define STGOPTIONS_VERSION 2
 
 type tagSTGOPTIONS field = 8
-	usVersion as USHORT_
-	reserved as USHORT_
-	ulSectorSize as ULONG_
+	usVersion as USHORT
+	reserved as USHORT
+	ulSectorSize as ULONG
 	pwcsTemplateFile as const WCHAR ptr
 end type
 
@@ -125,7 +125,7 @@ declare function StgCreateStorageEx(byval pwcsName as const WCHAR ptr, byval grf
 declare function StgOpenStorageEx(byval pwcsName as const WCHAR ptr, byval grfMode as DWORD, byval stgfmt as DWORD, byval grfAttrs as DWORD, byval pStgOptions as STGOPTIONS ptr, byval pSecurityDescriptor as PSECURITY_DESCRIPTOR, byval riid as const IID const ptr, byval ppObjectOpen as any ptr ptr) as HRESULT
 declare function BindMoniker(byval pmk as LPMONIKER, byval grfOpt as DWORD, byval iidResult as const IID const ptr, byval ppvResult as LPVOID ptr) as HRESULT
 declare function CoGetObject(byval pszName as LPCWSTR, byval pBindOptions as BIND_OPTS ptr, byval riid as const IID const ptr, byval ppv as any ptr ptr) as HRESULT
-declare function MkParseDisplayName(byval pbc as LPBC, byval szUserName as LPCOLESTR, byval pchEaten as ULONG_ ptr, byval ppmk as LPMONIKER ptr) as HRESULT
+declare function MkParseDisplayName(byval pbc as LPBC, byval szUserName as LPCOLESTR, byval pchEaten as ULONG ptr, byval ppmk as LPMONIKER ptr) as HRESULT
 declare function MonikerRelativePathTo(byval pmkSrc as LPMONIKER, byval pmkDest as LPMONIKER, byval ppmkRelPath as LPMONIKER ptr, byval dwReserved as WINBOOL) as HRESULT
 declare function MonikerCommonPrefixWith(byval pmkThis as LPMONIKER, byval pmkOther as LPMONIKER, byval ppmkCommon as LPMONIKER ptr) as HRESULT
 declare function CreateBindCtx(byval reserved as DWORD, byval ppbc as LPBC ptr) as HRESULT

@@ -31,8 +31,8 @@ type LPFNLRESULTFROMOBJECT as function(byval riid as const IID const ptr, byval 
 type LPFNOBJECTFROMLRESULT as function(byval lResult as LRESULT, byval riid as const IID const ptr, byval wParam as WPARAM, byval ppvObject as any ptr ptr) as HRESULT
 type LPFNACCESSIBLEOBJECTFROMWINDOW as function(byval hwnd as HWND, byval dwId as DWORD, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 type LPFNACCESSIBLEOBJECTFROMPOINT as function(byval ptScreen as POINT_, byval ppacc as IAccessible ptr ptr, byval pvarChild as VARIANT ptr) as HRESULT
-type LPFNCREATESTDACCESSIBLEOBJECT as function(byval hwnd as HWND, byval idObject as LONG_, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-type LPFNACCESSIBLECHILDREN as function(byval paccContainer as IAccessible ptr, byval iChildStart as LONG_, byval cChildren as LONG_, byval rgvarChildren as VARIANT ptr, byval pcObtained as LONG_ ptr) as HRESULT
+type LPFNCREATESTDACCESSIBLEOBJECT as function(byval hwnd as HWND, byval idObject as LONG, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
+type LPFNACCESSIBLECHILDREN as function(byval paccContainer as IAccessible ptr, byval iChildStart as LONG, byval cChildren as LONG, byval rgvarChildren as VARIANT ptr, byval pcObtained as LONG ptr) as HRESULT
 
 extern LIBID_Accessibility as const GUID
 extern IID_IAccessibleHandler as const GUID
@@ -53,15 +53,15 @@ declare function WindowFromAccessibleObject(byval as IAccessible ptr, byval phwn
 declare function AccessibleObjectFromWindow(byval hwnd as HWND, byval dwId as DWORD, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 declare function AccessibleObjectFromEvent(byval hwnd as HWND, byval dwId as DWORD, byval dwChildId as DWORD, byval ppacc as IAccessible ptr ptr, byval pvarChild as VARIANT ptr) as HRESULT
 declare function AccessibleObjectFromPoint(byval ptScreen as POINT_, byval ppacc as IAccessible ptr ptr, byval pvarChild as VARIANT ptr) as HRESULT
-declare function AccessibleChildren(byval paccContainer as IAccessible ptr, byval iChildStart as LONG_, byval cChildren as LONG_, byval rgvarChildren as VARIANT ptr, byval pcObtained as LONG_ ptr) as HRESULT
+declare function AccessibleChildren(byval paccContainer as IAccessible ptr, byval iChildStart as LONG, byval cChildren as LONG, byval rgvarChildren as VARIANT ptr, byval pcObtained as LONG ptr) as HRESULT
 declare function GetRoleTextA(byval lRole as DWORD, byval lpszRole as LPSTR, byval cchRoleMax as UINT) as UINT
 declare function GetRoleTextW(byval lRole as DWORD, byval lpszRole as LPWSTR, byval cchRoleMax as UINT) as UINT
 declare function GetStateTextA(byval lStateBit as DWORD, byval lpszState as LPSTR, byval cchState as UINT) as UINT
 declare function GetStateTextW(byval lStateBit as DWORD, byval lpszState as LPWSTR, byval cchState as UINT) as UINT
 declare sub GetOleaccVersionInfo(byval pVer as DWORD ptr, byval pBuild as DWORD ptr)
-declare function CreateStdAccessibleObject(byval hwnd as HWND, byval idObject as LONG_, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-declare function CreateStdAccessibleProxyA(byval hwnd as HWND, byval pClassName as LPCSTR, byval idObject as LONG_, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-declare function CreateStdAccessibleProxyW(byval hwnd as HWND, byval pClassName as LPCWSTR, byval idObject as LONG_, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
+declare function CreateStdAccessibleObject(byval hwnd as HWND, byval idObject as LONG, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
+declare function CreateStdAccessibleProxyA(byval hwnd as HWND, byval pClassName as LPCSTR, byval idObject as LONG, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
+declare function CreateStdAccessibleProxyW(byval hwnd as HWND, byval pClassName as LPCWSTR, byval idObject as LONG, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 
 #define MSAA_MENU_SIG __MSABI_LONG(&hAA0DF00D)
 
@@ -210,14 +210,14 @@ extern IID_IAccessible as const GUID
 
 type IAccessibleVtbl
 	QueryInterface as function(byval This as IAccessible ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IAccessible ptr) as ULONG_
-	Release as function(byval This as IAccessible ptr) as ULONG_
+	AddRef as function(byval This as IAccessible ptr) as ULONG
+	Release as function(byval This as IAccessible ptr) as ULONG
 	GetTypeInfoCount as function(byval This as IAccessible ptr, byval pctinfo as UINT ptr) as HRESULT
 	GetTypeInfo as function(byval This as IAccessible ptr, byval iTInfo as UINT, byval lcid as LCID, byval ppTInfo as ITypeInfo ptr ptr) as HRESULT
 	GetIDsOfNames as function(byval This as IAccessible ptr, byval riid as const IID const ptr, byval rgszNames as LPOLESTR ptr, byval cNames as UINT, byval lcid as LCID, byval rgDispId as DISPID ptr) as HRESULT
 	Invoke as function(byval This as IAccessible ptr, byval dispIdMember as DISPID, byval riid as const IID const ptr, byval lcid as LCID, byval wFlags as WORD, byval pDispParams as DISPPARAMS ptr, byval pVarResult as VARIANT ptr, byval pExcepInfo as EXCEPINFO ptr, byval puArgErr as UINT ptr) as HRESULT
 	get_accParent as function(byval This as IAccessible ptr, byval ppdispParent as IDispatch ptr ptr) as HRESULT
-	get_accChildCount as function(byval This as IAccessible ptr, byval pcountChildren as LONG_ ptr) as HRESULT
+	get_accChildCount as function(byval This as IAccessible ptr, byval pcountChildren as LONG ptr) as HRESULT
 	get_accChild as function(byval This as IAccessible ptr, byval varChildID as VARIANT, byval ppdispChild as IDispatch ptr ptr) as HRESULT
 	get_accName as function(byval This as IAccessible ptr, byval varID as VARIANT, byval pszName as BSTR ptr) as HRESULT
 	get_accValue as function(byval This as IAccessible ptr, byval varID as VARIANT, byval pszValue as BSTR ptr) as HRESULT
@@ -225,15 +225,15 @@ type IAccessibleVtbl
 	get_accRole as function(byval This as IAccessible ptr, byval varID as VARIANT, byval pvarRole as VARIANT ptr) as HRESULT
 	get_accState as function(byval This as IAccessible ptr, byval varID as VARIANT, byval pvarState as VARIANT ptr) as HRESULT
 	get_accHelp as function(byval This as IAccessible ptr, byval varID as VARIANT, byval pszHelp as BSTR ptr) as HRESULT
-	get_accHelpTopic as function(byval This as IAccessible ptr, byval pszHelpFile as BSTR ptr, byval varID as VARIANT, byval pidTopic as LONG_ ptr) as HRESULT
+	get_accHelpTopic as function(byval This as IAccessible ptr, byval pszHelpFile as BSTR ptr, byval varID as VARIANT, byval pidTopic as LONG ptr) as HRESULT
 	get_accKeyboardShortcut as function(byval This as IAccessible ptr, byval varID as VARIANT, byval pszKeyboardShortcut as BSTR ptr) as HRESULT
 	get_accFocus as function(byval This as IAccessible ptr, byval pvarID as VARIANT ptr) as HRESULT
 	get_accSelection as function(byval This as IAccessible ptr, byval pvarID as VARIANT ptr) as HRESULT
 	get_accDefaultAction as function(byval This as IAccessible ptr, byval varID as VARIANT, byval pszDefaultAction as BSTR ptr) as HRESULT
-	accSelect as function(byval This as IAccessible ptr, byval flagsSelect as LONG_, byval varID as VARIANT) as HRESULT
-	accLocation as function(byval This as IAccessible ptr, byval pxLeft as LONG_ ptr, byval pyTop as LONG_ ptr, byval pcxWidth as LONG_ ptr, byval pcyHeight as LONG_ ptr, byval varID as VARIANT) as HRESULT
-	accNavigate as function(byval This as IAccessible ptr, byval navDir as LONG_, byval varStart as VARIANT, byval pvarEnd as VARIANT ptr) as HRESULT
-	accHitTest as function(byval This as IAccessible ptr, byval xLeft as LONG_, byval yTop as LONG_, byval pvarID as VARIANT ptr) as HRESULT
+	accSelect as function(byval This as IAccessible ptr, byval flagsSelect as LONG, byval varID as VARIANT) as HRESULT
+	accLocation as function(byval This as IAccessible ptr, byval pxLeft as LONG ptr, byval pyTop as LONG ptr, byval pcxWidth as LONG ptr, byval pcyHeight as LONG ptr, byval varID as VARIANT) as HRESULT
+	accNavigate as function(byval This as IAccessible ptr, byval navDir as LONG, byval varStart as VARIANT, byval pvarEnd as VARIANT ptr) as HRESULT
+	accHitTest as function(byval This as IAccessible ptr, byval xLeft as LONG, byval yTop as LONG, byval pvarID as VARIANT ptr) as HRESULT
 	accDoDefaultAction as function(byval This as IAccessible ptr, byval varID as VARIANT) as HRESULT
 	put_accName as function(byval This as IAccessible ptr, byval varID as VARIANT, byval pszName as BSTR) as HRESULT
 	put_accValue as function(byval This as IAccessible ptr, byval varID as VARIANT, byval pszValue as BSTR) as HRESULT
@@ -245,7 +245,7 @@ end type
 
 declare function IAccessible_get_accParent_Proxy(byval This as IAccessible ptr, byval ppdispParent as IDispatch ptr ptr) as HRESULT
 declare sub IAccessible_get_accParent_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-declare function IAccessible_get_accChildCount_Proxy(byval This as IAccessible ptr, byval pcountChildren as LONG_ ptr) as HRESULT
+declare function IAccessible_get_accChildCount_Proxy(byval This as IAccessible ptr, byval pcountChildren as LONG ptr) as HRESULT
 declare sub IAccessible_get_accChildCount_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IAccessible_get_accChild_Proxy(byval This as IAccessible ptr, byval varChildID as VARIANT, byval ppdispChild as IDispatch ptr ptr) as HRESULT
 declare sub IAccessible_get_accChild_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
@@ -261,7 +261,7 @@ declare function IAccessible_get_accState_Proxy(byval This as IAccessible ptr, b
 declare sub IAccessible_get_accState_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IAccessible_get_accHelp_Proxy(byval This as IAccessible ptr, byval varID as VARIANT, byval pszHelp as BSTR ptr) as HRESULT
 declare sub IAccessible_get_accHelp_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-declare function IAccessible_get_accHelpTopic_Proxy(byval This as IAccessible ptr, byval pszHelpFile as BSTR ptr, byval varID as VARIANT, byval pidTopic as LONG_ ptr) as HRESULT
+declare function IAccessible_get_accHelpTopic_Proxy(byval This as IAccessible ptr, byval pszHelpFile as BSTR ptr, byval varID as VARIANT, byval pidTopic as LONG ptr) as HRESULT
 declare sub IAccessible_get_accHelpTopic_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IAccessible_get_accKeyboardShortcut_Proxy(byval This as IAccessible ptr, byval varID as VARIANT, byval pszKeyboardShortcut as BSTR ptr) as HRESULT
 declare sub IAccessible_get_accKeyboardShortcut_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
@@ -271,13 +271,13 @@ declare function IAccessible_get_accSelection_Proxy(byval This as IAccessible pt
 declare sub IAccessible_get_accSelection_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IAccessible_get_accDefaultAction_Proxy(byval This as IAccessible ptr, byval varID as VARIANT, byval pszDefaultAction as BSTR ptr) as HRESULT
 declare sub IAccessible_get_accDefaultAction_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-declare function IAccessible_accSelect_Proxy(byval This as IAccessible ptr, byval flagsSelect as LONG_, byval varID as VARIANT) as HRESULT
+declare function IAccessible_accSelect_Proxy(byval This as IAccessible ptr, byval flagsSelect as LONG, byval varID as VARIANT) as HRESULT
 declare sub IAccessible_accSelect_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-declare function IAccessible_accLocation_Proxy(byval This as IAccessible ptr, byval pxLeft as LONG_ ptr, byval pyTop as LONG_ ptr, byval pcxWidth as LONG_ ptr, byval pcyHeight as LONG_ ptr, byval varID as VARIANT) as HRESULT
+declare function IAccessible_accLocation_Proxy(byval This as IAccessible ptr, byval pxLeft as LONG ptr, byval pyTop as LONG ptr, byval pcxWidth as LONG ptr, byval pcyHeight as LONG ptr, byval varID as VARIANT) as HRESULT
 declare sub IAccessible_accLocation_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-declare function IAccessible_accNavigate_Proxy(byval This as IAccessible ptr, byval navDir as LONG_, byval varStart as VARIANT, byval pvarEnd as VARIANT ptr) as HRESULT
+declare function IAccessible_accNavigate_Proxy(byval This as IAccessible ptr, byval navDir as LONG, byval varStart as VARIANT, byval pvarEnd as VARIANT ptr) as HRESULT
 declare sub IAccessible_accNavigate_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-declare function IAccessible_accHitTest_Proxy(byval This as IAccessible ptr, byval xLeft as LONG_, byval yTop as LONG_, byval pvarID as VARIANT ptr) as HRESULT
+declare function IAccessible_accHitTest_Proxy(byval This as IAccessible ptr, byval xLeft as LONG, byval yTop as LONG, byval pvarID as VARIANT ptr) as HRESULT
 declare sub IAccessible_accHitTest_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IAccessible_accDoDefaultAction_Proxy(byval This as IAccessible ptr, byval varID as VARIANT) as HRESULT
 declare sub IAccessible_accDoDefaultAction_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
@@ -292,16 +292,16 @@ type LPACCESSIBLEHANDLER as IAccessibleHandler ptr
 
 type IAccessibleHandlerVtbl
 	QueryInterface as function(byval This as IAccessibleHandler ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IAccessibleHandler ptr) as ULONG_
-	Release as function(byval This as IAccessibleHandler ptr) as ULONG_
-	AccessibleObjectFromID as function(byval This as IAccessibleHandler ptr, byval hwnd as LONG_, byval lObjectID as LONG_, byval pIAccessible as LPACCESSIBLE ptr) as HRESULT
+	AddRef as function(byval This as IAccessibleHandler ptr) as ULONG
+	Release as function(byval This as IAccessibleHandler ptr) as ULONG
+	AccessibleObjectFromID as function(byval This as IAccessibleHandler ptr, byval hwnd as LONG, byval lObjectID as LONG, byval pIAccessible as LPACCESSIBLE ptr) as HRESULT
 end type
 
 type IAccessibleHandler_
 	lpVtbl as IAccessibleHandlerVtbl ptr
 end type
 
-declare function IAccessibleHandler_AccessibleObjectFromID_Proxy(byval This as IAccessibleHandler ptr, byval hwnd as LONG_, byval lObjectID as LONG_, byval pIAccessible as LPACCESSIBLE ptr) as HRESULT
+declare function IAccessibleHandler_AccessibleObjectFromID_Proxy(byval This as IAccessibleHandler ptr, byval hwnd as LONG, byval lObjectID as LONG, byval pIAccessible as LPACCESSIBLE ptr) as HRESULT
 declare sub IAccessibleHandler_AccessibleObjectFromID_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 
 type AnnoScope as long
@@ -319,66 +319,66 @@ extern __MIDL_itf_oleacc_0116_v0_0_s_ifspec as RPC_IF_HANDLE
 
 type IAccIdentityVtbl
 	QueryInterface as function(byval This as IAccIdentity ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IAccIdentity ptr) as ULONG_
-	Release as function(byval This as IAccIdentity ptr) as ULONG_
-	GetIdentityString as function(byval This as IAccIdentity ptr, byval dwIDChild as DWORD, byval ppIDString as BYTE_ ptr ptr, byval pdwIDStringLen as DWORD ptr) as HRESULT
+	AddRef as function(byval This as IAccIdentity ptr) as ULONG
+	Release as function(byval This as IAccIdentity ptr) as ULONG
+	GetIdentityString as function(byval This as IAccIdentity ptr, byval dwIDChild as DWORD, byval ppIDString as BYTE ptr ptr, byval pdwIDStringLen as DWORD ptr) as HRESULT
 end type
 
 type IAccIdentity_
 	lpVtbl as IAccIdentityVtbl ptr
 end type
 
-declare function IAccIdentity_GetIdentityString_Proxy(byval This as IAccIdentity ptr, byval dwIDChild as DWORD, byval ppIDString as BYTE_ ptr ptr, byval pdwIDStringLen as DWORD ptr) as HRESULT
+declare function IAccIdentity_GetIdentityString_Proxy(byval This as IAccIdentity ptr, byval dwIDChild as DWORD, byval ppIDString as BYTE ptr ptr, byval pdwIDStringLen as DWORD ptr) as HRESULT
 declare sub IAccIdentity_GetIdentityString_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 
 #define __IAccPropServer_INTERFACE_DEFINED__
 
 type IAccPropServerVtbl
 	QueryInterface as function(byval This as IAccPropServer ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IAccPropServer ptr) as ULONG_
-	Release as function(byval This as IAccPropServer ptr) as ULONG_
-	GetPropValue as function(byval This as IAccPropServer ptr, byval pIDString as const BYTE_ ptr, byval dwIDStringLen as DWORD, byval idProp as MSAAPROPID, byval pvarValue as VARIANT ptr, byval pfHasProp as WINBOOL ptr) as HRESULT
+	AddRef as function(byval This as IAccPropServer ptr) as ULONG
+	Release as function(byval This as IAccPropServer ptr) as ULONG
+	GetPropValue as function(byval This as IAccPropServer ptr, byval pIDString as const BYTE ptr, byval dwIDStringLen as DWORD, byval idProp as MSAAPROPID, byval pvarValue as VARIANT ptr, byval pfHasProp as WINBOOL ptr) as HRESULT
 end type
 
 type IAccPropServer_
 	lpVtbl as IAccPropServerVtbl ptr
 end type
 
-declare function IAccPropServer_GetPropValue_Proxy(byval This as IAccPropServer ptr, byval pIDString as const BYTE_ ptr, byval dwIDStringLen as DWORD, byval idProp as MSAAPROPID, byval pvarValue as VARIANT ptr, byval pfHasProp as WINBOOL ptr) as HRESULT
+declare function IAccPropServer_GetPropValue_Proxy(byval This as IAccPropServer ptr, byval pIDString as const BYTE ptr, byval dwIDStringLen as DWORD, byval idProp as MSAAPROPID, byval pvarValue as VARIANT ptr, byval pfHasProp as WINBOOL ptr) as HRESULT
 declare sub IAccPropServer_GetPropValue_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 
 #define __IAccPropServices_INTERFACE_DEFINED__
 
 type IAccPropServicesVtbl
 	QueryInterface as function(byval This as IAccPropServices ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IAccPropServices ptr) as ULONG_
-	Release as function(byval This as IAccPropServices ptr) as ULONG_
-	SetPropValue as function(byval This as IAccPropServices ptr, byval pIDString as const BYTE_ ptr, byval dwIDStringLen as DWORD, byval idProp as MSAAPROPID, byval var_ as VARIANT) as HRESULT
-	SetPropServer as function(byval This as IAccPropServices ptr, byval pIDString as const BYTE_ ptr, byval dwIDStringLen as DWORD, byval paProps as const MSAAPROPID ptr, byval cProps as long, byval pServer as IAccPropServer ptr, byval annoScope as AnnoScope) as HRESULT
-	ClearProps as function(byval This as IAccPropServices ptr, byval pIDString as const BYTE_ ptr, byval dwIDStringLen as DWORD, byval paProps as const MSAAPROPID ptr, byval cProps as long) as HRESULT
+	AddRef as function(byval This as IAccPropServices ptr) as ULONG
+	Release as function(byval This as IAccPropServices ptr) as ULONG
+	SetPropValue as function(byval This as IAccPropServices ptr, byval pIDString as const BYTE ptr, byval dwIDStringLen as DWORD, byval idProp as MSAAPROPID, byval var_ as VARIANT) as HRESULT
+	SetPropServer as function(byval This as IAccPropServices ptr, byval pIDString as const BYTE ptr, byval dwIDStringLen as DWORD, byval paProps as const MSAAPROPID ptr, byval cProps as long, byval pServer as IAccPropServer ptr, byval annoScope as AnnoScope) as HRESULT
+	ClearProps as function(byval This as IAccPropServices ptr, byval pIDString as const BYTE ptr, byval dwIDStringLen as DWORD, byval paProps as const MSAAPROPID ptr, byval cProps as long) as HRESULT
 	SetHwndProp as function(byval This as IAccPropServices ptr, byval hwnd as HWND, byval idObject as DWORD, byval idChild as DWORD, byval idProp as MSAAPROPID, byval var_ as VARIANT) as HRESULT
 	SetHwndPropStr as function(byval This as IAccPropServices ptr, byval hwnd as HWND, byval idObject as DWORD, byval idChild as DWORD, byval idProp as MSAAPROPID, byval str_ as LPCWSTR) as HRESULT
 	SetHwndPropServer as function(byval This as IAccPropServices ptr, byval hwnd as HWND, byval idObject as DWORD, byval idChild as DWORD, byval paProps as const MSAAPROPID ptr, byval cProps as long, byval pServer as IAccPropServer ptr, byval annoScope as AnnoScope) as HRESULT
 	ClearHwndProps as function(byval This as IAccPropServices ptr, byval hwnd as HWND, byval idObject as DWORD, byval idChild as DWORD, byval paProps as const MSAAPROPID ptr, byval cProps as long) as HRESULT
-	ComposeHwndIdentityString as function(byval This as IAccPropServices ptr, byval hwnd as HWND, byval idObject as DWORD, byval idChild as DWORD, byval ppIDString as BYTE_ ptr ptr, byval pdwIDStringLen as DWORD ptr) as HRESULT
-	DecomposeHwndIdentityString as function(byval This as IAccPropServices ptr, byval pIDString as const BYTE_ ptr, byval dwIDStringLen as DWORD, byval phwnd as HWND ptr, byval pidObject as DWORD ptr, byval pidChild as DWORD ptr) as HRESULT
+	ComposeHwndIdentityString as function(byval This as IAccPropServices ptr, byval hwnd as HWND, byval idObject as DWORD, byval idChild as DWORD, byval ppIDString as BYTE ptr ptr, byval pdwIDStringLen as DWORD ptr) as HRESULT
+	DecomposeHwndIdentityString as function(byval This as IAccPropServices ptr, byval pIDString as const BYTE ptr, byval dwIDStringLen as DWORD, byval phwnd as HWND ptr, byval pidObject as DWORD ptr, byval pidChild as DWORD ptr) as HRESULT
 	SetHmenuProp as function(byval This as IAccPropServices ptr, byval hmenu as HMENU, byval idChild as DWORD, byval idProp as MSAAPROPID, byval var_ as VARIANT) as HRESULT
 	SetHmenuPropStr as function(byval This as IAccPropServices ptr, byval hmenu as HMENU, byval idChild as DWORD, byval idProp as MSAAPROPID, byval str_ as LPCWSTR) as HRESULT
 	SetHmenuPropServer as function(byval This as IAccPropServices ptr, byval hmenu as HMENU, byval idChild as DWORD, byval paProps as const MSAAPROPID ptr, byval cProps as long, byval pServer as IAccPropServer ptr, byval annoScope as AnnoScope) as HRESULT
 	ClearHmenuProps as function(byval This as IAccPropServices ptr, byval hmenu as HMENU, byval idChild as DWORD, byval paProps as const MSAAPROPID ptr, byval cProps as long) as HRESULT
-	ComposeHmenuIdentityString as function(byval This as IAccPropServices ptr, byval hmenu as HMENU, byval idChild as DWORD, byval ppIDString as BYTE_ ptr ptr, byval pdwIDStringLen as DWORD ptr) as HRESULT
-	DecomposeHmenuIdentityString as function(byval This as IAccPropServices ptr, byval pIDString as const BYTE_ ptr, byval dwIDStringLen as DWORD, byval phmenu as HMENU ptr, byval pidChild as DWORD ptr) as HRESULT
+	ComposeHmenuIdentityString as function(byval This as IAccPropServices ptr, byval hmenu as HMENU, byval idChild as DWORD, byval ppIDString as BYTE ptr ptr, byval pdwIDStringLen as DWORD ptr) as HRESULT
+	DecomposeHmenuIdentityString as function(byval This as IAccPropServices ptr, byval pIDString as const BYTE ptr, byval dwIDStringLen as DWORD, byval phmenu as HMENU ptr, byval pidChild as DWORD ptr) as HRESULT
 end type
 
 type IAccPropServices_
 	lpVtbl as IAccPropServicesVtbl ptr
 end type
 
-declare function IAccPropServices_SetPropValue_Proxy(byval This as IAccPropServices ptr, byval pIDString as const BYTE_ ptr, byval dwIDStringLen as DWORD, byval idProp as MSAAPROPID, byval var_ as VARIANT) as HRESULT
+declare function IAccPropServices_SetPropValue_Proxy(byval This as IAccPropServices ptr, byval pIDString as const BYTE ptr, byval dwIDStringLen as DWORD, byval idProp as MSAAPROPID, byval var_ as VARIANT) as HRESULT
 declare sub IAccPropServices_SetPropValue_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IAccPropServices_SetPropServer_Proxy(byval This as IAccPropServices ptr, byval pIDString as const BYTE_ ptr, byval dwIDStringLen as DWORD, byval paProps as const MSAAPROPID ptr, byval cProps as long, byval pServer as IAccPropServer ptr, byval annoScope as AnnoScope) as HRESULT
+declare function IAccPropServices_SetPropServer_Proxy(byval This as IAccPropServices ptr, byval pIDString as const BYTE ptr, byval dwIDStringLen as DWORD, byval paProps as const MSAAPROPID ptr, byval cProps as long, byval pServer as IAccPropServer ptr, byval annoScope as AnnoScope) as HRESULT
 declare sub IAccPropServices_SetPropServer_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IAccPropServices_ClearProps_Proxy(byval This as IAccPropServices ptr, byval pIDString as const BYTE_ ptr, byval dwIDStringLen as DWORD, byval paProps as const MSAAPROPID ptr, byval cProps as long) as HRESULT
+declare function IAccPropServices_ClearProps_Proxy(byval This as IAccPropServices ptr, byval pIDString as const BYTE ptr, byval dwIDStringLen as DWORD, byval paProps as const MSAAPROPID ptr, byval cProps as long) as HRESULT
 declare sub IAccPropServices_ClearProps_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IAccPropServices_SetHwndProp_Proxy(byval This as IAccPropServices ptr, byval hwnd as HWND, byval idObject as DWORD, byval idChild as DWORD, byval idProp as MSAAPROPID, byval var_ as VARIANT) as HRESULT
 declare sub IAccPropServices_SetHwndProp_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
@@ -388,9 +388,9 @@ declare function IAccPropServices_SetHwndPropServer_Proxy(byval This as IAccProp
 declare sub IAccPropServices_SetHwndPropServer_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IAccPropServices_ClearHwndProps_Proxy(byval This as IAccPropServices ptr, byval hwnd as HWND, byval idObject as DWORD, byval idChild as DWORD, byval paProps as const MSAAPROPID ptr, byval cProps as long) as HRESULT
 declare sub IAccPropServices_ClearHwndProps_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IAccPropServices_ComposeHwndIdentityString_Proxy(byval This as IAccPropServices ptr, byval hwnd as HWND, byval idObject as DWORD, byval idChild as DWORD, byval ppIDString as BYTE_ ptr ptr, byval pdwIDStringLen as DWORD ptr) as HRESULT
+declare function IAccPropServices_ComposeHwndIdentityString_Proxy(byval This as IAccPropServices ptr, byval hwnd as HWND, byval idObject as DWORD, byval idChild as DWORD, byval ppIDString as BYTE ptr ptr, byval pdwIDStringLen as DWORD ptr) as HRESULT
 declare sub IAccPropServices_ComposeHwndIdentityString_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IAccPropServices_DecomposeHwndIdentityString_Proxy(byval This as IAccPropServices ptr, byval pIDString as const BYTE_ ptr, byval dwIDStringLen as DWORD, byval phwnd as HWND ptr, byval pidObject as DWORD ptr, byval pidChild as DWORD ptr) as HRESULT
+declare function IAccPropServices_DecomposeHwndIdentityString_Proxy(byval This as IAccPropServices ptr, byval pIDString as const BYTE ptr, byval dwIDStringLen as DWORD, byval phwnd as HWND ptr, byval pidObject as DWORD ptr, byval pidChild as DWORD ptr) as HRESULT
 declare sub IAccPropServices_DecomposeHwndIdentityString_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IAccPropServices_SetHmenuProp_Proxy(byval This as IAccPropServices ptr, byval hmenu as HMENU, byval idChild as DWORD, byval idProp as MSAAPROPID, byval var_ as VARIANT) as HRESULT
 declare sub IAccPropServices_SetHmenuProp_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
@@ -400,9 +400,9 @@ declare function IAccPropServices_SetHmenuPropServer_Proxy(byval This as IAccPro
 declare sub IAccPropServices_SetHmenuPropServer_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IAccPropServices_ClearHmenuProps_Proxy(byval This as IAccPropServices ptr, byval hmenu as HMENU, byval idChild as DWORD, byval paProps as const MSAAPROPID ptr, byval cProps as long) as HRESULT
 declare sub IAccPropServices_ClearHmenuProps_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IAccPropServices_ComposeHmenuIdentityString_Proxy(byval This as IAccPropServices ptr, byval hmenu as HMENU, byval idChild as DWORD, byval ppIDString as BYTE_ ptr ptr, byval pdwIDStringLen as DWORD ptr) as HRESULT
+declare function IAccPropServices_ComposeHmenuIdentityString_Proxy(byval This as IAccPropServices ptr, byval hmenu as HMENU, byval idChild as DWORD, byval ppIDString as BYTE ptr ptr, byval pdwIDStringLen as DWORD ptr) as HRESULT
 declare sub IAccPropServices_ComposeHmenuIdentityString_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IAccPropServices_DecomposeHmenuIdentityString_Proxy(byval This as IAccPropServices ptr, byval pIDString as const BYTE_ ptr, byval dwIDStringLen as DWORD, byval phmenu as HMENU ptr, byval pidChild as DWORD ptr) as HRESULT
+declare function IAccPropServices_DecomposeHmenuIdentityString_Proxy(byval This as IAccPropServices ptr, byval pIDString as const BYTE ptr, byval dwIDStringLen as DWORD, byval phmenu as HMENU ptr, byval pidChild as DWORD ptr) as HRESULT
 declare sub IAccPropServices_DecomposeHmenuIdentityString_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 
 extern __MIDL_itf_oleacc_0119_v0_0_c_ifspec as RPC_IF_HANDLE

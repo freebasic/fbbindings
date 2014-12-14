@@ -20,8 +20,8 @@
 ''     #define EMPTY_STRING => EMPTY_STRING_
 ''     #define SYSTEM_NONE => SYSTEM_NONE_
 ''     #define MOUSEDRV_NONE => MOUSEDRV_NONE_
-''     #define DRAW_SPRITE_H_FLIP => DRAW_SPRITE_H_FLIP_
 ''     #define DRAW_SPRITE_V_FLIP => DRAW_SPRITE_V_FLIP_
+''     #define DRAW_SPRITE_H_FLIP => DRAW_SPRITE_H_FLIP_
 ''     #define DRAW_SPRITE_VH_FLIP => DRAW_SPRITE_VH_FLIP_
 ''     #define MIDI_DIGMID => MIDI_DIGMID_
 ''     #define EOF => EOF_

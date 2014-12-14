@@ -294,7 +294,7 @@ type _DMUS_SYNTHSTATS field = 8
 	dwCPUPerVoice as DWORD
 	dwLostNotes as DWORD
 	dwFreeMemory as DWORD
-	lPeakVolume as LONG_
+	lPeakVolume as LONG
 end type
 
 type _DMUS_SYNTHSTATS8 field = 8
@@ -305,7 +305,7 @@ type _DMUS_SYNTHSTATS8 field = 8
 	dwCPUPerVoice as DWORD
 	dwLostNotes as DWORD
 	dwFreeMemory as DWORD
-	lPeakVolume as LONG_
+	lPeakVolume as LONG
 	dwSynthMemUse as DWORD
 end type
 
@@ -337,8 +337,8 @@ end type
 
 type IDirectMusicVtbl_ field = 8
 	QueryInterface as function(byval This as IDirectMusic ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirectMusic ptr) as ULONG_
-	Release as function(byval This as IDirectMusic ptr) as ULONG_
+	AddRef as function(byval This as IDirectMusic ptr) as ULONG
+	Release as function(byval This as IDirectMusic ptr) as ULONG
 	EnumPort as function(byval This as IDirectMusic ptr, byval dwIndex as DWORD, byval pPortCaps as LPDMUS_PORTCAPS) as HRESULT
 	CreateMusicBuffer as function(byval This as IDirectMusic ptr, byval pBufferDesc as LPDMUS_BUFFERDESC, byval ppBuffer as LPDIRECTMUSICBUFFER ptr, byval pUnkOuter as LPUNKNOWN) as HRESULT
 	CreatePort as function(byval This as IDirectMusic ptr, byval rclsidPort as const IID const ptr, byval pPortParams as LPDMUS_PORTPARAMS, byval ppPort as LPDIRECTMUSICPORT ptr, byval pUnkOuter as LPUNKNOWN) as HRESULT
@@ -369,8 +369,8 @@ end type
 
 type IDirectMusic8Vtbl_ field = 8
 	QueryInterface as function(byval This as IDirectMusic8 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirectMusic8 ptr) as ULONG_
-	Release as function(byval This as IDirectMusic8 ptr) as ULONG_
+	AddRef as function(byval This as IDirectMusic8 ptr) as ULONG
+	Release as function(byval This as IDirectMusic8 ptr) as ULONG
 	EnumPort as function(byval This as IDirectMusic8 ptr, byval dwIndex as DWORD, byval pPortCaps as LPDMUS_PORTCAPS) as HRESULT
 	CreateMusicBuffer as function(byval This as IDirectMusic8 ptr, byval pBufferDesc as LPDMUS_BUFFERDESC, byval ppBuffer as LPDIRECTMUSICBUFFER ptr, byval pUnkOuter as LPUNKNOWN) as HRESULT
 	CreatePort as function(byval This as IDirectMusic8 ptr, byval rclsidPort as const IID const ptr, byval pPortParams as LPDMUS_PORTPARAMS, byval ppPort as LPDIRECTMUSICPORT ptr, byval pUnkOuter as LPUNKNOWN) as HRESULT
@@ -403,8 +403,8 @@ end type
 
 type IDirectMusicBufferVtbl_ field = 8
 	QueryInterface as function(byval This as IDirectMusicBuffer ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirectMusicBuffer ptr) as ULONG_
-	Release as function(byval This as IDirectMusicBuffer ptr) as ULONG_
+	AddRef as function(byval This as IDirectMusicBuffer ptr) as ULONG
+	Release as function(byval This as IDirectMusicBuffer ptr) as ULONG
 	Flush as function(byval This as IDirectMusicBuffer ptr) as HRESULT
 	TotalTime as function(byval This as IDirectMusicBuffer ptr, byval prtTime as LPREFERENCE_TIME) as HRESULT
 	PackStructured as function(byval This as IDirectMusicBuffer ptr, byval rt as REFERENCE_TIME, byval dwChannelGroup as DWORD, byval dwChannelMessage as DWORD) as HRESULT
@@ -443,8 +443,8 @@ end type
 
 type IDirectMusicInstrumentVtbl_ field = 8
 	QueryInterface as function(byval This as IDirectMusicInstrument ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirectMusicInstrument ptr) as ULONG_
-	Release as function(byval This as IDirectMusicInstrument ptr) as ULONG_
+	AddRef as function(byval This as IDirectMusicInstrument ptr) as ULONG
+	Release as function(byval This as IDirectMusicInstrument ptr) as ULONG
 	GetPatch as function(byval This as IDirectMusicInstrument ptr, byval pdwPatch as DWORD ptr) as HRESULT
 	SetPatch as function(byval This as IDirectMusicInstrument ptr, byval dwPatch as DWORD) as HRESULT
 end type
@@ -461,8 +461,8 @@ end type
 
 type IDirectMusicDownloadedInstrumentVtbl_ field = 8
 	QueryInterface as function(byval This as IDirectMusicDownloadedInstrument ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirectMusicDownloadedInstrument ptr) as ULONG_
-	Release as function(byval This as IDirectMusicDownloadedInstrument ptr) as ULONG_
+	AddRef as function(byval This as IDirectMusicDownloadedInstrument ptr) as ULONG
+	Release as function(byval This as IDirectMusicDownloadedInstrument ptr) as ULONG
 end type
 
 #define IDirectMusicDownloadedInstrument_QueryInterface(p, a, b) (p)->lpVtbl->QueryInterface(p, a, b)
@@ -475,8 +475,8 @@ end type
 
 type IDirectMusicCollectionVtbl_ field = 8
 	QueryInterface as function(byval This as IDirectMusicCollection ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirectMusicCollection ptr) as ULONG_
-	Release as function(byval This as IDirectMusicCollection ptr) as ULONG_
+	AddRef as function(byval This as IDirectMusicCollection ptr) as ULONG
+	Release as function(byval This as IDirectMusicCollection ptr) as ULONG
 	GetInstrument as function(byval This as IDirectMusicCollection ptr, byval dwPatch as DWORD, byval ppInstrument as IDirectMusicInstrument ptr ptr) as HRESULT
 	EnumInstrument as function(byval This as IDirectMusicCollection ptr, byval dwIndex as DWORD, byval pdwPatch as DWORD ptr, byval pwszName as LPWSTR, byval dwNameLen as DWORD) as HRESULT
 end type
@@ -493,8 +493,8 @@ end type
 
 type IDirectMusicDownloadVtbl_ field = 8
 	QueryInterface as function(byval This as IDirectMusicDownload ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirectMusicDownload ptr) as ULONG_
-	Release as function(byval This as IDirectMusicDownload ptr) as ULONG_
+	AddRef as function(byval This as IDirectMusicDownload ptr) as ULONG
+	Release as function(byval This as IDirectMusicDownload ptr) as ULONG
 	GetBuffer as function(byval This as IDirectMusicDownload ptr, byval ppvBuffer as any ptr ptr, byval pdwSize as DWORD ptr) as HRESULT
 end type
 
@@ -509,8 +509,8 @@ end type
 
 type IDirectMusicPortDownloadVtbl_ field = 8
 	QueryInterface as function(byval This as IDirectMusicPortDownload ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirectMusicPortDownload ptr) as ULONG_
-	Release as function(byval This as IDirectMusicPortDownload ptr) as ULONG_
+	AddRef as function(byval This as IDirectMusicPortDownload ptr) as ULONG
+	Release as function(byval This as IDirectMusicPortDownload ptr) as ULONG
 	GetBuffer as function(byval This as IDirectMusicPortDownload ptr, byval dwDLId as DWORD, byval ppIDMDownload as IDirectMusicDownload ptr ptr) as HRESULT
 	AllocateBuffer as function(byval This as IDirectMusicPortDownload ptr, byval dwSize as DWORD, byval ppIDMDownload as IDirectMusicDownload ptr ptr) as HRESULT
 	GetDLId as function(byval This as IDirectMusicPortDownload ptr, byval pdwStartDLId as DWORD ptr, byval dwCount as DWORD) as HRESULT
@@ -535,8 +535,8 @@ end type
 
 type IDirectMusicPortVtbl_ field = 8
 	QueryInterface as function(byval This as IDirectMusicPort ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirectMusicPort ptr) as ULONG_
-	Release as function(byval This as IDirectMusicPort ptr) as ULONG_
+	AddRef as function(byval This as IDirectMusicPort ptr) as ULONG
+	Release as function(byval This as IDirectMusicPort ptr) as ULONG
 	PlayBuffer as function(byval This as IDirectMusicPort ptr, byval pBuffer as LPDIRECTMUSICBUFFER) as HRESULT
 	SetReadNotificationHandle as function(byval This as IDirectMusicPort ptr, byval hEvent as HANDLE) as HRESULT
 	Read as function(byval This as IDirectMusicPort ptr, byval pBuffer as LPDIRECTMUSICBUFFER) as HRESULT
@@ -583,8 +583,8 @@ end type
 
 type IDirectMusicThruVtbl_ field = 8
 	QueryInterface as function(byval This as IDirectMusicThru ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirectMusicThru ptr) as ULONG_
-	Release as function(byval This as IDirectMusicThru ptr) as ULONG_
+	AddRef as function(byval This as IDirectMusicThru ptr) as ULONG
+	Release as function(byval This as IDirectMusicThru ptr) as ULONG
 	ThruChannel as function(byval This as IDirectMusicThru ptr, byval dwSourceChannelGroup as DWORD, byval dwSourceChannel as DWORD, byval dwDestinationChannelGroup as DWORD, byval dwDestinationChannel as DWORD, byval pDestinationPort as LPDIRECTMUSICPORT) as HRESULT
 end type
 
@@ -602,8 +602,8 @@ end type
 
 type IReferenceClockVtbl_ field = 8
 	QueryInterface as function(byval This as IReferenceClock ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IReferenceClock ptr) as ULONG_
-	Release as function(byval This as IReferenceClock ptr) as ULONG_
+	AddRef as function(byval This as IReferenceClock ptr) as ULONG
+	Release as function(byval This as IReferenceClock ptr) as ULONG
 	GetTime as function(byval This as IReferenceClock ptr, byval pTime as REFERENCE_TIME ptr) as HRESULT
 	AdviseTime as function(byval This as IReferenceClock ptr, byval baseTime as REFERENCE_TIME, byval streamTime as REFERENCE_TIME, byval hEvent as HANDLE, byval pdwAdviseCookie as DWORD ptr) as HRESULT
 	AdvisePeriodic as function(byval This as IReferenceClock ptr, byval startTime as REFERENCE_TIME, byval periodTime as REFERENCE_TIME, byval hSemaphore as HANDLE, byval pdwAdviseCookie as DWORD ptr) as HRESULT

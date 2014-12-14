@@ -70,8 +70,6 @@ extern "Windows"
 #define ODBC_ERROR_REMOVE_DSN_FAILED 20
 #define ODBC_ERROR_OUT_OF_MEM 21
 #define ODBC_ERROR_OUTPUT_STRING_TRUNCATED 22
-#define WINAPI __stdcall
-#define INSTAPI WINAPI
 
 declare function SQLInstallODBC(byval hwndParent as HWND, byval lpszInfFile as LPCSTR, byval lpszSrcPath as LPCSTR, byval lpszDrivers as LPCSTR) as WINBOOL
 declare function SQLManageDataSources(byval hwndParent as HWND) as WINBOOL

@@ -1891,19 +1891,15 @@
 #define SEVERITY_ERROR 1
 #define SUCCEEDED(hr) cast(HRESULT, -((hr) >= 0))
 #define FAILED(hr) cast(HRESULT, -((hr) < 0))
-
-'' TODO: #define IS_ERROR(Status) ((unsigned __LONG32)(Status) >> 31==SEVERITY_ERROR)
-
+#define IS_ERROR(Status) '' TODO: ((unsigned __LONG32)(Status) >> 31==SEVERITY_ERROR)
 #define HRESULT_CODE(hr) ((hr) and &hFFFF)
 #define SCODE_CODE(sc) ((sc) and &hFFFF)
 #define HRESULT_FACILITY(hr) (((hr) shr 16) and &h1fff)
 #define SCODE_FACILITY(sc) (((sc) shr 16) and &h1fff)
 #define HRESULT_SEVERITY(hr) (((hr) shr 31) and &h1)
 #define SCODE_SEVERITY(sc) (((sc) shr 31) and &h1)
-
-'' TODO: #define MAKE_HRESULT(sev,fac,code) ((HRESULT) (((unsigned __LONG32)(sev)<<31) | ((unsigned __LONG32)(fac)<<16) | ((unsigned __LONG32)(code))))
-'' TODO: #define MAKE_SCODE(sev,fac,code) ((SCODE) (((unsigned __LONG32)(sev)<<31) | ((unsigned __LONG32)(fac)<<16) | ((unsigned __LONG32)(code))))
-
+#define MAKE_HRESULT(sev, fac, code) '' TODO: ((HRESULT) (((unsigned __LONG32)(sev)<<31) | ((unsigned __LONG32)(fac)<<16) | ((unsigned __LONG32)(code))))
+#define MAKE_SCODE(sev, fac, code) '' TODO: ((SCODE) (((unsigned __LONG32)(sev)<<31) | ((unsigned __LONG32)(fac)<<16) | ((unsigned __LONG32)(code))))
 #define FACILITY_NT_BIT &h10000000
 #define __HRESULT_FROM_WIN32(x) cast(HRESULT, iif((x) <= 0, cast(HRESULT, (x)), cast(HRESULT, (((x) and &h0000FFFF) or (FACILITY_WIN32 shl 16)) or &h80000000)))
 #define HRESULT_FROM_WIN32(x) __HRESULT_FROM_WIN32(x)

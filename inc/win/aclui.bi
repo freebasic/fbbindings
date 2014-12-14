@@ -73,7 +73,7 @@ type PSI_ACCESS as _SI_ACCESS ptr
 
 type _SI_INHERIT_TYPE
 	pguid as const GUID ptr
-	dwFlags as ULONG_
+	dwFlags as ULONG
 	pszName as LPCWSTR
 end type
 
@@ -120,14 +120,14 @@ end type
 
 type ISecurityInformationVtbl_
 	QueryInterface as function(byval This as ISecurityInformation ptr, byval riid as const IID const ptr, byval ppvObj as any ptr ptr) as HRESULT
-	AddRef as function(byval This as ISecurityInformation ptr) as ULONG_
-	Release as function(byval This as ISecurityInformation ptr) as ULONG_
+	AddRef as function(byval This as ISecurityInformation ptr) as ULONG
+	Release as function(byval This as ISecurityInformation ptr) as ULONG
 	GetObjectInformation as function(byval This as ISecurityInformation ptr, byval pObjectInfo as PSI_OBJECT_INFO) as HRESULT
 	GetSecurity as function(byval This as ISecurityInformation ptr, byval RequestedInformation as SECURITY_INFORMATION, byval ppSecurityDescriptor as PSECURITY_DESCRIPTOR ptr, byval fDefault as WINBOOL) as HRESULT
 	SetSecurity as function(byval This as ISecurityInformation ptr, byval SecurityInformation as SECURITY_INFORMATION, byval pSecurityDescriptor as PSECURITY_DESCRIPTOR) as HRESULT
-	GetAccessRights as function(byval This as ISecurityInformation ptr, byval pguidObjectType as const GUID ptr, byval dwFlags as DWORD, byval ppAccess as PSI_ACCESS ptr, byval pcAccesses as ULONG_ ptr, byval piDefaultAccess as ULONG_ ptr) as HRESULT
+	GetAccessRights as function(byval This as ISecurityInformation ptr, byval pguidObjectType as const GUID ptr, byval dwFlags as DWORD, byval ppAccess as PSI_ACCESS ptr, byval pcAccesses as ULONG ptr, byval piDefaultAccess as ULONG ptr) as HRESULT
 	MapGeneric as function(byval This as ISecurityInformation ptr, byval pguidObjectType as const GUID ptr, byval pAceFlags as UCHAR ptr, byval pMask as ACCESS_MASK ptr) as HRESULT
-	GetInheritTypes as function(byval This as ISecurityInformation ptr, byval ppInheritTypes as PSI_INHERIT_TYPE ptr, byval pcInheritTypes as ULONG_ ptr) as HRESULT
+	GetInheritTypes as function(byval This as ISecurityInformation ptr, byval ppInheritTypes as PSI_INHERIT_TYPE ptr, byval pcInheritTypes as ULONG ptr) as HRESULT
 	PropertySheetPageCallback as function(byval This as ISecurityInformation ptr, byval hwnd as HWND, byval uMsg as UINT, byval uPage as SI_PAGE_TYPE) as HRESULT
 end type
 
@@ -139,15 +139,15 @@ end type
 
 type ISecurityInformation2Vtbl_
 	QueryInterface as function(byval This as ISecurityInformation2 ptr, byval riid as const IID const ptr, byval ppvObj as any ptr ptr) as HRESULT
-	AddRef as function(byval This as ISecurityInformation2 ptr) as ULONG_
-	Release as function(byval This as ISecurityInformation2 ptr) as ULONG_
+	AddRef as function(byval This as ISecurityInformation2 ptr) as ULONG
+	Release as function(byval This as ISecurityInformation2 ptr) as ULONG
 	IsDaclCanonical as function(byval This as ISecurityInformation2 ptr, byval pDacl as PACL) as WINBOOL
-	LookupSids as function(byval This as ISecurityInformation2 ptr, byval cSids as ULONG_, byval rgpSids as PSID ptr, byval ppdo as LPDATAOBJECT ptr) as HRESULT
+	LookupSids as function(byval This as ISecurityInformation2 ptr, byval cSids as ULONG, byval rgpSids as PSID ptr, byval ppdo as LPDATAOBJECT ptr) as HRESULT
 end type
 
 type LPSECURITYINFO2 as ISecurityInformation2 ptr
 
-#define CFSTR_ACLUI_SID_INFO_LIST TEXT_("CFSTR_ACLUI_SID_INFO_LIST")
+#define CFSTR_ACLUI_SID_INFO_LIST TEXT("CFSTR_ACLUI_SID_INFO_LIST")
 
 type _SID_INFO
 	pSid as PSID
@@ -160,7 +160,7 @@ type SID_INFO as _SID_INFO
 type PSID_INFO as _SID_INFO ptr
 
 type _SID_INFO_LIST
-	cItems as ULONG_
+	cItems as ULONG
 	aSidInfo(0 to 0) as SID_INFO
 end type
 
@@ -173,9 +173,9 @@ end type
 
 type IEffectivePermissionVtbl_
 	QueryInterface as function(byval This as IEffectivePermission ptr, byval riid as const IID const ptr, byval ppvObj as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IEffectivePermission ptr) as ULONG_
-	Release as function(byval This as IEffectivePermission ptr) as ULONG_
-	GetEffectivePermission as function(byval This as IEffectivePermission ptr, byval pguidObjectType as const GUID ptr, byval pUserSid as PSID, byval pszServerName as LPCWSTR, byval pSD as PSECURITY_DESCRIPTOR, byval ppObjectTypeList as POBJECT_TYPE_LIST ptr, byval pcObjectTypeListLength as ULONG_ ptr, byval ppGrantedAccessList as PACCESS_MASK ptr, byval pcGrantedAccessListLength as ULONG_ ptr) as HRESULT
+	AddRef as function(byval This as IEffectivePermission ptr) as ULONG
+	Release as function(byval This as IEffectivePermission ptr) as ULONG
+	GetEffectivePermission as function(byval This as IEffectivePermission ptr, byval pguidObjectType as const GUID ptr, byval pUserSid as PSID, byval pszServerName as LPCWSTR, byval pSD as PSECURITY_DESCRIPTOR, byval ppObjectTypeList as POBJECT_TYPE_LIST ptr, byval pcObjectTypeListLength as ULONG ptr, byval ppGrantedAccessList as PACCESS_MASK ptr, byval pcGrantedAccessListLength as ULONG ptr) as HRESULT
 end type
 
 type LPEFFECTIVEPERMISSION as IEffectivePermission ptr
@@ -186,8 +186,8 @@ end type
 
 type ISecurityObjectTypeInfoVtbl_
 	QueryInterface as function(byval This as ISecurityObjectTypeInfo ptr, byval riid as const IID const ptr, byval ppvObj as any ptr ptr) as HRESULT
-	AddRef as function(byval This as ISecurityObjectTypeInfo ptr) as ULONG_
-	Release as function(byval This as ISecurityObjectTypeInfo ptr) as ULONG_
+	AddRef as function(byval This as ISecurityObjectTypeInfo ptr) as ULONG
+	Release as function(byval This as ISecurityObjectTypeInfo ptr) as ULONG
 	GetInheritSource as function(byval si as SECURITY_INFORMATION, byval pACL as PACL, byval ppInheritArray as PINHERITED_FROM ptr) as HRESULT
 end type
 

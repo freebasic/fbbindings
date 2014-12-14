@@ -12,14 +12,14 @@
 #define _NTSUBAUTH_
 #define _NTSTATUS_PSDK
 
-type NTSTATUS as LONG_
-type PNTSTATUS as LONG_ ptr
+type NTSTATUS as LONG
+type PNTSTATUS as LONG ptr
 
 #define __UNICODE_STRING_DEFINED
 
 type _UNICODE_STRING
-	Length as USHORT_
-	MaximumLength as USHORT_
+	Length as USHORT
+	MaximumLength as USHORT
 	Buffer as PWSTR
 end type
 
@@ -29,8 +29,8 @@ type PUNICODE_STRING as _UNICODE_STRING ptr
 #define __STRING_DEFINED
 
 type _STRING
-	Length as USHORT_
-	MaximumLength as USHORT_
+	Length as USHORT
+	MaximumLength as USHORT
 	Buffer as PCHAR
 end type
 
@@ -38,8 +38,8 @@ type STRING_ as _STRING
 type PSTRING as _STRING ptr
 
 type _OLD_LARGE_INTEGER
-	LowPart as ULONG_
-	HighPart as LONG_
+	LowPart as ULONG
+	HighPart as LONG
 end type
 
 type OLD_LARGE_INTEGER as _OLD_LARGE_INTEGER
@@ -80,7 +80,7 @@ type PSAM_HANDLE as PVOID ptr
 #define SAM_MINUTES_PER_WEEK (60 * SAM_HOURS_PER_WEEK)
 
 type _LOGON_HOURS
-	UnitsPerWeek as USHORT_
+	UnitsPerWeek as USHORT
 	LogonHours as PUCHAR
 end type
 
@@ -88,7 +88,7 @@ type LOGON_HOURS as _LOGON_HOURS
 type PLOGON_HOURS as _LOGON_HOURS ptr
 
 type _SR_SECURITY_DESCRIPTOR
-	Length as ULONG_
+	Length as ULONG
 	SecurityDescriptor as PUCHAR
 end type
 
@@ -118,15 +118,15 @@ type _USER_ALL_INFORMATION field = 4
 	NtPassword as UNICODE_STRING
 	PrivateData as UNICODE_STRING
 	SecurityDescriptor as SR_SECURITY_DESCRIPTOR
-	UserId as ULONG_
-	PrimaryGroupId as ULONG_
-	UserAccountControl as ULONG_
-	WhichFields as ULONG_
+	UserId as ULONG
+	PrimaryGroupId as ULONG
+	UserAccountControl as ULONG
+	WhichFields as ULONG
 	LogonHours as LOGON_HOURS
-	BadPasswordCount as USHORT_
-	LogonCount as USHORT_
-	CountryCode as USHORT_
-	CodePage as USHORT_
+	BadPasswordCount as USHORT
+	LogonCount as USHORT
+	CountryCode as USHORT
+	CodePage as USHORT
 	LmPasswordPresent as BOOLEAN
 	NtPasswordPresent as BOOLEAN
 	PasswordExpired as BOOLEAN
@@ -195,7 +195,7 @@ type NETLOGON_LOGON_INFO_CLASS as _NETLOGON_LOGON_INFO_CLASS
 
 type _NETLOGON_LOGON_IDENTITY_INFO
 	LogonDomainName as UNICODE_STRING
-	ParameterControl as ULONG_
+	ParameterControl as ULONG
 	LogonId as OLD_LARGE_INTEGER
 	UserName as UNICODE_STRING
 	Workstation as UNICODE_STRING
@@ -235,7 +235,7 @@ type PNETLOGON_NETWORK_INFO as _NETLOGON_NETWORK_INFO ptr
 type _NETLOGON_GENERIC_INFO
 	Identity as NETLOGON_LOGON_IDENTITY_INFO
 	PackageName as UNICODE_STRING
-	DataLength as ULONG_
+	DataLength as ULONG
 	LogonData as PUCHAR
 end type
 
@@ -245,7 +245,7 @@ type PNETLOGON_GENERIC_INFO as _NETLOGON_GENERIC_INFO ptr
 #define MSV1_0_PASSTHRU &h01
 #define MSV1_0_GUEST_LOGON &h02
 
-declare function Msv1_0SubAuthenticationRoutine(byval LogonLevel as NETLOGON_LOGON_INFO_CLASS, byval LogonInformation as PVOID, byval Flags as ULONG_, byval UserAll as PUSER_ALL_INFORMATION, byval WhichFields as PULONG, byval UserFlags as PULONG, byval Authoritative as PBOOLEAN, byval LogoffTime as PLARGE_INTEGER, byval KickoffTime as PLARGE_INTEGER) as NTSTATUS
+declare function Msv1_0SubAuthenticationRoutine(byval LogonLevel as NETLOGON_LOGON_INFO_CLASS, byval LogonInformation as PVOID, byval Flags as ULONG, byval UserAll as PUSER_ALL_INFORMATION, byval WhichFields as PULONG, byval UserFlags as PULONG, byval Authoritative as PBOOLEAN, byval LogoffTime as PLARGE_INTEGER, byval KickoffTime as PLARGE_INTEGER) as NTSTATUS
 
 type _MSV1_0_VALIDATION_INFO
 	LogoffTime as LARGE_INTEGER
@@ -254,9 +254,9 @@ type _MSV1_0_VALIDATION_INFO
 	LogonDomainName as UNICODE_STRING
 	SessionKey as USER_SESSION_KEY
 	Authoritative as BOOLEAN
-	UserFlags as ULONG_
-	WhichFields as ULONG_
-	UserId as ULONG_
+	UserFlags as ULONG
+	WhichFields as ULONG
+	UserId as ULONG
 end type
 
 type MSV1_0_VALIDATION_INFO as _MSV1_0_VALIDATION_INFO
@@ -278,9 +278,9 @@ type PMSV1_0_VALIDATION_INFO as _MSV1_0_VALIDATION_INFO ptr
 #define MSV1_0_SUBAUTH_ACCOUNT_TYPE &h00000040
 #define MSV1_0_SUBAUTH_LOCKOUT &h00000080
 
-declare function Msv1_0SubAuthenticationRoutineEx(byval LogonLevel as NETLOGON_LOGON_INFO_CLASS, byval LogonInformation as PVOID, byval Flags as ULONG_, byval UserAll as PUSER_ALL_INFORMATION, byval UserHandle as SAM_HANDLE, byval ValidationInfo as PMSV1_0_VALIDATION_INFO, byval ActionsPerformed as PULONG) as NTSTATUS
-declare function Msv1_0SubAuthenticationRoutineGeneric(byval SubmitBuffer as PVOID, byval SubmitBufferLength as ULONG_, byval ReturnBufferLength as PULONG, byval ReturnBuffer as PVOID ptr) as NTSTATUS
-declare function Msv1_0SubAuthenticationFilter(byval LogonLevel as NETLOGON_LOGON_INFO_CLASS, byval LogonInformation as PVOID, byval Flags as ULONG_, byval UserAll as PUSER_ALL_INFORMATION, byval WhichFields as PULONG, byval UserFlags as PULONG, byval Authoritative as PBOOLEAN, byval LogoffTime as PLARGE_INTEGER, byval KickoffTime as PLARGE_INTEGER) as NTSTATUS
+declare function Msv1_0SubAuthenticationRoutineEx(byval LogonLevel as NETLOGON_LOGON_INFO_CLASS, byval LogonInformation as PVOID, byval Flags as ULONG, byval UserAll as PUSER_ALL_INFORMATION, byval UserHandle as SAM_HANDLE, byval ValidationInfo as PMSV1_0_VALIDATION_INFO, byval ActionsPerformed as PULONG) as NTSTATUS
+declare function Msv1_0SubAuthenticationRoutineGeneric(byval SubmitBuffer as PVOID, byval SubmitBufferLength as ULONG, byval ReturnBufferLength as PULONG, byval ReturnBuffer as PVOID ptr) as NTSTATUS
+declare function Msv1_0SubAuthenticationFilter(byval LogonLevel as NETLOGON_LOGON_INFO_CLASS, byval LogonInformation as PVOID, byval Flags as ULONG, byval UserAll as PUSER_ALL_INFORMATION, byval WhichFields as PULONG, byval UserFlags as PULONG, byval Authoritative as PBOOLEAN, byval LogoffTime as PLARGE_INTEGER, byval KickoffTime as PLARGE_INTEGER) as NTSTATUS
 
 #define STATUS_SUCCESS cast(NTSTATUS, &h00000000)
 #define STATUS_INVALID_INFO_CLASS cast(NTSTATUS, &hC0000003)

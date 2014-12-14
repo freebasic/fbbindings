@@ -52,12 +52,12 @@ end union
 type RAS_PARAMETERS
 	P_Key(0 to 31) as CHAR
 	P_Type as RAS_PARAMS_FORMAT
-	P_Attributes as BYTE_
+	P_Attributes as BYTE
 	P_Value as RAS_PARAMS_VALUE
 end type
 
 type _RAS_USER_0
-	bfPrivilege as BYTE_
+	bfPrivilege as BYTE
 	szPhoneNumber(0 to (128 + 1) - 1) as WCHAR
 end type
 
@@ -93,7 +93,7 @@ type PRAS_PORT_0 as _RAS_PORT_0 ptr
 #define REMOTE_LISTEN &h0010
 #define PORT_MULTILINKED &h0020
 
-type IPADDR as ULONG_
+type IPADDR as ULONG
 
 #define RAS_IPADDRESSLEN 15
 #define RAS_IPXADDRESSLEN 22

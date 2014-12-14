@@ -3,6 +3,10 @@
 #include once "ole2.bi"
 #include once "dplay8.bi"
 
+'' The following symbols have been renamed:
+''     inside struct IDirectPlay8AddressVtbl:
+''         field Duplicate => Duplicate_
+
 #ifdef __FB_64BIT__
 	extern "C"
 #else
@@ -64,41 +68,39 @@ type DPNAREFIID as const IID const ptr
 #define DPNA_VALUE_IPXPROVIDER_A "IPX"
 #define DPNA_VALUE_MODEMPROVIDER_A "MODEM"
 #define DPNA_VALUE_SERIALPROVIDER_A "SERIAL"
-
-'' TODO: # define DPNA_HEADER (const WCHAR []){ 'x','-','d','i','r','e','c','t','p','l','a','y',':','/',0 }
-'' TODO: # define DPNA_KEY_APPLICATION_INSTANCE (const WCHAR []){ 'a','p','p','l','i','c','a','t','i','o','n','i','n','s','t','a','n','c','e',0 }
-'' TODO: # define DPNA_KEY_BAUD (const WCHAR []){ 'b','a','u','d',0 }
-'' TODO: # define DPNA_KEY_DEVICE (const WCHAR []){ 'd','e','v','i','c','e',0 }
-'' TODO: # define DPNA_KEY_FLOWCONTROL (const WCHAR []){ 'f','l','o','w','c','o','n','t','r','o','l',0 }
-'' TODO: # define DPNA_KEY_HOSTNAME (const WCHAR []){ 'h','o','s','t','n','a','m','e',0 }
-'' TODO: # define DPNA_KEY_NAMEINFO (const WCHAR []){ 'n','a','m','e','i','n','f','o',0 }
-'' TODO: # define DPNA_KEY_PARITY (const WCHAR []){ 'p','a','r','i','t','y',0 }
-'' TODO: # define DPNA_KEY_PHONENUMBER (const WCHAR []){ 'p','h','o','n','e','n','u','m','b','e','r',0 }
-'' TODO: # define DPNA_KEY_PORT (const WCHAR []){ 'p','o','r','t',0 }
-'' TODO: # define DPNA_KEY_PROCESSOR (const WCHAR []){ 'p','r','o','c','e','s','s','o','r',0 }
-'' TODO: # define DPNA_KEY_PROGRAM (const WCHAR []){ 'p','r','o','g','r','a','m',0 }
-'' TODO: # define DPNA_KEY_PROVIDER (const WCHAR []){ 'p','r','o','v','i','d','e','r',0 }
-'' TODO: # define DPNA_KEY_SCOPE (const WCHAR []){ 's','c','o','p','e',0 }
-'' TODO: # define DPNA_KEY_STOPBITS (const WCHAR []){ 's','t','o','p','b','i','t','s',0 }
-'' TODO: # define DPNA_KEY_TRAVERSALMODE (const WCHAR []){ 't','r','a','v','e','r','s','a','l','m','o','d','e',0 }
-'' TODO: # define DPNA_STOP_BITS_ONE (const WCHAR []){ '1',0 }
-'' TODO: # define DPNA_STOP_BITS_ONE_FIVE (const WCHAR []){ '1','.','5',0 }
-'' TODO: # define DPNA_STOP_BITS_TWO (const WCHAR []){ '2',0 }
-'' TODO: # define DPNA_PARITY_NONE (const WCHAR []){ 'N','O','N','E',0 }
-'' TODO: # define DPNA_PARITY_EVEN (const WCHAR []){ 'E','V','E','N',0 }
-'' TODO: # define DPNA_PARITY_ODD (const WCHAR []){ 'O','D','D',0 }
-'' TODO: # define DPNA_PARITY_MARK (const WCHAR []){ 'M','A','R','K',0 }
-'' TODO: # define DPNA_PARITY_SPACE (const WCHAR []){ 'S','P','A','C','E',0 }
-'' TODO: # define DPNA_FLOW_CONTROL_NONE (const WCHAR []){ 'N','O','N','E',0 }
-'' TODO: # define DPNA_FLOW_CONTROL_XONXOFF (const WCHAR []){ 'X','O','N','X','O','F','F',0 }
-'' TODO: # define DPNA_FLOW_CONTROL_RTS (const WCHAR []){ 'R','T','S',0 }
-'' TODO: # define DPNA_FLOW_CONTROL_DTR (const WCHAR []){ 'D','T','R',0 }
-'' TODO: # define DPNA_FLOW_CONTROL_RTSDTR (const WCHAR []){ 'R','T','S','D','T','R',0 }
-'' TODO: # define DPNA_VALUE_TCPIPPROVIDER (const WCHAR []){ 'I','P',0 }
-'' TODO: # define DPNA_VALUE_IPXPROVIDER (const WCHAR []){ 'I','P','X',0 }
-'' TODO: # define DPNA_VALUE_MODEMPROVIDER (const WCHAR []){ 'M','O','D','E','M',0 }
-'' TODO: # define DPNA_VALUE_SERIALPROVIDER (const WCHAR []){ 'S','E','R','I','A','L',0 }
-
+#define DPNA_HEADER '' TODO: (const WCHAR []){ 'x','-','d','i','r','e','c','t','p','l','a','y',':','/',0 }
+#define DPNA_KEY_APPLICATION_INSTANCE '' TODO: (const WCHAR []){ 'a','p','p','l','i','c','a','t','i','o','n','i','n','s','t','a','n','c','e',0 }
+#define DPNA_KEY_BAUD '' TODO: (const WCHAR []){ 'b','a','u','d',0 }
+#define DPNA_KEY_DEVICE '' TODO: (const WCHAR []){ 'd','e','v','i','c','e',0 }
+#define DPNA_KEY_FLOWCONTROL '' TODO: (const WCHAR []){ 'f','l','o','w','c','o','n','t','r','o','l',0 }
+#define DPNA_KEY_HOSTNAME '' TODO: (const WCHAR []){ 'h','o','s','t','n','a','m','e',0 }
+#define DPNA_KEY_NAMEINFO '' TODO: (const WCHAR []){ 'n','a','m','e','i','n','f','o',0 }
+#define DPNA_KEY_PARITY '' TODO: (const WCHAR []){ 'p','a','r','i','t','y',0 }
+#define DPNA_KEY_PHONENUMBER '' TODO: (const WCHAR []){ 'p','h','o','n','e','n','u','m','b','e','r',0 }
+#define DPNA_KEY_PORT '' TODO: (const WCHAR []){ 'p','o','r','t',0 }
+#define DPNA_KEY_PROCESSOR '' TODO: (const WCHAR []){ 'p','r','o','c','e','s','s','o','r',0 }
+#define DPNA_KEY_PROGRAM '' TODO: (const WCHAR []){ 'p','r','o','g','r','a','m',0 }
+#define DPNA_KEY_PROVIDER '' TODO: (const WCHAR []){ 'p','r','o','v','i','d','e','r',0 }
+#define DPNA_KEY_SCOPE '' TODO: (const WCHAR []){ 's','c','o','p','e',0 }
+#define DPNA_KEY_STOPBITS '' TODO: (const WCHAR []){ 's','t','o','p','b','i','t','s',0 }
+#define DPNA_KEY_TRAVERSALMODE '' TODO: (const WCHAR []){ 't','r','a','v','e','r','s','a','l','m','o','d','e',0 }
+#define DPNA_STOP_BITS_ONE '' TODO: (const WCHAR []){ '1',0 }
+#define DPNA_STOP_BITS_ONE_FIVE '' TODO: (const WCHAR []){ '1','.','5',0 }
+#define DPNA_STOP_BITS_TWO '' TODO: (const WCHAR []){ '2',0 }
+#define DPNA_PARITY_NONE '' TODO: (const WCHAR []){ 'N','O','N','E',0 }
+#define DPNA_PARITY_EVEN '' TODO: (const WCHAR []){ 'E','V','E','N',0 }
+#define DPNA_PARITY_ODD '' TODO: (const WCHAR []){ 'O','D','D',0 }
+#define DPNA_PARITY_MARK '' TODO: (const WCHAR []){ 'M','A','R','K',0 }
+#define DPNA_PARITY_SPACE '' TODO: (const WCHAR []){ 'S','P','A','C','E',0 }
+#define DPNA_FLOW_CONTROL_NONE '' TODO: (const WCHAR []){ 'N','O','N','E',0 }
+#define DPNA_FLOW_CONTROL_XONXOFF '' TODO: (const WCHAR []){ 'X','O','N','X','O','F','F',0 }
+#define DPNA_FLOW_CONTROL_RTS '' TODO: (const WCHAR []){ 'R','T','S',0 }
+#define DPNA_FLOW_CONTROL_DTR '' TODO: (const WCHAR []){ 'D','T','R',0 }
+#define DPNA_FLOW_CONTROL_RTSDTR '' TODO: (const WCHAR []){ 'R','T','S','D','T','R',0 }
+#define DPNA_VALUE_TCPIPPROVIDER '' TODO: (const WCHAR []){ 'I','P',0 }
+#define DPNA_VALUE_IPXPROVIDER '' TODO: (const WCHAR []){ 'I','P','X',0 }
+#define DPNA_VALUE_MODEMPROVIDER '' TODO: (const WCHAR []){ 'M','O','D','E','M',0 }
+#define DPNA_VALUE_SERIALPROVIDER '' TODO: (const WCHAR []){ 'S','E','R','I','A','L',0 }
 #define DPNA_BAUD_RATE_9600 9600
 #define DPNA_BAUD_RATE_14400 14400
 #define DPNA_BAUD_RATE_19200 19200
@@ -124,11 +126,11 @@ end type
 
 type IDirectPlay8AddressVtbl_
 	QueryInterface as function(byval This as IDirectPlay8Address ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirectPlay8Address ptr) as ULONG_
-	Release as function(byval This as IDirectPlay8Address ptr) as ULONG_
+	AddRef as function(byval This as IDirectPlay8Address ptr) as ULONG
+	Release as function(byval This as IDirectPlay8Address ptr) as ULONG
 	BuildFromURLW as function(byval This as IDirectPlay8Address ptr, byval pwszSourceURL as WCHAR ptr) as HRESULT
 	BuildFromURLA as function(byval This as IDirectPlay8Address ptr, byval pszSourceURL as CHAR ptr) as HRESULT
-	Duplicate as function(byval This as IDirectPlay8Address ptr, byval ppdpaNewAddress as PDIRECTPLAY8ADDRESS ptr) as HRESULT
+	Duplicate_ as function(byval This as IDirectPlay8Address ptr, byval ppdpaNewAddress as PDIRECTPLAY8ADDRESS ptr) as HRESULT
 	SetEqual as function(byval This as IDirectPlay8Address ptr, byval pdpaAddress as PDIRECTPLAY8ADDRESS) as HRESULT
 	IsEqual as function(byval This as IDirectPlay8Address ptr, byval pdpaAddress as PDIRECTPLAY8ADDRESS) as HRESULT
 	Clear as function(byval This as IDirectPlay8Address ptr) as HRESULT
@@ -176,14 +178,14 @@ end type
 
 type IDirectPlay8AddressIPVtbl_
 	QueryInterface as function(byval This as IDirectPlay8AddressIP ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirectPlay8AddressIP ptr) as ULONG_
-	Release as function(byval This as IDirectPlay8AddressIP ptr) as ULONG_
+	AddRef as function(byval This as IDirectPlay8AddressIP ptr) as ULONG
+	Release as function(byval This as IDirectPlay8AddressIP ptr) as ULONG
 	BuildFromSockAddr as function(byval This as IDirectPlay8AddressIP ptr, byval pSockAddr as const SOCKADDR_ const ptr) as HRESULT
-	BuildAddress as function(byval This as IDirectPlay8AddressIP ptr, byval wszAddress as const WCHAR const ptr, byval usPort as const USHORT_) as HRESULT
-	BuildLocalAddress as function(byval This as IDirectPlay8AddressIP ptr, byval pguidAdapter as const GUID const ptr, byval usPort as const USHORT_) as HRESULT
+	BuildAddress as function(byval This as IDirectPlay8AddressIP ptr, byval wszAddress as const WCHAR const ptr, byval usPort as const USHORT) as HRESULT
+	BuildLocalAddress as function(byval This as IDirectPlay8AddressIP ptr, byval pguidAdapter as const GUID const ptr, byval usPort as const USHORT) as HRESULT
 	GetSockAddress as function(byval This as IDirectPlay8AddressIP ptr, byval pSockAddr as SOCKADDR_ ptr, byval as PDWORD) as HRESULT
-	GetLocalAddress as function(byval This as IDirectPlay8AddressIP ptr, byval pguidAdapter as GUID ptr, byval pusPort as USHORT_ ptr) as HRESULT
-	GetAddress as function(byval This as IDirectPlay8AddressIP ptr, byval wszAddress as WCHAR ptr, byval pdwAddressLength as PDWORD, byval psPort as USHORT_ ptr) as HRESULT
+	GetLocalAddress as function(byval This as IDirectPlay8AddressIP ptr, byval pguidAdapter as GUID ptr, byval pusPort as USHORT ptr) as HRESULT
+	GetAddress as function(byval This as IDirectPlay8AddressIP ptr, byval wszAddress as WCHAR ptr, byval pdwAddressLength as PDWORD, byval psPort as USHORT ptr) as HRESULT
 end type
 
 #define IDirectPlay8AddressIP_QueryInterface(p, a, b) (p)->lpVtbl->QueryInterface(a, b)

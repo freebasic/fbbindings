@@ -93,7 +93,7 @@ type _MIB_IFROW
 	dwMtu as DWORD
 	dwSpeed as DWORD
 	dwPhysAddrLen as DWORD
-	bPhysAddr(0 to 7) as BYTE_
+	bPhysAddr(0 to 7) as BYTE
 	dwAdminStatus as DWORD
 	dwOperStatus as DWORD
 	dwLastChange as DWORD
@@ -110,7 +110,7 @@ type _MIB_IFROW
 	dwOutErrors as DWORD
 	dwOutQLen as DWORD
 	dwDescrLen as DWORD
-	bDescr(0 to 255) as BYTE_
+	bDescr(0 to 255) as BYTE
 end type
 
 type MIB_IFROW as _MIB_IFROW
@@ -655,7 +655,7 @@ type PMIB_IPFORWARDTABLE as _MIB_IPFORWARDTABLE ptr
 type _MIB_IPNETROW
 	dwIndex as DWORD
 	dwPhysAddrLen as DWORD
-	bPhysAddr(0 to 7) as BYTE_
+	bPhysAddr(0 to 7) as BYTE
 	dwAddr as DWORD
 	dwType as DWORD
 end type
@@ -698,10 +698,10 @@ type _MIB_IPMCAST_MFE
 	dwRouteProtocol as DWORD
 	dwRouteNetwork as DWORD
 	dwRouteMask as DWORD
-	ulUpTime as ULONG_
-	ulExpiryTime as ULONG_
-	ulTimeOut as ULONG_
-	ulNumOutIf as ULONG_
+	ulUpTime as ULONG
+	ulExpiryTime as ULONG
+	ulTimeOut as ULONG
+	ulNumOutIf as ULONG
 	fFlags as DWORD
 	dwReserved as DWORD
 	rgmioOutInfo(0 to 0) as MIB_IPMCAST_OIF
@@ -718,17 +718,17 @@ end type
 type MIB_MFE_TABLE as _MIB_MFE_TABLE
 type PMIB_MFE_TABLE as _MIB_MFE_TABLE ptr
 
-#define SIZEOF_BASIC_MIB_MFE cast(ULONG_, FIELD_OFFSET(MIB_IPMCAST_MFE, rgmioOutInfo[0]))
+#define SIZEOF_BASIC_MIB_MFE cast(ULONG, FIELD_OFFSET(MIB_IPMCAST_MFE, rgmioOutInfo[0]))
 #define SIZEOF_MIB_MFE(X) (SIZEOF_BASIC_MIB_MFE + ((X) * sizeof(MIB_IPMCAST_OIF)))
 
 type _MIB_IPMCAST_OIF_STATS
 	dwOutIfIndex as DWORD
 	dwNextHopAddr as DWORD
 	dwDialContext as DWORD
-	ulTtlTooLow as ULONG_
-	ulFragNeeded as ULONG_
-	ulOutPackets as ULONG_
-	ulOutDiscards as ULONG_
+	ulTtlTooLow as ULONG
+	ulFragNeeded as ULONG
+	ulOutPackets as ULONG
+	ulOutDiscards as ULONG
 end type
 
 type MIB_IPMCAST_OIF_STATS as _MIB_IPMCAST_OIF_STATS
@@ -744,13 +744,13 @@ type _MIB_IPMCAST_MFE_STATS
 	dwRouteProtocol as DWORD
 	dwRouteNetwork as DWORD
 	dwRouteMask as DWORD
-	ulUpTime as ULONG_
-	ulExpiryTime as ULONG_
-	ulNumOutIf as ULONG_
-	ulInPkts as ULONG_
-	ulInOctets as ULONG_
-	ulPktsDifferentIf as ULONG_
-	ulQueueOverflow as ULONG_
+	ulUpTime as ULONG
+	ulExpiryTime as ULONG
+	ulNumOutIf as ULONG
+	ulInPkts as ULONG
+	ulInOctets as ULONG
+	ulPktsDifferentIf as ULONG
+	ulQueueOverflow as ULONG
 	rgmiosOutStats(0 to 0) as MIB_IPMCAST_OIF_STATS
 end type
 
@@ -765,7 +765,7 @@ end type
 type MIB_MFE_STATS_TABLE as _MIB_MFE_STATS_TABLE
 type PMIB_MFE_STATS_TABLE as _MIB_MFE_STATS_TABLE ptr
 
-#define SIZEOF_BASIC_MIB_MFE_STATS cast(ULONG_, FIELD_OFFSET(MIB_IPMCAST_MFE_STATS, rgmiosOutStats[0]))
+#define SIZEOF_BASIC_MIB_MFE_STATS cast(ULONG, FIELD_OFFSET(MIB_IPMCAST_MFE_STATS, rgmiosOutStats[0]))
 #define SIZEOF_MIB_MFE_STATS(X) (SIZEOF_BASIC_MIB_MFE_STATS + ((X) * sizeof(MIB_IPMCAST_OIF_STATS)))
 
 type _MIB_IPMCAST_MFE_STATS_EX
@@ -778,18 +778,18 @@ type _MIB_IPMCAST_MFE_STATS_EX
 	dwRouteProtocol as DWORD
 	dwRouteNetwork as DWORD
 	dwRouteMask as DWORD
-	ulUpTime as ULONG_
-	ulExpiryTime as ULONG_
-	ulNumOutIf as ULONG_
-	ulInPkts as ULONG_
-	ulInOctets as ULONG_
-	ulPktsDifferentIf as ULONG_
-	ulQueueOverflow as ULONG_
-	ulUninitMfe as ULONG_
-	ulNegativeMfe as ULONG_
-	ulInDiscards as ULONG_
-	ulInHdrErrors as ULONG_
-	ulTotalOutPackets as ULONG_
+	ulUpTime as ULONG
+	ulExpiryTime as ULONG
+	ulNumOutIf as ULONG
+	ulInPkts as ULONG
+	ulInOctets as ULONG
+	ulPktsDifferentIf as ULONG
+	ulQueueOverflow as ULONG
+	ulUninitMfe as ULONG
+	ulNegativeMfe as ULONG
+	ulInDiscards as ULONG
+	ulInHdrErrors as ULONG
+	ulTotalOutPackets as ULONG
 	rgmiosOutStats(0 to 0) as MIB_IPMCAST_OIF_STATS
 end type
 
@@ -804,7 +804,7 @@ end type
 type MIB_MFE_STATS_TABLE_EX as _MIB_MFE_STATS_TABLE_EX
 type PMIB_MFE_STATS_TABLE_EX as _MIB_MFE_STATS_TABLE_EX ptr
 
-#define SIZEOF_BASIC_MIB_MFE_STATS_EX cast(ULONG_, FIELD_OFFSET(MIB_IPMCAST_MFE_STATS_EX, rgmiosOutStats[0]))
+#define SIZEOF_BASIC_MIB_MFE_STATS_EX cast(ULONG, FIELD_OFFSET(MIB_IPMCAST_MFE_STATS_EX, rgmiosOutStats[0]))
 #define SIZEOF_MIB_MFE_STATS_EX(X) (SIZEOF_BASIC_MIB_MFE_STATS_EX + ((X) * sizeof(MIB_IPMCAST_OIF_STATS)))
 
 type _MIB_IPMCAST_GLOBAL
@@ -819,8 +819,8 @@ type _MIB_IPMCAST_IF_ENTRY
 	dwTtl as DWORD
 	dwProtocol as DWORD
 	dwRateLimit as DWORD
-	ulInMcastOctets as ULONG_
-	ulOutMcastOctets as ULONG_
+	ulInMcastOctets as ULONG
+	ulOutMcastOctets as ULONG
 end type
 
 type MIB_IPMCAST_IF_ENTRY as _MIB_IPMCAST_IF_ENTRY
@@ -959,7 +959,7 @@ type _MIB_OPAQUE_INFO
 
 	union
 		ullAlign as ULONGLONG
-		rgbyData(0 to 0) as BYTE_
+		rgbyData(0 to 0) as BYTE
 	end union
 end type
 
@@ -995,6 +995,5 @@ type PTCPIP_OWNER_MODULE_INFO_CLASS as _TCPIP_OWNER_MODULE_INFO_CLASS ptr
 #define MAX_MIB_OFFSET 8
 #define MIB_INFO_SIZE(S) (MAX_MIB_OFFSET + sizeof((S)))
 #define MIB_INFO_SIZE_IN_DWORDS(S) ((MIB_INFO_SIZE(S) / sizeof(DWORD)) + 1)
-
-'' TODO: #define DEFINE_MIB_BUFFER(X,Y,Z) DWORD __rgdwBuff[MIB_INFO_SIZE_IN_DWORDS(Y)]; PMIB_OPAQUE_INFO X = (PMIB_OPAQUE_INFO)__rgdwBuff; Y *Z = (Y *)(X->rgbyData)
-'' TODO: #define CAST_MIB_INFO(X,Y,Z) Z = (Y)(X->rgbyData)
+#define DEFINE_MIB_BUFFER(X, Y, Z) '' TODO: DWORD __rgdwBuff[MIB_INFO_SIZE_IN_DWORDS(Y)]; PMIB_OPAQUE_INFO X = (PMIB_OPAQUE_INFO)__rgdwBuff; Y *Z = (Y *)(X->rgbyData)
+#define CAST_MIB_INFO(X, Y, Z) '' TODO: Z = (Y)(X->rgbyData)

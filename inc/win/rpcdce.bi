@@ -1,6 +1,5 @@
 #pragma once
 
-#include once "crt/long.bi"
 #include once "_mingw_unicode.bi"
 #include once "specstrings.bi"
 #include once "guiddef.bi"
@@ -28,12 +27,12 @@ type UUID as GUID
 
 #ifdef __FB_64BIT__
 	type _RPC_BINDING_VECTOR field = 8
-		Count as culong
+		Count as ulong
 		BindingH(0 to 0) as RPC_BINDING_HANDLE
 	end type
 #else
 	type _RPC_BINDING_VECTOR
-		Count as culong
+		Count as ulong
 		BindingH(0 to 0) as RPC_BINDING_HANDLE
 	end type
 #endif
@@ -44,12 +43,12 @@ type RPC_BINDING_VECTOR as _RPC_BINDING_VECTOR
 
 #ifdef __FB_64BIT__
 	type _UUID_VECTOR field = 8
-		Count as culong
+		Count as ulong
 		Uuid(0 to 0) as UUID ptr
 	end type
 #else
 	type _UUID_VECTOR
-		Count as culong
+		Count as ulong
 		Uuid(0 to 0) as UUID ptr
 	end type
 #endif
@@ -150,14 +149,14 @@ type RPC_PROTSEQ_VECTORW as _RPC_PROTSEQ_VECTORW
 #ifdef __FB_64BIT__
 	type _RPC_POLICY field = 8
 		Length as ulong
-		EndpointFlags as culong
-		NICFlags as culong
+		EndpointFlags as ulong
+		NICFlags as ulong
 	end type
 #else
 	type _RPC_POLICY
 		Length as ulong
-		EndpointFlags as culong
-		NICFlags as culong
+		EndpointFlags as ulong
+		NICFlags as ulong
 	end type
 #endif
 
@@ -169,12 +168,12 @@ type PRPC_POLICY as _RPC_POLICY ptr
 #ifdef __FB_64BIT__
 	type RPC_STATS_VECTOR field = 8
 		Count as ulong
-		Stats(0 to 0) as culong
+		Stats(0 to 0) as ulong
 	end type
 #else
 	type RPC_STATS_VECTOR
 		Count as ulong
-		Stats(0 to 0) as culong
+		Stats(0 to 0) as ulong
 	end type
 #endif
 
@@ -185,12 +184,12 @@ type PRPC_POLICY as _RPC_POLICY ptr
 
 #ifdef __FB_64BIT__
 	type RPC_IF_ID_VECTOR field = 8
-		Count as culong
+		Count as ulong
 		IfId(0 to 0) as RPC_IF_ID ptr
 	end type
 #else
 	type RPC_IF_ID_VECTOR
-		Count as culong
+		Count as ulong
 		IfId(0 to 0) as RPC_IF_ID ptr
 	end type
 #endif
@@ -215,15 +214,15 @@ type PRPC_POLICY as _RPC_POLICY ptr
 
 declare function RpcBindingCopy(byval SourceBinding as RPC_BINDING_HANDLE, byval DestinationBinding as RPC_BINDING_HANDLE ptr) as RPC_STATUS
 declare function RpcBindingFree(byval Binding as RPC_BINDING_HANDLE ptr) as RPC_STATUS
-declare function RpcBindingSetOption(byval hBinding as RPC_BINDING_HANDLE, byval option_ as culong, byval optionValue as ULONG_PTR) as RPC_STATUS
-declare function RpcBindingInqOption(byval hBinding as RPC_BINDING_HANDLE, byval option_ as culong, byval pOptionValue as ULONG_PTR ptr) as RPC_STATUS
+declare function RpcBindingSetOption(byval hBinding as RPC_BINDING_HANDLE, byval option_ as ulong, byval optionValue as ULONG_PTR) as RPC_STATUS
+declare function RpcBindingInqOption(byval hBinding as RPC_BINDING_HANDLE, byval option_ as ulong, byval pOptionValue as ULONG_PTR ptr) as RPC_STATUS
 declare function RpcBindingFromStringBindingA(byval StringBinding as RPC_CSTR, byval Binding as RPC_BINDING_HANDLE ptr) as RPC_STATUS
 declare function RpcBindingFromStringBindingW(byval StringBinding as RPC_WSTR, byval Binding as RPC_BINDING_HANDLE ptr) as RPC_STATUS
 declare function RpcSsGetContextBinding(byval ContextHandle as any ptr, byval Binding as RPC_BINDING_HANDLE ptr) as RPC_STATUS
 declare function RpcBindingInqObject(byval Binding as RPC_BINDING_HANDLE, byval ObjectUuid as UUID ptr) as RPC_STATUS
 declare function RpcBindingReset(byval Binding as RPC_BINDING_HANDLE) as RPC_STATUS
 declare function RpcBindingSetObject(byval Binding as RPC_BINDING_HANDLE, byval ObjectUuid as UUID ptr) as RPC_STATUS
-declare function RpcMgmtInqDefaultProtectLevel(byval AuthnSvc as culong, byval AuthnLevel as culong ptr) as RPC_STATUS
+declare function RpcMgmtInqDefaultProtectLevel(byval AuthnSvc as ulong, byval AuthnLevel as ulong ptr) as RPC_STATUS
 declare function RpcBindingToStringBindingA(byval Binding as RPC_BINDING_HANDLE, byval StringBinding as RPC_CSTR ptr) as RPC_STATUS
 declare function RpcBindingToStringBindingW(byval Binding as RPC_BINDING_HANDLE, byval StringBinding as RPC_WSTR ptr) as RPC_STATUS
 declare function RpcBindingVectorFree(byval BindingVector as RPC_BINDING_VECTOR ptr ptr) as RPC_STATUS
@@ -238,7 +237,7 @@ declare function RpcNetworkIsProtseqValidA(byval Protseq as RPC_CSTR) as RPC_STA
 declare function RpcNetworkIsProtseqValidW(byval Protseq as RPC_WSTR) as RPC_STATUS
 declare function RpcMgmtInqComTimeout(byval Binding as RPC_BINDING_HANDLE, byval Timeout as ulong ptr) as RPC_STATUS
 declare function RpcMgmtSetComTimeout(byval Binding as RPC_BINDING_HANDLE, byval Timeout as ulong) as RPC_STATUS
-declare function RpcMgmtSetCancelTimeout(byval Timeout as clong) as RPC_STATUS
+declare function RpcMgmtSetCancelTimeout(byval Timeout as long) as RPC_STATUS
 declare function RpcNetworkInqProtseqsA(byval ProtseqVector as RPC_PROTSEQ_VECTORA ptr ptr) as RPC_STATUS
 declare function RpcNetworkInqProtseqsW(byval ProtseqVector as RPC_PROTSEQ_VECTORW ptr ptr) as RPC_STATUS
 declare function RpcObjectInqType(byval ObjUuid as UUID ptr, byval TypeUuid as UUID ptr) as RPC_STATUS
@@ -276,18 +275,18 @@ declare function RpcMgmtInqStats(byval Binding as RPC_BINDING_HANDLE, byval Stat
 declare function RpcMgmtIsServerListening(byval Binding as RPC_BINDING_HANDLE) as RPC_STATUS
 declare function RpcMgmtStopServerListening(byval Binding as RPC_BINDING_HANDLE) as RPC_STATUS
 declare function RpcMgmtWaitServerListen() as RPC_STATUS
-declare function RpcMgmtSetServerStackSize(byval ThreadStackSize as culong) as RPC_STATUS
+declare function RpcMgmtSetServerStackSize(byval ThreadStackSize as ulong) as RPC_STATUS
 declare sub RpcSsDontSerializeContext()
 declare function RpcMgmtEnableIdleCleanup() as RPC_STATUS
 declare function RpcMgmtInqIfIds(byval Binding as RPC_BINDING_HANDLE, byval IfIdVector as RPC_IF_ID_VECTOR ptr ptr) as RPC_STATUS
 declare function RpcIfIdVectorFree(byval IfIdVector as RPC_IF_ID_VECTOR ptr ptr) as RPC_STATUS
-declare function RpcMgmtInqServerPrincNameA(byval Binding as RPC_BINDING_HANDLE, byval AuthnSvc as culong, byval ServerPrincName as RPC_CSTR ptr) as RPC_STATUS
-declare function RpcMgmtInqServerPrincNameW(byval Binding as RPC_BINDING_HANDLE, byval AuthnSvc as culong, byval ServerPrincName as RPC_WSTR ptr) as RPC_STATUS
-declare function RpcServerInqDefaultPrincNameA(byval AuthnSvc as culong, byval PrincName as RPC_CSTR ptr) as RPC_STATUS
-declare function RpcServerInqDefaultPrincNameW(byval AuthnSvc as culong, byval PrincName as RPC_WSTR ptr) as RPC_STATUS
+declare function RpcMgmtInqServerPrincNameA(byval Binding as RPC_BINDING_HANDLE, byval AuthnSvc as ulong, byval ServerPrincName as RPC_CSTR ptr) as RPC_STATUS
+declare function RpcMgmtInqServerPrincNameW(byval Binding as RPC_BINDING_HANDLE, byval AuthnSvc as ulong, byval ServerPrincName as RPC_WSTR ptr) as RPC_STATUS
+declare function RpcServerInqDefaultPrincNameA(byval AuthnSvc as ulong, byval PrincName as RPC_CSTR ptr) as RPC_STATUS
+declare function RpcServerInqDefaultPrincNameW(byval AuthnSvc as ulong, byval PrincName as RPC_WSTR ptr) as RPC_STATUS
 declare function RpcEpResolveBinding(byval Binding as RPC_BINDING_HANDLE, byval IfSpec as RPC_IF_HANDLE) as RPC_STATUS
-declare function RpcNsBindingInqEntryNameA(byval Binding as RPC_BINDING_HANDLE, byval EntryNameSyntax as culong, byval EntryName as RPC_CSTR ptr) as RPC_STATUS
-declare function RpcNsBindingInqEntryNameW(byval Binding as RPC_BINDING_HANDLE, byval EntryNameSyntax as culong, byval EntryName as RPC_WSTR ptr) as RPC_STATUS
+declare function RpcNsBindingInqEntryNameA(byval Binding as RPC_BINDING_HANDLE, byval EntryNameSyntax as ulong, byval EntryName as RPC_CSTR ptr) as RPC_STATUS
+declare function RpcNsBindingInqEntryNameW(byval Binding as RPC_BINDING_HANDLE, byval EntryNameSyntax as ulong, byval EntryName as RPC_WSTR ptr) as RPC_STATUS
 
 type RPC_AUTH_IDENTITY_HANDLE as any ptr
 type RPC_AUTHZ_HANDLE as any ptr
@@ -338,17 +337,17 @@ type RPC_AUTHZ_HANDLE as any ptr
 
 #ifdef __FB_64BIT__
 	type _RPC_SECURITY_QOS field = 8
-		Version as culong
-		Capabilities as culong
-		IdentityTracking as culong
-		ImpersonationType as culong
+		Version as ulong
+		Capabilities as ulong
+		IdentityTracking as ulong
+		ImpersonationType as ulong
 	end type
 #else
 	type _RPC_SECURITY_QOS
-		Version as culong
-		Capabilities as culong
-		IdentityTracking as culong
-		ImpersonationType as culong
+		Version as ulong
+		Capabilities as ulong
+		IdentityTracking as ulong
+		ImpersonationType as ulong
 	end type
 #endif
 
@@ -362,22 +361,22 @@ type PRPC_SECURITY_QOS as _RPC_SECURITY_QOS ptr
 #ifdef __FB_64BIT__
 	type _SEC_WINNT_AUTH_IDENTITY_W field = 8
 		User as ushort ptr
-		UserLength as culong
+		UserLength as ulong
 		Domain as ushort ptr
-		DomainLength as culong
+		DomainLength as ulong
 		Password as ushort ptr
-		PasswordLength as culong
-		Flags as culong
+		PasswordLength as ulong
+		Flags as ulong
 	end type
 #else
 	type _SEC_WINNT_AUTH_IDENTITY_W
 		User as ushort ptr
-		UserLength as culong
+		UserLength as ulong
 		Domain as ushort ptr
-		DomainLength as culong
+		DomainLength as ulong
 		Password as ushort ptr
-		PasswordLength as culong
-		Flags as culong
+		PasswordLength as ulong
+		Flags as ulong
 	end type
 #endif
 
@@ -387,22 +386,22 @@ type PSEC_WINNT_AUTH_IDENTITY_W as _SEC_WINNT_AUTH_IDENTITY_W ptr
 #ifdef __FB_64BIT__
 	type _SEC_WINNT_AUTH_IDENTITY_A field = 8
 		User as ubyte ptr
-		UserLength as culong
+		UserLength as ulong
 		Domain as ubyte ptr
-		DomainLength as culong
+		DomainLength as ulong
 		Password as ubyte ptr
-		PasswordLength as culong
-		Flags as culong
+		PasswordLength as ulong
+		Flags as ulong
 	end type
 #else
 	type _SEC_WINNT_AUTH_IDENTITY_A
 		User as ubyte ptr
-		UserLength as culong
+		UserLength as ulong
 		Domain as ubyte ptr
-		DomainLength as culong
+		DomainLength as ulong
 		Password as ubyte ptr
-		PasswordLength as culong
-		Flags as culong
+		PasswordLength as ulong
+		Flags as ulong
 	end type
 #endif
 
@@ -429,19 +428,19 @@ type PSEC_WINNT_AUTH_IDENTITY_A as _SEC_WINNT_AUTH_IDENTITY_A ptr
 #ifdef __FB_64BIT__
 	type _RPC_HTTP_TRANSPORT_CREDENTIALS_W field = 8
 		TransportCredentials as SEC_WINNT_AUTH_IDENTITY_W ptr
-		Flags as culong
-		AuthenticationTarget as culong
-		NumberOfAuthnSchemes as culong
-		AuthnSchemes as culong ptr
+		Flags as ulong
+		AuthenticationTarget as ulong
+		NumberOfAuthnSchemes as ulong
+		AuthnSchemes as ulong ptr
 		ServerCertificateSubject as ushort ptr
 	end type
 #else
 	type _RPC_HTTP_TRANSPORT_CREDENTIALS_W
 		TransportCredentials as SEC_WINNT_AUTH_IDENTITY_W ptr
-		Flags as culong
-		AuthenticationTarget as culong
-		NumberOfAuthnSchemes as culong
-		AuthnSchemes as culong ptr
+		Flags as ulong
+		AuthenticationTarget as ulong
+		NumberOfAuthnSchemes as ulong
+		AuthnSchemes as ulong ptr
 		ServerCertificateSubject as ushort ptr
 	end type
 #endif
@@ -452,19 +451,19 @@ type PRPC_HTTP_TRANSPORT_CREDENTIALS_W as _RPC_HTTP_TRANSPORT_CREDENTIALS_W ptr
 #ifdef __FB_64BIT__
 	type _RPC_HTTP_TRANSPORT_CREDENTIALS_A field = 8
 		TransportCredentials as SEC_WINNT_AUTH_IDENTITY_A ptr
-		Flags as culong
-		AuthenticationTarget as culong
-		NumberOfAuthnSchemes as culong
-		AuthnSchemes as culong ptr
+		Flags as ulong
+		AuthenticationTarget as ulong
+		NumberOfAuthnSchemes as ulong
+		AuthnSchemes as ulong ptr
 		ServerCertificateSubject as ubyte ptr
 	end type
 #else
 	type _RPC_HTTP_TRANSPORT_CREDENTIALS_A
 		TransportCredentials as SEC_WINNT_AUTH_IDENTITY_A ptr
-		Flags as culong
-		AuthenticationTarget as culong
-		NumberOfAuthnSchemes as culong
-		AuthnSchemes as culong ptr
+		Flags as ulong
+		AuthenticationTarget as ulong
+		NumberOfAuthnSchemes as ulong
+		AuthnSchemes as ulong ptr
 		ServerCertificateSubject as ubyte ptr
 	end type
 #endif
@@ -478,11 +477,11 @@ type PRPC_HTTP_TRANSPORT_CREDENTIALS_A as _RPC_HTTP_TRANSPORT_CREDENTIALS_A ptr
 	end union
 
 	type _RPC_SECURITY_QOS_V2_W field = 8
-		Version as culong
-		Capabilities as culong
-		IdentityTracking as culong
-		ImpersonationType as culong
-		AdditionalSecurityInfoType as culong
+		Version as ulong
+		Capabilities as ulong
+		IdentityTracking as ulong
+		ImpersonationType as ulong
+		AdditionalSecurityInfoType as ulong
 		u as ___RPC_SECURITY_QOS_V2_W_u
 	end type
 #else
@@ -491,11 +490,11 @@ type PRPC_HTTP_TRANSPORT_CREDENTIALS_A as _RPC_HTTP_TRANSPORT_CREDENTIALS_A ptr
 	end union
 
 	type _RPC_SECURITY_QOS_V2_W
-		Version as culong
-		Capabilities as culong
-		IdentityTracking as culong
-		ImpersonationType as culong
-		AdditionalSecurityInfoType as culong
+		Version as ulong
+		Capabilities as ulong
+		IdentityTracking as ulong
+		ImpersonationType as ulong
+		AdditionalSecurityInfoType as ulong
 		u as ___RPC_SECURITY_QOS_V2_W_u
 	end type
 #endif
@@ -509,11 +508,11 @@ type PRPC_SECURITY_QOS_V2_W as _RPC_SECURITY_QOS_V2_W ptr
 	end union
 
 	type _RPC_SECURITY_QOS_V2_A field = 8
-		Version as culong
-		Capabilities as culong
-		IdentityTracking as culong
-		ImpersonationType as culong
-		AdditionalSecurityInfoType as culong
+		Version as ulong
+		Capabilities as ulong
+		IdentityTracking as ulong
+		ImpersonationType as ulong
+		AdditionalSecurityInfoType as ulong
 		u as ___RPC_SECURITY_QOS_V2_A_u
 	end type
 #else
@@ -522,11 +521,11 @@ type PRPC_SECURITY_QOS_V2_W as _RPC_SECURITY_QOS_V2_W ptr
 	end union
 
 	type _RPC_SECURITY_QOS_V2_A
-		Version as culong
-		Capabilities as culong
-		IdentityTracking as culong
-		ImpersonationType as culong
-		AdditionalSecurityInfoType as culong
+		Version as ulong
+		Capabilities as ulong
+		IdentityTracking as ulong
+		ImpersonationType as ulong
+		AdditionalSecurityInfoType as ulong
 		u as ___RPC_SECURITY_QOS_V2_A_u
 	end type
 #endif
@@ -542,11 +541,11 @@ type PRPC_SECURITY_QOS_V2_A as _RPC_SECURITY_QOS_V2_A ptr
 	end union
 
 	type _RPC_SECURITY_QOS_V3_W field = 8
-		Version as culong
-		Capabilities as culong
-		IdentityTracking as culong
-		ImpersonationType as culong
-		AdditionalSecurityInfoType as culong
+		Version as ulong
+		Capabilities as ulong
+		IdentityTracking as ulong
+		ImpersonationType as ulong
+		AdditionalSecurityInfoType as ulong
 		u as ___RPC_SECURITY_QOS_V3_W_u
 		Sid as any ptr
 	end type
@@ -556,11 +555,11 @@ type PRPC_SECURITY_QOS_V2_A as _RPC_SECURITY_QOS_V2_A ptr
 	end union
 
 	type _RPC_SECURITY_QOS_V3_W
-		Version as culong
-		Capabilities as culong
-		IdentityTracking as culong
-		ImpersonationType as culong
-		AdditionalSecurityInfoType as culong
+		Version as ulong
+		Capabilities as ulong
+		IdentityTracking as ulong
+		ImpersonationType as ulong
+		AdditionalSecurityInfoType as ulong
 		u as ___RPC_SECURITY_QOS_V3_W_u
 		Sid as any ptr
 	end type
@@ -575,11 +574,11 @@ type PRPC_SECURITY_QOS_V3_W as _RPC_SECURITY_QOS_V3_W ptr
 	end union
 
 	type _RPC_SECURITY_QOS_V3_A field = 8
-		Version as culong
-		Capabilities as culong
-		IdentityTracking as culong
-		ImpersonationType as culong
-		AdditionalSecurityInfoType as culong
+		Version as ulong
+		Capabilities as ulong
+		IdentityTracking as ulong
+		ImpersonationType as ulong
+		AdditionalSecurityInfoType as ulong
 		u as ___RPC_SECURITY_QOS_V3_A_u
 		Sid as any ptr
 	end type
@@ -589,11 +588,11 @@ type PRPC_SECURITY_QOS_V3_W as _RPC_SECURITY_QOS_V3_W ptr
 	end union
 
 	type _RPC_SECURITY_QOS_V3_A
-		Version as culong
-		Capabilities as culong
-		IdentityTracking as culong
-		ImpersonationType as culong
-		AdditionalSecurityInfoType as culong
+		Version as ulong
+		Capabilities as ulong
+		IdentityTracking as ulong
+		ImpersonationType as ulong
+		AdditionalSecurityInfoType as ulong
 		u as ___RPC_SECURITY_QOS_V3_A_u
 		Sid as any ptr
 	end type
@@ -622,7 +621,7 @@ enum
 end enum
 
 type RPC_HTTP_REDIRECTOR_STAGE as _RPC_HTTP_REDIRECTOR_STAGE
-type RPC_NEW_HTTP_PROXY_CHANNEL as function(byval RedirectorStage as RPC_HTTP_REDIRECTOR_STAGE, byval ServerName as ushort ptr, byval ServerPort as ushort ptr, byval RemoteUser as ushort ptr, byval AuthType as ushort ptr, byval ResourceUuid as any ptr, byval Metadata as any ptr, byval SessionId as any ptr, byval Interface as any ptr, byval Reserved as any ptr, byval Flags as culong, byval NewServerName as ushort ptr ptr, byval NewServerPort as ushort ptr ptr) as RPC_STATUS
+type RPC_NEW_HTTP_PROXY_CHANNEL as function(byval RedirectorStage as RPC_HTTP_REDIRECTOR_STAGE, byval ServerName as ushort ptr, byval ServerPort as ushort ptr, byval RemoteUser as ushort ptr, byval AuthType as ushort ptr, byval ResourceUuid as any ptr, byval Metadata as any ptr, byval SessionId as any ptr, byval Interface as any ptr, byval Reserved as any ptr, byval Flags as ulong, byval NewServerName as ushort ptr ptr, byval NewServerPort as ushort ptr ptr) as RPC_STATUS
 type RPC_HTTP_PROXY_FREE_STRING as sub(byval String_ as ushort ptr)
 
 #define RPC_C_AUTHZ_NONE 0
@@ -633,23 +632,23 @@ type RPC_HTTP_PROXY_FREE_STRING as sub(byval String_ as ushort ptr)
 declare function RpcImpersonateClient(byval BindingHandle as RPC_BINDING_HANDLE) as RPC_STATUS
 declare function RpcRevertToSelfEx(byval BindingHandle as RPC_BINDING_HANDLE) as RPC_STATUS
 declare function RpcRevertToSelf() as RPC_STATUS
-declare function RpcBindingInqAuthClientA(byval ClientBinding as RPC_BINDING_HANDLE, byval Privs as RPC_AUTHZ_HANDLE ptr, byval ServerPrincName as RPC_CSTR ptr, byval AuthnLevel as culong ptr, byval AuthnSvc as culong ptr, byval AuthzSvc as culong ptr) as RPC_STATUS
-declare function RpcBindingInqAuthClientW(byval ClientBinding as RPC_BINDING_HANDLE, byval Privs as RPC_AUTHZ_HANDLE ptr, byval ServerPrincName as RPC_WSTR ptr, byval AuthnLevel as culong ptr, byval AuthnSvc as culong ptr, byval AuthzSvc as culong ptr) as RPC_STATUS
-declare function RpcBindingInqAuthClientExA(byval ClientBinding as RPC_BINDING_HANDLE, byval Privs as RPC_AUTHZ_HANDLE ptr, byval ServerPrincName as RPC_CSTR ptr, byval AuthnLevel as culong ptr, byval AuthnSvc as culong ptr, byval AuthzSvc as culong ptr, byval Flags as culong) as RPC_STATUS
-declare function RpcBindingInqAuthClientExW(byval ClientBinding as RPC_BINDING_HANDLE, byval Privs as RPC_AUTHZ_HANDLE ptr, byval ServerPrincName as RPC_WSTR ptr, byval AuthnLevel as culong ptr, byval AuthnSvc as culong ptr, byval AuthzSvc as culong ptr, byval Flags as culong) as RPC_STATUS
-declare function RpcBindingInqAuthInfoA(byval Binding as RPC_BINDING_HANDLE, byval ServerPrincName as RPC_CSTR ptr, byval AuthnLevel as culong ptr, byval AuthnSvc as culong ptr, byval AuthIdentity as RPC_AUTH_IDENTITY_HANDLE ptr, byval AuthzSvc as culong ptr) as RPC_STATUS
-declare function RpcBindingInqAuthInfoW(byval Binding as RPC_BINDING_HANDLE, byval ServerPrincName as RPC_WSTR ptr, byval AuthnLevel as culong ptr, byval AuthnSvc as culong ptr, byval AuthIdentity as RPC_AUTH_IDENTITY_HANDLE ptr, byval AuthzSvc as culong ptr) as RPC_STATUS
-declare function RpcBindingSetAuthInfoA(byval Binding as RPC_BINDING_HANDLE, byval ServerPrincName as RPC_CSTR, byval AuthnLevel as culong, byval AuthnSvc as culong, byval AuthIdentity as RPC_AUTH_IDENTITY_HANDLE, byval AuthzSvc as culong) as RPC_STATUS
-declare function RpcBindingSetAuthInfoExA(byval Binding as RPC_BINDING_HANDLE, byval ServerPrincName as RPC_CSTR, byval AuthnLevel as culong, byval AuthnSvc as culong, byval AuthIdentity as RPC_AUTH_IDENTITY_HANDLE, byval AuthzSvc as culong, byval SecurityQos as RPC_SECURITY_QOS ptr) as RPC_STATUS
-declare function RpcBindingSetAuthInfoW(byval Binding as RPC_BINDING_HANDLE, byval ServerPrincName as RPC_WSTR, byval AuthnLevel as culong, byval AuthnSvc as culong, byval AuthIdentity as RPC_AUTH_IDENTITY_HANDLE, byval AuthzSvc as culong) as RPC_STATUS
-declare function RpcBindingSetAuthInfoExW(byval Binding as RPC_BINDING_HANDLE, byval ServerPrincName as RPC_WSTR, byval AuthnLevel as culong, byval AuthnSvc as culong, byval AuthIdentity as RPC_AUTH_IDENTITY_HANDLE, byval AuthzSvc as culong, byval SecurityQOS as RPC_SECURITY_QOS ptr) as RPC_STATUS
-declare function RpcBindingInqAuthInfoExA(byval Binding as RPC_BINDING_HANDLE, byval ServerPrincName as RPC_CSTR ptr, byval AuthnLevel as culong ptr, byval AuthnSvc as culong ptr, byval AuthIdentity as RPC_AUTH_IDENTITY_HANDLE ptr, byval AuthzSvc as culong ptr, byval RpcQosVersion as culong, byval SecurityQOS as RPC_SECURITY_QOS ptr) as RPC_STATUS
-declare function RpcBindingInqAuthInfoExW(byval Binding as RPC_BINDING_HANDLE, byval ServerPrincName as RPC_WSTR ptr, byval AuthnLevel as culong ptr, byval AuthnSvc as culong ptr, byval AuthIdentity as RPC_AUTH_IDENTITY_HANDLE ptr, byval AuthzSvc as culong ptr, byval RpcQosVersion as culong, byval SecurityQOS as RPC_SECURITY_QOS ptr) as RPC_STATUS
+declare function RpcBindingInqAuthClientA(byval ClientBinding as RPC_BINDING_HANDLE, byval Privs as RPC_AUTHZ_HANDLE ptr, byval ServerPrincName as RPC_CSTR ptr, byval AuthnLevel as ulong ptr, byval AuthnSvc as ulong ptr, byval AuthzSvc as ulong ptr) as RPC_STATUS
+declare function RpcBindingInqAuthClientW(byval ClientBinding as RPC_BINDING_HANDLE, byval Privs as RPC_AUTHZ_HANDLE ptr, byval ServerPrincName as RPC_WSTR ptr, byval AuthnLevel as ulong ptr, byval AuthnSvc as ulong ptr, byval AuthzSvc as ulong ptr) as RPC_STATUS
+declare function RpcBindingInqAuthClientExA(byval ClientBinding as RPC_BINDING_HANDLE, byval Privs as RPC_AUTHZ_HANDLE ptr, byval ServerPrincName as RPC_CSTR ptr, byval AuthnLevel as ulong ptr, byval AuthnSvc as ulong ptr, byval AuthzSvc as ulong ptr, byval Flags as ulong) as RPC_STATUS
+declare function RpcBindingInqAuthClientExW(byval ClientBinding as RPC_BINDING_HANDLE, byval Privs as RPC_AUTHZ_HANDLE ptr, byval ServerPrincName as RPC_WSTR ptr, byval AuthnLevel as ulong ptr, byval AuthnSvc as ulong ptr, byval AuthzSvc as ulong ptr, byval Flags as ulong) as RPC_STATUS
+declare function RpcBindingInqAuthInfoA(byval Binding as RPC_BINDING_HANDLE, byval ServerPrincName as RPC_CSTR ptr, byval AuthnLevel as ulong ptr, byval AuthnSvc as ulong ptr, byval AuthIdentity as RPC_AUTH_IDENTITY_HANDLE ptr, byval AuthzSvc as ulong ptr) as RPC_STATUS
+declare function RpcBindingInqAuthInfoW(byval Binding as RPC_BINDING_HANDLE, byval ServerPrincName as RPC_WSTR ptr, byval AuthnLevel as ulong ptr, byval AuthnSvc as ulong ptr, byval AuthIdentity as RPC_AUTH_IDENTITY_HANDLE ptr, byval AuthzSvc as ulong ptr) as RPC_STATUS
+declare function RpcBindingSetAuthInfoA(byval Binding as RPC_BINDING_HANDLE, byval ServerPrincName as RPC_CSTR, byval AuthnLevel as ulong, byval AuthnSvc as ulong, byval AuthIdentity as RPC_AUTH_IDENTITY_HANDLE, byval AuthzSvc as ulong) as RPC_STATUS
+declare function RpcBindingSetAuthInfoExA(byval Binding as RPC_BINDING_HANDLE, byval ServerPrincName as RPC_CSTR, byval AuthnLevel as ulong, byval AuthnSvc as ulong, byval AuthIdentity as RPC_AUTH_IDENTITY_HANDLE, byval AuthzSvc as ulong, byval SecurityQos as RPC_SECURITY_QOS ptr) as RPC_STATUS
+declare function RpcBindingSetAuthInfoW(byval Binding as RPC_BINDING_HANDLE, byval ServerPrincName as RPC_WSTR, byval AuthnLevel as ulong, byval AuthnSvc as ulong, byval AuthIdentity as RPC_AUTH_IDENTITY_HANDLE, byval AuthzSvc as ulong) as RPC_STATUS
+declare function RpcBindingSetAuthInfoExW(byval Binding as RPC_BINDING_HANDLE, byval ServerPrincName as RPC_WSTR, byval AuthnLevel as ulong, byval AuthnSvc as ulong, byval AuthIdentity as RPC_AUTH_IDENTITY_HANDLE, byval AuthzSvc as ulong, byval SecurityQOS as RPC_SECURITY_QOS ptr) as RPC_STATUS
+declare function RpcBindingInqAuthInfoExA(byval Binding as RPC_BINDING_HANDLE, byval ServerPrincName as RPC_CSTR ptr, byval AuthnLevel as ulong ptr, byval AuthnSvc as ulong ptr, byval AuthIdentity as RPC_AUTH_IDENTITY_HANDLE ptr, byval AuthzSvc as ulong ptr, byval RpcQosVersion as ulong, byval SecurityQOS as RPC_SECURITY_QOS ptr) as RPC_STATUS
+declare function RpcBindingInqAuthInfoExW(byval Binding as RPC_BINDING_HANDLE, byval ServerPrincName as RPC_WSTR ptr, byval AuthnLevel as ulong ptr, byval AuthnSvc as ulong ptr, byval AuthIdentity as RPC_AUTH_IDENTITY_HANDLE ptr, byval AuthzSvc as ulong ptr, byval RpcQosVersion as ulong, byval SecurityQOS as RPC_SECURITY_QOS ptr) as RPC_STATUS
 
-type RPC_AUTH_KEY_RETRIEVAL_FN as sub(byval Arg as any ptr, byval ServerPrincName as ushort ptr, byval KeyVer as culong, byval Key as any ptr ptr, byval Status as RPC_STATUS ptr)
+type RPC_AUTH_KEY_RETRIEVAL_FN as sub(byval Arg as any ptr, byval ServerPrincName as ushort ptr, byval KeyVer as ulong, byval Key as any ptr ptr, byval Status as RPC_STATUS ptr)
 
-declare function RpcServerRegisterAuthInfoA(byval ServerPrincName as RPC_CSTR, byval AuthnSvc as culong, byval GetKeyFn as RPC_AUTH_KEY_RETRIEVAL_FN, byval Arg as any ptr) as RPC_STATUS
-declare function RpcServerRegisterAuthInfoW(byval ServerPrincName as RPC_WSTR, byval AuthnSvc as culong, byval GetKeyFn as RPC_AUTH_KEY_RETRIEVAL_FN, byval Arg as any ptr) as RPC_STATUS
+declare function RpcServerRegisterAuthInfoA(byval ServerPrincName as RPC_CSTR, byval AuthnSvc as ulong, byval GetKeyFn as RPC_AUTH_KEY_RETRIEVAL_FN, byval Arg as any ptr) as RPC_STATUS
+declare function RpcServerRegisterAuthInfoW(byval ServerPrincName as RPC_WSTR, byval AuthnSvc as ulong, byval GetKeyFn as RPC_AUTH_KEY_RETRIEVAL_FN, byval Arg as any ptr) as RPC_STATUS
 
 #define RpcBindingInqAuthClient __MINGW_NAME_AW(RpcBindingInqAuthClient)
 #define RpcBindingInqAuthClientEx __MINGW_NAME_AW(RpcBindingInqAuthClientEx)
@@ -664,14 +663,14 @@ declare function RpcServerRegisterAuthInfoW(byval ServerPrincName as RPC_WSTR, b
 		UserName as ubyte ptr
 		ComputerName as ubyte ptr
 		Privilege as ushort
-		AuthFlags as culong
+		AuthFlags as ulong
 	end type
 #else
 	type RPC_CLIENT_INFORMATION1
 		UserName as ubyte ptr
 		ComputerName as ubyte ptr
 		Privilege as ushort
-		AuthFlags as culong
+		AuthFlags as ulong
 	end type
 #endif
 
@@ -689,7 +688,7 @@ declare sub RpcRaiseException(byval exception as RPC_STATUS)
 declare function RpcTestCancel() as RPC_STATUS
 declare function RpcServerTestCancel(byval BindingHandle as RPC_BINDING_HANDLE) as RPC_STATUS
 declare function RpcCancelThread(byval Thread as any ptr) as RPC_STATUS
-declare function RpcCancelThreadEx(byval Thread as any ptr, byval Timeout as clong) as RPC_STATUS
+declare function RpcCancelThreadEx(byval Thread as any ptr, byval Timeout as long) as RPC_STATUS
 declare function UuidCreate(byval Uuid as UUID ptr) as RPC_STATUS
 declare function UuidCreateSequential(byval Uuid as UUID ptr) as RPC_STATUS
 declare function UuidToStringA(byval Uuid as UUID ptr, byval StringUuid as RPC_CSTR ptr) as RPC_STATUS
@@ -722,13 +721,13 @@ type RPC_EP_INQ_HANDLE as I_RPC_HANDLE ptr
 #define RPC_C_VERS_UPTO 5
 #define RpcMgmtEpEltInqNext __MINGW_NAME_AW(RpcMgmtEpEltInqNext)
 
-declare function RpcMgmtEpEltInqBegin(byval EpBinding as RPC_BINDING_HANDLE, byval InquiryType as culong, byval IfId as RPC_IF_ID ptr, byval VersOption as culong, byval ObjectUuid as UUID ptr, byval InquiryContext as RPC_EP_INQ_HANDLE ptr) as RPC_STATUS
+declare function RpcMgmtEpEltInqBegin(byval EpBinding as RPC_BINDING_HANDLE, byval InquiryType as ulong, byval IfId as RPC_IF_ID ptr, byval VersOption as ulong, byval ObjectUuid as UUID ptr, byval InquiryContext as RPC_EP_INQ_HANDLE ptr) as RPC_STATUS
 declare function RpcMgmtEpEltInqDone(byval InquiryContext as RPC_EP_INQ_HANDLE ptr) as RPC_STATUS
 declare function RpcMgmtEpEltInqNextA(byval InquiryContext as RPC_EP_INQ_HANDLE, byval IfId as RPC_IF_ID ptr, byval Binding as RPC_BINDING_HANDLE ptr, byval ObjectUuid as UUID ptr, byval Annotation as RPC_CSTR ptr) as RPC_STATUS
 declare function RpcMgmtEpEltInqNextW(byval InquiryContext as RPC_EP_INQ_HANDLE, byval IfId as RPC_IF_ID ptr, byval Binding as RPC_BINDING_HANDLE ptr, byval ObjectUuid as UUID ptr, byval Annotation as RPC_WSTR ptr) as RPC_STATUS
 declare function RpcMgmtEpUnregister(byval EpBinding as RPC_BINDING_HANDLE, byval IfId as RPC_IF_ID ptr, byval Binding as RPC_BINDING_HANDLE, byval ObjectUuid as UUID ptr) as RPC_STATUS
 
-type RPC_MGMT_AUTHORIZATION_FN as function(byval ClientBinding as RPC_BINDING_HANDLE, byval RequestedMgmtOperation as culong, byval Status as RPC_STATUS ptr) as long
+type RPC_MGMT_AUTHORIZATION_FN as function(byval ClientBinding as RPC_BINDING_HANDLE, byval RequestedMgmtOperation as ulong, byval Status as RPC_STATUS ptr) as long
 
 #define RPC_C_MGMT_INQ_IF_IDS 0
 #define RPC_C_MGMT_INQ_PRINC_NAME 1

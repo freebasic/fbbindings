@@ -1,11 +1,11 @@
 #pragma once
 
-#include once "crt/long.bi"
 #include once "_mingw_unicode.bi"
 #include once "specstrings.bi"
 
 '' The following symbols have been renamed:
-''     union __Value => __Value_
+''     inside struct __GOPHER_UNKNOWN_ATTRIBUTE_TYPE:
+''         field Text => Text_
 
 #ifdef __FB_64BIT__
 	extern "C"
@@ -191,7 +191,7 @@ type LPINTERNET_PROXY_INFO as INTERNET_PROXY_INFO ptr
 type LPINTERNET_PER_CONN_OPTIONA as INTERNET_PER_CONN_OPTIONA ptr
 
 #ifdef __FB_64BIT__
-	union __Value_ field = 8
+	union __Value field = 8
 		dwValue as DWORD
 		pszValue as LPWSTR
 		ftValue as FILETIME
@@ -199,10 +199,10 @@ type LPINTERNET_PER_CONN_OPTIONA as INTERNET_PER_CONN_OPTIONA ptr
 
 	type INTERNET_PER_CONN_OPTIONW field = 8
 		dwOption as DWORD
-		Value as __Value_
+		Value as __Value
 	end type
 #else
-	union __Value_ field = 4
+	union __Value field = 4
 		dwValue as DWORD
 		pszValue as LPWSTR
 		ftValue as FILETIME
@@ -210,7 +210,7 @@ type LPINTERNET_PER_CONN_OPTIONA as INTERNET_PER_CONN_OPTIONA ptr
 
 	type INTERNET_PER_CONN_OPTIONW field = 4
 		dwOption as DWORD
-		Value as __Value_
+		Value as __Value
 	end type
 #endif
 
@@ -600,7 +600,7 @@ declare function InternetReadFileExW(byval hFile as HINTERNET, byval lpBuffersOu
 #define InternetSetOption __MINGW_NAME_AW(InternetSetOption)
 #define InternetSetOptionEx __MINGW_NAME_AW(InternetSetOptionEx)
 
-declare function InternetSetFilePointer(byval hFile as HINTERNET, byval lDistanceToMove as LONG_, byval pReserved as PVOID, byval dwMoveMethod as DWORD, byval dwContext as DWORD_PTR) as DWORD
+declare function InternetSetFilePointer(byval hFile as HINTERNET, byval lDistanceToMove as LONG, byval pReserved as PVOID, byval dwMoveMethod as DWORD, byval dwContext as DWORD_PTR) as DWORD
 declare function InternetWriteFile(byval hFile as HINTERNET, byval lpBuffer as LPCVOID, byval dwNumberOfBytesToWrite as DWORD, byval lpdwNumberOfBytesWritten as LPDWORD) as WINBOOL
 declare function InternetQueryDataAvailable(byval hFile as HINTERNET, byval lpdwNumberOfBytesAvailable as LPDWORD, byval dwFlags as DWORD, byval dwContext as DWORD_PTR) as WINBOOL
 declare function InternetFindNextFileA(byval hFind as HINTERNET, byval lpvFindData as LPVOID) as WINBOOL
@@ -1220,11 +1220,11 @@ type LPGOPHER_ASK_ATTRIBUTE_TYPE as GOPHER_ASK_ATTRIBUTE_TYPE ptr
 
 #ifdef __FB_64BIT__
 	type GOPHER_UNKNOWN_ATTRIBUTE_TYPE field = 8
-		Text as LPCTSTR
+		Text_ as LPCTSTR
 	end type
 #else
 	type GOPHER_UNKNOWN_ATTRIBUTE_TYPE field = 4
-		Text as LPCTSTR
+		Text_ as LPCTSTR
 	end type
 #endif
 
@@ -1289,26 +1289,26 @@ type LPGOPHER_ATTRIBUTE_TYPE as GOPHER_ATTRIBUTE_TYPE ptr
 #define MAX_GOPHER_CATEGORY_NAME 128
 #define MAX_GOPHER_ATTRIBUTE_NAME 128
 #define MIN_GOPHER_ATTRIBUTE_LENGTH 256
-#define GOPHER_INFO_CATEGORY TEXT_("+INFO")
-#define GOPHER_ADMIN_CATEGORY TEXT_("+ADMIN")
-#define GOPHER_VIEWS_CATEGORY TEXT_("+VIEWS")
-#define GOPHER_ABSTRACT_CATEGORY TEXT_("+ABSTRACT")
-#define GOPHER_VERONICA_CATEGORY TEXT_("+VERONICA")
-#define GOPHER_ADMIN_ATTRIBUTE TEXT_("Admin")
-#define GOPHER_MOD_DATE_ATTRIBUTE TEXT_("Mod-Date")
-#define GOPHER_TTL_ATTRIBUTE TEXT_("TTL")
-#define GOPHER_SCORE_ATTRIBUTE TEXT_("Score")
-#define GOPHER_RANGE_ATTRIBUTE TEXT_("Score-range")
-#define GOPHER_SITE_ATTRIBUTE TEXT_("Site")
-#define GOPHER_ORG_ATTRIBUTE TEXT_("Org")
-#define GOPHER_LOCATION_ATTRIBUTE TEXT_("Loc")
-#define GOPHER_GEOG_ATTRIBUTE TEXT_("Geog")
-#define GOPHER_TIMEZONE_ATTRIBUTE TEXT_("TZ")
-#define GOPHER_PROVIDER_ATTRIBUTE TEXT_("Provider")
-#define GOPHER_VERSION_ATTRIBUTE TEXT_("Version")
-#define GOPHER_ABSTRACT_ATTRIBUTE TEXT_("Abstract")
-#define GOPHER_VIEW_ATTRIBUTE TEXT_("View")
-#define GOPHER_TREEWALK_ATTRIBUTE TEXT_("treewalk")
+#define GOPHER_INFO_CATEGORY TEXT("+INFO")
+#define GOPHER_ADMIN_CATEGORY TEXT("+ADMIN")
+#define GOPHER_VIEWS_CATEGORY TEXT("+VIEWS")
+#define GOPHER_ABSTRACT_CATEGORY TEXT("+ABSTRACT")
+#define GOPHER_VERONICA_CATEGORY TEXT("+VERONICA")
+#define GOPHER_ADMIN_ATTRIBUTE TEXT("Admin")
+#define GOPHER_MOD_DATE_ATTRIBUTE TEXT("Mod-Date")
+#define GOPHER_TTL_ATTRIBUTE TEXT("TTL")
+#define GOPHER_SCORE_ATTRIBUTE TEXT("Score")
+#define GOPHER_RANGE_ATTRIBUTE TEXT("Score-range")
+#define GOPHER_SITE_ATTRIBUTE TEXT("Site")
+#define GOPHER_ORG_ATTRIBUTE TEXT("Org")
+#define GOPHER_LOCATION_ATTRIBUTE TEXT("Loc")
+#define GOPHER_GEOG_ATTRIBUTE TEXT("Geog")
+#define GOPHER_TIMEZONE_ATTRIBUTE TEXT("TZ")
+#define GOPHER_PROVIDER_ATTRIBUTE TEXT("Provider")
+#define GOPHER_VERSION_ATTRIBUTE TEXT("Version")
+#define GOPHER_ABSTRACT_ATTRIBUTE TEXT("Abstract")
+#define GOPHER_VIEW_ATTRIBUTE TEXT("View")
+#define GOPHER_TREEWALK_ATTRIBUTE TEXT("treewalk")
 #define GOPHER_ATTRIBUTE_ID_BASE &habcccc00
 #define GOPHER_CATEGORY_ID_ALL (GOPHER_ATTRIBUTE_ID_BASE + 1)
 #define GOPHER_CATEGORY_ID_INFO (GOPHER_ATTRIBUTE_ID_BASE + 2)
@@ -2097,11 +2097,11 @@ declare function InternetSetDialStateW(byval lpszConnectoid as LPCWSTR, byval dw
 
 declare function InternetSetPerSiteCookieDecisionA(byval pchHostName as LPCSTR, byval dwDecision as DWORD) as WINBOOL
 declare function InternetSetPerSiteCookieDecisionW(byval pchHostName as LPCWSTR, byval dwDecision as DWORD) as WINBOOL
-declare function InternetGetPerSiteCookieDecisionA(byval pchHostName as LPCSTR, byval pResult as culong ptr) as WINBOOL
-declare function InternetGetPerSiteCookieDecisionW(byval pchHostName as LPCWSTR, byval pResult as culong ptr) as WINBOOL
+declare function InternetGetPerSiteCookieDecisionA(byval pchHostName as LPCSTR, byval pResult as ulong ptr) as WINBOOL
+declare function InternetGetPerSiteCookieDecisionW(byval pchHostName as LPCWSTR, byval pResult as ulong ptr) as WINBOOL
 declare function InternetClearAllPerSiteCookieDecisions() as WINBOOL
-declare function InternetEnumPerSiteCookieDecisionA(byval pszSiteName as LPSTR, byval pcSiteNameSize as culong ptr, byval pdwDecision as culong ptr, byval dwIndex as culong) as WINBOOL
-declare function InternetEnumPerSiteCookieDecisionW(byval pszSiteName as LPWSTR, byval pcSiteNameSize as culong ptr, byval pdwDecision as culong ptr, byval dwIndex as culong) as WINBOOL
+declare function InternetEnumPerSiteCookieDecisionA(byval pszSiteName as LPSTR, byval pcSiteNameSize as ulong ptr, byval pdwDecision as ulong ptr, byval dwIndex as ulong) as WINBOOL
+declare function InternetEnumPerSiteCookieDecisionW(byval pszSiteName as LPWSTR, byval pcSiteNameSize as ulong ptr, byval pdwDecision as ulong ptr, byval dwIndex as ulong) as WINBOOL
 
 #define INTERNET_IDENTITY_FLAG_PRIVATE_CACHE &h01
 #define INTERNET_IDENTITY_FLAG_SHARED_CACHE &h02

@@ -1,6 +1,5 @@
 #pragma once
 
-#include once "crt/long.bi"
 #include once "_mingw_unicode.bi"
 #include once "windows.bi"
 #include once "psdk_inc/_ws1_undef.bi"
@@ -29,18 +28,14 @@
 #define _WINSOCKAPI_
 #define INCL_WINSOCK_API_TYPEDEFS 0
 #define WINSOCK_VERSION MAKEWORD(2, 2)
-#define WINSOCK_API_LINKAGE DECLSPEC_IMPORT
-#define WSAAPI WINAPI
 #define IOCPARM_MASK &h7f
 #define IOC_VOID &h20000000
 #define IOC_OUT &h40000000
 #define IOC_IN &h80000000
 #define IOC_INOUT (IOC_IN or IOC_OUT)
 #define _IO(x, y) ((IOC_VOID or ((x) shl 8)) or (y))
-
-'' TODO: #define _IOR(x,y,t) (IOC_OUT|(((__LONG32)sizeof(t)&IOCPARM_MASK)<<16)|((x)<<8)|(y))
-'' TODO: #define _IOW(x,y,t) (IOC_IN|(((__LONG32)sizeof(t)&IOCPARM_MASK)<<16)|((x)<<8)|(y))
-
+#define _IOR(x, y, t) (((IOC_OUT or (cast(__LONG32, sizeof((t)) and IOCPARM_MASK) shl 16)) or ((x) shl 8)) or (y))
+#define _IOW(x, y, t) (((IOC_IN or (cast(__LONG32, sizeof((t)) and IOCPARM_MASK) shl 16)) or ((x) shl 8)) or (y))
 #define FIONREAD _IOR(asc("f"), 127, u_long)
 #define FIONBIO _IOW(asc("f"), 126, u_long)
 #define FIOASYNC _IOW(asc("f"), 125, u_long)
@@ -99,29 +94,21 @@
 #define IMPLINK_IP 155
 #define IMPLINK_LOWEXPER 156
 #define IMPLINK_HIGHEXPER 158
-
-'' TODO: #define IN_CLASSA(i) (((__LONG32)(i) & 0x80000000)==0)
-
+#define IN_CLASSA(i) (cast(__LONG32, (i) and &h80000000) = 0)
 #define IN_CLASSA_NET &hff000000
 #define IN_CLASSA_NSHIFT 24
 #define IN_CLASSA_HOST &h00ffffff
 #define IN_CLASSA_MAX 128
-
-'' TODO: #define IN_CLASSB(i) (((__LONG32)(i) & 0xc0000000)==0x80000000)
-
+#define IN_CLASSB(i) (cast(__LONG32, (i) and &hc0000000) = &h80000000)
 #define IN_CLASSB_NET &hffff0000
 #define IN_CLASSB_NSHIFT 16
 #define IN_CLASSB_HOST &h0000ffff
 #define IN_CLASSB_MAX 65536
-
-'' TODO: #define IN_CLASSC(i) (((__LONG32)(i) & 0xe0000000)==0xc0000000)
-
+#define IN_CLASSC(i) (cast(__LONG32, (i) and &he0000000) = &hc0000000)
 #define IN_CLASSC_NET &hffffff00
 #define IN_CLASSC_NSHIFT 8
 #define IN_CLASSC_HOST &h000000ff
-
-'' TODO: #define IN_CLASSD(i) (((__LONG32)(i) & 0xf0000000)==0xe0000000)
-
+#define IN_CLASSD(i) (cast(__LONG32, (i) and &hf0000000) = &he0000000)
 #define IN_CLASSD_NET &hf0000000
 #define IN_CLASSD_NSHIFT 28
 #define IN_CLASSD_HOST &h0fffffff
@@ -283,9 +270,7 @@ type LPWSAOVERLAPPED as _OVERLAPPED ptr
 #define WSA_INVALID_PARAMETER ERROR_INVALID_PARAMETER
 #define WSA_NOT_ENOUGH_MEMORY ERROR_NOT_ENOUGH_MEMORY
 #define WSA_OPERATION_ABORTED ERROR_OPERATION_ABORTED
-
-'' TODO: #define WSA_INVALID_EVENT ((WSAEVENT)NULL)
-
+#define WSA_INVALID_EVENT '' TODO: ((WSAEVENT)NULL)
 #define WSA_MAXIMUM_WAIT_EVENTS MAXIMUM_WAIT_OBJECTS
 #define WSA_WAIT_FAILED WAIT_FAILED
 #define WSA_WAIT_EVENT_0 WAIT_OBJECT_0
@@ -323,7 +308,7 @@ type GROUP as ulong
 #define SG_CONSTRAINED_GROUP &h02
 
 type _WSANETWORKEVENTS
-	lNetworkEvents as clong
+	lNetworkEvents as long
 	iErrorCode(0 to 9) as long
 end type
 
@@ -850,14 +835,14 @@ declare function accept(byval s as SOCKET, byval addr as sockaddr ptr, byval add
 declare function bind(byval s as SOCKET, byval name_ as const sockaddr ptr, byval namelen as long) as long
 declare function closesocket(byval s as SOCKET) as long
 declare function connect(byval s as SOCKET, byval name_ as const sockaddr ptr, byval namelen as long) as long
-declare function ioctlsocket(byval s as SOCKET, byval cmd as clong, byval argp as u_long ptr) as long
+declare function ioctlsocket(byval s as SOCKET, byval cmd as long, byval argp as u_long ptr) as long
 declare function getpeername(byval s as SOCKET, byval name_ as sockaddr ptr, byval namelen as long ptr) as long
 declare function getsockname(byval s as SOCKET, byval name_ as sockaddr ptr, byval namelen as long ptr) as long
 declare function getsockopt(byval s as SOCKET, byval level as long, byval optname as long, byval optval as zstring ptr, byval optlen as long ptr) as long
 declare function htonl(byval hostlong as u_long) as u_long
 declare function htons(byval hostshort as u_short) as u_short
-declare function inet_addr(byval cp as const zstring ptr) as culong
-declare function inet_ntoa(byval in_ as in_addr) as zstring ptr
+declare function inet_addr(byval cp as const zstring ptr) as ulong
+declare function inet_ntoa(byval in as in_addr) as zstring ptr
 declare function listen(byval s as SOCKET, byval backlog as long) as long
 declare function ntohl(byval netlong as u_long) as u_long
 declare function ntohs(byval netshort as u_short) as u_short
@@ -891,7 +876,7 @@ declare function WSAAsyncGetProtoByNumber(byval hWnd as HWND, byval wMsg as u_in
 declare function WSAAsyncGetHostByName(byval hWnd as HWND, byval wMsg as u_int, byval name_ as const zstring ptr, byval buf as zstring ptr, byval buflen as long) as HANDLE
 declare function WSAAsyncGetHostByAddr(byval hWnd as HWND, byval wMsg as u_int, byval addr as const zstring ptr, byval len_ as long, byval type_ as long, byval buf as zstring ptr, byval buflen as long) as HANDLE
 declare function WSACancelAsyncRequest(byval hAsyncTaskHandle as HANDLE) as long
-declare function WSAAsyncSelect(byval s as SOCKET, byval hWnd as HWND, byval wMsg as u_int, byval lEvent as clong) as long
+declare function WSAAsyncSelect(byval s as SOCKET, byval hWnd as HWND, byval wMsg as u_int, byval lEvent as long) as long
 declare function WSAAccept(byval s as SOCKET, byval addr as sockaddr ptr, byval addrlen as LPINT, byval lpfnCondition as LPCONDITIONPROC, byval dwCallbackData as DWORD_PTR) as SOCKET
 declare function WSACloseEvent(byval hEvent as HANDLE) as WINBOOL
 declare function WSAConnect(byval s as SOCKET, byval name_ as const sockaddr ptr, byval namelen as long, byval lpCallerData as LPWSABUF, byval lpCalleeData as LPWSABUF, byval lpSQOS as LPQOS, byval lpGQOS as LPQOS) as long
@@ -901,7 +886,7 @@ declare function WSADuplicateSocketW(byval s as SOCKET, byval dwProcessId as DWO
 declare function WSAEnumNetworkEvents(byval s as SOCKET, byval hEventObject as HANDLE, byval lpNetworkEvents as LPWSANETWORKEVENTS) as long
 declare function WSAEnumProtocolsA(byval lpiProtocols as LPINT, byval lpProtocolBuffer as LPWSAPROTOCOL_INFOA, byval lpdwBufferLength as LPDWORD) as long
 declare function WSAEnumProtocolsW(byval lpiProtocols as LPINT, byval lpProtocolBuffer as LPWSAPROTOCOL_INFOW, byval lpdwBufferLength as LPDWORD) as long
-declare function WSAEventSelect(byval s as SOCKET, byval hEventObject as HANDLE, byval lNetworkEvents as clong) as long
+declare function WSAEventSelect(byval s as SOCKET, byval hEventObject as HANDLE, byval lNetworkEvents as long) as long
 declare function WSAGetOverlappedResult(byval s as SOCKET, byval lpOverlapped as LPWSAOVERLAPPED, byval lpcbTransfer as LPDWORD, byval fWait as WINBOOL, byval lpdwFlags as LPDWORD) as WINBOOL
 declare function WSAGetQOSByName(byval s as SOCKET, byval lpQOSName as LPWSABUF, byval lpQOS as LPQOS) as WINBOOL
 declare function WSAHtonl(byval s as SOCKET, byval hostlong as u_long, byval lpnetlong as u_long ptr) as long
@@ -946,9 +931,9 @@ declare function WSAProviderConfigChange(byval lpNotificationHandle as LPHANDLE,
 
 #define WSAMAKEASYNCREPLY(buflen, error) MAKELONG(buflen, error)
 #define WSAMAKESELECTREPLY(event, error) MAKELONG(event, error)
-#define WSAGETASYNCBUFLEN(lParam) LOWORD_(lParam)
-#define WSAGETASYNCERROR(lParam) HIWORD_(lParam)
-#define WSAGETSELECTEVENT(lParam) LOWORD_(lParam)
-#define WSAGETSELECTERROR(lParam) HIWORD_(lParam)
+#define WSAGETASYNCBUFLEN(lParam) LOWORD(lParam)
+#define WSAGETASYNCERROR(lParam) HIWORD(lParam)
+#define WSAGETSELECTEVENT(lParam) LOWORD(lParam)
+#define WSAGETSELECTERROR(lParam) HIWORD(lParam)
 
 end extern

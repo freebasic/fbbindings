@@ -10,7 +10,7 @@
 
 #define _INC_CPL
 
-type APPLET_PROC as function(byval hwndCpl as HWND, byval msg as UINT, byval lParam1 as LPARAM, byval lParam2 as LPARAM) as LONG_
+type APPLET_PROC as function(byval hwndCpl as HWND, byval msg as UINT, byval lParam1 as LPARAM, byval lParam2 as LPARAM) as LONG
 
 #define WM_CPL_LAUNCH (WM_USER + 1000)
 #define WM_CPL_LAUNCHED (WM_USER + 1001)

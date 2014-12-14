@@ -43,8 +43,8 @@ type IBaseVideoMixer as IBaseVideoMixer_
 
 type IDirectDrawVideoVtbl
 	QueryInterface as function(byval This as IDirectDrawVideo ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirectDrawVideo ptr) as ULONG_
-	Release as function(byval This as IDirectDrawVideo ptr) as ULONG_
+	AddRef as function(byval This as IDirectDrawVideo ptr) as ULONG
+	Release as function(byval This as IDirectDrawVideo ptr) as ULONG
 	GetSwitches as function(byval This as IDirectDrawVideo ptr, byval pSwitches as DWORD ptr) as HRESULT
 	SetSwitches as function(byval This as IDirectDrawVideo ptr, byval Switches as DWORD) as HRESULT
 	GetCaps as function(byval This as IDirectDrawVideo ptr, byval pCaps as DDCAPS ptr) as HRESULT
@@ -55,12 +55,12 @@ type IDirectDrawVideoVtbl
 	GetDirectDraw as function(byval This as IDirectDrawVideo ptr, byval ddraw as IDirectDraw ptr ptr) as HRESULT
 	GetSurfaceType as function(byval This as IDirectDrawVideo ptr, byval pSurfaceType as DWORD ptr) as HRESULT
 	SetDefault as function(byval This as IDirectDrawVideo ptr) as HRESULT
-	UseScanLine as function(byval This as IDirectDrawVideo ptr, byval UseScanLine as LONG_) as HRESULT
-	CanUseScanLine as function(byval This as IDirectDrawVideo ptr, byval UseScanLine as LONG_ ptr) as HRESULT
-	UseOverlayStretch as function(byval This as IDirectDrawVideo ptr, byval UseOverlayStretch as LONG_) as HRESULT
-	CanUseOverlayStretch as function(byval This as IDirectDrawVideo ptr, byval UseOverlayStretch as LONG_ ptr) as HRESULT
-	UseWhenFullScreen as function(byval This as IDirectDrawVideo ptr, byval UseWhenFullScreen as LONG_) as HRESULT
-	WillUseFullScreen as function(byval This as IDirectDrawVideo ptr, byval UseWhenFullScreen as LONG_ ptr) as HRESULT
+	UseScanLine as function(byval This as IDirectDrawVideo ptr, byval UseScanLine as LONG) as HRESULT
+	CanUseScanLine as function(byval This as IDirectDrawVideo ptr, byval UseScanLine as LONG ptr) as HRESULT
+	UseOverlayStretch as function(byval This as IDirectDrawVideo ptr, byval UseOverlayStretch as LONG) as HRESULT
+	CanUseOverlayStretch as function(byval This as IDirectDrawVideo ptr, byval UseOverlayStretch as LONG ptr) as HRESULT
+	UseWhenFullScreen as function(byval This as IDirectDrawVideo ptr, byval UseWhenFullScreen as LONG) as HRESULT
+	WillUseFullScreen as function(byval This as IDirectDrawVideo ptr, byval UseWhenFullScreen as LONG ptr) as HRESULT
 end type
 
 type IDirectDrawVideo_
@@ -87,25 +87,25 @@ declare function IDirectDrawVideo_GetSurfaceType_Proxy(byval This as IDirectDraw
 declare sub IDirectDrawVideo_GetSurfaceType_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IDirectDrawVideo_SetDefault_Proxy(byval This as IDirectDrawVideo ptr) as HRESULT
 declare sub IDirectDrawVideo_SetDefault_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-declare function IDirectDrawVideo_UseScanLine_Proxy(byval This as IDirectDrawVideo ptr, byval UseScanLine as LONG_) as HRESULT
+declare function IDirectDrawVideo_UseScanLine_Proxy(byval This as IDirectDrawVideo ptr, byval UseScanLine as LONG) as HRESULT
 declare sub IDirectDrawVideo_UseScanLine_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-declare function IDirectDrawVideo_CanUseScanLine_Proxy(byval This as IDirectDrawVideo ptr, byval UseScanLine as LONG_ ptr) as HRESULT
+declare function IDirectDrawVideo_CanUseScanLine_Proxy(byval This as IDirectDrawVideo ptr, byval UseScanLine as LONG ptr) as HRESULT
 declare sub IDirectDrawVideo_CanUseScanLine_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-declare function IDirectDrawVideo_UseOverlayStretch_Proxy(byval This as IDirectDrawVideo ptr, byval UseOverlayStretch as LONG_) as HRESULT
+declare function IDirectDrawVideo_UseOverlayStretch_Proxy(byval This as IDirectDrawVideo ptr, byval UseOverlayStretch as LONG) as HRESULT
 declare sub IDirectDrawVideo_UseOverlayStretch_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-declare function IDirectDrawVideo_CanUseOverlayStretch_Proxy(byval This as IDirectDrawVideo ptr, byval UseOverlayStretch as LONG_ ptr) as HRESULT
+declare function IDirectDrawVideo_CanUseOverlayStretch_Proxy(byval This as IDirectDrawVideo ptr, byval UseOverlayStretch as LONG ptr) as HRESULT
 declare sub IDirectDrawVideo_CanUseOverlayStretch_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-declare function IDirectDrawVideo_UseWhenFullScreen_Proxy(byval This as IDirectDrawVideo ptr, byval UseWhenFullScreen as LONG_) as HRESULT
+declare function IDirectDrawVideo_UseWhenFullScreen_Proxy(byval This as IDirectDrawVideo ptr, byval UseWhenFullScreen as LONG) as HRESULT
 declare sub IDirectDrawVideo_UseWhenFullScreen_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-declare function IDirectDrawVideo_WillUseFullScreen_Proxy(byval This as IDirectDrawVideo ptr, byval UseWhenFullScreen as LONG_ ptr) as HRESULT
+declare function IDirectDrawVideo_WillUseFullScreen_Proxy(byval This as IDirectDrawVideo ptr, byval UseWhenFullScreen as LONG ptr) as HRESULT
 declare sub IDirectDrawVideo_WillUseFullScreen_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 
 #define __IQualProp_INTERFACE_DEFINED__
 
 type IQualPropVtbl
 	QueryInterface as function(byval This as IQualProp ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IQualProp ptr) as ULONG_
-	Release as function(byval This as IQualProp ptr) as ULONG_
+	AddRef as function(byval This as IQualProp ptr) as ULONG
+	Release as function(byval This as IQualProp ptr) as ULONG
 	get_FramesDroppedInRenderer as function(byval This as IQualProp ptr, byval pcFrames as long ptr) as HRESULT
 	get_FramesDrawn as function(byval This as IQualProp ptr, byval pcFramesDrawn as long ptr) as HRESULT
 	get_AvgFrameRate as function(byval This as IQualProp ptr, byval piAvgFrameRate as long ptr) as HRESULT
@@ -135,21 +135,21 @@ declare sub IQualProp_get_DevSyncOffset_Stub(byval This as IRpcStubBuffer ptr, b
 
 type IFullScreenVideoVtbl
 	QueryInterface as function(byval This as IFullScreenVideo ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IFullScreenVideo ptr) as ULONG_
-	Release as function(byval This as IFullScreenVideo ptr) as ULONG_
-	CountModes as function(byval This as IFullScreenVideo ptr, byval pModes as LONG_ ptr) as HRESULT
-	GetModeInfo as function(byval This as IFullScreenVideo ptr, byval Mode as LONG_, byval pWidth as LONG_ ptr, byval pHeight as LONG_ ptr, byval pDepth as LONG_ ptr) as HRESULT
-	GetCurrentMode as function(byval This as IFullScreenVideo ptr, byval pMode as LONG_ ptr) as HRESULT
-	IsModeAvailable as function(byval This as IFullScreenVideo ptr, byval Mode as LONG_) as HRESULT
-	IsModeEnabled as function(byval This as IFullScreenVideo ptr, byval Mode as LONG_) as HRESULT
-	SetEnabled as function(byval This as IFullScreenVideo ptr, byval Mode as LONG_, byval bEnabled as LONG_) as HRESULT
-	GetClipFactor as function(byval This as IFullScreenVideo ptr, byval pClipFactor as LONG_ ptr) as HRESULT
-	SetClipFactor as function(byval This as IFullScreenVideo ptr, byval ClipFactor as LONG_) as HRESULT
+	AddRef as function(byval This as IFullScreenVideo ptr) as ULONG
+	Release as function(byval This as IFullScreenVideo ptr) as ULONG
+	CountModes as function(byval This as IFullScreenVideo ptr, byval pModes as LONG ptr) as HRESULT
+	GetModeInfo as function(byval This as IFullScreenVideo ptr, byval Mode as LONG, byval pWidth as LONG ptr, byval pHeight as LONG ptr, byval pDepth as LONG ptr) as HRESULT
+	GetCurrentMode as function(byval This as IFullScreenVideo ptr, byval pMode as LONG ptr) as HRESULT
+	IsModeAvailable as function(byval This as IFullScreenVideo ptr, byval Mode as LONG) as HRESULT
+	IsModeEnabled as function(byval This as IFullScreenVideo ptr, byval Mode as LONG) as HRESULT
+	SetEnabled as function(byval This as IFullScreenVideo ptr, byval Mode as LONG, byval bEnabled as LONG) as HRESULT
+	GetClipFactor as function(byval This as IFullScreenVideo ptr, byval pClipFactor as LONG ptr) as HRESULT
+	SetClipFactor as function(byval This as IFullScreenVideo ptr, byval ClipFactor as LONG) as HRESULT
 	SetMessageDrain as function(byval This as IFullScreenVideo ptr, byval hwnd as HWND) as HRESULT
 	GetMessageDrain as function(byval This as IFullScreenVideo ptr, byval hwnd as HWND ptr) as HRESULT
-	SetMonitor as function(byval This as IFullScreenVideo ptr, byval Monitor as LONG_) as HRESULT
-	GetMonitor as function(byval This as IFullScreenVideo ptr, byval Monitor as LONG_ ptr) as HRESULT
-	HideOnDeactivate as function(byval This as IFullScreenVideo ptr, byval Hide as LONG_) as HRESULT
+	SetMonitor as function(byval This as IFullScreenVideo ptr, byval Monitor as LONG) as HRESULT
+	GetMonitor as function(byval This as IFullScreenVideo ptr, byval Monitor as LONG ptr) as HRESULT
+	HideOnDeactivate as function(byval This as IFullScreenVideo ptr, byval Hide as LONG) as HRESULT
 	IsHideOnDeactivate as function(byval This as IFullScreenVideo ptr) as HRESULT
 	SetCaption as function(byval This as IFullScreenVideo ptr, byval strCaption as BSTR) as HRESULT
 	GetCaption as function(byval This as IFullScreenVideo ptr, byval pstrCaption as BSTR ptr) as HRESULT
@@ -160,31 +160,31 @@ type IFullScreenVideo_
 	lpVtbl as IFullScreenVideoVtbl ptr
 end type
 
-declare function IFullScreenVideo_CountModes_Proxy(byval This as IFullScreenVideo ptr, byval pModes as LONG_ ptr) as HRESULT
+declare function IFullScreenVideo_CountModes_Proxy(byval This as IFullScreenVideo ptr, byval pModes as LONG ptr) as HRESULT
 declare sub IFullScreenVideo_CountModes_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-declare function IFullScreenVideo_GetModeInfo_Proxy(byval This as IFullScreenVideo ptr, byval Mode as LONG_, byval pWidth as LONG_ ptr, byval pHeight as LONG_ ptr, byval pDepth as LONG_ ptr) as HRESULT
+declare function IFullScreenVideo_GetModeInfo_Proxy(byval This as IFullScreenVideo ptr, byval Mode as LONG, byval pWidth as LONG ptr, byval pHeight as LONG ptr, byval pDepth as LONG ptr) as HRESULT
 declare sub IFullScreenVideo_GetModeInfo_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-declare function IFullScreenVideo_GetCurrentMode_Proxy(byval This as IFullScreenVideo ptr, byval pMode as LONG_ ptr) as HRESULT
+declare function IFullScreenVideo_GetCurrentMode_Proxy(byval This as IFullScreenVideo ptr, byval pMode as LONG ptr) as HRESULT
 declare sub IFullScreenVideo_GetCurrentMode_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-declare function IFullScreenVideo_IsModeAvailable_Proxy(byval This as IFullScreenVideo ptr, byval Mode as LONG_) as HRESULT
+declare function IFullScreenVideo_IsModeAvailable_Proxy(byval This as IFullScreenVideo ptr, byval Mode as LONG) as HRESULT
 declare sub IFullScreenVideo_IsModeAvailable_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-declare function IFullScreenVideo_IsModeEnabled_Proxy(byval This as IFullScreenVideo ptr, byval Mode as LONG_) as HRESULT
+declare function IFullScreenVideo_IsModeEnabled_Proxy(byval This as IFullScreenVideo ptr, byval Mode as LONG) as HRESULT
 declare sub IFullScreenVideo_IsModeEnabled_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-declare function IFullScreenVideo_SetEnabled_Proxy(byval This as IFullScreenVideo ptr, byval Mode as LONG_, byval bEnabled as LONG_) as HRESULT
+declare function IFullScreenVideo_SetEnabled_Proxy(byval This as IFullScreenVideo ptr, byval Mode as LONG, byval bEnabled as LONG) as HRESULT
 declare sub IFullScreenVideo_SetEnabled_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-declare function IFullScreenVideo_GetClipFactor_Proxy(byval This as IFullScreenVideo ptr, byval pClipFactor as LONG_ ptr) as HRESULT
+declare function IFullScreenVideo_GetClipFactor_Proxy(byval This as IFullScreenVideo ptr, byval pClipFactor as LONG ptr) as HRESULT
 declare sub IFullScreenVideo_GetClipFactor_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-declare function IFullScreenVideo_SetClipFactor_Proxy(byval This as IFullScreenVideo ptr, byval ClipFactor as LONG_) as HRESULT
+declare function IFullScreenVideo_SetClipFactor_Proxy(byval This as IFullScreenVideo ptr, byval ClipFactor as LONG) as HRESULT
 declare sub IFullScreenVideo_SetClipFactor_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IFullScreenVideo_SetMessageDrain_Proxy(byval This as IFullScreenVideo ptr, byval hwnd as HWND) as HRESULT
 declare sub IFullScreenVideo_SetMessageDrain_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IFullScreenVideo_GetMessageDrain_Proxy(byval This as IFullScreenVideo ptr, byval hwnd as HWND ptr) as HRESULT
 declare sub IFullScreenVideo_GetMessageDrain_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-declare function IFullScreenVideo_SetMonitor_Proxy(byval This as IFullScreenVideo ptr, byval Monitor as LONG_) as HRESULT
+declare function IFullScreenVideo_SetMonitor_Proxy(byval This as IFullScreenVideo ptr, byval Monitor as LONG) as HRESULT
 declare sub IFullScreenVideo_SetMonitor_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-declare function IFullScreenVideo_GetMonitor_Proxy(byval This as IFullScreenVideo ptr, byval Monitor as LONG_ ptr) as HRESULT
+declare function IFullScreenVideo_GetMonitor_Proxy(byval This as IFullScreenVideo ptr, byval Monitor as LONG ptr) as HRESULT
 declare sub IFullScreenVideo_GetMonitor_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-declare function IFullScreenVideo_HideOnDeactivate_Proxy(byval This as IFullScreenVideo ptr, byval Hide as LONG_) as HRESULT
+declare function IFullScreenVideo_HideOnDeactivate_Proxy(byval This as IFullScreenVideo ptr, byval Hide as LONG) as HRESULT
 declare sub IFullScreenVideo_HideOnDeactivate_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IFullScreenVideo_IsHideOnDeactivate_Proxy(byval This as IFullScreenVideo ptr) as HRESULT
 declare sub IFullScreenVideo_IsHideOnDeactivate_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
@@ -199,29 +199,29 @@ declare sub IFullScreenVideo_SetDefault_Stub(byval This as IRpcStubBuffer ptr, b
 
 type IFullScreenVideoExVtbl
 	QueryInterface as function(byval This as IFullScreenVideoEx ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IFullScreenVideoEx ptr) as ULONG_
-	Release as function(byval This as IFullScreenVideoEx ptr) as ULONG_
-	CountModes as function(byval This as IFullScreenVideoEx ptr, byval pModes as LONG_ ptr) as HRESULT
-	GetModeInfo as function(byval This as IFullScreenVideoEx ptr, byval Mode as LONG_, byval pWidth as LONG_ ptr, byval pHeight as LONG_ ptr, byval pDepth as LONG_ ptr) as HRESULT
-	GetCurrentMode as function(byval This as IFullScreenVideoEx ptr, byval pMode as LONG_ ptr) as HRESULT
-	IsModeAvailable as function(byval This as IFullScreenVideoEx ptr, byval Mode as LONG_) as HRESULT
-	IsModeEnabled as function(byval This as IFullScreenVideoEx ptr, byval Mode as LONG_) as HRESULT
-	SetEnabled as function(byval This as IFullScreenVideoEx ptr, byval Mode as LONG_, byval bEnabled as LONG_) as HRESULT
-	GetClipFactor as function(byval This as IFullScreenVideoEx ptr, byval pClipFactor as LONG_ ptr) as HRESULT
-	SetClipFactor as function(byval This as IFullScreenVideoEx ptr, byval ClipFactor as LONG_) as HRESULT
+	AddRef as function(byval This as IFullScreenVideoEx ptr) as ULONG
+	Release as function(byval This as IFullScreenVideoEx ptr) as ULONG
+	CountModes as function(byval This as IFullScreenVideoEx ptr, byval pModes as LONG ptr) as HRESULT
+	GetModeInfo as function(byval This as IFullScreenVideoEx ptr, byval Mode as LONG, byval pWidth as LONG ptr, byval pHeight as LONG ptr, byval pDepth as LONG ptr) as HRESULT
+	GetCurrentMode as function(byval This as IFullScreenVideoEx ptr, byval pMode as LONG ptr) as HRESULT
+	IsModeAvailable as function(byval This as IFullScreenVideoEx ptr, byval Mode as LONG) as HRESULT
+	IsModeEnabled as function(byval This as IFullScreenVideoEx ptr, byval Mode as LONG) as HRESULT
+	SetEnabled as function(byval This as IFullScreenVideoEx ptr, byval Mode as LONG, byval bEnabled as LONG) as HRESULT
+	GetClipFactor as function(byval This as IFullScreenVideoEx ptr, byval pClipFactor as LONG ptr) as HRESULT
+	SetClipFactor as function(byval This as IFullScreenVideoEx ptr, byval ClipFactor as LONG) as HRESULT
 	SetMessageDrain as function(byval This as IFullScreenVideoEx ptr, byval hwnd as HWND) as HRESULT
 	GetMessageDrain as function(byval This as IFullScreenVideoEx ptr, byval hwnd as HWND ptr) as HRESULT
-	SetMonitor as function(byval This as IFullScreenVideoEx ptr, byval Monitor as LONG_) as HRESULT
-	GetMonitor as function(byval This as IFullScreenVideoEx ptr, byval Monitor as LONG_ ptr) as HRESULT
-	HideOnDeactivate as function(byval This as IFullScreenVideoEx ptr, byval Hide as LONG_) as HRESULT
+	SetMonitor as function(byval This as IFullScreenVideoEx ptr, byval Monitor as LONG) as HRESULT
+	GetMonitor as function(byval This as IFullScreenVideoEx ptr, byval Monitor as LONG ptr) as HRESULT
+	HideOnDeactivate as function(byval This as IFullScreenVideoEx ptr, byval Hide as LONG) as HRESULT
 	IsHideOnDeactivate as function(byval This as IFullScreenVideoEx ptr) as HRESULT
 	SetCaption as function(byval This as IFullScreenVideoEx ptr, byval strCaption as BSTR) as HRESULT
 	GetCaption as function(byval This as IFullScreenVideoEx ptr, byval pstrCaption as BSTR ptr) as HRESULT
 	SetDefault as function(byval This as IFullScreenVideoEx ptr) as HRESULT
 	SetAcceleratorTable as function(byval This as IFullScreenVideoEx ptr, byval hwnd as HWND, byval hAccel as HACCEL) as HRESULT
 	GetAcceleratorTable as function(byval This as IFullScreenVideoEx ptr, byval phwnd as HWND ptr, byval phAccel as HACCEL ptr) as HRESULT
-	KeepPixelAspectRatio as function(byval This as IFullScreenVideoEx ptr, byval KeepAspect as LONG_) as HRESULT
-	IsKeepPixelAspectRatio as function(byval This as IFullScreenVideoEx ptr, byval pKeepAspect as LONG_ ptr) as HRESULT
+	KeepPixelAspectRatio as function(byval This as IFullScreenVideoEx ptr, byval KeepAspect as LONG) as HRESULT
+	IsKeepPixelAspectRatio as function(byval This as IFullScreenVideoEx ptr, byval pKeepAspect as LONG ptr) as HRESULT
 end type
 
 type IFullScreenVideoEx_
@@ -232,17 +232,17 @@ declare function IFullScreenVideoEx_SetAcceleratorTable_Proxy(byval This as IFul
 declare sub IFullScreenVideoEx_SetAcceleratorTable_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IFullScreenVideoEx_GetAcceleratorTable_Proxy(byval This as IFullScreenVideoEx ptr, byval phwnd as HWND ptr, byval phAccel as HACCEL ptr) as HRESULT
 declare sub IFullScreenVideoEx_GetAcceleratorTable_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-declare function IFullScreenVideoEx_KeepPixelAspectRatio_Proxy(byval This as IFullScreenVideoEx ptr, byval KeepAspect as LONG_) as HRESULT
+declare function IFullScreenVideoEx_KeepPixelAspectRatio_Proxy(byval This as IFullScreenVideoEx ptr, byval KeepAspect as LONG) as HRESULT
 declare sub IFullScreenVideoEx_KeepPixelAspectRatio_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-declare function IFullScreenVideoEx_IsKeepPixelAspectRatio_Proxy(byval This as IFullScreenVideoEx ptr, byval pKeepAspect as LONG_ ptr) as HRESULT
+declare function IFullScreenVideoEx_IsKeepPixelAspectRatio_Proxy(byval This as IFullScreenVideoEx ptr, byval pKeepAspect as LONG ptr) as HRESULT
 declare sub IFullScreenVideoEx_IsKeepPixelAspectRatio_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 
 #define __IBaseVideoMixer_INTERFACE_DEFINED__
 
 type IBaseVideoMixerVtbl
 	QueryInterface as function(byval This as IBaseVideoMixer ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IBaseVideoMixer ptr) as ULONG_
-	Release as function(byval This as IBaseVideoMixer ptr) as ULONG_
+	AddRef as function(byval This as IBaseVideoMixer ptr) as ULONG
+	Release as function(byval This as IBaseVideoMixer ptr) as ULONG
 	SetLeadPin as function(byval This as IBaseVideoMixer ptr, byval iPin as long) as HRESULT
 	GetLeadPin as function(byval This as IBaseVideoMixer ptr, byval piPin as long ptr) as HRESULT
 	GetInputPinCount as function(byval This as IBaseVideoMixer ptr, byval piPinCount as long ptr) as HRESULT
@@ -320,13 +320,13 @@ type tagMPEG1VIDEOINFO
 	hdr as VIDEOINFOHEADER
 	dwStartTimeCode as DWORD
 	cbSequenceHeader as DWORD
-	bSequenceHeader(0 to 0) as BYTE_
+	bSequenceHeader(0 to 0) as BYTE
 end type
 
 type MPEG1VIDEOINFO as tagMPEG1VIDEOINFO
 
 #define MAX_SIZE_MPEG1_SEQUENCE_INFO 140
-#define MPEG1_SEQUENCE_INFO(pv) cptr(const BYTE_ ptr, (pv)->bSequenceHeader)
+#define MPEG1_SEQUENCE_INFO(pv) cptr(const BYTE ptr, (pv)->bSequenceHeader)
 
 type tagAnalogVideoInfo
 	rcSource as RECT

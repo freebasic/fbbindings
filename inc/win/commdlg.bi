@@ -906,8 +906,8 @@ declare function PrintDlgW(byval as LPPRINTDLGW) as WINBOOL
 
 	type IPrintDialogCallbackVtbl_
 		QueryInterface as function(byval This as IPrintDialogCallback ptr, byval riid as const IID const ptr, byval ppvObj as LPVOID ptr) as HRESULT
-		AddRef as function(byval This as IPrintDialogCallback ptr) as ULONG_
-		Release as function(byval This as IPrintDialogCallback ptr) as ULONG_
+		AddRef as function(byval This as IPrintDialogCallback ptr) as ULONG
+		Release as function(byval This as IPrintDialogCallback ptr) as ULONG
 		InitDone as function(byval This as IPrintDialogCallback ptr) as HRESULT
 		SelectionChange as function(byval This as IPrintDialogCallback ptr) as HRESULT
 		HandleMessage as function(byval This as IPrintDialogCallback ptr, byval hDlg as HWND, byval uMsg as UINT, byval wParam as WPARAM, byval lParam as LPARAM, byval pResult as LRESULT ptr) as HRESULT
@@ -919,8 +919,8 @@ declare function PrintDlgW(byval as LPPRINTDLGW) as WINBOOL
 
 	type IPrintDialogServicesVtbl_
 		QueryInterface as function(byval This as IPrintDialogServices ptr, byval riid as const IID const ptr, byval ppvObj as LPVOID ptr) as HRESULT
-		AddRef as function(byval This as IPrintDialogServices ptr) as ULONG_
-		Release as function(byval This as IPrintDialogServices ptr) as ULONG_
+		AddRef as function(byval This as IPrintDialogServices ptr) as ULONG
+		Release as function(byval This as IPrintDialogServices ptr) as ULONG
 		GetCurrentDevMode as function(byval This as IPrintDialogServices ptr, byval pDevMode as LPDEVMODE, byval pcbSize as UINT ptr) as HRESULT
 		GetCurrentPrinterName as function(byval This as IPrintDialogServices ptr, byval pPrinterName as LPTSTR, byval pcchSize as UINT ptr) as HRESULT
 		GetCurrentPortName as function(byval This as IPrintDialogServices ptr, byval pPortName as LPTSTR, byval pcchSize as UINT ptr) as HRESULT
@@ -937,8 +937,8 @@ declare function PrintDlgW(byval as LPPRINTDLGW) as WINBOOL
 
 	type IPrintDialogCallbackVtbl_ field = 1
 		QueryInterface as function(byval This as IPrintDialogCallback ptr, byval riid as const IID const ptr, byval ppvObj as LPVOID ptr) as HRESULT
-		AddRef as function(byval This as IPrintDialogCallback ptr) as ULONG_
-		Release as function(byval This as IPrintDialogCallback ptr) as ULONG_
+		AddRef as function(byval This as IPrintDialogCallback ptr) as ULONG
+		Release as function(byval This as IPrintDialogCallback ptr) as ULONG
 		InitDone as function(byval This as IPrintDialogCallback ptr) as HRESULT
 		SelectionChange as function(byval This as IPrintDialogCallback ptr) as HRESULT
 		HandleMessage as function(byval This as IPrintDialogCallback ptr, byval hDlg as HWND, byval uMsg as UINT, byval wParam as WPARAM, byval lParam as LPARAM, byval pResult as LRESULT ptr) as HRESULT
@@ -950,8 +950,8 @@ declare function PrintDlgW(byval as LPPRINTDLGW) as WINBOOL
 
 	type IPrintDialogServicesVtbl_ field = 1
 		QueryInterface as function(byval This as IPrintDialogServices ptr, byval riid as const IID const ptr, byval ppvObj as LPVOID ptr) as HRESULT
-		AddRef as function(byval This as IPrintDialogServices ptr) as ULONG_
-		Release as function(byval This as IPrintDialogServices ptr) as ULONG_
+		AddRef as function(byval This as IPrintDialogServices ptr) as ULONG
+		Release as function(byval This as IPrintDialogServices ptr) as ULONG
 		GetCurrentDevMode as function(byval This as IPrintDialogServices ptr, byval pDevMode as LPDEVMODE, byval pcbSize as UINT ptr) as HRESULT
 		GetCurrentPrinterName as function(byval This as IPrintDialogServices ptr, byval pPrinterName as LPTSTR, byval pcchSize as UINT ptr) as HRESULT
 		GetCurrentPortName as function(byval This as IPrintDialogServices ptr, byval pPortName as LPTSTR, byval pcchSize as UINT ptr) as HRESULT

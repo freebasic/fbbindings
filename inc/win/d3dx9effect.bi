@@ -83,8 +83,8 @@ end type
 
 type ID3DXEffectPoolVtbl_
 	QueryInterface as function(byval This as ID3DXEffectPool ptr, byval riid as const IID const ptr, byval out_ as any ptr ptr) as HRESULT
-	AddRef as function(byval This as ID3DXEffectPool ptr) as ULONG_
-	Release as function(byval This as ID3DXEffectPool ptr) as ULONG_
+	AddRef as function(byval This as ID3DXEffectPool ptr) as ULONG
+	Release as function(byval This as ID3DXEffectPool ptr) as ULONG
 end type
 
 type LPD3DXBASEEFFECT as ID3DXBaseEffect ptr
@@ -97,8 +97,8 @@ end type
 
 type ID3DXBaseEffectVtbl_
 	QueryInterface as function(byval This as ID3DXBaseEffect ptr, byval riid as const IID const ptr, byval out_ as any ptr ptr) as HRESULT
-	AddRef as function(byval This as ID3DXBaseEffect ptr) as ULONG_
-	Release as function(byval This as ID3DXBaseEffect ptr) as ULONG_
+	AddRef as function(byval This as ID3DXBaseEffect ptr) as ULONG
+	Release as function(byval This as ID3DXBaseEffect ptr) as ULONG
 	GetDesc as function(byval This as ID3DXBaseEffect ptr, byval desc as D3DXEFFECT_DESC ptr) as HRESULT
 	GetParameterDesc as function(byval This as ID3DXBaseEffect ptr, byval parameter as D3DXHANDLE, byval desc as D3DXPARAMETER_DESC ptr) as HRESULT
 	GetTechniqueDesc as function(byval This as ID3DXBaseEffect ptr, byval technique as D3DXHANDLE, byval desc as D3DXTECHNIQUE_DESC ptr) as HRESULT
@@ -165,8 +165,8 @@ end type
 
 type ID3DXEffectStateManagerVtbl_
 	QueryInterface as function(byval This as ID3DXEffectStateManager ptr, byval riid as const IID const ptr, byval out_ as any ptr ptr) as HRESULT
-	AddRef as function(byval This as ID3DXEffectStateManager ptr) as ULONG_
-	Release as function(byval This as ID3DXEffectStateManager ptr) as ULONG_
+	AddRef as function(byval This as ID3DXEffectStateManager ptr) as ULONG
+	Release as function(byval This as ID3DXEffectStateManager ptr) as ULONG
 	SetTransform as function(byval This as ID3DXEffectStateManager ptr, byval state as D3DTRANSFORMSTATETYPE, byval matrix as const D3DMATRIX ptr) as HRESULT
 	SetMaterial as function(byval This as ID3DXEffectStateManager ptr, byval material as const D3DMATERIAL9 ptr) as HRESULT
 	SetLight as function(byval This as ID3DXEffectStateManager ptr, byval index as DWORD, byval light as const D3DLIGHT9 ptr) as HRESULT
@@ -197,8 +197,8 @@ end type
 
 type ID3DXEffectVtbl_
 	QueryInterface as function(byval This as ID3DXEffect ptr, byval riid as const IID const ptr, byval out_ as any ptr ptr) as HRESULT
-	AddRef as function(byval This as ID3DXEffect ptr) as ULONG_
-	Release as function(byval This as ID3DXEffect ptr) as ULONG_
+	AddRef as function(byval This as ID3DXEffect ptr) as ULONG
+	Release as function(byval This as ID3DXEffect ptr) as ULONG
 	GetDesc as function(byval This as ID3DXEffect ptr, byval desc as D3DXEFFECT_DESC ptr) as HRESULT
 	GetParameterDesc as function(byval This as ID3DXEffect ptr, byval parameter as D3DXHANDLE, byval desc as D3DXPARAMETER_DESC ptr) as HRESULT
 	GetTechniqueDesc as function(byval This as ID3DXEffect ptr, byval technique as D3DXHANDLE, byval desc as D3DXTECHNIQUE_DESC ptr) as HRESULT
@@ -287,8 +287,8 @@ end type
 
 type ID3DXEffectCompilerVtbl_
 	QueryInterface as function(byval This as ID3DXEffectCompiler ptr, byval riid as const IID const ptr, byval out_ as any ptr ptr) as HRESULT
-	AddRef as function(byval This as ID3DXEffectCompiler ptr) as ULONG_
-	Release as function(byval This as ID3DXEffectCompiler ptr) as ULONG_
+	AddRef as function(byval This as ID3DXEffectCompiler ptr) as ULONG
+	Release as function(byval This as ID3DXEffectCompiler ptr) as ULONG
 	GetDesc as function(byval This as ID3DXEffectCompiler ptr, byval desc as D3DXEFFECT_DESC ptr) as HRESULT
 	GetParameterDesc as function(byval This as ID3DXEffectCompiler ptr, byval parameter as D3DXHANDLE, byval desc as D3DXPARAMETER_DESC ptr) as HRESULT
 	GetTechniqueDesc as function(byval This as ID3DXEffectCompiler ptr, byval technique as D3DXHANDLE, byval desc as D3DXTECHNIQUE_DESC ptr) as HRESULT

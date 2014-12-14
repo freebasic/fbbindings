@@ -32,8 +32,8 @@ extern __MIDL_itf_objsafe_0000_v0_0_s_ifspec as RPC_IF_HANDLE
 
 type IObjectSafetyVtbl
 	QueryInterface as function(byval This as IObjectSafety ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IObjectSafety ptr) as ULONG_
-	Release as function(byval This as IObjectSafety ptr) as ULONG_
+	AddRef as function(byval This as IObjectSafety ptr) as ULONG
+	Release as function(byval This as IObjectSafety ptr) as ULONG
 	GetInterfaceSafetyOptions as function(byval This as IObjectSafety ptr, byval riid as const IID const ptr, byval pdwSupportedOptions as DWORD ptr, byval pdwEnabledOptions as DWORD ptr) as HRESULT
 	SetInterfaceSafetyOptions as function(byval This as IObjectSafety ptr, byval riid as const IID const ptr, byval dwOptionSetMask as DWORD, byval dwEnabledOptions as DWORD) as HRESULT
 end type

@@ -46,8 +46,8 @@ end type
 
 type IDirectMusicSynthVtbl_
 	QueryInterface as function(byval This as IDirectMusicSynth ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirectMusicSynth ptr) as ULONG_
-	Release as function(byval This as IDirectMusicSynth ptr) as ULONG_
+	AddRef as function(byval This as IDirectMusicSynth ptr) as ULONG
+	Release as function(byval This as IDirectMusicSynth ptr) as ULONG
 	Open as function(byval This as IDirectMusicSynth ptr, byval pPortParams as LPDMUS_PORTPARAMS) as HRESULT
 	Close as function(byval This as IDirectMusicSynth ptr) as HRESULT
 	SetNumChannelGroups as function(byval This as IDirectMusicSynth ptr, byval dwGroups as DWORD) as HRESULT
@@ -94,8 +94,8 @@ end type
 
 type IDirectMusicSynth8Vtbl_
 	QueryInterface as function(byval This as IDirectMusicSynth8 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirectMusicSynth8 ptr) as ULONG_
-	Release as function(byval This as IDirectMusicSynth8 ptr) as ULONG_
+	AddRef as function(byval This as IDirectMusicSynth8 ptr) as ULONG
+	Release as function(byval This as IDirectMusicSynth8 ptr) as ULONG
 	Open as function(byval This as IDirectMusicSynth8 ptr, byval pPortParams as LPDMUS_PORTPARAMS) as HRESULT
 	Close as function(byval This as IDirectMusicSynth8 ptr) as HRESULT
 	SetNumChannelGroups as function(byval This as IDirectMusicSynth8 ptr, byval dwGroups as DWORD) as HRESULT
@@ -113,7 +113,7 @@ type IDirectMusicSynth8Vtbl_
 	GetChannelPriority as function(byval This as IDirectMusicSynth8 ptr, byval dwChannelGroup as DWORD, byval dwChannel as DWORD, byval pdwPriority as LPDWORD) as HRESULT
 	GetFormat as function(byval This as IDirectMusicSynth8 ptr, byval pWaveFormatEx as LPWAVEFORMATEX, byval pdwWaveFormatExSiz as LPDWORD) as HRESULT
 	GetAppend as function(byval This as IDirectMusicSynth8 ptr, byval pdwAppend as DWORD ptr) as HRESULT
-	PlayVoice as function(byval This as IDirectMusicSynth8 ptr, byval rt as REFERENCE_TIME, byval dwVoiceId as DWORD, byval dwChannelGroup as DWORD, byval dwChannel as DWORD, byval dwDLId as DWORD, byval prPitch as LONG_, byval vrVolume as LONG_, byval stVoiceStart as SAMPLE_TIME, byval stLoopStart as SAMPLE_TIME, byval stLoopEnd as SAMPLE_TIME) as HRESULT
+	PlayVoice as function(byval This as IDirectMusicSynth8 ptr, byval rt as REFERENCE_TIME, byval dwVoiceId as DWORD, byval dwChannelGroup as DWORD, byval dwChannel as DWORD, byval dwDLId as DWORD, byval prPitch as LONG, byval vrVolume as LONG, byval stVoiceStart as SAMPLE_TIME, byval stLoopStart as SAMPLE_TIME, byval stLoopEnd as SAMPLE_TIME) as HRESULT
 	StopVoice as function(byval This as IDirectMusicSynth8 ptr, byval rt as REFERENCE_TIME, byval dwVoiceId as DWORD) as HRESULT
 	GetVoiceState as function(byval This as IDirectMusicSynth8 ptr, byval dwVoice as DWORD ptr, byval cbVoice as DWORD, byval dwVoiceState as DMUS_VOICE_STATE ptr) as HRESULT
 	Refresh as function(byval This as IDirectMusicSynth8 ptr, byval dwDownloadID as DWORD, byval dwFlags as DWORD) as HRESULT
@@ -152,8 +152,8 @@ end type
 
 type IDirectMusicSynthSinkVtbl_
 	QueryInterface as function(byval This as IDirectMusicSynthSink ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirectMusicSynthSink ptr) as ULONG_
-	Release as function(byval This as IDirectMusicSynthSink ptr) as ULONG_
+	AddRef as function(byval This as IDirectMusicSynthSink ptr) as ULONG
+	Release as function(byval This as IDirectMusicSynthSink ptr) as ULONG
 	Init as function(byval This as IDirectMusicSynthSink ptr, byval pSynth as IDirectMusicSynth ptr) as HRESULT
 	SetMasterClock as function(byval This as IDirectMusicSynthSink ptr, byval pClock as IReferenceClock ptr) as HRESULT
 	GetLatencyClock as function(byval This as IDirectMusicSynthSink ptr, byval ppClock as IReferenceClock ptr ptr) as HRESULT
