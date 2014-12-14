@@ -9,6 +9,10 @@
 #include once "ocidl.bi"
 #include once "ddraw.bi"
 
+'' The following symbols have been renamed:
+''     inside struct tagCOLORKEY:
+''         field PaletteIndex => PaletteIndex_
+
 #ifdef __FB_64BIT__
 	extern "C"
 #else
@@ -213,8 +217,8 @@ extern IID_ICreateDevEnum as const GUID
 
 type ICreateDevEnumVtbl
 	QueryInterface as function(byval This as ICreateDevEnum ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as ICreateDevEnum ptr) as ULONG_
-	Release as function(byval This as ICreateDevEnum ptr) as ULONG_
+	AddRef as function(byval This as ICreateDevEnum ptr) as ULONG
+	Release as function(byval This as ICreateDevEnum ptr) as ULONG
 	CreateClassEnumerator as function(byval This as ICreateDevEnum ptr, byval clsidDeviceClass as const IID const ptr, byval ppEnumMoniker as IEnumMoniker ptr ptr, byval dwFlags as DWORD) as HRESULT
 end type
 
@@ -232,11 +236,11 @@ type _AMMediaType
 	subtype as GUID
 	bFixedSizeSamples as WINBOOL
 	bTemporalCompression as WINBOOL
-	lSampleSize as ULONG_
+	lSampleSize as ULONG
 	formattype as GUID
 	pUnk as IUnknown ptr
-	cbFormat as ULONG_
-	pbFormat as BYTE_ ptr
+	cbFormat as ULONG
+	pbFormat as BYTE ptr
 end type
 
 type AM_MEDIA_TYPE as _AMMediaType
@@ -257,15 +261,15 @@ type REFERENCE_TIME as LONGLONG
 
 #define REFTIME_DEFINED
 
-type REFTIME as DOUBLE_
+type REFTIME as DOUBLE
 type HSEMAPHORE as DWORD_PTR
 type HEVENT as DWORD_PTR
 
 type _AllocatorProperties
-	cBuffers as LONG_
-	cbBuffer as LONG_
-	cbAlign as LONG_
-	cbPrefix as LONG_
+	cBuffers as LONG
+	cbBuffer as LONG
+	cbAlign as LONG
+	cbPrefix as LONG
 end type
 
 type ALLOCATOR_PROPERTIES as _AllocatorProperties
@@ -284,8 +288,8 @@ extern IID_IPin as const GUID
 
 type IPinVtbl
 	QueryInterface as function(byval This as IPin ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IPin ptr) as ULONG_
-	Release as function(byval This as IPin ptr) as ULONG_
+	AddRef as function(byval This as IPin ptr) as ULONG
+	Release as function(byval This as IPin ptr) as ULONG
 	Connect as function(byval This as IPin ptr, byval pReceivePin as IPin ptr, byval pmt as const AM_MEDIA_TYPE ptr) as HRESULT
 	ReceiveConnection as function(byval This as IPin ptr, byval pConnector as IPin ptr, byval pmt as const AM_MEDIA_TYPE ptr) as HRESULT
 	Disconnect as function(byval This as IPin ptr) as HRESULT
@@ -296,7 +300,7 @@ type IPinVtbl
 	QueryId as function(byval This as IPin ptr, byval Id as LPWSTR ptr) as HRESULT
 	QueryAccept as function(byval This as IPin ptr, byval pmt as const AM_MEDIA_TYPE ptr) as HRESULT
 	EnumMediaTypes as function(byval This as IPin ptr, byval ppEnum as IEnumMediaTypes ptr ptr) as HRESULT
-	QueryInternalConnections as function(byval This as IPin ptr, byval apPin as IPin ptr ptr, byval nPin as ULONG_ ptr) as HRESULT
+	QueryInternalConnections as function(byval This as IPin ptr, byval apPin as IPin ptr ptr, byval nPin as ULONG ptr) as HRESULT
 	EndOfStream as function(byval This as IPin ptr) as HRESULT
 	BeginFlush as function(byval This as IPin ptr) as HRESULT
 	EndFlush as function(byval This as IPin ptr) as HRESULT
@@ -327,7 +331,7 @@ declare function IPin_QueryAccept_Proxy(byval This as IPin ptr, byval pmt as con
 declare sub IPin_QueryAccept_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IPin_EnumMediaTypes_Proxy(byval This as IPin ptr, byval ppEnum as IEnumMediaTypes ptr ptr) as HRESULT
 declare sub IPin_EnumMediaTypes_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-declare function IPin_QueryInternalConnections_Proxy(byval This as IPin ptr, byval apPin as IPin ptr ptr, byval nPin as ULONG_ ptr) as HRESULT
+declare function IPin_QueryInternalConnections_Proxy(byval This as IPin ptr, byval apPin as IPin ptr ptr, byval nPin as ULONG ptr) as HRESULT
 declare sub IPin_QueryInternalConnections_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IPin_EndOfStream_Proxy(byval This as IPin ptr) as HRESULT
 declare sub IPin_EndOfStream_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
@@ -346,10 +350,10 @@ extern IID_IEnumPins as const GUID
 
 type IEnumPinsVtbl
 	QueryInterface as function(byval This as IEnumPins ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IEnumPins ptr) as ULONG_
-	Release as function(byval This as IEnumPins ptr) as ULONG_
-	Next as function(byval This as IEnumPins ptr, byval cPins as ULONG_, byval ppPins as IPin ptr ptr, byval pcFetched as ULONG_ ptr) as HRESULT
-	Skip as function(byval This as IEnumPins ptr, byval cPins as ULONG_) as HRESULT
+	AddRef as function(byval This as IEnumPins ptr) as ULONG
+	Release as function(byval This as IEnumPins ptr) as ULONG
+	Next as function(byval This as IEnumPins ptr, byval cPins as ULONG, byval ppPins as IPin ptr ptr, byval pcFetched as ULONG ptr) as HRESULT
+	Skip as function(byval This as IEnumPins ptr, byval cPins as ULONG) as HRESULT
 	Reset as function(byval This as IEnumPins ptr) as HRESULT
 	Clone as function(byval This as IEnumPins ptr, byval ppEnum as IEnumPins ptr ptr) as HRESULT
 end type
@@ -358,9 +362,9 @@ type IEnumPins_
 	lpVtbl as IEnumPinsVtbl ptr
 end type
 
-declare function IEnumPins_Next_Proxy(byval This as IEnumPins ptr, byval cPins as ULONG_, byval ppPins as IPin ptr ptr, byval pcFetched as ULONG_ ptr) as HRESULT
+declare function IEnumPins_Next_Proxy(byval This as IEnumPins ptr, byval cPins as ULONG, byval ppPins as IPin ptr ptr, byval pcFetched as ULONG ptr) as HRESULT
 declare sub IEnumPins_Next_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-declare function IEnumPins_Skip_Proxy(byval This as IEnumPins ptr, byval cPins as ULONG_) as HRESULT
+declare function IEnumPins_Skip_Proxy(byval This as IEnumPins ptr, byval cPins as ULONG) as HRESULT
 declare sub IEnumPins_Skip_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IEnumPins_Reset_Proxy(byval This as IEnumPins ptr) as HRESULT
 declare sub IEnumPins_Reset_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
@@ -375,10 +379,10 @@ extern IID_IEnumMediaTypes as const GUID
 
 type IEnumMediaTypesVtbl
 	QueryInterface as function(byval This as IEnumMediaTypes ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IEnumMediaTypes ptr) as ULONG_
-	Release as function(byval This as IEnumMediaTypes ptr) as ULONG_
-	Next as function(byval This as IEnumMediaTypes ptr, byval cMediaTypes as ULONG_, byval ppMediaTypes as AM_MEDIA_TYPE ptr ptr, byval pcFetched as ULONG_ ptr) as HRESULT
-	Skip as function(byval This as IEnumMediaTypes ptr, byval cMediaTypes as ULONG_) as HRESULT
+	AddRef as function(byval This as IEnumMediaTypes ptr) as ULONG
+	Release as function(byval This as IEnumMediaTypes ptr) as ULONG
+	Next as function(byval This as IEnumMediaTypes ptr, byval cMediaTypes as ULONG, byval ppMediaTypes as AM_MEDIA_TYPE ptr ptr, byval pcFetched as ULONG ptr) as HRESULT
+	Skip as function(byval This as IEnumMediaTypes ptr, byval cMediaTypes as ULONG) as HRESULT
 	Reset as function(byval This as IEnumMediaTypes ptr) as HRESULT
 	Clone as function(byval This as IEnumMediaTypes ptr, byval ppEnum as IEnumMediaTypes ptr ptr) as HRESULT
 end type
@@ -387,9 +391,9 @@ type IEnumMediaTypes_
 	lpVtbl as IEnumMediaTypesVtbl ptr
 end type
 
-declare function IEnumMediaTypes_Next_Proxy(byval This as IEnumMediaTypes ptr, byval cMediaTypes as ULONG_, byval ppMediaTypes as AM_MEDIA_TYPE ptr ptr, byval pcFetched as ULONG_ ptr) as HRESULT
+declare function IEnumMediaTypes_Next_Proxy(byval This as IEnumMediaTypes ptr, byval cMediaTypes as ULONG, byval ppMediaTypes as AM_MEDIA_TYPE ptr ptr, byval pcFetched as ULONG ptr) as HRESULT
 declare sub IEnumMediaTypes_Next_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-declare function IEnumMediaTypes_Skip_Proxy(byval This as IEnumMediaTypes ptr, byval cMediaTypes as ULONG_) as HRESULT
+declare function IEnumMediaTypes_Skip_Proxy(byval This as IEnumMediaTypes ptr, byval cMediaTypes as ULONG) as HRESULT
 declare sub IEnumMediaTypes_Skip_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IEnumMediaTypes_Reset_Proxy(byval This as IEnumMediaTypes ptr) as HRESULT
 declare sub IEnumMediaTypes_Reset_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
@@ -404,8 +408,8 @@ extern IID_IFilterGraph as const GUID
 
 type IFilterGraphVtbl
 	QueryInterface as function(byval This as IFilterGraph ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IFilterGraph ptr) as ULONG_
-	Release as function(byval This as IFilterGraph ptr) as ULONG_
+	AddRef as function(byval This as IFilterGraph ptr) as ULONG
+	Release as function(byval This as IFilterGraph ptr) as ULONG
 	AddFilter as function(byval This as IFilterGraph ptr, byval pFilter as IBaseFilter ptr, byval pName as LPCWSTR) as HRESULT
 	RemoveFilter as function(byval This as IFilterGraph ptr, byval pFilter as IBaseFilter ptr) as HRESULT
 	EnumFilters as function(byval This as IFilterGraph ptr, byval ppEnum as IEnumFilters ptr ptr) as HRESULT
@@ -445,10 +449,10 @@ extern IID_IEnumFilters as const GUID
 
 type IEnumFiltersVtbl
 	QueryInterface as function(byval This as IEnumFilters ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IEnumFilters ptr) as ULONG_
-	Release as function(byval This as IEnumFilters ptr) as ULONG_
-	Next as function(byval This as IEnumFilters ptr, byval cFilters as ULONG_, byval ppFilter as IBaseFilter ptr ptr, byval pcFetched as ULONG_ ptr) as HRESULT
-	Skip as function(byval This as IEnumFilters ptr, byval cFilters as ULONG_) as HRESULT
+	AddRef as function(byval This as IEnumFilters ptr) as ULONG
+	Release as function(byval This as IEnumFilters ptr) as ULONG
+	Next as function(byval This as IEnumFilters ptr, byval cFilters as ULONG, byval ppFilter as IBaseFilter ptr ptr, byval pcFetched as ULONG ptr) as HRESULT
+	Skip as function(byval This as IEnumFilters ptr, byval cFilters as ULONG) as HRESULT
 	Reset as function(byval This as IEnumFilters ptr) as HRESULT
 	Clone as function(byval This as IEnumFilters ptr, byval ppEnum as IEnumFilters ptr ptr) as HRESULT
 end type
@@ -457,9 +461,9 @@ type IEnumFilters_
 	lpVtbl as IEnumFiltersVtbl ptr
 end type
 
-declare function IEnumFilters_Next_Proxy(byval This as IEnumFilters ptr, byval cFilters as ULONG_, byval ppFilter as IBaseFilter ptr ptr, byval pcFetched as ULONG_ ptr) as HRESULT
+declare function IEnumFilters_Next_Proxy(byval This as IEnumFilters ptr, byval cFilters as ULONG, byval ppFilter as IBaseFilter ptr ptr, byval pcFetched as ULONG ptr) as HRESULT
 declare sub IEnumFilters_Next_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-declare function IEnumFilters_Skip_Proxy(byval This as IEnumFilters ptr, byval cFilters as ULONG_) as HRESULT
+declare function IEnumFilters_Skip_Proxy(byval This as IEnumFilters ptr, byval cFilters as ULONG) as HRESULT
 declare sub IEnumFilters_Skip_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IEnumFilters_Reset_Proxy(byval This as IEnumFilters ptr) as HRESULT
 declare sub IEnumFilters_Reset_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
@@ -483,8 +487,8 @@ extern IID_IMediaFilter as const GUID
 
 type IMediaFilterVtbl
 	QueryInterface as function(byval This as IMediaFilter ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IMediaFilter ptr) as ULONG_
-	Release as function(byval This as IMediaFilter ptr) as ULONG_
+	AddRef as function(byval This as IMediaFilter ptr) as ULONG
+	Release as function(byval This as IMediaFilter ptr) as ULONG
 	GetClassID as function(byval This as IMediaFilter ptr, byval pClassID as CLSID ptr) as HRESULT
 	Stop as function(byval This as IMediaFilter ptr) as HRESULT
 	Pause as function(byval This as IMediaFilter ptr) as HRESULT
@@ -526,8 +530,8 @@ extern IID_IBaseFilter as const GUID
 
 type IBaseFilterVtbl
 	QueryInterface as function(byval This as IBaseFilter ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IBaseFilter ptr) as ULONG_
-	Release as function(byval This as IBaseFilter ptr) as ULONG_
+	AddRef as function(byval This as IBaseFilter ptr) as ULONG
+	Release as function(byval This as IBaseFilter ptr) as ULONG
 	GetClassID as function(byval This as IBaseFilter ptr, byval pClassID as CLSID ptr) as HRESULT
 	Stop as function(byval This as IBaseFilter ptr) as HRESULT
 	Pause as function(byval This as IBaseFilter ptr) as HRESULT
@@ -565,8 +569,8 @@ extern IID_IReferenceClock as const GUID
 
 type IReferenceClockVtbl
 	QueryInterface as function(byval This as IReferenceClock ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IReferenceClock ptr) as ULONG_
-	Release as function(byval This as IReferenceClock ptr) as ULONG_
+	AddRef as function(byval This as IReferenceClock ptr) as ULONG
+	Release as function(byval This as IReferenceClock ptr) as ULONG
 	GetTime as function(byval This as IReferenceClock ptr, byval pTime as REFERENCE_TIME ptr) as HRESULT
 	AdviseTime as function(byval This as IReferenceClock ptr, byval baseTime as REFERENCE_TIME, byval streamTime as REFERENCE_TIME, byval hEvent as HEVENT, byval pdwAdviseCookie as DWORD_PTR ptr) as HRESULT
 	AdvisePeriodic as function(byval This as IReferenceClock ptr, byval startTime as REFERENCE_TIME, byval periodTime as REFERENCE_TIME, byval hSemaphore as HSEMAPHORE, byval pdwAdviseCookie as DWORD_PTR ptr) as HRESULT
@@ -594,18 +598,18 @@ extern IID_IMediaSample as const GUID
 
 type IMediaSampleVtbl
 	QueryInterface as function(byval This as IMediaSample ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IMediaSample ptr) as ULONG_
-	Release as function(byval This as IMediaSample ptr) as ULONG_
-	GetPointer as function(byval This as IMediaSample ptr, byval ppBuffer as BYTE_ ptr ptr) as HRESULT
-	GetSize as function(byval This as IMediaSample ptr) as LONG_
+	AddRef as function(byval This as IMediaSample ptr) as ULONG
+	Release as function(byval This as IMediaSample ptr) as ULONG
+	GetPointer as function(byval This as IMediaSample ptr, byval ppBuffer as BYTE ptr ptr) as HRESULT
+	GetSize as function(byval This as IMediaSample ptr) as LONG
 	GetTime as function(byval This as IMediaSample ptr, byval pTimeStart as REFERENCE_TIME ptr, byval pTimeEnd as REFERENCE_TIME ptr) as HRESULT
 	SetTime as function(byval This as IMediaSample ptr, byval pTimeStart as REFERENCE_TIME ptr, byval pTimeEnd as REFERENCE_TIME ptr) as HRESULT
 	IsSyncPoint as function(byval This as IMediaSample ptr) as HRESULT
 	SetSyncPoint as function(byval This as IMediaSample ptr, byval bIsSyncPoint as WINBOOL) as HRESULT
 	IsPreroll as function(byval This as IMediaSample ptr) as HRESULT
 	SetPreroll as function(byval This as IMediaSample ptr, byval bIsPreroll as WINBOOL) as HRESULT
-	GetActualDataLength as function(byval This as IMediaSample ptr) as LONG_
-	SetActualDataLength as function(byval This as IMediaSample ptr, byval length as LONG_) as HRESULT
+	GetActualDataLength as function(byval This as IMediaSample ptr) as LONG
+	SetActualDataLength as function(byval This as IMediaSample ptr, byval length as LONG) as HRESULT
 	GetMediaType as function(byval This as IMediaSample ptr, byval ppMediaType as AM_MEDIA_TYPE ptr ptr) as HRESULT
 	SetMediaType as function(byval This as IMediaSample ptr, byval pMediaType as AM_MEDIA_TYPE ptr) as HRESULT
 	IsDiscontinuity as function(byval This as IMediaSample ptr) as HRESULT
@@ -618,9 +622,9 @@ type IMediaSample_
 	lpVtbl as IMediaSampleVtbl ptr
 end type
 
-declare function IMediaSample_GetPointer_Proxy(byval This as IMediaSample ptr, byval ppBuffer as BYTE_ ptr ptr) as HRESULT
+declare function IMediaSample_GetPointer_Proxy(byval This as IMediaSample ptr, byval ppBuffer as BYTE ptr ptr) as HRESULT
 declare sub IMediaSample_GetPointer_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-declare function IMediaSample_GetSize_Proxy(byval This as IMediaSample ptr) as LONG_
+declare function IMediaSample_GetSize_Proxy(byval This as IMediaSample ptr) as LONG
 declare sub IMediaSample_GetSize_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IMediaSample_GetTime_Proxy(byval This as IMediaSample ptr, byval pTimeStart as REFERENCE_TIME ptr, byval pTimeEnd as REFERENCE_TIME ptr) as HRESULT
 declare sub IMediaSample_GetTime_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
@@ -634,9 +638,9 @@ declare function IMediaSample_IsPreroll_Proxy(byval This as IMediaSample ptr) as
 declare sub IMediaSample_IsPreroll_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IMediaSample_SetPreroll_Proxy(byval This as IMediaSample ptr, byval bIsPreroll as WINBOOL) as HRESULT
 declare sub IMediaSample_SetPreroll_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-declare function IMediaSample_GetActualDataLength_Proxy(byval This as IMediaSample ptr) as LONG_
+declare function IMediaSample_GetActualDataLength_Proxy(byval This as IMediaSample ptr) as LONG
 declare sub IMediaSample_GetActualDataLength_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-declare function IMediaSample_SetActualDataLength_Proxy(byval This as IMediaSample ptr, byval length as LONG_) as HRESULT
+declare function IMediaSample_SetActualDataLength_Proxy(byval This as IMediaSample ptr, byval length as LONG) as HRESULT
 declare sub IMediaSample_SetActualDataLength_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IMediaSample_GetMediaType_Proxy(byval This as IMediaSample ptr, byval ppMediaType as AM_MEDIA_TYPE ptr ptr) as HRESULT
 declare sub IMediaSample_GetMediaType_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
@@ -672,13 +676,13 @@ type tagAM_SAMPLE2_PROPERTIES
 	cbData as DWORD
 	dwTypeSpecificFlags as DWORD
 	dwSampleFlags as DWORD
-	lActual as LONG_
+	lActual as LONG
 	tStart as REFERENCE_TIME
 	tStop as REFERENCE_TIME
 	dwStreamId as DWORD
 	pMediaType as AM_MEDIA_TYPE ptr
-	pbBuffer as BYTE_ ptr
-	cbBuffer as LONG_
+	pbBuffer as BYTE ptr
+	cbBuffer as LONG
 end type
 
 type AM_SAMPLE2_PROPERTIES as tagAM_SAMPLE2_PROPERTIES
@@ -689,35 +693,35 @@ extern IID_IMediaSample2 as const GUID
 
 type IMediaSample2Vtbl
 	QueryInterface as function(byval This as IMediaSample2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IMediaSample2 ptr) as ULONG_
-	Release as function(byval This as IMediaSample2 ptr) as ULONG_
-	GetPointer as function(byval This as IMediaSample2 ptr, byval ppBuffer as BYTE_ ptr ptr) as HRESULT
-	GetSize as function(byval This as IMediaSample2 ptr) as LONG_
+	AddRef as function(byval This as IMediaSample2 ptr) as ULONG
+	Release as function(byval This as IMediaSample2 ptr) as ULONG
+	GetPointer as function(byval This as IMediaSample2 ptr, byval ppBuffer as BYTE ptr ptr) as HRESULT
+	GetSize as function(byval This as IMediaSample2 ptr) as LONG
 	GetTime as function(byval This as IMediaSample2 ptr, byval pTimeStart as REFERENCE_TIME ptr, byval pTimeEnd as REFERENCE_TIME ptr) as HRESULT
 	SetTime as function(byval This as IMediaSample2 ptr, byval pTimeStart as REFERENCE_TIME ptr, byval pTimeEnd as REFERENCE_TIME ptr) as HRESULT
 	IsSyncPoint as function(byval This as IMediaSample2 ptr) as HRESULT
 	SetSyncPoint as function(byval This as IMediaSample2 ptr, byval bIsSyncPoint as WINBOOL) as HRESULT
 	IsPreroll as function(byval This as IMediaSample2 ptr) as HRESULT
 	SetPreroll as function(byval This as IMediaSample2 ptr, byval bIsPreroll as WINBOOL) as HRESULT
-	GetActualDataLength as function(byval This as IMediaSample2 ptr) as LONG_
-	SetActualDataLength as function(byval This as IMediaSample2 ptr, byval length as LONG_) as HRESULT
+	GetActualDataLength as function(byval This as IMediaSample2 ptr) as LONG
+	SetActualDataLength as function(byval This as IMediaSample2 ptr, byval length as LONG) as HRESULT
 	GetMediaType as function(byval This as IMediaSample2 ptr, byval ppMediaType as AM_MEDIA_TYPE ptr ptr) as HRESULT
 	SetMediaType as function(byval This as IMediaSample2 ptr, byval pMediaType as AM_MEDIA_TYPE ptr) as HRESULT
 	IsDiscontinuity as function(byval This as IMediaSample2 ptr) as HRESULT
 	SetDiscontinuity as function(byval This as IMediaSample2 ptr, byval bDiscontinuity as WINBOOL) as HRESULT
 	GetMediaTime as function(byval This as IMediaSample2 ptr, byval pTimeStart as LONGLONG ptr, byval pTimeEnd as LONGLONG ptr) as HRESULT
 	SetMediaTime as function(byval This as IMediaSample2 ptr, byval pTimeStart as LONGLONG ptr, byval pTimeEnd as LONGLONG ptr) as HRESULT
-	GetProperties as function(byval This as IMediaSample2 ptr, byval cbProperties as DWORD, byval pbProperties as BYTE_ ptr) as HRESULT
-	SetProperties as function(byval This as IMediaSample2 ptr, byval cbProperties as DWORD, byval pbProperties as const BYTE_ ptr) as HRESULT
+	GetProperties as function(byval This as IMediaSample2 ptr, byval cbProperties as DWORD, byval pbProperties as BYTE ptr) as HRESULT
+	SetProperties as function(byval This as IMediaSample2 ptr, byval cbProperties as DWORD, byval pbProperties as const BYTE ptr) as HRESULT
 end type
 
 type IMediaSample2_
 	lpVtbl as IMediaSample2Vtbl ptr
 end type
 
-declare function IMediaSample2_GetProperties_Proxy(byval This as IMediaSample2 ptr, byval cbProperties as DWORD, byval pbProperties as BYTE_ ptr) as HRESULT
+declare function IMediaSample2_GetProperties_Proxy(byval This as IMediaSample2 ptr, byval cbProperties as DWORD, byval pbProperties as BYTE ptr) as HRESULT
 declare sub IMediaSample2_GetProperties_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-declare function IMediaSample2_SetProperties_Proxy(byval This as IMediaSample2 ptr, byval cbProperties as DWORD, byval pbProperties as const BYTE_ ptr) as HRESULT
+declare function IMediaSample2_SetProperties_Proxy(byval This as IMediaSample2 ptr, byval cbProperties as DWORD, byval pbProperties as const BYTE ptr) as HRESULT
 declare sub IMediaSample2_SetProperties_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 
 type PMEDIASAMPLE2 as IMediaSample2 ptr
@@ -732,8 +736,8 @@ extern IID_IMemAllocator as const GUID
 
 type IMemAllocatorVtbl
 	QueryInterface as function(byval This as IMemAllocator ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IMemAllocator ptr) as ULONG_
-	Release as function(byval This as IMemAllocator ptr) as ULONG_
+	AddRef as function(byval This as IMemAllocator ptr) as ULONG
+	Release as function(byval This as IMemAllocator ptr) as ULONG
 	SetProperties as function(byval This as IMemAllocator ptr, byval pRequest as ALLOCATOR_PROPERTIES ptr, byval pActual as ALLOCATOR_PROPERTIES ptr) as HRESULT
 	GetProperties as function(byval This as IMemAllocator ptr, byval pProps as ALLOCATOR_PROPERTIES ptr) as HRESULT
 	Commit as function(byval This as IMemAllocator ptr) as HRESULT
@@ -767,8 +771,8 @@ extern IID_IMemAllocatorCallbackTemp as const GUID
 
 type IMemAllocatorCallbackTempVtbl
 	QueryInterface as function(byval This as IMemAllocatorCallbackTemp ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IMemAllocatorCallbackTemp ptr) as ULONG_
-	Release as function(byval This as IMemAllocatorCallbackTemp ptr) as ULONG_
+	AddRef as function(byval This as IMemAllocatorCallbackTemp ptr) as ULONG
+	Release as function(byval This as IMemAllocatorCallbackTemp ptr) as ULONG
 	SetProperties as function(byval This as IMemAllocatorCallbackTemp ptr, byval pRequest as ALLOCATOR_PROPERTIES ptr, byval pActual as ALLOCATOR_PROPERTIES ptr) as HRESULT
 	GetProperties as function(byval This as IMemAllocatorCallbackTemp ptr, byval pProps as ALLOCATOR_PROPERTIES ptr) as HRESULT
 	Commit as function(byval This as IMemAllocatorCallbackTemp ptr) as HRESULT
@@ -776,7 +780,7 @@ type IMemAllocatorCallbackTempVtbl
 	GetBuffer as function(byval This as IMemAllocatorCallbackTemp ptr, byval ppBuffer as IMediaSample ptr ptr, byval pStartTime as REFERENCE_TIME ptr, byval pEndTime as REFERENCE_TIME ptr, byval dwFlags as DWORD) as HRESULT
 	ReleaseBuffer as function(byval This as IMemAllocatorCallbackTemp ptr, byval pBuffer as IMediaSample ptr) as HRESULT
 	SetNotify as function(byval This as IMemAllocatorCallbackTemp ptr, byval pNotify as IMemAllocatorNotifyCallbackTemp ptr) as HRESULT
-	GetFreeCount as function(byval This as IMemAllocatorCallbackTemp ptr, byval plBuffersFree as LONG_ ptr) as HRESULT
+	GetFreeCount as function(byval This as IMemAllocatorCallbackTemp ptr, byval plBuffersFree as LONG ptr) as HRESULT
 end type
 
 type IMemAllocatorCallbackTemp_
@@ -785,7 +789,7 @@ end type
 
 declare function IMemAllocatorCallbackTemp_SetNotify_Proxy(byval This as IMemAllocatorCallbackTemp ptr, byval pNotify as IMemAllocatorNotifyCallbackTemp ptr) as HRESULT
 declare sub IMemAllocatorCallbackTemp_SetNotify_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-declare function IMemAllocatorCallbackTemp_GetFreeCount_Proxy(byval This as IMemAllocatorCallbackTemp ptr, byval plBuffersFree as LONG_ ptr) as HRESULT
+declare function IMemAllocatorCallbackTemp_GetFreeCount_Proxy(byval This as IMemAllocatorCallbackTemp ptr, byval plBuffersFree as LONG ptr) as HRESULT
 declare sub IMemAllocatorCallbackTemp_GetFreeCount_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 
 #define __IMemAllocatorNotifyCallbackTemp_INTERFACE_DEFINED__
@@ -794,8 +798,8 @@ extern IID_IMemAllocatorNotifyCallbackTemp as const GUID
 
 type IMemAllocatorNotifyCallbackTempVtbl
 	QueryInterface as function(byval This as IMemAllocatorNotifyCallbackTemp ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IMemAllocatorNotifyCallbackTemp ptr) as ULONG_
-	Release as function(byval This as IMemAllocatorNotifyCallbackTemp ptr) as ULONG_
+	AddRef as function(byval This as IMemAllocatorNotifyCallbackTemp ptr) as ULONG
+	Release as function(byval This as IMemAllocatorNotifyCallbackTemp ptr) as ULONG
 	NotifyRelease as function(byval This as IMemAllocatorNotifyCallbackTemp ptr) as HRESULT
 end type
 
@@ -812,13 +816,13 @@ extern IID_IMemInputPin as const GUID
 
 type IMemInputPinVtbl
 	QueryInterface as function(byval This as IMemInputPin ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IMemInputPin ptr) as ULONG_
-	Release as function(byval This as IMemInputPin ptr) as ULONG_
+	AddRef as function(byval This as IMemInputPin ptr) as ULONG
+	Release as function(byval This as IMemInputPin ptr) as ULONG
 	GetAllocator as function(byval This as IMemInputPin ptr, byval ppAllocator as IMemAllocator ptr ptr) as HRESULT
 	NotifyAllocator as function(byval This as IMemInputPin ptr, byval pAllocator as IMemAllocator ptr, byval bReadOnly as WINBOOL) as HRESULT
 	GetAllocatorRequirements as function(byval This as IMemInputPin ptr, byval pProps as ALLOCATOR_PROPERTIES ptr) as HRESULT
 	Receive as function(byval This as IMemInputPin ptr, byval pSample as IMediaSample ptr) as HRESULT
-	ReceiveMultiple as function(byval This as IMemInputPin ptr, byval pSamples as IMediaSample ptr ptr, byval nSamples as LONG_, byval nSamplesProcessed as LONG_ ptr) as HRESULT
+	ReceiveMultiple as function(byval This as IMemInputPin ptr, byval pSamples as IMediaSample ptr ptr, byval nSamples as LONG, byval nSamplesProcessed as LONG ptr) as HRESULT
 	ReceiveCanBlock as function(byval This as IMemInputPin ptr) as HRESULT
 end type
 
@@ -834,7 +838,7 @@ declare function IMemInputPin_GetAllocatorRequirements_Proxy(byval This as IMemI
 declare sub IMemInputPin_GetAllocatorRequirements_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IMemInputPin_Receive_Proxy(byval This as IMemInputPin ptr, byval pSample as IMediaSample ptr) as HRESULT
 declare sub IMemInputPin_Receive_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-declare function IMemInputPin_ReceiveMultiple_Proxy(byval This as IMemInputPin ptr, byval pSamples as IMediaSample ptr ptr, byval nSamples as LONG_, byval nSamplesProcessed as LONG_ ptr) as HRESULT
+declare function IMemInputPin_ReceiveMultiple_Proxy(byval This as IMemInputPin ptr, byval pSamples as IMediaSample ptr ptr, byval nSamples as LONG, byval nSamplesProcessed as LONG ptr) as HRESULT
 declare sub IMemInputPin_ReceiveMultiple_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IMemInputPin_ReceiveCanBlock_Proxy(byval This as IMemInputPin ptr) as HRESULT
 declare sub IMemInputPin_ReceiveCanBlock_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
@@ -847,8 +851,8 @@ extern IID_IAMovieSetup as const GUID
 
 type IAMovieSetupVtbl
 	QueryInterface as function(byval This as IAMovieSetup ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IAMovieSetup ptr) as ULONG_
-	Release as function(byval This as IAMovieSetup ptr) as ULONG_
+	AddRef as function(byval This as IAMovieSetup ptr) as ULONG
+	Release as function(byval This as IAMovieSetup ptr) as ULONG
 	Register as function(byval This as IAMovieSetup ptr) as HRESULT
 	Unregister as function(byval This as IAMovieSetup ptr) as HRESULT
 end type
@@ -900,8 +904,8 @@ extern IID_IMediaSeeking as const GUID
 
 type IMediaSeekingVtbl
 	QueryInterface as function(byval This as IMediaSeeking ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IMediaSeeking ptr) as ULONG_
-	Release as function(byval This as IMediaSeeking ptr) as ULONG_
+	AddRef as function(byval This as IMediaSeeking ptr) as ULONG
+	Release as function(byval This as IMediaSeeking ptr) as ULONG
 	GetCapabilities as function(byval This as IMediaSeeking ptr, byval pCapabilities as DWORD ptr) as HRESULT
 	CheckCapabilities as function(byval This as IMediaSeeking ptr, byval pCapabilities as DWORD ptr) as HRESULT
 	IsFormatSupported as function(byval This as IMediaSeeking ptr, byval pFormat as const GUID ptr) as HRESULT
@@ -1020,10 +1024,10 @@ extern IID_IEnumRegFilters as const GUID
 
 type IEnumRegFiltersVtbl
 	QueryInterface as function(byval This as IEnumRegFilters ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IEnumRegFilters ptr) as ULONG_
-	Release as function(byval This as IEnumRegFilters ptr) as ULONG_
-	Next as function(byval This as IEnumRegFilters ptr, byval cFilters as ULONG_, byval apRegFilter as REGFILTER ptr ptr, byval pcFetched as ULONG_ ptr) as HRESULT
-	Skip as function(byval This as IEnumRegFilters ptr, byval cFilters as ULONG_) as HRESULT
+	AddRef as function(byval This as IEnumRegFilters ptr) as ULONG
+	Release as function(byval This as IEnumRegFilters ptr) as ULONG
+	Next as function(byval This as IEnumRegFilters ptr, byval cFilters as ULONG, byval apRegFilter as REGFILTER ptr ptr, byval pcFetched as ULONG ptr) as HRESULT
+	Skip as function(byval This as IEnumRegFilters ptr, byval cFilters as ULONG) as HRESULT
 	Reset as function(byval This as IEnumRegFilters ptr) as HRESULT
 	Clone as function(byval This as IEnumRegFilters ptr, byval ppEnum as IEnumRegFilters ptr ptr) as HRESULT
 end type
@@ -1032,9 +1036,9 @@ type IEnumRegFilters_
 	lpVtbl as IEnumRegFiltersVtbl ptr
 end type
 
-declare function IEnumRegFilters_Next_Proxy(byval This as IEnumRegFilters ptr, byval cFilters as ULONG_, byval apRegFilter as REGFILTER ptr ptr, byval pcFetched as ULONG_ ptr) as HRESULT
+declare function IEnumRegFilters_Next_Proxy(byval This as IEnumRegFilters ptr, byval cFilters as ULONG, byval apRegFilter as REGFILTER ptr ptr, byval pcFetched as ULONG ptr) as HRESULT
 declare sub IEnumRegFilters_Next_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-declare function IEnumRegFilters_Skip_Proxy(byval This as IEnumRegFilters ptr, byval cFilters as ULONG_) as HRESULT
+declare function IEnumRegFilters_Skip_Proxy(byval This as IEnumRegFilters ptr, byval cFilters as ULONG) as HRESULT
 declare sub IEnumRegFilters_Skip_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IEnumRegFilters_Reset_Proxy(byval This as IEnumRegFilters ptr) as HRESULT
 declare sub IEnumRegFilters_Reset_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
@@ -1058,8 +1062,8 @@ extern IID_IFilterMapper as const GUID
 
 type IFilterMapperVtbl
 	QueryInterface as function(byval This as IFilterMapper ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IFilterMapper ptr) as ULONG_
-	Release as function(byval This as IFilterMapper ptr) as ULONG_
+	AddRef as function(byval This as IFilterMapper ptr) as ULONG
+	Release as function(byval This as IFilterMapper ptr) as ULONG
 	RegisterFilter as function(byval This as IFilterMapper ptr, byval clsid as CLSID, byval Name_ as LPCWSTR, byval dwMerit as DWORD) as HRESULT
 	RegisterFilterInstance as function(byval This as IFilterMapper ptr, byval clsid as CLSID, byval Name_ as LPCWSTR, byval MRId as CLSID ptr) as HRESULT
 	RegisterPin as function(byval This as IFilterMapper ptr, byval Filter as CLSID, byval Name_ as LPCWSTR, byval bRendered as WINBOOL, byval bOutput as WINBOOL, byval bZero as WINBOOL, byval bMany as WINBOOL, byval ConnectsToFilter as CLSID, byval ConnectsToPin as LPCWSTR) as HRESULT
@@ -1145,12 +1149,12 @@ type __WIDL_axextend_generated_name_00000005
 
 	union
 		type
-			cPins as ULONG_
+			cPins as ULONG
 			rgPins as const REGFILTERPINS ptr
 		end type
 
 		type
-			cPins2 as ULONG_
+			cPins2 as ULONG
 			rgPins2 as const REGFILTERPINS2 ptr
 		end type
 	end union
@@ -1164,8 +1168,8 @@ extern IID_IFilterMapper2 as const GUID
 
 type IFilterMapper2Vtbl
 	QueryInterface as function(byval This as IFilterMapper2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IFilterMapper2 ptr) as ULONG_
-	Release as function(byval This as IFilterMapper2 ptr) as ULONG_
+	AddRef as function(byval This as IFilterMapper2 ptr) as ULONG
+	Release as function(byval This as IFilterMapper2 ptr) as ULONG
 	CreateCategory as function(byval This as IFilterMapper2 ptr, byval clsidCategory as const IID const ptr, byval dwCategoryMerit as DWORD, byval Description as LPCWSTR) as HRESULT
 	UnregisterFilter as function(byval This as IFilterMapper2 ptr, byval pclsidCategory as const CLSID ptr, byval szInstance as LPCOLESTR, byval Filter as const IID const ptr) as HRESULT
 	RegisterFilter as function(byval This as IFilterMapper2 ptr, byval clsidFilter as const IID const ptr, byval Name_ as LPCWSTR, byval ppMoniker as IMoniker ptr ptr, byval pclsidCategory as const CLSID ptr, byval szInstance as LPCOLESTR, byval prf2 as const REGFILTER2 ptr) as HRESULT
@@ -1191,8 +1195,8 @@ extern IID_IFilterMapper3 as const GUID
 
 type IFilterMapper3Vtbl
 	QueryInterface as function(byval This as IFilterMapper3 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IFilterMapper3 ptr) as ULONG_
-	Release as function(byval This as IFilterMapper3 ptr) as ULONG_
+	AddRef as function(byval This as IFilterMapper3 ptr) as ULONG
+	Release as function(byval This as IFilterMapper3 ptr) as ULONG
 	CreateCategory as function(byval This as IFilterMapper3 ptr, byval clsidCategory as const IID const ptr, byval dwCategoryMerit as DWORD, byval Description as LPCWSTR) as HRESULT
 	UnregisterFilter as function(byval This as IFilterMapper3 ptr, byval pclsidCategory as const CLSID ptr, byval szInstance as LPCOLESTR, byval Filter as const IID const ptr) as HRESULT
 	RegisterFilter as function(byval This as IFilterMapper3 ptr, byval clsidFilter as const IID const ptr, byval Name_ as LPCWSTR, byval ppMoniker as IMoniker ptr ptr, byval pclsidCategory as const CLSID ptr, byval szInstance as LPCOLESTR, byval prf2 as const REGFILTER2 ptr) as HRESULT
@@ -1217,7 +1221,7 @@ type QualityMessageType as tagQualityMessageType
 
 type tagQuality
 	as QualityMessageType Type
-	Proportion as LONG_
+	Proportion as LONG
 	Late as REFERENCE_TIME
 	TimeStamp as REFERENCE_TIME
 end type
@@ -1231,8 +1235,8 @@ extern IID_IQualityControl as const GUID
 
 type IQualityControlVtbl
 	QueryInterface as function(byval This as IQualityControl ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IQualityControl ptr) as ULONG_
-	Release as function(byval This as IQualityControl ptr) as ULONG_
+	AddRef as function(byval This as IQualityControl ptr) as ULONG
+	Release as function(byval This as IQualityControl ptr) as ULONG
 	Notify as function(byval This as IQualityControl ptr, byval pSelf as IBaseFilter ptr, byval q as Quality) as HRESULT
 	SetSink as function(byval This as IQualityControl ptr, byval piqc as IQualityControl ptr) as HRESULT
 end type
@@ -1254,7 +1258,7 @@ end enum
 
 type tagCOLORKEY
 	KeyType as DWORD
-	PaletteIndex as DWORD
+	PaletteIndex_ as DWORD
 	LowColorValue as COLORREF
 	HighColorValue as COLORREF
 end type
@@ -1278,8 +1282,8 @@ extern IID_IOverlayNotify as const GUID
 
 type IOverlayNotifyVtbl
 	QueryInterface as function(byval This as IOverlayNotify ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IOverlayNotify ptr) as ULONG_
-	Release as function(byval This as IOverlayNotify ptr) as ULONG_
+	AddRef as function(byval This as IOverlayNotify ptr) as ULONG
+	Release as function(byval This as IOverlayNotify ptr) as ULONG
 	OnPaletteChange as function(byval This as IOverlayNotify ptr, byval dwColors as DWORD, byval pPalette as const PALETTEENTRY ptr) as HRESULT
 	OnClipChange as function(byval This as IOverlayNotify ptr, byval pSourceRect as const RECT ptr, byval pDestinationRect as const RECT ptr, byval pRgnData as const RGNDATA ptr) as HRESULT
 	OnColorKeyChange as function(byval This as IOverlayNotify ptr, byval pColorKey as const COLORKEY ptr) as HRESULT
@@ -1307,8 +1311,8 @@ extern IID_IOverlayNotify2 as const GUID
 
 type IOverlayNotify2Vtbl
 	QueryInterface as function(byval This as IOverlayNotify2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IOverlayNotify2 ptr) as ULONG_
-	Release as function(byval This as IOverlayNotify2 ptr) as ULONG_
+	AddRef as function(byval This as IOverlayNotify2 ptr) as ULONG
+	Release as function(byval This as IOverlayNotify2 ptr) as ULONG
 	OnPaletteChange as function(byval This as IOverlayNotify2 ptr, byval dwColors as DWORD, byval pPalette as const PALETTEENTRY ptr) as HRESULT
 	OnClipChange as function(byval This as IOverlayNotify2 ptr, byval pSourceRect as const RECT ptr, byval pDestinationRect as const RECT ptr, byval pRgnData as const RGNDATA ptr) as HRESULT
 	OnColorKeyChange as function(byval This as IOverlayNotify2 ptr, byval pColorKey as const COLORKEY ptr) as HRESULT
@@ -1331,8 +1335,8 @@ extern IID_IOverlay as const GUID
 
 type IOverlayVtbl
 	QueryInterface as function(byval This as IOverlay ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IOverlay ptr) as ULONG_
-	Release as function(byval This as IOverlay ptr) as ULONG_
+	AddRef as function(byval This as IOverlay ptr) as ULONG
+	Release as function(byval This as IOverlay ptr) as ULONG
 	GetPalette as function(byval This as IOverlay ptr, byval pdwColors as DWORD ptr, byval ppPalette as PALETTEENTRY ptr ptr) as HRESULT
 	SetPalette as function(byval This as IOverlay ptr, byval dwColors as DWORD, byval pPalette as PALETTEENTRY ptr) as HRESULT
 	GetDefaultColorKey as function(byval This as IOverlay ptr, byval pColorKey as COLORKEY ptr) as HRESULT
@@ -1378,16 +1382,16 @@ extern IID_IMediaEventSink as const GUID
 
 type IMediaEventSinkVtbl
 	QueryInterface as function(byval This as IMediaEventSink ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IMediaEventSink ptr) as ULONG_
-	Release as function(byval This as IMediaEventSink ptr) as ULONG_
-	Notify as function(byval This as IMediaEventSink ptr, byval EventCode as LONG_, byval EventParam1 as LONG_PTR, byval EventParam2 as LONG_PTR) as HRESULT
+	AddRef as function(byval This as IMediaEventSink ptr) as ULONG
+	Release as function(byval This as IMediaEventSink ptr) as ULONG
+	Notify as function(byval This as IMediaEventSink ptr, byval EventCode as LONG, byval EventParam1 as LONG_PTR, byval EventParam2 as LONG_PTR) as HRESULT
 end type
 
 type IMediaEventSink_
 	lpVtbl as IMediaEventSinkVtbl ptr
 end type
 
-declare function IMediaEventSink_Notify_Proxy(byval This as IMediaEventSink ptr, byval EventCode as LONG_, byval EventParam1 as LONG_PTR, byval EventParam2 as LONG_PTR) as HRESULT
+declare function IMediaEventSink_Notify_Proxy(byval This as IMediaEventSink ptr, byval EventCode as LONG, byval EventParam1 as LONG_PTR, byval EventParam2 as LONG_PTR) as HRESULT
 declare sub IMediaEventSink_Notify_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 
 type PMEDIAEVENTSINK as IMediaEventSink ptr
@@ -1398,8 +1402,8 @@ extern IID_IFileSourceFilter as const GUID
 
 type IFileSourceFilterVtbl
 	QueryInterface as function(byval This as IFileSourceFilter ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IFileSourceFilter ptr) as ULONG_
-	Release as function(byval This as IFileSourceFilter ptr) as ULONG_
+	AddRef as function(byval This as IFileSourceFilter ptr) as ULONG
+	Release as function(byval This as IFileSourceFilter ptr) as ULONG
 	Load as function(byval This as IFileSourceFilter ptr, byval pszFileName as LPCOLESTR, byval pmt as const AM_MEDIA_TYPE ptr) as HRESULT
 	GetCurFile as function(byval This as IFileSourceFilter ptr, byval ppszFileName as LPOLESTR ptr, byval pmt as AM_MEDIA_TYPE ptr) as HRESULT
 end type
@@ -1421,8 +1425,8 @@ extern IID_IFileSinkFilter as const GUID
 
 type IFileSinkFilterVtbl
 	QueryInterface as function(byval This as IFileSinkFilter ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IFileSinkFilter ptr) as ULONG_
-	Release as function(byval This as IFileSinkFilter ptr) as ULONG_
+	AddRef as function(byval This as IFileSinkFilter ptr) as ULONG
+	Release as function(byval This as IFileSinkFilter ptr) as ULONG
 	SetFileName as function(byval This as IFileSinkFilter ptr, byval pszFileName as LPCOLESTR, byval pmt as const AM_MEDIA_TYPE ptr) as HRESULT
 	GetCurFile as function(byval This as IFileSinkFilter ptr, byval ppszFileName as LPOLESTR ptr, byval pmt as AM_MEDIA_TYPE ptr) as HRESULT
 end type
@@ -1444,8 +1448,8 @@ extern IID_IFileSinkFilter2 as const GUID
 
 type IFileSinkFilter2Vtbl
 	QueryInterface as function(byval This as IFileSinkFilter2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IFileSinkFilter2 ptr) as ULONG_
-	Release as function(byval This as IFileSinkFilter2 ptr) as ULONG_
+	AddRef as function(byval This as IFileSinkFilter2 ptr) as ULONG
+	Release as function(byval This as IFileSinkFilter2 ptr) as ULONG
 	SetFileName as function(byval This as IFileSinkFilter2 ptr, byval pszFileName as LPCOLESTR, byval pmt as const AM_MEDIA_TYPE ptr) as HRESULT
 	GetCurFile as function(byval This as IFileSinkFilter2 ptr, byval ppszFileName as LPOLESTR ptr, byval pmt as AM_MEDIA_TYPE ptr) as HRESULT
 	SetMode as function(byval This as IFileSinkFilter2 ptr, byval dwFlags as DWORD) as HRESULT
@@ -1476,8 +1480,8 @@ extern IID_IGraphBuilder as const GUID
 
 type IGraphBuilderVtbl
 	QueryInterface as function(byval This as IGraphBuilder ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IGraphBuilder ptr) as ULONG_
-	Release as function(byval This as IGraphBuilder ptr) as ULONG_
+	AddRef as function(byval This as IGraphBuilder ptr) as ULONG
+	Release as function(byval This as IGraphBuilder ptr) as ULONG
 	AddFilter as function(byval This as IGraphBuilder ptr, byval pFilter as IBaseFilter ptr, byval pName as LPCWSTR) as HRESULT
 	RemoveFilter as function(byval This as IGraphBuilder ptr, byval pFilter as IBaseFilter ptr) as HRESULT
 	EnumFilters as function(byval This as IGraphBuilder ptr, byval ppEnum as IEnumFilters ptr ptr) as HRESULT
@@ -1520,8 +1524,8 @@ extern IID_ICaptureGraphBuilder as const GUID
 
 type ICaptureGraphBuilderVtbl
 	QueryInterface as function(byval This as ICaptureGraphBuilder ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as ICaptureGraphBuilder ptr) as ULONG_
-	Release as function(byval This as ICaptureGraphBuilder ptr) as ULONG_
+	AddRef as function(byval This as ICaptureGraphBuilder ptr) as ULONG
+	Release as function(byval This as ICaptureGraphBuilder ptr) as ULONG
 	SetFiltergraph as function(byval This as ICaptureGraphBuilder ptr, byval pfg as IGraphBuilder ptr) as HRESULT
 	GetFiltergraph as function(byval This as ICaptureGraphBuilder ptr, byval ppfg as IGraphBuilder ptr ptr) as HRESULT
 	SetOutputFileName as function(byval This as ICaptureGraphBuilder ptr, byval pType as const GUID ptr, byval lpstrFile as LPCOLESTR, byval ppf as IBaseFilter ptr ptr, byval ppSink as IFileSinkFilter ptr ptr) as HRESULT
@@ -1561,8 +1565,8 @@ extern IID_IAMCopyCaptureFileProgress as const GUID
 
 type IAMCopyCaptureFileProgressVtbl
 	QueryInterface as function(byval This as IAMCopyCaptureFileProgress ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IAMCopyCaptureFileProgress ptr) as ULONG_
-	Release as function(byval This as IAMCopyCaptureFileProgress ptr) as ULONG_
+	AddRef as function(byval This as IAMCopyCaptureFileProgress ptr) as ULONG
+	Release as function(byval This as IAMCopyCaptureFileProgress ptr) as ULONG
 	Progress as function(byval This as IAMCopyCaptureFileProgress ptr, byval iProgress as long) as HRESULT
 end type
 
@@ -1579,8 +1583,8 @@ extern IID_ICaptureGraphBuilder2 as const GUID
 
 type ICaptureGraphBuilder2Vtbl
 	QueryInterface as function(byval This as ICaptureGraphBuilder2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as ICaptureGraphBuilder2 ptr) as ULONG_
-	Release as function(byval This as ICaptureGraphBuilder2 ptr) as ULONG_
+	AddRef as function(byval This as ICaptureGraphBuilder2 ptr) as ULONG
+	Release as function(byval This as ICaptureGraphBuilder2 ptr) as ULONG
 	SetFiltergraph as function(byval This as ICaptureGraphBuilder2 ptr, byval pfg as IGraphBuilder ptr) as HRESULT
 	GetFiltergraph as function(byval This as ICaptureGraphBuilder2 ptr, byval ppfg as IGraphBuilder ptr ptr) as HRESULT
 	SetOutputFileName as function(byval This as ICaptureGraphBuilder2 ptr, byval pType as const GUID ptr, byval lpstrFile as LPCOLESTR, byval ppf as IBaseFilter ptr ptr, byval ppSink as IFileSinkFilter ptr ptr) as HRESULT
@@ -1628,8 +1632,8 @@ extern IID_IFilterGraph2 as const GUID
 
 type IFilterGraph2Vtbl
 	QueryInterface as function(byval This as IFilterGraph2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IFilterGraph2 ptr) as ULONG_
-	Release as function(byval This as IFilterGraph2 ptr) as ULONG_
+	AddRef as function(byval This as IFilterGraph2 ptr) as ULONG
+	Release as function(byval This as IFilterGraph2 ptr) as ULONG
 	AddFilter as function(byval This as IFilterGraph2 ptr, byval pFilter as IBaseFilter ptr, byval pName as LPCWSTR) as HRESULT
 	RemoveFilter as function(byval This as IFilterGraph2 ptr, byval pFilter as IBaseFilter ptr) as HRESULT
 	EnumFilters as function(byval This as IFilterGraph2 ptr, byval ppEnum as IEnumFilters ptr ptr) as HRESULT
@@ -1667,8 +1671,8 @@ extern IID_IStreamBuilder as const GUID
 
 type IStreamBuilderVtbl
 	QueryInterface as function(byval This as IStreamBuilder ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IStreamBuilder ptr) as ULONG_
-	Release as function(byval This as IStreamBuilder ptr) as ULONG_
+	AddRef as function(byval This as IStreamBuilder ptr) as ULONG
+	Release as function(byval This as IStreamBuilder ptr) as ULONG
 	Render as function(byval This as IStreamBuilder ptr, byval ppinOut as IPin ptr, byval pGraph as IGraphBuilder ptr) as HRESULT
 	Backout as function(byval This as IStreamBuilder ptr, byval ppinOut as IPin ptr, byval pGraph as IGraphBuilder ptr) as HRESULT
 end type
@@ -1686,7 +1690,7 @@ declare sub IStreamBuilder_Backout_Stub(byval This as IRpcStubBuffer ptr, byval 
 
 type _VIDEO_STREAM_CONFIG_CAPS
 	guid as GUID
-	VideoStandard as ULONG_
+	VideoStandard as ULONG
 	InputSize as SIZE
 	MinCroppingSize as SIZE
 	MaxCroppingSize as SIZE
@@ -1704,23 +1708,23 @@ type _VIDEO_STREAM_CONFIG_CAPS
 	ShrinkTapsY as long
 	MinFrameInterval as LONGLONG
 	MaxFrameInterval as LONGLONG
-	MinBitsPerSecond as LONG_
-	MaxBitsPerSecond as LONG_
+	MinBitsPerSecond as LONG
+	MaxBitsPerSecond as LONG
 end type
 
 type VIDEO_STREAM_CONFIG_CAPS as _VIDEO_STREAM_CONFIG_CAPS
 
 type _AUDIO_STREAM_CONFIG_CAPS
 	guid as GUID
-	MinimumChannels as ULONG_
-	MaximumChannels as ULONG_
-	ChannelsGranularity as ULONG_
-	MinimumBitsPerSample as ULONG_
-	MaximumBitsPerSample as ULONG_
-	BitsPerSampleGranularity as ULONG_
-	MinimumSampleFrequency as ULONG_
-	MaximumSampleFrequency as ULONG_
-	SampleFrequencyGranularity as ULONG_
+	MinimumChannels as ULONG
+	MaximumChannels as ULONG
+	ChannelsGranularity as ULONG
+	MinimumBitsPerSample as ULONG
+	MaximumBitsPerSample as ULONG
+	BitsPerSampleGranularity as ULONG
+	MinimumSampleFrequency as ULONG
+	MaximumSampleFrequency as ULONG
+	SampleFrequencyGranularity as ULONG
 end type
 
 type AUDIO_STREAM_CONFIG_CAPS as _AUDIO_STREAM_CONFIG_CAPS
@@ -1729,12 +1733,12 @@ extern IID_IAMStreamConfig as const GUID
 
 type IAMStreamConfigVtbl
 	QueryInterface as function(byval This as IAMStreamConfig ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IAMStreamConfig ptr) as ULONG_
-	Release as function(byval This as IAMStreamConfig ptr) as ULONG_
+	AddRef as function(byval This as IAMStreamConfig ptr) as ULONG
+	Release as function(byval This as IAMStreamConfig ptr) as ULONG
 	SetFormat as function(byval This as IAMStreamConfig ptr, byval pmt as AM_MEDIA_TYPE ptr) as HRESULT
 	GetFormat as function(byval This as IAMStreamConfig ptr, byval pmt as AM_MEDIA_TYPE ptr ptr) as HRESULT
 	GetNumberOfCapabilities as function(byval This as IAMStreamConfig ptr, byval piCount as long ptr, byval piSize as long ptr) as HRESULT
-	GetStreamCaps as function(byval This as IAMStreamConfig ptr, byval iIndex as long, byval pmt as AM_MEDIA_TYPE ptr ptr, byval pSCC as BYTE_ ptr) as HRESULT
+	GetStreamCaps as function(byval This as IAMStreamConfig ptr, byval iIndex as long, byval pmt as AM_MEDIA_TYPE ptr ptr, byval pSCC as BYTE ptr) as HRESULT
 end type
 
 type IAMStreamConfig_
@@ -1747,7 +1751,7 @@ declare function IAMStreamConfig_GetFormat_Proxy(byval This as IAMStreamConfig p
 declare sub IAMStreamConfig_GetFormat_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IAMStreamConfig_GetNumberOfCapabilities_Proxy(byval This as IAMStreamConfig ptr, byval piCount as long ptr, byval piSize as long ptr) as HRESULT
 declare sub IAMStreamConfig_GetNumberOfCapabilities_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-declare function IAMStreamConfig_GetStreamCaps_Proxy(byval This as IAMStreamConfig ptr, byval iIndex as long, byval pmt as AM_MEDIA_TYPE ptr ptr, byval pSCC as BYTE_ ptr) as HRESULT
+declare function IAMStreamConfig_GetStreamCaps_Proxy(byval This as IAMStreamConfig ptr, byval iIndex as long, byval pmt as AM_MEDIA_TYPE ptr ptr, byval pSCC as BYTE ptr) as HRESULT
 declare sub IAMStreamConfig_GetStreamCaps_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 
 type tagVideoProcAmpProperty as long
@@ -1780,22 +1784,22 @@ extern IID_IAMVideoProcAmp as const GUID
 
 type IAMVideoProcAmpVtbl
 	QueryInterface as function(byval This as IAMVideoProcAmp ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IAMVideoProcAmp ptr) as ULONG_
-	Release as function(byval This as IAMVideoProcAmp ptr) as ULONG_
-	GetRange as function(byval This as IAMVideoProcAmp ptr, byval Property_ as LONG_, byval pMin as LONG_ ptr, byval pMax as LONG_ ptr, byval pSteppingDelta as LONG_ ptr, byval pDefault as LONG_ ptr, byval pCapsFlags as LONG_ ptr) as HRESULT
-	Set as function(byval This as IAMVideoProcAmp ptr, byval Property_ as LONG_, byval lValue as LONG_, byval Flags as LONG_) as HRESULT
-	Get as function(byval This as IAMVideoProcAmp ptr, byval Property_ as LONG_, byval lValue as LONG_ ptr, byval Flags as LONG_ ptr) as HRESULT
+	AddRef as function(byval This as IAMVideoProcAmp ptr) as ULONG
+	Release as function(byval This as IAMVideoProcAmp ptr) as ULONG
+	GetRange as function(byval This as IAMVideoProcAmp ptr, byval Property_ as LONG, byval pMin as LONG ptr, byval pMax as LONG ptr, byval pSteppingDelta as LONG ptr, byval pDefault as LONG ptr, byval pCapsFlags as LONG ptr) as HRESULT
+	Set as function(byval This as IAMVideoProcAmp ptr, byval Property_ as LONG, byval lValue as LONG, byval Flags as LONG) as HRESULT
+	Get as function(byval This as IAMVideoProcAmp ptr, byval Property_ as LONG, byval lValue as LONG ptr, byval Flags as LONG ptr) as HRESULT
 end type
 
 type IAMVideoProcAmp_
 	lpVtbl as IAMVideoProcAmpVtbl ptr
 end type
 
-declare function IAMVideoProcAmp_GetRange_Proxy(byval This as IAMVideoProcAmp ptr, byval Property_ as LONG_, byval pMin as LONG_ ptr, byval pMax as LONG_ ptr, byval pSteppingDelta as LONG_ ptr, byval pDefault as LONG_ ptr, byval pCapsFlags as LONG_ ptr) as HRESULT
+declare function IAMVideoProcAmp_GetRange_Proxy(byval This as IAMVideoProcAmp ptr, byval Property_ as LONG, byval pMin as LONG ptr, byval pMax as LONG ptr, byval pSteppingDelta as LONG ptr, byval pDefault as LONG ptr, byval pCapsFlags as LONG ptr) as HRESULT
 declare sub IAMVideoProcAmp_GetRange_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-declare function IAMVideoProcAmp_Set_Proxy(byval This as IAMVideoProcAmp ptr, byval Property_ as LONG_, byval lValue as LONG_, byval Flags as LONG_) as HRESULT
+declare function IAMVideoProcAmp_Set_Proxy(byval This as IAMVideoProcAmp ptr, byval Property_ as LONG, byval lValue as LONG, byval Flags as LONG) as HRESULT
 declare sub IAMVideoProcAmp_Set_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-declare function IAMVideoProcAmp_Get_Proxy(byval This as IAMVideoProcAmp ptr, byval Property_ as LONG_, byval lValue as LONG_ ptr, byval Flags as LONG_ ptr) as HRESULT
+declare function IAMVideoProcAmp_Get_Proxy(byval This as IAMVideoProcAmp ptr, byval Property_ as LONG, byval lValue as LONG ptr, byval Flags as LONG ptr) as HRESULT
 declare sub IAMVideoProcAmp_Get_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 
 #define __IAsyncReader_INTERFACE_DEFINED__
@@ -1804,13 +1808,13 @@ extern IID_IAsyncReader as const GUID
 
 type IAsyncReaderVtbl
 	QueryInterface as function(byval This as IAsyncReader ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IAsyncReader ptr) as ULONG_
-	Release as function(byval This as IAsyncReader ptr) as ULONG_
+	AddRef as function(byval This as IAsyncReader ptr) as ULONG
+	Release as function(byval This as IAsyncReader ptr) as ULONG
 	RequestAllocator as function(byval This as IAsyncReader ptr, byval pPreferred as IMemAllocator ptr, byval pProps as ALLOCATOR_PROPERTIES ptr, byval ppActual as IMemAllocator ptr ptr) as HRESULT
 	Request as function(byval This as IAsyncReader ptr, byval pSample as IMediaSample ptr, byval dwUser as DWORD_PTR) as HRESULT
 	WaitForNext as function(byval This as IAsyncReader ptr, byval dwTimeout as DWORD, byval ppSample as IMediaSample ptr ptr, byval pdwUser as DWORD_PTR ptr) as HRESULT
 	SyncReadAligned as function(byval This as IAsyncReader ptr, byval pSample as IMediaSample ptr) as HRESULT
-	SyncRead as function(byval This as IAsyncReader ptr, byval llPosition as LONGLONG, byval lLength as LONG_, byval pBuffer as BYTE_ ptr) as HRESULT
+	SyncRead as function(byval This as IAsyncReader ptr, byval llPosition as LONGLONG, byval lLength as LONG, byval pBuffer as BYTE ptr) as HRESULT
 	Length as function(byval This as IAsyncReader ptr, byval pTotal as LONGLONG ptr, byval pAvailable as LONGLONG ptr) as HRESULT
 	BeginFlush as function(byval This as IAsyncReader ptr) as HRESULT
 	EndFlush as function(byval This as IAsyncReader ptr) as HRESULT
@@ -1828,7 +1832,7 @@ declare function IAsyncReader_WaitForNext_Proxy(byval This as IAsyncReader ptr, 
 declare sub IAsyncReader_WaitForNext_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IAsyncReader_SyncReadAligned_Proxy(byval This as IAsyncReader ptr, byval pSample as IMediaSample ptr) as HRESULT
 declare sub IAsyncReader_SyncReadAligned_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-declare function IAsyncReader_SyncRead_Proxy(byval This as IAsyncReader ptr, byval llPosition as LONGLONG, byval lLength as LONG_, byval pBuffer as BYTE_ ptr) as HRESULT
+declare function IAsyncReader_SyncRead_Proxy(byval This as IAsyncReader ptr, byval llPosition as LONGLONG, byval lLength as LONG, byval pBuffer as BYTE ptr) as HRESULT
 declare sub IAsyncReader_SyncRead_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IAsyncReader_Length_Proxy(byval This as IAsyncReader ptr, byval pTotal as LONGLONG ptr, byval pAvailable as LONGLONG ptr) as HRESULT
 declare sub IAsyncReader_Length_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
@@ -1843,16 +1847,16 @@ extern IID_IGraphVersion as const GUID
 
 type IGraphVersionVtbl
 	QueryInterface as function(byval This as IGraphVersion ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IGraphVersion ptr) as ULONG_
-	Release as function(byval This as IGraphVersion ptr) as ULONG_
-	QueryVersion as function(byval This as IGraphVersion ptr, byval pVersion as LONG_ ptr) as HRESULT
+	AddRef as function(byval This as IGraphVersion ptr) as ULONG
+	Release as function(byval This as IGraphVersion ptr) as ULONG
+	QueryVersion as function(byval This as IGraphVersion ptr, byval pVersion as LONG ptr) as HRESULT
 end type
 
 type IGraphVersion_
 	lpVtbl as IGraphVersionVtbl ptr
 end type
 
-declare function IGraphVersion_QueryVersion_Proxy(byval This as IGraphVersion ptr, byval pVersion as LONG_ ptr) as HRESULT
+declare function IGraphVersion_QueryVersion_Proxy(byval This as IGraphVersion ptr, byval pVersion as LONG ptr) as HRESULT
 declare sub IGraphVersion_QueryVersion_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 
 #define __IResourceConsumer_INTERFACE_DEFINED__
@@ -1861,19 +1865,19 @@ extern IID_IResourceConsumer as const GUID
 
 type IResourceConsumerVtbl
 	QueryInterface as function(byval This as IResourceConsumer ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IResourceConsumer ptr) as ULONG_
-	Release as function(byval This as IResourceConsumer ptr) as ULONG_
-	AcquireResource as function(byval This as IResourceConsumer ptr, byval idResource as LONG_) as HRESULT
-	ReleaseResource as function(byval This as IResourceConsumer ptr, byval idResource as LONG_) as HRESULT
+	AddRef as function(byval This as IResourceConsumer ptr) as ULONG
+	Release as function(byval This as IResourceConsumer ptr) as ULONG
+	AcquireResource as function(byval This as IResourceConsumer ptr, byval idResource as LONG) as HRESULT
+	ReleaseResource as function(byval This as IResourceConsumer ptr, byval idResource as LONG) as HRESULT
 end type
 
 type IResourceConsumer_
 	lpVtbl as IResourceConsumerVtbl ptr
 end type
 
-declare function IResourceConsumer_AcquireResource_Proxy(byval This as IResourceConsumer ptr, byval idResource as LONG_) as HRESULT
+declare function IResourceConsumer_AcquireResource_Proxy(byval This as IResourceConsumer ptr, byval idResource as LONG) as HRESULT
 declare sub IResourceConsumer_AcquireResource_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-declare function IResourceConsumer_ReleaseResource_Proxy(byval This as IResourceConsumer ptr, byval idResource as LONG_) as HRESULT
+declare function IResourceConsumer_ReleaseResource_Proxy(byval This as IResourceConsumer ptr, byval idResource as LONG) as HRESULT
 declare sub IResourceConsumer_ReleaseResource_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 
 #define __IResourceManager_INTERFACE_DEFINED__
@@ -1882,14 +1886,14 @@ extern IID_IResourceManager as const GUID
 
 type IResourceManagerVtbl
 	QueryInterface as function(byval This as IResourceManager ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IResourceManager ptr) as ULONG_
-	Release as function(byval This as IResourceManager ptr) as ULONG_
-	Register as function(byval This as IResourceManager ptr, byval pName as LPCWSTR, byval cResource as LONG_, byval plToken as LONG_ ptr) as HRESULT
-	RegisterGroup as function(byval This as IResourceManager ptr, byval pName as LPCWSTR, byval cResource as LONG_, byval palTokens as LONG_ ptr, byval plToken as LONG_ ptr) as HRESULT
-	RequestResource as function(byval This as IResourceManager ptr, byval idResource as LONG_, byval pFocusObject as IUnknown ptr, byval pConsumer as IResourceConsumer ptr) as HRESULT
-	NotifyAcquire as function(byval This as IResourceManager ptr, byval idResource as LONG_, byval pConsumer as IResourceConsumer ptr, byval hr as HRESULT) as HRESULT
-	NotifyRelease as function(byval This as IResourceManager ptr, byval idResource as LONG_, byval pConsumer as IResourceConsumer ptr, byval bStillWant as WINBOOL) as HRESULT
-	CancelRequest as function(byval This as IResourceManager ptr, byval idResource as LONG_, byval pConsumer as IResourceConsumer ptr) as HRESULT
+	AddRef as function(byval This as IResourceManager ptr) as ULONG
+	Release as function(byval This as IResourceManager ptr) as ULONG
+	Register as function(byval This as IResourceManager ptr, byval pName as LPCWSTR, byval cResource as LONG, byval plToken as LONG ptr) as HRESULT
+	RegisterGroup as function(byval This as IResourceManager ptr, byval pName as LPCWSTR, byval cResource as LONG, byval palTokens as LONG ptr, byval plToken as LONG ptr) as HRESULT
+	RequestResource as function(byval This as IResourceManager ptr, byval idResource as LONG, byval pFocusObject as IUnknown ptr, byval pConsumer as IResourceConsumer ptr) as HRESULT
+	NotifyAcquire as function(byval This as IResourceManager ptr, byval idResource as LONG, byval pConsumer as IResourceConsumer ptr, byval hr as HRESULT) as HRESULT
+	NotifyRelease as function(byval This as IResourceManager ptr, byval idResource as LONG, byval pConsumer as IResourceConsumer ptr, byval bStillWant as WINBOOL) as HRESULT
+	CancelRequest as function(byval This as IResourceManager ptr, byval idResource as LONG, byval pConsumer as IResourceConsumer ptr) as HRESULT
 	SetFocus as function(byval This as IResourceManager ptr, byval pFocusObject as IUnknown ptr) as HRESULT
 	ReleaseFocus as function(byval This as IResourceManager ptr, byval pFocusObject as IUnknown ptr) as HRESULT
 end type
@@ -1898,17 +1902,17 @@ type IResourceManager_
 	lpVtbl as IResourceManagerVtbl ptr
 end type
 
-declare function IResourceManager_Register_Proxy(byval This as IResourceManager ptr, byval pName as LPCWSTR, byval cResource as LONG_, byval plToken as LONG_ ptr) as HRESULT
+declare function IResourceManager_Register_Proxy(byval This as IResourceManager ptr, byval pName as LPCWSTR, byval cResource as LONG, byval plToken as LONG ptr) as HRESULT
 declare sub IResourceManager_Register_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-declare function IResourceManager_RegisterGroup_Proxy(byval This as IResourceManager ptr, byval pName as LPCWSTR, byval cResource as LONG_, byval palTokens as LONG_ ptr, byval plToken as LONG_ ptr) as HRESULT
+declare function IResourceManager_RegisterGroup_Proxy(byval This as IResourceManager ptr, byval pName as LPCWSTR, byval cResource as LONG, byval palTokens as LONG ptr, byval plToken as LONG ptr) as HRESULT
 declare sub IResourceManager_RegisterGroup_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-declare function IResourceManager_RequestResource_Proxy(byval This as IResourceManager ptr, byval idResource as LONG_, byval pFocusObject as IUnknown ptr, byval pConsumer as IResourceConsumer ptr) as HRESULT
+declare function IResourceManager_RequestResource_Proxy(byval This as IResourceManager ptr, byval idResource as LONG, byval pFocusObject as IUnknown ptr, byval pConsumer as IResourceConsumer ptr) as HRESULT
 declare sub IResourceManager_RequestResource_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-declare function IResourceManager_NotifyAcquire_Proxy(byval This as IResourceManager ptr, byval idResource as LONG_, byval pConsumer as IResourceConsumer ptr, byval hr as HRESULT) as HRESULT
+declare function IResourceManager_NotifyAcquire_Proxy(byval This as IResourceManager ptr, byval idResource as LONG, byval pConsumer as IResourceConsumer ptr, byval hr as HRESULT) as HRESULT
 declare sub IResourceManager_NotifyAcquire_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-declare function IResourceManager_NotifyRelease_Proxy(byval This as IResourceManager ptr, byval idResource as LONG_, byval pConsumer as IResourceConsumer ptr, byval bStillWant as WINBOOL) as HRESULT
+declare function IResourceManager_NotifyRelease_Proxy(byval This as IResourceManager ptr, byval idResource as LONG, byval pConsumer as IResourceConsumer ptr, byval bStillWant as WINBOOL) as HRESULT
 declare sub IResourceManager_NotifyRelease_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-declare function IResourceManager_CancelRequest_Proxy(byval This as IResourceManager ptr, byval idResource as LONG_, byval pConsumer as IResourceConsumer ptr) as HRESULT
+declare function IResourceManager_CancelRequest_Proxy(byval This as IResourceManager ptr, byval idResource as LONG, byval pConsumer as IResourceConsumer ptr) as HRESULT
 declare sub IResourceManager_CancelRequest_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IResourceManager_SetFocus_Proxy(byval This as IResourceManager ptr, byval pFocusObject as IUnknown ptr) as HRESULT
 declare sub IResourceManager_SetFocus_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
@@ -1924,8 +1928,8 @@ extern IID_IKsPropertySet as const GUID
 
 type IKsPropertySetVtbl
 	QueryInterface as function(byval This as IKsPropertySet ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IKsPropertySet ptr) as ULONG_
-	Release as function(byval This as IKsPropertySet ptr) as ULONG_
+	AddRef as function(byval This as IKsPropertySet ptr) as ULONG
+	Release as function(byval This as IKsPropertySet ptr) as ULONG
 	Set as function(byval This as IKsPropertySet ptr, byval guidPropSet as const GUID const ptr, byval dwPropID as DWORD, byval pInstanceData as LPVOID, byval cbInstanceData as DWORD, byval pPropData as LPVOID, byval cbPropData as DWORD) as HRESULT
 	Get as function(byval This as IKsPropertySet ptr, byval guidPropSet as const GUID const ptr, byval dwPropID as DWORD, byval pInstanceData as LPVOID, byval cbInstanceData as DWORD, byval pPropData as LPVOID, byval cbPropData as DWORD, byval pcbReturned as DWORD ptr) as HRESULT
 	QuerySupported as function(byval This as IKsPropertySet ptr, byval guidPropSet as const GUID const ptr, byval dwPropID as DWORD, byval pTypeSupport as DWORD ptr) as HRESULT
@@ -1948,8 +1952,8 @@ extern IID_ISeekingPassThru as const GUID
 
 type ISeekingPassThruVtbl
 	QueryInterface as function(byval This as ISeekingPassThru ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as ISeekingPassThru ptr) as ULONG_
-	Release as function(byval This as ISeekingPassThru ptr) as ULONG_
+	AddRef as function(byval This as ISeekingPassThru ptr) as ULONG
+	Release as function(byval This as ISeekingPassThru ptr) as ULONG
 	Init as function(byval This as ISeekingPassThru ptr, byval bSupportRendering as WINBOOL, byval pPin as IPin ptr) as HRESULT
 end type
 
@@ -1972,16 +1976,16 @@ extern IID_IAMFilterMiscFlags as const GUID
 
 type IAMFilterMiscFlagsVtbl
 	QueryInterface as function(byval This as IAMFilterMiscFlags ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IAMFilterMiscFlags ptr) as ULONG_
-	Release as function(byval This as IAMFilterMiscFlags ptr) as ULONG_
-	GetMiscFlags as function(byval This as IAMFilterMiscFlags ptr) as ULONG_
+	AddRef as function(byval This as IAMFilterMiscFlags ptr) as ULONG
+	Release as function(byval This as IAMFilterMiscFlags ptr) as ULONG
+	GetMiscFlags as function(byval This as IAMFilterMiscFlags ptr) as ULONG
 end type
 
 type IAMFilterMiscFlags_
 	lpVtbl as IAMFilterMiscFlagsVtbl ptr
 end type
 
-declare function IAMFilterMiscFlags_GetMiscFlags_Proxy(byval This as IAMFilterMiscFlags ptr) as ULONG_
+declare function IAMFilterMiscFlags_GetMiscFlags_Proxy(byval This as IAMFilterMiscFlags ptr) as ULONG
 declare sub IAMFilterMiscFlags_GetMiscFlags_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 
 #define __IAMGraphBuilderCallback_INTERFACE_DEFINED__
@@ -1990,8 +1994,8 @@ extern IID_IAMGraphBuilderCallback as const GUID
 
 type IAMGraphBuilderCallbackVtbl
 	QueryInterface as function(byval This as IAMGraphBuilderCallback ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IAMGraphBuilderCallback ptr) as ULONG_
-	Release as function(byval This as IAMGraphBuilderCallback ptr) as ULONG_
+	AddRef as function(byval This as IAMGraphBuilderCallback ptr) as ULONG
+	Release as function(byval This as IAMGraphBuilderCallback ptr) as ULONG
 	SelectedFilter as function(byval This as IAMGraphBuilderCallback ptr, byval pMon as IMoniker ptr) as HRESULT
 	CreatedFilter as function(byval This as IAMGraphBuilderCallback ptr, byval pFil as IBaseFilter ptr) as HRESULT
 end type
@@ -2075,8 +2079,8 @@ extern IID_IReferenceClock2 as const IID
 
 type IReferenceClock2Vtbl
 	QueryInterface as function(byval This as IReferenceClock2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IReferenceClock2 ptr) as ULONG_
-	Release as function(byval This as IReferenceClock2 ptr) as ULONG_
+	AddRef as function(byval This as IReferenceClock2 ptr) as ULONG
+	Release as function(byval This as IReferenceClock2 ptr) as ULONG
 	GetTime as function(byval This as IReferenceClock2 ptr, byval pTime as REFERENCE_TIME ptr) as HRESULT
 	AdviseTime as function(byval This as IReferenceClock2 ptr, byval baseTime as REFERENCE_TIME, byval streamTime as REFERENCE_TIME, byval hEvent as HEVENT, byval pdwAdviseCookie as DWORD_PTR ptr) as HRESULT
 	AdvisePeriodic as function(byval This as IReferenceClock2 ptr, byval startTime as REFERENCE_TIME, byval periodTime as REFERENCE_TIME, byval hSemaphore as HSEMAPHORE, byval pdwAdviseCookie as DWORD_PTR ptr) as HRESULT
@@ -2095,8 +2099,8 @@ extern IID_IDistributorNotify as const IID
 
 type IDistributorNotifyVtbl
 	QueryInterface as function(byval This as IDistributorNotify ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDistributorNotify ptr) as ULONG_
-	Release as function(byval This as IDistributorNotify ptr) as ULONG_
+	AddRef as function(byval This as IDistributorNotify ptr) as ULONG
+	Release as function(byval This as IDistributorNotify ptr) as ULONG
 	Stop as function(byval This as IDistributorNotify ptr) as HRESULT
 	Pause as function(byval This as IDistributorNotify ptr) as HRESULT
 	Run as function(byval This as IDistributorNotify ptr, byval tStart as REFERENCE_TIME) as HRESULT
@@ -2148,8 +2152,8 @@ extern IID_IAMStreamControl as const IID
 
 type IAMStreamControlVtbl
 	QueryInterface as function(byval This as IAMStreamControl ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IAMStreamControl ptr) as ULONG_
-	Release as function(byval This as IAMStreamControl ptr) as ULONG_
+	AddRef as function(byval This as IAMStreamControl ptr) as ULONG
+	Release as function(byval This as IAMStreamControl ptr) as ULONG
 	StartAt as function(byval This as IAMStreamControl ptr, byval ptStart as const REFERENCE_TIME ptr, byval dwCookie as DWORD) as HRESULT
 	StopAt as function(byval This as IAMStreamControl ptr, byval ptStop as const REFERENCE_TIME ptr, byval bSendExtra as WINBOOL, byval dwCookie as DWORD) as HRESULT
 	GetInfo as function(byval This as IAMStreamControl ptr, byval pInfo as AM_STREAM_INFO ptr) as HRESULT
@@ -2182,8 +2186,8 @@ extern IID_IConfigInterleaving as const IID
 
 type IConfigInterleavingVtbl
 	QueryInterface as function(byval This as IConfigInterleaving ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IConfigInterleaving ptr) as ULONG_
-	Release as function(byval This as IConfigInterleaving ptr) as ULONG_
+	AddRef as function(byval This as IConfigInterleaving ptr) as ULONG
+	Release as function(byval This as IConfigInterleaving ptr) as ULONG
 	put_Mode as function(byval This as IConfigInterleaving ptr, byval mode as InterleavingMode) as HRESULT
 	get_Mode as function(byval This as IConfigInterleaving ptr, byval pMode as InterleavingMode ptr) as HRESULT
 	put_Interleaving as function(byval This as IConfigInterleaving ptr, byval prtInterleave as const REFERENCE_TIME ptr, byval prtPreroll as const REFERENCE_TIME ptr) as HRESULT
@@ -2209,10 +2213,10 @@ extern IID_IConfigAviMux as const IID
 
 type IConfigAviMuxVtbl
 	QueryInterface as function(byval This as IConfigAviMux ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IConfigAviMux ptr) as ULONG_
-	Release as function(byval This as IConfigAviMux ptr) as ULONG_
-	SetMasterStream as function(byval This as IConfigAviMux ptr, byval iStream as LONG_) as HRESULT
-	GetMasterStream as function(byval This as IConfigAviMux ptr, byval pStream as LONG_ ptr) as HRESULT
+	AddRef as function(byval This as IConfigAviMux ptr) as ULONG
+	Release as function(byval This as IConfigAviMux ptr) as ULONG
+	SetMasterStream as function(byval This as IConfigAviMux ptr, byval iStream as LONG) as HRESULT
+	GetMasterStream as function(byval This as IConfigAviMux ptr, byval pStream as LONG ptr) as HRESULT
 	SetOutputCompatibilityIndex as function(byval This as IConfigAviMux ptr, byval fOldIndex as WINBOOL) as HRESULT
 	GetOutputCompatibilityIndex as function(byval This as IConfigAviMux ptr, byval pfOldIndex as WINBOOL ptr) as HRESULT
 end type
@@ -2221,9 +2225,9 @@ type IConfigAviMux_
 	lpVtbl as IConfigAviMuxVtbl ptr
 end type
 
-declare function IConfigAviMux_SetMasterStream_Proxy(byval This as IConfigAviMux ptr, byval iStream as LONG_) as HRESULT
+declare function IConfigAviMux_SetMasterStream_Proxy(byval This as IConfigAviMux ptr, byval iStream as LONG) as HRESULT
 declare sub IConfigAviMux_SetMasterStream_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IConfigAviMux_GetMasterStream_Proxy(byval This as IConfigAviMux ptr, byval pStream as LONG_ ptr) as HRESULT
+declare function IConfigAviMux_GetMasterStream_Proxy(byval This as IConfigAviMux ptr, byval pStream as LONG ptr) as HRESULT
 declare sub IConfigAviMux_GetMasterStream_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IConfigAviMux_SetOutputCompatibilityIndex_Proxy(byval This as IConfigAviMux ptr, byval fOldIndex as WINBOOL) as HRESULT
 declare sub IConfigAviMux_SetOutputCompatibilityIndex_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
@@ -2250,32 +2254,32 @@ extern IID_IAMVideoCompression as const IID
 
 type IAMVideoCompressionVtbl
 	QueryInterface as function(byval This as IAMVideoCompression ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IAMVideoCompression ptr) as ULONG_
-	Release as function(byval This as IAMVideoCompression ptr) as ULONG_
-	put_KeyFrameRate as function(byval This as IAMVideoCompression ptr, byval KeyFrameRate as LONG_) as HRESULT
-	get_KeyFrameRate as function(byval This as IAMVideoCompression ptr, byval pKeyFrameRate as LONG_ ptr) as HRESULT
-	put_PFramesPerKeyFrame as function(byval This as IAMVideoCompression ptr, byval PFramesPerKeyFrame as LONG_) as HRESULT
-	get_PFramesPerKeyFrame as function(byval This as IAMVideoCompression ptr, byval pPFramesPerKeyFrame as LONG_ ptr) as HRESULT
+	AddRef as function(byval This as IAMVideoCompression ptr) as ULONG
+	Release as function(byval This as IAMVideoCompression ptr) as ULONG
+	put_KeyFrameRate as function(byval This as IAMVideoCompression ptr, byval KeyFrameRate as LONG) as HRESULT
+	get_KeyFrameRate as function(byval This as IAMVideoCompression ptr, byval pKeyFrameRate as LONG ptr) as HRESULT
+	put_PFramesPerKeyFrame as function(byval This as IAMVideoCompression ptr, byval PFramesPerKeyFrame as LONG) as HRESULT
+	get_PFramesPerKeyFrame as function(byval This as IAMVideoCompression ptr, byval pPFramesPerKeyFrame as LONG ptr) as HRESULT
 	put_Quality as function(byval This as IAMVideoCompression ptr, byval Quality as double) as HRESULT
 	get_Quality as function(byval This as IAMVideoCompression ptr, byval pQuality as double ptr) as HRESULT
 	put_WindowSize as function(byval This as IAMVideoCompression ptr, byval WindowSize as DWORDLONG) as HRESULT
 	get_WindowSize as function(byval This as IAMVideoCompression ptr, byval pWindowSize as DWORDLONG ptr) as HRESULT
-	GetInfo as function(byval This as IAMVideoCompression ptr, byval pszVersion as WCHAR ptr, byval pcbVersion as long ptr, byval pszDescription as LPWSTR, byval pcbDescription as long ptr, byval pDefaultKeyFrameRate as LONG_ ptr, byval pDefaultPFramesPerKey as LONG_ ptr, byval pDefaultQuality as double ptr, byval pCapabilities as LONG_ ptr) as HRESULT
-	OverrideKeyFrame as function(byval This as IAMVideoCompression ptr, byval FrameNumber as LONG_) as HRESULT
-	OverrideFrameSize as function(byval This as IAMVideoCompression ptr, byval FrameNumber as LONG_, byval Size as LONG_) as HRESULT
+	GetInfo as function(byval This as IAMVideoCompression ptr, byval pszVersion as WCHAR ptr, byval pcbVersion as long ptr, byval pszDescription as LPWSTR, byval pcbDescription as long ptr, byval pDefaultKeyFrameRate as LONG ptr, byval pDefaultPFramesPerKey as LONG ptr, byval pDefaultQuality as double ptr, byval pCapabilities as LONG ptr) as HRESULT
+	OverrideKeyFrame as function(byval This as IAMVideoCompression ptr, byval FrameNumber as LONG) as HRESULT
+	OverrideFrameSize as function(byval This as IAMVideoCompression ptr, byval FrameNumber as LONG, byval Size as LONG) as HRESULT
 end type
 
 type IAMVideoCompression_
 	lpVtbl as IAMVideoCompressionVtbl ptr
 end type
 
-declare function IAMVideoCompression_put_KeyFrameRate_Proxy(byval This as IAMVideoCompression ptr, byval KeyFrameRate as LONG_) as HRESULT
+declare function IAMVideoCompression_put_KeyFrameRate_Proxy(byval This as IAMVideoCompression ptr, byval KeyFrameRate as LONG) as HRESULT
 declare sub IAMVideoCompression_put_KeyFrameRate_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IAMVideoCompression_get_KeyFrameRate_Proxy(byval This as IAMVideoCompression ptr, byval pKeyFrameRate as LONG_ ptr) as HRESULT
+declare function IAMVideoCompression_get_KeyFrameRate_Proxy(byval This as IAMVideoCompression ptr, byval pKeyFrameRate as LONG ptr) as HRESULT
 declare sub IAMVideoCompression_get_KeyFrameRate_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IAMVideoCompression_put_PFramesPerKeyFrame_Proxy(byval This as IAMVideoCompression ptr, byval PFramesPerKeyFrame as LONG_) as HRESULT
+declare function IAMVideoCompression_put_PFramesPerKeyFrame_Proxy(byval This as IAMVideoCompression ptr, byval PFramesPerKeyFrame as LONG) as HRESULT
 declare sub IAMVideoCompression_put_PFramesPerKeyFrame_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IAMVideoCompression_get_PFramesPerKeyFrame_Proxy(byval This as IAMVideoCompression ptr, byval pPFramesPerKeyFrame as LONG_ ptr) as HRESULT
+declare function IAMVideoCompression_get_PFramesPerKeyFrame_Proxy(byval This as IAMVideoCompression ptr, byval pPFramesPerKeyFrame as LONG ptr) as HRESULT
 declare sub IAMVideoCompression_get_PFramesPerKeyFrame_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IAMVideoCompression_put_Quality_Proxy(byval This as IAMVideoCompression ptr, byval Quality as double) as HRESULT
 declare sub IAMVideoCompression_put_Quality_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
@@ -2285,11 +2289,11 @@ declare function IAMVideoCompression_put_WindowSize_Proxy(byval This as IAMVideo
 declare sub IAMVideoCompression_put_WindowSize_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IAMVideoCompression_get_WindowSize_Proxy(byval This as IAMVideoCompression ptr, byval pWindowSize as DWORDLONG ptr) as HRESULT
 declare sub IAMVideoCompression_get_WindowSize_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IAMVideoCompression_GetInfo_Proxy(byval This as IAMVideoCompression ptr, byval pszVersion as WCHAR ptr, byval pcbVersion as long ptr, byval pszDescription as LPWSTR, byval pcbDescription as long ptr, byval pDefaultKeyFrameRate as LONG_ ptr, byval pDefaultPFramesPerKey as LONG_ ptr, byval pDefaultQuality as double ptr, byval pCapabilities as LONG_ ptr) as HRESULT
+declare function IAMVideoCompression_GetInfo_Proxy(byval This as IAMVideoCompression ptr, byval pszVersion as WCHAR ptr, byval pcbVersion as long ptr, byval pszDescription as LPWSTR, byval pcbDescription as long ptr, byval pDefaultKeyFrameRate as LONG ptr, byval pDefaultPFramesPerKey as LONG ptr, byval pDefaultQuality as double ptr, byval pCapabilities as LONG ptr) as HRESULT
 declare sub IAMVideoCompression_GetInfo_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IAMVideoCompression_OverrideKeyFrame_Proxy(byval This as IAMVideoCompression ptr, byval FrameNumber as LONG_) as HRESULT
+declare function IAMVideoCompression_OverrideKeyFrame_Proxy(byval This as IAMVideoCompression ptr, byval FrameNumber as LONG) as HRESULT
 declare sub IAMVideoCompression_OverrideKeyFrame_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IAMVideoCompression_OverrideFrameSize_Proxy(byval This as IAMVideoCompression ptr, byval FrameNumber as LONG_, byval Size as LONG_) as HRESULT
+declare function IAMVideoCompression_OverrideFrameSize_Proxy(byval This as IAMVideoCompression ptr, byval FrameNumber as LONG, byval Size as LONG) as HRESULT
 declare sub IAMVideoCompression_OverrideFrameSize_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 
 type __MIDL___MIDL_itf_strmif_0168_0001 as long
@@ -2320,11 +2324,11 @@ extern IID_IAMVfwCaptureDialogs as const IID
 
 type IAMVfwCaptureDialogsVtbl
 	QueryInterface as function(byval This as IAMVfwCaptureDialogs ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IAMVfwCaptureDialogs ptr) as ULONG_
-	Release as function(byval This as IAMVfwCaptureDialogs ptr) as ULONG_
+	AddRef as function(byval This as IAMVfwCaptureDialogs ptr) as ULONG
+	Release as function(byval This as IAMVfwCaptureDialogs ptr) as ULONG
 	HasDialog as function(byval This as IAMVfwCaptureDialogs ptr, byval iDialog as long) as HRESULT
 	ShowDialog as function(byval This as IAMVfwCaptureDialogs ptr, byval iDialog as long, byval hwnd as HWND) as HRESULT
-	SendDriverMessage as function(byval This as IAMVfwCaptureDialogs ptr, byval iDialog as long, byval uMsg as long, byval dw1 as LONG_, byval dw2 as LONG_) as HRESULT
+	SendDriverMessage as function(byval This as IAMVfwCaptureDialogs ptr, byval iDialog as long, byval uMsg as long, byval dw1 as LONG, byval dw2 as LONG) as HRESULT
 end type
 
 type IAMVfwCaptureDialogs_
@@ -2335,7 +2339,7 @@ declare function IAMVfwCaptureDialogs_HasDialog_Proxy(byval This as IAMVfwCaptur
 declare sub IAMVfwCaptureDialogs_HasDialog_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IAMVfwCaptureDialogs_ShowDialog_Proxy(byval This as IAMVfwCaptureDialogs ptr, byval iDialog as long, byval hwnd as HWND) as HRESULT
 declare sub IAMVfwCaptureDialogs_ShowDialog_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IAMVfwCaptureDialogs_SendDriverMessage_Proxy(byval This as IAMVfwCaptureDialogs ptr, byval iDialog as long, byval uMsg as long, byval dw1 as LONG_, byval dw2 as LONG_) as HRESULT
+declare function IAMVfwCaptureDialogs_SendDriverMessage_Proxy(byval This as IAMVfwCaptureDialogs ptr, byval iDialog as long, byval uMsg as long, byval dw1 as LONG, byval dw2 as LONG) as HRESULT
 declare sub IAMVfwCaptureDialogs_SendDriverMessage_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 
 #define __IAMVfwCompressDialogs_INTERFACE_DEFINED__
@@ -2344,12 +2348,12 @@ extern IID_IAMVfwCompressDialogs as const IID
 
 type IAMVfwCompressDialogsVtbl
 	QueryInterface as function(byval This as IAMVfwCompressDialogs ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IAMVfwCompressDialogs ptr) as ULONG_
-	Release as function(byval This as IAMVfwCompressDialogs ptr) as ULONG_
+	AddRef as function(byval This as IAMVfwCompressDialogs ptr) as ULONG
+	Release as function(byval This as IAMVfwCompressDialogs ptr) as ULONG
 	ShowDialog as function(byval This as IAMVfwCompressDialogs ptr, byval iDialog as long, byval hwnd as HWND) as HRESULT
 	GetState as function(byval This as IAMVfwCompressDialogs ptr, byval pState as LPVOID, byval pcbState as long ptr) as HRESULT
 	SetState as function(byval This as IAMVfwCompressDialogs ptr, byval pState as LPVOID, byval cbState as long) as HRESULT
-	SendDriverMessage as function(byval This as IAMVfwCompressDialogs ptr, byval uMsg as long, byval dw1 as LONG_, byval dw2 as LONG_) as HRESULT
+	SendDriverMessage as function(byval This as IAMVfwCompressDialogs ptr, byval uMsg as long, byval dw1 as LONG, byval dw2 as LONG) as HRESULT
 end type
 
 type IAMVfwCompressDialogs_
@@ -2362,7 +2366,7 @@ declare function IAMVfwCompressDialogs_GetState_Proxy(byval This as IAMVfwCompre
 declare sub IAMVfwCompressDialogs_GetState_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IAMVfwCompressDialogs_SetState_Proxy(byval This as IAMVfwCompressDialogs ptr, byval pState as LPVOID, byval cbState as long) as HRESULT
 declare sub IAMVfwCompressDialogs_SetState_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IAMVfwCompressDialogs_SendDriverMessage_Proxy(byval This as IAMVfwCompressDialogs ptr, byval uMsg as long, byval dw1 as LONG_, byval dw2 as LONG_) as HRESULT
+declare function IAMVfwCompressDialogs_SendDriverMessage_Proxy(byval This as IAMVfwCompressDialogs ptr, byval uMsg as long, byval dw1 as LONG, byval dw2 as LONG) as HRESULT
 declare sub IAMVfwCompressDialogs_SendDriverMessage_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 
 #define __IAMDroppedFrames_INTERFACE_DEFINED__
@@ -2371,25 +2375,25 @@ extern IID_IAMDroppedFrames as const IID
 
 type IAMDroppedFramesVtbl
 	QueryInterface as function(byval This as IAMDroppedFrames ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IAMDroppedFrames ptr) as ULONG_
-	Release as function(byval This as IAMDroppedFrames ptr) as ULONG_
-	GetNumDropped as function(byval This as IAMDroppedFrames ptr, byval plDropped as LONG_ ptr) as HRESULT
-	GetNumNotDropped as function(byval This as IAMDroppedFrames ptr, byval plNotDropped as LONG_ ptr) as HRESULT
-	GetDroppedInfo as function(byval This as IAMDroppedFrames ptr, byval lSize as LONG_, byval plArray as LONG_ ptr, byval plNumCopied as LONG_ ptr) as HRESULT
-	GetAverageFrameSize as function(byval This as IAMDroppedFrames ptr, byval plAverageSize as LONG_ ptr) as HRESULT
+	AddRef as function(byval This as IAMDroppedFrames ptr) as ULONG
+	Release as function(byval This as IAMDroppedFrames ptr) as ULONG
+	GetNumDropped as function(byval This as IAMDroppedFrames ptr, byval plDropped as LONG ptr) as HRESULT
+	GetNumNotDropped as function(byval This as IAMDroppedFrames ptr, byval plNotDropped as LONG ptr) as HRESULT
+	GetDroppedInfo as function(byval This as IAMDroppedFrames ptr, byval lSize as LONG, byval plArray as LONG ptr, byval plNumCopied as LONG ptr) as HRESULT
+	GetAverageFrameSize as function(byval This as IAMDroppedFrames ptr, byval plAverageSize as LONG ptr) as HRESULT
 end type
 
 type IAMDroppedFrames_
 	lpVtbl as IAMDroppedFramesVtbl ptr
 end type
 
-declare function IAMDroppedFrames_GetNumDropped_Proxy(byval This as IAMDroppedFrames ptr, byval plDropped as LONG_ ptr) as HRESULT
+declare function IAMDroppedFrames_GetNumDropped_Proxy(byval This as IAMDroppedFrames ptr, byval plDropped as LONG ptr) as HRESULT
 declare sub IAMDroppedFrames_GetNumDropped_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IAMDroppedFrames_GetNumNotDropped_Proxy(byval This as IAMDroppedFrames ptr, byval plNotDropped as LONG_ ptr) as HRESULT
+declare function IAMDroppedFrames_GetNumNotDropped_Proxy(byval This as IAMDroppedFrames ptr, byval plNotDropped as LONG ptr) as HRESULT
 declare sub IAMDroppedFrames_GetNumNotDropped_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IAMDroppedFrames_GetDroppedInfo_Proxy(byval This as IAMDroppedFrames ptr, byval lSize as LONG_, byval plArray as LONG_ ptr, byval plNumCopied as LONG_ ptr) as HRESULT
+declare function IAMDroppedFrames_GetDroppedInfo_Proxy(byval This as IAMDroppedFrames ptr, byval lSize as LONG, byval plArray as LONG ptr, byval plNumCopied as LONG ptr) as HRESULT
 declare sub IAMDroppedFrames_GetDroppedInfo_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IAMDroppedFrames_GetAverageFrameSize_Proxy(byval This as IAMDroppedFrames ptr, byval plAverageSize as LONG_ ptr) as HRESULT
+declare function IAMDroppedFrames_GetAverageFrameSize_Proxy(byval This as IAMDroppedFrames ptr, byval plAverageSize as LONG ptr) as HRESULT
 declare sub IAMDroppedFrames_GetAverageFrameSize_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 
 #define AMF_AUTOMATICGAIN (-1.0)
@@ -2403,8 +2407,8 @@ extern IID_IAMAudioInputMixer as const IID
 
 type IAMAudioInputMixerVtbl
 	QueryInterface as function(byval This as IAMAudioInputMixer ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IAMAudioInputMixer ptr) as ULONG_
-	Release as function(byval This as IAMAudioInputMixer ptr) as ULONG_
+	AddRef as function(byval This as IAMAudioInputMixer ptr) as ULONG
+	Release as function(byval This as IAMAudioInputMixer ptr) as ULONG
 	put_Enable as function(byval This as IAMAudioInputMixer ptr, byval fEnable as WINBOOL) as HRESULT
 	get_Enable as function(byval This as IAMAudioInputMixer ptr, byval pfEnable as WINBOOL ptr) as HRESULT
 	put_Mono as function(byval This as IAMAudioInputMixer ptr, byval fMono as WINBOOL) as HRESULT
@@ -2466,8 +2470,8 @@ extern IID_IAMBufferNegotiation as const IID
 
 type IAMBufferNegotiationVtbl
 	QueryInterface as function(byval This as IAMBufferNegotiation ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IAMBufferNegotiation ptr) as ULONG_
-	Release as function(byval This as IAMBufferNegotiation ptr) as ULONG_
+	AddRef as function(byval This as IAMBufferNegotiation ptr) as ULONG
+	Release as function(byval This as IAMBufferNegotiation ptr) as ULONG
 	SuggestAllocatorProperties as function(byval This as IAMBufferNegotiation ptr, byval pprop as const ALLOCATOR_PROPERTIES ptr) as HRESULT
 	GetAllocatorProperties as function(byval This as IAMBufferNegotiation ptr, byval pprop as ALLOCATOR_PROPERTIES ptr) as HRESULT
 end type
@@ -2571,40 +2575,40 @@ extern IID_IAMAnalogVideoDecoder as const IID
 
 type IAMAnalogVideoDecoderVtbl
 	QueryInterface as function(byval This as IAMAnalogVideoDecoder ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IAMAnalogVideoDecoder ptr) as ULONG_
-	Release as function(byval This as IAMAnalogVideoDecoder ptr) as ULONG_
-	get_AvailableTVFormats as function(byval This as IAMAnalogVideoDecoder ptr, byval lAnalogVideoStandard as LONG_ ptr) as HRESULT
-	put_TVFormat as function(byval This as IAMAnalogVideoDecoder ptr, byval lAnalogVideoStandard as LONG_) as HRESULT
-	get_TVFormat as function(byval This as IAMAnalogVideoDecoder ptr, byval plAnalogVideoStandard as LONG_ ptr) as HRESULT
-	get_HorizontalLocked as function(byval This as IAMAnalogVideoDecoder ptr, byval plLocked as LONG_ ptr) as HRESULT
-	put_VCRHorizontalLocking as function(byval This as IAMAnalogVideoDecoder ptr, byval lVCRHorizontalLocking as LONG_) as HRESULT
-	get_VCRHorizontalLocking as function(byval This as IAMAnalogVideoDecoder ptr, byval plVCRHorizontalLocking as LONG_ ptr) as HRESULT
-	get_NumberOfLines as function(byval This as IAMAnalogVideoDecoder ptr, byval plNumberOfLines as LONG_ ptr) as HRESULT
-	put_OutputEnable as function(byval This as IAMAnalogVideoDecoder ptr, byval lOutputEnable as LONG_) as HRESULT
-	get_OutputEnable as function(byval This as IAMAnalogVideoDecoder ptr, byval plOutputEnable as LONG_ ptr) as HRESULT
+	AddRef as function(byval This as IAMAnalogVideoDecoder ptr) as ULONG
+	Release as function(byval This as IAMAnalogVideoDecoder ptr) as ULONG
+	get_AvailableTVFormats as function(byval This as IAMAnalogVideoDecoder ptr, byval lAnalogVideoStandard as LONG ptr) as HRESULT
+	put_TVFormat as function(byval This as IAMAnalogVideoDecoder ptr, byval lAnalogVideoStandard as LONG) as HRESULT
+	get_TVFormat as function(byval This as IAMAnalogVideoDecoder ptr, byval plAnalogVideoStandard as LONG ptr) as HRESULT
+	get_HorizontalLocked as function(byval This as IAMAnalogVideoDecoder ptr, byval plLocked as LONG ptr) as HRESULT
+	put_VCRHorizontalLocking as function(byval This as IAMAnalogVideoDecoder ptr, byval lVCRHorizontalLocking as LONG) as HRESULT
+	get_VCRHorizontalLocking as function(byval This as IAMAnalogVideoDecoder ptr, byval plVCRHorizontalLocking as LONG ptr) as HRESULT
+	get_NumberOfLines as function(byval This as IAMAnalogVideoDecoder ptr, byval plNumberOfLines as LONG ptr) as HRESULT
+	put_OutputEnable as function(byval This as IAMAnalogVideoDecoder ptr, byval lOutputEnable as LONG) as HRESULT
+	get_OutputEnable as function(byval This as IAMAnalogVideoDecoder ptr, byval plOutputEnable as LONG ptr) as HRESULT
 end type
 
 type IAMAnalogVideoDecoder_
 	lpVtbl as IAMAnalogVideoDecoderVtbl ptr
 end type
 
-declare function IAMAnalogVideoDecoder_get_AvailableTVFormats_Proxy(byval This as IAMAnalogVideoDecoder ptr, byval lAnalogVideoStandard as LONG_ ptr) as HRESULT
+declare function IAMAnalogVideoDecoder_get_AvailableTVFormats_Proxy(byval This as IAMAnalogVideoDecoder ptr, byval lAnalogVideoStandard as LONG ptr) as HRESULT
 declare sub IAMAnalogVideoDecoder_get_AvailableTVFormats_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IAMAnalogVideoDecoder_put_TVFormat_Proxy(byval This as IAMAnalogVideoDecoder ptr, byval lAnalogVideoStandard as LONG_) as HRESULT
+declare function IAMAnalogVideoDecoder_put_TVFormat_Proxy(byval This as IAMAnalogVideoDecoder ptr, byval lAnalogVideoStandard as LONG) as HRESULT
 declare sub IAMAnalogVideoDecoder_put_TVFormat_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IAMAnalogVideoDecoder_get_TVFormat_Proxy(byval This as IAMAnalogVideoDecoder ptr, byval plAnalogVideoStandard as LONG_ ptr) as HRESULT
+declare function IAMAnalogVideoDecoder_get_TVFormat_Proxy(byval This as IAMAnalogVideoDecoder ptr, byval plAnalogVideoStandard as LONG ptr) as HRESULT
 declare sub IAMAnalogVideoDecoder_get_TVFormat_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IAMAnalogVideoDecoder_get_HorizontalLocked_Proxy(byval This as IAMAnalogVideoDecoder ptr, byval plLocked as LONG_ ptr) as HRESULT
+declare function IAMAnalogVideoDecoder_get_HorizontalLocked_Proxy(byval This as IAMAnalogVideoDecoder ptr, byval plLocked as LONG ptr) as HRESULT
 declare sub IAMAnalogVideoDecoder_get_HorizontalLocked_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IAMAnalogVideoDecoder_put_VCRHorizontalLocking_Proxy(byval This as IAMAnalogVideoDecoder ptr, byval lVCRHorizontalLocking as LONG_) as HRESULT
+declare function IAMAnalogVideoDecoder_put_VCRHorizontalLocking_Proxy(byval This as IAMAnalogVideoDecoder ptr, byval lVCRHorizontalLocking as LONG) as HRESULT
 declare sub IAMAnalogVideoDecoder_put_VCRHorizontalLocking_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IAMAnalogVideoDecoder_get_VCRHorizontalLocking_Proxy(byval This as IAMAnalogVideoDecoder ptr, byval plVCRHorizontalLocking as LONG_ ptr) as HRESULT
+declare function IAMAnalogVideoDecoder_get_VCRHorizontalLocking_Proxy(byval This as IAMAnalogVideoDecoder ptr, byval plVCRHorizontalLocking as LONG ptr) as HRESULT
 declare sub IAMAnalogVideoDecoder_get_VCRHorizontalLocking_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IAMAnalogVideoDecoder_get_NumberOfLines_Proxy(byval This as IAMAnalogVideoDecoder ptr, byval plNumberOfLines as LONG_ ptr) as HRESULT
+declare function IAMAnalogVideoDecoder_get_NumberOfLines_Proxy(byval This as IAMAnalogVideoDecoder ptr, byval plNumberOfLines as LONG ptr) as HRESULT
 declare sub IAMAnalogVideoDecoder_get_NumberOfLines_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IAMAnalogVideoDecoder_put_OutputEnable_Proxy(byval This as IAMAnalogVideoDecoder ptr, byval lOutputEnable as LONG_) as HRESULT
+declare function IAMAnalogVideoDecoder_put_OutputEnable_Proxy(byval This as IAMAnalogVideoDecoder ptr, byval lOutputEnable as LONG) as HRESULT
 declare sub IAMAnalogVideoDecoder_put_OutputEnable_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IAMAnalogVideoDecoder_get_OutputEnable_Proxy(byval This as IAMAnalogVideoDecoder ptr, byval plOutputEnable as LONG_ ptr) as HRESULT
+declare function IAMAnalogVideoDecoder_get_OutputEnable_Proxy(byval This as IAMAnalogVideoDecoder ptr, byval plOutputEnable as LONG ptr) as HRESULT
 declare sub IAMAnalogVideoDecoder_get_OutputEnable_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 
 type tagCameraControlProperty as long
@@ -2637,22 +2641,22 @@ extern IID_IAMCameraControl as const IID
 
 type IAMCameraControlVtbl
 	QueryInterface as function(byval This as IAMCameraControl ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IAMCameraControl ptr) as ULONG_
-	Release as function(byval This as IAMCameraControl ptr) as ULONG_
-	GetRange as function(byval This as IAMCameraControl ptr, byval Property_ as LONG_, byval pMin as LONG_ ptr, byval pMax as LONG_ ptr, byval pSteppingDelta as LONG_ ptr, byval pDefault as LONG_ ptr, byval pCapsFlags as LONG_ ptr) as HRESULT
-	Set as function(byval This as IAMCameraControl ptr, byval Property_ as LONG_, byval lValue as LONG_, byval Flags as LONG_) as HRESULT
-	Get as function(byval This as IAMCameraControl ptr, byval Property_ as LONG_, byval lValue as LONG_ ptr, byval Flags as LONG_ ptr) as HRESULT
+	AddRef as function(byval This as IAMCameraControl ptr) as ULONG
+	Release as function(byval This as IAMCameraControl ptr) as ULONG
+	GetRange as function(byval This as IAMCameraControl ptr, byval Property_ as LONG, byval pMin as LONG ptr, byval pMax as LONG ptr, byval pSteppingDelta as LONG ptr, byval pDefault as LONG ptr, byval pCapsFlags as LONG ptr) as HRESULT
+	Set as function(byval This as IAMCameraControl ptr, byval Property_ as LONG, byval lValue as LONG, byval Flags as LONG) as HRESULT
+	Get as function(byval This as IAMCameraControl ptr, byval Property_ as LONG, byval lValue as LONG ptr, byval Flags as LONG ptr) as HRESULT
 end type
 
 type IAMCameraControl_
 	lpVtbl as IAMCameraControlVtbl ptr
 end type
 
-declare function IAMCameraControl_GetRange_Proxy(byval This as IAMCameraControl ptr, byval Property_ as LONG_, byval pMin as LONG_ ptr, byval pMax as LONG_ ptr, byval pSteppingDelta as LONG_ ptr, byval pDefault as LONG_ ptr, byval pCapsFlags as LONG_ ptr) as HRESULT
+declare function IAMCameraControl_GetRange_Proxy(byval This as IAMCameraControl ptr, byval Property_ as LONG, byval pMin as LONG ptr, byval pMax as LONG ptr, byval pSteppingDelta as LONG ptr, byval pDefault as LONG ptr, byval pCapsFlags as LONG ptr) as HRESULT
 declare sub IAMCameraControl_GetRange_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IAMCameraControl_Set_Proxy(byval This as IAMCameraControl ptr, byval Property_ as LONG_, byval lValue as LONG_, byval Flags as LONG_) as HRESULT
+declare function IAMCameraControl_Set_Proxy(byval This as IAMCameraControl ptr, byval Property_ as LONG, byval lValue as LONG, byval Flags as LONG) as HRESULT
 declare sub IAMCameraControl_Set_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IAMCameraControl_Get_Proxy(byval This as IAMCameraControl ptr, byval Property_ as LONG_, byval lValue as LONG_ ptr, byval Flags as LONG_ ptr) as HRESULT
+declare function IAMCameraControl_Get_Proxy(byval This as IAMCameraControl ptr, byval Property_ as LONG, byval lValue as LONG ptr, byval Flags as LONG ptr) as HRESULT
 declare sub IAMCameraControl_Get_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 
 type tagVideoControlFlags as long
@@ -2674,31 +2678,31 @@ extern IID_IAMVideoControl as const IID
 
 type IAMVideoControlVtbl
 	QueryInterface as function(byval This as IAMVideoControl ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IAMVideoControl ptr) as ULONG_
-	Release as function(byval This as IAMVideoControl ptr) as ULONG_
-	GetCaps as function(byval This as IAMVideoControl ptr, byval pPin as IPin ptr, byval pCapsFlags as LONG_ ptr) as HRESULT
-	SetMode as function(byval This as IAMVideoControl ptr, byval pPin as IPin ptr, byval Mode as LONG_) as HRESULT
-	GetMode as function(byval This as IAMVideoControl ptr, byval pPin as IPin ptr, byval Mode as LONG_ ptr) as HRESULT
+	AddRef as function(byval This as IAMVideoControl ptr) as ULONG
+	Release as function(byval This as IAMVideoControl ptr) as ULONG
+	GetCaps as function(byval This as IAMVideoControl ptr, byval pPin as IPin ptr, byval pCapsFlags as LONG ptr) as HRESULT
+	SetMode as function(byval This as IAMVideoControl ptr, byval pPin as IPin ptr, byval Mode as LONG) as HRESULT
+	GetMode as function(byval This as IAMVideoControl ptr, byval pPin as IPin ptr, byval Mode as LONG ptr) as HRESULT
 	GetCurrentActualFrameRate as function(byval This as IAMVideoControl ptr, byval pPin as IPin ptr, byval ActualFrameRate as LONGLONG ptr) as HRESULT
-	GetMaxAvailableFrameRate as function(byval This as IAMVideoControl ptr, byval pPin as IPin ptr, byval iIndex as LONG_, byval Dimensions as SIZE, byval MaxAvailableFrameRate as LONGLONG ptr) as HRESULT
-	GetFrameRateList as function(byval This as IAMVideoControl ptr, byval pPin as IPin ptr, byval iIndex as LONG_, byval Dimensions as SIZE, byval ListSize as LONG_ ptr, byval FrameRates as LONGLONG ptr ptr) as HRESULT
+	GetMaxAvailableFrameRate as function(byval This as IAMVideoControl ptr, byval pPin as IPin ptr, byval iIndex as LONG, byval Dimensions as SIZE, byval MaxAvailableFrameRate as LONGLONG ptr) as HRESULT
+	GetFrameRateList as function(byval This as IAMVideoControl ptr, byval pPin as IPin ptr, byval iIndex as LONG, byval Dimensions as SIZE, byval ListSize as LONG ptr, byval FrameRates as LONGLONG ptr ptr) as HRESULT
 end type
 
 type IAMVideoControl_
 	lpVtbl as IAMVideoControlVtbl ptr
 end type
 
-declare function IAMVideoControl_GetCaps_Proxy(byval This as IAMVideoControl ptr, byval pPin as IPin ptr, byval pCapsFlags as LONG_ ptr) as HRESULT
+declare function IAMVideoControl_GetCaps_Proxy(byval This as IAMVideoControl ptr, byval pPin as IPin ptr, byval pCapsFlags as LONG ptr) as HRESULT
 declare sub IAMVideoControl_GetCaps_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IAMVideoControl_SetMode_Proxy(byval This as IAMVideoControl ptr, byval pPin as IPin ptr, byval Mode as LONG_) as HRESULT
+declare function IAMVideoControl_SetMode_Proxy(byval This as IAMVideoControl ptr, byval pPin as IPin ptr, byval Mode as LONG) as HRESULT
 declare sub IAMVideoControl_SetMode_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IAMVideoControl_GetMode_Proxy(byval This as IAMVideoControl ptr, byval pPin as IPin ptr, byval Mode as LONG_ ptr) as HRESULT
+declare function IAMVideoControl_GetMode_Proxy(byval This as IAMVideoControl ptr, byval pPin as IPin ptr, byval Mode as LONG ptr) as HRESULT
 declare sub IAMVideoControl_GetMode_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IAMVideoControl_GetCurrentActualFrameRate_Proxy(byval This as IAMVideoControl ptr, byval pPin as IPin ptr, byval ActualFrameRate as LONGLONG ptr) as HRESULT
 declare sub IAMVideoControl_GetCurrentActualFrameRate_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IAMVideoControl_GetMaxAvailableFrameRate_Proxy(byval This as IAMVideoControl ptr, byval pPin as IPin ptr, byval iIndex as LONG_, byval Dimensions as SIZE, byval MaxAvailableFrameRate as LONGLONG ptr) as HRESULT
+declare function IAMVideoControl_GetMaxAvailableFrameRate_Proxy(byval This as IAMVideoControl ptr, byval pPin as IPin ptr, byval iIndex as LONG, byval Dimensions as SIZE, byval MaxAvailableFrameRate as LONGLONG ptr) as HRESULT
 declare sub IAMVideoControl_GetMaxAvailableFrameRate_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IAMVideoControl_GetFrameRateList_Proxy(byval This as IAMVideoControl ptr, byval pPin as IPin ptr, byval iIndex as LONG_, byval Dimensions as SIZE, byval ListSize as LONG_ ptr, byval FrameRates as LONGLONG ptr ptr) as HRESULT
+declare function IAMVideoControl_GetFrameRateList_Proxy(byval This as IAMVideoControl ptr, byval pPin as IPin ptr, byval iIndex as LONG, byval Dimensions as SIZE, byval ListSize as LONG ptr, byval FrameRates as LONGLONG ptr ptr) as HRESULT
 declare sub IAMVideoControl_GetFrameRateList_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 
 #define __IAMCrossbar_INTERFACE_DEFINED__
@@ -2707,28 +2711,28 @@ extern IID_IAMCrossbar as const IID
 
 type IAMCrossbarVtbl
 	QueryInterface as function(byval This as IAMCrossbar ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IAMCrossbar ptr) as ULONG_
-	Release as function(byval This as IAMCrossbar ptr) as ULONG_
-	get_PinCounts as function(byval This as IAMCrossbar ptr, byval OutputPinCount as LONG_ ptr, byval InputPinCount as LONG_ ptr) as HRESULT
-	CanRoute as function(byval This as IAMCrossbar ptr, byval OutputPinIndex as LONG_, byval InputPinIndex as LONG_) as HRESULT
-	Route as function(byval This as IAMCrossbar ptr, byval OutputPinIndex as LONG_, byval InputPinIndex as LONG_) as HRESULT
-	get_IsRoutedTo as function(byval This as IAMCrossbar ptr, byval OutputPinIndex as LONG_, byval InputPinIndex as LONG_ ptr) as HRESULT
-	get_CrossbarPinInfo as function(byval This as IAMCrossbar ptr, byval IsInputPin as WINBOOL, byval PinIndex as LONG_, byval PinIndexRelated as LONG_ ptr, byval PhysicalType as LONG_ ptr) as HRESULT
+	AddRef as function(byval This as IAMCrossbar ptr) as ULONG
+	Release as function(byval This as IAMCrossbar ptr) as ULONG
+	get_PinCounts as function(byval This as IAMCrossbar ptr, byval OutputPinCount as LONG ptr, byval InputPinCount as LONG ptr) as HRESULT
+	CanRoute as function(byval This as IAMCrossbar ptr, byval OutputPinIndex as LONG, byval InputPinIndex as LONG) as HRESULT
+	Route as function(byval This as IAMCrossbar ptr, byval OutputPinIndex as LONG, byval InputPinIndex as LONG) as HRESULT
+	get_IsRoutedTo as function(byval This as IAMCrossbar ptr, byval OutputPinIndex as LONG, byval InputPinIndex as LONG ptr) as HRESULT
+	get_CrossbarPinInfo as function(byval This as IAMCrossbar ptr, byval IsInputPin as WINBOOL, byval PinIndex as LONG, byval PinIndexRelated as LONG ptr, byval PhysicalType as LONG ptr) as HRESULT
 end type
 
 type IAMCrossbar_
 	lpVtbl as IAMCrossbarVtbl ptr
 end type
 
-declare function IAMCrossbar_get_PinCounts_Proxy(byval This as IAMCrossbar ptr, byval OutputPinCount as LONG_ ptr, byval InputPinCount as LONG_ ptr) as HRESULT
+declare function IAMCrossbar_get_PinCounts_Proxy(byval This as IAMCrossbar ptr, byval OutputPinCount as LONG ptr, byval InputPinCount as LONG ptr) as HRESULT
 declare sub IAMCrossbar_get_PinCounts_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IAMCrossbar_CanRoute_Proxy(byval This as IAMCrossbar ptr, byval OutputPinIndex as LONG_, byval InputPinIndex as LONG_) as HRESULT
+declare function IAMCrossbar_CanRoute_Proxy(byval This as IAMCrossbar ptr, byval OutputPinIndex as LONG, byval InputPinIndex as LONG) as HRESULT
 declare sub IAMCrossbar_CanRoute_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IAMCrossbar_Route_Proxy(byval This as IAMCrossbar ptr, byval OutputPinIndex as LONG_, byval InputPinIndex as LONG_) as HRESULT
+declare function IAMCrossbar_Route_Proxy(byval This as IAMCrossbar ptr, byval OutputPinIndex as LONG, byval InputPinIndex as LONG) as HRESULT
 declare sub IAMCrossbar_Route_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IAMCrossbar_get_IsRoutedTo_Proxy(byval This as IAMCrossbar ptr, byval OutputPinIndex as LONG_, byval InputPinIndex as LONG_ ptr) as HRESULT
+declare function IAMCrossbar_get_IsRoutedTo_Proxy(byval This as IAMCrossbar ptr, byval OutputPinIndex as LONG, byval InputPinIndex as LONG ptr) as HRESULT
 declare sub IAMCrossbar_get_IsRoutedTo_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IAMCrossbar_get_CrossbarPinInfo_Proxy(byval This as IAMCrossbar ptr, byval IsInputPin as WINBOOL, byval PinIndex as LONG_, byval PinIndexRelated as LONG_ ptr, byval PhysicalType as LONG_ ptr) as HRESULT
+declare function IAMCrossbar_get_CrossbarPinInfo_Proxy(byval This as IAMCrossbar ptr, byval IsInputPin as WINBOOL, byval PinIndex as LONG, byval PinIndexRelated as LONG ptr, byval PhysicalType as LONG ptr) as HRESULT
 declare sub IAMCrossbar_get_CrossbarPinInfo_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 
 type tagAMTunerSubChannel as long
@@ -2775,22 +2779,22 @@ extern IID_IAMTuner as const IID
 
 type IAMTunerVtbl
 	QueryInterface as function(byval This as IAMTuner ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IAMTuner ptr) as ULONG_
-	Release as function(byval This as IAMTuner ptr) as ULONG_
-	put_Channel as function(byval This as IAMTuner ptr, byval lChannel as LONG_, byval lVideoSubChannel as LONG_, byval lAudioSubChannel as LONG_) as HRESULT
-	get_Channel as function(byval This as IAMTuner ptr, byval plChannel as LONG_ ptr, byval plVideoSubChannel as LONG_ ptr, byval plAudioSubChannel as LONG_ ptr) as HRESULT
-	ChannelMinMax as function(byval This as IAMTuner ptr, byval lChannelMin as LONG_ ptr, byval lChannelMax as LONG_ ptr) as HRESULT
-	put_CountryCode as function(byval This as IAMTuner ptr, byval lCountryCode as LONG_) as HRESULT
-	get_CountryCode as function(byval This as IAMTuner ptr, byval plCountryCode as LONG_ ptr) as HRESULT
-	put_TuningSpace as function(byval This as IAMTuner ptr, byval lTuningSpace as LONG_) as HRESULT
-	get_TuningSpace as function(byval This as IAMTuner ptr, byval plTuningSpace as LONG_ ptr) as HRESULT
+	AddRef as function(byval This as IAMTuner ptr) as ULONG
+	Release as function(byval This as IAMTuner ptr) as ULONG
+	put_Channel as function(byval This as IAMTuner ptr, byval lChannel as LONG, byval lVideoSubChannel as LONG, byval lAudioSubChannel as LONG) as HRESULT
+	get_Channel as function(byval This as IAMTuner ptr, byval plChannel as LONG ptr, byval plVideoSubChannel as LONG ptr, byval plAudioSubChannel as LONG ptr) as HRESULT
+	ChannelMinMax as function(byval This as IAMTuner ptr, byval lChannelMin as LONG ptr, byval lChannelMax as LONG ptr) as HRESULT
+	put_CountryCode as function(byval This as IAMTuner ptr, byval lCountryCode as LONG) as HRESULT
+	get_CountryCode as function(byval This as IAMTuner ptr, byval plCountryCode as LONG ptr) as HRESULT
+	put_TuningSpace as function(byval This as IAMTuner ptr, byval lTuningSpace as LONG) as HRESULT
+	get_TuningSpace as function(byval This as IAMTuner ptr, byval plTuningSpace as LONG ptr) as HRESULT
 	Logon as function(byval This as IAMTuner ptr, byval hCurrentUser as HANDLE) as HRESULT
 	Logout as function(byval This as IAMTuner ptr) as HRESULT
-	SignalPresent as function(byval This as IAMTuner ptr, byval plSignalStrength as LONG_ ptr) as HRESULT
+	SignalPresent as function(byval This as IAMTuner ptr, byval plSignalStrength as LONG ptr) as HRESULT
 	put_Mode as function(byval This as IAMTuner ptr, byval lMode as AMTunerModeType) as HRESULT
 	get_Mode as function(byval This as IAMTuner ptr, byval plMode as AMTunerModeType ptr) as HRESULT
-	GetAvailableModes as function(byval This as IAMTuner ptr, byval plModes as LONG_ ptr) as HRESULT
-	RegisterNotificationCallBack as function(byval This as IAMTuner ptr, byval pNotify as IAMTunerNotification ptr, byval lEvents as LONG_) as HRESULT
+	GetAvailableModes as function(byval This as IAMTuner ptr, byval plModes as LONG ptr) as HRESULT
+	RegisterNotificationCallBack as function(byval This as IAMTuner ptr, byval pNotify as IAMTunerNotification ptr, byval lEvents as LONG) as HRESULT
 	UnRegisterNotificationCallBack as function(byval This as IAMTuner ptr, byval pNotify as IAMTunerNotification ptr) as HRESULT
 end type
 
@@ -2798,33 +2802,33 @@ type IAMTuner_
 	lpVtbl as IAMTunerVtbl ptr
 end type
 
-declare function IAMTuner_put_Channel_Proxy(byval This as IAMTuner ptr, byval lChannel as LONG_, byval lVideoSubChannel as LONG_, byval lAudioSubChannel as LONG_) as HRESULT
+declare function IAMTuner_put_Channel_Proxy(byval This as IAMTuner ptr, byval lChannel as LONG, byval lVideoSubChannel as LONG, byval lAudioSubChannel as LONG) as HRESULT
 declare sub IAMTuner_put_Channel_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IAMTuner_get_Channel_Proxy(byval This as IAMTuner ptr, byval plChannel as LONG_ ptr, byval plVideoSubChannel as LONG_ ptr, byval plAudioSubChannel as LONG_ ptr) as HRESULT
+declare function IAMTuner_get_Channel_Proxy(byval This as IAMTuner ptr, byval plChannel as LONG ptr, byval plVideoSubChannel as LONG ptr, byval plAudioSubChannel as LONG ptr) as HRESULT
 declare sub IAMTuner_get_Channel_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IAMTuner_ChannelMinMax_Proxy(byval This as IAMTuner ptr, byval lChannelMin as LONG_ ptr, byval lChannelMax as LONG_ ptr) as HRESULT
+declare function IAMTuner_ChannelMinMax_Proxy(byval This as IAMTuner ptr, byval lChannelMin as LONG ptr, byval lChannelMax as LONG ptr) as HRESULT
 declare sub IAMTuner_ChannelMinMax_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IAMTuner_put_CountryCode_Proxy(byval This as IAMTuner ptr, byval lCountryCode as LONG_) as HRESULT
+declare function IAMTuner_put_CountryCode_Proxy(byval This as IAMTuner ptr, byval lCountryCode as LONG) as HRESULT
 declare sub IAMTuner_put_CountryCode_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IAMTuner_get_CountryCode_Proxy(byval This as IAMTuner ptr, byval plCountryCode as LONG_ ptr) as HRESULT
+declare function IAMTuner_get_CountryCode_Proxy(byval This as IAMTuner ptr, byval plCountryCode as LONG ptr) as HRESULT
 declare sub IAMTuner_get_CountryCode_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IAMTuner_put_TuningSpace_Proxy(byval This as IAMTuner ptr, byval lTuningSpace as LONG_) as HRESULT
+declare function IAMTuner_put_TuningSpace_Proxy(byval This as IAMTuner ptr, byval lTuningSpace as LONG) as HRESULT
 declare sub IAMTuner_put_TuningSpace_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IAMTuner_get_TuningSpace_Proxy(byval This as IAMTuner ptr, byval plTuningSpace as LONG_ ptr) as HRESULT
+declare function IAMTuner_get_TuningSpace_Proxy(byval This as IAMTuner ptr, byval plTuningSpace as LONG ptr) as HRESULT
 declare sub IAMTuner_get_TuningSpace_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IAMTuner_Logon_Proxy(byval This as IAMTuner ptr, byval hCurrentUser as HANDLE) as HRESULT
 declare sub IAMTuner_Logon_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IAMTuner_Logout_Proxy(byval This as IAMTuner ptr) as HRESULT
 declare sub IAMTuner_Logout_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IAMTuner_SignalPresent_Proxy(byval This as IAMTuner ptr, byval plSignalStrength as LONG_ ptr) as HRESULT
+declare function IAMTuner_SignalPresent_Proxy(byval This as IAMTuner ptr, byval plSignalStrength as LONG ptr) as HRESULT
 declare sub IAMTuner_SignalPresent_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IAMTuner_put_Mode_Proxy(byval This as IAMTuner ptr, byval lMode as AMTunerModeType) as HRESULT
 declare sub IAMTuner_put_Mode_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IAMTuner_get_Mode_Proxy(byval This as IAMTuner ptr, byval plMode as AMTunerModeType ptr) as HRESULT
 declare sub IAMTuner_get_Mode_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IAMTuner_GetAvailableModes_Proxy(byval This as IAMTuner ptr, byval plModes as LONG_ ptr) as HRESULT
+declare function IAMTuner_GetAvailableModes_Proxy(byval This as IAMTuner ptr, byval plModes as LONG ptr) as HRESULT
 declare sub IAMTuner_GetAvailableModes_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IAMTuner_RegisterNotificationCallBack_Proxy(byval This as IAMTuner ptr, byval pNotify as IAMTunerNotification ptr, byval lEvents as LONG_) as HRESULT
+declare function IAMTuner_RegisterNotificationCallBack_Proxy(byval This as IAMTuner ptr, byval pNotify as IAMTunerNotification ptr, byval lEvents as LONG) as HRESULT
 declare sub IAMTuner_RegisterNotificationCallBack_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IAMTuner_UnRegisterNotificationCallBack_Proxy(byval This as IAMTuner ptr, byval pNotify as IAMTunerNotification ptr) as HRESULT
 declare sub IAMTuner_UnRegisterNotificationCallBack_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
@@ -2835,8 +2839,8 @@ extern IID_IAMTunerNotification as const IID
 
 type IAMTunerNotificationVtbl
 	QueryInterface as function(byval This as IAMTunerNotification ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IAMTunerNotification ptr) as ULONG_
-	Release as function(byval This as IAMTunerNotification ptr) as ULONG_
+	AddRef as function(byval This as IAMTunerNotification ptr) as ULONG
+	Release as function(byval This as IAMTunerNotification ptr) as ULONG
 	OnEvent as function(byval This as IAMTunerNotification ptr, byval Event as AMTunerEventType) as HRESULT
 end type
 
@@ -2853,61 +2857,61 @@ extern IID_IAMTVTuner as const IID
 
 type IAMTVTunerVtbl
 	QueryInterface as function(byval This as IAMTVTuner ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IAMTVTuner ptr) as ULONG_
-	Release as function(byval This as IAMTVTuner ptr) as ULONG_
-	put_Channel as function(byval This as IAMTVTuner ptr, byval lChannel as LONG_, byval lVideoSubChannel as LONG_, byval lAudioSubChannel as LONG_) as HRESULT
-	get_Channel as function(byval This as IAMTVTuner ptr, byval plChannel as LONG_ ptr, byval plVideoSubChannel as LONG_ ptr, byval plAudioSubChannel as LONG_ ptr) as HRESULT
-	ChannelMinMax as function(byval This as IAMTVTuner ptr, byval lChannelMin as LONG_ ptr, byval lChannelMax as LONG_ ptr) as HRESULT
-	put_CountryCode as function(byval This as IAMTVTuner ptr, byval lCountryCode as LONG_) as HRESULT
-	get_CountryCode as function(byval This as IAMTVTuner ptr, byval plCountryCode as LONG_ ptr) as HRESULT
-	put_TuningSpace as function(byval This as IAMTVTuner ptr, byval lTuningSpace as LONG_) as HRESULT
-	get_TuningSpace as function(byval This as IAMTVTuner ptr, byval plTuningSpace as LONG_ ptr) as HRESULT
+	AddRef as function(byval This as IAMTVTuner ptr) as ULONG
+	Release as function(byval This as IAMTVTuner ptr) as ULONG
+	put_Channel as function(byval This as IAMTVTuner ptr, byval lChannel as LONG, byval lVideoSubChannel as LONG, byval lAudioSubChannel as LONG) as HRESULT
+	get_Channel as function(byval This as IAMTVTuner ptr, byval plChannel as LONG ptr, byval plVideoSubChannel as LONG ptr, byval plAudioSubChannel as LONG ptr) as HRESULT
+	ChannelMinMax as function(byval This as IAMTVTuner ptr, byval lChannelMin as LONG ptr, byval lChannelMax as LONG ptr) as HRESULT
+	put_CountryCode as function(byval This as IAMTVTuner ptr, byval lCountryCode as LONG) as HRESULT
+	get_CountryCode as function(byval This as IAMTVTuner ptr, byval plCountryCode as LONG ptr) as HRESULT
+	put_TuningSpace as function(byval This as IAMTVTuner ptr, byval lTuningSpace as LONG) as HRESULT
+	get_TuningSpace as function(byval This as IAMTVTuner ptr, byval plTuningSpace as LONG ptr) as HRESULT
 	Logon as function(byval This as IAMTVTuner ptr, byval hCurrentUser as HANDLE) as HRESULT
 	Logout as function(byval This as IAMTVTuner ptr) as HRESULT
-	SignalPresent as function(byval This as IAMTVTuner ptr, byval plSignalStrength as LONG_ ptr) as HRESULT
+	SignalPresent as function(byval This as IAMTVTuner ptr, byval plSignalStrength as LONG ptr) as HRESULT
 	put_Mode as function(byval This as IAMTVTuner ptr, byval lMode as AMTunerModeType) as HRESULT
 	get_Mode as function(byval This as IAMTVTuner ptr, byval plMode as AMTunerModeType ptr) as HRESULT
-	GetAvailableModes as function(byval This as IAMTVTuner ptr, byval plModes as LONG_ ptr) as HRESULT
-	RegisterNotificationCallBack as function(byval This as IAMTVTuner ptr, byval pNotify as IAMTunerNotification ptr, byval lEvents as LONG_) as HRESULT
+	GetAvailableModes as function(byval This as IAMTVTuner ptr, byval plModes as LONG ptr) as HRESULT
+	RegisterNotificationCallBack as function(byval This as IAMTVTuner ptr, byval pNotify as IAMTunerNotification ptr, byval lEvents as LONG) as HRESULT
 	UnRegisterNotificationCallBack as function(byval This as IAMTVTuner ptr, byval pNotify as IAMTunerNotification ptr) as HRESULT
-	get_AvailableTVFormats as function(byval This as IAMTVTuner ptr, byval lAnalogVideoStandard as LONG_ ptr) as HRESULT
-	get_TVFormat as function(byval This as IAMTVTuner ptr, byval plAnalogVideoStandard as LONG_ ptr) as HRESULT
-	AutoTune as function(byval This as IAMTVTuner ptr, byval lChannel as LONG_, byval plFoundSignal as LONG_ ptr) as HRESULT
+	get_AvailableTVFormats as function(byval This as IAMTVTuner ptr, byval lAnalogVideoStandard as LONG ptr) as HRESULT
+	get_TVFormat as function(byval This as IAMTVTuner ptr, byval plAnalogVideoStandard as LONG ptr) as HRESULT
+	AutoTune as function(byval This as IAMTVTuner ptr, byval lChannel as LONG, byval plFoundSignal as LONG ptr) as HRESULT
 	StoreAutoTune as function(byval This as IAMTVTuner ptr) as HRESULT
-	get_NumInputConnections as function(byval This as IAMTVTuner ptr, byval plNumInputConnections as LONG_ ptr) as HRESULT
-	put_InputType as function(byval This as IAMTVTuner ptr, byval lIndex as LONG_, byval InputType as TunerInputType) as HRESULT
-	get_InputType as function(byval This as IAMTVTuner ptr, byval lIndex as LONG_, byval pInputType as TunerInputType ptr) as HRESULT
-	put_ConnectInput as function(byval This as IAMTVTuner ptr, byval lIndex as LONG_) as HRESULT
-	get_ConnectInput as function(byval This as IAMTVTuner ptr, byval plIndex as LONG_ ptr) as HRESULT
-	get_VideoFrequency as function(byval This as IAMTVTuner ptr, byval lFreq as LONG_ ptr) as HRESULT
-	get_AudioFrequency as function(byval This as IAMTVTuner ptr, byval lFreq as LONG_ ptr) as HRESULT
+	get_NumInputConnections as function(byval This as IAMTVTuner ptr, byval plNumInputConnections as LONG ptr) as HRESULT
+	put_InputType as function(byval This as IAMTVTuner ptr, byval lIndex as LONG, byval InputType as TunerInputType) as HRESULT
+	get_InputType as function(byval This as IAMTVTuner ptr, byval lIndex as LONG, byval pInputType as TunerInputType ptr) as HRESULT
+	put_ConnectInput as function(byval This as IAMTVTuner ptr, byval lIndex as LONG) as HRESULT
+	get_ConnectInput as function(byval This as IAMTVTuner ptr, byval plIndex as LONG ptr) as HRESULT
+	get_VideoFrequency as function(byval This as IAMTVTuner ptr, byval lFreq as LONG ptr) as HRESULT
+	get_AudioFrequency as function(byval This as IAMTVTuner ptr, byval lFreq as LONG ptr) as HRESULT
 end type
 
 type IAMTVTuner_
 	lpVtbl as IAMTVTunerVtbl ptr
 end type
 
-declare function IAMTVTuner_get_AvailableTVFormats_Proxy(byval This as IAMTVTuner ptr, byval lAnalogVideoStandard as LONG_ ptr) as HRESULT
+declare function IAMTVTuner_get_AvailableTVFormats_Proxy(byval This as IAMTVTuner ptr, byval lAnalogVideoStandard as LONG ptr) as HRESULT
 declare sub IAMTVTuner_get_AvailableTVFormats_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IAMTVTuner_get_TVFormat_Proxy(byval This as IAMTVTuner ptr, byval plAnalogVideoStandard as LONG_ ptr) as HRESULT
+declare function IAMTVTuner_get_TVFormat_Proxy(byval This as IAMTVTuner ptr, byval plAnalogVideoStandard as LONG ptr) as HRESULT
 declare sub IAMTVTuner_get_TVFormat_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IAMTVTuner_AutoTune_Proxy(byval This as IAMTVTuner ptr, byval lChannel as LONG_, byval plFoundSignal as LONG_ ptr) as HRESULT
+declare function IAMTVTuner_AutoTune_Proxy(byval This as IAMTVTuner ptr, byval lChannel as LONG, byval plFoundSignal as LONG ptr) as HRESULT
 declare sub IAMTVTuner_AutoTune_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IAMTVTuner_StoreAutoTune_Proxy(byval This as IAMTVTuner ptr) as HRESULT
 declare sub IAMTVTuner_StoreAutoTune_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IAMTVTuner_get_NumInputConnections_Proxy(byval This as IAMTVTuner ptr, byval plNumInputConnections as LONG_ ptr) as HRESULT
+declare function IAMTVTuner_get_NumInputConnections_Proxy(byval This as IAMTVTuner ptr, byval plNumInputConnections as LONG ptr) as HRESULT
 declare sub IAMTVTuner_get_NumInputConnections_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IAMTVTuner_put_InputType_Proxy(byval This as IAMTVTuner ptr, byval lIndex as LONG_, byval InputType as TunerInputType) as HRESULT
+declare function IAMTVTuner_put_InputType_Proxy(byval This as IAMTVTuner ptr, byval lIndex as LONG, byval InputType as TunerInputType) as HRESULT
 declare sub IAMTVTuner_put_InputType_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IAMTVTuner_get_InputType_Proxy(byval This as IAMTVTuner ptr, byval lIndex as LONG_, byval pInputType as TunerInputType ptr) as HRESULT
+declare function IAMTVTuner_get_InputType_Proxy(byval This as IAMTVTuner ptr, byval lIndex as LONG, byval pInputType as TunerInputType ptr) as HRESULT
 declare sub IAMTVTuner_get_InputType_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IAMTVTuner_put_ConnectInput_Proxy(byval This as IAMTVTuner ptr, byval lIndex as LONG_) as HRESULT
+declare function IAMTVTuner_put_ConnectInput_Proxy(byval This as IAMTVTuner ptr, byval lIndex as LONG) as HRESULT
 declare sub IAMTVTuner_put_ConnectInput_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IAMTVTuner_get_ConnectInput_Proxy(byval This as IAMTVTuner ptr, byval plIndex as LONG_ ptr) as HRESULT
+declare function IAMTVTuner_get_ConnectInput_Proxy(byval This as IAMTVTuner ptr, byval plIndex as LONG ptr) as HRESULT
 declare sub IAMTVTuner_get_ConnectInput_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IAMTVTuner_get_VideoFrequency_Proxy(byval This as IAMTVTuner ptr, byval lFreq as LONG_ ptr) as HRESULT
+declare function IAMTVTuner_get_VideoFrequency_Proxy(byval This as IAMTVTuner ptr, byval lFreq as LONG ptr) as HRESULT
 declare sub IAMTVTuner_get_VideoFrequency_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IAMTVTuner_get_AudioFrequency_Proxy(byval This as IAMTVTuner ptr, byval lFreq as LONG_ ptr) as HRESULT
+declare function IAMTVTuner_get_AudioFrequency_Proxy(byval This as IAMTVTuner ptr, byval lFreq as LONG ptr) as HRESULT
 declare sub IAMTVTuner_get_AudioFrequency_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 
 #define __IBPCSatelliteTuner_INTERFACE_DEFINED__
@@ -2916,25 +2920,25 @@ extern IID_IBPCSatelliteTuner as const IID
 
 type IBPCSatelliteTunerVtbl
 	QueryInterface as function(byval This as IBPCSatelliteTuner ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IBPCSatelliteTuner ptr) as ULONG_
-	Release as function(byval This as IBPCSatelliteTuner ptr) as ULONG_
-	put_Channel as function(byval This as IBPCSatelliteTuner ptr, byval lChannel as LONG_, byval lVideoSubChannel as LONG_, byval lAudioSubChannel as LONG_) as HRESULT
-	get_Channel as function(byval This as IBPCSatelliteTuner ptr, byval plChannel as LONG_ ptr, byval plVideoSubChannel as LONG_ ptr, byval plAudioSubChannel as LONG_ ptr) as HRESULT
-	ChannelMinMax as function(byval This as IBPCSatelliteTuner ptr, byval lChannelMin as LONG_ ptr, byval lChannelMax as LONG_ ptr) as HRESULT
-	put_CountryCode as function(byval This as IBPCSatelliteTuner ptr, byval lCountryCode as LONG_) as HRESULT
-	get_CountryCode as function(byval This as IBPCSatelliteTuner ptr, byval plCountryCode as LONG_ ptr) as HRESULT
-	put_TuningSpace as function(byval This as IBPCSatelliteTuner ptr, byval lTuningSpace as LONG_) as HRESULT
-	get_TuningSpace as function(byval This as IBPCSatelliteTuner ptr, byval plTuningSpace as LONG_ ptr) as HRESULT
+	AddRef as function(byval This as IBPCSatelliteTuner ptr) as ULONG
+	Release as function(byval This as IBPCSatelliteTuner ptr) as ULONG
+	put_Channel as function(byval This as IBPCSatelliteTuner ptr, byval lChannel as LONG, byval lVideoSubChannel as LONG, byval lAudioSubChannel as LONG) as HRESULT
+	get_Channel as function(byval This as IBPCSatelliteTuner ptr, byval plChannel as LONG ptr, byval plVideoSubChannel as LONG ptr, byval plAudioSubChannel as LONG ptr) as HRESULT
+	ChannelMinMax as function(byval This as IBPCSatelliteTuner ptr, byval lChannelMin as LONG ptr, byval lChannelMax as LONG ptr) as HRESULT
+	put_CountryCode as function(byval This as IBPCSatelliteTuner ptr, byval lCountryCode as LONG) as HRESULT
+	get_CountryCode as function(byval This as IBPCSatelliteTuner ptr, byval plCountryCode as LONG ptr) as HRESULT
+	put_TuningSpace as function(byval This as IBPCSatelliteTuner ptr, byval lTuningSpace as LONG) as HRESULT
+	get_TuningSpace as function(byval This as IBPCSatelliteTuner ptr, byval plTuningSpace as LONG ptr) as HRESULT
 	Logon as function(byval This as IBPCSatelliteTuner ptr, byval hCurrentUser as HANDLE) as HRESULT
 	Logout as function(byval This as IBPCSatelliteTuner ptr) as HRESULT
-	SignalPresent as function(byval This as IBPCSatelliteTuner ptr, byval plSignalStrength as LONG_ ptr) as HRESULT
+	SignalPresent as function(byval This as IBPCSatelliteTuner ptr, byval plSignalStrength as LONG ptr) as HRESULT
 	put_Mode as function(byval This as IBPCSatelliteTuner ptr, byval lMode as AMTunerModeType) as HRESULT
 	get_Mode as function(byval This as IBPCSatelliteTuner ptr, byval plMode as AMTunerModeType ptr) as HRESULT
-	GetAvailableModes as function(byval This as IBPCSatelliteTuner ptr, byval plModes as LONG_ ptr) as HRESULT
-	RegisterNotificationCallBack as function(byval This as IBPCSatelliteTuner ptr, byval pNotify as IAMTunerNotification ptr, byval lEvents as LONG_) as HRESULT
+	GetAvailableModes as function(byval This as IBPCSatelliteTuner ptr, byval plModes as LONG ptr) as HRESULT
+	RegisterNotificationCallBack as function(byval This as IBPCSatelliteTuner ptr, byval pNotify as IAMTunerNotification ptr, byval lEvents as LONG) as HRESULT
 	UnRegisterNotificationCallBack as function(byval This as IBPCSatelliteTuner ptr, byval pNotify as IAMTunerNotification ptr) as HRESULT
-	get_DefaultSubChannelTypes as function(byval This as IBPCSatelliteTuner ptr, byval plDefaultVideoType as LONG_ ptr, byval plDefaultAudioType as LONG_ ptr) as HRESULT
-	put_DefaultSubChannelTypes as function(byval This as IBPCSatelliteTuner ptr, byval lDefaultVideoType as LONG_, byval lDefaultAudioType as LONG_) as HRESULT
+	get_DefaultSubChannelTypes as function(byval This as IBPCSatelliteTuner ptr, byval plDefaultVideoType as LONG ptr, byval plDefaultAudioType as LONG ptr) as HRESULT
+	put_DefaultSubChannelTypes as function(byval This as IBPCSatelliteTuner ptr, byval lDefaultVideoType as LONG, byval lDefaultAudioType as LONG) as HRESULT
 	IsTapingPermitted as function(byval This as IBPCSatelliteTuner ptr) as HRESULT
 end type
 
@@ -2942,9 +2946,9 @@ type IBPCSatelliteTuner_
 	lpVtbl as IBPCSatelliteTunerVtbl ptr
 end type
 
-declare function IBPCSatelliteTuner_get_DefaultSubChannelTypes_Proxy(byval This as IBPCSatelliteTuner ptr, byval plDefaultVideoType as LONG_ ptr, byval plDefaultAudioType as LONG_ ptr) as HRESULT
+declare function IBPCSatelliteTuner_get_DefaultSubChannelTypes_Proxy(byval This as IBPCSatelliteTuner ptr, byval plDefaultVideoType as LONG ptr, byval plDefaultAudioType as LONG ptr) as HRESULT
 declare sub IBPCSatelliteTuner_get_DefaultSubChannelTypes_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IBPCSatelliteTuner_put_DefaultSubChannelTypes_Proxy(byval This as IBPCSatelliteTuner ptr, byval lDefaultVideoType as LONG_, byval lDefaultAudioType as LONG_) as HRESULT
+declare function IBPCSatelliteTuner_put_DefaultSubChannelTypes_Proxy(byval This as IBPCSatelliteTuner ptr, byval lDefaultVideoType as LONG, byval lDefaultAudioType as LONG) as HRESULT
 declare sub IBPCSatelliteTuner_put_DefaultSubChannelTypes_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IBPCSatelliteTuner_IsTapingPermitted_Proxy(byval This as IBPCSatelliteTuner ptr) as HRESULT
 declare sub IBPCSatelliteTuner_IsTapingPermitted_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
@@ -2976,13 +2980,13 @@ extern IID_IAMTVAudio as const IID
 
 type IAMTVAudioVtbl
 	QueryInterface as function(byval This as IAMTVAudio ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IAMTVAudio ptr) as ULONG_
-	Release as function(byval This as IAMTVAudio ptr) as ULONG_
-	GetHardwareSupportedTVAudioModes as function(byval This as IAMTVAudio ptr, byval plModes as LONG_ ptr) as HRESULT
-	GetAvailableTVAudioModes as function(byval This as IAMTVAudio ptr, byval plModes as LONG_ ptr) as HRESULT
-	get_TVAudioMode as function(byval This as IAMTVAudio ptr, byval plMode as LONG_ ptr) as HRESULT
-	put_TVAudioMode as function(byval This as IAMTVAudio ptr, byval lMode as LONG_) as HRESULT
-	RegisterNotificationCallBack as function(byval This as IAMTVAudio ptr, byval pNotify as IAMTunerNotification ptr, byval lEvents as LONG_) as HRESULT
+	AddRef as function(byval This as IAMTVAudio ptr) as ULONG
+	Release as function(byval This as IAMTVAudio ptr) as ULONG
+	GetHardwareSupportedTVAudioModes as function(byval This as IAMTVAudio ptr, byval plModes as LONG ptr) as HRESULT
+	GetAvailableTVAudioModes as function(byval This as IAMTVAudio ptr, byval plModes as LONG ptr) as HRESULT
+	get_TVAudioMode as function(byval This as IAMTVAudio ptr, byval plMode as LONG ptr) as HRESULT
+	put_TVAudioMode as function(byval This as IAMTVAudio ptr, byval lMode as LONG) as HRESULT
+	RegisterNotificationCallBack as function(byval This as IAMTVAudio ptr, byval pNotify as IAMTunerNotification ptr, byval lEvents as LONG) as HRESULT
 	UnRegisterNotificationCallBack as function(byval This as IAMTVAudio ptr, byval pNotify as IAMTunerNotification ptr) as HRESULT
 end type
 
@@ -2990,15 +2994,15 @@ type IAMTVAudio_
 	lpVtbl as IAMTVAudioVtbl ptr
 end type
 
-declare function IAMTVAudio_GetHardwareSupportedTVAudioModes_Proxy(byval This as IAMTVAudio ptr, byval plModes as LONG_ ptr) as HRESULT
+declare function IAMTVAudio_GetHardwareSupportedTVAudioModes_Proxy(byval This as IAMTVAudio ptr, byval plModes as LONG ptr) as HRESULT
 declare sub IAMTVAudio_GetHardwareSupportedTVAudioModes_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IAMTVAudio_GetAvailableTVAudioModes_Proxy(byval This as IAMTVAudio ptr, byval plModes as LONG_ ptr) as HRESULT
+declare function IAMTVAudio_GetAvailableTVAudioModes_Proxy(byval This as IAMTVAudio ptr, byval plModes as LONG ptr) as HRESULT
 declare sub IAMTVAudio_GetAvailableTVAudioModes_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IAMTVAudio_get_TVAudioMode_Proxy(byval This as IAMTVAudio ptr, byval plMode as LONG_ ptr) as HRESULT
+declare function IAMTVAudio_get_TVAudioMode_Proxy(byval This as IAMTVAudio ptr, byval plMode as LONG ptr) as HRESULT
 declare sub IAMTVAudio_get_TVAudioMode_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IAMTVAudio_put_TVAudioMode_Proxy(byval This as IAMTVAudio ptr, byval lMode as LONG_) as HRESULT
+declare function IAMTVAudio_put_TVAudioMode_Proxy(byval This as IAMTVAudio ptr, byval lMode as LONG) as HRESULT
 declare sub IAMTVAudio_put_TVAudioMode_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IAMTVAudio_RegisterNotificationCallBack_Proxy(byval This as IAMTVAudio ptr, byval pNotify as IAMTunerNotification ptr, byval lEvents as LONG_) as HRESULT
+declare function IAMTVAudio_RegisterNotificationCallBack_Proxy(byval This as IAMTVAudio ptr, byval pNotify as IAMTunerNotification ptr, byval lEvents as LONG) as HRESULT
 declare sub IAMTVAudio_RegisterNotificationCallBack_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IAMTVAudio_UnRegisterNotificationCallBack_Proxy(byval This as IAMTVAudio ptr, byval pNotify as IAMTunerNotification ptr) as HRESULT
 declare sub IAMTVAudio_UnRegisterNotificationCallBack_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
@@ -3009,8 +3013,8 @@ extern IID_IAMTVAudioNotification as const IID
 
 type IAMTVAudioNotificationVtbl
 	QueryInterface as function(byval This as IAMTVAudioNotification ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IAMTVAudioNotification ptr) as ULONG_
-	Release as function(byval This as IAMTVAudioNotification ptr) as ULONG_
+	AddRef as function(byval This as IAMTVAudioNotification ptr) as ULONG
+	Release as function(byval This as IAMTVAudioNotification ptr) as ULONG
 	OnEvent as function(byval This as IAMTVAudioNotification ptr, byval Event as AMTVAudioEventType) as HRESULT
 end type
 
@@ -3027,34 +3031,34 @@ extern IID_IAMAnalogVideoEncoder as const IID
 
 type IAMAnalogVideoEncoderVtbl
 	QueryInterface as function(byval This as IAMAnalogVideoEncoder ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IAMAnalogVideoEncoder ptr) as ULONG_
-	Release as function(byval This as IAMAnalogVideoEncoder ptr) as ULONG_
-	get_AvailableTVFormats as function(byval This as IAMAnalogVideoEncoder ptr, byval lAnalogVideoStandard as LONG_ ptr) as HRESULT
-	put_TVFormat as function(byval This as IAMAnalogVideoEncoder ptr, byval lAnalogVideoStandard as LONG_) as HRESULT
-	get_TVFormat as function(byval This as IAMAnalogVideoEncoder ptr, byval plAnalogVideoStandard as LONG_ ptr) as HRESULT
-	put_CopyProtection as function(byval This as IAMAnalogVideoEncoder ptr, byval lVideoCopyProtection as LONG_) as HRESULT
-	get_CopyProtection as function(byval This as IAMAnalogVideoEncoder ptr, byval lVideoCopyProtection as LONG_ ptr) as HRESULT
-	put_CCEnable as function(byval This as IAMAnalogVideoEncoder ptr, byval lCCEnable as LONG_) as HRESULT
-	get_CCEnable as function(byval This as IAMAnalogVideoEncoder ptr, byval lCCEnable as LONG_ ptr) as HRESULT
+	AddRef as function(byval This as IAMAnalogVideoEncoder ptr) as ULONG
+	Release as function(byval This as IAMAnalogVideoEncoder ptr) as ULONG
+	get_AvailableTVFormats as function(byval This as IAMAnalogVideoEncoder ptr, byval lAnalogVideoStandard as LONG ptr) as HRESULT
+	put_TVFormat as function(byval This as IAMAnalogVideoEncoder ptr, byval lAnalogVideoStandard as LONG) as HRESULT
+	get_TVFormat as function(byval This as IAMAnalogVideoEncoder ptr, byval plAnalogVideoStandard as LONG ptr) as HRESULT
+	put_CopyProtection as function(byval This as IAMAnalogVideoEncoder ptr, byval lVideoCopyProtection as LONG) as HRESULT
+	get_CopyProtection as function(byval This as IAMAnalogVideoEncoder ptr, byval lVideoCopyProtection as LONG ptr) as HRESULT
+	put_CCEnable as function(byval This as IAMAnalogVideoEncoder ptr, byval lCCEnable as LONG) as HRESULT
+	get_CCEnable as function(byval This as IAMAnalogVideoEncoder ptr, byval lCCEnable as LONG ptr) as HRESULT
 end type
 
 type IAMAnalogVideoEncoder_
 	lpVtbl as IAMAnalogVideoEncoderVtbl ptr
 end type
 
-declare function IAMAnalogVideoEncoder_get_AvailableTVFormats_Proxy(byval This as IAMAnalogVideoEncoder ptr, byval lAnalogVideoStandard as LONG_ ptr) as HRESULT
+declare function IAMAnalogVideoEncoder_get_AvailableTVFormats_Proxy(byval This as IAMAnalogVideoEncoder ptr, byval lAnalogVideoStandard as LONG ptr) as HRESULT
 declare sub IAMAnalogVideoEncoder_get_AvailableTVFormats_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IAMAnalogVideoEncoder_put_TVFormat_Proxy(byval This as IAMAnalogVideoEncoder ptr, byval lAnalogVideoStandard as LONG_) as HRESULT
+declare function IAMAnalogVideoEncoder_put_TVFormat_Proxy(byval This as IAMAnalogVideoEncoder ptr, byval lAnalogVideoStandard as LONG) as HRESULT
 declare sub IAMAnalogVideoEncoder_put_TVFormat_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IAMAnalogVideoEncoder_get_TVFormat_Proxy(byval This as IAMAnalogVideoEncoder ptr, byval plAnalogVideoStandard as LONG_ ptr) as HRESULT
+declare function IAMAnalogVideoEncoder_get_TVFormat_Proxy(byval This as IAMAnalogVideoEncoder ptr, byval plAnalogVideoStandard as LONG ptr) as HRESULT
 declare sub IAMAnalogVideoEncoder_get_TVFormat_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IAMAnalogVideoEncoder_put_CopyProtection_Proxy(byval This as IAMAnalogVideoEncoder ptr, byval lVideoCopyProtection as LONG_) as HRESULT
+declare function IAMAnalogVideoEncoder_put_CopyProtection_Proxy(byval This as IAMAnalogVideoEncoder ptr, byval lVideoCopyProtection as LONG) as HRESULT
 declare sub IAMAnalogVideoEncoder_put_CopyProtection_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IAMAnalogVideoEncoder_get_CopyProtection_Proxy(byval This as IAMAnalogVideoEncoder ptr, byval lVideoCopyProtection as LONG_ ptr) as HRESULT
+declare function IAMAnalogVideoEncoder_get_CopyProtection_Proxy(byval This as IAMAnalogVideoEncoder ptr, byval lVideoCopyProtection as LONG ptr) as HRESULT
 declare sub IAMAnalogVideoEncoder_get_CopyProtection_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IAMAnalogVideoEncoder_put_CCEnable_Proxy(byval This as IAMAnalogVideoEncoder ptr, byval lCCEnable as LONG_) as HRESULT
+declare function IAMAnalogVideoEncoder_put_CCEnable_Proxy(byval This as IAMAnalogVideoEncoder ptr, byval lCCEnable as LONG) as HRESULT
 declare sub IAMAnalogVideoEncoder_put_CCEnable_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IAMAnalogVideoEncoder_get_CCEnable_Proxy(byval This as IAMAnalogVideoEncoder ptr, byval lCCEnable as LONG_ ptr) as HRESULT
+declare function IAMAnalogVideoEncoder_get_CCEnable_Proxy(byval This as IAMAnalogVideoEncoder ptr, byval lCCEnable as LONG ptr) as HRESULT
 declare sub IAMAnalogVideoEncoder_get_CCEnable_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 
 type __MIDL___MIDL_itf_strmif_0185_0001 as long
@@ -3076,18 +3080,18 @@ extern IID_IMediaPropertyBag as const IID
 
 type IMediaPropertyBagVtbl
 	QueryInterface as function(byval This as IMediaPropertyBag ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IMediaPropertyBag ptr) as ULONG_
-	Release as function(byval This as IMediaPropertyBag ptr) as ULONG_
+	AddRef as function(byval This as IMediaPropertyBag ptr) as ULONG
+	Release as function(byval This as IMediaPropertyBag ptr) as ULONG
 	Read as function(byval This as IMediaPropertyBag ptr, byval pszPropName as LPCOLESTR, byval pVar as VARIANT ptr, byval pErrorLog as IErrorLog ptr) as HRESULT
 	Write as function(byval This as IMediaPropertyBag ptr, byval pszPropName as LPCOLESTR, byval pVar as VARIANT ptr) as HRESULT
-	EnumProperty as function(byval This as IMediaPropertyBag ptr, byval iProperty as ULONG_, byval pvarPropertyName as VARIANT ptr, byval pvarPropertyValue as VARIANT ptr) as HRESULT
+	EnumProperty as function(byval This as IMediaPropertyBag ptr, byval iProperty as ULONG, byval pvarPropertyName as VARIANT ptr, byval pvarPropertyValue as VARIANT ptr) as HRESULT
 end type
 
 type IMediaPropertyBag_
 	lpVtbl as IMediaPropertyBagVtbl ptr
 end type
 
-declare function IMediaPropertyBag_EnumProperty_Proxy(byval This as IMediaPropertyBag ptr, byval iProperty as ULONG_, byval pvarPropertyName as VARIANT ptr, byval pvarPropertyValue as VARIANT ptr) as HRESULT
+declare function IMediaPropertyBag_EnumProperty_Proxy(byval This as IMediaPropertyBag ptr, byval iProperty as ULONG, byval pvarPropertyName as VARIANT ptr, byval pvarPropertyValue as VARIANT ptr) as HRESULT
 declare sub IMediaPropertyBag_EnumProperty_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 
 #define __IPersistMediaPropertyBag_INTERFACE_DEFINED__
@@ -3098,8 +3102,8 @@ extern IID_IPersistMediaPropertyBag as const IID
 
 type IPersistMediaPropertyBagVtbl
 	QueryInterface as function(byval This as IPersistMediaPropertyBag ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IPersistMediaPropertyBag ptr) as ULONG_
-	Release as function(byval This as IPersistMediaPropertyBag ptr) as ULONG_
+	AddRef as function(byval This as IPersistMediaPropertyBag ptr) as ULONG
+	Release as function(byval This as IPersistMediaPropertyBag ptr) as ULONG
 	GetClassID as function(byval This as IPersistMediaPropertyBag ptr, byval pClassID as CLSID ptr) as HRESULT
 	InitNew as function(byval This as IPersistMediaPropertyBag ptr) as HRESULT
 	Load as function(byval This as IPersistMediaPropertyBag ptr, byval pPropBag as IMediaPropertyBag ptr, byval pErrorLog as IErrorLog ptr) as HRESULT
@@ -3123,16 +3127,16 @@ extern IID_IAMPhysicalPinInfo as const IID
 
 type IAMPhysicalPinInfoVtbl
 	QueryInterface as function(byval This as IAMPhysicalPinInfo ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IAMPhysicalPinInfo ptr) as ULONG_
-	Release as function(byval This as IAMPhysicalPinInfo ptr) as ULONG_
-	GetPhysicalType as function(byval This as IAMPhysicalPinInfo ptr, byval pType as LONG_ ptr, byval ppszType as LPOLESTR ptr) as HRESULT
+	AddRef as function(byval This as IAMPhysicalPinInfo ptr) as ULONG
+	Release as function(byval This as IAMPhysicalPinInfo ptr) as ULONG
+	GetPhysicalType as function(byval This as IAMPhysicalPinInfo ptr, byval pType as LONG ptr, byval ppszType as LPOLESTR ptr) as HRESULT
 end type
 
 type IAMPhysicalPinInfo_
 	lpVtbl as IAMPhysicalPinInfoVtbl ptr
 end type
 
-declare function IAMPhysicalPinInfo_GetPhysicalType_Proxy(byval This as IAMPhysicalPinInfo ptr, byval pType as LONG_ ptr, byval ppszType as LPOLESTR ptr) as HRESULT
+declare function IAMPhysicalPinInfo_GetPhysicalType_Proxy(byval This as IAMPhysicalPinInfo ptr, byval pType as LONG ptr, byval ppszType as LPOLESTR ptr) as HRESULT
 declare sub IAMPhysicalPinInfo_GetPhysicalType_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 
 type PAMPHYSICALPININFO as IAMPhysicalPinInfo ptr
@@ -3146,37 +3150,37 @@ extern IID_IAMExtDevice as const IID
 
 type IAMExtDeviceVtbl
 	QueryInterface as function(byval This as IAMExtDevice ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IAMExtDevice ptr) as ULONG_
-	Release as function(byval This as IAMExtDevice ptr) as ULONG_
-	GetCapability as function(byval This as IAMExtDevice ptr, byval Capability as LONG_, byval pValue as LONG_ ptr, byval pdblValue as double ptr) as HRESULT
+	AddRef as function(byval This as IAMExtDevice ptr) as ULONG
+	Release as function(byval This as IAMExtDevice ptr) as ULONG
+	GetCapability as function(byval This as IAMExtDevice ptr, byval Capability as LONG, byval pValue as LONG ptr, byval pdblValue as double ptr) as HRESULT
 	get_ExternalDeviceID as function(byval This as IAMExtDevice ptr, byval ppszData as LPOLESTR ptr) as HRESULT
 	get_ExternalDeviceVersion as function(byval This as IAMExtDevice ptr, byval ppszData as LPOLESTR ptr) as HRESULT
-	put_DevicePower as function(byval This as IAMExtDevice ptr, byval PowerMode as LONG_) as HRESULT
-	get_DevicePower as function(byval This as IAMExtDevice ptr, byval pPowerMode as LONG_ ptr) as HRESULT
-	Calibrate as function(byval This as IAMExtDevice ptr, byval hEvent as HEVENT, byval Mode as LONG_, byval pStatus as LONG_ ptr) as HRESULT
-	put_DevicePort as function(byval This as IAMExtDevice ptr, byval DevicePort as LONG_) as HRESULT
-	get_DevicePort as function(byval This as IAMExtDevice ptr, byval pDevicePort as LONG_ ptr) as HRESULT
+	put_DevicePower as function(byval This as IAMExtDevice ptr, byval PowerMode as LONG) as HRESULT
+	get_DevicePower as function(byval This as IAMExtDevice ptr, byval pPowerMode as LONG ptr) as HRESULT
+	Calibrate as function(byval This as IAMExtDevice ptr, byval hEvent as HEVENT, byval Mode as LONG, byval pStatus as LONG ptr) as HRESULT
+	put_DevicePort as function(byval This as IAMExtDevice ptr, byval DevicePort as LONG) as HRESULT
+	get_DevicePort as function(byval This as IAMExtDevice ptr, byval pDevicePort as LONG ptr) as HRESULT
 end type
 
 type IAMExtDevice_
 	lpVtbl as IAMExtDeviceVtbl ptr
 end type
 
-declare function IAMExtDevice_GetCapability_Proxy(byval This as IAMExtDevice ptr, byval Capability as LONG_, byval pValue as LONG_ ptr, byval pdblValue as double ptr) as HRESULT
+declare function IAMExtDevice_GetCapability_Proxy(byval This as IAMExtDevice ptr, byval Capability as LONG, byval pValue as LONG ptr, byval pdblValue as double ptr) as HRESULT
 declare sub IAMExtDevice_GetCapability_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IAMExtDevice_get_ExternalDeviceID_Proxy(byval This as IAMExtDevice ptr, byval ppszData as LPOLESTR ptr) as HRESULT
 declare sub IAMExtDevice_get_ExternalDeviceID_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IAMExtDevice_get_ExternalDeviceVersion_Proxy(byval This as IAMExtDevice ptr, byval ppszData as LPOLESTR ptr) as HRESULT
 declare sub IAMExtDevice_get_ExternalDeviceVersion_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IAMExtDevice_put_DevicePower_Proxy(byval This as IAMExtDevice ptr, byval PowerMode as LONG_) as HRESULT
+declare function IAMExtDevice_put_DevicePower_Proxy(byval This as IAMExtDevice ptr, byval PowerMode as LONG) as HRESULT
 declare sub IAMExtDevice_put_DevicePower_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IAMExtDevice_get_DevicePower_Proxy(byval This as IAMExtDevice ptr, byval pPowerMode as LONG_ ptr) as HRESULT
+declare function IAMExtDevice_get_DevicePower_Proxy(byval This as IAMExtDevice ptr, byval pPowerMode as LONG ptr) as HRESULT
 declare sub IAMExtDevice_get_DevicePower_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IAMExtDevice_Calibrate_Proxy(byval This as IAMExtDevice ptr, byval hEvent as HEVENT, byval Mode as LONG_, byval pStatus as LONG_ ptr) as HRESULT
+declare function IAMExtDevice_Calibrate_Proxy(byval This as IAMExtDevice ptr, byval hEvent as HEVENT, byval Mode as LONG, byval pStatus as LONG ptr) as HRESULT
 declare sub IAMExtDevice_Calibrate_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IAMExtDevice_put_DevicePort_Proxy(byval This as IAMExtDevice ptr, byval DevicePort as LONG_) as HRESULT
+declare function IAMExtDevice_put_DevicePort_Proxy(byval This as IAMExtDevice ptr, byval DevicePort as LONG) as HRESULT
 declare sub IAMExtDevice_put_DevicePort_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IAMExtDevice_get_DevicePort_Proxy(byval This as IAMExtDevice ptr, byval pDevicePort as LONG_ ptr) as HRESULT
+declare function IAMExtDevice_get_DevicePort_Proxy(byval This as IAMExtDevice ptr, byval pDevicePort as LONG ptr) as HRESULT
 declare sub IAMExtDevice_get_DevicePort_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 
 type PEXTDEVICE as IAMExtDevice ptr
@@ -3190,97 +3194,97 @@ extern IID_IAMExtTransport as const IID
 
 type IAMExtTransportVtbl
 	QueryInterface as function(byval This as IAMExtTransport ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IAMExtTransport ptr) as ULONG_
-	Release as function(byval This as IAMExtTransport ptr) as ULONG_
-	GetCapability as function(byval This as IAMExtTransport ptr, byval Capability as LONG_, byval pValue as LONG_ ptr, byval pdblValue as double ptr) as HRESULT
-	put_MediaState as function(byval This as IAMExtTransport ptr, byval State as LONG_) as HRESULT
-	get_MediaState as function(byval This as IAMExtTransport ptr, byval pState as LONG_ ptr) as HRESULT
-	put_LocalControl as function(byval This as IAMExtTransport ptr, byval State as LONG_) as HRESULT
-	get_LocalControl as function(byval This as IAMExtTransport ptr, byval pState as LONG_ ptr) as HRESULT
-	GetStatus as function(byval This as IAMExtTransport ptr, byval StatusItem as LONG_, byval pValue as LONG_ ptr) as HRESULT
-	GetTransportBasicParameters as function(byval This as IAMExtTransport ptr, byval Param as LONG_, byval pValue as LONG_ ptr, byval ppszData as LPOLESTR ptr) as HRESULT
-	SetTransportBasicParameters as function(byval This as IAMExtTransport ptr, byval Param as LONG_, byval Value as LONG_, byval pszData as LPCOLESTR) as HRESULT
-	GetTransportVideoParameters as function(byval This as IAMExtTransport ptr, byval Param as LONG_, byval pValue as LONG_ ptr) as HRESULT
-	SetTransportVideoParameters as function(byval This as IAMExtTransport ptr, byval Param as LONG_, byval Value as LONG_) as HRESULT
-	GetTransportAudioParameters as function(byval This as IAMExtTransport ptr, byval Param as LONG_, byval pValue as LONG_ ptr) as HRESULT
-	SetTransportAudioParameters as function(byval This as IAMExtTransport ptr, byval Param as LONG_, byval Value as LONG_) as HRESULT
-	put_Mode as function(byval This as IAMExtTransport ptr, byval Mode as LONG_) as HRESULT
-	get_Mode as function(byval This as IAMExtTransport ptr, byval pMode as LONG_ ptr) as HRESULT
+	AddRef as function(byval This as IAMExtTransport ptr) as ULONG
+	Release as function(byval This as IAMExtTransport ptr) as ULONG
+	GetCapability as function(byval This as IAMExtTransport ptr, byval Capability as LONG, byval pValue as LONG ptr, byval pdblValue as double ptr) as HRESULT
+	put_MediaState as function(byval This as IAMExtTransport ptr, byval State as LONG) as HRESULT
+	get_MediaState as function(byval This as IAMExtTransport ptr, byval pState as LONG ptr) as HRESULT
+	put_LocalControl as function(byval This as IAMExtTransport ptr, byval State as LONG) as HRESULT
+	get_LocalControl as function(byval This as IAMExtTransport ptr, byval pState as LONG ptr) as HRESULT
+	GetStatus as function(byval This as IAMExtTransport ptr, byval StatusItem as LONG, byval pValue as LONG ptr) as HRESULT
+	GetTransportBasicParameters as function(byval This as IAMExtTransport ptr, byval Param as LONG, byval pValue as LONG ptr, byval ppszData as LPOLESTR ptr) as HRESULT
+	SetTransportBasicParameters as function(byval This as IAMExtTransport ptr, byval Param as LONG, byval Value as LONG, byval pszData as LPCOLESTR) as HRESULT
+	GetTransportVideoParameters as function(byval This as IAMExtTransport ptr, byval Param as LONG, byval pValue as LONG ptr) as HRESULT
+	SetTransportVideoParameters as function(byval This as IAMExtTransport ptr, byval Param as LONG, byval Value as LONG) as HRESULT
+	GetTransportAudioParameters as function(byval This as IAMExtTransport ptr, byval Param as LONG, byval pValue as LONG ptr) as HRESULT
+	SetTransportAudioParameters as function(byval This as IAMExtTransport ptr, byval Param as LONG, byval Value as LONG) as HRESULT
+	put_Mode as function(byval This as IAMExtTransport ptr, byval Mode as LONG) as HRESULT
+	get_Mode as function(byval This as IAMExtTransport ptr, byval pMode as LONG ptr) as HRESULT
 	put_Rate as function(byval This as IAMExtTransport ptr, byval dblRate as double) as HRESULT
 	get_Rate as function(byval This as IAMExtTransport ptr, byval pdblRate as double ptr) as HRESULT
-	GetChase as function(byval This as IAMExtTransport ptr, byval pEnabled as LONG_ ptr, byval pOffset as LONG_ ptr, byval phEvent as HEVENT ptr) as HRESULT
-	SetChase as function(byval This as IAMExtTransport ptr, byval Enable as LONG_, byval Offset as LONG_, byval hEvent as HEVENT) as HRESULT
-	GetBump as function(byval This as IAMExtTransport ptr, byval pSpeed as LONG_ ptr, byval pDuration as LONG_ ptr) as HRESULT
-	SetBump as function(byval This as IAMExtTransport ptr, byval Speed as LONG_, byval Duration as LONG_) as HRESULT
-	get_AntiClogControl as function(byval This as IAMExtTransport ptr, byval pEnabled as LONG_ ptr) as HRESULT
-	put_AntiClogControl as function(byval This as IAMExtTransport ptr, byval Enable as LONG_) as HRESULT
-	GetEditPropertySet as function(byval This as IAMExtTransport ptr, byval EditID as LONG_, byval pState as LONG_ ptr) as HRESULT
-	SetEditPropertySet as function(byval This as IAMExtTransport ptr, byval pEditID as LONG_ ptr, byval State as LONG_) as HRESULT
-	GetEditProperty as function(byval This as IAMExtTransport ptr, byval EditID as LONG_, byval Param as LONG_, byval pValue as LONG_ ptr) as HRESULT
-	SetEditProperty as function(byval This as IAMExtTransport ptr, byval EditID as LONG_, byval Param as LONG_, byval Value as LONG_) as HRESULT
-	get_EditStart as function(byval This as IAMExtTransport ptr, byval pValue as LONG_ ptr) as HRESULT
-	put_EditStart as function(byval This as IAMExtTransport ptr, byval Value as LONG_) as HRESULT
+	GetChase as function(byval This as IAMExtTransport ptr, byval pEnabled as LONG ptr, byval pOffset as LONG ptr, byval phEvent as HEVENT ptr) as HRESULT
+	SetChase as function(byval This as IAMExtTransport ptr, byval Enable as LONG, byval Offset as LONG, byval hEvent as HEVENT) as HRESULT
+	GetBump as function(byval This as IAMExtTransport ptr, byval pSpeed as LONG ptr, byval pDuration as LONG ptr) as HRESULT
+	SetBump as function(byval This as IAMExtTransport ptr, byval Speed as LONG, byval Duration as LONG) as HRESULT
+	get_AntiClogControl as function(byval This as IAMExtTransport ptr, byval pEnabled as LONG ptr) as HRESULT
+	put_AntiClogControl as function(byval This as IAMExtTransport ptr, byval Enable as LONG) as HRESULT
+	GetEditPropertySet as function(byval This as IAMExtTransport ptr, byval EditID as LONG, byval pState as LONG ptr) as HRESULT
+	SetEditPropertySet as function(byval This as IAMExtTransport ptr, byval pEditID as LONG ptr, byval State as LONG) as HRESULT
+	GetEditProperty as function(byval This as IAMExtTransport ptr, byval EditID as LONG, byval Param as LONG, byval pValue as LONG ptr) as HRESULT
+	SetEditProperty as function(byval This as IAMExtTransport ptr, byval EditID as LONG, byval Param as LONG, byval Value as LONG) as HRESULT
+	get_EditStart as function(byval This as IAMExtTransport ptr, byval pValue as LONG ptr) as HRESULT
+	put_EditStart as function(byval This as IAMExtTransport ptr, byval Value as LONG) as HRESULT
 end type
 
 type IAMExtTransport_
 	lpVtbl as IAMExtTransportVtbl ptr
 end type
 
-declare function IAMExtTransport_GetCapability_Proxy(byval This as IAMExtTransport ptr, byval Capability as LONG_, byval pValue as LONG_ ptr, byval pdblValue as double ptr) as HRESULT
+declare function IAMExtTransport_GetCapability_Proxy(byval This as IAMExtTransport ptr, byval Capability as LONG, byval pValue as LONG ptr, byval pdblValue as double ptr) as HRESULT
 declare sub IAMExtTransport_GetCapability_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IAMExtTransport_put_MediaState_Proxy(byval This as IAMExtTransport ptr, byval State as LONG_) as HRESULT
+declare function IAMExtTransport_put_MediaState_Proxy(byval This as IAMExtTransport ptr, byval State as LONG) as HRESULT
 declare sub IAMExtTransport_put_MediaState_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IAMExtTransport_get_MediaState_Proxy(byval This as IAMExtTransport ptr, byval pState as LONG_ ptr) as HRESULT
+declare function IAMExtTransport_get_MediaState_Proxy(byval This as IAMExtTransport ptr, byval pState as LONG ptr) as HRESULT
 declare sub IAMExtTransport_get_MediaState_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IAMExtTransport_put_LocalControl_Proxy(byval This as IAMExtTransport ptr, byval State as LONG_) as HRESULT
+declare function IAMExtTransport_put_LocalControl_Proxy(byval This as IAMExtTransport ptr, byval State as LONG) as HRESULT
 declare sub IAMExtTransport_put_LocalControl_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IAMExtTransport_get_LocalControl_Proxy(byval This as IAMExtTransport ptr, byval pState as LONG_ ptr) as HRESULT
+declare function IAMExtTransport_get_LocalControl_Proxy(byval This as IAMExtTransport ptr, byval pState as LONG ptr) as HRESULT
 declare sub IAMExtTransport_get_LocalControl_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IAMExtTransport_GetStatus_Proxy(byval This as IAMExtTransport ptr, byval StatusItem as LONG_, byval pValue as LONG_ ptr) as HRESULT
+declare function IAMExtTransport_GetStatus_Proxy(byval This as IAMExtTransport ptr, byval StatusItem as LONG, byval pValue as LONG ptr) as HRESULT
 declare sub IAMExtTransport_GetStatus_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IAMExtTransport_GetTransportBasicParameters_Proxy(byval This as IAMExtTransport ptr, byval Param as LONG_, byval pValue as LONG_ ptr, byval ppszData as LPOLESTR ptr) as HRESULT
+declare function IAMExtTransport_GetTransportBasicParameters_Proxy(byval This as IAMExtTransport ptr, byval Param as LONG, byval pValue as LONG ptr, byval ppszData as LPOLESTR ptr) as HRESULT
 declare sub IAMExtTransport_GetTransportBasicParameters_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IAMExtTransport_SetTransportBasicParameters_Proxy(byval This as IAMExtTransport ptr, byval Param as LONG_, byval Value as LONG_, byval pszData as LPCOLESTR) as HRESULT
+declare function IAMExtTransport_SetTransportBasicParameters_Proxy(byval This as IAMExtTransport ptr, byval Param as LONG, byval Value as LONG, byval pszData as LPCOLESTR) as HRESULT
 declare sub IAMExtTransport_SetTransportBasicParameters_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IAMExtTransport_GetTransportVideoParameters_Proxy(byval This as IAMExtTransport ptr, byval Param as LONG_, byval pValue as LONG_ ptr) as HRESULT
+declare function IAMExtTransport_GetTransportVideoParameters_Proxy(byval This as IAMExtTransport ptr, byval Param as LONG, byval pValue as LONG ptr) as HRESULT
 declare sub IAMExtTransport_GetTransportVideoParameters_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IAMExtTransport_SetTransportVideoParameters_Proxy(byval This as IAMExtTransport ptr, byval Param as LONG_, byval Value as LONG_) as HRESULT
+declare function IAMExtTransport_SetTransportVideoParameters_Proxy(byval This as IAMExtTransport ptr, byval Param as LONG, byval Value as LONG) as HRESULT
 declare sub IAMExtTransport_SetTransportVideoParameters_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IAMExtTransport_GetTransportAudioParameters_Proxy(byval This as IAMExtTransport ptr, byval Param as LONG_, byval pValue as LONG_ ptr) as HRESULT
+declare function IAMExtTransport_GetTransportAudioParameters_Proxy(byval This as IAMExtTransport ptr, byval Param as LONG, byval pValue as LONG ptr) as HRESULT
 declare sub IAMExtTransport_GetTransportAudioParameters_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IAMExtTransport_SetTransportAudioParameters_Proxy(byval This as IAMExtTransport ptr, byval Param as LONG_, byval Value as LONG_) as HRESULT
+declare function IAMExtTransport_SetTransportAudioParameters_Proxy(byval This as IAMExtTransport ptr, byval Param as LONG, byval Value as LONG) as HRESULT
 declare sub IAMExtTransport_SetTransportAudioParameters_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IAMExtTransport_put_Mode_Proxy(byval This as IAMExtTransport ptr, byval Mode as LONG_) as HRESULT
+declare function IAMExtTransport_put_Mode_Proxy(byval This as IAMExtTransport ptr, byval Mode as LONG) as HRESULT
 declare sub IAMExtTransport_put_Mode_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IAMExtTransport_get_Mode_Proxy(byval This as IAMExtTransport ptr, byval pMode as LONG_ ptr) as HRESULT
+declare function IAMExtTransport_get_Mode_Proxy(byval This as IAMExtTransport ptr, byval pMode as LONG ptr) as HRESULT
 declare sub IAMExtTransport_get_Mode_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IAMExtTransport_put_Rate_Proxy(byval This as IAMExtTransport ptr, byval dblRate as double) as HRESULT
 declare sub IAMExtTransport_put_Rate_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IAMExtTransport_get_Rate_Proxy(byval This as IAMExtTransport ptr, byval pdblRate as double ptr) as HRESULT
 declare sub IAMExtTransport_get_Rate_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IAMExtTransport_GetChase_Proxy(byval This as IAMExtTransport ptr, byval pEnabled as LONG_ ptr, byval pOffset as LONG_ ptr, byval phEvent as HEVENT ptr) as HRESULT
+declare function IAMExtTransport_GetChase_Proxy(byval This as IAMExtTransport ptr, byval pEnabled as LONG ptr, byval pOffset as LONG ptr, byval phEvent as HEVENT ptr) as HRESULT
 declare sub IAMExtTransport_GetChase_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IAMExtTransport_SetChase_Proxy(byval This as IAMExtTransport ptr, byval Enable as LONG_, byval Offset as LONG_, byval hEvent as HEVENT) as HRESULT
+declare function IAMExtTransport_SetChase_Proxy(byval This as IAMExtTransport ptr, byval Enable as LONG, byval Offset as LONG, byval hEvent as HEVENT) as HRESULT
 declare sub IAMExtTransport_SetChase_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IAMExtTransport_GetBump_Proxy(byval This as IAMExtTransport ptr, byval pSpeed as LONG_ ptr, byval pDuration as LONG_ ptr) as HRESULT
+declare function IAMExtTransport_GetBump_Proxy(byval This as IAMExtTransport ptr, byval pSpeed as LONG ptr, byval pDuration as LONG ptr) as HRESULT
 declare sub IAMExtTransport_GetBump_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IAMExtTransport_SetBump_Proxy(byval This as IAMExtTransport ptr, byval Speed as LONG_, byval Duration as LONG_) as HRESULT
+declare function IAMExtTransport_SetBump_Proxy(byval This as IAMExtTransport ptr, byval Speed as LONG, byval Duration as LONG) as HRESULT
 declare sub IAMExtTransport_SetBump_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IAMExtTransport_get_AntiClogControl_Proxy(byval This as IAMExtTransport ptr, byval pEnabled as LONG_ ptr) as HRESULT
+declare function IAMExtTransport_get_AntiClogControl_Proxy(byval This as IAMExtTransport ptr, byval pEnabled as LONG ptr) as HRESULT
 declare sub IAMExtTransport_get_AntiClogControl_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IAMExtTransport_put_AntiClogControl_Proxy(byval This as IAMExtTransport ptr, byval Enable as LONG_) as HRESULT
+declare function IAMExtTransport_put_AntiClogControl_Proxy(byval This as IAMExtTransport ptr, byval Enable as LONG) as HRESULT
 declare sub IAMExtTransport_put_AntiClogControl_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IAMExtTransport_GetEditPropertySet_Proxy(byval This as IAMExtTransport ptr, byval EditID as LONG_, byval pState as LONG_ ptr) as HRESULT
+declare function IAMExtTransport_GetEditPropertySet_Proxy(byval This as IAMExtTransport ptr, byval EditID as LONG, byval pState as LONG ptr) as HRESULT
 declare sub IAMExtTransport_GetEditPropertySet_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IAMExtTransport_SetEditPropertySet_Proxy(byval This as IAMExtTransport ptr, byval pEditID as LONG_ ptr, byval State as LONG_) as HRESULT
+declare function IAMExtTransport_SetEditPropertySet_Proxy(byval This as IAMExtTransport ptr, byval pEditID as LONG ptr, byval State as LONG) as HRESULT
 declare sub IAMExtTransport_SetEditPropertySet_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IAMExtTransport_GetEditProperty_Proxy(byval This as IAMExtTransport ptr, byval EditID as LONG_, byval Param as LONG_, byval pValue as LONG_ ptr) as HRESULT
+declare function IAMExtTransport_GetEditProperty_Proxy(byval This as IAMExtTransport ptr, byval EditID as LONG, byval Param as LONG, byval pValue as LONG ptr) as HRESULT
 declare sub IAMExtTransport_GetEditProperty_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IAMExtTransport_SetEditProperty_Proxy(byval This as IAMExtTransport ptr, byval EditID as LONG_, byval Param as LONG_, byval Value as LONG_) as HRESULT
+declare function IAMExtTransport_SetEditProperty_Proxy(byval This as IAMExtTransport ptr, byval EditID as LONG, byval Param as LONG, byval Value as LONG) as HRESULT
 declare sub IAMExtTransport_SetEditProperty_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IAMExtTransport_get_EditStart_Proxy(byval This as IAMExtTransport ptr, byval pValue as LONG_ ptr) as HRESULT
+declare function IAMExtTransport_get_EditStart_Proxy(byval This as IAMExtTransport ptr, byval pValue as LONG ptr) as HRESULT
 declare sub IAMExtTransport_get_EditStart_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IAMExtTransport_put_EditStart_Proxy(byval This as IAMExtTransport ptr, byval Value as LONG_) as HRESULT
+declare function IAMExtTransport_put_EditStart_Proxy(byval This as IAMExtTransport ptr, byval Value as LONG) as HRESULT
 declare sub IAMExtTransport_put_EditStart_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 
 type PIAMEXTTRANSPORT as IAMExtTransport ptr
@@ -3319,12 +3323,12 @@ extern IID_IAMTimecodeReader as const IID
 
 type IAMTimecodeReaderVtbl
 	QueryInterface as function(byval This as IAMTimecodeReader ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IAMTimecodeReader ptr) as ULONG_
-	Release as function(byval This as IAMTimecodeReader ptr) as ULONG_
-	GetTCRMode as function(byval This as IAMTimecodeReader ptr, byval Param as LONG_, byval pValue as LONG_ ptr) as HRESULT
-	SetTCRMode as function(byval This as IAMTimecodeReader ptr, byval Param as LONG_, byval Value as LONG_) as HRESULT
-	put_VITCLine as function(byval This as IAMTimecodeReader ptr, byval Line_ as LONG_) as HRESULT
-	get_VITCLine as function(byval This as IAMTimecodeReader ptr, byval pLine as LONG_ ptr) as HRESULT
+	AddRef as function(byval This as IAMTimecodeReader ptr) as ULONG
+	Release as function(byval This as IAMTimecodeReader ptr) as ULONG
+	GetTCRMode as function(byval This as IAMTimecodeReader ptr, byval Param as LONG, byval pValue as LONG ptr) as HRESULT
+	SetTCRMode as function(byval This as IAMTimecodeReader ptr, byval Param as LONG, byval Value as LONG) as HRESULT
+	put_VITCLine as function(byval This as IAMTimecodeReader ptr, byval Line_ as LONG) as HRESULT
+	get_VITCLine as function(byval This as IAMTimecodeReader ptr, byval pLine as LONG ptr) as HRESULT
 	GetTimecode as function(byval This as IAMTimecodeReader ptr, byval pTimecodeSample as PTIMECODE_SAMPLE) as HRESULT
 end type
 
@@ -3332,13 +3336,13 @@ type IAMTimecodeReader_
 	lpVtbl as IAMTimecodeReaderVtbl ptr
 end type
 
-declare function IAMTimecodeReader_GetTCRMode_Proxy(byval This as IAMTimecodeReader ptr, byval Param as LONG_, byval pValue as LONG_ ptr) as HRESULT
+declare function IAMTimecodeReader_GetTCRMode_Proxy(byval This as IAMTimecodeReader ptr, byval Param as LONG, byval pValue as LONG ptr) as HRESULT
 declare sub IAMTimecodeReader_GetTCRMode_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IAMTimecodeReader_SetTCRMode_Proxy(byval This as IAMTimecodeReader ptr, byval Param as LONG_, byval Value as LONG_) as HRESULT
+declare function IAMTimecodeReader_SetTCRMode_Proxy(byval This as IAMTimecodeReader ptr, byval Param as LONG, byval Value as LONG) as HRESULT
 declare sub IAMTimecodeReader_SetTCRMode_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IAMTimecodeReader_put_VITCLine_Proxy(byval This as IAMTimecodeReader ptr, byval Line_ as LONG_) as HRESULT
+declare function IAMTimecodeReader_put_VITCLine_Proxy(byval This as IAMTimecodeReader ptr, byval Line_ as LONG) as HRESULT
 declare sub IAMTimecodeReader_put_VITCLine_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IAMTimecodeReader_get_VITCLine_Proxy(byval This as IAMTimecodeReader ptr, byval pLine as LONG_ ptr) as HRESULT
+declare function IAMTimecodeReader_get_VITCLine_Proxy(byval This as IAMTimecodeReader ptr, byval pLine as LONG ptr) as HRESULT
 declare sub IAMTimecodeReader_get_VITCLine_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IAMTimecodeReader_GetTimecode_Proxy(byval This as IAMTimecodeReader ptr, byval pTimecodeSample as PTIMECODE_SAMPLE) as HRESULT
 declare sub IAMTimecodeReader_GetTimecode_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
@@ -3354,12 +3358,12 @@ extern IID_IAMTimecodeGenerator as const IID
 
 type IAMTimecodeGeneratorVtbl
 	QueryInterface as function(byval This as IAMTimecodeGenerator ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IAMTimecodeGenerator ptr) as ULONG_
-	Release as function(byval This as IAMTimecodeGenerator ptr) as ULONG_
-	GetTCGMode as function(byval This as IAMTimecodeGenerator ptr, byval Param as LONG_, byval pValue as LONG_ ptr) as HRESULT
-	SetTCGMode as function(byval This as IAMTimecodeGenerator ptr, byval Param as LONG_, byval Value as LONG_) as HRESULT
-	put_VITCLine as function(byval This as IAMTimecodeGenerator ptr, byval Line_ as LONG_) as HRESULT
-	get_VITCLine as function(byval This as IAMTimecodeGenerator ptr, byval pLine as LONG_ ptr) as HRESULT
+	AddRef as function(byval This as IAMTimecodeGenerator ptr) as ULONG
+	Release as function(byval This as IAMTimecodeGenerator ptr) as ULONG
+	GetTCGMode as function(byval This as IAMTimecodeGenerator ptr, byval Param as LONG, byval pValue as LONG ptr) as HRESULT
+	SetTCGMode as function(byval This as IAMTimecodeGenerator ptr, byval Param as LONG, byval Value as LONG) as HRESULT
+	put_VITCLine as function(byval This as IAMTimecodeGenerator ptr, byval Line_ as LONG) as HRESULT
+	get_VITCLine as function(byval This as IAMTimecodeGenerator ptr, byval pLine as LONG ptr) as HRESULT
 	SetTimecode as function(byval This as IAMTimecodeGenerator ptr, byval pTimecodeSample as PTIMECODE_SAMPLE) as HRESULT
 	GetTimecode as function(byval This as IAMTimecodeGenerator ptr, byval pTimecodeSample as PTIMECODE_SAMPLE) as HRESULT
 end type
@@ -3368,13 +3372,13 @@ type IAMTimecodeGenerator_
 	lpVtbl as IAMTimecodeGeneratorVtbl ptr
 end type
 
-declare function IAMTimecodeGenerator_GetTCGMode_Proxy(byval This as IAMTimecodeGenerator ptr, byval Param as LONG_, byval pValue as LONG_ ptr) as HRESULT
+declare function IAMTimecodeGenerator_GetTCGMode_Proxy(byval This as IAMTimecodeGenerator ptr, byval Param as LONG, byval pValue as LONG ptr) as HRESULT
 declare sub IAMTimecodeGenerator_GetTCGMode_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IAMTimecodeGenerator_SetTCGMode_Proxy(byval This as IAMTimecodeGenerator ptr, byval Param as LONG_, byval Value as LONG_) as HRESULT
+declare function IAMTimecodeGenerator_SetTCGMode_Proxy(byval This as IAMTimecodeGenerator ptr, byval Param as LONG, byval Value as LONG) as HRESULT
 declare sub IAMTimecodeGenerator_SetTCGMode_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IAMTimecodeGenerator_put_VITCLine_Proxy(byval This as IAMTimecodeGenerator ptr, byval Line_ as LONG_) as HRESULT
+declare function IAMTimecodeGenerator_put_VITCLine_Proxy(byval This as IAMTimecodeGenerator ptr, byval Line_ as LONG) as HRESULT
 declare sub IAMTimecodeGenerator_put_VITCLine_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IAMTimecodeGenerator_get_VITCLine_Proxy(byval This as IAMTimecodeGenerator ptr, byval pLine as LONG_ ptr) as HRESULT
+declare function IAMTimecodeGenerator_get_VITCLine_Proxy(byval This as IAMTimecodeGenerator ptr, byval pLine as LONG ptr) as HRESULT
 declare sub IAMTimecodeGenerator_get_VITCLine_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IAMTimecodeGenerator_SetTimecode_Proxy(byval This as IAMTimecodeGenerator ptr, byval pTimecodeSample as PTIMECODE_SAMPLE) as HRESULT
 declare sub IAMTimecodeGenerator_SetTimecode_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
@@ -3392,25 +3396,25 @@ extern IID_IAMTimecodeDisplay as const IID
 
 type IAMTimecodeDisplayVtbl
 	QueryInterface as function(byval This as IAMTimecodeDisplay ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IAMTimecodeDisplay ptr) as ULONG_
-	Release as function(byval This as IAMTimecodeDisplay ptr) as ULONG_
-	GetTCDisplayEnable as function(byval This as IAMTimecodeDisplay ptr, byval pState as LONG_ ptr) as HRESULT
-	SetTCDisplayEnable as function(byval This as IAMTimecodeDisplay ptr, byval State as LONG_) as HRESULT
-	GetTCDisplay as function(byval This as IAMTimecodeDisplay ptr, byval Param as LONG_, byval pValue as LONG_ ptr) as HRESULT
-	SetTCDisplay as function(byval This as IAMTimecodeDisplay ptr, byval Param as LONG_, byval Value as LONG_) as HRESULT
+	AddRef as function(byval This as IAMTimecodeDisplay ptr) as ULONG
+	Release as function(byval This as IAMTimecodeDisplay ptr) as ULONG
+	GetTCDisplayEnable as function(byval This as IAMTimecodeDisplay ptr, byval pState as LONG ptr) as HRESULT
+	SetTCDisplayEnable as function(byval This as IAMTimecodeDisplay ptr, byval State as LONG) as HRESULT
+	GetTCDisplay as function(byval This as IAMTimecodeDisplay ptr, byval Param as LONG, byval pValue as LONG ptr) as HRESULT
+	SetTCDisplay as function(byval This as IAMTimecodeDisplay ptr, byval Param as LONG, byval Value as LONG) as HRESULT
 end type
 
 type IAMTimecodeDisplay_
 	lpVtbl as IAMTimecodeDisplayVtbl ptr
 end type
 
-declare function IAMTimecodeDisplay_GetTCDisplayEnable_Proxy(byval This as IAMTimecodeDisplay ptr, byval pState as LONG_ ptr) as HRESULT
+declare function IAMTimecodeDisplay_GetTCDisplayEnable_Proxy(byval This as IAMTimecodeDisplay ptr, byval pState as LONG ptr) as HRESULT
 declare sub IAMTimecodeDisplay_GetTCDisplayEnable_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IAMTimecodeDisplay_SetTCDisplayEnable_Proxy(byval This as IAMTimecodeDisplay ptr, byval State as LONG_) as HRESULT
+declare function IAMTimecodeDisplay_SetTCDisplayEnable_Proxy(byval This as IAMTimecodeDisplay ptr, byval State as LONG) as HRESULT
 declare sub IAMTimecodeDisplay_SetTCDisplayEnable_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IAMTimecodeDisplay_GetTCDisplay_Proxy(byval This as IAMTimecodeDisplay ptr, byval Param as LONG_, byval pValue as LONG_ ptr) as HRESULT
+declare function IAMTimecodeDisplay_GetTCDisplay_Proxy(byval This as IAMTimecodeDisplay ptr, byval Param as LONG, byval pValue as LONG ptr) as HRESULT
 declare sub IAMTimecodeDisplay_GetTCDisplay_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IAMTimecodeDisplay_SetTCDisplay_Proxy(byval This as IAMTimecodeDisplay ptr, byval Param as LONG_, byval Value as LONG_) as HRESULT
+declare function IAMTimecodeDisplay_SetTCDisplay_Proxy(byval This as IAMTimecodeDisplay ptr, byval Param as LONG, byval Value as LONG) as HRESULT
 declare sub IAMTimecodeDisplay_SetTCDisplay_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 
 type PIAMTIMECODEDISPLAY as IAMTimecodeDisplay ptr
@@ -3424,12 +3428,12 @@ extern IID_IAMDevMemoryAllocator as const IID
 
 type IAMDevMemoryAllocatorVtbl
 	QueryInterface as function(byval This as IAMDevMemoryAllocator ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IAMDevMemoryAllocator ptr) as ULONG_
-	Release as function(byval This as IAMDevMemoryAllocator ptr) as ULONG_
+	AddRef as function(byval This as IAMDevMemoryAllocator ptr) as ULONG
+	Release as function(byval This as IAMDevMemoryAllocator ptr) as ULONG
 	GetInfo as function(byval This as IAMDevMemoryAllocator ptr, byval pdwcbTotalFree as DWORD ptr, byval pdwcbLargestFree as DWORD ptr, byval pdwcbTotalMemory as DWORD ptr, byval pdwcbMinimumChunk as DWORD ptr) as HRESULT
-	CheckMemory as function(byval This as IAMDevMemoryAllocator ptr, byval pBuffer as const BYTE_ ptr) as HRESULT
-	Alloc as function(byval This as IAMDevMemoryAllocator ptr, byval ppBuffer as BYTE_ ptr ptr, byval pdwcbBuffer as DWORD ptr) as HRESULT
-	Free as function(byval This as IAMDevMemoryAllocator ptr, byval pBuffer as BYTE_ ptr) as HRESULT
+	CheckMemory as function(byval This as IAMDevMemoryAllocator ptr, byval pBuffer as const BYTE ptr) as HRESULT
+	Alloc as function(byval This as IAMDevMemoryAllocator ptr, byval ppBuffer as BYTE ptr ptr, byval pdwcbBuffer as DWORD ptr) as HRESULT
+	Free as function(byval This as IAMDevMemoryAllocator ptr, byval pBuffer as BYTE ptr) as HRESULT
 	GetDevMemoryObject as function(byval This as IAMDevMemoryAllocator ptr, byval ppUnkInnner as IUnknown ptr ptr, byval pUnkOuter as IUnknown ptr) as HRESULT
 end type
 
@@ -3439,11 +3443,11 @@ end type
 
 declare function IAMDevMemoryAllocator_GetInfo_Proxy(byval This as IAMDevMemoryAllocator ptr, byval pdwcbTotalFree as DWORD ptr, byval pdwcbLargestFree as DWORD ptr, byval pdwcbTotalMemory as DWORD ptr, byval pdwcbMinimumChunk as DWORD ptr) as HRESULT
 declare sub IAMDevMemoryAllocator_GetInfo_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IAMDevMemoryAllocator_CheckMemory_Proxy(byval This as IAMDevMemoryAllocator ptr, byval pBuffer as const BYTE_ ptr) as HRESULT
+declare function IAMDevMemoryAllocator_CheckMemory_Proxy(byval This as IAMDevMemoryAllocator ptr, byval pBuffer as const BYTE ptr) as HRESULT
 declare sub IAMDevMemoryAllocator_CheckMemory_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IAMDevMemoryAllocator_Alloc_Proxy(byval This as IAMDevMemoryAllocator ptr, byval ppBuffer as BYTE_ ptr ptr, byval pdwcbBuffer as DWORD ptr) as HRESULT
+declare function IAMDevMemoryAllocator_Alloc_Proxy(byval This as IAMDevMemoryAllocator ptr, byval ppBuffer as BYTE ptr ptr, byval pdwcbBuffer as DWORD ptr) as HRESULT
 declare sub IAMDevMemoryAllocator_Alloc_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IAMDevMemoryAllocator_Free_Proxy(byval This as IAMDevMemoryAllocator ptr, byval pBuffer as BYTE_ ptr) as HRESULT
+declare function IAMDevMemoryAllocator_Free_Proxy(byval This as IAMDevMemoryAllocator ptr, byval pBuffer as BYTE ptr) as HRESULT
 declare sub IAMDevMemoryAllocator_Free_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IAMDevMemoryAllocator_GetDevMemoryObject_Proxy(byval This as IAMDevMemoryAllocator ptr, byval ppUnkInnner as IUnknown ptr ptr, byval pUnkOuter as IUnknown ptr) as HRESULT
 declare sub IAMDevMemoryAllocator_GetDevMemoryObject_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
@@ -3459,8 +3463,8 @@ extern IID_IAMDevMemoryControl as const IID
 
 type IAMDevMemoryControlVtbl
 	QueryInterface as function(byval This as IAMDevMemoryControl ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IAMDevMemoryControl ptr) as ULONG_
-	Release as function(byval This as IAMDevMemoryControl ptr) as ULONG_
+	AddRef as function(byval This as IAMDevMemoryControl ptr) as ULONG
+	Release as function(byval This as IAMDevMemoryControl ptr) as ULONG
 	QueryWriteSync as function(byval This as IAMDevMemoryControl ptr) as HRESULT
 	WriteSync as function(byval This as IAMDevMemoryControl ptr) as HRESULT
 	GetDevId as function(byval This as IAMDevMemoryControl ptr, byval pdwDevId as DWORD ptr) as HRESULT
@@ -3500,11 +3504,11 @@ extern IID_IAMStreamSelect as const IID
 
 type IAMStreamSelectVtbl
 	QueryInterface as function(byval This as IAMStreamSelect ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IAMStreamSelect ptr) as ULONG_
-	Release as function(byval This as IAMStreamSelect ptr) as ULONG_
+	AddRef as function(byval This as IAMStreamSelect ptr) as ULONG
+	Release as function(byval This as IAMStreamSelect ptr) as ULONG
 	Count as function(byval This as IAMStreamSelect ptr, byval pcStreams as DWORD ptr) as HRESULT
-	Info as function(byval This as IAMStreamSelect ptr, byval lIndex as LONG_, byval ppmt as AM_MEDIA_TYPE ptr ptr, byval pdwFlags as DWORD ptr, byval plcid as LCID ptr, byval pdwGroup as DWORD ptr, byval ppszName as WCHAR ptr ptr, byval ppObject as IUnknown ptr ptr, byval ppUnk as IUnknown ptr ptr) as HRESULT
-	Enable as function(byval This as IAMStreamSelect ptr, byval lIndex as LONG_, byval dwFlags as DWORD) as HRESULT
+	Info as function(byval This as IAMStreamSelect ptr, byval lIndex as LONG, byval ppmt as AM_MEDIA_TYPE ptr ptr, byval pdwFlags as DWORD ptr, byval plcid as LCID ptr, byval pdwGroup as DWORD ptr, byval ppszName as WCHAR ptr ptr, byval ppObject as IUnknown ptr ptr, byval ppUnk as IUnknown ptr ptr) as HRESULT
+	Enable as function(byval This as IAMStreamSelect ptr, byval lIndex as LONG, byval dwFlags as DWORD) as HRESULT
 end type
 
 type IAMStreamSelect_
@@ -3513,9 +3517,9 @@ end type
 
 declare function IAMStreamSelect_Count_Proxy(byval This as IAMStreamSelect ptr, byval pcStreams as DWORD ptr) as HRESULT
 declare sub IAMStreamSelect_Count_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IAMStreamSelect_Info_Proxy(byval This as IAMStreamSelect ptr, byval lIndex as LONG_, byval ppmt as AM_MEDIA_TYPE ptr ptr, byval pdwFlags as DWORD ptr, byval plcid as LCID ptr, byval pdwGroup as DWORD ptr, byval ppszName as WCHAR ptr ptr, byval ppObject as IUnknown ptr ptr, byval ppUnk as IUnknown ptr ptr) as HRESULT
+declare function IAMStreamSelect_Info_Proxy(byval This as IAMStreamSelect ptr, byval lIndex as LONG, byval ppmt as AM_MEDIA_TYPE ptr ptr, byval pdwFlags as DWORD ptr, byval plcid as LCID ptr, byval pdwGroup as DWORD ptr, byval ppszName as WCHAR ptr ptr, byval ppObject as IUnknown ptr ptr, byval ppUnk as IUnknown ptr ptr) as HRESULT
 declare sub IAMStreamSelect_Info_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IAMStreamSelect_Enable_Proxy(byval This as IAMStreamSelect ptr, byval lIndex as LONG_, byval dwFlags as DWORD) as HRESULT
+declare function IAMStreamSelect_Enable_Proxy(byval This as IAMStreamSelect ptr, byval lIndex as LONG, byval dwFlags as DWORD) as HRESULT
 declare sub IAMStreamSelect_Enable_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 
 type PAMSTREAMSELECT as IAMStreamSelect ptr
@@ -3535,8 +3539,8 @@ extern IID_IAMResourceControl as const IID
 
 type IAMResourceControlVtbl
 	QueryInterface as function(byval This as IAMResourceControl ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IAMResourceControl ptr) as ULONG_
-	Release as function(byval This as IAMResourceControl ptr) as ULONG_
+	AddRef as function(byval This as IAMResourceControl ptr) as ULONG
+	Release as function(byval This as IAMResourceControl ptr) as ULONG
 	Reserve as function(byval This as IAMResourceControl ptr, byval dwFlags as DWORD, byval pvReserved as PVOID) as HRESULT
 end type
 
@@ -3553,8 +3557,8 @@ extern IID_IAMClockAdjust as const IID
 
 type IAMClockAdjustVtbl
 	QueryInterface as function(byval This as IAMClockAdjust ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IAMClockAdjust ptr) as ULONG_
-	Release as function(byval This as IAMClockAdjust ptr) as ULONG_
+	AddRef as function(byval This as IAMClockAdjust ptr) as ULONG
+	Release as function(byval This as IAMClockAdjust ptr) as ULONG
 	SetClockDelta as function(byval This as IAMClockAdjust ptr, byval rtDelta as REFERENCE_TIME) as HRESULT
 end type
 
@@ -3571,8 +3575,8 @@ extern IID_IDrawVideoImage as const IID
 
 type IDrawVideoImageVtbl
 	QueryInterface as function(byval This as IDrawVideoImage ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDrawVideoImage ptr) as ULONG_
-	Release as function(byval This as IDrawVideoImage ptr) as ULONG_
+	AddRef as function(byval This as IDrawVideoImage ptr) as ULONG
+	Release as function(byval This as IDrawVideoImage ptr) as ULONG
 	DrawVideoImageBegin as function(byval This as IDrawVideoImage ptr) as HRESULT
 	DrawVideoImageEnd as function(byval This as IDrawVideoImage ptr) as HRESULT
 	DrawVideoImageDraw as function(byval This as IDrawVideoImage ptr, byval hdc as HDC, byval lprcSrc as LPRECT, byval lprcDst as LPRECT) as HRESULT
@@ -3595,9 +3599,9 @@ extern IID_IDecimateVideoImage as const IID
 
 type IDecimateVideoImageVtbl
 	QueryInterface as function(byval This as IDecimateVideoImage ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDecimateVideoImage ptr) as ULONG_
-	Release as function(byval This as IDecimateVideoImage ptr) as ULONG_
-	SetDecimationImageSize as function(byval This as IDecimateVideoImage ptr, byval lWidth as LONG_, byval lHeight as LONG_) as HRESULT
+	AddRef as function(byval This as IDecimateVideoImage ptr) as ULONG
+	Release as function(byval This as IDecimateVideoImage ptr) as ULONG
+	SetDecimationImageSize as function(byval This as IDecimateVideoImage ptr, byval lWidth as LONG, byval lHeight as LONG) as HRESULT
 	ResetDecimationImageSize as function(byval This as IDecimateVideoImage ptr) as HRESULT
 end type
 
@@ -3605,7 +3609,7 @@ type IDecimateVideoImage_
 	lpVtbl as IDecimateVideoImageVtbl ptr
 end type
 
-declare function IDecimateVideoImage_SetDecimationImageSize_Proxy(byval This as IDecimateVideoImage ptr, byval lWidth as LONG_, byval lHeight as LONG_) as HRESULT
+declare function IDecimateVideoImage_SetDecimationImageSize_Proxy(byval This as IDecimateVideoImage ptr, byval lWidth as LONG, byval lHeight as LONG) as HRESULT
 declare sub IDecimateVideoImage_SetDecimationImageSize_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IDecimateVideoImage_ResetDecimationImageSize_Proxy(byval This as IDecimateVideoImage ptr) as HRESULT
 declare sub IDecimateVideoImage_ResetDecimationImageSize_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
@@ -3630,8 +3634,8 @@ extern IID_IAMVideoDecimationProperties as const IID
 
 type IAMVideoDecimationPropertiesVtbl
 	QueryInterface as function(byval This as IAMVideoDecimationProperties ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IAMVideoDecimationProperties ptr) as ULONG_
-	Release as function(byval This as IAMVideoDecimationProperties ptr) as ULONG_
+	AddRef as function(byval This as IAMVideoDecimationProperties ptr) as ULONG
+	Release as function(byval This as IAMVideoDecimationProperties ptr) as ULONG
 	QueryDecimationUsage as function(byval This as IAMVideoDecimationProperties ptr, byval lpUsage as DECIMATION_USAGE ptr) as HRESULT
 	SetDecimationUsage as function(byval This as IAMVideoDecimationProperties ptr, byval Usage as DECIMATION_USAGE) as HRESULT
 end type
@@ -3651,10 +3655,10 @@ extern IID_IVideoFrameStep as const IID
 
 type IVideoFrameStepVtbl
 	QueryInterface as function(byval This as IVideoFrameStep ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IVideoFrameStep ptr) as ULONG_
-	Release as function(byval This as IVideoFrameStep ptr) as ULONG_
+	AddRef as function(byval This as IVideoFrameStep ptr) as ULONG
+	Release as function(byval This as IVideoFrameStep ptr) as ULONG
 	Step as function(byval This as IVideoFrameStep ptr, byval dwFrames as DWORD, byval pStepObject as IUnknown ptr) as HRESULT
-	CanStep as function(byval This as IVideoFrameStep ptr, byval bMultiple as LONG_, byval pStepObject as IUnknown ptr) as HRESULT
+	CanStep as function(byval This as IVideoFrameStep ptr, byval bMultiple as LONG, byval pStepObject as IUnknown ptr) as HRESULT
 	CancelStep as function(byval This as IVideoFrameStep ptr) as HRESULT
 end type
 
@@ -3664,7 +3668,7 @@ end type
 
 declare function IVideoFrameStep_Step_Proxy(byval This as IVideoFrameStep ptr, byval dwFrames as DWORD, byval pStepObject as IUnknown ptr) as HRESULT
 declare sub IVideoFrameStep_Step_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IVideoFrameStep_CanStep_Proxy(byval This as IVideoFrameStep ptr, byval bMultiple as LONG_, byval pStepObject as IUnknown ptr) as HRESULT
+declare function IVideoFrameStep_CanStep_Proxy(byval This as IVideoFrameStep ptr, byval bMultiple as LONG, byval pStepObject as IUnknown ptr) as HRESULT
 declare sub IVideoFrameStep_CanStep_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IVideoFrameStep_CancelStep_Proxy(byval This as IVideoFrameStep ptr) as HRESULT
 declare sub IVideoFrameStep_CancelStep_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
@@ -3687,8 +3691,8 @@ extern IID_IAMLatency as const IID
 
 type IAMLatencyVtbl
 	QueryInterface as function(byval This as IAMLatency ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IAMLatency ptr) as ULONG_
-	Release as function(byval This as IAMLatency ptr) as ULONG_
+	AddRef as function(byval This as IAMLatency ptr) as ULONG
+	Release as function(byval This as IAMLatency ptr) as ULONG
 	GetLatency as function(byval This as IAMLatency ptr, byval prtLatency as REFERENCE_TIME ptr) as HRESULT
 end type
 
@@ -3705,11 +3709,11 @@ extern IID_IAMPushSource as const IID
 
 type IAMPushSourceVtbl
 	QueryInterface as function(byval This as IAMPushSource ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IAMPushSource ptr) as ULONG_
-	Release as function(byval This as IAMPushSource ptr) as ULONG_
+	AddRef as function(byval This as IAMPushSource ptr) as ULONG
+	Release as function(byval This as IAMPushSource ptr) as ULONG
 	GetLatency as function(byval This as IAMPushSource ptr, byval prtLatency as REFERENCE_TIME ptr) as HRESULT
-	GetPushSourceFlags as function(byval This as IAMPushSource ptr, byval pFlags as ULONG_ ptr) as HRESULT
-	SetPushSourceFlags as function(byval This as IAMPushSource ptr, byval Flags as ULONG_) as HRESULT
+	GetPushSourceFlags as function(byval This as IAMPushSource ptr, byval pFlags as ULONG ptr) as HRESULT
+	SetPushSourceFlags as function(byval This as IAMPushSource ptr, byval Flags as ULONG) as HRESULT
 	SetStreamOffset as function(byval This as IAMPushSource ptr, byval rtOffset as REFERENCE_TIME) as HRESULT
 	GetStreamOffset as function(byval This as IAMPushSource ptr, byval prtOffset as REFERENCE_TIME ptr) as HRESULT
 	GetMaxStreamOffset as function(byval This as IAMPushSource ptr, byval prtMaxOffset as REFERENCE_TIME ptr) as HRESULT
@@ -3720,9 +3724,9 @@ type IAMPushSource_
 	lpVtbl as IAMPushSourceVtbl ptr
 end type
 
-declare function IAMPushSource_GetPushSourceFlags_Proxy(byval This as IAMPushSource ptr, byval pFlags as ULONG_ ptr) as HRESULT
+declare function IAMPushSource_GetPushSourceFlags_Proxy(byval This as IAMPushSource ptr, byval pFlags as ULONG ptr) as HRESULT
 declare sub IAMPushSource_GetPushSourceFlags_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IAMPushSource_SetPushSourceFlags_Proxy(byval This as IAMPushSource ptr, byval Flags as ULONG_) as HRESULT
+declare function IAMPushSource_SetPushSourceFlags_Proxy(byval This as IAMPushSource ptr, byval Flags as ULONG) as HRESULT
 declare sub IAMPushSource_SetPushSourceFlags_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IAMPushSource_SetStreamOffset_Proxy(byval This as IAMPushSource ptr, byval rtOffset as REFERENCE_TIME) as HRESULT
 declare sub IAMPushSource_SetStreamOffset_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
@@ -3739,8 +3743,8 @@ extern IID_IAMDeviceRemoval as const IID
 
 type IAMDeviceRemovalVtbl
 	QueryInterface as function(byval This as IAMDeviceRemoval ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IAMDeviceRemoval ptr) as ULONG_
-	Release as function(byval This as IAMDeviceRemoval ptr) as ULONG_
+	AddRef as function(byval This as IAMDeviceRemoval ptr) as ULONG
+	Release as function(byval This as IAMDeviceRemoval ptr) as ULONG
 	DeviceInfo as function(byval This as IAMDeviceRemoval ptr, byval pclsidInterfaceClass as CLSID ptr, byval pwszSymbolicLink as WCHAR ptr ptr) as HRESULT
 	Reassociate as function(byval This as IAMDeviceRemoval ptr) as HRESULT
 	Disassociate as function(byval This as IAMDeviceRemoval ptr) as HRESULT
@@ -3800,19 +3804,19 @@ extern IID_IDVEnc as const IID
 
 type IDVEncVtbl
 	QueryInterface as function(byval This as IDVEnc ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDVEnc ptr) as ULONG_
-	Release as function(byval This as IDVEnc ptr) as ULONG_
-	get_IFormatResolution as function(byval This as IDVEnc ptr, byval VideoFormat as long ptr, byval DVFormat as long ptr, byval Resolution as long ptr, byval fDVInfo as BYTE_, byval sDVInfo as DVINFO ptr) as HRESULT
-	put_IFormatResolution as function(byval This as IDVEnc ptr, byval VideoFormat as long, byval DVFormat as long, byval Resolution as long, byval fDVInfo as BYTE_, byval sDVInfo as DVINFO ptr) as HRESULT
+	AddRef as function(byval This as IDVEnc ptr) as ULONG
+	Release as function(byval This as IDVEnc ptr) as ULONG
+	get_IFormatResolution as function(byval This as IDVEnc ptr, byval VideoFormat as long ptr, byval DVFormat as long ptr, byval Resolution as long ptr, byval fDVInfo as BYTE, byval sDVInfo as DVINFO ptr) as HRESULT
+	put_IFormatResolution as function(byval This as IDVEnc ptr, byval VideoFormat as long, byval DVFormat as long, byval Resolution as long, byval fDVInfo as BYTE, byval sDVInfo as DVINFO ptr) as HRESULT
 end type
 
 type IDVEnc_
 	lpVtbl as IDVEncVtbl ptr
 end type
 
-declare function IDVEnc_get_IFormatResolution_Proxy(byval This as IDVEnc ptr, byval VideoFormat as long ptr, byval DVFormat as long ptr, byval Resolution as long ptr, byval fDVInfo as BYTE_, byval sDVInfo as DVINFO ptr) as HRESULT
+declare function IDVEnc_get_IFormatResolution_Proxy(byval This as IDVEnc ptr, byval VideoFormat as long ptr, byval DVFormat as long ptr, byval Resolution as long ptr, byval fDVInfo as BYTE, byval sDVInfo as DVINFO ptr) as HRESULT
 declare sub IDVEnc_get_IFormatResolution_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IDVEnc_put_IFormatResolution_Proxy(byval This as IDVEnc ptr, byval VideoFormat as long, byval DVFormat as long, byval Resolution as long, byval fDVInfo as BYTE_, byval sDVInfo as DVINFO ptr) as HRESULT
+declare function IDVEnc_put_IFormatResolution_Proxy(byval This as IDVEnc ptr, byval VideoFormat as long, byval DVFormat as long, byval Resolution as long, byval fDVInfo as BYTE, byval sDVInfo as DVINFO ptr) as HRESULT
 declare sub IDVEnc_put_IFormatResolution_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 
 type _DVDECODERRESOLUTION as long
@@ -3840,8 +3844,8 @@ extern IID_IIPDVDec as const IID
 
 type IIPDVDecVtbl
 	QueryInterface as function(byval This as IIPDVDec ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IIPDVDec ptr) as ULONG_
-	Release as function(byval This as IIPDVDec ptr) as ULONG_
+	AddRef as function(byval This as IIPDVDec ptr) as ULONG
+	Release as function(byval This as IIPDVDec ptr) as ULONG
 	get_IPDisplay as function(byval This as IIPDVDec ptr, byval displayPix as long ptr) as HRESULT
 	put_IPDisplay as function(byval This as IIPDVDec ptr, byval displayPix as long) as HRESULT
 end type
@@ -3861,8 +3865,8 @@ extern IID_IDVRGB219 as const IID
 
 type IDVRGB219Vtbl
 	QueryInterface as function(byval This as IDVRGB219 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDVRGB219 ptr) as ULONG_
-	Release as function(byval This as IDVRGB219 ptr) as ULONG_
+	AddRef as function(byval This as IDVRGB219 ptr) as ULONG
+	Release as function(byval This as IDVRGB219 ptr) as ULONG
 	SetRGB219 as function(byval This as IDVRGB219 ptr, byval bState as WINBOOL) as HRESULT
 end type
 
@@ -3879,8 +3883,8 @@ extern IID_IDVSplitter as const IID
 
 type IDVSplitterVtbl
 	QueryInterface as function(byval This as IDVSplitter ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDVSplitter ptr) as ULONG_
-	Release as function(byval This as IDVSplitter ptr) as ULONG_
+	AddRef as function(byval This as IDVSplitter ptr) as ULONG
+	Release as function(byval This as IDVSplitter ptr) as ULONG
 	DiscardAlternateVideoFrames as function(byval This as IDVSplitter ptr, byval nDiscard as long) as HRESULT
 end type
 
@@ -3916,8 +3920,8 @@ extern IID_IAMAudioRendererStats as const IID
 
 type IAMAudioRendererStatsVtbl
 	QueryInterface as function(byval This as IAMAudioRendererStats ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IAMAudioRendererStats ptr) as ULONG_
-	Release as function(byval This as IAMAudioRendererStats ptr) as ULONG_
+	AddRef as function(byval This as IAMAudioRendererStats ptr) as ULONG
+	Release as function(byval This as IAMAudioRendererStats ptr) as ULONG
 	GetStatParam as function(byval This as IAMAudioRendererStats ptr, byval dwParam as DWORD, byval pdwParam1 as DWORD ptr, byval pdwParam2 as DWORD ptr) as HRESULT
 end type
 
@@ -3944,8 +3948,8 @@ extern IID_IAMGraphStreams as const IID
 
 type IAMGraphStreamsVtbl
 	QueryInterface as function(byval This as IAMGraphStreams ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IAMGraphStreams ptr) as ULONG_
-	Release as function(byval This as IAMGraphStreams ptr) as ULONG_
+	AddRef as function(byval This as IAMGraphStreams ptr) as ULONG
+	Release as function(byval This as IAMGraphStreams ptr) as ULONG
 	FindUpstreamInterface as function(byval This as IAMGraphStreams ptr, byval pPin as IPin ptr, byval riid as const IID const ptr, byval ppvInterface as any ptr ptr, byval dwFlags as DWORD) as HRESULT
 	SyncUsingStreamOffset as function(byval This as IAMGraphStreams ptr, byval bUseStreamOffset as WINBOOL) as HRESULT
 	SetMaxGraphLatency as function(byval This as IAMGraphStreams ptr, byval rtMaxGraphLatency as REFERENCE_TIME) as HRESULT
@@ -3979,8 +3983,8 @@ extern IID_IAMOverlayFX as const IID
 
 type IAMOverlayFXVtbl
 	QueryInterface as function(byval This as IAMOverlayFX ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IAMOverlayFX ptr) as ULONG_
-	Release as function(byval This as IAMOverlayFX ptr) as ULONG_
+	AddRef as function(byval This as IAMOverlayFX ptr) as ULONG
+	Release as function(byval This as IAMOverlayFX ptr) as ULONG
 	QueryOverlayFXCaps as function(byval This as IAMOverlayFX ptr, byval lpdwOverlayFXCaps as DWORD ptr) as HRESULT
 	SetOverlayFX as function(byval This as IAMOverlayFX ptr, byval dwOverlayFX as DWORD) as HRESULT
 	GetOverlayFX as function(byval This as IAMOverlayFX ptr, byval lpdwOverlayFX as DWORD ptr) as HRESULT
@@ -4003,8 +4007,8 @@ extern IID_IAMOpenProgress as const IID
 
 type IAMOpenProgressVtbl
 	QueryInterface as function(byval This as IAMOpenProgress ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IAMOpenProgress ptr) as ULONG_
-	Release as function(byval This as IAMOpenProgress ptr) as ULONG_
+	AddRef as function(byval This as IAMOpenProgress ptr) as ULONG
+	Release as function(byval This as IAMOpenProgress ptr) as ULONG
 	QueryProgress as function(byval This as IAMOpenProgress ptr, byval pllTotal as LONGLONG ptr, byval pllCurrent as LONGLONG ptr) as HRESULT
 	AbortOperation as function(byval This as IAMOpenProgress ptr) as HRESULT
 end type
@@ -4024,8 +4028,8 @@ extern IID_IMpeg2Demultiplexer as const IID
 
 type IMpeg2DemultiplexerVtbl
 	QueryInterface as function(byval This as IMpeg2Demultiplexer ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IMpeg2Demultiplexer ptr) as ULONG_
-	Release as function(byval This as IMpeg2Demultiplexer ptr) as ULONG_
+	AddRef as function(byval This as IMpeg2Demultiplexer ptr) as ULONG
+	Release as function(byval This as IMpeg2Demultiplexer ptr) as ULONG
 	CreateOutputPin as function(byval This as IMpeg2Demultiplexer ptr, byval pMediaType as AM_MEDIA_TYPE ptr, byval pszPinName as LPWSTR, byval ppIPin as IPin ptr ptr) as HRESULT
 	SetOutputPinMediaType as function(byval This as IMpeg2Demultiplexer ptr, byval pszPinName as LPWSTR, byval pMediaType as AM_MEDIA_TYPE ptr) as HRESULT
 	DeleteOutputPin as function(byval This as IMpeg2Demultiplexer ptr, byval pszPinName as LPWSTR) as HRESULT
@@ -4051,9 +4055,9 @@ declare sub IMpeg2Demultiplexer_DeleteOutputPin_Stub(byval This as IRpcStubBuffe
 #define SUBSTREAM_FILTER_VAL_NONE &h10000000
 
 type __MIDL___MIDL_itf_strmif_0365_0001
-	stream_id as ULONG_
+	stream_id as ULONG
 	dwMediaSampleContent as DWORD
-	ulSubstreamFilterValue as ULONG_
+	ulSubstreamFilterValue as ULONG
 	iDataOffset as long
 end type
 
@@ -4068,10 +4072,10 @@ extern IID_IEnumStreamIdMap as const IID
 
 type IEnumStreamIdMapVtbl
 	QueryInterface as function(byval This as IEnumStreamIdMap ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IEnumStreamIdMap ptr) as ULONG_
-	Release as function(byval This as IEnumStreamIdMap ptr) as ULONG_
-	Next as function(byval This as IEnumStreamIdMap ptr, byval cRequest as ULONG_, byval pStreamIdMap as STREAM_ID_MAP ptr, byval pcReceived as ULONG_ ptr) as HRESULT
-	Skip as function(byval This as IEnumStreamIdMap ptr, byval cRecords as ULONG_) as HRESULT
+	AddRef as function(byval This as IEnumStreamIdMap ptr) as ULONG
+	Release as function(byval This as IEnumStreamIdMap ptr) as ULONG
+	Next as function(byval This as IEnumStreamIdMap ptr, byval cRequest as ULONG, byval pStreamIdMap as STREAM_ID_MAP ptr, byval pcReceived as ULONG ptr) as HRESULT
+	Skip as function(byval This as IEnumStreamIdMap ptr, byval cRecords as ULONG) as HRESULT
 	Reset as function(byval This as IEnumStreamIdMap ptr) as HRESULT
 	Clone as function(byval This as IEnumStreamIdMap ptr, byval ppIEnumStreamIdMap as IEnumStreamIdMap ptr ptr) as HRESULT
 end type
@@ -4080,9 +4084,9 @@ type IEnumStreamIdMap_
 	lpVtbl as IEnumStreamIdMapVtbl ptr
 end type
 
-declare function IEnumStreamIdMap_Next_Proxy(byval This as IEnumStreamIdMap ptr, byval cRequest as ULONG_, byval pStreamIdMap as STREAM_ID_MAP ptr, byval pcReceived as ULONG_ ptr) as HRESULT
+declare function IEnumStreamIdMap_Next_Proxy(byval This as IEnumStreamIdMap ptr, byval cRequest as ULONG, byval pStreamIdMap as STREAM_ID_MAP ptr, byval pcReceived as ULONG ptr) as HRESULT
 declare sub IEnumStreamIdMap_Next_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IEnumStreamIdMap_Skip_Proxy(byval This as IEnumStreamIdMap ptr, byval cRecords as ULONG_) as HRESULT
+declare function IEnumStreamIdMap_Skip_Proxy(byval This as IEnumStreamIdMap ptr, byval cRecords as ULONG) as HRESULT
 declare sub IEnumStreamIdMap_Skip_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IEnumStreamIdMap_Reset_Proxy(byval This as IEnumStreamIdMap ptr) as HRESULT
 declare sub IEnumStreamIdMap_Reset_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
@@ -4095,10 +4099,10 @@ extern IID_IMPEG2StreamIdMap as const IID
 
 type IMPEG2StreamIdMapVtbl
 	QueryInterface as function(byval This as IMPEG2StreamIdMap ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IMPEG2StreamIdMap ptr) as ULONG_
-	Release as function(byval This as IMPEG2StreamIdMap ptr) as ULONG_
-	MapStreamId as function(byval This as IMPEG2StreamIdMap ptr, byval ulStreamId as ULONG_, byval MediaSampleContent as DWORD, byval ulSubstreamFilterValue as ULONG_, byval iDataOffset as long) as HRESULT
-	UnmapStreamId as function(byval This as IMPEG2StreamIdMap ptr, byval culStreamId as ULONG_, byval pulStreamId as ULONG_ ptr) as HRESULT
+	AddRef as function(byval This as IMPEG2StreamIdMap ptr) as ULONG
+	Release as function(byval This as IMPEG2StreamIdMap ptr) as ULONG
+	MapStreamId as function(byval This as IMPEG2StreamIdMap ptr, byval ulStreamId as ULONG, byval MediaSampleContent as DWORD, byval ulSubstreamFilterValue as ULONG, byval iDataOffset as long) as HRESULT
+	UnmapStreamId as function(byval This as IMPEG2StreamIdMap ptr, byval culStreamId as ULONG, byval pulStreamId as ULONG ptr) as HRESULT
 	EnumStreamIdMap as function(byval This as IMPEG2StreamIdMap ptr, byval ppIEnumStreamIdMap as IEnumStreamIdMap ptr ptr) as HRESULT
 end type
 
@@ -4106,9 +4110,9 @@ type IMPEG2StreamIdMap_
 	lpVtbl as IMPEG2StreamIdMapVtbl ptr
 end type
 
-declare function IMPEG2StreamIdMap_MapStreamId_Proxy(byval This as IMPEG2StreamIdMap ptr, byval ulStreamId as ULONG_, byval MediaSampleContent as DWORD, byval ulSubstreamFilterValue as ULONG_, byval iDataOffset as long) as HRESULT
+declare function IMPEG2StreamIdMap_MapStreamId_Proxy(byval This as IMPEG2StreamIdMap ptr, byval ulStreamId as ULONG, byval MediaSampleContent as DWORD, byval ulSubstreamFilterValue as ULONG, byval iDataOffset as long) as HRESULT
 declare sub IMPEG2StreamIdMap_MapStreamId_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IMPEG2StreamIdMap_UnmapStreamId_Proxy(byval This as IMPEG2StreamIdMap ptr, byval culStreamId as ULONG_, byval pulStreamId as ULONG_ ptr) as HRESULT
+declare function IMPEG2StreamIdMap_UnmapStreamId_Proxy(byval This as IMPEG2StreamIdMap ptr, byval culStreamId as ULONG, byval pulStreamId as ULONG ptr) as HRESULT
 declare sub IMPEG2StreamIdMap_UnmapStreamId_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IMPEG2StreamIdMap_EnumStreamIdMap_Proxy(byval This as IMPEG2StreamIdMap ptr, byval ppIEnumStreamIdMap as IEnumStreamIdMap ptr ptr) as HRESULT
 declare sub IMPEG2StreamIdMap_EnumStreamIdMap_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
@@ -4119,8 +4123,8 @@ extern IID_IRegisterServiceProvider as const IID
 
 type IRegisterServiceProviderVtbl
 	QueryInterface as function(byval This as IRegisterServiceProvider ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IRegisterServiceProvider ptr) as ULONG_
-	Release as function(byval This as IRegisterServiceProvider ptr) as ULONG_
+	AddRef as function(byval This as IRegisterServiceProvider ptr) as ULONG
+	Release as function(byval This as IRegisterServiceProvider ptr) as ULONG
 	RegisterService as function(byval This as IRegisterServiceProvider ptr, byval guidService as const GUID const ptr, byval pUnkObject as IUnknown ptr) as HRESULT
 end type
 
@@ -4137,8 +4141,8 @@ extern IID_IAMClockSlave as const IID
 
 type IAMClockSlaveVtbl
 	QueryInterface as function(byval This as IAMClockSlave ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IAMClockSlave ptr) as ULONG_
-	Release as function(byval This as IAMClockSlave ptr) as ULONG_
+	AddRef as function(byval This as IAMClockSlave ptr) as ULONG
+	Release as function(byval This as IAMClockSlave ptr) as ULONG
 	SetErrorTolerance as function(byval This as IAMClockSlave ptr, byval dwTolerance as DWORD) as HRESULT
 	GetErrorTolerance as function(byval This as IAMClockSlave ptr, byval pdwTolerance as DWORD ptr) as HRESULT
 end type
@@ -4167,23 +4171,23 @@ extern IID_ICodecAPI as const IID
 
 type ICodecAPIVtbl
 	QueryInterface as function(byval This as ICodecAPI ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as ICodecAPI ptr) as ULONG_
-	Release as function(byval This as ICodecAPI ptr) as ULONG_
+	AddRef as function(byval This as ICodecAPI ptr) as ULONG
+	Release as function(byval This as ICodecAPI ptr) as ULONG
 	IsSupported as function(byval This as ICodecAPI ptr, byval Api as const GUID ptr) as HRESULT
 	IsModifiable as function(byval This as ICodecAPI ptr, byval Api as const GUID ptr) as HRESULT
 	GetParameterRange as function(byval This as ICodecAPI ptr, byval Api as const GUID ptr, byval ValueMin as VARIANT ptr, byval ValueMax as VARIANT ptr, byval SteppingDelta as VARIANT ptr) as HRESULT
-	GetParameterValues as function(byval This as ICodecAPI ptr, byval Api as const GUID ptr, byval Values as VARIANT ptr ptr, byval ValuesCount as ULONG_ ptr) as HRESULT
+	GetParameterValues as function(byval This as ICodecAPI ptr, byval Api as const GUID ptr, byval Values as VARIANT ptr ptr, byval ValuesCount as ULONG ptr) as HRESULT
 	GetDefaultValue as function(byval This as ICodecAPI ptr, byval Api as const GUID ptr, byval Value as VARIANT ptr) as HRESULT
 	GetValue as function(byval This as ICodecAPI ptr, byval Api as const GUID ptr, byval Value as VARIANT ptr) as HRESULT
 	SetValue as function(byval This as ICodecAPI ptr, byval Api as const GUID ptr, byval Value as VARIANT ptr) as HRESULT
 	RegisterForEvent as function(byval This as ICodecAPI ptr, byval Api as const GUID ptr, byval userData as LONG_PTR) as HRESULT
 	UnregisterForEvent as function(byval This as ICodecAPI ptr, byval Api as const GUID ptr) as HRESULT
 	SetAllDefaults as function(byval This as ICodecAPI ptr) as HRESULT
-	SetValueWithNotify as function(byval This as ICodecAPI ptr, byval Api as const GUID ptr, byval Value as VARIANT ptr, byval ChangedParam as GUID ptr ptr, byval ChangedParamCount as ULONG_ ptr) as HRESULT
-	SetAllDefaultsWithNotify as function(byval This as ICodecAPI ptr, byval ChangedParam as GUID ptr ptr, byval ChangedParamCount as ULONG_ ptr) as HRESULT
+	SetValueWithNotify as function(byval This as ICodecAPI ptr, byval Api as const GUID ptr, byval Value as VARIANT ptr, byval ChangedParam as GUID ptr ptr, byval ChangedParamCount as ULONG ptr) as HRESULT
+	SetAllDefaultsWithNotify as function(byval This as ICodecAPI ptr, byval ChangedParam as GUID ptr ptr, byval ChangedParamCount as ULONG ptr) as HRESULT
 	GetAllSettings as function(byval This as ICodecAPI ptr, byval __MIDL_0016 as IStream ptr) as HRESULT
 	SetAllSettings as function(byval This as ICodecAPI ptr, byval __MIDL_0017 as IStream ptr) as HRESULT
-	SetAllSettingsWithNotify as function(byval This as ICodecAPI ptr, byval __MIDL_0018 as IStream ptr, byval ChangedParam as GUID ptr ptr, byval ChangedParamCount as ULONG_ ptr) as HRESULT
+	SetAllSettingsWithNotify as function(byval This as ICodecAPI ptr, byval __MIDL_0018 as IStream ptr, byval ChangedParam as GUID ptr ptr, byval ChangedParamCount as ULONG ptr) as HRESULT
 end type
 
 type ICodecAPI_
@@ -4196,7 +4200,7 @@ declare function ICodecAPI_IsModifiable_Proxy(byval This as ICodecAPI ptr, byval
 declare sub ICodecAPI_IsModifiable_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function ICodecAPI_GetParameterRange_Proxy(byval This as ICodecAPI ptr, byval Api as const GUID ptr, byval ValueMin as VARIANT ptr, byval ValueMax as VARIANT ptr, byval SteppingDelta as VARIANT ptr) as HRESULT
 declare sub ICodecAPI_GetParameterRange_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function ICodecAPI_GetParameterValues_Proxy(byval This as ICodecAPI ptr, byval Api as const GUID ptr, byval Values as VARIANT ptr ptr, byval ValuesCount as ULONG_ ptr) as HRESULT
+declare function ICodecAPI_GetParameterValues_Proxy(byval This as ICodecAPI ptr, byval Api as const GUID ptr, byval Values as VARIANT ptr ptr, byval ValuesCount as ULONG ptr) as HRESULT
 declare sub ICodecAPI_GetParameterValues_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function ICodecAPI_GetDefaultValue_Proxy(byval This as ICodecAPI ptr, byval Api as const GUID ptr, byval Value as VARIANT ptr) as HRESULT
 declare sub ICodecAPI_GetDefaultValue_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
@@ -4210,15 +4214,15 @@ declare function ICodecAPI_UnregisterForEvent_Proxy(byval This as ICodecAPI ptr,
 declare sub ICodecAPI_UnregisterForEvent_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function ICodecAPI_SetAllDefaults_Proxy(byval This as ICodecAPI ptr) as HRESULT
 declare sub ICodecAPI_SetAllDefaults_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function ICodecAPI_SetValueWithNotify_Proxy(byval This as ICodecAPI ptr, byval Api as const GUID ptr, byval Value as VARIANT ptr, byval ChangedParam as GUID ptr ptr, byval ChangedParamCount as ULONG_ ptr) as HRESULT
+declare function ICodecAPI_SetValueWithNotify_Proxy(byval This as ICodecAPI ptr, byval Api as const GUID ptr, byval Value as VARIANT ptr, byval ChangedParam as GUID ptr ptr, byval ChangedParamCount as ULONG ptr) as HRESULT
 declare sub ICodecAPI_SetValueWithNotify_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function ICodecAPI_SetAllDefaultsWithNotify_Proxy(byval This as ICodecAPI ptr, byval ChangedParam as GUID ptr ptr, byval ChangedParamCount as ULONG_ ptr) as HRESULT
+declare function ICodecAPI_SetAllDefaultsWithNotify_Proxy(byval This as ICodecAPI ptr, byval ChangedParam as GUID ptr ptr, byval ChangedParamCount as ULONG ptr) as HRESULT
 declare sub ICodecAPI_SetAllDefaultsWithNotify_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function ICodecAPI_GetAllSettings_Proxy(byval This as ICodecAPI ptr, byval __MIDL_0016 as IStream ptr) as HRESULT
 declare sub ICodecAPI_GetAllSettings_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function ICodecAPI_SetAllSettings_Proxy(byval This as ICodecAPI ptr, byval __MIDL_0017 as IStream ptr) as HRESULT
 declare sub ICodecAPI_SetAllSettings_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function ICodecAPI_SetAllSettingsWithNotify_Proxy(byval This as ICodecAPI ptr, byval __MIDL_0018 as IStream ptr, byval ChangedParam as GUID ptr ptr, byval ChangedParamCount as ULONG_ ptr) as HRESULT
+declare function ICodecAPI_SetAllSettingsWithNotify_Proxy(byval This as ICodecAPI ptr, byval __MIDL_0018 as IStream ptr, byval ChangedParam as GUID ptr ptr, byval ChangedParamCount as ULONG ptr) as HRESULT
 declare sub ICodecAPI_SetAllSettingsWithNotify_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 
 #define __IGetCapabilitiesKey_INTERFACE_DEFINED__
@@ -4227,8 +4231,8 @@ extern IID_IGetCapabilitiesKey as const IID
 
 type IGetCapabilitiesKeyVtbl
 	QueryInterface as function(byval This as IGetCapabilitiesKey ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IGetCapabilitiesKey ptr) as ULONG_
-	Release as function(byval This as IGetCapabilitiesKey ptr) as ULONG_
+	AddRef as function(byval This as IGetCapabilitiesKey ptr) as ULONG
+	Release as function(byval This as IGetCapabilitiesKey ptr) as ULONG
 	GetCapabilitiesKey as function(byval This as IGetCapabilitiesKey ptr, byval pHKey as HKEY ptr) as HRESULT
 end type
 
@@ -4245,12 +4249,12 @@ extern IID_IEncoderAPI as const IID
 
 type IEncoderAPIVtbl
 	QueryInterface as function(byval This as IEncoderAPI ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IEncoderAPI ptr) as ULONG_
-	Release as function(byval This as IEncoderAPI ptr) as ULONG_
+	AddRef as function(byval This as IEncoderAPI ptr) as ULONG
+	Release as function(byval This as IEncoderAPI ptr) as ULONG
 	IsSupported as function(byval This as IEncoderAPI ptr, byval Api as const GUID ptr) as HRESULT
 	IsAvailable as function(byval This as IEncoderAPI ptr, byval Api as const GUID ptr) as HRESULT
 	GetParameterRange as function(byval This as IEncoderAPI ptr, byval Api as const GUID ptr, byval ValueMin as VARIANT ptr, byval ValueMax as VARIANT ptr, byval SteppingDelta as VARIANT ptr) as HRESULT
-	GetParameterValues as function(byval This as IEncoderAPI ptr, byval Api as const GUID ptr, byval Values as VARIANT ptr ptr, byval ValuesCount as ULONG_ ptr) as HRESULT
+	GetParameterValues as function(byval This as IEncoderAPI ptr, byval Api as const GUID ptr, byval Values as VARIANT ptr ptr, byval ValuesCount as ULONG ptr) as HRESULT
 	GetDefaultValue as function(byval This as IEncoderAPI ptr, byval Api as const GUID ptr, byval Value as VARIANT ptr) as HRESULT
 	GetValue as function(byval This as IEncoderAPI ptr, byval Api as const GUID ptr, byval Value as VARIANT ptr) as HRESULT
 	SetValue as function(byval This as IEncoderAPI ptr, byval Api as const GUID ptr, byval Value as VARIANT ptr) as HRESULT
@@ -4266,7 +4270,7 @@ declare function IEncoderAPI_IsAvailable_Proxy(byval This as IEncoderAPI ptr, by
 declare sub IEncoderAPI_IsAvailable_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IEncoderAPI_GetParameterRange_Proxy(byval This as IEncoderAPI ptr, byval Api as const GUID ptr, byval ValueMin as VARIANT ptr, byval ValueMax as VARIANT ptr, byval SteppingDelta as VARIANT ptr) as HRESULT
 declare sub IEncoderAPI_GetParameterRange_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IEncoderAPI_GetParameterValues_Proxy(byval This as IEncoderAPI ptr, byval Api as const GUID ptr, byval Values as VARIANT ptr ptr, byval ValuesCount as ULONG_ ptr) as HRESULT
+declare function IEncoderAPI_GetParameterValues_Proxy(byval This as IEncoderAPI ptr, byval Api as const GUID ptr, byval Values as VARIANT ptr ptr, byval ValuesCount as ULONG ptr) as HRESULT
 declare sub IEncoderAPI_GetParameterValues_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IEncoderAPI_GetDefaultValue_Proxy(byval This as IEncoderAPI ptr, byval Api as const GUID ptr, byval Value as VARIANT ptr) as HRESULT
 declare sub IEncoderAPI_GetDefaultValue_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
@@ -4281,12 +4285,12 @@ extern IID_IVideoEncoder as const IID
 
 type IVideoEncoderVtbl
 	QueryInterface as function(byval This as IVideoEncoder ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IVideoEncoder ptr) as ULONG_
-	Release as function(byval This as IVideoEncoder ptr) as ULONG_
+	AddRef as function(byval This as IVideoEncoder ptr) as ULONG
+	Release as function(byval This as IVideoEncoder ptr) as ULONG
 	IsSupported as function(byval This as IVideoEncoder ptr, byval Api as const GUID ptr) as HRESULT
 	IsAvailable as function(byval This as IVideoEncoder ptr, byval Api as const GUID ptr) as HRESULT
 	GetParameterRange as function(byval This as IVideoEncoder ptr, byval Api as const GUID ptr, byval ValueMin as VARIANT ptr, byval ValueMax as VARIANT ptr, byval SteppingDelta as VARIANT ptr) as HRESULT
-	GetParameterValues as function(byval This as IVideoEncoder ptr, byval Api as const GUID ptr, byval Values as VARIANT ptr ptr, byval ValuesCount as ULONG_ ptr) as HRESULT
+	GetParameterValues as function(byval This as IVideoEncoder ptr, byval Api as const GUID ptr, byval Values as VARIANT ptr ptr, byval ValuesCount as ULONG ptr) as HRESULT
 	GetDefaultValue as function(byval This as IVideoEncoder ptr, byval Api as const GUID ptr, byval Value as VARIANT ptr) as HRESULT
 	GetValue as function(byval This as IVideoEncoder ptr, byval Api as const GUID ptr, byval Value as VARIANT ptr) as HRESULT
 	SetValue as function(byval This as IVideoEncoder ptr, byval Api as const GUID ptr, byval Value as VARIANT ptr) as HRESULT
@@ -4328,8 +4332,8 @@ extern IID_IAMDecoderCaps as const IID
 
 type IAMDecoderCapsVtbl
 	QueryInterface as function(byval This as IAMDecoderCaps ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IAMDecoderCaps ptr) as ULONG_
-	Release as function(byval This as IAMDecoderCaps ptr) as ULONG_
+	AddRef as function(byval This as IAMDecoderCaps ptr) as ULONG
+	Release as function(byval This as IAMDecoderCaps ptr) as ULONG
 	GetDecoderCaps as function(byval This as IAMDecoderCaps ptr, byval dwCapIndex as DWORD, byval lpdwCap as DWORD ptr) as HRESULT
 end type
 
@@ -4341,7 +4345,7 @@ declare function IAMDecoderCaps_GetDecoderCaps_Proxy(byval This as IAMDecoderCap
 declare sub IAMDecoderCaps_GetDecoderCaps_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 
 type _AMCOPPSignature
-	Signature(0 to 255) as BYTE_
+	Signature(0 to 255) as BYTE
 end type
 
 type AMCOPPSignature as _AMCOPPSignature
@@ -4351,7 +4355,7 @@ type _AMCOPPCommand
 	guidCommandID as GUID
 	dwSequence as DWORD
 	cbSizeData as DWORD
-	CommandData(0 to 4055) as BYTE_
+	CommandData(0 to 4055) as BYTE
 end type
 
 type AMCOPPCommand as _AMCOPPCommand
@@ -4362,7 +4366,7 @@ type _AMCOPPStatusInput
 	guidStatusRequestID as GUID
 	dwSequence as DWORD
 	cbSizeData as DWORD
-	StatusData(0 to 4055) as BYTE_
+	StatusData(0 to 4055) as BYTE
 end type
 
 type AMCOPPStatusInput as _AMCOPPStatusInput
@@ -4371,7 +4375,7 @@ type LPAMCOPPStatusInput as _AMCOPPStatusInput ptr
 type _AMCOPPStatusOutput
 	macKDI as GUID
 	cbSizeData as DWORD
-	COPPStatus(0 to 4075) as BYTE_
+	COPPStatus(0 to 4075) as BYTE
 end type
 
 type AMCOPPStatusOutput as _AMCOPPStatusOutput
@@ -4386,9 +4390,9 @@ extern IID_IAMCertifiedOutputProtection as const IID
 
 type IAMCertifiedOutputProtectionVtbl
 	QueryInterface as function(byval This as IAMCertifiedOutputProtection ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IAMCertifiedOutputProtection ptr) as ULONG_
-	Release as function(byval This as IAMCertifiedOutputProtection ptr) as ULONG_
-	KeyExchange as function(byval This as IAMCertifiedOutputProtection ptr, byval pRandom as GUID ptr, byval VarLenCertGH as BYTE_ ptr ptr, byval pdwLengthCertGH as DWORD ptr) as HRESULT
+	AddRef as function(byval This as IAMCertifiedOutputProtection ptr) as ULONG
+	Release as function(byval This as IAMCertifiedOutputProtection ptr) as ULONG
+	KeyExchange as function(byval This as IAMCertifiedOutputProtection ptr, byval pRandom as GUID ptr, byval VarLenCertGH as BYTE ptr ptr, byval pdwLengthCertGH as DWORD ptr) as HRESULT
 	SessionSequenceStart as function(byval This as IAMCertifiedOutputProtection ptr, byval pSig as AMCOPPSignature ptr) as HRESULT
 	ProtectionCommand as function(byval This as IAMCertifiedOutputProtection ptr, byval cmd as const AMCOPPCommand ptr) as HRESULT
 	ProtectionStatus as function(byval This as IAMCertifiedOutputProtection ptr, byval pStatusInput as const AMCOPPStatusInput ptr, byval pStatusOutput as AMCOPPStatusOutput ptr) as HRESULT
@@ -4398,7 +4402,7 @@ type IAMCertifiedOutputProtection_
 	lpVtbl as IAMCertifiedOutputProtectionVtbl ptr
 end type
 
-declare function IAMCertifiedOutputProtection_KeyExchange_Proxy(byval This as IAMCertifiedOutputProtection ptr, byval pRandom as GUID ptr, byval VarLenCertGH as BYTE_ ptr ptr, byval pdwLengthCertGH as DWORD ptr) as HRESULT
+declare function IAMCertifiedOutputProtection_KeyExchange_Proxy(byval This as IAMCertifiedOutputProtection ptr, byval pRandom as GUID ptr, byval VarLenCertGH as BYTE ptr ptr, byval pdwLengthCertGH as DWORD ptr) as HRESULT
 declare sub IAMCertifiedOutputProtection_KeyExchange_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IAMCertifiedOutputProtection_SessionSequenceStart_Proxy(byval This as IAMCertifiedOutputProtection ptr, byval pSig as AMCOPPSignature ptr) as HRESULT
 declare sub IAMCertifiedOutputProtection_SessionSequenceStart_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
@@ -4450,8 +4454,8 @@ type DVD_PREFERRED_DISPLAY_MODE as tagDVD_PREFERRED_DISPLAY_MODE
 type DVD_REGISTER as WORD
 
 type tagDVD_ATR
-	ulCAT as ULONG_
-	pbATRI(0 to 767) as BYTE_
+	ulCAT as ULONG
+	pbATRI(0 to 767) as BYTE
 end type
 
 type DVD_ATR as tagDVD_ATR
@@ -4465,15 +4469,15 @@ end enum
 type DVD_FRAMERATE as tagDVD_FRAMERATE
 
 type tagDVD_TIMECODE
-	Hours1 : 4 as ULONG_
-	Hours10 : 4 as ULONG_
-	Minutes1 : 4 as ULONG_
-	Minutes10 : 4 as ULONG_
-	Seconds1 : 4 as ULONG_
-	Seconds10 : 4 as ULONG_
-	Frames1 : 4 as ULONG_
-	Frames10 : 2 as ULONG_
-	FrameRateCode : 2 as ULONG_
+	Hours1 : 4 as ULONG
+	Hours10 : 4 as ULONG
+	Minutes1 : 4 as ULONG
+	Minutes10 : 4 as ULONG
+	Seconds1 : 4 as ULONG
+	Seconds10 : 4 as ULONG
+	Frames1 : 4 as ULONG
+	Frames10 : 2 as ULONG
+	FrameRateCode : 2 as ULONG
 end type
 
 type DVD_TIMECODE as tagDVD_TIMECODE
@@ -4489,27 +4493,27 @@ end enum
 type DVD_TIMECODE_FLAGS as tagDVD_TIMECODE_FLAGS
 
 type tagDVD_HMSF_TIMECODE
-	bHours as BYTE_
-	bMinutes as BYTE_
-	bSeconds as BYTE_
-	bFrames as BYTE_
+	bHours as BYTE
+	bMinutes as BYTE
+	bSeconds as BYTE
+	bFrames as BYTE
 end type
 
 type DVD_HMSF_TIMECODE as tagDVD_HMSF_TIMECODE
 
 type tagDVD_PLAYBACK_LOCATION2
-	TitleNum as ULONG_
-	ChapterNum as ULONG_
+	TitleNum as ULONG
+	ChapterNum as ULONG
 	TimeCode as DVD_HMSF_TIMECODE
-	TimeCodeFlags as ULONG_
+	TimeCodeFlags as ULONG
 end type
 
 type DVD_PLAYBACK_LOCATION2 as tagDVD_PLAYBACK_LOCATION2
 
 type tagDVD_PLAYBACK_LOCATION
-	TitleNum as ULONG_
-	ChapterNum as ULONG_
-	TimeCode as ULONG_
+	TitleNum as ULONG
+	ChapterNum as ULONG
+	TimeCode as ULONG
 end type
 
 type DVD_PLAYBACK_LOCATION as tagDVD_PLAYBACK_LOCATION
@@ -4667,14 +4671,14 @@ type DVD_KARAOKE_DOWNMIX as tagDVD_KARAOKE_DOWNMIX
 
 type tagDVD_AudioAttributes
 	AppMode as DVD_AUDIO_APPMODE
-	AppModeData as BYTE_
+	AppModeData as BYTE
 	AudioFormat as DVD_AUDIO_FORMAT
 	Language as LCID
 	LanguageExtension as DVD_AUDIO_LANG_EXT
 	fHasMultichannelInfo as WINBOOL
 	dwFrequency as DWORD
-	bQuantization as BYTE_
-	bNumberOfChannels as BYTE_
+	bQuantization as BYTE
+	bNumberOfChannels as BYTE
 	dwReserved(0 to 1) as DWORD
 end type
 
@@ -4733,7 +4737,7 @@ end enum
 type DVD_KARAOKE_ASSIGNMENT as tagDVD_KARAOKE_ASSIGNMENT
 
 type tagDVD_KaraokeAttributes
-	bVersion as BYTE_
+	bVersion as BYTE
 	fMasterOfCeremoniesInGuideVocal1 as WINBOOL
 	fDuet as WINBOOL
 	ChannelAssignment as DVD_KARAOKE_ASSIGNMENT
@@ -4754,15 +4758,15 @@ type DVD_VIDEO_COMPRESSION as tagDVD_VIDEO_COMPRESSION
 type tagDVD_VideoAttributes
 	fPanscanPermitted as WINBOOL
 	fLetterboxPermitted as WINBOOL
-	ulAspectX as ULONG_
-	ulAspectY as ULONG_
-	ulFrameRate as ULONG_
-	ulFrameHeight as ULONG_
+	ulAspectX as ULONG
+	ulAspectY as ULONG
+	ulFrameRate as ULONG
+	ulFrameHeight as ULONG
 	Compression as DVD_VIDEO_COMPRESSION
 	fLine21Field1InGOP as WINBOOL
 	fLine21Field2InGOP as WINBOOL
-	ulSourceResolutionX as ULONG_
-	ulSourceResolutionY as ULONG_
+	ulSourceResolutionX as ULONG
+	ulSourceResolutionY as ULONG
 	fIsSourceLetterboxed as WINBOOL
 	fIsFilmMode as WINBOOL
 end type
@@ -4808,10 +4812,10 @@ type DVD_TITLE_APPMODE as tagDVD_TITLE_APPMODE
 type tagDVD_TitleMainAttributes
 	AppMode as DVD_TITLE_APPMODE
 	VideoAttributes as DVD_VideoAttributes
-	ulNumberOfAudioStreams as ULONG_
+	ulNumberOfAudioStreams as ULONG
 	AudioAttributes(0 to 7) as DVD_AudioAttributes
 	MultichannelAudioAttributes(0 to 7) as DVD_MultichannelAudioAttributes
-	ulNumberOfSubpictureStreams as ULONG_
+	ulNumberOfSubpictureStreams as ULONG
 	SubpictureAttributes(0 to 31) as DVD_SubpictureAttributes
 end type
 
@@ -4837,15 +4841,15 @@ extern IID_IDvdControl as const IID
 
 type IDvdControlVtbl
 	QueryInterface as function(byval This as IDvdControl ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDvdControl ptr) as ULONG_
-	Release as function(byval This as IDvdControl ptr) as ULONG_
-	TitlePlay as function(byval This as IDvdControl ptr, byval ulTitle as ULONG_) as HRESULT
-	ChapterPlay as function(byval This as IDvdControl ptr, byval ulTitle as ULONG_, byval ulChapter as ULONG_) as HRESULT
-	TimePlay as function(byval This as IDvdControl ptr, byval ulTitle as ULONG_, byval bcdTime as ULONG_) as HRESULT
+	AddRef as function(byval This as IDvdControl ptr) as ULONG
+	Release as function(byval This as IDvdControl ptr) as ULONG
+	TitlePlay as function(byval This as IDvdControl ptr, byval ulTitle as ULONG) as HRESULT
+	ChapterPlay as function(byval This as IDvdControl ptr, byval ulTitle as ULONG, byval ulChapter as ULONG) as HRESULT
+	TimePlay as function(byval This as IDvdControl ptr, byval ulTitle as ULONG, byval bcdTime as ULONG) as HRESULT
 	StopForResume as function(byval This as IDvdControl ptr) as HRESULT
 	GoUp as function(byval This as IDvdControl ptr) as HRESULT
-	TimeSearch as function(byval This as IDvdControl ptr, byval bcdTime as ULONG_) as HRESULT
-	ChapterSearch as function(byval This as IDvdControl ptr, byval ulChapter as ULONG_) as HRESULT
+	TimeSearch as function(byval This as IDvdControl ptr, byval bcdTime as ULONG) as HRESULT
+	ChapterSearch as function(byval This as IDvdControl ptr, byval ulChapter as ULONG) as HRESULT
 	PrevPGSearch as function(byval This as IDvdControl ptr) as HRESULT
 	TopPGSearch as function(byval This as IDvdControl ptr) as HRESULT
 	NextPGSearch as function(byval This as IDvdControl ptr) as HRESULT
@@ -4858,41 +4862,41 @@ type IDvdControlVtbl
 	LeftButtonSelect as function(byval This as IDvdControl ptr) as HRESULT
 	RightButtonSelect as function(byval This as IDvdControl ptr) as HRESULT
 	ButtonActivate as function(byval This as IDvdControl ptr) as HRESULT
-	ButtonSelectAndActivate as function(byval This as IDvdControl ptr, byval ulButton as ULONG_) as HRESULT
+	ButtonSelectAndActivate as function(byval This as IDvdControl ptr, byval ulButton as ULONG) as HRESULT
 	StillOff as function(byval This as IDvdControl ptr) as HRESULT
 	PauseOn as function(byval This as IDvdControl ptr) as HRESULT
 	PauseOff as function(byval This as IDvdControl ptr) as HRESULT
 	MenuLanguageSelect as function(byval This as IDvdControl ptr, byval Language as LCID) as HRESULT
-	AudioStreamChange as function(byval This as IDvdControl ptr, byval ulAudio as ULONG_) as HRESULT
-	SubpictureStreamChange as function(byval This as IDvdControl ptr, byval ulSubPicture as ULONG_, byval bDisplay as WINBOOL) as HRESULT
-	AngleChange as function(byval This as IDvdControl ptr, byval ulAngle as ULONG_) as HRESULT
-	ParentalLevelSelect as function(byval This as IDvdControl ptr, byval ulParentalLevel as ULONG_) as HRESULT
+	AudioStreamChange as function(byval This as IDvdControl ptr, byval ulAudio as ULONG) as HRESULT
+	SubpictureStreamChange as function(byval This as IDvdControl ptr, byval ulSubPicture as ULONG, byval bDisplay as WINBOOL) as HRESULT
+	AngleChange as function(byval This as IDvdControl ptr, byval ulAngle as ULONG) as HRESULT
+	ParentalLevelSelect as function(byval This as IDvdControl ptr, byval ulParentalLevel as ULONG) as HRESULT
 	ParentalCountrySelect as function(byval This as IDvdControl ptr, byval wCountry as WORD) as HRESULT
-	KaraokeAudioPresentationModeChange as function(byval This as IDvdControl ptr, byval ulMode as ULONG_) as HRESULT
-	VideoModePreferrence as function(byval This as IDvdControl ptr, byval ulPreferredDisplayMode as ULONG_) as HRESULT
+	KaraokeAudioPresentationModeChange as function(byval This as IDvdControl ptr, byval ulMode as ULONG) as HRESULT
+	VideoModePreferrence as function(byval This as IDvdControl ptr, byval ulPreferredDisplayMode as ULONG) as HRESULT
 	SetRoot as function(byval This as IDvdControl ptr, byval pszPath as LPCWSTR) as HRESULT
 	MouseActivate as function(byval This as IDvdControl ptr, byval point_ as POINT_) as HRESULT
 	MouseSelect as function(byval This as IDvdControl ptr, byval point_ as POINT_) as HRESULT
-	ChapterPlayAutoStop as function(byval This as IDvdControl ptr, byval ulTitle as ULONG_, byval ulChapter as ULONG_, byval ulChaptersToPlay as ULONG_) as HRESULT
+	ChapterPlayAutoStop as function(byval This as IDvdControl ptr, byval ulTitle as ULONG, byval ulChapter as ULONG, byval ulChaptersToPlay as ULONG) as HRESULT
 end type
 
 type IDvdControl_
 	lpVtbl as IDvdControlVtbl ptr
 end type
 
-declare function IDvdControl_TitlePlay_Proxy(byval This as IDvdControl ptr, byval ulTitle as ULONG_) as HRESULT
+declare function IDvdControl_TitlePlay_Proxy(byval This as IDvdControl ptr, byval ulTitle as ULONG) as HRESULT
 declare sub IDvdControl_TitlePlay_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IDvdControl_ChapterPlay_Proxy(byval This as IDvdControl ptr, byval ulTitle as ULONG_, byval ulChapter as ULONG_) as HRESULT
+declare function IDvdControl_ChapterPlay_Proxy(byval This as IDvdControl ptr, byval ulTitle as ULONG, byval ulChapter as ULONG) as HRESULT
 declare sub IDvdControl_ChapterPlay_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IDvdControl_TimePlay_Proxy(byval This as IDvdControl ptr, byval ulTitle as ULONG_, byval bcdTime as ULONG_) as HRESULT
+declare function IDvdControl_TimePlay_Proxy(byval This as IDvdControl ptr, byval ulTitle as ULONG, byval bcdTime as ULONG) as HRESULT
 declare sub IDvdControl_TimePlay_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IDvdControl_StopForResume_Proxy(byval This as IDvdControl ptr) as HRESULT
 declare sub IDvdControl_StopForResume_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IDvdControl_GoUp_Proxy(byval This as IDvdControl ptr) as HRESULT
 declare sub IDvdControl_GoUp_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IDvdControl_TimeSearch_Proxy(byval This as IDvdControl ptr, byval bcdTime as ULONG_) as HRESULT
+declare function IDvdControl_TimeSearch_Proxy(byval This as IDvdControl ptr, byval bcdTime as ULONG) as HRESULT
 declare sub IDvdControl_TimeSearch_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IDvdControl_ChapterSearch_Proxy(byval This as IDvdControl ptr, byval ulChapter as ULONG_) as HRESULT
+declare function IDvdControl_ChapterSearch_Proxy(byval This as IDvdControl ptr, byval ulChapter as ULONG) as HRESULT
 declare sub IDvdControl_ChapterSearch_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IDvdControl_PrevPGSearch_Proxy(byval This as IDvdControl ptr) as HRESULT
 declare sub IDvdControl_PrevPGSearch_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
@@ -4918,7 +4922,7 @@ declare function IDvdControl_RightButtonSelect_Proxy(byval This as IDvdControl p
 declare sub IDvdControl_RightButtonSelect_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IDvdControl_ButtonActivate_Proxy(byval This as IDvdControl ptr) as HRESULT
 declare sub IDvdControl_ButtonActivate_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IDvdControl_ButtonSelectAndActivate_Proxy(byval This as IDvdControl ptr, byval ulButton as ULONG_) as HRESULT
+declare function IDvdControl_ButtonSelectAndActivate_Proxy(byval This as IDvdControl ptr, byval ulButton as ULONG) as HRESULT
 declare sub IDvdControl_ButtonSelectAndActivate_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IDvdControl_StillOff_Proxy(byval This as IDvdControl ptr) as HRESULT
 declare sub IDvdControl_StillOff_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
@@ -4928,19 +4932,19 @@ declare function IDvdControl_PauseOff_Proxy(byval This as IDvdControl ptr) as HR
 declare sub IDvdControl_PauseOff_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IDvdControl_MenuLanguageSelect_Proxy(byval This as IDvdControl ptr, byval Language as LCID) as HRESULT
 declare sub IDvdControl_MenuLanguageSelect_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IDvdControl_AudioStreamChange_Proxy(byval This as IDvdControl ptr, byval ulAudio as ULONG_) as HRESULT
+declare function IDvdControl_AudioStreamChange_Proxy(byval This as IDvdControl ptr, byval ulAudio as ULONG) as HRESULT
 declare sub IDvdControl_AudioStreamChange_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IDvdControl_SubpictureStreamChange_Proxy(byval This as IDvdControl ptr, byval ulSubPicture as ULONG_, byval bDisplay as WINBOOL) as HRESULT
+declare function IDvdControl_SubpictureStreamChange_Proxy(byval This as IDvdControl ptr, byval ulSubPicture as ULONG, byval bDisplay as WINBOOL) as HRESULT
 declare sub IDvdControl_SubpictureStreamChange_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IDvdControl_AngleChange_Proxy(byval This as IDvdControl ptr, byval ulAngle as ULONG_) as HRESULT
+declare function IDvdControl_AngleChange_Proxy(byval This as IDvdControl ptr, byval ulAngle as ULONG) as HRESULT
 declare sub IDvdControl_AngleChange_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IDvdControl_ParentalLevelSelect_Proxy(byval This as IDvdControl ptr, byval ulParentalLevel as ULONG_) as HRESULT
+declare function IDvdControl_ParentalLevelSelect_Proxy(byval This as IDvdControl ptr, byval ulParentalLevel as ULONG) as HRESULT
 declare sub IDvdControl_ParentalLevelSelect_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IDvdControl_ParentalCountrySelect_Proxy(byval This as IDvdControl ptr, byval wCountry as WORD) as HRESULT
 declare sub IDvdControl_ParentalCountrySelect_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IDvdControl_KaraokeAudioPresentationModeChange_Proxy(byval This as IDvdControl ptr, byval ulMode as ULONG_) as HRESULT
+declare function IDvdControl_KaraokeAudioPresentationModeChange_Proxy(byval This as IDvdControl ptr, byval ulMode as ULONG) as HRESULT
 declare sub IDvdControl_KaraokeAudioPresentationModeChange_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IDvdControl_VideoModePreferrence_Proxy(byval This as IDvdControl ptr, byval ulPreferredDisplayMode as ULONG_) as HRESULT
+declare function IDvdControl_VideoModePreferrence_Proxy(byval This as IDvdControl ptr, byval ulPreferredDisplayMode as ULONG) as HRESULT
 declare sub IDvdControl_VideoModePreferrence_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IDvdControl_SetRoot_Proxy(byval This as IDvdControl ptr, byval pszPath as LPCWSTR) as HRESULT
 declare sub IDvdControl_SetRoot_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
@@ -4948,7 +4952,7 @@ declare function IDvdControl_MouseActivate_Proxy(byval This as IDvdControl ptr, 
 declare sub IDvdControl_MouseActivate_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IDvdControl_MouseSelect_Proxy(byval This as IDvdControl ptr, byval point_ as POINT_) as HRESULT
 declare sub IDvdControl_MouseSelect_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IDvdControl_ChapterPlayAutoStop_Proxy(byval This as IDvdControl ptr, byval ulTitle as ULONG_, byval ulChapter as ULONG_, byval ulChaptersToPlay as ULONG_) as HRESULT
+declare function IDvdControl_ChapterPlayAutoStop_Proxy(byval This as IDvdControl ptr, byval ulTitle as ULONG, byval ulChapter as ULONG, byval ulChaptersToPlay as ULONG) as HRESULT
 declare sub IDvdControl_ChapterPlayAutoStop_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 
 #define __IDvdInfo_INTERFACE_DEFINED__
@@ -4957,15 +4961,15 @@ extern IID_IDvdInfo as const IID
 
 type IDvdInfoVtbl
 	QueryInterface as function(byval This as IDvdInfo ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDvdInfo ptr) as ULONG_
-	Release as function(byval This as IDvdInfo ptr) as ULONG_
+	AddRef as function(byval This as IDvdInfo ptr) as ULONG
+	Release as function(byval This as IDvdInfo ptr) as ULONG
 	GetCurrentDomain as function(byval This as IDvdInfo ptr, byval pDomain as DVD_DOMAIN ptr) as HRESULT
 	GetCurrentLocation as function(byval This as IDvdInfo ptr, byval pLocation as DVD_PLAYBACK_LOCATION ptr) as HRESULT
-	GetTotalTitleTime as function(byval This as IDvdInfo ptr, byval pulTotalTime as ULONG_ ptr) as HRESULT
-	GetCurrentButton as function(byval This as IDvdInfo ptr, byval pulButtonsAvailable as ULONG_ ptr, byval pulCurrentButton as ULONG_ ptr) as HRESULT
-	GetCurrentAngle as function(byval This as IDvdInfo ptr, byval pulAnglesAvailable as ULONG_ ptr, byval pulCurrentAngle as ULONG_ ptr) as HRESULT
-	GetCurrentAudio as function(byval This as IDvdInfo ptr, byval pulStreamsAvailable as ULONG_ ptr, byval pulCurrentStream as ULONG_ ptr) as HRESULT
-	GetCurrentSubpicture as function(byval This as IDvdInfo ptr, byval pulStreamsAvailable as ULONG_ ptr, byval pulCurrentStream as ULONG_ ptr, byval pIsDisabled as WINBOOL ptr) as HRESULT
+	GetTotalTitleTime as function(byval This as IDvdInfo ptr, byval pulTotalTime as ULONG ptr) as HRESULT
+	GetCurrentButton as function(byval This as IDvdInfo ptr, byval pulButtonsAvailable as ULONG ptr, byval pulCurrentButton as ULONG ptr) as HRESULT
+	GetCurrentAngle as function(byval This as IDvdInfo ptr, byval pulAnglesAvailable as ULONG ptr, byval pulCurrentAngle as ULONG ptr) as HRESULT
+	GetCurrentAudio as function(byval This as IDvdInfo ptr, byval pulStreamsAvailable as ULONG ptr, byval pulCurrentStream as ULONG ptr) as HRESULT
+	GetCurrentSubpicture as function(byval This as IDvdInfo ptr, byval pulStreamsAvailable as ULONG ptr, byval pulCurrentStream as ULONG ptr, byval pIsDisabled as WINBOOL ptr) as HRESULT
 	GetCurrentUOPS as function(byval This as IDvdInfo ptr, byval pUOP as VALID_UOP_SOMTHING_OR_OTHER ptr) as HRESULT
 
 	#ifdef __FB_64BIT__
@@ -4976,9 +4980,9 @@ type IDvdInfoVtbl
 		'' TODO: HRESULT (__attribute__((__stdcall__)) *GetAllGPRMs)(IDvdInfo *This,GPRMARRAY *pRegisterArray);
 	#endif
 
-	GetAudioLanguage as function(byval This as IDvdInfo ptr, byval ulStream as ULONG_, byval pLanguage as LCID ptr) as HRESULT
-	GetSubpictureLanguage as function(byval This as IDvdInfo ptr, byval ulStream as ULONG_, byval pLanguage as LCID ptr) as HRESULT
-	GetTitleAttributes as function(byval This as IDvdInfo ptr, byval ulTitle as ULONG_, byval pATR as DVD_ATR ptr) as HRESULT
+	GetAudioLanguage as function(byval This as IDvdInfo ptr, byval ulStream as ULONG, byval pLanguage as LCID ptr) as HRESULT
+	GetSubpictureLanguage as function(byval This as IDvdInfo ptr, byval ulStream as ULONG, byval pLanguage as LCID ptr) as HRESULT
+	GetTitleAttributes as function(byval This as IDvdInfo ptr, byval ulTitle as ULONG, byval pATR as DVD_ATR ptr) as HRESULT
 	GetVMGAttributes as function(byval This as IDvdInfo ptr, byval pATR as DVD_ATR ptr) as HRESULT
 
 	#ifdef __FB_64BIT__
@@ -4991,12 +4995,12 @@ type IDvdInfoVtbl
 		'' TODO: HRESULT (__attribute__((__stdcall__)) *GetCurrentSubpictureAttributes)(IDvdInfo *This,DVD_SubpictureATR *pATR);
 	#endif
 
-	GetCurrentVolumeInfo as function(byval This as IDvdInfo ptr, byval pulNumOfVol as ULONG_ ptr, byval pulThisVolNum as ULONG_ ptr, byval pSide as DVD_DISC_SIDE ptr, byval pulNumOfTitles as ULONG_ ptr) as HRESULT
-	GetDVDTextInfo as function(byval This as IDvdInfo ptr, byval pTextManager as BYTE_ ptr, byval ulBufSize as ULONG_, byval pulActualSize as ULONG_ ptr) as HRESULT
-	GetPlayerParentalLevel as function(byval This as IDvdInfo ptr, byval pulParentalLevel as ULONG_ ptr, byval pulCountryCode as ULONG_ ptr) as HRESULT
-	GetNumberOfChapters as function(byval This as IDvdInfo ptr, byval ulTitle as ULONG_, byval pulNumberOfChapters as ULONG_ ptr) as HRESULT
-	GetTitleParentalLevels as function(byval This as IDvdInfo ptr, byval ulTitle as ULONG_, byval pulParentalLevels as ULONG_ ptr) as HRESULT
-	GetRoot as function(byval This as IDvdInfo ptr, byval pRoot as LPSTR, byval ulBufSize as ULONG_, byval pulActualSize as ULONG_ ptr) as HRESULT
+	GetCurrentVolumeInfo as function(byval This as IDvdInfo ptr, byval pulNumOfVol as ULONG ptr, byval pulThisVolNum as ULONG ptr, byval pSide as DVD_DISC_SIDE ptr, byval pulNumOfTitles as ULONG ptr) as HRESULT
+	GetDVDTextInfo as function(byval This as IDvdInfo ptr, byval pTextManager as BYTE ptr, byval ulBufSize as ULONG, byval pulActualSize as ULONG ptr) as HRESULT
+	GetPlayerParentalLevel as function(byval This as IDvdInfo ptr, byval pulParentalLevel as ULONG ptr, byval pulCountryCode as ULONG ptr) as HRESULT
+	GetNumberOfChapters as function(byval This as IDvdInfo ptr, byval ulTitle as ULONG, byval pulNumberOfChapters as ULONG ptr) as HRESULT
+	GetTitleParentalLevels as function(byval This as IDvdInfo ptr, byval ulTitle as ULONG, byval pulParentalLevels as ULONG ptr) as HRESULT
+	GetRoot as function(byval This as IDvdInfo ptr, byval pRoot as LPSTR, byval ulBufSize as ULONG, byval pulActualSize as ULONG ptr) as HRESULT
 end type
 
 type IDvdInfo_
@@ -5007,15 +5011,15 @@ declare function IDvdInfo_GetCurrentDomain_Proxy(byval This as IDvdInfo ptr, byv
 declare sub IDvdInfo_GetCurrentDomain_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IDvdInfo_GetCurrentLocation_Proxy(byval This as IDvdInfo ptr, byval pLocation as DVD_PLAYBACK_LOCATION ptr) as HRESULT
 declare sub IDvdInfo_GetCurrentLocation_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IDvdInfo_GetTotalTitleTime_Proxy(byval This as IDvdInfo ptr, byval pulTotalTime as ULONG_ ptr) as HRESULT
+declare function IDvdInfo_GetTotalTitleTime_Proxy(byval This as IDvdInfo ptr, byval pulTotalTime as ULONG ptr) as HRESULT
 declare sub IDvdInfo_GetTotalTitleTime_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IDvdInfo_GetCurrentButton_Proxy(byval This as IDvdInfo ptr, byval pulButtonsAvailable as ULONG_ ptr, byval pulCurrentButton as ULONG_ ptr) as HRESULT
+declare function IDvdInfo_GetCurrentButton_Proxy(byval This as IDvdInfo ptr, byval pulButtonsAvailable as ULONG ptr, byval pulCurrentButton as ULONG ptr) as HRESULT
 declare sub IDvdInfo_GetCurrentButton_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IDvdInfo_GetCurrentAngle_Proxy(byval This as IDvdInfo ptr, byval pulAnglesAvailable as ULONG_ ptr, byval pulCurrentAngle as ULONG_ ptr) as HRESULT
+declare function IDvdInfo_GetCurrentAngle_Proxy(byval This as IDvdInfo ptr, byval pulAnglesAvailable as ULONG ptr, byval pulCurrentAngle as ULONG ptr) as HRESULT
 declare sub IDvdInfo_GetCurrentAngle_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IDvdInfo_GetCurrentAudio_Proxy(byval This as IDvdInfo ptr, byval pulStreamsAvailable as ULONG_ ptr, byval pulCurrentStream as ULONG_ ptr) as HRESULT
+declare function IDvdInfo_GetCurrentAudio_Proxy(byval This as IDvdInfo ptr, byval pulStreamsAvailable as ULONG ptr, byval pulCurrentStream as ULONG ptr) as HRESULT
 declare sub IDvdInfo_GetCurrentAudio_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IDvdInfo_GetCurrentSubpicture_Proxy(byval This as IDvdInfo ptr, byval pulStreamsAvailable as ULONG_ ptr, byval pulCurrentStream as ULONG_ ptr, byval pIsDisabled as WINBOOL ptr) as HRESULT
+declare function IDvdInfo_GetCurrentSubpicture_Proxy(byval This as IDvdInfo ptr, byval pulStreamsAvailable as ULONG ptr, byval pulCurrentStream as ULONG ptr, byval pIsDisabled as WINBOOL ptr) as HRESULT
 declare sub IDvdInfo_GetCurrentSubpicture_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IDvdInfo_GetCurrentUOPS_Proxy(byval This as IDvdInfo ptr, byval pUOP as VALID_UOP_SOMTHING_OR_OTHER ptr) as HRESULT
 declare sub IDvdInfo_GetCurrentUOPS_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
@@ -5035,11 +5039,11 @@ declare sub IDvdInfo_GetAllSPRMs_Stub(byval This as IRpcStubBuffer ptr, byval _p
 #endif
 
 declare sub IDvdInfo_GetAllGPRMs_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IDvdInfo_GetAudioLanguage_Proxy(byval This as IDvdInfo ptr, byval ulStream as ULONG_, byval pLanguage as LCID ptr) as HRESULT
+declare function IDvdInfo_GetAudioLanguage_Proxy(byval This as IDvdInfo ptr, byval ulStream as ULONG, byval pLanguage as LCID ptr) as HRESULT
 declare sub IDvdInfo_GetAudioLanguage_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IDvdInfo_GetSubpictureLanguage_Proxy(byval This as IDvdInfo ptr, byval ulStream as ULONG_, byval pLanguage as LCID ptr) as HRESULT
+declare function IDvdInfo_GetSubpictureLanguage_Proxy(byval This as IDvdInfo ptr, byval ulStream as ULONG, byval pLanguage as LCID ptr) as HRESULT
 declare sub IDvdInfo_GetSubpictureLanguage_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IDvdInfo_GetTitleAttributes_Proxy(byval This as IDvdInfo ptr, byval ulTitle as ULONG_, byval pATR as DVD_ATR ptr) as HRESULT
+declare function IDvdInfo_GetTitleAttributes_Proxy(byval This as IDvdInfo ptr, byval ulTitle as ULONG, byval pATR as DVD_ATR ptr) as HRESULT
 declare sub IDvdInfo_GetTitleAttributes_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IDvdInfo_GetVMGAttributes_Proxy(byval This as IDvdInfo ptr, byval pATR as DVD_ATR ptr) as HRESULT
 declare sub IDvdInfo_GetVMGAttributes_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
@@ -5067,17 +5071,17 @@ declare sub IDvdInfo_GetCurrentAudioAttributes_Stub(byval This as IRpcStubBuffer
 #endif
 
 declare sub IDvdInfo_GetCurrentSubpictureAttributes_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IDvdInfo_GetCurrentVolumeInfo_Proxy(byval This as IDvdInfo ptr, byval pulNumOfVol as ULONG_ ptr, byval pulThisVolNum as ULONG_ ptr, byval pSide as DVD_DISC_SIDE ptr, byval pulNumOfTitles as ULONG_ ptr) as HRESULT
+declare function IDvdInfo_GetCurrentVolumeInfo_Proxy(byval This as IDvdInfo ptr, byval pulNumOfVol as ULONG ptr, byval pulThisVolNum as ULONG ptr, byval pSide as DVD_DISC_SIDE ptr, byval pulNumOfTitles as ULONG ptr) as HRESULT
 declare sub IDvdInfo_GetCurrentVolumeInfo_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IDvdInfo_GetDVDTextInfo_Proxy(byval This as IDvdInfo ptr, byval pTextManager as BYTE_ ptr, byval ulBufSize as ULONG_, byval pulActualSize as ULONG_ ptr) as HRESULT
+declare function IDvdInfo_GetDVDTextInfo_Proxy(byval This as IDvdInfo ptr, byval pTextManager as BYTE ptr, byval ulBufSize as ULONG, byval pulActualSize as ULONG ptr) as HRESULT
 declare sub IDvdInfo_GetDVDTextInfo_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IDvdInfo_GetPlayerParentalLevel_Proxy(byval This as IDvdInfo ptr, byval pulParentalLevel as ULONG_ ptr, byval pulCountryCode as ULONG_ ptr) as HRESULT
+declare function IDvdInfo_GetPlayerParentalLevel_Proxy(byval This as IDvdInfo ptr, byval pulParentalLevel as ULONG ptr, byval pulCountryCode as ULONG ptr) as HRESULT
 declare sub IDvdInfo_GetPlayerParentalLevel_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IDvdInfo_GetNumberOfChapters_Proxy(byval This as IDvdInfo ptr, byval ulTitle as ULONG_, byval pulNumberOfChapters as ULONG_ ptr) as HRESULT
+declare function IDvdInfo_GetNumberOfChapters_Proxy(byval This as IDvdInfo ptr, byval ulTitle as ULONG, byval pulNumberOfChapters as ULONG ptr) as HRESULT
 declare sub IDvdInfo_GetNumberOfChapters_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IDvdInfo_GetTitleParentalLevels_Proxy(byval This as IDvdInfo ptr, byval ulTitle as ULONG_, byval pulParentalLevels as ULONG_ ptr) as HRESULT
+declare function IDvdInfo_GetTitleParentalLevels_Proxy(byval This as IDvdInfo ptr, byval ulTitle as ULONG, byval pulParentalLevels as ULONG ptr) as HRESULT
 declare sub IDvdInfo_GetTitleParentalLevels_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IDvdInfo_GetRoot_Proxy(byval This as IDvdInfo ptr, byval pRoot as LPSTR, byval ulBufSize as ULONG_, byval pulActualSize as ULONG_ ptr) as HRESULT
+declare function IDvdInfo_GetRoot_Proxy(byval This as IDvdInfo ptr, byval pRoot as LPSTR, byval ulBufSize as ULONG, byval pulActualSize as ULONG ptr) as HRESULT
 declare sub IDvdInfo_GetRoot_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 
 #define __IDvdCmd_INTERFACE_DEFINED__
@@ -5086,8 +5090,8 @@ extern IID_IDvdCmd as const IID
 
 type IDvdCmdVtbl
 	QueryInterface as function(byval This as IDvdCmd ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDvdCmd ptr) as ULONG_
-	Release as function(byval This as IDvdCmd ptr) as ULONG_
+	AddRef as function(byval This as IDvdCmd ptr) as ULONG
+	Release as function(byval This as IDvdCmd ptr) as ULONG
 	WaitForStart as function(byval This as IDvdCmd ptr) as HRESULT
 	WaitForEnd as function(byval This as IDvdCmd ptr) as HRESULT
 end type
@@ -5107,10 +5111,10 @@ extern IID_IDvdState as const IID
 
 type IDvdStateVtbl
 	QueryInterface as function(byval This as IDvdState ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDvdState ptr) as ULONG_
-	Release as function(byval This as IDvdState ptr) as ULONG_
+	AddRef as function(byval This as IDvdState ptr) as ULONG
+	Release as function(byval This as IDvdState ptr) as ULONG
 	GetDiscID as function(byval This as IDvdState ptr, byval pullUniqueID as ULONGLONG ptr) as HRESULT
-	GetParentalLevel as function(byval This as IDvdState ptr, byval pulParentalLevel as ULONG_ ptr) as HRESULT
+	GetParentalLevel as function(byval This as IDvdState ptr, byval pulParentalLevel as ULONG ptr) as HRESULT
 end type
 
 type IDvdState_
@@ -5119,7 +5123,7 @@ end type
 
 declare function IDvdState_GetDiscID_Proxy(byval This as IDvdState ptr, byval pullUniqueID as ULONGLONG ptr) as HRESULT
 declare sub IDvdState_GetDiscID_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IDvdState_GetParentalLevel_Proxy(byval This as IDvdState ptr, byval pulParentalLevel as ULONG_ ptr) as HRESULT
+declare function IDvdState_GetParentalLevel_Proxy(byval This as IDvdState ptr, byval pulParentalLevel as ULONG ptr) as HRESULT
 declare sub IDvdState_GetParentalLevel_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 
 #define __IDvdControl2_INTERFACE_DEFINED__
@@ -5128,15 +5132,15 @@ extern IID_IDvdControl2 as const IID
 
 type IDvdControl2Vtbl
 	QueryInterface as function(byval This as IDvdControl2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDvdControl2 ptr) as ULONG_
-	Release as function(byval This as IDvdControl2 ptr) as ULONG_
-	PlayTitle as function(byval This as IDvdControl2 ptr, byval ulTitle as ULONG_, byval dwFlags as DWORD, byval ppCmd as IDvdCmd ptr ptr) as HRESULT
-	PlayChapterInTitle as function(byval This as IDvdControl2 ptr, byval ulTitle as ULONG_, byval ulChapter as ULONG_, byval dwFlags as DWORD, byval ppCmd as IDvdCmd ptr ptr) as HRESULT
-	PlayAtTimeInTitle as function(byval This as IDvdControl2 ptr, byval ulTitle as ULONG_, byval pStartTime as DVD_HMSF_TIMECODE ptr, byval dwFlags as DWORD, byval ppCmd as IDvdCmd ptr ptr) as HRESULT
+	AddRef as function(byval This as IDvdControl2 ptr) as ULONG
+	Release as function(byval This as IDvdControl2 ptr) as ULONG
+	PlayTitle as function(byval This as IDvdControl2 ptr, byval ulTitle as ULONG, byval dwFlags as DWORD, byval ppCmd as IDvdCmd ptr ptr) as HRESULT
+	PlayChapterInTitle as function(byval This as IDvdControl2 ptr, byval ulTitle as ULONG, byval ulChapter as ULONG, byval dwFlags as DWORD, byval ppCmd as IDvdCmd ptr ptr) as HRESULT
+	PlayAtTimeInTitle as function(byval This as IDvdControl2 ptr, byval ulTitle as ULONG, byval pStartTime as DVD_HMSF_TIMECODE ptr, byval dwFlags as DWORD, byval ppCmd as IDvdCmd ptr ptr) as HRESULT
 	Stop as function(byval This as IDvdControl2 ptr) as HRESULT
 	ReturnFromSubmenu as function(byval This as IDvdControl2 ptr, byval dwFlags as DWORD, byval ppCmd as IDvdCmd ptr ptr) as HRESULT
 	PlayAtTime as function(byval This as IDvdControl2 ptr, byval pTime as DVD_HMSF_TIMECODE ptr, byval dwFlags as DWORD, byval ppCmd as IDvdCmd ptr ptr) as HRESULT
-	PlayChapter as function(byval This as IDvdControl2 ptr, byval ulChapter as ULONG_, byval dwFlags as DWORD, byval ppCmd as IDvdCmd ptr ptr) as HRESULT
+	PlayChapter as function(byval This as IDvdControl2 ptr, byval ulChapter as ULONG, byval dwFlags as DWORD, byval ppCmd as IDvdCmd ptr ptr) as HRESULT
 	PlayPrevChapter as function(byval This as IDvdControl2 ptr, byval dwFlags as DWORD, byval ppCmd as IDvdCmd ptr ptr) as HRESULT
 	ReplayChapter as function(byval This as IDvdControl2 ptr, byval dwFlags as DWORD, byval ppCmd as IDvdCmd ptr ptr) as HRESULT
 	PlayNextChapter as function(byval This as IDvdControl2 ptr, byval dwFlags as DWORD, byval ppCmd as IDvdCmd ptr ptr) as HRESULT
@@ -5146,27 +5150,27 @@ type IDvdControl2Vtbl
 	Resume as function(byval This as IDvdControl2 ptr, byval dwFlags as DWORD, byval ppCmd as IDvdCmd ptr ptr) as HRESULT
 	SelectRelativeButton as function(byval This as IDvdControl2 ptr, byval buttonDir as DVD_RELATIVE_BUTTON) as HRESULT
 	ActivateButton as function(byval This as IDvdControl2 ptr) as HRESULT
-	SelectButton as function(byval This as IDvdControl2 ptr, byval ulButton as ULONG_) as HRESULT
-	SelectAndActivateButton as function(byval This as IDvdControl2 ptr, byval ulButton as ULONG_) as HRESULT
+	SelectButton as function(byval This as IDvdControl2 ptr, byval ulButton as ULONG) as HRESULT
+	SelectAndActivateButton as function(byval This as IDvdControl2 ptr, byval ulButton as ULONG) as HRESULT
 	StillOff as function(byval This as IDvdControl2 ptr) as HRESULT
 	Pause as function(byval This as IDvdControl2 ptr, byval bState as WINBOOL) as HRESULT
-	SelectAudioStream as function(byval This as IDvdControl2 ptr, byval ulAudio as ULONG_, byval dwFlags as DWORD, byval ppCmd as IDvdCmd ptr ptr) as HRESULT
-	SelectSubpictureStream as function(byval This as IDvdControl2 ptr, byval ulSubPicture as ULONG_, byval dwFlags as DWORD, byval ppCmd as IDvdCmd ptr ptr) as HRESULT
+	SelectAudioStream as function(byval This as IDvdControl2 ptr, byval ulAudio as ULONG, byval dwFlags as DWORD, byval ppCmd as IDvdCmd ptr ptr) as HRESULT
+	SelectSubpictureStream as function(byval This as IDvdControl2 ptr, byval ulSubPicture as ULONG, byval dwFlags as DWORD, byval ppCmd as IDvdCmd ptr ptr) as HRESULT
 	SetSubpictureState as function(byval This as IDvdControl2 ptr, byval bState as WINBOOL, byval dwFlags as DWORD, byval ppCmd as IDvdCmd ptr ptr) as HRESULT
-	SelectAngle as function(byval This as IDvdControl2 ptr, byval ulAngle as ULONG_, byval dwFlags as DWORD, byval ppCmd as IDvdCmd ptr ptr) as HRESULT
-	SelectParentalLevel as function(byval This as IDvdControl2 ptr, byval ulParentalLevel as ULONG_) as HRESULT
-	SelectParentalCountry as function(byval This as IDvdControl2 ptr, byval bCountry as BYTE_ ptr) as HRESULT
-	SelectKaraokeAudioPresentationMode as function(byval This as IDvdControl2 ptr, byval ulMode as ULONG_) as HRESULT
-	SelectVideoModePreference as function(byval This as IDvdControl2 ptr, byval ulPreferredDisplayMode as ULONG_) as HRESULT
+	SelectAngle as function(byval This as IDvdControl2 ptr, byval ulAngle as ULONG, byval dwFlags as DWORD, byval ppCmd as IDvdCmd ptr ptr) as HRESULT
+	SelectParentalLevel as function(byval This as IDvdControl2 ptr, byval ulParentalLevel as ULONG) as HRESULT
+	SelectParentalCountry as function(byval This as IDvdControl2 ptr, byval bCountry as BYTE ptr) as HRESULT
+	SelectKaraokeAudioPresentationMode as function(byval This as IDvdControl2 ptr, byval ulMode as ULONG) as HRESULT
+	SelectVideoModePreference as function(byval This as IDvdControl2 ptr, byval ulPreferredDisplayMode as ULONG) as HRESULT
 	SetDVDDirectory as function(byval This as IDvdControl2 ptr, byval pszwPath as LPCWSTR) as HRESULT
 	ActivateAtPosition as function(byval This as IDvdControl2 ptr, byval point_ as POINT_) as HRESULT
 	SelectAtPosition as function(byval This as IDvdControl2 ptr, byval point_ as POINT_) as HRESULT
-	PlayChaptersAutoStop as function(byval This as IDvdControl2 ptr, byval ulTitle as ULONG_, byval ulChapter as ULONG_, byval ulChaptersToPlay as ULONG_, byval dwFlags as DWORD, byval ppCmd as IDvdCmd ptr ptr) as HRESULT
+	PlayChaptersAutoStop as function(byval This as IDvdControl2 ptr, byval ulTitle as ULONG, byval ulChapter as ULONG, byval ulChaptersToPlay as ULONG, byval dwFlags as DWORD, byval ppCmd as IDvdCmd ptr ptr) as HRESULT
 	AcceptParentalLevelChange as function(byval This as IDvdControl2 ptr, byval bAccept as WINBOOL) as HRESULT
 	SetOption as function(byval This as IDvdControl2 ptr, byval flag as DVD_OPTION_FLAG, byval fState as WINBOOL) as HRESULT
 	SetState as function(byval This as IDvdControl2 ptr, byval pState as IDvdState ptr, byval dwFlags as DWORD, byval ppCmd as IDvdCmd ptr ptr) as HRESULT
-	PlayPeriodInTitleAutoStop as function(byval This as IDvdControl2 ptr, byval ulTitle as ULONG_, byval pStartTime as DVD_HMSF_TIMECODE ptr, byval pEndTime as DVD_HMSF_TIMECODE ptr, byval dwFlags as DWORD, byval ppCmd as IDvdCmd ptr ptr) as HRESULT
-	SetGPRM as function(byval This as IDvdControl2 ptr, byval ulIndex as ULONG_, byval wValue as WORD, byval dwFlags as DWORD, byval ppCmd as IDvdCmd ptr ptr) as HRESULT
+	PlayPeriodInTitleAutoStop as function(byval This as IDvdControl2 ptr, byval ulTitle as ULONG, byval pStartTime as DVD_HMSF_TIMECODE ptr, byval pEndTime as DVD_HMSF_TIMECODE ptr, byval dwFlags as DWORD, byval ppCmd as IDvdCmd ptr ptr) as HRESULT
+	SetGPRM as function(byval This as IDvdControl2 ptr, byval ulIndex as ULONG, byval wValue as WORD, byval dwFlags as DWORD, byval ppCmd as IDvdCmd ptr ptr) as HRESULT
 	SelectDefaultMenuLanguage as function(byval This as IDvdControl2 ptr, byval Language as LCID) as HRESULT
 	SelectDefaultAudioLanguage as function(byval This as IDvdControl2 ptr, byval Language as LCID, byval audioExtension as DVD_AUDIO_LANG_EXT) as HRESULT
 	SelectDefaultSubpictureLanguage as function(byval This as IDvdControl2 ptr, byval Language as LCID, byval subpictureExtension as DVD_SUBPICTURE_LANG_EXT) as HRESULT
@@ -5176,11 +5180,11 @@ type IDvdControl2_
 	lpVtbl as IDvdControl2Vtbl ptr
 end type
 
-declare function IDvdControl2_PlayTitle_Proxy(byval This as IDvdControl2 ptr, byval ulTitle as ULONG_, byval dwFlags as DWORD, byval ppCmd as IDvdCmd ptr ptr) as HRESULT
+declare function IDvdControl2_PlayTitle_Proxy(byval This as IDvdControl2 ptr, byval ulTitle as ULONG, byval dwFlags as DWORD, byval ppCmd as IDvdCmd ptr ptr) as HRESULT
 declare sub IDvdControl2_PlayTitle_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IDvdControl2_PlayChapterInTitle_Proxy(byval This as IDvdControl2 ptr, byval ulTitle as ULONG_, byval ulChapter as ULONG_, byval dwFlags as DWORD, byval ppCmd as IDvdCmd ptr ptr) as HRESULT
+declare function IDvdControl2_PlayChapterInTitle_Proxy(byval This as IDvdControl2 ptr, byval ulTitle as ULONG, byval ulChapter as ULONG, byval dwFlags as DWORD, byval ppCmd as IDvdCmd ptr ptr) as HRESULT
 declare sub IDvdControl2_PlayChapterInTitle_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IDvdControl2_PlayAtTimeInTitle_Proxy(byval This as IDvdControl2 ptr, byval ulTitle as ULONG_, byval pStartTime as DVD_HMSF_TIMECODE ptr, byval dwFlags as DWORD, byval ppCmd as IDvdCmd ptr ptr) as HRESULT
+declare function IDvdControl2_PlayAtTimeInTitle_Proxy(byval This as IDvdControl2 ptr, byval ulTitle as ULONG, byval pStartTime as DVD_HMSF_TIMECODE ptr, byval dwFlags as DWORD, byval ppCmd as IDvdCmd ptr ptr) as HRESULT
 declare sub IDvdControl2_PlayAtTimeInTitle_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IDvdControl2_Stop_Proxy(byval This as IDvdControl2 ptr) as HRESULT
 declare sub IDvdControl2_Stop_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
@@ -5188,7 +5192,7 @@ declare function IDvdControl2_ReturnFromSubmenu_Proxy(byval This as IDvdControl2
 declare sub IDvdControl2_ReturnFromSubmenu_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IDvdControl2_PlayAtTime_Proxy(byval This as IDvdControl2 ptr, byval pTime as DVD_HMSF_TIMECODE ptr, byval dwFlags as DWORD, byval ppCmd as IDvdCmd ptr ptr) as HRESULT
 declare sub IDvdControl2_PlayAtTime_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IDvdControl2_PlayChapter_Proxy(byval This as IDvdControl2 ptr, byval ulChapter as ULONG_, byval dwFlags as DWORD, byval ppCmd as IDvdCmd ptr ptr) as HRESULT
+declare function IDvdControl2_PlayChapter_Proxy(byval This as IDvdControl2 ptr, byval ulChapter as ULONG, byval dwFlags as DWORD, byval ppCmd as IDvdCmd ptr ptr) as HRESULT
 declare sub IDvdControl2_PlayChapter_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IDvdControl2_PlayPrevChapter_Proxy(byval This as IDvdControl2 ptr, byval dwFlags as DWORD, byval ppCmd as IDvdCmd ptr ptr) as HRESULT
 declare sub IDvdControl2_PlayPrevChapter_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
@@ -5208,29 +5212,29 @@ declare function IDvdControl2_SelectRelativeButton_Proxy(byval This as IDvdContr
 declare sub IDvdControl2_SelectRelativeButton_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IDvdControl2_ActivateButton_Proxy(byval This as IDvdControl2 ptr) as HRESULT
 declare sub IDvdControl2_ActivateButton_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IDvdControl2_SelectButton_Proxy(byval This as IDvdControl2 ptr, byval ulButton as ULONG_) as HRESULT
+declare function IDvdControl2_SelectButton_Proxy(byval This as IDvdControl2 ptr, byval ulButton as ULONG) as HRESULT
 declare sub IDvdControl2_SelectButton_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IDvdControl2_SelectAndActivateButton_Proxy(byval This as IDvdControl2 ptr, byval ulButton as ULONG_) as HRESULT
+declare function IDvdControl2_SelectAndActivateButton_Proxy(byval This as IDvdControl2 ptr, byval ulButton as ULONG) as HRESULT
 declare sub IDvdControl2_SelectAndActivateButton_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IDvdControl2_StillOff_Proxy(byval This as IDvdControl2 ptr) as HRESULT
 declare sub IDvdControl2_StillOff_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IDvdControl2_Pause_Proxy(byval This as IDvdControl2 ptr, byval bState as WINBOOL) as HRESULT
 declare sub IDvdControl2_Pause_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IDvdControl2_SelectAudioStream_Proxy(byval This as IDvdControl2 ptr, byval ulAudio as ULONG_, byval dwFlags as DWORD, byval ppCmd as IDvdCmd ptr ptr) as HRESULT
+declare function IDvdControl2_SelectAudioStream_Proxy(byval This as IDvdControl2 ptr, byval ulAudio as ULONG, byval dwFlags as DWORD, byval ppCmd as IDvdCmd ptr ptr) as HRESULT
 declare sub IDvdControl2_SelectAudioStream_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IDvdControl2_SelectSubpictureStream_Proxy(byval This as IDvdControl2 ptr, byval ulSubPicture as ULONG_, byval dwFlags as DWORD, byval ppCmd as IDvdCmd ptr ptr) as HRESULT
+declare function IDvdControl2_SelectSubpictureStream_Proxy(byval This as IDvdControl2 ptr, byval ulSubPicture as ULONG, byval dwFlags as DWORD, byval ppCmd as IDvdCmd ptr ptr) as HRESULT
 declare sub IDvdControl2_SelectSubpictureStream_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IDvdControl2_SetSubpictureState_Proxy(byval This as IDvdControl2 ptr, byval bState as WINBOOL, byval dwFlags as DWORD, byval ppCmd as IDvdCmd ptr ptr) as HRESULT
 declare sub IDvdControl2_SetSubpictureState_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IDvdControl2_SelectAngle_Proxy(byval This as IDvdControl2 ptr, byval ulAngle as ULONG_, byval dwFlags as DWORD, byval ppCmd as IDvdCmd ptr ptr) as HRESULT
+declare function IDvdControl2_SelectAngle_Proxy(byval This as IDvdControl2 ptr, byval ulAngle as ULONG, byval dwFlags as DWORD, byval ppCmd as IDvdCmd ptr ptr) as HRESULT
 declare sub IDvdControl2_SelectAngle_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IDvdControl2_SelectParentalLevel_Proxy(byval This as IDvdControl2 ptr, byval ulParentalLevel as ULONG_) as HRESULT
+declare function IDvdControl2_SelectParentalLevel_Proxy(byval This as IDvdControl2 ptr, byval ulParentalLevel as ULONG) as HRESULT
 declare sub IDvdControl2_SelectParentalLevel_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IDvdControl2_SelectParentalCountry_Proxy(byval This as IDvdControl2 ptr, byval bCountry as BYTE_ ptr) as HRESULT
+declare function IDvdControl2_SelectParentalCountry_Proxy(byval This as IDvdControl2 ptr, byval bCountry as BYTE ptr) as HRESULT
 declare sub IDvdControl2_SelectParentalCountry_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IDvdControl2_SelectKaraokeAudioPresentationMode_Proxy(byval This as IDvdControl2 ptr, byval ulMode as ULONG_) as HRESULT
+declare function IDvdControl2_SelectKaraokeAudioPresentationMode_Proxy(byval This as IDvdControl2 ptr, byval ulMode as ULONG) as HRESULT
 declare sub IDvdControl2_SelectKaraokeAudioPresentationMode_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IDvdControl2_SelectVideoModePreference_Proxy(byval This as IDvdControl2 ptr, byval ulPreferredDisplayMode as ULONG_) as HRESULT
+declare function IDvdControl2_SelectVideoModePreference_Proxy(byval This as IDvdControl2 ptr, byval ulPreferredDisplayMode as ULONG) as HRESULT
 declare sub IDvdControl2_SelectVideoModePreference_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IDvdControl2_SetDVDDirectory_Proxy(byval This as IDvdControl2 ptr, byval pszwPath as LPCWSTR) as HRESULT
 declare sub IDvdControl2_SetDVDDirectory_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
@@ -5238,7 +5242,7 @@ declare function IDvdControl2_ActivateAtPosition_Proxy(byval This as IDvdControl
 declare sub IDvdControl2_ActivateAtPosition_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IDvdControl2_SelectAtPosition_Proxy(byval This as IDvdControl2 ptr, byval point_ as POINT_) as HRESULT
 declare sub IDvdControl2_SelectAtPosition_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IDvdControl2_PlayChaptersAutoStop_Proxy(byval This as IDvdControl2 ptr, byval ulTitle as ULONG_, byval ulChapter as ULONG_, byval ulChaptersToPlay as ULONG_, byval dwFlags as DWORD, byval ppCmd as IDvdCmd ptr ptr) as HRESULT
+declare function IDvdControl2_PlayChaptersAutoStop_Proxy(byval This as IDvdControl2 ptr, byval ulTitle as ULONG, byval ulChapter as ULONG, byval ulChaptersToPlay as ULONG, byval dwFlags as DWORD, byval ppCmd as IDvdCmd ptr ptr) as HRESULT
 declare sub IDvdControl2_PlayChaptersAutoStop_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IDvdControl2_AcceptParentalLevelChange_Proxy(byval This as IDvdControl2 ptr, byval bAccept as WINBOOL) as HRESULT
 declare sub IDvdControl2_AcceptParentalLevelChange_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
@@ -5246,9 +5250,9 @@ declare function IDvdControl2_SetOption_Proxy(byval This as IDvdControl2 ptr, by
 declare sub IDvdControl2_SetOption_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IDvdControl2_SetState_Proxy(byval This as IDvdControl2 ptr, byval pState as IDvdState ptr, byval dwFlags as DWORD, byval ppCmd as IDvdCmd ptr ptr) as HRESULT
 declare sub IDvdControl2_SetState_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IDvdControl2_PlayPeriodInTitleAutoStop_Proxy(byval This as IDvdControl2 ptr, byval ulTitle as ULONG_, byval pStartTime as DVD_HMSF_TIMECODE ptr, byval pEndTime as DVD_HMSF_TIMECODE ptr, byval dwFlags as DWORD, byval ppCmd as IDvdCmd ptr ptr) as HRESULT
+declare function IDvdControl2_PlayPeriodInTitleAutoStop_Proxy(byval This as IDvdControl2 ptr, byval ulTitle as ULONG, byval pStartTime as DVD_HMSF_TIMECODE ptr, byval pEndTime as DVD_HMSF_TIMECODE ptr, byval dwFlags as DWORD, byval ppCmd as IDvdCmd ptr ptr) as HRESULT
 declare sub IDvdControl2_PlayPeriodInTitleAutoStop_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IDvdControl2_SetGPRM_Proxy(byval This as IDvdControl2 ptr, byval ulIndex as ULONG_, byval wValue as WORD, byval dwFlags as DWORD, byval ppCmd as IDvdCmd ptr ptr) as HRESULT
+declare function IDvdControl2_SetGPRM_Proxy(byval This as IDvdControl2 ptr, byval ulIndex as ULONG, byval wValue as WORD, byval dwFlags as DWORD, byval ppCmd as IDvdCmd ptr ptr) as HRESULT
 declare sub IDvdControl2_SetGPRM_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IDvdControl2_SelectDefaultMenuLanguage_Proxy(byval This as IDvdControl2 ptr, byval Language as LCID) as HRESULT
 declare sub IDvdControl2_SelectDefaultMenuLanguage_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
@@ -5340,16 +5344,16 @@ extern IID_IDvdInfo2 as const IID
 
 type IDvdInfo2Vtbl
 	QueryInterface as function(byval This as IDvdInfo2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDvdInfo2 ptr) as ULONG_
-	Release as function(byval This as IDvdInfo2 ptr) as ULONG_
+	AddRef as function(byval This as IDvdInfo2 ptr) as ULONG
+	Release as function(byval This as IDvdInfo2 ptr) as ULONG
 	GetCurrentDomain as function(byval This as IDvdInfo2 ptr, byval pDomain as DVD_DOMAIN ptr) as HRESULT
 	GetCurrentLocation as function(byval This as IDvdInfo2 ptr, byval pLocation as DVD_PLAYBACK_LOCATION2 ptr) as HRESULT
-	GetTotalTitleTime as function(byval This as IDvdInfo2 ptr, byval pTotalTime as DVD_HMSF_TIMECODE ptr, byval ulTimeCodeFlags as ULONG_ ptr) as HRESULT
-	GetCurrentButton as function(byval This as IDvdInfo2 ptr, byval pulButtonsAvailable as ULONG_ ptr, byval pulCurrentButton as ULONG_ ptr) as HRESULT
-	GetCurrentAngle as function(byval This as IDvdInfo2 ptr, byval pulAnglesAvailable as ULONG_ ptr, byval pulCurrentAngle as ULONG_ ptr) as HRESULT
-	GetCurrentAudio as function(byval This as IDvdInfo2 ptr, byval pulStreamsAvailable as ULONG_ ptr, byval pulCurrentStream as ULONG_ ptr) as HRESULT
-	GetCurrentSubpicture as function(byval This as IDvdInfo2 ptr, byval pulStreamsAvailable as ULONG_ ptr, byval pulCurrentStream as ULONG_ ptr, byval pbIsDisabled as WINBOOL ptr) as HRESULT
-	GetCurrentUOPS as function(byval This as IDvdInfo2 ptr, byval pulUOPs as ULONG_ ptr) as HRESULT
+	GetTotalTitleTime as function(byval This as IDvdInfo2 ptr, byval pTotalTime as DVD_HMSF_TIMECODE ptr, byval ulTimeCodeFlags as ULONG ptr) as HRESULT
+	GetCurrentButton as function(byval This as IDvdInfo2 ptr, byval pulButtonsAvailable as ULONG ptr, byval pulCurrentButton as ULONG ptr) as HRESULT
+	GetCurrentAngle as function(byval This as IDvdInfo2 ptr, byval pulAnglesAvailable as ULONG ptr, byval pulCurrentAngle as ULONG ptr) as HRESULT
+	GetCurrentAudio as function(byval This as IDvdInfo2 ptr, byval pulStreamsAvailable as ULONG ptr, byval pulCurrentStream as ULONG ptr) as HRESULT
+	GetCurrentSubpicture as function(byval This as IDvdInfo2 ptr, byval pulStreamsAvailable as ULONG ptr, byval pulCurrentStream as ULONG ptr, byval pbIsDisabled as WINBOOL ptr) as HRESULT
+	GetCurrentUOPS as function(byval This as IDvdInfo2 ptr, byval pulUOPs as ULONG ptr) as HRESULT
 
 	#ifdef __FB_64BIT__
 		'' TODO: HRESULT ( *GetAllSPRMs)(IDvdInfo2 *This,SPRMARRAY *pRegisterArray);
@@ -5359,35 +5363,35 @@ type IDvdInfo2Vtbl
 		'' TODO: HRESULT (__attribute__((__stdcall__)) *GetAllGPRMs)(IDvdInfo2 *This,GPRMARRAY *pRegisterArray);
 	#endif
 
-	GetAudioLanguage as function(byval This as IDvdInfo2 ptr, byval ulStream as ULONG_, byval pLanguage as LCID ptr) as HRESULT
-	GetSubpictureLanguage as function(byval This as IDvdInfo2 ptr, byval ulStream as ULONG_, byval pLanguage as LCID ptr) as HRESULT
-	GetTitleAttributes as function(byval This as IDvdInfo2 ptr, byval ulTitle as ULONG_, byval pMenu as DVD_MenuAttributes ptr, byval pTitle as DVD_TitleAttributes ptr) as HRESULT
+	GetAudioLanguage as function(byval This as IDvdInfo2 ptr, byval ulStream as ULONG, byval pLanguage as LCID ptr) as HRESULT
+	GetSubpictureLanguage as function(byval This as IDvdInfo2 ptr, byval ulStream as ULONG, byval pLanguage as LCID ptr) as HRESULT
+	GetTitleAttributes as function(byval This as IDvdInfo2 ptr, byval ulTitle as ULONG, byval pMenu as DVD_MenuAttributes ptr, byval pTitle as DVD_TitleAttributes ptr) as HRESULT
 	GetVMGAttributes as function(byval This as IDvdInfo2 ptr, byval pATR as DVD_MenuAttributes ptr) as HRESULT
 	GetCurrentVideoAttributes as function(byval This as IDvdInfo2 ptr, byval pATR as DVD_VideoAttributes ptr) as HRESULT
-	GetAudioAttributes as function(byval This as IDvdInfo2 ptr, byval ulStream as ULONG_, byval pATR as DVD_AudioAttributes ptr) as HRESULT
-	GetKaraokeAttributes as function(byval This as IDvdInfo2 ptr, byval ulStream as ULONG_, byval pAttributes as DVD_KaraokeAttributes ptr) as HRESULT
-	GetSubpictureAttributes as function(byval This as IDvdInfo2 ptr, byval ulStream as ULONG_, byval pATR as DVD_SubpictureAttributes ptr) as HRESULT
-	GetDVDVolumeInfo as function(byval This as IDvdInfo2 ptr, byval pulNumOfVolumes as ULONG_ ptr, byval pulVolume as ULONG_ ptr, byval pSide as DVD_DISC_SIDE ptr, byval pulNumOfTitles as ULONG_ ptr) as HRESULT
-	GetDVDTextNumberOfLanguages as function(byval This as IDvdInfo2 ptr, byval pulNumOfLangs as ULONG_ ptr) as HRESULT
-	GetDVDTextLanguageInfo as function(byval This as IDvdInfo2 ptr, byval ulLangIndex as ULONG_, byval pulNumOfStrings as ULONG_ ptr, byval pLangCode as LCID ptr, byval pbCharacterSet as DVD_TextCharSet ptr) as HRESULT
-	GetDVDTextStringAsNative as function(byval This as IDvdInfo2 ptr, byval ulLangIndex as ULONG_, byval ulStringIndex as ULONG_, byval pbBuffer as BYTE_ ptr, byval ulMaxBufferSize as ULONG_, byval pulActualSize as ULONG_ ptr, byval pType as DVD_TextStringType ptr) as HRESULT
-	GetDVDTextStringAsUnicode as function(byval This as IDvdInfo2 ptr, byval ulLangIndex as ULONG_, byval ulStringIndex as ULONG_, byval pchwBuffer as WCHAR ptr, byval ulMaxBufferSize as ULONG_, byval pulActualSize as ULONG_ ptr, byval pType as DVD_TextStringType ptr) as HRESULT
-	GetPlayerParentalLevel as function(byval This as IDvdInfo2 ptr, byval pulParentalLevel as ULONG_ ptr, byval pbCountryCode as BYTE_ ptr) as HRESULT
-	GetNumberOfChapters as function(byval This as IDvdInfo2 ptr, byval ulTitle as ULONG_, byval pulNumOfChapters as ULONG_ ptr) as HRESULT
-	GetTitleParentalLevels as function(byval This as IDvdInfo2 ptr, byval ulTitle as ULONG_, byval pulParentalLevels as ULONG_ ptr) as HRESULT
-	GetDVDDirectory as function(byval This as IDvdInfo2 ptr, byval pszwPath as LPWSTR, byval ulMaxSize as ULONG_, byval pulActualSize as ULONG_ ptr) as HRESULT
-	IsAudioStreamEnabled as function(byval This as IDvdInfo2 ptr, byval ulStreamNum as ULONG_, byval pbEnabled as WINBOOL ptr) as HRESULT
+	GetAudioAttributes as function(byval This as IDvdInfo2 ptr, byval ulStream as ULONG, byval pATR as DVD_AudioAttributes ptr) as HRESULT
+	GetKaraokeAttributes as function(byval This as IDvdInfo2 ptr, byval ulStream as ULONG, byval pAttributes as DVD_KaraokeAttributes ptr) as HRESULT
+	GetSubpictureAttributes as function(byval This as IDvdInfo2 ptr, byval ulStream as ULONG, byval pATR as DVD_SubpictureAttributes ptr) as HRESULT
+	GetDVDVolumeInfo as function(byval This as IDvdInfo2 ptr, byval pulNumOfVolumes as ULONG ptr, byval pulVolume as ULONG ptr, byval pSide as DVD_DISC_SIDE ptr, byval pulNumOfTitles as ULONG ptr) as HRESULT
+	GetDVDTextNumberOfLanguages as function(byval This as IDvdInfo2 ptr, byval pulNumOfLangs as ULONG ptr) as HRESULT
+	GetDVDTextLanguageInfo as function(byval This as IDvdInfo2 ptr, byval ulLangIndex as ULONG, byval pulNumOfStrings as ULONG ptr, byval pLangCode as LCID ptr, byval pbCharacterSet as DVD_TextCharSet ptr) as HRESULT
+	GetDVDTextStringAsNative as function(byval This as IDvdInfo2 ptr, byval ulLangIndex as ULONG, byval ulStringIndex as ULONG, byval pbBuffer as BYTE ptr, byval ulMaxBufferSize as ULONG, byval pulActualSize as ULONG ptr, byval pType as DVD_TextStringType ptr) as HRESULT
+	GetDVDTextStringAsUnicode as function(byval This as IDvdInfo2 ptr, byval ulLangIndex as ULONG, byval ulStringIndex as ULONG, byval pchwBuffer as WCHAR ptr, byval ulMaxBufferSize as ULONG, byval pulActualSize as ULONG ptr, byval pType as DVD_TextStringType ptr) as HRESULT
+	GetPlayerParentalLevel as function(byval This as IDvdInfo2 ptr, byval pulParentalLevel as ULONG ptr, byval pbCountryCode as BYTE ptr) as HRESULT
+	GetNumberOfChapters as function(byval This as IDvdInfo2 ptr, byval ulTitle as ULONG, byval pulNumOfChapters as ULONG ptr) as HRESULT
+	GetTitleParentalLevels as function(byval This as IDvdInfo2 ptr, byval ulTitle as ULONG, byval pulParentalLevels as ULONG ptr) as HRESULT
+	GetDVDDirectory as function(byval This as IDvdInfo2 ptr, byval pszwPath as LPWSTR, byval ulMaxSize as ULONG, byval pulActualSize as ULONG ptr) as HRESULT
+	IsAudioStreamEnabled as function(byval This as IDvdInfo2 ptr, byval ulStreamNum as ULONG, byval pbEnabled as WINBOOL ptr) as HRESULT
 	GetDiscID as function(byval This as IDvdInfo2 ptr, byval pszwPath as LPCWSTR, byval pullDiscID as ULONGLONG ptr) as HRESULT
 	GetState as function(byval This as IDvdInfo2 ptr, byval pStateData as IDvdState ptr ptr) as HRESULT
-	GetMenuLanguages as function(byval This as IDvdInfo2 ptr, byval pLanguages as LCID ptr, byval ulMaxLanguages as ULONG_, byval pulActualLanguages as ULONG_ ptr) as HRESULT
-	GetButtonAtPosition as function(byval This as IDvdInfo2 ptr, byval point_ as POINT_, byval pulButtonIndex as ULONG_ ptr) as HRESULT
+	GetMenuLanguages as function(byval This as IDvdInfo2 ptr, byval pLanguages as LCID ptr, byval ulMaxLanguages as ULONG, byval pulActualLanguages as ULONG ptr) as HRESULT
+	GetButtonAtPosition as function(byval This as IDvdInfo2 ptr, byval point_ as POINT_, byval pulButtonIndex as ULONG ptr) as HRESULT
 	GetCmdFromEvent as function(byval This as IDvdInfo2 ptr, byval lParam1 as LONG_PTR, byval pCmdObj as IDvdCmd ptr ptr) as HRESULT
 	GetDefaultMenuLanguage as function(byval This as IDvdInfo2 ptr, byval pLanguage as LCID ptr) as HRESULT
 	GetDefaultAudioLanguage as function(byval This as IDvdInfo2 ptr, byval pLanguage as LCID ptr, byval pAudioExtension as DVD_AUDIO_LANG_EXT ptr) as HRESULT
 	GetDefaultSubpictureLanguage as function(byval This as IDvdInfo2 ptr, byval pLanguage as LCID ptr, byval pSubpictureExtension as DVD_SUBPICTURE_LANG_EXT ptr) as HRESULT
 	GetDecoderCaps as function(byval This as IDvdInfo2 ptr, byval pCaps as DVD_DECODER_CAPS ptr) as HRESULT
-	GetButtonRect as function(byval This as IDvdInfo2 ptr, byval ulButton as ULONG_, byval pRect as RECT ptr) as HRESULT
-	IsSubpictureStreamEnabled as function(byval This as IDvdInfo2 ptr, byval ulStreamNum as ULONG_, byval pbEnabled as WINBOOL ptr) as HRESULT
+	GetButtonRect as function(byval This as IDvdInfo2 ptr, byval ulButton as ULONG, byval pRect as RECT ptr) as HRESULT
+	IsSubpictureStreamEnabled as function(byval This as IDvdInfo2 ptr, byval ulStreamNum as ULONG, byval pbEnabled as WINBOOL ptr) as HRESULT
 end type
 
 type IDvdInfo2_
@@ -5398,17 +5402,17 @@ declare function IDvdInfo2_GetCurrentDomain_Proxy(byval This as IDvdInfo2 ptr, b
 declare sub IDvdInfo2_GetCurrentDomain_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IDvdInfo2_GetCurrentLocation_Proxy(byval This as IDvdInfo2 ptr, byval pLocation as DVD_PLAYBACK_LOCATION2 ptr) as HRESULT
 declare sub IDvdInfo2_GetCurrentLocation_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IDvdInfo2_GetTotalTitleTime_Proxy(byval This as IDvdInfo2 ptr, byval pTotalTime as DVD_HMSF_TIMECODE ptr, byval ulTimeCodeFlags as ULONG_ ptr) as HRESULT
+declare function IDvdInfo2_GetTotalTitleTime_Proxy(byval This as IDvdInfo2 ptr, byval pTotalTime as DVD_HMSF_TIMECODE ptr, byval ulTimeCodeFlags as ULONG ptr) as HRESULT
 declare sub IDvdInfo2_GetTotalTitleTime_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IDvdInfo2_GetCurrentButton_Proxy(byval This as IDvdInfo2 ptr, byval pulButtonsAvailable as ULONG_ ptr, byval pulCurrentButton as ULONG_ ptr) as HRESULT
+declare function IDvdInfo2_GetCurrentButton_Proxy(byval This as IDvdInfo2 ptr, byval pulButtonsAvailable as ULONG ptr, byval pulCurrentButton as ULONG ptr) as HRESULT
 declare sub IDvdInfo2_GetCurrentButton_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IDvdInfo2_GetCurrentAngle_Proxy(byval This as IDvdInfo2 ptr, byval pulAnglesAvailable as ULONG_ ptr, byval pulCurrentAngle as ULONG_ ptr) as HRESULT
+declare function IDvdInfo2_GetCurrentAngle_Proxy(byval This as IDvdInfo2 ptr, byval pulAnglesAvailable as ULONG ptr, byval pulCurrentAngle as ULONG ptr) as HRESULT
 declare sub IDvdInfo2_GetCurrentAngle_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IDvdInfo2_GetCurrentAudio_Proxy(byval This as IDvdInfo2 ptr, byval pulStreamsAvailable as ULONG_ ptr, byval pulCurrentStream as ULONG_ ptr) as HRESULT
+declare function IDvdInfo2_GetCurrentAudio_Proxy(byval This as IDvdInfo2 ptr, byval pulStreamsAvailable as ULONG ptr, byval pulCurrentStream as ULONG ptr) as HRESULT
 declare sub IDvdInfo2_GetCurrentAudio_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IDvdInfo2_GetCurrentSubpicture_Proxy(byval This as IDvdInfo2 ptr, byval pulStreamsAvailable as ULONG_ ptr, byval pulCurrentStream as ULONG_ ptr, byval pbIsDisabled as WINBOOL ptr) as HRESULT
+declare function IDvdInfo2_GetCurrentSubpicture_Proxy(byval This as IDvdInfo2 ptr, byval pulStreamsAvailable as ULONG ptr, byval pulCurrentStream as ULONG ptr, byval pbIsDisabled as WINBOOL ptr) as HRESULT
 declare sub IDvdInfo2_GetCurrentSubpicture_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IDvdInfo2_GetCurrentUOPS_Proxy(byval This as IDvdInfo2 ptr, byval pulUOPs as ULONG_ ptr) as HRESULT
+declare function IDvdInfo2_GetCurrentUOPS_Proxy(byval This as IDvdInfo2 ptr, byval pulUOPs as ULONG ptr) as HRESULT
 declare sub IDvdInfo2_GetCurrentUOPS_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 
 #ifdef __FB_64BIT__
@@ -5426,49 +5430,49 @@ declare sub IDvdInfo2_GetAllSPRMs_Stub(byval This as IRpcStubBuffer ptr, byval _
 #endif
 
 declare sub IDvdInfo2_GetAllGPRMs_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IDvdInfo2_GetAudioLanguage_Proxy(byval This as IDvdInfo2 ptr, byval ulStream as ULONG_, byval pLanguage as LCID ptr) as HRESULT
+declare function IDvdInfo2_GetAudioLanguage_Proxy(byval This as IDvdInfo2 ptr, byval ulStream as ULONG, byval pLanguage as LCID ptr) as HRESULT
 declare sub IDvdInfo2_GetAudioLanguage_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IDvdInfo2_GetSubpictureLanguage_Proxy(byval This as IDvdInfo2 ptr, byval ulStream as ULONG_, byval pLanguage as LCID ptr) as HRESULT
+declare function IDvdInfo2_GetSubpictureLanguage_Proxy(byval This as IDvdInfo2 ptr, byval ulStream as ULONG, byval pLanguage as LCID ptr) as HRESULT
 declare sub IDvdInfo2_GetSubpictureLanguage_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IDvdInfo2_GetTitleAttributes_Proxy(byval This as IDvdInfo2 ptr, byval ulTitle as ULONG_, byval pMenu as DVD_MenuAttributes ptr, byval pTitle as DVD_TitleAttributes ptr) as HRESULT
+declare function IDvdInfo2_GetTitleAttributes_Proxy(byval This as IDvdInfo2 ptr, byval ulTitle as ULONG, byval pMenu as DVD_MenuAttributes ptr, byval pTitle as DVD_TitleAttributes ptr) as HRESULT
 declare sub IDvdInfo2_GetTitleAttributes_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IDvdInfo2_GetVMGAttributes_Proxy(byval This as IDvdInfo2 ptr, byval pATR as DVD_MenuAttributes ptr) as HRESULT
 declare sub IDvdInfo2_GetVMGAttributes_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IDvdInfo2_GetCurrentVideoAttributes_Proxy(byval This as IDvdInfo2 ptr, byval pATR as DVD_VideoAttributes ptr) as HRESULT
 declare sub IDvdInfo2_GetCurrentVideoAttributes_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IDvdInfo2_GetAudioAttributes_Proxy(byval This as IDvdInfo2 ptr, byval ulStream as ULONG_, byval pATR as DVD_AudioAttributes ptr) as HRESULT
+declare function IDvdInfo2_GetAudioAttributes_Proxy(byval This as IDvdInfo2 ptr, byval ulStream as ULONG, byval pATR as DVD_AudioAttributes ptr) as HRESULT
 declare sub IDvdInfo2_GetAudioAttributes_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IDvdInfo2_GetKaraokeAttributes_Proxy(byval This as IDvdInfo2 ptr, byval ulStream as ULONG_, byval pAttributes as DVD_KaraokeAttributes ptr) as HRESULT
+declare function IDvdInfo2_GetKaraokeAttributes_Proxy(byval This as IDvdInfo2 ptr, byval ulStream as ULONG, byval pAttributes as DVD_KaraokeAttributes ptr) as HRESULT
 declare sub IDvdInfo2_GetKaraokeAttributes_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IDvdInfo2_GetSubpictureAttributes_Proxy(byval This as IDvdInfo2 ptr, byval ulStream as ULONG_, byval pATR as DVD_SubpictureAttributes ptr) as HRESULT
+declare function IDvdInfo2_GetSubpictureAttributes_Proxy(byval This as IDvdInfo2 ptr, byval ulStream as ULONG, byval pATR as DVD_SubpictureAttributes ptr) as HRESULT
 declare sub IDvdInfo2_GetSubpictureAttributes_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IDvdInfo2_GetDVDVolumeInfo_Proxy(byval This as IDvdInfo2 ptr, byval pulNumOfVolumes as ULONG_ ptr, byval pulVolume as ULONG_ ptr, byval pSide as DVD_DISC_SIDE ptr, byval pulNumOfTitles as ULONG_ ptr) as HRESULT
+declare function IDvdInfo2_GetDVDVolumeInfo_Proxy(byval This as IDvdInfo2 ptr, byval pulNumOfVolumes as ULONG ptr, byval pulVolume as ULONG ptr, byval pSide as DVD_DISC_SIDE ptr, byval pulNumOfTitles as ULONG ptr) as HRESULT
 declare sub IDvdInfo2_GetDVDVolumeInfo_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IDvdInfo2_GetDVDTextNumberOfLanguages_Proxy(byval This as IDvdInfo2 ptr, byval pulNumOfLangs as ULONG_ ptr) as HRESULT
+declare function IDvdInfo2_GetDVDTextNumberOfLanguages_Proxy(byval This as IDvdInfo2 ptr, byval pulNumOfLangs as ULONG ptr) as HRESULT
 declare sub IDvdInfo2_GetDVDTextNumberOfLanguages_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IDvdInfo2_GetDVDTextLanguageInfo_Proxy(byval This as IDvdInfo2 ptr, byval ulLangIndex as ULONG_, byval pulNumOfStrings as ULONG_ ptr, byval pLangCode as LCID ptr, byval pbCharacterSet as DVD_TextCharSet ptr) as HRESULT
+declare function IDvdInfo2_GetDVDTextLanguageInfo_Proxy(byval This as IDvdInfo2 ptr, byval ulLangIndex as ULONG, byval pulNumOfStrings as ULONG ptr, byval pLangCode as LCID ptr, byval pbCharacterSet as DVD_TextCharSet ptr) as HRESULT
 declare sub IDvdInfo2_GetDVDTextLanguageInfo_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IDvdInfo2_GetDVDTextStringAsNative_Proxy(byval This as IDvdInfo2 ptr, byval ulLangIndex as ULONG_, byval ulStringIndex as ULONG_, byval pbBuffer as BYTE_ ptr, byval ulMaxBufferSize as ULONG_, byval pulActualSize as ULONG_ ptr, byval pType as DVD_TextStringType ptr) as HRESULT
+declare function IDvdInfo2_GetDVDTextStringAsNative_Proxy(byval This as IDvdInfo2 ptr, byval ulLangIndex as ULONG, byval ulStringIndex as ULONG, byval pbBuffer as BYTE ptr, byval ulMaxBufferSize as ULONG, byval pulActualSize as ULONG ptr, byval pType as DVD_TextStringType ptr) as HRESULT
 declare sub IDvdInfo2_GetDVDTextStringAsNative_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IDvdInfo2_GetDVDTextStringAsUnicode_Proxy(byval This as IDvdInfo2 ptr, byval ulLangIndex as ULONG_, byval ulStringIndex as ULONG_, byval pchwBuffer as WCHAR ptr, byval ulMaxBufferSize as ULONG_, byval pulActualSize as ULONG_ ptr, byval pType as DVD_TextStringType ptr) as HRESULT
+declare function IDvdInfo2_GetDVDTextStringAsUnicode_Proxy(byval This as IDvdInfo2 ptr, byval ulLangIndex as ULONG, byval ulStringIndex as ULONG, byval pchwBuffer as WCHAR ptr, byval ulMaxBufferSize as ULONG, byval pulActualSize as ULONG ptr, byval pType as DVD_TextStringType ptr) as HRESULT
 declare sub IDvdInfo2_GetDVDTextStringAsUnicode_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IDvdInfo2_GetPlayerParentalLevel_Proxy(byval This as IDvdInfo2 ptr, byval pulParentalLevel as ULONG_ ptr, byval pbCountryCode as BYTE_ ptr) as HRESULT
+declare function IDvdInfo2_GetPlayerParentalLevel_Proxy(byval This as IDvdInfo2 ptr, byval pulParentalLevel as ULONG ptr, byval pbCountryCode as BYTE ptr) as HRESULT
 declare sub IDvdInfo2_GetPlayerParentalLevel_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IDvdInfo2_GetNumberOfChapters_Proxy(byval This as IDvdInfo2 ptr, byval ulTitle as ULONG_, byval pulNumOfChapters as ULONG_ ptr) as HRESULT
+declare function IDvdInfo2_GetNumberOfChapters_Proxy(byval This as IDvdInfo2 ptr, byval ulTitle as ULONG, byval pulNumOfChapters as ULONG ptr) as HRESULT
 declare sub IDvdInfo2_GetNumberOfChapters_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IDvdInfo2_GetTitleParentalLevels_Proxy(byval This as IDvdInfo2 ptr, byval ulTitle as ULONG_, byval pulParentalLevels as ULONG_ ptr) as HRESULT
+declare function IDvdInfo2_GetTitleParentalLevels_Proxy(byval This as IDvdInfo2 ptr, byval ulTitle as ULONG, byval pulParentalLevels as ULONG ptr) as HRESULT
 declare sub IDvdInfo2_GetTitleParentalLevels_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IDvdInfo2_GetDVDDirectory_Proxy(byval This as IDvdInfo2 ptr, byval pszwPath as LPWSTR, byval ulMaxSize as ULONG_, byval pulActualSize as ULONG_ ptr) as HRESULT
+declare function IDvdInfo2_GetDVDDirectory_Proxy(byval This as IDvdInfo2 ptr, byval pszwPath as LPWSTR, byval ulMaxSize as ULONG, byval pulActualSize as ULONG ptr) as HRESULT
 declare sub IDvdInfo2_GetDVDDirectory_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IDvdInfo2_IsAudioStreamEnabled_Proxy(byval This as IDvdInfo2 ptr, byval ulStreamNum as ULONG_, byval pbEnabled as WINBOOL ptr) as HRESULT
+declare function IDvdInfo2_IsAudioStreamEnabled_Proxy(byval This as IDvdInfo2 ptr, byval ulStreamNum as ULONG, byval pbEnabled as WINBOOL ptr) as HRESULT
 declare sub IDvdInfo2_IsAudioStreamEnabled_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IDvdInfo2_GetDiscID_Proxy(byval This as IDvdInfo2 ptr, byval pszwPath as LPCWSTR, byval pullDiscID as ULONGLONG ptr) as HRESULT
 declare sub IDvdInfo2_GetDiscID_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IDvdInfo2_GetState_Proxy(byval This as IDvdInfo2 ptr, byval pStateData as IDvdState ptr ptr) as HRESULT
 declare sub IDvdInfo2_GetState_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IDvdInfo2_GetMenuLanguages_Proxy(byval This as IDvdInfo2 ptr, byval pLanguages as LCID ptr, byval ulMaxLanguages as ULONG_, byval pulActualLanguages as ULONG_ ptr) as HRESULT
+declare function IDvdInfo2_GetMenuLanguages_Proxy(byval This as IDvdInfo2 ptr, byval pLanguages as LCID ptr, byval ulMaxLanguages as ULONG, byval pulActualLanguages as ULONG ptr) as HRESULT
 declare sub IDvdInfo2_GetMenuLanguages_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IDvdInfo2_GetButtonAtPosition_Proxy(byval This as IDvdInfo2 ptr, byval point_ as POINT_, byval pulButtonIndex as ULONG_ ptr) as HRESULT
+declare function IDvdInfo2_GetButtonAtPosition_Proxy(byval This as IDvdInfo2 ptr, byval point_ as POINT_, byval pulButtonIndex as ULONG ptr) as HRESULT
 declare sub IDvdInfo2_GetButtonAtPosition_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IDvdInfo2_GetCmdFromEvent_Proxy(byval This as IDvdInfo2 ptr, byval lParam1 as LONG_PTR, byval pCmdObj as IDvdCmd ptr ptr) as HRESULT
 declare sub IDvdInfo2_GetCmdFromEvent_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
@@ -5480,9 +5484,9 @@ declare function IDvdInfo2_GetDefaultSubpictureLanguage_Proxy(byval This as IDvd
 declare sub IDvdInfo2_GetDefaultSubpictureLanguage_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IDvdInfo2_GetDecoderCaps_Proxy(byval This as IDvdInfo2 ptr, byval pCaps as DVD_DECODER_CAPS ptr) as HRESULT
 declare sub IDvdInfo2_GetDecoderCaps_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IDvdInfo2_GetButtonRect_Proxy(byval This as IDvdInfo2 ptr, byval ulButton as ULONG_, byval pRect as RECT ptr) as HRESULT
+declare function IDvdInfo2_GetButtonRect_Proxy(byval This as IDvdInfo2 ptr, byval ulButton as ULONG, byval pRect as RECT ptr) as HRESULT
 declare sub IDvdInfo2_GetButtonRect_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IDvdInfo2_IsSubpictureStreamEnabled_Proxy(byval This as IDvdInfo2 ptr, byval ulStreamNum as ULONG_, byval pbEnabled as WINBOOL ptr) as HRESULT
+declare function IDvdInfo2_IsSubpictureStreamEnabled_Proxy(byval This as IDvdInfo2 ptr, byval ulStreamNum as ULONG, byval pbEnabled as WINBOOL ptr) as HRESULT
 declare sub IDvdInfo2_IsSubpictureStreamEnabled_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 
 type _AM_DVD_GRAPH_FLAGS as long
@@ -5528,8 +5532,8 @@ extern IID_IDvdGraphBuilder as const IID
 
 type IDvdGraphBuilderVtbl
 	QueryInterface as function(byval This as IDvdGraphBuilder ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDvdGraphBuilder ptr) as ULONG_
-	Release as function(byval This as IDvdGraphBuilder ptr) as ULONG_
+	AddRef as function(byval This as IDvdGraphBuilder ptr) as ULONG
+	Release as function(byval This as IDvdGraphBuilder ptr) as ULONG
 	GetFiltergraph as function(byval This as IDvdGraphBuilder ptr, byval ppGB as IGraphBuilder ptr ptr) as HRESULT
 	GetDvdInterface as function(byval This as IDvdGraphBuilder ptr, byval riid as const IID const ptr, byval ppvIF as any ptr ptr) as HRESULT
 	RenderDvdVideoVolume as function(byval This as IDvdGraphBuilder ptr, byval lpcwszPathName as LPCWSTR, byval dwFlags as DWORD, byval pStatus as AM_DVD_RENDERSTATUS ptr) as HRESULT
@@ -5552,8 +5556,8 @@ extern IID_IDDrawExclModeVideo as const IID
 
 type IDDrawExclModeVideoVtbl
 	QueryInterface as function(byval This as IDDrawExclModeVideo ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDDrawExclModeVideo ptr) as ULONG_
-	Release as function(byval This as IDDrawExclModeVideo ptr) as ULONG_
+	AddRef as function(byval This as IDDrawExclModeVideo ptr) as ULONG
+	Release as function(byval This as IDDrawExclModeVideo ptr) as ULONG
 	SetDDrawObject as function(byval This as IDDrawExclModeVideo ptr, byval pDDrawObject as IDirectDraw ptr) as HRESULT
 	GetDDrawObject as function(byval This as IDDrawExclModeVideo ptr, byval ppDDrawObject as IDirectDraw ptr ptr, byval pbUsingExternal as WINBOOL ptr) as HRESULT
 	SetDDrawSurface as function(byval This as IDDrawExclModeVideo ptr, byval pDDrawSurface as IDirectDrawSurface ptr) as HRESULT
@@ -5598,8 +5602,8 @@ extern IID_IDDrawExclModeVideoCallback as const IID
 
 type IDDrawExclModeVideoCallbackVtbl
 	QueryInterface as function(byval This as IDDrawExclModeVideoCallback ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDDrawExclModeVideoCallback ptr) as ULONG_
-	Release as function(byval This as IDDrawExclModeVideoCallback ptr) as ULONG_
+	AddRef as function(byval This as IDDrawExclModeVideoCallback ptr) as ULONG
+	Release as function(byval This as IDDrawExclModeVideoCallback ptr) as ULONG
 	OnUpdateOverlay as function(byval This as IDDrawExclModeVideoCallback ptr, byval bBefore as WINBOOL, byval dwFlags as DWORD, byval bOldVisible as WINBOOL, byval prcOldSrc as const RECT ptr, byval prcOldDest as const RECT ptr, byval bNewVisible as WINBOOL, byval prcNewSrc as const RECT ptr, byval prcNewDest as const RECT ptr) as HRESULT
 	OnUpdateColorKey as function(byval This as IDDrawExclModeVideoCallback ptr, byval pKey as const COLORKEY ptr, byval dwColor as DWORD) as HRESULT
 	OnUpdateSize as function(byval This as IDDrawExclModeVideoCallback ptr, byval dwWidth as DWORD, byval dwHeight as DWORD, byval dwARWidth as DWORD, byval dwARHeight as DWORD) as HRESULT
@@ -5625,8 +5629,8 @@ extern IID_IPinConnection as const IID
 
 type IPinConnectionVtbl
 	QueryInterface as function(byval This as IPinConnection ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IPinConnection ptr) as ULONG_
-	Release as function(byval This as IPinConnection ptr) as ULONG_
+	AddRef as function(byval This as IPinConnection ptr) as ULONG
+	Release as function(byval This as IPinConnection ptr) as ULONG
 	DynamicQueryAccept as function(byval This as IPinConnection ptr, byval pmt as const AM_MEDIA_TYPE ptr) as HRESULT
 	NotifyEndOfStream as function(byval This as IPinConnection ptr, byval hNotifyEvent as HANDLE) as HRESULT
 	IsEndPin as function(byval This as IPinConnection ptr) as HRESULT
@@ -5652,8 +5656,8 @@ extern IID_IPinFlowControl as const IID
 
 type IPinFlowControlVtbl
 	QueryInterface as function(byval This as IPinFlowControl ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IPinFlowControl ptr) as ULONG_
-	Release as function(byval This as IPinFlowControl ptr) as ULONG_
+	AddRef as function(byval This as IPinFlowControl ptr) as ULONG
+	Release as function(byval This as IPinFlowControl ptr) as ULONG
 	Block as function(byval This as IPinFlowControl ptr, byval dwBlockFlags as DWORD, byval hEvent as HANDLE) as HRESULT
 end type
 
@@ -5699,8 +5703,8 @@ extern IID_IGraphConfig as const IID
 
 type IGraphConfigVtbl
 	QueryInterface as function(byval This as IGraphConfig ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IGraphConfig ptr) as ULONG_
-	Release as function(byval This as IGraphConfig ptr) as ULONG_
+	AddRef as function(byval This as IGraphConfig ptr) as ULONG
+	Release as function(byval This as IGraphConfig ptr) as ULONG
 	Reconnect as function(byval This as IGraphConfig ptr, byval pOutputPin as IPin ptr, byval pInputPin as IPin ptr, byval pmtFirstConnection as const AM_MEDIA_TYPE ptr, byval pUsingFilter as IBaseFilter ptr, byval hAbortEvent as HANDLE, byval dwFlags as DWORD) as HRESULT
 	Reconfigure as function(byval This as IGraphConfig ptr, byval pCallback as IGraphConfigCallback ptr, byval pvContext as PVOID, byval dwFlags as DWORD, byval hAbortEvent as HANDLE) as HRESULT
 	AddFilterToCache as function(byval This as IGraphConfig ptr, byval pFilter as IBaseFilter ptr) as HRESULT
@@ -5744,8 +5748,8 @@ extern IID_IGraphConfigCallback as const IID
 
 type IGraphConfigCallbackVtbl
 	QueryInterface as function(byval This as IGraphConfigCallback ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IGraphConfigCallback ptr) as ULONG_
-	Release as function(byval This as IGraphConfigCallback ptr) as ULONG_
+	AddRef as function(byval This as IGraphConfigCallback ptr) as ULONG
+	Release as function(byval This as IGraphConfigCallback ptr) as ULONG
 	Reconfigure as function(byval This as IGraphConfigCallback ptr, byval pvContext as PVOID, byval dwFlags as DWORD) as HRESULT
 end type
 
@@ -5762,8 +5766,8 @@ extern IID_IFilterChain as const IID
 
 type IFilterChainVtbl
 	QueryInterface as function(byval This as IFilterChain ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IFilterChain ptr) as ULONG_
-	Release as function(byval This as IFilterChain ptr) as ULONG_
+	AddRef as function(byval This as IFilterChain ptr) as ULONG
+	Release as function(byval This as IFilterChain ptr) as ULONG
 	StartChain as function(byval This as IFilterChain ptr, byval pStartFilter as IBaseFilter ptr, byval pEndFilter as IBaseFilter ptr) as HRESULT
 	PauseChain as function(byval This as IFilterChain ptr, byval pStartFilter as IBaseFilter ptr, byval pEndFilter as IBaseFilter ptr) as HRESULT
 	StopChain as function(byval This as IFilterChain ptr, byval pStartFilter as IBaseFilter ptr, byval pEndFilter as IBaseFilter ptr) as HRESULT
@@ -5817,8 +5821,8 @@ extern IID_IVMRImagePresenter as const IID
 
 type IVMRImagePresenterVtbl
 	QueryInterface as function(byval This as IVMRImagePresenter ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IVMRImagePresenter ptr) as ULONG_
-	Release as function(byval This as IVMRImagePresenter ptr) as ULONG_
+	AddRef as function(byval This as IVMRImagePresenter ptr) as ULONG
+	Release as function(byval This as IVMRImagePresenter ptr) as ULONG
 	StartPresenting as function(byval This as IVMRImagePresenter ptr, byval dwUserID as DWORD_PTR) as HRESULT
 	StopPresenting as function(byval This as IVMRImagePresenter ptr, byval dwUserID as DWORD_PTR) as HRESULT
 	PresentImage as function(byval This as IVMRImagePresenter ptr, byval dwUserID as DWORD_PTR, byval lpPresInfo as VMRPRESENTATIONINFO ptr) as HRESULT
@@ -5869,8 +5873,8 @@ extern IID_IVMRSurfaceAllocator as const IID
 
 type IVMRSurfaceAllocatorVtbl
 	QueryInterface as function(byval This as IVMRSurfaceAllocator ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IVMRSurfaceAllocator ptr) as ULONG_
-	Release as function(byval This as IVMRSurfaceAllocator ptr) as ULONG_
+	AddRef as function(byval This as IVMRSurfaceAllocator ptr) as ULONG
+	Release as function(byval This as IVMRSurfaceAllocator ptr) as ULONG
 	AllocateSurface as function(byval This as IVMRSurfaceAllocator ptr, byval dwUserID as DWORD_PTR, byval lpAllocInfo as VMRALLOCATIONINFO ptr, byval lpdwActualBuffers as DWORD ptr, byval lplpSurface as LPDIRECTDRAWSURFACE7 ptr) as HRESULT
 	FreeSurface as function(byval This as IVMRSurfaceAllocator ptr, byval dwID as DWORD_PTR) as HRESULT
 	PrepareSurface as function(byval This as IVMRSurfaceAllocator ptr, byval dwUserID as DWORD_PTR, byval lpSurface as LPDIRECTDRAWSURFACE7, byval dwSurfaceFlags as DWORD) as HRESULT
@@ -5896,13 +5900,13 @@ extern IID_IVMRSurfaceAllocatorNotify as const IID
 
 type IVMRSurfaceAllocatorNotifyVtbl
 	QueryInterface as function(byval This as IVMRSurfaceAllocatorNotify ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IVMRSurfaceAllocatorNotify ptr) as ULONG_
-	Release as function(byval This as IVMRSurfaceAllocatorNotify ptr) as ULONG_
+	AddRef as function(byval This as IVMRSurfaceAllocatorNotify ptr) as ULONG
+	Release as function(byval This as IVMRSurfaceAllocatorNotify ptr) as ULONG
 	AdviseSurfaceAllocator as function(byval This as IVMRSurfaceAllocatorNotify ptr, byval dwUserID as DWORD_PTR, byval lpIVRMSurfaceAllocator as IVMRSurfaceAllocator ptr) as HRESULT
 	SetDDrawDevice as function(byval This as IVMRSurfaceAllocatorNotify ptr, byval lpDDrawDevice as LPDIRECTDRAW7, byval hMonitor as HMONITOR) as HRESULT
 	ChangeDDrawDevice as function(byval This as IVMRSurfaceAllocatorNotify ptr, byval lpDDrawDevice as LPDIRECTDRAW7, byval hMonitor as HMONITOR) as HRESULT
 	RestoreDDrawSurfaces as function(byval This as IVMRSurfaceAllocatorNotify ptr) as HRESULT
-	NotifyEvent as function(byval This as IVMRSurfaceAllocatorNotify ptr, byval EventCode as LONG_, byval Param1 as LONG_PTR, byval Param2 as LONG_PTR) as HRESULT
+	NotifyEvent as function(byval This as IVMRSurfaceAllocatorNotify ptr, byval EventCode as LONG, byval Param1 as LONG_PTR, byval Param2 as LONG_PTR) as HRESULT
 	SetBorderColor as function(byval This as IVMRSurfaceAllocatorNotify ptr, byval clrBorder as COLORREF) as HRESULT
 end type
 
@@ -5918,7 +5922,7 @@ declare function IVMRSurfaceAllocatorNotify_ChangeDDrawDevice_Proxy(byval This a
 declare sub IVMRSurfaceAllocatorNotify_ChangeDDrawDevice_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IVMRSurfaceAllocatorNotify_RestoreDDrawSurfaces_Proxy(byval This as IVMRSurfaceAllocatorNotify ptr) as HRESULT
 declare sub IVMRSurfaceAllocatorNotify_RestoreDDrawSurfaces_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IVMRSurfaceAllocatorNotify_NotifyEvent_Proxy(byval This as IVMRSurfaceAllocatorNotify ptr, byval EventCode as LONG_, byval Param1 as LONG_PTR, byval Param2 as LONG_PTR) as HRESULT
+declare function IVMRSurfaceAllocatorNotify_NotifyEvent_Proxy(byval This as IVMRSurfaceAllocatorNotify ptr, byval EventCode as LONG, byval Param1 as LONG_PTR, byval Param2 as LONG_PTR) as HRESULT
 declare sub IVMRSurfaceAllocatorNotify_NotifyEvent_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IVMRSurfaceAllocatorNotify_SetBorderColor_Proxy(byval This as IVMRSurfaceAllocatorNotify ptr, byval clrBorder as COLORREF) as HRESULT
 declare sub IVMRSurfaceAllocatorNotify_SetBorderColor_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
@@ -5940,11 +5944,11 @@ extern IID_IVMRWindowlessControl as const IID
 
 type IVMRWindowlessControlVtbl
 	QueryInterface as function(byval This as IVMRWindowlessControl ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IVMRWindowlessControl ptr) as ULONG_
-	Release as function(byval This as IVMRWindowlessControl ptr) as ULONG_
-	GetNativeVideoSize as function(byval This as IVMRWindowlessControl ptr, byval lpWidth as LONG_ ptr, byval lpHeight as LONG_ ptr, byval lpARWidth as LONG_ ptr, byval lpARHeight as LONG_ ptr) as HRESULT
-	GetMinIdealVideoSize as function(byval This as IVMRWindowlessControl ptr, byval lpWidth as LONG_ ptr, byval lpHeight as LONG_ ptr) as HRESULT
-	GetMaxIdealVideoSize as function(byval This as IVMRWindowlessControl ptr, byval lpWidth as LONG_ ptr, byval lpHeight as LONG_ ptr) as HRESULT
+	AddRef as function(byval This as IVMRWindowlessControl ptr) as ULONG
+	Release as function(byval This as IVMRWindowlessControl ptr) as ULONG
+	GetNativeVideoSize as function(byval This as IVMRWindowlessControl ptr, byval lpWidth as LONG ptr, byval lpHeight as LONG ptr, byval lpARWidth as LONG ptr, byval lpARHeight as LONG ptr) as HRESULT
+	GetMinIdealVideoSize as function(byval This as IVMRWindowlessControl ptr, byval lpWidth as LONG ptr, byval lpHeight as LONG ptr) as HRESULT
+	GetMaxIdealVideoSize as function(byval This as IVMRWindowlessControl ptr, byval lpWidth as LONG ptr, byval lpHeight as LONG ptr) as HRESULT
 	SetVideoPosition as function(byval This as IVMRWindowlessControl ptr, byval lpSRCRect as const LPRECT, byval lpDSTRect as const LPRECT) as HRESULT
 	GetVideoPosition as function(byval This as IVMRWindowlessControl ptr, byval lpSRCRect as LPRECT, byval lpDSTRect as LPRECT) as HRESULT
 	GetAspectRatioMode as function(byval This as IVMRWindowlessControl ptr, byval lpAspectRatioMode as DWORD ptr) as HRESULT
@@ -5952,7 +5956,7 @@ type IVMRWindowlessControlVtbl
 	SetVideoClippingWindow as function(byval This as IVMRWindowlessControl ptr, byval hwnd as HWND) as HRESULT
 	RepaintVideo as function(byval This as IVMRWindowlessControl ptr, byval hwnd as HWND, byval hdc as HDC) as HRESULT
 	DisplayModeChanged as function(byval This as IVMRWindowlessControl ptr) as HRESULT
-	GetCurrentImage as function(byval This as IVMRWindowlessControl ptr, byval lpDib as BYTE_ ptr ptr) as HRESULT
+	GetCurrentImage as function(byval This as IVMRWindowlessControl ptr, byval lpDib as BYTE ptr ptr) as HRESULT
 	SetBorderColor as function(byval This as IVMRWindowlessControl ptr, byval Clr as COLORREF) as HRESULT
 	GetBorderColor as function(byval This as IVMRWindowlessControl ptr, byval lpClr as COLORREF ptr) as HRESULT
 	SetColorKey as function(byval This as IVMRWindowlessControl ptr, byval Clr as COLORREF) as HRESULT
@@ -5963,11 +5967,11 @@ type IVMRWindowlessControl_
 	lpVtbl as IVMRWindowlessControlVtbl ptr
 end type
 
-declare function IVMRWindowlessControl_GetNativeVideoSize_Proxy(byval This as IVMRWindowlessControl ptr, byval lpWidth as LONG_ ptr, byval lpHeight as LONG_ ptr, byval lpARWidth as LONG_ ptr, byval lpARHeight as LONG_ ptr) as HRESULT
+declare function IVMRWindowlessControl_GetNativeVideoSize_Proxy(byval This as IVMRWindowlessControl ptr, byval lpWidth as LONG ptr, byval lpHeight as LONG ptr, byval lpARWidth as LONG ptr, byval lpARHeight as LONG ptr) as HRESULT
 declare sub IVMRWindowlessControl_GetNativeVideoSize_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IVMRWindowlessControl_GetMinIdealVideoSize_Proxy(byval This as IVMRWindowlessControl ptr, byval lpWidth as LONG_ ptr, byval lpHeight as LONG_ ptr) as HRESULT
+declare function IVMRWindowlessControl_GetMinIdealVideoSize_Proxy(byval This as IVMRWindowlessControl ptr, byval lpWidth as LONG ptr, byval lpHeight as LONG ptr) as HRESULT
 declare sub IVMRWindowlessControl_GetMinIdealVideoSize_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IVMRWindowlessControl_GetMaxIdealVideoSize_Proxy(byval This as IVMRWindowlessControl ptr, byval lpWidth as LONG_ ptr, byval lpHeight as LONG_ ptr) as HRESULT
+declare function IVMRWindowlessControl_GetMaxIdealVideoSize_Proxy(byval This as IVMRWindowlessControl ptr, byval lpWidth as LONG ptr, byval lpHeight as LONG ptr) as HRESULT
 declare sub IVMRWindowlessControl_GetMaxIdealVideoSize_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IVMRWindowlessControl_SetVideoPosition_Proxy(byval This as IVMRWindowlessControl ptr, byval lpSRCRect as const LPRECT, byval lpDSTRect as const LPRECT) as HRESULT
 declare sub IVMRWindowlessControl_SetVideoPosition_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
@@ -5983,7 +5987,7 @@ declare function IVMRWindowlessControl_RepaintVideo_Proxy(byval This as IVMRWind
 declare sub IVMRWindowlessControl_RepaintVideo_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IVMRWindowlessControl_DisplayModeChanged_Proxy(byval This as IVMRWindowlessControl ptr) as HRESULT
 declare sub IVMRWindowlessControl_DisplayModeChanged_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IVMRWindowlessControl_GetCurrentImage_Proxy(byval This as IVMRWindowlessControl ptr, byval lpDib as BYTE_ ptr ptr) as HRESULT
+declare function IVMRWindowlessControl_GetCurrentImage_Proxy(byval This as IVMRWindowlessControl ptr, byval lpDib as BYTE ptr ptr) as HRESULT
 declare sub IVMRWindowlessControl_GetCurrentImage_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IVMRWindowlessControl_SetBorderColor_Proxy(byval This as IVMRWindowlessControl ptr, byval Clr as COLORREF) as HRESULT
 declare sub IVMRWindowlessControl_SetBorderColor_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
@@ -6038,8 +6042,8 @@ extern IID_IVMRMixerControl as const IID
 
 type IVMRMixerControlVtbl
 	QueryInterface as function(byval This as IVMRMixerControl ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IVMRMixerControl ptr) as ULONG_
-	Release as function(byval This as IVMRMixerControl ptr) as ULONG_
+	AddRef as function(byval This as IVMRMixerControl ptr) as ULONG
+	Release as function(byval This as IVMRMixerControl ptr) as ULONG
 	SetAlpha as function(byval This as IVMRMixerControl ptr, byval dwStreamID as DWORD, byval Alpha as single) as HRESULT
 	GetAlpha as function(byval This as IVMRMixerControl ptr, byval dwStreamID as DWORD, byval pAlpha as single ptr) as HRESULT
 	SetZOrder as function(byval This as IVMRMixerControl ptr, byval dwStreamID as DWORD, byval dwZ as DWORD) as HRESULT
@@ -6109,8 +6113,8 @@ extern IID_IVMRMonitorConfig as const IID
 
 type IVMRMonitorConfigVtbl
 	QueryInterface as function(byval This as IVMRMonitorConfig ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IVMRMonitorConfig ptr) as ULONG_
-	Release as function(byval This as IVMRMonitorConfig ptr) as ULONG_
+	AddRef as function(byval This as IVMRMonitorConfig ptr) as ULONG
+	Release as function(byval This as IVMRMonitorConfig ptr) as ULONG
 	SetMonitor as function(byval This as IVMRMonitorConfig ptr, byval pGUID as const VMRGUID ptr) as HRESULT
 	GetMonitor as function(byval This as IVMRMonitorConfig ptr, byval pGUID as VMRGUID ptr) as HRESULT
 	SetDefaultMonitor as function(byval This as IVMRMonitorConfig ptr, byval pGUID as const VMRGUID ptr) as HRESULT
@@ -6172,8 +6176,8 @@ extern IID_IVMRFilterConfig as const IID
 
 type IVMRFilterConfigVtbl
 	QueryInterface as function(byval This as IVMRFilterConfig ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IVMRFilterConfig ptr) as ULONG_
-	Release as function(byval This as IVMRFilterConfig ptr) as ULONG_
+	AddRef as function(byval This as IVMRFilterConfig ptr) as ULONG
+	Release as function(byval This as IVMRFilterConfig ptr) as ULONG
 	SetImageCompositor as function(byval This as IVMRFilterConfig ptr, byval lpVMRImgCompositor as IVMRImageCompositor ptr) as HRESULT
 	SetNumberOfStreams as function(byval This as IVMRFilterConfig ptr, byval dwMaxStreams as DWORD) as HRESULT
 	GetNumberOfStreams as function(byval This as IVMRFilterConfig ptr, byval pdwMaxStreams as DWORD ptr) as HRESULT
@@ -6208,8 +6212,8 @@ extern IID_IVMRAspectRatioControl as const IID
 
 type IVMRAspectRatioControlVtbl
 	QueryInterface as function(byval This as IVMRAspectRatioControl ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IVMRAspectRatioControl ptr) as ULONG_
-	Release as function(byval This as IVMRAspectRatioControl ptr) as ULONG_
+	AddRef as function(byval This as IVMRAspectRatioControl ptr) as ULONG
+	Release as function(byval This as IVMRAspectRatioControl ptr) as ULONG
 	GetAspectRatioMode as function(byval This as IVMRAspectRatioControl ptr, byval lpdwARMode as LPDWORD) as HRESULT
 	SetAspectRatioMode as function(byval This as IVMRAspectRatioControl ptr, byval dwARMode as DWORD) as HRESULT
 end type
@@ -6285,8 +6289,8 @@ extern IID_IVMRDeinterlaceControl as const IID
 
 type IVMRDeinterlaceControlVtbl
 	QueryInterface as function(byval This as IVMRDeinterlaceControl ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IVMRDeinterlaceControl ptr) as ULONG_
-	Release as function(byval This as IVMRDeinterlaceControl ptr) as ULONG_
+	AddRef as function(byval This as IVMRDeinterlaceControl ptr) as ULONG
+	Release as function(byval This as IVMRDeinterlaceControl ptr) as ULONG
 	GetNumberOfDeinterlaceModes as function(byval This as IVMRDeinterlaceControl ptr, byval lpVideoDescription as VMRVideoDesc ptr, byval lpdwNumDeinterlaceModes as LPDWORD, byval lpDeinterlaceModes as LPGUID) as HRESULT
 	GetDeinterlaceModeCaps as function(byval This as IVMRDeinterlaceControl ptr, byval lpDeinterlaceMode as LPGUID, byval lpVideoDescription as VMRVideoDesc ptr, byval lpDeinterlaceCaps as VMRDeinterlaceCaps ptr) as HRESULT
 	GetDeinterlaceMode as function(byval This as IVMRDeinterlaceControl ptr, byval dwStreamID as DWORD, byval lpDeinterlaceMode as LPGUID) as HRESULT
@@ -6343,8 +6347,8 @@ extern IID_IVMRMixerBitmap as const IID
 
 type IVMRMixerBitmapVtbl
 	QueryInterface as function(byval This as IVMRMixerBitmap ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IVMRMixerBitmap ptr) as ULONG_
-	Release as function(byval This as IVMRMixerBitmap ptr) as ULONG_
+	AddRef as function(byval This as IVMRMixerBitmap ptr) as ULONG
+	Release as function(byval This as IVMRMixerBitmap ptr) as ULONG
 	SetAlphaBitmap as function(byval This as IVMRMixerBitmap ptr, byval pBmpParms as const VMRALPHABITMAP ptr) as HRESULT
 	UpdateAlphaBitmapParameters as function(byval This as IVMRMixerBitmap ptr, byval pBmpParms as PVMRALPHABITMAP) as HRESULT
 	GetAlphaBitmapParameters as function(byval This as IVMRMixerBitmap ptr, byval pBmpParms as PVMRALPHABITMAP) as HRESULT
@@ -6382,8 +6386,8 @@ extern IID_IVMRImageCompositor as const IID
 
 type IVMRImageCompositorVtbl
 	QueryInterface as function(byval This as IVMRImageCompositor ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IVMRImageCompositor ptr) as ULONG_
-	Release as function(byval This as IVMRImageCompositor ptr) as ULONG_
+	AddRef as function(byval This as IVMRImageCompositor ptr) as ULONG
+	Release as function(byval This as IVMRImageCompositor ptr) as ULONG
 	InitCompositionTarget as function(byval This as IVMRImageCompositor ptr, byval pD3DDevice as IUnknown ptr, byval pddsRenderTarget as LPDIRECTDRAWSURFACE7) as HRESULT
 	TermCompositionTarget as function(byval This as IVMRImageCompositor ptr, byval pD3DDevice as IUnknown ptr, byval pddsRenderTarget as LPDIRECTDRAWSURFACE7) as HRESULT
 	SetStreamMediaType as function(byval This as IVMRImageCompositor ptr, byval dwStrmID as DWORD, byval pmt as AM_MEDIA_TYPE ptr, byval fTexture as WINBOOL) as HRESULT
@@ -6409,8 +6413,8 @@ extern IID_IVMRVideoStreamControl as const IID
 
 type IVMRVideoStreamControlVtbl
 	QueryInterface as function(byval This as IVMRVideoStreamControl ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IVMRVideoStreamControl ptr) as ULONG_
-	Release as function(byval This as IVMRVideoStreamControl ptr) as ULONG_
+	AddRef as function(byval This as IVMRVideoStreamControl ptr) as ULONG
+	Release as function(byval This as IVMRVideoStreamControl ptr) as ULONG
 	SetColorKey as function(byval This as IVMRVideoStreamControl ptr, byval lpClrKey as LPDDCOLORKEY) as HRESULT
 	GetColorKey as function(byval This as IVMRVideoStreamControl ptr, byval lpClrKey as LPDDCOLORKEY) as HRESULT
 	SetStreamActiveState as function(byval This as IVMRVideoStreamControl ptr, byval fActive as WINBOOL) as HRESULT
@@ -6436,10 +6440,10 @@ extern IID_IVMRSurface as const IID
 
 type IVMRSurfaceVtbl
 	QueryInterface as function(byval This as IVMRSurface ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IVMRSurface ptr) as ULONG_
-	Release as function(byval This as IVMRSurface ptr) as ULONG_
+	AddRef as function(byval This as IVMRSurface ptr) as ULONG
+	Release as function(byval This as IVMRSurface ptr) as ULONG
 	IsSurfaceLocked as function(byval This as IVMRSurface ptr) as HRESULT
-	LockSurface as function(byval This as IVMRSurface ptr, byval lpSurface as BYTE_ ptr ptr) as HRESULT
+	LockSurface as function(byval This as IVMRSurface ptr, byval lpSurface as BYTE ptr ptr) as HRESULT
 	UnlockSurface as function(byval This as IVMRSurface ptr) as HRESULT
 	GetSurface as function(byval This as IVMRSurface ptr, byval lplpSurface as LPDIRECTDRAWSURFACE7 ptr) as HRESULT
 end type
@@ -6450,7 +6454,7 @@ end type
 
 declare function IVMRSurface_IsSurfaceLocked_Proxy(byval This as IVMRSurface ptr) as HRESULT
 declare sub IVMRSurface_IsSurfaceLocked_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IVMRSurface_LockSurface_Proxy(byval This as IVMRSurface ptr, byval lpSurface as BYTE_ ptr ptr) as HRESULT
+declare function IVMRSurface_LockSurface_Proxy(byval This as IVMRSurface ptr, byval lpSurface as BYTE ptr ptr) as HRESULT
 declare sub IVMRSurface_LockSurface_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IVMRSurface_UnlockSurface_Proxy(byval This as IVMRSurface ptr) as HRESULT
 declare sub IVMRSurface_UnlockSurface_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
@@ -6463,8 +6467,8 @@ extern IID_IVMRImagePresenterConfig as const IID
 
 type IVMRImagePresenterConfigVtbl
 	QueryInterface as function(byval This as IVMRImagePresenterConfig ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IVMRImagePresenterConfig ptr) as ULONG_
-	Release as function(byval This as IVMRImagePresenterConfig ptr) as ULONG_
+	AddRef as function(byval This as IVMRImagePresenterConfig ptr) as ULONG
+	Release as function(byval This as IVMRImagePresenterConfig ptr) as ULONG
 	SetRenderingPrefs as function(byval This as IVMRImagePresenterConfig ptr, byval dwRenderFlags as DWORD) as HRESULT
 	GetRenderingPrefs as function(byval This as IVMRImagePresenterConfig ptr, byval dwRenderFlags as DWORD ptr) as HRESULT
 end type
@@ -6484,8 +6488,8 @@ extern IID_IVMRImagePresenterExclModeConfig as const IID
 
 type IVMRImagePresenterExclModeConfigVtbl
 	QueryInterface as function(byval This as IVMRImagePresenterExclModeConfig ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IVMRImagePresenterExclModeConfig ptr) as ULONG_
-	Release as function(byval This as IVMRImagePresenterExclModeConfig ptr) as ULONG_
+	AddRef as function(byval This as IVMRImagePresenterExclModeConfig ptr) as ULONG
+	Release as function(byval This as IVMRImagePresenterExclModeConfig ptr) as ULONG
 	SetRenderingPrefs as function(byval This as IVMRImagePresenterExclModeConfig ptr, byval dwRenderFlags as DWORD) as HRESULT
 	GetRenderingPrefs as function(byval This as IVMRImagePresenterExclModeConfig ptr, byval dwRenderFlags as DWORD ptr) as HRESULT
 	SetXlcModeDDObjAndPrimarySurface as function(byval This as IVMRImagePresenterExclModeConfig ptr, byval lpDDObj as LPDIRECTDRAW7, byval lpPrimarySurf as LPDIRECTDRAWSURFACE7) as HRESULT
@@ -6507,8 +6511,8 @@ extern IID_IVPManager as const IID
 
 type IVPManagerVtbl
 	QueryInterface as function(byval This as IVPManager ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IVPManager ptr) as ULONG_
-	Release as function(byval This as IVPManager ptr) as ULONG_
+	AddRef as function(byval This as IVPManager ptr) as ULONG
+	Release as function(byval This as IVPManager ptr) as ULONG
 	SetVideoPortIndex as function(byval This as IVPManager ptr, byval dwVideoPortIndex as DWORD) as HRESULT
 	GetVideoPortIndex as function(byval This as IVPManager ptr, byval pdwVideoPortIndex as DWORD ptr) as HRESULT
 end type

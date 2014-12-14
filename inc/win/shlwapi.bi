@@ -597,8 +597,8 @@ type SRRF as DWORD
 #define SRRF_NOEXPAND &h10000000
 #define SRRF_ZEROONFAILURE &h20000000
 
-declare function SHRegGetValueA(byval hkey as HKEY, byval pszSubKey as LPCSTR, byval pszValue as LPCSTR, byval dwFlags as SRRF, byval pdwType as DWORD ptr, byval pvData as any ptr, byval pcbData as DWORD ptr) as LONG_
-declare function SHRegGetValueW(byval hkey as HKEY, byval pszSubKey as LPCWSTR, byval pszValue as LPCWSTR, byval dwFlags as SRRF, byval pdwType as DWORD ptr, byval pvData as any ptr, byval pcbData as DWORD ptr) as LONG_
+declare function SHRegGetValueA(byval hkey as HKEY, byval pszSubKey as LPCSTR, byval pszValue as LPCSTR, byval dwFlags as SRRF, byval pdwType as DWORD ptr, byval pvData as any ptr, byval pcbData as DWORD ptr) as LONG
+declare function SHRegGetValueW(byval hkey as HKEY, byval pszSubKey as LPCWSTR, byval pszValue as LPCWSTR, byval dwFlags as SRRF, byval pdwType as DWORD ptr, byval pvData as any ptr, byval pcbData as DWORD ptr) as LONG
 
 #define SHRegGetValue __MINGW_NAME_AW(SHRegGetValue)
 #define SHQueryValueEx __MINGW_NAME_AW(SHQueryValueEx)
@@ -611,12 +611,12 @@ declare function SHRegGetValueW(byval hkey as HKEY, byval pszSubKey as LPCWSTR, 
 
 declare function SHQueryValueExA(byval hkey as HKEY, byval pszValue as LPCSTR, byval pdwReserved as DWORD ptr, byval pdwType as DWORD ptr, byval pvData as any ptr, byval pcbData as DWORD ptr) as DWORD
 declare function SHQueryValueExW(byval hkey as HKEY, byval pszValue as LPCWSTR, byval pdwReserved as DWORD ptr, byval pdwType as DWORD ptr, byval pvData as any ptr, byval pcbData as DWORD ptr) as DWORD
-declare function SHEnumKeyExA(byval hkey as HKEY, byval dwIndex as DWORD, byval pszName as LPSTR, byval pcchName as LPDWORD) as LONG_
-declare function SHEnumKeyExW(byval hkey as HKEY, byval dwIndex as DWORD, byval pszName as LPWSTR, byval pcchName as LPDWORD) as LONG_
-declare function SHEnumValueA(byval hkey as HKEY, byval dwIndex as DWORD, byval pszValueName as LPSTR, byval pcchValueName as LPDWORD, byval pdwType as LPDWORD, byval pvData as any ptr, byval pcbData as LPDWORD) as LONG_
-declare function SHEnumValueW(byval hkey as HKEY, byval dwIndex as DWORD, byval pszValueName as LPWSTR, byval pcchValueName as LPDWORD, byval pdwType as LPDWORD, byval pvData as any ptr, byval pcbData as LPDWORD) as LONG_
-declare function SHQueryInfoKeyA(byval hkey as HKEY, byval pcSubKeys as LPDWORD, byval pcchMaxSubKeyLen as LPDWORD, byval pcValues as LPDWORD, byval pcchMaxValueNameLen as LPDWORD) as LONG_
-declare function SHQueryInfoKeyW(byval hkey as HKEY, byval pcSubKeys as LPDWORD, byval pcchMaxSubKeyLen as LPDWORD, byval pcValues as LPDWORD, byval pcchMaxValueNameLen as LPDWORD) as LONG_
+declare function SHEnumKeyExA(byval hkey as HKEY, byval dwIndex as DWORD, byval pszName as LPSTR, byval pcchName as LPDWORD) as LONG
+declare function SHEnumKeyExW(byval hkey as HKEY, byval dwIndex as DWORD, byval pszName as LPWSTR, byval pcchName as LPDWORD) as LONG
+declare function SHEnumValueA(byval hkey as HKEY, byval dwIndex as DWORD, byval pszValueName as LPSTR, byval pcchValueName as LPDWORD, byval pdwType as LPDWORD, byval pvData as any ptr, byval pcbData as LPDWORD) as LONG
+declare function SHEnumValueW(byval hkey as HKEY, byval dwIndex as DWORD, byval pszValueName as LPWSTR, byval pcchValueName as LPDWORD, byval pdwType as LPDWORD, byval pvData as any ptr, byval pcbData as LPDWORD) as LONG
+declare function SHQueryInfoKeyA(byval hkey as HKEY, byval pcSubKeys as LPDWORD, byval pcchMaxSubKeyLen as LPDWORD, byval pcValues as LPDWORD, byval pcchMaxValueNameLen as LPDWORD) as LONG
+declare function SHQueryInfoKeyW(byval hkey as HKEY, byval pcSubKeys as LPDWORD, byval pcchMaxSubKeyLen as LPDWORD, byval pcValues as LPDWORD, byval pcchMaxValueNameLen as LPDWORD) as LONG
 declare function SHCopyKeyA(byval hkeySrc as HKEY, byval szSrcSubKey as LPCSTR, byval hkeyDest as HKEY, byval fReserved as DWORD) as DWORD
 declare function SHCopyKeyW(byval hkeySrc as HKEY, byval wszSrcSubKey as LPCWSTR, byval hkeyDest as HKEY, byval fReserved as DWORD) as DWORD
 declare function SHRegGetPathA(byval hKey as HKEY, byval pcszSubKey as LPCSTR, byval pcszValue as LPCSTR, byval pszPath as LPSTR, byval dwFlags as DWORD) as DWORD
@@ -649,29 +649,29 @@ end enum
 type HUSKEY as HANDLE
 type PHUSKEY as HUSKEY ptr
 
-declare function SHRegCreateUSKeyA(byval pszPath as LPCSTR, byval samDesired as REGSAM, byval hRelativeUSKey as HUSKEY, byval phNewUSKey as PHUSKEY, byval dwFlags as DWORD) as LONG_
-declare function SHRegCreateUSKeyW(byval pwzPath as LPCWSTR, byval samDesired as REGSAM, byval hRelativeUSKey as HUSKEY, byval phNewUSKey as PHUSKEY, byval dwFlags as DWORD) as LONG_
-declare function SHRegOpenUSKeyA(byval pszPath as LPCSTR, byval samDesired as REGSAM, byval hRelativeUSKey as HUSKEY, byval phNewUSKey as PHUSKEY, byval fIgnoreHKCU as WINBOOL) as LONG_
-declare function SHRegOpenUSKeyW(byval pwzPath as LPCWSTR, byval samDesired as REGSAM, byval hRelativeUSKey as HUSKEY, byval phNewUSKey as PHUSKEY, byval fIgnoreHKCU as WINBOOL) as LONG_
-declare function SHRegQueryUSValueA(byval hUSKey as HUSKEY, byval pszValue as LPCSTR, byval pdwType as LPDWORD, byval pvData as any ptr, byval pcbData as LPDWORD, byval fIgnoreHKCU as WINBOOL, byval pvDefaultData as any ptr, byval dwDefaultDataSize as DWORD) as LONG_
-declare function SHRegQueryUSValueW(byval hUSKey as HUSKEY, byval pwzValue as LPCWSTR, byval pdwType as LPDWORD, byval pvData as any ptr, byval pcbData as LPDWORD, byval fIgnoreHKCU as WINBOOL, byval pvDefaultData as any ptr, byval dwDefaultDataSize as DWORD) as LONG_
-declare function SHRegWriteUSValueA(byval hUSKey as HUSKEY, byval pszValue as LPCSTR, byval dwType as DWORD, byval pvData as const any ptr, byval cbData as DWORD, byval dwFlags as DWORD) as LONG_
-declare function SHRegWriteUSValueW(byval hUSKey as HUSKEY, byval pwzValue as LPCWSTR, byval dwType as DWORD, byval pvData as const any ptr, byval cbData as DWORD, byval dwFlags as DWORD) as LONG_
-declare function SHRegDeleteUSValueA(byval hUSKey as HUSKEY, byval pszValue as LPCSTR, byval delRegFlags as SHREGDEL_FLAGS) as LONG_
-declare function SHRegDeleteEmptyUSKeyW(byval hUSKey as HUSKEY, byval pwzSubKey as LPCWSTR, byval delRegFlags as SHREGDEL_FLAGS) as LONG_
-declare function SHRegDeleteEmptyUSKeyA(byval hUSKey as HUSKEY, byval pszSubKey as LPCSTR, byval delRegFlags as SHREGDEL_FLAGS) as LONG_
-declare function SHRegDeleteUSValueW(byval hUSKey as HUSKEY, byval pwzValue as LPCWSTR, byval delRegFlags as SHREGDEL_FLAGS) as LONG_
-declare function SHRegEnumUSKeyA(byval hUSKey as HUSKEY, byval dwIndex as DWORD, byval pszName as LPSTR, byval pcchName as LPDWORD, byval enumRegFlags as SHREGENUM_FLAGS) as LONG_
-declare function SHRegEnumUSKeyW(byval hUSKey as HUSKEY, byval dwIndex as DWORD, byval pwzName as LPWSTR, byval pcchName as LPDWORD, byval enumRegFlags as SHREGENUM_FLAGS) as LONG_
-declare function SHRegEnumUSValueA(byval hUSkey as HUSKEY, byval dwIndex as DWORD, byval pszValueName as LPSTR, byval pcchValueName as LPDWORD, byval pdwType as LPDWORD, byval pvData as any ptr, byval pcbData as LPDWORD, byval enumRegFlags as SHREGENUM_FLAGS) as LONG_
-declare function SHRegEnumUSValueW(byval hUSkey as HUSKEY, byval dwIndex as DWORD, byval pszValueName as LPWSTR, byval pcchValueName as LPDWORD, byval pdwType as LPDWORD, byval pvData as any ptr, byval pcbData as LPDWORD, byval enumRegFlags as SHREGENUM_FLAGS) as LONG_
-declare function SHRegQueryInfoUSKeyA(byval hUSKey as HUSKEY, byval pcSubKeys as LPDWORD, byval pcchMaxSubKeyLen as LPDWORD, byval pcValues as LPDWORD, byval pcchMaxValueNameLen as LPDWORD, byval enumRegFlags as SHREGENUM_FLAGS) as LONG_
-declare function SHRegQueryInfoUSKeyW(byval hUSKey as HUSKEY, byval pcSubKeys as LPDWORD, byval pcchMaxSubKeyLen as LPDWORD, byval pcValues as LPDWORD, byval pcchMaxValueNameLen as LPDWORD, byval enumRegFlags as SHREGENUM_FLAGS) as LONG_
-declare function SHRegCloseUSKey(byval hUSKey as HUSKEY) as LONG_
-declare function SHRegGetUSValueA(byval pszSubKey as LPCSTR, byval pszValue as LPCSTR, byval pdwType as LPDWORD, byval pvData as any ptr, byval pcbData as LPDWORD, byval fIgnoreHKCU as WINBOOL, byval pvDefaultData as any ptr, byval dwDefaultDataSize as DWORD) as LONG_
-declare function SHRegGetUSValueW(byval pwzSubKey as LPCWSTR, byval pwzValue as LPCWSTR, byval pdwType as LPDWORD, byval pvData as any ptr, byval pcbData as LPDWORD, byval fIgnoreHKCU as WINBOOL, byval pvDefaultData as any ptr, byval dwDefaultDataSize as DWORD) as LONG_
-declare function SHRegSetUSValueA(byval pszSubKey as LPCSTR, byval pszValue as LPCSTR, byval dwType as DWORD, byval pvData as const any ptr, byval cbData as DWORD, byval dwFlags as DWORD) as LONG_
-declare function SHRegSetUSValueW(byval pwzSubKey as LPCWSTR, byval pwzValue as LPCWSTR, byval dwType as DWORD, byval pvData as const any ptr, byval cbData as DWORD, byval dwFlags as DWORD) as LONG_
+declare function SHRegCreateUSKeyA(byval pszPath as LPCSTR, byval samDesired as REGSAM, byval hRelativeUSKey as HUSKEY, byval phNewUSKey as PHUSKEY, byval dwFlags as DWORD) as LONG
+declare function SHRegCreateUSKeyW(byval pwzPath as LPCWSTR, byval samDesired as REGSAM, byval hRelativeUSKey as HUSKEY, byval phNewUSKey as PHUSKEY, byval dwFlags as DWORD) as LONG
+declare function SHRegOpenUSKeyA(byval pszPath as LPCSTR, byval samDesired as REGSAM, byval hRelativeUSKey as HUSKEY, byval phNewUSKey as PHUSKEY, byval fIgnoreHKCU as WINBOOL) as LONG
+declare function SHRegOpenUSKeyW(byval pwzPath as LPCWSTR, byval samDesired as REGSAM, byval hRelativeUSKey as HUSKEY, byval phNewUSKey as PHUSKEY, byval fIgnoreHKCU as WINBOOL) as LONG
+declare function SHRegQueryUSValueA(byval hUSKey as HUSKEY, byval pszValue as LPCSTR, byval pdwType as LPDWORD, byval pvData as any ptr, byval pcbData as LPDWORD, byval fIgnoreHKCU as WINBOOL, byval pvDefaultData as any ptr, byval dwDefaultDataSize as DWORD) as LONG
+declare function SHRegQueryUSValueW(byval hUSKey as HUSKEY, byval pwzValue as LPCWSTR, byval pdwType as LPDWORD, byval pvData as any ptr, byval pcbData as LPDWORD, byval fIgnoreHKCU as WINBOOL, byval pvDefaultData as any ptr, byval dwDefaultDataSize as DWORD) as LONG
+declare function SHRegWriteUSValueA(byval hUSKey as HUSKEY, byval pszValue as LPCSTR, byval dwType as DWORD, byval pvData as const any ptr, byval cbData as DWORD, byval dwFlags as DWORD) as LONG
+declare function SHRegWriteUSValueW(byval hUSKey as HUSKEY, byval pwzValue as LPCWSTR, byval dwType as DWORD, byval pvData as const any ptr, byval cbData as DWORD, byval dwFlags as DWORD) as LONG
+declare function SHRegDeleteUSValueA(byval hUSKey as HUSKEY, byval pszValue as LPCSTR, byval delRegFlags as SHREGDEL_FLAGS) as LONG
+declare function SHRegDeleteEmptyUSKeyW(byval hUSKey as HUSKEY, byval pwzSubKey as LPCWSTR, byval delRegFlags as SHREGDEL_FLAGS) as LONG
+declare function SHRegDeleteEmptyUSKeyA(byval hUSKey as HUSKEY, byval pszSubKey as LPCSTR, byval delRegFlags as SHREGDEL_FLAGS) as LONG
+declare function SHRegDeleteUSValueW(byval hUSKey as HUSKEY, byval pwzValue as LPCWSTR, byval delRegFlags as SHREGDEL_FLAGS) as LONG
+declare function SHRegEnumUSKeyA(byval hUSKey as HUSKEY, byval dwIndex as DWORD, byval pszName as LPSTR, byval pcchName as LPDWORD, byval enumRegFlags as SHREGENUM_FLAGS) as LONG
+declare function SHRegEnumUSKeyW(byval hUSKey as HUSKEY, byval dwIndex as DWORD, byval pwzName as LPWSTR, byval pcchName as LPDWORD, byval enumRegFlags as SHREGENUM_FLAGS) as LONG
+declare function SHRegEnumUSValueA(byval hUSkey as HUSKEY, byval dwIndex as DWORD, byval pszValueName as LPSTR, byval pcchValueName as LPDWORD, byval pdwType as LPDWORD, byval pvData as any ptr, byval pcbData as LPDWORD, byval enumRegFlags as SHREGENUM_FLAGS) as LONG
+declare function SHRegEnumUSValueW(byval hUSkey as HUSKEY, byval dwIndex as DWORD, byval pszValueName as LPWSTR, byval pcchValueName as LPDWORD, byval pdwType as LPDWORD, byval pvData as any ptr, byval pcbData as LPDWORD, byval enumRegFlags as SHREGENUM_FLAGS) as LONG
+declare function SHRegQueryInfoUSKeyA(byval hUSKey as HUSKEY, byval pcSubKeys as LPDWORD, byval pcchMaxSubKeyLen as LPDWORD, byval pcValues as LPDWORD, byval pcchMaxValueNameLen as LPDWORD, byval enumRegFlags as SHREGENUM_FLAGS) as LONG
+declare function SHRegQueryInfoUSKeyW(byval hUSKey as HUSKEY, byval pcSubKeys as LPDWORD, byval pcchMaxSubKeyLen as LPDWORD, byval pcValues as LPDWORD, byval pcchMaxValueNameLen as LPDWORD, byval enumRegFlags as SHREGENUM_FLAGS) as LONG
+declare function SHRegCloseUSKey(byval hUSKey as HUSKEY) as LONG
+declare function SHRegGetUSValueA(byval pszSubKey as LPCSTR, byval pszValue as LPCSTR, byval pdwType as LPDWORD, byval pvData as any ptr, byval pcbData as LPDWORD, byval fIgnoreHKCU as WINBOOL, byval pvDefaultData as any ptr, byval dwDefaultDataSize as DWORD) as LONG
+declare function SHRegGetUSValueW(byval pwzSubKey as LPCWSTR, byval pwzValue as LPCWSTR, byval pdwType as LPDWORD, byval pvData as any ptr, byval pcbData as LPDWORD, byval fIgnoreHKCU as WINBOOL, byval pvDefaultData as any ptr, byval dwDefaultDataSize as DWORD) as LONG
+declare function SHRegSetUSValueA(byval pszSubKey as LPCSTR, byval pszValue as LPCSTR, byval dwType as DWORD, byval pvData as const any ptr, byval cbData as DWORD, byval dwFlags as DWORD) as LONG
+declare function SHRegSetUSValueW(byval pwzSubKey as LPCWSTR, byval pwzValue as LPCWSTR, byval dwType as DWORD, byval pvData as const any ptr, byval cbData as DWORD, byval dwFlags as DWORD) as LONG
 declare function SHRegGetIntW(byval hk as HKEY, byval pwzKey as LPCWSTR, byval iDefault as long) as long
 
 #define SHRegCreateUSKey __MINGW_NAME_AW(SHRegCreateUSKey)
@@ -760,8 +760,8 @@ end type
 
 type IQueryAssociationsVtbl_ field = 8
 	QueryInterface as function(byval This as IQueryAssociations ptr, byval riid as const IID const ptr, byval ppv as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IQueryAssociations ptr) as ULONG_
-	Release as function(byval This as IQueryAssociations ptr) as ULONG_
+	AddRef as function(byval This as IQueryAssociations ptr) as ULONG
+	Release as function(byval This as IQueryAssociations ptr) as ULONG
 	Init as function(byval This as IQueryAssociations ptr, byval flags as ASSOCF, byval pszAssoc as LPCWSTR, byval hkProgid as HKEY, byval hwnd as HWND) as HRESULT
 	GetString as function(byval This as IQueryAssociations ptr, byval flags as ASSOCF, byval str_ as ASSOCSTR, byval pszExtra as LPCWSTR, byval pszOut as LPWSTR, byval pcchOut as DWORD ptr) as HRESULT
 	GetKey as function(byval This as IQueryAssociations ptr, byval flags as ASSOCF, byval key as ASSOCKEY, byval pszExtra as LPCWSTR, byval phkeyOut as HKEY ptr) as HRESULT

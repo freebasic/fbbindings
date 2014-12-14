@@ -23,15 +23,12 @@ type IAVIFileVtbl as IAVIFileVtbl_
 type IGetFrameVtbl as IGetFrameVtbl_
 
 #define _INC_VFW
-#define VFWAPI WINAPI
-#define VFWAPIV WINAPIV
-#define VFWAPI_INLINE WINAPI
 
 declare function VideoForWindowsVersion() as DWORD
-declare function InitVFW() as LONG_
-declare function TermVFW() as LONG_
+declare function InitVFW() as LONG
+declare function TermVFW() as LONG
 
-#define MKFOURCC(ch0, ch1, ch2, ch3) cast(DWORD, cast(BYTE_, (((ch0) or cast(DWORD, cast(BYTE_, (ch1) shl 8))) or cast(DWORD, cast(BYTE_, (ch2) shl 16))) or cast(DWORD, cast(BYTE_, (ch3) shl 24))))
+#define MKFOURCC(ch0, ch1, ch2, ch3) cast(DWORD, cast(BYTE, (((ch0) or cast(DWORD, cast(BYTE, (ch1) shl 8))) or cast(DWORD, cast(BYTE, (ch2) shl 16))) or cast(DWORD, cast(BYTE, (ch3) shl 24))))
 #define ICVERSION &h0104
 
 type HIC__
@@ -41,7 +38,7 @@ end type
 type HIC as HIC__ ptr
 
 #define BI_1632 &h32333631
-#define aviTWOCC(ch0, ch1) cast(WORD, cast(BYTE_, (ch0) or cast(WORD, cast(BYTE_, (ch1) shl 8))))
+#define aviTWOCC(ch0, ch1) cast(WORD, cast(BYTE, (ch0) or cast(WORD, cast(BYTE, (ch1) shl 8))))
 #define ICTYPE_VIDEO mmioFOURCC(asc("v"), asc("i"), asc("d"), asc("c"))
 #define ICTYPE_AUDIO mmioFOURCC(asc("a"), asc("u"), asc("d"), asc("c"))
 #define ICERR_OK __MSABI_LONG(0)
@@ -178,7 +175,7 @@ type ICCOMPRESS
 	lpInput as LPVOID
 	lpckid as LPDWORD
 	lpdwFlags as LPDWORD
-	lFrameNum as LONG_
+	lFrameNum as LONG
 	dwFrameSize as DWORD
 	dwQuality as DWORD
 	lpbiPrev as LPBITMAPINFOHEADER
@@ -193,17 +190,17 @@ type ICCOMPRESSFRAMES
 	lOutput as LPARAM
 	lpbiInput as LPBITMAPINFOHEADER
 	lInput as LPARAM
-	lStartFrame as LONG_
-	lFrameCount as LONG_
-	lQuality as LONG_
-	lDataRate as LONG_
-	lKeyRate as LONG_
+	lStartFrame as LONG
+	lFrameCount as LONG
+	lQuality as LONG
+	lDataRate as LONG
+	lKeyRate as LONG
 	dwRate as DWORD
 	dwScale as DWORD
 	dwOverheadPerFrame as DWORD
 	dwReserved2 as DWORD
-	GetData as function(byval lInput as LPARAM, byval lFrame as LONG_, byval lpBits as LPVOID, byval len_ as LONG_) as LONG_
-	PutData as function(byval lOutput as LPARAM, byval lFrame as LONG_, byval lpBits as LPVOID, byval len_ as LONG_) as LONG_
+	GetData as function(byval lInput as LPARAM, byval lFrame as LONG, byval lpBits as LPVOID, byval len_ as LONG) as LONG
+	PutData as function(byval lOutput as LPARAM, byval lFrame as LONG, byval lpBits as LPVOID, byval len_ as LONG) as LONG
 end type
 
 #define ICSTATUS_START 0
@@ -215,7 +212,7 @@ end type
 type ICSETSTATUSPROC
 	dwFlags as DWORD
 	lParam as LPARAM
-	Status as function(byval lParam as LPARAM, byval message as UINT, byval l as LONG_) as LONG_
+	Status as function(byval lParam as LPARAM, byval message as UINT, byval l as LONG) as LONG
 end type
 
 #define ICDECOMPRESS_UPDATE __MSABI_LONG(&h40000000)
@@ -282,7 +279,7 @@ type ICDRAW
 	lpFormat as LPVOID
 	lpData as LPVOID
 	cbData as DWORD
-	lTime as LONG_
+	lTime as LONG
 end type
 
 type ICDRAWSUGGEST
@@ -328,12 +325,11 @@ declare function ICSendMessage(byval hic as HIC, byval msg as UINT, byval dw1 as
 
 dim shared dwICValue as DWORD
 
-'' TODO: #define ICGetDefaultQuality(hic) (ICSendMessage(hic,ICM_GETDEFAULTQUALITY,(DWORD_PTR)(LPVOID)&dwICValue,sizeof(DWORD)),dwICValue)
-'' TODO: #define ICGetDefaultKeyFrameRate(hic) (ICSendMessage(hic,ICM_GETDEFAULTKEYFRAMERATE,(DWORD_PTR)(LPVOID)&dwICValue,sizeof(DWORD)),dwICValue)
-
+#define ICGetDefaultQuality(hic) '' TODO: (ICSendMessage(hic,ICM_GETDEFAULTQUALITY,(DWORD_PTR)(LPVOID)&dwICValue,sizeof(DWORD)),dwICValue)
+#define ICGetDefaultKeyFrameRate(hic) '' TODO: (ICSendMessage(hic,ICM_GETDEFAULTKEYFRAMERATE,(DWORD_PTR)(LPVOID)&dwICValue,sizeof(DWORD)),dwICValue)
 #define ICDrawWindow(hic, prc) ICSendMessage(hic, ICM_DRAW_WINDOW, cast(DWORD_PTR, cast(LPVOID, (prc))), sizeof(RECT))
 
-declare function ICCompress cdecl(byval hic as HIC, byval dwFlags as DWORD, byval lpbiOutput as LPBITMAPINFOHEADER, byval lpData as LPVOID, byval lpbiInput as LPBITMAPINFOHEADER, byval lpBits as LPVOID, byval lpckid as LPDWORD, byval lpdwFlags as LPDWORD, byval lFrameNum as LONG_, byval dwFrameSize as DWORD, byval dwQuality as DWORD, byval lpbiPrev as LPBITMAPINFOHEADER, byval lpPrev as LPVOID) as DWORD
+declare function ICCompress cdecl(byval hic as HIC, byval dwFlags as DWORD, byval lpbiOutput as LPBITMAPINFOHEADER, byval lpData as LPVOID, byval lpbiInput as LPBITMAPINFOHEADER, byval lpBits as LPVOID, byval lpckid as LPDWORD, byval lpdwFlags as LPDWORD, byval lFrameNum as LONG, byval dwFrameSize as DWORD, byval dwQuality as DWORD, byval lpbiPrev as LPBITMAPINFOHEADER, byval lpPrev as LPVOID) as DWORD
 
 #define ICCompressBegin(hic, lpbiInput, lpbiOutput) ICSendMessage(hic, ICM_COMPRESS_BEGIN, cast(DWORD_PTR, cast(LPVOID, (lpbiInput))), cast(DWORD_PTR, cast(LPVOID, (lpbiOutput))))
 #define ICCompressQuery(hic, lpbiInput, lpbiOutput) ICSendMessage(hic, ICM_COMPRESS_QUERY, cast(DWORD_PTR, cast(LPVOID, (lpbiInput))), cast(DWORD_PTR, cast(LPVOID, (lpbiOutput))))
@@ -347,7 +343,7 @@ declare function ICDecompress cdecl(byval hic as HIC, byval dwFlags as DWORD, by
 
 #define ICDecompressBegin(hic, lpbiInput, lpbiOutput) ICSendMessage(hic, ICM_DECOMPRESS_BEGIN, cast(DWORD_PTR, cast(LPVOID, (lpbiInput))), cast(DWORD_PTR, cast(LPVOID, (lpbiOutput))))
 #define ICDecompressQuery(hic, lpbiInput, lpbiOutput) ICSendMessage(hic, ICM_DECOMPRESS_QUERY, cast(DWORD_PTR, cast(LPVOID, (lpbiInput))), cast(DWORD_PTR, cast(LPVOID, (lpbiOutput))))
-#define ICDecompressGetFormat(hic, lpbiInput, lpbiOutput) cast(LONG_, ICSendMessage(hic, ICM_DECOMPRESS_GET_FORMAT, cast(DWORD_PTR, cast(LPVOID, (lpbiInput))), cast(DWORD_PTR, cast(LPVOID, (lpbiOutput)))))
+#define ICDecompressGetFormat(hic, lpbiInput, lpbiOutput) cast(LONG, ICSendMessage(hic, ICM_DECOMPRESS_GET_FORMAT, cast(DWORD_PTR, cast(LPVOID, (lpbiInput))), cast(DWORD_PTR, cast(LPVOID, (lpbiOutput)))))
 #define ICDecompressGetFormatSize(hic, lpbi) ICDecompressGetFormat(hic, lpbi, NULL)
 #define ICDecompressGetPalette(hic, lpbiInput, lpbiOutput) ICSendMessage(hic, ICM_DECOMPRESS_GET_PALETTE, cast(DWORD_PTR, cast(LPVOID, (lpbiInput))), cast(DWORD_PTR, cast(LPVOID, (lpbiOutput))))
 #define ICDecompressSetPalette(hic, lpbiPalette) ICSendMessage(hic, ICM_DECOMPRESS_SET_PALETTE, cast(DWORD_PTR, cast(LPVOID, (lpbiPalette))), cast(DWORD_PTR, 0))
@@ -362,7 +358,7 @@ declare function ICDrawBegin cdecl(byval hic as HIC, byval dwFlags as DWORD, byv
 #define ICDRAW_HURRYUP __MSABI_LONG(&h80000000)
 #define ICDRAW_UPDATE __MSABI_LONG(&h40000000)
 
-declare function ICDraw cdecl(byval hic as HIC, byval dwFlags as DWORD, byval lpFormat as LPVOID, byval lpData as LPVOID, byval cbData as DWORD, byval lTime as LONG_) as DWORD
+declare function ICDraw cdecl(byval hic as HIC, byval dwFlags as DWORD, byval lpFormat as LPVOID, byval lpData as LPVOID, byval cbData as DWORD, byval lTime as LONG) as DWORD
 
 #define ICDrawQuery(hic, lpbiInput) ICSendMessage(hic, ICM_DRAW_QUERY, cast(DWORD_PTR, cast(LPVOID, (lpbiInput))), cast(DWORD, 0))
 #define ICDrawChangePalette(hic, lpbiInput) ICSendMessage(hic, ICM_DRAW_CHANGEPALETTE, cast(DWORD_PTR, cast(LPVOID, (lpbiInput))), cast(DWORD, 0))
@@ -382,11 +378,11 @@ declare function ICDraw cdecl(byval hic as HIC, byval dwFlags as DWORD, byval lp
 
 declare function ICLocate(byval fccType as DWORD, byval fccHandler as DWORD, byval lpbiIn as LPBITMAPINFOHEADER, byval lpbiOut as LPBITMAPINFOHEADER, byval wFlags as WORD) as HIC
 declare function ICGetDisplayFormat(byval hic as HIC, byval lpbiIn as LPBITMAPINFOHEADER, byval lpbiOut as LPBITMAPINFOHEADER, byval BitDepth as long, byval dx as long, byval dy as long) as HIC
-declare function ICImageCompress(byval hic as HIC, byval uiFlags as UINT, byval lpbiIn as LPBITMAPINFO, byval lpBits as LPVOID, byval lpbiOut as LPBITMAPINFO, byval lQuality as LONG_, byval plSize as LONG_ ptr) as HANDLE
+declare function ICImageCompress(byval hic as HIC, byval uiFlags as UINT, byval lpbiIn as LPBITMAPINFO, byval lpBits as LPVOID, byval lpbiOut as LPBITMAPINFO, byval lQuality as LONG, byval plSize as LONG ptr) as HANDLE
 declare function ICImageDecompress(byval hic as HIC, byval uiFlags as UINT, byval lpbiIn as LPBITMAPINFO, byval lpBits as LPVOID, byval lpbiOut as LPBITMAPINFO) as HANDLE
 
 type COMPVARS
-	cbSize as LONG_
+	cbSize as LONG
 	dwFlags as DWORD
 	hic as HIC
 	fccType as DWORD
@@ -395,13 +391,13 @@ type COMPVARS
 	lpbiOut as LPBITMAPINFO
 	lpBitsOut as LPVOID
 	lpBitsPrev as LPVOID
-	lFrame as LONG_
-	lKey as LONG_
-	lDataRate as LONG_
-	lQ as LONG_
-	lKeyCount as LONG_
+	lFrame as LONG
+	lKey as LONG
+	lDataRate as LONG
+	lQ as LONG
+	lKeyCount as LONG
 	lpState as LPVOID
-	cbState as LONG_
+	cbState as LONG
 end type
 
 type PCOMPVARS as COMPVARS ptr
@@ -417,7 +413,7 @@ declare function ICCompressorChoose(byval hwnd as HWND, byval uiFlags as UINT, b
 
 declare function ICSeqCompressFrameStart(byval pc as PCOMPVARS, byval lpbiIn as LPBITMAPINFO) as WINBOOL
 declare sub ICSeqCompressFrameEnd(byval pc as PCOMPVARS)
-declare function ICSeqCompressFrame(byval pc as PCOMPVARS, byval uiFlags as UINT, byval lpBits as LPVOID, byval pfKey as WINBOOL ptr, byval plSize as LONG_ ptr) as LPVOID
+declare function ICSeqCompressFrame(byval pc as PCOMPVARS, byval uiFlags as UINT, byval lpBits as LPVOID, byval pfKey as WINBOOL ptr, byval plSize as LONG ptr) as LPVOID
 declare sub ICCompressorFree(byval pc as PCOMPVARS)
 
 type HDRAWDIB as HANDLE
@@ -459,13 +455,13 @@ declare function DrawDibDraw(byval hdd as HDRAWDIB, byval hdc as HDC, byval xDst
 declare function DrawDibEnd(byval hdd as HDRAWDIB) as WINBOOL
 
 type DRAWDIBTIME
-	timeCount as LONG_
-	timeDraw as LONG_
-	timeDecompress as LONG_
-	timeDither as LONG_
-	timeStretch as LONG_
-	timeBlt as LONG_
-	timeSetDIBits as LONG_
+	timeCount as LONG
+	timeDraw as LONG
+	timeDecompress as LONG
+	timeDither as LONG
+	timeStretch as LONG
+	timeBlt as LONG
+	timeSetDIBits as LONG
 end type
 
 type LPDRAWDIBTIME as DRAWDIBTIME ptr
@@ -504,9 +500,9 @@ type TWOCC as WORD
 #define cktypeWAVEbytes aviTWOCC(asc("w"), asc("b"))
 #define ckidAVIPADDING mmioFOURCC(asc("J"), asc("U"), asc("N"), asc("K"))
 #define FromHex(n) iif((n) >= asc("A"), ((n) + 10) - asc("A"), (n) - asc("0"))
-#define StreamFromFOURCC(fcc) cast(WORD, (FromHex(LOBYTE_(LOWORD_(fcc))) shl 4) + FromHex(HIBYTE_(LOWORD_(fcc))))
-#define TWOCCFromFOURCC(fcc) HIWORD_(fcc)
-#define ToHex(n) cast(BYTE_, iif((n) > 9, ((n) - 10) + asc("A"), (n) + asc("0")))
+#define StreamFromFOURCC(fcc) cast(WORD, (FromHex(LOBYTE(LOWORD(fcc))) shl 4) + FromHex(HIBYTE(LOWORD(fcc))))
+#define TWOCCFromFOURCC(fcc) HIWORD(fcc)
+#define ToHex(n) cast(BYTE, iif((n) > 9, ((n) - 10) + asc("A"), (n) + asc("0")))
 #define MAKEAVICKID(tcc, stream) MAKELONG((ToHex((stream) and &h0f) shl 8) or ToHex(((stream) and &hf0) shr 4), tcc)
 #define AVIF_HASINDEX &h00000010
 #define AVIF_MUSTUSEINDEX &h00000020
@@ -566,8 +562,8 @@ type AVIINDEXENTRY
 end type
 
 type AVIPALCHANGE
-	bFirstEntry as BYTE_
-	bNumEntries as BYTE_
+	bFirstEntry as BYTE
+	bNumEntries as BYTE
 	wFlags as WORD
 	peNew(0 to ...) as PALETTEENTRY
 end type
@@ -705,19 +701,19 @@ end type
 
 type IAVIStreamVtbl_ field = 8
 	QueryInterface as function(byval This as IAVIStream ptr, byval riid as const IID const ptr, byval ppvObj as LPVOID ptr) as HRESULT
-	AddRef as function(byval This as IAVIStream ptr) as ULONG_
-	Release as function(byval This as IAVIStream ptr) as ULONG_
+	AddRef as function(byval This as IAVIStream ptr) as ULONG
+	Release as function(byval This as IAVIStream ptr) as ULONG
 	Create as function(byval This as IAVIStream ptr, byval lParam1 as LPARAM, byval lParam2 as LPARAM) as HRESULT
-	Info as function(byval This as IAVIStream ptr, byval psi as AVISTREAMINFOW ptr, byval lSize as LONG_) as HRESULT
-	FindSample as function(byval This as IAVIStream ptr, byval lPos_ as LONG_, byval lFlags as LONG_) as LONG_
-	ReadFormat as function(byval This as IAVIStream ptr, byval lPos_ as LONG_, byval lpFormat as LPVOID, byval lpcbFormat as LONG_ ptr) as HRESULT
-	SetFormat as function(byval This as IAVIStream ptr, byval lPos_ as LONG_, byval lpFormat as LPVOID, byval cbFormat as LONG_) as HRESULT
-	Read as function(byval This as IAVIStream ptr, byval lStart as LONG_, byval lSamples as LONG_, byval lpBuffer as LPVOID, byval cbBuffer as LONG_, byval plBytes as LONG_ ptr, byval plSamples as LONG_ ptr) as HRESULT
-	Write as function(byval This as IAVIStream ptr, byval lStart as LONG_, byval lSamples as LONG_, byval lpBuffer as LPVOID, byval cbBuffer as LONG_, byval dwFlags as DWORD, byval plSampWritten as LONG_ ptr, byval plBytesWritten as LONG_ ptr) as HRESULT
-	Delete as function(byval This as IAVIStream ptr, byval lStart as LONG_, byval lSamples as LONG_) as HRESULT
-	ReadData as function(byval This as IAVIStream ptr, byval fcc as DWORD, byval lp as LPVOID, byval lpcb as LONG_ ptr) as HRESULT
-	WriteData as function(byval This as IAVIStream ptr, byval fcc as DWORD, byval lp as LPVOID, byval cb as LONG_) as HRESULT
-	SetInfo as function(byval This as IAVIStream ptr, byval lpInfo as AVISTREAMINFOW ptr, byval cbInfo as LONG_) as HRESULT
+	Info as function(byval This as IAVIStream ptr, byval psi as AVISTREAMINFOW ptr, byval lSize as LONG) as HRESULT
+	FindSample as function(byval This as IAVIStream ptr, byval lPos_ as LONG, byval lFlags as LONG) as LONG
+	ReadFormat as function(byval This as IAVIStream ptr, byval lPos_ as LONG, byval lpFormat as LPVOID, byval lpcbFormat as LONG ptr) as HRESULT
+	SetFormat as function(byval This as IAVIStream ptr, byval lPos_ as LONG, byval lpFormat as LPVOID, byval cbFormat as LONG) as HRESULT
+	Read as function(byval This as IAVIStream ptr, byval lStart as LONG, byval lSamples as LONG, byval lpBuffer as LPVOID, byval cbBuffer as LONG, byval plBytes as LONG ptr, byval plSamples as LONG ptr) as HRESULT
+	Write as function(byval This as IAVIStream ptr, byval lStart as LONG, byval lSamples as LONG, byval lpBuffer as LPVOID, byval cbBuffer as LONG, byval dwFlags as DWORD, byval plSampWritten as LONG ptr, byval plBytesWritten as LONG ptr) as HRESULT
+	Delete as function(byval This as IAVIStream ptr, byval lStart as LONG, byval lSamples as LONG) as HRESULT
+	ReadData as function(byval This as IAVIStream ptr, byval fcc as DWORD, byval lp as LPVOID, byval lpcb as LONG ptr) as HRESULT
+	WriteData as function(byval This as IAVIStream ptr, byval fcc as DWORD, byval lp as LPVOID, byval cb as LONG) as HRESULT
+	SetInfo as function(byval This as IAVIStream ptr, byval lpInfo as AVISTREAMINFOW ptr, byval cbInfo as LONG) as HRESULT
 end type
 
 type PAVISTREAM as IAVIStream ptr
@@ -728,9 +724,9 @@ end type
 
 type IAVIStreamingVtbl_ field = 8
 	QueryInterface as function(byval This as IAVIStreaming ptr, byval riid as const IID const ptr, byval ppvObj as LPVOID ptr) as HRESULT
-	AddRef as function(byval This as IAVIStreaming ptr) as ULONG_
-	Release as function(byval This as IAVIStreaming ptr) as ULONG_
-	Begin as function(byval This as IAVIStreaming ptr, byval lStart as LONG_, byval lEnd as LONG_, byval lRate as LONG_) as HRESULT
+	AddRef as function(byval This as IAVIStreaming ptr) as ULONG
+	Release as function(byval This as IAVIStreaming ptr) as ULONG
+	Begin as function(byval This as IAVIStreaming ptr, byval lStart as LONG, byval lEnd as LONG, byval lRate as LONG) as HRESULT
 	as function(byval This as IAVIStreaming ptr) as HRESULT End
 end type
 
@@ -742,13 +738,13 @@ end type
 
 type IAVIEditStreamVtbl_ field = 8
 	QueryInterface as function(byval This as IAVIEditStream ptr, byval riid as const IID const ptr, byval ppvObj as LPVOID ptr) as HRESULT
-	AddRef as function(byval This as IAVIEditStream ptr) as ULONG_
-	Release as function(byval This as IAVIEditStream ptr) as ULONG_
-	Cut as function(byval This as IAVIEditStream ptr, byval plStart as LONG_ ptr, byval plLength as LONG_ ptr, byval ppResult as PAVISTREAM ptr) as HRESULT
-	Copy as function(byval This as IAVIEditStream ptr, byval plStart as LONG_ ptr, byval plLength as LONG_ ptr, byval ppResult as PAVISTREAM ptr) as HRESULT
-	Paste as function(byval This as IAVIEditStream ptr, byval plPos as LONG_ ptr, byval plLength as LONG_ ptr, byval pstream as PAVISTREAM, byval lStart as LONG_, byval lEnd as LONG_) as HRESULT
+	AddRef as function(byval This as IAVIEditStream ptr) as ULONG
+	Release as function(byval This as IAVIEditStream ptr) as ULONG
+	Cut as function(byval This as IAVIEditStream ptr, byval plStart as LONG ptr, byval plLength as LONG ptr, byval ppResult as PAVISTREAM ptr) as HRESULT
+	Copy as function(byval This as IAVIEditStream ptr, byval plStart as LONG ptr, byval plLength as LONG ptr, byval ppResult as PAVISTREAM ptr) as HRESULT
+	Paste as function(byval This as IAVIEditStream ptr, byval plPos as LONG ptr, byval plLength as LONG ptr, byval pstream as PAVISTREAM, byval lStart as LONG, byval lEnd as LONG) as HRESULT
 	Clone as function(byval This as IAVIEditStream ptr, byval ppResult as PAVISTREAM ptr) as HRESULT
-	SetInfo as function(byval This as IAVIEditStream ptr, byval lpInfo as AVISTREAMINFOW ptr, byval cbInfo as LONG_) as HRESULT
+	SetInfo as function(byval This as IAVIEditStream ptr, byval lpInfo as AVISTREAMINFOW ptr, byval cbInfo as LONG) as HRESULT
 end type
 
 type PAVIEDITSTREAM as IAVIEditStream ptr
@@ -769,15 +765,15 @@ end type
 
 type IAVIFileVtbl_ field = 8
 	QueryInterface as function(byval This as IAVIFile ptr, byval riid as const IID const ptr, byval ppvObj as LPVOID ptr) as HRESULT
-	AddRef as function(byval This as IAVIFile ptr) as ULONG_
-	Release as function(byval This as IAVIFile ptr) as ULONG_
-	Info as function(byval This as IAVIFile ptr, byval pfi as AVIFILEINFOW ptr, byval lSize as LONG_) as HRESULT
-	GetStream as function(byval This as IAVIFile ptr, byval ppStream as PAVISTREAM ptr, byval fccType as DWORD, byval lParam as LONG_) as HRESULT
+	AddRef as function(byval This as IAVIFile ptr) as ULONG
+	Release as function(byval This as IAVIFile ptr) as ULONG
+	Info as function(byval This as IAVIFile ptr, byval pfi as AVIFILEINFOW ptr, byval lSize as LONG) as HRESULT
+	GetStream as function(byval This as IAVIFile ptr, byval ppStream as PAVISTREAM ptr, byval fccType as DWORD, byval lParam as LONG) as HRESULT
 	CreateStream as function(byval This as IAVIFile ptr, byval ppStream as PAVISTREAM ptr, byval psi as AVISTREAMINFOW ptr) as HRESULT
-	WriteData as function(byval This as IAVIFile ptr, byval ckid as DWORD, byval lpData as LPVOID, byval cbData as LONG_) as HRESULT
-	ReadData as function(byval This as IAVIFile ptr, byval ckid as DWORD, byval lpData as LPVOID, byval lpcbData as LONG_ ptr) as HRESULT
+	WriteData as function(byval This as IAVIFile ptr, byval ckid as DWORD, byval lpData as LPVOID, byval cbData as LONG) as HRESULT
+	ReadData as function(byval This as IAVIFile ptr, byval ckid as DWORD, byval lpData as LPVOID, byval lpcbData as LONG ptr) as HRESULT
 	EndRecord as function(byval This as IAVIFile ptr) as HRESULT
-	DeleteStream as function(byval This as IAVIFile ptr, byval fccType as DWORD, byval lParam as LONG_) as HRESULT
+	DeleteStream as function(byval This as IAVIFile ptr, byval fccType as DWORD, byval lParam as LONG) as HRESULT
 end type
 
 type PAVIFILE as IAVIFile ptr
@@ -788,10 +784,10 @@ end type
 
 type IGetFrameVtbl_ field = 8
 	QueryInterface as function(byval This as IGetFrame ptr, byval riid as const IID const ptr, byval ppvObj as LPVOID ptr) as HRESULT
-	AddRef as function(byval This as IGetFrame ptr) as ULONG_
-	Release as function(byval This as IGetFrame ptr) as ULONG_
-	GetFrame as function(byval This as IGetFrame ptr, byval lPos_ as LONG_) as LPVOID
-	Begin as function(byval This as IGetFrame ptr, byval lStart as LONG_, byval lEnd as LONG_, byval lRate as LONG_) as HRESULT
+	AddRef as function(byval This as IGetFrame ptr) as ULONG
+	Release as function(byval This as IGetFrame ptr) as ULONG
+	GetFrame as function(byval This as IGetFrame ptr, byval lPos_ as LONG) as LPVOID
+	Begin as function(byval This as IGetFrame ptr, byval lStart as LONG, byval lEnd as LONG, byval lRate as LONG) as HRESULT
 	as function(byval This as IGetFrame ptr) as HRESULT End
 	SetFormat as function(byval This as IGetFrame ptr, byval lpbi as LPBITMAPINFOHEADER, byval lpBits as LPVOID, byval x as long, byval y as long, byval dx as long, byval dy as long) as HRESULT
 end type
@@ -824,44 +820,44 @@ extern CLSID_AVIFile as const GUID
 
 declare sub AVIFileInit()
 declare sub AVIFileExit()
-declare function AVIFileAddRef(byval pfile as PAVIFILE) as ULONG_
-declare function AVIFileRelease(byval pfile as PAVIFILE) as ULONG_
+declare function AVIFileAddRef(byval pfile as PAVIFILE) as ULONG
+declare function AVIFileRelease(byval pfile as PAVIFILE) as ULONG
 declare function AVIFileOpenA(byval ppfile as PAVIFILE ptr, byval szFile as LPCSTR, byval uMode as UINT, byval lpHandler as LPCLSID) as HRESULT
 declare function AVIFileOpenW(byval ppfile as PAVIFILE ptr, byval szFile as LPCWSTR, byval uMode as UINT, byval lpHandler as LPCLSID) as HRESULT
-declare function AVIFileInfoW(byval pfile as PAVIFILE, byval pfi as LPAVIFILEINFOW, byval lSize as LONG_) as HRESULT
-declare function AVIFileInfoA(byval pfile as PAVIFILE, byval pfi as LPAVIFILEINFOA, byval lSize as LONG_) as HRESULT
-declare function AVIFileGetStream(byval pfile as PAVIFILE, byval ppavi as PAVISTREAM ptr, byval fccType as DWORD, byval lParam as LONG_) as HRESULT
+declare function AVIFileInfoW(byval pfile as PAVIFILE, byval pfi as LPAVIFILEINFOW, byval lSize as LONG) as HRESULT
+declare function AVIFileInfoA(byval pfile as PAVIFILE, byval pfi as LPAVIFILEINFOA, byval lSize as LONG) as HRESULT
+declare function AVIFileGetStream(byval pfile as PAVIFILE, byval ppavi as PAVISTREAM ptr, byval fccType as DWORD, byval lParam as LONG) as HRESULT
 declare function AVIFileCreateStreamW(byval pfile as PAVIFILE, byval ppavi as PAVISTREAM ptr, byval psi as AVISTREAMINFOW ptr) as HRESULT
 declare function AVIFileCreateStreamA(byval pfile as PAVIFILE, byval ppavi as PAVISTREAM ptr, byval psi as AVISTREAMINFOA ptr) as HRESULT
-declare function AVIFileWriteData(byval pfile as PAVIFILE, byval ckid as DWORD, byval lpData as LPVOID, byval cbData as LONG_) as HRESULT
-declare function AVIFileReadData(byval pfile as PAVIFILE, byval ckid as DWORD, byval lpData as LPVOID, byval lpcbData as LONG_ ptr) as HRESULT
+declare function AVIFileWriteData(byval pfile as PAVIFILE, byval ckid as DWORD, byval lpData as LPVOID, byval cbData as LONG) as HRESULT
+declare function AVIFileReadData(byval pfile as PAVIFILE, byval ckid as DWORD, byval lpData as LPVOID, byval lpcbData as LONG ptr) as HRESULT
 declare function AVIFileEndRecord(byval pfile as PAVIFILE) as HRESULT
-declare function AVIStreamAddRef(byval pavi as PAVISTREAM) as ULONG_
-declare function AVIStreamRelease(byval pavi as PAVISTREAM) as ULONG_
-declare function AVIStreamInfoW(byval pavi as PAVISTREAM, byval psi as LPAVISTREAMINFOW, byval lSize as LONG_) as HRESULT
-declare function AVIStreamInfoA(byval pavi as PAVISTREAM, byval psi as LPAVISTREAMINFOA, byval lSize as LONG_) as HRESULT
-declare function AVIStreamFindSample(byval pavi as PAVISTREAM, byval lPos_ as LONG_, byval lFlags as LONG_) as LONG_
-declare function AVIStreamReadFormat(byval pavi as PAVISTREAM, byval lPos_ as LONG_, byval lpFormat as LPVOID, byval lpcbFormat as LONG_ ptr) as HRESULT
-declare function AVIStreamSetFormat(byval pavi as PAVISTREAM, byval lPos_ as LONG_, byval lpFormat as LPVOID, byval cbFormat as LONG_) as HRESULT
-declare function AVIStreamReadData(byval pavi as PAVISTREAM, byval fcc as DWORD, byval lp as LPVOID, byval lpcb as LONG_ ptr) as HRESULT
-declare function AVIStreamWriteData(byval pavi as PAVISTREAM, byval fcc as DWORD, byval lp as LPVOID, byval cb as LONG_) as HRESULT
-declare function AVIStreamRead(byval pavi as PAVISTREAM, byval lStart as LONG_, byval lSamples as LONG_, byval lpBuffer as LPVOID, byval cbBuffer as LONG_, byval plBytes as LONG_ ptr, byval plSamples as LONG_ ptr) as HRESULT
+declare function AVIStreamAddRef(byval pavi as PAVISTREAM) as ULONG
+declare function AVIStreamRelease(byval pavi as PAVISTREAM) as ULONG
+declare function AVIStreamInfoW(byval pavi as PAVISTREAM, byval psi as LPAVISTREAMINFOW, byval lSize as LONG) as HRESULT
+declare function AVIStreamInfoA(byval pavi as PAVISTREAM, byval psi as LPAVISTREAMINFOA, byval lSize as LONG) as HRESULT
+declare function AVIStreamFindSample(byval pavi as PAVISTREAM, byval lPos_ as LONG, byval lFlags as LONG) as LONG
+declare function AVIStreamReadFormat(byval pavi as PAVISTREAM, byval lPos_ as LONG, byval lpFormat as LPVOID, byval lpcbFormat as LONG ptr) as HRESULT
+declare function AVIStreamSetFormat(byval pavi as PAVISTREAM, byval lPos_ as LONG, byval lpFormat as LPVOID, byval cbFormat as LONG) as HRESULT
+declare function AVIStreamReadData(byval pavi as PAVISTREAM, byval fcc as DWORD, byval lp as LPVOID, byval lpcb as LONG ptr) as HRESULT
+declare function AVIStreamWriteData(byval pavi as PAVISTREAM, byval fcc as DWORD, byval lp as LPVOID, byval cb as LONG) as HRESULT
+declare function AVIStreamRead(byval pavi as PAVISTREAM, byval lStart as LONG, byval lSamples as LONG, byval lpBuffer as LPVOID, byval cbBuffer as LONG, byval plBytes as LONG ptr, byval plSamples as LONG ptr) as HRESULT
 
 #define AVISTREAMREAD_CONVENIENT __MSABI_LONG(-1)
 
-declare function AVIStreamWrite(byval pavi as PAVISTREAM, byval lStart as LONG_, byval lSamples as LONG_, byval lpBuffer as LPVOID, byval cbBuffer as LONG_, byval dwFlags as DWORD, byval plSampWritten as LONG_ ptr, byval plBytesWritten as LONG_ ptr) as HRESULT
-declare function AVIStreamStart(byval pavi as PAVISTREAM) as LONG_
-declare function AVIStreamLength(byval pavi as PAVISTREAM) as LONG_
-declare function AVIStreamTimeToSample(byval pavi as PAVISTREAM, byval lTime as LONG_) as LONG_
-declare function AVIStreamSampleToTime(byval pavi as PAVISTREAM, byval lSample as LONG_) as LONG_
-declare function AVIStreamBeginStreaming(byval pavi as PAVISTREAM, byval lStart as LONG_, byval lEnd as LONG_, byval lRate as LONG_) as HRESULT
+declare function AVIStreamWrite(byval pavi as PAVISTREAM, byval lStart as LONG, byval lSamples as LONG, byval lpBuffer as LPVOID, byval cbBuffer as LONG, byval dwFlags as DWORD, byval plSampWritten as LONG ptr, byval plBytesWritten as LONG ptr) as HRESULT
+declare function AVIStreamStart(byval pavi as PAVISTREAM) as LONG
+declare function AVIStreamLength(byval pavi as PAVISTREAM) as LONG
+declare function AVIStreamTimeToSample(byval pavi as PAVISTREAM, byval lTime as LONG) as LONG
+declare function AVIStreamSampleToTime(byval pavi as PAVISTREAM, byval lSample as LONG) as LONG
+declare function AVIStreamBeginStreaming(byval pavi as PAVISTREAM, byval lStart as LONG, byval lEnd as LONG, byval lRate as LONG) as HRESULT
 declare function AVIStreamEndStreaming(byval pavi as PAVISTREAM) as HRESULT
 declare function AVIStreamGetFrameOpen(byval pavi as PAVISTREAM, byval lpbiWanted as LPBITMAPINFOHEADER) as PGETFRAME
-declare function AVIStreamGetFrame(byval pg as PGETFRAME, byval lPos_ as LONG_) as LPVOID
+declare function AVIStreamGetFrame(byval pg as PGETFRAME, byval lPos_ as LONG) as LPVOID
 declare function AVIStreamGetFrameClose(byval pg as PGETFRAME) as HRESULT
-declare function AVIStreamOpenFromFileA(byval ppavi as PAVISTREAM ptr, byval szFile as LPCSTR, byval fccType as DWORD, byval lParam as LONG_, byval mode as UINT, byval pclsidHandler as CLSID ptr) as HRESULT
-declare function AVIStreamOpenFromFileW(byval ppavi as PAVISTREAM ptr, byval szFile as LPCWSTR, byval fccType as DWORD, byval lParam as LONG_, byval mode as UINT, byval pclsidHandler as CLSID ptr) as HRESULT
-declare function AVIStreamCreate(byval ppavi as PAVISTREAM ptr, byval lParam1 as LONG_, byval lParam2 as LONG_, byval pclsidHandler as CLSID ptr) as HRESULT
+declare function AVIStreamOpenFromFileA(byval ppavi as PAVISTREAM ptr, byval szFile as LPCSTR, byval fccType as DWORD, byval lParam as LONG, byval mode as UINT, byval pclsidHandler as CLSID ptr) as HRESULT
+declare function AVIStreamOpenFromFileW(byval ppavi as PAVISTREAM ptr, byval szFile as LPCWSTR, byval fccType as DWORD, byval lParam as LONG, byval mode as UINT, byval pclsidHandler as CLSID ptr) as HRESULT
+declare function AVIStreamCreate(byval ppavi as PAVISTREAM ptr, byval lParam1 as LONG, byval lParam2 as LONG, byval pclsidHandler as CLSID ptr) as HRESULT
 
 #define FIND_DIR __MSABI_LONG(&h0000000F)
 #define FIND_NEXT __MSABI_LONG(&h00000001)
@@ -906,7 +902,7 @@ declare function AVIStreamCreate(byval ppavi as PAVISTREAM ptr, byval lParam1 as
 #define AVIStreamLengthTime(pavi) AVIStreamSampleToTime(pavi, AVIStreamLength(pavi))
 #define AVIStreamEnd(pavi) (AVIStreamStart(pavi) + AVIStreamLength(pavi))
 #define AVIStreamEndTime(pavi) AVIStreamSampleToTime(pavi, AVIStreamEnd(pavi))
-#define AVIStreamSampleSize(pavi, lPos, plSize) AVIStreamRead(pavi, lPos, 1, NULL, cast(LONG_, 0), plSize, NULL)
+#define AVIStreamSampleSize(pavi, lPos, plSize) AVIStreamRead(pavi, lPos, 1, NULL, cast(LONG, 0), plSize, NULL)
 #define AVIStreamFormatSize(pavi, lPos, plSize) AVIStreamReadFormat(pavi, lPos, NULL, plSize)
 #define AVIStreamDataSize(pavi, fcc, plSize) AVIStreamReadData(pavi, fcc, NULL, plSize)
 #define AVStreamNextKeyFrame(pavi, pos) AVIStreamFindSample(pavi, pos + 1, FIND_NEXT or FIND_KEY)
@@ -925,22 +921,22 @@ declare function AVISaveW cdecl(byval szFile as LPCWSTR, byval pclsidHandler as 
 declare function AVISaveVW(byval szFile as LPCWSTR, byval pclsidHandler as CLSID ptr, byval lpfnCallback as AVISAVECALLBACK, byval nStreams as long, byval ppavi as PAVISTREAM ptr, byval plpOptions as LPAVICOMPRESSOPTIONS ptr) as HRESULT
 declare function AVISaveOptions(byval hwnd as HWND, byval uiFlags as UINT, byval nStreams as long, byval ppavi as PAVISTREAM ptr, byval plpOptions as LPAVICOMPRESSOPTIONS ptr) as INT_PTR
 declare function AVISaveOptionsFree(byval nStreams as long, byval plpOptions as LPAVICOMPRESSOPTIONS ptr) as HRESULT
-declare function AVIBuildFilterW(byval lpszFilter as LPWSTR, byval cbFilter as LONG_, byval fSaving as WINBOOL) as HRESULT
-declare function AVIBuildFilterA(byval lpszFilter as LPSTR, byval cbFilter as LONG_, byval fSaving as WINBOOL) as HRESULT
+declare function AVIBuildFilterW(byval lpszFilter as LPWSTR, byval cbFilter as LONG, byval fSaving as WINBOOL) as HRESULT
+declare function AVIBuildFilterA(byval lpszFilter as LPSTR, byval cbFilter as LONG, byval fSaving as WINBOOL) as HRESULT
 declare function AVIMakeFileFromStreams(byval ppfile as PAVIFILE ptr, byval nStreams as long, byval papStreams as PAVISTREAM ptr) as HRESULT
 declare function AVIMakeStreamFromClipboard(byval cfFormat as UINT, byval hGlobal as HANDLE, byval ppstream as PAVISTREAM ptr) as HRESULT
 declare function AVIPutFileOnClipboard(byval pf as PAVIFILE) as HRESULT
 declare function AVIGetFromClipboard(byval lppf as PAVIFILE ptr) as HRESULT
 declare function AVIClearClipboard() as HRESULT
 declare function CreateEditableStream(byval ppsEditable as PAVISTREAM ptr, byval psSource as PAVISTREAM) as HRESULT
-declare function EditStreamCut(byval pavi as PAVISTREAM, byval plStart as LONG_ ptr, byval plLength as LONG_ ptr, byval ppResult as PAVISTREAM ptr) as HRESULT
-declare function EditStreamCopy(byval pavi as PAVISTREAM, byval plStart as LONG_ ptr, byval plLength as LONG_ ptr, byval ppResult as PAVISTREAM ptr) as HRESULT
-declare function EditStreamPaste(byval pavi as PAVISTREAM, byval plPos as LONG_ ptr, byval plLength as LONG_ ptr, byval pstream as PAVISTREAM, byval lStart as LONG_, byval lEnd as LONG_) as HRESULT
+declare function EditStreamCut(byval pavi as PAVISTREAM, byval plStart as LONG ptr, byval plLength as LONG ptr, byval ppResult as PAVISTREAM ptr) as HRESULT
+declare function EditStreamCopy(byval pavi as PAVISTREAM, byval plStart as LONG ptr, byval plLength as LONG ptr, byval ppResult as PAVISTREAM ptr) as HRESULT
+declare function EditStreamPaste(byval pavi as PAVISTREAM, byval plPos as LONG ptr, byval plLength as LONG ptr, byval pstream as PAVISTREAM, byval lStart as LONG, byval lEnd as LONG) as HRESULT
 declare function EditStreamClone(byval pavi as PAVISTREAM, byval ppResult as PAVISTREAM ptr) as HRESULT
 declare function EditStreamSetNameA(byval pavi as PAVISTREAM, byval lpszName as LPCSTR) as HRESULT
 declare function EditStreamSetNameW(byval pavi as PAVISTREAM, byval lpszName as LPCWSTR) as HRESULT
-declare function EditStreamSetInfoW(byval pavi as PAVISTREAM, byval lpInfo as LPAVISTREAMINFOW, byval cbInfo as LONG_) as HRESULT
-declare function EditStreamSetInfoA(byval pavi as PAVISTREAM, byval lpInfo as LPAVISTREAMINFOA, byval cbInfo as LONG_) as HRESULT
+declare function EditStreamSetInfoW(byval pavi as PAVISTREAM, byval lpInfo as LPAVISTREAMINFOW, byval cbInfo as LONG) as HRESULT
+declare function EditStreamSetInfoA(byval pavi as PAVISTREAM, byval lpInfo as LPAVISTREAMINFOA, byval cbInfo as LONG) as HRESULT
 
 #define AVIERR_OK __MSABI_LONG(0)
 #define MAKE_AVIERR(error) MAKE_SCODE(SEVERITY_ERROR, FACILITY_ITF, &h4000 + error)
@@ -964,7 +960,7 @@ declare function EditStreamSetInfoA(byval pavi as PAVISTREAM, byval lpInfo as LP
 #define AVIERR_USERABORT MAKE_AVIERR(198)
 #define AVIERR_ERROR MAKE_AVIERR(199)
 #define MCIWndSM SendMessage
-#define MCIWND_WINDOW_CLASS TEXT_("MCIWndClass")
+#define MCIWND_WINDOW_CLASS TEXT("MCIWndClass")
 #define MCIWndCreate __MINGW_NAME_AW(MCIWndCreate)
 
 declare function MCIWndCreateA cdecl(byval hwndParent as HWND, byval hInstance as HINSTANCE, byval dwStyle as DWORD, byval szFile as LPCSTR) as HWND
@@ -999,77 +995,69 @@ declare function MCIWndRegisterClass cdecl() as WINBOOL
 #define MCIWndCanEject(hwnd) cast(WINBOOL, MCIWndSM(hwnd, MCIWNDM_CAN_EJECT, cast(WPARAM, 0), cast(LPARAM, 0)))
 #define MCIWndCanConfig(hwnd) cast(WINBOOL, MCIWndSM(hwnd, MCIWNDM_CAN_CONFIG, cast(WPARAM, 0), cast(LPARAM, 0)))
 #define MCIWndPaletteKick(hwnd) cast(WINBOOL, MCIWndSM(hwnd, MCIWNDM_PALETTEKICK, cast(WPARAM, 0), cast(LPARAM, 0)))
-#define MCIWndSave(hwnd, szFile) cast(LONG_, MCIWndSM(hwnd, MCI_SAVE, cast(WPARAM, 0), cast(LPARAM, cast(LPVOID, (szFile)))))
+#define MCIWndSave(hwnd, szFile) cast(LONG, MCIWndSM(hwnd, MCI_SAVE, cast(WPARAM, 0), cast(LPARAM, cast(LPVOID, (szFile)))))
 #define MCIWndSaveDialog(hwnd) MCIWndSave(hwnd, -1)
-#define MCIWndNew(hwnd, lp) cast(LONG_, MCIWndSM(hwnd, MCIWNDM_NEW, cast(WPARAM, 0), cast(LPARAM, cast(LPVOID, (lp)))))
-#define MCIWndRecord(hwnd) cast(LONG_, MCIWndSM(hwnd, MCI_RECORD, cast(WPARAM, 0), cast(LPARAM, 0)))
-#define MCIWndOpen(hwnd, sz, f) cast(LONG_, MCIWndSM(hwnd, MCIWNDM_OPEN, cast(WPARAM, cast(UINT, (f))), cast(LPARAM, cast(LPVOID, (sz)))))
+#define MCIWndNew(hwnd, lp) cast(LONG, MCIWndSM(hwnd, MCIWNDM_NEW, cast(WPARAM, 0), cast(LPARAM, cast(LPVOID, (lp)))))
+#define MCIWndRecord(hwnd) cast(LONG, MCIWndSM(hwnd, MCI_RECORD, cast(WPARAM, 0), cast(LPARAM, 0)))
+#define MCIWndOpen(hwnd, sz, f) cast(LONG, MCIWndSM(hwnd, MCIWNDM_OPEN, cast(WPARAM, cast(UINT, (f))), cast(LPARAM, cast(LPVOID, (sz)))))
 #define MCIWndOpenDialog(hwnd) MCIWndOpen(hwnd, -1, 0)
-#define MCIWndClose(hwnd) cast(LONG_, MCIWndSM(hwnd, MCI_CLOSE, cast(WPARAM, 0), cast(LPARAM, 0)))
-#define MCIWndPlay(hwnd) cast(LONG_, MCIWndSM(hwnd, MCI_PLAY, cast(WPARAM, 0), cast(LPARAM, 0)))
-#define MCIWndStop(hwnd) cast(LONG_, MCIWndSM(hwnd, MCI_STOP, cast(WPARAM, 0), cast(LPARAM, 0)))
-#define MCIWndPause(hwnd) cast(LONG_, MCIWndSM(hwnd, MCI_PAUSE, cast(WPARAM, 0), cast(LPARAM, 0)))
-#define MCIWndResume(hwnd) cast(LONG_, MCIWndSM(hwnd, MCI_RESUME, cast(WPARAM, 0), cast(LPARAM, 0)))
-#define MCIWndSeek(hwnd, lPos) cast(LONG_, MCIWndSM(hwnd, MCI_SEEK, cast(WPARAM, 0), cast(LPARAM, cast(LONG_, (lPos)))))
-#define MCIWndEject(hwnd) cast(LONG_, MCIWndSM(hwnd, MCIWNDM_EJECT, cast(WPARAM, 0), cast(LPARAM, 0)))
+#define MCIWndClose(hwnd) cast(LONG, MCIWndSM(hwnd, MCI_CLOSE, cast(WPARAM, 0), cast(LPARAM, 0)))
+#define MCIWndPlay(hwnd) cast(LONG, MCIWndSM(hwnd, MCI_PLAY, cast(WPARAM, 0), cast(LPARAM, 0)))
+#define MCIWndStop(hwnd) cast(LONG, MCIWndSM(hwnd, MCI_STOP, cast(WPARAM, 0), cast(LPARAM, 0)))
+#define MCIWndPause(hwnd) cast(LONG, MCIWndSM(hwnd, MCI_PAUSE, cast(WPARAM, 0), cast(LPARAM, 0)))
+#define MCIWndResume(hwnd) cast(LONG, MCIWndSM(hwnd, MCI_RESUME, cast(WPARAM, 0), cast(LPARAM, 0)))
+#define MCIWndSeek(hwnd, lPos) cast(LONG, MCIWndSM(hwnd, MCI_SEEK, cast(WPARAM, 0), cast(LPARAM, cast(LONG, (lPos)))))
+#define MCIWndEject(hwnd) cast(LONG, MCIWndSM(hwnd, MCIWNDM_EJECT, cast(WPARAM, 0), cast(LPARAM, 0)))
 #define MCIWndHome(hwnd) MCIWndSeek(hwnd, MCIWND_START)
 #define MCIWndEnd(hwnd) MCIWndSeek(hwnd, MCIWND_END)
-#define MCIWndGetSource(hwnd, prc) cast(LONG_, MCIWndSM(hwnd, MCIWNDM_GET_SOURCE, cast(WPARAM, 0), cast(LPARAM, cast(LPRECT, (prc)))))
-#define MCIWndPutSource(hwnd, prc) cast(LONG_, MCIWndSM(hwnd, MCIWNDM_PUT_SOURCE, cast(WPARAM, 0), cast(LPARAM, cast(LPRECT, (prc)))))
-#define MCIWndGetDest(hwnd, prc) cast(LONG_, MCIWndSM(hwnd, MCIWNDM_GET_DEST, cast(WPARAM, 0), cast(LPARAM, cast(LPRECT, (prc)))))
-#define MCIWndPutDest(hwnd, prc) cast(LONG_, MCIWndSM(hwnd, MCIWNDM_PUT_DEST, cast(WPARAM, 0), cast(LPARAM, cast(LPRECT, (prc)))))
-#define MCIWndPlayReverse(hwnd) cast(LONG_, MCIWndSM(hwnd, MCIWNDM_PLAYREVERSE, cast(WPARAM, 0), cast(LPARAM, 0)))
-#define MCIWndPlayFrom(hwnd, lPos) cast(LONG_, MCIWndSM(hwnd, MCIWNDM_PLAYFROM, cast(WPARAM, 0), cast(LPARAM, cast(LONG_, (lPos)))))
-#define MCIWndPlayTo(hwnd, lPos) cast(LONG_, MCIWndSM(hwnd, MCIWNDM_PLAYTO, cast(WPARAM, 0), cast(LPARAM, cast(LONG_, (lPos)))))
-
-'' TODO: #define MCIWndPlayFromTo(hwnd,lStart,lEnd) (MCIWndSeek(hwnd,lStart),MCIWndPlayTo(hwnd,lEnd))
-
+#define MCIWndGetSource(hwnd, prc) cast(LONG, MCIWndSM(hwnd, MCIWNDM_GET_SOURCE, cast(WPARAM, 0), cast(LPARAM, cast(LPRECT, (prc)))))
+#define MCIWndPutSource(hwnd, prc) cast(LONG, MCIWndSM(hwnd, MCIWNDM_PUT_SOURCE, cast(WPARAM, 0), cast(LPARAM, cast(LPRECT, (prc)))))
+#define MCIWndGetDest(hwnd, prc) cast(LONG, MCIWndSM(hwnd, MCIWNDM_GET_DEST, cast(WPARAM, 0), cast(LPARAM, cast(LPRECT, (prc)))))
+#define MCIWndPutDest(hwnd, prc) cast(LONG, MCIWndSM(hwnd, MCIWNDM_PUT_DEST, cast(WPARAM, 0), cast(LPARAM, cast(LPRECT, (prc)))))
+#define MCIWndPlayReverse(hwnd) cast(LONG, MCIWndSM(hwnd, MCIWNDM_PLAYREVERSE, cast(WPARAM, 0), cast(LPARAM, 0)))
+#define MCIWndPlayFrom(hwnd, lPos) cast(LONG, MCIWndSM(hwnd, MCIWNDM_PLAYFROM, cast(WPARAM, 0), cast(LPARAM, cast(LONG, (lPos)))))
+#define MCIWndPlayTo(hwnd, lPos) cast(LONG, MCIWndSM(hwnd, MCIWNDM_PLAYTO, cast(WPARAM, 0), cast(LPARAM, cast(LONG, (lPos)))))
+#define MCIWndPlayFromTo(hwnd, lStart, lEnd) '' TODO: (MCIWndSeek(hwnd,lStart),MCIWndPlayTo(hwnd,lEnd))
 #define MCIWndGetDeviceID(hwnd) cast(UINT, MCIWndSM(hwnd, MCIWNDM_GETDEVICEID, cast(WPARAM, 0), cast(LPARAM, 0)))
 #define MCIWndGetAlias(hwnd) cast(UINT, MCIWndSM(hwnd, MCIWNDM_GETALIAS, cast(WPARAM, 0), cast(LPARAM, 0)))
-#define MCIWndGetMode(hwnd, lp, len) cast(LONG_, MCIWndSM(hwnd, MCIWNDM_GETMODE, cast(WPARAM, cast(UINT, (len))), cast(LPARAM, cast(LPTSTR, (lp)))))
-#define MCIWndGetPosition(hwnd) cast(LONG_, MCIWndSM(hwnd, MCIWNDM_GETPOSITION, cast(WPARAM, 0), cast(LPARAM, 0)))
-#define MCIWndGetPositionString(hwnd, lp, len) cast(LONG_, MCIWndSM(hwnd, MCIWNDM_GETPOSITION, cast(WPARAM, cast(UINT, (len))), cast(LPARAM, cast(LPTSTR, (lp)))))
-#define MCIWndGetStart(hwnd) cast(LONG_, MCIWndSM(hwnd, MCIWNDM_GETSTART, cast(WPARAM, 0), cast(LPARAM, 0)))
-#define MCIWndGetLength(hwnd) cast(LONG_, MCIWndSM(hwnd, MCIWNDM_GETLENGTH, cast(WPARAM, 0), cast(LPARAM, 0)))
-#define MCIWndGetEnd(hwnd) cast(LONG_, MCIWndSM(hwnd, MCIWNDM_GETEND, cast(WPARAM, 0), cast(LPARAM, 0)))
-
-'' TODO: #define MCIWndStep(hwnd,n) (LONG)MCIWndSM(hwnd,MCI_STEP,(WPARAM)0,(LPARAM)(__LONG32)(n))
-'' TODO: #define MCIWndDestroy(hwnd) (VOID)MCIWndSM(hwnd,WM_CLOSE,(WPARAM)0,(LPARAM)0)
-'' TODO: #define MCIWndSetZoom(hwnd,iZoom) (VOID)MCIWndSM(hwnd,MCIWNDM_SETZOOM,(WPARAM)0,(LPARAM)(UINT)(iZoom))
-
+#define MCIWndGetMode(hwnd, lp, len) cast(LONG, MCIWndSM(hwnd, MCIWNDM_GETMODE, cast(WPARAM, cast(UINT, (len))), cast(LPARAM, cast(LPTSTR, (lp)))))
+#define MCIWndGetPosition(hwnd) cast(LONG, MCIWndSM(hwnd, MCIWNDM_GETPOSITION, cast(WPARAM, 0), cast(LPARAM, 0)))
+#define MCIWndGetPositionString(hwnd, lp, len) cast(LONG, MCIWndSM(hwnd, MCIWNDM_GETPOSITION, cast(WPARAM, cast(UINT, (len))), cast(LPARAM, cast(LPTSTR, (lp)))))
+#define MCIWndGetStart(hwnd) cast(LONG, MCIWndSM(hwnd, MCIWNDM_GETSTART, cast(WPARAM, 0), cast(LPARAM, 0)))
+#define MCIWndGetLength(hwnd) cast(LONG, MCIWndSM(hwnd, MCIWNDM_GETLENGTH, cast(WPARAM, 0), cast(LPARAM, 0)))
+#define MCIWndGetEnd(hwnd) cast(LONG, MCIWndSM(hwnd, MCIWNDM_GETEND, cast(WPARAM, 0), cast(LPARAM, 0)))
+#define MCIWndStep(hwnd, n) cast(LONG, MCIWndSM(hwnd, MCI_STEP, cast(WPARAM, 0), cast(LPARAM, cast(__LONG32, (n)))))
+#define MCIWndDestroy(hwnd) '' TODO: (VOID)MCIWndSM(hwnd,WM_CLOSE,(WPARAM)0,(LPARAM)0)
+#define MCIWndSetZoom(hwnd, iZoom) '' TODO: (VOID)MCIWndSM(hwnd,MCIWNDM_SETZOOM,(WPARAM)0,(LPARAM)(UINT)(iZoom))
 #define MCIWndGetZoom(hwnd) cast(UINT, MCIWndSM(hwnd, MCIWNDM_GETZOOM, cast(WPARAM, 0), cast(LPARAM, 0)))
-#define MCIWndSetVolume(hwnd, iVol) cast(LONG_, MCIWndSM(hwnd, MCIWNDM_SETVOLUME, cast(WPARAM, 0), cast(LPARAM, cast(UINT, (iVol)))))
-#define MCIWndGetVolume(hwnd) cast(LONG_, MCIWndSM(hwnd, MCIWNDM_GETVOLUME, cast(WPARAM, 0), cast(LPARAM, 0)))
-#define MCIWndSetSpeed(hwnd, iSpeed) cast(LONG_, MCIWndSM(hwnd, MCIWNDM_SETSPEED, cast(WPARAM, 0), cast(LPARAM, cast(UINT, (iSpeed)))))
-#define MCIWndGetSpeed(hwnd) cast(LONG_, MCIWndSM(hwnd, MCIWNDM_GETSPEED, cast(WPARAM, 0), cast(LPARAM, 0)))
-#define MCIWndSetTimeFormat(hwnd, lp) cast(LONG_, MCIWndSM(hwnd, MCIWNDM_SETTIMEFORMAT, cast(WPARAM, 0), cast(LPARAM, cast(LPTSTR, (lp)))))
-#define MCIWndGetTimeFormat(hwnd, lp, len) cast(LONG_, MCIWndSM(hwnd, MCIWNDM_GETTIMEFORMAT, cast(WPARAM, cast(UINT, (len))), cast(LPARAM, cast(LPTSTR, (lp)))))
-
-'' TODO: #define MCIWndValidateMedia(hwnd) (VOID)MCIWndSM(hwnd,MCIWNDM_VALIDATEMEDIA,(WPARAM)0,(LPARAM)0)
-
+#define MCIWndSetVolume(hwnd, iVol) cast(LONG, MCIWndSM(hwnd, MCIWNDM_SETVOLUME, cast(WPARAM, 0), cast(LPARAM, cast(UINT, (iVol)))))
+#define MCIWndGetVolume(hwnd) cast(LONG, MCIWndSM(hwnd, MCIWNDM_GETVOLUME, cast(WPARAM, 0), cast(LPARAM, 0)))
+#define MCIWndSetSpeed(hwnd, iSpeed) cast(LONG, MCIWndSM(hwnd, MCIWNDM_SETSPEED, cast(WPARAM, 0), cast(LPARAM, cast(UINT, (iSpeed)))))
+#define MCIWndGetSpeed(hwnd) cast(LONG, MCIWndSM(hwnd, MCIWNDM_GETSPEED, cast(WPARAM, 0), cast(LPARAM, 0)))
+#define MCIWndSetTimeFormat(hwnd, lp) cast(LONG, MCIWndSM(hwnd, MCIWNDM_SETTIMEFORMAT, cast(WPARAM, 0), cast(LPARAM, cast(LPTSTR, (lp)))))
+#define MCIWndGetTimeFormat(hwnd, lp, len) cast(LONG, MCIWndSM(hwnd, MCIWNDM_GETTIMEFORMAT, cast(WPARAM, cast(UINT, (len))), cast(LPARAM, cast(LPTSTR, (lp)))))
+#define MCIWndValidateMedia(hwnd) '' TODO: (VOID)MCIWndSM(hwnd,MCIWNDM_VALIDATEMEDIA,(WPARAM)0,(LPARAM)0)
 #define MCIWndSetRepeat(hwnd, f) cast(any, MCIWndSM(hwnd, MCIWNDM_SETREPEAT, cast(WPARAM, 0), cast(LPARAM, cast(WINBOOL, (f)))))
 #define MCIWndGetRepeat(hwnd) cast(WINBOOL, MCIWndSM(hwnd, MCIWNDM_GETREPEAT, cast(WPARAM, 0), cast(LPARAM, 0)))
-#define MCIWndUseFrames(hwnd) MCIWndSetTimeFormat(hwnd, TEXT_("frames"))
-#define MCIWndUseTime(hwnd) MCIWndSetTimeFormat(hwnd, TEXT_("ms"))
-
-'' TODO: #define MCIWndSetActiveTimer(hwnd,active) (VOID)MCIWndSM(hwnd,MCIWNDM_SETACTIVETIMER,(WPARAM)(UINT)(active),(LPARAM)0)
-'' TODO: #define MCIWndSetInactiveTimer(hwnd,inactive) (VOID)MCIWndSM(hwnd,MCIWNDM_SETINACTIVETIMER,(WPARAM)(UINT)(inactive),(LPARAM)0)
-'' TODO: #define MCIWndSetTimers(hwnd,active,inactive) (VOID)MCIWndSM(hwnd,MCIWNDM_SETTIMERS,(WPARAM)(UINT)(active),(LPARAM)(UINT)(inactive))
-'' TODO: #define MCIWndGetActiveTimer(hwnd) (UINT)MCIWndSM(hwnd,MCIWNDM_GETACTIVETIMER,(WPARAM)0,(LPARAM)0);
-'' TODO: #define MCIWndGetInactiveTimer(hwnd) (UINT)MCIWndSM(hwnd,MCIWNDM_GETINACTIVETIMER,(WPARAM)0,(LPARAM)0);
-
-#define MCIWndRealize(hwnd, fBkgnd) cast(LONG_, MCIWndSM(hwnd, MCIWNDM_REALIZE, cast(WPARAM, cast(WINBOOL, (fBkgnd))), cast(LPARAM, 0)))
-#define MCIWndSendString(hwnd, sz) cast(LONG_, MCIWndSM(hwnd, MCIWNDM_SENDSTRING, cast(WPARAM, 0), cast(LPARAM, cast(LPTSTR, (sz)))))
-#define MCIWndReturnString(hwnd, lp, len) cast(LONG_, MCIWndSM(hwnd, MCIWNDM_RETURNSTRING, cast(WPARAM, cast(UINT, (len))), cast(LPARAM, cast(LPVOID, (lp)))))
-#define MCIWndGetError(hwnd, lp, len) cast(LONG_, MCIWndSM(hwnd, MCIWNDM_GETERROR, cast(WPARAM, cast(UINT, (len))), cast(LPARAM, cast(LPVOID, (lp)))))
+#define MCIWndUseFrames(hwnd) MCIWndSetTimeFormat(hwnd, TEXT("frames"))
+#define MCIWndUseTime(hwnd) MCIWndSetTimeFormat(hwnd, TEXT("ms"))
+#define MCIWndSetActiveTimer(hwnd, active) '' TODO: (VOID)MCIWndSM(hwnd,MCIWNDM_SETACTIVETIMER,(WPARAM)(UINT)(active),(LPARAM)0)
+#define MCIWndSetInactiveTimer(hwnd, inactive) '' TODO: (VOID)MCIWndSM(hwnd,MCIWNDM_SETINACTIVETIMER,(WPARAM)(UINT)(inactive),(LPARAM)0)
+#define MCIWndSetTimers(hwnd, active, inactive) '' TODO: (VOID)MCIWndSM(hwnd,MCIWNDM_SETTIMERS,(WPARAM)(UINT)(active),(LPARAM)(UINT)(inactive))
+#define MCIWndGetActiveTimer(hwnd) '' TODO: (UINT)MCIWndSM(hwnd,MCIWNDM_GETACTIVETIMER,(WPARAM)0,(LPARAM)0);
+#define MCIWndGetInactiveTimer(hwnd) '' TODO: (UINT)MCIWndSM(hwnd,MCIWNDM_GETINACTIVETIMER,(WPARAM)0,(LPARAM)0);
+#define MCIWndRealize(hwnd, fBkgnd) cast(LONG, MCIWndSM(hwnd, MCIWNDM_REALIZE, cast(WPARAM, cast(WINBOOL, (fBkgnd))), cast(LPARAM, 0)))
+#define MCIWndSendString(hwnd, sz) cast(LONG, MCIWndSM(hwnd, MCIWNDM_SENDSTRING, cast(WPARAM, 0), cast(LPARAM, cast(LPTSTR, (sz)))))
+#define MCIWndReturnString(hwnd, lp, len) cast(LONG, MCIWndSM(hwnd, MCIWNDM_RETURNSTRING, cast(WPARAM, cast(UINT, (len))), cast(LPARAM, cast(LPVOID, (lp)))))
+#define MCIWndGetError(hwnd, lp, len) cast(LONG, MCIWndSM(hwnd, MCIWNDM_GETERROR, cast(WPARAM, cast(UINT, (len))), cast(LPARAM, cast(LPVOID, (lp)))))
 #define MCIWndGetPalette(hwnd) cast(HPALETTE, MCIWndSM(hwnd, MCIWNDM_GETPALETTE, cast(WPARAM, 0), cast(LPARAM, 0)))
-#define MCIWndSetPalette(hwnd, hpal) cast(LONG_, MCIWndSM(hwnd, MCIWNDM_SETPALETTE, cast(WPARAM, cast(HPALETTE, (hpal))), cast(LPARAM, 0)))
-#define MCIWndGetFileName(hwnd, lp, len) cast(LONG_, MCIWndSM(hwnd, MCIWNDM_GETFILENAME, cast(WPARAM, cast(UINT, (len))), cast(LPARAM, cast(LPVOID, (lp)))))
-#define MCIWndGetDevice(hwnd, lp, len) cast(LONG_, MCIWndSM(hwnd, MCIWNDM_GETDEVICE, cast(WPARAM, cast(UINT, (len))), cast(LPARAM, cast(LPVOID, (lp)))))
+#define MCIWndSetPalette(hwnd, hpal) cast(LONG, MCIWndSM(hwnd, MCIWNDM_SETPALETTE, cast(WPARAM, cast(HPALETTE, (hpal))), cast(LPARAM, 0)))
+#define MCIWndGetFileName(hwnd, lp, len) cast(LONG, MCIWndSM(hwnd, MCIWNDM_GETFILENAME, cast(WPARAM, cast(UINT, (len))), cast(LPARAM, cast(LPVOID, (lp)))))
+#define MCIWndGetDevice(hwnd, lp, len) cast(LONG, MCIWndSM(hwnd, MCIWNDM_GETDEVICE, cast(WPARAM, cast(UINT, (len))), cast(LPARAM, cast(LPVOID, (lp)))))
 #define MCIWndGetStyles(hwnd) cast(UINT, MCIWndSM(hwnd, MCIWNDM_GETSTYLES, cast(WPARAM, 0), cast(LPARAM, 0)))
-#define MCIWndChangeStyles(hwnd, mask, value) cast(LONG_, MCIWndSM(hwnd, MCIWNDM_CHANGESTYLES, cast(WPARAM, cast(UINT, (mask))), cast(LPARAM, cast(LONG_, (value)))))
-#define MCIWndOpenInterface(hwnd, pUnk) cast(LONG_, MCIWndSM(hwnd, MCIWNDM_OPENINTERFACE, cast(WPARAM, 0), cast(LPARAM, cast(LPUNKNOWN, (pUnk)))))
-#define MCIWndSetOwner(hwnd, hwndP) cast(LONG_, MCIWndSM(hwnd, MCIWNDM_SETOWNER, cast(WPARAM, (hwndP)), cast(LPARAM, 0)))
+#define MCIWndChangeStyles(hwnd, mask, value) cast(LONG, MCIWndSM(hwnd, MCIWNDM_CHANGESTYLES, cast(WPARAM, cast(UINT, (mask))), cast(LPARAM, cast(LONG, (value)))))
+#define MCIWndOpenInterface(hwnd, pUnk) cast(LONG, MCIWndSM(hwnd, MCIWNDM_OPENINTERFACE, cast(WPARAM, 0), cast(LPARAM, cast(LPUNKNOWN, (pUnk)))))
+#define MCIWndSetOwner(hwnd, hwndP) cast(LONG, MCIWndSM(hwnd, MCIWNDM_SETOWNER, cast(WPARAM, (hwndP)), cast(LPARAM, 0)))
 #define MCIWNDM_GETDEVICEID (WM_USER + 100)
 #define MCIWNDM_GETSTART (WM_USER + 103)
 #define MCIWNDM_GETLENGTH (WM_USER + 104)
@@ -1476,7 +1464,7 @@ type LPCAPTUREPARMS as tagCaptureParms ptr
 type tagCapInfoChunk field = 8
 	fccInfoID as FOURCC
 	lpData as LPVOID
-	cbData as LONG_
+	cbData as LONG
 end type
 
 type CAPINFOCHUNK as tagCapInfoChunk

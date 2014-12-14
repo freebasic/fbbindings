@@ -345,8 +345,8 @@ end type
 
 type IDirectPlayVtbl_
 	QueryInterface as function(byval This as IDirectPlay ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirectPlay ptr) as ULONG_
-	Release as function(byval This as IDirectPlay ptr) as ULONG_
+	AddRef as function(byval This as IDirectPlay ptr) as ULONG
+	Release as function(byval This as IDirectPlay ptr) as ULONG
 	AddPlayerToGroup as function(byval This as IDirectPlay ptr, byval idGroup as DPID, byval idPlayer as DPID) as HRESULT
 	Close as function(byval This as IDirectPlay ptr) as HRESULT
 	CreatePlayer as function(byval This as IDirectPlay ptr, byval lpidPlayer as LPDPID, byval lpPlayerName as LPSTR, byval as LPSTR, byval as LPHANDLE) as HRESULT
@@ -403,8 +403,8 @@ end type
 
 type IDirectPlay2Vtbl_
 	QueryInterface as function(byval This as IDirectPlay2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirectPlay2 ptr) as ULONG_
-	Release as function(byval This as IDirectPlay2 ptr) as ULONG_
+	AddRef as function(byval This as IDirectPlay2 ptr) as ULONG
+	Release as function(byval This as IDirectPlay2 ptr) as ULONG
 	AddPlayerToGroup as function(byval This as IDirectPlay2 ptr, byval idGroup as DPID, byval idPlayer as DPID) as HRESULT
 	Close as function(byval This as IDirectPlay2 ptr) as HRESULT
 	CreateGroup as function(byval This as IDirectPlay2 ptr, byval lpidGroup as LPDPID, byval lpGroupName as LPDPNAME, byval lpData as LPVOID, byval dwDataSize as DWORD, byval dwFlags as DWORD) as HRESULT
@@ -475,8 +475,8 @@ end type
 
 type IDirectPlay3Vtbl_
 	QueryInterface as function(byval This as IDirectPlay3 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirectPlay3 ptr) as ULONG_
-	Release as function(byval This as IDirectPlay3 ptr) as ULONG_
+	AddRef as function(byval This as IDirectPlay3 ptr) as ULONG
+	Release as function(byval This as IDirectPlay3 ptr) as ULONG
 	AddPlayerToGroup as function(byval This as IDirectPlay3 ptr, byval idGroup as DPID, byval idPlayer as DPID) as HRESULT
 	Close as function(byval This as IDirectPlay3 ptr) as HRESULT
 	CreateGroup as function(byval This as IDirectPlay3 ptr, byval lpidGroup as LPDPID, byval lpGroupName as LPDPNAME, byval lpData as LPVOID, byval dwDataSize as DWORD, byval dwFlags as DWORD) as HRESULT
@@ -577,8 +577,8 @@ end type
 
 type IDirectPlay4Vtbl_
 	QueryInterface as function(byval This as IDirectPlay4 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirectPlay4 ptr) as ULONG_
-	Release as function(byval This as IDirectPlay4 ptr) as ULONG_
+	AddRef as function(byval This as IDirectPlay4 ptr) as ULONG
+	Release as function(byval This as IDirectPlay4 ptr) as ULONG
 	AddPlayerToGroup as function(byval This as IDirectPlay4 ptr, byval idGroup as DPID, byval idPlayer as DPID) as HRESULT
 	Close as function(byval This as IDirectPlay4 ptr) as HRESULT
 	CreateGroup as function(byval This as IDirectPlay4 ptr, byval lpidGroup as LPDPID, byval lpGroupName as LPDPNAME, byval lpData as LPVOID, byval dwDataSize as DWORD, byval dwFlags as DWORD) as HRESULT

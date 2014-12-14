@@ -18,15 +18,11 @@
 #include once "ktmtypes.bi"
 
 '' The following symbols have been renamed:
+''     #define DELETE => DELETE_
 ''     inside struct _EXCEPTION_REGISTRATION_RECORD:
 ''         field handler => handler_
-''     typedef name => name__
-''     typedef SHORT => SHORT_
-''     typedef LONG => LONG_
-''     #define TEXT => TEXT_
-''     #define DELETE => DELETE_
-''     union __Flags => __Flags_
-''     #define BTYPE => BTYPE_
+''     inside struct _MESSAGE_RESOURCE_ENTRY:
+''         field Text => Text_
 
 #ifdef __FB_64BIT__
 	extern "C"
@@ -43,68 +39,40 @@ type _ACTIVATION_CONTEXT as _ACTIVATION_CONTEXT_
 	type _TEB as _TEB_
 #endif
 
-type name__ as name_
-
 #define _WINNT_
 #define ANYSIZE_ARRAY 1
 #define RESTRICTED_POINTER
 
 #ifdef __FB_64BIT__
 	#define ALIGNMENT_MACHINE
-	#define UNALIGNED __unaligned
 	#define UNALIGNED64 __unaligned
 	#define MAX_NATURAL_ALIGNMENT sizeof(ULONGLONG)
 	#define MEMORY_ALLOCATION_ALIGNMENT 16
 #else
-	#define UNALIGNED
 	#define UNALIGNED64
 	#define MAX_NATURAL_ALIGNMENT sizeof(DWORD)
 	#define MEMORY_ALLOCATION_ALIGNMENT 8
 #endif
 
-'' TODO: #define TYPE_ALIGNMENT(t) FIELD_OFFSET(struct { char x; t test; }, test)
-
+#define TYPE_ALIGNMENT(t) '' TODO: FIELD_OFFSET(struct { char x; t test; }, test)
 #define PROBE_ALIGNMENT(_s) TYPE_ALIGNMENT(DWORD)
 
 #ifdef __FB_64BIT__
 	#define PROBE_ALIGNMENT32(_s) TYPE_ALIGNMENT(DWORD)
 #endif
 
-'' TODO: # define C_ASSERT(e) extern void __C_ASSERT__(int [(e)?1:-1])
-
-#define DECLSPEC_IMPORT __declspec(dllimport)
-#define DECLSPEC_NORETURN __declspec(noreturn)
-#define DECLSPEC_NOTHROW __declspec(nothrow)
 #define SYSTEM_CACHE_ALIGNMENT_SIZE 64
-#define DECLSPEC_CACHEALIGN DECLSPEC_ALIGN(SYSTEM_CACHE_ALIGNMENT_SIZE)
-#define DECLSPEC_UUID(x)
-#define DECLSPEC_NOVTABLE
-#define DECLSPEC_SELECTANY __declspec(selectany)
 #define NOP_FUNCTION cast(any, 0)
-#define FORCEINLINE __forceinline
-#define DECLSPEC_DEPRECATED __declspec(deprecated)
-#define DEPRECATE_SUPPORTED
-#define DECLSPEC_DEPRECATED_DDK
 #define PRAGMA_DEPRECATED_DDK 0
 
 type PVOID as any ptr
 type PVOID64 as any ptr
 
-#ifdef __FB_64BIT__
-	#define FASTCALL
-#else
-	#define FASTCALL __fastcall
-#endif
-
-#define NTAPI __stdcall
-#define NTAPI_INLINE NTAPI
-#define NTSYSAPI DECLSPEC_IMPORT
-#define NTSYSCALLAPI DECLSPEC_IMPORT
 #define VOID any
 
 type CHAR as byte
-type SHORT_ as short
-type LONG_ as clong
+type SHORT as short
+type LONG as long
 
 #define __WCHAR_DEFINED
 
@@ -211,10 +179,10 @@ type PCNZCH as const CHAR ptr
 	#define __TEXT(quote) quote
 #endif
 
-#define TEXT_(quote) __TEXT(quote)
+#define TEXT(quote) __TEXT(quote)
 
-type PSHORT as SHORT_ ptr
-type PLONG as LONG_ ptr
+type PSHORT as SHORT ptr
+type PLONG as LONG ptr
 
 #define ___GROUP_AFFINITY_DEFINED
 
@@ -227,17 +195,14 @@ end type
 type GROUP_AFFINITY as _GROUP_AFFINITY
 type PGROUP_AFFINITY as _GROUP_AFFINITY ptr
 type HANDLE as any ptr
-
-'' TODO: #define DECLARE_HANDLE(name) struct name##__ { int unused; }; typedef struct name##__ *name
-
 type PHANDLE as HANDLE ptr
-type FCHAR as BYTE_
+type FCHAR as BYTE
 type FSHORT as WORD
 type FLONG as DWORD
 
 #define _HRESULT_DEFINED
 
-type HRESULT as LONG_
+type HRESULT as LONG
 
 #define IFACEMETHODIMP STDMETHODIMP
 #define IFACEMETHODIMP_(type) STDMETHODIMP_(type)
@@ -294,13 +259,13 @@ type USN as LONGLONG
 
 type ___LARGE_INTEGER_u
 	LowPart as DWORD
-	HighPart as LONG_
+	HighPart as LONG
 end type
 
 union _LARGE_INTEGER
 	type
 		LowPart as DWORD
-		HighPart as LONG_
+		HighPart as LONG
 	end type
 
 	u as ___LARGE_INTEGER_u
@@ -330,7 +295,7 @@ type PULARGE_INTEGER as ULARGE_INTEGER ptr
 
 type _LUID
 	LowPart as DWORD
-	HighPart as LONG_
+	HighPart as LONG
 end type
 
 type LUID as _LUID
@@ -341,7 +306,7 @@ type PLUID as _LUID ptr
 type DWORDLONG as ULONGLONG
 type PDWORDLONG as DWORDLONG ptr
 
-#define Int32x32To64(a, b) (cast(LONGLONG, cast(LONG_, (a))) * cast(LONGLONG, cast(LONG_, (b))))
+#define Int32x32To64(a, b) (cast(LONGLONG, cast(LONG, (a))) * cast(LONGLONG, cast(LONG, (b))))
 #define UInt32x32To64(a, b) (cast(ULONGLONG, culng((a))) * cast(ULONGLONG, culng((b))))
 #define Int64ShllMod32(a, b) (cast(ULONGLONG, (a)) shl (b))
 #define Int64ShraMod32(a, b) (cast(LONGLONG, (a)) shr (b))
@@ -375,7 +340,7 @@ declare function _rotr64 cdecl(byval Value as ulongint, byval Shift as long) as 
 #define UNICODE_STRING_MAX_CHARS 32767
 #define _BOOLEAN_
 
-type BOOLEAN as BYTE_
+type BOOLEAN as BYTE
 type PBOOLEAN as BOOLEAN ptr
 
 #define _LIST_ENTRY_DEFINED
@@ -428,7 +393,7 @@ type OBJECTID as _OBJECTID
 #define MAXBYTE &hff
 #define MAXWORD &hffff
 #define MAXDWORD &hffffffff
-#define FIELD_OFFSET(type, field) cast(LONG_, cast(LONG_PTR, @cptr(type ptr, 0)->field))
+#define FIELD_OFFSET(type, field) cast(LONG, cast(LONG_PTR, @cptr(type ptr, 0)->field))
 #define RTL_FIELD_SIZE(type, field) sizeof(cptr(type ptr, 0)->field)
 #define RTL_SIZEOF_THROUGH_FIELD(type, field) (FIELD_OFFSET(type, field) + RTL_FIELD_SIZE(type, field))
 #define RTL_CONTAINS_FIELD(Struct, Size, Field) ((cast(PCHAR, @(Struct)->Field) + sizeof((Struct)->Field)) <= (cast(PCHAR, (Struct)) + (Size)))
@@ -989,20 +954,6 @@ type PEXCEPTION_ROUTINE as function(byval ExceptionRecord as _EXCEPTION_RECORD p
 #define LOCALE_CUSTOM_UNSPECIFIED MAKELCID(MAKELANGID(LANG_NEUTRAL, SUBLANG_CUSTOM_UNSPECIFIED), SORT_DEFAULT)
 #define LOCALE_CUSTOM_UI_DEFAULT MAKELCID(MAKELANGID(LANG_NEUTRAL, SUBLANG_UI_CUSTOM_DEFAULT), SORT_DEFAULT)
 #define LOCALE_INVARIANT MAKELCID(MAKELANGID(LANG_INVARIANT, SUBLANG_NEUTRAL), SORT_DEFAULT)
-#macro UNREFERENCED_PARAMETER(P)
-	scope
-		(P)
-		'' TODO: (P) = (P);
-	end scope
-#endmacro
-#macro UNREFERENCED_LOCAL_VARIABLE(V)
-	scope
-		(V)
-		'' TODO: (V) = (V);
-	end scope
-#endmacro
-#define DBG_UNREFERENCED_PARAMETER(P) (P)
-#define DBG_UNREFERENCED_LOCAL_VARIABLE(V) (V)
 #define DEFAULT_UNREACHABLE
 #define STATUS_WAIT_0 cast(DWORD, &h00000000)
 #define STATUS_ABANDONED_WAIT_0 cast(DWORD, &h00000080)
@@ -1077,8 +1028,8 @@ type PM128A as _M128A ptr
 type _XSAVE_FORMAT
 	ControlWord as WORD
 	StatusWord as WORD
-	TagWord as BYTE_
-	Reserved1 as BYTE_
+	TagWord as BYTE
+	Reserved1 as BYTE
 	ErrorOpcode as WORD
 	ErrorOffset as DWORD
 	ErrorSelector as WORD
@@ -1092,10 +1043,10 @@ type _XSAVE_FORMAT
 
 	#ifdef __FB_64BIT__
 		XmmRegisters(0 to 15) as M128A
-		Reserved4(0 to 95) as BYTE_
+		Reserved4(0 to 95) as BYTE
 	#else
 		XmmRegisters(0 to 7) as M128A
-		Reserved4(0 to 219) as BYTE_
+		Reserved4(0 to 219) as BYTE
 		Cr0NpxState as DWORD
 	#endif
 end type
@@ -1191,7 +1142,7 @@ type PSCOPE_TABLE_AMD64 as _SCOPE_TABLE_AMD64 ptr
 	#define InterlockedIncrementSizeT(a) InterlockedIncrement64(cptr(LONG64 ptr, a))
 	#define InterlockedDecrementSizeT(a) InterlockedDecrement64(cptr(LONG64 ptr, a))
 
-	function _InterlockedAdd(byval Addend as LONG_ ptr, byval Value as LONG_) as LONG_
+	function _InterlockedAdd(byval Addend as LONG ptr, byval Value as LONG) as LONG
 		return _InterlockedExchangeAdd(Addend, Value) + Value
 	end function
 
@@ -1208,13 +1159,9 @@ type PSCOPE_TABLE_AMD64 as _SCOPE_TABLE_AMD64 ptr
 	#define StoreFence _mm_sfence
 	#define YieldProcessor _mm_pause
 	#define MemoryBarrier _mm_mfence
-
-	'' TODO: #define PreFetchCacheLine(l,a) _mm_prefetch((CHAR CONST *) a,l)
-
+	#define PreFetchCacheLine(l, a) '' TODO: _mm_prefetch((CHAR CONST *) a,l)
 	#define PrefetchForWrite(p) _m_prefetchw(p)
-
-	'' TODO: #define ReadForWriteAccess(p) (_m_prefetchw(p),*(p))
-
+	#define ReadForWriteAccess(p) '' TODO: (_m_prefetchw(p),*(p))
 	#define PF_TEMPORAL_LEVEL_1 _MM_HINT_T0
 	#define PF_TEMPORAL_LEVEL_2 _MM_HINT_T1
 	#define PF_TEMPORAL_LEVEL_3 _MM_HINT_T2
@@ -1267,8 +1214,8 @@ type PSCOPE_TABLE_AMD64 as _SCOPE_TABLE_AMD64 ptr
 	#define ShiftLeft128 __shiftleft128
 	#define ShiftRight128 __shiftright128
 
-	declare function __shiftleft128(byval LowPart as DWORD64, byval HighPart as DWORD64, byval Shift as BYTE_) as DWORD64
-	declare function __shiftright128(byval LowPart as DWORD64, byval HighPart as DWORD64, byval Shift as BYTE_) as DWORD64
+	declare function __shiftleft128(byval LowPart as DWORD64, byval HighPart as DWORD64, byval Shift as BYTE) as DWORD64
+	declare function __shiftright128(byval LowPart as DWORD64, byval HighPart as DWORD64, byval Shift as BYTE) as DWORD64
 
 	#define Multiply128 _mul128
 
@@ -1277,8 +1224,8 @@ type PSCOPE_TABLE_AMD64 as _SCOPE_TABLE_AMD64 ptr
 	#define UnsignedMultiply128 _umul128
 
 	declare function _umul128(byval Multiplier as DWORD64, byval Multiplicand as DWORD64, byval HighProduct as DWORD64 ptr) as DWORD64
-	declare function MultiplyExtract128(byval Multiplier as LONG64, byval Multiplicand as LONG64, byval Shift as BYTE_) as LONG64
-	declare function UnsignedMultiplyExtract128(byval Multiplier as DWORD64, byval Multiplicand as DWORD64, byval Shift as BYTE_) as DWORD64
+	declare function MultiplyExtract128(byval Multiplier as LONG64, byval Multiplicand as LONG64, byval Shift as BYTE) as LONG64
+	declare function UnsignedMultiplyExtract128(byval Multiplier as DWORD64, byval Multiplicand as DWORD64, byval Shift as BYTE) as DWORD64
 #else
 	type _FLOATING_SAVE_AREA
 		ControlWord as DWORD
@@ -1288,7 +1235,7 @@ type PSCOPE_TABLE_AMD64 as _SCOPE_TABLE_AMD64 ptr
 		ErrorSelector as DWORD
 		DataOffset as DWORD
 		DataSelector as DWORD
-		RegisterArea(0 to 79) as BYTE_
+		RegisterArea(0 to 79) as BYTE
 		Cr0NpxState as DWORD
 	end type
 
@@ -1318,8 +1265,8 @@ type PSCOPE_TABLE_AMD64 as _SCOPE_TABLE_AMD64 ptr
 	type _XMM_SAVE_AREA32
 		ControlWord as WORD
 		StatusWord as WORD
-		TagWord as BYTE_
-		Reserved1 as BYTE_
+		TagWord as BYTE
+		Reserved1 as BYTE
 		ErrorOpcode as WORD
 		ErrorOffset as DWORD
 		ErrorSelector as WORD
@@ -1331,7 +1278,7 @@ type PSCOPE_TABLE_AMD64 as _SCOPE_TABLE_AMD64 ptr
 		MxCsr_Mask as DWORD
 		FloatRegisters(0 to 7) as M128A
 		XmmRegisters(0 to 15) as M128A
-		Reserved4(0 to 95) as BYTE_
+		Reserved4(0 to 95) as BYTE
 	end type
 
 	type XMM_SAVE_AREA32 as _XMM_SAVE_AREA32
@@ -1461,7 +1408,7 @@ type _CONTEXT
 	#else
 		Esp as DWORD
 		SegSs as DWORD
-		ExtendedRegisters(0 to 511) as BYTE_
+		ExtendedRegisters(0 to 511) as BYTE
 	#endif
 end type
 
@@ -1491,10 +1438,10 @@ type CONTEXT as _CONTEXT
 #define _LDT_ENTRY_DEFINED
 
 type ___LDT_ENTRY_Bytes
-	BaseMid as BYTE_
-	Flags1 as BYTE_
-	Flags2 as BYTE_
-	BaseHi as BYTE_
+	BaseMid as BYTE
+	Flags1 as BYTE
+	Flags2 as BYTE
+	BaseHi as BYTE
 end type
 
 type ___LDT_ENTRY_Bits
@@ -1598,7 +1545,7 @@ type PEXCEPTION_POINTERS as _EXCEPTION_POINTERS ptr
 	#define UNWIND_HISTORY_TABLE_LOCAL 2
 
 	type _UNWIND_HISTORY_TABLE
-		Count as ULONG_
+		Count as ULONG
 		Search as UCHAR
 		LowAddress as ULONG64
 		HighAddress as ULONG64
@@ -1620,8 +1567,8 @@ type PEXCEPTION_POINTERS as _EXCEPTION_POINTERS ptr
 		LanguageHandler as PEXCEPTION_ROUTINE
 		HandlerData as PVOID
 		HistoryTable as PUNWIND_HISTORY_TABLE
-		ScopeIndex as ULONG_
-		Fill0 as ULONG_
+		ScopeIndex as ULONG
+		Fill0 as ULONG
 	end type
 
 	type _KNONVOLATILE_CONTEXT_POINTERS
@@ -1679,7 +1626,7 @@ type PLUID_AND_ATTRIBUTES as _LUID_AND_ATTRIBUTES ptr
 '' TODO: typedef LUID_AND_ATTRIBUTES_ARRAY *PLUID_AND_ATTRIBUTES_ARRAY;
 
 type _SID_IDENTIFIER_AUTHORITY
-	Value(0 to 5) as BYTE_
+	Value(0 to 5) as BYTE
 end type
 
 type SID_IDENTIFIER_AUTHORITY as _SID_IDENTIFIER_AUTHORITY
@@ -1689,8 +1636,8 @@ type PSID_IDENTIFIER_AUTHORITY as _SID_IDENTIFIER_AUTHORITY ptr
 #define SID_DEFINED
 
 type _SID
-	Revision as BYTE_
-	SubAuthorityCount as BYTE_
+	Revision as BYTE
+	SubAuthorityCount as BYTE
 	IdentifierAuthority as SID_IDENTIFIER_AUTHORITY
 	SubAuthority(0 to 0) as DWORD
 end type
@@ -2043,8 +1990,8 @@ end enum
 #define MAX_ACL_REVISION ACL_REVISION4
 
 type _ACL
-	AclRevision as BYTE_
-	Sbz1 as BYTE_
+	AclRevision as BYTE
+	Sbz1 as BYTE
 	AclSize as WORD
 	AceCount as WORD
 	Sbz2 as WORD
@@ -2054,8 +2001,8 @@ type ACL as _ACL
 type PACL as ACL ptr
 
 type _ACE_HEADER
-	AceType as BYTE_
-	AceFlags as BYTE_
+	AceType as BYTE
+	AceFlags as BYTE
 	AceSize as WORD
 end type
 
@@ -2349,8 +2296,8 @@ type PSECURITY_DESCRIPTOR_CONTROL as WORD ptr
 #define SE_SELF_RELATIVE &h8000
 
 type _SECURITY_DESCRIPTOR_RELATIVE
-	Revision as BYTE_
-	Sbz1 as BYTE_
+	Revision as BYTE
+	Sbz1 as BYTE
 	Control as SECURITY_DESCRIPTOR_CONTROL
 	Owner as DWORD
 	Group as DWORD
@@ -2362,8 +2309,8 @@ type SECURITY_DESCRIPTOR_RELATIVE as _SECURITY_DESCRIPTOR_RELATIVE
 type PISECURITY_DESCRIPTOR_RELATIVE as _SECURITY_DESCRIPTOR_RELATIVE ptr
 
 type _SECURITY_DESCRIPTOR
-	Revision as BYTE_
-	Sbz1 as BYTE_
+	Revision as BYTE
+	Sbz1 as BYTE
 	Control as SECURITY_DESCRIPTOR_CONTROL
 	Owner as PSID
 	Group as PSID
@@ -2492,41 +2439,41 @@ end type
 type SE_ACCESS_REPLY as _SE_ACCESS_REPLY
 type PSE_ACCESS_REPLY as _SE_ACCESS_REPLY ptr
 
-#define SE_CREATE_TOKEN_NAME TEXT_("SeCreateTokenPrivilege")
-#define SE_ASSIGNPRIMARYTOKEN_NAME TEXT_("SeAssignPrimaryTokenPrivilege")
-#define SE_LOCK_MEMORY_NAME TEXT_("SeLockMemoryPrivilege")
-#define SE_INCREASE_QUOTA_NAME TEXT_("SeIncreaseQuotaPrivilege")
-#define SE_UNSOLICITED_INPUT_NAME TEXT_("SeUnsolicitedInputPrivilege")
-#define SE_MACHINE_ACCOUNT_NAME TEXT_("SeMachineAccountPrivilege")
-#define SE_TCB_NAME TEXT_("SeTcbPrivilege")
-#define SE_SECURITY_NAME TEXT_("SeSecurityPrivilege")
-#define SE_TAKE_OWNERSHIP_NAME TEXT_("SeTakeOwnershipPrivilege")
-#define SE_LOAD_DRIVER_NAME TEXT_("SeLoadDriverPrivilege")
-#define SE_SYSTEM_PROFILE_NAME TEXT_("SeSystemProfilePrivilege")
-#define SE_SYSTEMTIME_NAME TEXT_("SeSystemtimePrivilege")
-#define SE_PROF_SINGLE_PROCESS_NAME TEXT_("SeProfileSingleProcessPrivilege")
-#define SE_INC_BASE_PRIORITY_NAME TEXT_("SeIncreaseBasePriorityPrivilege")
-#define SE_CREATE_PAGEFILE_NAME TEXT_("SeCreatePagefilePrivilege")
-#define SE_CREATE_PERMANENT_NAME TEXT_("SeCreatePermanentPrivilege")
-#define SE_BACKUP_NAME TEXT_("SeBackupPrivilege")
-#define SE_RESTORE_NAME TEXT_("SeRestorePrivilege")
-#define SE_SHUTDOWN_NAME TEXT_("SeShutdownPrivilege")
-#define SE_DEBUG_NAME TEXT_("SeDebugPrivilege")
-#define SE_AUDIT_NAME TEXT_("SeAuditPrivilege")
-#define SE_SYSTEM_ENVIRONMENT_NAME TEXT_("SeSystemEnvironmentPrivilege")
-#define SE_CHANGE_NOTIFY_NAME TEXT_("SeChangeNotifyPrivilege")
-#define SE_REMOTE_SHUTDOWN_NAME TEXT_("SeRemoteShutdownPrivilege")
-#define SE_UNDOCK_NAME TEXT_("SeUndockPrivilege")
-#define SE_SYNC_AGENT_NAME TEXT_("SeSyncAgentPrivilege")
-#define SE_ENABLE_DELEGATION_NAME TEXT_("SeEnableDelegationPrivilege")
-#define SE_MANAGE_VOLUME_NAME TEXT_("SeManageVolumePrivilege")
-#define SE_IMPERSONATE_NAME TEXT_("SeImpersonatePrivilege")
-#define SE_CREATE_GLOBAL_NAME TEXT_("SeCreateGlobalPrivilege")
-#define SE_TRUSTED_CREDMAN_ACCESS_NAME TEXT_("SeTrustedCredManAccessPrivilege")
-#define SE_RELABEL_NAME TEXT_("SeRelabelPrivilege")
-#define SE_INC_WORKING_SET_NAME TEXT_("SeIncreaseWorkingSetPrivilege")
-#define SE_TIME_ZONE_NAME TEXT_("SeTimeZonePrivilege")
-#define SE_CREATE_SYMBOLIC_LINK_NAME TEXT_("SeCreateSymbolicLinkPrivilege")
+#define SE_CREATE_TOKEN_NAME TEXT("SeCreateTokenPrivilege")
+#define SE_ASSIGNPRIMARYTOKEN_NAME TEXT("SeAssignPrimaryTokenPrivilege")
+#define SE_LOCK_MEMORY_NAME TEXT("SeLockMemoryPrivilege")
+#define SE_INCREASE_QUOTA_NAME TEXT("SeIncreaseQuotaPrivilege")
+#define SE_UNSOLICITED_INPUT_NAME TEXT("SeUnsolicitedInputPrivilege")
+#define SE_MACHINE_ACCOUNT_NAME TEXT("SeMachineAccountPrivilege")
+#define SE_TCB_NAME TEXT("SeTcbPrivilege")
+#define SE_SECURITY_NAME TEXT("SeSecurityPrivilege")
+#define SE_TAKE_OWNERSHIP_NAME TEXT("SeTakeOwnershipPrivilege")
+#define SE_LOAD_DRIVER_NAME TEXT("SeLoadDriverPrivilege")
+#define SE_SYSTEM_PROFILE_NAME TEXT("SeSystemProfilePrivilege")
+#define SE_SYSTEMTIME_NAME TEXT("SeSystemtimePrivilege")
+#define SE_PROF_SINGLE_PROCESS_NAME TEXT("SeProfileSingleProcessPrivilege")
+#define SE_INC_BASE_PRIORITY_NAME TEXT("SeIncreaseBasePriorityPrivilege")
+#define SE_CREATE_PAGEFILE_NAME TEXT("SeCreatePagefilePrivilege")
+#define SE_CREATE_PERMANENT_NAME TEXT("SeCreatePermanentPrivilege")
+#define SE_BACKUP_NAME TEXT("SeBackupPrivilege")
+#define SE_RESTORE_NAME TEXT("SeRestorePrivilege")
+#define SE_SHUTDOWN_NAME TEXT("SeShutdownPrivilege")
+#define SE_DEBUG_NAME TEXT("SeDebugPrivilege")
+#define SE_AUDIT_NAME TEXT("SeAuditPrivilege")
+#define SE_SYSTEM_ENVIRONMENT_NAME TEXT("SeSystemEnvironmentPrivilege")
+#define SE_CHANGE_NOTIFY_NAME TEXT("SeChangeNotifyPrivilege")
+#define SE_REMOTE_SHUTDOWN_NAME TEXT("SeRemoteShutdownPrivilege")
+#define SE_UNDOCK_NAME TEXT("SeUndockPrivilege")
+#define SE_SYNC_AGENT_NAME TEXT("SeSyncAgentPrivilege")
+#define SE_ENABLE_DELEGATION_NAME TEXT("SeEnableDelegationPrivilege")
+#define SE_MANAGE_VOLUME_NAME TEXT("SeManageVolumePrivilege")
+#define SE_IMPERSONATE_NAME TEXT("SeImpersonatePrivilege")
+#define SE_CREATE_GLOBAL_NAME TEXT("SeCreateGlobalPrivilege")
+#define SE_TRUSTED_CREDMAN_ACCESS_NAME TEXT("SeTrustedCredManAccessPrivilege")
+#define SE_RELABEL_NAME TEXT("SeRelabelPrivilege")
+#define SE_INC_WORKING_SET_NAME TEXT("SeIncreaseWorkingSetPrivilege")
+#define SE_TIME_ZONE_NAME TEXT("SeTimeZonePrivilege")
+#define SE_CREATE_SYMBOLIC_LINK_NAME TEXT("SeCreateSymbolicLinkPrivilege")
 
 type _SECURITY_IMPERSONATION_LEVEL as long
 enum
@@ -3592,8 +3539,8 @@ type PROCESSOR_CACHE_TYPE as _PROCESSOR_CACHE_TYPE
 #define CACHE_FULLY_ASSOCIATIVE &hFF
 
 type _CACHE_DESCRIPTOR
-	Level as BYTE_
-	Associativity as BYTE_
+	Level as BYTE
+	Associativity as BYTE
 	LineSize as WORD
 	Size as DWORD
 	as PROCESSOR_CACHE_TYPE Type
@@ -3603,7 +3550,7 @@ type CACHE_DESCRIPTOR as _CACHE_DESCRIPTOR
 type PCACHE_DESCRIPTOR as _CACHE_DESCRIPTOR ptr
 
 type ___SYSTEM_LOGICAL_PROCESSOR_INFORMATION_ProcessorCore
-	Flags as BYTE_
+	Flags as BYTE
 end type
 
 type ___SYSTEM_LOGICAL_PROCESSOR_INFORMATION_NumaNode
@@ -3626,8 +3573,8 @@ type SYSTEM_LOGICAL_PROCESSOR_INFORMATION as _SYSTEM_LOGICAL_PROCESSOR_INFORMATI
 type PSYSTEM_LOGICAL_PROCESSOR_INFORMATION as _SYSTEM_LOGICAL_PROCESSOR_INFORMATION ptr
 
 type _PROCESSOR_RELATIONSHIP
-	Flags as BYTE_
-	Reserved(0 to 20) as BYTE_
+	Flags as BYTE
+	Reserved(0 to 20) as BYTE
 	GroupCount as WORD
 	GroupMask(0 to 0) as GROUP_AFFINITY
 end type
@@ -3637,7 +3584,7 @@ type PPROCESSOR_RELATIONSHIP as _PROCESSOR_RELATIONSHIP ptr
 
 type _NUMA_NODE_RELATIONSHIP
 	NodeNumber as DWORD
-	Reserved(0 to 19) as BYTE_
+	Reserved(0 to 19) as BYTE
 	GroupMask as GROUP_AFFINITY
 end type
 
@@ -3645,12 +3592,12 @@ type NUMA_NODE_RELATIONSHIP as _NUMA_NODE_RELATIONSHIP
 type PNUMA_NODE_RELATIONSHIP as _NUMA_NODE_RELATIONSHIP ptr
 
 type _CACHE_RELATIONSHIP
-	Level as BYTE_
-	Associativity as BYTE_
+	Level as BYTE
+	Associativity as BYTE
 	LineSize as WORD
 	CacheSize as DWORD
 	as PROCESSOR_CACHE_TYPE Type
-	Reserved(0 to 19) as BYTE_
+	Reserved(0 to 19) as BYTE
 	GroupMask as GROUP_AFFINITY
 end type
 
@@ -3658,9 +3605,9 @@ type CACHE_RELATIONSHIP as _CACHE_RELATIONSHIP
 type PCACHE_RELATIONSHIP as _CACHE_RELATIONSHIP ptr
 
 type _PROCESSOR_GROUP_INFO
-	MaximumProcessorCount as BYTE_
-	ActiveProcessorCount as BYTE_
-	Reserved(0 to 37) as BYTE_
+	MaximumProcessorCount as BYTE
+	ActiveProcessorCount as BYTE
+	Reserved(0 to 37) as BYTE
 	ActiveProcessorMask as KAFFINITY
 end type
 
@@ -3670,7 +3617,7 @@ type PPROCESSOR_GROUP_INFO as _PROCESSOR_GROUP_INFO ptr
 type _GROUP_RELATIONSHIP
 	MaximumGroupCount as WORD
 	ActiveGroupCount as WORD
-	Reserved(0 to 19) as BYTE_
+	Reserved(0 to 19) as BYTE
 	GroupInfo(0 to 0) as PROCESSOR_GROUP_INFO
 end type
 
@@ -4008,7 +3955,7 @@ type FILE_SEGMENT_ELEMENT as _FILE_SEGMENT_ELEMENT
 type PFILE_SEGMENT_ELEMENT as _FILE_SEGMENT_ELEMENT ptr
 
 type ___REPARSE_GUID_DATA_BUFFER_GenericReparseBuffer
-	DataBuffer(0 to 0) as BYTE_
+	DataBuffer(0 to 0) as BYTE
 end type
 
 type _REPARSE_GUID_DATA_BUFFER
@@ -4516,7 +4463,7 @@ type SET_POWER_SETTING_VALUE
 	Guid as GUID
 	PowerCondition as SYSTEM_POWER_CONDITION
 	DataLength as DWORD
-	Data(0 to 0) as BYTE_
+	Data(0 to 0) as BYTE
 end type
 
 type PSET_POWER_SETTING_VALUE as SET_POWER_SETTING_VALUE ptr
@@ -4588,10 +4535,10 @@ type PPM_WMI_IDLE_STATE
 	Latency as DWORD
 	Power as DWORD
 	TimeCheck as DWORD
-	PromotePercent as BYTE_
-	DemotePercent as BYTE_
-	StateType as BYTE_
-	Reserved as BYTE_
+	PromotePercent as BYTE
+	DemotePercent as BYTE
+	StateType as BYTE
+	Reserved as BYTE
 	StateFlags as DWORD
 	Context as DWORD
 	IdleHandler as DWORD
@@ -4625,10 +4572,10 @@ type PPPM_WMI_IDLE_STATES_EX as PPM_WMI_IDLE_STATES_EX ptr
 type PPM_WMI_PERF_STATE
 	Frequency as DWORD
 	Power as DWORD
-	PercentFrequency as BYTE_
-	IncreaseLevel as BYTE_
-	DecreaseLevel as BYTE_
-	as BYTE_ Type
+	PercentFrequency as BYTE
+	IncreaseLevel as BYTE
+	DecreaseLevel as BYTE
+	as BYTE Type
 	IncreaseTime as DWORD
 	DecreaseTime as DWORD
 	Control as DWORD64
@@ -4649,10 +4596,10 @@ type PPM_WMI_PERF_STATES
 	MinPerfState as DWORD
 	LowestPerfState as DWORD
 	ThermalConstraint as DWORD
-	BusyAdjThreshold as BYTE_
-	PolicyType as BYTE_
-	as BYTE_ Type
-	Reserved as BYTE_
+	BusyAdjThreshold as BYTE
+	PolicyType as BYTE
+	as BYTE Type
+	Reserved as BYTE
 	TimerInterval as DWORD
 	TargetProcessors as DWORD64
 	PStateHandler as DWORD
@@ -4675,10 +4622,10 @@ type PPM_WMI_PERF_STATES_EX
 	MinPerfState as DWORD
 	LowestPerfState as DWORD
 	ThermalConstraint as DWORD
-	BusyAdjThreshold as BYTE_
-	PolicyType as BYTE_
-	as BYTE_ Type
-	Reserved as BYTE_
+	BusyAdjThreshold as BYTE
+	PolicyType as BYTE
+	as BYTE Type
+	Reserved as BYTE
 	TimerInterval as DWORD
 	TargetProcessors as PVOID
 	PStateHandler as DWORD
@@ -4816,7 +4763,7 @@ end type
 type PPPM_THERMALCHANGE_EVENT as PPM_THERMALCHANGE_EVENT ptr
 
 type PPM_THERMAL_POLICY_EVENT
-	Mode as BYTE_
+	Mode as BYTE
 	Processors as DWORD64
 end type
 
@@ -4866,16 +4813,16 @@ type PPOWER_ACTION_POLICY as POWER_ACTION_POLICY ptr
 
 type PROCESSOR_IDLESTATE_INFO
 	TimeCheck as DWORD
-	DemotePercent as BYTE_
-	PromotePercent as BYTE_
-	Spare(0 to 1) as BYTE_
+	DemotePercent as BYTE
+	PromotePercent as BYTE
+	Spare(0 to 1) as BYTE
 end type
 
 type PPROCESSOR_IDLESTATE_INFO as PROCESSOR_IDLESTATE_INFO ptr
 
 type SYSTEM_POWER_LEVEL
 	Enable as BOOLEAN
-	Spare(0 to 2) as BYTE_
+	Spare(0 to 2) as BYTE
 	BatteryLevel as DWORD
 	PowerPolicy as POWER_ACTION_POLICY
 	MinSystemState as SYSTEM_POWER_STATE
@@ -4892,9 +4839,9 @@ type _SYSTEM_POWER_POLICY
 	Reserved as DWORD
 	Idle as POWER_ACTION_POLICY
 	IdleTimeout as DWORD
-	IdleSensitivity as BYTE_
-	DynamicThrottle as BYTE_
-	Spare2(0 to 1) as BYTE_
+	IdleSensitivity as BYTE
+	DynamicThrottle as BYTE
+	Spare2(0 to 1) as BYTE
 	MinSleep as SYSTEM_POWER_STATE
 	MaxSleep as SYSTEM_POWER_STATE
 	ReducedLatencySleep as SYSTEM_POWER_STATE
@@ -4908,9 +4855,9 @@ type _SYSTEM_POWER_POLICY
 	VideoReserved(0 to 2) as DWORD
 	SpindownTimeout as DWORD
 	OptimizeForPower as BOOLEAN
-	FanThrottleTolerance as BYTE_
-	ForcedThrottle as BYTE_
-	MinThrottle as BYTE_
+	FanThrottleTolerance as BYTE
+	ForcedThrottle as BYTE
+	MinThrottle as BYTE
 	OverThrottled as POWER_ACTION_POLICY
 end type
 
@@ -4946,9 +4893,9 @@ type _PROCESSOR_POWER_POLICY_INFO
 	TimeCheck as DWORD
 	DemoteLimit as DWORD
 	PromoteLimit as DWORD
-	DemotePercent as BYTE_
-	PromotePercent as BYTE_
-	Spare(0 to 1) as BYTE_
+	DemotePercent as BYTE
+	PromotePercent as BYTE
+	Spare(0 to 1) as BYTE
 	AllowDemotion : 1 as DWORD
 	AllowPromotion : 1 as DWORD
 	Reserved : 30 as DWORD
@@ -4959,8 +4906,8 @@ type PPROCESSOR_POWER_POLICY_INFO as _PROCESSOR_POWER_POLICY_INFO ptr
 
 type _PROCESSOR_POWER_POLICY
 	Revision as DWORD
-	DynamicThrottle as BYTE_
-	Spare(0 to 2) as BYTE_
+	DynamicThrottle as BYTE
+	Spare(0 to 2) as BYTE
 	DisableCStates : 1 as DWORD
 	Reserved : 31 as DWORD
 	PolicyCount as DWORD
@@ -4970,26 +4917,26 @@ end type
 type PROCESSOR_POWER_POLICY as _PROCESSOR_POWER_POLICY
 type PPROCESSOR_POWER_POLICY as _PROCESSOR_POWER_POLICY ptr
 
-union __Flags_
-	AsBYTE as BYTE_
+union __Flags
+	AsBYTE as BYTE
 
 	type
-		NoDomainAccounting : 1 as BYTE_
-		IncreasePolicy : 2 as BYTE_
-		DecreasePolicy : 2 as BYTE_
-		Reserved : 3 as BYTE_
+		NoDomainAccounting : 1 as BYTE
+		IncreasePolicy : 2 as BYTE
+		DecreasePolicy : 2 as BYTE
+		Reserved : 3 as BYTE
 	end type
 end union
 
 type PROCESSOR_PERFSTATE_POLICY
 	Revision as DWORD
-	MaxThrottle as BYTE_
-	MinThrottle as BYTE_
-	BusyAdjThreshold as BYTE_
+	MaxThrottle as BYTE
+	MinThrottle as BYTE
+	BusyAdjThreshold as BYTE
 
 	union
-		Spare as BYTE_
-		Flags as __Flags_
+		Spare as BYTE
+		Flags as __Flags
 	end union
 
 	TimeCheck as DWORD
@@ -5029,12 +4976,12 @@ type SYSTEM_POWER_CAPABILITIES
 	UpsPresent as BOOLEAN
 	ThermalControl as BOOLEAN
 	ProcessorThrottle as BOOLEAN
-	ProcessorMinThrottle as BYTE_
-	ProcessorMaxThrottle as BYTE_
+	ProcessorMinThrottle as BYTE
+	ProcessorMaxThrottle as BYTE
 	FastSystemS4 as BOOLEAN
-	spare2(0 to 2) as BYTE_
+	spare2(0 to 2) as BYTE
 	DiskSpinDown as BOOLEAN
-	spare3(0 to 7) as BYTE_
+	spare3(0 to 7) as BYTE
 	SystemBatteriesPresent as BOOLEAN
 	BatteriesAreShortTerm as BOOLEAN
 	BatteryScale(0 to 2) as BATTERY_REPORTING_SCALE
@@ -5082,7 +5029,7 @@ type _IMAGE_DOS_HEADER field = 2
 	e_oemid as WORD
 	e_oeminfo as WORD
 	e_res2(0 to 9) as WORD
-	e_lfanew as LONG_
+	e_lfanew as LONG
 end type
 
 type IMAGE_DOS_HEADER as _IMAGE_DOS_HEADER
@@ -5100,13 +5047,13 @@ type _IMAGE_OS2_HEADER field = 2
 	ne_rev as CHAR
 	ne_enttab as WORD
 	ne_cbenttab as WORD
-	ne_crc as LONG_
+	ne_crc as LONG
 	ne_flags as WORD
 	ne_autodata as WORD
 	ne_heap as WORD
 	ne_stack as WORD
-	ne_csip as LONG_
-	ne_sssp as LONG_
+	ne_csip as LONG
+	ne_sssp as LONG
 	ne_cseg as WORD
 	ne_cmod as WORD
 	ne_cbnrestab as WORD
@@ -5115,12 +5062,12 @@ type _IMAGE_OS2_HEADER field = 2
 	ne_restab as WORD
 	ne_modtab as WORD
 	ne_imptab as WORD
-	ne_nrestab as LONG_
+	ne_nrestab as LONG
 	ne_cmovent as WORD
 	ne_align as WORD
 	ne_cres as WORD
-	ne_exetyp as BYTE_
-	ne_flagsothers as BYTE_
+	ne_exetyp as BYTE
+	ne_flagsothers as BYTE
 	ne_pretthunks as WORD
 	ne_psegrefbytes as WORD
 	ne_swaparea as WORD
@@ -5132,8 +5079,8 @@ type PIMAGE_OS2_HEADER as _IMAGE_OS2_HEADER ptr
 
 type _IMAGE_VXD_HEADER field = 2
 	e32_magic as WORD
-	e32_border as BYTE_
-	e32_worder as BYTE_
+	e32_border as BYTE
+	e32_worder as BYTE
 	e32_level as DWORD
 	e32_cpu as WORD
 	e32_os as WORD
@@ -5177,7 +5124,7 @@ type _IMAGE_VXD_HEADER field = 2
 	e32_instpreload as DWORD
 	e32_instdemand as DWORD
 	e32_heapsize as DWORD
-	e32_res3(0 to 11) as BYTE_
+	e32_res3(0 to 11) as BYTE
 	e32_winresoff as DWORD
 	e32_winreslen as DWORD
 	e32_devid as WORD
@@ -5260,8 +5207,8 @@ type PIMAGE_DATA_DIRECTORY as _IMAGE_DATA_DIRECTORY ptr
 
 type _IMAGE_OPTIONAL_HEADER field = 4
 	Magic as WORD
-	MajorLinkerVersion as BYTE_
-	MinorLinkerVersion as BYTE_
+	MajorLinkerVersion as BYTE
+	MinorLinkerVersion as BYTE
 	SizeOfCode as DWORD
 	SizeOfInitializedData as DWORD
 	SizeOfUninitializedData as DWORD
@@ -5297,8 +5244,8 @@ type PIMAGE_OPTIONAL_HEADER32 as _IMAGE_OPTIONAL_HEADER ptr
 
 type _IMAGE_ROM_OPTIONAL_HEADER field = 4
 	Magic as WORD
-	MajorLinkerVersion as BYTE_
-	MinorLinkerVersion as BYTE_
+	MajorLinkerVersion as BYTE
+	MinorLinkerVersion as BYTE
 	SizeOfCode as DWORD
 	SizeOfInitializedData as DWORD
 	SizeOfUninitializedData as DWORD
@@ -5316,8 +5263,8 @@ type PIMAGE_ROM_OPTIONAL_HEADER as _IMAGE_ROM_OPTIONAL_HEADER ptr
 
 type _IMAGE_OPTIONAL_HEADER64 field = 4
 	Magic as WORD
-	MajorLinkerVersion as BYTE_
-	MinorLinkerVersion as BYTE_
+	MajorLinkerVersion as BYTE
+	MinorLinkerVersion as BYTE
 	SizeOfCode as DWORD
 	SizeOfInitializedData as DWORD
 	SizeOfUninitializedData as DWORD
@@ -5493,7 +5440,7 @@ union ___IMAGE_SECTION_HEADER_Misc field = 4
 end union
 
 type _IMAGE_SECTION_HEADER field = 4
-	Name(0 to 7) as BYTE_
+	Name(0 to 7) as BYTE
 	Misc as ___IMAGE_SECTION_HEADER_Misc
 	VirtualAddress as DWORD
 	SizeOfRawData as DWORD
@@ -5555,7 +5502,7 @@ type ___IMAGE_SYMBOL_Name field = 2
 end type
 
 union ___IMAGE_SYMBOL_N field = 2
-	ShortName(0 to 7) as BYTE_
+	ShortName(0 to 7) as BYTE
 	Name as ___IMAGE_SYMBOL_Name
 	LongName(0 to 1) as DWORD
 end union
@@ -5563,10 +5510,10 @@ end union
 type _IMAGE_SYMBOL field = 2
 	N as ___IMAGE_SYMBOL_N
 	Value as DWORD
-	SectionNumber as SHORT_
+	SectionNumber as SHORT
 	as WORD Type
-	StorageClass as BYTE_
-	NumberOfAuxSymbols as BYTE_
+	StorageClass as BYTE
+	NumberOfAuxSymbols as BYTE
 end type
 
 type IMAGE_SYMBOL as _IMAGE_SYMBOL
@@ -5580,7 +5527,7 @@ type ___IMAGE_SYMBOL_EX_Name field = 2
 end type
 
 union ___IMAGE_SYMBOL_EX_N field = 2
-	ShortName(0 to 7) as BYTE_
+	ShortName(0 to 7) as BYTE
 	Name as ___IMAGE_SYMBOL_EX_Name
 	LongName(0 to 1) as DWORD
 end union
@@ -5588,18 +5535,18 @@ end union
 type _IMAGE_SYMBOL_EX field = 2
 	N as ___IMAGE_SYMBOL_EX_N
 	Value as DWORD
-	SectionNumber as LONG_
+	SectionNumber as LONG
 	as WORD Type
-	StorageClass as BYTE_
-	NumberOfAuxSymbols as BYTE_
+	StorageClass as BYTE
+	NumberOfAuxSymbols as BYTE
 end type
 
 type IMAGE_SYMBOL_EX as _IMAGE_SYMBOL_EX
 type PIMAGE_SYMBOL_EX as _IMAGE_SYMBOL_EX ptr
 
-#define IMAGE_SYM_UNDEFINED cast(SHORT_, 0)
-#define IMAGE_SYM_ABSOLUTE cast(SHORT_, -1)
-#define IMAGE_SYM_DEBUG cast(SHORT_, -2)
+#define IMAGE_SYM_UNDEFINED cast(SHORT, 0)
+#define IMAGE_SYM_ABSOLUTE cast(SHORT, -1)
+#define IMAGE_SYM_DEBUG cast(SHORT, -2)
 #define IMAGE_SYM_SECTION_MAX &hFEFF
 #define IMAGE_SYM_SECTION_MAX_EX MAXLONG
 #define IMAGE_SYM_TYPE_NULL &h0000
@@ -5623,7 +5570,7 @@ type PIMAGE_SYMBOL_EX as _IMAGE_SYMBOL_EX ptr
 #define IMAGE_SYM_DTYPE_POINTER 1
 #define IMAGE_SYM_DTYPE_FUNCTION 2
 #define IMAGE_SYM_DTYPE_ARRAY 3
-#define IMAGE_SYM_CLASS_END_OF_FUNCTION cast(BYTE_, -1)
+#define IMAGE_SYM_CLASS_END_OF_FUNCTION cast(BYTE, -1)
 #define IMAGE_SYM_CLASS_NULL &h0000
 #define IMAGE_SYM_CLASS_AUTOMATIC &h0001
 #define IMAGE_SYM_CLASS_EXTERNAL &h0002
@@ -5657,7 +5604,7 @@ type PIMAGE_SYMBOL_EX as _IMAGE_SYMBOL_EX ptr
 #define N_TMASK2 &h00F0
 #define N_BTSHFT 4
 #define N_TSHIFT 2
-#define BTYPE_(x) ((x) and N_BTMASK)
+#define BTYPE(x) ((x) and N_BTMASK)
 #define ISPTR(x) (((x) and N_TMASK) = (IMAGE_SYM_DTYPE_POINTER shl N_BTSHFT))
 #define ISFCN(x) (((x) and N_TMASK) = (IMAGE_SYM_DTYPE_FUNCTION shl N_BTSHFT))
 #define ISARY(x) (((x) and N_TMASK) = (IMAGE_SYM_DTYPE_ARRAY shl N_BTSHFT))
@@ -5666,10 +5613,10 @@ type PIMAGE_SYMBOL_EX as _IMAGE_SYMBOL_EX ptr
 #define DECREF(x) ((((x) shr N_TSHIFT) and (not N_BTMASK)) or ((x) and N_BTMASK))
 
 type IMAGE_AUX_SYMBOL_TOKEN_DEF field = 2
-	bAuxType as BYTE_
-	bReserved as BYTE_
+	bAuxType as BYTE
+	bReserved as BYTE
 	SymbolTableIndex as DWORD
-	rgbReserved(0 to 11) as BYTE_
+	rgbReserved(0 to 11) as BYTE
 end type
 
 type PIMAGE_AUX_SYMBOL_TOKEN_DEF as IMAGE_AUX_SYMBOL_TOKEN_DEF ptr
@@ -5706,7 +5653,7 @@ type ___IMAGE_AUX_SYMBOL_Sym field = 2
 end type
 
 type ___IMAGE_AUX_SYMBOL_File field = 2
-	Name(0 to 17) as BYTE_
+	Name(0 to 17) as BYTE
 end type
 
 type ___IMAGE_AUX_SYMBOL_Section field = 2
@@ -5714,13 +5661,13 @@ type ___IMAGE_AUX_SYMBOL_Section field = 2
 	NumberOfRelocations as WORD
 	NumberOfLinenumbers as WORD
 	CheckSum as DWORD
-	Number as SHORT_
-	Selection as BYTE_
+	Number as SHORT
+	Selection as BYTE
 end type
 
 type ___IMAGE_AUX_SYMBOL_CRC field = 2
 	crc as DWORD
-	rgbReserved(0 to 13) as BYTE_
+	rgbReserved(0 to 13) as BYTE
 end type
 
 union _IMAGE_AUX_SYMBOL field = 2
@@ -5737,11 +5684,11 @@ type PIMAGE_AUX_SYMBOL as _IMAGE_AUX_SYMBOL ptr
 type ___IMAGE_AUX_SYMBOL_EX_Sym field = 2
 	WeakDefaultSymIndex as DWORD
 	WeakSearchType as DWORD
-	rgbReserved(0 to 11) as BYTE_
+	rgbReserved(0 to 11) as BYTE
 end type
 
 type ___IMAGE_AUX_SYMBOL_EX_File field = 2
-	Name(0 to sizeof(IMAGE_SYMBOL_EX) - 1) as BYTE_
+	Name(0 to sizeof(IMAGE_SYMBOL_EX) - 1) as BYTE
 end type
 
 type ___IMAGE_AUX_SYMBOL_EX_Section field = 2
@@ -5749,16 +5696,16 @@ type ___IMAGE_AUX_SYMBOL_EX_Section field = 2
 	NumberOfRelocations as WORD
 	NumberOfLinenumbers as WORD
 	CheckSum as DWORD
-	Number as SHORT_
-	Selection as BYTE_
-	bReserved as BYTE_
-	HighNumber as SHORT_
-	rgbReserved(0 to 1) as BYTE_
+	Number as SHORT
+	Selection as BYTE
+	bReserved as BYTE
+	HighNumber as SHORT
+	rgbReserved(0 to 1) as BYTE
 end type
 
 type ___IMAGE_AUX_SYMBOL_EX_CRC field = 2
 	crc as DWORD
-	rgbReserved(0 to 15) as BYTE_
+	rgbReserved(0 to 15) as BYTE
 end type
 
 union _IMAGE_AUX_SYMBOL_EX field = 2
@@ -5768,7 +5715,7 @@ union _IMAGE_AUX_SYMBOL_EX field = 2
 
 	type field = 2
 		TokenDef as IMAGE_AUX_SYMBOL_TOKEN_DEF
-		rgbReserved(0 to 1) as BYTE_
+		rgbReserved(0 to 1) as BYTE
 	end type
 
 	CRC as ___IMAGE_AUX_SYMBOL_EX_CRC
@@ -6026,10 +5973,8 @@ type PIMAGE_RELOCATION as IMAGE_RELOCATION ptr
 #define IMAGE_REL_EBC_REL32 &h0002
 #define IMAGE_REL_EBC_SECTION &h0003
 #define IMAGE_REL_EBC_SECREL &h0004
-
-'' TODO: #define EXT_IMM64(Value,Address,Size,InstPos,ValPos) Value |= (((ULONGLONG)((*(Address) >> InstPos) & (((ULONGLONG)1 << Size) - 1))) << ValPos)
-'' TODO: #define INS_IMM64(Value,Address,Size,InstPos,ValPos) *(PDWORD)Address = (*(PDWORD)Address & ~(((1 << Size) - 1) << InstPos)) | ((DWORD)((((ULONGLONG)Value >> ValPos) & (((ULONGLONG)1 << Size) - 1))) << InstPos)
-
+#define EXT_IMM64(Value, Address, Size, InstPos, ValPos) '' TODO: Value |= (((ULONGLONG)((*(Address) >> InstPos) & (((ULONGLONG)1 << Size) - 1))) << ValPos)
+#define INS_IMM64(Value, Address, Size, InstPos, ValPos) '' TODO: *(PDWORD)Address = (*(PDWORD)Address & ~(((1 << Size) - 1) << InstPos)) | ((DWORD)((((ULONGLONG)Value >> ValPos) & (((ULONGLONG)1 << Size) - 1))) << InstPos)
 #define EMARCH_ENC_I17_IMM7B_INST_WORD_X 3
 #define EMARCH_ENC_I17_IMM7B_SIZE_X 7
 #define EMARCH_ENC_I17_IMM7B_INST_WORD_POS_X 4
@@ -6146,13 +6091,13 @@ type PIMAGE_BASE_RELOCATION as IMAGE_BASE_RELOCATION ptr
 #define IMAGE_ARCHIVE_LONGNAMES_MEMBER "//              "
 
 type _IMAGE_ARCHIVE_MEMBER_HEADER field = 4
-	Name(0 to 15) as BYTE_
-	Date(0 to 11) as BYTE_
-	UserID(0 to 5) as BYTE_
-	GroupID(0 to 5) as BYTE_
-	Mode(0 to 7) as BYTE_
-	Size(0 to 9) as BYTE_
-	EndHeader(0 to 1) as BYTE_
+	Name(0 to 15) as BYTE
+	Date(0 to 11) as BYTE
+	UserID(0 to 5) as BYTE
+	GroupID(0 to 5) as BYTE
+	Mode(0 to 7) as BYTE
+	Size(0 to 9) as BYTE
+	EndHeader(0 to 1) as BYTE
 end type
 
 type IMAGE_ARCHIVE_MEMBER_HEADER as _IMAGE_ARCHIVE_MEMBER_HEADER
@@ -6179,7 +6124,7 @@ type PIMAGE_EXPORT_DIRECTORY as _IMAGE_EXPORT_DIRECTORY ptr
 
 type _IMAGE_IMPORT_BY_NAME field = 4
 	Hint as WORD
-	Name(0 to 0) as BYTE_
+	Name(0 to 0) as BYTE
 end type
 
 type IMAGE_IMPORT_BY_NAME as _IMAGE_IMPORT_BY_NAME
@@ -6591,8 +6536,8 @@ type _IMAGE_DEBUG_MISC field = 4
 	DataType as DWORD
 	Length as DWORD
 	Unicode as BOOLEAN
-	Reserved(0 to 2) as BYTE_
-	Data(0 to 0) as BYTE_
+	Reserved(0 to 2) as BYTE
+	Data(0 to 0) as BYTE
 end type
 
 type IMAGE_DEBUG_MISC as _IMAGE_DEBUG_MISC
@@ -6770,7 +6715,7 @@ declare function RtlCompareMemory(byval Source1 as const any ptr, byval Source2 
 #ifdef __FB_64BIT__
 	declare function RtlAddFunctionTable(byval FunctionTable as PRUNTIME_FUNCTION, byval EntryCount as DWORD, byval BaseAddress as DWORD64) as BOOLEAN
 	declare function RtlDeleteFunctionTable(byval FunctionTable as PRUNTIME_FUNCTION) as BOOLEAN
-	declare function RtlInstallFunctionTableCallback(byval TableIdentifier as DWORD64, byval BaseAddress as DWORD64, byval Length as DWORD, byval Callback_ as PGET_RUNTIME_FUNCTION_CALLBACK, byval Context as PVOID, byval OutOfProcessCallbackDll as PCWSTR) as BOOLEAN
+	declare function RtlInstallFunctionTableCallback(byval TableIdentifier as DWORD64, byval BaseAddress as DWORD64, byval Length as DWORD, byval Callback as PGET_RUNTIME_FUNCTION_CALLBACK, byval Context as PVOID, byval OutOfProcessCallbackDll as PCWSTR) as BOOLEAN
 	declare sub RtlRestoreContext(byval ContextRecord as PCONTEXT, byval ExceptionRecord as _EXCEPTION_RECORD ptr)
 	declare function RtlVirtualUnwind(byval HandlerType as DWORD, byval ImageBase as DWORD64, byval ControlPc as DWORD64, byval FunctionEntry as PRUNTIME_FUNCTION, byval ContextRecord as PCONTEXT, byval HandlerData as PVOID ptr, byval EstablisherFrame as PDWORD64, byval ContextPointers as PKNONVOLATILE_CONTEXT_POINTERS) as PEXCEPTION_ROUTINE
 #endif
@@ -6936,7 +6881,7 @@ declare function RtlSecureZeroMemory(byval ptr_ as PVOID, byval cnt as SIZE_T_) 
 type _MESSAGE_RESOURCE_ENTRY
 	Length as WORD
 	Flags as WORD
-	Text(0 to 0) as BYTE_
+	Text_(0 to 0) as BYTE
 end type
 
 type MESSAGE_RESOURCE_ENTRY as _MESSAGE_RESOURCE_ENTRY
@@ -7021,8 +6966,8 @@ type _OSVERSIONINFOEXA
 	wServicePackMajor as WORD
 	wServicePackMinor as WORD
 	wSuiteMask as WORD
-	wProductType as BYTE_
-	wReserved as BYTE_
+	wProductType as BYTE
+	wReserved as BYTE
 end type
 
 type OSVERSIONINFOEXA as _OSVERSIONINFOEXA
@@ -7039,8 +6984,8 @@ type _OSVERSIONINFOEXW
 	wServicePackMajor as WORD
 	wServicePackMinor as WORD
 	wSuiteMask as WORD
-	wProductType as BYTE_
-	wReserved as BYTE_
+	wProductType as BYTE
+	wReserved as BYTE
 end type
 
 type OSVERSIONINFOEXW as _OSVERSIONINFOEXW
@@ -7083,10 +7028,9 @@ type PRTL_OSVERSIONINFOEXW as _OSVERSIONINFOEXW ptr
 #define VER_PLATFORM_WIN32_WINDOWS 1
 #define VER_PLATFORM_WIN32_NT 2
 
-declare function VerSetConditionMask(byval ConditionMask as ULONGLONG, byval TypeMask as DWORD, byval Condition as BYTE_) as ULONGLONG
+declare function VerSetConditionMask(byval ConditionMask as ULONGLONG, byval TypeMask as DWORD, byval Condition as BYTE) as ULONGLONG
 
-'' TODO: #define VER_SET_CONDITION(_m_,_t_,_c_) ((_m_) = VerSetConditionMask((_m_),(_t_),(_c_)))
-
+#define VER_SET_CONDITION(_m_, _t_, _c_) '' TODO: ((_m_) = VerSetConditionMask((_m_),(_t_),(_c_)))
 #define RTL_UMS_VERSION &h0100
 
 type _RTL_UMS_THREAD_INFO_CLASS as long
@@ -7145,8 +7089,8 @@ type PRTL_RESOURCE_DEBUG as _RTL_CRITICAL_SECTION_DEBUG ptr
 
 type _RTL_CRITICAL_SECTION_ field = 8
 	DebugInfo as PRTL_CRITICAL_SECTION_DEBUG
-	LockCount as LONG_
-	RecursionCount as LONG_
+	LockCount as LONG
+	RecursionCount as LONG
 	OwningThread as HANDLE
 	LockSemaphore as HANDLE
 	SpinCount as ULONG_PTR
@@ -7174,7 +7118,7 @@ type PRTL_CONDITION_VARIABLE as _RTL_CONDITION_VARIABLE ptr
 #define RTL_CONDITION_VARIABLE_LOCKMODE_SHARED &h1
 
 type PAPCFUNC as sub(byval Parameter as ULONG_PTR)
-type PVECTORED_EXCEPTION_HANDLER as function(byval ExceptionInfo as _EXCEPTION_POINTERS ptr) as LONG_
+type PVECTORED_EXCEPTION_HANDLER as function(byval ExceptionInfo as _EXCEPTION_POINTERS ptr) as LONG
 
 type _HEAP_INFORMATION_CLASS as long
 enum
@@ -7200,9 +7144,7 @@ type PSECURE_MEMORY_CACHE_CALLBACK as function(byval Addr as PVOID, byval Range 
 #define WT_EXECUTEINPERSISTENTIOTHREAD &h00000040
 #define WT_EXECUTEINPERSISTENTTHREAD &h00000080
 #define WT_TRANSFER_IMPERSONATION &h00000100
-
-'' TODO: #define WT_SET_MAX_THREADPOOL_THREADS(Flags, Limit) ((Flags) |= (Limit) << 16)
-
+#define WT_SET_MAX_THREADPOOL_THREADS(Flags, Limit) '' TODO: ((Flags) |= (Limit) << 16)
 #define WT_EXECUTEDELETEWAIT &h00000008
 #define WT_EXECUTEINLONGTHREAD &h00000010
 
@@ -7512,8 +7454,8 @@ type PHARDWARE_COUNTER_DATA as _HARDWARE_COUNTER_DATA ptr
 
 type _PERFORMANCE_DATA
 	Size as WORD
-	Version as BYTE_
-	HwCountersCount as BYTE_
+	Version as BYTE
+	HwCountersCount as BYTE
 	ContextSwitchCount as DWORD
 	WaitReasonBitMap as DWORD64
 	CycleTime as DWORD64
@@ -8073,7 +8015,7 @@ end sub
 	'' TODO: } struct _TEB *NtCurrentTeb(void);
 
 	function GetCurrentFiber() as PVOID
-		return cast(PVOID, __readgsqword(cast(LONG_, cast(LONG_PTR, @cptr(NT_TIB ptr, 0)->FiberData))))
+		return cast(PVOID, __readgsqword(cast(LONG, cast(LONG_PTR, @cptr(NT_TIB ptr, 0)->FiberData))))
 	end function
 
 	function GetFiberData() as PVOID
@@ -8081,7 +8023,7 @@ end sub
 	end function
 
 	function NtCurrentTeb() as _TEB ptr
-		return cptr(_TEB ptr, __readgsqword(cast(LONG_, cast(LONG_PTR, @cptr(NT_TIB ptr, 0)->Self))))
+		return cptr(_TEB ptr, __readgsqword(cast(LONG, cast(LONG_PTR, @cptr(NT_TIB ptr, 0)->Self))))
 	end function
 
 	type CRM_PROTOCOL_ID as GUID
@@ -8378,7 +8320,7 @@ type _WOW64_FLOATING_SAVE_AREA
 	ErrorSelector as DWORD
 	DataOffset as DWORD
 	DataSelector as DWORD
-	RegisterArea(0 to 79) as BYTE_
+	RegisterArea(0 to 79) as BYTE
 	Cr0NpxState as DWORD
 end type
 
@@ -8410,17 +8352,17 @@ type _WOW64_CONTEXT field = 4
 	EFlags as DWORD
 	Esp as DWORD
 	SegSs as DWORD
-	ExtendedRegisters(0 to 511) as BYTE_
+	ExtendedRegisters(0 to 511) as BYTE
 end type
 
 type WOW64_CONTEXT as _WOW64_CONTEXT
 type PWOW64_CONTEXT as _WOW64_CONTEXT ptr
 
 type ___WOW64_LDT_ENTRY_Bytes
-	BaseMid as BYTE_
-	Flags1 as BYTE_
-	Flags2 as BYTE_
-	BaseHi as BYTE_
+	BaseMid as BYTE
+	Flags1 as BYTE
+	Flags2 as BYTE
+	BaseHi as BYTE
 end type
 
 type ___WOW64_LDT_ENTRY_Bits

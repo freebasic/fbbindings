@@ -1,6 +1,5 @@
 #pragma once
 
-#include once "crt/long.bi"
 #include once "_mingw.bi"
 #include once "windows.bi"
 #include once "basetsd.bi"
@@ -31,23 +30,14 @@
 	type I_RPC_HANDLE as any ptr
 #endif
 
-type RPC_STATUS as clong
+type RPC_STATUS as long
 
 #define RPC_UNICODE_SUPPORTED
-#define __RPC_FAR
-#define __RPC_API __stdcall
-#define __RPC_USER __RPC_API
-#define __RPC_STUB __RPC_API
-#define RPC_ENTRY __RPC_API
-#define RPCRTAPI DECLSPEC_IMPORT
-#define RPCNSAPI DECLSPEC_IMPORT
-
-'' TODO: #define RpcTryExcept __try {
-'' TODO: #define RpcExcept(expr) } __except(expr) {
-'' TODO: #define RpcEndExcept }
-'' TODO: #define RpcTryFinally __try {
-'' TODO: #define RpcFinally } __finally {
-'' TODO: #define RpcEndFinally }
-
+#define RpcTryExcept '' TODO: __try {
+#define RpcExcept(expr) '' TODO: } __except(expr) {
+#define RpcEndExcept '' TODO: }
+#define RpcTryFinally '' TODO: __try {
+#define RpcFinally '' TODO: } __finally {
+#define RpcEndFinally '' TODO: }
 #define RpcExceptionCode() GetExceptionCode()
 #define RpcAbnormalTermination() AbnormalTermination()

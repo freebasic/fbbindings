@@ -22,14 +22,14 @@
 
 declare function LZStart() as INT_
 declare sub LZDone()
-declare function CopyLZFile(byval as INT_, byval as INT_) as LONG_
-declare function LZCopy(byval as INT_, byval as INT_) as LONG_
+declare function CopyLZFile(byval as INT_, byval as INT_) as LONG
+declare function LZCopy(byval as INT_, byval as INT_) as LONG
 declare function LZInit(byval as INT_) as INT_
 declare function GetExpandedNameA(byval as LPSTR, byval as LPSTR) as INT_
 declare function GetExpandedNameW(byval as LPWSTR, byval as LPWSTR) as INT_
 declare function LZOpenFileA(byval as LPSTR, byval as LPOFSTRUCT, byval as WORD) as INT_
 declare function LZOpenFileW(byval as LPWSTR, byval as LPOFSTRUCT, byval as WORD) as INT_
-declare function LZSeek(byval as INT_, byval as LONG_, byval as INT_) as LONG_
+declare function LZSeek(byval as INT_, byval as LONG, byval as INT_) as LONG
 declare function LZRead(byval as INT_, byval as LPSTR, byval as INT_) as INT_
 declare sub LZClose(byval as INT_)
 

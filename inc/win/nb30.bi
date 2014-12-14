@@ -147,9 +147,9 @@ type FIND_NAME_BUFFER as _FIND_NAME_BUFFER
 type PFIND_NAME_BUFFER as _FIND_NAME_BUFFER ptr
 
 type _ACTION_HEADER
-	transport_id as ULONG_
-	action_code as USHORT_
-	reserved as USHORT_
+	transport_id as ULONG
+	action_code as USHORT
+	reserved as USHORT
 end type
 
 type ACTION_HEADER as _ACTION_HEADER
@@ -226,6 +226,6 @@ type PACTION_HEADER as _ACTION_HEADER ptr
 
 declare function Netbios(byval pncb as PNCB) as UCHAR
 
-'' TODO: #define NCB_POST void CALLBACK
+#define NCB_POST '' TODO: void CALLBACK
 
 end extern

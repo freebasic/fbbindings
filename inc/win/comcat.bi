@@ -63,10 +63,10 @@ extern IID_IEnumGUID as const GUID
 
 type IEnumGUIDVtbl
 	QueryInterface as function(byval This as IEnumGUID ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IEnumGUID ptr) as ULONG_
-	Release as function(byval This as IEnumGUID ptr) as ULONG_
-	Next as function(byval This as IEnumGUID ptr, byval celt as ULONG_, byval rgelt as GUID ptr, byval pceltFetched as ULONG_ ptr) as HRESULT
-	Skip as function(byval This as IEnumGUID ptr, byval celt as ULONG_) as HRESULT
+	AddRef as function(byval This as IEnumGUID ptr) as ULONG
+	Release as function(byval This as IEnumGUID ptr) as ULONG
+	Next as function(byval This as IEnumGUID ptr, byval celt as ULONG, byval rgelt as GUID ptr, byval pceltFetched as ULONG ptr) as HRESULT
+	Skip as function(byval This as IEnumGUID ptr, byval celt as ULONG) as HRESULT
 	Reset as function(byval This as IEnumGUID ptr) as HRESULT
 	Clone as function(byval This as IEnumGUID ptr, byval ppenum as IEnumGUID ptr ptr) as HRESULT
 end type
@@ -75,16 +75,16 @@ type IEnumGUID_
 	lpVtbl as IEnumGUIDVtbl ptr
 end type
 
-declare function IEnumGUID_RemoteNext_Proxy(byval This as IEnumGUID ptr, byval celt as ULONG_, byval rgelt as GUID ptr, byval pceltFetched as ULONG_ ptr) as HRESULT
+declare function IEnumGUID_RemoteNext_Proxy(byval This as IEnumGUID ptr, byval celt as ULONG, byval rgelt as GUID ptr, byval pceltFetched as ULONG ptr) as HRESULT
 declare sub IEnumGUID_RemoteNext_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-declare function IEnumGUID_Skip_Proxy(byval This as IEnumGUID ptr, byval celt as ULONG_) as HRESULT
+declare function IEnumGUID_Skip_Proxy(byval This as IEnumGUID ptr, byval celt as ULONG) as HRESULT
 declare sub IEnumGUID_Skip_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IEnumGUID_Reset_Proxy(byval This as IEnumGUID ptr) as HRESULT
 declare sub IEnumGUID_Reset_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IEnumGUID_Clone_Proxy(byval This as IEnumGUID ptr, byval ppenum as IEnumGUID ptr ptr) as HRESULT
 declare sub IEnumGUID_Clone_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-declare function IEnumGUID_Next_Proxy(byval This as IEnumGUID ptr, byval celt as ULONG_, byval rgelt as GUID ptr, byval pceltFetched as ULONG_ ptr) as HRESULT
-declare function IEnumGUID_Next_Stub(byval This as IEnumGUID ptr, byval celt as ULONG_, byval rgelt as GUID ptr, byval pceltFetched as ULONG_ ptr) as HRESULT
+declare function IEnumGUID_Next_Proxy(byval This as IEnumGUID ptr, byval celt as ULONG, byval rgelt as GUID ptr, byval pceltFetched as ULONG ptr) as HRESULT
+declare function IEnumGUID_Next_Stub(byval This as IEnumGUID ptr, byval celt as ULONG, byval rgelt as GUID ptr, byval pceltFetched as ULONG ptr) as HRESULT
 
 #define _LPENUMCATEGORYINFO_DEFINED
 #define __IEnumCATEGORYINFO_INTERFACE_DEFINED__
@@ -104,10 +104,10 @@ extern IID_IEnumCATEGORYINFO as const GUID
 
 type IEnumCATEGORYINFOVtbl
 	QueryInterface as function(byval This as IEnumCATEGORYINFO ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IEnumCATEGORYINFO ptr) as ULONG_
-	Release as function(byval This as IEnumCATEGORYINFO ptr) as ULONG_
-	Next as function(byval This as IEnumCATEGORYINFO ptr, byval celt as ULONG_, byval rgelt as CATEGORYINFO ptr, byval pceltFetched as ULONG_ ptr) as HRESULT
-	Skip as function(byval This as IEnumCATEGORYINFO ptr, byval celt as ULONG_) as HRESULT
+	AddRef as function(byval This as IEnumCATEGORYINFO ptr) as ULONG
+	Release as function(byval This as IEnumCATEGORYINFO ptr) as ULONG
+	Next as function(byval This as IEnumCATEGORYINFO ptr, byval celt as ULONG, byval rgelt as CATEGORYINFO ptr, byval pceltFetched as ULONG ptr) as HRESULT
+	Skip as function(byval This as IEnumCATEGORYINFO ptr, byval celt as ULONG) as HRESULT
 	Reset as function(byval This as IEnumCATEGORYINFO ptr) as HRESULT
 	Clone as function(byval This as IEnumCATEGORYINFO ptr, byval ppenum as IEnumCATEGORYINFO ptr ptr) as HRESULT
 end type
@@ -116,9 +116,9 @@ type IEnumCATEGORYINFO_
 	lpVtbl as IEnumCATEGORYINFOVtbl ptr
 end type
 
-declare function IEnumCATEGORYINFO_Next_Proxy(byval This as IEnumCATEGORYINFO ptr, byval celt as ULONG_, byval rgelt as CATEGORYINFO ptr, byval pceltFetched as ULONG_ ptr) as HRESULT
+declare function IEnumCATEGORYINFO_Next_Proxy(byval This as IEnumCATEGORYINFO ptr, byval celt as ULONG, byval rgelt as CATEGORYINFO ptr, byval pceltFetched as ULONG ptr) as HRESULT
 declare sub IEnumCATEGORYINFO_Next_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-declare function IEnumCATEGORYINFO_Skip_Proxy(byval This as IEnumCATEGORYINFO ptr, byval celt as ULONG_) as HRESULT
+declare function IEnumCATEGORYINFO_Skip_Proxy(byval This as IEnumCATEGORYINFO ptr, byval celt as ULONG) as HRESULT
 declare sub IEnumCATEGORYINFO_Skip_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IEnumCATEGORYINFO_Reset_Proxy(byval This as IEnumCATEGORYINFO ptr) as HRESULT
 declare sub IEnumCATEGORYINFO_Reset_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
@@ -134,31 +134,31 @@ extern IID_ICatRegister as const GUID
 
 type ICatRegisterVtbl
 	QueryInterface as function(byval This as ICatRegister ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as ICatRegister ptr) as ULONG_
-	Release as function(byval This as ICatRegister ptr) as ULONG_
-	RegisterCategories as function(byval This as ICatRegister ptr, byval cCategories as ULONG_, byval rgCategoryInfo as CATEGORYINFO ptr) as HRESULT
-	UnRegisterCategories as function(byval This as ICatRegister ptr, byval cCategories as ULONG_, byval rgcatid as CATID ptr) as HRESULT
-	RegisterClassImplCategories as function(byval This as ICatRegister ptr, byval rclsid as const IID const ptr, byval cCategories as ULONG_, byval rgcatid as CATID ptr) as HRESULT
-	UnRegisterClassImplCategories as function(byval This as ICatRegister ptr, byval rclsid as const IID const ptr, byval cCategories as ULONG_, byval rgcatid as CATID ptr) as HRESULT
-	RegisterClassReqCategories as function(byval This as ICatRegister ptr, byval rclsid as const IID const ptr, byval cCategories as ULONG_, byval rgcatid as CATID ptr) as HRESULT
-	UnRegisterClassReqCategories as function(byval This as ICatRegister ptr, byval rclsid as const IID const ptr, byval cCategories as ULONG_, byval rgcatid as CATID ptr) as HRESULT
+	AddRef as function(byval This as ICatRegister ptr) as ULONG
+	Release as function(byval This as ICatRegister ptr) as ULONG
+	RegisterCategories as function(byval This as ICatRegister ptr, byval cCategories as ULONG, byval rgCategoryInfo as CATEGORYINFO ptr) as HRESULT
+	UnRegisterCategories as function(byval This as ICatRegister ptr, byval cCategories as ULONG, byval rgcatid as CATID ptr) as HRESULT
+	RegisterClassImplCategories as function(byval This as ICatRegister ptr, byval rclsid as const IID const ptr, byval cCategories as ULONG, byval rgcatid as CATID ptr) as HRESULT
+	UnRegisterClassImplCategories as function(byval This as ICatRegister ptr, byval rclsid as const IID const ptr, byval cCategories as ULONG, byval rgcatid as CATID ptr) as HRESULT
+	RegisterClassReqCategories as function(byval This as ICatRegister ptr, byval rclsid as const IID const ptr, byval cCategories as ULONG, byval rgcatid as CATID ptr) as HRESULT
+	UnRegisterClassReqCategories as function(byval This as ICatRegister ptr, byval rclsid as const IID const ptr, byval cCategories as ULONG, byval rgcatid as CATID ptr) as HRESULT
 end type
 
 type ICatRegister_
 	lpVtbl as ICatRegisterVtbl ptr
 end type
 
-declare function ICatRegister_RegisterCategories_Proxy(byval This as ICatRegister ptr, byval cCategories as ULONG_, byval rgCategoryInfo as CATEGORYINFO ptr) as HRESULT
+declare function ICatRegister_RegisterCategories_Proxy(byval This as ICatRegister ptr, byval cCategories as ULONG, byval rgCategoryInfo as CATEGORYINFO ptr) as HRESULT
 declare sub ICatRegister_RegisterCategories_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-declare function ICatRegister_UnRegisterCategories_Proxy(byval This as ICatRegister ptr, byval cCategories as ULONG_, byval rgcatid as CATID ptr) as HRESULT
+declare function ICatRegister_UnRegisterCategories_Proxy(byval This as ICatRegister ptr, byval cCategories as ULONG, byval rgcatid as CATID ptr) as HRESULT
 declare sub ICatRegister_UnRegisterCategories_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-declare function ICatRegister_RegisterClassImplCategories_Proxy(byval This as ICatRegister ptr, byval rclsid as const IID const ptr, byval cCategories as ULONG_, byval rgcatid as CATID ptr) as HRESULT
+declare function ICatRegister_RegisterClassImplCategories_Proxy(byval This as ICatRegister ptr, byval rclsid as const IID const ptr, byval cCategories as ULONG, byval rgcatid as CATID ptr) as HRESULT
 declare sub ICatRegister_RegisterClassImplCategories_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-declare function ICatRegister_UnRegisterClassImplCategories_Proxy(byval This as ICatRegister ptr, byval rclsid as const IID const ptr, byval cCategories as ULONG_, byval rgcatid as CATID ptr) as HRESULT
+declare function ICatRegister_UnRegisterClassImplCategories_Proxy(byval This as ICatRegister ptr, byval rclsid as const IID const ptr, byval cCategories as ULONG, byval rgcatid as CATID ptr) as HRESULT
 declare sub ICatRegister_UnRegisterClassImplCategories_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-declare function ICatRegister_RegisterClassReqCategories_Proxy(byval This as ICatRegister ptr, byval rclsid as const IID const ptr, byval cCategories as ULONG_, byval rgcatid as CATID ptr) as HRESULT
+declare function ICatRegister_RegisterClassReqCategories_Proxy(byval This as ICatRegister ptr, byval rclsid as const IID const ptr, byval cCategories as ULONG, byval rgcatid as CATID ptr) as HRESULT
 declare sub ICatRegister_RegisterClassReqCategories_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-declare function ICatRegister_UnRegisterClassReqCategories_Proxy(byval This as ICatRegister ptr, byval rclsid as const IID const ptr, byval cCategories as ULONG_, byval rgcatid as CATID ptr) as HRESULT
+declare function ICatRegister_UnRegisterClassReqCategories_Proxy(byval This as ICatRegister ptr, byval rclsid as const IID const ptr, byval cCategories as ULONG, byval rgcatid as CATID ptr) as HRESULT
 declare sub ICatRegister_UnRegisterClassReqCategories_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 
 #define _LPCATINFORMATION_DEFINED
@@ -170,12 +170,12 @@ extern IID_ICatInformation as const GUID
 
 type ICatInformationVtbl
 	QueryInterface as function(byval This as ICatInformation ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as ICatInformation ptr) as ULONG_
-	Release as function(byval This as ICatInformation ptr) as ULONG_
+	AddRef as function(byval This as ICatInformation ptr) as ULONG
+	Release as function(byval This as ICatInformation ptr) as ULONG
 	EnumCategories as function(byval This as ICatInformation ptr, byval lcid as LCID, byval ppenumCategoryInfo as IEnumCATEGORYINFO ptr ptr) as HRESULT
 	GetCategoryDesc as function(byval This as ICatInformation ptr, byval rcatid as REFCATID, byval lcid as LCID, byval pszDesc as LPWSTR ptr) as HRESULT
-	EnumClassesOfCategories as function(byval This as ICatInformation ptr, byval cImplemented as ULONG_, byval rgcatidImpl as const CATID ptr, byval cRequired as ULONG_, byval rgcatidReq as const CATID ptr, byval ppenumClsid as IEnumGUID ptr ptr) as HRESULT
-	IsClassOfCategories as function(byval This as ICatInformation ptr, byval rclsid as const IID const ptr, byval cImplemented as ULONG_, byval rgcatidImpl as const CATID ptr, byval cRequired as ULONG_, byval rgcatidReq as const CATID ptr) as HRESULT
+	EnumClassesOfCategories as function(byval This as ICatInformation ptr, byval cImplemented as ULONG, byval rgcatidImpl as const CATID ptr, byval cRequired as ULONG, byval rgcatidReq as const CATID ptr, byval ppenumClsid as IEnumGUID ptr ptr) as HRESULT
+	IsClassOfCategories as function(byval This as ICatInformation ptr, byval rclsid as const IID const ptr, byval cImplemented as ULONG, byval rgcatidImpl as const CATID ptr, byval cRequired as ULONG, byval rgcatidReq as const CATID ptr) as HRESULT
 	EnumImplCategoriesOfClass as function(byval This as ICatInformation ptr, byval rclsid as const IID const ptr, byval ppenumCatid as IEnumGUID ptr ptr) as HRESULT
 	EnumReqCategoriesOfClass as function(byval This as ICatInformation ptr, byval rclsid as const IID const ptr, byval ppenumCatid as IEnumGUID ptr ptr) as HRESULT
 end type
@@ -188,17 +188,17 @@ declare function ICatInformation_EnumCategories_Proxy(byval This as ICatInformat
 declare sub ICatInformation_EnumCategories_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function ICatInformation_GetCategoryDesc_Proxy(byval This as ICatInformation ptr, byval rcatid as REFCATID, byval lcid as LCID, byval pszDesc as LPWSTR ptr) as HRESULT
 declare sub ICatInformation_GetCategoryDesc_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-declare function ICatInformation_RemoteEnumClassesOfCategories_Proxy(byval This as ICatInformation ptr, byval cImplemented as ULONG_, byval rgcatidImpl as const CATID ptr, byval cRequired as ULONG_, byval rgcatidReq as const CATID ptr, byval ppenumClsid as IEnumGUID ptr ptr) as HRESULT
+declare function ICatInformation_RemoteEnumClassesOfCategories_Proxy(byval This as ICatInformation ptr, byval cImplemented as ULONG, byval rgcatidImpl as const CATID ptr, byval cRequired as ULONG, byval rgcatidReq as const CATID ptr, byval ppenumClsid as IEnumGUID ptr ptr) as HRESULT
 declare sub ICatInformation_RemoteEnumClassesOfCategories_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-declare function ICatInformation_RemoteIsClassOfCategories_Proxy(byval This as ICatInformation ptr, byval rclsid as const IID const ptr, byval cImplemented as ULONG_, byval rgcatidImpl as const CATID ptr, byval cRequired as ULONG_, byval rgcatidReq as const CATID ptr) as HRESULT
+declare function ICatInformation_RemoteIsClassOfCategories_Proxy(byval This as ICatInformation ptr, byval rclsid as const IID const ptr, byval cImplemented as ULONG, byval rgcatidImpl as const CATID ptr, byval cRequired as ULONG, byval rgcatidReq as const CATID ptr) as HRESULT
 declare sub ICatInformation_RemoteIsClassOfCategories_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function ICatInformation_EnumImplCategoriesOfClass_Proxy(byval This as ICatInformation ptr, byval rclsid as const IID const ptr, byval ppenumCatid as IEnumGUID ptr ptr) as HRESULT
 declare sub ICatInformation_EnumImplCategoriesOfClass_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function ICatInformation_EnumReqCategoriesOfClass_Proxy(byval This as ICatInformation ptr, byval rclsid as const IID const ptr, byval ppenumCatid as IEnumGUID ptr ptr) as HRESULT
 declare sub ICatInformation_EnumReqCategoriesOfClass_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-declare function ICatInformation_EnumClassesOfCategories_Proxy(byval This as ICatInformation ptr, byval cImplemented as ULONG_, byval rgcatidImpl as const CATID ptr, byval cRequired as ULONG_, byval rgcatidReq as const CATID ptr, byval ppenumClsid as IEnumGUID ptr ptr) as HRESULT
-declare function ICatInformation_EnumClassesOfCategories_Stub(byval This as ICatInformation ptr, byval cImplemented as ULONG_, byval rgcatidImpl as const CATID ptr, byval cRequired as ULONG_, byval rgcatidReq as const CATID ptr, byval ppenumClsid as IEnumGUID ptr ptr) as HRESULT
-declare function ICatInformation_IsClassOfCategories_Proxy(byval This as ICatInformation ptr, byval rclsid as const IID const ptr, byval cImplemented as ULONG_, byval rgcatidImpl as const CATID ptr, byval cRequired as ULONG_, byval rgcatidReq as const CATID ptr) as HRESULT
-declare function ICatInformation_IsClassOfCategories_Stub(byval This as ICatInformation ptr, byval rclsid as const IID const ptr, byval cImplemented as ULONG_, byval rgcatidImpl as const CATID ptr, byval cRequired as ULONG_, byval rgcatidReq as const CATID ptr) as HRESULT
+declare function ICatInformation_EnumClassesOfCategories_Proxy(byval This as ICatInformation ptr, byval cImplemented as ULONG, byval rgcatidImpl as const CATID ptr, byval cRequired as ULONG, byval rgcatidReq as const CATID ptr, byval ppenumClsid as IEnumGUID ptr ptr) as HRESULT
+declare function ICatInformation_EnumClassesOfCategories_Stub(byval This as ICatInformation ptr, byval cImplemented as ULONG, byval rgcatidImpl as const CATID ptr, byval cRequired as ULONG, byval rgcatidReq as const CATID ptr, byval ppenumClsid as IEnumGUID ptr ptr) as HRESULT
+declare function ICatInformation_IsClassOfCategories_Proxy(byval This as ICatInformation ptr, byval rclsid as const IID const ptr, byval cImplemented as ULONG, byval rgcatidImpl as const CATID ptr, byval cRequired as ULONG, byval rgcatidReq as const CATID ptr) as HRESULT
+declare function ICatInformation_IsClassOfCategories_Stub(byval This as ICatInformation ptr, byval rclsid as const IID const ptr, byval cImplemented as ULONG, byval rgcatidImpl as const CATID ptr, byval cRequired as ULONG, byval rgcatidReq as const CATID ptr) as HRESULT
 
 end extern

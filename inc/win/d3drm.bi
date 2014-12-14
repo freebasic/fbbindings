@@ -37,8 +37,8 @@ end type
 
 type IDirect3DRMVtbl_
 	QueryInterface as function(byval This as IDirect3DRM ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirect3DRM ptr) as ULONG_
-	Release as function(byval This as IDirect3DRM ptr) as ULONG_
+	AddRef as function(byval This as IDirect3DRM ptr) as ULONG
+	Release as function(byval This as IDirect3DRM ptr) as ULONG
 	CreateObject as function(byval This as IDirect3DRM ptr, byval clsid as const IID const ptr, byval outer as IUnknown ptr, byval iid as const IID const ptr, byval out_ as any ptr ptr) as HRESULT
 	CreateFrame as function(byval This as IDirect3DRM ptr, byval parent as IDirect3DRMFrame ptr, byval frame as IDirect3DRMFrame ptr ptr) as HRESULT
 	CreateMesh as function(byval This as IDirect3DRM ptr, byval mesh as IDirect3DRMMesh ptr ptr) as HRESULT
@@ -115,8 +115,8 @@ end type
 
 type IDirect3DRM2Vtbl_
 	QueryInterface as function(byval This as IDirect3DRM2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirect3DRM2 ptr) as ULONG_
-	Release as function(byval This as IDirect3DRM2 ptr) as ULONG_
+	AddRef as function(byval This as IDirect3DRM2 ptr) as ULONG
+	Release as function(byval This as IDirect3DRM2 ptr) as ULONG
 	CreateObject as function(byval This as IDirect3DRM2 ptr, byval clsid as const IID const ptr, byval outer as IUnknown ptr, byval iid as const IID const ptr, byval out_ as any ptr ptr) as HRESULT
 	CreateFrame as function(byval This as IDirect3DRM2 ptr, byval parent as IDirect3DRMFrame ptr, byval frame as IDirect3DRMFrame2 ptr ptr) as HRESULT
 	CreateMesh as function(byval This as IDirect3DRM2 ptr, byval mesh as IDirect3DRMMesh ptr ptr) as HRESULT
@@ -195,8 +195,8 @@ end type
 
 type IDirect3DRM3Vtbl_
 	QueryInterface as function(byval This as IDirect3DRM3 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirect3DRM3 ptr) as ULONG_
-	Release as function(byval This as IDirect3DRM3 ptr) as ULONG_
+	AddRef as function(byval This as IDirect3DRM3 ptr) as ULONG
+	Release as function(byval This as IDirect3DRM3 ptr) as ULONG
 	CreateObject as function(byval This as IDirect3DRM3 ptr, byval clsid as const IID const ptr, byval outer as IUnknown ptr, byval iid as const IID const ptr, byval out_ as any ptr ptr) as HRESULT
 	CreateFrame as function(byval This as IDirect3DRM3 ptr, byval parent as IDirect3DRMFrame3 ptr, byval frame as IDirect3DRMFrame3 ptr ptr) as HRESULT
 	CreateMesh as function(byval This as IDirect3DRM3 ptr, byval mesh as IDirect3DRMMesh ptr ptr) as HRESULT

@@ -333,8 +333,8 @@ type LPSYSMOUSEA as SysMouseA ptr
 #define DI8DEVTYPESUPPLEMENTAL_DUALPEDALS 11
 #define DI8DEVTYPESUPPLEMENTAL_THREEPEDALS 12
 #define DI8DEVTYPESUPPLEMENTAL_RUDDERPEDALS 13
-#define GET_DIDEVICE_TYPE(dwDevType) LOBYTE_(dwDevType)
-#define GET_DIDEVICE_SUBTYPE(dwDevType) HIBYTE_(dwDevType)
+#define GET_DIDEVICE_TYPE(dwDevType) LOBYTE(dwDevType)
+#define GET_DIDEVICE_SUBTYPE(dwDevType) HIBYTE(dwDevType)
 
 type DIDEVICEOBJECTINSTANCE_DX3A
 	dwSize as DWORD
@@ -710,8 +710,8 @@ type LPDIENUMCREATEDEFFECTOBJECTSCALLBACK as function(byval as LPDIRECTINPUTEFFE
 #define DIDFT_ANYINSTANCE &h00FFFF00
 #define DIDFT_INSTANCEMASK DIDFT_ANYINSTANCE
 #define DIDFT_MAKEINSTANCE(n) cast(WORD, (n) shl 8)
-#define DIDFT_GETTYPE(n) LOBYTE_(n)
-#define DIDFT_GETINSTANCE(n) LOWORD_((n) shr 8)
+#define DIDFT_GETTYPE(n) LOBYTE(n)
+#define DIDFT_GETINSTANCE(n) LOWORD((n) shr 8)
 #define DIDFT_FFACTUATOR &h01000000
 #define DIDFT_FFEFFECTTRIGGER &h02000000
 #define DIDFT_OUTPUT &h10000000
@@ -723,8 +723,7 @@ type LPDIENUMCREATEDEFFECTOBJECTSCALLBACK as function(byval as LPDIRECTINPUTEFFE
 #define DIDF_ABSAXIS &h00000001
 #define DIDF_RELAXIS &h00000002
 #define DIGDD_PEEK &h00000001
-
-'' TODO: #define DISEQUENCE_COMPARE(dwSq1,cmp,dwSq2) ((int)((dwSq1) - (dwSq2)) cmp 0)
+#define DISEQUENCE_COMPARE(dwSq1, cmp, dwSq2) '' TODO: ((int)((dwSq1) - (dwSq2)) cmp 0)
 
 type DIDEVICEOBJECTDATA_DX3
 	dwOfs as DWORD
@@ -807,21 +806,21 @@ type LPCDIPROPDWORD as const DIPROPDWORD ptr
 
 type DIPROPRANGE
 	diph as DIPROPHEADER
-	lMin as LONG_
-	lMax as LONG_
+	lMin as LONG
+	lMax as LONG
 end type
 
 type LPDIPROPRANGE as DIPROPRANGE ptr
 type LPCDIPROPRANGE as const DIPROPRANGE ptr
 
-#define DIPROPRANGE_NOMIN cast(LONG_, &h80000000)
-#define DIPROPRANGE_NOMAX cast(LONG_, &h7FFFFFFF)
+#define DIPROPRANGE_NOMIN cast(LONG, &h80000000)
+#define DIPROPRANGE_NOMAX cast(LONG, &h7FFFFFFF)
 
 type DIPROPCAL
 	diph as DIPROPHEADER
-	lMin as LONG_
-	lCenter as LONG_
-	lMax as LONG_
+	lMin as LONG
+	lCenter as LONG
+	lMax as LONG
 end type
 
 type LPDIPROPCAL as DIPROPCAL ptr
@@ -829,8 +828,8 @@ type LPCDIPROPCAL as const DIPROPCAL ptr
 
 type DIPROPCALPOV
 	diph as DIPROPHEADER
-	lMin(0 to 4) as LONG_
-	lMax(0 to 4) as LONG_
+	lMin(0 to 4) as LONG
+	lMax(0 to 4) as LONG
 end type
 
 type LPDIPROPCALPOV as DIPROPCALPOV ptr
@@ -861,8 +860,7 @@ end type
 type LPDIPROPPOINTER as DIPROPPOINTER ptr
 type LPCDIPROPPOINTER as const DIPROPPOINTER ptr
 
-'' TODO: #define MAKEDIPROP(prop) ((REFGUID)(prop))
-
+#define MAKEDIPROP(prop) '' TODO: ((REFGUID)(prop))
 #define DIPROP_BUFFERSIZE MAKEDIPROP(1)
 #define DIPROP_AXISMODE MAKEDIPROP(2)
 #define DIPROPAXISMODE_ABS 0
@@ -897,7 +895,7 @@ type LPCDIPROPPOINTER as const DIPROPPOINTER ptr
 #define MAXCPOINTSNUM 8
 
 type _CPOINT
-	lP as LONG_
+	lP as LONG
 	dwLog as DWORD
 end type
 
@@ -992,7 +990,7 @@ type LPDIDEVCAPS as DIDEVCAPS ptr
 #define DIEFT_POSNEGSATURATION &h00002000
 #define DIEFT_DEADBAND &h00004000
 #define DIEFT_STARTDELAY &h00008000
-#define DIEFT_GETTYPE(n) LOBYTE_(n)
+#define DIEFT_GETTYPE(n) LOBYTE(n)
 #define DIEFF_OBJECTIDS &h00000001
 #define DIEFF_OBJECTOFFSETS &h00000002
 #define DIEFF_CARTESIAN &h00000010
@@ -1023,15 +1021,15 @@ type LPDIDEVCAPS as DIDEVCAPS ptr
 #define DI_SECONDS 1000000
 
 type DICONSTANTFORCE
-	lMagnitude as LONG_
+	lMagnitude as LONG
 end type
 
 type LPDICONSTANTFORCE as DICONSTANTFORCE ptr
 type LPCDICONSTANTFORCE as const DICONSTANTFORCE ptr
 
 type DIRAMPFORCE
-	lStart as LONG_
-	lEnd as LONG_
+	lStart as LONG
+	lEnd as LONG
 end type
 
 type LPDIRAMPFORCE as DIRAMPFORCE ptr
@@ -1039,7 +1037,7 @@ type LPCDIRAMPFORCE as const DIRAMPFORCE ptr
 
 type DIPERIODIC
 	dwMagnitude as DWORD
-	lOffset as LONG_
+	lOffset as LONG
 	dwPhase as DWORD
 	dwPeriod as DWORD
 end type
@@ -1048,12 +1046,12 @@ type LPDIPERIODIC as DIPERIODIC ptr
 type LPCDIPERIODIC as const DIPERIODIC ptr
 
 type DICONDITION
-	lOffset as LONG_
-	lPositiveCoefficient as LONG_
-	lNegativeCoefficient as LONG_
+	lOffset as LONG
+	lPositiveCoefficient as LONG
+	lNegativeCoefficient as LONG
 	dwPositiveSaturation as DWORD
 	dwNegativeSaturation as DWORD
-	lDeadBand as LONG_
+	lDeadBand as LONG
 end type
 
 type LPDICONDITION as DICONDITION ptr
@@ -1170,50 +1168,50 @@ end type
 type LPDIEFFESCAPE as DIEFFESCAPE ptr
 
 type DIJOYSTATE
-	lX as LONG_
-	lY as LONG_
-	lZ as LONG_
-	lRx as LONG_
-	lRy as LONG_
-	lRz as LONG_
-	rglSlider(0 to 1) as LONG_
+	lX as LONG
+	lY as LONG
+	lZ as LONG
+	lRx as LONG
+	lRy as LONG
+	lRz as LONG
+	rglSlider(0 to 1) as LONG
 	rgdwPOV(0 to 3) as DWORD
-	rgbButtons(0 to 31) as BYTE_
+	rgbButtons(0 to 31) as BYTE
 end type
 
 type LPDIJOYSTATE as DIJOYSTATE ptr
 
 type DIJOYSTATE2
-	lX as LONG_
-	lY as LONG_
-	lZ as LONG_
-	lRx as LONG_
-	lRy as LONG_
-	lRz as LONG_
-	rglSlider(0 to 1) as LONG_
+	lX as LONG
+	lY as LONG
+	lZ as LONG
+	lRx as LONG
+	lRy as LONG
+	lRz as LONG
+	rglSlider(0 to 1) as LONG
 	rgdwPOV(0 to 3) as DWORD
-	rgbButtons(0 to 127) as BYTE_
-	lVX as LONG_
-	lVY as LONG_
-	lVZ as LONG_
-	lVRx as LONG_
-	lVRy as LONG_
-	lVRz as LONG_
-	rglVSlider(0 to 1) as LONG_
-	lAX as LONG_
-	lAY as LONG_
-	lAZ as LONG_
-	lARx as LONG_
-	lARy as LONG_
-	lARz as LONG_
-	rglASlider(0 to 1) as LONG_
-	lFX as LONG_
-	lFY as LONG_
-	lFZ as LONG_
-	lFRx as LONG_
-	lFRy as LONG_
-	lFRz as LONG_
-	rglFSlider(0 to 1) as LONG_
+	rgbButtons(0 to 127) as BYTE
+	lVX as LONG
+	lVY as LONG
+	lVZ as LONG
+	lVRx as LONG
+	lVRy as LONG
+	lVRz as LONG
+	rglVSlider(0 to 1) as LONG
+	lAX as LONG
+	lAY as LONG
+	lAZ as LONG
+	lARx as LONG
+	lARy as LONG
+	lARz as LONG
+	rglASlider(0 to 1) as LONG
+	lFX as LONG
+	lFY as LONG
+	lFZ as LONG
+	lFRx as LONG
+	lFRy as LONG
+	lFRz as LONG
+	rglFSlider(0 to 1) as LONG
 end type
 
 type LPDIJOYSTATE2 as DIJOYSTATE2 ptr
@@ -1224,7 +1222,7 @@ type LPDIJOYSTATE2 as DIJOYSTATE2 ptr
 #define DIJOFS_RX FIELD_OFFSET(DIJOYSTATE, lRx)
 #define DIJOFS_RY FIELD_OFFSET(DIJOYSTATE, lRy)
 #define DIJOFS_RZ FIELD_OFFSET(DIJOYSTATE, lRz)
-#define DIJOFS_SLIDER(n) (FIELD_OFFSET(DIJOYSTATE, rglSlider) + ((n) * sizeof(LONG_)))
+#define DIJOFS_SLIDER(n) (FIELD_OFFSET(DIJOYSTATE, rglSlider) + ((n) * sizeof(LONG)))
 #define DIJOFS_POV(n) (FIELD_OFFSET(DIJOYSTATE, rgdwPOV) + ((n) * sizeof(DWORD)))
 #define DIJOFS_BUTTON(n) (FIELD_OFFSET(DIJOYSTATE, rgbButtons) + (n))
 #define DIJOFS_BUTTON0 DIJOFS_BUTTON(0)
@@ -1341,8 +1339,8 @@ type _DIACTIONFORMATA
 	guidActionMap as GUID
 	dwGenre as DWORD
 	dwBufferSize as DWORD
-	lAxisMin as LONG_
-	lAxisMax as LONG_
+	lAxisMin as LONG
+	lAxisMax as LONG
 	hInstString as HINSTANCE
 	ftTimeStamp as FILETIME
 	dwCRC as DWORD
@@ -1362,8 +1360,8 @@ type _DIACTIONFORMATW
 	guidActionMap as GUID
 	dwGenre as DWORD
 	dwBufferSize as DWORD
-	lAxisMin as LONG_
-	lAxisMax as LONG_
+	lAxisMin as LONG
+	lAxisMax as LONG
 	hInstString as HINSTANCE
 	ftTimeStamp as FILETIME
 	dwCRC as DWORD
@@ -1557,8 +1555,8 @@ end type
 
 type IDirectInputEffectVtbl_
 	QueryInterface as function(byval This as IDirectInputEffect ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirectInputEffect ptr) as ULONG_
-	Release as function(byval This as IDirectInputEffect ptr) as ULONG_
+	AddRef as function(byval This as IDirectInputEffect ptr) as ULONG
+	Release as function(byval This as IDirectInputEffect ptr) as ULONG
 	Initialize as function(byval This as IDirectInputEffect ptr, byval as HINSTANCE, byval as DWORD, byval as const GUID const ptr) as HRESULT
 	GetEffectGuid as function(byval This as IDirectInputEffect ptr, byval as LPGUID) as HRESULT
 	GetParameters as function(byval This as IDirectInputEffect ptr, byval as LPDIEFFECT, byval as DWORD) as HRESULT
@@ -1591,8 +1589,8 @@ end type
 
 type IDirectInputDeviceAVtbl_
 	QueryInterface as function(byval This as IDirectInputDeviceA ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirectInputDeviceA ptr) as ULONG_
-	Release as function(byval This as IDirectInputDeviceA ptr) as ULONG_
+	AddRef as function(byval This as IDirectInputDeviceA ptr) as ULONG
+	Release as function(byval This as IDirectInputDeviceA ptr) as ULONG
 	GetCapabilities as function(byval This as IDirectInputDeviceA ptr, byval lpDIDevCaps as LPDIDEVCAPS) as HRESULT
 	EnumObjects as function(byval This as IDirectInputDeviceA ptr, byval lpCallback as LPDIENUMDEVICEOBJECTSCALLBACKA, byval pvRef as LPVOID, byval dwFlags as DWORD) as HRESULT
 	GetProperty as function(byval This as IDirectInputDeviceA ptr, byval rguidProp as const GUID const ptr, byval pdiph as LPDIPROPHEADER) as HRESULT
@@ -1616,8 +1614,8 @@ end type
 
 type IDirectInputDeviceWVtbl_
 	QueryInterface as function(byval This as IDirectInputDeviceW ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirectInputDeviceW ptr) as ULONG_
-	Release as function(byval This as IDirectInputDeviceW ptr) as ULONG_
+	AddRef as function(byval This as IDirectInputDeviceW ptr) as ULONG
+	Release as function(byval This as IDirectInputDeviceW ptr) as ULONG
 	GetCapabilities as function(byval This as IDirectInputDeviceW ptr, byval lpDIDevCaps as LPDIDEVCAPS) as HRESULT
 	EnumObjects as function(byval This as IDirectInputDeviceW ptr, byval lpCallback as LPDIENUMDEVICEOBJECTSCALLBACKW, byval pvRef as LPVOID, byval dwFlags as DWORD) as HRESULT
 	GetProperty as function(byval This as IDirectInputDeviceW ptr, byval rguidProp as const GUID const ptr, byval pdiph as LPDIPROPHEADER) as HRESULT
@@ -1660,8 +1658,8 @@ end type
 
 type IDirectInputDevice2AVtbl_
 	QueryInterface as function(byval This as IDirectInputDevice2A ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirectInputDevice2A ptr) as ULONG_
-	Release as function(byval This as IDirectInputDevice2A ptr) as ULONG_
+	AddRef as function(byval This as IDirectInputDevice2A ptr) as ULONG
+	Release as function(byval This as IDirectInputDevice2A ptr) as ULONG
 	GetCapabilities as function(byval This as IDirectInputDevice2A ptr, byval lpDIDevCaps as LPDIDEVCAPS) as HRESULT
 	EnumObjects as function(byval This as IDirectInputDevice2A ptr, byval lpCallback as LPDIENUMDEVICEOBJECTSCALLBACKA, byval pvRef as LPVOID, byval dwFlags as DWORD) as HRESULT
 	GetProperty as function(byval This as IDirectInputDevice2A ptr, byval rguidProp as const GUID const ptr, byval pdiph as LPDIPROPHEADER) as HRESULT
@@ -1694,8 +1692,8 @@ end type
 
 type IDirectInputDevice2WVtbl_
 	QueryInterface as function(byval This as IDirectInputDevice2W ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirectInputDevice2W ptr) as ULONG_
-	Release as function(byval This as IDirectInputDevice2W ptr) as ULONG_
+	AddRef as function(byval This as IDirectInputDevice2W ptr) as ULONG
+	Release as function(byval This as IDirectInputDevice2W ptr) as ULONG
 	GetCapabilities as function(byval This as IDirectInputDevice2W ptr, byval lpDIDevCaps as LPDIDEVCAPS) as HRESULT
 	EnumObjects as function(byval This as IDirectInputDevice2W ptr, byval lpCallback as LPDIENUMDEVICEOBJECTSCALLBACKW, byval pvRef as LPVOID, byval dwFlags as DWORD) as HRESULT
 	GetProperty as function(byval This as IDirectInputDevice2W ptr, byval rguidProp as const GUID const ptr, byval pdiph as LPDIPROPHEADER) as HRESULT
@@ -1756,8 +1754,8 @@ end type
 
 type IDirectInputDevice7AVtbl_
 	QueryInterface as function(byval This as IDirectInputDevice7A ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirectInputDevice7A ptr) as ULONG_
-	Release as function(byval This as IDirectInputDevice7A ptr) as ULONG_
+	AddRef as function(byval This as IDirectInputDevice7A ptr) as ULONG
+	Release as function(byval This as IDirectInputDevice7A ptr) as ULONG
 	GetCapabilities as function(byval This as IDirectInputDevice7A ptr, byval lpDIDevCaps as LPDIDEVCAPS) as HRESULT
 	EnumObjects as function(byval This as IDirectInputDevice7A ptr, byval lpCallback as LPDIENUMDEVICEOBJECTSCALLBACKA, byval pvRef as LPVOID, byval dwFlags as DWORD) as HRESULT
 	GetProperty as function(byval This as IDirectInputDevice7A ptr, byval rguidProp as const GUID const ptr, byval pdiph as LPDIPROPHEADER) as HRESULT
@@ -1792,8 +1790,8 @@ end type
 
 type IDirectInputDevice7WVtbl_
 	QueryInterface as function(byval This as IDirectInputDevice7W ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirectInputDevice7W ptr) as ULONG_
-	Release as function(byval This as IDirectInputDevice7W ptr) as ULONG_
+	AddRef as function(byval This as IDirectInputDevice7W ptr) as ULONG
+	Release as function(byval This as IDirectInputDevice7W ptr) as ULONG
 	GetCapabilities as function(byval This as IDirectInputDevice7W ptr, byval lpDIDevCaps as LPDIDEVCAPS) as HRESULT
 	EnumObjects as function(byval This as IDirectInputDevice7W ptr, byval lpCallback as LPDIENUMDEVICEOBJECTSCALLBACKW, byval pvRef as LPVOID, byval dwFlags as DWORD) as HRESULT
 	GetProperty as function(byval This as IDirectInputDevice7W ptr, byval rguidProp as const GUID const ptr, byval pdiph as LPDIPROPHEADER) as HRESULT
@@ -1858,8 +1856,8 @@ end type
 
 type IDirectInputDevice8AVtbl_
 	QueryInterface as function(byval This as IDirectInputDevice8A ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirectInputDevice8A ptr) as ULONG_
-	Release as function(byval This as IDirectInputDevice8A ptr) as ULONG_
+	AddRef as function(byval This as IDirectInputDevice8A ptr) as ULONG
+	Release as function(byval This as IDirectInputDevice8A ptr) as ULONG
 	GetCapabilities as function(byval This as IDirectInputDevice8A ptr, byval lpDIDevCaps as LPDIDEVCAPS) as HRESULT
 	EnumObjects as function(byval This as IDirectInputDevice8A ptr, byval lpCallback as LPDIENUMDEVICEOBJECTSCALLBACKA, byval pvRef as LPVOID, byval dwFlags as DWORD) as HRESULT
 	GetProperty as function(byval This as IDirectInputDevice8A ptr, byval rguidProp as const GUID const ptr, byval pdiph as LPDIPROPHEADER) as HRESULT
@@ -1897,8 +1895,8 @@ end type
 
 type IDirectInputDevice8WVtbl_
 	QueryInterface as function(byval This as IDirectInputDevice8W ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirectInputDevice8W ptr) as ULONG_
-	Release as function(byval This as IDirectInputDevice8W ptr) as ULONG_
+	AddRef as function(byval This as IDirectInputDevice8W ptr) as ULONG
+	Release as function(byval This as IDirectInputDevice8W ptr) as ULONG
 	GetCapabilities as function(byval This as IDirectInputDevice8W ptr, byval lpDIDevCaps as LPDIDEVCAPS) as HRESULT
 	EnumObjects as function(byval This as IDirectInputDevice8W ptr, byval lpCallback as LPDIENUMDEVICEOBJECTSCALLBACKW, byval pvRef as LPVOID, byval dwFlags as DWORD) as HRESULT
 	GetProperty as function(byval This as IDirectInputDevice8W ptr, byval rguidProp as const GUID const ptr, byval pdiph as LPDIPROPHEADER) as HRESULT
@@ -1964,17 +1962,17 @@ end type
 #define IDirectInputDevice8_GetImageInfo(p, a) (p)->lpVtbl->GetImageInfo(p, a)
 
 type DIMOUSESTATE
-	lX as LONG_
-	lY as LONG_
-	lZ as LONG_
-	rgbButtons(0 to 3) as BYTE_
+	lX as LONG
+	lY as LONG
+	lZ as LONG
+	rgbButtons(0 to 3) as BYTE
 end type
 
 type DIMOUSESTATE2
-	lX as LONG_
-	lY as LONG_
-	lZ as LONG_
-	rgbButtons(0 to 7) as BYTE_
+	lX as LONG
+	lY as LONG
+	lZ as LONG
+	rgbButtons(0 to 7) as BYTE
 end type
 
 #define DIMOFS_X FIELD_OFFSET(DIMOUSESTATE, lX)
@@ -2001,8 +1999,8 @@ end type
 
 type IDirectInputAVtbl_
 	QueryInterface as function(byval This as IDirectInputA ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirectInputA ptr) as ULONG_
-	Release as function(byval This as IDirectInputA ptr) as ULONG_
+	AddRef as function(byval This as IDirectInputA ptr) as ULONG
+	Release as function(byval This as IDirectInputA ptr) as ULONG
 	CreateDevice as function(byval This as IDirectInputA ptr, byval rguid as const GUID const ptr, byval lplpDirectInputDevice as LPDIRECTINPUTDEVICEA ptr, byval pUnkOuter as LPUNKNOWN) as HRESULT
 	EnumDevices as function(byval This as IDirectInputA ptr, byval dwDevType as DWORD, byval lpCallback as LPDIENUMDEVICESCALLBACKA, byval pvRef as LPVOID, byval dwFlags as DWORD) as HRESULT
 	GetDeviceStatus as function(byval This as IDirectInputA ptr, byval rguidInstance as const GUID const ptr) as HRESULT
@@ -2016,8 +2014,8 @@ end type
 
 type IDirectInputWVtbl_
 	QueryInterface as function(byval This as IDirectInputW ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirectInputW ptr) as ULONG_
-	Release as function(byval This as IDirectInputW ptr) as ULONG_
+	AddRef as function(byval This as IDirectInputW ptr) as ULONG
+	Release as function(byval This as IDirectInputW ptr) as ULONG
 	CreateDevice as function(byval This as IDirectInputW ptr, byval rguid as const GUID const ptr, byval lplpDirectInputDevice as LPDIRECTINPUTDEVICEW ptr, byval pUnkOuter as LPUNKNOWN) as HRESULT
 	EnumDevices as function(byval This as IDirectInputW ptr, byval dwDevType as DWORD, byval lpCallback as LPDIENUMDEVICESCALLBACKW, byval pvRef as LPVOID, byval dwFlags as DWORD) as HRESULT
 	GetDeviceStatus as function(byval This as IDirectInputW ptr, byval rguidInstance as const GUID const ptr) as HRESULT
@@ -2040,8 +2038,8 @@ end type
 
 type IDirectInput2AVtbl_
 	QueryInterface as function(byval This as IDirectInput2A ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirectInput2A ptr) as ULONG_
-	Release as function(byval This as IDirectInput2A ptr) as ULONG_
+	AddRef as function(byval This as IDirectInput2A ptr) as ULONG
+	Release as function(byval This as IDirectInput2A ptr) as ULONG
 	CreateDevice as function(byval This as IDirectInput2A ptr, byval rguid as const GUID const ptr, byval lplpDirectInputDevice as LPDIRECTINPUTDEVICEA ptr, byval pUnkOuter as LPUNKNOWN) as HRESULT
 	EnumDevices as function(byval This as IDirectInput2A ptr, byval dwDevType as DWORD, byval lpCallback as LPDIENUMDEVICESCALLBACKA, byval pvRef as LPVOID, byval dwFlags as DWORD) as HRESULT
 	GetDeviceStatus as function(byval This as IDirectInput2A ptr, byval rguidInstance as const GUID const ptr) as HRESULT
@@ -2056,8 +2054,8 @@ end type
 
 type IDirectInput2WVtbl_
 	QueryInterface as function(byval This as IDirectInput2W ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirectInput2W ptr) as ULONG_
-	Release as function(byval This as IDirectInput2W ptr) as ULONG_
+	AddRef as function(byval This as IDirectInput2W ptr) as ULONG
+	Release as function(byval This as IDirectInput2W ptr) as ULONG
 	CreateDevice as function(byval This as IDirectInput2W ptr, byval rguid as const GUID const ptr, byval lplpDirectInputDevice as LPDIRECTINPUTDEVICEW ptr, byval pUnkOuter as LPUNKNOWN) as HRESULT
 	EnumDevices as function(byval This as IDirectInput2W ptr, byval dwDevType as DWORD, byval lpCallback as LPDIENUMDEVICESCALLBACKW, byval pvRef as LPVOID, byval dwFlags as DWORD) as HRESULT
 	GetDeviceStatus as function(byval This as IDirectInput2W ptr, byval rguidInstance as const GUID const ptr) as HRESULT
@@ -2082,8 +2080,8 @@ end type
 
 type IDirectInput7AVtbl_
 	QueryInterface as function(byval This as IDirectInput7A ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirectInput7A ptr) as ULONG_
-	Release as function(byval This as IDirectInput7A ptr) as ULONG_
+	AddRef as function(byval This as IDirectInput7A ptr) as ULONG
+	Release as function(byval This as IDirectInput7A ptr) as ULONG
 	CreateDevice as function(byval This as IDirectInput7A ptr, byval rguid as const GUID const ptr, byval lplpDirectInputDevice as LPDIRECTINPUTDEVICEA ptr, byval pUnkOuter as LPUNKNOWN) as HRESULT
 	EnumDevices as function(byval This as IDirectInput7A ptr, byval dwDevType as DWORD, byval lpCallback as LPDIENUMDEVICESCALLBACKA, byval pvRef as LPVOID, byval dwFlags as DWORD) as HRESULT
 	GetDeviceStatus as function(byval This as IDirectInput7A ptr, byval rguidInstance as const GUID const ptr) as HRESULT
@@ -2099,8 +2097,8 @@ end type
 
 type IDirectInput7WVtbl_
 	QueryInterface as function(byval This as IDirectInput7W ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirectInput7W ptr) as ULONG_
-	Release as function(byval This as IDirectInput7W ptr) as ULONG_
+	AddRef as function(byval This as IDirectInput7W ptr) as ULONG
+	Release as function(byval This as IDirectInput7W ptr) as ULONG
 	CreateDevice as function(byval This as IDirectInput7W ptr, byval rguid as const GUID const ptr, byval lplpDirectInputDevice as LPDIRECTINPUTDEVICEW ptr, byval pUnkOuter as LPUNKNOWN) as HRESULT
 	EnumDevices as function(byval This as IDirectInput7W ptr, byval dwDevType as DWORD, byval lpCallback as LPDIENUMDEVICESCALLBACKW, byval pvRef as LPVOID, byval dwFlags as DWORD) as HRESULT
 	GetDeviceStatus as function(byval This as IDirectInput7W ptr, byval rguidInstance as const GUID const ptr) as HRESULT
@@ -2127,8 +2125,8 @@ end type
 
 type IDirectInput8AVtbl_
 	QueryInterface as function(byval This as IDirectInput8A ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirectInput8A ptr) as ULONG_
-	Release as function(byval This as IDirectInput8A ptr) as ULONG_
+	AddRef as function(byval This as IDirectInput8A ptr) as ULONG
+	Release as function(byval This as IDirectInput8A ptr) as ULONG
 	CreateDevice as function(byval This as IDirectInput8A ptr, byval rguid as const GUID const ptr, byval lplpDirectInputDevice as LPDIRECTINPUTDEVICE8A ptr, byval pUnkOuter as LPUNKNOWN) as HRESULT
 	EnumDevices as function(byval This as IDirectInput8A ptr, byval dwDevType as DWORD, byval lpCallback as LPDIENUMDEVICESCALLBACKA, byval pvRef as LPVOID, byval dwFlags as DWORD) as HRESULT
 	GetDeviceStatus as function(byval This as IDirectInput8A ptr, byval rguidInstance as const GUID const ptr) as HRESULT
@@ -2145,8 +2143,8 @@ end type
 
 type IDirectInput8WVtbl_
 	QueryInterface as function(byval This as IDirectInput8W ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirectInput8W ptr) as ULONG_
-	Release as function(byval This as IDirectInput8W ptr) as ULONG_
+	AddRef as function(byval This as IDirectInput8W ptr) as ULONG
+	Release as function(byval This as IDirectInput8W ptr) as ULONG
 	CreateDevice as function(byval This as IDirectInput8W ptr, byval rguid as const GUID const ptr, byval lplpDirectInputDevice as LPDIRECTINPUTDEVICE8W ptr, byval pUnkOuter as LPUNKNOWN) as HRESULT
 	EnumDevices as function(byval This as IDirectInput8W ptr, byval dwDevType as DWORD, byval lpCallback as LPDIENUMDEVICESCALLBACKW, byval pvRef as LPVOID, byval dwFlags as DWORD) as HRESULT
 	GetDeviceStatus as function(byval This as IDirectInput8W ptr, byval rguidInstance as const GUID const ptr) as HRESULT

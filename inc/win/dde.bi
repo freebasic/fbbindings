@@ -42,7 +42,7 @@ type DDEDATA
 	reserved : 1 as ushort
 	fAckReq : 1 as ushort
 	cfFormat as short
-	Value(0 to 0) as BYTE_
+	Value(0 to 0) as BYTE
 end type
 
 type DDEPOKE
@@ -50,7 +50,7 @@ type DDEPOKE
 	fRelease : 1 as ushort
 	fReserved : 2 as ushort
 	cfFormat as short
-	Value(0 to 0) as BYTE_
+	Value(0 to 0) as BYTE
 end type
 
 type DDELN
@@ -68,7 +68,7 @@ type DDEUP
 	fReserved : 1 as ushort
 	fAckReq : 1 as ushort
 	cfFormat as short
-	rgb(0 to 0) as BYTE_
+	rgb(0 to 0) as BYTE
 end type
 
 declare function DdeSetQualityOfService(byval hwndClient as HWND, byval pqosNew as const SECURITY_QUALITY_OF_SERVICE ptr, byval pqosPrev as PSECURITY_QUALITY_OF_SERVICE) as WINBOOL

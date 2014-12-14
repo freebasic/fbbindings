@@ -3,6 +3,12 @@
 #include once "_mingw_unicode.bi"
 #include once "commctrl.bi"
 
+'' The following symbols have been renamed:
+''     inside struct _SP_DRVINFO_DATA_V2_A:
+''         field DriverVersion => DriverVersion_
+''     inside struct _SP_DRVINFO_DATA_V2_W:
+''         field DriverVersion => DriverVersion_
+
 #ifdef __FB_64BIT__
 	extern "C"
 #else
@@ -10,7 +16,6 @@
 #endif
 
 #define _INC_SETUPAPI
-#define WINSETUPAPI DECLSPEC_IMPORT
 #define _SETUPAPI_VER &h0502
 
 type HINF as PVOID
@@ -48,13 +53,13 @@ type PINFCONTEXT as _INFCONTEXT ptr
 	type _SP_INF_INFORMATION field = 8
 		InfStyle as DWORD
 		InfCount as DWORD
-		VersionData(0 to 0) as BYTE_
+		VersionData(0 to 0) as BYTE
 	end type
 #else
 	type _SP_INF_INFORMATION field = 1
 		InfStyle as DWORD
 		InfCount as DWORD
-		VersionData(0 to 0) as BYTE_
+		VersionData(0 to 0) as BYTE
 	end type
 #endif
 
@@ -431,16 +436,16 @@ type PSOURCE_MEDIA_W as _SOURCE_MEDIA_W ptr
 		CabinetPath as PCSTR
 		CabinetFile as PCSTR
 		DiskName as PCSTR
-		SetId as USHORT_
-		CabinetNumber as USHORT_
+		SetId as USHORT
+		CabinetNumber as USHORT
 	end type
 #else
 	type _CABINET_INFO_A field = 1
 		CabinetPath as PCSTR
 		CabinetFile as PCSTR
 		DiskName as PCSTR
-		SetId as USHORT_
-		CabinetNumber as USHORT_
+		SetId as USHORT
+		CabinetNumber as USHORT
 	end type
 #endif
 
@@ -452,16 +457,16 @@ type PCABINET_INFO_A as _CABINET_INFO_A ptr
 		CabinetPath as PCWSTR
 		CabinetFile as PCWSTR
 		DiskName as PCWSTR
-		SetId as USHORT_
-		CabinetNumber as USHORT_
+		SetId as USHORT
+		CabinetNumber as USHORT
 	end type
 #else
 	type _CABINET_INFO_W field = 1
 		CabinetPath as PCWSTR
 		CabinetFile as PCWSTR
 		DiskName as PCWSTR
-		SetId as USHORT_
-		CabinetNumber as USHORT_
+		SetId as USHORT
+		CabinetNumber as USHORT
 	end type
 #endif
 
@@ -1127,7 +1132,7 @@ type PSP_UNREMOVEDEVICE_PARAMS as _SP_UNREMOVEDEVICE_PARAMS ptr
 		Instructions(0 to 255) as CHAR
 		ListLabel(0 to 29) as CHAR
 		SubTitle(0 to 255) as CHAR
-		Reserved(0 to 1) as BYTE_
+		Reserved(0 to 1) as BYTE
 	end type
 #else
 	type _SP_SELECTDEVICE_PARAMS_A field = 1
@@ -1136,7 +1141,7 @@ type PSP_UNREMOVEDEVICE_PARAMS as _SP_UNREMOVEDEVICE_PARAMS ptr
 		Instructions(0 to 255) as CHAR
 		ListLabel(0 to 29) as CHAR
 		SubTitle(0 to 255) as CHAR
-		Reserved(0 to 1) as BYTE_
+		Reserved(0 to 1) as BYTE
 	end type
 #endif
 
@@ -1366,7 +1371,7 @@ type PSP_POWERMESSAGEWAKE_PARAMS_W as _SP_POWERMESSAGEWAKE_PARAMS_W ptr
 		MfgName(0 to 255) as CHAR
 		ProviderName(0 to 255) as CHAR
 		DriverDate as FILETIME
-		DriverVersion as DWORDLONG
+		DriverVersion_ as DWORDLONG
 	end type
 #else
 	type _SP_DRVINFO_DATA_V2_A field = 1
@@ -1377,7 +1382,7 @@ type PSP_POWERMESSAGEWAKE_PARAMS_W as _SP_POWERMESSAGEWAKE_PARAMS_W ptr
 		MfgName(0 to 255) as CHAR
 		ProviderName(0 to 255) as CHAR
 		DriverDate as FILETIME
-		DriverVersion as DWORDLONG
+		DriverVersion_ as DWORDLONG
 	end type
 #endif
 
@@ -1393,7 +1398,7 @@ type PSP_DRVINFO_DATA_V2_A as _SP_DRVINFO_DATA_V2_A ptr
 		MfgName(0 to 255) as WCHAR
 		ProviderName(0 to 255) as WCHAR
 		DriverDate as FILETIME
-		DriverVersion as DWORDLONG
+		DriverVersion_ as DWORDLONG
 	end type
 #else
 	type _SP_DRVINFO_DATA_V2_W field = 1
@@ -1404,7 +1409,7 @@ type PSP_DRVINFO_DATA_V2_A as _SP_DRVINFO_DATA_V2_A ptr
 		MfgName(0 to 255) as WCHAR
 		ProviderName(0 to 255) as WCHAR
 		DriverDate as FILETIME
-		DriverVersion as DWORDLONG
+		DriverVersion_ as DWORDLONG
 	end type
 #endif
 
@@ -1898,8 +1903,8 @@ declare function SetupFindNextMatchLineA(byval ContextIn as PINFCONTEXT, byval K
 declare function SetupFindNextMatchLineW(byval ContextIn as PINFCONTEXT, byval Key as PCWSTR, byval ContextOut as PINFCONTEXT) as WINBOOL
 declare function SetupGetLineByIndexA(byval InfHandle as HINF, byval Section as PCSTR, byval Index as DWORD, byval Context as PINFCONTEXT) as WINBOOL
 declare function SetupGetLineByIndexW(byval InfHandle as HINF, byval Section as PCWSTR, byval Index as DWORD, byval Context as PINFCONTEXT) as WINBOOL
-declare function SetupGetLineCountA(byval InfHandle as HINF, byval Section as PCSTR) as LONG_
-declare function SetupGetLineCountW(byval InfHandle as HINF, byval Section as PCWSTR) as LONG_
+declare function SetupGetLineCountA(byval InfHandle as HINF, byval Section as PCSTR) as LONG
+declare function SetupGetLineCountW(byval InfHandle as HINF, byval Section as PCWSTR) as LONG
 declare function SetupGetLineTextA(byval Context as PINFCONTEXT, byval InfHandle as HINF, byval Section as PCSTR, byval Key as PCSTR, byval ReturnBuffer as PSTR, byval ReturnBufferSize as DWORD, byval RequiredSize as PDWORD) as WINBOOL
 declare function SetupGetLineTextW(byval Context as PINFCONTEXT, byval InfHandle as HINF, byval Section as PCWSTR, byval Key as PCWSTR, byval ReturnBuffer as PWSTR, byval ReturnBufferSize as DWORD, byval RequiredSize as PDWORD) as WINBOOL
 declare function SetupGetFieldCount(byval Context as PINFCONTEXT) as DWORD
@@ -2520,10 +2525,10 @@ declare function SetupDiGetDeviceRegistryPropertyA(byval DeviceInfoSet as HDEVIN
 declare function SetupDiGetDeviceRegistryPropertyW(byval DeviceInfoSet as HDEVINFO, byval DeviceInfoData as PSP_DEVINFO_DATA, byval Property_ as DWORD, byval PropertyRegDataType as PDWORD, byval PropertyBuffer as PBYTE, byval PropertyBufferSize as DWORD, byval RequiredSize as PDWORD) as WINBOOL
 declare function SetupDiGetClassRegistryPropertyA(byval ClassGuid as const GUID ptr, byval Property_ as DWORD, byval PropertyRegDataType as PDWORD, byval PropertyBuffer as PBYTE, byval PropertyBufferSize as DWORD, byval RequiredSize as PDWORD, byval MachineName as PCSTR, byval Reserved as PVOID) as WINBOOL
 declare function SetupDiGetClassRegistryPropertyW(byval ClassGuid as const GUID ptr, byval Property_ as DWORD, byval PropertyRegDataType as PDWORD, byval PropertyBuffer as PBYTE, byval PropertyBufferSize as DWORD, byval RequiredSize as PDWORD, byval MachineName as PCWSTR, byval Reserved as PVOID) as WINBOOL
-declare function SetupDiSetDeviceRegistryPropertyA(byval DeviceInfoSet as HDEVINFO, byval DeviceInfoData as PSP_DEVINFO_DATA, byval Property_ as DWORD, byval PropertyBuffer as const BYTE_ ptr, byval PropertyBufferSize as DWORD) as WINBOOL
-declare function SetupDiSetDeviceRegistryPropertyW(byval DeviceInfoSet as HDEVINFO, byval DeviceInfoData as PSP_DEVINFO_DATA, byval Property_ as DWORD, byval PropertyBuffer as const BYTE_ ptr, byval PropertyBufferSize as DWORD) as WINBOOL
-declare function SetupDiSetClassRegistryPropertyA(byval ClassGuid as const GUID ptr, byval Property_ as DWORD, byval PropertyBuffer as const BYTE_ ptr, byval PropertyBufferSize as DWORD, byval MachineName as PCSTR, byval Reserved as PVOID) as WINBOOL
-declare function SetupDiSetClassRegistryPropertyW(byval ClassGuid as const GUID ptr, byval Property_ as DWORD, byval PropertyBuffer as const BYTE_ ptr, byval PropertyBufferSize as DWORD, byval MachineName as PCWSTR, byval Reserved as PVOID) as WINBOOL
+declare function SetupDiSetDeviceRegistryPropertyA(byval DeviceInfoSet as HDEVINFO, byval DeviceInfoData as PSP_DEVINFO_DATA, byval Property_ as DWORD, byval PropertyBuffer as const BYTE ptr, byval PropertyBufferSize as DWORD) as WINBOOL
+declare function SetupDiSetDeviceRegistryPropertyW(byval DeviceInfoSet as HDEVINFO, byval DeviceInfoData as PSP_DEVINFO_DATA, byval Property_ as DWORD, byval PropertyBuffer as const BYTE ptr, byval PropertyBufferSize as DWORD) as WINBOOL
+declare function SetupDiSetClassRegistryPropertyA(byval ClassGuid as const GUID ptr, byval Property_ as DWORD, byval PropertyBuffer as const BYTE ptr, byval PropertyBufferSize as DWORD, byval MachineName as PCSTR, byval Reserved as PVOID) as WINBOOL
+declare function SetupDiSetClassRegistryPropertyW(byval ClassGuid as const GUID ptr, byval Property_ as DWORD, byval PropertyBuffer as const BYTE ptr, byval PropertyBufferSize as DWORD, byval MachineName as PCWSTR, byval Reserved as PVOID) as WINBOOL
 declare function SetupDiGetDeviceInstallParamsA(byval DeviceInfoSet as HDEVINFO, byval DeviceInfoData as PSP_DEVINFO_DATA, byval DeviceInstallParams as PSP_DEVINSTALL_PARAMS_A) as WINBOOL
 declare function SetupDiGetDeviceInstallParamsW(byval DeviceInfoSet as HDEVINFO, byval DeviceInfoData as PSP_DEVINFO_DATA, byval DeviceInstallParams as PSP_DEVINSTALL_PARAMS_W) as WINBOOL
 declare function SetupDiGetClassInstallParamsA(byval DeviceInfoSet as HDEVINFO, byval DeviceInfoData as PSP_DEVINFO_DATA, byval ClassInstallParams as PSP_CLASSINSTALL_HEADER, byval ClassInstallParamsSize as DWORD, byval RequiredSize as PDWORD) as WINBOOL

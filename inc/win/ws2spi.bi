@@ -1,6 +1,5 @@
 #pragma once
 
-#include once "crt/long.bi"
 #include once "winsock2.bi"
 
 '' The following symbols have been renamed:
@@ -54,7 +53,7 @@ type LPBLOCKINGCALLBACK as function(byval dwContext as DWORD_PTR) as WINBOOL
 type LPWSAUSERAPC as sub(byval dwContext as DWORD_PTR)
 type LPWSPACCEPT as function(byval s as SOCKET, byval addr as sockaddr ptr, byval addrlen as LPINT, byval lpfnCondition as LPCONDITIONPROC, byval dwCallbackData as DWORD_PTR, byval lpErrno as LPINT) as SOCKET
 type LPWSPADDRESSTOSTRING as function(byval lpsaAddress as LPSOCKADDR, byval dwAddressLength as DWORD, byval lpProtocolInfo as LPWSAPROTOCOL_INFOW, byval lpszAddressString as LPWSTR, byval lpdwAddressStringLength as LPDWORD, byval lpErrno as LPINT) as INT_
-type LPWSPASYNCSELECT as function(byval s as SOCKET, byval hWnd as HWND, byval wMsg as ulong, byval lEvent as clong, byval lpErrno as LPINT) as long
+type LPWSPASYNCSELECT as function(byval s as SOCKET, byval hWnd as HWND, byval wMsg as ulong, byval lEvent as long, byval lpErrno as LPINT) as long
 type LPWSPBIND as function(byval s as SOCKET, byval name_ as const sockaddr ptr, byval namelen as long, byval lpErrno as LPINT) as long
 type LPWSPCANCELBLOCKINGCALL as function(byval lpErrno as LPINT) as long
 type LPWSPCLEANUP as function(byval lpErrno as LPINT) as long
@@ -62,7 +61,7 @@ type LPWSPCLOSESOCKET as function(byval s as SOCKET, byval lpErrno as LPINT) as 
 type LPWSPCONNECT as function(byval s as SOCKET, byval name_ as const sockaddr ptr, byval namelen as long, byval lpCallerData as LPWSABUF, byval lpCalleeData as LPWSABUF, byval lpSQOS as LPQOS, byval lpGQOS as LPQOS, byval lpErrno as LPINT) as long
 type LPWSPDUPLICATESOCKET as function(byval s as SOCKET, byval dwProcessId as DWORD, byval lpProtocolInfo as LPWSAPROTOCOL_INFOW, byval lpErrno as LPINT) as long
 type LPWSPENUMNETWORKEVENTS as function(byval s as SOCKET, byval hEventObject as HANDLE, byval lpNetworkEvents as LPWSANETWORKEVENTS, byval lpErrno as LPINT) as long
-type LPWSPEVENTSELECT as function(byval s as SOCKET, byval hEventObject as HANDLE, byval lNetworkEvents as clong, byval lpErrno as LPINT) as long
+type LPWSPEVENTSELECT as function(byval s as SOCKET, byval hEventObject as HANDLE, byval lNetworkEvents as long, byval lpErrno as LPINT) as long
 type LPWSPGETOVERLAPPEDRESULT as function(byval s as SOCKET, byval lpOverlapped as LPWSAOVERLAPPED, byval lpcbTransfer as LPDWORD, byval fWait as WINBOOL, byval lpdwFlags as LPDWORD, byval lpErrno as LPINT) as WINBOOL
 type LPWSPGETPEERNAME as function(byval s as SOCKET, byval name_ as sockaddr ptr, byval namelen as LPINT, byval lpErrno as LPINT) as long
 type LPWSPGETSOCKNAME as function(byval s as SOCKET, byval name_ as sockaddr ptr, byval namelen as LPINT, byval lpErrno as LPINT) as long

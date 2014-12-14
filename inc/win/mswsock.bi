@@ -56,8 +56,8 @@ type LPFN_GETACCEPTEXSOCKADDRS as sub(byval lpOutputBuffer as PVOID, byval dwRec
 #define WSAID_GETACCEPTEXSOCKADDRS (&hb5367df2, &hcbac, &h11cf, (&h95, &hca, &h00, &h80, &h5f, &h48, &ha1, &h92))
 
 type _TRANSMIT_PACKETS_ELEMENT
-	dwElFlags as ULONG_
-	cLength as ULONG_
+	dwElFlags as ULONG
+	cLength as ULONG
 
 	union
 		type

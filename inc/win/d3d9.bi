@@ -199,8 +199,8 @@ end type
 
 type IDirect3D9Vtbl_
 	QueryInterface as function(byval This as IDirect3D9 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirect3D9 ptr) as ULONG_
-	Release as function(byval This as IDirect3D9 ptr) as ULONG_
+	AddRef as function(byval This as IDirect3D9 ptr) as ULONG
+	Release as function(byval This as IDirect3D9 ptr) as ULONG
 	RegisterSoftwareDevice as function(byval This as IDirect3D9 ptr, byval pInitializeFunction as any ptr) as HRESULT
 	GetAdapterCount as function(byval This as IDirect3D9 ptr) as UINT
 	GetAdapterIdentifier as function(byval This as IDirect3D9 ptr, byval Adapter as UINT, byval Flags as DWORD, byval pIdentifier as D3DADAPTER_IDENTIFIER9 ptr) as HRESULT
@@ -241,8 +241,8 @@ end type
 
 type IDirect3D9ExVtbl_
 	QueryInterface as function(byval This as IDirect3D9Ex ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirect3D9Ex ptr) as ULONG_
-	Release as function(byval This as IDirect3D9Ex ptr) as ULONG_
+	AddRef as function(byval This as IDirect3D9Ex ptr) as ULONG
+	Release as function(byval This as IDirect3D9Ex ptr) as ULONG
 	RegisterSoftwareDevice as function(byval This as IDirect3D9Ex ptr, byval pInitializeFunction as any ptr) as HRESULT
 	GetAdapterCount as function(byval This as IDirect3D9Ex ptr) as UINT
 	GetAdapterIdentifier as function(byval This as IDirect3D9Ex ptr, byval Adapter as UINT, byval Flags as DWORD, byval pIdentifier as D3DADAPTER_IDENTIFIER9 ptr) as HRESULT
@@ -293,12 +293,12 @@ end type
 
 type IDirect3DVolume9Vtbl_
 	QueryInterface as function(byval This as IDirect3DVolume9 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirect3DVolume9 ptr) as ULONG_
-	Release as function(byval This as IDirect3DVolume9 ptr) as ULONG_
+	AddRef as function(byval This as IDirect3DVolume9 ptr) as ULONG
+	Release as function(byval This as IDirect3DVolume9 ptr) as ULONG
 	GetDevice as function(byval This as IDirect3DVolume9 ptr, byval ppDevice as IDirect3DDevice9 ptr ptr) as HRESULT
-	SetPrivateData as function(byval This as IDirect3DVolume9 ptr, byval refguid as const GUID const ptr, byval pData as const any ptr, byval SizeOfData as DWORD, byval Flags as DWORD) as HRESULT
-	GetPrivateData as function(byval This as IDirect3DVolume9 ptr, byval refguid as const GUID const ptr, byval pData as any ptr, byval pSizeOfData as DWORD ptr) as HRESULT
-	FreePrivateData as function(byval This as IDirect3DVolume9 ptr, byval refguid as const GUID const ptr) as HRESULT
+	SetPrivateData as function(byval This as IDirect3DVolume9 ptr, byval refguid_ as const GUID const ptr, byval pData as const any ptr, byval SizeOfData as DWORD, byval Flags as DWORD) as HRESULT
+	GetPrivateData as function(byval This as IDirect3DVolume9 ptr, byval refguid_ as const GUID const ptr, byval pData as any ptr, byval pSizeOfData as DWORD ptr) as HRESULT
+	FreePrivateData as function(byval This as IDirect3DVolume9 ptr, byval refguid_ as const GUID const ptr) as HRESULT
 	GetContainer as function(byval This as IDirect3DVolume9 ptr, byval riid as const IID const ptr, byval ppContainer as any ptr ptr) as HRESULT
 	GetDesc as function(byval This as IDirect3DVolume9 ptr, byval pDesc as D3DVOLUME_DESC ptr) as HRESULT
 	LockBox as function(byval This as IDirect3DVolume9 ptr, byval pLockedVolume as D3DLOCKED_BOX ptr, byval pBox as const D3DBOX ptr, byval Flags as DWORD) as HRESULT
@@ -323,8 +323,8 @@ end type
 
 type IDirect3DSwapChain9Vtbl_
 	QueryInterface as function(byval This as IDirect3DSwapChain9 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirect3DSwapChain9 ptr) as ULONG_
-	Release as function(byval This as IDirect3DSwapChain9 ptr) as ULONG_
+	AddRef as function(byval This as IDirect3DSwapChain9 ptr) as ULONG
+	Release as function(byval This as IDirect3DSwapChain9 ptr) as ULONG
 	Present as function(byval This as IDirect3DSwapChain9 ptr, byval pSourceRect as const RECT ptr, byval pDestRect as const RECT ptr, byval hDestWindowOverride as HWND, byval pDirtyRegion as const RGNDATA ptr, byval dwFlags as DWORD) as HRESULT
 	GetFrontBufferData as function(byval This as IDirect3DSwapChain9 ptr, byval pDestSurface as IDirect3DSurface9 ptr) as HRESULT
 	GetBackBuffer as function(byval This as IDirect3DSwapChain9 ptr, byval iBackBuffer as UINT, byval Type_ as D3DBACKBUFFER_TYPE, byval ppBackBuffer as IDirect3DSurface9 ptr ptr) as HRESULT
@@ -351,8 +351,8 @@ end type
 
 type IDirect3DSwapChain9ExVtbl_
 	QueryInterface as function(byval This as IDirect3DSwapChain9Ex ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirect3DSwapChain9Ex ptr) as ULONG_
-	Release as function(byval This as IDirect3DSwapChain9Ex ptr) as ULONG_
+	AddRef as function(byval This as IDirect3DSwapChain9Ex ptr) as ULONG
+	Release as function(byval This as IDirect3DSwapChain9Ex ptr) as ULONG
 	Present as function(byval This as IDirect3DSwapChain9Ex ptr, byval pSourceRect as const RECT ptr, byval pDestRect as const RECT ptr, byval hDestWindowOverride as HWND, byval pDirtyRegion as const RGNDATA ptr, byval dwFlags as DWORD) as HRESULT
 	GetFrontBufferData as function(byval This as IDirect3DSwapChain9Ex ptr, byval pDestSurface as IDirect3DSurface9 ptr) as HRESULT
 	GetBackBuffer as function(byval This as IDirect3DSwapChain9Ex ptr, byval iBackBuffer as UINT, byval Type_ as D3DBACKBUFFER_TYPE, byval ppBackBuffer as IDirect3DSurface9 ptr ptr) as HRESULT
@@ -385,12 +385,12 @@ end type
 
 type IDirect3DResource9Vtbl_
 	QueryInterface as function(byval This as IDirect3DResource9 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirect3DResource9 ptr) as ULONG_
-	Release as function(byval This as IDirect3DResource9 ptr) as ULONG_
+	AddRef as function(byval This as IDirect3DResource9 ptr) as ULONG
+	Release as function(byval This as IDirect3DResource9 ptr) as ULONG
 	GetDevice as function(byval This as IDirect3DResource9 ptr, byval ppDevice as IDirect3DDevice9 ptr ptr) as HRESULT
-	SetPrivateData as function(byval This as IDirect3DResource9 ptr, byval refguid as const GUID const ptr, byval pData as const any ptr, byval SizeOfData as DWORD, byval Flags as DWORD) as HRESULT
-	GetPrivateData as function(byval This as IDirect3DResource9 ptr, byval refguid as const GUID const ptr, byval pData as any ptr, byval pSizeOfData as DWORD ptr) as HRESULT
-	FreePrivateData as function(byval This as IDirect3DResource9 ptr, byval refguid as const GUID const ptr) as HRESULT
+	SetPrivateData as function(byval This as IDirect3DResource9 ptr, byval refguid_ as const GUID const ptr, byval pData as const any ptr, byval SizeOfData as DWORD, byval Flags as DWORD) as HRESULT
+	GetPrivateData as function(byval This as IDirect3DResource9 ptr, byval refguid_ as const GUID const ptr, byval pData as any ptr, byval pSizeOfData as DWORD ptr) as HRESULT
+	FreePrivateData as function(byval This as IDirect3DResource9 ptr, byval refguid_ as const GUID const ptr) as HRESULT
 	SetPriority as function(byval This as IDirect3DResource9 ptr, byval PriorityNew as DWORD) as DWORD
 	GetPriority as function(byval This as IDirect3DResource9 ptr) as DWORD
 	PreLoad as sub(byval This as IDirect3DResource9 ptr)
@@ -415,12 +415,12 @@ end type
 
 type IDirect3DSurface9Vtbl_
 	QueryInterface as function(byval This as IDirect3DSurface9 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirect3DSurface9 ptr) as ULONG_
-	Release as function(byval This as IDirect3DSurface9 ptr) as ULONG_
+	AddRef as function(byval This as IDirect3DSurface9 ptr) as ULONG
+	Release as function(byval This as IDirect3DSurface9 ptr) as ULONG
 	GetDevice as function(byval This as IDirect3DSurface9 ptr, byval ppDevice as IDirect3DDevice9 ptr ptr) as HRESULT
-	SetPrivateData as function(byval This as IDirect3DSurface9 ptr, byval refguid as const GUID const ptr, byval pData as const any ptr, byval SizeOfData as DWORD, byval Flags as DWORD) as HRESULT
-	GetPrivateData as function(byval This as IDirect3DSurface9 ptr, byval refguid as const GUID const ptr, byval pData as any ptr, byval pSizeOfData as DWORD ptr) as HRESULT
-	FreePrivateData as function(byval This as IDirect3DSurface9 ptr, byval refguid as const GUID const ptr) as HRESULT
+	SetPrivateData as function(byval This as IDirect3DSurface9 ptr, byval refguid_ as const GUID const ptr, byval pData as const any ptr, byval SizeOfData as DWORD, byval Flags as DWORD) as HRESULT
+	GetPrivateData as function(byval This as IDirect3DSurface9 ptr, byval refguid_ as const GUID const ptr, byval pData as any ptr, byval pSizeOfData as DWORD ptr) as HRESULT
+	FreePrivateData as function(byval This as IDirect3DSurface9 ptr, byval refguid_ as const GUID const ptr) as HRESULT
 	SetPriority as function(byval This as IDirect3DSurface9 ptr, byval PriorityNew as DWORD) as DWORD
 	GetPriority as function(byval This as IDirect3DSurface9 ptr) as DWORD
 	PreLoad as sub(byval This as IDirect3DSurface9 ptr)
@@ -457,12 +457,12 @@ end type
 
 type IDirect3DVertexBuffer9Vtbl_
 	QueryInterface as function(byval This as IDirect3DVertexBuffer9 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirect3DVertexBuffer9 ptr) as ULONG_
-	Release as function(byval This as IDirect3DVertexBuffer9 ptr) as ULONG_
+	AddRef as function(byval This as IDirect3DVertexBuffer9 ptr) as ULONG
+	Release as function(byval This as IDirect3DVertexBuffer9 ptr) as ULONG
 	GetDevice as function(byval This as IDirect3DVertexBuffer9 ptr, byval ppDevice as IDirect3DDevice9 ptr ptr) as HRESULT
-	SetPrivateData as function(byval This as IDirect3DVertexBuffer9 ptr, byval refguid as const GUID const ptr, byval pData as const any ptr, byval SizeOfData as DWORD, byval Flags as DWORD) as HRESULT
-	GetPrivateData as function(byval This as IDirect3DVertexBuffer9 ptr, byval refguid as const GUID const ptr, byval pData as any ptr, byval pSizeOfData as DWORD ptr) as HRESULT
-	FreePrivateData as function(byval This as IDirect3DVertexBuffer9 ptr, byval refguid as const GUID const ptr) as HRESULT
+	SetPrivateData as function(byval This as IDirect3DVertexBuffer9 ptr, byval refguid_ as const GUID const ptr, byval pData as const any ptr, byval SizeOfData as DWORD, byval Flags as DWORD) as HRESULT
+	GetPrivateData as function(byval This as IDirect3DVertexBuffer9 ptr, byval refguid_ as const GUID const ptr, byval pData as any ptr, byval pSizeOfData as DWORD ptr) as HRESULT
+	FreePrivateData as function(byval This as IDirect3DVertexBuffer9 ptr, byval refguid_ as const GUID const ptr) as HRESULT
 	SetPriority as function(byval This as IDirect3DVertexBuffer9 ptr, byval PriorityNew as DWORD) as DWORD
 	GetPriority as function(byval This as IDirect3DVertexBuffer9 ptr) as DWORD
 	PreLoad as sub(byval This as IDirect3DVertexBuffer9 ptr)
@@ -493,12 +493,12 @@ end type
 
 type IDirect3DIndexBuffer9Vtbl_
 	QueryInterface as function(byval This as IDirect3DIndexBuffer9 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirect3DIndexBuffer9 ptr) as ULONG_
-	Release as function(byval This as IDirect3DIndexBuffer9 ptr) as ULONG_
+	AddRef as function(byval This as IDirect3DIndexBuffer9 ptr) as ULONG
+	Release as function(byval This as IDirect3DIndexBuffer9 ptr) as ULONG
 	GetDevice as function(byval This as IDirect3DIndexBuffer9 ptr, byval ppDevice as IDirect3DDevice9 ptr ptr) as HRESULT
-	SetPrivateData as function(byval This as IDirect3DIndexBuffer9 ptr, byval refguid as const GUID const ptr, byval pData as const any ptr, byval SizeOfData as DWORD, byval Flags as DWORD) as HRESULT
-	GetPrivateData as function(byval This as IDirect3DIndexBuffer9 ptr, byval refguid as const GUID const ptr, byval pData as any ptr, byval pSizeOfData as DWORD ptr) as HRESULT
-	FreePrivateData as function(byval This as IDirect3DIndexBuffer9 ptr, byval refguid as const GUID const ptr) as HRESULT
+	SetPrivateData as function(byval This as IDirect3DIndexBuffer9 ptr, byval refguid_ as const GUID const ptr, byval pData as const any ptr, byval SizeOfData as DWORD, byval Flags as DWORD) as HRESULT
+	GetPrivateData as function(byval This as IDirect3DIndexBuffer9 ptr, byval refguid_ as const GUID const ptr, byval pData as any ptr, byval pSizeOfData as DWORD ptr) as HRESULT
+	FreePrivateData as function(byval This as IDirect3DIndexBuffer9 ptr, byval refguid_ as const GUID const ptr) as HRESULT
 	SetPriority as function(byval This as IDirect3DIndexBuffer9 ptr, byval PriorityNew as DWORD) as DWORD
 	GetPriority as function(byval This as IDirect3DIndexBuffer9 ptr) as DWORD
 	PreLoad as sub(byval This as IDirect3DIndexBuffer9 ptr)
@@ -529,12 +529,12 @@ end type
 
 type IDirect3DBaseTexture9Vtbl_
 	QueryInterface as function(byval This as IDirect3DBaseTexture9 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirect3DBaseTexture9 ptr) as ULONG_
-	Release as function(byval This as IDirect3DBaseTexture9 ptr) as ULONG_
+	AddRef as function(byval This as IDirect3DBaseTexture9 ptr) as ULONG
+	Release as function(byval This as IDirect3DBaseTexture9 ptr) as ULONG
 	GetDevice as function(byval This as IDirect3DBaseTexture9 ptr, byval ppDevice as IDirect3DDevice9 ptr ptr) as HRESULT
-	SetPrivateData as function(byval This as IDirect3DBaseTexture9 ptr, byval refguid as const GUID const ptr, byval pData as const any ptr, byval SizeOfData as DWORD, byval Flags as DWORD) as HRESULT
-	GetPrivateData as function(byval This as IDirect3DBaseTexture9 ptr, byval refguid as const GUID const ptr, byval pData as any ptr, byval pSizeOfData as DWORD ptr) as HRESULT
-	FreePrivateData as function(byval This as IDirect3DBaseTexture9 ptr, byval refguid as const GUID const ptr) as HRESULT
+	SetPrivateData as function(byval This as IDirect3DBaseTexture9 ptr, byval refguid_ as const GUID const ptr, byval pData as const any ptr, byval SizeOfData as DWORD, byval Flags as DWORD) as HRESULT
+	GetPrivateData as function(byval This as IDirect3DBaseTexture9 ptr, byval refguid_ as const GUID const ptr, byval pData as any ptr, byval pSizeOfData as DWORD ptr) as HRESULT
+	FreePrivateData as function(byval This as IDirect3DBaseTexture9 ptr, byval refguid_ as const GUID const ptr) as HRESULT
 	SetPriority as function(byval This as IDirect3DBaseTexture9 ptr, byval PriorityNew as DWORD) as DWORD
 	GetPriority as function(byval This as IDirect3DBaseTexture9 ptr) as DWORD
 	PreLoad as sub(byval This as IDirect3DBaseTexture9 ptr)
@@ -571,12 +571,12 @@ end type
 
 type IDirect3DCubeTexture9Vtbl_
 	QueryInterface as function(byval This as IDirect3DCubeTexture9 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirect3DCubeTexture9 ptr) as ULONG_
-	Release as function(byval This as IDirect3DCubeTexture9 ptr) as ULONG_
+	AddRef as function(byval This as IDirect3DCubeTexture9 ptr) as ULONG
+	Release as function(byval This as IDirect3DCubeTexture9 ptr) as ULONG
 	GetDevice as function(byval This as IDirect3DCubeTexture9 ptr, byval ppDevice as IDirect3DDevice9 ptr ptr) as HRESULT
-	SetPrivateData as function(byval This as IDirect3DCubeTexture9 ptr, byval refguid as const GUID const ptr, byval pData as const any ptr, byval SizeOfData as DWORD, byval Flags as DWORD) as HRESULT
-	GetPrivateData as function(byval This as IDirect3DCubeTexture9 ptr, byval refguid as const GUID const ptr, byval pData as any ptr, byval pSizeOfData as DWORD ptr) as HRESULT
-	FreePrivateData as function(byval This as IDirect3DCubeTexture9 ptr, byval refguid as const GUID const ptr) as HRESULT
+	SetPrivateData as function(byval This as IDirect3DCubeTexture9 ptr, byval refguid_ as const GUID const ptr, byval pData as const any ptr, byval SizeOfData as DWORD, byval Flags as DWORD) as HRESULT
+	GetPrivateData as function(byval This as IDirect3DCubeTexture9 ptr, byval refguid_ as const GUID const ptr, byval pData as any ptr, byval pSizeOfData as DWORD ptr) as HRESULT
+	FreePrivateData as function(byval This as IDirect3DCubeTexture9 ptr, byval refguid_ as const GUID const ptr) as HRESULT
 	SetPriority as function(byval This as IDirect3DCubeTexture9 ptr, byval PriorityNew as DWORD) as DWORD
 	GetPriority as function(byval This as IDirect3DCubeTexture9 ptr) as DWORD
 	PreLoad as sub(byval This as IDirect3DCubeTexture9 ptr)
@@ -623,12 +623,12 @@ end type
 
 type IDirect3DTexture9Vtbl_
 	QueryInterface as function(byval This as IDirect3DTexture9 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirect3DTexture9 ptr) as ULONG_
-	Release as function(byval This as IDirect3DTexture9 ptr) as ULONG_
+	AddRef as function(byval This as IDirect3DTexture9 ptr) as ULONG
+	Release as function(byval This as IDirect3DTexture9 ptr) as ULONG
 	GetDevice as function(byval This as IDirect3DTexture9 ptr, byval ppDevice as IDirect3DDevice9 ptr ptr) as HRESULT
-	SetPrivateData as function(byval This as IDirect3DTexture9 ptr, byval refguid as const GUID const ptr, byval pData as const any ptr, byval SizeOfData as DWORD, byval Flags as DWORD) as HRESULT
-	GetPrivateData as function(byval This as IDirect3DTexture9 ptr, byval refguid as const GUID const ptr, byval pData as any ptr, byval pSizeOfData as DWORD ptr) as HRESULT
-	FreePrivateData as function(byval This as IDirect3DTexture9 ptr, byval refguid as const GUID const ptr) as HRESULT
+	SetPrivateData as function(byval This as IDirect3DTexture9 ptr, byval refguid_ as const GUID const ptr, byval pData as const any ptr, byval SizeOfData as DWORD, byval Flags as DWORD) as HRESULT
+	GetPrivateData as function(byval This as IDirect3DTexture9 ptr, byval refguid_ as const GUID const ptr, byval pData as any ptr, byval pSizeOfData as DWORD ptr) as HRESULT
+	FreePrivateData as function(byval This as IDirect3DTexture9 ptr, byval refguid_ as const GUID const ptr) as HRESULT
 	SetPriority as function(byval This as IDirect3DTexture9 ptr, byval PriorityNew as DWORD) as DWORD
 	GetPriority as function(byval This as IDirect3DTexture9 ptr) as DWORD
 	PreLoad as sub(byval This as IDirect3DTexture9 ptr)
@@ -675,12 +675,12 @@ end type
 
 type IDirect3DVolumeTexture9Vtbl_
 	QueryInterface as function(byval This as IDirect3DVolumeTexture9 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirect3DVolumeTexture9 ptr) as ULONG_
-	Release as function(byval This as IDirect3DVolumeTexture9 ptr) as ULONG_
+	AddRef as function(byval This as IDirect3DVolumeTexture9 ptr) as ULONG
+	Release as function(byval This as IDirect3DVolumeTexture9 ptr) as ULONG
 	GetDevice as function(byval This as IDirect3DVolumeTexture9 ptr, byval ppDevice as IDirect3DDevice9 ptr ptr) as HRESULT
-	SetPrivateData as function(byval This as IDirect3DVolumeTexture9 ptr, byval refguid as const GUID const ptr, byval pData as const any ptr, byval SizeOfData as DWORD, byval Flags as DWORD) as HRESULT
-	GetPrivateData as function(byval This as IDirect3DVolumeTexture9 ptr, byval refguid as const GUID const ptr, byval pData as any ptr, byval pSizeOfData as DWORD ptr) as HRESULT
-	FreePrivateData as function(byval This as IDirect3DVolumeTexture9 ptr, byval refguid as const GUID const ptr) as HRESULT
+	SetPrivateData as function(byval This as IDirect3DVolumeTexture9 ptr, byval refguid_ as const GUID const ptr, byval pData as const any ptr, byval SizeOfData as DWORD, byval Flags as DWORD) as HRESULT
+	GetPrivateData as function(byval This as IDirect3DVolumeTexture9 ptr, byval refguid_ as const GUID const ptr, byval pData as any ptr, byval pSizeOfData as DWORD ptr) as HRESULT
+	FreePrivateData as function(byval This as IDirect3DVolumeTexture9 ptr, byval refguid_ as const GUID const ptr) as HRESULT
 	SetPriority as function(byval This as IDirect3DVolumeTexture9 ptr, byval PriorityNew as DWORD) as DWORD
 	GetPriority as function(byval This as IDirect3DVolumeTexture9 ptr) as DWORD
 	PreLoad as sub(byval This as IDirect3DVolumeTexture9 ptr)
@@ -727,8 +727,8 @@ end type
 
 type IDirect3DVertexDeclaration9Vtbl_
 	QueryInterface as function(byval This as IDirect3DVertexDeclaration9 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirect3DVertexDeclaration9 ptr) as ULONG_
-	Release as function(byval This as IDirect3DVertexDeclaration9 ptr) as ULONG_
+	AddRef as function(byval This as IDirect3DVertexDeclaration9 ptr) as ULONG
+	Release as function(byval This as IDirect3DVertexDeclaration9 ptr) as ULONG
 	GetDevice as function(byval This as IDirect3DVertexDeclaration9 ptr, byval ppDevice as IDirect3DDevice9 ptr ptr) as HRESULT
 	GetDeclaration as function(byval This as IDirect3DVertexDeclaration9 ptr, byval as D3DVERTEXELEMENT9 ptr, byval pNumElements as UINT ptr) as HRESULT
 end type
@@ -745,8 +745,8 @@ end type
 
 type IDirect3DVertexShader9Vtbl_
 	QueryInterface as function(byval This as IDirect3DVertexShader9 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirect3DVertexShader9 ptr) as ULONG_
-	Release as function(byval This as IDirect3DVertexShader9 ptr) as ULONG_
+	AddRef as function(byval This as IDirect3DVertexShader9 ptr) as ULONG
+	Release as function(byval This as IDirect3DVertexShader9 ptr) as ULONG
 	GetDevice as function(byval This as IDirect3DVertexShader9 ptr, byval ppDevice as IDirect3DDevice9 ptr ptr) as HRESULT
 	GetFunction as function(byval This as IDirect3DVertexShader9 ptr, byval as any ptr, byval pSizeOfData as UINT ptr) as HRESULT
 end type
@@ -763,8 +763,8 @@ end type
 
 type IDirect3DPixelShader9Vtbl_
 	QueryInterface as function(byval This as IDirect3DPixelShader9 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirect3DPixelShader9 ptr) as ULONG_
-	Release as function(byval This as IDirect3DPixelShader9 ptr) as ULONG_
+	AddRef as function(byval This as IDirect3DPixelShader9 ptr) as ULONG
+	Release as function(byval This as IDirect3DPixelShader9 ptr) as ULONG
 	GetDevice as function(byval This as IDirect3DPixelShader9 ptr, byval ppDevice as IDirect3DDevice9 ptr ptr) as HRESULT
 	GetFunction as function(byval This as IDirect3DPixelShader9 ptr, byval as any ptr, byval pSizeOfData as UINT ptr) as HRESULT
 end type
@@ -781,8 +781,8 @@ end type
 
 type IDirect3DStateBlock9Vtbl_
 	QueryInterface as function(byval This as IDirect3DStateBlock9 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirect3DStateBlock9 ptr) as ULONG_
-	Release as function(byval This as IDirect3DStateBlock9 ptr) as ULONG_
+	AddRef as function(byval This as IDirect3DStateBlock9 ptr) as ULONG
+	Release as function(byval This as IDirect3DStateBlock9 ptr) as ULONG
 	GetDevice as function(byval This as IDirect3DStateBlock9 ptr, byval ppDevice as IDirect3DDevice9 ptr ptr) as HRESULT
 	Capture as function(byval This as IDirect3DStateBlock9 ptr) as HRESULT
 	Apply as function(byval This as IDirect3DStateBlock9 ptr) as HRESULT
@@ -801,8 +801,8 @@ end type
 
 type IDirect3DQuery9Vtbl_
 	QueryInterface as function(byval This as IDirect3DQuery9 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirect3DQuery9 ptr) as ULONG_
-	Release as function(byval This as IDirect3DQuery9 ptr) as ULONG_
+	AddRef as function(byval This as IDirect3DQuery9 ptr) as ULONG
+	Release as function(byval This as IDirect3DQuery9 ptr) as ULONG
 	GetDevice as function(byval This as IDirect3DQuery9 ptr, byval ppDevice as IDirect3DDevice9 ptr ptr) as HRESULT
 	GetType as function(byval This as IDirect3DQuery9 ptr) as D3DQUERYTYPE
 	GetDataSize as function(byval This as IDirect3DQuery9 ptr) as DWORD
@@ -825,8 +825,8 @@ end type
 
 type IDirect3DDevice9Vtbl_
 	QueryInterface as function(byval This as IDirect3DDevice9 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirect3DDevice9 ptr) as ULONG_
-	Release as function(byval This as IDirect3DDevice9 ptr) as ULONG_
+	AddRef as function(byval This as IDirect3DDevice9 ptr) as ULONG
+	Release as function(byval This as IDirect3DDevice9 ptr) as ULONG
 	TestCooperativeLevel as function(byval This as IDirect3DDevice9 ptr) as HRESULT
 	GetAvailableTextureMem as function(byval This as IDirect3DDevice9 ptr) as UINT
 	EvictManagedResources as function(byval This as IDirect3DDevice9 ptr) as HRESULT
@@ -1071,8 +1071,8 @@ end type
 
 type IDirect3DDevice9ExVtbl_
 	QueryInterface as function(byval This as IDirect3DDevice9Ex ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirect3DDevice9Ex ptr) as ULONG_
-	Release as function(byval This as IDirect3DDevice9Ex ptr) as ULONG_
+	AddRef as function(byval This as IDirect3DDevice9Ex ptr) as ULONG
+	Release as function(byval This as IDirect3DDevice9Ex ptr) as ULONG
 	TestCooperativeLevel as function(byval This as IDirect3DDevice9Ex ptr) as HRESULT
 	GetAvailableTextureMem as function(byval This as IDirect3DDevice9Ex ptr) as UINT
 	EvictManagedResources as function(byval This as IDirect3DDevice9Ex ptr) as HRESULT

@@ -1,10 +1,15 @@
 #pragma once
 
-#include once "crt/long.bi"
 #include once "rpc.bi"
 #include once "rpcndr.bi"
 #include once "ocidl.bi"
 #include once "docobj.bi"
+
+'' The following symbols have been renamed:
+''     inside struct IShellFavoritesNameSpaceVtbl:
+''         field Synchronize => Synchronize_
+''     inside struct IShellNameSpaceVtbl:
+''         field Synchronize => Synchronize_
 
 #ifdef __FB_64BIT__
 	extern "C"
@@ -125,8 +130,8 @@ extern IID_IWebBrowser as const IID
 
 type IWebBrowserVtbl
 	QueryInterface as function(byval This as IWebBrowser ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IWebBrowser ptr) as ULONG_
-	Release as function(byval This as IWebBrowser ptr) as ULONG_
+	AddRef as function(byval This as IWebBrowser ptr) as ULONG
+	Release as function(byval This as IWebBrowser ptr) as ULONG
 	GetTypeInfoCount as function(byval This as IWebBrowser ptr, byval pctinfo as UINT ptr) as HRESULT
 	GetTypeInfo as function(byval This as IWebBrowser ptr, byval iTInfo as UINT, byval lcid as LCID, byval ppTInfo as ITypeInfo ptr ptr) as HRESULT
 	GetIDsOfNames as function(byval This as IWebBrowser ptr, byval riid as const IID const ptr, byval rgszNames as LPOLESTR ptr, byval cNames as UINT, byval lcid as LCID, byval rgDispId as DISPID ptr) as HRESULT
@@ -145,14 +150,14 @@ type IWebBrowserVtbl
 	get_Document as function(byval This as IWebBrowser ptr, byval ppDisp as IDispatch ptr ptr) as HRESULT
 	get_TopLevelContainer as function(byval This as IWebBrowser ptr, byval pBool as VARIANT_BOOL ptr) as HRESULT
 	get_Type as function(byval This as IWebBrowser ptr, byval Type_ as BSTR ptr) as HRESULT
-	get_Left as function(byval This as IWebBrowser ptr, byval pl as clong ptr) as HRESULT
-	put_Left as function(byval This as IWebBrowser ptr, byval Left_ as clong) as HRESULT
-	get_Top as function(byval This as IWebBrowser ptr, byval pl as clong ptr) as HRESULT
-	put_Top as function(byval This as IWebBrowser ptr, byval Top as clong) as HRESULT
-	get_Width as function(byval This as IWebBrowser ptr, byval pl as clong ptr) as HRESULT
-	put_Width as function(byval This as IWebBrowser ptr, byval Width_ as clong) as HRESULT
-	get_Height as function(byval This as IWebBrowser ptr, byval pl as clong ptr) as HRESULT
-	put_Height as function(byval This as IWebBrowser ptr, byval Height as clong) as HRESULT
+	get_Left as function(byval This as IWebBrowser ptr, byval pl as long ptr) as HRESULT
+	put_Left as function(byval This as IWebBrowser ptr, byval Left_ as long) as HRESULT
+	get_Top as function(byval This as IWebBrowser ptr, byval pl as long ptr) as HRESULT
+	put_Top as function(byval This as IWebBrowser ptr, byval Top as long) as HRESULT
+	get_Width as function(byval This as IWebBrowser ptr, byval pl as long ptr) as HRESULT
+	put_Width as function(byval This as IWebBrowser ptr, byval Width_ as long) as HRESULT
+	get_Height as function(byval This as IWebBrowser ptr, byval pl as long ptr) as HRESULT
+	put_Height as function(byval This as IWebBrowser ptr, byval Height as long) as HRESULT
 	get_LocationName as function(byval This as IWebBrowser ptr, byval LocationName as BSTR ptr) as HRESULT
 	get_LocationURL as function(byval This as IWebBrowser ptr, byval LocationURL as BSTR ptr) as HRESULT
 	get_Busy as function(byval This as IWebBrowser ptr, byval pBool as VARIANT_BOOL ptr) as HRESULT
@@ -190,21 +195,21 @@ declare function IWebBrowser_get_TopLevelContainer_Proxy(byval This as IWebBrows
 declare sub IWebBrowser_get_TopLevelContainer_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IWebBrowser_get_Type_Proxy(byval This as IWebBrowser ptr, byval Type_ as BSTR ptr) as HRESULT
 declare sub IWebBrowser_get_Type_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IWebBrowser_get_Left_Proxy(byval This as IWebBrowser ptr, byval pl as clong ptr) as HRESULT
+declare function IWebBrowser_get_Left_Proxy(byval This as IWebBrowser ptr, byval pl as long ptr) as HRESULT
 declare sub IWebBrowser_get_Left_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IWebBrowser_put_Left_Proxy(byval This as IWebBrowser ptr, byval Left_ as clong) as HRESULT
+declare function IWebBrowser_put_Left_Proxy(byval This as IWebBrowser ptr, byval Left_ as long) as HRESULT
 declare sub IWebBrowser_put_Left_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IWebBrowser_get_Top_Proxy(byval This as IWebBrowser ptr, byval pl as clong ptr) as HRESULT
+declare function IWebBrowser_get_Top_Proxy(byval This as IWebBrowser ptr, byval pl as long ptr) as HRESULT
 declare sub IWebBrowser_get_Top_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IWebBrowser_put_Top_Proxy(byval This as IWebBrowser ptr, byval Top as clong) as HRESULT
+declare function IWebBrowser_put_Top_Proxy(byval This as IWebBrowser ptr, byval Top as long) as HRESULT
 declare sub IWebBrowser_put_Top_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IWebBrowser_get_Width_Proxy(byval This as IWebBrowser ptr, byval pl as clong ptr) as HRESULT
+declare function IWebBrowser_get_Width_Proxy(byval This as IWebBrowser ptr, byval pl as long ptr) as HRESULT
 declare sub IWebBrowser_get_Width_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IWebBrowser_put_Width_Proxy(byval This as IWebBrowser ptr, byval Width_ as clong) as HRESULT
+declare function IWebBrowser_put_Width_Proxy(byval This as IWebBrowser ptr, byval Width_ as long) as HRESULT
 declare sub IWebBrowser_put_Width_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IWebBrowser_get_Height_Proxy(byval This as IWebBrowser ptr, byval pl as clong ptr) as HRESULT
+declare function IWebBrowser_get_Height_Proxy(byval This as IWebBrowser ptr, byval pl as long ptr) as HRESULT
 declare sub IWebBrowser_get_Height_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IWebBrowser_put_Height_Proxy(byval This as IWebBrowser ptr, byval Height as clong) as HRESULT
+declare function IWebBrowser_put_Height_Proxy(byval This as IWebBrowser ptr, byval Height as long) as HRESULT
 declare sub IWebBrowser_put_Height_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IWebBrowser_get_LocationName_Proxy(byval This as IWebBrowser ptr, byval LocationName as BSTR ptr) as HRESULT
 declare sub IWebBrowser_get_LocationName_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
@@ -219,8 +224,8 @@ extern DIID_DWebBrowserEvents as const IID
 
 type DWebBrowserEventsVtbl
 	QueryInterface as function(byval This as DWebBrowserEvents ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as DWebBrowserEvents ptr) as ULONG_
-	Release as function(byval This as DWebBrowserEvents ptr) as ULONG_
+	AddRef as function(byval This as DWebBrowserEvents ptr) as ULONG
+	Release as function(byval This as DWebBrowserEvents ptr) as ULONG
 	GetTypeInfoCount as function(byval This as DWebBrowserEvents ptr, byval pctinfo as UINT ptr) as HRESULT
 	GetTypeInfo as function(byval This as DWebBrowserEvents ptr, byval iTInfo as UINT, byval lcid as LCID, byval ppTInfo as ITypeInfo ptr ptr) as HRESULT
 	GetIDsOfNames as function(byval This as DWebBrowserEvents ptr, byval riid as const IID const ptr, byval rgszNames as LPOLESTR ptr, byval cNames as UINT, byval lcid as LCID, byval rgDispId as DISPID ptr) as HRESULT
@@ -237,8 +242,8 @@ extern IID_IWebBrowserApp as const IID
 
 type IWebBrowserAppVtbl
 	QueryInterface as function(byval This as IWebBrowserApp ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IWebBrowserApp ptr) as ULONG_
-	Release as function(byval This as IWebBrowserApp ptr) as ULONG_
+	AddRef as function(byval This as IWebBrowserApp ptr) as ULONG
+	Release as function(byval This as IWebBrowserApp ptr) as ULONG
 	GetTypeInfoCount as function(byval This as IWebBrowserApp ptr, byval pctinfo as UINT ptr) as HRESULT
 	GetTypeInfo as function(byval This as IWebBrowserApp ptr, byval iTInfo as UINT, byval lcid as LCID, byval ppTInfo as ITypeInfo ptr ptr) as HRESULT
 	GetIDsOfNames as function(byval This as IWebBrowserApp ptr, byval riid as const IID const ptr, byval rgszNames as LPOLESTR ptr, byval cNames as UINT, byval lcid as LCID, byval rgDispId as DISPID ptr) as HRESULT
@@ -257,14 +262,14 @@ type IWebBrowserAppVtbl
 	get_Document as function(byval This as IWebBrowserApp ptr, byval ppDisp as IDispatch ptr ptr) as HRESULT
 	get_TopLevelContainer as function(byval This as IWebBrowserApp ptr, byval pBool as VARIANT_BOOL ptr) as HRESULT
 	get_Type as function(byval This as IWebBrowserApp ptr, byval Type_ as BSTR ptr) as HRESULT
-	get_Left as function(byval This as IWebBrowserApp ptr, byval pl as clong ptr) as HRESULT
-	put_Left as function(byval This as IWebBrowserApp ptr, byval Left_ as clong) as HRESULT
-	get_Top as function(byval This as IWebBrowserApp ptr, byval pl as clong ptr) as HRESULT
-	put_Top as function(byval This as IWebBrowserApp ptr, byval Top as clong) as HRESULT
-	get_Width as function(byval This as IWebBrowserApp ptr, byval pl as clong ptr) as HRESULT
-	put_Width as function(byval This as IWebBrowserApp ptr, byval Width_ as clong) as HRESULT
-	get_Height as function(byval This as IWebBrowserApp ptr, byval pl as clong ptr) as HRESULT
-	put_Height as function(byval This as IWebBrowserApp ptr, byval Height as clong) as HRESULT
+	get_Left as function(byval This as IWebBrowserApp ptr, byval pl as long ptr) as HRESULT
+	put_Left as function(byval This as IWebBrowserApp ptr, byval Left_ as long) as HRESULT
+	get_Top as function(byval This as IWebBrowserApp ptr, byval pl as long ptr) as HRESULT
+	put_Top as function(byval This as IWebBrowserApp ptr, byval Top as long) as HRESULT
+	get_Width as function(byval This as IWebBrowserApp ptr, byval pl as long ptr) as HRESULT
+	put_Width as function(byval This as IWebBrowserApp ptr, byval Width_ as long) as HRESULT
+	get_Height as function(byval This as IWebBrowserApp ptr, byval pl as long ptr) as HRESULT
+	put_Height as function(byval This as IWebBrowserApp ptr, byval Height as long) as HRESULT
 	get_LocationName as function(byval This as IWebBrowserApp ptr, byval LocationName as BSTR ptr) as HRESULT
 	get_LocationURL as function(byval This as IWebBrowserApp ptr, byval LocationURL as BSTR ptr) as HRESULT
 	get_Busy as function(byval This as IWebBrowserApp ptr, byval pBool as VARIANT_BOOL ptr) as HRESULT
@@ -341,8 +346,8 @@ extern IID_IWebBrowser2 as const IID
 
 type IWebBrowser2Vtbl
 	QueryInterface as function(byval This as IWebBrowser2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IWebBrowser2 ptr) as ULONG_
-	Release as function(byval This as IWebBrowser2 ptr) as ULONG_
+	AddRef as function(byval This as IWebBrowser2 ptr) as ULONG
+	Release as function(byval This as IWebBrowser2 ptr) as ULONG
 	GetTypeInfoCount as function(byval This as IWebBrowser2 ptr, byval pctinfo as UINT ptr) as HRESULT
 	GetTypeInfo as function(byval This as IWebBrowser2 ptr, byval iTInfo as UINT, byval lcid as LCID, byval ppTInfo as ITypeInfo ptr ptr) as HRESULT
 	GetIDsOfNames as function(byval This as IWebBrowser2 ptr, byval riid as const IID const ptr, byval rgszNames as LPOLESTR ptr, byval cNames as UINT, byval lcid as LCID, byval rgDispId as DISPID ptr) as HRESULT
@@ -361,14 +366,14 @@ type IWebBrowser2Vtbl
 	get_Document as function(byval This as IWebBrowser2 ptr, byval ppDisp as IDispatch ptr ptr) as HRESULT
 	get_TopLevelContainer as function(byval This as IWebBrowser2 ptr, byval pBool as VARIANT_BOOL ptr) as HRESULT
 	get_Type as function(byval This as IWebBrowser2 ptr, byval Type_ as BSTR ptr) as HRESULT
-	get_Left as function(byval This as IWebBrowser2 ptr, byval pl as clong ptr) as HRESULT
-	put_Left as function(byval This as IWebBrowser2 ptr, byval Left_ as clong) as HRESULT
-	get_Top as function(byval This as IWebBrowser2 ptr, byval pl as clong ptr) as HRESULT
-	put_Top as function(byval This as IWebBrowser2 ptr, byval Top as clong) as HRESULT
-	get_Width as function(byval This as IWebBrowser2 ptr, byval pl as clong ptr) as HRESULT
-	put_Width as function(byval This as IWebBrowser2 ptr, byval Width_ as clong) as HRESULT
-	get_Height as function(byval This as IWebBrowser2 ptr, byval pl as clong ptr) as HRESULT
-	put_Height as function(byval This as IWebBrowser2 ptr, byval Height as clong) as HRESULT
+	get_Left as function(byval This as IWebBrowser2 ptr, byval pl as long ptr) as HRESULT
+	put_Left as function(byval This as IWebBrowser2 ptr, byval Left_ as long) as HRESULT
+	get_Top as function(byval This as IWebBrowser2 ptr, byval pl as long ptr) as HRESULT
+	put_Top as function(byval This as IWebBrowser2 ptr, byval Top as long) as HRESULT
+	get_Width as function(byval This as IWebBrowser2 ptr, byval pl as long ptr) as HRESULT
+	put_Width as function(byval This as IWebBrowser2 ptr, byval Width_ as long) as HRESULT
+	get_Height as function(byval This as IWebBrowser2 ptr, byval pl as long ptr) as HRESULT
+	put_Height as function(byval This as IWebBrowser2 ptr, byval Height as long) as HRESULT
 	get_LocationName as function(byval This as IWebBrowser2 ptr, byval LocationName as BSTR ptr) as HRESULT
 	get_LocationURL as function(byval This as IWebBrowser2 ptr, byval LocationURL as BSTR ptr) as HRESULT
 	get_Busy as function(byval This as IWebBrowser2 ptr, byval pBool as VARIANT_BOOL ptr) as HRESULT
@@ -462,8 +467,8 @@ extern DIID_DWebBrowserEvents2 as const IID
 
 type DWebBrowserEvents2Vtbl
 	QueryInterface as function(byval This as DWebBrowserEvents2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as DWebBrowserEvents2 ptr) as ULONG_
-	Release as function(byval This as DWebBrowserEvents2 ptr) as ULONG_
+	AddRef as function(byval This as DWebBrowserEvents2 ptr) as ULONG
+	Release as function(byval This as DWebBrowserEvents2 ptr) as ULONG
 	GetTypeInfoCount as function(byval This as DWebBrowserEvents2 ptr, byval pctinfo as UINT ptr) as HRESULT
 	GetTypeInfo as function(byval This as DWebBrowserEvents2 ptr, byval iTInfo as UINT, byval lcid as LCID, byval ppTInfo as ITypeInfo ptr ptr) as HRESULT
 	GetIDsOfNames as function(byval This as DWebBrowserEvents2 ptr, byval riid as const IID const ptr, byval rgszNames as LPOLESTR ptr, byval cNames as UINT, byval lcid as LCID, byval rgDispId as DISPID ptr) as HRESULT
@@ -485,8 +490,8 @@ extern DIID_DShellWindowsEvents as const IID
 
 type DShellWindowsEventsVtbl
 	QueryInterface as function(byval This as DShellWindowsEvents ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as DShellWindowsEvents ptr) as ULONG_
-	Release as function(byval This as DShellWindowsEvents ptr) as ULONG_
+	AddRef as function(byval This as DShellWindowsEvents ptr) as ULONG
+	Release as function(byval This as DShellWindowsEvents ptr) as ULONG
 	GetTypeInfoCount as function(byval This as DShellWindowsEvents ptr, byval pctinfo as UINT ptr) as HRESULT
 	GetTypeInfo as function(byval This as DShellWindowsEvents ptr, byval iTInfo as UINT, byval lcid as LCID, byval ppTInfo as ITypeInfo ptr ptr) as HRESULT
 	GetIDsOfNames as function(byval This as DShellWindowsEvents ptr, byval riid as const IID const ptr, byval rgszNames as LPOLESTR ptr, byval cNames as UINT, byval lcid as LCID, byval rgDispId as DISPID ptr) as HRESULT
@@ -503,22 +508,22 @@ extern IID_IShellWindows as const IID
 
 type IShellWindowsVtbl
 	QueryInterface as function(byval This as IShellWindows ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IShellWindows ptr) as ULONG_
-	Release as function(byval This as IShellWindows ptr) as ULONG_
+	AddRef as function(byval This as IShellWindows ptr) as ULONG
+	Release as function(byval This as IShellWindows ptr) as ULONG
 	GetTypeInfoCount as function(byval This as IShellWindows ptr, byval pctinfo as UINT ptr) as HRESULT
 	GetTypeInfo as function(byval This as IShellWindows ptr, byval iTInfo as UINT, byval lcid as LCID, byval ppTInfo as ITypeInfo ptr ptr) as HRESULT
 	GetIDsOfNames as function(byval This as IShellWindows ptr, byval riid as const IID const ptr, byval rgszNames as LPOLESTR ptr, byval cNames as UINT, byval lcid as LCID, byval rgDispId as DISPID ptr) as HRESULT
 	Invoke as function(byval This as IShellWindows ptr, byval dispIdMember as DISPID, byval riid as const IID const ptr, byval lcid as LCID, byval wFlags as WORD, byval pDispParams as DISPPARAMS ptr, byval pVarResult as VARIANT ptr, byval pExcepInfo as EXCEPINFO ptr, byval puArgErr as UINT ptr) as HRESULT
-	get_Count as function(byval This as IShellWindows ptr, byval Count as clong ptr) as HRESULT
+	get_Count as function(byval This as IShellWindows ptr, byval Count as long ptr) as HRESULT
 	Item as function(byval This as IShellWindows ptr, byval index as VARIANT, byval Folder as IDispatch ptr ptr) as HRESULT
 	_NewEnum as function(byval This as IShellWindows ptr, byval ppunk as IUnknown ptr ptr) as HRESULT
-	Register as function(byval This as IShellWindows ptr, byval pid as IDispatch ptr, byval hwnd as clong, byval swClass as long, byval plCookie as clong ptr) as HRESULT
-	RegisterPending as function(byval This as IShellWindows ptr, byval lThreadId as clong, byval pvarloc as VARIANT ptr, byval pvarlocRoot as VARIANT ptr, byval swClass as long, byval plCookie as clong ptr) as HRESULT
-	Revoke as function(byval This as IShellWindows ptr, byval lCookie as clong) as HRESULT
-	OnNavigate as function(byval This as IShellWindows ptr, byval lCookie as clong, byval pvarLoc as VARIANT ptr) as HRESULT
-	OnActivated as function(byval This as IShellWindows ptr, byval lCookie as clong, byval fActive as VARIANT_BOOL) as HRESULT
-	FindWindowSW as function(byval This as IShellWindows ptr, byval pvarLoc as VARIANT ptr, byval pvarLocRoot as VARIANT ptr, byval swClass as long, byval phwnd as clong ptr, byval swfwOptions as long, byval ppdispOut as IDispatch ptr ptr) as HRESULT
-	OnCreated as function(byval This as IShellWindows ptr, byval lCookie as clong, byval punk as IUnknown ptr) as HRESULT
+	Register as function(byval This as IShellWindows ptr, byval pid as IDispatch ptr, byval hwnd as long, byval swClass as long, byval plCookie as long ptr) as HRESULT
+	RegisterPending as function(byval This as IShellWindows ptr, byval lThreadId as long, byval pvarloc as VARIANT ptr, byval pvarlocRoot as VARIANT ptr, byval swClass as long, byval plCookie as long ptr) as HRESULT
+	Revoke as function(byval This as IShellWindows ptr, byval lCookie as long) as HRESULT
+	OnNavigate as function(byval This as IShellWindows ptr, byval lCookie as long, byval pvarLoc as VARIANT ptr) as HRESULT
+	OnActivated as function(byval This as IShellWindows ptr, byval lCookie as long, byval fActive as VARIANT_BOOL) as HRESULT
+	FindWindowSW as function(byval This as IShellWindows ptr, byval pvarLoc as VARIANT ptr, byval pvarLocRoot as VARIANT ptr, byval swClass as long, byval phwnd as long ptr, byval swfwOptions as long, byval ppdispOut as IDispatch ptr ptr) as HRESULT
+	OnCreated as function(byval This as IShellWindows ptr, byval lCookie as long, byval punk as IUnknown ptr) as HRESULT
 	ProcessAttachDetach as function(byval This as IShellWindows ptr, byval fAttach as VARIANT_BOOL) as HRESULT
 end type
 
@@ -526,25 +531,25 @@ type IShellWindows_
 	lpVtbl as IShellWindowsVtbl ptr
 end type
 
-declare function IShellWindows_get_Count_Proxy(byval This as IShellWindows ptr, byval Count as clong ptr) as HRESULT
+declare function IShellWindows_get_Count_Proxy(byval This as IShellWindows ptr, byval Count as long ptr) as HRESULT
 declare sub IShellWindows_get_Count_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IShellWindows_Item_Proxy(byval This as IShellWindows ptr, byval index as VARIANT, byval Folder as IDispatch ptr ptr) as HRESULT
 declare sub IShellWindows_Item_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IShellWindows__NewEnum_Proxy(byval This as IShellWindows ptr, byval ppunk as IUnknown ptr ptr) as HRESULT
 declare sub IShellWindows__NewEnum_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IShellWindows_Register_Proxy(byval This as IShellWindows ptr, byval pid as IDispatch ptr, byval hwnd as clong, byval swClass as long, byval plCookie as clong ptr) as HRESULT
+declare function IShellWindows_Register_Proxy(byval This as IShellWindows ptr, byval pid as IDispatch ptr, byval hwnd as long, byval swClass as long, byval plCookie as long ptr) as HRESULT
 declare sub IShellWindows_Register_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IShellWindows_RegisterPending_Proxy(byval This as IShellWindows ptr, byval lThreadId as clong, byval pvarloc as VARIANT ptr, byval pvarlocRoot as VARIANT ptr, byval swClass as long, byval plCookie as clong ptr) as HRESULT
+declare function IShellWindows_RegisterPending_Proxy(byval This as IShellWindows ptr, byval lThreadId as long, byval pvarloc as VARIANT ptr, byval pvarlocRoot as VARIANT ptr, byval swClass as long, byval plCookie as long ptr) as HRESULT
 declare sub IShellWindows_RegisterPending_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IShellWindows_Revoke_Proxy(byval This as IShellWindows ptr, byval lCookie as clong) as HRESULT
+declare function IShellWindows_Revoke_Proxy(byval This as IShellWindows ptr, byval lCookie as long) as HRESULT
 declare sub IShellWindows_Revoke_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IShellWindows_OnNavigate_Proxy(byval This as IShellWindows ptr, byval lCookie as clong, byval pvarLoc as VARIANT ptr) as HRESULT
+declare function IShellWindows_OnNavigate_Proxy(byval This as IShellWindows ptr, byval lCookie as long, byval pvarLoc as VARIANT ptr) as HRESULT
 declare sub IShellWindows_OnNavigate_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IShellWindows_OnActivated_Proxy(byval This as IShellWindows ptr, byval lCookie as clong, byval fActive as VARIANT_BOOL) as HRESULT
+declare function IShellWindows_OnActivated_Proxy(byval This as IShellWindows ptr, byval lCookie as long, byval fActive as VARIANT_BOOL) as HRESULT
 declare sub IShellWindows_OnActivated_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IShellWindows_FindWindowSW_Proxy(byval This as IShellWindows ptr, byval pvarLoc as VARIANT ptr, byval pvarLocRoot as VARIANT ptr, byval swClass as long, byval phwnd as clong ptr, byval swfwOptions as long, byval ppdispOut as IDispatch ptr ptr) as HRESULT
+declare function IShellWindows_FindWindowSW_Proxy(byval This as IShellWindows ptr, byval pvarLoc as VARIANT ptr, byval pvarLocRoot as VARIANT ptr, byval swClass as long, byval phwnd as long ptr, byval swfwOptions as long, byval ppdispOut as IDispatch ptr ptr) as HRESULT
 declare sub IShellWindows_FindWindowSW_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IShellWindows_OnCreated_Proxy(byval This as IShellWindows ptr, byval lCookie as clong, byval punk as IUnknown ptr) as HRESULT
+declare function IShellWindows_OnCreated_Proxy(byval This as IShellWindows ptr, byval lCookie as long, byval punk as IUnknown ptr) as HRESULT
 declare sub IShellWindows_OnCreated_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IShellWindows_ProcessAttachDetach_Proxy(byval This as IShellWindows ptr, byval fAttach as VARIANT_BOOL) as HRESULT
 declare sub IShellWindows_ProcessAttachDetach_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
@@ -557,8 +562,8 @@ extern IID_IShellUIHelper as const IID
 
 type IShellUIHelperVtbl
 	QueryInterface as function(byval This as IShellUIHelper ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IShellUIHelper ptr) as ULONG_
-	Release as function(byval This as IShellUIHelper ptr) as ULONG_
+	AddRef as function(byval This as IShellUIHelper ptr) as ULONG
+	Release as function(byval This as IShellUIHelper ptr) as ULONG
 	GetTypeInfoCount as function(byval This as IShellUIHelper ptr, byval pctinfo as UINT ptr) as HRESULT
 	GetTypeInfo as function(byval This as IShellUIHelper ptr, byval iTInfo as UINT, byval lcid as LCID, byval ppTInfo as ITypeInfo ptr ptr) as HRESULT
 	GetIDsOfNames as function(byval This as IShellUIHelper ptr, byval riid as const IID const ptr, byval rgszNames as LPOLESTR ptr, byval cNames as UINT, byval lcid as LCID, byval rgDispId as DISPID ptr) as HRESULT
@@ -617,8 +622,8 @@ extern DIID_DShellNameSpaceEvents as const IID
 
 type DShellNameSpaceEventsVtbl
 	QueryInterface as function(byval This as DShellNameSpaceEvents ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as DShellNameSpaceEvents ptr) as ULONG_
-	Release as function(byval This as DShellNameSpaceEvents ptr) as ULONG_
+	AddRef as function(byval This as DShellNameSpaceEvents ptr) as ULONG
+	Release as function(byval This as DShellNameSpaceEvents ptr) as ULONG
 	GetTypeInfoCount as function(byval This as DShellNameSpaceEvents ptr, byval pctinfo as UINT ptr) as HRESULT
 	GetTypeInfo as function(byval This as DShellNameSpaceEvents ptr, byval iTInfo as UINT, byval lcid as LCID, byval ppTInfo as ITypeInfo ptr ptr) as HRESULT
 	GetIDsOfNames as function(byval This as DShellNameSpaceEvents ptr, byval riid as const IID const ptr, byval rgszNames as LPOLESTR ptr, byval cNames as UINT, byval lcid as LCID, byval rgDispId as DISPID ptr) as HRESULT
@@ -635,8 +640,8 @@ extern IID_IShellFavoritesNameSpace as const IID
 
 type IShellFavoritesNameSpaceVtbl
 	QueryInterface as function(byval This as IShellFavoritesNameSpace ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IShellFavoritesNameSpace ptr) as ULONG_
-	Release as function(byval This as IShellFavoritesNameSpace ptr) as ULONG_
+	AddRef as function(byval This as IShellFavoritesNameSpace ptr) as ULONG
+	Release as function(byval This as IShellFavoritesNameSpace ptr) as ULONG
 	GetTypeInfoCount as function(byval This as IShellFavoritesNameSpace ptr, byval pctinfo as UINT ptr) as HRESULT
 	GetTypeInfo as function(byval This as IShellFavoritesNameSpace ptr, byval iTInfo as UINT, byval lcid as LCID, byval ppTInfo as ITypeInfo ptr ptr) as HRESULT
 	GetIDsOfNames as function(byval This as IShellFavoritesNameSpace ptr, byval riid as const IID const ptr, byval rgszNames as LPOLESTR ptr, byval cNames as UINT, byval lcid as LCID, byval rgDispId as DISPID ptr) as HRESULT
@@ -645,7 +650,7 @@ type IShellFavoritesNameSpaceVtbl
 	MoveSelectionDown as function(byval This as IShellFavoritesNameSpace ptr) as HRESULT
 	ResetSort as function(byval This as IShellFavoritesNameSpace ptr) as HRESULT
 	NewFolder as function(byval This as IShellFavoritesNameSpace ptr) as HRESULT
-	Synchronize as function(byval This as IShellFavoritesNameSpace ptr) as HRESULT
+	Synchronize_ as function(byval This as IShellFavoritesNameSpace ptr) as HRESULT
 	Import as function(byval This as IShellFavoritesNameSpace ptr) as HRESULT
 	Export as function(byval This as IShellFavoritesNameSpace ptr) as HRESULT
 	InvokeContextMenuCommand as function(byval This as IShellFavoritesNameSpace ptr, byval strCommand as BSTR) as HRESULT
@@ -693,8 +698,8 @@ extern IID_IShellNameSpace as const IID
 
 type IShellNameSpaceVtbl
 	QueryInterface as function(byval This as IShellNameSpace ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IShellNameSpace ptr) as ULONG_
-	Release as function(byval This as IShellNameSpace ptr) as ULONG_
+	AddRef as function(byval This as IShellNameSpace ptr) as ULONG
+	Release as function(byval This as IShellNameSpace ptr) as ULONG
 	GetTypeInfoCount as function(byval This as IShellNameSpace ptr, byval pctinfo as UINT ptr) as HRESULT
 	GetTypeInfo as function(byval This as IShellNameSpace ptr, byval iTInfo as UINT, byval lcid as LCID, byval ppTInfo as ITypeInfo ptr ptr) as HRESULT
 	GetIDsOfNames as function(byval This as IShellNameSpace ptr, byval riid as const IID const ptr, byval rgszNames as LPOLESTR ptr, byval cNames as UINT, byval lcid as LCID, byval rgDispId as DISPID ptr) as HRESULT
@@ -703,7 +708,7 @@ type IShellNameSpaceVtbl
 	MoveSelectionDown as function(byval This as IShellNameSpace ptr) as HRESULT
 	ResetSort as function(byval This as IShellNameSpace ptr) as HRESULT
 	NewFolder as function(byval This as IShellNameSpace ptr) as HRESULT
-	Synchronize as function(byval This as IShellNameSpace ptr) as HRESULT
+	Synchronize_ as function(byval This as IShellNameSpace ptr) as HRESULT
 	Import as function(byval This as IShellNameSpace ptr) as HRESULT
 	Export as function(byval This as IShellNameSpace ptr) as HRESULT
 	InvokeContextMenuCommand as function(byval This as IShellNameSpace ptr, byval strCommand as BSTR) as HRESULT
@@ -712,8 +717,8 @@ type IShellNameSpaceVtbl
 	CreateSubscriptionForSelection as function(byval This as IShellNameSpace ptr, byval pBool as VARIANT_BOOL ptr) as HRESULT
 	DeleteSubscriptionForSelection as function(byval This as IShellNameSpace ptr, byval pBool as VARIANT_BOOL ptr) as HRESULT
 	SetRoot as function(byval This as IShellNameSpace ptr, byval bstrFullPath as BSTR) as HRESULT
-	get_EnumOptions as function(byval This as IShellNameSpace ptr, byval pgrfEnumFlags as LONG_ ptr) as HRESULT
-	put_EnumOptions as function(byval This as IShellNameSpace ptr, byval lVal as LONG_) as HRESULT
+	get_EnumOptions as function(byval This as IShellNameSpace ptr, byval pgrfEnumFlags as LONG ptr) as HRESULT
+	put_EnumOptions as function(byval This as IShellNameSpace ptr, byval lVal as LONG) as HRESULT
 	get_SelectedItem as function(byval This as IShellNameSpace ptr, byval pItem as IDispatch ptr ptr) as HRESULT
 	put_SelectedItem as function(byval This as IShellNameSpace ptr, byval pItem as IDispatch ptr) as HRESULT
 	get_Root as function(byval This as IShellNameSpace ptr, byval pvar as VARIANT ptr) as HRESULT
@@ -739,9 +744,9 @@ type IShellNameSpace_
 	lpVtbl as IShellNameSpaceVtbl ptr
 end type
 
-declare function IShellNameSpace_get_EnumOptions_Proxy(byval This as IShellNameSpace ptr, byval pgrfEnumFlags as LONG_ ptr) as HRESULT
+declare function IShellNameSpace_get_EnumOptions_Proxy(byval This as IShellNameSpace ptr, byval pgrfEnumFlags as LONG ptr) as HRESULT
 declare sub IShellNameSpace_get_EnumOptions_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IShellNameSpace_put_EnumOptions_Proxy(byval This as IShellNameSpace ptr, byval lVal as LONG_) as HRESULT
+declare function IShellNameSpace_put_EnumOptions_Proxy(byval This as IShellNameSpace ptr, byval lVal as LONG) as HRESULT
 declare sub IShellNameSpace_put_EnumOptions_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IShellNameSpace_get_SelectedItem_Proxy(byval This as IShellNameSpace ptr, byval pItem as IDispatch ptr ptr) as HRESULT
 declare sub IShellNameSpace_get_SelectedItem_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
@@ -790,8 +795,8 @@ extern IID_IScriptErrorList as const IID
 
 type IScriptErrorListVtbl
 	QueryInterface as function(byval This as IScriptErrorList ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IScriptErrorList ptr) as ULONG_
-	Release as function(byval This as IScriptErrorList ptr) as ULONG_
+	AddRef as function(byval This as IScriptErrorList ptr) as ULONG
+	Release as function(byval This as IScriptErrorList ptr) as ULONG
 	GetTypeInfoCount as function(byval This as IScriptErrorList ptr, byval pctinfo as UINT ptr) as HRESULT
 	GetTypeInfo as function(byval This as IScriptErrorList ptr, byval iTInfo as UINT, byval lcid as LCID, byval ppTInfo as ITypeInfo ptr ptr) as HRESULT
 	GetIDsOfNames as function(byval This as IScriptErrorList ptr, byval riid as const IID const ptr, byval rgszNames as LPOLESTR ptr, byval cNames as UINT, byval lcid as LCID, byval rgDispId as DISPID ptr) as HRESULT
@@ -800,9 +805,9 @@ type IScriptErrorListVtbl
 	retreatError as function(byval This as IScriptErrorList ptr) as HRESULT
 	canAdvanceError as function(byval This as IScriptErrorList ptr, byval pfCanAdvance as WINBOOL ptr) as HRESULT
 	canRetreatError as function(byval This as IScriptErrorList ptr, byval pfCanRetreat as WINBOOL ptr) as HRESULT
-	getErrorLine as function(byval This as IScriptErrorList ptr, byval plLine as LONG_ ptr) as HRESULT
-	getErrorChar as function(byval This as IScriptErrorList ptr, byval plChar as LONG_ ptr) as HRESULT
-	getErrorCode as function(byval This as IScriptErrorList ptr, byval plCode as LONG_ ptr) as HRESULT
+	getErrorLine as function(byval This as IScriptErrorList ptr, byval plLine as LONG ptr) as HRESULT
+	getErrorChar as function(byval This as IScriptErrorList ptr, byval plChar as LONG ptr) as HRESULT
+	getErrorCode as function(byval This as IScriptErrorList ptr, byval plCode as LONG ptr) as HRESULT
 	getErrorMsg as function(byval This as IScriptErrorList ptr, byval pstr as BSTR ptr) as HRESULT
 	getErrorUrl as function(byval This as IScriptErrorList ptr, byval pstr as BSTR ptr) as HRESULT
 	getAlwaysShowLockState as function(byval This as IScriptErrorList ptr, byval pfAlwaysShowLocked as WINBOOL ptr) as HRESULT
@@ -824,11 +829,11 @@ declare function IScriptErrorList_canAdvanceError_Proxy(byval This as IScriptErr
 declare sub IScriptErrorList_canAdvanceError_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IScriptErrorList_canRetreatError_Proxy(byval This as IScriptErrorList ptr, byval pfCanRetreat as WINBOOL ptr) as HRESULT
 declare sub IScriptErrorList_canRetreatError_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IScriptErrorList_getErrorLine_Proxy(byval This as IScriptErrorList ptr, byval plLine as LONG_ ptr) as HRESULT
+declare function IScriptErrorList_getErrorLine_Proxy(byval This as IScriptErrorList ptr, byval plLine as LONG ptr) as HRESULT
 declare sub IScriptErrorList_getErrorLine_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IScriptErrorList_getErrorChar_Proxy(byval This as IScriptErrorList ptr, byval plChar as LONG_ ptr) as HRESULT
+declare function IScriptErrorList_getErrorChar_Proxy(byval This as IScriptErrorList ptr, byval plChar as LONG ptr) as HRESULT
 declare sub IScriptErrorList_getErrorChar_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IScriptErrorList_getErrorCode_Proxy(byval This as IScriptErrorList ptr, byval plCode as LONG_ ptr) as HRESULT
+declare function IScriptErrorList_getErrorCode_Proxy(byval This as IScriptErrorList ptr, byval plCode as LONG ptr) as HRESULT
 declare sub IScriptErrorList_getErrorCode_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IScriptErrorList_getErrorMsg_Proxy(byval This as IScriptErrorList ptr, byval pstr as BSTR ptr) as HRESULT
 declare sub IScriptErrorList_getErrorMsg_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
@@ -853,8 +858,8 @@ extern IID_ISearch as const IID
 
 type ISearchVtbl
 	QueryInterface as function(byval This as ISearch ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as ISearch ptr) as ULONG_
-	Release as function(byval This as ISearch ptr) as ULONG_
+	AddRef as function(byval This as ISearch ptr) as ULONG
+	Release as function(byval This as ISearch ptr) as ULONG
 	GetTypeInfoCount as function(byval This as ISearch ptr, byval pctinfo as UINT ptr) as HRESULT
 	GetTypeInfo as function(byval This as ISearch ptr, byval iTInfo as UINT, byval lcid as LCID, byval ppTInfo as ITypeInfo ptr ptr) as HRESULT
 	GetIDsOfNames as function(byval This as ISearch ptr, byval riid as const IID const ptr, byval rgszNames as LPOLESTR ptr, byval cNames as UINT, byval lcid as LCID, byval rgDispId as DISPID ptr) as HRESULT
@@ -881,13 +886,13 @@ extern IID_ISearches as const IID
 
 type ISearchesVtbl
 	QueryInterface as function(byval This as ISearches ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as ISearches ptr) as ULONG_
-	Release as function(byval This as ISearches ptr) as ULONG_
+	AddRef as function(byval This as ISearches ptr) as ULONG
+	Release as function(byval This as ISearches ptr) as ULONG
 	GetTypeInfoCount as function(byval This as ISearches ptr, byval pctinfo as UINT ptr) as HRESULT
 	GetTypeInfo as function(byval This as ISearches ptr, byval iTInfo as UINT, byval lcid as LCID, byval ppTInfo as ITypeInfo ptr ptr) as HRESULT
 	GetIDsOfNames as function(byval This as ISearches ptr, byval riid as const IID const ptr, byval rgszNames as LPOLESTR ptr, byval cNames as UINT, byval lcid as LCID, byval rgDispId as DISPID ptr) as HRESULT
 	Invoke as function(byval This as ISearches ptr, byval dispIdMember as DISPID, byval riid as const IID const ptr, byval lcid as LCID, byval wFlags as WORD, byval pDispParams as DISPPARAMS ptr, byval pVarResult as VARIANT ptr, byval pExcepInfo as EXCEPINFO ptr, byval puArgErr as UINT ptr) as HRESULT
-	get_Count as function(byval This as ISearches ptr, byval plCount as clong ptr) as HRESULT
+	get_Count as function(byval This as ISearches ptr, byval plCount as long ptr) as HRESULT
 	get_Default as function(byval This as ISearches ptr, byval pbstrDefault as BSTR ptr) as HRESULT
 	Item as function(byval This as ISearches ptr, byval index as VARIANT, byval ppid as ISearch ptr ptr) as HRESULT
 	_NewEnum as function(byval This as ISearches ptr, byval ppunk as IUnknown ptr ptr) as HRESULT
@@ -897,7 +902,7 @@ type ISearches_
 	lpVtbl as ISearchesVtbl ptr
 end type
 
-declare function ISearches_get_Count_Proxy(byval This as ISearches ptr, byval plCount as clong ptr) as HRESULT
+declare function ISearches_get_Count_Proxy(byval This as ISearches ptr, byval plCount as long ptr) as HRESULT
 declare sub ISearches_get_Count_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function ISearches_get_Default_Proxy(byval This as ISearches ptr, byval pbstrDefault as BSTR ptr) as HRESULT
 declare sub ISearches_get_Default_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
@@ -912,13 +917,13 @@ extern IID_ISearchAssistantOC as const IID
 
 type ISearchAssistantOCVtbl
 	QueryInterface as function(byval This as ISearchAssistantOC ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as ISearchAssistantOC ptr) as ULONG_
-	Release as function(byval This as ISearchAssistantOC ptr) as ULONG_
+	AddRef as function(byval This as ISearchAssistantOC ptr) as ULONG
+	Release as function(byval This as ISearchAssistantOC ptr) as ULONG
 	GetTypeInfoCount as function(byval This as ISearchAssistantOC ptr, byval pctinfo as UINT ptr) as HRESULT
 	GetTypeInfo as function(byval This as ISearchAssistantOC ptr, byval iTInfo as UINT, byval lcid as LCID, byval ppTInfo as ITypeInfo ptr ptr) as HRESULT
 	GetIDsOfNames as function(byval This as ISearchAssistantOC ptr, byval riid as const IID const ptr, byval rgszNames as LPOLESTR ptr, byval cNames as UINT, byval lcid as LCID, byval rgDispId as DISPID ptr) as HRESULT
 	Invoke as function(byval This as ISearchAssistantOC ptr, byval dispIdMember as DISPID, byval riid as const IID const ptr, byval lcid as LCID, byval wFlags as WORD, byval pDispParams as DISPPARAMS ptr, byval pVarResult as VARIANT ptr, byval pExcepInfo as EXCEPINFO ptr, byval puArgErr as UINT ptr) as HRESULT
-	AddNextMenuItem as function(byval This as ISearchAssistantOC ptr, byval bstrText as BSTR, byval idItem as clong) as HRESULT
+	AddNextMenuItem as function(byval This as ISearchAssistantOC ptr, byval bstrText as BSTR, byval idItem as long) as HRESULT
 	SetDefaultSearchUrl as function(byval This as ISearchAssistantOC ptr, byval bstrUrl as BSTR) as HRESULT
 	NavigateToDefaultSearch as function(byval This as ISearchAssistantOC ptr) as HRESULT
 	IsRestricted as function(byval This as ISearchAssistantOC ptr, byval bstrGuid as BSTR, byval pVal as VARIANT_BOOL ptr) as HRESULT
@@ -957,7 +962,7 @@ type ISearchAssistantOC_
 	lpVtbl as ISearchAssistantOCVtbl ptr
 end type
 
-declare function ISearchAssistantOC_AddNextMenuItem_Proxy(byval This as ISearchAssistantOC ptr, byval bstrText as BSTR, byval idItem as clong) as HRESULT
+declare function ISearchAssistantOC_AddNextMenuItem_Proxy(byval This as ISearchAssistantOC ptr, byval bstrText as BSTR, byval idItem as long) as HRESULT
 declare sub ISearchAssistantOC_AddNextMenuItem_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function ISearchAssistantOC_SetDefaultSearchUrl_Proxy(byval This as ISearchAssistantOC ptr, byval bstrUrl as BSTR) as HRESULT
 declare sub ISearchAssistantOC_SetDefaultSearchUrl_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
@@ -1024,13 +1029,13 @@ extern IID_ISearchAssistantOC2 as const IID
 
 type ISearchAssistantOC2Vtbl
 	QueryInterface as function(byval This as ISearchAssistantOC2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as ISearchAssistantOC2 ptr) as ULONG_
-	Release as function(byval This as ISearchAssistantOC2 ptr) as ULONG_
+	AddRef as function(byval This as ISearchAssistantOC2 ptr) as ULONG
+	Release as function(byval This as ISearchAssistantOC2 ptr) as ULONG
 	GetTypeInfoCount as function(byval This as ISearchAssistantOC2 ptr, byval pctinfo as UINT ptr) as HRESULT
 	GetTypeInfo as function(byval This as ISearchAssistantOC2 ptr, byval iTInfo as UINT, byval lcid as LCID, byval ppTInfo as ITypeInfo ptr ptr) as HRESULT
 	GetIDsOfNames as function(byval This as ISearchAssistantOC2 ptr, byval riid as const IID const ptr, byval rgszNames as LPOLESTR ptr, byval cNames as UINT, byval lcid as LCID, byval rgDispId as DISPID ptr) as HRESULT
 	Invoke as function(byval This as ISearchAssistantOC2 ptr, byval dispIdMember as DISPID, byval riid as const IID const ptr, byval lcid as LCID, byval wFlags as WORD, byval pDispParams as DISPPARAMS ptr, byval pVarResult as VARIANT ptr, byval pExcepInfo as EXCEPINFO ptr, byval puArgErr as UINT ptr) as HRESULT
-	AddNextMenuItem as function(byval This as ISearchAssistantOC2 ptr, byval bstrText as BSTR, byval idItem as clong) as HRESULT
+	AddNextMenuItem as function(byval This as ISearchAssistantOC2 ptr, byval bstrText as BSTR, byval idItem as long) as HRESULT
 	SetDefaultSearchUrl as function(byval This as ISearchAssistantOC2 ptr, byval bstrUrl as BSTR) as HRESULT
 	NavigateToDefaultSearch as function(byval This as ISearchAssistantOC2 ptr) as HRESULT
 	IsRestricted as function(byval This as ISearchAssistantOC2 ptr, byval bstrGuid as BSTR, byval pVal as VARIANT_BOOL ptr) as HRESULT
@@ -1079,13 +1084,13 @@ extern IID_ISearchAssistantOC3 as const IID
 
 type ISearchAssistantOC3Vtbl
 	QueryInterface as function(byval This as ISearchAssistantOC3 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as ISearchAssistantOC3 ptr) as ULONG_
-	Release as function(byval This as ISearchAssistantOC3 ptr) as ULONG_
+	AddRef as function(byval This as ISearchAssistantOC3 ptr) as ULONG
+	Release as function(byval This as ISearchAssistantOC3 ptr) as ULONG
 	GetTypeInfoCount as function(byval This as ISearchAssistantOC3 ptr, byval pctinfo as UINT ptr) as HRESULT
 	GetTypeInfo as function(byval This as ISearchAssistantOC3 ptr, byval iTInfo as UINT, byval lcid as LCID, byval ppTInfo as ITypeInfo ptr ptr) as HRESULT
 	GetIDsOfNames as function(byval This as ISearchAssistantOC3 ptr, byval riid as const IID const ptr, byval rgszNames as LPOLESTR ptr, byval cNames as UINT, byval lcid as LCID, byval rgDispId as DISPID ptr) as HRESULT
 	Invoke as function(byval This as ISearchAssistantOC3 ptr, byval dispIdMember as DISPID, byval riid as const IID const ptr, byval lcid as LCID, byval wFlags as WORD, byval pDispParams as DISPPARAMS ptr, byval pVarResult as VARIANT ptr, byval pExcepInfo as EXCEPINFO ptr, byval puArgErr as UINT ptr) as HRESULT
-	AddNextMenuItem as function(byval This as ISearchAssistantOC3 ptr, byval bstrText as BSTR, byval idItem as clong) as HRESULT
+	AddNextMenuItem as function(byval This as ISearchAssistantOC3 ptr, byval bstrText as BSTR, byval idItem as long) as HRESULT
 	SetDefaultSearchUrl as function(byval This as ISearchAssistantOC3 ptr, byval bstrUrl as BSTR) as HRESULT
 	NavigateToDefaultSearch as function(byval This as ISearchAssistantOC3 ptr) as HRESULT
 	IsRestricted as function(byval This as ISearchAssistantOC3 ptr, byval bstrGuid as BSTR, byval pVal as VARIANT_BOOL ptr) as HRESULT
@@ -1141,8 +1146,8 @@ extern DIID__SearchAssistantEvents as const IID
 
 type _SearchAssistantEventsVtbl
 	QueryInterface as function(byval This as _SearchAssistantEvents ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as _SearchAssistantEvents ptr) as ULONG_
-	Release as function(byval This as _SearchAssistantEvents ptr) as ULONG_
+	AddRef as function(byval This as _SearchAssistantEvents ptr) as ULONG
+	Release as function(byval This as _SearchAssistantEvents ptr) as ULONG
 	GetTypeInfoCount as function(byval This as _SearchAssistantEvents ptr, byval pctinfo as UINT ptr) as HRESULT
 	GetTypeInfo as function(byval This as _SearchAssistantEvents ptr, byval iTInfo as UINT, byval lcid as LCID, byval ppTInfo as ITypeInfo ptr ptr) as HRESULT
 	GetIDsOfNames as function(byval This as _SearchAssistantEvents ptr, byval riid as const IID const ptr, byval rgszNames as LPOLESTR ptr, byval cNames as UINT, byval lcid as LCID, byval rgDispId as DISPID ptr) as HRESULT

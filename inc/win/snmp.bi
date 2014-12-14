@@ -11,7 +11,7 @@
 #define _INC_SNMP
 
 type AsnOctetString field = 4
-	stream as BYTE_ ptr
+	stream as BYTE ptr
 	length as UINT
 	dynamic as WINBOOL
 end type
@@ -21,8 +21,8 @@ type AsnObjectIdentifier field = 4
 	ids as UINT ptr
 end type
 
-type AsnInteger32 as LONG_
-type AsnUnsigned32 as ULONG_
+type AsnInteger32 as LONG
+type AsnUnsigned32 as ULONG
 type AsnCounter64 as ULARGE_INTEGER
 type AsnCounter32 as AsnUnsigned32
 type AsnGauge32 as AsnUnsigned32
@@ -51,7 +51,7 @@ union __asnValue field = 4
 end union
 
 type AsnAny field = 4
-	asnType as BYTE_
+	asnType as BYTE
 	asnValue as __asnValue
 end type
 
@@ -142,13 +142,12 @@ declare function SnmpExtensionInit(byval dwUptimeReference as DWORD, byval phSub
 #define SNMP_ACCESS_READ_WRITE 3
 #define SNMP_ACCESS_READ_CREATE 4
 #define SNMPAPI INT_
-#define SNMP_FUNC_TYPE WINAPI
 #define SNMPAPI_NOERROR TRUE
 #define SNMPAPI_ERROR FALSE
 
 declare function SnmpExtensionInitEx(byval pNextSupportedRegion as AsnObjectIdentifier ptr) as WINBOOL
 declare function SnmpExtensionMonitor(byval pAgentMgmtData as LPVOID) as WINBOOL
-declare function SnmpExtensionQuery(byval bPduType as BYTE_, byval pVarBindList as SnmpVarBindList ptr, byval pErrorStatus as AsnInteger32 ptr, byval pErrorIndex as AsnInteger32 ptr) as WINBOOL
+declare function SnmpExtensionQuery(byval bPduType as BYTE, byval pVarBindList as SnmpVarBindList ptr, byval pErrorStatus as AsnInteger32 ptr, byval pErrorIndex as AsnInteger32 ptr) as WINBOOL
 declare function SnmpExtensionQueryEx(byval nRequestType as UINT, byval nTransactionId as UINT, byval pVarBindList as SnmpVarBindList ptr, byval pContextInfo as AsnOctetString ptr, byval pErrorStatus as AsnInteger32 ptr, byval pErrorIndex as AsnInteger32 ptr) as WINBOOL
 declare function SnmpExtensionTrap(byval pEnterpriseOid as AsnObjectIdentifier ptr, byval pGenericTrapId as AsnInteger32 ptr, byval pSpecificTrapId as AsnInteger32 ptr, byval pTimeStamp as AsnTimeticks ptr, byval pVarBindList as SnmpVarBindList ptr) as WINBOOL
 declare sub SnmpExtensionClose()
@@ -156,7 +155,7 @@ declare sub SnmpExtensionClose()
 type PFNSNMPEXTENSIONINIT as function(byval dwUpTimeReference as DWORD, byval phSubagentTrapEvent as HANDLE ptr, byval pFirstSupportedRegion as AsnObjectIdentifier ptr) as WINBOOL
 type PFNSNMPEXTENSIONINITEX as function(byval pNextSupportedRegion as AsnObjectIdentifier ptr) as WINBOOL
 type PFNSNMPEXTENSIONMONITOR as function(byval pAgentMgmtData as LPVOID) as WINBOOL
-type PFNSNMPEXTENSIONQUERY as function(byval bPduType as BYTE_, byval pVarBindList as SnmpVarBindList ptr, byval pErrorStatus as AsnInteger32 ptr, byval pErrorIndex as AsnInteger32 ptr) as WINBOOL
+type PFNSNMPEXTENSIONQUERY as function(byval bPduType as BYTE, byval pVarBindList as SnmpVarBindList ptr, byval pErrorStatus as AsnInteger32 ptr, byval pErrorIndex as AsnInteger32 ptr) as WINBOOL
 type PFNSNMPEXTENSIONQUERYEX as function(byval nRequestType as UINT, byval nTransactionId as UINT, byval pVarBindList as SnmpVarBindList ptr, byval pContextInfo as AsnOctetString ptr, byval pErrorStatus as AsnInteger32 ptr, byval pErrorIndex as AsnInteger32 ptr) as WINBOOL
 type PFNSNMPEXTENSIONTRAP as function(byval pEnterpriseOid as AsnObjectIdentifier ptr, byval pGenericTrapId as AsnInteger32 ptr, byval pSpecificTrapId as AsnInteger32 ptr, byval pTimeStamp as AsnTimeticks ptr, byval pVarBindList as SnmpVarBindList ptr) as WINBOOL
 type PFNSNMPEXTENSIONCLOSE as sub()

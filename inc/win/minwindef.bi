@@ -1,21 +1,13 @@
 #pragma once
 
-#include once "crt/long.bi"
 #include once "_mingw.bi"
 #include once "winapifamily.bi"
 #include once "specstrings.bi"
 #include once "winnt.bi"
 
 '' The following symbols have been renamed:
-''     typedef ULONG => ULONG_
-''     typedef USHORT => USHORT_
-''     typedef BYTE => BYTE_
+''     #define CONST => CONST_
 ''     typedef INT => INT_
-''     #define min => min_
-''     #define LOWORD => LOWORD_
-''     #define HIWORD => HIWORD_
-''     #define LOBYTE => LOBYTE_
-''     #define HIBYTE => HIBYTE_
 
 #ifdef __FB_64BIT__
 	extern "C"
@@ -23,15 +15,15 @@
 	extern "Windows"
 #endif
 
-type ULONG_ as culong
+type ULONG as ulong
 
 #define _MINWINDEF_
 #define STRICT 1
 #define BASETYPES
 
-type PULONG as ULONG_ ptr
-type USHORT_ as ushort
-type PUSHORT as USHORT_ ptr
+type PULONG as ULONG ptr
+type USHORT as ushort
+type PUSHORT as USHORT ptr
 type UCHAR as ubyte
 type PUCHAR as UCHAR ptr
 type PSZ as zstring ptr
@@ -46,18 +38,18 @@ type WINBOOL as long
 type BOOL as long
 type PBOOL as WINBOOL ptr
 type LPBOOL as WINBOOL ptr
-type BYTE_ as ubyte
+type BYTE as ubyte
 type WORD as ushort
-type DWORD as culong
+type DWORD as ulong
 type FLOAT as single
 type PFLOAT as FLOAT ptr
-type PBYTE as BYTE_ ptr
-type LPBYTE as BYTE_ ptr
+type PBYTE as BYTE ptr
+type LPBYTE as BYTE ptr
 type PINT as long ptr
 type LPINT as long ptr
 type PWORD as WORD ptr
 type LPWORD as WORD ptr
-type LPLONG as clong ptr
+type LPLONG as long ptr
 type PDWORD as DWORD ptr
 type LPDWORD as DWORD ptr
 type LPVOID as any ptr
@@ -73,13 +65,13 @@ type LPARAM as LONG_PTR
 type LRESULT as LONG_PTR
 
 #define max(a, b) iif((a) > (b), (a), (b))
-#define min_(a, b) iif((a) < (b), (a), (b))
-#define MAKEWORD(a, b) cast(WORD, cast(BYTE_, cast(DWORD_PTR, (a)) and &hff) or (cast(WORD, cast(BYTE_, cast(DWORD_PTR, (b)) and &hff)) shl 8))
-#define MAKELONG(a, b) cast(LONG_, cast(WORD, cast(DWORD_PTR, (a)) and &hffff) or (cast(DWORD, cast(WORD, cast(DWORD_PTR, (b)) and &hffff)) shl 16))
-#define LOWORD_(l) cast(WORD, cast(DWORD_PTR, (l)) and &hffff)
-#define HIWORD_(l) cast(WORD, (cast(DWORD_PTR, (l)) shr 16) and &hffff)
-#define LOBYTE_(w) cast(BYTE_, cast(DWORD_PTR, (w)) and &hff)
-#define HIBYTE_(w) cast(BYTE_, (cast(DWORD_PTR, (w)) shr 8) and &hff)
+#define min(a, b) iif((a) < (b), (a), (b))
+#define MAKEWORD(a, b) cast(WORD, cast(BYTE, cast(DWORD_PTR, (a)) and &hff) or (cast(WORD, cast(BYTE, cast(DWORD_PTR, (b)) and &hff)) shl 8))
+#define MAKELONG(a, b) cast(LONG, cast(WORD, cast(DWORD_PTR, (a)) and &hffff) or (cast(DWORD, cast(WORD, cast(DWORD_PTR, (b)) and &hffff)) shl 16))
+#define LOWORD(l) cast(WORD, cast(DWORD_PTR, (l)) and &hffff)
+#define HIWORD(l) cast(WORD, (cast(DWORD_PTR, (l)) shr 16) and &hffff)
+#define LOBYTE(w) cast(BYTE, cast(DWORD_PTR, (w)) and &hff)
+#define HIBYTE(w) cast(BYTE, (cast(DWORD_PTR, (w)) shr 8) and &hff)
 
 type SPHANDLE as HANDLE ptr
 type LPHANDLE as HANDLE ptr

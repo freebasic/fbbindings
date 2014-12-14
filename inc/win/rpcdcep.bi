@@ -1,6 +1,5 @@
 #pragma once
 
-#include once "crt/long.bi"
 #include once "_mingw_unicode.bi"
 
 #ifdef __FB_64BIT__
@@ -43,7 +42,7 @@ type PRPC_SYNTAX_IDENTIFIER as _RPC_SYNTAX_IDENTIFIER ptr
 #ifdef __FB_64BIT__
 	type _RPC_MESSAGE field = 8
 		Handle as RPC_BINDING_HANDLE
-		DataRepresentation as culong
+		DataRepresentation as ulong
 		Buffer as any ptr
 		BufferLength as ulong
 		ProcNum as ulong
@@ -52,12 +51,12 @@ type PRPC_SYNTAX_IDENTIFIER as _RPC_SYNTAX_IDENTIFIER ptr
 		ReservedForRuntime as any ptr
 		ManagerEpv as any ptr
 		ImportContext as any ptr
-		RpcFlags as culong
+		RpcFlags as ulong
 	end type
 #else
 	type _RPC_MESSAGE
 		Handle as RPC_BINDING_HANDLE
-		DataRepresentation as culong
+		DataRepresentation as ulong
 		Buffer as any ptr
 		BufferLength as ulong
 		ProcNum as ulong
@@ -66,7 +65,7 @@ type PRPC_SYNTAX_IDENTIFIER as _RPC_SYNTAX_IDENTIFIER ptr
 		ReservedForRuntime as any ptr
 		ManagerEpv as any ptr
 		ImportContext as any ptr
-		RpcFlags as culong
+		RpcFlags as ulong
 	end type
 #endif
 
@@ -220,7 +219,7 @@ declare sub I_RpcClearMutex(byval Mutex as I_RPC_MUTEX)
 declare sub I_RpcDeleteMutex(byval Mutex as I_RPC_MUTEX)
 declare function I_RpcAllocate(byval Size as ulong) as any ptr
 declare sub I_RpcFree(byval Object_ as any ptr)
-declare sub I_RpcPauseExecution(byval Milliseconds as culong)
+declare sub I_RpcPauseExecution(byval Milliseconds as ulong)
 declare function I_RpcGetExtendedError() as RPC_STATUS
 
 type PRPC_RUNDOWN as sub(byval AssociationContext as any ptr)
@@ -231,16 +230,16 @@ declare function I_RpcGetCurrentCallHandle() as RPC_BINDING_HANDLE
 declare function I_RpcGetAssociationContext(byval BindingHandle as RPC_BINDING_HANDLE, byval AssociationContext as any ptr ptr) as RPC_STATUS
 declare function I_RpcGetServerContextList(byval BindingHandle as RPC_BINDING_HANDLE) as any ptr
 declare sub I_RpcSetServerContextList(byval BindingHandle as RPC_BINDING_HANDLE, byval ServerContextList as any ptr)
-declare function I_RpcNsInterfaceExported(byval EntryNameSyntax as culong, byval EntryName as ushort ptr, byval RpcInterfaceInformation as RPC_SERVER_INTERFACE ptr) as RPC_STATUS
-declare function I_RpcNsInterfaceUnexported(byval EntryNameSyntax as culong, byval EntryName as ushort ptr, byval RpcInterfaceInformation as RPC_SERVER_INTERFACE ptr) as RPC_STATUS
+declare function I_RpcNsInterfaceExported(byval EntryNameSyntax as ulong, byval EntryName as ushort ptr, byval RpcInterfaceInformation as RPC_SERVER_INTERFACE ptr) as RPC_STATUS
+declare function I_RpcNsInterfaceUnexported(byval EntryNameSyntax as ulong, byval EntryName as ushort ptr, byval RpcInterfaceInformation as RPC_SERVER_INTERFACE ptr) as RPC_STATUS
 declare function I_RpcBindingToStaticStringBindingW(byval Binding as RPC_BINDING_HANDLE, byval StringBinding as ushort ptr ptr) as RPC_STATUS
 declare function I_RpcBindingInqSecurityContext(byval Binding as RPC_BINDING_HANDLE, byval SecurityContextHandle as any ptr ptr) as RPC_STATUS
 declare function I_RpcBindingInqWireIdForSnego(byval Binding as RPC_BINDING_HANDLE, byval WireId as RPC_CSTR) as RPC_STATUS
-declare function I_RpcBindingInqMarshalledTargetInfo(byval Binding as RPC_BINDING_HANDLE, byval MarshalledTargetInfoLength as culong ptr, byval MarshalledTargetInfo as RPC_CSTR ptr) as RPC_STATUS
-declare function I_RpcBindingInqLocalClientPID(byval Binding as RPC_BINDING_HANDLE, byval Pid as culong ptr) as RPC_STATUS
+declare function I_RpcBindingInqMarshalledTargetInfo(byval Binding as RPC_BINDING_HANDLE, byval MarshalledTargetInfoLength as ulong ptr, byval MarshalledTargetInfo as RPC_CSTR ptr) as RPC_STATUS
+declare function I_RpcBindingInqLocalClientPID(byval Binding as RPC_BINDING_HANDLE, byval Pid as ulong ptr) as RPC_STATUS
 declare function I_RpcBindingHandleToAsyncHandle(byval Binding as RPC_BINDING_HANDLE, byval AsyncHandle as any ptr ptr) as RPC_STATUS
-declare function I_RpcNsBindingSetEntryNameW(byval Binding as RPC_BINDING_HANDLE, byval EntryNameSyntax as culong, byval EntryName as RPC_WSTR) as RPC_STATUS
-declare function I_RpcNsBindingSetEntryNameA(byval Binding as RPC_BINDING_HANDLE, byval EntryNameSyntax as culong, byval EntryName as RPC_CSTR) as RPC_STATUS
+declare function I_RpcNsBindingSetEntryNameW(byval Binding as RPC_BINDING_HANDLE, byval EntryNameSyntax as ulong, byval EntryName as RPC_WSTR) as RPC_STATUS
+declare function I_RpcNsBindingSetEntryNameA(byval Binding as RPC_BINDING_HANDLE, byval EntryNameSyntax as ulong, byval EntryName as RPC_CSTR) as RPC_STATUS
 declare function I_RpcServerUseProtseqEp2A(byval NetworkAddress as RPC_CSTR, byval Protseq as RPC_CSTR, byval MaxCalls as ulong, byval Endpoint as RPC_CSTR, byval SecurityDescriptor as any ptr, byval Policy as any ptr) as RPC_STATUS
 declare function I_RpcServerUseProtseqEp2W(byval NetworkAddress as RPC_WSTR, byval Protseq as RPC_WSTR, byval MaxCalls as ulong, byval Endpoint as RPC_WSTR, byval SecurityDescriptor as any ptr, byval Policy as any ptr) as RPC_STATUS
 declare function I_RpcServerUseProtseq2W(byval NetworkAddress as RPC_WSTR, byval Protseq as RPC_WSTR, byval MaxCalls as ulong, byval SecurityDescriptor as any ptr, byval Policy as any ptr) as RPC_STATUS
@@ -286,26 +285,26 @@ declare function I_RpcServerSetAddressChangeFn(byval pAddressChangeFn as sub(byv
 #define RPC_P_ADDR_FORMAT_TCP_IPV4 1
 #define RPC_P_ADDR_FORMAT_TCP_IPV6 2
 
-declare function I_RpcServerInqLocalConnAddress(byval Binding as RPC_BINDING_HANDLE, byval Buffer as any ptr, byval BufferSize as culong ptr, byval AddressFormat as culong ptr) as RPC_STATUS
+declare function I_RpcServerInqLocalConnAddress(byval Binding as RPC_BINDING_HANDLE, byval Buffer as any ptr, byval BufferSize as ulong ptr, byval AddressFormat as ulong ptr) as RPC_STATUS
 declare sub I_RpcSessionStrictContextHandle()
 declare function I_RpcTurnOnEEInfoPropagation() as RPC_STATUS
-declare function I_RpcConnectionInqSockBuffSize(byval RecvBuffSize as culong ptr, byval SendBuffSize as culong ptr) as RPC_STATUS
-declare function I_RpcConnectionSetSockBuffSize(byval RecvBuffSize as culong, byval SendBuffSize as culong) as RPC_STATUS
+declare function I_RpcConnectionInqSockBuffSize(byval RecvBuffSize as ulong ptr, byval SendBuffSize as ulong ptr) as RPC_STATUS
+declare function I_RpcConnectionSetSockBuffSize(byval RecvBuffSize as ulong, byval SendBuffSize as ulong) as RPC_STATUS
 
 type RPCLT_PDU_FILTER_FUNC as sub cdecl(byval Buffer as any ptr, byval BufferLength as ulong, byval fDatagram as long)
 type RPC_SETFILTER_FUNC as sub cdecl(byval pfnFilter as RPCLT_PDU_FILTER_FUNC)
 
 declare function I_RpcServerInqTransportType(byval Type_ as ulong ptr) as RPC_STATUS
-declare function I_RpcMapWin32Status(byval Status as RPC_STATUS) as clong
+declare function I_RpcMapWin32Status(byval Status as RPC_STATUS) as long
 
 #ifdef __FB_64BIT__
 	type _RPC_C_OPT_METADATA_DESCRIPTOR field = 8
-		BufferSize as culong
+		BufferSize as ulong
 		Buffer as zstring ptr
 	end type
 #else
 	type _RPC_C_OPT_METADATA_DESCRIPTOR
-		BufferSize as culong
+		BufferSize as ulong
 		Buffer as zstring ptr
 	end type
 #endif
@@ -353,9 +352,9 @@ type RPC_C_OPT_METADATA_DESCRIPTOR as _RPC_C_OPT_METADATA_DESCRIPTOR
 #endif
 
 type RDR_CALLOUT_STATE as _RDR_CALLOUT_STATE
-type I_RpcProxyIsValidMachineFn as function(byval pszMachine as zstring ptr, byval pszDotMachine as zstring ptr, byval dwPortNumber as culong) as RPC_STATUS
-type I_RpcProxyGetClientAddressFn as function(byval Context as any ptr, byval Buffer as zstring ptr, byval BufferLength as culong ptr) as RPC_STATUS
-type I_RpcProxyGetConnectionTimeoutFn as function(byval ConnectionTimeout as culong ptr) as RPC_STATUS
+type I_RpcProxyIsValidMachineFn as function(byval pszMachine as zstring ptr, byval pszDotMachine as zstring ptr, byval dwPortNumber as ulong) as RPC_STATUS
+type I_RpcProxyGetClientAddressFn as function(byval Context as any ptr, byval Buffer as zstring ptr, byval BufferLength as ulong ptr) as RPC_STATUS
+type I_RpcProxyGetConnectionTimeoutFn as function(byval ConnectionTimeout as ulong ptr) as RPC_STATUS
 type I_RpcPerformCalloutFn as function(byval Context as any ptr, byval CallOutState as RDR_CALLOUT_STATE ptr, byval Stage as RPC_HTTP_REDIRECTOR_STAGE) as RPC_STATUS
 type I_RpcFreeCalloutStateFn as sub(byval CallOutState as RDR_CALLOUT_STATE ptr)
 
@@ -382,7 +381,7 @@ type I_RpcProxyCallbackInterface as tagI_RpcProxyCallbackInterface
 #define RPC_PROXY_CONNECTION_TYPE_IN_PROXY 0
 #define RPC_PROXY_CONNECTION_TYPE_OUT_PROXY 1
 
-declare function I_RpcProxyNewConnection(byval ConnectionType as culong, byval ServerAddress as ushort ptr, byval ServerPort as ushort ptr, byval MinConnTimeout as ushort ptr, byval ConnectionParameter as any ptr, byval CallOutState as RDR_CALLOUT_STATE ptr, byval ProxyCallbackInterface as I_RpcProxyCallbackInterface ptr) as RPC_STATUS
+declare function I_RpcProxyNewConnection(byval ConnectionType as ulong, byval ServerAddress as ushort ptr, byval ServerPort as ushort ptr, byval MinConnTimeout as ushort ptr, byval ConnectionParameter as any ptr, byval CallOutState as RDR_CALLOUT_STATE ptr, byval ProxyCallbackInterface as I_RpcProxyCallbackInterface ptr) as RPC_STATUS
 declare function I_RpcReplyToClientWithStatus(byval ConnectionParameter as any ptr, byval RpcStatus as RPC_STATUS) as RPC_STATUS
 declare sub I_RpcRecordCalloutFailure(byval RpcStatus as RPC_STATUS, byval CallOutState as RDR_CALLOUT_STATE ptr, byval DllName as ushort ptr)
 

@@ -1,10 +1,5 @@
 #pragma once
 
-#include once "crt/long.bi"
-
-'' The following symbols have been renamed:
-''     #define EXPORT => EXPORT_
-
 #ifdef __FB_64BIT__
 	extern "C"
 #else
@@ -12,10 +7,9 @@
 #endif
 
 #define MAPI_H
-#define EXPORT_
 
-type LPULONG as culong ptr
-type FLAGS as culong
+type LPULONG as ulong ptr
+type FLAGS as ulong
 
 #define __LHANDLE
 
@@ -25,9 +19,9 @@ type LPLHANDLE as ULONG_PTR ptr
 #define lhSessionNull cast(LHANDLE, 0)
 
 type MapiFileDesc
-	ulReserved as ULONG_
-	flFlags as ULONG_
-	nPosition as ULONG_
+	ulReserved as ULONG
+	flFlags as ULONG
+	nPosition as ULONG
 	lpszPathName as LPSTR
 	lpszFileName as LPSTR
 	lpFileType as LPVOID
@@ -39,21 +33,21 @@ type lpMapiFileDesc as MapiFileDesc ptr
 #define MAPI_OLE_STATIC &h00000002
 
 type MapiFileTagExt
-	ulReserved as ULONG_
-	cbTag as ULONG_
+	ulReserved as ULONG
+	cbTag as ULONG
 	lpTag as LPBYTE
-	cbEncoding as ULONG_
+	cbEncoding as ULONG
 	lpEncoding as LPBYTE
 end type
 
 type lpMapiFileTagExt as MapiFileTagExt ptr
 
 type MapiRecipDesc
-	ulReserved as ULONG_
-	ulRecipClass as ULONG_
+	ulReserved as ULONG
+	ulRecipClass as ULONG
 	lpszName as LPSTR
 	lpszAddress as LPSTR
-	ulEIDSize as ULONG_
+	ulEIDSize as ULONG
 	lpEntryID as LPVOID
 end type
 
@@ -65,7 +59,7 @@ type lpMapiRecipDesc as MapiRecipDesc ptr
 #define MAPI_BCC 3
 
 type MapiMessage
-	ulReserved as ULONG_
+	ulReserved as ULONG
 	lpszSubject as LPSTR
 	lpszNoteText as LPSTR
 	lpszMessageType as LPSTR
@@ -73,9 +67,9 @@ type MapiMessage
 	lpszConversationID as LPSTR
 	flFlags as FLAGS
 	lpOriginator as lpMapiRecipDesc
-	nRecipCount as ULONG_
+	nRecipCount as ULONG
 	lpRecips as lpMapiRecipDesc
-	nFileCount as ULONG_
+	nFileCount as ULONG
 	lpFiles as lpMapiFileDesc
 end type
 
@@ -99,53 +93,53 @@ type lpMapiMessage as MapiMessage ptr
 #define MAPI_BODY_AS_FILE &h00000200
 #define MAPI_AB_NOMODIFY &h00000400
 
-type LPMAPILOGON as function(byval ulUIParam as ULONG_PTR, byval lpszProfileName as LPSTR, byval lpszPassword as LPSTR, byval flFlags as FLAGS, byval ulReserved as ULONG_, byval lplhSession as LPLHANDLE) as ULONG_
+type LPMAPILOGON as function(byval ulUIParam as ULONG_PTR, byval lpszProfileName as LPSTR, byval lpszPassword as LPSTR, byval flFlags as FLAGS, byval ulReserved as ULONG, byval lplhSession as LPLHANDLE) as ULONG
 
-declare function MAPILogon(byval ulUIParam as ULONG_PTR, byval lpszProfileName as LPSTR, byval lpszPassword as LPSTR, byval flFlags as FLAGS, byval ulReserved as ULONG_, byval lplhSession as LPLHANDLE) as ULONG_
+declare function MAPILogon(byval ulUIParam as ULONG_PTR, byval lpszProfileName as LPSTR, byval lpszPassword as LPSTR, byval flFlags as FLAGS, byval ulReserved as ULONG, byval lplhSession as LPLHANDLE) as ULONG
 
-type LPMAPILOGOFF as function(byval lhSession as LHANDLE, byval ulUIParam as ULONG_PTR, byval flFlags as FLAGS, byval ulReserved as ULONG_) as ULONG_
+type LPMAPILOGOFF as function(byval lhSession as LHANDLE, byval ulUIParam as ULONG_PTR, byval flFlags as FLAGS, byval ulReserved as ULONG) as ULONG
 
-declare function MAPILogoff(byval lhSession as LHANDLE, byval ulUIParam as ULONG_PTR, byval flFlags as FLAGS, byval ulReserved as ULONG_) as ULONG_
+declare function MAPILogoff(byval lhSession as LHANDLE, byval ulUIParam as ULONG_PTR, byval flFlags as FLAGS, byval ulReserved as ULONG) as ULONG
 
-type LPMAPISENDMAIL as function(byval lhSession as LHANDLE, byval ulUIParam as ULONG_PTR, byval lpMessage as lpMapiMessage, byval flFlags as FLAGS, byval ulReserved as ULONG_) as ULONG_
+type LPMAPISENDMAIL as function(byval lhSession as LHANDLE, byval ulUIParam as ULONG_PTR, byval lpMessage as lpMapiMessage, byval flFlags as FLAGS, byval ulReserved as ULONG) as ULONG
 
-declare function MAPISendMail(byval lhSession as LHANDLE, byval ulUIParam as ULONG_PTR, byval lpMessage as lpMapiMessage, byval flFlags as FLAGS, byval ulReserved as ULONG_) as ULONG_
+declare function MAPISendMail(byval lhSession as LHANDLE, byval ulUIParam as ULONG_PTR, byval lpMessage as lpMapiMessage, byval flFlags as FLAGS, byval ulReserved as ULONG) as ULONG
 
-type LPMAPISENDDOCUMENTS as function(byval ulUIParam as ULONG_PTR, byval lpszDelimChar as LPSTR, byval lpszFilePaths as LPSTR, byval lpszFileNames as LPSTR, byval ulReserved as ULONG_) as ULONG_
+type LPMAPISENDDOCUMENTS as function(byval ulUIParam as ULONG_PTR, byval lpszDelimChar as LPSTR, byval lpszFilePaths as LPSTR, byval lpszFileNames as LPSTR, byval ulReserved as ULONG) as ULONG
 
-declare function MAPISendDocuments(byval ulUIParam as ULONG_PTR, byval lpszDelimChar as LPSTR, byval lpszFilePaths as LPSTR, byval lpszFileNames as LPSTR, byval ulReserved as ULONG_) as ULONG_
+declare function MAPISendDocuments(byval ulUIParam as ULONG_PTR, byval lpszDelimChar as LPSTR, byval lpszFilePaths as LPSTR, byval lpszFileNames as LPSTR, byval ulReserved as ULONG) as ULONG
 
-type LPMAPIFINDNEXT as function(byval lhSession as LHANDLE, byval ulUIParam as ULONG_PTR, byval lpszMessageType as LPSTR, byval lpszSeedMessageID as LPSTR, byval flFlags as FLAGS, byval ulReserved as ULONG_, byval lpszMessageID as LPSTR) as ULONG_
+type LPMAPIFINDNEXT as function(byval lhSession as LHANDLE, byval ulUIParam as ULONG_PTR, byval lpszMessageType as LPSTR, byval lpszSeedMessageID as LPSTR, byval flFlags as FLAGS, byval ulReserved as ULONG, byval lpszMessageID as LPSTR) as ULONG
 
-declare function MAPIFindNext(byval lhSession as LHANDLE, byval ulUIParam as ULONG_PTR, byval lpszMessageType as LPSTR, byval lpszSeedMessageID as LPSTR, byval flFlags as FLAGS, byval ulReserved as ULONG_, byval lpszMessageID as LPSTR) as ULONG_
+declare function MAPIFindNext(byval lhSession as LHANDLE, byval ulUIParam as ULONG_PTR, byval lpszMessageType as LPSTR, byval lpszSeedMessageID as LPSTR, byval flFlags as FLAGS, byval ulReserved as ULONG, byval lpszMessageID as LPSTR) as ULONG
 
-type LPMAPIREADMAIL as function(byval lhSession as LHANDLE, byval ulUIParam as ULONG_PTR, byval lpszMessageID as LPSTR, byval flFlags as FLAGS, byval ulReserved as ULONG_, byval lppMessage as lpMapiMessage ptr) as ULONG_
+type LPMAPIREADMAIL as function(byval lhSession as LHANDLE, byval ulUIParam as ULONG_PTR, byval lpszMessageID as LPSTR, byval flFlags as FLAGS, byval ulReserved as ULONG, byval lppMessage as lpMapiMessage ptr) as ULONG
 
-declare function MAPIReadMail(byval lhSession as LHANDLE, byval ulUIParam as ULONG_PTR, byval lpszMessageID as LPSTR, byval flFlags as FLAGS, byval ulReserved as ULONG_, byval lppMessage as lpMapiMessage ptr) as ULONG_
+declare function MAPIReadMail(byval lhSession as LHANDLE, byval ulUIParam as ULONG_PTR, byval lpszMessageID as LPSTR, byval flFlags as FLAGS, byval ulReserved as ULONG, byval lppMessage as lpMapiMessage ptr) as ULONG
 
-type LPMAPISAVEMAIL as function(byval lhSession as LHANDLE, byval ulUIParam as ULONG_PTR, byval lpMessage as lpMapiMessage, byval flFlags as FLAGS, byval ulReserved as ULONG_, byval lpszMessageID as LPSTR) as ULONG_
+type LPMAPISAVEMAIL as function(byval lhSession as LHANDLE, byval ulUIParam as ULONG_PTR, byval lpMessage as lpMapiMessage, byval flFlags as FLAGS, byval ulReserved as ULONG, byval lpszMessageID as LPSTR) as ULONG
 
-declare function MAPISaveMail(byval lhSession as LHANDLE, byval ulUIParam as ULONG_PTR, byval lpMessage as lpMapiMessage, byval flFlags as FLAGS, byval ulReserved as ULONG_, byval lpszMessageID as LPSTR) as ULONG_
+declare function MAPISaveMail(byval lhSession as LHANDLE, byval ulUIParam as ULONG_PTR, byval lpMessage as lpMapiMessage, byval flFlags as FLAGS, byval ulReserved as ULONG, byval lpszMessageID as LPSTR) as ULONG
 
-type LPMAPIDELETEMAIL as function(byval lhSession as LHANDLE, byval ulUIParam as ULONG_PTR, byval lpszMessageID as LPSTR, byval flFlags as FLAGS, byval ulReserved as ULONG_) as ULONG_
+type LPMAPIDELETEMAIL as function(byval lhSession as LHANDLE, byval ulUIParam as ULONG_PTR, byval lpszMessageID as LPSTR, byval flFlags as FLAGS, byval ulReserved as ULONG) as ULONG
 
-declare function MAPIDeleteMail(byval lhSession as LHANDLE, byval ulUIParam as ULONG_PTR, byval lpszMessageID as LPSTR, byval flFlags as FLAGS, byval ulReserved as ULONG_) as ULONG_
+declare function MAPIDeleteMail(byval lhSession as LHANDLE, byval ulUIParam as ULONG_PTR, byval lpszMessageID as LPSTR, byval flFlags as FLAGS, byval ulReserved as ULONG) as ULONG
 
-type LPMAPIFREEBUFFER as function(byval pv as LPVOID) as ULONG_
+type LPMAPIFREEBUFFER as function(byval pv as LPVOID) as ULONG
 
-declare function MAPIFreeBuffer(byval pv as LPVOID) as ULONG_
+declare function MAPIFreeBuffer(byval pv as LPVOID) as ULONG
 
-type LPMAPIADDRESS as function(byval lhSession as LHANDLE, byval ulUIParam as ULONG_PTR, byval lpszCaption as LPSTR, byval nEditFields as ULONG_, byval lpszLabels as LPSTR, byval nRecips as ULONG_, byval lpRecips as lpMapiRecipDesc, byval flFlags as FLAGS, byval ulReserved as ULONG_, byval lpnNewRecips as LPULONG, byval lppNewRecips as lpMapiRecipDesc ptr) as ULONG_
+type LPMAPIADDRESS as function(byval lhSession as LHANDLE, byval ulUIParam as ULONG_PTR, byval lpszCaption as LPSTR, byval nEditFields as ULONG, byval lpszLabels as LPSTR, byval nRecips as ULONG, byval lpRecips as lpMapiRecipDesc, byval flFlags as FLAGS, byval ulReserved as ULONG, byval lpnNewRecips as LPULONG, byval lppNewRecips as lpMapiRecipDesc ptr) as ULONG
 
-declare function MAPIAddress(byval lhSession as LHANDLE, byval ulUIParam as ULONG_PTR, byval lpszCaption as LPSTR, byval nEditFields as ULONG_, byval lpszLabels as LPSTR, byval nRecips as ULONG_, byval lpRecips as lpMapiRecipDesc, byval flFlags as FLAGS, byval ulReserved as ULONG_, byval lpnNewRecips as LPULONG, byval lppNewRecips as lpMapiRecipDesc ptr) as ULONG_
+declare function MAPIAddress(byval lhSession as LHANDLE, byval ulUIParam as ULONG_PTR, byval lpszCaption as LPSTR, byval nEditFields as ULONG, byval lpszLabels as LPSTR, byval nRecips as ULONG, byval lpRecips as lpMapiRecipDesc, byval flFlags as FLAGS, byval ulReserved as ULONG, byval lpnNewRecips as LPULONG, byval lppNewRecips as lpMapiRecipDesc ptr) as ULONG
 
-type LPMAPIDETAILS as function(byval lhSession as LHANDLE, byval ulUIParam as ULONG_PTR, byval lpRecip as lpMapiRecipDesc, byval flFlags as FLAGS, byval ulReserved as ULONG_) as ULONG_
+type LPMAPIDETAILS as function(byval lhSession as LHANDLE, byval ulUIParam as ULONG_PTR, byval lpRecip as lpMapiRecipDesc, byval flFlags as FLAGS, byval ulReserved as ULONG) as ULONG
 
-declare function MAPIDetails(byval lhSession as LHANDLE, byval ulUIParam as ULONG_PTR, byval lpRecip as lpMapiRecipDesc, byval flFlags as FLAGS, byval ulReserved as ULONG_) as ULONG_
+declare function MAPIDetails(byval lhSession as LHANDLE, byval ulUIParam as ULONG_PTR, byval lpRecip as lpMapiRecipDesc, byval flFlags as FLAGS, byval ulReserved as ULONG) as ULONG
 
-type LPMAPIRESOLVENAME as function(byval lhSession as LHANDLE, byval ulUIParam as ULONG_PTR, byval lpszName as LPSTR, byval flFlags as FLAGS, byval ulReserved as ULONG_, byval lppRecip as lpMapiRecipDesc ptr) as ULONG_
+type LPMAPIRESOLVENAME as function(byval lhSession as LHANDLE, byval ulUIParam as ULONG_PTR, byval lpszName as LPSTR, byval flFlags as FLAGS, byval ulReserved as ULONG, byval lppRecip as lpMapiRecipDesc ptr) as ULONG
 
-declare function MAPIResolveName(byval lhSession as LHANDLE, byval ulUIParam as ULONG_PTR, byval lpszName as LPSTR, byval flFlags as FLAGS, byval ulReserved as ULONG_, byval lppRecip as lpMapiRecipDesc ptr) as ULONG_
+declare function MAPIResolveName(byval lhSession as LHANDLE, byval ulUIParam as ULONG_PTR, byval lpszName as LPSTR, byval flFlags as FLAGS, byval ulReserved as ULONG, byval lppRecip as lpMapiRecipDesc ptr) as ULONG
 
 #define SUCCESS_SUCCESS 0
 #define MAPI_USER_ABORT 1

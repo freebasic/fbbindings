@@ -22,7 +22,6 @@ type IUniformResourceLocatorAVtbl as IUniformResourceLocatorAVtbl_
 type IUniformResourceLocatorWVtbl as IUniformResourceLocatorWVtbl_
 
 #define __INTSHCUT_H__
-#define INTSHCUTAPI DECLSPEC_IMPORT
 #define E_FLAGS MAKE_SCODE(SEVERITY_ERROR, FACILITY_ITF, &h1000)
 #define IS_E_EXEC_FAILED MAKE_SCODE(SEVERITY_ERROR, FACILITY_ITF, &h2002)
 #define URL_E_INVALID_SYNTAX MAKE_SCODE(SEVERITY_ERROR, FACILITY_ITF, &h1001)
@@ -80,8 +79,8 @@ end type
 
 type IUniformResourceLocatorAVtbl_
 	QueryInterface as function(byval This as IUniformResourceLocatorA ptr, byval riid as const IID const ptr, byval ppvObject as PVOID ptr) as HRESULT
-	AddRef as function(byval This as IUniformResourceLocatorA ptr) as ULONG_
-	Release as function(byval This as IUniformResourceLocatorA ptr) as ULONG_
+	AddRef as function(byval This as IUniformResourceLocatorA ptr) as ULONG
+	Release as function(byval This as IUniformResourceLocatorA ptr) as ULONG
 	SetURL as function(byval This as IUniformResourceLocatorA ptr, byval pcszURL as LPCSTR, byval dwInFlags as DWORD) as HRESULT
 	GetURL as function(byval This as IUniformResourceLocatorA ptr, byval ppszURL as LPSTR ptr) as HRESULT
 	InvokeCommand as function(byval This as IUniformResourceLocatorA ptr, byval purlici as PURLINVOKECOMMANDINFOA) as HRESULT
@@ -93,8 +92,8 @@ end type
 
 type IUniformResourceLocatorWVtbl_
 	QueryInterface as function(byval This as IUniformResourceLocatorW ptr, byval riid as const IID const ptr, byval ppvObject as PVOID ptr) as HRESULT
-	AddRef as function(byval This as IUniformResourceLocatorW ptr) as ULONG_
-	Release as function(byval This as IUniformResourceLocatorW ptr) as ULONG_
+	AddRef as function(byval This as IUniformResourceLocatorW ptr) as ULONG
+	Release as function(byval This as IUniformResourceLocatorW ptr) as ULONG
 	SetURL as function(byval This as IUniformResourceLocatorW ptr, byval pcszURL as LPCWSTR, byval dwInFlags as DWORD) as HRESULT
 	GetURL as function(byval This as IUniformResourceLocatorW ptr, byval ppszURL as LPWSTR ptr) as HRESULT
 	InvokeCommand as function(byval This as IUniformResourceLocatorW ptr, byval purlici as PURLINVOKECOMMANDINFOW) as HRESULT

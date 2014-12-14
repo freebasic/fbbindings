@@ -172,8 +172,8 @@ declare function D3DXSHEvalSphericalLight(byval order as UINT, byval dir_ as con
 declare function D3DXSHMultiply2(byval out_ as FLOAT ptr, byval a as const FLOAT ptr, byval b as const FLOAT ptr) as FLOAT ptr
 declare function D3DXSHMultiply3(byval out_ as FLOAT ptr, byval a as const FLOAT ptr, byval b as const FLOAT ptr) as FLOAT ptr
 declare function D3DXSHMultiply4(byval out_ as FLOAT ptr, byval a as const FLOAT ptr, byval b as const FLOAT ptr) as FLOAT ptr
-declare function D3DXSHRotate(byval out_ as FLOAT ptr, byval order as UINT, byval matrix as const D3DXMATRIX ptr, byval in_ as const FLOAT ptr) as FLOAT ptr
-declare function D3DXSHRotateZ(byval out_ as FLOAT ptr, byval order as UINT, byval angle as FLOAT, byval in_ as const FLOAT ptr) as FLOAT ptr
+declare function D3DXSHRotate(byval out_ as FLOAT ptr, byval order as UINT, byval matrix as const D3DXMATRIX ptr, byval in as const FLOAT ptr) as FLOAT ptr
+declare function D3DXSHRotateZ(byval out_ as FLOAT ptr, byval order as UINT, byval angle as FLOAT, byval in as const FLOAT ptr) as FLOAT ptr
 declare function D3DXSHScale(byval out_ as FLOAT ptr, byval order as UINT, byval a as const FLOAT ptr, byval scale as const FLOAT) as FLOAT ptr
 
 type LPD3DXMATRIXSTACK as ID3DXMatrixStack ptr
@@ -186,8 +186,8 @@ end type
 
 type ID3DXMatrixStackVtbl_
 	QueryInterface as function(byval This as ID3DXMatrixStack ptr, byval riid as const IID const ptr, byval out_ as any ptr ptr) as HRESULT
-	AddRef as function(byval This as ID3DXMatrixStack ptr) as ULONG_
-	Release as function(byval This as ID3DXMatrixStack ptr) as ULONG_
+	AddRef as function(byval This as ID3DXMatrixStack ptr) as ULONG
+	Release as function(byval This as ID3DXMatrixStack ptr) as ULONG
 	Pop as function(byval This as ID3DXMatrixStack ptr) as HRESULT
 	Push as function(byval This as ID3DXMatrixStack ptr) as HRESULT
 	LoadIdentity as function(byval This as ID3DXMatrixStack ptr) as HRESULT

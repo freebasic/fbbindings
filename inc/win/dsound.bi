@@ -331,9 +331,9 @@ type LPCDSBPOSITIONNOTIFY as const DSBPOSITIONNOTIFY ptr
 #define DSSPEAKER_GEOMETRY_NARROW &h0000000A
 #define DSSPEAKER_GEOMETRY_WIDE &h00000014
 #define DSSPEAKER_GEOMETRY_MAX &h000000B4
-#define DSSPEAKER_COMBINED(c, g) cast(DWORD, cast(BYTE_, (c)) or (cast(DWORD, cast(BYTE_, (g))) shl 16))
-#define DSSPEAKER_CONFIG(a) cast(BYTE_, (a))
-#define DSSPEAKER_GEOMETRY(a) cast(BYTE_, cast(DWORD, (a) shr 16) and &h00FF)
+#define DSSPEAKER_COMBINED(c, g) cast(DWORD, cast(BYTE, (c)) or (cast(DWORD, cast(BYTE, (g))) shl 16))
+#define DSSPEAKER_CONFIG(a) cast(BYTE, (a))
+#define DSSPEAKER_GEOMETRY(a) cast(BYTE, cast(DWORD, (a) shr 16) and &h00FF)
 #define DS_CERTIFIED &h00000000
 #define DS_UNCERTIFIED &h00000001
 
@@ -448,8 +448,8 @@ end type
 
 type IDirectSoundVtbl_
 	QueryInterface as function(byval This as IDirectSound ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirectSound ptr) as ULONG_
-	Release as function(byval This as IDirectSound ptr) as ULONG_
+	AddRef as function(byval This as IDirectSound ptr) as ULONG
+	Release as function(byval This as IDirectSound ptr) as ULONG
 	CreateSoundBuffer as function(byval This as IDirectSound ptr, byval lpcDSBufferDesc as LPCDSBUFFERDESC, byval lplpDirectSoundBuffer as LPLPDIRECTSOUNDBUFFER, byval pUnkOuter as IUnknown ptr) as HRESULT
 	GetCaps as function(byval This as IDirectSound ptr, byval lpDSCaps as LPDSCAPS) as HRESULT
 	DuplicateSoundBuffer as function(byval This as IDirectSound ptr, byval lpDsbOriginal as LPDIRECTSOUNDBUFFER, byval lplpDsbDuplicate as LPLPDIRECTSOUNDBUFFER) as HRESULT
@@ -478,8 +478,8 @@ end type
 
 type IDirectSound8Vtbl_
 	QueryInterface as function(byval This as IDirectSound8 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirectSound8 ptr) as ULONG_
-	Release as function(byval This as IDirectSound8 ptr) as ULONG_
+	AddRef as function(byval This as IDirectSound8 ptr) as ULONG
+	Release as function(byval This as IDirectSound8 ptr) as ULONG
 	CreateSoundBuffer as function(byval This as IDirectSound8 ptr, byval lpcDSBufferDesc as LPCDSBUFFERDESC, byval lplpDirectSoundBuffer as LPLPDIRECTSOUNDBUFFER, byval pUnkOuter as IUnknown ptr) as HRESULT
 	GetCaps as function(byval This as IDirectSound8 ptr, byval lpDSCaps as LPDSCAPS) as HRESULT
 	DuplicateSoundBuffer as function(byval This as IDirectSound8 ptr, byval lpDsbOriginal as LPDIRECTSOUNDBUFFER, byval lplpDsbDuplicate as LPLPDIRECTSOUNDBUFFER) as HRESULT
@@ -510,8 +510,8 @@ end type
 
 type IDirectSoundBufferVtbl_
 	QueryInterface as function(byval This as IDirectSoundBuffer ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirectSoundBuffer ptr) as ULONG_
-	Release as function(byval This as IDirectSoundBuffer ptr) as ULONG_
+	AddRef as function(byval This as IDirectSoundBuffer ptr) as ULONG
+	Release as function(byval This as IDirectSoundBuffer ptr) as ULONG
 	GetCaps as function(byval This as IDirectSoundBuffer ptr, byval lpDSBufferCaps as LPDSBCAPS) as HRESULT
 	GetCurrentPosition as function(byval This as IDirectSoundBuffer ptr, byval lpdwCurrentPlayCursor as LPDWORD, byval lpdwCurrentWriteCursor as LPDWORD) as HRESULT
 	GetFormat as function(byval This as IDirectSoundBuffer ptr, byval lpwfxFormat as LPWAVEFORMATEX, byval dwSizeAllocated as DWORD, byval lpdwSizeWritten as LPDWORD) as HRESULT
@@ -524,8 +524,8 @@ type IDirectSoundBufferVtbl_
 	Play as function(byval This as IDirectSoundBuffer ptr, byval dwReserved1 as DWORD, byval dwReserved2 as DWORD, byval dwFlags as DWORD) as HRESULT
 	SetCurrentPosition as function(byval This as IDirectSoundBuffer ptr, byval dwNewPosition as DWORD) as HRESULT
 	SetFormat as function(byval This as IDirectSoundBuffer ptr, byval lpcfxFormat as LPCWAVEFORMATEX) as HRESULT
-	SetVolume as function(byval This as IDirectSoundBuffer ptr, byval lVolume as LONG_) as HRESULT
-	SetPan as function(byval This as IDirectSoundBuffer ptr, byval lPan as LONG_) as HRESULT
+	SetVolume as function(byval This as IDirectSoundBuffer ptr, byval lVolume as LONG) as HRESULT
+	SetPan as function(byval This as IDirectSoundBuffer ptr, byval lPan as LONG) as HRESULT
 	SetFrequency as function(byval This as IDirectSoundBuffer ptr, byval dwFrequency as DWORD) as HRESULT
 	Stop as function(byval This as IDirectSoundBuffer ptr) as HRESULT
 	Unlock as function(byval This as IDirectSoundBuffer ptr, byval pvAudioPtr1 as LPVOID, byval dwAudioBytes1 as DWORD, byval pvAudioPtr2 as LPVOID, byval dwAudioPtr2 as DWORD) as HRESULT
@@ -560,8 +560,8 @@ end type
 
 type IDirectSoundBuffer8Vtbl_
 	QueryInterface as function(byval This as IDirectSoundBuffer8 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirectSoundBuffer8 ptr) as ULONG_
-	Release as function(byval This as IDirectSoundBuffer8 ptr) as ULONG_
+	AddRef as function(byval This as IDirectSoundBuffer8 ptr) as ULONG
+	Release as function(byval This as IDirectSoundBuffer8 ptr) as ULONG
 	GetCaps as function(byval This as IDirectSoundBuffer8 ptr, byval lpDSBufferCaps as LPDSBCAPS) as HRESULT
 	GetCurrentPosition as function(byval This as IDirectSoundBuffer8 ptr, byval lpdwCurrentPlayCursor as LPDWORD, byval lpdwCurrentWriteCursor as LPDWORD) as HRESULT
 	GetFormat as function(byval This as IDirectSoundBuffer8 ptr, byval lpwfxFormat as LPWAVEFORMATEX, byval dwSizeAllocated as DWORD, byval lpdwSizeWritten as LPDWORD) as HRESULT
@@ -574,8 +574,8 @@ type IDirectSoundBuffer8Vtbl_
 	Play as function(byval This as IDirectSoundBuffer8 ptr, byval dwReserved1 as DWORD, byval dwReserved2 as DWORD, byval dwFlags as DWORD) as HRESULT
 	SetCurrentPosition as function(byval This as IDirectSoundBuffer8 ptr, byval dwNewPosition as DWORD) as HRESULT
 	SetFormat as function(byval This as IDirectSoundBuffer8 ptr, byval lpcfxFormat as LPCWAVEFORMATEX) as HRESULT
-	SetVolume as function(byval This as IDirectSoundBuffer8 ptr, byval lVolume as LONG_) as HRESULT
-	SetPan as function(byval This as IDirectSoundBuffer8 ptr, byval lPan as LONG_) as HRESULT
+	SetVolume as function(byval This as IDirectSoundBuffer8 ptr, byval lVolume as LONG) as HRESULT
+	SetPan as function(byval This as IDirectSoundBuffer8 ptr, byval lPan as LONG) as HRESULT
 	SetFrequency as function(byval This as IDirectSoundBuffer8 ptr, byval dwFrequency as DWORD) as HRESULT
 	Stop as function(byval This as IDirectSoundBuffer8 ptr) as HRESULT
 	Unlock as function(byval This as IDirectSoundBuffer8 ptr, byval pvAudioPtr1 as LPVOID, byval dwAudioBytes1 as DWORD, byval pvAudioPtr2 as LPVOID, byval dwAudioPtr2 as DWORD) as HRESULT
@@ -616,8 +616,8 @@ end type
 
 type IDirectSoundCaptureVtbl_
 	QueryInterface as function(byval This as IDirectSoundCapture ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirectSoundCapture ptr) as ULONG_
-	Release as function(byval This as IDirectSoundCapture ptr) as ULONG_
+	AddRef as function(byval This as IDirectSoundCapture ptr) as ULONG
+	Release as function(byval This as IDirectSoundCapture ptr) as ULONG
 	CreateCaptureBuffer as function(byval This as IDirectSoundCapture ptr, byval lpcDSCBufferDesc as LPCDSCBUFFERDESC, byval lplpDSCaptureBuffer as LPDIRECTSOUNDCAPTUREBUFFER ptr, byval pUnk as LPUNKNOWN) as HRESULT
 	GetCaps as function(byval This as IDirectSoundCapture ptr, byval lpDSCCaps as LPDSCCAPS) as HRESULT
 	Initialize as function(byval This as IDirectSoundCapture ptr, byval lpcGUID as LPCGUID) as HRESULT
@@ -636,8 +636,8 @@ end type
 
 type IDirectSoundCaptureBufferVtbl_
 	QueryInterface as function(byval This as IDirectSoundCaptureBuffer ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirectSoundCaptureBuffer ptr) as ULONG_
-	Release as function(byval This as IDirectSoundCaptureBuffer ptr) as ULONG_
+	AddRef as function(byval This as IDirectSoundCaptureBuffer ptr) as ULONG
+	Release as function(byval This as IDirectSoundCaptureBuffer ptr) as ULONG
 	GetCaps as function(byval This as IDirectSoundCaptureBuffer ptr, byval lpDSCBCaps as LPDSCBCAPS) as HRESULT
 	GetCurrentPosition as function(byval This as IDirectSoundCaptureBuffer ptr, byval lpdwCapturePosition as LPDWORD, byval lpdwReadPosition as LPDWORD) as HRESULT
 	GetFormat as function(byval This as IDirectSoundCaptureBuffer ptr, byval lpwfxFormat as LPWAVEFORMATEX, byval dwSizeAllocated as DWORD, byval lpdwSizeWritten as LPDWORD) as HRESULT
@@ -668,8 +668,8 @@ end type
 
 type IDirectSoundCaptureBuffer8Vtbl_
 	QueryInterface as function(byval This as IDirectSoundCaptureBuffer8 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirectSoundCaptureBuffer8 ptr) as ULONG_
-	Release as function(byval This as IDirectSoundCaptureBuffer8 ptr) as ULONG_
+	AddRef as function(byval This as IDirectSoundCaptureBuffer8 ptr) as ULONG
+	Release as function(byval This as IDirectSoundCaptureBuffer8 ptr) as ULONG
 	GetCaps as function(byval This as IDirectSoundCaptureBuffer8 ptr, byval lpDSCBCaps as LPDSCBCAPS) as HRESULT
 	GetCurrentPosition as function(byval This as IDirectSoundCaptureBuffer8 ptr, byval lpdwCapturePosition as LPDWORD, byval lpdwReadPosition as LPDWORD) as HRESULT
 	GetFormat as function(byval This as IDirectSoundCaptureBuffer8 ptr, byval lpwfxFormat as LPWAVEFORMATEX, byval dwSizeAllocated as DWORD, byval lpdwSizeWritten as LPDWORD) as HRESULT
@@ -706,8 +706,8 @@ end type
 
 type IDirectSoundNotifyVtbl_
 	QueryInterface as function(byval This as IDirectSoundNotify ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirectSoundNotify ptr) as ULONG_
-	Release as function(byval This as IDirectSoundNotify ptr) as ULONG_
+	AddRef as function(byval This as IDirectSoundNotify ptr) as ULONG
+	Release as function(byval This as IDirectSoundNotify ptr) as ULONG
 	SetNotificationPositions as function(byval This as IDirectSoundNotify ptr, byval cPositionNotifies as DWORD, byval lpcPositionNotifies as LPCDSBPOSITIONNOTIFY) as HRESULT
 end type
 
@@ -757,8 +757,8 @@ end type
 
 type IDirectSound3DListenerVtbl_
 	QueryInterface as function(byval This as IDirectSound3DListener ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirectSound3DListener ptr) as ULONG_
-	Release as function(byval This as IDirectSound3DListener ptr) as ULONG_
+	AddRef as function(byval This as IDirectSound3DListener ptr) as ULONG
+	Release as function(byval This as IDirectSound3DListener ptr) as ULONG
 	GetAllParameters as function(byval This as IDirectSound3DListener ptr, byval lpListener as LPDS3DLISTENER) as HRESULT
 	GetDistanceFactor as function(byval This as IDirectSound3DListener ptr, byval lpflDistanceFactor as LPD3DVALUE) as HRESULT
 	GetDopplerFactor as function(byval This as IDirectSound3DListener ptr, byval lpflDopplerFactor as LPD3DVALUE) as HRESULT
@@ -802,7 +802,7 @@ type _DS3DBUFFER
 	dwInsideConeAngle as DWORD
 	dwOutsideConeAngle as DWORD
 	vConeOrientation as D3DVECTOR
-	lConeOutsideVolume as LONG_
+	lConeOutsideVolume as LONG
 	flMinDistance as D3DVALUE
 	flMaxDistance as D3DVALUE
 	dwMode as DWORD
@@ -818,8 +818,8 @@ end type
 
 type IDirectSound3DBufferVtbl_
 	QueryInterface as function(byval This as IDirectSound3DBuffer ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirectSound3DBuffer ptr) as ULONG_
-	Release as function(byval This as IDirectSound3DBuffer ptr) as ULONG_
+	AddRef as function(byval This as IDirectSound3DBuffer ptr) as ULONG
+	Release as function(byval This as IDirectSound3DBuffer ptr) as ULONG
 	GetAllParameters as function(byval This as IDirectSound3DBuffer ptr, byval lpDs3dBuffer as LPDS3DBUFFER) as HRESULT
 	GetConeAngles as function(byval This as IDirectSound3DBuffer ptr, byval lpdwInsideConeAngle as LPDWORD, byval lpdwOutsideConeAngle as LPDWORD) as HRESULT
 	GetConeOrientation as function(byval This as IDirectSound3DBuffer ptr, byval lpvOrientation as LPD3DVECTOR) as HRESULT
@@ -832,7 +832,7 @@ type IDirectSound3DBufferVtbl_
 	SetAllParameters as function(byval This as IDirectSound3DBuffer ptr, byval lpcDs3dBuffer as LPCDS3DBUFFER, byval dwApply as DWORD) as HRESULT
 	SetConeAngles as function(byval This as IDirectSound3DBuffer ptr, byval dwInsideConeAngle as DWORD, byval dwOutsideConeAngle as DWORD, byval dwApply as DWORD) as HRESULT
 	SetConeOrientation as function(byval This as IDirectSound3DBuffer ptr, byval x as D3DVALUE, byval y as D3DVALUE, byval z as D3DVALUE, byval dwApply as DWORD) as HRESULT
-	SetConeOutsideVolume as function(byval This as IDirectSound3DBuffer ptr, byval lConeOutsideVolume as LONG_, byval dwApply as DWORD) as HRESULT
+	SetConeOutsideVolume as function(byval This as IDirectSound3DBuffer ptr, byval lConeOutsideVolume as LONG, byval dwApply as DWORD) as HRESULT
 	SetMaxDistance as function(byval This as IDirectSound3DBuffer ptr, byval flMaxDistance as D3DVALUE, byval dwApply as DWORD) as HRESULT
 	SetMinDistance as function(byval This as IDirectSound3DBuffer ptr, byval flMinDistance as D3DVALUE, byval dwApply as DWORD) as HRESULT
 	SetMode as function(byval This as IDirectSound3DBuffer ptr, byval dwMode as DWORD, byval dwApply as DWORD) as HRESULT
@@ -876,11 +876,11 @@ end type
 
 type IKsPropertySetVtbl_
 	QueryInterface as function(byval This as IKsPropertySet ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IKsPropertySet ptr) as ULONG_
-	Release as function(byval This as IKsPropertySet ptr) as ULONG_
-	Get as function(byval This as IKsPropertySet ptr, byval rgid as const GUID const ptr, byval x1 as ULONG_, byval p1 as LPVOID, byval x2 as ULONG_, byval p2 as LPVOID, byval x3 as ULONG_, byval px4 as ULONG_ ptr) as HRESULT
-	Set as function(byval This as IKsPropertySet ptr, byval rgid as const GUID const ptr, byval x1 as ULONG_, byval p1 as LPVOID, byval x2 as ULONG_, byval p2 as LPVOID, byval x3 as ULONG_) as HRESULT
-	QuerySupport as function(byval This as IKsPropertySet ptr, byval rgid as const GUID const ptr, byval x1 as ULONG_, byval px2 as ULONG_ ptr) as HRESULT
+	AddRef as function(byval This as IKsPropertySet ptr) as ULONG
+	Release as function(byval This as IKsPropertySet ptr) as ULONG
+	Get as function(byval This as IKsPropertySet ptr, byval rgid as const GUID const ptr, byval x1 as ULONG, byval p1 as LPVOID, byval x2 as ULONG, byval p2 as LPVOID, byval x3 as ULONG, byval px4 as ULONG ptr) as HRESULT
+	Set as function(byval This as IKsPropertySet ptr, byval rgid as const GUID const ptr, byval x1 as ULONG, byval p1 as LPVOID, byval x2 as ULONG, byval p2 as LPVOID, byval x3 as ULONG) as HRESULT
+	QuerySupport as function(byval This as IKsPropertySet ptr, byval rgid as const GUID const ptr, byval x1 as ULONG, byval px2 as ULONG ptr) as HRESULT
 end type
 
 #define IKsPropertySet_QueryInterface(p, a, b) (p)->lpVtbl->QueryInterface(p, a, b)
@@ -896,8 +896,8 @@ end type
 
 type IDirectSoundFullDuplexVtbl_
 	QueryInterface as function(byval This as IDirectSoundFullDuplex ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirectSoundFullDuplex ptr) as ULONG_
-	Release as function(byval This as IDirectSoundFullDuplex ptr) as ULONG_
+	AddRef as function(byval This as IDirectSoundFullDuplex ptr) as ULONG
+	Release as function(byval This as IDirectSoundFullDuplex ptr) as ULONG
 	Initialize as function(byval This as IDirectSoundFullDuplex ptr, byval pCaptureGuid as LPCGUID, byval pRendererGuid as LPCGUID, byval lpDscBufferDesc as LPCDSCBUFFERDESC, byval lpDsBufferDesc as LPCDSBUFFERDESC, byval hWnd as HWND, byval dwLevel as DWORD, byval lplpDirectSoundCaptureBuffer8 as LPLPDIRECTSOUNDCAPTUREBUFFER8, byval lplpDirectSoundBuffer8 as LPLPDIRECTSOUNDBUFFER8) as HRESULT
 end type
 

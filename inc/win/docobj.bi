@@ -58,8 +58,8 @@ extern IID_IOleDocument as const GUID
 
 type IOleDocumentVtbl
 	QueryInterface as function(byval This as IOleDocument ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IOleDocument ptr) as ULONG_
-	Release as function(byval This as IOleDocument ptr) as ULONG_
+	AddRef as function(byval This as IOleDocument ptr) as ULONG
+	Release as function(byval This as IOleDocument ptr) as ULONG
 	CreateView as function(byval This as IOleDocument ptr, byval pIPSite as IOleInPlaceSite ptr, byval pstm as IStream ptr, byval dwReserved as DWORD, byval ppView as IOleDocumentView ptr ptr) as HRESULT
 	GetDocMiscStatus as function(byval This as IOleDocument ptr, byval pdwStatus as DWORD ptr) as HRESULT
 	EnumViews as function(byval This as IOleDocument ptr, byval ppEnum as IEnumOleDocumentViews ptr ptr, byval ppView as IOleDocumentView ptr ptr) as HRESULT
@@ -85,8 +85,8 @@ extern IID_IOleDocumentSite as const GUID
 
 type IOleDocumentSiteVtbl
 	QueryInterface as function(byval This as IOleDocumentSite ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IOleDocumentSite ptr) as ULONG_
-	Release as function(byval This as IOleDocumentSite ptr) as ULONG_
+	AddRef as function(byval This as IOleDocumentSite ptr) as ULONG
+	Release as function(byval This as IOleDocumentSite ptr) as ULONG
 	ActivateMe as function(byval This as IOleDocumentSite ptr, byval pViewToActivate as IOleDocumentView ptr) as HRESULT
 end type
 
@@ -106,8 +106,8 @@ extern IID_IOleDocumentView as const GUID
 
 type IOleDocumentViewVtbl
 	QueryInterface as function(byval This as IOleDocumentView ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IOleDocumentView ptr) as ULONG_
-	Release as function(byval This as IOleDocumentView ptr) as ULONG_
+	AddRef as function(byval This as IOleDocumentView ptr) as ULONG
+	Release as function(byval This as IOleDocumentView ptr) as ULONG
 	SetInPlaceSite as function(byval This as IOleDocumentView ptr, byval pIPSite as IOleInPlaceSite ptr) as HRESULT
 	GetInPlaceSite as function(byval This as IOleDocumentView ptr, byval ppIPSite as IOleInPlaceSite ptr ptr) as HRESULT
 	GetDocument as function(byval This as IOleDocumentView ptr, byval ppunk as IUnknown ptr ptr) as HRESULT
@@ -163,10 +163,10 @@ extern IID_IEnumOleDocumentViews as const GUID
 
 type IEnumOleDocumentViewsVtbl
 	QueryInterface as function(byval This as IEnumOleDocumentViews ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IEnumOleDocumentViews ptr) as ULONG_
-	Release as function(byval This as IEnumOleDocumentViews ptr) as ULONG_
-	Next as function(byval This as IEnumOleDocumentViews ptr, byval cViews as ULONG_, byval rgpView as IOleDocumentView ptr ptr, byval pcFetched as ULONG_ ptr) as HRESULT
-	Skip as function(byval This as IEnumOleDocumentViews ptr, byval cViews as ULONG_) as HRESULT
+	AddRef as function(byval This as IEnumOleDocumentViews ptr) as ULONG
+	Release as function(byval This as IEnumOleDocumentViews ptr) as ULONG
+	Next as function(byval This as IEnumOleDocumentViews ptr, byval cViews as ULONG, byval rgpView as IOleDocumentView ptr ptr, byval pcFetched as ULONG ptr) as HRESULT
+	Skip as function(byval This as IEnumOleDocumentViews ptr, byval cViews as ULONG) as HRESULT
 	Reset as function(byval This as IEnumOleDocumentViews ptr) as HRESULT
 	Clone as function(byval This as IEnumOleDocumentViews ptr, byval ppEnum as IEnumOleDocumentViews ptr ptr) as HRESULT
 end type
@@ -175,16 +175,16 @@ type IEnumOleDocumentViews_
 	lpVtbl as IEnumOleDocumentViewsVtbl ptr
 end type
 
-declare function IEnumOleDocumentViews_RemoteNext_Proxy(byval This as IEnumOleDocumentViews ptr, byval cViews as ULONG_, byval rgpView as IOleDocumentView ptr ptr, byval pcFetched as ULONG_ ptr) as HRESULT
+declare function IEnumOleDocumentViews_RemoteNext_Proxy(byval This as IEnumOleDocumentViews ptr, byval cViews as ULONG, byval rgpView as IOleDocumentView ptr ptr, byval pcFetched as ULONG ptr) as HRESULT
 declare sub IEnumOleDocumentViews_RemoteNext_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-declare function IEnumOleDocumentViews_Skip_Proxy(byval This as IEnumOleDocumentViews ptr, byval cViews as ULONG_) as HRESULT
+declare function IEnumOleDocumentViews_Skip_Proxy(byval This as IEnumOleDocumentViews ptr, byval cViews as ULONG) as HRESULT
 declare sub IEnumOleDocumentViews_Skip_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IEnumOleDocumentViews_Reset_Proxy(byval This as IEnumOleDocumentViews ptr) as HRESULT
 declare sub IEnumOleDocumentViews_Reset_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IEnumOleDocumentViews_Clone_Proxy(byval This as IEnumOleDocumentViews ptr, byval ppEnum as IEnumOleDocumentViews ptr ptr) as HRESULT
 declare sub IEnumOleDocumentViews_Clone_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-declare function IEnumOleDocumentViews_Next_Proxy(byval This as IEnumOleDocumentViews ptr, byval cViews as ULONG_, byval rgpView as IOleDocumentView ptr ptr, byval pcFetched as ULONG_ ptr) as HRESULT
-declare function IEnumOleDocumentViews_Next_Stub(byval This as IEnumOleDocumentViews ptr, byval cViews as ULONG_, byval rgpView as IOleDocumentView ptr ptr, byval pcFetched as ULONG_ ptr) as HRESULT
+declare function IEnumOleDocumentViews_Next_Proxy(byval This as IEnumOleDocumentViews ptr, byval cViews as ULONG, byval rgpView as IOleDocumentView ptr ptr, byval pcFetched as ULONG ptr) as HRESULT
+declare function IEnumOleDocumentViews_Next_Stub(byval This as IEnumOleDocumentViews ptr, byval cViews as ULONG, byval rgpView as IOleDocumentView ptr ptr, byval pcFetched as ULONG ptr) as HRESULT
 
 #define _LPCONTINUECALLBACK_DEFINED
 #define __IContinueCallback_INTERFACE_DEFINED__
@@ -195,10 +195,10 @@ extern IID_IContinueCallback as const GUID
 
 type IContinueCallbackVtbl
 	QueryInterface as function(byval This as IContinueCallback ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IContinueCallback ptr) as ULONG_
-	Release as function(byval This as IContinueCallback ptr) as ULONG_
+	AddRef as function(byval This as IContinueCallback ptr) as ULONG
+	Release as function(byval This as IContinueCallback ptr) as ULONG
 	FContinue as function(byval This as IContinueCallback ptr) as HRESULT
-	FContinuePrinting as function(byval This as IContinueCallback ptr, byval nCntPrinted as LONG_, byval nCurPage as LONG_, byval pwszPrintStatus as wstring ptr) as HRESULT
+	FContinuePrinting as function(byval This as IContinueCallback ptr, byval nCntPrinted as LONG, byval nCurPage as LONG, byval pwszPrintStatus as wstring ptr) as HRESULT
 end type
 
 type IContinueCallback_
@@ -207,7 +207,7 @@ end type
 
 declare function IContinueCallback_FContinue_Proxy(byval This as IContinueCallback ptr) as HRESULT
 declare sub IContinueCallback_FContinue_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-declare function IContinueCallback_FContinuePrinting_Proxy(byval This as IContinueCallback ptr, byval nCntPrinted as LONG_, byval nCurPage as LONG_, byval pwszPrintStatus as wstring ptr) as HRESULT
+declare function IContinueCallback_FContinuePrinting_Proxy(byval This as IContinueCallback ptr, byval nCntPrinted as LONG, byval nCurPage as LONG, byval pwszPrintStatus as wstring ptr) as HRESULT
 declare sub IContinueCallback_FContinuePrinting_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 
 #define _LPPRINT_DEFINED
@@ -229,17 +229,17 @@ end enum
 type PRINTFLAG as __WIDL_docobj_generated_name_00000014
 
 type tagPAGERANGE
-	nFromPage as LONG_
-	nToPage as LONG_
+	nFromPage as LONG
+	nToPage as LONG
 end type
 
 type PAGERANGE as tagPAGERANGE
 
 type tagPAGESET
-	cbStruct as ULONG_
+	cbStruct as ULONG
 	fOddPages as WINBOOL
 	fEvenPages as WINBOOL
-	cPageRange as ULONG_
+	cPageRange as ULONG
 	rgPages(0 to 0) as PAGERANGE
 end type
 
@@ -251,25 +251,25 @@ extern IID_IPrint as const GUID
 
 type IPrintVtbl
 	QueryInterface as function(byval This as IPrint ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IPrint ptr) as ULONG_
-	Release as function(byval This as IPrint ptr) as ULONG_
-	SetInitialPageNum as function(byval This as IPrint ptr, byval nFirstPage as LONG_) as HRESULT
-	GetPageInfo as function(byval This as IPrint ptr, byval pnFirstPage as LONG_ ptr, byval pcPages as LONG_ ptr) as HRESULT
-	Print as function(byval This as IPrint ptr, byval grfFlags as DWORD, byval pptd as DVTARGETDEVICE ptr ptr, byval ppPageSet as PAGESET ptr ptr, byval pstgmOptions as STGMEDIUM ptr, byval pcallback as IContinueCallback ptr, byval nFirstPage as LONG_, byval pcPagesPrinted as LONG_ ptr, byval pnLastPage as LONG_ ptr) as HRESULT
+	AddRef as function(byval This as IPrint ptr) as ULONG
+	Release as function(byval This as IPrint ptr) as ULONG
+	SetInitialPageNum as function(byval This as IPrint ptr, byval nFirstPage as LONG) as HRESULT
+	GetPageInfo as function(byval This as IPrint ptr, byval pnFirstPage as LONG ptr, byval pcPages as LONG ptr) as HRESULT
+	Print as function(byval This as IPrint ptr, byval grfFlags as DWORD, byval pptd as DVTARGETDEVICE ptr ptr, byval ppPageSet as PAGESET ptr ptr, byval pstgmOptions as STGMEDIUM ptr, byval pcallback as IContinueCallback ptr, byval nFirstPage as LONG, byval pcPagesPrinted as LONG ptr, byval pnLastPage as LONG ptr) as HRESULT
 end type
 
 type IPrint_
 	lpVtbl as IPrintVtbl ptr
 end type
 
-declare function IPrint_SetInitialPageNum_Proxy(byval This as IPrint ptr, byval nFirstPage as LONG_) as HRESULT
+declare function IPrint_SetInitialPageNum_Proxy(byval This as IPrint ptr, byval nFirstPage as LONG) as HRESULT
 declare sub IPrint_SetInitialPageNum_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-declare function IPrint_GetPageInfo_Proxy(byval This as IPrint ptr, byval pnFirstPage as LONG_ ptr, byval pcPages as LONG_ ptr) as HRESULT
+declare function IPrint_GetPageInfo_Proxy(byval This as IPrint ptr, byval pnFirstPage as LONG ptr, byval pcPages as LONG ptr) as HRESULT
 declare sub IPrint_GetPageInfo_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-declare function IPrint_RemotePrint_Proxy(byval This as IPrint ptr, byval grfFlags as DWORD, byval pptd as DVTARGETDEVICE ptr ptr, byval pppageset as PAGESET ptr ptr, byval pstgmOptions as RemSTGMEDIUM ptr, byval pcallback as IContinueCallback ptr, byval nFirstPage as LONG_, byval pcPagesPrinted as LONG_ ptr, byval pnLastPage as LONG_ ptr) as HRESULT
+declare function IPrint_RemotePrint_Proxy(byval This as IPrint ptr, byval grfFlags as DWORD, byval pptd as DVTARGETDEVICE ptr ptr, byval pppageset as PAGESET ptr ptr, byval pstgmOptions as RemSTGMEDIUM ptr, byval pcallback as IContinueCallback ptr, byval nFirstPage as LONG, byval pcPagesPrinted as LONG ptr, byval pnLastPage as LONG ptr) as HRESULT
 declare sub IPrint_RemotePrint_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-declare function IPrint_Print_Proxy(byval This as IPrint ptr, byval grfFlags as DWORD, byval pptd as DVTARGETDEVICE ptr ptr, byval ppPageSet as PAGESET ptr ptr, byval pstgmOptions as STGMEDIUM ptr, byval pcallback as IContinueCallback ptr, byval nFirstPage as LONG_, byval pcPagesPrinted as LONG_ ptr, byval pnLastPage as LONG_ ptr) as HRESULT
-declare function IPrint_Print_Stub(byval This as IPrint ptr, byval grfFlags as DWORD, byval pptd as DVTARGETDEVICE ptr ptr, byval pppageset as PAGESET ptr ptr, byval pstgmOptions as RemSTGMEDIUM ptr, byval pcallback as IContinueCallback ptr, byval nFirstPage as LONG_, byval pcPagesPrinted as LONG_ ptr, byval pnLastPage as LONG_ ptr) as HRESULT
+declare function IPrint_Print_Proxy(byval This as IPrint ptr, byval grfFlags as DWORD, byval pptd as DVTARGETDEVICE ptr ptr, byval ppPageSet as PAGESET ptr ptr, byval pstgmOptions as STGMEDIUM ptr, byval pcallback as IContinueCallback ptr, byval nFirstPage as LONG, byval pcPagesPrinted as LONG ptr, byval pnLastPage as LONG ptr) as HRESULT
+declare function IPrint_Print_Stub(byval This as IPrint ptr, byval grfFlags as DWORD, byval pptd as DVTARGETDEVICE ptr ptr, byval pppageset as PAGESET ptr ptr, byval pstgmOptions as RemSTGMEDIUM ptr, byval pcallback as IContinueCallback ptr, byval nFirstPage as LONG, byval pcPagesPrinted as LONG ptr, byval pnLastPage as LONG ptr) as HRESULT
 
 #define _LPOLECOMMANDTARGET_DEFINED
 #define __IOleCommandTarget_INTERFACE_DEFINED__
@@ -287,7 +287,7 @@ enum
 end enum
 
 type _tagOLECMD
-	cmdID as ULONG_
+	cmdID as ULONG
 	cmdf as DWORD
 end type
 
@@ -295,8 +295,8 @@ type OLECMD as _tagOLECMD
 
 type _tagOLECMDTEXT
 	cmdtextf as DWORD
-	cwActual as ULONG_
-	cwBuf as ULONG_
+	cwActual as ULONG
+	cwBuf as ULONG
 	rgwz as wstring * 1
 end type
 
@@ -444,9 +444,9 @@ extern IID_IOleCommandTarget as const GUID
 
 type IOleCommandTargetVtbl
 	QueryInterface as function(byval This as IOleCommandTarget ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IOleCommandTarget ptr) as ULONG_
-	Release as function(byval This as IOleCommandTarget ptr) as ULONG_
-	QueryStatus as function(byval This as IOleCommandTarget ptr, byval pguidCmdGroup as const GUID ptr, byval cCmds as ULONG_, byval prgCmds as OLECMD ptr, byval pCmdText as OLECMDTEXT ptr) as HRESULT
+	AddRef as function(byval This as IOleCommandTarget ptr) as ULONG
+	Release as function(byval This as IOleCommandTarget ptr) as ULONG
+	QueryStatus as function(byval This as IOleCommandTarget ptr, byval pguidCmdGroup as const GUID ptr, byval cCmds as ULONG, byval prgCmds as OLECMD ptr, byval pCmdText as OLECMDTEXT ptr) as HRESULT
 	Exec as function(byval This as IOleCommandTarget ptr, byval pguidCmdGroup as const GUID ptr, byval nCmdID as DWORD, byval nCmdexecopt as DWORD, byval pvaIn as VARIANT ptr, byval pvaOut as VARIANT ptr) as HRESULT
 end type
 
@@ -454,7 +454,7 @@ type IOleCommandTarget_
 	lpVtbl as IOleCommandTargetVtbl ptr
 end type
 
-declare function IOleCommandTarget_QueryStatus_Proxy(byval This as IOleCommandTarget ptr, byval pguidCmdGroup as const GUID ptr, byval cCmds as ULONG_, byval prgCmds as OLECMD ptr, byval pCmdText as OLECMDTEXT ptr) as HRESULT
+declare function IOleCommandTarget_QueryStatus_Proxy(byval This as IOleCommandTarget ptr, byval pguidCmdGroup as const GUID ptr, byval cCmds as ULONG, byval prgCmds as OLECMD ptr, byval pCmdText as OLECMDTEXT ptr) as HRESULT
 declare sub IOleCommandTarget_QueryStatus_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IOleCommandTarget_Exec_Proxy(byval This as IOleCommandTarget ptr, byval pguidCmdGroup as const GUID ptr, byval nCmdID as DWORD, byval nCmdexecopt as DWORD, byval pvaIn as VARIANT ptr, byval pvaOut as VARIANT ptr) as HRESULT
 declare sub IOleCommandTarget_Exec_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
@@ -618,16 +618,16 @@ extern IID_IZoomEvents as const GUID
 
 type IZoomEventsVtbl
 	QueryInterface as function(byval This as IZoomEvents ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IZoomEvents ptr) as ULONG_
-	Release as function(byval This as IZoomEvents ptr) as ULONG_
-	OnZoomPercentChanged as function(byval This as IZoomEvents ptr, byval ulZoomPercent as ULONG_) as HRESULT
+	AddRef as function(byval This as IZoomEvents ptr) as ULONG
+	Release as function(byval This as IZoomEvents ptr) as ULONG
+	OnZoomPercentChanged as function(byval This as IZoomEvents ptr, byval ulZoomPercent as ULONG) as HRESULT
 end type
 
 type IZoomEvents_
 	lpVtbl as IZoomEventsVtbl ptr
 end type
 
-declare function IZoomEvents_OnZoomPercentChanged_Proxy(byval This as IZoomEvents ptr, byval ulZoomPercent as ULONG_) as HRESULT
+declare function IZoomEvents_OnZoomPercentChanged_Proxy(byval This as IZoomEvents ptr, byval ulZoomPercent as ULONG) as HRESULT
 declare sub IZoomEvents_OnZoomPercentChanged_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 
 #define __IProtectFocus_INTERFACE_DEFINED__
@@ -636,8 +636,8 @@ extern IID_IProtectFocus as const GUID
 
 type IProtectFocusVtbl
 	QueryInterface as function(byval This as IProtectFocus ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IProtectFocus ptr) as ULONG_
-	Release as function(byval This as IProtectFocus ptr) as ULONG_
+	AddRef as function(byval This as IProtectFocus ptr) as ULONG
+	Release as function(byval This as IProtectFocus ptr) as ULONG
 	AllowFocusChange as function(byval This as IProtectFocus ptr, byval pfAllow as WINBOOL ptr) as HRESULT
 end type
 
@@ -656,8 +656,8 @@ extern IID_IProtectedModeMenuServices as const GUID
 
 type IProtectedModeMenuServicesVtbl
 	QueryInterface as function(byval This as IProtectedModeMenuServices ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IProtectedModeMenuServices ptr) as ULONG_
-	Release as function(byval This as IProtectedModeMenuServices ptr) as ULONG_
+	AddRef as function(byval This as IProtectedModeMenuServices ptr) as ULONG
+	Release as function(byval This as IProtectedModeMenuServices ptr) as ULONG
 	CreateMenu as function(byval This as IProtectedModeMenuServices ptr, byval phMenu as HMENU ptr) as HRESULT
 
 	#ifdef UNICODE

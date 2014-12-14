@@ -200,14 +200,14 @@ type PEXPLICIT_ACCESSW as _EXPLICIT_ACCESS_W ptr
 #define ACCCTRL_DEFAULT_PROVIDERW wstr("Windows NT Access Provider")
 #define ACCCTRL_DEFAULT_PROVIDER __MINGW_NAME_AW(ACCCTRL_DEFAULT_PROVIDER)
 
-type ACCESS_RIGHTS as ULONG_
-type PACCESS_RIGHTS as ULONG_ ptr
-type INHERIT_FLAGS as ULONG_
-type PINHERIT_FLAGS as ULONG_ ptr
+type ACCESS_RIGHTS as ULONG
+type PACCESS_RIGHTS as ULONG ptr
+type INHERIT_FLAGS as ULONG
+type PINHERIT_FLAGS as ULONG ptr
 
 type _ACTRL_ACCESS_ENTRYA
 	Trustee as TRUSTEE_A
-	fAccessFlags as ULONG_
+	fAccessFlags as ULONG
 	Access as ACCESS_RIGHTS
 	ProvSpecificAccess as ACCESS_RIGHTS
 	Inheritance as INHERIT_FLAGS
@@ -219,7 +219,7 @@ type PACTRL_ACCESS_ENTRYA as _ACTRL_ACCESS_ENTRYA ptr
 
 type _ACTRL_ACCESS_ENTRYW
 	Trustee as TRUSTEE_W
-	fAccessFlags as ULONG_
+	fAccessFlags as ULONG
 	Access as ACCESS_RIGHTS
 	ProvSpecificAccess as ACCESS_RIGHTS
 	Inheritance as INHERIT_FLAGS
@@ -238,7 +238,7 @@ type PACTRL_ACCESS_ENTRYW as _ACTRL_ACCESS_ENTRYW ptr
 #endif
 
 type _ACTRL_ACCESS_ENTRY_LISTA
-	cEntries as ULONG_
+	cEntries as ULONG
 	pAccessList as ACTRL_ACCESS_ENTRYA ptr
 end type
 
@@ -246,7 +246,7 @@ type ACTRL_ACCESS_ENTRY_LISTA as _ACTRL_ACCESS_ENTRY_LISTA
 type PACTRL_ACCESS_ENTRY_LISTA as _ACTRL_ACCESS_ENTRY_LISTA ptr
 
 type _ACTRL_ACCESS_ENTRY_LISTW
-	cEntries as ULONG_
+	cEntries as ULONG
 	pAccessList as ACTRL_ACCESS_ENTRYW ptr
 end type
 
@@ -264,7 +264,7 @@ type PACTRL_ACCESS_ENTRY_LISTW as _ACTRL_ACCESS_ENTRY_LISTW ptr
 type _ACTRL_PROPERTY_ENTRYA
 	lpProperty as LPSTR
 	pAccessEntryList as PACTRL_ACCESS_ENTRY_LISTA
-	fListFlags as ULONG_
+	fListFlags as ULONG
 end type
 
 type ACTRL_PROPERTY_ENTRYA as _ACTRL_PROPERTY_ENTRYA
@@ -273,7 +273,7 @@ type PACTRL_PROPERTY_ENTRYA as _ACTRL_PROPERTY_ENTRYA ptr
 type _ACTRL_PROPERTY_ENTRYW
 	lpProperty as LPWSTR
 	pAccessEntryList as PACTRL_ACCESS_ENTRY_LISTW
-	fListFlags as ULONG_
+	fListFlags as ULONG
 end type
 
 type ACTRL_PROPERTY_ENTRYW as _ACTRL_PROPERTY_ENTRYW
@@ -288,7 +288,7 @@ type PACTRL_PROPERTY_ENTRYW as _ACTRL_PROPERTY_ENTRYW ptr
 #endif
 
 type _ACTRL_ALISTA
-	cEntries as ULONG_
+	cEntries as ULONG
 	pPropertyAccessList as PACTRL_PROPERTY_ENTRYA
 end type
 
@@ -298,7 +298,7 @@ type ACTRL_AUDITA as _ACTRL_ALISTA
 type PACTRL_AUDITA as _ACTRL_ALISTA ptr
 
 type _ACTRL_ALISTW
-	cEntries as ULONG_
+	cEntries as ULONG
 	pPropertyAccessList as PACTRL_PROPERTY_ENTRYW
 end type
 
@@ -329,8 +329,8 @@ type PACTRL_AUDITW as _ACTRL_ALISTW ptr
 type _TRUSTEE_ACCESSA
 	lpProperty as LPSTR
 	Access as ACCESS_RIGHTS
-	fAccessFlags as ULONG_
-	fReturnedAccess as ULONG_
+	fAccessFlags as ULONG
+	fReturnedAccess as ULONG
 end type
 
 type TRUSTEE_ACCESSA as _TRUSTEE_ACCESSA
@@ -339,8 +339,8 @@ type PTRUSTEE_ACCESSA as _TRUSTEE_ACCESSA ptr
 type _TRUSTEE_ACCESSW
 	lpProperty as LPWSTR
 	Access as ACCESS_RIGHTS
-	fAccessFlags as ULONG_
-	fReturnedAccess as ULONG_
+	fAccessFlags as ULONG
+	fReturnedAccess as ULONG
 end type
 
 type TRUSTEE_ACCESSW as _TRUSTEE_ACCESSW
@@ -462,10 +462,10 @@ type PTRUSTEE_ACCESSW as _TRUSTEE_ACCESSW ptr
 type _ACTRL_OVERLAPPED
 	union
 		Provider as PVOID
-		Reserved1 as ULONG_
+		Reserved1 as ULONG
 	end union
 
-	Reserved2 as ULONG_
+	Reserved2 as ULONG
 	hEvent as HANDLE
 end type
 
@@ -473,7 +473,7 @@ type ACTRL_OVERLAPPED as _ACTRL_OVERLAPPED
 type PACTRL_OVERLAPPED as _ACTRL_OVERLAPPED ptr
 
 type _ACTRL_ACCESS_INFOA
-	fAccessPermission as ULONG_
+	fAccessPermission as ULONG
 	lpAccessPermissionName as LPSTR
 end type
 
@@ -481,7 +481,7 @@ type ACTRL_ACCESS_INFOA as _ACTRL_ACCESS_INFOA
 type PACTRL_ACCESS_INFOA as _ACTRL_ACCESS_INFOA ptr
 
 type _ACTRL_ACCESS_INFOW
-	fAccessPermission as ULONG_
+	fAccessPermission as ULONG
 	lpAccessPermissionName as LPWSTR
 end type
 
@@ -536,14 +536,14 @@ type PROG_INVOKE_SETTING as _PROGRESS_INVOKE_SETTING
 type PPROG_INVOKE_SETTING as _PROGRESS_INVOKE_SETTING ptr
 
 type _FN_OBJECT_MGR_FUNCTIONS
-	Placeholder as ULONG_
+	Placeholder as ULONG
 end type
 
 type FN_OBJECT_MGR_FUNCTS as _FN_OBJECT_MGR_FUNCTIONS
 type PFN_OBJECT_MGR_FUNCTS as _FN_OBJECT_MGR_FUNCTIONS ptr
 
 type _INHERITED_FROMA
-	GenerationGap as LONG_
+	GenerationGap as LONG
 	AncestorName as LPSTR
 end type
 
@@ -551,7 +551,7 @@ type INHERITED_FROMA as _INHERITED_FROMA
 type PINHERITED_FROMA as _INHERITED_FROMA ptr
 
 type _INHERITED_FROMW
-	GenerationGap as LONG_
+	GenerationGap as LONG
 	AncestorName as LPWSTR
 end type
 

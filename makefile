@@ -351,6 +351,19 @@ WINAPI_FLAGS += -incdir extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/i
 WINAPI_FLAGS += -filterout '*'
 WINAPI_FLAGS += -filterin '*pshpack*.h'
 WINAPI_FLAGS += -filterin '*poppack.h'
+WINAPI_FLAGS += -clong32
+WINAPI_FLAGS += -typedefhint __LONG32
+WINAPI_FLAGS += -nofbkeyword byte
+WINAPI_FLAGS += -nofbkeyword ubyte
+WINAPI_FLAGS += -nofbkeyword short
+WINAPI_FLAGS += -nofbkeyword ushort
+WINAPI_FLAGS += -nofbkeyword long
+WINAPI_FLAGS += -nofbkeyword ulong
+WINAPI_FLAGS += -nofbkeyword double
+WINAPI_FLAGS += -nofbkeyword lobyte
+WINAPI_FLAGS += -nofbkeyword hibyte
+WINAPI_FLAGS += -nofbkeyword loword
+WINAPI_FLAGS += -nofbkeyword hiword
 
 # winapi.mk lists all the headers we want to translate
 include winapi.mk

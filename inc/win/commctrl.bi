@@ -79,10 +79,8 @@ type LPCOLORSCHEME as tagCOLORSCHEME ptr
 #define CCM_SETWINDOWTHEME (CCM_FIRST + &hb)
 #define CCM_DPISCALE (CCM_FIRST + &hc)
 #define INFOTIPSIZE 1024
-
-'' TODO: #define HANDLE_WM_NOTIFY(hwnd,wParam,lParam,fn) (fn)((hwnd),(int)(wParam),(NMHDR *)(lParam))
-'' TODO: #define FORWARD_WM_NOTIFY(hwnd,idFrom,pnmhdr,fn) (LRESULT)(fn)((hwnd),WM_NOTIFY,(WPARAM)(int)(idFrom),(LPARAM)(NMHDR *)(pnmhdr))
-
+#define HANDLE_WM_NOTIFY(hwnd, wParam, lParam, fn) '' TODO: (fn)((hwnd),(int)(wParam),(NMHDR *)(lParam))
+#define FORWARD_WM_NOTIFY(hwnd, idFrom, pnmhdr, fn) '' TODO: (LRESULT)(fn)((hwnd),WM_NOTIFY,(WPARAM)(int)(idFrom),(LPARAM)(NMHDR *)(pnmhdr))
 #define NM_OUTOFMEMORY (NM_FIRST - 1)
 #define NM_CLICK (NM_FIRST - 2)
 #define NM_DBLCLK (NM_FIRST - 3)
@@ -657,13 +655,13 @@ type LPNMHDFILTERBTNCLICK as tagNMHDFILTERBTNCLICK ptr
 type _TBBUTTON
 	iBitmap as long
 	idCommand as long
-	fsState as BYTE_
-	fsStyle as BYTE_
+	fsState as BYTE
+	fsStyle as BYTE
 
 	#ifdef __FB_64BIT__
-		bReserved(0 to 5) as BYTE_
+		bReserved(0 to 5) as BYTE
 	#else
-		bReserved(0 to 1) as BYTE_
+		bReserved(0 to 1) as BYTE
 	#endif
 
 	dwData as DWORD_PTR
@@ -943,8 +941,8 @@ type TBBUTTONINFOA
 	dwMask as DWORD
 	idCommand as long
 	iImage as long
-	fsState as BYTE_
-	fsStyle as BYTE_
+	fsState as BYTE
+	fsStyle as BYTE
 	cx as WORD
 	lParam as DWORD_PTR
 	pszText as LPSTR
@@ -958,8 +956,8 @@ type TBBUTTONINFOW
 	dwMask as DWORD
 	idCommand as long
 	iImage as long
-	fsState as BYTE_
-	fsStyle as BYTE_
+	fsState as BYTE
+	fsStyle as BYTE
 	cx as WORD
 	lParam as DWORD_PTR
 	pszText as LPWSTR
@@ -1648,8 +1646,8 @@ type LPNMTTDISPINFOW as tagNMTTDISPINFOW ptr
 
 declare sub DrawStatusTextA(byval hDC as HDC, byval lprc as LPCRECT, byval pszText as LPCSTR, byval uFlags as UINT)
 declare sub DrawStatusTextW(byval hDC as HDC, byval lprc as LPCRECT, byval pszText as LPCWSTR, byval uFlags as UINT)
-declare function CreateStatusWindowA(byval style as LONG_, byval lpszText as LPCSTR, byval hwndParent as HWND, byval wID as UINT) as HWND
-declare function CreateStatusWindowW(byval style as LONG_, byval lpszText as LPCWSTR, byval hwndParent as HWND, byval wID as UINT) as HWND
+declare function CreateStatusWindowA(byval style as LONG, byval lpszText as LPCSTR, byval hwndParent as HWND, byval wID as UINT) as HWND
+declare function CreateStatusWindowW(byval style as LONG, byval lpszText as LPCWSTR, byval hwndParent as HWND, byval wID as UINT) as HWND
 
 #define CreateStatusWindow __MINGW_NAME_AW(CreateStatusWindow)
 #define DrawStatusText __MINGW_NAME_AW(DrawStatusText)
@@ -1783,7 +1781,7 @@ type LPDRAGLISTINFO as tagDRAGLISTINFO ptr
 #define DL_STOPCURSOR 1
 #define DL_COPYCURSOR 2
 #define DL_MOVECURSOR 3
-#define DRAGLISTMSGSTRING TEXT_("commctrl_DragListMsg")
+#define DRAGLISTMSGSTRING TEXT("commctrl_DragListMsg")
 
 declare function MakeDragList(byval hLB as HWND) as WINBOOL
 declare sub DrawInsert(byval handParent as HWND, byval hLB as HWND, byval nItem as long)
@@ -2085,9 +2083,7 @@ type LPFINDINFOW as tagLVFINDINFOW ptr
 #define LVIR_LABEL 2
 #define LVIR_SELECTBOUNDS 3
 #define LVM_GETITEMRECT (LVM_FIRST + 14)
-
-'' TODO: #define ListView_GetItemRect(hwnd,i,prc,code) (WINBOOL)SNDMSG((hwnd),LVM_GETITEMRECT,(WPARAM)(int)(i),((prc) ? (((RECT *)(prc))->left = (code),(LPARAM)(RECT *)(prc)) : (LPARAM)(RECT *)NULL))
-
+#define ListView_GetItemRect(hwnd, i, prc, code) '' TODO: (WINBOOL)SNDMSG((hwnd),LVM_GETITEMRECT,(WPARAM)(int)(i),((prc) ? (((RECT *)(prc))->left = (code),(LPARAM)(RECT *)(prc)) : (LPARAM)(RECT *)NULL))
 #define LVM_SETITEMPOSITION (LVM_FIRST + 15)
 #define ListView_SetItemPosition(hwndLV, i, x, y) cast(WINBOOL, SNDMSG((hwndLV), LVM_SETITEMPOSITION, cast(WPARAM, clng((i))), MAKELPARAM((x), (y))))
 #define LVM_GETITEMPOSITION (LVM_FIRST + 16)
@@ -2334,9 +2330,7 @@ type PFNLVCOMPARE as function(byval as LPARAM, byval as LPARAM, byval as LPARAM)
 #define LVS_EX_SNAPTOGRID &h80000
 #define LVS_EX_SIMPLESELECT &h100000
 #define LVM_GETSUBITEMRECT (LVM_FIRST + 56)
-
-'' TODO: #define ListView_GetSubItemRect(hwnd,iItem,iSubItem,code,prc) (WINBOOL)SNDMSG((hwnd),LVM_GETSUBITEMRECT,(WPARAM)(int)(iItem),((prc) ? ((((LPRECT)(prc))->top = iSubItem),(((LPRECT)(prc))->left = code),(LPARAM)(prc)) : (LPARAM)(LPRECT)NULL))
-
+#define ListView_GetSubItemRect(hwnd, iItem, iSubItem, code, prc) '' TODO: (WINBOOL)SNDMSG((hwnd),LVM_GETSUBITEMRECT,(WPARAM)(int)(iItem),((prc) ? ((((LPRECT)(prc))->top = iSubItem),(((LPRECT)(prc))->left = code),(LPARAM)(prc)) : (LPARAM)(LPRECT)NULL))
 #define LVM_SUBITEMHITTEST (LVM_FIRST + 57)
 #define ListView_SubItemHitTest(hwnd, plvhti) clng(SNDMSG((hwnd), LVM_SUBITEMHITTEST, 0, cast(LPARAM, cast(LPLVHITTESTINFO, (plvhti)))))
 #define LVM_SETCOLUMNORDERARRAY (LVM_FIRST + 58)
@@ -2376,7 +2370,7 @@ type PFNLVCOMPARE as function(byval as LPARAM, byval as LPARAM, byval as LPARAM)
 #define ListView_SortItemsEx(hwndLV, _pfnCompare, _lPrm) cast(WINBOOL, SNDMSG((hwndLV), LVM_SORTITEMSEX, cast(WPARAM, cast(LPARAM, (_lPrm))), cast(LPARAM, cast(PFNLVCOMPARE, (_pfnCompare)))))
 
 type tagLVBKIMAGEA
-	ulFlags as ULONG_
+	ulFlags as ULONG
 	hbm as HBITMAP
 	pszImage as LPSTR
 	cchImageMax as UINT
@@ -2388,7 +2382,7 @@ type LVBKIMAGEA as tagLVBKIMAGEA
 type LPLVBKIMAGEA as tagLVBKIMAGEA ptr
 
 type tagLVBKIMAGEW
-	ulFlags as ULONG_
+	ulFlags as ULONG
 	hbm as HBITMAP
 	pszImage as LPWSTR
 	cchImageMax as UINT
@@ -2604,9 +2598,7 @@ type PLVSETINFOTIP as tagLVSETINFOTIP ptr
 #define LVM_SETOUTLINECOLOR (LVM_FIRST + 177)
 #define ListView_SetOutlineColor(hwnd, color) cast(COLORREF, SNDMSG((hwnd), LVM_SETOUTLINECOLOR, cast(WPARAM, 0), cast(LPARAM, cast(COLORREF, (color)))))
 #define LVM_CANCELEDITLABEL (LVM_FIRST + 179)
-
-'' TODO: #define ListView_CancelEditLabel(hwnd) (VOID)SNDMSG((hwnd),LVM_CANCELEDITLABEL,(WPARAM)0,(LPARAM)0)
-
+#define ListView_CancelEditLabel(hwnd) '' TODO: (VOID)SNDMSG((hwnd),LVM_CANCELEDITLABEL,(WPARAM)0,(LPARAM)0)
 #define LVM_MAPINDEXTOID (LVM_FIRST + 180)
 #define ListView_MapIndexToID(hwnd, index) cast(UINT, SNDMSG((hwnd), LVM_MAPINDEXTOID, cast(WPARAM, index), cast(LPARAM, 0)))
 #define LVM_MAPIDTOINDEX (LVM_FIRST + 181)
@@ -3012,9 +3004,7 @@ type LPTVINSERTSTRUCTW as tagTVINSERTSTRUCTW ptr
 #define TVM_INSERTITEMA (TV_FIRST + 0)
 #define TVM_INSERTITEMW (TV_FIRST + 50)
 #define TVM_INSERTITEM __MINGW_NAME_AW(TVM_INSERTITEM)
-
-'' TODO: #define TreeView_InsertItem(hwnd,lpis) (HTREEITEM)SNDMSG((hwnd),TVM_INSERTITEM,0,(LPARAM)(LPTV_INSERTSTRUCT)(lpis))
-
+#define TreeView_InsertItem(hwnd, lpis) '' TODO: (HTREEITEM)SNDMSG((hwnd),TVM_INSERTITEM,0,(LPARAM)(LPTV_INSERTSTRUCT)(lpis))
 #define TVM_DELETEITEM (TV_FIRST + 1)
 #define TreeView_DeleteItem(hwnd, hitem) cast(WINBOOL, SNDMSG((hwnd), TVM_DELETEITEM, 0, cast(LPARAM, cast(HTREEITEM, (hitem)))))
 #define TreeView_DeleteAllItems(hwnd) cast(WINBOOL, SNDMSG((hwnd), TVM_DELETEITEM, 0, cast(LPARAM, TVI_ROOT)))
@@ -3026,9 +3016,7 @@ type LPTVINSERTSTRUCTW as tagTVINSERTSTRUCTW ptr
 #define TVE_EXPANDPARTIAL &h4000
 #define TVE_COLLAPSERESET &h8000
 #define TVM_GETITEMRECT (TV_FIRST + 4)
-
-'' TODO: #define TreeView_GetItemRect(hwnd,hitem,prc,code) (*(HTREEITEM *)prc = (hitem),(WINBOOL)SNDMSG((hwnd),TVM_GETITEMRECT,(WPARAM)(code),(LPARAM)(RECT *)(prc)))
-
+#define TreeView_GetItemRect(hwnd, hitem, prc, code) '' TODO: (*(HTREEITEM *)prc = (hitem),(WINBOOL)SNDMSG((hwnd),TVM_GETITEMRECT,(WPARAM)(code),(LPARAM)(RECT *)(prc)))
 #define TVM_GETCOUNT (TV_FIRST + 5)
 #define TreeView_GetCount(hwnd) cast(UINT, SNDMSG((hwnd), TVM_GETCOUNT, 0, 0))
 #define TVM_GETINDENT (TV_FIRST + 6)
@@ -3088,9 +3076,7 @@ type LPTVINSERTSTRUCTW as tagTVINSERTSTRUCTW ptr
 #define TVM_GETVISIBLECOUNT (TV_FIRST + 16)
 #define TreeView_GetVisibleCount(hwnd) cast(UINT, SNDMSG((hwnd), TVM_GETVISIBLECOUNT, 0, 0))
 #define TVM_HITTEST (TV_FIRST + 17)
-
-'' TODO: #define TreeView_HitTest(hwnd,lpht) (HTREEITEM)SNDMSG((hwnd),TVM_HITTEST,0,(LPARAM)(LPTV_HITTESTINFO)(lpht))
-
+#define TreeView_HitTest(hwnd, lpht) '' TODO: (HTREEITEM)SNDMSG((hwnd),TVM_HITTEST,0,(LPARAM)(LPTV_HITTESTINFO)(lpht))
 #define LPTV_HITTESTINFO LPTVHITTESTINFO
 #define TV_HITTESTINFO TVHITTESTINFO
 
@@ -3122,9 +3108,7 @@ type LPTVHITTESTINFO as tagTVHITTESTINFO ptr
 #define TVM_ENSUREVISIBLE (TV_FIRST + 20)
 #define TreeView_EnsureVisible(hwnd, hitem) cast(WINBOOL, SNDMSG((hwnd), TVM_ENSUREVISIBLE, 0, cast(LPARAM, cast(HTREEITEM, (hitem)))))
 #define TVM_SORTCHILDRENCB (TV_FIRST + 21)
-
-'' TODO: #define TreeView_SortChildrenCB(hwnd,psort,recurse) (WINBOOL)SNDMSG((hwnd),TVM_SORTCHILDRENCB,(WPARAM)(recurse),(LPARAM)(LPTV_SORTCB)(psort))
-
+#define TreeView_SortChildrenCB(hwnd, psort, recurse) '' TODO: (WINBOOL)SNDMSG((hwnd),TVM_SORTCHILDRENCB,(WPARAM)(recurse),(LPARAM)(LPTV_SORTCB)(psort))
 #define TVM_ENDEDITLABELNOW (TV_FIRST + 22)
 #define TreeView_EndEditLabelNow(hwnd, fCancel) cast(WINBOOL, SNDMSG((hwnd), TVM_ENDEDITLABELNOW, cast(WPARAM, (fCancel)), 0))
 #define TVM_GETISEARCHSTRINGA (TV_FIRST + 23)
@@ -4031,7 +4015,7 @@ end type
 type NMIPADDRESS as tagNMIPADDRESS
 type LPNMIPADDRESS as tagNMIPADDRESS ptr
 
-#define MAKEIPRANGE(low, high) cast(LPARAM, cast(WORD, cast(BYTE_, (high) shl 8) + cast(BYTE_, (low))))
+#define MAKEIPRANGE(low, high) cast(LPARAM, cast(WORD, cast(BYTE, (high) shl 8) + cast(BYTE, (low))))
 #define MAKEIPADDRESS(b1, b2, b3, b4) cast(LPARAM, ((cast(DWORD, (b1) shl 24) + cast(DWORD, (b2) shl 16)) + cast(DWORD, (b3) shl 8)) + cast(DWORD, (b4)))
 #define FIRST_IPADDRESS(x) ((x shr 24) and &hff)
 #define SECOND_IPADDRESS(x) ((x shr 16) and &hff)
@@ -4352,14 +4336,10 @@ declare function DPA_Grow(byval pdpa as HDPA, byval cp as long) as WINBOOL
 declare function DPA_GetPtrIndex(byval hdpa as HDPA, byval p as const any ptr) as long
 
 #define DPA_GetPtrCount(hdpa) (*cptr(long ptr, (hdpa)))
-
-'' TODO: #define DPA_SetPtrCount(hdpa, cItems) (*(int *)(hdpa) = (cItems))
-
-#define DPA_GetPtrPtr(hdpa) (*cptr(any ptr ptr ptr, cptr(BYTE_ ptr, (hdpa) + sizeof(any ptr))))
+#define DPA_SetPtrCount(hdpa, cItems) '' TODO: (*(int *)(hdpa) = (cItems))
+#define DPA_GetPtrPtr(hdpa) (*cptr(any ptr ptr ptr, cptr(BYTE ptr, (hdpa) + sizeof(any ptr))))
 #define DPA_AppendPtr(hdpa, pitem) DPA_InsertPtr(hdpa, DA_LAST, pitem)
-
-'' TODO: #define DPA_FastDeleteLastPtr(hdpa) (--*(int *)(hdpa))
-
+#define DPA_FastDeleteLastPtr(hdpa) '' TODO: (--*(int *)(hdpa))
 #define DPA_FastGetPtr(hdpa, i) DPA_GetPtrPtr(hdpa)[i]
 #define DPAM_SORTED 1
 #define DPAM_NORMAL 2

@@ -1,11 +1,7 @@
 #pragma once
 
-#include once "crt/long.bi"
 #include once "_mingw_unicode.bi"
 #include once "ntsecapi.bi"
-
-'' The following symbols have been renamed:
-''     enum constant Unlock => Unlock_
 
 #ifdef __FB_64BIT__
 	extern "C"
@@ -16,17 +12,13 @@
 #define __SSPI_H__
 #define ISSP_LEVEL 32
 #define ISSP_MODE 1
-#define KSECDDDECLSPEC __declspec(dllimport)
 
 type SEC_WCHAR as WCHAR
 type SEC_CHAR as CHAR
-type SECURITY_STATUS as LONG_
+type SECURITY_STATUS as LONG
 
 #define __SECSTATUS_DEFINED__
-#define SEC_TEXT TEXT_
-#define SEC_FAR
-#define __SEC_FAR
-#define SEC_ENTRY WINAPI
+#define SEC_TEXT TEXT
 
 #ifdef UNICODE
 	type SECURITY_PSTR as SEC_WCHAR ptr
@@ -36,8 +28,7 @@ type SECURITY_STATUS as LONG_
 	type SECURITY_PCSTR as const SEC_CHAR ptr
 #endif
 
-'' TODO: #define SecInvalidateHandle(x) ((PSecHandle) x)->dwLower = ((ULONG_PTR) ((INT_PTR)-1)); ((PSecHandle) x)->dwUpper = ((ULONG_PTR) ((INT_PTR)-1));
-
+#define SecInvalidateHandle(x) '' TODO: ((PSecHandle) x)->dwLower = ((ULONG_PTR) ((INT_PTR)-1)); ((PSecHandle) x)->dwUpper = ((ULONG_PTR) ((INT_PTR)-1));
 #define SecIsValidHandle(x) ((cast(PSecHandle, x)->dwLower <> cast(ULONG_PTR, cast(INT_PTR, -1))) andalso (cast(PSecHandle, x)->dwUpper <> cast(ULONG_PTR, cast(INT_PTR, -1))))
 
 type CredHandle as SecHandle
@@ -60,10 +51,10 @@ type SECURITY_STRING as _SECURITY_STRING
 type PSECURITY_STRING as _SECURITY_STRING ptr
 
 type _SecPkgInfoW
-	fCapabilities as culong
+	fCapabilities as ulong
 	wVersion as ushort
 	wRPCID as ushort
-	cbMaxToken as culong
+	cbMaxToken as ulong
 	Name as SEC_WCHAR ptr
 	Comment as SEC_WCHAR ptr
 end type
@@ -72,10 +63,10 @@ type SecPkgInfoW as _SecPkgInfoW
 type PSecPkgInfoW as _SecPkgInfoW ptr
 
 type _SecPkgInfoA
-	fCapabilities as culong
+	fCapabilities as ulong
 	wVersion as ushort
 	wRPCID as ushort
-	cbMaxToken as culong
+	cbMaxToken as ulong
 	Name as SEC_CHAR ptr
 	Comment as SEC_CHAR ptr
 end type
@@ -107,8 +98,8 @@ type PSecPkgInfoA as _SecPkgInfoA ptr
 #define SECPKG_ID_NONE &hFFFF
 
 type _SecBuffer
-	cbBuffer as culong
-	BufferType as culong
+	cbBuffer as ulong
+	BufferType as ulong
 	pvBuffer as any ptr
 end type
 
@@ -116,8 +107,8 @@ type SecBuffer as _SecBuffer
 type PSecBuffer as _SecBuffer ptr
 
 type _SecBufferDesc
-	ulVersion as culong
-	cBuffers as culong
+	ulVersion as ulong
+	cBuffers as ulong
 	pBuffers as PSecBuffer
 end type
 
@@ -146,8 +137,8 @@ type PSecBufferDesc as _SecBufferDesc ptr
 #define SECBUFFER_RESERVED &h60000000
 
 type _SEC_NEGOTIATION_INFO
-	Size as culong
-	NameLength as culong
+	Size as ulong
+	NameLength as ulong
 	Name as SEC_WCHAR ptr
 	Reserved as any ptr
 end type
@@ -156,14 +147,14 @@ type SEC_NEGOTIATION_INFO as _SEC_NEGOTIATION_INFO
 type PSEC_NEGOTIATION_INFO as _SEC_NEGOTIATION_INFO ptr
 
 type _SEC_CHANNEL_BINDINGS
-	dwInitiatorAddrType as culong
-	cbInitiatorLength as culong
-	dwInitiatorOffset as culong
-	dwAcceptorAddrType as culong
-	cbAcceptorLength as culong
-	dwAcceptorOffset as culong
-	cbApplicationDataLength as culong
-	dwApplicationDataOffset as culong
+	dwInitiatorAddrType as ulong
+	cbInitiatorLength as ulong
+	dwInitiatorOffset as ulong
+	dwAcceptorAddrType as ulong
+	cbAcceptorLength as ulong
+	dwAcceptorOffset as ulong
+	cbApplicationDataLength as ulong
+	dwApplicationDataOffset as ulong
 end type
 
 type SEC_CHANNEL_BINDINGS as _SEC_CHANNEL_BINDINGS
@@ -286,7 +277,7 @@ type PSecPkgCredentials_NamesA as _SecPkgCredentials_NamesA ptr
 
 type _SecPkgCredentials_SSIProviderW
 	sProviderName as SEC_WCHAR ptr
-	ProviderInfoLength as culong
+	ProviderInfoLength as ulong
 	ProviderInfo as zstring ptr
 end type
 
@@ -295,7 +286,7 @@ type PSecPkgCredentials_SSIProviderW as _SecPkgCredentials_SSIProviderW ptr
 
 type _SecPkgCredentials_SSIProviderA
 	sProviderName as SEC_CHAR ptr
-	ProviderInfoLength as culong
+	ProviderInfoLength as ulong
 	ProviderInfo as zstring ptr
 end type
 
@@ -328,21 +319,21 @@ type PSecPkgCredentials_SSIProviderA as _SecPkgCredentials_SSIProviderA ptr
 #define SECPKG_ATTR_LOGOFF_TIME 21
 
 type _SecPkgContext_Sizes
-	cbMaxToken as culong
-	cbMaxSignature as culong
-	cbBlockSize as culong
-	cbSecurityTrailer as culong
+	cbMaxToken as ulong
+	cbMaxSignature as ulong
+	cbBlockSize as ulong
+	cbSecurityTrailer as ulong
 end type
 
 type SecPkgContext_Sizes as _SecPkgContext_Sizes
 type PSecPkgContext_Sizes as _SecPkgContext_Sizes ptr
 
 type _SecPkgContext_StreamSizes
-	cbHeader as culong
-	cbTrailer as culong
-	cbMaximumMessage as culong
-	cBuffers as culong
-	cbBlockSize as culong
+	cbHeader as ulong
+	cbTrailer as ulong
+	cbMaximumMessage as ulong
+	cBuffers as ulong
+	cbBlockSize as ulong
 end type
 
 type SecPkgContext_StreamSizes as _SecPkgContext_StreamSizes
@@ -374,7 +365,7 @@ type SecPkgContext_Lifespan as _SecPkgContext_Lifespan
 type PSecPkgContext_Lifespan as _SecPkgContext_Lifespan ptr
 
 type _SecPkgContext_DceInfo
-	AuthzSvc as culong
+	AuthzSvc as ulong
 	pPac as any ptr
 end type
 
@@ -384,9 +375,9 @@ type PSecPkgContext_DceInfo as _SecPkgContext_DceInfo ptr
 type _SecPkgContext_KeyInfoA
 	sSignatureAlgorithmName as SEC_CHAR ptr
 	sEncryptAlgorithmName as SEC_CHAR ptr
-	KeySize as culong
-	SignatureAlgorithm as culong
-	EncryptAlgorithm as culong
+	KeySize as ulong
+	SignatureAlgorithm as ulong
+	EncryptAlgorithm as ulong
 end type
 
 type SecPkgContext_KeyInfoA as _SecPkgContext_KeyInfoA
@@ -395,9 +386,9 @@ type PSecPkgContext_KeyInfoA as _SecPkgContext_KeyInfoA ptr
 type _SecPkgContext_KeyInfoW
 	sSignatureAlgorithmName as SEC_WCHAR ptr
 	sEncryptAlgorithmName as SEC_WCHAR ptr
-	KeySize as culong
-	SignatureAlgorithm as culong
-	EncryptAlgorithm as culong
+	KeySize as ulong
+	SignatureAlgorithm as ulong
+	EncryptAlgorithm as ulong
 end type
 
 type SecPkgContext_KeyInfoW as _SecPkgContext_KeyInfoW
@@ -425,8 +416,8 @@ type PSecPkgContext_AuthorityW as _SecPkgContext_AuthorityW ptr
 
 type _SecPkgContext_ProtoInfoA
 	sProtocolName as SEC_CHAR ptr
-	majorVersion as culong
-	minorVersion as culong
+	majorVersion as ulong
+	minorVersion as ulong
 end type
 
 type SecPkgContext_ProtoInfoA as _SecPkgContext_ProtoInfoA
@@ -434,8 +425,8 @@ type PSecPkgContext_ProtoInfoA as _SecPkgContext_ProtoInfoA ptr
 
 type _SecPkgContext_ProtoInfoW
 	sProtocolName as SEC_WCHAR ptr
-	majorVersion as culong
-	minorVersion as culong
+	majorVersion as ulong
+	minorVersion as ulong
 end type
 
 type SecPkgContext_ProtoInfoW as _SecPkgContext_ProtoInfoW
@@ -459,7 +450,7 @@ type SecPkgContext_LogoffTime as _SecPkgContext_LogoffTime
 type PSecPkgContext_LogoffTime as _SecPkgContext_LogoffTime ptr
 
 type _SecPkgContext_SessionKey
-	SessionKeyLength as culong
+	SessionKeyLength as ulong
 	SessionKey as ubyte ptr
 end type
 
@@ -481,14 +472,14 @@ type SecPkgContext_PackageInfoA as _SecPkgContext_PackageInfoA
 type PSecPkgContext_PackageInfoA as _SecPkgContext_PackageInfoA ptr
 
 type _SecPkgContext_UserFlags
-	UserFlags as culong
+	UserFlags as ulong
 end type
 
 type SecPkgContext_UserFlags as _SecPkgContext_UserFlags
 type PSecPkgContext_UserFlags as _SecPkgContext_UserFlags ptr
 
 type _SecPkgContext_Flags
-	Flags as culong
+	Flags as ulong
 end type
 
 type SecPkgContext_Flags as _SecPkgContext_Flags
@@ -499,7 +490,7 @@ type PSecPkgContext_Flags as _SecPkgContext_Flags ptr
 
 type _SecPkgContext_NegotiationInfoA
 	PackageInfo as PSecPkgInfoA
-	NegotiationState as culong
+	NegotiationState as ulong
 end type
 
 type SecPkgContext_NegotiationInfoA as _SecPkgContext_NegotiationInfoA
@@ -507,7 +498,7 @@ type PSecPkgContext_NegotiationInfoA as _SecPkgContext_NegotiationInfoA ptr
 
 type _SecPkgContext_NegotiationInfoW
 	PackageInfo as PSecPkgInfoW
-	NegotiationState as culong
+	NegotiationState as ulong
 end type
 
 type SecPkgContext_NegotiationInfoW as _SecPkgContext_NegotiationInfoW
@@ -541,7 +532,7 @@ type PSecPkgContext_NativeNamesA as _SecPkgContext_NativeNamesA ptr
 #define PSecPkgContext_NativeNames __MINGW_NAME_AW(PSecPkgContext_NativeNames)
 
 type _SecPkgContext_CredentialNameW
-	CredentialType as culong
+	CredentialType as ulong
 	sCredentialName as SEC_WCHAR ptr
 end type
 
@@ -549,7 +540,7 @@ type SecPkgContext_CredentialNameW as _SecPkgContext_CredentialNameW
 type PSecPkgContext_CredentialNameW as _SecPkgContext_CredentialNameW ptr
 
 type _SecPkgContext_CredentialNameA
-	CredentialType as culong
+	CredentialType as ulong
 	sCredentialName as SEC_CHAR ptr
 end type
 
@@ -567,7 +558,7 @@ type SecPkgContext_AccessToken as _SecPkgContext_AccessToken
 type PSecPkgContext_AccessToken as _SecPkgContext_AccessToken ptr
 
 type _SecPkgContext_TargetInformation
-	MarshalledTargetInfoLength as culong
+	MarshalledTargetInfoLength as ulong
 	MarshalledTargetInfo as ubyte ptr
 end type
 
@@ -575,7 +566,7 @@ type SecPkgContext_TargetInformation as _SecPkgContext_TargetInformation
 type PSecPkgContext_TargetInformation as _SecPkgContext_TargetInformation ptr
 
 type _SecPkgContext_AuthzID
-	AuthzIDLength as culong
+	AuthzIDLength as ulong
 	AuthzID as zstring ptr
 end type
 
@@ -583,25 +574,25 @@ type SecPkgContext_AuthzID as _SecPkgContext_AuthzID
 type PSecPkgContext_AuthzID as _SecPkgContext_AuthzID ptr
 
 type _SecPkgContext_Target
-	TargetLength as culong
+	TargetLength as ulong
 	Target as zstring ptr
 end type
 
 type SecPkgContext_Target as _SecPkgContext_Target
 type PSecPkgContext_Target as _SecPkgContext_Target ptr
-type SEC_GET_KEY_FN as sub(byval Arg as any ptr, byval Principal as any ptr, byval KeyVer as culong, byval Key as any ptr ptr, byval Status as SECURITY_STATUS ptr)
+type SEC_GET_KEY_FN as sub(byval Arg as any ptr, byval Principal as any ptr, byval KeyVer as ulong, byval Key as any ptr ptr, byval Status as SECURITY_STATUS ptr)
 
 #define SECPKG_CONTEXT_EXPORT_RESET_NEW &h00000001
 #define SECPKG_CONTEXT_EXPORT_DELETE_OLD &h00000002
 #define SECPKG_CONTEXT_EXPORT_TO_KERNEL &h00000004
 
-declare function AcquireCredentialsHandleW(byval pszPrincipal as SEC_WCHAR ptr, byval pszPackage as SEC_WCHAR ptr, byval fCredentialUse as culong, byval pvLogonId as any ptr, byval pAuthData as any ptr, byval pGetKeyFn as SEC_GET_KEY_FN, byval pvGetKeyArgument as any ptr, byval phCredential as PCredHandle, byval ptsExpiry as PTimeStamp) as SECURITY_STATUS
+declare function AcquireCredentialsHandleW(byval pszPrincipal as SEC_WCHAR ptr, byval pszPackage as SEC_WCHAR ptr, byval fCredentialUse as ulong, byval pvLogonId as any ptr, byval pAuthData as any ptr, byval pGetKeyFn as SEC_GET_KEY_FN, byval pvGetKeyArgument as any ptr, byval phCredential as PCredHandle, byval ptsExpiry as PTimeStamp) as SECURITY_STATUS
 
-type ACQUIRE_CREDENTIALS_HANDLE_FN_W as function(byval as SEC_WCHAR ptr, byval as SEC_WCHAR ptr, byval as culong, byval as any ptr, byval as any ptr, byval as SEC_GET_KEY_FN, byval as any ptr, byval as PCredHandle, byval as PTimeStamp) as SECURITY_STATUS
+type ACQUIRE_CREDENTIALS_HANDLE_FN_W as function(byval as SEC_WCHAR ptr, byval as SEC_WCHAR ptr, byval as ulong, byval as any ptr, byval as any ptr, byval as SEC_GET_KEY_FN, byval as any ptr, byval as PCredHandle, byval as PTimeStamp) as SECURITY_STATUS
 
-declare function AcquireCredentialsHandleA(byval pszPrincipal as SEC_CHAR ptr, byval pszPackage as SEC_CHAR ptr, byval fCredentialUse as culong, byval pvLogonId as any ptr, byval pAuthData as any ptr, byval pGetKeyFn as SEC_GET_KEY_FN, byval pvGetKeyArgument as any ptr, byval phCredential as PCredHandle, byval ptsExpiry as PTimeStamp) as SECURITY_STATUS
+declare function AcquireCredentialsHandleA(byval pszPrincipal as SEC_CHAR ptr, byval pszPackage as SEC_CHAR ptr, byval fCredentialUse as ulong, byval pvLogonId as any ptr, byval pAuthData as any ptr, byval pGetKeyFn as SEC_GET_KEY_FN, byval pvGetKeyArgument as any ptr, byval phCredential as PCredHandle, byval ptsExpiry as PTimeStamp) as SECURITY_STATUS
 
-type ACQUIRE_CREDENTIALS_HANDLE_FN_A as function(byval as SEC_CHAR ptr, byval as SEC_CHAR ptr, byval as culong, byval as any ptr, byval as any ptr, byval as SEC_GET_KEY_FN, byval as any ptr, byval as PCredHandle, byval as PTimeStamp) as SECURITY_STATUS
+type ACQUIRE_CREDENTIALS_HANDLE_FN_A as function(byval as SEC_CHAR ptr, byval as SEC_CHAR ptr, byval as ulong, byval as any ptr, byval as any ptr, byval as SEC_GET_KEY_FN, byval as any ptr, byval as PCredHandle, byval as PTimeStamp) as SECURITY_STATUS
 
 #define AcquireCredentialsHandle __MINGW_NAME_AW(AcquireCredentialsHandle)
 #define ACQUIRE_CREDENTIALS_HANDLE_FN __MINGW_NAME_UAW(ACQUIRE_CREDENTIALS_HANDLE_FN)
@@ -610,31 +601,31 @@ declare function FreeCredentialsHandle(byval phCredential as PCredHandle) as SEC
 
 type FREE_CREDENTIALS_HANDLE_FN as function(byval as PCredHandle) as SECURITY_STATUS
 
-declare function AddCredentialsW(byval hCredentials as PCredHandle, byval pszPrincipal as SEC_WCHAR ptr, byval pszPackage as SEC_WCHAR ptr, byval fCredentialUse as culong, byval pAuthData as any ptr, byval pGetKeyFn as SEC_GET_KEY_FN, byval pvGetKeyArgument as any ptr, byval ptsExpiry as PTimeStamp) as SECURITY_STATUS
+declare function AddCredentialsW(byval hCredentials as PCredHandle, byval pszPrincipal as SEC_WCHAR ptr, byval pszPackage as SEC_WCHAR ptr, byval fCredentialUse as ulong, byval pAuthData as any ptr, byval pGetKeyFn as SEC_GET_KEY_FN, byval pvGetKeyArgument as any ptr, byval ptsExpiry as PTimeStamp) as SECURITY_STATUS
 
-type ADD_CREDENTIALS_FN_W as function(byval as PCredHandle, byval as SEC_WCHAR ptr, byval as SEC_WCHAR ptr, byval as culong, byval as any ptr, byval as SEC_GET_KEY_FN, byval as any ptr, byval as PTimeStamp) as SECURITY_STATUS
+type ADD_CREDENTIALS_FN_W as function(byval as PCredHandle, byval as SEC_WCHAR ptr, byval as SEC_WCHAR ptr, byval as ulong, byval as any ptr, byval as SEC_GET_KEY_FN, byval as any ptr, byval as PTimeStamp) as SECURITY_STATUS
 
-declare function AddCredentialsA(byval hCredentials as PCredHandle, byval pszPrincipal as SEC_CHAR ptr, byval pszPackage as SEC_CHAR ptr, byval fCredentialUse as culong, byval pAuthData as any ptr, byval pGetKeyFn as SEC_GET_KEY_FN, byval pvGetKeyArgument as any ptr, byval ptsExpiry as PTimeStamp) as SECURITY_STATUS
+declare function AddCredentialsA(byval hCredentials as PCredHandle, byval pszPrincipal as SEC_CHAR ptr, byval pszPackage as SEC_CHAR ptr, byval fCredentialUse as ulong, byval pAuthData as any ptr, byval pGetKeyFn as SEC_GET_KEY_FN, byval pvGetKeyArgument as any ptr, byval ptsExpiry as PTimeStamp) as SECURITY_STATUS
 
-type ADD_CREDENTIALS_FN_A as function(byval as PCredHandle, byval as SEC_CHAR ptr, byval as SEC_CHAR ptr, byval as culong, byval as any ptr, byval as SEC_GET_KEY_FN, byval as any ptr, byval as PTimeStamp) as SECURITY_STATUS
+type ADD_CREDENTIALS_FN_A as function(byval as PCredHandle, byval as SEC_CHAR ptr, byval as SEC_CHAR ptr, byval as ulong, byval as any ptr, byval as SEC_GET_KEY_FN, byval as any ptr, byval as PTimeStamp) as SECURITY_STATUS
 
 #define AddCredentials __MINGW_NAME_AW(AddCredentials)
 #define ADD_CREDENTIALS_FN __MINGW_NAME_UAW(ADD_CREDENTIALS_FN)
 
-declare function InitializeSecurityContextW(byval phCredential as PCredHandle, byval phContext as PCtxtHandle, byval pszTargetName as SEC_WCHAR ptr, byval fContextReq as culong, byval Reserved1 as culong, byval TargetDataRep as culong, byval pInput as PSecBufferDesc, byval Reserved2 as culong, byval phNewContext as PCtxtHandle, byval pOutput as PSecBufferDesc, byval pfContextAttr as culong ptr, byval ptsExpiry as PTimeStamp) as SECURITY_STATUS
+declare function InitializeSecurityContextW(byval phCredential as PCredHandle, byval phContext as PCtxtHandle, byval pszTargetName as SEC_WCHAR ptr, byval fContextReq as ulong, byval Reserved1 as ulong, byval TargetDataRep as ulong, byval pInput as PSecBufferDesc, byval Reserved2 as ulong, byval phNewContext as PCtxtHandle, byval pOutput as PSecBufferDesc, byval pfContextAttr as ulong ptr, byval ptsExpiry as PTimeStamp) as SECURITY_STATUS
 
-type INITIALIZE_SECURITY_CONTEXT_FN_W as function(byval as PCredHandle, byval as PCtxtHandle, byval as SEC_WCHAR ptr, byval as culong, byval as culong, byval as culong, byval as PSecBufferDesc, byval as culong, byval as PCtxtHandle, byval as PSecBufferDesc, byval as culong ptr, byval as PTimeStamp) as SECURITY_STATUS
+type INITIALIZE_SECURITY_CONTEXT_FN_W as function(byval as PCredHandle, byval as PCtxtHandle, byval as SEC_WCHAR ptr, byval as ulong, byval as ulong, byval as ulong, byval as PSecBufferDesc, byval as ulong, byval as PCtxtHandle, byval as PSecBufferDesc, byval as ulong ptr, byval as PTimeStamp) as SECURITY_STATUS
 
-declare function InitializeSecurityContextA(byval phCredential as PCredHandle, byval phContext as PCtxtHandle, byval pszTargetName as SEC_CHAR ptr, byval fContextReq as culong, byval Reserved1 as culong, byval TargetDataRep as culong, byval pInput as PSecBufferDesc, byval Reserved2 as culong, byval phNewContext as PCtxtHandle, byval pOutput as PSecBufferDesc, byval pfContextAttr as culong ptr, byval ptsExpiry as PTimeStamp) as SECURITY_STATUS
+declare function InitializeSecurityContextA(byval phCredential as PCredHandle, byval phContext as PCtxtHandle, byval pszTargetName as SEC_CHAR ptr, byval fContextReq as ulong, byval Reserved1 as ulong, byval TargetDataRep as ulong, byval pInput as PSecBufferDesc, byval Reserved2 as ulong, byval phNewContext as PCtxtHandle, byval pOutput as PSecBufferDesc, byval pfContextAttr as ulong ptr, byval ptsExpiry as PTimeStamp) as SECURITY_STATUS
 
-type INITIALIZE_SECURITY_CONTEXT_FN_A as function(byval as PCredHandle, byval as PCtxtHandle, byval as SEC_CHAR ptr, byval as culong, byval as culong, byval as culong, byval as PSecBufferDesc, byval as culong, byval as PCtxtHandle, byval as PSecBufferDesc, byval as culong ptr, byval as PTimeStamp) as SECURITY_STATUS
+type INITIALIZE_SECURITY_CONTEXT_FN_A as function(byval as PCredHandle, byval as PCtxtHandle, byval as SEC_CHAR ptr, byval as ulong, byval as ulong, byval as ulong, byval as PSecBufferDesc, byval as ulong, byval as PCtxtHandle, byval as PSecBufferDesc, byval as ulong ptr, byval as PTimeStamp) as SECURITY_STATUS
 
 #define InitializeSecurityContext __MINGW_NAME_AW(InitializeSecurityContext)
 #define INITIALIZE_SECURITY_CONTEXT_FN __MINGW_NAME_UAW(INITIALIZE_SECURITY_CONTEXT_FN)
 
-declare function AcceptSecurityContext(byval phCredential as PCredHandle, byval phContext as PCtxtHandle, byval pInput as PSecBufferDesc, byval fContextReq as culong, byval TargetDataRep as culong, byval phNewContext as PCtxtHandle, byval pOutput as PSecBufferDesc, byval pfContextAttr as culong ptr, byval ptsExpiry as PTimeStamp) as SECURITY_STATUS
+declare function AcceptSecurityContext(byval phCredential as PCredHandle, byval phContext as PCtxtHandle, byval pInput as PSecBufferDesc, byval fContextReq as ulong, byval TargetDataRep as ulong, byval phNewContext as PCtxtHandle, byval pOutput as PSecBufferDesc, byval pfContextAttr as ulong ptr, byval ptsExpiry as PTimeStamp) as SECURITY_STATUS
 
-type ACCEPT_SECURITY_CONTEXT_FN as function(byval as PCredHandle, byval as PCtxtHandle, byval as PSecBufferDesc, byval as culong, byval as culong, byval as PCtxtHandle, byval as PSecBufferDesc, byval as culong ptr, byval as PTimeStamp) as SECURITY_STATUS
+type ACCEPT_SECURITY_CONTEXT_FN as function(byval as PCredHandle, byval as PCtxtHandle, byval as PSecBufferDesc, byval as ulong, byval as ulong, byval as PCtxtHandle, byval as PSecBufferDesc, byval as ulong ptr, byval as PTimeStamp) as SECURITY_STATUS
 
 declare function CompleteAuthToken(byval phContext as PCtxtHandle, byval pToken as PSecBufferDesc) as SECURITY_STATUS
 
@@ -660,46 +651,46 @@ declare function ApplyControlToken(byval phContext as PCtxtHandle, byval pInput 
 
 type APPLY_CONTROL_TOKEN_FN as function(byval as PCtxtHandle, byval as PSecBufferDesc) as SECURITY_STATUS
 
-declare function QueryContextAttributesW(byval phContext as PCtxtHandle, byval ulAttribute as culong, byval pBuffer as any ptr) as SECURITY_STATUS
+declare function QueryContextAttributesW(byval phContext as PCtxtHandle, byval ulAttribute as ulong, byval pBuffer as any ptr) as SECURITY_STATUS
 
-type QUERY_CONTEXT_ATTRIBUTES_FN_W as function(byval as PCtxtHandle, byval as culong, byval as any ptr) as SECURITY_STATUS
+type QUERY_CONTEXT_ATTRIBUTES_FN_W as function(byval as PCtxtHandle, byval as ulong, byval as any ptr) as SECURITY_STATUS
 
-declare function QueryContextAttributesA(byval phContext as PCtxtHandle, byval ulAttribute as culong, byval pBuffer as any ptr) as SECURITY_STATUS
+declare function QueryContextAttributesA(byval phContext as PCtxtHandle, byval ulAttribute as ulong, byval pBuffer as any ptr) as SECURITY_STATUS
 
-type QUERY_CONTEXT_ATTRIBUTES_FN_A as function(byval as PCtxtHandle, byval as culong, byval as any ptr) as SECURITY_STATUS
+type QUERY_CONTEXT_ATTRIBUTES_FN_A as function(byval as PCtxtHandle, byval as ulong, byval as any ptr) as SECURITY_STATUS
 
 #define QueryContextAttributes __MINGW_NAME_AW(QueryContextAttributes)
 #define QUERY_CONTEXT_ATTRIBUTES_FN __MINGW_NAME_UAW(QUERY_CONTEXT_ATTRIBUTES_FN)
 
-declare function SetContextAttributesW(byval phContext as PCtxtHandle, byval ulAttribute as culong, byval pBuffer as any ptr, byval cbBuffer as culong) as SECURITY_STATUS
+declare function SetContextAttributesW(byval phContext as PCtxtHandle, byval ulAttribute as ulong, byval pBuffer as any ptr, byval cbBuffer as ulong) as SECURITY_STATUS
 
-type SET_CONTEXT_ATTRIBUTES_FN_W as function(byval as PCtxtHandle, byval as culong, byval as any ptr, byval as culong) as SECURITY_STATUS
+type SET_CONTEXT_ATTRIBUTES_FN_W as function(byval as PCtxtHandle, byval as ulong, byval as any ptr, byval as ulong) as SECURITY_STATUS
 
-declare function SetContextAttributesA(byval phContext as PCtxtHandle, byval ulAttribute as culong, byval pBuffer as any ptr, byval cbBuffer as culong) as SECURITY_STATUS
+declare function SetContextAttributesA(byval phContext as PCtxtHandle, byval ulAttribute as ulong, byval pBuffer as any ptr, byval cbBuffer as ulong) as SECURITY_STATUS
 
-type SET_CONTEXT_ATTRIBUTES_FN_A as function(byval as PCtxtHandle, byval as culong, byval as any ptr, byval as culong) as SECURITY_STATUS
+type SET_CONTEXT_ATTRIBUTES_FN_A as function(byval as PCtxtHandle, byval as ulong, byval as any ptr, byval as ulong) as SECURITY_STATUS
 
 #define SetContextAttributes __MINGW_NAME_AW(SetContextAttributes)
 #define SET_CONTEXT_ATTRIBUTES_FN __MINGW_NAME_UAW(SET_CONTEXT_ATTRIBUTES_FN)
 
-declare function QueryCredentialsAttributesW(byval phCredential as PCredHandle, byval ulAttribute as culong, byval pBuffer as any ptr) as SECURITY_STATUS
+declare function QueryCredentialsAttributesW(byval phCredential as PCredHandle, byval ulAttribute as ulong, byval pBuffer as any ptr) as SECURITY_STATUS
 
-type QUERY_CREDENTIALS_ATTRIBUTES_FN_W as function(byval as PCredHandle, byval as culong, byval as any ptr) as SECURITY_STATUS
+type QUERY_CREDENTIALS_ATTRIBUTES_FN_W as function(byval as PCredHandle, byval as ulong, byval as any ptr) as SECURITY_STATUS
 
-declare function QueryCredentialsAttributesA(byval phCredential as PCredHandle, byval ulAttribute as culong, byval pBuffer as any ptr) as SECURITY_STATUS
+declare function QueryCredentialsAttributesA(byval phCredential as PCredHandle, byval ulAttribute as ulong, byval pBuffer as any ptr) as SECURITY_STATUS
 
-type QUERY_CREDENTIALS_ATTRIBUTES_FN_A as function(byval as PCredHandle, byval as culong, byval as any ptr) as SECURITY_STATUS
+type QUERY_CREDENTIALS_ATTRIBUTES_FN_A as function(byval as PCredHandle, byval as ulong, byval as any ptr) as SECURITY_STATUS
 
 #define QueryCredentialsAttributes __MINGW_NAME_AW(QueryCredentialsAttributes)
 #define QUERY_CREDENTIALS_ATTRIBUTES_FN __MINGW_NAME_UAW(QUERY_CREDENTIALS_ATTRIBUTES_FN)
 
-declare function SetCredentialsAttributesW(byval phCredential as PCredHandle, byval ulAttribute as culong, byval pBuffer as any ptr, byval cbBuffer as culong) as SECURITY_STATUS
+declare function SetCredentialsAttributesW(byval phCredential as PCredHandle, byval ulAttribute as ulong, byval pBuffer as any ptr, byval cbBuffer as ulong) as SECURITY_STATUS
 
-type SET_CREDENTIALS_ATTRIBUTES_FN_W as function(byval as PCredHandle, byval as culong, byval as any ptr, byval as culong) as SECURITY_STATUS
+type SET_CREDENTIALS_ATTRIBUTES_FN_W as function(byval as PCredHandle, byval as ulong, byval as any ptr, byval as ulong) as SECURITY_STATUS
 
-declare function SetCredentialsAttributesA(byval phCredential as PCredHandle, byval ulAttribute as culong, byval pBuffer as any ptr, byval cbBuffer as culong) as SECURITY_STATUS
+declare function SetCredentialsAttributesA(byval phCredential as PCredHandle, byval ulAttribute as ulong, byval pBuffer as any ptr, byval cbBuffer as ulong) as SECURITY_STATUS
 
-type SET_CREDENTIALS_ATTRIBUTES_FN_A as function(byval as PCredHandle, byval as culong, byval as any ptr, byval as culong) as SECURITY_STATUS
+type SET_CREDENTIALS_ATTRIBUTES_FN_A as function(byval as PCredHandle, byval as ulong, byval as any ptr, byval as ulong) as SECURITY_STATUS
 
 #define SetCredentialsAttributes __MINGW_NAME_AW(SetCredentialsAttributes)
 #define SET_CREDENTIALS_ATTRIBUTES_FN __MINGW_NAME_UAW(SET_CREDENTIALS_ATTRIBUTES_FN)
@@ -708,32 +699,32 @@ declare function FreeContextBuffer(byval pvContextBuffer as any ptr) as SECURITY
 
 type FREE_CONTEXT_BUFFER_FN as function(byval as any ptr) as SECURITY_STATUS
 
-declare function MakeSignature(byval phContext as PCtxtHandle, byval fQOP as culong, byval pMessage as PSecBufferDesc, byval MessageSeqNo as culong) as SECURITY_STATUS
+declare function MakeSignature(byval phContext as PCtxtHandle, byval fQOP as ulong, byval pMessage as PSecBufferDesc, byval MessageSeqNo as ulong) as SECURITY_STATUS
 
-type MAKE_SIGNATURE_FN as function(byval as PCtxtHandle, byval as culong, byval as PSecBufferDesc, byval as culong) as SECURITY_STATUS
+type MAKE_SIGNATURE_FN as function(byval as PCtxtHandle, byval as ulong, byval as PSecBufferDesc, byval as ulong) as SECURITY_STATUS
 
-declare function VerifySignature(byval phContext as PCtxtHandle, byval pMessage as PSecBufferDesc, byval MessageSeqNo as culong, byval pfQOP as culong ptr) as SECURITY_STATUS
+declare function VerifySignature(byval phContext as PCtxtHandle, byval pMessage as PSecBufferDesc, byval MessageSeqNo as ulong, byval pfQOP as ulong ptr) as SECURITY_STATUS
 
-type VERIFY_SIGNATURE_FN as function(byval as PCtxtHandle, byval as PSecBufferDesc, byval as culong, byval as culong ptr) as SECURITY_STATUS
+type VERIFY_SIGNATURE_FN as function(byval as PCtxtHandle, byval as PSecBufferDesc, byval as ulong, byval as ulong ptr) as SECURITY_STATUS
 
 #define SECQOP_WRAP_NO_ENCRYPT &h80000001
 #define SECQOP_WRAP_OOB_DATA &h40000000
 
-declare function EncryptMessage(byval phContext as PCtxtHandle, byval fQOP as culong, byval pMessage as PSecBufferDesc, byval MessageSeqNo as culong) as SECURITY_STATUS
+declare function EncryptMessage(byval phContext as PCtxtHandle, byval fQOP as ulong, byval pMessage as PSecBufferDesc, byval MessageSeqNo as ulong) as SECURITY_STATUS
 
-type ENCRYPT_MESSAGE_FN as function(byval as PCtxtHandle, byval as culong, byval as PSecBufferDesc, byval as culong) as SECURITY_STATUS
+type ENCRYPT_MESSAGE_FN as function(byval as PCtxtHandle, byval as ulong, byval as PSecBufferDesc, byval as ulong) as SECURITY_STATUS
 
-declare function DecryptMessage(byval phContext as PCtxtHandle, byval pMessage as PSecBufferDesc, byval MessageSeqNo as culong, byval pfQOP as culong ptr) as SECURITY_STATUS
+declare function DecryptMessage(byval phContext as PCtxtHandle, byval pMessage as PSecBufferDesc, byval MessageSeqNo as ulong, byval pfQOP as ulong ptr) as SECURITY_STATUS
 
-type DECRYPT_MESSAGE_FN as function(byval as PCtxtHandle, byval as PSecBufferDesc, byval as culong, byval as culong ptr) as SECURITY_STATUS
+type DECRYPT_MESSAGE_FN as function(byval as PCtxtHandle, byval as PSecBufferDesc, byval as ulong, byval as ulong ptr) as SECURITY_STATUS
 
-declare function EnumerateSecurityPackagesW(byval pcPackages as culong ptr, byval ppPackageInfo as PSecPkgInfoW ptr) as SECURITY_STATUS
+declare function EnumerateSecurityPackagesW(byval pcPackages as ulong ptr, byval ppPackageInfo as PSecPkgInfoW ptr) as SECURITY_STATUS
 
-type ENUMERATE_SECURITY_PACKAGES_FN_W as function(byval as culong ptr, byval as PSecPkgInfoW ptr) as SECURITY_STATUS
+type ENUMERATE_SECURITY_PACKAGES_FN_W as function(byval as ulong ptr, byval as PSecPkgInfoW ptr) as SECURITY_STATUS
 
-declare function EnumerateSecurityPackagesA(byval pcPackages as culong ptr, byval ppPackageInfo as PSecPkgInfoA ptr) as SECURITY_STATUS
+declare function EnumerateSecurityPackagesA(byval pcPackages as ulong ptr, byval ppPackageInfo as PSecPkgInfoA ptr) as SECURITY_STATUS
 
-type ENUMERATE_SECURITY_PACKAGES_FN_A as function(byval as culong ptr, byval as PSecPkgInfoA ptr) as SECURITY_STATUS
+type ENUMERATE_SECURITY_PACKAGES_FN_A as function(byval as ulong ptr, byval as PSecPkgInfoA ptr) as SECURITY_STATUS
 
 #define EnumerateSecurityPackages __MINGW_NAME_AW(EnumerateSecurityPackages)
 #define ENUMERATE_SECURITY_PACKAGES_FN __MINGW_NAME_UAW(ENUMERATE_SECURITY_PACKAGES_FN)
@@ -762,9 +753,9 @@ type SecDelegationType as _SecDelegationType
 type PSecDelegationType as _SecDelegationType ptr
 
 declare function DelegateSecurityContext(byval phContext as PCtxtHandle, byval pszTarget as SEC_CHAR ptr, byval DelegationType as SecDelegationType, byval pExpiry as PTimeStamp, byval pPackageParameters as PSecBuffer, byval pOutput as PSecBufferDesc) as SECURITY_STATUS
-declare function ExportSecurityContext(byval phContext as PCtxtHandle, byval fFlags as ULONG_, byval pPackedContext as PSecBuffer, byval pToken as any ptr ptr) as SECURITY_STATUS
+declare function ExportSecurityContext(byval phContext as PCtxtHandle, byval fFlags as ULONG, byval pPackedContext as PSecBuffer, byval pToken as any ptr ptr) as SECURITY_STATUS
 
-type EXPORT_SECURITY_CONTEXT_FN as function(byval as PCtxtHandle, byval as ULONG_, byval as PSecBuffer, byval as any ptr ptr) as SECURITY_STATUS
+type EXPORT_SECURITY_CONTEXT_FN as function(byval as PCtxtHandle, byval as ULONG, byval as PSecBuffer, byval as any ptr ptr) as SECURITY_STATUS
 
 declare function ImportSecurityContextW(byval pszPackage as SEC_WCHAR ptr, byval pPackedContext as PSecBuffer, byval Token as any ptr, byval phContext as PCtxtHandle) as SECURITY_STATUS
 
@@ -786,7 +777,7 @@ type IMPORT_SECURITY_CONTEXT_FN_A as function(byval as SEC_CHAR ptr, byval as PS
 #define FreeCredentialHandle FreeCredentialsHandle
 
 type _SECURITY_FUNCTION_TABLE_W
-	dwVersion as culong
+	dwVersion as ulong
 	EnumerateSecurityPackagesW as ENUMERATE_SECURITY_PACKAGES_FN_W
 	QueryCredentialsAttributesW as QUERY_CREDENTIALS_ATTRIBUTES_FN_W
 	AcquireCredentialsHandleW as ACQUIRE_CREDENTIALS_HANDLE_FN_W
@@ -821,7 +812,7 @@ type SecurityFunctionTableW as _SECURITY_FUNCTION_TABLE_W
 type PSecurityFunctionTableW as _SECURITY_FUNCTION_TABLE_W ptr
 
 type _SECURITY_FUNCTION_TABLE_A
-	dwVersion as culong
+	dwVersion as ulong
 	EnumerateSecurityPackagesA as ENUMERATE_SECURITY_PACKAGES_FN_A
 	QueryCredentialsAttributesA as QUERY_CREDENTIALS_ATTRIBUTES_FN_A
 	AcquireCredentialsHandleA as ACQUIRE_CREDENTIALS_HANDLE_FN_A
@@ -873,8 +864,8 @@ type INIT_SECURITY_INTERFACE_W as function() as PSecurityFunctionTableW
 #define InitSecurityInterface __MINGW_NAME_AW(InitSecurityInterface)
 #define INIT_SECURITY_INTERFACE __MINGW_NAME_UAW(INIT_SECURITY_INTERFACE)
 
-declare function SaslEnumerateProfilesA(byval ProfileList as LPSTR ptr, byval ProfileCount as ULONG_ ptr) as SECURITY_STATUS
-declare function SaslEnumerateProfilesW(byval ProfileList as LPWSTR ptr, byval ProfileCount as ULONG_ ptr) as SECURITY_STATUS
+declare function SaslEnumerateProfilesA(byval ProfileList as LPSTR ptr, byval ProfileCount as ULONG ptr) as SECURITY_STATUS
+declare function SaslEnumerateProfilesW(byval ProfileList as LPWSTR ptr, byval ProfileCount as ULONG ptr) as SECURITY_STATUS
 
 #define SaslEnumerateProfiles __MINGW_NAME_AW(SaslEnumerateProfiles)
 
@@ -888,12 +879,12 @@ declare function SaslIdentifyPackageW(byval pInput as PSecBufferDesc, byval Pack
 
 #define SaslIdentifyPackage __MINGW_NAME_AW(SaslIdentifyPackage)
 
-declare function SaslInitializeSecurityContextW(byval phCredential as PCredHandle, byval phContext as PCtxtHandle, byval pszTargetName as LPWSTR, byval fContextReq as culong, byval Reserved1 as culong, byval TargetDataRep as culong, byval pInput as PSecBufferDesc, byval Reserved2 as culong, byval phNewContext as PCtxtHandle, byval pOutput as PSecBufferDesc, byval pfContextAttr as culong ptr, byval ptsExpiry as PTimeStamp) as SECURITY_STATUS
-declare function SaslInitializeSecurityContextA(byval phCredential as PCredHandle, byval phContext as PCtxtHandle, byval pszTargetName as LPSTR, byval fContextReq as culong, byval Reserved1 as culong, byval TargetDataRep as culong, byval pInput as PSecBufferDesc, byval Reserved2 as culong, byval phNewContext as PCtxtHandle, byval pOutput as PSecBufferDesc, byval pfContextAttr as culong ptr, byval ptsExpiry as PTimeStamp) as SECURITY_STATUS
+declare function SaslInitializeSecurityContextW(byval phCredential as PCredHandle, byval phContext as PCtxtHandle, byval pszTargetName as LPWSTR, byval fContextReq as ulong, byval Reserved1 as ulong, byval TargetDataRep as ulong, byval pInput as PSecBufferDesc, byval Reserved2 as ulong, byval phNewContext as PCtxtHandle, byval pOutput as PSecBufferDesc, byval pfContextAttr as ulong ptr, byval ptsExpiry as PTimeStamp) as SECURITY_STATUS
+declare function SaslInitializeSecurityContextA(byval phCredential as PCredHandle, byval phContext as PCtxtHandle, byval pszTargetName as LPSTR, byval fContextReq as ulong, byval Reserved1 as ulong, byval TargetDataRep as ulong, byval pInput as PSecBufferDesc, byval Reserved2 as ulong, byval phNewContext as PCtxtHandle, byval pOutput as PSecBufferDesc, byval pfContextAttr as ulong ptr, byval ptsExpiry as PTimeStamp) as SECURITY_STATUS
 
 #define SaslInitializeSecurityContext __MINGW_NAME_AW(SaslInitializeSecurityContext)
 
-declare function SaslAcceptSecurityContext(byval phCredential as PCredHandle, byval phContext as PCtxtHandle, byval pInput as PSecBufferDesc, byval fContextReq as culong, byval TargetDataRep as culong, byval phNewContext as PCtxtHandle, byval pOutput as PSecBufferDesc, byval pfContextAttr as culong ptr, byval ptsExpiry as PTimeStamp) as SECURITY_STATUS
+declare function SaslAcceptSecurityContext(byval phCredential as PCredHandle, byval phContext as PCtxtHandle, byval pInput as PSecBufferDesc, byval fContextReq as ulong, byval TargetDataRep as ulong, byval phNewContext as PCtxtHandle, byval pOutput as PSecBufferDesc, byval pfContextAttr as ulong ptr, byval ptsExpiry as PTimeStamp) as SECURITY_STATUS
 
 #define SASL_OPTION_SEND_SIZE 1
 #define SASL_OPTION_RECV_SIZE 2
@@ -908,8 +899,8 @@ end enum
 
 type SASL_AUTHZID_STATE as _SASL_AUTHZID_STATE
 
-declare function SaslSetContextOption(byval ContextHandle as PCtxtHandle, byval Option_ as ULONG_, byval Value as PVOID, byval Size as ULONG_) as SECURITY_STATUS
-declare function SaslGetContextOption(byval ContextHandle as PCtxtHandle, byval Option_ as ULONG_, byval Value as PVOID, byval Size as ULONG_, byval Needed as PULONG) as SECURITY_STATUS
+declare function SaslSetContextOption(byval ContextHandle as PCtxtHandle, byval Option_ as ULONG, byval Value as PVOID, byval Size as ULONG) as SECURITY_STATUS
+declare function SaslGetContextOption(byval ContextHandle as PCtxtHandle, byval Option_ as ULONG, byval Value as PVOID, byval Size as ULONG, byval Needed as PULONG) as SECURITY_STATUS
 
 #define _AUTH_IDENTITY_DEFINED
 #define SEC_WINNT_AUTH_IDENTITY_ANSI &h1
@@ -917,12 +908,12 @@ declare function SaslGetContextOption(byval ContextHandle as PCtxtHandle, byval 
 
 type _SEC_WINNT_AUTH_IDENTITY_W
 	User as ushort ptr
-	UserLength as culong
+	UserLength as ulong
 	Domain as ushort ptr
-	DomainLength as culong
+	DomainLength as ulong
 	Password as ushort ptr
-	PasswordLength as culong
-	Flags as culong
+	PasswordLength as ulong
+	Flags as ulong
 end type
 
 type SEC_WINNT_AUTH_IDENTITY_W as _SEC_WINNT_AUTH_IDENTITY_W
@@ -930,12 +921,12 @@ type PSEC_WINNT_AUTH_IDENTITY_W as _SEC_WINNT_AUTH_IDENTITY_W ptr
 
 type _SEC_WINNT_AUTH_IDENTITY_A
 	User as ubyte ptr
-	UserLength as culong
+	UserLength as ulong
 	Domain as ubyte ptr
-	DomainLength as culong
+	DomainLength as ulong
 	Password as ubyte ptr
-	PasswordLength as culong
-	Flags as culong
+	PasswordLength as ulong
+	Flags as ulong
 end type
 
 type SEC_WINNT_AUTH_IDENTITY_A as _SEC_WINNT_AUTH_IDENTITY_A
@@ -947,34 +938,34 @@ type PSEC_WINNT_AUTH_IDENTITY_A as _SEC_WINNT_AUTH_IDENTITY_A ptr
 #define SEC_WINNT_AUTH_IDENTITY_VERSION &h200
 
 type _SEC_WINNT_AUTH_IDENTITY_EXW
-	Version as culong
-	Length as culong
+	Version as ulong
+	Length as ulong
 	User as ushort ptr
-	UserLength as culong
+	UserLength as ulong
 	Domain as ushort ptr
-	DomainLength as culong
+	DomainLength as ulong
 	Password as ushort ptr
-	PasswordLength as culong
-	Flags as culong
+	PasswordLength as ulong
+	Flags as ulong
 	PackageList as ushort ptr
-	PackageListLength as culong
+	PackageListLength as ulong
 end type
 
 type SEC_WINNT_AUTH_IDENTITY_EXW as _SEC_WINNT_AUTH_IDENTITY_EXW
 type PSEC_WINNT_AUTH_IDENTITY_EXW as _SEC_WINNT_AUTH_IDENTITY_EXW ptr
 
 type _SEC_WINNT_AUTH_IDENTITY_EXA
-	Version as culong
-	Length as culong
+	Version as ulong
+	Length as ulong
 	User as ubyte ptr
-	UserLength as culong
+	UserLength as ulong
 	Domain as ubyte ptr
-	DomainLength as culong
+	DomainLength as ulong
 	Password as ubyte ptr
-	PasswordLength as culong
-	Flags as culong
+	PasswordLength as ulong
+	Flags as ulong
 	PackageList as ubyte ptr
-	PackageListLength as culong
+	PackageListLength as ulong
 end type
 
 type SEC_WINNT_AUTH_IDENTITY_EXA as _SEC_WINNT_AUTH_IDENTITY_EXA
@@ -986,10 +977,10 @@ type PSEC_WINNT_AUTH_IDENTITY_EXA as _SEC_WINNT_AUTH_IDENTITY_EXA ptr
 #define SEC_WINNT_AUTH_IDENTITY_ONLY &h8
 
 type _SECURITY_PACKAGE_OPTIONS
-	Size as culong
-	as culong Type
-	Flags as culong
-	SignatureSize as culong
+	Size as ulong
+	as ulong Type
+	Flags as ulong
+	SignatureSize as ulong
 	Signature as any ptr
 end type
 

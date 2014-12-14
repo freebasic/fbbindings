@@ -20,14 +20,14 @@
 #define OLEVERB_PRIMARY 0
 
 type _OLETARGETDEVICE
-	otdDeviceNameOffset as USHORT_
-	otdDriverNameOffset as USHORT_
-	otdPortNameOffset as USHORT_
-	otdExtDevmodeOffset as USHORT_
-	otdExtDevmodeSize as USHORT_
-	otdEnvironmentOffset as USHORT_
-	otdEnvironmentSize as USHORT_
-	otdData(0 to 0) as BYTE_
+	otdDeviceNameOffset as USHORT
+	otdDriverNameOffset as USHORT
+	otdPortNameOffset as USHORT
+	otdExtDevmodeOffset as USHORT
+	otdExtDevmodeSize as USHORT
+	otdEnvironmentOffset as USHORT
+	otdEnvironmentSize as USHORT
+	otdData(0 to 0) as BYTE
 end type
 
 type OLETARGETDEVICE as _OLETARGETDEVICE
@@ -189,7 +189,7 @@ type _OLEOBJECTVTBL
 	SetLinkUpdateOptions as function(byval as LPOLEOBJECT, byval as OLEOPT_UPDATE) as OLESTATUS
 	Rename as function(byval as LPOLEOBJECT, byval as LPCSTR) as OLESTATUS
 	QueryName as function(byval as LPOLEOBJECT, byval as LPSTR, byval as UINT ptr) as OLESTATUS
-	QueryType as function(byval as LPOLEOBJECT, byval as LONG_ ptr) as OLESTATUS
+	QueryType as function(byval as LPOLEOBJECT, byval as LONG ptr) as OLESTATUS
 	QueryBounds as function(byval as LPOLEOBJECT, byval as RECT ptr) as OLESTATUS
 	QuerySize as function(byval as LPOLEOBJECT, byval as DWORD ptr) as OLESTATUS
 	QueryOpen as function(byval as LPOLEOBJECT) as OLESTATUS
@@ -198,7 +198,7 @@ type _OLEOBJECTVTBL
 	QueryReleaseError as function(byval as LPOLEOBJECT) as OLESTATUS
 	QueryReleaseMethod as function(byval as LPOLEOBJECT) as OLE_RELEASE_METHOD
 	RequestData as function(byval as LPOLEOBJECT, byval as OLECLIPFORMAT) as OLESTATUS
-	ObjectLong as function(byval as LPOLEOBJECT, byval as UINT, byval as LONG_ ptr) as OLESTATUS
+	ObjectLong as function(byval as LPOLEOBJECT, byval as UINT, byval as LONG ptr) as OLESTATUS
 	ChangeData as function(byval as LPOLEOBJECT, byval as HANDLE, byval as LPOLECLIENT, byval as WINBOOL) as OLESTATUS
 end type
 
@@ -262,7 +262,7 @@ declare function OleQueryProtocol(byval as LPOLEOBJECT, byval as LPCSTR) as any 
 declare function OleQueryReleaseStatus(byval as LPOLEOBJECT) as OLESTATUS
 declare function OleQueryReleaseError(byval as LPOLEOBJECT) as OLESTATUS
 declare function OleQueryReleaseMethod(byval as LPOLEOBJECT) as OLE_RELEASE_METHOD
-declare function OleQueryType(byval as LPOLEOBJECT, byval as LONG_ ptr) as OLESTATUS
+declare function OleQueryType(byval as LPOLEOBJECT, byval as LONG ptr) as OLESTATUS
 declare function OleQueryClientVersion() as DWORD
 declare function OleQueryServerVersion() as DWORD
 declare function OleEnumFormats(byval as LPOLEOBJECT, byval as OLECLIPFORMAT) as OLECLIPFORMAT
@@ -287,7 +287,7 @@ declare function OleRename(byval as LPOLEOBJECT, byval as LPCSTR) as OLESTATUS
 declare function OleQueryName(byval lpobj as LPOLEOBJECT, byval lpBuf as LPSTR, byval lpcbBuf as UINT ptr) as OLESTATUS
 declare function OleRevokeObject(byval as LPOLECLIENT) as OLESTATUS
 declare function OleIsDcMeta(byval as HDC) as WINBOOL
-declare function OleRegisterClientDoc(byval as LPCSTR, byval as LPCSTR, byval as LONG_, byval as LHCLIENTDOC ptr) as OLESTATUS
+declare function OleRegisterClientDoc(byval as LPCSTR, byval as LPCSTR, byval as LONG, byval as LHCLIENTDOC ptr) as OLESTATUS
 declare function OleRevokeClientDoc(byval as LHCLIENTDOC) as OLESTATUS
 declare function OleRenameClientDoc(byval as LHCLIENTDOC, byval as LPCSTR) as OLESTATUS
 declare function OleRevertClientDoc(byval as LHCLIENTDOC) as OLESTATUS

@@ -1,6 +1,5 @@
 #pragma once
 
-#include once "crt/long.bi"
 #include once "_mingw_unicode.bi"
 #include once "apisetcconv.bi"
 #include once "_mingw.bi"
@@ -504,10 +503,10 @@ type PWTSSESSION_NOTIFICATION as tagWTSSESSION_NOTIFICATION ptr
 #define FAPPCOMMAND_KEY 0
 #define FAPPCOMMAND_OEM &h1000
 #define FAPPCOMMAND_MASK &hF000
-#define GET_APPCOMMAND_LPARAM(lParam) cshort(HIWORD_(lParam) and (not FAPPCOMMAND_MASK))
-#define GET_DEVICE_LPARAM(lParam) cast(WORD, HIWORD_(lParam) and FAPPCOMMAND_MASK)
+#define GET_APPCOMMAND_LPARAM(lParam) cshort(HIWORD(lParam) and (not FAPPCOMMAND_MASK))
+#define GET_DEVICE_LPARAM(lParam) cast(WORD, HIWORD(lParam) and FAPPCOMMAND_MASK)
 #define GET_MOUSEORKEY_LPARAM GET_DEVICE_LPARAM
-#define GET_FLAGS_LPARAM(lParam) LOWORD_(lParam)
+#define GET_FLAGS_LPARAM(lParam) LOWORD(lParam)
 #define GET_KEYSTATE_LPARAM(lParam) GET_FLAGS_LPARAM(lParam)
 
 type SHELLHOOKINFO
@@ -652,7 +651,7 @@ type PHARDWAREHOOKSTRUCT as tagHARDWAREHOOKSTRUCT ptr
 declare function LoadKeyboardLayoutA(byval pwszKLID as LPCSTR, byval Flags as UINT) as HKL
 declare function LoadKeyboardLayoutW(byval pwszKLID as LPCWSTR, byval Flags as UINT) as HKL
 declare function ActivateKeyboardLayout(byval hkl as HKL, byval Flags as UINT) as HKL
-declare function ToUnicodeEx(byval wVirtKey as UINT, byval wScanCode as UINT, byval lpKeyState as const BYTE_ ptr, byval pwszBuff as LPWSTR, byval cchBuff as long, byval wFlags as UINT, byval dwhkl as HKL) as long
+declare function ToUnicodeEx(byval wVirtKey as UINT, byval wScanCode as UINT, byval lpKeyState as const BYTE ptr, byval pwszBuff as LPWSTR, byval cchBuff as long, byval wFlags as UINT, byval dwhkl as HKL) as long
 declare function UnloadKeyboardLayout(byval hkl as HKL) as WINBOOL
 declare function GetKeyboardLayoutNameA(byval pwszKLID as LPSTR) as WINBOOL
 declare function GetKeyboardLayoutNameW(byval pwszKLID as LPWSTR) as WINBOOL
@@ -1131,11 +1130,11 @@ type LPMDINEXTMENU as tagMDINEXTMENU ptr
 #define WM_XBUTTONDBLCLK &h020D
 #define WM_MOUSELAST &h020D
 #define WHEEL_DELTA 120
-#define GET_WHEEL_DELTA_WPARAM(wParam) cshort(HIWORD_(wParam))
+#define GET_WHEEL_DELTA_WPARAM(wParam) cshort(HIWORD(wParam))
 #define WHEEL_PAGESCROLL UINT_MAX
-#define GET_KEYSTATE_WPARAM(wParam) LOWORD_(wParam)
-#define GET_NCHITTEST_WPARAM(wParam) cshort(LOWORD_(wParam))
-#define GET_XBUTTON_WPARAM(wParam) HIWORD_(wParam)
+#define GET_KEYSTATE_WPARAM(wParam) LOWORD(wParam)
+#define GET_NCHITTEST_WPARAM(wParam) cshort(LOWORD(wParam))
+#define GET_XBUTTON_WPARAM(wParam) HIWORD(wParam)
 #define XBUTTON1 &h0001
 #define XBUTTON2 &h0002
 #define WM_PARENTNOTIFY &h0210
@@ -1537,7 +1536,7 @@ declare function DrawAnimatedRects(byval hwnd as HWND, byval idAni as long, byva
 #define FALT &h10
 
 type tagACCEL
-	fVirt as BYTE_
+	fVirt as BYTE
 	key as WORD
 	cmd as WORD
 end type
@@ -1551,7 +1550,7 @@ type tagPAINTSTRUCT
 	rcPaint as RECT
 	fRestore as WINBOOL
 	fIncUpdate as WINBOOL
-	rgbReserved(0 to 31) as BYTE_
+	rgbReserved(0 to 31) as BYTE
 end type
 
 type PAINTSTRUCT as tagPAINTSTRUCT
@@ -1568,7 +1567,7 @@ type tagCREATESTRUCTA_
 	cx as long
 	y as long
 	x as long
-	style as LONG_
+	style as LONG
 	lpszName as LPCSTR
 	lpszClass as LPCSTR
 	dwExStyle as DWORD
@@ -1586,7 +1585,7 @@ type tagCREATESTRUCTW_
 	cx as long
 	y as long
 	x as long
-	style as LONG_
+	style as LONG
 	lpszName as LPCWSTR
 	lpszClass as LPCWSTR
 	dwExStyle as DWORD
@@ -1759,7 +1758,7 @@ declare function UnregisterHotKey(byval hWnd as HWND, byval id as long) as WINBO
 declare function ExitWindowsEx(byval uFlags as UINT, byval dwReason as DWORD) as WINBOOL
 declare function SwapMouseButton(byval fSwap as WINBOOL) as WINBOOL
 declare function GetMessagePos() as DWORD
-declare function GetMessageTime() as LONG_
+declare function GetMessageTime() as LONG
 declare function GetMessageExtraInfo() as LPARAM
 declare function IsWow64Message() as WINBOOL
 declare function SetMessageExtraInfo(byval lParam as LPARAM) as LPARAM
@@ -1784,10 +1783,10 @@ type PBSMINFO as BSMINFO ptr
 #define BroadcastSystemMessageEx __MINGW_NAME_AW(BroadcastSystemMessageEx)
 #define BroadcastSystemMessage __MINGW_NAME_AW(BroadcastSystemMessage)
 
-declare function BroadcastSystemMessageExA(byval flags as DWORD, byval lpInfo as LPDWORD, byval Msg as UINT, byval wParam as WPARAM, byval lParam as LPARAM, byval pbsmInfo as PBSMINFO) as clong
-declare function BroadcastSystemMessageExW(byval flags as DWORD, byval lpInfo as LPDWORD, byval Msg as UINT, byval wParam as WPARAM, byval lParam as LPARAM, byval pbsmInfo as PBSMINFO) as clong
-declare function BroadcastSystemMessageA(byval flags as DWORD, byval lpInfo as LPDWORD, byval Msg as UINT, byval wParam as WPARAM, byval lParam as LPARAM) as clong
-declare function BroadcastSystemMessageW(byval flags as DWORD, byval lpInfo as LPDWORD, byval Msg as UINT, byval wParam as WPARAM, byval lParam as LPARAM) as clong
+declare function BroadcastSystemMessageExA(byval flags as DWORD, byval lpInfo as LPDWORD, byval Msg as UINT, byval wParam as WPARAM, byval lParam as LPARAM, byval pbsmInfo as PBSMINFO) as long
+declare function BroadcastSystemMessageExW(byval flags as DWORD, byval lpInfo as LPDWORD, byval Msg as UINT, byval wParam as WPARAM, byval lParam as LPARAM, byval pbsmInfo as PBSMINFO) as long
+declare function BroadcastSystemMessageA(byval flags as DWORD, byval lpInfo as LPDWORD, byval Msg as UINT, byval wParam as WPARAM, byval lParam as LPARAM) as long
+declare function BroadcastSystemMessageW(byval flags as DWORD, byval lpInfo as LPDWORD, byval Msg as UINT, byval wParam as WPARAM, byval lParam as LPARAM) as long
 
 #define BSM_ALLCOMPONENTS &h00000000
 #define BSM_VXDS &h00000001
@@ -1901,12 +1900,12 @@ declare function IsChild(byval hWndParent as HWND, byval hWnd as HWND) as WINBOO
 declare function DestroyWindow(byval hWnd as HWND) as WINBOOL
 declare function ShowWindow(byval hWnd as HWND, byval nCmdShow as long) as WINBOOL
 declare function AnimateWindow(byval hWnd as HWND, byval dwTime as DWORD, byval dwFlags as DWORD) as WINBOOL
-declare function GetLayeredWindowAttributes(byval hwnd as HWND, byval pcrKey as COLORREF ptr, byval pbAlpha as BYTE_ ptr, byval pdwFlags as DWORD ptr) as WINBOOL
+declare function GetLayeredWindowAttributes(byval hwnd as HWND, byval pcrKey as COLORREF ptr, byval pbAlpha as BYTE ptr, byval pdwFlags as DWORD ptr) as WINBOOL
 
 #define PW_CLIENTONLY &h00000001
 
 declare function PrintWindow(byval hwnd as HWND, byval hdcBlt as HDC, byval nFlags as UINT) as WINBOOL
-declare function SetLayeredWindowAttributes(byval hwnd as HWND, byval crKey as COLORREF, byval bAlpha as BYTE_, byval dwFlags as DWORD) as WINBOOL
+declare function SetLayeredWindowAttributes(byval hwnd as HWND, byval crKey as COLORREF, byval bAlpha as BYTE, byval dwFlags as DWORD) as WINBOOL
 
 #define LWA_COLORKEY &h00000001
 #define LWA_ALPHA &h00000002
@@ -2079,7 +2078,7 @@ declare function SendDlgItemMessageW(byval hDlg as HWND, byval nIDDlgItem as lon
 declare function GetNextDlgGroupItem(byval hDlg as HWND, byval hCtl as HWND, byval bPrevious as WINBOOL) as HWND
 declare function GetNextDlgTabItem(byval hDlg as HWND, byval hCtl as HWND, byval bPrevious as WINBOOL) as HWND
 declare function GetDlgCtrlID(byval hWnd as HWND) as long
-declare function GetDialogBaseUnits() as clong
+declare function GetDialogBaseUnits() as long
 declare function DefDlgProcA(byval hDlg as HWND, byval Msg as UINT, byval wParam as WPARAM, byval lParam as LPARAM) as LRESULT
 declare function DefDlgProcW(byval hDlg as HWND, byval Msg as UINT, byval wParam as WPARAM, byval lParam as LPARAM) as LRESULT
 
@@ -2178,28 +2177,28 @@ declare function SetFocus(byval hWnd as HWND) as HWND
 declare function GetActiveWindow() as HWND
 declare function GetFocus() as HWND
 declare function GetKBCodePage() as UINT
-declare function GetKeyState(byval nVirtKey as long) as SHORT_
-declare function GetAsyncKeyState(byval vKey as long) as SHORT_
+declare function GetKeyState(byval nVirtKey as long) as SHORT
+declare function GetAsyncKeyState(byval vKey as long) as SHORT
 declare function GetKeyboardState(byval lpKeyState as PBYTE) as WINBOOL
 declare function SetKeyboardState(byval lpKeyState as LPBYTE) as WINBOOL
-declare function GetKeyNameTextA(byval lParam as LONG_, byval lpString as LPSTR, byval cchSize as long) as long
-declare function GetKeyNameTextW(byval lParam as LONG_, byval lpString as LPWSTR, byval cchSize as long) as long
+declare function GetKeyNameTextA(byval lParam as LONG, byval lpString as LPSTR, byval cchSize as long) as long
+declare function GetKeyNameTextW(byval lParam as LONG, byval lpString as LPWSTR, byval cchSize as long) as long
 declare function GetKeyboardType(byval nTypeFlag as long) as long
-declare function ToAscii(byval uVirtKey as UINT, byval uScanCode as UINT, byval lpKeyState as const BYTE_ ptr, byval lpChar as LPWORD, byval uFlags as UINT) as long
-declare function ToAsciiEx(byval uVirtKey as UINT, byval uScanCode as UINT, byval lpKeyState as const BYTE_ ptr, byval lpChar as LPWORD, byval uFlags as UINT, byval dwhkl as HKL) as long
-declare function ToUnicode(byval wVirtKey as UINT, byval wScanCode as UINT, byval lpKeyState as const BYTE_ ptr, byval pwszBuff as LPWSTR, byval cchBuff as long, byval wFlags as UINT) as long
+declare function ToAscii(byval uVirtKey as UINT, byval uScanCode as UINT, byval lpKeyState as const BYTE ptr, byval lpChar as LPWORD, byval uFlags as UINT) as long
+declare function ToAsciiEx(byval uVirtKey as UINT, byval uScanCode as UINT, byval lpKeyState as const BYTE ptr, byval lpChar as LPWORD, byval uFlags as UINT, byval dwhkl as HKL) as long
+declare function ToUnicode(byval wVirtKey as UINT, byval wScanCode as UINT, byval lpKeyState as const BYTE ptr, byval pwszBuff as LPWSTR, byval cchBuff as long, byval wFlags as UINT) as long
 declare function OemKeyScan(byval wOemChar as WORD) as DWORD
-declare function VkKeyScanA(byval ch as CHAR) as SHORT_
-declare function VkKeyScanW(byval ch as WCHAR) as SHORT_
-declare function VkKeyScanExA(byval ch as CHAR, byval dwhkl as HKL) as SHORT_
-declare function VkKeyScanExW(byval ch as WCHAR, byval dwhkl as HKL) as SHORT_
+declare function VkKeyScanA(byval ch as CHAR) as SHORT
+declare function VkKeyScanW(byval ch as WCHAR) as SHORT
+declare function VkKeyScanExA(byval ch as CHAR, byval dwhkl as HKL) as SHORT
+declare function VkKeyScanExW(byval ch as WCHAR, byval dwhkl as HKL) as SHORT
 
 #define KEYEVENTF_EXTENDEDKEY &h0001
 #define KEYEVENTF_KEYUP &h0002
 #define KEYEVENTF_UNICODE &h0004
 #define KEYEVENTF_SCANCODE &h0008
 
-declare sub keybd_event(byval bVk as BYTE_, byval bScan as BYTE_, byval dwFlags as DWORD, byval dwExtraInfo as ULONG_PTR)
+declare sub keybd_event(byval bVk as BYTE, byval bScan as BYTE, byval dwFlags as DWORD, byval dwExtraInfo as ULONG_PTR)
 
 #define MOUSEEVENTF_MOVE &h0001
 #define MOUSEEVENTF_LEFTDOWN &h0002
@@ -2217,8 +2216,8 @@ declare sub keybd_event(byval bVk as BYTE_, byval bScan as BYTE_, byval dwFlags 
 declare sub mouse_event(byval dwFlags as DWORD, byval dx as DWORD, byval dy as DWORD, byval dwData as DWORD, byval dwExtraInfo as ULONG_PTR)
 
 type tagMOUSEINPUT
-	dx as LONG_
-	dy as LONG_
+	dx as LONG
+	dy as LONG
 	mouseData as DWORD
 	dwFlags as DWORD
 	time as DWORD
@@ -2476,7 +2475,7 @@ declare function ModifyMenuW(byval hMnu as HMENU, byval uPosition as UINT, byval
 declare function RemoveMenu(byval hMenu as HMENU, byval uPosition as UINT, byval uFlags as UINT) as WINBOOL
 declare function DeleteMenu(byval hMenu as HMENU, byval uPosition as UINT, byval uFlags as UINT) as WINBOOL
 declare function SetMenuItemBitmaps(byval hMenu as HMENU, byval uPosition as UINT, byval uFlags as UINT, byval hBitmapUnchecked as HBITMAP, byval hBitmapChecked as HBITMAP) as WINBOOL
-declare function GetMenuCheckMarkDimensions() as LONG_
+declare function GetMenuCheckMarkDimensions() as LONG
 declare function TrackPopupMenu(byval hMenu as HMENU, byval uFlags as UINT, byval x as long, byval y as long, byval nReserved as long, byval hWnd as HWND, byval prcRect as const RECT ptr) as WINBOOL
 
 #define MNC_IGNORE 0
@@ -2749,8 +2748,8 @@ declare function GrayStringW(byval hDC as HDC, byval hBrush as HBRUSH, byval lpO
 
 declare function DrawStateA(byval hdc as HDC, byval hbrFore as HBRUSH, byval qfnCallBack as DRAWSTATEPROC, byval lData as LPARAM, byval wData as WPARAM, byval x as long, byval y as long, byval cx as long, byval cy as long, byval uFlags as UINT) as WINBOOL
 declare function DrawStateW(byval hdc as HDC, byval hbrFore as HBRUSH, byval qfnCallBack as DRAWSTATEPROC, byval lData as LPARAM, byval wData as WPARAM, byval x as long, byval y as long, byval cx as long, byval cy as long, byval uFlags as UINT) as WINBOOL
-declare function TabbedTextOutA(byval hdc as HDC, byval x as long, byval y as long, byval lpString as LPCSTR, byval chCount as long, byval nTabPositions as long, byval lpnTabStopPositions as const INT_ ptr, byval nTabOrigin as long) as LONG_
-declare function TabbedTextOutW(byval hdc as HDC, byval x as long, byval y as long, byval lpString as LPCWSTR, byval chCount as long, byval nTabPositions as long, byval lpnTabStopPositions as const INT_ ptr, byval nTabOrigin as long) as LONG_
+declare function TabbedTextOutA(byval hdc as HDC, byval x as long, byval y as long, byval lpString as LPCSTR, byval chCount as long, byval nTabPositions as long, byval lpnTabStopPositions as const INT_ ptr, byval nTabOrigin as long) as LONG
+declare function TabbedTextOutW(byval hdc as HDC, byval x as long, byval y as long, byval lpString as LPCWSTR, byval chCount as long, byval nTabPositions as long, byval lpnTabStopPositions as const INT_ ptr, byval nTabOrigin as long) as LONG
 declare function GetTabbedTextExtentA(byval hdc as HDC, byval lpString as LPCSTR, byval chCount as long, byval nTabPositions as long, byval lpnTabStopPositions as const INT_ ptr) as DWORD
 declare function GetTabbedTextExtentW(byval hdc as HDC, byval lpString as LPCWSTR, byval chCount as long, byval nTabPositions as long, byval lpnTabStopPositions as const INT_ ptr) as DWORD
 declare function UpdateWindow(byval hWnd as HWND) as WINBOOL
@@ -3082,10 +3081,10 @@ declare function PtInRect(byval lprc as const RECT ptr, byval pt as POINT_) as W
 
 declare function GetWindowWord(byval hWnd as HWND, byval nIndex as long) as WORD
 declare function SetWindowWord(byval hWnd as HWND, byval nIndex as long, byval wNewWord as WORD) as WORD
-declare function GetWindowLongA(byval hWnd as HWND, byval nIndex as long) as LONG_
-declare function GetWindowLongW(byval hWnd as HWND, byval nIndex as long) as LONG_
-declare function SetWindowLongA(byval hWnd as HWND, byval nIndex as long, byval dwNewLong as LONG_) as LONG_
-declare function SetWindowLongW(byval hWnd as HWND, byval nIndex as long, byval dwNewLong as LONG_) as LONG_
+declare function GetWindowLongA(byval hWnd as HWND, byval nIndex as long) as LONG
+declare function GetWindowLongW(byval hWnd as HWND, byval nIndex as long) as LONG
+declare function SetWindowLongA(byval hWnd as HWND, byval nIndex as long, byval dwNewLong as LONG) as LONG
+declare function SetWindowLongW(byval hWnd as HWND, byval nIndex as long, byval dwNewLong as LONG) as LONG
 
 #define GetWindowLongPtr __MINGW_NAME_AW(GetWindowLongPtr)
 #define SetWindowLongPtr __MINGW_NAME_AW(SetWindowLongPtr)
@@ -3109,8 +3108,8 @@ declare function GetClassWord(byval hWnd as HWND, byval nIndex as long) as WORD
 declare function SetClassWord(byval hWnd as HWND, byval nIndex as long, byval wNewWord as WORD) as WORD
 declare function GetClassLongA(byval hWnd as HWND, byval nIndex as long) as DWORD
 declare function GetClassLongW(byval hWnd as HWND, byval nIndex as long) as DWORD
-declare function SetClassLongA(byval hWnd as HWND, byval nIndex as long, byval dwNewLong as LONG_) as DWORD
-declare function SetClassLongW(byval hWnd as HWND, byval nIndex as long, byval dwNewLong as LONG_) as DWORD
+declare function SetClassLongA(byval hWnd as HWND, byval nIndex as long, byval dwNewLong as LONG) as DWORD
+declare function SetClassLongW(byval hWnd as HWND, byval nIndex as long, byval dwNewLong as LONG) as DWORD
 
 #define GetClassLongPtr __MINGW_NAME_AW(GetClassLongPtr)
 #define SetClassLongPtr __MINGW_NAME_AW(SetClassLongPtr)
@@ -3323,7 +3322,7 @@ declare function LoadIconA(byval hInstance as HINSTANCE, byval lpIconName as LPC
 declare function LoadIconW(byval hInstance as HINSTANCE, byval lpIconName as LPCWSTR) as HICON
 declare function PrivateExtractIconsA(byval szFileName as LPCSTR, byval nIconIndex as long, byval cxIcon as long, byval cyIcon as long, byval phicon as HICON ptr, byval piconid as UINT ptr, byval nIcons as UINT, byval flags as UINT) as UINT
 declare function PrivateExtractIconsW(byval szFileName as LPCWSTR, byval nIconIndex as long, byval cxIcon as long, byval cyIcon as long, byval phicon as HICON ptr, byval piconid as UINT ptr, byval nIcons as UINT, byval flags as UINT) as UINT
-declare function CreateIcon(byval hInstance as HINSTANCE, byval nWidth as long, byval nHeight as long, byval cPlanes as BYTE_, byval cBitsPixel as BYTE_, byval lpbANDbits as const BYTE_ ptr, byval lpbXORbits as const BYTE_ ptr) as HICON
+declare function CreateIcon(byval hInstance as HINSTANCE, byval nWidth as long, byval nHeight as long, byval cPlanes as BYTE, byval cBitsPixel as BYTE, byval lpbANDbits as const BYTE ptr, byval lpbXORbits as const BYTE ptr) as HICON
 declare function DestroyIcon(byval hIcon as HICON) as WINBOOL
 declare function LookupIconIdFromDirectory(byval presbits as PBYTE, byval fIcon as WINBOOL) as long
 declare function LookupIconIdFromDirectoryEx(byval presbits as PBYTE, byval fIcon as WINBOOL, byval cxDesired as long, byval cyDesired as long, byval Flags as UINT) as long
@@ -3336,8 +3335,8 @@ type tagCURSORSHAPE
 	cx as long
 	cy as long
 	cbWidth as long
-	Planes as BYTE_
-	BitsPixel as BYTE_
+	Planes as BYTE
+	BitsPixel as BYTE
 end type
 
 type CURSORSHAPE as tagCURSORSHAPE
@@ -4581,9 +4580,9 @@ declare function GetMonitorInfoW(byval hMonitor as HMONITOR, byval lpmi as LPMON
 type MONITORENUMPROC as function(byval as HMONITOR, byval as HDC, byval as LPRECT, byval as LPARAM) as WINBOOL
 
 declare function EnumDisplayMonitors(byval hdc as HDC, byval lprcClip as LPCRECT, byval lpfnEnum as MONITORENUMPROC, byval dwData as LPARAM) as WINBOOL
-declare sub NotifyWinEvent(byval event as DWORD, byval hwnd as HWND, byval idObject as LONG_, byval idChild as LONG_)
+declare sub NotifyWinEvent(byval event as DWORD, byval hwnd as HWND, byval idObject as LONG, byval idChild as LONG)
 
-type WINEVENTPROC as sub(byval hWinEventHook as HWINEVENTHOOK, byval event as DWORD, byval hwnd as HWND, byval idObject as LONG_, byval idChild as LONG_, byval idEventThread as DWORD, byval dwmsEventTime as DWORD)
+type WINEVENTPROC as sub(byval hWinEventHook as HWINEVENTHOOK, byval event as DWORD, byval hwnd as HWND, byval idObject as LONG, byval idChild as LONG, byval idEventThread as DWORD, byval dwmsEventTime as DWORD)
 
 declare function SetWinEventHook(byval eventMin as DWORD, byval eventMax as DWORD, byval hmodWinEventProc as HMODULE, byval pfnWinEventProc as WINEVENTPROC, byval idProcess as DWORD, byval idThread as DWORD, byval dwFlags as DWORD) as HWINEVENTHOOK
 declare function IsWinEventHookInstalled(byval event as DWORD) as WINBOOL
@@ -4598,20 +4597,20 @@ declare function UnhookWinEvent(byval hWinEventHook as HWINEVENTHOOK) as WINBOOL
 #define CHILDID_SELF 0
 #define INDEXID_OBJECT 0
 #define INDEXID_CONTAINER 0
-#define OBJID_WINDOW cast(LONG_, &h00000000)
-#define OBJID_SYSMENU cast(LONG_, &hFFFFFFFF)
-#define OBJID_TITLEBAR cast(LONG_, &hFFFFFFFE)
-#define OBJID_MENU cast(LONG_, &hFFFFFFFD)
-#define OBJID_CLIENT cast(LONG_, &hFFFFFFFC)
-#define OBJID_VSCROLL cast(LONG_, &hFFFFFFFB)
-#define OBJID_HSCROLL cast(LONG_, &hFFFFFFFA)
-#define OBJID_SIZEGRIP cast(LONG_, &hFFFFFFF9)
-#define OBJID_CARET cast(LONG_, &hFFFFFFF8)
-#define OBJID_CURSOR cast(LONG_, &hFFFFFFF7)
-#define OBJID_ALERT cast(LONG_, &hFFFFFFF6)
-#define OBJID_SOUND cast(LONG_, &hFFFFFFF5)
-#define OBJID_QUERYCLASSNAMEIDX cast(LONG_, &hFFFFFFF4)
-#define OBJID_NATIVEOM cast(LONG_, &hFFFFFFF0)
+#define OBJID_WINDOW cast(LONG, &h00000000)
+#define OBJID_SYSMENU cast(LONG, &hFFFFFFFF)
+#define OBJID_TITLEBAR cast(LONG, &hFFFFFFFE)
+#define OBJID_MENU cast(LONG, &hFFFFFFFD)
+#define OBJID_CLIENT cast(LONG, &hFFFFFFFC)
+#define OBJID_VSCROLL cast(LONG, &hFFFFFFFB)
+#define OBJID_HSCROLL cast(LONG, &hFFFFFFFA)
+#define OBJID_SIZEGRIP cast(LONG, &hFFFFFFF9)
+#define OBJID_CARET cast(LONG, &hFFFFFFF8)
+#define OBJID_CURSOR cast(LONG, &hFFFFFFF7)
+#define OBJID_ALERT cast(LONG, &hFFFFFFF6)
+#define OBJID_SOUND cast(LONG, &hFFFFFFF5)
+#define OBJID_QUERYCLASSNAMEIDX cast(LONG, &hFFFFFFF4)
+#define OBJID_NATIVEOM cast(LONG, &hFFFFFFF0)
 #define EVENT_MIN &h00000001
 #define EVENT_MAX &h7FFFFFFF
 #define EVENT_SYSTEM_SOUND &h0001
@@ -4814,7 +4813,7 @@ type MENUBARINFO as tagMENUBARINFO
 type PMENUBARINFO as tagMENUBARINFO ptr
 type LPMENUBARINFO as tagMENUBARINFO ptr
 
-declare function GetMenuBarInfo(byval hwnd as HWND, byval idObject as LONG_, byval idItem as LONG_, byval pmbi as PMENUBARINFO) as WINBOOL
+declare function GetMenuBarInfo(byval hwnd as HWND, byval idObject as LONG, byval idItem as LONG, byval pmbi as PMENUBARINFO) as WINBOOL
 
 type tagSCROLLBARINFO
 	cbSize as DWORD
@@ -4830,7 +4829,7 @@ type SCROLLBARINFO as tagSCROLLBARINFO
 type PSCROLLBARINFO as tagSCROLLBARINFO ptr
 type LPSCROLLBARINFO as tagSCROLLBARINFO ptr
 
-declare function GetScrollBarInfo(byval hwnd as HWND, byval idObject as LONG_, byval psbi as PSCROLLBARINFO) as WINBOOL
+declare function GetScrollBarInfo(byval hwnd as HWND, byval idObject as LONG, byval psbi as PSCROLLBARINFO) as WINBOOL
 
 type tagCOMBOBOXINFO
 	cbSize as DWORD
@@ -4909,21 +4908,21 @@ type LPRAWINPUTHEADER as tagRAWINPUTHEADER ptr
 #define RIM_TYPEHID 2
 
 type tagRAWMOUSE
-	usFlags as USHORT_
+	usFlags as USHORT
 
 	union
-		ulButtons as ULONG_
+		ulButtons as ULONG
 
 		type
-			usButtonFlags as USHORT_
-			usButtonData as USHORT_
+			usButtonFlags as USHORT
+			usButtonData as USHORT
 		end type
 	end union
 
-	ulRawButtons as ULONG_
-	lLastX as LONG_
-	lLastY as LONG_
-	ulExtraInformation as ULONG_
+	ulRawButtons as ULONG
+	lLastX as LONG
+	lLastY as LONG
+	ulExtraInformation as ULONG
 end type
 
 type RAWMOUSE as tagRAWMOUSE
@@ -4953,12 +4952,12 @@ type LPRAWMOUSE as tagRAWMOUSE ptr
 #define MOUSE_ATTRIBUTES_CHANGED &h04
 
 type tagRAWKEYBOARD
-	MakeCode as USHORT_
-	Flags as USHORT_
-	Reserved as USHORT_
-	VKey as USHORT_
+	MakeCode as USHORT
+	Flags as USHORT
+	Reserved as USHORT
+	VKey as USHORT
 	Message as UINT
-	ExtraInformation as ULONG_
+	ExtraInformation as ULONG
 end type
 
 type RAWKEYBOARD as tagRAWKEYBOARD
@@ -4976,7 +4975,7 @@ type LPRAWKEYBOARD as tagRAWKEYBOARD ptr
 type tagRAWHID
 	dwSizeHid as DWORD
 	dwCount as DWORD
-	bRawData(0 to 0) as BYTE_
+	bRawData(0 to 0) as BYTE
 end type
 
 type RAWHID as tagRAWHID
@@ -5039,8 +5038,8 @@ type tagRID_DEVICE_INFO_HID
 	dwVendorId as DWORD
 	dwProductId as DWORD
 	dwVersionNumber as DWORD
-	usUsagePage as USHORT_
-	usUsage as USHORT_
+	usUsagePage as USHORT
+	usUsage as USHORT
 end type
 
 type RID_DEVICE_INFO_HID as tagRID_DEVICE_INFO_HID
@@ -5068,8 +5067,8 @@ declare function GetRawInputDeviceInfoW(byval hDevice as HANDLE, byval uiCommand
 declare function GetRawInputBuffer(byval pData as PRAWINPUT, byval pcbSize as PUINT, byval cbSizeHeader as UINT) as UINT
 
 type tagRAWINPUTDEVICE
-	usUsagePage as USHORT_
-	usUsage as USHORT_
+	usUsagePage as USHORT
+	usUsage as USHORT
 	dwFlags as DWORD
 	hwndTarget as HWND
 end type

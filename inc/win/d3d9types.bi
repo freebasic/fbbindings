@@ -1,5 +1,9 @@
 #pragma once
 
+'' The following symbols have been renamed:
+''     inside struct _D3DADAPTER_IDENTIFIER9:
+''         field DriverVersion => DriverVersion_
+
 #define __WINE_D3D9TYPES_H
 #define D3DCLEAR_TARGET __MSABI_LONG(&h00000001)
 #define D3DCLEAR_ZBUFFER __MSABI_LONG(&h00000002)
@@ -215,10 +219,10 @@ type D3DDECLTYPE as _D3DDECLTYPE
 type _D3DVERTEXELEMENT9
 	Stream as WORD
 	Offset as WORD
-	as BYTE_ Type
-	Method as BYTE_
-	Usage as BYTE_
-	UsageIndex as BYTE_
+	as BYTE Type
+	Method as BYTE
+	Usage as BYTE
+	UsageIndex as BYTE
 end type
 
 type D3DVERTEXELEMENT9 as _D3DVERTEXELEMENT9
@@ -355,9 +359,8 @@ end enum
 
 type D3DSHADER_INSTRUCTION_OPCODE_TYPE as _D3DSHADER_INSTRUCTION_OPCODE_TYPE
 
-'' TODO: #define D3DSINCOSCONST1 -1.5500992e-006f, -2.1701389e-005f, 0.0026041667f, 0.00026041668f
-'' TODO: #define D3DSINCOSCONST2 -0.020833334f, -0.12500000f, 1.0f, 0.50000000f
-
+#define D3DSINCOSCONST1 '' TODO: -1.5500992e-006f, -2.1701389e-005f, 0.0026041667f, 0.00026041668f
+#define D3DSINCOSCONST2 '' TODO: -0.020833334f, -0.12500000f, 1.0f, 0.50000000f
 #define D3DSHADER_INSTRUCTION_PREDICATED (1 shl 28)
 #define D3DSI_TEXLD_PROJECT &h00010000
 #define D3DSI_TEXLD_BIAS &h00020000
@@ -712,16 +715,16 @@ enum
 	D3DFMT_Q8W8V8U8 = 63
 	D3DFMT_V16U16 = 64
 	D3DFMT_A2W10V10U10 = 67
-	D3DFMT_UYVY = cast(DWORD, cast(BYTE_, ((asc("U") or cast(DWORD, cast(BYTE_, asc("Y") shl 8))) or cast(DWORD, cast(BYTE_, asc("V") shl 16))) or cast(DWORD, cast(BYTE_, asc("Y") shl 24))))
-	D3DFMT_YUY2 = cast(DWORD, cast(BYTE_, ((asc("Y") or cast(DWORD, cast(BYTE_, asc("U") shl 8))) or cast(DWORD, cast(BYTE_, asc("Y") shl 16))) or cast(DWORD, cast(BYTE_, asc("2") shl 24))))
-	D3DFMT_DXT1 = cast(DWORD, cast(BYTE_, ((asc("D") or cast(DWORD, cast(BYTE_, asc("X") shl 8))) or cast(DWORD, cast(BYTE_, asc("T") shl 16))) or cast(DWORD, cast(BYTE_, asc("1") shl 24))))
-	D3DFMT_DXT2 = cast(DWORD, cast(BYTE_, ((asc("D") or cast(DWORD, cast(BYTE_, asc("X") shl 8))) or cast(DWORD, cast(BYTE_, asc("T") shl 16))) or cast(DWORD, cast(BYTE_, asc("2") shl 24))))
-	D3DFMT_DXT3 = cast(DWORD, cast(BYTE_, ((asc("D") or cast(DWORD, cast(BYTE_, asc("X") shl 8))) or cast(DWORD, cast(BYTE_, asc("T") shl 16))) or cast(DWORD, cast(BYTE_, asc("3") shl 24))))
-	D3DFMT_DXT4 = cast(DWORD, cast(BYTE_, ((asc("D") or cast(DWORD, cast(BYTE_, asc("X") shl 8))) or cast(DWORD, cast(BYTE_, asc("T") shl 16))) or cast(DWORD, cast(BYTE_, asc("4") shl 24))))
-	D3DFMT_DXT5 = cast(DWORD, cast(BYTE_, ((asc("D") or cast(DWORD, cast(BYTE_, asc("X") shl 8))) or cast(DWORD, cast(BYTE_, asc("T") shl 16))) or cast(DWORD, cast(BYTE_, asc("5") shl 24))))
-	D3DFMT_MULTI2_ARGB8 = cast(DWORD, cast(BYTE_, ((asc("M") or cast(DWORD, cast(BYTE_, asc("E") shl 8))) or cast(DWORD, cast(BYTE_, asc("T") shl 16))) or cast(DWORD, cast(BYTE_, asc("1") shl 24))))
-	D3DFMT_G8R8_G8B8 = cast(DWORD, cast(BYTE_, ((asc("G") or cast(DWORD, cast(BYTE_, asc("R") shl 8))) or cast(DWORD, cast(BYTE_, asc("G") shl 16))) or cast(DWORD, cast(BYTE_, asc("B") shl 24))))
-	D3DFMT_R8G8_B8G8 = cast(DWORD, cast(BYTE_, ((asc("R") or cast(DWORD, cast(BYTE_, asc("G") shl 8))) or cast(DWORD, cast(BYTE_, asc("B") shl 16))) or cast(DWORD, cast(BYTE_, asc("G") shl 24))))
+	D3DFMT_UYVY = cast(DWORD, cast(BYTE, ((asc("U") or cast(DWORD, cast(BYTE, asc("Y") shl 8))) or cast(DWORD, cast(BYTE, asc("V") shl 16))) or cast(DWORD, cast(BYTE, asc("Y") shl 24))))
+	D3DFMT_YUY2 = cast(DWORD, cast(BYTE, ((asc("Y") or cast(DWORD, cast(BYTE, asc("U") shl 8))) or cast(DWORD, cast(BYTE, asc("Y") shl 16))) or cast(DWORD, cast(BYTE, asc("2") shl 24))))
+	D3DFMT_DXT1 = cast(DWORD, cast(BYTE, ((asc("D") or cast(DWORD, cast(BYTE, asc("X") shl 8))) or cast(DWORD, cast(BYTE, asc("T") shl 16))) or cast(DWORD, cast(BYTE, asc("1") shl 24))))
+	D3DFMT_DXT2 = cast(DWORD, cast(BYTE, ((asc("D") or cast(DWORD, cast(BYTE, asc("X") shl 8))) or cast(DWORD, cast(BYTE, asc("T") shl 16))) or cast(DWORD, cast(BYTE, asc("2") shl 24))))
+	D3DFMT_DXT3 = cast(DWORD, cast(BYTE, ((asc("D") or cast(DWORD, cast(BYTE, asc("X") shl 8))) or cast(DWORD, cast(BYTE, asc("T") shl 16))) or cast(DWORD, cast(BYTE, asc("3") shl 24))))
+	D3DFMT_DXT4 = cast(DWORD, cast(BYTE, ((asc("D") or cast(DWORD, cast(BYTE, asc("X") shl 8))) or cast(DWORD, cast(BYTE, asc("T") shl 16))) or cast(DWORD, cast(BYTE, asc("4") shl 24))))
+	D3DFMT_DXT5 = cast(DWORD, cast(BYTE, ((asc("D") or cast(DWORD, cast(BYTE, asc("X") shl 8))) or cast(DWORD, cast(BYTE, asc("T") shl 16))) or cast(DWORD, cast(BYTE, asc("5") shl 24))))
+	D3DFMT_MULTI2_ARGB8 = cast(DWORD, cast(BYTE, ((asc("M") or cast(DWORD, cast(BYTE, asc("E") shl 8))) or cast(DWORD, cast(BYTE, asc("T") shl 16))) or cast(DWORD, cast(BYTE, asc("1") shl 24))))
+	D3DFMT_G8R8_G8B8 = cast(DWORD, cast(BYTE, ((asc("G") or cast(DWORD, cast(BYTE, asc("R") shl 8))) or cast(DWORD, cast(BYTE, asc("G") shl 16))) or cast(DWORD, cast(BYTE, asc("B") shl 24))))
+	D3DFMT_R8G8_B8G8 = cast(DWORD, cast(BYTE, ((asc("R") or cast(DWORD, cast(BYTE, asc("G") shl 8))) or cast(DWORD, cast(BYTE, asc("B") shl 16))) or cast(DWORD, cast(BYTE, asc("G") shl 24))))
 	D3DFMT_D16_LOCKABLE = 70
 	D3DFMT_D32 = 71
 	D3DFMT_D15S1 = 73
@@ -1162,7 +1165,7 @@ type _D3DADAPTER_IDENTIFIER9
 	Driver as zstring * 512
 	Description as zstring * 512
 	DeviceName as zstring * 32
-	DriverVersion as LARGE_INTEGER
+	DriverVersion_ as LARGE_INTEGER
 	VendorId as DWORD
 	DeviceId as DWORD
 	SubSysId as DWORD
@@ -1438,10 +1441,10 @@ end type
 type D3DRASTER_STATUS as _D3DRASTER_STATUS
 
 type _D3DRECT
-	x1 as LONG_
-	y1 as LONG_
-	x2 as LONG_
-	y2 as LONG_
+	x1 as LONG
+	y1 as LONG
+	x2 as LONG
+	y2 as LONG
 end type
 
 type D3DRECT as _D3DRECT

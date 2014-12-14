@@ -1,6 +1,5 @@
 #pragma once
 
-#include once "crt/long.bi"
 #include once "_mingw_unicode.bi"
 #include once "apisetcconv.bi"
 #include once "bemapiset.bi"
@@ -203,8 +202,8 @@ end type
 type _PROCESS_HEAP_ENTRY
 	lpData as PVOID
 	cbData as DWORD
-	cbOverhead as BYTE_
-	iRegionIndex as BYTE_
+	cbOverhead as BYTE
+	iRegionIndex as BYTE
 	wFlags as WORD
 
 	union
@@ -225,8 +224,8 @@ type PPROCESS_HEAP_ENTRY as _PROCESS_HEAP_ENTRY ptr
 
 type ___REASON_CONTEXT_Detailed
 	LocalizedReasonModule as HMODULE
-	LocalizedReasonId as ULONG_
-	ReasonStringCount as ULONG_
+	LocalizedReasonId as ULONG
+	ReasonStringCount as ULONG
 	ReasonStrings as LPWSTR ptr
 end type
 
@@ -236,7 +235,7 @@ union ___REASON_CONTEXT_Reason
 end union
 
 type _REASON_CONTEXT
-	Version as ULONG_
+	Version as ULONG
 	Flags as DWORD
 	Reason as ___REASON_CONTEXT_Reason
 end type
@@ -405,9 +404,7 @@ type LPCONTEXT as PCONTEXT
 #define LMEM_DISCARDED &h4000
 #define LMEM_LOCKCOUNT &hff
 #define GetCurrentTime() GetTickCount()
-
-'' TODO: #define DefineHandleTable(w) ( { (VOID)(w); TRUE; } )
-
+#define DefineHandleTable(w) '' TODO: ( { (VOID)(w); TRUE; } )
 #define LimitEmsPages(dw)
 #define SetSwapAreaSize(w) (w)
 #define LockSegment(w) GlobalFix(cast(HANDLE, (w)))
@@ -617,9 +614,9 @@ type _DCB
 	wReserved as WORD
 	XonLim as WORD
 	XoffLim as WORD
-	ByteSize as BYTE_
-	Parity as BYTE_
-	StopBits as BYTE_
+	ByteSize as BYTE
+	Parity as BYTE
+	StopBits as BYTE
 	XonChar as byte
 	XoffChar as byte
 	ErrorChar as byte
@@ -913,8 +910,8 @@ type LPEXCEPTION_POINTERS as PEXCEPTION_POINTERS
 #define OFS_MAXPATHNAME 128
 
 type _OFSTRUCT
-	cBytes as BYTE_
-	fFixedDisk as BYTE_
+	cBytes as BYTE
+	fFixedDisk as BYTE
 	nErrCode as WORD
 	Reserved1 as WORD
 	Reserved2 as WORD
@@ -972,7 +969,7 @@ type POFSTRUCT as _OFSTRUCT ptr
 
 	declare function WinMain(byval hInstance as HINSTANCE, byval hPrevInstance as HINSTANCE, byval lpCmdLine as LPSTR, byval nShowCmd as long) as long
 
-	#define InterlockedCompareExchangePointer(Destination, ExChange, Comperand) cast(PVOID, cast(LONG_PTR, InterlockedCompareExchange(cptr(LONG_ ptr, (Destination)), cast(LONG_, cast(LONG_PTR, (ExChange))), cast(LONG_, cast(LONG_PTR, (Comperand))))))
+	#define InterlockedCompareExchangePointer(Destination, ExChange, Comperand) cast(PVOID, cast(LONG_PTR, InterlockedCompareExchange(cptr(LONG ptr, (Destination)), cast(LONG, cast(LONG_PTR, (ExChange))), cast(LONG, cast(LONG_PTR, (Comperand))))))
 	#define InterlockedDecrementAcquire InterlockedDecrement
 	#define InterlockedDecrementRelease InterlockedDecrement
 #endif
@@ -1021,16 +1018,15 @@ type POFSTRUCT as _OFSTRUCT ptr
 	declare function _InterlockedAnd8(byval Destination as zstring ptr, byval Value as byte) as byte
 	declare function _InterlockedOr8(byval Destination as zstring ptr, byval Value as byte) as byte
 	declare function _InterlockedXor8(byval Destination as zstring ptr, byval Value as byte) as byte
-	declare function _InterlockedAnd16(byval Destination as SHORT_ ptr, byval Value as SHORT_) as SHORT_
-	declare function _InterlockedOr16(byval Destination as SHORT_ ptr, byval Value as SHORT_) as SHORT_
-	declare function _InterlockedXor16(byval Destination as SHORT_ ptr, byval Value as SHORT_) as SHORT_
+	declare function _InterlockedAnd16(byval Destination as SHORT ptr, byval Value as SHORT) as SHORT
+	declare function _InterlockedOr16(byval Destination as SHORT ptr, byval Value as SHORT) as SHORT
+	declare function _InterlockedXor16(byval Destination as SHORT ptr, byval Value as SHORT) as SHORT
 #else
 	#define InterlockedCompareExchangePointerAcquire InterlockedCompareExchangePointer
 	#define InterlockedCompareExchangePointerRelease InterlockedCompareExchangePointer
 #endif
 
-'' TODO: #define UnlockResource(hResData) ( { (VOID)(hResData); 0; } )
-
+#define UnlockResource(hResData) '' TODO: ( { (VOID)(hResData); 0; } )
 #define MAXINTATOM &hc000
 #define MAKEINTATOM(i) cast(LPTSTR, cast(ULONG_PTR, cast(WORD, (i))))
 #define INVALID_ATOM cast(ATOM, 0)
@@ -1177,7 +1173,7 @@ declare function SetHandleCount(byval uNumber as UINT) as UINT
 declare function RequestDeviceWakeup(byval hDevice as HANDLE) as WINBOOL
 declare function CancelDeviceWakeupRequest(byval hDevice as HANDLE) as WINBOOL
 declare function GetDevicePowerState(byval hDevice as HANDLE, byval pfOn as WINBOOL ptr) as WINBOOL
-declare function SetMessageWaitingIndicator(byval hMsgIndicator as HANDLE, byval ulMsgCount as ULONG_) as WINBOOL
+declare function SetMessageWaitingIndicator(byval hMsgIndicator as HANDLE, byval ulMsgCount as ULONG) as WINBOOL
 declare function SetFileShortNameA(byval hFile as HANDLE, byval lpShortName as LPCSTR) as WINBOOL
 declare function SetFileShortNameW(byval hFile as HANDLE, byval lpShortName as LPCWSTR) as WINBOOL
 declare function LoadModule(byval lpModuleName as LPCSTR, byval lpParameterBlock as LPVOID) as DWORD
@@ -1230,7 +1226,7 @@ declare function FormatMessageW(byval dwFlags as DWORD, byval lpSource as LPCVOI
 #define FORMAT_MESSAGE_ARGUMENT_ARRAY &h00002000
 #define FORMAT_MESSAGE_MAX_WIDTH_MASK &h000000ff
 
-type PFE_EXPORT_FUNC as function(byval pbData as PBYTE, byval pvCallbackContext as PVOID, byval ulLength as ULONG_) as DWORD
+type PFE_EXPORT_FUNC as function(byval pbData as PBYTE, byval pvCallbackContext as PVOID, byval ulLength as ULONG) as DWORD
 type PFE_IMPORT_FUNC as function(byval pbData as PBYTE, byval pvCallbackContext as PVOID, byval ulLength as PULONG) as DWORD
 
 #define FILE_ENCRYPTABLE 0
@@ -1261,8 +1257,8 @@ declare function DecryptFileA(byval lpFileName as LPCSTR, byval dwReserved as DW
 declare function DecryptFileW(byval lpFileName as LPCWSTR, byval dwReserved as DWORD) as WINBOOL
 declare function FileEncryptionStatusA(byval lpFileName as LPCSTR, byval lpStatus as LPDWORD) as WINBOOL
 declare function FileEncryptionStatusW(byval lpFileName as LPCWSTR, byval lpStatus as LPDWORD) as WINBOOL
-declare function OpenEncryptedFileRawA(byval lpFileName as LPCSTR, byval ulFlags as ULONG_, byval pvContext as PVOID ptr) as DWORD
-declare function OpenEncryptedFileRawW(byval lpFileName as LPCWSTR, byval ulFlags as ULONG_, byval pvContext as PVOID ptr) as DWORD
+declare function OpenEncryptedFileRawA(byval lpFileName as LPCSTR, byval ulFlags as ULONG, byval pvContext as PVOID ptr) as DWORD
+declare function OpenEncryptedFileRawW(byval lpFileName as LPCWSTR, byval ulFlags as ULONG, byval pvContext as PVOID ptr) as DWORD
 declare function ReadEncryptedFileRaw(byval pfExportCallback as PFE_EXPORT_FUNC, byval pvCallbackContext as PVOID, byval pvContext as PVOID) as DWORD
 declare function WriteEncryptedFileRaw(byval pfImportCallback as PFE_IMPORT_FUNC, byval pvCallbackContext as PVOID, byval pvContext as PVOID) as DWORD
 declare sub CloseEncryptedFileRaw(byval pvContext as PVOID)
@@ -1283,10 +1279,10 @@ declare function _lopen(byval lpPathName as LPCSTR, byval iReadWrite as long) as
 declare function _lcreat(byval lpPathName as LPCSTR, byval iAttribute as long) as HFILE
 declare function _lread(byval hFile as HFILE, byval lpBuffer as LPVOID, byval uBytes as UINT) as UINT
 declare function _lwrite(byval hFile as HFILE, byval lpBuffer as LPCCH, byval uBytes as UINT) as UINT
-declare function _hread(byval hFile as HFILE, byval lpBuffer as LPVOID, byval lBytes as clong) as clong
-declare function _hwrite(byval hFile as HFILE, byval lpBuffer as LPCCH, byval lBytes as clong) as clong
+declare function _hread(byval hFile as HFILE, byval lpBuffer as LPVOID, byval lBytes as long) as long
+declare function _hwrite(byval hFile as HFILE, byval lpBuffer as LPCCH, byval lBytes as long) as long
 declare function _lclose(byval hFile as HFILE) as HFILE
-declare function _llseek(byval hFile as HFILE, byval lOffset as LONG_, byval iOrigin as long) as LONG_
+declare function _llseek(byval hFile as HFILE, byval lOffset as LONG, byval iOrigin as long) as LONG
 declare function IsTextUnicode(byval lpv as const any ptr, byval iSize as long, byval lpiResult as LPINT) as WINBOOL
 declare function BackupRead(byval hFile as HANDLE, byval lpBuffer as LPBYTE, byval nNumberOfBytesToRead as DWORD, byval lpNumberOfBytesRead as LPDWORD, byval bAbort as WINBOOL, byval bProcessSecurity as WINBOOL, byval lpContext as LPVOID ptr) as WINBOOL
 declare function BackupSeek(byval hFile as HANDLE, byval dwLowBytesToSeek as DWORD, byval dwHighBytesToSeek as DWORD, byval lpdwLowByteSeeked as LPDWORD, byval lpdwHighByteSeeked as LPDWORD, byval lpContext as LPVOID ptr) as WINBOOL
@@ -1347,9 +1343,9 @@ type LPWIN32_STREAM_ID as _WIN32_STREAM_ID ptr
 #define SHUTDOWN_NORETRY &h1
 #define CreateSemaphore __MINGW_NAME_AW(CreateSemaphore)
 
-declare function CreateSemaphoreW(byval lpSemaphoreAttributes as LPSECURITY_ATTRIBUTES, byval lInitialCount as LONG_, byval lMaximumCount as LONG_, byval lpName as LPCWSTR) as HANDLE
+declare function CreateSemaphoreW(byval lpSemaphoreAttributes as LPSECURITY_ATTRIBUTES, byval lInitialCount as LONG, byval lMaximumCount as LONG, byval lpName as LPCWSTR) as HANDLE
 declare function OpenMutexA(byval dwDesiredAccess as DWORD, byval bInheritHandle as WINBOOL, byval lpName as LPCSTR) as HANDLE
-declare function CreateSemaphoreA(byval lpSemaphoreAttributes as LPSECURITY_ATTRIBUTES, byval lInitialCount as LONG_, byval lMaximumCount as LONG_, byval lpName as LPCSTR) as HANDLE
+declare function CreateSemaphoreA(byval lpSemaphoreAttributes as LPSECURITY_ATTRIBUTES, byval lInitialCount as LONG, byval lMaximumCount as LONG, byval lpName as LPCSTR) as HANDLE
 declare function OpenSemaphoreA(byval dwDesiredAccess as DWORD, byval bInheritHandle as WINBOOL, byval lpName as LPCSTR) as HANDLE
 declare function CreateWaitableTimerA(byval lpTimerAttributes as LPSECURITY_ATTRIBUTES, byval bManualReset as WINBOOL, byval lpTimerName as LPCSTR) as HANDLE
 declare function CreateWaitableTimerW(byval lpTimerAttributes as LPSECURITY_ATTRIBUTES, byval bManualReset as WINBOOL, byval lpTimerName as LPCWSTR) as HANDLE
@@ -1487,10 +1483,10 @@ type PGET_SYSTEM_WOW64_DIRECTORY_W as function(byval lpBuffer as LPWSTR, byval u
 
 #define GET_SYSTEM_WOW64_DIRECTORY_NAME_A_A "GetSystemWow64DirectoryA"
 #define GET_SYSTEM_WOW64_DIRECTORY_NAME_A_W wstr("GetSystemWow64DirectoryA")
-#define GET_SYSTEM_WOW64_DIRECTORY_NAME_A_T TEXT_("GetSystemWow64DirectoryA")
+#define GET_SYSTEM_WOW64_DIRECTORY_NAME_A_T TEXT("GetSystemWow64DirectoryA")
 #define GET_SYSTEM_WOW64_DIRECTORY_NAME_W_A "GetSystemWow64DirectoryW"
 #define GET_SYSTEM_WOW64_DIRECTORY_NAME_W_W wstr("GetSystemWow64DirectoryW")
-#define GET_SYSTEM_WOW64_DIRECTORY_NAME_W_T TEXT_("GetSystemWow64DirectoryW")
+#define GET_SYSTEM_WOW64_DIRECTORY_NAME_W_T TEXT("GetSystemWow64DirectoryW")
 #define GET_SYSTEM_WOW64_DIRECTORY_NAME_T_A __MINGW_NAME_UAW_EXT(GET_SYSTEM_WOW64_DIRECTORY_NAME, A)
 #define GET_SYSTEM_WOW64_DIRECTORY_NAME_T_W __MINGW_NAME_UAW_EXT(GET_SYSTEM_WOW64_DIRECTORY_NAME, W)
 #define GET_SYSTEM_WOW64_DIRECTORY_NAME_T_T __MINGW_NAME_UAW_EXT(GET_SYSTEM_WOW64_DIRECTORY_NAME, T)
@@ -1695,13 +1691,10 @@ declare function LookupAccountNameW(byval lpSystemName as LPCWSTR, byval lpAccou
 #define LookupAccountName __MINGW_NAME_AW(LookupAccountName)
 #define LookupAccountNameLocalA(n, s, cs, d, cd, u) LookupAccountNameA(NULL, n, s, cs, d, cd, u)
 #define LookupAccountNameLocalW(n, s, cs, d, cd, u) LookupAccountNameW(NULL, n, s, cs, d, cd, u)
-
-'' TODO: #define LookupAccountNameLocal(n, s, cs, d, cd, u) __MINGW_NAME_AW(LookupAccountName) (NULL, n, s, cs, d, cd, u)
-
+#define LookupAccountNameLocal(n, s, cs, d, cd, u) '' TODO: __MINGW_NAME_AW(LookupAccountName) (NULL, n, s, cs, d, cd, u)
 #define LookupAccountSidLocalA(s, n, cn, d, cd, u) LookupAccountSidA(NULL, s, n, cn, d, cd, u)
 #define LookupAccountSidLocalW(s, n, cn, d, cd, u) LookupAccountSidW(NULL, s, n, cn, d, cd, u)
-
-'' TODO: #define LookupAccountSidLocal(s, n, cn, d, cd, u) __MINGW_NAME_AW(LookupAccountSid) (NULL, s, n, cn, d, cd, u)
+#define LookupAccountSidLocal(s, n, cn, d, cd, u) '' TODO: __MINGW_NAME_AW(LookupAccountSid) (NULL, s, n, cn, d, cd, u)
 
 declare function LookupPrivilegeValueA(byval lpSystemName as LPCSTR, byval lpName as LPCSTR, byval lpLuid as PLUID) as WINBOOL
 declare function LookupPrivilegeValueW(byval lpSystemName as LPCWSTR, byval lpName as LPCWSTR, byval lpLuid as PLUID) as WINBOOL
@@ -1779,15 +1772,15 @@ declare function CreateProcessAsUserA(byval hToken as HANDLE, byval lpApplicatio
 declare function CreateProcessWithLogonW(byval lpUsername as LPCWSTR, byval lpDomain as LPCWSTR, byval lpPassword as LPCWSTR, byval dwLogonFlags as DWORD, byval lpApplicationName as LPCWSTR, byval lpCommandLine as LPWSTR, byval dwCreationFlags as DWORD, byval lpEnvironment as LPVOID, byval lpCurrentDirectory as LPCWSTR, byval lpStartupInfo as LPSTARTUPINFOW, byval lpProcessInformation as LPPROCESS_INFORMATION) as WINBOOL
 declare function CreateProcessWithTokenW(byval hToken as HANDLE, byval dwLogonFlags as DWORD, byval lpApplicationName as LPCWSTR, byval lpCommandLine as LPWSTR, byval dwCreationFlags as DWORD, byval lpEnvironment as LPVOID, byval lpCurrentDirectory as LPCWSTR, byval lpStartupInfo as LPSTARTUPINFOW, byval lpProcessInformation as LPPROCESS_INFORMATION) as WINBOOL
 declare function IsTokenUntrusted(byval TokenHandle as HANDLE) as WINBOOL
-declare function RegisterWaitForSingleObject(byval phNewWaitObject as PHANDLE, byval hObject as HANDLE, byval Callback_ as WAITORTIMERCALLBACK, byval Context as PVOID, byval dwMilliseconds as ULONG_, byval dwFlags as ULONG_) as WINBOOL
+declare function RegisterWaitForSingleObject(byval phNewWaitObject as PHANDLE, byval hObject as HANDLE, byval Callback as WAITORTIMERCALLBACK, byval Context as PVOID, byval dwMilliseconds as ULONG, byval dwFlags as ULONG) as WINBOOL
 declare function UnregisterWait(byval WaitHandle as HANDLE) as WINBOOL
-declare function BindIoCompletionCallback(byval FileHandle as HANDLE, byval Function_ as LPOVERLAPPED_COMPLETION_ROUTINE, byval Flags as ULONG_) as WINBOOL
-declare function SetTimerQueueTimer(byval TimerQueue as HANDLE, byval Callback_ as WAITORTIMERCALLBACK, byval Parameter as PVOID, byval DueTime as DWORD, byval Period as DWORD, byval PreferIo as WINBOOL) as HANDLE
+declare function BindIoCompletionCallback(byval FileHandle as HANDLE, byval Function_ as LPOVERLAPPED_COMPLETION_ROUTINE, byval Flags as ULONG) as WINBOOL
+declare function SetTimerQueueTimer(byval TimerQueue as HANDLE, byval Callback as WAITORTIMERCALLBACK, byval Parameter as PVOID, byval DueTime as DWORD, byval Period as DWORD, byval PreferIo as WINBOOL) as HANDLE
 declare function CancelTimerQueueTimer(byval TimerQueue as HANDLE, byval Timer_ as HANDLE) as WINBOOL
 declare function DeleteTimerQueue(byval TimerQueue as HANDLE) as WINBOOL
 declare function CreatePrivateNamespaceA(byval lpPrivateNamespaceAttributes as LPSECURITY_ATTRIBUTES, byval lpBoundaryDescriptor as LPVOID, byval lpAliasPrefix as LPCSTR) as HANDLE
 declare function OpenPrivateNamespaceA(byval lpBoundaryDescriptor as LPVOID, byval lpAliasPrefix as LPCSTR) as HANDLE
-declare function CreateBoundaryDescriptorA(byval Name_ as LPCSTR, byval Flags as ULONG_) as HANDLE
+declare function CreateBoundaryDescriptorA(byval Name_ as LPCSTR, byval Flags as ULONG) as HANDLE
 declare function AddIntegrityLabelToBoundaryDescriptor(byval BoundaryDescriptor as HANDLE ptr, byval IntegrityLabel as PSID) as WINBOOL
 
 #ifndef UNICODE
@@ -1859,10 +1852,10 @@ declare function VerifyVersionInfoW(byval lpVersionInformation as LPOSVERSIONINF
 #define BATTERY_LIFE_UNKNOWN &hffffffff
 
 type _SYSTEM_POWER_STATUS
-	ACLineStatus as BYTE_
-	BatteryFlag as BYTE_
-	BatteryLifePercent as BYTE_
-	Reserved1 as BYTE_
+	ACLineStatus as BYTE
+	BatteryFlag as BYTE
+	BatteryLifePercent as BYTE
+	Reserved1 as BYTE
 	BatteryLifeTime as DWORD
 	BatteryFullLifeTime as DWORD
 end type
@@ -1884,7 +1877,7 @@ declare function AssignProcessToJobObject(byval hJob as HANDLE, byval hProcess a
 declare function TerminateJobObject(byval hJob as HANDLE, byval uExitCode as UINT) as WINBOOL
 declare function QueryInformationJobObject(byval hJob as HANDLE, byval JobObjectInformationClass as JOBOBJECTINFOCLASS, byval lpJobObjectInformation as LPVOID, byval cbJobObjectInformationLength as DWORD, byval lpReturnLength as LPDWORD) as WINBOOL
 declare function SetInformationJobObject(byval hJob as HANDLE, byval JobObjectInformationClass as JOBOBJECTINFOCLASS, byval lpJobObjectInformation as LPVOID, byval cbJobObjectInformationLength as DWORD) as WINBOOL
-declare function CreateJobSet(byval NumJob as ULONG_, byval UserJobSet as PJOB_SET_ARRAY, byval Flags as ULONG_) as WINBOOL
+declare function CreateJobSet(byval NumJob as ULONG, byval UserJobSet as PJOB_SET_ARRAY, byval Flags as ULONG) as WINBOOL
 declare function FindFirstVolumeA(byval lpszVolumeName as LPSTR, byval cchBufferLength as DWORD) as HANDLE
 declare function FindNextVolumeA(byval hFindVolume as HANDLE, byval lpszVolumeName as LPSTR, byval cchBufferLength as DWORD) as WINBOOL
 declare function FindFirstVolumeMountPointA(byval lpszRootPathName as LPCSTR, byval lpszVolumeMountPoint as LPSTR, byval cchBufferLength as DWORD) as HANDLE
@@ -1923,10 +1916,10 @@ declare function GetVolumePathNamesForVolumeNameA(byval lpszVolumeName as LPCSTR
 #define ACTCTX_FLAG_HMODULE_VALID &h00000080
 
 type tagACTCTXA
-	cbSize as ULONG_
+	cbSize as ULONG
 	dwFlags as DWORD
 	lpSource as LPCSTR
-	wProcessorArchitecture as USHORT_
+	wProcessorArchitecture as USHORT
 	wLangId as LANGID
 	lpAssemblyDirectory as LPCSTR
 	lpResourceName as LPCSTR
@@ -1938,10 +1931,10 @@ type ACTCTXA as tagACTCTXA
 type PACTCTXA as tagACTCTXA ptr
 
 type tagACTCTXW
-	cbSize as ULONG_
+	cbSize as ULONG
 	dwFlags as DWORD
 	lpSource as LPCWSTR
-	wProcessorArchitecture as USHORT_
+	wProcessorArchitecture as USHORT
 	wLangId as LANGID
 	lpAssemblyDirectory as LPCWSTR
 	lpResourceName as LPCWSTR
@@ -1982,16 +1975,16 @@ declare function GetCurrentActCtx(byval lphActCtx as HANDLE ptr) as WINBOOL
 #define DEACTIVATE_ACTCTX_FLAG_FORCE_EARLY_DEACTIVATION &h00000001
 
 type tagACTCTX_SECTION_KEYED_DATA_2600
-	cbSize as ULONG_
-	ulDataFormatVersion as ULONG_
+	cbSize as ULONG
+	ulDataFormatVersion as ULONG
 	lpData as PVOID
-	ulLength as ULONG_
+	ulLength as ULONG
 	lpSectionGlobalData as PVOID
-	ulSectionGlobalDataLength as ULONG_
+	ulSectionGlobalDataLength as ULONG
 	lpSectionBase as PVOID
-	ulSectionTotalLength as ULONG_
+	ulSectionTotalLength as ULONG
 	hActCtx as HANDLE
-	ulAssemblyRosterIndex as ULONG_
+	ulAssemblyRosterIndex as ULONG
 end type
 
 type ACTCTX_SECTION_KEYED_DATA_2600 as tagACTCTX_SECTION_KEYED_DATA_2600
@@ -2001,9 +1994,9 @@ type PCACTCTX_SECTION_KEYED_DATA_2600 as const ACTCTX_SECTION_KEYED_DATA_2600 pt
 type tagACTCTX_SECTION_KEYED_DATA_ASSEMBLY_METADATA
 	lpInformation as PVOID
 	lpSectionBase as PVOID
-	ulSectionLength as ULONG_
+	ulSectionLength as ULONG
 	lpSectionGlobalDataBase as PVOID
-	ulSectionGlobalDataLength as ULONG_
+	ulSectionGlobalDataLength as ULONG
 end type
 
 type ACTCTX_SECTION_KEYED_DATA_ASSEMBLY_METADATA as tagACTCTX_SECTION_KEYED_DATA_ASSEMBLY_METADATA
@@ -2011,17 +2004,17 @@ type PACTCTX_SECTION_KEYED_DATA_ASSEMBLY_METADATA as tagACTCTX_SECTION_KEYED_DAT
 type PCACTCTX_SECTION_KEYED_DATA_ASSEMBLY_METADATA as const ACTCTX_SECTION_KEYED_DATA_ASSEMBLY_METADATA ptr
 
 type tagACTCTX_SECTION_KEYED_DATA
-	cbSize as ULONG_
-	ulDataFormatVersion as ULONG_
+	cbSize as ULONG
+	ulDataFormatVersion as ULONG
 	lpData as PVOID
-	ulLength as ULONG_
+	ulLength as ULONG
 	lpSectionGlobalData as PVOID
-	ulSectionGlobalDataLength as ULONG_
+	ulSectionGlobalDataLength as ULONG
 	lpSectionBase as PVOID
-	ulSectionTotalLength as ULONG_
+	ulSectionTotalLength as ULONG
 	hActCtx as HANDLE
-	ulAssemblyRosterIndex as ULONG_
-	ulFlags as ULONG_
+	ulAssemblyRosterIndex as ULONG
+	ulFlags as ULONG
 	AssemblyMetadata as ACTCTX_SECTION_KEYED_DATA_ASSEMBLY_METADATA
 end type
 
@@ -2033,9 +2026,9 @@ type PCACTCTX_SECTION_KEYED_DATA as const ACTCTX_SECTION_KEYED_DATA ptr
 #define FIND_ACTCTX_SECTION_KEY_RETURN_FLAGS &h00000002
 #define FIND_ACTCTX_SECTION_KEY_RETURN_ASSEMBLY_METADATA &h00000004
 
-declare function FindActCtxSectionStringA(byval dwFlags as DWORD, byval lpExtensionGuid as const GUID ptr, byval ulSectionId as ULONG_, byval lpStringToFind as LPCSTR, byval ReturnedData as PACTCTX_SECTION_KEYED_DATA) as WINBOOL
-declare function FindActCtxSectionStringW(byval dwFlags as DWORD, byval lpExtensionGuid as const GUID ptr, byval ulSectionId as ULONG_, byval lpStringToFind as LPCWSTR, byval ReturnedData as PACTCTX_SECTION_KEYED_DATA) as WINBOOL
-declare function FindActCtxSectionGuid(byval dwFlags as DWORD, byval lpExtensionGuid as const GUID ptr, byval ulSectionId as ULONG_, byval lpGuidToFind as const GUID ptr, byval ReturnedData as PACTCTX_SECTION_KEYED_DATA) as WINBOOL
+declare function FindActCtxSectionStringA(byval dwFlags as DWORD, byval lpExtensionGuid as const GUID ptr, byval ulSectionId as ULONG, byval lpStringToFind as LPCSTR, byval ReturnedData as PACTCTX_SECTION_KEYED_DATA) as WINBOOL
+declare function FindActCtxSectionStringW(byval dwFlags as DWORD, byval lpExtensionGuid as const GUID ptr, byval ulSectionId as ULONG, byval lpStringToFind as LPCWSTR, byval ReturnedData as PACTCTX_SECTION_KEYED_DATA) as WINBOOL
+declare function FindActCtxSectionGuid(byval dwFlags as DWORD, byval lpExtensionGuid as const GUID ptr, byval ulSectionId as ULONG, byval lpGuidToFind as const GUID ptr, byval ReturnedData as PACTCTX_SECTION_KEYED_DATA) as WINBOOL
 
 #define FindActCtxSectionString __MINGW_NAME_AW(FindActCtxSectionString)
 
@@ -2054,9 +2047,9 @@ type PCACTIVATION_CONTEXT_BASIC_INFORMATION as const _ACTIVATION_CONTEXT_BASIC_I
 #define QUERY_ACTCTX_FLAG_ACTCTX_IS_ADDRESS &h00000010
 #define QUERY_ACTCTX_FLAG_NO_ADDREF &h80000000
 
-declare function QueryActCtxW(byval dwFlags as DWORD, byval hActCtx as HANDLE, byval pvSubInstance as PVOID, byval ulInfoClass as ULONG_, byval pvBuffer as PVOID, byval cbBuffer as SIZE_T_, byval pcbWrittenOrRequired as SIZE_T_ ptr) as WINBOOL
+declare function QueryActCtxW(byval dwFlags as DWORD, byval hActCtx as HANDLE, byval pvSubInstance as PVOID, byval ulInfoClass as ULONG, byval pvBuffer as PVOID, byval cbBuffer as SIZE_T_, byval pcbWrittenOrRequired as SIZE_T_ ptr) as WINBOOL
 
-type PQUERYACTCTXW_FUNC as function(byval dwFlags as DWORD, byval hActCtx as HANDLE, byval pvSubInstance as PVOID, byval ulInfoClass as ULONG_, byval pvBuffer as PVOID, byval cbBuffer as SIZE_T_, byval pcbWrittenOrRequired as SIZE_T_ ptr) as WINBOOL
+type PQUERYACTCTXW_FUNC as function(byval dwFlags as DWORD, byval hActCtx as HANDLE, byval pvSubInstance as PVOID, byval ulInfoClass as ULONG, byval pvBuffer as PVOID, byval cbBuffer as SIZE_T_, byval pcbWrittenOrRequired as SIZE_T_ ptr) as WINBOOL
 
 declare function WTSGetActiveConsoleSessionId() as DWORD
 declare function GetNumaProcessorNode(byval Processor as UCHAR, byval NodeNumber as PUCHAR) as WINBOOL

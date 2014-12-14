@@ -14,18 +14,18 @@
 #define _WINCON_
 
 type _COORD
-	X as SHORT_
-	Y as SHORT_
+	X as SHORT
+	Y as SHORT
 end type
 
 type COORD as _COORD
 type PCOORD as _COORD ptr
 
 type _SMALL_RECT
-	Left as SHORT_
-	Top as SHORT_
-	Right as SHORT_
-	Bottom as SHORT_
+	Left as SHORT
+	Top as SHORT
+	Right as SHORT
+	Bottom as SHORT
 end type
 
 type SMALL_RECT as _SMALL_RECT
@@ -325,7 +325,7 @@ declare function GetConsoleAliasExesA(byval ExeNameBuffer as LPSTR, byval ExeNam
 declare function GetConsoleAliasExesW(byval ExeNameBuffer as LPWSTR, byval ExeNameBufferLength as DWORD) as DWORD
 
 type _CONSOLE_FONT_INFOEX
-	cbSize as ULONG_
+	cbSize as ULONG
 	nFont as DWORD
 	dwFontSize as COORD
 	FontFamily as UINT
@@ -347,17 +347,17 @@ type CONSOLE_HISTORY_INFO as _CONSOLE_HISTORY_INFO
 type PCONSOLE_HISTORY_INFO as _CONSOLE_HISTORY_INFO ptr
 
 type _CONSOLE_READCONSOLE_CONTROL
-	nLength as ULONG_
-	nInitialChars as ULONG_
-	dwCtrlWakeupMask as ULONG_
-	dwControlKeyState as ULONG_
+	nLength as ULONG
+	nInitialChars as ULONG
+	dwCtrlWakeupMask as ULONG
+	dwControlKeyState as ULONG
 end type
 
 type CONSOLE_READCONSOLE_CONTROL as _CONSOLE_READCONSOLE_CONTROL
 type PCONSOLE_READCONSOLE_CONTROL as _CONSOLE_READCONSOLE_CONTROL ptr
 
 type _CONSOLE_SCREEN_BUFFER_INFOEX
-	cbSize as ULONG_
+	cbSize as ULONG
 	dwSize as COORD
 	dwCursorPosition as COORD
 	wAttributes as WORD

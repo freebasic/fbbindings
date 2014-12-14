@@ -1,6 +1,5 @@
 #pragma once
 
-#include once "crt/long.bi"
 #include once "crt/limits.bi"
 #include once "d3d9.bi"
 #include once "d3dx9math.bi"
@@ -24,13 +23,13 @@
 
 type _D3DXERR as long
 enum
-	D3DXERR_CANNOTMODIFYINDEXBUFFER = cast(HRESULT, (cast(culong, 1 shl 31) or cast(culong, &h876 shl 16)) or cast(culong, 2900))
-	D3DXERR_INVALIDMESH = cast(HRESULT, (cast(culong, 1 shl 31) or cast(culong, &h876 shl 16)) or cast(culong, 2901))
-	D3DXERR_CANNOTATTRSORT = cast(HRESULT, (cast(culong, 1 shl 31) or cast(culong, &h876 shl 16)) or cast(culong, 2902))
-	D3DXERR_SKINNINGNOTSUPPORTED = cast(HRESULT, (cast(culong, 1 shl 31) or cast(culong, &h876 shl 16)) or cast(culong, 2903))
-	D3DXERR_TOOMANYINFLUENCES = cast(HRESULT, (cast(culong, 1 shl 31) or cast(culong, &h876 shl 16)) or cast(culong, 2904))
-	D3DXERR_INVALIDDATA = cast(HRESULT, (cast(culong, 1 shl 31) or cast(culong, &h876 shl 16)) or cast(culong, 2905))
-	D3DXERR_LOADEDMESHASNODATA = cast(HRESULT, (cast(culong, 1 shl 31) or cast(culong, &h876 shl 16)) or cast(culong, 2906))
-	D3DXERR_DUPLICATENAMEDFRAGMENT = cast(HRESULT, (cast(culong, 1 shl 31) or cast(culong, &h876 shl 16)) or cast(culong, 2907))
-	D3DXERR_CANNOTREMOVELASTITEM = cast(HRESULT, (cast(culong, 1 shl 31) or cast(culong, &h876 shl 16)) or cast(culong, 2908))
+	D3DXERR_CANNOTMODIFYINDEXBUFFER = cast(HRESULT, (culng(1 shl 31) or culng(&h876 shl 16)) or culng(2900))
+	D3DXERR_INVALIDMESH = cast(HRESULT, (culng(1 shl 31) or culng(&h876 shl 16)) or culng(2901))
+	D3DXERR_CANNOTATTRSORT = cast(HRESULT, (culng(1 shl 31) or culng(&h876 shl 16)) or culng(2902))
+	D3DXERR_SKINNINGNOTSUPPORTED = cast(HRESULT, (culng(1 shl 31) or culng(&h876 shl 16)) or culng(2903))
+	D3DXERR_TOOMANYINFLUENCES = cast(HRESULT, (culng(1 shl 31) or culng(&h876 shl 16)) or culng(2904))
+	D3DXERR_INVALIDDATA = cast(HRESULT, (culng(1 shl 31) or culng(&h876 shl 16)) or culng(2905))
+	D3DXERR_LOADEDMESHASNODATA = cast(HRESULT, (culng(1 shl 31) or culng(&h876 shl 16)) or culng(2906))
+	D3DXERR_DUPLICATENAMEDFRAGMENT = cast(HRESULT, (culng(1 shl 31) or culng(&h876 shl 16)) or culng(2907))
+	D3DXERR_CANNOTREMOVELASTITEM = cast(HRESULT, (culng(1 shl 31) or culng(&h876 shl 16)) or culng(2908))
 end enum

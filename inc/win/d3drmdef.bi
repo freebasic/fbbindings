@@ -3,6 +3,14 @@
 #include once "crt/stddef.bi"
 #include once "d3dtypes.bi"
 
+'' The following symbols have been renamed:
+''     inside struct _D3DRMBOX:
+''         field min => min_
+''         field max => max_
+''     inside struct _D3DRMIMAGE:
+''         field aspectx => aspectx_
+''         field aspecty => aspecty_
+
 #ifdef __FB_64BIT__
 	extern "C"
 #else
@@ -38,8 +46,8 @@ type D3DRMRAY as _D3DRMRAY
 type LPD3DRMRAY as _D3DRMRAY ptr
 
 type _D3DRMBOX
-	min as D3DVECTOR
-	max as D3DVECTOR
+	min_ as D3DVECTOR
+	max_ as D3DVECTOR
 end type
 
 type D3DRMBOX as _D3DRMBOX
@@ -99,9 +107,7 @@ type LPD3DRMRENDERQUALITY as DWORD ptr
 #define D3DRMRENDER_UNLITFLAT ((D3DRMSHADE_FLAT + D3DRMLIGHT_OFF) + D3DRMFILL_SOLID)
 #define D3DRMRENDER_FLAT ((D3DRMSHADE_FLAT + D3DRMLIGHT_ON) + D3DRMFILL_SOLID)
 #define D3DRMRENDER_GOURAUD ((D3DRMSHADE_GOURAUD + D3DRMLIGHT_ON) + D3DRMFILL_SOLID)
-
-'' TODO: #define D3DRMRENDER_PHONG (D3DRMSHADE_PHONG+D3DRMLIGHT_ON+D3DRMFILL_SOLID
-
+#define D3DRMRENDER_PHONG '' TODO: (D3DRMSHADE_PHONG+D3DRMLIGHT_ON+D3DRMFILL_SOLID
 #define D3DRMRENDERMODE_BLENDEDTRANSPARENCY 1
 #define D3DRMRENDERMODE_SORTEDTRANSPARENCY 2
 #define D3DRMRENDERMODE_LIGHTINMODELSPACE 8
@@ -167,17 +173,17 @@ type LPD3DRMPALETTEENTRY as _D3DRMPALETTEENTRY ptr
 type _D3DRMIMAGE
 	width as long
 	height as long
-	aspectx as long
-	aspecty as long
+	aspectx_ as long
+	aspecty_ as long
 	depth as long
 	rgb as long
 	bytes_per_line as long
 	buffer1 as any ptr
 	buffer2 as any ptr
-	red_mask as ULONG_
-	green_mask as ULONG_
-	blue_mask as ULONG_
-	alpha_mask as ULONG_
+	red_mask as ULONG
+	green_mask as ULONG
+	blue_mask as ULONG
+	alpha_mask as ULONG
 	palette_size as long
 	palette as D3DRMPALETTEENTRY ptr
 end type
@@ -485,7 +491,7 @@ end type
 
 type D3DRMVERTEX as _D3DRMVERTEX
 type LPD3DRMVERTEX as _D3DRMVERTEX ptr
-type D3DRMGROUPINDEX as LONG_
+type D3DRMGROUPINDEX as LONG
 
 dim shared D3DRMGROUP_ALLGROUPS as const D3DRMGROUPINDEX = -1
 

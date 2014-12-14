@@ -11,9 +11,8 @@ extern "C"
 
 #define _INC__MINGW_H
 #define MINGW_HAS_SECURE_API 1
-#define __LONG32 clong
+#define __LONG32 long
 #define __USE_CRTIMP 1
-#define __DECLSPEC_SUPPORTED
 #define USE___UUIDOF 0
 #define __MSVCRT_VERSION__ &h0700
 #define WINVER &h0502
@@ -98,7 +97,7 @@ type errno_t as long
 
 #define _TIME32_T_DEFINED
 
-type __time32_t as clong
+type __time32_t as long
 
 #define _TIME64_T_DEFINED
 

@@ -2,6 +2,12 @@
 
 #include once "_mingw_unicode.bi"
 
+'' The following symbols have been renamed:
+''     inside struct mmtime_tag:
+''         inside union __mmtime_tag_u:
+''             inside struct __mmtime_tag_smpte:
+''                 field min => min_
+
 #ifdef __FB_64BIT__
 	extern "C"
 #else
@@ -12,7 +18,6 @@
 
 type MMVERSION as UINT
 
-#define WINMMAPI DECLSPEC_IMPORT
 #define _loadds
 #define _huge
 #define MAXPNAMELEN 32
@@ -27,13 +32,13 @@ type MMRESULT as UINT
 type LPUINT as UINT ptr
 
 type __mmtime_tag_smpte field = 1
-	hour as BYTE_
-	min as BYTE_
-	sec as BYTE_
-	frame as BYTE_
-	fps as BYTE_
-	dummy as BYTE_
-	pad(0 to 1) as BYTE_
+	hour as BYTE
+	min_ as BYTE
+	sec as BYTE
+	frame as BYTE
+	fps as BYTE
+	dummy as BYTE
+	pad(0 to 1) as BYTE
 end type
 
 type __mmtime_tag_midi field = 1
@@ -65,7 +70,7 @@ type LPMMTIME as mmtime_tag ptr
 #define TIME_SMPTE &h0008
 #define TIME_MIDI &h0010
 #define TIME_TICKS &h0020
-#define MAKEFOURCC(ch0, ch1, ch2, ch3) cast(DWORD, cast(BYTE_, (((ch0) or cast(DWORD, cast(BYTE_, (ch1) shl 8))) or cast(DWORD, cast(BYTE_, (ch2) shl 16))) or cast(DWORD, cast(BYTE_, (ch3) shl 24))))
+#define MAKEFOURCC(ch0, ch1, ch2, ch3) cast(DWORD, cast(BYTE, (((ch0) or cast(DWORD, cast(BYTE, (ch1) shl 8))) or cast(DWORD, cast(BYTE, (ch2) shl 16))) or cast(DWORD, cast(BYTE, (ch3) shl 24))))
 #define MM_JOY1MOVE &h3A0
 #define MM_JOY2MOVE &h3A1
 #define MM_JOY1ZMOVE &h3A2
@@ -231,7 +236,7 @@ declare function sndPlaySoundW(byval pszSound as LPCWSTR, byval fuSound as UINT)
 #define SND_PURGE &h0040
 #define SND_APPLICATION &h0080
 #define SND_ALIAS_START 0
-#define sndAlias(c0, c1) (SND_ALIAS_START + cast(DWORD, cast(BYTE_, (c0) or cast(DWORD, cast(BYTE_, (c1) shl 8)))))
+#define sndAlias(c0, c1) (SND_ALIAS_START + cast(DWORD, cast(BYTE, (c0) or cast(DWORD, cast(BYTE, (c1) shl 8)))))
 #define SND_ALIAS_SYSTEMASTERISK sndAlias(asc("S"), asc("*"))
 #define SND_ALIAS_SYSTEMQUESTION sndAlias(asc("S"), asc("?"))
 #define SND_ALIAS_SYSTEMHAND sndAlias(asc("S"), asc("H"))
@@ -915,14 +920,14 @@ type MIDISTRMBUFFVER as midistrmbuffver_tag
 #define MEVT_F_SHORT __MSABI_LONG(&h00000000)
 #define MEVT_F_LONG __MSABI_LONG(&h80000000)
 #define MEVT_F_CALLBACK __MSABI_LONG(&h40000000)
-#define MEVT_EVENTTYPE(x) cast(BYTE_, ((x) shr 24) and &hFF)
+#define MEVT_EVENTTYPE(x) cast(BYTE, ((x) shr 24) and &hFF)
 #define MEVT_EVENTPARM(x) cast(DWORD, (x) and &h00FFFFFF)
-#define MEVT_SHORTMSG cast(BYTE_, &h00)
-#define MEVT_TEMPO cast(BYTE_, &h01)
-#define MEVT_NOP cast(BYTE_, &h02)
-#define MEVT_LONGMSG cast(BYTE_, &h80)
-#define MEVT_COMMENT cast(BYTE_, &h82)
-#define MEVT_VERSION cast(BYTE_, &h84)
+#define MEVT_SHORTMSG cast(BYTE, &h00)
+#define MEVT_TEMPO cast(BYTE, &h01)
+#define MEVT_NOP cast(BYTE, &h02)
+#define MEVT_LONGMSG cast(BYTE, &h80)
+#define MEVT_COMMENT cast(BYTE, &h82)
+#define MEVT_VERSION cast(BYTE, &h84)
 #define MIDISTRM_ERROR (-2)
 #define MIDIPROP_SET __MSABI_LONG(&h80000000)
 #define MIDIPROP_GET __MSABI_LONG(&h40000000)
@@ -1347,8 +1352,8 @@ declare function mixerGetID(byval hmxobj as HMIXEROBJ, byval puMxId as UINT ptr,
 
 union __tagMIXERCONTROLA_Bounds field = 1
 	type field = 1
-		lMinimum as LONG_
-		lMaximum as LONG_
+		lMinimum as LONG
+		lMaximum as LONG
 	end type
 
 	type field = 1
@@ -1383,8 +1388,8 @@ type LPMIXERCONTROLA as tagMIXERCONTROLA ptr
 
 union __tagMIXERCONTROLW_Bounds field = 1
 	type field = 1
-		lMinimum as LONG_
-		lMaximum as LONG_
+		lMinimum as LONG
+		lMaximum as LONG
 	end type
 
 	type field = 1
@@ -1590,7 +1595,7 @@ type LPMIXERCONTROLDETAILS_LISTTEXTW as tagMIXERCONTROLDETAILS_LISTTEXTW ptr
 #endif
 
 type tMIXERCONTROLDETAILS_BOOLEAN field = 1
-	fValue as LONG_
+	fValue as LONG
 end type
 
 type MIXERCONTROLDETAILS_BOOLEAN as tMIXERCONTROLDETAILS_BOOLEAN
@@ -1598,7 +1603,7 @@ type PMIXERCONTROLDETAILS_BOOLEAN as tMIXERCONTROLDETAILS_BOOLEAN ptr
 type LPMIXERCONTROLDETAILS_BOOLEAN as tMIXERCONTROLDETAILS_BOOLEAN ptr
 
 type tMIXERCONTROLDETAILS_SIGNED field = 1
-	lValue as LONG_
+	lValue as LONG
 end type
 
 type MIXERCONTROLDETAILS_SIGNED as tMIXERCONTROLDETAILS_SIGNED
@@ -1976,13 +1981,13 @@ type _MMIOINFO field = 1
 	pIOProc as LPMMIOPROC
 	wErrorRet as UINT
 	htask as HTASK
-	cchBuffer as LONG_
+	cchBuffer as LONG
 	pchBuffer as HPSTR
 	pchNext as HPSTR
 	pchEndRead as HPSTR
 	pchEndWrite as HPSTR
-	lBufOffset as LONG_
-	lDiskOffset as LONG_
+	lBufOffset as LONG
+	lDiskOffset as LONG
 	adwInfo(0 to 2) as DWORD
 	dwReserved1 as DWORD
 	dwReserved2 as DWORD
@@ -2078,12 +2083,12 @@ declare function mmioRenameW(byval pszFileName as LPCWSTR, byval pszNewFileName 
 #define mmioRename __MINGW_NAME_AW(mmioRename)
 
 declare function mmioClose(byval hmmio as HMMIO, byval fuClose as UINT) as MMRESULT
-declare function mmioRead(byval hmmio as HMMIO, byval pch as HPSTR, byval cch as LONG_) as LONG_
-declare function mmioWrite(byval hmmio as HMMIO, byval pch as const zstring ptr, byval cch as LONG_) as LONG_
-declare function mmioSeek(byval hmmio as HMMIO, byval lOffset as LONG_, byval iOrigin as long) as LONG_
+declare function mmioRead(byval hmmio as HMMIO, byval pch as HPSTR, byval cch as LONG) as LONG
+declare function mmioWrite(byval hmmio as HMMIO, byval pch as const zstring ptr, byval cch as LONG) as LONG
+declare function mmioSeek(byval hmmio as HMMIO, byval lOffset as LONG, byval iOrigin as long) as LONG
 declare function mmioGetInfo(byval hmmio as HMMIO, byval pmmioinfo as LPMMIOINFO, byval fuInfo as UINT) as MMRESULT
 declare function mmioSetInfo(byval hmmio as HMMIO, byval pmmioinfo as LPCMMIOINFO, byval fuInfo as UINT) as MMRESULT
-declare function mmioSetBuffer(byval hmmio as HMMIO, byval pchBuffer as LPSTR, byval cchBuffer as LONG_, byval fuBuffer as UINT) as MMRESULT
+declare function mmioSetBuffer(byval hmmio as HMMIO, byval pchBuffer as LPSTR, byval cchBuffer as LONG, byval fuBuffer as UINT) as MMRESULT
 declare function mmioFlush(byval hmmio as HMMIO, byval fuFlush as UINT) as MMRESULT
 declare function mmioAdvance(byval hmmio as HMMIO, byval pmmioinfo as LPMMIOINFO, byval fuAdvance as UINT) as MMRESULT
 declare function mmioSendMessage(byval hmmio as HMMIO, byval uMsg as UINT, byval lParam1 as LPARAM, byval lParam2 as LPARAM) as LRESULT
@@ -2272,19 +2277,19 @@ declare function mciGetYieldProc(byval mciId as MCIDEVICEID, byval pdwYieldData 
 #define MCI_FORMAT_BYTES 8
 #define MCI_FORMAT_SAMPLES 9
 #define MCI_FORMAT_TMSF 10
-#define MCI_MSF_MINUTE(msf) cast(BYTE_, (msf))
-#define MCI_MSF_SECOND(msf) cast(BYTE_, cast(WORD, (msf)) shr 8)
-#define MCI_MSF_FRAME(msf) cast(BYTE_, (msf) shr 16)
-#define MCI_MAKE_MSF(m, s, f) cast(DWORD, cast(BYTE_, (m) or cast(WORD, (s) shl 8)) or (cast(DWORD, cast(BYTE_, (f))) shl 16))
-#define MCI_TMSF_TRACK(tmsf) cast(BYTE_, (tmsf))
-#define MCI_TMSF_MINUTE(tmsf) cast(BYTE_, cast(WORD, (tmsf)) shr 8)
-#define MCI_TMSF_SECOND(tmsf) cast(BYTE_, (tmsf) shr 16)
-#define MCI_TMSF_FRAME(tmsf) cast(BYTE_, (tmsf) shr 24)
-#define MCI_MAKE_TMSF(t, m, s, f) cast(DWORD, cast(BYTE_, (t) or cast(WORD, (m) shl 8)) or (cast(DWORD, cast(BYTE_, (s) or cast(WORD, (f) shl 8))) shl 16))
-#define MCI_HMS_HOUR(hms) cast(BYTE_, (hms))
-#define MCI_HMS_MINUTE(hms) cast(BYTE_, cast(WORD, (hms)) shr 8)
-#define MCI_HMS_SECOND(hms) cast(BYTE_, (hms) shr 16)
-#define MCI_MAKE_HMS(h, m, s) cast(DWORD, cast(BYTE_, (h) or cast(WORD, (m) shl 8)) or (cast(DWORD, cast(BYTE_, (s))) shl 16))
+#define MCI_MSF_MINUTE(msf) cast(BYTE, (msf))
+#define MCI_MSF_SECOND(msf) cast(BYTE, cast(WORD, (msf)) shr 8)
+#define MCI_MSF_FRAME(msf) cast(BYTE, (msf) shr 16)
+#define MCI_MAKE_MSF(m, s, f) cast(DWORD, cast(BYTE, (m) or cast(WORD, (s) shl 8)) or (cast(DWORD, cast(BYTE, (f))) shl 16))
+#define MCI_TMSF_TRACK(tmsf) cast(BYTE, (tmsf))
+#define MCI_TMSF_MINUTE(tmsf) cast(BYTE, cast(WORD, (tmsf)) shr 8)
+#define MCI_TMSF_SECOND(tmsf) cast(BYTE, (tmsf) shr 16)
+#define MCI_TMSF_FRAME(tmsf) cast(BYTE, (tmsf) shr 24)
+#define MCI_MAKE_TMSF(t, m, s, f) cast(DWORD, cast(BYTE, (t) or cast(WORD, (m) shl 8)) or (cast(DWORD, cast(BYTE, (s) or cast(WORD, (f) shl 8))) shl 16))
+#define MCI_HMS_HOUR(hms) cast(BYTE, (hms))
+#define MCI_HMS_MINUTE(hms) cast(BYTE, cast(WORD, (hms)) shr 8)
+#define MCI_HMS_SECOND(hms) cast(BYTE, (hms) shr 16)
+#define MCI_MAKE_HMS(h, m, s) cast(DWORD, cast(BYTE, (h) or cast(WORD, (m) shl 8)) or (cast(DWORD, cast(BYTE, (s))) shl 16))
 #define MCI_NOTIFY_SUCCESSFUL &h0001
 #define MCI_NOTIFY_SUPERSEDED &h0002
 #define MCI_NOTIFY_ABORTED &h0004

@@ -120,7 +120,7 @@ type PDPL_MESSAGE_DISCONNECT as _DPL_MESSAGE_DISCONNECT ptr
 type _DPL_MESSAGE_RECEIVE
 	dwSize as DWORD
 	hSender as DPNHANDLE
-	pBuffer as BYTE_ ptr
+	pBuffer as BYTE ptr
 	dwBufferSize as DWORD
 	pvConnectionContext as PVOID
 end type
@@ -154,12 +154,12 @@ end type
 
 type IDirectPlay8LobbiedApplicationVtbl_
 	QueryInterface as function(byval This as IDirectPlay8LobbiedApplication ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirectPlay8LobbiedApplication ptr) as ULONG_
-	Release as function(byval This as IDirectPlay8LobbiedApplication ptr) as ULONG_
+	AddRef as function(byval This as IDirectPlay8LobbiedApplication ptr) as ULONG
+	Release as function(byval This as IDirectPlay8LobbiedApplication ptr) as ULONG
 	Initialize as function(byval This as IDirectPlay8LobbiedApplication ptr, byval pvUserContext as const PVOID, byval pfn as const PFNDPNMESSAGEHANDLER, byval pdpnhConnection as DPNHANDLE const ptr, byval dwFlags as const DWORD) as HRESULT
 	RegisterProgram as function(byval This as IDirectPlay8LobbiedApplication ptr, byval pdplProgramDesc as PDPL_PROGRAM_DESC, byval dwFlags as const DWORD) as HRESULT
 	UnRegisterProgram as function(byval This as IDirectPlay8LobbiedApplication ptr, byval pguidApplication as GUID ptr, byval dwFlags as const DWORD) as HRESULT
-	Send as function(byval This as IDirectPlay8LobbiedApplication ptr, byval hConnection as const DPNHANDLE, byval pBuffer as BYTE_ const ptr, byval pBufferSize as const DWORD, byval dwFlags as const DWORD) as HRESULT
+	Send as function(byval This as IDirectPlay8LobbiedApplication ptr, byval hConnection as const DPNHANDLE, byval pBuffer as BYTE const ptr, byval pBufferSize as const DWORD, byval dwFlags as const DWORD) as HRESULT
 	SetAppAvailable as function(byval This as IDirectPlay8LobbiedApplication ptr, byval fAvailable as const WINBOOL, byval dwFlags as const DWORD) as HRESULT
 	UpdateStatus as function(byval This as IDirectPlay8LobbiedApplication ptr, byval hConnection as const DPNHANDLE, byval dwStatus as const DWORD, byval dwFlags as const DWORD) as HRESULT
 	Close as function(byval This as IDirectPlay8LobbiedApplication ptr, byval dwFlags as const DWORD) as HRESULT
@@ -186,12 +186,12 @@ end type
 
 type IDirectPlay8LobbyClientVtbl_
 	QueryInterface as function(byval This as IDirectPlay8LobbyClient ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	AddRef as function(byval This as IDirectPlay8LobbyClient ptr) as ULONG_
-	Release as function(byval This as IDirectPlay8LobbyClient ptr) as ULONG_
+	AddRef as function(byval This as IDirectPlay8LobbyClient ptr) as ULONG
+	Release as function(byval This as IDirectPlay8LobbyClient ptr) as ULONG
 	Initialize as function(byval This as IDirectPlay8LobbyClient ptr, byval pvUserContext as const PVOID, byval pfn as const PFNDPNMESSAGEHANDLER, byval dwFlags as const DWORD) as HRESULT
-	EnumLocalPrograms as function(byval This as IDirectPlay8LobbyClient ptr, byval pGuidApplication as GUID const ptr, byval pEnumData as BYTE_ const ptr, byval pdwEnumData as DWORD const ptr, byval pdwItems as DWORD const ptr, byval dwFlags as const DWORD) as HRESULT
+	EnumLocalPrograms as function(byval This as IDirectPlay8LobbyClient ptr, byval pGuidApplication as GUID const ptr, byval pEnumData as BYTE const ptr, byval pdwEnumData as DWORD const ptr, byval pdwItems as DWORD const ptr, byval dwFlags as const DWORD) as HRESULT
 	ConnectApplication as function(byval This as IDirectPlay8LobbyClient ptr, byval pdplConnectionInfo as DPL_CONNECT_INFO const ptr, byval pvConnectionContext as const PVOID, byval hApplication as DPNHANDLE const ptr, byval dwTimeOut as const DWORD, byval dwFlags as const DWORD) as HRESULT
-	Send as function(byval This as IDirectPlay8LobbyClient ptr, byval hConnection as const DPNHANDLE, byval pBuffer as BYTE_ const ptr, byval pBufferSize as const DWORD, byval dwFlags as const DWORD) as HRESULT
+	Send as function(byval This as IDirectPlay8LobbyClient ptr, byval hConnection as const DPNHANDLE, byval pBuffer as BYTE const ptr, byval pBufferSize as const DWORD, byval dwFlags as const DWORD) as HRESULT
 	ReleaseApplication as function(byval This as IDirectPlay8LobbyClient ptr, byval hConnection as const DPNHANDLE, byval dwFlags as const DWORD) as HRESULT
 	Close as function(byval This as IDirectPlay8LobbyClient ptr, byval dwFlags as const DWORD) as HRESULT
 	GetConnectionSettings as function(byval This as IDirectPlay8LobbyClient ptr, byval hConnection as const DPNHANDLE, byval pdplSessionInfo as DPL_CONNECTION_SETTINGS const ptr, byval pdwInfoSize as DWORD ptr, byval dwFlags as const DWORD) as HRESULT

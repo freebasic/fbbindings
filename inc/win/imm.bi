@@ -231,8 +231,8 @@ declare function ImmGetContext(byval as HWND) as HIMC
 declare function ImmReleaseContext(byval as HWND, byval as HIMC) as WINBOOL
 declare function ImmAssociateContext(byval as HWND, byval as HIMC) as HIMC
 declare function ImmAssociateContextEx(byval as HWND, byval as HIMC, byval as DWORD) as WINBOOL
-declare function ImmGetCompositionStringA(byval as HIMC, byval as DWORD, byval as LPVOID, byval as DWORD) as LONG_
-declare function ImmGetCompositionStringW(byval as HIMC, byval as DWORD, byval as LPVOID, byval as DWORD) as LONG_
+declare function ImmGetCompositionStringA(byval as HIMC, byval as DWORD, byval as LPVOID, byval as DWORD) as LONG
+declare function ImmGetCompositionStringW(byval as HIMC, byval as DWORD, byval as LPVOID, byval as DWORD) as LONG
 declare function ImmSetCompositionStringA(byval as HIMC, byval dwIndex as DWORD, byval lpComp as LPVOID, byval as DWORD, byval lpRead as LPVOID, byval as DWORD) as WINBOOL
 declare function ImmSetCompositionStringW(byval as HIMC, byval dwIndex as DWORD, byval lpComp as LPVOID, byval as DWORD, byval lpRead as LPVOID, byval as DWORD) as WINBOOL
 declare function ImmGetCandidateListCountA(byval as HIMC, byval lpdwListCount as LPDWORD) as DWORD

@@ -3,8 +3,6 @@
 extern "C"
 
 #define _WINBER_DEFINED_
-#define WINBERAPI DECLSPEC_IMPORT
-#define BERAPI __cdecl
 #define LBER_ERROR __MSABI_LONG(&hffffffff)
 #define LBER_DEFAULT __MSABI_LONG(&hffffffff)
 
@@ -20,12 +18,12 @@ declare sub ber_bvfree(byval pBerVal as BERVAL ptr)
 declare sub ber_bvecfree(byval pBerVal as PBERVAL ptr)
 declare function ber_bvdup(byval pBerVal as BERVAL ptr) as BERVAL ptr
 declare function ber_alloc_t(byval options as INT_) as BerElement ptr
-declare function ber_skip_tag(byval pBerElement as BerElement ptr, byval pLen as ULONG_ ptr) as ULONG_
-declare function ber_peek_tag(byval pBerElement as BerElement ptr, byval pLen as ULONG_ ptr) as ULONG_
-declare function ber_first_element(byval pBerElement as BerElement ptr, byval pLen as ULONG_ ptr, byval ppOpaque as CHAR ptr ptr) as ULONG_
-declare function ber_next_element(byval pBerElement as BerElement ptr, byval pLen as ULONG_ ptr, byval opaque as CHAR ptr) as ULONG_
+declare function ber_skip_tag(byval pBerElement as BerElement ptr, byval pLen as ULONG ptr) as ULONG
+declare function ber_peek_tag(byval pBerElement as BerElement ptr, byval pLen as ULONG ptr) as ULONG
+declare function ber_first_element(byval pBerElement as BerElement ptr, byval pLen as ULONG ptr, byval ppOpaque as CHAR ptr ptr) as ULONG
+declare function ber_next_element(byval pBerElement as BerElement ptr, byval pLen as ULONG ptr, byval opaque as CHAR ptr) as ULONG
 declare function ber_flatten(byval pBerElement as BerElement ptr, byval pBerVal as PBERVAL ptr) as INT_
 declare function ber_printf(byval pBerElement as BerElement ptr, byval fmt as PSTR, ...) as INT_
-declare function ber_scanf(byval pBerElement as BerElement ptr, byval fmt as PSTR, ...) as ULONG_
+declare function ber_scanf(byval pBerElement as BerElement ptr, byval fmt as PSTR, ...) as ULONG
 
 end extern

@@ -12,7 +12,6 @@
 #endif
 
 #define _WINNLS_
-#define WINNORMALIZEAPI DECLSPEC_IMPORT
 #define MAX_LEADBYTES 12
 #define MAX_DEFAULTCHAR 2
 #define HIGH_SURROGATE_START &hd800
@@ -447,8 +446,8 @@ type CALID as DWORD
 
 type _cpinfo
 	MaxCharSize as UINT
-	DefaultChar(0 to 1) as BYTE_
-	LeadByte(0 to 11) as BYTE_
+	DefaultChar(0 to 1) as BYTE
+	LeadByte(0 to 11) as BYTE
 end type
 
 type CPINFO as _cpinfo
@@ -456,8 +455,8 @@ type LPCPINFO as _cpinfo ptr
 
 type _cpinfoexA
 	MaxCharSize as UINT
-	DefaultChar(0 to 1) as BYTE_
-	LeadByte(0 to 11) as BYTE_
+	DefaultChar(0 to 1) as BYTE
+	LeadByte(0 to 11) as BYTE
 	UnicodeDefaultChar as WCHAR
 	CodePage as UINT
 	CodePageName(0 to 259) as CHAR
@@ -468,8 +467,8 @@ type LPCPINFOEXA as _cpinfoexA ptr
 
 type _cpinfoexW
 	MaxCharSize as UINT
-	DefaultChar(0 to 1) as BYTE_
-	LeadByte(0 to 11) as BYTE_
+	DefaultChar(0 to 1) as BYTE
+	LeadByte(0 to 11) as BYTE
 	UnicodeDefaultChar as WCHAR
 	CodePage as UINT
 	CodePageName(0 to 259) as WCHAR
@@ -580,7 +579,7 @@ end type
 
 type NLSVERSIONINFOEX as _nlsversioninfoex
 type LPNLSVERSIONINFOEX as _nlsversioninfoex ptr
-type GEOID as LONG_
+type GEOID as LONG
 type GEOTYPE as DWORD
 type GEOCLASS as DWORD
 
@@ -660,8 +659,8 @@ type _FILEMUIINFO
 	dwSize as DWORD
 	dwVersion as DWORD
 	dwFileType as DWORD
-	pChecksum(0 to 15) as BYTE_
-	pServiceChecksum(0 to 15) as BYTE_
+	pChecksum(0 to 15) as BYTE
+	pServiceChecksum(0 to 15) as BYTE
 	dwLanguageNameOffset as DWORD
 	dwTypeIDMainSize as DWORD
 	dwTypeIDMainOffset as DWORD
@@ -669,7 +668,7 @@ type _FILEMUIINFO
 	dwTypeIDMUISize as DWORD
 	dwTypeIDMUIOffset as DWORD
 	dwTypeNameMUIOffset as DWORD
-	abBuffer(0 to 7) as BYTE_
+	abBuffer(0 to 7) as BYTE
 end type
 
 type FILEMUIINFO as _FILEMUIINFO
@@ -694,8 +693,8 @@ declare function LCMapStringW(byval Locale as LCID, byval dwMapFlags as DWORD, b
 declare function LCMapStringA(byval Locale as LCID, byval dwMapFlags as DWORD, byval lpSrcStr as LPCSTR, byval cchSrc as long, byval lpDestStr as LPSTR, byval cchDest as long) as long
 declare function GetLocaleInfoW(byval Locale as LCID, byval LCType as LCTYPE, byval lpLCData as LPWSTR, byval cchData as long) as long
 declare function GetLocaleInfoA(byval Locale as LCID, byval LCType as LCTYPE, byval lpLCData as LPSTR, byval cchData as long) as long
-declare function IsDBCSLeadByte(byval TestChar as BYTE_) as WINBOOL
-declare function IsDBCSLeadByteEx(byval CodePage as UINT, byval TestChar as BYTE_) as WINBOOL
+declare function IsDBCSLeadByte(byval TestChar as BYTE) as WINBOOL
+declare function IsDBCSLeadByteEx(byval CodePage as UINT, byval TestChar as BYTE) as WINBOOL
 declare function GetNumberFormatA(byval Locale as LCID, byval dwFlags as DWORD, byval lpValue as LPCSTR, byval lpFormat as const NUMBERFMTA ptr, byval lpNumberStr as LPSTR, byval cchNumber as long) as long
 declare function GetNumberFormatW(byval Locale as LCID, byval dwFlags as DWORD, byval lpValue as LPCWSTR, byval lpFormat as const NUMBERFMTW ptr, byval lpNumberStr as LPWSTR, byval cchNumber as long) as long
 declare function GetCurrencyFormatA(byval Locale as LCID, byval dwFlags as DWORD, byval lpValue as LPCSTR, byval lpFormat as const CURRENCYFMTA ptr, byval lpCurrencyStr as LPSTR, byval cchCurrency as long) as long
