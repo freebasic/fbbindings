@@ -30,7 +30,6 @@
 #include once "threadpoollegacyapiset.bi"
 #include once "utilapiset.bi"
 #include once "wow64apiset.bi"
-#include once "psdk_inc/intrin-impl.bi"
 #include once "winerror.bi"
 #include once "timezoneapi.bi"
 
