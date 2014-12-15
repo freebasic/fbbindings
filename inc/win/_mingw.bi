@@ -2,7 +2,6 @@
 
 #include once "crt/long.bi"
 #include once "_mingw_mac.bi"
-#include once "_mingw_secapi.bi"
 #include once "sdks/_mingw_directx.bi"
 #include once "sdks/_mingw_ddk.bi"
 
