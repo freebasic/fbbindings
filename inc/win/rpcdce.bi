@@ -1,7 +1,6 @@
 #pragma once
 
 #include once "_mingw_unicode.bi"
-#include once "specstrings.bi"
 #include once "guiddef.bi"
 #include once "rpcdcep.bi"
 

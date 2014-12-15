@@ -1,7 +1,6 @@
 #pragma once
 
 #include once "_mingw_unicode.bi"
-#include once "specstrings.bi"
 
 #ifdef __FB_64BIT__
 	extern "C"

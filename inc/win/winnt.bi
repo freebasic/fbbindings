@@ -6,7 +6,6 @@
 #include once "_mingw.bi"
 #include once "crt/ctype.bi"
 #include once "apiset.bi"
-#include once "specstrings.bi"
 #include once "psdk_inc/intrin-impl.bi"
 #include once "basetsd.bi"
 #include once "guiddef.bi"

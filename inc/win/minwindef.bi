@@ -2,7 +2,6 @@
 
 #include once "_mingw.bi"
 #include once "winapifamily.bi"
-#include once "specstrings.bi"
 #include once "winnt.bi"
 
 '' The following symbols have been renamed:

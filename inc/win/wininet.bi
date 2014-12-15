@@ -1,7 +1,6 @@
 #pragma once
 
 #include once "_mingw_unicode.bi"
-#include once "specstrings.bi"
 
 '' The following symbols have been renamed:
 ''     inside struct __GOPHER_UNKNOWN_ATTRIBUTE_TYPE:
