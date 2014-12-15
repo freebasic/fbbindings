@@ -41,12 +41,6 @@ extern "C"
 
 '' TODO: #pragma pack(push,_CRT_PACKING)
 
-#ifdef __FB_64BIT__
-	type size_t as ulongint
-#else
-	type size_t as ulong
-#endif
-
 #define _DLL
 #define _MT
 #define _PGLOBAL
@@ -56,75 +50,6 @@ extern "C"
 #define _CRT_INSECURE_DEPRECATE_GLOBALS(_Replacement)
 #define _CRT_MANAGED_HEAP_DEPRECATE
 #define _CRT_OBSOLETE(_NewItem)
-#define _SIZE_T_DEFINED
-#define _SSIZE_T_DEFINED
-
-#ifdef __FB_64BIT__
-	type ssize_t as longint
-#else
-	type ssize_t as long
-#endif
-
-#define _INTPTR_T_DEFINED
-#define __intptr_t_defined
-
-#ifdef __FB_64BIT__
-	type intptr_t as longint
-#else
-	type intptr_t as long
-#endif
-
-#define _UINTPTR_T_DEFINED
-#define __uintptr_t_defined
-
-#ifdef __FB_64BIT__
-	type uintptr_t as ulongint
-#else
-	type uintptr_t as ulong
-#endif
-
-#define _PTRDIFF_T_DEFINED
-#define _PTRDIFF_T_
-
-#ifdef __FB_64BIT__
-	type ptrdiff_t as longint
-#else
-	type ptrdiff_t as long
-#endif
-
-#define _WCHAR_T_DEFINED
-
-type wchar_t as ushort
-
-#define _WCTYPE_T_DEFINED
-#define _WINT_T
-
-type wint_t as ushort
-type wctype_t as ushort
-
-#ifndef __FB_64BIT__
-	#define _USE_32BIT_TIME_T
-#endif
-
-#define _ERRCODE_DEFINED
-
-type errno_t as long
-
-#define _TIME32_T_DEFINED
-
-type __time32_t as long
-
-#define _TIME64_T_DEFINED
-
-type __time64_t as longint
-
-#define _TIME_T_DEFINED
-
-#ifdef __FB_64BIT__
-	type time_t as __time64_t
-#else
-	type time_t as __time32_t
-#endif
 
 #define _ARGMAX 100
 #define _TRUNCATE cuint(-1)
