@@ -174,6 +174,7 @@ WINAPI_BASE += uuids
 WINAPI_BASE += uxtheme
 WINAPI_BASE += vfw
 WINAPI_DIRECTX += vfwmsgs
+WINAPI_BASE += winapifamily
 WINAPI_BASE += winbase
 WINAPI_BASE += winber
 WINAPI_BASE += wincon
