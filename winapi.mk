@@ -5,6 +5,7 @@ WINAPI_BASE += aclapi
 WINAPI_BASE += aclui
 WINAPI_DIRECTX += amaudio
 WINAPI_DIRECTX += amvideo
+WINAPI_BASE += apiset
 WINAPI_BASE += audevcod
 WINAPI_BASE += basetsd
 WINAPI_BASE += basetyps
