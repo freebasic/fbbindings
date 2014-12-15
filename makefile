@@ -369,6 +369,7 @@ WINAPI_FLAGS += -nofbkeyword hiword
 include winapi.mk
 
 # Some headers need additional options on top of the common WINAPI_FLAGS
+WINAPI_FLAGS__mingw += -filterin '*_mingw_mac.h' -filterin '*sdks/_mingw_ddk.h' -filterin '*sdks/_mingw_directx.h'
 WINAPI_FLAGS_amaudio += -include windows.h
 WINAPI_FLAGS_commctrl += -include windows.h
 WINAPI_FLAGS_commdlg += -include windows.h -filterin '*commdlg.h'

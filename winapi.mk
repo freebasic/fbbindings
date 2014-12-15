@@ -1,6 +1,5 @@
 WINAPI_CRT += _mingw
 WINAPI_CRT += _mingw_unicode
-WINAPI_CRT += _mingw_mac
 WINAPI_BASE += accctrl
 WINAPI_BASE += aclapi
 WINAPI_BASE += aclui
