@@ -88,6 +88,7 @@ WINAPI_BASE += exdisp
 #WINAPI_BASE += GdiplusMetaHeader
 #WINAPI_BASE += GdiplusPixelFormats
 #WINAPI_BASE += GdiplusTypes
+WINAPI_BASE += guiddef
 WINAPI_BASE += imagehlp
 WINAPI_BASE += imm
 WINAPI_BASE += initguid
