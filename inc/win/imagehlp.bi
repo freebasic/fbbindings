@@ -2,7 +2,6 @@
 
 #include once "_mingw_unicode.bi"
 #include once "wintrust.bi"
-#include once "psdk_inc/_dbg_LOAD_IMAGE.bi"
 #include once "psdk_inc/_dbg_common.bi"
 
 #ifdef __FB_64BIT__
@@ -16,6 +15,50 @@
 #ifdef __FB_64BIT__
 	#define _IMAGEHLP64
 #endif
+
+#define IMAGEAPI '' TODO: DECLSPEC_IMPORT WINAPI
+#define DBHLP_DEPRECIATED __declspec(deprecated)
+#define DBHLPAPI IMAGEAPI
+#define IMAGE_SEPARATION (64 * 1024)
+
+type _LOADED_IMAGE
+	ModuleName as PSTR
+	hFile as HANDLE
+	MappedAddress as PUCHAR
+
+	#ifdef __FB_64BIT__
+		FileHeader as PIMAGE_NT_HEADERS64
+	#else
+		FileHeader as PIMAGE_NT_HEADERS32
+	#endif
+
+	LastRvaSection as PIMAGE_SECTION_HEADER
+	NumberOfSections as ULONG
+	Sections as PIMAGE_SECTION_HEADER
+	Characteristics as ULONG
+	fSystemImage as BOOLEAN
+	fDOSImage as BOOLEAN
+	fReadOnly as BOOLEAN
+	Version as UCHAR
+	Links as LIST_ENTRY
+	SizeOfImage as ULONG
+end type
+
+type LOADED_IMAGE as _LOADED_IMAGE
+type PLOADED_IMAGE as _LOADED_IMAGE ptr
+
+#define MAX_SYM_NAME 2000
+
+type _MODLOAD_DATA
+	ssize as DWORD
+	ssig as DWORD
+	data as PVOID
+	size as DWORD
+	flags as DWORD
+end type
+
+type MODLOAD_DATA as _MODLOAD_DATA
+type PMODLOAD_DATA as _MODLOAD_DATA ptr
 
 type _IMAGEHLP_STATUS_REASON as long
 enum
