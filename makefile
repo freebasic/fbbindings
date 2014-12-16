@@ -394,6 +394,7 @@ WINAPI_FLAGS_intshcut += -include windows.h
 WINAPI_FLAGS_iphlpapi += -include windows.h
 WINAPI_FLAGS_iprtrmib += -include windows.h
 WINAPI_FLAGS_isguids += -include windef.h
+WINAPI_FLAGS_ktmtypes += -include windef.h -filterin '*/ktmtypes.h'
 WINAPI_FLAGS_lzexpand += -include windows.h -filterin '*/lzexpand.h'
 WINAPI_FLAGS_mapi += -include windef.h
 WINAPI_FLAGS_minwinbase += -include windows.h -filterin '*/minwinbase.h'

@@ -966,8 +966,6 @@ type POFSTRUCT as _OFSTRUCT ptr
 		return Old
 	end function
 
-	declare function WinMain(byval hInstance as HINSTANCE, byval hPrevInstance as HINSTANCE, byval lpCmdLine as LPSTR, byval nShowCmd as long) as long
-
 	#define InterlockedCompareExchangePointer(Destination, ExChange, Comperand) cast(PVOID, cast(LONG_PTR, InterlockedCompareExchange(cptr(LONG ptr, (Destination)), cast(LONG, cast(LONG_PTR, (ExChange))), cast(LONG, cast(LONG_PTR, (Comperand))))))
 	#define InterlockedDecrementAcquire InterlockedDecrement
 	#define InterlockedDecrementRelease InterlockedDecrement
@@ -1030,10 +1028,7 @@ type POFSTRUCT as _OFSTRUCT ptr
 #define MAKEINTATOM(i) cast(LPTSTR, cast(ULONG_PTR, cast(WORD, (i))))
 #define INVALID_ATOM cast(ATOM, 0)
 
-#ifdef __FB_64BIT__
-	declare function WinMain(byval hInstance as HINSTANCE, byval hPrevInstance as HINSTANCE, byval lpCmdLine as LPSTR, byval nShowCmd as long) as long
-#endif
-
+declare function WinMain(byval hInstance as HINSTANCE, byval hPrevInstance as HINSTANCE, byval lpCmdLine as LPSTR, byval nShowCmd as long) as long
 declare function wWinMain(byval hInstance as HINSTANCE, byval hPrevInstance as HINSTANCE, byval lpCmdLine as LPWSTR, byval nShowCmd as long) as long
 declare function GlobalAlloc(byval uFlags as UINT, byval dwBytes as SIZE_T_) as HGLOBAL
 declare function GlobalReAlloc(byval hMem as HGLOBAL, byval dwBytes as SIZE_T_, byval uFlags as UINT) as HGLOBAL

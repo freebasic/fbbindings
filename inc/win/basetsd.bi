@@ -3,11 +3,11 @@
 #include once "_mingw.bi"
 
 '' The following symbols have been renamed:
-''     typedef SIZE_T => SIZE_T_
 ''     #define HandleToUlong => HandleToUlong_
 ''     #define UlongToHandle => UlongToHandle_
 ''     #define UlongToPtr => UlongToPtr_
 ''     #define UintToPtr => UintToPtr_
+''     typedef SIZE_T => SIZE_T_
 ''     typedef SSIZE_T => SSIZE_T_
 
 extern "C"
@@ -126,6 +126,11 @@ type PDWORD32 as ulong ptr
 		return cptr(any ptr, cast(ULONG_PTR, ul))
 	end function
 
+	#define PtrToPtr64(p) '' TODO: ((void *POINTER_64) p)
+	#define Ptr64ToPtr(p) cptr(any ptr, p)
+	#define HandleToHandle64(h) PtrToPtr64(h)
+	#define Handle64ToHandle(h) Ptr64ToPtr(h)
+
 	function Ptr32ToPtr(byval p as const any ptr) as any ptr
 		return cptr(any ptr, cast(ULONG_PTR, culng(cast(ULONG_PTR, p))))
 	end function
@@ -187,17 +192,7 @@ type PDWORD32 as ulong ptr
 	function Handle64ToHandle(byval h as const any ptr) as any ptr
 		return cptr(any ptr, cast(ULONG_PTR, h))
 	end function
-#endif
 
-type SIZE_T_ as ULONG_PTR
-type PSIZE_T as ULONG_PTR ptr
-
-#ifdef __FB_64BIT__
-	#define PtrToPtr64(p) '' TODO: ((void *POINTER_64) p)
-	#define Ptr64ToPtr(p) cptr(any ptr, p)
-	#define HandleToHandle64(h) PtrToPtr64(h)
-	#define Handle64ToHandle(h) Ptr64ToPtr(h)
-#else
 	#define Ptr32ToPtr(p) cptr(any ptr, p)
 	#define Handle32ToHandle(h) Ptr32ToPtr(h)
 	#define PtrToPtr32(p) '' TODO: ((void *POINTER_32) p)
@@ -218,6 +213,8 @@ type PSIZE_T as ULONG_PTR ptr
 #define MAXHALF_PTR cast(HALF_PTR, MAXUHALF_PTR shr 1)
 #define MINHALF_PTR (not MAXHALF_PTR)
 
+type SIZE_T_ as ULONG_PTR
+type PSIZE_T as ULONG_PTR ptr
 type SSIZE_T_ as LONG_PTR
 type PSSIZE_T as LONG_PTR ptr
 type DWORD_PTR as ULONG_PTR
