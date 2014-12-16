@@ -13,8 +13,6 @@
 	#include once "x86intrin.bi"
 #endif
 
-#include once "ktmtypes.bi"
-
 '' The following symbols have been renamed:
 ''     #define DELETE => DELETE_
 ''     inside struct _EXCEPTION_REGISTRATION_RECORD:
@@ -8408,3 +8406,5 @@ type PWOW64_DESCRIPTOR_TABLE_ENTRY as _WOW64_DESCRIPTOR_TABLE_ENTRY ptr
 #define ACTIVATION_CONTEXT_SECTION_COMPATIBILITY_INFO 11
 
 end extern
+
+#include once "ktmtypes.bi"
