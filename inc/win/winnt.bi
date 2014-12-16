@@ -1150,8 +1150,6 @@ type PSCOPE_TABLE_AMD64 as _SCOPE_TABLE_AMD64 ptr
 		return _InterlockedExchangeAdd64(Addend, Value) + Value
 	end function
 
-	declare function __getcallerseflags() as ulong
-
 	#define CacheLineFlush(Address) _mm_clflush(Address)
 	#define FastFence __faststorefence
 	#define LoadFence _mm_lfence
@@ -1177,15 +1175,15 @@ type PSCOPE_TABLE_AMD64 as _SCOPE_TABLE_AMD64 ptr
 		'' TODO: __asm__ __volatile__("xchg{b %%| }al, %0" :"=m" (Barrier) : : "eax", "memory");
 	end sub
 
-	function NtCurrentTeb cdecl() as _TEB ptr
-		return cptr(_TEB ptr, __readfsdword(&h18))
-	end function
-
 	#define PreFetchCacheLine(l, a)
 	#define ReadForWriteAccess(p) (*(p))
 	#define PF_TEMPORAL_LEVEL_1
 	#define PF_NON_TEMPORAL_LEVEL_ALL
 	#define PcTeb &h18
+
+	function NtCurrentTeb cdecl() as _TEB ptr
+		return cptr(_TEB ptr, __readfsdword(&h18))
+	end function
 
 	function GetCurrentFiber cdecl() as PVOID
 		return cast(PVOID, __readfsdword(&h10))
@@ -1200,6 +1198,9 @@ type PSCOPE_TABLE_AMD64 as _SCOPE_TABLE_AMD64 ptr
 
 #ifdef __FB_64BIT__
 	#define GetCallersEflags() __getcallerseflags()
+
+	declare function __getcallerseflags() as ulong
+
 	#define GetSegmentLimit __segmentlimit
 
 	declare function __segmentlimit(byval Selector as DWORD) as DWORD
@@ -1226,20 +1227,6 @@ type PSCOPE_TABLE_AMD64 as _SCOPE_TABLE_AMD64 ptr
 	declare function _umul128(byval Multiplier as DWORD64, byval Multiplicand as DWORD64, byval HighProduct as DWORD64 ptr) as DWORD64
 	declare function MultiplyExtract128(byval Multiplier as LONG64, byval Multiplicand as LONG64, byval Shift as BYTE) as LONG64
 	declare function UnsignedMultiplyExtract128(byval Multiplier as DWORD64, byval Multiplicand as DWORD64, byval Shift as BYTE) as DWORD64
-#else
-	type _FLOATING_SAVE_AREA
-		ControlWord as DWORD
-		StatusWord as DWORD
-		TagWord as DWORD
-		ErrorOffset as DWORD
-		ErrorSelector as DWORD
-		DataOffset as DWORD
-		DataSelector as DWORD
-		RegisterArea(0 to 79) as BYTE
-		Cr0NpxState as DWORD
-	end type
-
-	type FLOATING_SAVE_AREA as _FLOATING_SAVE_AREA
 #endif
 
 #define EXCEPTION_READ_FAULT 0
@@ -1299,6 +1286,19 @@ type PSCOPE_TABLE_AMD64 as _SCOPE_TABLE_AMD64 ptr
 	#define CONTEXT_ALL (((((CONTEXT_CONTROL or CONTEXT_INTEGER) or CONTEXT_SEGMENTS) or CONTEXT_FLOATING_POINT) or CONTEXT_DEBUG_REGISTERS) or CONTEXT_EXTENDED_REGISTERS)
 	#define MAXIMUM_SUPPORTED_EXTENSION 512
 
+	type _FLOATING_SAVE_AREA
+		ControlWord as DWORD
+		StatusWord as DWORD
+		TagWord as DWORD
+		ErrorOffset as DWORD
+		ErrorSelector as DWORD
+		DataOffset as DWORD
+		DataSelector as DWORD
+		RegisterArea(0 to 79) as BYTE
+		Cr0NpxState as DWORD
+	end type
+
+	type FLOATING_SAVE_AREA as _FLOATING_SAVE_AREA
 	type PFLOATING_SAVE_AREA as FLOATING_SAVE_AREA ptr
 #endif
 
@@ -8025,11 +8025,8 @@ end sub
 	function NtCurrentTeb() as _TEB ptr
 		return cptr(_TEB ptr, __readgsqword(cast(LONG, cast(LONG_PTR, @cptr(NT_TIB ptr, 0)->Self))))
 	end function
-
-	type CRM_PROTOCOL_ID as GUID
-	type PCRM_PROTOCOL_ID as GUID ptr
 #else
-	'' TODO: } typedef GUID CRM_PROTOCOL_ID,*PCRM_PROTOCOL_ID;
+	'' TODO: }
 #endif
 
 #define _NTTMAPI_

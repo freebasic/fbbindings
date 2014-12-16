@@ -2120,7 +2120,8 @@ declare function SHBindToParent(byval pidl as LPCITEMIDLIST, byval riid as const
 
 function IDListContainerIsConsistent cdecl(byval p as LPCITEMIDLIST, byval sz as UINT) as WINBOOL
 	dim c as UINT = sizeof(p->mkid.cb)
-	'' TODO: while (c <= sz && p->mkid.cb >= sizeof (p->mkid.cb) && p->mkid.cb <= (sz - c)) { c += p->mkid.cb; p = ((LPITEMIDLIST)((void *) (((BYTE *) ((p)))+ (((p)->mkid.cb))))); } return c <= sz && p->mkid.cb == 0;
+	'' TODO: while (c <= sz && p->mkid.cb >= sizeof (p->mkid.cb) && p->mkid.cb <= (sz - c)) { c += p->mkid.cb; p = ((LPITEMIDLIST)((void *) (((BYTE *) ((p)))+ (((p)->mkid.cb))))); }
+	return -((c <= sz) andalso (p->mkid.cb = 0))
 end function
 
 declare function SHParseDisplayName(byval pszName as PCWSTR, byval pbc as IBindCtx ptr, byval ppidl as LPITEMIDLIST ptr, byval sfgaoIn as SFGAOF, byval psfgaoOut as SFGAOF ptr) as HRESULT
