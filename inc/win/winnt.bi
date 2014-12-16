@@ -67,8 +67,6 @@ type PVOID64 as any ptr
 #define VOID any
 
 type CHAR as byte
-type SHORT as short
-type LONG as long
 
 #define __WCHAR_DEFINED
 

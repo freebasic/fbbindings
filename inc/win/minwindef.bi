@@ -14,14 +14,11 @@
 	extern "Windows"
 #endif
 
-type ULONG as ulong
-
 #define _MINWINDEF_
 #define STRICT 1
 #define BASETYPES
 
 type PULONG as ULONG ptr
-type USHORT as ushort
 type PUSHORT as USHORT ptr
 type UCHAR as ubyte
 type PUCHAR as UCHAR ptr
