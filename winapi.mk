@@ -99,6 +99,7 @@ WINAPI_BASE += ipifcons
 WINAPI_BASE += iprtrmib
 WINAPI_BASE += iptypes
 WINAPI_BASE += isguids
+WINAPI_BASE += ktmtypes
 #WINAPI_BASE += largeint
 WINAPI_BASE += lzexpand
 WINAPI_BASE += mapi
