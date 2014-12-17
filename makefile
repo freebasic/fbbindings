@@ -481,7 +481,7 @@ WINAPI_FLAGS_winperf += -include windef.h
 WINAPI_FLAGS_winreg += -include windows.h -filterin '*/winreg.h'
 WINAPI_FLAGS_winspool += -include windef.h
 WINAPI_FLAGS_winsvc += -include windows.h -filterin '*/winsvc.h'
-WINAPI_FLAGS_winuser += -include windef.h
+WINAPI_FLAGS_winuser += -include windef.h -filterin '*/tvout.h'
 WINAPI_FLAGS_winver += -include windef.h
 
 WINAPI_PATH_CRT     := extracted/$(MINGWW64_TITLE)/mingw-w64-headers/crt

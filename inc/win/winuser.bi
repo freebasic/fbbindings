@@ -5,7 +5,6 @@
 #include once "_mingw.bi"
 #include once "crt/stdarg.bi"
 #include once "guiddef.bi"
-#include once "tvout.bi"
 
 '' The following symbols have been renamed:
 ''     typedef INPUT => INPUT_
@@ -4321,6 +4320,76 @@ type LPHIGHCONTRASTW as tagHIGHCONTRASTW ptr
 #define CDS_VIDEOPARAMETERS &h00000020
 #define CDS_RESET &h40000000
 #define CDS_NORESET &h10000000
+#define __TVOUT__
+
+type _VIDEOPARAMETERS
+	Guid as GUID
+	dwOffset as ULONG
+	dwCommand as ULONG
+	dwFlags as ULONG
+	dwMode as ULONG
+	dwTVStandard as ULONG
+	dwAvailableModes as ULONG
+	dwAvailableTVStandard as ULONG
+	dwFlickerFilter as ULONG
+	dwOverScanX as ULONG
+	dwOverScanY as ULONG
+	dwMaxUnscaledX as ULONG
+	dwMaxUnscaledY as ULONG
+	dwPositionX as ULONG
+	dwPositionY as ULONG
+	dwBrightness as ULONG
+	dwContrast as ULONG
+	dwCPType as ULONG
+	dwCPCommand as ULONG
+	dwCPStandard as ULONG
+	dwCPKey as ULONG
+	bCP_APSTriggerBits as ULONG
+	bOEMCopyProtection(0 to 255) as UCHAR
+end type
+
+type VIDEOPARAMETERS as _VIDEOPARAMETERS
+type PVIDEOPARAMETERS as _VIDEOPARAMETERS ptr
+type LPVIDEOPARAMETERS as _VIDEOPARAMETERS ptr
+
+#define VP_COMMAND_GET &h0001
+#define VP_COMMAND_SET &h0002
+#define VP_FLAGS_TV_MODE &h0001
+#define VP_FLAGS_TV_STANDARD &h0002
+#define VP_FLAGS_FLICKER &h0004
+#define VP_FLAGS_OVERSCAN &h0008
+#define VP_FLAGS_MAX_UNSCALED &h0010
+#define VP_FLAGS_POSITION &h0020
+#define VP_FLAGS_BRIGHTNESS &h0040
+#define VP_FLAGS_CONTRAST &h0080
+#define VP_FLAGS_COPYPROTECT &h0100
+#define VP_MODE_WIN_GRAPHICS &h0001
+#define VP_MODE_TV_PLAYBACK &h0002
+#define VP_TV_STANDARD_NTSC_M &h0001
+#define VP_TV_STANDARD_NTSC_M_J &h0002
+#define VP_TV_STANDARD_PAL_B &h0004
+#define VP_TV_STANDARD_PAL_D &h0008
+#define VP_TV_STANDARD_PAL_H &h0010
+#define VP_TV_STANDARD_PAL_I &h0020
+#define VP_TV_STANDARD_PAL_M &h0040
+#define VP_TV_STANDARD_PAL_N &h0080
+#define VP_TV_STANDARD_SECAM_B &h0100
+#define VP_TV_STANDARD_SECAM_D &h0200
+#define VP_TV_STANDARD_SECAM_G &h0400
+#define VP_TV_STANDARD_SECAM_H &h0800
+#define VP_TV_STANDARD_SECAM_K &h1000
+#define VP_TV_STANDARD_SECAM_K1 &h2000
+#define VP_TV_STANDARD_SECAM_L &h4000
+#define VP_TV_STANDARD_WIN_VGA &h8000
+#define VP_TV_STANDARD_NTSC_433 &h00010000
+#define VP_TV_STANDARD_PAL_G &h00020000
+#define VP_TV_STANDARD_PAL_60 &h00040000
+#define VP_TV_STANDARD_SECAM_L1 &h00080000
+#define VP_CP_TYPE_APS_TRIGGER &h0001
+#define VP_CP_TYPE_MACROVISION &h0002
+#define VP_CP_CMD_ACTIVATE &h0001
+#define VP_CP_CMD_DEACTIVATE &h0002
+#define VP_CP_CMD_CHANGE &h0004
 #define DISP_CHANGE_SUCCESSFUL 0
 #define DISP_CHANGE_RESTART 1
 #define DISP_CHANGE_FAILED (-1)
