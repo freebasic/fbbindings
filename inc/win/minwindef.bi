@@ -62,10 +62,6 @@ type LRESULT as LONG_PTR
 #define min(a, b) iif((a) < (b), (a), (b))
 #define MAKEWORD(a, b) cast(WORD, cast(UBYTE, cast(DWORD_PTR, (a)) and &hff) or (cast(WORD, cast(UBYTE, cast(DWORD_PTR, (b)) and &hff)) shl 8))
 #define MAKELONG(a, b) cast(LONG, cast(WORD, cast(DWORD_PTR, (a)) and &hffff) or (cast(DWORD, cast(WORD, cast(DWORD_PTR, (b)) and &hffff)) shl 16))
-#define LOWORD(l) cast(WORD, cast(DWORD_PTR, (l)) and &hffff)
-#define HIWORD(l) cast(WORD, (cast(DWORD_PTR, (l)) shr 16) and &hffff)
-#define LOBYTE(w) cast(UBYTE, cast(DWORD_PTR, (w)) and &hff)
-#define HIBYTE(w) cast(UBYTE, (cast(DWORD_PTR, (w)) shr 8) and &hff)
 
 type SPHANDLE as HANDLE ptr
 type LPHANDLE as HANDLE ptr
