@@ -1,9 +1,7 @@
 #pragma once
 
 #include once "winapifamily.bi"
-#include once "datetimeapi.bi"
-#include once "libloaderapi.bi"
-#include once "stringapiset.bi"
+#include once "apiset.bi"
 
 #ifdef __FB_64BIT__
 	extern "C"
@@ -12,6 +10,17 @@
 #endif
 
 #define _WINNLS_
+#define _DATETIMEAPI_H_
+
+declare function GetTimeFormatEx(byval lpLocaleName as LPCWSTR, byval dwFlags as DWORD, byval lpTime as const SYSTEMTIME ptr, byval lpFormat as LPCWSTR, byval lpTimeStr as LPWSTR, byval cchTime as long) as long
+declare function GetDateFormatEx(byval lpLocaleName as LPCWSTR, byval dwFlags as DWORD, byval lpDate as const SYSTEMTIME ptr, byval lpFormat as LPCWSTR, byval lpDateStr as LPWSTR, byval cchDate as long, byval lpCalendar as LPCWSTR) as long
+declare function GetDateFormatA(byval Locale as LCID, byval dwFlags as DWORD, byval lpDate as const SYSTEMTIME ptr, byval lpFormat as LPCSTR, byval lpDateStr as LPSTR, byval cchDate as long) as long
+declare function GetDateFormatW(byval Locale as LCID, byval dwFlags as DWORD, byval lpDate as const SYSTEMTIME ptr, byval lpFormat as LPCWSTR, byval lpDateStr as LPWSTR, byval cchDate as long) as long
+declare function GetTimeFormatA(byval Locale as LCID, byval dwFlags as DWORD, byval lpTime as const SYSTEMTIME ptr, byval lpFormat as LPCSTR, byval lpTimeStr as LPSTR, byval cchTime as long) as long
+declare function GetTimeFormatW(byval Locale as LCID, byval dwFlags as DWORD, byval lpTime as const SYSTEMTIME ptr, byval lpFormat as LPCWSTR, byval lpTimeStr as LPWSTR, byval cchTime as long) as long
+
+#define GetDateFormat __MINGW_NAME_AW(GetDateFormat)
+#define GetTimeFormat __MINGW_NAME_AW(GetTimeFormat)
 #define MAX_LEADBYTES 12
 #define MAX_DEFAULTCHAR 2
 #define HIGH_SURROGATE_START &hd800
@@ -673,6 +682,26 @@ end type
 
 type FILEMUIINFO as _FILEMUIINFO
 type PFILEMUIINFO as _FILEMUIINFO ptr
+
+#define _APISETSTRING_
+
+declare function CompareStringW(byval Locale as LCID, byval dwCmpFlags as DWORD, byval lpString1 as PCNZWCH, byval cchCount1 as long, byval lpString2 as PCNZWCH, byval cchCount2 as long) as long
+declare function FoldStringW(byval dwMapFlags as DWORD, byval lpSrcStr as LPCWCH, byval cchSrc as long, byval lpDestStr as LPWSTR, byval cchDest as long) as long
+
+#ifdef UNICODE
+	#define CompareString CompareStringW
+	#define FoldString FoldStringW
+#endif
+
+declare function GetStringTypeExW(byval Locale as LCID, byval dwInfoType as DWORD, byval lpSrcStr as LPCWCH, byval cchSrc as long, byval lpCharType as LPWORD) as WINBOOL
+
+#ifdef UNICODE
+	#define GetStringTypeEx GetStringTypeExW
+#endif
+
+declare function GetStringTypeW(byval dwInfoType as DWORD, byval lpSrcStr as LPCWCH, byval cchSrc as long, byval lpCharType as LPWORD) as WINBOOL
+declare function MultiByteToWideChar(byval CodePage as UINT, byval dwFlags as DWORD, byval lpMultiByteStr as LPCCH, byval cbMultiByte as long, byval lpWideCharStr as LPWSTR, byval cchWideChar as long) as long
+declare function WideCharToMultiByte(byval CodePage as UINT, byval dwFlags as DWORD, byval lpWideCharStr as LPCWCH, byval cchWideChar as long, byval lpMultiByteStr as LPSTR, byval cbMultiByte as long, byval lpDefaultChar as LPCCH, byval lpUsedDefaultChar as LPBOOL) as long
 
 #define IS_HIGH_SURROGATE(wch) (((wch) >= HIGH_SURROGATE_START) andalso ((wch) <= HIGH_SURROGATE_END))
 #define IS_LOW_SURROGATE(wch) (((wch) >= LOW_SURROGATE_START) andalso ((wch) <= LOW_SURROGATE_END))
