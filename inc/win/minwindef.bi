@@ -2,7 +2,6 @@
 
 #include once "_mingw.bi"
 #include once "winapifamily.bi"
-#include once "winnt.bi"
 
 '' The following symbols have been renamed:
 ''     #define CONST => CONST_
@@ -168,3 +167,5 @@ type LPFILETIME as _FILETIME ptr
 #define _FILETIME_
 
 end extern
+
+#include once "winnt.bi"
