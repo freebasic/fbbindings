@@ -15,7 +15,7 @@
 
 type _BLOB
 	cbSize as ULONG
-	pBlobData as BYTE ptr
+	pBlobData as UBYTE ptr
 end type
 
 type BLOB as _BLOB
@@ -216,8 +216,8 @@ type _SERVICE_ADDRESS
 	dwAddressFlags as DWORD
 	dwAddressLength as DWORD
 	dwPrincipalLength as DWORD
-	lpAddress as BYTE ptr
-	lpPrincipal as BYTE ptr
+	lpAddress as UBYTE ptr
+	lpPrincipal as UBYTE ptr
 end type
 
 type SERVICE_ADDRESS as _SERVICE_ADDRESS

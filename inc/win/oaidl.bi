@@ -209,7 +209,7 @@ type tagVARIANT field = 8
 			union field = 8
 				llVal as LONGLONG
 				lVal as LONG
-				bVal as BYTE
+				bVal as UBYTE
 				iVal as SHORT
 				fltVal as FLOAT
 				dblVal as DOUBLE
@@ -221,7 +221,7 @@ type tagVARIANT field = 8
 				punkVal as IUnknown ptr
 				pdispVal as IDispatch ptr
 				parray as SAFEARRAY ptr
-				pbVal as BYTE ptr
+				pbVal as UBYTE ptr
 				piVal as SHORT ptr
 				plVal as LONG ptr
 				pllVal as LONGLONG ptr
@@ -273,7 +273,7 @@ type _wireBRECORD field = 8
 	fFlags as ULONG
 	clSize as ULONG
 	pRecInfo as IRecordInfo ptr
-	pRecord as byte_ ptr
+	pRecord as ubyte ptr
 end type
 
 type _wireVARIANT field = 8
@@ -287,7 +287,7 @@ type _wireVARIANT field = 8
 	union field = 8
 		llVal as LONGLONG
 		lVal as LONG
-		bVal as BYTE
+		bVal as UBYTE
 		iVal as SHORT
 		fltVal as FLOAT
 		dblVal as DOUBLE
@@ -300,7 +300,7 @@ type _wireVARIANT field = 8
 		pdispVal as IDispatch ptr
 		parray as wirePSAFEARRAY
 		brecVal as wireBRECORD
-		pbVal as BYTE ptr
+		pbVal as UBYTE ptr
 		piVal as SHORT ptr
 		plVal as LONG ptr
 		pllVal as LONGLONG ptr
@@ -1483,8 +1483,8 @@ type ITypeMarshalVtbl field = 8
 	AddRef as function(byval This as ITypeMarshal ptr) as ULONG
 	Release as function(byval This as ITypeMarshal ptr) as ULONG
 	Size as function(byval This as ITypeMarshal ptr, byval pvType as PVOID, byval dwDestContext as DWORD, byval pvDestContext as PVOID, byval pSize as ULONG ptr) as HRESULT
-	Marshal as function(byval This as ITypeMarshal ptr, byval pvType as PVOID, byval dwDestContext as DWORD, byval pvDestContext as PVOID, byval cbBufferLength as ULONG, byval pBuffer as BYTE ptr, byval pcbWritten as ULONG ptr) as HRESULT
-	Unmarshal as function(byval This as ITypeMarshal ptr, byval pvType as PVOID, byval dwFlags as DWORD, byval cbBufferLength as ULONG, byval pBuffer as BYTE ptr, byval pcbRead as ULONG ptr) as HRESULT
+	Marshal as function(byval This as ITypeMarshal ptr, byval pvType as PVOID, byval dwDestContext as DWORD, byval pvDestContext as PVOID, byval cbBufferLength as ULONG, byval pBuffer as UBYTE ptr, byval pcbWritten as ULONG ptr) as HRESULT
+	Unmarshal as function(byval This as ITypeMarshal ptr, byval pvType as PVOID, byval dwFlags as DWORD, byval cbBufferLength as ULONG, byval pBuffer as UBYTE ptr, byval pcbRead as ULONG ptr) as HRESULT
 	Free as function(byval This as ITypeMarshal ptr, byval pvType as PVOID) as HRESULT
 end type
 
@@ -1494,9 +1494,9 @@ end type
 
 declare function ITypeMarshal_Size_Proxy(byval This as ITypeMarshal ptr, byval pvType as PVOID, byval dwDestContext as DWORD, byval pvDestContext as PVOID, byval pSize as ULONG ptr) as HRESULT
 declare sub ITypeMarshal_Size_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-declare function ITypeMarshal_Marshal_Proxy(byval This as ITypeMarshal ptr, byval pvType as PVOID, byval dwDestContext as DWORD, byval pvDestContext as PVOID, byval cbBufferLength as ULONG, byval pBuffer as BYTE ptr, byval pcbWritten as ULONG ptr) as HRESULT
+declare function ITypeMarshal_Marshal_Proxy(byval This as ITypeMarshal ptr, byval pvType as PVOID, byval dwDestContext as DWORD, byval pvDestContext as PVOID, byval cbBufferLength as ULONG, byval pBuffer as UBYTE ptr, byval pcbWritten as ULONG ptr) as HRESULT
 declare sub ITypeMarshal_Marshal_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-declare function ITypeMarshal_Unmarshal_Proxy(byval This as ITypeMarshal ptr, byval pvType as PVOID, byval dwFlags as DWORD, byval cbBufferLength as ULONG, byval pBuffer as BYTE ptr, byval pcbRead as ULONG ptr) as HRESULT
+declare function ITypeMarshal_Unmarshal_Proxy(byval This as ITypeMarshal ptr, byval pvType as PVOID, byval dwFlags as DWORD, byval cbBufferLength as ULONG, byval pBuffer as UBYTE ptr, byval pcbRead as ULONG ptr) as HRESULT
 declare sub ITypeMarshal_Unmarshal_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function ITypeMarshal_Free_Proxy(byval This as ITypeMarshal ptr, byval pvType as PVOID) as HRESULT
 declare sub ITypeMarshal_Free_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)

@@ -93,7 +93,7 @@ type _MIB_IFROW
 	dwMtu as DWORD
 	dwSpeed as DWORD
 	dwPhysAddrLen as DWORD
-	bPhysAddr(0 to 7) as BYTE
+	bPhysAddr(0 to 7) as UBYTE
 	dwAdminStatus as DWORD
 	dwOperStatus as DWORD
 	dwLastChange as DWORD
@@ -110,7 +110,7 @@ type _MIB_IFROW
 	dwOutErrors as DWORD
 	dwOutQLen as DWORD
 	dwDescrLen as DWORD
-	bDescr(0 to 255) as BYTE
+	bDescr(0 to 255) as UBYTE
 end type
 
 type MIB_IFROW as _MIB_IFROW
@@ -655,7 +655,7 @@ type PMIB_IPFORWARDTABLE as _MIB_IPFORWARDTABLE ptr
 type _MIB_IPNETROW
 	dwIndex as DWORD
 	dwPhysAddrLen as DWORD
-	bPhysAddr(0 to 7) as BYTE
+	bPhysAddr(0 to 7) as UBYTE
 	dwAddr as DWORD
 	dwType as DWORD
 end type
@@ -959,7 +959,7 @@ type _MIB_OPAQUE_INFO
 
 	union
 		ullAlign as ULONGLONG
-		rgbyData(0 to 0) as BYTE
+		rgbyData(0 to 0) as UBYTE
 	end union
 end type
 

@@ -20,7 +20,7 @@ extern IWinTypes_v0_1_s_ifspec as RPC_IF_HANDLE
 type tagRemHGLOBAL field = 8
 	fNullHGlobal as LONG
 	cbData as ULONG
-	data(0 to 0) as byte_
+	data(0 to 0) as ubyte
 end type
 
 type RemHGLOBAL as tagRemHGLOBAL
@@ -30,35 +30,35 @@ type tagRemHMETAFILEPICT field = 8
 	xExt as LONG
 	yExt as LONG
 	cbData as ULONG
-	data(0 to 0) as byte_
+	data(0 to 0) as ubyte
 end type
 
 type RemHMETAFILEPICT as tagRemHMETAFILEPICT
 
 type tagRemHENHMETAFILE field = 8
 	cbData as ULONG
-	data(0 to 0) as byte_
+	data(0 to 0) as ubyte
 end type
 
 type RemHENHMETAFILE as tagRemHENHMETAFILE
 
 type tagRemHBITMAP field = 8
 	cbData as ULONG
-	data(0 to 0) as byte_
+	data(0 to 0) as ubyte
 end type
 
 type RemHBITMAP as tagRemHBITMAP
 
 type tagRemHPALETTE field = 8
 	cbData as ULONG
-	data(0 to 0) as byte_
+	data(0 to 0) as ubyte
 end type
 
 type RemHPALETTE as tagRemHPALETTE
 
 type tagRemBRUSH field = 8
 	cbData as ULONG
-	data(0 to 0) as byte_
+	data(0 to 0) as ubyte
 end type
 
 type RemHBRUSH as tagRemBRUSH
@@ -209,7 +209,7 @@ type _userBITMAP field = 8
 	bmPlanes as WORD
 	bmBitsPixel as WORD
 	cbSize as ULONG
-	pBuffer(0 to 0) as byte_
+	pBuffer(0 to 0) as ubyte
 end type
 
 type userBITMAP as _userBITMAP
@@ -288,8 +288,8 @@ type tagDEC field = 8
 
 	union field = 8
 		type field = 8
-			scale as BYTE
-			sign as BYTE
+			scale as UBYTE
+			sign as UBYTE
 		end type
 
 		signscale as USHORT
@@ -309,7 +309,7 @@ end type
 
 type DECIMAL as tagDEC
 
-#define DECIMAL_NEG cast(BYTE, &h80)
+#define DECIMAL_NEG cast(UBYTE, &h80)
 #macro DECIMAL_SETZERO(dec)
 	scope
 		(dec).Lo64
@@ -332,7 +332,7 @@ type VARIANT_BOOL as short
 
 type tagBSTRBLOB field = 8
 	cbSize as ULONG
-	pData as BYTE ptr
+	pData as UBYTE ptr
 end type
 
 type BSTRBLOB as tagBSTRBLOB
@@ -344,7 +344,7 @@ type LPBSTRBLOB as tagBSTRBLOB ptr
 type tagCLIPDATA field = 8
 	cbSize as ULONG
 	ulClipFmt as LONG
-	pClipData as BYTE ptr
+	pClipData as UBYTE ptr
 end type
 
 type CLIPDATA as tagCLIPDATA

@@ -420,18 +420,18 @@ type NPBITMAP as tagBITMAP ptr
 type LPBITMAP as tagBITMAP ptr
 
 type tagRGBTRIPLE field = 1
-	rgbtBlue as BYTE
-	rgbtGreen as BYTE
-	rgbtRed as BYTE
+	rgbtBlue as UBYTE
+	rgbtGreen as UBYTE
+	rgbtRed as UBYTE
 end type
 
 type RGBTRIPLE as tagRGBTRIPLE
 
 type tagRGBQUAD
-	rgbBlue as BYTE
-	rgbGreen as BYTE
-	rgbRed as BYTE
-	rgbReserved as BYTE
+	rgbBlue as UBYTE
+	rgbGreen as UBYTE
+	rgbRed as UBYTE
+	rgbReserved as UBYTE
 end type
 
 type RGBQUAD as tagRGBQUAD
@@ -463,11 +463,11 @@ type LCSGAMUTMATCH as LONG
 #define ICM_REGISTERICMATCHER 5
 #define ICM_UNREGISTERICMATCHER 6
 #define ICM_QUERYMATCH 7
-#define GetKValue(cmyk) cast(BYTE, (cmyk))
-#define GetYValue(cmyk) cast(BYTE, (cmyk) shr 8)
-#define GetMValue(cmyk) cast(BYTE, (cmyk) shr 16)
-#define GetCValue(cmyk) cast(BYTE, (cmyk) shr 24)
-#define CMYK(c, m, y, k) cast(COLORREF, (cast(BYTE, (k) or cast(WORD, cast(BYTE, (y)) shl 8)) or (cast(DWORD, cast(BYTE, (m))) shl 16)) or (cast(DWORD, cast(BYTE, (c))) shl 24))
+#define GetKValue(cmyk) cast(UBYTE, (cmyk))
+#define GetYValue(cmyk) cast(UBYTE, (cmyk) shr 8)
+#define GetMValue(cmyk) cast(UBYTE, (cmyk) shr 16)
+#define GetCValue(cmyk) cast(UBYTE, (cmyk) shr 24)
+#define CMYK(c, m, y, k) cast(COLORREF, (cast(UBYTE, (k) or cast(WORD, cast(UBYTE, (y)) shl 8)) or (cast(DWORD, cast(UBYTE, (m))) shl 16)) or (cast(DWORD, cast(UBYTE, (c))) shl 24))
 
 type FXPT16DOT16 as long
 type LPFXPT16DOT16 as long ptr
@@ -780,7 +780,7 @@ type LPENHMETAHEADER as tagENHMETAHEADER ptr
 #ifdef UNICODE
 	type BCHAR as WCHAR
 #else
-	type BCHAR as BYTE
+	type BCHAR as UBYTE
 #endif
 
 #define _TEXTMETRIC_DEFINED
@@ -797,15 +797,15 @@ type tagTEXTMETRICA field = 4
 	tmOverhang as LONG
 	tmDigitizedAspectX as LONG
 	tmDigitizedAspectY as LONG
-	tmFirstChar as BYTE
-	tmLastChar as BYTE
-	tmDefaultChar as BYTE
-	tmBreakChar as BYTE
-	tmItalic as BYTE
-	tmUnderlined as BYTE
-	tmStruckOut as BYTE
-	tmPitchAndFamily as BYTE
-	tmCharSet as BYTE
+	tmFirstChar as UBYTE
+	tmLastChar as UBYTE
+	tmDefaultChar as UBYTE
+	tmBreakChar as UBYTE
+	tmItalic as UBYTE
+	tmUnderlined as UBYTE
+	tmStruckOut as UBYTE
+	tmPitchAndFamily as UBYTE
+	tmCharSet as UBYTE
 end type
 
 type TEXTMETRICA as tagTEXTMETRICA
@@ -829,11 +829,11 @@ type tagTEXTMETRICW field = 4
 	tmLastChar as WCHAR
 	tmDefaultChar as WCHAR
 	tmBreakChar as WCHAR
-	tmItalic as BYTE
-	tmUnderlined as BYTE
-	tmStruckOut as BYTE
-	tmPitchAndFamily as BYTE
-	tmCharSet as BYTE
+	tmItalic as UBYTE
+	tmUnderlined as UBYTE
+	tmStruckOut as UBYTE
+	tmPitchAndFamily as UBYTE
+	tmCharSet as UBYTE
 end type
 
 type TEXTMETRICW as tagTEXTMETRICW
@@ -865,15 +865,15 @@ type tagNEWTEXTMETRICA field = 4
 	tmOverhang as LONG
 	tmDigitizedAspectX as LONG
 	tmDigitizedAspectY as LONG
-	tmFirstChar as BYTE
-	tmLastChar as BYTE
-	tmDefaultChar as BYTE
-	tmBreakChar as BYTE
-	tmItalic as BYTE
-	tmUnderlined as BYTE
-	tmStruckOut as BYTE
-	tmPitchAndFamily as BYTE
-	tmCharSet as BYTE
+	tmFirstChar as UBYTE
+	tmLastChar as UBYTE
+	tmDefaultChar as UBYTE
+	tmBreakChar as UBYTE
+	tmItalic as UBYTE
+	tmUnderlined as UBYTE
+	tmStruckOut as UBYTE
+	tmPitchAndFamily as UBYTE
+	tmCharSet as UBYTE
 	ntmFlags as DWORD
 	ntmSizeEM as UINT
 	ntmCellHeight as UINT
@@ -911,11 +911,11 @@ type tagNEWTEXTMETRICW field = 4
 	tmLastChar as WCHAR
 	tmDefaultChar as WCHAR
 	tmBreakChar as WCHAR
-	tmItalic as BYTE
-	tmUnderlined as BYTE
-	tmStruckOut as BYTE
-	tmPitchAndFamily as BYTE
-	tmCharSet as BYTE
+	tmItalic as UBYTE
+	tmUnderlined as UBYTE
+	tmStruckOut as UBYTE
+	tmPitchAndFamily as UBYTE
+	tmCharSet as UBYTE
 	ntmFlags as DWORD
 	ntmSizeEM as UINT
 	ntmCellHeight as UINT
@@ -964,7 +964,7 @@ type tagPELARRAY
 	paYCount as LONG
 	paXExt as LONG
 	paYExt as LONG
-	paRGBs as BYTE
+	paRGBs as UBYTE
 end type
 
 type PELARRAY as tagPELARRAY
@@ -1042,10 +1042,10 @@ type LPEXTLOGPEN32 as tagEXTLOGPEN32 ptr
 #define _PALETTEENTRY_DEFINED
 
 type tagPALETTEENTRY
-	peRed as BYTE
-	peGreen as BYTE
-	peBlue as BYTE
-	peFlags as BYTE
+	peRed as UBYTE
+	peGreen as UBYTE
+	peBlue as UBYTE
+	peFlags as UBYTE
 end type
 
 type PALETTEENTRY as tagPALETTEENTRY
@@ -1073,14 +1073,14 @@ type tagLOGFONTA
 	lfEscapement as LONG
 	lfOrientation as LONG
 	lfWeight as LONG
-	lfItalic as BYTE
-	lfUnderline as BYTE
-	lfStrikeOut as BYTE
-	lfCharSet as BYTE
-	lfOutPrecision as BYTE
-	lfClipPrecision as BYTE
-	lfQuality as BYTE
-	lfPitchAndFamily as BYTE
+	lfItalic as UBYTE
+	lfUnderline as UBYTE
+	lfStrikeOut as UBYTE
+	lfCharSet as UBYTE
+	lfOutPrecision as UBYTE
+	lfClipPrecision as UBYTE
+	lfQuality as UBYTE
+	lfPitchAndFamily as UBYTE
 	lfFaceName(0 to 31) as CHAR
 end type
 
@@ -1095,14 +1095,14 @@ type tagLOGFONTW
 	lfEscapement as LONG
 	lfOrientation as LONG
 	lfWeight as LONG
-	lfItalic as BYTE
-	lfUnderline as BYTE
-	lfStrikeOut as BYTE
-	lfCharSet as BYTE
-	lfOutPrecision as BYTE
-	lfClipPrecision as BYTE
-	lfQuality as BYTE
-	lfPitchAndFamily as BYTE
+	lfItalic as UBYTE
+	lfUnderline as UBYTE
+	lfStrikeOut as UBYTE
+	lfCharSet as UBYTE
+	lfOutPrecision as UBYTE
+	lfClipPrecision as UBYTE
+	lfQuality as UBYTE
+	lfPitchAndFamily as UBYTE
 	lfFaceName(0 to 31) as WCHAR
 end type
 
@@ -1127,8 +1127,8 @@ type LPLOGFONTW as tagLOGFONTW ptr
 
 type tagENUMLOGFONTA
 	elfLogFont as LOGFONTA
-	elfFullName(0 to 63) as BYTE
-	elfStyle(0 to 31) as BYTE
+	elfFullName(0 to 63) as UBYTE
+	elfStyle(0 to 31) as UBYTE
 end type
 
 type ENUMLOGFONTA as tagENUMLOGFONTA
@@ -1153,9 +1153,9 @@ type LPENUMLOGFONTW as tagENUMLOGFONTW ptr
 
 type tagENUMLOGFONTEXA
 	elfLogFont as LOGFONTA
-	elfFullName(0 to 63) as BYTE
-	elfStyle(0 to 31) as BYTE
-	elfScript(0 to 31) as BYTE
+	elfFullName(0 to 63) as UBYTE
+	elfStyle(0 to 31) as UBYTE
+	elfScript(0 to 31) as UBYTE
 end type
 
 type ENUMLOGFONTEXA as tagENUMLOGFONTEXA
@@ -1279,16 +1279,16 @@ type LPENUMLOGFONTEXW as tagENUMLOGFONTEXW ptr
 #define PAN_CULTURE_LATIN 0
 
 type tagPANOSE
-	bFamilyType as BYTE
-	bSerifStyle as BYTE
-	bWeight as BYTE
-	bProportion as BYTE
-	bContrast as BYTE
-	bStrokeVariation as BYTE
-	bArmStyle as BYTE
-	bLetterform as BYTE
-	bMidline as BYTE
-	bXHeight as BYTE
+	bFamilyType as UBYTE
+	bSerifStyle as UBYTE
+	bWeight as UBYTE
+	bProportion as UBYTE
+	bContrast as UBYTE
+	bStrokeVariation as UBYTE
+	bArmStyle as UBYTE
+	bLetterform as UBYTE
+	bMidline as UBYTE
+	bXHeight as UBYTE
 end type
 
 type PANOSE as tagPANOSE
@@ -1393,13 +1393,13 @@ type LPPANOSE as tagPANOSE ptr
 
 type tagEXTLOGFONTA
 	elfLogFont as LOGFONTA
-	elfFullName(0 to 63) as BYTE
-	elfStyle(0 to 31) as BYTE
+	elfFullName(0 to 63) as UBYTE
+	elfStyle(0 to 31) as UBYTE
 	elfVersion as DWORD
 	elfStyleSize as DWORD
 	elfMatch as DWORD
 	elfReserved as DWORD
-	elfVendorId(0 to 3) as BYTE
+	elfVendorId(0 to 3) as UBYTE
 	elfCulture as DWORD
 	elfPanose as PANOSE
 end type
@@ -1417,7 +1417,7 @@ type tagEXTLOGFONTW
 	elfStyleSize as DWORD
 	elfMatch as DWORD
 	elfReserved as DWORD
-	elfVendorId(0 to 3) as BYTE
+	elfVendorId(0 to 3) as UBYTE
 	elfCulture as DWORD
 	elfPanose as PANOSE
 end type
@@ -1444,7 +1444,7 @@ type LPEXTLOGFONTW as tagEXTLOGFONTW ptr
 #define RASTER_FONTTYPE &h0001
 #define DEVICE_FONTTYPE &h002
 #define TRUETYPE_FONTTYPE &h004
-#define RGB_(r, g, b) cast(COLORREF, cast(BYTE, (r) or cast(WORD, cast(BYTE, (g)) shl 8)) or (cast(DWORD, cast(BYTE, (b))) shl 16))
+#define RGB_(r, g, b) cast(COLORREF, cast(UBYTE, (r) or cast(WORD, cast(UBYTE, (g)) shl 8)) or (cast(DWORD, cast(UBYTE, (b))) shl 16))
 #define PALETTERGB(r, g, b) (&h02000000 or RGB_(r, g, b))
 #define PALETTEINDEX(i) cast(COLORREF, &h01000000 or cast(DWORD, cast(WORD, (i))))
 #define PC_RESERVED &h01
@@ -1676,7 +1676,7 @@ type LPEXTLOGFONTW as tagEXTLOGFONTW ptr
 #define CCHFORMNAME 32
 
 type _devicemodeA
-	dmDeviceName(0 to 31) as BYTE
+	dmDeviceName(0 to 31) as UBYTE
 	dmSpecVersion as WORD
 	dmDriverVersion as WORD
 	dmSize as WORD
@@ -1707,7 +1707,7 @@ type _devicemodeA
 	dmYResolution as short
 	dmTTOption as short
 	dmCollate as short
-	dmFormName(0 to 31) as BYTE
+	dmFormName(0 to 31) as UBYTE
 	dmLogPixels as WORD
 	dmBitsPerPel as DWORD
 	dmPelsWidth as DWORD
@@ -2126,7 +2126,7 @@ type LPABCFLOAT as _ABCFLOAT ptr
 type _OUTLINETEXTMETRICA
 	otmSize as UINT
 	otmTextMetrics as TEXTMETRICA
-	otmFiller as BYTE
+	otmFiller as UBYTE
 	otmPanoseNumber as PANOSE
 	otmfsSelection as UINT
 	otmfsType as UINT
@@ -2166,7 +2166,7 @@ type LPOUTLINETEXTMETRICA as _OUTLINETEXTMETRICA ptr
 type _OUTLINETEXTMETRICW
 	otmSize as UINT
 	otmTextMetrics as TEXTMETRICW
-	otmFiller as BYTE
+	otmFiller as UBYTE
 	otmPanoseNumber as PANOSE
 	otmfsSelection as UINT
 	otmfsType as UINT
@@ -2415,26 +2415,26 @@ type tagPIXELFORMATDESCRIPTOR
 	nSize as WORD
 	nVersion as WORD
 	dwFlags as DWORD
-	iPixelType as BYTE
-	cColorBits as BYTE
-	cRedBits as BYTE
-	cRedShift as BYTE
-	cGreenBits as BYTE
-	cGreenShift as BYTE
-	cBlueBits as BYTE
-	cBlueShift as BYTE
-	cAlphaBits as BYTE
-	cAlphaShift as BYTE
-	cAccumBits as BYTE
-	cAccumRedBits as BYTE
-	cAccumGreenBits as BYTE
-	cAccumBlueBits as BYTE
-	cAccumAlphaBits as BYTE
-	cDepthBits as BYTE
-	cStencilBits as BYTE
-	cAuxBuffers as BYTE
-	iLayerType as BYTE
-	bReserved as BYTE
+	iPixelType as UBYTE
+	cColorBits as UBYTE
+	cRedBits as UBYTE
+	cRedShift as UBYTE
+	cGreenBits as UBYTE
+	cGreenShift as UBYTE
+	cBlueBits as UBYTE
+	cBlueShift as UBYTE
+	cAlphaBits as UBYTE
+	cAlphaShift as UBYTE
+	cAccumBits as UBYTE
+	cAccumRedBits as UBYTE
+	cAccumGreenBits as UBYTE
+	cAccumBlueBits as UBYTE
+	cAccumAlphaBits as UBYTE
+	cDepthBits as UBYTE
+	cStencilBits as UBYTE
+	cAuxBuffers as UBYTE
+	iLayerType as UBYTE
+	bReserved as UBYTE
 	dwLayerMask as DWORD
 	dwVisibleMask as DWORD
 	dwDamageMask as DWORD
@@ -2780,7 +2780,7 @@ declare function RemoveFontMemResourceEx(byval h as HANDLE) as WINBOOL
 type tagAXISINFOA
 	axMinValue as LONG
 	axMaxValue as LONG
-	axAxisName(0 to 15) as BYTE
+	axAxisName(0 to 15) as UBYTE
 end type
 
 type AXISINFOA as tagAXISINFOA
@@ -2950,7 +2950,7 @@ declare function SetGraphicsMode(byval hdc as HDC, byval iMode as long) as long
 declare function SetMapMode(byval hdc as HDC, byval iMode as long) as long
 declare function SetLayout(byval hdc as HDC, byval l as DWORD) as DWORD
 declare function GetLayout(byval hdc as HDC) as DWORD
-declare function SetMetaFileBitsEx(byval cbBuffer as UINT, byval lpData as const BYTE ptr) as HMETAFILE
+declare function SetMetaFileBitsEx(byval cbBuffer as UINT, byval lpData as const UBYTE ptr) as HMETAFILE
 declare function SetPaletteEntries(byval hpal as HPALETTE, byval iStart as UINT, byval cEntries as UINT, byval pPalEntries as const PALETTEENTRY ptr) as UINT
 declare function SetPixel(byval hdc as HDC, byval x as long, byval y as long, byval color_ as COLORREF) as COLORREF
 declare function SetPixelV(byval hdc as HDC, byval x as long, byval y as long, byval color_ as COLORREF) as WINBOOL
@@ -3003,10 +3003,10 @@ type PGRADIENT_RECT as _GRADIENT_RECT ptr
 type LPGRADIENT_RECT as _GRADIENT_RECT ptr
 
 type _BLENDFUNCTION
-	BlendOp as BYTE
-	BlendFlags as BYTE
-	SourceConstantAlpha as BYTE
-	AlphaFormat as BYTE
+	BlendOp as UBYTE
+	BlendFlags as UBYTE
+	SourceConstantAlpha as UBYTE
+	AlphaFormat as UBYTE
 end type
 
 type BLENDFUNCTION as _BLENDFUNCTION
@@ -3059,9 +3059,9 @@ declare function GetEnhMetaFilePixelFormat(byval hemf as HENHMETAFILE, byval cbB
 declare function GetWinMetaFileBits(byval hemf as HENHMETAFILE, byval cbData16 as UINT, byval pData16 as LPBYTE, byval iMapMode as INT_, byval hdcRef as HDC) as UINT
 declare function PlayEnhMetaFile(byval hdc as HDC, byval hmf as HENHMETAFILE, byval lprect as const RECT ptr) as WINBOOL
 declare function PlayEnhMetaFileRecord(byval hdc as HDC, byval pht as LPHANDLETABLE, byval pmr as const ENHMETARECORD ptr, byval cht as UINT) as WINBOOL
-declare function SetEnhMetaFileBits(byval nSize as UINT, byval pb as const BYTE ptr) as HENHMETAFILE
-declare function SetWinMetaFileBits(byval nSize as UINT, byval lpMeta16Data as const BYTE ptr, byval hdcRef as HDC, byval lpMFP as const METAFILEPICT ptr) as HENHMETAFILE
-declare function GdiComment(byval hdc as HDC, byval nSize as UINT, byval lpData as const BYTE ptr) as WINBOOL
+declare function SetEnhMetaFileBits(byval nSize as UINT, byval pb as const UBYTE ptr) as HENHMETAFILE
+declare function SetWinMetaFileBits(byval nSize as UINT, byval lpMeta16Data as const UBYTE ptr, byval hdcRef as HDC, byval lpMFP as const METAFILEPICT ptr) as HENHMETAFILE
+declare function GdiComment(byval hdc as HDC, byval nSize as UINT, byval lpData as const UBYTE ptr) as WINBOOL
 
 #define GetTextMetrics __MINGW_NAME_AW(GetTextMetrics)
 
@@ -3195,7 +3195,7 @@ declare function FillPath(byval hdc as HDC) as WINBOOL
 declare function FlattenPath(byval hdc as HDC) as WINBOOL
 declare function GetPath(byval hdc as HDC, byval apt as LPPOINT, byval aj as LPBYTE, byval cpt as long) as long
 declare function PathToRegion(byval hdc as HDC) as HRGN
-declare function PolyDraw(byval hdc as HDC, byval apt as const POINT_ ptr, byval aj as const BYTE ptr, byval cpt as long) as WINBOOL
+declare function PolyDraw(byval hdc as HDC, byval apt as const POINT_ ptr, byval aj as const UBYTE ptr, byval cpt as long) as WINBOOL
 declare function SelectClipPath(byval hdc as HDC, byval mode as long) as WINBOOL
 declare function SetArcDirection(byval hdc as HDC, byval dir_ as long) as long
 declare function SetMiterLimit(byval hdc as HDC, byval limit as FLOAT, byval old as PFLOAT) as WINBOOL
@@ -3579,7 +3579,7 @@ type PEMRSETCOLORADJUSTMENT as tagEMRSETCOLORADJUSTMENT ptr
 type tagEMRGDICOMMENT
 	emr as EMR
 	cbData as DWORD
-	Data(0 to 0) as BYTE
+	Data(0 to 0) as UBYTE
 end type
 
 type EMRGDICOMMENT as tagEMRGDICOMMENT
@@ -3793,7 +3793,7 @@ type tagEMRPOLYDRAW
 	rclBounds as RECTL
 	cptl as DWORD
 	aptl(0 to 0) as POINTL
-	abTypes(0 to 0) as BYTE
+	abTypes(0 to 0) as UBYTE
 end type
 
 type EMRPOLYDRAW as tagEMRPOLYDRAW
@@ -3804,7 +3804,7 @@ type tagEMRPOLYDRAW16
 	rclBounds as RECTL
 	cpts as DWORD
 	apts(0 to 0) as POINTS
-	abTypes(0 to 0) as BYTE
+	abTypes(0 to 0) as UBYTE
 end type
 
 type EMRPOLYDRAW16 as tagEMRPOLYDRAW16
@@ -3842,7 +3842,7 @@ type tagEMRINVERTRGN
 	emr as EMR
 	rclBounds as RECTL
 	cbRgnData as DWORD
-	RgnData(0 to 0) as BYTE
+	RgnData(0 to 0) as UBYTE
 end type
 
 type EMRINVERTRGN as tagEMRINVERTRGN
@@ -3855,7 +3855,7 @@ type tagEMRFILLRGN
 	rclBounds as RECTL
 	cbRgnData as DWORD
 	ihBrush as DWORD
-	RgnData(0 to 0) as BYTE
+	RgnData(0 to 0) as UBYTE
 end type
 
 type EMRFILLRGN as tagEMRFILLRGN
@@ -3867,7 +3867,7 @@ type tagEMRFRAMERGN
 	cbRgnData as DWORD
 	ihBrush as DWORD
 	szlStroke as SIZEL
-	RgnData(0 to 0) as BYTE
+	RgnData(0 to 0) as UBYTE
 end type
 
 type EMRFRAMERGN as tagEMRFRAMERGN
@@ -3877,7 +3877,7 @@ type tagEMREXTSELECTCLIPRGN
 	emr as EMR
 	cbRgnData as DWORD
 	iMode as DWORD
-	RgnData(0 to 0) as BYTE
+	RgnData(0 to 0) as UBYTE
 end type
 
 type EMREXTSELECTCLIPRGN as tagEMREXTSELECTCLIPRGN
@@ -4145,7 +4145,7 @@ type PEMRFORMAT as tagEMRFORMAT ptr
 type tagEMRGLSRECORD
 	emr as EMR
 	cbData as DWORD
-	Data(0 to 0) as BYTE
+	Data(0 to 0) as UBYTE
 end type
 
 type EMRGLSRECORD as tagEMRGLSRECORD
@@ -4155,7 +4155,7 @@ type tagEMRGLSBOUNDEDRECORD
 	emr as EMR
 	rclBounds as RECTL
 	cbData as DWORD
-	Data(0 to 0) as BYTE
+	Data(0 to 0) as UBYTE
 end type
 
 type EMRGLSBOUNDEDRECORD as tagEMRGLSBOUNDEDRECORD
@@ -4194,7 +4194,7 @@ type tagEMREXTESCAPE
 	emr as EMR
 	iEscape as INT_
 	cbEscData as INT_
-	EscData(0 to 0) as BYTE
+	EscData(0 to 0) as UBYTE
 end type
 
 type EMREXTESCAPE as tagEMREXTESCAPE
@@ -4207,7 +4207,7 @@ type tagEMRNAMEDESCAPE
 	iEscape as INT_
 	cbDriver as INT_
 	cbEscData as INT_
-	EscData(0 to 0) as BYTE
+	EscData(0 to 0) as UBYTE
 end type
 
 type EMRNAMEDESCAPE as tagEMRNAMEDESCAPE
@@ -4220,7 +4220,7 @@ type tagEMRSETICMPROFILE
 	dwFlags as DWORD
 	cbName as DWORD
 	cbData as DWORD
-	Data(0 to 0) as BYTE
+	Data(0 to 0) as UBYTE
 end type
 
 type EMRSETICMPROFILE as tagEMRSETICMPROFILE
@@ -4238,7 +4238,7 @@ type tagEMRCREATECOLORSPACEW
 	lcs as LOGCOLORSPACEW
 	dwFlags as DWORD
 	cbData as DWORD
-	Data(0 to 0) as BYTE
+	Data(0 to 0) as UBYTE
 end type
 
 type EMRCREATECOLORSPACEW as tagEMRCREATECOLORSPACEW
@@ -4252,7 +4252,7 @@ type tagCOLORMATCHTOTARGET
 	dwFlags as DWORD
 	cbName as DWORD
 	cbData as DWORD
-	Data(0 to 0) as BYTE
+	Data(0 to 0) as UBYTE
 end type
 
 type EMRCOLORMATCHTOTARGET as tagCOLORMATCHTOTARGET
@@ -4383,26 +4383,26 @@ type tagLAYERPLANEDESCRIPTOR
 	nSize as WORD
 	nVersion as WORD
 	dwFlags as DWORD
-	iPixelType as BYTE
-	cColorBits as BYTE
-	cRedBits as BYTE
-	cRedShift as BYTE
-	cGreenBits as BYTE
-	cGreenShift as BYTE
-	cBlueBits as BYTE
-	cBlueShift as BYTE
-	cAlphaBits as BYTE
-	cAlphaShift as BYTE
-	cAccumBits as BYTE
-	cAccumRedBits as BYTE
-	cAccumGreenBits as BYTE
-	cAccumBlueBits as BYTE
-	cAccumAlphaBits as BYTE
-	cDepthBits as BYTE
-	cStencilBits as BYTE
-	cAuxBuffers as BYTE
-	iLayerPlane as BYTE
-	bReserved as BYTE
+	iPixelType as UBYTE
+	cColorBits as UBYTE
+	cRedBits as UBYTE
+	cRedShift as UBYTE
+	cGreenBits as UBYTE
+	cGreenShift as UBYTE
+	cBlueBits as UBYTE
+	cBlueShift as UBYTE
+	cAlphaBits as UBYTE
+	cAlphaShift as UBYTE
+	cAccumBits as UBYTE
+	cAccumRedBits as UBYTE
+	cAccumGreenBits as UBYTE
+	cAccumBlueBits as UBYTE
+	cAccumAlphaBits as UBYTE
+	cDepthBits as UBYTE
+	cStencilBits as UBYTE
+	cAuxBuffers as UBYTE
+	iLayerPlane as UBYTE
+	bReserved as UBYTE
 	crTransparent as COLORREF
 end type
 

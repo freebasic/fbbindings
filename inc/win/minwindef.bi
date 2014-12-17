@@ -34,13 +34,13 @@ type WINBOOL as long
 type BOOL as long
 type PBOOL as WINBOOL ptr
 type LPBOOL as WINBOOL ptr
-type BYTE as ubyte
+type UBYTE as ubyte
 type WORD as ushort
 type DWORD as ulong
 type FLOAT as single
 type PFLOAT as FLOAT ptr
-type PBYTE as BYTE ptr
-type LPBYTE as BYTE ptr
+type PBYTE as UBYTE ptr
+type LPBYTE as UBYTE ptr
 type PINT as long ptr
 type LPINT as long ptr
 type PWORD as WORD ptr
@@ -62,12 +62,12 @@ type LRESULT as LONG_PTR
 
 #define max(a, b) iif((a) > (b), (a), (b))
 #define min(a, b) iif((a) < (b), (a), (b))
-#define MAKEWORD(a, b) cast(WORD, cast(BYTE, cast(DWORD_PTR, (a)) and &hff) or (cast(WORD, cast(BYTE, cast(DWORD_PTR, (b)) and &hff)) shl 8))
+#define MAKEWORD(a, b) cast(WORD, cast(UBYTE, cast(DWORD_PTR, (a)) and &hff) or (cast(WORD, cast(UBYTE, cast(DWORD_PTR, (b)) and &hff)) shl 8))
 #define MAKELONG(a, b) cast(LONG, cast(WORD, cast(DWORD_PTR, (a)) and &hffff) or (cast(DWORD, cast(WORD, cast(DWORD_PTR, (b)) and &hffff)) shl 16))
 #define LOWORD(l) cast(WORD, cast(DWORD_PTR, (l)) and &hffff)
 #define HIWORD(l) cast(WORD, (cast(DWORD_PTR, (l)) shr 16) and &hffff)
-#define LOBYTE(w) cast(BYTE, cast(DWORD_PTR, (w)) and &hff)
-#define HIBYTE(w) cast(BYTE, (cast(DWORD_PTR, (w)) shr 8) and &hff)
+#define LOBYTE(w) cast(UBYTE, cast(DWORD_PTR, (w)) and &hff)
+#define HIBYTE(w) cast(UBYTE, (cast(DWORD_PTR, (w)) shr 8) and &hff)
 
 type SPHANDLE as HANDLE ptr
 type LPHANDLE as HANDLE ptr

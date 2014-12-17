@@ -95,22 +95,22 @@ declare function BstrFromVector(byval psa as SAFEARRAY ptr, byval pbstr as BSTR 
 #define VTDATEGRE_MAX 2958465
 #define VTDATEGRE_MIN (-657434)
 
-declare function VarUI1FromI2(byval sIn_ as SHORT, byval pbOut as BYTE ptr) as HRESULT
-declare function VarUI1FromI4(byval lIn as LONG, byval pbOut as BYTE ptr) as HRESULT
-declare function VarUI1FromI8(byval i64In as LONG64, byval pbOut as BYTE ptr) as HRESULT
-declare function VarUI1FromR4(byval fltIn as FLOAT, byval pbOut as BYTE ptr) as HRESULT
-declare function VarUI1FromR8(byval dblIn as DOUBLE, byval pbOut as BYTE ptr) as HRESULT
-declare function VarUI1FromCy(byval cyIn as CY, byval pbOut as BYTE ptr) as HRESULT
-declare function VarUI1FromDate(byval dateIn as DATE_, byval pbOut as BYTE ptr) as HRESULT
-declare function VarUI1FromStr(byval strIn as OLECHAR ptr, byval lcid as LCID, byval dwFlags as ULONG, byval pbOut as BYTE ptr) as HRESULT
-declare function VarUI1FromDisp(byval pdispIn as IDispatch ptr, byval lcid as LCID, byval pbOut as BYTE ptr) as HRESULT
-declare function VarUI1FromBool(byval boolIn as VARIANT_BOOL, byval pbOut as BYTE ptr) as HRESULT
-declare function VarUI1FromI1(byval cIn as CHAR, byval pbOut as BYTE ptr) as HRESULT
-declare function VarUI1FromUI2(byval uiIn as USHORT, byval pbOut as BYTE ptr) as HRESULT
-declare function VarUI1FromUI4(byval ulIn as ULONG, byval pbOut as BYTE ptr) as HRESULT
-declare function VarUI1FromUI8(byval ui64In as ULONG64, byval pbOut as BYTE ptr) as HRESULT
-declare function VarUI1FromDec(byval pdecIn as DECIMAL ptr, byval pbOut as BYTE ptr) as HRESULT
-declare function VarI2FromUI1(byval bIn_ as BYTE, byval psOut as SHORT ptr) as HRESULT
+declare function VarUI1FromI2(byval sIn_ as SHORT, byval pbOut as UBYTE ptr) as HRESULT
+declare function VarUI1FromI4(byval lIn as LONG, byval pbOut as UBYTE ptr) as HRESULT
+declare function VarUI1FromI8(byval i64In as LONG64, byval pbOut as UBYTE ptr) as HRESULT
+declare function VarUI1FromR4(byval fltIn as FLOAT, byval pbOut as UBYTE ptr) as HRESULT
+declare function VarUI1FromR8(byval dblIn as DOUBLE, byval pbOut as UBYTE ptr) as HRESULT
+declare function VarUI1FromCy(byval cyIn as CY, byval pbOut as UBYTE ptr) as HRESULT
+declare function VarUI1FromDate(byval dateIn as DATE_, byval pbOut as UBYTE ptr) as HRESULT
+declare function VarUI1FromStr(byval strIn as OLECHAR ptr, byval lcid as LCID, byval dwFlags as ULONG, byval pbOut as UBYTE ptr) as HRESULT
+declare function VarUI1FromDisp(byval pdispIn as IDispatch ptr, byval lcid as LCID, byval pbOut as UBYTE ptr) as HRESULT
+declare function VarUI1FromBool(byval boolIn as VARIANT_BOOL, byval pbOut as UBYTE ptr) as HRESULT
+declare function VarUI1FromI1(byval cIn as CHAR, byval pbOut as UBYTE ptr) as HRESULT
+declare function VarUI1FromUI2(byval uiIn as USHORT, byval pbOut as UBYTE ptr) as HRESULT
+declare function VarUI1FromUI4(byval ulIn as ULONG, byval pbOut as UBYTE ptr) as HRESULT
+declare function VarUI1FromUI8(byval ui64In as ULONG64, byval pbOut as UBYTE ptr) as HRESULT
+declare function VarUI1FromDec(byval pdecIn as DECIMAL ptr, byval pbOut as UBYTE ptr) as HRESULT
+declare function VarI2FromUI1(byval bIn_ as UBYTE, byval psOut as SHORT ptr) as HRESULT
 declare function VarI2FromI4(byval lIn as LONG, byval psOut as SHORT ptr) as HRESULT
 declare function VarI2FromI8(byval i64In as LONG64, byval psOut as SHORT ptr) as HRESULT
 declare function VarI2FromR4(byval fltIn as FLOAT, byval psOut as SHORT ptr) as HRESULT
@@ -125,7 +125,7 @@ declare function VarI2FromUI2(byval uiIn as USHORT, byval psOut as SHORT ptr) as
 declare function VarI2FromUI4(byval ulIn as ULONG, byval psOut as SHORT ptr) as HRESULT
 declare function VarI2FromUI8(byval ui64In as ULONG64, byval psOut as SHORT ptr) as HRESULT
 declare function VarI2FromDec(byval pdecIn as DECIMAL ptr, byval psOut as SHORT ptr) as HRESULT
-declare function VarI4FromUI1(byval bIn_ as BYTE, byval plOut as LONG ptr) as HRESULT
+declare function VarI4FromUI1(byval bIn_ as UBYTE, byval plOut as LONG ptr) as HRESULT
 declare function VarI4FromI2(byval sIn_ as SHORT, byval plOut as LONG ptr) as HRESULT
 declare function VarI4FromI8(byval i64In as LONG64, byval plOut as LONG ptr) as HRESULT
 declare function VarI4FromR4(byval fltIn as FLOAT, byval plOut as LONG ptr) as HRESULT
@@ -141,7 +141,7 @@ declare function VarI4FromUI4(byval ulIn as ULONG, byval plOut as LONG ptr) as H
 declare function VarI4FromUI8(byval ui64In as ULONG64, byval plOut as LONG ptr) as HRESULT
 declare function VarI4FromDec(byval pdecIn as DECIMAL ptr, byval plOut as LONG ptr) as HRESULT
 declare function VarI4FromInt(byval intIn as INT_, byval plOut as LONG ptr) as HRESULT
-declare function VarI8FromUI1(byval bIn_ as BYTE, byval pi64Out as LONG64 ptr) as HRESULT
+declare function VarI8FromUI1(byval bIn_ as UBYTE, byval pi64Out as LONG64 ptr) as HRESULT
 declare function VarI8FromI2(byval sIn_ as SHORT, byval pi64Out as LONG64 ptr) as HRESULT
 declare function VarI8FromI4(byval lIn as LONG, byval pi64Out as LONG64 ptr) as HRESULT
 declare function VarI8FromR4(byval fltIn as FLOAT, byval pi64Out as LONG64 ptr) as HRESULT
@@ -157,7 +157,7 @@ declare function VarI8FromUI4(byval ulIn as ULONG, byval pi64Out as LONG64 ptr) 
 declare function VarI8FromUI8(byval ui64In as ULONG64, byval pi64Out as LONG64 ptr) as HRESULT
 declare function VarI8FromDec(byval pdecIn as DECIMAL ptr, byval pi64Out as LONG64 ptr) as HRESULT
 declare function VarI8FromInt(byval intIn as INT_, byval pi64Out as LONG64 ptr) as HRESULT
-declare function VarR4FromUI1(byval bIn_ as BYTE, byval pfltOut as FLOAT ptr) as HRESULT
+declare function VarR4FromUI1(byval bIn_ as UBYTE, byval pfltOut as FLOAT ptr) as HRESULT
 declare function VarR4FromI2(byval sIn_ as SHORT, byval pfltOut as FLOAT ptr) as HRESULT
 declare function VarR4FromI4(byval lIn as LONG, byval pfltOut as FLOAT ptr) as HRESULT
 declare function VarR4FromI8(byval i64In as LONG64, byval pfltOut as FLOAT ptr) as HRESULT
@@ -172,7 +172,7 @@ declare function VarR4FromUI2(byval uiIn as USHORT, byval pfltOut as FLOAT ptr) 
 declare function VarR4FromUI4(byval ulIn as ULONG, byval pfltOut as FLOAT ptr) as HRESULT
 declare function VarR4FromUI8(byval ui64In as ULONG64, byval pfltOut as FLOAT ptr) as HRESULT
 declare function VarR4FromDec(byval pdecIn as DECIMAL ptr, byval pfltOut as FLOAT ptr) as HRESULT
-declare function VarR8FromUI1(byval bIn_ as BYTE, byval pdblOut as DOUBLE ptr) as HRESULT
+declare function VarR8FromUI1(byval bIn_ as UBYTE, byval pdblOut as DOUBLE ptr) as HRESULT
 declare function VarR8FromI2(byval sIn_ as SHORT, byval pdblOut as DOUBLE ptr) as HRESULT
 declare function VarR8FromI4(byval lIn as LONG, byval pdblOut as DOUBLE ptr) as HRESULT
 declare function VarR8FromI8(byval i64In as LONG64, byval pdblOut as DOUBLE ptr) as HRESULT
@@ -187,7 +187,7 @@ declare function VarR8FromUI2(byval uiIn as USHORT, byval pdblOut as DOUBLE ptr)
 declare function VarR8FromUI4(byval ulIn as ULONG, byval pdblOut as DOUBLE ptr) as HRESULT
 declare function VarR8FromUI8(byval ui64In as ULONG64, byval pdblOut as DOUBLE ptr) as HRESULT
 declare function VarR8FromDec(byval pdecIn as DECIMAL ptr, byval pdblOut as DOUBLE ptr) as HRESULT
-declare function VarDateFromUI1(byval bIn_ as BYTE, byval pdateOut as DATE_ ptr) as HRESULT
+declare function VarDateFromUI1(byval bIn_ as UBYTE, byval pdateOut as DATE_ ptr) as HRESULT
 declare function VarDateFromI2(byval sIn_ as SHORT, byval pdateOut as DATE_ ptr) as HRESULT
 declare function VarDateFromI4(byval lIn as LONG, byval pdateOut as DATE_ ptr) as HRESULT
 declare function VarDateFromI8(byval i64In as LONG64, byval pdateOut as DATE_ ptr) as HRESULT
@@ -202,7 +202,7 @@ declare function VarDateFromUI2(byval uiIn as USHORT, byval pdateOut as DATE_ pt
 declare function VarDateFromUI4(byval ulIn as ULONG, byval pdateOut as DATE_ ptr) as HRESULT
 declare function VarDateFromUI8(byval ui64In as ULONG64, byval pdateOut as DATE_ ptr) as HRESULT
 declare function VarDateFromDec(byval pdecIn as DECIMAL ptr, byval pdateOut as DATE_ ptr) as HRESULT
-declare function VarCyFromUI1(byval bIn_ as BYTE, byval pcyOut as CY ptr) as HRESULT
+declare function VarCyFromUI1(byval bIn_ as UBYTE, byval pcyOut as CY ptr) as HRESULT
 declare function VarCyFromI2(byval sIn_ as SHORT, byval pcyOut as CY ptr) as HRESULT
 declare function VarCyFromI4(byval lIn as LONG, byval pcyOut as CY ptr) as HRESULT
 declare function VarCyFromI8(byval i64In as LONG64, byval pcyOut as CY ptr) as HRESULT
@@ -217,7 +217,7 @@ declare function VarCyFromUI2(byval uiIn as USHORT, byval pcyOut as CY ptr) as H
 declare function VarCyFromUI4(byval ulIn as ULONG, byval pcyOut as CY ptr) as HRESULT
 declare function VarCyFromUI8(byval ui64In as ULONG64, byval pcyOut as CY ptr) as HRESULT
 declare function VarCyFromDec(byval pdecIn as DECIMAL ptr, byval pcyOut as CY ptr) as HRESULT
-declare function VarBstrFromUI1(byval bVal as BYTE, byval lcid as LCID, byval dwFlags as ULONG, byval pbstrOut as BSTR ptr) as HRESULT
+declare function VarBstrFromUI1(byval bVal as UBYTE, byval lcid as LCID, byval dwFlags as ULONG, byval pbstrOut as BSTR ptr) as HRESULT
 declare function VarBstrFromI2(byval iVal as SHORT, byval lcid as LCID, byval dwFlags as ULONG, byval pbstrOut as BSTR ptr) as HRESULT
 declare function VarBstrFromI4(byval lIn as LONG, byval lcid as LCID, byval dwFlags as ULONG, byval pbstrOut as BSTR ptr) as HRESULT
 declare function VarBstrFromI8(byval i64In as LONG64, byval lcid as LCID, byval dwFlags as ulong, byval pbstrOut as BSTR ptr) as HRESULT
@@ -232,7 +232,7 @@ declare function VarBstrFromUI2(byval uiIn as USHORT, byval lcid as LCID, byval 
 declare function VarBstrFromUI4(byval ulIn as ULONG, byval lcid as LCID, byval dwFlags as ULONG, byval pbstrOut as BSTR ptr) as HRESULT
 declare function VarBstrFromUI8(byval ui64In as ULONG64, byval lcid as LCID, byval dwFlags as ulong, byval pbstrOut as BSTR ptr) as HRESULT
 declare function VarBstrFromDec(byval pdecIn as DECIMAL ptr, byval lcid as LCID, byval dwFlags as ULONG, byval pbstrOut as BSTR ptr) as HRESULT
-declare function VarBoolFromUI1(byval bIn_ as BYTE, byval pboolOut as VARIANT_BOOL ptr) as HRESULT
+declare function VarBoolFromUI1(byval bIn_ as UBYTE, byval pboolOut as VARIANT_BOOL ptr) as HRESULT
 declare function VarBoolFromI2(byval sIn_ as SHORT, byval pboolOut as VARIANT_BOOL ptr) as HRESULT
 declare function VarBoolFromI4(byval lIn as LONG, byval pboolOut as VARIANT_BOOL ptr) as HRESULT
 declare function VarBoolFromI8(byval i64In as LONG64, byval pboolOut as VARIANT_BOOL ptr) as HRESULT
@@ -247,7 +247,7 @@ declare function VarBoolFromUI2(byval uiIn as USHORT, byval pboolOut as VARIANT_
 declare function VarBoolFromUI4(byval ulIn as ULONG, byval pboolOut as VARIANT_BOOL ptr) as HRESULT
 declare function VarBoolFromUI8(byval i64In as ULONG64, byval pboolOut as VARIANT_BOOL ptr) as HRESULT
 declare function VarBoolFromDec(byval pdecIn as DECIMAL ptr, byval pboolOut as VARIANT_BOOL ptr) as HRESULT
-declare function VarI1FromUI1(byval bIn_ as BYTE, byval pcOut as CHAR ptr) as HRESULT
+declare function VarI1FromUI1(byval bIn_ as UBYTE, byval pcOut as CHAR ptr) as HRESULT
 declare function VarI1FromI2(byval uiIn as SHORT, byval pcOut as CHAR ptr) as HRESULT
 declare function VarI1FromI4(byval lIn as LONG, byval pcOut as CHAR ptr) as HRESULT
 declare function VarI1FromI8(byval i64In as LONG64, byval pcOut as CHAR ptr) as HRESULT
@@ -262,7 +262,7 @@ declare function VarI1FromUI2(byval uiIn as USHORT, byval pcOut as CHAR ptr) as 
 declare function VarI1FromUI4(byval ulIn as ULONG, byval pcOut as CHAR ptr) as HRESULT
 declare function VarI1FromUI8(byval i64In as ULONG64, byval pcOut as CHAR ptr) as HRESULT
 declare function VarI1FromDec(byval pdecIn as DECIMAL ptr, byval pcOut as CHAR ptr) as HRESULT
-declare function VarUI2FromUI1(byval bIn_ as BYTE, byval puiOut as USHORT ptr) as HRESULT
+declare function VarUI2FromUI1(byval bIn_ as UBYTE, byval puiOut as USHORT ptr) as HRESULT
 declare function VarUI2FromI2(byval uiIn as SHORT, byval puiOut as USHORT ptr) as HRESULT
 declare function VarUI2FromI4(byval lIn as LONG, byval puiOut as USHORT ptr) as HRESULT
 declare function VarUI2FromI8(byval i64In as LONG64, byval puiOut as USHORT ptr) as HRESULT
@@ -277,7 +277,7 @@ declare function VarUI2FromI1(byval cIn as CHAR, byval puiOut as USHORT ptr) as 
 declare function VarUI2FromUI4(byval ulIn as ULONG, byval puiOut as USHORT ptr) as HRESULT
 declare function VarUI2FromUI8(byval i64In as ULONG64, byval puiOut as USHORT ptr) as HRESULT
 declare function VarUI2FromDec(byval pdecIn as DECIMAL ptr, byval puiOut as USHORT ptr) as HRESULT
-declare function VarUI4FromUI1(byval bIn_ as BYTE, byval pulOut as ULONG ptr) as HRESULT
+declare function VarUI4FromUI1(byval bIn_ as UBYTE, byval pulOut as ULONG ptr) as HRESULT
 declare function VarUI4FromI2(byval uiIn as SHORT, byval pulOut as ULONG ptr) as HRESULT
 declare function VarUI4FromI4(byval lIn as LONG, byval pulOut as ULONG ptr) as HRESULT
 declare function VarUI4FromI8(byval i64In as LONG64, byval plOut as ULONG ptr) as HRESULT
@@ -292,7 +292,7 @@ declare function VarUI4FromI1(byval cIn as CHAR, byval pulOut as ULONG ptr) as H
 declare function VarUI4FromUI2(byval uiIn as USHORT, byval pulOut as ULONG ptr) as HRESULT
 declare function VarUI4FromUI8(byval ui64In as ULONG64, byval plOut as ULONG ptr) as HRESULT
 declare function VarUI4FromDec(byval pdecIn as DECIMAL ptr, byval pulOut as ULONG ptr) as HRESULT
-declare function VarUI8FromUI1(byval bIn_ as BYTE, byval pi64Out as ULONG64 ptr) as HRESULT
+declare function VarUI8FromUI1(byval bIn_ as UBYTE, byval pi64Out as ULONG64 ptr) as HRESULT
 declare function VarUI8FromI2(byval sIn_ as SHORT, byval pi64Out as ULONG64 ptr) as HRESULT
 declare function VarUI8FromI4(byval lIn as LONG, byval pi64Out as ULONG64 ptr) as HRESULT
 declare function VarUI8FromI8(byval ui64In as LONG64, byval pi64Out as ULONG64 ptr) as HRESULT
@@ -308,7 +308,7 @@ declare function VarUI8FromUI2(byval uiIn as USHORT, byval pi64Out as ULONG64 pt
 declare function VarUI8FromUI4(byval ulIn as ULONG, byval pi64Out as ULONG64 ptr) as HRESULT
 declare function VarUI8FromDec(byval pdecIn as DECIMAL ptr, byval pi64Out as ULONG64 ptr) as HRESULT
 declare function VarUI8FromInt(byval intIn as INT_, byval pi64Out as ULONG64 ptr) as HRESULT
-declare function VarDecFromUI1(byval bIn_ as BYTE, byval pdecOut as DECIMAL ptr) as HRESULT
+declare function VarDecFromUI1(byval bIn_ as UBYTE, byval pdecOut as DECIMAL ptr) as HRESULT
 declare function VarDecFromI2(byval uiIn as SHORT, byval pdecOut as DECIMAL ptr) as HRESULT
 declare function VarDecFromI4(byval lIn as LONG, byval pdecOut as DECIMAL ptr) as HRESULT
 declare function VarDecFromI8(byval i64In as LONG64, byval pdecOut as DECIMAL ptr) as HRESULT
@@ -429,8 +429,8 @@ end type
 #define VTBIT_CY (1 shl VT_CY)
 #define VTBIT_DECIMAL (1 shl VT_DECIMAL)
 
-declare function VarParseNumFromStr(byval strIn as OLECHAR ptr, byval lcid as LCID, byval dwFlags as ULONG, byval pnumprs as NUMPARSE ptr, byval rgbDig as BYTE ptr) as HRESULT
-declare function VarNumFromParseNum(byval pnumprs as NUMPARSE ptr, byval rgbDig as BYTE ptr, byval dwVtBits as ULONG, byval pvar as VARIANT ptr) as HRESULT
+declare function VarParseNumFromStr(byval strIn as OLECHAR ptr, byval lcid as LCID, byval dwFlags as ULONG, byval pnumprs as NUMPARSE ptr, byval rgbDig as UBYTE ptr) as HRESULT
+declare function VarNumFromParseNum(byval pnumprs as NUMPARSE ptr, byval rgbDig as UBYTE ptr, byval dwVtBits as ULONG, byval pvar as VARIANT ptr) as HRESULT
 declare function VarAdd(byval pvarLeft as LPVARIANT, byval pvarRight as LPVARIANT, byval pvarResult as LPVARIANT) as HRESULT
 declare function VarAnd(byval pvarLeft as LPVARIANT, byval pvarRight as LPVARIANT, byval pvarResult as LPVARIANT) as HRESULT
 declare function VarCat(byval pvarLeft as LPVARIANT, byval pvarRight as LPVARIANT, byval pvarResult as LPVARIANT) as HRESULT

@@ -605,8 +605,8 @@ end enum
 type D3DOPCODE as _D3DOPCODE
 
 type _D3DINSTRUCTION
-	bOpcode as BYTE
-	bSize as BYTE
+	bOpcode as UBYTE
+	bSize as UBYTE
 	wCount as WORD
 end type
 
@@ -622,8 +622,8 @@ type D3DTEXTURELOAD as _D3DTEXTURELOAD
 type LPD3DTEXTURELOAD as _D3DTEXTURELOAD ptr
 
 type _D3DPICKRECORD
-	bOpcode as BYTE
-	bPad as BYTE
+	bOpcode as UBYTE
+	bPad as UBYTE
 	dwOffset as DWORD
 	dvZ as D3DVALUE
 end type

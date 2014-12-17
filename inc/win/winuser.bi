@@ -651,7 +651,7 @@ type PHARDWAREHOOKSTRUCT as tagHARDWAREHOOKSTRUCT ptr
 declare function LoadKeyboardLayoutA(byval pwszKLID as LPCSTR, byval Flags as UINT) as HKL
 declare function LoadKeyboardLayoutW(byval pwszKLID as LPCWSTR, byval Flags as UINT) as HKL
 declare function ActivateKeyboardLayout(byval hkl as HKL, byval Flags as UINT) as HKL
-declare function ToUnicodeEx(byval wVirtKey as UINT, byval wScanCode as UINT, byval lpKeyState as const BYTE ptr, byval pwszBuff as LPWSTR, byval cchBuff as long, byval wFlags as UINT, byval dwhkl as HKL) as long
+declare function ToUnicodeEx(byval wVirtKey as UINT, byval wScanCode as UINT, byval lpKeyState as const UBYTE ptr, byval pwszBuff as LPWSTR, byval cchBuff as long, byval wFlags as UINT, byval dwhkl as HKL) as long
 declare function UnloadKeyboardLayout(byval hkl as HKL) as WINBOOL
 declare function GetKeyboardLayoutNameA(byval pwszKLID as LPSTR) as WINBOOL
 declare function GetKeyboardLayoutNameW(byval pwszKLID as LPWSTR) as WINBOOL
@@ -1536,7 +1536,7 @@ declare function DrawAnimatedRects(byval hwnd as HWND, byval idAni as long, byva
 #define FALT &h10
 
 type tagACCEL
-	fVirt as BYTE
+	fVirt as UBYTE
 	key as WORD
 	cmd as WORD
 end type
@@ -1550,7 +1550,7 @@ type tagPAINTSTRUCT
 	rcPaint as RECT
 	fRestore as WINBOOL
 	fIncUpdate as WINBOOL
-	rgbReserved(0 to 31) as BYTE
+	rgbReserved(0 to 31) as UBYTE
 end type
 
 type PAINTSTRUCT as tagPAINTSTRUCT
@@ -1900,12 +1900,12 @@ declare function IsChild(byval hWndParent as HWND, byval hWnd as HWND) as WINBOO
 declare function DestroyWindow(byval hWnd as HWND) as WINBOOL
 declare function ShowWindow(byval hWnd as HWND, byval nCmdShow as long) as WINBOOL
 declare function AnimateWindow(byval hWnd as HWND, byval dwTime as DWORD, byval dwFlags as DWORD) as WINBOOL
-declare function GetLayeredWindowAttributes(byval hwnd as HWND, byval pcrKey as COLORREF ptr, byval pbAlpha as BYTE ptr, byval pdwFlags as DWORD ptr) as WINBOOL
+declare function GetLayeredWindowAttributes(byval hwnd as HWND, byval pcrKey as COLORREF ptr, byval pbAlpha as UBYTE ptr, byval pdwFlags as DWORD ptr) as WINBOOL
 
 #define PW_CLIENTONLY &h00000001
 
 declare function PrintWindow(byval hwnd as HWND, byval hdcBlt as HDC, byval nFlags as UINT) as WINBOOL
-declare function SetLayeredWindowAttributes(byval hwnd as HWND, byval crKey as COLORREF, byval bAlpha as BYTE, byval dwFlags as DWORD) as WINBOOL
+declare function SetLayeredWindowAttributes(byval hwnd as HWND, byval crKey as COLORREF, byval bAlpha as UBYTE, byval dwFlags as DWORD) as WINBOOL
 
 #define LWA_COLORKEY &h00000001
 #define LWA_ALPHA &h00000002
@@ -2184,9 +2184,9 @@ declare function SetKeyboardState(byval lpKeyState as LPBYTE) as WINBOOL
 declare function GetKeyNameTextA(byval lParam as LONG, byval lpString as LPSTR, byval cchSize as long) as long
 declare function GetKeyNameTextW(byval lParam as LONG, byval lpString as LPWSTR, byval cchSize as long) as long
 declare function GetKeyboardType(byval nTypeFlag as long) as long
-declare function ToAscii(byval uVirtKey as UINT, byval uScanCode as UINT, byval lpKeyState as const BYTE ptr, byval lpChar as LPWORD, byval uFlags as UINT) as long
-declare function ToAsciiEx(byval uVirtKey as UINT, byval uScanCode as UINT, byval lpKeyState as const BYTE ptr, byval lpChar as LPWORD, byval uFlags as UINT, byval dwhkl as HKL) as long
-declare function ToUnicode(byval wVirtKey as UINT, byval wScanCode as UINT, byval lpKeyState as const BYTE ptr, byval pwszBuff as LPWSTR, byval cchBuff as long, byval wFlags as UINT) as long
+declare function ToAscii(byval uVirtKey as UINT, byval uScanCode as UINT, byval lpKeyState as const UBYTE ptr, byval lpChar as LPWORD, byval uFlags as UINT) as long
+declare function ToAsciiEx(byval uVirtKey as UINT, byval uScanCode as UINT, byval lpKeyState as const UBYTE ptr, byval lpChar as LPWORD, byval uFlags as UINT, byval dwhkl as HKL) as long
+declare function ToUnicode(byval wVirtKey as UINT, byval wScanCode as UINT, byval lpKeyState as const UBYTE ptr, byval pwszBuff as LPWSTR, byval cchBuff as long, byval wFlags as UINT) as long
 declare function OemKeyScan(byval wOemChar as WORD) as DWORD
 declare function VkKeyScanA(byval ch as CHAR) as SHORT
 declare function VkKeyScanW(byval ch as WCHAR) as SHORT
@@ -2198,7 +2198,7 @@ declare function VkKeyScanExW(byval ch as WCHAR, byval dwhkl as HKL) as SHORT
 #define KEYEVENTF_UNICODE &h0004
 #define KEYEVENTF_SCANCODE &h0008
 
-declare sub keybd_event(byval bVk as BYTE, byval bScan as BYTE, byval dwFlags as DWORD, byval dwExtraInfo as ULONG_PTR)
+declare sub keybd_event(byval bVk as UBYTE, byval bScan as UBYTE, byval dwFlags as DWORD, byval dwExtraInfo as ULONG_PTR)
 
 #define MOUSEEVENTF_MOVE &h0001
 #define MOUSEEVENTF_LEFTDOWN &h0002
@@ -3322,7 +3322,7 @@ declare function LoadIconA(byval hInstance as HINSTANCE, byval lpIconName as LPC
 declare function LoadIconW(byval hInstance as HINSTANCE, byval lpIconName as LPCWSTR) as HICON
 declare function PrivateExtractIconsA(byval szFileName as LPCSTR, byval nIconIndex as long, byval cxIcon as long, byval cyIcon as long, byval phicon as HICON ptr, byval piconid as UINT ptr, byval nIcons as UINT, byval flags as UINT) as UINT
 declare function PrivateExtractIconsW(byval szFileName as LPCWSTR, byval nIconIndex as long, byval cxIcon as long, byval cyIcon as long, byval phicon as HICON ptr, byval piconid as UINT ptr, byval nIcons as UINT, byval flags as UINT) as UINT
-declare function CreateIcon(byval hInstance as HINSTANCE, byval nWidth as long, byval nHeight as long, byval cPlanes as BYTE, byval cBitsPixel as BYTE, byval lpbANDbits as const BYTE ptr, byval lpbXORbits as const BYTE ptr) as HICON
+declare function CreateIcon(byval hInstance as HINSTANCE, byval nWidth as long, byval nHeight as long, byval cPlanes as UBYTE, byval cBitsPixel as UBYTE, byval lpbANDbits as const UBYTE ptr, byval lpbXORbits as const UBYTE ptr) as HICON
 declare function DestroyIcon(byval hIcon as HICON) as WINBOOL
 declare function LookupIconIdFromDirectory(byval presbits as PBYTE, byval fIcon as WINBOOL) as long
 declare function LookupIconIdFromDirectoryEx(byval presbits as PBYTE, byval fIcon as WINBOOL, byval cxDesired as long, byval cyDesired as long, byval Flags as UINT) as long
@@ -3335,8 +3335,8 @@ type tagCURSORSHAPE
 	cx as long
 	cy as long
 	cbWidth as long
-	Planes as BYTE
-	BitsPixel as BYTE
+	Planes as UBYTE
+	BitsPixel as UBYTE
 end type
 
 type CURSORSHAPE as tagCURSORSHAPE
@@ -4975,7 +4975,7 @@ type LPRAWKEYBOARD as tagRAWKEYBOARD ptr
 type tagRAWHID
 	dwSizeHid as DWORD
 	dwCount as DWORD
-	bRawData(0 to 0) as BYTE
+	bRawData(0 to 0) as UBYTE
 end type
 
 type RAWHID as tagRAWHID

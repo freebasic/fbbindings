@@ -12,7 +12,7 @@ type REFERENCE_TIME as LONGLONG
 type LPREFERENCE_TIME as LONGLONG ptr
 type FOURCC as DWORD
 
-#define mmioFOURCC(ch0, ch1, ch2, ch3) cast(DWORD, cast(BYTE, (((ch0) or cast(DWORD, cast(BYTE, (ch1) shl 8))) or cast(DWORD, cast(BYTE, (ch2) shl 16))) or cast(DWORD, cast(BYTE, (ch3) shl 24))))
+#define mmioFOURCC(ch0, ch1, ch2, ch3) cast(DWORD, cast(UBYTE, (((ch0) or cast(DWORD, cast(UBYTE, (ch1) shl 8))) or cast(DWORD, cast(UBYTE, (ch2) shl 16))) or cast(DWORD, cast(UBYTE, (ch3) shl 24))))
 #define DMUS_DEFAULT_SIZE_OFFSETTABLE &h1
 #define DMUS_DOWNLOADINFO_INSTRUMENT &h1
 #define DMUS_DOWNLOADINFO_WAVE &h2
@@ -147,17 +147,17 @@ type _DMUS_EXTENSIONCHUNK
 	cbSize as ULONG
 	ulNextExtCkIdx as ULONG
 	ExtCkID as FOURCC
-	byExtCk(0 to 3) as BYTE
+	byExtCk(0 to 3) as UBYTE
 end type
 
 type _DMUS_COPYRIGHT
 	cbSize as ULONG
-	byCopyright(0 to 3) as BYTE
+	byCopyright(0 to 3) as UBYTE
 end type
 
 type _DMUS_WAVEDATA
 	cbSize as ULONG
-	byData(0 to 3) as BYTE
+	byData(0 to 3) as UBYTE
 end type
 
 type _DMUS_WAVE

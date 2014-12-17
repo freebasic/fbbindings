@@ -25,7 +25,7 @@ type LPSNMP_MGR_SESSION as PVOID
 declare function SnmpMgrOpen(byval lpAgentAddress as LPSTR, byval lpAgentCommunity as LPSTR, byval nTimeOut as INT_, byval nRetries as INT_) as LPSNMP_MGR_SESSION
 declare function SnmpMgrCtl(byval session as LPSNMP_MGR_SESSION, byval dwCtlCode as DWORD, byval lpvInBuffer as LPVOID, byval cbInBuffer as DWORD, byval lpvOUTBuffer as LPVOID, byval cbOUTBuffer as DWORD, byval lpcbBytesReturned as LPDWORD) as WINBOOL
 declare function SnmpMgrClose(byval session as LPSNMP_MGR_SESSION) as WINBOOL
-declare function SnmpMgrRequest(byval session as LPSNMP_MGR_SESSION, byval requestType as BYTE, byval variableBindings as SnmpVarBindList ptr, byval errorStatus as AsnInteger32 ptr, byval errorIndex as AsnInteger32 ptr) as INT_
+declare function SnmpMgrRequest(byval session as LPSNMP_MGR_SESSION, byval requestType as UBYTE, byval variableBindings as SnmpVarBindList ptr, byval errorStatus as AsnInteger32 ptr, byval errorIndex as AsnInteger32 ptr) as INT_
 declare function SnmpMgrStrToOid(byval string_ as LPSTR, byval oid as AsnObjectIdentifier ptr) as WINBOOL
 declare function SnmpMgrOidToStr(byval oid as AsnObjectIdentifier ptr, byval string_ as LPSTR ptr) as WINBOOL
 declare function SnmpMgrTrapListen(byval phTrapAvailable as HANDLE ptr) as WINBOOL

@@ -187,7 +187,7 @@ end type
 
 type tagRASEAPINFO field = 4
 	dwSizeofEapInfo as DWORD
-	pbEapInfo as BYTE ptr
+	pbEapInfo as UBYTE ptr
 end type
 
 #define RASDIALEXTENSIONS tagRASDIALEXTENSIONS
@@ -260,7 +260,7 @@ type tagRASAMBW field = 4
 	dwSize as DWORD
 	dwError as DWORD
 	szNetBiosError(0 to (16 + 1) - 1) as WCHAR
-	bLana as BYTE
+	bLana as UBYTE
 end type
 
 #define RASAMBA tagRASAMBA
@@ -269,7 +269,7 @@ type tagRASAMBA field = 4
 	dwSize as DWORD
 	dwError as DWORD
 	szNetBiosError(0 to (16 + 1) - 1) as CHAR
-	bLana as BYTE
+	bLana as UBYTE
 end type
 
 #define RASAMB __MINGW_NAME_AW(RASAMB)
@@ -284,7 +284,7 @@ type tagRASPPPNBFW field = 4
 	dwNetBiosError as DWORD
 	szNetBiosError(0 to (16 + 1) - 1) as WCHAR
 	szWorkstationName(0 to (16 + 1) - 1) as WCHAR
-	bLana as BYTE
+	bLana as UBYTE
 end type
 
 #define RASPPPNBFA tagRASPPPNBFA
@@ -295,7 +295,7 @@ type tagRASPPPNBFA field = 4
 	dwNetBiosError as DWORD
 	szNetBiosError(0 to (16 + 1) - 1) as CHAR
 	szWorkstationName(0 to (16 + 1) - 1) as CHAR
-	bLana as BYTE
+	bLana as UBYTE
 end type
 
 #define RASPPPNBF __MINGW_NAME_AW(RASPPPNBF)
@@ -489,10 +489,10 @@ end type
 #define RASIPADDR_ RASIPADDR
 
 type RASIPADDR field = 4
-	a as BYTE
-	b as BYTE
-	c as BYTE
-	d as BYTE
+	a as UBYTE
+	b as UBYTE
+	c as UBYTE
+	d as UBYTE
 end type
 
 #define ET_None 0
@@ -800,7 +800,7 @@ end type
 type tagRASEAPUSERIDENTITYA field = 4
 	szUserName(0 to (256 + 1) - 1) as CHAR
 	dwSizeofEapInfo as DWORD
-	pbEapInfo(0 to 0) as BYTE
+	pbEapInfo(0 to 0) as UBYTE
 end type
 
 #define RASEAPUSERIDENTITYW tagRASEAPUSERIDENTITYW
@@ -808,7 +808,7 @@ end type
 type tagRASEAPUSERIDENTITYW field = 4
 	szUserName(0 to (256 + 1) - 1) as WCHAR
 	dwSizeofEapInfo as DWORD
-	pbEapInfo(0 to 0) as BYTE
+	pbEapInfo(0 to 0) as UBYTE
 end type
 
 #define RASEAPUSERIDENTITY __MINGW_NAME_AW(RASEAPUSERIDENTITY)
@@ -831,10 +831,10 @@ type PFNRASRETRIEVEBUFFER as function(byval hPort as HANDLE, byval pBuffer as PB
 
 type tagRASCOMMSETTINGS field = 4
 	dwSize as DWORD
-	bParity as BYTE
-	bStop as BYTE
-	bByteSize as BYTE
-	bAlign as BYTE
+	bParity as UBYTE
+	bStop as UBYTE
+	bByteSize as UBYTE
+	bAlign as UBYTE
 end type
 
 type PFNRASSETCOMMSETTINGS as function(byval hPort as HANDLE, byval pRasCommSettings as tagRASCOMMSETTINGS ptr, byval pvReserved as PVOID) as DWORD
@@ -949,14 +949,14 @@ declare function RasGetLinkStatistics(byval hRasConn as HRASCONN, byval dwSubEnt
 declare function RasGetConnectionStatistics(byval hRasConn as HRASCONN, byval lpStatistics as RAS_STATS ptr) as DWORD
 declare function RasClearLinkStatistics(byval hRasConn as HRASCONN, byval dwSubEntry as DWORD) as DWORD
 declare function RasClearConnectionStatistics(byval hRasConn as HRASCONN) as DWORD
-declare function RasGetEapUserDataA(byval hToken as HANDLE, byval pszPhonebook as LPCSTR, byval pszEntry as LPCSTR, byval pbEapData as BYTE ptr, byval pdwSizeofEapData as DWORD ptr) as DWORD
-declare function RasGetEapUserDataW(byval hToken as HANDLE, byval pszPhonebook as LPCWSTR, byval pszEntry as LPCWSTR, byval pbEapData as BYTE ptr, byval pdwSizeofEapData as DWORD ptr) as DWORD
-declare function RasSetEapUserDataA(byval hToken as HANDLE, byval pszPhonebook as LPCSTR, byval pszEntry as LPCSTR, byval pbEapData as BYTE ptr, byval dwSizeofEapData as DWORD) as DWORD
-declare function RasSetEapUserDataW(byval hToken as HANDLE, byval pszPhonebook as LPCWSTR, byval pszEntry as LPCWSTR, byval pbEapData as BYTE ptr, byval dwSizeofEapData as DWORD) as DWORD
-declare function RasGetCustomAuthDataA(byval pszPhonebook as LPCSTR, byval pszEntry as LPCSTR, byval pbCustomAuthData as BYTE ptr, byval pdwSizeofCustomAuthData as DWORD ptr) as DWORD
-declare function RasGetCustomAuthDataW(byval pszPhonebook as LPCWSTR, byval pszEntry as LPCWSTR, byval pbCustomAuthData as BYTE ptr, byval pdwSizeofCustomAuthData as DWORD ptr) as DWORD
-declare function RasSetCustomAuthDataA(byval pszPhonebook as LPCSTR, byval pszEntry as LPCSTR, byval pbCustomAuthData as BYTE ptr, byval dwSizeofCustomAuthData as DWORD) as DWORD
-declare function RasSetCustomAuthDataW(byval pszPhonebook as LPCWSTR, byval pszEntry as LPCWSTR, byval pbCustomAuthData as BYTE ptr, byval dwSizeofCustomAuthData as DWORD) as DWORD
+declare function RasGetEapUserDataA(byval hToken as HANDLE, byval pszPhonebook as LPCSTR, byval pszEntry as LPCSTR, byval pbEapData as UBYTE ptr, byval pdwSizeofEapData as DWORD ptr) as DWORD
+declare function RasGetEapUserDataW(byval hToken as HANDLE, byval pszPhonebook as LPCWSTR, byval pszEntry as LPCWSTR, byval pbEapData as UBYTE ptr, byval pdwSizeofEapData as DWORD ptr) as DWORD
+declare function RasSetEapUserDataA(byval hToken as HANDLE, byval pszPhonebook as LPCSTR, byval pszEntry as LPCSTR, byval pbEapData as UBYTE ptr, byval dwSizeofEapData as DWORD) as DWORD
+declare function RasSetEapUserDataW(byval hToken as HANDLE, byval pszPhonebook as LPCWSTR, byval pszEntry as LPCWSTR, byval pbEapData as UBYTE ptr, byval dwSizeofEapData as DWORD) as DWORD
+declare function RasGetCustomAuthDataA(byval pszPhonebook as LPCSTR, byval pszEntry as LPCSTR, byval pbCustomAuthData as UBYTE ptr, byval pdwSizeofCustomAuthData as DWORD ptr) as DWORD
+declare function RasGetCustomAuthDataW(byval pszPhonebook as LPCWSTR, byval pszEntry as LPCWSTR, byval pbCustomAuthData as UBYTE ptr, byval pdwSizeofCustomAuthData as DWORD ptr) as DWORD
+declare function RasSetCustomAuthDataA(byval pszPhonebook as LPCSTR, byval pszEntry as LPCSTR, byval pbCustomAuthData as UBYTE ptr, byval dwSizeofCustomAuthData as DWORD) as DWORD
+declare function RasSetCustomAuthDataW(byval pszPhonebook as LPCWSTR, byval pszEntry as LPCWSTR, byval pbCustomAuthData as UBYTE ptr, byval dwSizeofCustomAuthData as DWORD) as DWORD
 declare function RasGetEapUserIdentityW(byval pszPhonebook as LPCWSTR, byval pszEntry as LPCWSTR, byval dwFlags as DWORD, byval hwnd as HWND, byval ppRasEapUserIdentity as tagRASEAPUSERIDENTITYW ptr ptr) as DWORD
 declare function RasGetEapUserIdentityA(byval pszPhonebook as LPCSTR, byval pszEntry as LPCSTR, byval dwFlags as DWORD, byval hwnd as HWND, byval ppRasEapUserIdentity as tagRASEAPUSERIDENTITYA ptr ptr) as DWORD
 declare sub RasFreeEapUserIdentityW(byval pRasEapUserIdentity as tagRASEAPUSERIDENTITYW ptr)

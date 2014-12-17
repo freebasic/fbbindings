@@ -190,7 +190,7 @@ type GROUP_AFFINITY as _GROUP_AFFINITY
 type PGROUP_AFFINITY as _GROUP_AFFINITY ptr
 type HANDLE as any ptr
 type PHANDLE as HANDLE ptr
-type FCHAR as BYTE
+type FCHAR as UBYTE
 type FSHORT as WORD
 type FLONG as DWORD
 
@@ -334,7 +334,7 @@ declare function _rotr64 cdecl(byval Value as ulongint, byval Shift as long) as 
 #define UNICODE_STRING_MAX_CHARS 32767
 #define _BOOLEAN_
 
-type BOOLEAN as BYTE
+type BOOLEAN as UBYTE
 type PBOOLEAN as BOOLEAN ptr
 
 #define _LIST_ENTRY_DEFINED
@@ -1022,8 +1022,8 @@ type PM128A as _M128A ptr
 type _XSAVE_FORMAT
 	ControlWord as WORD
 	StatusWord as WORD
-	TagWord as BYTE
-	Reserved1 as BYTE
+	TagWord as UBYTE
+	Reserved1 as UBYTE
 	ErrorOpcode as WORD
 	ErrorOffset as DWORD
 	ErrorSelector as WORD
@@ -1037,10 +1037,10 @@ type _XSAVE_FORMAT
 
 	#ifdef __FB_64BIT__
 		XmmRegisters(0 to 15) as M128A
-		Reserved4(0 to 95) as BYTE
+		Reserved4(0 to 95) as UBYTE
 	#else
 		XmmRegisters(0 to 7) as M128A
-		Reserved4(0 to 219) as BYTE
+		Reserved4(0 to 219) as UBYTE
 		Cr0NpxState as DWORD
 	#endif
 end type
@@ -1209,8 +1209,8 @@ type PSCOPE_TABLE_AMD64 as _SCOPE_TABLE_AMD64 ptr
 	#define ShiftLeft128 __shiftleft128
 	#define ShiftRight128 __shiftright128
 
-	declare function __shiftleft128(byval LowPart as DWORD64, byval HighPart as DWORD64, byval Shift as BYTE) as DWORD64
-	declare function __shiftright128(byval LowPart as DWORD64, byval HighPart as DWORD64, byval Shift as BYTE) as DWORD64
+	declare function __shiftleft128(byval LowPart as DWORD64, byval HighPart as DWORD64, byval Shift as UBYTE) as DWORD64
+	declare function __shiftright128(byval LowPart as DWORD64, byval HighPart as DWORD64, byval Shift as UBYTE) as DWORD64
 
 	#define Multiply128 _mul128
 
@@ -1219,8 +1219,8 @@ type PSCOPE_TABLE_AMD64 as _SCOPE_TABLE_AMD64 ptr
 	#define UnsignedMultiply128 _umul128
 
 	declare function _umul128(byval Multiplier as DWORD64, byval Multiplicand as DWORD64, byval HighProduct as DWORD64 ptr) as DWORD64
-	declare function MultiplyExtract128(byval Multiplier as LONG64, byval Multiplicand as LONG64, byval Shift as BYTE) as LONG64
-	declare function UnsignedMultiplyExtract128(byval Multiplier as DWORD64, byval Multiplicand as DWORD64, byval Shift as BYTE) as DWORD64
+	declare function MultiplyExtract128(byval Multiplier as LONG64, byval Multiplicand as LONG64, byval Shift as UBYTE) as LONG64
+	declare function UnsignedMultiplyExtract128(byval Multiplier as DWORD64, byval Multiplicand as DWORD64, byval Shift as UBYTE) as DWORD64
 #endif
 
 #define EXCEPTION_READ_FAULT 0
@@ -1246,8 +1246,8 @@ type PSCOPE_TABLE_AMD64 as _SCOPE_TABLE_AMD64 ptr
 	type _XMM_SAVE_AREA32
 		ControlWord as WORD
 		StatusWord as WORD
-		TagWord as BYTE
-		Reserved1 as BYTE
+		TagWord as UBYTE
+		Reserved1 as UBYTE
 		ErrorOpcode as WORD
 		ErrorOffset as DWORD
 		ErrorSelector as WORD
@@ -1259,7 +1259,7 @@ type PSCOPE_TABLE_AMD64 as _SCOPE_TABLE_AMD64 ptr
 		MxCsr_Mask as DWORD
 		FloatRegisters(0 to 7) as M128A
 		XmmRegisters(0 to 15) as M128A
-		Reserved4(0 to 95) as BYTE
+		Reserved4(0 to 95) as UBYTE
 	end type
 
 	type XMM_SAVE_AREA32 as _XMM_SAVE_AREA32
@@ -1288,7 +1288,7 @@ type PSCOPE_TABLE_AMD64 as _SCOPE_TABLE_AMD64 ptr
 		ErrorSelector as DWORD
 		DataOffset as DWORD
 		DataSelector as DWORD
-		RegisterArea(0 to 79) as BYTE
+		RegisterArea(0 to 79) as UBYTE
 		Cr0NpxState as DWORD
 	end type
 
@@ -1402,7 +1402,7 @@ type _CONTEXT
 	#else
 		Esp as DWORD
 		SegSs as DWORD
-		ExtendedRegisters(0 to 511) as BYTE
+		ExtendedRegisters(0 to 511) as UBYTE
 	#endif
 end type
 
@@ -1432,10 +1432,10 @@ type CONTEXT as _CONTEXT
 #define _LDT_ENTRY_DEFINED
 
 type ___LDT_ENTRY_Bytes
-	BaseMid as BYTE
-	Flags1 as BYTE
-	Flags2 as BYTE
-	BaseHi as BYTE
+	BaseMid as UBYTE
+	Flags1 as UBYTE
+	Flags2 as UBYTE
+	BaseHi as UBYTE
 end type
 
 type ___LDT_ENTRY_Bits
@@ -1620,7 +1620,7 @@ type PLUID_AND_ATTRIBUTES as _LUID_AND_ATTRIBUTES ptr
 '' TODO: typedef LUID_AND_ATTRIBUTES_ARRAY *PLUID_AND_ATTRIBUTES_ARRAY;
 
 type _SID_IDENTIFIER_AUTHORITY
-	Value(0 to 5) as BYTE
+	Value(0 to 5) as UBYTE
 end type
 
 type SID_IDENTIFIER_AUTHORITY as _SID_IDENTIFIER_AUTHORITY
@@ -1630,8 +1630,8 @@ type PSID_IDENTIFIER_AUTHORITY as _SID_IDENTIFIER_AUTHORITY ptr
 #define SID_DEFINED
 
 type _SID
-	Revision as BYTE
-	SubAuthorityCount as BYTE
+	Revision as UBYTE
+	SubAuthorityCount as UBYTE
 	IdentifierAuthority as SID_IDENTIFIER_AUTHORITY
 	SubAuthority(0 to 0) as DWORD
 end type
@@ -1984,8 +1984,8 @@ end enum
 #define MAX_ACL_REVISION ACL_REVISION4
 
 type _ACL
-	AclRevision as BYTE
-	Sbz1 as BYTE
+	AclRevision as UBYTE
+	Sbz1 as UBYTE
 	AclSize as WORD
 	AceCount as WORD
 	Sbz2 as WORD
@@ -1995,8 +1995,8 @@ type ACL as _ACL
 type PACL as ACL ptr
 
 type _ACE_HEADER
-	AceType as BYTE
-	AceFlags as BYTE
+	AceType as UBYTE
+	AceFlags as UBYTE
 	AceSize as WORD
 end type
 
@@ -2290,8 +2290,8 @@ type PSECURITY_DESCRIPTOR_CONTROL as WORD ptr
 #define SE_SELF_RELATIVE &h8000
 
 type _SECURITY_DESCRIPTOR_RELATIVE
-	Revision as BYTE
-	Sbz1 as BYTE
+	Revision as UBYTE
+	Sbz1 as UBYTE
 	Control as SECURITY_DESCRIPTOR_CONTROL
 	Owner as DWORD
 	Group as DWORD
@@ -2303,8 +2303,8 @@ type SECURITY_DESCRIPTOR_RELATIVE as _SECURITY_DESCRIPTOR_RELATIVE
 type PISECURITY_DESCRIPTOR_RELATIVE as _SECURITY_DESCRIPTOR_RELATIVE ptr
 
 type _SECURITY_DESCRIPTOR
-	Revision as BYTE
-	Sbz1 as BYTE
+	Revision as UBYTE
+	Sbz1 as UBYTE
 	Control as SECURITY_DESCRIPTOR_CONTROL
 	Owner as PSID
 	Group as PSID
@@ -3533,8 +3533,8 @@ type PROCESSOR_CACHE_TYPE as _PROCESSOR_CACHE_TYPE
 #define CACHE_FULLY_ASSOCIATIVE &hFF
 
 type _CACHE_DESCRIPTOR
-	Level as BYTE
-	Associativity as BYTE
+	Level as UBYTE
+	Associativity as UBYTE
 	LineSize as WORD
 	Size as DWORD
 	as PROCESSOR_CACHE_TYPE Type
@@ -3544,7 +3544,7 @@ type CACHE_DESCRIPTOR as _CACHE_DESCRIPTOR
 type PCACHE_DESCRIPTOR as _CACHE_DESCRIPTOR ptr
 
 type ___SYSTEM_LOGICAL_PROCESSOR_INFORMATION_ProcessorCore
-	Flags as BYTE
+	Flags as UBYTE
 end type
 
 type ___SYSTEM_LOGICAL_PROCESSOR_INFORMATION_NumaNode
@@ -3567,8 +3567,8 @@ type SYSTEM_LOGICAL_PROCESSOR_INFORMATION as _SYSTEM_LOGICAL_PROCESSOR_INFORMATI
 type PSYSTEM_LOGICAL_PROCESSOR_INFORMATION as _SYSTEM_LOGICAL_PROCESSOR_INFORMATION ptr
 
 type _PROCESSOR_RELATIONSHIP
-	Flags as BYTE
-	Reserved(0 to 20) as BYTE
+	Flags as UBYTE
+	Reserved(0 to 20) as UBYTE
 	GroupCount as WORD
 	GroupMask(0 to 0) as GROUP_AFFINITY
 end type
@@ -3578,7 +3578,7 @@ type PPROCESSOR_RELATIONSHIP as _PROCESSOR_RELATIONSHIP ptr
 
 type _NUMA_NODE_RELATIONSHIP
 	NodeNumber as DWORD
-	Reserved(0 to 19) as BYTE
+	Reserved(0 to 19) as UBYTE
 	GroupMask as GROUP_AFFINITY
 end type
 
@@ -3586,12 +3586,12 @@ type NUMA_NODE_RELATIONSHIP as _NUMA_NODE_RELATIONSHIP
 type PNUMA_NODE_RELATIONSHIP as _NUMA_NODE_RELATIONSHIP ptr
 
 type _CACHE_RELATIONSHIP
-	Level as BYTE
-	Associativity as BYTE
+	Level as UBYTE
+	Associativity as UBYTE
 	LineSize as WORD
 	CacheSize as DWORD
 	as PROCESSOR_CACHE_TYPE Type
-	Reserved(0 to 19) as BYTE
+	Reserved(0 to 19) as UBYTE
 	GroupMask as GROUP_AFFINITY
 end type
 
@@ -3599,9 +3599,9 @@ type CACHE_RELATIONSHIP as _CACHE_RELATIONSHIP
 type PCACHE_RELATIONSHIP as _CACHE_RELATIONSHIP ptr
 
 type _PROCESSOR_GROUP_INFO
-	MaximumProcessorCount as BYTE
-	ActiveProcessorCount as BYTE
-	Reserved(0 to 37) as BYTE
+	MaximumProcessorCount as UBYTE
+	ActiveProcessorCount as UBYTE
+	Reserved(0 to 37) as UBYTE
 	ActiveProcessorMask as KAFFINITY
 end type
 
@@ -3611,7 +3611,7 @@ type PPROCESSOR_GROUP_INFO as _PROCESSOR_GROUP_INFO ptr
 type _GROUP_RELATIONSHIP
 	MaximumGroupCount as WORD
 	ActiveGroupCount as WORD
-	Reserved(0 to 19) as BYTE
+	Reserved(0 to 19) as UBYTE
 	GroupInfo(0 to 0) as PROCESSOR_GROUP_INFO
 end type
 
@@ -3949,7 +3949,7 @@ type FILE_SEGMENT_ELEMENT as _FILE_SEGMENT_ELEMENT
 type PFILE_SEGMENT_ELEMENT as _FILE_SEGMENT_ELEMENT ptr
 
 type ___REPARSE_GUID_DATA_BUFFER_GenericReparseBuffer
-	DataBuffer(0 to 0) as BYTE
+	DataBuffer(0 to 0) as UBYTE
 end type
 
 type _REPARSE_GUID_DATA_BUFFER
@@ -4457,7 +4457,7 @@ type SET_POWER_SETTING_VALUE
 	Guid as GUID
 	PowerCondition as SYSTEM_POWER_CONDITION
 	DataLength as DWORD
-	Data(0 to 0) as BYTE
+	Data(0 to 0) as UBYTE
 end type
 
 type PSET_POWER_SETTING_VALUE as SET_POWER_SETTING_VALUE ptr
@@ -4529,10 +4529,10 @@ type PPM_WMI_IDLE_STATE
 	Latency as DWORD
 	Power as DWORD
 	TimeCheck as DWORD
-	PromotePercent as BYTE
-	DemotePercent as BYTE
-	StateType as BYTE
-	Reserved as BYTE
+	PromotePercent as UBYTE
+	DemotePercent as UBYTE
+	StateType as UBYTE
+	Reserved as UBYTE
 	StateFlags as DWORD
 	Context as DWORD
 	IdleHandler as DWORD
@@ -4566,10 +4566,10 @@ type PPPM_WMI_IDLE_STATES_EX as PPM_WMI_IDLE_STATES_EX ptr
 type PPM_WMI_PERF_STATE
 	Frequency as DWORD
 	Power as DWORD
-	PercentFrequency as BYTE
-	IncreaseLevel as BYTE
-	DecreaseLevel as BYTE
-	as BYTE Type
+	PercentFrequency as UBYTE
+	IncreaseLevel as UBYTE
+	DecreaseLevel as UBYTE
+	as UBYTE Type
 	IncreaseTime as DWORD
 	DecreaseTime as DWORD
 	Control as DWORD64
@@ -4590,10 +4590,10 @@ type PPM_WMI_PERF_STATES
 	MinPerfState as DWORD
 	LowestPerfState as DWORD
 	ThermalConstraint as DWORD
-	BusyAdjThreshold as BYTE
-	PolicyType as BYTE
-	as BYTE Type
-	Reserved as BYTE
+	BusyAdjThreshold as UBYTE
+	PolicyType as UBYTE
+	as UBYTE Type
+	Reserved as UBYTE
 	TimerInterval as DWORD
 	TargetProcessors as DWORD64
 	PStateHandler as DWORD
@@ -4616,10 +4616,10 @@ type PPM_WMI_PERF_STATES_EX
 	MinPerfState as DWORD
 	LowestPerfState as DWORD
 	ThermalConstraint as DWORD
-	BusyAdjThreshold as BYTE
-	PolicyType as BYTE
-	as BYTE Type
-	Reserved as BYTE
+	BusyAdjThreshold as UBYTE
+	PolicyType as UBYTE
+	as UBYTE Type
+	Reserved as UBYTE
 	TimerInterval as DWORD
 	TargetProcessors as PVOID
 	PStateHandler as DWORD
@@ -4757,7 +4757,7 @@ end type
 type PPPM_THERMALCHANGE_EVENT as PPM_THERMALCHANGE_EVENT ptr
 
 type PPM_THERMAL_POLICY_EVENT
-	Mode as BYTE
+	Mode as UBYTE
 	Processors as DWORD64
 end type
 
@@ -4807,16 +4807,16 @@ type PPOWER_ACTION_POLICY as POWER_ACTION_POLICY ptr
 
 type PROCESSOR_IDLESTATE_INFO
 	TimeCheck as DWORD
-	DemotePercent as BYTE
-	PromotePercent as BYTE
-	Spare(0 to 1) as BYTE
+	DemotePercent as UBYTE
+	PromotePercent as UBYTE
+	Spare(0 to 1) as UBYTE
 end type
 
 type PPROCESSOR_IDLESTATE_INFO as PROCESSOR_IDLESTATE_INFO ptr
 
 type SYSTEM_POWER_LEVEL
 	Enable as BOOLEAN
-	Spare(0 to 2) as BYTE
+	Spare(0 to 2) as UBYTE
 	BatteryLevel as DWORD
 	PowerPolicy as POWER_ACTION_POLICY
 	MinSystemState as SYSTEM_POWER_STATE
@@ -4833,9 +4833,9 @@ type _SYSTEM_POWER_POLICY
 	Reserved as DWORD
 	Idle as POWER_ACTION_POLICY
 	IdleTimeout as DWORD
-	IdleSensitivity as BYTE
-	DynamicThrottle as BYTE
-	Spare2(0 to 1) as BYTE
+	IdleSensitivity as UBYTE
+	DynamicThrottle as UBYTE
+	Spare2(0 to 1) as UBYTE
 	MinSleep as SYSTEM_POWER_STATE
 	MaxSleep as SYSTEM_POWER_STATE
 	ReducedLatencySleep as SYSTEM_POWER_STATE
@@ -4849,9 +4849,9 @@ type _SYSTEM_POWER_POLICY
 	VideoReserved(0 to 2) as DWORD
 	SpindownTimeout as DWORD
 	OptimizeForPower as BOOLEAN
-	FanThrottleTolerance as BYTE
-	ForcedThrottle as BYTE
-	MinThrottle as BYTE
+	FanThrottleTolerance as UBYTE
+	ForcedThrottle as UBYTE
+	MinThrottle as UBYTE
 	OverThrottled as POWER_ACTION_POLICY
 end type
 
@@ -4887,9 +4887,9 @@ type _PROCESSOR_POWER_POLICY_INFO
 	TimeCheck as DWORD
 	DemoteLimit as DWORD
 	PromoteLimit as DWORD
-	DemotePercent as BYTE
-	PromotePercent as BYTE
-	Spare(0 to 1) as BYTE
+	DemotePercent as UBYTE
+	PromotePercent as UBYTE
+	Spare(0 to 1) as UBYTE
 	AllowDemotion : 1 as DWORD
 	AllowPromotion : 1 as DWORD
 	Reserved : 30 as DWORD
@@ -4900,8 +4900,8 @@ type PPROCESSOR_POWER_POLICY_INFO as _PROCESSOR_POWER_POLICY_INFO ptr
 
 type _PROCESSOR_POWER_POLICY
 	Revision as DWORD
-	DynamicThrottle as BYTE
-	Spare(0 to 2) as BYTE
+	DynamicThrottle as UBYTE
+	Spare(0 to 2) as UBYTE
 	DisableCStates : 1 as DWORD
 	Reserved : 31 as DWORD
 	PolicyCount as DWORD
@@ -4912,24 +4912,24 @@ type PROCESSOR_POWER_POLICY as _PROCESSOR_POWER_POLICY
 type PPROCESSOR_POWER_POLICY as _PROCESSOR_POWER_POLICY ptr
 
 union __Flags
-	AsBYTE as BYTE
+	AsBYTE as UBYTE
 
 	type
-		NoDomainAccounting : 1 as BYTE
-		IncreasePolicy : 2 as BYTE
-		DecreasePolicy : 2 as BYTE
-		Reserved : 3 as BYTE
+		NoDomainAccounting : 1 as UBYTE
+		IncreasePolicy : 2 as UBYTE
+		DecreasePolicy : 2 as UBYTE
+		Reserved : 3 as UBYTE
 	end type
 end union
 
 type PROCESSOR_PERFSTATE_POLICY
 	Revision as DWORD
-	MaxThrottle as BYTE
-	MinThrottle as BYTE
-	BusyAdjThreshold as BYTE
+	MaxThrottle as UBYTE
+	MinThrottle as UBYTE
+	BusyAdjThreshold as UBYTE
 
 	union
-		Spare as BYTE
+		Spare as UBYTE
 		Flags as __Flags
 	end union
 
@@ -4970,12 +4970,12 @@ type SYSTEM_POWER_CAPABILITIES
 	UpsPresent as BOOLEAN
 	ThermalControl as BOOLEAN
 	ProcessorThrottle as BOOLEAN
-	ProcessorMinThrottle as BYTE
-	ProcessorMaxThrottle as BYTE
+	ProcessorMinThrottle as UBYTE
+	ProcessorMaxThrottle as UBYTE
 	FastSystemS4 as BOOLEAN
-	spare2(0 to 2) as BYTE
+	spare2(0 to 2) as UBYTE
 	DiskSpinDown as BOOLEAN
-	spare3(0 to 7) as BYTE
+	spare3(0 to 7) as UBYTE
 	SystemBatteriesPresent as BOOLEAN
 	BatteriesAreShortTerm as BOOLEAN
 	BatteryScale(0 to 2) as BATTERY_REPORTING_SCALE
@@ -5060,8 +5060,8 @@ type _IMAGE_OS2_HEADER field = 2
 	ne_cmovent as WORD
 	ne_align as WORD
 	ne_cres as WORD
-	ne_exetyp as BYTE
-	ne_flagsothers as BYTE
+	ne_exetyp as UBYTE
+	ne_flagsothers as UBYTE
 	ne_pretthunks as WORD
 	ne_psegrefbytes as WORD
 	ne_swaparea as WORD
@@ -5073,8 +5073,8 @@ type PIMAGE_OS2_HEADER as _IMAGE_OS2_HEADER ptr
 
 type _IMAGE_VXD_HEADER field = 2
 	e32_magic as WORD
-	e32_border as BYTE
-	e32_worder as BYTE
+	e32_border as UBYTE
+	e32_worder as UBYTE
 	e32_level as DWORD
 	e32_cpu as WORD
 	e32_os as WORD
@@ -5118,7 +5118,7 @@ type _IMAGE_VXD_HEADER field = 2
 	e32_instpreload as DWORD
 	e32_instdemand as DWORD
 	e32_heapsize as DWORD
-	e32_res3(0 to 11) as BYTE
+	e32_res3(0 to 11) as UBYTE
 	e32_winresoff as DWORD
 	e32_winreslen as DWORD
 	e32_devid as WORD
@@ -5201,8 +5201,8 @@ type PIMAGE_DATA_DIRECTORY as _IMAGE_DATA_DIRECTORY ptr
 
 type _IMAGE_OPTIONAL_HEADER field = 4
 	Magic as WORD
-	MajorLinkerVersion as BYTE
-	MinorLinkerVersion as BYTE
+	MajorLinkerVersion as UBYTE
+	MinorLinkerVersion as UBYTE
 	SizeOfCode as DWORD
 	SizeOfInitializedData as DWORD
 	SizeOfUninitializedData as DWORD
@@ -5238,8 +5238,8 @@ type PIMAGE_OPTIONAL_HEADER32 as _IMAGE_OPTIONAL_HEADER ptr
 
 type _IMAGE_ROM_OPTIONAL_HEADER field = 4
 	Magic as WORD
-	MajorLinkerVersion as BYTE
-	MinorLinkerVersion as BYTE
+	MajorLinkerVersion as UBYTE
+	MinorLinkerVersion as UBYTE
 	SizeOfCode as DWORD
 	SizeOfInitializedData as DWORD
 	SizeOfUninitializedData as DWORD
@@ -5257,8 +5257,8 @@ type PIMAGE_ROM_OPTIONAL_HEADER as _IMAGE_ROM_OPTIONAL_HEADER ptr
 
 type _IMAGE_OPTIONAL_HEADER64 field = 4
 	Magic as WORD
-	MajorLinkerVersion as BYTE
-	MinorLinkerVersion as BYTE
+	MajorLinkerVersion as UBYTE
+	MinorLinkerVersion as UBYTE
 	SizeOfCode as DWORD
 	SizeOfInitializedData as DWORD
 	SizeOfUninitializedData as DWORD
@@ -5434,7 +5434,7 @@ union ___IMAGE_SECTION_HEADER_Misc field = 4
 end union
 
 type _IMAGE_SECTION_HEADER field = 4
-	Name(0 to 7) as BYTE
+	Name(0 to 7) as UBYTE
 	Misc as ___IMAGE_SECTION_HEADER_Misc
 	VirtualAddress as DWORD
 	SizeOfRawData as DWORD
@@ -5496,7 +5496,7 @@ type ___IMAGE_SYMBOL_Name field = 2
 end type
 
 union ___IMAGE_SYMBOL_N field = 2
-	ShortName(0 to 7) as BYTE
+	ShortName(0 to 7) as UBYTE
 	Name as ___IMAGE_SYMBOL_Name
 	LongName(0 to 1) as DWORD
 end union
@@ -5506,8 +5506,8 @@ type _IMAGE_SYMBOL field = 2
 	Value as DWORD
 	SectionNumber as SHORT
 	as WORD Type
-	StorageClass as BYTE
-	NumberOfAuxSymbols as BYTE
+	StorageClass as UBYTE
+	NumberOfAuxSymbols as UBYTE
 end type
 
 type IMAGE_SYMBOL as _IMAGE_SYMBOL
@@ -5521,7 +5521,7 @@ type ___IMAGE_SYMBOL_EX_Name field = 2
 end type
 
 union ___IMAGE_SYMBOL_EX_N field = 2
-	ShortName(0 to 7) as BYTE
+	ShortName(0 to 7) as UBYTE
 	Name as ___IMAGE_SYMBOL_EX_Name
 	LongName(0 to 1) as DWORD
 end union
@@ -5531,8 +5531,8 @@ type _IMAGE_SYMBOL_EX field = 2
 	Value as DWORD
 	SectionNumber as LONG
 	as WORD Type
-	StorageClass as BYTE
-	NumberOfAuxSymbols as BYTE
+	StorageClass as UBYTE
+	NumberOfAuxSymbols as UBYTE
 end type
 
 type IMAGE_SYMBOL_EX as _IMAGE_SYMBOL_EX
@@ -5564,7 +5564,7 @@ type PIMAGE_SYMBOL_EX as _IMAGE_SYMBOL_EX ptr
 #define IMAGE_SYM_DTYPE_POINTER 1
 #define IMAGE_SYM_DTYPE_FUNCTION 2
 #define IMAGE_SYM_DTYPE_ARRAY 3
-#define IMAGE_SYM_CLASS_END_OF_FUNCTION cast(BYTE, -1)
+#define IMAGE_SYM_CLASS_END_OF_FUNCTION cast(UBYTE, -1)
 #define IMAGE_SYM_CLASS_NULL &h0000
 #define IMAGE_SYM_CLASS_AUTOMATIC &h0001
 #define IMAGE_SYM_CLASS_EXTERNAL &h0002
@@ -5607,10 +5607,10 @@ type PIMAGE_SYMBOL_EX as _IMAGE_SYMBOL_EX ptr
 #define DECREF(x) ((((x) shr N_TSHIFT) and (not N_BTMASK)) or ((x) and N_BTMASK))
 
 type IMAGE_AUX_SYMBOL_TOKEN_DEF field = 2
-	bAuxType as BYTE
-	bReserved as BYTE
+	bAuxType as UBYTE
+	bReserved as UBYTE
 	SymbolTableIndex as DWORD
-	rgbReserved(0 to 11) as BYTE
+	rgbReserved(0 to 11) as UBYTE
 end type
 
 type PIMAGE_AUX_SYMBOL_TOKEN_DEF as IMAGE_AUX_SYMBOL_TOKEN_DEF ptr
@@ -5647,7 +5647,7 @@ type ___IMAGE_AUX_SYMBOL_Sym field = 2
 end type
 
 type ___IMAGE_AUX_SYMBOL_File field = 2
-	Name(0 to 17) as BYTE
+	Name(0 to 17) as UBYTE
 end type
 
 type ___IMAGE_AUX_SYMBOL_Section field = 2
@@ -5656,12 +5656,12 @@ type ___IMAGE_AUX_SYMBOL_Section field = 2
 	NumberOfLinenumbers as WORD
 	CheckSum as DWORD
 	Number as SHORT
-	Selection as BYTE
+	Selection as UBYTE
 end type
 
 type ___IMAGE_AUX_SYMBOL_CRC field = 2
 	crc as DWORD
-	rgbReserved(0 to 13) as BYTE
+	rgbReserved(0 to 13) as UBYTE
 end type
 
 union _IMAGE_AUX_SYMBOL field = 2
@@ -5678,11 +5678,11 @@ type PIMAGE_AUX_SYMBOL as _IMAGE_AUX_SYMBOL ptr
 type ___IMAGE_AUX_SYMBOL_EX_Sym field = 2
 	WeakDefaultSymIndex as DWORD
 	WeakSearchType as DWORD
-	rgbReserved(0 to 11) as BYTE
+	rgbReserved(0 to 11) as UBYTE
 end type
 
 type ___IMAGE_AUX_SYMBOL_EX_File field = 2
-	Name(0 to sizeof(IMAGE_SYMBOL_EX) - 1) as BYTE
+	Name(0 to sizeof(IMAGE_SYMBOL_EX) - 1) as UBYTE
 end type
 
 type ___IMAGE_AUX_SYMBOL_EX_Section field = 2
@@ -5691,15 +5691,15 @@ type ___IMAGE_AUX_SYMBOL_EX_Section field = 2
 	NumberOfLinenumbers as WORD
 	CheckSum as DWORD
 	Number as SHORT
-	Selection as BYTE
-	bReserved as BYTE
+	Selection as UBYTE
+	bReserved as UBYTE
 	HighNumber as SHORT
-	rgbReserved(0 to 1) as BYTE
+	rgbReserved(0 to 1) as UBYTE
 end type
 
 type ___IMAGE_AUX_SYMBOL_EX_CRC field = 2
 	crc as DWORD
-	rgbReserved(0 to 15) as BYTE
+	rgbReserved(0 to 15) as UBYTE
 end type
 
 union _IMAGE_AUX_SYMBOL_EX field = 2
@@ -5709,7 +5709,7 @@ union _IMAGE_AUX_SYMBOL_EX field = 2
 
 	type field = 2
 		TokenDef as IMAGE_AUX_SYMBOL_TOKEN_DEF
-		rgbReserved(0 to 1) as BYTE
+		rgbReserved(0 to 1) as UBYTE
 	end type
 
 	CRC as ___IMAGE_AUX_SYMBOL_EX_CRC
@@ -6085,13 +6085,13 @@ type PIMAGE_BASE_RELOCATION as IMAGE_BASE_RELOCATION ptr
 #define IMAGE_ARCHIVE_LONGNAMES_MEMBER "//              "
 
 type _IMAGE_ARCHIVE_MEMBER_HEADER field = 4
-	Name(0 to 15) as BYTE
-	Date(0 to 11) as BYTE
-	UserID(0 to 5) as BYTE
-	GroupID(0 to 5) as BYTE
-	Mode(0 to 7) as BYTE
-	Size(0 to 9) as BYTE
-	EndHeader(0 to 1) as BYTE
+	Name(0 to 15) as UBYTE
+	Date(0 to 11) as UBYTE
+	UserID(0 to 5) as UBYTE
+	GroupID(0 to 5) as UBYTE
+	Mode(0 to 7) as UBYTE
+	Size(0 to 9) as UBYTE
+	EndHeader(0 to 1) as UBYTE
 end type
 
 type IMAGE_ARCHIVE_MEMBER_HEADER as _IMAGE_ARCHIVE_MEMBER_HEADER
@@ -6118,7 +6118,7 @@ type PIMAGE_EXPORT_DIRECTORY as _IMAGE_EXPORT_DIRECTORY ptr
 
 type _IMAGE_IMPORT_BY_NAME field = 4
 	Hint as WORD
-	Name(0 to 0) as BYTE
+	Name(0 to 0) as UBYTE
 end type
 
 type IMAGE_IMPORT_BY_NAME as _IMAGE_IMPORT_BY_NAME
@@ -6530,8 +6530,8 @@ type _IMAGE_DEBUG_MISC field = 4
 	DataType as DWORD
 	Length as DWORD
 	Unicode as BOOLEAN
-	Reserved(0 to 2) as BYTE
-	Data(0 to 0) as BYTE
+	Reserved(0 to 2) as UBYTE
+	Data(0 to 0) as UBYTE
 end type
 
 type IMAGE_DEBUG_MISC as _IMAGE_DEBUG_MISC
@@ -6875,7 +6875,7 @@ declare function RtlSecureZeroMemory(byval ptr_ as PVOID, byval cnt as SIZE_T_) 
 type _MESSAGE_RESOURCE_ENTRY
 	Length as WORD
 	Flags as WORD
-	Text_(0 to 0) as BYTE
+	Text_(0 to 0) as UBYTE
 end type
 
 type MESSAGE_RESOURCE_ENTRY as _MESSAGE_RESOURCE_ENTRY
@@ -6960,8 +6960,8 @@ type _OSVERSIONINFOEXA
 	wServicePackMajor as WORD
 	wServicePackMinor as WORD
 	wSuiteMask as WORD
-	wProductType as BYTE
-	wReserved as BYTE
+	wProductType as UBYTE
+	wReserved as UBYTE
 end type
 
 type OSVERSIONINFOEXA as _OSVERSIONINFOEXA
@@ -6978,8 +6978,8 @@ type _OSVERSIONINFOEXW
 	wServicePackMajor as WORD
 	wServicePackMinor as WORD
 	wSuiteMask as WORD
-	wProductType as BYTE
-	wReserved as BYTE
+	wProductType as UBYTE
+	wReserved as UBYTE
 end type
 
 type OSVERSIONINFOEXW as _OSVERSIONINFOEXW
@@ -7022,7 +7022,7 @@ type PRTL_OSVERSIONINFOEXW as _OSVERSIONINFOEXW ptr
 #define VER_PLATFORM_WIN32_WINDOWS 1
 #define VER_PLATFORM_WIN32_NT 2
 
-declare function VerSetConditionMask(byval ConditionMask as ULONGLONG, byval TypeMask as DWORD, byval Condition as BYTE) as ULONGLONG
+declare function VerSetConditionMask(byval ConditionMask as ULONGLONG, byval TypeMask as DWORD, byval Condition as UBYTE) as ULONGLONG
 
 #define VER_SET_CONDITION(_m_, _t_, _c_) '' TODO: ((_m_) = VerSetConditionMask((_m_),(_t_),(_c_)))
 #define RTL_UMS_VERSION &h0100
@@ -7448,8 +7448,8 @@ type PHARDWARE_COUNTER_DATA as _HARDWARE_COUNTER_DATA ptr
 
 type _PERFORMANCE_DATA
 	Size as WORD
-	Version as BYTE
-	HwCountersCount as BYTE
+	Version as UBYTE
+	HwCountersCount as UBYTE
 	ContextSwitchCount as DWORD
 	WaitReasonBitMap as DWORD64
 	CycleTime as DWORD64
@@ -8311,7 +8311,7 @@ type _WOW64_FLOATING_SAVE_AREA
 	ErrorSelector as DWORD
 	DataOffset as DWORD
 	DataSelector as DWORD
-	RegisterArea(0 to 79) as BYTE
+	RegisterArea(0 to 79) as UBYTE
 	Cr0NpxState as DWORD
 end type
 
@@ -8343,17 +8343,17 @@ type _WOW64_CONTEXT field = 4
 	EFlags as DWORD
 	Esp as DWORD
 	SegSs as DWORD
-	ExtendedRegisters(0 to 511) as BYTE
+	ExtendedRegisters(0 to 511) as UBYTE
 end type
 
 type WOW64_CONTEXT as _WOW64_CONTEXT
 type PWOW64_CONTEXT as _WOW64_CONTEXT ptr
 
 type ___WOW64_LDT_ENTRY_Bytes
-	BaseMid as BYTE
-	Flags1 as BYTE
-	Flags2 as BYTE
-	BaseHi as BYTE
+	BaseMid as UBYTE
+	Flags1 as UBYTE
+	Flags2 as UBYTE
+	BaseHi as UBYTE
 end type
 
 type ___WOW64_LDT_ENTRY_Bits

@@ -398,7 +398,7 @@ type HCRYPTHASH as ULONG_PTR
 type _CMS_KEY_INFO
 	dwVersion as DWORD
 	Algid as ALG_ID
-	pbOID as BYTE ptr
+	pbOID as UBYTE ptr
 	cbOID as DWORD
 end type
 
@@ -407,9 +407,9 @@ type PCMS_KEY_INFO as _CMS_KEY_INFO ptr
 
 type _HMAC_Info
 	HashAlgid as ALG_ID
-	pbInnerString as BYTE ptr
+	pbInnerString as UBYTE ptr
 	cbInnerString as DWORD
-	pbOuterString as BYTE ptr
+	pbOuterString as UBYTE ptr
 	cbOuterString as DWORD
 end type
 
@@ -455,8 +455,8 @@ end type
 type PROV_ENUMALGS_EX as _PROV_ENUMALGS_EX
 
 type _PUBLICKEYSTRUC
-	bType_ as BYTE
-	bVersion as BYTE
+	bType_ as UBYTE
+	bVersion as UBYTE
 	reserved as WORD
 	aiKeyAlg as ALG_ID
 end type
@@ -484,7 +484,7 @@ type TEKPUBKEY as _PUBKEY
 
 type _DSSSEED
 	counter as DWORD
-	seed(0 to 19) as BYTE
+	seed(0 to 19) as UBYTE
 end type
 
 type DSSSEED as _DSSSEED
@@ -559,7 +559,7 @@ type PCRYPT_3DES_KEY_STATE as _CRYPT_3DES_KEY_STATE ptr
 
 type _CRYPTOAPI_BLOB
 	cbData as DWORD
-	pbData as BYTE ptr
+	pbData as UBYTE ptr
 end type
 
 type CRYPT_INTEGER_BLOB as _CRYPTOAPI_BLOB
@@ -610,26 +610,26 @@ declare function CryptReleaseContext(byval hProv as HCRYPTPROV, byval dwFlags as
 declare function CryptGenKey(byval hProv as HCRYPTPROV, byval Algid as ALG_ID, byval dwFlags as DWORD, byval phKey as HCRYPTKEY ptr) as WINBOOL
 declare function CryptDeriveKey(byval hProv as HCRYPTPROV, byval Algid as ALG_ID, byval hBaseData as HCRYPTHASH, byval dwFlags as DWORD, byval phKey as HCRYPTKEY ptr) as WINBOOL
 declare function CryptDestroyKey(byval hKey as HCRYPTKEY) as WINBOOL
-declare function CryptSetKeyParam(byval hKey as HCRYPTKEY, byval dwParam as DWORD, byval pbData as const BYTE ptr, byval dwFlags as DWORD) as WINBOOL
-declare function CryptGetKeyParam(byval hKey as HCRYPTKEY, byval dwParam as DWORD, byval pbData as BYTE ptr, byval pdwDataLen as DWORD ptr, byval dwFlags as DWORD) as WINBOOL
-declare function CryptSetHashParam(byval hHash as HCRYPTHASH, byval dwParam as DWORD, byval pbData as const BYTE ptr, byval dwFlags as DWORD) as WINBOOL
-declare function CryptGetHashParam(byval hHash as HCRYPTHASH, byval dwParam as DWORD, byval pbData as BYTE ptr, byval pdwDataLen as DWORD ptr, byval dwFlags as DWORD) as WINBOOL
-declare function CryptSetProvParam(byval hProv as HCRYPTPROV, byval dwParam as DWORD, byval pbData as const BYTE ptr, byval dwFlags as DWORD) as WINBOOL
-declare function CryptGetProvParam(byval hProv as HCRYPTPROV, byval dwParam as DWORD, byval pbData as BYTE ptr, byval pdwDataLen as DWORD ptr, byval dwFlags as DWORD) as WINBOOL
-declare function CryptGenRandom(byval hProv as HCRYPTPROV, byval dwLen as DWORD, byval pbBuffer as BYTE ptr) as WINBOOL
+declare function CryptSetKeyParam(byval hKey as HCRYPTKEY, byval dwParam as DWORD, byval pbData as const UBYTE ptr, byval dwFlags as DWORD) as WINBOOL
+declare function CryptGetKeyParam(byval hKey as HCRYPTKEY, byval dwParam as DWORD, byval pbData as UBYTE ptr, byval pdwDataLen as DWORD ptr, byval dwFlags as DWORD) as WINBOOL
+declare function CryptSetHashParam(byval hHash as HCRYPTHASH, byval dwParam as DWORD, byval pbData as const UBYTE ptr, byval dwFlags as DWORD) as WINBOOL
+declare function CryptGetHashParam(byval hHash as HCRYPTHASH, byval dwParam as DWORD, byval pbData as UBYTE ptr, byval pdwDataLen as DWORD ptr, byval dwFlags as DWORD) as WINBOOL
+declare function CryptSetProvParam(byval hProv as HCRYPTPROV, byval dwParam as DWORD, byval pbData as const UBYTE ptr, byval dwFlags as DWORD) as WINBOOL
+declare function CryptGetProvParam(byval hProv as HCRYPTPROV, byval dwParam as DWORD, byval pbData as UBYTE ptr, byval pdwDataLen as DWORD ptr, byval dwFlags as DWORD) as WINBOOL
+declare function CryptGenRandom(byval hProv as HCRYPTPROV, byval dwLen as DWORD, byval pbBuffer as UBYTE ptr) as WINBOOL
 declare function CryptGetUserKey(byval hProv as HCRYPTPROV, byval dwKeySpec as DWORD, byval phUserKey as HCRYPTKEY ptr) as WINBOOL
-declare function CryptExportKey(byval hKey as HCRYPTKEY, byval hExpKey as HCRYPTKEY, byval dwBlobType as DWORD, byval dwFlags as DWORD, byval pbData as BYTE ptr, byval pdwDataLen as DWORD ptr) as WINBOOL
-declare function CryptImportKey(byval hProv as HCRYPTPROV, byval pbData as const BYTE ptr, byval dwDataLen as DWORD, byval hPubKey as HCRYPTKEY, byval dwFlags as DWORD, byval phKey as HCRYPTKEY ptr) as WINBOOL
-declare function CryptEncrypt(byval hKey as HCRYPTKEY, byval hHash as HCRYPTHASH, byval Final as WINBOOL, byval dwFlags as DWORD, byval pbData as BYTE ptr, byval pdwDataLen as DWORD ptr, byval dwBufLen as DWORD) as WINBOOL
-declare function CryptDecrypt(byval hKey as HCRYPTKEY, byval hHash as HCRYPTHASH, byval Final as WINBOOL, byval dwFlags as DWORD, byval pbData as BYTE ptr, byval pdwDataLen as DWORD ptr) as WINBOOL
+declare function CryptExportKey(byval hKey as HCRYPTKEY, byval hExpKey as HCRYPTKEY, byval dwBlobType as DWORD, byval dwFlags as DWORD, byval pbData as UBYTE ptr, byval pdwDataLen as DWORD ptr) as WINBOOL
+declare function CryptImportKey(byval hProv as HCRYPTPROV, byval pbData as const UBYTE ptr, byval dwDataLen as DWORD, byval hPubKey as HCRYPTKEY, byval dwFlags as DWORD, byval phKey as HCRYPTKEY ptr) as WINBOOL
+declare function CryptEncrypt(byval hKey as HCRYPTKEY, byval hHash as HCRYPTHASH, byval Final as WINBOOL, byval dwFlags as DWORD, byval pbData as UBYTE ptr, byval pdwDataLen as DWORD ptr, byval dwBufLen as DWORD) as WINBOOL
+declare function CryptDecrypt(byval hKey as HCRYPTKEY, byval hHash as HCRYPTHASH, byval Final as WINBOOL, byval dwFlags as DWORD, byval pbData as UBYTE ptr, byval pdwDataLen as DWORD ptr) as WINBOOL
 declare function CryptCreateHash(byval hProv as HCRYPTPROV, byval Algid as ALG_ID, byval hKey as HCRYPTKEY, byval dwFlags as DWORD, byval phHash as HCRYPTHASH ptr) as WINBOOL
-declare function CryptHashData(byval hHash as HCRYPTHASH, byval pbData as const BYTE ptr, byval dwDataLen as DWORD, byval dwFlags as DWORD) as WINBOOL
+declare function CryptHashData(byval hHash as HCRYPTHASH, byval pbData as const UBYTE ptr, byval dwDataLen as DWORD, byval dwFlags as DWORD) as WINBOOL
 declare function CryptHashSessionKey(byval hHash as HCRYPTHASH, byval hKey as HCRYPTKEY, byval dwFlags as DWORD) as WINBOOL
 declare function CryptDestroyHash(byval hHash as HCRYPTHASH) as WINBOOL
-declare function CryptSignHashA(byval hHash as HCRYPTHASH, byval dwKeySpec as DWORD, byval szDescription as LPCSTR, byval dwFlags as DWORD, byval pbSignature as BYTE ptr, byval pdwSigLen as DWORD ptr) as WINBOOL
-declare function CryptSignHashW(byval hHash as HCRYPTHASH, byval dwKeySpec as DWORD, byval szDescription as LPCWSTR, byval dwFlags as DWORD, byval pbSignature as BYTE ptr, byval pdwSigLen as DWORD ptr) as WINBOOL
-declare function CryptVerifySignatureA(byval hHash as HCRYPTHASH, byval pbSignature as const BYTE ptr, byval dwSigLen as DWORD, byval hPubKey as HCRYPTKEY, byval szDescription as LPCSTR, byval dwFlags as DWORD) as WINBOOL
-declare function CryptVerifySignatureW(byval hHash as HCRYPTHASH, byval pbSignature as const BYTE ptr, byval dwSigLen as DWORD, byval hPubKey as HCRYPTKEY, byval szDescription as LPCWSTR, byval dwFlags as DWORD) as WINBOOL
+declare function CryptSignHashA(byval hHash as HCRYPTHASH, byval dwKeySpec as DWORD, byval szDescription as LPCSTR, byval dwFlags as DWORD, byval pbSignature as UBYTE ptr, byval pdwSigLen as DWORD ptr) as WINBOOL
+declare function CryptSignHashW(byval hHash as HCRYPTHASH, byval dwKeySpec as DWORD, byval szDescription as LPCWSTR, byval dwFlags as DWORD, byval pbSignature as UBYTE ptr, byval pdwSigLen as DWORD ptr) as WINBOOL
+declare function CryptVerifySignatureA(byval hHash as HCRYPTHASH, byval pbSignature as const UBYTE ptr, byval dwSigLen as DWORD, byval hPubKey as HCRYPTKEY, byval szDescription as LPCSTR, byval dwFlags as DWORD) as WINBOOL
+declare function CryptVerifySignatureW(byval hHash as HCRYPTHASH, byval pbSignature as const UBYTE ptr, byval dwSigLen as DWORD, byval hPubKey as HCRYPTKEY, byval szDescription as LPCWSTR, byval dwFlags as DWORD) as WINBOOL
 declare function CryptSetProviderA(byval pszProvName as LPCSTR, byval dwProvType as DWORD) as WINBOOL
 declare function CryptSetProviderW(byval pszProvName as LPCWSTR, byval dwProvType as DWORD) as WINBOOL
 
@@ -650,11 +650,11 @@ declare function CryptEnumProvidersW(byval dwIndex as DWORD, byval pdwReserved a
 declare function CryptContextAddRef(byval hProv as HCRYPTPROV, byval pdwReserved as DWORD ptr, byval dwFlags as DWORD) as WINBOOL
 declare function CryptDuplicateKey(byval hKey as HCRYPTKEY, byval pdwReserved as DWORD ptr, byval dwFlags as DWORD, byval phKey as HCRYPTKEY ptr) as WINBOOL
 declare function CryptDuplicateHash(byval hHash as HCRYPTHASH, byval pdwReserved as DWORD ptr, byval dwFlags as DWORD, byval phHash as HCRYPTHASH ptr) as WINBOOL
-declare function GetEncSChannel cdecl(byval pData as BYTE ptr ptr, byval dwDecSize as DWORD ptr) as WINBOOL
+declare function GetEncSChannel cdecl(byval pData as UBYTE ptr ptr, byval dwDecSize as DWORD ptr) as WINBOOL
 
 type _CRYPT_BIT_BLOB
 	cbData as DWORD
-	pbData as BYTE ptr
+	pbData as UBYTE ptr
 	cUnusedBits as DWORD
 end type
 
@@ -979,8 +979,8 @@ end type
 
 type CRYPT_ENCRYPTED_PRIVATE_KEY_INFO as _CRYPT_ENCRYPTED_PRIVATE_KEY_INFO
 type PCRYPT_ENCRYPTED_PRIVATE_KEY_INFO as _CRYPT_ENCRYPTED_PRIVATE_KEY_INFO ptr
-type PCRYPT_DECRYPT_PRIVATE_KEY_FUNC as function(byval Algorithm as CRYPT_ALGORITHM_IDENTIFIER, byval EncryptedPrivateKey as CRYPT_DATA_BLOB, byval pbClearTextKey as BYTE ptr, byval pcbClearTextKey as DWORD ptr, byval pVoidDecryptFunc as LPVOID) as WINBOOL
-type PCRYPT_ENCRYPT_PRIVATE_KEY_FUNC as function(byval pAlgorithm as CRYPT_ALGORITHM_IDENTIFIER ptr, byval pClearTextPrivateKey as CRYPT_DATA_BLOB ptr, byval pbEncryptedKey as BYTE ptr, byval pcbEncryptedKey as DWORD ptr, byval pVoidEncryptFunc as LPVOID) as WINBOOL
+type PCRYPT_DECRYPT_PRIVATE_KEY_FUNC as function(byval Algorithm as CRYPT_ALGORITHM_IDENTIFIER, byval EncryptedPrivateKey as CRYPT_DATA_BLOB, byval pbClearTextKey as UBYTE ptr, byval pcbClearTextKey as DWORD ptr, byval pVoidDecryptFunc as LPVOID) as WINBOOL
+type PCRYPT_ENCRYPT_PRIVATE_KEY_FUNC as function(byval pAlgorithm as CRYPT_ALGORITHM_IDENTIFIER ptr, byval pClearTextPrivateKey as CRYPT_DATA_BLOB ptr, byval pbEncryptedKey as UBYTE ptr, byval pcbEncryptedKey as DWORD ptr, byval pVoidEncryptFunc as LPVOID) as WINBOOL
 type PCRYPT_RESOLVE_HCRYPTPROV_FUNC as function(byval pPrivateKeyInfo as CRYPT_PRIVATE_KEY_INFO ptr, byval phCryptProv as HCRYPTPROV ptr, byval pVoidResolveFunc as LPVOID) as WINBOOL
 
 type _CRYPT_PKCS8_IMPORT_PARAMS
@@ -1178,7 +1178,7 @@ type PCRYPT_CSP_PROVIDER as _CRYPT_CSP_PROVIDER ptr
 #define PKCS_7_ASN_ENCODING &h10000
 #define PKCS_7_NDR_ENCODING &h20000
 
-declare function CryptFormatObject(byval dwCertEncodingType as DWORD, byval dwFormatType as DWORD, byval dwFormatStrType as DWORD, byval pFormatStruct as any ptr, byval lpszStructType as LPCSTR, byval pbEncoded as const BYTE ptr, byval cbEncoded as DWORD, byval pbFormat as any ptr, byval pcbFormat as DWORD ptr) as WINBOOL
+declare function CryptFormatObject(byval dwCertEncodingType as DWORD, byval dwFormatType as DWORD, byval dwFormatStrType as DWORD, byval pFormatStruct as any ptr, byval lpszStructType as LPCSTR, byval pbEncoded as const UBYTE ptr, byval cbEncoded as DWORD, byval pbFormat as any ptr, byval pcbFormat as DWORD ptr) as WINBOOL
 
 #define CRYPT_FORMAT_STR_MULTI_LINE &h1
 #define CRYPT_FORMAT_STR_NO_HEX &h10
@@ -1206,7 +1206,7 @@ type CRYPT_ENCODE_PARA as _CRYPT_ENCODE_PARA
 type PCRYPT_ENCODE_PARA as _CRYPT_ENCODE_PARA ptr
 
 declare function CryptEncodeObjectEx(byval dwCertEncodingType as DWORD, byval lpszStructType as LPCSTR, byval pvStructInfo as const any ptr, byval dwFlags as DWORD, byval pEncodePara as PCRYPT_ENCODE_PARA, byval pvEncoded as any ptr, byval pcbEncoded as DWORD ptr) as WINBOOL
-declare function CryptEncodeObject(byval dwCertEncodingType as DWORD, byval lpszStructType as LPCSTR, byval pvStructInfo as const any ptr, byval pbEncoded as BYTE ptr, byval pcbEncoded as DWORD ptr) as WINBOOL
+declare function CryptEncodeObject(byval dwCertEncodingType as DWORD, byval lpszStructType as LPCSTR, byval pvStructInfo as const any ptr, byval pbEncoded as UBYTE ptr, byval pcbEncoded as DWORD ptr) as WINBOOL
 
 #define CRYPT_ENCODE_NO_SIGNATURE_BYTE_REVERSAL_FLAG &h8
 #define CRYPT_ENCODE_ALLOC_FLAG &h8000
@@ -1225,8 +1225,8 @@ end type
 type CRYPT_DECODE_PARA as _CRYPT_DECODE_PARA
 type PCRYPT_DECODE_PARA as _CRYPT_DECODE_PARA ptr
 
-declare function CryptDecodeObjectEx(byval dwCertEncodingType as DWORD, byval lpszStructType as LPCSTR, byval pbEncoded as const BYTE ptr, byval cbEncoded as DWORD, byval dwFlags as DWORD, byval pDecodePara as PCRYPT_DECODE_PARA, byval pvStructInfo as any ptr, byval pcbStructInfo as DWORD ptr) as WINBOOL
-declare function CryptDecodeObject(byval dwCertEncodingType as DWORD, byval lpszStructType as LPCSTR, byval pbEncoded as const BYTE ptr, byval cbEncoded as DWORD, byval dwFlags as DWORD, byval pvStructInfo as any ptr, byval pcbStructInfo as DWORD ptr) as WINBOOL
+declare function CryptDecodeObjectEx(byval dwCertEncodingType as DWORD, byval lpszStructType as LPCSTR, byval pbEncoded as const UBYTE ptr, byval cbEncoded as DWORD, byval dwFlags as DWORD, byval pDecodePara as PCRYPT_DECODE_PARA, byval pvStructInfo as any ptr, byval pcbStructInfo as DWORD ptr) as WINBOOL
+declare function CryptDecodeObject(byval dwCertEncodingType as DWORD, byval lpszStructType as LPCSTR, byval pbEncoded as const UBYTE ptr, byval cbEncoded as DWORD, byval dwFlags as DWORD, byval pvStructInfo as any ptr, byval pcbStructInfo as DWORD ptr) as WINBOOL
 
 #define CRYPT_DECODE_NOCOPY_FLAG &h1
 #define CRYPT_DECODE_TO_BE_SIGNED_FLAG &h2
@@ -1882,8 +1882,8 @@ type PCERT_X942_DH_PARAMETERS as _CERT_X942_DH_PARAMETERS ptr
 
 type _CRYPT_X942_OTHER_INFO
 	pszContentEncryptionObjId as LPSTR
-	rgbCounter(0 to 3) as BYTE
-	rgbKeyLength(0 to 3) as BYTE
+	rgbCounter(0 to 3) as UBYTE
+	rgbKeyLength(0 to 3) as UBYTE
 	PubInfo as CRYPT_DATA_BLOB
 end type
 
@@ -1893,7 +1893,7 @@ type PCRYPT_X942_OTHER_INFO as _CRYPT_X942_OTHER_INFO ptr
 type _CRYPT_RC2_CBC_PARAMETERS
 	dwVersion as DWORD
 	fIV as WINBOOL
-	rgbIV(0 to 7) as BYTE
+	rgbIV(0 to 7) as UBYTE
 end type
 
 type CRYPT_RC2_CBC_PARAMETERS as _CRYPT_RC2_CBC_PARAMETERS
@@ -2166,10 +2166,10 @@ declare function CryptRegisterDefaultOIDFunction(byval dwEncodingType as DWORD, 
 #define CRYPT_REGISTER_LAST_INDEX &hFFFFFFFF
 
 declare function CryptUnregisterDefaultOIDFunction(byval dwEncodingType as DWORD, byval pszFuncName as LPCSTR, byval pwszDll as LPCWSTR) as WINBOOL
-declare function CryptSetOIDFunctionValue(byval dwEncodingType as DWORD, byval pszFuncName as LPCSTR, byval pszOID as LPCSTR, byval pwszValueName as LPCWSTR, byval dwValueType as DWORD, byval pbValueData as const BYTE ptr, byval cbValueData as DWORD) as WINBOOL
-declare function CryptGetOIDFunctionValue(byval dwEncodingType as DWORD, byval pszFuncName as LPCSTR, byval pszOID as LPCSTR, byval pwszValueName as LPCWSTR, byval pdwValueType as DWORD ptr, byval pbValueData as BYTE ptr, byval pcbValueData as DWORD ptr) as WINBOOL
+declare function CryptSetOIDFunctionValue(byval dwEncodingType as DWORD, byval pszFuncName as LPCSTR, byval pszOID as LPCSTR, byval pwszValueName as LPCWSTR, byval dwValueType as DWORD, byval pbValueData as const UBYTE ptr, byval cbValueData as DWORD) as WINBOOL
+declare function CryptGetOIDFunctionValue(byval dwEncodingType as DWORD, byval pszFuncName as LPCSTR, byval pszOID as LPCSTR, byval pwszValueName as LPCWSTR, byval pdwValueType as DWORD ptr, byval pbValueData as UBYTE ptr, byval pcbValueData as DWORD ptr) as WINBOOL
 
-type PFN_CRYPT_ENUM_OID_FUNC as function(byval dwEncodingType as DWORD, byval pszFuncName as LPCSTR, byval pszOID as LPCSTR, byval cValue as DWORD, byval rgdwValueType as const DWORD ptr, byval rgpwszValueName as const LPCWSTR ptr, byval rgpbValueData as const BYTE const ptr ptr, byval rgcbValueData as const DWORD ptr, byval pvArg as any ptr) as WINBOOL
+type PFN_CRYPT_ENUM_OID_FUNC as function(byval dwEncodingType as DWORD, byval pszFuncName as LPCSTR, byval pszOID as LPCSTR, byval cValue as DWORD, byval rgdwValueType as const DWORD ptr, byval rgpwszValueName as const LPCWSTR ptr, byval rgpbValueData as const UBYTE const ptr ptr, byval rgcbValueData as const DWORD ptr, byval pvArg as any ptr) as WINBOOL
 
 declare function CryptEnumOIDFunction(byval dwEncodingType as DWORD, byval pszFuncName as LPCSTR, byval pszOID as LPCSTR, byval dwFlags as DWORD, byval pvArg as any ptr, byval pfnEnumOIDFunc as PFN_CRYPT_ENUM_OID_FUNC) as WINBOOL
 
@@ -2464,7 +2464,7 @@ end type
 
 type CMSG_ENCRYPTED_ENCODE_INFO as _CMSG_ENCRYPTED_ENCODE_INFO
 type PCMSG_ENCRYPTED_ENCODE_INFO as _CMSG_ENCRYPTED_ENCODE_INFO ptr
-type PFN_CMSG_STREAM_OUTPUT as function(byval pvArg as const any ptr, byval pbData as BYTE ptr, byval cbData as DWORD, byval fFinal as WINBOOL) as WINBOOL
+type PFN_CMSG_STREAM_OUTPUT as function(byval pvArg as const any ptr, byval pbData as UBYTE ptr, byval cbData as DWORD, byval fFinal as WINBOOL) as WINBOOL
 
 #define CMSG_INDEFINITE_LENGTH &hFFFFFFFF
 
@@ -2491,7 +2491,7 @@ declare function CryptMsgCalculateEncodedLength(byval dwMsgEncodingType as DWORD
 declare function CryptMsgOpenToDecode(byval dwMsgEncodingType as DWORD, byval dwFlags as DWORD, byval dwMsgType as DWORD, byval hCryptProv as HCRYPTPROV, byval pRecipientInfo as PCERT_INFO, byval pStreamInfo as PCMSG_STREAM_INFO) as HCRYPTMSG
 declare function CryptMsgDuplicate(byval hCryptMsg as HCRYPTMSG) as HCRYPTMSG
 declare function CryptMsgClose(byval hCryptMsg as HCRYPTMSG) as WINBOOL
-declare function CryptMsgUpdate(byval hCryptMsg as HCRYPTMSG, byval pbData as const BYTE ptr, byval cbData as DWORD, byval fFinal as WINBOOL) as WINBOOL
+declare function CryptMsgUpdate(byval hCryptMsg as HCRYPTMSG, byval pbData as const UBYTE ptr, byval cbData as DWORD, byval fFinal as WINBOOL) as WINBOOL
 declare function CryptMsgGetParam(byval hCryptMsg as HCRYPTMSG, byval dwParamType as DWORD, byval dwIndex as DWORD, byval pvData as any ptr, byval pcbData as DWORD ptr) as WINBOOL
 
 #define CMSG_TYPE_PARAM 1
@@ -2886,7 +2886,7 @@ type HCERTSTORE as any ptr
 
 type _CERT_CONTEXT
 	dwCertEncodingType as DWORD
-	pbCertEncoded as BYTE ptr
+	pbCertEncoded as UBYTE ptr
 	cbCertEncoded as DWORD
 	pCertInfo as PCERT_INFO
 	hCertStore as HCERTSTORE
@@ -2898,7 +2898,7 @@ type PCCERT_CONTEXT as const CERT_CONTEXT ptr
 
 type _CRL_CONTEXT
 	dwCertEncodingType as DWORD
-	pbCrlEncoded as BYTE ptr
+	pbCrlEncoded as UBYTE ptr
 	cbCrlEncoded as DWORD
 	pCrlInfo as PCRL_INFO
 	hCertStore as HCERTSTORE
@@ -2910,12 +2910,12 @@ type PCCRL_CONTEXT as const CRL_CONTEXT ptr
 
 type _CTL_CONTEXT
 	dwMsgAndCertEncodingType as DWORD
-	pbCtlEncoded as BYTE ptr
+	pbCtlEncoded as UBYTE ptr
 	cbCtlEncoded as DWORD
 	pCtlInfo as PCTL_INFO
 	hCertStore as HCERTSTORE
 	hCryptMsg as HCRYPTMSG
-	pbCtlContent as BYTE ptr
+	pbCtlContent as UBYTE ptr
 	cbCtlContent as DWORD
 end type
 
@@ -2977,7 +2977,7 @@ type PCCTL_CONTEXT as const CTL_CONTEXT ptr
 
 type _CRYPT_KEY_PROV_PARAM
 	dwParam as DWORD
-	pbData as BYTE ptr
+	pbData as UBYTE ptr
 	cbData as DWORD
 	dwFlags as DWORD
 end type
@@ -3357,7 +3357,7 @@ declare function CertFindCertificateInStore(byval hCertStore as HCERTSTORE, byva
 declare function CertGetIssuerCertificateFromStore(byval hCertStore as HCERTSTORE, byval pSubjectContext as PCCERT_CONTEXT, byval pPrevIssuerContext as PCCERT_CONTEXT, byval pdwFlags as DWORD ptr) as PCCERT_CONTEXT
 declare function CertVerifySubjectCertificateContext(byval pSubject as PCCERT_CONTEXT, byval pIssuer as PCCERT_CONTEXT, byval pdwFlags as DWORD ptr) as WINBOOL
 declare function CertDuplicateCertificateContext(byval pCertContext as PCCERT_CONTEXT) as PCCERT_CONTEXT
-declare function CertCreateCertificateContext(byval dwCertEncodingType as DWORD, byval pbCertEncoded as const BYTE ptr, byval cbCertEncoded as DWORD) as PCCERT_CONTEXT
+declare function CertCreateCertificateContext(byval dwCertEncodingType as DWORD, byval pbCertEncoded as const UBYTE ptr, byval cbCertEncoded as DWORD) as PCCERT_CONTEXT
 declare function CertFreeCertificateContext(byval pCertContext as PCCERT_CONTEXT) as WINBOOL
 declare function CertSetCertificateContextProperty(byval pCertContext as PCCERT_CONTEXT, byval dwPropId as DWORD, byval dwFlags as DWORD, byval pvData as const any ptr) as WINBOOL
 
@@ -3393,7 +3393,7 @@ type CRL_FIND_ISSUED_FOR_PARA as _CRL_FIND_ISSUED_FOR_PARA
 type PCRL_FIND_ISSUED_FOR_PARA as _CRL_FIND_ISSUED_FOR_PARA ptr
 
 declare function CertDuplicateCRLContext(byval pCrlContext as PCCRL_CONTEXT) as PCCRL_CONTEXT
-declare function CertCreateCRLContext(byval dwCertEncodingType as DWORD, byval pbCrlEncoded as const BYTE ptr, byval cbCrlEncoded as DWORD) as PCCRL_CONTEXT
+declare function CertCreateCRLContext(byval dwCertEncodingType as DWORD, byval pbCrlEncoded as const UBYTE ptr, byval cbCrlEncoded as DWORD) as PCCRL_CONTEXT
 declare function CertFreeCRLContext(byval pCrlContext as PCCRL_CONTEXT) as WINBOOL
 declare function CertSetCRLContextProperty(byval pCrlContext as PCCRL_CONTEXT, byval dwPropId as DWORD, byval dwFlags as DWORD, byval pvData as const any ptr) as WINBOOL
 declare function CertGetCRLContextProperty(byval pCrlContext as PCCRL_CONTEXT, byval dwPropId as DWORD, byval pvData as any ptr, byval pcbData as DWORD ptr) as WINBOOL
@@ -3409,7 +3409,7 @@ declare function CertIsValidCRLForCertificate(byval pCert as PCCERT_CONTEXT, byv
 #define CERT_STORE_ADD_NEWER 6
 #define CERT_STORE_ADD_NEWER_INHERIT_PROPERTIES 7
 
-declare function CertAddEncodedCertificateToStore(byval hCertStore as HCERTSTORE, byval dwCertEncodingType as DWORD, byval pbCertEncoded as const BYTE ptr, byval cbCertEncoded as DWORD, byval dwAddDisposition as DWORD, byval ppCertContext as PCCERT_CONTEXT ptr) as WINBOOL
+declare function CertAddEncodedCertificateToStore(byval hCertStore as HCERTSTORE, byval dwCertEncodingType as DWORD, byval pbCertEncoded as const UBYTE ptr, byval cbCertEncoded as DWORD, byval dwAddDisposition as DWORD, byval ppCertContext as PCCERT_CONTEXT ptr) as WINBOOL
 declare function CertAddCertificateContextToStore(byval hCertStore as HCERTSTORE, byval pCertContext as PCCERT_CONTEXT, byval dwAddDisposition as DWORD, byval ppStoreContext as PCCERT_CONTEXT ptr) as WINBOOL
 
 #define CERT_STORE_CERTIFICATE_CONTEXT 1
@@ -3420,15 +3420,15 @@ declare function CertAddCertificateContextToStore(byval hCertStore as HCERTSTORE
 #define CERT_STORE_CRL_CONTEXT_FLAG (1 shl CERT_STORE_CRL_CONTEXT)
 #define CERT_STORE_CTL_CONTEXT_FLAG (1 shl CERT_STORE_CTL_CONTEXT)
 
-declare function CertAddSerializedElementToStore(byval hCertStore as HCERTSTORE, byval pbElement as const BYTE ptr, byval cbElement as DWORD, byval dwAddDisposition as DWORD, byval dwFlags as DWORD, byval dwContextTypeFlags as DWORD, byval pdwContextType as DWORD ptr, byval ppvContext as const any ptr ptr) as WINBOOL
+declare function CertAddSerializedElementToStore(byval hCertStore as HCERTSTORE, byval pbElement as const UBYTE ptr, byval cbElement as DWORD, byval dwAddDisposition as DWORD, byval dwFlags as DWORD, byval dwContextTypeFlags as DWORD, byval pdwContextType as DWORD ptr, byval ppvContext as const any ptr ptr) as WINBOOL
 declare function CertDeleteCertificateFromStore(byval pCertContext as PCCERT_CONTEXT) as WINBOOL
-declare function CertAddEncodedCRLToStore(byval hCertStore as HCERTSTORE, byval dwCertEncodingType as DWORD, byval pbCrlEncoded as const BYTE ptr, byval cbCrlEncoded as DWORD, byval dwAddDisposition as DWORD, byval ppCrlContext as PCCRL_CONTEXT ptr) as WINBOOL
+declare function CertAddEncodedCRLToStore(byval hCertStore as HCERTSTORE, byval dwCertEncodingType as DWORD, byval pbCrlEncoded as const UBYTE ptr, byval cbCrlEncoded as DWORD, byval dwAddDisposition as DWORD, byval ppCrlContext as PCCRL_CONTEXT ptr) as WINBOOL
 declare function CertAddCRLContextToStore(byval hCertStore as HCERTSTORE, byval pCrlContext as PCCRL_CONTEXT, byval dwAddDisposition as DWORD, byval ppStoreContext as PCCRL_CONTEXT ptr) as WINBOOL
 declare function CertDeleteCRLFromStore(byval pCrlContext as PCCRL_CONTEXT) as WINBOOL
-declare function CertSerializeCertificateStoreElement(byval pCertContext as PCCERT_CONTEXT, byval dwFlags as DWORD, byval pbElement as BYTE ptr, byval pcbElement as DWORD ptr) as WINBOOL
-declare function CertSerializeCRLStoreElement(byval pCrlContext as PCCRL_CONTEXT, byval dwFlags as DWORD, byval pbElement as BYTE ptr, byval pcbElement as DWORD ptr) as WINBOOL
+declare function CertSerializeCertificateStoreElement(byval pCertContext as PCCERT_CONTEXT, byval dwFlags as DWORD, byval pbElement as UBYTE ptr, byval pcbElement as DWORD ptr) as WINBOOL
+declare function CertSerializeCRLStoreElement(byval pCrlContext as PCCRL_CONTEXT, byval dwFlags as DWORD, byval pbElement as UBYTE ptr, byval pcbElement as DWORD ptr) as WINBOOL
 declare function CertDuplicateCTLContext(byval pCtlContext as PCCTL_CONTEXT) as PCCTL_CONTEXT
-declare function CertCreateCTLContext(byval dwMsgAndCertEncodingType as DWORD, byval pbCtlEncoded as const BYTE ptr, byval cbCtlEncoded as DWORD) as PCCTL_CONTEXT
+declare function CertCreateCTLContext(byval dwMsgAndCertEncodingType as DWORD, byval pbCtlEncoded as const UBYTE ptr, byval cbCtlEncoded as DWORD) as PCCTL_CONTEXT
 declare function CertFreeCTLContext(byval pCtlContext as PCCTL_CONTEXT) as WINBOOL
 declare function CertSetCTLContextProperty(byval pCtlContext as PCCTL_CONTEXT, byval dwPropId as DWORD, byval dwFlags as DWORD, byval pvData as const any ptr) as WINBOOL
 declare function CertGetCTLContextProperty(byval pCtlContext as PCCTL_CONTEXT, byval dwPropId as DWORD, byval pvData as any ptr, byval pcbData as DWORD ptr) as WINBOOL
@@ -3480,9 +3480,9 @@ end type
 type CTL_FIND_SUBJECT_PARA as _CTL_FIND_SUBJECT_PARA
 type PCTL_FIND_SUBJECT_PARA as _CTL_FIND_SUBJECT_PARA ptr
 
-declare function CertAddEncodedCTLToStore(byval hCertStore as HCERTSTORE, byval dwMsgAndCertEncodingType as DWORD, byval pbCtlEncoded as const BYTE ptr, byval cbCtlEncoded as DWORD, byval dwAddDisposition as DWORD, byval ppCtlContext as PCCTL_CONTEXT ptr) as WINBOOL
+declare function CertAddEncodedCTLToStore(byval hCertStore as HCERTSTORE, byval dwMsgAndCertEncodingType as DWORD, byval pbCtlEncoded as const UBYTE ptr, byval cbCtlEncoded as DWORD, byval dwAddDisposition as DWORD, byval ppCtlContext as PCCTL_CONTEXT ptr) as WINBOOL
 declare function CertAddCTLContextToStore(byval hCertStore as HCERTSTORE, byval pCtlContext as PCCTL_CONTEXT, byval dwAddDisposition as DWORD, byval ppStoreContext as PCCTL_CONTEXT ptr) as WINBOOL
-declare function CertSerializeCTLStoreElement(byval pCtlContext as PCCTL_CONTEXT, byval dwFlags as DWORD, byval pbElement as BYTE ptr, byval pcbElement as DWORD ptr) as WINBOOL
+declare function CertSerializeCTLStoreElement(byval pCtlContext as PCCTL_CONTEXT, byval dwFlags as DWORD, byval pbElement as UBYTE ptr, byval pcbElement as DWORD ptr) as WINBOOL
 declare function CertDeleteCTLFromStore(byval pCtlContext as PCCTL_CONTEXT) as WINBOOL
 declare function CertAddCertificateLinkToStore(byval hCertStore as HCERTSTORE, byval pCertContext as PCCERT_CONTEXT, byval dwAddDisposition as DWORD, byval ppStoreContext as PCCERT_CONTEXT ptr) as WINBOOL
 declare function CertAddCRLLinkToStore(byval hCertStore as HCERTSTORE, byval pCrlContext as PCCRL_CONTEXT, byval dwAddDisposition as DWORD, byval ppStoreContext as PCCRL_CONTEXT ptr) as WINBOOL
@@ -3513,7 +3513,7 @@ end type
 type CERT_CREATE_CONTEXT_PARA as _CERT_CREATE_CONTEXT_PARA
 type PCERT_CREATE_CONTEXT_PARA as _CERT_CREATE_CONTEXT_PARA ptr
 
-declare function CertCreateContext(byval dwContextType as DWORD, byval dwEncodingType as DWORD, byval pbEncoded as const BYTE ptr, byval cbEncoded as DWORD, byval dwFlags as DWORD, byval pCreatePara as PCERT_CREATE_CONTEXT_PARA) as const any ptr
+declare function CertCreateContext(byval dwContextType as DWORD, byval dwEncodingType as DWORD, byval pbEncoded as const UBYTE ptr, byval cbEncoded as DWORD, byval dwFlags as DWORD, byval pCreatePara as PCERT_CREATE_CONTEXT_PARA) as const any ptr
 
 #define CERT_CREATE_CONTEXT_NOCOPY_FLAG &h1
 #define CERT_CREATE_CONTEXT_SORTED_FLAG &h2
@@ -3587,11 +3587,11 @@ declare function CryptMsgGetAndVerifySigner(byval hCryptMsg as HCRYPTMSG, byval 
 #define CMSG_SIGNER_ONLY_FLAG &h2
 #define CMSG_USE_SIGNER_INDEX_FLAG &h4
 
-declare function CryptMsgSignCTL(byval dwMsgEncodingType as DWORD, byval pbCtlContent as BYTE ptr, byval cbCtlContent as DWORD, byval pSignInfo as PCMSG_SIGNED_ENCODE_INFO, byval dwFlags as DWORD, byval pbEncoded as BYTE ptr, byval pcbEncoded as DWORD ptr) as WINBOOL
+declare function CryptMsgSignCTL(byval dwMsgEncodingType as DWORD, byval pbCtlContent as UBYTE ptr, byval cbCtlContent as DWORD, byval pSignInfo as PCMSG_SIGNED_ENCODE_INFO, byval dwFlags as DWORD, byval pbEncoded as UBYTE ptr, byval pcbEncoded as DWORD ptr) as WINBOOL
 
 #define CMSG_CMS_ENCAPSULATED_CTL_FLAG &h8000
 
-declare function CryptMsgEncodeAndSignCTL(byval dwMsgEncodingType as DWORD, byval pCtlInfo as PCTL_INFO, byval pSignInfo as PCMSG_SIGNED_ENCODE_INFO, byval dwFlags as DWORD, byval pbEncoded as BYTE ptr, byval pcbEncoded as DWORD ptr) as WINBOOL
+declare function CryptMsgEncodeAndSignCTL(byval dwMsgEncodingType as DWORD, byval pCtlInfo as PCTL_INFO, byval pSignInfo as PCMSG_SIGNED_ENCODE_INFO, byval dwFlags as DWORD, byval pbEncoded as UBYTE ptr, byval pcbEncoded as DWORD ptr) as WINBOOL
 
 #define CMSG_ENCODE_SORTED_CTL_FLAG &h1
 #define CMSG_ENCODE_HASHED_SUBJECT_IDENTIFIER_FLAG &h2
@@ -3684,7 +3684,7 @@ declare function CertIsRDNAttrsInCertificateName(byval dwCertEncodingType as DWO
 
 declare function CertComparePublicKeyInfo(byval dwCertEncodingType as DWORD, byval pPublicKey1 as PCERT_PUBLIC_KEY_INFO, byval pPublicKey2 as PCERT_PUBLIC_KEY_INFO) as WINBOOL
 declare function CertGetPublicKeyLength(byval dwCertEncodingType as DWORD, byval pPublicKey as PCERT_PUBLIC_KEY_INFO) as DWORD
-declare function CryptVerifyCertificateSignature(byval hCryptProv as HCRYPTPROV, byval dwCertEncodingType as DWORD, byval pbEncoded as const BYTE ptr, byval cbEncoded as DWORD, byval pPublicKey as PCERT_PUBLIC_KEY_INFO) as WINBOOL
+declare function CryptVerifyCertificateSignature(byval hCryptProv as HCRYPTPROV, byval dwCertEncodingType as DWORD, byval pbEncoded as const UBYTE ptr, byval cbEncoded as DWORD, byval pPublicKey as PCERT_PUBLIC_KEY_INFO) as WINBOOL
 declare function CryptVerifyCertificateSignatureEx(byval hCryptProv as HCRYPTPROV, byval dwCertEncodingType as DWORD, byval dwSubjectType as DWORD, byval pvSubject as any ptr, byval dwIssuerType as DWORD, byval pvIssuer as any ptr, byval dwFlags as DWORD, byval pvReserved as any ptr) as WINBOOL
 
 #define CRYPT_VERIFY_CERT_SIGN_SUBJECT_BLOB 1
@@ -3695,9 +3695,9 @@ declare function CryptVerifyCertificateSignatureEx(byval hCryptProv as HCRYPTPRO
 #define CRYPT_VERIFY_CERT_SIGN_ISSUER_CHAIN 3
 #define CRYPT_VERIFY_CERT_SIGN_ISSUER_NULL 4
 
-declare function CryptHashToBeSigned(byval hCryptProv as HCRYPTPROV, byval dwCertEncodingType as DWORD, byval pbEncoded as const BYTE ptr, byval cbEncoded as DWORD, byval pbComputedHash as BYTE ptr, byval pcbComputedHash as DWORD ptr) as WINBOOL
-declare function CryptHashCertificate(byval hCryptProv as HCRYPTPROV, byval Algid as ALG_ID, byval dwFlags as DWORD, byval pbEncoded as const BYTE ptr, byval cbEncoded as DWORD, byval pbComputedHash as BYTE ptr, byval pcbComputedHash as DWORD ptr) as WINBOOL
-declare function CryptSignCertificate(byval hCryptProv as HCRYPTPROV, byval dwKeySpec as DWORD, byval dwCertEncodingType as DWORD, byval pbEncodedToBeSigned as const BYTE ptr, byval cbEncodedToBeSigned as DWORD, byval pSignatureAlgorithm as PCRYPT_ALGORITHM_IDENTIFIER, byval pvHashAuxInfo as const any ptr, byval pbSignature as BYTE ptr, byval pcbSignature as DWORD ptr) as WINBOOL
+declare function CryptHashToBeSigned(byval hCryptProv as HCRYPTPROV, byval dwCertEncodingType as DWORD, byval pbEncoded as const UBYTE ptr, byval cbEncoded as DWORD, byval pbComputedHash as UBYTE ptr, byval pcbComputedHash as DWORD ptr) as WINBOOL
+declare function CryptHashCertificate(byval hCryptProv as HCRYPTPROV, byval Algid as ALG_ID, byval dwFlags as DWORD, byval pbEncoded as const UBYTE ptr, byval cbEncoded as DWORD, byval pbComputedHash as UBYTE ptr, byval pcbComputedHash as DWORD ptr) as WINBOOL
+declare function CryptSignCertificate(byval hCryptProv as HCRYPTPROV, byval dwKeySpec as DWORD, byval dwCertEncodingType as DWORD, byval pbEncodedToBeSigned as const UBYTE ptr, byval cbEncodedToBeSigned as DWORD, byval pSignatureAlgorithm as PCRYPT_ALGORITHM_IDENTIFIER, byval pvHashAuxInfo as const any ptr, byval pbSignature as UBYTE ptr, byval pcbSignature as DWORD ptr) as WINBOOL
 declare function CryptSignAndEncodeCertificate(byval hCryptProv as HCRYPTPROV, byval dwKeySpec as DWORD, byval dwCertEncodingType as DWORD, byval lpszStructType as LPCSTR, byval pvStructInfo as const any ptr, byval pSignatureAlgorithm as PCRYPT_ALGORITHM_IDENTIFIER, byval pvHashAuxInfo as const any ptr, byval pbEncoded as PBYTE, byval pcbEncoded as DWORD ptr) as WINBOOL
 declare function CertVerifyTimeValidity(byval pTimeToVerify as LPFILETIME, byval pCertInfo as PCERT_INFO) as LONG
 declare function CertVerifyCRLTimeValidity(byval pTimeToVerify as LPFILETIME, byval pCrlInfo as PCRL_INFO) as LONG
@@ -3708,7 +3708,7 @@ declare function CertOIDToAlgId(byval pszObjId as LPCSTR) as DWORD
 declare function CertFindExtension(byval pszObjId as LPCSTR, byval cExtensions as DWORD, byval rgExtensions as CERT_EXTENSION ptr) as PCERT_EXTENSION
 declare function CertFindAttribute(byval pszObjId as LPCSTR, byval cAttr as DWORD, byval rgAttr as CRYPT_ATTRIBUTE ptr) as PCRYPT_ATTRIBUTE
 declare function CertFindRDNAttr(byval pszObjId as LPCSTR, byval pName as PCERT_NAME_INFO) as PCERT_RDN_ATTR
-declare function CertGetIntendedKeyUsage(byval dwCertEncodingType as DWORD, byval pCertInfo as PCERT_INFO, byval pbKeyUsage as BYTE ptr, byval cbKeyUsage as DWORD) as WINBOOL
+declare function CertGetIntendedKeyUsage(byval dwCertEncodingType as DWORD, byval pCertInfo as PCERT_INFO, byval pbKeyUsage as UBYTE ptr, byval cbKeyUsage as DWORD) as WINBOOL
 
 type HCRYPTDEFAULTCONTEXT as any ptr
 
@@ -3764,9 +3764,9 @@ type PFN_EXPORT_PRIV_KEY_FUNC as function(byval hCryptProv as HCRYPTPROV, byval 
 #define CertRDNValueToStr __MINGW_NAME_AW(CertRDNValueToStr)
 #define CertNameToStr __MINGW_NAME_AW(CertNameToStr)
 
-declare function CryptExportPKCS8(byval hCryptProv as HCRYPTPROV, byval dwKeySpec as DWORD, byval pszPrivateKeyObjId as LPSTR, byval dwFlags as DWORD, byval pvAuxInfo as any ptr, byval pbPrivateKeyBlob as BYTE ptr, byval pcbPrivateKeyBlob as DWORD ptr) as WINBOOL
-declare function CryptExportPKCS8Ex(byval psExportParams as CRYPT_PKCS8_EXPORT_PARAMS ptr, byval dwFlags as DWORD, byval pvAuxInfo as any ptr, byval pbPrivateKeyBlob as BYTE ptr, byval pcbPrivateKeyBlob as DWORD ptr) as WINBOOL
-declare function CryptHashPublicKeyInfo(byval hCryptProv as HCRYPTPROV, byval Algid as ALG_ID, byval dwFlags as DWORD, byval dwCertEncodingType as DWORD, byval pInfo as PCERT_PUBLIC_KEY_INFO, byval pbComputedHash as BYTE ptr, byval pcbComputedHash as DWORD ptr) as WINBOOL
+declare function CryptExportPKCS8(byval hCryptProv as HCRYPTPROV, byval dwKeySpec as DWORD, byval pszPrivateKeyObjId as LPSTR, byval dwFlags as DWORD, byval pvAuxInfo as any ptr, byval pbPrivateKeyBlob as UBYTE ptr, byval pcbPrivateKeyBlob as DWORD ptr) as WINBOOL
+declare function CryptExportPKCS8Ex(byval psExportParams as CRYPT_PKCS8_EXPORT_PARAMS ptr, byval dwFlags as DWORD, byval pvAuxInfo as any ptr, byval pbPrivateKeyBlob as UBYTE ptr, byval pcbPrivateKeyBlob as DWORD ptr) as WINBOOL
+declare function CryptHashPublicKeyInfo(byval hCryptProv as HCRYPTPROV, byval Algid as ALG_ID, byval dwFlags as DWORD, byval dwCertEncodingType as DWORD, byval pInfo as PCERT_PUBLIC_KEY_INFO, byval pbComputedHash as UBYTE ptr, byval pcbComputedHash as DWORD ptr) as WINBOOL
 declare function CertRDNValueToStrA(byval dwValueType as DWORD, byval pValue as PCERT_RDN_VALUE_BLOB, byval psz as LPSTR, byval csz as DWORD) as DWORD
 declare function CertRDNValueToStrW(byval dwValueType as DWORD, byval pValue as PCERT_RDN_VALUE_BLOB, byval psz as LPWSTR, byval csz as DWORD) as DWORD
 declare function CertNameToStrA(byval dwCertEncodingType as DWORD, byval pName as PCERT_NAME_BLOB, byval dwStrType as DWORD, byval psz as LPSTR, byval csz as DWORD) as DWORD
@@ -3788,8 +3788,8 @@ declare function CertNameToStrW(byval dwCertEncodingType as DWORD, byval pName a
 #define CertStrToName __MINGW_NAME_AW(CertStrToName)
 #define CertGetNameString __MINGW_NAME_AW(CertGetNameString)
 
-declare function CertStrToNameA(byval dwCertEncodingType as DWORD, byval pszX500 as LPCSTR, byval dwStrType as DWORD, byval pvReserved as any ptr, byval pbEncoded as BYTE ptr, byval pcbEncoded as DWORD ptr, byval ppszError as LPCSTR ptr) as WINBOOL
-declare function CertStrToNameW(byval dwCertEncodingType as DWORD, byval pszX500 as LPCWSTR, byval dwStrType as DWORD, byval pvReserved as any ptr, byval pbEncoded as BYTE ptr, byval pcbEncoded as DWORD ptr, byval ppszError as LPCWSTR ptr) as WINBOOL
+declare function CertStrToNameA(byval dwCertEncodingType as DWORD, byval pszX500 as LPCSTR, byval dwStrType as DWORD, byval pvReserved as any ptr, byval pbEncoded as UBYTE ptr, byval pcbEncoded as DWORD ptr, byval ppszError as LPCSTR ptr) as WINBOOL
+declare function CertStrToNameW(byval dwCertEncodingType as DWORD, byval pszX500 as LPCWSTR, byval dwStrType as DWORD, byval pvReserved as any ptr, byval pbEncoded as UBYTE ptr, byval pcbEncoded as DWORD ptr, byval ppszError as LPCWSTR ptr) as WINBOOL
 declare function CertGetNameStringA(byval pCertContext as PCCERT_CONTEXT, byval dwType as DWORD, byval dwFlags as DWORD, byval pvTypePara as any ptr, byval pszNameString as LPSTR, byval cchNameString as DWORD) as DWORD
 declare function CertGetNameStringW(byval pCertContext as PCCERT_CONTEXT, byval dwType as DWORD, byval dwFlags as DWORD, byval pvTypePara as any ptr, byval pszNameString as LPWSTR, byval cchNameString as DWORD) as DWORD
 
@@ -3904,25 +3904,25 @@ type PCRYPT_KEY_VERIFY_MESSAGE_PARA as _CRYPT_KEY_VERIFY_MESSAGE_PARA ptr
 #define CertOpenSystemStore __MINGW_NAME_AW(CertOpenSystemStore)
 #define CertAddEncodedCertificateToSystemStore __MINGW_NAME_AW(CertAddEncodedCertificateToSystemStore)
 
-declare function CryptSignMessage(byval pSignPara as PCRYPT_SIGN_MESSAGE_PARA, byval fDetachedSignature as WINBOOL, byval cToBeSigned as DWORD, byval rgpbToBeSigned as const BYTE ptr ptr, byval rgcbToBeSigned as DWORD ptr, byval pbSignedBlob as BYTE ptr, byval pcbSignedBlob as DWORD ptr) as WINBOOL
-declare function CryptVerifyMessageSignature(byval pVerifyPara as PCRYPT_VERIFY_MESSAGE_PARA, byval dwSignerIndex as DWORD, byval pbSignedBlob as const BYTE ptr, byval cbSignedBlob as DWORD, byval pbDecoded as BYTE ptr, byval pcbDecoded as DWORD ptr, byval ppSignerCert as PCCERT_CONTEXT ptr) as WINBOOL
-declare function CryptGetMessageSignerCount(byval dwMsgEncodingType as DWORD, byval pbSignedBlob as const BYTE ptr, byval cbSignedBlob as DWORD) as LONG
-declare function CryptGetMessageCertificates(byval dwMsgAndCertEncodingType as DWORD, byval hCryptProv as HCRYPTPROV, byval dwFlags as DWORD, byval pbSignedBlob as const BYTE ptr, byval cbSignedBlob as DWORD) as HCERTSTORE
-declare function CryptVerifyDetachedMessageSignature(byval pVerifyPara as PCRYPT_VERIFY_MESSAGE_PARA, byval dwSignerIndex as DWORD, byval pbDetachedSignBlob as const BYTE ptr, byval cbDetachedSignBlob as DWORD, byval cToBeSigned as DWORD, byval rgpbToBeSigned as const BYTE ptr ptr, byval rgcbToBeSigned as DWORD ptr, byval ppSignerCert as PCCERT_CONTEXT ptr) as WINBOOL
-declare function CryptEncryptMessage(byval pEncryptPara as PCRYPT_ENCRYPT_MESSAGE_PARA, byval cRecipientCert as DWORD, byval rgpRecipientCert as PCCERT_CONTEXT ptr, byval pbToBeEncrypted as const BYTE ptr, byval cbToBeEncrypted as DWORD, byval pbEncryptedBlob as BYTE ptr, byval pcbEncryptedBlob as DWORD ptr) as WINBOOL
-declare function CryptDecryptMessage(byval pDecryptPara as PCRYPT_DECRYPT_MESSAGE_PARA, byval pbEncryptedBlob as const BYTE ptr, byval cbEncryptedBlob as DWORD, byval pbDecrypted as BYTE ptr, byval pcbDecrypted as DWORD ptr, byval ppXchgCert as PCCERT_CONTEXT ptr) as WINBOOL
-declare function CryptSignAndEncryptMessage(byval pSignPara as PCRYPT_SIGN_MESSAGE_PARA, byval pEncryptPara as PCRYPT_ENCRYPT_MESSAGE_PARA, byval cRecipientCert as DWORD, byval rgpRecipientCert as PCCERT_CONTEXT ptr, byval pbToBeSignedAndEncrypted as const BYTE ptr, byval cbToBeSignedAndEncrypted as DWORD, byval pbSignedAndEncryptedBlob as BYTE ptr, byval pcbSignedAndEncryptedBlob as DWORD ptr) as WINBOOL
-declare function CryptDecryptAndVerifyMessageSignature(byval pDecryptPara as PCRYPT_DECRYPT_MESSAGE_PARA, byval pVerifyPara as PCRYPT_VERIFY_MESSAGE_PARA, byval dwSignerIndex as DWORD, byval pbEncryptedBlob as const BYTE ptr, byval cbEncryptedBlob as DWORD, byval pbDecrypted as BYTE ptr, byval pcbDecrypted as DWORD ptr, byval ppXchgCert as PCCERT_CONTEXT ptr, byval ppSignerCert as PCCERT_CONTEXT ptr) as WINBOOL
-declare function CryptDecodeMessage(byval dwMsgTypeFlags as DWORD, byval pDecryptPara as PCRYPT_DECRYPT_MESSAGE_PARA, byval pVerifyPara as PCRYPT_VERIFY_MESSAGE_PARA, byval dwSignerIndex as DWORD, byval pbEncodedBlob as const BYTE ptr, byval cbEncodedBlob as DWORD, byval dwPrevInnerContentType as DWORD, byval pdwMsgType as DWORD ptr, byval pdwInnerContentType as DWORD ptr, byval pbDecoded as BYTE ptr, byval pcbDecoded as DWORD ptr, byval ppXchgCert as PCCERT_CONTEXT ptr, byval ppSignerCert as PCCERT_CONTEXT ptr) as WINBOOL
-declare function CryptHashMessage(byval pHashPara as PCRYPT_HASH_MESSAGE_PARA, byval fDetachedHash as WINBOOL, byval cToBeHashed as DWORD, byval rgpbToBeHashed as const BYTE ptr ptr, byval rgcbToBeHashed as DWORD ptr, byval pbHashedBlob as BYTE ptr, byval pcbHashedBlob as DWORD ptr, byval pbComputedHash as BYTE ptr, byval pcbComputedHash as DWORD ptr) as WINBOOL
-declare function CryptVerifyMessageHash(byval pHashPara as PCRYPT_HASH_MESSAGE_PARA, byval pbHashedBlob as BYTE ptr, byval cbHashedBlob as DWORD, byval pbToBeHashed as BYTE ptr, byval pcbToBeHashed as DWORD ptr, byval pbComputedHash as BYTE ptr, byval pcbComputedHash as DWORD ptr) as WINBOOL
-declare function CryptVerifyDetachedMessageHash(byval pHashPara as PCRYPT_HASH_MESSAGE_PARA, byval pbDetachedHashBlob as BYTE ptr, byval cbDetachedHashBlob as DWORD, byval cToBeHashed as DWORD, byval rgpbToBeHashed as const BYTE ptr ptr, byval rgcbToBeHashed as DWORD ptr, byval pbComputedHash as BYTE ptr, byval pcbComputedHash as DWORD ptr) as WINBOOL
-declare function CryptSignMessageWithKey(byval pSignPara as PCRYPT_KEY_SIGN_MESSAGE_PARA, byval pbToBeSigned as const BYTE ptr, byval cbToBeSigned as DWORD, byval pbSignedBlob as BYTE ptr, byval pcbSignedBlob as DWORD ptr) as WINBOOL
-declare function CryptVerifyMessageSignatureWithKey(byval pVerifyPara as PCRYPT_KEY_VERIFY_MESSAGE_PARA, byval pPublicKeyInfo as PCERT_PUBLIC_KEY_INFO, byval pbSignedBlob as const BYTE ptr, byval cbSignedBlob as DWORD, byval pbDecoded as BYTE ptr, byval pcbDecoded as DWORD ptr) as WINBOOL
+declare function CryptSignMessage(byval pSignPara as PCRYPT_SIGN_MESSAGE_PARA, byval fDetachedSignature as WINBOOL, byval cToBeSigned as DWORD, byval rgpbToBeSigned as const UBYTE ptr ptr, byval rgcbToBeSigned as DWORD ptr, byval pbSignedBlob as UBYTE ptr, byval pcbSignedBlob as DWORD ptr) as WINBOOL
+declare function CryptVerifyMessageSignature(byval pVerifyPara as PCRYPT_VERIFY_MESSAGE_PARA, byval dwSignerIndex as DWORD, byval pbSignedBlob as const UBYTE ptr, byval cbSignedBlob as DWORD, byval pbDecoded as UBYTE ptr, byval pcbDecoded as DWORD ptr, byval ppSignerCert as PCCERT_CONTEXT ptr) as WINBOOL
+declare function CryptGetMessageSignerCount(byval dwMsgEncodingType as DWORD, byval pbSignedBlob as const UBYTE ptr, byval cbSignedBlob as DWORD) as LONG
+declare function CryptGetMessageCertificates(byval dwMsgAndCertEncodingType as DWORD, byval hCryptProv as HCRYPTPROV, byval dwFlags as DWORD, byval pbSignedBlob as const UBYTE ptr, byval cbSignedBlob as DWORD) as HCERTSTORE
+declare function CryptVerifyDetachedMessageSignature(byval pVerifyPara as PCRYPT_VERIFY_MESSAGE_PARA, byval dwSignerIndex as DWORD, byval pbDetachedSignBlob as const UBYTE ptr, byval cbDetachedSignBlob as DWORD, byval cToBeSigned as DWORD, byval rgpbToBeSigned as const UBYTE ptr ptr, byval rgcbToBeSigned as DWORD ptr, byval ppSignerCert as PCCERT_CONTEXT ptr) as WINBOOL
+declare function CryptEncryptMessage(byval pEncryptPara as PCRYPT_ENCRYPT_MESSAGE_PARA, byval cRecipientCert as DWORD, byval rgpRecipientCert as PCCERT_CONTEXT ptr, byval pbToBeEncrypted as const UBYTE ptr, byval cbToBeEncrypted as DWORD, byval pbEncryptedBlob as UBYTE ptr, byval pcbEncryptedBlob as DWORD ptr) as WINBOOL
+declare function CryptDecryptMessage(byval pDecryptPara as PCRYPT_DECRYPT_MESSAGE_PARA, byval pbEncryptedBlob as const UBYTE ptr, byval cbEncryptedBlob as DWORD, byval pbDecrypted as UBYTE ptr, byval pcbDecrypted as DWORD ptr, byval ppXchgCert as PCCERT_CONTEXT ptr) as WINBOOL
+declare function CryptSignAndEncryptMessage(byval pSignPara as PCRYPT_SIGN_MESSAGE_PARA, byval pEncryptPara as PCRYPT_ENCRYPT_MESSAGE_PARA, byval cRecipientCert as DWORD, byval rgpRecipientCert as PCCERT_CONTEXT ptr, byval pbToBeSignedAndEncrypted as const UBYTE ptr, byval cbToBeSignedAndEncrypted as DWORD, byval pbSignedAndEncryptedBlob as UBYTE ptr, byval pcbSignedAndEncryptedBlob as DWORD ptr) as WINBOOL
+declare function CryptDecryptAndVerifyMessageSignature(byval pDecryptPara as PCRYPT_DECRYPT_MESSAGE_PARA, byval pVerifyPara as PCRYPT_VERIFY_MESSAGE_PARA, byval dwSignerIndex as DWORD, byval pbEncryptedBlob as const UBYTE ptr, byval cbEncryptedBlob as DWORD, byval pbDecrypted as UBYTE ptr, byval pcbDecrypted as DWORD ptr, byval ppXchgCert as PCCERT_CONTEXT ptr, byval ppSignerCert as PCCERT_CONTEXT ptr) as WINBOOL
+declare function CryptDecodeMessage(byval dwMsgTypeFlags as DWORD, byval pDecryptPara as PCRYPT_DECRYPT_MESSAGE_PARA, byval pVerifyPara as PCRYPT_VERIFY_MESSAGE_PARA, byval dwSignerIndex as DWORD, byval pbEncodedBlob as const UBYTE ptr, byval cbEncodedBlob as DWORD, byval dwPrevInnerContentType as DWORD, byval pdwMsgType as DWORD ptr, byval pdwInnerContentType as DWORD ptr, byval pbDecoded as UBYTE ptr, byval pcbDecoded as DWORD ptr, byval ppXchgCert as PCCERT_CONTEXT ptr, byval ppSignerCert as PCCERT_CONTEXT ptr) as WINBOOL
+declare function CryptHashMessage(byval pHashPara as PCRYPT_HASH_MESSAGE_PARA, byval fDetachedHash as WINBOOL, byval cToBeHashed as DWORD, byval rgpbToBeHashed as const UBYTE ptr ptr, byval rgcbToBeHashed as DWORD ptr, byval pbHashedBlob as UBYTE ptr, byval pcbHashedBlob as DWORD ptr, byval pbComputedHash as UBYTE ptr, byval pcbComputedHash as DWORD ptr) as WINBOOL
+declare function CryptVerifyMessageHash(byval pHashPara as PCRYPT_HASH_MESSAGE_PARA, byval pbHashedBlob as UBYTE ptr, byval cbHashedBlob as DWORD, byval pbToBeHashed as UBYTE ptr, byval pcbToBeHashed as DWORD ptr, byval pbComputedHash as UBYTE ptr, byval pcbComputedHash as DWORD ptr) as WINBOOL
+declare function CryptVerifyDetachedMessageHash(byval pHashPara as PCRYPT_HASH_MESSAGE_PARA, byval pbDetachedHashBlob as UBYTE ptr, byval cbDetachedHashBlob as DWORD, byval cToBeHashed as DWORD, byval rgpbToBeHashed as const UBYTE ptr ptr, byval rgcbToBeHashed as DWORD ptr, byval pbComputedHash as UBYTE ptr, byval pcbComputedHash as DWORD ptr) as WINBOOL
+declare function CryptSignMessageWithKey(byval pSignPara as PCRYPT_KEY_SIGN_MESSAGE_PARA, byval pbToBeSigned as const UBYTE ptr, byval cbToBeSigned as DWORD, byval pbSignedBlob as UBYTE ptr, byval pcbSignedBlob as DWORD ptr) as WINBOOL
+declare function CryptVerifyMessageSignatureWithKey(byval pVerifyPara as PCRYPT_KEY_VERIFY_MESSAGE_PARA, byval pPublicKeyInfo as PCERT_PUBLIC_KEY_INFO, byval pbSignedBlob as const UBYTE ptr, byval cbSignedBlob as DWORD, byval pbDecoded as UBYTE ptr, byval pcbDecoded as DWORD ptr) as WINBOOL
 declare function CertOpenSystemStoreA(byval hProv as HCRYPTPROV, byval szSubsystemProtocol as LPCSTR) as HCERTSTORE
 declare function CertOpenSystemStoreW(byval hProv as HCRYPTPROV, byval szSubsystemProtocol as LPCWSTR) as HCERTSTORE
-declare function CertAddEncodedCertificateToSystemStoreA(byval szCertStoreName as LPCSTR, byval pbCertEncoded as const BYTE ptr, byval cbCertEncoded as DWORD) as WINBOOL
-declare function CertAddEncodedCertificateToSystemStoreW(byval szCertStoreName as LPCWSTR, byval pbCertEncoded as const BYTE ptr, byval cbCertEncoded as DWORD) as WINBOOL
+declare function CertAddEncodedCertificateToSystemStoreA(byval szCertStoreName as LPCSTR, byval pbCertEncoded as const UBYTE ptr, byval cbCertEncoded as DWORD) as WINBOOL
+declare function CertAddEncodedCertificateToSystemStoreW(byval szCertStoreName as LPCWSTR, byval pbCertEncoded as const UBYTE ptr, byval cbCertEncoded as DWORD) as WINBOOL
 
 type _CERT_CHAIN
 	cCerts as DWORD
@@ -3933,7 +3933,7 @@ end type
 type CERT_CHAIN as _CERT_CHAIN
 type PCERT_CHAIN as _CERT_CHAIN ptr
 
-declare function FindCertsByIssuer(byval pCertChains as PCERT_CHAIN, byval pcbCertChains as DWORD ptr, byval pcCertChains as DWORD ptr, byval pbEncodedIssuerName as BYTE ptr, byval cbEncodedIssuerName as DWORD, byval pwszPurpose as LPCWSTR, byval dwKeySpec as DWORD) as HRESULT
+declare function FindCertsByIssuer(byval pCertChains as PCERT_CHAIN, byval pcbCertChains as DWORD ptr, byval pcCertChains as DWORD ptr, byval pbEncodedIssuerName as UBYTE ptr, byval cbEncodedIssuerName as DWORD, byval pwszPurpose as LPCWSTR, byval dwKeySpec as DWORD) as HRESULT
 declare function CryptQueryObject(byval dwObjectType as DWORD, byval pvObject as const any ptr, byval dwExpectedContentTypeFlags as DWORD, byval dwExpectedFormatTypeFlags as DWORD, byval dwFlags as DWORD, byval pdwMsgAndCertEncodingType as DWORD ptr, byval pdwContentType as DWORD ptr, byval pdwFormatType as DWORD ptr, byval phCertStore as HCERTSTORE ptr, byval phMsg as HCRYPTMSG ptr, byval ppvContext as const any ptr ptr) as WINBOOL
 
 #define CERT_QUERY_OBJECT_FILE &h1
@@ -4218,7 +4218,7 @@ declare function CryptSetKeyIdentifierProperty(byval pKeyIdentifier as const CRY
 type PFN_CRYPT_ENUM_KEYID_PROP as function(byval pKeyIdentifier as const CRYPT_HASH_BLOB ptr, byval dwFlags as DWORD, byval pvReserved as any ptr, byval pvArg as any ptr, byval cProp as DWORD, byval rgdwPropId as DWORD ptr, byval rgpvData as any ptr ptr, byval rgcbData as DWORD ptr) as WINBOOL
 
 declare function CryptEnumKeyIdentifierProperties(byval pKeyIdentifier as const CRYPT_HASH_BLOB ptr, byval dwPropId as DWORD, byval dwFlags as DWORD, byval pwszComputerName as LPCWSTR, byval pvReserved as any ptr, byval pvArg as any ptr, byval pfnEnum as PFN_CRYPT_ENUM_KEYID_PROP) as WINBOOL
-declare function CryptCreateKeyIdentifierFromCSP(byval dwCertEncodingType as DWORD, byval pszPubKeyOID as LPCSTR, byval pPubKeyStruc as const PUBLICKEYSTRUC ptr, byval cbPubKeyStruc as DWORD, byval dwFlags as DWORD, byval pvReserved as any ptr, byval pbHash as BYTE ptr, byval pcbHash as DWORD ptr) as WINBOOL
+declare function CryptCreateKeyIdentifierFromCSP(byval dwCertEncodingType as DWORD, byval pszPubKeyOID as LPCSTR, byval pPubKeyStruc as const PUBLICKEYSTRUC ptr, byval cbPubKeyStruc as DWORD, byval dwFlags as DWORD, byval pvReserved as any ptr, byval pbHash as UBYTE ptr, byval pcbHash as DWORD ptr) as WINBOOL
 
 #define CERT_CHAIN_CONFIG_REGPATH wstr(!"Software\\Microsoft\\Cryptography\\OID\\EncodingType 0\\CertDllCreateCertificateChainEngine\\Config")
 #define CERT_CHAIN_DISABLE_AIA_URL_RETRIEVAL_VALUE_NAME wstr("DisableAIAUrlRetrieval")
@@ -4542,10 +4542,10 @@ type PSSL_EXTRA_CERT_CHAIN_POLICY_PARA as _HTTPSPolicyCallbackData ptr
 #define BASIC_CONSTRAINTS_CERT_CHAIN_POLICY_END_ENTITY_FLAG &h40000000
 #define MICROSOFT_ROOT_CERT_CHAIN_POLICY_ENABLE_TEST_ROOT_FLAG &h10000
 
-declare function CryptStringToBinaryA(byval pszString as LPCSTR, byval cchString as DWORD, byval dwFlags as DWORD, byval pbBinary as BYTE ptr, byval pcbBinary as DWORD ptr, byval pdwSkip as DWORD ptr, byval pdwFlags as DWORD ptr) as WINBOOL
-declare function CryptStringToBinaryW(byval pszString as LPCWSTR, byval cchString as DWORD, byval dwFlags as DWORD, byval pbBinary as BYTE ptr, byval pcbBinary as DWORD ptr, byval pdwSkip as DWORD ptr, byval pdwFlags as DWORD ptr) as WINBOOL
-declare function CryptBinaryToStringA(byval pbBinary as const BYTE ptr, byval cbBinary as DWORD, byval dwFlags as DWORD, byval pszString as LPSTR, byval pcchString as DWORD ptr) as WINBOOL
-declare function CryptBinaryToStringW(byval pbBinary as const BYTE ptr, byval cbBinary as DWORD, byval dwFlags as DWORD, byval pszString as LPWSTR, byval pcchString as DWORD ptr) as WINBOOL
+declare function CryptStringToBinaryA(byval pszString as LPCSTR, byval cchString as DWORD, byval dwFlags as DWORD, byval pbBinary as UBYTE ptr, byval pcbBinary as DWORD ptr, byval pdwSkip as DWORD ptr, byval pdwFlags as DWORD ptr) as WINBOOL
+declare function CryptStringToBinaryW(byval pszString as LPCWSTR, byval cchString as DWORD, byval dwFlags as DWORD, byval pbBinary as UBYTE ptr, byval pcbBinary as DWORD ptr, byval pdwSkip as DWORD ptr, byval pdwFlags as DWORD ptr) as WINBOOL
+declare function CryptBinaryToStringA(byval pbBinary as const UBYTE ptr, byval cbBinary as DWORD, byval dwFlags as DWORD, byval pszString as LPSTR, byval pcchString as DWORD ptr) as WINBOOL
+declare function CryptBinaryToStringW(byval pbBinary as const UBYTE ptr, byval cbBinary as DWORD, byval dwFlags as DWORD, byval pszString as LPWSTR, byval pcchString as DWORD ptr) as WINBOOL
 
 #define CRYPT_STRING_BASE64HEADER &h0
 #define CRYPT_STRING_BASE64 &h1

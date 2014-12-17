@@ -227,7 +227,7 @@ type PDPN_APPLICATION_DESC as _DPN_APPLICATION_DESC ptr
 
 type _BUFFERDESC
 	dwBufferSize as DWORD
-	pBufferData as BYTE ptr
+	pBufferData as UBYTE ptr
 end type
 
 type BUFFERDESC as _BUFFERDESC

@@ -1176,7 +1176,7 @@ type DIJOYSTATE
 	lRz as LONG
 	rglSlider(0 to 1) as LONG
 	rgdwPOV(0 to 3) as DWORD
-	rgbButtons(0 to 31) as BYTE
+	rgbButtons(0 to 31) as UBYTE
 end type
 
 type LPDIJOYSTATE as DIJOYSTATE ptr
@@ -1190,7 +1190,7 @@ type DIJOYSTATE2
 	lRz as LONG
 	rglSlider(0 to 1) as LONG
 	rgdwPOV(0 to 3) as DWORD
-	rgbButtons(0 to 127) as BYTE
+	rgbButtons(0 to 127) as UBYTE
 	lVX as LONG
 	lVY as LONG
 	lVZ as LONG
@@ -1965,14 +1965,14 @@ type DIMOUSESTATE
 	lX as LONG
 	lY as LONG
 	lZ as LONG
-	rgbButtons(0 to 3) as BYTE
+	rgbButtons(0 to 3) as UBYTE
 end type
 
 type DIMOUSESTATE2
 	lX as LONG
 	lY as LONG
 	lZ as LONG
-	rgbButtons(0 to 7) as BYTE
+	rgbButtons(0 to 7) as UBYTE
 end type
 
 #define DIMOFS_X FIELD_OFFSET(DIMOUSESTATE, lX)

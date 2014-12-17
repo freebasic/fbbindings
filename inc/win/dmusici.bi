@@ -569,19 +569,19 @@ type _DMUS_SUBCHORD field = 8
 	dwScalePattern as DWORD
 	dwInversionPoints as DWORD
 	dwLevels as DWORD
-	bChordRoot as BYTE
-	bScaleRoot as BYTE
+	bChordRoot as UBYTE
+	bScaleRoot as UBYTE
 end type
 
 type _DMUS_CHORD_KEY field = 8
 	wszName(0 to 15) as WCHAR
 	wMeasure as WORD
-	bBeat as BYTE
-	bSubChordCount as BYTE
+	bBeat as UBYTE
+	bSubChordCount as UBYTE
 	SubChordList(0 to 7) as DMUS_SUBCHORD
 	dwScale as DWORD
-	bKey as BYTE
-	bFlags as BYTE
+	bKey as UBYTE
+	bFlags as UBYTE
 end type
 
 type _DMUS_NOTE_PMSG field = 8
@@ -601,16 +601,16 @@ type _DMUS_NOTE_PMSG field = 8
 	wMusicValue as WORD
 	wMeasure as WORD
 	nOffset as short
-	bBeat as BYTE
-	bGrid as BYTE
-	bVelocity as BYTE
-	bFlags as BYTE
-	bTimeRange as BYTE
-	bDurRange as BYTE
-	bVelRange as BYTE
-	bPlayModeFlags as BYTE
-	bSubChordLevel as BYTE
-	bMidiValue as BYTE
+	bBeat as UBYTE
+	bGrid as UBYTE
+	bVelocity as UBYTE
+	bFlags as UBYTE
+	bTimeRange as UBYTE
+	bDurRange as UBYTE
+	bVelRange as UBYTE
+	bPlayModeFlags as UBYTE
+	bSubChordLevel as UBYTE
+	bMidiValue as UBYTE
 	cTranspose as byte
 end type
 
@@ -627,10 +627,10 @@ type _DMUS_MIDI_PMSG field = 8
 	dwVoiceID as DWORD
 	dwGroupID as DWORD
 	punkUser as IUnknown ptr
-	bStatus as BYTE
-	bByte1 as BYTE
-	bByte2 as BYTE
-	bPad(0 to 0) as BYTE
+	bStatus as UBYTE
+	bByte1 as UBYTE
+	bByte2 as UBYTE
+	bPad(0 to 0) as UBYTE
 end type
 
 type _DMUS_PATCH_PMSG field = 8
@@ -646,10 +646,10 @@ type _DMUS_PATCH_PMSG field = 8
 	dwVoiceID as DWORD
 	dwGroupID as DWORD
 	punkUser as IUnknown ptr
-	byInstrument as BYTE
-	byMSB as BYTE
-	byLSB as BYTE
-	byPad(0 to 0) as BYTE
+	byInstrument as UBYTE
+	byMSB as UBYTE
+	byLSB as UBYTE
+	byPad(0 to 0) as UBYTE
 end type
 
 type _DMUS_TRANSPOSE_PMSG field = 8
@@ -715,7 +715,7 @@ type _DMUS_SYSEX_PMSG field = 8
 	dwGroupID as DWORD
 	punkUser as IUnknown ptr
 	dwLen as DWORD
-	abData(0 to 0) as BYTE
+	abData(0 to 0) as UBYTE
 end type
 
 type _DMUS_CURVE_PMSG field = 8
@@ -739,12 +739,12 @@ type _DMUS_CURVE_PMSG field = 8
 	nResetValue as short
 	wMeasure as WORD
 	nOffset as short
-	bBeat as BYTE
-	bGrid as BYTE
-	bType_ as BYTE
-	bCurveShape as BYTE
-	bCCData as BYTE
-	bFlags as BYTE
+	bBeat as UBYTE
+	bGrid as UBYTE
+	bType_ as UBYTE
+	bCurveShape as UBYTE
+	bCCData as UBYTE
+	bFlags as UBYTE
 	wParamType as WORD
 	wMergeIndex as WORD
 end type
@@ -762,8 +762,8 @@ type _DMUS_TIMESIG_PMSG field = 8
 	dwVoiceID as DWORD
 	dwGroupID as DWORD
 	punkUser as IUnknown ptr
-	bBeatsPerMeasure as BYTE
-	bBeat as BYTE
+	bBeatsPerMeasure as UBYTE
+	bBeat as UBYTE
 	wGridsPerBeat as WORD
 end type
 
@@ -804,7 +804,7 @@ type _DMUS_WAVE_PMSG field = 8
 	lOffset as LONG
 	lVolume as LONG
 	lPitch as LONG
-	bFlags as BYTE
+	bFlags as UBYTE
 end type
 
 type _DMUS_LYRIC_PMSG field = 8
@@ -830,8 +830,8 @@ end type
 
 type _DMUS_TIMESIGNATURE field = 8
 	mtTime as MUSIC_TIME
-	bBeatsPerMeasure as BYTE
-	bBeat as BYTE
+	bBeatsPerMeasure as UBYTE
+	bBeat as UBYTE
 	wGridsPerBeat as WORD
 end type
 
@@ -870,18 +870,18 @@ type _DMUS_SCRIPT_ERRORINFO field = 8
 end type
 
 type _DMUS_COMMAND_PARAM field = 8
-	bCommand as BYTE
-	bGrooveLevel as BYTE
-	bGrooveRange as BYTE
-	bRepeatMode as BYTE
+	bCommand as UBYTE
+	bGrooveLevel as UBYTE
+	bGrooveRange as UBYTE
+	bRepeatMode as UBYTE
 end type
 
 type _DMUS_COMMAND_PARAM_2 field = 8
 	mtTime as MUSIC_TIME
-	bCommand as BYTE
-	bGrooveLevel as BYTE
-	bGrooveRange as BYTE
-	bRepeatMode as BYTE
+	bCommand as UBYTE
+	bGrooveLevel as UBYTE
+	bGrooveRange as UBYTE
+	bRepeatMode as UBYTE
 end type
 
 type _DMUS_BAND_PARAM field = 8
@@ -1276,10 +1276,10 @@ type IDirectMusicPerformanceVtbl_ field = 8
 	AdjustTime as function(byval This as IDirectMusicPerformance ptr, byval rtAmount as REFERENCE_TIME) as HRESULT
 	CloseDown as function(byval This as IDirectMusicPerformance ptr) as HRESULT
 	GetResolvedTime as function(byval This as IDirectMusicPerformance ptr, byval rtTime as REFERENCE_TIME, byval prtResolved as REFERENCE_TIME ptr, byval dwTimeResolveFlags as DWORD) as HRESULT
-	MIDIToMusic as function(byval This as IDirectMusicPerformance ptr, byval bMIDIValue as BYTE, byval pChord as DMUS_CHORD_KEY ptr, byval bPlayMode as BYTE, byval bChordLevel as BYTE, byval pwMusicValue as WORD ptr) as HRESULT
-	MusicToMIDI as function(byval This as IDirectMusicPerformance ptr, byval wMusicValue as WORD, byval pChord as DMUS_CHORD_KEY ptr, byval bPlayMode as BYTE, byval bChordLevel as BYTE, byval pbMIDIValue as BYTE ptr) as HRESULT
-	TimeToRhythm as function(byval This as IDirectMusicPerformance ptr, byval mtTime as MUSIC_TIME, byval pTimeSig as DMUS_TIMESIGNATURE ptr, byval pwMeasure as WORD ptr, byval pbBeat as BYTE ptr, byval pbGrid as BYTE ptr, byval pnOffset as short ptr) as HRESULT
-	RhythmToTime as function(byval This as IDirectMusicPerformance ptr, byval wMeasure as WORD, byval bBeat as BYTE, byval bGrid as BYTE, byval nOffset as short, byval pTimeSig as DMUS_TIMESIGNATURE ptr, byval pmtTime as MUSIC_TIME ptr) as HRESULT
+	MIDIToMusic as function(byval This as IDirectMusicPerformance ptr, byval bMIDIValue as UBYTE, byval pChord as DMUS_CHORD_KEY ptr, byval bPlayMode as UBYTE, byval bChordLevel as UBYTE, byval pwMusicValue as WORD ptr) as HRESULT
+	MusicToMIDI as function(byval This as IDirectMusicPerformance ptr, byval wMusicValue as WORD, byval pChord as DMUS_CHORD_KEY ptr, byval bPlayMode as UBYTE, byval bChordLevel as UBYTE, byval pbMIDIValue as UBYTE ptr) as HRESULT
+	TimeToRhythm as function(byval This as IDirectMusicPerformance ptr, byval mtTime as MUSIC_TIME, byval pTimeSig as DMUS_TIMESIGNATURE ptr, byval pwMeasure as WORD ptr, byval pbBeat as UBYTE ptr, byval pbGrid as UBYTE ptr, byval pnOffset as short ptr) as HRESULT
+	RhythmToTime as function(byval This as IDirectMusicPerformance ptr, byval wMeasure as WORD, byval bBeat as UBYTE, byval bGrid as UBYTE, byval nOffset as short, byval pTimeSig as DMUS_TIMESIGNATURE ptr, byval pmtTime as MUSIC_TIME ptr) as HRESULT
 end type
 
 #define IDirectMusicPerformance_QueryInterface(p, a, b) (p)->lpVtbl->QueryInterface(p, a, b)
@@ -1378,10 +1378,10 @@ type IDirectMusicPerformance8Vtbl_ field = 8
 	AdjustTime as function(byval This as IDirectMusicPerformance8 ptr, byval rtAmount as REFERENCE_TIME) as HRESULT
 	CloseDown as function(byval This as IDirectMusicPerformance8 ptr) as HRESULT
 	GetResolvedTime as function(byval This as IDirectMusicPerformance8 ptr, byval rtTime as REFERENCE_TIME, byval prtResolved as REFERENCE_TIME ptr, byval dwTimeResolveFlags as DWORD) as HRESULT
-	MIDIToMusic as function(byval This as IDirectMusicPerformance8 ptr, byval bMIDIValue as BYTE, byval pChord as DMUS_CHORD_KEY ptr, byval bPlayMode as BYTE, byval bChordLevel as BYTE, byval pwMusicValue as WORD ptr) as HRESULT
-	MusicToMIDI as function(byval This as IDirectMusicPerformance8 ptr, byval wMusicValue as WORD, byval pChord as DMUS_CHORD_KEY ptr, byval bPlayMode as BYTE, byval bChordLevel as BYTE, byval pbMIDIValue as BYTE ptr) as HRESULT
-	TimeToRhythm as function(byval This as IDirectMusicPerformance8 ptr, byval mtTime as MUSIC_TIME, byval pTimeSig as DMUS_TIMESIGNATURE ptr, byval pwMeasure as WORD ptr, byval pbBeat as BYTE ptr, byval pbGrid as BYTE ptr, byval pnOffset as short ptr) as HRESULT
-	RhythmToTime as function(byval This as IDirectMusicPerformance8 ptr, byval wMeasure as WORD, byval bBeat as BYTE, byval bGrid as BYTE, byval nOffset as short, byval pTimeSig as DMUS_TIMESIGNATURE ptr, byval pmtTime as MUSIC_TIME ptr) as HRESULT
+	MIDIToMusic as function(byval This as IDirectMusicPerformance8 ptr, byval bMIDIValue as UBYTE, byval pChord as DMUS_CHORD_KEY ptr, byval bPlayMode as UBYTE, byval bChordLevel as UBYTE, byval pwMusicValue as WORD ptr) as HRESULT
+	MusicToMIDI as function(byval This as IDirectMusicPerformance8 ptr, byval wMusicValue as WORD, byval pChord as DMUS_CHORD_KEY ptr, byval bPlayMode as UBYTE, byval bChordLevel as UBYTE, byval pbMIDIValue as UBYTE ptr) as HRESULT
+	TimeToRhythm as function(byval This as IDirectMusicPerformance8 ptr, byval mtTime as MUSIC_TIME, byval pTimeSig as DMUS_TIMESIGNATURE ptr, byval pwMeasure as WORD ptr, byval pbBeat as UBYTE ptr, byval pbGrid as UBYTE ptr, byval pnOffset as short ptr) as HRESULT
+	RhythmToTime as function(byval This as IDirectMusicPerformance8 ptr, byval wMeasure as WORD, byval bBeat as UBYTE, byval bGrid as UBYTE, byval nOffset as short, byval pTimeSig as DMUS_TIMESIGNATURE ptr, byval pmtTime as MUSIC_TIME ptr) as HRESULT
 	InitAudio as function(byval This as IDirectMusicPerformance8 ptr, byval ppDirectMusic as IDirectMusic ptr ptr, byval ppDirectSound as IDirectSound ptr ptr, byval hWnd as HWND, byval dwDefaultPathType as DWORD, byval dwPChannelCount as DWORD, byval dwFlags as DWORD, byval pParams as DMUS_AUDIOPARAMS ptr) as HRESULT
 	PlaySegmentEx as function(byval This as IDirectMusicPerformance8 ptr, byval pSource as IUnknown ptr, byval pwzSegmentName as WCHAR ptr, byval pTransition as IUnknown ptr, byval dwFlags as DWORD, byval i64StartTime as longint, byval ppSegmentState as IDirectMusicSegmentState ptr ptr, byval pFrom as IUnknown ptr, byval pAudioPath as IUnknown ptr) as HRESULT
 	StopEx as function(byval This as IDirectMusicPerformance8 ptr, byval pObjectToStop as IUnknown ptr, byval i64StopTime as longint, byval dwFlags as DWORD) as HRESULT

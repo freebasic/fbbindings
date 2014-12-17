@@ -939,20 +939,20 @@ type DDSURFACEDESC2 as _DDSURFACEDESC2
 type LPDDSURFACEDESC2 as _DDSURFACEDESC2 ptr
 
 type _DDARGB
-	blue as BYTE
-	green as BYTE
-	red as BYTE
-	alpha as BYTE
+	blue as UBYTE
+	green as UBYTE
+	red as UBYTE
+	alpha as UBYTE
 end type
 
 type DDARGB as _DDARGB
 type LPDDARGB as _DDARGB ptr
 
 type _DDRGBA
-	red as BYTE
-	green as BYTE
-	blue as BYTE
-	alpha as BYTE
+	red as UBYTE
+	green as UBYTE
+	blue as UBYTE
+	alpha as UBYTE
 end type
 
 type DDRGBA as _DDRGBA

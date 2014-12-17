@@ -719,18 +719,18 @@ end type
 
 declare function IPersistMemory_IsDirty_Proxy(byval This as IPersistMemory ptr) as HRESULT
 declare sub IPersistMemory_IsDirty_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-declare function IPersistMemory_RemoteLoad_Proxy(byval This as IPersistMemory ptr, byval pMem as BYTE ptr, byval cbSize as ULONG) as HRESULT
+declare function IPersistMemory_RemoteLoad_Proxy(byval This as IPersistMemory ptr, byval pMem as UBYTE ptr, byval cbSize as ULONG) as HRESULT
 declare sub IPersistMemory_RemoteLoad_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-declare function IPersistMemory_RemoteSave_Proxy(byval This as IPersistMemory ptr, byval pMem as BYTE ptr, byval fClearDirty as WINBOOL, byval cbSize as ULONG) as HRESULT
+declare function IPersistMemory_RemoteSave_Proxy(byval This as IPersistMemory ptr, byval pMem as UBYTE ptr, byval fClearDirty as WINBOOL, byval cbSize as ULONG) as HRESULT
 declare sub IPersistMemory_RemoteSave_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IPersistMemory_GetSizeMax_Proxy(byval This as IPersistMemory ptr, byval pCbSize as ULONG ptr) as HRESULT
 declare sub IPersistMemory_GetSizeMax_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IPersistMemory_InitNew_Proxy(byval This as IPersistMemory ptr) as HRESULT
 declare sub IPersistMemory_InitNew_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IPersistMemory_Load_Proxy(byval This as IPersistMemory ptr, byval pMem as LPVOID, byval cbSize as ULONG) as HRESULT
-declare function IPersistMemory_Load_Stub(byval This as IPersistMemory ptr, byval pMem as BYTE ptr, byval cbSize as ULONG) as HRESULT
+declare function IPersistMemory_Load_Stub(byval This as IPersistMemory ptr, byval pMem as UBYTE ptr, byval cbSize as ULONG) as HRESULT
 declare function IPersistMemory_Save_Proxy(byval This as IPersistMemory ptr, byval pMem as LPVOID, byval fClearDirty as WINBOOL, byval cbSize as ULONG) as HRESULT
-declare function IPersistMemory_Save_Stub(byval This as IPersistMemory ptr, byval pMem as BYTE ptr, byval fClearDirty as WINBOOL, byval cbSize as ULONG) as HRESULT
+declare function IPersistMemory_Save_Stub(byval This as IPersistMemory ptr, byval pMem as UBYTE ptr, byval fClearDirty as WINBOOL, byval cbSize as ULONG) as HRESULT
 
 #define __IPersistStreamInit_INTERFACE_DEFINED__
 

@@ -331,9 +331,9 @@ type LPCDSBPOSITIONNOTIFY as const DSBPOSITIONNOTIFY ptr
 #define DSSPEAKER_GEOMETRY_NARROW &h0000000A
 #define DSSPEAKER_GEOMETRY_WIDE &h00000014
 #define DSSPEAKER_GEOMETRY_MAX &h000000B4
-#define DSSPEAKER_COMBINED(c, g) cast(DWORD, cast(BYTE, (c)) or (cast(DWORD, cast(BYTE, (g))) shl 16))
-#define DSSPEAKER_CONFIG(a) cast(BYTE, (a))
-#define DSSPEAKER_GEOMETRY(a) cast(BYTE, cast(DWORD, (a) shr 16) and &h00FF)
+#define DSSPEAKER_COMBINED(c, g) cast(DWORD, cast(UBYTE, (c)) or (cast(DWORD, cast(UBYTE, (g))) shl 16))
+#define DSSPEAKER_CONFIG(a) cast(UBYTE, (a))
+#define DSSPEAKER_GEOMETRY(a) cast(UBYTE, cast(DWORD, (a) shr 16) and &h00FF)
 #define DS_CERTIFIED &h00000000
 #define DS_UNCERTIFIED &h00000001
 

@@ -296,12 +296,12 @@ type IMECOMPTEXT as _imecomptext
 #define IMF_FORCEINACTIVE &h0080
 #define IMF_FORCEREMEMBER &h0100
 #define IMF_MULTIPLEEDIT &h0400
-#define WBF_CLASS cast(BYTE, &h0F)
-#define WBF_ISWHITE cast(BYTE, &h10)
-#define WBF_BREAKLINE cast(BYTE, &h20)
-#define WBF_BREAKAFTER cast(BYTE, &h40)
+#define WBF_CLASS cast(UBYTE, &h0F)
+#define WBF_ISWHITE cast(UBYTE, &h10)
+#define WBF_BREAKLINE cast(UBYTE, &h20)
+#define WBF_BREAKAFTER cast(UBYTE, &h40)
 
-type EDITWORDBREAKPROCEX as function cdecl(byval pchText as zstring ptr, byval cchText as LONG, byval bCharSet as BYTE, byval action as INT_) as LONG
+type EDITWORDBREAKPROCEX as function cdecl(byval pchText as zstring ptr, byval cchText as LONG, byval bCharSet as UBYTE, byval action as INT_) as LONG
 
 type _charformat field = 4
 	cbSize as UINT
@@ -310,8 +310,8 @@ type _charformat field = 4
 	yHeight as LONG
 	yOffset as LONG
 	crTextColor as COLORREF
-	bCharSet as BYTE
-	bPitchAndFamily as BYTE
+	bCharSet as UBYTE
+	bPitchAndFamily as UBYTE
 	szFaceName as zstring * 32
 end type
 
@@ -324,8 +324,8 @@ type _charformatw field = 4
 	yHeight as LONG
 	yOffset as LONG
 	crTextColor as COLORREF
-	bCharSet as BYTE
-	bPitchAndFamily as BYTE
+	bCharSet as UBYTE
+	bPitchAndFamily as UBYTE
 	szFaceName(0 to 31) as WCHAR
 end type
 
@@ -340,8 +340,8 @@ type _charformat2w field = 4
 	yHeight as LONG
 	yOffset as LONG
 	crTextColor as COLORREF
-	bCharSet as BYTE
-	bPitchAndFamily as BYTE
+	bCharSet as UBYTE
+	bPitchAndFamily as UBYTE
 	szFaceName(0 to 31) as WCHAR
 	wWeight as WORD
 	sSpacing as SHORT
@@ -350,10 +350,10 @@ type _charformat2w field = 4
 	dwReserved as DWORD
 	sStyle as SHORT
 	wKerning as WORD
-	bUnderlineType as BYTE
-	bAnimation as BYTE
-	bRevAuthor as BYTE
-	bReserved1 as BYTE
+	bUnderlineType as UBYTE
+	bAnimation as UBYTE
+	bRevAuthor as UBYTE
+	bReserved1 as UBYTE
 end type
 
 type CHARFORMAT2W as _charformat2w
@@ -365,8 +365,8 @@ type _charformat2a field = 4
 	yHeight as LONG
 	yOffset as LONG
 	crTextColor as COLORREF
-	bCharSet as BYTE
-	bPitchAndFamily as BYTE
+	bCharSet as UBYTE
+	bPitchAndFamily as UBYTE
 	szFaceName as zstring * 32
 	wWeight as WORD
 	sSpacing as SHORT
@@ -375,9 +375,9 @@ type _charformat2a field = 4
 	dwReserved as DWORD
 	sStyle as SHORT
 	wKerning as WORD
-	bUnderlineType as BYTE
-	bAnimation as BYTE
-	bRevAuthor as BYTE
+	bUnderlineType as UBYTE
+	bAnimation as UBYTE
+	bRevAuthor as UBYTE
 end type
 
 type CHARFORMAT2A as _charformat2a
@@ -596,8 +596,8 @@ type _paraformat2 field = 4
 	dySpaceAfter as LONG
 	dyLineSpacing as LONG
 	sStyle as SHORT
-	bLineSpacingRule as BYTE
-	bOutlineLevel as BYTE
+	bLineSpacingRule as UBYTE
+	bOutlineLevel as UBYTE
 	wShadingWeight as WORD
 	wShadingStyle as WORD
 	wNumberingStart as WORD
