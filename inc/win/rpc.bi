@@ -3,10 +3,6 @@
 #include once "_mingw.bi"
 #include once "windows.bi"
 #include once "basetsd.bi"
-#include once "rpcdce.bi"
-#include once "rpcnsi.bi"
-#include once "rpcnterr.bi"
-#include once "rpcasync.bi"
 
 '' The following symbols have been renamed:
 ''     #define midl_user_allocate => midl_user_allocate_
@@ -41,3 +37,8 @@ type RPC_STATUS as long
 #define RpcEndFinally '' TODO: }
 #define RpcExceptionCode() GetExceptionCode()
 #define RpcAbnormalTermination() AbnormalTermination()
+
+#include once "rpcdce.bi"
+#include once "rpcnsi.bi"
+#include once "rpcnterr.bi"
+#include once "rpcasync.bi"
