@@ -2,7 +2,6 @@
 
 #include once "_mingw_unicode.bi"
 #include once "guiddef.bi"
-#include once "rpcdcep.bi"
 
 #ifdef __FB_64BIT__
 	extern "C"
@@ -747,3 +746,5 @@ declare function RpcMgmtSetAuthorizationFn(byval AuthorizationFn as RPC_MGMT_AUT
 #define RPC_IF_SEC_NO_CACHE &h0040
 
 end extern
+
+#include once "rpcdcep.bi"
