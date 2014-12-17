@@ -391,6 +391,7 @@ WINAPI_FLAGS_dxerr9 += -include windef.h
 WINAPI_FLAGS_errors += -include windef.h
 WINAPI_FLAGS_imagehlp += -filterin '*psdk_inc/_dbg_LOAD_IMAGE.h'
 WINAPI_FLAGS_imm += -include windows.h -filterin '*/imm.h'
+WINAPI_FLAGS_intrin += -filterin '*/psdk_inc/intrin-impl.h' -nofunctionbodies
 WINAPI_FLAGS_intshcut += -include windows.h
 WINAPI_FLAGS_iphlpapi += -include windows.h
 WINAPI_FLAGS_iprtrmib += -include windows.h

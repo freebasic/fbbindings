@@ -92,6 +92,7 @@ WINAPI_BASE += guiddef
 WINAPI_BASE += imagehlp
 WINAPI_BASE += imm
 WINAPI_BASE += initguid
+WINAPI_CRT += intrin
 WINAPI_BASE += intshcut
 WINAPI_BASE += ipexport
 WINAPI_BASE += iphlpapi
