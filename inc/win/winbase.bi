@@ -1,6 +1,7 @@
 #pragma once
 
 #include once "_mingw_unicode.bi"
+#include once "intrin.bi"
 #include once "winerror.bi"
 
 '' The following symbols have been renamed:

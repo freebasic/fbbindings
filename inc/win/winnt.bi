@@ -6,6 +6,7 @@
 #include once "_mingw.bi"
 #include once "crt/ctype.bi"
 #include once "apiset.bi"
+#include once "intrin.bi"
 #include once "basetsd.bi"
 #include once "guiddef.bi"
 
@@ -1162,17 +1163,6 @@ type PSCOPE_TABLE_AMD64 as _SCOPE_TABLE_AMD64 ptr
 	#define PF_NON_TEMPORAL_LEVEL_ALL _MM_HINT_NTA
 	#define ReadMxCsr _mm_getcsr
 	#define WriteMxCsr _mm_setcsr
-
-	extern "C"
-		declare function __readgsbyte(byval Offset as ulong) as ubyte
-		declare function __readgsword(byval Offset as ulong) as ushort
-		declare function __readgsdword(byval Offset as ulong) as ulong
-		declare function __readgsqword(byval Offset as ulong) as ulongint
-		declare sub __writegsbyte(byval Offset as ulong, byval Data as ubyte)
-		declare sub __writegsword(byval Offset as ulong, byval Data as ushort)
-		declare sub __writegsdword(byval Offset as ulong, byval Data as ulong)
-		declare sub __writegsqword(byval Offset as ulong, byval Data as ulongint)
-	end extern
 #else
 	#define YieldProcessor __buildpause
 	#define PreFetchCacheLine(l, a)
@@ -1182,13 +1172,6 @@ type PSCOPE_TABLE_AMD64 as _SCOPE_TABLE_AMD64 ptr
 	#define PcTeb &h18
 
 	extern "C"
-		declare function __readfsbyte(byval Offset as DWORD) as UBYTE
-		declare function __readfsword(byval Offset as DWORD) as WORD
-		declare function __readfsdword(byval Offset as DWORD) as DWORD
-		declare sub __writefsbyte(byval Offset as DWORD, byval Data as UBYTE)
-		declare sub __writefsword(byval Offset as DWORD, byval Data as WORD)
-		declare sub __writefsdword(byval Offset as DWORD, byval Data as DWORD)
-
 		private function NtCurrentTeb() as _TEB ptr
 			return cptr(_TEB ptr, __readfsdword(&h18))
 		end function
