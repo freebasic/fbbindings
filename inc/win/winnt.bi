@@ -1164,13 +1164,6 @@ type PSCOPE_TABLE_AMD64 as _SCOPE_TABLE_AMD64 ptr
 	#define WriteMxCsr _mm_setcsr
 #else
 	#define YieldProcessor __buildpause
-
-	sub MemoryBarrier cdecl()
-		dim Barrier as ubyte
-		__asm__
-		'' TODO: __asm__ __volatile__("xchg{b %%| }al, %0" :"=m" (Barrier) : : "eax", "memory");
-	end sub
-
 	#define PreFetchCacheLine(l, a)
 	#define ReadForWriteAccess(p) (*(p))
 	#define PF_TEMPORAL_LEVEL_1
