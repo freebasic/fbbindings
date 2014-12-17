@@ -4879,7 +4879,7 @@ type PSYSTEM_POWER_POLICY as _SYSTEM_POWER_POLICY ptr
 #define PO_THROTTLE_ADAPTIVE 3
 #define PO_THROTTLE_MAXIMUM 4
 
-union __Flags
+union __PROCESSOR_IDLESTATE_POLICY_Flags
 	AsWORD as WORD
 
 	type
@@ -4891,7 +4891,7 @@ end union
 
 type PROCESSOR_IDLESTATE_POLICY
 	Revision as WORD
-	Flags as __Flags
+	Flags as __PROCESSOR_IDLESTATE_POLICY_Flags
 	PolicyCount as DWORD
 	Policy(0 to 2) as PROCESSOR_IDLESTATE_INFO
 end type
@@ -4926,7 +4926,7 @@ end type
 type PROCESSOR_POWER_POLICY as _PROCESSOR_POWER_POLICY
 type PPROCESSOR_POWER_POLICY as _PROCESSOR_POWER_POLICY ptr
 
-union __Flags
+union __PROCESSOR_PERFSTATE_POLICY_Flags
 	AsBYTE as UBYTE
 
 	type
@@ -4945,7 +4945,7 @@ type PROCESSOR_PERFSTATE_POLICY
 
 	union
 		Spare as UBYTE
-		Flags as __Flags
+		Flags as __PROCESSOR_PERFSTATE_POLICY_Flags
 	end union
 
 	TimeCheck as DWORD
