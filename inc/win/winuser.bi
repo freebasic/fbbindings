@@ -7,6 +7,7 @@
 
 '' The following symbols have been renamed:
 ''     typedef INPUT => INPUT_
+''     procedure ToAscii => ToAscii_
 
 #ifdef __FB_64BIT__
 	extern "C"
@@ -2182,7 +2183,7 @@ declare function SetKeyboardState(byval lpKeyState as LPBYTE) as WINBOOL
 declare function GetKeyNameTextA(byval lParam as LONG, byval lpString as LPSTR, byval cchSize as long) as long
 declare function GetKeyNameTextW(byval lParam as LONG, byval lpString as LPWSTR, byval cchSize as long) as long
 declare function GetKeyboardType(byval nTypeFlag as long) as long
-declare function ToAscii(byval uVirtKey as UINT, byval uScanCode as UINT, byval lpKeyState as const UBYTE ptr, byval lpChar as LPWORD, byval uFlags as UINT) as long
+declare function ToAscii_ alias "ToAscii"(byval uVirtKey as UINT, byval uScanCode as UINT, byval lpKeyState as const UBYTE ptr, byval lpChar as LPWORD, byval uFlags as UINT) as long
 declare function ToAsciiEx(byval uVirtKey as UINT, byval uScanCode as UINT, byval lpKeyState as const UBYTE ptr, byval lpChar as LPWORD, byval uFlags as UINT, byval dwhkl as HKL) as long
 declare function ToUnicode(byval wVirtKey as UINT, byval wScanCode as UINT, byval lpKeyState as const UBYTE ptr, byval pwszBuff as LPWSTR, byval cchBuff as long, byval wFlags as UINT) as long
 declare function OemKeyScan(byval wOemChar as WORD) as DWORD
