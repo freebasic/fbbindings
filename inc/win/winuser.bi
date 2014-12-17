@@ -1,7 +1,6 @@
 #pragma once
 
 #include once "_mingw_unicode.bi"
-#include once "apisetcconv.bi"
 #include once "_mingw.bi"
 #include once "crt/stdarg.bi"
 #include once "guiddef.bi"

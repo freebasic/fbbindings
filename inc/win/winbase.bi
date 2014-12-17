@@ -1,7 +1,6 @@
 #pragma once
 
 #include once "_mingw_unicode.bi"
-#include once "apisetcconv.bi"
 #include once "bemapiset.bi"
 #include once "debugapi.bi"
 #include once "errhandlingapi.bi"
