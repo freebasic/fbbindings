@@ -1,7 +1,10 @@
 #pragma once
 
 #include once "winapifamily.bi"
-#include once "datetimeapi.bi"
+#include once "apiset.bi"
+#include once "apisetcconv.bi"
+#include once "minwindef.bi"
+#include once "minwinbase.bi"
 #include once "libloaderapi.bi"
 #include once "stringapiset.bi"
 
@@ -12,6 +15,17 @@
 #endif
 
 #define _WINNLS_
+#define _DATETIMEAPI_H_
+
+declare function GetTimeFormatEx(byval lpLocaleName as LPCWSTR, byval dwFlags as DWORD, byval lpTime as const SYSTEMTIME ptr, byval lpFormat as LPCWSTR, byval lpTimeStr as LPWSTR, byval cchTime as long) as long
+declare function GetDateFormatEx(byval lpLocaleName as LPCWSTR, byval dwFlags as DWORD, byval lpDate as const SYSTEMTIME ptr, byval lpFormat as LPCWSTR, byval lpDateStr as LPWSTR, byval cchDate as long, byval lpCalendar as LPCWSTR) as long
+declare function GetDateFormatA(byval Locale as LCID, byval dwFlags as DWORD, byval lpDate as const SYSTEMTIME ptr, byval lpFormat as LPCSTR, byval lpDateStr as LPSTR, byval cchDate as long) as long
+declare function GetDateFormatW(byval Locale as LCID, byval dwFlags as DWORD, byval lpDate as const SYSTEMTIME ptr, byval lpFormat as LPCWSTR, byval lpDateStr as LPWSTR, byval cchDate as long) as long
+declare function GetTimeFormatA(byval Locale as LCID, byval dwFlags as DWORD, byval lpTime as const SYSTEMTIME ptr, byval lpFormat as LPCSTR, byval lpTimeStr as LPSTR, byval cchTime as long) as long
+declare function GetTimeFormatW(byval Locale as LCID, byval dwFlags as DWORD, byval lpTime as const SYSTEMTIME ptr, byval lpFormat as LPCWSTR, byval lpTimeStr as LPWSTR, byval cchTime as long) as long
+
+#define GetDateFormat __MINGW_NAME_AW(GetDateFormat)
+#define GetTimeFormat __MINGW_NAME_AW(GetTimeFormat)
 #define MAX_LEADBYTES 12
 #define MAX_DEFAULTCHAR 2
 #define HIGH_SURROGATE_START &hd800

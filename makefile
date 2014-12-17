@@ -476,6 +476,7 @@ WINAPI_FLAGS_wingdi   += -include windows.h -filterin '*/wingdi.h'
 WINAPI_FLAGS_wininet  += -include windef.h
 WINAPI_FLAGS_winioctl += -include windef.h
 WINAPI_FLAGS_winnetwk += -include windef.h
+WINAPI_FLAGS_winnls   += -filterin '*/datetimeapi.h'
 WINAPI_FLAGS_winnt    += -include windows.h -filterin '*/winnt.h'
 WINAPI_FLAGS_winperf  += -include windef.h
 WINAPI_FLAGS_winreg   += -include windows.h -filterin '*/winreg.h'
