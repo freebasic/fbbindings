@@ -42,85 +42,44 @@ end enum
 type RPC_ASYNC_EVENT as _RPC_ASYNC_EVENT
 type PFN_RPCNOTIFICATION_ROUTINE as sub(byval pAsync as _RPC_ASYNC_STATE ptr, byval Context as any ptr, byval Event as RPC_ASYNC_EVENT)
 
-#ifdef __FB_64BIT__
-	type ___RPC_ASYNC_STATE_APC field = 8
-		NotificationRoutine as PFN_RPCNOTIFICATION_ROUTINE
-		hThread as HANDLE
-	end type
+type ___RPC_ASYNC_STATE_APC
+	NotificationRoutine as PFN_RPCNOTIFICATION_ROUTINE
+	hThread as HANDLE
+end type
 
-	type ___RPC_ASYNC_STATE_IOC field = 8
-		hIOPort as HANDLE
-		dwNumberOfBytesTransferred as DWORD
-		dwCompletionKey as DWORD_PTR
-		lpOverlapped as LPOVERLAPPED
-	end type
+type ___RPC_ASYNC_STATE_IOC
+	hIOPort as HANDLE
+	dwNumberOfBytesTransferred as DWORD
+	dwCompletionKey as DWORD_PTR
+	lpOverlapped as LPOVERLAPPED
+end type
 
-	type ___RPC_ASYNC_STATE_HWND field = 8
-		hWnd as HWND
-		Msg as UINT
-	end type
+type ___RPC_ASYNC_STATE_HWND
+	hWnd as HWND
+	Msg as UINT
+end type
 
-	union ___RPC_ASYNC_STATE_u field = 8
-		APC as ___RPC_ASYNC_STATE_APC
-		IOC as ___RPC_ASYNC_STATE_IOC
-		HWND as ___RPC_ASYNC_STATE_HWND
-		hEvent as HANDLE
-		NotificationRoutine as PFN_RPCNOTIFICATION_ROUTINE
-	end union
+union ___RPC_ASYNC_STATE_u
+	APC as ___RPC_ASYNC_STATE_APC
+	IOC as ___RPC_ASYNC_STATE_IOC
+	HWND as ___RPC_ASYNC_STATE_HWND
+	hEvent as HANDLE
+	NotificationRoutine as PFN_RPCNOTIFICATION_ROUTINE
+end union
 
-	type _RPC_ASYNC_STATE_ field = 8
-		Size as ulong
-		Signature as ulong
-		Lock as long
-		Flags as ulong
-		StubInfo as any ptr
-		UserInfo as any ptr
-		RuntimeInfo as any ptr
-		Event as RPC_ASYNC_EVENT
-		NotificationType as RPC_NOTIFICATION_TYPES
-		u as ___RPC_ASYNC_STATE_u
-		Reserved(0 to 3) as LONG_PTR
-	end type
-#else
-	type ___RPC_ASYNC_STATE_APC
-		NotificationRoutine as PFN_RPCNOTIFICATION_ROUTINE
-		hThread as HANDLE
-	end type
-
-	type ___RPC_ASYNC_STATE_IOC
-		hIOPort as HANDLE
-		dwNumberOfBytesTransferred as DWORD
-		dwCompletionKey as DWORD_PTR
-		lpOverlapped as LPOVERLAPPED
-	end type
-
-	type ___RPC_ASYNC_STATE_HWND
-		hWnd as HWND
-		Msg as UINT
-	end type
-
-	union ___RPC_ASYNC_STATE_u
-		APC as ___RPC_ASYNC_STATE_APC
-		IOC as ___RPC_ASYNC_STATE_IOC
-		HWND as ___RPC_ASYNC_STATE_HWND
-		hEvent as HANDLE
-		NotificationRoutine as PFN_RPCNOTIFICATION_ROUTINE
-	end union
-
-	type _RPC_ASYNC_STATE_
-		Size as ulong
-		Signature as ulong
-		Lock as long
-		Flags as ulong
-		StubInfo as any ptr
-		UserInfo as any ptr
-		RuntimeInfo as any ptr
-		Event as RPC_ASYNC_EVENT
-		NotificationType as RPC_NOTIFICATION_TYPES
-		u as ___RPC_ASYNC_STATE_u
-		Reserved(0 to 3) as LONG_PTR
-	end type
-#endif
+type _RPC_ASYNC_STATE_
+	Size as ulong
+	Signature as ulong
+	Lock as long
+	Flags as ulong
+	StubInfo as any ptr
+	UserInfo as any ptr
+	RuntimeInfo as any ptr
+	Event as RPC_ASYNC_EVENT
+	NotificationType as RPC_NOTIFICATION_TYPES
+	u as ___RPC_ASYNC_STATE_u
+	Reserved(0 to 3) as LONG_PTR
+end type
 
 type RPC_ASYNC_STATE as _RPC_ASYNC_STATE
 type PRPC_ASYNC_STATE as _RPC_ASYNC_STATE ptr
@@ -153,49 +112,26 @@ type ExtendedErrorParamTypes as tagExtendedErrorParamTypes
 #define MaxNumberOfEEInfoParams 4
 #define RPC_EEINFO_VERSION 1
 
-#ifdef __FB_64BIT__
-	type tagBinaryParam field = 8
-		Buffer as any ptr
-		Size as short
-	end type
-#else
-	type tagBinaryParam
-		Buffer as any ptr
-		Size as short
-	end type
-#endif
+type tagBinaryParam
+	Buffer as any ptr
+	Size as short
+end type
 
 type BinaryParam as tagBinaryParam
 
-#ifdef __FB_64BIT__
-	union __tagRPC_EE_INFO_PARAM_u field = 8
-		AnsiString as LPSTR
-		UnicodeString as LPWSTR
-		LVal as long
-		SVal as short
-		PVal as ULONGLONG
-		BVal as BinaryParam
-	end union
+union __tagRPC_EE_INFO_PARAM_u
+	AnsiString as LPSTR
+	UnicodeString as LPWSTR
+	LVal as long
+	SVal as short
+	PVal as ULONGLONG
+	BVal as BinaryParam
+end union
 
-	type tagRPC_EE_INFO_PARAM field = 8
-		ParameterType as ExtendedErrorParamTypes
-		u as __tagRPC_EE_INFO_PARAM_u
-	end type
-#else
-	union __tagRPC_EE_INFO_PARAM_u
-		AnsiString as LPSTR
-		UnicodeString as LPWSTR
-		LVal as long
-		SVal as short
-		PVal as ULONGLONG
-		BVal as BinaryParam
-	end union
-
-	type tagRPC_EE_INFO_PARAM
-		ParameterType as ExtendedErrorParamTypes
-		u as __tagRPC_EE_INFO_PARAM_u
-	end type
-#endif
+type tagRPC_EE_INFO_PARAM
+	ParameterType as ExtendedErrorParamTypes
+	u as __tagRPC_EE_INFO_PARAM_u
+end type
 
 type RPC_EE_INFO_PARAM as tagRPC_EE_INFO_PARAM
 
@@ -205,59 +141,31 @@ type RPC_EE_INFO_PARAM as tagRPC_EE_INFO_PARAM
 #define EEInfoGCCOM 11
 #define EEInfoGCFRS 12
 
-#ifdef __FB_64BIT__
-	union __tagRPC_EXTENDED_ERROR_INFO_u field = 8
-		SystemTime as SYSTEMTIME
-		FileTime as FILETIME
-	end union
+union __tagRPC_EXTENDED_ERROR_INFO_u
+	SystemTime as SYSTEMTIME
+	FileTime as FILETIME
+end union
 
-	type tagRPC_EXTENDED_ERROR_INFO field = 8
-		Version as ULONG
-		ComputerName as LPWSTR
-		ProcessID as ULONG
-		u as __tagRPC_EXTENDED_ERROR_INFO_u
-		GeneratingComponent as ULONG
-		Status as ULONG
-		DetectionLocation as USHORT
-		Flags as USHORT
-		NumberOfParameters as long
-		Parameters(0 to 3) as RPC_EE_INFO_PARAM
-	end type
-#else
-	union __tagRPC_EXTENDED_ERROR_INFO_u
-		SystemTime as SYSTEMTIME
-		FileTime as FILETIME
-	end union
-
-	type tagRPC_EXTENDED_ERROR_INFO
-		Version as ULONG
-		ComputerName as LPWSTR
-		ProcessID as ULONG
-		u as __tagRPC_EXTENDED_ERROR_INFO_u
-		GeneratingComponent as ULONG
-		Status as ULONG
-		DetectionLocation as USHORT
-		Flags as USHORT
-		NumberOfParameters as long
-		Parameters(0 to 3) as RPC_EE_INFO_PARAM
-	end type
-#endif
+type tagRPC_EXTENDED_ERROR_INFO
+	Version as ULONG
+	ComputerName as LPWSTR
+	ProcessID as ULONG
+	u as __tagRPC_EXTENDED_ERROR_INFO_u
+	GeneratingComponent as ULONG
+	Status as ULONG
+	DetectionLocation as USHORT
+	Flags as USHORT
+	NumberOfParameters as long
+	Parameters(0 to 3) as RPC_EE_INFO_PARAM
+end type
 
 type RPC_EXTENDED_ERROR_INFO as tagRPC_EXTENDED_ERROR_INFO
 
-#ifdef __FB_64BIT__
-	type tagRPC_ERROR_ENUM_HANDLE field = 8
-		Signature as ULONG
-		CurrentPos as any ptr
-		Head as any ptr
-	end type
-#else
-	type tagRPC_ERROR_ENUM_HANDLE
-		Signature as ULONG
-		CurrentPos as any ptr
-		Head as any ptr
-	end type
-#endif
+type tagRPC_ERROR_ENUM_HANDLE
+	Signature as ULONG
+	CurrentPos as any ptr
+	Head as any ptr
+end type
 
 type RPC_ERROR_ENUM_HANDLE as tagRPC_ERROR_ENUM_HANDLE
 
@@ -279,59 +187,31 @@ declare function RpcSsContextLockShared(byval ServerBindingHandle as RPC_BINDING
 #define RPC_QUERY_SERVER_PRINCIPAL_NAME 2
 #define RPC_QUERY_CLIENT_PRINCIPAL_NAME 4
 
-#ifdef __FB_64BIT__
-	type tagRPC_CALL_ATTRIBUTES_V1_W field = 8
-		Version as ulong
-		Flags as ulong
-		ServerPrincipalNameBufferLength as ulong
-		ServerPrincipalName as ushort ptr
-		ClientPrincipalNameBufferLength as ulong
-		ClientPrincipalName as ushort ptr
-		AuthenticationLevel as ulong
-		AuthenticationService as ulong
-		NullSession as WINBOOL
-	end type
-#else
-	type tagRPC_CALL_ATTRIBUTES_V1_W
-		Version as ulong
-		Flags as ulong
-		ServerPrincipalNameBufferLength as ulong
-		ServerPrincipalName as ushort ptr
-		ClientPrincipalNameBufferLength as ulong
-		ClientPrincipalName as ushort ptr
-		AuthenticationLevel as ulong
-		AuthenticationService as ulong
-		NullSession as WINBOOL
-	end type
-#endif
+type tagRPC_CALL_ATTRIBUTES_V1_W
+	Version as ulong
+	Flags as ulong
+	ServerPrincipalNameBufferLength as ulong
+	ServerPrincipalName as ushort ptr
+	ClientPrincipalNameBufferLength as ulong
+	ClientPrincipalName as ushort ptr
+	AuthenticationLevel as ulong
+	AuthenticationService as ulong
+	NullSession as WINBOOL
+end type
 
 type RPC_CALL_ATTRIBUTES_V1_W as tagRPC_CALL_ATTRIBUTES_V1_W
 
-#ifdef __FB_64BIT__
-	type tagRPC_CALL_ATTRIBUTES_V1_A field = 8
-		Version as ulong
-		Flags as ulong
-		ServerPrincipalNameBufferLength as ulong
-		ServerPrincipalName as ubyte ptr
-		ClientPrincipalNameBufferLength as ulong
-		ClientPrincipalName as ubyte ptr
-		AuthenticationLevel as ulong
-		AuthenticationService as ulong
-		NullSession as WINBOOL
-	end type
-#else
-	type tagRPC_CALL_ATTRIBUTES_V1_A
-		Version as ulong
-		Flags as ulong
-		ServerPrincipalNameBufferLength as ulong
-		ServerPrincipalName as ubyte ptr
-		ClientPrincipalNameBufferLength as ulong
-		ClientPrincipalName as ubyte ptr
-		AuthenticationLevel as ulong
-		AuthenticationService as ulong
-		NullSession as WINBOOL
-	end type
-#endif
+type tagRPC_CALL_ATTRIBUTES_V1_A
+	Version as ulong
+	Flags as ulong
+	ServerPrincipalNameBufferLength as ulong
+	ServerPrincipalName as ubyte ptr
+	ClientPrincipalNameBufferLength as ulong
+	ClientPrincipalName as ubyte ptr
+	AuthenticationLevel as ulong
+	AuthenticationService as ulong
+	NullSession as WINBOOL
+end type
 
 type RPC_CALL_ATTRIBUTES_V1_A as tagRPC_CALL_ATTRIBUTES_V1_A
 
@@ -351,57 +231,30 @@ declare function I_RpcAsyncSetHandle(byval Message as PRPC_MESSAGE, byval pAsync
 declare function I_RpcAsyncAbortCall(byval pAsync as PRPC_ASYNC_STATE, byval ExceptionCode as ulong) as RPC_STATUS
 declare function I_RpcExceptionFilter(byval ExceptionCode as ulong) as long
 
-#ifdef __FB_64BIT__
-	type ___RPC_ASYNC_NOTIFICATION_INFO_APC field = 8
-		NotificationRoutine as PFN_RPCNOTIFICATION_ROUTINE
-		hThread as HANDLE
-	end type
+type ___RPC_ASYNC_NOTIFICATION_INFO_APC
+	NotificationRoutine as PFN_RPCNOTIFICATION_ROUTINE
+	hThread as HANDLE
+end type
 
-	type ___RPC_ASYNC_NOTIFICATION_INFO_IOC field = 8
-		hIOPort as HANDLE
-		dwNumberOfBytesTransferred as DWORD
-		dwCompletionKey as DWORD_PTR
-		lpOverlapped as LPOVERLAPPED
-	end type
+type ___RPC_ASYNC_NOTIFICATION_INFO_IOC
+	hIOPort as HANDLE
+	dwNumberOfBytesTransferred as DWORD
+	dwCompletionKey as DWORD_PTR
+	lpOverlapped as LPOVERLAPPED
+end type
 
-	type ___RPC_ASYNC_NOTIFICATION_INFO_HWND field = 8
-		hWnd as HWND
-		Msg as UINT
-	end type
+type ___RPC_ASYNC_NOTIFICATION_INFO_HWND
+	hWnd as HWND
+	Msg as UINT
+end type
 
-	union _RPC_ASYNC_NOTIFICATION_INFO field = 8
-		APC as ___RPC_ASYNC_NOTIFICATION_INFO_APC
-		IOC as ___RPC_ASYNC_NOTIFICATION_INFO_IOC
-		HWND as ___RPC_ASYNC_NOTIFICATION_INFO_HWND
-		hEvent as HANDLE
-		NotificationRoutine as PFN_RPCNOTIFICATION_ROUTINE
-	end union
-#else
-	type ___RPC_ASYNC_NOTIFICATION_INFO_APC
-		NotificationRoutine as PFN_RPCNOTIFICATION_ROUTINE
-		hThread as HANDLE
-	end type
-
-	type ___RPC_ASYNC_NOTIFICATION_INFO_IOC
-		hIOPort as HANDLE
-		dwNumberOfBytesTransferred as DWORD
-		dwCompletionKey as DWORD_PTR
-		lpOverlapped as LPOVERLAPPED
-	end type
-
-	type ___RPC_ASYNC_NOTIFICATION_INFO_HWND
-		hWnd as HWND
-		Msg as UINT
-	end type
-
-	union _RPC_ASYNC_NOTIFICATION_INFO
-		APC as ___RPC_ASYNC_NOTIFICATION_INFO_APC
-		IOC as ___RPC_ASYNC_NOTIFICATION_INFO_IOC
-		HWND as ___RPC_ASYNC_NOTIFICATION_INFO_HWND
-		hEvent as HANDLE
-		NotificationRoutine as PFN_RPCNOTIFICATION_ROUTINE
-	end union
-#endif
+union _RPC_ASYNC_NOTIFICATION_INFO
+	APC as ___RPC_ASYNC_NOTIFICATION_INFO_APC
+	IOC as ___RPC_ASYNC_NOTIFICATION_INFO_IOC
+	HWND as ___RPC_ASYNC_NOTIFICATION_INFO_HWND
+	hEvent as HANDLE
+	NotificationRoutine as PFN_RPCNOTIFICATION_ROUTINE
+end union
 
 type RPC_ASYNC_NOTIFICATION_INFO as _RPC_ASYNC_NOTIFICATION_INFO
 type PRPC_ASYNC_NOTIFICATION_INFO as _RPC_ASYNC_NOTIFICATION_INFO ptr

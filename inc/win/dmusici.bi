@@ -539,7 +539,7 @@ type LPDMUS_BAND_PARAM as _DMUS_BAND_PARAM ptr
 type DMUS_VARIATIONS_PARAM as _DMUS_VARIATIONS_PARAM
 type LPDMUS_VARIATIONS_PARAM as _DMUS_VARIATIONS_PARAM ptr
 
-type _DMUS_PMSG field = 8
+type _DMUS_PMSG
 	dwSize as DWORD
 	rtTime as REFERENCE_TIME
 	mtTime as MUSIC_TIME
@@ -554,7 +554,7 @@ type _DMUS_PMSG field = 8
 	punkUser as IUnknown ptr
 end type
 
-type _DMUS_AUDIOPARAMS field = 8
+type _DMUS_AUDIOPARAMS
 	dwSize as DWORD
 	fInitNow as WINBOOL
 	dwValidData as DWORD
@@ -564,7 +564,7 @@ type _DMUS_AUDIOPARAMS field = 8
 	clsidDefaultSynth as CLSID
 end type
 
-type _DMUS_SUBCHORD field = 8
+type _DMUS_SUBCHORD
 	dwChordPattern as DWORD
 	dwScalePattern as DWORD
 	dwInversionPoints as DWORD
@@ -573,7 +573,7 @@ type _DMUS_SUBCHORD field = 8
 	bScaleRoot as UBYTE
 end type
 
-type _DMUS_CHORD_KEY field = 8
+type _DMUS_CHORD_KEY
 	wszName(0 to 15) as WCHAR
 	wMeasure as WORD
 	bBeat as UBYTE
@@ -584,7 +584,7 @@ type _DMUS_CHORD_KEY field = 8
 	bFlags as UBYTE
 end type
 
-type _DMUS_NOTE_PMSG field = 8
+type _DMUS_NOTE_PMSG
 	dwSize as DWORD
 	rtTime as REFERENCE_TIME
 	mtTime as MUSIC_TIME
@@ -614,7 +614,7 @@ type _DMUS_NOTE_PMSG field = 8
 	cTranspose as byte
 end type
 
-type _DMUS_MIDI_PMSG field = 8
+type _DMUS_MIDI_PMSG
 	dwSize as DWORD
 	rtTime as REFERENCE_TIME
 	mtTime as MUSIC_TIME
@@ -633,7 +633,7 @@ type _DMUS_MIDI_PMSG field = 8
 	bPad(0 to 0) as UBYTE
 end type
 
-type _DMUS_PATCH_PMSG field = 8
+type _DMUS_PATCH_PMSG
 	dwSize as DWORD
 	rtTime as REFERENCE_TIME
 	mtTime as MUSIC_TIME
@@ -652,7 +652,7 @@ type _DMUS_PATCH_PMSG field = 8
 	byPad(0 to 0) as UBYTE
 end type
 
-type _DMUS_TRANSPOSE_PMSG field = 8
+type _DMUS_TRANSPOSE_PMSG
 	dwSize as DWORD
 	rtTime as REFERENCE_TIME
 	mtTime as MUSIC_TIME
@@ -669,7 +669,7 @@ type _DMUS_TRANSPOSE_PMSG field = 8
 	wMergeIndex as WORD
 end type
 
-type _DMUS_CHANNEL_PRIORITY_PMSG field = 8
+type _DMUS_CHANNEL_PRIORITY_PMSG
 	dwSize as DWORD
 	rtTime as REFERENCE_TIME
 	mtTime as MUSIC_TIME
@@ -685,7 +685,7 @@ type _DMUS_CHANNEL_PRIORITY_PMSG field = 8
 	dwChannelPriority as DWORD
 end type
 
-type _DMUS_TEMPO_PMSG field = 8
+type _DMUS_TEMPO_PMSG
 	dwSize as DWORD
 	rtTime as REFERENCE_TIME
 	mtTime as MUSIC_TIME
@@ -701,7 +701,7 @@ type _DMUS_TEMPO_PMSG field = 8
 	dblTempo as double
 end type
 
-type _DMUS_SYSEX_PMSG field = 8
+type _DMUS_SYSEX_PMSG
 	dwSize as DWORD
 	rtTime as REFERENCE_TIME
 	mtTime as MUSIC_TIME
@@ -718,7 +718,7 @@ type _DMUS_SYSEX_PMSG field = 8
 	abData(0 to 0) as UBYTE
 end type
 
-type _DMUS_CURVE_PMSG field = 8
+type _DMUS_CURVE_PMSG
 	dwSize as DWORD
 	rtTime as REFERENCE_TIME
 	mtTime as MUSIC_TIME
@@ -749,7 +749,7 @@ type _DMUS_CURVE_PMSG field = 8
 	wMergeIndex as WORD
 end type
 
-type _DMUS_TIMESIG_PMSG field = 8
+type _DMUS_TIMESIG_PMSG
 	dwSize as DWORD
 	rtTime as REFERENCE_TIME
 	mtTime as MUSIC_TIME
@@ -767,7 +767,7 @@ type _DMUS_TIMESIG_PMSG field = 8
 	wGridsPerBeat as WORD
 end type
 
-type _DMUS_NOTIFICATION_PMSG field = 8
+type _DMUS_NOTIFICATION_PMSG
 	dwSize as DWORD
 	rtTime as REFERENCE_TIME
 	mtTime as MUSIC_TIME
@@ -786,7 +786,7 @@ type _DMUS_NOTIFICATION_PMSG field = 8
 	dwField2 as DWORD
 end type
 
-type _DMUS_WAVE_PMSG field = 8
+type _DMUS_WAVE_PMSG
 	dwSize as DWORD
 	rtTime as REFERENCE_TIME
 	mtTime as MUSIC_TIME
@@ -807,7 +807,7 @@ type _DMUS_WAVE_PMSG field = 8
 	bFlags as UBYTE
 end type
 
-type _DMUS_LYRIC_PMSG field = 8
+type _DMUS_LYRIC_PMSG
 	dwSize as DWORD
 	rtTime as REFERENCE_TIME
 	mtTime as MUSIC_TIME
@@ -823,27 +823,27 @@ type _DMUS_LYRIC_PMSG field = 8
 	wszString(0 to 0) as WCHAR
 end type
 
-type _DMUS_VERSION field = 8
+type _DMUS_VERSION
 	dwVersionMS as DWORD
 	dwVersionLS as DWORD
 end type
 
-type _DMUS_TIMESIGNATURE field = 8
+type _DMUS_TIMESIGNATURE
 	mtTime as MUSIC_TIME
 	bBeatsPerMeasure as UBYTE
 	bBeat as UBYTE
 	wGridsPerBeat as WORD
 end type
 
-type _DMUS_VALID_START_PARAM field = 8
+type _DMUS_VALID_START_PARAM
 	mtTime as MUSIC_TIME
 end type
 
-type _DMUS_PLAY_MARKER_PARAM field = 8
+type _DMUS_PLAY_MARKER_PARAM
 	mtTime as MUSIC_TIME
 end type
 
-type _DMUS_OBJECTDESC field = 8
+type _DMUS_OBJECTDESC
 	dwSize as DWORD
 	dwValidData as DWORD
 	guidObject as GUID
@@ -858,7 +858,7 @@ type _DMUS_OBJECTDESC field = 8
 	pStream as IStream ptr
 end type
 
-type _DMUS_SCRIPT_ERRORINFO field = 8
+type _DMUS_SCRIPT_ERRORINFO
 	dwSize as DWORD
 	hr as HRESULT
 	ulLineNumber as ULONG
@@ -869,14 +869,14 @@ type _DMUS_SCRIPT_ERRORINFO field = 8
 	wszSourceLineText(0 to 259) as WCHAR
 end type
 
-type _DMUS_COMMAND_PARAM field = 8
+type _DMUS_COMMAND_PARAM
 	bCommand as UBYTE
 	bGrooveLevel as UBYTE
 	bGrooveRange as UBYTE
 	bRepeatMode as UBYTE
 end type
 
-type _DMUS_COMMAND_PARAM_2 field = 8
+type _DMUS_COMMAND_PARAM_2
 	mtTime as MUSIC_TIME
 	bCommand as UBYTE
 	bGrooveLevel as UBYTE
@@ -884,22 +884,22 @@ type _DMUS_COMMAND_PARAM_2 field = 8
 	bRepeatMode as UBYTE
 end type
 
-type _DMUS_BAND_PARAM field = 8
+type _DMUS_BAND_PARAM
 	mtTimePhysical as MUSIC_TIME
 	pBand as IDirectMusicBand ptr
 end type
 
-type _DMUS_VARIATIONS_PARAM field = 8
+type _DMUS_VARIATIONS_PARAM
 	dwPChannelsUsed as DWORD
 	padwPChannels as DWORD ptr
 	padwVariations as DWORD ptr
 end type
 
-type IDirectMusicBand_ field = 8
+type IDirectMusicBand_
 	lpVtbl as IDirectMusicBandVtbl ptr
 end type
 
-type IDirectMusicBandVtbl_ field = 8
+type IDirectMusicBandVtbl_
 	QueryInterface as function(byval This as IDirectMusicBand ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IDirectMusicBand ptr) as ULONG
 	Release as function(byval This as IDirectMusicBand ptr) as ULONG
@@ -915,11 +915,11 @@ end type
 #define IDirectMusicBand_Download(p, a) (p)->lpVtbl->Download(p, a)
 #define IDirectMusicBand_Unload(p, a) (p)->lpVtbl->Unload(p, a)
 
-type IDirectMusicObject field = 8
+type IDirectMusicObject
 	lpVtbl as IDirectMusicObjectVtbl ptr
 end type
 
-type IDirectMusicObjectVtbl_ field = 8
+type IDirectMusicObjectVtbl_
 	QueryInterface as function(byval This as IDirectMusicObject ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IDirectMusicObject ptr) as ULONG
 	Release as function(byval This as IDirectMusicObject ptr) as ULONG
@@ -935,11 +935,11 @@ end type
 #define IDirectMusicObject_SetDescriptor(p, a) (p)->lpVtbl->SetDescriptor(p, a)
 #define IDirectMusicObject_ParseDescriptor(p, a, b) (p)->lpVtbl->ParseDescriptor(p, a, b)
 
-type IDirectMusicLoader field = 8
+type IDirectMusicLoader
 	lpVtbl as IDirectMusicLoaderVtbl ptr
 end type
 
-type IDirectMusicLoaderVtbl_ field = 8
+type IDirectMusicLoaderVtbl_
 	QueryInterface as function(byval This as IDirectMusicLoader ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IDirectMusicLoader ptr) as ULONG
 	Release as function(byval This as IDirectMusicLoader ptr) as ULONG
@@ -967,11 +967,11 @@ end type
 #define IDirectMusicLoader_EnableCache(p, a, b) (p)->lpVtbl->EnableCache(p, a, b)
 #define IDirectMusicLoader_EnumObject(p, a, b, c) (p)->lpVtbl->EnumObject(p, a, b, c)
 
-type IDirectMusicLoader8 field = 8
+type IDirectMusicLoader8
 	lpVtbl as IDirectMusicLoader8Vtbl ptr
 end type
 
-type IDirectMusicLoader8Vtbl_ field = 8
+type IDirectMusicLoader8Vtbl_
 	QueryInterface as function(byval This as IDirectMusicLoader8 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IDirectMusicLoader8 ptr) as ULONG
 	Release as function(byval This as IDirectMusicLoader8 ptr) as ULONG
@@ -1005,11 +1005,11 @@ end type
 #define IDirectMusicLoader8_ReleaseObjectByUnknown(p, a) (p)->lpVtbl->ReleaseObjectByUnknown(p, a)
 #define IDirectMusicLoader8_LoadObjectFromFile(p, a, b, c, d) (p)->lpVtbl->LoadObjectFromFile(p, a, b, c, d)
 
-type IDirectMusicGetLoader field = 8
+type IDirectMusicGetLoader
 	lpVtbl as IDirectMusicGetLoaderVtbl ptr
 end type
 
-type IDirectMusicGetLoaderVtbl_ field = 8
+type IDirectMusicGetLoaderVtbl_
 	QueryInterface as function(byval This as IDirectMusicGetLoader ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IDirectMusicGetLoader ptr) as ULONG
 	Release as function(byval This as IDirectMusicGetLoader ptr) as ULONG
@@ -1021,11 +1021,11 @@ end type
 #define IDirectMusicGetLoader_Release(p) (p)->lpVtbl->Release(p)
 #define IDirectMusicGetLoader_GetLoader(p, a) (p)->lpVtbl->GetLoader(p, a)
 
-type IDirectMusicSegment field = 8
+type IDirectMusicSegment
 	lpVtbl as IDirectMusicSegmentVtbl ptr
 end type
 
-type IDirectMusicSegmentVtbl_ field = 8
+type IDirectMusicSegmentVtbl_
 	QueryInterface as function(byval This as IDirectMusicSegment ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IDirectMusicSegment ptr) as ULONG
 	Release as function(byval This as IDirectMusicSegment ptr) as ULONG
@@ -1081,11 +1081,11 @@ end type
 #define IDirectMusicSegment_GetLoopPoints(p, a, b) (p)->lpVtbl->GetLoopPoints(p, a, b)
 #define IDirectMusicSegment_SetPChannelsUsed(p, a, b) (p)->lpVtbl->SetPChannelsUsed(p, a, b)
 
-type IDirectMusicSegment8 field = 8
+type IDirectMusicSegment8
 	lpVtbl as IDirectMusicSegment8Vtbl ptr
 end type
 
-type IDirectMusicSegment8Vtbl_ field = 8
+type IDirectMusicSegment8Vtbl_
 	QueryInterface as function(byval This as IDirectMusicSegment8 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IDirectMusicSegment8 ptr) as ULONG
 	Release as function(byval This as IDirectMusicSegment8 ptr) as ULONG
@@ -1151,11 +1151,11 @@ end type
 #define IDirectMusicSegment8_Download(p, a) (p)->lpVtbl->Download(p, a)
 #define IDirectMusicSegment8_Unload(p, a) (p)->lpVtbl->Unload(p, a)
 
-type IDirectMusicSegmentState field = 8
+type IDirectMusicSegmentState
 	lpVtbl as IDirectMusicSegmentStateVtbl ptr
 end type
 
-type IDirectMusicSegmentStateVtbl_ field = 8
+type IDirectMusicSegmentStateVtbl_
 	QueryInterface as function(byval This as IDirectMusicSegmentState ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IDirectMusicSegmentState ptr) as ULONG
 	Release as function(byval This as IDirectMusicSegmentState ptr) as ULONG
@@ -1175,11 +1175,11 @@ end type
 #define IDirectMusicSegmentState_GetSeek(p, a) (p)->lpVtbl->GetSeek(p, a)
 #define IDirectMusicSegmentState_GetStartPoint(p, a) (p)->lpVtbl->GetStartPoint(p, a)
 
-type IDirectMusicSegmentState8 field = 8
+type IDirectMusicSegmentState8
 	lpVtbl as IDirectMusicSegmentState8Vtbl ptr
 end type
 
-type IDirectMusicSegmentState8Vtbl_ field = 8
+type IDirectMusicSegmentState8Vtbl_
 	QueryInterface as function(byval This as IDirectMusicSegmentState8 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IDirectMusicSegmentState8 ptr) as ULONG
 	Release as function(byval This as IDirectMusicSegmentState8 ptr) as ULONG
@@ -1203,11 +1203,11 @@ end type
 #define IDirectMusicSegmentState8_SetTrackConfig(p, a, b, c, d, e) (p)->lpVtbl->SetTrackConfig(p, a, b, c, d, e)
 #define IDirectMusicSegmentState8_GetObjectInPath(p, a, b, c, d, e, f, g) (p)->lpVtbl->GetObjectInPath(p, a, b, c, d, e, f, g)
 
-type IDirectMusicAudioPath field = 8
+type IDirectMusicAudioPath
 	lpVtbl as IDirectMusicAudioPathVtbl ptr
 end type
 
-type IDirectMusicAudioPathVtbl_ field = 8
+type IDirectMusicAudioPathVtbl_
 	QueryInterface as function(byval This as IDirectMusicAudioPath ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IDirectMusicAudioPath ptr) as ULONG
 	Release as function(byval This as IDirectMusicAudioPath ptr) as ULONG
@@ -1225,11 +1225,11 @@ end type
 #define IDirectMusicAudioPath_SetVolume(p, a, b) (p)->lpVtbl->SetVolume(p, a, b)
 #define IDirectMusicAudioPath_ConvertPChannel(p, a, b) (p)->lpVtbl->ConvertPChannel(p, a, b)
 
-type IDirectMusicPerformance field = 8
+type IDirectMusicPerformance
 	lpVtbl as IDirectMusicPerformanceVtbl ptr
 end type
 
-type IDirectMusicPerformanceVtbl_ field = 8
+type IDirectMusicPerformanceVtbl_
 	QueryInterface as function(byval This as IDirectMusicPerformance ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IDirectMusicPerformance ptr) as ULONG
 	Release as function(byval This as IDirectMusicPerformance ptr) as ULONG
@@ -1327,11 +1327,11 @@ end type
 #define IDirectMusicPerformance_TimeToRhythm(p, a, b, c, d, e, f) (p)->lpVtbl->TimeToRhythm(p, a, b, c, d, e, f)
 #define IDirectMusicPerformance_RhythmToTime(p, a, b, c, d, e, f) (p)->lpVtbl->RhythmToTime(p, a, b, c, d, e, f)
 
-type IDirectMusicPerformance8 field = 8
+type IDirectMusicPerformance8
 	lpVtbl as IDirectMusicPerformance8Vtbl ptr
 end type
 
-type IDirectMusicPerformance8Vtbl_ field = 8
+type IDirectMusicPerformance8Vtbl_
 	QueryInterface as function(byval This as IDirectMusicPerformance8 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IDirectMusicPerformance8 ptr) as ULONG
 	Release as function(byval This as IDirectMusicPerformance8 ptr) as ULONG
@@ -1447,11 +1447,11 @@ end type
 #define IDirectMusicPerformance8_GetDefaultAudioPath(p, a) (p)->lpVtbl->GetDefaultAudioPath(p, a)
 #define IDirectMusicPerformance8_GetParamEx(p, a, b, c, d, e, f, g) (p)->lpVtbl->GetParamEx(p, a, b, c, d, e, f, g)
 
-type IDirectMusicGraph field = 8
+type IDirectMusicGraph
 	lpVtbl as IDirectMusicGraphVtbl ptr
 end type
 
-type IDirectMusicGraphVtbl_ field = 8
+type IDirectMusicGraphVtbl_
 	QueryInterface as function(byval This as IDirectMusicGraph ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IDirectMusicGraph ptr) as ULONG
 	Release as function(byval This as IDirectMusicGraph ptr) as ULONG
@@ -1469,11 +1469,11 @@ end type
 #define IDirectMusicGraph_GetTool(p, a, b) (p)->lpVtbl->GetTool(p, a, b)
 #define IDirectMusicGraph_RemoveTool(p, a) (p)->lpVtbl->RemoveTool(p, a)
 
-type IDirectMusicStyle field = 8
+type IDirectMusicStyle
 	lpVtbl as IDirectMusicStyleVtbl ptr
 end type
 
-type IDirectMusicStyleVtbl_ field = 8
+type IDirectMusicStyleVtbl_
 	QueryInterface as function(byval This as IDirectMusicStyle ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IDirectMusicStyle ptr) as ULONG
 	Release as function(byval This as IDirectMusicStyle ptr) as ULONG
@@ -1505,11 +1505,11 @@ end type
 #define IDirectMusicStyle_GetEmbellishmentLength(p, a, b, c, d) (p)->lpVtbl->GetEmbellishmentLength(p, a, b, c, d)
 #define IDirectMusicStyle_GetTempo(p, a) (p)->lpVtbl->GetTempo(p, a)
 
-type IDirectMusicStyle8 field = 8
+type IDirectMusicStyle8
 	lpVtbl as IDirectMusicStyle8Vtbl ptr
 end type
 
-type IDirectMusicStyle8Vtbl_ field = 8
+type IDirectMusicStyle8Vtbl_
 	QueryInterface as function(byval This as IDirectMusicStyle8 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IDirectMusicStyle8 ptr) as ULONG
 	Release as function(byval This as IDirectMusicStyle8 ptr) as ULONG
@@ -1543,11 +1543,11 @@ end type
 #define IDirectMusicStyle8_GetTempo(p, a) (p)->lpVtbl->GetTempo(p, a)
 #define IDirectMusicStyle8_EnumPattern(p, a, b, c) (p)->lpVtbl->EnumPattern(p, a, b, c)
 
-type IDirectMusicChordMap_ field = 8
+type IDirectMusicChordMap_
 	lpVtbl as IDirectMusicChordMapVtbl ptr
 end type
 
-type IDirectMusicChordMapVtbl_ field = 8
+type IDirectMusicChordMapVtbl_
 	QueryInterface as function(byval This as IDirectMusicChordMap ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IDirectMusicChordMap ptr) as ULONG
 	Release as function(byval This as IDirectMusicChordMap ptr) as ULONG
@@ -1559,11 +1559,11 @@ end type
 #define IDirectMusicChordMap_Release(p) (p)->lpVtbl->Release(p)
 #define IDirectMusicChordMap_GetScale(p, a) (p)->lpVtbl->GetScale(p, a)
 
-type IDirectMusicComposer field = 8
+type IDirectMusicComposer
 	lpVtbl as IDirectMusicComposerVtbl ptr
 end type
 
-type IDirectMusicComposerVtbl_ field = 8
+type IDirectMusicComposerVtbl_
 	QueryInterface as function(byval This as IDirectMusicComposer ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IDirectMusicComposer ptr) as ULONG
 	Release as function(byval This as IDirectMusicComposer ptr) as ULONG
@@ -1585,11 +1585,11 @@ end type
 #define IDirectMusicComposer_ComposeTemplateFromShape(p, a, b, c, d, e, f) (p)->lpVtbl->ComposeTemplateFromShape(p, a, b, c, d, e, f)
 #define IDirectMusicComposer_ChangeChordMap(p, a, b, c) (p)->lpVtbl->ChangeChordMap(p, a, b, c)
 
-type IDirectMusicPatternTrack field = 8
+type IDirectMusicPatternTrack
 	lpVtbl as IDirectMusicPatternTrackVtbl ptr
 end type
 
-type IDirectMusicPatternTrackVtbl_ field = 8
+type IDirectMusicPatternTrackVtbl_
 	QueryInterface as function(byval This as IDirectMusicPatternTrack ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IDirectMusicPatternTrack ptr) as ULONG
 	Release as function(byval This as IDirectMusicPatternTrack ptr) as ULONG
@@ -1605,11 +1605,11 @@ end type
 #define IDirectMusicPatternTrack_SetVariation(p, a, b, c) (p)->lpVtbl->SetVariation(p, a, b, c)
 #define IDirectMusicPatternTrack_SetPatternByName(p, a, b, c, d, e) (p)->lpVtbl->SetPatternByName(p, a, b, c, d, e)
 
-type IDirectMusicScript field = 8
+type IDirectMusicScript
 	lpVtbl as IDirectMusicScriptVtbl ptr
 end type
 
-type IDirectMusicScriptVtbl_ field = 8
+type IDirectMusicScriptVtbl_
 	QueryInterface as function(byval This as IDirectMusicScript ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IDirectMusicScript ptr) as ULONG
 	Release as function(byval This as IDirectMusicScript ptr) as ULONG
@@ -1639,11 +1639,11 @@ end type
 #define IDirectMusicPatternTrack_EnumRoutine(p, a, b) (p)->lpVtbl->EnumRoutine(p, a, b)
 #define IDirectMusicPatternTrack_EnumVariable(p, a, b) (p)->lpVtbl->EnumVariable(p, a, b)
 
-type IDirectMusicContainer field = 8
+type IDirectMusicContainer
 	lpVtbl as IDirectMusicContainerVtbl ptr
 end type
 
-type IDirectMusicContainerVtbl_ field = 8
+type IDirectMusicContainerVtbl_
 	QueryInterface as function(byval This as IDirectMusicContainer ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IDirectMusicContainer ptr) as ULONG
 	Release as function(byval This as IDirectMusicContainer ptr) as ULONG

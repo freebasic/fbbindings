@@ -402,7 +402,7 @@ type LPDSOUND_IO_DXDMO_HEADER as _DSOUND_IO_DXDMO_HEADER ptr
 type DSOUND_IO_DXDMO_DATA as _DSOUND_IO_DXDMO_DATA
 type LPDSOUND_IO_DXDMO_DATA as _DSOUND_IO_DXDMO_DATA ptr
 
-type _DMUS_IO_SEQ_ITEM field = 8
+type _DMUS_IO_SEQ_ITEM
 	mtTime as MUSIC_TIME
 	mtDuration as MUSIC_TIME
 	dwPChannel as DWORD
@@ -412,7 +412,7 @@ type _DMUS_IO_SEQ_ITEM field = 8
 	bByte2 as UBYTE
 end type
 
-type _DMUS_IO_CURVE_ITEM field = 8
+type _DMUS_IO_CURVE_ITEM
 	mtStart as MUSIC_TIME
 	mtDuration as MUSIC_TIME
 	mtResetDuration as MUSIC_TIME
@@ -429,28 +429,28 @@ type _DMUS_IO_CURVE_ITEM field = 8
 	wMergeIndex as WORD
 end type
 
-type _DMUS_IO_TEMPO_ITEM field = 8
+type _DMUS_IO_TEMPO_ITEM
 	lTime as MUSIC_TIME
 	dblTempo as double
 end type
 
-type _DMUS_IO_SYSEX_ITEM field = 8
+type _DMUS_IO_SYSEX_ITEM
 	mtTime as MUSIC_TIME
 	dwPChannel as DWORD
 	dwSysExLength as DWORD
 end type
 
-type _DMUS_RHYTHM_PARAM field = 8
+type _DMUS_RHYTHM_PARAM
 	TimeSig as DMUS_TIMESIGNATURE
 	dwRhythmPattern as DWORD
 end type
 
-type _DMUS_TEMPO_PARAM field = 8
+type _DMUS_TEMPO_PARAM
 	mtTime as MUSIC_TIME
 	dblTempo as double
 end type
 
-type _DMUS_MUTE_PARAM field = 8
+type _DMUS_MUTE_PARAM
 	dwPChannel as DWORD
 	dwPChannelMap as DWORD
 	fMute as WINBOOL

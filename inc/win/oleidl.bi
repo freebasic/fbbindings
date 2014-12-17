@@ -66,7 +66,7 @@ type LPOLEADVISEHOLDER as IOleAdviseHolder ptr
 
 extern IID_IOleAdviseHolder as const GUID
 
-type IOleAdviseHolderVtbl field = 8
+type IOleAdviseHolderVtbl
 	QueryInterface as function(byval This as IOleAdviseHolder ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IOleAdviseHolder ptr) as ULONG
 	Release as function(byval This as IOleAdviseHolder ptr) as ULONG
@@ -78,7 +78,7 @@ type IOleAdviseHolderVtbl field = 8
 	SendOnClose as function(byval This as IOleAdviseHolder ptr) as HRESULT
 end type
 
-type IOleAdviseHolder_ field = 8
+type IOleAdviseHolder_
 	lpVtbl as IOleAdviseHolderVtbl ptr
 end type
 
@@ -101,7 +101,7 @@ type LPOLECACHE as IOleCache ptr
 
 extern IID_IOleCache as const GUID
 
-type IOleCacheVtbl field = 8
+type IOleCacheVtbl
 	QueryInterface as function(byval This as IOleCache ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IOleCache ptr) as ULONG
 	Release as function(byval This as IOleCache ptr) as ULONG
@@ -112,7 +112,7 @@ type IOleCacheVtbl field = 8
 	SetData as function(byval This as IOleCache ptr, byval pformatetc as FORMATETC ptr, byval pmedium as STGMEDIUM ptr, byval fRelease as WINBOOL) as HRESULT
 end type
 
-type IOleCache_ field = 8
+type IOleCache_
 	lpVtbl as IOleCacheVtbl ptr
 end type
 
@@ -151,7 +151,7 @@ type DISCARDCACHE as tagDISCARDCACHE
 
 extern IID_IOleCache2 as const GUID
 
-type IOleCache2Vtbl field = 8
+type IOleCache2Vtbl
 	QueryInterface as function(byval This as IOleCache2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IOleCache2 ptr) as ULONG
 	Release as function(byval This as IOleCache2 ptr) as ULONG
@@ -164,7 +164,7 @@ type IOleCache2Vtbl field = 8
 	DiscardCache as function(byval This as IOleCache2 ptr, byval dwDiscardOptions as DWORD) as HRESULT
 end type
 
-type IOleCache2_ field = 8
+type IOleCache2_
 	lpVtbl as IOleCache2Vtbl ptr
 end type
 
@@ -181,7 +181,7 @@ type LPOLECACHECONTROL as IOleCacheControl ptr
 
 extern IID_IOleCacheControl as const GUID
 
-type IOleCacheControlVtbl field = 8
+type IOleCacheControlVtbl
 	QueryInterface as function(byval This as IOleCacheControl ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IOleCacheControl ptr) as ULONG
 	Release as function(byval This as IOleCacheControl ptr) as ULONG
@@ -189,7 +189,7 @@ type IOleCacheControlVtbl field = 8
 	OnStop as function(byval This as IOleCacheControl ptr) as HRESULT
 end type
 
-type IOleCacheControl_ field = 8
+type IOleCacheControl_
 	lpVtbl as IOleCacheControlVtbl ptr
 end type
 
@@ -204,14 +204,14 @@ type LPPARSEDISPLAYNAME as IParseDisplayName ptr
 
 extern IID_IParseDisplayName as const GUID
 
-type IParseDisplayNameVtbl field = 8
+type IParseDisplayNameVtbl
 	QueryInterface as function(byval This as IParseDisplayName ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IParseDisplayName ptr) as ULONG
 	Release as function(byval This as IParseDisplayName ptr) as ULONG
 	ParseDisplayName as function(byval This as IParseDisplayName ptr, byval pbc as IBindCtx ptr, byval pszDisplayName as LPOLESTR, byval pchEaten as ULONG ptr, byval ppmkOut as IMoniker ptr ptr) as HRESULT
 end type
 
-type IParseDisplayName_ field = 8
+type IParseDisplayName_
 	lpVtbl as IParseDisplayNameVtbl ptr
 end type
 
@@ -224,7 +224,7 @@ type LPOLECONTAINER as IOleContainer ptr
 
 extern IID_IOleContainer as const GUID
 
-type IOleContainerVtbl field = 8
+type IOleContainerVtbl
 	QueryInterface as function(byval This as IOleContainer ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IOleContainer ptr) as ULONG
 	Release as function(byval This as IOleContainer ptr) as ULONG
@@ -233,7 +233,7 @@ type IOleContainerVtbl field = 8
 	LockContainer as function(byval This as IOleContainer ptr, byval fLock as WINBOOL) as HRESULT
 end type
 
-type IOleContainer_ field = 8
+type IOleContainer_
 	lpVtbl as IOleContainerVtbl ptr
 end type
 
@@ -248,7 +248,7 @@ type LPOLECLIENTSITE as IOleClientSite ptr
 
 extern IID_IOleClientSite as const GUID
 
-type IOleClientSiteVtbl field = 8
+type IOleClientSiteVtbl
 	QueryInterface as function(byval This as IOleClientSite ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IOleClientSite ptr) as ULONG
 	Release as function(byval This as IOleClientSite ptr) as ULONG
@@ -260,7 +260,7 @@ type IOleClientSiteVtbl field = 8
 	RequestNewObjectLayout as function(byval This as IOleClientSite ptr) as HRESULT
 end type
 
-type IOleClientSite_ field = 8
+type IOleClientSite_
 	lpVtbl as IOleClientSiteVtbl ptr
 end type
 
@@ -348,7 +348,7 @@ type OLECLOSE as tagOLECLOSE
 
 extern IID_IOleObject as const GUID
 
-type IOleObjectVtbl field = 8
+type IOleObjectVtbl
 	QueryInterface as function(byval This as IOleObject ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IOleObject ptr) as ULONG
 	Release as function(byval This as IOleObject ptr) as ULONG
@@ -375,7 +375,7 @@ type IOleObjectVtbl field = 8
 	SetColorScheme as function(byval This as IOleObject ptr, byval pLogpal as LOGPALETTE ptr) as HRESULT
 end type
 
-type IOleObject_ field = 8
+type IOleObject_
 	lpVtbl as IOleObjectVtbl ptr
 end type
 
@@ -438,7 +438,7 @@ end enum
 type OLERENDER as tagOLERENDER
 type LPOLERENDER as OLERENDER ptr
 
-type tagOBJECTDESCRIPTOR field = 8
+type tagOBJECTDESCRIPTOR
 	cbSize as ULONG
 	clsid as CLSID
 	dwDrawAspect as DWORD
@@ -462,7 +462,7 @@ type LPOLEWINDOW as IOleWindow ptr
 
 extern IID_IOleWindow as const GUID
 
-type IOleWindowVtbl field = 8
+type IOleWindowVtbl
 	QueryInterface as function(byval This as IOleWindow ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IOleWindow ptr) as ULONG
 	Release as function(byval This as IOleWindow ptr) as ULONG
@@ -470,7 +470,7 @@ type IOleWindowVtbl field = 8
 	ContextSensitiveHelp as function(byval This as IOleWindow ptr, byval fEnterMode as WINBOOL) as HRESULT
 end type
 
-type IOleWindow_ field = 8
+type IOleWindow_
 	lpVtbl as IOleWindowVtbl ptr
 end type
 
@@ -502,7 +502,7 @@ type OLELINKBIND as tagOLELINKBIND
 
 extern IID_IOleLink as const GUID
 
-type IOleLinkVtbl field = 8
+type IOleLinkVtbl
 	QueryInterface as function(byval This as IOleLink ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IOleLink ptr) as ULONG
 	Release as function(byval This as IOleLink ptr) as ULONG
@@ -519,7 +519,7 @@ type IOleLinkVtbl field = 8
 	Update as function(byval This as IOleLink ptr, byval pbc as IBindCtx ptr) as HRESULT
 end type
 
-type IOleLink_ field = 8
+type IOleLink_
 	lpVtbl as IOleLinkVtbl ptr
 end type
 
@@ -572,7 +572,7 @@ type OLECONTF as tagOLECONTF
 
 extern IID_IOleItemContainer as const GUID
 
-type IOleItemContainerVtbl field = 8
+type IOleItemContainerVtbl
 	QueryInterface as function(byval This as IOleItemContainer ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IOleItemContainer ptr) as ULONG
 	Release as function(byval This as IOleItemContainer ptr) as ULONG
@@ -590,7 +590,7 @@ type IOleItemContainerVtbl field = 8
 	IsRunning as function(byval This as IOleItemContainer ptr, byval pszItem as LPOLESTR) as HRESULT
 end type
 
-type IOleItemContainer_ field = 8
+type IOleItemContainer_
 	lpVtbl as IOleItemContainerVtbl ptr
 end type
 
@@ -610,7 +610,7 @@ type LPCBORDERWIDTHS as LPCRECT
 
 extern IID_IOleInPlaceUIWindow as const GUID
 
-type IOleInPlaceUIWindowVtbl field = 8
+type IOleInPlaceUIWindowVtbl
 	QueryInterface as function(byval This as IOleInPlaceUIWindow ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IOleInPlaceUIWindow ptr) as ULONG
 	Release as function(byval This as IOleInPlaceUIWindow ptr) as ULONG
@@ -622,7 +622,7 @@ type IOleInPlaceUIWindowVtbl field = 8
 	SetActiveObject as function(byval This as IOleInPlaceUIWindow ptr, byval pActiveObject as IOleInPlaceActiveObject ptr, byval pszObjName as LPCOLESTR) as HRESULT
 end type
 
-type IOleInPlaceUIWindow_ field = 8
+type IOleInPlaceUIWindow_
 	lpVtbl as IOleInPlaceUIWindowVtbl ptr
 end type
 
@@ -641,7 +641,7 @@ type LPOLEINPLACEACTIVEOBJECT as IOleInPlaceActiveObject ptr
 
 extern IID_IOleInPlaceActiveObject as const GUID
 
-type IOleInPlaceActiveObjectVtbl field = 8
+type IOleInPlaceActiveObjectVtbl
 	QueryInterface as function(byval This as IOleInPlaceActiveObject ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IOleInPlaceActiveObject ptr) as ULONG
 	Release as function(byval This as IOleInPlaceActiveObject ptr) as ULONG
@@ -660,7 +660,7 @@ type IOleInPlaceActiveObjectVtbl field = 8
 	EnableModeless as function(byval This as IOleInPlaceActiveObject ptr, byval fEnable as WINBOOL) as HRESULT
 end type
 
-type IOleInPlaceActiveObject_ field = 8
+type IOleInPlaceActiveObject_
 	lpVtbl as IOleInPlaceActiveObjectVtbl ptr
 end type
 
@@ -683,7 +683,7 @@ declare function IOleInPlaceActiveObject_ResizeBorder_Stub(byval This as IOleInP
 
 type LPOLEINPLACEFRAME as IOleInPlaceFrame ptr
 
-type tagOIFI field = 8
+type tagOIFI
 	cb as UINT
 	fMDIApp as WINBOOL
 	hwndFrame as HWND
@@ -694,7 +694,7 @@ end type
 type OLEINPLACEFRAMEINFO as tagOIFI
 type LPOLEINPLACEFRAMEINFO as tagOIFI ptr
 
-type tagOleMenuGroupWidths field = 8
+type tagOleMenuGroupWidths
 	width(0 to 5) as LONG
 end type
 
@@ -704,7 +704,7 @@ type HOLEMENU as HGLOBAL
 
 extern IID_IOleInPlaceFrame as const GUID
 
-type IOleInPlaceFrameVtbl field = 8
+type IOleInPlaceFrameVtbl
 	QueryInterface as function(byval This as IOleInPlaceFrame ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IOleInPlaceFrame ptr) as ULONG
 	Release as function(byval This as IOleInPlaceFrame ptr) as ULONG
@@ -727,7 +727,7 @@ type IOleInPlaceFrameVtbl field = 8
 	#endif
 end type
 
-type IOleInPlaceFrame_ field = 8
+type IOleInPlaceFrame_
 	lpVtbl as IOleInPlaceFrameVtbl ptr
 end type
 
@@ -750,7 +750,7 @@ type LPOLEINPLACEOBJECT as IOleInPlaceObject ptr
 
 extern IID_IOleInPlaceObject as const GUID
 
-type IOleInPlaceObjectVtbl field = 8
+type IOleInPlaceObjectVtbl
 	QueryInterface as function(byval This as IOleInPlaceObject ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IOleInPlaceObject ptr) as ULONG
 	Release as function(byval This as IOleInPlaceObject ptr) as ULONG
@@ -762,7 +762,7 @@ type IOleInPlaceObjectVtbl field = 8
 	ReactivateAndUndo as function(byval This as IOleInPlaceObject ptr) as HRESULT
 end type
 
-type IOleInPlaceObject_ field = 8
+type IOleInPlaceObject_
 	lpVtbl as IOleInPlaceObjectVtbl ptr
 end type
 
@@ -781,7 +781,7 @@ type LPOLEINPLACESITE as IOleInPlaceSite ptr
 
 extern IID_IOleInPlaceSite as const GUID
 
-type IOleInPlaceSiteVtbl field = 8
+type IOleInPlaceSiteVtbl
 	QueryInterface as function(byval This as IOleInPlaceSite ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IOleInPlaceSite ptr) as ULONG
 	Release as function(byval This as IOleInPlaceSite ptr) as ULONG
@@ -799,7 +799,7 @@ type IOleInPlaceSiteVtbl field = 8
 	OnPosRectChange as function(byval This as IOleInPlaceSite ptr, byval lprcPosRect as LPCRECT) as HRESULT
 end type
 
-type IOleInPlaceSite_ field = 8
+type IOleInPlaceSite_
 	lpVtbl as IOleInPlaceSiteVtbl ptr
 end type
 
@@ -828,14 +828,14 @@ declare sub IOleInPlaceSite_OnPosRectChange_Stub(byval This as IRpcStubBuffer pt
 
 extern IID_IContinue as const GUID
 
-type IContinueVtbl field = 8
+type IContinueVtbl
 	QueryInterface as function(byval This as IContinue ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IContinue ptr) as ULONG
 	Release as function(byval This as IContinue ptr) as ULONG
 	FContinue as function(byval This as IContinue ptr) as HRESULT
 end type
 
-type IContinue_ field = 8
+type IContinue_
 	lpVtbl as IContinueVtbl ptr
 end type
 
@@ -848,7 +848,7 @@ type LPVIEWOBJECT as IViewObject ptr
 
 extern IID_IViewObject as const GUID
 
-type IViewObjectVtbl field = 8
+type IViewObjectVtbl
 	QueryInterface as function(byval This as IViewObject ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IViewObject ptr) as ULONG
 	Release as function(byval This as IViewObject ptr) as ULONG
@@ -860,7 +860,7 @@ type IViewObjectVtbl field = 8
 	GetAdvise as function(byval This as IViewObject ptr, byval pAspects as DWORD ptr, byval pAdvf as DWORD ptr, byval ppAdvSink as IAdviseSink ptr ptr) as HRESULT
 end type
 
-type IViewObject_ field = 8
+type IViewObject_
 	lpVtbl as IViewObjectVtbl ptr
 end type
 
@@ -891,7 +891,7 @@ type LPVIEWOBJECT2 as IViewObject2 ptr
 
 extern IID_IViewObject2 as const GUID
 
-type IViewObject2Vtbl field = 8
+type IViewObject2Vtbl
 	QueryInterface as function(byval This as IViewObject2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IViewObject2 ptr) as ULONG
 	Release as function(byval This as IViewObject2 ptr) as ULONG
@@ -904,7 +904,7 @@ type IViewObject2Vtbl field = 8
 	GetExtent as function(byval This as IViewObject2 ptr, byval dwDrawAspect as DWORD, byval lindex as LONG, byval ptd as DVTARGETDEVICE ptr, byval lpsizel as LPSIZEL) as HRESULT
 end type
 
-type IViewObject2_ field = 8
+type IViewObject2_
 	lpVtbl as IViewObject2Vtbl ptr
 end type
 
@@ -917,7 +917,7 @@ type LPDROPSOURCE as IDropSource ptr
 
 extern IID_IDropSource as const GUID
 
-type IDropSourceVtbl field = 8
+type IDropSourceVtbl
 	QueryInterface as function(byval This as IDropSource ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IDropSource ptr) as ULONG
 	Release as function(byval This as IDropSource ptr) as ULONG
@@ -925,7 +925,7 @@ type IDropSourceVtbl field = 8
 	GiveFeedback as function(byval This as IDropSource ptr, byval dwEffect as DWORD) as HRESULT
 end type
 
-type IDropSource_ field = 8
+type IDropSource_
 	lpVtbl as IDropSourceVtbl ptr
 end type
 
@@ -952,7 +952,7 @@ type LPDROPTARGET as IDropTarget ptr
 
 extern IID_IDropTarget as const GUID
 
-type IDropTargetVtbl field = 8
+type IDropTargetVtbl
 	QueryInterface as function(byval This as IDropTarget ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IDropTarget ptr) as ULONG
 	Release as function(byval This as IDropTarget ptr) as ULONG
@@ -962,7 +962,7 @@ type IDropTargetVtbl field = 8
 	Drop as function(byval This as IDropTarget ptr, byval pDataObj as IDataObject ptr, byval grfKeyState as DWORD, byval pt as POINTL, byval pdwEffect as DWORD ptr) as HRESULT
 end type
 
-type IDropTarget_ field = 8
+type IDropTarget_
 	lpVtbl as IDropTargetVtbl ptr
 end type
 
@@ -979,7 +979,7 @@ declare sub IDropTarget_Drop_Stub(byval This as IRpcStubBuffer ptr, byval pRpcCh
 
 extern IID_IDropSourceNotify as const GUID
 
-type IDropSourceNotifyVtbl field = 8
+type IDropSourceNotifyVtbl
 	QueryInterface as function(byval This as IDropSourceNotify ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IDropSourceNotify ptr) as ULONG
 	Release as function(byval This as IDropSourceNotify ptr) as ULONG
@@ -987,7 +987,7 @@ type IDropSourceNotifyVtbl field = 8
 	DragLeaveTarget as function(byval This as IDropSourceNotify ptr) as HRESULT
 end type
 
-type IDropSourceNotify_ field = 8
+type IDropSourceNotify_
 	lpVtbl as IDropSourceNotifyVtbl ptr
 end type
 
@@ -1000,7 +1000,7 @@ declare sub IDropSourceNotify_DragLeaveTarget_Stub(byval This as IRpcStubBuffer 
 
 type LPENUMOLEVERB as IEnumOLEVERB ptr
 
-type tagOLEVERB field = 8
+type tagOLEVERB
 	lVerb as LONG
 	lpszVerbName as LPOLESTR
 	fuFlags as DWORD
@@ -1020,7 +1020,7 @@ type OLEVERBATTRIB as tagOLEVERBATTRIB
 
 extern IID_IEnumOLEVERB as const GUID
 
-type IEnumOLEVERBVtbl field = 8
+type IEnumOLEVERBVtbl
 	QueryInterface as function(byval This as IEnumOLEVERB ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IEnumOLEVERB ptr) as ULONG
 	Release as function(byval This as IEnumOLEVERB ptr) as ULONG
@@ -1030,7 +1030,7 @@ type IEnumOLEVERBVtbl field = 8
 	Clone as function(byval This as IEnumOLEVERB ptr, byval ppenum as IEnumOLEVERB ptr ptr) as HRESULT
 end type
 
-type IEnumOLEVERB_ field = 8
+type IEnumOLEVERB_
 	lpVtbl as IEnumOLEVERBVtbl ptr
 end type
 

@@ -79,11 +79,11 @@ enum
 	DMUS_TRACKF_CLOCK = &h400
 end enum
 
-type IDirectMusicTool field = 8
+type IDirectMusicTool
 	lpVtbl as IDirectMusicToolVtbl ptr
 end type
 
-type IDirectMusicToolVtbl_ field = 8
+type IDirectMusicToolVtbl_
 	QueryInterface as function(byval This as IDirectMusicTool ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IDirectMusicTool ptr) as ULONG
 	Release as function(byval This as IDirectMusicTool ptr) as ULONG
@@ -105,11 +105,11 @@ end type
 #define IDirectMusicTool_ProcessPMsg(p, a, b) (p)->lpVtbl->ProcessPMsg(p, a, b)
 #define IDirectMusicTool_Flush(p, a, b, c) (p)->lpVtbl->Flush(p, a, b, c)
 
-type IDirectMusicTool8 field = 8
+type IDirectMusicTool8
 	lpVtbl as IDirectMusicTool8Vtbl ptr
 end type
 
-type IDirectMusicTool8Vtbl_ field = 8
+type IDirectMusicTool8Vtbl_
 	QueryInterface as function(byval This as IDirectMusicTool8 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IDirectMusicTool8 ptr) as ULONG
 	Release as function(byval This as IDirectMusicTool8 ptr) as ULONG
@@ -133,11 +133,11 @@ end type
 #define IDirectMusicTool8_Flush(p, a, b) (p)->lpVtbl->Flush(p, a, b)
 #define IDirectMusicTool8_Clone(p, a) (p)->lpVtbl->Clone(p, a)
 
-type IDirectMusicTrack field = 8
+type IDirectMusicTrack
 	lpVtbl as IDirectMusicTrackVtbl ptr
 end type
 
-type IDirectMusicTrackVtbl_ field = 8
+type IDirectMusicTrackVtbl_
 	QueryInterface as function(byval This as IDirectMusicTrack ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IDirectMusicTrack ptr) as ULONG
 	Release as function(byval This as IDirectMusicTrack ptr) as ULONG
@@ -167,11 +167,11 @@ end type
 #define IDirectMusicTrack_RemoveNotificationType(p, a) (p)->lpVtbl->RemoveNotificationType(p, a)
 #define IDirectMusicTrack_Clone(p, a, b, c) (p)->lpVtbl->Clone(p, a, b, c)
 
-type IDirectMusicTrack8 field = 8
+type IDirectMusicTrack8
 	lpVtbl as IDirectMusicTrack8Vtbl ptr
 end type
 
-type IDirectMusicTrack8Vtbl_ field = 8
+type IDirectMusicTrack8Vtbl_
 	QueryInterface as function(byval This as IDirectMusicTrack8 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IDirectMusicTrack8 ptr) as ULONG
 	Release as function(byval This as IDirectMusicTrack8 ptr) as ULONG

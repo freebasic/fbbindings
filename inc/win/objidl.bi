@@ -101,7 +101,7 @@ type LPMALLOCSPY as IMallocSpy ptr
 
 extern IID_IMallocSpy as const GUID
 
-type IMallocSpyVtbl field = 8
+type IMallocSpyVtbl
 	QueryInterface as function(byval This as IMallocSpy ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IMallocSpy ptr) as ULONG
 	Release as function(byval This as IMallocSpy ptr) as ULONG
@@ -119,7 +119,7 @@ type IMallocSpyVtbl field = 8
 	PostHeapMinimize as sub(byval This as IMallocSpy ptr)
 end type
 
-type IMallocSpy_ field = 8
+type IMallocSpy_
 	lpVtbl as IMallocSpyVtbl ptr
 end type
 
@@ -153,7 +153,7 @@ declare sub IMallocSpy_PostHeapMinimize_Stub(byval This as IRpcStubBuffer ptr, b
 type LPBC as IBindCtx ptr
 type LPBINDCTX as IBindCtx ptr
 
-type tagBIND_OPTS field = 8
+type tagBIND_OPTS
 	cbStruct as DWORD
 	grfFlags as DWORD
 	grfMode as DWORD
@@ -163,7 +163,7 @@ end type
 type BIND_OPTS as tagBIND_OPTS
 type LPBIND_OPTS as tagBIND_OPTS ptr
 
-type tagBIND_OPTS2 field = 8
+type tagBIND_OPTS2
 	cbStruct as DWORD
 	grfFlags as DWORD
 	grfMode as DWORD
@@ -177,7 +177,7 @@ end type
 type BIND_OPTS2 as tagBIND_OPTS2
 type LPBIND_OPTS2 as tagBIND_OPTS2 ptr
 
-type tagBIND_OPTS3 field = 8
+type tagBIND_OPTS3
 	cbStruct as DWORD
 	grfFlags as DWORD
 	grfMode as DWORD
@@ -202,7 +202,7 @@ type BIND_FLAGS as tagBIND_FLAGS
 
 extern IID_IBindCtx as const GUID
 
-type IBindCtxVtbl field = 8
+type IBindCtxVtbl
 	QueryInterface as function(byval This as IBindCtx ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IBindCtx ptr) as ULONG
 	Release as function(byval This as IBindCtx ptr) as ULONG
@@ -218,7 +218,7 @@ type IBindCtxVtbl field = 8
 	RevokeObjectParam as function(byval This as IBindCtx ptr, byval pszKey as LPOLESTR) as HRESULT
 end type
 
-type IBindCtx_ field = 8
+type IBindCtx_
 	lpVtbl as IBindCtxVtbl ptr
 end type
 
@@ -253,7 +253,7 @@ type LPENUMMONIKER as IEnumMoniker ptr
 
 extern IID_IEnumMoniker as const GUID
 
-type IEnumMonikerVtbl field = 8
+type IEnumMonikerVtbl
 	QueryInterface as function(byval This as IEnumMoniker ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IEnumMoniker ptr) as ULONG
 	Release as function(byval This as IEnumMoniker ptr) as ULONG
@@ -263,7 +263,7 @@ type IEnumMonikerVtbl field = 8
 	Clone as function(byval This as IEnumMoniker ptr, byval ppenum as IEnumMoniker ptr ptr) as HRESULT
 end type
 
-type IEnumMoniker_ field = 8
+type IEnumMoniker_
 	lpVtbl as IEnumMonikerVtbl ptr
 end type
 
@@ -284,7 +284,7 @@ type LPRUNNABLEOBJECT as IRunnableObject ptr
 
 extern IID_IRunnableObject as const GUID
 
-type IRunnableObjectVtbl field = 8
+type IRunnableObjectVtbl
 	QueryInterface as function(byval This as IRunnableObject ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IRunnableObject ptr) as ULONG
 	Release as function(byval This as IRunnableObject ptr) as ULONG
@@ -295,7 +295,7 @@ type IRunnableObjectVtbl field = 8
 	SetContainedObject as function(byval This as IRunnableObject ptr, byval fContained as WINBOOL) as HRESULT
 end type
 
-type IRunnableObject_ field = 8
+type IRunnableObject_
 	lpVtbl as IRunnableObjectVtbl ptr
 end type
 
@@ -318,7 +318,7 @@ type LPRUNNINGOBJECTTABLE as IRunningObjectTable ptr
 
 extern IID_IRunningObjectTable as const GUID
 
-type IRunningObjectTableVtbl field = 8
+type IRunningObjectTableVtbl
 	QueryInterface as function(byval This as IRunningObjectTable ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IRunningObjectTable ptr) as ULONG
 	Release as function(byval This as IRunningObjectTable ptr) as ULONG
@@ -337,7 +337,7 @@ type IRunningObjectTableVtbl field = 8
 	EnumRunning as function(byval This as IRunningObjectTable ptr, byval ppenumMoniker as IEnumMoniker ptr ptr) as HRESULT
 end type
 
-type IRunningObjectTable_ field = 8
+type IRunningObjectTable_
 	lpVtbl as IRunningObjectTableVtbl ptr
 end type
 
@@ -362,14 +362,14 @@ type LPPERSIST as IPersist ptr
 
 extern IID_IPersist as const GUID
 
-type IPersistVtbl field = 8
+type IPersistVtbl
 	QueryInterface as function(byval This as IPersist ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IPersist ptr) as ULONG
 	Release as function(byval This as IPersist ptr) as ULONG
 	GetClassID as function(byval This as IPersist ptr, byval pClassID as CLSID ptr) as HRESULT
 end type
 
-type IPersist_ field = 8
+type IPersist_
 	lpVtbl as IPersistVtbl ptr
 end type
 
@@ -382,7 +382,7 @@ type LPPERSISTSTREAM as IPersistStream ptr
 
 extern IID_IPersistStream as const GUID
 
-type IPersistStreamVtbl field = 8
+type IPersistStreamVtbl
 	QueryInterface as function(byval This as IPersistStream ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IPersistStream ptr) as ULONG
 	Release as function(byval This as IPersistStream ptr) as ULONG
@@ -393,7 +393,7 @@ type IPersistStreamVtbl field = 8
 	GetSizeMax as function(byval This as IPersistStream ptr, byval pcbSize as ULARGE_INTEGER ptr) as HRESULT
 end type
 
-type IPersistStream_ field = 8
+type IPersistStream_
 	lpVtbl as IPersistStreamVtbl ptr
 end type
 
@@ -438,7 +438,7 @@ type MKRREDUCE as tagMKREDUCE
 
 extern IID_IMoniker as const GUID
 
-type IMonikerVtbl field = 8
+type IMonikerVtbl
 	QueryInterface as function(byval This as IMoniker ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IMoniker ptr) as ULONG
 	Release as function(byval This as IMoniker ptr) as ULONG
@@ -464,7 +464,7 @@ type IMonikerVtbl field = 8
 	IsSystemMoniker as function(byval This as IMoniker ptr, byval pdwMksys as DWORD ptr) as HRESULT
 end type
 
-type IMoniker_ field = 8
+type IMoniker_
 	lpVtbl as IMonikerVtbl ptr
 end type
 
@@ -507,14 +507,14 @@ declare function IMoniker_BindToStorage_Stub(byval This as IMoniker ptr, byval p
 
 extern IID_IROTData as const GUID
 
-type IROTDataVtbl field = 8
+type IROTDataVtbl
 	QueryInterface as function(byval This as IROTData ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IROTData ptr) as ULONG
 	Release as function(byval This as IROTData ptr) as ULONG
 	GetComparisonData as function(byval This as IROTData ptr, byval pbData as ubyte ptr, byval cbMax as ULONG, byval pcbData as ULONG ptr) as HRESULT
 end type
 
-type IROTData_ field = 8
+type IROTData_
 	lpVtbl as IROTDataVtbl ptr
 end type
 
@@ -527,7 +527,7 @@ type LPENUMSTATSTG as IEnumSTATSTG ptr
 
 extern IID_IEnumSTATSTG as const GUID
 
-type IEnumSTATSTGVtbl field = 8
+type IEnumSTATSTGVtbl
 	QueryInterface as function(byval This as IEnumSTATSTG ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IEnumSTATSTG ptr) as ULONG
 	Release as function(byval This as IEnumSTATSTG ptr) as ULONG
@@ -537,7 +537,7 @@ type IEnumSTATSTGVtbl field = 8
 	Clone as function(byval This as IEnumSTATSTG ptr, byval ppenum as IEnumSTATSTG ptr ptr) as HRESULT
 end type
 
-type IEnumSTATSTG_ field = 8
+type IEnumSTATSTG_
 	lpVtbl as IEnumSTATSTGVtbl ptr
 end type
 
@@ -556,7 +556,7 @@ declare function IEnumSTATSTG_Next_Stub(byval This as IEnumSTATSTG ptr, byval ce
 
 type LPSTORAGE as IStorage ptr
 
-type tagRemSNB field = 8
+type tagRemSNB
 	ulCntStr as ULONG
 	ulCntChar as ULONG
 	rgString(0 to 0) as OLECHAR
@@ -568,7 +568,7 @@ type SNB as LPOLESTR ptr
 
 extern IID_IStorage as const GUID
 
-type IStorageVtbl field = 8
+type IStorageVtbl
 	QueryInterface as function(byval This as IStorage ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IStorage ptr) as ULONG
 	Release as function(byval This as IStorage ptr) as ULONG
@@ -589,7 +589,7 @@ type IStorageVtbl field = 8
 	Stat as function(byval This as IStorage ptr, byval pstatstg as STATSTG ptr, byval grfStatFlag as DWORD) as HRESULT
 end type
 
-type IStorage_ field = 8
+type IStorage_
 	lpVtbl as IStorageVtbl ptr
 end type
 
@@ -636,7 +636,7 @@ type LPPERSISTFILE as IPersistFile ptr
 
 extern IID_IPersistFile as const GUID
 
-type IPersistFileVtbl field = 8
+type IPersistFileVtbl
 	QueryInterface as function(byval This as IPersistFile ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IPersistFile ptr) as ULONG
 	Release as function(byval This as IPersistFile ptr) as ULONG
@@ -648,7 +648,7 @@ type IPersistFileVtbl field = 8
 	GetCurFile as function(byval This as IPersistFile ptr, byval ppszFileName as LPOLESTR ptr) as HRESULT
 end type
 
-type IPersistFile_ field = 8
+type IPersistFile_
 	lpVtbl as IPersistFileVtbl ptr
 end type
 
@@ -669,7 +669,7 @@ type LPPERSISTSTORAGE as IPersistStorage ptr
 
 extern IID_IPersistStorage as const GUID
 
-type IPersistStorageVtbl field = 8
+type IPersistStorageVtbl
 	QueryInterface as function(byval This as IPersistStorage ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IPersistStorage ptr) as ULONG
 	Release as function(byval This as IPersistStorage ptr) as ULONG
@@ -682,7 +682,7 @@ type IPersistStorageVtbl field = 8
 	HandsOffStorage as function(byval This as IPersistStorage ptr) as HRESULT
 end type
 
-type IPersistStorage_ field = 8
+type IPersistStorage_
 	lpVtbl as IPersistStorageVtbl ptr
 end type
 
@@ -705,7 +705,7 @@ type LPLOCKBYTES as ILockBytes ptr
 
 extern IID_ILockBytes as const GUID
 
-type ILockBytesVtbl field = 8
+type ILockBytesVtbl
 	QueryInterface as function(byval This as ILockBytes ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as ILockBytes ptr) as ULONG
 	Release as function(byval This as ILockBytes ptr) as ULONG
@@ -718,7 +718,7 @@ type ILockBytesVtbl field = 8
 	Stat as function(byval This as ILockBytes ptr, byval pstatstg as STATSTG ptr, byval grfStatFlag as DWORD) as HRESULT
 end type
 
-type ILockBytes_ field = 8
+type ILockBytes_
 	lpVtbl as ILockBytesVtbl ptr
 end type
 
@@ -745,7 +745,7 @@ declare function ILockBytes_WriteAt_Stub(byval This as ILockBytes ptr, byval ulO
 
 type LPENUMFORMATETC as IEnumFORMATETC ptr
 
-type tagDVTARGETDEVICE field = 8
+type tagDVTARGETDEVICE
 	tdSize as DWORD
 	tdDriverNameOffset as WORD
 	tdDeviceNameOffset as WORD
@@ -757,7 +757,7 @@ end type
 type DVTARGETDEVICE as tagDVTARGETDEVICE
 type LPCLIPFORMAT as CLIPFORMAT ptr
 
-type tagFORMATETC field = 8
+type tagFORMATETC
 	cfFormat as CLIPFORMAT
 	ptd as DVTARGETDEVICE ptr
 	dwAspect as DWORD
@@ -770,7 +770,7 @@ type LPFORMATETC as tagFORMATETC ptr
 
 extern IID_IEnumFORMATETC as const GUID
 
-type IEnumFORMATETCVtbl field = 8
+type IEnumFORMATETCVtbl
 	QueryInterface as function(byval This as IEnumFORMATETC ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IEnumFORMATETC ptr) as ULONG
 	Release as function(byval This as IEnumFORMATETC ptr) as ULONG
@@ -780,7 +780,7 @@ type IEnumFORMATETCVtbl field = 8
 	Clone as function(byval This as IEnumFORMATETC ptr, byval ppenum as IEnumFORMATETC ptr ptr) as HRESULT
 end type
 
-type IEnumFORMATETC_ field = 8
+type IEnumFORMATETC_
 	lpVtbl as IEnumFORMATETCVtbl ptr
 end type
 
@@ -812,7 +812,7 @@ end enum
 
 type ADVF as tagADVF
 
-type tagSTATDATA field = 8
+type tagSTATDATA
 	formatetc as FORMATETC
 	advf as DWORD
 	pAdvSink as IAdviseSink ptr
@@ -824,7 +824,7 @@ type LPSTATDATA as STATDATA ptr
 
 extern IID_IEnumSTATDATA as const GUID
 
-type IEnumSTATDATAVtbl field = 8
+type IEnumSTATDATAVtbl
 	QueryInterface as function(byval This as IEnumSTATDATA ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IEnumSTATDATA ptr) as ULONG
 	Release as function(byval This as IEnumSTATDATA ptr) as ULONG
@@ -834,7 +834,7 @@ type IEnumSTATDATAVtbl field = 8
 	Clone as function(byval This as IEnumSTATDATA ptr, byval ppenum as IEnumSTATDATA ptr ptr) as HRESULT
 end type
 
-type IEnumSTATDATA_ field = 8
+type IEnumSTATDATA_
 	lpVtbl as IEnumSTATDATAVtbl ptr
 end type
 
@@ -855,14 +855,14 @@ type LPROOTSTORAGE as IRootStorage ptr
 
 extern IID_IRootStorage as const GUID
 
-type IRootStorageVtbl field = 8
+type IRootStorageVtbl
 	QueryInterface as function(byval This as IRootStorage ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IRootStorage ptr) as ULONG
 	Release as function(byval This as IRootStorage ptr) as ULONG
 	SwitchToFile as function(byval This as IRootStorage ptr, byval pszFile as LPOLESTR) as HRESULT
 end type
 
-type IRootStorage_ field = 8
+type IRootStorage_
 	lpVtbl as IRootStorageVtbl ptr
 end type
 
@@ -887,7 +887,7 @@ end enum
 
 type TYMED as tagTYMED
 
-type tagRemSTGMEDIUM field = 8
+type tagRemSTGMEDIUM
 	tymed as DWORD
 	dwHandleType as DWORD
 	pData as ULONG
@@ -898,10 +898,10 @@ end type
 
 type RemSTGMEDIUM as tagRemSTGMEDIUM
 
-type tagSTGMEDIUM field = 8
+type tagSTGMEDIUM
 	tymed as DWORD
 
-	union field = 8
+	union
 		hBitmap as HBITMAP
 		hMetaFilePict as HMETAFILEPICT
 		hEnhMetaFile as HENHMETAFILE
@@ -916,20 +916,20 @@ end type
 
 type uSTGMEDIUM as tagSTGMEDIUM
 
-union ___GDI_OBJECT_u field = 8
+union ___GDI_OBJECT_u
 	hBitmap as wireHBITMAP
 	hPalette as wireHPALETTE
 	hGeneric as wireHGLOBAL
 end union
 
-type _GDI_OBJECT field = 8
+type _GDI_OBJECT
 	ObjectType as DWORD
 	u as ___GDI_OBJECT_u
 end type
 
 type GDI_OBJECT as _GDI_OBJECT
 
-union ___userSTGMEDIUM__STGMEDIUM_UNION_u field = 8
+union ___userSTGMEDIUM__STGMEDIUM_UNION_u
 	hMetaFilePict as wireHMETAFILEPICT
 	hHEnhMetaFile as wireHENHMETAFILE
 	hGdiHandle as GDI_OBJECT ptr
@@ -939,12 +939,12 @@ union ___userSTGMEDIUM__STGMEDIUM_UNION_u field = 8
 	pstg as BYTE_BLOB ptr
 end union
 
-type _STGMEDIUM_UNION field = 8
+type _STGMEDIUM_UNION
 	tymed as DWORD
 	u as ___userSTGMEDIUM__STGMEDIUM_UNION_u
 end type
 
-type _userSTGMEDIUM field = 8
+type _userSTGMEDIUM
 	pUnkForRelease as IUnknown ptr
 end type
 
@@ -955,7 +955,7 @@ type wireASYNC_STGMEDIUM as userSTGMEDIUM ptr
 type ASYNC_STGMEDIUM as STGMEDIUM
 type LPSTGMEDIUM as STGMEDIUM ptr
 
-type _userFLAG_STGMEDIUM field = 8
+type _userFLAG_STGMEDIUM
 	ContextFlags as LONG
 	fPassOwnership as LONG
 	Stgmed as userSTGMEDIUM
@@ -964,7 +964,7 @@ end type
 type userFLAG_STGMEDIUM as _userFLAG_STGMEDIUM
 type wireFLAG_STGMEDIUM as userFLAG_STGMEDIUM ptr
 
-type _FLAG_STGMEDIUM field = 8
+type _FLAG_STGMEDIUM
 	ContextFlags as LONG
 	fPassOwnership as LONG
 	Stgmed as STGMEDIUM
@@ -974,7 +974,7 @@ type FLAG_STGMEDIUM as _FLAG_STGMEDIUM
 
 extern IID_IAdviseSink as const GUID
 
-type IAdviseSinkVtbl field = 8
+type IAdviseSinkVtbl
 	QueryInterface as function(byval This as IAdviseSink ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IAdviseSink ptr) as ULONG
 	Release as function(byval This as IAdviseSink ptr) as ULONG
@@ -985,7 +985,7 @@ type IAdviseSinkVtbl field = 8
 	OnClose as sub(byval This as IAdviseSink ptr)
 end type
 
-type IAdviseSink_ field = 8
+type IAdviseSink_
 	lpVtbl as IAdviseSinkVtbl ptr
 end type
 
@@ -1014,7 +1014,7 @@ declare function IAdviseSink_OnClose_Stub(byval This as IAdviseSink ptr) as HRES
 
 extern IID_AsyncIAdviseSink as const GUID
 
-type AsyncIAdviseSinkVtbl field = 8
+type AsyncIAdviseSinkVtbl
 	QueryInterface as function(byval This as AsyncIAdviseSink ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as AsyncIAdviseSink ptr) as ULONG
 	Release as function(byval This as AsyncIAdviseSink ptr) as ULONG
@@ -1030,7 +1030,7 @@ type AsyncIAdviseSinkVtbl field = 8
 	Finish_OnClose as sub(byval This as AsyncIAdviseSink ptr)
 end type
 
-type AsyncIAdviseSink_ field = 8
+type AsyncIAdviseSink_
 	lpVtbl as AsyncIAdviseSinkVtbl ptr
 end type
 
@@ -1081,7 +1081,7 @@ type LPADVISESINK2 as IAdviseSink2 ptr
 
 extern IID_IAdviseSink2 as const GUID
 
-type IAdviseSink2Vtbl field = 8
+type IAdviseSink2Vtbl
 	QueryInterface as function(byval This as IAdviseSink2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IAdviseSink2 ptr) as ULONG
 	Release as function(byval This as IAdviseSink2 ptr) as ULONG
@@ -1093,7 +1093,7 @@ type IAdviseSink2Vtbl field = 8
 	OnLinkSrcChange as sub(byval This as IAdviseSink2 ptr, byval pmk as IMoniker ptr)
 end type
 
-type IAdviseSink2_ field = 8
+type IAdviseSink2_
 	lpVtbl as IAdviseSink2Vtbl ptr
 end type
 
@@ -1106,7 +1106,7 @@ declare function IAdviseSink2_OnLinkSrcChange_Stub(byval This as IAdviseSink2 pt
 
 extern IID_AsyncIAdviseSink2 as const GUID
 
-type AsyncIAdviseSink2Vtbl field = 8
+type AsyncIAdviseSink2Vtbl
 	QueryInterface as function(byval This as AsyncIAdviseSink2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as AsyncIAdviseSink2 ptr) as ULONG
 	Release as function(byval This as AsyncIAdviseSink2 ptr) as ULONG
@@ -1124,7 +1124,7 @@ type AsyncIAdviseSink2Vtbl field = 8
 	Finish_OnLinkSrcChange as sub(byval This as AsyncIAdviseSink2 ptr)
 end type
 
-type AsyncIAdviseSink2_ field = 8
+type AsyncIAdviseSink2_
 	lpVtbl as AsyncIAdviseSink2Vtbl ptr
 end type
 
@@ -1151,7 +1151,7 @@ type DATADIR as tagDATADIR
 
 extern IID_IDataObject as const GUID
 
-type IDataObjectVtbl field = 8
+type IDataObjectVtbl
 	QueryInterface as function(byval This as IDataObject ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IDataObject ptr) as ULONG
 	Release as function(byval This as IDataObject ptr) as ULONG
@@ -1166,7 +1166,7 @@ type IDataObjectVtbl field = 8
 	EnumDAdvise as function(byval This as IDataObject ptr, byval ppenumAdvise as IEnumSTATDATA ptr ptr) as HRESULT
 end type
 
-type IDataObject_ field = 8
+type IDataObject_
 	lpVtbl as IDataObjectVtbl ptr
 end type
 
@@ -1201,7 +1201,7 @@ type LPDATAADVISEHOLDER as IDataAdviseHolder ptr
 
 extern IID_IDataAdviseHolder as const GUID
 
-type IDataAdviseHolderVtbl field = 8
+type IDataAdviseHolderVtbl
 	QueryInterface as function(byval This as IDataAdviseHolder ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IDataAdviseHolder ptr) as ULONG
 	Release as function(byval This as IDataAdviseHolder ptr) as ULONG
@@ -1211,7 +1211,7 @@ type IDataAdviseHolderVtbl field = 8
 	SendOnDataChange as function(byval This as IDataAdviseHolder ptr, byval pDataObject as IDataObject ptr, byval dwReserved as DWORD, byval advf as DWORD) as HRESULT
 end type
 
-type IDataAdviseHolder_ field = 8
+type IDataAdviseHolder_
 	lpVtbl as IDataAdviseHolderVtbl ptr
 end type
 
@@ -1265,7 +1265,7 @@ end enum
 
 type PENDINGMSG as tagPENDINGMSG
 
-type tagINTERFACEINFO field = 8
+type tagINTERFACEINFO
 	pUnk as IUnknown ptr
 	iid as IID
 	wMethod as WORD
@@ -1276,7 +1276,7 @@ type LPINTERFACEINFO as tagINTERFACEINFO ptr
 
 extern IID_IMessageFilter as const GUID
 
-type IMessageFilterVtbl field = 8
+type IMessageFilterVtbl
 	QueryInterface as function(byval This as IMessageFilter ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IMessageFilter ptr) as ULONG
 	Release as function(byval This as IMessageFilter ptr) as ULONG
@@ -1285,7 +1285,7 @@ type IMessageFilterVtbl field = 8
 	MessagePending as function(byval This as IMessageFilter ptr, byval htaskCallee as HTASK, byval dwTickCount as DWORD, byval dwPendingType as DWORD) as DWORD
 end type
 
-type IMessageFilter_ field = 8
+type IMessageFilter_
 	lpVtbl as IMessageFilterVtbl ptr
 end type
 
@@ -1309,14 +1309,14 @@ extern FMTID_MediaFileSummaryInformation as const FMTID
 
 extern IID_IClassActivator as const GUID
 
-type IClassActivatorVtbl field = 8
+type IClassActivatorVtbl
 	QueryInterface as function(byval This as IClassActivator ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IClassActivator ptr) as ULONG
 	Release as function(byval This as IClassActivator ptr) as ULONG
 	GetClassObject as function(byval This as IClassActivator ptr, byval rclsid as const IID const ptr, byval dwClassContext as DWORD, byval locale as LCID, byval riid as const IID const ptr, byval ppv as any ptr ptr) as HRESULT
 end type
 
-type IClassActivator_ field = 8
+type IClassActivator_
 	lpVtbl as IClassActivatorVtbl ptr
 end type
 
@@ -1327,7 +1327,7 @@ declare sub IClassActivator_GetClassObject_Stub(byval This as IRpcStubBuffer ptr
 
 extern IID_IFillLockBytes as const GUID
 
-type IFillLockBytesVtbl field = 8
+type IFillLockBytesVtbl
 	QueryInterface as function(byval This as IFillLockBytes ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IFillLockBytes ptr) as ULONG
 	Release as function(byval This as IFillLockBytes ptr) as ULONG
@@ -1337,7 +1337,7 @@ type IFillLockBytesVtbl field = 8
 	Terminate as function(byval This as IFillLockBytes ptr, byval bCanceled as WINBOOL) as HRESULT
 end type
 
-type IFillLockBytes_ field = 8
+type IFillLockBytes_
 	lpVtbl as IFillLockBytesVtbl ptr
 end type
 
@@ -1358,14 +1358,14 @@ declare function IFillLockBytes_FillAt_Stub(byval This as IFillLockBytes ptr, by
 
 extern IID_IProgressNotify as const GUID
 
-type IProgressNotifyVtbl field = 8
+type IProgressNotifyVtbl
 	QueryInterface as function(byval This as IProgressNotify ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IProgressNotify ptr) as ULONG
 	Release as function(byval This as IProgressNotify ptr) as ULONG
 	OnProgress as function(byval This as IProgressNotify ptr, byval dwProgressCurrent as DWORD, byval dwProgressMaximum as DWORD, byval fAccurate as WINBOOL, byval fOwner as WINBOOL) as HRESULT
 end type
 
-type IProgressNotify_ field = 8
+type IProgressNotify_
 	lpVtbl as IProgressNotifyVtbl ptr
 end type
 
@@ -1374,7 +1374,7 @@ declare sub IProgressNotify_OnProgress_Stub(byval This as IRpcStubBuffer ptr, by
 
 #define __ILayoutStorage_INTERFACE_DEFINED__
 
-type tagStorageLayout field = 8
+type tagStorageLayout
 	LayoutType as DWORD
 	pwcsElementName as OLECHAR ptr
 	cOffset as LARGE_INTEGER
@@ -1385,7 +1385,7 @@ type StorageLayout as tagStorageLayout
 
 extern IID_ILayoutStorage as const GUID
 
-type ILayoutStorageVtbl field = 8
+type ILayoutStorageVtbl
 	QueryInterface as function(byval This as ILayoutStorage ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as ILayoutStorage ptr) as ULONG
 	Release as function(byval This as ILayoutStorage ptr) as ULONG
@@ -1396,7 +1396,7 @@ type ILayoutStorageVtbl field = 8
 	ReLayoutDocfileOnILockBytes as function(byval This as ILayoutStorage ptr, byval pILockBytes as ILockBytes ptr) as HRESULT
 end type
 
-type ILayoutStorage_ field = 8
+type ILayoutStorage_
 	lpVtbl as ILayoutStorageVtbl ptr
 end type
 
@@ -1415,7 +1415,7 @@ declare sub ILayoutStorage_ReLayoutDocfileOnILockBytes_Stub(byval This as IRpcSt
 
 extern IID_IBlockingLock as const GUID
 
-type IBlockingLockVtbl field = 8
+type IBlockingLockVtbl
 	QueryInterface as function(byval This as IBlockingLock ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IBlockingLock ptr) as ULONG
 	Release as function(byval This as IBlockingLock ptr) as ULONG
@@ -1423,7 +1423,7 @@ type IBlockingLockVtbl field = 8
 	Unlock as function(byval This as IBlockingLock ptr) as HRESULT
 end type
 
-type IBlockingLock_ field = 8
+type IBlockingLock_
 	lpVtbl as IBlockingLockVtbl ptr
 end type
 
@@ -1436,14 +1436,14 @@ declare sub IBlockingLock_Unlock_Stub(byval This as IRpcStubBuffer ptr, byval pR
 
 extern IID_ITimeAndNoticeControl as const GUID
 
-type ITimeAndNoticeControlVtbl field = 8
+type ITimeAndNoticeControlVtbl
 	QueryInterface as function(byval This as ITimeAndNoticeControl ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as ITimeAndNoticeControl ptr) as ULONG
 	Release as function(byval This as ITimeAndNoticeControl ptr) as ULONG
 	SuppressChanges as function(byval This as ITimeAndNoticeControl ptr, byval res1 as DWORD, byval res2 as DWORD) as HRESULT
 end type
 
-type ITimeAndNoticeControl_ field = 8
+type ITimeAndNoticeControl_
 	lpVtbl as ITimeAndNoticeControlVtbl ptr
 end type
 
@@ -1454,7 +1454,7 @@ declare sub ITimeAndNoticeControl_SuppressChanges_Stub(byval This as IRpcStubBuf
 
 extern IID_IOplockStorage as const GUID
 
-type IOplockStorageVtbl field = 8
+type IOplockStorageVtbl
 	QueryInterface as function(byval This as IOplockStorage ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IOplockStorage ptr) as ULONG
 	Release as function(byval This as IOplockStorage ptr) as ULONG
@@ -1462,7 +1462,7 @@ type IOplockStorageVtbl field = 8
 	OpenStorageEx as function(byval This as IOplockStorage ptr, byval pwcsName as LPCWSTR, byval grfMode as DWORD, byval stgfmt as DWORD, byval grfAttrs as DWORD, byval riid as const IID const ptr, byval ppstgOpen as any ptr ptr) as HRESULT
 end type
 
-type IOplockStorage_ field = 8
+type IOplockStorage_
 	lpVtbl as IOplockStorageVtbl ptr
 end type
 
@@ -1475,7 +1475,7 @@ declare sub IOplockStorage_OpenStorageEx_Stub(byval This as IRpcStubBuffer ptr, 
 
 extern IID_IDirectWriterLock as const GUID
 
-type IDirectWriterLockVtbl field = 8
+type IDirectWriterLockVtbl
 	QueryInterface as function(byval This as IDirectWriterLock ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IDirectWriterLock ptr) as ULONG
 	Release as function(byval This as IDirectWriterLock ptr) as ULONG
@@ -1484,7 +1484,7 @@ type IDirectWriterLockVtbl field = 8
 	HaveWriteAccess as function(byval This as IDirectWriterLock ptr) as HRESULT
 end type
 
-type IDirectWriterLock_ field = 8
+type IDirectWriterLock_
 	lpVtbl as IDirectWriterLockVtbl ptr
 end type
 
@@ -1499,14 +1499,14 @@ declare sub IDirectWriterLock_HaveWriteAccess_Stub(byval This as IRpcStubBuffer 
 
 extern IID_IUrlMon as const GUID
 
-type IUrlMonVtbl field = 8
+type IUrlMonVtbl
 	QueryInterface as function(byval This as IUrlMon ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IUrlMon ptr) as ULONG
 	Release as function(byval This as IUrlMon ptr) as ULONG
 	AsyncGetClassBits as function(byval This as IUrlMon ptr, byval rclsid as const IID const ptr, byval pszTYPE as LPCWSTR, byval pszExt as LPCWSTR, byval dwFileVersionMS as DWORD, byval dwFileVersionLS as DWORD, byval pszCodeBase as LPCWSTR, byval pbc as IBindCtx ptr, byval dwClassContext as DWORD, byval riid as const IID const ptr, byval flags as DWORD) as HRESULT
 end type
 
-type IUrlMon_ field = 8
+type IUrlMon_
 	lpVtbl as IUrlMonVtbl ptr
 end type
 
@@ -1517,14 +1517,14 @@ declare sub IUrlMon_AsyncGetClassBits_Stub(byval This as IRpcStubBuffer ptr, byv
 
 extern IID_IForegroundTransfer as const GUID
 
-type IForegroundTransferVtbl field = 8
+type IForegroundTransferVtbl
 	QueryInterface as function(byval This as IForegroundTransfer ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IForegroundTransfer ptr) as ULONG
 	Release as function(byval This as IForegroundTransfer ptr) as ULONG
 	AllowForegroundTransfer as function(byval This as IForegroundTransfer ptr, byval lpvReserved as any ptr) as HRESULT
 end type
 
-type IForegroundTransfer_ field = 8
+type IForegroundTransfer_
 	lpVtbl as IForegroundTransferVtbl ptr
 end type
 
@@ -1535,7 +1535,7 @@ declare sub IForegroundTransfer_AllowForegroundTransfer_Stub(byval This as IRpcS
 
 extern IID_IThumbnailExtractor as const GUID
 
-type IThumbnailExtractorVtbl field = 8
+type IThumbnailExtractorVtbl
 	QueryInterface as function(byval This as IThumbnailExtractor ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IThumbnailExtractor ptr) as ULONG
 	Release as function(byval This as IThumbnailExtractor ptr) as ULONG
@@ -1543,7 +1543,7 @@ type IThumbnailExtractorVtbl field = 8
 	OnFileUpdated as function(byval This as IThumbnailExtractor ptr, byval pStg as IStorage ptr) as HRESULT
 end type
 
-type IThumbnailExtractor_ field = 8
+type IThumbnailExtractor_
 	lpVtbl as IThumbnailExtractorVtbl ptr
 end type
 
@@ -1556,14 +1556,14 @@ declare sub IThumbnailExtractor_OnFileUpdated_Stub(byval This as IRpcStubBuffer 
 
 extern IID_IDummyHICONIncluder as const GUID
 
-type IDummyHICONIncluderVtbl field = 8
+type IDummyHICONIncluderVtbl
 	QueryInterface as function(byval This as IDummyHICONIncluder ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IDummyHICONIncluder ptr) as ULONG
 	Release as function(byval This as IDummyHICONIncluder ptr) as ULONG
 	Dummy as function(byval This as IDummyHICONIncluder ptr, byval h1 as HICON, byval h2 as HDC) as HRESULT
 end type
 
-type IDummyHICONIncluder_ field = 8
+type IDummyHICONIncluder_
 	lpVtbl as IDummyHICONIncluderVtbl ptr
 end type
 
@@ -1590,7 +1590,7 @@ type ShutdownType as tagShutdownType
 
 extern IID_IProcessLock as const GUID
 
-type IProcessLockVtbl field = 8
+type IProcessLockVtbl
 	QueryInterface as function(byval This as IProcessLock ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IProcessLock ptr) as ULONG
 	Release as function(byval This as IProcessLock ptr) as ULONG
@@ -1598,7 +1598,7 @@ type IProcessLockVtbl field = 8
 	ReleaseRefOnProcess as function(byval This as IProcessLock ptr) as ULONG
 end type
 
-type IProcessLock_ field = 8
+type IProcessLock_
 	lpVtbl as IProcessLockVtbl ptr
 end type
 
@@ -1611,7 +1611,7 @@ declare sub IProcessLock_ReleaseRefOnProcess_Stub(byval This as IRpcStubBuffer p
 
 extern IID_ISurrogateService as const GUID
 
-type ISurrogateServiceVtbl field = 8
+type ISurrogateServiceVtbl
 	QueryInterface as function(byval This as ISurrogateService ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as ISurrogateService ptr) as ULONG
 	Release as function(byval This as ISurrogateService ptr) as ULONG
@@ -1622,7 +1622,7 @@ type ISurrogateServiceVtbl field = 8
 	ProcessShutdown as function(byval This as ISurrogateService ptr, byval shutdownType as ShutdownType) as HRESULT
 end type
 
-type ISurrogateService_ field = 8
+type ISurrogateService_
 	lpVtbl as ISurrogateServiceVtbl ptr
 end type
 
@@ -1643,7 +1643,7 @@ type LPINITIALIZESPY as IInitializeSpy ptr
 
 extern IID_IInitializeSpy as const GUID
 
-type IInitializeSpyVtbl field = 8
+type IInitializeSpyVtbl
 	QueryInterface as function(byval This as IInitializeSpy ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IInitializeSpy ptr) as ULONG
 	Release as function(byval This as IInitializeSpy ptr) as ULONG
@@ -1653,7 +1653,7 @@ type IInitializeSpyVtbl field = 8
 	PostUninitialize as function(byval This as IInitializeSpy ptr, byval dwNewThreadAptRefs as DWORD) as HRESULT
 end type
 
-type IInitializeSpy_ field = 8
+type IInitializeSpy_
 	lpVtbl as IInitializeSpyVtbl ptr
 end type
 
@@ -1670,14 +1670,14 @@ declare sub IInitializeSpy_PostUninitialize_Stub(byval This as IRpcStubBuffer pt
 
 extern IID_IApartmentShutdown as const GUID
 
-type IApartmentShutdownVtbl field = 8
+type IApartmentShutdownVtbl
 	QueryInterface as function(byval This as IApartmentShutdown ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IApartmentShutdown ptr) as ULONG
 	Release as function(byval This as IApartmentShutdown ptr) as ULONG
 	OnUninitialize as sub(byval This as IApartmentShutdown ptr, byval ui64ApartmentIdentifier as UINT64)
 end type
 
-type IApartmentShutdown_ field = 8
+type IApartmentShutdown_
 	lpVtbl as IApartmentShutdownVtbl ptr
 end type
 

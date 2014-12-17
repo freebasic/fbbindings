@@ -218,7 +218,7 @@ declare function OleUIAddVerbMenuA(byval lpOleObj as LPOLEOBJECT, byval lpszShor
 
 #define OleUIAddVerbMenu __MINGW_NAME_AW(OleUIAddVerbMenu)
 
-type tagOLEUIINSERTOBJECTW field = 8
+type tagOLEUIINSERTOBJECTW
 	cbStruct as DWORD
 	dwFlags as DWORD
 	hWndOwner as HWND
@@ -247,7 +247,7 @@ type OLEUIINSERTOBJECTW as tagOLEUIINSERTOBJECTW
 type POLEUIINSERTOBJECTW as tagOLEUIINSERTOBJECTW ptr
 type LPOLEUIINSERTOBJECTW as tagOLEUIINSERTOBJECTW ptr
 
-type tagOLEUIINSERTOBJECTA field = 8
+type tagOLEUIINSERTOBJECTA
 	cbStruct as DWORD
 	dwFlags as DWORD
 	hWndOwner as HWND
@@ -327,7 +327,7 @@ end enum
 
 type OLEUIPASTEFLAG as tagOLEUIPASTEFLAG
 
-type tagOLEUIPASTEENTRYW field = 8
+type tagOLEUIPASTEENTRYW
 	fmtetc as FORMATETC
 	lpstrFormatName as LPCWSTR
 	lpstrResultText as LPCWSTR
@@ -339,7 +339,7 @@ type OLEUIPASTEENTRYW as tagOLEUIPASTEENTRYW
 type POLEUIPASTEENTRYW as tagOLEUIPASTEENTRYW ptr
 type LPOLEUIPASTEENTRYW as tagOLEUIPASTEENTRYW ptr
 
-type tagOLEUIPASTEENTRYA field = 8
+type tagOLEUIPASTEENTRYA
 	fmtetc as FORMATETC
 	lpstrFormatName as LPCSTR
 	lpstrResultText as LPCSTR
@@ -357,7 +357,7 @@ type LPOLEUIPASTEENTRYA as tagOLEUIPASTEENTRYA ptr
 #define LPOLEUIPASTEENTRY __MINGW_NAME_AW(LPOLEUIPASTEENTRY)
 #define PS_MAXLINKTYPES 8
 
-type tagOLEUIPASTESPECIALW field = 8
+type tagOLEUIPASTESPECIALW
 	cbStruct as DWORD
 	dwFlags as DWORD
 	hWndOwner as HWND
@@ -384,7 +384,7 @@ type OLEUIPASTESPECIALW as tagOLEUIPASTESPECIALW
 type POLEUIPASTESPECIALW as tagOLEUIPASTESPECIALW ptr
 type LPOLEUIPASTESPECIALW as tagOLEUIPASTESPECIALW ptr
 
-type tagOLEUIPASTESPECIALA field = 8
+type tagOLEUIPASTESPECIALA
 	cbStruct as DWORD
 	dwFlags as DWORD
 	hWndOwner as HWND
@@ -434,11 +434,11 @@ declare function OleUIPasteSpecialA(byval as LPOLEUIPASTESPECIALA) as UINT
 #define OLEUI_PSERR_CLIPBOARDCHANGED (OLEUI_ERR_STANDARDMAX + 3)
 #define OLEUI_PSERR_GETCLIPBOARDFAILED (OLEUI_ERR_STANDARDMAX + 4)
 
-type IOleUILinkContainerW field = 8
+type IOleUILinkContainerW
 	lpVtbl as IOleUILinkContainerWVtbl ptr
 end type
 
-type IOleUILinkContainerWVtbl_ field = 8
+type IOleUILinkContainerWVtbl_
 	QueryInterface as function(byval This as IOleUILinkContainerW ptr, byval riid as const IID const ptr, byval ppvObj as LPVOID ptr) as HRESULT
 	AddRef as function(byval This as IOleUILinkContainerW ptr) as ULONG
 	Release as function(byval This as IOleUILinkContainerW ptr) as ULONG
@@ -454,11 +454,11 @@ end type
 
 type LPOLEUILINKCONTAINERW as IOleUILinkContainerW ptr
 
-type IOleUILinkContainerA field = 8
+type IOleUILinkContainerA
 	lpVtbl as IOleUILinkContainerAVtbl ptr
 end type
 
-type IOleUILinkContainerAVtbl_ field = 8
+type IOleUILinkContainerAVtbl_
 	QueryInterface as function(byval This as IOleUILinkContainerA ptr, byval riid as const IID const ptr, byval ppvObj as LPVOID ptr) as HRESULT
 	AddRef as function(byval This as IOleUILinkContainerA ptr) as ULONG
 	Release as function(byval This as IOleUILinkContainerA ptr) as ULONG
@@ -478,7 +478,7 @@ type LPOLEUILINKCONTAINERA as IOleUILinkContainerA ptr
 #define LPOLEUILINKCONTAINER __MINGW_NAME_AW(LPOLEUILINKCONTAINER)
 #define IOleUILinkContainerVtbl __MINGW_NAME_AW_EXT(IOleUILinkContainer, Vtbl)
 
-type tagOLEUIEDITLINKSW field = 8
+type tagOLEUIEDITLINKSW
 	cbStruct as DWORD
 	dwFlags as DWORD
 	hWndOwner as HWND
@@ -495,7 +495,7 @@ type OLEUIEDITLINKSW as tagOLEUIEDITLINKSW
 type POLEUIEDITLINKSW as tagOLEUIEDITLINKSW ptr
 type LPOLEUIEDITLINKSW as tagOLEUIEDITLINKSW ptr
 
-type tagOLEUIEDITLINKSA field = 8
+type tagOLEUIEDITLINKSA
 	cbStruct as DWORD
 	dwFlags as DWORD
 	hWndOwner as HWND
@@ -529,7 +529,7 @@ declare function OleUIEditLinksA(byval as LPOLEUIEDITLINKSA) as UINT
 #define ELF_DISABLECHANGESOURCE __MSABI_LONG(&h00000008)
 #define ELF_DISABLECANCELLINK __MSABI_LONG(&h00000010)
 
-type tagOLEUICHANGEICONW field = 8
+type tagOLEUICHANGEICONW
 	cbStruct as DWORD
 	dwFlags as DWORD
 	hWndOwner as HWND
@@ -549,7 +549,7 @@ type OLEUICHANGEICONW as tagOLEUICHANGEICONW
 type POLEUICHANGEICONW as tagOLEUICHANGEICONW ptr
 type LPOLEUICHANGEICONW as tagOLEUICHANGEICONW ptr
 
-type tagOLEUICHANGEICONA field = 8
+type tagOLEUICHANGEICONA
 	cbStruct as DWORD
 	dwFlags as DWORD
 	hWndOwner as HWND
@@ -587,7 +587,7 @@ declare function OleUIChangeIconA(byval as LPOLEUICHANGEICONA) as UINT
 #define OLEUI_CIERR_SZICONEXEINVALID (OLEUI_ERR_STANDARDMAX + 2)
 #define PROP_HWND_CHGICONDLG TEXT("HWND_CIDLG")
 
-type tagOLEUICONVERTW field = 8
+type tagOLEUICONVERTW
 	cbStruct as DWORD
 	dwFlags as DWORD
 	hWndOwner as HWND
@@ -616,7 +616,7 @@ type OLEUICONVERTW as tagOLEUICONVERTW
 type POLEUICONVERTW as tagOLEUICONVERTW ptr
 type LPOLEUICONVERTW as tagOLEUICONVERTW ptr
 
-type tagOLEUICONVERTA field = 8
+type tagOLEUICONVERTA
 	cbStruct as DWORD
 	dwFlags as DWORD
 	hWndOwner as HWND
@@ -671,7 +671,7 @@ declare function OleUICanConvertOrActivateAs(byval rClsid as const IID const ptr
 #define OLEUI_CTERR_HMETAPICTINVALID (OLEUI_ERR_STANDARDMAX + 4)
 #define OLEUI_CTERR_STRINGINVALID (OLEUI_ERR_STANDARDMAX + 5)
 
-type tagOLEUIBUSYW field = 8
+type tagOLEUIBUSYW
 	cbStruct as DWORD
 	dwFlags as DWORD
 	hWndOwner as HWND
@@ -689,7 +689,7 @@ type OLEUIBUSYW as tagOLEUIBUSYW
 type POLEUIBUSYW as tagOLEUIBUSYW ptr
 type LPOLEUIBUSYW as tagOLEUIBUSYW ptr
 
-type tagOLEUIBUSYA field = 8
+type tagOLEUIBUSYA
 	cbStruct as DWORD
 	dwFlags as DWORD
 	hWndOwner as HWND
@@ -724,7 +724,7 @@ declare function OleUIBusyA(byval as LPOLEUIBUSYA) as UINT
 #define OLEUI_BZ_RETRYSELECTED (OLEUI_ERR_STANDARDMAX + 2)
 #define OLEUI_BZ_CALLUNBLOCKED (OLEUI_ERR_STANDARDMAX + 3)
 
-type tagOLEUICHANGESOURCEW field = 8
+type tagOLEUICHANGESOURCEW
 	cbStruct as DWORD
 	dwFlags as DWORD
 	hWndOwner as HWND
@@ -748,7 +748,7 @@ type OLEUICHANGESOURCEW as tagOLEUICHANGESOURCEW
 type POLEUICHANGESOURCEW as tagOLEUICHANGESOURCEW ptr
 type LPOLEUICHANGESOURCEW as tagOLEUICHANGESOURCEW ptr
 
-type tagOLEUICHANGESOURCEA field = 8
+type tagOLEUICHANGESOURCEA
 	cbStruct as DWORD
 	dwFlags as DWORD
 	hWndOwner as HWND
@@ -793,11 +793,11 @@ declare function OleUIChangeSourceA(byval as LPOLEUICHANGESOURCEA) as UINT
 #define OLEUI_CSERR_SOURCEPARSERROR (OLEUI_ERR_STANDARDMAX + 6)
 #define OLEUI_CSERR_SOURCEPARSEERROR (OLEUI_ERR_STANDARDMAX + 6)
 
-type IOleUIObjInfoW field = 8
+type IOleUIObjInfoW
 	lpVtbl as IOleUIObjInfoWVtbl ptr
 end type
 
-type IOleUIObjInfoWVtbl_ field = 8
+type IOleUIObjInfoWVtbl_
 	QueryInterface as function(byval This as IOleUIObjInfoW ptr, byval riid as const IID const ptr, byval ppvObj as LPVOID ptr) as HRESULT
 	AddRef as function(byval This as IOleUIObjInfoW ptr) as ULONG
 	Release as function(byval This as IOleUIObjInfoW ptr) as ULONG
@@ -810,11 +810,11 @@ end type
 
 type LPOLEUIOBJINFOW as IOleUIObjInfoW ptr
 
-type IOleUIObjInfoA field = 8
+type IOleUIObjInfoA
 	lpVtbl as IOleUIObjInfoAVtbl ptr
 end type
 
-type IOleUIObjInfoAVtbl_ field = 8
+type IOleUIObjInfoAVtbl_
 	QueryInterface as function(byval This as IOleUIObjInfoA ptr, byval riid as const IID const ptr, byval ppvObj as LPVOID ptr) as HRESULT
 	AddRef as function(byval This as IOleUIObjInfoA ptr) as ULONG
 	Release as function(byval This as IOleUIObjInfoA ptr) as ULONG
@@ -831,11 +831,11 @@ type LPOLEUIOBJINFOA as IOleUIObjInfoA ptr
 #define LPOLEUIOBJINFO __MINGW_NAME_AW(LPOLEUIOBJINFO)
 #define IOleUIObjInfoVtbl __MINGW_NAME_AW_EXT(IOleUIObjInfo, Vtbl)
 
-type IOleUILinkInfoW field = 8
+type IOleUILinkInfoW
 	lpVtbl as IOleUILinkInfoWVtbl ptr
 end type
 
-type IOleUILinkInfoWVtbl_ field = 8
+type IOleUILinkInfoWVtbl_
 	QueryInterface as function(byval This as IOleUILinkInfoW ptr, byval riid as const IID const ptr, byval ppvObj as LPVOID ptr) as HRESULT
 	AddRef as function(byval This as IOleUILinkInfoW ptr) as ULONG
 	Release as function(byval This as IOleUILinkInfoW ptr) as ULONG
@@ -852,11 +852,11 @@ end type
 
 type LPOLEUILINKINFOW as IOleUILinkInfoW ptr
 
-type IOleUILinkInfoA field = 8
+type IOleUILinkInfoA
 	lpVtbl as IOleUILinkInfoAVtbl ptr
 end type
 
-type IOleUILinkInfoAVtbl_ field = 8
+type IOleUILinkInfoAVtbl_
 	QueryInterface as function(byval This as IOleUILinkInfoA ptr, byval riid as const IID const ptr, byval ppvObj as LPVOID ptr) as HRESULT
 	AddRef as function(byval This as IOleUILinkInfoA ptr) as ULONG
 	Release as function(byval This as IOleUILinkInfoA ptr) as ULONG
@@ -877,7 +877,7 @@ type LPOLEUILINKINFOA as IOleUILinkInfoA ptr
 #define LPOLEUILINKINFO __MINGW_NAME_AW(LPOLEUILINKINFO)
 #define IOleUILinkInfoVtbl __MINGW_NAME_AW_EXT(IOleUILinkInfo, Vtbl)
 
-type tagOLEUIGNRLPROPSW field = 8
+type tagOLEUIGNRLPROPSW
 	cbStruct as DWORD
 	dwFlags as DWORD
 	dwReserved1(0 to 1) as DWORD
@@ -891,7 +891,7 @@ type OLEUIGNRLPROPSW as tagOLEUIGNRLPROPSW
 type POLEUIGNRLPROPSW as tagOLEUIGNRLPROPSW ptr
 type LPOLEUIGNRLPROPSW as tagOLEUIGNRLPROPSW ptr
 
-type tagOLEUIGNRLPROPSA field = 8
+type tagOLEUIGNRLPROPSA
 	cbStruct as DWORD
 	dwFlags as DWORD
 	dwReserved1(0 to 1) as DWORD
@@ -910,7 +910,7 @@ type LPOLEUIGNRLPROPSA as tagOLEUIGNRLPROPSA ptr
 #define POLEUIGNRLPROPS __MINGW_NAME_AW(POLEUIGNRLPROPS)
 #define LPOLEUIGNRLPROPS __MINGW_NAME_AW(LPOLEUIGNRLPROPS)
 
-type tagOLEUIVIEWPROPSW field = 8
+type tagOLEUIVIEWPROPSW
 	cbStruct as DWORD
 	dwFlags as DWORD
 	dwReserved1(0 to 1) as DWORD
@@ -926,7 +926,7 @@ type OLEUIVIEWPROPSW as tagOLEUIVIEWPROPSW
 type POLEUIVIEWPROPSW as tagOLEUIVIEWPROPSW ptr
 type LPOLEUIVIEWPROPSW as tagOLEUIVIEWPROPSW ptr
 
-type tagOLEUIVIEWPROPSA field = 8
+type tagOLEUIVIEWPROPSA
 	cbStruct as DWORD
 	dwFlags as DWORD
 	dwReserved1(0 to 1) as DWORD
@@ -950,7 +950,7 @@ type LPOLEUIVIEWPROPSA as tagOLEUIVIEWPROPSA ptr
 #define VPF_DISABLERELATIVE __MSABI_LONG(&h00000002)
 #define VPF_DISABLESCALE __MSABI_LONG(&h00000004)
 
-type tagOLEUILINKPROPSW field = 8
+type tagOLEUILINKPROPSW
 	cbStruct as DWORD
 	dwFlags as DWORD
 	dwReserved1(0 to 1) as DWORD
@@ -964,7 +964,7 @@ type OLEUILINKPROPSW as tagOLEUILINKPROPSW
 type POLEUILINKPROPSW as tagOLEUILINKPROPSW ptr
 type LPOLEUILINKPROPSW as tagOLEUILINKPROPSW ptr
 
-type tagOLEUILINKPROPSA field = 8
+type tagOLEUILINKPROPSA
 	cbStruct as DWORD
 	dwFlags as DWORD
 	dwReserved1(0 to 1) as DWORD
@@ -984,7 +984,7 @@ type LPOLEUILINKPROPSA as tagOLEUILINKPROPSA ptr
 #define LPOLEUILINKPROPS __MINGW_NAME_AW(LPOLEUILINKPROPS)
 #define LPPROPSHEETHEADER __MINGW_NAME_AW(LPPROPSHEETHEADER)
 
-type tagOLEUIOBJECTPROPSW_ field = 8
+type tagOLEUIOBJECTPROPSW_
 	cbStruct as DWORD
 	dwFlags as DWORD
 	lpPS as LPPROPSHEETHEADERW
@@ -1001,7 +1001,7 @@ type OLEUIOBJECTPROPSW as tagOLEUIOBJECTPROPSW
 type POLEUIOBJECTPROPSW as tagOLEUIOBJECTPROPSW ptr
 type LPOLEUIOBJECTPROPSW as tagOLEUIOBJECTPROPSW ptr
 
-type tagOLEUIOBJECTPROPSA_ field = 8
+type tagOLEUIOBJECTPROPSA_
 	cbStruct as DWORD
 	dwFlags as DWORD
 	lpPS as LPPROPSHEETHEADERA

@@ -56,7 +56,7 @@ declare sub MIDL_user_free(byval as any ptr)
 
 type NDR_CCONTEXT as any ptr
 
-type _NDR_SCONTEXT field = 8
+type _NDR_SCONTEXT
 	pad(0 to 1) as any ptr
 	userContext as any ptr
 end type
@@ -70,7 +70,7 @@ type NDR_RUNDOWN as sub(byval context as any ptr)
 type NDR_NOTIFY_ROUTINE as sub()
 type NDR_NOTIFY2_ROUTINE as sub(byval flag as boolean_)
 
-type _SCONTEXT_QUEUE field = 8
+type _SCONTEXT_QUEUE
 	NumberOfObjects as ulong
 	ArrayOfObjects as NDR_SCONTEXT ptr
 end type
@@ -171,7 +171,7 @@ type RPC_LENGTH as ulong
 type EXPR_EVAL as sub(byval as _MIDL_STUB_MESSAGE ptr)
 type PFORMAT_STRING as const ubyte ptr
 
-type ARRAY_INFO field = 8
+type ARRAY_INFO
 	Dimension as long
 	BufferConformanceMark as ulong ptr
 	BufferVarianceMark as ulong ptr
@@ -184,7 +184,7 @@ type PARRAY_INFO as ARRAY_INFO ptr
 type PNDR_ASYNC_MESSAGE as _NDR_ASYNC_MESSAGE ptr
 type PNDR_CORRELATION_INFO as _NDR_CORRELATION_INFO ptr
 
-type CS_STUB_INFO field = 8
+type CS_STUB_INFO
 	WireCodeset as ulong
 	DesiredReceivingCodeset as ulong
 	CSArrayInfo as any ptr
@@ -193,7 +193,7 @@ end type
 type MIDL_SYNTAX_INFO as _MIDL_SYNTAX_INFO
 type PMIDL_SYNTAX_INFO as _MIDL_SYNTAX_INFO ptr
 
-type _MIDL_STUB_MESSAGE_ field = 8
+type _MIDL_STUB_MESSAGE_
 	RpcMsg as PRPC_MESSAGE
 	Buffer as ubyte ptr
 	BufferStart as ubyte ptr
@@ -269,7 +269,7 @@ type PMIDL_STUB_MESSAGE as _MIDL_STUB_MESSAGE ptr
 type GENERIC_BINDING_ROUTINE as function(byval as any ptr) as any ptr
 type GENERIC_UNBIND_ROUTINE as sub(byval as any ptr, byval as ubyte ptr)
 
-type _GENERIC_BINDING_ROUTINE_PAIR field = 8
+type _GENERIC_BINDING_ROUTINE_PAIR
 	pfnBind as GENERIC_BINDING_ROUTINE
 	pfnUnbind as GENERIC_UNBIND_ROUTINE
 end type
@@ -277,7 +277,7 @@ end type
 type GENERIC_BINDING_ROUTINE_PAIR as _GENERIC_BINDING_ROUTINE_PAIR
 type PGENERIC_BINDING_ROUTINE_PAIR as _GENERIC_BINDING_ROUTINE_PAIR ptr
 
-type __GENERIC_BINDING_INFO field = 8
+type __GENERIC_BINDING_INFO
 	pObj as any ptr
 	Size as ulong
 	pfnBind as GENERIC_BINDING_ROUTINE
@@ -291,7 +291,7 @@ type PGENERIC_BINDING_INFO as __GENERIC_BINDING_INFO ptr
 
 type XMIT_HELPER_ROUTINE as sub(byval as PMIDL_STUB_MESSAGE)
 
-type _XMIT_ROUTINE_QUINTUPLE field = 8
+type _XMIT_ROUTINE_QUINTUPLE
 	pfnTranslateToXmit as XMIT_HELPER_ROUTINE
 	pfnTranslateFromXmit as XMIT_HELPER_ROUTINE
 	pfnFreeXmit as XMIT_HELPER_ROUTINE
@@ -305,7 +305,7 @@ type USER_MARSHAL_MARSHALLING_ROUTINE as function(byval as ULONG ptr, byval as u
 type USER_MARSHAL_UNMARSHALLING_ROUTINE as function(byval as ULONG ptr, byval as ubyte ptr, byval as any ptr) as ubyte ptr
 type USER_MARSHAL_FREEING_ROUTINE as sub(byval as ULONG ptr, byval as any ptr)
 
-type _USER_MARSHAL_ROUTINE_QUADRUPLE field = 8
+type _USER_MARSHAL_ROUTINE_QUADRUPLE
 	pfnBufferSize as USER_MARSHAL_SIZING_ROUTINE
 	pfnMarshall as USER_MARSHAL_MARSHALLING_ROUTINE
 	pfnUnmarshall as USER_MARSHAL_UNMARSHALLING_ROUTINE
@@ -326,7 +326,7 @@ end enum
 
 type USER_MARSHAL_CB_TYPE as _USER_MARSHAL_CB_TYPE
 
-type _USER_MARSHAL_CB field = 8
+type _USER_MARSHAL_CB
 	Flags as ulong
 	pStubMsg as PMIDL_STUB_MESSAGE
 	pReserve as PFORMAT_STRING
@@ -344,14 +344,14 @@ type USER_MARSHAL_CB as _USER_MARSHAL_CB
 #define USER_CALL_IS_ASYNC &h0100
 #define USER_CALL_NEW_CORRELATION_DESC &h0200
 
-type _MALLOC_FREE_STRUCT field = 8
+type _MALLOC_FREE_STRUCT
 	pfnAllocate as function(byval as uinteger) as any ptr
 	pfnFree as sub(byval as any ptr)
 end type
 
 type MALLOC_FREE_STRUCT as _MALLOC_FREE_STRUCT
 
-type _COMM_FAULT_OFFSETS field = 8
+type _COMM_FAULT_OFFSETS
 	CommOffset as short
 	FaultOffset as short
 end type
@@ -374,7 +374,7 @@ type CS_TAG_GETTING_ROUTINE as sub(byval hBinding as RPC_BINDING_HANDLE, byval f
 
 declare sub RpcCsGetTags(byval hBinding as RPC_BINDING_HANDLE, byval fServerSide as long, byval pulSendingTag as ulong ptr, byval pulDesiredReceivingTag as ulong ptr, byval pulReceivingTag as ulong ptr, byval pStatus as error_status_t ptr)
 
-type _NDR_CS_SIZE_CONVERT_ROUTINES field = 8
+type _NDR_CS_SIZE_CONVERT_ROUTINES
 	pfnNetSize as CS_TYPE_NET_SIZE_ROUTINE
 	pfnToNetCs as CS_TYPE_TO_NETCS_ROUTINE
 	pfnLocalSize as CS_TYPE_LOCAL_SIZE_ROUTINE
@@ -383,20 +383,20 @@ end type
 
 type NDR_CS_SIZE_CONVERT_ROUTINES as _NDR_CS_SIZE_CONVERT_ROUTINES
 
-type _NDR_CS_ROUTINES field = 8
+type _NDR_CS_ROUTINES
 	pSizeConvertRoutines as NDR_CS_SIZE_CONVERT_ROUTINES ptr
 	pTagGettingRoutines as CS_TAG_GETTING_ROUTINE ptr
 end type
 
 type NDR_CS_ROUTINES as _NDR_CS_ROUTINES
 
-union ___MIDL_STUB_DESC_IMPLICIT_HANDLE_INFO field = 8
+union ___MIDL_STUB_DESC_IMPLICIT_HANDLE_INFO
 	pAutoHandle as handle_t ptr
 	pPrimitiveHandle as handle_t ptr
 	pGenericBindingInfo as PGENERIC_BINDING_INFO
 end union
 
-type _MIDL_STUB_DESC_ field = 8
+type _MIDL_STUB_DESC_
 	RpcInterfaceInformation as any ptr
 	pfnAllocate as function(byval as uinteger) as any ptr
 	pfnFree as sub(byval as any ptr)
@@ -423,7 +423,7 @@ type MIDL_STUB_DESC as _MIDL_STUB_DESC
 type PMIDL_STUB_DESC as const MIDL_STUB_DESC ptr
 type PMIDL_XMIT_TYPE as any ptr
 
-type _MIDL_FORMAT_STRING field = 8
+type _MIDL_FORMAT_STRING
 	Pad as short
 	Format(0 to ...) as ubyte
 end type
@@ -432,7 +432,7 @@ type MIDL_FORMAT_STRING as _MIDL_FORMAT_STRING
 type STUB_THUNK as sub(byval as PMIDL_STUB_MESSAGE)
 type SERVER_ROUTINE as function() as long
 
-type _MIDL_SERVER_INFO_ field = 8
+type _MIDL_SERVER_INFO_
 	pStubDesc as PMIDL_STUB_DESC
 	DispatchTable as const SERVER_ROUTINE ptr
 	ProcString as PFORMAT_STRING
@@ -446,7 +446,7 @@ end type
 type MIDL_SERVER_INFO as _MIDL_SERVER_INFO_
 type PMIDL_SERVER_INFO as _MIDL_SERVER_INFO_ ptr
 
-type _MIDL_STUBLESS_PROXY_INFO field = 8
+type _MIDL_STUBLESS_PROXY_INFO
 	pStubDesc as PMIDL_STUB_DESC
 	ProcFormatString as PFORMAT_STRING
 	FormatStringOffset as const ushort ptr
@@ -458,7 +458,7 @@ end type
 type MIDL_STUBLESS_PROXY_INFO as _MIDL_STUBLESS_PROXY_INFO
 type PMIDL_STUBLESS_PROXY_INFO as MIDL_STUBLESS_PROXY_INFO ptr
 
-type _MIDL_SYNTAX_INFO field = 8
+type _MIDL_SYNTAX_INFO
 	TransferSyntax as RPC_SYNTAX_IDENTIFIER
 	DispatchTable as RPC_DISPATCH_TABLE ptr
 	ProcString as PFORMAT_STRING
@@ -472,7 +472,7 @@ end type
 type PARAM_OFFSETTABLE as ushort ptr
 type PPARAM_OFFSETTABLE as ushort ptr
 
-union _CLIENT_CALL_RETURN field = 8
+union _CLIENT_CALL_RETURN
 	Pointer as any ptr
 	Simple as LONG_PTR
 end union
@@ -485,7 +485,7 @@ enum
 	XLAT_CLIENT
 end enum
 
-type _FULL_PTR_TO_REFID_ELEMENT field = 8
+type _FULL_PTR_TO_REFID_ELEMENT
 	Next as _FULL_PTR_TO_REFID_ELEMENT ptr
 	Pointer as any ptr
 	RefId as ulong
@@ -495,19 +495,19 @@ end type
 type FULL_PTR_TO_REFID_ELEMENT as _FULL_PTR_TO_REFID_ELEMENT
 type PFULL_PTR_TO_REFID_ELEMENT as _FULL_PTR_TO_REFID_ELEMENT ptr
 
-type ___FULL_PTR_XLAT_TABLES_RefIdToPointer field = 8
+type ___FULL_PTR_XLAT_TABLES_RefIdToPointer
 	XlatTable as any ptr ptr
 	StateTable as ubyte ptr
 	NumberOfEntries as ulong
 end type
 
-type ___FULL_PTR_XLAT_TABLES_PointerToRefId field = 8
+type ___FULL_PTR_XLAT_TABLES_PointerToRefId
 	XlatTable as PFULL_PTR_TO_REFID_ELEMENT ptr
 	NumberOfBuckets as ulong
 	HashMask as ulong
 end type
 
-type _FULL_PTR_XLAT_TABLES_ field = 8
+type _FULL_PTR_XLAT_TABLES_
 	RefIdToPointer as ___FULL_PTR_XLAT_TABLES_RefIdToPointer
 	PointerToRefId as ___FULL_PTR_XLAT_TABLES_PointerToRefId
 	NextRefId as ulong
@@ -745,7 +745,7 @@ declare sub NdrOleFree(byval NodeToFree as any ptr)
 #define MIDL_INTERFACE(x) '' TODO: struct
 #define EXTERN_GUID(itf, l1, s1, s2, c1, c2, c3, c4, c5, c6, c7, c8) '' TODO: const IID DECLSPEC_SELECTANY itf = {l1,s1,s2,{c1,c2,c3,c4,c5,c6,c7,c8}}
 
-type _NDR_USER_MARSHAL_INFO_LEVEL1 field = 8
+type _NDR_USER_MARSHAL_INFO_LEVEL1
 	Buffer as any ptr
 	BufferSize as ulong
 	pfnAllocate as function(byval as uinteger) as any ptr
@@ -756,10 +756,10 @@ end type
 
 type NDR_USER_MARSHAL_INFO_LEVEL1 as _NDR_USER_MARSHAL_INFO_LEVEL1
 
-type _NDR_USER_MARSHAL_INFO field = 8
+type _NDR_USER_MARSHAL_INFO
 	InformationLevel as ulong
 
-	union field = 8
+	union
 		Level1 as NDR_USER_MARSHAL_INFO_LEVEL1
 	end union
 end type

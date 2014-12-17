@@ -112,7 +112,7 @@ end enum
 type LPINTERNET_SCHEME as INTERNET_SCHEME ptr
 
 #ifdef __FB_64BIT__
-	type INTERNET_ASYNC_RESULT field = 8
+	type INTERNET_ASYNC_RESULT
 		dwResult as DWORD_PTR
 		dwError as DWORD
 	end type
@@ -126,7 +126,7 @@ type LPINTERNET_SCHEME as INTERNET_SCHEME ptr
 type LPINTERNET_ASYNC_RESULT as INTERNET_ASYNC_RESULT ptr
 
 #ifdef __FB_64BIT__
-	type INTERNET_DIAGNOSTIC_SOCKET_INFO field = 8
+	type INTERNET_DIAGNOSTIC_SOCKET_INFO
 		Socket as DWORD_PTR
 		SourcePort as DWORD
 		DestPort as DWORD
@@ -149,7 +149,7 @@ type LPINTERNET_DIAGNOSTIC_SOCKET_INFO as INTERNET_DIAGNOSTIC_SOCKET_INFO ptr
 #define IDSI_FLAG_TUNNEL &h00000008
 
 #ifdef __FB_64BIT__
-	type INTERNET_PROXY_INFO field = 8
+	type INTERNET_PROXY_INFO
 		dwAccessType as DWORD
 		lpszProxy as LPCTSTR
 		lpszProxyBypass as LPCTSTR
@@ -165,13 +165,13 @@ type LPINTERNET_DIAGNOSTIC_SOCKET_INFO as INTERNET_DIAGNOSTIC_SOCKET_INFO ptr
 type LPINTERNET_PROXY_INFO as INTERNET_PROXY_INFO ptr
 
 #ifdef __FB_64BIT__
-	union __Value field = 8
+	union __Value
 		dwValue as DWORD
 		pszValue as LPSTR
 		ftValue as FILETIME
 	end union
 
-	type INTERNET_PER_CONN_OPTIONA field = 8
+	type INTERNET_PER_CONN_OPTIONA
 		dwOption as DWORD
 		Value as __Value
 	end type
@@ -191,13 +191,13 @@ type LPINTERNET_PROXY_INFO as INTERNET_PROXY_INFO ptr
 type LPINTERNET_PER_CONN_OPTIONA as INTERNET_PER_CONN_OPTIONA ptr
 
 #ifdef __FB_64BIT__
-	union __Value field = 8
+	union __Value
 		dwValue as DWORD
 		pszValue as LPWSTR
 		ftValue as FILETIME
 	end union
 
-	type INTERNET_PER_CONN_OPTIONW field = 8
+	type INTERNET_PER_CONN_OPTIONW
 		dwOption as DWORD
 		Value as __Value
 	end type
@@ -225,7 +225,7 @@ type LPINTERNET_PER_CONN_OPTIONW as INTERNET_PER_CONN_OPTIONW ptr
 #endif
 
 #ifdef __FB_64BIT__
-	type INTERNET_PER_CONN_OPTION_LISTA field = 8
+	type INTERNET_PER_CONN_OPTION_LISTA
 		dwSize as DWORD
 		pszConnection as LPSTR
 		dwOptionCount as DWORD
@@ -245,7 +245,7 @@ type LPINTERNET_PER_CONN_OPTIONW as INTERNET_PER_CONN_OPTIONW ptr
 type LPINTERNET_PER_CONN_OPTION_LISTA as INTERNET_PER_CONN_OPTION_LISTA ptr
 
 #ifdef __FB_64BIT__
-	type INTERNET_PER_CONN_OPTION_LISTW field = 8
+	type INTERNET_PER_CONN_OPTION_LISTW
 		dwSize as DWORD
 		pszConnection as LPWSTR
 		dwOptionCount as DWORD
@@ -295,7 +295,7 @@ type LPINTERNET_PER_CONN_OPTION_LISTW as INTERNET_PER_CONN_OPTION_LISTW ptr
 #define AUTO_PROXY_FLAG_DETECTION_SUSPECT &h00000040
 
 #ifdef __FB_64BIT__
-	type INTERNET_VERSION_INFO field = 8
+	type INTERNET_VERSION_INFO
 		dwMajorVersion as DWORD
 		dwMinorVersion as DWORD
 	end type
@@ -309,7 +309,7 @@ type LPINTERNET_PER_CONN_OPTION_LISTW as INTERNET_PER_CONN_OPTION_LISTW ptr
 type LPINTERNET_VERSION_INFO as INTERNET_VERSION_INFO ptr
 
 #ifdef __FB_64BIT__
-	type HTTP_VERSION_INFO field = 8
+	type HTTP_VERSION_INFO
 		dwMajorVersion as DWORD
 		dwMinorVersion as DWORD
 	end type
@@ -323,7 +323,7 @@ type LPINTERNET_VERSION_INFO as INTERNET_VERSION_INFO ptr
 type LPHTTP_VERSION_INFO as HTTP_VERSION_INFO ptr
 
 #ifdef __FB_64BIT__
-	type INTERNET_CONNECTED_INFO field = 8
+	type INTERNET_CONNECTED_INFO
 		dwConnectedState as DWORD
 		dwFlags as DWORD
 	end type
@@ -339,7 +339,7 @@ type LPINTERNET_CONNECTED_INFO as INTERNET_CONNECTED_INFO ptr
 #define ISO_FORCE_DISCONNECTED &h00000001
 
 #ifdef __FB_64BIT__
-	type URL_COMPONENTSA field = 8
+	type URL_COMPONENTSA
 		dwStructSize as DWORD
 		lpszScheme as LPSTR
 		dwSchemeLength as DWORD
@@ -379,7 +379,7 @@ type LPINTERNET_CONNECTED_INFO as INTERNET_CONNECTED_INFO ptr
 type LPURL_COMPONENTSA as URL_COMPONENTSA ptr
 
 #ifdef __FB_64BIT__
-	type URL_COMPONENTSW field = 8
+	type URL_COMPONENTSW
 		dwStructSize as DWORD
 		lpszScheme as LPWSTR
 		dwSchemeLength as DWORD
@@ -427,7 +427,7 @@ type LPURL_COMPONENTSW as URL_COMPONENTSW ptr
 #endif
 
 #ifdef __FB_64BIT__
-	type INTERNET_CERTIFICATE_INFO field = 8
+	type INTERNET_CERTIFICATE_INFO
 		ftExpiry as FILETIME
 		ftStart as FILETIME
 		lpszSubjectInfo as LPTSTR
@@ -453,7 +453,7 @@ type LPURL_COMPONENTSW as URL_COMPONENTSW ptr
 type LPINTERNET_CERTIFICATE_INFO as INTERNET_CERTIFICATE_INFO ptr
 
 #ifdef __FB_64BIT__
-	type _INTERNET_BUFFERSA field = 8
+	type _INTERNET_BUFFERSA
 		dwStructSize as DWORD
 		Next as _INTERNET_BUFFERSA ptr
 		lpcszHeader as LPCSTR
@@ -484,7 +484,7 @@ type INTERNET_BUFFERSA as _INTERNET_BUFFERSA
 type LPINTERNET_BUFFERSA as _INTERNET_BUFFERSA ptr
 
 #ifdef __FB_64BIT__
-	type _INTERNET_BUFFERSW field = 8
+	type _INTERNET_BUFFERSW
 		dwStructSize as DWORD
 		Next as _INTERNET_BUFFERSW ptr
 		lpcszHeader as LPCWSTR
@@ -810,7 +810,7 @@ enum
 end enum
 
 #ifdef __FB_64BIT__
-	type IncomingCookieState field = 8
+	type IncomingCookieState
 		cSession as long
 		cPersistent as long
 		cAccepted as long
@@ -820,20 +820,20 @@ end enum
 		pszLocation as const zstring ptr
 	end type
 
-	type OutgoingCookieState field = 8
+	type OutgoingCookieState
 		cSent as long
 		cSuppressed as long
 		pszLocation as const zstring ptr
 	end type
 
-	type InternetCookieHistory field = 8
+	type InternetCookieHistory
 		fAccepted as WINBOOL
 		fLeashed as WINBOOL
 		fDowngraded as WINBOOL
 		fRejected as WINBOOL
 	end type
 
-	type CookieDecision field = 8
+	type CookieDecision
 		dwCookieState as DWORD
 		fAllowSession as WINBOOL
 	end type
@@ -916,7 +916,7 @@ declare function FtpGetFileSize(byval hFile as HINTERNET, byval lpdwFileSizeHigh
 #define MAX_GOPHER_LOCATOR_LENGTH ((((((((((1 + MAX_GOPHER_DISPLAY_TEXT) + 1) + MAX_GOPHER_SELECTOR_TEXT) + 1) + MAX_GOPHER_HOST_NAME) + 1) + INTERNET_MAX_PORT_NUMBER_LENGTH) + 1) + 1) + 2)
 
 #ifdef __FB_64BIT__
-	type GOPHER_FIND_DATAA field = 8
+	type GOPHER_FIND_DATAA
 		DisplayString(0 to (128 + 1) - 1) as CHAR
 		GopherType as DWORD
 		SizeLow as DWORD
@@ -938,7 +938,7 @@ declare function FtpGetFileSize(byval hFile as HINTERNET, byval lpdwFileSizeHigh
 type LPGOPHER_FIND_DATAA as GOPHER_FIND_DATAA ptr
 
 #ifdef __FB_64BIT__
-	type GOPHER_FIND_DATAW field = 8
+	type GOPHER_FIND_DATAW
 		DisplayString(0 to (128 + 1) - 1) as WCHAR
 		GopherType as DWORD
 		SizeLow as DWORD
@@ -1005,7 +1005,7 @@ type LPGOPHER_FIND_DATAW as GOPHER_FIND_DATAW ptr
 #define GOPHER_TYPE_FILE_MASK (((((((((((((GOPHER_TYPE_TEXT_FILE or GOPHER_TYPE_MAC_BINHEX) or GOPHER_TYPE_DOS_ARCHIVE) or GOPHER_TYPE_UNIX_UUENCODED) or GOPHER_TYPE_BINARY) or GOPHER_TYPE_GIF) or GOPHER_TYPE_IMAGE) or GOPHER_TYPE_BITMAP) or GOPHER_TYPE_MOVIE) or GOPHER_TYPE_SOUND) or GOPHER_TYPE_HTML) or GOPHER_TYPE_PDF) or GOPHER_TYPE_CALENDAR) or GOPHER_TYPE_INLINE)
 
 #ifdef __FB_64BIT__
-	type GOPHER_ADMIN_ATTRIBUTE_TYPE field = 8
+	type GOPHER_ADMIN_ATTRIBUTE_TYPE
 		Comment as LPCTSTR
 		EmailAddress as LPCTSTR
 	end type
@@ -1019,7 +1019,7 @@ type LPGOPHER_FIND_DATAW as GOPHER_FIND_DATAW ptr
 type LPGOPHER_ADMIN_ATTRIBUTE_TYPE as GOPHER_ADMIN_ATTRIBUTE_TYPE ptr
 
 #ifdef __FB_64BIT__
-	type GOPHER_MOD_DATE_ATTRIBUTE_TYPE field = 8
+	type GOPHER_MOD_DATE_ATTRIBUTE_TYPE
 		DateAndTime as FILETIME
 	end type
 #else
@@ -1031,7 +1031,7 @@ type LPGOPHER_ADMIN_ATTRIBUTE_TYPE as GOPHER_ADMIN_ATTRIBUTE_TYPE ptr
 type LPGOPHER_MOD_DATE_ATTRIBUTE_TYPE as GOPHER_MOD_DATE_ATTRIBUTE_TYPE ptr
 
 #ifdef __FB_64BIT__
-	type GOPHER_TTL_ATTRIBUTE_TYPE field = 8
+	type GOPHER_TTL_ATTRIBUTE_TYPE
 		Ttl as DWORD
 	end type
 #else
@@ -1043,7 +1043,7 @@ type LPGOPHER_MOD_DATE_ATTRIBUTE_TYPE as GOPHER_MOD_DATE_ATTRIBUTE_TYPE ptr
 type LPGOPHER_TTL_ATTRIBUTE_TYPE as GOPHER_TTL_ATTRIBUTE_TYPE ptr
 
 #ifdef __FB_64BIT__
-	type GOPHER_SCORE_ATTRIBUTE_TYPE field = 8
+	type GOPHER_SCORE_ATTRIBUTE_TYPE
 		Score as INT_
 	end type
 #else
@@ -1055,7 +1055,7 @@ type LPGOPHER_TTL_ATTRIBUTE_TYPE as GOPHER_TTL_ATTRIBUTE_TYPE ptr
 type LPGOPHER_SCORE_ATTRIBUTE_TYPE as GOPHER_SCORE_ATTRIBUTE_TYPE ptr
 
 #ifdef __FB_64BIT__
-	type GOPHER_SCORE_RANGE_ATTRIBUTE_TYPE field = 8
+	type GOPHER_SCORE_RANGE_ATTRIBUTE_TYPE
 		LowerBound as INT_
 		UpperBound as INT_
 	end type
@@ -1069,7 +1069,7 @@ type LPGOPHER_SCORE_ATTRIBUTE_TYPE as GOPHER_SCORE_ATTRIBUTE_TYPE ptr
 type LPGOPHER_SCORE_RANGE_ATTRIBUTE_TYPE as GOPHER_SCORE_RANGE_ATTRIBUTE_TYPE ptr
 
 #ifdef __FB_64BIT__
-	type GOPHER_SITE_ATTRIBUTE_TYPE field = 8
+	type GOPHER_SITE_ATTRIBUTE_TYPE
 		Site as LPCTSTR
 	end type
 #else
@@ -1081,7 +1081,7 @@ type LPGOPHER_SCORE_RANGE_ATTRIBUTE_TYPE as GOPHER_SCORE_RANGE_ATTRIBUTE_TYPE pt
 type LPGOPHER_SITE_ATTRIBUTE_TYPE as GOPHER_SITE_ATTRIBUTE_TYPE ptr
 
 #ifdef __FB_64BIT__
-	type GOPHER_ORGANIZATION_ATTRIBUTE_TYPE field = 8
+	type GOPHER_ORGANIZATION_ATTRIBUTE_TYPE
 		Organization as LPCTSTR
 	end type
 #else
@@ -1093,7 +1093,7 @@ type LPGOPHER_SITE_ATTRIBUTE_TYPE as GOPHER_SITE_ATTRIBUTE_TYPE ptr
 type LPGOPHER_ORGANIZATION_ATTRIBUTE_TYPE as GOPHER_ORGANIZATION_ATTRIBUTE_TYPE ptr
 
 #ifdef __FB_64BIT__
-	type GOPHER_LOCATION_ATTRIBUTE_TYPE field = 8
+	type GOPHER_LOCATION_ATTRIBUTE_TYPE
 		Location as LPCTSTR
 	end type
 #else
@@ -1105,7 +1105,7 @@ type LPGOPHER_ORGANIZATION_ATTRIBUTE_TYPE as GOPHER_ORGANIZATION_ATTRIBUTE_TYPE 
 type LPGOPHER_LOCATION_ATTRIBUTE_TYPE as GOPHER_LOCATION_ATTRIBUTE_TYPE ptr
 
 #ifdef __FB_64BIT__
-	type GOPHER_GEOGRAPHICAL_LOCATION_ATTRIBUTE_TYPE field = 8
+	type GOPHER_GEOGRAPHICAL_LOCATION_ATTRIBUTE_TYPE
 		DegreesNorth as INT_
 		MinutesNorth as INT_
 		SecondsNorth as INT_
@@ -1127,7 +1127,7 @@ type LPGOPHER_LOCATION_ATTRIBUTE_TYPE as GOPHER_LOCATION_ATTRIBUTE_TYPE ptr
 type LPGOPHER_GEOGRAPHICAL_LOCATION_ATTRIBUTE_TYPE as GOPHER_GEOGRAPHICAL_LOCATION_ATTRIBUTE_TYPE ptr
 
 #ifdef __FB_64BIT__
-	type GOPHER_TIMEZONE_ATTRIBUTE_TYPE field = 8
+	type GOPHER_TIMEZONE_ATTRIBUTE_TYPE
 		Zone as INT_
 	end type
 #else
@@ -1139,7 +1139,7 @@ type LPGOPHER_GEOGRAPHICAL_LOCATION_ATTRIBUTE_TYPE as GOPHER_GEOGRAPHICAL_LOCATI
 type LPGOPHER_TIMEZONE_ATTRIBUTE_TYPE as GOPHER_TIMEZONE_ATTRIBUTE_TYPE ptr
 
 #ifdef __FB_64BIT__
-	type GOPHER_PROVIDER_ATTRIBUTE_TYPE field = 8
+	type GOPHER_PROVIDER_ATTRIBUTE_TYPE
 		Provider as LPCTSTR
 	end type
 #else
@@ -1151,7 +1151,7 @@ type LPGOPHER_TIMEZONE_ATTRIBUTE_TYPE as GOPHER_TIMEZONE_ATTRIBUTE_TYPE ptr
 type LPGOPHER_PROVIDER_ATTRIBUTE_TYPE as GOPHER_PROVIDER_ATTRIBUTE_TYPE ptr
 
 #ifdef __FB_64BIT__
-	type GOPHER_VERSION_ATTRIBUTE_TYPE field = 8
+	type GOPHER_VERSION_ATTRIBUTE_TYPE
 		Version as LPCTSTR
 	end type
 #else
@@ -1163,7 +1163,7 @@ type LPGOPHER_PROVIDER_ATTRIBUTE_TYPE as GOPHER_PROVIDER_ATTRIBUTE_TYPE ptr
 type LPGOPHER_VERSION_ATTRIBUTE_TYPE as GOPHER_VERSION_ATTRIBUTE_TYPE ptr
 
 #ifdef __FB_64BIT__
-	type GOPHER_ABSTRACT_ATTRIBUTE_TYPE field = 8
+	type GOPHER_ABSTRACT_ATTRIBUTE_TYPE
 		ShortAbstract as LPCTSTR
 		AbstractFile as LPCTSTR
 	end type
@@ -1177,7 +1177,7 @@ type LPGOPHER_VERSION_ATTRIBUTE_TYPE as GOPHER_VERSION_ATTRIBUTE_TYPE ptr
 type LPGOPHER_ABSTRACT_ATTRIBUTE_TYPE as GOPHER_ABSTRACT_ATTRIBUTE_TYPE ptr
 
 #ifdef __FB_64BIT__
-	type GOPHER_VIEW_ATTRIBUTE_TYPE field = 8
+	type GOPHER_VIEW_ATTRIBUTE_TYPE
 		ContentType as LPCTSTR
 		Language as LPCTSTR
 		Size as DWORD
@@ -1193,7 +1193,7 @@ type LPGOPHER_ABSTRACT_ATTRIBUTE_TYPE as GOPHER_ABSTRACT_ATTRIBUTE_TYPE ptr
 type LPGOPHER_VIEW_ATTRIBUTE_TYPE as GOPHER_VIEW_ATTRIBUTE_TYPE ptr
 
 #ifdef __FB_64BIT__
-	type GOPHER_VERONICA_ATTRIBUTE_TYPE field = 8
+	type GOPHER_VERONICA_ATTRIBUTE_TYPE
 		TreeWalk as WINBOOL
 	end type
 #else
@@ -1205,7 +1205,7 @@ type LPGOPHER_VIEW_ATTRIBUTE_TYPE as GOPHER_VIEW_ATTRIBUTE_TYPE ptr
 type LPGOPHER_VERONICA_ATTRIBUTE_TYPE as GOPHER_VERONICA_ATTRIBUTE_TYPE ptr
 
 #ifdef __FB_64BIT__
-	type GOPHER_ASK_ATTRIBUTE_TYPE field = 8
+	type GOPHER_ASK_ATTRIBUTE_TYPE
 		QuestionType as LPCTSTR
 		QuestionText as LPCTSTR
 	end type
@@ -1219,7 +1219,7 @@ type LPGOPHER_VERONICA_ATTRIBUTE_TYPE as GOPHER_VERONICA_ATTRIBUTE_TYPE ptr
 type LPGOPHER_ASK_ATTRIBUTE_TYPE as GOPHER_ASK_ATTRIBUTE_TYPE ptr
 
 #ifdef __FB_64BIT__
-	type GOPHER_UNKNOWN_ATTRIBUTE_TYPE field = 8
+	type GOPHER_UNKNOWN_ATTRIBUTE_TYPE
 		Text_ as LPCTSTR
 	end type
 #else
@@ -1231,7 +1231,7 @@ type LPGOPHER_ASK_ATTRIBUTE_TYPE as GOPHER_ASK_ATTRIBUTE_TYPE ptr
 type LPGOPHER_UNKNOWN_ATTRIBUTE_TYPE as GOPHER_UNKNOWN_ATTRIBUTE_TYPE ptr
 
 #ifdef __FB_64BIT__
-	union __AttributeType field = 8
+	union __AttributeType
 		Admin as GOPHER_ADMIN_ATTRIBUTE_TYPE
 		ModDate as GOPHER_MOD_DATE_ATTRIBUTE_TYPE
 		Ttl as GOPHER_TTL_ATTRIBUTE_TYPE
@@ -1251,7 +1251,7 @@ type LPGOPHER_UNKNOWN_ATTRIBUTE_TYPE as GOPHER_UNKNOWN_ATTRIBUTE_TYPE ptr
 		Unknown as GOPHER_UNKNOWN_ATTRIBUTE_TYPE
 	end union
 
-	type GOPHER_ATTRIBUTE_TYPE field = 8
+	type GOPHER_ATTRIBUTE_TYPE
 		CategoryId as DWORD
 		AttributeId as DWORD
 		AttributeType as __AttributeType
@@ -1566,7 +1566,7 @@ declare function InternetAuthNotifyCallback cdecl(byval dwContext as DWORD_PTR, 
 type PFN_AUTH_NOTIFY as function(byval as DWORD_PTR, byval as DWORD, byval as LPVOID) as DWORD
 
 #ifdef __FB_64BIT__
-	type INTERNET_AUTH_NOTIFY_DATA field = 8
+	type INTERNET_AUTH_NOTIFY_DATA
 		cbStruct as DWORD
 		dwOptions as DWORD
 		pfnNotify as PFN_AUTH_NOTIFY
@@ -1697,7 +1697,7 @@ declare function InternetConfirmZoneCrossingW(byval hWnd as HWND, byval szUrlPre
 #define URLCACHE_FIND_DEFAULT_FILTER (((((NORMAL_CACHE_ENTRY or COOKIE_CACHE_ENTRY) or URLHISTORY_CACHE_ENTRY) or TRACK_OFFLINE_CACHE_ENTRY) or TRACK_ONLINE_CACHE_ENTRY) or STICKY_CACHE_ENTRY)
 
 #ifdef __FB_64BIT__
-	type _INTERNET_CACHE_ENTRY_INFOA field = 8
+	type _INTERNET_CACHE_ENTRY_INFOA
 		dwStructSize as DWORD
 		lpszSourceUrlName as LPSTR
 		lpszLocalFileName as LPSTR
@@ -1714,7 +1714,7 @@ declare function InternetConfirmZoneCrossingW(byval hWnd as HWND, byval szUrlPre
 		dwHeaderInfoSize as DWORD
 		lpszFileExtension as LPSTR
 
-		union field = 8
+		union
 			dwReserved as DWORD
 			dwExemptDelta as DWORD
 		end union
@@ -1748,7 +1748,7 @@ type INTERNET_CACHE_ENTRY_INFOA as _INTERNET_CACHE_ENTRY_INFOA
 type LPINTERNET_CACHE_ENTRY_INFOA as _INTERNET_CACHE_ENTRY_INFOA ptr
 
 #ifdef __FB_64BIT__
-	type _INTERNET_CACHE_ENTRY_INFOW field = 8
+	type _INTERNET_CACHE_ENTRY_INFOW
 		dwStructSize as DWORD
 		lpszSourceUrlName as LPWSTR
 		lpszLocalFileName as LPWSTR
@@ -1765,7 +1765,7 @@ type LPINTERNET_CACHE_ENTRY_INFOA as _INTERNET_CACHE_ENTRY_INFOA ptr
 		dwHeaderInfoSize as DWORD
 		lpszFileExtension as LPWSTR
 
-		union field = 8
+		union
 			dwReserved as DWORD
 			dwExemptDelta as DWORD
 		end union
@@ -1807,7 +1807,7 @@ type LPINTERNET_CACHE_ENTRY_INFOW as _INTERNET_CACHE_ENTRY_INFOW ptr
 #endif
 
 #ifdef __FB_64BIT__
-	type _INTERNET_CACHE_TIMESTAMPS field = 8
+	type _INTERNET_CACHE_TIMESTAMPS
 		ftExpires as FILETIME
 		ftLastModified as FILETIME
 	end type
@@ -1840,7 +1840,7 @@ type GROUPID as LONGLONG
 #define GROUP_OWNER_STORAGE_SIZE 4
 
 #ifdef __FB_64BIT__
-	type _INTERNET_CACHE_GROUP_INFOA field = 8
+	type _INTERNET_CACHE_GROUP_INFOA
 		dwGroupSize as DWORD
 		dwGroupFlags as DWORD
 		dwGroupType as DWORD
@@ -1865,7 +1865,7 @@ type INTERNET_CACHE_GROUP_INFOA as _INTERNET_CACHE_GROUP_INFOA
 type LPINTERNET_CACHE_GROUP_INFOA as _INTERNET_CACHE_GROUP_INFOA ptr
 
 #ifdef __FB_64BIT__
-	type _INTERNET_CACHE_GROUP_INFOW field = 8
+	type _INTERNET_CACHE_GROUP_INFOW
 		dwGroupSize as DWORD
 		dwGroupFlags as DWORD
 		dwGroupType as DWORD
@@ -2008,14 +2008,14 @@ declare function InternetGetConnectedStateExW(byval lpdwFlags as LPDWORD, byval 
 #define PROXY_AUTO_DETECT_TYPE_DNS_A 2
 
 #ifdef __FB_64BIT__
-	type AutoProxyHelperVtbl field = 8
+	type AutoProxyHelperVtbl
 		IsResolvable as function(byval lpszHost as LPSTR) as WINBOOL
 		GetIPAddress as function(byval lpszIPAddress as LPSTR, byval lpdwIPAddressSize as LPDWORD) as DWORD
 		ResolveHostName as function(byval lpszHostName as LPSTR, byval lpszIPAddress as LPSTR, byval lpdwIPAddressSize as LPDWORD) as DWORD
 		IsInNet as function(byval lpszIPAddress as LPSTR, byval lpszDest as LPSTR, byval lpszMask as LPSTR) as WINBOOL
 	end type
 
-	type AUTO_PROXY_SCRIPT_BUFFER field = 8
+	type AUTO_PROXY_SCRIPT_BUFFER
 		dwStructSize as DWORD
 		lpszScriptBuffer as LPSTR
 		dwScriptBufferSize as DWORD
@@ -2038,7 +2038,7 @@ declare function InternetGetConnectedStateExW(byval lpdwFlags as LPDWORD, byval 
 type LPAUTO_PROXY_SCRIPT_BUFFER as AUTO_PROXY_SCRIPT_BUFFER ptr
 
 #ifdef __FB_64BIT__
-	type AutoProxyHelperFunctions field = 8
+	type AutoProxyHelperFunctions
 		lpVtbl as const AutoProxyHelperVtbl ptr
 	end type
 #else

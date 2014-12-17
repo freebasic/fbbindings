@@ -112,7 +112,7 @@ declare function StgGetIFillLockBytesOnFile(byval pwcsName as const OLECHAR ptr,
 
 #define STGOPTIONS_VERSION 2
 
-type tagSTGOPTIONS field = 8
+type tagSTGOPTIONS
 	usVersion as USHORT
 	reserved as USHORT
 	ulSectorSize as ULONG
