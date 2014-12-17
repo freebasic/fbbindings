@@ -7980,7 +7980,7 @@ private sub TpSetCallbackActivationContext cdecl(byval cbe as PTP_CALLBACK_ENVIR
 end sub
 
 private sub TpSetCallbackNoActivationContext cdecl(byval cbe as PTP_CALLBACK_ENVIRON)
-	cbe->ActivationContext = -1
+	cbe->ActivationContext = cptr(_ACTIVATION_CONTEXT ptr, -1)
 end sub
 
 private sub TpSetCallbackLongFunction cdecl(byval cbe as PTP_CALLBACK_ENVIRON)
