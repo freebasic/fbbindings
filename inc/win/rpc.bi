@@ -12,8 +12,6 @@
 
 #ifdef __FB_64BIT__
 	#define __RPC_WIN64__
-
-	type I_RPC_HANDLE as any ptr
 #else
 	#define __RPC_WIN32__
 #endif
@@ -22,10 +20,7 @@
 #define midl_user_allocate_ MIDL_user_allocate
 #define midl_user_free_ MIDL_user_free
 
-#ifndef __FB_64BIT__
-	type I_RPC_HANDLE as any ptr
-#endif
-
+type I_RPC_HANDLE as any ptr
 type RPC_STATUS as long
 
 #define RPC_UNICODE_SUPPORTED
