@@ -1142,11 +1142,11 @@ type PSCOPE_TABLE_AMD64 as _SCOPE_TABLE_AMD64 ptr
 	#define InterlockedIncrementSizeT(a) InterlockedIncrement64(cptr(LONG64 ptr, a))
 	#define InterlockedDecrementSizeT(a) InterlockedDecrement64(cptr(LONG64 ptr, a))
 
-	function _InterlockedAdd(byval Addend as LONG ptr, byval Value as LONG) as LONG
+	private function _InterlockedAdd(byval Addend as LONG ptr, byval Value as LONG) as LONG
 		return _InterlockedExchangeAdd(Addend, Value) + Value
 	end function
 
-	function _InterlockedAdd64(byval Addend as LONG64 ptr, byval Value as LONG64) as LONG64
+	private function _InterlockedAdd64(byval Addend as LONG64 ptr, byval Value as LONG64) as LONG64
 		return _InterlockedExchangeAdd64(Addend, Value) + Value
 	end function
 
@@ -1169,7 +1169,7 @@ type PSCOPE_TABLE_AMD64 as _SCOPE_TABLE_AMD64 ptr
 #else
 	#define YieldProcessor __buildpause
 
-	sub MemoryBarrier cdecl()
+	private sub MemoryBarrier cdecl()
 		dim Barrier as ubyte
 		__asm__
 		'' TODO: __asm__ __volatile__("xchg{b %%| }al, %0" :"=m" (Barrier) : : "eax", "memory");
@@ -1181,15 +1181,15 @@ type PSCOPE_TABLE_AMD64 as _SCOPE_TABLE_AMD64 ptr
 	#define PF_NON_TEMPORAL_LEVEL_ALL
 	#define PcTeb &h18
 
-	function NtCurrentTeb cdecl() as _TEB ptr
+	private function NtCurrentTeb cdecl() as _TEB ptr
 		return cptr(_TEB ptr, __readfsdword(&h18))
 	end function
 
-	function GetCurrentFiber cdecl() as PVOID
+	private function GetCurrentFiber cdecl() as PVOID
 		return cast(PVOID, __readfsdword(&h10))
 	end function
 
-	function GetFiberData cdecl() as PVOID
+	private function GetFiberData cdecl() as PVOID
 		return *cptr(PVOID ptr, GetCurrentFiber())
 	end function
 #endif
@@ -7946,7 +7946,7 @@ type PTP_WAIT_CALLBACK as sub(byval Instance as PTP_CALLBACK_INSTANCE, byval Con
 type TP_IO as _TP_IO
 type PTP_IO as _TP_IO ptr
 
-sub TpInitializeCallbackEnviron cdecl(byval cbe as PTP_CALLBACK_ENVIRON)
+private sub TpInitializeCallbackEnviron cdecl(byval cbe as PTP_CALLBACK_ENVIRON)
 	cbe->Pool
 	'' TODO: cbe->Pool = ((void *)0);
 	cbe->CleanupGroup
@@ -7965,64 +7965,64 @@ sub TpInitializeCallbackEnviron cdecl(byval cbe as PTP_CALLBACK_ENVIRON)
 	'' TODO: cbe->Version = 1;
 end sub
 
-sub TpSetCallbackThreadpool cdecl(byval cbe as PTP_CALLBACK_ENVIRON, byval pool as PTP_POOL)
+private sub TpSetCallbackThreadpool cdecl(byval cbe as PTP_CALLBACK_ENVIRON, byval pool as PTP_POOL)
 	cbe->Pool
 	'' TODO: cbe->Pool = pool;
 end sub
 
-sub TpSetCallbackCleanupGroup cdecl(byval cbe as PTP_CALLBACK_ENVIRON, byval cleanup_group as PTP_CLEANUP_GROUP, byval cleanup_group_cb as PTP_CLEANUP_GROUP_CANCEL_CALLBACK)
+private sub TpSetCallbackCleanupGroup cdecl(byval cbe as PTP_CALLBACK_ENVIRON, byval cleanup_group as PTP_CLEANUP_GROUP, byval cleanup_group_cb as PTP_CLEANUP_GROUP_CANCEL_CALLBACK)
 	cbe->CleanupGroup
 	'' TODO: cbe->CleanupGroup = cleanup_group;
 	cbe->CleanupGroupCancelCallback
 	'' TODO: cbe->CleanupGroupCancelCallback = cleanup_group_cb;
 end sub
 
-sub TpSetCallbackActivationContext cdecl(byval cbe as PTP_CALLBACK_ENVIRON, byval actx as _ACTIVATION_CONTEXT ptr)
+private sub TpSetCallbackActivationContext cdecl(byval cbe as PTP_CALLBACK_ENVIRON, byval actx as _ACTIVATION_CONTEXT ptr)
 	cbe->ActivationContext
 	'' TODO: cbe->ActivationContext = actx;
 end sub
 
-sub TpSetCallbackNoActivationContext cdecl(byval cbe as PTP_CALLBACK_ENVIRON)
+private sub TpSetCallbackNoActivationContext cdecl(byval cbe as PTP_CALLBACK_ENVIRON)
 	cbe->ActivationContext
 	'' TODO: cbe->ActivationContext = (struct _ACTIVATION_CONTEXT *) (LONG_PTR) -1;
 end sub
 
-sub TpSetCallbackLongFunction cdecl(byval cbe as PTP_CALLBACK_ENVIRON)
+private sub TpSetCallbackLongFunction cdecl(byval cbe as PTP_CALLBACK_ENVIRON)
 	cbe->u.s.LongFunction
 	'' TODO: cbe->u.s.LongFunction = 1;
 end sub
 
-sub TpSetCallbackRaceWithDll cdecl(byval cbe as PTP_CALLBACK_ENVIRON, byval h as PVOID)
+private sub TpSetCallbackRaceWithDll cdecl(byval cbe as PTP_CALLBACK_ENVIRON, byval h as PVOID)
 	cbe->RaceDll
 	'' TODO: cbe->RaceDll = h;
 end sub
 
-sub TpSetCallbackFinalizationCallback cdecl(byval cbe as PTP_CALLBACK_ENVIRON, byval fini_cb as PTP_SIMPLE_CALLBACK)
+private sub TpSetCallbackFinalizationCallback cdecl(byval cbe as PTP_CALLBACK_ENVIRON, byval fini_cb as PTP_SIMPLE_CALLBACK)
 	cbe->FinalizationCallback
 	'' TODO: cbe->FinalizationCallback = fini_cb;
 end sub
 
-sub TpSetCallbackPersistent cdecl(byval cbe as PTP_CALLBACK_ENVIRON)
+private sub TpSetCallbackPersistent cdecl(byval cbe as PTP_CALLBACK_ENVIRON)
 	cbe->u.s.Persistent
 	'' TODO: cbe->u.s.Persistent = 1;
 end sub
 
-sub TpDestroyCallbackEnviron cdecl(byval cbe as PTP_CALLBACK_ENVIRON)
+private sub TpDestroyCallbackEnviron cdecl(byval cbe as PTP_CALLBACK_ENVIRON)
 	'' TODO: {(cbe) = (cbe);
 end sub
 
 #ifdef __FB_64BIT__
 	'' TODO: } struct _TEB *NtCurrentTeb(void);
 
-	function GetCurrentFiber() as PVOID
+	private function GetCurrentFiber() as PVOID
 		return cast(PVOID, __readgsqword(cast(LONG, cast(LONG_PTR, @cptr(NT_TIB ptr, 0)->FiberData))))
 	end function
 
-	function GetFiberData() as PVOID
+	private function GetFiberData() as PVOID
 		return *cptr(PVOID ptr, GetCurrentFiber())
 	end function
 
-	function NtCurrentTeb() as _TEB ptr
+	private function NtCurrentTeb() as _TEB ptr
 		return cptr(_TEB ptr, __readgsqword(cast(LONG, cast(LONG_PTR, @cptr(NT_TIB ptr, 0)->Self))))
 	end function
 #else

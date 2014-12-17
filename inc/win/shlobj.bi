@@ -2118,7 +2118,7 @@ type LPSHELLFLAGSTATE as SHELLFLAGSTATE ptr
 declare sub SHGetSettings(byval psfs as SHELLFLAGSTATE ptr, byval dwMask as DWORD)
 declare function SHBindToParent(byval pidl as LPCITEMIDLIST, byval riid as const IID const ptr, byval ppv as any ptr ptr, byval ppidlLast as LPCITEMIDLIST ptr) as HRESULT
 
-function IDListContainerIsConsistent cdecl(byval p as LPCITEMIDLIST, byval sz as UINT) as WINBOOL
+private function IDListContainerIsConsistent cdecl(byval p as LPCITEMIDLIST, byval sz as UINT) as WINBOOL
 	dim c as UINT = sizeof(p->mkid.cb)
 	'' TODO: while (c <= sz && p->mkid.cb >= sizeof (p->mkid.cb) && p->mkid.cb <= (sz - c)) { c += p->mkid.cb; p = ((LPITEMIDLIST)((void *) (((BYTE *) ((p)))+ (((p)->mkid.cb))))); }
 	return -((c <= sz) andalso (p->mkid.cb = 0))

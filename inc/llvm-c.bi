@@ -978,7 +978,7 @@ declare sub LLVMInitializePowerPCDisassembler()
 declare sub LLVMInitializeSparcDisassembler()
 declare sub LLVMInitializeX86Disassembler()
 
-sub LLVMInitializeAllTargetInfos()
+private sub LLVMInitializeAllTargetInfos()
 	LLVMInitializeR600TargetInfo()
 	LLVMInitializeSystemZTargetInfo()
 	LLVMInitializeHexagonTargetInfo()
@@ -994,7 +994,7 @@ sub LLVMInitializeAllTargetInfos()
 	LLVMInitializeX86TargetInfo()
 end sub
 
-sub LLVMInitializeAllTargets()
+private sub LLVMInitializeAllTargets()
 	LLVMInitializeR600Target()
 	LLVMInitializeSystemZTarget()
 	LLVMInitializeHexagonTarget()
@@ -1010,7 +1010,7 @@ sub LLVMInitializeAllTargets()
 	LLVMInitializeX86Target()
 end sub
 
-sub LLVMInitializeAllTargetMCs()
+private sub LLVMInitializeAllTargetMCs()
 	LLVMInitializeR600TargetMC()
 	LLVMInitializeSystemZTargetMC()
 	LLVMInitializeHexagonTargetMC()
@@ -1026,7 +1026,7 @@ sub LLVMInitializeAllTargetMCs()
 	LLVMInitializeX86TargetMC()
 end sub
 
-sub LLVMInitializeAllAsmPrinters()
+private sub LLVMInitializeAllAsmPrinters()
 	LLVMInitializeR600AsmPrinter()
 	LLVMInitializeSystemZAsmPrinter()
 	LLVMInitializeHexagonAsmPrinter()
@@ -1041,7 +1041,7 @@ sub LLVMInitializeAllAsmPrinters()
 	LLVMInitializeX86AsmPrinter()
 end sub
 
-sub LLVMInitializeAllAsmParsers()
+private sub LLVMInitializeAllAsmParsers()
 	LLVMInitializeSystemZAsmParser()
 	LLVMInitializeMipsAsmParser()
 	LLVMInitializeAArch64AsmParser()
@@ -1051,7 +1051,7 @@ sub LLVMInitializeAllAsmParsers()
 	LLVMInitializeX86AsmParser()
 end sub
 
-sub LLVMInitializeAllDisassemblers()
+private sub LLVMInitializeAllDisassemblers()
 	LLVMInitializeSystemZDisassembler()
 	LLVMInitializeXCoreDisassembler()
 	LLVMInitializeMipsDisassembler()
@@ -1062,24 +1062,24 @@ sub LLVMInitializeAllDisassemblers()
 	LLVMInitializeX86Disassembler()
 end sub
 
-function LLVMInitializeNativeTarget() as LLVMBool
+private function LLVMInitializeNativeTarget() as LLVMBool
 	LLVMInitializeX86TargetInfo()
 	LLVMInitializeX86Target()
 	LLVMInitializeX86TargetMC()
 	return 0
 end function
 
-function LLVMInitializeNativeAsmParser() as LLVMBool
+private function LLVMInitializeNativeAsmParser() as LLVMBool
 	LLVMInitializeX86AsmParser()
 	return 0
 end function
 
-function LLVMInitializeNativeAsmPrinter() as LLVMBool
+private function LLVMInitializeNativeAsmPrinter() as LLVMBool
 	LLVMInitializeX86AsmPrinter()
 	return 0
 end function
 
-function LLVMInitializeNativeDisassembler() as LLVMBool
+private function LLVMInitializeNativeDisassembler() as LLVMBool
 	LLVMInitializeX86Disassembler()
 	return 0
 end function

@@ -1950,11 +1950,11 @@ declare sub putpixel(byval bmp as BITMAP ptr, byval x as long, byval y as long, 
 declare sub _allegro_vline(byval bmp as BITMAP ptr, byval x as long, byval y_1 as long, byval y2 as long, byval color_ as long)
 declare sub _allegro_hline(byval bmp as BITMAP ptr, byval x1 as long, byval y as long, byval x2 as long, byval color_ as long)
 
-sub vline(byval bmp as BITMAP ptr, byval x as long, byval y_1 as long, byval y2 as long, byval color_ as long)
+private sub vline(byval bmp as BITMAP ptr, byval x as long, byval y_1 as long, byval y2 as long, byval color_ as long)
 	_allegro_vline(bmp, x, y_1, y2, color_)
 end sub
 
-sub hline(byval bmp as BITMAP ptr, byval x1 as long, byval y as long, byval x2 as long, byval color_ as long)
+private sub hline(byval bmp as BITMAP ptr, byval x1 as long, byval y as long, byval x2 as long, byval color_ as long)
 	_allegro_hline(bmp, x1, y, x2, color_)
 end sub
 

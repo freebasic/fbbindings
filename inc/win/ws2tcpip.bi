@@ -69,77 +69,77 @@ extern in6addr_loopback as const in6_addr
 
 #define WS2TCPIP_INLINE __CRT_INLINE
 
-function IN6_ADDR_EQUAL(byval as const in6_addr ptr, byval as const in6_addr ptr) as long
+private function IN6_ADDR_EQUAL(byval as const in6_addr ptr, byval as const in6_addr ptr) as long
 	return -(memcmp(a, b, sizeof(in6_addr)) = 0)
 end function
 
-function IN6_IS_ADDR_UNSPECIFIED(byval as const in6_addr ptr) as long
+private function IN6_IS_ADDR_UNSPECIFIED(byval as const in6_addr ptr) as long
 	return -((((((((a->u.Word[0] = 0) andalso (a->u.Word[1] = 0)) andalso (a->u.Word[2] = 0)) andalso (a->u.Word[3] = 0)) andalso (a->u.Word[4] = 0)) andalso (a->u.Word[5] = 0)) andalso (a->u.Word[6] = 0)) andalso (a->u.Word[7] = 0))
 end function
 
-function IN6_IS_ADDR_LOOPBACK(byval as const in6_addr ptr) as long
+private function IN6_IS_ADDR_LOOPBACK(byval as const in6_addr ptr) as long
 	return -((((((((a->u.Word[0] = 0) andalso (a->u.Word[1] = 0)) andalso (a->u.Word[2] = 0)) andalso (a->u.Word[3] = 0)) andalso (a->u.Word[4] = 0)) andalso (a->u.Word[5] = 0)) andalso (a->u.Word[6] = 0)) andalso (a->u.Word[7] = &h0100))
 end function
 
-function IN6_IS_ADDR_MULTICAST(byval as const in6_addr ptr) as long
+private function IN6_IS_ADDR_MULTICAST(byval as const in6_addr ptr) as long
 	return -(a->u.Byte[0] = &hff)
 end function
 
-function IN6_IS_ADDR_LINKLOCAL(byval as const in6_addr ptr) as long
+private function IN6_IS_ADDR_LINKLOCAL(byval as const in6_addr ptr) as long
 	return -((a->u.Byte[0] = &hfe) andalso ((a->u.Byte[1] and &hc0) = &h80))
 end function
 
-function IN6_IS_ADDR_SITELOCAL(byval as const in6_addr ptr) as long
+private function IN6_IS_ADDR_SITELOCAL(byval as const in6_addr ptr) as long
 	return -((a->u.Byte[0] = &hfe) andalso ((a->u.Byte[1] and &hc0) = &hc0))
 end function
 
-function IN6_IS_ADDR_V4MAPPED(byval as const in6_addr ptr) as long
+private function IN6_IS_ADDR_V4MAPPED(byval as const in6_addr ptr) as long
 	return -((((((a->u.Word[0] = 0) andalso (a->u.Word[1] = 0)) andalso (a->u.Word[2] = 0)) andalso (a->u.Word[3] = 0)) andalso (a->u.Word[4] = 0)) andalso (a->u.Word[5] = &hffff))
 end function
 
-function IN6_IS_ADDR_V4COMPAT(byval as const in6_addr ptr) as long
+private function IN6_IS_ADDR_V4COMPAT(byval as const in6_addr ptr) as long
 	return -(((((((a->u.Word[0] = 0) andalso (a->u.Word[1] = 0)) andalso (a->u.Word[2] = 0)) andalso (a->u.Word[3] = 0)) andalso (a->u.Word[4] = 0)) andalso (a->u.Word[5] = 0)) andalso ((((a->u.Word[6] = 0) andalso (a->u.Byte[14] = 0)) andalso ((a->u.Byte[15] = 0) orelse (a->u.Byte[15] = 1))) = 0))
 end function
 
-function IN6_IS_ADDR_MC_NODELOCAL(byval as const in6_addr ptr) as long
+private function IN6_IS_ADDR_MC_NODELOCAL(byval as const in6_addr ptr) as long
 	return -(IN6_IS_ADDR_MULTICAST(a) andalso ((a->u.Byte[1] and &hf) = 1))
 end function
 
-function IN6_IS_ADDR_MC_LINKLOCAL(byval as const in6_addr ptr) as long
+private function IN6_IS_ADDR_MC_LINKLOCAL(byval as const in6_addr ptr) as long
 	return -(IN6_IS_ADDR_MULTICAST(a) andalso ((a->u.Byte[1] and &hf) = 2))
 end function
 
-function IN6_IS_ADDR_MC_SITELOCAL(byval as const in6_addr ptr) as long
+private function IN6_IS_ADDR_MC_SITELOCAL(byval as const in6_addr ptr) as long
 	return -(IN6_IS_ADDR_MULTICAST(a) andalso ((a->u.Byte[1] and &hf) = 5))
 end function
 
-function IN6_IS_ADDR_MC_ORGLOCAL(byval as const in6_addr ptr) as long
+private function IN6_IS_ADDR_MC_ORGLOCAL(byval as const in6_addr ptr) as long
 	return -(IN6_IS_ADDR_MULTICAST(a) andalso ((a->u.Byte[1] and &hf) = 8))
 end function
 
-function IN6_IS_ADDR_MC_GLOBAL(byval as const in6_addr ptr) as long
+private function IN6_IS_ADDR_MC_GLOBAL(byval as const in6_addr ptr) as long
 	return -(IN6_IS_ADDR_MULTICAST(a) andalso ((a->u.Byte[1] and &hf) = &he))
 end function
 
-function IN6ADDR_ISANY(byval as const sockaddr_in6 ptr) as long
+private function IN6ADDR_ISANY(byval as const sockaddr_in6 ptr) as long
 	return -((a->sin6_family = 23) andalso IN6_IS_ADDR_UNSPECIFIED(@a->sin6_addr))
 end function
 
-function IN6ADDR_ISLOOPBACK(byval as const sockaddr_in6 ptr) as long
+private function IN6ADDR_ISLOOPBACK(byval as const sockaddr_in6 ptr) as long
 	return -((a->sin6_family = 23) andalso IN6_IS_ADDR_LOOPBACK(@a->sin6_addr))
 end function
 
-sub IN6_SET_ADDR_UNSPECIFIED(byval as in6_addr ptr)
+private sub IN6_SET_ADDR_UNSPECIFIED(byval as in6_addr ptr)
 	memset(a->u.Byte, 0, sizeof(in6_addr))
 end sub
 
-sub IN6_SET_ADDR_LOOPBACK(byval as in6_addr ptr)
+private sub IN6_SET_ADDR_LOOPBACK(byval as in6_addr ptr)
 	memset(a->u.Byte, 0, sizeof(in6_addr))
 	a->u.Byte[15]
 	'' TODO: a->u.Byte[15] = 1;
 end sub
 
-sub IN6ADDR_SETANY(byval as sockaddr_in6 ptr)
+private sub IN6ADDR_SETANY(byval as sockaddr_in6 ptr)
 	a->sin6_family
 	'' TODO: a->sin6_family = 23;
 	a->sin6_port
@@ -151,7 +151,7 @@ sub IN6ADDR_SETANY(byval as sockaddr_in6 ptr)
 	'' TODO: a->sin6_scope_id = 0;
 end sub
 
-sub IN6ADDR_SETLOOPBACK(byval as sockaddr_in6 ptr)
+private sub IN6ADDR_SETLOOPBACK(byval as sockaddr_in6 ptr)
 	a->sin6_family
 	'' TODO: a->sin6_family = 23;
 	a->sin6_port
