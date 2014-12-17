@@ -45,7 +45,7 @@ end type
 type OLD_LARGE_INTEGER as _OLD_LARGE_INTEGER
 type POLD_LARGE_INTEGER as _OLD_LARGE_INTEGER ptr
 
-#define NT_SUCCESS(Status) cast(NTSTATUS, -((Status) >= 0))
+#define NT_SUCCESS(Status) (cast(NTSTATUS, (Status)) >= 0)
 
 type SAM_HANDLE as PVOID
 type PSAM_HANDLE as PVOID ptr

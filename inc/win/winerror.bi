@@ -1887,8 +1887,8 @@
 #define ERROR_IPSEC_IKE_NEG_STATUS_END __MSABI_LONG(13884)
 #define SEVERITY_SUCCESS 0
 #define SEVERITY_ERROR 1
-#define SUCCEEDED(hr) cast(HRESULT, -((hr) >= 0))
-#define FAILED(hr) cast(HRESULT, -((hr) < 0))
+#define SUCCEEDED(hr) (cast(HRESULT, (hr)) >= 0)
+#define FAILED(hr) (cast(HRESULT, (hr)) < 0)
 #define IS_ERROR(Status) '' TODO: ((unsigned __LONG32)(Status) >> 31==SEVERITY_ERROR)
 #define HRESULT_CODE(hr) ((hr) and &hFFFF)
 #define SCODE_CODE(sc) ((sc) and &hFFFF)
@@ -1899,7 +1899,7 @@
 #define MAKE_HRESULT(sev, fac, code) '' TODO: ((HRESULT) (((unsigned __LONG32)(sev)<<31) | ((unsigned __LONG32)(fac)<<16) | ((unsigned __LONG32)(code))))
 #define MAKE_SCODE(sev, fac, code) '' TODO: ((SCODE) (((unsigned __LONG32)(sev)<<31) | ((unsigned __LONG32)(fac)<<16) | ((unsigned __LONG32)(code))))
 #define FACILITY_NT_BIT &h10000000
-#define __HRESULT_FROM_WIN32(x) cast(HRESULT, iif((x) <= 0, cast(HRESULT, (x)), cast(HRESULT, (((x) and &h0000FFFF) or (FACILITY_WIN32 shl 16)) or &h80000000)))
+#define __HRESULT_FROM_WIN32(x) iif(cast(HRESULT, (x)) <= 0, cast(HRESULT, (x)), cast(HRESULT, (((x) and &h0000FFFF) or (FACILITY_WIN32 shl 16)) or &h80000000))
 #define HRESULT_FROM_WIN32(x) __HRESULT_FROM_WIN32(x)
 #define HRESULT_FROM_NT(x) cast(HRESULT, (x) or FACILITY_NT_BIT)
 #define GetScode(hr) cast(SCODE, (hr))

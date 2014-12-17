@@ -779,7 +779,7 @@ type DISK_PARTITION_INFO as _DISK_PARTITION_INFO
 type PDISK_PARTITION_INFO as _DISK_PARTITION_INFO ptr
 
 #define DiskGeometryGetPartition(Geometry) cast(PDISK_PARTITION_INFO, (Geometry)->Data)
-#define DiskGeometryGetDetect(Geometry) cast(PDISK_DETECTION_INFO, cast(DWORD_PTR, DiskGeometryGetPartition(Geometry) + DiskGeometryGetPartition(Geometry)->SizeOfPartitionInfo))
+#define DiskGeometryGetDetect(Geometry) cast(PDISK_DETECTION_INFO, cast(DWORD_PTR, DiskGeometryGetPartition(Geometry)) + DiskGeometryGetPartition(Geometry)->SizeOfPartitionInfo)
 
 type _DISK_GEOMETRY_EX
 	Geometry as DISK_GEOMETRY

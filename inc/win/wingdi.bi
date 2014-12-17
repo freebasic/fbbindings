@@ -469,7 +469,7 @@ type LCSGAMUTMATCH as LONG
 #define GetYValue(cmyk) cast(UBYTE, (cmyk) shr 8)
 #define GetMValue(cmyk) cast(UBYTE, (cmyk) shr 16)
 #define GetCValue(cmyk) cast(UBYTE, (cmyk) shr 24)
-#define CMYK(c, m, y, k) cast(COLORREF, (cast(UBYTE, (k) or cast(WORD, cast(UBYTE, (y)) shl 8)) or (cast(DWORD, cast(UBYTE, (m))) shl 16)) or (cast(DWORD, cast(UBYTE, (c))) shl 24))
+#define CMYK(c, m, y, k) cast(COLORREF, ((cast(UBYTE, (k)) or (cast(WORD, cast(UBYTE, (y))) shl 8)) or (cast(DWORD, cast(UBYTE, (m))) shl 16)) or (cast(DWORD, cast(UBYTE, (c))) shl 24))
 
 type FXPT16DOT16 as long
 type LPFXPT16DOT16 as long ptr
@@ -1446,7 +1446,7 @@ type LPEXTLOGFONTW as tagEXTLOGFONTW ptr
 #define RASTER_FONTTYPE &h0001
 #define DEVICE_FONTTYPE &h002
 #define TRUETYPE_FONTTYPE &h004
-#define BGR(r, g, b) cast(COLORREF, cast(UBYTE, (r) or cast(WORD, cast(UBYTE, (g)) shl 8)) or (cast(DWORD, cast(UBYTE, (b))) shl 16))
+#define BGR(r, g, b) cast(COLORREF, (cast(UBYTE, (r)) or (cast(WORD, cast(UBYTE, (g))) shl 8)) or (cast(DWORD, cast(UBYTE, (b))) shl 16))
 #define BGRA(r, g, b, a) (culng(cubyte(r)) or (culng(cubyte(g)) shl 8) or (culng(cubyte(b)) shl 16) or (culng(cubyte(a)) shl 24))
 #define PALETTERGB(r, g, b) (&h02000000 or BGR(r, g, b))
 #define PALETTEINDEX(i) cast(COLORREF, &h01000000 or cast(DWORD, cast(WORD, (i))))

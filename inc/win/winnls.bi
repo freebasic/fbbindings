@@ -706,13 +706,13 @@ declare function WideCharToMultiByte(byval CodePage as UINT, byval dwFlags as DW
 #define IS_HIGH_SURROGATE(wch) (((wch) >= HIGH_SURROGATE_START) andalso ((wch) <= HIGH_SURROGATE_END))
 #define IS_LOW_SURROGATE(wch) (((wch) >= LOW_SURROGATE_START) andalso ((wch) <= LOW_SURROGATE_END))
 #define IS_SURROGATE_PAIR(hs, ls) (IS_HIGH_SURROGATE(hs) andalso IS_LOW_SURROGATE(ls))
-#define FILEMUIINFO_GET_CULTURE(pInfo) cast(LPWSTR, iif(pInfo->dwLanguageNameOffset > 0, cast(ULONG_PTR, pInfo + pInfo->dwLanguageNameOffset), NULL))
-#define FILEMUIINFO_GET_MAIN_TYPEIDS(pInfo) cptr(DWORD ptr, iif(pInfo->dwTypeIDMainOffset > 0, cast(ULONG_PTR, pInfo + pInfo->dwTypeIDMainOffset), NULL))
-#define FILEMUIINFO_GET_MAIN_TYPEID(pInfo, iType) iif((iType < pInfo->dwTypeIDMainSize) andalso (pInfo->dwTypeIDMainOffset > 0), *cptr(DWORD ptr, cast(ULONG_PTR, pInfo + pInfo->dwTypeIDMainOffset) + iType), 0)
-#define FILEMUIINFO_GET_MAIN_TYPENAMES(pInfo) cast(LPWSTR, iif(pInfo->dwTypeNameMainOffset > 0, cast(ULONG_PTR, pInfo + pInfo->dwTypeNameMainOffset), NULL))
-#define FILEMUIINFO_GET_MUI_TYPEIDS(pInfo) cptr(DWORD ptr, iif(pInfo->dwTypeIDMUIOffset > 0, cast(ULONG_PTR, pInfo + pInfo->dwTypeIDMUIOffset), NULL))
-#define FILEMUIINFO_GET_MUI_TYPEID(pInfo, iType) iif((iType < pInfo->dwTypeIDMUISize) andalso (pInfo->dwTypeIDMUIOffset > 0), *cptr(DWORD ptr, cast(ULONG_PTR, pInfo + pInfo->dwTypeIDMUIOffset) + iType), 0)
-#define FILEMUIINFO_GET_MUI_TYPENAMES(pInfo) cast(LPWSTR, iif(pInfo->dwTypeNameMUIOffset > 0, cast(ULONG_PTR, pInfo + pInfo->dwTypeNameMUIOffset), NULL))
+#define FILEMUIINFO_GET_CULTURE(pInfo) cast(LPWSTR, iif(pInfo->dwLanguageNameOffset > 0, cast(ULONG_PTR, pInfo) + pInfo->dwLanguageNameOffset, NULL))
+#define FILEMUIINFO_GET_MAIN_TYPEIDS(pInfo) cptr(DWORD ptr, iif(pInfo->dwTypeIDMainOffset > 0, cast(ULONG_PTR, pInfo) + pInfo->dwTypeIDMainOffset, NULL))
+#define FILEMUIINFO_GET_MAIN_TYPEID(pInfo, iType) iif((iType < pInfo->dwTypeIDMainSize) andalso (pInfo->dwTypeIDMainOffset > 0), *(cptr(DWORD ptr, cast(ULONG_PTR, pInfo) + pInfo->dwTypeIDMainOffset) + iType), 0)
+#define FILEMUIINFO_GET_MAIN_TYPENAMES(pInfo) cast(LPWSTR, iif(pInfo->dwTypeNameMainOffset > 0, cast(ULONG_PTR, pInfo) + pInfo->dwTypeNameMainOffset, NULL))
+#define FILEMUIINFO_GET_MUI_TYPEIDS(pInfo) cptr(DWORD ptr, iif(pInfo->dwTypeIDMUIOffset > 0, cast(ULONG_PTR, pInfo) + pInfo->dwTypeIDMUIOffset, NULL))
+#define FILEMUIINFO_GET_MUI_TYPEID(pInfo, iType) iif((iType < pInfo->dwTypeIDMUISize) andalso (pInfo->dwTypeIDMUIOffset > 0), *(cptr(DWORD ptr, cast(ULONG_PTR, pInfo) + pInfo->dwTypeIDMUIOffset) + iType), 0)
+#define FILEMUIINFO_GET_MUI_TYPENAMES(pInfo) cast(LPWSTR, iif(pInfo->dwTypeNameMUIOffset > 0, cast(ULONG_PTR, pInfo) + pInfo->dwTypeNameMUIOffset, NULL))
 
 declare function IsValidCodePage(byval CodePage as UINT) as WINBOOL
 declare function GetACP() as UINT

@@ -25,7 +25,7 @@ extern IID_IPrintDialogServices as const GUID
 
 type LPOFNHOOKPROC as function(byval as HWND, byval as UINT, byval as WPARAM, byval as LPARAM) as UINT_PTR
 
-#define CDSIZEOF_STRUCT(structname, member) (clng(cast(LPBYTE, (@cptr(structname ptr, 0)->member) - cast(LPBYTE, cptr(structname ptr, 0)))) + sizeof(cptr(structname ptr, 0)->member))
+#define CDSIZEOF_STRUCT(structname, member) (clng(cast(LPBYTE, @cptr(structname ptr, 0)->member) - cast(LPBYTE, cptr(structname ptr, 0))) + sizeof(cptr(structname ptr, 0)->member))
 
 #ifdef __FB_64BIT__
 	type tagOFN_NT4A

@@ -12,7 +12,7 @@ type _PROPSHEETPAGEA as _PROPSHEETPAGEA_
 type _PROPSHEETPAGEW as _PROPSHEETPAGEW_
 
 #define _PRSHT_H_
-#define CCSIZEOF_STRUCT(structname, member) (clng(cast(LPBYTE, (@cptr(structname ptr, 0)->member) - cast(LPBYTE, cptr(structname ptr, 0)))) + sizeof(cptr(structname ptr, 0)->member))
+#define CCSIZEOF_STRUCT(structname, member) (clng(cast(LPBYTE, @cptr(structname ptr, 0)->member) - cast(LPBYTE, cptr(structname ptr, 0))) + sizeof(cptr(structname ptr, 0)->member))
 #define SNDMSG SendMessage
 #define MAXPROPPAGES 100
 

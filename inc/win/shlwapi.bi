@@ -868,7 +868,7 @@ type DLLVERSIONINFO2 as _DLLVERSIONINFO2
 #define DLLVER_MINOR_MASK &h0000FFFF00000000
 #define DLLVER_BUILD_MASK &h00000000FFFF0000
 #define DLLVER_QFE_MASK &h000000000000FFFF
-#define MAKEDLLVERULL(major, minor, build, qfe) (((cast(ULONGLONG, (major) shl 48) or cast(ULONGLONG, (minor) shl 32)) or cast(ULONGLONG, (build) shl 16)) or cast(ULONGLONG, (qfe) shl 0))
+#define MAKEDLLVERULL(major, minor, build, qfe) ((((cast(ULONGLONG, (major)) shl 48) or (cast(ULONGLONG, (minor)) shl 32)) or (cast(ULONGLONG, (build)) shl 16)) or (cast(ULONGLONG, (qfe)) shl 0))
 
 type DLLGETVERSIONPROC as function(byval as DLLVERSIONINFO ptr) as HRESULT
 

@@ -64,12 +64,15 @@ type ALLEGRO_COND as ALLEGRO_COND_
 
 #define __al_included_allegro5_astdint_h
 #define __al_included_allegro5_astdbool_h
-#define READ3BYTES(p) (((*cptr(ubyte ptr, (p))) or ((*cptr(ubyte ptr, (p) + 1)) shl 8)) or ((*cptr(ubyte ptr, (p) + 2)) shl 16))
+#define READ3BYTES(p) _
+	( cptr(ubyte ptr, (p))[0]        or _
+	 (cptr(ubyte ptr, (p))[1] shl 8) or _
+	 (cptr(ubyte ptr, (p))[2] shl 16) )
 #macro WRITE3BYTES(p, c)
 	scope
-		*cptr(ubyte ptr, (p)) = (c)
-		*cptr(ubyte ptr, (p) + 1) = (c) shr 8
-		*cptr(ubyte ptr, (p) + 2) = (c) shr 16
+		cptr(ubyte ptr, (p))[0] = (c)
+		cptr(ubyte ptr, (p))[1] = (c) shr 8
+		cptr(ubyte ptr, (p))[2] = (c) shr 16
 	end scope
 #endmacro
 #define bmp_write16(addr, c) *cptr(ushort ptr, (addr)) = (c)

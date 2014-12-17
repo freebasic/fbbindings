@@ -257,12 +257,15 @@ type LZSS_UNPACK_DATA as LZSS_UNPACK_DATA_
 	#define _farnspeekl(addr) (*cptr(ulong ptr, (addr)))
 #endif
 
-#define READ3BYTES(p) (((*cptr(ubyte ptr, (p))) or ((*cptr(ubyte ptr, (p) + 1)) shl 8)) or ((*cptr(ubyte ptr, (p) + 2)) shl 16))
+#define READ3BYTES(p) _
+	( cptr(ubyte ptr, (p))[0]        or _
+	 (cptr(ubyte ptr, (p))[1] shl 8) or _
+	 (cptr(ubyte ptr, (p))[2] shl 16) )
 #macro WRITE3BYTES(p, c)
 	scope
-		*cptr(ubyte ptr, (p)) = (c)
-		*cptr(ubyte ptr, (p) + 1) = (c) shr 8
-		*cptr(ubyte ptr, (p) + 2) = (c) shr 16
+		cptr(ubyte ptr, (p))[0] = (c)
+		cptr(ubyte ptr, (p))[1] = (c) shr 8
+		cptr(ubyte ptr, (p))[2] = (c) shr 16
 	end scope
 #endmacro
 
@@ -683,8 +686,8 @@ declare function mouse_on_screen() as long
 
 #define ALLEGRO_TIMER_H
 #define TIMERS_PER_SECOND cast(clong, 1193181)
-#define SECS_TO_TIMER(x) cast(clong, (x) * TIMERS_PER_SECOND)
-#define MSEC_TO_TIMER(x) cast(clong, (x) * (TIMERS_PER_SECOND / 1000))
+#define SECS_TO_TIMER(x) (cast(clong, (x)) * TIMERS_PER_SECOND)
+#define MSEC_TO_TIMER(x) (cast(clong, (x)) * (TIMERS_PER_SECOND / 1000))
 #define BPS_TO_TIMER(x) (TIMERS_PER_SECOND / cast(clong, (x)))
 #define BPM_TO_TIMER(x) ((60 * TIMERS_PER_SECOND) / cast(clong, (x)))
 

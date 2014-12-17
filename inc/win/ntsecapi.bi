@@ -169,7 +169,7 @@ end type
 type LSA_OBJECT_ATTRIBUTES as _LSA_OBJECT_ATTRIBUTES
 type PLSA_OBJECT_ATTRIBUTES as _LSA_OBJECT_ATTRIBUTES ptr
 
-#define LSA_SUCCESS(Error) cast(LONG, -((Error) >= 0))
+#define LSA_SUCCESS(Error) (cast(LONG, (Error)) >= 0)
 
 declare function LsaRegisterLogonProcess(byval LogonProcessName as PLSA_STRING, byval LsaHandle as PHANDLE, byval SecurityMode as PLSA_OPERATIONAL_MODE) as NTSTATUS
 declare function LsaLogonUser(byval LsaHandle as HANDLE, byval OriginName as PLSA_STRING, byval LogonType as SECURITY_LOGON_TYPE, byval AuthenticationPackage as ULONG, byval AuthenticationInformation as PVOID, byval AuthenticationInformationLength as ULONG, byval LocalGroups as PTOKEN_GROUPS, byval SourceContext as PTOKEN_SOURCE, byval ProfileBuffer as PVOID ptr, byval ProfileBufferLength as PULONG, byval LogonId as PLUID, byval Token as PHANDLE, byval Quotas as PQUOTA_LIMITS, byval SubStatus as PNTSTATUS) as NTSTATUS

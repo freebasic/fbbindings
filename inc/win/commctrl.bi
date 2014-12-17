@@ -4015,8 +4015,8 @@ end type
 type NMIPADDRESS as tagNMIPADDRESS
 type LPNMIPADDRESS as tagNMIPADDRESS ptr
 
-#define MAKEIPRANGE(low, high) cast(LPARAM, cast(WORD, cast(UBYTE, (high) shl 8) + cast(UBYTE, (low))))
-#define MAKEIPADDRESS(b1, b2, b3, b4) cast(LPARAM, ((cast(DWORD, (b1) shl 24) + cast(DWORD, (b2) shl 16)) + cast(DWORD, (b3) shl 8)) + cast(DWORD, (b4)))
+#define MAKEIPRANGE(low, high) cast(LPARAM, cast(WORD, (cast(UBYTE, (high)) shl 8) + cast(UBYTE, (low))))
+#define MAKEIPADDRESS(b1, b2, b3, b4) cast(LPARAM, (((cast(DWORD, (b1)) shl 24) + (cast(DWORD, (b2)) shl 16)) + (cast(DWORD, (b3)) shl 8)) + cast(DWORD, (b4)))
 #define FIRST_IPADDRESS(x) ((x shr 24) and &hff)
 #define SECOND_IPADDRESS(x) ((x shr 16) and &hff)
 #define THIRD_IPADDRESS(x) ((x shr 8) and &hff)
@@ -4337,7 +4337,7 @@ declare function DPA_GetPtrIndex(byval hdpa as HDPA, byval p as const any ptr) a
 
 #define DPA_GetPtrCount(hdpa) (*cptr(long ptr, (hdpa)))
 #define DPA_SetPtrCount(hdpa, cItems) '' TODO: (*(int *)(hdpa) = (cItems))
-#define DPA_GetPtrPtr(hdpa) (*cptr(any ptr ptr ptr, cptr(UBYTE ptr, (hdpa) + sizeof(any ptr))))
+#define DPA_GetPtrPtr(hdpa) (*cptr(any ptr ptr ptr, cptr(UBYTE ptr, (hdpa)) + sizeof(any ptr)))
 #define DPA_AppendPtr(hdpa, pitem) DPA_InsertPtr(hdpa, DA_LAST, pitem)
 #define DPA_FastDeleteLastPtr(hdpa) '' TODO: (--*(int *)(hdpa))
 #define DPA_FastGetPtr(hdpa, i) DPA_GetPtrPtr(hdpa)[i]
