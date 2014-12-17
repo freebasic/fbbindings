@@ -596,12 +596,6 @@ declare function _AddressOfReturnAddress() as any ptr
 #ifdef __FB_64BIT__
 	declare function __mulh(byval as longint, byval as longint) as longint
 	declare function __umulh(byval as ulongint, byval as ulongint) as ulongint
-#else
-	declare function _m_pf2iw(byval as __m64) as __m64
-	declare function _m_pfnacc(byval as __m64, byval as __m64) as __m64
-	declare function _m_pfpnacc(byval as __m64, byval as __m64) as __m64
-	declare function _m_pi2fw(byval as __m64) as __m64
-	declare function _m_pswapd(byval as __m64) as __m64
 #endif
 
 declare sub __wbinvd()
