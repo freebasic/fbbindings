@@ -479,7 +479,7 @@ WINAPI_FLAGS_winerror += -include windows.h -filterin '*/winerror.h' -filterin '
 WINAPI_FLAGS_wingdi   += -include windows.h -filterin '*/wingdi.h'
 WINAPI_FLAGS_wininet  += -include windef.h
 WINAPI_FLAGS_winioctl += -include windef.h
-WINAPI_FLAGS_winnetwk += -include windef.h
+WINAPI_FLAGS_winnetwk += -include windef.h -filterin '*/wnnc.h'
 WINAPI_FLAGS_winnls   += \
 	-filterin '*/datetimeapi.h' \
 	-filterin '*/stringapiset.h'
