@@ -541,20 +541,6 @@ declare function __builtin_ia32_crc32si(byval as ulong, byval as ulong) as ulong
 	declare function ceil(byval as double) as double
 #endif
 
-declare function memcmp(byval as const any ptr, byval as const any ptr, byval as uinteger) as long
-declare function memcpy(byval as any ptr, byval as const any ptr, byval as uinteger) as any ptr
-declare function memset(byval as any ptr, byval as long, byval as uinteger) as any ptr
-declare function strcat(byval as zstring ptr, byval as const zstring ptr) as zstring ptr
-declare function strcmp(byval as const zstring ptr, byval as const zstring ptr) as long
-declare function strcpy(byval as zstring ptr, byval as const zstring ptr) as zstring ptr
-declare function strlen(byval as const zstring ptr) as uinteger
-declare function wcscat(byval as wstring ptr, byval as const wstring ptr) as wstring ptr
-declare function wcscmp(byval as const wstring ptr, byval as const wstring ptr) as long
-declare function wcscpy(byval as wstring ptr, byval as const wstring ptr) as wstring ptr
-declare function wcslen(byval as const wstring ptr) as uinteger
-
-#define _alloca(x) __builtin_alloca((x))
-
 declare sub _disable()
 declare function __emul(byval as long, byval as long) as longint
 declare function __emulu(byval as ulong, byval as ulong) as ulongint
