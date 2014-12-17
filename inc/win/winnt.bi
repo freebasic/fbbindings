@@ -1188,19 +1188,19 @@ type PSCOPE_TABLE_AMD64 as _SCOPE_TABLE_AMD64 ptr
 		declare sub __writefsbyte(byval Offset as DWORD, byval Data as UBYTE)
 		declare sub __writefsword(byval Offset as DWORD, byval Data as WORD)
 		declare sub __writefsdword(byval Offset as DWORD, byval Data as DWORD)
+
+		private function NtCurrentTeb() as _TEB ptr
+			return cptr(_TEB ptr, __readfsdword(&h18))
+		end function
+
+		private function GetCurrentFiber() as PVOID
+			return cast(PVOID, __readfsdword(&h10))
+		end function
+
+		private function GetFiberData() as PVOID
+			return *cptr(PVOID ptr, GetCurrentFiber())
+		end function
 	end extern
-
-	function NtCurrentTeb cdecl() as _TEB ptr
-		return cptr(_TEB ptr, __readfsdword(&h18))
-	end function
-
-	function GetCurrentFiber cdecl() as PVOID
-		return cast(PVOID, __readfsdword(&h10))
-	end function
-
-	function GetFiberData cdecl() as PVOID
-		return *cptr(PVOID ptr, GetCurrentFiber())
-	end function
 #endif
 
 #define DbgRaiseAssertionFailure __int2c
@@ -7955,87 +7955,65 @@ type PTP_WAIT_CALLBACK as sub(byval Instance as PTP_CALLBACK_INSTANCE, byval Con
 type TP_IO as _TP_IO
 type PTP_IO as _TP_IO ptr
 
-sub TpInitializeCallbackEnviron cdecl(byval cbe as PTP_CALLBACK_ENVIRON)
-	cbe->Pool
-	'' TODO: cbe->Pool = ((void *)0);
-	cbe->CleanupGroup
-	'' TODO: cbe->CleanupGroup = ((void *)0);
-	cbe->CleanupGroupCancelCallback
-	'' TODO: cbe->CleanupGroupCancelCallback = ((void *)0);
-	cbe->RaceDll
-	'' TODO: cbe->RaceDll = ((void *)0);
-	cbe->ActivationContext
-	'' TODO: cbe->ActivationContext = ((void *)0);
-	cbe->FinalizationCallback
-	'' TODO: cbe->FinalizationCallback = ((void *)0);
-	cbe->u.Flags
-	'' TODO: cbe->u.Flags = 0;
-	cbe->Version
-	'' TODO: cbe->Version = 1;
+private sub TpInitializeCallbackEnviron cdecl(byval cbe as PTP_CALLBACK_ENVIRON)
+	cbe->Pool = 0
+	cbe->CleanupGroup = 0
+	cbe->CleanupGroupCancelCallback = 0
+	cbe->RaceDll = 0
+	cbe->ActivationContext = 0
+	cbe->FinalizationCallback = 0
+	cbe->u.Flags = 0
+	cbe->Version = 1
 end sub
 
-sub TpSetCallbackThreadpool cdecl(byval cbe as PTP_CALLBACK_ENVIRON, byval pool as PTP_POOL)
-	cbe->Pool
-	'' TODO: cbe->Pool = pool;
+private sub TpSetCallbackThreadpool cdecl(byval cbe as PTP_CALLBACK_ENVIRON, byval pool as PTP_POOL)
+	cbe->Pool = pool
 end sub
 
-sub TpSetCallbackCleanupGroup cdecl(byval cbe as PTP_CALLBACK_ENVIRON, byval cleanup_group as PTP_CLEANUP_GROUP, byval cleanup_group_cb as PTP_CLEANUP_GROUP_CANCEL_CALLBACK)
-	cbe->CleanupGroup
-	'' TODO: cbe->CleanupGroup = cleanup_group;
-	cbe->CleanupGroupCancelCallback
-	'' TODO: cbe->CleanupGroupCancelCallback = cleanup_group_cb;
+private sub TpSetCallbackCleanupGroup cdecl(byval cbe as PTP_CALLBACK_ENVIRON, byval cleanup_group as PTP_CLEANUP_GROUP, byval cleanup_group_cb as PTP_CLEANUP_GROUP_CANCEL_CALLBACK)
+	cbe->CleanupGroup = cleanup_group
+	cbe->CleanupGroupCancelCallback = cleanup_group_cb
 end sub
 
-sub TpSetCallbackActivationContext cdecl(byval cbe as PTP_CALLBACK_ENVIRON, byval actx as _ACTIVATION_CONTEXT ptr)
-	cbe->ActivationContext
-	'' TODO: cbe->ActivationContext = actx;
+private sub TpSetCallbackActivationContext cdecl(byval cbe as PTP_CALLBACK_ENVIRON, byval actx as _ACTIVATION_CONTEXT ptr)
+	cbe->ActivationContext = actx
 end sub
 
-sub TpSetCallbackNoActivationContext cdecl(byval cbe as PTP_CALLBACK_ENVIRON)
-	cbe->ActivationContext
-	'' TODO: cbe->ActivationContext = (struct _ACTIVATION_CONTEXT *) (LONG_PTR) -1;
+private sub TpSetCallbackNoActivationContext cdecl(byval cbe as PTP_CALLBACK_ENVIRON)
+	cbe->ActivationContext = -1
 end sub
 
-sub TpSetCallbackLongFunction cdecl(byval cbe as PTP_CALLBACK_ENVIRON)
-	cbe->u.s.LongFunction
-	'' TODO: cbe->u.s.LongFunction = 1;
+private sub TpSetCallbackLongFunction cdecl(byval cbe as PTP_CALLBACK_ENVIRON)
+	cbe->u.s.LongFunction = 1
 end sub
 
-sub TpSetCallbackRaceWithDll cdecl(byval cbe as PTP_CALLBACK_ENVIRON, byval h as PVOID)
-	cbe->RaceDll
-	'' TODO: cbe->RaceDll = h;
+private sub TpSetCallbackRaceWithDll cdecl(byval cbe as PTP_CALLBACK_ENVIRON, byval h as PVOID)
+	cbe->RaceDll = h
 end sub
 
-sub TpSetCallbackFinalizationCallback cdecl(byval cbe as PTP_CALLBACK_ENVIRON, byval fini_cb as PTP_SIMPLE_CALLBACK)
-	cbe->FinalizationCallback
-	'' TODO: cbe->FinalizationCallback = fini_cb;
+private sub TpSetCallbackFinalizationCallback cdecl(byval cbe as PTP_CALLBACK_ENVIRON, byval fini_cb as PTP_SIMPLE_CALLBACK)
+	cbe->FinalizationCallback = fini_cb
 end sub
 
-sub TpSetCallbackPersistent cdecl(byval cbe as PTP_CALLBACK_ENVIRON)
-	cbe->u.s.Persistent
-	'' TODO: cbe->u.s.Persistent = 1;
+private sub TpSetCallbackPersistent cdecl(byval cbe as PTP_CALLBACK_ENVIRON)
+	cbe->u.s.Persistent = 1
 end sub
 
-sub TpDestroyCallbackEnviron cdecl(byval cbe as PTP_CALLBACK_ENVIRON)
-	'' TODO: {(cbe) = (cbe);
+private sub TpDestroyCallbackEnviron cdecl(byval cbe as PTP_CALLBACK_ENVIRON)
 end sub
 
 #ifdef __FB_64BIT__
-	'' TODO: } struct _TEB *NtCurrentTeb(void);
-
-	function GetCurrentFiber() as PVOID
+	private function GetCurrentFiber() as PVOID
 		return cast(PVOID, __readgsqword(cast(LONG, cast(LONG_PTR, @cptr(NT_TIB ptr, 0)->FiberData))))
 	end function
 
-	function GetFiberData() as PVOID
+	private function GetFiberData() as PVOID
 		return *cptr(PVOID ptr, GetCurrentFiber())
 	end function
 
-	function NtCurrentTeb() as _TEB ptr
+	private function NtCurrentTeb() as _TEB ptr
 		return cptr(_TEB ptr, __readgsqword(cast(LONG, cast(LONG_PTR, @cptr(NT_TIB ptr, 0)->Self))))
 	end function
-#else
-	'' TODO: }
 #endif
 
 #define _NTTMAPI_
