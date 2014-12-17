@@ -202,8 +202,8 @@ end type
 type _PROCESS_HEAP_ENTRY
 	lpData as PVOID
 	cbData as DWORD
-	cbOverhead as BYTE
-	iRegionIndex as BYTE
+	cbOverhead as UBYTE
+	iRegionIndex as UBYTE
 	wFlags as WORD
 
 	union
@@ -614,9 +614,9 @@ type _DCB
 	wReserved as WORD
 	XonLim as WORD
 	XoffLim as WORD
-	ByteSize as BYTE
-	Parity as BYTE
-	StopBits as BYTE
+	ByteSize as UBYTE
+	Parity as UBYTE
+	StopBits as UBYTE
 	XonChar as byte
 	XoffChar as byte
 	ErrorChar as byte
@@ -910,8 +910,8 @@ type LPEXCEPTION_POINTERS as PEXCEPTION_POINTERS
 #define OFS_MAXPATHNAME 128
 
 type _OFSTRUCT
-	cBytes as BYTE
-	fFixedDisk as BYTE
+	cBytes as UBYTE
+	fFixedDisk as UBYTE
 	nErrCode as WORD
 	Reserved1 as WORD
 	Reserved2 as WORD
@@ -1847,10 +1847,10 @@ declare function VerifyVersionInfoW(byval lpVersionInformation as LPOSVERSIONINF
 #define BATTERY_LIFE_UNKNOWN &hffffffff
 
 type _SYSTEM_POWER_STATUS
-	ACLineStatus as BYTE
-	BatteryFlag as BYTE
-	BatteryLifePercent as BYTE
-	Reserved1 as BYTE
+	ACLineStatus as UBYTE
+	BatteryFlag as UBYTE
+	BatteryLifePercent as UBYTE
+	Reserved1 as UBYTE
 	BatteryLifeTime as DWORD
 	BatteryFullLifeTime as DWORD
 end type

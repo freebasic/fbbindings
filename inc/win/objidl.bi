@@ -511,14 +511,14 @@ type IROTDataVtbl field = 8
 	QueryInterface as function(byval This as IROTData ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IROTData ptr) as ULONG
 	Release as function(byval This as IROTData ptr) as ULONG
-	GetComparisonData as function(byval This as IROTData ptr, byval pbData as byte_ ptr, byval cbMax as ULONG, byval pcbData as ULONG ptr) as HRESULT
+	GetComparisonData as function(byval This as IROTData ptr, byval pbData as ubyte ptr, byval cbMax as ULONG, byval pcbData as ULONG ptr) as HRESULT
 end type
 
 type IROTData_ field = 8
 	lpVtbl as IROTDataVtbl ptr
 end type
 
-declare function IROTData_GetComparisonData_Proxy(byval This as IROTData ptr, byval pbData as byte_ ptr, byval cbMax as ULONG, byval pcbData as ULONG ptr) as HRESULT
+declare function IROTData_GetComparisonData_Proxy(byval This as IROTData ptr, byval pbData as ubyte ptr, byval cbMax as ULONG, byval pcbData as ULONG ptr) as HRESULT
 declare sub IROTData_GetComparisonData_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 
 #define __IEnumSTATSTG_INTERFACE_DEFINED__
@@ -595,7 +595,7 @@ end type
 
 declare function IStorage_CreateStream_Proxy(byval This as IStorage ptr, byval pwcsName as const OLECHAR ptr, byval grfMode as DWORD, byval reserved1 as DWORD, byval reserved2 as DWORD, byval ppstm as IStream ptr ptr) as HRESULT
 declare sub IStorage_CreateStream_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-declare function IStorage_RemoteOpenStream_Proxy(byval This as IStorage ptr, byval pwcsName as const OLECHAR ptr, byval cbReserved1 as ULONG, byval reserved1 as byte_ ptr, byval grfMode as DWORD, byval reserved2 as DWORD, byval ppstm as IStream ptr ptr) as HRESULT
+declare function IStorage_RemoteOpenStream_Proxy(byval This as IStorage ptr, byval pwcsName as const OLECHAR ptr, byval cbReserved1 as ULONG, byval reserved1 as ubyte ptr, byval grfMode as DWORD, byval reserved2 as DWORD, byval ppstm as IStream ptr ptr) as HRESULT
 declare sub IStorage_RemoteOpenStream_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IStorage_CreateStorage_Proxy(byval This as IStorage ptr, byval pwcsName as const OLECHAR ptr, byval grfMode as DWORD, byval reserved1 as DWORD, byval reserved2 as DWORD, byval ppstg as IStorage ptr ptr) as HRESULT
 declare sub IStorage_CreateStorage_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
@@ -609,7 +609,7 @@ declare function IStorage_Commit_Proxy(byval This as IStorage ptr, byval grfComm
 declare sub IStorage_Commit_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IStorage_Revert_Proxy(byval This as IStorage ptr) as HRESULT
 declare sub IStorage_Revert_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-declare function IStorage_RemoteEnumElements_Proxy(byval This as IStorage ptr, byval reserved1 as DWORD, byval cbReserved2 as ULONG, byval reserved2 as byte_ ptr, byval reserved3 as DWORD, byval ppenum as IEnumSTATSTG ptr ptr) as HRESULT
+declare function IStorage_RemoteEnumElements_Proxy(byval This as IStorage ptr, byval reserved1 as DWORD, byval cbReserved2 as ULONG, byval reserved2 as ubyte ptr, byval reserved3 as DWORD, byval ppenum as IEnumSTATSTG ptr ptr) as HRESULT
 declare sub IStorage_RemoteEnumElements_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IStorage_DestroyElement_Proxy(byval This as IStorage ptr, byval pwcsName as const OLECHAR ptr) as HRESULT
 declare sub IStorage_DestroyElement_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
@@ -624,11 +624,11 @@ declare sub IStorage_SetStateBits_Stub(byval This as IRpcStubBuffer ptr, byval p
 declare function IStorage_Stat_Proxy(byval This as IStorage ptr, byval pstatstg as STATSTG ptr, byval grfStatFlag as DWORD) as HRESULT
 declare sub IStorage_Stat_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IStorage_OpenStream_Proxy(byval This as IStorage ptr, byval pwcsName as const OLECHAR ptr, byval reserved1 as any ptr, byval grfMode as DWORD, byval reserved2 as DWORD, byval ppstm as IStream ptr ptr) as HRESULT
-declare function IStorage_OpenStream_Stub(byval This as IStorage ptr, byval pwcsName as const OLECHAR ptr, byval cbReserved1 as ULONG, byval reserved1 as byte_ ptr, byval grfMode as DWORD, byval reserved2 as DWORD, byval ppstm as IStream ptr ptr) as HRESULT
+declare function IStorage_OpenStream_Stub(byval This as IStorage ptr, byval pwcsName as const OLECHAR ptr, byval cbReserved1 as ULONG, byval reserved1 as ubyte ptr, byval grfMode as DWORD, byval reserved2 as DWORD, byval ppstm as IStream ptr ptr) as HRESULT
 declare function IStorage_CopyTo_Proxy(byval This as IStorage ptr, byval ciidExclude as DWORD, byval rgiidExclude as const IID ptr, byval snbExclude as SNB, byval pstgDest as IStorage ptr) as HRESULT
 declare function IStorage_CopyTo_Stub(byval This as IStorage ptr, byval ciidExclude as DWORD, byval rgiidExclude as const IID ptr, byval snbExclude as SNB, byval pstgDest as IStorage ptr) as HRESULT
 declare function IStorage_EnumElements_Proxy(byval This as IStorage ptr, byval reserved1 as DWORD, byval reserved2 as any ptr, byval reserved3 as DWORD, byval ppenum as IEnumSTATSTG ptr ptr) as HRESULT
-declare function IStorage_EnumElements_Stub(byval This as IStorage ptr, byval reserved1 as DWORD, byval cbReserved2 as ULONG, byval reserved2 as byte_ ptr, byval reserved3 as DWORD, byval ppenum as IEnumSTATSTG ptr ptr) as HRESULT
+declare function IStorage_EnumElements_Stub(byval This as IStorage ptr, byval reserved1 as DWORD, byval cbReserved2 as ULONG, byval reserved2 as ubyte ptr, byval reserved3 as DWORD, byval ppenum as IEnumSTATSTG ptr ptr) as HRESULT
 
 #define __IPersistFile_INTERFACE_DEFINED__
 
@@ -722,9 +722,9 @@ type ILockBytes_ field = 8
 	lpVtbl as ILockBytesVtbl ptr
 end type
 
-declare function ILockBytes_RemoteReadAt_Proxy(byval This as ILockBytes ptr, byval ulOffset as ULARGE_INTEGER, byval pv as byte_ ptr, byval cb as ULONG, byval pcbRead as ULONG ptr) as HRESULT
+declare function ILockBytes_RemoteReadAt_Proxy(byval This as ILockBytes ptr, byval ulOffset as ULARGE_INTEGER, byval pv as ubyte ptr, byval cb as ULONG, byval pcbRead as ULONG ptr) as HRESULT
 declare sub ILockBytes_RemoteReadAt_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-declare function ILockBytes_RemoteWriteAt_Proxy(byval This as ILockBytes ptr, byval ulOffset as ULARGE_INTEGER, byval pv as const byte_ ptr, byval cb as ULONG, byval pcbWritten as ULONG ptr) as HRESULT
+declare function ILockBytes_RemoteWriteAt_Proxy(byval This as ILockBytes ptr, byval ulOffset as ULARGE_INTEGER, byval pv as const ubyte ptr, byval cb as ULONG, byval pcbWritten as ULONG ptr) as HRESULT
 declare sub ILockBytes_RemoteWriteAt_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function ILockBytes_Flush_Proxy(byval This as ILockBytes ptr) as HRESULT
 declare sub ILockBytes_Flush_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
@@ -737,9 +737,9 @@ declare sub ILockBytes_UnlockRegion_Stub(byval This as IRpcStubBuffer ptr, byval
 declare function ILockBytes_Stat_Proxy(byval This as ILockBytes ptr, byval pstatstg as STATSTG ptr, byval grfStatFlag as DWORD) as HRESULT
 declare sub ILockBytes_Stat_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function ILockBytes_ReadAt_Proxy(byval This as ILockBytes ptr, byval ulOffset as ULARGE_INTEGER, byval pv as any ptr, byval cb as ULONG, byval pcbRead as ULONG ptr) as HRESULT
-declare function ILockBytes_ReadAt_Stub(byval This as ILockBytes ptr, byval ulOffset as ULARGE_INTEGER, byval pv as byte_ ptr, byval cb as ULONG, byval pcbRead as ULONG ptr) as HRESULT
+declare function ILockBytes_ReadAt_Stub(byval This as ILockBytes ptr, byval ulOffset as ULARGE_INTEGER, byval pv as ubyte ptr, byval cb as ULONG, byval pcbRead as ULONG ptr) as HRESULT
 declare function ILockBytes_WriteAt_Proxy(byval This as ILockBytes ptr, byval ulOffset as ULARGE_INTEGER, byval pv as const any ptr, byval cb as ULONG, byval pcbWritten as ULONG ptr) as HRESULT
-declare function ILockBytes_WriteAt_Stub(byval This as ILockBytes ptr, byval ulOffset as ULARGE_INTEGER, byval pv as const byte_ ptr, byval cb as ULONG, byval pcbWritten as ULONG ptr) as HRESULT
+declare function ILockBytes_WriteAt_Stub(byval This as ILockBytes ptr, byval ulOffset as ULARGE_INTEGER, byval pv as const ubyte ptr, byval cb as ULONG, byval pcbWritten as ULONG ptr) as HRESULT
 
 #define __IEnumFORMATETC_INTERFACE_DEFINED__
 
@@ -751,7 +751,7 @@ type tagDVTARGETDEVICE field = 8
 	tdDeviceNameOffset as WORD
 	tdPortNameOffset as WORD
 	tdExtDevmodeOffset as WORD
-	tdData(0 to 0) as BYTE
+	tdData(0 to 0) as UBYTE
 end type
 
 type DVTARGETDEVICE as tagDVTARGETDEVICE
@@ -893,7 +893,7 @@ type tagRemSTGMEDIUM field = 8
 	pData as ULONG
 	pUnkForRelease as ULONG
 	cbData as ULONG
-	data(0 to 0) as byte_
+	data(0 to 0) as ubyte
 end type
 
 type RemSTGMEDIUM as tagRemSTGMEDIUM
@@ -1341,18 +1341,18 @@ type IFillLockBytes_ field = 8
 	lpVtbl as IFillLockBytesVtbl ptr
 end type
 
-declare function IFillLockBytes_RemoteFillAppend_Proxy(byval This as IFillLockBytes ptr, byval pv as const byte_ ptr, byval cb as ULONG, byval pcbWritten as ULONG ptr) as HRESULT
+declare function IFillLockBytes_RemoteFillAppend_Proxy(byval This as IFillLockBytes ptr, byval pv as const ubyte ptr, byval cb as ULONG, byval pcbWritten as ULONG ptr) as HRESULT
 declare sub IFillLockBytes_RemoteFillAppend_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-declare function IFillLockBytes_RemoteFillAt_Proxy(byval This as IFillLockBytes ptr, byval ulOffset as ULARGE_INTEGER, byval pv as const byte_ ptr, byval cb as ULONG, byval pcbWritten as ULONG ptr) as HRESULT
+declare function IFillLockBytes_RemoteFillAt_Proxy(byval This as IFillLockBytes ptr, byval ulOffset as ULARGE_INTEGER, byval pv as const ubyte ptr, byval cb as ULONG, byval pcbWritten as ULONG ptr) as HRESULT
 declare sub IFillLockBytes_RemoteFillAt_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IFillLockBytes_SetFillSize_Proxy(byval This as IFillLockBytes ptr, byval ulSize as ULARGE_INTEGER) as HRESULT
 declare sub IFillLockBytes_SetFillSize_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IFillLockBytes_Terminate_Proxy(byval This as IFillLockBytes ptr, byval bCanceled as WINBOOL) as HRESULT
 declare sub IFillLockBytes_Terminate_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IFillLockBytes_FillAppend_Proxy(byval This as IFillLockBytes ptr, byval pv as const any ptr, byval cb as ULONG, byval pcbWritten as ULONG ptr) as HRESULT
-declare function IFillLockBytes_FillAppend_Stub(byval This as IFillLockBytes ptr, byval pv as const byte_ ptr, byval cb as ULONG, byval pcbWritten as ULONG ptr) as HRESULT
+declare function IFillLockBytes_FillAppend_Stub(byval This as IFillLockBytes ptr, byval pv as const ubyte ptr, byval cb as ULONG, byval pcbWritten as ULONG ptr) as HRESULT
 declare function IFillLockBytes_FillAt_Proxy(byval This as IFillLockBytes ptr, byval ulOffset as ULARGE_INTEGER, byval pv as const any ptr, byval cb as ULONG, byval pcbWritten as ULONG ptr) as HRESULT
-declare function IFillLockBytes_FillAt_Stub(byval This as IFillLockBytes ptr, byval ulOffset as ULARGE_INTEGER, byval pv as const byte_ ptr, byval cb as ULONG, byval pcbWritten as ULONG ptr) as HRESULT
+declare function IFillLockBytes_FillAt_Stub(byval This as IFillLockBytes ptr, byval ulOffset as ULARGE_INTEGER, byval pv as const ubyte ptr, byval cb as ULONG, byval pcbWritten as ULONG ptr) as HRESULT
 
 #define __IProgressNotify_INTERFACE_DEFINED__
 

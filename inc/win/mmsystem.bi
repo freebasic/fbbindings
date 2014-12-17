@@ -32,13 +32,13 @@ type MMRESULT as UINT
 type LPUINT as UINT ptr
 
 type __mmtime_tag_smpte field = 1
-	hour as BYTE
-	min_ as BYTE
-	sec as BYTE
-	frame as BYTE
-	fps as BYTE
-	dummy as BYTE
-	pad(0 to 1) as BYTE
+	hour as UBYTE
+	min_ as UBYTE
+	sec as UBYTE
+	frame as UBYTE
+	fps as UBYTE
+	dummy as UBYTE
+	pad(0 to 1) as UBYTE
 end type
 
 type __mmtime_tag_midi field = 1
@@ -70,7 +70,7 @@ type LPMMTIME as mmtime_tag ptr
 #define TIME_SMPTE &h0008
 #define TIME_MIDI &h0010
 #define TIME_TICKS &h0020
-#define MAKEFOURCC(ch0, ch1, ch2, ch3) cast(DWORD, cast(BYTE, (((ch0) or cast(DWORD, cast(BYTE, (ch1) shl 8))) or cast(DWORD, cast(BYTE, (ch2) shl 16))) or cast(DWORD, cast(BYTE, (ch3) shl 24))))
+#define MAKEFOURCC(ch0, ch1, ch2, ch3) cast(DWORD, cast(UBYTE, (((ch0) or cast(DWORD, cast(UBYTE, (ch1) shl 8))) or cast(DWORD, cast(UBYTE, (ch2) shl 16))) or cast(DWORD, cast(UBYTE, (ch3) shl 24))))
 #define MM_JOY1MOVE &h3A0
 #define MM_JOY2MOVE &h3A1
 #define MM_JOY1ZMOVE &h3A2
@@ -236,7 +236,7 @@ declare function sndPlaySoundW(byval pszSound as LPCWSTR, byval fuSound as UINT)
 #define SND_PURGE &h0040
 #define SND_APPLICATION &h0080
 #define SND_ALIAS_START 0
-#define sndAlias(c0, c1) (SND_ALIAS_START + cast(DWORD, cast(BYTE, (c0) or cast(DWORD, cast(BYTE, (c1) shl 8)))))
+#define sndAlias(c0, c1) (SND_ALIAS_START + cast(DWORD, cast(UBYTE, (c0) or cast(DWORD, cast(UBYTE, (c1) shl 8)))))
 #define SND_ALIAS_SYSTEMASTERISK sndAlias(asc("S"), asc("*"))
 #define SND_ALIAS_SYSTEMQUESTION sndAlias(asc("S"), asc("?"))
 #define SND_ALIAS_SYSTEMHAND sndAlias(asc("S"), asc("H"))
@@ -920,14 +920,14 @@ type MIDISTRMBUFFVER as midistrmbuffver_tag
 #define MEVT_F_SHORT __MSABI_LONG(&h00000000)
 #define MEVT_F_LONG __MSABI_LONG(&h80000000)
 #define MEVT_F_CALLBACK __MSABI_LONG(&h40000000)
-#define MEVT_EVENTTYPE(x) cast(BYTE, ((x) shr 24) and &hFF)
+#define MEVT_EVENTTYPE(x) cast(UBYTE, ((x) shr 24) and &hFF)
 #define MEVT_EVENTPARM(x) cast(DWORD, (x) and &h00FFFFFF)
-#define MEVT_SHORTMSG cast(BYTE, &h00)
-#define MEVT_TEMPO cast(BYTE, &h01)
-#define MEVT_NOP cast(BYTE, &h02)
-#define MEVT_LONGMSG cast(BYTE, &h80)
-#define MEVT_COMMENT cast(BYTE, &h82)
-#define MEVT_VERSION cast(BYTE, &h84)
+#define MEVT_SHORTMSG cast(UBYTE, &h00)
+#define MEVT_TEMPO cast(UBYTE, &h01)
+#define MEVT_NOP cast(UBYTE, &h02)
+#define MEVT_LONGMSG cast(UBYTE, &h80)
+#define MEVT_COMMENT cast(UBYTE, &h82)
+#define MEVT_VERSION cast(UBYTE, &h84)
 #define MIDISTRM_ERROR (-2)
 #define MIDIPROP_SET __MSABI_LONG(&h80000000)
 #define MIDIPROP_GET __MSABI_LONG(&h40000000)
@@ -2277,19 +2277,19 @@ declare function mciGetYieldProc(byval mciId as MCIDEVICEID, byval pdwYieldData 
 #define MCI_FORMAT_BYTES 8
 #define MCI_FORMAT_SAMPLES 9
 #define MCI_FORMAT_TMSF 10
-#define MCI_MSF_MINUTE(msf) cast(BYTE, (msf))
-#define MCI_MSF_SECOND(msf) cast(BYTE, cast(WORD, (msf)) shr 8)
-#define MCI_MSF_FRAME(msf) cast(BYTE, (msf) shr 16)
-#define MCI_MAKE_MSF(m, s, f) cast(DWORD, cast(BYTE, (m) or cast(WORD, (s) shl 8)) or (cast(DWORD, cast(BYTE, (f))) shl 16))
-#define MCI_TMSF_TRACK(tmsf) cast(BYTE, (tmsf))
-#define MCI_TMSF_MINUTE(tmsf) cast(BYTE, cast(WORD, (tmsf)) shr 8)
-#define MCI_TMSF_SECOND(tmsf) cast(BYTE, (tmsf) shr 16)
-#define MCI_TMSF_FRAME(tmsf) cast(BYTE, (tmsf) shr 24)
-#define MCI_MAKE_TMSF(t, m, s, f) cast(DWORD, cast(BYTE, (t) or cast(WORD, (m) shl 8)) or (cast(DWORD, cast(BYTE, (s) or cast(WORD, (f) shl 8))) shl 16))
-#define MCI_HMS_HOUR(hms) cast(BYTE, (hms))
-#define MCI_HMS_MINUTE(hms) cast(BYTE, cast(WORD, (hms)) shr 8)
-#define MCI_HMS_SECOND(hms) cast(BYTE, (hms) shr 16)
-#define MCI_MAKE_HMS(h, m, s) cast(DWORD, cast(BYTE, (h) or cast(WORD, (m) shl 8)) or (cast(DWORD, cast(BYTE, (s))) shl 16))
+#define MCI_MSF_MINUTE(msf) cast(UBYTE, (msf))
+#define MCI_MSF_SECOND(msf) cast(UBYTE, cast(WORD, (msf)) shr 8)
+#define MCI_MSF_FRAME(msf) cast(UBYTE, (msf) shr 16)
+#define MCI_MAKE_MSF(m, s, f) cast(DWORD, cast(UBYTE, (m) or cast(WORD, (s) shl 8)) or (cast(DWORD, cast(UBYTE, (f))) shl 16))
+#define MCI_TMSF_TRACK(tmsf) cast(UBYTE, (tmsf))
+#define MCI_TMSF_MINUTE(tmsf) cast(UBYTE, cast(WORD, (tmsf)) shr 8)
+#define MCI_TMSF_SECOND(tmsf) cast(UBYTE, (tmsf) shr 16)
+#define MCI_TMSF_FRAME(tmsf) cast(UBYTE, (tmsf) shr 24)
+#define MCI_MAKE_TMSF(t, m, s, f) cast(DWORD, cast(UBYTE, (t) or cast(WORD, (m) shl 8)) or (cast(DWORD, cast(UBYTE, (s) or cast(WORD, (f) shl 8))) shl 16))
+#define MCI_HMS_HOUR(hms) cast(UBYTE, (hms))
+#define MCI_HMS_MINUTE(hms) cast(UBYTE, cast(WORD, (hms)) shr 8)
+#define MCI_HMS_SECOND(hms) cast(UBYTE, (hms) shr 16)
+#define MCI_MAKE_HMS(h, m, s) cast(DWORD, cast(UBYTE, (h) or cast(WORD, (m) shl 8)) or (cast(DWORD, cast(UBYTE, (s))) shl 16))
 #define MCI_NOTIFY_SUCCESSFUL &h0001
 #define MCI_NOTIFY_SUPERSEDED &h0002
 #define MCI_NOTIFY_ABORTED &h0004

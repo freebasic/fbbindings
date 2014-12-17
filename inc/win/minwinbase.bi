@@ -167,8 +167,8 @@ end type
 type _PROCESS_HEAP_ENTRY
 	lpData as PVOID
 	cbData as DWORD
-	cbOverhead as BYTE
-	iRegionIndex as BYTE
+	cbOverhead as UBYTE
+	iRegionIndex as UBYTE
 	wFlags as WORD
 
 	union

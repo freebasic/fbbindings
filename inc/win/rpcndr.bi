@@ -5,7 +5,6 @@
 #include once "rpcsal.bi"
 
 '' The following symbols have been renamed:
-''     typedef byte => byte_
 ''     typedef boolean => boolean_
 
 #ifdef __FB_64BIT__
@@ -43,8 +42,8 @@ type <error-recovery> as <error-recovery>_
 #define TARGET_IS_NT40_OR_LATER 1
 #define TARGET_IS_NT351_OR_WIN95_OR_LATER 1
 
-type byte_ as ubyte
-type cs_byte as byte_
+type ubyte as ubyte
+type cs_byte as ubyte
 type boolean_ as ubyte
 
 #define _HYPER_DEFINED
@@ -369,8 +368,8 @@ end enum
 type IDL_CS_CONVERT as _IDL_CS_CONVERT
 type CS_TYPE_NET_SIZE_ROUTINE as sub(byval hBinding as RPC_BINDING_HANDLE, byval ulNetworkCodeSet as ulong, byval ulLocalBufferSize as ulong, byval conversionType as IDL_CS_CONVERT ptr, byval pulNetworkBufferSize as ulong ptr, byval pStatus as error_status_t ptr)
 type CS_TYPE_LOCAL_SIZE_ROUTINE as sub(byval hBinding as RPC_BINDING_HANDLE, byval ulNetworkCodeSet as ulong, byval ulNetworkBufferSize as ulong, byval conversionType as IDL_CS_CONVERT ptr, byval pulLocalBufferSize as ulong ptr, byval pStatus as error_status_t ptr)
-type CS_TYPE_TO_NETCS_ROUTINE as sub(byval hBinding as RPC_BINDING_HANDLE, byval ulNetworkCodeSet as ulong, byval pLocalData as any ptr, byval ulLocalDataLength as ulong, byval pNetworkData as byte_ ptr, byval pulNetworkDataLength as ulong ptr, byval pStatus as error_status_t ptr)
-type CS_TYPE_FROM_NETCS_ROUTINE as sub(byval hBinding as RPC_BINDING_HANDLE, byval ulNetworkCodeSet as ulong, byval pNetworkData as byte_ ptr, byval ulNetworkDataLength as ulong, byval ulLocalBufferSize as ulong, byval pLocalData as any ptr, byval pulLocalDataLength as ulong ptr, byval pStatus as error_status_t ptr)
+type CS_TYPE_TO_NETCS_ROUTINE as sub(byval hBinding as RPC_BINDING_HANDLE, byval ulNetworkCodeSet as ulong, byval pLocalData as any ptr, byval ulLocalDataLength as ulong, byval pNetworkData as ubyte ptr, byval pulNetworkDataLength as ulong ptr, byval pStatus as error_status_t ptr)
+type CS_TYPE_FROM_NETCS_ROUTINE as sub(byval hBinding as RPC_BINDING_HANDLE, byval ulNetworkCodeSet as ulong, byval pNetworkData as ubyte ptr, byval ulNetworkDataLength as ulong, byval ulLocalBufferSize as ulong, byval pLocalData as any ptr, byval pulLocalDataLength as ulong ptr, byval pStatus as error_status_t ptr)
 type CS_TAG_GETTING_ROUTINE as sub(byval hBinding as RPC_BINDING_HANDLE, byval fServerSide as long, byval pulSendingTag as ulong ptr, byval pulDesiredReceivingTag as ulong ptr, byval pulReceivingTag as ulong ptr, byval pStatus as error_status_t ptr)
 
 declare sub RpcCsGetTags(byval hBinding as RPC_BINDING_HANDLE, byval fServerSide as long, byval pulSendingTag as ulong ptr, byval pulDesiredReceivingTag as ulong ptr, byval pulReceivingTag as ulong ptr, byval pStatus as error_status_t ptr)

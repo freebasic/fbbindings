@@ -353,8 +353,6 @@ WINAPI_FLAGS += -filterin '*pshpack*.h'
 WINAPI_FLAGS += -filterin '*poppack.h'
 WINAPI_FLAGS += -clong32
 WINAPI_FLAGS += -typedefhint __LONG32
-WINAPI_FLAGS += -nofbkeyword byte
-WINAPI_FLAGS += -nofbkeyword ubyte
 WINAPI_FLAGS += -nofbkeyword short
 WINAPI_FLAGS += -nofbkeyword ushort
 WINAPI_FLAGS += -nofbkeyword long
@@ -364,6 +362,13 @@ WINAPI_FLAGS += -nofbkeyword lobyte
 WINAPI_FLAGS += -nofbkeyword hibyte
 WINAPI_FLAGS += -nofbkeyword loword
 WINAPI_FLAGS += -nofbkeyword hiword
+
+# BYTE is defined as "unsigned char", but it also conflicts with FB's signed byte type.
+# Traditionally, the FB winapi headers have used FB's ubyte type instead of keeping the typedef in any way.
+# It helps that there is no existing UBYTE type in the winapi headers.
+# Similar for the "byte" typedef (also "unsigned char") used by a few headers.
+WINAPI_FLAGS += -renametypedef BYTE UBYTE
+WINAPI_FLAGS += -renametypedef byte ubyte
 
 # winapi.mk lists all the headers we want to translate
 include winapi.mk

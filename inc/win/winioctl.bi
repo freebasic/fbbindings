@@ -149,7 +149,7 @@ type STORAGE_DEVICE_NUMBER as _STORAGE_DEVICE_NUMBER
 type PSTORAGE_DEVICE_NUMBER as _STORAGE_DEVICE_NUMBER ptr
 
 type _STORAGE_BUS_RESET_REQUEST
-	PathId as BYTE
+	PathId as UBYTE
 end type
 
 type STORAGE_BUS_RESET_REQUEST as _STORAGE_BUS_RESET_REQUEST
@@ -157,10 +157,10 @@ type PSTORAGE_BUS_RESET_REQUEST as _STORAGE_BUS_RESET_REQUEST ptr
 
 type STORAGE_BREAK_RESERVATION_REQUEST
 	Length as DWORD
-	_unused as BYTE
-	PathId as BYTE
-	TargetId as BYTE
-	Lun as BYTE
+	_unused as UBYTE
+	PathId as UBYTE
+	TargetId as UBYTE
+	Lun as UBYTE
 end type
 
 type PSTORAGE_BREAK_RESERVATION_REQUEST as STORAGE_BREAK_RESERVATION_REQUEST ptr
@@ -187,8 +187,8 @@ type _TAPE_STATISTICS
 	UnrecoveredWrites as LARGE_INTEGER
 	RecoveredReads as LARGE_INTEGER
 	UnrecoveredReads as LARGE_INTEGER
-	CompressionRatioReads as BYTE
-	CompressionRatioWrites as BYTE
+	CompressionRatioReads as UBYTE
+	CompressionRatioWrites as UBYTE
 end type
 
 type TAPE_STATISTICS as _TAPE_STATISTICS
@@ -328,8 +328,8 @@ type ___DEVICE_MEDIA_INFO_RemovableDiskInfo
 end type
 
 type ___DEVICE_MEDIA_INFO_ScsiInformation
-	MediumType as BYTE
-	DensityCode as BYTE
+	MediumType as UBYTE
+	DensityCode as UBYTE
 end type
 
 union ___DEVICE_MEDIA_INFO_BusSpecificData
@@ -368,7 +368,7 @@ type PGET_MEDIA_TYPES as _GET_MEDIA_TYPES ptr
 
 type _STORAGE_PREDICT_FAILURE
 	PredictFailure as DWORD
-	VendorSpecific(0 to 511) as BYTE
+	VendorSpecific(0 to 511) as UBYTE
 end type
 
 type STORAGE_PREDICT_FAILURE as _STORAGE_PREDICT_FAILURE
@@ -525,7 +525,7 @@ type _PARTITION_INFORMATION
 	PartitionLength as LARGE_INTEGER
 	HiddenSectors as DWORD
 	PartitionNumber as DWORD
-	PartitionType as BYTE
+	PartitionType as UBYTE
 	BootIndicator as BOOLEAN
 	RecognizedPartition as BOOLEAN
 	RewritePartition as BOOLEAN
@@ -535,7 +535,7 @@ type PARTITION_INFORMATION as _PARTITION_INFORMATION
 type PPARTITION_INFORMATION as _PARTITION_INFORMATION ptr
 
 type _SET_PARTITION_INFORMATION
-	PartitionType as BYTE
+	PartitionType as UBYTE
 end type
 
 type SET_PARTITION_INFORMATION as _SET_PARTITION_INFORMATION
@@ -602,7 +602,7 @@ type PPARTITION_INFORMATION_GPT as _PARTITION_INFORMATION_GPT ptr
 #define GPT_BASIC_DATA_ATTRIBUTE_READ_ONLY &h1000000000000000
 
 type _PARTITION_INFORMATION_MBR
-	PartitionType as BYTE
+	PartitionType as UBYTE
 	BootIndicator as BOOLEAN
 	RecognizedPartition as BOOLEAN
 	HiddenSectors as DWORD
@@ -784,7 +784,7 @@ type PDISK_PARTITION_INFO as _DISK_PARTITION_INFO ptr
 type _DISK_GEOMETRY_EX
 	Geometry as DISK_GEOMETRY
 	DiskSize as LARGE_INTEGER
-	Data(0 to 0) as BYTE
+	Data(0 to 0) as UBYTE
 end type
 
 type DISK_GEOMETRY_EX as _DISK_GEOMETRY_EX
@@ -897,7 +897,7 @@ type _DISK_RECORD
 	EndTime as LARGE_INTEGER
 	VirtualAddress as PVOID
 	NumberOfBytes as DWORD
-	DeviceNumber as BYTE
+	DeviceNumber as UBYTE
 	ReadRequest as BOOLEAN
 end type
 
@@ -905,7 +905,7 @@ type DISK_RECORD as _DISK_RECORD
 type PDISK_RECORD as _DISK_RECORD ptr
 
 type _DISK_LOGGING
-	Function as BYTE
+	Function as UBYTE
 	BufferAddress as PVOID
 	BufferSize as DWORD
 end type
@@ -960,10 +960,10 @@ type BIN_RESULTS as _BIN_RESULTS
 type PBIN_RESULTS as _BIN_RESULTS ptr
 
 type _GETVERSIONINPARAMS field = 1
-	bVersion as BYTE
-	bRevision as BYTE
-	bReserved as BYTE
-	bIDEDeviceMap as BYTE
+	bVersion as UBYTE
+	bRevision as UBYTE
+	bReserved as UBYTE
+	bIDEDeviceMap as UBYTE
 	fCapabilities as DWORD
 	dwReserved(0 to 3) as DWORD
 end type
@@ -973,14 +973,14 @@ type PGETVERSIONINPARAMS as _GETVERSIONINPARAMS ptr
 type LPGETVERSIONINPARAMS as _GETVERSIONINPARAMS ptr
 
 type _IDEREGS field = 1
-	bFeaturesReg as BYTE
-	bSectorCountReg as BYTE
-	bSectorNumberReg as BYTE
-	bCylLowReg as BYTE
-	bCylHighReg as BYTE
-	bDriveHeadReg as BYTE
-	bCommandReg as BYTE
-	bReserved as BYTE
+	bFeaturesReg as UBYTE
+	bSectorCountReg as UBYTE
+	bSectorNumberReg as UBYTE
+	bCylLowReg as UBYTE
+	bCylHighReg as UBYTE
+	bDriveHeadReg as UBYTE
+	bCommandReg as UBYTE
+	bReserved as UBYTE
 end type
 
 type IDEREGS as _IDEREGS
@@ -994,10 +994,10 @@ type LPIDEREGS as _IDEREGS ptr
 type _SENDCMDINPARAMS field = 1
 	cBufferSize as DWORD
 	irDriveRegs as IDEREGS
-	bDriveNumber as BYTE
-	bReserved(0 to 2) as BYTE
+	bDriveNumber as UBYTE
+	bReserved(0 to 2) as UBYTE
 	dwReserved(0 to 3) as DWORD
-	bBuffer(0 to 0) as BYTE
+	bBuffer(0 to 0) as UBYTE
 end type
 
 type SENDCMDINPARAMS as _SENDCMDINPARAMS
@@ -1011,9 +1011,9 @@ type LPSENDCMDINPARAMS as _SENDCMDINPARAMS ptr
 #define SMART_CYL_HI &hC2
 
 type _DRIVERSTATUS field = 1
-	bDriverError as BYTE
-	bIDEError as BYTE
-	bReserved(0 to 1) as BYTE
+	bDriverError as UBYTE
+	bIDEError as UBYTE
+	bReserved(0 to 1) as UBYTE
 	dwReserved(0 to 1) as DWORD
 end type
 
@@ -1024,7 +1024,7 @@ type LPDRIVERSTATUS as _DRIVERSTATUS ptr
 type _SENDCMDOUTPARAMS field = 1
 	cBufferSize as DWORD
 	DriverStatus as DRIVERSTATUS
-	bBuffer(0 to 0) as BYTE
+	bBuffer(0 to 0) as UBYTE
 end type
 
 type SENDCMDOUTPARAMS as _SENDCMDOUTPARAMS
@@ -1180,17 +1180,17 @@ type _GET_CHANGER_PARAMETERS
 	DriveCleanTimeout as DWORD
 	Features0 as DWORD
 	Features1 as DWORD
-	MoveFromTransport as BYTE
-	MoveFromSlot as BYTE
-	MoveFromIePort as BYTE
-	MoveFromDrive as BYTE
-	ExchangeFromTransport as BYTE
-	ExchangeFromSlot as BYTE
-	ExchangeFromIePort as BYTE
-	ExchangeFromDrive as BYTE
-	LockUnlockCapabilities as BYTE
-	PositionCapabilities as BYTE
-	Reserved1(0 to 1) as BYTE
+	MoveFromTransport as UBYTE
+	MoveFromSlot as UBYTE
+	MoveFromIePort as UBYTE
+	MoveFromDrive as UBYTE
+	ExchangeFromTransport as UBYTE
+	ExchangeFromSlot as UBYTE
+	ExchangeFromIePort as UBYTE
+	ExchangeFromDrive as UBYTE
+	LockUnlockCapabilities as UBYTE
+	PositionCapabilities as UBYTE
+	Reserved1(0 to 1) as UBYTE
 	Reserved2(0 to 1) as DWORD
 end type
 
@@ -1198,11 +1198,11 @@ type GET_CHANGER_PARAMETERS as _GET_CHANGER_PARAMETERS
 type PGET_CHANGER_PARAMETERS as _GET_CHANGER_PARAMETERS ptr
 
 type _CHANGER_PRODUCT_DATA
-	VendorId(0 to 7) as BYTE
-	ProductId(0 to 15) as BYTE
-	Revision(0 to 3) as BYTE
-	SerialNumber(0 to 31) as BYTE
-	DeviceType as BYTE
+	VendorId(0 to 7) as UBYTE
+	ProductId(0 to 15) as UBYTE
+	Revision(0 to 3) as UBYTE
+	SerialNumber(0 to 31) as UBYTE
+	DeviceType as UBYTE
 end type
 
 type CHANGER_PRODUCT_DATA as _CHANGER_PRODUCT_DATA
@@ -1234,11 +1234,11 @@ type _CHANGER_ELEMENT_STATUS
 	SrcElementAddress as CHANGER_ELEMENT
 	Flags as DWORD
 	ExceptionCode as DWORD
-	TargetId as BYTE
-	Lun as BYTE
+	TargetId as UBYTE
+	Lun as UBYTE
 	Reserved as WORD
-	PrimaryVolumeID(0 to 35) as BYTE
-	AlternateVolumeID(0 to 35) as BYTE
+	PrimaryVolumeID(0 to 35) as UBYTE
+	AlternateVolumeID(0 to 35) as UBYTE
 end type
 
 type CHANGER_ELEMENT_STATUS as _CHANGER_ELEMENT_STATUS
@@ -1249,14 +1249,14 @@ type _CHANGER_ELEMENT_STATUS_EX
 	SrcElementAddress as CHANGER_ELEMENT
 	Flags as DWORD
 	ExceptionCode as DWORD
-	TargetId as BYTE
-	Lun as BYTE
+	TargetId as UBYTE
+	Lun as UBYTE
 	Reserved as WORD
-	PrimaryVolumeID(0 to 35) as BYTE
-	AlternateVolumeID(0 to 35) as BYTE
-	VendorIdentification(0 to 7) as BYTE
-	ProductIdentification(0 to 15) as BYTE
-	SerialNumber(0 to 31) as BYTE
+	PrimaryVolumeID(0 to 35) as UBYTE
+	AlternateVolumeID(0 to 35) as UBYTE
+	VendorIdentification(0 to 7) as UBYTE
+	ProductIdentification(0 to 15) as UBYTE
+	SerialNumber(0 to 31) as UBYTE
 end type
 
 type CHANGER_ELEMENT_STATUS_EX as _CHANGER_ELEMENT_STATUS_EX
@@ -1326,7 +1326,7 @@ type PCHANGER_MOVE_MEDIUM as _CHANGER_MOVE_MEDIUM ptr
 type _CHANGER_SEND_VOLUME_TAG_INFORMATION
 	StartingElement as CHANGER_ELEMENT
 	ActionCode as DWORD
-	VolumeIDTemplate(0 to 39) as BYTE
+	VolumeIDTemplate(0 to 39) as UBYTE
 end type
 
 type CHANGER_SEND_VOLUME_TAG_INFORMATION as _CHANGER_SEND_VOLUME_TAG_INFORMATION
@@ -1379,10 +1379,10 @@ type PCHANGER_DEVICE_PROBLEM_TYPE as _CHANGER_DEVICE_PROBLEM_TYPE ptr
 #define IOCTL_SERENUM_REMOVE_HARDWARE CTL_CODE(FILE_DEVICE_SERENUM, 129, METHOD_BUFFERED, FILE_ANY_ACCESS)
 #define IOCTL_SERENUM_PORT_DESC CTL_CODE(FILE_DEVICE_SERENUM, 130, METHOD_BUFFERED, FILE_ANY_ACCESS)
 #define IOCTL_SERENUM_GET_PORT_NAME CTL_CODE(FILE_DEVICE_SERENUM, 131, METHOD_BUFFERED, FILE_ANY_ACCESS)
-#define SERIAL_LSRMST_ESCAPE cast(BYTE, &h00)
-#define SERIAL_LSRMST_LSR_DATA cast(BYTE, &h01)
-#define SERIAL_LSRMST_LSR_NODATA cast(BYTE, &h02)
-#define SERIAL_LSRMST_MST cast(BYTE, &h03)
+#define SERIAL_LSRMST_ESCAPE cast(UBYTE, &h00)
+#define SERIAL_LSRMST_LSR_DATA cast(UBYTE, &h01)
+#define SERIAL_LSRMST_LSR_NODATA cast(UBYTE, &h02)
+#define SERIAL_LSRMST_MST cast(UBYTE, &h03)
 #define SERIAL_IOC_FCR_FIFO_ENABLE cast(DWORD, &h00000001)
 #define SERIAL_IOC_FCR_RCVR_RESET cast(DWORD, &h00000002)
 #define SERIAL_IOC_FCR_XMIT_RESET cast(DWORD, &h00000004)
@@ -1468,7 +1468,7 @@ type PATHNAME_BUFFER as _PATHNAME_BUFFER
 type PPATHNAME_BUFFER as _PATHNAME_BUFFER ptr
 
 type _FSCTL_QUERY_FAT_BPB_BUFFER
-	First0x24BytesOfBootSector(0 to 35) as BYTE
+	First0x24BytesOfBootSector(0 to 35) as UBYTE
 end type
 
 type FSCTL_QUERY_FAT_BPB_BUFFER as _FSCTL_QUERY_FAT_BPB_BUFFER
@@ -1510,7 +1510,7 @@ type PSTARTING_LCN_INPUT_BUFFER as STARTING_LCN_INPUT_BUFFER ptr
 type VOLUME_BITMAP_BUFFER
 	StartingLcn as LARGE_INTEGER
 	BitmapSize as LARGE_INTEGER
-	Buffer(0 to 0) as BYTE
+	Buffer(0 to 0) as UBYTE
 end type
 
 type PVOLUME_BITMAP_BUFFER as VOLUME_BITMAP_BUFFER ptr
@@ -1543,7 +1543,7 @@ type PNTFS_FILE_RECORD_INPUT_BUFFER as NTFS_FILE_RECORD_INPUT_BUFFER ptr
 type NTFS_FILE_RECORD_OUTPUT_BUFFER
 	FileReferenceNumber as LARGE_INTEGER
 	FileRecordLength as DWORD
-	FileRecordBuffer(0 to 0) as BYTE
+	FileRecordBuffer(0 to 0) as UBYTE
 end type
 
 type PNTFS_FILE_RECORD_OUTPUT_BUFFER as NTFS_FILE_RECORD_OUTPUT_BUFFER ptr
@@ -1870,16 +1870,16 @@ type NTFS_STATISTICS as _NTFS_STATISTICS
 type PNTFS_STATISTICS as _NTFS_STATISTICS ptr
 
 type _FILE_OBJECTID_BUFFER
-	ObjectId(0 to 15) as BYTE
+	ObjectId(0 to 15) as UBYTE
 
 	union
 		type
-			BirthVolumeId(0 to 15) as BYTE
-			BirthObjectId(0 to 15) as BYTE
-			DomainId(0 to 15) as BYTE
+			BirthVolumeId(0 to 15) as UBYTE
+			BirthObjectId(0 to 15) as UBYTE
+			DomainId(0 to 15) as UBYTE
 		end type
 
-		ExtendedInfo(0 to 47) as BYTE
+		ExtendedInfo(0 to 47) as UBYTE
 	end union
 end type
 
@@ -1911,7 +1911,7 @@ type PFILE_ALLOCATED_RANGE_BUFFER as _FILE_ALLOCATED_RANGE_BUFFER ptr
 
 type _ENCRYPTION_BUFFER
 	EncryptionOperation as DWORD
-	as BYTE Private(0 to 0)
+	as UBYTE Private(0 to 0)
 end type
 
 type ENCRYPTION_BUFFER as _ENCRYPTION_BUFFER
@@ -1947,10 +1947,10 @@ type _ENCRYPTED_DATA_INFO
 	BytesWithinFileSize as DWORD
 	BytesWithinValidDataLength as DWORD
 	CompressionFormat as WORD
-	DataUnitShift as BYTE
-	ChunkShift as BYTE
-	ClusterShift as BYTE
-	EncryptionFormat as BYTE
+	DataUnitShift as UBYTE
+	ChunkShift as UBYTE
+	ClusterShift as UBYTE
+	EncryptionFormat as UBYTE
 	NumberOfDataBlocks as WORD
 	DataBlockSize(0 to 0) as DWORD
 end type
@@ -2019,7 +2019,7 @@ type PSTORAGE_QUERY_TYPE as _STORAGE_QUERY_TYPE ptr
 type _STORAGE_PROPERTY_QUERY
 	PropertyId as STORAGE_PROPERTY_ID
 	QueryType as STORAGE_QUERY_TYPE
-	AdditionalParameters(0 to 0) as BYTE
+	AdditionalParameters(0 to 0) as UBYTE
 end type
 
 type STORAGE_PROPERTY_QUERY as _STORAGE_PROPERTY_QUERY
@@ -2028,8 +2028,8 @@ type PSTORAGE_PROPERTY_QUERY as _STORAGE_PROPERTY_QUERY ptr
 type _STORAGE_DEVICE_DESCRIPTOR
 	Version as DWORD
 	Size as DWORD
-	DeviceType as BYTE
-	DeviceTypeModifier as BYTE
+	DeviceType as UBYTE
+	DeviceTypeModifier as UBYTE
 	RemovableMedia as BOOLEAN
 	CommandQueueing as BOOLEAN
 	VendorIdOffset as DWORD
@@ -2038,7 +2038,7 @@ type _STORAGE_DEVICE_DESCRIPTOR
 	SerialNumberOffset as DWORD
 	BusType as STORAGE_BUS_TYPE
 	RawPropertiesLength as DWORD
-	RawDeviceProperties(0 to 0) as BYTE
+	RawDeviceProperties(0 to 0) as UBYTE
 end type
 
 type STORAGE_DEVICE_DESCRIPTOR as _STORAGE_DEVICE_DESCRIPTOR
@@ -2054,7 +2054,7 @@ type _STORAGE_ADAPTER_DESCRIPTOR
 	AdapterScansDown as BOOLEAN
 	CommandQueueing as BOOLEAN
 	AcceleratedTransfer as BOOLEAN
-	BusType as BYTE
+	BusType as UBYTE
 	BusMajorVersion as WORD
 	BusMinorVersion as WORD
 end type
@@ -2066,7 +2066,7 @@ type _STORAGE_DEVICE_ID_DESCRIPTOR
 	Version as DWORD
 	Size as DWORD
 	NumberOfIdentifiers as DWORD
-	Identifiers(0 to 0) as BYTE
+	Identifiers(0 to 0) as UBYTE
 end type
 
 type STORAGE_DEVICE_ID_DESCRIPTOR as _STORAGE_DEVICE_ID_DESCRIPTOR

@@ -28,7 +28,7 @@ declare function VideoForWindowsVersion() as DWORD
 declare function InitVFW() as LONG
 declare function TermVFW() as LONG
 
-#define MKFOURCC(ch0, ch1, ch2, ch3) cast(DWORD, cast(BYTE, (((ch0) or cast(DWORD, cast(BYTE, (ch1) shl 8))) or cast(DWORD, cast(BYTE, (ch2) shl 16))) or cast(DWORD, cast(BYTE, (ch3) shl 24))))
+#define MKFOURCC(ch0, ch1, ch2, ch3) cast(DWORD, cast(UBYTE, (((ch0) or cast(DWORD, cast(UBYTE, (ch1) shl 8))) or cast(DWORD, cast(UBYTE, (ch2) shl 16))) or cast(DWORD, cast(UBYTE, (ch3) shl 24))))
 #define ICVERSION &h0104
 
 type HIC__
@@ -38,7 +38,7 @@ end type
 type HIC as HIC__ ptr
 
 #define BI_1632 &h32333631
-#define aviTWOCC(ch0, ch1) cast(WORD, cast(BYTE, (ch0) or cast(WORD, cast(BYTE, (ch1) shl 8))))
+#define aviTWOCC(ch0, ch1) cast(WORD, cast(UBYTE, (ch0) or cast(WORD, cast(UBYTE, (ch1) shl 8))))
 #define ICTYPE_VIDEO mmioFOURCC(asc("v"), asc("i"), asc("d"), asc("c"))
 #define ICTYPE_AUDIO mmioFOURCC(asc("a"), asc("u"), asc("d"), asc("c"))
 #define ICERR_OK __MSABI_LONG(0)
@@ -502,7 +502,7 @@ type TWOCC as WORD
 #define FromHex(n) iif((n) >= asc("A"), ((n) + 10) - asc("A"), (n) - asc("0"))
 #define StreamFromFOURCC(fcc) cast(WORD, (FromHex(LOBYTE(LOWORD(fcc))) shl 4) + FromHex(HIBYTE(LOWORD(fcc))))
 #define TWOCCFromFOURCC(fcc) HIWORD(fcc)
-#define ToHex(n) cast(BYTE, iif((n) > 9, ((n) - 10) + asc("A"), (n) + asc("0")))
+#define ToHex(n) cast(UBYTE, iif((n) > 9, ((n) - 10) + asc("A"), (n) + asc("0")))
 #define MAKEAVICKID(tcc, stream) MAKELONG((ToHex((stream) and &h0f) shl 8) or ToHex(((stream) and &hf0) shr 4), tcc)
 #define AVIF_HASINDEX &h00000010
 #define AVIF_MUSTUSEINDEX &h00000020
@@ -562,8 +562,8 @@ type AVIINDEXENTRY
 end type
 
 type AVIPALCHANGE
-	bFirstEntry as BYTE
-	bNumEntries as BYTE
+	bFirstEntry as UBYTE
+	bNumEntries as UBYTE
 	wFlags as WORD
 	peNew(0 to ...) as PALETTEENTRY
 end type

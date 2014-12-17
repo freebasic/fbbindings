@@ -145,7 +145,7 @@ type tagMODULEENTRY32W
 	th32ProcessID as DWORD
 	GlblcntUsage as DWORD
 	ProccntUsage as DWORD
-	modBaseAddr as BYTE ptr
+	modBaseAddr as UBYTE ptr
 	modBaseSize as DWORD
 	hModule as HMODULE
 	szModule(0 to (255 + 1) - 1) as WCHAR
@@ -165,7 +165,7 @@ type tagMODULEENTRY32
 	th32ProcessID as DWORD
 	GlblcntUsage as DWORD
 	ProccntUsage as DWORD
-	modBaseAddr as BYTE ptr
+	modBaseAddr as UBYTE ptr
 	modBaseSize as DWORD
 	hModule as HMODULE
 	szModule as zstring * 255 + 1

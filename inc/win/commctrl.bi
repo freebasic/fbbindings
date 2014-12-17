@@ -655,13 +655,13 @@ type LPNMHDFILTERBTNCLICK as tagNMHDFILTERBTNCLICK ptr
 type _TBBUTTON
 	iBitmap as long
 	idCommand as long
-	fsState as BYTE
-	fsStyle as BYTE
+	fsState as UBYTE
+	fsStyle as UBYTE
 
 	#ifdef __FB_64BIT__
-		bReserved(0 to 5) as BYTE
+		bReserved(0 to 5) as UBYTE
 	#else
-		bReserved(0 to 1) as BYTE
+		bReserved(0 to 1) as UBYTE
 	#endif
 
 	dwData as DWORD_PTR
@@ -941,8 +941,8 @@ type TBBUTTONINFOA
 	dwMask as DWORD
 	idCommand as long
 	iImage as long
-	fsState as BYTE
-	fsStyle as BYTE
+	fsState as UBYTE
+	fsStyle as UBYTE
 	cx as WORD
 	lParam as DWORD_PTR
 	pszText as LPSTR
@@ -956,8 +956,8 @@ type TBBUTTONINFOW
 	dwMask as DWORD
 	idCommand as long
 	iImage as long
-	fsState as BYTE
-	fsStyle as BYTE
+	fsState as UBYTE
+	fsStyle as UBYTE
 	cx as WORD
 	lParam as DWORD_PTR
 	pszText as LPWSTR
@@ -4015,7 +4015,7 @@ end type
 type NMIPADDRESS as tagNMIPADDRESS
 type LPNMIPADDRESS as tagNMIPADDRESS ptr
 
-#define MAKEIPRANGE(low, high) cast(LPARAM, cast(WORD, cast(BYTE, (high) shl 8) + cast(BYTE, (low))))
+#define MAKEIPRANGE(low, high) cast(LPARAM, cast(WORD, cast(UBYTE, (high) shl 8) + cast(UBYTE, (low))))
 #define MAKEIPADDRESS(b1, b2, b3, b4) cast(LPARAM, ((cast(DWORD, (b1) shl 24) + cast(DWORD, (b2) shl 16)) + cast(DWORD, (b3) shl 8)) + cast(DWORD, (b4)))
 #define FIRST_IPADDRESS(x) ((x shr 24) and &hff)
 #define SECOND_IPADDRESS(x) ((x shr 16) and &hff)
@@ -4337,7 +4337,7 @@ declare function DPA_GetPtrIndex(byval hdpa as HDPA, byval p as const any ptr) a
 
 #define DPA_GetPtrCount(hdpa) (*cptr(long ptr, (hdpa)))
 #define DPA_SetPtrCount(hdpa, cItems) '' TODO: (*(int *)(hdpa) = (cItems))
-#define DPA_GetPtrPtr(hdpa) (*cptr(any ptr ptr ptr, cptr(BYTE ptr, (hdpa) + sizeof(any ptr))))
+#define DPA_GetPtrPtr(hdpa) (*cptr(any ptr ptr ptr, cptr(UBYTE ptr, (hdpa) + sizeof(any ptr))))
 #define DPA_AppendPtr(hdpa, pitem) DPA_InsertPtr(hdpa, DA_LAST, pitem)
 #define DPA_FastDeleteLastPtr(hdpa) '' TODO: (--*(int *)(hdpa))
 #define DPA_FastGetPtr(hdpa, i) DPA_GetPtrPtr(hdpa)[i]

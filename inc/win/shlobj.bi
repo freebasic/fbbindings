@@ -424,7 +424,7 @@ declare function ILCreateFromPathW(byval pszPath as PCWSTR) as LPITEMIDLIST
 
 declare function SHILCreateFromPath(byval pszPath as PCWSTR, byval ppidl as LPITEMIDLIST ptr, byval rgfInOut as DWORD ptr) as HRESULT
 
-#define VOID_OFFSET(pv, cb) cptr(any ptr, cptr(BYTE ptr, (pv)) + (cb))
+#define VOID_OFFSET(pv, cb) cptr(any ptr, cptr(UBYTE ptr, (pv)) + (cb))
 #define ILCloneFull ILClone
 #define ILCloneChild ILCloneFirst
 #define ILSkip(P, C) '' TODO: ((PUIDLIST_RELATIVE)VOID_OFFSET ((P),(C)))
@@ -2170,7 +2170,7 @@ declare function PickIconDlg(byval hwnd as HWND, byval pszIconPath as PWSTR, byv
 
 type tagAAMENUFILENAME field = 8
 	cbTotal as SHORT
-	rgbReserved(0 to 11) as BYTE
+	rgbReserved(0 to 11) as UBYTE
 	szFileName(0 to 0) as WCHAR
 end type
 

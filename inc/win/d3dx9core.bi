@@ -68,10 +68,10 @@ type _D3DXFONT_DESCA
 	Weight as UINT
 	MipLevels as UINT
 	Italic as WINBOOL
-	CharSet as BYTE
-	OutputPrecision as BYTE
-	Quality as BYTE
-	PitchAndFamily as BYTE
+	CharSet as UBYTE
+	OutputPrecision as UBYTE
+	Quality as UBYTE
+	PitchAndFamily as UBYTE
 	FaceName(0 to 31) as CHAR
 end type
 
@@ -84,10 +84,10 @@ type _D3DXFONT_DESCW
 	Weight as UINT
 	MipLevels as UINT
 	Italic as WINBOOL
-	CharSet as BYTE
-	OutputPrecision as BYTE
-	Quality as BYTE
-	PitchAndFamily as BYTE
+	CharSet as UBYTE
+	OutputPrecision as UBYTE
+	Quality as UBYTE
+	PitchAndFamily as UBYTE
 	FaceName(0 to 31) as WCHAR
 end type
 

@@ -203,8 +203,8 @@ declare function RegSaveKeyW(byval hKey as HKEY, byval lpFile as LPCWSTR, byval 
 declare function RegSetKeySecurity(byval hKey as HKEY, byval SecurityInformation as SECURITY_INFORMATION, byval pSecurityDescriptor as PSECURITY_DESCRIPTOR) as LONG
 declare function RegSetValueA(byval hKey as HKEY, byval lpSubKey as LPCSTR, byval dwType as DWORD, byval lpData as LPCSTR, byval cbData as DWORD) as LONG
 declare function RegSetValueW(byval hKey as HKEY, byval lpSubKey as LPCWSTR, byval dwType as DWORD, byval lpData as LPCWSTR, byval cbData as DWORD) as LONG
-declare function RegSetValueExA(byval hKey as HKEY, byval lpValueName as LPCSTR, byval Reserved as DWORD, byval dwType as DWORD, byval lpData as const BYTE ptr, byval cbData as DWORD) as LONG
-declare function RegSetValueExW(byval hKey as HKEY, byval lpValueName as LPCWSTR, byval Reserved as DWORD, byval dwType as DWORD, byval lpData as const BYTE ptr, byval cbData as DWORD) as LONG
+declare function RegSetValueExA(byval hKey as HKEY, byval lpValueName as LPCSTR, byval Reserved as DWORD, byval dwType as DWORD, byval lpData as const UBYTE ptr, byval cbData as DWORD) as LONG
+declare function RegSetValueExW(byval hKey as HKEY, byval lpValueName as LPCWSTR, byval Reserved as DWORD, byval dwType as DWORD, byval lpData as const UBYTE ptr, byval cbData as DWORD) as LONG
 declare function RegUnLoadKeyA(byval hKey as HKEY, byval lpSubKey as LPCSTR) as LONG
 declare function RegUnLoadKeyW(byval hKey as HKEY, byval lpSubKey as LPCWSTR) as LONG
 declare function RegGetValueA(byval hkey as HKEY, byval lpSubKey as LPCSTR, byval lpValue as LPCSTR, byval dwFlags as DWORD, byval pdwType as LPDWORD, byval pvData as PVOID, byval pcbData as LPDWORD) as LONG

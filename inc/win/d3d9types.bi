@@ -219,10 +219,10 @@ type D3DDECLTYPE as _D3DDECLTYPE
 type _D3DVERTEXELEMENT9
 	Stream as WORD
 	Offset as WORD
-	as BYTE Type
-	Method as BYTE
-	Usage as BYTE
-	UsageIndex as BYTE
+	as UBYTE Type
+	Method as UBYTE
+	Usage as UBYTE
+	UsageIndex as UBYTE
 end type
 
 type D3DVERTEXELEMENT9 as _D3DVERTEXELEMENT9
@@ -715,16 +715,16 @@ enum
 	D3DFMT_Q8W8V8U8 = 63
 	D3DFMT_V16U16 = 64
 	D3DFMT_A2W10V10U10 = 67
-	D3DFMT_UYVY = cast(DWORD, cast(BYTE, ((asc("U") or cast(DWORD, cast(BYTE, asc("Y") shl 8))) or cast(DWORD, cast(BYTE, asc("V") shl 16))) or cast(DWORD, cast(BYTE, asc("Y") shl 24))))
-	D3DFMT_YUY2 = cast(DWORD, cast(BYTE, ((asc("Y") or cast(DWORD, cast(BYTE, asc("U") shl 8))) or cast(DWORD, cast(BYTE, asc("Y") shl 16))) or cast(DWORD, cast(BYTE, asc("2") shl 24))))
-	D3DFMT_DXT1 = cast(DWORD, cast(BYTE, ((asc("D") or cast(DWORD, cast(BYTE, asc("X") shl 8))) or cast(DWORD, cast(BYTE, asc("T") shl 16))) or cast(DWORD, cast(BYTE, asc("1") shl 24))))
-	D3DFMT_DXT2 = cast(DWORD, cast(BYTE, ((asc("D") or cast(DWORD, cast(BYTE, asc("X") shl 8))) or cast(DWORD, cast(BYTE, asc("T") shl 16))) or cast(DWORD, cast(BYTE, asc("2") shl 24))))
-	D3DFMT_DXT3 = cast(DWORD, cast(BYTE, ((asc("D") or cast(DWORD, cast(BYTE, asc("X") shl 8))) or cast(DWORD, cast(BYTE, asc("T") shl 16))) or cast(DWORD, cast(BYTE, asc("3") shl 24))))
-	D3DFMT_DXT4 = cast(DWORD, cast(BYTE, ((asc("D") or cast(DWORD, cast(BYTE, asc("X") shl 8))) or cast(DWORD, cast(BYTE, asc("T") shl 16))) or cast(DWORD, cast(BYTE, asc("4") shl 24))))
-	D3DFMT_DXT5 = cast(DWORD, cast(BYTE, ((asc("D") or cast(DWORD, cast(BYTE, asc("X") shl 8))) or cast(DWORD, cast(BYTE, asc("T") shl 16))) or cast(DWORD, cast(BYTE, asc("5") shl 24))))
-	D3DFMT_MULTI2_ARGB8 = cast(DWORD, cast(BYTE, ((asc("M") or cast(DWORD, cast(BYTE, asc("E") shl 8))) or cast(DWORD, cast(BYTE, asc("T") shl 16))) or cast(DWORD, cast(BYTE, asc("1") shl 24))))
-	D3DFMT_G8R8_G8B8 = cast(DWORD, cast(BYTE, ((asc("G") or cast(DWORD, cast(BYTE, asc("R") shl 8))) or cast(DWORD, cast(BYTE, asc("G") shl 16))) or cast(DWORD, cast(BYTE, asc("B") shl 24))))
-	D3DFMT_R8G8_B8G8 = cast(DWORD, cast(BYTE, ((asc("R") or cast(DWORD, cast(BYTE, asc("G") shl 8))) or cast(DWORD, cast(BYTE, asc("B") shl 16))) or cast(DWORD, cast(BYTE, asc("G") shl 24))))
+	D3DFMT_UYVY = cast(DWORD, cast(UBYTE, ((asc("U") or cast(DWORD, cast(UBYTE, asc("Y") shl 8))) or cast(DWORD, cast(UBYTE, asc("V") shl 16))) or cast(DWORD, cast(UBYTE, asc("Y") shl 24))))
+	D3DFMT_YUY2 = cast(DWORD, cast(UBYTE, ((asc("Y") or cast(DWORD, cast(UBYTE, asc("U") shl 8))) or cast(DWORD, cast(UBYTE, asc("Y") shl 16))) or cast(DWORD, cast(UBYTE, asc("2") shl 24))))
+	D3DFMT_DXT1 = cast(DWORD, cast(UBYTE, ((asc("D") or cast(DWORD, cast(UBYTE, asc("X") shl 8))) or cast(DWORD, cast(UBYTE, asc("T") shl 16))) or cast(DWORD, cast(UBYTE, asc("1") shl 24))))
+	D3DFMT_DXT2 = cast(DWORD, cast(UBYTE, ((asc("D") or cast(DWORD, cast(UBYTE, asc("X") shl 8))) or cast(DWORD, cast(UBYTE, asc("T") shl 16))) or cast(DWORD, cast(UBYTE, asc("2") shl 24))))
+	D3DFMT_DXT3 = cast(DWORD, cast(UBYTE, ((asc("D") or cast(DWORD, cast(UBYTE, asc("X") shl 8))) or cast(DWORD, cast(UBYTE, asc("T") shl 16))) or cast(DWORD, cast(UBYTE, asc("3") shl 24))))
+	D3DFMT_DXT4 = cast(DWORD, cast(UBYTE, ((asc("D") or cast(DWORD, cast(UBYTE, asc("X") shl 8))) or cast(DWORD, cast(UBYTE, asc("T") shl 16))) or cast(DWORD, cast(UBYTE, asc("4") shl 24))))
+	D3DFMT_DXT5 = cast(DWORD, cast(UBYTE, ((asc("D") or cast(DWORD, cast(UBYTE, asc("X") shl 8))) or cast(DWORD, cast(UBYTE, asc("T") shl 16))) or cast(DWORD, cast(UBYTE, asc("5") shl 24))))
+	D3DFMT_MULTI2_ARGB8 = cast(DWORD, cast(UBYTE, ((asc("M") or cast(DWORD, cast(UBYTE, asc("E") shl 8))) or cast(DWORD, cast(UBYTE, asc("T") shl 16))) or cast(DWORD, cast(UBYTE, asc("1") shl 24))))
+	D3DFMT_G8R8_G8B8 = cast(DWORD, cast(UBYTE, ((asc("G") or cast(DWORD, cast(UBYTE, asc("R") shl 8))) or cast(DWORD, cast(UBYTE, asc("G") shl 16))) or cast(DWORD, cast(UBYTE, asc("B") shl 24))))
+	D3DFMT_R8G8_B8G8 = cast(DWORD, cast(UBYTE, ((asc("R") or cast(DWORD, cast(UBYTE, asc("G") shl 8))) or cast(DWORD, cast(UBYTE, asc("B") shl 16))) or cast(DWORD, cast(UBYTE, asc("G") shl 24))))
 	D3DFMT_D16_LOCKABLE = 70
 	D3DFMT_D32 = 71
 	D3DFMT_D15S1 = 73

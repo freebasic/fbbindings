@@ -320,13 +320,13 @@ type tagMPEG1VIDEOINFO
 	hdr as VIDEOINFOHEADER
 	dwStartTimeCode as DWORD
 	cbSequenceHeader as DWORD
-	bSequenceHeader(0 to 0) as BYTE
+	bSequenceHeader(0 to 0) as UBYTE
 end type
 
 type MPEG1VIDEOINFO as tagMPEG1VIDEOINFO
 
 #define MAX_SIZE_MPEG1_SEQUENCE_INFO 140
-#define MPEG1_SEQUENCE_INFO(pv) cptr(const BYTE ptr, (pv)->bSequenceHeader)
+#define MPEG1_SEQUENCE_INFO(pv) cptr(const UBYTE ptr, (pv)->bSequenceHeader)
 
 type tagAnalogVideoInfo
 	rcSource as RECT

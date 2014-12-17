@@ -53,13 +53,13 @@ type PINFCONTEXT as _INFCONTEXT ptr
 	type _SP_INF_INFORMATION field = 8
 		InfStyle as DWORD
 		InfCount as DWORD
-		VersionData(0 to 0) as BYTE
+		VersionData(0 to 0) as UBYTE
 	end type
 #else
 	type _SP_INF_INFORMATION field = 1
 		InfStyle as DWORD
 		InfCount as DWORD
-		VersionData(0 to 0) as BYTE
+		VersionData(0 to 0) as UBYTE
 	end type
 #endif
 
@@ -1132,7 +1132,7 @@ type PSP_UNREMOVEDEVICE_PARAMS as _SP_UNREMOVEDEVICE_PARAMS ptr
 		Instructions(0 to 255) as CHAR
 		ListLabel(0 to 29) as CHAR
 		SubTitle(0 to 255) as CHAR
-		Reserved(0 to 1) as BYTE
+		Reserved(0 to 1) as UBYTE
 	end type
 #else
 	type _SP_SELECTDEVICE_PARAMS_A field = 1
@@ -1141,7 +1141,7 @@ type PSP_UNREMOVEDEVICE_PARAMS as _SP_UNREMOVEDEVICE_PARAMS ptr
 		Instructions(0 to 255) as CHAR
 		ListLabel(0 to 29) as CHAR
 		SubTitle(0 to 255) as CHAR
-		Reserved(0 to 1) as BYTE
+		Reserved(0 to 1) as UBYTE
 	end type
 #endif
 
@@ -2525,10 +2525,10 @@ declare function SetupDiGetDeviceRegistryPropertyA(byval DeviceInfoSet as HDEVIN
 declare function SetupDiGetDeviceRegistryPropertyW(byval DeviceInfoSet as HDEVINFO, byval DeviceInfoData as PSP_DEVINFO_DATA, byval Property_ as DWORD, byval PropertyRegDataType as PDWORD, byval PropertyBuffer as PBYTE, byval PropertyBufferSize as DWORD, byval RequiredSize as PDWORD) as WINBOOL
 declare function SetupDiGetClassRegistryPropertyA(byval ClassGuid as const GUID ptr, byval Property_ as DWORD, byval PropertyRegDataType as PDWORD, byval PropertyBuffer as PBYTE, byval PropertyBufferSize as DWORD, byval RequiredSize as PDWORD, byval MachineName as PCSTR, byval Reserved as PVOID) as WINBOOL
 declare function SetupDiGetClassRegistryPropertyW(byval ClassGuid as const GUID ptr, byval Property_ as DWORD, byval PropertyRegDataType as PDWORD, byval PropertyBuffer as PBYTE, byval PropertyBufferSize as DWORD, byval RequiredSize as PDWORD, byval MachineName as PCWSTR, byval Reserved as PVOID) as WINBOOL
-declare function SetupDiSetDeviceRegistryPropertyA(byval DeviceInfoSet as HDEVINFO, byval DeviceInfoData as PSP_DEVINFO_DATA, byval Property_ as DWORD, byval PropertyBuffer as const BYTE ptr, byval PropertyBufferSize as DWORD) as WINBOOL
-declare function SetupDiSetDeviceRegistryPropertyW(byval DeviceInfoSet as HDEVINFO, byval DeviceInfoData as PSP_DEVINFO_DATA, byval Property_ as DWORD, byval PropertyBuffer as const BYTE ptr, byval PropertyBufferSize as DWORD) as WINBOOL
-declare function SetupDiSetClassRegistryPropertyA(byval ClassGuid as const GUID ptr, byval Property_ as DWORD, byval PropertyBuffer as const BYTE ptr, byval PropertyBufferSize as DWORD, byval MachineName as PCSTR, byval Reserved as PVOID) as WINBOOL
-declare function SetupDiSetClassRegistryPropertyW(byval ClassGuid as const GUID ptr, byval Property_ as DWORD, byval PropertyBuffer as const BYTE ptr, byval PropertyBufferSize as DWORD, byval MachineName as PCWSTR, byval Reserved as PVOID) as WINBOOL
+declare function SetupDiSetDeviceRegistryPropertyA(byval DeviceInfoSet as HDEVINFO, byval DeviceInfoData as PSP_DEVINFO_DATA, byval Property_ as DWORD, byval PropertyBuffer as const UBYTE ptr, byval PropertyBufferSize as DWORD) as WINBOOL
+declare function SetupDiSetDeviceRegistryPropertyW(byval DeviceInfoSet as HDEVINFO, byval DeviceInfoData as PSP_DEVINFO_DATA, byval Property_ as DWORD, byval PropertyBuffer as const UBYTE ptr, byval PropertyBufferSize as DWORD) as WINBOOL
+declare function SetupDiSetClassRegistryPropertyA(byval ClassGuid as const GUID ptr, byval Property_ as DWORD, byval PropertyBuffer as const UBYTE ptr, byval PropertyBufferSize as DWORD, byval MachineName as PCSTR, byval Reserved as PVOID) as WINBOOL
+declare function SetupDiSetClassRegistryPropertyW(byval ClassGuid as const GUID ptr, byval Property_ as DWORD, byval PropertyBuffer as const UBYTE ptr, byval PropertyBufferSize as DWORD, byval MachineName as PCWSTR, byval Reserved as PVOID) as WINBOOL
 declare function SetupDiGetDeviceInstallParamsA(byval DeviceInfoSet as HDEVINFO, byval DeviceInfoData as PSP_DEVINFO_DATA, byval DeviceInstallParams as PSP_DEVINSTALL_PARAMS_A) as WINBOOL
 declare function SetupDiGetDeviceInstallParamsW(byval DeviceInfoSet as HDEVINFO, byval DeviceInfoData as PSP_DEVINFO_DATA, byval DeviceInstallParams as PSP_DEVINSTALL_PARAMS_W) as WINBOOL
 declare function SetupDiGetClassInstallParamsA(byval DeviceInfoSet as HDEVINFO, byval DeviceInfoData as PSP_DEVINFO_DATA, byval ClassInstallParams as PSP_CLASSINSTALL_HEADER, byval ClassInstallParamsSize as DWORD, byval RequiredSize as PDWORD) as WINBOOL

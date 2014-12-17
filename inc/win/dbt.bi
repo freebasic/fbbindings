@@ -50,10 +50,10 @@ type pVolLockBroadcast as VolLockBroadcast ptr
 type VolLockBroadcast
 	vlb_dbh as _DEV_BROADCAST_HDR
 	vlb_owner as DWORD
-	vlb_perms as BYTE
-	vlb_lockType as BYTE
-	vlb_drive as BYTE
-	vlb_flags as BYTE
+	vlb_perms as UBYTE
+	vlb_lockType as UBYTE
+	vlb_drive as UBYTE
+	vlb_flags as UBYTE
 end type
 
 #define LOCKP_ALLOW_WRITES &h01
@@ -200,7 +200,7 @@ type _DEV_BROADCAST_HANDLE
 	dbch_hdevnotify as HDEVNOTIFY
 	dbch_eventguid as GUID
 	dbch_nameoffset as LONG
-	dbch_data(0 to 0) as BYTE
+	dbch_data(0 to 0) as UBYTE
 end type
 
 type DEV_BROADCAST_HANDLE as _DEV_BROADCAST_HANDLE
@@ -214,7 +214,7 @@ type _DEV_BROADCAST_HANDLE32
 	dbch_hdevnotify as ULONG32
 	dbch_eventguid as GUID
 	dbch_nameoffset as LONG
-	dbch_data(0 to 0) as BYTE
+	dbch_data(0 to 0) as UBYTE
 end type
 
 type DEV_BROADCAST_HANDLE32 as _DEV_BROADCAST_HANDLE32
@@ -228,7 +228,7 @@ type _DEV_BROADCAST_HANDLE64
 	dbch_hdevnotify as ULONG64
 	dbch_eventguid as GUID
 	dbch_nameoffset as LONG
-	dbch_data(0 to 0) as BYTE
+	dbch_data(0 to 0) as UBYTE
 end type
 
 type DEV_BROADCAST_HANDLE64 as _DEV_BROADCAST_HANDLE64
