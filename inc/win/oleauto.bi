@@ -391,7 +391,7 @@ declare function VarDecFromUI8(byval ui64In as ULONG64, byval pdecOut as DECIMAL
 #define VarUintFromDec VarUI4FromDec
 #define VarUintFromInt VarUI4FromI4
 
-type NUMPARSE field = 8
+type NUMPARSE
 	cDig as INT_
 	dwInFlags as ULONG
 	dwOutFlags as ULONG
@@ -486,7 +486,7 @@ declare function VarR8Round(byval dblIn as double, byval cDecimals as long, byva
 #define VARCMP_NULL 3
 #define VT_HARDTYPE VT_RESERVED
 
-type UDATE field = 8
+type UDATE
 	st as SYSTEMTIME
 	wDayOfYear as USHORT
 end type
@@ -550,7 +550,7 @@ declare function CreateTypeLib2(byval syskind as SYSKIND, byval szFile as LPCOLE
 
 #define DEFINED_LPDISPATCH
 
-type tagPARAMDATA field = 8
+type tagPARAMDATA
 	szName as OLECHAR ptr
 	vt as VARTYPE
 end type
@@ -558,7 +558,7 @@ end type
 type PARAMDATA as tagPARAMDATA
 type LPPARAMDATA as tagPARAMDATA ptr
 
-type tagMETHODDATA field = 8
+type tagMETHODDATA
 	szName as OLECHAR ptr
 	ppdata as PARAMDATA ptr
 	dispid as DISPID
@@ -572,7 +572,7 @@ end type
 type METHODDATA as tagMETHODDATA
 type LPMETHODDATA as tagMETHODDATA ptr
 
-type tagINTERFACEDATA field = 8
+type tagINTERFACEDATA
 	pmethdata as METHODDATA ptr
 	cMembers as UINT
 end type

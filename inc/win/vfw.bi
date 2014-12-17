@@ -568,7 +568,7 @@ type AVIPALCHANGE
 	peNew(0 to 0) as PALETTEENTRY
 end type
 
-type _AVISTREAMINFOW field = 8
+type _AVISTREAMINFOW
 	fccType as DWORD
 	fccHandler as DWORD
 	dwFlags as DWORD
@@ -594,7 +594,7 @@ type LPAVISTREAMINFOW as _AVISTREAMINFOW ptr
 
 #define AVIGETFRAMEF_BESTDISPLAYFMT 1
 
-type _AVISTREAMINFOA field = 8
+type _AVISTREAMINFOA
 	fccType as DWORD
 	fccHandler as DWORD
 	dwFlags as DWORD
@@ -623,7 +623,7 @@ type LPAVISTREAMINFOA as _AVISTREAMINFOA ptr
 #define AVISTREAMINFO_DISABLED &h00000001
 #define AVISTREAMINFO_FORMATCHANGES &h00010000
 
-type _AVIFILEINFOW field = 8
+type _AVIFILEINFOW
 	dwMaxBytesPerSec as DWORD
 	dwFlags as DWORD
 	dwCaps as DWORD
@@ -641,7 +641,7 @@ end type
 type AVIFILEINFOW as _AVIFILEINFOW
 type LPAVIFILEINFOW as _AVIFILEINFOW ptr
 
-type _AVIFILEINFOA field = 8
+type _AVIFILEINFOA
 	dwMaxBytesPerSec as DWORD
 	dwFlags as DWORD
 	dwCaps as DWORD
@@ -674,7 +674,7 @@ type LPAVIFILEINFOA as _AVIFILEINFOA ptr
 
 type AVISAVECALLBACK as function(byval as long) as WINBOOL
 
-type AVICOMPRESSOPTIONS field = 8
+type AVICOMPRESSOPTIONS
 	fccType as DWORD
 	fccHandler as DWORD
 	dwKeyFrameEvery as DWORD
@@ -695,11 +695,11 @@ type LPAVICOMPRESSOPTIONS as AVICOMPRESSOPTIONS ptr
 #define AVICOMPRESSF_KEYFRAMES &h00000004
 #define AVICOMPRESSF_VALID &h00000008
 
-type IAVIStream field = 8
+type IAVIStream
 	lpVtbl as IAVIStreamVtbl ptr
 end type
 
-type IAVIStreamVtbl_ field = 8
+type IAVIStreamVtbl_
 	QueryInterface as function(byval This as IAVIStream ptr, byval riid as const IID const ptr, byval ppvObj as LPVOID ptr) as HRESULT
 	AddRef as function(byval This as IAVIStream ptr) as ULONG
 	Release as function(byval This as IAVIStream ptr) as ULONG
@@ -718,11 +718,11 @@ end type
 
 type PAVISTREAM as IAVIStream ptr
 
-type IAVIStreaming field = 8
+type IAVIStreaming
 	lpVtbl as IAVIStreamingVtbl ptr
 end type
 
-type IAVIStreamingVtbl_ field = 8
+type IAVIStreamingVtbl_
 	QueryInterface as function(byval This as IAVIStreaming ptr, byval riid as const IID const ptr, byval ppvObj as LPVOID ptr) as HRESULT
 	AddRef as function(byval This as IAVIStreaming ptr) as ULONG
 	Release as function(byval This as IAVIStreaming ptr) as ULONG
@@ -732,11 +732,11 @@ end type
 
 type PAVISTREAMING as IAVIStreaming ptr
 
-type IAVIEditStream field = 8
+type IAVIEditStream
 	lpVtbl as IAVIEditStreamVtbl ptr
 end type
 
-type IAVIEditStreamVtbl_ field = 8
+type IAVIEditStreamVtbl_
 	QueryInterface as function(byval This as IAVIEditStream ptr, byval riid as const IID const ptr, byval ppvObj as LPVOID ptr) as HRESULT
 	AddRef as function(byval This as IAVIEditStream ptr) as ULONG
 	Release as function(byval This as IAVIEditStream ptr) as ULONG
@@ -749,21 +749,21 @@ end type
 
 type PAVIEDITSTREAM as IAVIEditStream ptr
 
-type IAVIPersistFile field = 8
+type IAVIPersistFile
 	lpVtbl as IAVIPersistFileVtbl ptr
 end type
 
-type IAVIPersistFileVtbl_ field = 8
+type IAVIPersistFileVtbl_
 	Reserved1 as function(byval This as IAVIPersistFile ptr) as HRESULT
 end type
 
 type PAVIPERSISTFILE as IAVIPersistFile ptr
 
-type IAVIFile field = 8
+type IAVIFile
 	lpVtbl as IAVIFileVtbl ptr
 end type
 
-type IAVIFileVtbl_ field = 8
+type IAVIFileVtbl_
 	QueryInterface as function(byval This as IAVIFile ptr, byval riid as const IID const ptr, byval ppvObj as LPVOID ptr) as HRESULT
 	AddRef as function(byval This as IAVIFile ptr) as ULONG
 	Release as function(byval This as IAVIFile ptr) as ULONG
@@ -778,11 +778,11 @@ end type
 
 type PAVIFILE as IAVIFile ptr
 
-type IGetFrame field = 8
+type IGetFrame
 	lpVtbl as IGetFrameVtbl ptr
 end type
 
-type IGetFrameVtbl_ field = 8
+type IGetFrameVtbl_
 	QueryInterface as function(byval This as IGetFrame ptr, byval riid as const IID const ptr, byval ppvObj as LPVOID ptr) as HRESULT
 	AddRef as function(byval This as IGetFrame ptr) as ULONG
 	Release as function(byval This as IGetFrame ptr) as ULONG
@@ -1140,7 +1140,7 @@ declare function MCIWndRegisterClass cdecl() as WINBOOL
 #define MCIWND_START (-1)
 #define MCIWND_END (-2)
 
-type HVIDEO__ field = 8
+type HVIDEO__
 	unused as long
 end type
 
@@ -1184,7 +1184,7 @@ type LPHVIDEO as HVIDEO ptr
 #define DV_VM_DATA MM_DRVM_DATA
 #define DV_VM_ERROR MM_DRVM_ERROR
 
-type videohdr_tag field = 8
+type videohdr_tag
 	lpData as LPBYTE
 	dwBufferLength as DWORD
 	dwBytesUsed as DWORD
@@ -1204,7 +1204,7 @@ type LPVIDEOHDR as videohdr_tag ptr
 #define VHDR_KEYFRAME &h00000008
 #define VHDR_VALID &h0000000F
 
-type channel_caps_tag field = 8
+type channel_caps_tag
 	dwFlags as DWORD
 	dwSrcRectXMod as DWORD
 	dwSrcRectYMod as DWORD
@@ -1384,7 +1384,7 @@ type LPCHANNEL_CAPS as channel_caps_tag ptr
 #define capPaletteAuto(hwnd, iFrames, iColors) cast(WINBOOL, AVICapSM(hwnd, WM_CAP_PAL_AUTOCREATE, cast(WPARAM, (iFrames)), cast(LPARAM, cast(DWORD, (iColors)))))
 #define capPaletteManual(hwnd, fGrab, iColors) cast(WINBOOL, AVICapSM(hwnd, WM_CAP_PAL_MANUALCREATE, cast(WPARAM, (fGrab)), cast(LPARAM, cast(DWORD, (iColors)))))
 
-type tagCapDriverCaps field = 8
+type tagCapDriverCaps
 	wDeviceIndex as UINT
 	fHasOverlay as WINBOOL
 	fHasDlgVideoSource as WINBOOL
@@ -1402,7 +1402,7 @@ type CAPDRIVERCAPS as tagCapDriverCaps
 type PCAPDRIVERCAPS as tagCapDriverCaps ptr
 type LPCAPDRIVERCAPS as tagCapDriverCaps ptr
 
-type tagCapStatus field = 8
+type tagCapStatus
 	uiImageWidth as UINT
 	uiImageHeight as UINT
 	fLiveWindow as WINBOOL
@@ -1427,7 +1427,7 @@ type CAPSTATUS as tagCapStatus
 type PCAPSTATUS as tagCapStatus ptr
 type LPCAPSTATUS as tagCapStatus ptr
 
-type tagCaptureParms field = 8
+type tagCaptureParms
 	dwRequestMicroSecPerFrame as DWORD
 	fMakeUserHitOKToCapture as WINBOOL
 	wPercentDropForError as UINT
@@ -1461,7 +1461,7 @@ type LPCAPTUREPARMS as tagCaptureParms ptr
 #define AVSTREAMMASTER_AUDIO 0
 #define AVSTREAMMASTER_NONE 1
 
-type tagCapInfoChunk field = 8
+type tagCapInfoChunk
 	fccInfoID as FOURCC
 	lpData as LPVOID
 	cbData as LONG

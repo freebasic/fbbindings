@@ -23,33 +23,19 @@ type UUID as GUID
 
 #define uuid_t UUID
 
-#ifdef __FB_64BIT__
-	type _RPC_BINDING_VECTOR field = 8
-		Count as ulong
-		BindingH(0 to 0) as RPC_BINDING_HANDLE
-	end type
-#else
-	type _RPC_BINDING_VECTOR
-		Count as ulong
-		BindingH(0 to 0) as RPC_BINDING_HANDLE
-	end type
-#endif
+type _RPC_BINDING_VECTOR
+	Count as ulong
+	BindingH(0 to 0) as RPC_BINDING_HANDLE
+end type
 
 type RPC_BINDING_VECTOR as _RPC_BINDING_VECTOR
 
 #define rpc_binding_vector_t RPC_BINDING_VECTOR
 
-#ifdef __FB_64BIT__
-	type _UUID_VECTOR field = 8
-		Count as ulong
-		Uuid(0 to 0) as UUID ptr
-	end type
-#else
-	type _UUID_VECTOR
-		Count as ulong
-		Uuid(0 to 0) as UUID ptr
-	end type
-#endif
+type _UUID_VECTOR
+	Count as ulong
+	Uuid(0 to 0) as UUID ptr
+end type
 
 type UUID_VECTOR as _UUID_VECTOR
 
@@ -59,19 +45,11 @@ type RPC_IF_HANDLE as any ptr
 
 #define IFID_DEFINED
 
-#ifdef __FB_64BIT__
-	type _RPC_IF_ID field = 8
-		Uuid as UUID
-		VersMajor as ushort
-		VersMinor as ushort
-	end type
-#else
-	type _RPC_IF_ID
-		Uuid as UUID
-		VersMajor as ushort
-		VersMinor as ushort
-	end type
-#endif
+type _RPC_IF_ID
+	Uuid as UUID
+	VersMajor as ushort
+	VersMinor as ushort
+end type
 
 type RPC_IF_ID as _RPC_IF_ID
 
@@ -114,83 +92,47 @@ type RPC_IF_ID as _RPC_IF_ID
 #define RPC_C_MQ_JOURNAL_ALWAYS 2
 #define RPC_C_FULL_CERT_CHAIN &h0001
 
-#ifdef __FB_64BIT__
-	type _RPC_PROTSEQ_VECTORA field = 8
-		Count as ulong
-		Protseq(0 to 0) as ubyte ptr
-	end type
-#else
-	type _RPC_PROTSEQ_VECTORA
-		Count as ulong
-		Protseq(0 to 0) as ubyte ptr
-	end type
-#endif
+type _RPC_PROTSEQ_VECTORA
+	Count as ulong
+	Protseq(0 to 0) as ubyte ptr
+end type
 
 type RPC_PROTSEQ_VECTORA as _RPC_PROTSEQ_VECTORA
 
-#ifdef __FB_64BIT__
-	type _RPC_PROTSEQ_VECTORW field = 8
-		Count as ulong
-		Protseq(0 to 0) as ushort ptr
-	end type
-#else
-	type _RPC_PROTSEQ_VECTORW
-		Count as ulong
-		Protseq(0 to 0) as ushort ptr
-	end type
-#endif
+type _RPC_PROTSEQ_VECTORW
+	Count as ulong
+	Protseq(0 to 0) as ushort ptr
+end type
 
 type RPC_PROTSEQ_VECTORW as _RPC_PROTSEQ_VECTORW
 
 #define RPC_PROTSEQ_VECTOR __MINGW_NAME_AW(RPC_PROTSEQ_VECTOR)
 
-#ifdef __FB_64BIT__
-	type _RPC_POLICY field = 8
-		Length as ulong
-		EndpointFlags as ulong
-		NICFlags as ulong
-	end type
-#else
-	type _RPC_POLICY
-		Length as ulong
-		EndpointFlags as ulong
-		NICFlags as ulong
-	end type
-#endif
+type _RPC_POLICY
+	Length as ulong
+	EndpointFlags as ulong
+	NICFlags as ulong
+end type
 
 type RPC_POLICY as _RPC_POLICY
 type PRPC_POLICY as _RPC_POLICY ptr
 
 #define RPC_MGR_EPV any
 
-#ifdef __FB_64BIT__
-	type RPC_STATS_VECTOR field = 8
-		Count as ulong
-		Stats(0 to 0) as ulong
-	end type
-#else
-	type RPC_STATS_VECTOR
-		Count as ulong
-		Stats(0 to 0) as ulong
-	end type
-#endif
+type RPC_STATS_VECTOR
+	Count as ulong
+	Stats(0 to 0) as ulong
+end type
 
 #define RPC_C_STATS_CALLS_IN 0
 #define RPC_C_STATS_CALLS_OUT 1
 #define RPC_C_STATS_PKTS_IN 2
 #define RPC_C_STATS_PKTS_OUT 3
 
-#ifdef __FB_64BIT__
-	type RPC_IF_ID_VECTOR field = 8
-		Count as ulong
-		IfId(0 to 0) as RPC_IF_ID ptr
-	end type
-#else
-	type RPC_IF_ID_VECTOR
-		Count as ulong
-		IfId(0 to 0) as RPC_IF_ID ptr
-	end type
-#endif
+type RPC_IF_ID_VECTOR
+	Count as ulong
+	IfId(0 to 0) as RPC_IF_ID ptr
+end type
 
 #define RpcBindingFromStringBinding __MINGW_NAME_AW(RpcBindingFromStringBinding)
 #define RpcBindingToStringBinding __MINGW_NAME_AW(RpcBindingToStringBinding)
@@ -333,21 +275,12 @@ type RPC_AUTHZ_HANDLE as any ptr
 #define RPC_C_SECURITY_QOS_VERSION __MSABI_LONG(1)
 #define RPC_C_SECURITY_QOS_VERSION_1 __MSABI_LONG(1)
 
-#ifdef __FB_64BIT__
-	type _RPC_SECURITY_QOS field = 8
-		Version as ulong
-		Capabilities as ulong
-		IdentityTracking as ulong
-		ImpersonationType as ulong
-	end type
-#else
-	type _RPC_SECURITY_QOS
-		Version as ulong
-		Capabilities as ulong
-		IdentityTracking as ulong
-		ImpersonationType as ulong
-	end type
-#endif
+type _RPC_SECURITY_QOS
+	Version as ulong
+	Capabilities as ulong
+	IdentityTracking as ulong
+	ImpersonationType as ulong
+end type
 
 type RPC_SECURITY_QOS as _RPC_SECURITY_QOS
 type PRPC_SECURITY_QOS as _RPC_SECURITY_QOS ptr
@@ -356,52 +289,28 @@ type PRPC_SECURITY_QOS as _RPC_SECURITY_QOS ptr
 #define SEC_WINNT_AUTH_IDENTITY_ANSI &h1
 #define SEC_WINNT_AUTH_IDENTITY_UNICODE &h2
 
-#ifdef __FB_64BIT__
-	type _SEC_WINNT_AUTH_IDENTITY_W field = 8
-		User as ushort ptr
-		UserLength as ulong
-		Domain as ushort ptr
-		DomainLength as ulong
-		Password as ushort ptr
-		PasswordLength as ulong
-		Flags as ulong
-	end type
-#else
-	type _SEC_WINNT_AUTH_IDENTITY_W
-		User as ushort ptr
-		UserLength as ulong
-		Domain as ushort ptr
-		DomainLength as ulong
-		Password as ushort ptr
-		PasswordLength as ulong
-		Flags as ulong
-	end type
-#endif
+type _SEC_WINNT_AUTH_IDENTITY_W
+	User as ushort ptr
+	UserLength as ulong
+	Domain as ushort ptr
+	DomainLength as ulong
+	Password as ushort ptr
+	PasswordLength as ulong
+	Flags as ulong
+end type
 
 type SEC_WINNT_AUTH_IDENTITY_W as _SEC_WINNT_AUTH_IDENTITY_W
 type PSEC_WINNT_AUTH_IDENTITY_W as _SEC_WINNT_AUTH_IDENTITY_W ptr
 
-#ifdef __FB_64BIT__
-	type _SEC_WINNT_AUTH_IDENTITY_A field = 8
-		User as ubyte ptr
-		UserLength as ulong
-		Domain as ubyte ptr
-		DomainLength as ulong
-		Password as ubyte ptr
-		PasswordLength as ulong
-		Flags as ulong
-	end type
-#else
-	type _SEC_WINNT_AUTH_IDENTITY_A
-		User as ubyte ptr
-		UserLength as ulong
-		Domain as ubyte ptr
-		DomainLength as ulong
-		Password as ubyte ptr
-		PasswordLength as ulong
-		Flags as ulong
-	end type
-#endif
+type _SEC_WINNT_AUTH_IDENTITY_A
+	User as ubyte ptr
+	UserLength as ulong
+	Domain as ubyte ptr
+	DomainLength as ulong
+	Password as ubyte ptr
+	PasswordLength as ulong
+	Flags as ulong
+end type
 
 type SEC_WINNT_AUTH_IDENTITY_A as _SEC_WINNT_AUTH_IDENTITY_A
 type PSEC_WINNT_AUTH_IDENTITY_A as _SEC_WINNT_AUTH_IDENTITY_A ptr
@@ -423,178 +332,94 @@ type PSEC_WINNT_AUTH_IDENTITY_A as _SEC_WINNT_AUTH_IDENTITY_A ptr
 #define RPC_C_HTTP_FLAG_USE_FIRST_AUTH_SCHEME 2
 #define RPC_C_HTTP_FLAG_IGNORE_CERT_CN_INVALID 8
 
-#ifdef __FB_64BIT__
-	type _RPC_HTTP_TRANSPORT_CREDENTIALS_W field = 8
-		TransportCredentials as SEC_WINNT_AUTH_IDENTITY_W ptr
-		Flags as ulong
-		AuthenticationTarget as ulong
-		NumberOfAuthnSchemes as ulong
-		AuthnSchemes as ulong ptr
-		ServerCertificateSubject as ushort ptr
-	end type
-#else
-	type _RPC_HTTP_TRANSPORT_CREDENTIALS_W
-		TransportCredentials as SEC_WINNT_AUTH_IDENTITY_W ptr
-		Flags as ulong
-		AuthenticationTarget as ulong
-		NumberOfAuthnSchemes as ulong
-		AuthnSchemes as ulong ptr
-		ServerCertificateSubject as ushort ptr
-	end type
-#endif
+type _RPC_HTTP_TRANSPORT_CREDENTIALS_W
+	TransportCredentials as SEC_WINNT_AUTH_IDENTITY_W ptr
+	Flags as ulong
+	AuthenticationTarget as ulong
+	NumberOfAuthnSchemes as ulong
+	AuthnSchemes as ulong ptr
+	ServerCertificateSubject as ushort ptr
+end type
 
 type RPC_HTTP_TRANSPORT_CREDENTIALS_W as _RPC_HTTP_TRANSPORT_CREDENTIALS_W
 type PRPC_HTTP_TRANSPORT_CREDENTIALS_W as _RPC_HTTP_TRANSPORT_CREDENTIALS_W ptr
 
-#ifdef __FB_64BIT__
-	type _RPC_HTTP_TRANSPORT_CREDENTIALS_A field = 8
-		TransportCredentials as SEC_WINNT_AUTH_IDENTITY_A ptr
-		Flags as ulong
-		AuthenticationTarget as ulong
-		NumberOfAuthnSchemes as ulong
-		AuthnSchemes as ulong ptr
-		ServerCertificateSubject as ubyte ptr
-	end type
-#else
-	type _RPC_HTTP_TRANSPORT_CREDENTIALS_A
-		TransportCredentials as SEC_WINNT_AUTH_IDENTITY_A ptr
-		Flags as ulong
-		AuthenticationTarget as ulong
-		NumberOfAuthnSchemes as ulong
-		AuthnSchemes as ulong ptr
-		ServerCertificateSubject as ubyte ptr
-	end type
-#endif
+type _RPC_HTTP_TRANSPORT_CREDENTIALS_A
+	TransportCredentials as SEC_WINNT_AUTH_IDENTITY_A ptr
+	Flags as ulong
+	AuthenticationTarget as ulong
+	NumberOfAuthnSchemes as ulong
+	AuthnSchemes as ulong ptr
+	ServerCertificateSubject as ubyte ptr
+end type
 
 type RPC_HTTP_TRANSPORT_CREDENTIALS_A as _RPC_HTTP_TRANSPORT_CREDENTIALS_A
 type PRPC_HTTP_TRANSPORT_CREDENTIALS_A as _RPC_HTTP_TRANSPORT_CREDENTIALS_A ptr
 
-#ifdef __FB_64BIT__
-	union ___RPC_SECURITY_QOS_V2_W_u field = 8
-		HttpCredentials as RPC_HTTP_TRANSPORT_CREDENTIALS_W ptr
-	end union
+union ___RPC_SECURITY_QOS_V2_W_u
+	HttpCredentials as RPC_HTTP_TRANSPORT_CREDENTIALS_W ptr
+end union
 
-	type _RPC_SECURITY_QOS_V2_W field = 8
-		Version as ulong
-		Capabilities as ulong
-		IdentityTracking as ulong
-		ImpersonationType as ulong
-		AdditionalSecurityInfoType as ulong
-		u as ___RPC_SECURITY_QOS_V2_W_u
-	end type
-#else
-	union ___RPC_SECURITY_QOS_V2_W_u
-		HttpCredentials as RPC_HTTP_TRANSPORT_CREDENTIALS_W ptr
-	end union
-
-	type _RPC_SECURITY_QOS_V2_W
-		Version as ulong
-		Capabilities as ulong
-		IdentityTracking as ulong
-		ImpersonationType as ulong
-		AdditionalSecurityInfoType as ulong
-		u as ___RPC_SECURITY_QOS_V2_W_u
-	end type
-#endif
+type _RPC_SECURITY_QOS_V2_W
+	Version as ulong
+	Capabilities as ulong
+	IdentityTracking as ulong
+	ImpersonationType as ulong
+	AdditionalSecurityInfoType as ulong
+	u as ___RPC_SECURITY_QOS_V2_W_u
+end type
 
 type RPC_SECURITY_QOS_V2_W as _RPC_SECURITY_QOS_V2_W
 type PRPC_SECURITY_QOS_V2_W as _RPC_SECURITY_QOS_V2_W ptr
 
-#ifdef __FB_64BIT__
-	union ___RPC_SECURITY_QOS_V2_A_u field = 8
-		HttpCredentials as RPC_HTTP_TRANSPORT_CREDENTIALS_A ptr
-	end union
+union ___RPC_SECURITY_QOS_V2_A_u
+	HttpCredentials as RPC_HTTP_TRANSPORT_CREDENTIALS_A ptr
+end union
 
-	type _RPC_SECURITY_QOS_V2_A field = 8
-		Version as ulong
-		Capabilities as ulong
-		IdentityTracking as ulong
-		ImpersonationType as ulong
-		AdditionalSecurityInfoType as ulong
-		u as ___RPC_SECURITY_QOS_V2_A_u
-	end type
-#else
-	union ___RPC_SECURITY_QOS_V2_A_u
-		HttpCredentials as RPC_HTTP_TRANSPORT_CREDENTIALS_A ptr
-	end union
-
-	type _RPC_SECURITY_QOS_V2_A
-		Version as ulong
-		Capabilities as ulong
-		IdentityTracking as ulong
-		ImpersonationType as ulong
-		AdditionalSecurityInfoType as ulong
-		u as ___RPC_SECURITY_QOS_V2_A_u
-	end type
-#endif
+type _RPC_SECURITY_QOS_V2_A
+	Version as ulong
+	Capabilities as ulong
+	IdentityTracking as ulong
+	ImpersonationType as ulong
+	AdditionalSecurityInfoType as ulong
+	u as ___RPC_SECURITY_QOS_V2_A_u
+end type
 
 type RPC_SECURITY_QOS_V2_A as _RPC_SECURITY_QOS_V2_A
 type PRPC_SECURITY_QOS_V2_A as _RPC_SECURITY_QOS_V2_A ptr
 
 #define RPC_C_SECURITY_QOS_VERSION_3 __MSABI_LONG(3)
 
-#ifdef __FB_64BIT__
-	union ___RPC_SECURITY_QOS_V3_W_u field = 8
-		HttpCredentials as RPC_HTTP_TRANSPORT_CREDENTIALS_W ptr
-	end union
+union ___RPC_SECURITY_QOS_V3_W_u
+	HttpCredentials as RPC_HTTP_TRANSPORT_CREDENTIALS_W ptr
+end union
 
-	type _RPC_SECURITY_QOS_V3_W field = 8
-		Version as ulong
-		Capabilities as ulong
-		IdentityTracking as ulong
-		ImpersonationType as ulong
-		AdditionalSecurityInfoType as ulong
-		u as ___RPC_SECURITY_QOS_V3_W_u
-		Sid as any ptr
-	end type
-#else
-	union ___RPC_SECURITY_QOS_V3_W_u
-		HttpCredentials as RPC_HTTP_TRANSPORT_CREDENTIALS_W ptr
-	end union
-
-	type _RPC_SECURITY_QOS_V3_W
-		Version as ulong
-		Capabilities as ulong
-		IdentityTracking as ulong
-		ImpersonationType as ulong
-		AdditionalSecurityInfoType as ulong
-		u as ___RPC_SECURITY_QOS_V3_W_u
-		Sid as any ptr
-	end type
-#endif
+type _RPC_SECURITY_QOS_V3_W
+	Version as ulong
+	Capabilities as ulong
+	IdentityTracking as ulong
+	ImpersonationType as ulong
+	AdditionalSecurityInfoType as ulong
+	u as ___RPC_SECURITY_QOS_V3_W_u
+	Sid as any ptr
+end type
 
 type RPC_SECURITY_QOS_V3_W as _RPC_SECURITY_QOS_V3_W
 type PRPC_SECURITY_QOS_V3_W as _RPC_SECURITY_QOS_V3_W ptr
 
-#ifdef __FB_64BIT__
-	union ___RPC_SECURITY_QOS_V3_A_u field = 8
-		HttpCredentials as RPC_HTTP_TRANSPORT_CREDENTIALS_A ptr
-	end union
+union ___RPC_SECURITY_QOS_V3_A_u
+	HttpCredentials as RPC_HTTP_TRANSPORT_CREDENTIALS_A ptr
+end union
 
-	type _RPC_SECURITY_QOS_V3_A field = 8
-		Version as ulong
-		Capabilities as ulong
-		IdentityTracking as ulong
-		ImpersonationType as ulong
-		AdditionalSecurityInfoType as ulong
-		u as ___RPC_SECURITY_QOS_V3_A_u
-		Sid as any ptr
-	end type
-#else
-	union ___RPC_SECURITY_QOS_V3_A_u
-		HttpCredentials as RPC_HTTP_TRANSPORT_CREDENTIALS_A ptr
-	end union
-
-	type _RPC_SECURITY_QOS_V3_A
-		Version as ulong
-		Capabilities as ulong
-		IdentityTracking as ulong
-		ImpersonationType as ulong
-		AdditionalSecurityInfoType as ulong
-		u as ___RPC_SECURITY_QOS_V3_A_u
-		Sid as any ptr
-	end type
-#endif
+type _RPC_SECURITY_QOS_V3_A
+	Version as ulong
+	Capabilities as ulong
+	IdentityTracking as ulong
+	ImpersonationType as ulong
+	AdditionalSecurityInfoType as ulong
+	u as ___RPC_SECURITY_QOS_V3_A_u
+	Sid as any ptr
+end type
 
 type RPC_SECURITY_QOS_V3_A as _RPC_SECURITY_QOS_V3_A
 type PRPC_SECURITY_QOS_V3_A as _RPC_SECURITY_QOS_V3_A ptr
@@ -656,21 +481,12 @@ declare function RpcServerRegisterAuthInfoW(byval ServerPrincName as RPC_WSTR, b
 #define RpcBindingInqAuthInfoEx __MINGW_NAME_AW(RpcBindingInqAuthInfoEx)
 #define RpcBindingSetAuthInfoEx __MINGW_NAME_AW(RpcBindingSetAuthInfoEx)
 
-#ifdef __FB_64BIT__
-	type RPC_CLIENT_INFORMATION1 field = 8
-		UserName as ubyte ptr
-		ComputerName as ubyte ptr
-		Privilege as ushort
-		AuthFlags as ulong
-	end type
-#else
-	type RPC_CLIENT_INFORMATION1
-		UserName as ubyte ptr
-		ComputerName as ubyte ptr
-		Privilege as ushort
-		AuthFlags as ulong
-	end type
-#endif
+type RPC_CLIENT_INFORMATION1
+	UserName as ubyte ptr
+	ComputerName as ubyte ptr
+	Privilege as ushort
+	AuthFlags as ulong
+end type
 
 type PRPC_CLIENT_INFORMATION1 as RPC_CLIENT_INFORMATION1 ptr
 

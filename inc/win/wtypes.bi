@@ -17,7 +17,7 @@ extern "C"
 extern IWinTypes_v0_1_c_ifspec as RPC_IF_HANDLE
 extern IWinTypes_v0_1_s_ifspec as RPC_IF_HANDLE
 
-type tagRemHGLOBAL field = 8
+type tagRemHGLOBAL
 	fNullHGlobal as LONG
 	cbData as ULONG
 	data(0 to 0) as ubyte
@@ -25,7 +25,7 @@ end type
 
 type RemHGLOBAL as tagRemHGLOBAL
 
-type tagRemHMETAFILEPICT field = 8
+type tagRemHMETAFILEPICT
 	mm as LONG
 	xExt as LONG
 	yExt as LONG
@@ -35,28 +35,28 @@ end type
 
 type RemHMETAFILEPICT as tagRemHMETAFILEPICT
 
-type tagRemHENHMETAFILE field = 8
+type tagRemHENHMETAFILE
 	cbData as ULONG
 	data(0 to 0) as ubyte
 end type
 
 type RemHENHMETAFILE as tagRemHENHMETAFILE
 
-type tagRemHBITMAP field = 8
+type tagRemHBITMAP
 	cbData as ULONG
 	data(0 to 0) as ubyte
 end type
 
 type RemHBITMAP as tagRemHBITMAP
 
-type tagRemHPALETTE field = 8
+type tagRemHPALETTE
 	cbData as ULONG
 	data(0 to 0) as ubyte
 end type
 
 type RemHPALETTE as tagRemHPALETTE
 
-type tagRemBRUSH field = 8
+type tagRemBRUSH
 	cbData as ULONG
 	data(0 to 0) as ubyte
 end type
@@ -113,12 +113,12 @@ type HCONTEXT as any ptr
 #define WDT_REMOTE_CALL &h52746457
 #define WDT_INPROC64_CALL &h50746457
 
-union ___userCLIPFORMAT_u field = 8
+union ___userCLIPFORMAT_u
 	dwValue as DWORD
 	pwszName as wstring ptr
 end union
 
-type _userCLIPFORMAT field = 8
+type _userCLIPFORMAT
 	fContext as LONG
 	u as ___userCLIPFORMAT_u
 end type
@@ -127,25 +127,25 @@ type userCLIPFORMAT as _userCLIPFORMAT
 type wireCLIPFORMAT as userCLIPFORMAT ptr
 type CLIPFORMAT as WORD
 
-union ___GDI_NONREMOTE_u field = 8
+union ___GDI_NONREMOTE_u
 	hInproc as LONG
 	hRemote as DWORD_BLOB ptr
 end union
 
-type _GDI_NONREMOTE field = 8
+type _GDI_NONREMOTE
 	fContext as LONG
 	u as ___GDI_NONREMOTE_u
 end type
 
 type GDI_NONREMOTE as _GDI_NONREMOTE
 
-union ___userHGLOBAL_u field = 8
+union ___userHGLOBAL_u
 	hInproc as LONG
 	hRemote as FLAGGED_BYTE_BLOB ptr
 	hInproc64 as INT64
 end union
 
-type _userHGLOBAL field = 8
+type _userHGLOBAL
 	fContext as LONG
 	u as ___userHGLOBAL_u
 end type
@@ -153,20 +153,20 @@ end type
 type userHGLOBAL as _userHGLOBAL
 type wireHGLOBAL as userHGLOBAL ptr
 
-union ___userHMETAFILE_u field = 8
+union ___userHMETAFILE_u
 	hInproc as LONG
 	hRemote as BYTE_BLOB ptr
 	hInproc64 as INT64
 end union
 
-type _userHMETAFILE field = 8
+type _userHMETAFILE
 	fContext as LONG
 	u as ___userHMETAFILE_u
 end type
 
 type userHMETAFILE as _userHMETAFILE
 
-type _remoteMETAFILEPICT field = 8
+type _remoteMETAFILEPICT
 	mm as LONG
 	xExt as LONG
 	yExt as LONG
@@ -175,33 +175,33 @@ end type
 
 type remoteMETAFILEPICT as _remoteMETAFILEPICT
 
-union ___userHMETAFILEPICT_u field = 8
+union ___userHMETAFILEPICT_u
 	hInproc as LONG
 	hRemote as remoteMETAFILEPICT ptr
 	hInproc64 as INT64
 end union
 
-type _userHMETAFILEPICT field = 8
+type _userHMETAFILEPICT
 	fContext as LONG
 	u as ___userHMETAFILEPICT_u
 end type
 
 type userHMETAFILEPICT as _userHMETAFILEPICT
 
-union ___userHENHMETAFILE_u field = 8
+union ___userHENHMETAFILE_u
 	hInproc as LONG
 	hRemote as BYTE_BLOB ptr
 	hInproc64 as INT64
 end union
 
-type _userHENHMETAFILE field = 8
+type _userHENHMETAFILE
 	fContext as LONG
 	u as ___userHENHMETAFILE_u
 end type
 
 type userHENHMETAFILE as _userHENHMETAFILE
 
-type _userBITMAP field = 8
+type _userBITMAP
 	bmType as LONG
 	bmWidth as LONG
 	bmHeight as LONG
@@ -214,38 +214,38 @@ end type
 
 type userBITMAP as _userBITMAP
 
-union ___userHBITMAP_u field = 8
+union ___userHBITMAP_u
 	hInproc as LONG
 	hRemote as userBITMAP ptr
 	hInproc64 as INT64
 end union
 
-type _userHBITMAP field = 8
+type _userHBITMAP
 	fContext as LONG
 	u as ___userHBITMAP_u
 end type
 
 type userHBITMAP as _userHBITMAP
 
-union ___userHPALETTE_u field = 8
+union ___userHPALETTE_u
 	hInproc as LONG
 	hRemote as LOGPALETTE ptr
 	hInproc64 as INT64
 end union
 
-type _userHPALETTE field = 8
+type _userHPALETTE
 	fContext as LONG
 	u as ___userHPALETTE_u
 end type
 
 type userHPALETTE as _userHPALETTE
 
-union ___RemotableHandle_u field = 8
+union ___RemotableHandle_u
 	hInproc as LONG
 	hRemote as LONG
 end union
 
-type _RemotableHandle field = 8
+type _RemotableHandle
 	fContext as LONG
 	u as ___RemotableHandle_u
 end type
@@ -271,8 +271,8 @@ type DATE_ as double
 #define _tagCY_DEFINED
 #define _CY_DEFINED
 
-union tagCY field = 8
-	type field = 8
+union tagCY
+	type
 		Lo as ulong
 		Hi as long
 	end type
@@ -283,11 +283,11 @@ end union
 type CY as tagCY
 type LPCY as CY ptr
 
-type tagDEC field = 8
+type tagDEC
 	wReserved as USHORT
 
-	union field = 8
-		type field = 8
+	union
+		type
 			scale as UBYTE
 			sign as UBYTE
 		end type
@@ -297,8 +297,8 @@ type tagDEC field = 8
 
 	Hi32 as ULONG
 
-	union field = 8
-		type field = 8
+	union
+		type
 			Lo32 as ULONG
 			Mid32 as ULONG
 		end type
@@ -330,7 +330,7 @@ type VARIANT_BOOL as short
 #define _VARIANT_BOOL '' TODO: /##/
 #define _tagBSTRBLOB_DEFINED
 
-type tagBSTRBLOB field = 8
+type tagBSTRBLOB
 	cbSize as ULONG
 	pData as UBYTE ptr
 end type
@@ -341,7 +341,7 @@ type LPBSTRBLOB as tagBSTRBLOB ptr
 #define VARIANT_TRUE cast(VARIANT_BOOL, -1)
 #define VARIANT_FALSE cast(VARIANT_BOOL, 0)
 
-type tagCLIPDATA field = 8
+type tagCLIPDATA
 	cbSize as ULONG
 	ulClipFmt as LONG
 	pClipData as UBYTE ptr
@@ -413,14 +413,14 @@ type PROPID as ULONG
 
 #define PROPERTYKEY_DEFINED
 
-type _tagpropertykey field = 8
+type _tagpropertykey
 	fmtid as GUID
 	pid as DWORD
 end type
 
 type PROPERTYKEY as _tagpropertykey
 
-type tagCSPLATFORM field = 8
+type tagCSPLATFORM
 	dwPlatformId as DWORD
 	dwVersionHi as DWORD
 	dwVersionLo as DWORD
@@ -429,7 +429,7 @@ end type
 
 type CSPLATFORM as tagCSPLATFORM
 
-type tagQUERYCONTEXT field = 8
+type tagQUERYCONTEXT
 	dwContext as DWORD
 	Platform as CSPLATFORM
 	Locale as LCID
@@ -452,17 +452,17 @@ end enum
 
 type TYSPEC as tagTYSPEC
 
-type ____WIDL_wtypes_generated_name_00000000_ByName field = 8
+type ____WIDL_wtypes_generated_name_00000000_ByName
 	pPackageName as LPOLESTR
 	PolicyId as GUID
 end type
 
-type ____WIDL_wtypes_generated_name_00000000_ByObjectId field = 8
+type ____WIDL_wtypes_generated_name_00000000_ByObjectId
 	ObjectId as GUID
 	PolicyId as GUID
 end type
 
-union ____WIDL_wtypes_generated_name_00000000_tagged_union field = 8
+union ____WIDL_wtypes_generated_name_00000000_tagged_union
 	clsid as CLSID
 	pFileExt as LPOLESTR
 	pMimeType as LPOLESTR
@@ -472,7 +472,7 @@ union ____WIDL_wtypes_generated_name_00000000_tagged_union field = 8
 	ByObjectId as ____WIDL_wtypes_generated_name_00000000_ByObjectId
 end union
 
-type __WIDL_wtypes_generated_name_00000000 field = 8
+type __WIDL_wtypes_generated_name_00000000
 	tyspec as DWORD
 	tagged_union as ____WIDL_wtypes_generated_name_00000000_tagged_union
 end type

@@ -49,7 +49,7 @@ extern GUID_FONTUNDERSCORE as const GUID
 extern GUID_FONTSTRIKETHROUGH as const GUID
 extern GUID_HANDLE as const GUID
 
-type tagOCPFIPARAMS field = 8
+type tagOCPFIPARAMS
 	cbStructSize as ULONG
 	hWndOwner as HWND
 	x as long
@@ -68,7 +68,7 @@ type LPOCPFIPARAMS as tagOCPFIPARAMS ptr
 
 #define FONTSIZE(n) '' TODO: { n##0000,0 }
 
-type tagFONTDESC field = 8
+type tagFONTDESC
 	cbSizeofstruct as UINT
 	lpstrName as LPOLESTR
 	cySize as CY
@@ -89,30 +89,30 @@ type LPFONTDESC as tagFONTDESC ptr
 #define PICTYPE_ICON 3
 #define PICTYPE_ENHMETAFILE 4
 
-type __tagPICTDESC_bmp field = 8
+type __tagPICTDESC_bmp
 	hbitmap as HBITMAP
 	hpal as HPALETTE
 end type
 
-type __tagPICTDESC_wmf field = 8
+type __tagPICTDESC_wmf
 	hmeta as HMETAFILE
 	xExt as long
 	yExt as long
 end type
 
-type __tagPICTDESC_icon field = 8
+type __tagPICTDESC_icon
 	hicon as HICON
 end type
 
-type __tagPICTDESC_emf field = 8
+type __tagPICTDESC_emf
 	hemf as HENHMETAFILE
 end type
 
-type tagPICTDESC field = 8
+type tagPICTDESC
 	cbSizeofstruct as UINT
 	picType as UINT
 
-	union field = 8
+	union
 		bmp as __tagPICTDESC_bmp
 		wmf as __tagPICTDESC_wmf
 		icon as __tagPICTDESC_icon

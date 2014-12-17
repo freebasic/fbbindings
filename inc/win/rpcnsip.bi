@@ -6,7 +6,7 @@
 	extern "Windows"
 #endif
 
-type RPC_IMPORT_CONTEXT_P field = 8
+type RPC_IMPORT_CONTEXT_P
 	LookupContext as RPC_NS_HANDLE
 	ProposedHandle as RPC_BINDING_HANDLE
 	Bindings as RPC_BINDING_VECTOR ptr

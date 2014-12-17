@@ -10,64 +10,34 @@
 
 #define __RPCDCEP_H__
 
-#ifdef __FB_64BIT__
-	type _RPC_VERSION field = 8
-		MajorVersion as ushort
-		MinorVersion as ushort
-	end type
-#else
-	type _RPC_VERSION
-		MajorVersion as ushort
-		MinorVersion as ushort
-	end type
-#endif
+type _RPC_VERSION
+	MajorVersion as ushort
+	MinorVersion as ushort
+end type
 
 type RPC_VERSION as _RPC_VERSION
 
-#ifdef __FB_64BIT__
-	type _RPC_SYNTAX_IDENTIFIER field = 8
-		SyntaxGUID as GUID
-		SyntaxVersion as RPC_VERSION
-	end type
-#else
-	type _RPC_SYNTAX_IDENTIFIER
-		SyntaxGUID as GUID
-		SyntaxVersion as RPC_VERSION
-	end type
-#endif
+type _RPC_SYNTAX_IDENTIFIER
+	SyntaxGUID as GUID
+	SyntaxVersion as RPC_VERSION
+end type
 
 type RPC_SYNTAX_IDENTIFIER as _RPC_SYNTAX_IDENTIFIER
 type PRPC_SYNTAX_IDENTIFIER as _RPC_SYNTAX_IDENTIFIER ptr
 
-#ifdef __FB_64BIT__
-	type _RPC_MESSAGE field = 8
-		Handle as RPC_BINDING_HANDLE
-		DataRepresentation as ulong
-		Buffer as any ptr
-		BufferLength as ulong
-		ProcNum as ulong
-		TransferSyntax as PRPC_SYNTAX_IDENTIFIER
-		RpcInterfaceInformation as any ptr
-		ReservedForRuntime as any ptr
-		ManagerEpv as any ptr
-		ImportContext as any ptr
-		RpcFlags as ulong
-	end type
-#else
-	type _RPC_MESSAGE
-		Handle as RPC_BINDING_HANDLE
-		DataRepresentation as ulong
-		Buffer as any ptr
-		BufferLength as ulong
-		ProcNum as ulong
-		TransferSyntax as PRPC_SYNTAX_IDENTIFIER
-		RpcInterfaceInformation as any ptr
-		ReservedForRuntime as any ptr
-		ManagerEpv as any ptr
-		ImportContext as any ptr
-		RpcFlags as ulong
-	end type
-#endif
+type _RPC_MESSAGE
+	Handle as RPC_BINDING_HANDLE
+	DataRepresentation as ulong
+	Buffer as any ptr
+	BufferLength as ulong
+	ProcNum as ulong
+	TransferSyntax as PRPC_SYNTAX_IDENTIFIER
+	RpcInterfaceInformation as any ptr
+	ReservedForRuntime as any ptr
+	ManagerEpv as any ptr
+	ImportContext as any ptr
+	RpcFlags as ulong
+end type
 
 type RPC_MESSAGE as _RPC_MESSAGE
 type PRPC_MESSAGE as _RPC_MESSAGE ptr
@@ -105,33 +75,18 @@ end enum
 
 type RPC_DISPATCH_FUNCTION as sub(byval Message as PRPC_MESSAGE)
 
-#ifdef __FB_64BIT__
-	type RPC_DISPATCH_TABLE field = 8
-		DispatchTableCount as ulong
-		DispatchTable as RPC_DISPATCH_FUNCTION ptr
-		Reserved as LONG_PTR
-	end type
-#else
-	type RPC_DISPATCH_TABLE
-		DispatchTableCount as ulong
-		DispatchTable as RPC_DISPATCH_FUNCTION ptr
-		Reserved as LONG_PTR
-	end type
-#endif
+type RPC_DISPATCH_TABLE
+	DispatchTableCount as ulong
+	DispatchTable as RPC_DISPATCH_FUNCTION ptr
+	Reserved as LONG_PTR
+end type
 
 type PRPC_DISPATCH_TABLE as RPC_DISPATCH_TABLE ptr
 
-#ifdef __FB_64BIT__
-	type _RPC_PROTSEQ_ENDPOINT field = 8
-		RpcProtocolSequence as ubyte ptr
-		Endpoint as ubyte ptr
-	end type
-#else
-	type _RPC_PROTSEQ_ENDPOINT
-		RpcProtocolSequence as ubyte ptr
-		Endpoint as ubyte ptr
-	end type
-#endif
+type _RPC_PROTSEQ_ENDPOINT
+	RpcProtocolSequence as ubyte ptr
+	Endpoint as ubyte ptr
+end type
 
 type RPC_PROTSEQ_ENDPOINT as _RPC_PROTSEQ_ENDPOINT
 type PRPC_PROTSEQ_ENDPOINT as _RPC_PROTSEQ_ENDPOINT ptr
@@ -139,60 +94,32 @@ type PRPC_PROTSEQ_ENDPOINT as _RPC_PROTSEQ_ENDPOINT ptr
 #define NT351_INTERFACE_SIZE &h40
 #define RPC_INTERFACE_HAS_PIPES &h0001
 
-#ifdef __FB_64BIT__
-	type _RPC_SERVER_INTERFACE field = 8
-		Length as ulong
-		InterfaceId as RPC_SYNTAX_IDENTIFIER
-		TransferSyntax as RPC_SYNTAX_IDENTIFIER
-		DispatchTable as PRPC_DISPATCH_TABLE
-		RpcProtseqEndpointCount as ulong
-		RpcProtseqEndpoint as PRPC_PROTSEQ_ENDPOINT
-		DefaultManagerEpv as any ptr
-		InterpreterInfo as const any ptr
-		Flags as ulong
-	end type
-#else
-	type _RPC_SERVER_INTERFACE
-		Length as ulong
-		InterfaceId as RPC_SYNTAX_IDENTIFIER
-		TransferSyntax as RPC_SYNTAX_IDENTIFIER
-		DispatchTable as PRPC_DISPATCH_TABLE
-		RpcProtseqEndpointCount as ulong
-		RpcProtseqEndpoint as PRPC_PROTSEQ_ENDPOINT
-		DefaultManagerEpv as any ptr
-		InterpreterInfo as const any ptr
-		Flags as ulong
-	end type
-#endif
+type _RPC_SERVER_INTERFACE
+	Length as ulong
+	InterfaceId as RPC_SYNTAX_IDENTIFIER
+	TransferSyntax as RPC_SYNTAX_IDENTIFIER
+	DispatchTable as PRPC_DISPATCH_TABLE
+	RpcProtseqEndpointCount as ulong
+	RpcProtseqEndpoint as PRPC_PROTSEQ_ENDPOINT
+	DefaultManagerEpv as any ptr
+	InterpreterInfo as const any ptr
+	Flags as ulong
+end type
 
 type RPC_SERVER_INTERFACE as _RPC_SERVER_INTERFACE
 type PRPC_SERVER_INTERFACE as _RPC_SERVER_INTERFACE ptr
 
-#ifdef __FB_64BIT__
-	type _RPC_CLIENT_INTERFACE field = 8
-		Length as ulong
-		InterfaceId as RPC_SYNTAX_IDENTIFIER
-		TransferSyntax as RPC_SYNTAX_IDENTIFIER
-		DispatchTable as PRPC_DISPATCH_TABLE
-		RpcProtseqEndpointCount as ulong
-		RpcProtseqEndpoint as PRPC_PROTSEQ_ENDPOINT
-		Reserved as ULONG_PTR
-		InterpreterInfo as const any ptr
-		Flags as ulong
-	end type
-#else
-	type _RPC_CLIENT_INTERFACE
-		Length as ulong
-		InterfaceId as RPC_SYNTAX_IDENTIFIER
-		TransferSyntax as RPC_SYNTAX_IDENTIFIER
-		DispatchTable as PRPC_DISPATCH_TABLE
-		RpcProtseqEndpointCount as ulong
-		RpcProtseqEndpoint as PRPC_PROTSEQ_ENDPOINT
-		Reserved as ULONG_PTR
-		InterpreterInfo as const any ptr
-		Flags as ulong
-	end type
-#endif
+type _RPC_CLIENT_INTERFACE
+	Length as ulong
+	InterfaceId as RPC_SYNTAX_IDENTIFIER
+	TransferSyntax as RPC_SYNTAX_IDENTIFIER
+	DispatchTable as PRPC_DISPATCH_TABLE
+	RpcProtseqEndpointCount as ulong
+	RpcProtseqEndpoint as PRPC_PROTSEQ_ENDPOINT
+	Reserved as ULONG_PTR
+	InterpreterInfo as const any ptr
+	Flags as ulong
+end type
 
 type RPC_CLIENT_INTERFACE as _RPC_CLIENT_INTERFACE
 type PRPC_CLIENT_INTERFACE as _RPC_CLIENT_INTERFACE ptr
@@ -255,19 +182,11 @@ declare function I_RpcServerCheckClientRestriction(byval Context as RPC_BINDING_
 
 declare function I_RpcBindingInqTransportType(byval Binding as RPC_BINDING_HANDLE, byval Type_ as ulong ptr) as RPC_STATUS
 
-#ifdef __FB_64BIT__
-	type _RPC_TRANSFER_SYNTAX field = 8
-		Uuid as UUID
-		VersMajor as ushort
-		VersMinor as ushort
-	end type
-#else
-	type _RPC_TRANSFER_SYNTAX
-		Uuid as UUID
-		VersMajor as ushort
-		VersMinor as ushort
-	end type
-#endif
+type _RPC_TRANSFER_SYNTAX
+	Uuid as UUID
+	VersMajor as ushort
+	VersMinor as ushort
+end type
 
 type RPC_TRANSFER_SYNTAX as _RPC_TRANSFER_SYNTAX
 
@@ -297,59 +216,31 @@ type RPC_SETFILTER_FUNC as sub cdecl(byval pfnFilter as RPCLT_PDU_FILTER_FUNC)
 declare function I_RpcServerInqTransportType(byval Type_ as ulong ptr) as RPC_STATUS
 declare function I_RpcMapWin32Status(byval Status as RPC_STATUS) as long
 
-#ifdef __FB_64BIT__
-	type _RPC_C_OPT_METADATA_DESCRIPTOR field = 8
-		BufferSize as ulong
-		Buffer as zstring ptr
-	end type
-#else
-	type _RPC_C_OPT_METADATA_DESCRIPTOR
-		BufferSize as ulong
-		Buffer as zstring ptr
-	end type
-#endif
+type _RPC_C_OPT_METADATA_DESCRIPTOR
+	BufferSize as ulong
+	Buffer as zstring ptr
+end type
 
 type RPC_C_OPT_METADATA_DESCRIPTOR as _RPC_C_OPT_METADATA_DESCRIPTOR
 
-#ifdef __FB_64BIT__
-	type _RDR_CALLOUT_STATE field = 8
-		LastError as RPC_STATUS
-		LastEEInfo as any ptr
-		LastCalledStage as RPC_HTTP_REDIRECTOR_STAGE
-		ServerName as ushort ptr
-		ServerPort as ushort ptr
-		RemoteUser as ushort ptr
-		AuthType as ushort ptr
-		ResourceTypePresent as ubyte
-		MetadataPresent as ubyte
-		SessionIdPresent as ubyte
-		InterfacePresent as ubyte
-		ResourceType as UUID
-		Metadata as RPC_C_OPT_METADATA_DESCRIPTOR
-		SessionId as UUID
-		Interface as RPC_SYNTAX_IDENTIFIER
-		CertContext as any ptr
-	end type
-#else
-	type _RDR_CALLOUT_STATE
-		LastError as RPC_STATUS
-		LastEEInfo as any ptr
-		LastCalledStage as RPC_HTTP_REDIRECTOR_STAGE
-		ServerName as ushort ptr
-		ServerPort as ushort ptr
-		RemoteUser as ushort ptr
-		AuthType as ushort ptr
-		ResourceTypePresent as ubyte
-		MetadataPresent as ubyte
-		SessionIdPresent as ubyte
-		InterfacePresent as ubyte
-		ResourceType as UUID
-		Metadata as RPC_C_OPT_METADATA_DESCRIPTOR
-		SessionId as UUID
-		Interface as RPC_SYNTAX_IDENTIFIER
-		CertContext as any ptr
-	end type
-#endif
+type _RDR_CALLOUT_STATE
+	LastError as RPC_STATUS
+	LastEEInfo as any ptr
+	LastCalledStage as RPC_HTTP_REDIRECTOR_STAGE
+	ServerName as ushort ptr
+	ServerPort as ushort ptr
+	RemoteUser as ushort ptr
+	AuthType as ushort ptr
+	ResourceTypePresent as ubyte
+	MetadataPresent as ubyte
+	SessionIdPresent as ubyte
+	InterfacePresent as ubyte
+	ResourceType as UUID
+	Metadata as RPC_C_OPT_METADATA_DESCRIPTOR
+	SessionId as UUID
+	Interface as RPC_SYNTAX_IDENTIFIER
+	CertContext as any ptr
+end type
 
 type RDR_CALLOUT_STATE as _RDR_CALLOUT_STATE
 type I_RpcProxyIsValidMachineFn as function(byval pszMachine as zstring ptr, byval pszDotMachine as zstring ptr, byval dwPortNumber as ulong) as RPC_STATUS
@@ -358,23 +249,13 @@ type I_RpcProxyGetConnectionTimeoutFn as function(byval ConnectionTimeout as ulo
 type I_RpcPerformCalloutFn as function(byval Context as any ptr, byval CallOutState as RDR_CALLOUT_STATE ptr, byval Stage as RPC_HTTP_REDIRECTOR_STAGE) as RPC_STATUS
 type I_RpcFreeCalloutStateFn as sub(byval CallOutState as RDR_CALLOUT_STATE ptr)
 
-#ifdef __FB_64BIT__
-	type tagI_RpcProxyCallbackInterface field = 8
-		IsValidMachineFn as I_RpcProxyIsValidMachineFn
-		GetClientAddressFn as I_RpcProxyGetClientAddressFn
-		GetConnectionTimeoutFn as I_RpcProxyGetConnectionTimeoutFn
-		PerformCalloutFn as I_RpcPerformCalloutFn
-		FreeCalloutStateFn as I_RpcFreeCalloutStateFn
-	end type
-#else
-	type tagI_RpcProxyCallbackInterface
-		IsValidMachineFn as I_RpcProxyIsValidMachineFn
-		GetClientAddressFn as I_RpcProxyGetClientAddressFn
-		GetConnectionTimeoutFn as I_RpcProxyGetConnectionTimeoutFn
-		PerformCalloutFn as I_RpcPerformCalloutFn
-		FreeCalloutStateFn as I_RpcFreeCalloutStateFn
-	end type
-#endif
+type tagI_RpcProxyCallbackInterface
+	IsValidMachineFn as I_RpcProxyIsValidMachineFn
+	GetClientAddressFn as I_RpcProxyGetClientAddressFn
+	GetConnectionTimeoutFn as I_RpcProxyGetConnectionTimeoutFn
+	PerformCalloutFn as I_RpcPerformCalloutFn
+	FreeCalloutStateFn as I_RpcFreeCalloutStateFn
+end type
 
 type I_RpcProxyCallbackInterface as tagI_RpcProxyCallbackInterface
 

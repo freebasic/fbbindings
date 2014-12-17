@@ -51,17 +51,17 @@ type PROPSHEETPAGE_RESOURCE as LPCDLGTEMPLATE
 #define _PROPSHEETPAGEW_V3 _PROPSHEETPAGEW
 
 #ifdef __FB_64BIT__
-	type _PROPSHEETPAGEA_V1 field = 8
+	type _PROPSHEETPAGEA_V1
 		dwSize as DWORD
 		dwFlags as DWORD
 		hInstance as HINSTANCE
 
-		union field = 8
+		union
 			pszTemplate as LPCSTR
 			pResource as PROPSHEETPAGE_RESOURCE
 		end union
 
-		union field = 8
+		union
 			hIcon as HICON
 			pszIcon as LPCSTR
 		end union
@@ -101,17 +101,17 @@ type LPPROPSHEETPAGEA_V1 as _PROPSHEETPAGEA_V1 ptr
 type LPCPROPSHEETPAGEA_V1 as const PROPSHEETPAGEA_V1 ptr
 
 #ifdef __FB_64BIT__
-	type _PROPSHEETPAGEA_V2 field = 8
+	type _PROPSHEETPAGEA_V2
 		dwSize as DWORD
 		dwFlags as DWORD
 		hInstance as HINSTANCE
 
-		union field = 8
+		union
 			pszTemplate as LPCSTR
 			pResource as PROPSHEETPAGE_RESOURCE
 		end union
 
-		union field = 8
+		union
 			hIcon as HICON
 			pszIcon as LPCSTR
 		end union
@@ -155,17 +155,17 @@ type LPPROPSHEETPAGEA_V2 as _PROPSHEETPAGEA_V2 ptr
 type LPCPROPSHEETPAGEA_V2 as const PROPSHEETPAGEA_V2 ptr
 
 #ifdef __FB_64BIT__
-	type _PROPSHEETPAGEA_ field = 8
+	type _PROPSHEETPAGEA_
 		dwSize as DWORD
 		dwFlags as DWORD
 		hInstance as HINSTANCE
 
-		union field = 8
+		union
 			pszTemplate as LPCSTR
 			pResource as PROPSHEETPAGE_RESOURCE
 		end union
 
-		union field = 8
+		union
 			hIcon as HICON
 			pszIcon as LPCSTR
 		end union
@@ -211,17 +211,17 @@ type LPPROPSHEETPAGEA_V3 as _PROPSHEETPAGEA ptr
 type LPCPROPSHEETPAGEA_V3 as const PROPSHEETPAGEA_V3 ptr
 
 #ifdef __FB_64BIT__
-	type _PROPSHEETPAGEW_V1 field = 8
+	type _PROPSHEETPAGEW_V1
 		dwSize as DWORD
 		dwFlags as DWORD
 		hInstance as HINSTANCE
 
-		union field = 8
+		union
 			pszTemplate as LPCWSTR
 			pResource as PROPSHEETPAGE_RESOURCE
 		end union
 
-		union field = 8
+		union
 			hIcon as HICON
 			pszIcon as LPCWSTR
 		end union
@@ -261,17 +261,17 @@ type LPPROPSHEETPAGEW_V1 as _PROPSHEETPAGEW_V1 ptr
 type LPCPROPSHEETPAGEW_V1 as const PROPSHEETPAGEW_V1 ptr
 
 #ifdef __FB_64BIT__
-	type _PROPSHEETPAGEW_V2 field = 8
+	type _PROPSHEETPAGEW_V2
 		dwSize as DWORD
 		dwFlags as DWORD
 		hInstance as HINSTANCE
 
-		union field = 8
+		union
 			pszTemplate as LPCWSTR
 			pResource as PROPSHEETPAGE_RESOURCE
 		end union
 
-		union field = 8
+		union
 			hIcon as HICON
 			pszIcon as LPCWSTR
 		end union
@@ -315,17 +315,17 @@ type LPPROPSHEETPAGEW_V2 as _PROPSHEETPAGEW_V2 ptr
 type LPCPROPSHEETPAGEW_V2 as const PROPSHEETPAGEW_V2 ptr
 
 #ifdef __FB_64BIT__
-	type _PROPSHEETPAGEW_ field = 8
+	type _PROPSHEETPAGEW_
 		dwSize as DWORD
 		dwFlags as DWORD
 		hInstance as HINSTANCE
 
-		union field = 8
+		union
 			pszTemplate as LPCWSTR
 			pResource as PROPSHEETPAGE_RESOURCE
 		end union
 
-		union field = 8
+		union
 			hIcon as HICON
 			pszIcon as LPCWSTR
 		end union
@@ -432,13 +432,13 @@ type PFNPROPSHEETCALLBACK as function(byval as HWND, byval as UINT, byval as LPA
 #define PROPSHEETHEADERW_V2_SIZE CCSIZEOF_STRUCT(PROPSHEETHEADERW, DUMMYUNION5_MEMBER(hbmHeader))
 
 #ifdef __FB_64BIT__
-	type _PROPSHEETHEADERA field = 8
+	type _PROPSHEETHEADERA
 		dwSize as DWORD
 		dwFlags as DWORD
 		hwndParent as HWND
 		hInstance as HINSTANCE
 
-		union field = 8
+		union
 			hIcon as HICON
 			pszIcon as LPCSTR
 		end union
@@ -446,26 +446,26 @@ type PFNPROPSHEETCALLBACK as function(byval as HWND, byval as UINT, byval as LPA
 		pszCaption as LPCSTR
 		nPages as UINT
 
-		union field = 8
+		union
 			nStartPage as UINT
 			pStartPage as LPCSTR
 		end union
 
-		union field = 8
+		union
 			ppsp as LPCPROPSHEETPAGEA
 			phpage as HPROPSHEETPAGE ptr
 		end union
 
 		pfnCallback as PFNPROPSHEETCALLBACK
 
-		union field = 8
+		union
 			hbmWatermark as HBITMAP
 			pszbmWatermark as LPCSTR
 		end union
 
 		hplWatermark as HPALETTE
 
-		union field = 8
+		union
 			hbmHeader as HBITMAP
 			pszbmHeader as LPCSTR
 		end union
@@ -516,13 +516,13 @@ type LPPROPSHEETHEADERA as _PROPSHEETHEADERA ptr
 type LPCPROPSHEETHEADERA as const PROPSHEETHEADERA ptr
 
 #ifdef __FB_64BIT__
-	type _PROPSHEETHEADERW field = 8
+	type _PROPSHEETHEADERW
 		dwSize as DWORD
 		dwFlags as DWORD
 		hwndParent as HWND
 		hInstance as HINSTANCE
 
-		union field = 8
+		union
 			hIcon as HICON
 			pszIcon as LPCWSTR
 		end union
@@ -530,26 +530,26 @@ type LPCPROPSHEETHEADERA as const PROPSHEETHEADERA ptr
 		pszCaption as LPCWSTR
 		nPages as UINT
 
-		union field = 8
+		union
 			nStartPage as UINT
 			pStartPage as LPCWSTR
 		end union
 
-		union field = 8
+		union
 			ppsp as LPCPROPSHEETPAGEW
 			phpage as HPROPSHEETPAGE ptr
 		end union
 
 		pfnCallback as PFNPROPSHEETCALLBACK
 
-		union field = 8
+		union
 			hbmWatermark as HBITMAP
 			pszbmWatermark as LPCWSTR
 		end union
 
 		hplWatermark as HPALETTE
 
-		union field = 8
+		union
 			hbmHeader as HBITMAP
 			pszbmHeader as LPCWSTR
 		end union
@@ -621,7 +621,7 @@ type LPFNADDPROPSHEETPAGE as function(byval as HPROPSHEETPAGE, byval as LPARAM) 
 type LPFNADDPROPSHEETPAGES as function(byval as LPVOID, byval as LPFNADDPROPSHEETPAGE, byval as LPARAM) as WINBOOL
 
 #ifdef __FB_64BIT__
-	type _PSHNOTIFY field = 8
+	type _PSHNOTIFY
 		hdr as NMHDR
 		lParam as LPARAM
 	end type

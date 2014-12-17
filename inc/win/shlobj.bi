@@ -549,7 +549,7 @@ declare function SHGetFolderPathAndSubDirW(byval hwnd as HWND, byval csidl as lo
 
 type BFFCALLBACK as function(byval hwnd as HWND, byval uMsg as UINT, byval lParam as LPARAM, byval lpData as LPARAM) as long
 
-type _browseinfoA field = 8
+type _browseinfoA
 	hwndOwner as HWND
 	pidlRoot as LPCITEMIDLIST
 	pszDisplayName as LPSTR
@@ -564,7 +564,7 @@ type BROWSEINFOA as _browseinfoA
 type PBROWSEINFOA as _browseinfoA ptr
 type LPBROWSEINFOA as _browseinfoA ptr
 
-type _browseinfoW field = 8
+type _browseinfoW
 	hwndOwner as HWND
 	pidlRoot as LPCITEMIDLIST
 	pszDisplayName as LPWSTR
@@ -752,7 +752,7 @@ end type
 
 type LPTHUMBNAILCAPTURE as IThumbnailCapture ptr
 
-type _EnumImageStoreDATAtag field = 8
+type _EnumImageStoreDATAtag
 	szPath(0 to 259) as WCHAR
 	ftTimeStamp as FILETIME
 end type
@@ -823,7 +823,7 @@ type LPSHELLIMAGESTORE as IShellImageStore ptr
 #define ISFBVIEWMODE_LARGEICONS &h0002
 #define ISFBVIEWMODE_LOGOS &h0003
 
-type BANDINFOSFB field = 8
+type BANDINFOSFB
 	dwMask as DWORD
 	dwStateMask as DWORD
 	dwState as DWORD
@@ -893,7 +893,7 @@ end type
 type LPSHCOLUMNINFO as SHCOLUMNINFO ptr
 type LPCSHCOLUMNINFO as const SHCOLUMNINFO ptr
 
-type SHCOLUMNINIT field = 8
+type SHCOLUMNINIT
 	dwFlags as ULONG
 	dwReserved as ULONG
 	wszFolder(0 to 259) as WCHAR
@@ -904,7 +904,7 @@ type LPCSHCOLUMNINIT as const SHCOLUMNINIT ptr
 
 #define SHCDF_UPDATEITEM &h00000001
 
-type SHCOLUMNDATA field = 8
+type SHCOLUMNDATA
 	dwFlags as ULONG
 	dwFileAttributes as DWORD
 	dwReserved as ULONG
@@ -965,7 +965,7 @@ end type
 #define DVASPECT_COPY 3
 #define DVASPECT_LINK 4
 
-type _NRESARRAY field = 8
+type _NRESARRAY
 	cItems as UINT
 	nr(0 to 0) as NETRESOURCE
 end type
@@ -1227,7 +1227,7 @@ declare function SHGetInstanceExplorer(byval ppunk as IUnknown ptr ptr) as HRESU
 #define SHDID_COMPUTER_AUDIO 19
 #define SHDID_COMPUTER_SHAREDDOCS 20
 
-type _SHDESCRIPTIONID field = 8
+type _SHDESCRIPTIONID
 	dwDescriptionId as DWORD
 	clsid as CLSID
 end type
@@ -1561,7 +1561,7 @@ end enum
 
 type OPEN_AS_INFO_FLAGS as long
 
-type _openasinfo field = 8
+type _openasinfo
 	pcszFile as LPCWSTR
 	pcszClass as LPCWSTR
 	oaifInFlags as OPEN_AS_INFO_FLAGS
@@ -1663,7 +1663,7 @@ type IShellFolderViewCBVtbl_ field = 1
 	MessageSFVCB as function(byval This as IShellFolderViewCB ptr, byval uMsg as UINT, byval wParam as WPARAM, byval lParam as LPARAM) as HRESULT
 end type
 
-type _QCMINFO_IDMAP_PLACEMENT field = 8
+type _QCMINFO_IDMAP_PLACEMENT
 	id as UINT
 	fFlags as UINT
 end type
@@ -1673,14 +1673,14 @@ type QCMINFO_IDMAP_PLACEMENT as _QCMINFO_IDMAP_PLACEMENT
 #define QCMINFO_PLACE_BEFORE 0
 #define QCMINFO_PLACE_AFTER 1
 
-type _QCMINFO_IDMAP field = 8
+type _QCMINFO_IDMAP
 	nMaxIds as UINT
 	pIdList(0 to 0) as QCMINFO_IDMAP_PLACEMENT
 end type
 
 type QCMINFO_IDMAP as _QCMINFO_IDMAP
 
-type _QCMINFO field = 8
+type _QCMINFO
 	hmenu as HMENU
 	indexMenu as UINT
 	idCmdFirst as UINT
@@ -1699,7 +1699,7 @@ type LPQCMINFO as QCMINFO ptr
 #define TBIF_STANDARDTOOLBAR &h00020000
 #define TBIF_NOTOOLBAR &h00030000
 
-type _TBINFO field = 8
+type _TBINFO
 	cbuttons as UINT
 	uFlags as UINT
 end type
@@ -1707,7 +1707,7 @@ end type
 type TBINFO as _TBINFO
 type LPTBINFO as TBINFO ptr
 
-type _DETAILSINFO field = 8
+type _DETAILSINFO
 	pidl as LPCITEMIDLIST
 	fmt as long
 	cxChar as long
@@ -1718,7 +1718,7 @@ end type
 type DETAILSINFO as _DETAILSINFO
 type PDETAILSINFO as DETAILSINFO ptr
 
-type _SFVM_PROPPAGE_DATA field = 8
+type _SFVM_PROPPAGE_DATA
 	dwReserved as DWORD
 	pfn as LPFNADDPROPSHEETPAGE
 	lParam as LPARAM
@@ -1726,7 +1726,7 @@ end type
 
 type SFVM_PROPPAGE_DATA as _SFVM_PROPPAGE_DATA
 
-type _SFVM_HELPTOPIC_DATA field = 8
+type _SFVM_HELPTOPIC_DATA
 	wszHelpFile(0 to 259) as WCHAR
 	wszHelpTopic(0 to 259) as WCHAR
 end type
@@ -1763,7 +1763,7 @@ type SFVM_HELPTOPIC_DATA as _SFVM_HELPTOPIC_DATA
 #define SFVM_GETHELPTOPIC 63
 #define SFVM_GETANIMATION 68
 
-type _ITEMSPACING field = 8
+type _ITEMSPACING
 	cxSmall as long
 	cySmall as long
 	cxLarge as long
@@ -1778,11 +1778,11 @@ type ITEMSPACING as _ITEMSPACING
 #define SFVS_SELECT_ALLITEMS &h1
 #define SFVS_SELECT_INVERT &h2
 
-type IShellFolderView field = 8
+type IShellFolderView
 	lpVtbl as IShellFolderViewVtbl ptr
 end type
 
-type IShellFolderViewVtbl_ field = 8
+type IShellFolderViewVtbl_
 	Rearrange as function(byval This as IShellFolderView ptr, byval lParamSort as LPARAM) as HRESULT
 	GetArrangeParam as function(byval This as IShellFolderView ptr, byval plParamSort as LPARAM ptr) as HRESULT
 	ArrangeGrid as function(byval This as IShellFolderView ptr) as HRESULT
@@ -1819,7 +1819,7 @@ type IShellFolderViewVtbl_ field = 8
 	SetAutomationObject as function(byval This as IShellFolderView ptr, byval pdisp as IDispatch ptr) as HRESULT
 end type
 
-type _SFV_CREATE field = 8
+type _SFV_CREATE
 	cbSize as UINT
 	pshf as IShellFolder ptr
 	psvOuter as IShellView ptr
@@ -1834,7 +1834,7 @@ type LPFNDFMCALLBACK as function(byval psf as IShellFolder ptr, byval hwnd as HW
 
 declare function CDefFolderMenu_Create2(byval pidlFolder as LPCITEMIDLIST, byval hwnd as HWND, byval cidl as UINT, byval apidl as LPCITEMIDLIST ptr, byval psf as IShellFolder ptr, byval pfn as LPFNDFMCALLBACK, byval nKeys as UINT, byval ahkeys as const HKEY ptr, byval ppcm as IContextMenu ptr ptr) as HRESULT
 
-type DEFCONTEXTMENU field = 8
+type DEFCONTEXTMENU
 	hwnd as HWND
 	pcmcb as IContextMenuCB ptr
 	pidlFolder as LPCITEMIDLIST
@@ -1851,7 +1851,7 @@ declare function SHOpenPropSheetW(byval pszCaption as LPCWSTR, byval ahkeys as H
 
 #define SHOpenPropSheet __MINGW_NAME_AW(SHOpenPropSheet)
 
-type DFMICS field = 8
+type DFMICS
 	cbSize as DWORD
 	fMask as DWORD
 	lParam as LPARAM
@@ -1894,7 +1894,7 @@ type PDFMICS as DFMICS ptr
 
 type LPFNVIEWCALLBACK as function(byval psvOuter as IShellView ptr, byval psf as IShellFolder ptr, byval hwndMain as HWND, byval uMsg as UINT, byval wParam as WPARAM, byval lParam as LPARAM) as HRESULT
 
-type _CSFV field = 8
+type _CSFV
 	cbSize as UINT
 	pshf as IShellFolder ptr
 	psvOuter as IShellView ptr
@@ -1929,7 +1929,7 @@ type LPCSFV as _CSFV ptr
 #define ShellFolderView_SetClipboard(_hwnd, _dwEffect) cast(any, SHShellFolderView_Message(_hwnd, SFVM_SETCLIPBOARD, cast(LPARAM, cast(DWORD, (_dwEffect)))))
 #define ShellFolderView_SetPoints(_hwnd, _pdtobj) cast(any, SHShellFolderView_Message(_hwnd, SFVM_SETPOINTS, cast(LPARAM, (_pdtobj))))
 
-type _SFV_SETITEMPOS field = 8
+type _SFV_SETITEMPOS
 	pidl as LPCITEMIDLIST
 	pt as POINT_
 end type
@@ -2168,7 +2168,7 @@ declare sub PerUserInit()
 declare function SHRunControlPanel(byval lpcszCmdLine as PCWSTR, byval hwndMsgParent as HWND) as WINBOOL
 declare function PickIconDlg(byval hwnd as HWND, byval pszIconPath as PWSTR, byval cchIconPath as UINT, byval piIconIndex as long ptr) as long
 
-type tagAAMENUFILENAME field = 8
+type tagAAMENUFILENAME
 	cbTotal as SHORT
 	rgbReserved(0 to 11) as UBYTE
 	szFileName(0 to 0) as WCHAR
@@ -2177,7 +2177,7 @@ end type
 type AASHELLMENUFILENAME as tagAAMENUFILENAME
 type LPAASHELLMENUFILENAME as tagAAMENUFILENAME ptr
 
-type tagAASHELLMENUITEM field = 8
+type tagAASHELLMENUITEM
 	lpReserved1 as any ptr
 	iReserved as long
 	uiReserved as UINT

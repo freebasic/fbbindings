@@ -754,11 +754,11 @@ enum
 	ASSOCENUM_NONE
 end enum
 
-type IQueryAssociations field = 8
+type IQueryAssociations
 	lpVtbl as IQueryAssociationsVtbl ptr
 end type
 
-type IQueryAssociationsVtbl_ field = 8
+type IQueryAssociationsVtbl_
 	QueryInterface as function(byval This as IQueryAssociations ptr, byval riid as const IID const ptr, byval ppv as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IQueryAssociations ptr) as ULONG
 	Release as function(byval This as IQueryAssociations ptr) as ULONG
@@ -843,7 +843,7 @@ declare sub ColorRGBToHLS(byval clrRGB as COLORREF, byval pwHue as WORD ptr, byv
 declare function ColorHLSToRGB(byval wHue as WORD, byval wLuminance as WORD, byval wSaturation as WORD) as COLORREF
 declare function ColorAdjustLuma(byval clrRGB as COLORREF, byval n as long, byval fScale as WINBOOL) as COLORREF
 
-type _DLLVERSIONINFO field = 8
+type _DLLVERSIONINFO
 	cbSize as DWORD
 	dwMajorVersion as DWORD
 	dwMinorVersion as DWORD
@@ -856,7 +856,7 @@ type DLLVERSIONINFO as _DLLVERSIONINFO
 #define DLLVER_PLATFORM_WINDOWS &h00000001
 #define DLLVER_PLATFORM_NT &h00000002
 
-type _DLLVERSIONINFO2 field = 8
+type _DLLVERSIONINFO2
 	info1 as DLLVERSIONINFO
 	dwFlags as DWORD
 	ullVersion as ULONGLONG

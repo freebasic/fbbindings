@@ -31,7 +31,7 @@ type HINF as PVOID
 #define SP_MAX_MACHINENAME_LENGTH (MAX_PATH + 3)
 
 #ifdef __FB_64BIT__
-	type _INFCONTEXT field = 8
+	type _INFCONTEXT
 		Inf as PVOID
 		CurrentInf as PVOID
 		Section as UINT
@@ -50,7 +50,7 @@ type INFCONTEXT as _INFCONTEXT
 type PINFCONTEXT as _INFCONTEXT ptr
 
 #ifdef __FB_64BIT__
-	type _SP_INF_INFORMATION field = 8
+	type _SP_INF_INFORMATION
 		InfStyle as DWORD
 		InfCount as DWORD
 		VersionData(0 to 0) as UBYTE
@@ -67,14 +67,14 @@ type SP_INF_INFORMATION as _SP_INF_INFORMATION
 type PSP_INF_INFORMATION as _SP_INF_INFORMATION ptr
 
 #ifdef __FB_64BIT__
-	type _SP_ALTPLATFORM_INFO_V2 field = 8
+	type _SP_ALTPLATFORM_INFO_V2
 		cbSize as DWORD
 		Platform as DWORD
 		MajorVersion as DWORD
 		MinorVersion as DWORD
 		ProcessorArchitecture as WORD
 
-		union field = 8
+		union
 			Reserved as WORD
 			Flags as WORD
 		end union
@@ -104,7 +104,7 @@ type SP_ALTPLATFORM_INFO_V2 as _SP_ALTPLATFORM_INFO_V2
 type PSP_ALTPLATFORM_INFO_V2 as _SP_ALTPLATFORM_INFO_V2 ptr
 
 #ifdef __FB_64BIT__
-	type _SP_ALTPLATFORM_INFO_V1 field = 8
+	type _SP_ALTPLATFORM_INFO_V1
 		cbSize as DWORD
 		Platform as DWORD
 		MajorVersion as DWORD
@@ -131,7 +131,7 @@ type PSP_ALTPLATFORM_INFO as PSP_ALTPLATFORM_INFO_V2
 #define SP_ALTPLATFORM_FLAGS_VERSION_RANGE &h0001
 
 #ifdef __FB_64BIT__
-	type _SP_ORIGINAL_FILE_INFO_A field = 8
+	type _SP_ORIGINAL_FILE_INFO_A
 		cbSize as DWORD
 		OriginalInfName(0 to 259) as CHAR
 		OriginalCatalogName(0 to 259) as CHAR
@@ -148,7 +148,7 @@ type SP_ORIGINAL_FILE_INFO_A as _SP_ORIGINAL_FILE_INFO_A
 type PSP_ORIGINAL_FILE_INFO_A as _SP_ORIGINAL_FILE_INFO_A ptr
 
 #ifdef __FB_64BIT__
-	type _SP_ORIGINAL_FILE_INFO_W field = 8
+	type _SP_ORIGINAL_FILE_INFO_W
 		cbSize as DWORD
 		OriginalInfName(0 to 259) as WCHAR
 		OriginalCatalogName(0 to 259) as WCHAR
@@ -274,7 +274,7 @@ type PSP_FILE_CALLBACK_W as function(byval Context as PVOID, byval Notification 
 #define DELFLG_IN_USE1 &h00010000
 
 #ifdef __FB_64BIT__
-	type _FILEPATHS_A field = 8
+	type _FILEPATHS_A
 		Target as PCSTR
 		Source as PCSTR
 		Win32Error as UINT
@@ -293,7 +293,7 @@ type FILEPATHS_A as _FILEPATHS_A
 type PFILEPATHS_A as _FILEPATHS_A ptr
 
 #ifdef __FB_64BIT__
-	type _FILEPATHS_W field = 8
+	type _FILEPATHS_W
 		Target as PCWSTR
 		Source as PCWSTR
 		Win32Error as UINT
@@ -320,7 +320,7 @@ type PFILEPATHS_W as _FILEPATHS_W ptr
 #endif
 
 #ifdef __FB_64BIT__
-	type _FILEPATHS_SIGNERINFO_A field = 8
+	type _FILEPATHS_SIGNERINFO_A
 		Target as PCSTR
 		Source as PCSTR
 		Win32Error as UINT
@@ -345,7 +345,7 @@ type FILEPATHS_SIGNERINFO_A as _FILEPATHS_SIGNERINFO_A
 type PFILEPATHS_SIGNERINFO_A as _FILEPATHS_SIGNERINFO_A ptr
 
 #ifdef __FB_64BIT__
-	type _FILEPATHS_SIGNERINFO_W field = 8
+	type _FILEPATHS_SIGNERINFO_W
 		Target as PCWSTR
 		Source as PCWSTR
 		Win32Error as UINT
@@ -378,7 +378,7 @@ type PFILEPATHS_SIGNERINFO_W as _FILEPATHS_SIGNERINFO_W ptr
 #endif
 
 #ifdef __FB_64BIT__
-	type _SOURCE_MEDIA_A field = 8
+	type _SOURCE_MEDIA_A
 		Reserved as PCSTR
 		Tagfile as PCSTR
 		Description as PCSTR
@@ -401,7 +401,7 @@ type SOURCE_MEDIA_A as _SOURCE_MEDIA_A
 type PSOURCE_MEDIA_A as _SOURCE_MEDIA_A ptr
 
 #ifdef __FB_64BIT__
-	type _SOURCE_MEDIA_W field = 8
+	type _SOURCE_MEDIA_W
 		Reserved as PCWSTR
 		Tagfile as PCWSTR
 		Description as PCWSTR
@@ -432,7 +432,7 @@ type PSOURCE_MEDIA_W as _SOURCE_MEDIA_W ptr
 #endif
 
 #ifdef __FB_64BIT__
-	type _CABINET_INFO_A field = 8
+	type _CABINET_INFO_A
 		CabinetPath as PCSTR
 		CabinetFile as PCSTR
 		DiskName as PCSTR
@@ -453,7 +453,7 @@ type CABINET_INFO_A as _CABINET_INFO_A
 type PCABINET_INFO_A as _CABINET_INFO_A ptr
 
 #ifdef __FB_64BIT__
-	type _CABINET_INFO_W field = 8
+	type _CABINET_INFO_W
 		CabinetPath as PCWSTR
 		CabinetFile as PCWSTR
 		DiskName as PCWSTR
@@ -482,7 +482,7 @@ type PCABINET_INFO_W as _CABINET_INFO_W ptr
 #endif
 
 #ifdef __FB_64BIT__
-	type _FILE_IN_CABINET_INFO_A field = 8
+	type _FILE_IN_CABINET_INFO_A
 		NameInCabinet as PCSTR
 		FileSize as DWORD
 		Win32Error as DWORD
@@ -507,7 +507,7 @@ type FILE_IN_CABINET_INFO_A as _FILE_IN_CABINET_INFO_A
 type PFILE_IN_CABINET_INFO_A as _FILE_IN_CABINET_INFO_A ptr
 
 #ifdef __FB_64BIT__
-	type _FILE_IN_CABINET_INFO_W field = 8
+	type _FILE_IN_CABINET_INFO_W
 		NameInCabinet as PCWSTR
 		FileSize as DWORD
 		Win32Error as DWORD
@@ -540,7 +540,7 @@ type PFILE_IN_CABINET_INFO_W as _FILE_IN_CABINET_INFO_W ptr
 #endif
 
 #ifdef __FB_64BIT__
-	type _SP_REGISTER_CONTROL_STATUSA field = 8
+	type _SP_REGISTER_CONTROL_STATUSA
 		cbSize as DWORD
 		FileName as PCSTR
 		Win32Error as DWORD
@@ -559,7 +559,7 @@ type SP_REGISTER_CONTROL_STATUSA as _SP_REGISTER_CONTROL_STATUSA
 type PSP_REGISTER_CONTROL_STATUSA as _SP_REGISTER_CONTROL_STATUSA ptr
 
 #ifdef __FB_64BIT__
-	type _SP_REGISTER_CONTROL_STATUSW field = 8
+	type _SP_REGISTER_CONTROL_STATUSW
 		cbSize as DWORD
 		FileName as PCWSTR
 		Win32Error as DWORD
@@ -596,7 +596,7 @@ type PSP_REGISTER_CONTROL_STATUSW as _SP_REGISTER_CONTROL_STATUSW ptr
 type HSPFILEQ as PVOID
 
 #ifdef __FB_64BIT__
-	type _SP_FILE_COPY_PARAMS_A field = 8
+	type _SP_FILE_COPY_PARAMS_A
 		cbSize as DWORD
 		QueueHandle as HSPFILEQ
 		SourceRootPath as PCSTR
@@ -631,7 +631,7 @@ type SP_FILE_COPY_PARAMS_A as _SP_FILE_COPY_PARAMS_A
 type PSP_FILE_COPY_PARAMS_A as _SP_FILE_COPY_PARAMS_A ptr
 
 #ifdef __FB_64BIT__
-	type _SP_FILE_COPY_PARAMS_W field = 8
+	type _SP_FILE_COPY_PARAMS_W
 		cbSize as DWORD
 		QueueHandle as HSPFILEQ
 		SourceRootPath as PCWSTR
@@ -677,7 +677,7 @@ type HDSKSPC as PVOID
 type HDEVINFO as PVOID
 
 #ifdef __FB_64BIT__
-	type _SP_DEVINFO_DATA field = 8
+	type _SP_DEVINFO_DATA
 		cbSize as DWORD
 		ClassGuid as GUID
 		DevInst as DWORD
@@ -696,7 +696,7 @@ type SP_DEVINFO_DATA as _SP_DEVINFO_DATA
 type PSP_DEVINFO_DATA as _SP_DEVINFO_DATA ptr
 
 #ifdef __FB_64BIT__
-	type _SP_DEVICE_INTERFACE_DATA field = 8
+	type _SP_DEVICE_INTERFACE_DATA
 		cbSize as DWORD
 		InterfaceClassGuid as GUID
 		Flags as DWORD
@@ -726,7 +726,7 @@ type PSP_INTERFACE_DEVICE_DATA as PSP_DEVICE_INTERFACE_DATA
 #define SPID_REMOVED SPINT_REMOVED
 
 #ifdef __FB_64BIT__
-	type _SP_DEVICE_INTERFACE_DETAIL_DATA_A field = 8
+	type _SP_DEVICE_INTERFACE_DETAIL_DATA_A
 		cbSize as DWORD
 		DevicePath(0 to 0) as CHAR
 	end type
@@ -741,7 +741,7 @@ type SP_DEVICE_INTERFACE_DETAIL_DATA_A as _SP_DEVICE_INTERFACE_DETAIL_DATA_A
 type PSP_DEVICE_INTERFACE_DETAIL_DATA_A as _SP_DEVICE_INTERFACE_DETAIL_DATA_A ptr
 
 #ifdef __FB_64BIT__
-	type _SP_DEVICE_INTERFACE_DETAIL_DATA_W field = 8
+	type _SP_DEVICE_INTERFACE_DETAIL_DATA_W
 		cbSize as DWORD
 		DevicePath(0 to 0) as WCHAR
 	end type
@@ -777,7 +777,7 @@ type PSP_INTERFACE_DEVICE_DETAIL_DATA_A as PSP_DEVICE_INTERFACE_DETAIL_DATA_A
 #endif
 
 #ifdef __FB_64BIT__
-	type _SP_DEVINFO_LIST_DETAIL_DATA_A field = 8
+	type _SP_DEVINFO_LIST_DETAIL_DATA_A
 		cbSize as DWORD
 		ClassGuid as GUID
 		RemoteMachineHandle as HANDLE
@@ -796,7 +796,7 @@ type SP_DEVINFO_LIST_DETAIL_DATA_A as _SP_DEVINFO_LIST_DETAIL_DATA_A
 type PSP_DEVINFO_LIST_DETAIL_DATA_A as _SP_DEVINFO_LIST_DETAIL_DATA_A ptr
 
 #ifdef __FB_64BIT__
-	type _SP_DEVINFO_LIST_DETAIL_DATA_W field = 8
+	type _SP_DEVINFO_LIST_DETAIL_DATA_W
 		cbSize as DWORD
 		ClassGuid as GUID
 		RemoteMachineHandle as HANDLE
@@ -868,7 +868,7 @@ type PSP_DEVINFO_LIST_DETAIL_DATA_W as _SP_DEVINFO_LIST_DETAIL_DATA_W ptr
 type DI_FUNCTION as UINT
 
 #ifdef __FB_64BIT__
-	type _SP_DEVINSTALL_PARAMS_A field = 8
+	type _SP_DEVINSTALL_PARAMS_A
 		cbSize as DWORD
 		Flags as DWORD
 		FlagsEx as DWORD
@@ -911,7 +911,7 @@ type SP_DEVINSTALL_PARAMS_A as _SP_DEVINSTALL_PARAMS_A
 type PSP_DEVINSTALL_PARAMS_A as _SP_DEVINSTALL_PARAMS_A ptr
 
 #ifdef __FB_64BIT__
-	type _SP_DEVINSTALL_PARAMS_W field = 8
+	type _SP_DEVINSTALL_PARAMS_W
 		cbSize as DWORD
 		Flags as DWORD
 		FlagsEx as DWORD
@@ -1024,7 +1024,7 @@ type PSP_DEVINSTALL_PARAMS_W as _SP_DEVINSTALL_PARAMS_W ptr
 #define DI_FLAGSEX_RESTART_DEVICE_ONLY __MSABI_LONG(&h20000000)
 
 #ifdef __FB_64BIT__
-	type _SP_CLASSINSTALL_HEADER field = 8
+	type _SP_CLASSINSTALL_HEADER
 		cbSize as DWORD
 		InstallFunction as DI_FUNCTION
 	end type
@@ -1039,7 +1039,7 @@ type SP_CLASSINSTALL_HEADER as _SP_CLASSINSTALL_HEADER
 type PSP_CLASSINSTALL_HEADER as _SP_CLASSINSTALL_HEADER ptr
 
 #ifdef __FB_64BIT__
-	type _SP_ENABLECLASS_PARAMS field = 8
+	type _SP_ENABLECLASS_PARAMS
 		ClassInstallHeader as SP_CLASSINSTALL_HEADER
 		ClassGuid as GUID
 		EnableMessage as DWORD
@@ -1068,7 +1068,7 @@ type PSP_ENABLECLASS_PARAMS as _SP_ENABLECLASS_PARAMS ptr
 #define DICS_FLAG_CONFIGGENERAL &h00000004
 
 #ifdef __FB_64BIT__
-	type _SP_PROPCHANGE_PARAMS field = 8
+	type _SP_PROPCHANGE_PARAMS
 		ClassInstallHeader as SP_CLASSINSTALL_HEADER
 		StateChange as DWORD
 		Scope as DWORD
@@ -1087,7 +1087,7 @@ type SP_PROPCHANGE_PARAMS as _SP_PROPCHANGE_PARAMS
 type PSP_PROPCHANGE_PARAMS as _SP_PROPCHANGE_PARAMS ptr
 
 #ifdef __FB_64BIT__
-	type _SP_REMOVEDEVICE_PARAMS field = 8
+	type _SP_REMOVEDEVICE_PARAMS
 		ClassInstallHeader as SP_CLASSINSTALL_HEADER
 		Scope as DWORD
 		HwProfile as DWORD
@@ -1107,7 +1107,7 @@ type PSP_REMOVEDEVICE_PARAMS as _SP_REMOVEDEVICE_PARAMS ptr
 #define DI_REMOVEDEVICE_CONFIGSPECIFIC &h00000002
 
 #ifdef __FB_64BIT__
-	type _SP_UNREMOVEDEVICE_PARAMS field = 8
+	type _SP_UNREMOVEDEVICE_PARAMS
 		ClassInstallHeader as SP_CLASSINSTALL_HEADER
 		Scope as DWORD
 		HwProfile as DWORD
@@ -1126,7 +1126,7 @@ type PSP_UNREMOVEDEVICE_PARAMS as _SP_UNREMOVEDEVICE_PARAMS ptr
 #define DI_UNREMOVEDEVICE_CONFIGSPECIFIC &h00000002
 
 #ifdef __FB_64BIT__
-	type _SP_SELECTDEVICE_PARAMS_A field = 8
+	type _SP_SELECTDEVICE_PARAMS_A
 		ClassInstallHeader as SP_CLASSINSTALL_HEADER
 		Title(0 to 59) as CHAR
 		Instructions(0 to 255) as CHAR
@@ -1149,7 +1149,7 @@ type SP_SELECTDEVICE_PARAMS_A as _SP_SELECTDEVICE_PARAMS_A
 type PSP_SELECTDEVICE_PARAMS_A as _SP_SELECTDEVICE_PARAMS_A ptr
 
 #ifdef __FB_64BIT__
-	type _SP_SELECTDEVICE_PARAMS_W field = 8
+	type _SP_SELECTDEVICE_PARAMS_W
 		ClassInstallHeader as SP_CLASSINSTALL_HEADER
 		Title(0 to 59) as WCHAR
 		Instructions(0 to 255) as WCHAR
@@ -1180,7 +1180,7 @@ type PSP_SELECTDEVICE_PARAMS_W as _SP_SELECTDEVICE_PARAMS_W ptr
 type PDETECT_PROGRESS_NOTIFY as function(byval ProgressNotifyParam as PVOID, byval DetectComplete as DWORD) as WINBOOL
 
 #ifdef __FB_64BIT__
-	type _SP_DETECTDEVICE_PARAMS field = 8
+	type _SP_DETECTDEVICE_PARAMS
 		ClassInstallHeader as SP_CLASSINSTALL_HEADER
 		DetectProgressNotify as PDETECT_PROGRESS_NOTIFY
 		ProgressNotifyParam as PVOID
@@ -1199,7 +1199,7 @@ type PSP_DETECTDEVICE_PARAMS as _SP_DETECTDEVICE_PARAMS ptr
 #define MAX_INSTALLWIZARD_DYNAPAGES 20
 
 #ifdef __FB_64BIT__
-	type _SP_INSTALLWIZARD_DATA field = 8
+	type _SP_INSTALLWIZARD_DATA
 		ClassInstallHeader as SP_CLASSINSTALL_HEADER
 		Flags as DWORD
 		DynamicPages(0 to 19) as HPROPSHEETPAGE
@@ -1260,7 +1260,7 @@ type PSP_INSTALLWIZARD_DATA as _SP_INSTALLWIZARD_DATA ptr
 #define IDD_DYNAWIZ_INSTALLDETECTED_NODEVS 10008
 
 #ifdef __FB_64BIT__
-	type _SP_NEWDEVICEWIZARD_DATA field = 8
+	type _SP_NEWDEVICEWIZARD_DATA
 		ClassInstallHeader as SP_CLASSINSTALL_HEADER
 		Flags as DWORD
 		DynamicPages(0 to 19) as HPROPSHEETPAGE
@@ -1283,7 +1283,7 @@ type SP_ADDPROPERTYPAGE_DATA as SP_NEWDEVICEWIZARD_DATA
 type PSP_ADDPROPERTYPAGE_DATA as PSP_NEWDEVICEWIZARD_DATA
 
 #ifdef __FB_64BIT__
-	type _SP_TROUBLESHOOTER_PARAMS_A field = 8
+	type _SP_TROUBLESHOOTER_PARAMS_A
 		ClassInstallHeader as SP_CLASSINSTALL_HEADER
 		ChmFile(0 to 259) as CHAR
 		HtmlTroubleShooter(0 to 259) as CHAR
@@ -1300,7 +1300,7 @@ type SP_TROUBLESHOOTER_PARAMS_A as _SP_TROUBLESHOOTER_PARAMS_A
 type PSP_TROUBLESHOOTER_PARAMS_A as _SP_TROUBLESHOOTER_PARAMS_A ptr
 
 #ifdef __FB_64BIT__
-	type _SP_TROUBLESHOOTER_PARAMS_W field = 8
+	type _SP_TROUBLESHOOTER_PARAMS_W
 		ClassInstallHeader as SP_CLASSINSTALL_HEADER
 		ChmFile(0 to 259) as WCHAR
 		HtmlTroubleShooter(0 to 259) as WCHAR
@@ -1325,7 +1325,7 @@ type PSP_TROUBLESHOOTER_PARAMS_W as _SP_TROUBLESHOOTER_PARAMS_W ptr
 #endif
 
 #ifdef __FB_64BIT__
-	type _SP_POWERMESSAGEWAKE_PARAMS_A field = 8
+	type _SP_POWERMESSAGEWAKE_PARAMS_A
 		ClassInstallHeader as SP_CLASSINSTALL_HEADER
 		PowerMessageWake(0 to (256 * 2) - 1) as CHAR
 	end type
@@ -1340,7 +1340,7 @@ type SP_POWERMESSAGEWAKE_PARAMS_A as _SP_POWERMESSAGEWAKE_PARAMS_A
 type PSP_POWERMESSAGEWAKE_PARAMS_A as _SP_POWERMESSAGEWAKE_PARAMS_A ptr
 
 #ifdef __FB_64BIT__
-	type _SP_POWERMESSAGEWAKE_PARAMS_W field = 8
+	type _SP_POWERMESSAGEWAKE_PARAMS_W
 		ClassInstallHeader as SP_CLASSINSTALL_HEADER
 		PowerMessageWake(0 to (256 * 2) - 1) as WCHAR
 	end type
@@ -1363,7 +1363,7 @@ type PSP_POWERMESSAGEWAKE_PARAMS_W as _SP_POWERMESSAGEWAKE_PARAMS_W ptr
 #endif
 
 #ifdef __FB_64BIT__
-	type _SP_DRVINFO_DATA_V2_A field = 8
+	type _SP_DRVINFO_DATA_V2_A
 		cbSize as DWORD
 		DriverType as DWORD
 		Reserved as ULONG_PTR
@@ -1390,7 +1390,7 @@ type SP_DRVINFO_DATA_V2_A as _SP_DRVINFO_DATA_V2_A
 type PSP_DRVINFO_DATA_V2_A as _SP_DRVINFO_DATA_V2_A ptr
 
 #ifdef __FB_64BIT__
-	type _SP_DRVINFO_DATA_V2_W field = 8
+	type _SP_DRVINFO_DATA_V2_W
 		cbSize as DWORD
 		DriverType as DWORD
 		Reserved as ULONG_PTR
@@ -1417,7 +1417,7 @@ type SP_DRVINFO_DATA_V2_W as _SP_DRVINFO_DATA_V2_W
 type PSP_DRVINFO_DATA_V2_W as _SP_DRVINFO_DATA_V2_W ptr
 
 #ifdef __FB_64BIT__
-	type _SP_DRVINFO_DATA_V1_A field = 8
+	type _SP_DRVINFO_DATA_V1_A
 		cbSize as DWORD
 		DriverType as DWORD
 		Reserved as ULONG_PTR
@@ -1440,7 +1440,7 @@ type SP_DRVINFO_DATA_V1_A as _SP_DRVINFO_DATA_V1_A
 type PSP_DRVINFO_DATA_V1_A as _SP_DRVINFO_DATA_V1_A ptr
 
 #ifdef __FB_64BIT__
-	type _SP_DRVINFO_DATA_V1_W field = 8
+	type _SP_DRVINFO_DATA_V1_W
 		cbSize as DWORD
 		DriverType as DWORD
 		Reserved as ULONG_PTR
@@ -1482,7 +1482,7 @@ type SP_DRVINFO_DATA as SP_DRVINFO_DATA_V2
 type PSP_DRVINFO_DATA as PSP_DRVINFO_DATA_V2
 
 #ifdef __FB_64BIT__
-	type _SP_DRVINFO_DETAIL_DATA_A field = 8
+	type _SP_DRVINFO_DETAIL_DATA_A
 		cbSize as DWORD
 		InfDate as FILETIME
 		CompatIDsOffset as DWORD
@@ -1511,7 +1511,7 @@ type SP_DRVINFO_DETAIL_DATA_A as _SP_DRVINFO_DETAIL_DATA_A
 type PSP_DRVINFO_DETAIL_DATA_A as _SP_DRVINFO_DETAIL_DATA_A ptr
 
 #ifdef __FB_64BIT__
-	type _SP_DRVINFO_DETAIL_DATA_W field = 8
+	type _SP_DRVINFO_DETAIL_DATA_W
 		cbSize as DWORD
 		InfDate as FILETIME
 		CompatIDsOffset as DWORD
@@ -1548,7 +1548,7 @@ type PSP_DRVINFO_DETAIL_DATA_W as _SP_DRVINFO_DETAIL_DATA_W ptr
 #endif
 
 #ifdef __FB_64BIT__
-	type _SP_DRVINSTALL_PARAMS field = 8
+	type _SP_DRVINSTALL_PARAMS
 		cbSize as DWORD
 		Rank as DWORD
 		Flags as DWORD
@@ -1598,7 +1598,7 @@ type PSP_DRVINSTALL_PARAMS as _SP_DRVINSTALL_PARAMS ptr
 type PSP_DETSIG_CMPPROC as function(byval DeviceInfoSet as HDEVINFO, byval NewDeviceData as PSP_DEVINFO_DATA, byval ExistingDeviceData as PSP_DEVINFO_DATA, byval CompareContext as PVOID) as DWORD
 
 #ifdef __FB_64BIT__
-	type _COINSTALLER_CONTEXT_DATA field = 8
+	type _COINSTALLER_CONTEXT_DATA
 		PostProcessing as WINBOOL
 		InstallResult as DWORD
 		PrivateData as PVOID
@@ -1615,7 +1615,7 @@ type COINSTALLER_CONTEXT_DATA as _COINSTALLER_CONTEXT_DATA
 type PCOINSTALLER_CONTEXT_DATA as _COINSTALLER_CONTEXT_DATA ptr
 
 #ifdef __FB_64BIT__
-	type _SP_CLASSIMAGELIST_DATA field = 8
+	type _SP_CLASSIMAGELIST_DATA
 		cbSize as DWORD
 		ImageList as HIMAGELIST
 		Reserved as ULONG_PTR
@@ -1632,7 +1632,7 @@ type SP_CLASSIMAGELIST_DATA as _SP_CLASSIMAGELIST_DATA
 type PSP_CLASSIMAGELIST_DATA as _SP_CLASSIMAGELIST_DATA ptr
 
 #ifdef __FB_64BIT__
-	type _SP_PROPSHEETPAGE_REQUEST field = 8
+	type _SP_PROPSHEETPAGE_REQUEST
 		cbSize as DWORD
 		PageRequested as DWORD
 		DeviceInfoSet as HDEVINFO
@@ -1655,7 +1655,7 @@ type PSP_PROPSHEETPAGE_REQUEST as _SP_PROPSHEETPAGE_REQUEST ptr
 #define SPPSR_ENUM_ADV_DEVICE_PROPERTIES 3
 
 #ifdef __FB_64BIT__
-	type _SP_BACKUP_QUEUE_PARAMS_V2_A field = 8
+	type _SP_BACKUP_QUEUE_PARAMS_V2_A
 		cbSize as DWORD
 		FullInfPath(0 to 259) as CHAR
 		FilenameOffset as INT_
@@ -1674,7 +1674,7 @@ type SP_BACKUP_QUEUE_PARAMS_V2_A as _SP_BACKUP_QUEUE_PARAMS_V2_A
 type PSP_BACKUP_QUEUE_PARAMS_V2_A as _SP_BACKUP_QUEUE_PARAMS_V2_A ptr
 
 #ifdef __FB_64BIT__
-	type _SP_BACKUP_QUEUE_PARAMS_V2_W field = 8
+	type _SP_BACKUP_QUEUE_PARAMS_V2_W
 		cbSize as DWORD
 		FullInfPath(0 to 259) as WCHAR
 		FilenameOffset as INT_
@@ -1693,7 +1693,7 @@ type SP_BACKUP_QUEUE_PARAMS_V2_W as _SP_BACKUP_QUEUE_PARAMS_V2_W
 type PSP_BACKUP_QUEUE_PARAMS_V2_W as _SP_BACKUP_QUEUE_PARAMS_V2_W ptr
 
 #ifdef __FB_64BIT__
-	type _SP_BACKUP_QUEUE_PARAMS_V1_A field = 8
+	type _SP_BACKUP_QUEUE_PARAMS_V1_A
 		cbSize as DWORD
 		FullInfPath(0 to 259) as CHAR
 		FilenameOffset as INT_
@@ -1710,7 +1710,7 @@ type SP_BACKUP_QUEUE_PARAMS_V1_A as _SP_BACKUP_QUEUE_PARAMS_V1_A
 type PSP_BACKUP_QUEUE_PARAMS_V1_A as _SP_BACKUP_QUEUE_PARAMS_V1_A ptr
 
 #ifdef __FB_64BIT__
-	type _SP_BACKUP_QUEUE_PARAMS_V1_W field = 8
+	type _SP_BACKUP_QUEUE_PARAMS_V1_W
 		cbSize as DWORD
 		FullInfPath(0 to 259) as WCHAR
 		FilenameOffset as INT_
@@ -2606,7 +2606,7 @@ declare function SetupEnumInfSectionsA(byval InfHandle as HINF, byval Index as U
 declare function SetupEnumInfSectionsW(byval InfHandle as HINF, byval Index as UINT, byval Buffer as PWSTR, byval Size as UINT, byval SizeNeeded as UINT ptr) as WINBOOL
 
 #ifdef __FB_64BIT__
-	type _SP_INF_SIGNER_INFO_A field = 8
+	type _SP_INF_SIGNER_INFO_A
 		cbSize as DWORD
 		CatalogFile(0 to 259) as CHAR
 		DigitalSigner(0 to 259) as CHAR
@@ -2625,7 +2625,7 @@ type SP_INF_SIGNER_INFO_A as _SP_INF_SIGNER_INFO_A
 type PSP_INF_SIGNER_INFO_A as _SP_INF_SIGNER_INFO_A ptr
 
 #ifdef __FB_64BIT__
-	type _SP_INF_SIGNER_INFO_W field = 8
+	type _SP_INF_SIGNER_INFO_W
 		cbSize as DWORD
 		CatalogFile(0 to 259) as WCHAR
 		DigitalSigner(0 to 259) as WCHAR

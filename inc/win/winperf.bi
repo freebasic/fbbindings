@@ -8,7 +8,7 @@
 
 #define _WINPERF_
 
-type _PERF_DATA_BLOCK field = 8
+type _PERF_DATA_BLOCK
 	Signature(0 to 3) as WCHAR
 	LittleEndian as DWORD
 	Version as DWORD
@@ -31,7 +31,7 @@ type PPERF_DATA_BLOCK as _PERF_DATA_BLOCK ptr
 #define PERF_DATA_VERSION 1
 #define PERF_DATA_REVISION 1
 
-type _PERF_OBJECT_TYPE field = 8
+type _PERF_OBJECT_TYPE
 	TotalByteLength as DWORD
 	DefinitionLength as DWORD
 	HeaderLength as DWORD
@@ -142,7 +142,7 @@ type PPERF_OBJECT_TYPE as _PERF_OBJECT_TYPE ptr
 #define PERF_DETAIL_EXPERT 300
 #define PERF_DETAIL_WIZARD 400
 
-type _PERF_COUNTER_DEFINITION field = 8
+type _PERF_COUNTER_DEFINITION
 	ByteLength as DWORD
 	CounterNameTitleIndex as DWORD
 
@@ -172,7 +172,7 @@ type PPERF_COUNTER_DEFINITION as _PERF_COUNTER_DEFINITION ptr
 
 #define PERF_NO_UNIQUE_ID (-1)
 
-type _PERF_INSTANCE_DEFINITION field = 8
+type _PERF_INSTANCE_DEFINITION
 	ByteLength as DWORD
 	ParentObjectTitleIndex as DWORD
 	ParentObjectInstance as DWORD
@@ -184,7 +184,7 @@ end type
 type PERF_INSTANCE_DEFINITION as _PERF_INSTANCE_DEFINITION
 type PPERF_INSTANCE_DEFINITION as _PERF_INSTANCE_DEFINITION ptr
 
-type _PERF_COUNTER_BLOCK field = 8
+type _PERF_COUNTER_BLOCK
 	ByteLength as DWORD
 end type
 

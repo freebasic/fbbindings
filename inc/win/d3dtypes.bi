@@ -11,9 +11,9 @@
 #endif
 
 #define __WINE_D3DTYPES_H
-#define D3DVALP(val, prec) cast(single, (val))
-#define D3DVAL(val) cast(single, (val))
-#define D3DDivide(a, b) cast(single, cast(double, (a)) / cast(double, (b)))
+#define D3DVALP(val, prec) csng((val))
+#define D3DVAL(val) csng((val))
+#define D3DDivide(a, b) csng(cdbl((a)) / cdbl((b)))
 #define D3DMultiply(a, b) ((a) * (b))
 
 type D3DFIXED as LONG
@@ -542,7 +542,7 @@ type LPD3DLIGHT7 as _D3DLIGHT7 ptr
 #define D3DLIGHT_ACTIVE &h00000001
 #define D3DLIGHT_NO_SPECULAR &h00000002
 #define D3DLIGHT_ALL (D3DLIGHT_ACTIVE or D3DLIGHT_NO_SPECULAR)
-#define D3DLIGHT_RANGE_MAX cast(single, sqrt(FLT_MAX))
+#define D3DLIGHT_RANGE_MAX csng(sqrt(FLT_MAX))
 
 type _D3DLIGHT2
 	dwSize as DWORD

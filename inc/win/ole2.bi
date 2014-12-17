@@ -91,7 +91,7 @@ declare function OleRegEnumVerbs(byval clsid as const IID const ptr, byval ppenu
 
 type LPOLESTREAM as _OLESTREAM ptr
 
-type _OLESTREAMVTBL field = 8
+type _OLESTREAMVTBL
 	Get as function(byval as LPOLESTREAM, byval as any ptr, byval as DWORD) as DWORD
 	Put as function(byval as LPOLESTREAM, byval as const any ptr, byval as DWORD) as DWORD
 end type
@@ -99,7 +99,7 @@ end type
 type OLESTREAMVTBL as _OLESTREAMVTBL
 type LPOLESTREAMVTBL as OLESTREAMVTBL ptr
 
-type _OLESTREAM field = 8
+type _OLESTREAM
 	lpstbl as LPOLESTREAMVTBL
 end type
 

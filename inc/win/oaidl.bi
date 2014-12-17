@@ -62,7 +62,7 @@ extern IOleAutomationTypes_v1_0_s_ifspec as RPC_IF_HANDLE
 
 type CURRENCY as CY
 
-type tagSAFEARRAYBOUND field = 8
+type tagSAFEARRAYBOUND
 	cElements as ULONG
 	lLbound as LONG
 end type
@@ -72,42 +72,42 @@ type LPSAFEARRAYBOUND as tagSAFEARRAYBOUND ptr
 type wireVARIANT as _wireVARIANT ptr
 type wireBRECORD as _wireBRECORD ptr
 
-type _wireSAFEARR_BSTR field = 8
+type _wireSAFEARR_BSTR
 	Size as ULONG
 	aBstr as wireBSTR ptr
 end type
 
 type SAFEARR_BSTR as _wireSAFEARR_BSTR
 
-type _wireSAFEARR_UNKNOWN field = 8
+type _wireSAFEARR_UNKNOWN
 	Size as ULONG
 	apUnknown as IUnknown ptr ptr
 end type
 
 type SAFEARR_UNKNOWN as _wireSAFEARR_UNKNOWN
 
-type _wireSAFEARR_DISPATCH field = 8
+type _wireSAFEARR_DISPATCH
 	Size as ULONG
 	apDispatch as IDispatch ptr ptr
 end type
 
 type SAFEARR_DISPATCH as _wireSAFEARR_DISPATCH
 
-type _wireSAFEARR_VARIANT field = 8
+type _wireSAFEARR_VARIANT
 	Size as ULONG
 	aVariant as wireVARIANT ptr
 end type
 
 type SAFEARR_VARIANT as _wireSAFEARR_VARIANT
 
-type _wireSAFEARR_BRECORD field = 8
+type _wireSAFEARR_BRECORD
 	Size as ULONG
 	aRecord as wireBRECORD ptr
 end type
 
 type SAFEARR_BRECORD as _wireSAFEARR_BRECORD
 
-type _wireSAFEARR_HAVEIID field = 8
+type _wireSAFEARR_HAVEIID
 	Size as ULONG
 	apUnknown as IUnknown ptr ptr
 	iid as IID
@@ -132,7 +132,7 @@ end enum
 
 type SF_TYPE as tagSF_TYPE
 
-union ___wireSAFEARRAY_UNION_u field = 8
+union ___wireSAFEARRAY_UNION_u
 	BstrStr as SAFEARR_BSTR
 	UnknownStr as SAFEARR_UNKNOWN
 	DispatchStr as SAFEARR_DISPATCH
@@ -145,14 +145,14 @@ union ___wireSAFEARRAY_UNION_u field = 8
 	HyperStr as HYPER_SIZEDARR
 end union
 
-type _wireSAFEARRAY_UNION field = 8
+type _wireSAFEARRAY_UNION
 	sfType as ULONG
 	u as ___wireSAFEARRAY_UNION_u
 end type
 
 type SAFEARRAYUNION as _wireSAFEARRAY_UNION
 
-type _wireSAFEARRAY field = 8
+type _wireSAFEARRAY
 	cDims as USHORT
 	fFeatures as USHORT
 	cbElements as ULONG
@@ -164,7 +164,7 @@ end type
 type wireSAFEARRAY as _wireSAFEARRAY ptr
 type wirePSAFEARRAY as wireSAFEARRAY ptr
 
-type tagSAFEARRAY field = 8
+type tagSAFEARRAY
 	cDims as USHORT
 	fFeatures as USHORT
 	cbElements as ULONG
@@ -198,15 +198,15 @@ type LPSAFEARRAY as SAFEARRAY ptr
 
 type VARIANT as tagVARIANT
 
-type tagVARIANT field = 8
-	union field = 8
-		type field = 8
+type tagVARIANT
+	union
+		type
 			vt as VARTYPE
 			wReserved1 as WORD
 			wReserved2 as WORD
 			wReserved3 as WORD
 
-			union field = 8
+			union
 				llVal as LONGLONG
 				lVal as LONG
 				bVal as UBYTE
@@ -251,7 +251,7 @@ type tagVARIANT field = 8
 				pintVal as INT_ ptr
 				puintVal as UINT ptr
 
-				type field = 8
+				type
 					pvRecord as PVOID
 					pRecInfo as IRecordInfo ptr
 				end type
@@ -269,14 +269,14 @@ type LPVARIANTARG as VARIANT ptr
 #define _REFVARIANT_DEFINED
 #define REFVARIANT '' TODO: const VARIANT * __MIDL_CONST
 
-type _wireBRECORD field = 8
+type _wireBRECORD
 	fFlags as ULONG
 	clSize as ULONG
 	pRecInfo as IRecordInfo ptr
 	pRecord as ubyte ptr
 end type
 
-type _wireVARIANT field = 8
+type _wireVARIANT
 	clSize as DWORD
 	rpcReserved as DWORD
 	vt as USHORT
@@ -284,7 +284,7 @@ type _wireVARIANT field = 8
 	wReserved2 as USHORT
 	wReserved3 as USHORT
 
-	union field = 8
+	union
 		llVal as LONGLONG
 		lVal as LONG
 		bVal as UBYTE
@@ -351,8 +351,8 @@ end enum
 
 type TYPEKIND as tagTYPEKIND
 
-type tagTYPEDESC field = 8
-	union field = 8
+type tagTYPEDESC
+	union
 		lptdesc as tagTYPEDESC ptr
 		lpadesc as tagARRAYDESC ptr
 		hreftype as HREFTYPE
@@ -363,7 +363,7 @@ end type
 
 type TYPEDESC as tagTYPEDESC
 
-type tagARRAYDESC_ field = 8
+type tagARRAYDESC_
 	tdescElem as TYPEDESC
 	cDims as USHORT
 	rgbounds(0 to 0) as SAFEARRAYBOUND
@@ -371,7 +371,7 @@ end type
 
 type ARRAYDESC as tagARRAYDESC
 
-type tagPARAMDESCEX field = 8
+type tagPARAMDESCEX
 	cBytes as ULONG
 	varDefaultValue as VARIANTARG
 end type
@@ -379,7 +379,7 @@ end type
 type PARAMDESCEX as tagPARAMDESCEX
 type LPPARAMDESCEX as tagPARAMDESCEX ptr
 
-type tagPARAMDESC field = 8
+type tagPARAMDESC
 	pparamdescex as LPPARAMDESCEX
 	wParamFlags as USHORT
 end type
@@ -396,7 +396,7 @@ type LPPARAMDESC as tagPARAMDESC ptr
 #define PARAMFLAG_FHASDEFAULT &h20
 #define PARAMFLAG_FHASCUSTDATA &h40
 
-type tagIDLDESC field = 8
+type tagIDLDESC
 	dwReserved as ULONG_PTR
 	wIDLFlags as USHORT
 end type
@@ -410,10 +410,10 @@ type LPIDLDESC as tagIDLDESC ptr
 #define IDLFLAG_FLCID PARAMFLAG_FLCID
 #define IDLFLAG_FRETVAL PARAMFLAG_FRETVAL
 
-type tagELEMDESC field = 8
+type tagELEMDESC
 	tdesc as TYPEDESC
 
-	union field = 8
+	union
 		idldesc as IDLDESC
 		paramdesc as PARAMDESC
 	end union
@@ -422,7 +422,7 @@ end type
 type ELEMDESC as tagELEMDESC
 type LPELEMDESC as tagELEMDESC ptr
 
-type tagTYPEATTR field = 8
+type tagTYPEATTR
 	guid as GUID
 	lcid as LCID
 	dwReserved as DWORD
@@ -446,7 +446,7 @@ end type
 type TYPEATTR as tagTYPEATTR
 type LPTYPEATTR as tagTYPEATTR ptr
 
-type tagDISPPARAMS field = 8
+type tagDISPPARAMS
 	rgvarg as VARIANTARG ptr
 	rgdispidNamedArgs as DISPID ptr
 	cArgs as UINT
@@ -455,7 +455,7 @@ end type
 
 type DISPPARAMS as tagDISPPARAMS
 
-type tagEXCEPINFO field = 8
+type tagEXCEPINFO
 	wCode as WORD
 	wReserved as WORD
 	bstrSource as BSTR
@@ -508,7 +508,7 @@ end enum
 
 type INVOKEKIND as tagINVOKEKIND
 
-type tagFUNCDESC field = 8
+type tagFUNCDESC
 	memid as MEMBERID
 	lprgscode as SCODE ptr
 	lprgelemdescParam as ELEMDESC ptr
@@ -541,11 +541,11 @@ type VARKIND as tagVARKIND
 #define IMPLTYPEFLAG_FRESTRICTED &h4
 #define IMPLTYPEFLAG_FDEFAULTVTABLE &h8
 
-type tagVARDESC field = 8
+type tagVARDESC
 	memid as MEMBERID
 	lpstrSchema as LPOLESTR
 
-	union field = 8
+	union
 		oInst as ULONG
 		lpvarValue as VARIANT ptr
 	end union
@@ -617,7 +617,7 @@ end enum
 
 type VARFLAGS as tagVARFLAGS
 
-type tagCLEANLOCALSTORAGE field = 8
+type tagCLEANLOCALSTORAGE
 	pInterface as IUnknown ptr
 	pStorage as PVOID
 	flags as DWORD
@@ -625,7 +625,7 @@ end type
 
 type CLEANLOCALSTORAGE as tagCLEANLOCALSTORAGE
 
-type tagCUSTDATAITEM field = 8
+type tagCUSTDATAITEM
 	guid as GUID
 	varValue as VARIANTARG
 end type
@@ -633,7 +633,7 @@ end type
 type CUSTDATAITEM as tagCUSTDATAITEM
 type LPCUSTDATAITEM as tagCUSTDATAITEM ptr
 
-type tagCUSTDATA field = 8
+type tagCUSTDATA
 	cCustData as DWORD
 	prgCustData as LPCUSTDATAITEM
 end type
@@ -647,7 +647,7 @@ type LPCREATETYPEINFO as ICreateTypeInfo ptr
 
 extern IID_ICreateTypeInfo as const GUID
 
-type ICreateTypeInfoVtbl field = 8
+type ICreateTypeInfoVtbl
 	QueryInterface as function(byval This as ICreateTypeInfo ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as ICreateTypeInfo ptr) as ULONG
 	Release as function(byval This as ICreateTypeInfo ptr) as ULONG
@@ -676,7 +676,7 @@ type ICreateTypeInfoVtbl field = 8
 	LayOut as function(byval This as ICreateTypeInfo ptr) as HRESULT
 end type
 
-type ICreateTypeInfo_ field = 8
+type ICreateTypeInfo_
 	lpVtbl as ICreateTypeInfoVtbl ptr
 end type
 
@@ -733,7 +733,7 @@ type LPCREATETYPEINFO2 as ICreateTypeInfo2 ptr
 
 extern IID_ICreateTypeInfo2 as const GUID
 
-type ICreateTypeInfo2Vtbl field = 8
+type ICreateTypeInfo2Vtbl
 	QueryInterface as function(byval This as ICreateTypeInfo2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as ICreateTypeInfo2 ptr) as ULONG
 	Release as function(byval This as ICreateTypeInfo2 ptr) as ULONG
@@ -777,7 +777,7 @@ type ICreateTypeInfo2Vtbl field = 8
 	SetName as function(byval This as ICreateTypeInfo2 ptr, byval szName as LPOLESTR) as HRESULT
 end type
 
-type ICreateTypeInfo2_ field = 8
+type ICreateTypeInfo2_
 	lpVtbl as ICreateTypeInfo2Vtbl ptr
 end type
 
@@ -818,7 +818,7 @@ type LPCREATETYPELIB as ICreateTypeLib ptr
 
 extern IID_ICreateTypeLib as const GUID
 
-type ICreateTypeLibVtbl field = 8
+type ICreateTypeLibVtbl
 	QueryInterface as function(byval This as ICreateTypeLib ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as ICreateTypeLib ptr) as ULONG
 	Release as function(byval This as ICreateTypeLib ptr) as ULONG
@@ -834,7 +834,7 @@ type ICreateTypeLibVtbl field = 8
 	SaveAllChanges as function(byval This as ICreateTypeLib ptr) as HRESULT
 end type
 
-type ICreateTypeLib_ field = 8
+type ICreateTypeLib_
 	lpVtbl as ICreateTypeLibVtbl ptr
 end type
 
@@ -865,7 +865,7 @@ type LPCREATETYPELIB2 as ICreateTypeLib2 ptr
 
 extern IID_ICreateTypeLib2 as const GUID
 
-type ICreateTypeLib2Vtbl field = 8
+type ICreateTypeLib2Vtbl
 	QueryInterface as function(byval This as ICreateTypeLib2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as ICreateTypeLib2 ptr) as ULONG
 	Release as function(byval This as ICreateTypeLib2 ptr) as ULONG
@@ -885,7 +885,7 @@ type ICreateTypeLib2Vtbl field = 8
 	SetHelpStringDll as function(byval This as ICreateTypeLib2 ptr, byval szFileName as LPOLESTR) as HRESULT
 end type
 
-type ICreateTypeLib2_ field = 8
+type ICreateTypeLib2_
 	lpVtbl as ICreateTypeLib2Vtbl ptr
 end type
 
@@ -913,7 +913,7 @@ type LPDISPATCH as IDispatch ptr
 
 extern IID_IDispatch as const GUID
 
-type IDispatchVtbl field = 8
+type IDispatchVtbl
 	QueryInterface as function(byval This as IDispatch ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IDispatch ptr) as ULONG
 	Release as function(byval This as IDispatch ptr) as ULONG
@@ -923,7 +923,7 @@ type IDispatchVtbl field = 8
 	Invoke as function(byval This as IDispatch ptr, byval dispIdMember as DISPID, byval riid as const IID const ptr, byval lcid as LCID, byval wFlags as WORD, byval pDispParams as DISPPARAMS ptr, byval pVarResult as VARIANT ptr, byval pExcepInfo as EXCEPINFO ptr, byval puArgErr as UINT ptr) as HRESULT
 end type
 
-type IDispatch_ field = 8
+type IDispatch_
 	lpVtbl as IDispatchVtbl ptr
 end type
 
@@ -944,7 +944,7 @@ type LPENUMVARIANT as IEnumVARIANT ptr
 
 extern IID_IEnumVARIANT as const GUID
 
-type IEnumVARIANTVtbl field = 8
+type IEnumVARIANTVtbl
 	QueryInterface as function(byval This as IEnumVARIANT ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IEnumVARIANT ptr) as ULONG
 	Release as function(byval This as IEnumVARIANT ptr) as ULONG
@@ -954,7 +954,7 @@ type IEnumVARIANTVtbl field = 8
 	Clone as function(byval This as IEnumVARIANT ptr, byval ppEnum as IEnumVARIANT ptr ptr) as HRESULT
 end type
 
-type IEnumVARIANT_ field = 8
+type IEnumVARIANT_
 	lpVtbl as IEnumVARIANTVtbl ptr
 end type
 
@@ -985,7 +985,7 @@ end enum
 
 type DESCKIND as tagDESCKIND
 
-union tagBINDPTR field = 8
+union tagBINDPTR
 	lpfuncdesc as FUNCDESC ptr
 	lpvardesc as VARDESC ptr
 	lptcomp as ITypeComp ptr
@@ -996,7 +996,7 @@ type LPBINDPTR as tagBINDPTR ptr
 
 extern IID_ITypeComp as const GUID
 
-type ITypeCompVtbl field = 8
+type ITypeCompVtbl
 	QueryInterface as function(byval This as ITypeComp ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as ITypeComp ptr) as ULONG
 	Release as function(byval This as ITypeComp ptr) as ULONG
@@ -1004,7 +1004,7 @@ type ITypeCompVtbl field = 8
 	BindType as function(byval This as ITypeComp ptr, byval szName as LPOLESTR, byval lHashVal as ULONG, byval ppTInfo as ITypeInfo ptr ptr, byval ppTComp as ITypeComp ptr ptr) as HRESULT
 end type
 
-type ITypeComp_ field = 8
+type ITypeComp_
 	lpVtbl as ITypeCompVtbl ptr
 end type
 
@@ -1023,7 +1023,7 @@ type LPTYPEINFO as ITypeInfo ptr
 
 extern IID_ITypeInfo as const GUID
 
-type ITypeInfoVtbl field = 8
+type ITypeInfoVtbl
 	QueryInterface as function(byval This as ITypeInfo ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as ITypeInfo ptr) as ULONG
 	Release as function(byval This as ITypeInfo ptr) as ULONG
@@ -1048,7 +1048,7 @@ type ITypeInfoVtbl field = 8
 	ReleaseVarDesc as sub(byval This as ITypeInfo ptr, byval pVarDesc as VARDESC ptr)
 end type
 
-type ITypeInfo_ field = 8
+type ITypeInfo_
 	lpVtbl as ITypeInfoVtbl ptr
 end type
 
@@ -1125,7 +1125,7 @@ type LPTYPEINFO2 as ITypeInfo2 ptr
 
 extern IID_ITypeInfo2 as const GUID
 
-type ITypeInfo2Vtbl field = 8
+type ITypeInfo2Vtbl
 	QueryInterface as function(byval This as ITypeInfo2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as ITypeInfo2 ptr) as ULONG
 	Release as function(byval This as ITypeInfo2 ptr) as ULONG
@@ -1165,7 +1165,7 @@ type ITypeInfo2Vtbl field = 8
 	GetAllImplTypeCustData as function(byval This as ITypeInfo2 ptr, byval index as UINT, byval pCustData as CUSTDATA ptr) as HRESULT
 end type
 
-type ITypeInfo2_ field = 8
+type ITypeInfo2_
 	lpVtbl as ITypeInfo2Vtbl ptr
 end type
 
@@ -1225,7 +1225,7 @@ end enum
 type LIBFLAGS as tagLIBFLAGS
 type LPTYPELIB as ITypeLib ptr
 
-type tagTLIBATTR field = 8
+type tagTLIBATTR
 	guid as GUID
 	lcid as LCID
 	syskind as SYSKIND
@@ -1239,7 +1239,7 @@ type LPTLIBATTR as tagTLIBATTR ptr
 
 extern IID_ITypeLib as const GUID
 
-type ITypeLibVtbl field = 8
+type ITypeLibVtbl
 	QueryInterface as function(byval This as ITypeLib ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as ITypeLib ptr) as ULONG
 	Release as function(byval This as ITypeLib ptr) as ULONG
@@ -1255,7 +1255,7 @@ type ITypeLibVtbl field = 8
 	ReleaseTLibAttr as sub(byval This as ITypeLib ptr, byval pTLibAttr as TLIBATTR ptr)
 end type
 
-type ITypeLib_ field = 8
+type ITypeLib_
 	lpVtbl as ITypeLibVtbl ptr
 end type
 
@@ -1298,7 +1298,7 @@ type LPTYPELIB2 as ITypeLib2 ptr
 
 extern IID_ITypeLib2 as const GUID
 
-type ITypeLib2Vtbl field = 8
+type ITypeLib2Vtbl
 	QueryInterface as function(byval This as ITypeLib2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as ITypeLib2 ptr) as ULONG
 	Release as function(byval This as ITypeLib2 ptr) as ULONG
@@ -1318,7 +1318,7 @@ type ITypeLib2Vtbl field = 8
 	GetAllCustData as function(byval This as ITypeLib2 ptr, byval pCustData as CUSTDATA ptr) as HRESULT
 end type
 
-type ITypeLib2_ field = 8
+type ITypeLib2_
 	lpVtbl as ITypeLib2Vtbl ptr
 end type
 
@@ -1355,7 +1355,7 @@ type CHANGEKIND as tagCHANGEKIND
 
 extern IID_ITypeChangeEvents as const GUID
 
-type ITypeChangeEventsVtbl field = 8
+type ITypeChangeEventsVtbl
 	QueryInterface as function(byval This as ITypeChangeEvents ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as ITypeChangeEvents ptr) as ULONG
 	Release as function(byval This as ITypeChangeEvents ptr) as ULONG
@@ -1363,7 +1363,7 @@ type ITypeChangeEventsVtbl field = 8
 	AfterTypeChange as function(byval This as ITypeChangeEvents ptr, byval changeKind as CHANGEKIND, byval pTInfoAfter as ITypeInfo ptr, byval pStrName as LPOLESTR) as HRESULT
 end type
 
-type ITypeChangeEvents_ field = 8
+type ITypeChangeEvents_
 	lpVtbl as ITypeChangeEventsVtbl ptr
 end type
 
@@ -1378,7 +1378,7 @@ type LPERRORINFO as IErrorInfo ptr
 
 extern IID_IErrorInfo as const GUID
 
-type IErrorInfoVtbl field = 8
+type IErrorInfoVtbl
 	QueryInterface as function(byval This as IErrorInfo ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IErrorInfo ptr) as ULONG
 	Release as function(byval This as IErrorInfo ptr) as ULONG
@@ -1389,7 +1389,7 @@ type IErrorInfoVtbl field = 8
 	GetHelpContext as function(byval This as IErrorInfo ptr, byval pdwHelpContext as DWORD ptr) as HRESULT
 end type
 
-type IErrorInfo_ field = 8
+type IErrorInfo_
 	lpVtbl as IErrorInfoVtbl ptr
 end type
 
@@ -1410,7 +1410,7 @@ type LPCREATEERRORINFO as ICreateErrorInfo ptr
 
 extern IID_ICreateErrorInfo as const GUID
 
-type ICreateErrorInfoVtbl field = 8
+type ICreateErrorInfoVtbl
 	QueryInterface as function(byval This as ICreateErrorInfo ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as ICreateErrorInfo ptr) as ULONG
 	Release as function(byval This as ICreateErrorInfo ptr) as ULONG
@@ -1421,7 +1421,7 @@ type ICreateErrorInfoVtbl field = 8
 	SetHelpContext as function(byval This as ICreateErrorInfo ptr, byval dwHelpContext as DWORD) as HRESULT
 end type
 
-type ICreateErrorInfo_ field = 8
+type ICreateErrorInfo_
 	lpVtbl as ICreateErrorInfoVtbl ptr
 end type
 
@@ -1442,14 +1442,14 @@ type LPSUPPORTERRORINFO as ISupportErrorInfo ptr
 
 extern IID_ISupportErrorInfo as const GUID
 
-type ISupportErrorInfoVtbl field = 8
+type ISupportErrorInfoVtbl
 	QueryInterface as function(byval This as ISupportErrorInfo ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as ISupportErrorInfo ptr) as ULONG
 	Release as function(byval This as ISupportErrorInfo ptr) as ULONG
 	InterfaceSupportsErrorInfo as function(byval This as ISupportErrorInfo ptr, byval riid as const IID const ptr) as HRESULT
 end type
 
-type ISupportErrorInfo_ field = 8
+type ISupportErrorInfo_
 	lpVtbl as ISupportErrorInfoVtbl ptr
 end type
 
@@ -1460,14 +1460,14 @@ declare sub ISupportErrorInfo_InterfaceSupportsErrorInfo_Stub(byval This as IRpc
 
 extern IID_ITypeFactory as const GUID
 
-type ITypeFactoryVtbl field = 8
+type ITypeFactoryVtbl
 	QueryInterface as function(byval This as ITypeFactory ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as ITypeFactory ptr) as ULONG
 	Release as function(byval This as ITypeFactory ptr) as ULONG
 	CreateFromTypeInfo as function(byval This as ITypeFactory ptr, byval pTypeInfo as ITypeInfo ptr, byval riid as const IID const ptr, byval ppv as IUnknown ptr ptr) as HRESULT
 end type
 
-type ITypeFactory_ field = 8
+type ITypeFactory_
 	lpVtbl as ITypeFactoryVtbl ptr
 end type
 
@@ -1478,7 +1478,7 @@ declare sub ITypeFactory_CreateFromTypeInfo_Stub(byval This as IRpcStubBuffer pt
 
 extern IID_ITypeMarshal as const GUID
 
-type ITypeMarshalVtbl field = 8
+type ITypeMarshalVtbl
 	QueryInterface as function(byval This as ITypeMarshal ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as ITypeMarshal ptr) as ULONG
 	Release as function(byval This as ITypeMarshal ptr) as ULONG
@@ -1488,7 +1488,7 @@ type ITypeMarshalVtbl field = 8
 	Free as function(byval This as ITypeMarshal ptr, byval pvType as PVOID) as HRESULT
 end type
 
-type ITypeMarshal_ field = 8
+type ITypeMarshal_
 	lpVtbl as ITypeMarshalVtbl ptr
 end type
 
@@ -1507,7 +1507,7 @@ type LPRECORDINFO as IRecordInfo ptr
 
 extern IID_IRecordInfo as const GUID
 
-type IRecordInfoVtbl field = 8
+type IRecordInfoVtbl
 	QueryInterface as function(byval This as IRecordInfo ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IRecordInfo ptr) as ULONG
 	Release as function(byval This as IRecordInfo ptr) as ULONG
@@ -1529,7 +1529,7 @@ type IRecordInfoVtbl field = 8
 	RecordDestroy as function(byval This as IRecordInfo ptr, byval pvRecord as PVOID) as HRESULT
 end type
 
-type IRecordInfo_ field = 8
+type IRecordInfo_
 	lpVtbl as IRecordInfoVtbl ptr
 end type
 
@@ -1572,14 +1572,14 @@ type LPERRORLOG as IErrorLog ptr
 
 extern IID_IErrorLog as const GUID
 
-type IErrorLogVtbl field = 8
+type IErrorLogVtbl
 	QueryInterface as function(byval This as IErrorLog ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IErrorLog ptr) as ULONG
 	Release as function(byval This as IErrorLog ptr) as ULONG
 	AddError as function(byval This as IErrorLog ptr, byval pszPropName as LPCOLESTR, byval pExcepInfo as EXCEPINFO ptr) as HRESULT
 end type
 
-type IErrorLog_ field = 8
+type IErrorLog_
 	lpVtbl as IErrorLogVtbl ptr
 end type
 
@@ -1592,7 +1592,7 @@ type LPPROPERTYBAG as IPropertyBag ptr
 
 extern IID_IPropertyBag as const GUID
 
-type IPropertyBagVtbl field = 8
+type IPropertyBagVtbl
 	QueryInterface as function(byval This as IPropertyBag ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IPropertyBag ptr) as ULONG
 	Release as function(byval This as IPropertyBag ptr) as ULONG
@@ -1600,7 +1600,7 @@ type IPropertyBagVtbl field = 8
 	Write as function(byval This as IPropertyBag ptr, byval pszPropName as LPCOLESTR, byval pVar as VARIANT ptr) as HRESULT
 end type
 
-type IPropertyBag_ field = 8
+type IPropertyBag_
 	lpVtbl as IPropertyBagVtbl ptr
 end type
 
