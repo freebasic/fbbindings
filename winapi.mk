@@ -145,6 +145,7 @@ WINAPI_BASE += regstr
 WINAPI_BASE += richedit
 WINAPI_BASE += richole
 WINAPI_BASE += rpc
+WINAPI_BASE += rpcasync
 #WINAPI_BASE += rpcdce2
 WINAPI_BASE += rpcdce
 WINAPI_BASE += rpcdcep

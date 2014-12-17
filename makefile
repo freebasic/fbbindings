@@ -415,6 +415,7 @@ WINAPI_FLAGS_rasdlg    += -include windows.h
 WINAPI_FLAGS_rassapi   += -include windef.h
 WINAPI_FLAGS_richedit  += -include windows.h
 WINAPI_FLAGS_richole   += -include windows.h
+WINAPI_FLAGS_rpcasync  += -include windows.h -filterin '*/rpcasync.h'
 WINAPI_FLAGS_rpcdce    += -include windows.h -filterin '*/rpcdce.h'
 WINAPI_FLAGS_rpcdcep   += -include windows.h -filterin '*/rpcdcep.h'
 WINAPI_FLAGS_rpcndr    += -include windows.h -filterin '*/rpcndr.h'
