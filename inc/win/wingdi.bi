@@ -12,6 +12,7 @@
 ''     #define ABORTDOC => ABORTDOC_
 ''     #define SETABORTPROC => SETABORTPROC_
 ''     #define SETMITERLIMIT => SETMITERLIMIT_
+''     #define BITSPIXEL => BITSPIXEL_
 ''     #define PLANES => PLANES_
 
 #ifdef __FB_64BIT__
@@ -1546,7 +1547,7 @@ type LPEXTLOGFONTW as tagEXTLOGFONTW ptr
 #define VERTSIZE 6
 #define HORZRES 8
 #define VERTRES 10
-#define BITSPIXEL 12
+#define BITSPIXEL_ 12
 #define PLANES_ 14
 #define NUMBRUSHES 16
 #define NUMPENS 18
