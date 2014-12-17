@@ -42,7 +42,6 @@ type <error-recovery> as <error-recovery>_
 #define TARGET_IS_NT40_OR_LATER 1
 #define TARGET_IS_NT351_OR_WIN95_OR_LATER 1
 
-type ubyte as ubyte
 type cs_byte as ubyte
 type boolean_ as ubyte
 

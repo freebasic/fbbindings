@@ -34,7 +34,6 @@ type WINBOOL as long
 type BOOL as long
 type PBOOL as WINBOOL ptr
 type LPBOOL as WINBOOL ptr
-type UBYTE as ubyte
 type WORD as ushort
 type DWORD as ulong
 type FLOAT as single
