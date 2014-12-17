@@ -398,7 +398,6 @@ WINAPI_FLAGS_isguids += -include windef.h
 WINAPI_FLAGS_ktmtypes += -include windef.h -filterin '*/ktmtypes.h'
 WINAPI_FLAGS_lzexpand += -include windows.h -filterin '*/lzexpand.h'
 WINAPI_FLAGS_mapi += -include windef.h
-WINAPI_FLAGS_minwinbase += -include windows.h -filterin '*/minwinbase.h'
 WINAPI_FLAGS_minwindef += -include windows.h -filterin '*/minwindef.h'
 WINAPI_FLAGS_mmsystem += -include windows.h -filterin '*/mmsystem.h'
 WINAPI_FLAGS_msacm += -include windows.h -include mmreg.h
@@ -436,7 +435,39 @@ WINAPI_FLAGS_uuids += -include windef.h -filterin '*ksuuids.h'
 WINAPI_FLAGS_uxtheme += -include windows.h
 WINAPI_FLAGS_vfw += -include windows.h
 WINAPI_FLAGS_vfwmsgs += -include windows.h
-WINAPI_FLAGS_winbase += -include windows.h -filterin '*winbase.h'
+WINAPI_FLAGS_winbase += -include windows.h \
+	-filterin '*/winbase.h' \
+	-filterin '*/minwinbase.h' \
+	-filterin '*/bemapiset.h' \
+	-filterin '*/debugapi.h' \
+	-filterin '*/errhandlingapi.h' \
+	-filterin '*/fibersapi.h' \
+	-filterin '*/fileapi.h' \
+	-filterin '*/handleapi.h' \
+	-filterin '*/heapapi.h' \
+	-filterin '*/ioapiset.h' \
+	-filterin '*/interlockedapi.h' \
+	-filterin '*/jobapi.h' \
+	-filterin '*/libloaderapi.h' \
+	-filterin '*/memoryapi.h' \
+	-filterin '*/namedpipeapi.h' \
+	-filterin '*/namespaceapi.h' \
+	-filterin '*/processenv.h' \
+	-filterin '*/processthreadsapi.h' \
+	-filterin '*/processtopologyapi.h' \
+	-filterin '*/profileapi.h' \
+	-filterin '*/realtimeapiset.h' \
+	-filterin '*/securityappcontainer.h' \
+	-filterin '*/securitybaseapi.h' \
+	-filterin '*/synchapi.h' \
+	-filterin '*/sysinfoapi.h' \
+	-filterin '*/systemtopologyapi.h' \
+	-filterin '*/threadpoolapiset.h' \
+	-filterin '*/threadpoollegacyapiset.h' \
+	-filterin '*/utilapiset.h' \
+	-filterin '*/wow64apiset.h' \
+	-filterin '*/timezoneapi.h'
+
 WINAPI_FLAGS_winber += -include windef.h
 WINAPI_FLAGS_wincon += -include windows.h -filterin '*/wincon.h'
 WINAPI_FLAGS_wincrypt += -include windows.h -filterin '*/wincrypt.h'
