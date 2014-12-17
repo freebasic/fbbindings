@@ -1445,6 +1445,7 @@ type LPEXTLOGFONTW as tagEXTLOGFONTW ptr
 #define DEVICE_FONTTYPE &h002
 #define TRUETYPE_FONTTYPE &h004
 #define BGR(r, g, b) cast(COLORREF, cast(UBYTE, (r) or cast(WORD, cast(UBYTE, (g)) shl 8)) or (cast(DWORD, cast(UBYTE, (b))) shl 16))
+#define BGRA(r, g, b, a) (culng(cubyte(r)) or (culng(cubyte(g)) shl 8) or (culng(cubyte(b)) shl 16) or (culng(cubyte(a)) shl 24))
 #define PALETTERGB(r, g, b) (&h02000000 or BGR(r, g, b))
 #define PALETTEINDEX(i) cast(COLORREF, &h01000000 or cast(DWORD, cast(WORD, (i))))
 #define PC_RESERVED &h01
