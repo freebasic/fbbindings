@@ -424,7 +424,7 @@ type PMIDL_XMIT_TYPE as any ptr
 
 type _MIDL_FORMAT_STRING field = 8
 	Pad as short
-	Format(0 to ...) as ubyte
+	Format(0 to 0) as ubyte
 end type
 
 type MIDL_FORMAT_STRING as _MIDL_FORMAT_STRING

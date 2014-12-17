@@ -565,7 +565,7 @@ type AVIPALCHANGE
 	bFirstEntry as UBYTE
 	bNumEntries as UBYTE
 	wFlags as WORD
-	peNew(0 to ...) as PALETTEENTRY
+	peNew(0 to 0) as PALETTEENTRY
 end type
 
 type _AVISTREAMINFOW field = 8
