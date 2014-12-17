@@ -28,7 +28,7 @@ declare function VideoForWindowsVersion() as DWORD
 declare function InitVFW() as LONG
 declare function TermVFW() as LONG
 
-#define MKFOURCC(ch0, ch1, ch2, ch3) cast(DWORD, cast(UBYTE, (((ch0) or cast(DWORD, cast(UBYTE, (ch1) shl 8))) or cast(DWORD, cast(UBYTE, (ch2) shl 16))) or cast(DWORD, cast(UBYTE, (ch3) shl 24))))
+#define MKFOURCC(ch0, ch1, ch2, ch3) (((cast(DWORD, cast(UBYTE, (ch0))) or (cast(DWORD, cast(UBYTE, (ch1))) shl 8)) or (cast(DWORD, cast(UBYTE, (ch2))) shl 16)) or (cast(DWORD, cast(UBYTE, (ch3))) shl 24))
 #define ICVERSION &h0104
 
 type HIC__
@@ -38,7 +38,7 @@ end type
 type HIC as HIC__ ptr
 
 #define BI_1632 &h32333631
-#define aviTWOCC(ch0, ch1) cast(WORD, cast(UBYTE, (ch0) or cast(WORD, cast(UBYTE, (ch1) shl 8))))
+#define aviTWOCC(ch0, ch1) (cast(WORD, cast(UBYTE, (ch0))) or (cast(WORD, cast(UBYTE, (ch1))) shl 8))
 #define ICTYPE_VIDEO mmioFOURCC(asc("v"), asc("i"), asc("d"), asc("c"))
 #define ICTYPE_AUDIO mmioFOURCC(asc("a"), asc("u"), asc("d"), asc("c"))
 #define ICERR_OK __MSABI_LONG(0)

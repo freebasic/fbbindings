@@ -13,7 +13,7 @@
 #define __WINE_D3DTYPES_H
 #define D3DVALP(val, prec) cast(single, (val))
 #define D3DVAL(val) cast(single, (val))
-#define D3DDivide(a, b) cast(single, cast(double, (a) / cast(double, (b))))
+#define D3DDivide(a, b) cast(single, cast(double, (a)) / cast(double, (b)))
 #define D3DMultiply(a, b) ((a) * (b))
 
 type D3DFIXED as LONG
@@ -794,7 +794,7 @@ enum
 end enum
 
 #define D3DSTATE_OVERRIDE_BIAS 256
-#define D3DSTATE_OVERRIDE(type) cast(D3DRENDERSTATETYPE, cast(DWORD, (type) + D3DSTATE_OVERRIDE_BIAS))
+#define D3DSTATE_OVERRIDE(type) cast(D3DRENDERSTATETYPE, cast(DWORD, (type)) + D3DSTATE_OVERRIDE_BIAS)
 
 type _D3DTRANSFORMSTATETYPE as long
 enum

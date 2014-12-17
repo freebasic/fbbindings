@@ -407,13 +407,13 @@ type OBJECTID as _OBJECTID
 #define RTL_PADDING_BETWEEN_FIELDS(T, F1, F2) iif(FIELD_OFFSET(T, F2) > FIELD_OFFSET(T, F1), (FIELD_OFFSET(T, F2) - FIELD_OFFSET(T, F1)) - RTL_FIELD_SIZE(T, F1), (FIELD_OFFSET(T, F1) - FIELD_OFFSET(T, F2)) - RTL_FIELD_SIZE(T, F2))
 #define RTL_CONST_CAST(type) (type)
 #define DEFINE_ENUM_FLAG_OPERATORS(ENUMTYPE)
-#define COMPILETIME_OR_2FLAGS(a, b) cast(UINT, (a) or cast(UINT, (b)))
-#define COMPILETIME_OR_3FLAGS(a, b, c) cast(UINT, (a) or cast(UINT, (b) or cast(UINT, (c))))
-#define COMPILETIME_OR_4FLAGS(a, b, c, d) cast(UINT, (a) or cast(UINT, (b) or cast(UINT, (c) or cast(UINT, (d)))))
-#define COMPILETIME_OR_5FLAGS(a, b, c, d, e) cast(UINT, (a) or cast(UINT, (b) or cast(UINT, (c) or cast(UINT, (d) or cast(UINT, (e))))))
+#define COMPILETIME_OR_2FLAGS(a, b) (cast(UINT, (a)) or cast(UINT, (b)))
+#define COMPILETIME_OR_3FLAGS(a, b, c) ((cast(UINT, (a)) or cast(UINT, (b))) or cast(UINT, (c)))
+#define COMPILETIME_OR_4FLAGS(a, b, c, d) (((cast(UINT, (a)) or cast(UINT, (b))) or cast(UINT, (c))) or cast(UINT, (d)))
+#define COMPILETIME_OR_5FLAGS(a, b, c, d, e) ((((cast(UINT, (a)) or cast(UINT, (b))) or cast(UINT, (c))) or cast(UINT, (d))) or cast(UINT, (e)))
 #define RTL_BITS_OF(sizeOfArg) (sizeof((sizeOfArg)) * 8)
 #define RTL_BITS_OF_FIELD(type, field) RTL_BITS_OF(RTL_FIELD_TYPE(type, field))
-#define CONTAINING_RECORD(address, type, field) cptr(type ptr, cast(PCHAR, (address) - cast(ULONG_PTR, @cptr(type ptr, 0)->field)))
+#define CONTAINING_RECORD(address, type, field) cptr(type ptr, cast(PCHAR, (address)) - cast(ULONG_PTR, @cptr(type ptr, 0)->field))
 #define __PEXCEPTION_ROUTINE_DEFINED
 
 type PEXCEPTION_ROUTINE as function(byval ExceptionRecord as _EXCEPTION_RECORD ptr, byval EstablisherFrame as PVOID, byval ContextRecord as _CONTEXT ptr, byval DispatcherContext as PVOID) as long
@@ -936,8 +936,8 @@ type PEXCEPTION_ROUTINE as function(byval ExceptionRecord as _EXCEPTION_RECORD p
 #define SORT_GEORGIAN_TRADITIONAL &h0
 #define SORT_GEORGIAN_MODERN &h1
 #define MAKELANGID(p, s) ((cast(WORD, (s)) shl 10) or cast(WORD, (p)))
-#define PRIMARYLANGID(lgid) cast(WORD, (lgid) and &h3ff)
-#define SUBLANGID(lgid) cast(WORD, (lgid) shr 10)
+#define PRIMARYLANGID(lgid) (cast(WORD, (lgid)) and &h3ff)
+#define SUBLANGID(lgid) (cast(WORD, (lgid)) shr 10)
 #define NLS_VALID_LOCALE_MASK &h000fffff
 #define MAKELCID(lgid, srtid) cast(DWORD, (cast(DWORD, cast(WORD, (srtid))) shl 16) or cast(DWORD, cast(WORD, (lgid))))
 #define MAKESORTLCID(lgid, srtid, ver) cast(DWORD, MAKELCID(lgid, srtid) or (cast(DWORD, cast(WORD, (ver))) shl 20))
@@ -5353,7 +5353,7 @@ type PIMAGE_ROM_HEADERS as _IMAGE_ROM_HEADERS ptr
 	type PIMAGE_NT_HEADERS as PIMAGE_NT_HEADERS32
 #endif
 
-#define IMAGE_FIRST_SECTION(ntheader) cast(PIMAGE_SECTION_HEADER, cast(ULONG_PTR, (ntheader + FIELD_OFFSET(IMAGE_NT_HEADERS, OptionalHeader)) + cast(PIMAGE_NT_HEADERS, (ntheader))->FileHeader.SizeOfOptionalHeader))
+#define IMAGE_FIRST_SECTION(ntheader) cast(PIMAGE_SECTION_HEADER, (cast(ULONG_PTR, ntheader) + FIELD_OFFSET(IMAGE_NT_HEADERS, OptionalHeader)) + cast(PIMAGE_NT_HEADERS, (ntheader))->FileHeader.SizeOfOptionalHeader)
 #define IMAGE_SUBSYSTEM_UNKNOWN 0
 #define IMAGE_SUBSYSTEM_NATIVE 1
 #define IMAGE_SUBSYSTEM_WINDOWS_GUI 2

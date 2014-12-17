@@ -46,7 +46,7 @@
 #endif
 
 #define RESTRICTED_POINTER
-#define ARGUMENT_PRESENT(ArgumentPointer) cptr(CHAR ptr, -(cast(ULONG_PTR, (ArgumentPointer)) <> cptr(CHAR ptr, NULL)))
+#define ARGUMENT_PRESENT(ArgumentPointer) (cptr(CHAR ptr, cast(ULONG_PTR, (ArgumentPointer))) <> cptr(CHAR ptr, NULL))
 #define CONTAINING_RECORD(address, type, field) cptr(type ptr, cast(ULONG_PTR, address) - cast(ULONG_PTR, @cptr(type ptr, 0)->field))
 #define FIELD_OFFSET(Type, Field) __builtin_offsetof(Type, Field)
 #define TYPE_ALIGNMENT(t) '' TODO: FIELD_OFFSET(struct { char x; t test; }, test)
@@ -294,8 +294,8 @@ type ANSI_STRING64 as _STRING64
 type PANSI_STRING64 as _STRING64 ptr
 
 #define MAKELANGID(p, s) ((cast(USHORT, (s)) shl 10) or cast(USHORT, (p)))
-#define PRIMARYLANGID(lgid) cast(USHORT, (lgid) and &h3ff)
-#define SUBLANGID(lgid) cast(USHORT, (lgid) shr 10)
+#define PRIMARYLANGID(lgid) (cast(USHORT, (lgid)) and &h3ff)
+#define SUBLANGID(lgid) (cast(USHORT, (lgid)) shr 10)
 #define NLS_VALID_LOCALE_MASK &h000fffff
 #define MAKELCID(lgid, srtid) cast(ULONG, (cast(ULONG, cast(USHORT, (srtid))) shl 16) or cast(ULONG, cast(USHORT, (lgid))))
 #define MAKESORTLCID(lgid, srtid, ver) cast(ULONG, MAKELCID(lgid, srtid) or (cast(ULONG, cast(USHORT, (ver))) shl 20))
@@ -456,11 +456,11 @@ type PGROUP_AFFINITY as _GROUP_AFFINITY ptr
 #define MAXUSHORT &hffff
 #define MAXULONG &hffffffff
 #define MAXLONGLONG &h7fffffffffffffffll
-#define Int32x32To64(a, b) cast(LONGLONG, (a) * cast(LONGLONG, (b)))
-#define UInt32x32To64(a, b) cast(ULONGLONG, (a) * cast(ULONGLONG, (b)))
-#define Int64ShllMod32(a, b) cast(ULONGLONG, (a) shl (b))
-#define Int64ShraMod32(a, b) cast(LONGLONG, (a) shr (b))
-#define Int64ShrlMod32(a, b) cast(ULONGLONG, (a) shr (b))
+#define Int32x32To64(a, b) (cast(LONGLONG, (a)) * cast(LONGLONG, (b)))
+#define UInt32x32To64(a, b) (cast(ULONGLONG, (a)) * cast(ULONGLONG, (b)))
+#define Int64ShllMod32(a, b) (cast(ULONGLONG, (a)) shl (b))
+#define Int64ShraMod32(a, b) (cast(LONGLONG, (a)) shr (b))
+#define Int64ShrlMod32(a, b) (cast(ULONGLONG, (a)) shr (b))
 #define VER_WORKSTATION_NT &h40000000
 #define VER_SERVER_NT &h80000000
 #define VER_SUITE_SMALLBUSINESS &h00000001

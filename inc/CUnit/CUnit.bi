@@ -94,22 +94,22 @@
 #endmacro
 #macro CU_ASSERT_PTR_EQUAL(actual, expected)
 	scope
-		CU_assertImplementation(cptr(const any ptr, -((actual) = cptr(const any ptr, (expected)))), __LINE__, ((("CU_ASSERT_PTR_EQUAL(" + #actual) + ",") + #expected) + ")", __FILE__, "", CU_FALSE)
+		CU_assertImplementation(-(cptr(const any ptr, (actual)) = cptr(const any ptr, (expected))), __LINE__, ((("CU_ASSERT_PTR_EQUAL(" + #actual) + ",") + #expected) + ")", __FILE__, "", CU_FALSE)
 	end scope
 #endmacro
 #macro CU_ASSERT_PTR_EQUAL_FATAL(actual, expected)
 	scope
-		CU_assertImplementation(cptr(const any ptr, -((actual) = cptr(const any ptr, (expected)))), __LINE__, ((("CU_ASSERT_PTR_EQUAL_FATAL(" + #actual) + ",") + #expected) + ")", __FILE__, "", CU_TRUE)
+		CU_assertImplementation(-(cptr(const any ptr, (actual)) = cptr(const any ptr, (expected))), __LINE__, ((("CU_ASSERT_PTR_EQUAL_FATAL(" + #actual) + ",") + #expected) + ")", __FILE__, "", CU_TRUE)
 	end scope
 #endmacro
 #macro CU_ASSERT_PTR_NOT_EQUAL(actual, expected)
 	scope
-		CU_assertImplementation(cptr(const any ptr, -((actual) <> cptr(const any ptr, (expected)))), __LINE__, ((("CU_ASSERT_PTR_NOT_EQUAL(" + #actual) + ",") + #expected) + ")", __FILE__, "", CU_FALSE)
+		CU_assertImplementation(-(cptr(const any ptr, (actual)) <> cptr(const any ptr, (expected))), __LINE__, ((("CU_ASSERT_PTR_NOT_EQUAL(" + #actual) + ",") + #expected) + ")", __FILE__, "", CU_FALSE)
 	end scope
 #endmacro
 #macro CU_ASSERT_PTR_NOT_EQUAL_FATAL(actual, expected)
 	scope
-		CU_assertImplementation(cptr(const any ptr, -((actual) <> cptr(const any ptr, (expected)))), __LINE__, ((("CU_ASSERT_PTR_NOT_EQUAL_FATAL(" + #actual) + ",") + #expected) + ")", __FILE__, "", CU_TRUE)
+		CU_assertImplementation(-(cptr(const any ptr, (actual)) <> cptr(const any ptr, (expected))), __LINE__, ((("CU_ASSERT_PTR_NOT_EQUAL_FATAL(" + #actual) + ",") + #expected) + ")", __FILE__, "", CU_TRUE)
 	end scope
 #endmacro
 #macro CU_ASSERT_PTR_NULL(value)
@@ -174,21 +174,21 @@
 #endmacro
 #macro CU_ASSERT_DOUBLE_EQUAL(actual, expected, granularity)
 	scope
-		CU_assertImplementation(-(fabs(cast(double, (actual) - (expected))) <= fabs(cast(double, (granularity)))), __LINE__, ((((("CU_ASSERT_DOUBLE_EQUAL(" + #actual) + ",") + #expected) + ",") + #granularity) + ")", __FILE__, "", CU_FALSE)
+		CU_assertImplementation(-(fabs(cdbl((actual)) - (expected)) <= fabs(cdbl((granularity)))), __LINE__, ((((("CU_ASSERT_DOUBLE_EQUAL(" + #actual) + ",") + #expected) + ",") + #granularity) + ")", __FILE__, "", CU_FALSE)
 	end scope
 #endmacro
 #macro CU_ASSERT_DOUBLE_EQUAL_FATAL(actual, expected, granularity)
 	scope
-		CU_assertImplementation(-(fabs(cast(double, (actual) - (expected))) <= fabs(cast(double, (granularity)))), __LINE__, ((((("CU_ASSERT_DOUBLE_EQUAL_FATAL(" + #actual) + ",") + #expected) + ",") + #granularity) + ")", __FILE__, "", CU_TRUE)
+		CU_assertImplementation(-(fabs(cdbl((actual)) - (expected)) <= fabs(cdbl((granularity)))), __LINE__, ((((("CU_ASSERT_DOUBLE_EQUAL_FATAL(" + #actual) + ",") + #expected) + ",") + #granularity) + ")", __FILE__, "", CU_TRUE)
 	end scope
 #endmacro
 #macro CU_ASSERT_DOUBLE_NOT_EQUAL(actual, expected, granularity)
 	scope
-		CU_assertImplementation(-(fabs(cast(double, (actual) - (expected))) > fabs(cast(double, (granularity)))), __LINE__, ((((("CU_ASSERT_DOUBLE_NOT_EQUAL(" + #actual) + ",") + #expected) + ",") + #granularity) + ")", __FILE__, "", CU_FALSE)
+		CU_assertImplementation(-(fabs(cdbl((actual)) - (expected)) > fabs(cdbl((granularity)))), __LINE__, ((((("CU_ASSERT_DOUBLE_NOT_EQUAL(" + #actual) + ",") + #expected) + ",") + #granularity) + ")", __FILE__, "", CU_FALSE)
 	end scope
 #endmacro
 #macro CU_ASSERT_DOUBLE_NOT_EQUAL_FATAL(actual, expected, granularity)
 	scope
-		CU_assertImplementation(-(fabs(cast(double, (actual) - (expected))) > fabs(cast(double, (granularity)))), __LINE__, ((((("CU_ASSERT_DOUBLE_NOT_EQUAL_FATAL(" + #actual) + ",") + #expected) + ",") + #granularity) + ")", __FILE__, "", CU_TRUE)
+		CU_assertImplementation(-(fabs(cdbl((actual)) - (expected)) > fabs(cdbl((granularity)))), __LINE__, ((((("CU_ASSERT_DOUBLE_NOT_EQUAL_FATAL(" + #actual) + ",") + #expected) + ",") + #granularity) + ")", __FILE__, "", CU_TRUE)
 	end scope
 #endmacro

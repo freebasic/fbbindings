@@ -178,7 +178,7 @@ type LZSS_UNPACK_DATA as LZSS_UNPACK_DATA_
 	#define LOCK_CODE(c, s) _go32_dpmi_lock_code(cptr(any ptr, c), s)
 	#define UNLOCK_DATA(d, s) _unlock_dpmi_data(cptr(any ptr, d), s)
 	#define LOCK_VARIABLE(x) LOCK_DATA(cptr(any ptr, @x), sizeof((x)))
-	#define LOCK_FUNCTION(x) LOCK_CODE(cptr(any ptr, x), cint(x##_end - cint(x)))
+	#define LOCK_FUNCTION(x) LOCK_CODE(cptr(any ptr, x), cint(x##_end) - cint(x))
 	#define ALLEGRO_LFN 0
 	#define _video_ds() _dos_ds
 	#define bmp_select(bmp) _farsetsel((bmp)->seg)
@@ -270,7 +270,7 @@ type LZSS_UNPACK_DATA as LZSS_UNPACK_DATA_
 	#define _farnspeekl(addr) (*cptr(ulong ptr, (addr)))
 #endif
 
-#define READ3BYTES(p) (((*cptr(ubyte ptr, (p))) or ((*cptr(ubyte ptr, (p) + 1)) shl 8)) or ((*cptr(ubyte ptr, (p) + 2)) shl 16))
+#define READ3BYTES(p) (((*cptr(ubyte ptr, (p))) or ((*(cptr(ubyte ptr, (p)) + 1)) shl 8)) or ((*(cptr(ubyte ptr, (p)) + 2)) shl 16))
 #define WRITE3BYTES(p, c) '' TODO: ((*(unsigned char *)(p) = (c)), (*((unsigned char *)(p) + 1) = (c) >> 8), (*((unsigned char *)(p) + 2) = (c) >> 16))
 
 #if defined(__FB_WIN32__) or defined(__FB_LINUX__)
@@ -752,8 +752,8 @@ declare function mouse_on_screen() as long
 
 #define ALLEGRO_TIMER_H
 #define TIMERS_PER_SECOND cast(clong, 1193181)
-#define SECS_TO_TIMER(x) cast(clong, (x) * TIMERS_PER_SECOND)
-#define MSEC_TO_TIMER(x) cast(clong, (x) * (TIMERS_PER_SECOND / 1000))
+#define SECS_TO_TIMER(x) (cast(clong, (x)) * TIMERS_PER_SECOND)
+#define MSEC_TO_TIMER(x) (cast(clong, (x)) * (TIMERS_PER_SECOND / 1000))
 #define BPS_TO_TIMER(x) (TIMERS_PER_SECOND / cast(clong, (x)))
 #define BPM_TO_TIMER(x) ((60 * TIMERS_PER_SECOND) / cast(clong, (x)))
 

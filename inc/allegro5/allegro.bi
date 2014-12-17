@@ -79,7 +79,7 @@ type ALLEGRO_COND as ALLEGRO_COND_
 
 #define __al_included_allegro5_astdint_h
 #define __al_included_allegro5_astdbool_h
-#define READ3BYTES(p) (((*cptr(ubyte ptr, (p))) or ((*cptr(ubyte ptr, (p) + 1)) shl 8)) or ((*cptr(ubyte ptr, (p) + 2)) shl 16))
+#define READ3BYTES(p) (((*cptr(ubyte ptr, (p))) or ((*(cptr(ubyte ptr, (p)) + 1)) shl 8)) or ((*(cptr(ubyte ptr, (p)) + 2)) shl 16))
 #define WRITE3BYTES(p, c) '' TODO: ((*(unsigned char *)(p) = (c)), (*((unsigned char *)(p) + 1) = (c) >> 8), (*((unsigned char *)(p) + 2) = (c) >> 16))
 #define bmp_write16(addr, c) '' TODO: (*((uint16_t *)(addr)) = (c))
 #define bmp_write32(addr, c) '' TODO: (*((uint32_t *)(addr)) = (c))

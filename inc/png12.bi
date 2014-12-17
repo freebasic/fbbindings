@@ -968,14 +968,14 @@ declare function png_get_user_height_max(byval png_ptr as png_structp) as png_ui
 
 #macro png_composite(composite, fg, alpha, bg)
 	scope
-		dim temp as png_uint_16 = cast(png_uint_16, cast(png_uint_16, (fg) * cast(png_uint_16, (alpha) + cast(png_uint_16, (bg) * cast(png_uint_16, (255 - cast(png_uint_16, (alpha))) + cast(png_uint_16, 128))))))
+		dim temp as png_uint_16 = cast(png_uint_16, ((cast(png_uint_16, (fg)) * cast(png_uint_16, (alpha))) + (cast(png_uint_16, (bg)) * cast(png_uint_16, 255 - cast(png_uint_16, (alpha))))) + cast(png_uint_16, 128))
 		(composite)
 		'' TODO: (composite) = (png_byte)((temp + (temp >> 8)) >> 8);
 	end scope
 #endmacro
 #macro png_composite_16(composite, fg, alpha, bg)
 	scope
-		dim temp as png_uint_32 = cast(png_uint_32, cast(png_uint_32, (fg) * cast(png_uint_32, (alpha) + cast(png_uint_32, (bg) * cast(png_uint_32, (cast(clong, 65535) - cast(png_uint_32, (alpha))) + cast(png_uint_32, cast(clong, 32768)))))))
+		dim temp as png_uint_32 = cast(png_uint_32, ((cast(png_uint_32, (fg)) * cast(png_uint_32, (alpha))) + (cast(png_uint_32, (bg)) * cast(png_uint_32, cast(clong, 65535) - cast(png_uint_32, (alpha))))) + cast(png_uint_32, cast(clong, 32768)))
 		(composite)
 		'' TODO: (composite) = (png_uint_16)((temp + (temp >> 16)) >> 16);
 	end scope
