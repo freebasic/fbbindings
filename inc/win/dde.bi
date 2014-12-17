@@ -2,6 +2,10 @@
 
 #include once "windef.bi"
 
+'' The following symbols have been renamed:
+''     inside struct DDEUP:
+''         field rgb => rgb_
+
 #ifdef __FB_64BIT__
 	extern "C"
 #else
@@ -68,7 +72,7 @@ type DDEUP
 	fReserved : 1 as ushort
 	fAckReq : 1 as ushort
 	cfFormat as short
-	rgb(0 to 0) as UBYTE
+	rgb_(0 to 0) as UBYTE
 end type
 
 declare function DdeSetQualityOfService(byval hwndClient as HWND, byval pqosNew as const SECURITY_QUALITY_OF_SERVICE ptr, byval pqosPrev as PSECURITY_QUALITY_OF_SERVICE) as WINBOOL
