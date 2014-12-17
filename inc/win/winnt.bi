@@ -1138,11 +1138,11 @@ type PSCOPE_TABLE_AMD64 as _SCOPE_TABLE_AMD64 ptr
 	#define InterlockedIncrementSizeT(a) InterlockedIncrement64(cptr(LONG64 ptr, a))
 	#define InterlockedDecrementSizeT(a) InterlockedDecrement64(cptr(LONG64 ptr, a))
 
-	function _InterlockedAdd(byval Addend as LONG ptr, byval Value as LONG) as LONG
+	private function _InterlockedAdd(byval Addend as LONG ptr, byval Value as LONG) as LONG
 		return _InterlockedExchangeAdd(Addend, Value) + Value
 	end function
 
-	function _InterlockedAdd64(byval Addend as LONG64 ptr, byval Value as LONG64) as LONG64
+	private function _InterlockedAdd64(byval Addend as LONG64 ptr, byval Value as LONG64) as LONG64
 		return _InterlockedExchangeAdd64(Addend, Value) + Value
 	end function
 

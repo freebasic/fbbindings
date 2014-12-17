@@ -70,59 +70,59 @@ type PDWORD32 as ulong ptr
 	type HALF_PTR as long
 	type PHALF_PTR as long ptr
 
-	function HandleToULong(byval h as const any ptr) as ulong
+	private function HandleToULong(byval h as const any ptr) as ulong
 		return culng(cast(ULONG_PTR, h))
 	end function
 
-	function HandleToLong(byval h as const any ptr) as long
+	private function HandleToLong(byval h as const any ptr) as long
 		return clng(cast(LONG_PTR, h))
 	end function
 
-	function ULongToHandle(byval h as const ulong) as any ptr
+	private function ULongToHandle(byval h as const ulong) as any ptr
 		return cptr(any ptr, cast(UINT_PTR, h))
 	end function
 
-	function LongToHandle(byval h as const long) as any ptr
+	private function LongToHandle(byval h as const long) as any ptr
 		return cptr(any ptr, cast(INT_PTR, h))
 	end function
 
-	function PtrToUlong(byval p as const any ptr) as ulong
+	private function PtrToUlong(byval p as const any ptr) as ulong
 		return culng(cast(ULONG_PTR, p))
 	end function
 
-	function PtrToUint(byval p as const any ptr) as ulong
+	private function PtrToUint(byval p as const any ptr) as ulong
 		return culng(cast(UINT_PTR, p))
 	end function
 
-	function PtrToUshort(byval p as const any ptr) as ushort
+	private function PtrToUshort(byval p as const any ptr) as ushort
 		return cushort(culng(cast(ULONG_PTR, p)))
 	end function
 
-	function PtrToLong(byval p as const any ptr) as long
+	private function PtrToLong(byval p as const any ptr) as long
 		return clng(cast(LONG_PTR, p))
 	end function
 
-	function PtrToInt(byval p as const any ptr) as long
+	private function PtrToInt(byval p as const any ptr) as long
 		return clng(cast(INT_PTR, p))
 	end function
 
-	function PtrToShort(byval p as const any ptr) as short
+	private function PtrToShort(byval p as const any ptr) as short
 		return cshort(clng(cast(LONG_PTR, p)))
 	end function
 
-	function IntToPtr(byval i as const long) as any ptr
+	private function IntToPtr(byval i as const long) as any ptr
 		return cptr(any ptr, cast(INT_PTR, i))
 	end function
 
-	function UIntToPtr(byval ui as const ulong) as any ptr
+	private function UIntToPtr(byval ui as const ulong) as any ptr
 		return cptr(any ptr, cast(UINT_PTR, ui))
 	end function
 
-	function LongToPtr(byval l as const long) as any ptr
+	private function LongToPtr(byval l as const long) as any ptr
 		return cptr(any ptr, cast(LONG_PTR, l))
 	end function
 
-	function ULongToPtr(byval ul as const ulong) as any ptr
+	private function ULongToPtr(byval ul as const ulong) as any ptr
 		return cptr(any ptr, cast(ULONG_PTR, ul))
 	end function
 
@@ -131,15 +131,15 @@ type PDWORD32 as ulong ptr
 	#define HandleToHandle64(h) PtrToPtr64(h)
 	#define Handle64ToHandle(h) Ptr64ToPtr(h)
 
-	function Ptr32ToPtr(byval p as const any ptr) as any ptr
+	private function Ptr32ToPtr(byval p as const any ptr) as any ptr
 		return cptr(any ptr, cast(ULONG_PTR, culng(cast(ULONG_PTR, p))))
 	end function
 
-	function Handle32ToHandle(byval h as const any ptr) as any ptr
+	private function Handle32ToHandle(byval h as const any ptr) as any ptr
 		return cptr(any ptr, cast(LONG_PTR, clng(cast(ULONG_PTR, h))))
 	end function
 
-	function PtrToPtr32(byval p as const any ptr) as any ptr
+	private function PtrToPtr32(byval p as const any ptr) as any ptr
 		return cptr(any ptr, cast(ULONG_PTR, culng(cast(ULONG_PTR, p))))
 	end function
 #else
@@ -177,19 +177,19 @@ type PDWORD32 as ulong ptr
 	#define LongToPtr(l) cptr(VOID ptr, cast(LONG_PTR, cast(__LONG32, l)))
 	#define ULongToPtr(ul) '' TODO: ((VOID *) (ULONG_PTR) ((unsigned __LONG32) ul))
 
-	function PtrToPtr64(byval p as const any ptr) as any ptr
+	private function PtrToPtr64(byval p as const any ptr) as any ptr
 		return cptr(any ptr, cast(ULONG_PTR, p))
 	end function
 
-	function Ptr64ToPtr(byval p as const any ptr) as any ptr
+	private function Ptr64ToPtr(byval p as const any ptr) as any ptr
 		return cptr(any ptr, cast(ULONG_PTR, p))
 	end function
 
-	function HandleToHandle64(byval h as const any ptr) as any ptr
+	private function HandleToHandle64(byval h as const any ptr) as any ptr
 		return cptr(any ptr, cast(LONG_PTR, h))
 	end function
 
-	function Handle64ToHandle(byval h as const any ptr) as any ptr
+	private function Handle64ToHandle(byval h as const any ptr) as any ptr
 		return cptr(any ptr, cast(ULONG_PTR, h))
 	end function
 
