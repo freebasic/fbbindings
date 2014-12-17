@@ -212,6 +212,7 @@
 -removedefine VOL
 -removedefine __w64
 -removedefine _W64
+-removedefine VIRTDISKAPI
 -removedefine WINAPI
 -removedefine WINAPI_INLINE
 -removedefine WINAPIV
