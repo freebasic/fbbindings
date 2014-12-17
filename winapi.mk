@@ -17,6 +17,7 @@ WINAPI_BASE += commdlg
 WINAPI_BASE += control
 WINAPI_BASE += cpl
 WINAPI_BASE += cplext
+WINAPI_CRT += crtdefs
 WINAPI_BASE += custcntl
 WINAPI_DIRECTX += d3d9
 WINAPI_DIRECTX += d3d9caps
