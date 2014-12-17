@@ -402,7 +402,6 @@ WINAPI_FLAGS_isguids += -include windef.h
 WINAPI_FLAGS_ktmtypes += -include windef.h -filterin '*/ktmtypes.h'
 WINAPI_FLAGS_lzexpand += -include windows.h -filterin '*/lzexpand.h'
 WINAPI_FLAGS_mapi += -include windef.h
-WINAPI_FLAGS_minwindef += -include windows.h -filterin '*/minwindef.h'
 WINAPI_FLAGS_mmsystem += -include windows.h -filterin '*/mmsystem.h'
 WINAPI_FLAGS_msacm += -include windows.h -include mmreg.h
 WINAPI_FLAGS_nb30 += -include windef.h
@@ -471,11 +470,11 @@ WINAPI_FLAGS_winbase += -include windows.h \
 	-filterin '*/utilapiset.h' \
 	-filterin '*/wow64apiset.h' \
 	-filterin '*/timezoneapi.h'
-
 WINAPI_FLAGS_winber += -include windef.h
 WINAPI_FLAGS_wincon += -include windows.h -filterin '*/wincon.h'
 WINAPI_FLAGS_wincrypt += -include windows.h -filterin '*/wincrypt.h'
-WINAPI_FLAGS_winerror += -include windows.h -filterin '*/winerror.h'
+WINAPI_FLAGS_windef += -filterin '*/minwindef.h'
+WINAPI_FLAGS_winerror += -include windows.h -filterin '*/winerror.h' -filterin '*/fltwinerror.h'
 WINAPI_FLAGS_wingdi += -include windows.h -filterin '*/wingdi.h'
 WINAPI_FLAGS_wininet += -include windef.h
 WINAPI_FLAGS_winioctl += -include windef.h
