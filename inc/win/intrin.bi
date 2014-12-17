@@ -6,12 +6,6 @@
 #include once "crt/stddef.bi"
 #include once "crt/stdlib.bi"
 #include once "crt/errno.bi"
-#include once "x86intrin.bi"
-#include once "mmintrin.bi"
-#include once "mm3dnow.bi"
-#include once "xmmintrin.bi"
-#include once "emmintrin.bi"
-#include once "pmmintrin.bi"
 
 '' The following symbols have been renamed:
 ''     #ifdef __FB_64BIT__
