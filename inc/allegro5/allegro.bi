@@ -481,11 +481,7 @@ declare sub _al_trace_suffix(byval msg as const zstring ptr, ...)
 #define ALLEGRO_WARN ALLEGRO_TRACE_LEVEL(2)
 #define ALLEGRO_ERROR ALLEGRO_TRACE_LEVEL(3)
 
-#if (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
-	extern _al_user_assert_handler as sub(byval expr as const zstring ptr, byval file as const zstring ptr, byval line_ as long, byval func as const zstring ptr)
-#else
-	extern import _al_user_assert_handler as sub(byval expr as const zstring ptr, byval file as const zstring ptr, byval line_ as long, byval func as const zstring ptr)
-#endif
+extern _AL_DLL _al_user_assert_handler as sub(byval expr as const zstring ptr, byval file as const zstring ptr, byval line_ as long, byval func as const zstring ptr)
 
 declare sub al_register_assert_handler(byval handler as sub(byval expr as const zstring ptr, byval file as const zstring ptr, byval line_ as long, byval func as const zstring ptr))
 
