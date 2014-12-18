@@ -2,7 +2,6 @@
 
 #include once "basetsd.bi"
 #include once "rpcnsip.bi"
-#include once "rpcsal.bi"
 
 '' The following symbols have been renamed:
 ''     typedef boolean => boolean_
