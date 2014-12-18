@@ -2,9 +2,6 @@
 
 #include once "_bsd_types.bi"
 
-'' The following symbols have been renamed:
-''     typedef IN_ADDR => IN_ADDR_
-
 type __in_addr_S_un_b
 	s_b1 as u_char
 	s_b2 as u_char
@@ -27,7 +24,6 @@ type in_addr
 	S_un as __in_addr_S_un
 end type
 
-type IN_ADDR_ as in_addr
 type PIN_ADDR as in_addr ptr
 type LPIN_ADDR as in_addr ptr
 
