@@ -486,6 +486,7 @@ WINAPI_FLAGS_winnls   += \
 WINAPI_FLAGS_winnt    += -include windows.h -filterin '*/winnt.h'
 WINAPI_FLAGS_winperf  += -include windef.h
 WINAPI_FLAGS_winreg   += -include windows.h -filterin '*/winreg.h'
+WINAPI_FLAGS_winscard += -include windows.h -filterin '*/winscard.h'
 WINAPI_FLAGS_winsock  += \
 	-filterin '*/psdk_inc/_socket_types.h' \
 	-filterin '*/psdk_inc/_fd_types.h' \
