@@ -481,6 +481,7 @@ WINAPI_FLAGS_winber   += -include windef.h
 WINAPI_FLAGS_wincon   += -include windows.h -filterin '*/wincon.h'
 WINAPI_FLAGS_wincrypt += -include windows.h -filterin '*/wincrypt.h'
 WINAPI_FLAGS_windef   += -filterin '*/minwindef.h'
+WINAPI_FLAGS_winefs   += -include windows.h -filterin '*/winefs.h'
 WINAPI_FLAGS_winerror += -include windows.h -filterin '*/winerror.h' -filterin '*/fltwinerror.h'
 WINAPI_FLAGS_wingdi   += -include windows.h -filterin '*/wingdi.h'
 WINAPI_FLAGS_wininet  += -include windef.h
