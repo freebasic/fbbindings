@@ -209,10 +209,10 @@
 -removedefine VFWAPI
 -removedefine VFWAPI_INLINE
 -removedefine VFWAPIV
+-removedefine VIRTDISKAPI
 -removedefine VOL
 -removedefine __w64
 -removedefine _W64
--removedefine VIRTDISKAPI
 -removedefine WINAPI
 -removedefine WINAPI_INLINE
 -removedefine WINAPIV
@@ -230,6 +230,8 @@
 -removedefine WINOLEAUTAPI_
 -removedefine WINOLECTLAPI
 -removedefine WINOLECTLAPI_
+-removedefine WINSCARDAPI
+-removedefine WINSCARDDATA
 -removedefine WINSETUPAPI
 -removedefine WINSHELLAPI
 -removedefine WINSOCK_API_LINKAGE
