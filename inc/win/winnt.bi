@@ -326,8 +326,6 @@ type PDWORDLONG as DWORDLONG ptr
 #define RotateRight32 _rotr
 #define RotateRight64 _rotr64
 
-declare function _rotl cdecl(byval Value as ulong, byval Shift as long) as ulong
-declare function _rotr cdecl(byval Value as ulong, byval Shift as long) as ulong
 declare function _rotl64 cdecl(byval Value as ulongint, byval Shift as long) as ulongint
 declare function _rotr64 cdecl(byval Value as ulongint, byval Shift as long) as ulongint
 

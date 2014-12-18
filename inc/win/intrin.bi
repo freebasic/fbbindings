@@ -588,7 +588,6 @@ declare function _ReturnAddress() as any ptr
 	'' TODO: int __attribute__((__cdecl__)) __attribute__ ((__nothrow__,__returns_twice__)) _setjmpex(jmp_buf,void *);
 #endif
 
-declare function _strset(byval as zstring ptr, byval as long) as zstring ptr
 declare function strset(byval as zstring ptr, byval as long) as zstring ptr
 declare function __ull_rshift(byval as ulongint, byval as long) as ulongint
 declare function _AddressOfReturnAddress() as any ptr
@@ -608,7 +607,6 @@ declare function __getcallerseflags() as ulong
 
 declare function __readpmc(byval a as ulong) as ulongint
 declare function __segmentlimit(byval a as ulong) as ulong
-declare function _wcsset(byval as wstring ptr, byval as wchar_t) as wstring ptr
 declare function _rotr8(byval value as ubyte, byval shift as ubyte) as ubyte
 declare function _rotr16(byval value as ushort, byval shift as ubyte) as ushort
 declare function _rotl8(byval value as ubyte, byval shift as ubyte) as ubyte
