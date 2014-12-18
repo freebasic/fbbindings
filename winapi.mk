@@ -1,3 +1,4 @@
+WINAPI_CRT += _bsd_types
 WINAPI_CRT += _mingw
 WINAPI_CRT += _mingw_unicode
 WINAPI_BASE += accctrl
