@@ -1,7 +1,7 @@
 #pragma once
 
 #include once "windows.bi"
-#include once "_timeval.bi"
+#include once "crt/sys/time.bi"
 #include once "_bsd_types.bi"
 #include once "inaddr.bi"
 

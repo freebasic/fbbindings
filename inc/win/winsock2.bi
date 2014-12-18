@@ -2,7 +2,7 @@
 
 #include once "_mingw_unicode.bi"
 #include once "windows.bi"
-#include once "_timeval.bi"
+#include once "crt/sys/time.bi"
 #include once "_bsd_types.bi"
 #include once "inaddr.bi"
 #include once "ws2def.bi"
