@@ -116,6 +116,7 @@ WINAPI_BASE += mshtmhst
 WINAPI_BASE += mshtml
 WINAPI_BASE += mswsock
 WINAPI_BASE += nb30
+WINAPI_BASE += ncrypt
 #WINAPI_BASE += nddeapi
 WINAPI_BASE += nspapi
 WINAPI_BASE += ntdef

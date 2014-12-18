@@ -403,6 +403,7 @@ WINAPI_FLAGS_mapi      += -include windef.h
 WINAPI_FLAGS_mmsystem  += -include windows.h -filterin '*/mmsystem.h'
 WINAPI_FLAGS_msacm     += -include windows.h -include mmreg.h
 WINAPI_FLAGS_nb30      += -include windef.h
+WINAPI_FLAGS_ncrypt    += -include windows.h -filterin '*/ncrypt.h'
 WINAPI_FLAGS_nspapi    += -include windef.h
 WINAPI_FLAGS_ntsecapi  += -include windef.h
 WINAPI_FLAGS_ntsecpkg  += -include winnt.h -define SECURITY_WIN32 1 -include sspi.h
