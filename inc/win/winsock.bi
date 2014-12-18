@@ -4,15 +4,18 @@
 #include once "_timeval.bi"
 #include once "_bsd_types.bi"
 #include once "inaddr.bi"
-#include once "psdk_inc/_socket_types.bi"
-#include once "psdk_inc/_fd_types.bi"
-#include once "psdk_inc/_ip_types.bi"
-#include once "psdk_inc/_ip_mreq1.bi"
-#include once "psdk_inc/_wsadata.bi"
-#include once "psdk_inc/_xmitfile.bi"
-#include once "psdk_inc/_wsa_errnos.bi"
 
 '' The following symbols have been renamed:
+''     #define FD_SET => FD_SET_
+''     typedef FD_SET => FD_SET__
+''     typedef HOSTENT => HOSTENT_
+''     typedef SERVENT => SERVENT_
+''     typedef PROTOENT => PROTOENT_
+''     typedef SOCKADDR => SOCKADDR_
+''     typedef SOCKADDR_IN => SOCKADDR_IN_
+''     typedef LINGER => LINGER_
+''     typedef TIMEVAL => TIMEVAL_
+''     typedef WSADATA => WSADATA_
 ''     procedure select => select_
 
 #ifdef __FB_64BIT__
@@ -22,6 +25,161 @@
 #endif
 
 #define _WINSOCKAPI_
+#define ___WSA_SOCKET_TYPES_H
+
+type SOCKET as UINT_PTR
+
+#define INVALID_SOCKET cast(SOCKET, not 0)
+#define SOCKET_ERROR (-1)
+#define ___WSA_FD_TYPES_H
+#define FD_SETSIZE 64
+
+type fd_set
+	fd_count as u_int
+	fd_array(0 to 63) as SOCKET
+end type
+
+declare function __WSAFDIsSet(byval as SOCKET, byval as fd_set ptr) as long
+
+#define FD_CLR(fd, set) '' TODO: do { u_int __i; for(__i = 0; __i < ((fd_set *)(set))->fd_count; __i++) { if (((fd_set *)(set))->fd_array[__i] == fd) { while (__i < ((fd_set *)(set))->fd_count - 1) { ((fd_set *)(set))->fd_array[__i] = ((fd_set *)(set))->fd_array[__i + 1]; __i++; } ((fd_set *)(set))->fd_count--; break; } } } while(0)
+#define FD_ZERO(set) '' TODO: (((fd_set *)(set))->fd_count = 0)
+#define FD_ISSET(fd, set) __WSAFDIsSet(cast(SOCKET, (fd)), cptr(fd_set ptr, (set)))
+#define _FD_SET_WINSOCK_DEFINED
+#define FD_SET_(fd, set) '' TODO: do { if (((fd_set *)(set))->fd_count < FD_SETSIZE) ((fd_set *)(set))->fd_array[((fd_set *)(set))->fd_count++] = (fd); } while(0)
+
+type FD_SET__ as fd_set
+type PFD_SET as fd_set ptr
+type LPFD_SET as fd_set ptr
+
+#define _MINGW_IP_TYPES_H
+#define h_addr h_addr_list[0]
+
+type hostent
+	h_name as zstring ptr
+	h_aliases as zstring ptr ptr
+	h_addrtype as short
+	h_length as short
+	h_addr_list as zstring ptr ptr
+end type
+
+type netent
+	n_name as zstring ptr
+	n_aliases as zstring ptr ptr
+	n_addrtype as short
+	n_net as u_long
+end type
+
+type servent
+	s_name as zstring ptr
+	s_aliases as zstring ptr ptr
+
+	#ifndef __FB_64BIT__
+		s_port as short
+	#endif
+
+	s_proto as zstring ptr
+
+	#ifdef __FB_64BIT__
+		s_port as short
+	#endif
+end type
+
+type protoent
+	p_name as zstring ptr
+	p_aliases as zstring ptr ptr
+	p_proto as short
+end type
+
+type sockproto
+	sp_family as u_short
+	sp_protocol as u_short
+end type
+
+type linger
+	l_onoff as u_short
+	l_linger as u_short
+end type
+
+type sockaddr
+	sa_family as u_short
+	sa_data as zstring * 14
+end type
+
+type sockaddr_in
+	sin_family as short
+	sin_port as u_short
+	sin_addr as in_addr
+	sin_zero as zstring * 8
+end type
+
+type HOSTENT_ as hostent
+type PHOSTENT as hostent ptr
+type LPHOSTENT as hostent ptr
+type SERVENT_ as servent
+type PSERVENT as servent ptr
+type LPSERVENT as servent ptr
+type PROTOENT_ as protoent
+type PPROTOENT as protoent ptr
+type LPPROTOENT as protoent ptr
+type SOCKADDR_ as sockaddr
+type PSOCKADDR as sockaddr ptr
+type LPSOCKADDR as sockaddr ptr
+type SOCKADDR_IN_ as sockaddr_in
+type PSOCKADDR_IN as sockaddr_in ptr
+type LPSOCKADDR_IN as sockaddr_in ptr
+type LINGER_ as linger
+type PLINGER as linger ptr
+type LPLINGER as linger ptr
+type TIMEVAL_ as timeval
+type PTIMEVAL as timeval ptr
+type LPTIMEVAL as timeval ptr
+
+#define _MINGW_IP_MREQ1_H
+
+type ip_mreq
+	imr_multiaddr as in_addr
+	imr_interface as in_addr
+end type
+
+#define __MINGW_WSADATA_H
+#define WSADESCRIPTION_LEN 256
+#define WSASYS_STATUS_LEN 128
+
+type WSAData
+	wVersion as WORD
+	wHighVersion as WORD
+
+	#ifndef __FB_64BIT__
+		szDescription as zstring * 256 + 1
+		szSystemStatus as zstring * 128 + 1
+	#endif
+
+	iMaxSockets as ushort
+	iMaxUdpDg as ushort
+	lpVendorInfo as zstring ptr
+
+	#ifdef __FB_64BIT__
+		szDescription as zstring * 256 + 1
+		szSystemStatus as zstring * 128 + 1
+	#endif
+end type
+
+type WSADATA_ as WSAData
+type LPWSADATA as WSAData ptr
+
+#define __MINGW_TRANSMIT_FILE_H
+
+type _TRANSMIT_FILE_BUFFERS
+	Head as LPVOID
+	HeadLength as DWORD
+	Tail as LPVOID
+	TailLength as DWORD
+end type
+
+type TRANSMIT_FILE_BUFFERS as _TRANSMIT_FILE_BUFFERS
+type PTRANSMIT_FILE_BUFFERS as _TRANSMIT_FILE_BUFFERS ptr
+type LPTRANSMIT_FILE_BUFFERS as _TRANSMIT_FILE_BUFFERS ptr
+
 #define IOCPARM_MASK &h7f
 #define IOC_VOID &h20000000
 #define IOC_OUT &h40000000
@@ -210,6 +368,14 @@
 #define FD_ACCEPT &h08
 #define FD_CONNECT &h10
 #define FD_CLOSE &h20
+#define __WSA_ERR_MACROS_DEFINED
+#define h_errno WSAGetLastError()
+#define HOST_NOT_FOUND WSAHOST_NOT_FOUND
+#define TRY_AGAIN WSATRY_AGAIN
+#define NO_RECOVERY WSANO_RECOVERY
+#define NO_DATA WSANO_DATA
+#define WSANO_ADDRESS WSANO_DATA
+#define NO_ADDRESS WSANO_ADDRESS
 
 declare function accept(byval s as SOCKET, byval addr as sockaddr ptr, byval addrlen as long ptr) as SOCKET
 declare function bind(byval s as SOCKET, byval name_ as const sockaddr ptr, byval namelen as long) as long

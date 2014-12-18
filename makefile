@@ -487,6 +487,21 @@ WINAPI_FLAGS_winnls   += \
 WINAPI_FLAGS_winnt    += -include windows.h -filterin '*/winnt.h'
 WINAPI_FLAGS_winperf  += -include windef.h
 WINAPI_FLAGS_winreg   += -include windows.h -filterin '*/winreg.h'
+WINAPI_FLAGS_winsock  += \
+	-filterin '*/psdk_inc/_socket_types.h' \
+	-filterin '*/psdk_inc/_fd_types.h' \
+	-filterin '*/psdk_inc/_ip_types.h' \
+	-filterin '*/psdk_inc/_ip_mreq1.h' \
+	-filterin '*/psdk_inc/_wsadata.h' \
+	-filterin '*/psdk_inc/_xmitfile.h' \
+	-filterin '*/psdk_inc/_wsa_errnos.h'
+WINAPI_FLAGS_winsock2 += \
+	-filterin '*/psdk_inc/_socket_types.h' \
+	-filterin '*/psdk_inc/_fd_types.h' \
+	-filterin '*/psdk_inc/_ip_types.h' \
+	-filterin '*/psdk_inc/_wsadata.h' \
+	-filterin '*/psdk_inc/_wsa_errnos.h' \
+	-filterin '*/psdk_inc/_ws1_undef.h'
 WINAPI_FLAGS_winspool += -include windef.h
 WINAPI_FLAGS_winsvc   += -include windows.h -filterin '*/winsvc.h'
 WINAPI_FLAGS_winuser  += -include windef.h -filterin '*/tvout.h'
