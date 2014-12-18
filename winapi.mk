@@ -10,6 +10,7 @@ WINAPI_BASE += apiset
 WINAPI_BASE += audevcod
 WINAPI_BASE += basetsd
 WINAPI_BASE += basetyps
+WINAPI_BASE += bcrypt
 WINAPI_BASE += cderr
 WINAPI_BASE += cguid
 WINAPI_BASE += comcat
