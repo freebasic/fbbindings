@@ -2,11 +2,11 @@
 
 #ifdef __FB_64BIT__
 	extern "C"
+
+	#define _WINPERF_
 #else
 	extern "Windows"
 #endif
-
-#define _WINPERF_
 
 type _PERF_DATA_BLOCK
 	Signature(0 to 3) as WCHAR
@@ -27,6 +27,10 @@ end type
 
 type PERF_DATA_BLOCK as _PERF_DATA_BLOCK
 type PPERF_DATA_BLOCK as _PERF_DATA_BLOCK ptr
+
+#ifndef __FB_64BIT__
+	#define _WINPERF_
+#endif
 
 #define PERF_DATA_VERSION 1
 #define PERF_DATA_REVISION 1

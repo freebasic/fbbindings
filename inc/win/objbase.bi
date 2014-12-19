@@ -1,6 +1,5 @@
 #pragma once
 
-#include once "winapifamily.bi"
 #include once "rpc.bi"
 #include once "rpcndr.bi"
 #include once "combaseapi.bi"

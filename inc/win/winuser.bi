@@ -1,13 +1,15 @@
 #pragma once
 
 #include once "_mingw_unicode.bi"
-#include once "apisetcconv.bi"
 #include once "_mingw.bi"
 #include once "crt/stdarg.bi"
 #include once "guiddef.bi"
 
 '' The following symbols have been renamed:
 ''     typedef INPUT => INPUT_
+''     inside struct tagCURSORSHAPE:
+''         field Planes => Planes_
+''         field BitsPixel => BitsPixel_
 
 #ifdef __FB_64BIT__
 	extern "C"
@@ -683,6 +685,11 @@ declare function GetMouseMovePointsEx(byval cbSize as UINT, byval lppt as LPMOUS
 #define DESKTOP_WRITEOBJECTS __MSABI_LONG(&h0080)
 #define DESKTOP_SWITCHDESKTOP __MSABI_LONG(&h0100)
 #define DF_ALLOWOTHERACCOUNTHOOK __MSABI_LONG(&h0001)
+#define CreateDesktop __MINGW_NAME_AW(CreateDesktop)
+
+declare function CreateDesktopA(byval lpszDesktop as LPCSTR, byval lpszDevice as LPCSTR, byval pDevmode as LPDEVMODEA, byval dwFlags as DWORD, byval dwDesiredAccess as ACCESS_MASK, byval lpsa as LPSECURITY_ATTRIBUTES) as HDESK
+declare function CreateDesktopW(byval lpszDesktop as LPCWSTR, byval lpszDevice as LPCWSTR, byval pDevmode as LPDEVMODEW, byval dwFlags as DWORD, byval dwDesiredAccess as ACCESS_MASK, byval lpsa as LPSECURITY_ATTRIBUTES) as HDESK
+
 #define OpenDesktop __MINGW_NAME_AW(OpenDesktop)
 #define EnumDesktops __MINGW_NAME_AW(EnumDesktops)
 
@@ -1735,9 +1742,6 @@ declare function PeekMessageW(byval lpMsg as LPMSG, byval hWnd as HWND, byval wM
 declare function RegisterHotKey(byval hWnd as HWND, byval id as long, byval fsModifiers as UINT, byval vk as UINT) as WINBOOL
 declare function UnregisterHotKey(byval hWnd as HWND, byval id as long) as WINBOOL
 
-#define MOD_ALT &h0001
-#define MOD_CONTROL &h0002
-#define MOD_SHIFT &h0004
 #define MOD_WIN &h0008
 #define IDHOT_SNAPWINDOW (-1)
 #define IDHOT_SNAPDESKTOP (-2)
@@ -1899,6 +1903,25 @@ declare function IsChild(byval hWndParent as HWND, byval hWnd as HWND) as WINBOO
 declare function DestroyWindow(byval hWnd as HWND) as WINBOOL
 declare function ShowWindow(byval hWnd as HWND, byval nCmdShow as long) as WINBOOL
 declare function AnimateWindow(byval hWnd as HWND, byval dwTime as DWORD, byval dwFlags as DWORD) as WINBOOL
+declare function UpdateLayeredWindow(byval hWnd as HWND, byval hdcDst as HDC, byval pptDst as POINT_ ptr, byval psize as SIZE ptr, byval hdcSrc as HDC, byval pptSrc as POINT_ ptr, byval crKey as COLORREF, byval pblend as BLENDFUNCTION ptr, byval dwFlags as DWORD) as WINBOOL
+
+type tagUPDATELAYEREDWINDOWINFO
+	cbSize as DWORD
+	hdcDst as HDC
+	pptDst as const POINT_ ptr
+	psize as const SIZE ptr
+	hdcSrc as HDC
+	pptSrc as const POINT_ ptr
+	crKey as COLORREF
+	pblend as const BLENDFUNCTION ptr
+	dwFlags as DWORD
+	prcDirty as const RECT ptr
+end type
+
+type UPDATELAYEREDWINDOWINFO as tagUPDATELAYEREDWINDOWINFO
+type PUPDATELAYEREDWINDOWINFO as tagUPDATELAYEREDWINDOWINFO ptr
+
+declare function UpdateLayeredWindowIndirect(byval hWnd as HWND, byval pULWInfo as const UPDATELAYEREDWINDOWINFO ptr) as WINBOOL
 declare function GetLayeredWindowAttributes(byval hwnd as HWND, byval pcrKey as COLORREF ptr, byval pbAlpha as UBYTE ptr, byval pdwFlags as DWORD ptr) as WINBOOL
 
 #define PW_CLIENTONLY &h00000001
@@ -3334,8 +3357,8 @@ type tagCURSORSHAPE
 	cx as long
 	cy as long
 	cbWidth as long
-	Planes as UBYTE
-	BitsPixel as UBYTE
+	Planes_ as UBYTE
+	BitsPixel_ as UBYTE
 end type
 
 type CURSORSHAPE as tagCURSORSHAPE
@@ -4206,6 +4229,61 @@ declare function GetGuiResources(byval hProcess as HANDLE, byval uiFlags as DWOR
 #define SPIF_SENDWININICHANGE &h0002
 #define SPIF_SENDCHANGE SPIF_SENDWININICHANGE
 #define METRICS_USEDEFAULT (-1)
+
+type tagNONCLIENTMETRICSA
+	cbSize as UINT
+	iBorderWidth as long
+	iScrollWidth as long
+	iScrollHeight as long
+	iCaptionWidth as long
+	iCaptionHeight as long
+	lfCaptionFont as LOGFONTA
+	iSmCaptionWidth as long
+	iSmCaptionHeight as long
+	lfSmCaptionFont as LOGFONTA
+	iMenuWidth as long
+	iMenuHeight as long
+	lfMenuFont as LOGFONTA
+	lfStatusFont as LOGFONTA
+	lfMessageFont as LOGFONTA
+end type
+
+type NONCLIENTMETRICSA as tagNONCLIENTMETRICSA
+type PNONCLIENTMETRICSA as tagNONCLIENTMETRICSA ptr
+type LPNONCLIENTMETRICSA as tagNONCLIENTMETRICSA ptr
+
+type tagNONCLIENTMETRICSW
+	cbSize as UINT
+	iBorderWidth as long
+	iScrollWidth as long
+	iScrollHeight as long
+	iCaptionWidth as long
+	iCaptionHeight as long
+	lfCaptionFont as LOGFONTW
+	iSmCaptionWidth as long
+	iSmCaptionHeight as long
+	lfSmCaptionFont as LOGFONTW
+	iMenuWidth as long
+	iMenuHeight as long
+	lfMenuFont as LOGFONTW
+	lfStatusFont as LOGFONTW
+	lfMessageFont as LOGFONTW
+end type
+
+type NONCLIENTMETRICSW as tagNONCLIENTMETRICSW
+type PNONCLIENTMETRICSW as tagNONCLIENTMETRICSW ptr
+type LPNONCLIENTMETRICSW as tagNONCLIENTMETRICSW ptr
+
+#ifdef UNICODE
+	type NONCLIENTMETRICS as NONCLIENTMETRICSW
+	type PNONCLIENTMETRICS as PNONCLIENTMETRICSW
+	type LPNONCLIENTMETRICS as LPNONCLIENTMETRICSW
+#else
+	type NONCLIENTMETRICS as NONCLIENTMETRICSA
+	type PNONCLIENTMETRICS as PNONCLIENTMETRICSA
+	type LPNONCLIENTMETRICS as LPNONCLIENTMETRICSA
+#endif
+
 #define ARW_BOTTOMLEFT __MSABI_LONG(&h0000)
 #define ARW_BOTTOMRIGHT __MSABI_LONG(&h0001)
 #define ARW_TOPLEFT __MSABI_LONG(&h0002)
@@ -4230,6 +4308,40 @@ end type
 type MINIMIZEDMETRICS as tagMINIMIZEDMETRICS
 type PMINIMIZEDMETRICS as tagMINIMIZEDMETRICS ptr
 type LPMINIMIZEDMETRICS as tagMINIMIZEDMETRICS ptr
+
+type tagICONMETRICSA
+	cbSize as UINT
+	iHorzSpacing as long
+	iVertSpacing as long
+	iTitleWrap as long
+	lfFont as LOGFONTA
+end type
+
+type ICONMETRICSA as tagICONMETRICSA
+type PICONMETRICSA as tagICONMETRICSA ptr
+type LPICONMETRICSA as tagICONMETRICSA ptr
+
+type tagICONMETRICSW
+	cbSize as UINT
+	iHorzSpacing as long
+	iVertSpacing as long
+	iTitleWrap as long
+	lfFont as LOGFONTW
+end type
+
+type ICONMETRICSW as tagICONMETRICSW
+type PICONMETRICSW as tagICONMETRICSW ptr
+type LPICONMETRICSW as tagICONMETRICSW ptr
+
+#ifdef UNICODE
+	type ICONMETRICS as ICONMETRICSW
+	type PICONMETRICS as PICONMETRICSW
+	type LPICONMETRICS as LPICONMETRICSW
+#else
+	type ICONMETRICS as ICONMETRICSA
+	type PICONMETRICS as PICONMETRICSA
+	type LPICONMETRICS as LPICONMETRICSA
+#endif
 
 type tagANIMATIONINFO
 	cbSize as UINT
@@ -4398,6 +4510,30 @@ type LPVIDEOPARAMETERS as _VIDEOPARAMETERS ptr
 #define DISP_CHANGE_BADFLAGS (-4)
 #define DISP_CHANGE_BADPARAM (-5)
 #define DISP_CHANGE_BADDUALVIEW (-6)
+#define ChangeDisplaySettings __MINGW_NAME_AW(ChangeDisplaySettings)
+#define ChangeDisplaySettingsEx __MINGW_NAME_AW(ChangeDisplaySettingsEx)
+#define EnumDisplaySettings __MINGW_NAME_AW(EnumDisplaySettings)
+#define EnumDisplaySettingsEx __MINGW_NAME_AW(EnumDisplaySettingsEx)
+#define EnumDisplayDevices __MINGW_NAME_AW(EnumDisplayDevices)
+
+declare function ChangeDisplaySettingsA(byval lpDevMode as LPDEVMODEA, byval dwFlags as DWORD) as LONG
+declare function ChangeDisplaySettingsW(byval lpDevMode as LPDEVMODEW, byval dwFlags as DWORD) as LONG
+declare function ChangeDisplaySettingsExA(byval lpszDeviceName as LPCSTR, byval lpDevMode as LPDEVMODEA, byval hwnd as HWND, byval dwflags as DWORD, byval lParam as LPVOID) as LONG
+declare function ChangeDisplaySettingsExW(byval lpszDeviceName as LPCWSTR, byval lpDevMode as LPDEVMODEW, byval hwnd as HWND, byval dwflags as DWORD, byval lParam as LPVOID) as LONG
+
+#define ENUM_CURRENT_SETTINGS cast(DWORD, -1)
+#define ENUM_REGISTRY_SETTINGS cast(DWORD, -2)
+
+declare function EnumDisplaySettingsA(byval lpszDeviceName as LPCSTR, byval iModeNum as DWORD, byval lpDevMode as LPDEVMODEA) as WINBOOL
+declare function EnumDisplaySettingsW(byval lpszDeviceName as LPCWSTR, byval iModeNum as DWORD, byval lpDevMode as LPDEVMODEW) as WINBOOL
+declare function EnumDisplaySettingsExA(byval lpszDeviceName as LPCSTR, byval iModeNum as DWORD, byval lpDevMode as LPDEVMODEA, byval dwFlags as DWORD) as WINBOOL
+declare function EnumDisplaySettingsExW(byval lpszDeviceName as LPCWSTR, byval iModeNum as DWORD, byval lpDevMode as LPDEVMODEW, byval dwFlags as DWORD) as WINBOOL
+
+#define EDS_RAWMODE &h00000002
+
+declare function EnumDisplayDevicesA(byval lpDevice as LPCSTR, byval iDevNum as DWORD, byval lpDisplayDevice as PDISPLAY_DEVICEA, byval dwFlags as DWORD) as WINBOOL
+declare function EnumDisplayDevicesW(byval lpDevice as LPCWSTR, byval iDevNum as DWORD, byval lpDisplayDevice as PDISPLAY_DEVICEW, byval dwFlags as DWORD) as WINBOOL
+
 #define SystemParametersInfo __MINGW_NAME_AW(SystemParametersInfo)
 
 declare function SystemParametersInfoA(byval uiAction as UINT, byval uiParam as UINT, byval pvParam as PVOID, byval fWinIni as UINT) as WINBOOL
@@ -4589,7 +4725,6 @@ declare function MonitorFromRect(byval lprc as LPCRECT, byval dwFlags as DWORD) 
 declare function MonitorFromWindow(byval hwnd as HWND, byval dwFlags as DWORD) as HMONITOR
 
 #define MONITORINFOF_PRIMARY &h00000001
-#define CCHDEVICENAME 32
 
 type tagMONITORINFO
 	cbSize as DWORD

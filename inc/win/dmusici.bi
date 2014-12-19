@@ -1,6 +1,5 @@
 #pragma once
 
-#include once "windows.bi"
 #include once "objbase.bi"
 #include once "dmusicc.bi"
 #include once "dmplugin.bi"

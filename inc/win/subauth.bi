@@ -10,11 +10,6 @@
 #endif
 
 #define _NTSUBAUTH_
-#define _NTSTATUS_PSDK
-
-type NTSTATUS as LONG
-type PNTSTATUS as LONG ptr
-
 #define __UNICODE_STRING_DEFINED
 
 type _UNICODE_STRING

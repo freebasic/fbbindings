@@ -89,7 +89,7 @@ type _DLSID
 	ulData1 as ULONG
 	usData2 as USHORT
 	usData3 as USHORT
-	abData4(0 to 7) as BYTE
+	abData4(0 to 7) as UBYTE
 end type
 
 type _DLSVERSION

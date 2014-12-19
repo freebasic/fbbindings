@@ -1,12 +1,5 @@
 #pragma once
 
-#include once "winapifamily.bi"
-#include once "apiset.bi"
-#include once "apisetcconv.bi"
-#include once "minwindef.bi"
-#include once "minwinbase.bi"
-#include once "libloaderapi.bi"
-
 #ifdef __FB_64BIT__
 	extern "C"
 #else

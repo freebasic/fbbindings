@@ -1,6 +1,5 @@
 #pragma once
 
-#include once "windows.bi"
 #include once "objbase.bi"
 
 '' The following symbols have been renamed:

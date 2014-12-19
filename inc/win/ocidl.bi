@@ -55,7 +55,6 @@ type IPersistPropertyBag2 as IPersistPropertyBag2_
 type IAdviseSinkEx as IAdviseSinkEx_
 type IQuickActivate as IQuickActivate_
 
-#define __REQUIRED_RPCNDR_H_VERSION__ 475
 #define __ocidl_h__
 #define __IEnumConnections_FWD_DEFINED__
 #define __IConnectionPoint_FWD_DEFINED__

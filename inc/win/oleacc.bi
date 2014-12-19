@@ -18,7 +18,6 @@ type IAccIdentity as IAccIdentity_
 type IAccPropServer as IAccPropServer_
 type IAccPropServices as IAccPropServices_
 
-#define __REQUIRED_RPCNDR_H_VERSION__ 475
 #define __oleacc_h__
 #define __IAccessible_FWD_DEFINED__
 #define __IAccessibleHandler_FWD_DEFINED__

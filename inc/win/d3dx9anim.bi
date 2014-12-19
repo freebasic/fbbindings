@@ -16,6 +16,7 @@ type ID3DXKeyframedAnimationSetVtbl as ID3DXKeyframedAnimationSetVtbl_
 type ID3DXCompressedAnimationSetVtbl as ID3DXCompressedAnimationSetVtbl_
 type ID3DXAnimationCallbackHandlerVtbl as ID3DXAnimationCallbackHandlerVtbl_
 type ID3DXAnimationControllerVtbl as ID3DXAnimationControllerVtbl_
+type IDirect3DDevice9 as IDirect3DDevice9_
 
 #define __WINE_D3DX9ANIM_H
 

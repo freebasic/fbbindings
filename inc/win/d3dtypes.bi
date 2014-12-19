@@ -1,6 +1,5 @@
 #pragma once
 
-#include once "windows.bi"
 #include once "crt/float.bi"
 #include once "ddraw.bi"
 

@@ -10,9 +10,7 @@ type PERCENT as LONG
 type TCENT as LONG
 type REFERENCE_TIME as LONGLONG
 type LPREFERENCE_TIME as LONGLONG ptr
-type FOURCC as DWORD
 
-#define mmioFOURCC(ch0, ch1, ch2, ch3) (((cast(DWORD, cast(UBYTE, (ch0))) or (cast(DWORD, cast(UBYTE, (ch1))) shl 8)) or (cast(DWORD, cast(UBYTE, (ch2))) shl 16)) or (cast(DWORD, cast(UBYTE, (ch3))) shl 24))
 #define DMUS_DEFAULT_SIZE_OFFSETTABLE &h1
 #define DMUS_DOWNLOADINFO_INSTRUMENT &h1
 #define DMUS_DOWNLOADINFO_WAVE &h2

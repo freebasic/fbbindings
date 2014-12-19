@@ -9,18 +9,6 @@
 #endif
 
 #define _NSPAPI_INCLUDED
-#define _tagBLOB_DEFINED
-#define _BLOB_DEFINED
-#define _LPBLOB_DEFINED
-
-type _BLOB
-	cbSize as ULONG
-	pBlobData as UBYTE ptr
-end type
-
-type BLOB as _BLOB
-type LPBLOB as _BLOB ptr
-
 #define SERVICE_RESOURCE &h00000001
 #define SERVICE_SERVICE &h00000002
 #define SERVICE_LOCAL &h00000004

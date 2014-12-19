@@ -27,7 +27,6 @@ type IZoomEvents as IZoomEvents_
 type IProtectFocus as IProtectFocus_
 type IProtectedModeMenuServices as IProtectedModeMenuServices_
 
-#define __REQUIRED_RPCNDR_H_VERSION__ 475
 #define __docobj_h__
 #define __IOleDocument_FWD_DEFINED__
 #define __IOleDocumentSite_FWD_DEFINED__

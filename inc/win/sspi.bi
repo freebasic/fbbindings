@@ -902,39 +902,6 @@ type SASL_AUTHZID_STATE as _SASL_AUTHZID_STATE
 declare function SaslSetContextOption(byval ContextHandle as PCtxtHandle, byval Option_ as ULONG, byval Value as PVOID, byval Size as ULONG) as SECURITY_STATUS
 declare function SaslGetContextOption(byval ContextHandle as PCtxtHandle, byval Option_ as ULONG, byval Value as PVOID, byval Size as ULONG, byval Needed as PULONG) as SECURITY_STATUS
 
-#define _AUTH_IDENTITY_DEFINED
-#define SEC_WINNT_AUTH_IDENTITY_ANSI &h1
-#define SEC_WINNT_AUTH_IDENTITY_UNICODE &h2
-
-type _SEC_WINNT_AUTH_IDENTITY_W
-	User as ushort ptr
-	UserLength as ulong
-	Domain as ushort ptr
-	DomainLength as ulong
-	Password as ushort ptr
-	PasswordLength as ulong
-	Flags as ulong
-end type
-
-type SEC_WINNT_AUTH_IDENTITY_W as _SEC_WINNT_AUTH_IDENTITY_W
-type PSEC_WINNT_AUTH_IDENTITY_W as _SEC_WINNT_AUTH_IDENTITY_W ptr
-
-type _SEC_WINNT_AUTH_IDENTITY_A
-	User as ubyte ptr
-	UserLength as ulong
-	Domain as ubyte ptr
-	DomainLength as ulong
-	Password as ubyte ptr
-	PasswordLength as ulong
-	Flags as ulong
-end type
-
-type SEC_WINNT_AUTH_IDENTITY_A as _SEC_WINNT_AUTH_IDENTITY_A
-type PSEC_WINNT_AUTH_IDENTITY_A as _SEC_WINNT_AUTH_IDENTITY_A ptr
-
-#define SEC_WINNT_AUTH_IDENTITY __MINGW_NAME_UAW(SEC_WINNT_AUTH_IDENTITY)
-#define PSEC_WINNT_AUTH_IDENTITY __MINGW_NAME_UAW(PSEC_WINNT_AUTH_IDENTITY)
-#define _SEC_WINNT_AUTH_IDENTITY __MINGW_NAME_UAW(_SEC_WINNT_AUTH_IDENTITY)
 #define SEC_WINNT_AUTH_IDENTITY_VERSION &h200
 
 type _SEC_WINNT_AUTH_IDENTITY_EXW

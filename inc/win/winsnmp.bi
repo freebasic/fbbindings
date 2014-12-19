@@ -1,6 +1,5 @@
 #pragma once
 
-#include once "windows.bi"
 #include once "crt/limits.bi"
 
 #ifdef __FB_64BIT__
@@ -10,7 +9,6 @@
 #endif
 
 #define _INC_WINSNMP
-#define _INC_WINDOWS
 
 type HSNMP_SESSION as HANDLE
 type LPHSNMP_SESSION as HANDLE ptr

@@ -1,7 +1,5 @@
 #pragma once
 
-#include once "winapifamily.bi"
-#include once "winerror.bi"
 #include once "objbase.bi"
 #include once "oleauto.bi"
 #include once "oleidl.bi"

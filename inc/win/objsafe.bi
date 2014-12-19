@@ -13,7 +13,6 @@
 
 type IObjectSafety as IObjectSafety_
 
-#define __REQUIRED_RPCNDR_H_VERSION__ 440
 #define __objsafe_h__
 #define __IObjectSafety_FWD_DEFINED__
 #define _LPSAFEOBJECT_DEFINED

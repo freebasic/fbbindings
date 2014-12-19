@@ -2,7 +2,11 @@
 
 #include once "sqltypes.bi"
 
-extern "Windows"
+#ifdef __FB_64BIT__
+	extern "C"
+#else
+	extern "Windows"
+#endif
 
 #define __SQL
 #define ODBCVER &h0351

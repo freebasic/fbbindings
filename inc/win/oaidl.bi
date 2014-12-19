@@ -33,7 +33,6 @@ type IErrorLog as IErrorLog_
 type IPropertyBag as IPropertyBag_
 type tagARRAYDESC as tagARRAYDESC_
 
-#define __REQUIRED_RPCNDR_H_VERSION__ 475
 #define __oaidl_h__
 #define __ICreateTypeInfo_FWD_DEFINED__
 #define __ICreateTypeInfo2_FWD_DEFINED__

@@ -12,13 +12,14 @@
 
 extern "C"
 
+#define _BASETSD_H_
+
 #ifdef __FB_64BIT__
 	type POINTER_64_INT as ulongint
 #else
 	type POINTER_64_INT as ulong
 #endif
 
-#define _BASETSD_H_
 #define POINTER_32
 #define POINTER_64
 #define FIRMWARE_PTR
@@ -162,14 +163,14 @@ type PDWORD32 as ulong ptr
 	type SHANDLE_PTR as long
 	type HANDLE_PTR as ulong
 
-	#define HandleToULong(h) '' TODO: ((ULONG) (ULONG_PTR) (h))
-	#define HandleToLong(h) '' TODO: ((LONG) (LONG_PTR) (h))
-	#define ULongToHandle(ul) '' TODO: ((HANDLE) (ULONG_PTR) (ul))
-	#define LongToHandle(h) '' TODO: ((HANDLE) (LONG_PTR) (h))
-	#define PtrToUlong(p) '' TODO: ((ULONG) (ULONG_PTR) (p))
-	#define PtrToLong(p) '' TODO: ((LONG) (LONG_PTR) (p))
-	#define PtrToUint(p) '' TODO: ((UINT) (UINT_PTR) (p))
-	#define PtrToInt(p) '' TODO: ((INT) (INT_PTR) (p))
+	#define HandleToULong(h) cast(ULONG, cast(ULONG_PTR, (h)))
+	#define HandleToLong(h) cast(LONG, cast(LONG_PTR, (h)))
+	#define ULongToHandle(ul) cast(HANDLE, cast(ULONG_PTR, (ul)))
+	#define LongToHandle(h) cast(HANDLE, cast(LONG_PTR, (h)))
+	#define PtrToUlong(p) cast(ULONG, cast(ULONG_PTR, (p)))
+	#define PtrToLong(p) cast(LONG, cast(LONG_PTR, (p)))
+	#define PtrToUint(p) cast(UINT, cast(UINT_PTR, (p)))
+	#define PtrToInt(p) cast(INT_, cast(INT_PTR, (p)))
 	#define PtrToUshort(p) cushort(cast(ULONG_PTR, (p)))
 	#define PtrToShort(p) cshort(cast(LONG_PTR, (p)))
 	#define IntToPtr(i) cptr(VOID ptr, cast(INT_PTR, clng(i)))

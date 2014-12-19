@@ -13,10 +13,7 @@
 #endif
 
 #define _NTSECAPI_
-#define _NTSTATUS_PSDK
 
-type NTSTATUS as LONG
-type PNTSTATUS as LONG ptr
 type LSA_OPERATIONAL_MODE as ULONG
 type PLSA_OPERATIONAL_MODE as ULONG ptr
 

@@ -21,7 +21,6 @@ type IClassFactoryEx as IClassFactoryEx_
 type IHTMLOMWindowServices as IHTMLOMWindowServices_
 type IHTMLWindow2 as IHTMLWindow2_
 
-#define __REQUIRED_RPCNDR_H_VERSION__ 440
 #define __mshtmhst_h__
 #define __IHostDialogHelper_FWD_DEFINED__
 #define __HostDialogHelper_FWD_DEFINED__

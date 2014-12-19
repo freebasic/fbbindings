@@ -1,7 +1,6 @@
 #pragma once
 
 #include once "_mingw_unicode.bi"
-#include once "wincrypt.bi"
 
 extern "C"
 
@@ -130,8 +129,8 @@ type SecPkgContext_ConnectionInfo as _SecPkgContext_ConnectionInfo
 type PSecPkgContext_ConnectionInfo as _SecPkgContext_ConnectionInfo ptr
 
 type _SecPkgContext_EapKeyBlock
-	rgbKeys(0 to 127) as BYTE
-	rgbIVs(0 to 63) as BYTE
+	rgbKeys(0 to 127) as UBYTE
+	rgbIVs(0 to 63) as UBYTE
 end type
 
 type SecPkgContext_EapKeyBlock as _SecPkgContext_EapKeyBlock
@@ -150,7 +149,7 @@ type PSecPkgContext_MappedCredAttr as _SecPkgContext_MappedCredAttr ptr
 type _SecPkgContext_SessionInfo
 	dwFlags as DWORD
 	cbSessionId as DWORD
-	rgbSessionId(0 to 31) as BYTE
+	rgbSessionId(0 to 31) as UBYTE
 end type
 
 type SecPkgContext_SessionInfo as _SecPkgContext_SessionInfo
@@ -199,7 +198,7 @@ type _SCHANNEL_CERT_HASH
 	dwLength as DWORD
 	dwFlags as DWORD
 	hProv as HCRYPTPROV
-	ShaHash(0 to 19) as BYTE
+	ShaHash(0 to 19) as UBYTE
 end type
 
 type SCHANNEL_CERT_HASH as _SCHANNEL_CERT_HASH
@@ -392,9 +391,9 @@ type X509Certificate as _X509Certificate
 type PX509Certificate as _X509Certificate ptr
 
 declare function SslGenerateKeyPair(byval pCerts as PSSL_CREDENTIAL_CERTIFICATE, byval pszDN as PSTR, byval pszPassword as PSTR, byval Bits as DWORD) as WINBOOL
-declare function SslGenerateRandomBits(byval pRandomData as PUCHAR, byval cRandomData as LONG) as VOID
+declare sub SslGenerateRandomBits(byval pRandomData as PUCHAR, byval cRandomData as LONG)
 declare function SslCrackCertificate(byval pbCertificate as PUCHAR, byval cbCertificate as DWORD, byval dwFlags as DWORD, byval ppCertificate as PX509Certificate ptr) as WINBOOL
-declare function SslFreeCertificate(byval pCertificate as PX509Certificate) as VOID
+declare sub SslFreeCertificate(byval pCertificate as PX509Certificate)
 
 #ifdef __FB_64BIT__
 	declare function SslGetMaximumKeySize(byval Reserved as DWORD) as DWORD
@@ -409,10 +408,10 @@ declare function SslGetDefaultIssuers(byval pbIssuers as PBYTE, byval pcbIssuers
 
 #ifdef __FB_64BIT__
 	type SSL_CRACK_CERTIFICATE_FN as function(byval pbCertificate as PUCHAR, byval cbCertificate as DWORD, byval VerifySignature as WINBOOL, byval ppCertificate as PX509Certificate ptr) as WINBOOL
-	type SSL_FREE_CERTIFICATE_FN as function(byval pCertificate as PX509Certificate) as VOID
+	type SSL_FREE_CERTIFICATE_FN as sub(byval pCertificate as PX509Certificate)
 #else
 	type SSL_CRACK_CERTIFICATE_FN as function stdcall(byval pbCertificate as PUCHAR, byval cbCertificate as DWORD, byval VerifySignature as WINBOOL, byval ppCertificate as PX509Certificate ptr) as WINBOOL
-	type SSL_FREE_CERTIFICATE_FN as function stdcall(byval pCertificate as PX509Certificate) as VOID
+	type SSL_FREE_CERTIFICATE_FN as sub stdcall(byval pCertificate as PX509Certificate)
 #endif
 
 end extern

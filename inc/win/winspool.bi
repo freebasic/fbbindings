@@ -1,6 +1,7 @@
 #pragma once
 
 #include once "_mingw_unicode.bi"
+#include once "prsht.bi"
 
 #ifdef __FB_64BIT__
 	extern "C"
@@ -1604,8 +1605,8 @@ declare function FindClosePrinterChangeNotification(byval hChange as HANDLE) as 
 #define AddPrinterConnection __MINGW_NAME_AW(AddPrinterConnection)
 #define DeletePrinterConnection __MINGW_NAME_AW(DeletePrinterConnection)
 
-declare function PrinterMessageBoxA(byval hPrinter as HANDLE, byval Error_ as DWORD, byval hWnd as HWND, byval pText as LPSTR, byval pCaption as LPSTR, byval dwType as DWORD) as DWORD
-declare function PrinterMessageBoxW(byval hPrinter as HANDLE, byval Error_ as DWORD, byval hWnd as HWND, byval pText as LPWSTR, byval pCaption as LPWSTR, byval dwType as DWORD) as DWORD
+declare function PrinterMessageBoxA(byval hPrinter as HANDLE, byval Error__ as DWORD, byval hWnd as HWND, byval pText as LPSTR, byval pCaption as LPSTR, byval dwType as DWORD) as DWORD
+declare function PrinterMessageBoxW(byval hPrinter as HANDLE, byval Error__ as DWORD, byval hWnd as HWND, byval pText as LPWSTR, byval pCaption as LPWSTR, byval dwType as DWORD) as DWORD
 
 #define PRINTER_ERROR_INFORMATION &h80000000
 #define PRINTER_ERROR_WARNING &h40000000

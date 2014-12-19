@@ -1,7 +1,6 @@
 #pragma once
 
 #include once "crt/long.bi"
-#include once "winapifamily.bi"
 #include once "_mingw_unicode.bi"
 #include once "ole2.bi"
 #include once "commctrl.bi"
@@ -52,10 +51,9 @@ type IBanneredBarVtbl as IBanneredBarVtbl_
 type IShellFolderViewCBVtbl as IShellFolderViewCBVtbl_
 type IShellFolderViewVtbl as IShellFolderViewVtbl_
 type INamedPropertyBagVtbl as INamedPropertyBagVtbl_
+type IEnumPrivacyRecords as IEnumPrivacyRecords_
 
 #define _SHLOBJ_H_
-#define _WIN32_IE &h0501
-#define SNDMSG SendMessage
 
 declare function SHGetMalloc(byval ppMalloc as IMalloc ptr ptr) as HRESULT
 declare function SHAlloc(byval cb as SIZE_T_) as any ptr
@@ -403,6 +401,7 @@ type LPCOPYHOOKW as ICopyHookW ptr
 #define PANE_SSL 4
 #define PANE_NAVIGATION 5
 #define PANE_PROGRESS 6
+#define PANE_PRIVACY 7
 
 declare function ILClone(byval pidl as LPCITEMIDLIST) as LPITEMIDLIST
 declare function ILCloneFirst(byval pidl as LPCITEMIDLIST) as LPITEMIDLIST
@@ -677,6 +676,7 @@ enum
 	ACLO_DESKTOP = 4
 	ACLO_FAVORITES = 8
 	ACLO_FILESYSONLY = 16
+	ACLO_FILESYSDIRS = 32
 end enum
 
 type AUTOCOMPLETELISTOPTIONS as _tagAUTOCOMPLETELISTOPTIONS
@@ -2187,5 +2187,8 @@ end type
 
 type AASHELLMENUITEM as tagAASHELLMENUITEM
 type LPAASHELLMENUITEM as tagAASHELLMENUITEM ptr
+
+declare function ImportPrivacySettings(byval pszFilename as PCWSTR, byval pfParsePrivacyPreferences as WINBOOL ptr, byval pfParsePerSiteRules as WINBOOL ptr) as WINBOOL
+declare function DoPrivacyDlg(byval hwndOwner as HWND, byval pszUrl as PCWSTR, byval pPrivacyEnum as IEnumPrivacyRecords ptr, byval fReportAllSites as WINBOOL) as HRESULT
 
 end extern

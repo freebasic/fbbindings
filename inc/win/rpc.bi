@@ -1,7 +1,6 @@
 #pragma once
 
 #include once "_mingw.bi"
-#include once "windows.bi"
 #include once "basetsd.bi"
 #include once "rpcdce.bi"
 #include once "rpcnsi.bi"

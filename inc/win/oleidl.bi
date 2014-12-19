@@ -35,7 +35,6 @@ type IDropTarget as IDropTarget_
 type IDropSourceNotify as IDropSourceNotify_
 type IEnumOLEVERB as IEnumOLEVERB_
 
-#define __REQUIRED_RPCNDR_H_VERSION__ 475
 #define __oleidl_h__
 #define __IOleAdviseHolder_FWD_DEFINED__
 #define __IOleCache_FWD_DEFINED__

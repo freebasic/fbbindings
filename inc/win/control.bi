@@ -28,7 +28,6 @@ type IMediaTypeInfo as IMediaTypeInfo_
 type IPinInfo as IPinInfo_
 type IAMStats as IAMStats_
 
-#define __REQUIRED_RPCNDR_H_VERSION__ 475
 #define __control_h__
 #define __IMediaControl_FWD_DEFINED__
 #define __IAMCollection_FWD_DEFINED__

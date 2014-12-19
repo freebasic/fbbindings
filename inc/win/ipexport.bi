@@ -66,7 +66,7 @@ type PICMP_ECHO_REPLY as icmp_echo_reply ptr
 		RoundTripTime as ULONG
 		DataSize as USHORT
 		Reserved as USHORT
-		Data as VOID ptr
+		Data as any ptr
 		Options as ip_option_information32
 	end type
 

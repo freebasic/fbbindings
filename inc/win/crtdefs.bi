@@ -4,11 +4,9 @@
 
 type __lc_time_data as __lc_time_data_
 type lconv as lconv_
-
-#define _INC_CRTDEFS
-
 type rsize_t as uinteger
 
+#define _INC_CRTDEFS
 #define _CRTNOALIAS
 #define _CRTRESTRICT
 #define _RSIZE_T_DEFINED

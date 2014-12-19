@@ -1,6 +1,5 @@
 #pragma once
 
-#include once "windows.bi"
 #include once "windowsx.bi"
 #include once "olectl.bi"
 #include once "ddraw.bi"

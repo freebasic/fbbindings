@@ -373,73 +373,29 @@ WINAPI_FLAGS += -renametypedef byte ubyte
 # winapi.mk lists all the headers we want to translate
 include winapi.mk
 
-# Some headers need additional options on top of the common WINAPI_FLAGS
+# Add default options for each WINAPI_BASE header
+define add-default-winapi-flags
+  WINAPI_FLAGS_$(1) := -include windows.h -filterin '*/$(1).h'
+
+endef
+$(eval $(foreach i,$(WINAPI_BASE),$(call add-default-winapi-flags,$(i))))
+$(eval $(foreach i,$(WINAPI_DIRECTX),$(call add-default-winapi-flags,$(i))))
+$(eval $(foreach i,$(WINAPI_CRT),$(call add-default-winapi-flags,$(i))))
+
+# Some need to override the defaults though
+WINAPI_FLAGS_ole := -include windef.h -define _Analysis_noreturn_ ""
+
+# Some headers need additional options
 WINAPI_FLAGS__mingw    += -filterin '*_mingw_mac.h' -filterin '*sdks/_mingw_ddk.h' -filterin '*sdks/_mingw_directx.h'
-WINAPI_FLAGS_amaudio   += -include windows.h
-WINAPI_FLAGS_bcrypt    += -include windows.h -filterin '*/bcrypt.h'
-WINAPI_FLAGS_commctrl  += -include windows.h
-WINAPI_FLAGS_commdlg   += -include windows.h -filterin '*commdlg.h'
-WINAPI_FLAGS_cpl       += -include windows.h
-WINAPI_FLAGS_custcntl  += -include windows.h
-WINAPI_FLAGS_d3d9types += -include windows.h
-WINAPI_FLAGS_d3dx9anim += -include d3dx9.h -filterin '*d3dx9anim.h'
-WINAPI_FLAGS_dbt       += -include windef.h
-WINAPI_FLAGS_ddeml     += -include windows.h -filterin '*/ddeml.h'
-WINAPI_FLAGS_dmdls     += -include windef.h
-WINAPI_FLAGS_dmerror   += -include windef.h
-WINAPI_FLAGS_dxerr8    += -include windef.h
-WINAPI_FLAGS_dxerr9    += -include windef.h
-WINAPI_FLAGS_errors    += -include windef.h
 WINAPI_FLAGS_imagehlp  += -filterin '*psdk_inc/_dbg_LOAD_IMAGE.h'
-WINAPI_FLAGS_imm       += -include windows.h -filterin '*/imm.h'
 WINAPI_FLAGS_intrin    += -filterin '*/psdk_inc/intrin-impl.h' -nofunctionbodies
-WINAPI_FLAGS_intshcut  += -include windows.h
-WINAPI_FLAGS_iphlpapi  += -include windows.h
-WINAPI_FLAGS_iprtrmib  += -include windows.h
-WINAPI_FLAGS_isguids   += -include windef.h
-WINAPI_FLAGS_ktmtypes  += -include windef.h -filterin '*/ktmtypes.h'
-WINAPI_FLAGS_lzexpand  += -include windows.h -filterin '*/lzexpand.h'
-WINAPI_FLAGS_mapi      += -include windef.h
-WINAPI_FLAGS_mmsystem  += -include windows.h -filterin '*/mmsystem.h'
-WINAPI_FLAGS_msacm     += -include windows.h -include mmreg.h
-WINAPI_FLAGS_nb30      += -include windef.h
-WINAPI_FLAGS_ncrypt    += -include windows.h -filterin '*/ncrypt.h'
-WINAPI_FLAGS_nspapi    += -include windef.h
-WINAPI_FLAGS_ntsecapi  += -include windef.h
-WINAPI_FLAGS_ntsecpkg  += -include winnt.h -define SECURITY_WIN32 1 -include sspi.h
-WINAPI_FLAGS_oleauto   += -include windows.h -filterin '*/oleauto.h'
-WINAPI_FLAGS_ole       += -include windef.h -define _Analysis_noreturn_ ""
-WINAPI_FLAGS_powrprof  += -include windef.h
-WINAPI_FLAGS_prsht     += -include windows.h -filterin '*/prsht.h'
-WINAPI_FLAGS_psapi     += -include windef.h
-WINAPI_FLAGS_ras       += -include windows.h
-WINAPI_FLAGS_rasdlg    += -include windows.h
-WINAPI_FLAGS_rassapi   += -include windef.h
-WINAPI_FLAGS_richedit  += -include windows.h
-WINAPI_FLAGS_richole   += -include windows.h
-WINAPI_FLAGS_rpcasync  += -include windows.h -filterin '*/rpcasync.h'
-WINAPI_FLAGS_rpcdce    += -include windows.h -filterin '*/rpcdce.h'
-WINAPI_FLAGS_rpcdcep   += -include windows.h -filterin '*/rpcdcep.h'
-WINAPI_FLAGS_rpcndr    += -include windows.h -filterin '*/rpcndr.h'
-WINAPI_FLAGS_rpcnsi    += -include windows.h -filterin '*/rpcnsi.h'
-WINAPI_FLAGS_rpcnsip   += -include rpc.h -filterin '*rpcnsip.h'
-WINAPI_FLAGS_scrnsave  += -include windef.h
+WINAPI_FLAGS_msacm     += -include mmreg.h
+WINAPI_FLAGS_ntsecpkg  += -define SECURITY_WIN32 1
 WINAPI_FLAGS_secext    += -define SECURITY_WIN32 1
 WINAPI_FLAGS_security  += -define SECURITY_WIN32 1
-WINAPI_FLAGS_setupapi  += -include windows.h
-WINAPI_FLAGS_shellapi  += -include windows.h -filterin '*/shellapi.h'
-WINAPI_FLAGS_shlguid   += -include windef.h
-WINAPI_FLAGS_sqlext    += -include windef.h
-WINAPI_FLAGS_sqltypes  += -include windef.h
-WINAPI_FLAGS_sspi      += -define SECURITY_WIN32 1 -include windef.h
-WINAPI_FLAGS_subauth   += -include windef.h
-WINAPI_FLAGS_tlhelp32  += -include windef.h
-WINAPI_FLAGS_uuids     += -include windef.h -filterin '*ksuuids.h'
-WINAPI_FLAGS_uxtheme   += -include windows.h
-WINAPI_FLAGS_vfw       += -include windows.h
-WINAPI_FLAGS_vfwmsgs   += -include windows.h
-WINAPI_FLAGS_winbase   += -include windows.h \
-	-filterin '*/winbase.h' \
+WINAPI_FLAGS_sspi      += -define SECURITY_WIN32 1
+WINAPI_FLAGS_uuids     += -filterin '*ksuuids.h'
+WINAPI_FLAGS_winbase   += \
 	-filterin '*/minwinbase.h' \
 	-filterin '*/bemapiset.h' \
 	-filterin '*/debugapi.h' \
@@ -470,23 +426,12 @@ WINAPI_FLAGS_winbase   += -include windows.h \
 	-filterin '*/utilapiset.h' \
 	-filterin '*/wow64apiset.h' \
 	-filterin '*/timezoneapi.h'
-WINAPI_FLAGS_winber   += -include windef.h
-WINAPI_FLAGS_wincon   += -include windows.h -filterin '*/wincon.h'
-WINAPI_FLAGS_wincrypt += -include windows.h -filterin '*/wincrypt.h'
 WINAPI_FLAGS_windef   += -filterin '*/minwindef.h'
-WINAPI_FLAGS_winefs   += -include windows.h -filterin '*/winefs.h'
-WINAPI_FLAGS_winerror += -include windows.h -filterin '*/winerror.h' -filterin '*/fltwinerror.h'
-WINAPI_FLAGS_wingdi   += -include windows.h -filterin '*/wingdi.h'
-WINAPI_FLAGS_wininet  += -include windef.h
-WINAPI_FLAGS_winioctl += -include windef.h
-WINAPI_FLAGS_winnetwk += -include windef.h -filterin '*/wnnc.h'
+WINAPI_FLAGS_winerror += -filterin '*/fltwinerror.h'
+WINAPI_FLAGS_winnetwk += -filterin '*/wnnc.h'
 WINAPI_FLAGS_winnls   += \
 	-filterin '*/datetimeapi.h' \
 	-filterin '*/stringapiset.h'
-WINAPI_FLAGS_winnt    += -include windows.h -filterin '*/winnt.h'
-WINAPI_FLAGS_winperf  += -include windef.h
-WINAPI_FLAGS_winreg   += -include windows.h -filterin '*/winreg.h'
-WINAPI_FLAGS_winscard += -include windows.h -filterin '*/winscard.h'
 WINAPI_FLAGS_winsock  += \
 	-filterin '*/psdk_inc/_socket_types.h' \
 	-filterin '*/psdk_inc/_fd_types.h' \
@@ -502,10 +447,7 @@ WINAPI_FLAGS_winsock2 += \
 	-filterin '*/psdk_inc/_wsadata.h' \
 	-filterin '*/psdk_inc/_wsa_errnos.h' \
 	-filterin '*/psdk_inc/_ws1_undef.h'
-WINAPI_FLAGS_winspool += -include windef.h
-WINAPI_FLAGS_winsvc   += -include windows.h -filterin '*/winsvc.h'
-WINAPI_FLAGS_winuser  += -include windef.h -filterin '*/tvout.h'
-WINAPI_FLAGS_winver   += -include windef.h
+WINAPI_FLAGS_winuser  += -filterin '*/tvout.h'
 
 WINAPI_PATH_CRT     := extracted/$(MINGWW64_TITLE)/mingw-w64-headers/crt
 WINAPI_PATH_BASE    := extracted/$(MINGWW64_TITLE)/mingw-w64-headers/include

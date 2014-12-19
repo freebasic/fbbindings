@@ -53,7 +53,6 @@ type ISurrogateService as ISurrogateService_
 type IInitializeSpy as IInitializeSpy_
 type IApartmentShutdown as IApartmentShutdown_
 
-#define __REQUIRED_RPCNDR_H_VERSION__ 475
 #define __objidl_h__
 #define __IMallocSpy_FWD_DEFINED__
 #define __IBindCtx_FWD_DEFINED__

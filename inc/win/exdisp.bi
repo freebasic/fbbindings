@@ -36,7 +36,6 @@ type ISearchAssistantOC2 as ISearchAssistantOC2_
 type ISearchAssistantOC3 as ISearchAssistantOC3_
 type _SearchAssistantEvents as _SearchAssistantEvents_
 
-#define __REQUIRED_RPCNDR_H_VERSION__ 440
 #define __exdisp_h__
 #define __IWebBrowser_FWD_DEFINED__
 #define __DWebBrowserEvents_FWD_DEFINED__
