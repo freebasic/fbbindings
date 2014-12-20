@@ -8,10 +8,6 @@
 #include once "wtypes.bi"
 #include once "winapifamily.bi"
 
-'' The following symbols have been renamed:
-''     inside struct IRunningObjectTableVtbl:
-''         field GetObject => GetObject_
-
 #ifdef __FB_64BIT__
 	extern "C"
 #else
@@ -330,7 +326,7 @@ type IRunningObjectTableVtbl
 	Register as function(byval This as IRunningObjectTable ptr, byval grfFlags as DWORD, byval punkObject as IUnknown ptr, byval pmkObjectName as IMoniker ptr, byval pdwRegister as DWORD ptr) as HRESULT
 	Revoke as function(byval This as IRunningObjectTable ptr, byval dwRegister as DWORD) as HRESULT
 	IsRunning as function(byval This as IRunningObjectTable ptr, byval pmkObjectName as IMoniker ptr) as HRESULT
-	GetObject_ as function(byval This as IRunningObjectTable ptr, byval pmkObjectName as IMoniker ptr, byval ppunkObject as IUnknown ptr ptr) as HRESULT
+	GetObject as function(byval This as IRunningObjectTable ptr, byval pmkObjectName as IMoniker ptr, byval ppunkObject as IUnknown ptr ptr) as HRESULT
 	NoteChangeTime as function(byval This as IRunningObjectTable ptr, byval dwRegister as DWORD, byval pfiletime as FILETIME ptr) as HRESULT
 	GetTimeOfLastChange as function(byval This as IRunningObjectTable ptr, byval pmkObjectName as IMoniker ptr, byval pfiletime as FILETIME ptr) as HRESULT
 	EnumRunning as function(byval This as IRunningObjectTable ptr, byval ppenumMoniker as IEnumMoniker ptr ptr) as HRESULT

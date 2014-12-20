@@ -10,16 +10,6 @@
 #include once "urlmon.bi"
 #include once "winapifamily.bi"
 
-'' The following symbols have been renamed:
-''     inside struct IOleControlSiteVtbl:
-''         field TranslateAccelerator => TranslateAccelerator_
-''     inside struct IPropertyPageVtbl:
-''         field TranslateAccelerator => TranslateAccelerator_
-''     inside struct IPropertyPage2Vtbl:
-''         field TranslateAccelerator => TranslateAccelerator_
-''     inside struct IPropertyPageSiteVtbl:
-''         field TranslateAccelerator => TranslateAccelerator_
-
 #ifdef __FB_64BIT__
 	extern "C"
 #else
@@ -478,7 +468,7 @@ type IOleControlSiteVtbl
 	LockInPlaceActive as function(byval This as IOleControlSite ptr, byval fLock as WINBOOL) as HRESULT
 	GetExtendedControl as function(byval This as IOleControlSite ptr, byval ppDisp as IDispatch ptr ptr) as HRESULT
 	TransformCoords as function(byval This as IOleControlSite ptr, byval pPtlHimetric as POINTL ptr, byval pPtfContainer as POINTF ptr, byval dwFlags as DWORD) as HRESULT
-	TranslateAccelerator_ as function(byval This as IOleControlSite ptr, byval pMsg as MSG ptr, byval grfModifiers as DWORD) as HRESULT
+	TranslateAccelerator as function(byval This as IOleControlSite ptr, byval pMsg as MSG ptr, byval grfModifiers as DWORD) as HRESULT
 	OnFocus as function(byval This as IOleControlSite ptr, byval fGotFocus as WINBOOL) as HRESULT
 	ShowPropertyFrame as function(byval This as IOleControlSite ptr) as HRESULT
 end type
@@ -534,7 +524,7 @@ type IPropertyPageVtbl
 	IsPageDirty as function(byval This as IPropertyPage ptr) as HRESULT
 	Apply as function(byval This as IPropertyPage ptr) as HRESULT
 	Help as function(byval This as IPropertyPage ptr, byval pszHelpDir as LPCOLESTR) as HRESULT
-	TranslateAccelerator_ as function(byval This as IPropertyPage ptr, byval pMsg as MSG ptr) as HRESULT
+	TranslateAccelerator as function(byval This as IPropertyPage ptr, byval pMsg as MSG ptr) as HRESULT
 end type
 
 type IPropertyPage_
@@ -584,7 +574,7 @@ type IPropertyPage2Vtbl
 	IsPageDirty as function(byval This as IPropertyPage2 ptr) as HRESULT
 	Apply as function(byval This as IPropertyPage2 ptr) as HRESULT
 	Help as function(byval This as IPropertyPage2 ptr, byval pszHelpDir as LPCOLESTR) as HRESULT
-	TranslateAccelerator_ as function(byval This as IPropertyPage2 ptr, byval pMsg as MSG ptr) as HRESULT
+	TranslateAccelerator as function(byval This as IPropertyPage2 ptr, byval pMsg as MSG ptr) as HRESULT
 	EditProperty as function(byval This as IPropertyPage2 ptr, byval dispID as DISPID) as HRESULT
 end type
 
@@ -617,7 +607,7 @@ type IPropertyPageSiteVtbl
 	OnStatusChange as function(byval This as IPropertyPageSite ptr, byval dwFlags as DWORD) as HRESULT
 	GetLocaleID as function(byval This as IPropertyPageSite ptr, byval pLocaleID as LCID ptr) as HRESULT
 	GetPageContainer as function(byval This as IPropertyPageSite ptr, byval ppUnk as IUnknown ptr ptr) as HRESULT
-	TranslateAccelerator_ as function(byval This as IPropertyPageSite ptr, byval pMsg as MSG ptr) as HRESULT
+	TranslateAccelerator as function(byval This as IPropertyPageSite ptr, byval pMsg as MSG ptr) as HRESULT
 end type
 
 type IPropertyPageSite_

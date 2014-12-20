@@ -11,8 +11,6 @@
 #include once "ddraw.bi"
 
 '' The following symbols have been renamed:
-''     inside struct IMediaSeekingVtbl:
-''         field GetTimeFormat => GetTimeFormat_
 ''     inside struct tagCOLORKEY:
 ''         field PaletteIndex => PaletteIndex_
 
@@ -912,7 +910,7 @@ type IMediaSeekingVtbl
 	CheckCapabilities as function(byval This as IMediaSeeking ptr, byval pCapabilities as DWORD ptr) as HRESULT
 	IsFormatSupported as function(byval This as IMediaSeeking ptr, byval pFormat as const GUID ptr) as HRESULT
 	QueryPreferredFormat as function(byval This as IMediaSeeking ptr, byval pFormat as GUID ptr) as HRESULT
-	GetTimeFormat_ as function(byval This as IMediaSeeking ptr, byval pFormat as GUID ptr) as HRESULT
+	GetTimeFormat as function(byval This as IMediaSeeking ptr, byval pFormat as GUID ptr) as HRESULT
 	IsUsingTimeFormat as function(byval This as IMediaSeeking ptr, byval pFormat as const GUID ptr) as HRESULT
 	SetTimeFormat as function(byval This as IMediaSeeking ptr, byval pFormat as const GUID ptr) as HRESULT
 	GetDuration as function(byval This as IMediaSeeking ptr, byval pDuration as LONGLONG ptr) as HRESULT

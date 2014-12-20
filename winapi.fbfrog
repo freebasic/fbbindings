@@ -257,6 +257,22 @@
 -noexpand SetCredentialsAttributes
 -noexpand TranslateAccelerator
 
+-dontrenamefield AcquireCredentialsHandle
+-dontrenamefield AddCredentials
+-dontrenamefield AddPort
+-dontrenamefield FindText
+-dontrenamefield GetClassName
+-dontrenamefield GetObject
+-dontrenamefield GetTimeFormat
+-dontrenamefield LoadMenu
+-dontrenamefield LogonUser
+-dontrenamefield LogonUserEx
+-dontrenamefield QueryContextAttributes
+-dontrenamefield QueryCredentialsAttributes
+-dontrenamefield SetContextAttributes
+-dontrenamefield SetCredentialsAttributes
+-dontrenamefield TranslateAccelerator
+
 -clong32
 -typedefhint __LONG32
 -nofbkeyword short

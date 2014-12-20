@@ -2,10 +2,6 @@
 
 #include once "richedit.bi"
 
-'' The following symbols have been renamed:
-''     inside struct IRichEditOleVtbl:
-''         field GetObject => GetObject_
-
 #ifdef __FB_64BIT__
 	extern "C"
 #else
@@ -73,7 +69,7 @@ type IRichEditOleVtbl_
 	GetClientSite as function(byval This as IRichEditOle ptr, byval lplpolesite as LPOLECLIENTSITE ptr) as HRESULT
 	GetObjectCount as function(byval This as IRichEditOle ptr) as LONG
 	GetLinkCount as function(byval This as IRichEditOle ptr) as LONG
-	GetObject_ as function(byval This as IRichEditOle ptr, byval iob as LONG, byval lpreobject as REOBJECT ptr, byval dwFlags as DWORD) as HRESULT
+	GetObject as function(byval This as IRichEditOle ptr, byval iob as LONG, byval lpreobject as REOBJECT ptr, byval dwFlags as DWORD) as HRESULT
 	InsertObject as function(byval This as IRichEditOle ptr, byval lpreobject as REOBJECT ptr) as HRESULT
 	ConvertObject as function(byval This as IRichEditOle ptr, byval iob as LONG, byval rclsidNew as const IID const ptr, byval lpstrUserTypeNew as LPCSTR) as HRESULT
 	ActivateAs as function(byval This as IRichEditOle ptr, byval rclsid as const IID const ptr, byval rclsidAs as const IID const ptr) as HRESULT

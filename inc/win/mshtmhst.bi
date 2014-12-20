@@ -7,12 +7,6 @@
 #include once "ocidl.bi"
 #include once "docobj.bi"
 
-'' The following symbols have been renamed:
-''     inside struct IDocHostUIHandlerVtbl:
-''         field TranslateAccelerator => TranslateAccelerator_
-''     inside struct IDocHostUIHandler2Vtbl:
-''         field TranslateAccelerator => TranslateAccelerator_
-
 #ifdef __FB_64BIT__
 	extern "C"
 #else
@@ -176,7 +170,7 @@ type IDocHostUIHandlerVtbl
 	OnDocWindowActivate as function(byval This as IDocHostUIHandler ptr, byval fActivate as WINBOOL) as HRESULT
 	OnFrameWindowActivate as function(byval This as IDocHostUIHandler ptr, byval fActivate as WINBOOL) as HRESULT
 	ResizeBorder as function(byval This as IDocHostUIHandler ptr, byval prcBorder as LPCRECT, byval pUIWindow as IOleInPlaceUIWindow ptr, byval fRameWindow as WINBOOL) as HRESULT
-	TranslateAccelerator_ as function(byval This as IDocHostUIHandler ptr, byval lpMsg as LPMSG, byval pguidCmdGroup as const GUID ptr, byval nCmdID as DWORD) as HRESULT
+	TranslateAccelerator as function(byval This as IDocHostUIHandler ptr, byval lpMsg as LPMSG, byval pguidCmdGroup as const GUID ptr, byval nCmdID as DWORD) as HRESULT
 	GetOptionKeyPath as function(byval This as IDocHostUIHandler ptr, byval pchKey as LPOLESTR ptr, byval dw as DWORD) as HRESULT
 	GetDropTarget as function(byval This as IDocHostUIHandler ptr, byval pDropTarget as IDropTarget ptr, byval ppDropTarget as IDropTarget ptr ptr) as HRESULT
 	GetExternal as function(byval This as IDocHostUIHandler ptr, byval ppDispatch as IDispatch ptr ptr) as HRESULT
@@ -236,7 +230,7 @@ type IDocHostUIHandler2Vtbl
 	OnDocWindowActivate as function(byval This as IDocHostUIHandler2 ptr, byval fActivate as WINBOOL) as HRESULT
 	OnFrameWindowActivate as function(byval This as IDocHostUIHandler2 ptr, byval fActivate as WINBOOL) as HRESULT
 	ResizeBorder as function(byval This as IDocHostUIHandler2 ptr, byval prcBorder as LPCRECT, byval pUIWindow as IOleInPlaceUIWindow ptr, byval fRameWindow as WINBOOL) as HRESULT
-	TranslateAccelerator_ as function(byval This as IDocHostUIHandler2 ptr, byval lpMsg as LPMSG, byval pguidCmdGroup as const GUID ptr, byval nCmdID as DWORD) as HRESULT
+	TranslateAccelerator as function(byval This as IDocHostUIHandler2 ptr, byval lpMsg as LPMSG, byval pguidCmdGroup as const GUID ptr, byval nCmdID as DWORD) as HRESULT
 	GetOptionKeyPath as function(byval This as IDocHostUIHandler2 ptr, byval pchKey as LPOLESTR ptr, byval dw as DWORD) as HRESULT
 	GetDropTarget as function(byval This as IDocHostUIHandler2 ptr, byval pDropTarget as IDropTarget ptr, byval ppDropTarget as IDropTarget ptr ptr) as HRESULT
 	GetExternal as function(byval This as IDocHostUIHandler2 ptr, byval ppDispatch as IDispatch ptr ptr) as HRESULT

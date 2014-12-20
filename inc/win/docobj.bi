@@ -12,10 +12,6 @@
 #include once "servprov.bi"
 #include once "winapifamily.bi"
 
-'' The following symbols have been renamed:
-''     inside struct IProtectedModeMenuServicesVtbl:
-''         field LoadMenu => LoadMenu_
-
 #ifdef __FB_64BIT__
 	extern "C"
 #else
@@ -664,7 +660,7 @@ type IProtectedModeMenuServicesVtbl
 	AddRef as function(byval This as IProtectedModeMenuServices ptr) as ULONG
 	Release as function(byval This as IProtectedModeMenuServices ptr) as ULONG
 	CreateMenu as function(byval This as IProtectedModeMenuServices ptr, byval phMenu as HMENU ptr) as HRESULT
-	LoadMenu_ as function(byval This as IProtectedModeMenuServices ptr, byval pszModuleName as LPCWSTR, byval pszMenuName as LPCWSTR, byval phMenu as HMENU ptr) as HRESULT
+	LoadMenu as function(byval This as IProtectedModeMenuServices ptr, byval pszModuleName as LPCWSTR, byval pszMenuName as LPCWSTR, byval phMenu as HMENU ptr) as HRESULT
 	LoadMenuID as function(byval This as IProtectedModeMenuServices ptr, byval pszModuleName as LPCWSTR, byval wResourceID as WORD, byval phMenu as HMENU ptr) as HRESULT
 end type
 
