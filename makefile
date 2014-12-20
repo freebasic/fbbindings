@@ -372,6 +372,7 @@ WINAPI_FLAGS__mingw    += -filterin '*_mingw_mac.h' -filterin '*sdks/_mingw_ddk.
 WINAPI_FLAGS_imagehlp  += -filterin '*psdk_inc/_dbg_LOAD_IMAGE.h'
 WINAPI_FLAGS_intrin    += -filterin '*/psdk_inc/intrin-impl.h' -nofunctionbodies
 WINAPI_FLAGS_msacm     += -include mmreg.h
+WINAPI_FLAGS_ntsecpkg  += -include sspi.h
 WINAPI_FLAGS_uuids     += -filterin '*ksuuids.h'
 WINAPI_FLAGS_winbase   += \
 	-filterin '*/minwinbase.h' \
