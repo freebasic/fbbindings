@@ -333,7 +333,74 @@ png16:
 	$(FBFROG) png.fbfrog -o inc/png16.bi extracted/$(PNG16_TITLE)/png.h
 
 ################################################################################
-# Windows API, thanks to the MinGW-w64 project
+# Windows API, based on MinGW-w64 headers
+#
+# winsock vs. winsock2
+#
+# In MinGW and MinGW-w64, windows.h provides winsock.h. In order to use
+# winsock2.h it must be #included before windows.h so it can override winsock.h.
+#
+# In Cygwin, you have to define __USE_W32_SOCKETS in order to get windows.h to
+# include winsock.h.
+#
+# In contrast to this,
+# FB's windows.bi traditionally doesn't #include winsock, but winsock2, and even
+# that only if __USE_W32_SOCKETS is defined, which overall is similar to Cygwin
+# but not the same.
+#
+# FB should support the following:
+#
+#    #include "windows.bi"
+#    (neither winsock nor winsock2; legacy)
+#
+#    #include "win/winsock2.bi"
+#    #include "windows.bi"
+#    ("normal" way of using winsock2)
+#
+#    #define WIN_INCLUDEALL
+#    #define __USE_W32_SOCKETS
+#    #include "windows.bi"
+#    (legacy way of using winsock2)
+#
+#    #include "windows.bi"
+#    #include "win/winsock.bi"
+#    (legacy way of using winsock)
+#
+# Global #defines causing accidental renames in the C headers
+#
+#   On one hand we have #defines like this:
+#     #define LogonUser __MINGW_NAME_AW(LogonUser)
+#     (or similar in the MS Windows SDK)
+#   and on the other hand, we have fields/parameters with the same names as
+#   these #defined functions.
+#
+#   Thus, such fields/parameter will be renamed during C preprocessing, which
+#   is probably not intentional. Thus it's probably good to disable expansion
+#   of a selected few ids when running fbfrog...
+#
+# BYTE/UBYTE typedefs
+#
+#   "BYTE" is defined as "unsigned char", thus it conflicts with FB's signed "byte" type.
+#   Traditionally, the FB winapi headers have used FB's "ubyte" type everywhere in place
+#   of "BYTE", so all we need to do is rename the typedef and then remove its declaration.
+#   It helps that there is no existing UBYTE type in the winapi headers. The same must be
+#   be done for the "byte" typedef (also "unsigned char") used by some headers.
+#
+# LONG/ULONG typedefs
+#
+#   Since they match the FB's long/ulong types exactly (always 32bit on both Win32 and Win64),
+#   nothing needs to be done, besides removing the declarations.
+#
+# INT typedef
+#
+#   INT is traditionally renamed to INT_ to avoit conflict with FB's int() function.
+#
+# Uses of C's long type
+#
+#   There exist some uses of C's long type in the headers, but since the binding is only
+#   for Win32/Win64, it can be translated to FB's long instead of crt/long.bi's clong.
+#   (fbfrog -clong32)
+#
 
 MINGWW64_TITLE := mingw-w64-v3.3.0
 winapi-extract:
