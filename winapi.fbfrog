@@ -241,6 +241,22 @@
 
 -removeproc __debugbreak
 
+-noexpand AcquireCredentialsHandle
+-noexpand AddCredentials
+-noexpand AddPort
+-noexpand FindText
+-noexpand GetClassName
+-noexpand GetObject
+-noexpand GetTimeFormat
+-noexpand LoadMenu
+-noexpand LogonUser
+-noexpand LogonUserEx
+-noexpand QueryContextAttributes
+-noexpand QueryCredentialsAttributes
+-noexpand SetContextAttributes
+-noexpand SetCredentialsAttributes
+-noexpand TranslateAccelerator
+
 -clong32
 -typedefhint __LONG32
 -nofbkeyword short
