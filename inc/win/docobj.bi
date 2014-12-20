@@ -3,12 +3,18 @@
 #include once "crt/long.bi"
 #include once "rpc.bi"
 #include once "rpcndr.bi"
+#include once "windows.bi"
 #include once "ole2.bi"
 #include once "ocidl.bi"
 #include once "objidl.bi"
 #include once "oleidl.bi"
 #include once "oaidl.bi"
 #include once "servprov.bi"
+#include once "winapifamily.bi"
+
+'' The following symbols have been renamed:
+''     inside struct IProtectedModeMenuServicesVtbl:
+''         field LoadMenu => LoadMenu_
 
 #ifdef __FB_64BIT__
 	extern "C"
@@ -658,13 +664,7 @@ type IProtectedModeMenuServicesVtbl
 	AddRef as function(byval This as IProtectedModeMenuServices ptr) as ULONG
 	Release as function(byval This as IProtectedModeMenuServices ptr) as ULONG
 	CreateMenu as function(byval This as IProtectedModeMenuServices ptr, byval phMenu as HMENU ptr) as HRESULT
-
-	#ifdef UNICODE
-		LoadMenuW as function(byval This as IProtectedModeMenuServices ptr, byval pszModuleName as LPCWSTR, byval pszMenuName as LPCWSTR, byval phMenu as HMENU ptr) as HRESULT
-	#else
-		LoadMenuA as function(byval This as IProtectedModeMenuServices ptr, byval pszModuleName as LPCWSTR, byval pszMenuName as LPCWSTR, byval phMenu as HMENU ptr) as HRESULT
-	#endif
-
+	LoadMenu_ as function(byval This as IProtectedModeMenuServices ptr, byval pszModuleName as LPCWSTR, byval pszMenuName as LPCWSTR, byval phMenu as HMENU ptr) as HRESULT
 	LoadMenuID as function(byval This as IProtectedModeMenuServices ptr, byval pszModuleName as LPCWSTR, byval wResourceID as WORD, byval phMenu as HMENU ptr) as HRESULT
 end type
 

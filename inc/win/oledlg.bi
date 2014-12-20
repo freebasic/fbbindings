@@ -1,9 +1,14 @@
 #pragma once
 
 #include once "_mingw_unicode.bi"
+#include once "windows.bi"
 #include once "shellapi.bi"
+#include once "commdlg.bi"
 #include once "ole2.bi"
+#include once "crt/string.bi"
 #include once "tchar.bi"
+#include once "dlgs.bi"
+#include once "prsht.bi"
 
 '' The following symbols have been renamed:
 ''     #define OleUIInsertObject => OleUIInsertObject_

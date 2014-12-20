@@ -2,6 +2,7 @@
 
 #include once "_mingw.bi"
 #include once "_mingw_unicode.bi"
+#include once "apisetcconv.bi"
 
 #ifdef __FB_64BIT__
 	extern "C"

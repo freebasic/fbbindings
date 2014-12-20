@@ -1,6 +1,7 @@
 #pragma once
 
 #include once "_mingw_unicode.bi"
+#include once "winapifamily.bi"
 
 '' The following symbols have been renamed:
 ''     #define MOUSE_EVENT => MOUSE_EVENT_

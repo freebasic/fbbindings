@@ -1,6 +1,8 @@
 #pragma once
 
+#include once "winapifamily.bi"
 #include once "_mingw_unicode.bi"
+#include once "windows.bi"
 #include once "accctrl.bi"
 
 #ifdef __FB_64BIT__

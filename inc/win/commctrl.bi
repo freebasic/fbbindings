@@ -1,6 +1,7 @@
 #pragma once
 
 #include once "_mingw_unicode.bi"
+#include once "prsht.bi"
 
 '' The following symbols have been renamed:
 ''     typedef IMAGEINFO => IMAGEINFO_

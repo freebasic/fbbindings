@@ -2,6 +2,7 @@
 
 #include once "_mingw_unicode.bi"
 #include once "wtypes.bi"
+#include once "winapifamily.bi"
 
 #define __ACCESS_CONTROL__
 #define AccFree LocalFree

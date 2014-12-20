@@ -2,6 +2,9 @@
 
 #include once "_mingw_unicode.bi"
 #include once "apisetcconv.bi"
+#include once "winapifamily.bi"
+#include once "apiset.bi"
+#include once "minwindef.bi"
 #include once "psdk_inc/intrin-impl.bi"
 #include once "winerror.bi"
 

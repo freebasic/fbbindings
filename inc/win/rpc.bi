@@ -1,10 +1,13 @@
 #pragma once
 
 #include once "_mingw.bi"
+#include once "windows.bi"
 #include once "basetsd.bi"
 #include once "rpcdce.bi"
 #include once "rpcnsi.bi"
 #include once "rpcnterr.bi"
+#include once "excpt.bi"
+#include once "winerror.bi"
 #include once "rpcasync.bi"
 
 '' The following symbols have been renamed:

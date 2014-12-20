@@ -1,5 +1,6 @@
 #pragma once
 
+#include once "winapifamily.bi"
 #include once "_mingw_unicode.bi"
 
 #ifdef __FB_64BIT__

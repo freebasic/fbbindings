@@ -1,5 +1,7 @@
 #pragma once
 
+#include once "winapifamily.bi"
+
 #define __AUDEVCOD__
 
 type _tagSND_DEVICE_ERROR as long

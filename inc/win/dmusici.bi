@@ -1,12 +1,18 @@
 #pragma once
 
+#include once "windows.bi"
 #include once "objbase.bi"
+#include once "mmsystem.bi"
 #include once "dmusicc.bi"
 #include once "dmplugin.bi"
 
 '' The following symbols have been renamed:
 ''     inside struct _DMUS_CURVE_PMSG:
 ''         field bType => bType_
+''     inside struct IDirectMusicPerformanceVtbl:
+''         field AddPort => AddPort_
+''     inside struct IDirectMusicPerformance8Vtbl:
+''         field AddPort => AddPort_
 
 #ifdef __FB_64BIT__
 	extern "C"
@@ -1253,13 +1259,7 @@ type IDirectMusicPerformanceVtbl_
 	GetNotificationPMsg as function(byval This as IDirectMusicPerformance ptr, byval ppNotificationPMsg as DMUS_NOTIFICATION_PMSG ptr ptr) as HRESULT
 	AddNotificationType as function(byval This as IDirectMusicPerformance ptr, byval rguidNotificationType as const GUID const ptr) as HRESULT
 	RemoveNotificationType as function(byval This as IDirectMusicPerformance ptr, byval rguidNotificationType as const GUID const ptr) as HRESULT
-
-	#ifdef UNICODE
-		AddPortW as function(byval This as IDirectMusicPerformance ptr, byval pPort as IDirectMusicPort ptr) as HRESULT
-	#else
-		AddPortA as function(byval This as IDirectMusicPerformance ptr, byval pPort as IDirectMusicPort ptr) as HRESULT
-	#endif
-
+	AddPort_ as function(byval This as IDirectMusicPerformance ptr, byval pPort as IDirectMusicPort ptr) as HRESULT
 	RemovePort as function(byval This as IDirectMusicPerformance ptr, byval pPort as IDirectMusicPort ptr) as HRESULT
 	AssignPChannelBlock as function(byval This as IDirectMusicPerformance ptr, byval dwBlockNum as DWORD, byval pPort as IDirectMusicPort ptr, byval dwGroup as DWORD) as HRESULT
 	AssignPChannel as function(byval This as IDirectMusicPerformance ptr, byval dwPChannel as DWORD, byval pPort as IDirectMusicPort ptr, byval dwGroup as DWORD, byval dwMChannel as DWORD) as HRESULT
@@ -1355,13 +1355,7 @@ type IDirectMusicPerformance8Vtbl_
 	GetNotificationPMsg as function(byval This as IDirectMusicPerformance8 ptr, byval ppNotificationPMsg as DMUS_NOTIFICATION_PMSG ptr ptr) as HRESULT
 	AddNotificationType as function(byval This as IDirectMusicPerformance8 ptr, byval rguidNotificationType as const GUID const ptr) as HRESULT
 	RemoveNotificationType as function(byval This as IDirectMusicPerformance8 ptr, byval rguidNotificationType as const GUID const ptr) as HRESULT
-
-	#ifdef UNICODE
-		AddPortW as function(byval This as IDirectMusicPerformance8 ptr, byval pPort as IDirectMusicPort ptr) as HRESULT
-	#else
-		AddPortA as function(byval This as IDirectMusicPerformance8 ptr, byval pPort as IDirectMusicPort ptr) as HRESULT
-	#endif
-
+	AddPort_ as function(byval This as IDirectMusicPerformance8 ptr, byval pPort as IDirectMusicPort ptr) as HRESULT
 	RemovePort as function(byval This as IDirectMusicPerformance8 ptr, byval pPort as IDirectMusicPort ptr) as HRESULT
 	AssignPChannelBlock as function(byval This as IDirectMusicPerformance8 ptr, byval dwBlockNum as DWORD, byval pPort as IDirectMusicPort ptr, byval dwGroup as DWORD) as HRESULT
 	AssignPChannel as function(byval This as IDirectMusicPerformance8 ptr, byval dwPChannel as DWORD, byval pPort as IDirectMusicPort ptr, byval dwGroup as DWORD, byval dwMChannel as DWORD) as HRESULT

@@ -5,9 +5,12 @@
 #include once "_mingw_unicode.bi"
 #include once "_mingw.bi"
 #include once "crt/ctype.bi"
+#include once "excpt.bi"
+#include once "winapifamily.bi"
 #include once "apiset.bi"
 #include once "specstrings.bi"
 #include once "psdk_inc/intrin-impl.bi"
+#include once "sdkddkver.bi"
 #include once "basetsd.bi"
 #include once "guiddef.bi"
 
@@ -15,6 +18,7 @@
 	#include once "x86intrin.bi"
 #endif
 
+#include once "crt/string.bi"
 #include once "ktmtypes.bi"
 
 '' The following symbols have been renamed:

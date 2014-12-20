@@ -1,5 +1,6 @@
 #pragma once
 
+#include once "winapifamily.bi"
 #include once "_mingw_unicode.bi"
 
 '' The following symbols have been renamed:

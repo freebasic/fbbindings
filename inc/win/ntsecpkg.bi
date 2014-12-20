@@ -1,5 +1,18 @@
 #pragma once
 
+'' The following symbols have been renamed:
+''     inside struct _SECPKG_FUNCTION_TABLE:
+''         field LogonUser => LogonUser_
+''         field LogonUserEx => LogonUserEx_
+''         field AcquireCredentialsHandle => AcquireCredentialsHandle_
+''         field QueryCredentialsAttributes => QueryCredentialsAttributes_
+''         field QueryContextAttributes => QueryContextAttributes_
+''         field AddCredentials => AddCredentials_
+''         field SetContextAttributes => SetContextAttributes_
+''         field SetCredentialsAttributes => SetCredentialsAttributes_
+''     inside struct _SECPKG_USER_FUNCTION_TABLE:
+''         field QueryContextAttributes => QueryContextAttributes_
+
 #ifdef __FB_64BIT__
 	extern "C"
 #else
@@ -525,12 +538,12 @@ type PLSA_AP_LOGON_USER_EX2 as function cdecl(byval ClientRequest as PLSA_CLIENT
 
 type _SECPKG_FUNCTION_TABLE
 	InitializePackage as PLSA_AP_INITIALIZE_PACKAGE
-	LogonUser as PLSA_AP_LOGON_USER
+	LogonUser_ as PLSA_AP_LOGON_USER
 	CallPackage as PLSA_AP_CALL_PACKAGE
 	LogonTerminated as PLSA_AP_LOGON_TERMINATED
 	CallPackageUntrusted as PLSA_AP_CALL_PACKAGE_UNTRUSTED
 	CallPackagePassthrough as PLSA_AP_CALL_PACKAGE_PASSTHROUGH
-	LogonUserEx as PLSA_AP_LOGON_USER_EX
+	LogonUserEx_ as PLSA_AP_LOGON_USER_EX
 	LogonUserEx2 as PLSA_AP_LOGON_USER_EX2
 	Initialize as function(byval PackageId as ULONG_PTR, byval Parameters as PSECPKG_PARAMETERS, byval FunctionTable as PLSA_SECPKG_FUNCTION_TABLE) as NTSTATUS
 	Shutdown as function() as NTSTATUS
@@ -542,15 +555,8 @@ type _SECPKG_FUNCTION_TABLE
 	#endif
 
 	AcceptCredentials as function(byval LogonType as SECURITY_LOGON_TYPE, byval AccountName as PUNICODE_STRING, byval PrimaryCredentials as PSECPKG_PRIMARY_CRED, byval SupplementalCredentials as PSECPKG_SUPPLEMENTAL_CRED) as NTSTATUS
-
-	#ifdef UNICODE
-		AcquireCredentialsHandleW as function(byval PrincipalName as PUNICODE_STRING, byval CredentialUseFlags as ULONG, byval LogonId as PLUID, byval AuthorizationData as PVOID, byval GetKeyFunciton as PVOID, byval GetKeyArgument as PVOID, byval CredentialHandle as PLSA_SEC_HANDLE, byval ExpirationTime as PTimeStamp) as NTSTATUS
-		QueryCredentialsAttributesW as function(byval CredentialHandle as LSA_SEC_HANDLE, byval CredentialAttribute as ULONG, byval Buffer as PVOID) as NTSTATUS
-	#else
-		AcquireCredentialsHandleA as function(byval PrincipalName as PUNICODE_STRING, byval CredentialUseFlags as ULONG, byval LogonId as PLUID, byval AuthorizationData as PVOID, byval GetKeyFunciton as PVOID, byval GetKeyArgument as PVOID, byval CredentialHandle as PLSA_SEC_HANDLE, byval ExpirationTime as PTimeStamp) as NTSTATUS
-		QueryCredentialsAttributesA as function(byval CredentialHandle as LSA_SEC_HANDLE, byval CredentialAttribute as ULONG, byval Buffer as PVOID) as NTSTATUS
-	#endif
-
+	AcquireCredentialsHandle_ as function(byval PrincipalName as PUNICODE_STRING, byval CredentialUseFlags as ULONG, byval LogonId as PLUID, byval AuthorizationData as PVOID, byval GetKeyFunciton as PVOID, byval GetKeyArgument as PVOID, byval CredentialHandle as PLSA_SEC_HANDLE, byval ExpirationTime as PTimeStamp) as NTSTATUS
+	QueryCredentialsAttributes_ as function(byval CredentialHandle as LSA_SEC_HANDLE, byval CredentialAttribute as ULONG, byval Buffer as PVOID) as NTSTATUS
 	FreeCredentialsHandle as function(byval CredentialHandle as LSA_SEC_HANDLE) as NTSTATUS
 	SaveCredentials as function(byval CredentialHandle as LSA_SEC_HANDLE, byval Credentials as PSecBuffer) as NTSTATUS
 	GetCredentials as function(byval CredentialHandle as LSA_SEC_HANDLE, byval Credentials as PSecBuffer) as NTSTATUS
@@ -561,24 +567,11 @@ type _SECPKG_FUNCTION_TABLE
 	ApplyControlToken as function(byval ContextHandle as LSA_SEC_HANDLE, byval ControlToken as PSecBufferDesc) as NTSTATUS
 	GetUserInfo as function(byval LogonId as PLUID, byval Flags as ULONG, byval UserData as PSecurityUserData ptr) as NTSTATUS
 	GetExtendedInformation as function(byval Class_ as SECPKG_EXTENDED_INFORMATION_CLASS, byval ppInformation as PSECPKG_EXTENDED_INFORMATION ptr) as NTSTATUS
-
-	#ifdef UNICODE
-		QueryContextAttributesW as function(byval ContextHandle as LSA_SEC_HANDLE, byval ContextAttribute as ULONG, byval Buffer as PVOID) as NTSTATUS
-		AddCredentialsW as function(byval CredentialHandle as LSA_SEC_HANDLE, byval PrincipalName as PUNICODE_STRING, byval Package as PUNICODE_STRING, byval CredentialUseFlags as ULONG, byval AuthorizationData as PVOID, byval GetKeyFunciton as PVOID, byval GetKeyArgument as PVOID, byval ExpirationTime as PTimeStamp) as NTSTATUS
-	#else
-		QueryContextAttributesA as function(byval ContextHandle as LSA_SEC_HANDLE, byval ContextAttribute as ULONG, byval Buffer as PVOID) as NTSTATUS
-		AddCredentialsA as function(byval CredentialHandle as LSA_SEC_HANDLE, byval PrincipalName as PUNICODE_STRING, byval Package as PUNICODE_STRING, byval CredentialUseFlags as ULONG, byval AuthorizationData as PVOID, byval GetKeyFunciton as PVOID, byval GetKeyArgument as PVOID, byval ExpirationTime as PTimeStamp) as NTSTATUS
-	#endif
-
+	QueryContextAttributes_ as function(byval ContextHandle as LSA_SEC_HANDLE, byval ContextAttribute as ULONG, byval Buffer as PVOID) as NTSTATUS
+	AddCredentials_ as function(byval CredentialHandle as LSA_SEC_HANDLE, byval PrincipalName as PUNICODE_STRING, byval Package as PUNICODE_STRING, byval CredentialUseFlags as ULONG, byval AuthorizationData as PVOID, byval GetKeyFunciton as PVOID, byval GetKeyArgument as PVOID, byval ExpirationTime as PTimeStamp) as NTSTATUS
 	SetExtendedInformation as function(byval Class_ as SECPKG_EXTENDED_INFORMATION_CLASS, byval Info as PSECPKG_EXTENDED_INFORMATION) as NTSTATUS
-
-	#ifdef UNICODE
-		SetContextAttributesW as function(byval ContextHandle as LSA_SEC_HANDLE, byval ContextAttribute as ULONG, byval Buffer as PVOID, byval BufferSize as ULONG) as NTSTATUS
-		SetCredentialsAttributesW as function(byval CredentialHandle as LSA_SEC_HANDLE, byval CredentialAttribute as ULONG, byval Buffer as PVOID, byval BufferSize as ULONG) as NTSTATUS
-	#else
-		SetContextAttributesA as function(byval ContextHandle as LSA_SEC_HANDLE, byval ContextAttribute as ULONG, byval Buffer as PVOID, byval BufferSize as ULONG) as NTSTATUS
-		SetCredentialsAttributesA as function(byval CredentialHandle as LSA_SEC_HANDLE, byval CredentialAttribute as ULONG, byval Buffer as PVOID, byval BufferSize as ULONG) as NTSTATUS
-	#endif
+	SetContextAttributes_ as function(byval ContextHandle as LSA_SEC_HANDLE, byval ContextAttribute as ULONG, byval Buffer as PVOID, byval BufferSize as ULONG) as NTSTATUS
+	SetCredentialsAttributes_ as function(byval CredentialHandle as LSA_SEC_HANDLE, byval CredentialAttribute as ULONG, byval Buffer as PVOID, byval BufferSize as ULONG) as NTSTATUS
 end type
 
 type SECPKG_FUNCTION_TABLE as _SECPKG_FUNCTION_TABLE
@@ -592,13 +585,7 @@ type _SECPKG_USER_FUNCTION_TABLE
 	SealMessage as function(byval ContextHandle as LSA_SEC_HANDLE, byval QualityOfProtection as ULONG, byval MessageBuffers as PSecBufferDesc, byval MessageSequenceNumber as ULONG) as NTSTATUS
 	UnsealMessage as function(byval ContextHandle as LSA_SEC_HANDLE, byval MessageBuffers as PSecBufferDesc, byval MessageSequenceNumber as ULONG, byval QualityOfProtection as PULONG) as NTSTATUS
 	GetContextToken as function(byval ContextHandle as LSA_SEC_HANDLE, byval ImpersonationToken as PHANDLE) as NTSTATUS
-
-	#ifdef UNICODE
-		QueryContextAttributesW as function(byval ContextHandle as LSA_SEC_HANDLE, byval ContextAttribute as ULONG, byval Buffer as PVOID) as NTSTATUS
-	#else
-		QueryContextAttributesA as function(byval ContextHandle as LSA_SEC_HANDLE, byval ContextAttribute as ULONG, byval Buffer as PVOID) as NTSTATUS
-	#endif
-
+	QueryContextAttributes_ as function(byval ContextHandle as LSA_SEC_HANDLE, byval ContextAttribute as ULONG, byval Buffer as PVOID) as NTSTATUS
 	CompleteAuthToken as function(byval ContextHandle as LSA_SEC_HANDLE, byval InputBuffer as PSecBufferDesc) as NTSTATUS
 	DeleteUserModeContext as function(byval ContextHandle as LSA_SEC_HANDLE) as NTSTATUS
 	FormatCredentials as function(byval Credentials as PSecBuffer, byval FormattedCredentials as PSecBuffer) as NTSTATUS

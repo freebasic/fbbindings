@@ -1,12 +1,17 @@
 #pragma once
 
 #include once "crt/long.bi"
+#include once "winapifamily.bi"
 #include once "_mingw_unicode.bi"
 #include once "ole2.bi"
 #include once "commctrl.bi"
 #include once "shlguid.bi"
 #include once "shtypes.bi"
 #include once "shobjidl.bi"
+
+'' The following symbols have been renamed:
+''     inside struct IShellFolderViewVtbl:
+''         field GetObject => GetObject_
 
 #ifdef __FB_64BIT__
 	extern "C"
@@ -1789,13 +1794,7 @@ type IShellFolderViewVtbl_
 	AutoArrange as function(byval This as IShellFolderView ptr) as HRESULT
 	GetAutoArrange as function(byval This as IShellFolderView ptr) as HRESULT
 	AddObject as function(byval This as IShellFolderView ptr, byval pidl as LPITEMIDLIST, byval puItem as UINT ptr) as HRESULT
-
-	#ifdef UNICODE
-		GetObjectW as function(byval This as IShellFolderView ptr, byval ppidl as LPITEMIDLIST ptr, byval uItem as UINT) as HRESULT
-	#else
-		GetObjectA as function(byval This as IShellFolderView ptr, byval ppidl as LPITEMIDLIST ptr, byval uItem as UINT) as HRESULT
-	#endif
-
+	GetObject_ as function(byval This as IShellFolderView ptr, byval ppidl as LPITEMIDLIST ptr, byval uItem as UINT) as HRESULT
 	RemoveObject as function(byval This as IShellFolderView ptr, byval pidl as LPITEMIDLIST, byval puItem as UINT ptr) as HRESULT
 	GetObjectCount as function(byval This as IShellFolderView ptr, byval puCount as UINT ptr) as HRESULT
 	SetObjectCount as function(byval This as IShellFolderView ptr, byval uCount as UINT, byval dwFlags as UINT) as HRESULT

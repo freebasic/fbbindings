@@ -5,6 +5,7 @@
 #include once "iptypes.bi"
 #include once "netioapi.bi"
 #include once "tcpmib.bi"
+#include once "udpmib.bi"
 #include once "tcpestats.bi"
 
 #ifdef __FB_64BIT__

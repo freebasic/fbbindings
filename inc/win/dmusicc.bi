@@ -1,6 +1,8 @@
 #pragma once
 
+#include once "windows.bi"
 #include once "objbase.bi"
+#include once "mmsystem.bi"
 #include once "dls1.bi"
 #include once "dmerror.bi"
 #include once "dmdls.bi"

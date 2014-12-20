@@ -1,6 +1,7 @@
 #pragma once
 
 #include once "_mingw_unicode.bi"
+#include once "wincrypt.bi"
 
 extern "C"
 

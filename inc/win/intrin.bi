@@ -1,6 +1,7 @@
 #pragma once
 
 #include once "crt/wchar.bi"
+#include once "crtdefs.bi"
 #include once "crt/setjmp.bi"
 #include once "crt/stddef.bi"
 #include once "x86intrin.bi"

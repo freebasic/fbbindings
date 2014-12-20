@@ -5,6 +5,8 @@
 #include once "guiddef.bi"
 #include once "bcrypt.bi"
 #include once "ncrypt.bi"
+#include once "winapifamily.bi"
+#include once "apisetcconv.bi"
 
 '' The following symbols have been renamed:
 ''     inside struct _PUBLICKEYSTRUC:

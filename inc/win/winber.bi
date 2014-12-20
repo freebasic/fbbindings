@@ -1,5 +1,7 @@
 #pragma once
 
+#include once "winapifamily.bi"
+
 extern "C"
 
 #define _WINBER_DEFINED_

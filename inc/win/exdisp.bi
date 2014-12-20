@@ -946,13 +946,7 @@ type ISearchAssistantOCVtbl
 	put_ASSetting as function(byval This as ISearchAssistantOC ptr, byval Setting as long) as HRESULT
 	get_ASSetting as function(byval This as ISearchAssistantOC ptr, byval pSetting as long ptr) as HRESULT
 	NETDetectNextNavigate as function(byval This as ISearchAssistantOC ptr) as HRESULT
-
-	#ifdef UNICODE
-		PutFindText as function(byval This as ISearchAssistantOC ptr, byval FindTextW as BSTR) as HRESULT
-	#else
-		PutFindText as function(byval This as ISearchAssistantOC ptr, byval FindTextA as BSTR) as HRESULT
-	#endif
-
+	PutFindText as function(byval This as ISearchAssistantOC ptr, byval FindText_ as BSTR) as HRESULT
 	get_Version as function(byval This as ISearchAssistantOC ptr, byval pVersion as long ptr) as HRESULT
 	EncodeString as function(byval This as ISearchAssistantOC ptr, byval bstrValue as BSTR, byval bstrCharSet as BSTR, byval bUseUTF8 as VARIANT_BOOL, byval pbstrResult as BSTR ptr) as HRESULT
 end type
@@ -1009,13 +1003,7 @@ declare function ISearchAssistantOC_get_ASSetting_Proxy(byval This as ISearchAss
 declare sub ISearchAssistantOC_get_ASSetting_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function ISearchAssistantOC_NETDetectNextNavigate_Proxy(byval This as ISearchAssistantOC ptr) as HRESULT
 declare sub ISearchAssistantOC_NETDetectNextNavigate_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-
-#ifdef UNICODE
-	declare function ISearchAssistantOC_PutFindText_Proxy(byval This as ISearchAssistantOC ptr, byval FindTextW as BSTR) as HRESULT
-#else
-	declare function ISearchAssistantOC_PutFindText_Proxy(byval This as ISearchAssistantOC ptr, byval FindTextA as BSTR) as HRESULT
-#endif
-
+declare function ISearchAssistantOC_PutFindText_Proxy(byval This as ISearchAssistantOC ptr, byval FindText_ as BSTR) as HRESULT
 declare sub ISearchAssistantOC_PutFindText_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function ISearchAssistantOC_get_Version_Proxy(byval This as ISearchAssistantOC ptr, byval pVersion as long ptr) as HRESULT
 declare sub ISearchAssistantOC_get_Version_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
@@ -1058,13 +1046,7 @@ type ISearchAssistantOC2Vtbl
 	put_ASSetting as function(byval This as ISearchAssistantOC2 ptr, byval Setting as long) as HRESULT
 	get_ASSetting as function(byval This as ISearchAssistantOC2 ptr, byval pSetting as long ptr) as HRESULT
 	NETDetectNextNavigate as function(byval This as ISearchAssistantOC2 ptr) as HRESULT
-
-	#ifdef UNICODE
-		PutFindText as function(byval This as ISearchAssistantOC2 ptr, byval FindTextW as BSTR) as HRESULT
-	#else
-		PutFindText as function(byval This as ISearchAssistantOC2 ptr, byval FindTextA as BSTR) as HRESULT
-	#endif
-
+	PutFindText as function(byval This as ISearchAssistantOC2 ptr, byval FindText_ as BSTR) as HRESULT
 	get_Version as function(byval This as ISearchAssistantOC2 ptr, byval pVersion as long ptr) as HRESULT
 	EncodeString as function(byval This as ISearchAssistantOC2 ptr, byval bstrValue as BSTR, byval bstrCharSet as BSTR, byval bUseUTF8 as VARIANT_BOOL, byval pbstrResult as BSTR ptr) as HRESULT
 	get_ShowFindPrinter as function(byval This as ISearchAssistantOC2 ptr, byval pbShowFindPrinter as VARIANT_BOOL ptr) as HRESULT
@@ -1113,13 +1095,7 @@ type ISearchAssistantOC3Vtbl
 	put_ASSetting as function(byval This as ISearchAssistantOC3 ptr, byval Setting as long) as HRESULT
 	get_ASSetting as function(byval This as ISearchAssistantOC3 ptr, byval pSetting as long ptr) as HRESULT
 	NETDetectNextNavigate as function(byval This as ISearchAssistantOC3 ptr) as HRESULT
-
-	#ifdef UNICODE
-		PutFindText as function(byval This as ISearchAssistantOC3 ptr, byval FindTextW as BSTR) as HRESULT
-	#else
-		PutFindText as function(byval This as ISearchAssistantOC3 ptr, byval FindTextA as BSTR) as HRESULT
-	#endif
-
+	PutFindText as function(byval This as ISearchAssistantOC3 ptr, byval FindText_ as BSTR) as HRESULT
 	get_Version as function(byval This as ISearchAssistantOC3 ptr, byval pVersion as long ptr) as HRESULT
 	EncodeString as function(byval This as ISearchAssistantOC3 ptr, byval bstrValue as BSTR, byval bstrCharSet as BSTR, byval bUseUTF8 as VARIANT_BOOL, byval pbstrResult as BSTR ptr) as HRESULT
 	get_ShowFindPrinter as function(byval This as ISearchAssistantOC3 ptr, byval pbShowFindPrinter as VARIANT_BOOL ptr) as HRESULT

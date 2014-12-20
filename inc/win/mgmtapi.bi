@@ -1,6 +1,7 @@
 #pragma once
 
 #include once "snmp.bi"
+#include once "winsock.bi"
 
 #ifdef __FB_64BIT__
 	extern "C"

@@ -1,5 +1,7 @@
 #pragma once
 
+#include once "winapifamily.bi"
+
 #ifdef __FB_64BIT__
 	extern "C"
 #else

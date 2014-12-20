@@ -2,6 +2,8 @@
 
 #include once "_mingw_unicode.bi"
 #include once "winsock2.bi"
+#include once "psdk_inc/_ip_mreq1.bi"
+#include once "winapifamily.bi"
 #include once "ws2ipdef.bi"
 #include once "mstcpip.bi"
 
