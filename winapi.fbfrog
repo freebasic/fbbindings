@@ -11,6 +11,7 @@
 	-define UNICODE
 -endif
 
+-define SECURITY_WIN32 1
 -define __CRT__NO_INLINE
 
 -removedefine ACLUIAPI
@@ -239,3 +240,17 @@
 -removedefine WSAAPI
 
 -removeproc __debugbreak
+
+-clong32
+-typedefhint __LONG32
+-nofbkeyword short
+-nofbkeyword ushort
+-nofbkeyword long
+-nofbkeyword ulong
+-nofbkeyword double
+-nofbkeyword lobyte
+-nofbkeyword hibyte
+-nofbkeyword loword
+-nofbkeyword hiword
+-renametypedef BYTE UBYTE
+-renametypedef byte ubyte
