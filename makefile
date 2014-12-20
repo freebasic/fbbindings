@@ -365,7 +365,36 @@ $(eval $(foreach i,$(WINAPI_DIRECTX),$(call add-default-winapi-flags,$(i))))
 $(eval $(foreach i,$(WINAPI_CRT),$(call add-default-winapi-flags,$(i))))
 
 # Some need to override the defaults though
+
+# ole.h can't be #included with windows.h (even though windows.h has code to
+# do just that) due to conflicts with ole2.h
 WINAPI_FLAGS_ole := -include windef.h -define _Analysis_noreturn_ ""
+
+# ntdef.h belongs to the DDK, not windows.h
+WINAPI_FLAGS_ntdef := 
+
+# winsock can be translated as part of windows.h, because that's how MinGW-w64
+# provides it anyways. That'll give us a windows.bi-compatible winsock. Even
+# though we'll change windows.bi to not provide winsock (but winsock2 instead,
+# but only under __USE_W32_SOCKETS), we probably don't need to make any
+# adjustments to prevent winsock/winsock2 collision. Since windows.bi doesn't
+# include anything by default, the user has full control.
+
+# winsock2 has to be translated without #including windows.h because MinGW-w64
+# expects winsock2.h to come before windows.h, in order to override winsock.
+# I.e. winsock2 takes care of #including everything it needs itself, and we
+# don't need to bother.
+WINAPI_FLAGS_winsock2 := 
+
+# mswsock.h has some declarations that also exist in winsock.h, and MinGW-w64's
+# winsock #defines __MSWSOCK_WS1_SHARED, which mswsock.h checks for to prevent
+# conflicts. This assumes that winsock is #included first, which could perhaps
+# happen if windows.h is included first. However, according to MSDN, mswsock is
+# a winsock2, not winsock, extension, and MinGW-w64's mswsock.h itself #includes
+# winsock2. Since our windows.bi won't default to winsock, it looks like we can
+# just have a pure winsock2-only mswsock.bi. Thus we have #include winsock2.h
+# instead of windows.h for the translation.
+WINAPI_FLAGS_mswsock := -include winsock2.h
 
 # Some headers need additional options
 WINAPI_FLAGS__mingw    += -filterin '*_mingw_mac.h' -filterin '*sdks/_mingw_ddk.h' -filterin '*sdks/_mingw_directx.h'
