@@ -468,7 +468,12 @@ $(eval $(foreach i,$(WINAPI_DIRECTX),$(call declare-winapi-target,$(i),DIRECTX))
 
 winapi: inc/windows.bi
 inc/windows.bi:
-	$(FBFROG) $(WINAPI_FLAGS) -o inc $(WINAPI_PATH_BASE)/windows.h
+	$(FBFROG) $(WINAPI_FLAGS) -o inc $(WINAPI_PATH_BASE)/windows.h \
+		-declarebool WIN32_LEAN_AND_MEAN \
+		-ifdef WIN32_LEAN_AND_MEAN \
+			-define WIN32_LEAN_AND_MEAN 1 \
+		-endif
+
 
 ################################################################################
 
