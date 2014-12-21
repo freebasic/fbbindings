@@ -24,8 +24,6 @@ tests:
 tests-winapi:
 	$(FBC) -target win32 -r -i inc tests/winapi/*.bas -v -maxerr 1
 	$(FBC) -target win64 -r -i inc tests/winapi/*.bas -v -maxerr 1
-	$(FBC) -target win32 -d UNICODE -r -i inc tests/winapi/*.bas -v -maxerr 1
-	$(FBC) -target win64 -d UNICODE -r -i inc tests/winapi/*.bas -v -maxerr 1
 	rm -f tests/winapi/*.asm
 
 ALLEGRO4_VERSION := 4.4.2

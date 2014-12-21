@@ -1,3 +1,3 @@
 #define WIN_INCLUDEALL
-#define __USE_W32_SOCKETS
+#include "win/winsock2.bi"
 #include "windows.bi"
