@@ -216,6 +216,7 @@ WINAPI_BASE += winspool
 WINAPI_BASE += winsvc
 WINAPI_BASE += winuser
 WINAPI_BASE += winver
+WINAPI_BASE += ws2def
 WINAPI_BASE += ws2spi
 WINAPI_BASE += ws2tcpip
 #WINAPI_BASE += wsahelp
