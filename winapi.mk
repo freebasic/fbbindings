@@ -163,6 +163,7 @@ WINAPI_BASE += schannel
 WINAPI_BASE += scrnsave
 WINAPI_BASE += secext
 WINAPI_BASE += security
+WINAPI_BASE += servprov
 WINAPI_BASE += setupapi
 WINAPI_BASE += shellapi
 WINAPI_BASE += shlguid
