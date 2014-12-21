@@ -180,6 +180,7 @@ WINAPI_BASE += tlhelp32
 WINAPI_BASE += tmschema
 WINAPI_BASE += unknwn
 WINAPI_BASE += unknwnbase
+WINAPI_BASE += urlmon
 WINAPI_BASE += userenv
 WINAPI_BASE += uuids
 WINAPI_BASE += uxtheme
