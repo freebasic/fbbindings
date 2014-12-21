@@ -32,7 +32,6 @@
 	#include once "win/commdlg.bi"
 #endif
 
-#include once "win/stralign.bi"
 #include once "win/winsvc.bi"
 #include once "win/mcx.bi"
 #include once "win/imm.bi"
