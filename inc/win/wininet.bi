@@ -531,14 +531,19 @@ declare function InternetTimeFromSystemTimeW(byval pst as const SYSTEMTIME ptr, 
 
 #define INTERNET_RFC1123_FORMAT 0
 #define INTERNET_RFC1123_BUFSIZE 30
-#define InternetCrackUrl __MINGW_NAME_AW(InternetCrackUrl)
-#define InternetCreateUrl __MINGW_NAME_AW(InternetCreateUrl)
-#define InternetCanonicalizeUrl __MINGW_NAME_AW(InternetCanonicalizeUrl)
-#define InternetCombineUrl __MINGW_NAME_AW(InternetCombineUrl)
 
 #ifdef UNICODE
+	#define InternetCrackUrl InternetCrackUrlW
+	#define InternetCreateUrl InternetCreateUrlW
+	#define InternetCanonicalizeUrl InternetCanonicalizeUrlW
+	#define InternetCombineUrl InternetCombineUrlW
 	#define InternetTimeToSystemTime InternetTimeToSystemTimeW
 #else
+	#define InternetCrackUrl InternetCrackUrlA
+	#define InternetCreateUrl InternetCreateUrlA
+	#define InternetCanonicalizeUrl InternetCanonicalizeUrlA
+	#define InternetCombineUrl InternetCombineUrlA
+
 	declare function InternetTimeToSystemTime(byval lpszTime as LPCSTR, byval pst as SYSTEMTIME ptr, byval dwReserved as DWORD) as WINBOOL
 #endif
 
@@ -561,7 +566,12 @@ declare function InternetCombineUrlW(byval lpszBaseUrl as LPCWSTR, byval lpszRel
 #define ICU_ENCODE_SPACES_ONLY &h04000000
 #define ICU_BROWSER_MODE &h02000000
 #define ICU_ENCODE_PERCENT &h00001000
-#define InternetOpen __MINGW_NAME_AW(InternetOpen)
+
+#ifdef UNICODE
+	#define InternetOpen InternetOpenW
+#else
+	#define InternetOpen InternetOpenA
+#endif
 
 declare function InternetOpenA(byval lpszAgent as LPCSTR, byval dwAccessType as DWORD, byval lpszProxy as LPCSTR, byval lpszProxyBypass as LPCSTR, byval dwFlags as DWORD) as HINTERNET
 declare function InternetOpenW(byval lpszAgent as LPCWSTR, byval dwAccessType as DWORD, byval lpszProxy as LPCWSTR, byval lpszProxyBypass as LPCWSTR, byval dwFlags as DWORD) as HINTERNET
@@ -573,7 +583,12 @@ declare function InternetOpenW(byval lpszAgent as LPCWSTR, byval dwAccessType as
 #define PRE_CONFIG_INTERNET_ACCESS INTERNET_OPEN_TYPE_PRECONFIG
 #define LOCAL_INTERNET_ACCESS INTERNET_OPEN_TYPE_DIRECT
 #define CERN_PROXY_INTERNET_ACCESS INTERNET_OPEN_TYPE_PROXY
-#define InternetConnect __MINGW_NAME_AW(InternetConnect)
+
+#ifdef UNICODE
+	#define InternetConnect InternetConnectW
+#else
+	#define InternetConnect InternetConnectA
+#endif
 
 declare function InternetCloseHandle(byval hInternet as HINTERNET) as WINBOOL
 declare function InternetConnectA(byval hInternet as HINTERNET, byval lpszServerName as LPCSTR, byval nServerPort as INTERNET_PORT, byval lpszUserName as LPCSTR, byval lpszPassword as LPCSTR, byval dwService as DWORD, byval dwFlags as DWORD, byval dwContext as DWORD_PTR) as HINTERNET
@@ -582,8 +597,14 @@ declare function InternetConnectW(byval hInternet as HINTERNET, byval lpszServer
 #define INTERNET_SERVICE_FTP 1
 #define INTERNET_SERVICE_GOPHER 2
 #define INTERNET_SERVICE_HTTP 3
-#define InternetOpenUrl __MINGW_NAME_AW(InternetOpenUrl)
-#define InternetReadFileEx __MINGW_NAME_AW(InternetReadFileEx)
+
+#ifdef UNICODE
+	#define InternetOpenUrl InternetOpenUrlW
+	#define InternetReadFileEx InternetReadFileExW
+#else
+	#define InternetOpenUrl InternetOpenUrlA
+	#define InternetReadFileEx InternetReadFileExA
+#endif
 
 declare function InternetOpenUrlA(byval hInternet as HINTERNET, byval lpszUrl as LPCSTR, byval lpszHeaders as LPCSTR, byval dwHeadersLength as DWORD, byval dwFlags as DWORD, byval dwContext as DWORD_PTR) as HINTERNET
 declare function InternetOpenUrlW(byval hInternet as HINTERNET, byval lpszUrl as LPCWSTR, byval lpszHeaders as LPCWSTR, byval dwHeadersLength as DWORD, byval dwFlags as DWORD, byval dwContext as DWORD_PTR) as HINTERNET
@@ -595,10 +616,18 @@ declare function InternetReadFileExW(byval hFile as HINTERNET, byval lpBuffersOu
 #define IRF_SYNC WININET_API_FLAG_SYNC
 #define IRF_USE_CONTEXT WININET_API_FLAG_USE_CONTEXT
 #define IRF_NO_WAIT &h00000008
-#define InternetFindNextFile __MINGW_NAME_AW(InternetFindNextFile)
-#define InternetQueryOption __MINGW_NAME_AW(InternetQueryOption)
-#define InternetSetOption __MINGW_NAME_AW(InternetSetOption)
-#define InternetSetOptionEx __MINGW_NAME_AW(InternetSetOptionEx)
+
+#ifdef UNICODE
+	#define InternetFindNextFile InternetFindNextFileW
+	#define InternetQueryOption InternetQueryOptionW
+	#define InternetSetOption InternetSetOptionW
+	#define InternetSetOptionEx InternetSetOptionExW
+#else
+	#define InternetFindNextFile InternetFindNextFileA
+	#define InternetQueryOption InternetQueryOptionA
+	#define InternetSetOption InternetSetOptionA
+	#define InternetSetOptionEx InternetSetOptionExA
+#endif
 
 declare function InternetSetFilePointer(byval hFile as HINTERNET, byval lDistanceToMove as LONG, byval pReserved as PVOID, byval dwMoveMethod as DWORD, byval dwContext as DWORD_PTR) as DWORD
 declare function InternetWriteFile(byval hFile as HINTERNET, byval lpBuffer as LPCVOID, byval dwNumberOfBytesToWrite as DWORD, byval lpdwNumberOfBytesWritten as LPDWORD) as WINBOOL
@@ -749,7 +778,12 @@ declare function InternetUnlockRequestFile(byval hLockRequestInfo as HANDLE) as 
 #define AUTODIAL_MODE_NEVER 1
 #define AUTODIAL_MODE_ALWAYS 2
 #define AUTODIAL_MODE_NO_NETWORK_PRESENT 4
-#define InternetGetLastResponseInfo __MINGW_NAME_AW(InternetGetLastResponseInfo)
+
+#ifdef UNICODE
+	#define InternetGetLastResponseInfo InternetGetLastResponseInfoW
+#else
+	#define InternetGetLastResponseInfo InternetGetLastResponseInfoA
+#endif
 
 declare function InternetGetLastResponseInfoA(byval lpdwError as LPDWORD, byval lpszBuffer as LPSTR, byval lpdwBufferLength as LPDWORD) as WINBOOL
 declare function InternetGetLastResponseInfoW(byval lpdwError as LPDWORD, byval lpszBuffer as LPWSTR, byval lpdwBufferLength as LPDWORD) as WINBOOL
@@ -872,17 +906,32 @@ end enum
 #define FTP_TRANSFER_TYPE_ASCII &h00000001
 #define FTP_TRANSFER_TYPE_BINARY &h00000002
 #define FTP_TRANSFER_TYPE_MASK (FTP_TRANSFER_TYPE_ASCII or FTP_TRANSFER_TYPE_BINARY)
-#define FtpFindFirstFile __MINGW_NAME_AW(FtpFindFirstFile)
-#define FtpGetFile __MINGW_NAME_AW(FtpGetFile)
-#define FtpPutFile __MINGW_NAME_AW(FtpPutFile)
-#define FtpDeleteFile __MINGW_NAME_AW(FtpDeleteFile)
-#define FtpRenameFile __MINGW_NAME_AW(FtpRenameFile)
-#define FtpOpenFile __MINGW_NAME_AW(FtpOpenFile)
-#define FtpCreateDirectory __MINGW_NAME_AW(FtpCreateDirectory)
-#define FtpRemoveDirectory __MINGW_NAME_AW(FtpRemoveDirectory)
-#define FtpSetCurrentDirectory __MINGW_NAME_AW(FtpSetCurrentDirectory)
-#define FtpGetCurrentDirectory __MINGW_NAME_AW(FtpGetCurrentDirectory)
-#define FtpCommand __MINGW_NAME_AW(FtpCommand)
+
+#ifdef UNICODE
+	#define FtpFindFirstFile FtpFindFirstFileW
+	#define FtpGetFile FtpGetFileW
+	#define FtpPutFile FtpPutFileW
+	#define FtpDeleteFile FtpDeleteFileW
+	#define FtpRenameFile FtpRenameFileW
+	#define FtpOpenFile FtpOpenFileW
+	#define FtpCreateDirectory FtpCreateDirectoryW
+	#define FtpRemoveDirectory FtpRemoveDirectoryW
+	#define FtpSetCurrentDirectory FtpSetCurrentDirectoryW
+	#define FtpGetCurrentDirectory FtpGetCurrentDirectoryW
+	#define FtpCommand FtpCommandW
+#else
+	#define FtpFindFirstFile FtpFindFirstFileA
+	#define FtpGetFile FtpGetFileA
+	#define FtpPutFile FtpPutFileA
+	#define FtpDeleteFile FtpDeleteFileA
+	#define FtpRenameFile FtpRenameFileA
+	#define FtpOpenFile FtpOpenFileA
+	#define FtpCreateDirectory FtpCreateDirectoryA
+	#define FtpRemoveDirectory FtpRemoveDirectoryA
+	#define FtpSetCurrentDirectory FtpSetCurrentDirectoryA
+	#define FtpGetCurrentDirectory FtpGetCurrentDirectoryA
+	#define FtpCommand FtpCommandA
+#endif
 
 declare function FtpFindFirstFileA(byval hConnect as HINTERNET, byval lpszSearchFile as LPCSTR, byval lpFindFileData as LPWIN32_FIND_DATAA, byval dwFlags as DWORD, byval dwContext as DWORD_PTR) as HINTERNET
 declare function FtpFindFirstFileW(byval hConnect as HINTERNET, byval lpszSearchFile as LPCWSTR, byval lpFindFileData as LPWIN32_FIND_DATAW, byval dwFlags as DWORD, byval dwContext as DWORD_PTR) as HINTERNET
@@ -1335,11 +1384,20 @@ type LPGOPHER_ATTRIBUTE_TYPE as GOPHER_ATTRIBUTE_TYPE ptr
 #define GOPHER_ATTRIBUTE_ID_VIEW (GOPHER_ATTRIBUTE_ID_BASE + 23)
 #define GOPHER_ATTRIBUTE_ID_TREEWALK (GOPHER_ATTRIBUTE_ID_BASE + 24)
 #define GOPHER_ATTRIBUTE_ID_UNKNOWN (GOPHER_ATTRIBUTE_ID_BASE + 25)
-#define GopherCreateLocator __MINGW_NAME_AW(GopherCreateLocator)
-#define GopherGetLocatorType __MINGW_NAME_AW(GopherGetLocatorType)
-#define GopherFindFirstFile __MINGW_NAME_AW(GopherFindFirstFile)
-#define GopherOpenFile __MINGW_NAME_AW(GopherOpenFile)
-#define GopherGetAttribute __MINGW_NAME_AW(GopherGetAttribute)
+
+#ifdef UNICODE
+	#define GopherCreateLocator GopherCreateLocatorW
+	#define GopherGetLocatorType GopherGetLocatorTypeW
+	#define GopherFindFirstFile GopherFindFirstFileW
+	#define GopherOpenFile GopherOpenFileW
+	#define GopherGetAttribute GopherGetAttributeW
+#else
+	#define GopherCreateLocator GopherCreateLocatorA
+	#define GopherGetLocatorType GopherGetLocatorTypeA
+	#define GopherFindFirstFile GopherFindFirstFileA
+	#define GopherOpenFile GopherOpenFileA
+	#define GopherGetAttribute GopherGetAttributeA
+#endif
 
 declare function GopherCreateLocatorA(byval lpszHost as LPCSTR, byval nServerPort as INTERNET_PORT, byval lpszDisplayString as LPCSTR, byval lpszSelectorString as LPCSTR, byval dwGopherType as DWORD, byval lpszLocator as LPSTR, byval lpdwBufferLength as LPDWORD) as WINBOOL
 declare function GopherCreateLocatorW(byval lpszHost as LPCWSTR, byval nServerPort as INTERNET_PORT, byval lpszDisplayString as LPCWSTR, byval lpszSelectorString as LPCWSTR, byval dwGopherType as DWORD, byval lpszLocator as LPWSTR, byval lpdwBufferLength as LPDWORD) as WINBOOL
@@ -1359,7 +1417,13 @@ declare function GopherGetAttributeW(byval hConnect as HINTERNET, byval lpszLoca
 #define HTTP_MINOR_VERSION 0
 #define HTTP_VERSIONA "HTTP/1.0"
 #define HTTP_VERSIONW wstr("HTTP/1.0")
-#define HTTP_VERSION __MINGW_NAME_AW(HTTP_VERSION)
+
+#ifdef UNICODE
+	#define HTTP_VERSION HTTP_VERSIONW
+#else
+	#define HTTP_VERSION HTTP_VERSIONA
+#endif
+
 #define HTTP_QUERY_MIME_VERSION 0
 #define HTTP_QUERY_CONTENT_TYPE 1
 #define HTTP_QUERY_CONTENT_TRANSFER_ENCODING 2
@@ -1488,8 +1552,14 @@ declare function GopherGetAttributeW(byval hConnect as HINTERNET, byval lpszLoca
 #define HTTP_STATUS_VERSION_NOT_SUP 505
 #define HTTP_STATUS_FIRST HTTP_STATUS_CONTINUE
 #define HTTP_STATUS_LAST HTTP_STATUS_VERSION_NOT_SUP
-#define HttpOpenRequest __MINGW_NAME_AW(HttpOpenRequest)
-#define HttpAddRequestHeaders __MINGW_NAME_AW(HttpAddRequestHeaders)
+
+#ifdef UNICODE
+	#define HttpOpenRequest HttpOpenRequestW
+	#define HttpAddRequestHeaders HttpAddRequestHeadersW
+#else
+	#define HttpOpenRequest HttpOpenRequestA
+	#define HttpAddRequestHeaders HttpAddRequestHeadersA
+#endif
 
 declare function HttpOpenRequestA(byval hConnect as HINTERNET, byval lpszVerb as LPCSTR, byval lpszObjectName as LPCSTR, byval lpszVersion as LPCSTR, byval lpszReferrer as LPCSTR, byval lplpszAcceptTypes as LPCSTR ptr, byval dwFlags as DWORD, byval dwContext as DWORD_PTR) as HINTERNET
 declare function HttpOpenRequestW(byval hConnect as HINTERNET, byval lpszVerb as LPCWSTR, byval lpszObjectName as LPCWSTR, byval lpszVersion as LPCWSTR, byval lpszReferrer as LPCWSTR, byval lplpszAcceptTypes as LPCWSTR ptr, byval dwFlags as DWORD, byval dwContext as DWORD_PTR) as HINTERNET
@@ -1504,8 +1574,14 @@ declare function HttpAddRequestHeadersW(byval hRequest as HINTERNET, byval lpszH
 #define HTTP_ADDREQ_FLAG_COALESCE_WITH_SEMICOLON &h01000000
 #define HTTP_ADDREQ_FLAG_COALESCE HTTP_ADDREQ_FLAG_COALESCE_WITH_COMMA
 #define HTTP_ADDREQ_FLAG_REPLACE &h80000000
-#define HttpSendRequest __MINGW_NAME_AW(HttpSendRequest)
-#define HttpSendRequestEx __MINGW_NAME_AW(HttpSendRequestEx)
+
+#ifdef UNICODE
+	#define HttpSendRequest HttpSendRequestW
+	#define HttpSendRequestEx HttpSendRequestExW
+#else
+	#define HttpSendRequest HttpSendRequestA
+	#define HttpSendRequestEx HttpSendRequestExA
+#endif
 
 declare function HttpSendRequestA(byval hRequest as HINTERNET, byval lpszHeaders as LPCSTR, byval dwHeadersLength as DWORD, byval lpOptional as LPVOID, byval dwOptionalLength as DWORD) as WINBOOL
 declare function HttpSendRequestW(byval hRequest as HINTERNET, byval lpszHeaders as LPCWSTR, byval dwHeadersLength as DWORD, byval lpOptional as LPVOID, byval dwOptionalLength as DWORD) as WINBOOL
@@ -1518,8 +1594,14 @@ declare function HttpSendRequestExW(byval hRequest as HINTERNET, byval lpBuffers
 #define HSR_INITIATE &h00000008
 #define HSR_DOWNLOAD &h00000010
 #define HSR_CHUNKED &h00000020
-#define HttpEndRequest __MINGW_NAME_AW(HttpEndRequest)
-#define HttpQueryInfo __MINGW_NAME_AW(HttpQueryInfo)
+
+#ifdef UNICODE
+	#define HttpEndRequest HttpEndRequestW
+	#define HttpQueryInfo HttpQueryInfoW
+#else
+	#define HttpEndRequest HttpEndRequestA
+	#define HttpQueryInfo HttpQueryInfoA
+#endif
 
 declare function HttpEndRequestA(byval hRequest as HINTERNET, byval lpBuffersOut as LPINTERNET_BUFFERSA, byval dwFlags as DWORD, byval dwContext as DWORD_PTR) as WINBOOL
 declare function HttpEndRequestW(byval hRequest as HINTERNET, byval lpBuffersOut as LPINTERNET_BUFFERSW, byval dwFlags as DWORD, byval dwContext as DWORD_PTR) as WINBOOL
@@ -1536,11 +1618,20 @@ declare function HttpQueryInfoW(byval hRequest as HINTERNET, byval dwInfoLevel a
 #define INTERNET_COOKIE_IS_RESTRICTED &h200
 #define INTERNET_COOKIE_IE6 &h400
 #define INTERNET_COOKIE_IS_LEGACY &h800
-#define InternetSetCookie __MINGW_NAME_AW(InternetSetCookie)
-#define InternetGetCookie __MINGW_NAME_AW(InternetGetCookie)
-#define InternetSetCookieEx __MINGW_NAME_AW(InternetSetCookieEx)
-#define InternetGetCookieEx __MINGW_NAME_AW(InternetGetCookieEx)
-#define InternetCheckConnection __MINGW_NAME_AW(InternetCheckConnection)
+
+#ifdef UNICODE
+	#define InternetSetCookie InternetSetCookieW
+	#define InternetGetCookie InternetGetCookieW
+	#define InternetSetCookieEx InternetSetCookieExW
+	#define InternetGetCookieEx InternetGetCookieExW
+	#define InternetCheckConnection InternetCheckConnectionW
+#else
+	#define InternetSetCookie InternetSetCookieA
+	#define InternetGetCookie InternetGetCookieA
+	#define InternetSetCookieEx InternetSetCookieExA
+	#define InternetGetCookieEx InternetGetCookieExA
+	#define InternetCheckConnection InternetCheckConnectionA
+#endif
 
 declare function InternetSetCookieA(byval lpszUrl as LPCSTR, byval lpszCookieName as LPCSTR, byval lpszCookieData as LPCSTR) as WINBOOL
 declare function InternetSetCookieW(byval lpszUrl as LPCWSTR, byval lpszCookieName as LPCWSTR, byval lpszCookieData as LPCWSTR) as WINBOOL
@@ -1892,20 +1983,30 @@ type LPINTERNET_CACHE_GROUP_INFOW as _INTERNET_CACHE_GROUP_INFOW ptr
 #ifdef UNICODE
 	type INTERNET_CACHE_GROUP_INFO as INTERNET_CACHE_GROUP_INFOW
 	type LPINTERNET_CACHE_GROUP_INFO as LPINTERNET_CACHE_GROUP_INFOW
+
+	#define CreateUrlCacheEntry CreateUrlCacheEntryW
+	#define CommitUrlCacheEntry CommitUrlCacheEntryW
+	#define RetrieveUrlCacheEntryFile RetrieveUrlCacheEntryFileW
+	#define UnlockUrlCacheEntryFile UnlockUrlCacheEntryFileW
+	#define RetrieveUrlCacheEntryStream RetrieveUrlCacheEntryStreamW
+	#define GetUrlCacheEntryInfo GetUrlCacheEntryInfoW
+	#define GetUrlCacheGroupAttribute GetUrlCacheGroupAttributeW
+	#define SetUrlCacheGroupAttribute SetUrlCacheGroupAttributeW
+	#define GetUrlCacheEntryInfoEx GetUrlCacheEntryInfoExW
 #else
 	type INTERNET_CACHE_GROUP_INFO as INTERNET_CACHE_GROUP_INFOA
 	type LPINTERNET_CACHE_GROUP_INFO as LPINTERNET_CACHE_GROUP_INFOA
-#endif
 
-#define CreateUrlCacheEntry __MINGW_NAME_AW(CreateUrlCacheEntry)
-#define CommitUrlCacheEntry __MINGW_NAME_AW(CommitUrlCacheEntry)
-#define RetrieveUrlCacheEntryFile __MINGW_NAME_AW(RetrieveUrlCacheEntryFile)
-#define UnlockUrlCacheEntryFile __MINGW_NAME_AW(UnlockUrlCacheEntryFile)
-#define RetrieveUrlCacheEntryStream __MINGW_NAME_AW(RetrieveUrlCacheEntryStream)
-#define GetUrlCacheEntryInfo __MINGW_NAME_AW(GetUrlCacheEntryInfo)
-#define GetUrlCacheGroupAttribute __MINGW_NAME_AW(GetUrlCacheGroupAttribute)
-#define SetUrlCacheGroupAttribute __MINGW_NAME_AW(SetUrlCacheGroupAttribute)
-#define GetUrlCacheEntryInfoEx __MINGW_NAME_AW(GetUrlCacheEntryInfoEx)
+	#define CreateUrlCacheEntry CreateUrlCacheEntryA
+	#define CommitUrlCacheEntry CommitUrlCacheEntryA
+	#define RetrieveUrlCacheEntryFile RetrieveUrlCacheEntryFileA
+	#define UnlockUrlCacheEntryFile UnlockUrlCacheEntryFileA
+	#define RetrieveUrlCacheEntryStream RetrieveUrlCacheEntryStreamA
+	#define GetUrlCacheEntryInfo GetUrlCacheEntryInfoA
+	#define GetUrlCacheGroupAttribute GetUrlCacheGroupAttributeA
+	#define SetUrlCacheGroupAttribute SetUrlCacheGroupAttributeA
+	#define GetUrlCacheEntryInfoEx GetUrlCacheEntryInfoExA
+#endif
 
 declare function CreateUrlCacheEntryA(byval lpszUrlName as LPCSTR, byval dwExpectedFileSize as DWORD, byval lpszFileExtension as LPCSTR, byval lpszFileName as LPSTR, byval dwReserved as DWORD) as WINBOOL
 declare function CreateUrlCacheEntryW(byval lpszUrlName as LPCWSTR, byval dwExpectedFileSize as DWORD, byval lpszFileExtension as LPCWSTR, byval lpszFileName as LPWSTR, byval dwReserved as DWORD) as WINBOOL
@@ -1940,18 +2041,24 @@ declare function GetUrlCacheEntryInfoExW(byval lpszUrl as LPCWSTR, byval lpCache
 #define CACHE_ENTRY_SYNCTIME_FC &h00000200
 #define CACHE_ENTRY_HEADERINFO_FC &h00000400
 #define CACHE_ENTRY_EXEMPT_DELTA_FC &h00000800
-#define SetUrlCacheEntryInfo __MINGW_NAME_AW(SetUrlCacheEntryInfo)
-#define FindFirstUrlCacheEntryEx __MINGW_NAME_AW(FindFirstUrlCacheEntryEx)
-#define FindNextUrlCacheEntryEx __MINGW_NAME_AW(FindNextUrlCacheEntryEx)
-#define FindFirstUrlCacheEntry __MINGW_NAME_AW(FindFirstUrlCacheEntry)
-#define FindNextUrlCacheEntry __MINGW_NAME_AW(FindNextUrlCacheEntry)
 
 #ifdef UNICODE
+	#define SetUrlCacheEntryInfo SetUrlCacheEntryInfoW
+	#define FindFirstUrlCacheEntryEx FindFirstUrlCacheEntryExW
+	#define FindNextUrlCacheEntryEx FindNextUrlCacheEntryExW
+	#define FindFirstUrlCacheEntry FindFirstUrlCacheEntryW
+	#define FindNextUrlCacheEntry FindNextUrlCacheEntryW
 	#define InternetDial InternetDialW
 	#define InternetGoOnline InternetGoOnlineW
 	#define DeleteUrlCacheEntry DeleteUrlCacheEntryW
 	#define SetUrlCacheEntryGroup SetUrlCacheEntryGroupW
 #else
+	#define SetUrlCacheEntryInfo SetUrlCacheEntryInfoA
+	#define FindFirstUrlCacheEntryEx FindFirstUrlCacheEntryExA
+	#define FindNextUrlCacheEntryEx FindNextUrlCacheEntryExA
+	#define FindFirstUrlCacheEntry FindFirstUrlCacheEntryA
+	#define FindNextUrlCacheEntry FindNextUrlCacheEntryA
+
 	declare function SetUrlCacheEntryGroup(byval lpszUrlName as LPCSTR, byval dwFlags as DWORD, byval GroupId as GROUPID, byval pbGroupAttributes as LPBYTE, byval cbGroupAttributes as DWORD, byval lpReserved as LPVOID) as WINBOOL
 	declare function DeleteUrlCacheEntry(byval lpszUrlName as LPCSTR) as WINBOOL
 	declare function InternetDial(byval hwndParent as HWND, byval lpszConnectoid as LPSTR, byval dwFlags as DWORD, byval lpdwConnection as LPDWORD, byval dwReserved as DWORD) as DWORD
@@ -2080,13 +2187,17 @@ type PFN_DIAL_HANDLER as function(byval as HWND, byval as LPCSTR, byval as DWORD
 #define INTERNET_CUSTOMDIAL_SAFE_FOR_UNATTENDED 1
 #define INTERNET_CUSTOMDIAL_WILL_SUPPLY_STATE 2
 #define INTERNET_CUSTOMDIAL_CAN_HANGUP 4
-#define InternetSetPerSiteCookieDecision __MINGW_NAME_AW(InternetSetPerSiteCookieDecision)
-#define InternetGetPerSiteCookieDecision __MINGW_NAME_AW(InternetGetPerSiteCookieDecision)
-#define InternetEnumPerSiteCookieDecision __MINGW_NAME_AW(InternetEnumPerSiteCookieDecision)
 
 #ifdef UNICODE
+	#define InternetSetPerSiteCookieDecision InternetSetPerSiteCookieDecisionW
+	#define InternetGetPerSiteCookieDecision InternetGetPerSiteCookieDecisionW
+	#define InternetEnumPerSiteCookieDecision InternetEnumPerSiteCookieDecisionW
 	#define InternetSetDialState InternetSetDialStateW
 #else
+	#define InternetSetPerSiteCookieDecision InternetSetPerSiteCookieDecisionA
+	#define InternetGetPerSiteCookieDecision InternetGetPerSiteCookieDecisionA
+	#define InternetEnumPerSiteCookieDecision InternetEnumPerSiteCookieDecisionA
+
 	declare function InternetSetDialState(byval lpszConnectoid as LPCSTR, byval dwState as DWORD, byval dwReserved as DWORD) as WINBOOL
 #endif
 

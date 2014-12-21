@@ -370,13 +370,21 @@ end type
 declare function D3DXLoadMeshHierarchyFromXA(byval filename as const zstring ptr, byval flags as DWORD, byval device as IDirect3DDevice9 ptr, byval alloc as ID3DXAllocateHierarchy ptr, byval user_data_loader as ID3DXLoadUserData ptr, byval frame_hierarchy as D3DXFRAME ptr ptr, byval animation_controller as ID3DXAnimationController ptr ptr) as HRESULT
 declare function D3DXLoadMeshHierarchyFromXW(byval filename as const WCHAR ptr, byval flags as DWORD, byval device as IDirect3DDevice9 ptr, byval alloc as ID3DXAllocateHierarchy ptr, byval user_data_loader as ID3DXLoadUserData ptr, byval frame_hierarchy as D3DXFRAME ptr ptr, byval animation_controller as ID3DXAnimationController ptr ptr) as HRESULT
 
-#define D3DXLoadMeshHierarchyFromX __MINGW_NAME_AW(D3DXLoadMeshHierarchyFromX)
+#ifdef UNICODE
+	#define D3DXLoadMeshHierarchyFromX D3DXLoadMeshHierarchyFromXW
+#else
+	#define D3DXLoadMeshHierarchyFromX D3DXLoadMeshHierarchyFromXA
+#endif
 
 declare function D3DXLoadMeshHierarchyFromXInMemory(byval data_ as const any ptr, byval data_size as DWORD, byval flags as DWORD, byval device as IDirect3DDevice9 ptr, byval alloc as ID3DXAllocateHierarchy ptr, byval user_data_loader as ID3DXLoadUserData ptr, byval frame_hierarchy as D3DXFRAME ptr ptr, byval animation_controller as ID3DXAnimationController ptr ptr) as HRESULT
 declare function D3DXSaveMeshHierarchyToFileA(byval filename as const zstring ptr, byval format as DWORD, byval frame_root as const D3DXFRAME ptr, byval animation_controller as ID3DXAnimationController ptr, byval user_data_saver as ID3DXSaveUserData ptr) as HRESULT
 declare function D3DXSaveMeshHierarchyToFileW(byval filename as const WCHAR ptr, byval format as DWORD, byval frame_root as const D3DXFRAME ptr, byval animation_controller as ID3DXAnimationController ptr, byval user_data_saver as ID3DXSaveUserData ptr) as HRESULT
 
-#define D3DXSaveMeshHierarchyToFile __MINGW_NAME_AW(D3DXSaveMeshHierarchyToFile)
+#ifdef UNICODE
+	#define D3DXSaveMeshHierarchyToFile D3DXSaveMeshHierarchyToFileW
+#else
+	#define D3DXSaveMeshHierarchyToFile D3DXSaveMeshHierarchyToFileA
+#endif
 
 declare function D3DXFrameDestroy(byval frame_root as D3DXFRAME ptr, byval alloc as ID3DXAllocateHierarchy ptr) as HRESULT
 declare function D3DXFrameAppendChild(byval as LPD3DXFRAME, byval as const D3DXFRAME ptr) as HRESULT

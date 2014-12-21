@@ -43,9 +43,15 @@ extern IID_IAccPropMgrInternal as const GUID
 extern CLSID_AccPropServices as const GUID
 extern IIS_IsOleaccProxy as const GUID
 
-#define GetRoleText __MINGW_NAME_AW(GetRoleText)
-#define GetStateText __MINGW_NAME_AW(GetStateText)
-#define CreateStdAccessibleProxy __MINGW_NAME_AW(CreateStdAccessibleProxy)
+#ifdef UNICODE
+	#define GetRoleText GetRoleTextW
+	#define GetStateText GetStateTextW
+	#define CreateStdAccessibleProxy CreateStdAccessibleProxyW
+#else
+	#define GetRoleText GetRoleTextA
+	#define GetStateText GetStateTextA
+	#define CreateStdAccessibleProxy CreateStdAccessibleProxyA
+#endif
 
 declare function LresultFromObject(byval riid as const IID const ptr, byval wParam as WPARAM, byval punk as LPUNKNOWN) as LRESULT
 declare function ObjectFromLresult(byval lResult as LRESULT, byval riid as const IID const ptr, byval wParam as WPARAM, byval ppvObject as any ptr ptr) as HRESULT

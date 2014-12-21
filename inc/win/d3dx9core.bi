@@ -145,10 +145,18 @@ end type
 #define ID3DXFont_DrawTextW(p, a, b, c, d, e, f) (p)->lpVtbl->DrawTextW(p, a, b, c, d, e, f)
 #define ID3DXFont_OnLostDevice(p) (p)->lpVtbl->OnLostDevice(p)
 #define ID3DXFont_OnResetDevice(p) (p)->lpVtbl->OnResetDevice(p)
-#define ID3DXFont_DrawText __MINGW_NAME_AW(ID3DXFont_DrawText)
-#define ID3DXFont_GetDesc __MINGW_NAME_AW(ID3DXFont_GetDesc)
-#define ID3DXFont_GetTextMetrics __MINGW_NAME_AW(ID3DXFont_GetTextMetrics)
-#define ID3DXFont_PreloadText __MINGW_NAME_AW(ID3DXFont_PreloadText)
+
+#ifdef UNICODE
+	#define ID3DXFont_DrawText ID3DXFont_DrawTextW
+	#define ID3DXFont_GetDesc ID3DXFont_GetDescW
+	#define ID3DXFont_GetTextMetrics ID3DXFont_GetTextMetricsW
+	#define ID3DXFont_PreloadText ID3DXFont_PreloadTextW
+#else
+	#define ID3DXFont_DrawText ID3DXFont_DrawTextA
+	#define ID3DXFont_GetDesc ID3DXFont_GetDescA
+	#define ID3DXFont_GetTextMetrics ID3DXFont_GetTextMetricsA
+	#define ID3DXFont_PreloadText ID3DXFont_PreloadTextA
+#endif
 
 type ID3DXLine
 	lpVtbl as ID3DXLineVtbl ptr
@@ -317,12 +325,20 @@ declare function D3DXCheckVersion(byval d3dsdkvers as UINT, byval d3dxsdkvers as
 declare function D3DXCreateFontA(byval device as IDirect3DDevice9 ptr, byval height as INT_, byval width_ as UINT, byval weight as UINT, byval miplevels as UINT, byval italic as WINBOOL, byval charset as DWORD, byval precision as DWORD, byval quality as DWORD, byval pitchandfamily as DWORD, byval facename as const zstring ptr, byval font as ID3DXFont ptr ptr) as HRESULT
 declare function D3DXCreateFontW(byval device as IDirect3DDevice9 ptr, byval height as INT_, byval width_ as UINT, byval weight as UINT, byval miplevels as UINT, byval italic as WINBOOL, byval charset as DWORD, byval precision as DWORD, byval quality as DWORD, byval pitchandfamily as DWORD, byval facename as const WCHAR ptr, byval font as ID3DXFont ptr ptr) as HRESULT
 
-#define D3DXCreateFont __MINGW_NAME_AW(D3DXCreateFont)
+#ifdef UNICODE
+	#define D3DXCreateFont D3DXCreateFontW
+#else
+	#define D3DXCreateFont D3DXCreateFontA
+#endif
 
 declare function D3DXCreateFontIndirectA(byval device as IDirect3DDevice9 ptr, byval desc as const D3DXFONT_DESCA ptr, byval font as ID3DXFont ptr ptr) as HRESULT
 declare function D3DXCreateFontIndirectW(byval device as IDirect3DDevice9 ptr, byval desc as const D3DXFONT_DESCW ptr, byval font as ID3DXFont ptr ptr) as HRESULT
 
-#define D3DXCreateFontIndirect __MINGW_NAME_AW(D3DXCreateFontIndirect)
+#ifdef UNICODE
+	#define D3DXCreateFontIndirect D3DXCreateFontIndirectW
+#else
+	#define D3DXCreateFontIndirect D3DXCreateFontIndirectA
+#endif
 
 declare function D3DXCreateLine(byval device as IDirect3DDevice9 ptr, byval line_ as ID3DXLine ptr ptr) as HRESULT
 declare function D3DXCreateRenderToEnvMap(byval device as IDirect3DDevice9 ptr, byval size as UINT, byval miplevels as UINT, byval format as D3DFORMAT, byval stencil as WINBOOL, byval stencil_format as D3DFORMAT, byval rtem as ID3DXRenderToEnvMap ptr ptr) as HRESULT

@@ -26,6 +26,10 @@ type AMGETERRORTEXTPROCW as function(byval as HRESULT, byval as WCHAR ptr, byval
 declare function AMGetErrorTextA(byval as HRESULT, byval as LPSTR, byval as DWORD) as DWORD
 declare function AMGetErrorTextW(byval as HRESULT, byval as LPWSTR, byval as DWORD) as DWORD
 
-#define AMGetErrorText __MINGW_NAME_AW(AMGetErrorText)
+#ifdef UNICODE
+	#define AMGetErrorText AMGetErrorTextW
+#else
+	#define AMGetErrorText AMGetErrorTextA
+#endif
 
 end extern

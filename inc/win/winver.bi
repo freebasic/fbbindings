@@ -107,12 +107,21 @@ end type
 
 type VS_FIXEDFILEINFO as tagVS_FIXEDFILEINFO
 
-#define VerFindFile __MINGW_NAME_AW(VerFindFile)
-#define VerInstallFile __MINGW_NAME_AW(VerInstallFile)
-#define GetFileVersionInfoSize __MINGW_NAME_AW(GetFileVersionInfoSize)
-#define GetFileVersionInfo __MINGW_NAME_AW(GetFileVersionInfo)
-#define VerLanguageName __MINGW_NAME_AW(VerLanguageName)
-#define VerQueryValue __MINGW_NAME_AW(VerQueryValue)
+#ifdef UNICODE
+	#define VerFindFile VerFindFileW
+	#define VerInstallFile VerInstallFileW
+	#define GetFileVersionInfoSize GetFileVersionInfoSizeW
+	#define GetFileVersionInfo GetFileVersionInfoW
+	#define VerLanguageName VerLanguageNameW
+	#define VerQueryValue VerQueryValueW
+#else
+	#define VerFindFile VerFindFileA
+	#define VerInstallFile VerInstallFileA
+	#define GetFileVersionInfoSize GetFileVersionInfoSizeA
+	#define GetFileVersionInfo GetFileVersionInfoA
+	#define VerLanguageName VerLanguageNameA
+	#define VerQueryValue VerQueryValueA
+#endif
 
 declare function VerFindFileA(byval uFlags as DWORD, byval szFileName as LPSTR, byval szWinDir as LPSTR, byval szAppDir as LPSTR, byval szCurDir as LPSTR, byval lpuCurDirLen as PUINT, byval szDestDir as LPSTR, byval lpuDestDirLen as PUINT) as DWORD
 declare function VerFindFileW(byval uFlags as DWORD, byval szFileName as LPWSTR, byval szWinDir as LPWSTR, byval szAppDir as LPWSTR, byval szCurDir as LPWSTR, byval lpuCurDirLen as PUINT, byval szDestDir as LPWSTR, byval lpuDestDirLen as PUINT) as DWORD

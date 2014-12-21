@@ -271,7 +271,11 @@ type LPADDRINFO as ADDRINFOA ptr
 	#define AI_RETURN_PREFERRED_NAMES &h010000
 #endif
 
-#define GetAddrInfo_ __MINGW_NAME_AW(GetAddrInfo)
+#ifdef UNICODE
+	#define GetAddrInfo_ GetAddrInfoW
+#else
+	#define GetAddrInfo_ GetAddrInfoA
+#endif
 
 #ifdef __FB_64BIT__
 	declare function getaddrinfo(byval nodename as const zstring ptr, byval servname as const zstring ptr, byval hints as const addrinfo ptr, byval res as addrinfo ptr ptr) as long
@@ -282,7 +286,12 @@ type LPADDRINFO as ADDRINFOA ptr
 #endif
 
 #define GetAddrInfoA getaddrinfo
-#define FreeAddrInfo_ __MINGW_NAME_AW(FreeAddrInfo)
+
+#ifdef UNICODE
+	#define FreeAddrInfo_ FreeAddrInfoW
+#else
+	#define FreeAddrInfo_ FreeAddrInfoA
+#endif
 
 #ifdef __FB_64BIT__
 	declare sub freeaddrinfo(byval pAddrInfo as LPADDRINFO)
@@ -296,7 +305,11 @@ type LPADDRINFO as ADDRINFOA ptr
 
 type socklen_t as long
 
-#define GetNameInfo_ __MINGW_NAME_AW(GetNameInfo)
+#ifdef UNICODE
+	#define GetNameInfo_ GetNameInfoW
+#else
+	#define GetNameInfo_ GetNameInfoA
+#endif
 
 #ifdef __FB_64BIT__
 	declare function getnameinfo(byval sa as const sockaddr ptr, byval salen as socklen_t, byval host as zstring ptr, byval hostlen as DWORD, byval serv as zstring ptr, byval servlen as DWORD, byval flags as long) as long
@@ -307,7 +320,13 @@ type socklen_t as long
 #endif
 
 #define GetNameInfoA getnameinfo
-#define gai_strerror __MINGW_NAME_AW(gai_strerror)
+
+#ifdef UNICODE
+	#define gai_strerror gai_strerrorW
+#else
+	#define gai_strerror gai_strerrorA
+#endif
+
 #define GAI_STRERROR_BUFFER_SIZE 1024
 
 declare function gai_strerrorA(byval as long) as zstring ptr
@@ -323,13 +342,21 @@ declare function gai_strerrorW(byval as long) as WCHAR ptr
 #define NI_NUMERICSERV &h08
 #define NI_DGRAM &h10
 
-#if _WIN32_WINNT = &h0602
-	#define addrinfoEx __MINGW_NAME_AW(addrinfoEx)
-	#define PADDRINFOEX __MINGW_NAME_AW(PADDRINFOEX)
-	#define GetAddrInfoEx __MINGW_NAME_AW(GetAddrInfoEx)
-	#define SetAddrInfoEx __MINGW_NAME_AW(SetAddrInfoEx)
-	#define FreeAddrInfoEx __MINGW_NAME_AW(FreeAddrInfoEx)
+#if defined(UNICODE) and (_WIN32_WINNT = &h0602)
+	#define addrinfoEx addrinfoExW
+	#define PADDRINFOEX PADDRINFOEXW
+	#define GetAddrInfoEx GetAddrInfoExW
+	#define SetAddrInfoEx SetAddrInfoExW
+	#define FreeAddrInfoEx FreeAddrInfoExW
+#elseif (not defined(UNICODE)) and (_WIN32_WINNT = &h0602)
+	#define addrinfoEx addrinfoExA
+	#define PADDRINFOEX PADDRINFOEXA
+	#define GetAddrInfoEx GetAddrInfoExA
+	#define SetAddrInfoEx SetAddrInfoExA
+	#define FreeAddrInfoEx FreeAddrInfoExA
+#endif
 
+#if _WIN32_WINNT = &h0602
 	type addrinfoExA
 		ai_flags as long
 		ai_family as long
@@ -404,8 +431,13 @@ declare function gai_strerrorW(byval as long) as WCHAR ptr
 	declare function inet_ntop stdcall(byval Family as INT_, byval pAddr as PVOID, byval pStringBuf as LPSTR, byval StringBufSize as uinteger) as LPCSTR
 #endif
 
+#if defined(UNICODE) and (_WIN32_WINNT = &h0602)
+	#define InetNtop InetNtopW
+#elseif (not defined(UNICODE)) and (_WIN32_WINNT = &h0602)
+	#define InetNtop InetNtopA
+#endif
+
 #if _WIN32_WINNT = &h0602
-	#define InetNtop __MINGW_NAME_AW(InetNtop)
 	#define InetPtonA inet_pton
 #endif
 
@@ -417,8 +449,10 @@ declare function gai_strerrorW(byval as long) as WCHAR ptr
 	declare function inet_pton stdcall(byval Family as INT_, byval pStringBuf as LPCSTR, byval pAddr as PVOID) as INT_
 #endif
 
-#if _WIN32_WINNT = &h0602
-	#define InetPton __MINGW_NAME_AW(InetPton)
+#if defined(UNICODE) and (_WIN32_WINNT = &h0602)
+	#define InetPton InetPtonW
+#elseif (not defined(UNICODE)) and (_WIN32_WINNT = &h0602)
+	#define InetPton InetPtonA
 #endif
 
 end extern

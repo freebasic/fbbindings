@@ -97,12 +97,22 @@ extern SID_SInPlaceBrowser as const GUID
 extern IID_IDiscardableBrowserProperty as const GUID
 extern IID_IShellChangeNotify as const GUID
 
-#define IID_IFileViewer __MINGW_NAME_AW(IID_IFileViewer)
-#define IID_IShellLink __MINGW_NAME_AW(IID_IShellLink)
-#define IID_IExtractIcon __MINGW_NAME_AW(IID_IExtractIcon)
-#define IID_IShellCopyHook __MINGW_NAME_AW(IID_IShellCopyHook)
-#define IID_IShellExecuteHook __MINGW_NAME_AW(IID_IShellExecuteHook)
-#define IID_INewShortcutHook __MINGW_NAME_AW(IID_INewShortcutHook)
+#ifdef UNICODE
+	#define IID_IFileViewer IID_IFileViewerW
+	#define IID_IShellLink IID_IShellLinkW
+	#define IID_IExtractIcon IID_IExtractIconW
+	#define IID_IShellCopyHook IID_IShellCopyHookW
+	#define IID_IShellExecuteHook IID_IShellExecuteHookW
+	#define IID_INewShortcutHook IID_INewShortcutHookW
+#else
+	#define IID_IFileViewer IID_IFileViewerA
+	#define IID_IShellLink IID_IShellLinkA
+	#define IID_IExtractIcon IID_IExtractIconA
+	#define IID_IShellCopyHook IID_IShellCopyHookA
+	#define IID_IShellExecuteHook IID_IShellExecuteHookA
+	#define IID_INewShortcutHook IID_INewShortcutHookA
+#endif
+
 #define SID_SInternetExplorer IID_IWebBrowserApp
 #define SID_SProgressUI CLSID_ProgressDialog
 #define SID_SUrlHistory CLSID_CUrlHistory

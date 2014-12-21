@@ -102,7 +102,12 @@ type PIMAGEHLP_STATUS_ROUTINE64 as function(byval Reason as IMAGEHLP_STATUS_REAS
 #define SPLITSYM_REMOVE_PRIVATE &h00000001
 #define SPLITSYM_EXTRACT_ALL &h00000002
 #define SPLITSYM_SYMBOLPATH_IS_SRC &h00000004
-#define MapFileAndCheckSum __MINGW_NAME_AW(MapFileAndCheckSum)
+
+#ifdef UNICODE
+	#define MapFileAndCheckSum MapFileAndCheckSumW
+#else
+	#define MapFileAndCheckSum MapFileAndCheckSumA
+#endif
 
 declare function BindImage(byval ImageName as PCSTR, byval DllPath as PCSTR, byval SymbolPath as PCSTR) as WINBOOL
 declare function BindImageEx(byval Flags as DWORD, byval ImageName as PCSTR, byval DllPath as PCSTR, byval SymbolPath as PCSTR, byval StatusRoutine as PIMAGEHLP_STATUS_ROUTINE) as WINBOOL

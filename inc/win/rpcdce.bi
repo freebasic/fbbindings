@@ -108,7 +108,11 @@ end type
 
 type RPC_PROTSEQ_VECTORW as _RPC_PROTSEQ_VECTORW
 
-#define RPC_PROTSEQ_VECTOR __MINGW_NAME_AW(RPC_PROTSEQ_VECTOR)
+#ifdef UNICODE
+	#define RPC_PROTSEQ_VECTOR RPC_PROTSEQ_VECTORW
+#else
+	#define RPC_PROTSEQ_VECTOR RPC_PROTSEQ_VECTORA
+#endif
 
 type _RPC_POLICY
 	Length as ulong
@@ -136,23 +140,43 @@ type RPC_IF_ID_VECTOR
 	IfId(0 to 0) as RPC_IF_ID ptr
 end type
 
-#define RpcBindingFromStringBinding __MINGW_NAME_AW(RpcBindingFromStringBinding)
-#define RpcBindingToStringBinding __MINGW_NAME_AW(RpcBindingToStringBinding)
-#define RpcStringBindingCompose __MINGW_NAME_AW(RpcStringBindingCompose)
-#define RpcStringBindingParse __MINGW_NAME_AW(RpcStringBindingParse)
-#define RpcStringFree __MINGW_NAME_AW(RpcStringFree)
-#define RpcNetworkIsProtseqValid __MINGW_NAME_AW(RpcNetworkIsProtseqValid)
-#define RpcNetworkInqProtseqs __MINGW_NAME_AW(RpcNetworkInqProtseqs)
-#define RpcProtseqVectorFree __MINGW_NAME_AW(RpcProtseqVectorFree)
-#define RpcServerUseProtseq __MINGW_NAME_AW(RpcServerUseProtseq)
-#define RpcServerUseProtseqEx __MINGW_NAME_AW(RpcServerUseProtseqEx)
-#define RpcServerUseProtseqEp __MINGW_NAME_AW(RpcServerUseProtseqEp)
-#define RpcServerUseProtseqEpEx __MINGW_NAME_AW(RpcServerUseProtseqEpEx)
-#define RpcServerUseProtseqIf __MINGW_NAME_AW(RpcServerUseProtseqIf)
-#define RpcServerUseProtseqIfEx __MINGW_NAME_AW(RpcServerUseProtseqIfEx)
-#define RpcMgmtInqServerPrincName __MINGW_NAME_AW(RpcMgmtInqServerPrincName)
-#define RpcServerInqDefaultPrincName __MINGW_NAME_AW(RpcServerInqDefaultPrincName)
-#define RpcNsBindingInqEntryName __MINGW_NAME_AW(RpcNsBindingInqEntryName)
+#ifdef UNICODE
+	#define RpcBindingFromStringBinding RpcBindingFromStringBindingW
+	#define RpcBindingToStringBinding RpcBindingToStringBindingW
+	#define RpcStringBindingCompose RpcStringBindingComposeW
+	#define RpcStringBindingParse RpcStringBindingParseW
+	#define RpcStringFree RpcStringFreeW
+	#define RpcNetworkIsProtseqValid RpcNetworkIsProtseqValidW
+	#define RpcNetworkInqProtseqs RpcNetworkInqProtseqsW
+	#define RpcProtseqVectorFree RpcProtseqVectorFreeW
+	#define RpcServerUseProtseq RpcServerUseProtseqW
+	#define RpcServerUseProtseqEx RpcServerUseProtseqExW
+	#define RpcServerUseProtseqEp RpcServerUseProtseqEpW
+	#define RpcServerUseProtseqEpEx RpcServerUseProtseqEpExW
+	#define RpcServerUseProtseqIf RpcServerUseProtseqIfW
+	#define RpcServerUseProtseqIfEx RpcServerUseProtseqIfExW
+	#define RpcMgmtInqServerPrincName RpcMgmtInqServerPrincNameW
+	#define RpcServerInqDefaultPrincName RpcServerInqDefaultPrincNameW
+	#define RpcNsBindingInqEntryName RpcNsBindingInqEntryNameW
+#else
+	#define RpcBindingFromStringBinding RpcBindingFromStringBindingA
+	#define RpcBindingToStringBinding RpcBindingToStringBindingA
+	#define RpcStringBindingCompose RpcStringBindingComposeA
+	#define RpcStringBindingParse RpcStringBindingParseA
+	#define RpcStringFree RpcStringFreeA
+	#define RpcNetworkIsProtseqValid RpcNetworkIsProtseqValidA
+	#define RpcNetworkInqProtseqs RpcNetworkInqProtseqsA
+	#define RpcProtseqVectorFree RpcProtseqVectorFreeA
+	#define RpcServerUseProtseq RpcServerUseProtseqA
+	#define RpcServerUseProtseqEx RpcServerUseProtseqExA
+	#define RpcServerUseProtseqEp RpcServerUseProtseqEpA
+	#define RpcServerUseProtseqEpEx RpcServerUseProtseqEpExA
+	#define RpcServerUseProtseqIf RpcServerUseProtseqIfA
+	#define RpcServerUseProtseqIfEx RpcServerUseProtseqIfExA
+	#define RpcMgmtInqServerPrincName RpcMgmtInqServerPrincNameA
+	#define RpcServerInqDefaultPrincName RpcServerInqDefaultPrincNameA
+	#define RpcNsBindingInqEntryName RpcNsBindingInqEntryNameA
+#endif
 
 declare function RpcBindingCopy(byval SourceBinding as RPC_BINDING_HANDLE, byval DestinationBinding as RPC_BINDING_HANDLE ptr) as RPC_STATUS
 declare function RpcBindingFree(byval Binding as RPC_BINDING_HANDLE ptr) as RPC_STATUS
@@ -317,9 +341,16 @@ end type
 type SEC_WINNT_AUTH_IDENTITY_A as _SEC_WINNT_AUTH_IDENTITY_A
 type PSEC_WINNT_AUTH_IDENTITY_A as _SEC_WINNT_AUTH_IDENTITY_A ptr
 
-#define SEC_WINNT_AUTH_IDENTITY __MINGW_NAME_UAW(SEC_WINNT_AUTH_IDENTITY)
-#define PSEC_WINNT_AUTH_IDENTITY __MINGW_NAME_UAW(PSEC_WINNT_AUTH_IDENTITY)
-#define _SEC_WINNT_AUTH_IDENTITY __MINGW_NAME_UAW(_SEC_WINNT_AUTH_IDENTITY)
+#ifdef UNICODE
+	#define SEC_WINNT_AUTH_IDENTITY SEC_WINNT_AUTH_IDENTITY_W
+	#define PSEC_WINNT_AUTH_IDENTITY PSEC_WINNT_AUTH_IDENTITY_W
+	#define _SEC_WINNT_AUTH_IDENTITY _SEC_WINNT_AUTH_IDENTITY_W
+#else
+	#define SEC_WINNT_AUTH_IDENTITY SEC_WINNT_AUTH_IDENTITY_A
+	#define PSEC_WINNT_AUTH_IDENTITY PSEC_WINNT_AUTH_IDENTITY_A
+	#define _SEC_WINNT_AUTH_IDENTITY _SEC_WINNT_AUTH_IDENTITY_A
+#endif
+
 #define RPC_C_SECURITY_QOS_VERSION_2 __MSABI_LONG(2)
 #define RPC_C_AUTHN_INFO_TYPE_HTTP 1
 #define RPC_C_HTTP_AUTHN_TARGET_SERVER 1
@@ -426,15 +457,27 @@ end type
 type RPC_SECURITY_QOS_V3_A as _RPC_SECURITY_QOS_V3_A
 type PRPC_SECURITY_QOS_V3_A as _RPC_SECURITY_QOS_V3_A ptr
 
-#define RPC_SECURITY_QOS_V2 __MINGW_NAME_UAW(RPC_SECURITY_QOS_V2)
-#define PRPC_SECURITY_QOS_V2 __MINGW_NAME_UAW(PRPC_SECURITY_QOS_V2)
-#define _RPC_SECURITY_QOS_V2 __MINGW_NAME_UAW(_RPC_SECURITY_QOS_V2)
-#define RPC_HTTP_TRANSPORT_CREDENTIALS __MINGW_NAME_UAW(RPC_HTTP_TRANSPORT_CREDENTIALS)
-#define PRPC_HTTP_TRANSPORT_CREDENTIALS __MINGW_NAME_UAW(PRPC_HTTP_TRANSPORT_CREDENTIALS)
-#define _RPC_HTTP_TRANSPORT_CREDENTIALS __MINGW_NAME_UAW(_RPC_HTTP_TRANSPORT_CREDENTIALS)
-#define RPC_SECURITY_QOS_V3 __MINGW_NAME_UAW(RPC_SECURITY_QOS_V3)
-#define PRPC_SECURITY_QOS_V3 __MINGW_NAME_UAW(PRPC_SECURITY_QOS_V3)
-#define _RPC_SECURITY_QOS_V3 __MINGW_NAME_UAW(_RPC_SECURITY_QOS_V3)
+#ifdef UNICODE
+	#define RPC_SECURITY_QOS_V2 RPC_SECURITY_QOS_V2_W
+	#define PRPC_SECURITY_QOS_V2 PRPC_SECURITY_QOS_V2_W
+	#define _RPC_SECURITY_QOS_V2 _RPC_SECURITY_QOS_V2_W
+	#define RPC_HTTP_TRANSPORT_CREDENTIALS RPC_HTTP_TRANSPORT_CREDENTIALS_W
+	#define PRPC_HTTP_TRANSPORT_CREDENTIALS PRPC_HTTP_TRANSPORT_CREDENTIALS_W
+	#define _RPC_HTTP_TRANSPORT_CREDENTIALS _RPC_HTTP_TRANSPORT_CREDENTIALS_W
+	#define RPC_SECURITY_QOS_V3 RPC_SECURITY_QOS_V3_W
+	#define PRPC_SECURITY_QOS_V3 PRPC_SECURITY_QOS_V3_W
+	#define _RPC_SECURITY_QOS_V3 _RPC_SECURITY_QOS_V3_W
+#else
+	#define RPC_SECURITY_QOS_V2 RPC_SECURITY_QOS_V2_A
+	#define PRPC_SECURITY_QOS_V2 PRPC_SECURITY_QOS_V2_A
+	#define _RPC_SECURITY_QOS_V2 _RPC_SECURITY_QOS_V2_A
+	#define RPC_HTTP_TRANSPORT_CREDENTIALS RPC_HTTP_TRANSPORT_CREDENTIALS_A
+	#define PRPC_HTTP_TRANSPORT_CREDENTIALS PRPC_HTTP_TRANSPORT_CREDENTIALS_A
+	#define _RPC_HTTP_TRANSPORT_CREDENTIALS _RPC_HTTP_TRANSPORT_CREDENTIALS_A
+	#define RPC_SECURITY_QOS_V3 RPC_SECURITY_QOS_V3_A
+	#define PRPC_SECURITY_QOS_V3 PRPC_SECURITY_QOS_V3_A
+	#define _RPC_SECURITY_QOS_V3 _RPC_SECURITY_QOS_V3_A
+#endif
 
 type _RPC_HTTP_REDIRECTOR_STAGE as long
 enum
@@ -475,13 +518,23 @@ type RPC_AUTH_KEY_RETRIEVAL_FN as sub(byval Arg as any ptr, byval ServerPrincNam
 declare function RpcServerRegisterAuthInfoA(byval ServerPrincName as RPC_CSTR, byval AuthnSvc as ulong, byval GetKeyFn as RPC_AUTH_KEY_RETRIEVAL_FN, byval Arg as any ptr) as RPC_STATUS
 declare function RpcServerRegisterAuthInfoW(byval ServerPrincName as RPC_WSTR, byval AuthnSvc as ulong, byval GetKeyFn as RPC_AUTH_KEY_RETRIEVAL_FN, byval Arg as any ptr) as RPC_STATUS
 
-#define RpcBindingInqAuthClient __MINGW_NAME_AW(RpcBindingInqAuthClient)
-#define RpcBindingInqAuthClientEx __MINGW_NAME_AW(RpcBindingInqAuthClientEx)
-#define RpcBindingInqAuthInfo __MINGW_NAME_AW(RpcBindingInqAuthInfo)
-#define RpcBindingSetAuthInfo __MINGW_NAME_AW(RpcBindingSetAuthInfo)
-#define RpcServerRegisterAuthInfo __MINGW_NAME_AW(RpcServerRegisterAuthInfo)
-#define RpcBindingInqAuthInfoEx __MINGW_NAME_AW(RpcBindingInqAuthInfoEx)
-#define RpcBindingSetAuthInfoEx __MINGW_NAME_AW(RpcBindingSetAuthInfoEx)
+#ifdef UNICODE
+	#define RpcBindingInqAuthClient RpcBindingInqAuthClientW
+	#define RpcBindingInqAuthClientEx RpcBindingInqAuthClientExW
+	#define RpcBindingInqAuthInfo RpcBindingInqAuthInfoW
+	#define RpcBindingSetAuthInfo RpcBindingSetAuthInfoW
+	#define RpcServerRegisterAuthInfo RpcServerRegisterAuthInfoW
+	#define RpcBindingInqAuthInfoEx RpcBindingInqAuthInfoExW
+	#define RpcBindingSetAuthInfoEx RpcBindingSetAuthInfoExW
+#else
+	#define RpcBindingInqAuthClient RpcBindingInqAuthClientA
+	#define RpcBindingInqAuthClientEx RpcBindingInqAuthClientExA
+	#define RpcBindingInqAuthInfo RpcBindingInqAuthInfoA
+	#define RpcBindingSetAuthInfo RpcBindingSetAuthInfoA
+	#define RpcServerRegisterAuthInfo RpcServerRegisterAuthInfoA
+	#define RpcBindingInqAuthInfoEx RpcBindingInqAuthInfoExA
+	#define RpcBindingSetAuthInfoEx RpcBindingSetAuthInfoExA
+#endif
 
 type RPC_CLIENT_INFORMATION1
 	UserName as ubyte ptr
@@ -492,11 +545,20 @@ end type
 
 type PRPC_CLIENT_INFORMATION1 as RPC_CLIENT_INFORMATION1 ptr
 
-#define UuidFromString __MINGW_NAME_AW(UuidFromString)
-#define UuidToString __MINGW_NAME_AW(UuidToString)
-#define RpcEpRegisterNoReplace __MINGW_NAME_AW(RpcEpRegisterNoReplace)
-#define RpcEpRegister __MINGW_NAME_AW(RpcEpRegister)
-#define DceErrorInqText __MINGW_NAME_AW(DceErrorInqText)
+#ifdef UNICODE
+	#define UuidFromString UuidFromStringW
+	#define UuidToString UuidToStringW
+	#define RpcEpRegisterNoReplace RpcEpRegisterNoReplaceW
+	#define RpcEpRegister RpcEpRegisterW
+	#define DceErrorInqText DceErrorInqTextW
+#else
+	#define UuidFromString UuidFromStringA
+	#define UuidToString UuidToStringA
+	#define RpcEpRegisterNoReplace RpcEpRegisterNoReplaceA
+	#define RpcEpRegister RpcEpRegisterA
+	#define DceErrorInqText DceErrorInqTextA
+#endif
+
 #define DCE_C_ERROR_STRING_LEN 256
 
 declare function RpcBindingServerFromClient(byval ClientBinding as RPC_BINDING_HANDLE, byval ServerBinding as RPC_BINDING_HANDLE ptr) as RPC_STATUS
@@ -535,7 +597,12 @@ type RPC_EP_INQ_HANDLE as I_RPC_HANDLE ptr
 #define RPC_C_VERS_EXACT 3
 #define RPC_C_VERS_MAJOR_ONLY 4
 #define RPC_C_VERS_UPTO 5
-#define RpcMgmtEpEltInqNext __MINGW_NAME_AW(RpcMgmtEpEltInqNext)
+
+#ifdef UNICODE
+	#define RpcMgmtEpEltInqNext RpcMgmtEpEltInqNextW
+#else
+	#define RpcMgmtEpEltInqNext RpcMgmtEpEltInqNextA
+#endif
 
 declare function RpcMgmtEpEltInqBegin(byval EpBinding as RPC_BINDING_HANDLE, byval InquiryType as ulong, byval IfId as RPC_IF_ID ptr, byval VersOption as ulong, byval ObjectUuid as UUID ptr, byval InquiryContext as RPC_EP_INQ_HANDLE ptr) as RPC_STATUS
 declare function RpcMgmtEpEltInqDone(byval InquiryContext as RPC_EP_INQ_HANDLE ptr) as RPC_STATUS
@@ -614,9 +681,15 @@ declare function RpcMgmtSetAuthorizationFn(byval AuthorizationFn as RPC_MGMT_AUT
 
 	declare function RpcBindingCreateA(byval Template as RPC_BINDING_HANDLE_TEMPLATE ptr, byval Security as RPC_BINDING_HANDLE_SECURITY ptr, byval Options as RPC_BINDING_HANDLE_OPTIONS ptr, byval Binding as RPC_BINDING_HANDLE ptr) as RPC_STATUS
 	declare function RpcBindingCreateW(byval Template as RPC_BINDING_HANDLE_TEMPLATE ptr, byval Security as RPC_BINDING_HANDLE_SECURITY ptr, byval Options as RPC_BINDING_HANDLE_OPTIONS ptr, byval Binding as RPC_BINDING_HANDLE ptr) as RPC_STATUS
+#endif
 
-	#define RpcBindingCreate __MINGW_NAME_AW(RpcBindingCreate)
+#if defined(UNICODE) and (_WIN32_WINNT = &h0602)
+	#define RpcBindingCreate RpcBindingCreateW
+#elseif (not defined(UNICODE)) and (_WIN32_WINNT = &h0602)
+	#define RpcBindingCreate RpcBindingCreateA
+#endif
 
+#if _WIN32_WINNT = &h0602
 	declare function RpcServerInqBindingHandle cdecl(byval Binding as RPC_BINDING_HANDLE ptr) as RPC_STATUS
 #endif
 

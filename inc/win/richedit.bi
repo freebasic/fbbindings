@@ -34,7 +34,13 @@ type TEXTMODE as tagTextMode
 #define RICHEDIT_CLASSA "RichEdit20A"
 #define RICHEDIT_CLASS10A "RICHEDIT"
 #define RICHEDIT_CLASSW wstr("RichEdit20W")
-#define RICHEDIT_CLASS __MINGW_NAME_AW(RICHEDIT_CLASS)
+
+#ifdef UNICODE
+	#define RICHEDIT_CLASS RICHEDIT_CLASSW
+#else
+	#define RICHEDIT_CLASS RICHEDIT_CLASSA
+#endif
+
 #define EM_CANPASTE (WM_USER + 50)
 #define EM_DISPLAYBAND (WM_USER + 51)
 #define EM_EXGETSEL (WM_USER + 52)
@@ -331,7 +337,11 @@ end type
 
 type CHARFORMATW as _charformatw
 
-#define CHARFORMAT __MINGW_NAME_AW(CHARFORMAT)
+#ifdef UNICODE
+	#define CHARFORMAT CHARFORMATW
+#else
+	#define CHARFORMAT CHARFORMATA
+#endif
 
 type _charformat2w field = 4
 	cbSize as UINT
@@ -382,7 +392,12 @@ end type
 
 type CHARFORMAT2A as _charformat2a
 
-#define CHARFORMAT2 __MINGW_NAME_AW(CHARFORMAT2)
+#ifdef UNICODE
+	#define CHARFORMAT2 CHARFORMAT2W
+#else
+	#define CHARFORMAT2 CHARFORMAT2A
+#endif
+
 #define CHARFORMATDELTA (sizeof(CHARFORMAT2) - sizeof(CHARFORMAT))
 #define CFM_BOLD &h00000001
 #define CFM_ITALIC &h00000002
@@ -490,7 +505,11 @@ end type
 
 type TEXTRANGEW as _textrangew
 
-#define TEXTRANGE __MINGW_NAME_AW(TEXTRANGE)
+#ifdef UNICODE
+	#define TEXTRANGE TEXTRANGEW
+#else
+	#define TEXTRANGE TEXTRANGEA
+#endif
 
 type EDITSTREAMCALLBACK as function(byval dwCookie as DWORD_PTR, byval pbBuff as LPBYTE, byval cb as LONG, byval pcb as LONG ptr) as DWORD
 
@@ -531,7 +550,11 @@ end type
 
 type FINDTEXTW as _findtextw
 
-#define FINDTEXT_ __MINGW_NAME_AW(FINDTEXT)
+#ifdef UNICODE
+	#define FINDTEXT_ FINDTEXTW
+#else
+	#define FINDTEXT_ FINDTEXTA
+#endif
 
 type _findtextexa field = 4
 	chrg as CHARRANGE
@@ -549,7 +572,11 @@ end type
 
 type FINDTEXTEXW as _findtextexw
 
-#define FINDTEXTEX __MINGW_NAME_AW(FINDTEXTEX)
+#ifdef UNICODE
+	#define FINDTEXTEX FINDTEXTEXW
+#else
+	#define FINDTEXTEX FINDTEXTEXA
+#endif
 
 type _formatrange field = 4
 	hdc as HDC

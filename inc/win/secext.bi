@@ -27,9 +27,15 @@ end enum
 
 type PEXTENDED_NAME_FORMAT as EXTENDED_NAME_FORMAT ptr
 
-#define GetUserNameEx __MINGW_NAME_AW(GetUserNameEx)
-#define GetComputerObjectName __MINGW_NAME_AW(GetComputerObjectName)
-#define TranslateName __MINGW_NAME_AW(TranslateName)
+#ifdef UNICODE
+	#define GetUserNameEx GetUserNameExW
+	#define GetComputerObjectName GetComputerObjectNameW
+	#define TranslateName TranslateNameW
+#else
+	#define GetUserNameEx GetUserNameExA
+	#define GetComputerObjectName GetComputerObjectNameA
+	#define TranslateName TranslateNameA
+#endif
 
 declare function GetUserNameExA(byval NameFormat as EXTENDED_NAME_FORMAT, byval lpNameBuffer as LPSTR, byval nSize as PULONG) as BOOLEAN
 declare function GetUserNameExW(byval NameFormat as EXTENDED_NAME_FORMAT, byval lpNameBuffer as LPWSTR, byval nSize as PULONG) as BOOLEAN

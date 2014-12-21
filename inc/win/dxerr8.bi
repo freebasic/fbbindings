@@ -13,17 +13,30 @@
 declare function DXGetErrorString8A(byval hr as HRESULT) as const zstring ptr
 declare function DXGetErrorString8W(byval hr as HRESULT) as const WCHAR ptr
 
-#define DXGetErrorString8 __MINGW_NAME_AW(DXGetErrorString8)
+#ifdef UNICODE
+	#define DXGetErrorString8 DXGetErrorString8W
+#else
+	#define DXGetErrorString8 DXGetErrorString8A
+#endif
 
 declare function DXGetErrorDescription8A(byval hr as HRESULT) as const zstring ptr
 declare function DXGetErrorDescription8W(byval hr as HRESULT) as const WCHAR ptr
 
-#define DXGetErrorDescription8 __MINGW_NAME_AW(DXGetErrorDescription8)
+#ifdef UNICODE
+	#define DXGetErrorDescription8 DXGetErrorDescription8W
+#else
+	#define DXGetErrorDescription8 DXGetErrorDescription8A
+#endif
 
 declare function DXTraceA(byval strFile as const zstring ptr, byval dwLine as DWORD, byval hr as HRESULT, byval strMsg as const zstring ptr, byval bPopMsgBox as WINBOOL) as HRESULT
 declare function DXTraceW(byval strFile as const zstring ptr, byval dwLine as DWORD, byval hr as HRESULT, byval strMsg as const WCHAR ptr, byval bPopMsgBox as WINBOOL) as HRESULT
 
-#define DXTrace __MINGW_NAME_AW(DXTrace)
+#ifdef UNICODE
+	#define DXTrace DXTraceW
+#else
+	#define DXTrace DXTraceA
+#endif
+
 #define DXTRACE_MSG(str) __MSABI_LONG(0)
 #define DXTRACE_ERR(str, hr) (hr)
 #define DXTRACE_ERR_NOMSGBOX(str, hr) (hr)

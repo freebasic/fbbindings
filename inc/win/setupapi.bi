@@ -219,7 +219,12 @@ type PSP_ORIGINAL_FILE_INFO_W as _SP_ORIGINAL_FILE_INFO_W ptr
 type PSP_FILE_CALLBACK_A as function(byval Context as PVOID, byval Notification as UINT, byval Param1 as UINT_PTR, byval Param2 as UINT_PTR) as UINT
 type PSP_FILE_CALLBACK_W as function(byval Context as PVOID, byval Notification as UINT, byval Param1 as UINT_PTR, byval Param2 as UINT_PTR) as UINT
 
-#define PSP_FILE_CALLBACK __MINGW_NAME_UAW(PSP_FILE_CALLBACK)
+#ifdef UNICODE
+	#define PSP_FILE_CALLBACK PSP_FILE_CALLBACK_W
+#else
+	#define PSP_FILE_CALLBACK PSP_FILE_CALLBACK_A
+#endif
+
 #define SPFILENOTIFY_STARTQUEUE &h00000001
 #define SPFILENOTIFY_ENDQUEUE &h00000002
 #define SPFILENOTIFY_STARTSUBQUEUE &h00000003
@@ -1839,36 +1844,71 @@ declare function SetupGetInfInformationW(byval InfSpec as LPCVOID, byval SearchC
 #define INFINFO_DEFAULT_SEARCH 3
 #define INFINFO_REVERSE_DEFAULT_SEARCH 4
 #define INFINFO_INF_PATH_LIST_SEARCH 5
-#define SetupGetInfInformation __MINGW_NAME_AW(SetupGetInfInformation)
-#define SetupQueryInfFileInformation __MINGW_NAME_AW(SetupQueryInfFileInformation)
-#define SetupQueryInfOriginalFileInformation __MINGW_NAME_AW(SetupQueryInfOriginalFileInformation)
-#define SetupQueryInfVersionInformation __MINGW_NAME_AW(SetupQueryInfVersionInformation)
-#define SetupGetInfFileList __MINGW_NAME_AW(SetupGetInfFileList)
-#define SetupOpenInfFile __MINGW_NAME_AW(SetupOpenInfFile)
-#define SetupOpenAppendInfFile __MINGW_NAME_AW(SetupOpenAppendInfFile)
-#define SetupFindFirstLine __MINGW_NAME_AW(SetupFindFirstLine)
-#define SetupFindNextMatchLine __MINGW_NAME_AW(SetupFindNextMatchLine)
-#define SetupGetLineByIndex __MINGW_NAME_AW(SetupGetLineByIndex)
-#define SetupGetLineCount __MINGW_NAME_AW(SetupGetLineCount)
-#define SetupGetLineText __MINGW_NAME_AW(SetupGetLineText)
-#define SetupGetStringField __MINGW_NAME_AW(SetupGetStringField)
-#define SetupGetMultiSzField __MINGW_NAME_AW(SetupGetMultiSzField)
-#define SetupGetFileCompressionInfo __MINGW_NAME_AW(SetupGetFileCompressionInfo)
-#define SetupGetFileCompressionInfoEx __MINGW_NAME_AW(SetupGetFileCompressionInfoEx)
-#define SetupDecompressOrCopyFile __MINGW_NAME_AW(SetupDecompressOrCopyFile)
-#define SetupGetSourceFileLocation __MINGW_NAME_AW(SetupGetSourceFileLocation)
-#define SetupGetSourceFileSize __MINGW_NAME_AW(SetupGetSourceFileSize)
-#define SetupGetTargetPath __MINGW_NAME_AW(SetupGetTargetPath)
-#define SetupSetSourceList __MINGW_NAME_AW(SetupSetSourceList)
-#define SetupAddToSourceList __MINGW_NAME_AW(SetupAddToSourceList)
-#define SetupRemoveFromSourceList __MINGW_NAME_AW(SetupRemoveFromSourceList)
-#define SetupQuerySourceList __MINGW_NAME_AW(SetupQuerySourceList)
-#define SetupFreeSourceList __MINGW_NAME_AW(SetupFreeSourceList)
-#define SetupPromptForDisk __MINGW_NAME_AW(SetupPromptForDisk)
-#define SetupCopyError __MINGW_NAME_AW(SetupCopyError)
-#define SetupRenameError __MINGW_NAME_AW(SetupRenameError)
-#define SetupDeleteError __MINGW_NAME_AW(SetupDeleteError)
-#define SetupBackupError __MINGW_NAME_AW(SetupBackupError)
+
+#ifdef UNICODE
+	#define SetupGetInfInformation SetupGetInfInformationW
+	#define SetupQueryInfFileInformation SetupQueryInfFileInformationW
+	#define SetupQueryInfOriginalFileInformation SetupQueryInfOriginalFileInformationW
+	#define SetupQueryInfVersionInformation SetupQueryInfVersionInformationW
+	#define SetupGetInfFileList SetupGetInfFileListW
+	#define SetupOpenInfFile SetupOpenInfFileW
+	#define SetupOpenAppendInfFile SetupOpenAppendInfFileW
+	#define SetupFindFirstLine SetupFindFirstLineW
+	#define SetupFindNextMatchLine SetupFindNextMatchLineW
+	#define SetupGetLineByIndex SetupGetLineByIndexW
+	#define SetupGetLineCount SetupGetLineCountW
+	#define SetupGetLineText SetupGetLineTextW
+	#define SetupGetStringField SetupGetStringFieldW
+	#define SetupGetMultiSzField SetupGetMultiSzFieldW
+	#define SetupGetFileCompressionInfo SetupGetFileCompressionInfoW
+	#define SetupGetFileCompressionInfoEx SetupGetFileCompressionInfoExW
+	#define SetupDecompressOrCopyFile SetupDecompressOrCopyFileW
+	#define SetupGetSourceFileLocation SetupGetSourceFileLocationW
+	#define SetupGetSourceFileSize SetupGetSourceFileSizeW
+	#define SetupGetTargetPath SetupGetTargetPathW
+	#define SetupSetSourceList SetupSetSourceListW
+	#define SetupAddToSourceList SetupAddToSourceListW
+	#define SetupRemoveFromSourceList SetupRemoveFromSourceListW
+	#define SetupQuerySourceList SetupQuerySourceListW
+	#define SetupFreeSourceList SetupFreeSourceListW
+	#define SetupPromptForDisk SetupPromptForDiskW
+	#define SetupCopyError SetupCopyErrorW
+	#define SetupRenameError SetupRenameErrorW
+	#define SetupDeleteError SetupDeleteErrorW
+	#define SetupBackupError SetupBackupErrorW
+#else
+	#define SetupGetInfInformation SetupGetInfInformationA
+	#define SetupQueryInfFileInformation SetupQueryInfFileInformationA
+	#define SetupQueryInfOriginalFileInformation SetupQueryInfOriginalFileInformationA
+	#define SetupQueryInfVersionInformation SetupQueryInfVersionInformationA
+	#define SetupGetInfFileList SetupGetInfFileListA
+	#define SetupOpenInfFile SetupOpenInfFileA
+	#define SetupOpenAppendInfFile SetupOpenAppendInfFileA
+	#define SetupFindFirstLine SetupFindFirstLineA
+	#define SetupFindNextMatchLine SetupFindNextMatchLineA
+	#define SetupGetLineByIndex SetupGetLineByIndexA
+	#define SetupGetLineCount SetupGetLineCountA
+	#define SetupGetLineText SetupGetLineTextA
+	#define SetupGetStringField SetupGetStringFieldA
+	#define SetupGetMultiSzField SetupGetMultiSzFieldA
+	#define SetupGetFileCompressionInfo SetupGetFileCompressionInfoA
+	#define SetupGetFileCompressionInfoEx SetupGetFileCompressionInfoExA
+	#define SetupDecompressOrCopyFile SetupDecompressOrCopyFileA
+	#define SetupGetSourceFileLocation SetupGetSourceFileLocationA
+	#define SetupGetSourceFileSize SetupGetSourceFileSizeA
+	#define SetupGetTargetPath SetupGetTargetPathA
+	#define SetupSetSourceList SetupSetSourceListA
+	#define SetupAddToSourceList SetupAddToSourceListA
+	#define SetupRemoveFromSourceList SetupRemoveFromSourceListA
+	#define SetupQuerySourceList SetupQuerySourceListA
+	#define SetupFreeSourceList SetupFreeSourceListA
+	#define SetupPromptForDisk SetupPromptForDiskA
+	#define SetupCopyError SetupCopyErrorA
+	#define SetupRenameError SetupRenameErrorA
+	#define SetupDeleteError SetupDeleteErrorA
+	#define SetupBackupError SetupBackupErrorA
+#endif
+
 #define SRCLIST_TEMPORARY &h00000001
 #define SRCLIST_NOBROWSE &h00000002
 #define SRCLIST_SYSTEM &h00000010
@@ -1971,11 +2011,20 @@ declare function SetupBackupErrorW(byval hwndParent as HWND, byval DialogTitle a
 #define SRCINFO_FLAGS 4
 #define SRCINFO_TAGFILE2 5
 #define SRC_FLAGS_CABFILE &h0010
-#define SetupSetDirectoryId __MINGW_NAME_AW(SetupSetDirectoryId)
-#define SetupSetDirectoryIdEx __MINGW_NAME_AW(SetupSetDirectoryIdEx)
-#define SetupGetSourceInfo __MINGW_NAME_AW(SetupGetSourceInfo)
-#define SetupInstallFile __MINGW_NAME_AW(SetupInstallFile)
-#define SetupInstallFileEx __MINGW_NAME_AW(SetupInstallFileEx)
+
+#ifdef UNICODE
+	#define SetupSetDirectoryId SetupSetDirectoryIdW
+	#define SetupSetDirectoryIdEx SetupSetDirectoryIdExW
+	#define SetupGetSourceInfo SetupGetSourceInfoW
+	#define SetupInstallFile SetupInstallFileW
+	#define SetupInstallFileEx SetupInstallFileExW
+#else
+	#define SetupSetDirectoryId SetupSetDirectoryIdA
+	#define SetupSetDirectoryIdEx SetupSetDirectoryIdExA
+	#define SetupGetSourceInfo SetupGetSourceInfoA
+	#define SetupInstallFile SetupInstallFileA
+	#define SetupInstallFileEx SetupInstallFileExA
+#endif
 
 declare function SetupSetDirectoryIdA(byval InfHandle as HINF, byval Id as DWORD, byval Directory as PCSTR) as WINBOOL
 declare function SetupSetDirectoryIdW(byval InfHandle as HINF, byval Id as DWORD, byval Directory as PCWSTR) as WINBOOL
@@ -2015,18 +2064,34 @@ declare function SetupInstallFileExW(byval InfHandle as HINF, byval InfContext a
 #define SP_BACKUP_DEMANDPASS &h00000002
 #define SP_BACKUP_SPECIAL &h00000004
 #define SP_BACKUP_BOOTFILE &h00000008
-#define SetupSetFileQueueAlternatePlatform __MINGW_NAME_AW(SetupSetFileQueueAlternatePlatform)
-#define SetupQueueDeleteSection __MINGW_NAME_AW(SetupQueueDeleteSection)
-#define SetupQueueRename __MINGW_NAME_AW(SetupQueueRename)
-#define SetupQueueRenameSection __MINGW_NAME_AW(SetupQueueRenameSection)
-#define SetupCommitFileQueue __MINGW_NAME_AW(SetupCommitFileQueue)
-#define SetupScanFileQueue __MINGW_NAME_AW(SetupScanFileQueue)
-#define SetupSetPlatformPathOverride __MINGW_NAME_AW(SetupSetPlatformPathOverride)
-#define SetupQueueCopy __MINGW_NAME_AW(SetupQueueCopy)
-#define SetupQueueCopyIndirect __MINGW_NAME_AW(SetupQueueCopyIndirect)
-#define SetupQueueDefaultCopy __MINGW_NAME_AW(SetupQueueDefaultCopy)
-#define SetupQueueCopySection __MINGW_NAME_AW(SetupQueueCopySection)
-#define SetupQueueDelete __MINGW_NAME_AW(SetupQueueDelete)
+
+#ifdef UNICODE
+	#define SetupSetFileQueueAlternatePlatform SetupSetFileQueueAlternatePlatformW
+	#define SetupQueueDeleteSection SetupQueueDeleteSectionW
+	#define SetupQueueRename SetupQueueRenameW
+	#define SetupQueueRenameSection SetupQueueRenameSectionW
+	#define SetupCommitFileQueue SetupCommitFileQueueW
+	#define SetupScanFileQueue SetupScanFileQueueW
+	#define SetupSetPlatformPathOverride SetupSetPlatformPathOverrideW
+	#define SetupQueueCopy SetupQueueCopyW
+	#define SetupQueueCopyIndirect SetupQueueCopyIndirectW
+	#define SetupQueueDefaultCopy SetupQueueDefaultCopyW
+	#define SetupQueueCopySection SetupQueueCopySectionW
+	#define SetupQueueDelete SetupQueueDeleteW
+#else
+	#define SetupSetFileQueueAlternatePlatform SetupSetFileQueueAlternatePlatformA
+	#define SetupQueueDeleteSection SetupQueueDeleteSectionA
+	#define SetupQueueRename SetupQueueRenameA
+	#define SetupQueueRenameSection SetupQueueRenameSectionA
+	#define SetupCommitFileQueue SetupCommitFileQueueA
+	#define SetupScanFileQueue SetupScanFileQueueA
+	#define SetupSetPlatformPathOverride SetupSetPlatformPathOverrideA
+	#define SetupQueueCopy SetupQueueCopyA
+	#define SetupQueueCopyIndirect SetupQueueCopyIndirectA
+	#define SetupQueueDefaultCopy SetupQueueDefaultCopyA
+	#define SetupQueueCopySection SetupQueueCopySectionA
+	#define SetupQueueDelete SetupQueueDeleteA
+#endif
 
 declare function SetupOpenFileQueue() as HSPFILEQ
 declare function SetupCloseFileQueue(byval QueueHandle as HSPFILEQ) as WINBOOL
@@ -2077,14 +2142,25 @@ declare function SetupSetFileQueueFlags(byval FileQueue as HSPFILEQ, byval FlagM
 #define SPOST_PATH 1
 #define SPOST_URL 2
 #define SPOST_MAX 3
-#define SetupCopyOEMInf __MINGW_NAME_AW(SetupCopyOEMInf)
+
+#ifdef UNICODE
+	#define SetupCopyOEMInf SetupCopyOEMInfW
+#else
+	#define SetupCopyOEMInf SetupCopyOEMInfA
+#endif
 
 declare function SetupCopyOEMInfA(byval SourceInfFileName as PCSTR, byval OEMSourceMediaLocation as PCSTR, byval OEMSourceMediaType as DWORD, byval CopyStyle as DWORD, byval DestinationInfFileName as PSTR, byval DestinationInfFileNameSize as DWORD, byval RequiredSize as PDWORD, byval DestinationInfFileNameComponent as PSTR ptr) as WINBOOL
 declare function SetupCopyOEMInfW(byval SourceInfFileName as PCWSTR, byval OEMSourceMediaLocation as PCWSTR, byval OEMSourceMediaType as DWORD, byval CopyStyle as DWORD, byval DestinationInfFileName as PWSTR, byval DestinationInfFileNameSize as DWORD, byval RequiredSize as PDWORD, byval DestinationInfFileNameComponent as PWSTR ptr) as WINBOOL
 
 #define SUOI_FORCEDELETE &h00000001
-#define SetupUninstallOEMInf __MINGW_NAME_AW(SetupUninstallOEMInf)
-#define SetupCreateDiskSpaceList __MINGW_NAME_AW(SetupCreateDiskSpaceList)
+
+#ifdef UNICODE
+	#define SetupUninstallOEMInf SetupUninstallOEMInfW
+	#define SetupCreateDiskSpaceList SetupCreateDiskSpaceListW
+#else
+	#define SetupUninstallOEMInf SetupUninstallOEMInfA
+	#define SetupCreateDiskSpaceList SetupCreateDiskSpaceListA
+#endif
 
 declare function SetupUninstallOEMInfA(byval InfFileName as PCSTR, byval Flags as DWORD, byval Reserved as PVOID) as WINBOOL
 declare function SetupUninstallOEMInfW(byval InfFileName as PCWSTR, byval Flags as DWORD, byval Reserved as PVOID) as WINBOOL
@@ -2094,17 +2170,32 @@ declare function SetupCreateDiskSpaceListW(byval Reserved1 as PVOID, byval Reser
 
 #define SPDSL_IGNORE_DISK &h00000001
 #define SPDSL_DISALLOW_NEGATIVE_ADJUST &h00000002
-#define SetupDuplicateDiskSpaceList __MINGW_NAME_AW(SetupDuplicateDiskSpaceList)
-#define SetupQueryDrivesInDiskSpaceList __MINGW_NAME_AW(SetupQueryDrivesInDiskSpaceList)
-#define SetupQuerySpaceRequiredOnDrive __MINGW_NAME_AW(SetupQuerySpaceRequiredOnDrive)
-#define SetupAdjustDiskSpaceList __MINGW_NAME_AW(SetupAdjustDiskSpaceList)
-#define SetupAddToDiskSpaceList __MINGW_NAME_AW(SetupAddToDiskSpaceList)
-#define SetupAddSectionToDiskSpaceList __MINGW_NAME_AW(SetupAddSectionToDiskSpaceList)
-#define SetupAddInstallSectionToDiskSpaceList __MINGW_NAME_AW(SetupAddInstallSectionToDiskSpaceList)
-#define SetupRemoveFromDiskSpaceList __MINGW_NAME_AW(SetupRemoveFromDiskSpaceList)
-#define SetupRemoveSectionFromDiskSpaceList __MINGW_NAME_AW(SetupRemoveSectionFromDiskSpaceList)
-#define SetupRemoveInstallSectionFromDiskSpaceList __MINGW_NAME_AW(SetupRemoveInstallSectionFromDiskSpaceList)
-#define SetupIterateCabinet __MINGW_NAME_AW(SetupIterateCabinet)
+
+#ifdef UNICODE
+	#define SetupDuplicateDiskSpaceList SetupDuplicateDiskSpaceListW
+	#define SetupQueryDrivesInDiskSpaceList SetupQueryDrivesInDiskSpaceListW
+	#define SetupQuerySpaceRequiredOnDrive SetupQuerySpaceRequiredOnDriveW
+	#define SetupAdjustDiskSpaceList SetupAdjustDiskSpaceListW
+	#define SetupAddToDiskSpaceList SetupAddToDiskSpaceListW
+	#define SetupAddSectionToDiskSpaceList SetupAddSectionToDiskSpaceListW
+	#define SetupAddInstallSectionToDiskSpaceList SetupAddInstallSectionToDiskSpaceListW
+	#define SetupRemoveFromDiskSpaceList SetupRemoveFromDiskSpaceListW
+	#define SetupRemoveSectionFromDiskSpaceList SetupRemoveSectionFromDiskSpaceListW
+	#define SetupRemoveInstallSectionFromDiskSpaceList SetupRemoveInstallSectionFromDiskSpaceListW
+	#define SetupIterateCabinet SetupIterateCabinetW
+#else
+	#define SetupDuplicateDiskSpaceList SetupDuplicateDiskSpaceListA
+	#define SetupQueryDrivesInDiskSpaceList SetupQueryDrivesInDiskSpaceListA
+	#define SetupQuerySpaceRequiredOnDrive SetupQuerySpaceRequiredOnDriveA
+	#define SetupAdjustDiskSpaceList SetupAdjustDiskSpaceListA
+	#define SetupAddToDiskSpaceList SetupAddToDiskSpaceListA
+	#define SetupAddSectionToDiskSpaceList SetupAddSectionToDiskSpaceListA
+	#define SetupAddInstallSectionToDiskSpaceList SetupAddInstallSectionToDiskSpaceListA
+	#define SetupRemoveFromDiskSpaceList SetupRemoveFromDiskSpaceListA
+	#define SetupRemoveSectionFromDiskSpaceList SetupRemoveSectionFromDiskSpaceListA
+	#define SetupRemoveInstallSectionFromDiskSpaceList SetupRemoveInstallSectionFromDiskSpaceListA
+	#define SetupIterateCabinet SetupIterateCabinetA
+#endif
 
 declare function SetupDuplicateDiskSpaceListA(byval DiskSpace as HDSKSPC, byval Reserved1 as PVOID, byval Reserved2 as DWORD, byval Flags as UINT) as HDSKSPC
 declare function SetupDuplicateDiskSpaceListW(byval DiskSpace as HDSKSPC, byval Reserved1 as PVOID, byval Reserved2 as DWORD, byval Flags as UINT) as HDSKSPC
@@ -2134,7 +2225,12 @@ declare function SetupPromptReboot(byval FileQueue as HSPFILEQ, byval Owner as H
 #define SPFILEQ_FILE_IN_USE &h00000001
 #define SPFILEQ_REBOOT_RECOMMENDED &h00000002
 #define SPFILEQ_REBOOT_IN_PROGRESS &h00000004
-#define SetupDefaultQueueCallback __MINGW_NAME_AW(SetupDefaultQueueCallback)
+
+#ifdef UNICODE
+	#define SetupDefaultQueueCallback SetupDefaultQueueCallbackW
+#else
+	#define SetupDefaultQueueCallback SetupDefaultQueueCallbackA
+#endif
 
 declare function SetupInitDefaultQueueCallback(byval OwnerWindow as HWND) as PVOID
 declare function SetupInitDefaultQueueCallbackEx(byval OwnerWindow as HWND, byval AlternateProgressWindow as HWND, byval ProgressMessage as UINT, byval Reserved1 as DWORD, byval Reserved2 as PVOID) as PVOID
@@ -2184,7 +2280,12 @@ declare function SetupDefaultQueueCallbackW(byval Context as PVOID, byval Notifi
 #define FLG_PROFITEM_DELETE &h00000002
 #define FLG_PROFITEM_GROUP &h00000004
 #define FLG_PROFITEM_CSIDL &h00000008
-#define SetupInstallFromInfSection __MINGW_NAME_AW(SetupInstallFromInfSection)
+
+#ifdef UNICODE
+	#define SetupInstallFromInfSection SetupInstallFromInfSectionW
+#else
+	#define SetupInstallFromInfSection SetupInstallFromInfSectionA
+#endif
 
 declare function SetupInstallFromInfSectionA(byval Owner as HWND, byval InfHandle as HINF, byval SectionName as PCSTR, byval Flags as UINT, byval RelativeKeyRoot as HKEY, byval SourceRootPath as PCSTR, byval CopyFlags as UINT, byval MsgHandler as PSP_FILE_CALLBACK_A, byval Context as PVOID, byval DeviceInfoSet as HDEVINFO, byval DeviceInfoData as PSP_DEVINFO_DATA) as WINBOOL
 declare function SetupInstallFromInfSectionW(byval Owner as HWND, byval InfHandle as HINF, byval SectionName as PCWSTR, byval Flags as UINT, byval RelativeKeyRoot as HKEY, byval SourceRootPath as PCWSTR, byval CopyFlags as UINT, byval MsgHandler as PSP_FILE_CALLBACK_W, byval Context as PVOID, byval DeviceInfoSet as HDEVINFO, byval DeviceInfoData as PSP_DEVINFO_DATA) as WINBOOL
@@ -2204,7 +2305,12 @@ declare function SetupInstallFromInfSectionW(byval Owner as HWND, byval InfHandl
 #define SPINST_LOGCONFIG_IS_FORCED &h00020000
 #define SPINST_LOGCONFIGS_ARE_OVERRIDES &h00040000
 #define SPINST_REGISTERCALLBACKAWARE &h00080000
-#define SetupInstallFilesFromInfSection __MINGW_NAME_AW(SetupInstallFilesFromInfSection)
+
+#ifdef UNICODE
+	#define SetupInstallFilesFromInfSection SetupInstallFilesFromInfSectionW
+#else
+	#define SetupInstallFilesFromInfSection SetupInstallFilesFromInfSectionA
+#endif
 
 declare function SetupInstallFilesFromInfSectionA(byval InfHandle as HINF, byval LayoutInfHandle as HINF, byval FileQueue as HSPFILEQ, byval SectionName as PCSTR, byval SourceRootPath as PCSTR, byval CopyFlags as UINT) as WINBOOL
 declare function SetupInstallFilesFromInfSectionW(byval InfHandle as HINF, byval LayoutInfHandle as HINF, byval FileQueue as HSPFILEQ, byval SectionName as PCWSTR, byval SourceRootPath as PCWSTR, byval CopyFlags as UINT) as WINBOOL
@@ -2227,12 +2333,21 @@ declare function SetupInstallFilesFromInfSectionW(byval InfHandle as HINF, byval
 
 type HSPFILELOG as PVOID
 
-#define SetupInstallServicesFromInfSection __MINGW_NAME_AW(SetupInstallServicesFromInfSection)
-#define SetupInstallServicesFromInfSectionEx __MINGW_NAME_AW(SetupInstallServicesFromInfSectionEx)
-#define InstallHinfSection __MINGW_NAME_AW(InstallHinfSection)
-#define SetupInitializeFileLog __MINGW_NAME_AW(SetupInitializeFileLog)
-#define SetupLogFile __MINGW_NAME_AW(SetupLogFile)
-#define SetupRemoveFileLogEntry __MINGW_NAME_AW(SetupRemoveFileLogEntry)
+#ifdef UNICODE
+	#define SetupInstallServicesFromInfSection SetupInstallServicesFromInfSectionW
+	#define SetupInstallServicesFromInfSectionEx SetupInstallServicesFromInfSectionExW
+	#define InstallHinfSection InstallHinfSectionW
+	#define SetupInitializeFileLog SetupInitializeFileLogW
+	#define SetupLogFile SetupLogFileW
+	#define SetupRemoveFileLogEntry SetupRemoveFileLogEntryW
+#else
+	#define SetupInstallServicesFromInfSection SetupInstallServicesFromInfSectionA
+	#define SetupInstallServicesFromInfSectionEx SetupInstallServicesFromInfSectionExA
+	#define InstallHinfSection InstallHinfSectionA
+	#define SetupInitializeFileLog SetupInitializeFileLogA
+	#define SetupLogFile SetupLogFileA
+	#define SetupRemoveFileLogEntry SetupRemoveFileLogEntryA
+#endif
 
 declare function SetupInstallServicesFromInfSectionA(byval InfHandle as HINF, byval SectionName as PCSTR, byval Flags as DWORD) as WINBOOL
 declare function SetupInstallServicesFromInfSectionW(byval InfHandle as HINF, byval SectionName as PCWSTR, byval Flags as DWORD) as WINBOOL
@@ -2258,7 +2373,11 @@ enum
 	SetupFileLogMax
 end enum
 
-#define SetupQueryFileLog __MINGW_NAME_AW(SetupQueryFileLog)
+#ifdef UNICODE
+	#define SetupQueryFileLog SetupQueryFileLogW
+#else
+	#define SetupQueryFileLog SetupQueryFileLogA
+#endif
 
 declare function SetupQueryFileLogA(byval FileLogHandle as HSPFILELOG, byval LogSectionName as PCSTR, byval TargetFilename as PCSTR, byval DesiredInfo as SetupFileLogInfo, byval DataOut as PSTR, byval ReturnBufferSize as DWORD, byval RequiredSize as PDWORD) as WINBOOL
 declare function SetupQueryFileLogW(byval FileLogHandle as HSPFILELOG, byval LogSectionName as PCWSTR, byval TargetFilename as PCWSTR, byval DesiredInfo as SetupFileLogInfo, byval DataOut as PWSTR, byval ReturnBufferSize as DWORD, byval RequiredSize as PDWORD) as WINBOOL
@@ -2278,17 +2397,32 @@ declare function SetupQueryFileLogW(byval FileLogHandle as HSPFILELOG, byval Log
 #define SPDIT_NODRIVER &h00000000
 #define SPDIT_CLASSDRIVER &h00000001
 #define SPDIT_COMPATDRIVER &h00000002
-#define SetupLogError __MINGW_NAME_AW(SetupLogError)
-#define SetupGetBackupInformation __MINGW_NAME_AW(SetupGetBackupInformation)
-#define SetupPrepareQueueForRestore __MINGW_NAME_AW(SetupPrepareQueueForRestore)
-#define SetupDiCreateDeviceInfoListEx __MINGW_NAME_AW(SetupDiCreateDeviceInfoListEx)
-#define SetupDiGetDeviceInfoListDetail __MINGW_NAME_AW(SetupDiGetDeviceInfoListDetail)
-#define SetupDiCreateDeviceInfo __MINGW_NAME_AW(SetupDiCreateDeviceInfo)
-#define SetupDiOpenDeviceInfo __MINGW_NAME_AW(SetupDiOpenDeviceInfo)
-#define SetupDiGetDeviceInstanceId __MINGW_NAME_AW(SetupDiGetDeviceInstanceId)
-#define SetupDiCreateDeviceInterface __MINGW_NAME_AW(SetupDiCreateDeviceInterface)
-#define SetupDiCreateInterfaceDevice __MINGW_NAME_AW(SetupDiCreateDeviceInterface)
-#define SetupDiOpenDeviceInterface __MINGW_NAME_AW(SetupDiOpenDeviceInterface)
+
+#ifdef UNICODE
+	#define SetupLogError SetupLogErrorW
+	#define SetupGetBackupInformation SetupGetBackupInformationW
+	#define SetupPrepareQueueForRestore SetupPrepareQueueForRestoreW
+	#define SetupDiCreateDeviceInfoListEx SetupDiCreateDeviceInfoListExW
+	#define SetupDiGetDeviceInfoListDetail SetupDiGetDeviceInfoListDetailW
+	#define SetupDiCreateDeviceInfo SetupDiCreateDeviceInfoW
+	#define SetupDiOpenDeviceInfo SetupDiOpenDeviceInfoW
+	#define SetupDiGetDeviceInstanceId SetupDiGetDeviceInstanceIdW
+	#define SetupDiCreateDeviceInterface SetupDiCreateDeviceInterfaceW
+	#define SetupDiCreateInterfaceDevice SetupDiCreateDeviceInterfaceW
+	#define SetupDiOpenDeviceInterface SetupDiOpenDeviceInterfaceW
+#else
+	#define SetupLogError SetupLogErrorA
+	#define SetupGetBackupInformation SetupGetBackupInformationA
+	#define SetupPrepareQueueForRestore SetupPrepareQueueForRestoreA
+	#define SetupDiCreateDeviceInfoListEx SetupDiCreateDeviceInfoListExA
+	#define SetupDiGetDeviceInfoListDetail SetupDiGetDeviceInfoListDetailA
+	#define SetupDiCreateDeviceInfo SetupDiCreateDeviceInfoA
+	#define SetupDiOpenDeviceInfo SetupDiOpenDeviceInfoA
+	#define SetupDiGetDeviceInstanceId SetupDiGetDeviceInstanceIdA
+	#define SetupDiCreateDeviceInterface SetupDiCreateDeviceInterfaceA
+	#define SetupDiCreateInterfaceDevice SetupDiCreateDeviceInterfaceA
+	#define SetupDiOpenDeviceInterface SetupDiOpenDeviceInterfaceA
+#endif
 
 declare function SetupOpenLog(byval Erase_ as WINBOOL) as WINBOOL
 declare function SetupLogErrorA(byval MessageString as LPCSTR, byval Severity as DWORD) as WINBOOL
@@ -2330,13 +2464,24 @@ declare function SetupDiOpenDeviceInterfaceW(byval DeviceInfoSet as HDEVINFO, by
 
 #define SetupDiOpenInterfaceDeviceW SetupDiOpenDeviceInterfaceW
 #define SetupDiOpenInterfaceDeviceA SetupDiOpenDeviceInterfaceA
-#define SetupDiOpenInterfaceDevice __MINGW_NAME_AW(SetupDiOpenDeviceInterface)
-#define SetupDiGetDeviceInterfaceDetail __MINGW_NAME_AW(SetupDiGetDeviceInterfaceDetail)
-#define SetupDiGetInterfaceDeviceDetail __MINGW_NAME_AW(SetupDiGetDeviceInterfaceDetail)
-#define SetupDiEnumDriverInfo __MINGW_NAME_AW(SetupDiEnumDriverInfo)
-#define SetupDiGetSelectedDriver __MINGW_NAME_AW(SetupDiGetSelectedDriver)
-#define SetupDiSetSelectedDriver __MINGW_NAME_AW(SetupDiSetSelectedDriver)
-#define SetupDiGetDriverInfoDetail __MINGW_NAME_AW(SetupDiGetDriverInfoDetail)
+
+#ifdef UNICODE
+	#define SetupDiOpenInterfaceDevice SetupDiOpenDeviceInterfaceW
+	#define SetupDiGetDeviceInterfaceDetail SetupDiGetDeviceInterfaceDetailW
+	#define SetupDiGetInterfaceDeviceDetail SetupDiGetDeviceInterfaceDetailW
+	#define SetupDiEnumDriverInfo SetupDiEnumDriverInfoW
+	#define SetupDiGetSelectedDriver SetupDiGetSelectedDriverW
+	#define SetupDiSetSelectedDriver SetupDiSetSelectedDriverW
+	#define SetupDiGetDriverInfoDetail SetupDiGetDriverInfoDetailW
+#else
+	#define SetupDiOpenInterfaceDevice SetupDiOpenDeviceInterfaceA
+	#define SetupDiGetDeviceInterfaceDetail SetupDiGetDeviceInterfaceDetailA
+	#define SetupDiGetInterfaceDeviceDetail SetupDiGetDeviceInterfaceDetailA
+	#define SetupDiEnumDriverInfo SetupDiEnumDriverInfoA
+	#define SetupDiGetSelectedDriver SetupDiGetSelectedDriverA
+	#define SetupDiSetSelectedDriver SetupDiSetSelectedDriverA
+	#define SetupDiGetDriverInfoDetail SetupDiGetDriverInfoDetailA
+#endif
 
 declare function SetupDiGetDeviceInterfaceAlias(byval DeviceInfoSet as HDEVINFO, byval DeviceInterfaceData as PSP_DEVICE_INTERFACE_DATA, byval AliasInterfaceClassGuid as const GUID ptr, byval AliasDeviceInterfaceData as PSP_DEVICE_INTERFACE_DATA) as WINBOOL
 
@@ -2382,19 +2527,36 @@ declare function SetupDiDestroyDriverInfoList(byval DeviceInfoSet as HDEVINFO, b
 #define DIGCF_INTERFACEDEVICE DIGCF_DEVICEINTERFACE
 #define DIBCI_NOINSTALLCLASS &h00000001
 #define DIBCI_NODISPLAYCLASS &h00000002
-#define SetupDiGetClassDevs __MINGW_NAME_AW(SetupDiGetClassDevs)
-#define SetupDiGetClassDevsEx __MINGW_NAME_AW(SetupDiGetClassDevsEx)
-#define SetupDiGetINFClass __MINGW_NAME_AW(SetupDiGetINFClass)
-#define SetupDiBuildClassInfoListEx __MINGW_NAME_AW(SetupDiBuildClassInfoListEx)
-#define SetupDiGetClassDescription __MINGW_NAME_AW(SetupDiGetClassDescription)
-#define SetupDiGetClassDescriptionEx __MINGW_NAME_AW(SetupDiGetClassDescriptionEx)
-#define SetupDiInstallClass __MINGW_NAME_AW(SetupDiInstallClass)
-#define SetupDiInstallClassEx __MINGW_NAME_AW(SetupDiInstallClassEx)
-#define SetupDiOpenClassRegKeyEx __MINGW_NAME_AW(SetupDiOpenClassRegKeyEx)
-#define SetupDiCreateDeviceInterfaceRegKey __MINGW_NAME_AW(SetupDiCreateDeviceInterfaceRegKey)
-#define SetupDiCreateInterfaceDeviceRegKey __MINGW_NAME_AW(SetupDiCreateDeviceInterfaceRegKey)
-#define SetupDiCreateDevRegKey __MINGW_NAME_AW(SetupDiCreateDevRegKey)
-#define SetupDiGetHwProfileListEx __MINGW_NAME_AW(SetupDiGetHwProfileListEx)
+
+#ifdef UNICODE
+	#define SetupDiGetClassDevs SetupDiGetClassDevsW
+	#define SetupDiGetClassDevsEx SetupDiGetClassDevsExW
+	#define SetupDiGetINFClass SetupDiGetINFClassW
+	#define SetupDiBuildClassInfoListEx SetupDiBuildClassInfoListExW
+	#define SetupDiGetClassDescription SetupDiGetClassDescriptionW
+	#define SetupDiGetClassDescriptionEx SetupDiGetClassDescriptionExW
+	#define SetupDiInstallClass SetupDiInstallClassW
+	#define SetupDiInstallClassEx SetupDiInstallClassExW
+	#define SetupDiOpenClassRegKeyEx SetupDiOpenClassRegKeyExW
+	#define SetupDiCreateDeviceInterfaceRegKey SetupDiCreateDeviceInterfaceRegKeyW
+	#define SetupDiCreateInterfaceDeviceRegKey SetupDiCreateDeviceInterfaceRegKeyW
+	#define SetupDiCreateDevRegKey SetupDiCreateDevRegKeyW
+	#define SetupDiGetHwProfileListEx SetupDiGetHwProfileListExW
+#else
+	#define SetupDiGetClassDevs SetupDiGetClassDevsA
+	#define SetupDiGetClassDevsEx SetupDiGetClassDevsExA
+	#define SetupDiGetINFClass SetupDiGetINFClassA
+	#define SetupDiBuildClassInfoListEx SetupDiBuildClassInfoListExA
+	#define SetupDiGetClassDescription SetupDiGetClassDescriptionA
+	#define SetupDiGetClassDescriptionEx SetupDiGetClassDescriptionExA
+	#define SetupDiInstallClass SetupDiInstallClassA
+	#define SetupDiInstallClassEx SetupDiInstallClassExA
+	#define SetupDiOpenClassRegKeyEx SetupDiOpenClassRegKeyExA
+	#define SetupDiCreateDeviceInterfaceRegKey SetupDiCreateDeviceInterfaceRegKeyA
+	#define SetupDiCreateInterfaceDeviceRegKey SetupDiCreateDeviceInterfaceRegKeyA
+	#define SetupDiCreateDevRegKey SetupDiCreateDevRegKeyA
+	#define SetupDiGetHwProfileListEx SetupDiGetHwProfileListExA
+#endif
 
 declare function SetupDiGetClassDevsA(byval ClassGuid as const GUID ptr, byval Enumerator as PCSTR, byval hwndParent as HWND, byval Flags as DWORD) as HDEVINFO
 declare function SetupDiGetClassDevsW(byval ClassGuid as const GUID ptr, byval Enumerator as PCWSTR, byval hwndParent as HWND, byval Flags as DWORD) as HDEVINFO
@@ -2498,28 +2660,54 @@ declare function SetupDiGetHwProfileListExW(byval HwProfileList as PDWORD, byval
 #define SPCRP_EXCLUSIVE &h0000001A
 #define SPCRP_CHARACTERISTICS &h0000001B
 #define SPCRP_MAXIMUM_PROPERTY &h0000001C
-#define SetupDiGetDeviceRegistryProperty __MINGW_NAME_AW(SetupDiGetDeviceRegistryProperty)
-#define SetupDiGetClassRegistryProperty __MINGW_NAME_AW(SetupDiGetClassRegistryProperty)
-#define SetupDiSetDeviceRegistryProperty __MINGW_NAME_AW(SetupDiSetDeviceRegistryProperty)
-#define SetupDiSetClassRegistryProperty __MINGW_NAME_AW(SetupDiSetClassRegistryProperty)
-#define SetupDiGetDeviceInstallParams __MINGW_NAME_AW(SetupDiGetDeviceInstallParams)
-#define SetupDiGetClassInstallParams __MINGW_NAME_AW(SetupDiGetClassInstallParams)
-#define SetupDiSetDeviceInstallParams __MINGW_NAME_AW(SetupDiSetDeviceInstallParams)
-#define SetupDiSetClassInstallParams __MINGW_NAME_AW(SetupDiSetClassInstallParams)
-#define SetupDiGetDriverInstallParams __MINGW_NAME_AW(SetupDiGetDriverInstallParams)
-#define SetupDiSetDriverInstallParams __MINGW_NAME_AW(SetupDiSetDriverInstallParams)
-#define SetupDiGetClassImageListEx __MINGW_NAME_AW(SetupDiGetClassImageListEx)
-#define SetupDiGetClassDevPropertySheets __MINGW_NAME_AW(SetupDiGetClassDevPropertySheets)
-#define SetupDiClassNameFromGuid __MINGW_NAME_AW(SetupDiClassNameFromGuid)
-#define SetupDiClassNameFromGuidEx __MINGW_NAME_AW(SetupDiClassNameFromGuidEx)
-#define SetupDiClassGuidsFromName __MINGW_NAME_AW(SetupDiClassGuidsFromName)
-#define SetupDiClassGuidsFromNameEx __MINGW_NAME_AW(SetupDiClassGuidsFromNameEx)
-#define SetupDiGetHwProfileFriendlyName __MINGW_NAME_AW(SetupDiGetHwProfileFriendlyName)
-#define SetupDiGetHwProfileFriendlyNameEx __MINGW_NAME_AW(SetupDiGetHwProfileFriendlyNameEx)
-#define SetupDiGetActualModelsSection __MINGW_NAME_AW(SetupDiGetActualModelsSection)
-#define SetupDiGetActualSectionToInstall __MINGW_NAME_AW(SetupDiGetActualSectionToInstall)
-#define SetupDiGetActualSectionToInstallEx __MINGW_NAME_AW(SetupDiGetActualSectionToInstallEx)
-#define SetupEnumInfSections __MINGW_NAME_AW(SetupEnumInfSections)
+
+#ifdef UNICODE
+	#define SetupDiGetDeviceRegistryProperty SetupDiGetDeviceRegistryPropertyW
+	#define SetupDiGetClassRegistryProperty SetupDiGetClassRegistryPropertyW
+	#define SetupDiSetDeviceRegistryProperty SetupDiSetDeviceRegistryPropertyW
+	#define SetupDiSetClassRegistryProperty SetupDiSetClassRegistryPropertyW
+	#define SetupDiGetDeviceInstallParams SetupDiGetDeviceInstallParamsW
+	#define SetupDiGetClassInstallParams SetupDiGetClassInstallParamsW
+	#define SetupDiSetDeviceInstallParams SetupDiSetDeviceInstallParamsW
+	#define SetupDiSetClassInstallParams SetupDiSetClassInstallParamsW
+	#define SetupDiGetDriverInstallParams SetupDiGetDriverInstallParamsW
+	#define SetupDiSetDriverInstallParams SetupDiSetDriverInstallParamsW
+	#define SetupDiGetClassImageListEx SetupDiGetClassImageListExW
+	#define SetupDiGetClassDevPropertySheets SetupDiGetClassDevPropertySheetsW
+	#define SetupDiClassNameFromGuid SetupDiClassNameFromGuidW
+	#define SetupDiClassNameFromGuidEx SetupDiClassNameFromGuidExW
+	#define SetupDiClassGuidsFromName SetupDiClassGuidsFromNameW
+	#define SetupDiClassGuidsFromNameEx SetupDiClassGuidsFromNameExW
+	#define SetupDiGetHwProfileFriendlyName SetupDiGetHwProfileFriendlyNameW
+	#define SetupDiGetHwProfileFriendlyNameEx SetupDiGetHwProfileFriendlyNameExW
+	#define SetupDiGetActualModelsSection SetupDiGetActualModelsSectionW
+	#define SetupDiGetActualSectionToInstall SetupDiGetActualSectionToInstallW
+	#define SetupDiGetActualSectionToInstallEx SetupDiGetActualSectionToInstallExW
+	#define SetupEnumInfSections SetupEnumInfSectionsW
+#else
+	#define SetupDiGetDeviceRegistryProperty SetupDiGetDeviceRegistryPropertyA
+	#define SetupDiGetClassRegistryProperty SetupDiGetClassRegistryPropertyA
+	#define SetupDiSetDeviceRegistryProperty SetupDiSetDeviceRegistryPropertyA
+	#define SetupDiSetClassRegistryProperty SetupDiSetClassRegistryPropertyA
+	#define SetupDiGetDeviceInstallParams SetupDiGetDeviceInstallParamsA
+	#define SetupDiGetClassInstallParams SetupDiGetClassInstallParamsA
+	#define SetupDiSetDeviceInstallParams SetupDiSetDeviceInstallParamsA
+	#define SetupDiSetClassInstallParams SetupDiSetClassInstallParamsA
+	#define SetupDiGetDriverInstallParams SetupDiGetDriverInstallParamsA
+	#define SetupDiSetDriverInstallParams SetupDiSetDriverInstallParamsA
+	#define SetupDiGetClassImageListEx SetupDiGetClassImageListExA
+	#define SetupDiGetClassDevPropertySheets SetupDiGetClassDevPropertySheetsA
+	#define SetupDiClassNameFromGuid SetupDiClassNameFromGuidA
+	#define SetupDiClassNameFromGuidEx SetupDiClassNameFromGuidExA
+	#define SetupDiClassGuidsFromName SetupDiClassGuidsFromNameA
+	#define SetupDiClassGuidsFromNameEx SetupDiClassGuidsFromNameExA
+	#define SetupDiGetHwProfileFriendlyName SetupDiGetHwProfileFriendlyNameA
+	#define SetupDiGetHwProfileFriendlyNameEx SetupDiGetHwProfileFriendlyNameExA
+	#define SetupDiGetActualModelsSection SetupDiGetActualModelsSectionA
+	#define SetupDiGetActualSectionToInstall SetupDiGetActualSectionToInstallA
+	#define SetupDiGetActualSectionToInstallEx SetupDiGetActualSectionToInstallExA
+	#define SetupEnumInfSections SetupEnumInfSectionsA
+#endif
 
 declare function SetupDiGetDeviceRegistryPropertyA(byval DeviceInfoSet as HDEVINFO, byval DeviceInfoData as PSP_DEVINFO_DATA, byval Property_ as DWORD, byval PropertyRegDataType as PDWORD, byval PropertyBuffer as PBYTE, byval PropertyBufferSize as DWORD, byval RequiredSize as PDWORD) as WINBOOL
 declare function SetupDiGetDeviceRegistryPropertyW(byval DeviceInfoSet as HDEVINFO, byval DeviceInfoData as PSP_DEVINFO_DATA, byval Property_ as DWORD, byval PropertyRegDataType as PDWORD, byval PropertyBuffer as PBYTE, byval PropertyBufferSize as DWORD, byval RequiredSize as PDWORD) as WINBOOL
@@ -2646,14 +2834,18 @@ type PSP_INF_SIGNER_INFO_W as _SP_INF_SIGNER_INFO_W ptr
 #ifdef UNICODE
 	type SP_INF_SIGNER_INFO as SP_INF_SIGNER_INFO_W
 	type PSP_INF_SIGNER_INFO as PSP_INF_SIGNER_INFO_W
+
+	#define SetupVerifyInfFile SetupVerifyInfFileW
+	#define SetupDiGetCustomDeviceProperty SetupDiGetCustomDevicePropertyW
+	#define SetupConfigureWmiFromInfSection SetupConfigureWmiFromInfSectionW
 #else
 	type SP_INF_SIGNER_INFO as SP_INF_SIGNER_INFO_A
 	type PSP_INF_SIGNER_INFO as PSP_INF_SIGNER_INFO_A
-#endif
 
-#define SetupVerifyInfFile __MINGW_NAME_AW(SetupVerifyInfFile)
-#define SetupDiGetCustomDeviceProperty __MINGW_NAME_AW(SetupDiGetCustomDeviceProperty)
-#define SetupConfigureWmiFromInfSection __MINGW_NAME_AW(SetupConfigureWmiFromInfSection)
+	#define SetupVerifyInfFile SetupVerifyInfFileA
+	#define SetupDiGetCustomDeviceProperty SetupDiGetCustomDevicePropertyA
+	#define SetupConfigureWmiFromInfSection SetupConfigureWmiFromInfSectionA
+#endif
 
 declare function SetupVerifyInfFileA(byval InfName as PCSTR, byval AltPlatformInfo as PSP_ALTPLATFORM_INFO, byval InfSignerInfo as PSP_INF_SIGNER_INFO_A) as WINBOOL
 declare function SetupVerifyInfFileW(byval InfName as PCWSTR, byval AltPlatformInfo as PSP_ALTPLATFORM_INFO, byval InfSignerInfo as PSP_INF_SIGNER_INFO_W) as WINBOOL

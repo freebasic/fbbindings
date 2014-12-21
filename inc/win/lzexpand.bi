@@ -17,8 +17,14 @@
 #define LZERROR_GLOBLOCK (-6)
 #define LZERROR_BADVALUE (-7)
 #define LZERROR_UNKNOWNALG (-8)
-#define GetExpandedName __MINGW_NAME_AW(GetExpandedName)
-#define LZOpenFile __MINGW_NAME_AW(LZOpenFile)
+
+#ifdef UNICODE
+	#define GetExpandedName GetExpandedNameW
+	#define LZOpenFile LZOpenFileW
+#else
+	#define GetExpandedName GetExpandedNameA
+	#define LZOpenFile LZOpenFileA
+#endif
 
 declare function LZStart() as INT_
 declare sub LZDone()

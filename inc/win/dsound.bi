@@ -426,13 +426,21 @@ declare function DirectSoundCreate(byval lpGUID as LPCGUID, byval ppDS as LPDIRE
 declare function DirectSoundEnumerateA(byval as LPDSENUMCALLBACKA, byval as LPVOID) as HRESULT
 declare function DirectSoundEnumerateW(byval as LPDSENUMCALLBACKW, byval as LPVOID) as HRESULT
 
-#define DirectSoundEnumerate __MINGW_NAME_AW(DirectSoundEnumerate)
+#ifdef UNICODE
+	#define DirectSoundEnumerate DirectSoundEnumerateW
+#else
+	#define DirectSoundEnumerate DirectSoundEnumerateA
+#endif
 
 declare function DirectSoundCaptureCreate(byval lpGUID as LPCGUID, byval ppDSC as LPDIRECTSOUNDCAPTURE ptr, byval pUnkOuter as LPUNKNOWN) as HRESULT
 declare function DirectSoundCaptureEnumerateA(byval as LPDSENUMCALLBACKA, byval as LPVOID) as HRESULT
 declare function DirectSoundCaptureEnumerateW(byval as LPDSENUMCALLBACKW, byval as LPVOID) as HRESULT
 
-#define DirectSoundCaptureEnumerate __MINGW_NAME_AW(DirectSoundCaptureEnumerate)
+#ifdef UNICODE
+	#define DirectSoundCaptureEnumerate DirectSoundCaptureEnumerateW
+#else
+	#define DirectSoundCaptureEnumerate DirectSoundCaptureEnumerateA
+#endif
 
 declare function DirectSoundCreate8(byval lpGUID as LPCGUID, byval ppDS8 as LPDIRECTSOUND8 ptr, byval pUnkOuter as LPUNKNOWN) as HRESULT
 declare function DirectSoundCaptureCreate8(byval lpGUID as LPCGUID, byval ppDSC8 as LPDIRECTSOUNDCAPTURE8 ptr, byval pUnkOuter as LPUNKNOWN) as HRESULT

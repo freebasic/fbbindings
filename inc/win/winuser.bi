@@ -80,7 +80,13 @@ type DESKTOPENUMPROCW as NAMEENUMPROCW
 #define IS_INTRESOURCE(_r) ((cast(ULONG_PTR, (_r)) shr 16) = 0)
 #define MAKEINTRESOURCEA(i) cast(LPSTR, cast(ULONG_PTR, cast(WORD, (i))))
 #define MAKEINTRESOURCEW(i) cast(LPWSTR, cast(ULONG_PTR, cast(WORD, (i))))
-#define MAKEINTRESOURCE __MINGW_NAME_AW(MAKEINTRESOURCE)
+
+#ifdef UNICODE
+	#define MAKEINTRESOURCE MAKEINTRESOURCEW
+#else
+	#define MAKEINTRESOURCE MAKEINTRESOURCEA
+#endif
+
 #define RT_CURSOR MAKEINTRESOURCE(1)
 #define RT_BITMAP MAKEINTRESOURCE(2)
 #define RT_ICON MAKEINTRESOURCE(3)
@@ -108,8 +114,14 @@ type DESKTOPENUMPROCW as NAMEENUMPROCW
 #define ISOLATIONAWARE_NOSTATICIMPORT_MANIFEST_RESOURCE_ID MAKEINTRESOURCE(3)
 #define MINIMUM_RESERVED_MANIFEST_RESOURCE_ID MAKEINTRESOURCE(1)
 #define MAXIMUM_RESERVED_MANIFEST_RESOURCE_ID MAKEINTRESOURCE(16)
-#define wvsprintf __MINGW_NAME_AW(wvsprintf)
-#define wsprintf __MINGW_NAME_AW(wsprintf)
+
+#ifdef UNICODE
+	#define wvsprintf wvsprintfW
+	#define wsprintf wsprintfW
+#else
+	#define wvsprintf wvsprintfA
+	#define wsprintf wsprintfA
+#endif
 
 declare function wvsprintfA(byval as LPSTR, byval as LPCSTR, byval arglist as va_list) as long
 declare function wvsprintfW(byval as LPWSTR, byval as LPCWSTR, byval arglist as va_list) as long
@@ -647,8 +659,14 @@ type PHARDWAREHOOKSTRUCT as tagHARDWAREHOOKSTRUCT ptr
 #define INPUTLANGCHANGE_FORWARD &h0002
 #define INPUTLANGCHANGE_BACKWARD &h0004
 #define KL_NAMELENGTH 9
-#define LoadKeyboardLayout __MINGW_NAME_AW(LoadKeyboardLayout)
-#define GetKeyboardLayoutName __MINGW_NAME_AW(GetKeyboardLayoutName)
+
+#ifdef UNICODE
+	#define LoadKeyboardLayout LoadKeyboardLayoutW
+	#define GetKeyboardLayoutName GetKeyboardLayoutNameW
+#else
+	#define LoadKeyboardLayout LoadKeyboardLayoutA
+	#define GetKeyboardLayoutName GetKeyboardLayoutNameA
+#endif
 
 declare function LoadKeyboardLayoutA(byval pwszKLID as LPCSTR, byval Flags as UINT) as HKL
 declare function LoadKeyboardLayoutW(byval pwszKLID as LPCWSTR, byval Flags as UINT) as HKL
@@ -686,13 +704,23 @@ declare function GetMouseMovePointsEx(byval cbSize as UINT, byval lppt as LPMOUS
 #define DESKTOP_WRITEOBJECTS __MSABI_LONG(&h0080)
 #define DESKTOP_SWITCHDESKTOP __MSABI_LONG(&h0100)
 #define DF_ALLOWOTHERACCOUNTHOOK __MSABI_LONG(&h0001)
-#define CreateDesktop __MINGW_NAME_AW(CreateDesktop)
+
+#ifdef UNICODE
+	#define CreateDesktop CreateDesktopW
+#else
+	#define CreateDesktop CreateDesktopA
+#endif
 
 declare function CreateDesktopA(byval lpszDesktop as LPCSTR, byval lpszDevice as LPCSTR, byval pDevmode as LPDEVMODEA, byval dwFlags as DWORD, byval dwDesiredAccess as ACCESS_MASK, byval lpsa as LPSECURITY_ATTRIBUTES) as HDESK
 declare function CreateDesktopW(byval lpszDesktop as LPCWSTR, byval lpszDevice as LPCWSTR, byval pDevmode as LPDEVMODEW, byval dwFlags as DWORD, byval dwDesiredAccess as ACCESS_MASK, byval lpsa as LPSECURITY_ATTRIBUTES) as HDESK
 
-#define OpenDesktop __MINGW_NAME_AW(OpenDesktop)
-#define EnumDesktops __MINGW_NAME_AW(EnumDesktops)
+#ifdef UNICODE
+	#define OpenDesktop OpenDesktopW
+	#define EnumDesktops EnumDesktopsW
+#else
+	#define OpenDesktop OpenDesktopA
+	#define EnumDesktops EnumDesktopsA
+#endif
 
 declare function OpenDesktopA(byval lpszDesktop as LPCSTR, byval dwFlags as DWORD, byval fInherit as WINBOOL, byval dwDesiredAccess as ACCESS_MASK) as HDESK
 declare function OpenDesktopW(byval lpszDesktop as LPCWSTR, byval dwFlags as DWORD, byval fInherit as WINBOOL, byval dwDesiredAccess as ACCESS_MASK) as HDESK
@@ -717,9 +745,16 @@ declare function GetThreadDesktop(byval dwThreadId as DWORD) as HDESK
 #define WINSTA_ALL_ACCESS ((((((((WINSTA_ENUMDESKTOPS or WINSTA_READATTRIBUTES) or WINSTA_ACCESSCLIPBOARD) or WINSTA_CREATEDESKTOP) or WINSTA_WRITEATTRIBUTES) or WINSTA_ACCESSGLOBALATOMS) or WINSTA_EXITWINDOWS) or WINSTA_ENUMERATE) or WINSTA_READSCREEN)
 #define CWF_CREATE_ONLY __MSABI_LONG(&h0001)
 #define WSF_VISIBLE __MSABI_LONG(&h0001)
-#define CreateWindowStation __MINGW_NAME_AW(CreateWindowStation)
-#define OpenWindowStation __MINGW_NAME_AW(OpenWindowStation)
-#define EnumWindowStations __MINGW_NAME_AW(EnumWindowStations)
+
+#ifdef UNICODE
+	#define CreateWindowStation CreateWindowStationW
+	#define OpenWindowStation OpenWindowStationW
+	#define EnumWindowStations EnumWindowStationsW
+#else
+	#define CreateWindowStation CreateWindowStationA
+	#define OpenWindowStation OpenWindowStationA
+	#define EnumWindowStations EnumWindowStationsA
+#endif
 
 declare function CreateWindowStationA(byval lpwinsta as LPCSTR, byval dwFlags as DWORD, byval dwDesiredAccess as ACCESS_MASK, byval lpsa as LPSECURITY_ATTRIBUTES) as HWINSTA
 declare function CreateWindowStationW(byval lpwinsta as LPCWSTR, byval dwFlags as DWORD, byval dwDesiredAccess as ACCESS_MASK, byval lpsa as LPSECURITY_ATTRIBUTES) as HWINSTA
@@ -747,8 +782,13 @@ end type
 type USEROBJECTFLAGS as tagUSEROBJECTFLAGS
 type PUSEROBJECTFLAGS as tagUSEROBJECTFLAGS ptr
 
-#define GetUserObjectInformation __MINGW_NAME_AW(GetUserObjectInformation)
-#define SetUserObjectInformation __MINGW_NAME_AW(SetUserObjectInformation)
+#ifdef UNICODE
+	#define GetUserObjectInformation GetUserObjectInformationW
+	#define SetUserObjectInformation SetUserObjectInformationW
+#else
+	#define GetUserObjectInformation GetUserObjectInformationA
+	#define SetUserObjectInformation SetUserObjectInformationA
+#endif
 
 declare function GetUserObjectInformationA(byval hObj as HANDLE, byval nIndex as long, byval pvInfo as PVOID, byval nLength as DWORD, byval lpnLengthNeeded as LPDWORD) as WINBOOL
 declare function GetUserObjectInformationW(byval hObj as HANDLE, byval nIndex as long, byval pvInfo as PVOID, byval nLength as DWORD, byval lpnLengthNeeded as LPDWORD) as WINBOOL
@@ -1295,7 +1335,12 @@ type LPMDINEXTMENU as tagMDINEXTMENU ptr
 #define ICON_SMALL 0
 #define ICON_BIG 1
 #define ICON_SMALL2 2
-#define RegisterWindowMessage __MINGW_NAME_AW(RegisterWindowMessage)
+
+#ifdef UNICODE
+	#define RegisterWindowMessage RegisterWindowMessageW
+#else
+	#define RegisterWindowMessage RegisterWindowMessageA
+#endif
 
 declare function RegisterWindowMessageA(byval lpString as LPCSTR) as UINT
 declare function RegisterWindowMessageW(byval lpString as LPCWSTR) as UINT
@@ -1736,9 +1781,15 @@ type COMPAREITEMSTRUCT as tagCOMPAREITEMSTRUCT
 type PCOMPAREITEMSTRUCT as tagCOMPAREITEMSTRUCT ptr
 type LPCOMPAREITEMSTRUCT as tagCOMPAREITEMSTRUCT ptr
 
-#define GetMessage __MINGW_NAME_AW(GetMessage)
-#define DispatchMessage __MINGW_NAME_AW(DispatchMessage)
-#define PeekMessage __MINGW_NAME_AW(PeekMessage)
+#ifdef UNICODE
+	#define GetMessage GetMessageW
+	#define DispatchMessage DispatchMessageW
+	#define PeekMessage PeekMessageW
+#else
+	#define GetMessage GetMessageA
+	#define DispatchMessage DispatchMessageA
+	#define PeekMessage PeekMessageA
+#endif
 
 declare function GetMessageA(byval lpMsg as LPMSG, byval hWnd as HWND, byval wMsgFilterMin as UINT, byval wMsgFilterMax as UINT) as WINBOOL
 declare function GetMessageW(byval lpMsg as LPMSG, byval hWnd as HWND, byval wMsgFilterMin as UINT, byval wMsgFilterMax as UINT) as WINBOOL
@@ -1776,10 +1827,18 @@ declare function UnregisterHotKey(byval hWnd as HWND, byval id as long) as WINBO
 #define EWX_POWEROFF &h00000008
 #define EWX_FORCEIFHUNG &h00000010
 #define ExitWindows(dwReserved, Code) ExitWindowsEx(EWX_LOGOFF, &hFFFFFFFF)
-#define SendMessage __MINGW_NAME_AW(SendMessage)
-#define SendMessageTimeout __MINGW_NAME_AW(SendMessageTimeout)
-#define SendNotifyMessage __MINGW_NAME_AW(SendNotifyMessage)
-#define SendMessageCallback __MINGW_NAME_AW(SendMessageCallback)
+
+#ifdef UNICODE
+	#define SendMessage SendMessageW
+	#define SendMessageTimeout SendMessageTimeoutW
+	#define SendNotifyMessage SendNotifyMessageW
+	#define SendMessageCallback SendMessageCallbackW
+#else
+	#define SendMessage SendMessageA
+	#define SendMessageTimeout SendMessageTimeoutA
+	#define SendNotifyMessage SendNotifyMessageA
+	#define SendMessageCallback SendMessageCallbackA
+#endif
 
 declare function ExitWindowsEx(byval uFlags as UINT, byval dwReason as DWORD) as WINBOOL
 declare function SwapMouseButton(byval fSwap as WINBOOL) as WINBOOL
@@ -1806,8 +1865,13 @@ end type
 
 type PBSMINFO as BSMINFO ptr
 
-#define BroadcastSystemMessageEx __MINGW_NAME_AW(BroadcastSystemMessageEx)
-#define BroadcastSystemMessage __MINGW_NAME_AW(BroadcastSystemMessage)
+#ifdef UNICODE
+	#define BroadcastSystemMessageEx BroadcastSystemMessageExW
+	#define BroadcastSystemMessage BroadcastSystemMessageW
+#else
+	#define BroadcastSystemMessageEx BroadcastSystemMessageExA
+	#define BroadcastSystemMessage BroadcastSystemMessageA
+#endif
 
 declare function BroadcastSystemMessageExA(byval flags as DWORD, byval lpInfo as LPDWORD, byval Msg as UINT, byval wParam as WPARAM, byval lParam as LPARAM, byval pbsmInfo as PBSMINFO) as long
 declare function BroadcastSystemMessageExW(byval flags as DWORD, byval lpInfo as LPDWORD, byval Msg as UINT, byval wParam as WPARAM, byval lParam as LPARAM, byval pbsmInfo as PBSMINFO) as long
@@ -1839,19 +1903,47 @@ type PHDEVNOTIFY as HDEVNOTIFY ptr
 #define DEVICE_NOTIFY_WINDOW_HANDLE &h00000000
 #define DEVICE_NOTIFY_SERVICE_HANDLE &h00000001
 #define DEVICE_NOTIFY_ALL_INTERFACE_CLASSES &h00000004
-#define RegisterDeviceNotification __MINGW_NAME_AW(RegisterDeviceNotification)
-#define PostMessage __MINGW_NAME_AW(PostMessage)
-#define PostThreadMessage __MINGW_NAME_AW(PostThreadMessage)
-#define PostAppMessage __MINGW_NAME_AW(PostAppMessage)
-#define DefWindowProc __MINGW_NAME_AW(DefWindowProc)
-#define CallWindowProc __MINGW_NAME_AW(CallWindowProc)
-#define RegisterClass __MINGW_NAME_AW(RegisterClass)
-#define UnregisterClass __MINGW_NAME_AW(UnregisterClass)
-#define GetClassInfo __MINGW_NAME_AW(GetClassInfo)
-#define RegisterClassEx __MINGW_NAME_AW(RegisterClassEx)
-#define GetClassInfoEx __MINGW_NAME_AW(GetClassInfoEx)
 
-#if (_WIN32_WINNT = &h0502) or (_WIN32_WINNT = &h0602)
+#ifdef UNICODE
+	#define RegisterDeviceNotification RegisterDeviceNotificationW
+	#define PostMessage PostMessageW
+	#define PostThreadMessage PostThreadMessageW
+	#define PostAppMessage PostAppMessageW
+	#define DefWindowProc DefWindowProcW
+	#define CallWindowProc CallWindowProcW
+	#define RegisterClass RegisterClassW
+	#define UnregisterClass UnregisterClassW
+	#define GetClassInfo GetClassInfoW
+	#define RegisterClassEx RegisterClassExW
+	#define GetClassInfoEx GetClassInfoExW
+#endif
+
+#if defined(UNICODE) and (((not defined(__FB_64BIT__)) and (_WIN32_WINNT = &h0502)) or (defined(__FB_64BIT__) and ((_WIN32_WINNT = &h0502) or (_WIN32_WINNT = &h0602))))
+	type HPOWERNOTIFY as HANDLE
+	type PHPOWERNOTIFY as HPOWERNOTIFY ptr
+
+	type POWERBROADCAST_SETTING
+		PowerSetting as GUID
+		DataLength as DWORD
+		Data(0 to 0) as UCHAR
+	end type
+
+	type PPOWERBROADCAST_SETTING as POWERBROADCAST_SETTING ptr
+#elseif not defined(UNICODE)
+	#define RegisterDeviceNotification RegisterDeviceNotificationA
+	#define PostMessage PostMessageA
+	#define PostThreadMessage PostThreadMessageA
+	#define PostAppMessage PostAppMessageA
+	#define DefWindowProc DefWindowProcA
+	#define CallWindowProc CallWindowProcA
+	#define RegisterClass RegisterClassA
+	#define UnregisterClass UnregisterClassA
+	#define GetClassInfo GetClassInfoA
+	#define RegisterClassEx RegisterClassExA
+	#define GetClassInfoEx GetClassInfoExA
+#endif
+
+#if ((not defined(__FB_64BIT__)) and defined(UNICODE) and (_WIN32_WINNT = &h0602)) or ((not defined(UNICODE)) and ((_WIN32_WINNT = &h0502) or (_WIN32_WINNT = &h0602)))
 	type HPOWERNOTIFY as HANDLE
 	type PHPOWERNOTIFY as HPOWERNOTIFY ptr
 
@@ -1919,8 +2011,13 @@ declare function GetClassInfoExW(byval hInstance as HINSTANCE, byval lpszClass a
 
 type PREGISTERCLASSNAMEW as function(byval as LPCWSTR) as BOOLEAN
 
-#define CreateWindowEx __MINGW_NAME_AW(CreateWindowEx)
-#define CreateWindow __MINGW_NAME_AW(CreateWindow)
+#ifdef UNICODE
+	#define CreateWindowEx CreateWindowExW
+	#define CreateWindow CreateWindowW
+#else
+	#define CreateWindowEx CreateWindowExA
+	#define CreateWindow CreateWindowA
+#endif
 
 declare function CreateWindowExA(byval dwExStyle as DWORD, byval lpClassName as LPCSTR, byval lpWindowName as LPCSTR, byval dwStyle as DWORD, byval X as long, byval Y as long, byval nWidth as long, byval nHeight as long, byval hWndParent as HWND, byval hMenu as HMENU, byval hInstance as HINSTANCE, byval lpParam as LPVOID) as HWND
 declare function CreateWindowExW(byval dwExStyle as DWORD, byval lpClassName as LPCWSTR, byval lpWindowName as LPCWSTR, byval dwStyle as DWORD, byval X as long, byval Y as long, byval nWidth as long, byval nHeight as long, byval hWndParent as HWND, byval hMenu as HMENU, byval hInstance as HINSTANCE, byval lpParam as LPVOID) as HWND
@@ -2083,18 +2180,33 @@ type LPDLGITEMTEMPLATEW as DLGITEMTEMPLATE ptr
 
 declare function CreateDialogParamA(byval hInstance as HINSTANCE, byval lpTemplateName as LPCSTR, byval hWndParent as HWND, byval lpDialogFunc as DLGPROC, byval dwInitParam as LPARAM) as HWND
 
-#define CreateDialogParam __MINGW_NAME_AW(CreateDialogParam)
-#define CreateDialogIndirectParam __MINGW_NAME_AW(CreateDialogIndirectParam)
-#define CreateDialog __MINGW_NAME_AW(CreateDialog)
-#define CreateDialogIndirect __MINGW_NAME_AW(CreateDialogIndirect)
-#define DialogBoxParam __MINGW_NAME_AW(DialogBoxParam)
-#define DialogBoxIndirectParam __MINGW_NAME_AW(DialogBoxIndirectParam)
-#define DialogBox __MINGW_NAME_AW(DialogBox)
-#define DialogBoxIndirect __MINGW_NAME_AW(DialogBoxIndirect)
-#define SetDlgItemText __MINGW_NAME_AW(SetDlgItemText)
-#define GetDlgItemText __MINGW_NAME_AW(GetDlgItemText)
-#define SendDlgItemMessage __MINGW_NAME_AW(SendDlgItemMessage)
-#define DefDlgProc __MINGW_NAME_AW(DefDlgProc)
+#ifdef UNICODE
+	#define CreateDialogParam CreateDialogParamW
+	#define CreateDialogIndirectParam CreateDialogIndirectParamW
+	#define CreateDialog CreateDialogW
+	#define CreateDialogIndirect CreateDialogIndirectW
+	#define DialogBoxParam DialogBoxParamW
+	#define DialogBoxIndirectParam DialogBoxIndirectParamW
+	#define DialogBox DialogBoxW
+	#define DialogBoxIndirect DialogBoxIndirectW
+	#define SetDlgItemText SetDlgItemTextW
+	#define GetDlgItemText GetDlgItemTextW
+	#define SendDlgItemMessage SendDlgItemMessageW
+	#define DefDlgProc DefDlgProcW
+#else
+	#define CreateDialogParam CreateDialogParamA
+	#define CreateDialogIndirectParam CreateDialogIndirectParamA
+	#define CreateDialog CreateDialogA
+	#define CreateDialogIndirect CreateDialogIndirectA
+	#define DialogBoxParam DialogBoxParamA
+	#define DialogBoxIndirectParam DialogBoxIndirectParamA
+	#define DialogBox DialogBoxA
+	#define DialogBoxIndirect DialogBoxIndirectA
+	#define SetDlgItemText SetDlgItemTextA
+	#define GetDlgItemText GetDlgItemTextA
+	#define SendDlgItemMessage SendDlgItemMessageA
+	#define DefDlgProc DefDlgProcA
+#endif
 
 declare function CreateDialogParamW(byval hInstance as HINSTANCE, byval lpTemplateName as LPCWSTR, byval hWndParent as HWND, byval lpDialogFunc as DLGPROC, byval dwInitParam as LPARAM) as HWND
 declare function CreateDialogIndirectParamA(byval hInstance as HINSTANCE, byval lpTemplate as LPCDLGTEMPLATEA, byval hWndParent as HWND, byval lpDialogFunc as DLGPROC, byval dwInitParam as LPARAM) as HWND
@@ -2136,13 +2248,23 @@ declare function DefDlgProcA(byval hDlg as HWND, byval Msg as UINT, byval wParam
 declare function DefDlgProcW(byval hDlg as HWND, byval Msg as UINT, byval wParam as WPARAM, byval lParam as LPARAM) as LRESULT
 
 #define DLGWINDOWEXTRA 30
-#define CallMsgFilter __MINGW_NAME_AW(CallMsgFilter)
+
+#ifdef UNICODE
+	#define CallMsgFilter CallMsgFilterW
+#else
+	#define CallMsgFilter CallMsgFilterA
+#endif
 
 declare function CallMsgFilterA(byval lpMsg as LPMSG, byval nCode as long) as WINBOOL
 declare function CallMsgFilterW(byval lpMsg as LPMSG, byval nCode as long) as WINBOOL
 
-#define RegisterClipboardFormat __MINGW_NAME_AW(RegisterClipboardFormat)
-#define GetClipboardFormatName __MINGW_NAME_AW(GetClipboardFormatName)
+#ifdef UNICODE
+	#define RegisterClipboardFormat RegisterClipboardFormatW
+	#define GetClipboardFormatName GetClipboardFormatNameW
+#else
+	#define RegisterClipboardFormat RegisterClipboardFormatA
+	#define GetClipboardFormatName GetClipboardFormatNameA
+#endif
 
 declare function OpenClipboard(byval hWndNewOwner as HWND) as WINBOOL
 declare function CloseClipboard() as WINBOOL
@@ -2164,16 +2286,29 @@ declare function IsClipboardFormatAvailable(byval format as UINT) as WINBOOL
 declare function GetPriorityClipboardFormat(byval paFormatPriorityList as UINT ptr, byval cFormats as long) as long
 declare function GetOpenClipboardWindow() as HWND
 
-#define CharToOem __MINGW_NAME_AW(CharToOem)
-#define OemToChar __MINGW_NAME_AW(OemToChar)
-#define CharToOemBuff __MINGW_NAME_AW(CharToOemBuff)
-#define OemToCharBuff __MINGW_NAME_AW(OemToCharBuff)
-#define CharUpper __MINGW_NAME_AW(CharUpper)
-#define CharUpperBuff __MINGW_NAME_AW(CharUpperBuff)
-#define CharLower __MINGW_NAME_AW(CharLower)
-#define CharLowerBuff __MINGW_NAME_AW(CharLowerBuff)
-#define CharNext __MINGW_NAME_AW(CharNext)
-#define CharPrev __MINGW_NAME_AW(CharPrev)
+#ifdef UNICODE
+	#define CharToOem CharToOemW
+	#define OemToChar OemToCharW
+	#define CharToOemBuff CharToOemBuffW
+	#define OemToCharBuff OemToCharBuffW
+	#define CharUpper CharUpperW
+	#define CharUpperBuff CharUpperBuffW
+	#define CharLower CharLowerW
+	#define CharLowerBuff CharLowerBuffW
+	#define CharNext CharNextW
+	#define CharPrev CharPrevW
+#else
+	#define CharToOem CharToOemA
+	#define OemToChar OemToCharA
+	#define CharToOemBuff CharToOemBuffA
+	#define OemToCharBuff OemToCharBuffA
+	#define CharUpper CharUpperA
+	#define CharUpperBuff CharUpperBuffA
+	#define CharLower CharLowerA
+	#define CharLowerBuff CharLowerBuffA
+	#define CharNext CharNextA
+	#define CharPrev CharPrevA
+#endif
 
 declare function CharToOemA(byval lpszSrc as LPCSTR, byval lpszDst as LPSTR) as WINBOOL
 declare function CharToOemW(byval lpszSrc as LPCWSTR, byval lpszDst as LPSTR) as WINBOOL
@@ -2208,10 +2343,18 @@ declare function CharPrevExA(byval CodePage as WORD, byval lpStart as LPCSTR, by
 #define AnsiLowerBuff CharLowerBuffA
 #define AnsiNext CharNextA
 #define AnsiPrev CharPrevA
-#define IsCharAlpha __MINGW_NAME_AW(IsCharAlpha)
-#define IsCharAlphaNumeric __MINGW_NAME_AW(IsCharAlphaNumeric)
-#define IsCharUpper __MINGW_NAME_AW(IsCharUpper)
-#define IsCharLower __MINGW_NAME_AW(IsCharLower)
+
+#ifdef UNICODE
+	#define IsCharAlpha IsCharAlphaW
+	#define IsCharAlphaNumeric IsCharAlphaNumericW
+	#define IsCharUpper IsCharUpperW
+	#define IsCharLower IsCharLowerW
+#else
+	#define IsCharAlpha IsCharAlphaA
+	#define IsCharAlphaNumeric IsCharAlphaNumericA
+	#define IsCharUpper IsCharUpperA
+	#define IsCharLower IsCharLowerA
+#endif
 
 declare function IsCharAlphaA(byval ch as CHAR) as WINBOOL
 declare function IsCharAlphaW(byval ch as WCHAR) as WINBOOL
@@ -2222,9 +2365,15 @@ declare function IsCharUpperW(byval ch as WCHAR) as WINBOOL
 declare function IsCharLowerA(byval ch as CHAR) as WINBOOL
 declare function IsCharLowerW(byval ch as WCHAR) as WINBOOL
 
-#define GetKeyNameText __MINGW_NAME_AW(GetKeyNameText)
-#define VkKeyScan __MINGW_NAME_AW(VkKeyScan)
-#define VkKeyScanEx __MINGW_NAME_AW(VkKeyScanEx)
+#ifdef UNICODE
+	#define GetKeyNameText GetKeyNameTextW
+	#define VkKeyScan VkKeyScanW
+	#define VkKeyScanEx VkKeyScanExW
+#else
+	#define GetKeyNameText GetKeyNameTextA
+	#define VkKeyScan VkKeyScanA
+	#define VkKeyScanEx VkKeyScanExA
+#endif
 
 declare function SetFocus(byval hWnd as HWND) as HWND
 declare function GetActiveWindow() as HWND
@@ -2331,8 +2480,13 @@ end type
 type LASTINPUTINFO as tagLASTINPUTINFO
 type PLASTINPUTINFO as tagLASTINPUTINFO ptr
 
-#define MapVirtualKey __MINGW_NAME_AW(MapVirtualKey)
-#define MapVirtualKeyEx __MINGW_NAME_AW(MapVirtualKeyEx)
+#ifdef UNICODE
+	#define MapVirtualKey MapVirtualKeyW
+	#define MapVirtualKeyEx MapVirtualKeyExW
+#else
+	#define MapVirtualKey MapVirtualKeyA
+	#define MapVirtualKeyEx MapVirtualKeyExA
+#endif
 
 declare function GetLastInputInfo(byval plii as PLASTINPUTINFO) as WINBOOL
 declare function MapVirtualKeyA(byval uCode as UINT, byval uMapType as UINT) as UINT
@@ -2366,9 +2520,16 @@ declare function MsgWaitForMultipleObjectsEx(byval nCount as DWORD, byval pHandl
 #define QS_ALLINPUT (((((QS_INPUT or QS_POSTMESSAGE) or QS_TIMER) or QS_PAINT) or QS_HOTKEY) or QS_SENDMESSAGE)
 #define USER_TIMER_MAXIMUM &h7FFFFFFF
 #define USER_TIMER_MINIMUM &h0000000A
-#define LoadAccelerators __MINGW_NAME_AW(LoadAccelerators)
-#define CreateAcceleratorTable __MINGW_NAME_AW(CreateAcceleratorTable)
-#define CopyAcceleratorTable __MINGW_NAME_AW(CopyAcceleratorTable)
+
+#ifdef UNICODE
+	#define LoadAccelerators LoadAcceleratorsW
+	#define CreateAcceleratorTable CreateAcceleratorTableW
+	#define CopyAcceleratorTable CopyAcceleratorTableW
+#else
+	#define LoadAccelerators LoadAcceleratorsA
+	#define CreateAcceleratorTable CreateAcceleratorTableA
+	#define CopyAcceleratorTable CopyAcceleratorTableA
+#endif
 
 declare function SetTimer(byval hWnd as HWND, byval nIDEvent as UINT_PTR, byval uElapse as UINT, byval lpTimerFunc as TIMERPROC) as UINT_PTR
 declare function KillTimer(byval hWnd as HWND, byval uIDEvent as UINT_PTR) as WINBOOL
@@ -2383,7 +2544,11 @@ declare function DestroyAcceleratorTable(byval hAccel as HACCEL) as WINBOOL
 declare function CopyAcceleratorTableA(byval hAccelSrc as HACCEL, byval lpAccelDst as LPACCEL, byval cAccelEntries as long) as long
 declare function CopyAcceleratorTableW(byval hAccelSrc as HACCEL, byval lpAccelDst as LPACCEL, byval cAccelEntries as long) as long
 
-#define TranslateAccelerator __MINGW_NAME_AW(TranslateAccelerator)
+#ifdef UNICODE
+	#define TranslateAccelerator TranslateAcceleratorW
+#else
+	#define TranslateAccelerator TranslateAcceleratorA
+#endif
 
 declare function TranslateAcceleratorA(byval hWnd as HWND, byval hAccTable as HACCEL, byval lpMsg as LPMSG) as long
 declare function TranslateAcceleratorW(byval hWnd as HWND, byval hAccTable as HACCEL, byval lpMsg as LPMSG) as long
@@ -2504,13 +2669,23 @@ declare function TranslateAcceleratorW(byval hWnd as HWND, byval hAccTable as HA
 
 declare function GetSystemMetrics(byval nIndex as long) as long
 
-#define LoadMenu __MINGW_NAME_AW(LoadMenu)
-#define LoadMenuIndirect __MINGW_NAME_AW(LoadMenuIndirect)
-#define ChangeMenu __MINGW_NAME_AW(ChangeMenu)
-#define GetMenuString __MINGW_NAME_AW(GetMenuString)
-#define InsertMenu __MINGW_NAME_AW(InsertMenu)
-#define AppendMenu __MINGW_NAME_AW(AppendMenu)
-#define ModifyMenu __MINGW_NAME_AW(ModifyMenu)
+#ifdef UNICODE
+	#define LoadMenu LoadMenuW
+	#define LoadMenuIndirect LoadMenuIndirectW
+	#define ChangeMenu ChangeMenuW
+	#define GetMenuString GetMenuStringW
+	#define InsertMenu InsertMenuW
+	#define AppendMenu AppendMenuW
+	#define ModifyMenu ModifyMenuW
+#else
+	#define LoadMenu LoadMenuA
+	#define LoadMenuIndirect LoadMenuIndirectA
+	#define ChangeMenu ChangeMenuA
+	#define GetMenuString GetMenuStringA
+	#define InsertMenu InsertMenuA
+	#define AppendMenu AppendMenuA
+	#define ModifyMenu ModifyMenuA
+#endif
 
 declare function LoadMenuA(byval hInstance as HINSTANCE, byval lpMenuName as LPCSTR) as HMENU
 declare function LoadMenuW(byval hInstance as HINSTANCE, byval lpMenuName as LPCWSTR) as HMENU
@@ -2683,13 +2858,17 @@ type LPCMENUITEMINFOW as const MENUITEMINFOW ptr
 
 #ifdef UNICODE
 	type LPCMENUITEMINFO as LPCMENUITEMINFOW
+
+	#define InsertMenuItem InsertMenuItemW
+	#define GetMenuItemInfo GetMenuItemInfoW
+	#define SetMenuItemInfo SetMenuItemInfoW
 #else
 	type LPCMENUITEMINFO as LPCMENUITEMINFOA
-#endif
 
-#define InsertMenuItem __MINGW_NAME_AW(InsertMenuItem)
-#define GetMenuItemInfo __MINGW_NAME_AW(GetMenuItemInfo)
-#define SetMenuItemInfo __MINGW_NAME_AW(SetMenuItemInfo)
+	#define InsertMenuItem InsertMenuItemA
+	#define GetMenuItemInfo GetMenuItemInfoA
+	#define SetMenuItemInfo SetMenuItemInfoA
+#endif
 
 declare function InsertMenuItemA(byval hmenu as HMENU, byval item as UINT, byval fByPosition as WINBOOL, byval lpmi as LPCMENUITEMINFOA) as WINBOOL
 declare function InsertMenuItemW(byval hmenu as HMENU, byval item as UINT, byval fByPosition as WINBOOL, byval lpmi as LPCMENUITEMINFOW) as WINBOOL
@@ -2788,18 +2967,30 @@ end type
 type DRAWTEXTPARAMS as tagDRAWTEXTPARAMS
 type LPDRAWTEXTPARAMS as tagDRAWTEXTPARAMS ptr
 
-#define DrawText __MINGW_NAME_AW(DrawText)
-#define DrawTextEx __MINGW_NAME_AW(DrawTextEx)
+#ifdef UNICODE
+	#define DrawText DrawTextW
+	#define DrawTextEx DrawTextExW
+#else
+	#define DrawText DrawTextA
+	#define DrawTextEx DrawTextExA
+#endif
 
 declare function DrawTextA(byval hdc as HDC, byval lpchText as LPCSTR, byval cchText as long, byval lprc as LPRECT, byval format as UINT) as long
 declare function DrawTextW(byval hdc as HDC, byval lpchText as LPCWSTR, byval cchText as long, byval lprc as LPRECT, byval format as UINT) as long
 declare function DrawTextExA(byval hdc as HDC, byval lpchText as LPSTR, byval cchText as long, byval lprc as LPRECT, byval format as UINT, byval lpdtp as LPDRAWTEXTPARAMS) as long
 declare function DrawTextExW(byval hdc as HDC, byval lpchText as LPWSTR, byval cchText as long, byval lprc as LPRECT, byval format as UINT, byval lpdtp as LPDRAWTEXTPARAMS) as long
 
-#define GrayString __MINGW_NAME_AW(GrayString)
-#define DrawState __MINGW_NAME_AW(DrawState)
-#define TabbedTextOut __MINGW_NAME_AW(TabbedTextOut)
-#define GetTabbedTextExtent __MINGW_NAME_AW(GetTabbedTextExtent)
+#ifdef UNICODE
+	#define GrayString GrayStringW
+	#define DrawState DrawStateW
+	#define TabbedTextOut TabbedTextOutW
+	#define GetTabbedTextExtent GetTabbedTextExtentW
+#else
+	#define GrayString GrayStringA
+	#define DrawState DrawStateA
+	#define TabbedTextOut TabbedTextOutA
+	#define GetTabbedTextExtent GetTabbedTextExtentA
+#endif
 
 declare function GrayStringA(byval hDC as HDC, byval hBrush as HBRUSH, byval lpOutputFunc as GRAYSTRINGPROC, byval lpData as LPARAM, byval nCount as long, byval X as long, byval Y as long, byval nWidth as long, byval nHeight as long) as WINBOOL
 declare function GrayStringW(byval hDC as HDC, byval hBrush as HBRUSH, byval lpOutputFunc as GRAYSTRINGPROC, byval lpData as LPARAM, byval nCount as long, byval X as long, byval Y as long, byval nWidth as long, byval nHeight as long) as WINBOOL
@@ -2909,14 +3100,26 @@ declare function EnableScrollBar(byval hWnd as HWND, byval wSBflags as UINT, byv
 #define ESB_DISABLE_DOWN &h0002
 #define ESB_DISABLE_LTUP ESB_DISABLE_LEFT
 #define ESB_DISABLE_RTDN ESB_DISABLE_RIGHT
-#define SetProp __MINGW_NAME_AW(SetProp)
-#define GetProp __MINGW_NAME_AW(GetProp)
-#define RemoveProp __MINGW_NAME_AW(RemoveProp)
-#define EnumPropsEx __MINGW_NAME_AW(EnumPropsEx)
-#define EnumProps __MINGW_NAME_AW(EnumProps)
-#define SetWindowText __MINGW_NAME_AW(SetWindowText)
-#define GetWindowText __MINGW_NAME_AW(GetWindowText)
-#define GetWindowTextLength __MINGW_NAME_AW(GetWindowTextLength)
+
+#ifdef UNICODE
+	#define SetProp SetPropW
+	#define GetProp GetPropW
+	#define RemoveProp RemovePropW
+	#define EnumPropsEx EnumPropsExW
+	#define EnumProps EnumPropsW
+	#define SetWindowText SetWindowTextW
+	#define GetWindowText GetWindowTextW
+	#define GetWindowTextLength GetWindowTextLengthW
+#else
+	#define SetProp SetPropA
+	#define GetProp GetPropA
+	#define RemoveProp RemovePropA
+	#define EnumPropsEx EnumPropsExA
+	#define EnumProps EnumPropsA
+	#define SetWindowText SetWindowTextA
+	#define GetWindowText GetWindowTextA
+	#define GetWindowTextLength GetWindowTextLengthA
+#endif
 
 declare function SetPropA(byval hWnd as HWND, byval lpString as LPCSTR, byval hData as HANDLE) as WINBOOL
 declare function SetPropW(byval hWnd as HWND, byval lpString as LPCWSTR, byval hData as HANDLE) as WINBOOL
@@ -2996,8 +3199,14 @@ declare function GetMenuContextHelpId(byval as HMENU) as DWORD
 #define MB_DEFMASK __MSABI_LONG(&h00000F00)
 #define MB_MODEMASK __MSABI_LONG(&h00003000)
 #define MB_MISCMASK __MSABI_LONG(&h0000C000)
-#define MessageBox __MINGW_NAME_AW(MessageBox)
-#define MessageBoxEx __MINGW_NAME_AW(MessageBoxEx)
+
+#ifdef UNICODE
+	#define MessageBox MessageBoxW
+	#define MessageBoxEx MessageBoxExW
+#else
+	#define MessageBox MessageBoxA
+	#define MessageBoxEx MessageBoxExA
+#endif
 
 declare function MessageBoxA(byval hWnd as HWND, byval lpText as LPCSTR, byval lpCaption as LPCSTR, byval uType as UINT) as long
 declare function MessageBoxW(byval hWnd as HWND, byval lpText as LPCWSTR, byval lpCaption as LPCWSTR, byval uType as UINT) as long
@@ -3044,13 +3253,15 @@ type LPMSGBOXPARAMSW as tagMSGBOXPARAMSW ptr
 	type MSGBOXPARAMS as MSGBOXPARAMSW
 	type PMSGBOXPARAMS as PMSGBOXPARAMSW
 	type LPMSGBOXPARAMS as LPMSGBOXPARAMSW
+
+	#define MessageBoxIndirect MessageBoxIndirectW
 #else
 	type MSGBOXPARAMS as MSGBOXPARAMSA
 	type PMSGBOXPARAMS as PMSGBOXPARAMSA
 	type LPMSGBOXPARAMS as LPMSGBOXPARAMSA
-#endif
 
-#define MessageBoxIndirect __MINGW_NAME_AW(MessageBoxIndirect)
+	#define MessageBoxIndirect MessageBoxIndirectA
+#endif
 
 declare function MessageBoxIndirectA(byval lpmbp as const MSGBOXPARAMSA ptr) as long
 declare function MessageBoxIndirectW(byval lpmbp as const MSGBOXPARAMSW ptr) as long
@@ -3147,8 +3358,13 @@ declare function IsRectEmpty(byval lprc as const RECT ptr) as WINBOOL
 declare function EqualRect(byval lprc1 as const RECT ptr, byval lprc2 as const RECT ptr) as WINBOOL
 declare function PtInRect(byval lprc as const RECT ptr, byval pt as POINT_) as WINBOOL
 
-#define GetWindowLong __MINGW_NAME_AW(GetWindowLong)
-#define SetWindowLong __MINGW_NAME_AW(SetWindowLong)
+#ifdef UNICODE
+	#define GetWindowLong GetWindowLongW
+	#define SetWindowLong SetWindowLongW
+#else
+	#define GetWindowLong GetWindowLongA
+	#define SetWindowLong SetWindowLongA
+#endif
 
 declare function GetWindowWord(byval hWnd as HWND, byval nIndex as long) as WORD
 declare function SetWindowWord(byval hWnd as HWND, byval nIndex as long, byval wNewWord as WORD) as WORD
@@ -3157,8 +3373,13 @@ declare function GetWindowLongW(byval hWnd as HWND, byval nIndex as long) as LON
 declare function SetWindowLongA(byval hWnd as HWND, byval nIndex as long, byval dwNewLong as LONG) as LONG
 declare function SetWindowLongW(byval hWnd as HWND, byval nIndex as long, byval dwNewLong as LONG) as LONG
 
-#define GetWindowLongPtr __MINGW_NAME_AW(GetWindowLongPtr)
-#define SetWindowLongPtr __MINGW_NAME_AW(SetWindowLongPtr)
+#ifdef UNICODE
+	#define GetWindowLongPtr GetWindowLongPtrW
+	#define SetWindowLongPtr SetWindowLongPtrW
+#else
+	#define GetWindowLongPtr GetWindowLongPtrA
+	#define SetWindowLongPtr SetWindowLongPtrA
+#endif
 
 #ifdef __FB_64BIT__
 	declare function GetWindowLongPtrA(byval hWnd as HWND, byval nIndex as long) as LONG_PTR
@@ -3172,8 +3393,13 @@ declare function SetWindowLongW(byval hWnd as HWND, byval nIndex as long, byval 
 	#define SetWindowLongPtrW SetWindowLongW
 #endif
 
-#define GetClassLong __MINGW_NAME_AW(GetClassLong)
-#define SetClassLong __MINGW_NAME_AW(SetClassLong)
+#ifdef UNICODE
+	#define GetClassLong GetClassLongW
+	#define SetClassLong SetClassLongW
+#else
+	#define GetClassLong GetClassLongA
+	#define SetClassLong SetClassLongA
+#endif
 
 declare function GetClassWord(byval hWnd as HWND, byval nIndex as long) as WORD
 declare function SetClassWord(byval hWnd as HWND, byval nIndex as long, byval wNewWord as WORD) as WORD
@@ -3182,8 +3408,13 @@ declare function GetClassLongW(byval hWnd as HWND, byval nIndex as long) as DWOR
 declare function SetClassLongA(byval hWnd as HWND, byval nIndex as long, byval dwNewLong as LONG) as DWORD
 declare function SetClassLongW(byval hWnd as HWND, byval nIndex as long, byval dwNewLong as LONG) as DWORD
 
-#define GetClassLongPtr __MINGW_NAME_AW(GetClassLongPtr)
-#define SetClassLongPtr __MINGW_NAME_AW(SetClassLongPtr)
+#ifdef UNICODE
+	#define GetClassLongPtr GetClassLongPtrW
+	#define SetClassLongPtr SetClassLongPtrW
+#else
+	#define GetClassLongPtr GetClassLongPtrA
+	#define SetClassLongPtr SetClassLongPtrA
+#endif
 
 #ifdef __FB_64BIT__
 	declare function GetClassLongPtrA(byval hWnd as HWND, byval nIndex as long) as ULONG_PTR
@@ -3197,9 +3428,15 @@ declare function SetClassLongW(byval hWnd as HWND, byval nIndex as long, byval d
 	#define SetClassLongPtrW SetClassLongW
 #endif
 
-#define FindWindow __MINGW_NAME_AW(FindWindow)
-#define FindWindowEx __MINGW_NAME_AW(FindWindowEx)
-#define GetClassName __MINGW_NAME_AW(GetClassName)
+#ifdef UNICODE
+	#define FindWindow FindWindowW
+	#define FindWindowEx FindWindowExW
+	#define GetClassName GetClassNameW
+#else
+	#define FindWindow FindWindowA
+	#define FindWindowEx FindWindowExA
+	#define GetClassName GetClassNameA
+#endif
 
 declare function GetProcessDefaultLayout(byval pdwDefaultLayout as DWORD ptr) as WINBOOL
 declare function SetProcessDefaultLayout(byval dwDefaultLayout as DWORD) as WINBOOL
@@ -3245,8 +3482,13 @@ declare function GetLastActivePopup(byval hWnd as HWND) as HWND
 
 declare function GetWindow(byval hWnd as HWND, byval uCmd as UINT) as HWND
 
-#define SetWindowsHook __MINGW_NAME_AW(SetWindowsHook)
-#define SetWindowsHookEx __MINGW_NAME_AW(SetWindowsHookEx)
+#ifdef UNICODE
+	#define SetWindowsHook SetWindowsHookW
+	#define SetWindowsHookEx SetWindowsHookExW
+#else
+	#define SetWindowsHook SetWindowsHookA
+	#define SetWindowsHookEx SetWindowsHookExA
+#endif
 
 declare function SetWindowsHookA(byval nFilterType as long, byval pfnFilterProc as HOOKPROC) as HHOOK
 declare function SetWindowsHookW(byval nFilterType as long, byval pfnFilterProc as HOOKPROC) as HHOOK
@@ -3342,9 +3584,16 @@ type PMENUITEMTEMPLATE as MENUITEMTEMPLATE ptr
 #define SC_SEPARATOR &hF00F
 #define SC_ICON SC_MINIMIZE
 #define SC_ZOOM SC_MAXIMIZE
-#define LoadBitmap __MINGW_NAME_AW(LoadBitmap)
-#define LoadCursor __MINGW_NAME_AW(LoadCursor)
-#define LoadCursorFromFile __MINGW_NAME_AW(LoadCursorFromFile)
+
+#ifdef UNICODE
+	#define LoadBitmap LoadBitmapW
+	#define LoadCursor LoadCursorW
+	#define LoadCursorFromFile LoadCursorFromFileW
+#else
+	#define LoadBitmap LoadBitmapA
+	#define LoadCursor LoadCursorA
+	#define LoadCursorFromFile LoadCursorFromFileA
+#endif
 
 declare function LoadBitmapA(byval hInstance as HINSTANCE, byval lpBitmapName as LPCSTR) as HBITMAP
 declare function LoadBitmapW(byval hInstance as HINSTANCE, byval lpBitmapName as LPCWSTR) as HBITMAP
@@ -3386,8 +3635,13 @@ end type
 type ICONINFO as _ICONINFO
 type PICONINFO as ICONINFO ptr
 
-#define LoadIcon __MINGW_NAME_AW(LoadIcon)
-#define PrivateExtractIcons __MINGW_NAME_AW(PrivateExtractIcons)
+#ifdef UNICODE
+	#define LoadIcon LoadIconW
+	#define PrivateExtractIcons PrivateExtractIconsW
+#else
+	#define LoadIcon LoadIconA
+	#define PrivateExtractIcons PrivateExtractIconsA
+#endif
 
 declare function LoadIconA(byval hInstance as HINSTANCE, byval lpIconName as LPCSTR) as HICON
 declare function LoadIconW(byval hInstance as HINSTANCE, byval lpIconName as LPCWSTR) as HICON
@@ -3430,7 +3684,12 @@ type LPCURSORSHAPE as tagCURSORSHAPE ptr
 #define LR_CREATEDIBSECTION &h2000
 #define LR_COPYFROMRESOURCE &h4000
 #define LR_SHARED &h8000
-#define LoadImage __MINGW_NAME_AW(LoadImage)
+
+#ifdef UNICODE
+	#define LoadImage LoadImageW
+#else
+	#define LoadImage LoadImageA
+#endif
 
 declare function LoadImageA(byval hInst as HINSTANCE, byval name_ as LPCSTR, byval type_ as UINT, byval cx as long, byval cy as long, byval fuLoad as UINT) as HANDLE
 declare function LoadImageW(byval hInst as HINSTANCE, byval name_ as LPCWSTR, byval type_ as UINT, byval cx as long, byval cy as long, byval fuLoad as UINT) as HANDLE
@@ -3649,15 +3908,27 @@ declare function GetIconInfo(byval hIcon as HICON, byval piconinfo as PICONINFO)
 #define DWLP_MSGRESULT 0
 #define DWLP_DLGPROC (DWLP_MSGRESULT + sizeof(LRESULT))
 #define DWLP_USER (DWLP_DLGPROC + sizeof(DLGPROC))
-#define IsDialogMessage __MINGW_NAME_AW(IsDialogMessage)
+
+#ifdef UNICODE
+	#define IsDialogMessage IsDialogMessageW
+#else
+	#define IsDialogMessage IsDialogMessageA
+#endif
 
 declare function IsDialogMessageA(byval hDlg as HWND, byval lpMsg as LPMSG) as WINBOOL
 declare function IsDialogMessageW(byval hDlg as HWND, byval lpMsg as LPMSG) as WINBOOL
 
-#define DlgDirList __MINGW_NAME_AW(DlgDirList)
-#define DlgDirSelectEx __MINGW_NAME_AW(DlgDirSelectEx)
-#define DlgDirListComboBox __MINGW_NAME_AW(DlgDirListComboBox)
-#define DlgDirSelectComboBoxEx __MINGW_NAME_AW(DlgDirSelectComboBoxEx)
+#ifdef UNICODE
+	#define DlgDirList DlgDirListW
+	#define DlgDirSelectEx DlgDirSelectExW
+	#define DlgDirListComboBox DlgDirListComboBoxW
+	#define DlgDirSelectComboBoxEx DlgDirSelectComboBoxExW
+#else
+	#define DlgDirList DlgDirListA
+	#define DlgDirSelectEx DlgDirSelectExA
+	#define DlgDirListComboBox DlgDirListComboBoxA
+	#define DlgDirSelectComboBoxEx DlgDirSelectComboBoxExA
+#endif
 
 declare function MapDialogRect(byval hDlg as HWND, byval lpRect as LPRECT) as WINBOOL
 declare function DlgDirListA(byval hDlg as HWND, byval lpPathSpec as LPSTR, byval nIDListBox as long, byval nIDStaticPath as long, byval uFileType as UINT) as long
@@ -3937,9 +4208,15 @@ end type
 type CLIENTCREATESTRUCT as tagCLIENTCREATESTRUCT
 type LPCLIENTCREATESTRUCT as tagCLIENTCREATESTRUCT ptr
 
-#define DefFrameProc __MINGW_NAME_AW(DefFrameProc)
-#define DefMDIChildProc __MINGW_NAME_AW(DefMDIChildProc)
-#define CreateMDIWindow __MINGW_NAME_AW(CreateMDIWindow)
+#ifdef UNICODE
+	#define DefFrameProc DefFrameProcW
+	#define DefMDIChildProc DefMDIChildProcW
+	#define CreateMDIWindow CreateMDIWindowW
+#else
+	#define DefFrameProc DefFrameProcA
+	#define DefMDIChildProc DefMDIChildProcA
+	#define CreateMDIWindow CreateMDIWindowA
+#endif
 
 declare function DefFrameProcA(byval hWnd as HWND, byval hWndMDIClient as HWND, byval uMsg as UINT, byval wParam as WPARAM, byval lParam as LPARAM) as LRESULT
 declare function DefFrameProcW(byval hWnd as HWND, byval hWndMDIClient as HWND, byval uMsg as UINT, byval wParam as WPARAM, byval lParam as LPARAM) as LRESULT
@@ -4049,7 +4326,12 @@ type LPHELPWININFOW as tagHELPWININFOW ptr
 #define IDH_OK 28443
 #define IDH_CANCEL 28444
 #define IDH_HELP 28445
-#define WinHelp __MINGW_NAME_AW(WinHelp)
+
+#ifdef UNICODE
+	#define WinHelp WinHelpW
+#else
+	#define WinHelp WinHelpA
+#endif
 
 declare function WinHelpA(byval hWndMain as HWND, byval lpszHelp as LPCSTR, byval uCommand as UINT, byval dwData as ULONG_PTR) as WINBOOL
 declare function WinHelpW(byval hWndMain as HWND, byval lpszHelp as LPCWSTR, byval uCommand as UINT, byval dwData as ULONG_PTR) as WINBOOL
@@ -4569,11 +4851,20 @@ type LPVIDEOPARAMETERS as _VIDEOPARAMETERS ptr
 #define DISP_CHANGE_BADFLAGS (-4)
 #define DISP_CHANGE_BADPARAM (-5)
 #define DISP_CHANGE_BADDUALVIEW (-6)
-#define ChangeDisplaySettings __MINGW_NAME_AW(ChangeDisplaySettings)
-#define ChangeDisplaySettingsEx __MINGW_NAME_AW(ChangeDisplaySettingsEx)
-#define EnumDisplaySettings __MINGW_NAME_AW(EnumDisplaySettings)
-#define EnumDisplaySettingsEx __MINGW_NAME_AW(EnumDisplaySettingsEx)
-#define EnumDisplayDevices __MINGW_NAME_AW(EnumDisplayDevices)
+
+#ifdef UNICODE
+	#define ChangeDisplaySettings ChangeDisplaySettingsW
+	#define ChangeDisplaySettingsEx ChangeDisplaySettingsExW
+	#define EnumDisplaySettings EnumDisplaySettingsW
+	#define EnumDisplaySettingsEx EnumDisplaySettingsExW
+	#define EnumDisplayDevices EnumDisplayDevicesW
+#else
+	#define ChangeDisplaySettings ChangeDisplaySettingsA
+	#define ChangeDisplaySettingsEx ChangeDisplaySettingsExA
+	#define EnumDisplaySettings EnumDisplaySettingsA
+	#define EnumDisplaySettingsEx EnumDisplaySettingsExA
+	#define EnumDisplayDevices EnumDisplayDevicesA
+#endif
 
 declare function ChangeDisplaySettingsA(byval lpDevMode as LPDEVMODEA, byval dwFlags as DWORD) as LONG
 declare function ChangeDisplaySettingsW(byval lpDevMode as LPDEVMODEW, byval dwFlags as DWORD) as LONG
@@ -4593,7 +4884,11 @@ declare function EnumDisplaySettingsExW(byval lpszDeviceName as LPCWSTR, byval i
 declare function EnumDisplayDevicesA(byval lpDevice as LPCSTR, byval iDevNum as DWORD, byval lpDisplayDevice as PDISPLAY_DEVICEA, byval dwFlags as DWORD) as WINBOOL
 declare function EnumDisplayDevicesW(byval lpDevice as LPCWSTR, byval iDevNum as DWORD, byval lpDisplayDevice as PDISPLAY_DEVICEW, byval dwFlags as DWORD) as WINBOOL
 
-#define SystemParametersInfo __MINGW_NAME_AW(SystemParametersInfo)
+#ifdef UNICODE
+	#define SystemParametersInfo SystemParametersInfoW
+#else
+	#define SystemParametersInfo SystemParametersInfoA
+#endif
 
 declare function SystemParametersInfoA(byval uiAction as UINT, byval uiParam as UINT, byval pvParam as PVOID, byval fWinIni as UINT) as WINBOOL
 declare function SystemParametersInfoW(byval uiAction as UINT, byval uiParam as UINT, byval pvParam as PVOID, byval fWinIni as UINT) as WINBOOL
@@ -4830,12 +5125,14 @@ type LPMONITORINFOEXW as tagMONITORINFOEXW ptr
 #ifdef UNICODE
 	type MONITORINFOEX as MONITORINFOEXW
 	type LPMONITORINFOEX as LPMONITORINFOEXW
+
+	#define GetMonitorInfo GetMonitorInfoW
 #else
 	type MONITORINFOEX as MONITORINFOEXA
 	type LPMONITORINFOEX as LPMONITORINFOEXA
-#endif
 
-#define GetMonitorInfo __MINGW_NAME_AW(GetMonitorInfo)
+	#define GetMonitorInfo GetMonitorInfoA
+#endif
 
 declare function GetMonitorInfoA(byval hMonitor as HMONITOR, byval lpmi as LPMONITORINFO) as WINBOOL
 declare function GetMonitorInfoW(byval hMonitor as HMONITOR, byval lpmi as LPMONITORINFO) as WINBOOL
@@ -4974,7 +5271,12 @@ type LPGUITHREADINFO as tagGUITHREADINFO ptr
 #define GUI_SYSTEMMENUMODE &h00000008
 #define GUI_POPUPMENUMODE &h00000010
 #define GUI_16BITTASK &h00000020
-#define GetWindowModuleFileName __MINGW_NAME_AW(GetWindowModuleFileName)
+
+#ifdef UNICODE
+	#define GetWindowModuleFileName GetWindowModuleFileNameW
+#else
+	#define GetWindowModuleFileName GetWindowModuleFileNameA
+#endif
 
 declare function GetGUIThreadInfo(byval idThread as DWORD, byval pgui as PGUITHREADINFO) as WINBOOL
 declare function GetWindowModuleFileNameA(byval hwnd as HWND, byval pszFileName as LPSTR, byval cchFileNameMax as UINT) as UINT
@@ -5119,7 +5421,11 @@ declare function RealChildWindowFromPoint(byval hwndParent as HWND, byval ptPare
 declare function RealGetWindowClassA(byval hwnd as HWND, byval ptszClassName as LPSTR, byval cchClassNameMax as UINT) as UINT
 declare function RealGetWindowClassW(byval hwnd as HWND, byval ptszClassName as LPWSTR, byval cchClassNameMax as UINT) as UINT
 
-#define RealGetWindowClass __MINGW_NAME_AW(RealGetWindowClass)
+#ifdef UNICODE
+	#define RealGetWindowClass RealGetWindowClassW
+#else
+	#define RealGetWindowClass RealGetWindowClassA
+#endif
 
 type tagALTTABINFO
 	cbSize as DWORD
@@ -5137,7 +5443,11 @@ type ALTTABINFO as tagALTTABINFO
 type PALTTABINFO as tagALTTABINFO ptr
 type LPALTTABINFO as tagALTTABINFO ptr
 
-#define GetAltTabInfo __MINGW_NAME_AW(GetAltTabInfo)
+#ifdef UNICODE
+	#define GetAltTabInfo GetAltTabInfoW
+#else
+	#define GetAltTabInfo GetAltTabInfoA
+#endif
 
 declare function GetAltTabInfoA(byval hwnd as HWND, byval iItem as long, byval pati as PALTTABINFO, byval pszItemText as LPSTR, byval cchItemText as UINT) as WINBOOL
 declare function GetAltTabInfoW(byval hwnd as HWND, byval iItem as long, byval pati as PALTTABINFO, byval pszItemText as LPWSTR, byval cchItemText as UINT) as WINBOOL
@@ -5323,7 +5633,11 @@ type RID_DEVICE_INFO as tagRID_DEVICE_INFO
 type PRID_DEVICE_INFO as tagRID_DEVICE_INFO ptr
 type LPRID_DEVICE_INFO as tagRID_DEVICE_INFO ptr
 
-#define GetRawInputDeviceInfo __MINGW_NAME_AW(GetRawInputDeviceInfo)
+#ifdef UNICODE
+	#define GetRawInputDeviceInfo GetRawInputDeviceInfoW
+#else
+	#define GetRawInputDeviceInfo GetRawInputDeviceInfoA
+#endif
 
 declare function GetRawInputDeviceInfoA(byval hDevice as HANDLE, byval uiCommand as UINT, byval pData as LPVOID, byval pcbSize as PUINT) as UINT
 declare function GetRawInputDeviceInfoW(byval hDevice as HANDLE, byval uiCommand as UINT, byval pData as LPVOID, byval pcbSize as PUINT) as UINT
@@ -5425,9 +5739,15 @@ declare function DefRawInputProc(byval paRawInput as PRAWINPUT ptr, byval nInput
 
 	type AUDIODESCRIPTION as _AUDIODESCRIPTION
 	type PAUDIODESCRIPTION as _AUDIODESCRIPTION ptr
+#endif
 
-	#define CreateDesktopEx __MINGW_NAME_AW(CreateDesktopEx)
+#if defined(UNICODE) and (_WIN32_WINNT = &h0602)
+	#define CreateDesktopEx CreateDesktopExW
+#elseif (not defined(UNICODE)) and (_WIN32_WINNT = &h0602)
+	#define CreateDesktopEx CreateDesktopExA
+#endif
 
+#if _WIN32_WINNT = &h0602
 	declare function CreateDesktopExA(byval lpszDesktop as LPCSTR, byval lpszDevice as LPCSTR, byval pDevmode as DEVMODE ptr, byval dwFlags as DWORD, byval dwDesiredAccess as ACCESS_MASK, byval lpsa as LPSECURITY_ATTRIBUTES, byval ulHeapSize as ULONG, byval pvoid as PVOID) as HDESK
 	declare function CreateDesktopExW(byval lpszDesktop as LPCWSTR, byval lpszDevice as LPCWSTR, byval pDevmode as DEVMODE ptr, byval dwFlags as DWORD, byval dwDesiredAccess as ACCESS_MASK, byval lpsa as LPSECURITY_ATTRIBUTES, byval ulHeapSize as ULONG, byval pvoid as PVOID) as HDESK
 	declare function ShutdownBlockReasonCreate(byval hWnd as HWND, byval pwszReason as LPCWSTR) as WINBOOL

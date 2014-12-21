@@ -17,9 +17,17 @@
 #define SERVICES_FAILED_DATABASEA "ServicesFailed"
 #define SC_GROUP_IDENTIFIERW asc(wstr("+"))
 #define SC_GROUP_IDENTIFIERA asc("+")
-#define SERVICES_ACTIVE_DATABASE __MINGW_NAME_AW(SERVICES_ACTIVE_DATABASE)
-#define SERVICES_FAILED_DATABASE __MINGW_NAME_AW(SERVICES_FAILED_DATABASE)
-#define SC_GROUP_IDENTIFIER __MINGW_NAME_AW(SC_GROUP_IDENTIFIER)
+
+#ifdef UNICODE
+	#define SERVICES_ACTIVE_DATABASE SERVICES_ACTIVE_DATABASEW
+	#define SERVICES_FAILED_DATABASE SERVICES_FAILED_DATABASEW
+	#define SC_GROUP_IDENTIFIER SC_GROUP_IDENTIFIERW
+#else
+	#define SERVICES_ACTIVE_DATABASE SERVICES_ACTIVE_DATABASEA
+	#define SERVICES_FAILED_DATABASE SERVICES_FAILED_DATABASEA
+	#define SC_GROUP_IDENTIFIER SC_GROUP_IDENTIFIERA
+#endif
+
 #define SERVICE_NO_CHANGE &hffffffff
 #define SERVICE_ACTIVE &h00000001
 #define SERVICE_INACTIVE &h00000002
@@ -320,7 +328,11 @@ type LPQUERY_SERVICE_CONFIGW as _QUERY_SERVICE_CONFIGW ptr
 type LPSERVICE_MAIN_FUNCTIONW as sub(byval dwNumServicesArgs as DWORD, byval lpServiceArgVectors as LPWSTR ptr)
 type LPSERVICE_MAIN_FUNCTIONA as sub(byval dwNumServicesArgs as DWORD, byval lpServiceArgVectors as LPSTR ptr)
 
-#define LPSERVICE_MAIN_FUNCTION __MINGW_NAME_AW(LPSERVICE_MAIN_FUNCTION)
+#ifdef UNICODE
+	#define LPSERVICE_MAIN_FUNCTION LPSERVICE_MAIN_FUNCTIONW
+#else
+	#define LPSERVICE_MAIN_FUNCTION LPSERVICE_MAIN_FUNCTIONA
+#endif
 
 type _SERVICE_TABLE_ENTRYA
 	lpServiceName as LPSTR
@@ -349,23 +361,43 @@ type LPSERVICE_TABLE_ENTRYW as _SERVICE_TABLE_ENTRYW ptr
 type LPHANDLER_FUNCTION as sub(byval dwControl as DWORD)
 type LPHANDLER_FUNCTION_EX as function(byval dwControl as DWORD, byval dwEventType as DWORD, byval lpEventData as LPVOID, byval lpContext as LPVOID) as DWORD
 
-#define ChangeServiceConfig __MINGW_NAME_AW(ChangeServiceConfig)
-#define ChangeServiceConfig2 __MINGW_NAME_AW(ChangeServiceConfig2)
-#define CreateService __MINGW_NAME_AW(CreateService)
-#define EnumDependentServices __MINGW_NAME_AW(EnumDependentServices)
-#define EnumServicesStatus __MINGW_NAME_AW(EnumServicesStatus)
-#define EnumServicesStatusEx __MINGW_NAME_AW(EnumServicesStatusEx)
-#define GetServiceKeyName __MINGW_NAME_AW(GetServiceKeyName)
-#define GetServiceDisplayName __MINGW_NAME_AW(GetServiceDisplayName)
-#define OpenSCManager __MINGW_NAME_AW(OpenSCManager)
-#define OpenService __MINGW_NAME_AW(OpenService)
-#define QueryServiceConfig __MINGW_NAME_AW(QueryServiceConfig)
-#define QueryServiceConfig2 __MINGW_NAME_AW(QueryServiceConfig2)
-#define QueryServiceLockStatus __MINGW_NAME_AW(QueryServiceLockStatus)
-#define RegisterServiceCtrlHandler __MINGW_NAME_AW(RegisterServiceCtrlHandler)
-#define RegisterServiceCtrlHandlerEx __MINGW_NAME_AW(RegisterServiceCtrlHandlerEx)
-#define StartServiceCtrlDispatcher __MINGW_NAME_AW(StartServiceCtrlDispatcher)
-#define StartService __MINGW_NAME_AW(StartService)
+#ifdef UNICODE
+	#define ChangeServiceConfig ChangeServiceConfigW
+	#define ChangeServiceConfig2 ChangeServiceConfig2W
+	#define CreateService CreateServiceW
+	#define EnumDependentServices EnumDependentServicesW
+	#define EnumServicesStatus EnumServicesStatusW
+	#define EnumServicesStatusEx EnumServicesStatusExW
+	#define GetServiceKeyName GetServiceKeyNameW
+	#define GetServiceDisplayName GetServiceDisplayNameW
+	#define OpenSCManager OpenSCManagerW
+	#define OpenService OpenServiceW
+	#define QueryServiceConfig QueryServiceConfigW
+	#define QueryServiceConfig2 QueryServiceConfig2W
+	#define QueryServiceLockStatus QueryServiceLockStatusW
+	#define RegisterServiceCtrlHandler RegisterServiceCtrlHandlerW
+	#define RegisterServiceCtrlHandlerEx RegisterServiceCtrlHandlerExW
+	#define StartServiceCtrlDispatcher StartServiceCtrlDispatcherW
+	#define StartService StartServiceW
+#else
+	#define ChangeServiceConfig ChangeServiceConfigA
+	#define ChangeServiceConfig2 ChangeServiceConfig2A
+	#define CreateService CreateServiceA
+	#define EnumDependentServices EnumDependentServicesA
+	#define EnumServicesStatus EnumServicesStatusA
+	#define EnumServicesStatusEx EnumServicesStatusExA
+	#define GetServiceKeyName GetServiceKeyNameA
+	#define GetServiceDisplayName GetServiceDisplayNameA
+	#define OpenSCManager OpenSCManagerA
+	#define OpenService OpenServiceA
+	#define QueryServiceConfig QueryServiceConfigA
+	#define QueryServiceConfig2 QueryServiceConfig2A
+	#define QueryServiceLockStatus QueryServiceLockStatusA
+	#define RegisterServiceCtrlHandler RegisterServiceCtrlHandlerA
+	#define RegisterServiceCtrlHandlerEx RegisterServiceCtrlHandlerExA
+	#define StartServiceCtrlDispatcher StartServiceCtrlDispatcherA
+	#define StartService StartServiceA
+#endif
 
 declare function ChangeServiceConfigA(byval hService as SC_HANDLE, byval dwServiceType as DWORD, byval dwStartType as DWORD, byval dwErrorControl as DWORD, byval lpBinaryPathName as LPCSTR, byval lpLoadOrderGroup as LPCSTR, byval lpdwTagId as LPDWORD, byval lpDependencies as LPCSTR, byval lpServiceStartName as LPCSTR, byval lpPassword as LPCSTR, byval lpDisplayName as LPCSTR) as WINBOOL
 declare function ChangeServiceConfigW(byval hService as SC_HANDLE, byval dwServiceType as DWORD, byval dwStartType as DWORD, byval dwErrorControl as DWORD, byval lpBinaryPathName as LPCWSTR, byval lpLoadOrderGroup as LPCWSTR, byval lpdwTagId as LPDWORD, byval lpDependencies as LPCWSTR, byval lpServiceStartName as LPCWSTR, byval lpPassword as LPCWSTR, byval lpDisplayName as LPCWSTR) as WINBOOL
@@ -575,10 +607,17 @@ declare function UnlockServiceDatabase(byval ScLock as SC_LOCK) as WINBOOL
 
 	declare function ControlServiceExA(byval hService as SC_HANDLE, byval dwControl as DWORD, byval dwInfoLevel as DWORD, byval pControlParams as PVOID) as WINBOOL
 	declare function ControlServiceExW(byval hService as SC_HANDLE, byval dwControl as DWORD, byval dwInfoLevel as DWORD, byval pControlParams as PVOID) as WINBOOL
+#endif
 
-	#define ControlServiceEx __MINGW_NAME_AW(ControlServiceEx)
-	#define NotifyServiceStatusChange __MINGW_NAME_AW(NotifyServiceStatusChange)
+#if defined(UNICODE) and (_WIN32_WINNT = &h0602)
+	#define ControlServiceEx ControlServiceExW
+	#define NotifyServiceStatusChange NotifyServiceStatusChangeW
+#elseif (not defined(UNICODE)) and (_WIN32_WINNT = &h0602)
+	#define ControlServiceEx ControlServiceExA
+	#define NotifyServiceStatusChange NotifyServiceStatusChangeA
+#endif
 
+#if _WIN32_WINNT = &h0602
 	declare function NotifyServiceStatusChangeA(byval hService as SC_HANDLE, byval dwNotifyMask as DWORD, byval pNotifyBuffer as PSERVICE_NOTIFYA) as DWORD
 	declare function NotifyServiceStatusChangeW(byval hService as SC_HANDLE, byval dwNotifyMask as DWORD, byval pNotifyBuffer as PSERVICE_NOTIFYW) as DWORD
 #endif

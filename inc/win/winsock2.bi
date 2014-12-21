@@ -286,7 +286,13 @@ type LPWSADATA as WSAData ptr
 #define SO_MAX_MSG_SIZE &h2003
 #define SO_PROTOCOL_INFOA &h2004
 #define SO_PROTOCOL_INFOW &h2005
-#define SO_PROTOCOL_INFO __MINGW_NAME_AW(SO_PROTOCOL_INFO)
+
+#ifdef UNICODE
+	#define SO_PROTOCOL_INFO SO_PROTOCOL_INFOW
+#else
+	#define SO_PROTOCOL_INFO SO_PROTOCOL_INFOA
+#endif
+
 #define PVD_CONFIG &h3001
 #define SO_CONDITIONAL_ACCEPT &h3002
 #define TCP_NODELAY &h0001
@@ -712,10 +718,19 @@ type ADDRESS_FAMILY as u_short
 #define SERVICE_TYPE_VALUE_UDPPORTW wstr("UdpPort")
 #define SERVICE_TYPE_VALUE_OBJECTIDA "ObjectId"
 #define SERVICE_TYPE_VALUE_OBJECTIDW wstr("ObjectId")
-#define SERVICE_TYPE_VALUE_SAPID __MINGW_NAME_AW(SERVICE_TYPE_VALUE_SAPID)
-#define SERVICE_TYPE_VALUE_TCPPORT __MINGW_NAME_AW(SERVICE_TYPE_VALUE_TCPPORT)
-#define SERVICE_TYPE_VALUE_UDPPORT __MINGW_NAME_AW(SERVICE_TYPE_VALUE_UDPPORT)
-#define SERVICE_TYPE_VALUE_OBJECTID __MINGW_NAME_AW(SERVICE_TYPE_VALUE_OBJECTID)
+
+#ifdef UNICODE
+	#define SERVICE_TYPE_VALUE_SAPID SERVICE_TYPE_VALUE_SAPIDW
+	#define SERVICE_TYPE_VALUE_TCPPORT SERVICE_TYPE_VALUE_TCPPORTW
+	#define SERVICE_TYPE_VALUE_UDPPORT SERVICE_TYPE_VALUE_UDPPORTW
+	#define SERVICE_TYPE_VALUE_OBJECTID SERVICE_TYPE_VALUE_OBJECTIDW
+#else
+	#define SERVICE_TYPE_VALUE_SAPID SERVICE_TYPE_VALUE_SAPIDA
+	#define SERVICE_TYPE_VALUE_TCPPORT SERVICE_TYPE_VALUE_TCPPORTA
+	#define SERVICE_TYPE_VALUE_UDPPORT SERVICE_TYPE_VALUE_UDPPORTA
+	#define SERVICE_TYPE_VALUE_OBJECTID SERVICE_TYPE_VALUE_OBJECTIDA
+#endif
+
 #define __CSADDR_DEFINED__
 
 type _SOCKET_ADDRESS
@@ -981,18 +996,33 @@ type WSAMSG as _WSAMSG
 type PWSAMSG as _WSAMSG ptr
 type LPWSAMSG as _WSAMSG ptr
 
-#define WSADuplicateSocket __MINGW_NAME_AW(WSADuplicateSocket)
-#define WSAEnumProtocols __MINGW_NAME_AW(WSAEnumProtocols)
-#define WSAAddressToString __MINGW_NAME_AW(WSAAddressToString)
-#define WSASocket __MINGW_NAME_AW(WSASocket)
-#define WSAStringToAddress __MINGW_NAME_AW(WSAStringToAddress)
-#define WSALookupServiceBegin __MINGW_NAME_AW(WSALookupServiceBegin)
-#define WSALookupServiceNext __MINGW_NAME_AW(WSALookupServiceNext)
-#define WSAInstallServiceClass __MINGW_NAME_AW(WSAInstallServiceClass)
-#define WSAGetServiceClassInfo __MINGW_NAME_AW(WSAGetServiceClassInfo)
-#define WSAEnumNameSpaceProviders __MINGW_NAME_AW(WSAEnumNameSpaceProviders)
-#define WSAGetServiceClassNameByClassId __MINGW_NAME_AW(WSAGetServiceClassNameByClassId)
-#define WSASetService __MINGW_NAME_AW(WSASetService)
+#ifdef UNICODE
+	#define WSADuplicateSocket WSADuplicateSocketW
+	#define WSAEnumProtocols WSAEnumProtocolsW
+	#define WSAAddressToString WSAAddressToStringW
+	#define WSASocket WSASocketW
+	#define WSAStringToAddress WSAStringToAddressW
+	#define WSALookupServiceBegin WSALookupServiceBeginW
+	#define WSALookupServiceNext WSALookupServiceNextW
+	#define WSAInstallServiceClass WSAInstallServiceClassW
+	#define WSAGetServiceClassInfo WSAGetServiceClassInfoW
+	#define WSAEnumNameSpaceProviders WSAEnumNameSpaceProvidersW
+	#define WSAGetServiceClassNameByClassId WSAGetServiceClassNameByClassIdW
+	#define WSASetService WSASetServiceW
+#else
+	#define WSADuplicateSocket WSADuplicateSocketA
+	#define WSAEnumProtocols WSAEnumProtocolsA
+	#define WSAAddressToString WSAAddressToStringA
+	#define WSASocket WSASocketA
+	#define WSAStringToAddress WSAStringToAddressA
+	#define WSALookupServiceBegin WSALookupServiceBeginA
+	#define WSALookupServiceNext WSALookupServiceNextA
+	#define WSAInstallServiceClass WSAInstallServiceClassA
+	#define WSAGetServiceClassInfo WSAGetServiceClassInfoA
+	#define WSAEnumNameSpaceProviders WSAEnumNameSpaceProvidersA
+	#define WSAGetServiceClassNameByClassId WSAGetServiceClassNameByClassIdA
+	#define WSASetService WSASetServiceA
+#endif
 
 declare function accept(byval s as SOCKET, byval addr as sockaddr ptr, byval addrlen as long ptr) as SOCKET
 declare function bind(byval s as SOCKET, byval name_ as const sockaddr ptr, byval namelen as long) as long
@@ -1204,14 +1234,26 @@ declare function WSAProviderConfigChange(byval lpNotificationHandle as LPHANDLE,
 	declare function WSAConnectByList(byval s as SOCKET, byval SocketAddressList as PSOCKET_ADDRESS_LIST, byval LocalAddressLength as LPDWORD, byval LocalAddress as LPSOCKADDR, byval RemoteAddressLength as LPDWORD, byval RemoteAddress as LPSOCKADDR, byval timeout as const PTIMEVAL, byval Reserved as LPWSAOVERLAPPED) as WINBOOL
 	declare function WSAConnectByNameA(byval s as SOCKET, byval nodename as LPSTR, byval servicename as LPSTR, byval LocalAddressLength as LPDWORD, byval LocalAddress as LPSOCKADDR, byval RemoteAddressLength as LPDWORD, byval RemoteAddress as LPSOCKADDR, byval timeout as const PTIMEVAL, byval Reserved as LPWSAOVERLAPPED) as WINBOOL
 	declare function WSAConnectByNameW(byval s as SOCKET, byval nodename as LPWSTR, byval servicename as LPWSTR, byval LocalAddressLength as LPDWORD, byval LocalAddress as LPSOCKADDR, byval RemoteAddressLength as LPDWORD, byval RemoteAddress as LPSOCKADDR, byval timeout as const PTIMEVAL, byval Reserved as LPWSAOVERLAPPED) as WINBOOL
+#endif
 
-	#define WSAConnectByName __MINGW_NAME_AW(WSAConnectByName)
+#if defined(UNICODE) and (_WIN32_WINNT = &h0602)
+	#define WSAConnectByName WSAConnectByNameW
+#elseif (not defined(UNICODE)) and (_WIN32_WINNT = &h0602)
+	#define WSAConnectByName WSAConnectByNameA
+#endif
 
+#if _WIN32_WINNT = &h0602
 	declare function WSAEnumNameSpaceProvidersExA(byval lpdwBufferLength as LPDWORD, byval lpnspBuffer as LPWSANAMESPACE_INFOEXA) as INT_
 	declare function WSAEnumNameSpaceProvidersExW(byval lpdwBufferLength as LPDWORD, byval lpnspBuffer as LPWSANAMESPACE_INFOEXW) as INT_
+#endif
 
-	#define WSAEnumNameSpaceProvidersEx __MINGW_NAME_AW(WSAEnumNameSpaceProvidersEx)
+#if defined(UNICODE) and (_WIN32_WINNT = &h0602)
+	#define WSAEnumNameSpaceProvidersEx WSAEnumNameSpaceProvidersExW
+#elseif (not defined(UNICODE)) and (_WIN32_WINNT = &h0602)
+	#define WSAEnumNameSpaceProvidersEx WSAEnumNameSpaceProvidersExA
+#endif
 
+#if _WIN32_WINNT = &h0602
 	declare function WSAPoll(byval fdarray as WSAPOLLFD ptr, byval nfds as ULONG, byval timeout as INT_) as long
 	declare function WSASendMsg(byval s as SOCKET, byval lpMsg as LPWSAMSG, byval dwFlags as DWORD, byval lpNumberOfBytesSent as LPDWORD, byval lpOverlapped as LPWSAOVERLAPPED, byval lpCompletionRoutine as LPWSAOVERLAPPED_COMPLETION_ROUTINE) as long
 #endif

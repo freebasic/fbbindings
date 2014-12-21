@@ -675,7 +675,11 @@ declare function D3DXCreatePRTEngine(byval mesh as ID3DXMesh ptr, byval adjacenc
 declare function D3DXLoadMeshFromXA(byval filename as const zstring ptr, byval flags as DWORD, byval device as IDirect3DDevice9 ptr, byval adjacency as ID3DXBuffer ptr ptr, byval materials as ID3DXBuffer ptr ptr, byval effect_instances as ID3DXBuffer ptr ptr, byval material_count as DWORD ptr, byval mesh as ID3DXMesh ptr ptr) as HRESULT
 declare function D3DXLoadMeshFromXW(byval filename as const WCHAR ptr, byval flags as DWORD, byval device as IDirect3DDevice9 ptr, byval adjacency as ID3DXBuffer ptr ptr, byval materials as ID3DXBuffer ptr ptr, byval effect_instances as ID3DXBuffer ptr ptr, byval material_count as DWORD ptr, byval mesh as ID3DXMesh ptr ptr) as HRESULT
 
-#define D3DXLoadMeshFromX __MINGW_NAME_AW(D3DXLoadMeshFromX)
+#ifdef UNICODE
+	#define D3DXLoadMeshFromX D3DXLoadMeshFromXW
+#else
+	#define D3DXLoadMeshFromX D3DXLoadMeshFromXA
+#endif
 
 declare function D3DXLoadMeshFromXInMemory(byval data_ as const any ptr, byval data_size as DWORD, byval flags as DWORD, byval device as IDirect3DDevice9 ptr, byval adjacency as ID3DXBuffer ptr ptr, byval materials as ID3DXBuffer ptr ptr, byval effect_instances as ID3DXBuffer ptr ptr, byval material_count as DWORD ptr, byval mesh as ID3DXMesh ptr ptr) as HRESULT
 declare function D3DXLoadMeshFromXResource(byval module as HMODULE, byval resource as const zstring ptr, byval resource_type as const zstring ptr, byval flags as DWORD, byval device as IDirect3DDevice9 ptr, byval adjacency as ID3DXBuffer ptr ptr, byval materials as ID3DXBuffer ptr ptr, byval effect_instances as ID3DXBuffer ptr ptr, byval material_count as DWORD ptr, byval mesh as ID3DXMesh ptr ptr) as HRESULT
@@ -685,27 +689,47 @@ declare function D3DXLoadSkinMeshFromXof(byval file_data as ID3DXFileData ptr, b
 declare function D3DXLoadPRTBufferFromFileA(byval filename as const zstring ptr, byval buffer as ID3DXPRTBuffer ptr ptr) as HRESULT
 declare function D3DXLoadPRTBufferFromFileW(byval filename as const WCHAR ptr, byval buffer as ID3DXPRTBuffer ptr ptr) as HRESULT
 
-#define D3DXLoadPRTBufferFromFile __MINGW_NAME_AW(D3DXLoadPRTBufferFromFile)
+#ifdef UNICODE
+	#define D3DXLoadPRTBufferFromFile D3DXLoadPRTBufferFromFileW
+#else
+	#define D3DXLoadPRTBufferFromFile D3DXLoadPRTBufferFromFileA
+#endif
 
 declare function D3DXLoadPRTCompBufferFromFileA(byval filename as const zstring ptr, byval buffer as ID3DXPRTCompBuffer ptr ptr) as HRESULT
 declare function D3DXLoadPRTCompBufferFromFileW(byval filename as const WCHAR ptr, byval buffer as ID3DXPRTCompBuffer ptr ptr) as HRESULT
 
-#define D3DXLoadPRTCompBufferFromFile __MINGW_NAME_AW(D3DXLoadPRTCompBufferFromFile)
+#ifdef UNICODE
+	#define D3DXLoadPRTCompBufferFromFile D3DXLoadPRTCompBufferFromFileW
+#else
+	#define D3DXLoadPRTCompBufferFromFile D3DXLoadPRTCompBufferFromFileA
+#endif
 
 declare function D3DXSaveMeshToXA(byval filename as const zstring ptr, byval mesh as ID3DXMesh ptr, byval adjacency as const DWORD ptr, byval materials as const D3DXMATERIAL ptr, byval effect_instances as const D3DXEFFECTINSTANCE ptr, byval material_count as DWORD, byval format as DWORD) as HRESULT
 declare function D3DXSaveMeshToXW(byval filename as const WCHAR ptr, byval mesh as ID3DXMesh ptr, byval adjacency as const DWORD ptr, byval materials as const D3DXMATERIAL ptr, byval effect_instances as const D3DXEFFECTINSTANCE ptr, byval material_count as DWORD, byval format as DWORD) as HRESULT
 
-#define D3DXSaveMeshToX __MINGW_NAME_AW(D3DXSaveMeshToX)
+#ifdef UNICODE
+	#define D3DXSaveMeshToX D3DXSaveMeshToXW
+#else
+	#define D3DXSaveMeshToX D3DXSaveMeshToXA
+#endif
 
 declare function D3DXSavePRTBufferToFileA(byval filename as const zstring ptr, byval buffer as ID3DXPRTBuffer ptr) as HRESULT
 declare function D3DXSavePRTBufferToFileW(byval filename as const WCHAR ptr, byval buffer as ID3DXPRTBuffer ptr) as HRESULT
 
-#define D3DXSavePRTBufferToFile __MINGW_NAME_AW(D3DXSavePRTBufferToFile)
+#ifdef UNICODE
+	#define D3DXSavePRTBufferToFile D3DXSavePRTBufferToFileW
+#else
+	#define D3DXSavePRTBufferToFile D3DXSavePRTBufferToFileA
+#endif
 
 declare function D3DXSavePRTCompBufferToFileA(byval filename as const zstring ptr, byval buffer as ID3DXPRTCompBuffer ptr) as HRESULT
 declare function D3DXSavePRTCompBufferToFileW(byval filename as const WCHAR ptr, byval buffer as ID3DXPRTCompBuffer ptr) as HRESULT
 
-#define D3DXSavePRTCompBufferToFile __MINGW_NAME_AW(D3DXSavePRTCompBufferToFile)
+#ifdef UNICODE
+	#define D3DXSavePRTCompBufferToFile D3DXSavePRTCompBufferToFileW
+#else
+	#define D3DXSavePRTCompBufferToFile D3DXSavePRTCompBufferToFileA
+#endif
 
 declare function D3DXGetDeclLength(byval decl as const D3DVERTEXELEMENT9 ptr) as UINT
 declare function D3DXGetDeclVertexSize(byval decl as const D3DVERTEXELEMENT9 ptr, byval stream_idx as DWORD) as UINT

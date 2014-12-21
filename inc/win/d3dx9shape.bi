@@ -18,6 +18,10 @@ declare function D3DXCreateTeapot(byval device as IDirect3DDevice9 ptr, byval me
 declare function D3DXCreateTextA(byval device as IDirect3DDevice9 ptr, byval hdc as HDC, byval text_ as const zstring ptr, byval deviation as single, byval extrusion as single, byval mesh as ID3DXMesh ptr ptr, byval adjacency as ID3DXBuffer ptr ptr, byval glyphmetrics as GLYPHMETRICSFLOAT ptr) as HRESULT
 declare function D3DXCreateTextW(byval device as IDirect3DDevice9 ptr, byval hdc as HDC, byval text_ as const WCHAR ptr, byval deviation as single, byval extrusion as FLOAT, byval mesh as ID3DXMesh ptr ptr, byval adjacency as ID3DXBuffer ptr ptr, byval glyphmetrics as GLYPHMETRICSFLOAT ptr) as HRESULT
 
-#define D3DXCreateText __MINGW_NAME_AW(D3DXCreateText)
+#ifdef UNICODE
+	#define D3DXCreateText D3DXCreateTextW
+#else
+	#define D3DXCreateText D3DXCreateTextA
+#endif
 
 end extern

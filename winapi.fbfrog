@@ -302,3 +302,4 @@
 -nofbkeyword hiword
 -renametypedef BYTE UBYTE
 -renametypedef byte ubyte
+-fixmingwaw

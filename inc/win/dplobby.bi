@@ -250,7 +250,11 @@ type LPDPAPPLICATIONDESC as tagDPAPPLICATIONDESC ptr
 declare function DirectPlayLobbyCreateW(byval as LPGUID, byval as LPDIRECTPLAYLOBBY ptr, byval as IUnknown ptr, byval as LPVOID, byval as DWORD) as HRESULT
 declare function DirectPlayLobbyCreateA(byval as LPGUID, byval as LPDIRECTPLAYLOBBYA ptr, byval as IUnknown ptr, byval as LPVOID, byval as DWORD) as HRESULT
 
-#define DirectPlayLobbyCreate __MINGW_NAME_AW(DirectPlayLobbyCreate)
+#ifdef UNICODE
+	#define DirectPlayLobbyCreate DirectPlayLobbyCreateW
+#else
+	#define DirectPlayLobbyCreate DirectPlayLobbyCreateA
+#endif
 
 type LPDPENUMADDRESSCALLBACK as function(byval guidDataType as const GUID const ptr, byval dwDataSize as DWORD, byval lpData as LPCVOID, byval lpContext as LPVOID) as WINBOOL
 type LPDPLENUMADDRESSTYPESCALLBACK as function(byval guidDataType as const GUID const ptr, byval lpContext as LPVOID, byval dwFlags as DWORD) as WINBOOL

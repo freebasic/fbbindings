@@ -434,7 +434,11 @@ declare function IsDebuggerPresent() as WINBOOL
 declare sub OutputDebugStringA(byval lpOutputString as LPCSTR)
 declare sub OutputDebugStringW(byval lpOutputString as LPCWSTR)
 
-#define OutputDebugString __MINGW_NAME_AW(OutputDebugString)
+#ifdef UNICODE
+	#define OutputDebugString OutputDebugStringW
+#else
+	#define OutputDebugString OutputDebugStringA
+#endif
 
 declare sub DebugBreak()
 declare function ContinueDebugEvent(byval dwProcessId as DWORD, byval dwThreadId as DWORD, byval dwContinueStatus as DWORD) as WINBOOL
@@ -554,9 +558,8 @@ declare function GetTempPathW(byval nBufferLength as DWORD, byval lpBuffer as LP
 declare function GetVolumeNameForVolumeMountPointW(byval lpszVolumeMountPoint as LPCWSTR, byval lpszVolumeName as LPWSTR, byval cchBufferLength as DWORD) as WINBOOL
 declare function GetVolumePathNamesForVolumeNameW(byval lpszVolumeName as LPCWSTR, byval lpszVolumePathNames as LPWCH, byval cchBufferLength as DWORD, byval lpcchReturnLength as PDWORD) as WINBOOL
 
-#define CreateFile __MINGW_NAME_AW(CreateFile)
-
 #ifdef UNICODE
+	#define CreateFile CreateFileW
 	#define DefineDosDevice DefineDosDeviceW
 	#define DeleteVolumeMountPoint DeleteVolumeMountPointW
 	#define FindFirstVolume FindFirstVolumeW
@@ -570,22 +573,38 @@ declare function GetVolumePathNamesForVolumeNameW(byval lpszVolumeName as LPCWST
 	#define GetTempPath GetTempPathW
 	#define GetVolumeNameForVolumeMountPoint GetVolumeNameForVolumeMountPointW
 	#define GetVolumePathNamesForVolumeName GetVolumePathNamesForVolumeNameW
+	#define FindFirstChangeNotification FindFirstChangeNotificationW
+	#define FindFirstFile FindFirstFileW
+	#define GetDiskFreeSpace GetDiskFreeSpaceW
+	#define GetDriveType GetDriveTypeW
+	#define GetFileAttributes GetFileAttributesW
+	#define GetFullPathName GetFullPathNameW
+	#define GetLongPathName GetLongPathNameW
 #endif
 
-#define FindFirstChangeNotification __MINGW_NAME_AW(FindFirstChangeNotification)
-#define FindFirstFile __MINGW_NAME_AW(FindFirstFile)
-#define GetDiskFreeSpace __MINGW_NAME_AW(GetDiskFreeSpace)
-#define GetDriveType __MINGW_NAME_AW(GetDriveType)
-#define GetFileAttributes __MINGW_NAME_AW(GetFileAttributes)
-#define GetFullPathName __MINGW_NAME_AW(GetFullPathName)
-#define GetLongPathName __MINGW_NAME_AW(GetLongPathName)
-
-#if _WIN32_WINNT = &h0602
+#if defined(UNICODE) and (_WIN32_WINNT = &h0602)
 	declare function GetFinalPathNameByHandleA(byval hFile as HANDLE, byval lpszFilePath as LPSTR, byval cchFilePath as DWORD, byval dwFlags as DWORD) as DWORD
 	declare function GetFinalPathNameByHandleW(byval hFile as HANDLE, byval lpszFilePath as LPWSTR, byval cchFilePath as DWORD, byval dwFlags as DWORD) as DWORD
 	declare function GetVolumeInformationByHandleW(byval hFile as HANDLE, byval lpVolumeNameBuffer as LPWSTR, byval nVolumeNameSize as DWORD, byval lpVolumeSerialNumber as LPDWORD, byval lpMaximumComponentLength as LPDWORD, byval lpFileSystemFlags as LPDWORD, byval lpFileSystemNameBuffer as LPWSTR, byval nFileSystemNameSize as DWORD) as WINBOOL
 
-	#define GetFinalPathNameByHandle __MINGW_NAME_AW(GetFinalPathNameByHandle)
+	#define GetFinalPathNameByHandle GetFinalPathNameByHandleW
+#elseif not defined(UNICODE)
+	#define CreateFile CreateFileA
+	#define FindFirstChangeNotification FindFirstChangeNotificationA
+	#define FindFirstFile FindFirstFileA
+	#define GetDiskFreeSpace GetDiskFreeSpaceA
+	#define GetDriveType GetDriveTypeA
+	#define GetFileAttributes GetFileAttributesA
+	#define GetFullPathName GetFullPathNameA
+	#define GetLongPathName GetLongPathNameA
+#endif
+
+#if (not defined(UNICODE)) and (_WIN32_WINNT = &h0602)
+	declare function GetFinalPathNameByHandleA(byval hFile as HANDLE, byval lpszFilePath as LPSTR, byval cchFilePath as DWORD, byval dwFlags as DWORD) as DWORD
+	declare function GetFinalPathNameByHandleW(byval hFile as HANDLE, byval lpszFilePath as LPWSTR, byval cchFilePath as DWORD, byval dwFlags as DWORD) as DWORD
+	declare function GetVolumeInformationByHandleW(byval hFile as HANDLE, byval lpVolumeNameBuffer as LPWSTR, byval nVolumeNameSize as DWORD, byval lpVolumeSerialNumber as LPDWORD, byval lpMaximumComponentLength as LPDWORD, byval lpFileSystemFlags as LPDWORD, byval lpFileSystemNameBuffer as LPWSTR, byval nFileSystemNameSize as DWORD) as WINBOOL
+
+	#define GetFinalPathNameByHandle GetFinalPathNameByHandleA
 #endif
 
 type _WIN32_FILE_ATTRIBUTE_DATA
@@ -640,16 +659,32 @@ declare function SetFilePointerEx(byval hFile as HANDLE, byval liDistanceToMove 
 declare function UnlockFileEx(byval hFile as HANDLE, byval dwReserved as DWORD, byval nNumberOfBytesToUnlockLow as DWORD, byval nNumberOfBytesToUnlockHigh as DWORD, byval lpOverlapped as LPOVERLAPPED) as WINBOOL
 declare function WriteFile(byval hFile as HANDLE, byval lpBuffer as LPCVOID, byval nNumberOfBytesToWrite as DWORD, byval lpNumberOfBytesWritten as LPDWORD, byval lpOverlapped as LPOVERLAPPED) as WINBOOL
 
-#define CreateDirectory __MINGW_NAME_AW(CreateDirectory)
-#define DeleteFile __MINGW_NAME_AW(DeleteFile)
-#define FindFirstFileEx __MINGW_NAME_AW(FindFirstFileEx)
-#define FindNextFile __MINGW_NAME_AW(FindNextFile)
-#define GetDiskFreeSpaceEx __MINGW_NAME_AW(GetDiskFreeSpaceEx)
-#define GetFileAttributesEx __MINGW_NAME_AW(GetFileAttributesEx)
-#define RemoveDirectory __MINGW_NAME_AW(RemoveDirectory)
-#define SetFileAttributes __MINGW_NAME_AW(SetFileAttributes)
+#ifdef UNICODE
+	#define CreateDirectory CreateDirectoryW
+	#define DeleteFile DeleteFileW
+	#define FindFirstFileEx FindFirstFileExW
+	#define FindNextFile FindNextFileW
+	#define GetDiskFreeSpaceEx GetDiskFreeSpaceExW
+	#define GetFileAttributesEx GetFileAttributesExW
+	#define RemoveDirectory RemoveDirectoryW
+	#define SetFileAttributes SetFileAttributesW
+#endif
 
-#if _WIN32_WINNT = &h0602
+#if defined(__FB_64BIT__) and defined(UNICODE) and (_WIN32_WINNT = &h0602)
+	declare function SetFileInformationByHandle(byval hFile as HANDLE, byval FileInformationClass as FILE_INFO_BY_HANDLE_CLASS, byval lpFileInformation as LPVOID, byval dwBufferSize as DWORD) as WINBOOL
+	declare function CreateFile2(byval lpFileName as LPCWSTR, byval dwDesiredAccess as DWORD, byval dwShareMode as DWORD, byval dwCreationDisposition as DWORD, byval pCreateExParams as LPCREATEFILE2_EXTENDED_PARAMETERS) as HANDLE
+#elseif not defined(UNICODE)
+	#define CreateDirectory CreateDirectoryA
+	#define DeleteFile DeleteFileA
+	#define FindFirstFileEx FindFirstFileExA
+	#define FindNextFile FindNextFileA
+	#define GetDiskFreeSpaceEx GetDiskFreeSpaceExA
+	#define GetFileAttributesEx GetFileAttributesExA
+	#define RemoveDirectory RemoveDirectoryA
+	#define SetFileAttributes SetFileAttributesA
+#endif
+
+#if (_WIN32_WINNT = &h0602) and (((not defined(__FB_64BIT__)) and defined(UNICODE)) or (not defined(UNICODE)))
 	declare function SetFileInformationByHandle(byval hFile as HANDLE, byval FileInformationClass as FILE_INFO_BY_HANDLE_CLASS, byval lpFileInformation as LPVOID, byval dwBufferSize as DWORD) as WINBOOL
 	declare function CreateFile2(byval lpFileName as LPCWSTR, byval dwDesiredAccess as DWORD, byval dwShareMode as DWORD, byval dwCreationDisposition as DWORD, byval pCreateExParams as LPCREATEFILE2_EXTENDED_PARAMETERS) as HANDLE
 #endif
@@ -802,9 +837,16 @@ type PDLL_DIRECTORY_COOKIE as PVOID ptr
 #define GET_MODULE_HANDLE_EX_FLAG_PIN &h1
 #define GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT &h2
 #define GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS &h4
-#define ENUMRESLANGPROC __MINGW_NAME_AW(ENUMRESLANGPROC)
-#define ENUMRESNAMEPROC __MINGW_NAME_AW(ENUMRESNAMEPROC)
-#define ENUMRESTYPEPROC __MINGW_NAME_AW(ENUMRESTYPEPROC)
+
+#ifdef UNICODE
+	#define ENUMRESLANGPROC ENUMRESLANGPROCW
+	#define ENUMRESNAMEPROC ENUMRESNAMEPROCW
+	#define ENUMRESTYPEPROC ENUMRESTYPEPROCW
+#else
+	#define ENUMRESLANGPROC ENUMRESLANGPROCA
+	#define ENUMRESNAMEPROC ENUMRESNAMEPROCA
+	#define ENUMRESTYPEPROC ENUMRESTYPEPROCA
+#endif
 
 declare function FindResourceExW(byval hModule as HMODULE, byval lpType as LPCWSTR, byval lpName as LPCWSTR, byval wLanguage as WORD) as HRSRC
 declare sub FreeLibraryAndExitThread(byval hLibModule as HMODULE, byval dwExitCode as DWORD)
@@ -826,17 +868,22 @@ declare function SetDefaultDllDirectories(byval DirectoryFlags as DWORD) as WINB
 declare function GetModuleHandleExA(byval dwFlags as DWORD, byval lpModuleName as LPCSTR, byval phModule as HMODULE ptr) as WINBOOL
 declare function GetModuleHandleExW(byval dwFlags as DWORD, byval lpModuleName as LPCWSTR, byval phModule as HMODULE ptr) as WINBOOL
 
-#define PGET_MODULE_HANDLE_EX __MINGW_NAME_AW(PGET_MODULE_HANDLE_EX)
-#define GetModuleHandleEx __MINGW_NAME_AW(GetModuleHandleEx)
-
 #ifdef UNICODE
+	#define PGET_MODULE_HANDLE_EX PGET_MODULE_HANDLE_EXW
+	#define GetModuleHandleEx GetModuleHandleExW
 	#define FindResourceEx FindResourceExW
+	#define LoadString LoadStringW
+	#define GetModuleFileName GetModuleFileNameW
+	#define GetModuleHandle GetModuleHandleW
+	#define LoadLibraryEx LoadLibraryExW
+#else
+	#define PGET_MODULE_HANDLE_EX PGET_MODULE_HANDLE_EXA
+	#define GetModuleHandleEx GetModuleHandleExA
+	#define LoadString LoadStringA
+	#define GetModuleFileName GetModuleFileNameA
+	#define GetModuleHandle GetModuleHandleA
+	#define LoadLibraryEx LoadLibraryExA
 #endif
-
-#define LoadString __MINGW_NAME_AW(LoadString)
-#define GetModuleFileName __MINGW_NAME_AW(GetModuleFileName)
-#define GetModuleHandle __MINGW_NAME_AW(GetModuleHandle)
-#define LoadLibraryEx __MINGW_NAME_AW(LoadLibraryEx)
 
 declare function EnumResourceLanguagesA(byval hModule as HMODULE, byval lpType as LPCSTR, byval lpName as LPCSTR, byval lpEnumFunc as ENUMRESLANGPROCA, byval lParam as LONG_PTR) as WINBOOL
 declare function EnumResourceLanguagesW(byval hModule as HMODULE, byval lpType as LPCWSTR, byval lpName as LPCWSTR, byval lpEnumFunc as ENUMRESLANGPROCW, byval lParam as LONG_PTR) as WINBOOL
@@ -849,10 +896,16 @@ declare function EnumResourceLanguagesW(byval hModule as HMODULE, byval lpType a
 	declare function EnumResourceTypesExA(byval hModule as HMODULE, byval lpEnumFunc as ENUMRESTYPEPROCA, byval lParam as LONG_PTR, byval dwFlags as DWORD, byval LangId as LANGID) as WINBOOL
 	declare function EnumResourceTypesExW(byval hModule as HMODULE, byval lpEnumFunc as ENUMRESTYPEPROCW, byval lParam as LONG_PTR, byval dwFlags as DWORD, byval LangId as LANGID) as WINBOOL
 	declare function QueryOptionalDelayLoadedAPI(byval CallerModule as HMODULE, byval lpDllName as LPCSTR, byval lpProcName as LPCSTR, byval Reserved as DWORD) as WINBOOL
+#endif
 
-	#define EnumResourceLanguagesEx __MINGW_NAME_AW(EnumResourceLanguagesEx)
-	#define EnumResourceNamesEx __MINGW_NAME_AW(EnumResourceNamesEx)
-	#define EnumResourceTypesEx __MINGW_NAME_AW(EnumResourceTypesEx)
+#if defined(UNICODE) and (_WIN32_WINNT = &h0602)
+	#define EnumResourceLanguagesEx EnumResourceLanguagesExW
+	#define EnumResourceNamesEx EnumResourceNamesExW
+	#define EnumResourceTypesEx EnumResourceTypesExW
+#elseif (not defined(UNICODE)) and (_WIN32_WINNT = &h0602)
+	#define EnumResourceLanguagesEx EnumResourceLanguagesExA
+	#define EnumResourceNamesEx EnumResourceNamesExA
+	#define EnumResourceTypesEx EnumResourceTypesExA
 #endif
 
 declare function DisableThreadLibraryCalls(byval hLibModule as HMODULE) as WINBOOL
@@ -1022,15 +1075,28 @@ declare function SearchPathA(byval lpPath as LPCSTR, byval lpFileName as LPCSTR,
 declare function NeedCurrentDirectoryForExePathA(byval ExeName as LPCSTR) as WINBOOL
 declare function NeedCurrentDirectoryForExePathW(byval ExeName as LPCWSTR) as WINBOOL
 
-#define ExpandEnvironmentStrings __MINGW_NAME_AW(ExpandEnvironmentStrings)
-#define FreeEnvironmentStrings __MINGW_NAME_AW(FreeEnvironmentStrings)
-#define GetCommandLine __MINGW_NAME_AW(GetCommandLine)
-#define GetCurrentDirectory __MINGW_NAME_AW(GetCurrentDirectory)
-#define GetEnvironmentVariable __MINGW_NAME_AW(GetEnvironmentVariable)
-#define NeedCurrentDirectoryForExePath __MINGW_NAME_AW(NeedCurrentDirectoryForExePath)
-#define SearchPath __MINGW_NAME_AW(SearchPath)
-#define SetCurrentDirectory __MINGW_NAME_AW(SetCurrentDirectory)
-#define SetEnvironmentVariable __MINGW_NAME_AW(SetEnvironmentVariable)
+#ifdef UNICODE
+	#define ExpandEnvironmentStrings ExpandEnvironmentStringsW
+	#define FreeEnvironmentStrings FreeEnvironmentStringsW
+	#define GetCommandLine GetCommandLineW
+	#define GetCurrentDirectory GetCurrentDirectoryW
+	#define GetEnvironmentVariable GetEnvironmentVariableW
+	#define NeedCurrentDirectoryForExePath NeedCurrentDirectoryForExePathW
+	#define SearchPath SearchPathW
+	#define SetCurrentDirectory SetCurrentDirectoryW
+	#define SetEnvironmentVariable SetEnvironmentVariableW
+#else
+	#define ExpandEnvironmentStrings ExpandEnvironmentStringsA
+	#define FreeEnvironmentStrings FreeEnvironmentStringsA
+	#define GetCommandLine GetCommandLineA
+	#define GetCurrentDirectory GetCurrentDirectoryA
+	#define GetEnvironmentVariable GetEnvironmentVariableA
+	#define NeedCurrentDirectoryForExePath NeedCurrentDirectoryForExePathA
+	#define SearchPath SearchPathA
+	#define SetCurrentDirectory SetCurrentDirectoryA
+	#define SetEnvironmentVariable SetEnvironmentVariableA
+#endif
+
 #define _PROCESSTHREADSAPI_H_
 
 #if (_WIN32_WINNT = &h0400) or (_WIN32_WINNT = &h0502)
@@ -1159,7 +1225,11 @@ declare function GetCurrentProcessorNumber() as DWORD
 declare function CreateProcessA(byval lpApplicationName as LPCSTR, byval lpCommandLine as LPSTR, byval lpProcessAttributes as LPSECURITY_ATTRIBUTES, byval lpThreadAttributes as LPSECURITY_ATTRIBUTES, byval bInheritHandles as WINBOOL, byval dwCreationFlags as DWORD, byval lpEnvironment as LPVOID, byval lpCurrentDirectory as LPCSTR, byval lpStartupInfo as LPSTARTUPINFOA, byval lpProcessInformation as LPPROCESS_INFORMATION) as WINBOOL
 declare function CreateProcessW(byval lpApplicationName as LPCWSTR, byval lpCommandLine as LPWSTR, byval lpProcessAttributes as LPSECURITY_ATTRIBUTES, byval lpThreadAttributes as LPSECURITY_ATTRIBUTES, byval bInheritHandles as WINBOOL, byval dwCreationFlags as DWORD, byval lpEnvironment as LPVOID, byval lpCurrentDirectory as LPCWSTR, byval lpStartupInfo as LPSTARTUPINFOW, byval lpProcessInformation as LPPROCESS_INFORMATION) as WINBOOL
 
-#define CreateProcess __MINGW_NAME_AW(CreateProcess)
+#ifdef UNICODE
+	#define CreateProcess CreateProcessW
+#else
+	#define CreateProcess CreateProcessA
+#endif
 
 declare function CreateProcessAsUserW(byval hToken as HANDLE, byval lpApplicationName as LPCWSTR, byval lpCommandLine as LPWSTR, byval lpProcessAttributes as LPSECURITY_ATTRIBUTES, byval lpThreadAttributes as LPSECURITY_ATTRIBUTES, byval bInheritHandles as WINBOOL, byval dwCreationFlags as DWORD, byval lpEnvironment as LPVOID, byval lpCurrentDirectory as LPCWSTR, byval lpStartupInfo as LPSTARTUPINFOW, byval lpProcessInformation as LPPROCESS_INFORMATION) as WINBOOL
 
@@ -1469,21 +1539,26 @@ declare sub WakeByAddressAll(byval Address as PVOID)
 	declare function CreateEventExA(byval lpEventAttributes as LPSECURITY_ATTRIBUTES, byval lpName as LPCSTR, byval dwFlags as DWORD, byval dwDesiredAccess as DWORD) as HANDLE
 	declare function CreateEventExW(byval lpEventAttributes as LPSECURITY_ATTRIBUTES, byval lpName as LPCWSTR, byval dwFlags as DWORD, byval dwDesiredAccess as DWORD) as HANDLE
 	declare function CreateSemaphoreExW(byval lpSemaphoreAttributes as LPSECURITY_ATTRIBUTES, byval lInitialCount as LONG, byval lMaximumCount as LONG, byval lpName as LPCWSTR, byval dwFlags as DWORD, byval dwDesiredAccess as DWORD) as HANDLE
-
-	#define CreateMutexEx __MINGW_NAME_AW(CreateMutexEx)
-	#define CreateEventEx __MINGW_NAME_AW(CreateEventEx)
 #endif
 
 #if defined(UNICODE) and (_WIN32_WINNT = &h0602)
+	#define CreateMutexEx CreateMutexExW
+	#define CreateEventEx CreateEventExW
 	#define CreateSemaphoreEx CreateSemaphoreExW
 #endif
 
 #ifdef UNICODE
 	#define OpenMutex OpenMutexW
 	#define OpenSemaphore OpenSemaphoreW
+	#define OpenEvent OpenEventW
+#elseif (not defined(UNICODE)) and (_WIN32_WINNT = &h0602)
+	#define CreateMutexEx CreateMutexExA
+	#define CreateEventEx CreateEventExA
 #endif
 
-#define OpenEvent __MINGW_NAME_AW(OpenEvent)
+#ifndef UNICODE
+	#define OpenEvent OpenEventA
+#endif
 
 type PTIMERAPCROUTINE as sub(byval lpArgToCompletionRoutine as LPVOID, byval dwTimerLowValue as DWORD, byval dwTimerHighValue as DWORD)
 type SYNCHRONIZATION_BARRIER as RTL_BARRIER
@@ -1526,11 +1601,13 @@ declare function SignalObjectAndWait(byval hObjectToSignal as HANDLE, byval hObj
 	declare function SetWaitableTimerEx(byval hTimer as HANDLE, byval lpDueTime as const LARGE_INTEGER ptr, byval lPeriod as LONG, byval pfnCompletionRoutine as PTIMERAPCROUTINE, byval lpArgToCompletionRoutine as LPVOID, byval WakeContext as PREASON_CONTEXT, byval TolerableDelay as ULONG) as WINBOOL
 #endif
 
-#define CreateMutex __MINGW_NAME_AW(CreateMutex)
-#define CreateEvent __MINGW_NAME_AW(CreateEvent)
-
 #ifdef UNICODE
+	#define CreateMutex CreateMutexW
+	#define CreateEvent CreateEventW
 	#define OpenWaitableTimer OpenWaitableTimerW
+#else
+	#define CreateMutex CreateMutexA
+	#define CreateEvent CreateEventA
 #endif
 
 #define _SYSINFOAPI_H_
@@ -1628,14 +1705,19 @@ declare function GetSystemFirmwareTable(byval FirmwareTableProviderSignature as 
 	declare function GetOsSafeBootMode(byval Flags as PDWORD) as WINBOOL
 #endif
 
-#define GetSystemDirectory __MINGW_NAME_AW(GetSystemDirectory)
-#define GetWindowsDirectory __MINGW_NAME_AW(GetWindowsDirectory)
-#define GetSystemWindowsDirectory __MINGW_NAME_AW(GetSystemWindowsDirectory)
-#define GetComputerNameEx __MINGW_NAME_AW(GetComputerNameEx)
-#define GetVersionEx __MINGW_NAME_AW(GetVersionEx)
-
 #ifdef UNICODE
+	#define GetSystemDirectory GetSystemDirectoryW
+	#define GetWindowsDirectory GetWindowsDirectoryW
+	#define GetSystemWindowsDirectory GetSystemWindowsDirectoryW
+	#define GetComputerNameEx GetComputerNameExW
+	#define GetVersionEx GetVersionExW
 	#define SetComputerNameEx SetComputerNameExW
+#else
+	#define GetSystemDirectory GetSystemDirectoryA
+	#define GetWindowsDirectory GetWindowsDirectoryA
+	#define GetSystemWindowsDirectory GetSystemWindowsDirectoryA
+	#define GetComputerNameEx GetComputerNameExA
+	#define GetVersionEx GetVersionExA
 #endif
 
 #define _SYSTEMTOPOLOGY_H_
@@ -2423,15 +2505,20 @@ declare function SetProcessWorkingSetSize(byval hProcess as HANDLE, byval dwMini
 declare sub FatalExit(byval ExitCode as long)
 declare function SetEnvironmentStringsA(byval NewEnvironment as LPCH) as WINBOOL
 
-#ifndef UNICODE
-	#define SetEnvironmentStrings SetEnvironmentStringsA
-	#define GetShortPathName GetShortPathNameA
+#ifdef UNICODE
+	#define GetBinaryType GetBinaryTypeW
 #endif
 
-#define GetBinaryType __MINGW_NAME_AW(GetBinaryType)
+#if defined(UNICODE) and (_WIN32_WINNT = &h0602)
+	#define GetLongPathNameTransacted GetLongPathNameTransactedW
+#elseif not defined(UNICODE)
+	#define SetEnvironmentStrings SetEnvironmentStringsA
+	#define GetShortPathName GetShortPathNameA
+	#define GetBinaryType GetBinaryTypeA
+#endif
 
-#if _WIN32_WINNT = &h0602
-	#define GetLongPathNameTransacted __MINGW_NAME_AW(GetLongPathNameTransacted)
+#if (not defined(UNICODE)) and (_WIN32_WINNT = &h0602)
+	#define GetLongPathNameTransacted GetLongPathNameTransactedA
 #endif
 
 declare sub RaiseFailFastException(byval pExceptionRecord as PEXCEPTION_RECORD, byval pContextRecord as PCONTEXT, byval dwFlags as DWORD)
@@ -2607,13 +2694,22 @@ declare function FileTimeToDosDateTime(byval lpFileTime as const FILETIME ptr, b
 declare function DosDateTimeToFileTime(byval wFatDate as WORD, byval wFatTime as WORD, byval lpFileTime as LPFILETIME) as WINBOOL
 declare function SetSystemTimeAdjustment(byval dwTimeAdjustment as DWORD, byval bTimeAdjustmentDisabled as WINBOOL) as WINBOOL
 
-#define SetFileShortName __MINGW_NAME_AW(SetFileShortName)
+#ifdef UNICODE
+	#define SetFileShortName SetFileShortNameW
+#else
+	#define SetFileShortName SetFileShortNameA
+#endif
 
 declare function MulDiv(byval nNumber as long, byval nNumerator as long, byval nDenominator as long) as long
 declare function FormatMessageA(byval dwFlags as DWORD, byval lpSource as LPCVOID, byval dwMessageId as DWORD, byval dwLanguageId as DWORD, byval lpBuffer as LPSTR, byval nSize as DWORD, byval Arguments as va_list ptr) as DWORD
 declare function FormatMessageW(byval dwFlags as DWORD, byval lpSource as LPCVOID, byval dwMessageId as DWORD, byval dwLanguageId as DWORD, byval lpBuffer as LPWSTR, byval nSize as DWORD, byval Arguments as va_list ptr) as DWORD
 
-#define FormatMessage __MINGW_NAME_AW(FormatMessage)
+#ifdef UNICODE
+	#define FormatMessage FormatMessageW
+#else
+	#define FormatMessage FormatMessageA
+#endif
+
 #define FORMAT_MESSAGE_IGNORE_INSERTS &h00000200
 #define FORMAT_MESSAGE_FROM_STRING &h00000400
 #define FORMAT_MESSAGE_FROM_HMODULE &h00000800
@@ -2683,17 +2779,31 @@ declare function BackupRead(byval hFile as HANDLE, byval lpBuffer as LPBYTE, byv
 declare function BackupSeek(byval hFile as HANDLE, byval dwLowBytesToSeek as DWORD, byval dwHighBytesToSeek as DWORD, byval lpdwLowByteSeeked as LPDWORD, byval lpdwHighByteSeeked as LPDWORD, byval lpContext as LPVOID ptr) as WINBOOL
 declare function BackupWrite(byval hFile as HANDLE, byval lpBuffer as LPBYTE, byval nNumberOfBytesToWrite as DWORD, byval lpNumberOfBytesWritten as LPDWORD, byval bAbort as WINBOOL, byval bProcessSecurity as WINBOOL, byval lpContext as LPVOID ptr) as WINBOOL
 
-#define CreateMailslot __MINGW_NAME_AW(CreateMailslot)
-#define EncryptFile __MINGW_NAME_AW(EncryptFile)
-#define DecryptFile __MINGW_NAME_AW(DecryptFile)
-#define FileEncryptionStatus __MINGW_NAME_AW(FileEncryptionStatus)
-#define OpenEncryptedFileRaw __MINGW_NAME_AW(OpenEncryptedFileRaw)
-#define lstrcmp __MINGW_NAME_AW(lstrcmp)
-#define lstrcmpi __MINGW_NAME_AW(lstrcmpi)
-#define lstrcpyn __MINGW_NAME_AW(lstrcpyn)
-#define lstrcpy __MINGW_NAME_AW(lstrcpy)
-#define lstrcat __MINGW_NAME_AW(lstrcat)
-#define lstrlen __MINGW_NAME_AW(lstrlen)
+#ifdef UNICODE
+	#define CreateMailslot CreateMailslotW
+	#define EncryptFile EncryptFileW
+	#define DecryptFile DecryptFileW
+	#define FileEncryptionStatus FileEncryptionStatusW
+	#define OpenEncryptedFileRaw OpenEncryptedFileRawW
+	#define lstrcmp lstrcmpW
+	#define lstrcmpi lstrcmpiW
+	#define lstrcpyn lstrcpynW
+	#define lstrcpy lstrcpyW
+	#define lstrcat lstrcatW
+	#define lstrlen lstrlenW
+#else
+	#define CreateMailslot CreateMailslotA
+	#define EncryptFile EncryptFileA
+	#define DecryptFile DecryptFileA
+	#define FileEncryptionStatus FileEncryptionStatusA
+	#define OpenEncryptedFileRaw OpenEncryptedFileRawA
+	#define lstrcmp lstrcmpA
+	#define lstrcmpi lstrcmpiA
+	#define lstrcpyn lstrcpynA
+	#define lstrcpy lstrcpyA
+	#define lstrcat lstrcatA
+	#define lstrlen lstrlenA
+#endif
 
 type _WIN32_STREAM_ID
 	dwStreamId as DWORD
@@ -2763,7 +2873,12 @@ type LPWIN32_STREAM_ID as _WIN32_STREAM_ID ptr
 #endif
 
 #define SHUTDOWN_NORETRY &h1
-#define CreateSemaphore __MINGW_NAME_AW(CreateSemaphore)
+
+#ifdef UNICODE
+	#define CreateSemaphore CreateSemaphoreW
+#else
+	#define CreateSemaphore CreateSemaphoreA
+#endif
 
 declare function CreateSemaphoreW(byval lpSemaphoreAttributes as LPSECURITY_ATTRIBUTES, byval lInitialCount as LONG, byval lMaximumCount as LONG, byval lpName as LPCWSTR) as HANDLE
 declare function OpenMutexA(byval dwDesiredAccess as DWORD, byval bInheritHandle as WINBOOL, byval lpName as LPCSTR) as HANDLE
@@ -2785,19 +2900,18 @@ declare function GetLogicalDriveStringsA(byval nBufferLength as DWORD, byval lpB
 declare function LoadLibraryA(byval lpLibFileName as LPCSTR) as HMODULE
 declare function LoadLibraryW(byval lpLibFileName as LPCWSTR) as HMODULE
 
-#ifndef UNICODE
+#ifdef UNICODE
+	#define CreateWaitableTimer CreateWaitableTimerW
+	#define LoadLibrary LoadLibraryW
+#elseif (not defined(UNICODE)) and (_WIN32_WINNT = &h0602)
 	#define OpenMutex OpenMutexA
 	#define OpenSemaphore OpenSemaphoreA
 	#define OpenWaitableTimer OpenWaitableTimerA
 	#define CreateFileMapping CreateFileMappingA
 	#define OpenFileMapping OpenFileMappingA
 	#define GetLogicalDriveStrings GetLogicalDriveStringsA
-#endif
-
-#define CreateWaitableTimer __MINGW_NAME_AW(CreateWaitableTimer)
-#define LoadLibrary __MINGW_NAME_AW(LoadLibrary)
-
-#if (not defined(UNICODE)) and (_WIN32_WINNT = &h0602)
+	#define CreateWaitableTimer CreateWaitableTimerA
+	#define LoadLibrary LoadLibraryA
 	#define CreateSemaphoreEx CreateSemaphoreExA
 	#define CreateWaitableTimerEx CreateWaitableTimerExA
 	#define CreateFileMappingNuma CreateFileMappingNumaA
@@ -2810,8 +2924,15 @@ declare function LoadLibraryW(byval lpLibFileName as LPCWSTR) as HMODULE
 
 	declare function QueryFullProcessImageNameA(byval hProcess as HANDLE, byval dwFlags as DWORD, byval lpExeName as LPSTR, byval lpdwSize as PDWORD) as WINBOOL
 	declare function QueryFullProcessImageNameW(byval hProcess as HANDLE, byval dwFlags as DWORD, byval lpExeName as LPWSTR, byval lpdwSize as PDWORD) as WINBOOL
+#endif
 
-	#define QueryFullProcessImageName __MINGW_NAME_AW(QueryFullProcessImageName)
+#if defined(UNICODE) and (_WIN32_WINNT = &h0602)
+	#define QueryFullProcessImageName QueryFullProcessImageNameW
+#elseif (not defined(UNICODE)) and (_WIN32_WINNT = &h0602)
+	#define QueryFullProcessImageName QueryFullProcessImageNameA
+#endif
+
+#if _WIN32_WINNT = &h0602
 	#define PROC_THREAD_ATTRIBUTE_NUMBER &h0000ffff
 	#define PROC_THREAD_ATTRIBUTE_THREAD &h00010000
 	#define PROC_THREAD_ATTRIBUTE_INPUT &h00020000
@@ -2878,6 +2999,15 @@ declare function LoadLibraryW(byval lpLibFileName as LPCWSTR) as HMODULE
 	#define PROCESS_CREATION_MITIGATION_POLICY_EXTENSION_POINT_DISABLE_ALWAYS_ON (&h00000001ull shl 32)
 	#define PROCESS_CREATION_MITIGATION_POLICY_EXTENSION_POINT_DISABLE_ALWAYS_OFF (&h00000002ull shl 32)
 	#define PROCESS_CREATION_MITIGATION_POLICY_EXTENSION_POINT_DISABLE_RESERVED (&h00000003ull shl 32)
+#elseif (not defined(UNICODE)) and ((_WIN32_WINNT = &h0400) or (_WIN32_WINNT = &h0502))
+	#define OpenMutex OpenMutexA
+	#define OpenSemaphore OpenSemaphoreA
+	#define OpenWaitableTimer OpenWaitableTimerA
+	#define CreateFileMapping CreateFileMappingA
+	#define OpenFileMapping OpenFileMappingA
+	#define GetLogicalDriveStrings GetLogicalDriveStringsA
+	#define CreateWaitableTimer CreateWaitableTimerA
+	#define LoadLibrary LoadLibraryA
 #endif
 
 #define ATOM_FLAG_GLOBAL &h2
@@ -2956,53 +3086,92 @@ declare function WritePrivateProfileStructW(byval lpszSection as LPCWSTR, byval 
 declare function GetTempPathA(byval nBufferLength as DWORD, byval lpBuffer as LPSTR) as DWORD
 declare function GetTempFileNameA(byval lpPathName as LPCSTR, byval lpPrefixString as LPCSTR, byval uUnique as UINT, byval lpTempFileName as LPSTR) as UINT
 
-#ifndef UNICODE
+#ifdef UNICODE
+	#define FatalAppExit FatalAppExitW
+	#define GetFirmwareEnvironmentVariable GetFirmwareEnvironmentVariableW
+	#define SetFirmwareEnvironmentVariable SetFirmwareEnvironmentVariableW
+	#define FindResource FindResourceW
+	#define EnumResourceTypes EnumResourceTypesW
+	#define EnumResourceNames EnumResourceNamesW
+	#define EnumResourceLanguages EnumResourceLanguagesW
+	#define BeginUpdateResource BeginUpdateResourceW
+	#define UpdateResource UpdateResourceW
+	#define EndUpdateResource EndUpdateResourceW
+	#define GlobalAddAtom GlobalAddAtomW
+	#define GlobalAddAtomEx GlobalAddAtomExW
+	#define GlobalFindAtom GlobalFindAtomW
+	#define GlobalGetAtomName GlobalGetAtomNameW
+	#define AddAtom AddAtomW
+	#define FindAtom FindAtomW
+	#define GetAtomName GetAtomNameW
+	#define GetProfileInt GetProfileIntW
+	#define GetProfileString GetProfileStringW
+	#define WriteProfileString WriteProfileStringW
+	#define GetProfileSection GetProfileSectionW
+	#define WriteProfileSection WriteProfileSectionW
+	#define GetPrivateProfileInt GetPrivateProfileIntW
+	#define GetPrivateProfileString GetPrivateProfileStringW
+	#define WritePrivateProfileString WritePrivateProfileStringW
+	#define GetPrivateProfileSection GetPrivateProfileSectionW
+	#define WritePrivateProfileSection WritePrivateProfileSectionW
+	#define GetPrivateProfileSectionNames GetPrivateProfileSectionNamesW
+	#define GetPrivateProfileStruct GetPrivateProfileStructW
+	#define WritePrivateProfileStruct WritePrivateProfileStructW
+#endif
+
+#if defined(UNICODE) and (_WIN32_WINNT = &h0602)
+	#define GetFirmwareEnvironmentVariableEx GetFirmwareEnvironmentVariableExW
+	#define SetFirmwareEnvironmentVariableEx SetFirmwareEnvironmentVariableExW
+#elseif not defined(UNICODE)
 	#define GetStartupInfo GetStartupInfoA
 	#define FindResourceEx FindResourceExA
 	#define GetTempPath GetTempPathA
 	#define GetTempFileName GetTempFileNameA
+	#define FatalAppExit FatalAppExitA
+	#define GetFirmwareEnvironmentVariable GetFirmwareEnvironmentVariableA
+	#define SetFirmwareEnvironmentVariable SetFirmwareEnvironmentVariableA
+	#define FindResource FindResourceA
+	#define EnumResourceTypes EnumResourceTypesA
+	#define EnumResourceNames EnumResourceNamesA
+	#define EnumResourceLanguages EnumResourceLanguagesA
+	#define BeginUpdateResource BeginUpdateResourceA
+	#define UpdateResource UpdateResourceA
+	#define EndUpdateResource EndUpdateResourceA
+	#define GlobalAddAtom GlobalAddAtomA
+	#define GlobalAddAtomEx GlobalAddAtomExA
+	#define GlobalFindAtom GlobalFindAtomA
+	#define GlobalGetAtomName GlobalGetAtomNameA
+	#define AddAtom AddAtomA
+	#define FindAtom FindAtomA
+	#define GetAtomName GetAtomNameA
+	#define GetProfileInt GetProfileIntA
+	#define GetProfileString GetProfileStringA
+	#define WriteProfileString WriteProfileStringA
+	#define GetProfileSection GetProfileSectionA
+	#define WriteProfileSection WriteProfileSectionA
+	#define GetPrivateProfileInt GetPrivateProfileIntA
+	#define GetPrivateProfileString GetPrivateProfileStringA
+	#define WritePrivateProfileString WritePrivateProfileStringA
+	#define GetPrivateProfileSection GetPrivateProfileSectionA
+	#define WritePrivateProfileSection WritePrivateProfileSectionA
+	#define GetPrivateProfileSectionNames GetPrivateProfileSectionNamesA
+	#define GetPrivateProfileStruct GetPrivateProfileStructA
+	#define WritePrivateProfileStruct WritePrivateProfileStructA
 #endif
 
-#define FatalAppExit __MINGW_NAME_AW(FatalAppExit)
-#define GetFirmwareEnvironmentVariable __MINGW_NAME_AW(GetFirmwareEnvironmentVariable)
-#define SetFirmwareEnvironmentVariable __MINGW_NAME_AW(SetFirmwareEnvironmentVariable)
-#define FindResource __MINGW_NAME_AW(FindResource)
-#define EnumResourceTypes __MINGW_NAME_AW(EnumResourceTypes)
-#define EnumResourceNames __MINGW_NAME_AW(EnumResourceNames)
-#define EnumResourceLanguages __MINGW_NAME_AW(EnumResourceLanguages)
-#define BeginUpdateResource __MINGW_NAME_AW(BeginUpdateResource)
-#define UpdateResource __MINGW_NAME_AW(UpdateResource)
-#define EndUpdateResource __MINGW_NAME_AW(EndUpdateResource)
-#define GlobalAddAtom __MINGW_NAME_AW(GlobalAddAtom)
-#define GlobalAddAtomEx __MINGW_NAME_AW(GlobalAddAtomEx)
-#define GlobalFindAtom __MINGW_NAME_AW(GlobalFindAtom)
-#define GlobalGetAtomName __MINGW_NAME_AW(GlobalGetAtomName)
-#define AddAtom __MINGW_NAME_AW(AddAtom)
-#define FindAtom __MINGW_NAME_AW(FindAtom)
-#define GetAtomName __MINGW_NAME_AW(GetAtomName)
-#define GetProfileInt __MINGW_NAME_AW(GetProfileInt)
-#define GetProfileString __MINGW_NAME_AW(GetProfileString)
-#define WriteProfileString __MINGW_NAME_AW(WriteProfileString)
-#define GetProfileSection __MINGW_NAME_AW(GetProfileSection)
-#define WriteProfileSection __MINGW_NAME_AW(WriteProfileSection)
-#define GetPrivateProfileInt __MINGW_NAME_AW(GetPrivateProfileInt)
-#define GetPrivateProfileString __MINGW_NAME_AW(GetPrivateProfileString)
-#define WritePrivateProfileString __MINGW_NAME_AW(WritePrivateProfileString)
-#define GetPrivateProfileSection __MINGW_NAME_AW(GetPrivateProfileSection)
-#define WritePrivateProfileSection __MINGW_NAME_AW(WritePrivateProfileSection)
-#define GetPrivateProfileSectionNames __MINGW_NAME_AW(GetPrivateProfileSectionNames)
-#define GetPrivateProfileStruct __MINGW_NAME_AW(GetPrivateProfileStruct)
-#define WritePrivateProfileStruct __MINGW_NAME_AW(WritePrivateProfileStruct)
-
-#if _WIN32_WINNT = &h0602
-	#define GetFirmwareEnvironmentVariableEx __MINGW_NAME_AW(GetFirmwareEnvironmentVariableEx)
-	#define SetFirmwareEnvironmentVariableEx __MINGW_NAME_AW(SetFirmwareEnvironmentVariableEx)
+#if (not defined(UNICODE)) and (_WIN32_WINNT = &h0602)
+	#define GetFirmwareEnvironmentVariableEx GetFirmwareEnvironmentVariableExA
+	#define SetFirmwareEnvironmentVariableEx SetFirmwareEnvironmentVariableExA
 #endif
 
 declare function GetSystemWow64DirectoryA(byval lpBuffer as LPSTR, byval uSize as UINT) as UINT
 declare function GetSystemWow64DirectoryW(byval lpBuffer as LPWSTR, byval uSize as UINT) as UINT
 
-#define GetSystemWow64Directory __MINGW_NAME_AW(GetSystemWow64Directory)
+#ifdef UNICODE
+	#define GetSystemWow64Directory GetSystemWow64DirectoryW
+#else
+	#define GetSystemWow64Directory GetSystemWow64DirectoryA
+#endif
 
 declare function Wow64EnableWow64FsRedirection(byval Wow64FsEnableRedirection as BOOLEAN) as BOOLEAN
 
@@ -3015,17 +3184,30 @@ type PGET_SYSTEM_WOW64_DIRECTORY_W as function(byval lpBuffer as LPWSTR, byval u
 #define GET_SYSTEM_WOW64_DIRECTORY_NAME_W_A "GetSystemWow64DirectoryW"
 #define GET_SYSTEM_WOW64_DIRECTORY_NAME_W_W wstr("GetSystemWow64DirectoryW")
 #define GET_SYSTEM_WOW64_DIRECTORY_NAME_W_T TEXT("GetSystemWow64DirectoryW")
-#define GET_SYSTEM_WOW64_DIRECTORY_NAME_T_A __MINGW_NAME_UAW_EXT(GET_SYSTEM_WOW64_DIRECTORY_NAME, A)
-#define GET_SYSTEM_WOW64_DIRECTORY_NAME_T_W __MINGW_NAME_UAW_EXT(GET_SYSTEM_WOW64_DIRECTORY_NAME, W)
-#define GET_SYSTEM_WOW64_DIRECTORY_NAME_T_T __MINGW_NAME_UAW_EXT(GET_SYSTEM_WOW64_DIRECTORY_NAME, T)
+
+#ifdef UNICODE
+	#define GET_SYSTEM_WOW64_DIRECTORY_NAME_T_A GET_SYSTEM_WOW64_DIRECTORY_NAME_W_A
+	#define GET_SYSTEM_WOW64_DIRECTORY_NAME_T_W GET_SYSTEM_WOW64_DIRECTORY_NAME_W_W
+	#define GET_SYSTEM_WOW64_DIRECTORY_NAME_T_T GET_SYSTEM_WOW64_DIRECTORY_NAME_W_T
+#else
+	#define GET_SYSTEM_WOW64_DIRECTORY_NAME_T_A GET_SYSTEM_WOW64_DIRECTORY_NAME_A_A
+	#define GET_SYSTEM_WOW64_DIRECTORY_NAME_T_W GET_SYSTEM_WOW64_DIRECTORY_NAME_A_W
+	#define GET_SYSTEM_WOW64_DIRECTORY_NAME_T_T GET_SYSTEM_WOW64_DIRECTORY_NAME_A_T
+#endif
 
 declare function SetDllDirectoryA(byval lpPathName as LPCSTR) as WINBOOL
 declare function SetDllDirectoryW(byval lpPathName as LPCWSTR) as WINBOOL
 declare function GetDllDirectoryA(byval nBufferLength as DWORD, byval lpBuffer as LPSTR) as DWORD
 declare function GetDllDirectoryW(byval nBufferLength as DWORD, byval lpBuffer as LPWSTR) as DWORD
 
-#define SetDllDirectory __MINGW_NAME_AW(SetDllDirectory)
-#define GetDllDirectory __MINGW_NAME_AW(GetDllDirectory)
+#ifdef UNICODE
+	#define SetDllDirectory SetDllDirectoryW
+	#define GetDllDirectory GetDllDirectoryW
+#else
+	#define SetDllDirectory SetDllDirectoryA
+	#define GetDllDirectory GetDllDirectoryA
+#endif
+
 #define BASE_SEARCH_PATH_ENABLE_SAFE_SEARCHMODE &h1
 #define BASE_SEARCH_PATH_DISABLE_SAFE_SEARCHMODE &h10000
 #define BASE_SEARCH_PATH_PERMANENT &h8000
@@ -3035,7 +3217,11 @@ declare function SetSearchPathMode(byval Flags as DWORD) as WINBOOL
 declare function CreateDirectoryExA(byval lpTemplateDirectory as LPCSTR, byval lpNewDirectory as LPCSTR, byval lpSecurityAttributes as LPSECURITY_ATTRIBUTES) as WINBOOL
 declare function CreateDirectoryExW(byval lpTemplateDirectory as LPCWSTR, byval lpNewDirectory as LPCWSTR, byval lpSecurityAttributes as LPSECURITY_ATTRIBUTES) as WINBOOL
 
-#define CreateDirectoryEx __MINGW_NAME_AW(CreateDirectoryEx)
+#ifdef UNICODE
+	#define CreateDirectoryEx CreateDirectoryExW
+#elseif (not defined(UNICODE)) and ((defined(__FB_64BIT__) and (_WIN32_WINNT = &h0602)) or (not defined(__FB_64BIT__)))
+	#define CreateDirectoryEx CreateDirectoryExA
+#endif
 
 #if _WIN32_WINNT = &h0602
 	declare function CreateDirectoryTransactedA(byval lpTemplateDirectory as LPCSTR, byval lpNewDirectory as LPCSTR, byval lpSecurityAttributes as LPSECURITY_ATTRIBUTES, byval hTransaction as HANDLE) as WINBOOL
@@ -3044,10 +3230,18 @@ declare function CreateDirectoryExW(byval lpTemplateDirectory as LPCWSTR, byval 
 	declare function RemoveDirectoryTransactedW(byval lpPathName as LPCWSTR, byval hTransaction as HANDLE) as WINBOOL
 	declare function GetFullPathNameTransactedA(byval lpFileName as LPCSTR, byval nBufferLength as DWORD, byval lpBuffer as LPSTR, byval lpFilePart as LPSTR ptr, byval hTransaction as HANDLE) as DWORD
 	declare function GetFullPathNameTransactedW(byval lpFileName as LPCWSTR, byval nBufferLength as DWORD, byval lpBuffer as LPWSTR, byval lpFilePart as LPWSTR ptr, byval hTransaction as HANDLE) as DWORD
+#endif
 
-	#define CreateDirectoryTransacted __MINGW_NAME_AW(CreateDirectoryTransacted)
-	#define RemoveDirectoryTransacted __MINGW_NAME_AW(RemoveDirectoryTransacted)
-	#define GetFullPathNameTransacted __MINGW_NAME_AW(GetFullPathNameTransacted)
+#if defined(UNICODE) and (_WIN32_WINNT = &h0602)
+	#define CreateDirectoryTransacted CreateDirectoryTransactedW
+	#define RemoveDirectoryTransacted RemoveDirectoryTransactedW
+	#define GetFullPathNameTransacted GetFullPathNameTransactedW
+#elseif defined(__FB_64BIT__) and ((not defined(UNICODE)) and ((_WIN32_WINNT = &h0400) or (_WIN32_WINNT = &h0502)))
+	#define CreateDirectoryEx CreateDirectoryExA
+#elseif (not defined(UNICODE)) and (_WIN32_WINNT = &h0602)
+	#define CreateDirectoryTransacted CreateDirectoryTransactedA
+	#define RemoveDirectoryTransacted RemoveDirectoryTransactedA
+	#define GetFullPathNameTransacted GetFullPathNameTransactedA
 #endif
 
 #define DDD_RAW_TARGET_PATH &h00000001
@@ -3069,8 +3263,12 @@ declare function QueryDosDeviceA(byval lpDeviceName as LPCSTR, byval lpTargetPat
 #if _WIN32_WINNT = &h0602
 	declare function CreateFileTransactedA(byval lpFileName as LPCSTR, byval dwDesiredAccess as DWORD, byval dwShareMode as DWORD, byval lpSecurityAttributes as LPSECURITY_ATTRIBUTES, byval dwCreationDisposition as DWORD, byval dwFlagsAndAttributes as DWORD, byval hTemplateFile as HANDLE, byval hTransaction as HANDLE, byval pusMiniVersion as PUSHORT, byval lpExtendedParameter as PVOID) as HANDLE
 	declare function CreateFileTransactedW(byval lpFileName as LPCWSTR, byval dwDesiredAccess as DWORD, byval dwShareMode as DWORD, byval lpSecurityAttributes as LPSECURITY_ATTRIBUTES, byval dwCreationDisposition as DWORD, byval dwFlagsAndAttributes as DWORD, byval hTemplateFile as HANDLE, byval hTransaction as HANDLE, byval pusMiniVersion as PUSHORT, byval lpExtendedParameter as PVOID) as HANDLE
+#endif
 
-	#define CreateFileTransacted __MINGW_NAME_AW(CreateFileTransacted)
+#if defined(UNICODE) and (_WIN32_WINNT = &h0602)
+	#define CreateFileTransacted CreateFileTransactedW
+#elseif (not defined(UNICODE)) and (_WIN32_WINNT = &h0602)
+	#define CreateFileTransacted CreateFileTransactedA
 #endif
 
 declare function ReOpenFile(byval hOriginalFile as HANDLE, byval dwDesiredAccess as DWORD, byval dwShareMode as DWORD, byval dwFlagsAndAttributes as DWORD) as HANDLE
@@ -3080,24 +3278,40 @@ declare function ReOpenFile(byval hOriginalFile as HANDLE, byval dwDesiredAccess
 	declare function SetFileAttributesTransactedW(byval lpFileName as LPCWSTR, byval dwFileAttributes as DWORD, byval hTransaction as HANDLE) as WINBOOL
 	declare function GetFileAttributesTransactedA(byval lpFileName as LPCSTR, byval fInfoLevelId as GET_FILEEX_INFO_LEVELS, byval lpFileInformation as LPVOID, byval hTransaction as HANDLE) as WINBOOL
 	declare function GetFileAttributesTransactedW(byval lpFileName as LPCWSTR, byval fInfoLevelId as GET_FILEEX_INFO_LEVELS, byval lpFileInformation as LPVOID, byval hTransaction as HANDLE) as WINBOOL
+#endif
 
-	#define SetFileAttributesTransacted __MINGW_NAME_AW(SetFileAttributesTransacted)
-	#define GetFileAttributesTransacted __MINGW_NAME_AW(GetFileAttributesTransacted)
+#if defined(UNICODE) and (_WIN32_WINNT = &h0602)
+	#define SetFileAttributesTransacted SetFileAttributesTransactedW
+	#define GetFileAttributesTransacted GetFileAttributesTransactedW
+#elseif (not defined(UNICODE)) and (_WIN32_WINNT = &h0602)
+	#define SetFileAttributesTransacted SetFileAttributesTransactedA
+	#define GetFileAttributesTransacted GetFileAttributesTransactedA
 #endif
 
 declare function GetCompressedFileSizeA(byval lpFileName as LPCSTR, byval lpFileSizeHigh as LPDWORD) as DWORD
 declare function GetCompressedFileSizeW(byval lpFileName as LPCWSTR, byval lpFileSizeHigh as LPDWORD) as DWORD
 
-#define GetCompressedFileSize __MINGW_NAME_AW(GetCompressedFileSize)
+#ifdef UNICODE
+	#define GetCompressedFileSize GetCompressedFileSizeW
+#elseif (not defined(UNICODE)) and ((defined(__FB_64BIT__) and (_WIN32_WINNT = &h0602)) or (not defined(__FB_64BIT__)))
+	#define GetCompressedFileSize GetCompressedFileSizeA
+#endif
 
 #if _WIN32_WINNT = &h0602
 	declare function GetCompressedFileSizeTransactedA(byval lpFileName as LPCSTR, byval lpFileSizeHigh as LPDWORD, byval hTransaction as HANDLE) as DWORD
 	declare function GetCompressedFileSizeTransactedW(byval lpFileName as LPCWSTR, byval lpFileSizeHigh as LPDWORD, byval hTransaction as HANDLE) as DWORD
 	declare function DeleteFileTransactedA(byval lpFileName as LPCSTR, byval hTransaction as HANDLE) as WINBOOL
 	declare function DeleteFileTransactedW(byval lpFileName as LPCWSTR, byval hTransaction as HANDLE) as WINBOOL
+#endif
 
-	#define DeleteFileTransacted __MINGW_NAME_AW(DeleteFileTransacted)
-	#define GetCompressedFileSizeTransacted __MINGW_NAME_AW(GetCompressedFileSizeTransacted)
+#if defined(UNICODE) and (_WIN32_WINNT = &h0602)
+	#define DeleteFileTransacted DeleteFileTransactedW
+	#define GetCompressedFileSizeTransacted GetCompressedFileSizeTransactedW
+#elseif defined(__FB_64BIT__) and ((not defined(UNICODE)) and ((_WIN32_WINNT = &h0400) or (_WIN32_WINNT = &h0502)))
+	#define GetCompressedFileSize GetCompressedFileSizeA
+#elseif (not defined(UNICODE)) and (_WIN32_WINNT = &h0602)
+	#define DeleteFileTransacted DeleteFileTransactedA
+	#define GetCompressedFileSizeTransacted GetCompressedFileSizeTransactedA
 #endif
 
 type LPPROGRESS_ROUTINE as function(byval TotalFileSize as LARGE_INTEGER, byval TotalBytesTransferred as LARGE_INTEGER, byval StreamSize as LARGE_INTEGER, byval StreamBytesTransferred as LARGE_INTEGER, byval dwStreamNumber as DWORD, byval dwCallbackReason as DWORD, byval hSourceFile as HANDLE, byval hDestinationFile as HANDLE, byval lpData as LPVOID) as DWORD
@@ -3114,14 +3328,24 @@ declare function CopyFileExW(byval lpExistingFileName as LPCWSTR, byval lpNewFil
 	declare function FindFirstFileTransactedW(byval lpFileName as LPCWSTR, byval fInfoLevelId as FINDEX_INFO_LEVELS, byval lpFindFileData as LPVOID, byval fSearchOp as FINDEX_SEARCH_OPS, byval lpSearchFilter as LPVOID, byval dwAdditionalFlags as DWORD, byval hTransaction as HANDLE) as HANDLE
 	declare function CopyFileTransactedA(byval lpExistingFileName as LPCSTR, byval lpNewFileName as LPCSTR, byval lpProgressRoutine as LPPROGRESS_ROUTINE, byval lpData as LPVOID, byval pbCancel as LPBOOL, byval dwCopyFlags as DWORD, byval hTransaction as HANDLE) as WINBOOL
 	declare function CopyFileTransactedW(byval lpExistingFileName as LPCWSTR, byval lpNewFileName as LPCWSTR, byval lpProgressRoutine as LPPROGRESS_ROUTINE, byval lpData as LPVOID, byval pbCancel as LPBOOL, byval dwCopyFlags as DWORD, byval hTransaction as HANDLE) as WINBOOL
-
-	#define FindFirstFileTransacted __MINGW_NAME_AW(FindFirstFileTransacted)
-	#define CopyFileTransacted __MINGW_NAME_AW(CopyFileTransacted)
 #endif
 
-#define CheckNameLegalDOS8Dot3 __MINGW_NAME_AW(CheckNameLegalDOS8Dot3)
-#define CopyFile __MINGW_NAME_AW(CopyFile)
-#define CopyFileEx __MINGW_NAME_AW(CopyFileEx)
+#if defined(UNICODE) and (_WIN32_WINNT = &h0602)
+	#define FindFirstFileTransacted FindFirstFileTransactedW
+	#define CopyFileTransacted CopyFileTransactedW
+#endif
+
+#ifdef UNICODE
+	#define CheckNameLegalDOS8Dot3 CheckNameLegalDOS8Dot3W
+	#define CopyFile CopyFileW
+	#define CopyFileEx CopyFileExW
+#elseif (not defined(UNICODE)) and (_WIN32_WINNT = &h0602)
+	#define FindFirstFileTransacted FindFirstFileTransactedA
+	#define CopyFileTransacted CopyFileTransactedA
+	#define CheckNameLegalDOS8Dot3 CheckNameLegalDOS8Dot3A
+	#define CopyFile CopyFileA
+	#define CopyFileEx CopyFileExA
+#endif
 
 #if _WIN32_WINNT = &h0602
 	type _COPYFILE2_MESSAGE_TYPE as long
@@ -3251,28 +3475,50 @@ declare function CopyFileExW(byval lpExistingFileName as LPCWSTR, byval lpNewFil
 	end type
 
 	declare function CopyFile2(byval pwszExistingFileName as PCWSTR, byval pwszNewFileName as PCWSTR, byval pExtendedParameters as COPYFILE2_EXTENDED_PARAMETERS ptr) as HRESULT
+#elseif (not defined(UNICODE)) and ((_WIN32_WINNT = &h0400) or (_WIN32_WINNT = &h0502))
+	#define CheckNameLegalDOS8Dot3 CheckNameLegalDOS8Dot3A
+	#define CopyFile CopyFileA
+	#define CopyFileEx CopyFileExA
 #endif
 
 declare function MoveFileA(byval lpExistingFileName as LPCSTR, byval lpNewFileName as LPCSTR) as WINBOOL
 declare function MoveFileW(byval lpExistingFileName as LPCWSTR, byval lpNewFileName as LPCWSTR) as WINBOOL
 
-#define MoveFile __MINGW_NAME_AW(MoveFile)
+#ifdef UNICODE
+	#define MoveFile MoveFileW
+#else
+	#define MoveFile MoveFileA
+#endif
 
 declare function MoveFileExA(byval lpExistingFileName as LPCSTR, byval lpNewFileName as LPCSTR, byval dwFlags as DWORD) as WINBOOL
 declare function MoveFileExW(byval lpExistingFileName as LPCWSTR, byval lpNewFileName as LPCWSTR, byval dwFlags as DWORD) as WINBOOL
 
-#define MoveFileEx __MINGW_NAME_AW(MoveFileEx)
+#ifdef UNICODE
+	#define MoveFileEx MoveFileExW
+#else
+	#define MoveFileEx MoveFileExA
+#endif
 
 declare function MoveFileWithProgressA(byval lpExistingFileName as LPCSTR, byval lpNewFileName as LPCSTR, byval lpProgressRoutine as LPPROGRESS_ROUTINE, byval lpData as LPVOID, byval dwFlags as DWORD) as WINBOOL
 declare function MoveFileWithProgressW(byval lpExistingFileName as LPCWSTR, byval lpNewFileName as LPCWSTR, byval lpProgressRoutine as LPPROGRESS_ROUTINE, byval lpData as LPVOID, byval dwFlags as DWORD) as WINBOOL
 
-#define MoveFileWithProgress __MINGW_NAME_AW(MoveFileWithProgress)
+#ifdef UNICODE
+	#define MoveFileWithProgress MoveFileWithProgressW
+#elseif (not defined(UNICODE)) and ((defined(__FB_64BIT__) and (_WIN32_WINNT = &h0602)) or (not defined(__FB_64BIT__)))
+	#define MoveFileWithProgress MoveFileWithProgressA
+#endif
 
 #if _WIN32_WINNT = &h0602
 	declare function MoveFileTransactedA(byval lpExistingFileName as LPCSTR, byval lpNewFileName as LPCSTR, byval lpProgressRoutine as LPPROGRESS_ROUTINE, byval lpData as LPVOID, byval dwFlags as DWORD, byval hTransaction as HANDLE) as WINBOOL
 	declare function MoveFileTransactedW(byval lpExistingFileName as LPCWSTR, byval lpNewFileName as LPCWSTR, byval lpProgressRoutine as LPPROGRESS_ROUTINE, byval lpData as LPVOID, byval dwFlags as DWORD, byval hTransaction as HANDLE) as WINBOOL
+#endif
 
-	#define MoveFileTransacted __MINGW_NAME_AW(MoveFileTransacted)
+#if defined(UNICODE) and (_WIN32_WINNT = &h0602)
+	#define MoveFileTransacted MoveFileTransactedW
+#elseif defined(__FB_64BIT__) and ((not defined(UNICODE)) and ((_WIN32_WINNT = &h0400) or (_WIN32_WINNT = &h0502)))
+	#define MoveFileWithProgress MoveFileWithProgressA
+#elseif (not defined(UNICODE)) and (_WIN32_WINNT = &h0602)
+	#define MoveFileTransacted MoveFileTransactedA
 #endif
 
 #define MOVEFILE_REPLACE_EXISTING &h00000001
@@ -3287,14 +3533,26 @@ declare function ReplaceFileW(byval lpReplacedFileName as LPCWSTR, byval lpRepla
 declare function CreateHardLinkA(byval lpFileName as LPCSTR, byval lpExistingFileName as LPCSTR, byval lpSecurityAttributes as LPSECURITY_ATTRIBUTES) as WINBOOL
 declare function CreateHardLinkW(byval lpFileName as LPCWSTR, byval lpExistingFileName as LPCWSTR, byval lpSecurityAttributes as LPSECURITY_ATTRIBUTES) as WINBOOL
 
-#define ReplaceFile __MINGW_NAME_AW(ReplaceFile)
-#define CreateHardLink __MINGW_NAME_AW(CreateHardLink)
+#ifdef UNICODE
+	#define ReplaceFile ReplaceFileW
+	#define CreateHardLink CreateHardLinkW
+#elseif (not defined(UNICODE)) and ((defined(__FB_64BIT__) and (_WIN32_WINNT = &h0602)) or (not defined(__FB_64BIT__)))
+	#define ReplaceFile ReplaceFileA
+	#define CreateHardLink CreateHardLinkA
+#endif
 
 #if _WIN32_WINNT = &h0602
 	declare function CreateHardLinkTransactedA(byval lpFileName as LPCSTR, byval lpExistingFileName as LPCSTR, byval lpSecurityAttributes as LPSECURITY_ATTRIBUTES, byval hTransaction as HANDLE) as WINBOOL
 	declare function CreateHardLinkTransactedW(byval lpFileName as LPCWSTR, byval lpExistingFileName as LPCWSTR, byval lpSecurityAttributes as LPSECURITY_ATTRIBUTES, byval hTransaction as HANDLE) as WINBOOL
+#endif
 
-	#define CreateHardLinkTransacted __MINGW_NAME_AW(CreateHardLinkTransacted)
+#if defined(UNICODE) and (_WIN32_WINNT = &h0602)
+	#define CreateHardLinkTransacted CreateHardLinkTransactedW
+#elseif defined(__FB_64BIT__) and ((not defined(UNICODE)) and ((_WIN32_WINNT = &h0400) or (_WIN32_WINNT = &h0502)))
+	#define ReplaceFile ReplaceFileA
+	#define CreateHardLink CreateHardLinkA
+#elseif (not defined(UNICODE)) and (_WIN32_WINNT = &h0602)
+	#define CreateHardLinkTransacted CreateHardLinkTransactedA
 #endif
 
 type _STREAM_INFO_LEVELS as long
@@ -3362,22 +3620,32 @@ declare function ReadEventLogW(byval hEventLog as HANDLE, byval dwReadFlags as D
 declare function ReportEventA(byval hEventLog as HANDLE, byval wType as WORD, byval wCategory as WORD, byval dwEventID as DWORD, byval lpUserSid as PSID, byval wNumStrings as WORD, byval dwDataSize as DWORD, byval lpStrings as LPCSTR ptr, byval lpRawData as LPVOID) as WINBOOL
 declare function ReportEventW(byval hEventLog as HANDLE, byval wType as WORD, byval wCategory as WORD, byval dwEventID as DWORD, byval lpUserSid as PSID, byval wNumStrings as WORD, byval dwDataSize as DWORD, byval lpStrings as LPCWSTR ptr, byval lpRawData as LPVOID) as WINBOOL
 
-#ifndef UNICODE
+#ifdef UNICODE
+	#define GetNamedPipeHandleState GetNamedPipeHandleStateW
+	#define CallNamedPipe CallNamedPipeW
+	#define SetVolumeLabel SetVolumeLabelW
+	#define ClearEventLog ClearEventLogW
+	#define BackupEventLog BackupEventLogW
+	#define OpenEventLog OpenEventLogW
+	#define RegisterEventSource RegisterEventSourceW
+	#define OpenBackupEventLog OpenBackupEventLogW
+	#define ReadEventLog ReadEventLogW
+	#define ReportEvent ReportEventW
+#else
 	#define CreateNamedPipe CreateNamedPipeA
 	#define WaitNamedPipe WaitNamedPipeA
 	#define GetVolumeInformation GetVolumeInformationA
+	#define GetNamedPipeHandleState GetNamedPipeHandleStateA
+	#define CallNamedPipe CallNamedPipeA
+	#define SetVolumeLabel SetVolumeLabelA
+	#define ClearEventLog ClearEventLogA
+	#define BackupEventLog BackupEventLogA
+	#define OpenEventLog OpenEventLogA
+	#define RegisterEventSource RegisterEventSourceA
+	#define OpenBackupEventLog OpenBackupEventLogA
+	#define ReadEventLog ReadEventLogA
+	#define ReportEvent ReportEventA
 #endif
-
-#define GetNamedPipeHandleState __MINGW_NAME_AW(GetNamedPipeHandleState)
-#define CallNamedPipe __MINGW_NAME_AW(CallNamedPipe)
-#define SetVolumeLabel __MINGW_NAME_AW(SetVolumeLabel)
-#define ClearEventLog __MINGW_NAME_AW(ClearEventLog)
-#define BackupEventLog __MINGW_NAME_AW(BackupEventLog)
-#define OpenEventLog __MINGW_NAME_AW(OpenEventLog)
-#define RegisterEventSource __MINGW_NAME_AW(RegisterEventSource)
-#define OpenBackupEventLog __MINGW_NAME_AW(OpenBackupEventLog)
-#define ReadEventLog __MINGW_NAME_AW(ReadEventLog)
-#define ReportEvent __MINGW_NAME_AW(ReportEvent)
 
 #if (not defined(UNICODE)) and (_WIN32_WINNT = &h0602)
 	#define GetNamedPipeClientComputerName GetNamedPipeClientComputerNameA
@@ -3455,7 +3723,11 @@ declare function LookupAccountSidW(byval lpSystemName as LPCWSTR, byval Sid as P
 declare function LookupAccountNameA(byval lpSystemName as LPCSTR, byval lpAccountName as LPCSTR, byval Sid as PSID, byval cbSid as LPDWORD, byval ReferencedDomainName as LPSTR, byval cchReferencedDomainName as LPDWORD, byval peUse as PSID_NAME_USE) as WINBOOL
 declare function LookupAccountNameW(byval lpSystemName as LPCWSTR, byval lpAccountName as LPCWSTR, byval Sid as PSID, byval cbSid as LPDWORD, byval ReferencedDomainName as LPWSTR, byval cchReferencedDomainName as LPDWORD, byval peUse as PSID_NAME_USE) as WINBOOL
 
-#ifndef UNICODE
+#ifdef UNICODE
+	#define IsBadStringPtr IsBadStringPtrW
+	#define LookupAccountSid LookupAccountSidW
+	#define LookupAccountName LookupAccountNameW
+#else
 	#define AccessCheckAndAuditAlarm AccessCheckAndAuditAlarmA
 	#define AccessCheckByTypeAndAuditAlarm AccessCheckByTypeAndAuditAlarmA
 	#define AccessCheckByTypeResultListAndAuditAlarm AccessCheckByTypeResultListAndAuditAlarmA
@@ -3467,27 +3739,44 @@ declare function LookupAccountNameW(byval lpSystemName as LPCWSTR, byval lpAccou
 	#define PrivilegedServiceAuditAlarm PrivilegedServiceAuditAlarmA
 	#define SetFileSecurity SetFileSecurityA
 	#define GetFileSecurity GetFileSecurityA
+	#define IsBadStringPtr IsBadStringPtrA
+	#define LookupAccountSid LookupAccountSidA
+	#define LookupAccountName LookupAccountNameA
 #endif
-
-#define IsBadStringPtr __MINGW_NAME_AW(IsBadStringPtr)
-#define LookupAccountSid __MINGW_NAME_AW(LookupAccountSid)
-#define LookupAccountName __MINGW_NAME_AW(LookupAccountName)
 
 #if (_WIN32_WINNT = &h0400) or (_WIN32_WINNT = &h0502)
 	#define LookupAccountNameLocalA(n, s, cs, d, cd, u) LookupAccountNameA(NULL, n, s, cs, d, cd, u)
 	#define LookupAccountNameLocalW(n, s, cs, d, cd, u) LookupAccountNameW(NULL, n, s, cs, d, cd, u)
-	#define LookupAccountNameLocal(n, s, cs, d, cd, u) '' TODO: __MINGW_NAME_AW(LookupAccountName) (NULL, n, s, cs, d, cd, u)
+#endif
+
+#if defined(UNICODE) and ((_WIN32_WINNT = &h0400) or (_WIN32_WINNT = &h0502))
+	#define LookupAccountNameLocal(n, s, cs, d, cd, u) LookupAccountNameW(NULL, n, s, cs, d, cd, u)
+#elseif (not defined(UNICODE)) and ((_WIN32_WINNT = &h0400) or (_WIN32_WINNT = &h0502))
+	#define LookupAccountNameLocal(n, s, cs, d, cd, u) LookupAccountNameA(NULL, n, s, cs, d, cd, u)
+#endif
+
+#if (_WIN32_WINNT = &h0400) or (_WIN32_WINNT = &h0502)
 	#define LookupAccountSidLocalA(s, n, cn, d, cd, u) LookupAccountSidA(NULL, s, n, cn, d, cd, u)
 	#define LookupAccountSidLocalW(s, n, cn, d, cd, u) LookupAccountSidW(NULL, s, n, cn, d, cd, u)
-	#define LookupAccountSidLocal(s, n, cn, d, cd, u) '' TODO: __MINGW_NAME_AW(LookupAccountSid) (NULL, s, n, cn, d, cd, u)
-#else
+#endif
+
+#if defined(UNICODE) and ((_WIN32_WINNT = &h0400) or (_WIN32_WINNT = &h0502))
+	#define LookupAccountSidLocal(s, n, cn, d, cd, u) LookupAccountSidW(NULL, s, n, cn, d, cd, u)
+#elseif _WIN32_WINNT = &h0602
 	declare function LookupAccountNameLocalA(byval lpAccountName as LPCSTR, byval Sid as PSID, byval cbSid as LPDWORD, byval ReferencedDomainName as LPSTR, byval cchReferencedDomainName as LPDWORD, byval peUse as PSID_NAME_USE) as WINBOOL
 	declare function LookupAccountNameLocalW(byval lpAccountName as LPCWSTR, byval Sid as PSID, byval cbSid as LPDWORD, byval ReferencedDomainName as LPWSTR, byval cchReferencedDomainName as LPDWORD, byval peUse as PSID_NAME_USE) as WINBOOL
 	declare function LookupAccountSidLocalA(byval Sid as PSID, byval Name_ as LPSTR, byval cchName as LPDWORD, byval ReferencedDomainName as LPSTR, byval cchReferencedDomainName as LPDWORD, byval peUse as PSID_NAME_USE) as WINBOOL
 	declare function LookupAccountSidLocalW(byval Sid as PSID, byval Name_ as LPWSTR, byval cchName as LPDWORD, byval ReferencedDomainName as LPWSTR, byval cchReferencedDomainName as LPDWORD, byval peUse as PSID_NAME_USE) as WINBOOL
+#endif
 
-	#define LookupAccountNameLocal __MINGW_NAME_AW(LookupAccountNameLocal)
-	#define LookupAccountSidLocal __MINGW_NAME_AW(LookupAccountSidLocal)
+#if defined(UNICODE) and (_WIN32_WINNT = &h0602)
+	#define LookupAccountNameLocal LookupAccountNameLocalW
+	#define LookupAccountSidLocal LookupAccountSidLocalW
+#elseif (not defined(UNICODE)) and ((_WIN32_WINNT = &h0400) or (_WIN32_WINNT = &h0502))
+	#define LookupAccountSidLocal(s, n, cn, d, cd, u) LookupAccountSidA(NULL, s, n, cn, d, cd, u)
+#elseif (not defined(UNICODE)) and (_WIN32_WINNT = &h0602)
+	#define LookupAccountNameLocal LookupAccountNameLocalA
+	#define LookupAccountSidLocal LookupAccountSidLocalA
 #endif
 
 declare function LookupPrivilegeValueA(byval lpSystemName as LPCSTR, byval lpName as LPCSTR, byval lpLuid as PLUID) as WINBOOL
@@ -3507,14 +3796,26 @@ declare function GetDefaultCommConfigW(byval lpszName as LPCWSTR, byval lpCC as 
 declare function SetDefaultCommConfigA(byval lpszName as LPCSTR, byval lpCC as LPCOMMCONFIG, byval dwSize as DWORD) as WINBOOL
 declare function SetDefaultCommConfigW(byval lpszName as LPCWSTR, byval lpCC as LPCOMMCONFIG, byval dwSize as DWORD) as WINBOOL
 
-#define LookupPrivilegeValue __MINGW_NAME_AW(LookupPrivilegeValue)
-#define LookupPrivilegeName __MINGW_NAME_AW(LookupPrivilegeName)
-#define LookupPrivilegeDisplayName __MINGW_NAME_AW(LookupPrivilegeDisplayName)
-#define BuildCommDCB __MINGW_NAME_AW(BuildCommDCB)
-#define BuildCommDCBAndTimeouts __MINGW_NAME_AW(BuildCommDCBAndTimeouts)
-#define CommConfigDialog __MINGW_NAME_AW(CommConfigDialog)
-#define GetDefaultCommConfig __MINGW_NAME_AW(GetDefaultCommConfig)
-#define SetDefaultCommConfig __MINGW_NAME_AW(SetDefaultCommConfig)
+#ifdef UNICODE
+	#define LookupPrivilegeValue LookupPrivilegeValueW
+	#define LookupPrivilegeName LookupPrivilegeNameW
+	#define LookupPrivilegeDisplayName LookupPrivilegeDisplayNameW
+	#define BuildCommDCB BuildCommDCBW
+	#define BuildCommDCBAndTimeouts BuildCommDCBAndTimeoutsW
+	#define CommConfigDialog CommConfigDialogW
+	#define GetDefaultCommConfig GetDefaultCommConfigW
+	#define SetDefaultCommConfig SetDefaultCommConfigW
+#else
+	#define LookupPrivilegeValue LookupPrivilegeValueA
+	#define LookupPrivilegeName LookupPrivilegeNameA
+	#define LookupPrivilegeDisplayName LookupPrivilegeDisplayNameA
+	#define BuildCommDCB BuildCommDCBA
+	#define BuildCommDCBAndTimeouts BuildCommDCBAndTimeoutsA
+	#define CommConfigDialog CommConfigDialogA
+	#define GetDefaultCommConfig GetDefaultCommConfigA
+	#define SetDefaultCommConfig SetDefaultCommConfigA
+#endif
+
 #define MAX_COMPUTERNAME_LENGTH 15
 
 declare function GetComputerNameA(byval lpBuffer as LPSTR, byval nSize as LPDWORD) as WINBOOL
@@ -3527,14 +3828,19 @@ declare function DnsHostnameToComputerNameW(byval Hostname as LPCWSTR, byval Com
 declare function GetUserNameA(byval lpBuffer as LPSTR, byval pcbBuffer as LPDWORD) as WINBOOL
 declare function GetUserNameW(byval lpBuffer as LPWSTR, byval pcbBuffer as LPDWORD) as WINBOOL
 
-#ifndef UNICODE
+#ifdef UNICODE
+	#define GetComputerName GetComputerNameW
+	#define SetComputerName SetComputerNameW
+	#define DnsHostnameToComputerName DnsHostnameToComputerNameW
+	#define GetUserName GetUserNameW
+#else
 	#define SetComputerNameEx SetComputerNameExA
+	#define GetComputerName GetComputerNameA
+	#define SetComputerName SetComputerNameA
+	#define DnsHostnameToComputerName DnsHostnameToComputerNameA
+	#define GetUserName GetUserNameA
 #endif
 
-#define GetComputerName __MINGW_NAME_AW(GetComputerName)
-#define SetComputerName __MINGW_NAME_AW(SetComputerName)
-#define DnsHostnameToComputerName __MINGW_NAME_AW(DnsHostnameToComputerName)
-#define GetUserName __MINGW_NAME_AW(GetUserName)
 #define LOGON32_LOGON_INTERACTIVE 2
 #define LOGON32_LOGON_NETWORK 3
 #define LOGON32_LOGON_BATCH 4
@@ -3557,12 +3863,15 @@ declare function LogonUserExA(byval lpszUsername as LPCSTR, byval lpszDomain as 
 declare function LogonUserExW(byval lpszUsername as LPCWSTR, byval lpszDomain as LPCWSTR, byval lpszPassword as LPCWSTR, byval dwLogonType as DWORD, byval dwLogonProvider as DWORD, byval phToken as PHANDLE, byval ppLogonSid as PSID ptr, byval ppProfileBuffer as PVOID ptr, byval pdwProfileLength as LPDWORD, byval pQuotaLimits as PQUOTA_LIMITS) as WINBOOL
 declare function CreateProcessAsUserA(byval hToken as HANDLE, byval lpApplicationName as LPCSTR, byval lpCommandLine as LPSTR, byval lpProcessAttributes as LPSECURITY_ATTRIBUTES, byval lpThreadAttributes as LPSECURITY_ATTRIBUTES, byval bInheritHandles as WINBOOL, byval dwCreationFlags as DWORD, byval lpEnvironment as LPVOID, byval lpCurrentDirectory as LPCSTR, byval lpStartupInfo as LPSTARTUPINFOA, byval lpProcessInformation as LPPROCESS_INFORMATION) as WINBOOL
 
-#ifndef UNICODE
+#ifdef UNICODE
+	#define LogonUser LogonUserW
+	#define LogonUserEx LogonUserExW
+#else
 	#define CreateProcessAsUser CreateProcessAsUserA
+	#define LogonUser LogonUserA
+	#define LogonUserEx LogonUserExA
 #endif
 
-#define LogonUser __MINGW_NAME_AW(LogonUser)
-#define LogonUserEx __MINGW_NAME_AW(LogonUserEx)
 #define LOGON_WITH_PROFILE &h00000001
 #define LOGON_NETCREDENTIALS_ONLY &h00000002
 #define LOGON_ZERO_PASSWORD_BUFFER &h80000000
@@ -3581,14 +3890,12 @@ declare function OpenPrivateNamespaceA(byval lpBoundaryDescriptor as LPVOID, byv
 declare function CreateBoundaryDescriptorA(byval Name_ as LPCSTR, byval Flags as ULONG) as HANDLE
 declare function AddIntegrityLabelToBoundaryDescriptor(byval BoundaryDescriptor as HANDLE ptr, byval IntegrityLabel as PSID) as WINBOOL
 
-#ifndef UNICODE
-	#define CreatePrivateNamespace __MINGW_NAME_AW(CreatePrivateNamespace)
-#endif
-
-#define OpenPrivateNamespace __MINGW_NAME_AW(OpenPrivateNamespace)
-
-#ifndef UNICODE
-	#define CreateBoundaryDescriptor __MINGW_NAME_AW(CreateBoundaryDescriptor)
+#ifdef UNICODE
+	#define OpenPrivateNamespace OpenPrivateNamespaceW
+#else
+	#define CreatePrivateNamespace CreatePrivateNamespaceA
+	#define OpenPrivateNamespace OpenPrivateNamespaceA
+	#define CreateBoundaryDescriptor CreateBoundaryDescriptorA
 #endif
 
 #define HW_PROFILE_GUIDLEN 39
@@ -3630,8 +3937,14 @@ declare function GetCurrentHwProfileW(byval lpHwProfileInfo as LPHW_PROFILE_INFO
 declare function VerifyVersionInfoA(byval lpVersionInformation as LPOSVERSIONINFOEXA, byval dwTypeMask as DWORD, byval dwlConditionMask as DWORDLONG) as WINBOOL
 declare function VerifyVersionInfoW(byval lpVersionInformation as LPOSVERSIONINFOEXW, byval dwTypeMask as DWORD, byval dwlConditionMask as DWORDLONG) as WINBOOL
 
-#define GetCurrentHwProfile __MINGW_NAME_AW(GetCurrentHwProfile)
-#define VerifyVersionInfo __MINGW_NAME_AW(VerifyVersionInfo)
+#ifdef UNICODE
+	#define GetCurrentHwProfile GetCurrentHwProfileW
+	#define VerifyVersionInfo VerifyVersionInfoW
+#else
+	#define GetCurrentHwProfile GetCurrentHwProfileA
+	#define VerifyVersionInfo VerifyVersionInfoA
+#endif
+
 #define _TIMEZONEAPI_H_
 #define TIME_ZONE_ID_INVALID cast(DWORD, &hffffffff)
 
@@ -3758,20 +4071,26 @@ declare function GetVolumePathNamesForVolumeNameA(byval lpszVolumeName as LPCSTR
 	declare function AllocateUserPhysicalPagesNuma(byval hProcess as HANDLE, byval NumberOfPages as PULONG_PTR, byval PageArray as PULONG_PTR, byval nndPreferred as DWORD) as WINBOOL
 #endif
 
-#ifndef UNICODE
+#ifdef UNICODE
+	#define CreateJobObject CreateJobObjectW
+	#define OpenJobObject OpenJobObjectW
+	#define FindFirstVolumeMountPoint FindFirstVolumeMountPointW
+	#define FindNextVolumeMountPoint FindNextVolumeMountPointW
+	#define SetVolumeMountPoint SetVolumeMountPointW
+#else
 	#define FindFirstVolume FindFirstVolumeA
 	#define FindNextVolume FindNextVolumeA
 	#define DeleteVolumeMountPoint DeleteVolumeMountPointA
 	#define GetVolumeNameForVolumeMountPoint GetVolumeNameForVolumeMountPointA
 	#define GetVolumePathName GetVolumePathNameA
 	#define GetVolumePathNamesForVolumeName GetVolumePathNamesForVolumeNameA
+	#define CreateJobObject CreateJobObjectA
+	#define OpenJobObject OpenJobObjectA
+	#define FindFirstVolumeMountPoint FindFirstVolumeMountPointA
+	#define FindNextVolumeMountPoint FindNextVolumeMountPointA
+	#define SetVolumeMountPoint SetVolumeMountPointA
 #endif
 
-#define CreateJobObject __MINGW_NAME_AW(CreateJobObject)
-#define OpenJobObject __MINGW_NAME_AW(OpenJobObject)
-#define FindFirstVolumeMountPoint __MINGW_NAME_AW(FindFirstVolumeMountPoint)
-#define FindNextVolumeMountPoint __MINGW_NAME_AW(FindNextVolumeMountPoint)
-#define SetVolumeMountPoint __MINGW_NAME_AW(SetVolumeMountPoint)
 #define ACTCTX_FLAG_PROCESSOR_ARCHITECTURE_VALID &h00000001
 #define ACTCTX_FLAG_LANGID_VALID &h00000002
 #define ACTCTX_FLAG_ASSEMBLY_DIRECTORY_VALID &h00000004
@@ -3837,7 +4156,12 @@ declare function ActivateActCtx(byval hActCtx as HANDLE, byval lpCookie as ULONG
 declare function DeactivateActCtx(byval dwFlags as DWORD, byval ulCookie as ULONG_PTR) as WINBOOL
 declare function GetCurrentActCtx(byval lphActCtx as HANDLE ptr) as WINBOOL
 
-#define CreateActCtx __MINGW_NAME_AW(CreateActCtx)
+#ifdef UNICODE
+	#define CreateActCtx CreateActCtxW
+#else
+	#define CreateActCtx CreateActCtxA
+#endif
+
 #define DEACTIVATE_ACTCTX_FLAG_FORCE_EARLY_DEACTIVATION &h00000001
 
 type tagACTCTX_SECTION_KEYED_DATA_2600
@@ -3896,7 +4220,11 @@ declare function FindActCtxSectionStringA(byval dwFlags as DWORD, byval lpExtens
 declare function FindActCtxSectionStringW(byval dwFlags as DWORD, byval lpExtensionGuid as const GUID ptr, byval ulSectionId as ULONG, byval lpStringToFind as LPCWSTR, byval ReturnedData as PACTCTX_SECTION_KEYED_DATA) as WINBOOL
 declare function FindActCtxSectionGuid(byval dwFlags as DWORD, byval lpExtensionGuid as const GUID ptr, byval ulSectionId as ULONG, byval lpGuidToFind as const GUID ptr, byval ReturnedData as PACTCTX_SECTION_KEYED_DATA) as WINBOOL
 
-#define FindActCtxSectionString __MINGW_NAME_AW(FindActCtxSectionString)
+#ifdef UNICODE
+	#define FindActCtxSectionString FindActCtxSectionStringW
+#else
+	#define FindActCtxSectionString FindActCtxSectionStringA
+#endif
 
 type _ACTIVATION_CONTEXT_BASIC_INFORMATION
 	hActCtx as HANDLE
@@ -4251,9 +4579,14 @@ type APPLICATION_RECOVERY_CALLBACK as function(byval pvParameter as PVOID) as DW
 	declare function ReplacePartitionUnit(byval TargetPartition as PWSTR, byval SparePartition as PWSTR, byval Flags as ULONG) as WINBOOL
 	declare function AddSecureMemoryCacheCallback(byval pfnCallBack as PSECURE_MEMORY_CACHE_CALLBACK) as WINBOOL
 	declare function RemoveSecureMemoryCacheCallback(byval pfnCallBack as PSECURE_MEMORY_CACHE_CALLBACK) as WINBOOL
+#endif
 
-	#define CreateSymbolicLink __MINGW_NAME_AW(CreateSymbolicLink)
-	#define CreateSymbolicLinkTransacted __MINGW_NAME_AW(CreateSymbolicLinkTransacted)
+#if defined(UNICODE) and (_WIN32_WINNT = &h0602)
+	#define CreateSymbolicLink CreateSymbolicLinkW
+	#define CreateSymbolicLinkTransacted CreateSymbolicLinkTransactedW
+#elseif (not defined(UNICODE)) and (_WIN32_WINNT = &h0602)
+	#define CreateSymbolicLink CreateSymbolicLinkA
+	#define CreateSymbolicLinkTransacted CreateSymbolicLinkTransactedA
 #endif
 
 declare function CopyContext(byval Destination as PCONTEXT, byval ContextFlags as DWORD, byval Source as PCONTEXT) as WINBOOL

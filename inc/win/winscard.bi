@@ -46,21 +46,40 @@ declare function SCardIsValidContext(byval hContext as SCARDCONTEXT) as LONG
 #define SCARD_SYSTEM_READERS TEXT(!"SCard$SystemReaders\0")
 #define SCARD_PROVIDER_PRIMARY 1
 #define SCARD_PROVIDER_CSP 2
-#define SCardListReaderGroups __MINGW_NAME_AW(SCardListReaderGroups)
-#define SCardListReaders __MINGW_NAME_AW(SCardListReaders)
-#define SCardListCards __MINGW_NAME_AW(SCardListCards)
-#define SCardListInterfaces __MINGW_NAME_AW(SCardListInterfaces)
-#define SCardGetProviderId __MINGW_NAME_AW(SCardGetProviderId)
-#define SCardGetCardTypeProviderName __MINGW_NAME_AW(SCardGetCardTypeProviderName)
-#define SCardIntroduceReaderGroup __MINGW_NAME_AW(SCardIntroduceReaderGroup)
-#define SCardForgetReaderGroup __MINGW_NAME_AW(SCardForgetReaderGroup)
-#define SCardIntroduceReader __MINGW_NAME_AW(SCardIntroduceReader)
-#define SCardForgetReader __MINGW_NAME_AW(SCardForgetReader)
-#define SCardAddReaderToGroup __MINGW_NAME_AW(SCardAddReaderToGroup)
-#define SCardRemoveReaderFromGroup __MINGW_NAME_AW(SCardRemoveReaderFromGroup)
-#define SCardIntroduceCardType __MINGW_NAME_AW(SCardIntroduceCardType)
-#define SCardSetCardTypeProviderName __MINGW_NAME_AW(SCardSetCardTypeProviderName)
-#define SCardForgetCardType __MINGW_NAME_AW(SCardForgetCardType)
+
+#ifdef UNICODE
+	#define SCardListReaderGroups SCardListReaderGroupsW
+	#define SCardListReaders SCardListReadersW
+	#define SCardListCards SCardListCardsW
+	#define SCardListInterfaces SCardListInterfacesW
+	#define SCardGetProviderId SCardGetProviderIdW
+	#define SCardGetCardTypeProviderName SCardGetCardTypeProviderNameW
+	#define SCardIntroduceReaderGroup SCardIntroduceReaderGroupW
+	#define SCardForgetReaderGroup SCardForgetReaderGroupW
+	#define SCardIntroduceReader SCardIntroduceReaderW
+	#define SCardForgetReader SCardForgetReaderW
+	#define SCardAddReaderToGroup SCardAddReaderToGroupW
+	#define SCardRemoveReaderFromGroup SCardRemoveReaderFromGroupW
+	#define SCardIntroduceCardType SCardIntroduceCardTypeW
+	#define SCardSetCardTypeProviderName SCardSetCardTypeProviderNameW
+	#define SCardForgetCardType SCardForgetCardTypeW
+#else
+	#define SCardListReaderGroups SCardListReaderGroupsA
+	#define SCardListReaders SCardListReadersA
+	#define SCardListCards SCardListCardsA
+	#define SCardListInterfaces SCardListInterfacesA
+	#define SCardGetProviderId SCardGetProviderIdA
+	#define SCardGetCardTypeProviderName SCardGetCardTypeProviderNameA
+	#define SCardIntroduceReaderGroup SCardIntroduceReaderGroupA
+	#define SCardForgetReaderGroup SCardForgetReaderGroupA
+	#define SCardIntroduceReader SCardIntroduceReaderA
+	#define SCardForgetReader SCardForgetReaderA
+	#define SCardAddReaderToGroup SCardAddReaderToGroupA
+	#define SCardRemoveReaderFromGroup SCardRemoveReaderFromGroupA
+	#define SCardIntroduceCardType SCardIntroduceCardTypeA
+	#define SCardSetCardTypeProviderName SCardSetCardTypeProviderNameA
+	#define SCardForgetCardType SCardForgetCardTypeA
+#endif
 
 declare function SCardListReaderGroupsA(byval hContext as SCARDCONTEXT, byval mszGroups as LPSTR, byval pcchGroups as LPDWORD) as LONG
 declare function SCardListReaderGroupsW(byval hContext as SCARDCONTEXT, byval mszGroups as LPWSTR, byval pcchGroups as LPDWORD) as LONG
@@ -130,17 +149,24 @@ type LPSCARD_READERSTATEW as SCARD_READERSTATEW ptr
 	type SCARD_READERSTATE as SCARD_READERSTATEW
 	type PSCARD_READERSTATE as PSCARD_READERSTATEW
 	type LPSCARD_READERSTATE as LPSCARD_READERSTATEW
+
+	#define SCardLocateCards SCardLocateCardsW
+	#define SCardLocateCardsByATR SCardLocateCardsByATRW
+	#define SCardGetStatusChange SCardGetStatusChangeW
+	#define SCardConnect SCardConnectW
+	#define SCardStatus SCardStatusW
 #else
 	type SCARD_READERSTATE as SCARD_READERSTATEA
 	type PSCARD_READERSTATE as PSCARD_READERSTATEA
 	type LPSCARD_READERSTATE as LPSCARD_READERSTATEA
+
+	#define SCardLocateCards SCardLocateCardsA
+	#define SCardLocateCardsByATR SCardLocateCardsByATRA
+	#define SCardGetStatusChange SCardGetStatusChangeA
+	#define SCardConnect SCardConnectA
+	#define SCardStatus SCardStatusA
 #endif
 
-#define SCardLocateCards __MINGW_NAME_AW(SCardLocateCards)
-#define SCardLocateCardsByATR __MINGW_NAME_AW(SCardLocateCardsByATR)
-#define SCardGetStatusChange __MINGW_NAME_AW(SCardGetStatusChange)
-#define SCardConnect __MINGW_NAME_AW(SCardConnect)
-#define SCardStatus __MINGW_NAME_AW(SCardStatus)
 #define SCARD_READERSTATE_A SCARD_READERSTATEA
 #define SCARD_READERSTATE_W SCARD_READERSTATEW
 #define PSCARD_READERSTATE_A PSCARD_READERSTATEA
@@ -211,7 +237,12 @@ declare function SCardSetAttrib(byval hCard as SCARDHANDLE, byval dwAttrId as DW
 #define SC_DLG_FORCE_UI &h04
 #define SCERR_NOCARDNAME &h4000
 #define SCERR_NOGUIDS &h8000
-#define LPOCNCONNPROC __MINGW_NAME_AW(LPOCNCONNPROC)
+
+#ifdef UNICODE
+	#define LPOCNCONNPROC LPOCNCONNPROCW
+#else
+	#define LPOCNCONNPROC LPOCNCONNPROCA
+#endif
 
 type LPOCNCONNPROCA as function(byval as SCARDCONTEXT, byval as LPSTR, byval as LPSTR, byval as PVOID) as SCARDHANDLE
 type LPOCNCONNPROCW as function(byval as SCARDCONTEXT, byval as LPWSTR, byval as LPWSTR, byval as PVOID) as SCARDHANDLE
@@ -330,7 +361,12 @@ type LPOPENCARDNAME_EXW as OPENCARDNAME_EXW ptr
 #define POPENCARDNAMEW_EX POPENCARDNAME_EXW
 #define LPOPENCARDNAMEA_EX LPOPENCARDNAME_EXA
 #define LPOPENCARDNAMEW_EX LPOPENCARDNAME_EXW
-#define SCardUIDlgSelectCard __MINGW_NAME_AW(SCardUIDlgSelectCard)
+
+#ifdef UNICODE
+	#define SCardUIDlgSelectCard SCardUIDlgSelectCardW
+#else
+	#define SCardUIDlgSelectCard SCardUIDlgSelectCardA
+#endif
 
 declare function SCardUIDlgSelectCardA(byval as LPOPENCARDNAME_EXA) as LONG
 declare function SCardUIDlgSelectCardW(byval as LPOPENCARDNAME_EXW) as LONG
@@ -409,7 +445,12 @@ type LPOPENCARDNAMEW as OPENCARDNAMEW ptr
 #define POPENCARDNAME_W POPENCARDNAMEW
 #define LPOPENCARDNAME_A LPOPENCARDNAMEA
 #define LPOPENCARDNAME_W LPOPENCARDNAMEW
-#define GetOpenCardName __MINGW_NAME_AW(GetOpenCardName)
+
+#ifdef UNICODE
+	#define GetOpenCardName GetOpenCardNameW
+#else
+	#define GetOpenCardName GetOpenCardNameA
+#endif
 
 declare function GetOpenCardNameA(byval as LPOPENCARDNAMEA) as LONG
 declare function GetOpenCardNameW(byval as LPOPENCARDNAMEW) as LONG
@@ -419,13 +460,23 @@ declare function SCardDlgExtendedError() as LONG
 	declare function SCardGetTransmitCount(byval hCard as SCARDHANDLE, byval pcTransmitCount as LPDWORD) as LONG
 	declare function SCardReadCacheA(byval hContext as SCARDCONTEXT, byval CardIdentifier as UUID ptr, byval FreshnessCounter as DWORD, byval LookupName as LPSTR, byval Data_ as PBYTE, byval DataLen as DWORD ptr) as LONG
 	declare function SCardReadCacheW(byval hContext as SCARDCONTEXT, byval CardIdentifier as UUID ptr, byval FreshnessCounter as DWORD, byval LookupName as LPWSTR, byval Data_ as PBYTE, byval DataLen as DWORD ptr) as LONG
+#endif
 
-	#define SCardReadCache __MINGW_NAME_AW(SCardReadCache)
+#if defined(UNICODE) and (_WIN32_WINNT = &h0602)
+	#define SCardReadCache SCardReadCacheW
+#elseif (not defined(UNICODE)) and (_WIN32_WINNT = &h0602)
+	#define SCardReadCache SCardReadCacheA
+#endif
 
+#if _WIN32_WINNT = &h0602
 	declare function SCardWriteCacheA(byval hContext as SCARDCONTEXT, byval CardIdentifier as UUID ptr, byval FreshnessCounter as DWORD, byval LookupName as LPSTR, byval Data_ as PBYTE, byval DataLen as DWORD) as LONG
 	declare function SCardWriteCacheW(byval hContext as SCARDCONTEXT, byval CardIdentifier as UUID ptr, byval FreshnessCounter as DWORD, byval LookupName as LPWSTR, byval Data_ as PBYTE, byval DataLen as DWORD) as LONG
+#endif
 
-	#define SCardWriteCache __MINGW_NAME_AW(SCardWriteCache)
+#if defined(UNICODE) and (_WIN32_WINNT = &h0602)
+	#define SCardWriteCache SCardWriteCacheW
+#elseif (not defined(UNICODE)) and (_WIN32_WINNT = &h0602)
+	#define SCardWriteCache SCardWriteCacheA
 #endif
 
 end extern

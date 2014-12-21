@@ -161,14 +161,26 @@ type LPNETRESOURCEW as _NETRESOURCEW ptr
 #define CONNECT_RESERVED &hFF000000
 #define CONNECT_COMMANDLINE &h00000800
 #define CONNECT_CMD_SAVECRED &h00001000
-#define WNetAddConnection __MINGW_NAME_AW(WNetAddConnection)
-#define WNetAddConnection2 __MINGW_NAME_AW(WNetAddConnection2)
-#define WNetAddConnection3 __MINGW_NAME_AW(WNetAddConnection3)
-#define WNetCancelConnection __MINGW_NAME_AW(WNetCancelConnection)
-#define WNetCancelConnection2 __MINGW_NAME_AW(WNetCancelConnection2)
-#define WNetGetConnection __MINGW_NAME_AW(WNetGetConnection)
-#define WNetRestoreConnection __MINGW_NAME_AW(WNetRestoreConnection)
-#define WNetUseConnection __MINGW_NAME_AW(WNetUseConnection)
+
+#ifdef UNICODE
+	#define WNetAddConnection WNetAddConnectionW
+	#define WNetAddConnection2 WNetAddConnection2W
+	#define WNetAddConnection3 WNetAddConnection3W
+	#define WNetCancelConnection WNetCancelConnectionW
+	#define WNetCancelConnection2 WNetCancelConnection2W
+	#define WNetGetConnection WNetGetConnectionW
+	#define WNetRestoreConnection WNetRestoreConnectionW
+	#define WNetUseConnection WNetUseConnectionW
+#else
+	#define WNetAddConnection WNetAddConnectionA
+	#define WNetAddConnection2 WNetAddConnection2A
+	#define WNetAddConnection3 WNetAddConnection3A
+	#define WNetCancelConnection WNetCancelConnectionA
+	#define WNetCancelConnection2 WNetCancelConnection2A
+	#define WNetGetConnection WNetGetConnectionA
+	#define WNetRestoreConnection WNetRestoreConnectionA
+	#define WNetUseConnection WNetUseConnectionA
+#endif
 
 declare function WNetAddConnectionA(byval lpRemoteName as LPCSTR, byval lpPassword as LPCSTR, byval lpLocalName as LPCSTR) as DWORD
 declare function WNetAddConnectionW(byval lpRemoteName as LPCWSTR, byval lpPassword as LPCWSTR, byval lpLocalName as LPCWSTR) as DWORD
@@ -230,7 +242,12 @@ type LPCONNECTDLGSTRUCTW as _CONNECTDLGSTRUCTW ptr
 #define CONNDLG_HIDE_BOX &h00000008
 #define CONNDLG_PERSIST &h00000010
 #define CONNDLG_NOT_PERSIST &h00000020
-#define WNetConnectionDialog1 __MINGW_NAME_AW(WNetConnectionDialog1)
+
+#ifdef UNICODE
+	#define WNetConnectionDialog1 WNetConnectionDialog1W
+#else
+	#define WNetConnectionDialog1 WNetConnectionDialog1A
+#endif
 
 declare function WNetConnectionDialog1A(byval lpConnDlgStruct as LPCONNECTDLGSTRUCTA) as DWORD
 declare function WNetConnectionDialog1W(byval lpConnDlgStruct as LPCONNECTDLGSTRUCTW) as DWORD
@@ -267,11 +284,20 @@ type LPDISCDLGSTRUCTW as _DISCDLGSTRUCTW ptr
 
 #define DISC_UPDATE_PROFILE &h00000001
 #define DISC_NO_FORCE &h00000040
-#define WNetDisconnectDialog1 __MINGW_NAME_AW(WNetDisconnectDialog1)
-#define WNetOpenEnum __MINGW_NAME_AW(WNetOpenEnum)
-#define WNetEnumResource __MINGW_NAME_AW(WNetEnumResource)
-#define WNetGetResourceParent __MINGW_NAME_AW(WNetGetResourceParent)
-#define WNetGetResourceInformation __MINGW_NAME_AW(WNetGetResourceInformation)
+
+#ifdef UNICODE
+	#define WNetDisconnectDialog1 WNetDisconnectDialog1W
+	#define WNetOpenEnum WNetOpenEnumW
+	#define WNetEnumResource WNetEnumResourceW
+	#define WNetGetResourceParent WNetGetResourceParentW
+	#define WNetGetResourceInformation WNetGetResourceInformationW
+#else
+	#define WNetDisconnectDialog1 WNetDisconnectDialog1A
+	#define WNetOpenEnum WNetOpenEnumA
+	#define WNetEnumResource WNetEnumResourceA
+	#define WNetGetResourceParent WNetGetResourceParentA
+	#define WNetGetResourceInformation WNetGetResourceInformationA
+#endif
 
 declare function WNetDisconnectDialog1A(byval lpConnDlgStruct as LPDISCDLGSTRUCTA) as DWORD
 declare function WNetDisconnectDialog1W(byval lpConnDlgStruct as LPDISCDLGSTRUCTW) as DWORD
@@ -331,14 +357,18 @@ type LPREMOTE_NAME_INFOW as _REMOTE_NAME_INFOW ptr
 #ifdef UNICODE
 	type REMOTE_NAME_INFO as REMOTE_NAME_INFOW
 	type LPREMOTE_NAME_INFO as LPREMOTE_NAME_INFOW
+
+	#define WNetGetUniversalName WNetGetUniversalNameW
+	#define WNetGetUser WNetGetUserW
+	#define WNetGetProviderName WNetGetProviderNameW
 #else
 	type REMOTE_NAME_INFO as REMOTE_NAME_INFOA
 	type LPREMOTE_NAME_INFO as LPREMOTE_NAME_INFOA
-#endif
 
-#define WNetGetUniversalName __MINGW_NAME_AW(WNetGetUniversalName)
-#define WNetGetUser __MINGW_NAME_AW(WNetGetUser)
-#define WNetGetProviderName __MINGW_NAME_AW(WNetGetProviderName)
+	#define WNetGetUniversalName WNetGetUniversalNameA
+	#define WNetGetUser WNetGetUserA
+	#define WNetGetProviderName WNetGetProviderNameA
+#endif
 
 declare function WNetGetUniversalNameA(byval lpLocalPath as LPCSTR, byval dwInfoLevel as DWORD, byval lpBuffer as LPVOID, byval lpBufferSize as LPDWORD) as DWORD
 declare function WNetGetUniversalNameW(byval lpLocalPath as LPCWSTR, byval dwInfoLevel as DWORD, byval lpBuffer as LPVOID, byval lpBufferSize as LPDWORD) as DWORD
@@ -370,7 +400,12 @@ type LPNETINFOSTRUCT as _NETINFOSTRUCT ptr
 #define NETINFO_DLL16 &h00000001
 #define NETINFO_DISKRED &h00000004
 #define NETINFO_PRINTERRED &h00000008
-#define WNetGetNetworkInformation __MINGW_NAME_AW(WNetGetNetworkInformation)
+
+#ifdef UNICODE
+	#define WNetGetNetworkInformation WNetGetNetworkInformationW
+#else
+	#define WNetGetNetworkInformation WNetGetNetworkInformationA
+#endif
 
 declare function WNetGetNetworkInformationA(byval lpProvider as LPCSTR, byval lpNetInfoStruct as LPNETINFOSTRUCT) as DWORD
 declare function WNetGetNetworkInformationW(byval lpProvider as LPCWSTR, byval lpNetInfoStruct as LPNETINFOSTRUCT) as DWORD
@@ -378,21 +413,40 @@ declare function WNetGetNetworkInformationW(byval lpProvider as LPCWSTR, byval l
 type PFNGETPROFILEPATHA as function(byval pszUsername as LPCSTR, byval pszBuffer as LPSTR, byval cbBuffer as UINT) as UINT
 type PFNGETPROFILEPATHW as function(byval pszUsername as LPCWSTR, byval pszBuffer as LPWSTR, byval cbBuffer as UINT) as UINT
 
-#define PFNGETPROFILEPATH __MINGW_NAME_AW(PFNGETPROFILEPATH)
+#ifdef UNICODE
+	#define PFNGETPROFILEPATH PFNGETPROFILEPATHW
+#else
+	#define PFNGETPROFILEPATH PFNGETPROFILEPATHA
+#endif
 
 type PFNRECONCILEPROFILEA as function(byval pszCentralFile as LPCSTR, byval pszLocalFile as LPCSTR, byval dwFlags as DWORD) as UINT
 type PFNRECONCILEPROFILEW as function(byval pszCentralFile as LPCWSTR, byval pszLocalFile as LPCWSTR, byval dwFlags as DWORD) as UINT
 
-#define PFNRECONCILEPROFILE __MINGW_NAME_AW(PFNRECONCILEPROFILE)
+#ifdef UNICODE
+	#define PFNRECONCILEPROFILE PFNRECONCILEPROFILEW
+#else
+	#define PFNRECONCILEPROFILE PFNRECONCILEPROFILEA
+#endif
+
 #define RP_LOGON &h01
 #define RP_INIFILE &h02
 
 type PFNPROCESSPOLICIESA as function(byval hwnd as HWND, byval pszPath as LPCSTR, byval pszUsername as LPCSTR, byval pszComputerName as LPCSTR, byval dwFlags as DWORD) as WINBOOL
 type PFNPROCESSPOLICIESW as function(byval hwnd as HWND, byval pszPath as LPCWSTR, byval pszUsername as LPCWSTR, byval pszComputerName as LPCWSTR, byval dwFlags as DWORD) as WINBOOL
 
-#define PFNPROCESSPOLICIES __MINGW_NAME_AW(PFNPROCESSPOLICIES)
+#ifdef UNICODE
+	#define PFNPROCESSPOLICIES PFNPROCESSPOLICIESW
+#else
+	#define PFNPROCESSPOLICIES PFNPROCESSPOLICIESA
+#endif
+
 #define PP_DISPLAYERRORS &h01
-#define WNetGetLastError __MINGW_NAME_AW(WNetGetLastError)
+
+#ifdef UNICODE
+	#define WNetGetLastError WNetGetLastErrorW
+#else
+	#define WNetGetLastError WNetGetLastErrorA
+#endif
 
 declare function WNetGetLastErrorA(byval lpError as LPDWORD, byval lpErrorBuf as LPSTR, byval nErrorBufSize as DWORD, byval lpNameBuf as LPSTR, byval nNameBufSize as DWORD) as DWORD
 declare function WNetGetLastErrorW(byval lpError as LPDWORD, byval lpErrorBuf as LPWSTR, byval nErrorBufSize as DWORD, byval lpNameBuf as LPWSTR, byval nNameBufSize as DWORD) as DWORD
@@ -455,7 +509,12 @@ type LPNETCONNECTINFOSTRUCT as _NETCONNECTINFOSTRUCT ptr
 #define WNCON_NOTROUTED &h00000002
 #define WNCON_SLOWLINK &h00000004
 #define WNCON_DYNAMIC &h00000008
-#define MultinetGetConnectionPerformance __MINGW_NAME_AW(MultinetGetConnectionPerformance)
+
+#ifdef UNICODE
+	#define MultinetGetConnectionPerformance MultinetGetConnectionPerformanceW
+#else
+	#define MultinetGetConnectionPerformance MultinetGetConnectionPerformanceA
+#endif
 
 declare function MultinetGetConnectionPerformanceA(byval lpNetResource as LPNETRESOURCEA, byval lpNetConnectInfoStruct as LPNETCONNECTINFOSTRUCT) as DWORD
 declare function MultinetGetConnectionPerformanceW(byval lpNetResource as LPNETRESOURCEW, byval lpNetConnectInfoStruct as LPNETCONNECTINFOSTRUCT) as DWORD

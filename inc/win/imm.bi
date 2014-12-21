@@ -206,14 +206,25 @@ type NPIMECHARPOSITION as tagIMECHARPOSITION ptr
 type LPIMECHARPOSITION as tagIMECHARPOSITION ptr
 type IMCENUMPROC as function(byval as HIMC, byval as LPARAM) as WINBOOL
 
-#define ImmInstallIME __MINGW_NAME_AW(ImmInstallIME)
-#define ImmGetDescription __MINGW_NAME_AW(ImmGetDescription)
-#define ImmGetIMEFileName __MINGW_NAME_AW(ImmGetIMEFileName)
-#define ImmGetCompositionString __MINGW_NAME_AW(ImmGetCompositionString)
-#define ImmSetCompositionString __MINGW_NAME_AW(ImmSetCompositionString)
-#define ImmGetCandidateListCount __MINGW_NAME_AW(ImmGetCandidateListCount)
-#define ImmGetCandidateList __MINGW_NAME_AW(ImmGetCandidateList)
-#define ImmGetGuideLine __MINGW_NAME_AW(ImmGetGuideLine)
+#ifdef UNICODE
+	#define ImmInstallIME ImmInstallIMEW
+	#define ImmGetDescription ImmGetDescriptionW
+	#define ImmGetIMEFileName ImmGetIMEFileNameW
+	#define ImmGetCompositionString ImmGetCompositionStringW
+	#define ImmSetCompositionString ImmSetCompositionStringW
+	#define ImmGetCandidateListCount ImmGetCandidateListCountW
+	#define ImmGetCandidateList ImmGetCandidateListW
+	#define ImmGetGuideLine ImmGetGuideLineW
+#else
+	#define ImmInstallIME ImmInstallIMEA
+	#define ImmGetDescription ImmGetDescriptionA
+	#define ImmGetIMEFileName ImmGetIMEFileNameA
+	#define ImmGetCompositionString ImmGetCompositionStringA
+	#define ImmSetCompositionString ImmSetCompositionStringA
+	#define ImmGetCandidateListCount ImmGetCandidateListCountA
+	#define ImmGetCandidateList ImmGetCandidateListA
+	#define ImmGetGuideLine ImmGetGuideLineA
+#endif
 
 declare function ImmInstallIMEA(byval lpszIMEFileName as LPCSTR, byval lpszLayoutText as LPCSTR) as HKL
 declare function ImmInstallIMEW(byval lpszIMEFileName as LPCWSTR, byval lpszLayoutText as LPCWSTR) as HKL
@@ -246,8 +257,13 @@ declare function ImmSetConversionStatus(byval as HIMC, byval as DWORD, byval as 
 declare function ImmGetOpenStatus(byval as HIMC) as WINBOOL
 declare function ImmSetOpenStatus(byval as HIMC, byval as WINBOOL) as WINBOOL
 
-#define ImmGetCompositionFont __MINGW_NAME_AW(ImmGetCompositionFont)
-#define ImmSetCompositionFont __MINGW_NAME_AW(ImmSetCompositionFont)
+#ifdef UNICODE
+	#define ImmGetCompositionFont ImmGetCompositionFontW
+	#define ImmSetCompositionFont ImmSetCompositionFontW
+#else
+	#define ImmGetCompositionFont ImmGetCompositionFontA
+	#define ImmSetCompositionFont ImmSetCompositionFontA
+#endif
 
 declare function ImmGetCompositionFontA(byval as HIMC, byval as LPLOGFONTA) as WINBOOL
 declare function ImmGetCompositionFontW(byval as HIMC, byval as LPLOGFONTW) as WINBOOL
@@ -257,16 +273,29 @@ declare function ImmSetCompositionFontW(byval as HIMC, byval as LPLOGFONTW) as W
 type REGISTERWORDENUMPROCA as function(byval as LPCSTR, byval as DWORD, byval as LPCSTR, byval as LPVOID) as long
 type REGISTERWORDENUMPROCW as function(byval as LPCWSTR, byval as DWORD, byval as LPCWSTR, byval as LPVOID) as long
 
-#define REGISTERWORDENUMPROC __MINGW_NAME_AW(REGISTERWORDENUMPROC)
-#define ImmConfigureIME __MINGW_NAME_AW(ImmConfigureIME)
-#define ImmEscape __MINGW_NAME_AW(ImmEscape)
-#define ImmGetConversionList __MINGW_NAME_AW(ImmGetConversionList)
-#define ImmIsUIMessage __MINGW_NAME_AW(ImmIsUIMessage)
-#define ImmRegisterWord __MINGW_NAME_AW(ImmRegisterWord)
-#define ImmUnregisterWord __MINGW_NAME_AW(ImmUnregisterWord)
-#define ImmGetRegisterWordStyle __MINGW_NAME_AW(ImmGetRegisterWordStyle)
-#define ImmEnumRegisterWord __MINGW_NAME_AW(ImmEnumRegisterWord)
-#define ImmGetImeMenuItems __MINGW_NAME_AW(ImmGetImeMenuItems)
+#ifdef UNICODE
+	#define REGISTERWORDENUMPROC REGISTERWORDENUMPROCW
+	#define ImmConfigureIME ImmConfigureIMEW
+	#define ImmEscape ImmEscapeW
+	#define ImmGetConversionList ImmGetConversionListW
+	#define ImmIsUIMessage ImmIsUIMessageW
+	#define ImmRegisterWord ImmRegisterWordW
+	#define ImmUnregisterWord ImmUnregisterWordW
+	#define ImmGetRegisterWordStyle ImmGetRegisterWordStyleW
+	#define ImmEnumRegisterWord ImmEnumRegisterWordW
+	#define ImmGetImeMenuItems ImmGetImeMenuItemsW
+#else
+	#define REGISTERWORDENUMPROC REGISTERWORDENUMPROCA
+	#define ImmConfigureIME ImmConfigureIMEA
+	#define ImmEscape ImmEscapeA
+	#define ImmGetConversionList ImmGetConversionListA
+	#define ImmIsUIMessage ImmIsUIMessageA
+	#define ImmRegisterWord ImmRegisterWordA
+	#define ImmUnregisterWord ImmUnregisterWordA
+	#define ImmGetRegisterWordStyle ImmGetRegisterWordStyleA
+	#define ImmEnumRegisterWord ImmEnumRegisterWordA
+	#define ImmGetImeMenuItems ImmGetImeMenuItemsA
+#endif
 
 declare function ImmConfigureIMEA(byval as HKL, byval as HWND, byval as DWORD, byval as LPVOID) as WINBOOL
 declare function ImmConfigureIMEW(byval as HKL, byval as HWND, byval as DWORD, byval as LPVOID) as WINBOOL

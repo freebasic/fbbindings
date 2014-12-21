@@ -81,7 +81,12 @@ type tagRASCONNA field = 4
 	luid as LUID
 end type
 
-#define RASCONN __MINGW_NAME_AW(RASCONN)
+#ifdef UNICODE
+	#define RASCONN RASCONNW
+#else
+	#define RASCONN RASCONNA
+#endif
+
 #define LPRASCONNW '' TODO: RASCONNW*
 #define LPRASCONNA '' TODO: RASCONNA*
 #define LPRASCONN '' TODO: RASCONN*
@@ -147,7 +152,12 @@ type tagRASCONNSTATUSA field = 4
 	szPhoneNumber(0 to (128 + 1) - 1) as CHAR
 end type
 
-#define RASCONNSTATUS __MINGW_NAME_AW(RASCONNSTATUS)
+#ifdef UNICODE
+	#define RASCONNSTATUS RASCONNSTATUSW
+#else
+	#define RASCONNSTATUS RASCONNSTATUSA
+#endif
+
 #define LPRASCONNSTATUSW '' TODO: RASCONNSTATUSW*
 #define LPRASCONNSTATUSA '' TODO: RASCONNSTATUSA*
 #define LPRASCONNSTATUS '' TODO: RASCONNSTATUS*
@@ -187,7 +197,12 @@ type tagRASDIALPARAMSA field = 4
 	#endif
 end type
 
-#define RASDIALPARAMS __MINGW_NAME_AW(RASDIALPARAMS)
+#ifdef UNICODE
+	#define RASDIALPARAMS RASDIALPARAMSW
+#else
+	#define RASDIALPARAMS RASDIALPARAMSA
+#endif
+
 #define LPRASDIALPARAMSW '' TODO: RASDIALPARAMSW*
 #define LPRASDIALPARAMSA '' TODO: RASDIALPARAMSA*
 #define LPRASDIALPARAMS '' TODO: RASDIALPARAMS*
@@ -244,7 +259,12 @@ type tagRASENTRYNAMEA field = 4
 	szPhonebookPath(0 to (260 + 1) - 1) as CHAR
 end type
 
-#define RASENTRYNAME __MINGW_NAME_AW(RASENTRYNAME)
+#ifdef UNICODE
+	#define RASENTRYNAME RASENTRYNAMEW
+#else
+	#define RASENTRYNAME RASENTRYNAMEA
+#endif
+
 #define LPRASENTRYNAMEW '' TODO: RASENTRYNAMEW*
 #define LPRASENTRYNAMEA '' TODO: RASENTRYNAMEA*
 #define LPRASENTRYNAME '' TODO: RASENTRYNAME*
@@ -280,7 +300,12 @@ type tagRASAMBA field = 4
 	bLana as UBYTE
 end type
 
-#define RASAMB __MINGW_NAME_AW(RASAMB)
+#ifdef UNICODE
+	#define RASAMB RASAMBW
+#else
+	#define RASAMB RASAMBA
+#endif
+
 #define LPRASAMBW '' TODO: RASAMBW*
 #define LPRASAMBA '' TODO: RASAMBA*
 #define LPRASAMB '' TODO: RASAMB*
@@ -306,7 +331,12 @@ type tagRASPPPNBFA field = 4
 	bLana as UBYTE
 end type
 
-#define RASPPPNBF __MINGW_NAME_AW(RASPPPNBF)
+#ifdef UNICODE
+	#define RASPPPNBF RASPPPNBFW
+#else
+	#define RASPPPNBF RASPPPNBFA
+#endif
+
 #define LPRASPPPNBFW '' TODO: RASPPPNBFW*
 #define LPRASPPPNBFA '' TODO: RASPPPNBFA*
 #define LPRASPPPNBF '' TODO: RASPPPNBF*
@@ -326,7 +356,12 @@ type tagRASPPPIPXA field = 4
 	szIpxAddress(0 to (21 + 1) - 1) as CHAR
 end type
 
-#define RASPPPIPX __MINGW_NAME_AW(RASPPPIPX)
+#ifdef UNICODE
+	#define RASPPPIPX RASPPPIPXW
+#else
+	#define RASPPPIPX RASPPPIPXA
+#endif
+
 #define LPRASPPPIPXW '' TODO: RASPPPIPXW *
 #define LPRASPPPIPXA '' TODO: RASPPPIPXA *
 #define LPRASPPPIPX '' TODO: RASPPPIPX *
@@ -353,7 +388,12 @@ type tagRASPPPIPA field = 4
 	dwServerOptions as DWORD
 end type
 
-#define RASPPPIP __MINGW_NAME_AW(RASPPPIP)
+#ifdef UNICODE
+	#define RASPPPIP RASPPPIPW
+#else
+	#define RASPPPIP RASPPPIPA
+#endif
+
 #define LPRASPPPIPW '' TODO: RASPPPIPW*
 #define LPRASPPPIPA '' TODO: RASPPPIPA*
 #define LPRASPPPIP '' TODO: RASPPPIP*
@@ -409,7 +449,12 @@ type tagRASPPPLCPA field = 4
 	dwServerOptions as DWORD
 end type
 
-#define RASPPPLCP __MINGW_NAME_AW(RASPPPLCP)
+#ifdef UNICODE
+	#define RASPPPLCP RASPPPLCPW
+#else
+	#define RASPPPLCP RASPPPLCPA
+#endif
+
 #define LPRASPPPLCPW '' TODO: RASPPPLCPW *
 #define LPRASPPPLCPA '' TODO: RASPPPLCPA *
 #define LPRASPPPLCP '' TODO: RASPPPLCP *
@@ -429,7 +474,12 @@ type tagRASSLIPA field = 4
 	szIpAddress(0 to (15 + 1) - 1) as CHAR
 end type
 
-#define RASSLIP __MINGW_NAME_AW(RASSLIP)
+#ifdef UNICODE
+	#define RASSLIP RASSLIPW
+#else
+	#define RASSLIP RASSLIPA
+#endif
+
 #define LPRASSLIPW '' TODO: RASSLIPW*
 #define LPRASSLIPA '' TODO: RASSLIPA*
 #define LPRASSLIP '' TODO: RASSLIP*
@@ -475,7 +525,12 @@ type tagRASDEVINFOA field = 4
 	szDeviceName(0 to (128 + 1) - 1) as CHAR
 end type
 
-#define RASDEVINFO __MINGW_NAME_AW(RASDEVINFO)
+#ifdef UNICODE
+	#define RASDEVINFO RASDEVINFOW
+#else
+	#define RASDEVINFO RASDEVINFOA
+#endif
+
 #define LPRASDEVINFOW '' TODO: RASDEVINFOW*
 #define LPRASDEVINFOA '' TODO: RASDEVINFOA*
 #define LPRASDEVINFO '' TODO: RASDEVINFO*
@@ -618,7 +673,12 @@ type tagRASENTRYW field = 4
 	dwRedialPause as DWORD
 end type
 
-#define RASENTRY __MINGW_NAME_AW(RASENTRY)
+#ifdef UNICODE
+	#define RASENTRY RASENTRYW
+#else
+	#define RASENTRY RASENTRYA
+#endif
+
 #define LPRASENTRYW '' TODO: RASENTRYW*
 #define LPRASENTRYA '' TODO: RASENTRYA*
 #define LPRASENTRY '' TODO: RASENTRY*
@@ -715,7 +775,12 @@ end type
 type RASADFUNCA as function(byval as LPSTR, byval as LPSTR, byval as tagRASADPARAMS ptr, byval as LPDWORD) as WINBOOL
 type RASADFUNCW as function(byval as LPWSTR, byval as LPWSTR, byval as tagRASADPARAMS ptr, byval as LPDWORD) as WINBOOL
 
-#define RASADFUNC __MINGW_NAME_AW(RASADFUNC)
+#ifdef UNICODE
+	#define RASADFUNC RASADFUNCW
+#else
+	#define RASADFUNC RASADFUNCA
+#endif
+
 #define RASSUBENTRYA tagRASSUBENTRYA
 
 type tagRASSUBENTRYA field = 4
@@ -738,7 +803,12 @@ type tagRASSUBENTRYW field = 4
 	dwAlternateOffset as DWORD
 end type
 
-#define RASSUBENTRY __MINGW_NAME_AW(RASSUBENTRY)
+#ifdef UNICODE
+	#define RASSUBENTRY RASSUBENTRYW
+#else
+	#define RASSUBENTRY RASSUBENTRYA
+#endif
+
 #define LPRASSUBENTRYW '' TODO: RASSUBENTRYW*
 #define LPRASSUBENTRYA '' TODO: RASSUBENTRYA*
 #define LPRASSUBENTRY '' TODO: RASSUBENTRY*
@@ -762,7 +832,12 @@ type tagRASCREDENTIALSW field = 4
 	szDomain(0 to (15 + 1) - 1) as WCHAR
 end type
 
-#define RASCREDENTIALS __MINGW_NAME_AW(RASCREDENTIALS)
+#ifdef UNICODE
+	#define RASCREDENTIALS RASCREDENTIALSW
+#else
+	#define RASCREDENTIALS RASCREDENTIALSA
+#endif
+
 #define LPRASCREDENTIALSW '' TODO: RASCREDENTIALSW*
 #define LPRASCREDENTIALSA '' TODO: RASCREDENTIALSA*
 #define LPRASCREDENTIALS '' TODO: RASCREDENTIALS*
@@ -791,7 +866,12 @@ type tagRASAUTODIALENTRYW field = 4
 	szEntry(0 to (256 + 1) - 1) as WCHAR
 end type
 
-#define RASAUTODIALENTRY __MINGW_NAME_AW(RASAUTODIALENTRY)
+#ifdef UNICODE
+	#define RASAUTODIALENTRY RASAUTODIALENTRYW
+#else
+	#define RASAUTODIALENTRY RASAUTODIALENTRYA
+#endif
+
 #define LPRASAUTODIALENTRYW '' TODO: RASAUTODIALENTRYW*
 #define LPRASAUTODIALENTRYA '' TODO: RASAUTODIALENTRYA*
 #define LPRASAUTODIALENTRY '' TODO: RASAUTODIALENTRY*
@@ -819,7 +899,12 @@ type tagRASEAPUSERIDENTITYW field = 4
 	pbEapInfo(0 to 0) as UBYTE
 end type
 
-#define RASEAPUSERIDENTITY __MINGW_NAME_AW(RASEAPUSERIDENTITY)
+#ifdef UNICODE
+	#define RASEAPUSERIDENTITY RASEAPUSERIDENTITYW
+#else
+	#define RASEAPUSERIDENTITY RASEAPUSERIDENTITYA
+#endif
+
 #define LPRASEAPUSERIDENTITYW '' TODO: RASEAPUSERIDENTITYW*
 #define LPRASEAPUSERIDENTITYA '' TODO: RASEAPUSERIDENTITYA*
 
@@ -972,46 +1057,145 @@ declare sub RasFreeEapUserIdentityA(byval pRasEapUserIdentity as tagRASEAPUSERID
 declare function RasDeleteSubEntryA(byval pszPhonebook as LPCSTR, byval pszEntry as LPCSTR, byval dwSubentryId as DWORD) as DWORD
 declare function RasDeleteSubEntryW(byval pszPhonebook as LPCWSTR, byval pszEntry as LPCWSTR, byval dwSubEntryId as DWORD) as DWORD
 
-#define RasDial __MINGW_NAME_AW(RasDial)
-#define RasEnumConnections __MINGW_NAME_AW(RasEnumConnections)
-#define RasEnumEntries __MINGW_NAME_AW(RasEnumEntries)
-#define RasGetConnectStatus __MINGW_NAME_AW(RasGetConnectStatus)
-#define RasGetErrorString __MINGW_NAME_AW(RasGetErrorString)
-#define RasHangUp __MINGW_NAME_AW(RasHangUp)
-#define RasGetProjectionInfo __MINGW_NAME_AW(RasGetProjectionInfo)
-#define RasCreatePhonebookEntry __MINGW_NAME_AW(RasCreatePhonebookEntry)
-#define RasEditPhonebookEntry __MINGW_NAME_AW(RasEditPhonebookEntry)
-#define RasSetEntryDialParams __MINGW_NAME_AW(RasSetEntryDialParams)
-#define RasGetEntryDialParams __MINGW_NAME_AW(RasGetEntryDialParams)
-#define RasEnumDevices __MINGW_NAME_AW(RasEnumDevices)
-#define RasGetCountryInfo __MINGW_NAME_AW(RasGetCountryInfo)
-#define RasGetEntryProperties __MINGW_NAME_AW(RasGetEntryProperties)
-#define RasSetEntryProperties __MINGW_NAME_AW(RasSetEntryProperties)
-#define RasRenameEntry __MINGW_NAME_AW(RasRenameEntry)
-#define RasDeleteEntry __MINGW_NAME_AW(RasDeleteEntry)
-#define RasValidateEntryName __MINGW_NAME_AW(RasValidateEntryName)
-#define RasGetSubEntryHandle __MINGW_NAME_AW(RasGetSubEntryHandle)
-#define RasConnectionNotification __MINGW_NAME_AW(RasConnectionNotification)
-#define RasGetSubEntryProperties __MINGW_NAME_AW(RasGetSubEntryProperties)
-#define RasSetSubEntryProperties __MINGW_NAME_AW(RasSetSubEntryProperties)
-#define RasGetCredentials __MINGW_NAME_AW(RasGetCredentials)
-#define RasSetCredentials __MINGW_NAME_AW(RasSetCredentials)
-#define RasGetAutodialAddress __MINGW_NAME_AW(RasGetAutodialAddress)
-#define RasSetAutodialAddress __MINGW_NAME_AW(RasSetAutodialAddress)
-#define RasEnumAutodialAddresses __MINGW_NAME_AW(RasEnumAutodialAddresses)
-#define RasGetAutodialEnable __MINGW_NAME_AW(RasGetAutodialEnable)
-#define RasSetAutodialEnable __MINGW_NAME_AW(RasSetAutodialEnable)
-#define RasGetAutodialParam __MINGW_NAME_AW(RasGetAutodialParam)
-#define RasSetAutodialParam __MINGW_NAME_AW(RasSetAutodialParam)
-#define RasGetEapUserData __MINGW_NAME_AW(RasGetEapUserData)
-#define RasSetEapUserData __MINGW_NAME_AW(RasSetEapUserData)
-#define RasGetCustomAuthData __MINGW_NAME_AW(RasGetCustomAuthData)
-#define RasSetCustomAuthData __MINGW_NAME_AW(RasSetCustomAuthData)
-#define RasGetEapUserIdentity __MINGW_NAME_AW(RasGetEapUserIdentity)
-#define RasFreeEapUserIdentity __MINGW_NAME_AW(RasFreeEapUserIdentity)
-#define RasDeleteSubEntry __MINGW_NAME_AW(RasDeleteSubEntry)
+#ifdef UNICODE
+	#define RasDial RasDialW
+	#define RasEnumConnections RasEnumConnectionsW
+	#define RasEnumEntries RasEnumEntriesW
+	#define RasGetConnectStatus RasGetConnectStatusW
+	#define RasGetErrorString RasGetErrorStringW
+	#define RasHangUp RasHangUpW
+	#define RasGetProjectionInfo RasGetProjectionInfoW
+	#define RasCreatePhonebookEntry RasCreatePhonebookEntryW
+	#define RasEditPhonebookEntry RasEditPhonebookEntryW
+	#define RasSetEntryDialParams RasSetEntryDialParamsW
+	#define RasGetEntryDialParams RasGetEntryDialParamsW
+	#define RasEnumDevices RasEnumDevicesW
+	#define RasGetCountryInfo RasGetCountryInfoW
+	#define RasGetEntryProperties RasGetEntryPropertiesW
+	#define RasSetEntryProperties RasSetEntryPropertiesW
+	#define RasRenameEntry RasRenameEntryW
+	#define RasDeleteEntry RasDeleteEntryW
+	#define RasValidateEntryName RasValidateEntryNameW
+	#define RasGetSubEntryHandle RasGetSubEntryHandleW
+	#define RasConnectionNotification RasConnectionNotificationW
+	#define RasGetSubEntryProperties RasGetSubEntryPropertiesW
+	#define RasSetSubEntryProperties RasSetSubEntryPropertiesW
+	#define RasGetCredentials RasGetCredentialsW
+	#define RasSetCredentials RasSetCredentialsW
+	#define RasGetAutodialAddress RasGetAutodialAddressW
+	#define RasSetAutodialAddress RasSetAutodialAddressW
+	#define RasEnumAutodialAddresses RasEnumAutodialAddressesW
+	#define RasGetAutodialEnable RasGetAutodialEnableW
+	#define RasSetAutodialEnable RasSetAutodialEnableW
+	#define RasGetAutodialParam RasGetAutodialParamW
+	#define RasSetAutodialParam RasSetAutodialParamW
+	#define RasGetEapUserData RasGetEapUserDataW
+	#define RasSetEapUserData RasSetEapUserDataW
+	#define RasGetCustomAuthData RasGetCustomAuthDataW
+	#define RasSetCustomAuthData RasSetCustomAuthDataW
+	#define RasGetEapUserIdentity RasGetEapUserIdentityW
+	#define RasFreeEapUserIdentity RasFreeEapUserIdentityW
+	#define RasDeleteSubEntry RasDeleteSubEntryW
+#endif
 
-#if _WIN32_WINNT = &h0602
+#if defined(UNICODE) and (_WIN32_WINNT = &h0602)
+	type _tagRasNapState field = 4
+		dwSize as DWORD
+		dwFlags as DWORD
+		isolationState as IsolationState
+		probationTime as ProbationTime
+	end type
+
+	type RASNAPSTATE as _tagRasNapState
+	type LPRASNAPSTATE as _tagRasNapState ptr
+
+	type _RASPPPIPV6 field = 4
+		dwSize as DWORD
+		dwError as DWORD
+		bLocalInterfaceIdentifier(0 to 7) as UBYTE
+		bPeerInterfaceIdentifier(0 to 7) as UBYTE
+		bLocalCompressionProtocol(0 to 1) as UBYTE
+		bPeerCompressionProtocol(0 to 1) as UBYTE
+	end type
+
+	type RASPPPIPV6 as _RASPPPIPV6
+	type LPRASPPPIPV6 as _RASPPPIPV6 ptr
+
+	declare function rasgetnapstatus cdecl(byval hRasConn as HRASCONN, byval pNapState as LPRASNAPSTATE) as DWORD
+
+	type RASAPIVERSION as long
+	enum
+		RASAPIVERSION_500 = 1
+		RASAPIVERSION_501 = 2
+		RASAPIVERSION_600 = 3
+		RASAPIVERSION_601 = 4
+	end enum
+
+	type _RASTUNNELENDPOINT field = 4
+		dwType as DWORD
+
+		union field = 4
+			ipv4 as RASIPV4ADDR
+			ipv6 as RASIPV6ADDR
+		end union
+	end type
+
+	type RASTUNNELENDPOINT as _RASTUNNELENDPOINT
+	type PRASTUNNELENDPOINT as _RASTUNNELENDPOINT ptr
+
+	type _RASUPDATECONN field = 4
+		version as RASAPIVERSION
+		dwSize as DWORD
+		dwFlags as DWORD
+		dwIfIndex as DWORD
+		localEndPoint as RASTUNNELENDPOINT
+		remoteEndPoint as RASTUNNELENDPOINT
+	end type
+
+	type RASUPDATECONN as _RASUPDATECONN
+	type LPRASUPDATECONN as _RASUPDATECONN ptr
+#elseif not defined(UNICODE)
+	#define RasDial RasDialA
+	#define RasEnumConnections RasEnumConnectionsA
+	#define RasEnumEntries RasEnumEntriesA
+	#define RasGetConnectStatus RasGetConnectStatusA
+	#define RasGetErrorString RasGetErrorStringA
+	#define RasHangUp RasHangUpA
+	#define RasGetProjectionInfo RasGetProjectionInfoA
+	#define RasCreatePhonebookEntry RasCreatePhonebookEntryA
+	#define RasEditPhonebookEntry RasEditPhonebookEntryA
+	#define RasSetEntryDialParams RasSetEntryDialParamsA
+	#define RasGetEntryDialParams RasGetEntryDialParamsA
+	#define RasEnumDevices RasEnumDevicesA
+	#define RasGetCountryInfo RasGetCountryInfoA
+	#define RasGetEntryProperties RasGetEntryPropertiesA
+	#define RasSetEntryProperties RasSetEntryPropertiesA
+	#define RasRenameEntry RasRenameEntryA
+	#define RasDeleteEntry RasDeleteEntryA
+	#define RasValidateEntryName RasValidateEntryNameA
+	#define RasGetSubEntryHandle RasGetSubEntryHandleA
+	#define RasConnectionNotification RasConnectionNotificationA
+	#define RasGetSubEntryProperties RasGetSubEntryPropertiesA
+	#define RasSetSubEntryProperties RasSetSubEntryPropertiesA
+	#define RasGetCredentials RasGetCredentialsA
+	#define RasSetCredentials RasSetCredentialsA
+	#define RasGetAutodialAddress RasGetAutodialAddressA
+	#define RasSetAutodialAddress RasSetAutodialAddressA
+	#define RasEnumAutodialAddresses RasEnumAutodialAddressesA
+	#define RasGetAutodialEnable RasGetAutodialEnableA
+	#define RasSetAutodialEnable RasSetAutodialEnableA
+	#define RasGetAutodialParam RasGetAutodialParamA
+	#define RasSetAutodialParam RasSetAutodialParamA
+	#define RasGetEapUserData RasGetEapUserDataA
+	#define RasSetEapUserData RasSetEapUserDataA
+	#define RasGetCustomAuthData RasGetCustomAuthDataA
+	#define RasSetCustomAuthData RasSetCustomAuthDataA
+	#define RasGetEapUserIdentity RasGetEapUserIdentityA
+	#define RasFreeEapUserIdentity RasFreeEapUserIdentityA
+	#define RasDeleteSubEntry RasDeleteSubEntryA
+#endif
+
+#if (not defined(UNICODE)) and (_WIN32_WINNT = &h0602)
 	type _tagRasNapState field = 4
 		dwSize as DWORD
 		dwFlags as DWORD

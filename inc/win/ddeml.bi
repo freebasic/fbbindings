@@ -163,7 +163,12 @@ type PCONVINFO as tagCONVINFO ptr
 #define SZDDESYS_ITEM_FORMATS __MINGW_STRING_AW("Formats")
 #define SZDDESYS_ITEM_HELP __MINGW_STRING_AW("Help")
 #define SZDDE_ITEM_ITEMLIST __MINGW_STRING_AW("TopicItemList")
-#define DdeInitialize __MINGW_NAME_AW(DdeInitialize)
+
+#ifdef UNICODE
+	#define DdeInitialize DdeInitializeW
+#else
+	#define DdeInitialize DdeInitializeA
+#endif
 
 type PFNCALLBACK as function(byval wType as UINT, byval wFmt as UINT, byval hConv as HCONV, byval hsz1 as HSZ, byval hsz2 as HSZ, byval hData as HDDEDATA, byval dwData1 as ULONG_PTR, byval dwData2 as ULONG_PTR) as HDDEDATA
 
@@ -256,8 +261,13 @@ declare function DdeFreeStringHandle(byval idInst as DWORD, byval hsz as HSZ) as
 declare function DdeKeepStringHandle(byval idInst as DWORD, byval hsz as HSZ) as WINBOOL
 declare function DdeCmpStringHandles(byval hsz1 as HSZ, byval hsz2 as HSZ) as long
 
-#define DdeCreateStringHandle __MINGW_NAME_AW(DdeCreateStringHandle)
-#define DdeQueryString __MINGW_NAME_AW(DdeQueryString)
+#ifdef UNICODE
+	#define DdeCreateStringHandle DdeCreateStringHandleW
+	#define DdeQueryString DdeQueryStringW
+#else
+	#define DdeCreateStringHandle DdeCreateStringHandleA
+	#define DdeQueryString DdeQueryStringA
+#endif
 
 type tagDDEML_MSG_HOOK_DATA
 	uiLo as UINT_PTR
