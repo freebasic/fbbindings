@@ -23,7 +23,9 @@
 	#include once "win/rpc.bi"
 	#include once "win/shellapi.bi"
 	#include once "win/winperf.bi"
-	#include once "win/winsock.bi"
+	#ifdef __USE_W32_SOCKETS
+		#include once "win/winsock2.bi"
+	#endif
 	#include once "win/wincrypt.bi"
 	#include once "win/winefs.bi"
 	#include once "win/winscard.bi"
