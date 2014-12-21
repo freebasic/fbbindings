@@ -14,8 +14,6 @@ end type
 
 type GUID as _GUID
 
-#define DEFINE_GUID(name, l, w1, w2, b1, b2, b3, b4, b5, b6, b7, b8) '' TODO: EXTERN_C const GUID name
-#define DEFINE_OLEGUID(name, l, w1, w2) DEFINE_GUID(name, l, w1, w2, &hc0, 0, 0, 0, 0, 0, 0, &h46)
 #define _GUIDDEF_H_
 #define __LPGUID_DEFINED__
 
@@ -57,3 +55,5 @@ type LPFMTID as FMTID ptr
 #define IsEqualIID(riid1, riid2) IsEqualGUID(riid1, riid2)
 #define IsEqualCLSID(rclsid1, rclsid2) IsEqualGUID(rclsid1, rclsid2)
 #define _SYS_GUID_OPERATOR_EQ_
+#define DEFINE_GUID(name, l, w1, w2, b1, b2, b3, b4, b5, b6, b7, b8) '' TODO: EXTERN_C const GUID name
+#define DEFINE_OLEGUID(name, l, w1, w2) DEFINE_GUID(name, l, w1, w2, &hc0, 0, 0, 0, 0, 0, 0, &h46)

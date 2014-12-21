@@ -2,6 +2,7 @@
 
 #include once "windows.bi"
 #include once "objbase.bi"
+#include once "mmsystem.bi"
 #include once "dmusici.bi"
 
 #ifdef __FB_64BIT__

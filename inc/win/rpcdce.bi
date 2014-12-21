@@ -561,6 +561,63 @@ declare function RpcMgmtSetAuthorizationFn(byval AuthorizationFn as RPC_MGMT_AUT
 #define RPC_IF_ALLOW_LOCAL_ONLY &h0020
 #define RPC_IF_SEC_NO_CACHE &h0040
 
+#if _WIN32_WINNT = &h0602
+	type _RPC_BINDING_HANDLE_OPTIONS_V1
+		Version as ulong
+		Flags as ulong
+		ComTimeout as ulong
+		CallTimeout as ulong
+	end type
+
+	type RPC_BINDING_HANDLE_OPTIONS_V1 as _RPC_BINDING_HANDLE_OPTIONS_V1
+	type RPC_BINDING_HANDLE_OPTIONS as _RPC_BINDING_HANDLE_OPTIONS_V1
+
+	type RPC_BINDING_HANDLE_SECURITY_V1
+		Version as ulong
+		ServerPrincName as ushort ptr
+		AuthnLevel as ulong
+		AuthnSvc as ulong
+
+		#if defined(UNICODE) and (_WIN32_WINNT = &h0602)
+			AuthIdentity as SEC_WINNT_AUTH_IDENTITY_W ptr
+		#elseif (not defined(UNICODE)) and (_WIN32_WINNT = &h0602)
+			AuthIdentity as SEC_WINNT_AUTH_IDENTITY_A ptr
+		#endif
+
+		SecurityQos as RPC_SECURITY_QOS ptr
+	end type
+
+	type RPC_BINDING_HANDLE_SECURITY as RPC_BINDING_HANDLE_SECURITY_V1
+
+	union ___RPC_BINDING_HANDLE_TEMPLATE_u1
+		Reserved as ushort ptr
+	end union
+
+	type _RPC_BINDING_HANDLE_TEMPLATE
+		Version as ulong
+		Flags as ulong
+		ProtocolSequence as ulong
+		NetworkAddress as ushort ptr
+		StringEndpoint as ushort ptr
+		u1 as ___RPC_BINDING_HANDLE_TEMPLATE_u1
+		ObjectUuid as UUID
+	end type
+
+	type RPC_BINDING_HANDLE_TEMPLATE_V1 as _RPC_BINDING_HANDLE_TEMPLATE
+	type RPC_BINDING_HANDLE_TEMPLATE as _RPC_BINDING_HANDLE_TEMPLATE
+
+	#define RPC_CALL_STATUS_IN_PROGRESS &h01
+	#define RPC_CALL_STATUS_CANCELLED &h02
+	#define RPC_CALL_STATUS_DISCONNECTED &h03
+
+	declare function RpcBindingCreateA(byval Template as RPC_BINDING_HANDLE_TEMPLATE ptr, byval Security as RPC_BINDING_HANDLE_SECURITY ptr, byval Options as RPC_BINDING_HANDLE_OPTIONS ptr, byval Binding as RPC_BINDING_HANDLE ptr) as RPC_STATUS
+	declare function RpcBindingCreateW(byval Template as RPC_BINDING_HANDLE_TEMPLATE ptr, byval Security as RPC_BINDING_HANDLE_SECURITY ptr, byval Options as RPC_BINDING_HANDLE_OPTIONS ptr, byval Binding as RPC_BINDING_HANDLE ptr) as RPC_STATUS
+
+	#define RpcBindingCreate __MINGW_NAME_AW(RpcBindingCreate)
+
+	declare function RpcServerInqBindingHandle cdecl(byval Binding as RPC_BINDING_HANDLE ptr) as RPC_STATUS
+#endif
+
 end extern
 
 #include once "rpcdcep.bi"

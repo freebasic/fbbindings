@@ -2,8 +2,10 @@
 
 #include once "rpc.bi"
 #include once "rpcndr.bi"
+#include once "windows.bi"
 #include once "ole2.bi"
 #include once "objidl.bi"
+#include once "winapifamily.bi"
 
 #ifdef __FB_64BIT__
 	extern "C"
@@ -35,7 +37,6 @@ type IDropTarget as IDropTarget_
 type IDropSourceNotify as IDropSourceNotify_
 type IEnumOLEVERB as IEnumOLEVERB_
 
-#define __REQUIRED_RPCNDR_H_VERSION__ 475
 #define __oleidl_h__
 #define __IOleAdviseHolder_FWD_DEFINED__
 #define __IOleCache_FWD_DEFINED__
@@ -579,13 +580,7 @@ type IOleItemContainerVtbl
 	ParseDisplayName as function(byval This as IOleItemContainer ptr, byval pbc as IBindCtx ptr, byval pszDisplayName as LPOLESTR, byval pchEaten as ULONG ptr, byval ppmkOut as IMoniker ptr ptr) as HRESULT
 	EnumObjects as function(byval This as IOleItemContainer ptr, byval grfFlags as DWORD, byval ppenum as IEnumUnknown ptr ptr) as HRESULT
 	LockContainer as function(byval This as IOleItemContainer ptr, byval fLock as WINBOOL) as HRESULT
-
-	#ifdef UNICODE
-		GetObjectW as function(byval This as IOleItemContainer ptr, byval pszItem as LPOLESTR, byval dwSpeedNeeded as DWORD, byval pbc as IBindCtx ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	#else
-		GetObjectA as function(byval This as IOleItemContainer ptr, byval pszItem as LPOLESTR, byval dwSpeedNeeded as DWORD, byval pbc as IBindCtx ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-	#endif
-
+	GetObject as function(byval This as IOleItemContainer ptr, byval pszItem as LPOLESTR, byval dwSpeedNeeded as DWORD, byval pbc as IBindCtx ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	GetObjectStorage as function(byval This as IOleItemContainer ptr, byval pszItem as LPOLESTR, byval pbc as IBindCtx ptr, byval riid as const IID const ptr, byval ppvStorage as any ptr ptr) as HRESULT
 	IsRunning as function(byval This as IOleItemContainer ptr, byval pszItem as LPOLESTR) as HRESULT
 end type
@@ -647,13 +642,7 @@ type IOleInPlaceActiveObjectVtbl
 	Release as function(byval This as IOleInPlaceActiveObject ptr) as ULONG
 	GetWindow as function(byval This as IOleInPlaceActiveObject ptr, byval phwnd as HWND ptr) as HRESULT
 	ContextSensitiveHelp as function(byval This as IOleInPlaceActiveObject ptr, byval fEnterMode as WINBOOL) as HRESULT
-
-	#ifdef UNICODE
-		TranslateAcceleratorW as function(byval This as IOleInPlaceActiveObject ptr, byval lpmsg as LPMSG) as HRESULT
-	#else
-		TranslateAcceleratorA as function(byval This as IOleInPlaceActiveObject ptr, byval lpmsg as LPMSG) as HRESULT
-	#endif
-
+	TranslateAccelerator as function(byval This as IOleInPlaceActiveObject ptr, byval lpmsg as LPMSG) as HRESULT
 	OnFrameWindowActivate as function(byval This as IOleInPlaceActiveObject ptr, byval fActivate as WINBOOL) as HRESULT
 	OnDocWindowActivate as function(byval This as IOleInPlaceActiveObject ptr, byval fActivate as WINBOOL) as HRESULT
 	ResizeBorder as function(byval This as IOleInPlaceActiveObject ptr, byval prcBorder as LPCRECT, byval pUIWindow as IOleInPlaceUIWindow ptr, byval fFrameWindow as WINBOOL) as HRESULT
@@ -719,12 +708,7 @@ type IOleInPlaceFrameVtbl
 	RemoveMenus as function(byval This as IOleInPlaceFrame ptr, byval hmenuShared as HMENU) as HRESULT
 	SetStatusText as function(byval This as IOleInPlaceFrame ptr, byval pszStatusText as LPCOLESTR) as HRESULT
 	EnableModeless as function(byval This as IOleInPlaceFrame ptr, byval fEnable as WINBOOL) as HRESULT
-
-	#ifdef UNICODE
-		TranslateAcceleratorW as function(byval This as IOleInPlaceFrame ptr, byval lpmsg as LPMSG, byval wID as WORD) as HRESULT
-	#else
-		TranslateAcceleratorA as function(byval This as IOleInPlaceFrame ptr, byval lpmsg as LPMSG, byval wID as WORD) as HRESULT
-	#endif
+	TranslateAccelerator as function(byval This as IOleInPlaceFrame ptr, byval lpmsg as LPMSG, byval wID as WORD) as HRESULT
 end type
 
 type IOleInPlaceFrame_

@@ -2,6 +2,7 @@
 
 #include once "rpc.bi"
 #include once "rpcndr.bi"
+#include once "windows.bi"
 #include once "ole2.bi"
 #include once "objidl.bi"
 #include once "ddraw.bi"
@@ -18,7 +19,6 @@ type IFullScreenVideo as IFullScreenVideo_
 type IFullScreenVideoEx as IFullScreenVideoEx_
 type IBaseVideoMixer as IBaseVideoMixer_
 
-#define __REQUIRED_RPCNDR_H_VERSION__ 475
 #define __amvideo_h__
 #define __IDirectDrawVideo_FWD_DEFINED__
 #define __IQualProp_FWD_DEFINED__

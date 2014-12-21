@@ -5,7 +5,12 @@
 #include once "iptypes.bi"
 #include once "netioapi.bi"
 #include once "tcpmib.bi"
+#include once "udpmib.bi"
 #include once "tcpestats.bi"
+
+#if _WIN32_WINNT = &h0602
+	#include once "windns.bi"
+#endif
 
 #ifdef __FB_64BIT__
 	extern "C"
@@ -79,6 +84,50 @@ declare function GetOwnerModuleFromTcp6Entry(byval pTcpEntry as PMIB_TCP6ROW_OWN
 declare function GetOwnerModuleFromTcpEntry(byval pTcpEntry as PMIB_TCPROW_OWNER_MODULE, byval Class_ as TCPIP_OWNER_MODULE_INFO_CLASS, byval Buffer as PVOID, byval pdwSize as PDWORD) as DWORD
 declare function GetOwnerModuleFromUdp6Entry(byval pUdpEntry as PMIB_UDP6ROW_OWNER_MODULE, byval Class_ as TCPIP_OWNER_MODULE_INFO_CLASS, byval Buffer as PVOID, byval pdwSize as PDWORD) as DWORD
 declare function GetOwnerModuleFromUdpEntry(byval pUdpEntry as PMIB_UDPROW_OWNER_MODULE, byval Class_ as TCPIP_OWNER_MODULE_INFO_CLASS, byval Buffer as PVOID, byval pdwSize as PDWORD) as DWORD
-declare function CancelSecurityHealthChangeNotify(byval notifyOverlapped as LPOVERLAPPED) as WINBOOL
+
+#if _WIN32_WINNT = &h0502
+	declare function CancelSecurityHealthChangeNotify(byval notifyOverlapped as LPOVERLAPPED) as WINBOOL
+#elseif _WIN32_WINNT = &h0602
+	type _NET_ADDRESS_FORMAT as long
+	enum
+		NET_ADDRESS_FORMAT_UNSPECIFIED = 0
+		NET_ADDRESS_DNS_NAME
+		NET_ADDRESS_IPV4
+		NET_ADDRESS_IPV6
+	end enum
+
+	type NET_ADDRESS_FORMAT as _NET_ADDRESS_FORMAT
+
+	type ___NET_ADDRESS_INFO_NamedAddress
+		Address(0 to 255) as WCHAR
+		Port(0 to 5) as WCHAR
+	end type
+
+	type _NET_ADDRESS_INFO
+		Format as NET_ADDRESS_FORMAT
+
+		union
+			NamedAddress as ___NET_ADDRESS_INFO_NamedAddress
+			Ipv4Address as SOCKADDR_IN_
+			Ipv6Address as SOCKADDR_IN6_
+			IpAddress as SOCKADDR_
+		end union
+	end type
+
+	type NET_ADDRESS_INFO as _NET_ADDRESS_INFO
+	type PNET_ADDRESS_INFO as _NET_ADDRESS_INFO ptr
+
+	declare function GetPerTcp6ConnectionEStats(byval Row as PMIB_TCP6ROW, byval EstatsType as TCP_ESTATS_TYPE, byval Rw as PUCHAR, byval RwVersion as ULONG, byval RwSize as ULONG, byval Ros as PUCHAR, byval RosVersion as ULONG, byval RosSize as ULONG, byval Rod as PUCHAR, byval RodVersion as ULONG, byval RodSize as ULONG) as ULONG
+	declare function SetPerTcp6ConnectionEStats(byval Row as PMIB_TCP6ROW, byval EstatsType as TCP_ESTATS_TYPE, byval Rw as PUCHAR, byval RwVersion as ULONG, byval RwSize as ULONG, byval Offset as ULONG) as ULONG
+	declare function SetPerTcpConnectionEStats(byval Row as PMIB_TCPROW, byval EstatsType as TCP_ESTATS_TYPE, byval Rw as PUCHAR, byval RwVersion as ULONG, byval RwSize as ULONG, byval Offset as ULONG) as ULONG
+	declare function GetTcp6Table(byval TcpTable as PMIB_TCP6TABLE, byval SizePointer as PULONG, byval Order as WINBOOL) as ULONG
+	declare function GetPerTcpConnectionEStats(byval Row as PMIB_TCPROW, byval EstatsType as TCP_ESTATS_TYPE, byval Rw as PUCHAR, byval RwVersion as ULONG, byval RwSize as ULONG, byval Ros as PUCHAR, byval RosVersion as ULONG, byval RosSize as ULONG, byval Rod as PUCHAR, byval RodVersion as ULONG, byval RodSize as ULONG) as ULONG
+	declare function GetTcp6Table2(byval TcpTable as PMIB_TCP6TABLE2, byval SizePointer as PULONG, byval Order as WINBOOL) as ULONG
+	declare function GetTcpTable2(byval TcpTable as PMIB_TCPTABLE2, byval SizePointer as PULONG, byval Order as WINBOOL) as ULONG
+	declare function GetUdp6Table(byval Udp6Table as PMIB_UDP6TABLE, byval SizePointer as PULONG, byval Order as WINBOOL) as ULONG
+	declare function NotifySecurityHealthChange(byval pHandle as PHANDLE, byval pOverLapped as LPOVERLAPPED, byval SecurityHealthFlags as PULONG) as DWORD
+	declare function ResolveNeighbor(byval NetworkAddress as SOCKADDR_ ptr, byval PhysicalAddress as PVOID, byval PhysicalAddressLength as PULONG) as ULONG
+	declare function SetIpStatisticsEx(byval pIpStats as PMIB_IPSTATS, byval Family as ULONG) as DWORD
+#endif
 
 end extern

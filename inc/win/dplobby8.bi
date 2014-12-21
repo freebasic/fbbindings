@@ -12,18 +12,6 @@ type IDirectPlay8LobbiedApplicationVtbl as IDirectPlay8LobbiedApplicationVtbl_
 type IDirectPlay8LobbyClientVtbl as IDirectPlay8LobbyClientVtbl_
 
 #define __WINE_DPLOBBY8_H
-
-type _DPL_APPLICATION_INFO
-	guidApplication as GUID
-	pwszApplicationName as PWSTR
-	dwNumRunning as DWORD
-	dwNumWaiting as DWORD
-	dwFlags as DWORD
-end type
-
-type DPL_APPLICATION_INFO as _DPL_APPLICATION_INFO
-type PDPL_APPLICATION_INFO as _DPL_APPLICATION_INFO ptr
-
 #define DPL_MSGID_LOBBY &h8000
 #define DPL_MSGID_RECEIVE (&h0001 or DPL_MSGID_LOBBY)
 #define DPL_MSGID_CONNECT (&h0002 or DPL_MSGID_LOBBY)
@@ -42,6 +30,17 @@ type PDPL_APPLICATION_INFO as _DPL_APPLICATION_INFO ptr
 #define DPLCONNECT_LAUNCHNOTFOUND &h0002
 #define DPLCONNECTSETTINGS_HOST &h0001
 #define DPLINITIALIZE_DISABLEPARAMVAL &h0001
+
+type _DPL_APPLICATION_INFO
+	guidApplication as GUID
+	pwszApplicationName as PWSTR
+	dwNumRunning as DWORD
+	dwNumWaiting as DWORD
+	dwFlags as DWORD
+end type
+
+type DPL_APPLICATION_INFO as _DPL_APPLICATION_INFO
+type PDPL_APPLICATION_INFO as _DPL_APPLICATION_INFO ptr
 
 type _DPL_CONNECTION_SETTINGS
 	dwSize as DWORD

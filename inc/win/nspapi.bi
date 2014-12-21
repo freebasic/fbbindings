@@ -9,18 +9,6 @@
 #endif
 
 #define _NSPAPI_INCLUDED
-#define _tagBLOB_DEFINED
-#define _BLOB_DEFINED
-#define _LPBLOB_DEFINED
-
-type _BLOB
-	cbSize as ULONG
-	pBlobData as UBYTE ptr
-end type
-
-type BLOB as _BLOB
-type LPBLOB as _BLOB ptr
-
 #define SERVICE_RESOURCE &h00000001
 #define SERVICE_SERVICE &h00000002
 #define SERVICE_LOCAL &h00000004
@@ -53,10 +41,22 @@ type LPBLOB as _BLOB ptr
 #define NS_NETBT 13
 #define NS_WINS 14
 #define NS_NLA 15
+
+#if _WIN32_WINNT = &h0602
+	#define NS_BTH 16
+#endif
+
 #define NS_NBP 20
 #define NS_MS 30
 #define NS_STDA 31
 #define NS_NTDS 32
+
+#if _WIN32_WINNT = &h0602
+	#define NS_EMAIL 37
+	#define NS_PNRPNAME 38
+	#define NS_PNRPCLOUD 39
+#endif
+
 #define NS_X500 40
 #define NS_NIS 41
 #define NS_VNS 50

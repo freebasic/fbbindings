@@ -336,15 +336,33 @@ extern IID_IKsPin as const GUID
 extern IID_IKsControl as const GUID
 extern IID_IKsPinFactory as const GUID
 extern AM_INTERFACESETID_Standard as const GUID
-extern MEDIASUBTYPE_MPEG2_TRANSPORT_STRIDE as const GUID
-extern MEDIASUBTYPE_MPEG2_UDCR_TRANSPORT as const GUID
-extern MEDIASUBTYPE_MPEG2_PBDA_TRANSPORT_RAW as const GUID
-extern MEDIASUBTYPE_MPEG2_PBDA_TRANSPORT_PROCESSED as const GUID
-extern MEDIASUBTYPE_DTS as const GUID
-extern MEDIASUBTYPE_SDDS as const GUID
-extern AM_KSPROPSETID_DVD_RateChange as const GUID
-extern AM_KSPROPSETID_DvdKaraoke as const GUID
-extern AM_KSPROPSETID_FrameStep as const GUID
+
+#if _WIN32_WINNT = &h0602
+	extern MEDIATYPE_MPEG2_SECTIONS as const GUID
+	extern MEDIASUBTYPE_MPEG2_VERSIONED_TABLES as const GUID
+	extern MEDIASUBTYPE_ATSC_SI as const GUID
+	extern MEDIASUBTYPE_DVB_SI as const GUID
+	extern MEDIASUBTYPE_ISDB_SI as const GUID
+	extern MEDIASUBTYPE_TIF_SI as const GUID
+	extern MEDIASUBTYPE_MPEG2DATA as const GUID
+#endif
+
+#if (_WIN32_WINNT = &h0502) or (_WIN32_WINNT = &h0602)
+	extern MEDIASUBTYPE_MPEG2_TRANSPORT_STRIDE as const GUID
+	extern MEDIASUBTYPE_MPEG2_UDCR_TRANSPORT as const GUID
+	extern MEDIASUBTYPE_MPEG2_PBDA_TRANSPORT_RAW as const GUID
+	extern MEDIASUBTYPE_MPEG2_PBDA_TRANSPORT_PROCESSED as const GUID
+	extern MEDIASUBTYPE_DTS as const GUID
+	extern MEDIASUBTYPE_SDDS as const GUID
+	extern AM_KSPROPSETID_DVD_RateChange as const GUID
+	extern AM_KSPROPSETID_DvdKaraoke as const GUID
+	extern AM_KSPROPSETID_FrameStep as const GUID
+#endif
+
+#if _WIN32_WINNT = &h0602
+	extern AM_KSCATEGORY_VBICODEC_MI as const GUID
+#endif
+
 extern TIME_FORMAT_NONE as const GUID
 extern TIME_FORMAT_FRAME as const GUID
 extern TIME_FORMAT_BYTE as const GUID

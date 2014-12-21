@@ -4,6 +4,7 @@
 #include once "windowsx.bi"
 #include once "olectl.bi"
 #include once "ddraw.bi"
+#include once "mmsystem.bi"
 #include once "strsafe.bi"
 #include once "strmif.bi"
 #include once "amvideo.bi"

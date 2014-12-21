@@ -340,7 +340,74 @@ png16:
 	$(FBFROG) png.fbfrog -o inc/png16.bi extracted/$(PNG16_TITLE)/png.h
 
 ################################################################################
-# Windows API, thanks to the MinGW-w64 project
+# Windows API, based on MinGW-w64 headers
+#
+# winsock vs. winsock2
+#
+# In MinGW and MinGW-w64, windows.h provides winsock.h. In order to use
+# winsock2.h it must be #included before windows.h so it can override winsock.h.
+#
+# In Cygwin, you have to define __USE_W32_SOCKETS in order to get windows.h to
+# include winsock.h.
+#
+# In contrast to this,
+# FB's windows.bi traditionally doesn't #include winsock, but winsock2, and even
+# that only if __USE_W32_SOCKETS is defined, which overall is similar to Cygwin
+# but not the same.
+#
+# FB should support the following:
+#
+#    #include "windows.bi"
+#    (neither winsock nor winsock2; legacy)
+#
+#    #include "win/winsock2.bi"
+#    #include "windows.bi"
+#    ("normal" way of using winsock2)
+#
+#    #define WIN_INCLUDEALL
+#    #define __USE_W32_SOCKETS
+#    #include "windows.bi"
+#    (legacy way of using winsock2)
+#
+#    #include "windows.bi"
+#    #include "win/winsock.bi"
+#    (legacy way of using winsock)
+#
+# Global #defines causing accidental renames in the C headers
+#
+#   On one hand we have #defines like this:
+#     #define LogonUser __MINGW_NAME_AW(LogonUser)
+#     (or similar in the MS Windows SDK)
+#   and on the other hand, we have fields/parameters with the same names as
+#   these #defined functions.
+#
+#   Thus, such fields/parameter will be renamed during C preprocessing, which
+#   is probably not intentional. Thus it's probably good to disable expansion
+#   of a selected few ids when running fbfrog...
+#
+# BYTE/UBYTE typedefs
+#
+#   "BYTE" is defined as "unsigned char", thus it conflicts with FB's signed "byte" type.
+#   Traditionally, the FB winapi headers have used FB's "ubyte" type everywhere in place
+#   of "BYTE", so all we need to do is rename the typedef and then remove its declaration.
+#   It helps that there is no existing UBYTE type in the winapi headers. The same must be
+#   be done for the "byte" typedef (also "unsigned char") used by some headers.
+#
+# LONG/ULONG typedefs
+#
+#   Since they match the FB's long/ulong types exactly (always 32bit on both Win32 and Win64),
+#   nothing needs to be done, besides removing the declarations.
+#
+# INT typedef
+#
+#   INT is traditionally renamed to INT_ to avoit conflict with FB's int() function.
+#
+# Uses of C's long type
+#
+#   There exist some uses of C's long type in the headers, but since the binding is only
+#   for Win32/Win64, it can be translated to FB's long instead of crt/long.bi's clong.
+#   (fbfrog -clong32)
+#
 
 MINGWW64_TITLE := mingw-w64-v3.3.0
 winapi-extract:
@@ -358,95 +425,59 @@ WINAPI_FLAGS += -incdir extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/i
 WINAPI_FLAGS += -filterout '*'
 WINAPI_FLAGS += -filterin '*pshpack*.h'
 WINAPI_FLAGS += -filterin '*poppack.h'
-WINAPI_FLAGS += -clong32
-WINAPI_FLAGS += -typedefhint __LONG32
-WINAPI_FLAGS += -nofbkeyword short
-WINAPI_FLAGS += -nofbkeyword ushort
-WINAPI_FLAGS += -nofbkeyword long
-WINAPI_FLAGS += -nofbkeyword ulong
-WINAPI_FLAGS += -nofbkeyword double
-WINAPI_FLAGS += -nofbkeyword lobyte
-WINAPI_FLAGS += -nofbkeyword hibyte
-WINAPI_FLAGS += -nofbkeyword loword
-WINAPI_FLAGS += -nofbkeyword hiword
-
-# BYTE is defined as "unsigned char", but it also conflicts with FB's signed byte type.
-# Traditionally, the FB winapi headers have used FB's ubyte type instead of keeping the typedef in any way.
-# It helps that there is no existing UBYTE type in the winapi headers.
-# Similar for the "byte" typedef (also "unsigned char") used by a few headers.
-WINAPI_FLAGS += -renametypedef BYTE UBYTE
-WINAPI_FLAGS += -renametypedef byte ubyte
 
 # winapi.mk lists all the headers we want to translate
 include winapi.mk
 
-# Some headers need additional options on top of the common WINAPI_FLAGS
+# Add default options for each WINAPI_BASE header
+define add-default-winapi-flags
+  WINAPI_FLAGS_$(1) := -include windows.h -filterin '*/$(1).h'
+
+endef
+$(eval $(foreach i,$(WINAPI_BASE),$(call add-default-winapi-flags,$(i))))
+$(eval $(foreach i,$(WINAPI_DIRECTX),$(call add-default-winapi-flags,$(i))))
+$(eval $(foreach i,$(WINAPI_CRT),$(call add-default-winapi-flags,$(i))))
+
+# Some need to override the defaults though
+
+# ole.h can't be #included with windows.h (even though windows.h has code to
+# do just that) due to conflicts with ole2.h
+WINAPI_FLAGS_ole := -include windef.h -define _Analysis_noreturn_ ""
+
+# ntdef.h belongs to the DDK, not windows.h
+WINAPI_FLAGS_ntdef := 
+
+# winsock can be translated as part of windows.h, because that's how MinGW-w64
+# provides it anyways. That'll give us a windows.bi-compatible winsock. Even
+# though we'll change windows.bi to not provide winsock (but winsock2 instead,
+# but only under __USE_W32_SOCKETS), we probably don't need to make any
+# adjustments to prevent winsock/winsock2 collision. Since windows.bi doesn't
+# include anything by default, the user has full control.
+
+# winsock2 has to be translated without #including windows.h because MinGW-w64
+# expects winsock2.h to come before windows.h, in order to override winsock.
+# I.e. winsock2 takes care of #including everything it needs itself, and we
+# don't need to bother.
+WINAPI_FLAGS_winsock2 := 
+
+# mswsock.h has some declarations that also exist in winsock.h, and MinGW-w64's
+# winsock #defines __MSWSOCK_WS1_SHARED, which mswsock.h checks for to prevent
+# conflicts. This assumes that winsock is #included first, which could perhaps
+# happen if windows.h is included first. However, according to MSDN, mswsock is
+# a winsock2, not winsock, extension, and MinGW-w64's mswsock.h itself #includes
+# winsock2. Since our windows.bi won't default to winsock, it looks like we can
+# just have a pure winsock2-only mswsock.bi. Thus we have #include winsock2.h
+# instead of windows.h for the translation.
+WINAPI_FLAGS_mswsock := -include winsock2.h
+
+# Some headers need additional options
 WINAPI_FLAGS__mingw    += -filterin '*_mingw_mac.h' -filterin '*sdks/_mingw_ddk.h' -filterin '*sdks/_mingw_directx.h'
-WINAPI_FLAGS_amaudio   += -include windows.h
-WINAPI_FLAGS_bcrypt    += -include windows.h -filterin '*/bcrypt.h'
-WINAPI_FLAGS_commctrl  += -include windows.h
-WINAPI_FLAGS_commdlg   += -include windows.h -filterin '*commdlg.h'
-WINAPI_FLAGS_cpl       += -include windows.h
-WINAPI_FLAGS_custcntl  += -include windows.h
-WINAPI_FLAGS_d3d9types += -include windows.h
-WINAPI_FLAGS_d3dx9anim += -include d3dx9.h -filterin '*d3dx9anim.h'
-WINAPI_FLAGS_dbt       += -include windef.h
-WINAPI_FLAGS_ddeml     += -include windows.h -filterin '*/ddeml.h'
-WINAPI_FLAGS_dmdls     += -include windef.h
-WINAPI_FLAGS_dmerror   += -include windef.h
-WINAPI_FLAGS_dxerr8    += -include windef.h
-WINAPI_FLAGS_dxerr9    += -include windef.h
-WINAPI_FLAGS_errors    += -include windef.h
 WINAPI_FLAGS_imagehlp  += -filterin '*psdk_inc/_dbg_LOAD_IMAGE.h'
-WINAPI_FLAGS_imm       += -include windows.h -filterin '*/imm.h'
 WINAPI_FLAGS_intrin    += -filterin '*/psdk_inc/intrin-impl.h' -nofunctionbodies
-WINAPI_FLAGS_intshcut  += -include windows.h
-WINAPI_FLAGS_iphlpapi  += -include windows.h
-WINAPI_FLAGS_iprtrmib  += -include windows.h
-WINAPI_FLAGS_isguids   += -include windef.h
-WINAPI_FLAGS_ktmtypes  += -include windef.h -filterin '*/ktmtypes.h'
-WINAPI_FLAGS_lzexpand  += -include windows.h -filterin '*/lzexpand.h'
-WINAPI_FLAGS_mapi      += -include windef.h
-WINAPI_FLAGS_mmsystem  += -include windows.h -filterin '*/mmsystem.h'
-WINAPI_FLAGS_msacm     += -include windows.h -include mmreg.h
-WINAPI_FLAGS_nb30      += -include windef.h
-WINAPI_FLAGS_ncrypt    += -include windows.h -filterin '*/ncrypt.h'
-WINAPI_FLAGS_nspapi    += -include windef.h
-WINAPI_FLAGS_ntsecapi  += -include windef.h
-WINAPI_FLAGS_ntsecpkg  += -include winnt.h -define SECURITY_WIN32 1 -include sspi.h
-WINAPI_FLAGS_oleauto   += -include windows.h -filterin '*/oleauto.h'
-WINAPI_FLAGS_ole       += -include windef.h -define _Analysis_noreturn_ ""
-WINAPI_FLAGS_powrprof  += -include windef.h
-WINAPI_FLAGS_prsht     += -include windows.h -filterin '*/prsht.h'
-WINAPI_FLAGS_psapi     += -include windef.h
-WINAPI_FLAGS_ras       += -include windows.h
-WINAPI_FLAGS_rasdlg    += -include windows.h
-WINAPI_FLAGS_rassapi   += -include windef.h
-WINAPI_FLAGS_richedit  += -include windows.h
-WINAPI_FLAGS_richole   += -include windows.h
-WINAPI_FLAGS_rpcasync  += -include windows.h -filterin '*/rpcasync.h'
-WINAPI_FLAGS_rpcdce    += -include windows.h -filterin '*/rpcdce.h'
-WINAPI_FLAGS_rpcdcep   += -include windows.h -filterin '*/rpcdcep.h'
-WINAPI_FLAGS_rpcndr    += -include windows.h -filterin '*/rpcndr.h'
-WINAPI_FLAGS_rpcnsi    += -include windows.h -filterin '*/rpcnsi.h'
-WINAPI_FLAGS_rpcnsip   += -include rpc.h -filterin '*rpcnsip.h'
-WINAPI_FLAGS_scrnsave  += -include windef.h
-WINAPI_FLAGS_secext    += -define SECURITY_WIN32 1
-WINAPI_FLAGS_security  += -define SECURITY_WIN32 1
-WINAPI_FLAGS_setupapi  += -include windows.h
-WINAPI_FLAGS_shellapi  += -include windows.h -filterin '*/shellapi.h'
-WINAPI_FLAGS_shlguid   += -include windef.h
-WINAPI_FLAGS_sqlext    += -include windef.h
-WINAPI_FLAGS_sqltypes  += -include windef.h
-WINAPI_FLAGS_sspi      += -define SECURITY_WIN32 1 -include windef.h
-WINAPI_FLAGS_subauth   += -include windef.h
-WINAPI_FLAGS_tlhelp32  += -include windef.h
-WINAPI_FLAGS_uuids     += -include windef.h -filterin '*ksuuids.h'
-WINAPI_FLAGS_uxtheme   += -include windows.h
-WINAPI_FLAGS_vfw       += -include windows.h
-WINAPI_FLAGS_vfwmsgs   += -include windows.h
-WINAPI_FLAGS_winbase   += -include windows.h \
-	-filterin '*/winbase.h' \
+WINAPI_FLAGS_msacm     += -include mmreg.h
+WINAPI_FLAGS_ntsecpkg  += -include sspi.h
+WINAPI_FLAGS_uuids     += -filterin '*ksuuids.h'
+WINAPI_FLAGS_winbase   += \
 	-filterin '*/minwinbase.h' \
 	-filterin '*/bemapiset.h' \
 	-filterin '*/debugapi.h' \
@@ -477,23 +508,12 @@ WINAPI_FLAGS_winbase   += -include windows.h \
 	-filterin '*/utilapiset.h' \
 	-filterin '*/wow64apiset.h' \
 	-filterin '*/timezoneapi.h'
-WINAPI_FLAGS_winber   += -include windef.h
-WINAPI_FLAGS_wincon   += -include windows.h -filterin '*/wincon.h'
-WINAPI_FLAGS_wincrypt += -include windows.h -filterin '*/wincrypt.h'
 WINAPI_FLAGS_windef   += -filterin '*/minwindef.h'
-WINAPI_FLAGS_winefs   += -include windows.h -filterin '*/winefs.h'
-WINAPI_FLAGS_winerror += -include windows.h -filterin '*/winerror.h' -filterin '*/fltwinerror.h'
-WINAPI_FLAGS_wingdi   += -include windows.h -filterin '*/wingdi.h'
-WINAPI_FLAGS_wininet  += -include windef.h
-WINAPI_FLAGS_winioctl += -include windef.h
-WINAPI_FLAGS_winnetwk += -include windef.h -filterin '*/wnnc.h'
+WINAPI_FLAGS_winerror += -filterin '*/fltwinerror.h'
+WINAPI_FLAGS_winnetwk += -filterin '*/wnnc.h'
 WINAPI_FLAGS_winnls   += \
 	-filterin '*/datetimeapi.h' \
 	-filterin '*/stringapiset.h'
-WINAPI_FLAGS_winnt    += -include windows.h -filterin '*/winnt.h'
-WINAPI_FLAGS_winperf  += -include windef.h
-WINAPI_FLAGS_winreg   += -include windows.h -filterin '*/winreg.h'
-WINAPI_FLAGS_winscard += -include windows.h -filterin '*/winscard.h'
 WINAPI_FLAGS_winsock  += \
 	-filterin '*/psdk_inc/_socket_types.h' \
 	-filterin '*/psdk_inc/_fd_types.h' \
@@ -509,10 +529,7 @@ WINAPI_FLAGS_winsock2 += \
 	-filterin '*/psdk_inc/_wsadata.h' \
 	-filterin '*/psdk_inc/_wsa_errnos.h' \
 	-filterin '*/psdk_inc/_ws1_undef.h'
-WINAPI_FLAGS_winspool += -include windef.h
-WINAPI_FLAGS_winsvc   += -include windows.h -filterin '*/winsvc.h'
-WINAPI_FLAGS_winuser  += -include windef.h -filterin '*/tvout.h'
-WINAPI_FLAGS_winver   += -include windef.h
+WINAPI_FLAGS_winuser  += -filterin '*/tvout.h'
 
 WINAPI_PATH_CRT     := extracted/$(MINGWW64_TITLE)/mingw-w64-headers/crt
 WINAPI_PATH_BASE    := extracted/$(MINGWW64_TITLE)/mingw-w64-headers/include
@@ -533,7 +550,12 @@ $(eval $(foreach i,$(WINAPI_DIRECTX),$(call declare-winapi-target,$(i),DIRECTX))
 
 winapi: inc/windows.bi
 inc/windows.bi:
-	$(FBFROG) $(WINAPI_FLAGS) -o inc $(WINAPI_PATH_BASE)/windows.h
+	$(FBFROG) $(WINAPI_FLAGS) -o inc $(WINAPI_PATH_BASE)/windows.h \
+		-declarebool WIN32_LEAN_AND_MEAN \
+		-ifdef WIN32_LEAN_AND_MEAN \
+			-define WIN32_LEAN_AND_MEAN 1 \
+		-endif
+
 
 ################################################################################
 

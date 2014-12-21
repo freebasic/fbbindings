@@ -2,6 +2,7 @@
 
 #include once "windows.bi"
 #include once "objbase.bi"
+#include once "mmsystem.bi"
 
 '' The following symbols have been renamed:
 ''     inside struct _DMUS_IO_CURVE_ITEM:

@@ -321,4 +321,110 @@ type LPNSPSTARTUP as function(byval lpProviderId as LPGUID, byval lpnspRoutines 
 
 declare function NSPStartup(byval lpProviderId as LPGUID, byval lpnspRoutines as LPNSP_ROUTINE) as INT_
 
+#if _WIN32_WINNT = &h0602
+	type LPNSPV2CLEANUP as function(byval lpProviderId as LPGUID, byval pvClientSessionArg as LPVOID) as long
+	type LPNSPV2CLIENTSESSIONRUNDOWN as function(byval lpProviderId as LPGUID, byval pvClientSessionArg as LPVOID) as long
+	type LPNSPV2LOOKUPSERVICEBEGIN as function(byval lpProviderId as LPGUID, byval lpqsRestrictions as LPWSAQUERYSET2W, byval dwControlFlags as DWORD, byval lpvClientSessionArg as LPVOID, byval lphLookup as LPHANDLE) as long
+	type LPNSPV2LOOKUPSERVICEEND as function(byval hLookup as HANDLE) as long
+	type LPNSPV2LOOKUPSERVICENEXTEX as function(byval hAsyncCall as HANDLE, byval hLookup as HANDLE, byval dwControlFlags as DWORD, byval lpdwBufferLength as LPDWORD, byval lpqsResults as LPWSAQUERYSET2W) as long
+	type LPNSPV2SETSERVICEEX as function(byval hAsyncCall as HANDLE, byval lpProviderId as LPGUID, byval lpqsRegInfo as LPWSAQUERYSET2W, byval essOperation as WSAESETSERVICEOP, byval dwControlFlags as DWORD, byval lpvClientSessionArg as LPVOID) as long
+	type LPNSPV2STARTUP as function(byval lpProviderId as LPGUID, byval ppvClientSessionArg as LPVOID ptr) as long
+#endif
+
+#if defined(__FB_64BIT__) and (_WIN32_WINNT = &h0602)
+	type _NSPV2_ROUTINE
+		cbSize as DWORD
+		dwMajorVersion as DWORD
+		dwMinorVersion as DWORD
+		NSPv2Startup as LPNSPV2STARTUP
+		NSPv2Cleanup as LPNSPV2CLEANUP
+		NSPv2LookupServiceBegin as LPNSPV2LOOKUPSERVICEBEGIN
+		NSPv2LookupServiceNextEx as LPNSPV2LOOKUPSERVICENEXTEX
+		NSPv2LookupServiceEnd as LPNSPV2LOOKUPSERVICEEND
+		NSPv2SetServiceEx as LPNSPV2SETSERVICEEX
+		NSPv2ClientSessionRundown as LPNSPV2CLIENTSESSIONRUNDOWN
+	end type
+#elseif (not defined(__FB_64BIT__)) and (_WIN32_WINNT = &h0602)
+	type _NSPV2_ROUTINE field = 4
+		cbSize as DWORD
+		dwMajorVersion as DWORD
+		dwMinorVersion as DWORD
+		NSPv2Startup as LPNSPV2STARTUP
+		NSPv2Cleanup as LPNSPV2CLEANUP
+		NSPv2LookupServiceBegin as LPNSPV2LOOKUPSERVICEBEGIN
+		NSPv2LookupServiceNextEx as LPNSPV2LOOKUPSERVICENEXTEX
+		NSPv2LookupServiceEnd as LPNSPV2LOOKUPSERVICEEND
+		NSPv2SetServiceEx as LPNSPV2SETSERVICEEX
+		NSPv2ClientSessionRundown as LPNSPV2CLIENTSESSIONRUNDOWN
+	end type
+#endif
+
+#if _WIN32_WINNT = &h0602
+	type NSPV2_ROUTINE as _NSPV2_ROUTINE
+	type PNSPV2_ROUTINE as _NSPV2_ROUTINE ptr
+	type LPCNSPV2_ROUTINE as _NSPV2_ROUTINE ptr
+
+	#define LSP_SYSTEM &h80000000
+	#define LSP_INSPECTOR &h00000001
+	#define LSP_REDIRECTOR &h00000002
+	#define LSP_PROXY &h00000004
+	#define LSP_FIREWALL &h00000008
+	#define LSP_INBOUND_MODIFY &h00000010
+	#define LSP_OUTBOUND_MODIFY &h00000020
+	#define LSP_CRYPTO_COMPRESS &h00000040
+	#define LSP_LOCAL_CACHE &h00000080
+
+	type _WSC_PROVIDER_INFO_TYPE as long
+	enum
+		ProviderInfoLspCategories = 0
+		ProviderInfoAudit
+	end enum
+
+	type WSC_PROVIDER_INFO_TYPE as _WSC_PROVIDER_INFO_TYPE
+#endif
+
+#if defined(__FB_64BIT__) and (_WIN32_WINNT = &h0602)
+	type _WSC_PROVIDER_AUDIT_INFO
+		RecordSize as DWORD
+		Reserved as PVOID
+	end type
+#elseif (not defined(__FB_64BIT__)) and (_WIN32_WINNT = &h0602)
+	type _WSC_PROVIDER_AUDIT_INFO field = 4
+		RecordSize as DWORD
+		Reserved as PVOID
+	end type
+#endif
+
+#if _WIN32_WINNT = &h0602
+	type WSC_PROVIDER_AUDIT_INFO as _WSC_PROVIDER_AUDIT_INFO
+	type PWSC_PROVIDER_AUDIT_INFO as _WSC_PROVIDER_AUDIT_INFO ptr
+
+	declare function WSAAdvertiseProvider(byval puuidProviderId as const GUID ptr, byval pNSPv2Routine as const LPCNSPV2_ROUTINE ptr) as INT_
+	declare function WSAProviderCompleteAsyncCall(byval hAsyncCall as HANDLE, byval iRetCode as INT_) as INT_
+	declare function WSAUnadvertiseProvider(byval puuidProviderId as const GUID ptr) as INT_
+	declare function WSCGetApplicationCategory(byval Path as LPCWSTR, byval PathLength as DWORD, byval Extra as LPCWSTR, byval ExtraLength as DWORD, byval pPermittedLspCategories as DWORD ptr, byval lpErrno as LPINT) as long
+	declare function WSCGetProviderInfo(byval lpProviderId as LPGUID, byval InfoType as WSC_PROVIDER_INFO_TYPE, byval Info as PBYTE, byval InfoSize as uinteger ptr, byval Flags as DWORD, byval lpErrno as LPINT) as long
+#endif
+
+#if (not defined(__FB_64BIT__)) and (_WIN32_WINNT = &h0602)
+	declare function WSCInstallProviderAndChains(byval lpProviderId as const LPGUID, byval lpszProviderDllPath as const LPWSTR, byval lpszLspName as const LPWSTR, byval dwServiceFlags as DWORD, byval lpProtocolInfoList as const LPWSAPROTOCOL_INFO, byval dwNumberOfEntries as DWORD, byval lpdwCatalogEntryId as LPDWORD, byval lpErrno as LPINT) as long
+#endif
+
+#if _WIN32_WINNT = &h0602
+	declare function WSCSetApplicationCategory(byval Path as LPCWSTR, byval PathLength as DWORD, byval Extra as LPCWSTR, byval ExtraLength as DWORD, byval PermittedLspCategories as DWORD, byval pPrevPermLspCat as DWORD ptr, byval lpErrno as LPINT) as long
+	declare function WSCSetProviderInfo(byval lpProviderId as LPGUID, byval InfoType as WSC_PROVIDER_INFO_TYPE, byval Info as PBYTE, byval InfoSize as uinteger, byval Flags as DWORD, byval lpErrno as LPINT) as long
+	declare function WSCInstallNameSpaceEx(byval lpszIdentifier as LPWSTR, byval lpszPathName as LPWSTR, byval dwNameSpace as DWORD, byval dwVersion as DWORD, byval lpProviderId as LPGUID, byval lpProviderInfo as LPBLOB) as long
+
+	#define WSCEnumNameSpaceProvidersEx WSAEnumNameSpaceProvidersExW
+	#define LPFN_WSCENUMNAMESPACEPROVIDERSEX LPFN_WSAENUMNAMESPACEPROVIDERSEXW
+#endif
+
+#if defined(__FB_64BIT__) and (_WIN32_WINNT = &h0602)
+	declare function WSCEnumNameSpaceProvidersEx32(byval lpdwBufferLength as LPDWORD, byval lpnspBuffer as LPWSANAMESPACE_INFOEXW) as INT_
+	declare function WSCGetProviderInfo32(byval lpProviderId as LPGUID, byval InfoType as WSC_PROVIDER_INFO_TYPE, byval Info as PBYTE, byval InfoSize as uinteger ptr, byval Flags as DWORD, byval lpErrno as LPINT) as long
+	declare function WSCInstallNameSpaceEx32(byval lpszIdentifier as LPWSTR, byval lpszPathName as LPWSTR, byval dwNameSpace as DWORD, byval dwVersion as DWORD, byval lpProviderId as LPGUID, byval lpProviderInfo as LPBLOB) as long
+	declare function WSCInstallProviderAndChains64_32(byval lpProviderId as const LPGUID, byval lpszProviderDllPath as const LPWSTR, byval lpszProviderDllPath32 as const LPWSTR, byval lpszLspName as const LPWSTR, byval dwServiceFlags as DWORD, byval lpProtocolInfoList as const LPWSAPROTOCOL_INFO, byval dwNumberOfEntries as DWORD, byval lpdwCatalogEntryId as LPDWORD, byval lpErrno as LPINT) as long
+	declare function WSCSetProviderInfo32(byval lpProviderId as LPGUID, byval InfoType as WSC_PROVIDER_INFO_TYPE, byval Info as PBYTE, byval InfoSize as uinteger, byval Flags as DWORD, byval lpErrno as LPINT) as long
+#endif
+
 end extern

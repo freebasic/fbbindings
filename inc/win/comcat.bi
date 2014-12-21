@@ -2,8 +2,10 @@
 
 #include once "rpc.bi"
 #include once "rpcndr.bi"
+#include once "windows.bi"
 #include once "ole2.bi"
 #include once "unknwn.bi"
+#include once "winapifamily.bi"
 
 #ifdef __FB_64BIT__
 	extern "C"
@@ -16,7 +18,6 @@ type IEnumCATEGORYINFO as IEnumCATEGORYINFO_
 type ICatRegister as ICatRegister_
 type ICatInformation as ICatInformation_
 
-#define __REQUIRED_RPCNDR_H_VERSION__ 475
 #define __comcat_h__
 #define __IEnumGUID_FWD_DEFINED__
 #define __IEnumCATEGORYINFO_FWD_DEFINED__

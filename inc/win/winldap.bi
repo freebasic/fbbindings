@@ -1,6 +1,5 @@
 #pragma once
 
-#include once "windef.bi"
 #include once "schnlsp.bi"
 
 '' The following symbols have been renamed:
@@ -14,6 +13,8 @@
 ''         #define ldap_get_option => ldap_get_option_
 ''         #define ldap_set_option => ldap_set_option_
 ''     #endif
+''     inside struct berelement:
+''         field opaque => opaque_
 ''     typedef BerElement => BerElement_
 ''     typedef LDAP_VERSION_INFO => LDAP_VERSION_INFO_
 ''     typedef LDAPAPIInfoA => LDAPAPIInfoA_
@@ -752,7 +753,7 @@ declare function ldap_next_entry(byval ld as LDAP_ ptr, byval entry as LDAPMessa
 declare function ldap_count_entries(byval ld as LDAP_ ptr, byval res as LDAPMessage ptr) as ULONG
 
 type berelement
-	opaque as PCHAR
+	opaque_ as PCHAR
 end type
 
 type BerElement_ as berelement

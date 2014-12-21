@@ -15,9 +15,13 @@
 
 type SEC_WCHAR as WCHAR
 type SEC_CHAR as CHAR
-type SECURITY_STATUS as LONG
 
-#define __SECSTATUS_DEFINED__
+#if (_WIN32_WINNT = &h0400) or (_WIN32_WINNT = &h0502)
+	type SECURITY_STATUS as LONG
+
+	#define __SECSTATUS_DEFINED__
+#endif
+
 #define SEC_TEXT TEXT
 
 #ifdef UNICODE
@@ -902,39 +906,6 @@ type SASL_AUTHZID_STATE as _SASL_AUTHZID_STATE
 declare function SaslSetContextOption(byval ContextHandle as PCtxtHandle, byval Option_ as ULONG, byval Value as PVOID, byval Size as ULONG) as SECURITY_STATUS
 declare function SaslGetContextOption(byval ContextHandle as PCtxtHandle, byval Option_ as ULONG, byval Value as PVOID, byval Size as ULONG, byval Needed as PULONG) as SECURITY_STATUS
 
-#define _AUTH_IDENTITY_DEFINED
-#define SEC_WINNT_AUTH_IDENTITY_ANSI &h1
-#define SEC_WINNT_AUTH_IDENTITY_UNICODE &h2
-
-type _SEC_WINNT_AUTH_IDENTITY_W
-	User as ushort ptr
-	UserLength as ulong
-	Domain as ushort ptr
-	DomainLength as ulong
-	Password as ushort ptr
-	PasswordLength as ulong
-	Flags as ulong
-end type
-
-type SEC_WINNT_AUTH_IDENTITY_W as _SEC_WINNT_AUTH_IDENTITY_W
-type PSEC_WINNT_AUTH_IDENTITY_W as _SEC_WINNT_AUTH_IDENTITY_W ptr
-
-type _SEC_WINNT_AUTH_IDENTITY_A
-	User as ubyte ptr
-	UserLength as ulong
-	Domain as ubyte ptr
-	DomainLength as ulong
-	Password as ubyte ptr
-	PasswordLength as ulong
-	Flags as ulong
-end type
-
-type SEC_WINNT_AUTH_IDENTITY_A as _SEC_WINNT_AUTH_IDENTITY_A
-type PSEC_WINNT_AUTH_IDENTITY_A as _SEC_WINNT_AUTH_IDENTITY_A ptr
-
-#define SEC_WINNT_AUTH_IDENTITY __MINGW_NAME_UAW(SEC_WINNT_AUTH_IDENTITY)
-#define PSEC_WINNT_AUTH_IDENTITY __MINGW_NAME_UAW(PSEC_WINNT_AUTH_IDENTITY)
-#define _SEC_WINNT_AUTH_IDENTITY __MINGW_NAME_UAW(_SEC_WINNT_AUTH_IDENTITY)
 #define SEC_WINNT_AUTH_IDENTITY_VERSION &h200
 
 type _SEC_WINNT_AUTH_IDENTITY_EXW
@@ -998,5 +969,21 @@ declare function AddSecurityPackageA(byval pszPackageName as LPSTR, byval pOptio
 declare function AddSecurityPackageW(byval pszPackageName as LPWSTR, byval pOptions as PSECURITY_PACKAGE_OPTIONS) as SECURITY_STATUS
 declare function DeleteSecurityPackageA(byval pszPackageName as SEC_CHAR ptr) as SECURITY_STATUS
 declare function DeleteSecurityPackageW(byval pszPackageName as SEC_WCHAR ptr) as SECURITY_STATUS
+
+#if _WIN32_WINNT = &h0602
+	declare function ChangeAccountPassword(byval pszPackageName as SEC_WCHAR ptr, byval pszDomainName as SEC_WCHAR ptr, byval pszAccountName as SEC_WCHAR ptr, byval pszOldPassword as SEC_WCHAR ptr, byval pszNewPassword as SEC_WCHAR ptr, byval bImpersonating as BOOLEAN, byval dwReserved as ulong, byval pOutput as PSecBufferDesc) as SECURITY_STATUS
+
+	type _CREDUIWIN_MARSHALED_CONTEXT
+		StructureType as GUID
+		cbHeaderLength as USHORT
+		LogonId as LUID
+		MarshaledDataType as GUID
+		MarshaledDataOffset as ULONG
+		MarshaledDataLength as USHORT
+	end type
+
+	type CREDUIWIN_MARSHALED_CONTEXT as _CREDUIWIN_MARSHALED_CONTEXT
+	type PCREDUIWIN_MARSHALED_CONTEXT as _CREDUIWIN_MARSHALED_CONTEXT ptr
+#endif
 
 end extern

@@ -415,4 +415,17 @@ declare function GetOpenCardNameA(byval as LPOPENCARDNAMEA) as LONG
 declare function GetOpenCardNameW(byval as LPOPENCARDNAMEW) as LONG
 declare function SCardDlgExtendedError() as LONG
 
+#if _WIN32_WINNT = &h0602
+	declare function SCardGetTransmitCount(byval hCard as SCARDHANDLE, byval pcTransmitCount as LPDWORD) as LONG
+	declare function SCardReadCacheA(byval hContext as SCARDCONTEXT, byval CardIdentifier as UUID ptr, byval FreshnessCounter as DWORD, byval LookupName as LPSTR, byval Data_ as PBYTE, byval DataLen as DWORD ptr) as LONG
+	declare function SCardReadCacheW(byval hContext as SCARDCONTEXT, byval CardIdentifier as UUID ptr, byval FreshnessCounter as DWORD, byval LookupName as LPWSTR, byval Data_ as PBYTE, byval DataLen as DWORD ptr) as LONG
+
+	#define SCardReadCache __MINGW_NAME_AW(SCardReadCache)
+
+	declare function SCardWriteCacheA(byval hContext as SCARDCONTEXT, byval CardIdentifier as UUID ptr, byval FreshnessCounter as DWORD, byval LookupName as LPSTR, byval Data_ as PBYTE, byval DataLen as DWORD) as LONG
+	declare function SCardWriteCacheW(byval hContext as SCARDCONTEXT, byval CardIdentifier as UUID ptr, byval FreshnessCounter as DWORD, byval LookupName as LPWSTR, byval Data_ as PBYTE, byval DataLen as DWORD) as LONG
+
+	#define SCardWriteCache __MINGW_NAME_AW(SCardWriteCache)
+#endif
+
 end extern

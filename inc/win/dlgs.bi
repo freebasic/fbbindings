@@ -175,10 +175,10 @@
 #define NEWFILEOPENV2ORD 1552
 
 type tagCRGB
-	bRed as BYTE
-	bGreen as BYTE
-	bBlue as BYTE
-	bExtra as BYTE
+	bRed as UBYTE
+	bGreen as UBYTE
+	bBlue as UBYTE
+	bExtra as UBYTE
 end type
 
 type CRGB as tagCRGB

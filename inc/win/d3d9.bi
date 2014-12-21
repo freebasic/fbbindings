@@ -2,6 +2,7 @@
 
 #include once "crt/stdlib.bi"
 #include once "objbase.bi"
+#include once "windows.bi"
 #include once "d3d9types.bi"
 #include once "d3d9caps.bi"
 

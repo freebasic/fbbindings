@@ -74,8 +74,12 @@ declare function StrToIntA(byval lpSrc as LPCSTR) as long
 declare function StrToIntW(byval lpSrc as LPCWSTR) as long
 declare function StrToIntExA(byval pszString as LPCSTR, byval dwFlags as DWORD, byval piRet as long ptr) as WINBOOL
 declare function StrToIntExW(byval pszString as LPCWSTR, byval dwFlags as DWORD, byval piRet as long ptr) as WINBOOL
-declare function StrToInt64ExA(byval pszString as LPCSTR, byval dwFlags as DWORD, byval pllRet as LONGLONG ptr) as WINBOOL
-declare function StrToInt64ExW(byval pszString as LPCWSTR, byval dwFlags as DWORD, byval pllRet as LONGLONG ptr) as WINBOOL
+
+#if (_WIN32_WINNT = &h0502) or (_WIN32_WINNT = &h0602)
+	declare function StrToInt64ExA(byval pszString as LPCSTR, byval dwFlags as DWORD, byval pllRet as LONGLONG ptr) as WINBOOL
+	declare function StrToInt64ExW(byval pszString as LPCWSTR, byval dwFlags as DWORD, byval pllRet as LONGLONG ptr) as WINBOOL
+#endif
+
 declare function StrTrimA(byval psz as LPSTR, byval pszTrimChars as LPCSTR) as WINBOOL
 declare function StrTrimW(byval psz as LPWSTR, byval pszTrimChars as LPCWSTR) as WINBOOL
 declare function StrCatW(byval psz1 as LPWSTR, byval psz2 as LPCWSTR) as LPWSTR
@@ -111,6 +115,23 @@ declare function StrCmpLogicalW(byval psz1 as LPCWSTR, byval psz2 as LPCWSTR) as
 declare function StrCatChainW(byval pszDst as LPWSTR, byval cchDst as DWORD, byval ichAt as DWORD, byval pszSrc as LPCWSTR) as DWORD
 declare function SHLoadIndirectString(byval pszSource as LPCWSTR, byval pszOutBuf as LPWSTR, byval cchOutBuf as UINT, byval ppvReserved as any ptr ptr) as HRESULT
 
+#if _WIN32_WINNT = &h0602
+	declare function IsCharSpaceA(byval wch as CHAR) as WINBOOL
+	declare function IsCharSpaceW(byval wch as WCHAR) as WINBOOL
+
+	#define IsCharSpace __MINGW_NAME_AW(IsCharSpace)
+
+	declare function StrCmpCA(byval pszStr1 as LPCSTR, byval pszStr2 as LPCSTR) as long
+	declare function StrCmpCW(byval pszStr1 as LPCWSTR, byval pszStr2 as LPCWSTR) as long
+
+	#define StrCmpC __MINGW_NAME_AW(StrCmpC)
+
+	declare function StrCmpICA(byval pszStr1 as LPCSTR, byval pszStr2 as LPCSTR) as long
+	declare function StrCmpICW(byval pszStr1 as LPCWSTR, byval pszStr2 as LPCWSTR) as long
+
+	#define StrCmpIC __MINGW_NAME_AW(StrCmpIC)
+#endif
+
 #define StrChr_ __MINGW_NAME_AW(StrChr)
 #define StrRChr_ __MINGW_NAME_AW(StrRChr)
 #define StrChrI __MINGW_NAME_AW(StrChrI)
@@ -127,7 +148,11 @@ declare function SHLoadIndirectString(byval pszSource as LPCWSTR, byval pszOutBu
 #define StrToInt __MINGW_NAME_AW(StrToInt)
 #define StrPBrk_ __MINGW_NAME_AW(StrPBrk)
 #define StrToIntEx __MINGW_NAME_AW(StrToIntEx)
-#define StrToInt64Ex __MINGW_NAME_AW(StrToInt64Ex)
+
+#if (_WIN32_WINNT = &h0502) or (_WIN32_WINNT = &h0602)
+	#define StrToInt64Ex __MINGW_NAME_AW(StrToInt64Ex)
+#endif
+
 #define StrFromTimeInterval __MINGW_NAME_AW(StrFromTimeInterval)
 #define StrIntlEqN __MINGW_NAME_AW(StrIntlEqN)
 #define StrIntlEqNI __MINGW_NAME_AW(StrIntlEqNI)
@@ -578,29 +603,32 @@ declare function SHSetValueW(byval hkey as HKEY, byval pszSubKey as LPCWSTR, byv
 
 #define SHSetValue __MINGW_NAME_AW(SHSetValue)
 
-type SRRF as DWORD
+#if (_WIN32_WINNT = &h0502) or (_WIN32_WINNT = &h0602)
+	type SRRF as DWORD
 
-#define SRRF_RT_REG_NONE &h00000001
-#define SRRF_RT_REG_SZ &h00000002
-#define SRRF_RT_REG_EXPAND_SZ &h00000004
-#define SRRF_RT_REG_BINARY &h00000008
-#define SRRF_RT_REG_DWORD &h00000010
-#define SRRF_RT_REG_MULTI_SZ &h00000020
-#define SRRF_RT_REG_QWORD &h00000040
-#define SRRF_RT_DWORD (SRRF_RT_REG_BINARY or SRRF_RT_REG_DWORD)
-#define SRRF_RT_QWORD (SRRF_RT_REG_BINARY or SRRF_RT_REG_QWORD)
-#define SRRF_RT_ANY &h0000ffff
-#define SRRF_RM_ANY &h00000000
-#define SRRF_RM_NORMAL &h00010000
-#define SRRF_RM_SAFE &h00020000
-#define SRRF_RM_SAFENETWORK &h00040000
-#define SRRF_NOEXPAND &h10000000
-#define SRRF_ZEROONFAILURE &h20000000
+	#define SRRF_RT_REG_NONE &h00000001
+	#define SRRF_RT_REG_SZ &h00000002
+	#define SRRF_RT_REG_EXPAND_SZ &h00000004
+	#define SRRF_RT_REG_BINARY &h00000008
+	#define SRRF_RT_REG_DWORD &h00000010
+	#define SRRF_RT_REG_MULTI_SZ &h00000020
+	#define SRRF_RT_REG_QWORD &h00000040
+	#define SRRF_RT_DWORD (SRRF_RT_REG_BINARY or SRRF_RT_REG_DWORD)
+	#define SRRF_RT_QWORD (SRRF_RT_REG_BINARY or SRRF_RT_REG_QWORD)
+	#define SRRF_RT_ANY &h0000ffff
+	#define SRRF_RM_ANY &h00000000
+	#define SRRF_RM_NORMAL &h00010000
+	#define SRRF_RM_SAFE &h00020000
+	#define SRRF_RM_SAFENETWORK &h00040000
+	#define SRRF_NOEXPAND &h10000000
+	#define SRRF_ZEROONFAILURE &h20000000
 
-declare function SHRegGetValueA(byval hkey as HKEY, byval pszSubKey as LPCSTR, byval pszValue as LPCSTR, byval dwFlags as SRRF, byval pdwType as DWORD ptr, byval pvData as any ptr, byval pcbData as DWORD ptr) as LONG
-declare function SHRegGetValueW(byval hkey as HKEY, byval pszSubKey as LPCWSTR, byval pszValue as LPCWSTR, byval dwFlags as SRRF, byval pdwType as DWORD ptr, byval pvData as any ptr, byval pcbData as DWORD ptr) as LONG
+	declare function SHRegGetValueA(byval hkey as HKEY, byval pszSubKey as LPCSTR, byval pszValue as LPCSTR, byval dwFlags as SRRF, byval pdwType as DWORD ptr, byval pvData as any ptr, byval pcbData as DWORD ptr) as LONG
+	declare function SHRegGetValueW(byval hkey as HKEY, byval pszSubKey as LPCWSTR, byval pszValue as LPCWSTR, byval dwFlags as SRRF, byval pdwType as DWORD ptr, byval pvData as any ptr, byval pcbData as DWORD ptr) as LONG
 
-#define SHRegGetValue __MINGW_NAME_AW(SHRegGetValue)
+	#define SHRegGetValue __MINGW_NAME_AW(SHRegGetValue)
+#endif
+
 #define SHQueryValueEx __MINGW_NAME_AW(SHQueryValueEx)
 #define SHEnumKeyEx __MINGW_NAME_AW(SHEnumKeyEx)
 #define SHEnumValue __MINGW_NAME_AW(SHEnumValue)
@@ -726,6 +754,12 @@ enum
 	ASSOCSTR_CONTENTTYPE
 	ASSOCSTR_DEFAULTICON
 	ASSOCSTR_SHELLEXTENSION
+
+	#if _WIN32_WINNT = &h0602
+		ASSOCSTR_DROPTARGET
+		ASSOCSTR_DELEGATEEXECUTE
+	#endif
+
 	ASSOCSTR_MAX
 end enum
 
@@ -780,7 +814,14 @@ declare function AssocQueryStringByKeyA(byval flags as ASSOCF, byval str_ as ASS
 declare function AssocQueryStringByKeyW(byval flags as ASSOCF, byval str_ as ASSOCSTR, byval hkAssoc as HKEY, byval pszExtra as LPCWSTR, byval pszOut as LPWSTR, byval pcchOut as DWORD ptr) as HRESULT
 declare function AssocQueryKeyA(byval flags as ASSOCF, byval key as ASSOCKEY, byval pszAssoc as LPCSTR, byval pszExtra as LPCSTR, byval phkeyOut as HKEY ptr) as HRESULT
 declare function AssocQueryKeyW(byval flags as ASSOCF, byval key as ASSOCKEY, byval pszAssoc as LPCWSTR, byval pszExtra as LPCWSTR, byval phkeyOut as HKEY ptr) as HRESULT
-declare function AssocIsDangerous(byval pszAssoc as LPCWSTR) as WINBOOL
+
+#if (_WIN32_WINNT = &h0502) or (_WIN32_WINNT = &h0602)
+	declare function AssocIsDangerous(byval pszAssoc as LPCWSTR) as WINBOOL
+#endif
+
+#if _WIN32_WINNT = &h0602
+	declare function AssocGetPerceivedType(byval pszExt as LPCWSTR, byval ptype as PERCEIVED ptr, byval pflag as PERCEIVEDFLAG ptr, byval ppszType as LPWSTR ptr) as HRESULT
+#endif
 
 #define SHOpenRegStream2 __MINGW_NAME_AW(SHOpenRegStream2)
 #define SHCreateStreamOnFile __MINGW_NAME_AW(SHCreateStreamOnFile)
@@ -794,21 +835,40 @@ declare function SHOpenRegStream2W(byval hkey as HKEY, byval pszSubkey as LPCWST
 
 declare function SHCreateStreamOnFileA(byval pszFile as LPCSTR, byval grfMode as DWORD, byval ppstm as IStream ptr ptr) as HRESULT
 declare function SHCreateStreamOnFileW(byval pszFile as LPCWSTR, byval grfMode as DWORD, byval ppstm as IStream ptr ptr) as HRESULT
-declare function SHCreateStreamOnFileEx(byval pszFile as LPCWSTR, byval grfMode as DWORD, byval dwAttributes as DWORD, byval fCreate as WINBOOL, byval pstmTemplate as IStream ptr, byval ppstm as IStream ptr ptr) as HRESULT
 
-#define SHGVSPB_PERUSER &h00000001
-#define SHGVSPB_ALLUSERS &h00000002
-#define SHGVSPB_PERFOLDER &h00000004
-#define SHGVSPB_ALLFOLDERS &h00000008
-#define SHGVSPB_INHERIT &h00000010
-#define SHGVSPB_ROAM &h00000020
-#define SHGVSPB_NOAUTODEFAULTS &h80000000
-#define SHGVSPB_FOLDER (SHGVSPB_PERUSER or SHGVSPB_PERFOLDER)
-#define SHGVSPB_FOLDERNODEFAULTS ((SHGVSPB_PERUSER or SHGVSPB_PERFOLDER) or SHGVSPB_NOAUTODEFAULTS)
-#define SHGVSPB_USERDEFAULTS (SHGVSPB_PERUSER or SHGVSPB_ALLFOLDERS)
-#define SHGVSPB_GLOBALDEAFAULTS (SHGVSPB_ALLUSERS or SHGVSPB_ALLFOLDERS)
+#if (_WIN32_WINNT = &h0502) or (_WIN32_WINNT = &h0602)
+	declare function SHCreateStreamOnFileEx(byval pszFile as LPCWSTR, byval grfMode as DWORD, byval dwAttributes as DWORD, byval fCreate as WINBOOL, byval pstmTemplate as IStream ptr, byval ppstm as IStream ptr ptr) as HRESULT
+#endif
 
-declare function SHGetViewStatePropertyBag(byval pidl as LPCITEMIDLIST, byval pszBagName as LPCWSTR, byval dwFlags as DWORD, byval riid as const IID const ptr, byval ppv as any ptr ptr) as HRESULT
+#if _WIN32_WINNT = &h0602
+	#define GetAcceptLanguages __MINGW_NAME_AW(GetAcceptLanguages)
+
+	declare function GetAcceptLanguagesA(byval psz as LPSTR, byval pcch as DWORD ptr) as HRESULT
+	declare function GetAcceptLanguagesW(byval psz as LPWSTR, byval pcch as DWORD ptr) as HRESULT
+#endif
+
+#if (_WIN32_WINNT = &h0502) or (_WIN32_WINNT = &h0602)
+	#define SHGVSPB_PERUSER &h00000001
+	#define SHGVSPB_ALLUSERS &h00000002
+	#define SHGVSPB_PERFOLDER &h00000004
+	#define SHGVSPB_ALLFOLDERS &h00000008
+	#define SHGVSPB_INHERIT &h00000010
+	#define SHGVSPB_ROAM &h00000020
+	#define SHGVSPB_NOAUTODEFAULTS &h80000000
+	#define SHGVSPB_FOLDER (SHGVSPB_PERUSER or SHGVSPB_PERFOLDER)
+	#define SHGVSPB_FOLDERNODEFAULTS ((SHGVSPB_PERUSER or SHGVSPB_PERFOLDER) or SHGVSPB_NOAUTODEFAULTS)
+	#define SHGVSPB_USERDEFAULTS (SHGVSPB_PERUSER or SHGVSPB_ALLFOLDERS)
+	#define SHGVSPB_GLOBALDEAFAULTS (SHGVSPB_ALLUSERS or SHGVSPB_ALLFOLDERS)
+
+	declare function SHGetViewStatePropertyBag(byval pidl as LPCITEMIDLIST, byval pszBagName as LPCWSTR, byval dwFlags as DWORD, byval riid as const IID const ptr, byval ppv as any ptr ptr) as HRESULT
+#endif
+
+#if _WIN32_WINNT = &h0602
+	declare function SHAllocShared(byval pvData as const any ptr, byval dwSize as DWORD, byval dwProcessId as DWORD) as HANDLE
+	declare function SHFreeShared(byval hData as HANDLE, byval dwProcessId as DWORD) as WINBOOL
+	declare function SHLockShared(byval hData as HANDLE, byval dwProcessId as DWORD) as any ptr
+	declare function SHUnlockShared(byval pvData as any ptr) as WINBOOL
+#endif
 
 #define SHACF_DEFAULT &h00000000
 #define SHACF_FILESYSTEM &h00000001
@@ -817,7 +877,11 @@ declare function SHGetViewStatePropertyBag(byval pidl as LPCITEMIDLIST, byval ps
 #define SHACF_URLMRU &h00000004
 #define SHACF_USETAB &h00000008
 #define SHACF_FILESYS_ONLY &h00000010
-#define SHACF_FILESYS_DIRS &h00000020
+
+#if (_WIN32_WINNT = &h0502) or (_WIN32_WINNT = &h0602)
+	#define SHACF_FILESYS_DIRS &h00000020
+#endif
+
 #define SHACF_AUTOSUGGEST_FORCE_ON &h10000000
 #define SHACF_AUTOSUGGEST_FORCE_OFF &h20000000
 #define SHACF_AUTOAPPEND_FORCE_ON &h40000000
@@ -827,6 +891,10 @@ declare function SHAutoComplete(byval hwndEdit as HWND, byval dwFlags as DWORD) 
 declare function SHSetThreadRef(byval punk as IUnknown ptr) as HRESULT
 declare function SHGetThreadRef(byval ppunk as IUnknown ptr ptr) as HRESULT
 declare function SHSkipJunction(byval pbc as IBindCtx ptr, byval pclsid as const CLSID ptr) as WINBOOL
+
+#if _WIN32_WINNT = &h0602
+	declare function SHCreateThreadRef(byval pcRef as LONG ptr, byval ppunk as IUnknown ptr ptr) as HRESULT
+#endif
 
 #define CTF_INSIST &h00000001
 #define CTF_THREAD_REF &h00000002
@@ -873,6 +941,9 @@ type DLLVERSIONINFO2 as _DLLVERSIONINFO2
 type DLLGETVERSIONPROC as function(byval as DLLVERSIONINFO ptr) as HRESULT
 
 declare function DllInstall(byval bInstall as WINBOOL, byval pszCmdLine as LPCWSTR) as HRESULT
-declare function IsInternetESCEnabled() as WINBOOL
+
+#if (_WIN32_WINNT = &h0502) or (_WIN32_WINNT = &h0602)
+	declare function IsInternetESCEnabled() as WINBOOL
+#endif
 
 end extern

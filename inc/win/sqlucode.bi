@@ -43,7 +43,11 @@
 	''     #define SQLDrivers => SQLDrivers_
 #endif
 
-extern "Windows"
+#ifdef __FB_64BIT__
+	extern "C"
+#else
+	extern "Windows"
+#endif
 
 #define __SQLUCODE
 #define SQL_WCHAR (-8)

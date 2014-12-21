@@ -12,13 +12,14 @@
 
 extern "C"
 
+#define _BASETSD_H_
+
 #ifdef __FB_64BIT__
 	type POINTER_64_INT as ulongint
 #else
 	type POINTER_64_INT as ulong
 #endif
 
-#define _BASETSD_H_
 #define POINTER_32
 #define POINTER_64
 #define FIRMWARE_PTR
@@ -162,14 +163,14 @@ type PDWORD32 as ulong ptr
 	type SHANDLE_PTR as long
 	type HANDLE_PTR as ulong
 
-	#define HandleToULong(h) '' TODO: ((ULONG) (ULONG_PTR) (h))
-	#define HandleToLong(h) '' TODO: ((LONG) (LONG_PTR) (h))
-	#define ULongToHandle(ul) '' TODO: ((HANDLE) (ULONG_PTR) (ul))
-	#define LongToHandle(h) '' TODO: ((HANDLE) (LONG_PTR) (h))
-	#define PtrToUlong(p) '' TODO: ((ULONG) (ULONG_PTR) (p))
-	#define PtrToLong(p) '' TODO: ((LONG) (LONG_PTR) (p))
-	#define PtrToUint(p) '' TODO: ((UINT) (UINT_PTR) (p))
-	#define PtrToInt(p) '' TODO: ((INT) (INT_PTR) (p))
+	#define HandleToULong(h) cast(ULONG, cast(ULONG_PTR, (h)))
+	#define HandleToLong(h) cast(LONG, cast(LONG_PTR, (h)))
+	#define ULongToHandle(ul) cast(HANDLE, cast(ULONG_PTR, (ul)))
+	#define LongToHandle(h) cast(HANDLE, cast(LONG_PTR, (h)))
+	#define PtrToUlong(p) cast(ULONG, cast(ULONG_PTR, (p)))
+	#define PtrToLong(p) cast(LONG, cast(LONG_PTR, (p)))
+	#define PtrToUint(p) cast(UINT, cast(UINT_PTR, (p)))
+	#define PtrToInt(p) cast(INT_, cast(INT_PTR, (p)))
 	#define PtrToUshort(p) cushort(cast(ULONG_PTR, (p)))
 	#define PtrToShort(p) cshort(cast(LONG_PTR, (p)))
 	#define IntToPtr(i) cptr(VOID ptr, cast(INT_PTR, clng(i)))
@@ -217,6 +218,38 @@ type SIZE_T_ as ULONG_PTR
 type PSIZE_T as ULONG_PTR ptr
 type SSIZE_T_ as LONG_PTR
 type PSSIZE_T as LONG_PTR ptr
+
+#if _WIN32_WINNT = &h0602
+	#define MAXUINT8 cast(UINT8, not cast(UINT8, 0))
+	#define MAXINT8 cast(INT8, MAXUINT8 shr 1)
+	#define MININT8 cast(INT8, not MAXINT8)
+	#define MAXUINT16 cast(UINT16, not cast(UINT16, 0))
+	#define MAXINT16 cast(INT16, MAXUINT16 shr 1)
+	#define MININT16 cast(INT16, not MAXINT16)
+	#define MAXUINT32 cast(UINT32, not cast(UINT32, 0))
+	#define MAXINT32 cast(INT32, MAXUINT32 shr 1)
+	#define MININT32 cast(INT32, not MAXINT32)
+	#define MAXUINT64 cast(UINT64, not cast(UINT64, 0))
+	#define MAXINT64 cast(INT64, MAXUINT64 shr 1)
+	#define MININT64 cast(INT64, not MAXINT64)
+	#define MAXULONG32 cast(ULONG32, not cast(ULONG32, 0))
+	#define MAXLONG32 cast(LONG32, MAXULONG32 shr 1)
+	#define MINLONG32 cast(LONG32, not MAXLONG32)
+	#define MAXULONG64 cast(ULONG64, not cast(ULONG64, 0))
+	#define MAXLONG64 cast(LONG64, MAXULONG64 shr 1)
+	#define MINLONG64 cast(LONG64, not MAXLONG64)
+	#define MAXULONGLONG cast(ULONGLONG, not cast(ULONGLONG, 0))
+	#define MINLONGLONG cast(LONGLONG, not MAXLONGLONG)
+	#define MAXSIZE_T cast(SIZE_T_, not cast(SIZE_T_, 0))
+	#define MAXSSIZE_T cast(SSIZE_T_, MAXSIZE_T shr 1)
+	#define MINSSIZE_T cast(SSIZE_T_, not MAXSSIZE_T)
+	#define MAXUINT cast(UINT, not cast(UINT, 0))
+	#define MAXINT cast(INT_, MAXUINT shr 1)
+	#define MININT cast(INT_, not MAXINT)
+	#define MAXDWORD32 cast(DWORD32, not cast(DWORD32, 0))
+	#define MAXDWORD64 cast(DWORD64, not cast(DWORD64, 0))
+#endif
+
 type DWORD_PTR as ULONG_PTR
 type PDWORD_PTR as ULONG_PTR ptr
 type LONG64 as longint

@@ -2,6 +2,7 @@
 
 #include once "crt/setjmp.bi"
 #include once "CUnit.bi"
+#include once "CUError.bi"
 
 '' The following symbols have been renamed:
 ''     #define CU_ADD_TEST => CU_ADD_TEST_

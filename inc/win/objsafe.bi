@@ -2,6 +2,7 @@
 
 #include once "rpc.bi"
 #include once "rpcndr.bi"
+#include once "windows.bi"
 #include once "ole2.bi"
 #include once "unknwn.bi"
 
@@ -13,7 +14,6 @@
 
 type IObjectSafety as IObjectSafety_
 
-#define __REQUIRED_RPCNDR_H_VERSION__ 440
 #define __objsafe_h__
 #define __IObjectSafety_FWD_DEFINED__
 #define _LPSAFEOBJECT_DEFINED

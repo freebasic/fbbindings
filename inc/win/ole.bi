@@ -1,5 +1,7 @@
 #pragma once
 
+#include once "winapifamily.bi"
+
 '' The following symbols have been renamed:
 ''     #define LRESULT => LRESULT_
 ''     #define HGLOBAL => HGLOBAL_

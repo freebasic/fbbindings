@@ -30,8 +30,14 @@ extern "C"
 #define __USE_CRTIMP 1
 #define USE___UUIDOF 0
 #define __MSVCRT_VERSION__ &h0700
-#define WINVER &h0502
-#define _WIN32_WINNT &h502
+
+#ifndef _WIN32_WINNT
+	#define _WIN32_WINNT &h0502
+#endif
+#ifndef WINVER
+	#define WINVER _WIN32_WINNT
+#endif
+
 #define _INT128_DEFINED
 #define __int8 byte
 #define __int16 short

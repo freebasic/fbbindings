@@ -37,6 +37,11 @@ type FN_PROGRESS as sub cdecl(byval pObjectName as LPWSTR, byval Status as DWORD
 #define GetTrusteeForm __MINGW_NAME_AW(GetTrusteeForm)
 #define GetMultipleTrusteeOperation __MINGW_NAME_AW(GetMultipleTrusteeOperation)
 #define GetMultipleTrustee __MINGW_NAME_AW(GetMultipleTrustee)
+
+#if _WIN32_WINNT = &h0602
+	#define TreeSetNamedSecurityInfo __MINGW_NAME_AW(TreeSetNamedSecurityInfo)
+#endif
+
 #define AccProvInit(err)
 
 declare function SetEntriesInAclA(byval cCountOfExplicitEntries as ULONG, byval pListOfExplicitEntries as PEXPLICIT_ACCESS_A, byval OldAcl as PACL, byval NewAcl as PACL ptr) as DWORD
@@ -86,5 +91,10 @@ declare function GetMultipleTrusteeOperationA(byval pTrustee as PTRUSTEE_A) as M
 declare function GetMultipleTrusteeOperationW(byval pTrustee as PTRUSTEE_W) as MULTIPLE_TRUSTEE_OPERATION
 declare function GetMultipleTrusteeA(byval pTrustee as PTRUSTEE_A) as PTRUSTEE_A
 declare function GetMultipleTrusteeW(byval pTrustee as PTRUSTEE_W) as PTRUSTEE_W
+
+#if _WIN32_WINNT = &h0602
+	declare function TreeSetNamedSecurityInfoA(byval pObjectName as LPSTR, byval ObjectType as SE_OBJECT_TYPE, byval SecurityInfo as SECURITY_INFORMATION, byval pOwner as PSID, byval pGroup as PSID, byval pDacl as PACL, byval pSacl as PACL, byval dwAction as DWORD, byval fnProgress as FN_PROGRESS, byval ProgressInvokeSetting as PROG_INVOKE_SETTING, byval Args as PVOID) as DWORD
+	declare function TreeSetNamedSecurityInfoW(byval pObjectName as LPWSTR, byval ObjectType as SE_OBJECT_TYPE, byval SecurityInfo as SECURITY_INFORMATION, byval pOwner as PSID, byval pGroup as PSID, byval pDacl as PACL, byval pSacl as PACL, byval dwAction as DWORD, byval fnProgress as FN_PROGRESS, byval ProgressInvokeSetting as PROG_INVOKE_SETTING, byval Args as PVOID) as DWORD
+#endif
 
 end extern

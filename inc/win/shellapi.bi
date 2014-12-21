@@ -1,14 +1,23 @@
 #pragma once
 
+#include once "winapifamily.bi"
 #include once "_mingw_unicode.bi"
 
 #ifdef __FB_64BIT__
 	extern "C"
+#elseif (not defined(__FB_64BIT__)) and (_WIN32_WINNT = &h0602)
+	extern "Windows"
+#endif
 
+#if _WIN32_WINNT = &h0602
+	type NET_ADDRESS_INFO_ as NET_ADDRESS_INFO__
+#endif
+
+#ifdef __FB_64BIT__
 	type HDROP__
 		unused as long
 	end type
-#else
+#elseif (not defined(__FB_64BIT__)) and ((_WIN32_WINNT = &h0400) or (_WIN32_WINNT = &h0502))
 	extern "Windows"
 #endif
 
@@ -111,6 +120,12 @@ type LPDRAGINFOW as _DRAGINFOW ptr
 #define ABM_SETAUTOHIDEBAR &h00000008
 #define ABM_WINDOWPOSCHANGED &h0000009
 #define ABM_SETSTATE &h0000000a
+
+#if _WIN32_WINNT = &h0602
+	#define ABM_GETAUTOHIDEBAREX &h0000000b
+	#define ABM_SETAUTOHIDEBAREX &h0000000c
+#endif
+
 #define ABN_STATECHANGE &h0000000
 #define ABN_POSCHANGED &h0000001
 #define ABN_FULLSCREENAPP &h0000002
@@ -316,7 +331,11 @@ type LPSHNAMEMAPPINGW as _SHNAMEMAPPINGW ptr
 #define SEE_MASK_CLASSKEY &h3
 #define SEE_MASK_IDLIST &h4
 #define SEE_MASK_INVOKEIDLIST &hc
-#define SEE_MASK_ICON &h10
+
+#if (_WIN32_WINNT = &h0400) or (_WIN32_WINNT = &h0502)
+	#define SEE_MASK_ICON &h10
+#endif
+
 #define SEE_MASK_HOTKEY &h20
 #define SEE_MASK_NOCLOSEPROCESS &h40
 #define SEE_MASK_CONNECTNETDRV &h80
@@ -332,6 +351,10 @@ type LPSHNAMEMAPPINGW as _SHNAMEMAPPINGW ptr
 #define SEE_MASK_NOQUERYCLASSSTORE &h1000000
 #define SEE_MASK_WAITFORINPUTIDLE &h2000000
 #define SEE_MASK_FLAG_LOG_USAGE &h4000000
+
+#if _WIN32_WINNT = &h0602
+	#define SEE_MASK_FLAG_HINST_IS_SITE &h8000000
+#endif
 
 #ifdef __FB_64BIT__
 	type _SHELLEXECUTEINFOA
@@ -487,6 +510,44 @@ type PSHCREATEPROCESSINFOW as _SHCREATEPROCESSINFOW ptr
 
 declare function SHCreateProcessAsUserW(byval pscpi as PSHCREATEPROCESSINFOW) as WINBOOL
 
+#if _WIN32_WINNT = &h0602
+	declare function SHEvaluateSystemCommandTemplate(byval pszCmdTemplate as PCWSTR, byval ppszApplication as PWSTR ptr, byval ppszCommandLine as PWSTR ptr, byval ppszParameters as PWSTR ptr) as HRESULT
+
+	type ASSOCCLASS as long
+	enum
+		ASSOCCLASS_SHELL_KEY = 0
+		ASSOCCLASS_PROGID_KEY
+		ASSOCCLASS_PROGID_STR
+		ASSOCCLASS_CLSID_KEY
+		ASSOCCLASS_CLSID_STR
+		ASSOCCLASS_APP_KEY
+		ASSOCCLASS_APP_STR
+		ASSOCCLASS_SYSTEM_STR
+		ASSOCCLASS_FOLDER
+		ASSOCCLASS_STAR
+		ASSOCCLASS_FIXED_PROGID_STR
+		ASSOCCLASS_PROTOCOL_STR
+	end enum
+#endif
+
+#if defined(__FB_64BIT__) and (_WIN32_WINNT = &h0602)
+	type ASSOCIATIONELEMENT
+		ac as ASSOCCLASS
+		hkClass as HKEY
+		pszClass as PCWSTR
+	end type
+#elseif (not defined(__FB_64BIT__)) and (_WIN32_WINNT = &h0602)
+	type ASSOCIATIONELEMENT field = 1
+		ac as ASSOCCLASS
+		hkClass as HKEY
+		pszClass as PCWSTR
+	end type
+#endif
+
+#if _WIN32_WINNT = &h0602
+	declare function AssocCreateForClasses(byval rgClasses as const ASSOCIATIONELEMENT ptr, byval cClasses as ULONG, byval riid as const IID const ptr, byval ppv as any ptr ptr) as HRESULT
+#endif
+
 #ifdef __FB_64BIT__
 	type _SHQUERYRBINFO
 		cbSize as DWORD
@@ -518,6 +579,22 @@ declare function SHEmptyRecycleBinW(byval hwnd as HWND, byval pszRootPath as LPC
 
 #define SHEmptyRecycleBin __MINGW_NAME_AW(SHEmptyRecycleBin)
 
+#if _WIN32_WINNT = &h0602
+	type QUERY_USER_NOTIFICATION_STATE as long
+	enum
+		QUNS_NOT_PRESENT = 1
+		QUNS_BUSY = 2
+		QUNS_RUNNING_D3D_FULL_SCREEN = 3
+		QUNS_PRESENTATION_MODE = 4
+		QUNS_ACCEPTS_NOTIFICATIONS = 5
+		QUNS_QUIET_TIME = 6
+		QUNS_APP = 7
+	end enum
+
+	declare function SHQueryUserNotificationState(byval pquns as QUERY_USER_NOTIFICATION_STATE ptr) as HRESULT
+	declare function SHGetPropertyStoreForWindow(byval hwnd as HWND, byval riid as const IID const ptr, byval ppv as any ptr ptr) as HRESULT
+#endif
+
 #ifdef __FB_64BIT__
 	type _NOTIFYICONDATAA
 		cbSize as DWORD
@@ -539,6 +616,10 @@ declare function SHEmptyRecycleBinW(byval hwnd as HWND, byval pszRootPath as LPC
 		szInfoTitle(0 to 63) as CHAR
 		dwInfoFlags as DWORD
 		guidItem as GUID
+
+		#if defined(__FB_64BIT__) and (_WIN32_WINNT = &h0602)
+			hBalloonIcon as HICON
+		#endif
 	end type
 #else
 	type _NOTIFYICONDATAA field = 1
@@ -561,6 +642,10 @@ declare function SHEmptyRecycleBinW(byval hwnd as HWND, byval pszRootPath as LPC
 		szInfoTitle(0 to 63) as CHAR
 		dwInfoFlags as DWORD
 		guidItem as GUID
+
+		#if (not defined(__FB_64BIT__)) and (_WIN32_WINNT = &h0602)
+			hBalloonIcon as HICON
+		#endif
 	end type
 #endif
 
@@ -588,6 +673,10 @@ type PNOTIFYICONDATAA as _NOTIFYICONDATAA ptr
 		szInfoTitle(0 to 63) as WCHAR
 		dwInfoFlags as DWORD
 		guidItem as GUID
+
+		#if defined(__FB_64BIT__) and (_WIN32_WINNT = &h0602)
+			hBalloonIcon as HICON
+		#endif
 	end type
 #else
 	type _NOTIFYICONDATAW field = 1
@@ -610,6 +699,10 @@ type PNOTIFYICONDATAA as _NOTIFYICONDATAA ptr
 		szInfoTitle(0 to 63) as WCHAR
 		dwInfoFlags as DWORD
 		guidItem as GUID
+
+		#if (not defined(__FB_64BIT__)) and (_WIN32_WINNT = &h0602)
+			hBalloonIcon as HICON
+		#endif
 	end type
 #endif
 
@@ -640,18 +733,38 @@ type PNOTIFYICONDATAW as _NOTIFYICONDATAW ptr
 #define NIN_BALLOONHIDE (WM_USER + 3)
 #define NIN_BALLOONTIMEOUT (WM_USER + 4)
 #define NIN_BALLOONUSERCLICK (WM_USER + 5)
+
+#if _WIN32_WINNT = &h0602
+	#define NIN_POPUPOPEN (WM_USER + 6)
+	#define NIN_POPUPCLOSE (WM_USER + 7)
+#endif
+
 #define NIM_ADD &h00000000
 #define NIM_MODIFY &h00000001
 #define NIM_DELETE &h00000002
 #define NIM_SETFOCUS &h00000003
 #define NIM_SETVERSION &h00000004
 #define NOTIFYICON_VERSION 3
+
+#if _WIN32_WINNT = &h0602
+	#define NOTIFYICON_VERSION_4 4
+#endif
+
 #define NIF_MESSAGE &h00000001
 #define NIF_ICON &h00000002
 #define NIF_TIP &h00000004
 #define NIF_STATE &h00000008
 #define NIF_INFO &h00000010
-#define NIF_GUID &h00000020
+
+#if (_WIN32_WINNT = &h0502) or (_WIN32_WINNT = &h0602)
+	#define NIF_GUID &h00000020
+#endif
+
+#if _WIN32_WINNT = &h0602
+	#define NIF_REALTIME &h00000040
+	#define NIF_SHOWTIP &h00000080
+#endif
+
 #define NIS_HIDDEN &h00000001
 #define NIS_SHAREDICON &h00000002
 #define NIIF_NONE &h00000000
@@ -661,6 +774,11 @@ type PNOTIFYICONDATAW as _NOTIFYICONDATAW ptr
 #define NIIF_USER &h00000004
 #define NIIF_ICON_MASK &h0000000f
 #define NIIF_NOSOUND &h00000010
+
+#if _WIN32_WINNT = &h0602
+	#define NIIF_LARGE_ICON &h00000020
+	#define NIIF_RESPECT_QUIET_TIME &h00000080
+#endif
 
 #ifdef __FB_64BIT__
 	type _NOTIFYICONIDENTIFIER
@@ -685,6 +803,11 @@ declare function Shell_NotifyIconA(byval dwMessage as DWORD, byval lpData as PNO
 declare function Shell_NotifyIconW(byval dwMessage as DWORD, byval lpData as PNOTIFYICONDATAW) as WINBOOL
 
 #define Shell_NotifyIcon __MINGW_NAME_AW(Shell_NotifyIcon)
+
+#if _WIN32_WINNT = &h0602
+	declare function Shell_NotifyIconGetRect(byval identifier as const NOTIFYICONIDENTIFIER ptr, byval iconLocation as RECT ptr) as HRESULT
+#endif
+
 #define SHFILEINFO_DEFINED
 
 #ifdef __FB_64BIT__
@@ -756,6 +879,140 @@ declare function SHGetFileInfoA(byval pszPath as LPCSTR, byval dwFileAttributes 
 declare function SHGetFileInfoW(byval pszPath as LPCWSTR, byval dwFileAttributes as DWORD, byval psfi as SHFILEINFOW ptr, byval cbFileInfo as UINT, byval uFlags as UINT) as DWORD_PTR
 
 #define SHGetFileInfo __MINGW_NAME_AW(SHGetFileInfo)
+
+#if defined(__FB_64BIT__) and (_WIN32_WINNT = &h0602)
+	type _SHSTOCKICONINFO
+		cbSize as DWORD
+		hIcon as HICON
+		iSysImageIndex as long
+		iIcon as long
+		szPath(0 to 259) as WCHAR
+	end type
+#elseif (not defined(__FB_64BIT__)) and (_WIN32_WINNT = &h0602)
+	type _SHSTOCKICONINFO field = 1
+		cbSize as DWORD
+		hIcon as HICON
+		iSysImageIndex as long
+		iIcon as long
+		szPath(0 to 259) as WCHAR
+	end type
+#endif
+
+#if _WIN32_WINNT = &h0602
+	type SHSTOCKICONINFO as _SHSTOCKICONINFO
+
+	#define SHGSI_ICONLOCATION 0
+	#define SHGSI_ICON SHGFI_ICON
+	#define SHGSI_SYSICONINDEX SHGFI_SYSICONINDEX
+	#define SHGSI_LINKOVERLAY SHGFI_LINKOVERLAY
+	#define SHGSI_SELECTED SHGFI_SELECTED
+	#define SHGSI_LARGEICON SHGFI_LARGEICON
+	#define SHGSI_SMALLICON SHGFI_SMALLICON
+	#define SHGSI_SHELLICONSIZE SHGFI_SHELLICONSIZE
+
+	type SHSTOCKICONID as long
+	enum
+		SIID_DOCNOASSOC = 0
+		SIID_DOCASSOC = 1
+		SIID_APPLICATION = 2
+		SIID_FOLDER = 3
+		SIID_FOLDEROPEN = 4
+		SIID_DRIVE525 = 5
+		SIID_DRIVE35 = 6
+		SIID_DRIVEREMOVE = 7
+		SIID_DRIVEFIXED = 8
+		SIID_DRIVENET = 9
+		SIID_DRIVENETDISABLED = 10
+		SIID_DRIVECD = 11
+		SIID_DRIVERAM = 12
+		SIID_WORLD = 13
+		SIID_SERVER = 15
+		SIID_PRINTER = 16
+		SIID_MYNETWORK = 17
+		SIID_FIND = 22
+		SIID_HELP = 23
+		SIID_SHARE = 28
+		SIID_LINK = 29
+		SIID_SLOWFILE = 30
+		SIID_RECYCLER = 31
+		SIID_RECYCLERFULL = 32
+		SIID_MEDIACDAUDIO = 40
+		SIID_LOCK = 47
+		SIID_AUTOLIST = 49
+		SIID_PRINTERNET = 50
+		SIID_SERVERSHARE = 51
+		SIID_PRINTERFAX = 52
+		SIID_PRINTERFAXNET = 53
+		SIID_PRINTERFILE = 54
+		SIID_STACK = 55
+		SIID_MEDIASVCD = 56
+		SIID_STUFFEDFOLDER = 57
+		SIID_DRIVEUNKNOWN = 58
+		SIID_DRIVEDVD = 59
+		SIID_MEDIADVD = 60
+		SIID_MEDIADVDRAM = 61
+		SIID_MEDIADVDRW = 62
+		SIID_MEDIADVDR = 63
+		SIID_MEDIADVDROM = 64
+		SIID_MEDIACDAUDIOPLUS = 65
+		SIID_MEDIACDRW = 66
+		SIID_MEDIACDR = 67
+		SIID_MEDIACDBURN = 68
+		SIID_MEDIABLANKCD = 69
+		SIID_MEDIACDROM = 70
+		SIID_AUDIOFILES = 71
+		SIID_IMAGEFILES = 72
+		SIID_VIDEOFILES = 73
+		SIID_MIXEDFILES = 74
+		SIID_FOLDERBACK = 75
+		SIID_FOLDERFRONT = 76
+		SIID_SHIELD = 77
+		SIID_WARNING = 78
+		SIID_INFO = 79
+		SIID_ERROR = 80
+		SIID_KEY = 81
+		SIID_SOFTWARE = 82
+		SIID_RENAME = 83
+		SIID_DELETE = 84
+		SIID_MEDIAAUDIODVD = 85
+		SIID_MEDIAMOVIEDVD = 86
+		SIID_MEDIAENHANCEDCD = 87
+		SIID_MEDIAENHANCEDDVD = 88
+		SIID_MEDIAHDDVD = 89
+		SIID_MEDIABLURAY = 90
+		SIID_MEDIAVCD = 91
+		SIID_MEDIADVDPLUSR = 92
+		SIID_MEDIADVDPLUSRW = 93
+		SIID_DESKTOPPC = 94
+		SIID_MOBILEPC = 95
+		SIID_USERS = 96
+		SIID_MEDIASMARTMEDIA = 97
+		SIID_MEDIACOMPACTFLASH = 98
+		SIID_DEVICECELLPHONE = 99
+		SIID_DEVICECAMERA = 100
+		SIID_DEVICEVIDEOCAMERA = 101
+		SIID_DEVICEAUDIOPLAYER = 102
+		SIID_NETWORKCONNECT = 103
+		SIID_INTERNET = 104
+		SIID_ZIPFILE = 105
+		SIID_SETTINGS = 106
+		SIID_DRIVEHDDVD = 132
+		SIID_DRIVEBD = 133
+		SIID_MEDIAHDDVDROM = 134
+		SIID_MEDIAHDDVDR = 135
+		SIID_MEDIAHDDVDRAM = 136
+		SIID_MEDIABDROM = 137
+		SIID_MEDIABDR = 138
+		SIID_MEDIABDRE = 139
+		SIID_CLUSTEREDDRIVE = 140
+		SIID_MAX_ICONS = 175
+	end enum
+
+	#define SIID_INVALID cast(SHSTOCKICONID, -1)
+
+	declare function SHGetStockIconInfo(byval siid as SHSTOCKICONID, byval uFlags as UINT, byval psii as SHSTOCKICONINFO ptr) as HRESULT
+#endif
+
 #define SHGetDiskFreeSpace SHGetDiskFreeSpaceEx
 
 declare function SHGetDiskFreeSpaceExA(byval pszDirectoryName as LPCSTR, byval pulFreeBytesAvailableToCaller as ULARGE_INTEGER ptr, byval pulTotalNumberOfBytes as ULARGE_INTEGER ptr, byval pulTotalNumberOfFreeBytes as ULARGE_INTEGER ptr) as WINBOOL
@@ -769,7 +1026,15 @@ declare function SHGetNewLinkInfoW(byval pszLinkTo as LPCWSTR, byval pszDir as L
 #define SHGNLI_PREFIXNAME &h000000002
 #define SHGNLI_NOUNIQUE &h000000004
 #define SHGNLI_NOLNK &h000000008
-#define SHGNLI_NOLOCNAME &h000000010
+
+#if (_WIN32_WINNT = &h0502) or (_WIN32_WINNT = &h0602)
+	#define SHGNLI_NOLOCNAME &h000000010
+#endif
+
+#if _WIN32_WINNT = &h0602
+	#define SHGNLI_USEURLEXT &h000000020
+#endif
+
 #define PRINTACTION_OPEN 0
 #define PRINTACTION_PROPERTIES 1
 #define PRINTACTION_NETINSTALL 2
@@ -784,6 +1049,64 @@ declare function SHInvokePrinterCommandW(byval hwnd as HWND, byval uAction as UI
 
 #define SHInvokePrinterCommand __MINGW_NAME_AW(SHInvokePrinterCommand)
 
+#if defined(__FB_64BIT__) and (_WIN32_WINNT = &h0602)
+	type _OPEN_PRINTER_PROPS_INFOA
+		dwSize as DWORD
+		pszSheetName as LPSTR
+		uSheetIndex as UINT
+		dwFlags as DWORD
+		bModal as WINBOOL
+	end type
+#elseif (not defined(__FB_64BIT__)) and (_WIN32_WINNT = &h0602)
+	type _OPEN_PRINTER_PROPS_INFOA field = 1
+		dwSize as DWORD
+		pszSheetName as LPSTR
+		uSheetIndex as UINT
+		dwFlags as DWORD
+		bModal as WINBOOL
+	end type
+#endif
+
+#if _WIN32_WINNT = &h0602
+	type OPEN_PRINTER_PROPS_INFOA as _OPEN_PRINTER_PROPS_INFOA
+	type POPEN_PRINTER_PROPS_INFOA as _OPEN_PRINTER_PROPS_INFOA ptr
+#endif
+
+#if defined(__FB_64BIT__) and (_WIN32_WINNT = &h0602)
+	type _OPEN_PRINTER_PROPS_INFOW
+		dwSize as DWORD
+		pszSheetName as LPWSTR
+		uSheetIndex as UINT
+		dwFlags as DWORD
+		bModal as WINBOOL
+	end type
+#elseif (not defined(__FB_64BIT__)) and (_WIN32_WINNT = &h0602)
+	type _OPEN_PRINTER_PROPS_INFOW field = 1
+		dwSize as DWORD
+		pszSheetName as LPWSTR
+		uSheetIndex as UINT
+		dwFlags as DWORD
+		bModal as WINBOOL
+	end type
+#endif
+
+#if _WIN32_WINNT = &h0602
+	type OPEN_PRINTER_PROPS_INFOW as _OPEN_PRINTER_PROPS_INFOW
+	type POPEN_PRINTER_PROPS_INFOW as _OPEN_PRINTER_PROPS_INFOW ptr
+#endif
+
+#if defined(UNICODE) and (_WIN32_WINNT = &h0602)
+	type OPEN_PRINTER_PROPS_INFO as OPEN_PRINTER_PROPS_INFOW
+	type POPEN_PRINTER_PROPS_INFO as POPEN_PRINTER_PROPS_INFOW
+#elseif (not defined(UNICODE)) and (_WIN32_WINNT = &h0602)
+	type OPEN_PRINTER_PROPS_INFO as OPEN_PRINTER_PROPS_INFOA
+	type POPEN_PRINTER_PROPS_INFO as POPEN_PRINTER_PROPS_INFOA
+#endif
+
+#if _WIN32_WINNT = &h0602
+	#define PRINT_PROP_FORCE_NAME &h01
+#endif
+
 declare function SHLoadNonloadedIconOverlayIdentifiers() as HRESULT
 declare function SHIsFileAvailableOffline(byval pwszPath as PCWSTR, byval pdwStatus as DWORD ptr) as HRESULT
 
@@ -792,6 +1115,12 @@ declare function SHIsFileAvailableOffline(byval pwszPath as PCWSTR, byval pdwSta
 #define OFFLINE_STATUS_INCOMPLETE &h0004
 
 declare function SHSetLocalizedName(byval pszPath as PCWSTR, byval pszResModule as PCWSTR, byval idsRes as long) as HRESULT
+
+#if _WIN32_WINNT = &h0602
+	declare function SHRemoveLocalizedName(byval pszPath as PCWSTR) as HRESULT
+	declare function SHGetLocalizedName(byval pszPath as PCWSTR, byval pszResModule as PWSTR, byval cch as UINT, byval pidsRes as long ptr) as HRESULT
+#endif
+
 declare function ShellMessageBoxA cdecl(byval hAppInst as HINSTANCE, byval hWnd as HWND, byval lpcText as LPCSTR, byval lpcTitle as LPCSTR, byval fuStyle as UINT, ...) as long
 declare function ShellMessageBoxW cdecl(byval hAppInst as HINSTANCE, byval hWnd as HWND, byval lpcText as LPCWSTR, byval lpcTitle as LPCWSTR, byval fuStyle as UINT, ...) as long
 
@@ -802,27 +1131,72 @@ declare function IsLFNDriveW(byval pszPath as LPCWSTR) as WINBOOL
 
 #define IsLFNDrive __MINGW_NAME_AW(IsLFNDrive)
 
-declare function SHEnumerateUnreadMailAccountsA(byval hKeyUser as HKEY, byval dwIndex as DWORD, byval pszMailAddress as LPSTR, byval cchMailAddress as long) as HRESULT
-declare function SHEnumerateUnreadMailAccountsW(byval hKeyUser as HKEY, byval dwIndex as DWORD, byval pszMailAddress as LPWSTR, byval cchMailAddress as long) as HRESULT
-declare function SHGetUnreadMailCountA(byval hKeyUser as HKEY, byval pszMailAddress as LPCSTR, byval pdwCount as DWORD ptr, byval pFileTime as FILETIME ptr, byval pszShellExecuteCommand as LPSTR, byval cchShellExecuteCommand as long) as HRESULT
-declare function SHGetUnreadMailCountW(byval hKeyUser as HKEY, byval pszMailAddress as LPCWSTR, byval pdwCount as DWORD ptr, byval pFileTime as FILETIME ptr, byval pszShellExecuteCommand as LPWSTR, byval cchShellExecuteCommand as long) as HRESULT
-declare function SHSetUnreadMailCountA(byval pszMailAddress as LPCSTR, byval dwCount as DWORD, byval pszShellExecuteCommand as LPCSTR) as HRESULT
-declare function SHSetUnreadMailCountW(byval pszMailAddress as LPCWSTR, byval dwCount as DWORD, byval pszShellExecuteCommand as LPCWSTR) as HRESULT
+#if (_WIN32_WINNT = &h0502) or (_WIN32_WINNT = &h0602)
+	declare function SHEnumerateUnreadMailAccountsA(byval hKeyUser as HKEY, byval dwIndex as DWORD, byval pszMailAddress as LPSTR, byval cchMailAddress as long) as HRESULT
+	declare function SHEnumerateUnreadMailAccountsW(byval hKeyUser as HKEY, byval dwIndex as DWORD, byval pszMailAddress as LPWSTR, byval cchMailAddress as long) as HRESULT
+	declare function SHGetUnreadMailCountA(byval hKeyUser as HKEY, byval pszMailAddress as LPCSTR, byval pdwCount as DWORD ptr, byval pFileTime as FILETIME ptr, byval pszShellExecuteCommand as LPSTR, byval cchShellExecuteCommand as long) as HRESULT
+	declare function SHGetUnreadMailCountW(byval hKeyUser as HKEY, byval pszMailAddress as LPCWSTR, byval pdwCount as DWORD ptr, byval pFileTime as FILETIME ptr, byval pszShellExecuteCommand as LPWSTR, byval cchShellExecuteCommand as long) as HRESULT
+	declare function SHSetUnreadMailCountA(byval pszMailAddress as LPCSTR, byval dwCount as DWORD, byval pszShellExecuteCommand as LPCSTR) as HRESULT
+	declare function SHSetUnreadMailCountW(byval pszMailAddress as LPCWSTR, byval dwCount as DWORD, byval pszShellExecuteCommand as LPCWSTR) as HRESULT
 
-#define SHEnumerateUnreadMailAccounts __MINGW_NAME_AW(SHEnumerateUnreadMailAccounts)
-#define SHGetUnreadMailCount __MINGW_NAME_AW(SHGetUnreadMailCount)
-#define SHSetUnreadMailCount __MINGW_NAME_AW(SHSetUnreadMailCount)
+	#define SHEnumerateUnreadMailAccounts __MINGW_NAME_AW(SHEnumerateUnreadMailAccounts)
+	#define SHGetUnreadMailCount __MINGW_NAME_AW(SHGetUnreadMailCount)
+	#define SHSetUnreadMailCount __MINGW_NAME_AW(SHSetUnreadMailCount)
 
-declare function SHTestTokenMembership(byval hToken as HANDLE, byval ulRID as ULONG) as WINBOOL
-declare function SHGetImageList(byval iImageList as long, byval riid as const IID const ptr, byval ppvObj as any ptr ptr) as HRESULT
+	declare function SHTestTokenMembership(byval hToken as HANDLE, byval ulRID as ULONG) as WINBOOL
+	declare function SHGetImageList(byval iImageList as long, byval riid as const IID const ptr, byval ppvObj as any ptr ptr) as HRESULT
 
-#define SHIL_LARGE 0
-#define SHIL_SMALL 1
-#define SHIL_EXTRALARGE 2
-#define SHIL_SYSSMALL 3
-#define SHIL_LAST SHIL_SYSSMALL
+	#define SHIL_LARGE 0
+	#define SHIL_SMALL 1
+	#define SHIL_EXTRALARGE 2
+	#define SHIL_SYSSMALL 3
+#endif
 
-type PFNCANSHAREFOLDERW as function(byval pszPath as PCWSTR) as HRESULT
-type PFNSHOWSHAREFOLDERUIW as function(byval hwndParent as HWND, byval pszPath as PCWSTR) as HRESULT
+#if _WIN32_WINNT = &h0502
+	#define SHIL_LAST SHIL_SYSSMALL
+#elseif _WIN32_WINNT = &h0602
+	#define SHIL_JUMBO 4
+	#define SHIL_LAST SHIL_JUMBO
+#endif
+
+#if (_WIN32_WINNT = &h0502) or (_WIN32_WINNT = &h0602)
+	type PFNCANSHAREFOLDERW as function(byval pszPath as PCWSTR) as HRESULT
+	type PFNSHOWSHAREFOLDERUIW as function(byval hwndParent as HWND, byval pszPath as PCWSTR) as HRESULT
+#endif
+
+#if (not defined(__FB_64BIT__)) and (_WIN32_WINNT = &h0602)
+	declare function InitNetworkAddressControl() as WINBOOL
+#endif
+
+#if _WIN32_WINNT = &h0602
+	#define WC_NETADDRESS wstr("msctls_netaddress")
+#endif
+
+#if defined(__FB_64BIT__) and (_WIN32_WINNT = &h0602)
+	declare function InitNetworkAddressControl() as WINBOOL
+#endif
+
+#if _WIN32_WINNT = &h0602
+	#define NCM_GETADDRESS (WM_USER + 1)
+	#define NetAddr_GetAddress(hwnd, pv) cast(HRESULT, SNDMSG(hwnd, NCM_GETADDRESS, 0, cast(LPARAM, pv)))
+
+	type tagNC_ADDRESS
+		pAddrInfo as NET_ADDRESS_INFO_ ptr
+		PortNumber as USHORT
+		PrefixLength as UBYTE
+	end type
+
+	type NC_ADDRESS as tagNC_ADDRESS
+	type PNC_ADDRESS as tagNC_ADDRESS ptr
+
+	#define NCM_SETALLOWTYPE (WM_USER + 2)
+	#define NetAddr_SetAllowType(hwnd, addrMask) cast(HRESULT, SNDMSG(hwnd, NCM_SETALLOWTYPE, cast(WPARAM, addrMask), 0))
+	#define NCM_GETALLOWTYPE (WM_USER + 3)
+	#define NetAddr_GetAllowType(hwnd) cast(DWORD, SNDMSG(hwnd, NCM_GETALLOWTYPE, 0, 0))
+	#define NCM_DISPLAYERRORTIP (WM_USER + 4)
+	#define NetAddr_DisplayErrorTip(hwnd) cast(HRESULT, SNDMSG(hwnd, NCM_DISPLAYERRORTIP, 0, 0))
+
+	declare function SHGetDriveMedia(byval pszDrive as PCWSTR, byval pdwMediaContent as DWORD ptr) as HRESULT
+#endif
 
 end extern

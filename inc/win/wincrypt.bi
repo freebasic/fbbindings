@@ -5,6 +5,7 @@
 #include once "guiddef.bi"
 #include once "bcrypt.bi"
 #include once "ncrypt.bi"
+#include once "winapifamily.bi"
 
 '' The following symbols have been renamed:
 ''     inside struct _PUBLICKEYSTRUC:
@@ -142,10 +143,17 @@ type ALG_ID as ulong
 #define CALG_SHA_256 ((ALG_CLASS_HASH or ALG_TYPE_ANY) or ALG_SID_SHA_256)
 #define CALG_SHA_384 ((ALG_CLASS_HASH or ALG_TYPE_ANY) or ALG_SID_SHA_384)
 #define CALG_SHA_512 ((ALG_CLASS_HASH or ALG_TYPE_ANY) or ALG_SID_SHA_512)
-#define __HCRYPTKEY__
 
-type HCRYPTKEY as ULONG_PTR
-type HCRYPTPROV as ULONG_PTR
+#if (_WIN32_WINNT = &h0400) or (_WIN32_WINNT = &h0502)
+	#define __HCRYPTKEY__
+
+	type HCRYPTKEY as ULONG_PTR
+	type HCRYPTPROV as ULONG_PTR
+#else
+	#define CALG_ECDH &h0000aa05
+	#define CALG_ECDSA &h00002203
+#endif
+
 type HCRYPTHASH as ULONG_PTR
 
 #define CRYPT_VERIFYCONTEXT &hF0000000
@@ -1378,7 +1386,11 @@ declare function CryptDecodeObject(byval dwCertEncodingType as DWORD, byval lpsz
 #define szOID_CERTSRV_CA_VERSION "1.3.6.1.4.1.311.21.1"
 #define szOID_CERTSRV_PREVIOUS_CERT_HASH "1.3.6.1.4.1.311.21.2"
 #define szOID_CRL_VIRTUAL_BASE "1.3.6.1.4.1.311.21.3"
-#define szOID_CRL_NEXT_PUBLISH "1.3.6.1.4.1.311.21.4"
+
+#if (_WIN32_WINNT = &h0400) or (_WIN32_WINNT = &h0502)
+	#define szOID_CRL_NEXT_PUBLISH "1.3.6.1.4.1.311.21.4"
+#endif
+
 #define szOID_KP_CA_EXCHANGE "1.3.6.1.4.1.311.21.5"
 #define szOID_KP_KEY_RECOVERY_AGENT "1.3.6.1.4.1.311.21.6"
 #define szOID_CERTIFICATE_TEMPLATE "1.3.6.1.4.1.311.21.7"
@@ -4394,7 +4406,11 @@ type PCERT_CHAIN_PARA as _CERT_CHAIN_PARA ptr
 #define CERT_CHAIN_REVOCATION_CHECK_END_CERT &h10000000
 #define CERT_CHAIN_REVOCATION_CHECK_CHAIN &h20000000
 #define CERT_CHAIN_REVOCATION_CHECK_CHAIN_EXCLUDE_ROOT &h40000000
-#define CERT_CHAIN_REVOCATION_CHECK_CACHE_ONLY &h80000000
+
+#if (_WIN32_WINNT = &h0400) or (_WIN32_WINNT = &h0502)
+	#define CERT_CHAIN_REVOCATION_CHECK_CACHE_ONLY &h80000000
+#endif
+
 #define CERT_CHAIN_REVOCATION_ACCUMULATIVE_TIMEOUT &h8000000
 #define CERT_CHAIN_DISABLE_PASS1_QUALITY_FILTERING &h40
 #define CERT_CHAIN_RETURN_LOWER_QUALITY_CONTEXTS &h80
@@ -4493,6 +4509,10 @@ declare function CertVerifyCertificateChainPolicy(byval pszPolicyOID as LPCSTR, 
 #define CERT_CHAIN_POLICY_NT_AUTH cast(LPCSTR, 6)
 #define CERT_CHAIN_POLICY_MICROSOFT_ROOT cast(LPCSTR, 7)
 
+#if _WIN32_WINNT = &h0602
+	#define CERT_CHAIN_POLICY_EV cast(LPCSTR, 8)
+#endif
+
 type _AUTHENTICODE_EXTRA_CERT_CHAIN_POLICY_PARA
 	cbSize as DWORD
 	dwRegPolicySettings as DWORD
@@ -4576,5 +4596,694 @@ declare function PFXExportCertStoreEx(byval hStore as HCERTSTORE, byval pPFX as 
 #define PKCS12_EXPORT_RESERVED_MASK &hffff0000
 
 declare function PFXExportCertStore(byval hStore as HCERTSTORE, byval pPFX as CRYPT_DATA_BLOB ptr, byval szPassword as LPCWSTR, byval dwFlags as DWORD) as WINBOOL
+
+#if _WIN32_WINNT = &h0602
+	#define szOID_LOYALTY_OTHER_LOGOTYPE "1.3.6.1.5.5.7.20.1"
+	#define szOID_BACKGROUND_OTHER_LOGOTYPE "1.3.6.1.5.5.7.20.2"
+	#define szOID_QC_EU_COMPLIANCE "0.4.0.1862.1.1"
+	#define szOID_QC_SSCD "0.4.0.1862.1.4"
+	#define CERT_CHAIN_REVOCATION_CHECK_OCSP_CERT &h04000000
+	#define CERT_SRV_OCSP_RESP_MIN_VALIDITY_SECONDS_VALUE_NAME wstr("SrvOcspRespMinValiditySeconds")
+	#define CERT_SRV_OCSP_RESP_MIN_VALIDITY_SECONDS_DEFAULT (10 * 60)
+	#define CERT_SRV_OCSP_RESP_URL_RETRIEVAL_TIMEOUT_MILLISECONDS_VALUE_NAME wstr("SrvOcspRespUrlRetrievalTimeoutMilliseconds")
+	#define CERT_SRV_OCSP_RESP_URL_RETRIEVAL_TIMEOUT_MILLISECONDS_DEFAULT (15 * 1000)
+	#define CERT_SRV_OCSP_RESP_MAX_BEFORE_NEXT_UPDATE_SECONDS_VALUE_NAME wstr("SrvOcspRespMaxBeforeNextUpdateSeconds")
+	#define CERT_SRV_OCSP_RESP_MAX_BEFORE_NEXT_UPDATE_SECONDS_DEFAULT ((4 * 60) * 60)
+	#define CERT_SRV_OCSP_RESP_MIN_BEFORE_NEXT_UPDATE_SECONDS_VALUE_NAME wstr("SrvOcspRespMinBeforeNextUpdateSeconds")
+	#define CERT_SRV_OCSP_RESP_MIN_BEFORE_NEXT_UPDATE_SECONDS_DEFAULT (2 * 60)
+	#define CERT_SRV_OCSP_RESP_MIN_AFTER_NEXT_UPDATE_SECONDS_VALUE_NAME wstr("SrvOcspRespMinAfterNextUpdateSeconds")
+	#define CERT_SRV_OCSP_RESP_MIN_AFTER_NEXT_UPDATE_SECONDS_DEFAULT (1 * 60)
+
+	type HCERT_SERVER_OCSP_RESPONSE as any ptr
+	type HCRYPTPROV_LEGACY as ULONG_PTR
+	type PFN_CERT_CREATE_CONTEXT_SORT_FUNC as function(byval cbTotalEncoded as DWORD, byval cbRemainEncoded as DWORD, byval cEntry as DWORD, byval pvSort as any ptr) as WINBOOL
+
+	#define CRYPT_OID_EXPORT_PUBLIC_KEY_INFO_EX2_FUNC "CryptDllExportPublicKeyInfoEx2"
+
+	type PFN_CRYPT_EXPORT_PUBLIC_KEY_INFO_EX2_FUNC as function(byval hNCryptKey as NCRYPT_KEY_HANDLE, byval dwCertEncodingType as DWORD, byval pszPublicKeyObjId as LPSTR, byval dwFlags as DWORD, byval pvAuxInfo as any ptr, byval pInfo as PCERT_PUBLIC_KEY_INFO, byval pcbInfo as DWORD ptr) as WINBOOL
+
+	#define CRYPT_OID_EXTRACT_ENCODED_SIGNATURE_PARAMETERS_FUNC "CryptDllExtractEncodedSignatureParameters"
+
+	type PFN_CRYPT_EXTRACT_ENCODED_SIGNATURE_PARAMETERS_FUNC as function(byval dwCertEncodingType as DWORD, byval pSignatureAlgorithm as PCRYPT_ALGORITHM_IDENTIFIER, byval ppvDecodedSignPara as any ptr ptr, byval ppwszCNGHashAlgid as LPWSTR ptr) as WINBOOL
+	type PFN_CRYPT_SIGN_AND_ENCODE_HASH_FUNC as function(byval hKey as NCRYPT_KEY_HANDLE, byval dwCertEncodingType as DWORD, byval pSignatureAlgorithm as PCRYPT_ALGORITHM_IDENTIFIER, byval pvDecodedSignPara as any ptr, byval pwszCNGPubKeyAlgid as LPCWSTR, byval pwszCNGHashAlgid as LPCWSTR, byval pbComputedHash as UBYTE ptr, byval cbComputedHash as DWORD, byval pbSignature as UBYTE ptr, byval pcbSignature as DWORD ptr) as WINBOOL
+	type PFN_CRYPT_VERIFY_ENCODED_SIGNATURE_FUNC as function(byval dwCertEncodingType as DWORD, byval pPubKeyInfo as PCERT_PUBLIC_KEY_INFO, byval pSignatureAlgorithm as PCRYPT_ALGORITHM_IDENTIFIER, byval pvDecodedSignPara as any ptr, byval pwszCNGPubKeyAlgid as LPCWSTR, byval pwszCNGHashAlgid as LPCWSTR, byval pbComputedHash as UBYTE ptr, byval cbComputedHash as DWORD, byval pbSignature as UBYTE ptr, byval cbSignature as DWORD) as WINBOOL
+
+	#define CRYPT_OID_IMPORT_PUBLIC_KEY_INFO_EX2_FUNC "CryptDllImportPublicKeyInfoEx2"
+
+	type PFN_IMPORT_PUBLIC_KEY_INFO_EX2_FUNC as function(byval dwCertEncodingType as DWORD, byval pInfo as PCERT_PUBLIC_KEY_INFO, byval dwFlags as DWORD, byval pvAuxInfo as any ptr, byval phKey as BCRYPT_KEY_HANDLE ptr) as WINBOOL
+
+	type _CERT_HASHED_URL
+		HashAlgorithm as CRYPT_ALGORITHM_IDENTIFIER
+		Hash as CRYPT_HASH_BLOB
+		pwszUrl as LPWSTR
+	end type
+
+	type CERT_HASHED_URL as _CERT_HASHED_URL
+	type PCERT_HASHED_URL as _CERT_HASHED_URL ptr
+
+	type _CERT_BIOMETRIC_DATA
+		dwTypeOfBiometricDataChoice as DWORD
+
+		union
+			dwPredefined as DWORD
+			pszObjId as LPSTR
+		end union
+
+		HashedUrl as CERT_HASHED_URL
+	end type
+
+	type CERT_BIOMETRIC_DATA as _CERT_BIOMETRIC_DATA
+	type PCERT_BIOMETRIC_DATA as _CERT_BIOMETRIC_DATA ptr
+
+	type _CERT_BIOMETRIC_EXT_INFO
+		cBiometricData as DWORD
+		rgBiometricData as PCERT_BIOMETRIC_DATA
+	end type
+
+	type CERT_BIOMETRIC_EXT_INFO as _CERT_BIOMETRIC_EXT_INFO
+	type PCERT_BIOMETRIC_EXT_INFO as _CERT_BIOMETRIC_EXT_INFO ptr
+
+	type _CERT_ECC_SIGNATURE
+		r as CRYPT_UINT_BLOB
+		s as CRYPT_UINT_BLOB
+	end type
+
+	type CERT_ECC_SIGNATURE as _CERT_ECC_SIGNATURE
+	type PCERT_ECC_SIGNATURE as _CERT_ECC_SIGNATURE ptr
+
+	type _CERT_LOGOTYPE_DETAILS
+		pwszMimeType as LPWSTR
+		cHashedUrl as DWORD
+		rgHashedUrl as PCERT_HASHED_URL
+	end type
+
+	type CERT_LOGOTYPE_DETAILS as _CERT_LOGOTYPE_DETAILS
+	type PCERT_LOGOTYPE_DETAILS as _CERT_LOGOTYPE_DETAILS ptr
+
+	type _CERT_LOGOTYPE_AUDIO_INFO
+		dwFileSize as DWORD
+		dwPlayTime as DWORD
+		dwChannels as DWORD
+		dwSampleRate as DWORD
+		pwszLanguage as LPWSTR
+	end type
+
+	type CERT_LOGOTYPE_AUDIO_INFO as _CERT_LOGOTYPE_AUDIO_INFO
+	type PCERT_LOGOTYPE_AUDIO_INFO as _CERT_LOGOTYPE_AUDIO_INFO ptr
+
+	type _CERT_LOGOTYPE_AUDIO
+		LogotypeDetails as CERT_LOGOTYPE_DETAILS
+		pLogotypeAudioInfo as PCERT_LOGOTYPE_AUDIO_INFO
+	end type
+
+	type CERT_LOGOTYPE_AUDIO as _CERT_LOGOTYPE_AUDIO
+	type PCERT_LOGOTYPE_AUDIO as _CERT_LOGOTYPE_AUDIO ptr
+
+	type _CERT_LOGOTYPE_IMAGE_INFO
+		dwLogotypeImageInfoChoice as DWORD
+		dwFileSize as DWORD
+		dwXSize as DWORD
+		dwYSize as DWORD
+		dwLogotypeImageResolutionChoice as DWORD
+
+		union
+			dwNumBits as DWORD
+			dwTableSize as DWORD
+		end union
+
+		pwszLanguage as LPWSTR
+	end type
+
+	type CERT_LOGOTYPE_IMAGE_INFO as _CERT_LOGOTYPE_IMAGE_INFO
+	type PCERT_LOGOTYPE_IMAGE_INFO as _CERT_LOGOTYPE_IMAGE_INFO ptr
+
+	type _CERT_LOGOTYPE_IMAGE
+		LogotypeDetails as CERT_LOGOTYPE_DETAILS
+		pLogotypeImageInfo as PCERT_LOGOTYPE_IMAGE_INFO
+	end type
+
+	type CERT_LOGOTYPE_IMAGE as _CERT_LOGOTYPE_IMAGE
+	type PCERT_LOGOTYPE_IMAGE as _CERT_LOGOTYPE_IMAGE ptr
+
+	type _CERT_LOGOTYPE_DATA
+		cLogotypeImage as DWORD
+		rgLogotypeImage as PCERT_LOGOTYPE_IMAGE
+		cLogotypeAudio as DWORD
+		rgLogotypeAudio as PCERT_LOGOTYPE_AUDIO
+	end type
+
+	type CERT_LOGOTYPE_DATA as _CERT_LOGOTYPE_DATA
+	type PCERT_LOGOTYPE_DATA as _CERT_LOGOTYPE_DATA ptr
+
+	type _CERT_LOGOTYPE_REFERENCE
+		cHashedUrl as DWORD
+		rgHashedUrl as PCERT_HASHED_URL
+	end type
+
+	type CERT_LOGOTYPE_REFERENCE as _CERT_LOGOTYPE_REFERENCE
+	type PCERT_LOGOTYPE_REFERENCE as _CERT_LOGOTYPE_REFERENCE ptr
+
+	type _CERT_LOGOTYPE_INFO
+		dwLogotypeInfoChoice as DWORD
+
+		union
+			pLogotypeDirectInfo as PCERT_LOGOTYPE_DATA
+			pLogotypeIndirectInfo as PCERT_LOGOTYPE_REFERENCE
+		end union
+	end type
+
+	type CERT_LOGOTYPE_INFO as _CERT_LOGOTYPE_INFO
+	type PCERT_LOGOTYPE_INFO as _CERT_LOGOTYPE_INFO ptr
+
+	type _CERT_OTHER_LOGOTYPE_INFO
+		pszObjId as LPSTR
+		LogotypeInfo as CERT_LOGOTYPE_INFO
+	end type
+
+	type CERT_OTHER_LOGOTYPE_INFO as _CERT_OTHER_LOGOTYPE_INFO
+	type PCERT_OTHER_LOGOTYPE_INFO as _CERT_OTHER_LOGOTYPE_INFO ptr
+
+	type _CERT_LOGOTYPE_EXT_INFO
+		cCommunityLogo as DWORD
+		rgCommunityLogo as PCERT_LOGOTYPE_INFO
+		pIssuerLogo as PCERT_LOGOTYPE_INFO
+		pSubjectLogo as PCERT_LOGOTYPE_INFO
+		cOtherLogo as DWORD
+		rgOtherLogo as PCERT_OTHER_LOGOTYPE_INFO
+	end type
+
+	type CERT_LOGOTYPE_EXT_INFO as _CERT_LOGOTYPE_EXT_INFO
+	type PCERT_LOGOTYPE_EXT_INFO as _CERT_LOGOTYPE_EXT_INFO ptr
+
+	type _CERT_QC_STATEMENT
+		pszStatementId as LPSTR
+		StatementInfo as CRYPT_OBJID_BLOB
+	end type
+
+	type CERT_QC_STATEMENT as _CERT_QC_STATEMENT
+	type PCERT_QC_STATEMENT as _CERT_QC_STATEMENT ptr
+
+	type _CERT_QC_STATEMENTS_EXT_INFO
+		cStatement as DWORD
+		rgStatement as PCERT_QC_STATEMENT
+	end type
+
+	type CERT_QC_STATEMENTS_EXT_INFO as _CERT_QC_STATEMENTS_EXT_INFO
+	type PCERT_QC_STATEMENTS_EXT_INFO as _CERT_QC_STATEMENTS_EXT_INFO ptr
+
+	type _CERT_REVOCATION_CHAIN_PARA
+		cbSize as DWORD
+		hChainEngine as HCERTCHAINENGINE
+		hAdditionalStore as HCERTSTORE
+		dwChainFlags as DWORD
+		dwUrlRetrievalTimeout as DWORD
+		pftCurrentTime as LPFILETIME
+		pftCacheResync as LPFILETIME
+		cbMaxUrlRetrievalByteCount as DWORD
+	end type
+
+	type CERT_REVOCATION_CHAIN_PARA as _CERT_REVOCATION_CHAIN_PARA
+	type PCERT_REVOCATION_CHAIN_PARA as _CERT_REVOCATION_CHAIN_PARA ptr
+
+	type _CERT_SERVER_OCSP_RESPONSE_CONTEXT
+		cbSize as DWORD
+		pbEncodedOcspResponse as UBYTE ptr
+		cbEncodedOcspResponse as DWORD
+	end type
+
+	type CERT_SERVER_OCSP_RESPONSE_CONTEXT as _CERT_SERVER_OCSP_RESPONSE_CONTEXT
+	type PCERT_SERVER_OCSP_RESPONSE_CONTEXT as _CERT_SERVER_OCSP_RESPONSE_CONTEXT ptr
+	type PCCERT_SERVER_OCSP_RESPONSE_CONTEXT as _CERT_SERVER_OCSP_RESPONSE_CONTEXT ptr
+
+	#define __HCRYPTPROV_OR_NCRYPT_KEY_HANDLE_DEFINED__
+
+	type HCRYPTPROV_OR_NCRYPT_KEY_HANDLE as ULONG_PTR
+
+	type _CMSG_CNG_CONTENT_DECRYPT_INFO
+		cbSize as DWORD
+		ContentEncryptionAlgorithm as CRYPT_ALGORITHM_IDENTIFIER
+		pfnAlloc as PFN_CMSG_ALLOC
+		pfnFree as PFN_CMSG_FREE
+		hNCryptKey as NCRYPT_KEY_HANDLE
+		pbContentEncryptKey as UBYTE ptr
+		cbContentEncryptKey as DWORD
+		hCNGContentEncryptKey as BCRYPT_KEY_HANDLE
+		pbCNGContentEncryptKeyObject as UBYTE ptr
+	end type
+
+	type CMSG_CNG_CONTENT_DECRYPT_INFO as _CMSG_CNG_CONTENT_DECRYPT_INFO
+	type PCMSG_CNG_CONTENT_DECRYPT_INFO as _CMSG_CNG_CONTENT_DECRYPT_INFO ptr
+
+	type _CRYPT_AES_128_KEY_STATE
+		Key(0 to 15) as ubyte
+		IV(0 to 15) as ubyte
+		EncryptionState(0 to 10, 0 to 15) as ubyte
+		DecryptionState(0 to 10, 0 to 15) as ubyte
+		Feedback(0 to 15) as ubyte
+	end type
+
+	type CRYPT_AES_128_KEY_STATE as _CRYPT_AES_128_KEY_STATE
+	type PCRYPT_AES_128_KEY_STATE as _CRYPT_AES_128_KEY_STATE ptr
+
+	type _CRYPT_AES_256_KEY_STATE
+		Key(0 to 31) as ubyte
+		IV(0 to 15) as ubyte
+		EncryptionState(0 to 14, 0 to 15) as ubyte
+		DecryptionState(0 to 14, 0 to 15) as ubyte
+		Feedback(0 to 15) as ubyte
+	end type
+
+	type CRYPT_AES_256_KEY_STATE as _CRYPT_AES_256_KEY_STATE
+	type PCRYPT_AES_256_KEY_STATE as _CRYPT_AES_256_KEY_STATE ptr
+
+	type _ROOT_INFO_LUID
+		LowPart as DWORD
+		HighPart as LONG
+	end type
+
+	type ROOT_INFO_LUID as _ROOT_INFO_LUID
+	type PROOT_INFO_LUID as _ROOT_INFO_LUID ptr
+
+	declare sub CertAddRefServerOcspResponse(byval hServerOcspResponse as HCERT_SERVER_OCSP_RESPONSE)
+	declare function CertOpenServerOcspResponse(byval pChainContext as PCCERT_CHAIN_CONTEXT, byval dwFlags as DWORD, byval pvReserved as LPVOID) as HCERT_SERVER_OCSP_RESPONSE
+	declare sub CertAddRefServerOcspResponseContext(byval pServerOcspResponseContext as PCCERT_SERVER_OCSP_RESPONSE_CONTEXT)
+	declare sub CertCloseServerOcspResponse(byval hServerOcspResponse as HCERT_SERVER_OCSP_RESPONSE, byval dwFlags as DWORD)
+	declare sub CertFreeServerOcspResponseContext(byval pServerOcspResponseContext as PCCERT_SERVER_OCSP_RESPONSE_CONTEXT)
+	declare function CertGetServerOcspResponseContext(byval hServerOcspResponse as HCERT_SERVER_OCSP_RESPONSE, byval dwFlags as DWORD, byval pvReserved as LPVOID) as PCCERT_SERVER_OCSP_RESPONSE_CONTEXT
+	declare function CertRetrieveLogoOrBiometricInfo(byval pCertContext as PCCERT_CONTEXT, byval lpszLogoOrBiometricType as LPCSTR, byval dwRetrievalFlags as DWORD, byval dwTimeout as DWORD, byval dwFlags as DWORD, byval pvReserved as any ptr, byval ppbData as UBYTE ptr ptr, byval pcbData as DWORD ptr, byval ppwszMimeType as LPWSTR ptr) as WINBOOL
+
+	type PFN_CMSG_CNG_IMPORT_KEY_TRANS as function(byval pCNGContentDecryptInfo as PCMSG_CNG_CONTENT_DECRYPT_INFO, byval pKeyTransDecryptPara as PCMSG_CTRL_KEY_TRANS_DECRYPT_PARA, byval dwFlags as DWORD, byval pvReserved as any ptr) as WINBOOL
+	type PFN_CMSG_CNG_IMPORT_KEY_AGREE as function(byval pCNGContentDecryptInfo as PCMSG_CNG_CONTENT_DECRYPT_INFO, byval pKeyAgreeDecryptPara as PCMSG_CTRL_KEY_AGREE_DECRYPT_PARA, byval dwFlags as DWORD, byval pvReserved as any ptr) as WINBOOL
+	type PFN_CMSG_CNG_IMPORT_CONTENT_ENCRYPT_KEY as function(byval pCNGContentDecryptInfo as PCMSG_CNG_CONTENT_DECRYPT_INFO, byval dwFlags as DWORD, byval pvReserved as any ptr) as WINBOOL
+
+	#define CMSG_OID_CNG_IMPORT_KEY_TRANS_FUNC "CryptMsgDllCNGImportKeyTrans"
+	#define CRYPT_ECC_CMS_SHARED_INFO_SUPPPUBINFO_BYTE_LENGTH 4
+
+	type _CRYPT_ECC_CMS_SHARED_INFO
+		Algorithm as CRYPT_ALGORITHM_IDENTIFIER
+		EntityUInfo as CRYPT_DATA_BLOB
+		rgbSuppPubInfo(0 to 3) as UBYTE
+	end type
+
+	type CRYPT_ECC_CMS_SHARED_INFO as _CRYPT_ECC_CMS_SHARED_INFO
+	type PCRYPT_ECC_CMS_SHARED_INFO as _CRYPT_ECC_CMS_SHARED_INFO ptr
+
+	type _CRYPT_GET_TIME_VALID_OBJECT_EXTRA_INFO
+		cbSize as DWORD
+		iDeltaCrlIndicator as long
+		pftCacheResync as LPFILETIME
+		pLastSyncTime as LPFILETIME
+		pMaxAgeTime as LPFILETIME
+		pChainPara as PCERT_REVOCATION_CHAIN_PARA
+		pDeltaCrlIndicator as PCRYPT_INTEGER_BLOB
+	end type
+
+	type CRYPT_GET_TIME_VALID_OBJECT_EXTRA_INFO as _CRYPT_GET_TIME_VALID_OBJECT_EXTRA_INFO
+	type PCRYPT_GET_TIME_VALID_OBJECT_EXTRA_INFO as _CRYPT_GET_TIME_VALID_OBJECT_EXTRA_INFO ptr
+
+	#define szOID_RSA_MGF1 "1.2.840.113549.1.1.8"
+
+	type _CRYPT_MASK_GEN_ALGORITHM
+		pszObjId as LPSTR
+		HashAlgorithm as CRYPT_ALGORITHM_IDENTIFIER
+	end type
+
+	type CRYPT_MASK_GEN_ALGORITHM as _CRYPT_MASK_GEN_ALGORITHM
+	type PCRYPT_MASK_GEN_ALGORITHM as _CRYPT_MASK_GEN_ALGORITHM ptr
+
+	type _CRYPT_PKCS12_PBE_PARAMS
+		iIterations as long
+		cbSalt as ULONG
+	end type
+
+	type CRYPT_PKCS12_PBE_PARAMS as _CRYPT_PKCS12_PBE_PARAMS
+
+	#define szOID_RSA_PSPECIFIED "1.2.840.113549.1.1.9"
+
+	type _CRYPT_PSOURCE_ALGORITHM
+		pszObjId as LPSTR
+		EncodingParameters as CRYPT_DATA_BLOB
+	end type
+
+	type CRYPT_PSOURCE_ALGORITHM as _CRYPT_PSOURCE_ALGORITHM
+	type PCRYPT_PSOURCE_ALGORITHM as _CRYPT_PSOURCE_ALGORITHM ptr
+
+	type _CRYPT_RSA_SSA_PSS_PARAMETERS
+		HashAlgorithm as CRYPT_ALGORITHM_IDENTIFIER
+		MaskGenAlgorithm as CRYPT_MASK_GEN_ALGORITHM
+		dwSaltLength as DWORD
+		dwTrailerField as DWORD
+	end type
+
+	type CRYPT_RSA_SSA_PSS_PARAMETERS as _CRYPT_RSA_SSA_PSS_PARAMETERS
+	type PCRYPT_RSA_SSA_PSS_PARAMETERS as _CRYPT_RSA_SSA_PSS_PARAMETERS ptr
+
+	type _CRYPT_RSAES_OAEP_PARAMETERS
+		HashAlgorithm as CRYPT_ALGORITHM_IDENTIFIER
+		MaskGenAlgorithm as CRYPT_MASK_GEN_ALGORITHM
+		PSourceAlgorithm as CRYPT_PSOURCE_ALGORITHM
+	end type
+
+	type CRYPT_RSAES_OAEP_PARAMETERS as _CRYPT_RSAES_OAEP_PARAMETERS
+	type PCRYPT_RSAES_OAEP_PARAMETERS as _CRYPT_RSAES_OAEP_PARAMETERS ptr
+
+	type _CRYPT_SMART_CARD_ROOT_INFO
+		rgbCardID(0 to 15) as UBYTE
+		luid as ROOT_INFO_LUID
+	end type
+
+	type CRYPT_SMART_CARD_ROOT_INFO as _CRYPT_SMART_CARD_ROOT_INFO
+	type PCRYPT_SMART_CARD_ROOT_INFO as _CRYPT_SMART_CARD_ROOT_INFO ptr
+
+	#define CRYPTNET_URL_CACHE_DEFAULT_FLUSH 0
+	#define CRYPTNET_URL_CACHE_DISABLE_FLUSH &hFFFFFFFF
+
+	type _CRYPTNET_URL_CACHE_FLUSH_INFO
+		cbSize as DWORD
+		dwExemptSeconds as DWORD
+		ExpireTime as FILETIME
+	end type
+
+	type CRYPTNET_URL_CACHE_FLUSH_INFO as _CRYPTNET_URL_CACHE_FLUSH_INFO
+	type PCRYPTNET_URL_CACHE_FLUSH_INFO as _CRYPTNET_URL_CACHE_FLUSH_INFO ptr
+
+	#define CRYPTNET_URL_CACHE_PRE_FETCH_NONE 0
+	#define CRYPTNET_URL_CACHE_PRE_FETCH_BLOB 1
+	#define CRYPTNET_URL_CACHE_PRE_FETCH_CRL 2
+	#define CRYPTNET_URL_CACHE_PRE_FETCH_OCSP 3
+	#define CRYPTNET_URL_CACHE_PRE_FETCH_AUTOROOT_CAB 5
+	#define szOID_CRL_NEXT_PUBLISH "1.3.6.1.4.1.311.21.4"
+
+	type _CRYPTNET_URL_CACHE_PRE_FETCH_INFO
+		cbSize as DWORD
+		dwObjectType as DWORD
+		dwError as DWORD
+		dwReserved as DWORD
+		ThisUpdateTime as FILETIME
+		NextUpdateTime as FILETIME
+		PublishTime as FILETIME
+	end type
+
+	type CRYPTNET_URL_CACHE_PRE_FETCH_INFO as _CRYPTNET_URL_CACHE_PRE_FETCH_INFO
+	type PCRYPTNET_URL_CACHE_PRE_FETCH_INFO as _CRYPTNET_URL_CACHE_PRE_FETCH_INFO ptr
+
+	#define CRYPTNET_URL_CACHE_RESPONSE_NONE 0
+	#define CRYPTNET_URL_CACHE_RESPONSE_HTTP 1
+	#define CRYPTNET_URL_CACHE_RESPONSE_VALIDATED &h8000
+
+	type _CRYPTNET_URL_CACHE_RESPONSE_INFO
+		cbSize as DWORD
+		wResponseType as WORD
+		wResponseFlags as WORD
+		LastModifiedTime as FILETIME
+		dwMaxAge as DWORD
+		pwszETag as LPCWSTR
+		dwProxyId as DWORD
+	end type
+
+	type CRYPTNET_URL_CACHE_RESPONSE_INFO as _CRYPTNET_URL_CACHE_RESPONSE_INFO
+	type PCRYPTNET_URL_CACHE_RESPONSE_INFO as _CRYPTNET_URL_CACHE_RESPONSE_INFO ptr
+
+	type _OCSP_CERT_ID
+		HashAlgorithm as CRYPT_ALGORITHM_IDENTIFIER
+		IssuerNameHash as CRYPT_HASH_BLOB
+		IssuerKeyHash as CRYPT_HASH_BLOB
+		SerialNumber as CRYPT_INTEGER_BLOB
+	end type
+
+	type OCSP_CERT_ID as _OCSP_CERT_ID
+	type POCSP_CERT_ID as _OCSP_CERT_ID ptr
+
+	type _OCSP_BASIC_REVOKED_INFO
+		RevocationDate as FILETIME
+		dwCrlReasonCode as DWORD
+	end type
+
+	type OCSP_BASIC_REVOKED_INFO as _OCSP_BASIC_REVOKED_INFO
+	type POCSP_BASIC_REVOKED_INFO as _OCSP_BASIC_REVOKED_INFO ptr
+
+	type _OCSP_BASIC_RESPONSE_ENTRY
+		CertId as OCSP_CERT_ID
+		dwCertStatus as DWORD
+
+		union
+			pRevokedInfo as POCSP_BASIC_REVOKED_INFO
+		end union
+
+		ThisUpdate as FILETIME
+		NextUpdate as FILETIME
+		cExtension as DWORD
+		rgExtension as PCERT_EXTENSION
+	end type
+
+	type OCSP_BASIC_RESPONSE_ENTRY as _OCSP_BASIC_RESPONSE_ENTRY
+	type POCSP_BASIC_RESPONSE_ENTRY as _OCSP_BASIC_RESPONSE_ENTRY ptr
+
+	type _OCSP_BASIC_RESPONSE_INFO
+		dwVersion as DWORD
+		dwResponderIdChoice as DWORD
+
+		union
+			ByNameResponderId as CERT_NAME_BLOB
+			ByKeyResponderId as CRYPT_HASH_BLOB
+		end union
+
+		ProducedAt as FILETIME
+		cResponseEntry as DWORD
+		rgResponseEntry as POCSP_BASIC_RESPONSE_ENTRY
+		cExtension as DWORD
+		rgExtension as PCERT_EXTENSION
+	end type
+
+	type OCSP_BASIC_RESPONSE_INFO as _OCSP_BASIC_RESPONSE_INFO
+	type POCSP_BASIC_RESPONSE_INFO as _OCSP_BASIC_RESPONSE_INFO ptr
+
+	type _OCSP_REQUEST_ENTRY
+		CertId as OCSP_CERT_ID
+		cExtension as DWORD
+		rgExtension as PCERT_EXTENSION
+	end type
+
+	type OCSP_REQUEST_ENTRY as _OCSP_REQUEST_ENTRY
+	type POCSP_REQUEST_ENTRY as _OCSP_REQUEST_ENTRY ptr
+
+	type _OCSP_REQUEST_INFO
+		dwVersion as DWORD
+		pRequestorName as PCERT_ALT_NAME_ENTRY
+		cRequestEntry as DWORD
+		rgRequestEntry as POCSP_REQUEST_ENTRY
+		cExtension as DWORD
+		rgExtension as PCERT_EXTENSION
+	end type
+
+	type OCSP_REQUEST_INFO as _OCSP_REQUEST_INFO
+	type POCSP_REQUEST_INFO as _OCSP_REQUEST_INFO ptr
+
+	#define OCSP_SUCCESSFUL_RESPONSE 0
+	#define OCSP_MALFORMED_REQUEST_RESPONSE 1
+	#define OCSP_INTERNAL_ERROR_RESPONSE 2
+	#define OCSP_TRY_LATER_RESPONSE 3
+	#define OCSP_SIG_REQUIRED_RESPONSE 5
+	#define OCSP_UNAUTHORIZED_RESPONSE 6
+
+	type _OCSP_RESPONSE_INFO
+		dwStatus as DWORD
+		pszObjId as LPSTR
+		Value as CRYPT_OBJID_BLOB
+	end type
+
+	type OCSP_RESPONSE_INFO as _OCSP_RESPONSE_INFO
+	type POCSP_RESPONSE_INFO as _OCSP_RESPONSE_INFO ptr
+
+	type _OCSP_SIGNATURE_INFO
+		SignatureAlgorithm as CRYPT_ALGORITHM_IDENTIFIER
+		Signature as CRYPT_BIT_BLOB
+		cCertEncoded as DWORD
+		rgCertEncoded as PCERT_BLOB
+	end type
+
+	type OCSP_SIGNATURE_INFO as _OCSP_SIGNATURE_INFO
+	type POCSP_SIGNATURE_INFO as _OCSP_SIGNATURE_INFO ptr
+
+	type _OCSP_BASIC_SIGNED_RESPONSE_INFO
+		ToBeSigned as CRYPT_DER_BLOB
+		SignatureInfo as OCSP_SIGNATURE_INFO
+	end type
+
+	type OCSP_BASIC_SIGNED_RESPONSE_INFO as _OCSP_BASIC_SIGNED_RESPONSE_INFO
+	type POCSP_BASIC_SIGNED_RESPONSE_INFO as _OCSP_BASIC_SIGNED_RESPONSE_INFO ptr
+
+	type _OCSP_SIGNED_REQUEST_INFO
+		ToBeSigned as CRYPT_DER_BLOB
+		pOptionalSignatureInfo as POCSP_SIGNATURE_INFO
+	end type
+
+	type OCSP_SIGNED_REQUEST_INFO as _OCSP_SIGNED_REQUEST_INFO
+	type POCSP_SIGNED_REQUEST_INFO as _OCSP_SIGNED_REQUEST_INFO ptr
+
+	declare function CryptHashCertificate2(byval pwszCNGHashAlgid as LPCWSTR, byval dwFlags as DWORD, byval pvReserved as any ptr, byval pbEncoded as UBYTE ptr, byval cbEncoded as DWORD, byval pbComputedHash as UBYTE ptr, byval pcbComputedHash as DWORD ptr) as WINBOOL
+	declare function CryptImportPublicKeyInfoEx2(byval dwCertEncodingType as DWORD, byval pInfo as PCERT_PUBLIC_KEY_INFO, byval dwFlags as DWORD, byval pvAuxInfo as any ptr, byval phKey as BCRYPT_KEY_HANDLE ptr) as WINBOOL
+	declare function CryptUpdateProtectedState(byval pOldSid as PSID, byval pwszOldPassword as LPCWSTR, byval dwFlags as DWORD, byval pdwSuccessCount as DWORD ptr, byval pdwFailureCount as DWORD ptr) as WINBOOL
+
+	#define CERT_BUNDLE_CERTIFICATE 0
+	#define CERT_BUNDLE_CRL 1
+
+	type _CERT_OR_CRL_BLOB
+		dwChoice as DWORD
+		cbEncoded as DWORD
+		pbEncoded as UBYTE ptr
+	end type
+
+	type CERT_OR_CRL_BLOB as _CERT_OR_CRL_BLOB
+	type PCERT_OR_CRL_BLOB as _CERT_OR_CRL_BLOB ptr
+
+	type _CERT_OR_CRL_BUNDLE
+		cItem as DWORD
+		rgItem as PCERT_OR_CRL_BLOB
+	end type
+
+	type CERT_OR_CRL_BUNDLE as _CERT_OR_CRL_BUNDLE
+	type PCERT_OR_CRL_BUNDLE as _CERT_OR_CRL_BUNDLE ptr
+
+	type _CERT_SELECT_CHAIN_PARA
+		hChainEngine as HCERTCHAINENGINE
+		pTime as PFILETIME
+		hAdditionalStore as HCERTSTORE
+		pChainPara as PCERT_CHAIN_PARA
+		dwFlags as DWORD
+	end type
+
+	type CERT_SELECT_CHAIN_PARA as _CERT_SELECT_CHAIN_PARA
+	type PCERT_SELECT_CHAIN_PARA as _CERT_SELECT_CHAIN_PARA ptr
+	type PCCERT_SELECT_CHAIN_PARA as const CERT_SELECT_CHAIN_PARA ptr
+
+	#define CERT_CHAIN_REVOCATION_CHECK_CACHE_ONLY &h80000000
+
+	type _CERT_SELECT_CRITERIA
+		dwType as DWORD
+		cPara as DWORD
+		ppPara as any ptr ptr
+	end type
+
+	type CERT_SELECT_CRITERIA as _CERT_SELECT_CRITERIA
+	type PCERT_SELECT_CRITERIA as _CERT_SELECT_CRITERIA ptr
+	type PCCERT_SELECT_CRITERIA as const CERT_SELECT_CRITERIA ptr
+
+	#define CERT_SELECT_BY_ENHKEY_USAGE 1
+	#define CERT_SELECT_BY_KEY_USAGE 2
+	#define CERT_SELECT_BY_POLICY_OID 3
+	#define CERT_SELECT_BY_PROV_NAME 4
+	#define CERT_SELECT_BY_EXTENSION 5
+	#define CERT_SELECT_BY_SUBJECT_HOST_NAME 6
+	#define CERT_SELECT_BY_ISSUER_ATTR 7
+	#define CERT_SELECT_BY_SUBJECT_ATTR 8
+	#define CERT_SELECT_BY_ISSUER_NAME 9
+	#define CERT_SELECT_BY_PUBLIC_KEY 10
+	#define CERT_SELECT_BY_TLS_SIGNATURES 11
+
+	type _CRYPT_TIMESTAMP_ACCURACY
+		dwSeconds as DWORD
+		dwMillis as DWORD
+		dwMicros as DWORD
+	end type
+
+	type CRYPT_TIMESTAMP_ACCURACY as _CRYPT_TIMESTAMP_ACCURACY
+	type PCRYPT_TIMESTAMP_ACCURACY as _CRYPT_TIMESTAMP_ACCURACY ptr
+
+	type _CRYPT_TIMESTAMP_REQUEST
+		dwVersion as DWORD
+		HashAlgorithm as CRYPT_ALGORITHM_IDENTIFIER
+		HashedMessage as CRYPT_DER_BLOB
+		pszTSAPolicyId as LPSTR
+		Nonce as CRYPT_INTEGER_BLOB
+		fCertReq as WINBOOL
+		cExtension as DWORD
+		rgExtension as PCERT_EXTENSION
+	end type
+
+	type CRYPT_TIMESTAMP_REQUEST as _CRYPT_TIMESTAMP_REQUEST
+	type PCRYPT_TIMESTAMP_REQUEST as _CRYPT_TIMESTAMP_REQUEST ptr
+
+	type _CRYPT_TIMESTAMP_INFO
+		dwVersion as DWORD
+		pszTSAPolicyId as LPSTR
+		HashAlgorithm as CRYPT_ALGORITHM_IDENTIFIER
+		HashedMessage as CRYPT_DER_BLOB
+		SerialNumber as CRYPT_INTEGER_BLOB
+		ftTime as FILETIME
+		pvAccuracy as PCRYPT_TIMESTAMP_ACCURACY
+		fOrdering as WINBOOL
+		Nonce as CRYPT_DER_BLOB
+		Tsa as CRYPT_DER_BLOB
+		cExtension as DWORD
+		rgExtension as PCERT_EXTENSION
+	end type
+
+	type CRYPT_TIMESTAMP_INFO as _CRYPT_TIMESTAMP_INFO
+	type PCRYPT_TIMESTAMP_INFO as _CRYPT_TIMESTAMP_INFO ptr
+
+	type _CRYPT_TIMESTAMP_PARA
+		pszTSAPolicyId as LPCSTR
+		fRequestCerts as WINBOOL
+		Nonce as CRYPT_INTEGER_BLOB
+		cExtension as DWORD
+		rgExtension as PCERT_EXTENSION
+	end type
+
+	type CRYPT_TIMESTAMP_PARA as _CRYPT_TIMESTAMP_PARA
+	type PCRYPT_TIMESTAMP_PARA as _CRYPT_TIMESTAMP_PARA ptr
+
+	#define TIMESTAMP_VERSION 1
+
+	type _CRYPT_TIMESTAMP_CONTEXT
+		cbEncoded as DWORD
+		pbEncoded as UBYTE ptr
+		pTimeStamp as PCRYPT_TIMESTAMP_INFO
+	end type
+
+	type CRYPT_TIMESTAMP_CONTEXT as _CRYPT_TIMESTAMP_CONTEXT
+	type PCRYPT_TIMESTAMP_CONTEXT as _CRYPT_TIMESTAMP_CONTEXT ptr
+
+	type _CRYPT_TIMESTAMP_RESPONSE
+		dwStatus as DWORD
+		cFreeText as DWORD
+		rgFreeText as LPWSTR
+		FailureInfo as CRYPT_BIT_BLOB
+		ContentInfo as CRYPT_DER_BLOB
+	end type
+
+	type CRYPT_TIMESTAMP_RESPONSE as _CRYPT_TIMESTAMP_RESPONSE
+	type PCRYPT_TIMESTAMP_RESPONSE as _CRYPT_TIMESTAMP_RESPONSE ptr
+
+	#define TIMESTAMP_STATUS_GRANTED 0
+	#define TIMESTAMP_STATUS_GRANTED_WITH_MODS 1
+	#define TIMESTAMP_STATUS_REJECTED 2
+	#define TIMESTAMP_STATUS_WAITING 3
+	#define TIMESTAMP_STATUS_REVOCATION_WARNING 4
+	#define TIMESTAMP_STATUS_REVOKED 5
+	#define TIMESTAMP_FAILURE_BAD_ALG 0
+	#define TIMESTAMP_FAILURE_BAD_REQUEST 2
+	#define TIMESTAMP_FAILURE_BAD_FORMAT 5
+	#define TIMESTAMP_FAILURE_TIME_NOT_AVAILABLE 14
+	#define TIMESTAMP_FAILURE_POLICY_NOT_SUPPORTED 15
+	#define TIMESTAMP_FAILURE_EXTENSION_NOT_SUPPORTED 16
+	#define TIMESTAMP_FAILURE_INFO_NOT_AVAILABLE 17
+	#define TIMESTAMP_FAILURE_SYSTEM_FAILURE 25
+
+	declare sub CertFreeCertificateChainList(byval prgpSelection as PCCERT_CHAIN_CONTEXT ptr)
+	declare function CertSelectCertificateChains(byval pSelectionContext as LPCGUID, byval dwFlags as DWORD, byval pChainParameters as PCCERT_SELECT_CHAIN_PARA, byval cCriteria as DWORD, byval rgpCriteria as PCCERT_SELECT_CRITERIA, byval hStore as HCERTSTORE, byval pcSelection as PDWORD, byval pprgpSelection as PCCERT_CHAIN_CONTEXT ptr ptr) as WINBOOL
+	declare function CryptExportPublicKeyInfoFromBCryptKeyHandle(byval hBCryptKey as BCRYPT_KEY_HANDLE, byval dwCertEncodingType as DWORD, byval pszPublicKeyObjId as LPSTR, byval dwFlags as DWORD, byval pvAuxInfo as PVOID, byval pInfo as PCERT_PUBLIC_KEY_INFO, byval pcbInfo as DWORD) as WINBOOL
+
+	#define CRYPT_OID_INFO_PUBKEY_ENCRYPT_KEY_FLAG &h40000000
+	#define CRYPT_OID_INFO_PUBKEY_SIGN_KEY_FLAG &h80000000
+
+	declare function CryptRetrieveTimeStamp(byval wszUrl as LPCWSTR, byval dwRetrievalFlags as DWORD, byval dwTimeout as DWORD, byval pszHashId as LPCSTR, byval pPara as const CRYPT_TIMESTAMP_PARA ptr, byval pbData as const UBYTE ptr, byval cbData as DWORD, byval ppTsContext as PCRYPT_TIMESTAMP_CONTEXT ptr, byval ppTsSigner as PCCERT_CONTEXT ptr, byval phStore as HCERTSTORE) as WINBOOL
+
+	#define TIMESTAMP_DONT_HASH_DATA &h00000001
+	#define TIMESTAMP_VERIFY_CONTEXT_SIGNATURE &h00000020
+	#define TIMESTAMP_NO_AUTH_RETRIEVAL &h00020000
+
+	declare function CryptVerifyTimeStampSignature(byval pbTSContentInfo as const UBYTE, byval cbTSContentInfo as DWORD, byval pbData as const DWORD, byval cbData as DWORD, byval hAdditionalStore as HCERTSTORE, byval ppTsContext as PCRYPT_TIMESTAMP_CONTEXT, byval ppTsSigner as PCCERT_CONTEXT ptr, byval phStore as HCERTSTORE ptr) as WINBOOL
+#endif
 
 end extern

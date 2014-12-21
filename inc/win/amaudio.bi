@@ -1,5 +1,6 @@
 #pragma once
 
+#include once "mmsystem.bi"
 #include once "dsound.bi"
 
 #ifdef __FB_64BIT__

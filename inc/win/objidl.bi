@@ -2,9 +2,11 @@
 
 #include once "rpc.bi"
 #include once "rpcndr.bi"
+#include once "windows.bi"
 #include once "ole2.bi"
 #include once "unknwn.bi"
 #include once "wtypes.bi"
+#include once "winapifamily.bi"
 
 #ifdef __FB_64BIT__
 	extern "C"
@@ -53,7 +55,6 @@ type ISurrogateService as ISurrogateService_
 type IInitializeSpy as IInitializeSpy_
 type IApartmentShutdown as IApartmentShutdown_
 
-#define __REQUIRED_RPCNDR_H_VERSION__ 475
 #define __objidl_h__
 #define __IMallocSpy_FWD_DEFINED__
 #define __IBindCtx_FWD_DEFINED__
@@ -325,13 +326,7 @@ type IRunningObjectTableVtbl
 	Register as function(byval This as IRunningObjectTable ptr, byval grfFlags as DWORD, byval punkObject as IUnknown ptr, byval pmkObjectName as IMoniker ptr, byval pdwRegister as DWORD ptr) as HRESULT
 	Revoke as function(byval This as IRunningObjectTable ptr, byval dwRegister as DWORD) as HRESULT
 	IsRunning as function(byval This as IRunningObjectTable ptr, byval pmkObjectName as IMoniker ptr) as HRESULT
-
-	#ifdef UNICODE
-		GetObjectW as function(byval This as IRunningObjectTable ptr, byval pmkObjectName as IMoniker ptr, byval ppunkObject as IUnknown ptr ptr) as HRESULT
-	#else
-		GetObjectA as function(byval This as IRunningObjectTable ptr, byval pmkObjectName as IMoniker ptr, byval ppunkObject as IUnknown ptr ptr) as HRESULT
-	#endif
-
+	GetObject as function(byval This as IRunningObjectTable ptr, byval pmkObjectName as IMoniker ptr, byval ppunkObject as IUnknown ptr ptr) as HRESULT
 	NoteChangeTime as function(byval This as IRunningObjectTable ptr, byval dwRegister as DWORD, byval pfiletime as FILETIME ptr) as HRESULT
 	GetTimeOfLastChange as function(byval This as IRunningObjectTable ptr, byval pmkObjectName as IMoniker ptr, byval pfiletime as FILETIME ptr) as HRESULT
 	EnumRunning as function(byval This as IRunningObjectTable ptr, byval ppenumMoniker as IEnumMoniker ptr ptr) as HRESULT

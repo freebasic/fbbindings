@@ -28,7 +28,18 @@
 #define SO_UPDATE_CONNECT_CONTEXT &h7010
 #define TCP_BSDURGENT &h7000
 #define SIO_UDP_CONNRESET _WSAIOW(IOC_VENDOR, 12)
-#define SIO_SOCKET_CLOSE_NOTIFY _WSAIOW(IOC_VENDOR, 13)
+
+#if _WIN32_WINNT = &h0502
+	#define SIO_SOCKET_CLOSE_NOTIFY _WSAIOW(IOC_VENDOR, 13)
+#elseif _WIN32_WINNT = &h0602
+	#define SIO_BSP_HANDLE _WSAIOR(IOC_WS2, 27)
+	#define SIO_BSP_HANDLE_SELECT _WSAIOR(IOC_WS2, 28)
+	#define SIO_BSP_HANDLE_POLL _WSAIOR(IOC_WS2, 29)
+	#define SIO_EXT_SELECT _WSAIORW(IOC_WS2, 30)
+	#define SIO_EXT_POLL _WSAIORW(IOC_WS2, 31)
+	#define SIO_EXT_SENDMSG _WSAIORW(IOC_WS2, 32)
+	#define SIO_BASE_HANDLE _WSAIOR(IOC_WS2, 34)
+#endif
 
 declare function WSARecvEx(byval s as SOCKET, byval buf as zstring ptr, byval len_ as long, byval flags as long ptr) as long
 
@@ -207,5 +218,32 @@ type LPWSACMSGHDR as _WSACMSGHDR ptr
 type LPFN_WSARECVMSG as function(byval s as SOCKET, byval lpMsg as LPWSAMSG, byval lpdwNumberOfBytesRecvd as LPDWORD, byval lpOverlapped as LPWSAOVERLAPPED, byval lpCompletionRoutine as LPWSAOVERLAPPED_COMPLETION_ROUTINE) as INT_
 
 #define WSAID_WSARECVMSG (&hf689d7c8, &h6f1f, &h436b, (&h8a, &h53, &he5, &h4f, &he3, &h51, &hc3, &h22))
+
+#if _WIN32_WINNT = &h0602
+	type WSAPOLLDATA
+		result as long
+		fds as ULONG
+		timeout as INT_
+		fdArray(0 to -1) as WSAPOLLFD
+	end type
+
+	type LPWSAPOLLDATA as WSAPOLLDATA ptr
+	type LPFN_WSAPOLL as function(byval fdarray as LPWSAPOLLFD, byval nfds as ULONG, byval timeout as INT_) as INT_
+
+	#define WSAID_WSAPOLL (&h18C76F85, &hDC66, &h4964, (&h97, &h2E, &h23, &hC2, &h72, &h38, &h31, &h2B))
+
+	type WSASENDMSG
+		lpMsg as LPWSAMSG
+		dwFlags as DWORD
+		lpNumberOfBytesSent as LPDWORD
+		lpOverlapped as LPWSAOVERLAPPED
+		lpCompletionRoutine as LPWSAOVERLAPPED_COMPLETION_ROUTINE
+	end type
+
+	type LPWSASENDMSG as WSASENDMSG ptr
+	type LPFN_WSASENDMSG as function(byval s as SOCKET, byval lpMsg as LPWSAMSG, byval dwFlags as DWORD, byval lpNumberOfBytesSent as LPDWORD, byval lpOverlapped as LPWSAOVERLAPPED, byval lpCompletionRoutine as LPWSAOVERLAPPED_COMPLETION_ROUTINE) as INT_
+
+	#define WSAID_WSASENDMSG (&ha441e712, &h754f, &h43ca, (&h84, &ha7, &h0d, &hee, &h44, &hcf, &h60, &h6d))
+#endif
 
 end extern

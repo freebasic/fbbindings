@@ -13,10 +13,7 @@
 #endif
 
 #define _NTSECAPI_
-#define _NTSTATUS_PSDK
 
-type NTSTATUS as LONG
-type PNTSTATUS as LONG ptr
 type LSA_OPERATIONAL_MODE as ULONG
 type PLSA_OPERATIONAL_MODE as ULONG ptr
 
@@ -133,10 +130,13 @@ end enum
 type POLICY_AUDIT_EVENT_TYPE as _POLICY_AUDIT_EVENT_TYPE
 type PPOLICY_AUDIT_EVENT_TYPE as _POLICY_AUDIT_EVENT_TYPE ptr
 
-#define POLICY_AUDIT_EVENT_UNCHANGED __MSABI_LONG(&h00000000)
-#define POLICY_AUDIT_EVENT_SUCCESS __MSABI_LONG(&h00000001)
-#define POLICY_AUDIT_EVENT_FAILURE __MSABI_LONG(&h00000002)
-#define POLICY_AUDIT_EVENT_NONE __MSABI_LONG(&h00000004)
+#if (_WIN32_WINNT = &h0400) or (_WIN32_WINNT = &h0502)
+	#define POLICY_AUDIT_EVENT_UNCHANGED __MSABI_LONG(&h00000000)
+	#define POLICY_AUDIT_EVENT_SUCCESS __MSABI_LONG(&h00000001)
+	#define POLICY_AUDIT_EVENT_FAILURE __MSABI_LONG(&h00000002)
+	#define POLICY_AUDIT_EVENT_NONE __MSABI_LONG(&h00000004)
+#endif
+
 #define POLICY_AUDIT_EVENT_MASK (((POLICY_AUDIT_EVENT_SUCCESS or POLICY_AUDIT_EVENT_FAILURE) or POLICY_AUDIT_EVENT_UNCHANGED) or POLICY_AUDIT_EVENT_NONE)
 
 type _LSA_UNICODE_STRING
@@ -1213,6 +1213,12 @@ enum
 	KerbTicketLogon = 10
 	KerbTicketUnlockLogon = 11
 	KerbS4ULogon = 12
+
+	#if _WIN32_WINNT = &h0602
+		KerbCertificateLogon = 13
+		KerbCertificateS4ULogon = 14
+		KerbCertificateUnlockLogon = 15
+	#endif
 end enum
 
 type KERB_LOGON_SUBMIT_TYPE as _KERB_LOGON_SUBMIT_TYPE
@@ -1688,5 +1694,101 @@ end type
 
 type KERB_TRANSFER_CRED_REQUEST as _KERB_TRANSFER_CRED_REQUEST
 type PKERB_TRANSFER_CRED_REQUEST as _KERB_TRANSFER_CRED_REQUEST ptr
+
+#if _WIN32_WINNT = &h0602
+	#define POLICY_AUDIT_EVENT_UNCHANGED &h00000000
+	#define POLICY_AUDIT_EVENT_SUCCESS &h00000001
+	#define POLICY_AUDIT_EVENT_FAILURE &h00000002
+	#define POLICY_AUDIT_EVENT_NONE &h00000004
+	#define PER_USER_POLICY_UNCHANGED &h00
+	#define PER_USER_AUDIT_SUCCESS_INCLUDE &h01
+	#define PER_USER_AUDIT_SUCCESS_EXCLUDE &h02
+	#define PER_USER_AUDIT_FAILURE_INCLUDE &h04
+	#define PER_USER_AUDIT_FAILURE_EXCLUDE &h08
+	#define PER_USER_AUDIT_NONE &h10
+
+	type _AUDIT_POLICY_INFORMATION
+		AuditSubCategoryGuid as GUID
+		AuditingInformation as ULONG
+		AuditCategoryGuid as GUID
+	end type
+
+	type AUDIT_POLICY_INFORMATION as _AUDIT_POLICY_INFORMATION
+	type PAUDIT_POLICY_INFORMATION as _AUDIT_POLICY_INFORMATION ptr
+	type PCAUDIT_POLICY_INFORMATION as _AUDIT_POLICY_INFORMATION ptr
+
+	type _POLICY_AUDIT_SID_ARRAY
+		UsersCount as ULONG
+		UserSidArray as PSID ptr
+	end type
+
+	type POLICY_AUDIT_SID_ARRAY as _POLICY_AUDIT_SID_ARRAY
+	type PPOLICY_AUDIT_SID_ARRAY as _POLICY_AUDIT_SID_ARRAY ptr
+
+	type _KERB_CERTIFICATE_LOGON
+		MessageType as KERB_LOGON_SUBMIT_TYPE
+		DomainName as UNICODE_STRING
+		UserName as UNICODE_STRING
+		Pin as UNICODE_STRING
+		Flags as ULONG
+		CspDataLength as ULONG
+		CspData as PUCHAR
+	end type
+
+	type KERB_CERTIFICATE_LOGON as _KERB_CERTIFICATE_LOGON
+	type PKERB_CERTIFICATE_LOGON as _KERB_CERTIFICATE_LOGON ptr
+
+	type _KERB_CERTIFICATE_UNLOCK_LOGON
+		Logon as KERB_CERTIFICATE_LOGON
+		LogonId as LUID
+	end type
+
+	type KERB_CERTIFICATE_UNLOCK_LOGON as _KERB_CERTIFICATE_UNLOCK_LOGON
+	type PKERB_CERTIFICATE_UNLOCK_LOGON as _KERB_CERTIFICATE_UNLOCK_LOGON ptr
+
+	type _KERB_SMARTCARD_CSP_INFO
+		dwCspInfoLen as DWORD
+		MessageType as DWORD
+
+		union
+			ContextInformation as PVOID
+			SpaceHolderForWow64 as ULONG64
+		end union
+
+		flags as DWORD
+		KeySpec as DWORD
+		nCardNameOffset as ULONG
+		nReaderNameOffset as ULONG
+		nContainerNameOffset as ULONG
+		nCSPNameOffset as ULONG
+		bBuffer as TCHAR
+	end type
+
+	type KERB_SMARTCARD_CSP_INFO as _KERB_SMARTCARD_CSP_INFO
+	type PKERB_SMARTCARD_CSP_INFO as _KERB_SMARTCARD_CSP_INFO ptr
+
+	declare function AuditComputeEffectivePolicyBySid(byval pSid as const PSID, byval pSubCategoryGuids as const GUID ptr, byval PolicyCount as ULONG, byval ppAuditPolicy as PAUDIT_POLICY_INFORMATION ptr) as BOOLEAN
+	declare sub AuditFree(byval Buffer as PVOID)
+	declare function AuditSetSystemPolicy(byval pAuditPolicy as PCAUDIT_POLICY_INFORMATION, byval PolicyCount as ULONG) as BOOLEAN
+	declare function AuditQuerySystemPolicy(byval pSubCategoryGuids as const GUID ptr, byval PolicyCount as ULONG, byval ppAuditPolicy as PAUDIT_POLICY_INFORMATION ptr) as BOOLEAN
+	declare function AuditSetPerUserPolicy(byval pSid as const PSID, byval pAuditPolicy as PCAUDIT_POLICY_INFORMATION, byval PolicyCount as ULONG) as BOOLEAN
+	declare function AuditQueryPerUserPolicy(byval pSid as const PSID, byval pSubCategoryGuids as const GUID ptr, byval PolicyCount as ULONG, byval ppAuditPolicy as PAUDIT_POLICY_INFORMATION ptr) as BOOLEAN
+	declare function AuditComputeEffectivePolicyByToken(byval hTokenHandle as HANDLE, byval pSubCategoryGuids as const GUID ptr, byval PolicyCount as ULONG, byval ppAuditPolicy as PAUDIT_POLICY_INFORMATION ptr) as BOOLEAN
+	declare function AuditEnumerateCategories(byval ppAuditCategoriesArray as GUID ptr ptr, byval pCountReturned as PULONG) as BOOLEAN
+	declare function AuditEnumeratePerUserPolicy(byval ppAuditSidArray as PPOLICY_AUDIT_SID_ARRAY ptr) as BOOLEAN
+	declare function AuditEnumerateSubCategories(byval pAuditCategoryGuid as const GUID ptr, byval bRetrieveAllSubCategories as BOOLEAN, byval ppAuditSubCategoriesArray as GUID ptr ptr, byval pCountReturned as PULONG) as BOOLEAN
+	declare function AuditLookupCategoryGuidFromCategoryId(byval AuditCategoryId as POLICY_AUDIT_EVENT_TYPE, byval pAuditCategoryGuid as GUID ptr) as BOOLEAN
+	declare function AuditQuerySecurity(byval SecurityInformation as SECURITY_INFORMATION, byval ppSecurityDescriptor as PSECURITY_DESCRIPTOR ptr) as BOOLEAN
+
+	#define AuditLookupSubCategoryName __MINGW_NAME_AW(AuditLookupSubCategoryName)
+	#define AuditLookupCategoryName __MINGW_NAME_AW(AuditLookupCategoryName)
+
+	declare function AuditLookupSubCategoryNameA(byval pAuditSubCategoryGuid as const GUID ptr, byval ppszSubCategoryName as LPSTR ptr) as BOOLEAN
+	declare function AuditLookupSubCategoryNameW(byval pAuditSubCategoryGuid as const GUID ptr, byval ppszSubCategoryName as LPWSTR ptr) as BOOLEAN
+	declare function AuditLookupCategoryNameA(byval pAuditCategoryGuid as const GUID ptr, byval ppszCategoryName as LPSTR ptr) as BOOLEAN
+	declare function AuditLookupCategoryNameW(byval pAuditCategoryGuid as const GUID ptr, byval ppszCategoryName as LPWSTR ptr) as BOOLEAN
+	declare function AuditLookupCategoryIdFromCategoryGuid(byval pAuditCategoryGuid as const GUID ptr, byval pAuditCategoryId as PPOLICY_AUDIT_EVENT_TYPE) as BOOLEAN
+	declare function AuditSetSecurity(byval SecurityInformation as SECURITY_INFORMATION, byval pSecurityDescriptor as PSECURITY_DESCRIPTOR) as BOOLEAN
+#endif
 
 end extern

@@ -1,5 +1,6 @@
 #pragma once
 
+#include once "winapifamily.bi"
 #include once "_mingw_unicode.bi"
 
 #ifdef __FB_64BIT__
@@ -186,7 +187,12 @@ declare function WNetUseConnectionA(byval hwndOwner as HWND, byval lpNetResource
 declare function WNetUseConnectionW(byval hwndOwner as HWND, byval lpNetResource as LPNETRESOURCEW, byval lpPassword as LPCWSTR, byval lpUserID as LPCWSTR, byval dwFlags as DWORD, byval lpAccessName as LPWSTR, byval lpBufferSize as LPDWORD, byval lpResult as LPDWORD) as DWORD
 declare function WNetConnectionDialog(byval hwnd as HWND, byval dwType as DWORD) as DWORD
 declare function WNetDisconnectDialog(byval hwnd as HWND, byval dwType as DWORD) as DWORD
-declare function WNetRestoreConnectionW(byval hwndParent as HWND, byval lpDevice as LPCWSTR) as DWORD
+
+#if (_WIN32_WINNT = &h0400) or (_WIN32_WINNT = &h0502)
+	declare function WNetRestoreConnectionW(byval hwndParent as HWND, byval lpDevice as LPCWSTR) as DWORD
+#else
+	declare function WNetRestoreSingleConnectionW(byval hwndParent as HWND, byval lpDevice as LPCWSTR, byval fUseUI as BOOL) as DWORD
+#endif
 
 type _CONNECTDLGSTRUCTA
 	cbStructure as DWORD

@@ -1,5 +1,10 @@
 #pragma once
 
+'' The following symbols have been renamed:
+''     inside struct _D3DCAPS9:
+''         field RasterCaps => RasterCaps_
+''         field LineCaps => LineCaps_
+
 #define __WINE_D3D9CAPS_H
 #define D3DCAPS_READ_SCANLINE &h20000
 #define D3DCURSORCAPS_COLOR 1
@@ -234,19 +239,19 @@
 
 type _D3DVSHADERCAPS2_0
 	Caps as DWORD
-	DynamicFlowControlDepth as INT
-	NumTemps as INT
-	StaticFlowControlDepth as INT
+	DynamicFlowControlDepth as INT_
+	NumTemps as INT_
+	StaticFlowControlDepth as INT_
 end type
 
 type D3DVSHADERCAPS2_0 as _D3DVSHADERCAPS2_0
 
 type _D3DPSHADERCAPS2_0
 	Caps as DWORD
-	DynamicFlowControlDepth as INT
-	NumTemps as INT
-	StaticFlowControlDepth as INT
-	NumInstructionSlots as INT
+	DynamicFlowControlDepth as INT_
+	NumTemps as INT_
+	StaticFlowControlDepth as INT_
+	NumInstructionSlots as INT_
 end type
 
 type D3DPSHADERCAPS2_0 as _D3DPSHADERCAPS2_0
@@ -261,7 +266,7 @@ type _D3DCAPS9
 	CursorCaps as DWORD
 	DevCaps as DWORD
 	PrimitiveMiscCaps as DWORD
-	RasterCaps as DWORD
+	RasterCaps_ as DWORD
 	ZCmpCaps as DWORD
 	SrcBlendCaps as DWORD
 	DestBlendCaps as DWORD
@@ -273,7 +278,7 @@ type _D3DCAPS9
 	VolumeTextureFilterCaps as DWORD
 	TextureAddressCaps as DWORD
 	VolumeTextureAddressCaps as DWORD
-	LineCaps as DWORD
+	LineCaps_ as DWORD
 	MaxTextureWidth as DWORD
 	MaxTextureHeight as DWORD
 	MaxVolumeExtent as DWORD
