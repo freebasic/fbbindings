@@ -203,6 +203,7 @@ WINAPI_BASE += winnt
 WINAPI_BASE += winperf
 WINAPI_BASE += winreg
 WINAPI_BASE += winscard
+WINAPI_BASE += winsmcrd
 WINAPI_BASE += winsnmp
 WINAPI_BASE += winsock2
 WINAPI_BASE += winsock
