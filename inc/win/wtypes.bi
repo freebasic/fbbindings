@@ -1,9 +1,5 @@
 #pragma once
 
-#include once "rpc.bi"
-#include once "rpcndr.bi"
-#include once "windows.bi"
-#include once "ole2.bi"
 #include once "wtypesbase.bi"
 
 '' The following symbols have been renamed:
