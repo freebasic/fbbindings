@@ -27,6 +27,7 @@
 -removedefine _ANONYMOUS_UNION
 -removedefine APIENTRY
 -removedefine APIPRIVATE
+-removedefine BEGIN_INTERFACE
 -removedefine BERAPI
 -removedefine BOOLAPI
 -removedefine BROWSEUIAPI
@@ -52,6 +53,7 @@
 -removedefine cdecl
 -removedefine CDECL
 -removedefine _CONST_RETURN
+-removedefine CONST_VTBL
 -removedefine _CRT_ALTERNATIVE_IMPORTED
 -removedefine __CRTDECL
 -removedefine _CRT_DEPRECATE_TEXT
@@ -71,6 +73,8 @@
 -removedefine DECLARE_HANDLE
 -removedefine DECLARE_INTERFACE
 -removedefine DECLARE_INTERFACE_
+-removedefine DECLARE_INTERFACE_IID
+-removedefine DECLARE_INTERFACE_IID_
 -removedefine DECLSPEC_ADDRSAFE
 -removedefine DECLSPEC_ALIGN
 -removedefine DECLSPEC_CACHEALIGN
@@ -100,14 +104,17 @@
 -removedefine DUMMYUNIONNAME7
 -removedefine DUMMYUNIONNAME8
 -removedefine DUMMYUNIONNAME9
+-removedefine END_INTERFACE
 -removedefine EXPORT
 -removedefine EXTERN_C
 -removedefine far
 -removedefine FAR
+-removedefine FARSTRUCT
 -removedefine FASTCALL
 -removedefine __forceinline
 -removedefine FORCEINLINE
 -removedefine __GNU_EXTENSION
+-removedefine HUGEP
 -removedefine IFACEMETHOD
 -removedefine IFACEMETHOD_
 -removedefine IFACEMETHODV
@@ -234,6 +241,8 @@
 -removedefine WINLDAPAPI
 -removedefine WINMMAPI
 -removedefine WINNORMALIZEAPI
+-removedefine WINOLEAPI
+-removedefine WINOLEAPI_
 -removedefine WINOLEAUTAPI
 -removedefine WINOLEAUTAPI_
 -removedefine WINOLECTLAPI

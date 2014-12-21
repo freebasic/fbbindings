@@ -13,6 +13,7 @@ WINAPI_BASE += basetyps
 WINAPI_BASE += bcrypt
 WINAPI_BASE += cderr
 WINAPI_BASE += cguid
+WINAPI_BASE += combaseapi
 WINAPI_BASE += comcat
 WINAPI_BASE += commctrl
 WINAPI_BASE += commdlg
