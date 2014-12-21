@@ -144,6 +144,7 @@ WINAPI_BASE += powrprof
 WINAPI_BASE += propidl
 WINAPI_BASE += prsht
 WINAPI_BASE += psapi
+WINAPI_BASE += qos
 WINAPI_BASE += ras
 WINAPI_BASE += rasdlg
 WINAPI_BASE += raserror
