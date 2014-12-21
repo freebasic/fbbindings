@@ -1,5 +1,11 @@
 #pragma once
 
+'' The following symbols have been renamed:
+''     inside struct IPropertySetStorageVtbl:
+''         field Delete => Delete__
+''     inside struct tagSERIALIZEDPROPERTYVALUE:
+''         field rgb => rgb_
+
 #include once "rpc.bi"
 #include once "rpcndr.bi"
 #include once "windows.bi"
@@ -465,7 +471,7 @@ type IPropertySetStorageVtbl
 	Release as function(byval This as IPropertySetStorage ptr) as ULONG
 	Create as function(byval This as IPropertySetStorage ptr, byval rfmtid as const IID const ptr, byval pclsid as const CLSID ptr, byval grfFlags as DWORD, byval grfMode as DWORD, byval ppprstg as IPropertyStorage ptr ptr) as HRESULT
 	Open as function(byval This as IPropertySetStorage ptr, byval rfmtid as const IID const ptr, byval grfMode as DWORD, byval ppprstg as IPropertyStorage ptr ptr) as HRESULT
-	Delete as function(byval This as IPropertySetStorage ptr, byval rfmtid as const IID const ptr) as HRESULT
+	Delete__ as function(byval This as IPropertySetStorage ptr, byval rfmtid as const IID const ptr) as HRESULT
 	as function(byval This as IPropertySetStorage ptr, byval ppenum as IEnumSTATPROPSETSTG ptr ptr) as HRESULT Enum
 end type
 
@@ -562,7 +568,7 @@ declare function PropStgNameToFmtId(byval oszName as const LPOLESTR, byval pfmti
 
 type tagSERIALIZEDPROPERTYVALUE
 	dwType as DWORD
-	rgb(0 to 0) as UBYTE
+	rgb_(0 to 0) as UBYTE
 end type
 
 type SERIALIZEDPROPERTYVALUE as tagSERIALIZEDPROPERTYVALUE
