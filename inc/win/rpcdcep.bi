@@ -136,10 +136,17 @@ declare function I_RpcReallocPipeBuffer(byval Message as PRPC_MESSAGE, byval New
 
 type I_RPC_MUTEX as any ptr
 
-#define I_RpcNsBindingSetEntryName __MINGW_NAME_AW(I_RpcNsBindingSetEntryName)
-#define I_RpcServerUseProtseqEp2 __MINGW_NAME_AW(I_RpcServerUseProtseqEp2)
-#define I_RpcServerUseProtseq2 __MINGW_NAME_AW(I_RpcServerUseProtseq2)
-#define I_RpcBindingInqDynamicEndpoint __MINGW_NAME_AW(I_RpcBindingInqDynamicEndpoint)
+#ifdef UNICODE
+	#define I_RpcNsBindingSetEntryName I_RpcNsBindingSetEntryNameW
+	#define I_RpcServerUseProtseqEp2 I_RpcServerUseProtseqEp2W
+	#define I_RpcServerUseProtseq2 I_RpcServerUseProtseq2W
+	#define I_RpcBindingInqDynamicEndpoint I_RpcBindingInqDynamicEndpointW
+#else
+	#define I_RpcNsBindingSetEntryName I_RpcNsBindingSetEntryNameA
+	#define I_RpcServerUseProtseqEp2 I_RpcServerUseProtseqEp2A
+	#define I_RpcServerUseProtseq2 I_RpcServerUseProtseq2A
+	#define I_RpcBindingInqDynamicEndpoint I_RpcBindingInqDynamicEndpointA
+#endif
 
 declare sub I_RpcRequestMutex(byval Mutex as I_RPC_MUTEX ptr)
 declare sub I_RpcClearMutex(byval Mutex as I_RPC_MUTEX)

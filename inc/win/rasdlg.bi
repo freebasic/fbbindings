@@ -50,7 +50,12 @@ type tagRASNOUSERA field = 4
 	szDomain(0 to (15 + 1) - 1) as CHAR
 end type
 
-#define RASNOUSER __MINGW_NAME_AW(RASNOUSER)
+#ifdef UNICODE
+	#define RASNOUSER RASNOUSERW
+#else
+	#define RASNOUSER RASNOUSERA
+#endif
+
 #define LPRASNOUSERW '' TODO: RASNOUSERW*
 #define LPRASNOUSERA '' TODO: RASNOUSERA*
 #define LPRASNOUSER '' TODO: RASNOUSER*
@@ -88,8 +93,14 @@ type tagRASPBDLGA field = 4
 	reserved2 as ULONG_PTR
 end type
 
-#define RASPBDLG __MINGW_NAME_AW(RASPBDLG)
-#define RASPBDLGFUNC __MINGW_NAME_AW(RASPBDLGFUNC)
+#ifdef UNICODE
+	#define RASPBDLG RASPBDLGW
+	#define RASPBDLGFUNC RASPBDLGFUNCW
+#else
+	#define RASPBDLG RASPBDLGA
+	#define RASPBDLGFUNC RASPBDLGFUNCA
+#endif
+
 #define LPRASPBDLGW '' TODO: RASPBDLGW*
 #define LPRASPBDLGA '' TODO: RASPBDLGA*
 #define LPRASPBDLG '' TODO: RASPBDLG*
@@ -132,7 +143,12 @@ type tagRASENTRYDLGA field = 4
 	reserved2 as ULONG_PTR
 end type
 
-#define RASENTRYDLG __MINGW_NAME_AW(RASENTRYDLG)
+#ifdef UNICODE
+	#define RASENTRYDLG RASENTRYDLGW_
+#else
+	#define RASENTRYDLG RASENTRYDLGA_
+#endif
+
 #define LPRASENTRYDLGW '' TODO: RASENTRYDLGW*
 #define LPRASENTRYDLGA '' TODO: RASENTRYDLGA*
 #define LPRASENTRYDLG '' TODO: RASENTRYDLG*
@@ -170,8 +186,14 @@ declare function RasEntryDlgW(byval lpszPhonebook as LPWSTR, byval lpszEntry as 
 declare function RasDialDlgA(byval lpszPhonebook as LPSTR, byval lpszEntry as LPSTR, byval lpszPhoneNumber as LPSTR, byval lpInfo as tagRASDIALDLG ptr) as WINBOOL
 declare function RasDialDlgW(byval lpszPhonebook as LPWSTR, byval lpszEntry as LPWSTR, byval lpszPhoneNumber as LPWSTR, byval lpInfo as tagRASDIALDLG ptr) as WINBOOL
 
-#define RasPhonebookDlg __MINGW_NAME_AW(RasPhonebookDlg)
-#define RasEntryDlg_ __MINGW_NAME_AW(RasEntryDlg)
-#define RasDialDlg_ __MINGW_NAME_AW(RasDialDlg)
+#ifdef UNICODE
+	#define RasPhonebookDlg RasPhonebookDlgW
+	#define RasEntryDlg_ RasEntryDlgW
+	#define RasDialDlg_ RasDialDlgW
+#else
+	#define RasPhonebookDlg RasPhonebookDlgA
+	#define RasEntryDlg_ RasEntryDlgA
+	#define RasDialDlg_ RasDialDlgA
+#endif
 
 end extern

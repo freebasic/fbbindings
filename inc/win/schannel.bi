@@ -20,12 +20,23 @@ type _HMAPPER as _HMAPPER_
 #define PCT1SP_NAME_W wstr("Microsoft PCT 1.0")
 #define SCHANNEL_NAME_A "Schannel"
 #define SCHANNEL_NAME_W wstr("Schannel")
-#define UNISP_NAME __MINGW_NAME_UAW(UNISP_NAME)
-#define PCT1SP_NAME __MINGW_NAME_UAW(PCT1SP_NAME)
-#define SSL2SP_NAME __MINGW_NAME_UAW(SSL2SP_NAME)
-#define SSL3SP_NAME __MINGW_NAME_UAW(SSL3SP_NAME)
-#define TLS1SP_NAME __MINGW_NAME_UAW(TLS1SP_NAME)
-#define SCHANNEL_NAME __MINGW_NAME_UAW(SCHANNEL_NAME)
+
+#ifdef UNICODE
+	#define UNISP_NAME UNISP_NAME_W
+	#define PCT1SP_NAME PCT1SP_NAME_W
+	#define SSL2SP_NAME SSL2SP_NAME_W
+	#define SSL3SP_NAME SSL3SP_NAME_W
+	#define TLS1SP_NAME TLS1SP_NAME_W
+	#define SCHANNEL_NAME SCHANNEL_NAME_W
+#else
+	#define UNISP_NAME UNISP_NAME_A
+	#define PCT1SP_NAME PCT1SP_NAME_A
+	#define SSL2SP_NAME SSL2SP_NAME_A
+	#define SSL3SP_NAME SSL3SP_NAME_A
+	#define TLS1SP_NAME TLS1SP_NAME_A
+	#define SCHANNEL_NAME SCHANNEL_NAME_A
+#endif
+
 #define UNISP_RPC_ID 14
 #define SECPKG_ATTR_ISSUER_LIST &h50
 #define SECPKG_ATTR_REMOTE_CRED &h51
@@ -302,8 +313,13 @@ type SSL_EMPTY_CACHE_FN_W as function(byval pszTargetName as LPWSTR, byval dwFla
 
 declare function SslEmptyCacheW(byval pszTargetName as LPWSTR, byval dwFlags as DWORD) as WINBOOL
 
-#define SSL_EMPTY_CACHE_FN __MINGW_NAME_UAW(SSL_EMPTY_CACHE_FN)
-#define SslEmptyCache __MINGW_NAME_AW(SslEmptyCache)
+#ifdef UNICODE
+	#define SSL_EMPTY_CACHE_FN SSL_EMPTY_CACHE_FN_W
+	#define SslEmptyCache SslEmptyCacheW
+#else
+	#define SSL_EMPTY_CACHE_FN SSL_EMPTY_CACHE_FN_A
+	#define SslEmptyCache SslEmptyCacheA
+#endif
 
 type _SSL_CREDENTIAL_CERTIFICATE
 	cbPrivateKey as DWORD

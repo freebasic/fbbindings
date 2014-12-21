@@ -618,8 +618,14 @@ end type
 type AVISTREAMINFOA as _AVISTREAMINFOA
 type LPAVISTREAMINFOA as _AVISTREAMINFOA ptr
 
-#define AVISTREAMINFO __MINGW_NAME_AW(AVISTREAMINFO)
-#define LPAVISTREAMINFO __MINGW_NAME_AW(LPAVISTREAMINFO)
+#ifdef UNICODE
+	#define AVISTREAMINFO AVISTREAMINFOW
+	#define LPAVISTREAMINFO LPAVISTREAMINFOW
+#else
+	#define AVISTREAMINFO AVISTREAMINFOA
+	#define LPAVISTREAMINFO LPAVISTREAMINFOA
+#endif
+
 #define AVISTREAMINFO_DISABLED &h00000001
 #define AVISTREAMINFO_FORMATCHANGES &h00010000
 
@@ -659,8 +665,14 @@ end type
 type AVIFILEINFOA as _AVIFILEINFOA
 type LPAVIFILEINFOA as _AVIFILEINFOA ptr
 
-#define AVIFILEINFO __MINGW_NAME_AW(AVIFILEINFO)
-#define LPAVIFILEINFO __MINGW_NAME_AW(LPAVIFILEINFO)
+#ifdef UNICODE
+	#define AVIFILEINFO AVIFILEINFOW
+	#define LPAVIFILEINFO LPAVIFILEINFOW
+#else
+	#define AVIFILEINFO AVIFILEINFOA
+	#define LPAVIFILEINFO LPAVIFILEINFOA
+#endif
+
 #define AVIFILEINFO_HASINDEX &h00000010
 #define AVIFILEINFO_MUSTUSEINDEX &h00000020
 #define AVIFILEINFO_ISINTERLEAVED &h00000100
@@ -812,11 +824,20 @@ extern CLSID_AVIFile as const GUID
 #define AVIFILEHANDLER_CANREAD &h0001
 #define AVIFILEHANDLER_CANWRITE &h0002
 #define AVIFILEHANDLER_CANACCEPTNONRGB &h0004
-#define AVIFileOpen __MINGW_NAME_AW(AVIFileOpen)
-#define AVIFileInfo_ __MINGW_NAME_AW(AVIFileInfo)
-#define AVIFileCreateStream __MINGW_NAME_AW(AVIFileCreateStream)
-#define AVIStreamInfo_ __MINGW_NAME_AW(AVIStreamInfo)
-#define AVIStreamOpenFromFile __MINGW_NAME_AW(AVIStreamOpenFromFile)
+
+#ifdef UNICODE
+	#define AVIFileOpen AVIFileOpenW
+	#define AVIFileInfo_ AVIFileInfoW
+	#define AVIFileCreateStream AVIFileCreateStreamW
+	#define AVIStreamInfo_ AVIStreamInfoW
+	#define AVIStreamOpenFromFile AVIStreamOpenFromFileW
+#else
+	#define AVIFileOpen AVIFileOpenA
+	#define AVIFileInfo_ AVIFileInfoA
+	#define AVIFileCreateStream AVIFileCreateStreamA
+	#define AVIStreamInfo_ AVIStreamInfoA
+	#define AVIStreamOpenFromFile AVIStreamOpenFromFileA
+#endif
 
 declare sub AVIFileInit()
 declare sub AVIFileExit()
@@ -908,11 +929,20 @@ declare function AVIStreamCreate(byval ppavi as PAVISTREAM ptr, byval lParam1 as
 #define AVStreamNextKeyFrame(pavi, pos) AVIStreamFindSample(pavi, pos + 1, FIND_NEXT or FIND_KEY)
 #define AVStreamPrevKeyFrame(pavi, pos) AVIStreamFindSample(pavi, pos - 1, FIND_NEXT or FIND_KEY)
 #define comptypeDIB mmioFOURCC(asc("D"), asc("I"), asc("B"), asc(" "))
-#define AVISave __MINGW_NAME_AW(AVISave)
-#define AVISaveV __MINGW_NAME_AW(AVISaveV)
-#define AVIBuildFilter __MINGW_NAME_AW(AVIBuildFilter)
-#define EditStreamSetInfo __MINGW_NAME_AW(EditStreamSetInfo)
-#define EditStreamSetName __MINGW_NAME_AW(EditStreamSetName)
+
+#ifdef UNICODE
+	#define AVISave AVISaveW
+	#define AVISaveV AVISaveVW
+	#define AVIBuildFilter AVIBuildFilterW
+	#define EditStreamSetInfo EditStreamSetInfoW
+	#define EditStreamSetName EditStreamSetNameW
+#else
+	#define AVISave AVISaveA
+	#define AVISaveV AVISaveVA
+	#define AVIBuildFilter AVIBuildFilterA
+	#define EditStreamSetInfo EditStreamSetInfoA
+	#define EditStreamSetName EditStreamSetNameA
+#endif
 
 declare function AVIMakeCompressedStream(byval ppsCompressed as PAVISTREAM ptr, byval ppsSource as PAVISTREAM, byval lpOptions as AVICOMPRESSOPTIONS ptr, byval pclsidHandler as CLSID ptr) as HRESULT
 declare function AVISaveA cdecl(byval szFile as LPCSTR, byval pclsidHandler as CLSID ptr, byval lpfnCallback as AVISAVECALLBACK, byval nStreams as long, byval pfile as PAVISTREAM, byval lpOptions as LPAVICOMPRESSOPTIONS, ...) as HRESULT
@@ -961,7 +991,12 @@ declare function EditStreamSetInfoA(byval pavi as PAVISTREAM, byval lpInfo as LP
 #define AVIERR_ERROR MAKE_AVIERR(199)
 #define MCIWndSM SendMessage
 #define MCIWND_WINDOW_CLASS TEXT("MCIWndClass")
-#define MCIWndCreate __MINGW_NAME_AW(MCIWndCreate)
+
+#ifdef UNICODE
+	#define MCIWndCreate MCIWndCreateW
+#else
+	#define MCIWndCreate MCIWndCreateA
+#endif
 
 declare function MCIWndCreateA cdecl(byval hwndParent as HWND, byval hInstance as HINSTANCE, byval dwStyle as DWORD, byval szFile as LPCSTR) as HWND
 declare function MCIWndCreateW cdecl(byval hwndParent as HWND, byval hInstance as HINSTANCE, byval dwStyle as DWORD, byval szFile as LPCWSTR) as HWND
@@ -984,7 +1019,13 @@ declare function MCIWndRegisterClass cdecl() as WINBOOL
 #define MCIWNDF_NOTIFYANSI &h0080
 #define MCIWNDF_NOTIFYMEDIAA &h0880
 #define MCIWNDF_NOTIFYMEDIAW &h0800
-#define MCIWNDF_NOTIFYMEDIA __MINGW_NAME_AW(MCIWNDF_NOTIFYMEDIA)
+
+#ifdef UNICODE
+	#define MCIWNDF_NOTIFYMEDIA MCIWNDF_NOTIFYMEDIAW
+#else
+	#define MCIWNDF_NOTIFYMEDIA MCIWNDF_NOTIFYMEDIAA
+#endif
+
 #define MCIWNDF_RECORD &h2000
 #define MCIWNDF_NOERRORDLG &h4000
 #define MCIWNDF_NOOPEN &h8000
@@ -1121,17 +1162,33 @@ declare function MCIWndRegisterClass cdecl() as WINBOOL
 #define MCIWNDM_NEWW (WM_USER + 234)
 #define MCIWNDM_RETURNSTRINGW (WM_USER + 238)
 #define MCIWNDM_OPENW (WM_USER + 252)
-#define MCIWNDM_SENDSTRING __MINGW_NAME_AW(MCIWNDM_SENDSTRING)
-#define MCIWNDM_GETPOSITION __MINGW_NAME_AW(MCIWNDM_GETPOSITION)
-#define MCIWNDM_GETMODE __MINGW_NAME_AW(MCIWNDM_GETMODE)
-#define MCIWNDM_SETTIMEFORMAT __MINGW_NAME_AW(MCIWNDM_SETTIMEFORMAT)
-#define MCIWNDM_GETTIMEFORMAT __MINGW_NAME_AW(MCIWNDM_GETTIMEFORMAT)
-#define MCIWNDM_GETFILENAME __MINGW_NAME_AW(MCIWNDM_GETFILENAME)
-#define MCIWNDM_GETDEVICE __MINGW_NAME_AW(MCIWNDM_GETDEVICE)
-#define MCIWNDM_GETERROR __MINGW_NAME_AW(MCIWNDM_GETERROR)
-#define MCIWNDM_NEW __MINGW_NAME_AW(MCIWNDM_NEW)
-#define MCIWNDM_RETURNSTRING __MINGW_NAME_AW(MCIWNDM_RETURNSTRING)
-#define MCIWNDM_OPEN __MINGW_NAME_AW(MCIWNDM_OPEN)
+
+#ifdef UNICODE
+	#define MCIWNDM_SENDSTRING MCIWNDM_SENDSTRINGW
+	#define MCIWNDM_GETPOSITION MCIWNDM_GETPOSITIONW
+	#define MCIWNDM_GETMODE MCIWNDM_GETMODEW
+	#define MCIWNDM_SETTIMEFORMAT MCIWNDM_SETTIMEFORMATW
+	#define MCIWNDM_GETTIMEFORMAT MCIWNDM_GETTIMEFORMATW
+	#define MCIWNDM_GETFILENAME MCIWNDM_GETFILENAMEW
+	#define MCIWNDM_GETDEVICE MCIWNDM_GETDEVICEW
+	#define MCIWNDM_GETERROR MCIWNDM_GETERRORW
+	#define MCIWNDM_NEW MCIWNDM_NEWW
+	#define MCIWNDM_RETURNSTRING MCIWNDM_RETURNSTRINGW
+	#define MCIWNDM_OPEN MCIWNDM_OPENW
+#else
+	#define MCIWNDM_SENDSTRING MCIWNDM_SENDSTRINGA
+	#define MCIWNDM_GETPOSITION MCIWNDM_GETPOSITIONA
+	#define MCIWNDM_GETMODE MCIWNDM_GETMODEA
+	#define MCIWNDM_SETTIMEFORMAT MCIWNDM_SETTIMEFORMATA
+	#define MCIWNDM_GETTIMEFORMAT MCIWNDM_GETTIMEFORMATA
+	#define MCIWNDM_GETFILENAME MCIWNDM_GETFILENAMEA
+	#define MCIWNDM_GETDEVICE MCIWNDM_GETDEVICEA
+	#define MCIWNDM_GETERROR MCIWNDM_GETERRORA
+	#define MCIWNDM_NEW MCIWNDM_NEWA
+	#define MCIWNDM_RETURNSTRING MCIWNDM_RETURNSTRINGA
+	#define MCIWNDM_OPEN MCIWNDM_OPENA
+#endif
+
 #define MCIWNDM_NOTIFYMODE (WM_USER + 200)
 #define MCIWNDM_NOTIFYPOS (WM_USER + 201)
 #define MCIWNDM_NOTIFYSIZE (WM_USER + 202)
@@ -1253,8 +1310,15 @@ type LPCHANNEL_CAPS as channel_caps_tag ptr
 #define WM_CAP_SET_CALLBACK_STATUSW (WM_CAP_UNICODE_START + 3)
 #define WM_CAP_SET_CALLBACK_ERRORA (WM_CAP_START + 2)
 #define WM_CAP_SET_CALLBACK_STATUSA (WM_CAP_START + 3)
-#define WM_CAP_SET_CALLBACK_ERROR __MINGW_NAME_AW(WM_CAP_SET_CALLBACK_ERROR)
-#define WM_CAP_SET_CALLBACK_STATUS __MINGW_NAME_AW(WM_CAP_SET_CALLBACK_STATUS)
+
+#ifdef UNICODE
+	#define WM_CAP_SET_CALLBACK_ERROR WM_CAP_SET_CALLBACK_ERRORW
+	#define WM_CAP_SET_CALLBACK_STATUS WM_CAP_SET_CALLBACK_STATUSW
+#else
+	#define WM_CAP_SET_CALLBACK_ERROR WM_CAP_SET_CALLBACK_ERRORA
+	#define WM_CAP_SET_CALLBACK_STATUS WM_CAP_SET_CALLBACK_STATUSA
+#endif
+
 #define WM_CAP_SET_CALLBACK_YIELD (WM_CAP_START + 4)
 #define WM_CAP_SET_CALLBACK_FRAME (WM_CAP_START + 5)
 #define WM_CAP_SET_CALLBACK_VIDEOSTREAM (WM_CAP_START + 6)
@@ -1267,8 +1331,15 @@ type LPCHANNEL_CAPS as channel_caps_tag ptr
 #define WM_CAP_DRIVER_GET_VERSIONA (WM_CAP_START + 13)
 #define WM_CAP_DRIVER_GET_NAMEW (WM_CAP_UNICODE_START + 12)
 #define WM_CAP_DRIVER_GET_VERSIONW (WM_CAP_UNICODE_START + 13)
-#define WM_CAP_DRIVER_GET_NAME __MINGW_NAME_AW(WM_CAP_DRIVER_GET_NAME)
-#define WM_CAP_DRIVER_GET_VERSION __MINGW_NAME_AW(WM_CAP_DRIVER_GET_VERSION)
+
+#ifdef UNICODE
+	#define WM_CAP_DRIVER_GET_NAME WM_CAP_DRIVER_GET_NAMEW
+	#define WM_CAP_DRIVER_GET_VERSION WM_CAP_DRIVER_GET_VERSIONW
+#else
+	#define WM_CAP_DRIVER_GET_NAME WM_CAP_DRIVER_GET_NAMEA
+	#define WM_CAP_DRIVER_GET_VERSION WM_CAP_DRIVER_GET_VERSIONA
+#endif
+
 #define WM_CAP_DRIVER_GET_CAPS (WM_CAP_START + 14)
 #define WM_CAP_FILE_SET_CAPTURE_FILEA (WM_CAP_START + 20)
 #define WM_CAP_FILE_GET_CAPTURE_FILEA (WM_CAP_START + 21)
@@ -1278,10 +1349,19 @@ type LPCHANNEL_CAPS as channel_caps_tag ptr
 #define WM_CAP_FILE_GET_CAPTURE_FILEW (WM_CAP_UNICODE_START + 21)
 #define WM_CAP_FILE_SAVEASW (WM_CAP_UNICODE_START + 23)
 #define WM_CAP_FILE_SAVEDIBW (WM_CAP_UNICODE_START + 25)
-#define WM_CAP_FILE_SET_CAPTURE_FILE __MINGW_NAME_AW(WM_CAP_FILE_SET_CAPTURE_FILE)
-#define WM_CAP_FILE_GET_CAPTURE_FILE __MINGW_NAME_AW(WM_CAP_FILE_GET_CAPTURE_FILE)
-#define WM_CAP_FILE_SAVEAS __MINGW_NAME_AW(WM_CAP_FILE_SAVEAS)
-#define WM_CAP_FILE_SAVEDIB __MINGW_NAME_AW(WM_CAP_FILE_SAVEDIB)
+
+#ifdef UNICODE
+	#define WM_CAP_FILE_SET_CAPTURE_FILE WM_CAP_FILE_SET_CAPTURE_FILEW
+	#define WM_CAP_FILE_GET_CAPTURE_FILE WM_CAP_FILE_GET_CAPTURE_FILEW
+	#define WM_CAP_FILE_SAVEAS WM_CAP_FILE_SAVEASW
+	#define WM_CAP_FILE_SAVEDIB WM_CAP_FILE_SAVEDIBW
+#else
+	#define WM_CAP_FILE_SET_CAPTURE_FILE WM_CAP_FILE_SET_CAPTURE_FILEA
+	#define WM_CAP_FILE_GET_CAPTURE_FILE WM_CAP_FILE_GET_CAPTURE_FILEA
+	#define WM_CAP_FILE_SAVEAS WM_CAP_FILE_SAVEASA
+	#define WM_CAP_FILE_SAVEDIB WM_CAP_FILE_SAVEDIBA
+#endif
+
 #define WM_CAP_FILE_ALLOCATE (WM_CAP_START + 22)
 #define WM_CAP_FILE_SET_INFOCHUNK (WM_CAP_START + 24)
 #define WM_CAP_EDIT_COPY (WM_CAP_START + 30)
@@ -1309,8 +1389,15 @@ type LPCHANNEL_CAPS as channel_caps_tag ptr
 #define WM_CAP_GET_MCI_DEVICEA (WM_CAP_START + 67)
 #define WM_CAP_SET_MCI_DEVICEW (WM_CAP_UNICODE_START + 66)
 #define WM_CAP_GET_MCI_DEVICEW (WM_CAP_UNICODE_START + 67)
-#define WM_CAP_SET_MCI_DEVICE __MINGW_NAME_AW(WM_CAP_SET_MCI_DEVICE)
-#define WM_CAP_GET_MCI_DEVICE __MINGW_NAME_AW(WM_CAP_GET_MCI_DEVICE)
+
+#ifdef UNICODE
+	#define WM_CAP_SET_MCI_DEVICE WM_CAP_SET_MCI_DEVICEW
+	#define WM_CAP_GET_MCI_DEVICE WM_CAP_GET_MCI_DEVICEW
+#else
+	#define WM_CAP_SET_MCI_DEVICE WM_CAP_SET_MCI_DEVICEA
+	#define WM_CAP_GET_MCI_DEVICE WM_CAP_GET_MCI_DEVICEA
+#endif
+
 #define WM_CAP_STOP (WM_CAP_START + 68)
 #define WM_CAP_ABORT (WM_CAP_START + 69)
 #define WM_CAP_SINGLE_FRAME_OPEN (WM_CAP_START + 70)
@@ -1320,8 +1407,15 @@ type LPCHANNEL_CAPS as channel_caps_tag ptr
 #define WM_CAP_PAL_SAVEA (WM_CAP_START + 81)
 #define WM_CAP_PAL_OPENW (WM_CAP_UNICODE_START + 80)
 #define WM_CAP_PAL_SAVEW (WM_CAP_UNICODE_START + 81)
-#define WM_CAP_PAL_OPEN __MINGW_NAME_AW(WM_CAP_PAL_OPEN)
-#define WM_CAP_PAL_SAVE __MINGW_NAME_AW(WM_CAP_PAL_SAVE)
+
+#ifdef UNICODE
+	#define WM_CAP_PAL_OPEN WM_CAP_PAL_OPENW
+	#define WM_CAP_PAL_SAVE WM_CAP_PAL_SAVEW
+#else
+	#define WM_CAP_PAL_OPEN WM_CAP_PAL_OPENA
+	#define WM_CAP_PAL_SAVE WM_CAP_PAL_SAVEA
+#endif
+
 #define WM_CAP_PAL_PASTE (WM_CAP_START + 82)
 #define WM_CAP_PAL_AUTOCREATE (WM_CAP_START + 83)
 #define WM_CAP_PAL_MANUALCREATE (WM_CAP_START + 84)
@@ -1476,8 +1570,13 @@ type CAPERRORCALLBACKW as function(byval hWnd as HWND, byval nID as long, byval 
 type CAPSTATUSCALLBACKA as function(byval hWnd as HWND, byval nID as long, byval lpsz as LPCSTR) as LRESULT
 type CAPERRORCALLBACKA as function(byval hWnd as HWND, byval nID as long, byval lpsz as LPCSTR) as LRESULT
 
-#define CAPSTATUSCALLBACK __MINGW_NAME_AW(CAPSTATUSCALLBACK)
-#define CAPERRORCALLBACK __MINGW_NAME_AW(CAPERRORCALLBACK)
+#ifdef UNICODE
+	#define CAPSTATUSCALLBACK CAPSTATUSCALLBACKW
+	#define CAPERRORCALLBACK CAPERRORCALLBACKW
+#else
+	#define CAPSTATUSCALLBACK CAPSTATUSCALLBACKA
+	#define CAPERRORCALLBACK CAPERRORCALLBACKA
+#endif
 
 type CAPVIDEOCALLBACK as function(byval hWnd as HWND, byval lpVHdr as LPVIDEOHDR) as LRESULT
 type CAPWAVECALLBACK as function(byval hWnd as HWND, byval lpWHdr as LPWAVEHDR) as LRESULT
@@ -1491,8 +1590,14 @@ declare function capGetDriverDescriptionA(byval wDriverIndex as UINT, byval lpsz
 declare function capCreateCaptureWindowW(byval lpszWindowName as LPCWSTR, byval dwStyle as DWORD, byval x as long, byval y as long, byval nWidth as long, byval nHeight as long, byval hwndParent as HWND, byval nID as long) as HWND
 declare function capGetDriverDescriptionW(byval wDriverIndex as UINT, byval lpszName as LPWSTR, byval cbName as long, byval lpszVer as LPWSTR, byval cbVer as long) as WINBOOL
 
-#define capCreateCaptureWindow __MINGW_NAME_AW(capCreateCaptureWindow)
-#define capGetDriverDescription __MINGW_NAME_AW(capGetDriverDescription)
+#ifdef UNICODE
+	#define capCreateCaptureWindow capCreateCaptureWindowW
+	#define capGetDriverDescription capGetDriverDescriptionW
+#else
+	#define capCreateCaptureWindow capCreateCaptureWindowA
+	#define capGetDriverDescription capGetDriverDescriptionA
+#endif
+
 #define infotypeDIGITIZATION_TIME mmioFOURCC(asc("I"), asc("D"), asc("I"), asc("T"))
 #define infotypeSMPTE_TIME mmioFOURCC(asc("I"), asc("S"), asc("M"), asc("P"))
 #define IDS_CAP_BEGIN 300
@@ -1559,7 +1664,12 @@ declare function GetSaveFileNamePreviewA(byval lpofn as LPOPENFILENAMEA) as WINB
 declare function GetOpenFileNamePreviewW(byval lpofn as LPOPENFILENAMEW) as WINBOOL
 declare function GetSaveFileNamePreviewW(byval lpofn as LPOPENFILENAMEW) as WINBOOL
 
-#define GetOpenFileNamePreview __MINGW_NAME_AW(GetOpenFileNamePreview)
-#define GetSaveFileNamePreview __MINGW_NAME_AW(GetSaveFileNamePreview)
+#ifdef UNICODE
+	#define GetOpenFileNamePreview GetOpenFileNamePreviewW
+	#define GetSaveFileNamePreview GetSaveFileNamePreviewW
+#else
+	#define GetOpenFileNamePreview GetOpenFileNamePreviewA
+	#define GetSaveFileNamePreview GetSaveFileNamePreviewA
+#endif
 
 end extern

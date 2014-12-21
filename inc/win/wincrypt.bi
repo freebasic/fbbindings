@@ -351,15 +351,29 @@ type HCRYPTHASH as ULONG_PTR
 #define PROV_INTEL_SEC 22
 #define PROV_REPLACE_OWF 23
 #define PROV_RSA_AES 24
-#define MS_DEF_PROV __MINGW_NAME_UAW(MS_DEF_PROV)
-#define MS_ENHANCED_PROV __MINGW_NAME_UAW(MS_ENHANCED_PROV)
-#define MS_STRONG_PROV __MINGW_NAME_UAW(MS_STRONG_PROV)
-#define MS_DEF_RSA_SIG_PROV __MINGW_NAME_UAW(MS_DEF_RSA_SIG_PROV)
-#define MS_DEF_RSA_SCHANNEL_PROV __MINGW_NAME_UAW(MS_DEF_RSA_SCHANNEL_PROV)
-#define MS_DEF_DSS_PROV __MINGW_NAME_UAW(MS_DEF_DSS_PROV)
-#define MS_DEF_DSS_DH_PROV __MINGW_NAME_UAW(MS_DEF_DSS_DH_PROV)
-#define MS_ENH_DSS_DH_PROV __MINGW_NAME_UAW(MS_ENH_DSS_DH_PROV)
-#define MS_DEF_DH_SCHANNEL_PROV __MINGW_NAME_UAW(MS_DEF_DH_SCHANNEL_PROV)
+
+#ifdef UNICODE
+	#define MS_DEF_PROV MS_DEF_PROV_W
+	#define MS_ENHANCED_PROV MS_ENHANCED_PROV_W
+	#define MS_STRONG_PROV MS_STRONG_PROV_W
+	#define MS_DEF_RSA_SIG_PROV MS_DEF_RSA_SIG_PROV_W
+	#define MS_DEF_RSA_SCHANNEL_PROV MS_DEF_RSA_SCHANNEL_PROV_W
+	#define MS_DEF_DSS_PROV MS_DEF_DSS_PROV_W
+	#define MS_DEF_DSS_DH_PROV MS_DEF_DSS_DH_PROV_W
+	#define MS_ENH_DSS_DH_PROV MS_ENH_DSS_DH_PROV_W
+	#define MS_DEF_DH_SCHANNEL_PROV MS_DEF_DH_SCHANNEL_PROV_W
+#else
+	#define MS_DEF_PROV MS_DEF_PROV_A
+	#define MS_ENHANCED_PROV MS_ENHANCED_PROV_A
+	#define MS_STRONG_PROV MS_STRONG_PROV_A
+	#define MS_DEF_RSA_SIG_PROV MS_DEF_RSA_SIG_PROV_A
+	#define MS_DEF_RSA_SCHANNEL_PROV MS_DEF_RSA_SCHANNEL_PROV_A
+	#define MS_DEF_DSS_PROV MS_DEF_DSS_PROV_A
+	#define MS_DEF_DSS_DH_PROV MS_DEF_DSS_DH_PROV_A
+	#define MS_ENH_DSS_DH_PROV MS_ENH_DSS_DH_PROV_A
+	#define MS_DEF_DH_SCHANNEL_PROV MS_DEF_DH_SCHANNEL_PROV_A
+#endif
+
 #define MS_DEF_PROV_A "Microsoft Base Cryptographic Provider v1.0"
 #define MS_DEF_PROV_W wstr("Microsoft Base Cryptographic Provider v1.0")
 #define MS_ENHANCED_PROV_A "Microsoft Enhanced Cryptographic Provider v1.0"
@@ -378,9 +392,17 @@ type HCRYPTHASH as ULONG_PTR
 #define MS_ENH_DSS_DH_PROV_W wstr("Microsoft Enhanced DSS and Diffie-Hellman Cryptographic Provider")
 #define MS_DEF_DH_SCHANNEL_PROV_A "Microsoft DH SChannel Cryptographic Provider"
 #define MS_DEF_DH_SCHANNEL_PROV_W wstr("Microsoft DH SChannel Cryptographic Provider")
-#define MS_SCARD_PROV __MINGW_NAME_UAW(MS_SCARD_PROV)
-#define MS_ENH_RSA_AES_PROV __MINGW_NAME_UAW(MS_ENH_RSA_AES_PROV)
-#define MS_ENH_RSA_AES_PROV_XP __MINGW_NAME_UAW(MS_ENH_RSA_AES_PROV_XP)
+
+#ifdef UNICODE
+	#define MS_SCARD_PROV MS_SCARD_PROV_W
+	#define MS_ENH_RSA_AES_PROV MS_ENH_RSA_AES_PROV_W
+	#define MS_ENH_RSA_AES_PROV_XP MS_ENH_RSA_AES_PROV_XP_W
+#else
+	#define MS_SCARD_PROV MS_SCARD_PROV_A
+	#define MS_ENH_RSA_AES_PROV MS_ENH_RSA_AES_PROV_A
+	#define MS_ENH_RSA_AES_PROV_XP MS_ENH_RSA_AES_PROV_XP_A
+#endif
+
 #define MS_SCARD_PROV_A "Microsoft Base Smart Card Crypto Provider"
 #define MS_SCARD_PROV_W wstr("Microsoft Base Smart Card Crypto Provider")
 #define MS_ENH_RSA_AES_PROV_A "Microsoft Enhanced RSA and AES Cryptographic Provider"
@@ -608,9 +630,15 @@ end type
 type CMS_DH_KEY_INFO as _CMS_DH_KEY_INFO
 type PCMS_DH_KEY_INFO as _CMS_DH_KEY_INFO ptr
 
-#define CryptAcquireContext __MINGW_NAME_AW(CryptAcquireContext)
-#define CryptSignHash __MINGW_NAME_AW(CryptSignHash)
-#define CryptVerifySignature __MINGW_NAME_AW(CryptVerifySignature)
+#ifdef UNICODE
+	#define CryptAcquireContext CryptAcquireContextW
+	#define CryptSignHash CryptSignHashW
+	#define CryptVerifySignature CryptVerifySignatureW
+#else
+	#define CryptAcquireContext CryptAcquireContextA
+	#define CryptSignHash CryptSignHashA
+	#define CryptVerifySignature CryptVerifySignatureA
+#endif
 
 declare function CryptAcquireContextA(byval phProv as HCRYPTPROV ptr, byval szContainer as LPCSTR, byval szProvider as LPCSTR, byval dwProvType as DWORD, byval dwFlags as DWORD) as WINBOOL
 declare function CryptAcquireContextW(byval phProv as HCRYPTPROV ptr, byval szContainer as LPCWSTR, byval szProvider as LPCWSTR, byval dwProvType as DWORD, byval dwFlags as DWORD) as WINBOOL
@@ -641,11 +669,19 @@ declare function CryptVerifySignatureW(byval hHash as HCRYPTHASH, byval pbSignat
 declare function CryptSetProviderA(byval pszProvName as LPCSTR, byval dwProvType as DWORD) as WINBOOL
 declare function CryptSetProviderW(byval pszProvName as LPCWSTR, byval dwProvType as DWORD) as WINBOOL
 
-#define CryptSetProvider __MINGW_NAME_AW(CryptSetProvider)
-#define CryptSetProviderEx __MINGW_NAME_AW(CryptSetProviderEx)
-#define CryptGetDefaultProvider __MINGW_NAME_AW(CryptGetDefaultProvider)
-#define CryptEnumProviderTypes __MINGW_NAME_AW(CryptEnumProviderTypes)
-#define CryptEnumProviders __MINGW_NAME_AW(CryptEnumProviders)
+#ifdef UNICODE
+	#define CryptSetProvider CryptSetProviderW
+	#define CryptSetProviderEx CryptSetProviderExW
+	#define CryptGetDefaultProvider CryptGetDefaultProviderW
+	#define CryptEnumProviderTypes CryptEnumProviderTypesW
+	#define CryptEnumProviders CryptEnumProvidersW
+#else
+	#define CryptSetProvider CryptSetProviderA
+	#define CryptSetProviderEx CryptSetProviderExA
+	#define CryptGetDefaultProvider CryptGetDefaultProviderA
+	#define CryptEnumProviderTypes CryptEnumProviderTypesA
+	#define CryptEnumProviders CryptEnumProvidersA
+#endif
 
 declare function CryptSetProviderExA(byval pszProvName as LPCSTR, byval dwProvType as DWORD, byval pdwReserved as DWORD ptr, byval dwFlags as DWORD) as WINBOOL
 declare function CryptSetProviderExW(byval pszProvName as LPCWSTR, byval dwProvType as DWORD, byval pdwReserved as DWORD ptr, byval dwFlags as DWORD) as WINBOOL
@@ -3773,8 +3809,14 @@ type PFN_EXPORT_PRIV_KEY_FUNC as function(byval hCryptProv as HCRYPTPROV, byval 
 
 #define CRYPT_OID_EXPORT_PRIVATE_KEY_INFO_FUNC "CryptDllExportPrivateKeyInfoEx"
 #define CRYPT_DELETE_KEYSET &h1
-#define CertRDNValueToStr __MINGW_NAME_AW(CertRDNValueToStr)
-#define CertNameToStr __MINGW_NAME_AW(CertNameToStr)
+
+#ifdef UNICODE
+	#define CertRDNValueToStr CertRDNValueToStrW
+	#define CertNameToStr CertNameToStrW
+#else
+	#define CertRDNValueToStr CertRDNValueToStrA
+	#define CertNameToStr CertNameToStrA
+#endif
 
 declare function CryptExportPKCS8(byval hCryptProv as HCRYPTPROV, byval dwKeySpec as DWORD, byval pszPrivateKeyObjId as LPSTR, byval dwFlags as DWORD, byval pvAuxInfo as any ptr, byval pbPrivateKeyBlob as UBYTE ptr, byval pcbPrivateKeyBlob as DWORD ptr) as WINBOOL
 declare function CryptExportPKCS8Ex(byval psExportParams as CRYPT_PKCS8_EXPORT_PARAMS ptr, byval dwFlags as DWORD, byval pvAuxInfo as any ptr, byval pbPrivateKeyBlob as UBYTE ptr, byval pcbPrivateKeyBlob as DWORD ptr) as WINBOOL
@@ -3797,8 +3839,14 @@ declare function CertNameToStrW(byval dwCertEncodingType as DWORD, byval pName a
 #define CERT_NAME_STR_ENABLE_T61_UNICODE_FLAG &h20000
 #define CERT_NAME_STR_ENABLE_UTF8_UNICODE_FLAG &h40000
 #define CERT_NAME_STR_FORCE_UTF8_DIR_STR_FLAG &h80000
-#define CertStrToName __MINGW_NAME_AW(CertStrToName)
-#define CertGetNameString __MINGW_NAME_AW(CertGetNameString)
+
+#ifdef UNICODE
+	#define CertStrToName CertStrToNameW
+	#define CertGetNameString CertGetNameStringW
+#else
+	#define CertStrToName CertStrToNameA
+	#define CertGetNameString CertGetNameStringA
+#endif
 
 declare function CertStrToNameA(byval dwCertEncodingType as DWORD, byval pszX500 as LPCSTR, byval dwStrType as DWORD, byval pvReserved as any ptr, byval pbEncoded as UBYTE ptr, byval pcbEncoded as DWORD ptr, byval ppszError as LPCSTR ptr) as WINBOOL
 declare function CertStrToNameW(byval dwCertEncodingType as DWORD, byval pszX500 as LPCWSTR, byval dwStrType as DWORD, byval pvReserved as any ptr, byval pbEncoded as UBYTE ptr, byval pcbEncoded as DWORD ptr, byval ppszError as LPCWSTR ptr) as WINBOOL
@@ -3913,8 +3961,13 @@ end type
 type CRYPT_KEY_VERIFY_MESSAGE_PARA as _CRYPT_KEY_VERIFY_MESSAGE_PARA
 type PCRYPT_KEY_VERIFY_MESSAGE_PARA as _CRYPT_KEY_VERIFY_MESSAGE_PARA ptr
 
-#define CertOpenSystemStore __MINGW_NAME_AW(CertOpenSystemStore)
-#define CertAddEncodedCertificateToSystemStore __MINGW_NAME_AW(CertAddEncodedCertificateToSystemStore)
+#ifdef UNICODE
+	#define CertOpenSystemStore CertOpenSystemStoreW
+	#define CertAddEncodedCertificateToSystemStore CertAddEncodedCertificateToSystemStoreW
+#else
+	#define CertOpenSystemStore CertOpenSystemStoreA
+	#define CertAddEncodedCertificateToSystemStore CertAddEncodedCertificateToSystemStoreA
+#endif
 
 declare function CryptSignMessage(byval pSignPara as PCRYPT_SIGN_MESSAGE_PARA, byval fDetachedSignature as WINBOOL, byval cToBeSigned as DWORD, byval rgpbToBeSigned as const UBYTE ptr ptr, byval rgcbToBeSigned as DWORD ptr, byval pbSignedBlob as UBYTE ptr, byval pcbSignedBlob as DWORD ptr) as WINBOOL
 declare function CryptVerifyMessageSignature(byval pVerifyPara as PCRYPT_VERIFY_MESSAGE_PARA, byval dwSignerIndex as DWORD, byval pbSignedBlob as const UBYTE ptr, byval cbSignedBlob as DWORD, byval pbDecoded as UBYTE ptr, byval pcbDecoded as DWORD ptr, byval ppSignerCert as PCCERT_CONTEXT ptr) as WINBOOL
@@ -4017,7 +4070,12 @@ type PCRYPT_CREDENTIALS as _CRYPT_CREDENTIALS ptr
 
 #define CREDENTIAL_OID_PASSWORD_CREDENTIALS_A cast(LPCSTR, 1)
 #define CREDENTIAL_OID_PASSWORD_CREDENTIALS_W cast(LPCSTR, 2)
-#define CREDENTIAL_OID_PASSWORD_CREDENTIALS __MINGW_NAME_UAW(CREDENTIAL_OID_PASSWORD_CREDENTIALS)
+
+#ifdef UNICODE
+	#define CREDENTIAL_OID_PASSWORD_CREDENTIALS CREDENTIAL_OID_PASSWORD_CREDENTIALS_W
+#else
+	#define CREDENTIAL_OID_PASSWORD_CREDENTIALS CREDENTIAL_OID_PASSWORD_CREDENTIALS_A
+#endif
 
 type _CRYPT_PASSWORD_CREDENTIALSA
 	cbSize as DWORD
@@ -4040,14 +4098,19 @@ type PCRYPT_PASSWORD_CREDENTIALSW as _CRYPT_PASSWORD_CREDENTIALSW ptr
 #ifdef UNICODE
 	type CRYPT_PASSWORD_CREDENTIALS as CRYPT_PASSWORD_CREDENTIALSW
 	type PCRYPT_PASSWORD_CREDENTIALS as PCRYPT_PASSWORD_CREDENTIALSW
+
+	#define CryptRetrieveObjectByUrl CryptRetrieveObjectByUrlW
+	#define CryptStringToBinary CryptStringToBinaryW
+	#define CryptBinaryToString CryptBinaryToStringW
 #else
 	type CRYPT_PASSWORD_CREDENTIALS as CRYPT_PASSWORD_CREDENTIALSA
 	type PCRYPT_PASSWORD_CREDENTIALS as PCRYPT_PASSWORD_CREDENTIALSA
+
+	#define CryptRetrieveObjectByUrl CryptRetrieveObjectByUrlA
+	#define CryptStringToBinary CryptStringToBinaryA
+	#define CryptBinaryToString CryptBinaryToStringA
 #endif
 
-#define CryptRetrieveObjectByUrl __MINGW_NAME_AW(CryptRetrieveObjectByUrl)
-#define CryptStringToBinary __MINGW_NAME_AW(CryptStringToBinary)
-#define CryptBinaryToString __MINGW_NAME_AW(CryptBinaryToString)
 #define SCHEME_OID_RETRIEVE_ENCODED_OBJECT_FUNC "SchemeDllRetrieveEncodedObject"
 #define SCHEME_OID_RETRIEVE_ENCODED_OBJECTW_FUNC "SchemeDllRetrieveEncodedObjectW"
 

@@ -1194,13 +1194,15 @@ type LPPRINTER_ENUM_VALUESW as _PRINTER_ENUM_VALUESW ptr
 	type PRINTER_ENUM_VALUES as PRINTER_ENUM_VALUESW
 	type PPRINTER_ENUM_VALUES as PPRINTER_ENUM_VALUESW
 	type LPPRINTER_ENUM_VALUES as LPPRINTER_ENUM_VALUESW
+
+	#define EnumPrinters EnumPrintersW
 #else
 	type PRINTER_ENUM_VALUES as PRINTER_ENUM_VALUESA
 	type PPRINTER_ENUM_VALUES as PPRINTER_ENUM_VALUESA
 	type LPPRINTER_ENUM_VALUES as LPPRINTER_ENUM_VALUESA
-#endif
 
-#define EnumPrinters __MINGW_NAME_AW(EnumPrinters)
+	#define EnumPrinters EnumPrintersA
+#endif
 
 declare function EnumPrintersA(byval Flags as DWORD, byval Name_ as LPSTR, byval Level as DWORD, byval pPrinterEnum as LPBYTE, byval cbBuf as DWORD, byval pcbNeeded as LPDWORD, byval pcReturned as LPDWORD) as WINBOOL
 declare function EnumPrintersW(byval Flags as DWORD, byval Name_ as LPWSTR, byval Level as DWORD, byval pPrinterEnum as LPBYTE, byval cbBuf as DWORD, byval pcbNeeded as LPDWORD, byval pcReturned as LPDWORD) as WINBOOL
@@ -1227,40 +1229,78 @@ declare function EnumPrintersW(byval Flags as DWORD, byval Name_ as LPWSTR, byva
 #define PRINTER_ENUM_HIDE &h01000000
 #define SPOOL_FILE_PERSISTENT &h00000001
 #define SPOOL_FILE_TEMPORARY &h00000002
-#define OpenPrinter __MINGW_NAME_AW(OpenPrinter)
-#define ResetPrinter __MINGW_NAME_AW(ResetPrinter)
-#define SetJob __MINGW_NAME_AW(SetJob)
-#define GetJob __MINGW_NAME_AW(GetJob)
-#define EnumJobs __MINGW_NAME_AW(EnumJobs)
-#define AddPrinter __MINGW_NAME_AW(AddPrinter)
-#define SetPrinter __MINGW_NAME_AW(SetPrinter)
-#define GetPrinter __MINGW_NAME_AW(GetPrinter)
-#define AddPrinterDriver __MINGW_NAME_AW(AddPrinterDriver)
-#define AddPrinterDriverEx __MINGW_NAME_AW(AddPrinterDriverEx)
-#define EnumPrinterDrivers __MINGW_NAME_AW(EnumPrinterDrivers)
-#define GetPrinterDriver __MINGW_NAME_AW(GetPrinterDriver)
-#define GetPrinterDriverDirectory __MINGW_NAME_AW(GetPrinterDriverDirectory)
-#define DeletePrinterDriver __MINGW_NAME_AW(DeletePrinterDriver)
-#define DeletePrinterDriverEx __MINGW_NAME_AW(DeletePrinterDriverEx)
-#define AddPrintProcessor __MINGW_NAME_AW(AddPrintProcessor)
-#define EnumPrintProcessors __MINGW_NAME_AW(EnumPrintProcessors)
-#define GetPrintProcessorDirectory __MINGW_NAME_AW(GetPrintProcessorDirectory)
-#define EnumPrintProcessorDatatypes __MINGW_NAME_AW(EnumPrintProcessorDatatypes)
-#define DeletePrintProcessor __MINGW_NAME_AW(DeletePrintProcessor)
-#define StartDocPrinter __MINGW_NAME_AW(StartDocPrinter)
-#define AddJob __MINGW_NAME_AW(AddJob)
-#define DocumentProperties __MINGW_NAME_AW(DocumentProperties)
-#define AdvancedDocumentProperties __MINGW_NAME_AW(AdvancedDocumentProperties)
-#define GetPrinterData __MINGW_NAME_AW(GetPrinterData)
-#define GetPrinterDataEx __MINGW_NAME_AW(GetPrinterDataEx)
-#define EnumPrinterData __MINGW_NAME_AW(EnumPrinterData)
-#define EnumPrinterDataEx __MINGW_NAME_AW(EnumPrinterDataEx)
-#define EnumPrinterKey __MINGW_NAME_AW(EnumPrinterKey)
-#define SetPrinterData __MINGW_NAME_AW(SetPrinterData)
-#define SetPrinterDataEx __MINGW_NAME_AW(SetPrinterDataEx)
-#define DeletePrinterData __MINGW_NAME_AW(DeletePrinterData)
-#define DeletePrinterDataEx __MINGW_NAME_AW(DeletePrinterDataEx)
-#define DeletePrinterKey __MINGW_NAME_AW(DeletePrinterKey)
+
+#ifdef UNICODE
+	#define OpenPrinter OpenPrinterW
+	#define ResetPrinter ResetPrinterW
+	#define SetJob SetJobW
+	#define GetJob GetJobW
+	#define EnumJobs EnumJobsW
+	#define AddPrinter AddPrinterW
+	#define SetPrinter SetPrinterW
+	#define GetPrinter GetPrinterW
+	#define AddPrinterDriver AddPrinterDriverW
+	#define AddPrinterDriverEx AddPrinterDriverExW
+	#define EnumPrinterDrivers EnumPrinterDriversW
+	#define GetPrinterDriver GetPrinterDriverW
+	#define GetPrinterDriverDirectory GetPrinterDriverDirectoryW
+	#define DeletePrinterDriver DeletePrinterDriverW
+	#define DeletePrinterDriverEx DeletePrinterDriverExW
+	#define AddPrintProcessor AddPrintProcessorW
+	#define EnumPrintProcessors EnumPrintProcessorsW
+	#define GetPrintProcessorDirectory GetPrintProcessorDirectoryW
+	#define EnumPrintProcessorDatatypes EnumPrintProcessorDatatypesW
+	#define DeletePrintProcessor DeletePrintProcessorW
+	#define StartDocPrinter StartDocPrinterW
+	#define AddJob AddJobW
+	#define DocumentProperties DocumentPropertiesW
+	#define AdvancedDocumentProperties AdvancedDocumentPropertiesW
+	#define GetPrinterData GetPrinterDataW
+	#define GetPrinterDataEx GetPrinterDataExW
+	#define EnumPrinterData EnumPrinterDataW
+	#define EnumPrinterDataEx EnumPrinterDataExW
+	#define EnumPrinterKey EnumPrinterKeyW
+	#define SetPrinterData SetPrinterDataW
+	#define SetPrinterDataEx SetPrinterDataExW
+	#define DeletePrinterData DeletePrinterDataW
+	#define DeletePrinterDataEx DeletePrinterDataExW
+	#define DeletePrinterKey DeletePrinterKeyW
+#else
+	#define OpenPrinter OpenPrinterA
+	#define ResetPrinter ResetPrinterA
+	#define SetJob SetJobA
+	#define GetJob GetJobA
+	#define EnumJobs EnumJobsA
+	#define AddPrinter AddPrinterA
+	#define SetPrinter SetPrinterA
+	#define GetPrinter GetPrinterA
+	#define AddPrinterDriver AddPrinterDriverA
+	#define AddPrinterDriverEx AddPrinterDriverExA
+	#define EnumPrinterDrivers EnumPrinterDriversA
+	#define GetPrinterDriver GetPrinterDriverA
+	#define GetPrinterDriverDirectory GetPrinterDriverDirectoryA
+	#define DeletePrinterDriver DeletePrinterDriverA
+	#define DeletePrinterDriverEx DeletePrinterDriverExA
+	#define AddPrintProcessor AddPrintProcessorA
+	#define EnumPrintProcessors EnumPrintProcessorsA
+	#define GetPrintProcessorDirectory GetPrintProcessorDirectoryA
+	#define EnumPrintProcessorDatatypes EnumPrintProcessorDatatypesA
+	#define DeletePrintProcessor DeletePrintProcessorA
+	#define StartDocPrinter StartDocPrinterA
+	#define AddJob AddJobA
+	#define DocumentProperties DocumentPropertiesA
+	#define AdvancedDocumentProperties AdvancedDocumentPropertiesA
+	#define GetPrinterData GetPrinterDataA
+	#define GetPrinterDataEx GetPrinterDataExA
+	#define EnumPrinterData EnumPrinterDataA
+	#define EnumPrinterDataEx EnumPrinterDataExA
+	#define EnumPrinterKey EnumPrinterKeyA
+	#define SetPrinterData SetPrinterDataA
+	#define SetPrinterDataEx SetPrinterDataExA
+	#define DeletePrinterData DeletePrinterDataA
+	#define DeletePrinterDataEx DeletePrinterDataExA
+	#define DeletePrinterKey DeletePrinterKeyA
+#endif
 
 declare function OpenPrinterA(byval pPrinterName as LPSTR, byval phPrinter as LPHANDLE, byval pDefault as LPPRINTER_DEFAULTSA) as WINBOOL
 declare function OpenPrinterW(byval pPrinterName as LPWSTR, byval phPrinter as LPHANDLE, byval pDefault as LPPRINTER_DEFAULTSW) as WINBOOL
@@ -1586,24 +1626,46 @@ declare function FindClosePrinterChangeNotification(byval hChange as HANDLE) as 
 #define PRINTER_CHANGE_PRINTER_DRIVER &h70000000
 #define PRINTER_CHANGE_TIMEOUT &h80000000
 #define PRINTER_CHANGE_ALL &h7777FFFF
-#define PrinterMessageBox __MINGW_NAME_AW(PrinterMessageBox)
-#define AddForm __MINGW_NAME_AW(AddForm)
-#define DeleteForm __MINGW_NAME_AW(DeleteForm)
-#define GetForm __MINGW_NAME_AW(GetForm)
-#define SetForm __MINGW_NAME_AW(SetForm)
-#define EnumForms __MINGW_NAME_AW(EnumForms)
-#define EnumMonitors __MINGW_NAME_AW(EnumMonitors)
-#define AddMonitor __MINGW_NAME_AW(AddMonitor)
-#define DeleteMonitor __MINGW_NAME_AW(DeleteMonitor)
-#define EnumPorts __MINGW_NAME_AW(EnumPorts)
-#define AddPort __MINGW_NAME_AW(AddPort)
-#define ConfigurePort __MINGW_NAME_AW(ConfigurePort)
-#define DeletePort __MINGW_NAME_AW(DeletePort)
-#define GetDefaultPrinter __MINGW_NAME_AW(GetDefaultPrinter)
-#define SetDefaultPrinter __MINGW_NAME_AW(SetDefaultPrinter)
-#define SetPort __MINGW_NAME_AW(SetPort)
-#define AddPrinterConnection __MINGW_NAME_AW(AddPrinterConnection)
-#define DeletePrinterConnection __MINGW_NAME_AW(DeletePrinterConnection)
+
+#ifdef UNICODE
+	#define PrinterMessageBox PrinterMessageBoxW
+	#define AddForm AddFormW
+	#define DeleteForm DeleteFormW
+	#define GetForm GetFormW
+	#define SetForm SetFormW
+	#define EnumForms EnumFormsW
+	#define EnumMonitors EnumMonitorsW
+	#define AddMonitor AddMonitorW
+	#define DeleteMonitor DeleteMonitorW
+	#define EnumPorts EnumPortsW
+	#define AddPort AddPortW
+	#define ConfigurePort ConfigurePortW
+	#define DeletePort DeletePortW
+	#define GetDefaultPrinter GetDefaultPrinterW
+	#define SetDefaultPrinter SetDefaultPrinterW
+	#define SetPort SetPortW
+	#define AddPrinterConnection AddPrinterConnectionW
+	#define DeletePrinterConnection DeletePrinterConnectionW
+#else
+	#define PrinterMessageBox PrinterMessageBoxA
+	#define AddForm AddFormA
+	#define DeleteForm DeleteFormA
+	#define GetForm GetFormA
+	#define SetForm SetFormA
+	#define EnumForms EnumFormsA
+	#define EnumMonitors EnumMonitorsA
+	#define AddMonitor AddMonitorA
+	#define DeleteMonitor DeleteMonitorA
+	#define EnumPorts EnumPortsA
+	#define AddPort AddPortA
+	#define ConfigurePort ConfigurePortA
+	#define DeletePort DeletePortA
+	#define GetDefaultPrinter GetDefaultPrinterA
+	#define SetDefaultPrinter SetDefaultPrinterA
+	#define SetPort SetPortA
+	#define AddPrinterConnection AddPrinterConnectionA
+	#define DeletePrinterConnection DeletePrinterConnectionA
+#endif
 
 declare function PrinterMessageBoxA(byval hPrinter as HANDLE, byval Error__ as DWORD, byval hWnd as HWND, byval pText as LPSTR, byval pCaption as LPSTR, byval dwType as DWORD) as DWORD
 declare function PrinterMessageBoxW(byval hPrinter as HANDLE, byval Error__ as DWORD, byval hWnd as HWND, byval pText as LPWSTR, byval pCaption as LPWSTR, byval dwType as DWORD) as DWORD
@@ -1706,15 +1768,19 @@ type LPPROVIDOR_INFO_2W as _PROVIDOR_INFO_2W ptr
 	type PROVIDOR_INFO_2 as PROVIDOR_INFO_2W
 	type PPROVIDOR_INFO_2 as PPROVIDOR_INFO_2W
 	type LPPROVIDOR_INFO_2 as LPPROVIDOR_INFO_2W
+
+	#define AddPrintProvidor AddPrintProvidorW
+	#define DeletePrintProvidor DeletePrintProvidorW
+	#define IsValidDevmode IsValidDevmodeW
 #else
 	type PROVIDOR_INFO_2 as PROVIDOR_INFO_2A
 	type PPROVIDOR_INFO_2 as PPROVIDOR_INFO_2A
 	type LPPROVIDOR_INFO_2 as LPPROVIDOR_INFO_2A
-#endif
 
-#define AddPrintProvidor __MINGW_NAME_AW(AddPrintProvidor)
-#define DeletePrintProvidor __MINGW_NAME_AW(DeletePrintProvidor)
-#define IsValidDevmode __MINGW_NAME_AW(IsValidDevmode)
+	#define AddPrintProvidor AddPrintProvidorA
+	#define DeletePrintProvidor DeletePrintProvidorA
+	#define IsValidDevmode IsValidDevmodeA
+#endif
 
 declare function AddPrintProvidorA(byval pName as LPSTR, byval level as DWORD, byval pProvidorInfo as LPBYTE) as WINBOOL
 declare function AddPrintProvidorW(byval pName as LPWSTR, byval level as DWORD, byval pProvidorInfo as LPBYTE) as WINBOOL
@@ -1818,10 +1884,17 @@ declare function IsValidDevmodeW(byval pDevmode as PDEVMODEW, byval DevmodeSize 
 #define SPLDS_PRINTER_LOCATIONS TEXT("printerLocations")
 #define SPLDS_PRINTER_MODEL TEXT("printerModel")
 
+#if defined(UNICODE) and (_WIN32_WINNT = &h0602)
+	#define AddPrinterConnection2 AddPrinterConnection2W
+	#define DeletePrinterDriverPackage DeletePrinterDriverPackageW
+	#define DocumentEvent DocumentEventW
+#elseif (not defined(UNICODE)) and (_WIN32_WINNT = &h0602)
+	#define AddPrinterConnection2 AddPrinterConnection2A
+	#define DeletePrinterDriverPackage DeletePrinterDriverPackageA
+	#define DocumentEvent DocumentEventA
+#endif
+
 #if _WIN32_WINNT = &h0602
-	#define AddPrinterConnection2 __MINGW_NAME_AW(AddPrinterConnection2)
-	#define DeletePrinterDriverPackage __MINGW_NAME_AW(DeletePrinterDriverPackage)
-	#define DocumentEvent __MINGW_NAME_AW(DocumentEvent)
 	#define PRINTER_CONNECTION_MISMATCH &h00000020
 	#define PRINTER_CONNECTION_NO_UI &h00000040
 
@@ -2034,17 +2107,22 @@ declare function IsValidDevmodeW(byval pDevmode as PDEVMODEW, byval DevmodeSize 
 #if defined(UNICODE) and (_WIN32_WINNT = &h0602)
 	type CORE_PRINTER_DRIVER as CORE_PRINTER_DRIVERW
 	type PCORE_PRINTER_DRIVER as PCORE_PRINTER_DRIVERW
+
+	#define GetCorePrinterDrivers GetCorePrinterDriversW
+	#define GetPrinterDriver2 GetPrinterDriver2W
+	#define GetPrinterDriverPackagePath GetPrinterDriverPackagePathW
+	#define GetSpoolFileHandle GetSpoolFileHandleW
 #elseif (not defined(UNICODE)) and (_WIN32_WINNT = &h0602)
 	type CORE_PRINTER_DRIVER as CORE_PRINTER_DRIVERA
 	type PCORE_PRINTER_DRIVER as PCORE_PRINTER_DRIVERA
+
+	#define GetCorePrinterDrivers GetCorePrinterDriversA
+	#define GetPrinterDriver2 GetPrinterDriver2A
+	#define GetPrinterDriverPackagePath GetPrinterDriverPackagePathA
+	#define GetSpoolFileHandle GetSpoolFileHandleA
 #endif
 
 #if _WIN32_WINNT = &h0602
-	#define GetCorePrinterDrivers __MINGW_NAME_AW(GetCorePrinterDrivers)
-	#define GetPrinterDriver2 __MINGW_NAME_AW(GetPrinterDriver2)
-	#define GetPrinterDriverPackagePath __MINGW_NAME_AW(GetPrinterDriverPackagePath)
-	#define GetSpoolFileHandle __MINGW_NAME_AW(GetSpoolFileHandle)
-
 	declare function GetCorePrinterDriversA(byval pszServer as LPCSTR, byval pszEnvironment as LPCSTR, byval pszzCoreDriverDependencies as LPCSTR, byval cCorePrinterDrivers as DWORD, byval pCorePrinterDrivers as PCORE_PRINTER_DRIVERA) as HRESULT
 	declare function GetCorePrinterDriversW(byval pszServer as LPCWSTR, byval pszEnvironment as LPCWSTR, byval pszzCoreDriverDependencies as LPCWSTR, byval cCorePrinterDrivers as DWORD, byval pCorePrinterDrivers as PCORE_PRINTER_DRIVERW) as HRESULT
 	declare function GetPrinterDriver2A(byval hWnd as HWND, byval hPrinter as HANDLE, byval pEnvironment as LPSTR, byval Level as DWORD, byval pDriverInfo as LPBYTE, byval cbBuf as DWORD, byval pcbNeeded as LPDWORD) as WINBOOL
@@ -2057,13 +2135,23 @@ declare function IsValidDevmodeW(byval pDevmode as PDEVMODEW, byval DevmodeSize 
 	declare function CloseSpoolFileHandle(byval hPrinter as HANDLE, byval hSpoolFile as HANDLE) as WINBOOL
 	declare function OpenPrinter2A(byval pPrinterName as LPCSTR, byval phPrinter as LPHANDLE, byval pDefault as LPPRINTER_DEFAULTS, byval pOptions as PPRINTER_OPTIONS) as WINBOOL
 	declare function OpenPrinter2W(byval pPrinterName as LPCWSTR, byval phPrinter as LPHANDLE, byval pDefault as LPPRINTER_DEFAULTS, byval pOptions as PPRINTER_OPTIONS) as WINBOOL
+#endif
 
-	#define OpenPrinter2 __MINGW_NAME_AW(OpenPrinter2)
+#if defined(UNICODE) and (_WIN32_WINNT = &h0602)
+	#define OpenPrinter2 OpenPrinter2W
+#elseif (not defined(UNICODE)) and (_WIN32_WINNT = &h0602)
+	#define OpenPrinter2 OpenPrinter2A
+#endif
 
+#if _WIN32_WINNT = &h0602
 	declare function UploadPrinterDriverPackageA(byval pszServer as LPCSTR, byval pszInfPath as LPCSTR, byval pszEnvironment as LPCSTR, byval dwFlags as DWORD, byval hwnd as HWND, byval pszDestInfPath as LPSTR, byval pcchDestInfPath as PULONG) as HRESULT
 	declare function UploadPrinterDriverPackageW(byval pszServer as LPCWSTR, byval pszInfPath as LPCWSTR, byval pszEnvironment as LPCWSTR, byval dwFlags as DWORD, byval hwnd as HWND, byval pszDestInfPath as LPWSTR, byval pcchDestInfPath as PULONG) as HRESULT
+#endif
 
-	#define UploadPrinterDriverPackage __MINGW_NAME_AW(UploadPrinterDriverPackage)
+#if defined(UNICODE) and (_WIN32_WINNT = &h0602)
+	#define UploadPrinterDriverPackage UploadPrinterDriverPackageW
+#elseif (not defined(UNICODE)) and (_WIN32_WINNT = &h0602)
+	#define UploadPrinterDriverPackage UploadPrinterDriverPackageA
 #endif
 
 end extern

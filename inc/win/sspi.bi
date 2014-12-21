@@ -78,8 +78,14 @@ end type
 type SecPkgInfoA as _SecPkgInfoA
 type PSecPkgInfoA as _SecPkgInfoA ptr
 
-#define SecPkgInfo __MINGW_NAME_AW(SecPkgInfo)
-#define PSecPkgInfo __MINGW_NAME_AW(PSecPkgInfo)
+#ifdef UNICODE
+	#define SecPkgInfo SecPkgInfoW
+	#define PSecPkgInfo PSecPkgInfoW
+#else
+	#define SecPkgInfo SecPkgInfoA
+	#define PSecPkgInfo PSecPkgInfoA
+#endif
+
 #define SECPKG_FLAG_INTEGRITY &h00000001
 #define SECPKG_FLAG_PRIVACY &h00000002
 #define SECPKG_FLAG_TOKEN_ONLY &h00000004
@@ -276,8 +282,13 @@ end type
 type SecPkgCredentials_NamesA as _SecPkgCredentials_NamesA
 type PSecPkgCredentials_NamesA as _SecPkgCredentials_NamesA ptr
 
-#define SecPkgCredentials_Names __MINGW_NAME_AW(SecPkgCredentials_Names)
-#define PSecPkgCredentials_Names __MINGW_NAME_AW(PSecPkgCredentials_Names)
+#ifdef UNICODE
+	#define SecPkgCredentials_Names SecPkgCredentials_NamesW
+	#define PSecPkgCredentials_Names PSecPkgCredentials_NamesW
+#else
+	#define SecPkgCredentials_Names SecPkgCredentials_NamesA
+	#define PSecPkgCredentials_Names PSecPkgCredentials_NamesA
+#endif
 
 type _SecPkgCredentials_SSIProviderW
 	sProviderName as SEC_WCHAR ptr
@@ -297,8 +308,14 @@ end type
 type SecPkgCredentials_SSIProviderA as _SecPkgCredentials_SSIProviderA
 type PSecPkgCredentials_SSIProviderA as _SecPkgCredentials_SSIProviderA ptr
 
-#define SecPkgCredentials_SSIProvider __MINGW_NAME_AW(SecPkgCredentials_SSIProvider)
-#define PSecPkgCredentials_SSIProvider __MINGW_NAME_AW(PSecPkgCredentials_SSIProvider)
+#ifdef UNICODE
+	#define SecPkgCredentials_SSIProvider SecPkgCredentials_SSIProviderW
+	#define PSecPkgCredentials_SSIProvider PSecPkgCredentials_SSIProviderW
+#else
+	#define SecPkgCredentials_SSIProvider SecPkgCredentials_SSIProviderA
+	#define PSecPkgCredentials_SSIProvider PSecPkgCredentials_SSIProviderA
+#endif
+
 #define SECPKG_ATTR_SIZES 0
 #define SECPKG_ATTR_NAMES 1
 #define SECPKG_ATTR_LIFESPAN 2
@@ -357,8 +374,13 @@ end type
 type SecPkgContext_NamesA as _SecPkgContext_NamesA
 type PSecPkgContext_NamesA as _SecPkgContext_NamesA ptr
 
-#define SecPkgContext_Names __MINGW_NAME_AW(SecPkgContext_Names)
-#define PSecPkgContext_Names __MINGW_NAME_AW(PSecPkgContext_Names)
+#ifdef UNICODE
+	#define SecPkgContext_Names SecPkgContext_NamesW
+	#define PSecPkgContext_Names PSecPkgContext_NamesW
+#else
+	#define SecPkgContext_Names SecPkgContext_NamesA
+	#define PSecPkgContext_Names PSecPkgContext_NamesA
+#endif
 
 type _SecPkgContext_Lifespan
 	tsStart as TimeStamp
@@ -398,8 +420,13 @@ end type
 type SecPkgContext_KeyInfoW as _SecPkgContext_KeyInfoW
 type PSecPkgContext_KeyInfoW as _SecPkgContext_KeyInfoW ptr
 
-#define SecPkgContext_KeyInfo __MINGW_NAME_AW(SecPkgContext_KeyInfo)
-#define PSecPkgContext_KeyInfo __MINGW_NAME_AW(PSecPkgContext_KeyInfo)
+#ifdef UNICODE
+	#define SecPkgContext_KeyInfo SecPkgContext_KeyInfoW
+	#define PSecPkgContext_KeyInfo PSecPkgContext_KeyInfoW
+#else
+	#define SecPkgContext_KeyInfo SecPkgContext_KeyInfoA
+	#define PSecPkgContext_KeyInfo PSecPkgContext_KeyInfoA
+#endif
 
 type _SecPkgContext_AuthorityA
 	sAuthorityName as SEC_CHAR ptr
@@ -415,8 +442,13 @@ end type
 type SecPkgContext_AuthorityW as _SecPkgContext_AuthorityW
 type PSecPkgContext_AuthorityW as _SecPkgContext_AuthorityW ptr
 
-#define SecPkgContext_Authority __MINGW_NAME_AW(SecPkgContext_Authority)
-#define PSecPkgContext_Authority __MINGW_NAME_AW(PSecPkgContext_Authority)
+#ifdef UNICODE
+	#define SecPkgContext_Authority SecPkgContext_AuthorityW
+	#define PSecPkgContext_Authority PSecPkgContext_AuthorityW
+#else
+	#define SecPkgContext_Authority SecPkgContext_AuthorityA
+	#define PSecPkgContext_Authority PSecPkgContext_AuthorityA
+#endif
 
 type _SecPkgContext_ProtoInfoA
 	sProtocolName as SEC_CHAR ptr
@@ -436,8 +468,13 @@ end type
 type SecPkgContext_ProtoInfoW as _SecPkgContext_ProtoInfoW
 type PSecPkgContext_ProtoInfoW as _SecPkgContext_ProtoInfoW ptr
 
-#define SecPkgContext_ProtoInfo __MINGW_NAME_AW(SecPkgContext_ProtoInfo)
-#define PSecPkgContext_ProtoInfo __MINGW_NAME_AW(PSecPkgContext_ProtoInfo)
+#ifdef UNICODE
+	#define SecPkgContext_ProtoInfo SecPkgContext_ProtoInfoW
+	#define PSecPkgContext_ProtoInfo PSecPkgContext_ProtoInfoW
+#else
+	#define SecPkgContext_ProtoInfo SecPkgContext_ProtoInfoA
+	#define PSecPkgContext_ProtoInfo PSecPkgContext_ProtoInfoA
+#endif
 
 type _SecPkgContext_PasswordExpiry
 	tsPasswordExpires as TimeStamp
@@ -489,8 +526,13 @@ end type
 type SecPkgContext_Flags as _SecPkgContext_Flags
 type PSecPkgContext_Flags as _SecPkgContext_Flags ptr
 
-#define SecPkgContext_PackageInfo __MINGW_NAME_AW(SecPkgContext_PackageInfo)
-#define PSecPkgContext_PackageInfo __MINGW_NAME_AW(PSecPkgContext_PackageInfo)
+#ifdef UNICODE
+	#define SecPkgContext_PackageInfo SecPkgContext_PackageInfoW
+	#define PSecPkgContext_PackageInfo PSecPkgContext_PackageInfoW
+#else
+	#define SecPkgContext_PackageInfo SecPkgContext_PackageInfoA
+	#define PSecPkgContext_PackageInfo PSecPkgContext_PackageInfoA
+#endif
 
 type _SecPkgContext_NegotiationInfoA
 	PackageInfo as PSecPkgInfoA
@@ -508,8 +550,14 @@ end type
 type SecPkgContext_NegotiationInfoW as _SecPkgContext_NegotiationInfoW
 type PSecPkgContext_NegotiationInfoW as _SecPkgContext_NegotiationInfoW ptr
 
-#define SecPkgContext_NegotiationInfo __MINGW_NAME_AW(SecPkgContext_NegotiationInfo)
-#define PSecPkgContext_NegotiationInfo __MINGW_NAME_AW(PSecPkgContext_NegotiationInfo)
+#ifdef UNICODE
+	#define SecPkgContext_NegotiationInfo SecPkgContext_NegotiationInfoW
+	#define PSecPkgContext_NegotiationInfo PSecPkgContext_NegotiationInfoW
+#else
+	#define SecPkgContext_NegotiationInfo SecPkgContext_NegotiationInfoA
+	#define PSecPkgContext_NegotiationInfo PSecPkgContext_NegotiationInfoA
+#endif
+
 #define SECPKG_NEGOTIATION_COMPLETE 0
 #define SECPKG_NEGOTIATION_OPTIMISTIC 1
 #define SECPKG_NEGOTIATION_IN_PROGRESS 2
@@ -532,8 +580,13 @@ end type
 type SecPkgContext_NativeNamesA as _SecPkgContext_NativeNamesA
 type PSecPkgContext_NativeNamesA as _SecPkgContext_NativeNamesA ptr
 
-#define SecPkgContext_NativeNames __MINGW_NAME_AW(SecPkgContext_NativeNames)
-#define PSecPkgContext_NativeNames __MINGW_NAME_AW(PSecPkgContext_NativeNames)
+#ifdef UNICODE
+	#define SecPkgContext_NativeNames SecPkgContext_NativeNamesW
+	#define PSecPkgContext_NativeNames PSecPkgContext_NativeNamesW
+#else
+	#define SecPkgContext_NativeNames SecPkgContext_NativeNamesA
+	#define PSecPkgContext_NativeNames PSecPkgContext_NativeNamesA
+#endif
 
 type _SecPkgContext_CredentialNameW
 	CredentialType as ulong
@@ -551,8 +604,13 @@ end type
 type SecPkgContext_CredentialNameA as _SecPkgContext_CredentialNameA
 type PSecPkgContext_CredentialNameA as _SecPkgContext_CredentialNameA ptr
 
-#define SecPkgContext_CredentialName __MINGW_NAME_AW(SecPkgContext_CredentialName)
-#define PSecPkgContext_CredentialName __MINGW_NAME_AW(PSecPkgContext_CredentialName)
+#ifdef UNICODE
+	#define SecPkgContext_CredentialName SecPkgContext_CredentialNameW
+	#define PSecPkgContext_CredentialName PSecPkgContext_CredentialNameW
+#else
+	#define SecPkgContext_CredentialName SecPkgContext_CredentialNameA
+	#define PSecPkgContext_CredentialName PSecPkgContext_CredentialNameA
+#endif
 
 type _SecPkgContext_AccessToken
 	AccessToken as any ptr
@@ -598,8 +656,13 @@ declare function AcquireCredentialsHandleA(byval pszPrincipal as SEC_CHAR ptr, b
 
 type ACQUIRE_CREDENTIALS_HANDLE_FN_A as function(byval as SEC_CHAR ptr, byval as SEC_CHAR ptr, byval as ulong, byval as any ptr, byval as any ptr, byval as SEC_GET_KEY_FN, byval as any ptr, byval as PCredHandle, byval as PTimeStamp) as SECURITY_STATUS
 
-#define AcquireCredentialsHandle __MINGW_NAME_AW(AcquireCredentialsHandle)
-#define ACQUIRE_CREDENTIALS_HANDLE_FN __MINGW_NAME_UAW(ACQUIRE_CREDENTIALS_HANDLE_FN)
+#ifdef UNICODE
+	#define AcquireCredentialsHandle AcquireCredentialsHandleW
+	#define ACQUIRE_CREDENTIALS_HANDLE_FN ACQUIRE_CREDENTIALS_HANDLE_FN_W
+#else
+	#define AcquireCredentialsHandle AcquireCredentialsHandleA
+	#define ACQUIRE_CREDENTIALS_HANDLE_FN ACQUIRE_CREDENTIALS_HANDLE_FN_A
+#endif
 
 declare function FreeCredentialsHandle(byval phCredential as PCredHandle) as SECURITY_STATUS
 
@@ -613,8 +676,13 @@ declare function AddCredentialsA(byval hCredentials as PCredHandle, byval pszPri
 
 type ADD_CREDENTIALS_FN_A as function(byval as PCredHandle, byval as SEC_CHAR ptr, byval as SEC_CHAR ptr, byval as ulong, byval as any ptr, byval as SEC_GET_KEY_FN, byval as any ptr, byval as PTimeStamp) as SECURITY_STATUS
 
-#define AddCredentials __MINGW_NAME_AW(AddCredentials)
-#define ADD_CREDENTIALS_FN __MINGW_NAME_UAW(ADD_CREDENTIALS_FN)
+#ifdef UNICODE
+	#define AddCredentials AddCredentialsW
+	#define ADD_CREDENTIALS_FN ADD_CREDENTIALS_FN_W
+#else
+	#define AddCredentials AddCredentialsA
+	#define ADD_CREDENTIALS_FN ADD_CREDENTIALS_FN_A
+#endif
 
 declare function InitializeSecurityContextW(byval phCredential as PCredHandle, byval phContext as PCtxtHandle, byval pszTargetName as SEC_WCHAR ptr, byval fContextReq as ulong, byval Reserved1 as ulong, byval TargetDataRep as ulong, byval pInput as PSecBufferDesc, byval Reserved2 as ulong, byval phNewContext as PCtxtHandle, byval pOutput as PSecBufferDesc, byval pfContextAttr as ulong ptr, byval ptsExpiry as PTimeStamp) as SECURITY_STATUS
 
@@ -624,8 +692,13 @@ declare function InitializeSecurityContextA(byval phCredential as PCredHandle, b
 
 type INITIALIZE_SECURITY_CONTEXT_FN_A as function(byval as PCredHandle, byval as PCtxtHandle, byval as SEC_CHAR ptr, byval as ulong, byval as ulong, byval as ulong, byval as PSecBufferDesc, byval as ulong, byval as PCtxtHandle, byval as PSecBufferDesc, byval as ulong ptr, byval as PTimeStamp) as SECURITY_STATUS
 
-#define InitializeSecurityContext __MINGW_NAME_AW(InitializeSecurityContext)
-#define INITIALIZE_SECURITY_CONTEXT_FN __MINGW_NAME_UAW(INITIALIZE_SECURITY_CONTEXT_FN)
+#ifdef UNICODE
+	#define InitializeSecurityContext InitializeSecurityContextW
+	#define INITIALIZE_SECURITY_CONTEXT_FN INITIALIZE_SECURITY_CONTEXT_FN_W
+#else
+	#define InitializeSecurityContext InitializeSecurityContextA
+	#define INITIALIZE_SECURITY_CONTEXT_FN INITIALIZE_SECURITY_CONTEXT_FN_A
+#endif
 
 declare function AcceptSecurityContext(byval phCredential as PCredHandle, byval phContext as PCtxtHandle, byval pInput as PSecBufferDesc, byval fContextReq as ulong, byval TargetDataRep as ulong, byval phNewContext as PCtxtHandle, byval pOutput as PSecBufferDesc, byval pfContextAttr as ulong ptr, byval ptsExpiry as PTimeStamp) as SECURITY_STATUS
 
@@ -663,8 +736,13 @@ declare function QueryContextAttributesA(byval phContext as PCtxtHandle, byval u
 
 type QUERY_CONTEXT_ATTRIBUTES_FN_A as function(byval as PCtxtHandle, byval as ulong, byval as any ptr) as SECURITY_STATUS
 
-#define QueryContextAttributes __MINGW_NAME_AW(QueryContextAttributes)
-#define QUERY_CONTEXT_ATTRIBUTES_FN __MINGW_NAME_UAW(QUERY_CONTEXT_ATTRIBUTES_FN)
+#ifdef UNICODE
+	#define QueryContextAttributes QueryContextAttributesW
+	#define QUERY_CONTEXT_ATTRIBUTES_FN QUERY_CONTEXT_ATTRIBUTES_FN_W
+#else
+	#define QueryContextAttributes QueryContextAttributesA
+	#define QUERY_CONTEXT_ATTRIBUTES_FN QUERY_CONTEXT_ATTRIBUTES_FN_A
+#endif
 
 declare function SetContextAttributesW(byval phContext as PCtxtHandle, byval ulAttribute as ulong, byval pBuffer as any ptr, byval cbBuffer as ulong) as SECURITY_STATUS
 
@@ -674,8 +752,13 @@ declare function SetContextAttributesA(byval phContext as PCtxtHandle, byval ulA
 
 type SET_CONTEXT_ATTRIBUTES_FN_A as function(byval as PCtxtHandle, byval as ulong, byval as any ptr, byval as ulong) as SECURITY_STATUS
 
-#define SetContextAttributes __MINGW_NAME_AW(SetContextAttributes)
-#define SET_CONTEXT_ATTRIBUTES_FN __MINGW_NAME_UAW(SET_CONTEXT_ATTRIBUTES_FN)
+#ifdef UNICODE
+	#define SetContextAttributes SetContextAttributesW
+	#define SET_CONTEXT_ATTRIBUTES_FN SET_CONTEXT_ATTRIBUTES_FN_W
+#else
+	#define SetContextAttributes SetContextAttributesA
+	#define SET_CONTEXT_ATTRIBUTES_FN SET_CONTEXT_ATTRIBUTES_FN_A
+#endif
 
 declare function QueryCredentialsAttributesW(byval phCredential as PCredHandle, byval ulAttribute as ulong, byval pBuffer as any ptr) as SECURITY_STATUS
 
@@ -685,8 +768,13 @@ declare function QueryCredentialsAttributesA(byval phCredential as PCredHandle, 
 
 type QUERY_CREDENTIALS_ATTRIBUTES_FN_A as function(byval as PCredHandle, byval as ulong, byval as any ptr) as SECURITY_STATUS
 
-#define QueryCredentialsAttributes __MINGW_NAME_AW(QueryCredentialsAttributes)
-#define QUERY_CREDENTIALS_ATTRIBUTES_FN __MINGW_NAME_UAW(QUERY_CREDENTIALS_ATTRIBUTES_FN)
+#ifdef UNICODE
+	#define QueryCredentialsAttributes QueryCredentialsAttributesW
+	#define QUERY_CREDENTIALS_ATTRIBUTES_FN QUERY_CREDENTIALS_ATTRIBUTES_FN_W
+#else
+	#define QueryCredentialsAttributes QueryCredentialsAttributesA
+	#define QUERY_CREDENTIALS_ATTRIBUTES_FN QUERY_CREDENTIALS_ATTRIBUTES_FN_A
+#endif
 
 declare function SetCredentialsAttributesW(byval phCredential as PCredHandle, byval ulAttribute as ulong, byval pBuffer as any ptr, byval cbBuffer as ulong) as SECURITY_STATUS
 
@@ -696,8 +784,13 @@ declare function SetCredentialsAttributesA(byval phCredential as PCredHandle, by
 
 type SET_CREDENTIALS_ATTRIBUTES_FN_A as function(byval as PCredHandle, byval as ulong, byval as any ptr, byval as ulong) as SECURITY_STATUS
 
-#define SetCredentialsAttributes __MINGW_NAME_AW(SetCredentialsAttributes)
-#define SET_CREDENTIALS_ATTRIBUTES_FN __MINGW_NAME_UAW(SET_CREDENTIALS_ATTRIBUTES_FN)
+#ifdef UNICODE
+	#define SetCredentialsAttributes SetCredentialsAttributesW
+	#define SET_CREDENTIALS_ATTRIBUTES_FN SET_CREDENTIALS_ATTRIBUTES_FN_W
+#else
+	#define SetCredentialsAttributes SetCredentialsAttributesA
+	#define SET_CREDENTIALS_ATTRIBUTES_FN SET_CREDENTIALS_ATTRIBUTES_FN_A
+#endif
 
 declare function FreeContextBuffer(byval pvContextBuffer as any ptr) as SECURITY_STATUS
 
@@ -730,8 +823,13 @@ declare function EnumerateSecurityPackagesA(byval pcPackages as ulong ptr, byval
 
 type ENUMERATE_SECURITY_PACKAGES_FN_A as function(byval as ulong ptr, byval as PSecPkgInfoA ptr) as SECURITY_STATUS
 
-#define EnumerateSecurityPackages __MINGW_NAME_AW(EnumerateSecurityPackages)
-#define ENUMERATE_SECURITY_PACKAGES_FN __MINGW_NAME_UAW(ENUMERATE_SECURITY_PACKAGES_FN)
+#ifdef UNICODE
+	#define EnumerateSecurityPackages EnumerateSecurityPackagesW
+	#define ENUMERATE_SECURITY_PACKAGES_FN ENUMERATE_SECURITY_PACKAGES_FN_W
+#else
+	#define EnumerateSecurityPackages EnumerateSecurityPackagesA
+	#define ENUMERATE_SECURITY_PACKAGES_FN ENUMERATE_SECURITY_PACKAGES_FN_A
+#endif
 
 declare function QuerySecurityPackageInfoW(byval pszPackageName as SEC_WCHAR ptr, byval ppPackageInfo as PSecPkgInfoW ptr) as SECURITY_STATUS
 
@@ -741,8 +839,13 @@ declare function QuerySecurityPackageInfoA(byval pszPackageName as SEC_CHAR ptr,
 
 type QUERY_SECURITY_PACKAGE_INFO_FN_A as function(byval as SEC_CHAR ptr, byval as PSecPkgInfoA ptr) as SECURITY_STATUS
 
-#define QuerySecurityPackageInfo __MINGW_NAME_AW(QuerySecurityPackageInfo)
-#define QUERY_SECURITY_PACKAGE_INFO_FN __MINGW_NAME_UAW(QUERY_SECURITY_PACKAGE_INFO_FN)
+#ifdef UNICODE
+	#define QuerySecurityPackageInfo QuerySecurityPackageInfoW
+	#define QUERY_SECURITY_PACKAGE_INFO_FN QUERY_SECURITY_PACKAGE_INFO_FN_W
+#else
+	#define QuerySecurityPackageInfo QuerySecurityPackageInfoA
+	#define QUERY_SECURITY_PACKAGE_INFO_FN QUERY_SECURITY_PACKAGE_INFO_FN_A
+#endif
 
 type _SecDelegationType as long
 enum
@@ -769,15 +872,28 @@ declare function ImportSecurityContextA(byval pszPackage as SEC_CHAR ptr, byval 
 
 type IMPORT_SECURITY_CONTEXT_FN_A as function(byval as SEC_CHAR ptr, byval as PSecBuffer, byval as any ptr, byval as PCtxtHandle) as SECURITY_STATUS
 
-#define ImportSecurityContext __MINGW_NAME_AW(ImportSecurityContext)
-#define IMPORT_SECURITY_CONTEXT_FN __MINGW_NAME_UAW(IMPORT_SECURITY_CONTEXT_FN)
+#ifdef UNICODE
+	#define ImportSecurityContext ImportSecurityContextW
+	#define IMPORT_SECURITY_CONTEXT_FN IMPORT_SECURITY_CONTEXT_FN_W
+#else
+	#define ImportSecurityContext ImportSecurityContextA
+	#define IMPORT_SECURITY_CONTEXT_FN IMPORT_SECURITY_CONTEXT_FN_A
+#endif
+
 #define SECURITY_ENTRYPOINT_ANSIW "InitSecurityInterfaceW"
 #define SECURITY_ENTRYPOINT_ANSIA "InitSecurityInterfaceA"
 #define SECURITY_ENTRYPOINTW SEC_TEXT("InitSecurityInterfaceW")
 #define SECURITY_ENTRYPOINTA SEC_TEXT("InitSecurityInterfaceA")
 #define SECURITY_ENTRYPOINT16 "INITSECURITYINTERFACEA"
-#define SECURITY_ENTRYPOINT __MINGW_NAME_AW(SECURITY_ENTRYPOINT)
-#define SECURITY_ENTRYPOINT_ANSI __MINGW_NAME_AW(SECURITY_ENTRYPOINT_ANSI)
+
+#ifdef UNICODE
+	#define SECURITY_ENTRYPOINT SECURITY_ENTRYPOINTW
+	#define SECURITY_ENTRYPOINT_ANSI SECURITY_ENTRYPOINT_ANSIW
+#else
+	#define SECURITY_ENTRYPOINT SECURITY_ENTRYPOINTA
+	#define SECURITY_ENTRYPOINT_ANSI SECURITY_ENTRYPOINT_ANSIA
+#endif
+
 #define FreeCredentialHandle FreeCredentialsHandle
 
 type _SECURITY_FUNCTION_TABLE_W
@@ -850,8 +966,14 @@ end type
 type SecurityFunctionTableA as _SECURITY_FUNCTION_TABLE_A
 type PSecurityFunctionTableA as _SECURITY_FUNCTION_TABLE_A ptr
 
-#define SecurityFunctionTable __MINGW_NAME_AW(SecurityFunctionTable)
-#define PSecurityFunctionTable __MINGW_NAME_AW(PSecurityFunctionTable)
+#ifdef UNICODE
+	#define SecurityFunctionTable SecurityFunctionTableW
+	#define PSecurityFunctionTable PSecurityFunctionTableW
+#else
+	#define SecurityFunctionTable SecurityFunctionTableA
+	#define PSecurityFunctionTable PSecurityFunctionTableA
+#endif
+
 #define SECURITY_
 #define SECURITY_SUPPORT_PROVIDER_INTERFACE_VERSION 1
 #define SECURITY_SUPPORT_PROVIDER_INTERFACE_VERSION_2 2
@@ -865,28 +987,49 @@ declare function InitSecurityInterfaceW() as PSecurityFunctionTableW
 
 type INIT_SECURITY_INTERFACE_W as function() as PSecurityFunctionTableW
 
-#define InitSecurityInterface __MINGW_NAME_AW(InitSecurityInterface)
-#define INIT_SECURITY_INTERFACE __MINGW_NAME_UAW(INIT_SECURITY_INTERFACE)
+#ifdef UNICODE
+	#define InitSecurityInterface InitSecurityInterfaceW
+	#define INIT_SECURITY_INTERFACE INIT_SECURITY_INTERFACE_W
+#else
+	#define InitSecurityInterface InitSecurityInterfaceA
+	#define INIT_SECURITY_INTERFACE INIT_SECURITY_INTERFACE_A
+#endif
 
 declare function SaslEnumerateProfilesA(byval ProfileList as LPSTR ptr, byval ProfileCount as ULONG ptr) as SECURITY_STATUS
 declare function SaslEnumerateProfilesW(byval ProfileList as LPWSTR ptr, byval ProfileCount as ULONG ptr) as SECURITY_STATUS
 
-#define SaslEnumerateProfiles __MINGW_NAME_AW(SaslEnumerateProfiles)
+#ifdef UNICODE
+	#define SaslEnumerateProfiles SaslEnumerateProfilesW
+#else
+	#define SaslEnumerateProfiles SaslEnumerateProfilesA
+#endif
 
 declare function SaslGetProfilePackageA(byval ProfileName as LPSTR, byval PackageInfo as PSecPkgInfoA ptr) as SECURITY_STATUS
 declare function SaslGetProfilePackageW(byval ProfileName as LPWSTR, byval PackageInfo as PSecPkgInfoW ptr) as SECURITY_STATUS
 
-#define SaslGetProfilePackage __MINGW_NAME_AW(SaslGetProfilePackage)
+#ifdef UNICODE
+	#define SaslGetProfilePackage SaslGetProfilePackageW
+#else
+	#define SaslGetProfilePackage SaslGetProfilePackageA
+#endif
 
 declare function SaslIdentifyPackageA(byval pInput as PSecBufferDesc, byval PackageInfo as PSecPkgInfoA ptr) as SECURITY_STATUS
 declare function SaslIdentifyPackageW(byval pInput as PSecBufferDesc, byval PackageInfo as PSecPkgInfoW ptr) as SECURITY_STATUS
 
-#define SaslIdentifyPackage __MINGW_NAME_AW(SaslIdentifyPackage)
+#ifdef UNICODE
+	#define SaslIdentifyPackage SaslIdentifyPackageW
+#else
+	#define SaslIdentifyPackage SaslIdentifyPackageA
+#endif
 
 declare function SaslInitializeSecurityContextW(byval phCredential as PCredHandle, byval phContext as PCtxtHandle, byval pszTargetName as LPWSTR, byval fContextReq as ulong, byval Reserved1 as ulong, byval TargetDataRep as ulong, byval pInput as PSecBufferDesc, byval Reserved2 as ulong, byval phNewContext as PCtxtHandle, byval pOutput as PSecBufferDesc, byval pfContextAttr as ulong ptr, byval ptsExpiry as PTimeStamp) as SECURITY_STATUS
 declare function SaslInitializeSecurityContextA(byval phCredential as PCredHandle, byval phContext as PCtxtHandle, byval pszTargetName as LPSTR, byval fContextReq as ulong, byval Reserved1 as ulong, byval TargetDataRep as ulong, byval pInput as PSecBufferDesc, byval Reserved2 as ulong, byval phNewContext as PCtxtHandle, byval pOutput as PSecBufferDesc, byval pfContextAttr as ulong ptr, byval ptsExpiry as PTimeStamp) as SECURITY_STATUS
 
-#define SaslInitializeSecurityContext __MINGW_NAME_AW(SaslInitializeSecurityContext)
+#ifdef UNICODE
+	#define SaslInitializeSecurityContext SaslInitializeSecurityContextW
+#else
+	#define SaslInitializeSecurityContext SaslInitializeSecurityContextA
+#endif
 
 declare function SaslAcceptSecurityContext(byval phCredential as PCredHandle, byval phContext as PCtxtHandle, byval pInput as PSecBufferDesc, byval fContextReq as ulong, byval TargetDataRep as ulong, byval phNewContext as PCtxtHandle, byval pOutput as PSecBufferDesc, byval pfContextAttr as ulong ptr, byval ptsExpiry as PTimeStamp) as SECURITY_STATUS
 
@@ -942,8 +1085,14 @@ end type
 type SEC_WINNT_AUTH_IDENTITY_EXA as _SEC_WINNT_AUTH_IDENTITY_EXA
 type PSEC_WINNT_AUTH_IDENTITY_EXA as _SEC_WINNT_AUTH_IDENTITY_EXA ptr
 
-#define SEC_WINNT_AUTH_IDENTITY_EX __MINGW_NAME_AW(SEC_WINNT_AUTH_IDENTITY_EX)
-#define PSEC_WINNT_AUTH_IDENTITY_EX __MINGW_NAME_AW(PSEC_WINNT_AUTH_IDENTITY_EX)
+#ifdef UNICODE
+	#define SEC_WINNT_AUTH_IDENTITY_EX SEC_WINNT_AUTH_IDENTITY_EXW
+	#define PSEC_WINNT_AUTH_IDENTITY_EX PSEC_WINNT_AUTH_IDENTITY_EXW
+#else
+	#define SEC_WINNT_AUTH_IDENTITY_EX SEC_WINNT_AUTH_IDENTITY_EXA
+	#define PSEC_WINNT_AUTH_IDENTITY_EX PSEC_WINNT_AUTH_IDENTITY_EXA
+#endif
+
 #define SEC_WINNT_AUTH_IDENTITY_MARSHALLED &h4
 #define SEC_WINNT_AUTH_IDENTITY_ONLY &h8
 
@@ -962,8 +1111,14 @@ type PSECURITY_PACKAGE_OPTIONS as _SECURITY_PACKAGE_OPTIONS ptr
 #define SECPKG_OPTIONS_TYPE_LSA 1
 #define SECPKG_OPTIONS_TYPE_SSPI 2
 #define SECPKG_OPTIONS_PERMANENT &h00000001
-#define AddSecurityPackage __MINGW_NAME_AW(AddSecurityPackage)
-#define DeleteSecurityPackage __MINGW_NAME_AW(DeleteSecurityPackage)
+
+#ifdef UNICODE
+	#define AddSecurityPackage AddSecurityPackageW
+	#define DeleteSecurityPackage DeleteSecurityPackageW
+#else
+	#define AddSecurityPackage AddSecurityPackageA
+	#define DeleteSecurityPackage DeleteSecurityPackageA
+#endif
 
 declare function AddSecurityPackageA(byval pszPackageName as LPSTR, byval pOptions as PSECURITY_PACKAGE_OPTIONS) as SECURITY_STATUS
 declare function AddSecurityPackageW(byval pszPackageName as LPWSTR, byval pOptions as PSECURITY_PACKAGE_OPTIONS) as SECURITY_STATUS

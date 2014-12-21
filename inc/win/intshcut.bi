@@ -68,10 +68,17 @@ type PURLINVOKECOMMANDINFOW as URLINVOKECOMMANDINFOW_ ptr
 type CURLINVOKECOMMANDINFOW as const URLINVOKECOMMANDINFOW_
 type PCURLINVOKECOMMANDINFOW as const URLINVOKECOMMANDINFOW_ ptr
 
-#define URLINVOKECOMMANDINFO __MINGW_NAME_AW(URLINVOKECOMMANDINFO)
-#define PURLINVOKECOMMANDINFO __MINGW_NAME_AW(PURLINVOKECOMMANDINFO)
-#define CURLINVOKECOMMANDINFO __MINGW_NAME_AW(CURLINVOKECOMMANDINFO)
-#define PCURLINVOKECOMMANDINFO __MINGW_NAME_AW(PCURLINVOKECOMMANDINFO)
+#ifdef UNICODE
+	#define URLINVOKECOMMANDINFO URLINVOKECOMMANDINFOW_
+	#define PURLINVOKECOMMANDINFO PURLINVOKECOMMANDINFOW
+	#define CURLINVOKECOMMANDINFO CURLINVOKECOMMANDINFOW
+	#define PCURLINVOKECOMMANDINFO PCURLINVOKECOMMANDINFOW
+#else
+	#define URLINVOKECOMMANDINFO URLINVOKECOMMANDINFOA_
+	#define PURLINVOKECOMMANDINFO PURLINVOKECOMMANDINFOA
+	#define CURLINVOKECOMMANDINFO CURLINVOKECOMMANDINFOA
+	#define PCURLINVOKECOMMANDINFO PCURLINVOKECOMMANDINFOA
+#endif
 
 type IUniformResourceLocatorA
 	lpVtbl as IUniformResourceLocatorAVtbl ptr
@@ -99,14 +106,17 @@ type IUniformResourceLocatorWVtbl_
 	InvokeCommand as function(byval This as IUniformResourceLocatorW ptr, byval purlici as PURLINVOKECOMMANDINFOW) as HRESULT
 end type
 
-#define IUniformResourceLocator __MINGW_NAME_AW(IUniformResourceLocator)
-#define IUniformResourceLocatorVtbl __MINGW_NAME_AW_EXT(IUniformResourceLocator, Vtbl)
-
 #ifdef UNICODE
+	#define IUniformResourceLocator IUniformResourceLocatorW
+	#define IUniformResourceLocatorVtbl IUniformResourceLocatorWVtbl
+
 	type PIUniformResourceLocator as IUniformResourceLocatorW ptr
 	type CIUniformResourceLocator as const IUniformResourceLocatorW
 	type PCIUniformResourceLocator as const IUniformResourceLocatorW ptr
 #else
+	#define IUniformResourceLocator IUniformResourceLocatorA
+	#define IUniformResourceLocatorVtbl IUniformResourceLocatorAVtbl
+
 	type PIUniformResourceLocator as IUniformResourceLocatorA ptr
 	type CIUniformResourceLocator as const IUniformResourceLocatorA
 	type PCIUniformResourceLocator as const IUniformResourceLocatorA ptr
@@ -123,7 +133,11 @@ type TRANSLATEURL_IN_FLAGS_ as translateurl_in_flags
 declare function TranslateURLA(byval pcszURL as PCSTR, byval dwInFlags as DWORD, byval ppszTranslatedURL as PSTR ptr) as HRESULT
 declare function TranslateURLW(byval pcszURL as PCWSTR, byval dwInFlags as DWORD, byval ppszTranslatedURL as PWSTR ptr) as HRESULT
 
-#define TranslateURL __MINGW_NAME_AW(TranslateURL)
+#ifdef UNICODE
+	#define TranslateURL TranslateURLW
+#else
+	#define TranslateURL TranslateURLA
+#endif
 
 type urlassociationdialog_in_flags as long
 enum
@@ -136,7 +150,11 @@ type URLASSOCIATIONDIALOG_IN_FLAGS_ as urlassociationdialog_in_flags
 declare function URLAssociationDialogA(byval hwndParent as HWND, byval dwInFlags as DWORD, byval pcszFile as PCSTR, byval pcszURL as PCSTR, byval pszAppBuf as PSTR, byval ucAppBufLen as UINT) as HRESULT
 declare function URLAssociationDialogW(byval hwndParent as HWND, byval dwInFlags as DWORD, byval pcszFile as PCWSTR, byval pcszURL as PCWSTR, byval pszAppBuf as PWSTR, byval ucAppBufLen as UINT) as HRESULT
 
-#define URLAssociationDialog __MINGW_NAME_AW(URLAssociationDialog)
+#ifdef UNICODE
+	#define URLAssociationDialog URLAssociationDialogW
+#else
+	#define URLAssociationDialog URLAssociationDialogA
+#endif
 
 type mimeassociationdialog_in_flags as long
 enum
@@ -148,7 +166,11 @@ type MIMEASSOCIATIONDIALOG_IN_FLAGS_ as mimeassociationdialog_in_flags
 declare function MIMEAssociationDialogA(byval hwndParent as HWND, byval dwInFlags as DWORD, byval pcszFile as PCSTR, byval pcszMIMEContentType as PCSTR, byval pszAppBuf as PSTR, byval ucAppBufLen as UINT) as HRESULT
 declare function MIMEAssociationDialogW(byval hwndParent as HWND, byval dwInFlags as DWORD, byval pcszFile as PCWSTR, byval pcszMIMEContentType as PCWSTR, byval pszAppBuf as PWSTR, byval ucAppBufLen as UINT) as HRESULT
 
-#define MIMEAssociationDialog __MINGW_NAME_AW(MIMEAssociationDialog)
+#ifdef UNICODE
+	#define MIMEAssociationDialog MIMEAssociationDialogW
+#else
+	#define MIMEAssociationDialog MIMEAssociationDialogA
+#endif
 
 declare function InetIsOffline(byval dwFlags as DWORD) as WINBOOL
 

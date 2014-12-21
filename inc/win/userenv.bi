@@ -13,13 +13,24 @@
 #define _USERENV_H_
 #define PI_NOUI &h00000001
 #define PI_APPLYPOLICY &h00000002
-#define LoadUserProfile __MINGW_NAME_AW(LoadUserProfile)
-#define GetProfilesDirectory __MINGW_NAME_AW(GetProfilesDirectory)
-#define DeleteProfile __MINGW_NAME_AW(DeleteProfile)
-#define GetDefaultUserProfileDirectory __MINGW_NAME_AW(GetDefaultUserProfileDirectory)
-#define GetAllUsersProfileDirectory __MINGW_NAME_AW(GetAllUsersProfileDirectory)
-#define GetUserProfileDirectory __MINGW_NAME_AW(GetUserProfileDirectory)
-#define ExpandEnvironmentStringsForUser __MINGW_NAME_AW(ExpandEnvironmentStringsForUser)
+
+#ifdef UNICODE
+	#define LoadUserProfile LoadUserProfileW
+	#define GetProfilesDirectory GetProfilesDirectoryW
+	#define DeleteProfile DeleteProfileW
+	#define GetDefaultUserProfileDirectory GetDefaultUserProfileDirectoryW
+	#define GetAllUsersProfileDirectory GetAllUsersProfileDirectoryW
+	#define GetUserProfileDirectory GetUserProfileDirectoryW
+	#define ExpandEnvironmentStringsForUser ExpandEnvironmentStringsForUserW
+#else
+	#define LoadUserProfile LoadUserProfileA
+	#define GetProfilesDirectory GetProfilesDirectoryA
+	#define DeleteProfile DeleteProfileA
+	#define GetDefaultUserProfileDirectory GetDefaultUserProfileDirectoryA
+	#define GetAllUsersProfileDirectory GetAllUsersProfileDirectoryA
+	#define GetUserProfileDirectory GetUserProfileDirectoryA
+	#define ExpandEnvironmentStringsForUser ExpandEnvironmentStringsForUserA
+#endif
 
 declare function LoadUserProfileA(byval hToken as HANDLE, byval lpProfileInfo as LPPROFILEINFOA) as WINBOOL
 declare function LoadUserProfileW(byval hToken as HANDLE, byval lpProfileInfo as LPPROFILEINFOW) as WINBOOL
@@ -119,9 +130,16 @@ type PGROUP_POLICY_OBJECTW as _GROUP_POLICY_OBJECTW ptr
 #define GPO_LIST_FLAG_MACHINE &h00000001
 #define GPO_LIST_FLAG_SITEONLY &h00000002
 #define GPO_LIST_FLAG_NO_WMIFILTERS &h00000004
-#define GetGPOList __MINGW_NAME_AW(GetGPOList)
-#define FreeGPOList __MINGW_NAME_AW(FreeGPOList)
-#define GetAppliedGPOList __MINGW_NAME_AW(GetAppliedGPOList)
+
+#ifdef UNICODE
+	#define GetGPOList GetGPOListW
+	#define FreeGPOList FreeGPOListW
+	#define GetAppliedGPOList GetAppliedGPOListW
+#else
+	#define GetGPOList GetGPOListA
+	#define FreeGPOList FreeGPOListA
+	#define GetAppliedGPOList GetAppliedGPOListA
+#endif
 
 declare function GetGPOListA(byval hToken as HANDLE, byval lpName as LPCSTR, byval lpHostName as LPCSTR, byval lpComputerName as LPCSTR, byval dwFlags as DWORD, byval pGPOList as PGROUP_POLICY_OBJECTA ptr) as WINBOOL
 declare function GetGPOListW(byval hToken as HANDLE, byval lpName as LPCWSTR, byval lpHostName as LPCWSTR, byval lpComputerName as LPCWSTR, byval dwFlags as DWORD, byval pGPOList as PGROUP_POLICY_OBJECTW ptr) as WINBOOL

@@ -215,8 +215,13 @@ end type
 
 type RPC_CALL_ATTRIBUTES_V1_A as tagRPC_CALL_ATTRIBUTES_V1_A
 
-#define RPC_CALL_ATTRIBUTES_V1 __MINGW_NAME_UAW(RPC_CALL_ATTRIBUTES_V1)
-#define RpcServerInqCallAttributes __MINGW_NAME_AW(RpcServerInqCallAttributes)
+#ifdef UNICODE
+	#define RPC_CALL_ATTRIBUTES_V1 RPC_CALL_ATTRIBUTES_V1_W
+	#define RpcServerInqCallAttributes RpcServerInqCallAttributesW
+#else
+	#define RPC_CALL_ATTRIBUTES_V1 RPC_CALL_ATTRIBUTES_V1_A
+	#define RpcServerInqCallAttributes RpcServerInqCallAttributesA
+#endif
 
 declare function RpcServerInqCallAttributesW(byval ClientBinding as RPC_BINDING_HANDLE, byval RpcCallAttributes as any ptr) as RPC_STATUS
 declare function RpcServerInqCallAttributesA(byval ClientBinding as RPC_BINDING_HANDLE, byval RpcCallAttributes as any ptr) as RPC_STATUS
@@ -323,10 +328,17 @@ declare function RpcServerUnsubscribeForNotification(byval Binding as RPC_BINDIN
 
 	type RPC_CALL_LOCAL_ADDRESS_V1_W as tagRPC_CALL_LOCAL_ADDRESS_V1_W
 	type RPC_CALL_LOCAL_ADDRESS_W as tagRPC_CALL_LOCAL_ADDRESS_V1_W
+#endif
 
-	#define RPC_CALL_LOCAL_ADDRESS_V1 __MINGW_NAME_AW(RPC_CALL_LOCAL_ADDRESS_V1_)
-	#define RPC_CALL_LOCAL_ADDRESS __MINGW_NAME_AW(RPC_CALL_LOCAL_ADDRESS_)
+#if defined(UNICODE) and (_WIN32_WINNT = &h0602)
+	#define RPC_CALL_LOCAL_ADDRESS_V1 RPC_CALL_LOCAL_ADDRESS_V1_W
+	#define RPC_CALL_LOCAL_ADDRESS RPC_CALL_LOCAL_ADDRESS_W
+#elseif (not defined(UNICODE)) and (_WIN32_WINNT = &h0602)
+	#define RPC_CALL_LOCAL_ADDRESS_V1 RPC_CALL_LOCAL_ADDRESS_V1_A
+	#define RPC_CALL_LOCAL_ADDRESS RPC_CALL_LOCAL_ADDRESS_A
+#endif
 
+#if _WIN32_WINNT = &h0602
 	type tagRPC_CALL_ATTRIBUTES_V2A
 		Version as ulong
 		Flags as ulong
@@ -374,9 +386,15 @@ declare function RpcServerUnsubscribeForNotification(byval Binding as RPC_BINDIN
 
 	type RPC_CALL_ATTRIBUTES_V2_W as tagRPC_CALL_ATTRIBUTES_V2W
 	type RPC_CALL_ATTRIBUTES_W as tagRPC_CALL_ATTRIBUTES_V2W
+#endif
 
-	#define RPC_CALL_ATTRIBUTES_V2 __MINGW_NAME_AW(RPC_CALL_ATTRIBUTES_V2_)
+#if defined(UNICODE) and (_WIN32_WINNT = &h0602)
+	#define RPC_CALL_ATTRIBUTES_V2 RPC_CALL_ATTRIBUTES_V2_W
+#elseif (not defined(UNICODE)) and (_WIN32_WINNT = &h0602)
+	#define RPC_CALL_ATTRIBUTES_V2 RPC_CALL_ATTRIBUTES_V2_A
+#endif
 
+#if _WIN32_WINNT = &h0602
 	declare function RpcDiagnoseError(byval BindingHandle as RPC_BINDING_HANDLE, byval IfSpec as RPC_IF_HANDLE, byval RpcStatus as RPC_STATUS, byval EnumHandle as RPC_ERROR_ENUM_HANDLE ptr, byval Options as ULONG, byval ParentWindow as HWND) as RPC_STATUS
 #endif
 

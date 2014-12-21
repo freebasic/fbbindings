@@ -19,8 +19,14 @@ declare function GetDateFormatW(byval Locale as LCID, byval dwFlags as DWORD, by
 declare function GetTimeFormatA(byval Locale as LCID, byval dwFlags as DWORD, byval lpTime as const SYSTEMTIME ptr, byval lpFormat as LPCSTR, byval lpTimeStr as LPSTR, byval cchTime as long) as long
 declare function GetTimeFormatW(byval Locale as LCID, byval dwFlags as DWORD, byval lpTime as const SYSTEMTIME ptr, byval lpFormat as LPCWSTR, byval lpTimeStr as LPWSTR, byval cchTime as long) as long
 
-#define GetDateFormat __MINGW_NAME_AW(GetDateFormat)
-#define GetTimeFormat __MINGW_NAME_AW(GetTimeFormat)
+#ifdef UNICODE
+	#define GetDateFormat GetDateFormatW
+	#define GetTimeFormat GetTimeFormatW
+#else
+	#define GetDateFormat GetDateFormatA
+	#define GetTimeFormat GetTimeFormatA
+#endif
+
 #define MAX_LEADBYTES 12
 #define MAX_DEFAULTCHAR 2
 #define HIGH_SURROGATE_START &hd800
@@ -749,26 +755,34 @@ declare function GetCalendarInfoW(byval Locale as LCID, byval Calendar as CALID,
 declare function SetCalendarInfoA(byval Locale as LCID, byval Calendar as CALID, byval CalType as CALTYPE, byval lpCalData as LPCSTR) as WINBOOL
 declare function SetCalendarInfoW(byval Locale as LCID, byval Calendar as CALID, byval CalType as CALTYPE, byval lpCalData as LPCWSTR) as WINBOOL
 
-#define SetLocaleInfo __MINGW_NAME_AW(SetLocaleInfo)
-#define GetCalendarInfo __MINGW_NAME_AW(GetCalendarInfo)
-#define SetCalendarInfo __MINGW_NAME_AW(SetCalendarInfo)
-
 #ifdef UNICODE
+	#define SetLocaleInfo SetLocaleInfoW
+	#define GetCalendarInfo GetCalendarInfoW
+	#define SetCalendarInfo SetCalendarInfoW
 	#define LCMapString LCMapStringW
 	#define GetLocaleInfo GetLocaleInfoW
+	#define GetNumberFormat GetNumberFormatW
+	#define GetCurrencyFormat GetCurrencyFormatW
+	#define EnumCalendarInfo EnumCalendarInfoW
+	#define EnumCalendarInfoEx EnumCalendarInfoExW
+	#define EnumTimeFormats EnumTimeFormatsW
+	#define EnumDateFormats EnumDateFormatsW
+	#define EnumDateFormatsEx EnumDateFormatsExW
 #else
+	#define SetLocaleInfo SetLocaleInfoA
+	#define GetCalendarInfo GetCalendarInfoA
+	#define SetCalendarInfo SetCalendarInfoA
 	#define CompareString CompareStringA
 	#define LCMapString LCMapStringA
 	#define GetLocaleInfo GetLocaleInfoA
+	#define GetNumberFormat GetNumberFormatA
+	#define GetCurrencyFormat GetCurrencyFormatA
+	#define EnumCalendarInfo EnumCalendarInfoA
+	#define EnumCalendarInfoEx EnumCalendarInfoExA
+	#define EnumTimeFormats EnumTimeFormatsA
+	#define EnumDateFormats EnumDateFormatsA
+	#define EnumDateFormatsEx EnumDateFormatsExA
 #endif
-
-#define GetNumberFormat __MINGW_NAME_AW(GetNumberFormat)
-#define GetCurrencyFormat __MINGW_NAME_AW(GetCurrencyFormat)
-#define EnumCalendarInfo __MINGW_NAME_AW(EnumCalendarInfo)
-#define EnumCalendarInfoEx __MINGW_NAME_AW(EnumCalendarInfoEx)
-#define EnumTimeFormats __MINGW_NAME_AW(EnumTimeFormats)
-#define EnumDateFormats __MINGW_NAME_AW(EnumDateFormats)
-#define EnumDateFormatsEx __MINGW_NAME_AW(EnumDateFormatsEx)
 
 declare function GetGeoInfoA(byval Location as GEOID, byval GeoType as GEOTYPE, byval lpGeoData as LPSTR, byval cchData as long, byval LangId as LANGID) as long
 declare function GetGeoInfoW(byval Location as GEOID, byval GeoType as GEOTYPE, byval lpGeoData as LPWSTR, byval cchData as long, byval LangId as LANGID) as long
@@ -778,8 +792,13 @@ declare function GetCPInfo(byval CodePage as UINT, byval lpCPInfo as LPCPINFO) a
 declare function GetCPInfoExA(byval CodePage as UINT, byval dwFlags as DWORD, byval lpCPInfoEx as LPCPINFOEXA) as WINBOOL
 declare function GetCPInfoExW(byval CodePage as UINT, byval dwFlags as DWORD, byval lpCPInfoEx as LPCPINFOEXW) as WINBOOL
 
-#define GetGeoInfo __MINGW_NAME_AW(GetGeoInfo)
-#define GetCPInfoEx __MINGW_NAME_AW(GetCPInfoEx)
+#ifdef UNICODE
+	#define GetGeoInfo GetGeoInfoW
+	#define GetCPInfoEx GetCPInfoExW
+#else
+	#define GetGeoInfo GetGeoInfoA
+	#define GetCPInfoEx GetCPInfoExA
+#endif
 
 declare function SetUserGeoID(byval GeoId as GEOID) as WINBOOL
 declare function ConvertDefaultLocale(byval Locale as LCID) as LCID
@@ -804,19 +823,27 @@ declare function EnumLanguageGroupLocalesW(byval lpLangGroupLocaleEnumProc as LA
 declare function EnumUILanguagesA(byval lpUILanguageEnumProc as UILANGUAGE_ENUMPROCA, byval dwFlags as DWORD, byval lParam as LONG_PTR) as WINBOOL
 declare function EnumUILanguagesW(byval lpUILanguageEnumProc as UILANGUAGE_ENUMPROCW, byval dwFlags as DWORD, byval lParam as LONG_PTR) as WINBOOL
 
-#ifndef UNICODE
+#ifdef UNICODE
+	#define EnumSystemLocales EnumSystemLocalesW
+	#define EnumSystemLanguageGroups EnumSystemLanguageGroupsW
+	#define EnumLanguageGroupLocales EnumLanguageGroupLocalesW
+	#define EnumUILanguages EnumUILanguagesW
+#else
 	#define FoldString FoldStringA
 	#define GetStringTypeEx GetStringTypeExA
+	#define EnumSystemLocales EnumSystemLocalesA
+	#define EnumSystemLanguageGroups EnumSystemLanguageGroupsA
+	#define EnumLanguageGroupLocales EnumLanguageGroupLocalesA
+	#define EnumUILanguages EnumUILanguagesA
 #endif
-
-#define EnumSystemLocales __MINGW_NAME_AW(EnumSystemLocales)
-#define EnumSystemLanguageGroups __MINGW_NAME_AW(EnumSystemLanguageGroups)
-#define EnumLanguageGroupLocales __MINGW_NAME_AW(EnumLanguageGroupLocales)
-#define EnumUILanguages __MINGW_NAME_AW(EnumUILanguages)
 
 declare function EnumSystemCodePagesA(byval lpCodePageEnumProc as CODEPAGE_ENUMPROCA, byval dwFlags as DWORD) as WINBOOL
 declare function EnumSystemCodePagesW(byval lpCodePageEnumProc as CODEPAGE_ENUMPROCW, byval dwFlags as DWORD) as WINBOOL
 
-#define EnumSystemCodePages __MINGW_NAME_AW(EnumSystemCodePages)
+#ifdef UNICODE
+	#define EnumSystemCodePages EnumSystemCodePagesW
+#else
+	#define EnumSystemCodePages EnumSystemCodePagesA
+#endif
 
 end extern

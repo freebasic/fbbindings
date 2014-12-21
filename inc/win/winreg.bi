@@ -122,32 +122,62 @@ type PVALENTW as value_entW ptr
 #endif
 
 #define WIN31_CLASS NULL
-#define RegConnectRegistry __MINGW_NAME_AW(RegConnectRegistry)
-#define RegConnectRegistryEx __MINGW_NAME_AW(RegConnectRegistryEx)
-#define RegCreateKey __MINGW_NAME_AW(RegCreateKey)
-#define RegCreateKeyEx __MINGW_NAME_AW(RegCreateKeyEx)
-#define RegDeleteKey __MINGW_NAME_AW(RegDeleteKey)
-#define RegDeleteKeyEx __MINGW_NAME_AW(RegDeleteKeyEx)
-#define RegDeleteValue __MINGW_NAME_AW(RegDeleteValue)
-#define RegEnumKey __MINGW_NAME_AW(RegEnumKey)
-#define RegEnumKeyEx __MINGW_NAME_AW(RegEnumKeyEx)
-#define RegEnumValue __MINGW_NAME_AW(RegEnumValue)
-#define RegLoadKey __MINGW_NAME_AW(RegLoadKey)
-#define RegOpenKey __MINGW_NAME_AW(RegOpenKey)
-#define RegOpenKeyEx __MINGW_NAME_AW(RegOpenKeyEx)
-#define RegQueryInfoKey __MINGW_NAME_AW(RegQueryInfoKey)
-#define RegQueryValue __MINGW_NAME_AW(RegQueryValue)
-#define RegQueryMultipleValues __MINGW_NAME_AW(RegQueryMultipleValues)
-#define RegQueryValueEx __MINGW_NAME_AW(RegQueryValueEx)
-#define RegReplaceKey __MINGW_NAME_AW(RegReplaceKey)
-#define RegRestoreKey __MINGW_NAME_AW(RegRestoreKey)
-#define RegSaveKey __MINGW_NAME_AW(RegSaveKey)
-#define RegSetValue __MINGW_NAME_AW(RegSetValue)
-#define RegSetValueEx __MINGW_NAME_AW(RegSetValueEx)
-#define RegUnLoadKey __MINGW_NAME_AW(RegUnLoadKey)
-#define RegGetValue __MINGW_NAME_AW(RegGetValue)
-#define InitiateSystemShutdown __MINGW_NAME_AW(InitiateSystemShutdown)
-#define AbortSystemShutdown __MINGW_NAME_AW(AbortSystemShutdown)
+
+#ifdef UNICODE
+	#define RegConnectRegistry RegConnectRegistryW
+	#define RegConnectRegistryEx RegConnectRegistryExW
+	#define RegCreateKey RegCreateKeyW
+	#define RegCreateKeyEx RegCreateKeyExW
+	#define RegDeleteKey RegDeleteKeyW
+	#define RegDeleteKeyEx RegDeleteKeyExW
+	#define RegDeleteValue RegDeleteValueW
+	#define RegEnumKey RegEnumKeyW
+	#define RegEnumKeyEx RegEnumKeyExW
+	#define RegEnumValue RegEnumValueW
+	#define RegLoadKey RegLoadKeyW
+	#define RegOpenKey RegOpenKeyW
+	#define RegOpenKeyEx RegOpenKeyExW
+	#define RegQueryInfoKey RegQueryInfoKeyW
+	#define RegQueryValue RegQueryValueW
+	#define RegQueryMultipleValues RegQueryMultipleValuesW
+	#define RegQueryValueEx RegQueryValueExW
+	#define RegReplaceKey RegReplaceKeyW
+	#define RegRestoreKey RegRestoreKeyW
+	#define RegSaveKey RegSaveKeyW
+	#define RegSetValue RegSetValueW
+	#define RegSetValueEx RegSetValueExW
+	#define RegUnLoadKey RegUnLoadKeyW
+	#define RegGetValue RegGetValueW
+	#define InitiateSystemShutdown InitiateSystemShutdownW
+	#define AbortSystemShutdown AbortSystemShutdownW
+#else
+	#define RegConnectRegistry RegConnectRegistryA
+	#define RegConnectRegistryEx RegConnectRegistryExA
+	#define RegCreateKey RegCreateKeyA
+	#define RegCreateKeyEx RegCreateKeyExA
+	#define RegDeleteKey RegDeleteKeyA
+	#define RegDeleteKeyEx RegDeleteKeyExA
+	#define RegDeleteValue RegDeleteValueA
+	#define RegEnumKey RegEnumKeyA
+	#define RegEnumKeyEx RegEnumKeyExA
+	#define RegEnumValue RegEnumValueA
+	#define RegLoadKey RegLoadKeyA
+	#define RegOpenKey RegOpenKeyA
+	#define RegOpenKeyEx RegOpenKeyExA
+	#define RegQueryInfoKey RegQueryInfoKeyA
+	#define RegQueryValue RegQueryValueA
+	#define RegQueryMultipleValues RegQueryMultipleValuesA
+	#define RegQueryValueEx RegQueryValueExA
+	#define RegReplaceKey RegReplaceKeyA
+	#define RegRestoreKey RegRestoreKeyA
+	#define RegSaveKey RegSaveKeyA
+	#define RegSetValue RegSetValueA
+	#define RegSetValueEx RegSetValueExA
+	#define RegUnLoadKey RegUnLoadKeyA
+	#define RegGetValue RegGetValueA
+	#define InitiateSystemShutdown InitiateSystemShutdownA
+	#define AbortSystemShutdown AbortSystemShutdownA
+#endif
 
 declare function RegCloseKey(byval hKey as HKEY) as LONG
 declare function RegOverridePredefKey(byval hKey as HKEY, byval hNewHKey as HKEY) as LONG
@@ -224,8 +254,14 @@ declare function AbortSystemShutdownW(byval lpMachineName as LPWSTR) as WINBOOL
 #define REASON_LEGACY_API SHTDN_REASON_LEGACY_API
 #define REASON_PLANNED_FLAG SHTDN_REASON_FLAG_PLANNED
 #define MAX_SHUTDOWN_TIMEOUT ((((10 * 365) * 24) * 60) * 60)
-#define InitiateSystemShutdownEx __MINGW_NAME_AW(InitiateSystemShutdownEx)
-#define RegSaveKeyEx __MINGW_NAME_AW(RegSaveKeyEx)
+
+#ifdef UNICODE
+	#define InitiateSystemShutdownEx InitiateSystemShutdownExW
+	#define RegSaveKeyEx RegSaveKeyExW
+#else
+	#define InitiateSystemShutdownEx InitiateSystemShutdownExA
+	#define RegSaveKeyEx RegSaveKeyExA
+#endif
 
 declare function InitiateSystemShutdownExA(byval lpMachineName as LPSTR, byval lpMessage as LPSTR, byval dwTimeout as DWORD, byval bForceAppsClosed as WINBOOL, byval bRebootAfterShutdown as WINBOOL, byval dwReason as DWORD) as WINBOOL
 declare function InitiateSystemShutdownExW(byval lpMachineName as LPWSTR, byval lpMessage as LPWSTR, byval dwTimeout as DWORD, byval bForceAppsClosed as WINBOOL, byval bRebootAfterShutdown as WINBOOL, byval dwReason as DWORD) as WINBOOL
@@ -233,51 +269,104 @@ declare function RegSaveKeyExA(byval hKey as HKEY, byval lpFile as LPCSTR, byval
 declare function RegSaveKeyExW(byval hKey as HKEY, byval lpFile as LPCWSTR, byval lpSecurityAttributes as LPSECURITY_ATTRIBUTES, byval Flags as DWORD) as LONG
 declare function Wow64Win32ApiEntry(byval dwFuncNumber as DWORD, byval dwFlag as DWORD, byval dwRes as DWORD) as LONG
 
-#if _WIN32_WINNT = &h0602
-	#define RegCopyTree __MINGW_NAME_AW(RegCopyTree)
+#if defined(UNICODE) and (_WIN32_WINNT = &h0602)
+	#define RegCopyTree RegCopyTreeW
+#elseif (not defined(UNICODE)) and (_WIN32_WINNT = &h0602)
+	#define RegCopyTree RegCopyTreeA
+#endif
 
+#if _WIN32_WINNT = &h0602
 	declare function RegCopyTreeA(byval hKeySrc as HKEY, byval lpSubKey as LPCSTR, byval hKeyDest as HKEY) as LONG
 	declare function RegCopyTreeW(byval hKeySrc as HKEY, byval lpSubKey as LPCWSTR, byval hKeyDest as HKEY) as LONG
+#endif
 
-	#define RegCreateKeyTransacted __MINGW_NAME_AW(RegCreateKeyTransacted)
+#if defined(UNICODE) and (_WIN32_WINNT = &h0602)
+	#define RegCreateKeyTransacted RegCreateKeyTransactedW
+#elseif (not defined(UNICODE)) and (_WIN32_WINNT = &h0602)
+	#define RegCreateKeyTransacted RegCreateKeyTransactedA
+#endif
 
+#if _WIN32_WINNT = &h0602
 	declare function RegCreateKeyTransactedA(byval hKey as HKEY, byval lpSubKey as LPCSTR, byval Reserved as DWORD, byval lpClass as LPSTR, byval dwOptions as DWORD, byval samDesired as REGSAM, byval lpSecurityAttributes as const LPSECURITY_ATTRIBUTES, byval phkResult as PHKEY, byval lpdwDisposition as LPDWORD, byval hTransaction as HANDLE, byval pExtendedParemeter as PVOID) as LONG
 	declare function RegCreateKeyTransactedW(byval hKey as HKEY, byval lpSubKey as LPCWSTR, byval Reserved as DWORD, byval lpClass as LPWSTR, byval dwOptions as DWORD, byval samDesired as REGSAM, byval lpSecurityAttributes as const LPSECURITY_ATTRIBUTES, byval phkResult as PHKEY, byval lpdwDisposition as LPDWORD, byval hTransaction as HANDLE, byval pExtendedParemeter as PVOID) as LONG
+#endif
 
-	#define RegDeleteKeyTransacted __MINGW_NAME_AW(RegDeleteKeyTransacted)
+#if defined(UNICODE) and (_WIN32_WINNT = &h0602)
+	#define RegDeleteKeyTransacted RegDeleteKeyTransactedW
+#elseif (not defined(UNICODE)) and (_WIN32_WINNT = &h0602)
+	#define RegDeleteKeyTransacted RegDeleteKeyTransactedA
+#endif
 
+#if _WIN32_WINNT = &h0602
 	declare function RegDeleteKeyTransactedA(byval hKey as HKEY, byval lpSubKey as LPCSTR, byval samDesired as REGSAM, byval Reserved as DWORD, byval hTransaction as HANDLE, byval pExtendedParameter as PVOID) as LONG
 	declare function RegDeleteKeyTransactedW(byval hKey as HKEY, byval lpSubKey as LPCWSTR, byval samDesired as REGSAM, byval Reserved as DWORD, byval hTransaction as HANDLE, byval pExtendedParameter as PVOID) as LONG
+#endif
 
-	#define RegDeleteKeyValue __MINGW_NAME_AW(RegDeleteKeyValue)
+#if defined(UNICODE) and (_WIN32_WINNT = &h0602)
+	#define RegDeleteKeyValue RegDeleteKeyValueW
+#elseif (not defined(UNICODE)) and (_WIN32_WINNT = &h0602)
+	#define RegDeleteKeyValue RegDeleteKeyValueA
+#endif
 
+#if _WIN32_WINNT = &h0602
 	declare function RegDeleteKeyValueA(byval hKey as HKEY, byval lpSubKey as LPCSTR, byval lpValueName as LPCSTR) as LONG
 	declare function RegDeleteKeyValueW(byval hKey as HKEY, byval lpSubKey as LPCWSTR, byval lpValueName as LPCWSTR) as LONG
+#endif
 
-	#define RegDeleteTree __MINGW_NAME_AW(RegDeleteTree)
+#if defined(UNICODE) and (_WIN32_WINNT = &h0602)
+	#define RegDeleteTree RegDeleteTreeW
+#elseif (not defined(UNICODE)) and (_WIN32_WINNT = &h0602)
+	#define RegDeleteTree RegDeleteTreeA
+#endif
 
+#if _WIN32_WINNT = &h0602
 	declare function RegDeleteTreeA(byval hKey as HKEY, byval lpSubKey as LPCSTR) as LONG
 	declare function RegDeleteTreeW(byval hKey as HKEY, byval lpSubKey as LPCWSTR) as LONG
 	declare function RegDisablePredefinedCacheEx() as LONG
 	declare function RegLoadAppKeyA(byval lpFile as LPCSTR, byval phkResult as PHKEY, byval samDesired as REGSAM, byval dwOptions as DWORD, byval Reserved as DWORD) as LONG
 	declare function RegLoadAppKeyW(byval lpFile as LPCWSTR, byval phkResult as PHKEY, byval samDesired as REGSAM, byval dwOptions as DWORD, byval Reserved as DWORD) as LONG
+#endif
 
-	#define RegLoadAppKey __MINGW_NAME_AW(RegLoadAppKey)
+#if defined(UNICODE) and (_WIN32_WINNT = &h0602)
+	#define RegLoadAppKey RegLoadAppKeyW
+#elseif (not defined(UNICODE)) and (_WIN32_WINNT = &h0602)
+	#define RegLoadAppKey RegLoadAppKeyA
+#endif
 
+#if _WIN32_WINNT = &h0602
 	declare function RegLoadMUIStringA(byval hKey as HKEY, byval pszValue as LPCSTR, byval pszOutBuf as LPSTR, byval cbOutBuf as DWORD, byval pcbData as LPDWORD, byval Flags as DWORD, byval pszDirectory as LPCSTR) as LONG
 	declare function RegLoadMUIStringW(byval hKey as HKEY, byval pszValue as LPCWSTR, byval pszOutBuf as LPWSTR, byval cbOutBuf as DWORD, byval pcbData as LPDWORD, byval Flags as DWORD, byval pszDirectory as LPCWSTR) as LONG
+#endif
 
-	#define RegLoadMUIString __MINGW_NAME_AW(RegLoadMUIString)
+#if defined(UNICODE) and (_WIN32_WINNT = &h0602)
+	#define RegLoadMUIString RegLoadMUIStringW
+#elseif (not defined(UNICODE)) and (_WIN32_WINNT = &h0602)
+	#define RegLoadMUIString RegLoadMUIStringA
+#endif
 
+#if _WIN32_WINNT = &h0602
 	declare function RegOpenKeyTransactedA(byval hKey as HKEY, byval lpSubKey as LPCSTR, byval ulOptions as DWORD, byval samDesired as REGSAM, byval phkResult as PHKEY, byval hTransaction as HANDLE, byval pExtendedParameter as PVOID) as LONG
 	declare function RegOpenKeyTransactedW(byval hKey as HKEY, byval lpSubKey as LPCWSTR, byval ulOptions as DWORD, byval samDesired as REGSAM, byval phkResult as PHKEY, byval hTransaction as HANDLE, byval pExtendedParameter as PVOID) as LONG
+#endif
 
-	#define RegOpenKeyTransacted __MINGW_NAME_AW(RegOpenKeyTransacted)
+#if defined(UNICODE) and (_WIN32_WINNT = &h0602)
+	#define RegOpenKeyTransacted RegOpenKeyTransactedW
+#elseif (not defined(UNICODE)) and (_WIN32_WINNT = &h0602)
+	#define RegOpenKeyTransacted RegOpenKeyTransactedA
+#endif
 
+#if _WIN32_WINNT = &h0602
 	declare function RegSetKeyValueA(byval hKey as HKEY, byval lpSubKey as LPCSTR, byval lpValueName as LPCSTR, byval dwType as DWORD, byval lpData as LPCVOID, byval cbData as DWORD) as LONG
 	declare function RegSetKeyValueW(byval hKey as HKEY, byval lpSubKey as LPCSTR, byval lpValueName as LPCSTR, byval dwType as DWORD, byval lpData as LPCVOID, byval cbData as DWORD) as LONG
+#endif
 
-	#define RegSetKeyValue __MINGW_NAME_AW(RegSetKeyValue)
+#if defined(UNICODE) and (_WIN32_WINNT = &h0602)
+	#define RegSetKeyValue RegSetKeyValueW
+#elseif (not defined(UNICODE)) and (_WIN32_WINNT = &h0602)
+	#define RegSetKeyValue RegSetKeyValueA
+#endif
+
+#if _WIN32_WINNT = &h0602
 	#define SHUTDOWN_FORCE_OTHERS &h00000001
 	#define SHUTDOWN_FORCE_SELF &h00000002
 	#define SHUTDOWN_RESTART &h00000004
@@ -290,8 +379,12 @@ declare function Wow64Win32ApiEntry(byval dwFuncNumber as DWORD, byval dwFlag as
 
 	declare function InitiateShutdownA(byval lpMachineName as LPSTR, byval lpMessage as LPSTR, byval dwGracePeriod as DWORD, byval dwShutdownFlags as DWORD, byval dwReason as DWORD) as DWORD
 	declare function InitiateShutdownW(byval lpMachineName as LPWSTR, byval lpMessage as LPWSTR, byval dwGracePeriod as DWORD, byval dwShutdownFlags as DWORD, byval dwReason as DWORD) as DWORD
+#endif
 
-	#define InitiateShutdown __MINGW_NAME_AW(InitiateShutdown)
+#if defined(UNICODE) and (_WIN32_WINNT = &h0602)
+	#define InitiateShutdown InitiateShutdownW
+#elseif (not defined(UNICODE)) and (_WIN32_WINNT = &h0602)
+	#define InitiateShutdown InitiateShutdownA
 #endif
 
 end extern

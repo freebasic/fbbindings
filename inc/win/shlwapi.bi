@@ -100,9 +100,16 @@ declare function wnsprintfW cdecl(byval lpOut as LPWSTR, byval cchLimitIn as lon
 #define StrIntlEqNW(s1, s2, nChar) StrIsIntlEqualW(TRUE, s1, s2, nChar)
 #define StrIntlEqNIA(s1, s2, nChar) StrIsIntlEqualA(FALSE, s1, s2, nChar)
 #define StrIntlEqNIW(s1, s2, nChar) StrIsIntlEqualW(FALSE, s1, s2, nChar)
-#define StrRetToStr __MINGW_NAME_AW(StrRetToStr)
-#define StrRetToBuf __MINGW_NAME_AW(StrRetToBuf)
-#define SHStrDup __MINGW_NAME_AW(SHStrDup)
+
+#ifdef UNICODE
+	#define StrRetToStr StrRetToStrW
+	#define StrRetToBuf StrRetToBufW
+	#define SHStrDup SHStrDupW
+#else
+	#define StrRetToStr StrRetToStrA
+	#define StrRetToBuf StrRetToBufA
+	#define SHStrDup SHStrDupA
+#endif
 
 declare function StrRetToStrA(byval pstr as STRRET ptr, byval pidl as LPCITEMIDLIST, byval ppsz as LPSTR ptr) as HRESULT
 declare function StrRetToStrW(byval pstr as STRRET ptr, byval pidl as LPCITEMIDLIST, byval ppsz as LPWSTR ptr) as HRESULT
@@ -118,56 +125,109 @@ declare function SHLoadIndirectString(byval pszSource as LPCWSTR, byval pszOutBu
 #if _WIN32_WINNT = &h0602
 	declare function IsCharSpaceA(byval wch as CHAR) as WINBOOL
 	declare function IsCharSpaceW(byval wch as WCHAR) as WINBOOL
+#endif
 
-	#define IsCharSpace __MINGW_NAME_AW(IsCharSpace)
+#if defined(UNICODE) and (_WIN32_WINNT = &h0602)
+	#define IsCharSpace IsCharSpaceW
+#elseif (not defined(UNICODE)) and (_WIN32_WINNT = &h0602)
+	#define IsCharSpace IsCharSpaceA
+#endif
 
+#if _WIN32_WINNT = &h0602
 	declare function StrCmpCA(byval pszStr1 as LPCSTR, byval pszStr2 as LPCSTR) as long
 	declare function StrCmpCW(byval pszStr1 as LPCWSTR, byval pszStr2 as LPCWSTR) as long
+#endif
 
-	#define StrCmpC __MINGW_NAME_AW(StrCmpC)
+#if defined(UNICODE) and (_WIN32_WINNT = &h0602)
+	#define StrCmpC StrCmpCW
+#elseif (not defined(UNICODE)) and (_WIN32_WINNT = &h0602)
+	#define StrCmpC StrCmpCA
+#endif
 
+#if _WIN32_WINNT = &h0602
 	declare function StrCmpICA(byval pszStr1 as LPCSTR, byval pszStr2 as LPCSTR) as long
 	declare function StrCmpICW(byval pszStr1 as LPCWSTR, byval pszStr2 as LPCWSTR) as long
-
-	#define StrCmpIC __MINGW_NAME_AW(StrCmpIC)
 #endif
 
-#define StrChr_ __MINGW_NAME_AW(StrChr)
-#define StrRChr_ __MINGW_NAME_AW(StrRChr)
-#define StrChrI __MINGW_NAME_AW(StrChrI)
-#define StrRChrI __MINGW_NAME_AW(StrRChrI)
-#define StrCmpN __MINGW_NAME_AW(StrCmpN)
-#define StrCmpNI __MINGW_NAME_AW(StrCmpNI)
-#define StrStr_ __MINGW_NAME_AW(StrStr)
-#define StrStrI __MINGW_NAME_AW(StrStrI)
-#define StrDup_ __MINGW_NAME_AW(StrDup)
-#define StrRStrI __MINGW_NAME_AW(StrRStrI)
-#define StrCSpn_ __MINGW_NAME_AW(StrCSpn)
-#define StrCSpnI __MINGW_NAME_AW(StrCSpnI)
-#define StrSpn_ __MINGW_NAME_AW(StrSpn)
-#define StrToInt __MINGW_NAME_AW(StrToInt)
-#define StrPBrk_ __MINGW_NAME_AW(StrPBrk)
-#define StrToIntEx __MINGW_NAME_AW(StrToIntEx)
-
-#if (_WIN32_WINNT = &h0502) or (_WIN32_WINNT = &h0602)
-	#define StrToInt64Ex __MINGW_NAME_AW(StrToInt64Ex)
+#if defined(UNICODE) and (_WIN32_WINNT = &h0602)
+	#define StrCmpIC StrCmpICW
 #endif
-
-#define StrFromTimeInterval __MINGW_NAME_AW(StrFromTimeInterval)
-#define StrIntlEqN __MINGW_NAME_AW(StrIntlEqN)
-#define StrIntlEqNI __MINGW_NAME_AW(StrIntlEqNI)
-#define StrFormatByteSize __MINGW_NAME_AW(StrFormatByteSize)
-#define StrFormatKBSize __MINGW_NAME_AW(StrFormatKBSize)
-#define StrNCat_ __MINGW_NAME_AW(StrNCat)
-#define StrTrim __MINGW_NAME_AW(StrTrim)
-#define ChrCmpI __MINGW_NAME_AW(ChrCmpI)
-#define wvnsprintf __MINGW_NAME_AW(wvnsprintf)
-#define wnsprintf __MINGW_NAME_AW(wnsprintf)
-#define StrIsIntlEqual __MINGW_NAME_AW(StrIsIntlEqual)
 
 #ifdef UNICODE
+	#define StrChr_ StrChrW
+	#define StrRChr_ StrRChrW
+	#define StrChrI StrChrIW
+	#define StrRChrI StrRChrIW
+	#define StrCmpN StrCmpNW
+	#define StrCmpNI StrCmpNIW
+	#define StrStr_ StrStrW
+	#define StrStrI StrStrIW
+	#define StrDup_ StrDupW
+	#define StrRStrI StrRStrIW
+	#define StrCSpn_ StrCSpnW
+	#define StrCSpnI StrCSpnIW
+	#define StrSpn_ StrSpnW
+	#define StrToInt StrToIntW
+	#define StrPBrk_ StrPBrkW
+	#define StrToIntEx StrToIntExW
+#endif
+
+#if defined(UNICODE) and ((_WIN32_WINNT = &h0502) or (_WIN32_WINNT = &h0602))
+	#define StrToInt64Ex StrToInt64ExW
+#endif
+
+#ifdef UNICODE
+	#define StrFromTimeInterval StrFromTimeIntervalW
+	#define StrIntlEqN StrIntlEqNW
+	#define StrIntlEqNI StrIntlEqNIW
+	#define StrFormatByteSize StrFormatByteSizeW
+	#define StrFormatKBSize StrFormatKBSizeW
+	#define StrNCat_ StrNCatW
+	#define StrTrim StrTrimW
+	#define ChrCmpI ChrCmpIW
+	#define wvnsprintf wvnsprintfW
+	#define wnsprintf wnsprintfW
+	#define StrIsIntlEqual StrIsIntlEqualW
 	#define StrFormatByteSize64 StrFormatByteSizeW
-#else
+#elseif (not defined(UNICODE)) and (_WIN32_WINNT = &h0602)
+	#define StrCmpIC StrCmpICA
+#endif
+
+#ifndef UNICODE
+	#define StrChr_ StrChrA
+	#define StrRChr_ StrRChrA
+	#define StrChrI StrChrIA
+	#define StrRChrI StrRChrIA
+	#define StrCmpN StrCmpNA
+	#define StrCmpNI StrCmpNIA
+	#define StrStr_ StrStrA
+	#define StrStrI StrStrIA
+	#define StrDup_ StrDupA
+	#define StrRStrI StrRStrIA
+	#define StrCSpn_ StrCSpnA
+	#define StrCSpnI StrCSpnIA
+	#define StrSpn_ StrSpnA
+	#define StrToInt StrToIntA
+	#define StrPBrk_ StrPBrkA
+	#define StrToIntEx StrToIntExA
+#endif
+
+#if (not defined(UNICODE)) and ((_WIN32_WINNT = &h0502) or (_WIN32_WINNT = &h0602))
+	#define StrToInt64Ex StrToInt64ExA
+#endif
+
+#ifndef UNICODE
+	#define StrFromTimeInterval StrFromTimeIntervalA
+	#define StrIntlEqN StrIntlEqNA
+	#define StrIntlEqNI StrIntlEqNIA
+	#define StrFormatByteSize StrFormatByteSizeA
+	#define StrFormatKBSize StrFormatKBSizeA
+	#define StrNCat_ StrNCatA
+	#define StrTrim StrTrimA
+	#define ChrCmpI ChrCmpIA
+	#define wvnsprintf wvnsprintfA
+	#define wnsprintf wnsprintfA
+	#define StrIsIntlEqual StrIsIntlEqualA
 	#define StrFormatByteSize64 StrFormatByteSize64A
 #endif
 
@@ -178,14 +238,28 @@ declare function IntlStrEqWorkerW(byval fCaseSens as WINBOOL, byval lpString1 as
 #define IntlStrEqNW(s1, s2, nChar) IntlStrEqWorkerW(TRUE, s1, s2, nChar)
 #define IntlStrEqNIA(s1, s2, nChar) IntlStrEqWorkerA(FALSE, s1, s2, nChar)
 #define IntlStrEqNIW(s1, s2, nChar) IntlStrEqWorkerW(FALSE, s1, s2, nChar)
-#define IntlStrEqN __MINGW_NAME_AW(IntlStrEqN)
-#define IntlStrEqNI __MINGW_NAME_AW(IntlStrEqNI)
+
+#ifdef UNICODE
+	#define IntlStrEqN IntlStrEqNW
+	#define IntlStrEqNI IntlStrEqNIW
+#else
+	#define IntlStrEqN IntlStrEqNA
+	#define IntlStrEqNI IntlStrEqNIA
+#endif
+
 #define SZ_CONTENTTYPE_HTMLA "text/html"
 #define SZ_CONTENTTYPE_HTMLW wstr("text/html")
 #define SZ_CONTENTTYPE_CDFA "application/x-cdf"
 #define SZ_CONTENTTYPE_CDFW wstr("application/x-cdf")
-#define SZ_CONTENTTYPE_HTML __MINGW_NAME_AW(SZ_CONTENTTYPE_HTML)
-#define SZ_CONTENTTYPE_CDF __MINGW_NAME_AW(SZ_CONTENTTYPE_CDF)
+
+#ifdef UNICODE
+	#define SZ_CONTENTTYPE_HTML SZ_CONTENTTYPE_HTMLW
+	#define SZ_CONTENTTYPE_CDF SZ_CONTENTTYPE_CDFW
+#else
+	#define SZ_CONTENTTYPE_HTML SZ_CONTENTTYPE_HTMLA
+	#define SZ_CONTENTTYPE_CDF SZ_CONTENTTYPE_CDFA
+#endif
+
 #define PathIsHTMLFileA(pszPath) PathIsContentTypeA(pszPath, SZ_CONTENTTYPE_HTMLA)
 #define PathIsHTMLFileW(pszPath) PathIsContentTypeW(pszPath, SZ_CONTENTTYPE_HTMLW)
 #define STIF_DEFAULT __MSABI_LONG(&h00000000)
@@ -200,15 +274,16 @@ declare function IntlStrEqWorkerW(byval fCaseSens as WINBOOL, byval lpString1 as
 #define StrNCmpI StrCmpNI
 #define StrNCpy_ StrCpyN
 #define StrCatN StrNCat_
-#define StrCatBuff __MINGW_NAME_AW(StrCatBuff)
 
 #ifdef UNICODE
+	#define StrCatBuff StrCatBuffW
 	#define StrCat_ StrCatW
 	#define StrCmp_ StrCmpW
 	#define StrCmpI_ StrCmpIW
 	#define StrCpy_ StrCpyW
 	#define StrCpyN StrCpyNW
 #else
+	#define StrCatBuff StrCatBuffA
 	#define StrCat_ lstrcatA
 	#define StrCmp_ lstrcmpA
 	#define StrCmpI_ lstrcmpiA
@@ -219,26 +294,42 @@ declare function IntlStrEqWorkerW(byval fCaseSens as WINBOOL, byval lpString1 as
 declare function PathAddBackslashA(byval pszPath as LPSTR) as LPSTR
 declare function PathAddBackslashW(byval pszPath as LPWSTR) as LPWSTR
 
-#define PathAddBackslash __MINGW_NAME_AW(PathAddBackslash)
+#ifdef UNICODE
+	#define PathAddBackslash PathAddBackslashW
+#else
+	#define PathAddBackslash PathAddBackslashA
+#endif
 
 declare function PathAddExtensionA(byval pszPath as LPSTR, byval pszExt as LPCSTR) as WINBOOL
 declare function PathAddExtensionW(byval pszPath as LPWSTR, byval pszExt as LPCWSTR) as WINBOOL
 
-#define PathAddExtension __MINGW_NAME_AW(PathAddExtension)
+#ifdef UNICODE
+	#define PathAddExtension PathAddExtensionW
+#else
+	#define PathAddExtension PathAddExtensionA
+#endif
 
 declare function PathAppendA(byval pszPath as LPSTR, byval pMore as LPCSTR) as WINBOOL
 declare function PathAppendW(byval pszPath as LPWSTR, byval pMore as LPCWSTR) as WINBOOL
 declare function PathBuildRootA(byval pszRoot as LPSTR, byval iDrive as long) as LPSTR
 declare function PathBuildRootW(byval pszRoot as LPWSTR, byval iDrive as long) as LPWSTR
 
-#define PathBuildRoot __MINGW_NAME_AW(PathBuildRoot)
+#ifdef UNICODE
+	#define PathBuildRoot PathBuildRootW
+#else
+	#define PathBuildRoot PathBuildRootA
+#endif
 
 declare function PathCanonicalizeA(byval pszBuf as LPSTR, byval pszPath as LPCSTR) as WINBOOL
 declare function PathCanonicalizeW(byval pszBuf as LPWSTR, byval pszPath as LPCWSTR) as WINBOOL
 declare function PathCombineA(byval pszDest as LPSTR, byval pszDir as LPCSTR, byval pszFile as LPCSTR) as LPSTR
 declare function PathCombineW(byval pszDest as LPWSTR, byval pszDir as LPCWSTR, byval pszFile as LPCWSTR) as LPWSTR
 
-#define PathCombine __MINGW_NAME_AW(PathCombine)
+#ifdef UNICODE
+	#define PathCombine PathCombineW
+#else
+	#define PathCombine PathCombineA
+#endif
 
 declare function PathCompactPathA(byval hDC as HDC, byval pszPath as LPSTR, byval dx as UINT) as WINBOOL
 declare function PathCompactPathW(byval hDC as HDC, byval pszPath as LPWSTR, byval dx as UINT) as WINBOOL
@@ -249,39 +340,67 @@ declare function PathCommonPrefixW(byval pszFile1 as LPCWSTR, byval pszFile2 as 
 declare function PathFileExistsA(byval pszPath as LPCSTR) as WINBOOL
 declare function PathFileExistsW(byval pszPath as LPCWSTR) as WINBOOL
 
-#define PathFileExists __MINGW_NAME_AW(PathFileExists)
+#ifdef UNICODE
+	#define PathFileExists PathFileExistsW
+#else
+	#define PathFileExists PathFileExistsA
+#endif
 
 declare function PathFindExtensionA(byval pszPath as LPCSTR) as LPSTR
 declare function PathFindExtensionW(byval pszPath as LPCWSTR) as LPWSTR
 
-#define PathFindExtension __MINGW_NAME_AW(PathFindExtension)
+#ifdef UNICODE
+	#define PathFindExtension PathFindExtensionW
+#else
+	#define PathFindExtension PathFindExtensionA
+#endif
 
 declare function PathFindFileNameA(byval pszPath as LPCSTR) as LPSTR
 declare function PathFindFileNameW(byval pszPath as LPCWSTR) as LPWSTR
 
-#define PathFindFileName __MINGW_NAME_AW(PathFindFileName)
+#ifdef UNICODE
+	#define PathFindFileName PathFindFileNameW
+#else
+	#define PathFindFileName PathFindFileNameA
+#endif
 
 declare function PathFindNextComponentA(byval pszPath as LPCSTR) as LPSTR
 declare function PathFindNextComponentW(byval pszPath as LPCWSTR) as LPWSTR
 
-#define PathFindNextComponent __MINGW_NAME_AW(PathFindNextComponent)
+#ifdef UNICODE
+	#define PathFindNextComponent PathFindNextComponentW
+#else
+	#define PathFindNextComponent PathFindNextComponentA
+#endif
 
 declare function PathFindOnPathA(byval pszPath as LPSTR, byval ppszOtherDirs as LPCSTR ptr) as WINBOOL
 declare function PathFindOnPathW(byval pszPath as LPWSTR, byval ppszOtherDirs as LPCWSTR ptr) as WINBOOL
 declare function PathGetArgsA(byval pszPath as LPCSTR) as LPSTR
 declare function PathGetArgsW(byval pszPath as LPCWSTR) as LPWSTR
 
-#define PathGetArgs __MINGW_NAME_AW(PathGetArgs)
+#ifdef UNICODE
+	#define PathGetArgs PathGetArgsW
+#else
+	#define PathGetArgs PathGetArgsA
+#endif
 
 declare function PathFindSuffixArrayA(byval pszPath as LPCSTR, byval apszSuffix as const LPCSTR ptr, byval iArraySize as long) as LPCSTR
 declare function PathFindSuffixArrayW(byval pszPath as LPCWSTR, byval apszSuffix as const LPCWSTR ptr, byval iArraySize as long) as LPCWSTR
 
-#define PathFindSuffixArray __MINGW_NAME_AW(PathFindSuffixArray)
+#ifdef UNICODE
+	#define PathFindSuffixArray PathFindSuffixArrayW
+#else
+	#define PathFindSuffixArray PathFindSuffixArrayA
+#endif
 
 declare function PathIsLFNFileSpecA(byval lpName as LPCSTR) as WINBOOL
 declare function PathIsLFNFileSpecW(byval lpName as LPCWSTR) as WINBOOL
 
-#define PathIsLFNFileSpec __MINGW_NAME_AW(PathIsLFNFileSpec)
+#ifdef UNICODE
+	#define PathIsLFNFileSpec PathIsLFNFileSpecW
+#else
+	#define PathIsLFNFileSpec PathIsLFNFileSpecA
+#endif
 
 declare function PathGetCharTypeA(byval ch as UCHAR) as UINT
 declare function PathGetCharTypeW(byval ch as WCHAR) as UINT
@@ -295,69 +414,121 @@ declare function PathGetCharTypeW(byval ch as WCHAR) as UINT
 declare function PathGetDriveNumberA(byval pszPath as LPCSTR) as long
 declare function PathGetDriveNumberW(byval pszPath as LPCWSTR) as long
 
-#define PathGetDriveNumber __MINGW_NAME_AW(PathGetDriveNumber)
+#ifdef UNICODE
+	#define PathGetDriveNumber PathGetDriveNumberW
+#else
+	#define PathGetDriveNumber PathGetDriveNumberA
+#endif
 
 declare function PathIsDirectoryA(byval pszPath as LPCSTR) as WINBOOL
 declare function PathIsDirectoryW(byval pszPath as LPCWSTR) as WINBOOL
 
-#define PathIsDirectory __MINGW_NAME_AW(PathIsDirectory)
+#ifdef UNICODE
+	#define PathIsDirectory PathIsDirectoryW
+#else
+	#define PathIsDirectory PathIsDirectoryA
+#endif
 
 declare function PathIsDirectoryEmptyA(byval pszPath as LPCSTR) as WINBOOL
 declare function PathIsDirectoryEmptyW(byval pszPath as LPCWSTR) as WINBOOL
 
-#define PathIsDirectoryEmpty __MINGW_NAME_AW(PathIsDirectoryEmpty)
+#ifdef UNICODE
+	#define PathIsDirectoryEmpty PathIsDirectoryEmptyW
+#else
+	#define PathIsDirectoryEmpty PathIsDirectoryEmptyA
+#endif
 
 declare function PathIsFileSpecA(byval pszPath as LPCSTR) as WINBOOL
 declare function PathIsFileSpecW(byval pszPath as LPCWSTR) as WINBOOL
 
-#define PathIsFileSpec __MINGW_NAME_AW(PathIsFileSpec)
+#ifdef UNICODE
+	#define PathIsFileSpec PathIsFileSpecW
+#else
+	#define PathIsFileSpec PathIsFileSpecA
+#endif
 
 declare function PathIsPrefixA(byval pszPrefix as LPCSTR, byval pszPath as LPCSTR) as WINBOOL
 declare function PathIsPrefixW(byval pszPrefix as LPCWSTR, byval pszPath as LPCWSTR) as WINBOOL
 
-#define PathIsPrefix __MINGW_NAME_AW(PathIsPrefix)
+#ifdef UNICODE
+	#define PathIsPrefix PathIsPrefixW
+#else
+	#define PathIsPrefix PathIsPrefixA
+#endif
 
 declare function PathIsRelativeA(byval pszPath as LPCSTR) as WINBOOL
 declare function PathIsRelativeW(byval pszPath as LPCWSTR) as WINBOOL
 
-#define PathIsRelative __MINGW_NAME_AW(PathIsRelative)
+#ifdef UNICODE
+	#define PathIsRelative PathIsRelativeW
+#else
+	#define PathIsRelative PathIsRelativeA
+#endif
 
 declare function PathIsRootA(byval pszPath as LPCSTR) as WINBOOL
 declare function PathIsRootW(byval pszPath as LPCWSTR) as WINBOOL
 
-#define PathIsRoot __MINGW_NAME_AW(PathIsRoot)
+#ifdef UNICODE
+	#define PathIsRoot PathIsRootW
+#else
+	#define PathIsRoot PathIsRootA
+#endif
 
 declare function PathIsSameRootA(byval pszPath1 as LPCSTR, byval pszPath2 as LPCSTR) as WINBOOL
 declare function PathIsSameRootW(byval pszPath1 as LPCWSTR, byval pszPath2 as LPCWSTR) as WINBOOL
 
-#define PathIsSameRoot __MINGW_NAME_AW(PathIsSameRoot)
+#ifdef UNICODE
+	#define PathIsSameRoot PathIsSameRootW
+#else
+	#define PathIsSameRoot PathIsSameRootA
+#endif
 
 declare function PathIsUNCA(byval pszPath as LPCSTR) as WINBOOL
 declare function PathIsUNCW(byval pszPath as LPCWSTR) as WINBOOL
 
-#define PathIsUNC __MINGW_NAME_AW(PathIsUNC)
+#ifdef UNICODE
+	#define PathIsUNC PathIsUNCW
+#else
+	#define PathIsUNC PathIsUNCA
+#endif
 
 declare function PathIsNetworkPathA(byval pszPath as LPCSTR) as WINBOOL
 declare function PathIsNetworkPathW(byval pszPath as LPCWSTR) as WINBOOL
 
-#define PathIsNetworkPath __MINGW_NAME_AW(PathIsNetworkPath)
+#ifdef UNICODE
+	#define PathIsNetworkPath PathIsNetworkPathW
+#else
+	#define PathIsNetworkPath PathIsNetworkPathA
+#endif
 
 declare function PathIsUNCServerA(byval pszPath as LPCSTR) as WINBOOL
 declare function PathIsUNCServerW(byval pszPath as LPCWSTR) as WINBOOL
 
-#define PathIsUNCServer __MINGW_NAME_AW(PathIsUNCServer)
+#ifdef UNICODE
+	#define PathIsUNCServer PathIsUNCServerW
+#else
+	#define PathIsUNCServer PathIsUNCServerA
+#endif
 
 declare function PathIsUNCServerShareA(byval pszPath as LPCSTR) as WINBOOL
 declare function PathIsUNCServerShareW(byval pszPath as LPCWSTR) as WINBOOL
 
-#define PathIsUNCServerShare __MINGW_NAME_AW(PathIsUNCServerShare)
+#ifdef UNICODE
+	#define PathIsUNCServerShare PathIsUNCServerShareW
+#else
+	#define PathIsUNCServerShare PathIsUNCServerShareA
+#endif
 
 declare function PathIsContentTypeA(byval pszPath as LPCSTR, byval pszContentType as LPCSTR) as WINBOOL
 declare function PathIsContentTypeW(byval pszPath as LPCWSTR, byval pszContentType as LPCWSTR) as WINBOOL
 declare function PathIsURLA(byval pszPath as LPCSTR) as WINBOOL
 declare function PathIsURLW(byval pszPath as LPCWSTR) as WINBOOL
 
-#define PathIsURL __MINGW_NAME_AW(PathIsURL)
+#ifdef UNICODE
+	#define PathIsURL PathIsURLW
+#else
+	#define PathIsURL PathIsURLA
+#endif
 
 declare function PathMakePrettyA(byval pszPath as LPSTR) as WINBOOL
 declare function PathMakePrettyW(byval pszPath as LPWSTR) as WINBOOL
@@ -374,7 +545,11 @@ declare sub PathRemoveArgsW(byval pszPath as LPWSTR)
 declare function PathRemoveBackslashA(byval pszPath as LPSTR) as LPSTR
 declare function PathRemoveBackslashW(byval pszPath as LPWSTR) as LPWSTR
 
-#define PathRemoveBackslash __MINGW_NAME_AW(PathRemoveBackslash)
+#ifdef UNICODE
+	#define PathRemoveBackslash PathRemoveBackslashW
+#else
+	#define PathRemoveBackslash PathRemoveBackslashA
+#endif
 
 declare sub PathRemoveBlanksA(byval pszPath as LPSTR)
 declare sub PathRemoveBlanksW(byval pszPath as LPWSTR)
@@ -391,66 +566,120 @@ declare sub PathSetDlgItemPathW(byval hDlg as HWND, byval id as long, byval pszP
 declare function PathSkipRootA(byval pszPath as LPCSTR) as LPSTR
 declare function PathSkipRootW(byval pszPath as LPCWSTR) as LPWSTR
 
-#define PathSkipRoot __MINGW_NAME_AW(PathSkipRoot)
+#ifdef UNICODE
+	#define PathSkipRoot PathSkipRootW
+#else
+	#define PathSkipRoot PathSkipRootA
+#endif
 
 declare sub PathStripPathA(byval pszPath as LPSTR)
 declare sub PathStripPathW(byval pszPath as LPWSTR)
 
-#define PathStripPath __MINGW_NAME_AW(PathStripPath)
+#ifdef UNICODE
+	#define PathStripPath PathStripPathW
+#else
+	#define PathStripPath PathStripPathA
+#endif
 
 declare function PathStripToRootA(byval pszPath as LPSTR) as WINBOOL
 declare function PathStripToRootW(byval pszPath as LPWSTR) as WINBOOL
 
-#define PathStripToRoot __MINGW_NAME_AW(PathStripToRoot)
+#ifdef UNICODE
+	#define PathStripToRoot PathStripToRootW
+#else
+	#define PathStripToRoot PathStripToRootA
+#endif
 
 declare sub PathUnquoteSpacesA(byval lpsz as LPSTR)
 declare sub PathUnquoteSpacesW(byval lpsz as LPWSTR)
 declare function PathMakeSystemFolderA(byval pszPath as LPCSTR) as WINBOOL
 declare function PathMakeSystemFolderW(byval pszPath as LPCWSTR) as WINBOOL
 
-#define PathMakeSystemFolder __MINGW_NAME_AW(PathMakeSystemFolder)
+#ifdef UNICODE
+	#define PathMakeSystemFolder PathMakeSystemFolderW
+#else
+	#define PathMakeSystemFolder PathMakeSystemFolderA
+#endif
 
 declare function PathUnmakeSystemFolderA(byval pszPath as LPCSTR) as WINBOOL
 declare function PathUnmakeSystemFolderW(byval pszPath as LPCWSTR) as WINBOOL
 
-#define PathUnmakeSystemFolder __MINGW_NAME_AW(PathUnmakeSystemFolder)
+#ifdef UNICODE
+	#define PathUnmakeSystemFolder PathUnmakeSystemFolderW
+#else
+	#define PathUnmakeSystemFolder PathUnmakeSystemFolderA
+#endif
 
 declare function PathIsSystemFolderA(byval pszPath as LPCSTR, byval dwAttrb as DWORD) as WINBOOL
 declare function PathIsSystemFolderW(byval pszPath as LPCWSTR, byval dwAttrb as DWORD) as WINBOOL
 
-#define PathIsSystemFolder __MINGW_NAME_AW(PathIsSystemFolder)
+#ifdef UNICODE
+	#define PathIsSystemFolder PathIsSystemFolderW
+#else
+	#define PathIsSystemFolder PathIsSystemFolderA
+#endif
 
 declare sub PathUndecorateA(byval pszPath as LPSTR)
 declare sub PathUndecorateW(byval pszPath as LPWSTR)
 
-#define PathUndecorate __MINGW_NAME_AW(PathUndecorate)
+#ifdef UNICODE
+	#define PathUndecorate PathUndecorateW
+#else
+	#define PathUndecorate PathUndecorateA
+#endif
 
 declare function PathUnExpandEnvStringsA(byval pszPath as LPCSTR, byval pszBuf as LPSTR, byval cchBuf as UINT) as WINBOOL
 declare function PathUnExpandEnvStringsW(byval pszPath as LPCWSTR, byval pszBuf as LPWSTR, byval cchBuf as UINT) as WINBOOL
 
-#define PathUnExpandEnvStrings __MINGW_NAME_AW(PathUnExpandEnvStrings)
-#define PathAppend __MINGW_NAME_AW(PathAppend)
-#define PathCanonicalize __MINGW_NAME_AW(PathCanonicalize)
-#define PathCompactPath __MINGW_NAME_AW(PathCompactPath)
-#define PathCompactPathEx __MINGW_NAME_AW(PathCompactPathEx)
-#define PathCommonPrefix __MINGW_NAME_AW(PathCommonPrefix)
-#define PathFindOnPath __MINGW_NAME_AW(PathFindOnPath)
-#define PathGetCharType __MINGW_NAME_AW(PathGetCharType)
-#define PathIsContentType __MINGW_NAME_AW(PathIsContentType)
-#define PathIsHTMLFile __MINGW_NAME_AW(PathIsHTMLFile)
-#define PathMakePretty __MINGW_NAME_AW(PathMakePretty)
-#define PathMatchSpec __MINGW_NAME_AW(PathMatchSpec)
-#define PathParseIconLocation __MINGW_NAME_AW(PathParseIconLocation)
-#define PathQuoteSpaces __MINGW_NAME_AW(PathQuoteSpaces)
-#define PathRelativePathTo __MINGW_NAME_AW(PathRelativePathTo)
-#define PathRemoveArgs __MINGW_NAME_AW(PathRemoveArgs)
-#define PathRemoveBlanks __MINGW_NAME_AW(PathRemoveBlanks)
-#define PathRemoveExtension __MINGW_NAME_AW(PathRemoveExtension)
-#define PathRemoveFileSpec __MINGW_NAME_AW(PathRemoveFileSpec)
-#define PathRenameExtension __MINGW_NAME_AW(PathRenameExtension)
-#define PathSearchAndQualify __MINGW_NAME_AW(PathSearchAndQualify)
-#define PathSetDlgItemPath __MINGW_NAME_AW(PathSetDlgItemPath)
-#define PathUnquoteSpaces __MINGW_NAME_AW(PathUnquoteSpaces)
+#ifdef UNICODE
+	#define PathUnExpandEnvStrings PathUnExpandEnvStringsW
+	#define PathAppend PathAppendW
+	#define PathCanonicalize PathCanonicalizeW
+	#define PathCompactPath PathCompactPathW
+	#define PathCompactPathEx PathCompactPathExW
+	#define PathCommonPrefix PathCommonPrefixW
+	#define PathFindOnPath PathFindOnPathW
+	#define PathGetCharType PathGetCharTypeW
+	#define PathIsContentType PathIsContentTypeW
+	#define PathIsHTMLFile PathIsHTMLFileW
+	#define PathMakePretty PathMakePrettyW
+	#define PathMatchSpec PathMatchSpecW
+	#define PathParseIconLocation PathParseIconLocationW
+	#define PathQuoteSpaces PathQuoteSpacesW
+	#define PathRelativePathTo PathRelativePathToW
+	#define PathRemoveArgs PathRemoveArgsW
+	#define PathRemoveBlanks PathRemoveBlanksW
+	#define PathRemoveExtension PathRemoveExtensionW
+	#define PathRemoveFileSpec PathRemoveFileSpecW
+	#define PathRenameExtension PathRenameExtensionW
+	#define PathSearchAndQualify PathSearchAndQualifyW
+	#define PathSetDlgItemPath PathSetDlgItemPathW
+	#define PathUnquoteSpaces PathUnquoteSpacesW
+#else
+	#define PathUnExpandEnvStrings PathUnExpandEnvStringsA
+	#define PathAppend PathAppendA
+	#define PathCanonicalize PathCanonicalizeA
+	#define PathCompactPath PathCompactPathA
+	#define PathCompactPathEx PathCompactPathExA
+	#define PathCommonPrefix PathCommonPrefixA
+	#define PathFindOnPath PathFindOnPathA
+	#define PathGetCharType PathGetCharTypeA
+	#define PathIsContentType PathIsContentTypeA
+	#define PathIsHTMLFile PathIsHTMLFileA
+	#define PathMakePretty PathMakePrettyA
+	#define PathMatchSpec PathMatchSpecA
+	#define PathParseIconLocation PathParseIconLocationA
+	#define PathQuoteSpaces PathQuoteSpacesA
+	#define PathRelativePathTo PathRelativePathToA
+	#define PathRemoveArgs PathRemoveArgsA
+	#define PathRemoveBlanks PathRemoveBlanksA
+	#define PathRemoveExtension PathRemoveExtensionA
+	#define PathRemoveFileSpec PathRemoveFileSpecA
+	#define PathRenameExtension PathRenameExtensionA
+	#define PathSearchAndQualify PathSearchAndQualifyA
+	#define PathSetDlgItemPath PathSetDlgItemPathA
+	#define PathUnquoteSpaces PathUnquoteSpacesA
+#endif
 
 type URL_SCHEME as long
 enum
@@ -560,48 +789,86 @@ declare function UrlApplySchemeA(byval pszIn as LPCSTR, byval pszOut as LPSTR, b
 declare function UrlApplySchemeW(byval pszIn as LPCWSTR, byval pszOut as LPWSTR, byval pcchOut as LPDWORD, byval dwFlags as DWORD) as HRESULT
 declare function HashData(byval pbData as LPBYTE, byval cbData as DWORD, byval pbHash as LPBYTE, byval cbHash as DWORD) as HRESULT
 
-#define UrlCompare __MINGW_NAME_AW(UrlCompare)
-#define UrlCombine __MINGW_NAME_AW(UrlCombine)
-#define UrlCanonicalize __MINGW_NAME_AW(UrlCanonicalize)
-#define UrlIsOpaque __MINGW_NAME_AW(UrlIsOpaque)
-#define UrlIsFileUrl __MINGW_NAME_AW(UrlIsFileUrl)
-#define UrlGetLocation __MINGW_NAME_AW(UrlGetLocation)
-#define UrlUnescape __MINGW_NAME_AW(UrlUnescape)
-#define UrlEscape __MINGW_NAME_AW(UrlEscape)
-#define UrlCreateFromPath __MINGW_NAME_AW(UrlCreateFromPath)
-#define PathCreateFromUrl __MINGW_NAME_AW(PathCreateFromUrl)
-#define UrlHash __MINGW_NAME_AW(UrlHash)
-#define UrlGetPart __MINGW_NAME_AW(UrlGetPart)
-#define UrlApplyScheme __MINGW_NAME_AW(UrlApplyScheme)
-#define UrlIs_ __MINGW_NAME_AW(UrlIs)
+#ifdef UNICODE
+	#define UrlCompare UrlCompareW
+	#define UrlCombine UrlCombineW
+	#define UrlCanonicalize UrlCanonicalizeW
+	#define UrlIsOpaque UrlIsOpaqueW
+	#define UrlIsFileUrl UrlIsFileUrlW
+	#define UrlGetLocation UrlGetLocationW
+	#define UrlUnescape UrlUnescapeW
+	#define UrlEscape UrlEscapeW
+	#define UrlCreateFromPath UrlCreateFromPathW
+	#define PathCreateFromUrl PathCreateFromUrlW
+	#define UrlHash UrlHashW
+	#define UrlGetPart UrlGetPartW
+	#define UrlApplyScheme UrlApplySchemeW
+	#define UrlIs_ UrlIsW
+#else
+	#define UrlCompare UrlCompareA
+	#define UrlCombine UrlCombineA
+	#define UrlCanonicalize UrlCanonicalizeA
+	#define UrlIsOpaque UrlIsOpaqueA
+	#define UrlIsFileUrl UrlIsFileUrlA
+	#define UrlGetLocation UrlGetLocationA
+	#define UrlUnescape UrlUnescapeA
+	#define UrlEscape UrlEscapeA
+	#define UrlCreateFromPath UrlCreateFromPathA
+	#define PathCreateFromUrl PathCreateFromUrlA
+	#define UrlHash UrlHashA
+	#define UrlGetPart UrlGetPartA
+	#define UrlApplyScheme UrlApplySchemeA
+	#define UrlIs_ UrlIsA
+#endif
+
 #define UrlEscapeSpaces(pszUrl, pszEscaped, pcchEscaped) UrlCanonicalize(pszUrl, pszEscaped, pcchEscaped, URL_ESCAPE_SPACES_ONLY or URL_DONT_ESCAPE_EXTRA_INFO)
 #define UrlUnescapeInPlace(pszUrl, dwFlags) UrlUnescape(pszUrl, NULL, NULL, dwFlags or URL_UNESCAPE_INPLACE)
 
 declare function SHDeleteEmptyKeyA(byval hkey as HKEY, byval pszSubKey as LPCSTR) as DWORD
 declare function SHDeleteEmptyKeyW(byval hkey as HKEY, byval pszSubKey as LPCWSTR) as DWORD
 
-#define SHDeleteEmptyKey __MINGW_NAME_AW(SHDeleteEmptyKey)
+#ifdef UNICODE
+	#define SHDeleteEmptyKey SHDeleteEmptyKeyW
+#else
+	#define SHDeleteEmptyKey SHDeleteEmptyKeyA
+#endif
 
 declare function SHDeleteKeyA(byval hkey as HKEY, byval pszSubKey as LPCSTR) as DWORD
 declare function SHDeleteKeyW(byval hkey as HKEY, byval pszSubKey as LPCWSTR) as DWORD
 
-#define SHDeleteKey __MINGW_NAME_AW(SHDeleteKey)
+#ifdef UNICODE
+	#define SHDeleteKey SHDeleteKeyW
+#else
+	#define SHDeleteKey SHDeleteKeyA
+#endif
 
 declare function SHRegDuplicateHKey(byval hkey as HKEY) as HKEY
 declare function SHDeleteValueA(byval hkey as HKEY, byval pszSubKey as LPCSTR, byval pszValue as LPCSTR) as DWORD
 declare function SHDeleteValueW(byval hkey as HKEY, byval pszSubKey as LPCWSTR, byval pszValue as LPCWSTR) as DWORD
 
-#define SHDeleteValue __MINGW_NAME_AW(SHDeleteValue)
+#ifdef UNICODE
+	#define SHDeleteValue SHDeleteValueW
+#else
+	#define SHDeleteValue SHDeleteValueA
+#endif
 
 declare function SHGetValueA(byval hkey as HKEY, byval pszSubKey as LPCSTR, byval pszValue as LPCSTR, byval pdwType as DWORD ptr, byval pvData as any ptr, byval pcbData as DWORD ptr) as DWORD
 declare function SHGetValueW(byval hkey as HKEY, byval pszSubKey as LPCWSTR, byval pszValue as LPCWSTR, byval pdwType as DWORD ptr, byval pvData as any ptr, byval pcbData as DWORD ptr) as DWORD
 
-#define SHGetValue __MINGW_NAME_AW(SHGetValue)
+#ifdef UNICODE
+	#define SHGetValue SHGetValueW
+#else
+	#define SHGetValue SHGetValueA
+#endif
 
 declare function SHSetValueA(byval hkey as HKEY, byval pszSubKey as LPCSTR, byval pszValue as LPCSTR, byval dwType as DWORD, byval pvData as LPCVOID, byval cbData as DWORD) as DWORD
 declare function SHSetValueW(byval hkey as HKEY, byval pszSubKey as LPCWSTR, byval pszValue as LPCWSTR, byval dwType as DWORD, byval pvData as LPCVOID, byval cbData as DWORD) as DWORD
 
-#define SHSetValue __MINGW_NAME_AW(SHSetValue)
+#ifdef UNICODE
+	#define SHSetValue SHSetValueW
+#elseif (not defined(UNICODE)) and ((not defined(__FB_64BIT__)) or (defined(__FB_64BIT__) and ((_WIN32_WINNT = &h0502) or (_WIN32_WINNT = &h0602))))
+	#define SHSetValue SHSetValueA
+#endif
 
 #if (_WIN32_WINNT = &h0502) or (_WIN32_WINNT = &h0602)
 	type SRRF as DWORD
@@ -625,17 +892,35 @@ declare function SHSetValueW(byval hkey as HKEY, byval pszSubKey as LPCWSTR, byv
 
 	declare function SHRegGetValueA(byval hkey as HKEY, byval pszSubKey as LPCSTR, byval pszValue as LPCSTR, byval dwFlags as SRRF, byval pdwType as DWORD ptr, byval pvData as any ptr, byval pcbData as DWORD ptr) as LONG
 	declare function SHRegGetValueW(byval hkey as HKEY, byval pszSubKey as LPCWSTR, byval pszValue as LPCWSTR, byval dwFlags as SRRF, byval pdwType as DWORD ptr, byval pvData as any ptr, byval pcbData as DWORD ptr) as LONG
-
-	#define SHRegGetValue __MINGW_NAME_AW(SHRegGetValue)
 #endif
 
-#define SHQueryValueEx __MINGW_NAME_AW(SHQueryValueEx)
-#define SHEnumKeyEx __MINGW_NAME_AW(SHEnumKeyEx)
-#define SHEnumValue __MINGW_NAME_AW(SHEnumValue)
-#define SHQueryInfoKey __MINGW_NAME_AW(SHQueryInfoKey)
-#define SHCopyKey __MINGW_NAME_AW(SHCopyKey)
-#define SHRegGetPath __MINGW_NAME_AW(SHRegGetPath)
-#define SHRegSetPath __MINGW_NAME_AW(SHRegSetPath)
+#if defined(UNICODE) and ((_WIN32_WINNT = &h0502) or (_WIN32_WINNT = &h0602))
+	#define SHRegGetValue SHRegGetValueW
+#endif
+
+#ifdef UNICODE
+	#define SHQueryValueEx SHQueryValueExW
+	#define SHEnumKeyEx SHEnumKeyExW
+	#define SHEnumValue SHEnumValueW
+	#define SHQueryInfoKey SHQueryInfoKeyW
+	#define SHCopyKey SHCopyKeyW
+	#define SHRegGetPath SHRegGetPathW
+	#define SHRegSetPath SHRegSetPathW
+#elseif defined(__FB_64BIT__) and (not defined(UNICODE)) and (_WIN32_WINNT = &h0400)
+	#define SHSetValue SHSetValueA
+#elseif (not defined(UNICODE)) and ((_WIN32_WINNT = &h0502) or (_WIN32_WINNT = &h0602))
+	#define SHRegGetValue SHRegGetValueA
+#endif
+
+#ifndef UNICODE
+	#define SHQueryValueEx SHQueryValueExA
+	#define SHEnumKeyEx SHEnumKeyExA
+	#define SHEnumValue SHEnumValueA
+	#define SHQueryInfoKey SHQueryInfoKeyA
+	#define SHCopyKey SHCopyKeyA
+	#define SHRegGetPath SHRegGetPathA
+	#define SHRegSetPath SHRegSetPathA
+#endif
 
 declare function SHQueryValueExA(byval hkey as HKEY, byval pszValue as LPCSTR, byval pdwReserved as DWORD ptr, byval pdwType as DWORD ptr, byval pvData as any ptr, byval pcbData as DWORD ptr) as DWORD
 declare function SHQueryValueExW(byval hkey as HKEY, byval pszValue as LPCWSTR, byval pdwReserved as DWORD ptr, byval pdwType as DWORD ptr, byval pvData as any ptr, byval pcbData as DWORD ptr) as DWORD
@@ -702,19 +987,35 @@ declare function SHRegSetUSValueA(byval pszSubKey as LPCSTR, byval pszValue as L
 declare function SHRegSetUSValueW(byval pwzSubKey as LPCWSTR, byval pwzValue as LPCWSTR, byval dwType as DWORD, byval pvData as const any ptr, byval cbData as DWORD, byval dwFlags as DWORD) as LONG
 declare function SHRegGetIntW(byval hk as HKEY, byval pwzKey as LPCWSTR, byval iDefault as long) as long
 
-#define SHRegCreateUSKey __MINGW_NAME_AW(SHRegCreateUSKey)
-#define SHRegOpenUSKey __MINGW_NAME_AW(SHRegOpenUSKey)
-#define SHRegQueryUSValue __MINGW_NAME_AW(SHRegQueryUSValue)
-#define SHRegWriteUSValue __MINGW_NAME_AW(SHRegWriteUSValue)
-#define SHRegDeleteUSValue __MINGW_NAME_AW(SHRegDeleteUSValue)
-#define SHRegDeleteEmptyUSKey __MINGW_NAME_AW(SHRegDeleteEmptyUSKey)
-#define SHRegEnumUSKey __MINGW_NAME_AW(SHRegEnumUSKey)
-#define SHRegEnumUSValue __MINGW_NAME_AW(SHRegEnumUSValue)
-#define SHRegQueryInfoUSKey __MINGW_NAME_AW(SHRegQueryInfoUSKey)
-#define SHRegGetUSValue __MINGW_NAME_AW(SHRegGetUSValue)
-#define SHRegSetUSValue __MINGW_NAME_AW(SHRegSetUSValue)
-#define SHRegGetInt __MINGW_NAME_AW(SHRegGetInt)
-#define SHRegGetBoolUSValue __MINGW_NAME_AW(SHRegGetBoolUSValue)
+#ifdef UNICODE
+	#define SHRegCreateUSKey SHRegCreateUSKeyW
+	#define SHRegOpenUSKey SHRegOpenUSKeyW
+	#define SHRegQueryUSValue SHRegQueryUSValueW
+	#define SHRegWriteUSValue SHRegWriteUSValueW
+	#define SHRegDeleteUSValue SHRegDeleteUSValueW
+	#define SHRegDeleteEmptyUSKey SHRegDeleteEmptyUSKeyW
+	#define SHRegEnumUSKey SHRegEnumUSKeyW
+	#define SHRegEnumUSValue SHRegEnumUSValueW
+	#define SHRegQueryInfoUSKey SHRegQueryInfoUSKeyW
+	#define SHRegGetUSValue SHRegGetUSValueW
+	#define SHRegSetUSValue SHRegSetUSValueW
+	#define SHRegGetInt SHRegGetIntW
+	#define SHRegGetBoolUSValue SHRegGetBoolUSValueW
+#else
+	#define SHRegCreateUSKey SHRegCreateUSKeyA
+	#define SHRegOpenUSKey SHRegOpenUSKeyA
+	#define SHRegQueryUSValue SHRegQueryUSValueA
+	#define SHRegWriteUSValue SHRegWriteUSValueA
+	#define SHRegDeleteUSValue SHRegDeleteUSValueA
+	#define SHRegDeleteEmptyUSKey SHRegDeleteEmptyUSKeyA
+	#define SHRegEnumUSKey SHRegEnumUSKeyA
+	#define SHRegEnumUSValue SHRegEnumUSValueA
+	#define SHRegQueryInfoUSKey SHRegQueryInfoUSKeyA
+	#define SHRegGetUSValue SHRegGetUSValueA
+	#define SHRegSetUSValue SHRegSetUSValueA
+	#define SHRegGetInt SHRegGetIntA
+	#define SHRegGetBoolUSValue SHRegGetBoolUSValueA
+#endif
 
 declare function SHRegGetBoolUSValueA(byval pszSubKey as LPCSTR, byval pszValue as LPCSTR, byval fIgnoreHKCU as WINBOOL, byval fDefault as WINBOOL) as WINBOOL
 declare function SHRegGetBoolUSValueW(byval pszSubKey as LPCWSTR, byval pszValue as LPCWSTR, byval fIgnoreHKCU as WINBOOL, byval fDefault as WINBOOL) as WINBOOL
@@ -803,9 +1104,15 @@ type IQueryAssociationsVtbl_
 	GetEnum as function(byval This as IQueryAssociations ptr, byval flags as ASSOCF, byval assocenum as ASSOCENUM, byval pszExtra as LPCWSTR, byval riid as const IID const ptr, byval ppvOut as LPVOID ptr) as HRESULT
 end type
 
-#define AssocQueryString __MINGW_NAME_AW(AssocQueryString)
-#define AssocQueryStringByKey __MINGW_NAME_AW(AssocQueryStringByKey)
-#define AssocQueryKey __MINGW_NAME_AW(AssocQueryKey)
+#ifdef UNICODE
+	#define AssocQueryString AssocQueryStringW
+	#define AssocQueryStringByKey AssocQueryStringByKeyW
+	#define AssocQueryKey AssocQueryKeyW
+#else
+	#define AssocQueryString AssocQueryStringA
+	#define AssocQueryStringByKey AssocQueryStringByKeyA
+	#define AssocQueryKey AssocQueryKeyA
+#endif
 
 declare function AssocCreate(byval clsid as CLSID, byval riid as const IID const ptr, byval ppv as LPVOID ptr) as HRESULT
 declare function AssocQueryStringA(byval flags as ASSOCF, byval str_ as ASSOCSTR, byval pszAssoc as LPCSTR, byval pszExtra as LPCSTR, byval pszOut as LPSTR, byval pcchOut as DWORD ptr) as HRESULT
@@ -823,8 +1130,13 @@ declare function AssocQueryKeyW(byval flags as ASSOCF, byval key as ASSOCKEY, by
 	declare function AssocGetPerceivedType(byval pszExt as LPCWSTR, byval ptype as PERCEIVED ptr, byval pflag as PERCEIVEDFLAG ptr, byval ppszType as LPWSTR ptr) as HRESULT
 #endif
 
-#define SHOpenRegStream2 __MINGW_NAME_AW(SHOpenRegStream2)
-#define SHCreateStreamOnFile __MINGW_NAME_AW(SHCreateStreamOnFile)
+#ifdef UNICODE
+	#define SHOpenRegStream2 SHOpenRegStream2W
+	#define SHCreateStreamOnFile SHCreateStreamOnFileW
+#else
+	#define SHOpenRegStream2 SHOpenRegStream2A
+	#define SHCreateStreamOnFile SHCreateStreamOnFileA
+#endif
 
 declare function SHOpenRegStreamA(byval hkey as HKEY, byval pszSubkey as LPCSTR, byval pszValue as LPCSTR, byval grfMode as DWORD) as IStream ptr
 declare function SHOpenRegStreamW(byval hkey as HKEY, byval pszSubkey as LPCWSTR, byval pszValue as LPCWSTR, byval grfMode as DWORD) as IStream ptr
@@ -840,9 +1152,13 @@ declare function SHCreateStreamOnFileW(byval pszFile as LPCWSTR, byval grfMode a
 	declare function SHCreateStreamOnFileEx(byval pszFile as LPCWSTR, byval grfMode as DWORD, byval dwAttributes as DWORD, byval fCreate as WINBOOL, byval pstmTemplate as IStream ptr, byval ppstm as IStream ptr ptr) as HRESULT
 #endif
 
-#if _WIN32_WINNT = &h0602
-	#define GetAcceptLanguages __MINGW_NAME_AW(GetAcceptLanguages)
+#if defined(UNICODE) and (_WIN32_WINNT = &h0602)
+	#define GetAcceptLanguages GetAcceptLanguagesW
+#elseif (not defined(UNICODE)) and (_WIN32_WINNT = &h0602)
+	#define GetAcceptLanguages GetAcceptLanguagesA
+#endif
 
+#if _WIN32_WINNT = &h0602
 	declare function GetAcceptLanguagesA(byval psz as LPSTR, byval pcch as DWORD ptr) as HRESULT
 	declare function GetAcceptLanguagesW(byval psz as LPWSTR, byval pcch as DWORD ptr) as HRESULT
 #endif

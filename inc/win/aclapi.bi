@@ -15,31 +15,60 @@
 
 type FN_PROGRESS as sub cdecl(byval pObjectName as LPWSTR, byval Status as DWORD, byval pInvokeSetting as PPROG_INVOKE_SETTING, byval Args as PVOID, byval SecuritySet as WINBOOL)
 
-#define SetEntriesInAcl __MINGW_NAME_AW(SetEntriesInAcl)
-#define GetExplicitEntriesFromAcl __MINGW_NAME_AW(GetExplicitEntriesFromAcl)
-#define GetEffectiveRightsFromAcl __MINGW_NAME_AW(GetEffectiveRightsFromAcl)
-#define GetAuditedPermissionsFromAcl __MINGW_NAME_AW(GetAuditedPermissionsFromAcl)
-#define GetNamedSecurityInfo __MINGW_NAME_AW(GetNamedSecurityInfo)
-#define SetNamedSecurityInfo __MINGW_NAME_AW(SetNamedSecurityInfo)
-#define GetInheritanceSource __MINGW_NAME_AW(GetInheritanceSource)
-#define TreeResetNamedSecurityInfo __MINGW_NAME_AW(TreeResetNamedSecurityInfo)
-#define BuildSecurityDescriptor __MINGW_NAME_AW(BuildSecurityDescriptor)
-#define LookupSecurityDescriptorParts __MINGW_NAME_AW(LookupSecurityDescriptorParts)
-#define BuildExplicitAccessWithName __MINGW_NAME_AW(BuildExplicitAccessWithName)
-#define BuildImpersonateExplicitAccessWithName __MINGW_NAME_AW(BuildImpersonateExplicitAccessWithName)
-#define BuildTrusteeWithName __MINGW_NAME_AW(BuildTrusteeWithName)
-#define BuildImpersonateTrustee __MINGW_NAME_AW(BuildImpersonateTrustee)
-#define BuildTrusteeWithSid __MINGW_NAME_AW(BuildTrusteeWithSid)
-#define BuildTrusteeWithObjectsAndSid __MINGW_NAME_AW(BuildTrusteeWithObjectsAndSid)
-#define BuildTrusteeWithObjectsAndName __MINGW_NAME_AW(BuildTrusteeWithObjectsAndName)
-#define GetTrusteeName __MINGW_NAME_AW(GetTrusteeName)
-#define GetTrusteeType __MINGW_NAME_AW(GetTrusteeType)
-#define GetTrusteeForm __MINGW_NAME_AW(GetTrusteeForm)
-#define GetMultipleTrusteeOperation __MINGW_NAME_AW(GetMultipleTrusteeOperation)
-#define GetMultipleTrustee __MINGW_NAME_AW(GetMultipleTrustee)
+#ifdef UNICODE
+	#define SetEntriesInAcl SetEntriesInAclW
+	#define GetExplicitEntriesFromAcl GetExplicitEntriesFromAclW
+	#define GetEffectiveRightsFromAcl GetEffectiveRightsFromAclW
+	#define GetAuditedPermissionsFromAcl GetAuditedPermissionsFromAclW
+	#define GetNamedSecurityInfo GetNamedSecurityInfoW
+	#define SetNamedSecurityInfo SetNamedSecurityInfoW
+	#define GetInheritanceSource GetInheritanceSourceW
+	#define TreeResetNamedSecurityInfo TreeResetNamedSecurityInfoW
+	#define BuildSecurityDescriptor BuildSecurityDescriptorW
+	#define LookupSecurityDescriptorParts LookupSecurityDescriptorPartsW
+	#define BuildExplicitAccessWithName BuildExplicitAccessWithNameW
+	#define BuildImpersonateExplicitAccessWithName BuildImpersonateExplicitAccessWithNameW
+	#define BuildTrusteeWithName BuildTrusteeWithNameW
+	#define BuildImpersonateTrustee BuildImpersonateTrusteeW
+	#define BuildTrusteeWithSid BuildTrusteeWithSidW
+	#define BuildTrusteeWithObjectsAndSid BuildTrusteeWithObjectsAndSidW
+	#define BuildTrusteeWithObjectsAndName BuildTrusteeWithObjectsAndNameW
+	#define GetTrusteeName GetTrusteeNameW
+	#define GetTrusteeType GetTrusteeTypeW
+	#define GetTrusteeForm GetTrusteeFormW
+	#define GetMultipleTrusteeOperation GetMultipleTrusteeOperationW
+	#define GetMultipleTrustee GetMultipleTrusteeW
+#endif
 
-#if _WIN32_WINNT = &h0602
-	#define TreeSetNamedSecurityInfo __MINGW_NAME_AW(TreeSetNamedSecurityInfo)
+#if defined(UNICODE) and (_WIN32_WINNT = &h0602)
+	#define TreeSetNamedSecurityInfo TreeSetNamedSecurityInfoW
+#elseif not defined(UNICODE)
+	#define SetEntriesInAcl SetEntriesInAclA
+	#define GetExplicitEntriesFromAcl GetExplicitEntriesFromAclA
+	#define GetEffectiveRightsFromAcl GetEffectiveRightsFromAclA
+	#define GetAuditedPermissionsFromAcl GetAuditedPermissionsFromAclA
+	#define GetNamedSecurityInfo GetNamedSecurityInfoA
+	#define SetNamedSecurityInfo SetNamedSecurityInfoA
+	#define GetInheritanceSource GetInheritanceSourceA
+	#define TreeResetNamedSecurityInfo TreeResetNamedSecurityInfoA
+	#define BuildSecurityDescriptor BuildSecurityDescriptorA
+	#define LookupSecurityDescriptorParts LookupSecurityDescriptorPartsA
+	#define BuildExplicitAccessWithName BuildExplicitAccessWithNameA
+	#define BuildImpersonateExplicitAccessWithName BuildImpersonateExplicitAccessWithNameA
+	#define BuildTrusteeWithName BuildTrusteeWithNameA
+	#define BuildImpersonateTrustee BuildImpersonateTrusteeA
+	#define BuildTrusteeWithSid BuildTrusteeWithSidA
+	#define BuildTrusteeWithObjectsAndSid BuildTrusteeWithObjectsAndSidA
+	#define BuildTrusteeWithObjectsAndName BuildTrusteeWithObjectsAndNameA
+	#define GetTrusteeName GetTrusteeNameA
+	#define GetTrusteeType GetTrusteeTypeA
+	#define GetTrusteeForm GetTrusteeFormA
+	#define GetMultipleTrusteeOperation GetMultipleTrusteeOperationA
+	#define GetMultipleTrustee GetMultipleTrusteeA
+#endif
+
+#if (not defined(UNICODE)) and (_WIN32_WINNT = &h0602)
+	#define TreeSetNamedSecurityInfo TreeSetNamedSecurityInfoA
 #endif
 
 #define AccProvInit(err)

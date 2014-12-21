@@ -221,7 +221,12 @@ type PDRVCALLBACK as sub(byval hdrvr as HDRVR, byval uMsg as UINT, byval dwUser 
 declare function sndPlaySoundA(byval pszSound as LPCSTR, byval fuSound as UINT) as WINBOOL
 declare function sndPlaySoundW(byval pszSound as LPCWSTR, byval fuSound as UINT) as WINBOOL
 
-#define sndPlaySound __MINGW_NAME_AW(sndPlaySound)
+#ifdef UNICODE
+	#define sndPlaySound sndPlaySoundW
+#else
+	#define sndPlaySound sndPlaySoundA
+#endif
+
 #define SND_SYNC &h0000
 #define SND_ASYNC &h0001
 #define SND_NODEFAULT &h0002
@@ -249,7 +254,12 @@ declare function sndPlaySoundW(byval pszSound as LPCWSTR, byval fuSound as UINT)
 declare function PlaySoundA(byval pszSound as LPCSTR, byval hmod as HMODULE, byval fdwSound as DWORD) as WINBOOL
 declare function PlaySoundW(byval pszSound as LPCWSTR, byval hmod as HMODULE, byval fdwSound as DWORD) as WINBOOL
 
-#define PlaySound __MINGW_NAME_AW(PlaySound)
+#ifdef UNICODE
+	#define PlaySound PlaySoundW
+#else
+	#define PlaySound PlaySoundA
+#endif
+
 #define WAVERR_BADFORMAT (WAVERR_BASE + 0)
 #define WAVERR_STILLPLAYING (WAVERR_BASE + 1)
 #define WAVERR_UNPREPARED (WAVERR_BASE + 2)
@@ -576,14 +586,22 @@ declare function waveOutGetNumDevs() as UINT
 declare function waveOutGetDevCapsA(byval uDeviceID as UINT_PTR, byval pwoc as LPWAVEOUTCAPSA, byval cbwoc as UINT) as MMRESULT
 declare function waveOutGetDevCapsW(byval uDeviceID as UINT_PTR, byval pwoc as LPWAVEOUTCAPSW, byval cbwoc as UINT) as MMRESULT
 
-#define waveOutGetDevCaps __MINGW_NAME_AW(waveOutGetDevCaps)
+#ifdef UNICODE
+	#define waveOutGetDevCaps waveOutGetDevCapsW
+#else
+	#define waveOutGetDevCaps waveOutGetDevCapsA
+#endif
 
 declare function waveOutGetVolume(byval hwo as HWAVEOUT, byval pdwVolume as LPDWORD) as MMRESULT
 declare function waveOutSetVolume(byval hwo as HWAVEOUT, byval dwVolume as DWORD) as MMRESULT
 declare function waveOutGetErrorTextA(byval mmrError as MMRESULT, byval pszText as LPSTR, byval cchText as UINT) as MMRESULT
 declare function waveOutGetErrorTextW(byval mmrError as MMRESULT, byval pszText as LPWSTR, byval cchText as UINT) as MMRESULT
 
-#define waveOutGetErrorText __MINGW_NAME_AW(waveOutGetErrorText)
+#ifdef UNICODE
+	#define waveOutGetErrorText waveOutGetErrorTextW
+#else
+	#define waveOutGetErrorText waveOutGetErrorTextA
+#endif
 
 declare function waveOutOpen(byval phwo as LPHWAVEOUT, byval uDeviceID as UINT, byval pwfx as LPCWAVEFORMATEX, byval dwCallback as DWORD_PTR, byval dwInstance as DWORD_PTR, byval fdwOpen as DWORD) as MMRESULT
 declare function waveOutClose(byval hwo as HWAVEOUT) as MMRESULT
@@ -605,12 +623,20 @@ declare function waveInGetNumDevs() as UINT
 declare function waveInGetDevCapsA(byval uDeviceID as UINT_PTR, byval pwic as LPWAVEINCAPSA, byval cbwic as UINT) as MMRESULT
 declare function waveInGetDevCapsW(byval uDeviceID as UINT_PTR, byval pwic as LPWAVEINCAPSW, byval cbwic as UINT) as MMRESULT
 
-#define waveInGetDevCaps __MINGW_NAME_AW(waveInGetDevCaps)
+#ifdef UNICODE
+	#define waveInGetDevCaps waveInGetDevCapsW
+#else
+	#define waveInGetDevCaps waveInGetDevCapsA
+#endif
 
 declare function waveInGetErrorTextA(byval mmrError as MMRESULT, byval pszText as LPSTR, byval cchText as UINT) as MMRESULT
 declare function waveInGetErrorTextW(byval mmrError as MMRESULT, byval pszText as LPWSTR, byval cchText as UINT) as MMRESULT
 
-#define waveInGetErrorText __MINGW_NAME_AW(waveInGetErrorText)
+#ifdef UNICODE
+	#define waveInGetErrorText waveInGetErrorTextW
+#else
+	#define waveInGetErrorText waveInGetErrorTextA
+#endif
 
 declare function waveInOpen(byval phwi as LPHWAVEIN, byval uDeviceID as UINT, byval pwfx as LPCWAVEFORMATEX, byval dwCallback as DWORD_PTR, byval dwInstance as DWORD_PTR, byval fdwOpen as DWORD) as MMRESULT
 declare function waveInClose(byval hwi as HWAVEIN) as MMRESULT
@@ -964,14 +990,22 @@ declare function midiDisconnect(byval hmi as HMIDI, byval hmo as HMIDIOUT, byval
 declare function midiOutGetDevCapsA(byval uDeviceID as UINT_PTR, byval pmoc as LPMIDIOUTCAPSA, byval cbmoc as UINT) as MMRESULT
 declare function midiOutGetDevCapsW(byval uDeviceID as UINT_PTR, byval pmoc as LPMIDIOUTCAPSW, byval cbmoc as UINT) as MMRESULT
 
-#define midiOutGetDevCaps __MINGW_NAME_AW(midiOutGetDevCaps)
+#ifdef UNICODE
+	#define midiOutGetDevCaps midiOutGetDevCapsW
+#else
+	#define midiOutGetDevCaps midiOutGetDevCapsA
+#endif
 
 declare function midiOutGetVolume(byval hmo as HMIDIOUT, byval pdwVolume as LPDWORD) as MMRESULT
 declare function midiOutSetVolume(byval hmo as HMIDIOUT, byval dwVolume as DWORD) as MMRESULT
 declare function midiOutGetErrorTextA(byval mmrError as MMRESULT, byval pszText as LPSTR, byval cchText as UINT) as MMRESULT
 declare function midiOutGetErrorTextW(byval mmrError as MMRESULT, byval pszText as LPWSTR, byval cchText as UINT) as MMRESULT
 
-#define midiOutGetErrorText __MINGW_NAME_AW(midiOutGetErrorText)
+#ifdef UNICODE
+	#define midiOutGetErrorText midiOutGetErrorTextW
+#else
+	#define midiOutGetErrorText midiOutGetErrorTextA
+#endif
 
 declare function midiOutOpen(byval phmo as LPHMIDIOUT, byval uDeviceID as UINT, byval dwCallback as DWORD_PTR, byval dwInstance as DWORD_PTR, byval fdwOpen as DWORD) as MMRESULT
 declare function midiOutClose(byval hmo as HMIDIOUT) as MMRESULT
@@ -988,12 +1022,20 @@ declare function midiInGetNumDevs() as UINT
 declare function midiInGetDevCapsA(byval uDeviceID as UINT_PTR, byval pmic as LPMIDIINCAPSA, byval cbmic as UINT) as MMRESULT
 declare function midiInGetDevCapsW(byval uDeviceID as UINT_PTR, byval pmic as LPMIDIINCAPSW, byval cbmic as UINT) as MMRESULT
 
-#define midiInGetDevCaps __MINGW_NAME_AW(midiInGetDevCaps)
+#ifdef UNICODE
+	#define midiInGetDevCaps midiInGetDevCapsW
+#else
+	#define midiInGetDevCaps midiInGetDevCapsA
+#endif
 
 declare function midiInGetErrorTextA(byval mmrError as MMRESULT, byval pszText as LPSTR, byval cchText as UINT) as MMRESULT
 declare function midiInGetErrorTextW(byval mmrError as MMRESULT, byval pszText as LPWSTR, byval cchText as UINT) as MMRESULT
 
-#define midiInGetErrorText __MINGW_NAME_AW(midiInGetErrorText)
+#ifdef UNICODE
+	#define midiInGetErrorText midiInGetErrorTextW
+#else
+	#define midiInGetErrorText midiInGetErrorTextA
+#endif
 
 declare function midiInOpen(byval phmi as LPHMIDIIN, byval uDeviceID as UINT, byval dwCallback as DWORD_PTR, byval dwInstance as DWORD_PTR, byval fdwOpen as DWORD) as MMRESULT
 declare function midiInClose(byval hmi as HMIDIIN) as MMRESULT
@@ -1107,7 +1149,11 @@ declare function auxGetNumDevs() as UINT
 declare function auxGetDevCapsA(byval uDeviceID as UINT_PTR, byval pac as LPAUXCAPSA, byval cbac as UINT) as MMRESULT
 declare function auxGetDevCapsW(byval uDeviceID as UINT_PTR, byval pac as LPAUXCAPSW, byval cbac as UINT) as MMRESULT
 
-#define auxGetDevCaps __MINGW_NAME_AW(auxGetDevCaps)
+#ifdef UNICODE
+	#define auxGetDevCaps auxGetDevCapsW
+#else
+	#define auxGetDevCaps auxGetDevCapsA
+#endif
 
 declare function auxSetVolume(byval uDeviceID as UINT, byval dwVolume as DWORD) as MMRESULT
 declare function auxGetVolume(byval uDeviceID as UINT, byval pdwVolume as LPDWORD) as MMRESULT
@@ -1229,7 +1275,11 @@ type LPMIXERCAPS2W as tagMIXERCAPS2W ptr
 declare function mixerGetDevCapsA(byval uMxId as UINT_PTR, byval pmxcaps as LPMIXERCAPSA, byval cbmxcaps as UINT) as MMRESULT
 declare function mixerGetDevCapsW(byval uMxId as UINT_PTR, byval pmxcaps as LPMIXERCAPSW, byval cbmxcaps as UINT) as MMRESULT
 
-#define mixerGetDevCaps __MINGW_NAME_AW(mixerGetDevCaps)
+#ifdef UNICODE
+	#define mixerGetDevCaps mixerGetDevCapsW
+#else
+	#define mixerGetDevCaps mixerGetDevCapsA
+#endif
 
 declare function mixerOpen(byval phmx as LPHMIXER, byval uMxId as UINT, byval dwCallback as DWORD_PTR, byval dwInstance as DWORD_PTR, byval fdwOpen as DWORD) as MMRESULT
 declare function mixerClose(byval hmx as HMIXER) as MMRESULT
@@ -1340,7 +1390,12 @@ type LPMIXERLINEW as tagMIXERLINEW ptr
 declare function mixerGetLineInfoA(byval hmxobj as HMIXEROBJ, byval pmxl as LPMIXERLINEA, byval fdwInfo as DWORD) as MMRESULT
 declare function mixerGetLineInfoW(byval hmxobj as HMIXEROBJ, byval pmxl as LPMIXERLINEW, byval fdwInfo as DWORD) as MMRESULT
 
-#define mixerGetLineInfo __MINGW_NAME_AW(mixerGetLineInfo)
+#ifdef UNICODE
+	#define mixerGetLineInfo mixerGetLineInfoW
+#else
+	#define mixerGetLineInfo mixerGetLineInfoA
+#endif
+
 #define MIXER_GETLINEINFOF_DESTINATION __MSABI_LONG(&h00000000)
 #define MIXER_GETLINEINFOF_SOURCE __MSABI_LONG(&h00000001)
 #define MIXER_GETLINEINFOF_LINEID __MSABI_LONG(&h00000002)
@@ -1540,7 +1595,12 @@ type LPMIXERLINECONTROLSW as tagMIXERLINECONTROLSW ptr
 declare function mixerGetLineControlsA(byval hmxobj as HMIXEROBJ, byval pmxlc as LPMIXERLINECONTROLSA, byval fdwControls as DWORD) as MMRESULT
 declare function mixerGetLineControlsW(byval hmxobj as HMIXEROBJ, byval pmxlc as LPMIXERLINECONTROLSW, byval fdwControls as DWORD) as MMRESULT
 
-#define mixerGetLineControls __MINGW_NAME_AW(mixerGetLineControls)
+#ifdef UNICODE
+	#define mixerGetLineControls mixerGetLineControlsW
+#else
+	#define mixerGetLineControls mixerGetLineControlsA
+#endif
+
 #define MIXER_GETLINECONTROLSF_ALL __MSABI_LONG(&h00000000)
 #define MIXER_GETLINECONTROLSF_ONEBYID __MSABI_LONG(&h00000001)
 #define MIXER_GETLINECONTROLSF_ONEBYTYPE __MSABI_LONG(&h00000002)
@@ -1621,7 +1681,12 @@ type LPMIXERCONTROLDETAILS_UNSIGNED as tMIXERCONTROLDETAILS_UNSIGNED ptr
 declare function mixerGetControlDetailsA(byval hmxobj as HMIXEROBJ, byval pmxcd as LPMIXERCONTROLDETAILS, byval fdwDetails as DWORD) as MMRESULT
 declare function mixerGetControlDetailsW(byval hmxobj as HMIXEROBJ, byval pmxcd as LPMIXERCONTROLDETAILS, byval fdwDetails as DWORD) as MMRESULT
 
-#define mixerGetControlDetails __MINGW_NAME_AW(mixerGetControlDetails)
+#ifdef UNICODE
+	#define mixerGetControlDetails mixerGetControlDetailsW
+#else
+	#define mixerGetControlDetails mixerGetControlDetailsA
+#endif
+
 #define MIXER_GETCONTROLDETAILSF_VALUE __MSABI_LONG(&h00000000)
 #define MIXER_GETCONTROLDETAILSF_LISTTEXT __MSABI_LONG(&h00000001)
 #define MIXER_GETCONTROLDETAILSF_QUERYMASK __MSABI_LONG(&h0000000F)
@@ -1937,7 +2002,11 @@ declare function joyGetNumDevs() as UINT
 declare function joyGetDevCapsA(byval uJoyID as UINT_PTR, byval pjc as LPJOYCAPSA, byval cbjc as UINT) as MMRESULT
 declare function joyGetDevCapsW(byval uJoyID as UINT_PTR, byval pjc as LPJOYCAPSW, byval cbjc as UINT) as MMRESULT
 
-#define joyGetDevCaps __MINGW_NAME_AW(joyGetDevCaps)
+#ifdef UNICODE
+	#define joyGetDevCaps joyGetDevCapsW
+#else
+	#define joyGetDevCaps joyGetDevCapsA
+#endif
 
 declare function joyGetPos(byval uJoyID as UINT, byval pji as LPJOYINFO) as MMRESULT
 declare function joyGetPosEx(byval uJoyID as UINT, byval pji as LPJOYINFOEX) as MMRESULT
@@ -2065,22 +2134,38 @@ type LPCMMCKINFO as const MMCKINFO ptr
 declare function mmioStringToFOURCCA(byval sz as LPCSTR, byval uFlags as UINT) as FOURCC
 declare function mmioStringToFOURCCW(byval sz as LPCWSTR, byval uFlags as UINT) as FOURCC
 
-#define mmioStringToFOURCC __MINGW_NAME_AW(mmioStringToFOURCC)
+#ifdef UNICODE
+	#define mmioStringToFOURCC mmioStringToFOURCCW
+#else
+	#define mmioStringToFOURCC mmioStringToFOURCCA
+#endif
 
 declare function mmioInstallIOProcA(byval fccIOProc as FOURCC, byval pIOProc as LPMMIOPROC, byval dwFlags as DWORD) as LPMMIOPROC
 declare function mmioInstallIOProcW(byval fccIOProc as FOURCC, byval pIOProc as LPMMIOPROC, byval dwFlags as DWORD) as LPMMIOPROC
 
-#define mmioInstallIOProc __MINGW_NAME_AW(mmioInstallIOProc)
+#ifdef UNICODE
+	#define mmioInstallIOProc mmioInstallIOProcW
+#else
+	#define mmioInstallIOProc mmioInstallIOProcA
+#endif
 
 declare function mmioOpenA(byval pszFileName as LPSTR, byval pmmioinfo as LPMMIOINFO, byval fdwOpen as DWORD) as HMMIO
 declare function mmioOpenW(byval pszFileName as LPWSTR, byval pmmioinfo as LPMMIOINFO, byval fdwOpen as DWORD) as HMMIO
 
-#define mmioOpen __MINGW_NAME_AW(mmioOpen)
+#ifdef UNICODE
+	#define mmioOpen mmioOpenW
+#else
+	#define mmioOpen mmioOpenA
+#endif
 
 declare function mmioRenameA(byval pszFileName as LPCSTR, byval pszNewFileName as LPCSTR, byval pmmioinfo as LPCMMIOINFO, byval fdwRename as DWORD) as MMRESULT
 declare function mmioRenameW(byval pszFileName as LPCWSTR, byval pszNewFileName as LPCWSTR, byval pmmioinfo as LPCMMIOINFO, byval fdwRename as DWORD) as MMRESULT
 
-#define mmioRename __MINGW_NAME_AW(mmioRename)
+#ifdef UNICODE
+	#define mmioRename mmioRenameW
+#else
+	#define mmioRename mmioRenameA
+#endif
 
 declare function mmioClose(byval hmmio as HMMIO, byval fuClose as UINT) as MMRESULT
 declare function mmioRead(byval hmmio as HMMIO, byval pch as HPSTR, byval cch as LONG) as LONG
@@ -2108,27 +2193,47 @@ type YIELDPROC as function(byval mciId as MCIDEVICEID, byval dwYieldData as DWOR
 declare function mciSendCommandA(byval mciId as MCIDEVICEID, byval uMsg as UINT, byval dwParam1 as DWORD_PTR, byval dwParam2 as DWORD_PTR) as MCIERROR
 declare function mciSendCommandW(byval mciId as MCIDEVICEID, byval uMsg as UINT, byval dwParam1 as DWORD_PTR, byval dwParam2 as DWORD_PTR) as MCIERROR
 
-#define mciSendCommand __MINGW_NAME_AW(mciSendCommand)
+#ifdef UNICODE
+	#define mciSendCommand mciSendCommandW
+#else
+	#define mciSendCommand mciSendCommandA
+#endif
 
 declare function mciSendStringA(byval lpstrCommand as LPCSTR, byval lpstrReturnString as LPSTR, byval uReturnLength as UINT, byval hwndCallback as HWND) as MCIERROR
 declare function mciSendStringW(byval lpstrCommand as LPCWSTR, byval lpstrReturnString as LPWSTR, byval uReturnLength as UINT, byval hwndCallback as HWND) as MCIERROR
 
-#define mciSendString __MINGW_NAME_AW(mciSendString)
+#ifdef UNICODE
+	#define mciSendString mciSendStringW
+#else
+	#define mciSendString mciSendStringA
+#endif
 
 declare function mciGetDeviceIDA(byval pszDevice as LPCSTR) as MCIDEVICEID
 declare function mciGetDeviceIDW(byval pszDevice as LPCWSTR) as MCIDEVICEID
 
-#define mciGetDeviceID __MINGW_NAME_AW(mciGetDeviceID)
+#ifdef UNICODE
+	#define mciGetDeviceID mciGetDeviceIDW
+#else
+	#define mciGetDeviceID mciGetDeviceIDA
+#endif
 
 declare function mciGetDeviceIDFromElementIDA(byval dwElementID as DWORD, byval lpstrType as LPCSTR) as MCIDEVICEID
 declare function mciGetDeviceIDFromElementIDW(byval dwElementID as DWORD, byval lpstrType as LPCWSTR) as MCIDEVICEID
 
-#define mciGetDeviceIDFromElementID __MINGW_NAME_AW(mciGetDeviceIDFromElementID)
+#ifdef UNICODE
+	#define mciGetDeviceIDFromElementID mciGetDeviceIDFromElementIDW
+#else
+	#define mciGetDeviceIDFromElementID mciGetDeviceIDFromElementIDA
+#endif
 
 declare function mciGetErrorStringA(byval mcierr as MCIERROR, byval pszText as LPSTR, byval cchText as UINT) as WINBOOL
 declare function mciGetErrorStringW(byval mcierr as MCIERROR, byval pszText as LPWSTR, byval cchText as UINT) as WINBOOL
 
-#define mciGetErrorString __MINGW_NAME_AW(mciGetErrorString)
+#ifdef UNICODE
+	#define mciGetErrorString mciGetErrorStringW
+#else
+	#define mciGetErrorString mciGetErrorStringA
+#endif
 
 declare function mciSetYieldProc(byval mciId as MCIDEVICEID, byval fpYieldProc as YIELDPROC, byval dwYieldData as DWORD) as WINBOOL
 declare function mciGetCreatorTask(byval mciId as MCIDEVICEID) as HTASK

@@ -1779,10 +1779,17 @@ type PKERB_TRANSFER_CRED_REQUEST as _KERB_TRANSFER_CRED_REQUEST ptr
 	declare function AuditEnumerateSubCategories(byval pAuditCategoryGuid as const GUID ptr, byval bRetrieveAllSubCategories as BOOLEAN, byval ppAuditSubCategoriesArray as GUID ptr ptr, byval pCountReturned as PULONG) as BOOLEAN
 	declare function AuditLookupCategoryGuidFromCategoryId(byval AuditCategoryId as POLICY_AUDIT_EVENT_TYPE, byval pAuditCategoryGuid as GUID ptr) as BOOLEAN
 	declare function AuditQuerySecurity(byval SecurityInformation as SECURITY_INFORMATION, byval ppSecurityDescriptor as PSECURITY_DESCRIPTOR ptr) as BOOLEAN
+#endif
 
-	#define AuditLookupSubCategoryName __MINGW_NAME_AW(AuditLookupSubCategoryName)
-	#define AuditLookupCategoryName __MINGW_NAME_AW(AuditLookupCategoryName)
+#if defined(UNICODE) and (_WIN32_WINNT = &h0602)
+	#define AuditLookupSubCategoryName AuditLookupSubCategoryNameW
+	#define AuditLookupCategoryName AuditLookupCategoryNameW
+#elseif (not defined(UNICODE)) and (_WIN32_WINNT = &h0602)
+	#define AuditLookupSubCategoryName AuditLookupSubCategoryNameA
+	#define AuditLookupCategoryName AuditLookupCategoryNameA
+#endif
 
+#if _WIN32_WINNT = &h0602
 	declare function AuditLookupSubCategoryNameA(byval pAuditSubCategoryGuid as const GUID ptr, byval ppszSubCategoryName as LPSTR ptr) as BOOLEAN
 	declare function AuditLookupSubCategoryNameW(byval pAuditSubCategoryGuid as const GUID ptr, byval ppszSubCategoryName as LPWSTR ptr) as BOOLEAN
 	declare function AuditLookupCategoryNameA(byval pAuditCategoryGuid as const GUID ptr, byval ppszCategoryName as LPSTR ptr) as BOOLEAN

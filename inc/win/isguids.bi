@@ -5,7 +5,12 @@
 extern "C"
 
 #define _ISGUIDS_H_
-#define IID_IUniformResourceLocator __MINGW_NAME_AW(IID_IUniformResourceLocator)
+
+#ifdef UNICODE
+	#define IID_IUniformResourceLocator IID_IUniformResourceLocatorW
+#else
+	#define IID_IUniformResourceLocator IID_IUniformResourceLocatorA
+#endif
 
 extern CLSID_InternetShortcut as const GUID
 extern IID_IUniformResourceLocatorA as const GUID

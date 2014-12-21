@@ -222,25 +222,48 @@ type PHANDLER_ROUTINE as function(byval CtrlType as DWORD) as WINBOOL
 #define ENABLE_AUTO_POSITION &h100
 #define ENABLE_PROCESSED_OUTPUT &h1
 #define ENABLE_WRAP_AT_EOL_OUTPUT &h2
-#define PeekConsoleInput __MINGW_NAME_AW(PeekConsoleInput)
-#define ReadConsoleInput __MINGW_NAME_AW(ReadConsoleInput)
-#define WriteConsoleInput __MINGW_NAME_AW(WriteConsoleInput)
-#define ReadConsoleOutput __MINGW_NAME_AW(ReadConsoleOutput)
-#define WriteConsoleOutput __MINGW_NAME_AW(WriteConsoleOutput)
-#define ReadConsoleOutputCharacter __MINGW_NAME_AW(ReadConsoleOutputCharacter)
-#define WriteConsoleOutputCharacter __MINGW_NAME_AW(WriteConsoleOutputCharacter)
-#define FillConsoleOutputCharacter __MINGW_NAME_AW(FillConsoleOutputCharacter)
-#define ScrollConsoleScreenBuffer __MINGW_NAME_AW(ScrollConsoleScreenBuffer)
-#define GetConsoleTitle __MINGW_NAME_AW(GetConsoleTitle)
-#define SetConsoleTitle __MINGW_NAME_AW(SetConsoleTitle)
-#define ReadConsole __MINGW_NAME_AW(ReadConsole)
-#define WriteConsole __MINGW_NAME_AW(WriteConsole)
-#define AddConsoleAlias __MINGW_NAME_AW(AddConsoleAlias)
-#define GetConsoleAlias __MINGW_NAME_AW(GetConsoleAlias)
-#define GetConsoleAliasesLength __MINGW_NAME_AW(GetConsoleAliasesLength)
-#define GetConsoleAliasExesLength __MINGW_NAME_AW(GetConsoleAliasExesLength)
-#define GetConsoleAliases __MINGW_NAME_AW(GetConsoleAliases)
-#define GetConsoleAliasExes __MINGW_NAME_AW(GetConsoleAliasExes)
+
+#ifdef UNICODE
+	#define PeekConsoleInput PeekConsoleInputW
+	#define ReadConsoleInput ReadConsoleInputW
+	#define WriteConsoleInput WriteConsoleInputW
+	#define ReadConsoleOutput ReadConsoleOutputW
+	#define WriteConsoleOutput WriteConsoleOutputW
+	#define ReadConsoleOutputCharacter ReadConsoleOutputCharacterW
+	#define WriteConsoleOutputCharacter WriteConsoleOutputCharacterW
+	#define FillConsoleOutputCharacter FillConsoleOutputCharacterW
+	#define ScrollConsoleScreenBuffer ScrollConsoleScreenBufferW
+	#define GetConsoleTitle GetConsoleTitleW
+	#define SetConsoleTitle SetConsoleTitleW
+	#define ReadConsole ReadConsoleW
+	#define WriteConsole WriteConsoleW
+	#define AddConsoleAlias AddConsoleAliasW
+	#define GetConsoleAlias GetConsoleAliasW
+	#define GetConsoleAliasesLength GetConsoleAliasesLengthW
+	#define GetConsoleAliasExesLength GetConsoleAliasExesLengthW
+	#define GetConsoleAliases GetConsoleAliasesW
+	#define GetConsoleAliasExes GetConsoleAliasExesW
+#else
+	#define PeekConsoleInput PeekConsoleInputA
+	#define ReadConsoleInput ReadConsoleInputA
+	#define WriteConsoleInput WriteConsoleInputA
+	#define ReadConsoleOutput ReadConsoleOutputA
+	#define WriteConsoleOutput WriteConsoleOutputA
+	#define ReadConsoleOutputCharacter ReadConsoleOutputCharacterA
+	#define WriteConsoleOutputCharacter WriteConsoleOutputCharacterA
+	#define FillConsoleOutputCharacter FillConsoleOutputCharacterA
+	#define ScrollConsoleScreenBuffer ScrollConsoleScreenBufferA
+	#define GetConsoleTitle GetConsoleTitleA
+	#define SetConsoleTitle SetConsoleTitleA
+	#define ReadConsole ReadConsoleA
+	#define WriteConsole WriteConsoleA
+	#define AddConsoleAlias AddConsoleAliasA
+	#define GetConsoleAlias GetConsoleAliasA
+	#define GetConsoleAliasesLength GetConsoleAliasesLengthA
+	#define GetConsoleAliasExesLength GetConsoleAliasExesLengthA
+	#define GetConsoleAliases GetConsoleAliasesA
+	#define GetConsoleAliasExes GetConsoleAliasExesA
+#endif
 
 declare function PeekConsoleInputA(byval hConsoleInput as HANDLE, byval lpBuffer as PINPUT_RECORD, byval nLength as DWORD, byval lpNumberOfEventsRead as LPDWORD) as WINBOOL
 declare function PeekConsoleInputW(byval hConsoleInput as HANDLE, byval lpBuffer as PINPUT_RECORD, byval nLength as DWORD, byval lpNumberOfEventsRead as LPDWORD) as WINBOOL
@@ -378,9 +401,13 @@ type PCONSOLE_SCREEN_BUFFER_INFOEX as _CONSOLE_SCREEN_BUFFER_INFOEX ptr
 
 declare function GetConsoleHistoryInfo(byval lpConsoleHistoryInfo as PCONSOLE_HISTORY_INFO) as WINBOOL
 
-#if _WIN32_WINNT = &h0602
-	#define GetConsoleOriginalTitle __MINGW_NAME_AW(GetConsoleOriginalTitle)
+#if defined(UNICODE) and (_WIN32_WINNT = &h0602)
+	#define GetConsoleOriginalTitle GetConsoleOriginalTitleW
+#elseif (not defined(UNICODE)) and (_WIN32_WINNT = &h0602)
+	#define GetConsoleOriginalTitle GetConsoleOriginalTitleA
+#endif
 
+#if _WIN32_WINNT = &h0602
 	declare function GetConsoleOriginalTitleA(byval lpConsoleTitle as LPSTR, byval nSize as DWORD) as DWORD
 	declare function GetConsoleOriginalTitleW(byval lpConsoleTitle as LPWSTR, byval nSize as DWORD) as DWORD
 #endif

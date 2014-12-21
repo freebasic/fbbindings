@@ -9,14 +9,27 @@
 #endif
 
 #define _PSAPI_H_
-#define GetModuleBaseName __MINGW_NAME_AW(GetModuleBaseName)
-#define GetModuleFileNameEx __MINGW_NAME_AW(GetModuleFileNameEx)
-#define GetMappedFileName __MINGW_NAME_AW(GetMappedFileName)
-#define GetDeviceDriverBaseName __MINGW_NAME_AW(GetDeviceDriverBaseName)
-#define GetDeviceDriverFileName __MINGW_NAME_AW(GetDeviceDriverFileName)
-#define PENUM_PAGE_FILE_CALLBACK __MINGW_NAME_AW(PENUM_PAGE_FILE_CALLBACK)
-#define EnumPageFiles __MINGW_NAME_AW(EnumPageFiles)
-#define GetProcessImageFileName __MINGW_NAME_AW(GetProcessImageFileName)
+
+#ifdef UNICODE
+	#define GetModuleBaseName GetModuleBaseNameW
+	#define GetModuleFileNameEx GetModuleFileNameExW
+	#define GetMappedFileName GetMappedFileNameW
+	#define GetDeviceDriverBaseName GetDeviceDriverBaseNameW
+	#define GetDeviceDriverFileName GetDeviceDriverFileNameW
+	#define PENUM_PAGE_FILE_CALLBACK PENUM_PAGE_FILE_CALLBACKW
+	#define EnumPageFiles EnumPageFilesW
+	#define GetProcessImageFileName GetProcessImageFileNameW
+#else
+	#define GetModuleBaseName GetModuleBaseNameA
+	#define GetModuleFileNameEx GetModuleFileNameExA
+	#define GetMappedFileName GetMappedFileNameA
+	#define GetDeviceDriverBaseName GetDeviceDriverBaseNameA
+	#define GetDeviceDriverFileName GetDeviceDriverFileNameA
+	#define PENUM_PAGE_FILE_CALLBACK PENUM_PAGE_FILE_CALLBACKA
+	#define EnumPageFiles EnumPageFilesA
+	#define GetProcessImageFileName GetProcessImageFileNameA
+#endif
+
 #define LIST_MODULES_DEFAULT &h0
 #define LIST_MODULES_32BIT &h01
 #define LIST_MODULES_64BIT &h02

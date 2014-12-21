@@ -89,10 +89,19 @@
 #define SERVICE_TYPE_VALUE_TCPPORTW wstr("TcpPort")
 #define SERVICE_TYPE_VALUE_UDPPORTA "UdpPort"
 #define SERVICE_TYPE_VALUE_UDPPORTW wstr("UdpPort")
-#define SERVICE_TYPE_VALUE_SAPID __MINGW_NAME_AW(SERVICE_TYPE_VALUE_SAPID)
-#define SERVICE_TYPE_VALUE_CONN __MINGW_NAME_AW(SERVICE_TYPE_VALUE_CONN)
-#define SERVICE_TYPE_VALUE_TCPPORT __MINGW_NAME_AW(SERVICE_TYPE_VALUE_TCPPORT)
-#define SERVICE_TYPE_VALUE_UDPPORT __MINGW_NAME_AW(SERVICE_TYPE_VALUE_UDPPORT)
+
+#ifdef UNICODE
+	#define SERVICE_TYPE_VALUE_SAPID SERVICE_TYPE_VALUE_SAPIDW
+	#define SERVICE_TYPE_VALUE_CONN SERVICE_TYPE_VALUE_CONNW
+	#define SERVICE_TYPE_VALUE_TCPPORT SERVICE_TYPE_VALUE_TCPPORTW
+	#define SERVICE_TYPE_VALUE_UDPPORT SERVICE_TYPE_VALUE_UDPPORTW
+#else
+	#define SERVICE_TYPE_VALUE_SAPID SERVICE_TYPE_VALUE_SAPIDA
+	#define SERVICE_TYPE_VALUE_CONN SERVICE_TYPE_VALUE_CONNA
+	#define SERVICE_TYPE_VALUE_TCPPORT SERVICE_TYPE_VALUE_TCPPORTA
+	#define SERVICE_TYPE_VALUE_UDPPORT SERVICE_TYPE_VALUE_UDPPORTA
+#endif
+
 #define SET_SERVICE_PARTIAL_SUCCESS &h00000001
 
 type _NS_INFOA
@@ -426,12 +435,21 @@ type SERVICE_ASYNC_INFO as _SERVICE_ASYNC_INFO
 type PSERVICE_ASYNC_INFO as _SERVICE_ASYNC_INFO ptr
 type LPSERVICE_ASYNC_INFO as _SERVICE_ASYNC_INFO ptr
 
-#define EnumProtocols __MINGW_NAME_AW(EnumProtocols)
-#define GetAddressByName __MINGW_NAME_AW(GetAddressByName)
-#define GetTypeByName __MINGW_NAME_AW(GetTypeByName)
-#define GetNameByType __MINGW_NAME_AW(GetNameByType)
-#define SetService __MINGW_NAME_AW(SetService)
-#define GetService __MINGW_NAME_AW(GetService)
+#ifdef UNICODE
+	#define EnumProtocols EnumProtocolsW
+	#define GetAddressByName GetAddressByNameW
+	#define GetTypeByName GetTypeByNameW
+	#define GetNameByType GetNameByTypeW
+	#define SetService SetServiceW
+	#define GetService GetServiceW
+#else
+	#define EnumProtocols EnumProtocolsA
+	#define GetAddressByName GetAddressByNameA
+	#define GetTypeByName GetTypeByNameA
+	#define GetNameByType GetNameByTypeA
+	#define SetService SetServiceA
+	#define GetService GetServiceA
+#endif
 
 declare function EnumProtocolsA(byval lpiProtocols as LPINT, byval lpProtocolBuffer as LPVOID, byval lpdwBufferLength as LPDWORD) as INT_
 declare function EnumProtocolsW(byval lpiProtocols as LPINT, byval lpProtocolBuffer as LPVOID, byval lpdwBufferLength as LPDWORD) as INT_

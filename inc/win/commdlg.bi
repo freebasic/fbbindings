@@ -262,22 +262,40 @@ type LPOPENFILENAMEW as tagOFNW ptr
 
 #define OPENFILENAME_SIZE_VERSION_400A CDSIZEOF_STRUCT(OPENFILENAMEA, lpTemplateName)
 #define OPENFILENAME_SIZE_VERSION_400W CDSIZEOF_STRUCT(OPENFILENAMEW, lpTemplateName)
-#define OPENFILENAME_SIZE_VERSION_400 __MINGW_NAME_AW(OPENFILENAME_SIZE_VERSION_400)
+
+#ifdef UNICODE
+	#define OPENFILENAME_SIZE_VERSION_400 OPENFILENAME_SIZE_VERSION_400W
+#else
+	#define OPENFILENAME_SIZE_VERSION_400 OPENFILENAME_SIZE_VERSION_400A
+#endif
 
 declare function GetOpenFileNameA(byval as LPOPENFILENAMEA) as WINBOOL
 declare function GetOpenFileNameW(byval as LPOPENFILENAMEW) as WINBOOL
 
-#define GetOpenFileName __MINGW_NAME_AW(GetOpenFileName)
+#ifdef UNICODE
+	#define GetOpenFileName GetOpenFileNameW
+#else
+	#define GetOpenFileName GetOpenFileNameA
+#endif
 
 declare function GetSaveFileNameA(byval as LPOPENFILENAMEA) as WINBOOL
 declare function GetSaveFileNameW(byval as LPOPENFILENAMEW) as WINBOOL
 
-#define GetSaveFileName __MINGW_NAME_AW(GetSaveFileName)
+#ifdef UNICODE
+	#define GetSaveFileName GetSaveFileNameW
+#else
+	#define GetSaveFileName GetSaveFileNameA
+#endif
 
 declare function GetFileTitleA(byval as LPCSTR, byval as LPSTR, byval as WORD) as short
 declare function GetFileTitleW(byval as LPCWSTR, byval as LPWSTR, byval as WORD) as short
 
-#define GetFileTitle __MINGW_NAME_AW(GetFileTitle)
+#ifdef UNICODE
+	#define GetFileTitle GetFileTitleW
+#else
+	#define GetFileTitle GetFileTitleA
+#endif
+
 #define OFN_READONLY &h1
 #define OFN_OVERWRITEPROMPT &h2
 #define OFN_HIDEREADONLY &h4
@@ -414,15 +432,33 @@ type LPOFNOTIFYEXW as _OFNOTIFYEXW ptr
 #define CDM_GETSPEC CDM_FIRST
 #define CommDlg_OpenSave_GetSpecA(_hdlg, _psz, _cbmax) clng(SNDMSG(_hdlg, CDM_GETSPEC, cast(WPARAM, _cbmax), cast(LPARAM, cast(LPSTR, _psz))))
 #define CommDlg_OpenSave_GetSpecW(_hdlg, _psz, _cbmax) clng(SNDMSG(_hdlg, CDM_GETSPEC, cast(WPARAM, _cbmax), cast(LPARAM, cast(LPWSTR, _psz))))
-#define CommDlg_OpenSave_GetSpec __MINGW_NAME_AW(CommDlg_OpenSave_GetSpec)
+
+#ifdef UNICODE
+	#define CommDlg_OpenSave_GetSpec CommDlg_OpenSave_GetSpecW
+#else
+	#define CommDlg_OpenSave_GetSpec CommDlg_OpenSave_GetSpecA
+#endif
+
 #define CDM_GETFILEPATH (CDM_FIRST + 1)
 #define CommDlg_OpenSave_GetFilePathA(_hdlg, _psz, _cbmax) clng(SNDMSG(_hdlg, CDM_GETFILEPATH, cast(WPARAM, _cbmax), cast(LPARAM, cast(LPSTR, _psz))))
 #define CommDlg_OpenSave_GetFilePathW(_hdlg, _psz, _cbmax) clng(SNDMSG(_hdlg, CDM_GETFILEPATH, cast(WPARAM, _cbmax), cast(LPARAM, cast(LPWSTR, _psz))))
-#define CommDlg_OpenSave_GetFilePath __MINGW_NAME_AW(CommDlg_OpenSave_GetFilePath)
+
+#ifdef UNICODE
+	#define CommDlg_OpenSave_GetFilePath CommDlg_OpenSave_GetFilePathW
+#else
+	#define CommDlg_OpenSave_GetFilePath CommDlg_OpenSave_GetFilePathA
+#endif
+
 #define CDM_GETFOLDERPATH (CDM_FIRST + 2)
 #define CommDlg_OpenSave_GetFolderPathA(_hdlg, _psz, _cbmax) clng(SNDMSG(_hdlg, CDM_GETFOLDERPATH, cast(WPARAM, _cbmax), cast(LPARAM, cast(LPSTR, _psz))))
 #define CommDlg_OpenSave_GetFolderPathW(_hdlg, _psz, _cbmax) clng(SNDMSG(_hdlg, CDM_GETFOLDERPATH, cast(WPARAM, _cbmax), cast(LPARAM, cast(LPWSTR, _psz))))
-#define CommDlg_OpenSave_GetFolderPath __MINGW_NAME_AW(CommDlg_OpenSave_GetFolderPath)
+
+#ifdef UNICODE
+	#define CommDlg_OpenSave_GetFolderPath CommDlg_OpenSave_GetFolderPathW
+#else
+	#define CommDlg_OpenSave_GetFolderPath CommDlg_OpenSave_GetFolderPathA
+#endif
+
 #define CDM_GETFOLDERIDLIST (CDM_FIRST + 3)
 #define CommDlg_OpenSave_GetFolderIDList(_hdlg, _pidl, _cbmax) clng(SNDMSG(_hdlg, CDM_GETFOLDERIDLIST, cast(WPARAM, _cbmax), cast(LPARAM, cast(LPVOID, _pidl))))
 #define CDM_SETCONTROLTEXT (CDM_FIRST + 4)
@@ -501,7 +537,12 @@ type LPCHOOSECOLORW as tagCHOOSECOLORW ptr
 declare function ChooseColorA(byval as LPCHOOSECOLORA) as WINBOOL
 declare function ChooseColorW(byval as LPCHOOSECOLORW) as WINBOOL
 
-#define ChooseColor_ __MINGW_NAME_AW(ChooseColor)
+#ifdef UNICODE
+	#define ChooseColor_ ChooseColorW
+#else
+	#define ChooseColor_ ChooseColorA
+#endif
+
 #define CC_RGBINIT &h1
 #define CC_FULLOPEN &h2
 #define CC_PREVENTFULLOPEN &h4
@@ -613,12 +654,20 @@ type LPFINDREPLACEW as tagFINDREPLACEW ptr
 declare function FindTextA(byval as LPFINDREPLACEA) as HWND
 declare function FindTextW(byval as LPFINDREPLACEW) as HWND
 
-#define FindText __MINGW_NAME_AW(FindText)
+#ifdef UNICODE
+	#define FindText FindTextW
+#else
+	#define FindText FindTextA
+#endif
 
 declare function ReplaceTextA(byval as LPFINDREPLACEA) as HWND
 declare function ReplaceTextW(byval as LPFINDREPLACEW) as HWND
 
-#define ReplaceText __MINGW_NAME_AW(ReplaceText)
+#ifdef UNICODE
+	#define ReplaceText ReplaceTextW
+#else
+	#define ReplaceText ReplaceTextA
+#endif
 
 type LPCFHOOKPROC as function(byval as HWND, byval as UINT, byval as WPARAM, byval as LPARAM) as UINT_PTR
 
@@ -719,7 +768,12 @@ type LPCHOOSEFONTW as tagCHOOSEFONTW ptr
 declare function ChooseFontA(byval as LPCHOOSEFONTA) as WINBOOL
 declare function ChooseFontW(byval as LPCHOOSEFONTW) as WINBOOL
 
-#define ChooseFont_ __MINGW_NAME_AW(ChooseFont)
+#ifdef UNICODE
+	#define ChooseFont_ ChooseFontW
+#else
+	#define ChooseFont_ ChooseFontA
+#endif
+
 #define CF_SCREENFONTS &h1
 #define CF_PRINTERFONTS &h2
 #define CF_BOTH (CF_SCREENFONTS or CF_PRINTERFONTS)
@@ -774,13 +828,25 @@ declare function ChooseFontW(byval as LPCHOOSEFONTW) as WINBOOL
 #define SETRGBSTRINGW wstr("commdlg_SetRGBColor")
 #define HELPMSGSTRINGW wstr("commdlg_help")
 #define FINDMSGSTRINGW wstr("commdlg_FindReplace")
-#define LBSELCHSTRING __MINGW_NAME_AW(LBSELCHSTRING)
-#define SHAREVISTRING __MINGW_NAME_AW(SHAREVISTRING)
-#define FILEOKSTRING __MINGW_NAME_AW(FILEOKSTRING)
-#define COLOROKSTRING __MINGW_NAME_AW(COLOROKSTRING)
-#define SETRGBSTRING __MINGW_NAME_AW(SETRGBSTRING)
-#define HELPMSGSTRING __MINGW_NAME_AW(HELPMSGSTRING)
-#define FINDMSGSTRING __MINGW_NAME_AW(FINDMSGSTRING)
+
+#ifdef UNICODE
+	#define LBSELCHSTRING LBSELCHSTRINGW
+	#define SHAREVISTRING SHAREVISTRINGW
+	#define FILEOKSTRING FILEOKSTRINGW
+	#define COLOROKSTRING COLOROKSTRINGW
+	#define SETRGBSTRING SETRGBSTRINGW
+	#define HELPMSGSTRING HELPMSGSTRINGW
+	#define FINDMSGSTRING FINDMSGSTRINGW
+#else
+	#define LBSELCHSTRING LBSELCHSTRINGA
+	#define SHAREVISTRING SHAREVISTRINGA
+	#define FILEOKSTRING FILEOKSTRINGA
+	#define COLOROKSTRING COLOROKSTRINGA
+	#define SETRGBSTRING SETRGBSTRINGA
+	#define HELPMSGSTRING HELPMSGSTRINGA
+	#define FINDMSGSTRING FINDMSGSTRINGA
+#endif
+
 #define CD_LBSELNOITEMS (-1)
 #define CD_LBSELCHANGE 0
 #define CD_LBSELSUB 1
@@ -898,7 +964,11 @@ type LPPRINTDLGW as tagPDW ptr
 declare function PrintDlgA(byval as LPPRINTDLGA) as WINBOOL
 declare function PrintDlgW(byval as LPPRINTDLGW) as WINBOOL
 
-#define PrintDlg_ __MINGW_NAME_AW(PrintDlg)
+#ifdef UNICODE
+	#define PrintDlg_ PrintDlgW
+#else
+	#define PrintDlg_ PrintDlgA
+#endif
 
 #ifdef __FB_64BIT__
 	type IPrintDialogCallback
@@ -1084,7 +1154,12 @@ type LPPRINTDLGEXW as tagPDEXW ptr
 declare function PrintDlgExA(byval as LPPRINTDLGEXA) as HRESULT
 declare function PrintDlgExW(byval as LPPRINTDLGEXW) as HRESULT
 
-#define PrintDlgEx_ __MINGW_NAME_AW(PrintDlgEx)
+#ifdef UNICODE
+	#define PrintDlgEx_ PrintDlgExW
+#else
+	#define PrintDlgEx_ PrintDlgExA
+#endif
+
 #define PD_ALLPAGES &h0
 #define PD_SELECTION &h1
 #define PD_PAGENUMS &h2
@@ -1242,7 +1317,12 @@ type LPPAGESETUPDLGW as tagPSDW ptr
 declare function PageSetupDlgA(byval as LPPAGESETUPDLGA) as WINBOOL
 declare function PageSetupDlgW(byval as LPPAGESETUPDLGW) as WINBOOL
 
-#define PageSetupDlg_ __MINGW_NAME_AW(PageSetupDlg)
+#ifdef UNICODE
+	#define PageSetupDlg_ PageSetupDlgW
+#else
+	#define PageSetupDlg_ PageSetupDlgA
+#endif
+
 #define PSD_DEFAULTMINMARGINS &h0
 #define PSD_INWININIINTLMEASURE &h0
 #define PSD_MINMARGINS &h1

@@ -2502,7 +2502,11 @@ type LPPIXELFORMATDESCRIPTOR as tagPIXELFORMATDESCRIPTOR ptr
 type OLDFONTENUMPROCA as function(byval as const LOGFONTA ptr, byval as const TEXTMETRICA ptr, byval as DWORD, byval as LPARAM) as long
 type OLDFONTENUMPROCW as function(byval as const LOGFONTW ptr, byval as const TEXTMETRICW ptr, byval as DWORD, byval as LPARAM) as long
 
-#define OLDFONTENUMPROC __MINGW_NAME_AW(OLDFONTENUMPROC)
+#ifdef UNICODE
+	#define OLDFONTENUMPROC OLDFONTENUMPROCW
+#else
+	#define OLDFONTENUMPROC OLDFONTENUMPROCA
+#endif
 
 type FONTENUMPROCA as OLDFONTENUMPROCA
 type FONTENUMPROCW as OLDFONTENUMPROCW
@@ -2516,14 +2520,25 @@ type FONTENUMPROCW as OLDFONTENUMPROCW
 type GOBJENUMPROC as function(byval as LPVOID, byval as LPARAM) as long
 type LINEDDAPROC as sub(byval as long, byval as long, byval as LPARAM)
 
-#define AddFontResource __MINGW_NAME_AW(AddFontResource)
-#define CopyMetaFile __MINGW_NAME_AW(CopyMetaFile)
-#define CreateDC __MINGW_NAME_AW(CreateDC)
-#define CreateFontIndirect __MINGW_NAME_AW(CreateFontIndirect)
-#define CreateFont __MINGW_NAME_AW(CreateFont)
-#define CreateIC __MINGW_NAME_AW(CreateIC)
-#define CreateMetaFile __MINGW_NAME_AW(CreateMetaFile)
-#define CreateScalableFontResource __MINGW_NAME_AW(CreateScalableFontResource)
+#ifdef UNICODE
+	#define AddFontResource AddFontResourceW
+	#define CopyMetaFile CopyMetaFileW
+	#define CreateDC CreateDCW
+	#define CreateFontIndirect CreateFontIndirectW
+	#define CreateFont CreateFontW
+	#define CreateIC CreateICW
+	#define CreateMetaFile CreateMetaFileW
+	#define CreateScalableFontResource CreateScalableFontResourceW
+#else
+	#define AddFontResource AddFontResourceA
+	#define CopyMetaFile CopyMetaFileA
+	#define CreateDC CreateDCA
+	#define CreateFontIndirect CreateFontIndirectA
+	#define CreateFont CreateFontA
+	#define CreateIC CreateICA
+	#define CreateMetaFile CreateMetaFileA
+	#define CreateScalableFontResource CreateScalableFontResourceA
+#endif
 
 declare function AddFontResourceA(byval as LPCSTR) as long
 declare function AddFontResourceW(byval as LPCWSTR) as long
@@ -2637,17 +2652,32 @@ type LPFNDEVCAPS as function(byval as LPSTR, byval as LPSTR, byval as UINT, byva
 #define DCBA_FACEDOWNCENTER &h0101
 #define DCBA_FACEDOWNLEFT &h0102
 #define DCBA_FACEDOWNRIGHT &h0103
-#define DeviceCapabilities __MINGW_NAME_AW(DeviceCapabilities)
-#define EnumFontFamiliesEx __MINGW_NAME_AW(EnumFontFamiliesEx)
-#define EnumFontFamilies __MINGW_NAME_AW(EnumFontFamilies)
-#define EnumFonts __MINGW_NAME_AW(EnumFonts)
-#define GetCharWidth __MINGW_NAME_AW(GetCharWidth)
-#define GetCharWidth32 __MINGW_NAME_AW(GetCharWidth32)
-#define GetCharWidthFloat __MINGW_NAME_AW(GetCharWidthFloat)
-#define GetCharABCWidths __MINGW_NAME_AW(GetCharABCWidths)
-#define GetCharABCWidthsFloat __MINGW_NAME_AW(GetCharABCWidthsFloat)
-#define GetGlyphOutline __MINGW_NAME_AW(GetGlyphOutline)
-#define GetMetaFile __MINGW_NAME_AW(GetMetaFile)
+
+#ifdef UNICODE
+	#define DeviceCapabilities DeviceCapabilitiesW
+	#define EnumFontFamiliesEx EnumFontFamiliesExW
+	#define EnumFontFamilies EnumFontFamiliesW
+	#define EnumFonts EnumFontsW
+	#define GetCharWidth GetCharWidthW
+	#define GetCharWidth32 GetCharWidth32W
+	#define GetCharWidthFloat GetCharWidthFloatW
+	#define GetCharABCWidths GetCharABCWidthsW
+	#define GetCharABCWidthsFloat GetCharABCWidthsFloatW
+	#define GetGlyphOutline GetGlyphOutlineW
+	#define GetMetaFile GetMetaFileW
+#else
+	#define DeviceCapabilities DeviceCapabilitiesA
+	#define EnumFontFamiliesEx EnumFontFamiliesExA
+	#define EnumFontFamilies EnumFontFamiliesA
+	#define EnumFonts EnumFontsA
+	#define GetCharWidth GetCharWidthA
+	#define GetCharWidth32 GetCharWidth32A
+	#define GetCharWidthFloat GetCharWidthFloatA
+	#define GetCharABCWidths GetCharABCWidthsA
+	#define GetCharABCWidthsFloat GetCharABCWidthsFloatA
+	#define GetGlyphOutline GetGlyphOutlineA
+	#define GetMetaFile GetMetaFileA
+#endif
 
 declare function DeviceCapabilitiesA(byval pDevice as LPCSTR, byval pPort as LPCSTR, byval fwCapability as WORD, byval pOutput as LPSTR, byval pDevMode as const DEVMODEA ptr) as long
 declare function DeviceCapabilitiesW(byval pDevice as LPCWSTR, byval pPort as LPCWSTR, byval fwCapability as WORD, byval pOutput as LPWSTR, byval pDevMode as const DEVMODEW ptr) as long
@@ -2708,15 +2738,26 @@ declare function GetNearestColor(byval hdc as HDC, byval color_ as COLORREF) as 
 declare function GetNearestPaletteIndex(byval h as HPALETTE, byval color_ as COLORREF) as UINT
 declare function GetObjectType(byval h as HGDIOBJ) as DWORD
 
-#define GetOutlineTextMetrics __MINGW_NAME_AW(GetOutlineTextMetrics)
+#ifdef UNICODE
+	#define GetOutlineTextMetrics GetOutlineTextMetricsW
+#else
+	#define GetOutlineTextMetrics GetOutlineTextMetricsA
+#endif
 
 declare function GetOutlineTextMetricsA(byval hdc as HDC, byval cjCopy as UINT, byval potm as LPOUTLINETEXTMETRICA) as UINT
 declare function GetOutlineTextMetricsW(byval hdc as HDC, byval cjCopy as UINT, byval potm as LPOUTLINETEXTMETRICW) as UINT
 
-#define GetTextExtentPoint __MINGW_NAME_AW(GetTextExtentPoint)
-#define GetTextExtentPoint32 __MINGW_NAME_AW(GetTextExtentPoint32)
-#define GetTextExtentExPoint __MINGW_NAME_AW(GetTextExtentExPoint)
-#define GetCharacterPlacement __MINGW_NAME_AW(GetCharacterPlacement)
+#ifdef UNICODE
+	#define GetTextExtentPoint GetTextExtentPointW
+	#define GetTextExtentPoint32 GetTextExtentPoint32W
+	#define GetTextExtentExPoint GetTextExtentExPointW
+	#define GetCharacterPlacement GetCharacterPlacementW
+#else
+	#define GetTextExtentPoint GetTextExtentPointA
+	#define GetTextExtentPoint32 GetTextExtentPoint32A
+	#define GetTextExtentExPoint GetTextExtentExPointA
+	#define GetCharacterPlacement GetCharacterPlacementA
+#endif
 
 declare function GetPaletteEntries(byval hpal as HPALETTE, byval iStart as UINT, byval cEntries as UINT, byval pPalEntries as LPPALETTEENTRY) as UINT
 declare function GetPixel(byval hdc as HDC, byval x as long, byval y as long) as COLORREF
@@ -2769,7 +2810,12 @@ type LPGLYPHSET as tagGLYPHSET ptr
 
 #define GS_8BIT_INDICES &h00000001
 #define GGI_MARK_NONEXISTING_GLYPHS &h0001
-#define GetGlyphIndices __MINGW_NAME_AW(GetGlyphIndices)
+
+#ifdef UNICODE
+	#define GetGlyphIndices GetGlyphIndicesW
+#else
+	#define GetGlyphIndices GetGlyphIndicesA
+#endif
 
 declare function GetFontUnicodeRanges(byval hdc as HDC, byval lpgs as LPGLYPHSET) as DWORD
 declare function GetGlyphIndicesA(byval hdc as HDC, byval lpstr as LPCSTR, byval c as long, byval pgi as LPWORD, byval fl as DWORD) as DWORD
@@ -2793,8 +2839,13 @@ type DESIGNVECTOR as tagDESIGNVECTOR
 type PDESIGNVECTOR as tagDESIGNVECTOR ptr
 type LPDESIGNVECTOR as tagDESIGNVECTOR ptr
 
-#define AddFontResourceEx __MINGW_NAME_AW(AddFontResourceEx)
-#define RemoveFontResourceEx __MINGW_NAME_AW(RemoveFontResourceEx)
+#ifdef UNICODE
+	#define AddFontResourceEx AddFontResourceExW
+	#define RemoveFontResourceEx RemoveFontResourceExW
+#else
+	#define AddFontResourceEx AddFontResourceExA
+	#define RemoveFontResourceEx RemoveFontResourceExA
+#endif
 
 declare function AddFontResourceExA(byval name_ as LPCSTR, byval fl as DWORD, byval res as PVOID) as long
 declare function AddFontResourceExW(byval name_ as LPCWSTR, byval fl as DWORD, byval res as PVOID) as long
@@ -2889,13 +2940,15 @@ type LPENUMLOGFONTEXDVW as tagENUMLOGFONTEXDVW ptr
 	type ENUMLOGFONTEXDV as ENUMLOGFONTEXDVW
 	type PENUMLOGFONTEXDV as PENUMLOGFONTEXDVW
 	type LPENUMLOGFONTEXDV as LPENUMLOGFONTEXDVW
+
+	#define CreateFontIndirectEx CreateFontIndirectExW
 #else
 	type ENUMLOGFONTEXDV as ENUMLOGFONTEXDVA
 	type PENUMLOGFONTEXDV as PENUMLOGFONTEXDVA
 	type LPENUMLOGFONTEXDV as LPENUMLOGFONTEXDVA
-#endif
 
-#define CreateFontIndirectEx __MINGW_NAME_AW(CreateFontIndirectEx)
+	#define CreateFontIndirectEx CreateFontIndirectExA
+#endif
 
 declare function CreateFontIndirectExA(byval as const ENUMLOGFONTEXDVA ptr) as HFONT
 declare function CreateFontIndirectExW(byval as const ENUMLOGFONTEXDVW ptr) as HFONT
@@ -2922,14 +2975,17 @@ type LPENUMTEXTMETRICW as tagENUMTEXTMETRICW ptr
 	type ENUMTEXTMETRIC as ENUMTEXTMETRICW
 	type PENUMTEXTMETRIC as PENUMTEXTMETRICW
 	type LPENUMTEXTMETRIC as LPENUMTEXTMETRICW
+
+	#define ResetDC ResetDCW
+	#define RemoveFontResource RemoveFontResourceW
 #else
 	type ENUMTEXTMETRIC as ENUMTEXTMETRICA
 	type PENUMTEXTMETRIC as PENUMTEXTMETRICA
 	type LPENUMTEXTMETRIC as LPENUMTEXTMETRICA
-#endif
 
-#define ResetDC __MINGW_NAME_AW(ResetDC)
-#define RemoveFontResource __MINGW_NAME_AW(RemoveFontResource)
+	#define ResetDC ResetDCA
+	#define RemoveFontResource RemoveFontResourceA
+#endif
 
 declare function GetViewportExtEx(byval hdc as HDC, byval lpsize as LPSIZE) as WINBOOL
 declare function GetViewportOrgEx(byval hdc as HDC, byval lppoint as LPPOINT) as WINBOOL
@@ -3058,10 +3114,17 @@ declare function GdiTransparentBlt(byval hdcDest as HDC, byval xoriginDest as lo
 declare function GradientFill(byval hdc as HDC, byval pVertex as PTRIVERTEX, byval nVertex as ULONG, byval pMesh as PVOID, byval nMesh as ULONG, byval ulMode as ULONG) as WINBOOL
 declare function GdiGradientFill(byval hdc as HDC, byval pVertex as PTRIVERTEX, byval nVertex as ULONG, byval pMesh as PVOID, byval nMesh as ULONG, byval ulMode as ULONG) as WINBOOL
 
-#define CopyEnhMetaFile __MINGW_NAME_AW(CopyEnhMetaFile)
-#define CreateEnhMetaFile __MINGW_NAME_AW(CreateEnhMetaFile)
-#define GetEnhMetaFile __MINGW_NAME_AW(GetEnhMetaFile)
-#define GetEnhMetaFileDescription __MINGW_NAME_AW(GetEnhMetaFileDescription)
+#ifdef UNICODE
+	#define CopyEnhMetaFile CopyEnhMetaFileW
+	#define CreateEnhMetaFile CreateEnhMetaFileW
+	#define GetEnhMetaFile GetEnhMetaFileW
+	#define GetEnhMetaFileDescription GetEnhMetaFileDescriptionW
+#else
+	#define CopyEnhMetaFile CopyEnhMetaFileA
+	#define CreateEnhMetaFile CreateEnhMetaFileA
+	#define GetEnhMetaFile GetEnhMetaFileA
+	#define GetEnhMetaFileDescription GetEnhMetaFileDescriptionA
+#endif
 
 declare function PlayMetaFileRecord(byval hdc as HDC, byval lpHandleTable as LPHANDLETABLE, byval lpMR as LPMETARECORD, byval noObjs as UINT) as WINBOOL
 
@@ -3093,7 +3156,11 @@ declare function SetEnhMetaFileBits(byval nSize as UINT, byval pb as const UBYTE
 declare function SetWinMetaFileBits(byval nSize as UINT, byval lpMeta16Data as const UBYTE ptr, byval hdcRef as HDC, byval lpMFP as const METAFILEPICT ptr) as HENHMETAFILE
 declare function GdiComment(byval hdc as HDC, byval nSize as UINT, byval lpData as const UBYTE ptr) as WINBOOL
 
-#define GetTextMetrics __MINGW_NAME_AW(GetTextMetrics)
+#ifdef UNICODE
+	#define GetTextMetrics GetTextMetricsW
+#else
+	#define GetTextMetrics GetTextMetricsA
+#endif
 
 declare function GetTextMetricsA(byval hdc as HDC, byval lptm as LPTEXTMETRICA) as WINBOOL
 declare function GetTextMetricsW(byval hdc as HDC, byval lptm as LPTEXTMETRICW) as WINBOOL
@@ -3202,12 +3269,22 @@ type LPDOCINFOW as _DOCINFOW ptr
 
 #define DI_APPBANDING &h00000001
 #define DI_ROPS_READ_DESTINATION &h00000002
-#define StartDoc_ __MINGW_NAME_AW(StartDoc)
-#define GetObject __MINGW_NAME_AW(GetObject)
-#define TextOut __MINGW_NAME_AW(TextOut)
-#define ExtTextOut_ __MINGW_NAME_AW(ExtTextOut)
-#define PolyTextOut __MINGW_NAME_AW(PolyTextOut)
-#define GetTextFace __MINGW_NAME_AW(GetTextFace)
+
+#ifdef UNICODE
+	#define StartDoc_ StartDocW
+	#define GetObject GetObjectW
+	#define TextOut TextOutW
+	#define ExtTextOut_ ExtTextOutW
+	#define PolyTextOut PolyTextOutW
+	#define GetTextFace GetTextFaceW
+#else
+	#define StartDoc_ StartDocA
+	#define GetObject GetObjectA
+	#define TextOut TextOutA
+	#define ExtTextOut_ ExtTextOutA
+	#define PolyTextOut PolyTextOutA
+	#define GetTextFace GetTextFaceA
+#endif
 
 declare function StartDocA(byval hdc as HDC, byval lpdi as const DOCINFOA ptr) as long
 declare function StartDocW(byval hdc as HDC, byval lpdi as const DOCINFOW ptr) as long
@@ -3276,7 +3353,11 @@ end type
 type KERNINGPAIR as tagKERNINGPAIR
 type LPKERNINGPAIR as tagKERNINGPAIR ptr
 
-#define GetKerningPairs __MINGW_NAME_AW(GetKerningPairs)
+#ifdef UNICODE
+	#define GetKerningPairs GetKerningPairsW
+#else
+	#define GetKerningPairs GetKerningPairsA
+#endif
 
 declare function GetKerningPairsA(byval hdc as HDC, byval nPairs as DWORD, byval lpKernPair as LPKERNINGPAIR) as DWORD
 declare function GetKerningPairsW(byval hdc as HDC, byval nPairs as DWORD, byval lpKernPair as LPKERNINGPAIR) as DWORD
@@ -3295,13 +3376,23 @@ declare function GdiGetBatchLimit() as DWORD
 type ICMENUMPROCA as function(byval as LPSTR, byval as LPARAM) as long
 type ICMENUMPROCW as function(byval as LPWSTR, byval as LPARAM) as long
 
-#define ICMENUMPROC __MINGW_NAME_AW(ICMENUMPROC)
-#define EnumICMProfiles __MINGW_NAME_AW(EnumICMProfiles)
-#define UpdateICMRegKey __MINGW_NAME_AW(UpdateICMRegKey)
-#define GetLogColorSpace __MINGW_NAME_AW(GetLogColorSpace)
-#define CreateColorSpace __MINGW_NAME_AW(CreateColorSpace)
-#define GetICMProfile __MINGW_NAME_AW(GetICMProfile)
-#define SetICMProfile __MINGW_NAME_AW(SetICMProfile)
+#ifdef UNICODE
+	#define ICMENUMPROC ICMENUMPROCW
+	#define EnumICMProfiles EnumICMProfilesW
+	#define UpdateICMRegKey UpdateICMRegKeyW
+	#define GetLogColorSpace GetLogColorSpaceW
+	#define CreateColorSpace CreateColorSpaceW
+	#define GetICMProfile GetICMProfileW
+	#define SetICMProfile SetICMProfileW
+#else
+	#define ICMENUMPROC ICMENUMPROCA
+	#define EnumICMProfiles EnumICMProfilesA
+	#define UpdateICMRegKey UpdateICMRegKeyA
+	#define GetLogColorSpace GetLogColorSpaceA
+	#define CreateColorSpace CreateColorSpaceA
+	#define GetICMProfile GetICMProfileA
+	#define SetICMProfile SetICMProfileA
+#endif
 
 declare function SetICMMode(byval hdc as HDC, byval mode as long) as long
 declare function CheckColorsInGamut(byval hdc as HDC, byval lpRGBTriple as LPVOID, byval dlpBuffer as LPVOID, byval nCount as DWORD) as WINBOOL
@@ -4367,7 +4458,12 @@ type PEMRTRANSPARENTBLT as tagEMRTRANSPARENTBLT ptr
 #define EPS_SIGNATURE &h46535045
 #define GDICOMMENT_UNICODE_STRING &h00000040
 #define GDICOMMENT_UNICODE_END &h00000080
-#define wglUseFontBitmaps __MINGW_NAME_AW(wglUseFontBitmaps)
+
+#ifdef UNICODE
+	#define wglUseFontBitmaps wglUseFontBitmapsW
+#else
+	#define wglUseFontBitmaps wglUseFontBitmapsA
+#endif
 
 declare function wglCopyContext(byval as HGLRC, byval as HGLRC, byval as UINT) as WINBOOL
 declare function wglCreateContext(byval as HDC) as HGLRC
@@ -4404,7 +4500,12 @@ type LPGLYPHMETRICSFLOAT as _GLYPHMETRICSFLOAT ptr
 
 #define WGL_FONT_LINES 0
 #define WGL_FONT_POLYGONS 1
-#define wglUseFontOutlines __MINGW_NAME_AW(wglUseFontOutlines)
+
+#ifdef UNICODE
+	#define wglUseFontOutlines wglUseFontOutlinesW
+#else
+	#define wglUseFontOutlines wglUseFontOutlinesA
+#endif
 
 declare function wglUseFontOutlinesA(byval as HDC, byval as DWORD, byval as DWORD, byval as DWORD, byval as FLOAT, byval as FLOAT, byval as long, byval as LPGLYPHMETRICSFLOAT) as WINBOOL
 declare function wglUseFontOutlinesW(byval as HDC, byval as DWORD, byval as DWORD, byval as DWORD, byval as FLOAT, byval as FLOAT, byval as long, byval as LPGLYPHMETRICSFLOAT) as WINBOOL
