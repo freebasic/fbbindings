@@ -69,7 +69,11 @@ extern CLSID_CFSIconOverlayManager as const GUID
 extern IID_IShellIconOverlayManager as const GUID
 extern IID_IThumbnailCapture as const GUID
 extern IID_IShellImageStore as const GUID
-extern CLSID_ShellThumbnailDiskCache as const GUID
+
+#if (_WIN32_WINNT = &h0400) or (_WIN32_WINNT = &h0502)
+	extern CLSID_ShellThumbnailDiskCache as const GUID
+#endif
+
 extern SID_DefView as const GUID
 extern CGID_DefView as const GUID
 extern CLSID_MenuBand as const GUID
@@ -84,6 +88,12 @@ extern VID_Content as const GUID
 extern VID_Thumbnails as const GUID
 extern VID_ThumbStrip as const GUID
 extern SID_SInPlaceBrowser as const GUID
+
+#if _WIN32_WINNT = &h0602
+	extern SID_SSearchBoxInfo as const GUID
+	extern SID_CommandsPropertyBag as const GUID
+#endif
+
 extern IID_IDiscardableBrowserProperty as const GUID
 extern IID_IShellChangeNotify as const GUID
 
@@ -110,7 +120,11 @@ extern CLSID_ACLHistory as const GUID
 extern CLSID_ACListISF as const GUID
 extern CLSID_ACLMRU as const GUID
 extern CLSID_ACLMulti as const GUID
-extern CLSID_ACLCustomMRU as const GUID
+
+#if (_WIN32_WINNT = &h0502) or (_WIN32_WINNT = &h0602)
+	extern CLSID_ACLCustomMRU as const GUID
+#endif
+
 extern CLSID_ProgressDialog as const GUID
 extern IID_IProgressDialog as const GUID
 extern SID_STopLevelBrowser as const GUID
@@ -251,7 +265,11 @@ extern BHID_DataObject as const GUID
 extern BHID_AssociationArray as const GUID
 extern BHID_Filter as const GUID
 extern BHID_EnumAssocHandlers as const GUID
-extern SID_CtxQueryAssociations as const GUID
+
+#if (_WIN32_WINNT = &h0502) or (_WIN32_WINNT = &h0602)
+	extern SID_CtxQueryAssociations as const GUID
+#endif
+
 extern IID_IDocViewSite as const GUID
 extern CLSID_QuickLinks as const GUID
 extern CLSID_ISFBand as const GUID

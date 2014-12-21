@@ -157,6 +157,11 @@ type IVMRImagePresenterConfig as IVMRImagePresenterConfig_
 type IVMRImagePresenterExclModeConfig as IVMRImagePresenterExclModeConfig_
 type IVPManager as IVPManager_
 
+#if _WIN32_WINNT = &h0602
+	type IAMAsyncReaderTimestampScalingVtbl as IAMAsyncReaderTimestampScalingVtbl_
+	type IAMPluginControlVtbl as IAMPluginControlVtbl_
+#endif
+
 #define __strmif_h__
 #define __ICreateDevEnum_FWD_DEFINED__
 #define __IPin_FWD_DEFINED__
@@ -6519,6 +6524,37 @@ declare function IVPManager_SetVideoPortIndex_Proxy(byval This as IVPManager ptr
 declare sub IVPManager_SetVideoPortIndex_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IVPManager_GetVideoPortIndex_Proxy(byval This as IVPManager ptr, byval pdwVideoPortIndex as DWORD ptr) as HRESULT
 declare sub IVPManager_GetVideoPortIndex_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
+
+#if _WIN32_WINNT = &h0602
+	type IAMAsyncReaderTimestampScaling
+		lpVtbl as IAMAsyncReaderTimestampScalingVtbl ptr
+	end type
+
+	type IAMAsyncReaderTimestampScalingVtbl_
+		QueryInterface as function(byval This as IAMAsyncReaderTimestampScaling ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
+		AddRef as function(byval This as IAMAsyncReaderTimestampScaling ptr) as ULONG
+		Release as function(byval This as IAMAsyncReaderTimestampScaling ptr) as ULONG
+		GetTimestampMode as function(byval This as IAMAsyncReaderTimestampScaling ptr, byval pfRaw as WINBOOL ptr) as HRESULT
+		SetTimestampMode as function(byval This as IAMAsyncReaderTimestampScaling ptr, byval fRaw as WINBOOL) as HRESULT
+	end type
+
+	type IAMPluginControl
+		lpVtbl as IAMPluginControlVtbl ptr
+	end type
+
+	type IAMPluginControlVtbl_
+		QueryInterface as function(byval This as IAMPluginControl ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
+		AddRef as function(byval This as IAMPluginControl ptr) as ULONG
+		Release as function(byval This as IAMPluginControl ptr) as ULONG
+		GetDisabledByIndex as function(byval This as IAMPluginControl ptr, byval index as DWORD, byval clsid as CLSID ptr) as HRESULT
+		GetPreferredClsid as function(byval This as IAMPluginControl ptr, byval subType as const GUID const ptr, byval clsid as CLSID ptr) as HRESULT
+		GetPreferredClsidByIndex as function(byval This as IAMPluginControl ptr, byval index as DWORD, byval subType as GUID ptr, byval clsid as CLSID ptr) as HRESULT
+		IsDisabled as function(byval This as IAMPluginControl ptr, byval clsid as const IID const ptr) as HRESULT
+		IsLegacyDisabled as function(byval This as IAMPluginControl ptr, byval dllName as LPCWSTR) as HRESULT
+		SetDisabled as function(byval This as IAMPluginControl ptr, byval clsid as const IID const ptr, byval disabled as BOOL) as HRESULT
+		SetPreferredClsid as function(byval This as IAMPluginControl ptr, byval subType as const GUID const ptr, byval clsid as const CLSID ptr) as HRESULT
+	end type
+#endif
 
 extern __MIDL_itf_strmif_0413_v0_0_c_ifspec as RPC_IF_HANDLE
 extern __MIDL_itf_strmif_0413_v0_0_s_ifspec as RPC_IF_HANDLE

@@ -233,4 +233,65 @@ declare function RegSaveKeyExA(byval hKey as HKEY, byval lpFile as LPCSTR, byval
 declare function RegSaveKeyExW(byval hKey as HKEY, byval lpFile as LPCWSTR, byval lpSecurityAttributes as LPSECURITY_ATTRIBUTES, byval Flags as DWORD) as LONG
 declare function Wow64Win32ApiEntry(byval dwFuncNumber as DWORD, byval dwFlag as DWORD, byval dwRes as DWORD) as LONG
 
+#if _WIN32_WINNT = &h0602
+	#define RegCopyTree __MINGW_NAME_AW(RegCopyTree)
+
+	declare function RegCopyTreeA(byval hKeySrc as HKEY, byval lpSubKey as LPCSTR, byval hKeyDest as HKEY) as LONG
+	declare function RegCopyTreeW(byval hKeySrc as HKEY, byval lpSubKey as LPCWSTR, byval hKeyDest as HKEY) as LONG
+
+	#define RegCreateKeyTransacted __MINGW_NAME_AW(RegCreateKeyTransacted)
+
+	declare function RegCreateKeyTransactedA(byval hKey as HKEY, byval lpSubKey as LPCSTR, byval Reserved as DWORD, byval lpClass as LPSTR, byval dwOptions as DWORD, byval samDesired as REGSAM, byval lpSecurityAttributes as const LPSECURITY_ATTRIBUTES, byval phkResult as PHKEY, byval lpdwDisposition as LPDWORD, byval hTransaction as HANDLE, byval pExtendedParemeter as PVOID) as LONG
+	declare function RegCreateKeyTransactedW(byval hKey as HKEY, byval lpSubKey as LPCWSTR, byval Reserved as DWORD, byval lpClass as LPWSTR, byval dwOptions as DWORD, byval samDesired as REGSAM, byval lpSecurityAttributes as const LPSECURITY_ATTRIBUTES, byval phkResult as PHKEY, byval lpdwDisposition as LPDWORD, byval hTransaction as HANDLE, byval pExtendedParemeter as PVOID) as LONG
+
+	#define RegDeleteKeyTransacted __MINGW_NAME_AW(RegDeleteKeyTransacted)
+
+	declare function RegDeleteKeyTransactedA(byval hKey as HKEY, byval lpSubKey as LPCSTR, byval samDesired as REGSAM, byval Reserved as DWORD, byval hTransaction as HANDLE, byval pExtendedParameter as PVOID) as LONG
+	declare function RegDeleteKeyTransactedW(byval hKey as HKEY, byval lpSubKey as LPCWSTR, byval samDesired as REGSAM, byval Reserved as DWORD, byval hTransaction as HANDLE, byval pExtendedParameter as PVOID) as LONG
+
+	#define RegDeleteKeyValue __MINGW_NAME_AW(RegDeleteKeyValue)
+
+	declare function RegDeleteKeyValueA(byval hKey as HKEY, byval lpSubKey as LPCSTR, byval lpValueName as LPCSTR) as LONG
+	declare function RegDeleteKeyValueW(byval hKey as HKEY, byval lpSubKey as LPCWSTR, byval lpValueName as LPCWSTR) as LONG
+
+	#define RegDeleteTree __MINGW_NAME_AW(RegDeleteTree)
+
+	declare function RegDeleteTreeA(byval hKey as HKEY, byval lpSubKey as LPCSTR) as LONG
+	declare function RegDeleteTreeW(byval hKey as HKEY, byval lpSubKey as LPCWSTR) as LONG
+	declare function RegDisablePredefinedCacheEx() as LONG
+	declare function RegLoadAppKeyA(byval lpFile as LPCSTR, byval phkResult as PHKEY, byval samDesired as REGSAM, byval dwOptions as DWORD, byval Reserved as DWORD) as LONG
+	declare function RegLoadAppKeyW(byval lpFile as LPCWSTR, byval phkResult as PHKEY, byval samDesired as REGSAM, byval dwOptions as DWORD, byval Reserved as DWORD) as LONG
+
+	#define RegLoadAppKey __MINGW_NAME_AW(RegLoadAppKey)
+
+	declare function RegLoadMUIStringA(byval hKey as HKEY, byval pszValue as LPCSTR, byval pszOutBuf as LPSTR, byval cbOutBuf as DWORD, byval pcbData as LPDWORD, byval Flags as DWORD, byval pszDirectory as LPCSTR) as LONG
+	declare function RegLoadMUIStringW(byval hKey as HKEY, byval pszValue as LPCWSTR, byval pszOutBuf as LPWSTR, byval cbOutBuf as DWORD, byval pcbData as LPDWORD, byval Flags as DWORD, byval pszDirectory as LPCWSTR) as LONG
+
+	#define RegLoadMUIString __MINGW_NAME_AW(RegLoadMUIString)
+
+	declare function RegOpenKeyTransactedA(byval hKey as HKEY, byval lpSubKey as LPCSTR, byval ulOptions as DWORD, byval samDesired as REGSAM, byval phkResult as PHKEY, byval hTransaction as HANDLE, byval pExtendedParameter as PVOID) as LONG
+	declare function RegOpenKeyTransactedW(byval hKey as HKEY, byval lpSubKey as LPCWSTR, byval ulOptions as DWORD, byval samDesired as REGSAM, byval phkResult as PHKEY, byval hTransaction as HANDLE, byval pExtendedParameter as PVOID) as LONG
+
+	#define RegOpenKeyTransacted __MINGW_NAME_AW(RegOpenKeyTransacted)
+
+	declare function RegSetKeyValueA(byval hKey as HKEY, byval lpSubKey as LPCSTR, byval lpValueName as LPCSTR, byval dwType as DWORD, byval lpData as LPCVOID, byval cbData as DWORD) as LONG
+	declare function RegSetKeyValueW(byval hKey as HKEY, byval lpSubKey as LPCSTR, byval lpValueName as LPCSTR, byval dwType as DWORD, byval lpData as LPCVOID, byval cbData as DWORD) as LONG
+
+	#define RegSetKeyValue __MINGW_NAME_AW(RegSetKeyValue)
+	#define SHUTDOWN_FORCE_OTHERS &h00000001
+	#define SHUTDOWN_FORCE_SELF &h00000002
+	#define SHUTDOWN_RESTART &h00000004
+	#define SHUTDOWN_POWEROFF &h00000008
+	#define SHUTDOWN_NOREBOOT &h00000010
+	#define SHUTDOWN_GRACE_OVERRIDE &h00000020
+	#define SHUTDOWN_INSTALL_UPDATES &h00000040
+	#define SHUTDOWN_RESTARTAPPS &h00000080
+	#define SHUTDOWN_HYBRID &h00000200
+
+	declare function InitiateShutdownA(byval lpMachineName as LPSTR, byval lpMessage as LPSTR, byval dwGracePeriod as DWORD, byval dwShutdownFlags as DWORD, byval dwReason as DWORD) as DWORD
+	declare function InitiateShutdownW(byval lpMachineName as LPWSTR, byval lpMessage as LPWSTR, byval dwGracePeriod as DWORD, byval dwShutdownFlags as DWORD, byval dwReason as DWORD) as DWORD
+
+	#define InitiateShutdown __MINGW_NAME_AW(InitiateShutdown)
+#endif
+
 end extern

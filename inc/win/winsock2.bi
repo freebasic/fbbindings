@@ -597,6 +597,11 @@ type LPWSAPROTOCOL_INFOW as _WSAPROTOCOL_INFOW ptr
 #define SIO_QUERY_TARGET_PNP_HANDLE _WSAIOR(IOC_WS2, 24)
 #define SIO_ADDRESS_LIST_SORT _WSAIORW(IOC_WS2, 25)
 
+#if _WIN32_WINNT = &h0602
+	#define SIO_RESERVED_1 _WSAIOW(IOC_WS2, 26)
+	#define SIO_RESERVED_2 _WSAIOW(IOC_WS2, 33)
+#endif
+
 type LPCONDITIONPROC as function(byval lpCallerId as LPWSABUF, byval lpCallerData as LPWSABUF, byval lpSQOS as LPQOS, byval lpGQOS as LPQOS, byval lpCalleeId as LPWSABUF, byval lpCalleeData as LPWSABUF, byval g as GROUP ptr, byval dwCallbackData as DWORD_PTR) as long
 type LPWSAOVERLAPPED_COMPLETION_ROUTINE as sub(byval dwError as DWORD, byval cbTransferred as DWORD, byval lpOverlapped as LPWSAOVERLAPPED, byval dwFlags as DWORD)
 
@@ -673,10 +678,22 @@ type ADDRESS_FAMILY as u_short
 #define NS_NETBT 13
 #define NS_WINS 14
 #define NS_NLA 15
+
+#if _WIN32_WINNT = &h0602
+	#define NS_BTH 16
+#endif
+
 #define NS_NBP 20
 #define NS_MS 30
 #define NS_STDA 31
 #define NS_NTDS 32
+
+#if _WIN32_WINNT = &h0602
+	#define NS_EMAIL 37
+	#define NS_PNRPNAME 38
+	#define NS_PNRPCLOUD 39
+#endif
+
 #define NS_X500 40
 #define NS_NIS 41
 #define NS_NISPLUS 42
@@ -1081,5 +1098,122 @@ declare function WSAProviderConfigChange(byval lpNotificationHandle as LPHANDLE,
 #define WSAGETASYNCERROR(lParam) HIWORD(lParam)
 #define WSAGETSELECTEVENT(lParam) LOWORD(lParam)
 #define WSAGETSELECTERROR(lParam) HIWORD(lParam)
+
+#if _WIN32_WINNT = &h0602
+	type _WSANAMESPACE_INFOEXA
+		NSProviderId as GUID
+		dwNameSpace as DWORD
+		fActive as WINBOOL
+		dwVersion as DWORD
+		lpszIdentifier as LPSTR
+		ProviderSpecific as BLOB
+	end type
+
+	type WSANAMESPACE_INFOEXA as _WSANAMESPACE_INFOEXA
+	type PWSANAMESPACE_INFOEXA as _WSANAMESPACE_INFOEXA ptr
+	type LPWSANAMESPACE_INFOEXA as _WSANAMESPACE_INFOEXA ptr
+
+	type _WSANAMESPACE_INFOEXW
+		NSProviderId as GUID
+		dwNameSpace as DWORD
+		fActive as WINBOOL
+		dwVersion as DWORD
+		lpszIdentifier as LPWSTR
+		ProviderSpecific as BLOB
+	end type
+
+	type WSANAMESPACE_INFOEXW as _WSANAMESPACE_INFOEXW
+	type PWSANAMESPACE_INFOEXW as _WSANAMESPACE_INFOEXW ptr
+	type LPWSANAMESPACE_INFOEXW as _WSANAMESPACE_INFOEXW ptr
+#endif
+
+#if defined(UNICODE) and (_WIN32_WINNT = &h0602)
+	type WSANAMESPACE_INFOEX as WSANAMESPACE_INFOEXW
+	type PWSANAMESPACE_INFOEX as PWSANAMESPACE_INFOEXW
+	type LPWSANAMESPACE_INFOEX as LPWSANAMESPACE_INFOEXW
+#elseif (not defined(UNICODE)) and (_WIN32_WINNT = &h0602)
+	type WSANAMESPACE_INFOEX as WSANAMESPACE_INFOEXA
+	type PWSANAMESPACE_INFOEX as PWSANAMESPACE_INFOEXA
+	type LPWSANAMESPACE_INFOEX as LPWSANAMESPACE_INFOEXA
+#endif
+
+#if _WIN32_WINNT = &h0602
+	type _WSAQUERYSET2A
+		dwSize as DWORD
+		lpszServiceInstanceName as LPSTR
+		lpVersion as LPWSAVERSION
+		lpszComment as LPSTR
+		dwNameSpace as DWORD
+		lpNSProviderId as LPGUID
+		lpszContext as LPSTR
+		dwNumberOfProtocols as DWORD
+		lpafpProtocols as LPAFPROTOCOLS
+		lpszQueryString as LPSTR
+		dwNumberOfCsAddrs as DWORD
+		lpcsaBuffer as LPCSADDR_INFO
+		dwOutputFlags as DWORD
+		lpBlob as LPBLOB
+	end type
+
+	type WSAQUERYSET2A as _WSAQUERYSET2A
+	type PWSAQUERYSET2A as _WSAQUERYSET2A ptr
+	type LPWSAQUERYSET2A as _WSAQUERYSET2A ptr
+
+	type _WSAQUERYSET2W
+		dwSize as DWORD
+		lpszServiceInstanceName as LPWSTR
+		lpVersion as LPWSAVERSION
+		lpszComment as LPWSTR
+		dwNameSpace as DWORD
+		lpNSProviderId as LPGUID
+		lpszContext as LPTSTR
+		dwNumberOfProtocols as DWORD
+		lpafpProtocols as LPAFPROTOCOLS
+		lpszQueryString as LPWSTR
+		dwNumberOfCsAddrs as DWORD
+		lpcsaBuffer as LPCSADDR_INFO
+		dwOutputFlags as DWORD
+		lpBlob as LPBLOB
+	end type
+
+	type WSAQUERYSET2W as _WSAQUERYSET2W
+	type PWSAQUERYSET2W as _WSAQUERYSET2W ptr
+	type LPWSAQUERYSET2W as _WSAQUERYSET2W ptr
+
+	#define POLLRDNORM &h0100
+	#define POLLRDBAND &h0200
+	#define POLLIN (POLLRDNORM or POLLRDBAND)
+	#define POLLPRI &h0400
+	#define POLLWRNORM &h0010
+	#define POLLOUT POLLWRNORM
+	#define POLLWRBAND &h0020
+	#define POLLERR &h0001
+	#define POLLHUP &h0002
+	#define POLLNVAL &h0004
+
+	type pollfd
+		fd as SOCKET
+		events as short
+		revents as short
+	end type
+
+	type WSAPOLLFD as pollfd
+	type PWSAPOLLFD as pollfd ptr
+	type LPWSAPOLLFD as pollfd ptr
+
+	declare function WSAConnectByList(byval s as SOCKET, byval SocketAddressList as PSOCKET_ADDRESS_LIST, byval LocalAddressLength as LPDWORD, byval LocalAddress as LPSOCKADDR, byval RemoteAddressLength as LPDWORD, byval RemoteAddress as LPSOCKADDR, byval timeout as const PTIMEVAL, byval Reserved as LPWSAOVERLAPPED) as WINBOOL
+	declare function WSAConnectByNameA(byval s as SOCKET, byval nodename as LPSTR, byval servicename as LPSTR, byval LocalAddressLength as LPDWORD, byval LocalAddress as LPSOCKADDR, byval RemoteAddressLength as LPDWORD, byval RemoteAddress as LPSOCKADDR, byval timeout as const PTIMEVAL, byval Reserved as LPWSAOVERLAPPED) as WINBOOL
+	declare function WSAConnectByNameW(byval s as SOCKET, byval nodename as LPWSTR, byval servicename as LPWSTR, byval LocalAddressLength as LPDWORD, byval LocalAddress as LPSOCKADDR, byval RemoteAddressLength as LPDWORD, byval RemoteAddress as LPSOCKADDR, byval timeout as const PTIMEVAL, byval Reserved as LPWSAOVERLAPPED) as WINBOOL
+
+	#define WSAConnectByName __MINGW_NAME_AW(WSAConnectByName)
+
+	declare function WSAEnumNameSpaceProvidersExA(byval lpdwBufferLength as LPDWORD, byval lpnspBuffer as LPWSANAMESPACE_INFOEXA) as INT_
+	declare function WSAEnumNameSpaceProvidersExW(byval lpdwBufferLength as LPDWORD, byval lpnspBuffer as LPWSANAMESPACE_INFOEXW) as INT_
+
+	#define WSAEnumNameSpaceProvidersEx __MINGW_NAME_AW(WSAEnumNameSpaceProvidersEx)
+
+	declare function WSAPoll(byval fdarray as WSAPOLLFD ptr, byval nfds as ULONG, byval timeout as INT_) as long
+	declare function WSASendMsg(byval s as SOCKET, byval lpMsg as LPWSAMSG, byval dwFlags as DWORD, byval lpNumberOfBytesSent as LPDWORD, byval lpOverlapped as LPWSAOVERLAPPED, byval lpCompletionRoutine as LPWSAOVERLAPPED_COMPLETION_ROUTINE) as long
+#endif
 
 end extern

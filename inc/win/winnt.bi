@@ -106,6 +106,28 @@ type PNZWCH as WCHAR ptr
 type PCNZWCH as const WCHAR ptr
 type PUNZWCH as WCHAR ptr
 type PCUNZWCH as const WCHAR ptr
+
+#if _WIN32_WINNT = &h0602
+	type LPCWCHAR as const WCHAR ptr
+	type PCWCHAR as const WCHAR ptr
+	type LPCUWCHAR as const WCHAR ptr
+	type PCUWCHAR as const WCHAR ptr
+	type UCSCHAR as ulong
+
+	#define UCSCHAR_INVALID_CHARACTER &hffffffff
+	#define MIN_UCSCHAR 0
+	#define MAX_UCSCHAR &h0010ffff
+
+	type PUCSCHAR as UCSCHAR ptr
+	type PCUCSCHAR as const UCSCHAR ptr
+	type PUCSSTR as UCSCHAR ptr
+	type PUUCSSTR as UCSCHAR ptr
+	type PCUCSSTR as const UCSCHAR ptr
+	type PCUUCSSTR as const UCSCHAR ptr
+	type PUUCSCHAR as UCSCHAR ptr
+	type PCUUCSCHAR as const UCSCHAR ptr
+#endif
+
 type PCHAR as CHAR ptr
 type LPCH as CHAR ptr
 type PCH as CHAR ptr
@@ -2946,7 +2968,12 @@ type LPSECURITY_CAPABILITIES as _SECURITY_CAPABILITIES ptr
 #define PROCESS_QUERY_INFORMATION &h0400
 #define PROCESS_SUSPEND_RESUME &h0800
 #define PROCESS_QUERY_LIMITED_INFORMATION &h1000
-#define PROCESS_ALL_ACCESS ((STANDARD_RIGHTS_REQUIRED or SYNCHRONIZE) or &hfff)
+
+#if (_WIN32_WINNT = &h0400) or (_WIN32_WINNT = &h0502)
+	#define PROCESS_ALL_ACCESS ((STANDARD_RIGHTS_REQUIRED or SYNCHRONIZE) or &hfff)
+#else
+	#define PROCESS_ALL_ACCESS ((STANDARD_RIGHTS_REQUIRED or SYNCHRONIZE) or &hffff)
+#endif
 
 #ifdef __FB_64BIT__
 	#define MAXIMUM_PROC_PER_GROUP 64
@@ -2966,7 +2993,13 @@ type LPSECURITY_CAPABILITIES as _SECURITY_CAPABILITIES ptr
 #define THREAD_DIRECT_IMPERSONATION &h0200
 #define THREAD_SET_LIMITED_INFORMATION &h0400
 #define THREAD_QUERY_LIMITED_INFORMATION &h0800
-#define THREAD_ALL_ACCESS ((STANDARD_RIGHTS_REQUIRED or SYNCHRONIZE) or &h3ff)
+
+#if (_WIN32_WINNT = &h0400) or (_WIN32_WINNT = &h0502)
+	#define THREAD_ALL_ACCESS ((STANDARD_RIGHTS_REQUIRED or SYNCHRONIZE) or &h3ff)
+#else
+	#define THREAD_ALL_ACCESS ((STANDARD_RIGHTS_REQUIRED or SYNCHRONIZE) or &hffff)
+#endif
+
 #define JOB_OBJECT_ASSIGN_PROCESS &h0001
 #define JOB_OBJECT_SET_ATTRIBUTES &h0002
 #define JOB_OBJECT_QUERY &h0004
@@ -3873,6 +3906,12 @@ type PMEMORY_BASIC_INFORMATION64 as _MEMORY_BASIC_INFORMATION64 ptr
 #define FILE_OPEN_BY_FILE_ID &h00002000
 #define FILE_OPEN_FOR_BACKUP_INTENT &h00004000
 #define FILE_NO_COMPRESSION &h00008000
+
+#if _WIN32_WINNT = &h0602
+	#define FILE_OPEN_REQUIRING_OPLOCK &h00010000
+	#define FILE_DISALLOW_EXCLUSIVE &h00020000
+#endif
+
 #define FILE_RESERVE_OPFILTER &h00100000
 #define FILE_OPEN_REPARSE_POINT &h00200000
 #define FILE_OPEN_NO_RECALL &h00400000
@@ -3995,6 +4034,42 @@ type PREPARSE_GUID_DATA_BUFFER as _REPARSE_GUID_DATA_BUFFER ptr
 #define IO_REPARSE_TAG_DRIVE_EXTENDER __MSABI_LONG(&h80000005)
 #define IO_REPARSE_TAG_DEDUP __MSABI_LONG(&h80000013)
 #define IO_REPARSE_TAG_NFS __MSABI_LONG(&h80000014)
+
+#if _WIN32_WINNT = &h0602
+	#define SCRUB_DATA_INPUT_FLAG_RESUME &h00000001
+	#define SCRUB_DATA_INPUT_FLAG_SKIP_IN_SYNC &h00000002
+	#define SCRUB_DATA_INPUT_FLAG_SKIP_NON_INTEGRITY_DATA &h00000004
+	#define SCRUB_DATA_OUTPUT_FLAG_INCOMPLETE &h00000001
+	#define SCRUB_DATA_OUTPUT_FLAG_NON_USER_DATA_RANGE &h00010000
+
+	type _SCRUB_DATA_INPUT
+		Size as DWORD
+		Flags as DWORD
+		MaximumIos as DWORD
+		Reserved(0 to 16) as DWORD
+		ResumeContext(0 to 815) as UBYTE
+	end type
+
+	type SCRUB_DATA_INPUT as _SCRUB_DATA_INPUT
+	type PSCRUB_DATA_INPUT as _SCRUB_DATA_INPUT ptr
+
+	type _SCRUB_DATA_OUTPUT
+		Size as DWORD
+		Flags as DWORD
+		Status as DWORD
+		ErrorFileOffset as ULONGLONG
+		ErrorLength as ULONGLONG
+		NumberOfBytesRepaired as ULONGLONG
+		NumberOfBytesFailed as ULONGLONG
+		InternalFileReference as ULONGLONG
+		Reserved(0 to 5) as DWORD
+		ResumeContext(0 to 815) as UBYTE
+	end type
+
+	type SCRUB_DATA_OUTPUT as _SCRUB_DATA_OUTPUT
+	type PSCRUB_DATA_OUTPUT as _SCRUB_DATA_OUTPUT ptr
+#endif
+
 #define IO_COMPLETION_MODIFY_STATE &h0002
 #define IO_COMPLETION_ALL_ACCESS ((STANDARD_RIGHTS_REQUIRED or SYNCHRONIZE) or &h3)
 #define DUPLICATE_CLOSE_SOURCE &h00000001
@@ -4517,8 +4592,14 @@ type PPOWER_PLATFORM_INFORMATION as _POWER_PLATFORM_INFORMATION ptr
 #define POWER_PLATFORM_ROLE_V1_MAX (PlatformRolePerformanceServer + 1)
 #define POWER_PLATFORM_ROLE_V2 &h00000002
 #define POWER_PLATFORM_ROLE_V2_MAX (PlatformRoleSlate + 1)
-#define POWER_PLATFORM_ROLE_VERSION POWER_PLATFORM_ROLE_V1
-#define POWER_PLATFORM_ROLE_VERSION_MAX POWER_PLATFORM_ROLE_V1_MAX
+
+#if (_WIN32_WINNT = &h0400) or (_WIN32_WINNT = &h0502)
+	#define POWER_PLATFORM_ROLE_VERSION POWER_PLATFORM_ROLE_V1
+	#define POWER_PLATFORM_ROLE_VERSION_MAX POWER_PLATFORM_ROLE_V1_MAX
+#else
+	#define POWER_PLATFORM_ROLE_VERSION POWER_PLATFORM_ROLE_V2
+	#define POWER_PLATFORM_ROLE_VERSION_MAX POWER_PLATFORM_ROLE_V2_MAX
+#endif
 
 type BATTERY_REPORTING_SCALE
 	Granularity as DWORD
@@ -6716,6 +6797,12 @@ declare function RtlCaptureStackBackTrace(byval FramesToSkip as DWORD, byval Fra
 declare sub RtlCaptureContext(byval ContextRecord as PCONTEXT)
 declare function RtlCompareMemory(byval Source1 as const any ptr, byval Source2 as const any ptr, byval Length as SIZE_T_) as SIZE_T_
 
+#if defined(__FB_64BIT__) and (_WIN32_WINNT = &h0602)
+	declare function RtlAddGrowableFunctionTable(byval DynamicTable as PVOID ptr, byval FunctionTable as PRUNTIME_FUNCTION, byval EntryCount as DWORD, byval MaximumEntryCount as DWORD, byval RangeBase as ULONG_PTR, byval RangeEnd as ULONG_PTR) as DWORD
+	declare sub RtlGrowFunctionTable(byval DynamicTable as PVOID, byval NewEntryCount as DWORD)
+	declare sub RtlDeleteGrowableFunctionTable(byval DynamicTable as PVOID)
+#endif
+
 #ifdef __FB_64BIT__
 	declare function RtlAddFunctionTable(byval FunctionTable as PRUNTIME_FUNCTION, byval EntryCount as DWORD, byval BaseAddress as DWORD64) as BOOLEAN
 	declare function RtlDeleteFunctionTable(byval FunctionTable as PRUNTIME_FUNCTION) as BOOLEAN
@@ -7035,6 +7122,11 @@ type PRTL_OSVERSIONINFOEXW as _OSVERSIONINFOEXW ptr
 declare function VerSetConditionMask(byval ConditionMask as ULONGLONG, byval TypeMask as DWORD, byval Condition as UBYTE) as ULONGLONG
 
 #define VER_SET_CONDITION(_m_, _t_, _c_) '' TODO: ((_m_) = VerSetConditionMask((_m_),(_t_),(_c_)))
+
+#if _WIN32_WINNT = &h0602
+	declare function RtlGetProductInfo(byval OSMajorVersion as DWORD, byval OSMinorVersion as DWORD, byval SpMajorVersion as DWORD, byval SpMinorVersion as DWORD, byval ReturnedProductType as PDWORD) as BOOLEAN
+#endif
+
 #define RTL_UMS_VERSION &h0100
 
 type _RTL_UMS_THREAD_INFO_CLASS as long
@@ -7062,6 +7154,19 @@ end enum
 type RTL_UMS_SCHEDULER_REASON as _RTL_UMS_SCHEDULER_REASON
 type PRTL_UMS_SCHEDULER_REASON as _RTL_UMS_SCHEDULER_REASON ptr
 type PRTL_UMS_SCHEDULER_ENTRY_POINT as sub(byval Reason as RTL_UMS_SCHEDULER_REASON, byval ActivationPayload as ULONG_PTR, byval SchedulerParam as PVOID)
+
+#if _WIN32_WINNT = &h0602
+	#define IS_VALIDATION_ENABLED(C, L) ((L) and (C))
+	#define VRL_PREDEFINED_CLASS_BEGIN 1
+	#define VRL_CUSTOM_CLASS_BEGIN (1 shl 8)
+	#define VRL_CLASS_CONSISTENCY VRL_PREDEFINED_CLASS_BEGIN
+	#define VRL_ENABLE_KERNEL_BREAKS (1 shl 31)
+	#define CTMF_INCLUDE_APPCONTAINER __MSABI_LONG(&h1)
+	#define CTMF_VALID_FLAGS CTMF_INCLUDE_APPCONTAINER
+
+	declare function RtlCrc32(byval Buffer as const any ptr, byval Size as uinteger, byval InitialCrc as DWORD) as DWORD
+	declare function RtlCrc64(byval Buffer as const any ptr, byval Size as uinteger, byval InitialCrc as ULONGLONG) as ULONGLONG
+#endif
 
 type _RTL_CRITICAL_SECTION_DEBUG
 	as WORD Type
@@ -7912,31 +8017,62 @@ type TP_CLEANUP_GROUP as _TP_CLEANUP_GROUP
 type PTP_CLEANUP_GROUP as _TP_CLEANUP_GROUP ptr
 type PTP_CLEANUP_GROUP_CANCEL_CALLBACK as sub(byval ObjectContext as PVOID, byval CleanupContext as PVOID)
 
-type ___TP_CALLBACK_ENVIRON_V1_s
-	LongFunction : 1 as DWORD
-	Persistent : 1 as DWORD
-	as DWORD Private : 30
-end type
+#if (_WIN32_WINNT = &h0400) or (_WIN32_WINNT = &h0502)
+	type ___TP_CALLBACK_ENVIRON_V1_s
+		LongFunction : 1 as DWORD
+		Persistent : 1 as DWORD
+		as DWORD Private : 30
+	end type
 
-union ___TP_CALLBACK_ENVIRON_V1_u
-	Flags as DWORD
-	s as ___TP_CALLBACK_ENVIRON_V1_s
-end union
+	union ___TP_CALLBACK_ENVIRON_V1_u
+		Flags as DWORD
+		s as ___TP_CALLBACK_ENVIRON_V1_s
+	end union
 
-type _TP_CALLBACK_ENVIRON_V1
-	Version as TP_VERSION
-	Pool as PTP_POOL
-	CleanupGroup as PTP_CLEANUP_GROUP
-	CleanupGroupCancelCallback as PTP_CLEANUP_GROUP_CANCEL_CALLBACK
-	RaceDll as PVOID
-	ActivationContext as _ACTIVATION_CONTEXT ptr
-	FinalizationCallback as PTP_SIMPLE_CALLBACK
-	u as ___TP_CALLBACK_ENVIRON_V1_u
-end type
+	type _TP_CALLBACK_ENVIRON_V1
+		Version as TP_VERSION
+		Pool as PTP_POOL
+		CleanupGroup as PTP_CLEANUP_GROUP
+		CleanupGroupCancelCallback as PTP_CLEANUP_GROUP_CANCEL_CALLBACK
+		RaceDll as PVOID
+		ActivationContext as _ACTIVATION_CONTEXT ptr
+		FinalizationCallback as PTP_SIMPLE_CALLBACK
+		u as ___TP_CALLBACK_ENVIRON_V1_u
+	end type
 
-type TP_CALLBACK_ENVIRON_V1 as _TP_CALLBACK_ENVIRON_V1
-type TP_CALLBACK_ENVIRON as TP_CALLBACK_ENVIRON_V1
-type PTP_CALLBACK_ENVIRON as TP_CALLBACK_ENVIRON_V1 ptr
+	type TP_CALLBACK_ENVIRON_V1 as _TP_CALLBACK_ENVIRON_V1
+	type TP_CALLBACK_ENVIRON as TP_CALLBACK_ENVIRON_V1
+	type PTP_CALLBACK_ENVIRON as TP_CALLBACK_ENVIRON_V1 ptr
+#else
+	type ___TP_CALLBACK_ENVIRON_V3_s
+		LongFunction : 1 as DWORD
+		Persistent : 1 as DWORD
+		as DWORD Private : 30
+	end type
+
+	union ___TP_CALLBACK_ENVIRON_V3_u
+		Flags as DWORD
+		s as ___TP_CALLBACK_ENVIRON_V3_s
+	end union
+
+	type _TP_CALLBACK_ENVIRON_V3
+		Version as TP_VERSION
+		Pool as PTP_POOL
+		CleanupGroup as PTP_CLEANUP_GROUP
+		CleanupGroupCancelCallback as PTP_CLEANUP_GROUP_CANCEL_CALLBACK
+		RaceDll as PVOID
+		ActivationContext as _ACTIVATION_CONTEXT ptr
+		FinalizationCallback as PTP_SIMPLE_CALLBACK
+		u as ___TP_CALLBACK_ENVIRON_V3_u
+		CallbackPriority as TP_CALLBACK_PRIORITY
+		Size as DWORD
+	end type
+
+	type TP_CALLBACK_ENVIRON_V3 as _TP_CALLBACK_ENVIRON_V3
+	type TP_CALLBACK_ENVIRON as TP_CALLBACK_ENVIRON_V3
+	type PTP_CALLBACK_ENVIRON as TP_CALLBACK_ENVIRON_V3 ptr
+#endif
+
 type TP_WORK as _TP_WORK
 type PTP_WORK as _TP_WORK ptr
 type PTP_WORK_CALLBACK as sub(byval Instance as PTP_CALLBACK_INSTANCE, byval Context as PVOID, byval Work as PTP_WORK)
@@ -7950,24 +8086,49 @@ type PTP_WAIT_CALLBACK as sub(byval Instance as PTP_CALLBACK_INSTANCE, byval Con
 type TP_IO as _TP_IO
 type PTP_IO as _TP_IO ptr
 
-private sub TpInitializeCallbackEnviron cdecl(byval cbe as PTP_CALLBACK_ENVIRON)
-	cbe->Pool
-	'' TODO: cbe->Pool = ((void *)0);
-	cbe->CleanupGroup
-	'' TODO: cbe->CleanupGroup = ((void *)0);
-	cbe->CleanupGroupCancelCallback
-	'' TODO: cbe->CleanupGroupCancelCallback = ((void *)0);
-	cbe->RaceDll
-	'' TODO: cbe->RaceDll = ((void *)0);
-	cbe->ActivationContext
-	'' TODO: cbe->ActivationContext = ((void *)0);
-	cbe->FinalizationCallback
-	'' TODO: cbe->FinalizationCallback = ((void *)0);
-	cbe->u.Flags
-	'' TODO: cbe->u.Flags = 0;
-	cbe->Version
-	'' TODO: cbe->Version = 1;
-end sub
+#if (_WIN32_WINNT = &h0400) or (_WIN32_WINNT = &h0502)
+	private sub TpInitializeCallbackEnviron cdecl(byval cbe as PTP_CALLBACK_ENVIRON)
+		cbe->Pool
+		'' TODO: cbe->Pool = ((void *)0);
+		cbe->CleanupGroup
+		'' TODO: cbe->CleanupGroup = ((void *)0);
+		cbe->CleanupGroupCancelCallback
+		'' TODO: cbe->CleanupGroupCancelCallback = ((void *)0);
+		cbe->RaceDll
+		'' TODO: cbe->RaceDll = ((void *)0);
+		cbe->ActivationContext
+		'' TODO: cbe->ActivationContext = ((void *)0);
+		cbe->FinalizationCallback
+		'' TODO: cbe->FinalizationCallback = ((void *)0);
+		cbe->u.Flags
+		'' TODO: cbe->u.Flags = 0;
+		cbe->Version
+		'' TODO: cbe->Version = 1;
+	end sub
+#else
+	private sub TpInitializeCallbackEnviron cdecl(byval cbe as PTP_CALLBACK_ENVIRON)
+		cbe->Pool
+		'' TODO: cbe->Pool = ((void *)0);
+		cbe->CleanupGroup
+		'' TODO: cbe->CleanupGroup = ((void *)0);
+		cbe->CleanupGroupCancelCallback
+		'' TODO: cbe->CleanupGroupCancelCallback = ((void *)0);
+		cbe->RaceDll
+		'' TODO: cbe->RaceDll = ((void *)0);
+		cbe->ActivationContext
+		'' TODO: cbe->ActivationContext = ((void *)0);
+		cbe->FinalizationCallback
+		'' TODO: cbe->FinalizationCallback = ((void *)0);
+		cbe->u.Flags
+		'' TODO: cbe->u.Flags = 0;
+		cbe->Version
+		'' TODO: cbe->Version = 3;
+		cbe->CallbackPriority
+		'' TODO: cbe->CallbackPriority = TP_CALLBACK_PRIORITY_NORMAL;
+		cbe->Size
+		'' TODO: cbe->Size = sizeof (TP_CALLBACK_ENVIRON);
+	end sub
+#endif
 
 private sub TpSetCallbackThreadpool cdecl(byval cbe as PTP_CALLBACK_ENVIRON, byval pool as PTP_POOL)
 	cbe->Pool
@@ -8005,6 +8166,13 @@ private sub TpSetCallbackFinalizationCallback cdecl(byval cbe as PTP_CALLBACK_EN
 	cbe->FinalizationCallback
 	'' TODO: cbe->FinalizationCallback = fini_cb;
 end sub
+
+#if _WIN32_WINNT = &h0602
+	private sub TpSetCallbackPriority cdecl(byval cbe as PTP_CALLBACK_ENVIRON, byval prio as TP_CALLBACK_PRIORITY)
+		cbe->CallbackPriority
+		'' TODO: cbe->CallbackPriority = prio;
+	end sub
+#endif
 
 private sub TpSetCallbackPersistent cdecl(byval cbe as PTP_CALLBACK_ENVIRON)
 	cbe->u.s.Persistent
@@ -8400,6 +8568,21 @@ end type
 
 type WOW64_DESCRIPTOR_TABLE_ENTRY as _WOW64_DESCRIPTOR_TABLE_ENTRY
 type PWOW64_DESCRIPTOR_TABLE_ENTRY as _WOW64_DESCRIPTOR_TABLE_ENTRY ptr
+
+#if _WIN32_WINNT = &h0602
+	#define ___PROCESSOR_NUMBER_DEFINED
+
+	type _PROCESSOR_NUMBER
+		Group as WORD
+		Number as UBYTE
+		Reserved as UBYTE
+	end type
+
+	type PROCESSOR_NUMBER as _PROCESSOR_NUMBER
+	type PPROCESSOR_NUMBER as _PROCESSOR_NUMBER ptr
+
+	#define ALL_PROCESSOR_GROUPS &hffff
+#endif
 
 #define ACTIVATION_CONTEXT_SECTION_ASSEMBLY_INFORMATION 1
 #define ACTIVATION_CONTEXT_SECTION_DLL_REDIRECTION 2

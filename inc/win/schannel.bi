@@ -410,7 +410,28 @@ declare function SslGetDefaultIssuers(byval pbIssuers as PBYTE, byval pcbIssuers
 #ifdef __FB_64BIT__
 	type SSL_CRACK_CERTIFICATE_FN as function(byval pbCertificate as PUCHAR, byval cbCertificate as DWORD, byval VerifySignature as WINBOOL, byval ppCertificate as PX509Certificate ptr) as WINBOOL
 	type SSL_FREE_CERTIFICATE_FN as sub(byval pCertificate as PX509Certificate)
-#else
+#elseif (not defined(__FB_64BIT__)) and (_WIN32_WINNT = &h0602)
+	type SSL_CRACK_CERTIFICATE_FN as function stdcall(byval pbCertificate as PUCHAR, byval cbCertificate as DWORD, byval VerifySignature as WINBOOL, byval ppCertificate as PX509Certificate ptr) as WINBOOL
+	type SSL_FREE_CERTIFICATE_FN as sub stdcall(byval pCertificate as PX509Certificate)
+#endif
+
+#if _WIN32_WINNT = &h0602
+	type _SecPkgContext_EapPrfInfo
+		dwVersion as DWORD
+		cbPrfData as DWORD
+	end type
+
+	type SecPkgContext_EapPrfInfo as _SecPkgContext_EapPrfInfo
+	type PSecPkgContext_EapPrfInfo as _SecPkgContext_EapPrfInfo ptr
+
+	type _SecPkgContext_SupportedSignatures
+		cSignatureAndHashAlgorithms as WORD
+		pSignatureAndHashAlgorithms as WORD ptr
+	end type
+
+	type SecPkgContext_SupportedSignatures as _SecPkgContext_SupportedSignatures
+	type PSecPkgContext_SupportedSignatures as _SecPkgContext_SupportedSignatures ptr
+#elseif (not defined(__FB_64BIT__)) and ((_WIN32_WINNT = &h0400) or (_WIN32_WINNT = &h0502))
 	type SSL_CRACK_CERTIFICATE_FN as function stdcall(byval pbCertificate as PUCHAR, byval cbCertificate as DWORD, byval VerifySignature as WINBOOL, byval ppCertificate as PX509Certificate ptr) as WINBOOL
 	type SSL_FREE_CERTIFICATE_FN as sub stdcall(byval pCertificate as PX509Certificate)
 #endif

@@ -1818,4 +1818,252 @@ declare function IsValidDevmodeW(byval pDevmode as PDEVMODEW, byval DevmodeSize 
 #define SPLDS_PRINTER_LOCATIONS TEXT("printerLocations")
 #define SPLDS_PRINTER_MODEL TEXT("printerModel")
 
+#if _WIN32_WINNT = &h0602
+	#define AddPrinterConnection2 __MINGW_NAME_AW(AddPrinterConnection2)
+	#define DeletePrinterDriverPackage __MINGW_NAME_AW(DeletePrinterDriverPackage)
+	#define DocumentEvent __MINGW_NAME_AW(DocumentEvent)
+	#define PRINTER_CONNECTION_MISMATCH &h00000020
+	#define PRINTER_CONNECTION_NO_UI &h00000040
+
+	type tagPRINTER_OPTION_FLAGS as long
+	enum
+		PRINTER_OPTION_NO_CACHE
+		PRINTER_OPTION_CACHE
+		PRINTER_OPTION_CLIENT_CHANGE
+	end enum
+
+	type PRINTER_OPTION_FLAGS as tagPRINTER_OPTION_FLAGS
+
+	type tagEPrintXPSJobOperation as long
+	enum
+		kJobProduction
+		kJobConsumption
+	end enum
+
+	type EPrintXPSJobOperation as tagEPrintXPSJobOperation
+
+	type tagEPrintXPSJobProgress as long
+	enum
+		kAddingDocumentSequence
+		kDocumentSequenceAdded
+		kAddingFixedDocument
+		kFixedDocumentAdded
+		kAddingFixedPage
+		kFixedPageAdded
+		kResourceAdded
+		kFontAdded
+		kImageAdded
+		kXpsDocumentCommitted
+	end enum
+
+	type EPrintXPSJobProgress as tagEPrintXPSJobProgress
+
+	type _PRINTER_CONNECTION_INFO_1
+		dwFlags as DWORD
+		pszDriverName as LPTSTR
+	end type
+
+	type PRINTER_CONNECTION_INFO_1 as _PRINTER_CONNECTION_INFO_1
+	type PPRINTER_CONNECTION_INFO_1 as _PRINTER_CONNECTION_INFO_1 ptr
+
+	declare function AddPrinterConnection2W cdecl(byval hWnd as HWND, byval pszName as LPCWSTR, byval dwLevel as DWORD, byval pConnectionInfo as PVOID) as WINBOOL
+	declare function AddPrinterConnection2A cdecl(byval hWnd as HWND, byval pszName as LPCSTR, byval dwLevel as DWORD, byval pConnectionInfo as PVOID) as WINBOOL
+	declare function DeletePrinterDriverPackageA(byval pszServer as LPCSTR, byval pszInfPath as LPCSTR, byval pszEnvironment as LPCSTR) as HRESULT
+	declare function DeletePrinterDriverPackageW(byval pszServer as LPCWSTR, byval pszInfPath as LPCWSTR, byval pszEnvironment as LPCWSTR) as HRESULT
+	declare function DocumentEventA cdecl(byval hPrinter as HANDLE, byval hdc as HDC, byval iEsc as INT_, byval cbIn as ULONG, byval pvIn as PVOID, byval cbOut as ULONG, byval pvOut as PVOID) as HRESULT
+	declare function DocumentEventW cdecl(byval hPrinter as HANDLE, byval hdc as HDC, byval iEsc as INT_, byval cbIn as ULONG, byval pvIn as PVOID, byval cbOut as ULONG, byval pvOut as PVOID) as HRESULT
+
+	type _DRIVER_INFO_8W
+		cVersion as DWORD
+		pName as LPWSTR
+		pEnvironment as LPWSTR
+		pDriverPath as LPWSTR
+		pDataFile as LPWSTR
+		pConfigFile as LPWSTR
+		pHelpFile as LPWSTR
+		pDependentFiles as LPWSTR
+		pMonitorName as LPWSTR
+		pDefaultDataType as LPWSTR
+		pszzPreviousNames as LPWSTR
+		ftDriverDate as FILETIME
+		dwlDriverVersion as DWORDLONG
+		pszMfgName as LPWSTR
+		pszOEMUrl as LPWSTR
+		pszHardwareID as LPWSTR
+		pszProvider as LPWSTR
+		pszPrintProcessor as LPWSTR
+		pszVendorSetup as LPWSTR
+		pszzColorProfiles as LPWSTR
+		pszInfPath as LPWSTR
+		dwPrinterDriverAttributes as DWORD
+		pszzCoreDriverDependencies as LPWSTR
+		ftMinInboxDriverVerDate as FILETIME
+		dwlMinInboxDriverVerVersion as DWORDLONG
+	end type
+
+	type DRIVER_INFO_8W as _DRIVER_INFO_8W
+	type PDRIVER_INFO_8W as _DRIVER_INFO_8W ptr
+	type LPDRIVER_INFO_8W as _DRIVER_INFO_8W ptr
+
+	type _DRIVER_INFO_8A
+		cVersion as DWORD
+		pName as LPSTR
+		pEnvironment as LPSTR
+		pDriverPath as LPSTR
+		pDataFile as LPSTR
+		pConfigFile as LPSTR
+		pHelpFile as LPSTR
+		pDependentFiles as LPSTR
+		pMonitorName as LPSTR
+		pDefaultDataType as LPSTR
+		pszzPreviousNames as LPSTR
+		ftDriverDate as FILETIME
+		dwlDriverVersion as DWORDLONG
+		pszMfgName as LPSTR
+		pszOEMUrl as LPSTR
+		pszHardwareID as LPSTR
+		pszProvider as LPSTR
+		pszPrintProcessor as LPSTR
+		pszVendorSetup as LPSTR
+		pszzColorProfiles as LPSTR
+		pszInfPath as LPSTR
+		dwPrinterDriverAttributes as DWORD
+		pszzCoreDriverDependencies as LPSTR
+		ftMinInboxDriverVerDate as FILETIME
+		dwlMinInboxDriverVerVersion as DWORDLONG
+	end type
+
+	type DRIVER_INFO_8A as _DRIVER_INFO_8A
+	type PDRIVER_INFO_8A as _DRIVER_INFO_8A ptr
+	type LPDRIVER_INFO_8A as _DRIVER_INFO_8A ptr
+
+	type _FORM_INFO_2A
+		Flags as DWORD
+		pName as LPSTR
+		Size as SIZEL
+		ImageableArea as RECTL
+		pKeyword as LPCSTR
+		StringType as DWORD
+		pMuiDll as LPCSTR
+		dwResourceId as DWORD
+		pDisplayName as LPCSTR
+		wLangId as LANGID
+	end type
+
+	type FORM_INFO_2A as _FORM_INFO_2A
+	type PFORM_INFO_2A as _FORM_INFO_2A ptr
+
+	type _FORM_INFO_2W
+		Flags as DWORD
+		pName as LPWSTR
+		Size as SIZEL
+		ImageableArea as RECTL
+		pKeyword as LPCSTR
+		StringType as DWORD
+		pMuiDll as LPCWSTR
+		dwResourceId as DWORD
+		pDisplayName as LPCWSTR
+		wLangId as LANGID
+	end type
+
+	type FORM_INFO_2W as _FORM_INFO_2W
+	type PFORM_INFO_2W as _FORM_INFO_2W ptr
+#endif
+
+#if defined(UNICODE) and (_WIN32_WINNT = &h0602)
+	type DRIVER_INFO_8 as DRIVER_INFO_8W
+	type PDRIVER_INFO_8 as PDRIVER_INFO_8W
+	type LPDRIVER_INFO_8 as LPDRIVER_INFO_8W
+	type FORM_INFO_2 as FORM_INFO_2W
+	type PFORM_INFO_2 as PFORM_INFO_2W
+#elseif (not defined(UNICODE)) and (_WIN32_WINNT = &h0602)
+	type DRIVER_INFO_8 as DRIVER_INFO_8A
+	type PDRIVER_INFO_8 as PDRIVER_INFO_8A
+	type LPDRIVER_INFO_8 as LPDRIVER_INFO_8A
+	type FORM_INFO_2 as FORM_INFO_2A
+	type PFORM_INFO_2 as PFORM_INFO_2A
+#endif
+
+#if _WIN32_WINNT = &h0602
+	type _PRINTPROCESSOR_CAPS_2
+		dwLevel as DWORD
+		dwNupOptions as DWORD
+		dwPageOrderFlags as DWORD
+		dwNumberOfCopies as DWORD
+		dwNupDirectionCaps as DWORD
+		dwNupBorderCaps as DWORD
+		dwBookletHandlingCaps as DWORD
+		dwDuplexHandlingCaps as DWORD
+		dwScalingCaps as DWORD
+	end type
+
+	type PRINTPROCESSOR_CAPS_2 as _PRINTPROCESSOR_CAPS_2
+	type PPRINTPROCESSOR_CAPS_2 as _PRINTPROCESSOR_CAPS_2 ptr
+
+	declare function ReportJobProcessingProgress cdecl(byval printerHandle as HANDLE, byval jobId as ULONG, byval jobOperation as EPrintXPSJobOperation, byval jobProgress as EPrintXPSJobProgress) as HRESULT
+
+	type _CORE_PRINTER_DRIVERA
+		CoreDriverGUID as GUID
+		ftDriverDate as FILETIME
+		dwlDriverVersion as DWORDLONG
+		szPackageID(0 to 259) as CHAR
+	end type
+
+	type CORE_PRINTER_DRIVERA as _CORE_PRINTER_DRIVERA
+	type PCORE_PRINTER_DRIVERA as _CORE_PRINTER_DRIVERA ptr
+
+	type _CORE_PRINTER_DRIVERW
+		CoreDriverGUID as GUID
+		ftDriverDate as FILETIME
+		dwlDriverVersion as DWORDLONG
+		szPackageID(0 to 259) as WCHAR
+	end type
+
+	type CORE_PRINTER_DRIVERW as _CORE_PRINTER_DRIVERW
+	type PCORE_PRINTER_DRIVERW as _CORE_PRINTER_DRIVERW ptr
+
+	type _PRINTER_OPTIONS
+		cbSize as UINT
+		dwFlags as DWORD
+	end type
+
+	type PRINTER_OPTIONS as _PRINTER_OPTIONS
+	type PPRINTER_OPTIONS as _PRINTER_OPTIONS ptr
+#endif
+
+#if defined(UNICODE) and (_WIN32_WINNT = &h0602)
+	type CORE_PRINTER_DRIVER as CORE_PRINTER_DRIVERW
+	type PCORE_PRINTER_DRIVER as PCORE_PRINTER_DRIVERW
+#elseif (not defined(UNICODE)) and (_WIN32_WINNT = &h0602)
+	type CORE_PRINTER_DRIVER as CORE_PRINTER_DRIVERA
+	type PCORE_PRINTER_DRIVER as PCORE_PRINTER_DRIVERA
+#endif
+
+#if _WIN32_WINNT = &h0602
+	#define GetCorePrinterDrivers __MINGW_NAME_AW(GetCorePrinterDrivers)
+	#define GetPrinterDriver2 __MINGW_NAME_AW(GetPrinterDriver2)
+	#define GetPrinterDriverPackagePath __MINGW_NAME_AW(GetPrinterDriverPackagePath)
+	#define GetSpoolFileHandle __MINGW_NAME_AW(GetSpoolFileHandle)
+
+	declare function GetCorePrinterDriversA(byval pszServer as LPCSTR, byval pszEnvironment as LPCSTR, byval pszzCoreDriverDependencies as LPCSTR, byval cCorePrinterDrivers as DWORD, byval pCorePrinterDrivers as PCORE_PRINTER_DRIVERA) as HRESULT
+	declare function GetCorePrinterDriversW(byval pszServer as LPCWSTR, byval pszEnvironment as LPCWSTR, byval pszzCoreDriverDependencies as LPCWSTR, byval cCorePrinterDrivers as DWORD, byval pCorePrinterDrivers as PCORE_PRINTER_DRIVERW) as HRESULT
+	declare function GetPrinterDriver2A(byval hWnd as HWND, byval hPrinter as HANDLE, byval pEnvironment as LPSTR, byval Level as DWORD, byval pDriverInfo as LPBYTE, byval cbBuf as DWORD, byval pcbNeeded as LPDWORD) as WINBOOL
+	declare function GetPrinterDriver2W(byval hWnd as HWND, byval hPrinter as HANDLE, byval pEnvironment as LPWSTR, byval Level as DWORD, byval pDriverInfo as LPBYTE, byval cbBuf as DWORD, byval pcbNeeded as LPDWORD) as WINBOOL
+	declare function GetPrinterDriverPackagePathA(byval pszServer as LPCSTR, byval pszEnvironment as LPCSTR, byval pszLanguage as LPCSTR, byval pszPackageID as LPCSTR, byval pszDriverPackageCab as LPSTR, byval cchDriverPackageCab as DWORD, byval pcchRequiredSize as LPDWORD) as HRESULT
+	declare function GetPrinterDriverPackagePathW(byval pszServer as LPCWSTR, byval pszEnvironment as LPCWSTR, byval pszLanguage as LPCWSTR, byval pszPackageID as LPCWSTR, byval pszDriverPackageCab as LPWSTR, byval cchDriverPackageCab as DWORD, byval pcchRequiredSize as LPDWORD) as HRESULT
+	declare function GetSpoolFileHandleA(byval hPrinter as HANDLE) as HANDLE
+	declare function GetSpoolFileHandleW(byval hPrinter as HANDLE) as HANDLE
+	declare function CommitSpoolData(byval hPrinter as HANDLE, byval hSpoolFile as HANDLE, byval cbCommit as DWORD) as HANDLE
+	declare function CloseSpoolFileHandle(byval hPrinter as HANDLE, byval hSpoolFile as HANDLE) as WINBOOL
+	declare function OpenPrinter2A(byval pPrinterName as LPCSTR, byval phPrinter as LPHANDLE, byval pDefault as LPPRINTER_DEFAULTS, byval pOptions as PPRINTER_OPTIONS) as WINBOOL
+	declare function OpenPrinter2W(byval pPrinterName as LPCWSTR, byval phPrinter as LPHANDLE, byval pDefault as LPPRINTER_DEFAULTS, byval pOptions as PPRINTER_OPTIONS) as WINBOOL
+
+	#define OpenPrinter2 __MINGW_NAME_AW(OpenPrinter2)
+
+	declare function UploadPrinterDriverPackageA(byval pszServer as LPCSTR, byval pszInfPath as LPCSTR, byval pszEnvironment as LPCSTR, byval dwFlags as DWORD, byval hwnd as HWND, byval pszDestInfPath as LPSTR, byval pcchDestInfPath as PULONG) as HRESULT
+	declare function UploadPrinterDriverPackageW(byval pszServer as LPCWSTR, byval pszInfPath as LPCWSTR, byval pszEnvironment as LPCWSTR, byval dwFlags as DWORD, byval hwnd as HWND, byval pszDestInfPath as LPWSTR, byval pcchDestInfPath as PULONG) as HRESULT
+
+	#define UploadPrinterDriverPackage __MINGW_NAME_AW(UploadPrinterDriverPackage)
+#endif
+
 end extern

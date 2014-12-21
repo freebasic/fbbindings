@@ -524,6 +524,12 @@ type PACTRL_CONTROL_INFOW as _ACTRL_CONTROL_INFOW ptr
 #define ACTRL_ACCESS_NO_OPTIONS &h0
 #define ACTRL_ACCESS_SUPPORTS_OBJECT_ENTRIES &h1
 
+#if _WIN32_WINNT = &h0602
+	#define TREE_SEC_INFO_SET &h00000001
+	#define TREE_SEC_INFO_RESET &h00000002
+	#define TREE_SEC_INFO_RESET_KEEP_EXPLICIT &h00000003
+#endif
+
 type _PROGRESS_INVOKE_SETTING as long
 enum
 	ProgressInvokeNever = 1
@@ -531,6 +537,10 @@ enum
 	ProgressInvokeOnError
 	ProgressCancelOperation
 	ProgressRetryOperation
+
+	#if _WIN32_WINNT = &h0602
+		ProgressInvokePrePostError
+	#endif
 end enum
 
 type PROG_INVOKE_SETTING as _PROGRESS_INVOKE_SETTING

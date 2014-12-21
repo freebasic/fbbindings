@@ -12,13 +12,178 @@
 
 type HTHEME as HANDLE
 
+#if _WIN32_WINNT = &h0602
+	declare function BeginPanningFeedback(byval hwnd as HWND) as WINBOOL
+	declare function UpdatePanningFeedback(byval hwnd as HWND, byval lTotalOverpanOffsetX as LONG, byval lTotalOverpanOffsetY as LONG, byval fInInertia as WINBOOL) as WINBOOL
+	declare function EndPanningFeedback(byval hwnd as HWND, byval fAnimateBack as WINBOOL) as WINBOOL
+
+	#define GBF_DIRECT &h00000001
+	#define GBF_COPY &h00000002
+	#define GBF_VALIDBITS (GBF_DIRECT or GBF_COPY)
+
+	declare function GetThemeBitmap(byval hTheme as HTHEME, byval iPartId as long, byval iStateId as long, byval iPropId as long, byval dwFlags as ULONG, byval phBitmap as HBITMAP ptr) as HRESULT
+	declare function GetThemeStream(byval hTheme as HTHEME, byval iPartId as long, byval iStateId as long, byval iPropId as long, byval ppvStream as any ptr ptr, byval pcbStream as DWORD ptr, byval hInst as HINSTANCE) as HRESULT
+	declare function GetThemeTransitionDuration(byval hTheme as HTHEME, byval iPartId as long, byval iStateIdFrom as long, byval iStateIdTo as long, byval iPropId as long, byval pdwDuration as DWORD ptr) as HRESULT
+
+	type HPAINTBUFFER__
+		unused as long
+	end type
+
+	type HPAINTBUFFER as HPAINTBUFFER__ ptr
+
+	type _BP_BUFFERFORMAT as long
+	enum
+		BPBF_COMPATIBLEBITMAP
+		BPBF_DIB
+		BPBF_TOPDOWNDIB
+		BPBF_TOPDOWNMONODIB
+	end enum
+
+	type BP_BUFFERFORMAT as _BP_BUFFERFORMAT
+
+	#define BPPF_ERASE &h00000001
+	#define BPPF_NOCLIP &h00000002
+	#define BPPF_NONCLIENT &h00000004
+
+	type _BP_PAINTPARAMS
+		cbSize as DWORD
+		dwFlags as DWORD
+		prcExclude as const RECT ptr
+		pBlendFunction as const BLENDFUNCTION ptr
+	end type
+
+	type BP_PAINTPARAMS as _BP_PAINTPARAMS
+	type PBP_PAINTPARAMS as _BP_PAINTPARAMS ptr
+
+	declare function BeginBufferedPaint(byval hdcTarget as HDC, byval prcTarget as const RECT ptr, byval dwFormat as BP_BUFFERFORMAT, byval pPaintParams as BP_PAINTPARAMS ptr, byval phdc as HDC ptr) as HPAINTBUFFER
+	declare function EndBufferedPaint(byval hBufferedPaint as HPAINTBUFFER, byval fUpdateTarget as WINBOOL) as HRESULT
+	declare function GetBufferedPaintTargetRect(byval hBufferedPaint as HPAINTBUFFER, byval prc as RECT ptr) as HRESULT
+	declare function GetBufferedPaintTargetDC(byval hBufferedPaint as HPAINTBUFFER) as HDC
+	declare function GetBufferedPaintDC(byval hBufferedPaint as HPAINTBUFFER) as HDC
+	declare function GetBufferedPaintBits(byval hBufferedPaint as HPAINTBUFFER, byval ppbBuffer as RGBQUAD ptr ptr, byval pcxRow as long ptr) as HRESULT
+	declare function BufferedPaintClear(byval hBufferedPaint as HPAINTBUFFER, byval prc as const RECT ptr) as HRESULT
+	declare function BufferedPaintSetAlpha(byval hBufferedPaint as HPAINTBUFFER, byval prc as const RECT ptr, byval alpha as UBYTE) as HRESULT
+	declare function BufferedPaintInit() as HRESULT
+	declare function BufferedPaintUnInit() as HRESULT
+
+	type HANIMATIONBUFFER__
+		unused as long
+	end type
+
+	type HANIMATIONBUFFER as HANIMATIONBUFFER__ ptr
+
+	type _BP_ANIMATIONSTYLE as long
+	enum
+		BPAS_NONE
+		BPAS_LINEAR
+		BPAS_CUBIC
+		BPAS_SINE
+	end enum
+
+	type BP_ANIMATIONSTYLE as _BP_ANIMATIONSTYLE
+
+	type _BP_ANIMATIONPARAMS
+		cbSize as DWORD
+		dwFlags as DWORD
+		style as BP_ANIMATIONSTYLE
+		dwDuration as DWORD
+	end type
+
+	type BP_ANIMATIONPARAMS as _BP_ANIMATIONPARAMS
+	type PBP_ANIMATIONPARAMS as _BP_ANIMATIONPARAMS ptr
+
+	declare function BeginBufferedAnimation(byval hwnd as HWND, byval hdcTarget as HDC, byval rcTarget as const RECT ptr, byval dwFormat as BP_BUFFERFORMAT, byval pPaintParams as BP_PAINTPARAMS ptr, byval pAnimationParams as BP_ANIMATIONPARAMS ptr, byval phdcFrom as HDC ptr, byval phdcTo as HDC ptr) as HANIMATIONBUFFER
+	declare function EndBufferedAnimation(byval hbpAnimation as HANIMATIONBUFFER, byval fUpdateTarget as WINBOOL) as HRESULT
+	declare function BufferedPaintRenderAnimation(byval hwnd as HWND, byval hdcTarget as HDC) as WINBOOL
+	declare function BufferedPaintStopAllAnimations(byval hwnd as HWND) as HRESULT
+	declare function IsCompositionActive() as WINBOOL
+
+	type WINDOWTHEMEATTRIBUTETYPE as long
+	enum
+		WTA_NONCLIENT = 1
+	end enum
+
+	type WTA_OPTIONS
+		dwFlags as DWORD
+		dwMask as DWORD
+	end type
+
+	type PWTA_OPTIONS as WTA_OPTIONS ptr
+
+	#define WTNCA_NODRAWCAPTION &h00000001
+	#define WTNCA_NODRAWICON &h00000002
+	#define WTNCA_NOSYSMENU &h00000004
+	#define WTNCA_NOMIRRORHELP &h00000008
+	#define WTNCA_VALIDBITS (((WTNCA_NODRAWCAPTION or WTNCA_NODRAWICON) or WTNCA_NOSYSMENU) or WTNCA_NOMIRRORHELP)
+
+	declare function SetWindowThemeAttribute(byval hwnd as HWND, byval eAttribute as WINDOWTHEMEATTRIBUTETYPE, byval pvAttribute as PVOID, byval cbAttribute as DWORD) as HRESULT
+
+	private function SetWindowThemeNonClientAttributes cdecl(byval hwnd as HWND, byval dwMask as DWORD, byval dwAttributes as DWORD) as HRESULT
+		dim wta as WTA_OPTIONS = (dwAttributes, dwMask)
+		return SetWindowThemeAttribute(hwnd, WTA_NONCLIENT, @wta, sizeof(WTA_OPTIONS))
+	end function
+#endif
+
 declare function OpenThemeData(byval hwnd as HWND, byval pszClassList as LPCWSTR) as HTHEME
+
+#if _WIN32_WINNT = &h0602
+	#define OTD_FORCE_RECT_SIZING &h00000001
+	#define OTD_NONCLIENT &h00000002
+	#define OTD_VALIDBITS (OTD_FORCE_RECT_SIZING or OTD_NONCLIENT)
+
+	declare function OpenThemeDataEx(byval hwnd as HWND, byval pszClassList as LPCWSTR, byval dwFlags as DWORD) as HTHEME
+#endif
+
 declare function CloseThemeData(byval hTheme as HTHEME) as HRESULT
 declare function DrawThemeBackground(byval hTheme as HTHEME, byval hdc as HDC, byval iPartId as long, byval iStateId as long, byval pRect as const RECT ptr, byval pClipRect as const RECT ptr) as HRESULT
 
 #define DTT_GRAYED &h1
 
 declare function DrawThemeText(byval hTheme as HTHEME, byval hdc as HDC, byval iPartId as long, byval iStateId as long, byval pszText as LPCWSTR, byval iCharCount as long, byval dwTextFlags as DWORD, byval dwTextFlags2 as DWORD, byval pRect as const RECT ptr) as HRESULT
+
+#if _WIN32_WINNT = &h0602
+	#define DTT_TEXTCOLOR (__MSABI_LONG(1) shl 0)
+	#define DTT_BORDERCOLOR (__MSABI_LONG(1) shl 1)
+	#define DTT_SHADOWCOLOR (__MSABI_LONG(1) shl 2)
+	#define DTT_SHADOWTYPE (__MSABI_LONG(1) shl 3)
+	#define DTT_SHADOWOFFSET (__MSABI_LONG(1) shl 4)
+	#define DTT_BORDERSIZE (__MSABI_LONG(1) shl 5)
+	#define DTT_FONTPROP (__MSABI_LONG(1) shl 6)
+	#define DTT_COLORPROP (__MSABI_LONG(1) shl 7)
+	#define DTT_STATEID (__MSABI_LONG(1) shl 8)
+	#define DTT_CALCRECT (__MSABI_LONG(1) shl 9)
+	#define DTT_APPLYOVERLAY (__MSABI_LONG(1) shl 10)
+	#define DTT_GLOWSIZE (__MSABI_LONG(1) shl 11)
+	#define DTT_CALLBACK (__MSABI_LONG(1) shl 12)
+	#define DTT_COMPOSITED (__MSABI_LONG(1) shl 13)
+	#define DTT_VALIDBITS ((((((((((((DTT_TEXTCOLOR or DTT_BORDERCOLOR) or DTT_SHADOWCOLOR) or DTT_SHADOWTYPE) or DTT_SHADOWOFFSET) or DTT_BORDERSIZE) or DTT_FONTPROP) or DTT_COLORPROP) or DTT_STATEID) or DTT_CALCRECT) or DTT_APPLYOVERLAY) or DTT_GLOWSIZE) or DTT_COMPOSITED)
+
+	type DTT_CALLBACK_PROC as function(byval hdc as HDC, byval pszText as LPWSTR, byval cchText as long, byval prc as LPRECT, byval dwFlags as UINT, byval lParam as LPARAM) as long
+
+	type _DTTOPTS
+		dwSize as DWORD
+		dwFlags as DWORD
+		crText as COLORREF
+		crBorder as COLORREF
+		crShadow as COLORREF
+		iTextShadowType as long
+		ptShadowOffset as POINT_
+		iBorderSize as long
+		iFontPropId as long
+		iColorPropId as long
+		iStateId as long
+		fApplyOverlay as WINBOOL
+		iGlowSize as long
+		pfnDrawTextCallback as DTT_CALLBACK_PROC
+		lParam as LPARAM
+	end type
+
+	type DTTOPTS as _DTTOPTS
+	type PDTTOPTS as _DTTOPTS ptr
+
+	declare function DrawThemeTextEx(byval hTheme as HTHEME, byval hdc as HDC, byval iPartId as long, byval iStateId as long, byval pszText as LPCWSTR, byval iCharCount as long, byval dwFlags as DWORD, byval pRect as LPRECT, byval pOptions as const DTTOPTS ptr) as HRESULT
+#endif
+
 declare function GetThemeBackgroundContentRect(byval hTheme as HTHEME, byval hdc as HDC, byval iPartId as long, byval iStateId as long, byval pBoundingRect as const RECT ptr, byval pContentRect as RECT ptr) as HRESULT
 declare function GetThemeBackgroundExtent(byval hTheme as HTHEME, byval hdc as HDC, byval iPartId as long, byval iStateId as long, byval pContentRect as const RECT ptr, byval pExtentRect as RECT ptr) as HRESULT
 
@@ -72,11 +237,20 @@ type PMARGINS as _MARGINS ptr
 
 declare function GetThemeMargins(byval hTheme as HTHEME, byval hdc as HDC, byval iPartId as long, byval iStateId as long, byval iPropId as long, byval prc as RECT ptr, byval pMargins as MARGINS ptr) as HRESULT
 
-#define MAX_INTLIST_COUNT 10
+#if (_WIN32_WINNT = &h0400) or (_WIN32_WINNT = &h0502)
+	#define MAX_INTLIST_COUNT 10
+#else
+	#define MAX_INTLIST_COUNT 402
+#endif
 
 type _INTLIST
 	iValueCount as long
-	iValues(0 to 9) as long
+
+	#if (_WIN32_WINNT = &h0400) or (_WIN32_WINNT = &h0502)
+		iValues(0 to 9) as long
+	#else
+		iValues(0 to 401) as long
+	#endif
 end type
 
 type INTLIST as _INTLIST
@@ -112,6 +286,12 @@ declare function GetWindowTheme(byval hwnd as HWND) as HTHEME
 #define ETDT_USETABTEXTURE &h00000004
 #define ETDT_ENABLETAB (ETDT_ENABLE or ETDT_USETABTEXTURE)
 
+#if _WIN32_WINNT = &h0602
+	#define ETDT_USEAEROWIZARDTABTEXTURE &h00000008
+	#define ETDT_ENABLEAEROWIZARDTAB (ETDT_ENABLE or ETDT_USEAEROWIZARDTABTEXTURE)
+	#define ETDT_VALIDBITS (((ETDT_DISABLE or ETDT_ENABLE) or ETDT_USETABTEXTURE) or ETDT_USEAEROWIZARDTABTEXTURE)
+#endif
+
 declare function EnableThemeDialogTexture(byval hwnd as HWND, byval dwFlags as DWORD) as HRESULT
 declare function IsThemeDialogTextureEnabled(byval hwnd as HWND) as WINBOOL
 
@@ -130,6 +310,15 @@ declare function GetCurrentThemeName(byval pszThemeFileName as LPWSTR, byval cch
 
 declare function GetThemeDocumentationProperty(byval pszThemeName as LPCWSTR, byval pszPropertyName as LPCWSTR, byval pszValueBuff as LPWSTR, byval cchMaxValChars as long) as HRESULT
 declare function DrawThemeParentBackground(byval hwnd as HWND, byval hdc as HDC, byval prc as RECT ptr) as HRESULT
+
+#if _WIN32_WINNT = &h0602
+	#define DTPB_WINDOWDC &h00000001
+	#define DTPB_USECTLCOLORSTATIC &h00000002
+	#define DTPB_USEERASEBKGND &h00000004
+
+	declare function DrawThemeParentBackgroundEx(byval hwnd as HWND, byval hdc as HDC, byval dwFlags as DWORD, byval prc as const RECT ptr) as HRESULT
+#endif
+
 declare function EnableTheming(byval fEnable as WINBOOL) as HRESULT
 
 #define DTBG_CLIPRECT &h00000001

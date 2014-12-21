@@ -163,6 +163,10 @@ type tagRASDIALPARAMSW field = 4
 	szDomain(0 to (15 + 1) - 1) as WCHAR
 	dwSubEntry as DWORD
 	dwCallbackId as ULONG_PTR
+
+	#if _WIN32_WINNT = &h0602
+		dwIfIndex as DWORD
+	#endif
 end type
 
 #define RASDIALPARAMSA tagRASDIALPARAMSA
@@ -177,6 +181,10 @@ type tagRASDIALPARAMSA field = 4
 	szDomain(0 to (15 + 1) - 1) as CHAR
 	dwSubEntry as DWORD
 	dwCallbackId as ULONG_PTR
+
+	#if _WIN32_WINNT = &h0602
+		dwIfIndex as DWORD
+	#endif
 end type
 
 #define RASDIALPARAMS __MINGW_NAME_AW(RASDIALPARAMS)
@@ -1002,5 +1010,63 @@ declare function RasDeleteSubEntryW(byval pszPhonebook as LPCWSTR, byval pszEntr
 #define RasGetEapUserIdentity __MINGW_NAME_AW(RasGetEapUserIdentity)
 #define RasFreeEapUserIdentity __MINGW_NAME_AW(RasFreeEapUserIdentity)
 #define RasDeleteSubEntry __MINGW_NAME_AW(RasDeleteSubEntry)
+
+#if _WIN32_WINNT = &h0602
+	type _tagRasNapState field = 4
+		dwSize as DWORD
+		dwFlags as DWORD
+		isolationState as IsolationState
+		probationTime as ProbationTime
+	end type
+
+	type RASNAPSTATE as _tagRasNapState
+	type LPRASNAPSTATE as _tagRasNapState ptr
+
+	type _RASPPPIPV6 field = 4
+		dwSize as DWORD
+		dwError as DWORD
+		bLocalInterfaceIdentifier(0 to 7) as UBYTE
+		bPeerInterfaceIdentifier(0 to 7) as UBYTE
+		bLocalCompressionProtocol(0 to 1) as UBYTE
+		bPeerCompressionProtocol(0 to 1) as UBYTE
+	end type
+
+	type RASPPPIPV6 as _RASPPPIPV6
+	type LPRASPPPIPV6 as _RASPPPIPV6 ptr
+
+	declare function rasgetnapstatus cdecl(byval hRasConn as HRASCONN, byval pNapState as LPRASNAPSTATE) as DWORD
+
+	type RASAPIVERSION as long
+	enum
+		RASAPIVERSION_500 = 1
+		RASAPIVERSION_501 = 2
+		RASAPIVERSION_600 = 3
+		RASAPIVERSION_601 = 4
+	end enum
+
+	type _RASTUNNELENDPOINT field = 4
+		dwType as DWORD
+
+		union field = 4
+			ipv4 as RASIPV4ADDR
+			ipv6 as RASIPV6ADDR
+		end union
+	end type
+
+	type RASTUNNELENDPOINT as _RASTUNNELENDPOINT
+	type PRASTUNNELENDPOINT as _RASTUNNELENDPOINT ptr
+
+	type _RASUPDATECONN field = 4
+		version as RASAPIVERSION
+		dwSize as DWORD
+		dwFlags as DWORD
+		dwIfIndex as DWORD
+		localEndPoint as RASTUNNELENDPOINT
+		remoteEndPoint as RASTUNNELENDPOINT
+	end type
+
+	type RASUPDATECONN as _RASUPDATECONN
+	type LPRASUPDATECONN as _RASUPDATECONN ptr
+#endif
 
 end extern

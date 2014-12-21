@@ -85,6 +85,10 @@ type PMOUSE_EVENT_RECORD as _MOUSE_EVENT_RECORD ptr
 #define DOUBLE_CLICK &h2
 #define MOUSE_WHEELED &h4
 
+#if _WIN32_WINNT = &h0602
+	#define MOUSE_HWHEELED &h8
+#endif
+
 type _WINDOW_BUFFER_SIZE_RECORD
 	dwSize as COORD
 end type
@@ -373,6 +377,14 @@ type CONSOLE_SCREEN_BUFFER_INFOEX as _CONSOLE_SCREEN_BUFFER_INFOEX
 type PCONSOLE_SCREEN_BUFFER_INFOEX as _CONSOLE_SCREEN_BUFFER_INFOEX ptr
 
 declare function GetConsoleHistoryInfo(byval lpConsoleHistoryInfo as PCONSOLE_HISTORY_INFO) as WINBOOL
+
+#if _WIN32_WINNT = &h0602
+	#define GetConsoleOriginalTitle __MINGW_NAME_AW(GetConsoleOriginalTitle)
+
+	declare function GetConsoleOriginalTitleA(byval lpConsoleTitle as LPSTR, byval nSize as DWORD) as DWORD
+	declare function GetConsoleOriginalTitleW(byval lpConsoleTitle as LPWSTR, byval nSize as DWORD) as DWORD
+#endif
+
 declare function GetConsoleScreenBufferInfoEx(byval hConsoleOutput as HANDLE, byval lpConsoleScreenBufferInfoEx as PCONSOLE_SCREEN_BUFFER_INFOEX) as WINBOOL
 declare function GetCurrentConsoleFontEx(byval hConsoleOutput as HANDLE, byval bMaximumWindow as WINBOOL, byval lpConsoleCurrentFontEx as PCONSOLE_FONT_INFOEX) as WINBOOL
 declare function SetConsoleHistoryInfo(byval lpConsoleHistoryInfo as PCONSOLE_HISTORY_INFO) as WINBOOL

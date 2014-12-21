@@ -17,6 +17,12 @@ type ISecurityInformation2Vtbl as ISecurityInformation2Vtbl_
 type IEffectivePermissionVtbl as IEffectivePermissionVtbl_
 type ISecurityObjectTypeInfoVtbl as ISecurityObjectTypeInfoVtbl_
 
+#if _WIN32_WINNT = &h0602
+	type ISecurityInformation3Vtbl as ISecurityInformation3Vtbl_
+	type ISecurityInformation4Vtbl as ISecurityInformation4Vtbl_
+	type IEffectivePermission2Vtbl as IEffectivePermission2Vtbl_
+#endif
+
 #define _ACLUI_H_
 
 type _SI_OBJECT_INFO
@@ -53,7 +59,23 @@ type PSI_OBJECT_INFO as _SI_OBJECT_INFO ptr
 #define SI_RESET_SACL __MSABI_LONG(&h00080000)
 #define SI_RESET_OWNER __MSABI_LONG(&h00100000)
 #define SI_NO_ADDITIONAL_PERMISSION __MSABI_LONG(&h00200000)
+
+#if _WIN32_WINNT = &h0602
+	#define SI_VIEW_ONLY __MSABI_LONG(&h00400000)
+	#define SI_PERMS_ELEVATION_REQUIRED __MSABI_LONG(&h01000000)
+	#define SI_AUDITS_ELEVATION_REQUIRED __MSABI_LONG(&h02000000)
+	#define SI_OWNER_ELEVATION_REQUIRED __MSABI_LONG(&h04000000)
+	#define SI_SCOPE_ELEVATION_REQUIRED __MSABI_LONG(&h08000000)
+#endif
+
 #define SI_MAY_WRITE __MSABI_LONG(&h10000000)
+
+#if _WIN32_WINNT = &h0602
+	#define SI_ENABLE_EDIT_ATTRIBUTE_CONDITION __MSABI_LONG(&h20000000)
+	#define SI_ENABLE_CENTRAL_POLICY __MSABI_LONG(&h40000000)
+	#define SI_DISABLE_DENY_ACE __MSABI_LONG(&h80000000)
+#endif
+
 #define SI_EDIT_ALL ((SI_EDIT_PERMS or SI_EDIT_OWNER) or SI_EDIT_AUDITS)
 
 type _SI_ACCESS
@@ -87,6 +109,11 @@ enum
 	SI_PAGE_AUDIT
 	SI_PAGE_OWNER
 	SI_PAGE_EFFECTIVE
+
+	#if _WIN32_WINNT = &h0602
+		SI_PAGE_TAKEOWNERSHIP
+		SI_PAGE_SHARE
+	#endif
 end enum
 
 type SI_PAGE_TYPE as _SI_PAGE_TYPE
@@ -193,12 +220,92 @@ end type
 
 type LPSecurityObjectTypeInfo as ISecurityObjectTypeInfo ptr
 
+#if _WIN32_WINNT = &h0602
+	type ISecurityInformation3
+		lpVtbl as ISecurityInformation3Vtbl ptr
+	end type
+
+	type ISecurityInformation3Vtbl_
+		QueryInterface as function(byval This as ISecurityInformation3 ptr, byval riid as const IID const ptr, byval ppvObj as any ptr ptr) as HRESULT
+		AddRef as function(byval This as ISecurityInformation3 ptr) as ULONG
+		Release as function(byval This as ISecurityInformation3 ptr) as ULONG
+		GetFullResourceName as function(byval This as ISecurityInformation3 ptr, byval ppszResourceName as LPWSTR ptr) as HRESULT
+		OpenElevatedEditor as function(byval This as ISecurityInformation3 ptr, byval hWnd as HWND, byval uPage as SI_PAGE_TYPE) as HRESULT
+	end type
+
+	type LPSECURITYINFO3 as ISecurityInformation3 ptr
+
+	type _SECURITY_OBJECT
+		pwszName as PWSTR
+		pData as PVOID
+		cbData as DWORD
+		pData2 as PVOID
+		cbData2 as DWORD
+		Id as DWORD
+		fWellKnown as BOOLEAN
+	end type
+
+	type SECURITY_OBJECT as _SECURITY_OBJECT
+	type PSECURITY_OBJECT as _SECURITY_OBJECT ptr
+
+	#define SECURITY_OBJECT_ID_OBJECT_SD 1
+	#define SECURITY_OBJECT_ID_SHARE 2
+	#define SECURITY_OBJECT_ID_CENTRAL_POLICY 3
+	#define SECURITY_OBJECT_ID_CENTRAL_ACCESS_RULE 4
+
+	type _EFFPERM_RESULT_LIST
+		fEvaluated as BOOLEAN
+		cObjectTypeListLength as ULONG
+		pObjectTypeList as OBJECT_TYPE_LIST ptr
+		pGrantedAccessList as ACCESS_MASK ptr
+	end type
+
+	type EFFPERM_RESULT_LIST as _EFFPERM_RESULT_LIST
+	type PEFFPERM_RESULT_LIST as _EFFPERM_RESULT_LIST ptr
+
+	type ISecurityInformation4
+		lpVtbl as ISecurityInformation4Vtbl ptr
+	end type
+
+	type ISecurityInformation4Vtbl_
+		QueryInterface as function(byval This as ISecurityInformation4 ptr, byval riid as const IID const ptr, byval ppvObj as any ptr ptr) as HRESULT
+		AddRef as function(byval This as ISecurityInformation4 ptr) as ULONG
+		Release as function(byval This as ISecurityInformation4 ptr) as ULONG
+		GetSecondarySecurity as function(byval This as ISecurityInformation4 ptr, byval pSecurityObjects as PSECURITY_OBJECT ptr, byval pSecurityObjectCount as PULONG) as HRESULT
+	end type
+
+	type LPSECURITYINFO4 as ISecurityInformation4 ptr
+
+	type IEffectivePermission2
+		lpVtbl as IEffectivePermission2Vtbl ptr
+	end type
+
+	type IEffectivePermission2Vtbl_
+		QueryInterface as function(byval This as IEffectivePermission ptr, byval riid as const IID const ptr, byval ppvObj as any ptr ptr) as HRESULT
+		AddRef as function(byval This as IEffectivePermission ptr) as ULONG
+		Release as function(byval This as IEffectivePermission ptr) as ULONG
+		ComputeEffectivePermissionWithSecondarySecurity as function(byval This as IEffectivePermission ptr, byval pSid as PSID, byval pDeviceSid as PSID, byval pszServerName as PCWSTR, byval pSecurityObjects as PSECURITY_OBJECT, byval dwSecurityObjectCount as DWORD, byval pUserGroups as PTOKEN_GROUPS, byval pAuthzUserGroupsOperations as PAUTHZ_SID_OPERATION, byval pDeviceGroups as PTOKEN_GROUPS, byval pAuthzDeviceGroupsOperations as PAUTHZ_SID_OPERATION, byval pAuthzUserClaims as PAUTHZ_SECURITY_ATTRIBUTES_INFORMATION, byval pAuthzUserClaimsOperations as PAUTHZ_SECURITY_ATTRIBUTE_OPERATION, byval pAuthzDeviceClaims as PAUTHZ_SECURITY_ATTRIBUTES_INFORMATION, byval pAuthzDeviceClaimsOperations as PAUTHZ_SECURITY_ATTRIBUTE_OPERATION, byval pEffpermResultLists as PEFFPERM_RESULT_LIST) as HRESULT
+	end type
+
+	type LPEFFECTIVEPERMISSION2 as IEffectivePermission2 ptr
+#endif
+
 '' TODO: const IID __attribute__((selectany)) IID_ISecurityInformation = {0x965fc360,0x16ff,0x11d0,{0x91,0xcb,0x0,0xaa,0x0,0xbb,0xb7,0x23}};
 '' TODO: const IID __attribute__((selectany)) IID_ISecurityInformation2 = {0xc3ccfdb4,0x6f88,0x11d2,{0xa3,0xce,0x0,0xc0,0x4f,0xb1,0x78,0x2a}};
 '' TODO: const IID __attribute__((selectany)) IID_IEffectivePermission = {0x3853dc76,0x9f35,0x407c,{0x88,0xa1,0xd1,0x93,0x44,0x36,0x5f,0xbc}};
 '' TODO: const IID __attribute__((selectany)) IID_ISecurityObjectTypeInfo = {0xfc3066eb,0x79ef,0x444b,{0x91,0x11,0xd1,0x8a,0x75,0xeb,0xf2,0xfa}};
 
+#if _WIN32_WINNT = &h0602
+	'' TODO: const IID __attribute__((selectany)) IID_ISecurityInformation3 = {0xe2cdc9cc,0x31bd,0x4f8f,{0x8c,0x8b,0xb6,0x41,0xaf,0x51,0x6a,0x1a}};
+	'' TODO: const IID __attribute__((selectany)) IID_ISecurityInformation4 = {0xea961070,0xcd14,0x4621,{0xac,0xe4,0xf6,0x3c,0x3,0xe5,0x83,0xe4}};
+	'' TODO: const IID __attribute__((selectany)) IID_IEffectivePermission2 = {0x941fabca,0xdd47,0x4fca,{0x90,0xbb,0xb0,0xe1,0x2,0x55,0xf2,0xd}};
+#endif
+
 declare function CreateSecurityPage(byval psi as LPSECURITYINFO) as HPROPSHEETPAGE
 declare function EditSecurity(byval hwndOwner as HWND, byval psi as LPSECURITYINFO) as WINBOOL
+
+#if _WIN32_WINNT = &h0602
+	declare function EditSecurityAdvanced(byval hwndOwner as HWND, byval psi as LPSECURITYINFO, byval uSIPage as SI_PAGE_TYPE) as HRESULT
+#endif
 
 end extern

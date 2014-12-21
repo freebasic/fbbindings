@@ -303,4 +303,81 @@ type RpcCallClientLocality as _RpcCallClientLocality
 declare function RpcServerSubscribeForNotification(byval Binding as RPC_BINDING_HANDLE, byval Notification as DWORD, byval NotificationType as RPC_NOTIFICATION_TYPES, byval NotificationInfo as RPC_ASYNC_NOTIFICATION_INFO ptr) as RPC_STATUS
 declare function RpcServerUnsubscribeForNotification(byval Binding as RPC_BINDING_HANDLE, byval Notification as RPC_NOTIFICATIONS, byval NotificationsQueued as ulong ptr) as RPC_STATUS
 
+#if _WIN32_WINNT = &h0602
+	type tagRPC_CALL_LOCAL_ADDRESS_V1_A
+		Version as ulong
+		Buffer as any ptr
+		BufferSize as ulong
+		AddressFormat as RpcLocalAddressFormat
+	end type
+
+	type RPC_CALL_LOCAL_ADDRESS_V1_A as tagRPC_CALL_LOCAL_ADDRESS_V1_A
+	type RPC_CALL_LOCAL_ADDRESS_A as tagRPC_CALL_LOCAL_ADDRESS_V1_A
+
+	type tagRPC_CALL_LOCAL_ADDRESS_V1_W
+		Version as ulong
+		Buffer as any ptr
+		BufferSize as ulong
+		AddressFormat as RpcLocalAddressFormat
+	end type
+
+	type RPC_CALL_LOCAL_ADDRESS_V1_W as tagRPC_CALL_LOCAL_ADDRESS_V1_W
+	type RPC_CALL_LOCAL_ADDRESS_W as tagRPC_CALL_LOCAL_ADDRESS_V1_W
+
+	#define RPC_CALL_LOCAL_ADDRESS_V1 __MINGW_NAME_AW(RPC_CALL_LOCAL_ADDRESS_V1_)
+	#define RPC_CALL_LOCAL_ADDRESS __MINGW_NAME_AW(RPC_CALL_LOCAL_ADDRESS_)
+
+	type tagRPC_CALL_ATTRIBUTES_V2A
+		Version as ulong
+		Flags as ulong
+		ServerPrincipalNameBufferLength as ulong
+		ServerPrincipalName as ushort ptr
+		ClientPrincipalNameBufferLength as ulong
+		ClientPrincipalName as ushort ptr
+		AuthenticationLevel as ulong
+		AuthenticationService as ulong
+		NullSession as WINBOOL
+		KernelMode as WINBOOL
+		ProtocolSequence as ulong
+		IsClientLocal as RpcCallClientLocality
+		ClientPID as HANDLE
+		CallStatus as ulong
+		CallType as RpcCallType
+		CallLocalAddress as RPC_CALL_LOCAL_ADDRESS_A ptr
+		OpNum as ushort
+		InterfaceUuid as UUID
+	end type
+
+	type RPC_CALL_ATTRIBUTES_V2_A as tagRPC_CALL_ATTRIBUTES_V2A
+	type RPC_CALL_ATTRIBUTES_A as tagRPC_CALL_ATTRIBUTES_V2A
+
+	type tagRPC_CALL_ATTRIBUTES_V2W
+		Version as ulong
+		Flags as ulong
+		ServerPrincipalNameBufferLength as ulong
+		ServerPrincipalName as ushort ptr
+		ClientPrincipalNameBufferLength as ulong
+		ClientPrincipalName as ushort ptr
+		AuthenticationLevel as ulong
+		AuthenticationService as ulong
+		NullSession as WINBOOL
+		KernelMode as WINBOOL
+		ProtocolSequence as ulong
+		IsClientLocal as RpcCallClientLocality
+		ClientPID as HANDLE
+		CallStatus as ulong
+		CallType as RpcCallType
+		CallLocalAddress as RPC_CALL_LOCAL_ADDRESS_W ptr
+		OpNum as ushort
+		InterfaceUuid as UUID
+	end type
+
+	type RPC_CALL_ATTRIBUTES_V2_W as tagRPC_CALL_ATTRIBUTES_V2W
+	type RPC_CALL_ATTRIBUTES_W as tagRPC_CALL_ATTRIBUTES_V2W
+
+	#define RPC_CALL_ATTRIBUTES_V2 __MINGW_NAME_AW(RPC_CALL_ATTRIBUTES_V2_)
+
+	declare function RpcDiagnoseError(byval BindingHandle as RPC_BINDING_HANDLE, byval IfSpec as RPC_IF_HANDLE, byval RpcStatus as RPC_STATUS, byval EnumHandle as RPC_ERROR_ENUM_HANDLE ptr, byval Options as ULONG, byval ParentWindow as HWND) as RPC_STATUS
+#endif
+
 end extern

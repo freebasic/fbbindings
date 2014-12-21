@@ -15,9 +15,13 @@
 
 type SEC_WCHAR as WCHAR
 type SEC_CHAR as CHAR
-type SECURITY_STATUS as LONG
 
-#define __SECSTATUS_DEFINED__
+#if (_WIN32_WINNT = &h0400) or (_WIN32_WINNT = &h0502)
+	type SECURITY_STATUS as LONG
+
+	#define __SECSTATUS_DEFINED__
+#endif
+
 #define SEC_TEXT TEXT
 
 #ifdef UNICODE
@@ -965,5 +969,21 @@ declare function AddSecurityPackageA(byval pszPackageName as LPSTR, byval pOptio
 declare function AddSecurityPackageW(byval pszPackageName as LPWSTR, byval pOptions as PSECURITY_PACKAGE_OPTIONS) as SECURITY_STATUS
 declare function DeleteSecurityPackageA(byval pszPackageName as SEC_CHAR ptr) as SECURITY_STATUS
 declare function DeleteSecurityPackageW(byval pszPackageName as SEC_WCHAR ptr) as SECURITY_STATUS
+
+#if _WIN32_WINNT = &h0602
+	declare function ChangeAccountPassword(byval pszPackageName as SEC_WCHAR ptr, byval pszDomainName as SEC_WCHAR ptr, byval pszAccountName as SEC_WCHAR ptr, byval pszOldPassword as SEC_WCHAR ptr, byval pszNewPassword as SEC_WCHAR ptr, byval bImpersonating as BOOLEAN, byval dwReserved as ulong, byval pOutput as PSecBufferDesc) as SECURITY_STATUS
+
+	type _CREDUIWIN_MARSHALED_CONTEXT
+		StructureType as GUID
+		cbHeaderLength as USHORT
+		LogonId as LUID
+		MarshaledDataType as GUID
+		MarshaledDataOffset as ULONG
+		MarshaledDataLength as USHORT
+	end type
+
+	type CREDUIWIN_MARSHALED_CONTEXT as _CREDUIWIN_MARSHALED_CONTEXT
+	type PCREDUIWIN_MARSHALED_CONTEXT as _CREDUIWIN_MARSHALED_CONTEXT ptr
+#endif
 
 end extern

@@ -33,7 +33,6 @@ extern "C"
 #define USE___UUIDOF 0
 #define __MSVCRT_VERSION__ &h0700
 #define WINVER &h0502
-#define _WIN32_WINNT &h502
 #define _INT128_DEFINED
 #define __int8 byte
 #define __int16 short

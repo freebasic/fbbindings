@@ -135,6 +135,104 @@ declare function ReadProcessorPwrScheme(byval as UINT, byval as PMACHINE_PROCESS
 declare function WriteProcessorPwrScheme(byval as UINT, byval as PMACHINE_PROCESSOR_POWER_POLICY) as BOOLEAN
 declare function ValidatePowerPolicies(byval as PGLOBAL_POWER_POLICY, byval as PPOWER_POLICY) as BOOLEAN
 
+#if _WIN32_WINNT = &h0602
+	#define DEVICEPOWER_HARDWAREID &h80000000
+	#define DEVICEPOWER_FILTER_DEVICES_PRESENT &h20000000
+	#define DEVICEPOWER_AND_OPERATION &h40000000
+	#define DEVICEPOWER_FILTER_WAKEENABLED &h08000000
+	#define DEVICEPOWER_FILTER_ON_NAME &h02000000
+	#define PDCAP_D0_SUPPORTED &h00000001
+	#define PDCAP_D1_SUPPORTED &h00000002
+	#define PDCAP_D2_SUPPORTED &h00000004
+	#define PDCAP_D3_SUPPORTED &h00000008
+	#define PDCAP_S0_SUPPORTED &h00010000
+	#define PDCAP_S1_SUPPORTED &h00020000
+	#define PDCAP_S2_SUPPORTED &h00040000
+	#define PDCAP_S3_SUPPORTED &h00080000
+	#define PDCAP_S4_SUPPORTED &h01000000
+	#define PDCAP_S5_SUPPORTED &h02000000
+	#define PDCAP_WAKE_FROM_D0_SUPPORTED &h00000010
+	#define PDCAP_WAKE_FROM_D1_SUPPORTED &h00000020
+	#define PDCAP_WAKE_FROM_D2_SUPPORTED &h00000040
+	#define PDCAP_WAKE_FROM_D3_SUPPORTED &h00000080
+	#define PDCAP_WAKE_FROM_S0_SUPPORTED &h00100000
+	#define PDCAP_WAKE_FROM_S1_SUPPORTED &h00200000
+	#define PDCAP_WAKE_FROM_S2_SUPPORTED &h00400000
+	#define PDCAP_WAKE_FROM_S3_SUPPORTED &h00800000
+	#define PDCAP_WARM_EJECT_SUPPORTED &h00000100
+	#define DEVICEPOWER_SET_WAKEENABLED &h00000001
+	#define DEVICEPOWER_CLEAR_WAKEENABLED &h00000002
+
+	type _POWER_DATA_ACCESSOR as long
+	enum
+		ACCESS_AC_POWER_SETTING_INDEX = 0
+		ACCESS_DC_POWER_SETTING_INDEX = 1
+		ACCESS_SCHEME = 16
+		ACCESS_SUBGROUP = 17
+		ACCESS_INDIVIDUAL_SETTING = 18
+		ACCESS_ACTIVE_SCHEME = 19
+		ACCESS_CREATE_SCHEME = 20
+	end enum
+
+	type POWER_DATA_ACCESSOR as _POWER_DATA_ACCESSOR
+	type PPOWER_DATA_ACCESSOR as _POWER_DATA_ACCESSOR ptr
+
+	declare function DevicePowerClose() as BOOLEAN
+	declare function DevicePowerEnumDevices(byval QueryIndex as ULONG, byval QueryInterpretationFlags as ULONG, byval QueryFlags as ULONG, byval pReturnBuffer as PBYTE, byval pBufferSize as PULONG) as BOOLEAN
+	declare function DevicePowerOpen(byval Flags as ULONG) as BOOLEAN
+	declare function DevicePowerSetDeviceState(byval DeviceDescription as LPCWSTR, byval SetFlags as ULONG, byval SetData as LPCVOID) as DWORD
+	declare function PowerCanRestoreIndividualDefaultPowerScheme(byval SchemeGuid as const GUID ptr) as DWORD
+	declare function PowerCreatePossibleSetting(byval RootSystemPowerKey as HKEY, byval SubGroupOfPowerSettingsGuid as const GUID ptr, byval PowerSettingGuid as const GUID ptr, byval PossibleSettingIndex as ULONG) as DWORD
+	declare function PowerCreateSetting(byval RootSystemPowerKey as HKEY, byval SubGroupOfPowerSettingsGuid as const GUID ptr, byval PowerSettingGuid as const GUID ptr) as DWORD
+	declare function PowerDeleteScheme(byval RootPowerKey as HKEY, byval SchemeGuid as const GUID ptr) as DWORD
+	declare function PowerDeterminePlatformRole() as POWER_PLATFORM_ROLE
+	declare function PowerDuplicateScheme(byval RootPowerKey as HKEY, byval SourceSchemeGuid as const GUID ptr, byval DestinationSchemeGuid as GUID ptr ptr) as DWORD
+	declare function PowerEnumerate(byval RootPowerKey as HKEY, byval SchemeGuid as const GUID ptr, byval SubGroupOfPowerSettingsGuid as const GUID ptr, byval AccessFlags as POWER_DATA_ACCESSOR, byval Index as ULONG, byval Buffer as UCHAR ptr, byval BufferSize as DWORD ptr) as DWORD
+	declare function PowerGetActiveScheme(byval UserRootPowerKey as HKEY, byval ActivePolicyGuid as GUID ptr ptr) as DWORD
+	declare function PowerImportPowerScheme(byval RootPowerKey as HKEY, byval ImportFileNamePath as LPCWSTR, byval DestinationSchemeGuid as GUID ptr ptr) as DWORD
+	declare function PowerReadACDefaultIndex(byval RootPowerKey as HKEY, byval SchemePersonalityGuid as const GUID ptr, byval SubGroupOfPowerSettingsGuid as const GUID ptr, byval PowerSettingGuid as const GUID ptr, byval AcDefaultIndex as LPDWORD) as DWORD
+	declare function PowerReadACValue(byval RootPowerKey as HKEY, byval SchemeGuid as const GUID ptr, byval SubGroupOfPowerSettingsGuid as const GUID ptr, byval PowerSettingGuid as const GUID ptr, byval Type_ as PULONG, byval Buffer as LPBYTE, byval BufferSize as LPDWORD) as DWORD
+	declare function PowerReadACValueIndex(byval RootPowerKey as HKEY, byval SchemeGuid as const GUID ptr, byval SubGroupOfPowerSettingsGuid as const GUID ptr, byval PowerSettingGuid as const GUID ptr, byval AcValueIndex as LPDWORD) as DWORD
+	declare function PowerReadDCDefaultIndex(byval RootPowerKey as HKEY, byval SchemePersonalityGuid as const GUID ptr, byval SubGroupOfPowerSettingsGuid as const GUID ptr, byval PowerSettingGuid as const GUID ptr, byval DcDefaultIndex as LPDWORD) as DWORD
+	declare function PowerReadDCValue(byval RootPowerKey as HKEY, byval SchemeGuid as const GUID ptr, byval SubGroupOfPowerSettingsGuid as const GUID ptr, byval PowerSettingGuid as const GUID ptr, byval Type_ as PULONG, byval Buffer as PUCHAR, byval BufferSize as LPDWORD) as DWORD
+	declare function PowerReadDCValueIndex(byval RootPowerKey as HKEY, byval SchemeGuid as const GUID ptr, byval SubGroupOfPowerSettingsGuid as const GUID ptr, byval PowerSettingGuid as const GUID ptr, byval DcValueIndex as LPDWORD) as DWORD
+	declare function PowerReadDescription(byval RootPowerKey as HKEY, byval SchemeGuid as const GUID ptr, byval SubGroupOfPowerSettingsGuid as const GUID ptr, byval PowerSettingGuid as const GUID ptr, byval Buffer as PUCHAR, byval BufferSize as LPDWORD) as DWORD
+	declare function PowerReadFriendlyName(byval RootPowerKey as HKEY, byval SchemeGuid as const GUID ptr, byval SubGroupOfPowerSettingsGuid as const GUID ptr, byval PowerSettingGuid as const GUID ptr, byval Buffer as PUCHAR, byval BufferSize as LPDWORD) as DWORD
+	declare function PowerReadIconResourceSpecifier(byval RootPowerKey as HKEY, byval SchemeGuid as const GUID ptr, byval SubGroupOfPowerSettingsGuid as const GUID ptr, byval PowerSettingGuid as const GUID ptr, byval Buffer as PUCHAR, byval BufferSize as LPDWORD) as DWORD
+	declare function PowerReadPossibleDescription(byval RootPowerKey as HKEY, byval SubGroupOfPowerSettingsGuid as const GUID ptr, byval PowerSettingGuid as const GUID ptr, byval PossibleSettingIndex as ULONG, byval Buffer as PUCHAR, byval BufferSize as LPDWORD) as DWORD
+	declare function PowerReadPossibleFriendlyName(byval RootPowerKey as HKEY, byval SubGroupOfPowerSettingsGuid as const GUID ptr, byval PowerSettingGuid as const GUID ptr, byval PossibleSettingIndex as ULONG, byval Buffer as PUCHAR, byval BufferSize as LPDWORD) as DWORD
+	declare function PowerReadPossibleValue(byval RootPowerKey as HKEY, byval SubGroupOfPowerSettingsGuid as const GUID ptr, byval PowerSettingGuid as const GUID ptr, byval Type_ as PULONG, byval PossibleSettingIndex as ULONG, byval Buffer as PUCHAR, byval BufferSize as LPDWORD) as DWORD
+	declare function PowerReadSettingAttributes(byval SubGroupGuid as const GUID ptr, byval PowerSettingGuid as const GUID ptr) as DWORD
+	declare function PowerReadValueIncrement(byval RootPowerKey as HKEY, byval SubGroupOfPowerSettingsGuid as const GUID ptr, byval PowerSettingGuid as const GUID ptr, byval ValueIncrement as LPDWORD) as DWORD
+	declare function PowerReadValueMax(byval RootPowerKey as HKEY, byval SubGroupOfPowerSettingsGuid as const GUID ptr, byval PowerSettingGuid as const GUID ptr, byval ValueMaximum as LPDWORD) as DWORD
+	declare function PowerReadValueMin(byval RootPowerKey as HKEY, byval SubGroupOfPowerSettingsGuid as const GUID ptr, byval PowerSettingGuid as const GUID ptr, byval ValueMinimum as LPDWORD) as DWORD
+	declare function PowerReadValueUnitsSpecifier(byval RootPowerKey as HKEY, byval SubGroupOfPowerSettingsGuid as const GUID ptr, byval PowerSettingGuid as const GUID ptr, byval Buffer as UCHAR ptr, byval BufferSize as LPDWORD) as DWORD
+	declare function PowerRemovePowerSetting(byval PowerSettingSubKeyGuid as const GUID ptr, byval PowerSettingGuid as const GUID ptr) as DWORD
+	declare function PowerReplaceDefaultPowerSchemes() as DWORD
+	declare function PowerRestoreDefaultPowerSchemes() as DWORD
+	declare function PowerRestoreIndividualDefaultPowerScheme(byval SchemeGuid as const GUID ptr) as DWORD
+	declare function PowerSetActiveScheme(byval UserRootPowerKey as HKEY, byval SchemeGuid as const GUID ptr) as DWORD
+	declare function PowerSettingAccessCheck(byval AccessFlags as POWER_DATA_ACCESSOR, byval PowerGuid as const GUID ptr) as DWORD
+	declare function PowerWriteACDefaultIndex(byval RootSystemPowerKey as HKEY, byval SchemePersonalityGuid as const GUID ptr, byval SubGroupOfPowerSettingsGuid as const GUID ptr, byval PowerSettingGuid as const GUID ptr, byval DefaultAcIndex as DWORD) as DWORD
+	declare function PowerWriteACValueIndex(byval RootPowerKey as HKEY, byval SchemeGuid as const GUID ptr, byval SubGroupOfPowerSettingsGuid as const GUID ptr, byval PowerSettingGuid as const GUID ptr, byval AcValueIndex as DWORD) as DWORD
+	declare function PowerWriteDCDefaultIndex(byval RootSystemPowerKey as HKEY, byval SchemePersonalityGuid as const GUID ptr, byval SubGroupOfPowerSettingsGuid as const GUID ptr, byval PowerSettingGuid as const GUID ptr, byval DefaultDcIndex as DWORD) as DWORD
+	declare function PowerWriteDCValueIndex(byval RootPowerKey as HKEY, byval SchemeGuid as const GUID ptr, byval SubGroupOfPowerSettingsGuid as const GUID ptr, byval PowerSettingGuid as const GUID ptr, byval DcValueIndex as DWORD) as DWORD
+	declare function PowerWriteDescription(byval RootPowerKey as HKEY, byval SchemeGuid as const GUID ptr, byval SubGroupOfPowerSettingsGuid as const GUID ptr, byval PowerSettingGuid as const GUID ptr, byval Buffer as UCHAR ptr, byval BufferSize as DWORD) as DWORD
+	declare function PowerWriteFriendlyName(byval RootPowerKey as HKEY, byval SchemeGuid as const GUID ptr, byval SubGroupOfPowerSettingsGuid as const GUID ptr, byval PowerSettingGuid as const GUID ptr, byval Buffer as UCHAR ptr, byval BufferSize as DWORD) as DWORD
+	declare function PowerWriteIconResourceSpecifier(byval RootPowerKey as HKEY, byval SchemeGuid as const GUID ptr, byval SubGroupOfPowerSettingsGuid as const GUID ptr, byval PowerSettingGuid as const GUID ptr, byval Buffer as UCHAR ptr, byval BufferSize as DWORD) as DWORD
+	declare function PowerWritePossibleDescription(byval RootPowerKey as HKEY, byval SubGroupOfPowerSettingsGuid as const GUID ptr, byval PowerSettingGuid as const GUID ptr, byval PossibleSettingIndex as ULONG, byval Buffer as UCHAR ptr, byval BufferSize as DWORD) as DWORD
+	declare function PowerWritePossibleFriendlyName(byval RootPowerKey as HKEY, byval SubGroupOfPowerSettingsGuid as const GUID ptr, byval PowerSettingGuid as const GUID ptr, byval PossibleSettingIndex as ULONG, byval Buffer as UCHAR ptr, byval BufferSize as DWORD) as DWORD
+	declare function PowerWritePossibleValue(byval RootPowerKey as HKEY, byval SubGroupOfPowerSettingsGuid as const GUID ptr, byval PowerSettingGuid as const GUID ptr, byval Type_ as ULONG, byval PossibleSettingIndex as ULONG, byval Buffer as UCHAR ptr, byval BufferSize as DWORD) as DWORD
+
+	#define POWER_ATTRIBUTE_HIDE 1
+
+	declare function PowerWriteSettingAttributes(byval SubGroupGuid as const GUID ptr, byval PowerSettingGuid as const GUID ptr, byval Attributes as DWORD) as DWORD
+	declare function PowerWriteValueIncrement(byval RootPowerKey as HKEY, byval SubGroupOfPowerSettingsGuid as const GUID ptr, byval PowerSettingGuid as const GUID ptr, byval ValueIncrement as DWORD) as DWORD
+	declare function PowerWriteValueMax(byval RootPowerKey as HKEY, byval SubGroupOfPowerSettingsGuid as const GUID ptr, byval PowerSettingGuid as const GUID ptr, byval ValueMaximum as DWORD) as DWORD
+	declare function PowerWriteValueMin(byval RootPowerKey as HKEY, byval SubGroupOfPowerSettingsGuid as const GUID ptr, byval PowerSettingGuid as const GUID ptr, byval ValueMinimum as DWORD) as DWORD
+	declare function PowerWriteValueUnitsSpecifier(byval RootPowerKey as HKEY, byval SubGroupOfPowerSettingsGuid as const GUID ptr, byval PowerSettingGuid as const GUID ptr, byval Buffer as UCHAR ptr, byval BufferSize as DWORD) as DWORD
+#endif
+
 #define _OVERRIDE_NTSTATUS_
 
 declare function CallNtPowerInformation(byval as POWER_INFORMATION_LEVEL, byval as PVOID, byval as ULONG, byval as PVOID, byval as ULONG) as LONG

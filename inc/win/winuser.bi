@@ -1096,6 +1096,12 @@ type LPMDINEXTMENU as tagMDINEXTMENU ptr
 #define WM_INITMENU &h0116
 #define WM_INITMENUPOPUP &h0117
 #define WM_MENUSELECT &h011F
+
+#if _WIN32_WINNT = &h0602
+	#define WM_GESTURE &h0119
+	#define WM_GESTURENOTIFY &h011A
+#endif
+
 #define WM_MENUCHAR &h0120
 #define WM_ENTERIDLE &h0121
 #define WM_MENURBUTTONUP &h0122
@@ -1135,7 +1141,14 @@ type LPMDINEXTMENU as tagMDINEXTMENU ptr
 #define WM_XBUTTONDOWN &h020B
 #define WM_XBUTTONUP &h020C
 #define WM_XBUTTONDBLCLK &h020D
-#define WM_MOUSELAST &h020D
+
+#if (_WIN32_WINNT = &h0400) or (_WIN32_WINNT = &h0502)
+	#define WM_MOUSELAST &h020D
+#else
+	#define WM_MOUSEHWHEEL &h020E
+	#define WM_MOUSELAST &h020E
+#endif
+
 #define WHEEL_DELTA 120
 #define GET_WHEEL_DELTA_WPARAM(wParam) cshort(HIWORD(wParam))
 #define WHEEL_PAGESCROLL UINT_MAX
@@ -1166,7 +1179,11 @@ type LPMDINEXTMENU as tagMDINEXTMENU ptr
 #define PBT_APMPOWERSTATUSCHANGE &h000A
 #define PBT_APMOEMEVENT &h000B
 #define PBT_APMRESUMEAUTOMATIC &h0012
-#define PBT_POWERSETTINGCHANGE 32787
+
+#if (_WIN32_WINNT = &h0502) or (_WIN32_WINNT = &h0602)
+	#define PBT_POWERSETTINGCHANGE 32787
+#endif
+
 #define WM_DEVICECHANGE &h0219
 #define WM_MDICREATE &h0220
 #define WM_MDIDESTROY &h0221
@@ -1744,6 +1761,11 @@ declare function RegisterHotKey(byval hWnd as HWND, byval id as long, byval fsMo
 declare function UnregisterHotKey(byval hWnd as HWND, byval id as long) as WINBOOL
 
 #define MOD_WIN &h0008
+
+#if _WIN32_WINNT = &h0602
+	#define MOD_NOREPEAT &h4000
+#endif
+
 #define IDHOT_SNAPWINDOW (-1)
 #define IDHOT_SNAPDESKTOP (-2)
 #define ENDSESSION_LOGOFF &h80000000
@@ -1829,19 +1851,27 @@ type PHDEVNOTIFY as HDEVNOTIFY ptr
 #define RegisterClassEx __MINGW_NAME_AW(RegisterClassEx)
 #define GetClassInfoEx __MINGW_NAME_AW(GetClassInfoEx)
 
-type HPOWERNOTIFY as HANDLE
-type PHPOWERNOTIFY as HPOWERNOTIFY ptr
+#if (_WIN32_WINNT = &h0502) or (_WIN32_WINNT = &h0602)
+	type HPOWERNOTIFY as HANDLE
+	type PHPOWERNOTIFY as HPOWERNOTIFY ptr
 
-type POWERBROADCAST_SETTING
-	PowerSetting as GUID
-	DataLength as DWORD
-	Data(0 to 0) as UCHAR
-end type
+	type POWERBROADCAST_SETTING
+		PowerSetting as GUID
+		DataLength as DWORD
+		Data(0 to 0) as UCHAR
+	end type
 
-type PPOWERBROADCAST_SETTING as POWERBROADCAST_SETTING ptr
+	type PPOWERBROADCAST_SETTING as POWERBROADCAST_SETTING ptr
+#endif
 
 declare function RegisterDeviceNotificationA(byval hRecipient as HANDLE, byval NotificationFilter as LPVOID, byval Flags as DWORD) as HDEVNOTIFY
 declare function RegisterDeviceNotificationW(byval hRecipient as HANDLE, byval NotificationFilter as LPVOID, byval Flags as DWORD) as HDEVNOTIFY
+
+#if _WIN32_WINNT = &h0602
+	declare function RegisterPowerSettingNotification(byval hRecipient as HANDLE, byval PowerSettingGuid as LPCGUID, byval Flags as DWORD) as HPOWERNOTIFY
+	declare function UnregisterPowerSettingNotification(byval Handle as HPOWERNOTIFY) as WINBOOL
+#endif
+
 declare function UnregisterDeviceNotification(byval Handle as HDEVNOTIFY) as WINBOOL
 declare function PostMessageA(byval hWnd as HWND, byval Msg as UINT, byval wParam as WPARAM, byval lParam as LPARAM) as WINBOOL
 declare function PostMessageW(byval hWnd as HWND, byval Msg as UINT, byval wParam as WPARAM, byval lParam as LPARAM) as WINBOOL
@@ -2448,11 +2478,29 @@ declare function TranslateAcceleratorW(byval hWnd as HWND, byval hAccTable as HA
 #define SM_MEDIACENTER 87
 #define SM_STARTER 88
 #define SM_SERVERR2 89
-#define SM_CMETRICS 90
+
+#if (_WIN32_WINNT = &h0400) or (_WIN32_WINNT = &h0502)
+	#define SM_CMETRICS 90
+#endif
+
 #define SM_REMOTESESSION &h1000
 #define SM_SHUTTINGDOWN &h2000
 #define SM_REMOTECONTROL &h2001
 #define SM_CARETBLINKINGENABLED &h2002
+
+#if _WIN32_WINNT = &h0602
+	#define SM_MOUSEHORIZONTALWHEELPRESENT 91
+	#define SM_CXPADDEDBORDER 92
+	#define SM_DIGITIZER 94
+	#define SM_MAXIMUMTOUCHES 95
+	#define SM_CMETRICS 96
+	#define NID_INTEGRATED_TOUCH &h01
+	#define NID_EXTERNAL_TOUCH &h02
+	#define NID_INTEGRATED_PEN &h04
+	#define NID_EXTERNAL_PEN &h08
+	#define NID_MULTI_INPUT &h40
+	#define NID_READY &h80
+#endif
 
 declare function GetSystemMetrics(byval nIndex as long) as long
 
@@ -4122,8 +4170,12 @@ declare function GetGuiResources(byval hProcess as HANDLE, byval uiFlags as DWOR
 #define SPI_SETMOUSESPEED &h0071
 #define SPI_GETSCREENSAVERRUNNING &h0072
 #define SPI_GETDESKWALLPAPER &h0073
-#define SPI_GETAUDIODESCRIPTION &h0074
-#define SPI_SETAUDIODESCRIPTION &h0075
+
+#if (_WIN32_WINNT = &h0400) or (_WIN32_WINNT = &h0502)
+	#define SPI_GETAUDIODESCRIPTION &h0074
+	#define SPI_SETAUDIODESCRIPTION &h0075
+#endif
+
 #define SPI_GETSCREENSAVESECURE &h0076
 #define SPI_SETSCREENSAVESECURE &h0077
 #define SPI_GETHUNGAPPTIMEOUT &h0078
@@ -4151,6 +4203,12 @@ declare function GetGuiResources(byval hProcess as HANDLE, byval uiFlags as DWOR
 #define SPI_GETSNAPSIZING &h008E
 #define SPI_GETDOCKMOVING &h0090
 #define SPI_SETDOCKMOVING &h0091
+
+#if _WIN32_WINNT = &h0602
+	#define SPI_GETAUDIODESCRIPTION &h0074
+	#define SPI_SETAUDIODESCRIPTION &h0075
+#endif
+
 #define SPI_GETACTIVEWINDOWTRACKING &h1000
 #define SPI_SETACTIVEWINDOWTRACKING &h1001
 #define SPI_GETMENUANIMATION &h1002
@@ -5298,6 +5356,52 @@ type PCRAWINPUTDEVICE as const RAWINPUTDEVICE ptr
 #define MAPVK_VK_TO_CHAR 2
 #define MAPVK_VSC_TO_VK_EX 3
 
+#if _WIN32_WINNT = &h0602
+	#define MAPVK_VK_TO_VSC_EX 4
+	#define WM_TOUCHMOVE 576
+	#define WM_TOUCHDOWN 577
+	#define WM_TOUCHUP 578
+	#define TOUCHEVENTF_MOVE &h0001
+	#define TOUCHEVENTF_DOWN &h0002
+	#define TOUCHEVENTF_UP &h0004
+	#define TOUCHEVENTF_INRANGE &h0008
+	#define TOUCHEVENTF_PRIMARY &h0010
+	#define TOUCHEVENTF_NOCOALESCE &h0020
+	#define TOUCHEVENTF_PEN &h0040
+	#define TOUCHEVENTF_PALM &h0080
+	#define TOUCHINPUTMASKF_TIMEFROMSYSTEM &h0001
+	#define TOUCHINPUTMASKF_EXTRAINFO &h0002
+	#define TOUCHINPUTMASKF_CONTACTAREA &h0004
+
+	type HTOUCHINPUT__
+		unused as long
+	end type
+
+	type HTOUCHINPUT as HTOUCHINPUT__ ptr
+
+	type _TOUCHINPUT
+		x as LONG
+		y as LONG
+		hSource as HANDLE
+		dwID as DWORD
+		dwFlags as DWORD
+		dwMask as DWORD
+		dwTime as DWORD
+		dwExtraInfo as ULONG_PTR
+		cxContact as DWORD
+		cyContact as DWORD
+	end type
+
+	type TOUCHINPUT as _TOUCHINPUT
+	type PTOUCHINPUT as _TOUCHINPUT ptr
+
+	declare function CloseTouchInputHandle(byval hTouchInput as HANDLE) as WINBOOL
+	declare function GetTouchInputInfo(byval hTouchInput as HANDLE, byval cInputs as UINT, byval pInputs as PTOUCHINPUT, byval cbSize as long) as WINBOOL
+	declare function IsTouchWindow(byval hWnd as HWND, byval pulFlags as PULONG) as WINBOOL
+	declare function RegisterTouchWindow(byval hWnd as HWND, byval ulFlags as ULONG) as WINBOOL
+	declare function UnregisterTouchWindow(byval hWnd as HWND) as WINBOOL
+#endif
+
 declare function RegisterRawInputDevices(byval pRawInputDevices as PCRAWINPUTDEVICE, byval uiNumDevices as UINT, byval cbSize as UINT) as WINBOOL
 declare function GetRegisteredRawInputDevices(byval pRawInputDevices as PRAWINPUTDEVICE, byval puiNumDevices as PUINT, byval cbSize as UINT) as UINT
 
@@ -5311,5 +5415,100 @@ type PRAWINPUTDEVICELIST as tagRAWINPUTDEVICELIST ptr
 
 declare function GetRawInputDeviceList(byval pRawInputDeviceList as PRAWINPUTDEVICELIST, byval puiNumDevices as PUINT, byval cbSize as UINT) as UINT
 declare function DefRawInputProc(byval paRawInput as PRAWINPUT ptr, byval nInput as INT_, byval cbSizeHeader as UINT) as LRESULT
+
+#if _WIN32_WINNT = &h0602
+	type _AUDIODESCRIPTION
+		cbSize as UINT
+		Enabled as BOOL
+		Locale as LCID
+	end type
+
+	type AUDIODESCRIPTION as _AUDIODESCRIPTION
+	type PAUDIODESCRIPTION as _AUDIODESCRIPTION ptr
+
+	#define CreateDesktopEx __MINGW_NAME_AW(CreateDesktopEx)
+
+	declare function CreateDesktopExA(byval lpszDesktop as LPCSTR, byval lpszDevice as LPCSTR, byval pDevmode as DEVMODE ptr, byval dwFlags as DWORD, byval dwDesiredAccess as ACCESS_MASK, byval lpsa as LPSECURITY_ATTRIBUTES, byval ulHeapSize as ULONG, byval pvoid as PVOID) as HDESK
+	declare function CreateDesktopExW(byval lpszDesktop as LPCWSTR, byval lpszDevice as LPCWSTR, byval pDevmode as DEVMODE ptr, byval dwFlags as DWORD, byval dwDesiredAccess as ACCESS_MASK, byval lpsa as LPSECURITY_ATTRIBUTES, byval ulHeapSize as ULONG, byval pvoid as PVOID) as HDESK
+	declare function ShutdownBlockReasonCreate(byval hWnd as HWND, byval pwszReason as LPCWSTR) as WINBOOL
+	declare function ShutdownBlockReasonDestroy(byval hWnd as HWND) as WINBOOL
+	declare function ShutdownBlockReasonQuery(byval hWnd as HWND, byval pwszBuff as LPWSTR, byval pcchBuff as DWORD ptr) as WINBOOL
+
+	#define GF_BEGIN &h00000001
+	#define GF_INERTIA &h00000002
+	#define GF_END &h00000004
+	#define GID_BEGIN 1
+	#define GID_END 2
+	#define GID_ZOOM 3
+	#define GID_PAN 4
+	#define GID_ROTATE 5
+	#define GID_TWOFINGERTAP 6
+	#define GID_PRESSANDTAP 7
+	#define GID_ROLLOVER GID_PRESSANDTAP
+	#define GC_ALLGESTURES &h00000001
+	#define GC_ZOOM &h00000001
+	#define GC_PAN &h00000001
+	#define GC_PAN_WITH_SINGLE_FINGER_VERTICALLY &h00000002
+	#define GC_PAN_WITH_SINGLE_FINGER_HORIZONTALLY &h00000004
+	#define GC_PAN_WITH_GUTTER &h00000008
+	#define GC_PAN_WITH_INERTIA &h00000010
+	#define GC_ROTATE &h00000001
+	#define GC_TWOFINGERTAP &h00000001
+	#define GC_PRESSANDTAP &h00000001
+	#define GC_ROLLOVER GC_PRESSANDTAP
+	#define GCF_INCLUDE_ANCESTORS &h00000001
+	#define GESTURECONFIGMAXCOUNT 256
+
+	type HGESTUREINFO__
+		unused as long
+	end type
+
+	type HGESTUREINFO as HGESTUREINFO__ ptr
+
+	#define GID_ROTATE_ANGLE_TO_ARGUMENT(_arg_) cast(USHORT, (((_arg_) + (2.0 * 3.14159265)) / (4.0 * 3.14159265)) * 65535.0)
+	#define GID_ROTATE_ANGLE_FROM_ARGUMENT(_arg_) ((((cdbl((_arg_)) / 65535.0) * 4.0) * 3.14159265) - (2.0 * 3.14159265))
+
+	type _GESTUREINFO
+		cbSize as UINT
+		dwFlags as DWORD
+		dwID as DWORD
+		hwndTarget as HWND
+		ptsLocation as POINTS
+		dwInstanceID as DWORD
+		dwSequenceID as DWORD
+		ullArguments as ULONGLONG
+		cbExtraArgs as UINT
+	end type
+
+	type GESTUREINFO as _GESTUREINFO
+	type PGESTUREINFO as _GESTUREINFO ptr
+	type PCGESTUREINFO as const GESTUREINFO ptr
+
+	type tagGESTURENOTIFYSTRUCT
+		cbSize as UINT
+		dwFlags as DWORD
+		hwndTarget as HWND
+		ptsLocation as POINTS
+		dwInstanceID as DWORD
+	end type
+
+	type GESTURENOTIFYSTRUCT as tagGESTURENOTIFYSTRUCT
+	type PGESTURENOTIFYSTRUCT as tagGESTURENOTIFYSTRUCT ptr
+
+	type _GESTURECONFIG
+		dwID as DWORD
+		dwWant as DWORD
+		dwBlock as DWORD
+	end type
+
+	type GESTURECONFIG as _GESTURECONFIG
+	type PGESTURECONFIG as _GESTURECONFIG ptr
+
+	declare function SetGestureConfig(byval hwnd as HWND, byval dwReserved as DWORD, byval cIDs as UINT, byval pGestureConfig as PGESTURECONFIG, byval cbSize as UINT) as WINBOOL
+	declare function GetGestureConfig(byval hwnd as HWND, byval dwReserved as DWORD, byval dwFlags as DWORD, byval pcIDs as PUINT, byval pGestureConfig as PGESTURECONFIG, byval cbSize as UINT) as WINBOOL
+	declare function GetGestureInfo(byval hGestureInfo as HGESTUREINFO, byval pGestureInfo as PGESTUREINFO) as WINBOOL
+	declare function GetGestureExtraArgs(byval hGestureInfo as HGESTUREINFO, byval cbExtraArgs as UINT, byval pExtraArgs as PBYTE) as WINBOOL
+	declare function CloseGestureInfoHandle(byval hGestureInfo as HGESTUREINFO) as WINBOOL
+#endif
 
 end extern

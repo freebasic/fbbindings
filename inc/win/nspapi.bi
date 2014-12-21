@@ -41,10 +41,22 @@
 #define NS_NETBT 13
 #define NS_WINS 14
 #define NS_NLA 15
+
+#if _WIN32_WINNT = &h0602
+	#define NS_BTH 16
+#endif
+
 #define NS_NBP 20
 #define NS_MS 30
 #define NS_STDA 31
 #define NS_NTDS 32
+
+#if _WIN32_WINNT = &h0602
+	#define NS_EMAIL 37
+	#define NS_PNRPNAME 38
+	#define NS_PNRPCLOUD 39
+#endif
+
 #define NS_X500 40
 #define NS_NIS 41
 #define NS_VNS 50
