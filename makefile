@@ -470,6 +470,10 @@ WINAPI_FLAGS_winsock2 :=
 # instead of windows.h for the translation.
 WINAPI_FLAGS_mswsock := -include winsock2.h
 
+# Additional winsock2-related headers
+WINAPI_FLAGS_ws2spi := -include winsock2.h
+WINAPI_FLAGS_ws2tcpip := -include winsock2.h
+
 # Some headers need additional options
 WINAPI_FLAGS__mingw    += -filterin '*_mingw_mac.h' -filterin '*sdks/_mingw_ddk.h' -filterin '*sdks/_mingw_directx.h'
 WINAPI_FLAGS_imagehlp  += -filterin '*psdk_inc/_dbg_LOAD_IMAGE.h'

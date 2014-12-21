@@ -12,6 +12,18 @@
 #endif
 
 #define _WINSOCK2SPI_
+
+#ifndef __FB_64BIT__
+	type WSPData field = 4
+		wVersion as WORD
+		wHighVersion as WORD
+		szDescription(0 to (255 + 1) - 1) as WCHAR
+	end type
+
+	type WSPDATA_ as WSPData
+	type LPWSPDATA as WSPData ptr
+#endif
+
 #define WSPDESCRIPTION_LEN 255
 #define WSS_OPERATION_IN_PROGRESS __MSABI_LONG(&h00000103)
 
@@ -21,18 +33,10 @@
 		wHighVersion as WORD
 		szDescription(0 to (255 + 1) - 1) as WCHAR
 	end type
-#else
-	type WSPData field = 4
-		wVersion as WORD
-		wHighVersion as WORD
-		szDescription(0 to (255 + 1) - 1) as WCHAR
-	end type
-#endif
 
-type WSPDATA_ as WSPData
-type LPWSPDATA as WSPData ptr
+	type WSPDATA_ as WSPData
+	type LPWSPDATA as WSPData ptr
 
-#ifdef __FB_64BIT__
 	type _WSATHREADID
 		ThreadHandle as HANDLE
 		Reserved as DWORD_PTR
