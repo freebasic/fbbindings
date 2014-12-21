@@ -1,7 +1,6 @@
 #pragma once
 
 #include once "apiset.bi"
-#include once "apisetcconv.bi"
 #include once "rpc.bi"
 #include once "rpcndr.bi"
 #include once "crt/stdlib.bi"
