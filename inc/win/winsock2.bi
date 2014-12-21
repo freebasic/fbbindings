@@ -7,6 +7,8 @@
 #include once "inaddr.bi"
 #include once "ws2def.bi"
 #include once "qos.bi"
+#include once "rpc.bi"
+#include once "wtypesbase.bi"
 
 '' The following symbols have been renamed:
 ''     #define FD_SET => FD_SET_
