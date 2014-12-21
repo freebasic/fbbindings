@@ -12,7 +12,7 @@
 #include once "win/winnetwk.bi"
 #include once "win/virtdisk.bi"
 
-#ifndef WIN32_LEAN_AND_MEAN
+#ifdef WIN_INCLUDEALL
 	#include once "win/cderr.bi"
 	#include once "win/dde.bi"
 	#include once "win/ddeml.bi"
