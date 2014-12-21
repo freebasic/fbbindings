@@ -18,6 +18,8 @@
 ''         field handler => handler_
 ''     inside struct _MESSAGE_RESOURCE_ENTRY:
 ''         field Text => Text_
+''     inside struct _IMAGE_DEBUG_MISC:
+''         field Unicode => Unicode_
 
 #ifdef __FB_64BIT__
 	extern "C"
@@ -6604,7 +6606,7 @@ type PFPO_DATA as _FPO_DATA ptr
 type _IMAGE_DEBUG_MISC field = 4
 	DataType as DWORD
 	Length as DWORD
-	Unicode as BOOLEAN
+	Unicode_ as BOOLEAN
 	Reserved(0 to 2) as UBYTE
 	Data(0 to 0) as UBYTE
 end type
