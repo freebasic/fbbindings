@@ -126,6 +126,7 @@ WINAPI_BASE += oaidl
 WINAPI_BASE += objbase
 #WINAPI_BASE += objfwd
 WINAPI_BASE += objidl
+WINAPI_BASE += objidlbase
 WINAPI_BASE += objsafe
 WINAPI_BASE += ocidl
 WINAPI_BASE += odbcinst
