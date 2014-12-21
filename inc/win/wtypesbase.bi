@@ -21,8 +21,6 @@ type LPCOLESTR as const OLECHAR ptr
 
 #define OLESTR(str) L##str
 
-type DOUBLE as double
-
 type _COAUTHIDENTITY
 	User as USHORT ptr
 	UserLength as ULONG
