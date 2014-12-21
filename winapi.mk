@@ -179,6 +179,7 @@ WINAPI_BASE += subauth
 WINAPI_BASE += tlhelp32
 WINAPI_BASE += tmschema
 WINAPI_BASE += unknwn
+WINAPI_BASE += unknwnbase
 WINAPI_BASE += userenv
 WINAPI_BASE += uuids
 WINAPI_BASE += uxtheme
