@@ -217,3 +217,4 @@ WINAPI_BASE += ws2tcpip
 #WINAPI_BASE += wsahelp
 WINAPI_BASE += wsipx
 WINAPI_BASE += wtypes
+WINAPI_BASE += wtypesbase
