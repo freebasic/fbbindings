@@ -28,11 +28,13 @@ type IEnumUnknown as IEnumUnknown_
 type IEnumString as IEnumString_
 type ISequentialStream as ISequentialStream_
 type IStream as IStream_
+type IRpcChannelBuffer as IRpcChannelBuffer_
 type IRpcChannelBuffer2 as IRpcChannelBuffer2_
 type IAsyncRpcChannelBuffer as IAsyncRpcChannelBuffer_
 type IRpcChannelBuffer3 as IRpcChannelBuffer3_
 type IRpcSyntaxNegotiate as IRpcSyntaxNegotiate_
 type IRpcProxyBuffer as IRpcProxyBuffer_
+type IRpcStubBuffer as IRpcStubBuffer_
 type IPSFactoryBuffer as IPSFactoryBuffer_
 type IChannelHook as IChannelHook_
 type IClientSecurity as IClientSecurity_
@@ -574,7 +576,7 @@ type IRpcChannelBufferVtbl
 	IsConnected as function(byval This as IRpcChannelBuffer ptr) as HRESULT
 end type
 
-type IRpcChannelBuffer
+type IRpcChannelBuffer_
 	lpVtbl as IRpcChannelBufferVtbl ptr
 end type
 
@@ -740,7 +742,7 @@ type IRpcStubBufferVtbl
 	DebugServerRelease as sub(byval This as IRpcStubBuffer ptr, byval pv as any ptr)
 end type
 
-type IRpcStubBuffer
+type IRpcStubBuffer_
 	lpVtbl as IRpcStubBufferVtbl ptr
 end type
 
