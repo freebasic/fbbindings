@@ -1,7 +1,5 @@
 #pragma once
 
-#inclib "zip"
-
 #include once "inttypes.bi"
 #include once "crt/sys/types.bi"
 #include once "crt/stdio.bi"
