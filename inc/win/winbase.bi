@@ -2439,8 +2439,6 @@ type POFSTRUCT as _OFSTRUCT ptr
 #define MAKEINTATOM(i) cast(LPTSTR, cast(ULONG_PTR, cast(WORD, (i))))
 #define INVALID_ATOM cast(ATOM, 0)
 
-declare function WinMain(byval hInstance as HINSTANCE, byval hPrevInstance as HINSTANCE, byval lpCmdLine as LPSTR, byval nShowCmd as long) as long
-declare function wWinMain(byval hInstance as HINSTANCE, byval hPrevInstance as HINSTANCE, byval lpCmdLine as LPWSTR, byval nShowCmd as long) as long
 declare function GlobalAlloc(byval uFlags as UINT, byval dwBytes as SIZE_T_) as HGLOBAL
 declare function GlobalReAlloc(byval hMem as HGLOBAL, byval dwBytes as SIZE_T_, byval uFlags as UINT) as HGLOBAL
 declare function GlobalSize(byval hMem as HGLOBAL) as SIZE_T_
