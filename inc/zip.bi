@@ -1,6 +1,8 @@
 '' libzip 0.11.2
 #pragma once
 
+#inclib "zip"
+
 '' At least when using a static libzip, zlib needs to be linked in too.
 #inclib "z"
 
