@@ -1,4 +1,3 @@
--inclib zip
 -removedefine _HAD_ZIP_H
 -removedefine _HAD_ZIPCONF_H
 -removedefine ZIP_EXTERN
