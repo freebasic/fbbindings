@@ -1156,13 +1156,13 @@ type tagODBC_VS_ARGS
 	dwFlags as DWORD
 
 	union
-		wszArg as WCHAR ptr
-		szArg as CHAR ptr
+		wszArg as wstring ptr
+		szArg as zstring ptr
 	end union
 
 	union
-		wszCorrelation as WCHAR ptr
-		szCorrelation as CHAR ptr
+		wszCorrelation as wstring ptr
+		szCorrelation as zstring ptr
 	end union
 
 	RetCode as RETCODE

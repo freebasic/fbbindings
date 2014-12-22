@@ -1761,7 +1761,7 @@ type _TTGETTITLE
 	dwSize as DWORD
 	uTitleBitmap as UINT
 	cch as UINT
-	pszTitle as WCHAR ptr
+	pszTitle as wstring ptr
 end type
 
 type TTGETTITLE as _TTGETTITLE
@@ -1863,7 +1863,7 @@ type LPNMTTDISPINFOA as tagNMTTDISPINFOA ptr
 type tagNMTTDISPINFOW
 	hdr as NMHDR
 	lpszText as LPWSTR
-	szText(0 to 79) as WCHAR
+	szText as wstring * 80
 	hinst as HINSTANCE
 	uFlags as UINT
 	lParam as LPARAM
@@ -4082,7 +4082,7 @@ type PNMCOMBOBOXEXW as NMCOMBOBOXEXW ptr
 type NMCBEDRAGBEGINW
 	hdr as NMHDR
 	iItemid as long
-	szText(0 to 259) as WCHAR
+	szText as wstring * 260
 end type
 
 type LPNMCBEDRAGBEGINW as NMCBEDRAGBEGINW ptr
@@ -4111,7 +4111,7 @@ type NMCBEENDEDITW
 	hdr as NMHDR
 	fChanged as WINBOOL
 	iNewSelection as long
-	szText(0 to 259) as WCHAR
+	szText as wstring * 260
 	iWhy as long
 end type
 
@@ -4653,7 +4653,7 @@ type tagNMDATETIMEFORMATA
 	pszFormat as LPCSTR
 	st as SYSTEMTIME
 	pszDisplay as LPCSTR
-	szDisplay(0 to 63) as CHAR
+	szDisplay as zstring * 64
 end type
 
 type NMDATETIMEFORMATA as tagNMDATETIMEFORMATA
@@ -4664,7 +4664,7 @@ type tagNMDATETIMEFORMATW
 	pszFormat as LPCWSTR
 	st as SYSTEMTIME
 	pszDisplay as LPCWSTR
-	szDisplay(0 to 63) as WCHAR
+	szDisplay as wstring * 64
 end type
 
 type NMDATETIMEFORMATW as tagNMDATETIMEFORMATW
@@ -5027,8 +5027,8 @@ type tagLITEM
 	iLink as long
 	state as UINT
 	stateMask as UINT
-	szID(0 to 47) as WCHAR
-	szUrl(0 to ((2048 + 32) + sizeof("://")) - 1) as WCHAR
+	szID as wstring * 48
+	szUrl as wstring * (2048 + 32) + sizeof("://")
 end type
 
 type LITEM as tagLITEM

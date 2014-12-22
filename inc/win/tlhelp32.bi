@@ -84,7 +84,7 @@ type tagPROCESSENTRY32W
 	th32ParentProcessID as DWORD
 	pcPriClassBase as LONG
 	dwFlags as DWORD
-	szExeFile(0 to 259) as WCHAR
+	szExeFile as wstring * 260
 end type
 
 type PROCESSENTRY32W as tagPROCESSENTRY32W
@@ -104,7 +104,7 @@ type tagPROCESSENTRY32
 	th32ParentProcessID as DWORD
 	pcPriClassBase as LONG
 	dwFlags as DWORD
-	szExeFile(0 to 259) as CHAR
+	szExeFile as zstring * 260
 end type
 
 type PROCESSENTRY32 as tagPROCESSENTRY32
@@ -148,8 +148,8 @@ type tagMODULEENTRY32W
 	modBaseAddr as UBYTE ptr
 	modBaseSize as DWORD
 	hModule as HMODULE
-	szModule(0 to (255 + 1) - 1) as WCHAR
-	szExePath(0 to 259) as WCHAR
+	szModule as wstring * 255 + 1
+	szExePath as wstring * 260
 end type
 
 type MODULEENTRY32W as tagMODULEENTRY32W

@@ -1,5 +1,6 @@
 #pragma once
 
+#include once "crt/wchar.bi"
 #include once "winapifamily.bi"
 #include once "_mingw_unicode.bi"
 
@@ -516,7 +517,7 @@ type tagLOGCOLORSPACEA
 	lcsGammaRed as DWORD
 	lcsGammaGreen as DWORD
 	lcsGammaBlue as DWORD
-	lcsFilename(0 to 259) as CHAR
+	lcsFilename as zstring * 260
 end type
 
 type LOGCOLORSPACEA as tagLOGCOLORSPACEA
@@ -532,7 +533,7 @@ type tagLOGCOLORSPACEW
 	lcsGammaRed as DWORD
 	lcsGammaGreen as DWORD
 	lcsGammaBlue as DWORD
-	lcsFilename(0 to 259) as WCHAR
+	lcsFilename as wstring * 260
 end type
 
 type LOGCOLORSPACEW as tagLOGCOLORSPACEW
@@ -792,7 +793,7 @@ type LPENHMETAHEADER as tagENHMETAHEADER ptr
 #define TMPF_TRUETYPE &h04
 
 #ifdef UNICODE
-	type BCHAR as WCHAR
+	type BCHAR as wstring
 #else
 	type BCHAR as UBYTE
 #endif
@@ -839,10 +840,10 @@ type tagTEXTMETRICW field = 4
 	tmOverhang as LONG
 	tmDigitizedAspectX as LONG
 	tmDigitizedAspectY as LONG
-	tmFirstChar as WCHAR
-	tmLastChar as WCHAR
-	tmDefaultChar as WCHAR
-	tmBreakChar as WCHAR
+	tmFirstChar as wchar_t
+	tmLastChar as wchar_t
+	tmDefaultChar as wchar_t
+	tmBreakChar as wchar_t
 	tmItalic as UBYTE
 	tmUnderlined as UBYTE
 	tmStruckOut as UBYTE
@@ -921,10 +922,10 @@ type tagNEWTEXTMETRICW field = 4
 	tmOverhang as LONG
 	tmDigitizedAspectX as LONG
 	tmDigitizedAspectY as LONG
-	tmFirstChar as WCHAR
-	tmLastChar as WCHAR
-	tmDefaultChar as WCHAR
-	tmBreakChar as WCHAR
+	tmFirstChar as wchar_t
+	tmLastChar as wchar_t
+	tmDefaultChar as wchar_t
+	tmBreakChar as wchar_t
 	tmItalic as UBYTE
 	tmUnderlined as UBYTE
 	tmStruckOut as UBYTE
@@ -1095,7 +1096,7 @@ type tagLOGFONTA
 	lfClipPrecision as UBYTE
 	lfQuality as UBYTE
 	lfPitchAndFamily as UBYTE
-	lfFaceName(0 to 31) as CHAR
+	lfFaceName as zstring * 32
 end type
 
 type LOGFONTA as tagLOGFONTA
@@ -1117,7 +1118,7 @@ type tagLOGFONTW
 	lfClipPrecision as UBYTE
 	lfQuality as UBYTE
 	lfPitchAndFamily as UBYTE
-	lfFaceName(0 to 31) as WCHAR
+	lfFaceName as wstring * 32
 end type
 
 type LOGFONTW as tagLOGFONTW
@@ -1150,8 +1151,8 @@ type LPENUMLOGFONTA as tagENUMLOGFONTA ptr
 
 type tagENUMLOGFONTW
 	elfLogFont as LOGFONTW
-	elfFullName(0 to 63) as WCHAR
-	elfStyle(0 to 31) as WCHAR
+	elfFullName as wstring * 64
+	elfStyle as wstring * 32
 end type
 
 type ENUMLOGFONTW as tagENUMLOGFONTW
@@ -1177,9 +1178,9 @@ type LPENUMLOGFONTEXA as tagENUMLOGFONTEXA ptr
 
 type tagENUMLOGFONTEXW
 	elfLogFont as LOGFONTW
-	elfFullName(0 to 63) as WCHAR
-	elfStyle(0 to 31) as WCHAR
-	elfScript(0 to 31) as WCHAR
+	elfFullName as wstring * 64
+	elfStyle as wstring * 32
+	elfScript as wstring * 32
 end type
 
 type ENUMLOGFONTEXW as tagENUMLOGFONTEXW
@@ -1430,8 +1431,8 @@ type LPEXTLOGFONTA as tagEXTLOGFONTA ptr
 
 type tagEXTLOGFONTW
 	elfLogFont as LOGFONTW
-	elfFullName(0 to 63) as WCHAR
-	elfStyle(0 to 31) as WCHAR
+	elfFullName as wstring * 64
+	elfStyle as wstring * 32
 	elfVersion as DWORD
 	elfStyleSize as DWORD
 	elfMatch as DWORD
@@ -1755,7 +1756,7 @@ type NPDEVMODEA as _devicemodeA ptr
 type LPDEVMODEA as _devicemodeA ptr
 
 type _devicemodeW
-	dmDeviceName(0 to 31) as WCHAR
+	dmDeviceName as wstring * 32
 	dmSpecVersion as WORD
 	dmDriverVersion as WORD
 	dmSize as WORD
@@ -1786,7 +1787,7 @@ type _devicemodeW
 	dmYResolution as short
 	dmTTOption as short
 	dmCollate as short
-	dmFormName(0 to 31) as WCHAR
+	dmFormName as wstring * 32
 	dmLogPixels as WORD
 	dmBitsPerPel as DWORD
 	dmPelsWidth as DWORD
@@ -2050,11 +2051,11 @@ type LPDEVMODEW as _devicemodeW ptr
 
 type _DISPLAY_DEVICEA
 	cb as DWORD
-	DeviceName(0 to 31) as CHAR
-	DeviceString(0 to 127) as CHAR
+	DeviceName as zstring * 32
+	DeviceString as zstring * 128
 	StateFlags as DWORD
-	DeviceID(0 to 127) as CHAR
-	DeviceKey(0 to 127) as CHAR
+	DeviceID as zstring * 128
+	DeviceKey as zstring * 128
 end type
 
 type DISPLAY_DEVICEA as _DISPLAY_DEVICEA
@@ -2063,11 +2064,11 @@ type LPDISPLAY_DEVICEA as _DISPLAY_DEVICEA ptr
 
 type _DISPLAY_DEVICEW
 	cb as DWORD
-	DeviceName(0 to 31) as WCHAR
-	DeviceString(0 to 127) as WCHAR
+	DeviceName as wstring * 32
+	DeviceString as wstring * 128
 	StateFlags as DWORD
-	DeviceID(0 to 127) as WCHAR
-	DeviceKey(0 to 127) as WCHAR
+	DeviceID as wstring * 128
+	DeviceKey as wstring * 128
 end type
 
 type DISPLAY_DEVICEW as _DISPLAY_DEVICEW
@@ -2788,7 +2789,7 @@ declare function GetCharacterPlacementA(byval hdc as HDC, byval lpString as LPCS
 declare function GetCharacterPlacementW(byval hdc as HDC, byval lpString as LPCWSTR, byval nCount as long, byval nMexExtent as long, byval lpResults as LPGCP_RESULTSW, byval dwFlags as DWORD) as DWORD
 
 type tagWCRANGE
-	wcLow as WCHAR
+	wcLow as wchar_t
 	cGlyphs as USHORT
 end type
 
@@ -2871,7 +2872,7 @@ type LPAXISINFOA as tagAXISINFOA ptr
 type tagAXISINFOW
 	axMinValue as LONG
 	axMaxValue as LONG
-	axAxisName(0 to 15) as WCHAR
+	axAxisName as wstring * 16
 end type
 
 type AXISINFOW as tagAXISINFOW

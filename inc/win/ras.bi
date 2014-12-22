@@ -56,10 +56,10 @@ type HRASCONN as HRASCONN__ ptr
 type tagRASCONNW field = 4
 	dwSize as DWORD
 	hrasconn as HRASCONN
-	szEntryName(0 to (256 + 1) - 1) as WCHAR
-	szDeviceType(0 to (16 + 1) - 1) as WCHAR
-	szDeviceName(0 to (128 + 1) - 1) as WCHAR
-	szPhonebook(0 to 259) as WCHAR
+	szEntryName as wstring * 256 + 1
+	szDeviceType as wstring * 16 + 1
+	szDeviceName as wstring * 128 + 1
+	szPhonebook as wstring * 260
 	dwSubEntry as DWORD
 	guidEntry as GUID
 	dwFlags as DWORD
@@ -71,10 +71,10 @@ end type
 type tagRASCONNA field = 4
 	dwSize as DWORD
 	hrasconn as HRASCONN
-	szEntryName(0 to (256 + 1) - 1) as CHAR
-	szDeviceType(0 to (16 + 1) - 1) as CHAR
-	szDeviceName(0 to (128 + 1) - 1) as CHAR
-	szPhonebook(0 to 259) as CHAR
+	szEntryName as zstring * 256 + 1
+	szDeviceType as zstring * 16 + 1
+	szDeviceName as zstring * 128 + 1
+	szPhonebook as zstring * 260
 	dwSubEntry as DWORD
 	guidEntry as GUID
 	dwFlags as DWORD
@@ -136,9 +136,9 @@ type tagRASCONNSTATUSW field = 4
 	dwSize as DWORD
 	rasconnstate_ as tagRASCONNSTATE
 	dwError as DWORD
-	szDeviceType(0 to (16 + 1) - 1) as WCHAR
-	szDeviceName(0 to (128 + 1) - 1) as WCHAR
-	szPhoneNumber(0 to (128 + 1) - 1) as WCHAR
+	szDeviceType as wstring * 16 + 1
+	szDeviceName as wstring * 128 + 1
+	szPhoneNumber as wstring * 128 + 1
 end type
 
 #define RASCONNSTATUSA tagRASCONNSTATUSA
@@ -147,9 +147,9 @@ type tagRASCONNSTATUSA field = 4
 	dwSize as DWORD
 	rasconnstate_ as tagRASCONNSTATE
 	dwError as DWORD
-	szDeviceType(0 to (16 + 1) - 1) as CHAR
-	szDeviceName(0 to (128 + 1) - 1) as CHAR
-	szPhoneNumber(0 to (128 + 1) - 1) as CHAR
+	szDeviceType as zstring * 16 + 1
+	szDeviceName as zstring * 128 + 1
+	szPhoneNumber as zstring * 128 + 1
 end type
 
 #ifdef UNICODE
@@ -165,12 +165,12 @@ end type
 
 type tagRASDIALPARAMSW field = 4
 	dwSize as DWORD
-	szEntryName(0 to (256 + 1) - 1) as WCHAR
-	szPhoneNumber(0 to (128 + 1) - 1) as WCHAR
-	szCallbackNumber(0 to (128 + 1) - 1) as WCHAR
-	szUserName(0 to (256 + 1) - 1) as WCHAR
-	szPassword(0 to (256 + 1) - 1) as WCHAR
-	szDomain(0 to (15 + 1) - 1) as WCHAR
+	szEntryName as wstring * 256 + 1
+	szPhoneNumber as wstring * 128 + 1
+	szCallbackNumber as wstring * 128 + 1
+	szUserName as wstring * 256 + 1
+	szPassword as wstring * 256 + 1
+	szDomain as wstring * 15 + 1
 	dwSubEntry as DWORD
 	dwCallbackId as ULONG_PTR
 
@@ -183,12 +183,12 @@ end type
 
 type tagRASDIALPARAMSA field = 4
 	dwSize as DWORD
-	szEntryName(0 to (256 + 1) - 1) as CHAR
-	szPhoneNumber(0 to (128 + 1) - 1) as CHAR
-	szCallbackNumber(0 to (128 + 1) - 1) as CHAR
-	szUserName(0 to (256 + 1) - 1) as CHAR
-	szPassword(0 to (256 + 1) - 1) as CHAR
-	szDomain(0 to (15 + 1) - 1) as CHAR
+	szEntryName as zstring * 256 + 1
+	szPhoneNumber as zstring * 128 + 1
+	szCallbackNumber as zstring * 128 + 1
+	szUserName as zstring * 256 + 1
+	szPassword as zstring * 256 + 1
+	szDomain as zstring * 15 + 1
 	dwSubEntry as DWORD
 	dwCallbackId as ULONG_PTR
 
@@ -245,18 +245,18 @@ end type
 
 type tagRASENTRYNAMEW field = 4
 	dwSize as DWORD
-	szEntryName(0 to (256 + 1) - 1) as WCHAR
+	szEntryName as wstring * 256 + 1
 	dwFlags as DWORD
-	szPhonebookPath(0 to (260 + 1) - 1) as WCHAR
+	szPhonebookPath as wstring * 260 + 1
 end type
 
 #define RASENTRYNAMEA tagRASENTRYNAMEA
 
 type tagRASENTRYNAMEA field = 4
 	dwSize as DWORD
-	szEntryName(0 to (256 + 1) - 1) as CHAR
+	szEntryName as zstring * 256 + 1
 	dwFlags as DWORD
-	szPhonebookPath(0 to (260 + 1) - 1) as CHAR
+	szPhonebookPath as zstring * 260 + 1
 end type
 
 #ifdef UNICODE
@@ -287,7 +287,7 @@ end enum
 type tagRASAMBW field = 4
 	dwSize as DWORD
 	dwError as DWORD
-	szNetBiosError(0 to (16 + 1) - 1) as WCHAR
+	szNetBiosError as wstring * 16 + 1
 	bLana as UBYTE
 end type
 
@@ -296,7 +296,7 @@ end type
 type tagRASAMBA field = 4
 	dwSize as DWORD
 	dwError as DWORD
-	szNetBiosError(0 to (16 + 1) - 1) as CHAR
+	szNetBiosError as zstring * 16 + 1
 	bLana as UBYTE
 end type
 
@@ -315,8 +315,8 @@ type tagRASPPPNBFW field = 4
 	dwSize as DWORD
 	dwError as DWORD
 	dwNetBiosError as DWORD
-	szNetBiosError(0 to (16 + 1) - 1) as WCHAR
-	szWorkstationName(0 to (16 + 1) - 1) as WCHAR
+	szNetBiosError as wstring * 16 + 1
+	szWorkstationName as wstring * 16 + 1
 	bLana as UBYTE
 end type
 
@@ -326,8 +326,8 @@ type tagRASPPPNBFA field = 4
 	dwSize as DWORD
 	dwError as DWORD
 	dwNetBiosError as DWORD
-	szNetBiosError(0 to (16 + 1) - 1) as CHAR
-	szWorkstationName(0 to (16 + 1) - 1) as CHAR
+	szNetBiosError as zstring * 16 + 1
+	szWorkstationName as zstring * 16 + 1
 	bLana as UBYTE
 end type
 
@@ -345,7 +345,7 @@ end type
 type tagRASIPXW field = 4
 	dwSize as DWORD
 	dwError as DWORD
-	szIpxAddress(0 to (21 + 1) - 1) as WCHAR
+	szIpxAddress as wstring * 21 + 1
 end type
 
 #define RASPPPIPXA tagRASPPPIPXA
@@ -353,7 +353,7 @@ end type
 type tagRASPPPIPXA field = 4
 	dwSize as DWORD
 	dwError as DWORD
-	szIpxAddress(0 to (21 + 1) - 1) as CHAR
+	szIpxAddress as zstring * 21 + 1
 end type
 
 #ifdef UNICODE
@@ -371,8 +371,8 @@ end type
 type tagRASPPPIPW field = 4
 	dwSize as DWORD
 	dwError as DWORD
-	szIpAddress(0 to (15 + 1) - 1) as WCHAR
-	szServerIpAddress(0 to (15 + 1) - 1) as WCHAR
+	szIpAddress as wstring * 15 + 1
+	szServerIpAddress as wstring * 15 + 1
 	dwOptions as DWORD
 	dwServerOptions as DWORD
 end type
@@ -382,8 +382,8 @@ end type
 type tagRASPPPIPA field = 4
 	dwSize as DWORD
 	dwError as DWORD
-	szIpAddress(0 to (15 + 1) - 1) as CHAR
-	szServerIpAddress(0 to (15 + 1) - 1) as CHAR
+	szIpAddress as zstring * 15 + 1
+	szServerIpAddress as zstring * 15 + 1
 	dwOptions as DWORD
 	dwServerOptions as DWORD
 end type
@@ -424,7 +424,7 @@ type tagRASPPPLCPW field = 4
 	fMultilink as WINBOOL
 	dwTerminateReason as DWORD
 	dwServerTerminateReason as DWORD
-	szReplyMessage(0 to 1023) as WCHAR
+	szReplyMessage as wstring * 1024
 	dwOptions as DWORD
 	dwServerOptions as DWORD
 end type
@@ -444,7 +444,7 @@ type tagRASPPPLCPA field = 4
 	fMultilink as WINBOOL
 	dwTerminateReason as DWORD
 	dwServerTerminateReason as DWORD
-	szReplyMessage(0 to 1023) as CHAR
+	szReplyMessage as zstring * 1024
 	dwOptions as DWORD
 	dwServerOptions as DWORD
 end type
@@ -463,7 +463,7 @@ end type
 type tagRASSLIPW field = 4
 	dwSize as DWORD
 	dwError as DWORD
-	szIpAddress(0 to (15 + 1) - 1) as WCHAR
+	szIpAddress as wstring * 15 + 1
 end type
 
 #define RASSLIPA tagRASSLIPA
@@ -471,7 +471,7 @@ end type
 type tagRASSLIPA field = 4
 	dwSize as DWORD
 	dwError as DWORD
-	szIpAddress(0 to (15 + 1) - 1) as CHAR
+	szIpAddress as zstring * 15 + 1
 end type
 
 #ifdef UNICODE
@@ -513,16 +513,16 @@ type RASDIALFUNC2 as function(byval as ULONG_PTR, byval as DWORD, byval as HRASC
 
 type tagRASDEVINFOW field = 4
 	dwSize as DWORD
-	szDeviceType(0 to (16 + 1) - 1) as WCHAR
-	szDeviceName(0 to (128 + 1) - 1) as WCHAR
+	szDeviceType as wstring * 16 + 1
+	szDeviceName as wstring * 128 + 1
 end type
 
 #define RASDEVINFOA tagRASDEVINFOA
 
 type tagRASDEVINFOA field = 4
 	dwSize as DWORD
-	szDeviceType(0 to (16 + 1) - 1) as CHAR
-	szDeviceName(0 to (128 + 1) - 1) as CHAR
+	szDeviceType as zstring * 16 + 1
+	szDeviceName as zstring * 128 + 1
 end type
 
 #ifdef UNICODE
@@ -574,8 +574,8 @@ type tagRASENTRYA field = 4
 	dwfOptions as DWORD
 	dwCountryID as DWORD
 	dwCountryCode as DWORD
-	szAreaCode(0 to (10 + 1) - 1) as CHAR
-	szLocalPhoneNumber(0 to (128 + 1) - 1) as CHAR
+	szAreaCode as zstring * 10 + 1
+	szLocalPhoneNumber as zstring * 128 + 1
 	dwAlternateOffset as DWORD
 	ipaddr as RASIPADDR
 	ipaddrDns as RASIPADDR
@@ -585,15 +585,15 @@ type tagRASENTRYA field = 4
 	dwFrameSize as DWORD
 	dwfNetProtocols as DWORD
 	dwFramingProtocol as DWORD
-	szScript(0 to 259) as CHAR
-	szAutodialDll(0 to 259) as CHAR
-	szAutodialFunc(0 to 259) as CHAR
-	szDeviceType(0 to (16 + 1) - 1) as CHAR
-	szDeviceName(0 to (128 + 1) - 1) as CHAR
-	szX25PadType(0 to (32 + 1) - 1) as CHAR
-	szX25Address(0 to (200 + 1) - 1) as CHAR
-	szX25Facilities(0 to (200 + 1) - 1) as CHAR
-	szX25UserData(0 to (200 + 1) - 1) as CHAR
+	szScript as zstring * 260
+	szAutodialDll as zstring * 260
+	szAutodialFunc as zstring * 260
+	szDeviceType as zstring * 16 + 1
+	szDeviceName as zstring * 128 + 1
+	szX25PadType as zstring * 32 + 1
+	szX25Address as zstring * 200 + 1
+	szX25Facilities as zstring * 200 + 1
+	szX25UserData as zstring * 200 + 1
 	dwChannels as DWORD
 	dwReserved1 as DWORD
 	dwReserved2 as DWORD
@@ -608,14 +608,14 @@ type tagRASENTRYA field = 4
 	dwEncryptionType as DWORD
 	dwCustomAuthKey as DWORD
 	guidId as GUID
-	szCustomDialDll(0 to 259) as CHAR
+	szCustomDialDll as zstring * 260
 	dwVpnStrategy as DWORD
 	dwfOptions2 as DWORD
 	dwfOptions3 as DWORD
-	szDnsSuffix(0 to 255) as CHAR
+	szDnsSuffix as zstring * 256
 	dwTcpWindowSize as DWORD
-	szPrerequisitePbk(0 to 259) as CHAR
-	szPrerequisiteEntry(0 to (256 + 1) - 1) as CHAR
+	szPrerequisitePbk as zstring * 260
+	szPrerequisiteEntry as zstring * 256 + 1
 	dwRedialCount as DWORD
 	dwRedialPause as DWORD
 end type
@@ -627,8 +627,8 @@ type tagRASENTRYW field = 4
 	dwfOptions as DWORD
 	dwCountryID as DWORD
 	dwCountryCode as DWORD
-	szAreaCode(0 to (10 + 1) - 1) as WCHAR
-	szLocalPhoneNumber(0 to (128 + 1) - 1) as WCHAR
+	szAreaCode as wstring * 10 + 1
+	szLocalPhoneNumber as wstring * 128 + 1
 	dwAlternateOffset as DWORD
 	ipaddr as RASIPADDR
 	ipaddrDns as RASIPADDR
@@ -638,15 +638,15 @@ type tagRASENTRYW field = 4
 	dwFrameSize as DWORD
 	dwfNetProtocols as DWORD
 	dwFramingProtocol as DWORD
-	szScript(0 to 259) as WCHAR
-	szAutodialDll(0 to 259) as WCHAR
-	szAutodialFunc(0 to 259) as WCHAR
-	szDeviceType(0 to (16 + 1) - 1) as WCHAR
-	szDeviceName(0 to (128 + 1) - 1) as WCHAR
-	szX25PadType(0 to (32 + 1) - 1) as WCHAR
-	szX25Address(0 to (200 + 1) - 1) as WCHAR
-	szX25Facilities(0 to (200 + 1) - 1) as WCHAR
-	szX25UserData(0 to (200 + 1) - 1) as WCHAR
+	szScript as wstring * 260
+	szAutodialDll as wstring * 260
+	szAutodialFunc as wstring * 260
+	szDeviceType as wstring * 16 + 1
+	szDeviceName as wstring * 128 + 1
+	szX25PadType as wstring * 32 + 1
+	szX25Address as wstring * 200 + 1
+	szX25Facilities as wstring * 200 + 1
+	szX25UserData as wstring * 200 + 1
 	dwChannels as DWORD
 	dwReserved1 as DWORD
 	dwReserved2 as DWORD
@@ -661,14 +661,14 @@ type tagRASENTRYW field = 4
 	dwEncryptionType as DWORD
 	dwCustomAuthKey as DWORD
 	guidId as GUID
-	szCustomDialDll(0 to 259) as WCHAR
+	szCustomDialDll as wstring * 260
 	dwVpnStrategy as DWORD
 	dwfOptions2 as DWORD
 	dwfOptions3 as DWORD
-	szDnsSuffix(0 to 255) as WCHAR
+	szDnsSuffix as wstring * 256
 	dwTcpWindowSize as DWORD
-	szPrerequisitePbk(0 to 259) as WCHAR
-	szPrerequisiteEntry(0 to (256 + 1) - 1) as WCHAR
+	szPrerequisitePbk as wstring * 260
+	szPrerequisiteEntry as wstring * 256 + 1
 	dwRedialCount as DWORD
 	dwRedialPause as DWORD
 end type
@@ -786,9 +786,9 @@ type RASADFUNCW as function(byval as LPWSTR, byval as LPWSTR, byval as tagRASADP
 type tagRASSUBENTRYA field = 4
 	dwSize as DWORD
 	dwfFlags as DWORD
-	szDeviceType(0 to (16 + 1) - 1) as CHAR
-	szDeviceName(0 to (128 + 1) - 1) as CHAR
-	szLocalPhoneNumber(0 to (128 + 1) - 1) as CHAR
+	szDeviceType as zstring * 16 + 1
+	szDeviceName as zstring * 128 + 1
+	szLocalPhoneNumber as zstring * 128 + 1
 	dwAlternateOffset as DWORD
 end type
 
@@ -797,9 +797,9 @@ end type
 type tagRASSUBENTRYW field = 4
 	dwSize as DWORD
 	dwfFlags as DWORD
-	szDeviceType(0 to (16 + 1) - 1) as WCHAR
-	szDeviceName(0 to (128 + 1) - 1) as WCHAR
-	szLocalPhoneNumber(0 to (128 + 1) - 1) as WCHAR
+	szDeviceType as wstring * 16 + 1
+	szDeviceName as wstring * 128 + 1
+	szLocalPhoneNumber as wstring * 128 + 1
 	dwAlternateOffset as DWORD
 end type
 
@@ -817,9 +817,9 @@ end type
 type tagRASCREDENTIALSA field = 4
 	dwSize as DWORD
 	dwMask as DWORD
-	szUserName(0 to (256 + 1) - 1) as CHAR
-	szPassword(0 to (256 + 1) - 1) as CHAR
-	szDomain(0 to (15 + 1) - 1) as CHAR
+	szUserName as zstring * 256 + 1
+	szPassword as zstring * 256 + 1
+	szDomain as zstring * 15 + 1
 end type
 
 #define RASCREDENTIALSW tagRASCREDENTIALSW
@@ -827,9 +827,9 @@ end type
 type tagRASCREDENTIALSW field = 4
 	dwSize as DWORD
 	dwMask as DWORD
-	szUserName(0 to (256 + 1) - 1) as WCHAR
-	szPassword(0 to (256 + 1) - 1) as WCHAR
-	szDomain(0 to (15 + 1) - 1) as WCHAR
+	szUserName as wstring * 256 + 1
+	szPassword as wstring * 256 + 1
+	szDomain as wstring * 15 + 1
 end type
 
 #ifdef UNICODE
@@ -854,7 +854,7 @@ type tagRASAUTODIALENTRYA field = 4
 	dwSize as DWORD
 	dwFlags as DWORD
 	dwDialingLocation as DWORD
-	szEntry(0 to (256 + 1) - 1) as CHAR
+	szEntry as zstring * 256 + 1
 end type
 
 #define RASAUTODIALENTRYW tagRASAUTODIALENTRYW
@@ -863,7 +863,7 @@ type tagRASAUTODIALENTRYW field = 4
 	dwSize as DWORD
 	dwFlags as DWORD
 	dwDialingLocation as DWORD
-	szEntry(0 to (256 + 1) - 1) as WCHAR
+	szEntry as wstring * 256 + 1
 end type
 
 #ifdef UNICODE
@@ -886,7 +886,7 @@ end type
 #define RASEAPUSERIDENTITYA tagRASEAPUSERIDENTITYA
 
 type tagRASEAPUSERIDENTITYA field = 4
-	szUserName(0 to (256 + 1) - 1) as CHAR
+	szUserName as zstring * 256 + 1
 	dwSizeofEapInfo as DWORD
 	pbEapInfo(0 to 0) as UBYTE
 end type
@@ -894,7 +894,7 @@ end type
 #define RASEAPUSERIDENTITYW tagRASEAPUSERIDENTITYW
 
 type tagRASEAPUSERIDENTITYW field = 4
-	szUserName(0 to (256 + 1) - 1) as WCHAR
+	szUserName as wstring * 256 + 1
 	dwSizeofEapInfo as DWORD
 	pbEapInfo(0 to 0) as UBYTE
 end type

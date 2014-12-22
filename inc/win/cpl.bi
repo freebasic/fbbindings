@@ -42,9 +42,9 @@ type tagNEWCPLINFOA field = 1
 	dwHelpContext as DWORD
 	lData as LONG_PTR
 	hIcon as HICON
-	szName(0 to 31) as CHAR
-	szInfo(0 to 63) as CHAR
-	szHelpFile(0 to 127) as CHAR
+	szName as zstring * 32
+	szInfo as zstring * 64
+	szHelpFile as zstring * 128
 end type
 
 type NEWCPLINFOA as tagNEWCPLINFOA
@@ -56,9 +56,9 @@ type tagNEWCPLINFOW field = 1
 	dwHelpContext as DWORD
 	lData as LONG_PTR
 	hIcon as HICON
-	szName(0 to 31) as WCHAR
-	szInfo(0 to 63) as WCHAR
-	szHelpFile(0 to 127) as WCHAR
+	szName as wstring * 32
+	szInfo as wstring * 64
+	szHelpFile as wstring * 128
 end type
 
 type NEWCPLINFOW as tagNEWCPLINFOW

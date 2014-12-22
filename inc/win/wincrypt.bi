@@ -465,7 +465,7 @@ type _PROV_ENUMALGS
 	aiAlgid as ALG_ID
 	dwBitLen as DWORD
 	dwNameLen as DWORD
-	szName(0 to 19) as CHAR
+	szName as zstring * 20
 end type
 
 type PROV_ENUMALGS as _PROV_ENUMALGS
@@ -477,9 +477,9 @@ type _PROV_ENUMALGS_EX
 	dwMaxLen as DWORD
 	dwProtocols as DWORD
 	dwNameLen as DWORD
-	szName(0 to 19) as CHAR
+	szName as zstring * 20
 	dwLongNameLen as DWORD
-	szLongName(0 to 39) as CHAR
+	szLongName as zstring * 40
 end type
 
 type PROV_ENUMALGS_EX as _PROV_ENUMALGS_EX
@@ -4613,7 +4613,7 @@ type _HTTPSPolicyCallbackData
 
 	dwAuthType as DWORD
 	fdwChecks as DWORD
-	pwszServerName as WCHAR ptr
+	pwszServerName as wstring ptr
 end type
 
 type HTTPSPolicyCallbackData as _HTTPSPolicyCallbackData

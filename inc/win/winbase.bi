@@ -91,8 +91,8 @@ type _WIN32_FIND_DATAA
 	nFileSizeLow as DWORD
 	dwReserved0 as DWORD
 	dwReserved1 as DWORD
-	cFileName(0 to 259) as CHAR
-	cAlternateFileName(0 to 13) as CHAR
+	cFileName as zstring * 260
+	cAlternateFileName as zstring * 14
 end type
 
 type WIN32_FIND_DATAA as _WIN32_FIND_DATAA
@@ -108,8 +108,8 @@ type _WIN32_FIND_DATAW
 	nFileSizeLow as DWORD
 	dwReserved0 as DWORD
 	dwReserved1 as DWORD
-	cFileName(0 to 259) as WCHAR
-	cAlternateFileName(0 to 13) as WCHAR
+	cFileName as wstring * 260
+	cAlternateFileName as wstring * 14
 end type
 
 type WIN32_FIND_DATAW as _WIN32_FIND_DATAW
@@ -1972,7 +1972,7 @@ type _COMMPROP
 	dwCurrentRxQueue as DWORD
 	dwProvSpec1 as DWORD
 	dwProvSpec2 as DWORD
-	wcProvChar(0 to 0) as WCHAR
+	wcProvChar as wstring * 1
 end type
 
 type COMMPROP as _COMMPROP
@@ -2057,7 +2057,7 @@ type _COMMCONFIG
 	dwProviderSubType as DWORD
 	dwProviderOffset as DWORD
 	dwProviderSize as DWORD
-	wcProviderData(0 to 0) as WCHAR
+	wcProviderData as wstring * 1
 end type
 
 type COMMCONFIG as _COMMCONFIG
@@ -2325,7 +2325,7 @@ type _OFSTRUCT
 	nErrCode as WORD
 	Reserved1 as WORD
 	Reserved2 as WORD
-	szPathName(0 to 127) as CHAR
+	szPathName as zstring * 128
 end type
 
 type OFSTRUCT as _OFSTRUCT
@@ -2806,7 +2806,7 @@ type _WIN32_STREAM_ID
 	dwStreamAttributes as DWORD
 	Size as LARGE_INTEGER
 	dwStreamNameSize as DWORD
-	cStreamName(0 to 0) as WCHAR
+	cStreamName as wstring * 1
 end type
 
 type WIN32_STREAM_ID as _WIN32_STREAM_ID
@@ -3561,7 +3561,7 @@ type STREAM_INFO_LEVELS as _STREAM_INFO_LEVELS
 
 type _WIN32_FIND_STREAM_DATA
 	StreamSize as LARGE_INTEGER
-	cStreamName(0 to (260 + 36) - 1) as WCHAR
+	cStreamName as wstring * 260 + 36
 end type
 
 type WIN32_FIND_STREAM_DATA as _WIN32_FIND_STREAM_DATA
@@ -3904,8 +3904,8 @@ declare function AddIntegrityLabelToBoundaryDescriptor(byval BoundaryDescriptor 
 
 type tagHW_PROFILE_INFOA
 	dwDockInfo as DWORD
-	szHwProfileGuid(0 to 38) as CHAR
-	szHwProfileName(0 to 79) as CHAR
+	szHwProfileGuid as zstring * 39
+	szHwProfileName as zstring * 80
 end type
 
 type HW_PROFILE_INFOA as tagHW_PROFILE_INFOA
@@ -3913,8 +3913,8 @@ type LPHW_PROFILE_INFOA as tagHW_PROFILE_INFOA ptr
 
 type tagHW_PROFILE_INFOW
 	dwDockInfo as DWORD
-	szHwProfileGuid(0 to 38) as WCHAR
-	szHwProfileName(0 to 79) as WCHAR
+	szHwProfileGuid as wstring * 39
+	szHwProfileName as wstring * 80
 end type
 
 type HW_PROFILE_INFOW as tagHW_PROFILE_INFOW
@@ -3946,10 +3946,10 @@ declare function VerifyVersionInfoW(byval lpVersionInformation as LPOSVERSIONINF
 
 type _TIME_ZONE_INFORMATION
 	Bias as LONG
-	StandardName(0 to 31) as WCHAR
+	StandardName as wstring * 32
 	StandardDate as SYSTEMTIME
 	StandardBias as LONG
-	DaylightName(0 to 31) as WCHAR
+	DaylightName as wstring * 32
 	DaylightDate as SYSTEMTIME
 	DaylightBias as LONG
 end type
@@ -3960,13 +3960,13 @@ type LPTIME_ZONE_INFORMATION as _TIME_ZONE_INFORMATION ptr
 
 type _TIME_DYNAMIC_ZONE_INFORMATION
 	Bias as LONG
-	StandardName(0 to 31) as WCHAR
+	StandardName as wstring * 32
 	StandardDate as SYSTEMTIME
 	StandardBias as LONG
-	DaylightName(0 to 31) as WCHAR
+	DaylightName as wstring * 32
 	DaylightDate as SYSTEMTIME
 	DaylightBias as LONG
-	TimeZoneKeyName(0 to 127) as WCHAR
+	TimeZoneKeyName as wstring * 128
 	DynamicDaylightTimeDisabled as BOOLEAN
 end type
 
@@ -4302,7 +4302,7 @@ type APPLICATION_RECOVERY_CALLBACK as function(byval pvParameter as PVOID) as DW
 
 	type _FILE_NAME_INFO
 		FileNameLength as DWORD
-		FileName(0 to 0) as WCHAR
+		FileName as wstring * 1
 	end type
 
 	type FILE_NAME_INFO as _FILE_NAME_INFO
@@ -4312,7 +4312,7 @@ type APPLICATION_RECOVERY_CALLBACK as function(byval pvParameter as PVOID) as DW
 		ReplaceIfExists as BOOLEAN
 		RootDirectory as HANDLE
 		FileNameLength as DWORD
-		FileName(0 to 0) as WCHAR
+		FileName as wstring * 1
 	end type
 
 	type FILE_RENAME_INFO as _FILE_RENAME_INFO
@@ -4337,7 +4337,7 @@ type APPLICATION_RECOVERY_CALLBACK as function(byval pvParameter as PVOID) as DW
 		StreamNameLength as DWORD
 		StreamSize as LARGE_INTEGER
 		StreamAllocationSize as LARGE_INTEGER
-		StreamName(0 to 0) as WCHAR
+		StreamName as wstring * 1
 	end type
 
 	type FILE_STREAM_INFO as _FILE_STREAM_INFO
@@ -4386,10 +4386,10 @@ type APPLICATION_RECOVERY_CALLBACK as function(byval pvParameter as PVOID) as DW
 		FileAttributes as DWORD
 		FileNameLength as DWORD
 		EaSize as DWORD
-		ShortNameLength as CCHAR
-		ShortName(0 to 11) as WCHAR
+		ShortNameLength as byte
+		ShortName as wstring * 12
 		FileId as LARGE_INTEGER
-		FileName(0 to 0) as WCHAR
+		FileName as wstring * 1
 	end type
 
 	type FILE_ID_BOTH_DIR_INFO as _FILE_ID_BOTH_DIR_INFO
@@ -4407,7 +4407,7 @@ type APPLICATION_RECOVERY_CALLBACK as function(byval pvParameter as PVOID) as DW
 		FileAttributes as ULONG
 		FileNameLength as ULONG
 		EaSize as ULONG
-		FileName(0 to 0) as WCHAR
+		FileName as wstring * 1
 	end type
 
 	type FILE_FULL_DIR_INFO as _FILE_FULL_DIR_INFO
@@ -4476,7 +4476,7 @@ type APPLICATION_RECOVERY_CALLBACK as function(byval pvParameter as PVOID) as DW
 		EaSize as ULONG
 		ReparsePointTag as ULONG
 		FileId as FILE_ID_128
-		FileName(0 to 0) as WCHAR
+		FileName as wstring * 1
 	end type
 
 	type FILE_ID_EXTD_DIR_INFO as _FILE_ID_EXTD_DIR_INFO

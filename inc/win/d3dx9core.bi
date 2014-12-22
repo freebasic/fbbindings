@@ -72,7 +72,7 @@ type _D3DXFONT_DESCA
 	OutputPrecision as UBYTE
 	Quality as UBYTE
 	PitchAndFamily as UBYTE
-	FaceName(0 to 31) as CHAR
+	FaceName as zstring * 32
 end type
 
 type D3DXFONT_DESCA as _D3DXFONT_DESCA
@@ -88,7 +88,7 @@ type _D3DXFONT_DESCW
 	OutputPrecision as UBYTE
 	Quality as UBYTE
 	PitchAndFamily as UBYTE
-	FaceName(0 to 31) as WCHAR
+	FaceName as wstring * 32
 end type
 
 type D3DXFONT_DESCW as _D3DXFONT_DESCW
@@ -120,9 +120,9 @@ type ID3DXFontVtbl_
 	PreloadCharacters as function(byval This as ID3DXFont ptr, byval first as UINT, byval last as UINT) as HRESULT
 	PreloadGlyphs as function(byval This as ID3DXFont ptr, byval first as UINT, byval last as UINT) as HRESULT
 	PreloadTextA as function(byval This as ID3DXFont ptr, byval string_ as const zstring ptr, byval count as INT_) as HRESULT
-	PreloadTextW as function(byval This as ID3DXFont ptr, byval string_ as const WCHAR ptr, byval count as INT_) as HRESULT
+	PreloadTextW as function(byval This as ID3DXFont ptr, byval string_ as const wstring ptr, byval count as INT_) as HRESULT
 	DrawTextA as function(byval This as ID3DXFont ptr, byval sprite as ID3DXSprite ptr, byval string_ as const zstring ptr, byval count as INT_, byval rect as RECT ptr, byval format as DWORD, byval color_ as D3DCOLOR) as INT_
-	DrawTextW as function(byval This as ID3DXFont ptr, byval sprite as ID3DXSprite ptr, byval string_ as const WCHAR ptr, byval count as INT_, byval rect as RECT ptr, byval format as DWORD, byval color_ as D3DCOLOR) as INT_
+	DrawTextW as function(byval This as ID3DXFont ptr, byval sprite as ID3DXSprite ptr, byval string_ as const wstring ptr, byval count as INT_, byval rect as RECT ptr, byval format as DWORD, byval color_ as D3DCOLOR) as INT_
 	OnLostDevice as function(byval This as ID3DXFont ptr) as HRESULT
 	OnResetDevice as function(byval This as ID3DXFont ptr) as HRESULT
 end type
@@ -323,7 +323,7 @@ end type
 
 declare function D3DXCheckVersion(byval d3dsdkvers as UINT, byval d3dxsdkvers as UINT) as WINBOOL
 declare function D3DXCreateFontA(byval device as IDirect3DDevice9 ptr, byval height as INT_, byval width_ as UINT, byval weight as UINT, byval miplevels as UINT, byval italic as WINBOOL, byval charset as DWORD, byval precision as DWORD, byval quality as DWORD, byval pitchandfamily as DWORD, byval facename as const zstring ptr, byval font as ID3DXFont ptr ptr) as HRESULT
-declare function D3DXCreateFontW(byval device as IDirect3DDevice9 ptr, byval height as INT_, byval width_ as UINT, byval weight as UINT, byval miplevels as UINT, byval italic as WINBOOL, byval charset as DWORD, byval precision as DWORD, byval quality as DWORD, byval pitchandfamily as DWORD, byval facename as const WCHAR ptr, byval font as ID3DXFont ptr ptr) as HRESULT
+declare function D3DXCreateFontW(byval device as IDirect3DDevice9 ptr, byval height as INT_, byval width_ as UINT, byval weight as UINT, byval miplevels as UINT, byval italic as WINBOOL, byval charset as DWORD, byval precision as DWORD, byval quality as DWORD, byval pitchandfamily as DWORD, byval facename as const wstring ptr, byval font as ID3DXFont ptr ptr) as HRESULT
 
 #ifdef UNICODE
 	#define D3DXCreateFont D3DXCreateFontW

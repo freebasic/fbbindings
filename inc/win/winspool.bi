@@ -2079,7 +2079,7 @@ declare function IsValidDevmodeW(byval pDevmode as PDEVMODEW, byval DevmodeSize 
 		CoreDriverGUID as GUID
 		ftDriverDate as FILETIME
 		dwlDriverVersion as DWORDLONG
-		szPackageID(0 to 259) as CHAR
+		szPackageID as zstring * 260
 	end type
 
 	type CORE_PRINTER_DRIVERA as _CORE_PRINTER_DRIVERA
@@ -2089,7 +2089,7 @@ declare function IsValidDevmodeW(byval pDevmode as PDEVMODEW, byval DevmodeSize 
 		CoreDriverGUID as GUID
 		ftDriverDate as FILETIME
 		dwlDriverVersion as DWORDLONG
-		szPackageID(0 to 259) as WCHAR
+		szPackageID as wstring * 260
 	end type
 
 	type CORE_PRINTER_DRIVERW as _CORE_PRINTER_DRIVERW

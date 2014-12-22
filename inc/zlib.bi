@@ -22,7 +22,7 @@ type Byte_ as ubyte
 type uInt as ulong
 type uLong_ as culong
 type Bytef as Byte_
-type charf as byte
+type charf as zstring
 type intf as long
 type uIntf as uInt
 type uLongf as uLong_

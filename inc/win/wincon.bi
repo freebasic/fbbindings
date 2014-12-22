@@ -1,5 +1,6 @@
 #pragma once
 
+#include once "crt/wchar.bi"
 #include once "_mingw_unicode.bi"
 #include once "winapifamily.bi"
 
@@ -33,8 +34,8 @@ type SMALL_RECT as _SMALL_RECT
 type PSMALL_RECT as _SMALL_RECT ptr
 
 union ___KEY_EVENT_RECORD_uChar
-	UnicodeChar as WCHAR
-	AsciiChar as CHAR
+	UnicodeChar as wchar_t
+	AsciiChar as byte
 end union
 
 type _KEY_EVENT_RECORD
@@ -133,8 +134,8 @@ type PINPUT_RECORD as _INPUT_RECORD ptr
 #define FOCUS_EVENT &h10
 
 union ___CHAR_INFO_Char
-	UnicodeChar as WCHAR
-	AsciiChar as CHAR
+	UnicodeChar as wchar_t
+	AsciiChar as byte
 end union
 
 type _CHAR_INFO
@@ -281,8 +282,8 @@ declare function ReadConsoleOutputAttribute(byval hConsoleOutput as HANDLE, byva
 declare function WriteConsoleOutputCharacterA(byval hConsoleOutput as HANDLE, byval lpCharacter as LPCSTR, byval nLength as DWORD, byval dwWriteCoord as COORD, byval lpNumberOfCharsWritten as LPDWORD) as WINBOOL
 declare function WriteConsoleOutputCharacterW(byval hConsoleOutput as HANDLE, byval lpCharacter as LPCWSTR, byval nLength as DWORD, byval dwWriteCoord as COORD, byval lpNumberOfCharsWritten as LPDWORD) as WINBOOL
 declare function WriteConsoleOutputAttribute(byval hConsoleOutput as HANDLE, byval lpAttribute as const WORD ptr, byval nLength as DWORD, byval dwWriteCoord as COORD, byval lpNumberOfAttrsWritten as LPDWORD) as WINBOOL
-declare function FillConsoleOutputCharacterA(byval hConsoleOutput as HANDLE, byval cCharacter as CHAR, byval nLength as DWORD, byval dwWriteCoord as COORD, byval lpNumberOfCharsWritten as LPDWORD) as WINBOOL
-declare function FillConsoleOutputCharacterW(byval hConsoleOutput as HANDLE, byval cCharacter as WCHAR, byval nLength as DWORD, byval dwWriteCoord as COORD, byval lpNumberOfCharsWritten as LPDWORD) as WINBOOL
+declare function FillConsoleOutputCharacterA(byval hConsoleOutput as HANDLE, byval cCharacter as byte, byval nLength as DWORD, byval dwWriteCoord as COORD, byval lpNumberOfCharsWritten as LPDWORD) as WINBOOL
+declare function FillConsoleOutputCharacterW(byval hConsoleOutput as HANDLE, byval cCharacter as wchar_t, byval nLength as DWORD, byval dwWriteCoord as COORD, byval lpNumberOfCharsWritten as LPDWORD) as WINBOOL
 declare function FillConsoleOutputAttribute(byval hConsoleOutput as HANDLE, byval wAttribute as WORD, byval nLength as DWORD, byval dwWriteCoord as COORD, byval lpNumberOfAttrsWritten as LPDWORD) as WINBOOL
 declare function GetConsoleMode(byval hConsoleHandle as HANDLE, byval lpMode as LPDWORD) as WINBOOL
 declare function GetNumberOfConsoleInputEvents(byval hConsoleInput as HANDLE, byval lpNumberOfEvents as LPDWORD) as WINBOOL
@@ -358,7 +359,7 @@ type _CONSOLE_FONT_INFOEX
 	dwFontSize as COORD
 	FontFamily as UINT
 	FontWeight as UINT
-	FaceName(0 to 31) as WCHAR
+	FaceName as wstring * 32
 end type
 
 type CONSOLE_FONT_INFOEX as _CONSOLE_FONT_INFOEX

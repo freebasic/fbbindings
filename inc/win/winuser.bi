@@ -1,5 +1,6 @@
 #pragma once
 
+#include once "crt/wchar.bi"
 #include once "_mingw_unicode.bi"
 #include once "_mingw.bi"
 #include once "crt/stdarg.bi"
@@ -2353,14 +2354,14 @@ declare function CharPrevExA(byval CodePage as WORD, byval lpStart as LPCSTR, by
 	#define IsCharLower IsCharLowerA
 #endif
 
-declare function IsCharAlphaA(byval ch as CHAR) as WINBOOL
-declare function IsCharAlphaW(byval ch as WCHAR) as WINBOOL
-declare function IsCharAlphaNumericA(byval ch as CHAR) as WINBOOL
-declare function IsCharAlphaNumericW(byval ch as WCHAR) as WINBOOL
-declare function IsCharUpperA(byval ch as CHAR) as WINBOOL
-declare function IsCharUpperW(byval ch as WCHAR) as WINBOOL
-declare function IsCharLowerA(byval ch as CHAR) as WINBOOL
-declare function IsCharLowerW(byval ch as WCHAR) as WINBOOL
+declare function IsCharAlphaA(byval ch as byte) as WINBOOL
+declare function IsCharAlphaW(byval ch as wchar_t) as WINBOOL
+declare function IsCharAlphaNumericA(byval ch as byte) as WINBOOL
+declare function IsCharAlphaNumericW(byval ch as wchar_t) as WINBOOL
+declare function IsCharUpperA(byval ch as byte) as WINBOOL
+declare function IsCharUpperW(byval ch as wchar_t) as WINBOOL
+declare function IsCharLowerA(byval ch as byte) as WINBOOL
+declare function IsCharLowerW(byval ch as wchar_t) as WINBOOL
 
 #ifdef UNICODE
 	#define GetKeyNameText GetKeyNameTextW
@@ -2387,10 +2388,10 @@ declare function ToAscii_ alias "ToAscii"(byval uVirtKey as UINT, byval uScanCod
 declare function ToAsciiEx(byval uVirtKey as UINT, byval uScanCode as UINT, byval lpKeyState as const UBYTE ptr, byval lpChar as LPWORD, byval uFlags as UINT, byval dwhkl as HKL) as long
 declare function ToUnicode(byval wVirtKey as UINT, byval wScanCode as UINT, byval lpKeyState as const UBYTE ptr, byval pwszBuff as LPWSTR, byval cchBuff as long, byval wFlags as UINT) as long
 declare function OemKeyScan(byval wOemChar as WORD) as DWORD
-declare function VkKeyScanA(byval ch as CHAR) as SHORT
-declare function VkKeyScanW(byval ch as WCHAR) as SHORT
-declare function VkKeyScanExA(byval ch as CHAR, byval dwhkl as HKL) as SHORT
-declare function VkKeyScanExW(byval ch as WCHAR, byval dwhkl as HKL) as SHORT
+declare function VkKeyScanA(byval ch as byte) as SHORT
+declare function VkKeyScanW(byval ch as wchar_t) as SHORT
+declare function VkKeyScanExA(byval ch as byte, byval dwhkl as HKL) as SHORT
+declare function VkKeyScanExW(byval ch as wchar_t, byval dwhkl as HKL) as SHORT
 
 #define KEYEVENTF_EXTENDEDKEY &h0001
 #define KEYEVENTF_KEYUP &h0002
@@ -3553,7 +3554,7 @@ type PMENUITEMTEMPLATEHEADER as MENUITEMTEMPLATEHEADER ptr
 type MENUITEMTEMPLATE
 	mtOption as WORD
 	mtID as WORD
-	mtString(0 to 0) as WCHAR
+	mtString as wstring * 1
 end type
 
 type PMENUITEMTEMPLATE as MENUITEMTEMPLATE ptr
@@ -4230,8 +4231,8 @@ type HELPPOLY as DWORD
 
 type tagMULTIKEYHELPA
 	mkSize as DWORD
-	mkKeylist as CHAR
-	szKeyphrase(0 to 0) as CHAR
+	mkKeylist as byte
+	szKeyphrase as zstring * 1
 end type
 
 type MULTIKEYHELPA as tagMULTIKEYHELPA
@@ -4240,8 +4241,8 @@ type LPMULTIKEYHELPA as tagMULTIKEYHELPA ptr
 
 type tagMULTIKEYHELPW
 	mkSize as DWORD
-	mkKeylist as WCHAR
-	szKeyphrase(0 to 0) as WCHAR
+	mkKeylist as wchar_t
+	szKeyphrase as wstring * 1
 end type
 
 type MULTIKEYHELPW as tagMULTIKEYHELPW
@@ -4265,7 +4266,7 @@ type tagHELPWININFOA
 	dx as long
 	dy as long
 	wMax as long
-	rgchMember(0 to 1) as CHAR
+	rgchMember as zstring * 2
 end type
 
 type HELPWININFOA as tagHELPWININFOA
@@ -4279,7 +4280,7 @@ type tagHELPWININFOW
 	dx as long
 	dy as long
 	wMax as long
-	rgchMember(0 to 1) as WCHAR
+	rgchMember as wstring * 2
 end type
 
 type HELPWININFOW as tagHELPWININFOW
@@ -5097,7 +5098,7 @@ type tagMONITORINFOEXA
 		end type
 	end union
 
-	szDevice(0 to 31) as CHAR
+	szDevice as zstring * 32
 end type
 
 type MONITORINFOEXA as tagMONITORINFOEXA
@@ -5113,7 +5114,7 @@ type tagMONITORINFOEXW
 		end type
 	end union
 
-	szDevice(0 to 31) as WCHAR
+	szDevice as wstring * 32
 end type
 
 type MONITORINFOEXW as tagMONITORINFOEXW

@@ -568,7 +568,7 @@ type _DMUS_IO_MOTIFSETTINGS field = 2
 end type
 
 type _DMUS_IO_CHORD
-	wszName(0 to 15) as WCHAR
+	wszName as wstring * 16
 	mtTime as MUSIC_TIME
 	wMeasure as WORD
 	bBeat as UBYTE
@@ -728,7 +728,7 @@ type _DMUS_IO_REFERENCE
 end type
 
 type _DMUS_IO_CHORDMAP
-	wszLoadName(0 to 19) as WCHAR
+	wszLoadName as wstring * 20
 	dwScalePattern as DWORD
 	dwFlags as DWORD
 end type

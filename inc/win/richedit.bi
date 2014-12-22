@@ -1,5 +1,6 @@
 #pragma once
 
+#include once "crt/wchar.bi"
 #include once "_mingw_unicode.bi"
 
 '' The following symbols have been renamed:
@@ -332,7 +333,7 @@ type _charformatw field = 4
 	crTextColor as COLORREF
 	bCharSet as UBYTE
 	bPitchAndFamily as UBYTE
-	szFaceName(0 to 31) as WCHAR
+	szFaceName as wstring * 32
 end type
 
 type CHARFORMATW as _charformatw
@@ -352,7 +353,7 @@ type _charformat2w field = 4
 	crTextColor as COLORREF
 	bCharSet as UBYTE
 	bPitchAndFamily as UBYTE
-	szFaceName(0 to 31) as WCHAR
+	szFaceName as wstring * 32
 	wWeight as WORD
 	sSpacing as SHORT
 	crBackColor as COLORREF
@@ -906,7 +907,7 @@ type BIDIOPTIONS as _bidioptions
 #define FR_MATCHDIAC &h20000000
 #define FR_MATCHKASHIDA &h40000000
 #define FR_MATCHALEFHAMZA &h80000000
-#define WCH_EMBEDDING cast(WCHAR, &hFFFC)
+#define WCH_EMBEDDING cast(wchar_t, &hFFFC)
 
 type tagKHYPH as long
 enum
@@ -924,17 +925,17 @@ type KHYPH as tagKHYPH
 type hyphresult field = 4
 	khyph as KHYPH
 	ichHyph as long
-	chHyph as WCHAR
+	chHyph as wchar_t
 end type
 
 type HYPHRESULT_ as hyphresult
 
-declare sub HyphenateProc(byval pszWord as WCHAR ptr, byval langid as LANGID, byval ichExceed as long, byval phyphresult as HYPHRESULT_ ptr)
+declare sub HyphenateProc(byval pszWord as wstring ptr, byval langid as LANGID, byval ichExceed as long, byval phyphresult as HYPHRESULT_ ptr)
 
 type tagHyphenateInfo field = 4
 	cbSize as SHORT
 	dxHyphenateZone as SHORT
-	pfnHyphenate as sub(byval as WCHAR ptr, byval as LANGID, byval as long, byval as HYPHRESULT_ ptr)
+	pfnHyphenate as sub(byval as wstring ptr, byval as LANGID, byval as long, byval as HYPHRESULT_ ptr)
 end type
 
 type HYPHENATEINFO as tagHyphenateInfo

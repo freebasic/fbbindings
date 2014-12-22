@@ -24,7 +24,7 @@ extern "C"
 #define _JIT_H
 #define _JIT_DEFS_H
 
-type jit_sbyte as byte
+type jit_sbyte as zstring
 type jit_ubyte as ubyte
 type jit_short as short
 type jit_ushort as ushort

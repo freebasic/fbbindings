@@ -183,11 +183,11 @@ type tACMDRIVERDETAILSW field = 1
 	cFormatTags as DWORD
 	cFilterTags as DWORD
 	hicon as HICON
-	szShortName(0 to 31) as WCHAR
-	szLongName(0 to 127) as WCHAR
-	szCopyright(0 to 79) as WCHAR
-	szLicensing(0 to 127) as WCHAR
-	szFeatures(0 to 511) as WCHAR
+	szShortName as wstring * 32
+	szLongName as wstring * 128
+	szCopyright as wstring * 80
+	szLicensing as wstring * 128
+	szFeatures as wstring * 512
 end type
 
 type ACMDRIVERDETAILSW as tACMDRIVERDETAILSW
@@ -246,7 +246,7 @@ type tACMFORMATTAGDETAILSW field = 1
 	cbFormatSize as DWORD
 	fdwSupport as DWORD
 	cStandardFormats as DWORD
-	szFormatTag(0 to 47) as WCHAR
+	szFormatTag as wstring * 48
 end type
 
 type ACMFORMATTAGDETAILSW as tACMFORMATTAGDETAILSW
@@ -314,7 +314,7 @@ type tACMFORMATDETAILSW field = 1
 	fdwSupport as DWORD
 	pwfx as LPWAVEFORMATEX
 	cbwfx as DWORD
-	szFormat(0 to 127) as WCHAR
+	szFormat as wstring * 128
 end type
 
 type ACMFORMATDETAILSW as tACMFORMATDETAILSW
@@ -437,8 +437,8 @@ type tACMFORMATCHOOSEW field = 1
 	pwfx as LPWAVEFORMATEX
 	cbwfx as DWORD
 	pszTitle as LPCWSTR
-	szFormatTag(0 to 47) as WCHAR
-	szFormat(0 to 127) as WCHAR
+	szFormatTag as wstring * 48
+	szFormat as wstring * 128
 	pszName as LPWSTR
 	cchName as DWORD
 	fdwEnum as DWORD
@@ -502,7 +502,7 @@ type tACMFILTERTAGDETAILSW field = 1
 	cbFilterSize as DWORD
 	fdwSupport as DWORD
 	cStandardFilters as DWORD
-	szFilterTag(0 to 47) as WCHAR
+	szFilterTag as wstring * 48
 end type
 
 type ACMFILTERTAGDETAILSW as tACMFILTERTAGDETAILSW
@@ -570,7 +570,7 @@ type tACMFILTERDETAILSW field = 1
 	fdwSupport as DWORD
 	pwfltr as LPWAVEFILTER
 	cbwfltr as DWORD
-	szFilter(0 to 127) as WCHAR
+	szFilter as wstring * 128
 end type
 
 type ACMFILTERDETAILSW as tACMFILTERDETAILSW
@@ -660,8 +660,8 @@ type tACMFILTERCHOOSEW field = 1
 	pwfltr as LPWAVEFILTER
 	cbwfltr as DWORD
 	pszTitle as LPCWSTR
-	szFilterTag(0 to 47) as WCHAR
-	szFilter(0 to 127) as WCHAR
+	szFilterTag as wstring * 48
+	szFilter as wstring * 128
 	pszName as LPWSTR
 	cchName as DWORD
 	fdwEnum as DWORD

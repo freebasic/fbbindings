@@ -320,7 +320,7 @@ type tagMONHSZSTRUCTA
 	dwTime as DWORD
 	hsz as HSZ
 	hTask as HANDLE
-	str(0 to 0) as CHAR
+	str as zstring * 1
 end type
 
 type MONHSZSTRUCTA as tagMONHSZSTRUCTA
@@ -332,7 +332,7 @@ type tagMONHSZSTRUCTW
 	dwTime as DWORD
 	hsz as HSZ
 	hTask as HANDLE
-	str(0 to 0) as WCHAR
+	str as wstring * 1
 end type
 
 type MONHSZSTRUCTW as tagMONHSZSTRUCTW

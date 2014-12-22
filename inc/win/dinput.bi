@@ -342,7 +342,7 @@ type DIDEVICEOBJECTINSTANCE_DX3A
 	dwOfs as DWORD
 	dwType as DWORD
 	dwFlags as DWORD
-	tszName(0 to 259) as CHAR
+	tszName as zstring * 260
 end type
 
 type LPDIDEVICEOBJECTINSTANCE_DX3A as DIDEVICEOBJECTINSTANCE_DX3A ptr
@@ -354,7 +354,7 @@ type DIDEVICEOBJECTINSTANCE_DX3W
 	dwOfs as DWORD
 	dwType as DWORD
 	dwFlags as DWORD
-	tszName(0 to 259) as WCHAR
+	tszName as wstring * 260
 end type
 
 type LPDIDEVICEOBJECTINSTANCE_DX3W as DIDEVICEOBJECTINSTANCE_DX3W ptr
@@ -376,7 +376,7 @@ type DIDEVICEOBJECTINSTANCEA
 	dwOfs as DWORD
 	dwType as DWORD
 	dwFlags as DWORD
-	tszName(0 to 259) as CHAR
+	tszName as zstring * 260
 	dwFFMaxForce as DWORD
 	dwFFForceResolution as DWORD
 	wCollectionNumber as WORD
@@ -397,7 +397,7 @@ type DIDEVICEOBJECTINSTANCEW
 	dwOfs as DWORD
 	dwType as DWORD
 	dwFlags as DWORD
-	tszName(0 to 259) as WCHAR
+	tszName as wstring * 260
 	dwFFMaxForce as DWORD
 	dwFFForceResolution as DWORD
 	wCollectionNumber as WORD
@@ -427,8 +427,8 @@ type DIDEVICEINSTANCE_DX3A
 	guidInstance as GUID
 	guidProduct as GUID
 	dwDevType as DWORD
-	tszInstanceName(0 to 259) as CHAR
-	tszProductName(0 to 259) as CHAR
+	tszInstanceName as zstring * 260
+	tszProductName as zstring * 260
 end type
 
 type LPDIDEVICEINSTANCE_DX3A as DIDEVICEINSTANCE_DX3A ptr
@@ -439,8 +439,8 @@ type DIDEVICEINSTANCE_DX3W
 	guidInstance as GUID
 	guidProduct as GUID
 	dwDevType as DWORD
-	tszInstanceName(0 to 259) as WCHAR
-	tszProductName(0 to 259) as WCHAR
+	tszInstanceName as wstring * 260
+	tszProductName as wstring * 260
 end type
 
 type LPDIDEVICEINSTANCE_DX3W as DIDEVICEINSTANCE_DX3W ptr
@@ -461,8 +461,8 @@ type DIDEVICEINSTANCEA
 	guidInstance as GUID
 	guidProduct as GUID
 	dwDevType as DWORD
-	tszInstanceName(0 to 259) as CHAR
-	tszProductName(0 to 259) as CHAR
+	tszInstanceName as zstring * 260
+	tszProductName as zstring * 260
 	guidFFDriver as GUID
 	wUsagePage as WORD
 	wUsage as WORD
@@ -476,8 +476,8 @@ type DIDEVICEINSTANCEW
 	guidInstance as GUID
 	guidProduct as GUID
 	dwDevType as DWORD
-	tszInstanceName(0 to 259) as WCHAR
-	tszProductName(0 to 259) as WCHAR
+	tszInstanceName as wstring * 260
+	tszProductName as wstring * 260
 	guidFFDriver as GUID
 	wUsagePage as WORD
 	wUsage as WORD
@@ -838,7 +838,7 @@ type LPCDIPROPCALPOV as const DIPROPCALPOV ptr
 type DIPROPGUIDANDPATH
 	diph as DIPROPHEADER
 	guidClass as GUID
-	wszPath(0 to 259) as WCHAR
+	wszPath as wstring * 260
 end type
 
 type LPDIPROPGUIDANDPATH as DIPROPGUIDANDPATH ptr
@@ -846,7 +846,7 @@ type LPCDIPROPGUIDANDPATH as const DIPROPGUIDANDPATH ptr
 
 type DIPROPSTRING
 	diph as DIPROPHEADER
-	wsz(0 to 259) as WCHAR
+	wsz as wstring * 260
 end type
 
 type LPDIPROPSTRING as DIPROPSTRING ptr
@@ -1125,7 +1125,7 @@ type DIEFFECTINFOA
 	dwEffType as DWORD
 	dwStaticParams as DWORD
 	dwDynamicParams as DWORD
-	tszName(0 to 259) as CHAR
+	tszName as zstring * 260
 end type
 
 type LPDIEFFECTINFOA as DIEFFECTINFOA ptr
@@ -1137,7 +1137,7 @@ type DIEFFECTINFOW
 	dwEffType as DWORD
 	dwStaticParams as DWORD
 	dwDynamicParams as DWORD
-	tszName(0 to 259) as WCHAR
+	tszName as wstring * 260
 end type
 
 type LPDIEFFECTINFOW as DIEFFECTINFOW ptr
@@ -1262,7 +1262,7 @@ type DIFILEEFFECT
 	dwSize as DWORD
 	GuidEffect as GUID
 	lpDiEffect as LPCDIEFFECT
-	szFriendlyName(0 to 259) as CHAR
+	szFriendlyName as zstring * 260
 end type
 
 type LPDIFILEEFFECT as DIFILEEFFECT ptr
@@ -1344,7 +1344,7 @@ type _DIACTIONFORMATA
 	hInstString as HINSTANCE
 	ftTimeStamp as FILETIME
 	dwCRC as DWORD
-	tszActionMap(0 to 259) as CHAR
+	tszActionMap as zstring * 260
 end type
 
 type DIACTIONFORMATA as _DIACTIONFORMATA
@@ -1365,7 +1365,7 @@ type _DIACTIONFORMATW
 	hInstString as HINSTANCE
 	ftTimeStamp as FILETIME
 	dwCRC as DWORD
-	tszActionMap(0 to 259) as WCHAR
+	tszActionMap as wstring * 260
 end type
 
 type DIACTIONFORMATW as _DIACTIONFORMATW
@@ -1466,7 +1466,7 @@ type LPCDICONFIGUREDEVICESPARAMSW as const DICONFIGUREDEVICESPARAMSW ptr
 #define DIDAL_BOTTOMALIGNED &h00000008
 
 type _DIDEVICEIMAGEINFOA
-	tszImagePath(0 to 259) as CHAR
+	tszImagePath as zstring * 260
 	dwFlags as DWORD
 	dwViewID as DWORD
 	rcOverlay as RECT
@@ -1482,7 +1482,7 @@ type LPDIDEVICEIMAGEINFOA as _DIDEVICEIMAGEINFOA ptr
 type LPCDIDEVICEIMAGEINFOA as const DIDEVICEIMAGEINFOA ptr
 
 type _DIDEVICEIMAGEINFOW
-	tszImagePath(0 to 259) as WCHAR
+	tszImagePath as wstring * 260
 	dwFlags as DWORD
 	dwViewID as DWORD
 	rcOverlay as RECT

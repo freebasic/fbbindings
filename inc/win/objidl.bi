@@ -554,7 +554,7 @@ type LPSTORAGE as IStorage ptr
 type tagRemSNB
 	ulCntStr as ULONG
 	ulCntChar as ULONG
-	rgString(0 to 0) as OLECHAR
+	rgString as wstring * 1
 end type
 
 type RemSNB as tagRemSNB
@@ -567,18 +567,18 @@ type IStorageVtbl
 	QueryInterface as function(byval This as IStorage ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IStorage ptr) as ULONG
 	Release as function(byval This as IStorage ptr) as ULONG
-	CreateStream as function(byval This as IStorage ptr, byval pwcsName as const OLECHAR ptr, byval grfMode as DWORD, byval reserved1 as DWORD, byval reserved2 as DWORD, byval ppstm as IStream ptr ptr) as HRESULT
-	OpenStream as function(byval This as IStorage ptr, byval pwcsName as const OLECHAR ptr, byval reserved1 as any ptr, byval grfMode as DWORD, byval reserved2 as DWORD, byval ppstm as IStream ptr ptr) as HRESULT
-	CreateStorage as function(byval This as IStorage ptr, byval pwcsName as const OLECHAR ptr, byval grfMode as DWORD, byval reserved1 as DWORD, byval reserved2 as DWORD, byval ppstg as IStorage ptr ptr) as HRESULT
-	OpenStorage as function(byval This as IStorage ptr, byval pwcsName as const OLECHAR ptr, byval pstgPriority as IStorage ptr, byval grfMode as DWORD, byval snbExclude as SNB, byval reserved as DWORD, byval ppstg as IStorage ptr ptr) as HRESULT
+	CreateStream as function(byval This as IStorage ptr, byval pwcsName as const wstring ptr, byval grfMode as DWORD, byval reserved1 as DWORD, byval reserved2 as DWORD, byval ppstm as IStream ptr ptr) as HRESULT
+	OpenStream as function(byval This as IStorage ptr, byval pwcsName as const wstring ptr, byval reserved1 as any ptr, byval grfMode as DWORD, byval reserved2 as DWORD, byval ppstm as IStream ptr ptr) as HRESULT
+	CreateStorage as function(byval This as IStorage ptr, byval pwcsName as const wstring ptr, byval grfMode as DWORD, byval reserved1 as DWORD, byval reserved2 as DWORD, byval ppstg as IStorage ptr ptr) as HRESULT
+	OpenStorage as function(byval This as IStorage ptr, byval pwcsName as const wstring ptr, byval pstgPriority as IStorage ptr, byval grfMode as DWORD, byval snbExclude as SNB, byval reserved as DWORD, byval ppstg as IStorage ptr ptr) as HRESULT
 	CopyTo as function(byval This as IStorage ptr, byval ciidExclude as DWORD, byval rgiidExclude as const IID ptr, byval snbExclude as SNB, byval pstgDest as IStorage ptr) as HRESULT
-	MoveElementTo as function(byval This as IStorage ptr, byval pwcsName as const OLECHAR ptr, byval pstgDest as IStorage ptr, byval pwcsNewName as const OLECHAR ptr, byval grfFlags as DWORD) as HRESULT
+	MoveElementTo as function(byval This as IStorage ptr, byval pwcsName as const wstring ptr, byval pstgDest as IStorage ptr, byval pwcsNewName as const wstring ptr, byval grfFlags as DWORD) as HRESULT
 	Commit as function(byval This as IStorage ptr, byval grfCommitFlags as DWORD) as HRESULT
 	Revert as function(byval This as IStorage ptr) as HRESULT
 	EnumElements as function(byval This as IStorage ptr, byval reserved1 as DWORD, byval reserved2 as any ptr, byval reserved3 as DWORD, byval ppenum as IEnumSTATSTG ptr ptr) as HRESULT
-	DestroyElement as function(byval This as IStorage ptr, byval pwcsName as const OLECHAR ptr) as HRESULT
-	RenameElement as function(byval This as IStorage ptr, byval pwcsOldName as const OLECHAR ptr, byval pwcsNewName as const OLECHAR ptr) as HRESULT
-	SetElementTimes as function(byval This as IStorage ptr, byval pwcsName as const OLECHAR ptr, byval pctime as const FILETIME ptr, byval patime as const FILETIME ptr, byval pmtime as const FILETIME ptr) as HRESULT
+	DestroyElement as function(byval This as IStorage ptr, byval pwcsName as const wstring ptr) as HRESULT
+	RenameElement as function(byval This as IStorage ptr, byval pwcsOldName as const wstring ptr, byval pwcsNewName as const wstring ptr) as HRESULT
+	SetElementTimes as function(byval This as IStorage ptr, byval pwcsName as const wstring ptr, byval pctime as const FILETIME ptr, byval patime as const FILETIME ptr, byval pmtime as const FILETIME ptr) as HRESULT
 	SetClass as function(byval This as IStorage ptr, byval clsid as const IID const ptr) as HRESULT
 	SetStateBits as function(byval This as IStorage ptr, byval grfStateBits as DWORD, byval grfMask as DWORD) as HRESULT
 	Stat as function(byval This as IStorage ptr, byval pstatstg as STATSTG ptr, byval grfStatFlag as DWORD) as HRESULT
@@ -588,17 +588,17 @@ type IStorage_
 	lpVtbl as IStorageVtbl ptr
 end type
 
-declare function IStorage_CreateStream_Proxy(byval This as IStorage ptr, byval pwcsName as const OLECHAR ptr, byval grfMode as DWORD, byval reserved1 as DWORD, byval reserved2 as DWORD, byval ppstm as IStream ptr ptr) as HRESULT
+declare function IStorage_CreateStream_Proxy(byval This as IStorage ptr, byval pwcsName as const wstring ptr, byval grfMode as DWORD, byval reserved1 as DWORD, byval reserved2 as DWORD, byval ppstm as IStream ptr ptr) as HRESULT
 declare sub IStorage_CreateStream_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-declare function IStorage_RemoteOpenStream_Proxy(byval This as IStorage ptr, byval pwcsName as const OLECHAR ptr, byval cbReserved1 as ULONG, byval reserved1 as ubyte ptr, byval grfMode as DWORD, byval reserved2 as DWORD, byval ppstm as IStream ptr ptr) as HRESULT
+declare function IStorage_RemoteOpenStream_Proxy(byval This as IStorage ptr, byval pwcsName as const wstring ptr, byval cbReserved1 as ULONG, byval reserved1 as ubyte ptr, byval grfMode as DWORD, byval reserved2 as DWORD, byval ppstm as IStream ptr ptr) as HRESULT
 declare sub IStorage_RemoteOpenStream_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-declare function IStorage_CreateStorage_Proxy(byval This as IStorage ptr, byval pwcsName as const OLECHAR ptr, byval grfMode as DWORD, byval reserved1 as DWORD, byval reserved2 as DWORD, byval ppstg as IStorage ptr ptr) as HRESULT
+declare function IStorage_CreateStorage_Proxy(byval This as IStorage ptr, byval pwcsName as const wstring ptr, byval grfMode as DWORD, byval reserved1 as DWORD, byval reserved2 as DWORD, byval ppstg as IStorage ptr ptr) as HRESULT
 declare sub IStorage_CreateStorage_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-declare function IStorage_OpenStorage_Proxy(byval This as IStorage ptr, byval pwcsName as const OLECHAR ptr, byval pstgPriority as IStorage ptr, byval grfMode as DWORD, byval snbExclude as SNB, byval reserved as DWORD, byval ppstg as IStorage ptr ptr) as HRESULT
+declare function IStorage_OpenStorage_Proxy(byval This as IStorage ptr, byval pwcsName as const wstring ptr, byval pstgPriority as IStorage ptr, byval grfMode as DWORD, byval snbExclude as SNB, byval reserved as DWORD, byval ppstg as IStorage ptr ptr) as HRESULT
 declare sub IStorage_OpenStorage_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IStorage_RemoteCopyTo_Proxy(byval This as IStorage ptr, byval ciidExclude as DWORD, byval rgiidExclude as const IID ptr, byval snbExclude as SNB, byval pstgDest as IStorage ptr) as HRESULT
 declare sub IStorage_RemoteCopyTo_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-declare function IStorage_MoveElementTo_Proxy(byval This as IStorage ptr, byval pwcsName as const OLECHAR ptr, byval pstgDest as IStorage ptr, byval pwcsNewName as const OLECHAR ptr, byval grfFlags as DWORD) as HRESULT
+declare function IStorage_MoveElementTo_Proxy(byval This as IStorage ptr, byval pwcsName as const wstring ptr, byval pstgDest as IStorage ptr, byval pwcsNewName as const wstring ptr, byval grfFlags as DWORD) as HRESULT
 declare sub IStorage_MoveElementTo_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IStorage_Commit_Proxy(byval This as IStorage ptr, byval grfCommitFlags as DWORD) as HRESULT
 declare sub IStorage_Commit_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
@@ -606,11 +606,11 @@ declare function IStorage_Revert_Proxy(byval This as IStorage ptr) as HRESULT
 declare sub IStorage_Revert_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IStorage_RemoteEnumElements_Proxy(byval This as IStorage ptr, byval reserved1 as DWORD, byval cbReserved2 as ULONG, byval reserved2 as ubyte ptr, byval reserved3 as DWORD, byval ppenum as IEnumSTATSTG ptr ptr) as HRESULT
 declare sub IStorage_RemoteEnumElements_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-declare function IStorage_DestroyElement_Proxy(byval This as IStorage ptr, byval pwcsName as const OLECHAR ptr) as HRESULT
+declare function IStorage_DestroyElement_Proxy(byval This as IStorage ptr, byval pwcsName as const wstring ptr) as HRESULT
 declare sub IStorage_DestroyElement_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-declare function IStorage_RenameElement_Proxy(byval This as IStorage ptr, byval pwcsOldName as const OLECHAR ptr, byval pwcsNewName as const OLECHAR ptr) as HRESULT
+declare function IStorage_RenameElement_Proxy(byval This as IStorage ptr, byval pwcsOldName as const wstring ptr, byval pwcsNewName as const wstring ptr) as HRESULT
 declare sub IStorage_RenameElement_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-declare function IStorage_SetElementTimes_Proxy(byval This as IStorage ptr, byval pwcsName as const OLECHAR ptr, byval pctime as const FILETIME ptr, byval patime as const FILETIME ptr, byval pmtime as const FILETIME ptr) as HRESULT
+declare function IStorage_SetElementTimes_Proxy(byval This as IStorage ptr, byval pwcsName as const wstring ptr, byval pctime as const FILETIME ptr, byval patime as const FILETIME ptr, byval pmtime as const FILETIME ptr) as HRESULT
 declare sub IStorage_SetElementTimes_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IStorage_SetClass_Proxy(byval This as IStorage ptr, byval clsid as const IID const ptr) as HRESULT
 declare sub IStorage_SetClass_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
@@ -618,8 +618,8 @@ declare function IStorage_SetStateBits_Proxy(byval This as IStorage ptr, byval g
 declare sub IStorage_SetStateBits_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IStorage_Stat_Proxy(byval This as IStorage ptr, byval pstatstg as STATSTG ptr, byval grfStatFlag as DWORD) as HRESULT
 declare sub IStorage_Stat_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-declare function IStorage_OpenStream_Proxy(byval This as IStorage ptr, byval pwcsName as const OLECHAR ptr, byval reserved1 as any ptr, byval grfMode as DWORD, byval reserved2 as DWORD, byval ppstm as IStream ptr ptr) as HRESULT
-declare function IStorage_OpenStream_Stub(byval This as IStorage ptr, byval pwcsName as const OLECHAR ptr, byval cbReserved1 as ULONG, byval reserved1 as ubyte ptr, byval grfMode as DWORD, byval reserved2 as DWORD, byval ppstm as IStream ptr ptr) as HRESULT
+declare function IStorage_OpenStream_Proxy(byval This as IStorage ptr, byval pwcsName as const wstring ptr, byval reserved1 as any ptr, byval grfMode as DWORD, byval reserved2 as DWORD, byval ppstm as IStream ptr ptr) as HRESULT
+declare function IStorage_OpenStream_Stub(byval This as IStorage ptr, byval pwcsName as const wstring ptr, byval cbReserved1 as ULONG, byval reserved1 as ubyte ptr, byval grfMode as DWORD, byval reserved2 as DWORD, byval ppstm as IStream ptr ptr) as HRESULT
 declare function IStorage_CopyTo_Proxy(byval This as IStorage ptr, byval ciidExclude as DWORD, byval rgiidExclude as const IID ptr, byval snbExclude as SNB, byval pstgDest as IStorage ptr) as HRESULT
 declare function IStorage_CopyTo_Stub(byval This as IStorage ptr, byval ciidExclude as DWORD, byval rgiidExclude as const IID ptr, byval snbExclude as SNB, byval pstgDest as IStorage ptr) as HRESULT
 declare function IStorage_EnumElements_Proxy(byval This as IStorage ptr, byval reserved1 as DWORD, byval reserved2 as any ptr, byval reserved3 as DWORD, byval ppenum as IEnumSTATSTG ptr ptr) as HRESULT
@@ -1371,7 +1371,7 @@ declare sub IProgressNotify_OnProgress_Stub(byval This as IRpcStubBuffer ptr, by
 
 type tagStorageLayout
 	LayoutType as DWORD
-	pwcsElementName as OLECHAR ptr
+	pwcsElementName as wstring ptr
 	cOffset as LARGE_INTEGER
 	cBytes as LARGE_INTEGER
 end type
@@ -1387,7 +1387,7 @@ type ILayoutStorageVtbl
 	LayoutScript as function(byval This as ILayoutStorage ptr, byval pStorageLayout as StorageLayout ptr, byval nEntries as DWORD, byval glfInterleavedFlag as DWORD) as HRESULT
 	BeginMonitor as function(byval This as ILayoutStorage ptr) as HRESULT
 	EndMonitor as function(byval This as ILayoutStorage ptr) as HRESULT
-	ReLayoutDocfile as function(byval This as ILayoutStorage ptr, byval pwcsNewDfName as OLECHAR ptr) as HRESULT
+	ReLayoutDocfile as function(byval This as ILayoutStorage ptr, byval pwcsNewDfName as wstring ptr) as HRESULT
 	ReLayoutDocfileOnILockBytes as function(byval This as ILayoutStorage ptr, byval pILockBytes as ILockBytes ptr) as HRESULT
 end type
 
@@ -1401,7 +1401,7 @@ declare function ILayoutStorage_BeginMonitor_Proxy(byval This as ILayoutStorage 
 declare sub ILayoutStorage_BeginMonitor_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function ILayoutStorage_EndMonitor_Proxy(byval This as ILayoutStorage ptr) as HRESULT
 declare sub ILayoutStorage_EndMonitor_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-declare function ILayoutStorage_ReLayoutDocfile_Proxy(byval This as ILayoutStorage ptr, byval pwcsNewDfName as OLECHAR ptr) as HRESULT
+declare function ILayoutStorage_ReLayoutDocfile_Proxy(byval This as ILayoutStorage ptr, byval pwcsNewDfName as wstring ptr) as HRESULT
 declare sub ILayoutStorage_ReLayoutDocfile_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function ILayoutStorage_ReLayoutDocfileOnILockBytes_Proxy(byval This as ILayoutStorage ptr, byval pILockBytes as ILockBytes ptr) as HRESULT
 declare sub ILayoutStorage_ReLayoutDocfileOnILockBytes_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)

@@ -1,5 +1,6 @@
 #pragma once
 
+#include once "crt/wchar.bi"
 #include once "winapifamily.bi"
 #include once "apiset.bi"
 
@@ -472,9 +473,9 @@ type _cpinfoexA
 	MaxCharSize as UINT
 	DefaultChar(0 to 1) as UBYTE
 	LeadByte(0 to 11) as UBYTE
-	UnicodeDefaultChar as WCHAR
+	UnicodeDefaultChar as wchar_t
 	CodePage as UINT
-	CodePageName(0 to 259) as CHAR
+	CodePageName as zstring * 260
 end type
 
 type CPINFOEXA as _cpinfoexA
@@ -484,9 +485,9 @@ type _cpinfoexW
 	MaxCharSize as UINT
 	DefaultChar(0 to 1) as UBYTE
 	LeadByte(0 to 11) as UBYTE
-	UnicodeDefaultChar as WCHAR
+	UnicodeDefaultChar as wchar_t
 	CodePage as UINT
-	CodePageName(0 to 259) as WCHAR
+	CodePageName as wstring * 260
 end type
 
 type CPINFOEXW as _cpinfoexW

@@ -133,14 +133,14 @@ type PSP_ALTPLATFORM_INFO as PSP_ALTPLATFORM_INFO_V2
 #ifdef __FB_64BIT__
 	type _SP_ORIGINAL_FILE_INFO_A
 		cbSize as DWORD
-		OriginalInfName(0 to 259) as CHAR
-		OriginalCatalogName(0 to 259) as CHAR
+		OriginalInfName as zstring * 260
+		OriginalCatalogName as zstring * 260
 	end type
 #else
 	type _SP_ORIGINAL_FILE_INFO_A field = 1
 		cbSize as DWORD
-		OriginalInfName(0 to 259) as CHAR
-		OriginalCatalogName(0 to 259) as CHAR
+		OriginalInfName as zstring * 260
+		OriginalCatalogName as zstring * 260
 	end type
 #endif
 
@@ -150,14 +150,14 @@ type PSP_ORIGINAL_FILE_INFO_A as _SP_ORIGINAL_FILE_INFO_A ptr
 #ifdef __FB_64BIT__
 	type _SP_ORIGINAL_FILE_INFO_W
 		cbSize as DWORD
-		OriginalInfName(0 to 259) as WCHAR
-		OriginalCatalogName(0 to 259) as WCHAR
+		OriginalInfName as wstring * 260
+		OriginalCatalogName as wstring * 260
 	end type
 #else
 	type _SP_ORIGINAL_FILE_INFO_W field = 1
 		cbSize as DWORD
-		OriginalInfName(0 to 259) as WCHAR
-		OriginalCatalogName(0 to 259) as WCHAR
+		OriginalInfName as wstring * 260
+		OriginalCatalogName as wstring * 260
 	end type
 #endif
 
@@ -494,7 +494,7 @@ type PCABINET_INFO_W as _CABINET_INFO_W ptr
 		DosDate as WORD
 		DosTime as WORD
 		DosAttribs as WORD
-		FullTargetName(0 to 259) as CHAR
+		FullTargetName as zstring * 260
 	end type
 #else
 	type _FILE_IN_CABINET_INFO_A field = 1
@@ -504,7 +504,7 @@ type PCABINET_INFO_W as _CABINET_INFO_W ptr
 		DosDate as WORD
 		DosTime as WORD
 		DosAttribs as WORD
-		FullTargetName(0 to 259) as CHAR
+		FullTargetName as zstring * 260
 	end type
 #endif
 
@@ -519,7 +519,7 @@ type PFILE_IN_CABINET_INFO_A as _FILE_IN_CABINET_INFO_A ptr
 		DosDate as WORD
 		DosTime as WORD
 		DosAttribs as WORD
-		FullTargetName(0 to 259) as WCHAR
+		FullTargetName as wstring * 260
 	end type
 #else
 	type _FILE_IN_CABINET_INFO_W field = 1
@@ -529,7 +529,7 @@ type PFILE_IN_CABINET_INFO_A as _FILE_IN_CABINET_INFO_A ptr
 		DosDate as WORD
 		DosTime as WORD
 		DosAttribs as WORD
-		FullTargetName(0 to 259) as WCHAR
+		FullTargetName as wstring * 260
 	end type
 #endif
 
@@ -733,12 +733,12 @@ type PSP_INTERFACE_DEVICE_DATA as PSP_DEVICE_INTERFACE_DATA
 #ifdef __FB_64BIT__
 	type _SP_DEVICE_INTERFACE_DETAIL_DATA_A
 		cbSize as DWORD
-		DevicePath(0 to 0) as CHAR
+		DevicePath as zstring * 1
 	end type
 #else
 	type _SP_DEVICE_INTERFACE_DETAIL_DATA_A field = 1
 		cbSize as DWORD
-		DevicePath(0 to 0) as CHAR
+		DevicePath as zstring * 1
 	end type
 #endif
 
@@ -748,12 +748,12 @@ type PSP_DEVICE_INTERFACE_DETAIL_DATA_A as _SP_DEVICE_INTERFACE_DETAIL_DATA_A pt
 #ifdef __FB_64BIT__
 	type _SP_DEVICE_INTERFACE_DETAIL_DATA_W
 		cbSize as DWORD
-		DevicePath(0 to 0) as WCHAR
+		DevicePath as wstring * 1
 	end type
 #else
 	type _SP_DEVICE_INTERFACE_DETAIL_DATA_W field = 1
 		cbSize as DWORD
-		DevicePath(0 to 0) as WCHAR
+		DevicePath as wstring * 1
 	end type
 #endif
 
@@ -786,14 +786,14 @@ type PSP_INTERFACE_DEVICE_DETAIL_DATA_A as PSP_DEVICE_INTERFACE_DETAIL_DATA_A
 		cbSize as DWORD
 		ClassGuid as GUID
 		RemoteMachineHandle as HANDLE
-		RemoteMachineName(0 to (260 + 3) - 1) as CHAR
+		RemoteMachineName as zstring * 260 + 3
 	end type
 #else
 	type _SP_DEVINFO_LIST_DETAIL_DATA_A field = 1
 		cbSize as DWORD
 		ClassGuid as GUID
 		RemoteMachineHandle as HANDLE
-		RemoteMachineName(0 to (260 + 3) - 1) as CHAR
+		RemoteMachineName as zstring * 260 + 3
 	end type
 #endif
 
@@ -805,14 +805,14 @@ type PSP_DEVINFO_LIST_DETAIL_DATA_A as _SP_DEVINFO_LIST_DETAIL_DATA_A ptr
 		cbSize as DWORD
 		ClassGuid as GUID
 		RemoteMachineHandle as HANDLE
-		RemoteMachineName(0 to (260 + 3) - 1) as WCHAR
+		RemoteMachineName as wstring * 260 + 3
 	end type
 #else
 	type _SP_DEVINFO_LIST_DETAIL_DATA_W field = 1
 		cbSize as DWORD
 		ClassGuid as GUID
 		RemoteMachineHandle as HANDLE
-		RemoteMachineName(0 to (260 + 3) - 1) as WCHAR
+		RemoteMachineName as wstring * 260 + 3
 	end type
 #endif
 
@@ -889,7 +889,7 @@ type DI_FUNCTION as UINT
 		FileQueue as HSPFILEQ
 		ClassInstallReserved as ULONG_PTR
 		Reserved as DWORD
-		DriverPath(0 to 259) as CHAR
+		DriverPath as zstring * 260
 	end type
 #else
 	type _SP_DEVINSTALL_PARAMS_A field = 1
@@ -908,7 +908,7 @@ type DI_FUNCTION as UINT
 		FileQueue as HSPFILEQ
 		ClassInstallReserved as ULONG_PTR
 		Reserved as DWORD
-		DriverPath(0 to 259) as CHAR
+		DriverPath as zstring * 260
 	end type
 #endif
 
@@ -932,7 +932,7 @@ type PSP_DEVINSTALL_PARAMS_A as _SP_DEVINSTALL_PARAMS_A ptr
 		FileQueue as HSPFILEQ
 		ClassInstallReserved as ULONG_PTR
 		Reserved as DWORD
-		DriverPath(0 to 259) as WCHAR
+		DriverPath as wstring * 260
 	end type
 #else
 	type _SP_DEVINSTALL_PARAMS_W field = 1
@@ -951,7 +951,7 @@ type PSP_DEVINSTALL_PARAMS_A as _SP_DEVINSTALL_PARAMS_A ptr
 		FileQueue as HSPFILEQ
 		ClassInstallReserved as ULONG_PTR
 		Reserved as DWORD
-		DriverPath(0 to 259) as WCHAR
+		DriverPath as wstring * 260
 	end type
 #endif
 
@@ -1133,19 +1133,19 @@ type PSP_UNREMOVEDEVICE_PARAMS as _SP_UNREMOVEDEVICE_PARAMS ptr
 #ifdef __FB_64BIT__
 	type _SP_SELECTDEVICE_PARAMS_A
 		ClassInstallHeader as SP_CLASSINSTALL_HEADER
-		Title(0 to 59) as CHAR
-		Instructions(0 to 255) as CHAR
-		ListLabel(0 to 29) as CHAR
-		SubTitle(0 to 255) as CHAR
+		Title as zstring * 60
+		Instructions as zstring * 256
+		ListLabel as zstring * 30
+		SubTitle as zstring * 256
 		Reserved(0 to 1) as UBYTE
 	end type
 #else
 	type _SP_SELECTDEVICE_PARAMS_A field = 1
 		ClassInstallHeader as SP_CLASSINSTALL_HEADER
-		Title(0 to 59) as CHAR
-		Instructions(0 to 255) as CHAR
-		ListLabel(0 to 29) as CHAR
-		SubTitle(0 to 255) as CHAR
+		Title as zstring * 60
+		Instructions as zstring * 256
+		ListLabel as zstring * 30
+		SubTitle as zstring * 256
 		Reserved(0 to 1) as UBYTE
 	end type
 #endif
@@ -1156,18 +1156,18 @@ type PSP_SELECTDEVICE_PARAMS_A as _SP_SELECTDEVICE_PARAMS_A ptr
 #ifdef __FB_64BIT__
 	type _SP_SELECTDEVICE_PARAMS_W
 		ClassInstallHeader as SP_CLASSINSTALL_HEADER
-		Title(0 to 59) as WCHAR
-		Instructions(0 to 255) as WCHAR
-		ListLabel(0 to 29) as WCHAR
-		SubTitle(0 to 255) as WCHAR
+		Title as wstring * 60
+		Instructions as wstring * 256
+		ListLabel as wstring * 30
+		SubTitle as wstring * 256
 	end type
 #else
 	type _SP_SELECTDEVICE_PARAMS_W field = 1
 		ClassInstallHeader as SP_CLASSINSTALL_HEADER
-		Title(0 to 59) as WCHAR
-		Instructions(0 to 255) as WCHAR
-		ListLabel(0 to 29) as WCHAR
-		SubTitle(0 to 255) as WCHAR
+		Title as wstring * 60
+		Instructions as wstring * 256
+		ListLabel as wstring * 30
+		SubTitle as wstring * 256
 	end type
 #endif
 
@@ -1290,14 +1290,14 @@ type PSP_ADDPROPERTYPAGE_DATA as PSP_NEWDEVICEWIZARD_DATA
 #ifdef __FB_64BIT__
 	type _SP_TROUBLESHOOTER_PARAMS_A
 		ClassInstallHeader as SP_CLASSINSTALL_HEADER
-		ChmFile(0 to 259) as CHAR
-		HtmlTroubleShooter(0 to 259) as CHAR
+		ChmFile as zstring * 260
+		HtmlTroubleShooter as zstring * 260
 	end type
 #else
 	type _SP_TROUBLESHOOTER_PARAMS_A field = 1
 		ClassInstallHeader as SP_CLASSINSTALL_HEADER
-		ChmFile(0 to 259) as CHAR
-		HtmlTroubleShooter(0 to 259) as CHAR
+		ChmFile as zstring * 260
+		HtmlTroubleShooter as zstring * 260
 	end type
 #endif
 
@@ -1307,14 +1307,14 @@ type PSP_TROUBLESHOOTER_PARAMS_A as _SP_TROUBLESHOOTER_PARAMS_A ptr
 #ifdef __FB_64BIT__
 	type _SP_TROUBLESHOOTER_PARAMS_W
 		ClassInstallHeader as SP_CLASSINSTALL_HEADER
-		ChmFile(0 to 259) as WCHAR
-		HtmlTroubleShooter(0 to 259) as WCHAR
+		ChmFile as wstring * 260
+		HtmlTroubleShooter as wstring * 260
 	end type
 #else
 	type _SP_TROUBLESHOOTER_PARAMS_W field = 1
 		ClassInstallHeader as SP_CLASSINSTALL_HEADER
-		ChmFile(0 to 259) as WCHAR
-		HtmlTroubleShooter(0 to 259) as WCHAR
+		ChmFile as wstring * 260
+		HtmlTroubleShooter as wstring * 260
 	end type
 #endif
 
@@ -1332,12 +1332,12 @@ type PSP_TROUBLESHOOTER_PARAMS_W as _SP_TROUBLESHOOTER_PARAMS_W ptr
 #ifdef __FB_64BIT__
 	type _SP_POWERMESSAGEWAKE_PARAMS_A
 		ClassInstallHeader as SP_CLASSINSTALL_HEADER
-		PowerMessageWake(0 to (256 * 2) - 1) as CHAR
+		PowerMessageWake as zstring * 256 * 2
 	end type
 #else
 	type _SP_POWERMESSAGEWAKE_PARAMS_A field = 1
 		ClassInstallHeader as SP_CLASSINSTALL_HEADER
-		PowerMessageWake(0 to (256 * 2) - 1) as CHAR
+		PowerMessageWake as zstring * 256 * 2
 	end type
 #endif
 
@@ -1347,12 +1347,12 @@ type PSP_POWERMESSAGEWAKE_PARAMS_A as _SP_POWERMESSAGEWAKE_PARAMS_A ptr
 #ifdef __FB_64BIT__
 	type _SP_POWERMESSAGEWAKE_PARAMS_W
 		ClassInstallHeader as SP_CLASSINSTALL_HEADER
-		PowerMessageWake(0 to (256 * 2) - 1) as WCHAR
+		PowerMessageWake as wstring * 256 * 2
 	end type
 #else
 	type _SP_POWERMESSAGEWAKE_PARAMS_W field = 1
 		ClassInstallHeader as SP_CLASSINSTALL_HEADER
-		PowerMessageWake(0 to (256 * 2) - 1) as WCHAR
+		PowerMessageWake as wstring * 256 * 2
 	end type
 #endif
 
@@ -1372,9 +1372,9 @@ type PSP_POWERMESSAGEWAKE_PARAMS_W as _SP_POWERMESSAGEWAKE_PARAMS_W ptr
 		cbSize as DWORD
 		DriverType as DWORD
 		Reserved as ULONG_PTR
-		Description(0 to 255) as CHAR
-		MfgName(0 to 255) as CHAR
-		ProviderName(0 to 255) as CHAR
+		Description as zstring * 256
+		MfgName as zstring * 256
+		ProviderName as zstring * 256
 		DriverDate as FILETIME
 		DriverVersion_ as DWORDLONG
 	end type
@@ -1383,9 +1383,9 @@ type PSP_POWERMESSAGEWAKE_PARAMS_W as _SP_POWERMESSAGEWAKE_PARAMS_W ptr
 		cbSize as DWORD
 		DriverType as DWORD
 		Reserved as ULONG_PTR
-		Description(0 to 255) as CHAR
-		MfgName(0 to 255) as CHAR
-		ProviderName(0 to 255) as CHAR
+		Description as zstring * 256
+		MfgName as zstring * 256
+		ProviderName as zstring * 256
 		DriverDate as FILETIME
 		DriverVersion_ as DWORDLONG
 	end type
@@ -1399,9 +1399,9 @@ type PSP_DRVINFO_DATA_V2_A as _SP_DRVINFO_DATA_V2_A ptr
 		cbSize as DWORD
 		DriverType as DWORD
 		Reserved as ULONG_PTR
-		Description(0 to 255) as WCHAR
-		MfgName(0 to 255) as WCHAR
-		ProviderName(0 to 255) as WCHAR
+		Description as wstring * 256
+		MfgName as wstring * 256
+		ProviderName as wstring * 256
 		DriverDate as FILETIME
 		DriverVersion_ as DWORDLONG
 	end type
@@ -1410,9 +1410,9 @@ type PSP_DRVINFO_DATA_V2_A as _SP_DRVINFO_DATA_V2_A ptr
 		cbSize as DWORD
 		DriverType as DWORD
 		Reserved as ULONG_PTR
-		Description(0 to 255) as WCHAR
-		MfgName(0 to 255) as WCHAR
-		ProviderName(0 to 255) as WCHAR
+		Description as wstring * 256
+		MfgName as wstring * 256
+		ProviderName as wstring * 256
 		DriverDate as FILETIME
 		DriverVersion_ as DWORDLONG
 	end type
@@ -1426,18 +1426,18 @@ type PSP_DRVINFO_DATA_V2_W as _SP_DRVINFO_DATA_V2_W ptr
 		cbSize as DWORD
 		DriverType as DWORD
 		Reserved as ULONG_PTR
-		Description(0 to 255) as CHAR
-		MfgName(0 to 255) as CHAR
-		ProviderName(0 to 255) as CHAR
+		Description as zstring * 256
+		MfgName as zstring * 256
+		ProviderName as zstring * 256
 	end type
 #else
 	type _SP_DRVINFO_DATA_V1_A field = 1
 		cbSize as DWORD
 		DriverType as DWORD
 		Reserved as ULONG_PTR
-		Description(0 to 255) as CHAR
-		MfgName(0 to 255) as CHAR
-		ProviderName(0 to 255) as CHAR
+		Description as zstring * 256
+		MfgName as zstring * 256
+		ProviderName as zstring * 256
 	end type
 #endif
 
@@ -1449,18 +1449,18 @@ type PSP_DRVINFO_DATA_V1_A as _SP_DRVINFO_DATA_V1_A ptr
 		cbSize as DWORD
 		DriverType as DWORD
 		Reserved as ULONG_PTR
-		Description(0 to 255) as WCHAR
-		MfgName(0 to 255) as WCHAR
-		ProviderName(0 to 255) as WCHAR
+		Description as wstring * 256
+		MfgName as wstring * 256
+		ProviderName as wstring * 256
 	end type
 #else
 	type _SP_DRVINFO_DATA_V1_W field = 1
 		cbSize as DWORD
 		DriverType as DWORD
 		Reserved as ULONG_PTR
-		Description(0 to 255) as WCHAR
-		MfgName(0 to 255) as WCHAR
-		ProviderName(0 to 255) as WCHAR
+		Description as wstring * 256
+		MfgName as wstring * 256
+		ProviderName as wstring * 256
 	end type
 #endif
 
@@ -1493,10 +1493,10 @@ type PSP_DRVINFO_DATA as PSP_DRVINFO_DATA_V2
 		CompatIDsOffset as DWORD
 		CompatIDsLength as DWORD
 		Reserved as ULONG_PTR
-		SectionName(0 to 255) as CHAR
-		InfFileName(0 to 259) as CHAR
-		DrvDescription(0 to 255) as CHAR
-		HardwareID(0 to 0) as CHAR
+		SectionName as zstring * 256
+		InfFileName as zstring * 260
+		DrvDescription as zstring * 256
+		HardwareID as zstring * 1
 	end type
 #else
 	type _SP_DRVINFO_DETAIL_DATA_A field = 1
@@ -1505,10 +1505,10 @@ type PSP_DRVINFO_DATA as PSP_DRVINFO_DATA_V2
 		CompatIDsOffset as DWORD
 		CompatIDsLength as DWORD
 		Reserved as ULONG_PTR
-		SectionName(0 to 255) as CHAR
-		InfFileName(0 to 259) as CHAR
-		DrvDescription(0 to 255) as CHAR
-		HardwareID(0 to 0) as CHAR
+		SectionName as zstring * 256
+		InfFileName as zstring * 260
+		DrvDescription as zstring * 256
+		HardwareID as zstring * 1
 	end type
 #endif
 
@@ -1522,10 +1522,10 @@ type PSP_DRVINFO_DETAIL_DATA_A as _SP_DRVINFO_DETAIL_DATA_A ptr
 		CompatIDsOffset as DWORD
 		CompatIDsLength as DWORD
 		Reserved as ULONG_PTR
-		SectionName(0 to 255) as WCHAR
-		InfFileName(0 to 259) as WCHAR
-		DrvDescription(0 to 255) as WCHAR
-		HardwareID(0 to 0) as WCHAR
+		SectionName as wstring * 256
+		InfFileName as wstring * 260
+		DrvDescription as wstring * 256
+		HardwareID as wstring * 1
 	end type
 #else
 	type _SP_DRVINFO_DETAIL_DATA_W field = 1
@@ -1534,10 +1534,10 @@ type PSP_DRVINFO_DETAIL_DATA_A as _SP_DRVINFO_DETAIL_DATA_A ptr
 		CompatIDsOffset as DWORD
 		CompatIDsLength as DWORD
 		Reserved as ULONG_PTR
-		SectionName(0 to 255) as WCHAR
-		InfFileName(0 to 259) as WCHAR
-		DrvDescription(0 to 255) as WCHAR
-		HardwareID(0 to 0) as WCHAR
+		SectionName as wstring * 256
+		InfFileName as wstring * 260
+		DrvDescription as wstring * 256
+		HardwareID as wstring * 1
 	end type
 #endif
 
@@ -1662,16 +1662,16 @@ type PSP_PROPSHEETPAGE_REQUEST as _SP_PROPSHEETPAGE_REQUEST ptr
 #ifdef __FB_64BIT__
 	type _SP_BACKUP_QUEUE_PARAMS_V2_A
 		cbSize as DWORD
-		FullInfPath(0 to 259) as CHAR
+		FullInfPath as zstring * 260
 		FilenameOffset as INT_
-		ReinstallInstance(0 to 259) as CHAR
+		ReinstallInstance as zstring * 260
 	end type
 #else
 	type _SP_BACKUP_QUEUE_PARAMS_V2_A field = 1
 		cbSize as DWORD
-		FullInfPath(0 to 259) as CHAR
+		FullInfPath as zstring * 260
 		FilenameOffset as INT_
-		ReinstallInstance(0 to 259) as CHAR
+		ReinstallInstance as zstring * 260
 	end type
 #endif
 
@@ -1681,16 +1681,16 @@ type PSP_BACKUP_QUEUE_PARAMS_V2_A as _SP_BACKUP_QUEUE_PARAMS_V2_A ptr
 #ifdef __FB_64BIT__
 	type _SP_BACKUP_QUEUE_PARAMS_V2_W
 		cbSize as DWORD
-		FullInfPath(0 to 259) as WCHAR
+		FullInfPath as wstring * 260
 		FilenameOffset as INT_
-		ReinstallInstance(0 to 259) as WCHAR
+		ReinstallInstance as wstring * 260
 	end type
 #else
 	type _SP_BACKUP_QUEUE_PARAMS_V2_W field = 1
 		cbSize as DWORD
-		FullInfPath(0 to 259) as WCHAR
+		FullInfPath as wstring * 260
 		FilenameOffset as INT_
-		ReinstallInstance(0 to 259) as WCHAR
+		ReinstallInstance as wstring * 260
 	end type
 #endif
 
@@ -1700,13 +1700,13 @@ type PSP_BACKUP_QUEUE_PARAMS_V2_W as _SP_BACKUP_QUEUE_PARAMS_V2_W ptr
 #ifdef __FB_64BIT__
 	type _SP_BACKUP_QUEUE_PARAMS_V1_A
 		cbSize as DWORD
-		FullInfPath(0 to 259) as CHAR
+		FullInfPath as zstring * 260
 		FilenameOffset as INT_
 	end type
 #else
 	type _SP_BACKUP_QUEUE_PARAMS_V1_A field = 1
 		cbSize as DWORD
-		FullInfPath(0 to 259) as CHAR
+		FullInfPath as zstring * 260
 		FilenameOffset as INT_
 	end type
 #endif
@@ -1717,13 +1717,13 @@ type PSP_BACKUP_QUEUE_PARAMS_V1_A as _SP_BACKUP_QUEUE_PARAMS_V1_A ptr
 #ifdef __FB_64BIT__
 	type _SP_BACKUP_QUEUE_PARAMS_V1_W
 		cbSize as DWORD
-		FullInfPath(0 to 259) as WCHAR
+		FullInfPath as wstring * 260
 		FilenameOffset as INT_
 	end type
 #else
 	type _SP_BACKUP_QUEUE_PARAMS_V1_W field = 1
 		cbSize as DWORD
-		FullInfPath(0 to 259) as WCHAR
+		FullInfPath as wstring * 260
 		FilenameOffset as INT_
 	end type
 #endif
@@ -2796,16 +2796,16 @@ declare function SetupEnumInfSectionsW(byval InfHandle as HINF, byval Index as U
 #ifdef __FB_64BIT__
 	type _SP_INF_SIGNER_INFO_A
 		cbSize as DWORD
-		CatalogFile(0 to 259) as CHAR
-		DigitalSigner(0 to 259) as CHAR
-		DigitalSignerVersion(0 to 259) as CHAR
+		CatalogFile as zstring * 260
+		DigitalSigner as zstring * 260
+		DigitalSignerVersion as zstring * 260
 	end type
 #else
 	type _SP_INF_SIGNER_INFO_A field = 1
 		cbSize as DWORD
-		CatalogFile(0 to 259) as CHAR
-		DigitalSigner(0 to 259) as CHAR
-		DigitalSignerVersion(0 to 259) as CHAR
+		CatalogFile as zstring * 260
+		DigitalSigner as zstring * 260
+		DigitalSignerVersion as zstring * 260
 	end type
 #endif
 
@@ -2815,16 +2815,16 @@ type PSP_INF_SIGNER_INFO_A as _SP_INF_SIGNER_INFO_A ptr
 #ifdef __FB_64BIT__
 	type _SP_INF_SIGNER_INFO_W
 		cbSize as DWORD
-		CatalogFile(0 to 259) as WCHAR
-		DigitalSigner(0 to 259) as WCHAR
-		DigitalSignerVersion(0 to 259) as WCHAR
+		CatalogFile as wstring * 260
+		DigitalSigner as wstring * 260
+		DigitalSignerVersion as wstring * 260
 	end type
 #else
 	type _SP_INF_SIGNER_INFO_W field = 1
 		cbSize as DWORD
-		CatalogFile(0 to 259) as WCHAR
-		DigitalSigner(0 to 259) as WCHAR
-		DigitalSignerVersion(0 to 259) as WCHAR
+		CatalogFile as wstring * 260
+		DigitalSigner as wstring * 260
+		DigitalSignerVersion as wstring * 260
 	end type
 #endif
 

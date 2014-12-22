@@ -330,7 +330,7 @@ type socklen_t as long
 #define GAI_STRERROR_BUFFER_SIZE 1024
 
 declare function gai_strerrorA(byval as long) as zstring ptr
-declare function gai_strerrorW(byval as long) as WCHAR ptr
+declare function gai_strerrorW(byval as long) as wstring ptr
 
 #define NI_MAXHOST 1025
 #define NI_MAXSERV 32

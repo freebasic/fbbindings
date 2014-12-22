@@ -114,7 +114,7 @@ type LPRECONVERTSTRING as tagRECONVERTSTRING ptr
 
 type tagSTYLEBUFA
 	dwStyle as DWORD
-	szDescription(0 to 31) as CHAR
+	szDescription as zstring * 32
 end type
 
 type STYLEBUFA as tagSTYLEBUFA
@@ -124,7 +124,7 @@ type LPSTYLEBUFA as tagSTYLEBUFA ptr
 
 type tagSTYLEBUFW
 	dwStyle as DWORD
-	szDescription(0 to 31) as WCHAR
+	szDescription as wstring * 32
 end type
 
 type STYLEBUFW as tagSTYLEBUFW
@@ -154,7 +154,7 @@ type tagIMEMENUITEMINFOA
 	hbmpChecked as HBITMAP
 	hbmpUnchecked as HBITMAP
 	dwItemData as DWORD
-	szString(0 to 79) as CHAR
+	szString as zstring * 80
 	hbmpItem as HBITMAP
 end type
 
@@ -171,7 +171,7 @@ type tagIMEMENUITEMINFOW
 	hbmpChecked as HBITMAP
 	hbmpUnchecked as HBITMAP
 	dwItemData as DWORD
-	szString(0 to 79) as WCHAR
+	szString as wstring * 80
 	hbmpItem as HBITMAP
 end type
 

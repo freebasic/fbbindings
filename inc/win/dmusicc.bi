@@ -261,7 +261,7 @@ type _DMUS_PORTCAPS
 	dwMaxVoices as DWORD
 	dwMaxAudioChannels as DWORD
 	dwEffectFlags as DWORD
-	wszDescription(0 to 127) as WCHAR
+	wszDescription as wstring * &h80
 end type
 
 type _DMUS_PORTPARAMS
@@ -321,14 +321,14 @@ type _DMUS_CLOCKINFO7
 	dwSize as DWORD
 	ctType as DMUS_CLOCKTYPE
 	guidClock as GUID
-	wszDescription(0 to 127) as WCHAR
+	wszDescription as wstring * &h80
 end type
 
 type _DMUS_CLOCKINFO8
 	dwSize as DWORD
 	ctType as DMUS_CLOCKTYPE
 	guidClock as GUID
-	wszDescription(0 to 127) as WCHAR
+	wszDescription as wstring * &h80
 	dwFlags as DWORD
 end type
 

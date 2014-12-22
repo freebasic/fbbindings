@@ -13,7 +13,7 @@
 #endif
 
 type _PERF_DATA_BLOCK
-	Signature(0 to 3) as WCHAR
+	Signature as wstring * 4
 	LittleEndian as DWORD
 	Version as DWORD
 	Revision as DWORD

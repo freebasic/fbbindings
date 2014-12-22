@@ -10,9 +10,9 @@ extern "C"
 extern IWinTypesBase_v0_1_c_ifspec as RPC_IF_HANDLE
 extern IWinTypesBase_v0_1_s_ifspec as RPC_IF_HANDLE
 
-type OLECHAR as WCHAR
-type LPOLESTR as OLECHAR ptr
-type LPCOLESTR as const OLECHAR ptr
+type OLECHAR as wstring
+type LPOLESTR as wstring ptr
+type LPCOLESTR as const wstring ptr
 
 #define OLESTR(str) L##str
 

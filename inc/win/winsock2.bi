@@ -503,7 +503,7 @@ type _WSAPROTOCOL_INFOA
 	iSecurityScheme as long
 	dwMessageSize as DWORD
 	dwProviderReserved as DWORD
-	szProtocol(0 to (255 + 1) - 1) as CHAR
+	szProtocol as zstring * 255 + 1
 end type
 
 type WSAPROTOCOL_INFOA as _WSAPROTOCOL_INFOA
@@ -529,7 +529,7 @@ type _WSAPROTOCOL_INFOW
 	iSecurityScheme as long
 	dwMessageSize as DWORD
 	dwProviderReserved as DWORD
-	szProtocol(0 to (255 + 1) - 1) as WCHAR
+	szProtocol as wstring * 255 + 1
 end type
 
 type WSAPROTOCOL_INFOW as _WSAPROTOCOL_INFOW

@@ -1,5 +1,6 @@
 #pragma once
 
+#include once "crt/wchar.bi"
 #include once "guiddef.bi"
 
 '' The following symbols have been renamed:
@@ -811,7 +812,7 @@ type PSAM_PASSWORD_FILTER_ROUTINE as function cdecl(byval AccountName as PUNICOD
 
 #define MSV1_0_PACKAGE_NAME "MICROSOFT_AUTHENTICATION_PACKAGE_V1_0"
 #define MSV1_0_PACKAGE_NAMEW wstr("MICROSOFT_AUTHENTICATION_PACKAGE_V1_0")
-#define MSV1_0_PACKAGE_NAMEW_LENGTH (sizeof(MSV1_0_PACKAGE_NAMEW) - sizeof(WCHAR))
+#define MSV1_0_PACKAGE_NAMEW_LENGTH (sizeof(MSV1_0_PACKAGE_NAMEW) - sizeof(wchar_t))
 #define MSV1_0_SUBAUTHENTICATION_KEY !"SYSTEM\\CurrentControlSet\\Control\\Lsa\\MSV1_0"
 #define MSV1_0_SUBAUTHENTICATION_VALUE "Auth"
 
@@ -1761,7 +1762,12 @@ type PKERB_TRANSFER_CRED_REQUEST as _KERB_TRANSFER_CRED_REQUEST ptr
 		nReaderNameOffset as ULONG
 		nContainerNameOffset as ULONG
 		nCSPNameOffset as ULONG
-		bBuffer as TCHAR
+
+		#if defined(UNICODE) and (_WIN32_WINNT = &h0602)
+			bBuffer as wchar_t
+		#elseif (not defined(UNICODE)) and (_WIN32_WINNT = &h0602)
+			bBuffer as byte
+		#endif
 	end type
 
 	type KERB_SMARTCARD_CSP_INFO as _KERB_SMARTCARD_CSP_INFO

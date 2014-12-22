@@ -132,7 +132,7 @@ type USER_ALL_INFORMATION as _USER_ALL_INFORMATION
 type PUSER_ALL_INFORMATION as _USER_ALL_INFORMATION ptr
 
 type _CLEAR_BLOCK
-	data(0 to 7) as CHAR
+	data as zstring * 8
 end type
 
 type CLEAR_BLOCK as _CLEAR_BLOCK
@@ -147,7 +147,7 @@ type PCLEAR_BLOCK as CLEAR_BLOCK ptr
 #define CYPHER_BLOCK_LENGTH 8
 
 type _CYPHER_BLOCK
-	data(0 to 7) as CHAR
+	data as zstring * 8
 end type
 
 type CYPHER_BLOCK as _CYPHER_BLOCK

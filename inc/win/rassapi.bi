@@ -50,7 +50,7 @@ union RAS_PARAMS_VALUE
 end union
 
 type RAS_PARAMETERS
-	P_Key(0 to 31) as CHAR
+	P_Key as zstring * 32
 	P_Type as RAS_PARAMS_FORMAT
 	P_Attributes as UBYTE
 	P_Value as RAS_PARAMS_VALUE
@@ -58,23 +58,23 @@ end type
 
 type _RAS_USER_0
 	bfPrivilege as UBYTE
-	szPhoneNumber(0 to (128 + 1) - 1) as WCHAR
+	szPhoneNumber as wstring * 128 + 1
 end type
 
 type RAS_USER_0 as _RAS_USER_0
 type PRAS_USER_0 as _RAS_USER_0 ptr
 
 type _RAS_PORT_0
-	wszPortName(0 to 15) as WCHAR
-	wszDeviceType(0 to 15) as WCHAR
-	wszDeviceName(0 to 127) as WCHAR
-	wszMediaName(0 to 15) as WCHAR
+	wszPortName as wstring * 16
+	wszDeviceType as wstring * 16
+	wszDeviceName as wstring * 128
+	wszMediaName as wstring * 16
 	reserved as DWORD
 	Flags as DWORD
-	wszUserName(0 to (256 + 1) - 1) as WCHAR
-	wszComputer(0 to 15) as WCHAR
+	wszUserName as wstring * 256 + 1
+	wszComputer as wstring * 16
 	dwStartSessionTime as DWORD
-	wszLogonDomain(0 to (15 + 1) - 1) as WCHAR
+	wszLogonDomain as wstring * 15 + 1
 	fAdvancedServer as WINBOOL
 end type
 
@@ -102,29 +102,29 @@ type IPADDR as ULONG
 type _RAS_PPP_NBFCP_RESULT
 	dwError as DWORD
 	dwNetBiosError as DWORD
-	szName(0 to (16 + 1) - 1) as CHAR
-	wszWksta(0 to (16 + 1) - 1) as WCHAR
+	szName as zstring * 16 + 1
+	wszWksta as wstring * 16 + 1
 end type
 
 type RAS_PPP_NBFCP_RESULT as _RAS_PPP_NBFCP_RESULT
 
 type _RAS_PPP_IPCP_RESULT
 	dwError as DWORD
-	wszAddress(0 to (15 + 1) - 1) as WCHAR
+	wszAddress as wstring * 15 + 1
 end type
 
 type RAS_PPP_IPCP_RESULT as _RAS_PPP_IPCP_RESULT
 
 type _RAS_PPP_IPXCP_RESULT
 	dwError as DWORD
-	wszAddress(0 to (22 + 1) - 1) as WCHAR
+	wszAddress as wstring * 22 + 1
 end type
 
 type RAS_PPP_IPXCP_RESULT as _RAS_PPP_IPXCP_RESULT
 
 type _RAS_PPP_ATCP_RESULT
 	dwError as DWORD
-	wszAddress(0 to (32 + 1) - 1) as WCHAR
+	wszAddress as wstring * 32 + 1
 end type
 
 type RAS_PPP_ATCP_RESULT as _RAS_PPP_ATCP_RESULT
@@ -199,18 +199,18 @@ end type
 type RAS_SERVER_0 as _RAS_SERVER_0
 type PRAS_SERVER_0 as _RAS_SERVER_0 ptr
 
-declare function RasAdminServerGetInfo(byval lpszServer as const WCHAR ptr, byval pRasServer0 as PRAS_SERVER_0) as DWORD
-declare function RasAdminGetUserAccountServer(byval lpszDomain as const WCHAR ptr, byval lpszServer as const WCHAR ptr, byval lpszUserAccountServer as LPWSTR) as DWORD
-declare function RasAdminUserGetInfo(byval lpszUserAccountServer as const WCHAR ptr, byval lpszUser as const WCHAR ptr, byval pRasUser0 as PRAS_USER_0) as DWORD
-declare function RasAdminUserSetInfo(byval lpszUserAccountServer as const WCHAR ptr, byval lpszUser as const WCHAR ptr, byval pRasUser0 as const PRAS_USER_0) as DWORD
-declare function RasAdminPortEnum(byval lpszServer as const WCHAR ptr, byval ppRasPort0 as PRAS_PORT_0 ptr, byval pcEntriesRead as WORD ptr) as DWORD
-declare function RasAdminPortGetInfo(byval lpszServer as const WCHAR ptr, byval lpszPort as const WCHAR ptr, byval pRasPort1 as RAS_PORT_1 ptr, byval pRasStats as RAS_PORT_STATISTICS ptr, byval ppRasParams as RAS_PARAMETERS ptr ptr) as DWORD
-declare function RasAdminPortClearStatistics(byval lpszServer as const WCHAR ptr, byval lpszPort as const WCHAR ptr) as DWORD
-declare function RasAdminPortDisconnect(byval lpszServer as const WCHAR ptr, byval lpszPort as const WCHAR ptr) as DWORD
+declare function RasAdminServerGetInfo(byval lpszServer as const wstring ptr, byval pRasServer0 as PRAS_SERVER_0) as DWORD
+declare function RasAdminGetUserAccountServer(byval lpszDomain as const wstring ptr, byval lpszServer as const wstring ptr, byval lpszUserAccountServer as LPWSTR) as DWORD
+declare function RasAdminUserGetInfo(byval lpszUserAccountServer as const wstring ptr, byval lpszUser as const wstring ptr, byval pRasUser0 as PRAS_USER_0) as DWORD
+declare function RasAdminUserSetInfo(byval lpszUserAccountServer as const wstring ptr, byval lpszUser as const wstring ptr, byval pRasUser0 as const PRAS_USER_0) as DWORD
+declare function RasAdminPortEnum(byval lpszServer as const wstring ptr, byval ppRasPort0 as PRAS_PORT_0 ptr, byval pcEntriesRead as WORD ptr) as DWORD
+declare function RasAdminPortGetInfo(byval lpszServer as const wstring ptr, byval lpszPort as const wstring ptr, byval pRasPort1 as RAS_PORT_1 ptr, byval pRasStats as RAS_PORT_STATISTICS ptr, byval ppRasParams as RAS_PARAMETERS ptr ptr) as DWORD
+declare function RasAdminPortClearStatistics(byval lpszServer as const wstring ptr, byval lpszPort as const wstring ptr) as DWORD
+declare function RasAdminPortDisconnect(byval lpszServer as const wstring ptr, byval lpszPort as const wstring ptr) as DWORD
 declare function RasAdminFreeBuffer(byval Pointer_ as PVOID) as DWORD
 declare function RasAdminAcceptNewConnection(byval pRasPort1 as RAS_PORT_1 ptr, byval pRasStats as RAS_PORT_STATISTICS ptr, byval pRasParams as RAS_PARAMETERS ptr) as WINBOOL
 declare sub RasAdminConnectionHangupNotification(byval pRasPort1 as RAS_PORT_1 ptr, byval pRasStats as RAS_PORT_STATISTICS ptr, byval pRasParams as RAS_PARAMETERS ptr)
-declare function RasAdminGetIpAddressForUser(byval lpszUserName as WCHAR ptr, byval lpszPortName as WCHAR ptr, byval pipAddress as IPADDR ptr, byval bNotifyRelease as WINBOOL ptr) as DWORD
-declare sub RasAdminReleaseIpAddress(byval lpszUserName as WCHAR ptr, byval lpszPortName as WCHAR ptr, byval pipAddress as IPADDR ptr)
+declare function RasAdminGetIpAddressForUser(byval lpszUserName as wstring ptr, byval lpszPortName as wstring ptr, byval pipAddress as IPADDR ptr, byval bNotifyRelease as WINBOOL ptr) as DWORD
+declare sub RasAdminReleaseIpAddress(byval lpszUserName as wstring ptr, byval lpszPortName as wstring ptr, byval pipAddress as IPADDR ptr)
 
 end extern

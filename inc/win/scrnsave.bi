@@ -46,12 +46,23 @@ declare function RegisterDialogClasses(byval hInst as HANDLE) as WINBOOL
 extern hMainInstance as HINSTANCE
 extern hMainWindow as HWND
 extern fChildPreview as WINBOOL
-extern szName(0 to 39) as TCHAR
-extern szAppName(0 to 39) as TCHAR
-extern szIniFile(0 to 12) as TCHAR
-extern szScreenSaver(0 to 21) as TCHAR
-extern szHelpFile(0 to 12) as TCHAR
-extern szNoHelpMemory(0 to 254) as TCHAR
+
+#ifdef UNICODE
+	extern szName as wstring * 40
+	extern szAppName as wstring * 40
+	extern szIniFile as wstring * 13
+	extern szScreenSaver as wstring * 22
+	extern szHelpFile as wstring * 13
+	extern szNoHelpMemory as wstring * 255
+#else
+	extern szName as zstring * 40
+	extern szAppName as zstring * 40
+	extern szIniFile as zstring * 13
+	extern szScreenSaver as zstring * 22
+	extern szHelpFile as zstring * 13
+	extern szNoHelpMemory as zstring * 255
+#endif
+
 extern MyHelpMessage as UINT
 
 #define SCRM_VERIFYPW WM_APP

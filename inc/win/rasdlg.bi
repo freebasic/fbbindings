@@ -34,9 +34,9 @@ type tagRASNOUSERW field = 4
 	dwSize as DWORD
 	dwFlags as DWORD
 	dwTimeoutMs as DWORD
-	szUserName(0 to (256 + 1) - 1) as WCHAR
-	szPassword(0 to (256 + 1) - 1) as WCHAR
-	szDomain(0 to (15 + 1) - 1) as WCHAR
+	szUserName as wstring * 256 + 1
+	szPassword as wstring * 256 + 1
+	szDomain as wstring * 15 + 1
 end type
 
 #define RASNOUSERA tagRASNOUSERA
@@ -45,9 +45,9 @@ type tagRASNOUSERA field = 4
 	dwSize as DWORD
 	dwFlags as DWORD
 	dwTimeoutMs as DWORD
-	szUserName(0 to (256 + 1) - 1) as CHAR
-	szPassword(0 to (256 + 1) - 1) as CHAR
-	szDomain(0 to (15 + 1) - 1) as CHAR
+	szUserName as zstring * 256 + 1
+	szPassword as zstring * 256 + 1
+	szDomain as zstring * 15 + 1
 end type
 
 #ifdef UNICODE
@@ -123,7 +123,7 @@ type tagRASENTRYDLGW field = 4
 	dwFlags as DWORD
 	xDlg as LONG
 	yDlg as LONG
-	szEntry(0 to (256 + 1) - 1) as WCHAR
+	szEntry as wstring * 256 + 1
 	dwError as DWORD
 	reserved as ULONG_PTR
 	reserved2 as ULONG_PTR
@@ -137,7 +137,7 @@ type tagRASENTRYDLGA field = 4
 	dwFlags as DWORD
 	xDlg as LONG
 	yDlg as LONG
-	szEntry(0 to (256 + 1) - 1) as CHAR
+	szEntry as zstring * 256 + 1
 	dwError as DWORD
 	reserved as ULONG_PTR
 	reserved2 as ULONG_PTR
