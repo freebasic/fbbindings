@@ -27,6 +27,8 @@
 ''         field lpOleUILinkContainer => lpOleUILinkContainer_
 ''     #define OleUIChangeSource => OleUIChangeSource_
 
+#inclib "oledlg"
+
 #ifdef __FB_64BIT__
 	extern "C"
 #else

@@ -2,6 +2,8 @@
 
 #include once "crt/limits.bi"
 
+#inclib "wsnmp32"
+
 #ifdef __FB_64BIT__
 	extern "C"
 #else

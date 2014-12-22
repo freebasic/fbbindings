@@ -22,6 +22,8 @@
 ''     #define StrCpy => StrCpy_
 ''     #define UrlIs => UrlIs_
 
+#inclib "shlwapi"
+
 #ifdef __FB_64BIT__
 	extern "C"
 #else

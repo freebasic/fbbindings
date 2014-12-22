@@ -3,6 +3,8 @@
 #include once "crt/wchar.bi"
 #include once "guiddef.bi"
 
+#inclib "advapi32"
+
 '' The following symbols have been renamed:
 ''     enum constant Unlock => Unlock_
 ''     typedef STRING => STRING_

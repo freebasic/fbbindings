@@ -12,6 +12,8 @@
 	#include once "windns.bi"
 #endif
 
+#inclib "iphlpapi"
+
 #ifdef __FB_64BIT__
 	extern "C"
 #else

@@ -2,6 +2,8 @@
 
 #include once "_mingw_unicode.bi"
 
+#inclib "uuid"
+
 extern "C"
 
 #define _ISGUIDS_H_

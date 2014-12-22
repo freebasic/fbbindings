@@ -4,6 +4,9 @@
 ''     variable MEDIASUBTYPE_dvsd => MEDIASUBTYPE_dvsd_
 ''     variable FORMAT_VIDEOINFO2 => FORMAT_VIDEOINFO2_
 
+#inclib "uuid"
+#inclib "dxguid"
+
 extern "C"
 
 #define MEDIATYPE_NULL GUID_NULL

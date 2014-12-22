@@ -9,6 +9,11 @@
 ''     #define AVIFileInfo => AVIFileInfo_
 ''     #define AVIStreamInfo => AVIStreamInfo_
 
+#inclib "avifil32"
+#inclib "avicap32"
+#inclib "uuid"
+#inclib "vfw32"
+
 #ifdef __FB_64BIT__
 	extern "C"
 #else

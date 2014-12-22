@@ -13,6 +13,8 @@
 ''     procedure Sleep => Sleep_
 ''     procedure Beep => Beep_
 
+#inclib "kernel32"
+
 #ifdef __FB_64BIT__
 	extern "C"
 #else

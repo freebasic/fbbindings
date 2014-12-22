@@ -2,6 +2,8 @@
 
 #include once "_mingw_unicode.bi"
 
+#inclib "wsock32"
+
 #ifdef __FB_64BIT__
 	extern "C"
 #else

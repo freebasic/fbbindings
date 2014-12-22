@@ -3,6 +3,8 @@
 #include once "ddraw.bi"
 #include once "d3drmobj.bi"
 
+#inclib "d3drm"
+
 #ifdef __FB_64BIT__
 	extern "C"
 #else

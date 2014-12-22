@@ -2,6 +2,8 @@
 
 #include once "sqltypes.bi"
 
+#inclib "odbc32"
+
 #ifdef __FB_64BIT__
 	extern "C"
 #else

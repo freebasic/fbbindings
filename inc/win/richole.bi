@@ -2,6 +2,8 @@
 
 #include once "richedit.bi"
 
+#inclib "uuid"
+
 #ifdef __FB_64BIT__
 	extern "C"
 #else

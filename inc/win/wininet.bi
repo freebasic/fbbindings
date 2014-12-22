@@ -6,6 +6,8 @@
 ''     inside struct __GOPHER_UNKNOWN_ATTRIBUTE_TYPE:
 ''         field Text => Text_
 
+#inclib "wininet"
+
 #ifdef __FB_64BIT__
 	extern "C"
 #else

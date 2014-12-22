@@ -18,6 +18,8 @@
 ''     typedef WSADATA => WSADATA_
 ''     procedure select => select_
 
+#inclib "wsock32"
+
 #ifdef __FB_64BIT__
 	extern "C"
 #else

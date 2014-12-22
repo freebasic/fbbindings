@@ -9,6 +9,8 @@
 ''     #define acmFilterDetails => acmFilterDetails_
 ''     #define acmFilterChoose => acmFilterChoose_
 
+#inclib "msacm32"
+
 #ifdef __FB_64BIT__
 	extern "C"
 #else

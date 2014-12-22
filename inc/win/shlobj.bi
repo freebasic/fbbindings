@@ -14,6 +14,8 @@
 	''     #define Shell_GetCachedImageIndex => Shell_GetCachedImageIndex_
 #endif
 
+#inclib "shell32"
+
 #ifdef __FB_64BIT__
 	extern "C"
 #else

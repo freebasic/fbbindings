@@ -3,6 +3,8 @@
 #include once "ole2.bi"
 #include once "dpaddr.bi"
 
+#inclib "dxguid"
+
 #ifdef __FB_64BIT__
 	extern "C"
 #else

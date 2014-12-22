@@ -3,6 +3,8 @@
 #include once "winapifamily.bi"
 #include once "_mingw_unicode.bi"
 
+#inclib "shell32"
+
 #ifdef __FB_64BIT__
 	extern "C"
 #elseif (not defined(__FB_64BIT__)) and (_WIN32_WINNT = &h0602)

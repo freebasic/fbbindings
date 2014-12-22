@@ -2,6 +2,9 @@
 
 #include once "windows.bi"
 
+#inclib "snmpapi"
+#inclib "igmpagnt"
+
 #ifdef __FB_64BIT__
 	extern "C"
 #else

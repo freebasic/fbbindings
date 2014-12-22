@@ -6,6 +6,8 @@
 #include once "accctrl.bi"
 #include once "authz.bi"
 
+#inclib "aclui"
+
 #ifdef __FB_64BIT__
 	extern "C"
 #else

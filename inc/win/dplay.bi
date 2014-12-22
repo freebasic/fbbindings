@@ -2,6 +2,9 @@
 
 #include once "ole2.bi"
 
+#inclib "dplayx"
+#inclib "dxguid"
+
 #ifdef __FB_64BIT__
 	extern "C"
 #else

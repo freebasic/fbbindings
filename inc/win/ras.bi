@@ -16,6 +16,8 @@
 ''     #define RASCTRYINFO => RASCTRYINFO_
 ''     #define RASIPADDR => RASIPADDR_
 
+#inclib "rasapi32"
+
 #ifdef __FB_64BIT__
 	extern "C"
 #else

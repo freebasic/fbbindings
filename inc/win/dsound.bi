@@ -4,6 +4,9 @@
 #include once "objbase.bi"
 #include once "crt/float.bi"
 
+#inclib "dsound"
+#inclib "uuid"
+
 #ifdef __FB_64BIT__
 	extern "C"
 #else

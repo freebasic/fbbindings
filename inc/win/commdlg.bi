@@ -10,6 +10,8 @@
 ''     #define PrintDlgEx => PrintDlgEx_
 ''     #define PageSetupDlg => PageSetupDlg_
 
+#inclib "comdlg32"
+
 #ifdef __FB_64BIT__
 	extern "C"
 #else

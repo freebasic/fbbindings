@@ -4,6 +4,8 @@
 #include once "wbemcli.bi"
 #include once "profinfo.bi"
 
+#inclib "userenv"
+
 #ifdef __FB_64BIT__
 	extern "C"
 #else

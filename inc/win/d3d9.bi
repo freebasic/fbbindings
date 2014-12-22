@@ -6,6 +6,9 @@
 #include once "d3d9types.bi"
 #include once "d3d9caps.bi"
 
+#inclib "dxguid"
+#inclib "d3d9"
+
 #ifdef __FB_64BIT__
 	extern "C"
 #else

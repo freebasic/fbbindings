@@ -2,6 +2,8 @@
 
 #include once "winapifamily.bi"
 
+#inclib "wldap32"
+
 extern "C"
 
 #define _WINBER_DEFINED_

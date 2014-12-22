@@ -9,6 +9,8 @@
 ''     inside struct _SP_DRVINFO_DATA_V2_W:
 ''         field DriverVersion => DriverVersion_
 
+#inclib "setupapi"
+
 #ifdef __FB_64BIT__
 	extern "C"
 #else

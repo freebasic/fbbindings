@@ -14,6 +14,8 @@
 	''     #define LPMODULEENTRY32 => LPMODULEENTRY32_
 #endif
 
+#inclib "kernel32"
+
 #ifdef __FB_64BIT__
 	extern "C"
 #else

@@ -2,6 +2,8 @@
 
 #include once "oaidl.bi"
 
+#inclib "oleaut32"
+
 '' The following symbols have been renamed:
 ''     #define VarI4FromInt => VarI4FromInt_
 ''     #define VarI8FromInt => VarI8FromInt_

@@ -12,6 +12,9 @@
 #include once "d3dx9anim.bi"
 #include once "d3dx9tex.bi"
 
+#inclib "dxguid"
+#inclib "d3dx9d"
+
 #define __D3DX9_H__
 #define D3DX_DEFAULT cast(UINT, -1)
 #define D3DX_DEFAULT_NONPOW2 cast(UINT, -2)

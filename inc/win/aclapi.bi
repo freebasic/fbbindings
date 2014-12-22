@@ -5,6 +5,8 @@
 #include once "windows.bi"
 #include once "accctrl.bi"
 
+#inclib "advapi32"
+
 #ifdef __FB_64BIT__
 	extern "C"
 #else

@@ -8,6 +8,8 @@
 ''             inside struct __mmtime_tag_smpte:
 ''                 field min => min_
 
+#inclib "winmm"
+
 #ifdef __FB_64BIT__
 	extern "C"
 #else

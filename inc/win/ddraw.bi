@@ -4,6 +4,9 @@
 #include once "objbase.bi"
 #include once "_mingw_dxhelper.bi"
 
+#inclib "ddraw"
+#inclib "dxguid"
+
 #ifdef __FB_64BIT__
 	extern "C"
 #else

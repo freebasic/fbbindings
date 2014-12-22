@@ -7,6 +7,9 @@
 #include once "shldisp.bi"
 #include once "knownfolders.bi"
 
+#inclib "uuid"
+#inclib "shell32"
+
 extern "C"
 
 #define STR_MYDOCS_CLSID "{450D8FBA-AD25-11D0-98A8-0800361B1103}"

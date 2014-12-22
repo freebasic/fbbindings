@@ -11,6 +11,8 @@
 ''     inside struct IShellNameSpaceVtbl:
 ''         field Synchronize => Synchronize_
 
+#inclib "uuid"
+
 #ifdef __FB_64BIT__
 	extern "C"
 #else

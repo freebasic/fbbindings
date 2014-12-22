@@ -13,6 +13,8 @@
 ''     #define OLEMISC_SETCLIENTSITEFIRST => OLEMISC_SETCLIENTSITEFIRST_
 ''     #define OLEMISC_IMEMODE => OLEMISC_IMEMODE_
 
+#inclib "oleaut32"
+
 #ifdef __FB_64BIT__
 	extern "C"
 #else

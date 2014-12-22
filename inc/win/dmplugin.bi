@@ -5,6 +5,8 @@
 #include once "mmsystem.bi"
 #include once "dmusici.bi"
 
+#inclib "dxguid"
+
 #ifdef __FB_64BIT__
 	extern "C"
 #else

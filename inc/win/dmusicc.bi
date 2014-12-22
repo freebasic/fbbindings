@@ -9,6 +9,8 @@
 #include once "dsound.bi"
 #include once "dmusbuff.bi"
 
+#inclib "dxguid"
+
 #ifdef __FB_64BIT__
 	extern "C"
 #else

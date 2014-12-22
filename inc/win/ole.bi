@@ -2,6 +2,8 @@
 
 #include once "winapifamily.bi"
 
+#inclib "ole32"
+
 '' The following symbols have been renamed:
 ''     #define LRESULT => LRESULT_
 ''     #define HGLOBAL => HGLOBAL_

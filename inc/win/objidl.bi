@@ -8,6 +8,8 @@
 #include once "wtypes.bi"
 #include once "winapifamily.bi"
 
+#inclib "uuid"
+
 #ifdef __FB_64BIT__
 	extern "C"
 #else

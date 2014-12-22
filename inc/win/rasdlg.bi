@@ -9,6 +9,8 @@
 ''     #define RasEntryDlg => RasEntryDlg_
 ''     #define RasDialDlg => RasDialDlg_
 
+#inclib "rasdlg"
+
 #ifdef __FB_64BIT__
 	extern "C"
 #else

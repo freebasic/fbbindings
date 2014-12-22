@@ -6,6 +6,8 @@
 '' The following symbols have been renamed:
 ''     typedef IMAGEINFO => IMAGEINFO_
 
+#inclib "comctl32"
+
 #ifdef __FB_64BIT__
 	extern "C"
 #else

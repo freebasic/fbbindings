@@ -14,6 +14,8 @@
 ''     inside struct tagCOLORKEY:
 ''         field PaletteIndex => PaletteIndex_
 
+#inclib "strmiids"
+
 #ifdef __FB_64BIT__
 	extern "C"
 #else

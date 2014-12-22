@@ -7,6 +7,8 @@
 ''     typedef PVALUEA => PVALUEA_
 ''     typedef PVALUEW => PVALUEW_
 
+#inclib "advapi32"
+
 #ifdef __FB_64BIT__
 	extern "C"
 #else

@@ -6,6 +6,8 @@
 #include once "oleauto.bi"
 #include once "oleidl.bi"
 
+#inclib "ole32"
+
 #ifdef __FB_64BIT__
 	extern "C"
 #else

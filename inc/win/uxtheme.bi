@@ -2,6 +2,8 @@
 
 #include once "commctrl.bi"
 
+#inclib "uxtheme"
+
 #ifdef __FB_64BIT__
 	extern "C"
 #else

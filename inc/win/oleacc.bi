@@ -7,6 +7,8 @@
 #include once "oaidl.bi"
 #include once "_mingw_unicode.bi"
 
+#inclib "oleacc"
+
 #ifdef __FB_64BIT__
 	extern "C"
 #else

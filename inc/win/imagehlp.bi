@@ -4,6 +4,8 @@
 #include once "wintrust.bi"
 #include once "psdk_inc/_dbg_common.bi"
 
+#inclib "imagehlp"
+
 #ifdef __FB_64BIT__
 	extern "C"
 #else

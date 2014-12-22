@@ -24,6 +24,8 @@
 ''     typedef LDAPSortKeyA => LDAPSortKeyA_
 ''     typedef LDAPVLVInfo => LDAPVLVInfo_
 
+#inclib "wldap32"
+
 extern "C"
 
 #define LDAP_CLIENT_DEFINED

@@ -17,6 +17,8 @@
 ''     #define BITSPIXEL => BITSPIXEL_
 ''     #define PLANES => PLANES_
 
+#inclib "gdi32"
+
 #ifdef __FB_64BIT__
 	extern "C"
 #else

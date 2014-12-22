@@ -24,6 +24,8 @@
 ''     typedef SOCKADDR_STORAGE => SOCKADDR_STORAGE_
 ''     procedure select => select_
 
+#inclib "ws2_32"
+
 #ifdef __FB_64BIT__
 	extern "C"
 #else

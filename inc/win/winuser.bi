@@ -10,6 +10,8 @@
 ''     typedef INPUT => INPUT_
 ''     procedure ToAscii => ToAscii_
 
+#inclib "user32"
+
 #ifdef __FB_64BIT__
 	extern "C"
 #else
