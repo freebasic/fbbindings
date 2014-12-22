@@ -620,7 +620,7 @@ type _PARTITION_INFORMATION_GPT
 	PartitionType as GUID
 	PartitionId as GUID
 	Attributes as DWORD64
-	Name(0 to 35) as WCHAR
+	Name as wstring * 36
 end type
 
 type PARTITION_INFORMATION_GPT as _PARTITION_INFORMATION_GPT
@@ -916,7 +916,7 @@ type _DISK_PERFORMANCE
 	SplitCount as DWORD
 	QueryTime as LARGE_INTEGER
 	StorageDeviceNumber as DWORD
-	StorageManagerName(0 to 7) as WCHAR
+	StorageManagerName as wstring * 8
 end type
 
 type DISK_PERFORMANCE as _DISK_PERFORMANCE
@@ -1492,7 +1492,7 @@ type PCHANGER_DEVICE_PROBLEM_TYPE as _CHANGER_DEVICE_PROBLEM_TYPE ptr
 
 type _PATHNAME_BUFFER
 	PathNameLength as DWORD
-	Name(0 to 0) as WCHAR
+	Name as wstring * 1
 end type
 
 type PATHNAME_BUFFER as _PATHNAME_BUFFER
@@ -1611,7 +1611,7 @@ type FIND_BY_SID_OUTPUT
 	NextEntryOffset as DWORD
 	FileIndex as DWORD
 	FileNameLength as DWORD
-	FileName(0 to 0) as WCHAR
+	FileName as wstring * 1
 end type
 
 type PFIND_BY_SID_OUTPUT as FIND_BY_SID_OUTPUT ptr
@@ -1656,7 +1656,7 @@ type USN_RECORD
 	FileAttributes as DWORD
 	FileNameLength as WORD
 	FileNameOffset as WORD
-	FileName(0 to 0) as WCHAR
+	FileName as wstring * 1
 end type
 
 type PUSN_RECORD as USN_RECORD ptr
@@ -2002,7 +2002,7 @@ type _SI_COPYFILE
 	SourceFileNameLength as DWORD
 	DestinationFileNameLength as DWORD
 	Flags as DWORD
-	FileNameBuffer(0 to 0) as WCHAR
+	FileNameBuffer as wstring * 1
 end type
 
 type SI_COPYFILE as _SI_COPYFILE
@@ -2174,13 +2174,13 @@ type PVOLUME_GET_GPT_ATTRIBUTES_INFORMATION as _VOLUME_GET_GPT_ATTRIBUTES_INFORM
 		FileCount as LARGE_INTEGER
 		FsFormatMajVersion as WORD
 		FsFormatMinVersion as WORD
-		FsFormatName(0 to 11) as WCHAR
+		FsFormatName as wstring * 12
 		FormatTime as LARGE_INTEGER
 		LastUpdateTime as LARGE_INTEGER
-		CopyrightInfo(0 to 33) as WCHAR
-		AbstractInfo(0 to 33) as WCHAR
-		FormattingImplementationInfo(0 to 33) as WCHAR
-		LastModifyingImplementationInfo(0 to 33) as WCHAR
+		CopyrightInfo as wstring * 34
+		AbstractInfo as wstring * 34
+		FormattingImplementationInfo as wstring * 34
+		LastModifyingImplementationInfo as wstring * 34
 	end type
 
 	type FILE_QUERY_ON_DISK_VOL_INFO_BUFFER as _FILE_QUERY_ON_DISK_VOL_INFO_BUFFER
@@ -2329,7 +2329,7 @@ type PVOLUME_GET_GPT_ATTRIBUTES_INFORMATION as _VOLUME_GET_GPT_ATTRIBUTES_INFORM
 		LoggingMode as USHORT
 		LogPathLength as USHORT
 		Reserved as USHORT
-		LogPath(0 to 0) as WCHAR
+		LogPath as wstring * 1
 	end type
 
 	type TXFS_START_RM_INFORMATION as _TXFS_START_RM_INFORMATION
@@ -2360,7 +2360,7 @@ type PVOLUME_GET_GPT_ATTRIBUTES_INFORMATION as _VOLUME_GET_GPT_ATTRIBUTES_INFORM
 		Reserved1 as ULONG
 		Reserved2 as ULONG
 		Reserved3 as LONGLONG
-		FileName(0 to 0) as WCHAR
+		FileName as wstring * 1
 	end type
 
 	type TXFS_LIST_TRANSACTION_LOCKED_FILES_ENTRY as _TXFS_LIST_TRANSACTION_LOCKED_FILES_ENTRY
@@ -2604,7 +2604,7 @@ type PVOLUME_GET_GPT_ATTRIBUTES_INFORMATION as _VOLUME_GET_GPT_ATTRIBUTES_INFORM
 	type PRETRIEVAL_POINTER_BASE as _RETRIEVAL_POINTER_BASE ptr
 
 	type _FILE_SYSTEM_RECOGNITION_INFORMATION
-		FileSystem(0 to 8) as CHAR
+		FileSystem as zstring * 9
 	end type
 
 	type FILE_SYSTEM_RECOGNITION_INFORMATION as _FILE_SYSTEM_RECOGNITION_INFORMATION
@@ -2644,7 +2644,7 @@ type PVOLUME_GET_GPT_ATTRIBUTES_INFORMATION as _VOLUME_GET_GPT_ATTRIBUTES_INFORM
 		Flags as DWORD
 		Reserved as LARGE_INTEGER
 		Cluster as LARGE_INTEGER
-		FileName(0 to 0) as WCHAR
+		FileName as wstring * 1
 	end type
 
 	type LOOKUP_STREAM_FROM_CLUSTER_ENTRY as _LOOKUP_STREAM_FROM_CLUSTER_ENTRY

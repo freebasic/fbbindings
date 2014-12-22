@@ -152,11 +152,11 @@ end type
 type ___NLA_BLOB_interfaceData
 	dwType as DWORD
 	dwSpeed as DWORD
-	adapterName(0 to 0) as CHAR
+	adapterName as zstring * 1
 end type
 
 type ___NLA_BLOB_locationData
-	information(0 to 0) as CHAR
+	information as zstring * 1
 end type
 
 type ___NLA_BLOB_connectivity
@@ -168,8 +168,8 @@ type ___NLA_BLOB_remote
 	speed as DWORD
 	as DWORD type
 	state as DWORD
-	machineName(0 to 255) as WCHAR
-	sharedAdapterName(0 to 255) as WCHAR
+	machineName as wstring * 256
+	sharedAdapterName as wstring * 256
 end type
 
 type ___NLA_BLOB_ICS
@@ -177,7 +177,7 @@ type ___NLA_BLOB_ICS
 end type
 
 union ___NLA_BLOB_data
-	rawData(0 to 0) as CHAR
+	rawData as zstring * 1
 	interfaceData as ___NLA_BLOB_interfaceData
 	locationData as ___NLA_BLOB_locationData
 	connectivity as ___NLA_BLOB_connectivity

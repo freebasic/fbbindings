@@ -1461,14 +1461,14 @@ declare sub IWinInetHttpTimeouts_GetRequestTimeouts_Stub(byval This as IRpcStubB
 		AddRef as function(byval This as IWinInetCacheHints2 ptr) as ULONG
 		Release as function(byval This as IWinInetCacheHints2 ptr) as ULONG
 		SetCacheExtension as function(byval This as IWinInetCacheHints2 ptr, byval pwzExt as LPCWSTR, byval pszCacheFile as LPVOID, byval pcbCacheFile as DWORD ptr, byval pdwWinInetError as DWORD ptr, byval pdwReserved as DWORD ptr) as HRESULT
-		SetCacheExtension2 as function(byval This as IWinInetCacheHints2 ptr, byval pwzExt as LPCWSTR, byval pwzCacheFile as WCHAR ptr, byval pcchCacheFile as DWORD ptr, byval pdwWinInetError as DWORD ptr, byval pdwReserved as DWORD ptr) as HRESULT
+		SetCacheExtension2 as function(byval This as IWinInetCacheHints2 ptr, byval pwzExt as LPCWSTR, byval pwzCacheFile as wstring ptr, byval pcchCacheFile as DWORD ptr, byval pdwWinInetError as DWORD ptr, byval pdwReserved as DWORD ptr) as HRESULT
 	end type
 
 	type IWinInetCacheHints2_
 		lpVtbl as IWinInetCacheHints2Vtbl ptr
 	end type
 
-	declare function IWinInetCacheHints2_SetCacheExtension2_Proxy(byval This as IWinInetCacheHints2 ptr, byval pwzExt as LPCWSTR, byval pwzCacheFile as WCHAR ptr, byval pcchCacheFile as DWORD ptr, byval pdwWinInetError as DWORD ptr, byval pdwReserved as DWORD ptr) as HRESULT
+	declare function IWinInetCacheHints2_SetCacheExtension2_Proxy(byval This as IWinInetCacheHints2 ptr, byval pwzExt as LPCWSTR, byval pwzCacheFile as wstring ptr, byval pcchCacheFile as DWORD ptr, byval pdwWinInetError as DWORD ptr, byval pdwReserved as DWORD ptr) as HRESULT
 	declare sub IWinInetCacheHints2_SetCacheExtension2_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 #endif
 
@@ -2654,9 +2654,9 @@ type ZAFLAGS as __WIDL_urlmon_generated_name_0000000F
 
 type _ZONEATTRIBUTES
 	cbSize as ULONG
-	szDisplayName(0 to 259) as WCHAR
-	szDescription(0 to 199) as WCHAR
-	szIconPath(0 to 259) as WCHAR
+	szDisplayName as wstring * 260
+	szDescription as wstring * 200
+	szIconPath as wstring * 260
 	dwTemplateMinLevel as DWORD
 	dwTemplateRecommended as DWORD
 	dwTemplateCurrentLevel as DWORD

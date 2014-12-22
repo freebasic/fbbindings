@@ -137,7 +137,7 @@ declare function CoIsHandlerConnected(byval pUnk as LPUNKNOWN) as WINBOOL
 
 declare function CoGetCallContext(byval riid as const IID const ptr, byval ppInterface as any ptr ptr) as HRESULT
 declare function CoQueryProxyBlanket(byval pProxy as IUnknown ptr, byval pwAuthnSvc as DWORD ptr, byval pAuthzSvc as DWORD ptr, byval pServerPrincName as LPOLESTR ptr, byval pAuthnLevel as DWORD ptr, byval pImpLevel as DWORD ptr, byval pAuthInfo as RPC_AUTH_IDENTITY_HANDLE ptr, byval pCapabilites as DWORD ptr) as HRESULT
-declare function CoSetProxyBlanket(byval pProxy as IUnknown ptr, byval dwAuthnSvc as DWORD, byval dwAuthzSvc as DWORD, byval pServerPrincName as OLECHAR ptr, byval dwAuthnLevel as DWORD, byval dwImpLevel as DWORD, byval pAuthInfo as RPC_AUTH_IDENTITY_HANDLE, byval dwCapabilities as DWORD) as HRESULT
+declare function CoSetProxyBlanket(byval pProxy as IUnknown ptr, byval dwAuthnSvc as DWORD, byval dwAuthzSvc as DWORD, byval pServerPrincName as wstring ptr, byval dwAuthnLevel as DWORD, byval dwImpLevel as DWORD, byval pAuthInfo as RPC_AUTH_IDENTITY_HANDLE, byval dwCapabilities as DWORD) as HRESULT
 declare function CoCopyProxy(byval pProxy as IUnknown ptr, byval ppCopy as IUnknown ptr ptr) as HRESULT
 declare function CoQueryClientBlanket(byval pAuthnSvc as DWORD ptr, byval pAuthzSvc as DWORD ptr, byval pServerPrincName as LPOLESTR ptr, byval pAuthnLevel as DWORD ptr, byval pImpLevel as DWORD ptr, byval pPrivs as RPC_AUTHZ_HANDLE ptr, byval pCapabilities as DWORD ptr) as HRESULT
 declare function CoImpersonateClient() as HRESULT

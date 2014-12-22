@@ -99,8 +99,8 @@ declare function GetOwnerModuleFromUdpEntry(byval pUdpEntry as PMIB_UDPROW_OWNER
 	type NET_ADDRESS_FORMAT as _NET_ADDRESS_FORMAT
 
 	type ___NET_ADDRESS_INFO_NamedAddress
-		Address(0 to 255) as WCHAR
-		Port(0 to 5) as WCHAR
+		Address as wstring * 256
+		Port as wstring * 6
 	end type
 
 	type _NET_ADDRESS_INFO

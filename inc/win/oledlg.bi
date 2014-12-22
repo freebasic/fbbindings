@@ -603,7 +603,7 @@ type tagOLEUICHANGEICONW
 	hResource as HRSRC
 	hMetaPict as HGLOBAL
 	clsid as CLSID
-	szIconExe(0 to 259) as WCHAR
+	szIconExe as wstring * 260
 	cchIconExe as long
 end type
 
@@ -623,7 +623,7 @@ type tagOLEUICHANGEICONA
 	hResource as HRSRC
 	hMetaPict as HGLOBAL
 	clsid as CLSID
-	szIconExe(0 to 259) as CHAR
+	szIconExe as zstring * 260
 	cchIconExe as long
 end type
 

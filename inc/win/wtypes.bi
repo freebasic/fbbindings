@@ -324,7 +324,7 @@ type DECIMAL as tagDEC
 
 type LPDECIMAL as DECIMAL ptr
 type wireBSTR as FLAGGED_WORD_BLOB ptr
-type BSTR as OLECHAR ptr
+type BSTR as wstring ptr
 type LPBSTR as BSTR ptr
 type VARIANT_BOOL as short
 

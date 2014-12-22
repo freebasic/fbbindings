@@ -575,7 +575,7 @@ type _DMUS_SUBCHORD
 end type
 
 type _DMUS_CHORD_KEY
-	wszName(0 to 15) as WCHAR
+	wszName as wstring * 16
 	wMeasure as WORD
 	bBeat as UBYTE
 	bSubChordCount as UBYTE
@@ -821,7 +821,7 @@ type _DMUS_LYRIC_PMSG
 	dwVoiceID as DWORD
 	dwGroupID as DWORD
 	punkUser as IUnknown ptr
-	wszString(0 to 0) as WCHAR
+	wszString as wstring * 1
 end type
 
 type _DMUS_VERSION
@@ -851,9 +851,9 @@ type _DMUS_OBJECTDESC
 	guidClass as GUID
 	ftDate as FILETIME
 	vVersion as DMUS_VERSION
-	wszName(0 to 63) as WCHAR
-	wszCategory(0 to 63) as WCHAR
-	wszFileName(0 to 259) as WCHAR
+	wszName as wstring * &h40
+	wszCategory as wstring * &h40
+	wszFileName as wstring * 260
 	llMemLength as LONGLONG
 	pbMemData as LPBYTE
 	pStream as IStream ptr
@@ -864,10 +864,10 @@ type _DMUS_SCRIPT_ERRORINFO
 	hr as HRESULT
 	ulLineNumber as ULONG
 	ichCharPosition as LONG
-	wszSourceFile(0 to 259) as WCHAR
-	wszSourceComponent(0 to 259) as WCHAR
-	wszDescription(0 to 259) as WCHAR
-	wszSourceLineText(0 to 259) as WCHAR
+	wszSourceFile as wstring * 260
+	wszSourceComponent as wstring * 260
+	wszDescription as wstring * 260
+	wszSourceLineText as wstring * 260
 end type
 
 type _DMUS_COMMAND_PARAM
@@ -946,8 +946,8 @@ type IDirectMusicLoaderVtbl_
 	Release as function(byval This as IDirectMusicLoader ptr) as ULONG
 	_GetObject as function(byval This as IDirectMusicLoader ptr, byval pDesc as LPDMUS_OBJECTDESC, byval riid as const IID const ptr, byval ppv as LPVOID ptr) as HRESULT
 	SetObject as function(byval This as IDirectMusicLoader ptr, byval pDesc as LPDMUS_OBJECTDESC) as HRESULT
-	SetSearchDirectory as function(byval This as IDirectMusicLoader ptr, byval rguidClass as const GUID const ptr, byval pwzPath as WCHAR ptr, byval fClear as WINBOOL) as HRESULT
-	ScanDirectory as function(byval This as IDirectMusicLoader ptr, byval rguidClass as const GUID const ptr, byval pwzFileExtension as WCHAR ptr, byval pwzScanFileName as WCHAR ptr) as HRESULT
+	SetSearchDirectory as function(byval This as IDirectMusicLoader ptr, byval rguidClass as const GUID const ptr, byval pwzPath as wstring ptr, byval fClear as WINBOOL) as HRESULT
+	ScanDirectory as function(byval This as IDirectMusicLoader ptr, byval rguidClass as const GUID const ptr, byval pwzFileExtension as wstring ptr, byval pwzScanFileName as wstring ptr) as HRESULT
 	CacheObject as function(byval This as IDirectMusicLoader ptr, byval pObject as IDirectMusicObject ptr) as HRESULT
 	ReleaseObject as function(byval This as IDirectMusicLoader ptr, byval pObject as IDirectMusicObject ptr) as HRESULT
 	ClearCache as function(byval This as IDirectMusicLoader ptr, byval rguidClass as const GUID const ptr) as HRESULT
@@ -978,8 +978,8 @@ type IDirectMusicLoader8Vtbl_
 	Release as function(byval This as IDirectMusicLoader8 ptr) as ULONG
 	_GetObject as function(byval This as IDirectMusicLoader8 ptr, byval pDesc as LPDMUS_OBJECTDESC, byval riid as const IID const ptr, byval ppv as LPVOID ptr) as HRESULT
 	SetObject as function(byval This as IDirectMusicLoader8 ptr, byval pDesc as LPDMUS_OBJECTDESC) as HRESULT
-	SetSearchDirectory as function(byval This as IDirectMusicLoader8 ptr, byval rguidClass as const GUID const ptr, byval pwzPath as WCHAR ptr, byval fClear as WINBOOL) as HRESULT
-	ScanDirectory as function(byval This as IDirectMusicLoader8 ptr, byval rguidClass as const GUID const ptr, byval pwzFileExtension as WCHAR ptr, byval pwzScanFileName as WCHAR ptr) as HRESULT
+	SetSearchDirectory as function(byval This as IDirectMusicLoader8 ptr, byval rguidClass as const GUID const ptr, byval pwzPath as wstring ptr, byval fClear as WINBOOL) as HRESULT
+	ScanDirectory as function(byval This as IDirectMusicLoader8 ptr, byval rguidClass as const GUID const ptr, byval pwzFileExtension as wstring ptr, byval pwzScanFileName as wstring ptr) as HRESULT
 	CacheObject as function(byval This as IDirectMusicLoader8 ptr, byval pObject as IDirectMusicObject ptr) as HRESULT
 	ReleaseObject as function(byval This as IDirectMusicLoader8 ptr, byval pObject as IDirectMusicObject ptr) as HRESULT
 	ClearCache as function(byval This as IDirectMusicLoader8 ptr, byval rguidClass as const GUID const ptr) as HRESULT
@@ -987,7 +987,7 @@ type IDirectMusicLoader8Vtbl_
 	EnumObject as function(byval This as IDirectMusicLoader8 ptr, byval rguidClass as const GUID const ptr, byval dwIndex as DWORD, byval pDesc as LPDMUS_OBJECTDESC) as HRESULT
 	CollectGarbage as sub(byval This as IDirectMusicLoader8 ptr)
 	ReleaseObjectByUnknown as function(byval This as IDirectMusicLoader8 ptr, byval pObject as IUnknown ptr) as HRESULT
-	LoadObjectFromFile as function(byval This as IDirectMusicLoader8 ptr, byval rguidClassID as const GUID const ptr, byval iidInterfaceID as const IID const ptr, byval pwzFilePath as WCHAR ptr, byval ppObject as any ptr ptr) as HRESULT
+	LoadObjectFromFile as function(byval This as IDirectMusicLoader8 ptr, byval rguidClassID as const GUID const ptr, byval iidInterfaceID as const IID const ptr, byval pwzFilePath as wstring ptr, byval ppObject as any ptr ptr) as HRESULT
 end type
 
 #define IDirectMusicLoader8_QueryInterface(p, a, b) (p)->lpVtbl->QueryInterface(p, a, b)
@@ -1372,7 +1372,7 @@ type IDirectMusicPerformance8Vtbl_
 	TimeToRhythm as function(byval This as IDirectMusicPerformance8 ptr, byval mtTime as MUSIC_TIME, byval pTimeSig as DMUS_TIMESIGNATURE ptr, byval pwMeasure as WORD ptr, byval pbBeat as UBYTE ptr, byval pbGrid as UBYTE ptr, byval pnOffset as short ptr) as HRESULT
 	RhythmToTime as function(byval This as IDirectMusicPerformance8 ptr, byval wMeasure as WORD, byval bBeat as UBYTE, byval bGrid as UBYTE, byval nOffset as short, byval pTimeSig as DMUS_TIMESIGNATURE ptr, byval pmtTime as MUSIC_TIME ptr) as HRESULT
 	InitAudio as function(byval This as IDirectMusicPerformance8 ptr, byval ppDirectMusic as IDirectMusic ptr ptr, byval ppDirectSound as IDirectSound ptr ptr, byval hWnd as HWND, byval dwDefaultPathType as DWORD, byval dwPChannelCount as DWORD, byval dwFlags as DWORD, byval pParams as DMUS_AUDIOPARAMS ptr) as HRESULT
-	PlaySegmentEx as function(byval This as IDirectMusicPerformance8 ptr, byval pSource as IUnknown ptr, byval pwzSegmentName as WCHAR ptr, byval pTransition as IUnknown ptr, byval dwFlags as DWORD, byval i64StartTime as longint, byval ppSegmentState as IDirectMusicSegmentState ptr ptr, byval pFrom as IUnknown ptr, byval pAudioPath as IUnknown ptr) as HRESULT
+	PlaySegmentEx as function(byval This as IDirectMusicPerformance8 ptr, byval pSource as IUnknown ptr, byval pwzSegmentName as wstring ptr, byval pTransition as IUnknown ptr, byval dwFlags as DWORD, byval i64StartTime as longint, byval ppSegmentState as IDirectMusicSegmentState ptr ptr, byval pFrom as IUnknown ptr, byval pAudioPath as IUnknown ptr) as HRESULT
 	StopEx as function(byval This as IDirectMusicPerformance8 ptr, byval pObjectToStop as IUnknown ptr, byval i64StopTime as longint, byval dwFlags as DWORD) as HRESULT
 	ClonePMsg as function(byval This as IDirectMusicPerformance8 ptr, byval pSourcePMSG as DMUS_PMSG ptr, byval ppCopyPMSG as DMUS_PMSG ptr ptr) as HRESULT
 	CreateAudioPath as function(byval This as IDirectMusicPerformance8 ptr, byval pSourceConfig as IUnknown ptr, byval fActivate as WINBOOL, byval ppNewPath as IDirectMusicAudioPath ptr ptr) as HRESULT
@@ -1466,14 +1466,14 @@ type IDirectMusicStyleVtbl_
 	QueryInterface as function(byval This as IDirectMusicStyle ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IDirectMusicStyle ptr) as ULONG
 	Release as function(byval This as IDirectMusicStyle ptr) as ULONG
-	GetBand as function(byval This as IDirectMusicStyle ptr, byval pwszName as WCHAR ptr, byval ppBand as IDirectMusicBand ptr ptr) as HRESULT
-	EnumBand as function(byval This as IDirectMusicStyle ptr, byval dwIndex as DWORD, byval pwszName as WCHAR ptr) as HRESULT
+	GetBand as function(byval This as IDirectMusicStyle ptr, byval pwszName as wstring ptr, byval ppBand as IDirectMusicBand ptr ptr) as HRESULT
+	EnumBand as function(byval This as IDirectMusicStyle ptr, byval dwIndex as DWORD, byval pwszName as wstring ptr) as HRESULT
 	GetDefaultBand as function(byval This as IDirectMusicStyle ptr, byval ppBand as IDirectMusicBand ptr ptr) as HRESULT
-	EnumMotif as function(byval This as IDirectMusicStyle ptr, byval dwIndex as DWORD, byval pwszName as WCHAR ptr) as HRESULT
-	GetMotif as function(byval This as IDirectMusicStyle ptr, byval pwszName as WCHAR ptr, byval ppSegment as IDirectMusicSegment ptr ptr) as HRESULT
+	EnumMotif as function(byval This as IDirectMusicStyle ptr, byval dwIndex as DWORD, byval pwszName as wstring ptr) as HRESULT
+	GetMotif as function(byval This as IDirectMusicStyle ptr, byval pwszName as wstring ptr, byval ppSegment as IDirectMusicSegment ptr ptr) as HRESULT
 	GetDefaultChordMap as function(byval This as IDirectMusicStyle ptr, byval ppChordMap as IDirectMusicChordMap ptr ptr) as HRESULT
-	EnumChordMap as function(byval This as IDirectMusicStyle ptr, byval dwIndex as DWORD, byval pwszName as WCHAR ptr) as HRESULT
-	GetChordMap as function(byval This as IDirectMusicStyle ptr, byval pwszName as WCHAR ptr, byval ppChordMap as IDirectMusicChordMap ptr ptr) as HRESULT
+	EnumChordMap as function(byval This as IDirectMusicStyle ptr, byval dwIndex as DWORD, byval pwszName as wstring ptr) as HRESULT
+	GetChordMap as function(byval This as IDirectMusicStyle ptr, byval pwszName as wstring ptr, byval ppChordMap as IDirectMusicChordMap ptr ptr) as HRESULT
 	GetTimeSignature as function(byval This as IDirectMusicStyle ptr, byval pTimeSig as DMUS_TIMESIGNATURE ptr) as HRESULT
 	GetEmbellishmentLength as function(byval This as IDirectMusicStyle ptr, byval dwType as DWORD, byval dwLevel as DWORD, byval pdwMin as DWORD ptr, byval pdwMax as DWORD ptr) as HRESULT
 	GetTempo as function(byval This as IDirectMusicStyle ptr, byval pTempo as double ptr) as HRESULT
@@ -1502,18 +1502,18 @@ type IDirectMusicStyle8Vtbl_
 	QueryInterface as function(byval This as IDirectMusicStyle8 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IDirectMusicStyle8 ptr) as ULONG
 	Release as function(byval This as IDirectMusicStyle8 ptr) as ULONG
-	GetBand as function(byval This as IDirectMusicStyle8 ptr, byval pwszName as WCHAR ptr, byval ppBand as IDirectMusicBand ptr ptr) as HRESULT
-	EnumBand as function(byval This as IDirectMusicStyle8 ptr, byval dwIndex as DWORD, byval pwszName as WCHAR ptr) as HRESULT
+	GetBand as function(byval This as IDirectMusicStyle8 ptr, byval pwszName as wstring ptr, byval ppBand as IDirectMusicBand ptr ptr) as HRESULT
+	EnumBand as function(byval This as IDirectMusicStyle8 ptr, byval dwIndex as DWORD, byval pwszName as wstring ptr) as HRESULT
 	GetDefaultBand as function(byval This as IDirectMusicStyle8 ptr, byval ppBand as IDirectMusicBand ptr ptr) as HRESULT
-	EnumMotif as function(byval This as IDirectMusicStyle8 ptr, byval dwIndex as DWORD, byval pwszName as WCHAR ptr) as HRESULT
-	GetMotif as function(byval This as IDirectMusicStyle8 ptr, byval pwszName as WCHAR ptr, byval ppSegment as IDirectMusicSegment ptr ptr) as HRESULT
+	EnumMotif as function(byval This as IDirectMusicStyle8 ptr, byval dwIndex as DWORD, byval pwszName as wstring ptr) as HRESULT
+	GetMotif as function(byval This as IDirectMusicStyle8 ptr, byval pwszName as wstring ptr, byval ppSegment as IDirectMusicSegment ptr ptr) as HRESULT
 	GetDefaultChordMap as function(byval This as IDirectMusicStyle8 ptr, byval ppChordMap as IDirectMusicChordMap ptr ptr) as HRESULT
-	EnumChordMap as function(byval This as IDirectMusicStyle8 ptr, byval dwIndex as DWORD, byval pwszName as WCHAR ptr) as HRESULT
-	GetChordMap as function(byval This as IDirectMusicStyle8 ptr, byval pwszName as WCHAR ptr, byval ppChordMap as IDirectMusicChordMap ptr ptr) as HRESULT
+	EnumChordMap as function(byval This as IDirectMusicStyle8 ptr, byval dwIndex as DWORD, byval pwszName as wstring ptr) as HRESULT
+	GetChordMap as function(byval This as IDirectMusicStyle8 ptr, byval pwszName as wstring ptr, byval ppChordMap as IDirectMusicChordMap ptr ptr) as HRESULT
 	GetTimeSignature as function(byval This as IDirectMusicStyle8 ptr, byval pTimeSig as DMUS_TIMESIGNATURE ptr) as HRESULT
 	GetEmbellishmentLength as function(byval This as IDirectMusicStyle8 ptr, byval dwType as DWORD, byval dwLevel as DWORD, byval pdwMin as DWORD ptr, byval pdwMax as DWORD ptr) as HRESULT
 	GetTempo as function(byval This as IDirectMusicStyle8 ptr, byval pTempo as double ptr) as HRESULT
-	EnumPattern as function(byval This as IDirectMusicStyle8 ptr, byval dwIndex as DWORD, byval dwPatternType as DWORD, byval pwszName as WCHAR ptr) as HRESULT
+	EnumPattern as function(byval This as IDirectMusicStyle8 ptr, byval dwIndex as DWORD, byval dwPatternType as DWORD, byval pwszName as wstring ptr) as HRESULT
 end type
 
 #define IDirectMusicStyle8_QueryInterface(p, a, b) (p)->lpVtbl->QueryInterface(p, a, b)
@@ -1584,7 +1584,7 @@ type IDirectMusicPatternTrackVtbl_
 	Release as function(byval This as IDirectMusicPatternTrack ptr) as ULONG
 	CreateSegment as function(byval This as IDirectMusicPatternTrack ptr, byval pStyle as IDirectMusicStyle ptr, byval ppSegment as IDirectMusicSegment ptr ptr) as HRESULT
 	SetVariation as function(byval This as IDirectMusicPatternTrack ptr, byval pSegState as IDirectMusicSegmentState ptr, byval dwVariationFlags as DWORD, byval dwPart as DWORD) as HRESULT
-	SetPatternByName as function(byval This as IDirectMusicPatternTrack ptr, byval pSegState as IDirectMusicSegmentState ptr, byval wszName as WCHAR ptr, byval pStyle as IDirectMusicStyle ptr, byval dwPatternType as DWORD, byval pdwLength as DWORD ptr) as HRESULT
+	SetPatternByName as function(byval This as IDirectMusicPatternTrack ptr, byval pSegState as IDirectMusicSegmentState ptr, byval wszName as wstring ptr, byval pStyle as IDirectMusicStyle ptr, byval dwPatternType as DWORD, byval pdwLength as DWORD ptr) as HRESULT
 end type
 
 #define IDirectMusicPatternTrack_QueryInterface(p, a, b) (p)->lpVtbl->QueryInterface(p, a, b)
@@ -1603,15 +1603,15 @@ type IDirectMusicScriptVtbl_
 	AddRef as function(byval This as IDirectMusicScript ptr) as ULONG
 	Release as function(byval This as IDirectMusicScript ptr) as ULONG
 	Init as function(byval This as IDirectMusicScript ptr, byval pPerformance as IDirectMusicPerformance ptr, byval pErrorInfo as DMUS_SCRIPT_ERRORINFO ptr) as HRESULT
-	CallRoutine as function(byval This as IDirectMusicScript ptr, byval pwszRoutineName as WCHAR ptr, byval pErrorInfo as DMUS_SCRIPT_ERRORINFO ptr) as HRESULT
-	SetVariableVariant as function(byval This as IDirectMusicScript ptr, byval pwszVariableName as WCHAR ptr, byval varValue as VARIANT, byval fSetRef as WINBOOL, byval pErrorInfo as DMUS_SCRIPT_ERRORINFO ptr) as HRESULT
-	GetVariableVariant as function(byval This as IDirectMusicScript ptr, byval pwszVariableName as WCHAR ptr, byval pvarValue as VARIANT ptr, byval pErrorInfo as DMUS_SCRIPT_ERRORINFO ptr) as HRESULT
-	SetVariableNumber as function(byval This as IDirectMusicScript ptr, byval pwszVariableName as WCHAR ptr, byval lValue as LONG, byval pErrorInfo as DMUS_SCRIPT_ERRORINFO ptr) as HRESULT
-	GetVariableNumber as function(byval This as IDirectMusicScript ptr, byval pwszVariableName as WCHAR ptr, byval plValue as LONG ptr, byval pErrorInfo as DMUS_SCRIPT_ERRORINFO ptr) as HRESULT
-	SetVariableObject as function(byval This as IDirectMusicScript ptr, byval pwszVariableName as WCHAR ptr, byval punkValue as IUnknown ptr, byval pErrorInfo as DMUS_SCRIPT_ERRORINFO ptr) as HRESULT
-	GetVariableObject as function(byval This as IDirectMusicScript ptr, byval pwszVariableName as WCHAR ptr, byval riid as const IID const ptr, byval ppv as LPVOID ptr, byval pErrorInfo as DMUS_SCRIPT_ERRORINFO ptr) as HRESULT
-	EnumRoutine as function(byval This as IDirectMusicScript ptr, byval dwIndex as DWORD, byval pwszName as WCHAR ptr) as HRESULT
-	EnumVariable as function(byval This as IDirectMusicScript ptr, byval dwIndex as DWORD, byval pwszName as WCHAR ptr) as HRESULT
+	CallRoutine as function(byval This as IDirectMusicScript ptr, byval pwszRoutineName as wstring ptr, byval pErrorInfo as DMUS_SCRIPT_ERRORINFO ptr) as HRESULT
+	SetVariableVariant as function(byval This as IDirectMusicScript ptr, byval pwszVariableName as wstring ptr, byval varValue as VARIANT, byval fSetRef as WINBOOL, byval pErrorInfo as DMUS_SCRIPT_ERRORINFO ptr) as HRESULT
+	GetVariableVariant as function(byval This as IDirectMusicScript ptr, byval pwszVariableName as wstring ptr, byval pvarValue as VARIANT ptr, byval pErrorInfo as DMUS_SCRIPT_ERRORINFO ptr) as HRESULT
+	SetVariableNumber as function(byval This as IDirectMusicScript ptr, byval pwszVariableName as wstring ptr, byval lValue as LONG, byval pErrorInfo as DMUS_SCRIPT_ERRORINFO ptr) as HRESULT
+	GetVariableNumber as function(byval This as IDirectMusicScript ptr, byval pwszVariableName as wstring ptr, byval plValue as LONG ptr, byval pErrorInfo as DMUS_SCRIPT_ERRORINFO ptr) as HRESULT
+	SetVariableObject as function(byval This as IDirectMusicScript ptr, byval pwszVariableName as wstring ptr, byval punkValue as IUnknown ptr, byval pErrorInfo as DMUS_SCRIPT_ERRORINFO ptr) as HRESULT
+	GetVariableObject as function(byval This as IDirectMusicScript ptr, byval pwszVariableName as wstring ptr, byval riid as const IID const ptr, byval ppv as LPVOID ptr, byval pErrorInfo as DMUS_SCRIPT_ERRORINFO ptr) as HRESULT
+	EnumRoutine as function(byval This as IDirectMusicScript ptr, byval dwIndex as DWORD, byval pwszName as wstring ptr) as HRESULT
+	EnumVariable as function(byval This as IDirectMusicScript ptr, byval dwIndex as DWORD, byval pwszName as wstring ptr) as HRESULT
 end type
 
 #define IDirectMusicScript_QueryInterface(p, a, b) (p)->lpVtbl->QueryInterface(p, a, b)
@@ -1636,7 +1636,7 @@ type IDirectMusicContainerVtbl_
 	QueryInterface as function(byval This as IDirectMusicContainer ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IDirectMusicContainer ptr) as ULONG
 	Release as function(byval This as IDirectMusicContainer ptr) as ULONG
-	EnumObject as function(byval This as IDirectMusicContainer ptr, byval rguidClass as const GUID const ptr, byval dwIndex as DWORD, byval pDesc as LPDMUS_OBJECTDESC, byval pwszAlias as WCHAR ptr) as HRESULT
+	EnumObject as function(byval This as IDirectMusicContainer ptr, byval rguidClass as const GUID const ptr, byval dwIndex as DWORD, byval pDesc as LPDMUS_OBJECTDESC, byval pwszAlias as wstring ptr) as HRESULT
 end type
 
 #define IDirectMusicContainer_QueryInterface(p, a, b) (p)->lpVtbl->QueryInterface(p, a, b)

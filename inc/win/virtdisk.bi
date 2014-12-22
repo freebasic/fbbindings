@@ -270,7 +270,7 @@
 
 	type ___GET_VIRTUAL_DISK_INFO_ParentLocation
 		ParentResolved as BOOL
-		ParentLocationBuffer(0 to 0) as WCHAR
+		ParentLocationBuffer as wstring * 1
 	end type
 
 	type _GET_VIRTUAL_DISK_INFO

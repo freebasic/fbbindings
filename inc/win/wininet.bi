@@ -966,21 +966,21 @@ declare function FtpGetFileSize(byval hFile as HINTERNET, byval lpdwFileSizeHigh
 
 #ifdef __FB_64BIT__
 	type GOPHER_FIND_DATAA
-		DisplayString(0 to (128 + 1) - 1) as CHAR
+		DisplayString as zstring * 128 + 1
 		GopherType as DWORD
 		SizeLow as DWORD
 		SizeHigh as DWORD
 		LastModificationTime as FILETIME
-		Locator(0 to (((((((((((1 + 128) + 1) + 256) + 1) + 256) + 1) + 5) + 1) + 1) + 2) + 1) - 1) as CHAR
+		Locator as zstring * ((((((((((1 + 128) + 1) + 256) + 1) + 256) + 1) + 5) + 1) + 1) + 2) + 1
 	end type
 #else
 	type GOPHER_FIND_DATAA field = 4
-		DisplayString(0 to (128 + 1) - 1) as CHAR
+		DisplayString as zstring * 128 + 1
 		GopherType as DWORD
 		SizeLow as DWORD
 		SizeHigh as DWORD
 		LastModificationTime as FILETIME
-		Locator(0 to (((((((((((1 + 128) + 1) + 256) + 1) + 256) + 1) + 5) + 1) + 1) + 2) + 1) - 1) as CHAR
+		Locator as zstring * ((((((((((1 + 128) + 1) + 256) + 1) + 256) + 1) + 5) + 1) + 1) + 2) + 1
 	end type
 #endif
 
@@ -988,21 +988,21 @@ type LPGOPHER_FIND_DATAA as GOPHER_FIND_DATAA ptr
 
 #ifdef __FB_64BIT__
 	type GOPHER_FIND_DATAW
-		DisplayString(0 to (128 + 1) - 1) as WCHAR
+		DisplayString as wstring * 128 + 1
 		GopherType as DWORD
 		SizeLow as DWORD
 		SizeHigh as DWORD
 		LastModificationTime as FILETIME
-		Locator(0 to (((((((((((1 + 128) + 1) + 256) + 1) + 256) + 1) + 5) + 1) + 1) + 2) + 1) - 1) as WCHAR
+		Locator as wstring * ((((((((((1 + 128) + 1) + 256) + 1) + 256) + 1) + 5) + 1) + 1) + 2) + 1
 	end type
 #else
 	type GOPHER_FIND_DATAW field = 4
-		DisplayString(0 to (128 + 1) - 1) as WCHAR
+		DisplayString as wstring * 128 + 1
 		GopherType as DWORD
 		SizeLow as DWORD
 		SizeHigh as DWORD
 		LastModificationTime as FILETIME
-		Locator(0 to (((((((((((1 + 128) + 1) + 256) + 1) + 256) + 1) + 5) + 1) + 1) + 2) + 1) - 1) as WCHAR
+		Locator as wstring * ((((((((((1 + 128) + 1) + 256) + 1) + 256) + 1) + 5) + 1) + 1) + 2) + 1
 	end type
 #endif
 
@@ -1938,7 +1938,7 @@ type GROUPID as LONGLONG
 		dwDiskUsage as DWORD
 		dwDiskQuota as DWORD
 		dwOwnerStorage(0 to 3) as DWORD
-		szGroupName(0 to 119) as CHAR
+		szGroupName as zstring * 120
 	end type
 #else
 	type _INTERNET_CACHE_GROUP_INFOA field = 4
@@ -1948,7 +1948,7 @@ type GROUPID as LONGLONG
 		dwDiskUsage as DWORD
 		dwDiskQuota as DWORD
 		dwOwnerStorage(0 to 3) as DWORD
-		szGroupName(0 to 119) as CHAR
+		szGroupName as zstring * 120
 	end type
 #endif
 
@@ -1963,7 +1963,7 @@ type LPINTERNET_CACHE_GROUP_INFOA as _INTERNET_CACHE_GROUP_INFOA ptr
 		dwDiskUsage as DWORD
 		dwDiskQuota as DWORD
 		dwOwnerStorage(0 to 3) as DWORD
-		szGroupName(0 to 119) as WCHAR
+		szGroupName as wstring * 120
 	end type
 #else
 	type _INTERNET_CACHE_GROUP_INFOW field = 4
@@ -1973,7 +1973,7 @@ type LPINTERNET_CACHE_GROUP_INFOA as _INTERNET_CACHE_GROUP_INFOA ptr
 		dwDiskUsage as DWORD
 		dwDiskQuota as DWORD
 		dwOwnerStorage(0 to 3) as DWORD
-		szGroupName(0 to 119) as WCHAR
+		szGroupName as wstring * 120
 	end type
 #endif
 

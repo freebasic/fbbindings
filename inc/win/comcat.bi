@@ -95,7 +95,7 @@ type LPENUMCATEGORYINFO as IEnumCATEGORYINFO ptr
 type tagCATEGORYINFO
 	catid as CATID
 	lcid as LCID
-	szDescription(0 to 127) as OLECHAR
+	szDescription as wstring * 128
 end type
 
 type CATEGORYINFO as tagCATEGORYINFO

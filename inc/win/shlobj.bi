@@ -256,7 +256,7 @@ type NT_CONSOLE_PROPS field = 1
 	dwFontSize as COORD
 	uFontFamily as UINT
 	uFontWeight as UINT
-	FaceName(0 to 31) as WCHAR
+	FaceName as wstring * 32
 	uCursorSize as UINT
 	bFullScreen as WINBOOL
 	bQuickEdit as WINBOOL
@@ -295,8 +295,8 @@ type EXP_DARWIN_LINK field = 1
 		end type
 	end union
 
-	szDarwinID(0 to 259) as CHAR
-	szwDarwinID(0 to 259) as WCHAR
+	szDarwinID as zstring * 260
+	szwDarwinID as wstring * 260
 end type
 
 type LPEXP_DARWIN_LINK as EXP_DARWIN_LINK ptr
@@ -316,8 +316,8 @@ type LPEXP_SPECIAL_FOLDER as EXP_SPECIAL_FOLDER ptr
 type EXP_SZ_LINK field = 1
 	cbSize as DWORD
 	dwSignature as DWORD
-	szTarget(0 to 259) as CHAR
-	swzTarget(0 to 259) as WCHAR
+	szTarget as zstring * 260
+	swzTarget as wstring * 260
 end type
 
 type LPEXP_SZ_LINK as EXP_SZ_LINK ptr
@@ -474,7 +474,7 @@ type LPCOPYHOOKW as ICopyHookW ptr
 		dwFlags as DWORD
 		rect as RECT
 		punkRel as IUnknown ptr
-		strNewFile(0 to 259) as OLECHAR
+		strNewFile as wstring * 260
 	end type
 
 	type LPFVSHOWINFO as FVSHOWINFO ptr
@@ -1038,7 +1038,7 @@ type LPTHUMBNAILCAPTURE as IThumbnailCapture ptr
 
 #if _WIN32_WINNT = &h0502
 	type _EnumImageStoreDATAtag
-		szPath(0 to 259) as WCHAR
+		szPath as wstring * 260
 		ftTimeStamp as FILETIME
 	end type
 
@@ -1175,8 +1175,8 @@ type SHCOLUMNINFO field = 1
 	fmt as DWORD
 	cChars as UINT
 	csFlags as DWORD
-	wszTitle(0 to 79) as WCHAR
-	wszDescription(0 to 127) as WCHAR
+	wszTitle as wstring * 80
+	wszDescription as wstring * 128
 end type
 
 type LPSHCOLUMNINFO as SHCOLUMNINFO ptr
@@ -1185,7 +1185,7 @@ type LPCSHCOLUMNINFO as const SHCOLUMNINFO ptr
 type SHCOLUMNINIT
 	dwFlags as ULONG
 	dwReserved as ULONG
-	wszFolder(0 to 259) as WCHAR
+	wszFolder as wstring * 260
 end type
 
 type LPSHCOLUMNINIT as SHCOLUMNINIT ptr
@@ -1197,8 +1197,8 @@ type SHCOLUMNDATA
 	dwFlags as ULONG
 	dwFileAttributes as DWORD
 	dwReserved as ULONG
-	pwszExt as WCHAR ptr
-	wszFile(0 to 259) as WCHAR
+	pwszExt as wstring ptr
+	wszFile as wstring * 260
 end type
 
 type LPSHCOLUMNDATA as SHCOLUMNDATA ptr
@@ -1307,7 +1307,7 @@ type _FILEDESCRIPTORA field = 1
 	ftLastWriteTime as FILETIME
 	nFileSizeHigh as DWORD
 	nFileSizeLow as DWORD
-	cFileName(0 to 259) as CHAR
+	cFileName as zstring * 260
 end type
 
 type FILEDESCRIPTORA as _FILEDESCRIPTORA
@@ -1324,7 +1324,7 @@ type _FILEDESCRIPTORW field = 1
 	ftLastWriteTime as FILETIME
 	nFileSizeHigh as DWORD
 	nFileSizeLow as DWORD
-	cFileName(0 to 259) as WCHAR
+	cFileName as wstring * 260
 end type
 
 type FILEDESCRIPTORW as _FILEDESCRIPTORW
@@ -1394,8 +1394,8 @@ type LPDROPFILES as _DROPFILES ptr
 
 	type DROPDESCRIPTION field = 1
 		as DROPIMAGETYPE type
-		szMessage(0 to 259) as WCHAR
-		szInsert(0 to 259) as WCHAR
+		szMessage as wstring * 260
+		szInsert as wstring * 260
 	end type
 #endif
 
@@ -1550,7 +1550,7 @@ type _SHChangeUpdateImageIDList field = 1
 	iCurIndex as long
 	uFlags as UINT
 	dwProcessID as DWORD
-	szName(0 to 259) as WCHAR
+	szName as wstring * 260
 	cbZero as USHORT
 end type
 
@@ -1561,7 +1561,7 @@ declare function SHHandleUpdateImage(byval pidlExtra as LPCITEMIDLIST) as long
 
 type _SHChangeProductKeyAsIDList field = 1
 	cb as USHORT
-	wszProductKey(0 to 38) as WCHAR
+	wszProductKey as wstring * 39
 	cbZero as USHORT
 end type
 
@@ -2079,16 +2079,16 @@ declare function SHValidateUNC(byval hwndOwner as HWND, byval pszFile as PWSTR, 
 type PROPPRG field = 1
 	flPrg as WORD
 	flPrgInit as WORD
-	achTitle(0 to 29) as CHAR
-	achCmdLine(0 to ((63 + 64) + 1) - 1) as CHAR
-	achWorkDir(0 to 63) as CHAR
+	achTitle as zstring * 30
+	achCmdLine as zstring * (63 + 64) + 1
+	achWorkDir as zstring * 64
 	wHotKey as WORD
-	achIconFile(0 to 79) as CHAR
+	achIconFile as zstring * 80
 	wIconIndex as WORD
 	dwEnhModeFlags as DWORD
 	dwRealModeFlags as DWORD
-	achOtherFile(0 to 79) as CHAR
-	achPIFFile(0 to 259) as CHAR
+	achOtherFile as zstring * 80
+	achPIFFile as zstring * 260
 end type
 
 type PPROPPRG as PROPPRG ptr
@@ -2200,8 +2200,8 @@ end type
 type SFVM_PROPPAGE_DATA as _SFVM_PROPPAGE_DATA
 
 type _SFVM_HELPTOPIC_DATA
-	wszHelpFile(0 to 259) as WCHAR
-	wszHelpTopic(0 to 259) as WCHAR
+	wszHelpFile as wstring * 260
+	wszHelpTopic as wstring * 260
 end type
 
 type SFVM_HELPTOPIC_DATA as _SFVM_HELPTOPIC_DATA
@@ -2685,7 +2685,7 @@ declare function PickIconDlg(byval hwnd as HWND, byval pszIconPath as PWSTR, byv
 type tagAAMENUFILENAME
 	cbTotal as SHORT
 	rgbReserved(0 to 11) as UBYTE
-	szFileName(0 to 0) as WCHAR
+	szFileName as wstring * 1
 end type
 
 type AASHELLMENUFILENAME as tagAAMENUFILENAME

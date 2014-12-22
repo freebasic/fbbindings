@@ -1,5 +1,6 @@
 #pragma once
 
+#include once "crt/wchar.bi"
 #include once "mprapi.bi"
 #include once "ipmib.bi"
 #include once "ipifcons.bi"
@@ -87,7 +88,7 @@ type PMIB_IFNUMBER as _MIB_IFNUMBER ptr
 #define MAXLEN_PHYSADDR 8
 
 type _MIB_IFROW
-	wszName(0 to 255) as WCHAR
+	wszName as wstring * 256
 	dwIndex as DWORD
 	dwType as DWORD
 	dwMtu as DWORD
@@ -873,13 +874,14 @@ type PMIB_MCAST_LIMIT_ROW as MIB_MCAST_LIMIT_ROW ptr
 #define MAX_SCOPE_NAME_LEN 255
 #define SN_UNICODE
 
-type SN_CHAR as WCHAR
-type SCOPE_NAME as SN_CHAR ptr
+type SN_CHAR as wstring
+type SCOPE_NAME_BUFFER as wstring * 255 + 1
+type SCOPE_NAME as wstring ptr
 
 type _MIB_IPMCAST_SCOPE
 	dwGroupAddress as DWORD
 	dwGroupMask as DWORD
-	snNameBuffer(0 to (255 + 1) - 1) as SN_CHAR
+	snNameBuffer as wchar_t
 	dwStatus as DWORD
 end type
 

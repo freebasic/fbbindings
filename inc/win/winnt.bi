@@ -74,44 +74,44 @@ type PVOID64 as any ptr
 
 #define VOID any
 
-type CHAR as byte
+type CHAR as zstring
 type SHORT as short
 type LONG as long
 
 #define __WCHAR_DEFINED
 
-type WCHAR as wchar_t
-type PWCHAR as WCHAR ptr
-type LPWCH as WCHAR ptr
-type PWCH as WCHAR ptr
-type LPCWCH as const WCHAR ptr
-type PCWCH as const WCHAR ptr
-type NWPSTR as WCHAR ptr
-type LPWSTR as WCHAR ptr
-type PWSTR as WCHAR ptr
+type WCHAR as wstring
+type PWCHAR as wstring ptr
+type LPWCH as wstring ptr
+type PWCH as wstring ptr
+type LPCWCH as const wstring ptr
+type PCWCH as const wstring ptr
+type NWPSTR as wstring ptr
+type LPWSTR as wstring ptr
+type PWSTR as wstring ptr
 type PZPWSTR as PWSTR ptr
 type PCZPWSTR as const PWSTR ptr
-type LPUWSTR as WCHAR ptr
-type PUWSTR as WCHAR ptr
-type LPCWSTR as const WCHAR ptr
-type PCWSTR as const WCHAR ptr
+type LPUWSTR as wstring ptr
+type PUWSTR as wstring ptr
+type LPCWSTR as const wstring ptr
+type PCWSTR as const wstring ptr
 type PZPCWSTR as PCWSTR ptr
-type LPCUWSTR as const WCHAR ptr
-type PCUWSTR as const WCHAR ptr
-type PZZWSTR as WCHAR ptr
-type PCZZWSTR as const WCHAR ptr
-type PUZZWSTR as WCHAR ptr
-type PCUZZWSTR as const WCHAR ptr
-type PNZWCH as WCHAR ptr
-type PCNZWCH as const WCHAR ptr
-type PUNZWCH as WCHAR ptr
-type PCUNZWCH as const WCHAR ptr
+type LPCUWSTR as const wstring ptr
+type PCUWSTR as const wstring ptr
+type PZZWSTR as wstring ptr
+type PCZZWSTR as const wstring ptr
+type PUZZWSTR as wstring ptr
+type PCUZZWSTR as const wstring ptr
+type PNZWCH as wstring ptr
+type PCNZWCH as const wstring ptr
+type PUNZWCH as wstring ptr
+type PCUNZWCH as const wstring ptr
 
 #if _WIN32_WINNT = &h0602
-	type LPCWCHAR as const WCHAR ptr
-	type PCWCHAR as const WCHAR ptr
-	type LPCUWCHAR as const WCHAR ptr
-	type PCUWCHAR as const WCHAR ptr
+	type LPCWCHAR as const wstring ptr
+	type PCWCHAR as const wstring ptr
+	type LPCUWCHAR as const wstring ptr
+	type PCUWCHAR as const wstring ptr
 	type UCSCHAR as ulong
 
 	#define UCSCHAR_INVALID_CHARACTER &hffffffff
@@ -128,31 +128,31 @@ type PCUNZWCH as const WCHAR ptr
 	type PCUUCSCHAR as const UCSCHAR ptr
 #endif
 
-type PCHAR as CHAR ptr
-type LPCH as CHAR ptr
-type PCH as CHAR ptr
-type LPCCH as const CHAR ptr
-type PCCH as const CHAR ptr
-type NPSTR as CHAR ptr
-type LPSTR as CHAR ptr
-type PSTR as CHAR ptr
+type PCHAR as zstring ptr
+type LPCH as zstring ptr
+type PCH as zstring ptr
+type LPCCH as const zstring ptr
+type PCCH as const zstring ptr
+type NPSTR as zstring ptr
+type LPSTR as zstring ptr
+type PSTR as zstring ptr
 type PZPSTR as PSTR ptr
 type PCZPSTR as const PSTR ptr
-type LPCSTR as const CHAR ptr
-type PCSTR as const CHAR ptr
+type LPCSTR as const zstring ptr
+type PCSTR as const zstring ptr
 type PZPCSTR as PCSTR ptr
-type PZZSTR as CHAR ptr
-type PCZZSTR as const CHAR ptr
-type PNZCH as CHAR ptr
-type PCNZCH as const CHAR ptr
+type PZZSTR as zstring ptr
+type PCZZSTR as const zstring ptr
+type PNZCH as zstring ptr
+type PCNZCH as const zstring ptr
 
 #define _TCHAR_DEFINED
 
 #ifdef UNICODE
-	type TCHAR as WCHAR
-	type PTCHAR as WCHAR ptr
-	type TBYTE as WCHAR
-	type PTBYTE as WCHAR ptr
+	type TCHAR as wstring
+	type PTCHAR as wstring ptr
+	type TBYTE as wstring
+	type PTBYTE as wstring ptr
 	type LPTCH as LPWSTR
 	type PTCH as LPWSTR
 	type PTSTR as LPWSTR
@@ -176,7 +176,7 @@ type PCNZCH as const CHAR ptr
 
 	#define __TEXT(quote) L##quote
 #else
-	type TCHAR as byte
+	type TCHAR as zstring
 	type PTCHAR as zstring ptr
 	type TBYTE as ubyte
 	type PTBYTE as ubyte ptr
@@ -235,7 +235,7 @@ type HRESULT as LONG
 #define IFACEMETHODIMPV STDMETHODIMPV
 #define IFACEMETHODIMPV_(type) STDMETHODIMPV_(type)
 
-type CCHAR as byte
+type CCHAR as zstring
 
 #define _LCID_DEFINED
 
@@ -360,8 +360,8 @@ declare function _rotr cdecl(byval Value as ulong, byval Shift as long) as ulong
 declare function _rotl64 cdecl(byval Value as ulongint, byval Shift as long) as ulongint
 declare function _rotr64 cdecl(byval Value as ulongint, byval Shift as long) as ulongint
 
-#define ANSI_NULL cast(CHAR, 0)
-#define UNICODE_NULL cast(WCHAR, 0)
+#define ANSI_NULL cbyte(0)
+#define UNICODE_NULL cast(wchar_t, 0)
 #define UNICODE_STRING_MAX_BYTES cast(WORD, 65534)
 #define UNICODE_STRING_MAX_CHARS 32767
 #define _BOOLEAN_
@@ -2734,7 +2734,7 @@ type PTOKEN_AUDIT_POLICY as _TOKEN_AUDIT_POLICY ptr
 #define TOKEN_SOURCE_LENGTH 8
 
 type _TOKEN_SOURCE
-	SourceName(0 to 7) as CHAR
+	SourceName as zstring * 8
 	SourceIdentifier as LUID
 end type
 
@@ -3983,7 +3983,7 @@ type _FILE_NOTIFY_INFORMATION
 	NextEntryOffset as DWORD
 	Action as DWORD
 	FileNameLength as DWORD
-	FileName(0 to 0) as WCHAR
+	FileName as wstring * 1
 end type
 
 type FILE_NOTIFY_INFORMATION as _FILE_NOTIFY_INFORMATION
@@ -5128,8 +5128,8 @@ type PIMAGE_DOS_HEADER as _IMAGE_DOS_HEADER ptr
 
 type _IMAGE_OS2_HEADER field = 2
 	ne_magic as WORD
-	ne_ver as CHAR
-	ne_rev as CHAR
+	ne_ver as byte
+	ne_rev as byte
 	ne_enttab as WORD
 	ne_cbenttab as WORD
 	ne_crc as LONG
@@ -6398,7 +6398,7 @@ type PIMAGE_RESOURCE_DIRECTORY_ENTRY as _IMAGE_RESOURCE_DIRECTORY_ENTRY ptr
 
 type _IMAGE_RESOURCE_DIRECTORY_STRING field = 4
 	Length as WORD
-	NameString(0 to 0) as CHAR
+	NameString as zstring * 1
 end type
 
 type IMAGE_RESOURCE_DIRECTORY_STRING as _IMAGE_RESOURCE_DIRECTORY_STRING
@@ -6406,7 +6406,7 @@ type PIMAGE_RESOURCE_DIRECTORY_STRING as _IMAGE_RESOURCE_DIRECTORY_STRING ptr
 
 type _IMAGE_RESOURCE_DIR_STRING_U field = 4
 	Length as WORD
-	NameString(0 to 0) as WCHAR
+	NameString as wstring * 1
 end type
 
 type IMAGE_RESOURCE_DIR_STRING_U as _IMAGE_RESOURCE_DIR_STRING_U
@@ -7015,7 +7015,7 @@ type _OSVERSIONINFOA
 	dwMinorVersion as DWORD
 	dwBuildNumber as DWORD
 	dwPlatformId as DWORD
-	szCSDVersion(0 to 127) as CHAR
+	szCSDVersion as zstring * 128
 end type
 
 type OSVERSIONINFOA as _OSVERSIONINFOA
@@ -7028,7 +7028,7 @@ type _OSVERSIONINFOW
 	dwMinorVersion as DWORD
 	dwBuildNumber as DWORD
 	dwPlatformId as DWORD
-	szCSDVersion(0 to 127) as WCHAR
+	szCSDVersion as wstring * 128
 end type
 
 type OSVERSIONINFOW as _OSVERSIONINFOW
@@ -7053,7 +7053,7 @@ type _OSVERSIONINFOEXA
 	dwMinorVersion as DWORD
 	dwBuildNumber as DWORD
 	dwPlatformId as DWORD
-	szCSDVersion(0 to 127) as CHAR
+	szCSDVersion as zstring * 128
 	wServicePackMajor as WORD
 	wServicePackMinor as WORD
 	wSuiteMask as WORD
@@ -7071,7 +7071,7 @@ type _OSVERSIONINFOEXW
 	dwMinorVersion as DWORD
 	dwBuildNumber as DWORD
 	dwPlatformId as DWORD
-	szCSDVersion(0 to 127) as WCHAR
+	szCSDVersion as wstring * 128
 	wServicePackMajor as WORD
 	wServicePackMinor as WORD
 	wSuiteMask as WORD
@@ -7626,7 +7626,7 @@ type PEVENTLOGRECORD as _EVENTLOGRECORD ptr
 
 type _EVENTSFORLOGFILE
 	ulSize as DWORD
-	szLogicalLogFile(0 to 255) as WCHAR
+	szLogicalLogFile as wstring * 256
 	ulNumRecords as DWORD
 	pEventLogRecords(0 to ...) as EVENTLOGRECORD
 end type
@@ -8289,7 +8289,7 @@ type PTRANSACTIONMANAGER_LOG_INFORMATION as _TRANSACTIONMANAGER_LOG_INFORMATION 
 
 type _TRANSACTIONMANAGER_LOGPATH_INFORMATION
 	LogPathLength as DWORD
-	LogPath(0 to 0) as WCHAR
+	LogPath as wstring * 1
 end type
 
 type TRANSACTIONMANAGER_LOGPATH_INFORMATION as _TRANSACTIONMANAGER_LOGPATH_INFORMATION
@@ -8315,7 +8315,7 @@ type _TRANSACTION_PROPERTIES_INFORMATION
 	Timeout as LARGE_INTEGER
 	Outcome as DWORD
 	DescriptionLength as DWORD
-	Description(0 to 0) as WCHAR
+	Description as wstring * 1
 end type
 
 type TRANSACTION_PROPERTIES_INFORMATION as _TRANSACTION_PROPERTIES_INFORMATION
@@ -8354,7 +8354,7 @@ type PTRANSACTION_SUPERIOR_ENLISTMENT_INFORMATION as _TRANSACTION_SUPERIOR_ENLIS
 type _RESOURCEMANAGER_BASIC_INFORMATION
 	ResourceManagerId as GUID
 	DescriptionLength as DWORD
-	Description(0 to 0) as WCHAR
+	Description as wstring * 1
 end type
 
 type RESOURCEMANAGER_BASIC_INFORMATION as _RESOURCEMANAGER_BASIC_INFORMATION

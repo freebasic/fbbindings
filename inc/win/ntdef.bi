@@ -46,7 +46,7 @@
 #endif
 
 #define RESTRICTED_POINTER
-#define ARGUMENT_PRESENT(ArgumentPointer) (cptr(CHAR ptr, cast(ULONG_PTR, (ArgumentPointer))) <> cptr(CHAR ptr, NULL))
+#define ARGUMENT_PRESENT(ArgumentPointer) (cptr(zstring ptr, cast(ULONG_PTR, (ArgumentPointer))) <> cptr(zstring ptr, NULL))
 #define CONTAINING_RECORD(address, type, field) cptr(type ptr, cast(ULONG_PTR, address) - cast(ULONG_PTR, @cptr(type ptr, 0)->field))
 #define FIELD_OFFSET(Type, Field) __builtin_offsetof(Type, Field)
 #define TYPE_ALIGNMENT(t) '' TODO: FIELD_OFFSET(struct { char x; t test; }, test)
@@ -64,7 +64,7 @@ type PHANDLE as HANDLE ptr
 
 #define VOID any
 
-type CHAR as byte
+type CHAR as zstring
 type SHORT as short
 type LONG as long
 type INT_ as long
@@ -115,43 +115,43 @@ type PULONGLONG as ulongint ptr
 type DWORDLONG as ULONGLONG
 type PDWORDLONG as ULONGLONG ptr
 type USN as LONGLONG
-type PCHAR as CHAR ptr
-type LPCH as CHAR ptr
-type PCH as CHAR ptr
-type LPCCH as const CHAR ptr
-type PCCH as const CHAR ptr
-type NPSTR as CHAR ptr
-type LPSTR as CHAR ptr
-type PSTR as CHAR ptr
+type PCHAR as zstring ptr
+type LPCH as zstring ptr
+type PCH as zstring ptr
+type LPCCH as const zstring ptr
+type PCCH as const zstring ptr
+type NPSTR as zstring ptr
+type LPSTR as zstring ptr
+type PSTR as zstring ptr
 type PZPSTR as PSTR ptr
 type PCZPSTR as const PSTR ptr
-type LPCSTR as const CHAR ptr
-type PCSTR as const CHAR ptr
+type LPCSTR as const zstring ptr
+type PCSTR as const zstring ptr
 type PZPCSTR as PCSTR ptr
-type PSZ as CHAR ptr
+type PSZ as zstring ptr
 type PCSZ as const zstring ptr
 
 #define __WCHAR_DEFINED
 
-type WCHAR as wchar_t
-type PWCHAR as WCHAR ptr
-type LPWCH as WCHAR ptr
-type PWCH as WCHAR ptr
-type LPCWCH as const WCHAR ptr
-type PCWCH as const WCHAR ptr
-type NWPSTR as WCHAR ptr
-type LPWSTR as WCHAR ptr
-type PWSTR as WCHAR ptr
+type WCHAR as wstring
+type PWCHAR as wstring ptr
+type LPWCH as wstring ptr
+type PWCH as wstring ptr
+type LPCWCH as const wstring ptr
+type PCWCH as const wstring ptr
+type NWPSTR as wstring ptr
+type LPWSTR as wstring ptr
+type PWSTR as wstring ptr
 type PZPWSTR as PWSTR ptr
 type PCZPWSTR as const PWSTR ptr
-type LPUWSTR as WCHAR ptr
-type PUWSTR as WCHAR ptr
-type LPCWSTR as const WCHAR ptr
-type PCWSTR as const WCHAR ptr
+type LPUWSTR as wstring ptr
+type PUWSTR as wstring ptr
+type LPCWSTR as const wstring ptr
+type PCWSTR as const wstring ptr
 type PZPCWSTR as PCWSTR ptr
-type LPCUWSTR as const WCHAR ptr
-type PCUWSTR as const WCHAR ptr
-type CCHAR as byte
+type LPCUWSTR as const wstring ptr
+type PCUWSTR as const wstring ptr
+type CCHAR as zstring
 type PCCHAR as zstring ptr
 type CSHORT_ as short
 type PCSHORT as short ptr
@@ -237,18 +237,18 @@ type UNICODE_STRING as _UNICODE_STRING
 type PUNICODE_STRING as _UNICODE_STRING ptr
 type PCUNICODE_STRING as const UNICODE_STRING ptr
 
-#define UNICODE_NULL cast(WCHAR, 0)
+#define UNICODE_NULL cast(wchar_t, 0)
 
 type _CSTRING
 	Length as USHORT
 	MaximumLength as USHORT
-	Buffer as const CHAR ptr
+	Buffer as const zstring ptr
 end type
 
 type CSTRING as _CSTRING
 type PCSTRING as _CSTRING ptr
 
-#define ANSI_NULL cast(CHAR, 0)
+#define ANSI_NULL cbyte(0)
 #define __STRING_DEFINED
 
 type _STRING
@@ -649,7 +649,7 @@ type ___REPARSE_DATA_BUFFER_SymbolicLinkReparseBuffer
 	PrintNameOffset as USHORT
 	PrintNameLength as USHORT
 	Flags as ULONG
-	PathBuffer(0 to 0) as WCHAR
+	PathBuffer as wstring * 1
 end type
 
 type ___REPARSE_DATA_BUFFER_MountPointReparseBuffer
@@ -657,7 +657,7 @@ type ___REPARSE_DATA_BUFFER_MountPointReparseBuffer
 	SubstituteNameLength as USHORT
 	PrintNameOffset as USHORT
 	PrintNameLength as USHORT
-	PathBuffer(0 to 0) as WCHAR
+	PathBuffer as wstring * 1
 end type
 
 type ___REPARSE_DATA_BUFFER_GenericReparseBuffer

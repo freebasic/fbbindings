@@ -84,7 +84,7 @@ declare function CoGetSystemSecurityPermissions(byval comSDType as COMSD, byval 
 declare function CoLoadLibrary(byval lpszLibName as LPOLESTR, byval bAutoFree as WINBOOL) as HINSTANCE
 declare sub CoFreeLibrary(byval hInst as HINSTANCE)
 declare sub CoFreeAllLibraries()
-declare function CoGetInstanceFromFile(byval pServerInfo as COSERVERINFO ptr, byval pClsid as CLSID ptr, byval punkOuter as IUnknown ptr, byval dwClsCtx as DWORD, byval grfMode as DWORD, byval pwszName as OLECHAR ptr, byval dwCount as DWORD, byval pResults as MULTI_QI ptr) as HRESULT
+declare function CoGetInstanceFromFile(byval pServerInfo as COSERVERINFO ptr, byval pClsid as CLSID ptr, byval punkOuter as IUnknown ptr, byval dwClsCtx as DWORD, byval grfMode as DWORD, byval pwszName as wstring ptr, byval dwCount as DWORD, byval pResults as MULTI_QI ptr) as HRESULT
 declare function CoGetInstanceFromIStorage(byval pServerInfo as COSERVERINFO ptr, byval pClsid as CLSID ptr, byval punkOuter as IUnknown ptr, byval dwClsCtx as DWORD, byval pstg as IStorage ptr, byval dwCount as DWORD, byval pResults as MULTI_QI ptr) as HRESULT
 declare function CoAllowSetForegroundWindow(byval pUnk as IUnknown ptr, byval lpvReserved as LPVOID) as HRESULT
 declare function DcomChannelSetHResult(byval pvReserved as LPVOID, byval pulReserved as ULONG ptr, byval appsHR as HRESULT) as HRESULT
@@ -98,17 +98,17 @@ declare function CoRegisterChannelHook(byval ExtensionUuid as const GUID const p
 declare function CoTreatAsClass(byval clsidOld as const IID const ptr, byval clsidNew as const IID const ptr) as HRESULT
 declare function CreateDataAdviseHolder(byval ppDAHolder as LPDATAADVISEHOLDER ptr) as HRESULT
 declare function CreateDataCache(byval pUnkOuter as LPUNKNOWN, byval rclsid as const IID const ptr, byval iid as const IID const ptr, byval ppv as LPVOID ptr) as HRESULT
-declare function StgOpenLayoutDocfile(byval pwcsDfName as const OLECHAR ptr, byval grfMode as DWORD, byval reserved as DWORD, byval ppstgOpen as IStorage ptr ptr) as HRESULT
-declare function StgCreateDocfile(byval pwcsName as const WCHAR ptr, byval grfMode as DWORD, byval reserved as DWORD, byval ppstgOpen as IStorage ptr ptr) as HRESULT
+declare function StgOpenLayoutDocfile(byval pwcsDfName as const wstring ptr, byval grfMode as DWORD, byval reserved as DWORD, byval ppstgOpen as IStorage ptr ptr) as HRESULT
+declare function StgCreateDocfile(byval pwcsName as const wstring ptr, byval grfMode as DWORD, byval reserved as DWORD, byval ppstgOpen as IStorage ptr ptr) as HRESULT
 declare function StgCreateDocfileOnILockBytes(byval plkbyt as ILockBytes ptr, byval grfMode as DWORD, byval reserved as DWORD, byval ppstgOpen as IStorage ptr ptr) as HRESULT
-declare function StgOpenStorage(byval pwcsName as const WCHAR ptr, byval pstgPriority as IStorage ptr, byval grfMode as DWORD, byval snbExclude as SNB, byval reserved as DWORD, byval ppstgOpen as IStorage ptr ptr) as HRESULT
+declare function StgOpenStorage(byval pwcsName as const wstring ptr, byval pstgPriority as IStorage ptr, byval grfMode as DWORD, byval snbExclude as SNB, byval reserved as DWORD, byval ppstgOpen as IStorage ptr ptr) as HRESULT
 declare function StgOpenStorageOnILockBytes(byval plkbyt as ILockBytes ptr, byval pstgPriority as IStorage ptr, byval grfMode as DWORD, byval snbExclude as SNB, byval reserved as DWORD, byval ppstgOpen as IStorage ptr ptr) as HRESULT
-declare function StgIsStorageFile(byval pwcsName as const WCHAR ptr) as HRESULT
+declare function StgIsStorageFile(byval pwcsName as const wstring ptr) as HRESULT
 declare function StgIsStorageILockBytes(byval plkbyt as ILockBytes ptr) as HRESULT
-declare function StgSetTimes(byval lpszName as const WCHAR ptr, byval pctime as const FILETIME ptr, byval patime as const FILETIME ptr, byval pmtime as const FILETIME ptr) as HRESULT
+declare function StgSetTimes(byval lpszName as const wstring ptr, byval pctime as const FILETIME ptr, byval patime as const FILETIME ptr, byval pmtime as const FILETIME ptr) as HRESULT
 declare function StgOpenAsyncDocfileOnIFillLockBytes(byval pflb as IFillLockBytes ptr, byval grfMode as DWORD, byval asyncFlags as DWORD, byval ppstgOpen as IStorage ptr ptr) as HRESULT
 declare function StgGetIFillLockBytesOnILockBytes(byval pilb as ILockBytes ptr, byval ppflb as IFillLockBytes ptr ptr) as HRESULT
-declare function StgGetIFillLockBytesOnFile(byval pwcsName as const OLECHAR ptr, byval ppflb as IFillLockBytes ptr ptr) as HRESULT
+declare function StgGetIFillLockBytesOnFile(byval pwcsName as const wstring ptr, byval ppflb as IFillLockBytes ptr ptr) as HRESULT
 
 #define STGOPTIONS_VERSION 2
 
@@ -116,13 +116,13 @@ type tagSTGOPTIONS
 	usVersion as USHORT
 	reserved as USHORT
 	ulSectorSize as ULONG
-	pwcsTemplateFile as const WCHAR ptr
+	pwcsTemplateFile as const wstring ptr
 end type
 
 type STGOPTIONS as tagSTGOPTIONS
 
-declare function StgCreateStorageEx(byval pwcsName as const WCHAR ptr, byval grfMode as DWORD, byval stgfmt as DWORD, byval grfAttrs as DWORD, byval pStgOptions as STGOPTIONS ptr, byval pSecurityDescriptor as PSECURITY_DESCRIPTOR, byval riid as const IID const ptr, byval ppObjectOpen as any ptr ptr) as HRESULT
-declare function StgOpenStorageEx(byval pwcsName as const WCHAR ptr, byval grfMode as DWORD, byval stgfmt as DWORD, byval grfAttrs as DWORD, byval pStgOptions as STGOPTIONS ptr, byval pSecurityDescriptor as PSECURITY_DESCRIPTOR, byval riid as const IID const ptr, byval ppObjectOpen as any ptr ptr) as HRESULT
+declare function StgCreateStorageEx(byval pwcsName as const wstring ptr, byval grfMode as DWORD, byval stgfmt as DWORD, byval grfAttrs as DWORD, byval pStgOptions as STGOPTIONS ptr, byval pSecurityDescriptor as PSECURITY_DESCRIPTOR, byval riid as const IID const ptr, byval ppObjectOpen as any ptr ptr) as HRESULT
+declare function StgOpenStorageEx(byval pwcsName as const wstring ptr, byval grfMode as DWORD, byval stgfmt as DWORD, byval grfAttrs as DWORD, byval pStgOptions as STGOPTIONS ptr, byval pSecurityDescriptor as PSECURITY_DESCRIPTOR, byval riid as const IID const ptr, byval ppObjectOpen as any ptr ptr) as HRESULT
 declare function BindMoniker(byval pmk as LPMONIKER, byval grfOpt as DWORD, byval iidResult as const IID const ptr, byval ppvResult as LPVOID ptr) as HRESULT
 declare function CoGetObject(byval pszName as LPCWSTR, byval pBindOptions as BIND_OPTS ptr, byval riid as const IID const ptr, byval ppv as any ptr ptr) as HRESULT
 declare function MkParseDisplayName(byval pbc as LPBC, byval szUserName as LPCOLESTR, byval pchEaten as ULONG ptr, byval ppmk as LPMONIKER ptr) as HRESULT

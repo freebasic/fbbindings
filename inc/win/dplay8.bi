@@ -214,8 +214,8 @@ type _DPN_APPLICATION_DESC
 	guidApplication as GUID
 	dwMaxPlayers as DWORD
 	dwCurrentPlayers as DWORD
-	pwszSessionName as WCHAR ptr
-	pwszPassword as WCHAR ptr
+	pwszSessionName as wstring ptr
+	pwszPassword as wstring ptr
 	pvReservedData as PVOID
 	dwReservedDataSize as DWORD
 	pvApplicationReservedData as PVOID
@@ -320,7 +320,7 @@ type PDPN_PLAYER_INFO as _DPN_PLAYER_INFO ptr
 type _DPN_SERVICE_PROVIDER_INFO
 	dwFlags as DWORD
 	guid as GUID
-	pwszName as WCHAR ptr
+	pwszName as wstring ptr
 	pvReserved as PVOID
 	dwReserved as DWORD
 end type
@@ -601,7 +601,7 @@ type _DPNMSG_NAT_RESOLVER_QUERY
 	dwSize as DWORD
 	pAddressSender as IDirectPlay8Address ptr
 	pAddressDevice as IDirectPlay8Address ptr
-	pwszUserString as WCHAR ptr
+	pwszUserString as wstring ptr
 end type
 
 type DPNMSG_NAT_RESOLVER_QUERY as _DPNMSG_NAT_RESOLVER_QUERY

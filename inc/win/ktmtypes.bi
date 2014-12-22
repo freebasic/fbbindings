@@ -1,5 +1,7 @@
 #pragma once
 
+#include once "crt/wchar.bi"
+
 #define _KTMTYPES_
 
 type CRM_PROTOCOL_ID as GUID
@@ -57,10 +59,10 @@ type NOTIFICATION_MASK as ULONG
 #define TRANSACTION_OBJECT_PATH wstr(!"\\Transaction\\")
 #define ENLISTMENT_OBJECT_PATH wstr(!"\\Enlistment\\")
 #define RESOURCE_MANAGER_OBJECT_PATH wstr(!"\\ResourceManager\\")
-#define TRANSACTIONMANAGER_OBJECT_NAME_LENGTH_IN_BYTES (sizeof(TRANSACTIONMANAGER_OBJECT_PATH) + (38 * sizeof(WCHAR)))
-#define TRANSACTION_OBJECT_NAME_LENGTH_IN_BYTES (sizeof(TRANSACTION_OBJECT_PATH) + (38 * sizeof(WCHAR)))
-#define ENLISTMENT_OBJECT_NAME_LENGTH_IN_BYTES (sizeof(ENLISTMENT_OBJECT_PATH) + (38 * sizeof(WCHAR)))
-#define RESOURCE_MANAGER_OBJECT_NAME_LENGTH_IN_BYTES (sizeof(RESOURCE_MANAGER_OBJECT_PATH) + (38 * sizeof(WCHAR)))
+#define TRANSACTIONMANAGER_OBJECT_NAME_LENGTH_IN_BYTES (sizeof(TRANSACTIONMANAGER_OBJECT_PATH) + (38 * sizeof(wchar_t)))
+#define TRANSACTION_OBJECT_NAME_LENGTH_IN_BYTES (sizeof(TRANSACTION_OBJECT_PATH) + (38 * sizeof(wchar_t)))
+#define ENLISTMENT_OBJECT_NAME_LENGTH_IN_BYTES (sizeof(ENLISTMENT_OBJECT_PATH) + (38 * sizeof(wchar_t)))
+#define RESOURCE_MANAGER_OBJECT_NAME_LENGTH_IN_BYTES (sizeof(RESOURCE_MANAGER_OBJECT_PATH) + (38 * sizeof(wchar_t)))
 
 type _TRANSACTION_NOTIFICATION
 	TransactionKey as PVOID
@@ -141,7 +143,7 @@ type _KCRM_TRANSACTION_BLOB
 	IsolationLevel as ULONG
 	IsolationFlags as ULONG
 	Timeout as ULONG
-	Description(0 to 63) as WCHAR
+	Description as wstring * 64
 end type
 
 type KCRM_TRANSACTION_BLOB as _KCRM_TRANSACTION_BLOB

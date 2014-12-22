@@ -827,7 +827,7 @@ declare sub IChannelHook_ServerFillBuffer_Stub(byval This as IRpcStubBuffer ptr,
 type tagSOLE_AUTHENTICATION_SERVICE
 	dwAuthnSvc as DWORD
 	dwAuthzSvc as DWORD
-	pPrincipalName as OLECHAR ptr
+	pPrincipalName as wstring ptr
 	hr as HRESULT
 end type
 
@@ -855,7 +855,7 @@ end enum
 
 type EOLE_AUTHENTICATION_CAPABILITIES as tagEOLE_AUTHENTICATION_CAPABILITIES
 
-#define COLE_DEFAULT_PRINCIPAL cptr(OLECHAR ptr, cast(INT_PTR, -1))
+#define COLE_DEFAULT_PRINCIPAL cptr(wstring ptr, cast(INT_PTR, -1))
 #define COLE_DEFAULT_AUTHINFO cptr(any ptr, cast(INT_PTR, -1))
 
 type tagSOLE_AUTHENTICATION_INFO
@@ -881,8 +881,8 @@ type IClientSecurityVtbl
 	QueryInterface as function(byval This as IClientSecurity ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IClientSecurity ptr) as ULONG
 	Release as function(byval This as IClientSecurity ptr) as ULONG
-	QueryBlanket as function(byval This as IClientSecurity ptr, byval pProxy as IUnknown ptr, byval pAuthnSvc as DWORD ptr, byval pAuthzSvc as DWORD ptr, byval pServerPrincName as OLECHAR ptr ptr, byval pAuthnLevel as DWORD ptr, byval pImpLevel as DWORD ptr, byval pAuthInfo as any ptr ptr, byval pCapabilites as DWORD ptr) as HRESULT
-	SetBlanket as function(byval This as IClientSecurity ptr, byval pProxy as IUnknown ptr, byval dwAuthnSvc as DWORD, byval dwAuthzSvc as DWORD, byval pServerPrincName as OLECHAR ptr, byval dwAuthnLevel as DWORD, byval dwImpLevel as DWORD, byval pAuthInfo as any ptr, byval dwCapabilities as DWORD) as HRESULT
+	QueryBlanket as function(byval This as IClientSecurity ptr, byval pProxy as IUnknown ptr, byval pAuthnSvc as DWORD ptr, byval pAuthzSvc as DWORD ptr, byval pServerPrincName as wstring ptr ptr, byval pAuthnLevel as DWORD ptr, byval pImpLevel as DWORD ptr, byval pAuthInfo as any ptr ptr, byval pCapabilites as DWORD ptr) as HRESULT
+	SetBlanket as function(byval This as IClientSecurity ptr, byval pProxy as IUnknown ptr, byval dwAuthnSvc as DWORD, byval dwAuthzSvc as DWORD, byval pServerPrincName as wstring ptr, byval dwAuthnLevel as DWORD, byval dwImpLevel as DWORD, byval pAuthInfo as any ptr, byval dwCapabilities as DWORD) as HRESULT
 	CopyProxy as function(byval This as IClientSecurity ptr, byval pProxy as IUnknown ptr, byval ppCopy as IUnknown ptr ptr) as HRESULT
 end type
 
@@ -890,9 +890,9 @@ type IClientSecurity_
 	lpVtbl as IClientSecurityVtbl ptr
 end type
 
-declare function IClientSecurity_QueryBlanket_Proxy(byval This as IClientSecurity ptr, byval pProxy as IUnknown ptr, byval pAuthnSvc as DWORD ptr, byval pAuthzSvc as DWORD ptr, byval pServerPrincName as OLECHAR ptr ptr, byval pAuthnLevel as DWORD ptr, byval pImpLevel as DWORD ptr, byval pAuthInfo as any ptr ptr, byval pCapabilites as DWORD ptr) as HRESULT
+declare function IClientSecurity_QueryBlanket_Proxy(byval This as IClientSecurity ptr, byval pProxy as IUnknown ptr, byval pAuthnSvc as DWORD ptr, byval pAuthzSvc as DWORD ptr, byval pServerPrincName as wstring ptr ptr, byval pAuthnLevel as DWORD ptr, byval pImpLevel as DWORD ptr, byval pAuthInfo as any ptr ptr, byval pCapabilites as DWORD ptr) as HRESULT
 declare sub IClientSecurity_QueryBlanket_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-declare function IClientSecurity_SetBlanket_Proxy(byval This as IClientSecurity ptr, byval pProxy as IUnknown ptr, byval dwAuthnSvc as DWORD, byval dwAuthzSvc as DWORD, byval pServerPrincName as OLECHAR ptr, byval dwAuthnLevel as DWORD, byval dwImpLevel as DWORD, byval pAuthInfo as any ptr, byval dwCapabilities as DWORD) as HRESULT
+declare function IClientSecurity_SetBlanket_Proxy(byval This as IClientSecurity ptr, byval pProxy as IUnknown ptr, byval dwAuthnSvc as DWORD, byval dwAuthzSvc as DWORD, byval pServerPrincName as wstring ptr, byval dwAuthnLevel as DWORD, byval dwImpLevel as DWORD, byval pAuthInfo as any ptr, byval dwCapabilities as DWORD) as HRESULT
 declare sub IClientSecurity_SetBlanket_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IClientSecurity_CopyProxy_Proxy(byval This as IClientSecurity ptr, byval pProxy as IUnknown ptr, byval ppCopy as IUnknown ptr ptr) as HRESULT
 declare sub IClientSecurity_CopyProxy_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
@@ -905,7 +905,7 @@ type IServerSecurityVtbl
 	QueryInterface as function(byval This as IServerSecurity ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IServerSecurity ptr) as ULONG
 	Release as function(byval This as IServerSecurity ptr) as ULONG
-	QueryBlanket as function(byval This as IServerSecurity ptr, byval pAuthnSvc as DWORD ptr, byval pAuthzSvc as DWORD ptr, byval pServerPrincName as OLECHAR ptr ptr, byval pAuthnLevel as DWORD ptr, byval pImpLevel as DWORD ptr, byval pPrivs as any ptr ptr, byval pCapabilities as DWORD ptr) as HRESULT
+	QueryBlanket as function(byval This as IServerSecurity ptr, byval pAuthnSvc as DWORD ptr, byval pAuthzSvc as DWORD ptr, byval pServerPrincName as wstring ptr ptr, byval pAuthnLevel as DWORD ptr, byval pImpLevel as DWORD ptr, byval pPrivs as any ptr ptr, byval pCapabilities as DWORD ptr) as HRESULT
 	ImpersonateClient as function(byval This as IServerSecurity ptr) as HRESULT
 	RevertToSelf as function(byval This as IServerSecurity ptr) as HRESULT
 	IsImpersonating as function(byval This as IServerSecurity ptr) as WINBOOL
@@ -915,7 +915,7 @@ type IServerSecurity_
 	lpVtbl as IServerSecurityVtbl ptr
 end type
 
-declare function IServerSecurity_QueryBlanket_Proxy(byval This as IServerSecurity ptr, byval pAuthnSvc as DWORD ptr, byval pAuthzSvc as DWORD ptr, byval pServerPrincName as OLECHAR ptr ptr, byval pAuthnLevel as DWORD ptr, byval pImpLevel as DWORD ptr, byval pPrivs as any ptr ptr, byval pCapabilities as DWORD ptr) as HRESULT
+declare function IServerSecurity_QueryBlanket_Proxy(byval This as IServerSecurity ptr, byval pAuthnSvc as DWORD ptr, byval pAuthzSvc as DWORD ptr, byval pServerPrincName as wstring ptr ptr, byval pAuthnLevel as DWORD ptr, byval pImpLevel as DWORD ptr, byval pPrivs as any ptr ptr, byval pCapabilities as DWORD ptr) as HRESULT
 declare sub IServerSecurity_QueryBlanket_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IServerSecurity_ImpersonateClient_Proxy(byval This as IServerSecurity ptr) as HRESULT
 declare sub IServerSecurity_ImpersonateClient_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)

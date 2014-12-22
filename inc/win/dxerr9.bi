@@ -11,7 +11,7 @@
 #define __WINE_DXERR9_H
 
 declare function DXGetErrorString9A(byval hr as HRESULT) as const zstring ptr
-declare function DXGetErrorString9W(byval hr as HRESULT) as const WCHAR ptr
+declare function DXGetErrorString9W(byval hr as HRESULT) as const wstring ptr
 
 #ifdef UNICODE
 	#define DXGetErrorString9 DXGetErrorString9W
@@ -20,7 +20,7 @@ declare function DXGetErrorString9W(byval hr as HRESULT) as const WCHAR ptr
 #endif
 
 declare function DXGetErrorDescription9A(byval hr as HRESULT) as const zstring ptr
-declare function DXGetErrorDescription9W(byval hr as HRESULT) as const WCHAR ptr
+declare function DXGetErrorDescription9W(byval hr as HRESULT) as const wstring ptr
 
 #ifdef UNICODE
 	#define DXGetErrorDescription9 DXGetErrorDescription9W
@@ -29,7 +29,7 @@ declare function DXGetErrorDescription9W(byval hr as HRESULT) as const WCHAR ptr
 #endif
 
 declare function DXTraceA(byval strFile as const zstring ptr, byval dwLine as DWORD, byval hr as HRESULT, byval strMsg as const zstring ptr, byval bPopMsgBox as WINBOOL) as HRESULT
-declare function DXTraceW(byval strFile as const zstring ptr, byval dwLine as DWORD, byval hr as HRESULT, byval strMsg as const WCHAR ptr, byval bPopMsgBox as WINBOOL) as HRESULT
+declare function DXTraceW(byval strFile as const zstring ptr, byval dwLine as DWORD, byval hr as HRESULT, byval strMsg as const wstring ptr, byval bPopMsgBox as WINBOOL) as HRESULT
 
 #ifdef UNICODE
 	#define DXTrace DXTraceW

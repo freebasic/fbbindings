@@ -15,7 +15,7 @@
 #define MAX_ERROR_TEXT_LEN 160
 
 type AMGETERRORTEXTPROCA as function(byval as HRESULT, byval as zstring ptr, byval as DWORD) as WINBOOL
-type AMGETERRORTEXTPROCW as function(byval as HRESULT, byval as WCHAR ptr, byval as DWORD) as WINBOOL
+type AMGETERRORTEXTPROCW as function(byval as HRESULT, byval as wstring ptr, byval as DWORD) as WINBOOL
 
 #ifdef UNICODE
 	type AMGETERRORTEXTPROC as AMGETERRORTEXTPROCW

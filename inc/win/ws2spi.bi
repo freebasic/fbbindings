@@ -17,7 +17,7 @@
 	type WSPData field = 4
 		wVersion as WORD
 		wHighVersion as WORD
-		szDescription(0 to (255 + 1) - 1) as WCHAR
+		szDescription as wstring * 255 + 1
 	end type
 
 	type WSPDATA_ as WSPData
@@ -31,7 +31,7 @@
 	type WSPData
 		wVersion as WORD
 		wHighVersion as WORD
-		szDescription(0 to (255 + 1) - 1) as WCHAR
+		szDescription as wstring * 255 + 1
 	end type
 
 	type WSPDATA_ as WSPData
@@ -161,7 +161,7 @@ type LPWPUCLOSESOCKETHANDLE as function(byval s as SOCKET, byval lpErrno as LPIN
 type LPWPUCREATEEVENT as function(byval lpErrno as LPINT) as HANDLE
 type LPWPUCREATESOCKETHANDLE as function(byval dwCatalogEntryId as DWORD, byval dwContext as DWORD_PTR, byval lpErrno as LPINT) as SOCKET
 type LPWPUFDISSET as function(byval s as SOCKET, byval fdset as fd_set ptr) as long
-type LPWPUGETPROVIDERPATH as function(byval lpProviderId as LPGUID, byval lpszProviderDllPath as WCHAR ptr, byval lpProviderDllPathLen as LPINT, byval lpErrno as LPINT) as long
+type LPWPUGETPROVIDERPATH as function(byval lpProviderId as LPGUID, byval lpszProviderDllPath as wstring ptr, byval lpProviderDllPathLen as LPINT, byval lpErrno as LPINT) as long
 type LPWPUMODIFYIFSHANDLE as function(byval dwCatalogEntryId as DWORD, byval ProposedHandle as SOCKET, byval lpErrno as LPINT) as SOCKET
 type LPWPUPOSTMESSAGE as function(byval hWnd as HWND, byval Msg as UINT, byval wParam as WPARAM, byval lParam as LPARAM) as WINBOOL
 type LPWPUQUERYBLOCKINGCALLBACK as function(byval dwCatalogEntryId as DWORD, byval lplpfnCallback as LPBLOCKINGCALLBACK ptr, byval lpdwContext as PDWORD_PTR, byval lpErrno as LPINT) as long
@@ -216,27 +216,27 @@ type LPWSPUPCALLTABLE as _WSPUPCALLTABLE ptr
 type LPWSPSTARTUP as function(byval wVersionRequested as WORD, byval lpWSPData as LPWSPDATA, byval lpProtocolInfo as LPWSAPROTOCOL_INFOW, byval UpcallTable as WSPUPCALLTABLE, byval lpProcTable as LPWSPPROC_TABLE) as long
 type LPWSCENUMPROTOCOLS as function(byval lpiProtocols as LPINT, byval lpProtocolBuffer as LPWSAPROTOCOL_INFOW, byval lpdwBufferLength as LPDWORD, byval lpErrno as LPINT) as long
 type LPWSCDEINSTALLPROVIDER as function(byval lpProviderId as LPGUID, byval lpErrno as LPINT) as long
-type LPWSCINSTALLPROVIDER as function(byval lpProviderId as LPGUID, byval lpszProviderDllPath as const WCHAR ptr, byval lpProtocolInfoList as const LPWSAPROTOCOL_INFOW, byval dwNumberOfEntries as DWORD, byval lpErrno as LPINT) as long
-type LPWSCGETPROVIDERPATH as function(byval lpProviderId as LPGUID, byval lpszProviderDllPath as WCHAR ptr, byval lpProviderDllPathLen as LPINT, byval lpErrno as LPINT) as long
-type LPWSCUPDATEPROVIDER as function(byval lpProviderId as LPGUID, byval lpszProviderDllPath as const WCHAR ptr, byval lpProtocolInfoList as const LPWSAPROTOCOL_INFOW, byval dwNumberOfEntries as DWORD, byval lpErrno as LPINT) as long
+type LPWSCINSTALLPROVIDER as function(byval lpProviderId as LPGUID, byval lpszProviderDllPath as const wstring ptr, byval lpProtocolInfoList as const LPWSAPROTOCOL_INFOW, byval dwNumberOfEntries as DWORD, byval lpErrno as LPINT) as long
+type LPWSCGETPROVIDERPATH as function(byval lpProviderId as LPGUID, byval lpszProviderDllPath as wstring ptr, byval lpProviderDllPathLen as LPINT, byval lpErrno as LPINT) as long
+type LPWSCUPDATEPROVIDER as function(byval lpProviderId as LPGUID, byval lpszProviderDllPath as const wstring ptr, byval lpProtocolInfoList as const LPWSAPROTOCOL_INFOW, byval dwNumberOfEntries as DWORD, byval lpErrno as LPINT) as long
 type LPWSCINSTALLQOSTEMPLATE as function(byval Guid as const LPGUID, byval QosName as LPWSABUF, byval Qos as LPQOS) as long
 type LPWSCREMOVEQOSTEMPLATE as function(byval Guid as const LPGUID, byval QosName as LPWSABUF) as long
 
 declare function WSPStartup(byval wVersionRequested as WORD, byval lpWSPData as LPWSPDATA, byval lpProtocolInfo as LPWSAPROTOCOL_INFOW, byval UpcallTable as WSPUPCALLTABLE, byval lpProcTable as LPWSPPROC_TABLE) as long
 declare function WSCEnumProtocols(byval lpiProtocols as LPINT, byval lpProtocolBuffer as LPWSAPROTOCOL_INFOW, byval lpdwBufferLength as LPDWORD, byval lpErrno as LPINT) as long
 declare function WSCDeinstallProvider(byval lpProviderId as LPGUID, byval lpErrno as LPINT) as long
-declare function WSCInstallProvider(byval lpProviderId as LPGUID, byval lpszProviderDllPath as const WCHAR ptr, byval lpProtocolInfoList as const LPWSAPROTOCOL_INFOW, byval dwNumberOfEntries as DWORD, byval lpErrno as LPINT) as long
-declare function WSCGetProviderPath(byval lpProviderId as LPGUID, byval lpszProviderDllPath as WCHAR ptr, byval lpProviderDllPathLen as LPINT, byval lpErrno as LPINT) as long
-declare function WSCUpdateProvider(byval lpProviderId as LPGUID, byval lpszProviderDllPath as const WCHAR ptr, byval lpProtocolInfoList as const LPWSAPROTOCOL_INFOW, byval dwNumberOfEntries as DWORD, byval lpErrno as LPINT) as long
+declare function WSCInstallProvider(byval lpProviderId as LPGUID, byval lpszProviderDllPath as const wstring ptr, byval lpProtocolInfoList as const LPWSAPROTOCOL_INFOW, byval dwNumberOfEntries as DWORD, byval lpErrno as LPINT) as long
+declare function WSCGetProviderPath(byval lpProviderId as LPGUID, byval lpszProviderDllPath as wstring ptr, byval lpProviderDllPathLen as LPINT, byval lpErrno as LPINT) as long
+declare function WSCUpdateProvider(byval lpProviderId as LPGUID, byval lpszProviderDllPath as const wstring ptr, byval lpProtocolInfoList as const LPWSAPROTOCOL_INFOW, byval dwNumberOfEntries as DWORD, byval lpErrno as LPINT) as long
 declare function WSCInstallQOSTemplate(byval Guid as const LPGUID, byval QosName as LPWSABUF, byval Qos as LPQOS) as long
 declare function WSCRemoveQOSTemplate(byval Guid as const LPGUID, byval QosName as LPWSABUF) as long
 
 #ifdef __FB_64BIT__
 	declare function WSCEnumProtocols32(byval lpiProtocols as LPINT, byval lpProtocolBuffer as LPWSAPROTOCOL_INFOW, byval lpdwBufferLength as LPDWORD, byval lpErrno as LPINT) as long
 	declare function WSCDeinstallProvider32(byval lpProviderId as LPGUID, byval lpErrno as LPINT) as long
-	declare function WSCInstallProvider64_32(byval lpProviderId as LPGUID, byval lpszProviderDllPath as const WCHAR ptr, byval lpProtocolInfoList as const LPWSAPROTOCOL_INFOW, byval dwNumberOfEntries as DWORD, byval lpErrno as LPINT) as long
-	declare function WSCGetProviderPath32(byval lpProviderId as LPGUID, byval lpszProviderDllPath as WCHAR ptr, byval lpProviderDllPathLen as LPINT, byval lpErrno as LPINT) as long
-	declare function WSCUpdateProvider32(byval lpProviderId as LPGUID, byval lpszProviderDllPath as const WCHAR ptr, byval lpProtocolInfoList as const LPWSAPROTOCOL_INFOW, byval dwNumberOfEntries as DWORD, byval lpErrno as LPINT) as long
+	declare function WSCInstallProvider64_32(byval lpProviderId as LPGUID, byval lpszProviderDllPath as const wstring ptr, byval lpProtocolInfoList as const LPWSAPROTOCOL_INFOW, byval dwNumberOfEntries as DWORD, byval lpErrno as LPINT) as long
+	declare function WSCGetProviderPath32(byval lpProviderId as LPGUID, byval lpszProviderDllPath as wstring ptr, byval lpProviderDllPathLen as LPINT, byval lpErrno as LPINT) as long
+	declare function WSCUpdateProvider32(byval lpProviderId as LPGUID, byval lpszProviderDllPath as const wstring ptr, byval lpProtocolInfoList as const LPWSAPROTOCOL_INFOW, byval dwNumberOfEntries as DWORD, byval lpErrno as LPINT) as long
 #endif
 
 declare function WPUCloseEvent(byval hEvent as HANDLE, byval lpErrno as LPINT) as WINBOOL
@@ -244,7 +244,7 @@ declare function WPUCloseSocketHandle(byval s as SOCKET, byval lpErrno as LPINT)
 declare function WPUCreateEvent(byval lpErrno as LPINT) as HANDLE
 declare function WPUCreateSocketHandle(byval dwCatalogEntryId as DWORD, byval dwContext as DWORD_PTR, byval lpErrno as LPINT) as SOCKET
 declare function WPUFDIsSet(byval s as SOCKET, byval fdset as fd_set ptr) as long
-declare function WPUGetProviderPath(byval lpProviderId as LPGUID, byval lpszProviderDllPath as WCHAR ptr, byval lpProviderDllPathLen as LPINT, byval lpErrno as LPINT) as long
+declare function WPUGetProviderPath(byval lpProviderId as LPGUID, byval lpszProviderDllPath as wstring ptr, byval lpProviderDllPathLen as LPINT, byval lpErrno as LPINT) as long
 declare function WPUModifyIFSHandle(byval dwCatalogEntryId as DWORD, byval ProposedHandle as SOCKET, byval lpErrno as LPINT) as SOCKET
 declare function WPUPostMessage(byval hWnd as HWND, byval Msg as UINT, byval wParam as WPARAM, byval lParam as LPARAM) as WINBOOL
 declare function WPUQueryBlockingCallback(byval dwCatalogEntryId as DWORD, byval lplpfnCallback as LPBLOCKINGCALLBACK ptr, byval lpdwContext as PDWORD_PTR, byval lpErrno as LPINT) as long

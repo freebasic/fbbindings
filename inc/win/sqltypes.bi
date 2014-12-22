@@ -1,7 +1,5 @@
 #pragma once
 
-#include once "crt/wchar.bi"
-
 '' The following symbols have been renamed:
 ''     typedef PTR => PTR_
 
@@ -169,10 +167,10 @@ type SQLGUID as GUID
 	type BOOKMARK as SQLUINTEGER
 #endif
 
-type SQLWCHAR as wchar_t
+type SQLWCHAR as wstring
 
 #ifdef UNICODE
-	type SQLTCHAR as SQLWCHAR
+	type SQLTCHAR as wstring
 #else
 	type SQLTCHAR as SQLCHAR
 #endif

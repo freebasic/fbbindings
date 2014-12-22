@@ -16,7 +16,7 @@
 type tagCCSTYLEA
 	flStyle as DWORD
 	flExtStyle as DWORD
-	szText(0 to 255) as CHAR
+	szText as zstring * 256
 	lgid as LANGID
 	wReserved1 as WORD
 end type
@@ -27,7 +27,7 @@ type LPCCSTYLEA as tagCCSTYLEA ptr
 type tagCCSTYLEW
 	flStyle as DWORD
 	flExtStyle as DWORD
-	szText(0 to 255) as WCHAR
+	szText as wstring * 256
 	lgid as LANGID
 	wReserved1 as WORD
 end type
@@ -83,15 +83,15 @@ type LPCCSTYLEFLAGW as tagCCSTYLEFLAGW ptr
 #define CCF_NOTEXT &h00000001
 
 type tagCCINFOA
-	szClass(0 to 31) as CHAR
+	szClass as zstring * 32
 	flOptions as DWORD
-	szDesc(0 to 31) as CHAR
+	szDesc as zstring * 32
 	cxDefault as UINT
 	cyDefault as UINT
 	flStyleDefault as DWORD
 	flExtStyleDefault as DWORD
 	flCtrlTypeMask as DWORD
-	szTextDefault(0 to 255) as CHAR
+	szTextDefault as zstring * 256
 	cStyleFlags as INT_
 	aStyleFlags as LPCCSTYLEFLAGA
 	lpfnStyle as LPFNCCSTYLEA
@@ -104,9 +104,9 @@ type CCINFOA as tagCCINFOA
 type LPCCINFOA as tagCCINFOA ptr
 
 type tagCCINFOW
-	szClass(0 to 31) as WCHAR
+	szClass as wstring * 32
 	flOptions as DWORD
-	szDesc(0 to 31) as WCHAR
+	szDesc as wstring * 32
 	cxDefault as UINT
 	cyDefault as UINT
 	flStyleDefault as DWORD
@@ -114,7 +114,7 @@ type tagCCINFOW
 	flCtrlTypeMask as DWORD
 	cStyleFlags as INT_
 	aStyleFlags as LPCCSTYLEFLAGW
-	szTextDefault(0 to 255) as WCHAR
+	szTextDefault as wstring * 256
 	lpfnStyle as LPFNCCSTYLEW
 	lpfnSizeToText as LPFNCCSIZETOTEXTW
 	dwReserved1 as DWORD

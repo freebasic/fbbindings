@@ -638,17 +638,17 @@ declare function SHEmptyRecycleBinW(byval hwnd as HWND, byval pszRootPath as LPC
 		uFlags as UINT
 		uCallbackMessage as UINT
 		hIcon as HICON
-		szTip(0 to 127) as CHAR
+		szTip as zstring * 128
 		dwState as DWORD
 		dwStateMask as DWORD
-		szInfo(0 to 255) as CHAR
+		szInfo as zstring * 256
 
 		union
 			uTimeout as UINT
 			uVersion as UINT
 		end union
 
-		szInfoTitle(0 to 63) as CHAR
+		szInfoTitle as zstring * 64
 		dwInfoFlags as DWORD
 		guidItem as GUID
 
@@ -664,17 +664,17 @@ declare function SHEmptyRecycleBinW(byval hwnd as HWND, byval pszRootPath as LPC
 		uFlags as UINT
 		uCallbackMessage as UINT
 		hIcon as HICON
-		szTip(0 to 127) as CHAR
+		szTip as zstring * 128
 		dwState as DWORD
 		dwStateMask as DWORD
-		szInfo(0 to 255) as CHAR
+		szInfo as zstring * 256
 
 		union field = 1
 			uTimeout as UINT
 			uVersion as UINT
 		end union
 
-		szInfoTitle(0 to 63) as CHAR
+		szInfoTitle as zstring * 64
 		dwInfoFlags as DWORD
 		guidItem as GUID
 
@@ -695,17 +695,17 @@ type PNOTIFYICONDATAA as _NOTIFYICONDATAA ptr
 		uFlags as UINT
 		uCallbackMessage as UINT
 		hIcon as HICON
-		szTip(0 to 127) as WCHAR
+		szTip as wstring * 128
 		dwState as DWORD
 		dwStateMask as DWORD
-		szInfo(0 to 255) as WCHAR
+		szInfo as wstring * 256
 
 		union
 			uTimeout as UINT
 			uVersion as UINT
 		end union
 
-		szInfoTitle(0 to 63) as WCHAR
+		szInfoTitle as wstring * 64
 		dwInfoFlags as DWORD
 		guidItem as GUID
 
@@ -721,17 +721,17 @@ type PNOTIFYICONDATAA as _NOTIFYICONDATAA ptr
 		uFlags as UINT
 		uCallbackMessage as UINT
 		hIcon as HICON
-		szTip(0 to 127) as WCHAR
+		szTip as wstring * 128
 		dwState as DWORD
 		dwStateMask as DWORD
-		szInfo(0 to 255) as WCHAR
+		szInfo as wstring * 256
 
 		union field = 1
 			uTimeout as UINT
 			uVersion as UINT
 		end union
 
-		szInfoTitle(0 to 63) as WCHAR
+		szInfoTitle as wstring * 64
 		dwInfoFlags as DWORD
 		guidItem as GUID
 
@@ -864,16 +864,16 @@ declare function Shell_NotifyIconW(byval dwMessage as DWORD, byval lpData as PNO
 		hIcon as HICON
 		iIcon as long
 		dwAttributes as DWORD
-		szDisplayName(0 to 259) as CHAR
-		szTypeName(0 to 79) as CHAR
+		szDisplayName as zstring * 260
+		szTypeName as zstring * 80
 	end type
 #else
 	type _SHFILEINFOA field = 1
 		hIcon as HICON
 		iIcon as long
 		dwAttributes as DWORD
-		szDisplayName(0 to 259) as CHAR
-		szTypeName(0 to 79) as CHAR
+		szDisplayName as zstring * 260
+		szTypeName as zstring * 80
 	end type
 #endif
 
@@ -884,16 +884,16 @@ type SHFILEINFOA as _SHFILEINFOA
 		hIcon as HICON
 		iIcon as long
 		dwAttributes as DWORD
-		szDisplayName(0 to 259) as WCHAR
-		szTypeName(0 to 79) as WCHAR
+		szDisplayName as wstring * 260
+		szTypeName as wstring * 80
 	end type
 #else
 	type _SHFILEINFOW field = 1
 		hIcon as HICON
 		iIcon as long
 		dwAttributes as DWORD
-		szDisplayName(0 to 259) as WCHAR
-		szTypeName(0 to 79) as WCHAR
+		szDisplayName as wstring * 260
+		szTypeName as wstring * 80
 	end type
 #endif
 
@@ -939,7 +939,7 @@ declare function SHGetFileInfoW(byval pszPath as LPCWSTR, byval dwFileAttributes
 		hIcon as HICON
 		iSysImageIndex as long
 		iIcon as long
-		szPath(0 to 259) as WCHAR
+		szPath as wstring * 260
 	end type
 #elseif (not defined(__FB_64BIT__)) and (_WIN32_WINNT = &h0602)
 	type _SHSTOCKICONINFO field = 1
@@ -947,7 +947,7 @@ declare function SHGetFileInfoW(byval pszPath as LPCWSTR, byval dwFileAttributes
 		hIcon as HICON
 		iSysImageIndex as long
 		iIcon as long
-		szPath(0 to 259) as WCHAR
+		szPath as wstring * 260
 	end type
 #endif
 

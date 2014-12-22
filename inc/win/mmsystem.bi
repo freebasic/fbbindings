@@ -326,7 +326,7 @@ type tagWAVEOUTCAPSA field = 1
 	wMid as WORD
 	wPid as WORD
 	vDriverVersion as MMVERSION
-	szPname(0 to 31) as CHAR
+	szPname as zstring * 32
 	dwFormats as DWORD
 	wChannels as WORD
 	wReserved1 as WORD
@@ -342,7 +342,7 @@ type tagWAVEOUTCAPSW field = 1
 	wMid as WORD
 	wPid as WORD
 	vDriverVersion as MMVERSION
-	szPname(0 to 31) as WCHAR
+	szPname as wstring * 32
 	dwFormats as DWORD
 	wChannels as WORD
 	wReserved1 as WORD
@@ -370,7 +370,7 @@ type tagWAVEOUTCAPS2A field = 1
 	wMid as WORD
 	wPid as WORD
 	vDriverVersion as MMVERSION
-	szPname(0 to 31) as CHAR
+	szPname as zstring * 32
 	dwFormats as DWORD
 	wChannels as WORD
 	wReserved1 as WORD
@@ -389,7 +389,7 @@ type tagWAVEOUTCAPS2W field = 1
 	wMid as WORD
 	wPid as WORD
 	vDriverVersion as MMVERSION
-	szPname(0 to 31) as WCHAR
+	szPname as wstring * 32
 	dwFormats as DWORD
 	wChannels as WORD
 	wReserved1 as WORD
@@ -427,7 +427,7 @@ type tagWAVEINCAPSA field = 1
 	wMid as WORD
 	wPid as WORD
 	vDriverVersion as MMVERSION
-	szPname(0 to 31) as CHAR
+	szPname as zstring * 32
 	dwFormats as DWORD
 	wChannels as WORD
 	wReserved1 as WORD
@@ -442,7 +442,7 @@ type tagWAVEINCAPSW field = 1
 	wMid as WORD
 	wPid as WORD
 	vDriverVersion as MMVERSION
-	szPname(0 to 31) as WCHAR
+	szPname as wstring * 32
 	dwFormats as DWORD
 	wChannels as WORD
 	wReserved1 as WORD
@@ -469,7 +469,7 @@ type tagWAVEINCAPS2A field = 1
 	wMid as WORD
 	wPid as WORD
 	vDriverVersion as MMVERSION
-	szPname(0 to 31) as CHAR
+	szPname as zstring * 32
 	dwFormats as DWORD
 	wChannels as WORD
 	wReserved1 as WORD
@@ -487,7 +487,7 @@ type tagWAVEINCAPS2W field = 1
 	wMid as WORD
 	wPid as WORD
 	vDriverVersion as MMVERSION
-	szPname(0 to 31) as WCHAR
+	szPname as wstring * 32
 	dwFormats as DWORD
 	wChannels as WORD
 	wReserved1 as WORD
@@ -717,7 +717,7 @@ type tagMIDIOUTCAPSA field = 1
 	wMid as WORD
 	wPid as WORD
 	vDriverVersion as MMVERSION
-	szPname(0 to 31) as CHAR
+	szPname as zstring * 32
 	wTechnology as WORD
 	wVoices as WORD
 	wNotes as WORD
@@ -734,7 +734,7 @@ type tagMIDIOUTCAPSW field = 1
 	wMid as WORD
 	wPid as WORD
 	vDriverVersion as MMVERSION
-	szPname(0 to 31) as WCHAR
+	szPname as wstring * 32
 	wTechnology as WORD
 	wVoices as WORD
 	wNotes as WORD
@@ -763,7 +763,7 @@ type tagMIDIOUTCAPS2A field = 1
 	wMid as WORD
 	wPid as WORD
 	vDriverVersion as MMVERSION
-	szPname(0 to 31) as CHAR
+	szPname as zstring * 32
 	wTechnology as WORD
 	wVoices as WORD
 	wNotes as WORD
@@ -783,7 +783,7 @@ type tagMIDIOUTCAPS2W field = 1
 	wMid as WORD
 	wPid as WORD
 	vDriverVersion as MMVERSION
-	szPname(0 to 31) as WCHAR
+	szPname as wstring * 32
 	wTechnology as WORD
 	wVoices as WORD
 	wNotes as WORD
@@ -827,7 +827,7 @@ type tagMIDIINCAPSA field = 1
 	wMid as WORD
 	wPid as WORD
 	vDriverVersion as MMVERSION
-	szPname(0 to 31) as CHAR
+	szPname as zstring * 32
 	dwSupport as DWORD
 end type
 
@@ -840,7 +840,7 @@ type tagMIDIINCAPSW field = 1
 	wMid as WORD
 	wPid as WORD
 	vDriverVersion as MMVERSION
-	szPname(0 to 31) as WCHAR
+	szPname as wstring * 32
 	dwSupport as DWORD
 end type
 
@@ -865,7 +865,7 @@ type tagMIDIINCAPS2A field = 1
 	wMid as WORD
 	wPid as WORD
 	vDriverVersion as MMVERSION
-	szPname(0 to 31) as CHAR
+	szPname as zstring * 32
 	dwSupport as DWORD
 	ManufacturerGuid as GUID
 	ProductGuid as GUID
@@ -881,7 +881,7 @@ type tagMIDIINCAPS2W field = 1
 	wMid as WORD
 	wPid as WORD
 	vDriverVersion as MMVERSION
-	szPname(0 to 31) as WCHAR
+	szPname as wstring * 32
 	dwSupport as DWORD
 	ManufacturerGuid as GUID
 	ProductGuid as GUID
@@ -1054,7 +1054,7 @@ type tagAUXCAPSA field = 1
 	wMid as WORD
 	wPid as WORD
 	vDriverVersion as MMVERSION
-	szPname(0 to 31) as CHAR
+	szPname as zstring * 32
 	wTechnology as WORD
 	wReserved1 as WORD
 	dwSupport as DWORD
@@ -1069,7 +1069,7 @@ type tagAUXCAPSW field = 1
 	wMid as WORD
 	wPid as WORD
 	vDriverVersion as MMVERSION
-	szPname(0 to 31) as WCHAR
+	szPname as wstring * 32
 	wTechnology as WORD
 	wReserved1 as WORD
 	dwSupport as DWORD
@@ -1096,7 +1096,7 @@ type tagAUXCAPS2A field = 1
 	wMid as WORD
 	wPid as WORD
 	vDriverVersion as MMVERSION
-	szPname(0 to 31) as CHAR
+	szPname as zstring * 32
 	wTechnology as WORD
 	wReserved1 as WORD
 	dwSupport as DWORD
@@ -1114,7 +1114,7 @@ type tagAUXCAPS2W field = 1
 	wMid as WORD
 	wPid as WORD
 	vDriverVersion as MMVERSION
-	szPname(0 to 31) as WCHAR
+	szPname as wstring * 32
 	wTechnology as WORD
 	wReserved1 as WORD
 	dwSupport as DWORD
@@ -1198,7 +1198,7 @@ type tagMIXERCAPSA field = 1
 	wMid as WORD
 	wPid as WORD
 	vDriverVersion as MMVERSION
-	szPname(0 to 31) as CHAR
+	szPname as zstring * 32
 	fdwSupport as DWORD
 	cDestinations as DWORD
 end type
@@ -1211,7 +1211,7 @@ type tagMIXERCAPSW field = 1
 	wMid as WORD
 	wPid as WORD
 	vDriverVersion as MMVERSION
-	szPname(0 to 31) as WCHAR
+	szPname as wstring * 32
 	fdwSupport as DWORD
 	cDestinations as DWORD
 end type
@@ -1234,7 +1234,7 @@ type tagMIXERCAPS2A field = 1
 	wMid as WORD
 	wPid as WORD
 	vDriverVersion as MMVERSION
-	szPname(0 to 31) as CHAR
+	szPname as zstring * 32
 	fdwSupport as DWORD
 	cDestinations as DWORD
 	ManufacturerGuid as GUID
@@ -1250,7 +1250,7 @@ type tagMIXERCAPS2W field = 1
 	wMid as WORD
 	wPid as WORD
 	vDriverVersion as MMVERSION
-	szPname(0 to 31) as WCHAR
+	szPname as wstring * 32
 	fdwSupport as DWORD
 	cDestinations as DWORD
 	ManufacturerGuid as GUID
@@ -1291,7 +1291,7 @@ type __tagMIXERLINEA_Target field = 1
 	wMid as WORD
 	wPid as WORD
 	vDriverVersion as MMVERSION
-	szPname(0 to 31) as CHAR
+	szPname as zstring * 32
 end type
 
 type tagMIXERLINEA field = 1
@@ -1305,8 +1305,8 @@ type tagMIXERLINEA field = 1
 	cChannels as DWORD
 	cConnections as DWORD
 	cControls as DWORD
-	szShortName(0 to 15) as CHAR
-	szName(0 to 63) as CHAR
+	szShortName as zstring * 16
+	szName as zstring * 64
 	Target as __tagMIXERLINEA_Target
 end type
 
@@ -1320,7 +1320,7 @@ type __tagMIXERLINEW_Target field = 1
 	wMid as WORD
 	wPid as WORD
 	vDriverVersion as MMVERSION
-	szPname(0 to 31) as WCHAR
+	szPname as wstring * 32
 end type
 
 type tagMIXERLINEW field = 1
@@ -1334,8 +1334,8 @@ type tagMIXERLINEW field = 1
 	cChannels as DWORD
 	cConnections as DWORD
 	cControls as DWORD
-	szShortName(0 to 15) as WCHAR
-	szName(0 to 63) as WCHAR
+	szShortName as wstring * 16
+	szName as wstring * 64
 	Target as __tagMIXERLINEW_Target
 end type
 
@@ -1431,8 +1431,8 @@ type tagMIXERCONTROLA field = 1
 	dwControlType as DWORD
 	fdwControl as DWORD
 	cMultipleItems as DWORD
-	szShortName(0 to 15) as CHAR
-	szName(0 to 63) as CHAR
+	szShortName as zstring * 16
+	szName as zstring * 64
 	Bounds as __tagMIXERCONTROLA_Bounds
 	Metrics as __tagMIXERCONTROLA_Metrics
 end type
@@ -1467,8 +1467,8 @@ type tagMIXERCONTROLW field = 1
 	dwControlType as DWORD
 	fdwControl as DWORD
 	cMultipleItems as DWORD
-	szShortName(0 to 15) as WCHAR
-	szName(0 to 63) as WCHAR
+	szShortName as wstring * 16
+	szName as wstring * 64
 	Bounds as __tagMIXERCONTROLW_Bounds
 	Metrics as __tagMIXERCONTROLW_Metrics
 end type
@@ -1627,7 +1627,7 @@ type LPMIXERCONTROLDETAILS as tMIXERCONTROLDETAILS ptr
 type tagMIXERCONTROLDETAILS_LISTTEXTA field = 1
 	dwParam1 as DWORD
 	dwParam2 as DWORD
-	szName(0 to 63) as CHAR
+	szName as zstring * 64
 end type
 
 type MIXERCONTROLDETAILS_LISTTEXTA as tagMIXERCONTROLDETAILS_LISTTEXTA
@@ -1637,7 +1637,7 @@ type LPMIXERCONTROLDETAILS_LISTTEXTA as tagMIXERCONTROLDETAILS_LISTTEXTA ptr
 type tagMIXERCONTROLDETAILS_LISTTEXTW field = 1
 	dwParam1 as DWORD
 	dwParam2 as DWORD
-	szName(0 to 63) as WCHAR
+	szName as wstring * 64
 end type
 
 type MIXERCONTROLDETAILS_LISTTEXTW as tagMIXERCONTROLDETAILS_LISTTEXTW
@@ -1810,7 +1810,7 @@ declare function timeEndPeriod(byval uPeriod as UINT) as MMRESULT
 type tagJOYCAPSA field = 1
 	wMid as WORD
 	wPid as WORD
-	szPname(0 to 31) as CHAR
+	szPname as zstring * 32
 	wXmin as UINT
 	wXmax as UINT
 	wYmin as UINT
@@ -1830,8 +1830,8 @@ type tagJOYCAPSA field = 1
 	wMaxAxes as UINT
 	wNumAxes as UINT
 	wMaxButtons as UINT
-	szRegKey(0 to 31) as CHAR
-	szOEMVxD(0 to 259) as CHAR
+	szRegKey as zstring * 32
+	szOEMVxD as zstring * 260
 end type
 
 type JOYCAPSA as tagJOYCAPSA
@@ -1842,7 +1842,7 @@ type LPJOYCAPSA as tagJOYCAPSA ptr
 type tagJOYCAPSW field = 1
 	wMid as WORD
 	wPid as WORD
-	szPname(0 to 31) as WCHAR
+	szPname as wstring * 32
 	wXmin as UINT
 	wXmax as UINT
 	wYmin as UINT
@@ -1862,8 +1862,8 @@ type tagJOYCAPSW field = 1
 	wMaxAxes as UINT
 	wNumAxes as UINT
 	wMaxButtons as UINT
-	szRegKey(0 to 31) as WCHAR
-	szOEMVxD(0 to 259) as WCHAR
+	szRegKey as wstring * 32
+	szOEMVxD as wstring * 260
 end type
 
 type JOYCAPSW as tagJOYCAPSW
@@ -1886,7 +1886,7 @@ type LPJOYCAPSW as tagJOYCAPSW ptr
 type tagJOYCAPS2A field = 1
 	wMid as WORD
 	wPid as WORD
-	szPname(0 to 31) as CHAR
+	szPname as zstring * 32
 	wXmin as UINT
 	wXmax as UINT
 	wYmin as UINT
@@ -1906,8 +1906,8 @@ type tagJOYCAPS2A field = 1
 	wMaxAxes as UINT
 	wNumAxes as UINT
 	wMaxButtons as UINT
-	szRegKey(0 to 31) as CHAR
-	szOEMVxD(0 to 259) as CHAR
+	szRegKey as zstring * 32
+	szOEMVxD as zstring * 260
 	ManufacturerGuid as GUID
 	ProductGuid as GUID
 	NameGuid as GUID
@@ -1921,7 +1921,7 @@ type LPJOYCAPS2A as tagJOYCAPS2A ptr
 type tagJOYCAPS2W field = 1
 	wMid as WORD
 	wPid as WORD
-	szPname(0 to 31) as WCHAR
+	szPname as wstring * 32
 	wXmin as UINT
 	wXmax as UINT
 	wYmin as UINT
@@ -1941,8 +1941,8 @@ type tagJOYCAPS2W field = 1
 	wMaxAxes as UINT
 	wNumAxes as UINT
 	wMaxButtons as UINT
-	szRegKey(0 to 31) as WCHAR
-	szOEMVxD(0 to 259) as WCHAR
+	szRegKey as wstring * 32
+	szOEMVxD as wstring * 260
 	ManufacturerGuid as GUID
 	ProductGuid as GUID
 	NameGuid as GUID

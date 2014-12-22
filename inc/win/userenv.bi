@@ -87,7 +87,7 @@ type _GROUP_POLICY_OBJECTA
 	lpDSPath as LPSTR
 	lpFileSysPath as LPSTR
 	lpDisplayName as LPSTR
-	szGPOName(0 to 49) as CHAR
+	szGPOName as zstring * 50
 	GPOLink as GPO_LINK
 	lParam as LPARAM
 	pNext as _GROUP_POLICY_OBJECTA ptr
@@ -106,7 +106,7 @@ type _GROUP_POLICY_OBJECTW
 	lpDSPath as LPWSTR
 	lpFileSysPath as LPWSTR
 	lpDisplayName as LPWSTR
-	szGPOName(0 to 49) as WCHAR
+	szGPOName as wstring * 50
 	GPOLink as GPO_LINK
 	lParam as LPARAM
 	pNext as _GROUP_POLICY_OBJECTW ptr
@@ -179,8 +179,8 @@ type PFNPROCESSGROUPPOLICYEX as function cdecl(byval dwFlags as DWORD, byval hTo
 type PRSOPTOKEN as PVOID
 
 type _RSOP_TARGET
-	pwszAccountName as WCHAR ptr
-	pwszNewSOM as WCHAR ptr
+	pwszAccountName as wstring ptr
+	pwszNewSOM as wstring ptr
 	psaSecurityGroups as SAFEARRAY ptr
 	pRsopToken as PRSOPTOKEN
 	pGPOList as PGROUP_POLICY_OBJECT
@@ -189,7 +189,7 @@ end type
 
 type RSOP_TARGET as _RSOP_TARGET
 type PRSOP_TARGET as _RSOP_TARGET ptr
-type PFNGENERATEGROUPPOLICY as function cdecl(byval dwFlags as DWORD, byval pbAbort as WINBOOL ptr, byval pwszSite as WCHAR ptr, byval pComputerTarget as PRSOP_TARGET, byval pUserTarget as PRSOP_TARGET) as DWORD
+type PFNGENERATEGROUPPOLICY as function cdecl(byval dwFlags as DWORD, byval pbAbort as WINBOOL ptr, byval pwszSite as wstring ptr, byval pComputerTarget as PRSOP_TARGET, byval pUserTarget as PRSOP_TARGET) as DWORD
 
 #define REGISTRY_EXTENSION_GUID (&h35378EAC, &h683F, &h11D2, &hA8, &h9A, &h00, &hC0, &h4F, &hBB, &hCF, &hA2)
 

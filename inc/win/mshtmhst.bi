@@ -62,8 +62,8 @@ extern CGID_MSHTML as const GUID
 #define SZ_HTML_CLIENTSITE_OBJECTPARAM wstr("{d4db6850-5385-11d0-89e9-00a0c90a90ac}")
 #define __IHTMLWindow2_FWD_DEFINED__
 
-declare function ShowHTMLDialog(byval hwndParent as HWND, byval pMk as IMoniker ptr, byval pvarArgIn as VARIANT ptr, byval pchOptions as WCHAR ptr, byval pvarArgOut as VARIANT ptr) as HRESULT
-declare function ShowHTMLDialogEx(byval hwndParent as HWND, byval pMk as IMoniker ptr, byval dwDialogFlags as DWORD, byval pvarArgIn as VARIANT ptr, byval pchOptions as WCHAR ptr, byval pvarArgOut as VARIANT ptr) as HRESULT
+declare function ShowHTMLDialog(byval hwndParent as HWND, byval pMk as IMoniker ptr, byval pvarArgIn as VARIANT ptr, byval pchOptions as wstring ptr, byval pvarArgOut as VARIANT ptr) as HRESULT
+declare function ShowHTMLDialogEx(byval hwndParent as HWND, byval pMk as IMoniker ptr, byval dwDialogFlags as DWORD, byval pvarArgIn as VARIANT ptr, byval pchOptions as wstring ptr, byval pvarArgOut as VARIANT ptr) as HRESULT
 declare function ShowModelessHTMLDialog(byval hwndParent as HWND, byval pMk as IMoniker ptr, byval pvarArgIn as VARIANT ptr, byval pvarOptions as VARIANT ptr, byval ppWindow as IHTMLWindow2 ptr ptr) as HRESULT
 declare function RunHTMLApplication(byval hinst as HINSTANCE, byval hPrevInst as HINSTANCE, byval szCmdLine as LPSTR, byval nCmdShow as long) as HRESULT
 declare function CreateHTMLPropertyPage(byval pmk as IMoniker ptr, byval ppPP as IPropertyPage ptr ptr) as HRESULT
@@ -79,14 +79,14 @@ type IHostDialogHelperVtbl
 	QueryInterface as function(byval This as IHostDialogHelper ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IHostDialogHelper ptr) as ULONG
 	Release as function(byval This as IHostDialogHelper ptr) as ULONG
-	ShowHTMLDialog as function(byval This as IHostDialogHelper ptr, byval hwndParent as HWND, byval pMk as IMoniker ptr, byval pvarArgIn as VARIANT ptr, byval pchOptions as WCHAR ptr, byval pvarArgOut as VARIANT ptr, byval punkHost as IUnknown ptr) as HRESULT
+	ShowHTMLDialog as function(byval This as IHostDialogHelper ptr, byval hwndParent as HWND, byval pMk as IMoniker ptr, byval pvarArgIn as VARIANT ptr, byval pchOptions as wstring ptr, byval pvarArgOut as VARIANT ptr, byval punkHost as IUnknown ptr) as HRESULT
 end type
 
 type IHostDialogHelper_
 	lpVtbl as IHostDialogHelperVtbl ptr
 end type
 
-declare function IHostDialogHelper_ShowHTMLDialog_Proxy(byval This as IHostDialogHelper ptr, byval hwndParent as HWND, byval pMk as IMoniker ptr, byval pvarArgIn as VARIANT ptr, byval pchOptions as WCHAR ptr, byval pvarArgOut as VARIANT ptr, byval punkHost as IUnknown ptr) as HRESULT
+declare function IHostDialogHelper_ShowHTMLDialog_Proxy(byval This as IHostDialogHelper ptr, byval hwndParent as HWND, byval pMk as IMoniker ptr, byval pvarArgIn as VARIANT ptr, byval pchOptions as wstring ptr, byval pvarArgOut as VARIANT ptr, byval punkHost as IUnknown ptr) as HRESULT
 declare sub IHostDialogHelper_ShowHTMLDialog_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 
 extern CLSID_HostDialogHelper as const GUID
@@ -149,8 +149,8 @@ type _DOCHOSTUIINFO
 	cbSize as ULONG
 	dwFlags as DWORD
 	dwDoubleClick as DWORD
-	pchHostCss as OLECHAR ptr
-	pchHostNS as OLECHAR ptr
+	pchHostCss as wstring ptr
+	pchHostNS as wstring ptr
 end type
 
 type DOCHOSTUIINFO as _DOCHOSTUIINFO
@@ -174,7 +174,7 @@ type IDocHostUIHandlerVtbl
 	GetOptionKeyPath as function(byval This as IDocHostUIHandler ptr, byval pchKey as LPOLESTR ptr, byval dw as DWORD) as HRESULT
 	GetDropTarget as function(byval This as IDocHostUIHandler ptr, byval pDropTarget as IDropTarget ptr, byval ppDropTarget as IDropTarget ptr ptr) as HRESULT
 	GetExternal as function(byval This as IDocHostUIHandler ptr, byval ppDispatch as IDispatch ptr ptr) as HRESULT
-	TranslateUrl as function(byval This as IDocHostUIHandler ptr, byval dwTranslate as DWORD, byval pchURLIn as OLECHAR ptr, byval ppchURLOut as OLECHAR ptr ptr) as HRESULT
+	TranslateUrl as function(byval This as IDocHostUIHandler ptr, byval dwTranslate as DWORD, byval pchURLIn as wstring ptr, byval ppchURLOut as wstring ptr ptr) as HRESULT
 	FilterDataObject as function(byval This as IDocHostUIHandler ptr, byval pDO as IDataObject ptr, byval ppDORet as IDataObject ptr ptr) as HRESULT
 end type
 
@@ -208,7 +208,7 @@ declare function IDocHostUIHandler_GetDropTarget_Proxy(byval This as IDocHostUIH
 declare sub IDocHostUIHandler_GetDropTarget_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IDocHostUIHandler_GetExternal_Proxy(byval This as IDocHostUIHandler ptr, byval ppDispatch as IDispatch ptr ptr) as HRESULT
 declare sub IDocHostUIHandler_GetExternal_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IDocHostUIHandler_TranslateUrl_Proxy(byval This as IDocHostUIHandler ptr, byval dwTranslate as DWORD, byval pchURLIn as OLECHAR ptr, byval ppchURLOut as OLECHAR ptr ptr) as HRESULT
+declare function IDocHostUIHandler_TranslateUrl_Proxy(byval This as IDocHostUIHandler ptr, byval dwTranslate as DWORD, byval pchURLIn as wstring ptr, byval ppchURLOut as wstring ptr ptr) as HRESULT
 declare sub IDocHostUIHandler_TranslateUrl_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IDocHostUIHandler_FilterDataObject_Proxy(byval This as IDocHostUIHandler ptr, byval pDO as IDataObject ptr, byval ppDORet as IDataObject ptr ptr) as HRESULT
 declare sub IDocHostUIHandler_FilterDataObject_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
@@ -234,7 +234,7 @@ type IDocHostUIHandler2Vtbl
 	GetOptionKeyPath as function(byval This as IDocHostUIHandler2 ptr, byval pchKey as LPOLESTR ptr, byval dw as DWORD) as HRESULT
 	GetDropTarget as function(byval This as IDocHostUIHandler2 ptr, byval pDropTarget as IDropTarget ptr, byval ppDropTarget as IDropTarget ptr ptr) as HRESULT
 	GetExternal as function(byval This as IDocHostUIHandler2 ptr, byval ppDispatch as IDispatch ptr ptr) as HRESULT
-	TranslateUrl as function(byval This as IDocHostUIHandler2 ptr, byval dwTranslate as DWORD, byval pchURLIn as OLECHAR ptr, byval ppchURLOut as OLECHAR ptr ptr) as HRESULT
+	TranslateUrl as function(byval This as IDocHostUIHandler2 ptr, byval dwTranslate as DWORD, byval pchURLIn as wstring ptr, byval ppchURLOut as wstring ptr ptr) as HRESULT
 	FilterDataObject as function(byval This as IDocHostUIHandler2 ptr, byval pDO as IDataObject ptr, byval ppDORet as IDataObject ptr ptr) as HRESULT
 	GetOverrideKeyPath as function(byval This as IDocHostUIHandler2 ptr, byval pchKey as LPOLESTR ptr, byval dw as DWORD) as HRESULT
 end type

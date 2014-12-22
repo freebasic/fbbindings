@@ -94,7 +94,7 @@ type PTCP_RESERVE_PORT_RANGE as tcp_reserve_port_range ptr
 
 type _IP_ADAPTER_INDEX_MAP
 	Index as ULONG
-	Name(0 to 127) as WCHAR
+	Name as wstring * 128
 end type
 
 type IP_ADAPTER_INDEX_MAP as _IP_ADAPTER_INDEX_MAP
