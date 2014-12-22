@@ -1,6 +1,6 @@
 -nodefaultscript
 
--declaredefines __FB_WIN32__ __FB_LINUX__ -unchecked
+-declaredefines __FB_WIN32__ __FB_LINUX__
 -select
 -case __FB_WIN32__ -define __FBFROG_WIN32__
 -case __FB_LINUX__ -define __FBFROG_LINUX__
