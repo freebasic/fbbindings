@@ -2,7 +2,6 @@
 
 #include once "_mingw_unicode.bi"
 #include once "objbase.bi"
-#include once "crt/float.bi"
 
 #inclib "dsound"
 #inclib "uuid"
