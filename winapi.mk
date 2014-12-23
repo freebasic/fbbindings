@@ -115,6 +115,7 @@ WINAPI_BASE += mapi
 WINAPI_BASE += mcx
 WINAPI_BASE += mgmtapi
 WINAPI_BASE += mmsystem
+WINAPI_BASE += mprapi
 WINAPI_BASE += msacm
 WINAPI_BASE += mshtmhst
 WINAPI_BASE += mshtml
