@@ -2,6 +2,7 @@
 
 #include once "winapifamily.bi"
 #include once "in6addr.bi"
+#include once "winsock2.bi"
 
 '' The following symbols have been renamed:
 ''     typedef IPV6_MREQ => IPV6_MREQ_
