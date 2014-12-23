@@ -1017,12 +1017,20 @@ type LPDDENUMCALLBACKEXW as function(byval as GUID ptr, byval as LPWSTR, byval a
 declare function DirectDrawEnumerateA(byval as LPDDENUMCALLBACKA, byval as LPVOID) as HRESULT
 declare function DirectDrawEnumerateW(byval as LPDDENUMCALLBACKW, byval as LPVOID) as HRESULT
 
-#define DirectDrawEnumerate WINELIB_NAME_AW(DirectDrawEnumerate)
+#ifdef UNICODE
+	#define DirectDrawEnumerate DirectDrawEnumerateW
+#else
+	#define DirectDrawEnumerate DirectDrawEnumerateA
+#endif
 
 declare function DirectDrawEnumerateExA(byval lpCallback as LPDDENUMCALLBACKEXA, byval lpContext as LPVOID, byval dwFlags as DWORD) as HRESULT
 declare function DirectDrawEnumerateExW(byval lpCallback as LPDDENUMCALLBACKEXW, byval lpContext as LPVOID, byval dwFlags as DWORD) as HRESULT
 
-#define DirectDrawEnumerateEx WINELIB_NAME_AW(DirectDrawEnumerateEx)
+#ifdef UNICODE
+	#define DirectDrawEnumerateEx DirectDrawEnumerateExW
+#else
+	#define DirectDrawEnumerateEx DirectDrawEnumerateExA
+#endif
 
 type LPDIRECTDRAWENUMERATEEXA as function(byval lpCallback as LPDDENUMCALLBACKEXA, byval lpContext as LPVOID, byval dwFlags as DWORD) as HRESULT
 type LPDIRECTDRAWENUMERATEEXW as function(byval lpCallback as LPDDENUMCALLBACKEXW, byval lpContext as LPVOID, byval dwFlags as DWORD) as HRESULT

@@ -106,75 +106,85 @@ type LPDIRECTINPUTEFFECT as IDirectInputEffect ptr
 type LPSYSKEYBOARDA as SysKeyboardA ptr
 type LPSYSMOUSEA as SysMouseA ptr
 
-#define IID_IDirectInput WINELIB_NAME_AW(IID_IDirectInput)
-#define IDirectInput WINELIB_NAME_AW(IDirectInput)
-
 #ifdef UNICODE
+	#define IID_IDirectInput IID_IDirectInputW
+	#define IDirectInput IDirectInputW
+
 	type LPDIRECTINPUT as LPDIRECTINPUTW
-#else
-	type LPDIRECTINPUT as LPDIRECTINPUTA
-#endif
 
-#define IID_IDirectInput2 WINELIB_NAME_AW(IID_IDirectInput2)
-#define IDirectInput2 WINELIB_NAME_AW(IDirectInput2)
+	#define IID_IDirectInput2 IID_IDirectInput2W
+	#define IDirectInput2 IDirectInput2W
 
-#ifdef UNICODE
 	type LPDIRECTINPUT2 as LPDIRECTINPUT2W
-#else
-	type LPDIRECTINPUT2 as LPDIRECTINPUT2A
-#endif
 
-#define IID_IDirectInput7 WINELIB_NAME_AW(IID_IDirectInput7)
-#define IDirectInput7 WINELIB_NAME_AW(IDirectInput7)
+	#define IID_IDirectInput7 IID_IDirectInput7W
+	#define IDirectInput7 IDirectInput7W
 
-#ifdef UNICODE
 	type LPDIRECTINPUT7 as LPDIRECTINPUT7W
-#else
-	type LPDIRECTINPUT7 as LPDIRECTINPUT7A
-#endif
 
-#define IID_IDirectInput8 WINELIB_NAME_AW(IID_IDirectInput8)
-#define IDirectInput8 WINELIB_NAME_AW(IDirectInput8)
+	#define IID_IDirectInput8 IID_IDirectInput8W
+	#define IDirectInput8 IDirectInput8W
 
-#ifdef UNICODE
 	type LPDIRECTINPUT8 as LPDIRECTINPUT8W
-#else
-	type LPDIRECTINPUT8 as LPDIRECTINPUT8A
-#endif
 
-#define IID_IDirectInputDevice WINELIB_NAME_AW(IID_IDirectInputDevice)
-#define IDirectInputDevice WINELIB_NAME_AW(IDirectInputDevice)
+	#define IID_IDirectInputDevice IID_IDirectInputDeviceW
+	#define IDirectInputDevice IDirectInputDeviceW
 
-#ifdef UNICODE
 	type LPDIRECTINPUTDEVICE as LPDIRECTINPUTDEVICEW
-#else
-	type LPDIRECTINPUTDEVICE as LPDIRECTINPUTDEVICEA
-#endif
 
-#define IID_IDirectInputDevice2 WINELIB_NAME_AW(IID_IDirectInputDevice2)
-#define IDirectInputDevice2 WINELIB_NAME_AW(IDirectInputDevice2)
+	#define IID_IDirectInputDevice2 IID_IDirectInputDevice2W
+	#define IDirectInputDevice2 IDirectInputDevice2W
 
-#ifdef UNICODE
 	type LPDIRECTINPUTDEVICE2 as LPDIRECTINPUTDEVICE2W
-#else
-	type LPDIRECTINPUTDEVICE2 as LPDIRECTINPUTDEVICE2A
-#endif
 
-#define IID_IDirectInputDevice7 WINELIB_NAME_AW(IID_IDirectInputDevice7)
-#define IDirectInputDevice7 WINELIB_NAME_AW(IDirectInputDevice7)
+	#define IID_IDirectInputDevice7 IID_IDirectInputDevice7W
+	#define IDirectInputDevice7 IDirectInputDevice7W
 
-#ifdef UNICODE
 	type LPDIRECTINPUTDEVICE7 as LPDIRECTINPUTDEVICE7W
-#else
-	type LPDIRECTINPUTDEVICE7 as LPDIRECTINPUTDEVICE7A
-#endif
 
-#define IID_IDirectInputDevice8 WINELIB_NAME_AW(IID_IDirectInputDevice8)
-#define IDirectInputDevice8 WINELIB_NAME_AW(IDirectInputDevice8)
+	#define IID_IDirectInputDevice8 IID_IDirectInputDevice8W
+	#define IDirectInputDevice8 IDirectInputDevice8W
 
-#ifdef UNICODE
 	type LPDIRECTINPUTDEVICE8 as LPDIRECTINPUTDEVICE8W
 #else
+	#define IID_IDirectInput IID_IDirectInputA
+	#define IDirectInput IDirectInputA
+
+	type LPDIRECTINPUT as LPDIRECTINPUTA
+
+	#define IID_IDirectInput2 IID_IDirectInput2A
+	#define IDirectInput2 IDirectInput2A
+
+	type LPDIRECTINPUT2 as LPDIRECTINPUT2A
+
+	#define IID_IDirectInput7 IID_IDirectInput7A
+	#define IDirectInput7 IDirectInput7A
+
+	type LPDIRECTINPUT7 as LPDIRECTINPUT7A
+
+	#define IID_IDirectInput8 IID_IDirectInput8A
+	#define IDirectInput8 IDirectInput8A
+
+	type LPDIRECTINPUT8 as LPDIRECTINPUT8A
+
+	#define IID_IDirectInputDevice IID_IDirectInputDeviceA
+	#define IDirectInputDevice IDirectInputDeviceA
+
+	type LPDIRECTINPUTDEVICE as LPDIRECTINPUTDEVICEA
+
+	#define IID_IDirectInputDevice2 IID_IDirectInputDevice2A
+	#define IDirectInputDevice2 IDirectInputDevice2A
+
+	type LPDIRECTINPUTDEVICE2 as LPDIRECTINPUTDEVICE2A
+
+	#define IID_IDirectInputDevice7 IID_IDirectInputDevice7A
+	#define IDirectInputDevice7 IDirectInputDevice7A
+
+	type LPDIRECTINPUTDEVICE7 as LPDIRECTINPUTDEVICE7A
+
+	#define IID_IDirectInputDevice8 IID_IDirectInputDevice8A
+	#define IDirectInputDevice8 IDirectInputDevice8A
+
 	type LPDIRECTINPUTDEVICE8 as LPDIRECTINPUTDEVICE8A
 #endif
 
