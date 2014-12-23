@@ -44,6 +44,14 @@ extern "C"
 #define __int32 long
 #define __int64 longint
 #define _CRT_PACKING 8
+#define MINGW_SDK_INIT
+#define __STDC_SECURE_LIB__ cast(clong, 200411)
+#define __GOT_SECURE_LIB__ __STDC_SECURE_LIB__
+#define __MINGW_HAS_DXSDK 1
+#define MINGW_HAS_DDRAW_H 1
+#define MINGW_DDRAW_VERSION 7
+#define MINGW_DDK_H
+#define MINGW_HAS_DDK_H 1
 
 '' TODO: #pragma pack(push,_CRT_PACKING)
 
@@ -63,14 +71,5 @@ extern "C"
 #define __ANONYMOUS_DEFINED
 
 declare function __mingw_get_crt_info() as const zstring ptr
-
-#define MINGW_SDK_INIT
-#define __STDC_SECURE_LIB__ cast(clong, 200411)
-#define __GOT_SECURE_LIB__ __STDC_SECURE_LIB__
-#define __MINGW_HAS_DXSDK 1
-#define MINGW_HAS_DDRAW_H 1
-#define MINGW_DDRAW_VERSION 7
-#define MINGW_DDK_H
-#define MINGW_HAS_DDK_H 1
 
 end extern
