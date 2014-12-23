@@ -422,7 +422,7 @@ WINAPI_FLAGS += -filterin '*poppack.h'
 # winapi.mk lists all the headers we want to translate
 include winapi.mk
 
-# Add default options for each WINAPI_BASE header
+# Add default options for most headers
 define add-default-winapi-flags
   WINAPI_FLAGS_$(1) := -include windows.h -filterin '*/$(1).h'
 
@@ -436,9 +436,6 @@ $(eval $(foreach i,$(WINAPI_CRT),$(call add-default-winapi-flags,$(i))))
 # ole.h can't be #included with windows.h (even though windows.h has code to
 # do just that) due to conflicts with ole2.h
 WINAPI_FLAGS_ole := -include windef.h -define _Analysis_noreturn_ ""
-
-# ntdef.h belongs to the DDK, not windows.h
-WINAPI_FLAGS_ntdef := 
 
 # winsock can be translated as part of windows.h, because that's how MinGW-w64
 # provides it anyways. That'll give us a windows.bi-compatible winsock. Even
@@ -532,6 +529,7 @@ WINAPI_FLAGS_winuser  += -filterin '*/tvout.h'
 WINAPI_PATH_CRT     := extracted/$(MINGWW64_TITLE)/mingw-w64-headers/crt
 WINAPI_PATH_BASE    := extracted/$(MINGWW64_TITLE)/mingw-w64-headers/include
 WINAPI_PATH_DIRECTX := extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include
+WINAPI_PATH_DDK     := $(WINAPI_PATH_BASE)
 
 # Make a winapi-* target for each *.h header. It's too slow to always
 # (re)translate all of them in one go, so this allows updating individual
@@ -545,6 +543,7 @@ endef
 $(eval $(foreach i,$(WINAPI_CRT),$(call declare-winapi-target,$(i),CRT)))
 $(eval $(foreach i,$(WINAPI_BASE),$(call declare-winapi-target,$(i),BASE)))
 $(eval $(foreach i,$(WINAPI_DIRECTX),$(call declare-winapi-target,$(i),DIRECTX)))
+$(eval $(foreach i,$(WINAPI_DDK),$(call declare-winapi-target,$(i),DDK)))
 
 winapi: inc/windows.bi
 inc/windows.bi:
