@@ -2,9 +2,6 @@
 
 #include once "_bsd_types.bi"
 
-'' The following symbols have been renamed:
-''     typedef IN6_ADDR => IN6_ADDR_
-
 union __in6_addr_u
 	Byte(0 to 15) as u_char
 	Word(0 to 7) as u_short
@@ -14,7 +11,6 @@ type in6_addr
 	u as __in6_addr_u
 end type
 
-type IN6_ADDR_ as in6_addr
 type PIN6_ADDR as in6_addr ptr
 type LPIN6_ADDR as in6_addr ptr
 
