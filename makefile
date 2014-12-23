@@ -562,6 +562,11 @@ inc/windows.bi:
 			-define WIN32_LEAN_AND_MEAN 1 \
 		-endif
 
+update-winapi-test:
+	echo '#include "windows.bi"' > tests/winapi/windows.bas
+	for i in $(WINAPI_BASE); do \
+		echo "#include \"win/$$i.bi\"" >> tests/winapi/windows.bas; \
+	done
 
 ################################################################################
 
