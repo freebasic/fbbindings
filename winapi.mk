@@ -128,6 +128,7 @@ WINAPI_BASE += naptypes
 WINAPI_BASE += nb30
 WINAPI_BASE += ncrypt
 #WINAPI_BASE += nddeapi
+WINAPI_BASE += netioapi
 WINAPI_BASE += nspapi
 WINAPI_BASE += ntdef
 WINAPI_BASE += ntsecapi
