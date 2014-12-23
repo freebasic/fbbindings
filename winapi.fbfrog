@@ -158,6 +158,8 @@
 -removedefine _MRTIMP2
 -removedefine near
 -removedefine NEAR
+-removedefine NETIOAPI_API
+-removedefine NETIOAPI_API_
 -removedefine __nothrow
 -removedefine NTAPI
 -removedefine NTAPI_INLINE
