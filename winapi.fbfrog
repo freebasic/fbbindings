@@ -70,6 +70,8 @@
 -removedefine _CRT_WIDE
 -removedefine DBG_UNREFERENCED_LOCAL_VARIABLE
 -removedefine DBG_UNREFERENCED_PARAMETER
+-removedefine DBHLPAPI
+-removedefine DBHLP_DEPRECIATED
 -removedefine DECLARE_HANDLE
 -removedefine DECLARE_INTERFACE
 -removedefine DECLARE_INTERFACE_
@@ -119,6 +121,7 @@
 -removedefine IFACEMETHOD_
 -removedefine IFACEMETHODV
 -removedefine IFACEMETHODV_
+-removedefine IMAGEAPI
 -removedefine IN
 -removedefine _inline
 -removedefine INSTAPI
