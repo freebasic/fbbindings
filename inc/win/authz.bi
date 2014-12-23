@@ -290,8 +290,8 @@ declare function AuthzFreeContext(byval hAuthzClientContext as AUTHZ_CLIENT_CONT
 #define AUTHZ_WPD_CATEGORY_FLAG &h10
 #define AUTHZ_VALID_OBJECT_ACCESS_AUDIT_FLAGS (((AUTHZ_NO_SUCCESS_AUDIT or AUTHZ_NO_FAILURE_AUDIT) or AUTHZ_NO_ALLOC_STRINGS) or AUTHZ_WPD_CATEGORY_FLAG)
 
-declare function AuthzInitializeObjectAccessAuditEvent(byval Flags as DWORD, byval hAuditEventType as AUTHZ_AUDIT_EVENT_TYPE_HANDLE, byval szOperationType as PWSTR, byval szObjectType as PWSTR, byval szObjectName as PWSTR, byval szAdditionalInfo as PWSTR, byval phAuditEvent as PAUTHZ_AUDIT_EVENT_HANDLE, byval dwAdditionalParameterCount as DWORD, ...) as WINBOOL
-declare function AuthzInitializeObjectAccessAuditEvent2(byval Flags as DWORD, byval hAuditEventType as AUTHZ_AUDIT_EVENT_TYPE_HANDLE, byval szOperationType as PWSTR, byval szObjectType as PWSTR, byval szObjectName as PWSTR, byval szAdditionalInfo as PWSTR, byval szAdditionalInfo2 as PWSTR, byval phAuditEvent as PAUTHZ_AUDIT_EVENT_HANDLE, byval dwAdditionalParameterCount as DWORD, ...) as WINBOOL
+declare function AuthzInitializeObjectAccessAuditEvent cdecl(byval Flags as DWORD, byval hAuditEventType as AUTHZ_AUDIT_EVENT_TYPE_HANDLE, byval szOperationType as PWSTR, byval szObjectType as PWSTR, byval szObjectName as PWSTR, byval szAdditionalInfo as PWSTR, byval phAuditEvent as PAUTHZ_AUDIT_EVENT_HANDLE, byval dwAdditionalParameterCount as DWORD, ...) as WINBOOL
+declare function AuthzInitializeObjectAccessAuditEvent2 cdecl(byval Flags as DWORD, byval hAuditEventType as AUTHZ_AUDIT_EVENT_TYPE_HANDLE, byval szOperationType as PWSTR, byval szObjectType as PWSTR, byval szObjectName as PWSTR, byval szAdditionalInfo as PWSTR, byval szAdditionalInfo2 as PWSTR, byval phAuditEvent as PAUTHZ_AUDIT_EVENT_HANDLE, byval dwAdditionalParameterCount as DWORD, ...) as WINBOOL
 
 type _AUTHZ_AUDIT_EVENT_INFORMATION_CLASS as long
 enum
@@ -342,7 +342,7 @@ declare function AuthzUninstallSecurityEventSource(byval dwFlags as DWORD, byval
 declare function AuthzEnumerateSecurityEventSources(byval dwFlags as DWORD, byval Buffer as PAUTHZ_SOURCE_SCHEMA_REGISTRATION, byval pdwCount as PDWORD, byval pdwLength as PDWORD) as WINBOOL
 declare function AuthzRegisterSecurityEventSource(byval dwFlags as DWORD, byval szEventSourceName as PCWSTR, byval phEventProvider as PAUTHZ_SECURITY_EVENT_PROVIDER_HANDLE) as WINBOOL
 declare function AuthzUnregisterSecurityEventSource(byval dwFlags as DWORD, byval phEventProvider as PAUTHZ_SECURITY_EVENT_PROVIDER_HANDLE) as WINBOOL
-declare function AuthzReportSecurityEvent(byval dwFlags as DWORD, byval hEventProvider as AUTHZ_SECURITY_EVENT_PROVIDER_HANDLE, byval dwAuditId as DWORD, byval pUserSid as PSID, byval dwCount as DWORD, ...) as WINBOOL
+declare function AuthzReportSecurityEvent cdecl(byval dwFlags as DWORD, byval hEventProvider as AUTHZ_SECURITY_EVENT_PROVIDER_HANDLE, byval dwAuditId as DWORD, byval pUserSid as PSID, byval dwCount as DWORD, ...) as WINBOOL
 declare function AuthzReportSecurityEventFromParams(byval dwFlags as DWORD, byval hEventProvider as AUTHZ_SECURITY_EVENT_PROVIDER_HANDLE, byval dwAuditId as DWORD, byval pUserSid as PSID, byval pParams as PAUDIT_PARAMS) as WINBOOL
 
 #if _WIN32_WINNT = &h0602
