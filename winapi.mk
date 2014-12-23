@@ -97,6 +97,7 @@ WINAPI_BASE += exdisp
 WINAPI_BASE += guiddef
 WINAPI_BASE += imagehlp
 WINAPI_BASE += imm
+WINAPI_BASE += in6addr
 WINAPI_BASE += inaddr
 WINAPI_BASE += initguid
 WINAPI_CRT += intrin
