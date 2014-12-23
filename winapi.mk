@@ -110,6 +110,7 @@ WINAPI_BASE += iptypes
 WINAPI_BASE += isguids
 WINAPI_BASE += ktmtypes
 #WINAPI_BASE += largeint
+WINAPI_BASE += lmcons
 WINAPI_BASE += lzexpand
 WINAPI_BASE += mapi
 WINAPI_BASE += mcx
