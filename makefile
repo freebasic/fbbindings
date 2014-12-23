@@ -563,9 +563,11 @@ inc/windows.bi:
 			-define WIN32_LEAN_AND_MEAN 1 \
 		-endif
 
+WINAPI_TEST_WINSOCK := mgmtapi winsock
+WINAPI_TEST_BASE := $(filter-out $(WINAPI_TEST_WINSOCK),$(WINAPI_BASE))
 update-winapi-test:
 	echo '#include "windows.bi"' > tests/winapi/windows.bas
-	for i in $(WINAPI_BASE); do \
+	for i in $(WINAPI_TEST_BASE); do \
 		echo "#include \"win/$$i.bi\"" >> tests/winapi/windows.bas; \
 	done
 
