@@ -8,6 +8,7 @@ WINAPI_DIRECTX += amaudio
 WINAPI_DIRECTX += amvideo
 WINAPI_BASE += apiset
 WINAPI_BASE += audevcod
+WINAPI_BASE += authz
 WINAPI_BASE += basetsd
 WINAPI_BASE += basetyps
 WINAPI_BASE += bcrypt
