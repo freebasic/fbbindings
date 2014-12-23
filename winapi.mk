@@ -194,6 +194,7 @@ WINAPI_BASE += tcpestats
 WINAPI_BASE += tcpmib
 WINAPI_BASE += tlhelp32
 WINAPI_BASE += tmschema
+WINAPI_BASE += udpmib
 WINAPI_BASE += unknwn
 WINAPI_BASE += unknwnbase
 WINAPI_BASE += urlmon
