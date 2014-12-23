@@ -217,6 +217,7 @@ WINAPI_BASE += winsock2
 WINAPI_BASE += winsock
 WINAPI_BASE += winspool
 WINAPI_BASE += winsvc
+WINAPI_BASE += wintrust
 WINAPI_BASE += winuser
 WINAPI_BASE += winver
 WINAPI_BASE += ws2def
