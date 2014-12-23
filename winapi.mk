@@ -190,6 +190,7 @@ WINAPI_BASE += sqlucode
 WINAPI_BASE += sspi
 WINAPI_BASE += strmif
 WINAPI_BASE += subauth
+WINAPI_BASE += tcpestats
 WINAPI_BASE += tlhelp32
 WINAPI_BASE += tmschema
 WINAPI_BASE += unknwn
