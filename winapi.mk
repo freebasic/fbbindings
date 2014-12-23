@@ -127,6 +127,7 @@ WINAPI_BASE += msxml
 WINAPI_BASE += naptypes
 WINAPI_BASE += nb30
 WINAPI_BASE += ncrypt
+WINAPI_BASE += ntddndis
 #WINAPI_BASE += nddeapi
 WINAPI_BASE += netioapi
 WINAPI_BASE += nldef
