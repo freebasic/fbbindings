@@ -4,6 +4,7 @@ WINAPI_CRT += _mingw_unicode
 WINAPI_BASE += accctrl
 WINAPI_BASE += aclapi
 WINAPI_BASE += aclui
+WINAPI_BASE += adtgen
 WINAPI_DIRECTX += amaudio
 WINAPI_DIRECTX += amvideo
 WINAPI_BASE += apiset
