@@ -3,8 +3,6 @@
 #include once "rpc.bi"
 #include once "rpcndr.bi"
 #include once "windows.bi"
-#include once "ole2.bi"
-#include once "unknwn.bi"
 #include once "wtypes.bi"
 #include once "winapifamily.bi"
 
@@ -1714,3 +1712,6 @@ declare function HDC_UserUnmarshal(byval as ULONG ptr, byval as ubyte ptr, byval
 declare sub HDC_UserFree(byval as ULONG ptr, byval as HDC ptr)
 
 end extern
+
+#include once "ole2.bi"
+#include once "unknwn.bi"
