@@ -1,7 +1,5 @@
 #pragma once
 
-#include once "windows.bi"
-
 extern "C"
 
 #define __wtypesbase_h__
