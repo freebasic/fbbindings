@@ -105,6 +105,7 @@ WINAPI_BASE += intshcut
 WINAPI_BASE += ipexport
 WINAPI_BASE += iphlpapi
 WINAPI_BASE += ipifcons
+WINAPI_BASE += ipmib
 WINAPI_BASE += iprtrmib
 WINAPI_BASE += iptypes
 WINAPI_BASE += isguids
