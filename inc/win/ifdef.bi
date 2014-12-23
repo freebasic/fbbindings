@@ -107,15 +107,19 @@ end enum
 type TUNNEL_TYPE as _TUNNEL_TYPE
 type PTUNNEL_TYPE as _TUNNEL_TYPE ptr
 
+#if 0
 type ___NET_LUID_Info
 	Reserved : 24 as ULONG64
 	NetLuidIndex : 24 as ULONG64
 	IfType : 16 as ULONG64
 end type
+#endif
 
 union _NET_LUID
 	Value as ULONG64
+	#if 0
 	Info as ___NET_LUID_Info
+	#endif
 end union
 
 type NET_LUID as _NET_LUID
