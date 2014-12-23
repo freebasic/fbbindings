@@ -122,6 +122,7 @@ WINAPI_BASE += mshtmhst
 WINAPI_BASE += mshtml
 WINAPI_BASE += mswsock
 WINAPI_BASE += msxml
+WINAPI_BASE += naptypes
 WINAPI_BASE += nb30
 WINAPI_BASE += ncrypt
 #WINAPI_BASE += nddeapi
