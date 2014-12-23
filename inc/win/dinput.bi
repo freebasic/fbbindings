@@ -2,7 +2,6 @@
 
 #include once "crt/long.bi"
 #include once "objbase.bi"
-#include once "_mingw_dxhelper.bi"
 
 #inclib "uuid"
 
