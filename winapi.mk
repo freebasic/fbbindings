@@ -54,6 +54,7 @@ WINAPI_BASE += dbt
 WINAPI_BASE += dde
 WINAPI_BASE += ddeml
 WINAPI_DIRECTX += ddraw
+WINAPI_BASE += dimm
 WINAPI_DIRECTX += dinput
 WINAPI_BASE += dlgs
 WINAPI_DIRECTX += dls1
