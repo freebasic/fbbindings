@@ -52,6 +52,7 @@ type SCHAR as byte
 type SDWORD as long
 type SWORD as short
 type UDWORD as ulong
+type UWORD as ushort
 type SLONG as long
 type SSHORT as short
 type SDOUBLE as double
