@@ -71,7 +71,6 @@
 #include "win/ole2.bi"
 #include "win/oleacc.bi"
 #include "win/oleauto.bi"
-#include "win/ole.bi"
 #include "win/olectl.bi"
 #include "win/olectlid.bi"
 #include "win/oledlg.bi"

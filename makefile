@@ -565,7 +565,7 @@ inc/windows.bi:
 		-endif
 
 WINAPI_TEST_WINSOCK := mgmtapi winsock
-WINAPI_TEST_BASE := $(filter-out $(WINAPI_TEST_WINSOCK),$(WINAPI_BASE))
+WINAPI_TEST_BASE := $(filter-out ole $(WINAPI_TEST_WINSOCK),$(WINAPI_BASE))
 update-winapi-test:
 	echo '#include "windows.bi"' > tests/winapi/windows.bas
 	for i in $(WINAPI_TEST_BASE); do \
