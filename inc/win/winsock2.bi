@@ -735,6 +735,7 @@ type ADDRESS_FAMILY as u_short
 	#define SERVICE_TYPE_VALUE_OBJECTID SERVICE_TYPE_VALUE_OBJECTIDA
 #endif
 
+#ifndef __CSADDR_DEFINED__
 #define __CSADDR_DEFINED__
 
 type _SOCKET_ADDRESS
@@ -756,6 +757,7 @@ end type
 type CSADDR_INFO as _CSADDR_INFO
 type PCSADDR_INFO as _CSADDR_INFO ptr
 type LPCSADDR_INFO as _CSADDR_INFO ptr
+#endif
 
 type _SOCKET_ADDRESS_LIST
 	iAddressCount as INT_
