@@ -117,6 +117,7 @@ WINAPI_BASE += lzexpand
 WINAPI_BASE += mapi
 WINAPI_BASE += mcx
 WINAPI_BASE += mgmtapi
+WINAPI_BASE += mmreg
 WINAPI_BASE += mmsystem
 WINAPI_BASE += mprapi
 WINAPI_BASE += msacm
