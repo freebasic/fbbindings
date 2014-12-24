@@ -1836,7 +1836,7 @@ type adpcmwaveformat_tag field = 1
 	wfx as WAVEFORMATEX
 	wSamplesPerBlock as WORD
 	wNumCoef as WORD
-	aCoef(0 to ...) as ADPCMCOEFSET
+	aCoef(0 to 0) as ADPCMCOEFSET
 end type
 
 type ADPCMWAVEFORMAT as adpcmwaveformat_tag
