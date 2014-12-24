@@ -9,6 +9,8 @@
 ''     #define acmFilterDetails => acmFilterDetails_
 ''     #define acmFilterChoose => acmFilterChoose_
 
+#include once "mmreg.bi"
+
 #inclib "msacm32"
 
 #ifdef __FB_64BIT__
