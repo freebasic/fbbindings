@@ -5,6 +5,8 @@
 ''     #define KSDATAFORMAT_SUBTYPE_IEEE_FLOAT => KSDATAFORMAT_SUBTYPE_IEEE_FLOAT_
 ''     struct tag_s_RIFFWAVE_INST => tag_s_RIFFWAVE_INST_
 
+#include once "mmsystem.bi"
+
 extern "C"
 
 #define _INC_MMREG 158
