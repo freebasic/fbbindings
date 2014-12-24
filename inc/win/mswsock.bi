@@ -1,7 +1,6 @@
 #pragma once
 
 #include once "winsock2.bi"
-#include once "psdk_inc/_xmitfile.bi"
 
 #ifdef __FB_64BIT__
 	extern "C"
@@ -49,6 +48,18 @@ declare function WSARecvEx(byval s as SOCKET, byval buf as zstring ptr, byval le
 #define TF_USE_DEFAULT_WORKER &h00
 #define TF_USE_SYSTEM_THREAD &h10
 #define TF_USE_KERNEL_APC &h20
+#define __MINGW_TRANSMIT_FILE_H
+
+type _TRANSMIT_FILE_BUFFERS
+	Head as LPVOID
+	HeadLength as DWORD
+	Tail as LPVOID
+	TailLength as DWORD
+end type
+
+type TRANSMIT_FILE_BUFFERS as _TRANSMIT_FILE_BUFFERS
+type PTRANSMIT_FILE_BUFFERS as _TRANSMIT_FILE_BUFFERS ptr
+type LPTRANSMIT_FILE_BUFFERS as _TRANSMIT_FILE_BUFFERS ptr
 
 declare function TransmitFile(byval hSocket as SOCKET, byval hFile as HANDLE, byval nNumberOfBytesToWrite as DWORD, byval nNumberOfBytesPerSend as DWORD, byval lpOverlapped as LPOVERLAPPED, byval lpTransmitBuffers as LPTRANSMIT_FILE_BUFFERS, byval dwReserved as DWORD) as WINBOOL
 declare function AcceptEx(byval sListenSocket as SOCKET, byval sAcceptSocket as SOCKET, byval lpOutputBuffer as PVOID, byval dwReceiveDataLength as DWORD, byval dwLocalAddressLength as DWORD, byval dwRemoteAddressLength as DWORD, byval lpdwBytesReceived as LPDWORD, byval lpOverlapped as LPOVERLAPPED) as WINBOOL
