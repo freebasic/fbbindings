@@ -2,7 +2,7 @@
 
 #include once "_mingw_unicode.bi"
 #include once "winsock2.bi"
-#include once "psdk_inc/_ip_mreq1.bi"
+#include once "inaddr.bi"
 #include once "winapifamily.bi"
 #include once "ws2ipdef.bi"
 #include once "mstcpip.bi"
@@ -34,6 +34,12 @@ extern "C"
 #endif
 
 #define _WS2TCPIP_H_
+#define _MINGW_IP_MREQ1_H
+
+type ip_mreq
+	imr_multiaddr as in_addr
+	imr_interface as in_addr
+end type
 
 type ip_mreq_source
 	imr_multiaddr as in_addr
