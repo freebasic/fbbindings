@@ -181,6 +181,7 @@ WINAPI_BASE += rpcnsi
 WINAPI_BASE += rpcnsip
 WINAPI_BASE += rpcnterr
 WINAPI_BASE += schannel
+WINAPI_BASE += schemadef
 WINAPI_BASE += scrnsave
 WINAPI_BASE += secext
 WINAPI_BASE += security

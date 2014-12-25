@@ -21,6 +21,21 @@
 -define SECURITY_WIN32 1
 -define __CRT__NO_INLINE
 
+-removedefine BEGIN_TM_SCHEMA
+-removedefine BEGIN_TM_PROPS
+-removedefine BEGIN_TM_ENUM
+-removedefine BEGIN_TM_CLASS_PARTS
+-removedefine BEGIN_TM_PART_STATES
+-removedefine TM_PROP
+-removedefine TM_ENUM
+-removedefine TM_PART
+-removedefine TM_STATE
+-removedefine END_TM_CLASS_PARTS
+-removedefine END_TM_PART_STATES
+-removedefine END_TM_PROPS
+-removedefine END_TM_ENUM
+-removedefine END_TM_SCHEMA
+
 -removedefine ACLUIAPI
 -removedefine ACMAPI
 -removedefine _ANONYMOUS_STRUCT
