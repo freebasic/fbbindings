@@ -53,8 +53,6 @@ extern "C"
 #define MINGW_DDK_H
 #define MINGW_HAS_DDK_H 1
 
-'' TODO: #pragma pack(push,_CRT_PACKING)
-
 #define _DLL
 #define _MT
 #define _PGLOBAL
