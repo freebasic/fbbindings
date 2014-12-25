@@ -239,9 +239,9 @@ type PMPR_INTERFACE_2 as _MPR_INTERFACE_2 ptr
 		guidId as GUID
 		dwVpnStrategy as DWORD
 		AddressCount as ULONG
-		ipv6addrDns as IN6_ADDR_
-		ipv6addrDnsAlt as IN6_ADDR_
-		ipv6addr as IN6_ADDR_ ptr
+		ipv6addrDns as IN6_ADDR
+		ipv6addrDnsAlt as IN6_ADDR
+		ipv6addr as IN6_ADDR ptr
 	end type
 
 	type MPR_INTERFACE_3 as _MPR_INTERFACE_3
@@ -769,8 +769,8 @@ declare function MprInfoBlockQuerySize(byval lpHeader as LPVOID) as DWORD
 	declare function MprAdminAcceptNewConnection3(byval pRasConnection0 as RAS_CONNECTION_0 ptr, byval pRasConnection1 as RAS_CONNECTION_1 ptr, byval pRasConnection2 as RAS_CONNECTION_2 ptr, byval pRasConnection3 as RAS_CONNECTION_3 ptr) as WINBOOL
 	declare function MprAdminAcceptReauthentication(byval pRasConnection0 as RAS_CONNECTION_0 ptr, byval pRasConnection1 as RAS_CONNECTION_1 ptr, byval pRasConnection2 as RAS_CONNECTION_2 ptr, byval pRasConnection3 as RAS_CONNECTION_3 ptr) as WINBOOL
 	declare sub MprAdminConnectionHangupNotification3(byval pRasConnection0 as RAS_CONNECTION_0 ptr, byval pRasConnection1 as RAS_CONNECTION_1 ptr, byval pRasConnection2 as RAS_CONNECTION_2 ptr, byval pRasConnection3 as RAS_CONNECTION_3 ptr)
-	declare function MprAdminGetIpv6AddressForUser(byval lpwszUserName as wstring ptr, byval lpwszPortName as wstring ptr, byval lpdwIpv6Address as IN6_ADDR_ ptr, byval bNotifyRelease as WINBOOL ptr) as DWORD
-	declare function MprAdminReleaseIpv6AddressForUser(byval lpwszUserName as wstring ptr, byval lpwszPortName as wstring ptr, byval lpdwIpv6Address as IN6_ADDR_ ptr) as DWORD
+	declare function MprAdminGetIpv6AddressForUser(byval lpwszUserName as wstring ptr, byval lpwszPortName as wstring ptr, byval lpdwIpv6Address as IN6_ADDR ptr, byval bNotifyRelease as WINBOOL ptr) as DWORD
+	declare function MprAdminReleaseIpv6AddressForUser(byval lpwszUserName as wstring ptr, byval lpwszPortName as wstring ptr, byval lpdwIpv6Address as IN6_ADDR ptr) as DWORD
 	declare function MprConfigFilterGetInfo(byval hMprConfig as HANDLE, byval dwLevel as DWORD, byval dwTransportId as DWORD, byval lpBuffer as LPBYTE) as DWORD
 	declare function MprConfigFilterSetInfo(byval hMprConfig as HANDLE, byval dwLevel as DWORD, byval dwTransportId as DWORD, byval lpBuffer as LPBYTE) as DWORD
 
@@ -1021,8 +1021,8 @@ declare function MprInfoBlockQuerySize(byval lpHeader as LPVOID) as DWORD
 	type PMPR_SERVER_EX as _MPR_SERVER_EX ptr
 	type PMPRADMINGETIPADDRESSFORUSER as function(byval as wstring ptr, byval as wstring ptr, byval as DWORD ptr, byval as WINBOOL ptr) as DWORD
 	type PMPRADMINRELEASEIPADRESS as sub(byval as wstring ptr, byval as wstring ptr, byval as DWORD ptr)
-	type PMPRADMINGETIPV6ADDRESSFORUSER as function(byval as wstring ptr, byval as wstring ptr, byval as IN6_ADDR_ ptr, byval as WINBOOL ptr) as DWORD
-	type PMPRADMINRELEASEIPV6ADDRESSFORUSER as sub(byval as wstring ptr, byval as wstring ptr, byval as IN6_ADDR_ ptr)
+	type PMPRADMINGETIPV6ADDRESSFORUSER as function(byval as wstring ptr, byval as wstring ptr, byval as IN6_ADDR ptr, byval as WINBOOL ptr) as DWORD
+	type PMPRADMINRELEASEIPV6ADDRESSFORUSER as sub(byval as wstring ptr, byval as wstring ptr, byval as IN6_ADDR ptr)
 	type PMPRADMINACCEPTNEWLINK as function(byval as RAS_PORT_0 ptr, byval as RAS_PORT_1 ptr) as WINBOOL
 	type PMPRADMINLINKHANGUPNOTIFICATION as sub(byval as RAS_PORT_0 ptr, byval as RAS_PORT_1 ptr)
 	type PMPRADMINTERMINATEDLL as function() as DWORD
