@@ -470,6 +470,7 @@ WINAPI_FLAGS_winsock2 :=
 WINAPI_FLAGS_mswsock := -include winsock2.h
 
 # Additional winsock2-related headers
+WINAPI_FLAGS_mstcpip := -include winsock2.h
 WINAPI_FLAGS_ws2def := -include winsock2.h -filterin '*/ws2def.h'
 WINAPI_FLAGS_ws2ipdef := -include winsock2.h
 WINAPI_FLAGS_ws2spi := -include winsock2.h
@@ -536,6 +537,7 @@ WINAPI_FLAGS_winsock2 += \
 	-filterin '*/psdk_inc/_wsa_errnos.h' \
 	-filterin '*/psdk_inc/_ws1_undef.h'
 WINAPI_FLAGS_winuser  += -filterin '*/tvout.h'
+WINAPI_FLAGS_ws2tcpip += -filterin '*/psdk_inc/_ip_mreq1.h'
 
 WINAPI_PATH_CRT     := extracted/$(MINGWW64_TITLE)/mingw-w64-headers/crt
 WINAPI_PATH_BASE    := extracted/$(MINGWW64_TITLE)/mingw-w64-headers/include
