@@ -569,9 +569,9 @@ inc/windows.bi:
 WINAPI_TEST_SEPARATE := mgmtapi ole rassapi winsock
 WINAPI_TEST_MAIN := $(filter-out $(WINAPI_TEST_SEPARATE),$(WINAPI_BASE))
 update-winapi-test:
-	echo '#include "windows.bi"' > tests/winapi/windows.bas
+	echo '#include "windows.bi"' > tests/winapi/windows-main.bi
 	for i in $(WINAPI_TEST_MAIN); do \
-		echo "#include \"win/$$i.bi\"" >> tests/winapi/windows.bas; \
+		echo "#include \"win/$$i.bi\"" >> tests/winapi/windows-main.bi; \
 	done
 
 ################################################################################

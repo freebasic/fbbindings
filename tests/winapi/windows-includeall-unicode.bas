@@ -1,3 +1,3 @@
 #define WIN_INCLUDEALL
 #define UNICODE
-#include "windows.bi"
+#include "windows-main.bi"
