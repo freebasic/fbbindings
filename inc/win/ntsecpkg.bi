@@ -613,7 +613,14 @@ end type
 type KSEC_LIST_ENTRY as _KSEC_LIST_ENTRY
 type PKSEC_LIST_ENTRY as _KSEC_LIST_ENTRY ptr
 
-#define KsecInitializeListEntry(Entry, SigValue) '' TODO: ((PKSEC_LIST_ENTRY) Entry)->List.Flink = ((PKSEC_LIST_ENTRY) Entry)->List.Blink = NULL; ((PKSEC_LIST_ENTRY) Entry)->RefCount = 1; ((PKSEC_LIST_ENTRY) Entry)->Signature = SigValue; ((PKSEC_LIST_ENTRY) Entry)->OwningList = NULL; ((PKSEC_LIST_ENTRY) Entry)->Reserved = NULL;
+#macro KsecInitializeListEntry(Entry, SigValue)
+	cast(PKSEC_LIST_ENTRY, Entry)->List.Flink = NULL
+	cast(PKSEC_LIST_ENTRY, Entry)->List.Blink = NULL
+	cast(PKSEC_LIST_ENTRY, Entry)->RefCount = 1
+	cast(PKSEC_LIST_ENTRY, Entry)->Signature = SigValue
+	cast(PKSEC_LIST_ENTRY, Entry)->OwningList = NULL
+	cast(PKSEC_LIST_ENTRY, Entry)->Reserved = NULL
+#endmacro
 
 declare function KSecCreateContextList(byval Type_ as KSEC_CONTEXT_TYPE) as PVOID
 declare sub KSecInsertListEntry(byval List as PVOID, byval Entry as PKSEC_LIST_ENTRY)
