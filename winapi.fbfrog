@@ -172,6 +172,10 @@
 -removedefine __ptr32
 -removedefine __ptr64
 -removedefine PURE
+-removedefine REFELEMENTID
+-removedefine REFFOLDERTYPEID
+-removedefine REFKNOWNFOLDERID
+-removedefine REFTASKOWNERID
 -removedefine __restrict_arr
 -removedefine __RPC_API
 -removedefine __RPC_CALLEE
