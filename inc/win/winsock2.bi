@@ -12,7 +12,6 @@
 
 '' The following symbols have been renamed:
 ''     #define FD_SET => FD_SET_
-''     typedef FD_SET => FD_SET__
 ''     typedef HOSTENT => HOSTENT_
 ''     typedef SERVENT => SERVENT_
 ''     typedef PROTOENT => PROTOENT_
@@ -92,7 +91,6 @@ declare function __WSAFDIsSet(byval as SOCKET, byval as fd_set ptr) as long
 	end scope
 #endmacro
 
-type FD_SET__ as fd_set
 type PFD_SET as fd_set ptr
 type LPFD_SET as fd_set ptr
 
