@@ -218,6 +218,7 @@ WINAPI_BASE += uxtheme
 WINAPI_BASE += vfw
 WINAPI_BASE += virtdisk
 WINAPI_DIRECTX += vfwmsgs
+WINAPI_BASE += wbemcli
 WINAPI_BASE += winapifamily
 WINAPI_BASE += winbase
 WINAPI_BASE += winber
