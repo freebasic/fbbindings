@@ -208,8 +208,6 @@ end type
 
 type IN_PKTINFO_ as in_pktinfo
 
-declare sub __C_ASSERT__(byval as long ptr)
-
 type in6_pktinfo
 	ipi6_addr as IN6_ADDR_
 	ipi6_ifindex as UINT
