@@ -166,7 +166,7 @@ type LPINTERNET_DIAGNOSTIC_SOCKET_INFO as INTERNET_DIAGNOSTIC_SOCKET_INFO ptr
 type LPINTERNET_PROXY_INFO as INTERNET_PROXY_INFO ptr
 
 #ifdef __FB_64BIT__
-	union __Value
+	union __INTERNET_PER_CONN_OPTIONA_Value
 		dwValue as DWORD
 		pszValue as LPSTR
 		ftValue as FILETIME
@@ -174,10 +174,10 @@ type LPINTERNET_PROXY_INFO as INTERNET_PROXY_INFO ptr
 
 	type INTERNET_PER_CONN_OPTIONA
 		dwOption as DWORD
-		Value as __Value
+		Value as __INTERNET_PER_CONN_OPTIONA_Value
 	end type
 #else
-	union __Value field = 4
+	union __INTERNET_PER_CONN_OPTIONA_Value field = 4
 		dwValue as DWORD
 		pszValue as LPSTR
 		ftValue as FILETIME
@@ -185,14 +185,14 @@ type LPINTERNET_PROXY_INFO as INTERNET_PROXY_INFO ptr
 
 	type INTERNET_PER_CONN_OPTIONA field = 4
 		dwOption as DWORD
-		Value as __Value
+		Value as __INTERNET_PER_CONN_OPTIONA_Value
 	end type
 #endif
 
 type LPINTERNET_PER_CONN_OPTIONA as INTERNET_PER_CONN_OPTIONA ptr
 
 #ifdef __FB_64BIT__
-	union __Value
+	union __INTERNET_PER_CONN_OPTIONW_Value
 		dwValue as DWORD
 		pszValue as LPWSTR
 		ftValue as FILETIME
@@ -200,10 +200,10 @@ type LPINTERNET_PER_CONN_OPTIONA as INTERNET_PER_CONN_OPTIONA ptr
 
 	type INTERNET_PER_CONN_OPTIONW
 		dwOption as DWORD
-		Value as __Value
+		Value as __INTERNET_PER_CONN_OPTIONW_Value
 	end type
 #else
-	union __Value field = 4
+	union __INTERNET_PER_CONN_OPTIONW_Value field = 4
 		dwValue as DWORD
 		pszValue as LPWSTR
 		ftValue as FILETIME
@@ -211,7 +211,7 @@ type LPINTERNET_PER_CONN_OPTIONA as INTERNET_PER_CONN_OPTIONA ptr
 
 	type INTERNET_PER_CONN_OPTIONW field = 4
 		dwOption as DWORD
-		Value as __Value
+		Value as __INTERNET_PER_CONN_OPTIONW_Value
 	end type
 #endif
 
