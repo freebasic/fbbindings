@@ -845,7 +845,6 @@ declare function ldap_dn2ufnA(byval dn as const PCHAR) as PCHAR
 
 declare sub ldap_memfreeW(byval Block as PWCHAR)
 declare sub ldap_memfreeA(byval Block as PCHAR)
-declare sub ber_bvfree(byval bv as berval ptr)
 
 #ifdef UNICODE
 	#define ldap_memfree ldap_memfreeW
