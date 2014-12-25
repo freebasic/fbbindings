@@ -21,21 +21,6 @@
 -define SECURITY_WIN32 1
 -define __CRT__NO_INLINE
 
--removedefine BEGIN_TM_SCHEMA
--removedefine BEGIN_TM_PROPS
--removedefine BEGIN_TM_ENUM
--removedefine BEGIN_TM_CLASS_PARTS
--removedefine BEGIN_TM_PART_STATES
--removedefine TM_PROP
--removedefine TM_ENUM
--removedefine TM_PART
--removedefine TM_STATE
--removedefine END_TM_CLASS_PARTS
--removedefine END_TM_PART_STATES
--removedefine END_TM_PROPS
--removedefine END_TM_ENUM
--removedefine END_TM_SCHEMA
-
 -removedefine ACLUIAPI
 -removedefine ACMAPI
 -removedefine _ANONYMOUS_STRUCT
@@ -43,6 +28,11 @@
 -removedefine APIENTRY
 -removedefine APIPRIVATE
 -removedefine BEGIN_INTERFACE
+-removedefine BEGIN_TM_CLASS_PARTS
+-removedefine BEGIN_TM_ENUM
+-removedefine BEGIN_TM_PART_STATES
+-removedefine BEGIN_TM_PROPS
+-removedefine BEGIN_TM_SCHEMA
 -removedefine BERAPI
 -removedefine BOOLAPI
 -removedefine BROWSEUIAPI
@@ -106,6 +96,7 @@
 -removedefine DECLSPEC_UUID
 -removedefine DEFINE_PROPERTYKEY
 -removedefine DEPRECATE_SUPPORTED
+-removedefine DMUS_PMSG_PART
 -removedefine DUMMYSTRUCTNAME
 -removedefine DUMMYSTRUCTNAME1
 -removedefine DUMMYSTRUCTNAME2
@@ -123,6 +114,11 @@
 -removedefine DUMMYUNIONNAME8
 -removedefine DUMMYUNIONNAME9
 -removedefine END_INTERFACE
+-removedefine END_TM_CLASS_PARTS
+-removedefine END_TM_ENUM
+-removedefine END_TM_PART_STATES
+-removedefine END_TM_PROPS
+-removedefine END_TM_SCHEMA
 -removedefine EXPORT
 -removedefine EXTERN_C
 -removedefine far
@@ -241,6 +237,10 @@
 -removedefine THEMEAPI_
 -removedefine THIS
 -removedefine THIS_
+-removedefine TM_ENUM
+-removedefine TM_PART
+-removedefine TM_PROP
+-removedefine TM_STATE
 -removedefine __unaligned
 -removedefine UNALIGNED
 -removedefine _UNION_NAME

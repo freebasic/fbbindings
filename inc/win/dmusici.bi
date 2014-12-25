@@ -309,7 +309,6 @@ type LPTRANSITION_TYPE as WORD ptr
 #define DMUSB_DEFAULT &h2
 #define MT_MIN &h80000000
 #define MT_MAX &h7FFFFFFF
-#define DMUS_PMSG_PART '' TODO: DWORD dwSize; REFERENCE_TIME rtTime; MUSIC_TIME mtTime; DWORD dwFlags; DWORD dwPChannel; DWORD dwVirtualTrackID; IDirectMusicTool* pTool; struct IDirectMusicGraph* pGraph; DWORD dwType; DWORD dwVoiceID; DWORD dwGroupID; IUnknown* punkUser;
 
 type DMUS_STYLET_TYPES as enumDMUS_STYLET_TYPES
 type DMUS_COMMANDT_TYPES as enumDMUS_COMMANDT_TYPES
