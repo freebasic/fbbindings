@@ -141,6 +141,7 @@ WINAPI_BASE += ntsecapi
 WINAPI_BASE += ntsecpkg
 WINAPI_BASE += oaidl
 WINAPI_BASE += objbase
+WINAPI_BASE += objectarray
 #WINAPI_BASE += objfwd
 WINAPI_BASE += objidl
 WINAPI_BASE += objidlbase
