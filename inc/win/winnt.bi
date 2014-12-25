@@ -8083,9 +8083,9 @@ private sub TpInitializeCallbackEnviron cdecl(byval cbe as PTP_CALLBACK_ENVIRON)
 	#if (_WIN32_WINNT = &h0400) or (_WIN32_WINNT = &h0502)
 		cbe->Version = 1
 	#else
-		cbe->Version = 3;
-		cbe->CallbackPriority = TP_CALLBACK_PRIORITY_NORMAL;
-		cbe->Size = sizeof (TP_CALLBACK_ENVIRON);
+		cbe->Version = 3
+		cbe->CallbackPriority = TP_CALLBACK_PRIORITY_NORMAL
+		cbe->Size = sizeof(TP_CALLBACK_ENVIRON)
 	#endif
 end sub
 
@@ -8120,8 +8120,7 @@ end sub
 
 #if _WIN32_WINNT = &h0602
 	private sub TpSetCallbackPriority cdecl(byval cbe as PTP_CALLBACK_ENVIRON, byval prio as TP_CALLBACK_PRIORITY)
-		cbe->CallbackPriority
-		'' TODO: cbe->CallbackPriority = prio;
+		cbe->CallbackPriority = prio
 	end sub
 #endif
 
