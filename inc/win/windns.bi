@@ -5,66 +5,10 @@
 '' The following symbols have been renamed:
 ''     inside struct _DnsRecordW:
 ''         inside union ___DnsRecordW_Data:
-''             field Soa => Soa_
-''             field Ptr => Ptr_
-''             field Ns => Ns_
-''             field Cname => Cname_
-''             field Mb => Mb_
-''             field Md => Md_
-''             field Mf => Mf_
-''             field Mg => Mg_
-''             field Mr => Mr_
-''             field Minfo => Minfo_
-''             field Rp => Rp_
-''             field Mx => Mx_
-''             field Afsdb => Afsdb_
-''             field Rt => Rt_
-''             field Hinfo => Hinfo_
-''             field Isdn => Isdn_
-''             field Txt => Txt_
 ''             field Null => Null_
-''             field Wks => Wks_
-''             field Key => Key_
-''             field Sig => Sig_
-''             field Atma => Atma_
-''             field Nxt => Nxt_
-''             field Srv => Srv_
-''             field Tkey => Tkey_
-''             field Tsig => Tsig_
-''             field Wins => Wins_
-''             field WinsR => WinsR_
-''             field Nbstat => Nbstat_
 ''     inside struct _DnsRecordA:
 ''         inside union ___DnsRecordA_Data:
-''             field Soa => Soa_
-''             field Ptr => Ptr_
-''             field Ns => Ns_
-''             field Cname => Cname_
-''             field Mb => Mb_
-''             field Md => Md_
-''             field Mf => Mf_
-''             field Mg => Mg_
-''             field Mr => Mr_
-''             field Minfo => Minfo_
-''             field Rp => Rp_
-''             field Mx => Mx_
-''             field Afsdb => Afsdb_
-''             field Rt => Rt_
-''             field Hinfo => Hinfo_
-''             field Isdn => Isdn_
-''             field Txt => Txt_
 ''             field Null => Null_
-''             field Wks => Wks_
-''             field Key => Key_
-''             field Sig => Sig_
-''             field Atma => Atma_
-''             field Nxt => Nxt_
-''             field Srv => Srv_
-''             field Tkey => Tkey_
-''             field Tsig => Tsig_
-''             field Wins => Wins_
-''             field WinsR => WinsR_
-''             field Nbstat => Nbstat_
 
 #ifdef __FB_64BIT__
 	extern "C"
@@ -833,64 +777,36 @@ end union
 union ___DnsRecordW_Data
 	A as DNS_A_DATA
 	SOA as DNS_SOA_DATAW
-	Soa_ as DNS_SOA_DATAW
 	PTR as DNS_PTR_DATAW
-	Ptr_ as DNS_PTR_DATAW
 	NS as DNS_PTR_DATAW
-	Ns_ as DNS_PTR_DATAW
 	CNAME as DNS_PTR_DATAW
-	Cname_ as DNS_PTR_DATAW
 	MB as DNS_PTR_DATAW
-	Mb_ as DNS_PTR_DATAW
 	MD as DNS_PTR_DATAW
-	Md_ as DNS_PTR_DATAW
 	MF as DNS_PTR_DATAW
-	Mf_ as DNS_PTR_DATAW
 	MG as DNS_PTR_DATAW
-	Mg_ as DNS_PTR_DATAW
 	MR as DNS_PTR_DATAW
-	Mr_ as DNS_PTR_DATAW
 	MINFO as DNS_MINFO_DATAW
-	Minfo_ as DNS_MINFO_DATAW
 	RP as DNS_MINFO_DATAW
-	Rp_ as DNS_MINFO_DATAW
 	MX as DNS_MX_DATAW
-	Mx_ as DNS_MX_DATAW
 	AFSDB as DNS_MX_DATAW
-	Afsdb_ as DNS_MX_DATAW
 	RT as DNS_MX_DATAW
-	Rt_ as DNS_MX_DATAW
 	HINFO as DNS_TXT_DATAW
-	Hinfo_ as DNS_TXT_DATAW
 	ISDN as DNS_TXT_DATAW
-	Isdn_ as DNS_TXT_DATAW
 	TXT as DNS_TXT_DATAW
-	Txt_ as DNS_TXT_DATAW
 	X25 as DNS_TXT_DATAW
 	Null_ as DNS_NULL_DATA
 	WKS as DNS_WKS_DATA
-	Wks_ as DNS_WKS_DATA
 	AAAA as DNS_AAAA_DATA
 	KEY as DNS_KEY_DATA
-	Key_ as DNS_KEY_DATA
 	SIG as DNS_SIG_DATAW
-	Sig_ as DNS_SIG_DATAW
 	ATMA as DNS_ATMA_DATA
-	Atma_ as DNS_ATMA_DATA
 	NXT as DNS_NXT_DATAW
-	Nxt_ as DNS_NXT_DATAW
 	SRV as DNS_SRV_DATAW
-	Srv_ as DNS_SRV_DATAW
 	TKEY as DNS_TKEY_DATAW
-	Tkey_ as DNS_TKEY_DATAW
 	TSIG as DNS_TSIG_DATAW
-	Tsig_ as DNS_TSIG_DATAW
 	WINS as DNS_WINS_DATA
-	Wins_ as DNS_WINS_DATA
 	WINSR as DNS_WINSR_DATAW
-	WinsR_ as DNS_WINSR_DATAW
 	NBSTAT as DNS_WINSR_DATAW
-	Nbstat_ as DNS_WINSR_DATAW
 end union
 
 type _DnsRecordW
@@ -915,64 +831,36 @@ end union
 union ___DnsRecordA_Data
 	A as DNS_A_DATA
 	SOA as DNS_SOA_DATAA
-	Soa_ as DNS_SOA_DATAA
 	PTR as DNS_PTR_DATAA
-	Ptr_ as DNS_PTR_DATAA
 	NS as DNS_PTR_DATAA
-	Ns_ as DNS_PTR_DATAA
 	CNAME as DNS_PTR_DATAA
-	Cname_ as DNS_PTR_DATAA
 	MB as DNS_PTR_DATAA
-	Mb_ as DNS_PTR_DATAA
 	MD as DNS_PTR_DATAA
-	Md_ as DNS_PTR_DATAA
 	MF as DNS_PTR_DATAA
-	Mf_ as DNS_PTR_DATAA
 	MG as DNS_PTR_DATAA
-	Mg_ as DNS_PTR_DATAA
 	MR as DNS_PTR_DATAA
-	Mr_ as DNS_PTR_DATAA
 	MINFO as DNS_MINFO_DATAA
-	Minfo_ as DNS_MINFO_DATAA
 	RP as DNS_MINFO_DATAA
-	Rp_ as DNS_MINFO_DATAA
 	MX as DNS_MX_DATAA
-	Mx_ as DNS_MX_DATAA
 	AFSDB as DNS_MX_DATAA
-	Afsdb_ as DNS_MX_DATAA
 	RT as DNS_MX_DATAA
-	Rt_ as DNS_MX_DATAA
 	HINFO as DNS_TXT_DATAA
-	Hinfo_ as DNS_TXT_DATAA
 	ISDN as DNS_TXT_DATAA
-	Isdn_ as DNS_TXT_DATAA
 	TXT as DNS_TXT_DATAA
-	Txt_ as DNS_TXT_DATAA
 	X25 as DNS_TXT_DATAA
 	Null_ as DNS_NULL_DATA
 	WKS as DNS_WKS_DATA
-	Wks_ as DNS_WKS_DATA
 	AAAA as DNS_AAAA_DATA
 	KEY as DNS_KEY_DATA
-	Key_ as DNS_KEY_DATA
 	SIG as DNS_SIG_DATAA
-	Sig_ as DNS_SIG_DATAA
 	ATMA as DNS_ATMA_DATA
-	Atma_ as DNS_ATMA_DATA
 	NXT as DNS_NXT_DATAA
-	Nxt_ as DNS_NXT_DATAA
 	SRV as DNS_SRV_DATAA
-	Srv_ as DNS_SRV_DATAA
 	TKEY as DNS_TKEY_DATAA
-	Tkey_ as DNS_TKEY_DATAA
 	TSIG as DNS_TSIG_DATAA
-	Tsig_ as DNS_TSIG_DATAA
 	WINS as DNS_WINS_DATA
-	Wins_ as DNS_WINS_DATA
 	WINSR as DNS_WINSR_DATAA
-	WinsR_ as DNS_WINSR_DATAA
 	NBSTAT as DNS_WINSR_DATAA
-	Nbstat_ as DNS_WINSR_DATAA
 end union
 
 type _DnsRecordA
