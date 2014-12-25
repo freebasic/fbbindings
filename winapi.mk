@@ -228,6 +228,7 @@ WINAPI_BASE += winber
 WINAPI_BASE += wincon
 WINAPI_BASE += wincrypt
 WINAPI_BASE += windef
+WINAPI_BASE += windns
 WINAPI_BASE += winefs
 WINAPI_BASE += winerror
 WINAPI_BASE += wingdi
