@@ -323,7 +323,6 @@ type BSTR as wstring ptr
 type LPBSTR as BSTR ptr
 type VARIANT_BOOL as short
 
-#define _VARIANT_BOOL '' TODO: /##/
 #define _tagBSTRBLOB_DEFINED
 
 type tagBSTRBLOB
