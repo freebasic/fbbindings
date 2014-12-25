@@ -202,7 +202,7 @@ type LPINTERFACE_INFO_EX as _INTERFACE_INFO_EX ptr
 #define IFF_MULTICAST &h00000010
 
 type in_pktinfo
-	ipi_addr as IN_ADDR_
+	ipi_addr as IN_ADDR
 	ipi_ifindex as UINT
 end type
 
