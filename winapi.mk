@@ -126,6 +126,7 @@ WINAPI_BASE += msacm
 WINAPI_BASE += mshtmhst
 WINAPI_BASE += mshtml
 WINAPI_BASE += mshtmlc
+WINAPI_BASE += mstcpip
 WINAPI_BASE += mswsock
 WINAPI_BASE += msxml
 WINAPI_BASE += naptypes
