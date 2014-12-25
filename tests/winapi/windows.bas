@@ -86,7 +86,6 @@
 #include "win/ras.bi"
 #include "win/rasdlg.bi"
 #include "win/raserror.bi"
-#include "win/rassapi.bi"
 #include "win/reason.bi"
 #include "win/regstr.bi"
 #include "win/richedit.bi"
