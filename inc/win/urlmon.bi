@@ -2585,7 +2585,7 @@ declare sub IInternetHostSecurityManager_QueryCustomPolicy_Stub(byval This as IR
 #define URLPOLICY_LOG_ON_DISALLOW &h80
 #define URLPOLICY_MASK_PERMISSIONS &h0f
 #define GetUrlPolicyPermissions(dw) (dw and URLPOLICY_MASK_PERMISSIONS)
-#define SetUrlPolicyPermissions(dw, dw2) '' TODO: ((dw) = ((dw) & ~(URLPOLICY_MASK_PERMISSIONS)) | (dw2))
+#define SetUrlPolicyPermissions(dw, dw2) scope : (dw) = ((dw) and (not URLPOLICY_MASK_PERMISSIONS)) or (dw2) : end scope
 #define URLPOLICY_DONTCHECKDLGBOX &h100
 
 #if _WIN32_WINNT = &h0602
