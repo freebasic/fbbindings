@@ -10,27 +10,28 @@
 #endif
 
 #define _NTSUBAUTH_
-#define __UNICODE_STRING_DEFINED
 
+#ifndef __UNICODE_STRING_DEFINED
+#define __UNICODE_STRING_DEFINED
 type _UNICODE_STRING
 	Length as USHORT
 	MaximumLength as USHORT
 	Buffer as PWSTR
 end type
-
 type UNICODE_STRING as _UNICODE_STRING
 type PUNICODE_STRING as _UNICODE_STRING ptr
+#endif
 
+#ifndef __STRING_DEFINED
 #define __STRING_DEFINED
-
 type _STRING
 	Length as USHORT
 	MaximumLength as USHORT
 	Buffer as PCHAR
 end type
-
 type STRING_ as _STRING
 type PSTRING as _STRING ptr
+#endif
 
 type _OLD_LARGE_INTEGER
 	LowPart as ULONG

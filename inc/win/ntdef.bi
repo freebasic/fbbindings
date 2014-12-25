@@ -220,16 +220,18 @@ type PPHYSICAL_ADDRESS as LARGE_INTEGER ptr
 #define NT_INFORMATION(Status) ((cast(ULONG, (Status)) shr 30) = 1)
 #define NT_WARNING(Status) ((cast(ULONG, (Status)) shr 30) = 2)
 #define NT_ERROR(Status) ((cast(ULONG, (Status)) shr 30) = 3)
-#define __UNICODE_STRING_DEFINED
 
+#ifndef __UNICODE_STRING_DEFINED
+#define __UNICODE_STRING_DEFINED
 type _UNICODE_STRING
 	Length as USHORT
 	MaximumLength as USHORT
 	Buffer as PWSTR
 end type
-
 type UNICODE_STRING as _UNICODE_STRING
 type PUNICODE_STRING as _UNICODE_STRING ptr
+#endif
+
 type PCUNICODE_STRING as const UNICODE_STRING ptr
 
 #define UNICODE_NULL cast(wchar_t, 0)
@@ -244,16 +246,18 @@ type CSTRING as _CSTRING
 type PCSTRING as _CSTRING ptr
 
 #define ANSI_NULL cbyte(0)
-#define __STRING_DEFINED
 
+#ifndef __STRING_DEFINED
+#define __STRING_DEFINED
 type _STRING
 	Length as USHORT
 	MaximumLength as USHORT
 	Buffer as PCHAR
 end type
-
 type STRING_ as _STRING
 type PSTRING as _STRING ptr
+#endif
+
 type ANSI_STRING as STRING_
 type PANSI_STRING as PSTRING
 type OEM_STRING as STRING_
