@@ -183,6 +183,7 @@ WINAPI_BASE += security
 WINAPI_BASE += servprov
 WINAPI_BASE += setupapi
 WINAPI_BASE += shellapi
+WINAPI_BASE += shldisp
 WINAPI_BASE += shlguid
 WINAPI_BASE += shlobj
 WINAPI_BASE += shlwapi
