@@ -169,6 +169,8 @@
 -removedefine OUT
 -removedefine pascal
 -removedefine PASCAL
+-removedefine PSSTDAPI
+-removedefine PSSTDAPI_
 -removedefine __ptr32
 -removedefine __ptr64
 -removedefine PURE

@@ -157,6 +157,7 @@ WINAPI_BASE += oledlg
 WINAPI_BASE += oleidl
 WINAPI_BASE += powrprof
 WINAPI_BASE += propidl
+WINAPI_BASE += propsys
 WINAPI_BASE += prsht
 WINAPI_BASE += psapi
 WINAPI_BASE += qos
