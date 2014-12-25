@@ -198,6 +198,7 @@ WINAPI_BASE += sqltypes
 WINAPI_BASE += sqlucode
 WINAPI_BASE += sspi
 WINAPI_BASE += strmif
+WINAPI_BASE += structuredquerycondition
 WINAPI_BASE += subauth
 WINAPI_BASE += tcpestats
 WINAPI_BASE += tcpmib
