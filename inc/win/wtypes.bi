@@ -311,12 +311,9 @@ type DECIMAL as tagDEC
 #define DECIMAL_NEG cast(UBYTE, &h80)
 #macro DECIMAL_SETZERO(dec)
 	scope
-		(dec).Lo64
-		'' TODO: (dec).Lo64 = 0;
-		(dec).Hi32
-		'' TODO: (dec).Hi32 = 0;
-		(dec).signscale
-		'' TODO: (dec).signscale = 0;
+		(dec).Lo64 = 0
+		(dec).Hi32 = 0
+		(dec).signscale = 0
 	end scope
 #endmacro
 
