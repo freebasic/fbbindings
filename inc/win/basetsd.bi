@@ -25,8 +25,8 @@ extern "C"
 #define FIRMWARE_PTR
 #define POINTER_SIGNED
 #define POINTER_UNSIGNED
-#define SPOINTER_32 '' TODO: POINTER_SIGNED POINTER_32
-#define UPOINTER_32 '' TODO: POINTER_UNSIGNED POINTER_32
+#define SPOINTER_32
+#define UPOINTER_32
 
 type INT8 as byte
 type PINT8 as byte ptr
