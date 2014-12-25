@@ -32,7 +32,7 @@
 #define ANYSIZE_ARRAY 1
 #define FALSE 0
 #define TRUE 1
-#define NULL64 '' TODO: ((void * POINTER_64)0)
+#define NULL64 cptr(any ptr, 0)
 
 #ifdef __FB_64BIT__
 	#define ALIGNMENT_MACHINE
