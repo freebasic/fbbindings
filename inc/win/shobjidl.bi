@@ -1,5 +1,9 @@
 #pragma once
 
+'' The following symbols have been renamed:
+''     inside struct DELEGATEITEMID:
+''         field rgb => rgb_
+
 #include once "crt/long.bi"
 #include once "rpc.bi"
 #include once "rpcndr.bi"
@@ -6196,7 +6200,7 @@ type DELEGATEITEMID field = 1
 	cbSize as WORD
 	wOuter as WORD
 	cbInner as WORD
-	rgb(0 to 0) as UBYTE
+	rgb_(0 to 0) as UBYTE
 end type
 
 type PCDELEGATEITEMID as const DELEGATEITEMID ptr
