@@ -61,7 +61,7 @@ end type
 		SecurityProtocol as SOCKET_SECURITY_PROTOCOL
 		PeerAddress as SOCKADDR_STORAGE_
 		PeerTargetNameStringLen as ULONG
-		AllStrings as wstring * ...
+		AllStrings as wstring * 1
 	end type
 
 	type SOCKET_PEER_TARGET_NAME as _SOCKET_PEER_TARGET_NAME
@@ -107,7 +107,7 @@ end type
 		UserNameStringLen as ULONG
 		DomainNameStringLen as ULONG
 		PasswordStringLen as ULONG
-		AllStrings as wstring * ...
+		AllStrings as wstring * 1
 	end type
 
 	type SOCKET_SECURITY_SETTINGS_IPSEC as _SOCKET_SECURITY_SETTINGS_IPSEC
