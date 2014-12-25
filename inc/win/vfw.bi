@@ -8,6 +8,8 @@
 '' The following symbols have been renamed:
 ''     #define AVIFileInfo => AVIFileInfo_
 ''     #define AVIStreamInfo => AVIStreamInfo_
+''     inside struct IAVIStreamVtbl_:
+''         field Delete => Delete__
 
 #inclib "avifil32"
 #inclib "avicap32"
@@ -727,7 +729,7 @@ type IAVIStreamVtbl_
 	SetFormat as function(byval This as IAVIStream ptr, byval lPos_ as LONG, byval lpFormat as LPVOID, byval cbFormat as LONG) as HRESULT
 	Read as function(byval This as IAVIStream ptr, byval lStart as LONG, byval lSamples as LONG, byval lpBuffer as LPVOID, byval cbBuffer as LONG, byval plBytes as LONG ptr, byval plSamples as LONG ptr) as HRESULT
 	Write as function(byval This as IAVIStream ptr, byval lStart as LONG, byval lSamples as LONG, byval lpBuffer as LPVOID, byval cbBuffer as LONG, byval dwFlags as DWORD, byval plSampWritten as LONG ptr, byval plBytesWritten as LONG ptr) as HRESULT
-	Delete as function(byval This as IAVIStream ptr, byval lStart as LONG, byval lSamples as LONG) as HRESULT
+	Delete__ as function(byval This as IAVIStream ptr, byval lStart as LONG, byval lSamples as LONG) as HRESULT
 	ReadData as function(byval This as IAVIStream ptr, byval fcc as DWORD, byval lp as LPVOID, byval lpcb as LONG ptr) as HRESULT
 	WriteData as function(byval This as IAVIStream ptr, byval fcc as DWORD, byval lp as LPVOID, byval cb as LONG) as HRESULT
 	SetInfo as function(byval This as IAVIStream ptr, byval lpInfo as AVISTREAMINFOW ptr, byval cbInfo as LONG) as HRESULT
