@@ -4,7 +4,6 @@
 
 '' The following symbols have been renamed:
 ''     typedef LDAP => LDAP_
-''     typedef BERVAL => BERVAL_
 ''     typedef LDAPControlA => LDAPControlA_
 ''     typedef LDAPControlW => LDAPControlW_
 ''     typedef LDAPModW => LDAPModW_
@@ -256,7 +255,6 @@ type PLDAP_TIMEVAL as l_timeval ptr
 
 type LDAP_BERVAL as berval
 type PLDAP_BERVAL as berval ptr
-type BERVAL_ as berval
 type PBERVAL as berval ptr
 type BerValue as berval
 
@@ -517,10 +515,10 @@ declare function ldap_bindW(byval ld as LDAP_ ptr, byval dn as PWCHAR, byval cre
 declare function ldap_bindA(byval ld as LDAP_ ptr, byval dn as PCHAR, byval cred as PCHAR, byval method as ULONG) as ULONG
 declare function ldap_bind_sW(byval ld as LDAP_ ptr, byval dn as PWCHAR, byval cred as PWCHAR, byval method as ULONG) as ULONG
 declare function ldap_bind_sA(byval ld as LDAP_ ptr, byval dn as PCHAR, byval cred as PCHAR, byval method as ULONG) as ULONG
-declare function ldap_sasl_bindA(byval ExternalHandle as LDAP_ ptr, byval DistName as const PCHAR, byval AuthMechanism as const PCHAR, byval cred as const BERVAL_ ptr, byval ServerCtrls as PLDAPControlA ptr, byval ClientCtrls as PLDAPControlA ptr, byval MessageNumber as long ptr) as INT_
-declare function ldap_sasl_bindW(byval ExternalHandle as LDAP_ ptr, byval DistName as const PWCHAR, byval AuthMechanism as const PWCHAR, byval cred as const BERVAL_ ptr, byval ServerCtrls as PLDAPControlW ptr, byval ClientCtrls as PLDAPControlW ptr, byval MessageNumber as long ptr) as INT_
-declare function ldap_sasl_bind_sA(byval ExternalHandle as LDAP_ ptr, byval DistName as const PCHAR, byval AuthMechanism as const PCHAR, byval cred as const BERVAL_ ptr, byval ServerCtrls as PLDAPControlA ptr, byval ClientCtrls as PLDAPControlA ptr, byval ServerData as PBERVAL ptr) as INT_
-declare function ldap_sasl_bind_sW(byval ExternalHandle as LDAP_ ptr, byval DistName as const PWCHAR, byval AuthMechanism as const PWCHAR, byval cred as const BERVAL_ ptr, byval ServerCtrls as PLDAPControlW ptr, byval ClientCtrls as PLDAPControlW ptr, byval ServerData as PBERVAL ptr) as INT_
+declare function ldap_sasl_bindA(byval ExternalHandle as LDAP_ ptr, byval DistName as const PCHAR, byval AuthMechanism as const PCHAR, byval cred as const BERVAL ptr, byval ServerCtrls as PLDAPControlA ptr, byval ClientCtrls as PLDAPControlA ptr, byval MessageNumber as long ptr) as INT_
+declare function ldap_sasl_bindW(byval ExternalHandle as LDAP_ ptr, byval DistName as const PWCHAR, byval AuthMechanism as const PWCHAR, byval cred as const BERVAL ptr, byval ServerCtrls as PLDAPControlW ptr, byval ClientCtrls as PLDAPControlW ptr, byval MessageNumber as long ptr) as INT_
+declare function ldap_sasl_bind_sA(byval ExternalHandle as LDAP_ ptr, byval DistName as const PCHAR, byval AuthMechanism as const PCHAR, byval cred as const BERVAL ptr, byval ServerCtrls as PLDAPControlA ptr, byval ClientCtrls as PLDAPControlA ptr, byval ServerData as PBERVAL ptr) as INT_
+declare function ldap_sasl_bind_sW(byval ExternalHandle as LDAP_ ptr, byval DistName as const PWCHAR, byval AuthMechanism as const PWCHAR, byval cred as const BERVAL ptr, byval ServerCtrls as PLDAPControlW ptr, byval ClientCtrls as PLDAPControlW ptr, byval ServerData as PBERVAL ptr) as INT_
 
 #ifdef UNICODE
 	#define ldap_simple_bind ldap_simple_bindW
