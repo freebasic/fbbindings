@@ -235,7 +235,7 @@ type LPFN_WSARECVMSG as function(byval s as SOCKET, byval lpMsg as LPWSAMSG, byv
 		result as long
 		fds as ULONG
 		timeout as INT_
-		fdArray(0 to -1) as WSAPOLLFD
+		fdArray(0 to 0) as WSAPOLLFD
 	end type
 
 	type LPWSAPOLLDATA as WSAPOLLDATA ptr
