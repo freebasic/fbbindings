@@ -1,5 +1,13 @@
 #pragma once
 
+'' The following symbols have been renamed:
+''     inside struct IWbemClassObjectVtbl:
+''         field Delete => Delete__
+''     inside struct IWbemObjectAccessVtbl:
+''         field Delete => Delete__
+''     inside struct IWbemQualifierSetVtbl:
+''         field Delete => Delete__
+
 #include once "rpc.bi"
 #include once "rpcndr.bi"
 #include once "windows.bi"
@@ -506,7 +514,7 @@ type IWbemClassObjectVtbl
 	GetQualifierSet as function(byval This as IWbemClassObject ptr, byval ppQualSet as IWbemQualifierSet ptr ptr) as HRESULT
 	Get as function(byval This as IWbemClassObject ptr, byval wszName as LPCWSTR, byval lFlags as long, byval pVal as VARIANT ptr, byval pType as CIMTYPE ptr, byval plFlavor as long ptr) as HRESULT
 	Put as function(byval This as IWbemClassObject ptr, byval wszName as LPCWSTR, byval lFlags as long, byval pVal as VARIANT ptr, byval Type_ as CIMTYPE) as HRESULT
-	Delete as function(byval This as IWbemClassObject ptr, byval wszName as LPCWSTR) as HRESULT
+	Delete__ as function(byval This as IWbemClassObject ptr, byval wszName as LPCWSTR) as HRESULT
 	GetNames as function(byval This as IWbemClassObject ptr, byval wszQualifierName as LPCWSTR, byval lFlags as long, byval pQualifierVal as VARIANT ptr, byval pNames as SAFEARRAY ptr ptr) as HRESULT
 	BeginEnumeration as function(byval This as IWbemClassObject ptr, byval lEnumFlags as long) as HRESULT
 	Next as function(byval This as IWbemClassObject ptr, byval lFlags as long, byval strName as BSTR ptr, byval pVal as VARIANT ptr, byval pType as CIMTYPE ptr, byval plFlavor as long ptr) as HRESULT
@@ -593,7 +601,7 @@ type IWbemObjectAccessVtbl
 	GetQualifierSet as function(byval This as IWbemObjectAccess ptr, byval ppQualSet as IWbemQualifierSet ptr ptr) as HRESULT
 	Get as function(byval This as IWbemObjectAccess ptr, byval wszName as LPCWSTR, byval lFlags as long, byval pVal as VARIANT ptr, byval pType as CIMTYPE ptr, byval plFlavor as long ptr) as HRESULT
 	Put as function(byval This as IWbemObjectAccess ptr, byval wszName as LPCWSTR, byval lFlags as long, byval pVal as VARIANT ptr, byval Type_ as CIMTYPE) as HRESULT
-	Delete as function(byval This as IWbemObjectAccess ptr, byval wszName as LPCWSTR) as HRESULT
+	Delete__ as function(byval This as IWbemObjectAccess ptr, byval wszName as LPCWSTR) as HRESULT
 	GetNames as function(byval This as IWbemObjectAccess ptr, byval wszQualifierName as LPCWSTR, byval lFlags as long, byval pQualifierVal as VARIANT ptr, byval pNames as SAFEARRAY ptr ptr) as HRESULT
 	BeginEnumeration as function(byval This as IWbemObjectAccess ptr, byval lEnumFlags as long) as HRESULT
 	Next as function(byval This as IWbemObjectAccess ptr, byval lFlags as long, byval strName as BSTR ptr, byval pVal as VARIANT ptr, byval pType as CIMTYPE ptr, byval plFlavor as long ptr) as HRESULT
@@ -661,7 +669,7 @@ type IWbemQualifierSetVtbl
 	Release as function(byval This as IWbemQualifierSet ptr) as ULONG
 	Get as function(byval This as IWbemQualifierSet ptr, byval wszName as LPCWSTR, byval lFlags as long, byval pVal as VARIANT ptr, byval plFlavor as long ptr) as HRESULT
 	Put as function(byval This as IWbemQualifierSet ptr, byval wszName as LPCWSTR, byval pVal as VARIANT ptr, byval lFlavor as long) as HRESULT
-	Delete as function(byval This as IWbemQualifierSet ptr, byval wszName as LPCWSTR) as HRESULT
+	Delete__ as function(byval This as IWbemQualifierSet ptr, byval wszName as LPCWSTR) as HRESULT
 	GetNames as function(byval This as IWbemQualifierSet ptr, byval lFlags as long, byval pNames as SAFEARRAY ptr ptr) as HRESULT
 	BeginEnumeration as function(byval This as IWbemQualifierSet ptr, byval lFlags as long) as HRESULT
 	Next as function(byval This as IWbemQualifierSet ptr, byval lFlags as long, byval pstrName as BSTR ptr, byval pVal as VARIANT ptr, byval plFlavor as long ptr) as HRESULT
