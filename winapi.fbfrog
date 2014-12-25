@@ -89,6 +89,7 @@
 -removedefine DECLSPEC_SELECTANY
 -removedefine __DECLSPEC_SUPPORTED
 -removedefine DECLSPEC_UUID
+-removedefine DEFINE_PROPERTYKEY
 -removedefine DEPRECATE_SUPPORTED
 -removedefine DUMMYSTRUCTNAME
 -removedefine DUMMYSTRUCTNAME1
@@ -178,6 +179,7 @@
 -removedefine REFEXPLORERPANE
 -removedefine REFFOLDERTYPEID
 -removedefine REFKNOWNFOLDERID
+-removedefine REFPROPERTYKEY
 -removedefine REFTASKOWNERID
 -removedefine __restrict_arr
 -removedefine __RPC_API
