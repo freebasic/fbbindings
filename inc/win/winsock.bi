@@ -43,11 +43,37 @@ end type
 
 declare function __WSAFDIsSet(byval as SOCKET, byval as fd_set ptr) as long
 
-#define FD_CLR(fd, set) '' TODO: do { u_int __i; for(__i = 0; __i < ((fd_set *)(set))->fd_count; __i++) { if (((fd_set *)(set))->fd_array[__i] == fd) { while (__i < ((fd_set *)(set))->fd_count - 1) { ((fd_set *)(set))->fd_array[__i] = ((fd_set *)(set))->fd_array[__i + 1]; __i++; } ((fd_set *)(set))->fd_count--; break; } } } while(0)
-#define FD_ZERO(set) '' TODO: (((fd_set *)(set))->fd_count = 0)
+#macro FD_CLR(fd, set)
+	scope
+		dim __i as u_int
+		while __i < cptr(fd_set ptr, set)->fd_count
+			if cptr(fd_set ptr, set)->fd_array[__i] = fd then
+				while __i < cptr(fd_set ptr, set)->fd_count - 1
+					cptr(fd_set ptr, set)->fd_array[__i] = cptr(fd_set ptr, set)->fd_array[__i + 1]
+					__i += 1
+				wend
+				cptr(fd_set ptr, set)->fd_count -= 1
+				exit while
+			end if
+			__i += 1
+		wend
+	end scope
+#endmacro
+#macro FD_ZERO(set)
+	scope
+		cptr(fd_set ptr, set)->fd_count = 0
+	end scope
+#endmacro
 #define FD_ISSET(fd, set) __WSAFDIsSet(cast(SOCKET, (fd)), cptr(fd_set ptr, (set)))
 #define _FD_SET_WINSOCK_DEFINED
-#define FD_SET_(fd, set) '' TODO: do { if (((fd_set *)(set))->fd_count < FD_SETSIZE) ((fd_set *)(set))->fd_array[((fd_set *)(set))->fd_count++] = (fd); } while(0)
+#macro FD_SET_(fd, set)
+	scope
+		if cptr(fd_set ptr, set)->fd_count < FD_SETSIZE then
+			cptr(fd_set ptr, set)->fd_array[cptr(fd_set ptr, set)->fd_count] = (fd)
+			cptr(fd_set ptr, set)->fd_count += 1
+		end if
+	end scope
+#endmacro
 
 type FD_SET__ as fd_set
 type PFD_SET as fd_set ptr
