@@ -173,6 +173,7 @@
 -removedefine __ptr64
 -removedefine PURE
 -removedefine REFELEMENTID
+-removedefine REFEXPLORERPANE
 -removedefine REFFOLDERTYPEID
 -removedefine REFKNOWNFOLDERID
 -removedefine REFTASKOWNERID

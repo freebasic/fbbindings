@@ -188,6 +188,7 @@ WINAPI_BASE += shldisp
 WINAPI_BASE += shlguid
 WINAPI_BASE += shlobj
 WINAPI_BASE += shlwapi
+WINAPI_BASE += shobjidl
 WINAPI_BASE += shtypes
 WINAPI_BASE += snmp
 WINAPI_BASE += sql
