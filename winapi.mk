@@ -111,6 +111,7 @@ WINAPI_BASE += ipmib
 WINAPI_BASE += iprtrmib
 WINAPI_BASE += iptypes
 WINAPI_BASE += isguids
+WINAPI_BASE += knownfolders
 WINAPI_BASE += ktmtypes
 #WINAPI_BASE += largeint
 WINAPI_BASE += lmcons
