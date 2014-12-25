@@ -1,5 +1,9 @@
 #pragma once
 
+'' The following symbols have been renamed:
+''     inside struct _PERF_DATA_BLOCK:
+''         field LittleEndian => LittleEndian_
+
 #ifdef __FB_64BIT__
 	extern "C"
 #elseif (not defined(__FB_64BIT__)) and (_WIN32_WINNT = &h0602)
@@ -14,7 +18,7 @@
 
 type _PERF_DATA_BLOCK
 	Signature as wstring * 4
-	LittleEndian as DWORD
+	LittleEndian_ as DWORD
 	Version as DWORD
 	Revision as DWORD
 	TotalByteLength as DWORD
