@@ -87,8 +87,8 @@ type LPCOLORSCHEME as tagCOLORSCHEME ptr
 #define CCM_SETWINDOWTHEME (CCM_FIRST + &hb)
 #define CCM_DPISCALE (CCM_FIRST + &hc)
 #define INFOTIPSIZE 1024
-#define HANDLE_WM_NOTIFY(hwnd, wParam, lParam, fn) '' TODO: (fn)((hwnd),(int)(wParam),(NMHDR *)(lParam))
-#define FORWARD_WM_NOTIFY(hwnd, idFrom, pnmhdr, fn) '' TODO: (LRESULT)(fn)((hwnd),WM_NOTIFY,(WPARAM)(int)(idFrom),(LPARAM)(NMHDR *)(pnmhdr))
+#define HANDLE_WM_NOTIFY(hwnd, wParam, lParam, fn) fn(hwnd, clng(wParam), cast(NMHDR ptr, lParam))
+#define FORWARD_WM_NOTIFY(hwnd, idFrom, pnmhdr, fn) cast(LRESULT, fn(hwnd, WM_NOTIFY, cast(WPARAM, clng(idFrom)), cast(LPARAM, cast(NMHDR ptr, pnmhdr))))
 #define NM_OUTOFMEMORY (NM_FIRST - 1)
 #define NM_CLICK (NM_FIRST - 2)
 #define NM_DBLCLK (NM_FIRST - 3)
