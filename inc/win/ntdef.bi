@@ -10,7 +10,6 @@
 #include once "crt/string.bi"
 
 '' The following symbols have been renamed:
-''     #define CONST => CONST_
 ''     typedef INT => INT_
 ''     typedef CSHORT => CSHORT_
 ''     typedef STRING => STRING_

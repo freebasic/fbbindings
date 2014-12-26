@@ -5,7 +5,6 @@
 #include once "basetsd.bi"
 
 '' The following symbols have been renamed:
-''     #define CONST => CONST_
 ''     typedef INT => INT_
 ''     typedef POINT => POINT_
 
