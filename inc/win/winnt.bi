@@ -1166,29 +1166,7 @@ type PSCOPE_TABLE_AMD64 as _SCOPE_TABLE_AMD64 ptr
 	private function _InterlockedAdd64(byval Addend as LONG64 ptr, byval Value as LONG64) as LONG64
 		return _InterlockedExchangeAdd64(Addend, Value) + Value
 	end function
-
-	#define CacheLineFlush(Address) _mm_clflush(Address)
-	#define FastFence __faststorefence
-	#define LoadFence _mm_lfence
-	#define MemoryFence _mm_mfence
-	#define StoreFence _mm_sfence
-	#define YieldProcessor _mm_pause
-	#define MemoryBarrier _mm_mfence
-	#define PreFetchCacheLine(l, a) '' TODO: _mm_prefetch((CHAR CONST *) a,l)
-	#define PrefetchForWrite(p) _m_prefetchw(p)
-	#define ReadForWriteAccess(p) '' TODO: (_m_prefetchw(p),*(p))
-	#define PF_TEMPORAL_LEVEL_1 _MM_HINT_T0
-	#define PF_TEMPORAL_LEVEL_2 _MM_HINT_T1
-	#define PF_TEMPORAL_LEVEL_3 _MM_HINT_T2
-	#define PF_NON_TEMPORAL_LEVEL_ALL _MM_HINT_NTA
-	#define ReadMxCsr _mm_getcsr
-	#define WriteMxCsr _mm_setcsr
 #else
-	#define YieldProcessor __buildpause
-	#define PreFetchCacheLine(l, a)
-	#define ReadForWriteAccess(p) (*(p))
-	#define PF_TEMPORAL_LEVEL_1
-	#define PF_NON_TEMPORAL_LEVEL_ALL
 	#define PcTeb &h18
 
 	extern "C"

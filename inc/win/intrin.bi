@@ -21,87 +21,6 @@
 extern "C"
 
 #define _INTRIN_MAC_
-#define __buildstos(x, y, z) '' TODO: void x(y *Dest, y Data, size_t Count){ __asm__ __volatile__ ("rep stos{%z[Data]|" z "}" : "+D" (Dest), "+c" (Count) : [Data] "a" (Data) : "memory");}
-#define __buildlogicali(x, y, o) '' TODO: y x(volatile y *Destination, y Value){ return __sync_fetch_and_ ## o(Destination, Value);}
-#define __buildbittesti(x, y, z, a, b) '' TODO: unsigned char x(b y *Base, y Offset){ unsigned char old; __asm__ __volatile__ (z "%z[Base] {%[Offset],%[Base] | %[Base],%[Offset]} ; setc %[old]" : [old] "=qm" (old), [Base] "+m" (*Base) : [Offset] a "r" (Offset) : "memory", "cc"); return old;}
-#define __buildpause() '' TODO: __asm__ __volatile__("rep nop")
-#define __buildint(a) '' TODO: __asm__ __volatile__("int {$}" #a :)
-#macro __buildmemorybarrier
-	scope
-		dim Barrier as ubyte
-		__asm__
-		'' TODO: __asm__ __volatile__("xchg{b %%| }al, %0" :"=m" (Barrier) : : "eax", "memory");
-	end scope
-#endmacro
-#define __buildreadseg(x, y, z) '' TODO: y x(unsigned __LONG32 Offset) { y ret; __asm__ ("mov{%z[ret] %%" z ":%[offset], %[ret] | %[ret], %%" z ":%[offset]}" : [ret] "=r" (ret) : [offset] "m" ((*(y *) (size_t) Offset))); return ret;}
-#define __buildwriteseg(x, y, z) '' TODO: void x(unsigned __LONG32 Offset, y Data) { __asm__ ("mov{%z[offset] %[Data], %%" z ":%[offset] | %%" z ":%[offset], %[Data]}" : [offset] "=m" ((*(y *) (size_t) Offset)) : [Data] "ri" (Data));}
-#define __buildbitscan(x, y, z) '' TODO: unsigned char x(unsigned __LONG32 *Index, y Mask){ y n; __asm__ (z "{%z[Mask] %[Mask],%[Index] | %[Index],%[Mask]}" : [Index] "=r" (n) : [Mask] "r" (Mask) : "cc"); *Index = n; return Mask!=0;}
-#define __buildbittest(x, y, a) '' TODO: unsigned char x(const y *Base, y Offset){ unsigned char old; __asm__ ("bt{%z[Base] %[Offset],%[Base] | %[Base],%[Offset]} ; setc %[old]" : [old] "=rm" (old) : [Offset] a "r" (Offset), [Base] "rm" (*Base) : "cc"); return old;}
-#define __buildbittestand(x, y, z, a) '' TODO: unsigned char x(y *Base, y Offset){ unsigned char old; __asm__ (z "%z[Base] {%[Offset],%[Base] | %[Base],%[Offset]} ; setc %[old]" : [old] "=r" (old), [Base] "+rm" (*Base) : [Offset] a "r" (Offset) : "cc"); return old;}
-#define __build_inport(x, y) '' TODO: y x(unsigned short Port) { y value; __asm__ __volatile__ ("in{%z0 %w1,%0| %0,%w1}" : "=a" (value) : "Nd" (Port)); return value; }
-#define __build_outport(x, y) '' TODO: void x(unsigned short Port, y Data) { __asm__ __volatile__ ("out{%z0 %0,%w1| %w1,%0}" : : "a" (Data), "Nd" (Port)); }
-#define __build_inportstring(x, y, z, a) '' TODO: void x(unsigned short Port, y *Buffer, unsigned __LONG32 Count) { __asm__ __volatile__ ("cld ; rep ins{" z "|" a "}" : "=D" (Buffer), "=c" (Count) : "d"(Port), "0"(Buffer), "1" (Count)); }
-#define __build_outportstring(x, y, z, a) '' TODO: void x(unsigned short Port, y *Buffer, unsigned __LONG32 Count) { __asm__ __volatile__ ("cld ; rep outs{" z "|" a "}" : "=S" (Buffer), "=c" (Count) : "d"(Port), "0"(Buffer), "1" (Count)); }
-#define __build_readcr(x, y, z) '' TODO: y x(void) { y value; __asm__ __volatile__ ("mov {%%cr" z ", %[value] | %[value], %%cr" z "}" : [value] "=q" (value)); return value; }
-#define __build_writecr(x, y, z) '' TODO: void x(y Data) { __asm__ __volatile__ ("mov {%[Data], %%cr" z "|%%cr" z ", %[Data]}" : : [Data] "q" (Data) : "memory"); }
-#define __buildmov(x, y, z) '' TODO: void x(y *Destination, y const *Source, size_t Count){ __asm__ __volatile__ ( "rep movs" z : "=D" (Destination), "=S" (Source), "=c" (Count) : "0" (Destination), "1" (Source), "2" (Count) : "memory");}
-#define _ReadWriteBarrier() '' TODO: __asm__ __volatile__ ("" ::: "memory")
-#define _ReadBarrier _ReadWriteBarrier
-#define _WriteBarrier _ReadWriteBarrier
-#define __INTRINSIC_SPECIAL___faststorefence
-#define __INTRINSIC_SPECIAL___int2c
-#define __INTRINSIC_SPECIAL___stosb
-#define __INTRINSIC_SPECIAL___stosd
-#define __INTRINSIC_SPECIAL___stosq
-#define __INTRINSIC_SPECIAL___stosw
-#define __INTRINSIC_SPECIAL__InterlockedAnd
-#define __INTRINSIC_SPECIAL__interlockedbittestandcomplement
-#define __INTRINSIC_SPECIAL__interlockedbittestandcomplement64
-#define __INTRINSIC_SPECIAL__interlockedbittestandreset
-#define __INTRINSIC_SPECIAL__interlockedbittestandreset64
-#define __INTRINSIC_SPECIAL__interlockedbittestandset
-#define __INTRINSIC_SPECIAL__interlockedbittestandset64
-#define __INTRINSIC_SPECIAL__InterlockedOr
-#define __INTRINSIC_SPECIAL__InterlockedXor
-#define __INTRINSIC_SPECIAL_InterlockedBitTestAndComplement
-#define __INTRINSIC_SPECIAL_InterlockedBitTestAndComplement64
-#define __INTRINSIC_SPECIAL_InterlockedBitTestAndReset
-#define __INTRINSIC_SPECIAL_InterlockedBitTestAndReset64
-#define __INTRINSIC_SPECIAL_InterlockedBitTestAndSet
-#define __INTRINSIC_SPECIAL_InterlockedBitTestAndSet64
-#define __INTRINSIC_SPECIAL__InterlockedIncrement16
-#define __INTRINSIC_SPECIAL__InterlockedDecrement16
-#define __INTRINSIC_SPECIAL__InterlockedCompareExchange16
-#define __INTRINSIC_SPECIAL___readgsbyte
-#define __INTRINSIC_SPECIAL___readgsword
-#define __INTRINSIC_SPECIAL___readgsdword
-#define __INTRINSIC_SPECIAL___readgsqword
-#define __INTRINSIC_SPECIAL___writegsbyte
-#define __INTRINSIC_SPECIAL___writegsword
-#define __INTRINSIC_SPECIAL___writegsdword
-#define __INTRINSIC_SPECIAL___writegsqword
-#define __INTRINSIC_SPECIAL___readfsbyte
-#define __INTRINSIC_SPECIAL___readfsword
-#define __INTRINSIC_SPECIAL___readfsdword
-#define __INTRINSIC_SPECIAL___writefsbyte
-#define __INTRINSIC_SPECIAL___writefsword
-#define __INTRINSIC_SPECIAL___writefsdword
-#define __INTRINSIC_SPECIAL__BitScanForward
-#define __INTRINSIC_SPECIAL__BitScanForward64
-#define __INTRINSIC_SPECIAL__BitScanReverse
-#define __INTRINSIC_SPECIAL__BitScanReverse64
-#define __INTRINSIC_SPECIAL__bittest
-#define __INTRINSIC_SPECIAL__bittestandset
-#define __INTRINSIC_SPECIAL__bittestandreset
-#define __INTRINSIC_SPECIAL__bittestandcomplement
-#define __INTRINSIC_SPECIAL__bittest64
-#define __INTRINSIC_SPECIAL__bittestandset64
-#define __INTRINSIC_SPECIAL__bittestandreset64
-#define __INTRINSIC_SPECIAL__bittestandcomplement64
-#define __INTRINSIC_SPECIAL___movsb
-#define __INTRINSIC_SPECIAL___movsw
-#define __INTRINSIC_SPECIAL___movsd
-#define __INTRINSIC_SPECIAL___movsq
 
 #ifdef __FB_64BIT__
 	declare sub __faststorefence()
@@ -547,57 +466,6 @@ declare function __builtin_ia32_crc32hi(byval as ulong, byval as ushort) as ulon
 declare function __builtin_ia32_crc32si(byval as ulong, byval as ulong) as ulong
 
 #ifdef __FB_64BIT__
-	#define __MACHINEX64 __MACHINE
-#endif
-
-#define __MACHINEI __MACHINE
-
-#ifndef __FB_64BIT__
-	#define __MACHINEIA32 __MACHINE
-#endif
-
-#define __MACHINEX86X __MACHINE
-
-#ifndef __FB_64BIT__
-	#define __MACHINEX86X_NOX64 __MACHINE
-	#define __MACHINEX86X_NOIA64 __MACHINE
-	#define __MACHINEX86X_NOWIN64 __MACHINE
-#endif
-
-#define __MACHINEIW64 __MACHINE
-
-#ifdef __FB_64BIT__
-	#define __MACHINEW64 __MACHINE
-#endif
-
-#define __MACHINE(X) '' TODO: X;
-#define __MACHINEZ(X)
-
-#ifdef __FB_64BIT__
-	#define __MACHINEIA32 __MACHINEZ
-#endif
-
-#define __MACHINEIA64 __MACHINEZ
-
-#ifdef __FB_64BIT__
-	#define __MACHINEX86X_NOX64 __MACHINEZ
-	#define __MACHINEX86X_NOIA64 __MACHINEZ
-	#define __MACHINEX86X_NOWIN64 __MACHINEZ
-#else
-	#define __MACHINEW64 __MACHINEZ
-#endif
-
-#define __MACHINESA __MACHINEZ
-#define __MACHINEARMX __MACHINEZ
-#define __MACHINECC __MACHINEZ
-
-#ifndef __FB_64BIT__
-	#define __MACHINEX64 __MACHINEZ
-#endif
-
-#define __MACHINECE __MACHINEZ
-
-#ifdef __FB_64BIT__
 	declare function ceil(byval as double) as double
 #endif
 
@@ -650,9 +518,7 @@ declare function _AddressOfReturnAddress() as any ptr
 declare sub __wbinvd()
 declare sub __invlpg(byval as any ptr)
 
-#ifdef __FB_64BIT__
-	declare sub _mm_stream_si64x(byval as longint ptr, byval as longint)
-#else
+#ifndef __FB_64BIT__
 	declare function __getcallerseflags() as ulong
 #endif
 
