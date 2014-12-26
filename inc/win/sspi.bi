@@ -32,7 +32,12 @@ type SEC_CHAR as zstring
 	type SECURITY_PCSTR as const zstring ptr
 #endif
 
-#define SecInvalidateHandle(x) '' TODO: ((PSecHandle) x)->dwLower = ((ULONG_PTR) ((INT_PTR)-1)); ((PSecHandle) x)->dwUpper = ((ULONG_PTR) ((INT_PTR)-1));
+#macro SecInvalidateHandle(x)
+	scope
+		cast(PSecHandle, x)->dwLower = cast(ULONG_PTR, cast(INT_PTR, -1))
+		cast(PSecHandle, x)->dwUpper = cast(ULONG_PTR, cast(INT_PTR, -1))
+	end scope
+#endmacro
 #define SecIsValidHandle(x) ((cast(PSecHandle, x)->dwLower <> cast(ULONG_PTR, cast(INT_PTR, -1))) andalso (cast(PSecHandle, x)->dwUpper <> cast(ULONG_PTR, cast(INT_PTR, -1))))
 
 type CredHandle as SecHandle
