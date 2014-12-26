@@ -68,7 +68,7 @@ end type
 type OCPFIPARAMS as tagOCPFIPARAMS
 type LPOCPFIPARAMS as tagOCPFIPARAMS ptr
 
-#define FONTSIZE(n) '' TODO: { n##0000,0 }
+#define FONTSIZE(n) (n##0000, 0)
 
 type tagFONTDESC
 	cbSizeofstruct as UINT
