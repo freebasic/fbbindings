@@ -124,32 +124,6 @@ declare sub RpcSsDestroyClientContext(byval ContextHandle as any ptr ptr)
 
 type error_status_t as ulong
 
-#define _midl_ma1(p, cast) '' TODO: *(*(cast **)&p)++
-#define _midl_ma2(p, cast) '' TODO: *(*(cast **)&p)++
-#define _midl_ma4(p, cast) '' TODO: *(*(cast **)&p)++
-#define _midl_ma8(p, cast) '' TODO: *(*(cast **)&p)++
-#define _midl_unma1(p, cast) '' TODO: *((cast *)p)++
-#define _midl_unma2(p, cast) '' TODO: *((cast *)p)++
-#define _midl_unma3(p, cast) '' TODO: *((cast *)p)++
-#define _midl_unma4(p, cast) '' TODO: *((cast *)p)++
-#define _midl_fa2(p) '' TODO: (p = (RPC_BUFPTR)((ULONG_PTR)(p+1) & ~0x1))
-#define _midl_fa4(p) '' TODO: (p = (RPC_BUFPTR)((ULONG_PTR)(p+3) & ~0x3))
-#define _midl_fa8(p) '' TODO: (p = (RPC_BUFPTR)((ULONG_PTR)(p+7) & ~0x7))
-#define _midl_addp(p, n) '' TODO: (p += n)
-#define _midl_marsh_lhs(p, cast) '' TODO: *(*(cast **)&p)++
-#define _midl_marsh_up(mp, p) '' TODO: *(*(unsigned __LONG32 **)&mp)++ = (unsigned __LONG32)p
-#define _midl_advmp(mp) '' TODO: *(*(unsigned __LONG32 **)&mp)++
-#define _midl_unmarsh_up(p) '' TODO: (*(*(unsigned __LONG32 **)&p)++)
-#define NdrMarshConfStringHdr(p, s, l) '' TODO: (_midl_ma4(p,unsigned __LONG32) = s,_midl_ma4(p,unsigned __LONG32) = 0,_midl_ma4(p,unsigned __LONG32) = l)
-#define NdrUnMarshConfStringHdr(p, s, l) '' TODO: (s=_midl_unma4(p,unsigned __LONG32),(_midl_addp(p,4)),(l=_midl_unma4(p,unsigned __LONG32)))
-#define NdrMarshCCtxtHdl(pc, p) '' TODO: (NDRCContextMarshall((NDR_CCONTEXT)pc,p),p+20)
-#define NdrUnMarshCCtxtHdl(pc, p, h, drep) '' TODO: (NDRCContextUnmarshall((NDR_CCONTEXT)pc,h,p,drep),p+20)
-#define NdrUnMarshSCtxtHdl(pc, p, drep) '' TODO: (pc = NdrSContextUnMarshall(p,drep))
-#define NdrMarshSCtxtHdl(pc, p, rd) NdrSContextMarshall(cast(NDR_SCONTEXT, pc), p, cast(NDR_RUNDOWN, rd))
-#define NdrFieldOffset(s, f) cast(LONG_PTR, @cptr(s ptr, 0)->f)
-#define NdrFieldPad(s, f, p, t) '' TODO: ((unsigned __LONG32)(NdrFieldOffset(s,f) - NdrFieldOffset(s,p)) - sizeof(t))
-#define NdrFcShort(s) '' TODO: (unsigned char)(s & 0xff),(unsigned char)(s >> 8)
-#define NdrFcLong(s) '' TODO: (unsigned char)(s & 0xff),(unsigned char)((s & 0x0000ff00) >> 8),(unsigned char)((s & 0x00ff0000) >> 16),(unsigned char)(s >> 24)
 #define RPC_BAD_STUB_DATA_EXCEPTION_FILTER ((((RpcExceptionCode() = STATUS_ACCESS_VIOLATION) orelse (RpcExceptionCode() = STATUS_DATATYPE_MISALIGNMENT)) orelse (RpcExceptionCode() = RPC_X_BAD_STUB_DATA)) orelse (RpcExceptionCode() = RPC_S_INVALID_BOUND))
 
 type RPC_BUFPTR as ubyte ptr
