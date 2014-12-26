@@ -914,10 +914,8 @@ type LPMSG as tagMSG ptr
 
 #macro POINTSTOPOINT(pt, pts)
 	scope
-		(pt).x
-		'' TODO: (pt).x = (LONG)(SHORT)LOWORD(*(LONG*)&pts);
-		(pt).y
-		'' TODO: (pt).y = (LONG)(SHORT)HIWORD(*(LONG*)&pts);
+		(pt).x = cast(LONG, cast(SHORT, LOWORD(*cptr(LONG ptr, @pts))))
+		(pt).y = cast(LONG, cast(SHORT, HIWORD(*cptr(LONG ptr, @pts))))
 	end scope
 #endmacro
 #define POINTTOPOINTS(pt) MAKELONG(cshort((pt).x), cshort((pt).y))
