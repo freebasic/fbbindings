@@ -7,9 +7,6 @@
 #include once "winerror.bi"
 
 '' The following symbols have been renamed:
-''     #ifdef UNICODE
-''         #define GetEnvironmentStrings => GetEnvironmentStrings_
-''     #endif
 ''     procedure Sleep => Sleep_
 ''     procedure Beep => Beep_
 
@@ -1038,15 +1035,15 @@ declare sub DeleteBoundaryDescriptor(byval BoundaryDescriptor as HANDLE)
 
 #define _PROCESSENV_
 
-declare function GetEnvironmentStrings() as LPCH
+declare function GetEnvironmentStringsA alias "GetEnvironmentStrings"() as LPCH
 declare function GetEnvironmentStringsW() as LPWCH
 declare function SetEnvironmentStringsW(byval NewEnvironment as LPWCH) as WINBOOL
 
 #ifdef UNICODE
-	#define GetEnvironmentStrings_ GetEnvironmentStringsW
+	#define GetEnvironmentStrings GetEnvironmentStringsW
 	#define SetEnvironmentStrings SetEnvironmentStringsW
 #else
-	#define GetEnvironmentStringsA GetEnvironmentStrings
+	#define GetEnvironmentStrings GetEnvironmentStringsA
 #endif
 
 declare function FreeEnvironmentStringsA(byval penv as LPCH) as WINBOOL
