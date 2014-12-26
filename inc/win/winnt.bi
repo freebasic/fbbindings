@@ -6022,8 +6022,18 @@ type PIMAGE_RELOCATION as IMAGE_RELOCATION ptr
 #define IMAGE_REL_EBC_REL32 &h0002
 #define IMAGE_REL_EBC_SECTION &h0003
 #define IMAGE_REL_EBC_SECREL &h0004
-#define EXT_IMM64(Value, Address, Size, InstPos, ValPos) '' TODO: Value |= (((ULONGLONG)((*(Address) >> InstPos) & (((ULONGLONG)1 << Size) - 1))) << ValPos)
-#define INS_IMM64(Value, Address, Size, InstPos, ValPos) '' TODO: *(PDWORD)Address = (*(PDWORD)Address & ~(((1 << Size) - 1) << InstPos)) | ((DWORD)((((ULONGLONG)Value >> ValPos) & (((ULONGLONG)1 << Size) - 1))) << InstPos)
+#macro EXT_IMM64(Value, Address, Size, InstPos, ValPos)
+	scope
+		Value or= cast(ULONGLONG, (*(Address) shr InstPos) and ((cast(ULONGLONG, 1) shl Size) - 1)) shl ValPos
+	end scope
+#endmacro
+#macro INS_IMM64(Value, Address, Size, InstPos, ValPos)
+	scope
+		*cptr(PDWORD, Address) = _
+			(*cptr(PDWORD, Address) and not (((1 shl Size) - 1) shl InstPos)) or _
+			(cast(DWORD, (cast(ULONGLONG, Value) shr ValPos) and ((cast(ULONGLONG, 1) shl Size) - 1)) shl InstPos)
+	end scope
+#endmacro
 #define EMARCH_ENC_I17_IMM7B_INST_WORD_X 3
 #define EMARCH_ENC_I17_IMM7B_SIZE_X 7
 #define EMARCH_ENC_I17_IMM7B_INST_WORD_POS_X 4
