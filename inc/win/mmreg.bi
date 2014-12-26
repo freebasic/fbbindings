@@ -280,62 +280,40 @@ extern KSDATAFORMAT_SUBTYPE_PCM as const GUID
 #define MM_PID_UNMAPPED MM_UNMAPPED
 #macro INIT_MMREG_MID(guid, id)
 	scope
-		(guid)->Data1
-		'' TODO: (guid)->Data1 = 0xd5a47fa7 + (USHORT)(id);
-		(guid)->Data2
-		'' TODO: (guid)->Data2 = 0x6d98;
-		(guid)->Data3
-		'' TODO: (guid)->Data3 = 0x11d1;
-		(guid)->Data4[0]
-		'' TODO: (guid)->Data4[0] = 0xa2;
-		(guid)->Data4[1]
-		'' TODO: (guid)->Data4[1] = 0x1a;
-		(guid)->Data4[2]
-		'' TODO: (guid)->Data4[2] = 0x00;
-		(guid)->Data4[3]
-		'' TODO: (guid)->Data4[3] = 0xa0;
-		(guid)->Data4[4]
-		'' TODO: (guid)->Data4[4] = 0xc9;
-		(guid)->Data4[5]
-		'' TODO: (guid)->Data4[5] = 0x22;
-		(guid)->Data4[6]
-		'' TODO: (guid)->Data4[6] = 0x31;
-		(guid)->Data4[7]
-		'' TODO: (guid)->Data4[7] = 0x96;
+		(guid)->Data1 = &hd5a47fa7 + cast(USHORT, id)
+		(guid)->Data2 = &h6d98
+		(guid)->Data3 = &h11d1
+		(guid)->Data4(0) = &ha2
+		(guid)->Data4(1) = &h1a
+		(guid)->Data4(2) = &h00
+		(guid)->Data4(3) = &ha0
+		(guid)->Data4(4) = &hc9
+		(guid)->Data4(5) = &h22
+		(guid)->Data4(6) = &h31
+		(guid)->Data4(7) = &h96
 	end scope
 #endmacro
 #define EXTRACT_MMREG_MID(guid) cast(USHORT, (guid)->Data1 - &hd5a47fa7)
 #define DEFINE_MMREG_MID_GUID(id) '' TODO: 0xd5a47fa7+(USHORT)(id),0x6d98,0x11d1,0xa2,0x1a,0x00,0xa0,0xc9,0x22,0x31,0x96
-#define IS_COMPATIBLE_MMREG_MID(guid) (((((((((((((guid)->Data1 >= &hd5a47fa7) andalso ((guid)->Data1 < (&hd5a47fa7 + &hffff))) andalso ((guid)->Data2 = &h6d98)) andalso ((guid)->Data3 = &h11d1)) andalso ((guid)->Data4[0] = &ha2)) andalso ((guid)->Data4[1] = &h1a)) andalso ((guid)->Data4[2] = &h00)) andalso ((guid)->Data4[3] = &ha0)) andalso ((guid)->Data4[4] = &hc9)) andalso ((guid)->Data4[5] = &h22)) andalso ((guid)->Data4[6] = &h31)) andalso ((guid)->Data4[7] = &h96))
+#define IS_COMPATIBLE_MMREG_MID(guid) (((((((((((((guid)->Data1 >= &hd5a47fa7) andalso ((guid)->Data1 < (&hd5a47fa7 + &hffff))) andalso ((guid)->Data2 = &h6d98)) andalso ((guid)->Data3 = &h11d1)) andalso ((guid)->Data4(0) = &ha2)) andalso ((guid)->Data4(1) = &h1a)) andalso ((guid)->Data4(2) = &h00)) andalso ((guid)->Data4(3) = &ha0)) andalso ((guid)->Data4(4) = &hc9)) andalso ((guid)->Data4(5) = &h22)) andalso ((guid)->Data4(6) = &h31)) andalso ((guid)->Data4(7) = &h96))
 #macro INIT_MMREG_PID(guid, id)
 	scope
-		(guid)->Data1
-		'' TODO: (guid)->Data1 = 0xe36dc2ac + (USHORT)(id);
-		(guid)->Data2
-		'' TODO: (guid)->Data2 = 0x6d9a;
-		(guid)->Data3
-		'' TODO: (guid)->Data3 = 0x11d1;
-		(guid)->Data4[0]
-		'' TODO: (guid)->Data4[0] = 0xa2;
-		(guid)->Data4[1]
-		'' TODO: (guid)->Data4[1] = 0x1a;
-		(guid)->Data4[2]
-		'' TODO: (guid)->Data4[2] = 0x00;
-		(guid)->Data4[3]
-		'' TODO: (guid)->Data4[3] = 0xa0;
-		(guid)->Data4[4]
-		'' TODO: (guid)->Data4[4] = 0xc9;
-		(guid)->Data4[5]
-		'' TODO: (guid)->Data4[5] = 0x22;
-		(guid)->Data4[6]
-		'' TODO: (guid)->Data4[6] = 0x31;
-		(guid)->Data4[7]
-		'' TODO: (guid)->Data4[7] = 0x96;
+		(guid)->Data1 = &he36dc2ac + cast(USHORT, id)
+		(guid)->Data2 = &h6d9a
+		(guid)->Data3 = &h11d1
+		(guid)->Data4(0) = &ha2
+		(guid)->Data4(1) = &h1a
+		(guid)->Data4(2) = &h00
+		(guid)->Data4(3) = &ha0
+		(guid)->Data4(4) = &hc9
+		(guid)->Data4(5) = &h22
+		(guid)->Data4(6) = &h31
+		(guid)->Data4(7) = &h96
 	end scope
 #endmacro
 #define EXTRACT_MMREG_PID(guid) cast(USHORT, (guid)->Data1 - &he36dc2ac)
 #define DEFINE_MMREG_PID_GUID(id) '' TODO: 0xe36dc2ac+(USHORT)(id),0x6d9a,0x11d1,0xa2,0x1a,0x00,0xa0,0xc9,0x22,0x31,0x96
-#define IS_COMPATIBLE_MMREG_PID(guid) (((((((((((((guid)->Data1 >= &he36dc2ac) andalso ((guid)->Data1 < (&he36dc2ac + &hffff))) andalso ((guid)->Data2 = &h6d9a)) andalso ((guid)->Data3 = &h11d1)) andalso ((guid)->Data4[0] = &ha2)) andalso ((guid)->Data4[1] = &h1a)) andalso ((guid)->Data4[2] = &h00)) andalso ((guid)->Data4[3] = &ha0)) andalso ((guid)->Data4[4] = &hc9)) andalso ((guid)->Data4[5] = &h22)) andalso ((guid)->Data4[6] = &h31)) andalso ((guid)->Data4[7] = &h96))
+#define IS_COMPATIBLE_MMREG_PID(guid) (((((((((((((guid)->Data1 >= &he36dc2ac) andalso ((guid)->Data1 < (&he36dc2ac + &hffff))) andalso ((guid)->Data2 = &h6d9a)) andalso ((guid)->Data3 = &h11d1)) andalso ((guid)->Data4(0) = &ha2)) andalso ((guid)->Data4(1) = &h1a)) andalso ((guid)->Data4(2) = &h00)) andalso ((guid)->Data4(3) = &ha0)) andalso ((guid)->Data4(4) = &hc9)) andalso ((guid)->Data4(5) = &h22)) andalso ((guid)->Data4(6) = &h31)) andalso ((guid)->Data4(7) = &h96))
 #define MM_MIDI_MAPPER 1
 #define MM_WAVE_MAPPER 2
 #define MM_SNDBLST_MIDIOUT 3
