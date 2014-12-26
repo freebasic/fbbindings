@@ -7095,7 +7095,7 @@ type PRTL_OSVERSIONINFOEXW as _OSVERSIONINFOEXW ptr
 
 declare function VerSetConditionMask(byval ConditionMask as ULONGLONG, byval TypeMask as DWORD, byval Condition as UBYTE) as ULONGLONG
 
-#define VER_SET_CONDITION(_m_, _t_, _c_) '' TODO: ((_m_) = VerSetConditionMask((_m_),(_t_),(_c_)))
+#define VER_SET_CONDITION(_m_, _t_, _c_) scope : (_m_) = VerSetConditionMask((_m_), (_t_), (_c_)) : end scope
 
 #if _WIN32_WINNT = &h0602
 	declare function RtlGetProductInfo(byval OSMajorVersion as DWORD, byval OSMinorVersion as DWORD, byval SpMajorVersion as DWORD, byval SpMinorVersion as DWORD, byval ReturnedProductType as PDWORD) as BOOLEAN
