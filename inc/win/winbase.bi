@@ -2338,43 +2338,57 @@ type POFSTRUCT as _OFSTRUCT ptr
 #else
 	private function InterlockedAnd64 cdecl(byval Destination as LONGLONG ptr, byval Value as LONGLONG) as LONGLONG
 		dim Old as LONGLONG
-		'' TODO: do { Old = *Destination; } while (InterlockedCompareExchange64 (Destination, Old &Value, Old) != Old);
+		do
+			Old = *Destination
+		loop while InterlockedCompareExchange64(Destination, Old and Value, Old) <> Old
 		return Old
 	end function
 
 	private function InterlockedOr64 cdecl(byval Destination as LONGLONG ptr, byval Value as LONGLONG) as LONGLONG
 		dim Old as LONGLONG
-		'' TODO: do { Old = *Destination; } while (InterlockedCompareExchange64 (Destination, Old | Value, Old) != Old);
+		do
+			Old = *Destination
+		loop while InterlockedCompareExchange64(Destination, Old or Value, Old) <> Old
 		return Old
 	end function
 
 	private function InterlockedXor64 cdecl(byval Destination as LONGLONG ptr, byval Value as LONGLONG) as LONGLONG
 		dim Old as LONGLONG
-		'' TODO: do { Old = *Destination; } while (InterlockedCompareExchange64 (Destination, Old ^ Value, Old) != Old);
+		do
+			Old = *Destination
+		loop while InterlockedCompareExchange64(Destination, Old xor Value, Old) <> Old
 		return Old
 	end function
 
 	private function InterlockedIncrement64 cdecl(byval Addend as LONGLONG ptr) as LONGLONG
 		dim Old as LONGLONG
-		'' TODO: do { Old = *Addend; } while (InterlockedCompareExchange64 (Addend, Old + 1, Old) != Old);
+		do
+			Old = *Addend
+		loop while InterlockedCompareExchange64(Addend, Old + 1, Old) <> Old
 		return Old + 1
 	end function
 
 	private function InterlockedDecrement64 cdecl(byval Addend as LONGLONG ptr) as LONGLONG
 		dim Old as LONGLONG
-		'' TODO: do { Old = *Addend; } while (InterlockedCompareExchange64 (Addend, Old - 1, Old) != Old);
+		do
+			Old = *Addend
+		loop while InterlockedCompareExchange64(Addend, Old - 1, Old) <> Old
 		return Old - 1
 	end function
 
 	private function InterlockedExchange64 cdecl(byval Target as LONGLONG ptr, byval Value as LONGLONG) as LONGLONG
 		dim Old as LONGLONG
-		'' TODO: do { Old = *Target; } while (InterlockedCompareExchange64 (Target, Value, Old) != Old);
+		do
+			Old = *Target
+		loop while InterlockedCompareExchange64(Target, Value, Old) <> Old
 		return Old
 	end function
 
 	private function InterlockedExchangeAdd64 cdecl(byval Addend as LONGLONG ptr, byval Value as LONGLONG) as LONGLONG
 		dim Old as LONGLONG
-		'' TODO: do { Old = *Addend; } while (InterlockedCompareExchange64 (Addend, Old + Value, Old) != Old);
+		do
+			Old = *Addend
+		loop while InterlockedCompareExchange64(Addend, Old + Value, Old) <> Old
 		return Old
 	end function
 
