@@ -734,7 +734,7 @@ type LPDIENUMCREATEDEFFECTOBJECTSCALLBACK as function(byval as LPDIRECTINPUTEFFE
 #define DIDF_ABSAXIS &h00000001
 #define DIDF_RELAXIS &h00000002
 #define DIGDD_PEEK &h00000001
-#define DISEQUENCE_COMPARE(dwSq1, cmp, dwSq2) '' TODO: ((int)((dwSq1) - (dwSq2)) cmp 0)
+#define DISEQUENCE_COMPARE(dwSq1, cmp, dwSq2) (clng((dwSq1) - (dwSq2)) cmp 0)
 
 type DIDEVICEOBJECTDATA_DX3
 	dwOfs as DWORD
@@ -871,7 +871,7 @@ end type
 type LPDIPROPPOINTER as DIPROPPOINTER ptr
 type LPCDIPROPPOINTER as const DIPROPPOINTER ptr
 
-#define MAKEDIPROP(prop) '' TODO: ((REFGUID)(prop))
+#define MAKEDIPROP(prop) cast(REFGUID, prop)
 #define DIPROP_BUFFERSIZE MAKEDIPROP(1)
 #define DIPROP_AXISMODE MAKEDIPROP(2)
 #define DIPROPAXISMODE_ABS 0
