@@ -29,8 +29,18 @@ end enum
 
 type REGCLS as tagREGCLS
 
-#define LISet32(li, v) '' TODO: ((li).HighPart = ((LONG) (v)) < 0 ? -1 : 0,(li).LowPart = (v))
-#define ULISet32(li, v) '' TODO: ((li).HighPart = 0,(li).LowPart = (v))
+#macro LISet32(li, v)
+	scope
+		(li).HighPart = iif(cast(LONG, (v)) < 0, -1, 0)
+		(li).LowPart = (v)
+	end scope
+#endmacro
+#macro ULISet32(li, v)
+	scope
+		(li).HighPart = 0
+		(li).LowPart = (v)
+	end scope
+#endmacro
 #define CLSCTX_INPROC (CLSCTX_INPROC_SERVER or CLSCTX_INPROC_HANDLER)
 #define CLSCTX_ALL (((CLSCTX_INPROC_SERVER or CLSCTX_INPROC_HANDLER) or CLSCTX_LOCAL_SERVER) or CLSCTX_REMOTE_SERVER)
 #define CLSCTX_SERVER ((CLSCTX_INPROC_SERVER or CLSCTX_LOCAL_SERVER) or CLSCTX_REMOTE_SERVER)
