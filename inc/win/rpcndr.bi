@@ -97,46 +97,26 @@ declare sub RpcSsDestroyClientContext(byval ContextHandle as any ptr ptr)
 
 #macro byte_from_ndr(source, target)
 	scope
-		*(target)
-		'' TODO: *(target) = *(*(char **)&(source)->Buffer)++;
+		*(target) = **cptr(byte ptr ptr, @(source)->Buffer)
+		*cptr(byte ptr ptr, @(source)->Buffer) += 1
 	end scope
 #endmacro
 #macro byte_array_from_ndr(Source, LowerIndex, UpperIndex, Target)
 	scope
 		NDRcopy(cptr(zstring ptr, (Target)) + (LowerIndex), (Source)->Buffer, culng((UpperIndex) - (LowerIndex)))
-		'' TODO: *(unsigned __LONG32 *)&(Source)->Buffer += ((UpperIndex)-(LowerIndex));
+		*cptr(ulong ptr, @(Source)->Buffer) += ((UpperIndex) - (LowerIndex))
 	end scope
 #endmacro
-#macro boolean_from_ndr(source, target)
-	scope
-		*(target)
-		'' TODO: *(target) = *(*(char **)&(source)->Buffer)++;
-	end scope
-#endmacro
-#macro boolean_array_from_ndr(Source, LowerIndex, UpperIndex, Target)
-	scope
-		NDRcopy(cptr(zstring ptr, (Target)) + (LowerIndex), (Source)->Buffer, culng((UpperIndex) - (LowerIndex)))
-		'' TODO: *(unsigned __LONG32 *)&(Source)->Buffer += ((UpperIndex)-(LowerIndex));
-	end scope
-#endmacro
-#macro small_from_ndr(source, target)
-	scope
-		*(target)
-		'' TODO: *(target) = *(*(char **)&(source)->Buffer)++;
-	end scope
-#endmacro
+#define boolean_from_ndr(source, target) byte_from_ndr(source, target)
+#define boolean_array_from_ndr(Source, LowerIndex, UpperIndex, Target) byte_array_from_ndr(Source, LowerIndex, UpperIndex, Target)
+#define small_from_ndr(source, target) byte_from_ndr(source, target)
 #macro small_from_ndr_temp(source, target, format)
 	scope
-		*(target)
-		'' TODO: *(target) = *(*(char **)(source))++;
+		*(target) = **cptr(byte ptr ptr, source)
+		*cptr(byte ptr ptr, source) += 1
 	end scope
 #endmacro
-#macro small_array_from_ndr(Source, LowerIndex, UpperIndex, Target)
-	scope
-		NDRcopy(cptr(zstring ptr, (Target)) + (LowerIndex), (Source)->Buffer, culng((UpperIndex) - (LowerIndex)))
-		'' TODO: *(unsigned __LONG32 *)&(Source)->Buffer += ((UpperIndex)-(LowerIndex));
-	end scope
-#endmacro
+#define small_array_from_ndr(Source, LowerIndex, UpperIndex, Target) byte_array_from_ndr(Source, LowerIndex, UpperIndex, Target)
 #define MIDL_ascii_strlen(string) strlen(string)
 #define MIDL_ascii_strcpy(target, source) strcpy(target, source)
 #define MIDL_memset(s, c, n) memset(s, c, n)
