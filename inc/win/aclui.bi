@@ -292,15 +292,15 @@ type LPSecurityObjectTypeInfo as ISecurityObjectTypeInfo ptr
 	type LPEFFECTIVEPERMISSION2 as IEffectivePermission2 ptr
 #endif
 
-'' TODO: const IID __attribute__((selectany)) IID_ISecurityInformation = {0x965fc360,0x16ff,0x11d0,{0x91,0xcb,0x0,0xaa,0x0,0xbb,0xb7,0x23}};
-'' TODO: const IID __attribute__((selectany)) IID_ISecurityInformation2 = {0xc3ccfdb4,0x6f88,0x11d2,{0xa3,0xce,0x0,0xc0,0x4f,0xb1,0x78,0x2a}};
-'' TODO: const IID __attribute__((selectany)) IID_IEffectivePermission = {0x3853dc76,0x9f35,0x407c,{0x88,0xa1,0xd1,0x93,0x44,0x36,0x5f,0xbc}};
-'' TODO: const IID __attribute__((selectany)) IID_ISecurityObjectTypeInfo = {0xfc3066eb,0x79ef,0x444b,{0x91,0x11,0xd1,0x8a,0x75,0xeb,0xf2,0xfa}};
+extern IID_ISecurityInformation as const IID
+extern IID_ISecurityInformation2 as const IID
+extern IID_IEffectivePermission as const IID
+extern IID_ISecurityObjectTypeInfo as const IID
 
 #if _WIN32_WINNT = &h0602
-	'' TODO: const IID __attribute__((selectany)) IID_ISecurityInformation3 = {0xe2cdc9cc,0x31bd,0x4f8f,{0x8c,0x8b,0xb6,0x41,0xaf,0x51,0x6a,0x1a}};
-	'' TODO: const IID __attribute__((selectany)) IID_ISecurityInformation4 = {0xea961070,0xcd14,0x4621,{0xac,0xe4,0xf6,0x3c,0x3,0xe5,0x83,0xe4}};
-	'' TODO: const IID __attribute__((selectany)) IID_IEffectivePermission2 = {0x941fabca,0xdd47,0x4fca,{0x90,0xbb,0xb0,0xe1,0x2,0x55,0xf2,0xd}};
+	extern IID_ISecurityInformation3 as const IID
+	extern IID_ISecurityInformation4 as const IID
+	extern IID_IEffectivePermission2 as const IID
 #endif
 
 declare function CreateSecurityPage(byval psi as LPSECURITYINFO) as HPROPSHEETPAGE
