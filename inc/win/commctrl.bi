@@ -2652,12 +2652,9 @@ type LPLVCOLUMNW as tagLVCOLUMNW ptr
 #define LVM_SETITEMSTATE (LVM_FIRST + 43)
 #macro ListView_SetItemState(hwndLV, i, data, mask)
 	scope
-		LV_ITEM
-		'' TODO: LV_ITEM _ms_lvi;
-		_ms_lvi.stateMask
-		'' TODO: _ms_lvi.stateMask = mask;
-		_ms_lvi.state
-		'' TODO: _ms_lvi.state = data;
+		dim _ms_lvi as LV_ITEM
+		_ms_lvi.stateMask = mask
+		_ms_lvi.state = data
 		SNDMSG((hwndLV), LVM_SETITEMSTATE, cast(WPARAM, (i)), cast(LPARAM, cptr(LV_ITEM ptr, @_ms_lvi)))
 	end scope
 #endmacro
@@ -2676,14 +2673,10 @@ type LPLVCOLUMNW as tagLVCOLUMNW ptr
 
 #macro ListView_GetItemText(hwndLV, i, iSubItem_, pszText_, cchTextMax_)
 	scope
-		LV_ITEM
-		'' TODO: LV_ITEM _ms_lvi;
-		_ms_lvi.iSubItem
-		'' TODO: _ms_lvi.iSubItem = iSubItem_;
-		_ms_lvi.cchTextMax
-		'' TODO: _ms_lvi.cchTextMax = cchTextMax_;
-		_ms_lvi.pszText
-		'' TODO: _ms_lvi.pszText = pszText_;
+		dim _ms_lvi as LV_ITEM
+		_ms_lvi.iSubItem = iSubItem_
+		_ms_lvi.cchTextMax = cchTextMax_
+		_ms_lvi.pszText = pszText_
 		SNDMSG((hwndLV), LVM_GETITEMTEXT, cast(WPARAM, (i)), cast(LPARAM, cptr(LV_ITEM ptr, @_ms_lvi)))
 	end scope
 #endmacro
@@ -2698,12 +2691,9 @@ type LPLVCOLUMNW as tagLVCOLUMNW ptr
 
 #macro ListView_SetItemText(hwndLV, i, iSubItem_, pszText_)
 	scope
-		LV_ITEM
-		'' TODO: LV_ITEM _ms_lvi;
-		_ms_lvi.iSubItem
-		'' TODO: _ms_lvi.iSubItem = iSubItem_;
-		_ms_lvi.pszText
-		'' TODO: _ms_lvi.pszText = pszText_;
+		dim _ms_lvi as LV_ITEM
+		_ms_lvi.iSubItem = iSubItem_
+		_ms_lvi.pszText = pszText_
 		SNDMSG((hwndLV), LVM_SETITEMTEXT, cast(WPARAM, (i)), cast(LPARAM, cptr(LV_ITEM ptr, @_ms_lvi)))
 	end scope
 #endmacro
@@ -2721,10 +2711,8 @@ type PFNLVCOMPARE as function(byval as LPARAM, byval as LPARAM, byval as LPARAM)
 #macro ListView_SetItemPosition32(hwndLV, i, x0, y0)
 	scope
 		dim ptNewPos as POINT_
-		ptNewPos.x
-		'' TODO: ptNewPos.x = x0;
-		ptNewPos.y
-		'' TODO: ptNewPos.y = y0;
+		ptNewPos.x = x0
+		ptNewPos.y = y0
 		SNDMSG((hwndLV), LVM_SETITEMPOSITION32, cast(WPARAM, clng((i))), cast(LPARAM, @ptNewPos))
 	end scope
 #endmacro
@@ -3058,7 +3046,7 @@ type PLVSETINFOTIP as tagLVSETINFOTIP ptr
 #define LVM_SETOUTLINECOLOR (LVM_FIRST + 177)
 #define ListView_SetOutlineColor(hwnd, color) cast(COLORREF, SNDMSG((hwnd), LVM_SETOUTLINECOLOR, cast(WPARAM, 0), cast(LPARAM, cast(COLORREF, (color)))))
 #define LVM_CANCELEDITLABEL (LVM_FIRST + 179)
-#define ListView_CancelEditLabel(hwnd) '' TODO: (VOID)SNDMSG((hwnd),LVM_CANCELEDITLABEL,(WPARAM)0,(LPARAM)0)
+#define ListView_CancelEditLabel(hwnd) SNDMSG((hwnd), LVM_CANCELEDITLABEL, 0, 0)
 #define LVM_MAPINDEXTOID (LVM_FIRST + 180)
 #define ListView_MapIndexToID(hwnd, index) cast(UINT, SNDMSG((hwnd), LVM_MAPINDEXTOID, cast(WPARAM, index), cast(LPARAM, 0)))
 #define LVM_MAPIDTOINDEX (LVM_FIRST + 181)
@@ -3532,7 +3520,7 @@ type LPTVINSERTSTRUCTW as tagTVINSERTSTRUCTW ptr
 	#define TVM_INSERTITEM TVM_INSERTITEMA
 #endif
 
-#define TreeView_InsertItem(hwnd, lpis) '' TODO: (HTREEITEM)SNDMSG((hwnd),TVM_INSERTITEM,0,(LPARAM)(LPTV_INSERTSTRUCT)(lpis))
+#define TreeView_InsertItem(hwnd, lpis) cast(HTREEITEM, SNDMSG((hwnd), TVM_INSERTITEM, 0, cast(LPARAM, cast(LPTV_INSERTSTRUCT, lpis))))
 #define TVM_DELETEITEM (TV_FIRST + 1)
 #define TreeView_DeleteItem(hwnd, hitem) cast(WINBOOL, SNDMSG((hwnd), TVM_DELETEITEM, 0, cast(LPARAM, cast(HTREEITEM, (hitem)))))
 #define TreeView_DeleteAllItems(hwnd) cast(WINBOOL, SNDMSG((hwnd), TVM_DELETEITEM, 0, cast(LPARAM, TVI_ROOT)))
@@ -3544,7 +3532,10 @@ type LPTVINSERTSTRUCTW as tagTVINSERTSTRUCTW ptr
 #define TVE_EXPANDPARTIAL &h4000
 #define TVE_COLLAPSERESET &h8000
 #define TVM_GETITEMRECT (TV_FIRST + 4)
-#define TreeView_GetItemRect(hwnd, hitem, prc, code) '' TODO: (*(HTREEITEM *)prc = (hitem),(WINBOOL)SNDMSG((hwnd),TVM_GETITEMRECT,(WPARAM)(code),(LPARAM)(RECT *)(prc)))
+private function TreeView_GetItemRect(byval hwnd as HWND, byval hitem as HTREEITEM, byval prc as RECT ptr, byval code as long) as WINBOOL
+	*cptr(HTREEITEM ptr, prc) = hitem
+	function = SNDMSG(hwnd, TVM_GETITEMRECT, cast(WPARAM, code), cast(LPARAM, prc))
+end function
 #define TVM_GETCOUNT (TV_FIRST + 5)
 #define TreeView_GetCount(hwnd) cast(UINT, SNDMSG((hwnd), TVM_GETCOUNT, 0, 0))
 #define TVM_GETINDENT (TV_FIRST + 6)
@@ -3622,7 +3613,7 @@ type LPTVINSERTSTRUCTW as tagTVINSERTSTRUCTW ptr
 #define TVM_GETVISIBLECOUNT (TV_FIRST + 16)
 #define TreeView_GetVisibleCount(hwnd) cast(UINT, SNDMSG((hwnd), TVM_GETVISIBLECOUNT, 0, 0))
 #define TVM_HITTEST (TV_FIRST + 17)
-#define TreeView_HitTest(hwnd, lpht) '' TODO: (HTREEITEM)SNDMSG((hwnd),TVM_HITTEST,0,(LPARAM)(LPTV_HITTESTINFO)(lpht))
+#define TreeView_HitTest(hwnd, lpht) cast(HTREEITEM, SNDMSG((hwnd), TVM_HITTEST, 0, cast(LPARAM, cast(LPTV_HITTESTINFO, lpht))))
 #define LPTV_HITTESTINFO LPTVHITTESTINFO
 #define TV_HITTESTINFO TVHITTESTINFO
 
@@ -3654,7 +3645,7 @@ type LPTVHITTESTINFO as tagTVHITTESTINFO ptr
 #define TVM_ENSUREVISIBLE (TV_FIRST + 20)
 #define TreeView_EnsureVisible(hwnd, hitem) cast(WINBOOL, SNDMSG((hwnd), TVM_ENSUREVISIBLE, 0, cast(LPARAM, cast(HTREEITEM, (hitem)))))
 #define TVM_SORTCHILDRENCB (TV_FIRST + 21)
-#define TreeView_SortChildrenCB(hwnd, psort, recurse) '' TODO: (WINBOOL)SNDMSG((hwnd),TVM_SORTCHILDRENCB,(WPARAM)(recurse),(LPARAM)(LPTV_SORTCB)(psort))
+#define TreeView_SortChildrenCB(hwnd, psort, recurse) cast(WINBOOL, SNDMSG((hwnd), TVM_SORTCHILDRENCB, cast(WPARAM, recurse), cast(LPARAM, cast(LPTV_SORTCB, psort))))
 #define TVM_ENDEDITLABELNOW (TV_FIRST + 22)
 #define TreeView_EndEditLabelNow(hwnd, fCancel) cast(WINBOOL, SNDMSG((hwnd), TVM_ENDEDITLABELNOW, cast(WPARAM, (fCancel)), 0))
 #define TVM_GETISEARCHSTRINGA (TV_FIRST + 23)
@@ -3699,16 +3690,11 @@ type LPTVHITTESTINFO as tagTVHITTESTINFO ptr
 #define TreeView_GetInsertMarkColor(hwnd) cast(COLORREF, SNDMSG((hwnd), TVM_GETINSERTMARKCOLOR, 0, 0))
 #macro TreeView_SetItemState(hwndTV, hti, data, _mask)
 	scope
-		TVITEM
-		'' TODO: TVITEM _ms_TVi;
-		_ms_TVi.mask
-		'' TODO: _ms_TVi.mask = TVIF_STATE;
-		_ms_TVi.hItem
-		'' TODO: _ms_TVi.hItem = hti;
-		_ms_TVi.stateMask
-		'' TODO: _ms_TVi.stateMask = _mask;
-		_ms_TVi.state
-		'' TODO: _ms_TVi.state = data;
+		dim _ms_TVi as TVITEM
+		_ms_TVi.mask = TVIF_STATE
+		_ms_TVi.hItem = hti
+		_ms_TVi.stateMask = _mask
+		_ms_TVi.state = data
 		SNDMSG((hwndTV), TVM_SETITEM, 0, cast(LPARAM, cptr(TV_ITEM ptr, @_ms_TVi)))
 	end scope
 #endmacro
@@ -5131,10 +5117,10 @@ declare function DPA_Grow(byval pdpa as HDPA, byval cp as long) as WINBOOL
 declare function DPA_GetPtrIndex(byval hdpa as HDPA, byval p as const any ptr) as long
 
 #define DPA_GetPtrCount(hdpa) (*cptr(long ptr, (hdpa)))
-#define DPA_SetPtrCount(hdpa, cItems) '' TODO: (*(int *)(hdpa) = (cItems))
+#define DPA_SetPtrCount(hdpa, cItems) scope : *cptr(long ptr, (hdpa)) = (cItems) : end scope
 #define DPA_GetPtrPtr(hdpa) (*cptr(any ptr ptr ptr, cptr(UBYTE ptr, (hdpa)) + sizeof(any ptr)))
 #define DPA_AppendPtr(hdpa, pitem) DPA_InsertPtr(hdpa, DA_LAST, pitem)
-#define DPA_FastDeleteLastPtr(hdpa) '' TODO: (--*(int *)(hdpa))
+#define DPA_FastDeleteLastPtr(hdpa) scope : *cptr(long ptr, (hdpa)) -= 1 : end scope
 #define DPA_FastGetPtr(hdpa, i) DPA_GetPtrPtr(hdpa)[i]
 #define DPAM_SORTED 1
 #define DPAM_NORMAL 2
