@@ -2449,7 +2449,6 @@ type POFSTRUCT as _OFSTRUCT ptr
 	#define InterlockedCompareExchangePointerRelease InterlockedCompareExchangePointer
 #endif
 
-#define UnlockResource(hResData) '' TODO: ( { (VOID)(hResData); 0; } )
 #define MAXINTATOM &hc000
 #define MAKEINTATOM(i) cast(LPTSTR, cast(ULONG_PTR, cast(WORD, (i))))
 #define INVALID_ATOM cast(ATOM, 0)
