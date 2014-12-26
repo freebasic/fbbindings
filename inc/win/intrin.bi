@@ -507,12 +507,6 @@ declare function _ReturnAddress() as any ptr
 #define _rotl64_ __rolq
 #define _rotr64_ __rorq
 
-'' TODO: int __attribute__((__cdecl__)) __attribute__ ((__nothrow__,__returns_twice__)) _setjmp(jmp_buf,void *);
-
-#ifdef __FB_64BIT__
-	'' TODO: int __attribute__((__cdecl__)) __attribute__ ((__nothrow__,__returns_twice__)) _setjmpex(jmp_buf,void *);
-#endif
-
 declare function __ull_rshift(byval as ulongint, byval as long) as ulongint
 declare function _AddressOfReturnAddress() as any ptr
 declare sub __wbinvd()
