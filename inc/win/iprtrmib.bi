@@ -998,4 +998,4 @@ type PTCPIP_OWNER_MODULE_INFO_CLASS as _TCPIP_OWNER_MODULE_INFO_CLASS ptr
 #define MIB_INFO_SIZE(S) (MAX_MIB_OFFSET + sizeof((S)))
 #define MIB_INFO_SIZE_IN_DWORDS(S) ((MIB_INFO_SIZE(S) / sizeof(DWORD)) + 1)
 #define DEFINE_MIB_BUFFER(X, Y, Z) '' TODO: DWORD __rgdwBuff[MIB_INFO_SIZE_IN_DWORDS(Y)]; PMIB_OPAQUE_INFO X = (PMIB_OPAQUE_INFO)__rgdwBuff; Y *Z = (Y *)(X->rgbyData)
-#define CAST_MIB_INFO(X, Y, Z) '' TODO: Z = (Y)(X->rgbyData)
+#define CAST_MIB_INFO(X, Y, Z) scope : Z = cast(Y, X->rgbyData) : end scope
