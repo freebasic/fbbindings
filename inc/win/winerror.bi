@@ -1889,15 +1889,15 @@
 #define SEVERITY_ERROR 1
 #define SUCCEEDED(hr) (cast(HRESULT, (hr)) >= 0)
 #define FAILED(hr) (cast(HRESULT, (hr)) < 0)
-#define IS_ERROR(Status) '' TODO: ((unsigned __LONG32)(Status) >> 31==SEVERITY_ERROR)
+#define IS_ERROR(Status) ((culng(Status) shr 31) = SEVERITY_ERROR)
 #define HRESULT_CODE(hr) ((hr) and &hFFFF)
 #define SCODE_CODE(sc) ((sc) and &hFFFF)
 #define HRESULT_FACILITY(hr) (((hr) shr 16) and &h1fff)
 #define SCODE_FACILITY(sc) (((sc) shr 16) and &h1fff)
 #define HRESULT_SEVERITY(hr) (((hr) shr 31) and &h1)
 #define SCODE_SEVERITY(sc) (((sc) shr 31) and &h1)
-#define MAKE_HRESULT(sev, fac, code) '' TODO: ((HRESULT) (((unsigned __LONG32)(sev)<<31) | ((unsigned __LONG32)(fac)<<16) | ((unsigned __LONG32)(code))))
-#define MAKE_SCODE(sev, fac, code) '' TODO: ((SCODE) (((unsigned __LONG32)(sev)<<31) | ((unsigned __LONG32)(fac)<<16) | ((unsigned __LONG32)(code))))
+#define MAKE_HRESULT(sev, fac, code) cast(HRESULT, (culng(sev) shl 31) or (culng(fac) shl 16) or culng(code))
+#define MAKE_SCODE(sev, fac, code)   cast(SCODE  , (culng(sev) shl 31) or (culng(fac) shl 16) or culng(code))
 #define FACILITY_NT_BIT &h10000000
 #define __HRESULT_FROM_WIN32(x) iif(cast(HRESULT, (x)) <= 0, cast(HRESULT, (x)), cast(HRESULT, (((x) and &h0000FFFF) or (FACILITY_WIN32 shl 16)) or &h80000000))
 #define HRESULT_FROM_WIN32(x) __HRESULT_FROM_WIN32(x)
@@ -3179,7 +3179,7 @@
 #endif
 
 #define _FLT_WINERROR_
-#define FILTER_HRESULT_FROM_FLT_NTSTATUS(x) '' TODO: (NT_ASSERT((x & 0xfff0000) == 0x001c0000),(HRESULT) (((x) & 0x8000ffff) | (FACILITY_USERMODE_FILTER_MANAGER << 16)))
+#define FILTER_HRESULT_FROM_FLT_NTSTATUS(x) cast(HRESULT, ((x) and &h8000ffff) or (FACILITY_USERMODE_FILTER_MANAGER shl 16))
 #define FACILITY_USERMODE_FILTER_MANAGER &h1f
 #define ERROR_FLT_IO_COMPLETE cast(HRESULT, &h001f0001)
 #define ERROR_FLT_NO_HANDLER_DEFINED cast(HRESULT, &h801f0001)
