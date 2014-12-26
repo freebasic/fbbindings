@@ -326,10 +326,10 @@ declare function VarDecFromUI2(byval uiIn as USHORT, byval pdecOut as DECIMAL pt
 declare function VarDecFromUI4(byval ulIn as ULONG, byval pdecOut as DECIMAL ptr) as HRESULT
 declare function VarDecFromUI8(byval ui64In as ULONG64, byval pdecOut as DECIMAL ptr) as HRESULT
 
-#define VarUI4FromUI4(in, pOut) '' TODO: (*(pOut) = (in))
-#define VarI4FromI4(in, pOut) '' TODO: (*(pOut) = (in))
-#define VarUI8FromUI8(in, pOut) '' TODO: (*(pOut) = (in))
-#define VarI8FromI8(in, pOut) '' TODO: (*(pOut) = (in))
+#define VarUI4FromUI4(in, pOut) scope : *(pOut) = (in) : end scope
+#define VarI4FromI4(in, pOut) scope : *(pOut) = (in) : end scope
+#define VarUI8FromUI8(in, pOut) scope : *(pOut) = (in) : end scope
+#define VarI8FromI8(in, pOut) scope : *(pOut) = (in) : end scope
 #define VarUI1FromInt VarUI1FromI4
 #define VarUI1FromUint VarUI1FromUI4
 #define VarI2FromInt VarI2FromI4
