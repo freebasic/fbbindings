@@ -12,7 +12,7 @@ type OLECHAR as wstring
 type LPOLESTR as wstring ptr
 type LPCOLESTR as const wstring ptr
 
-#define OLESTR(str) L##str
+#define OLESTR(str) wstr(str)
 
 type _COAUTHIDENTITY
 	User as USHORT ptr

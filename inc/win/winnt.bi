@@ -167,7 +167,7 @@ type PCNZCH as const zstring ptr
 	type PUNZTCH as PUNZWCH
 	type PCUNZTCH as PCUNZWCH
 
-	#define __TEXT(quote) L##quote
+	#define __TEXT(quote) wstr(quote)
 #else
 	type TCHAR as zstring
 	type PTCHAR as zstring ptr
