@@ -4970,30 +4970,15 @@ type IDvdInfoVtbl
 	GetCurrentAudio as function(byval This as IDvdInfo ptr, byval pulStreamsAvailable as ULONG ptr, byval pulCurrentStream as ULONG ptr) as HRESULT
 	GetCurrentSubpicture as function(byval This as IDvdInfo ptr, byval pulStreamsAvailable as ULONG ptr, byval pulCurrentStream as ULONG ptr, byval pIsDisabled as WINBOOL ptr) as HRESULT
 	GetCurrentUOPS as function(byval This as IDvdInfo ptr, byval pUOP as VALID_UOP_SOMTHING_OR_OTHER ptr) as HRESULT
-
-	#ifdef __FB_64BIT__
-		'' TODO: HRESULT ( *GetAllSPRMs)(IDvdInfo *This,SPRMARRAY *pRegisterArray);
-		'' TODO: HRESULT ( *GetAllGPRMs)(IDvdInfo *This,GPRMARRAY *pRegisterArray);
-	#else
-		'' TODO: HRESULT (__attribute__((__stdcall__)) *GetAllSPRMs)(IDvdInfo *This,SPRMARRAY *pRegisterArray);
-		'' TODO: HRESULT (__attribute__((__stdcall__)) *GetAllGPRMs)(IDvdInfo *This,GPRMARRAY *pRegisterArray);
-	#endif
-
+	GetAllSPRMs as function(byval This as IDvdInfo ptr, byval pRegisterArray as DVD_REGISTER ptr) as HRESULT
+	GetAllGPRMs as function(byval This as IDvdInfo ptr, byval pRegisterArray as DVD_REGISTER ptr) as HRESULT
 	GetAudioLanguage as function(byval This as IDvdInfo ptr, byval ulStream as ULONG, byval pLanguage as LCID ptr) as HRESULT
 	GetSubpictureLanguage as function(byval This as IDvdInfo ptr, byval ulStream as ULONG, byval pLanguage as LCID ptr) as HRESULT
 	GetTitleAttributes as function(byval This as IDvdInfo ptr, byval ulTitle as ULONG, byval pATR as DVD_ATR ptr) as HRESULT
 	GetVMGAttributes as function(byval This as IDvdInfo ptr, byval pATR as DVD_ATR ptr) as HRESULT
-
-	#ifdef __FB_64BIT__
-		'' TODO: HRESULT ( *GetCurrentVideoAttributes)(IDvdInfo *This,DVD_VideoATR *pATR);
-		'' TODO: HRESULT ( *GetCurrentAudioAttributes)(IDvdInfo *This,DVD_AudioATR *pATR);
-		'' TODO: HRESULT ( *GetCurrentSubpictureAttributes)(IDvdInfo *This,DVD_SubpictureATR *pATR);
-	#else
-		'' TODO: HRESULT (__attribute__((__stdcall__)) *GetCurrentVideoAttributes)(IDvdInfo *This,DVD_VideoATR *pATR);
-		'' TODO: HRESULT (__attribute__((__stdcall__)) *GetCurrentAudioAttributes)(IDvdInfo *This,DVD_AudioATR *pATR);
-		'' TODO: HRESULT (__attribute__((__stdcall__)) *GetCurrentSubpictureAttributes)(IDvdInfo *This,DVD_SubpictureATR *pATR);
-	#endif
-
+	GetCurrentVideoAttributes as function(byval This as IDvdInfo ptr, byval pATR as UBYTE ptr) as HRESULT
+	GetCurrentAudioAttributes as function(byval This as IDvdInfo ptr, byval pATR as UBYTE ptr) as HRESULT
+	GetCurrentSubpictureAttributes as function(byval This as IDvdInfo ptr, byval pATR as UBYTE ptr) as HRESULT
 	GetCurrentVolumeInfo as function(byval This as IDvdInfo ptr, byval pulNumOfVol as ULONG ptr, byval pulThisVolNum as ULONG ptr, byval pSide as DVD_DISC_SIDE ptr, byval pulNumOfTitles as ULONG ptr) as HRESULT
 	GetDVDTextInfo as function(byval This as IDvdInfo ptr, byval pTextManager as UBYTE ptr, byval ulBufSize as ULONG, byval pulActualSize as ULONG ptr) as HRESULT
 	GetPlayerParentalLevel as function(byval This as IDvdInfo ptr, byval pulParentalLevel as ULONG ptr, byval pulCountryCode as ULONG ptr) as HRESULT
@@ -5022,21 +5007,9 @@ declare function IDvdInfo_GetCurrentSubpicture_Proxy(byval This as IDvdInfo ptr,
 declare sub IDvdInfo_GetCurrentSubpicture_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IDvdInfo_GetCurrentUOPS_Proxy(byval This as IDvdInfo ptr, byval pUOP as VALID_UOP_SOMTHING_OR_OTHER ptr) as HRESULT
 declare sub IDvdInfo_GetCurrentUOPS_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-
-#ifdef __FB_64BIT__
-	'' TODO: HRESULT IDvdInfo_GetAllSPRMs_Proxy(IDvdInfo *This,SPRMARRAY *pRegisterArray);
-#else
-	'' TODO: HRESULT __attribute__((__stdcall__)) IDvdInfo_GetAllSPRMs_Proxy(IDvdInfo *This,SPRMARRAY *pRegisterArray);
-#endif
-
+declare function IDvdInfo_GetAllSPRMs_Proxy(byval This as IDvdInfo ptr, byval pRegisterArray as DVD_REGISTER ptr) as HRESULT
 declare sub IDvdInfo_GetAllSPRMs_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-
-#ifdef __FB_64BIT__
-	'' TODO: HRESULT IDvdInfo_GetAllGPRMs_Proxy(IDvdInfo *This,GPRMARRAY *pRegisterArray);
-#else
-	'' TODO: HRESULT __attribute__((__stdcall__)) IDvdInfo_GetAllGPRMs_Proxy(IDvdInfo *This,GPRMARRAY *pRegisterArray);
-#endif
-
+declare function IDvdInfo_GetAllGPRMs_Proxy(byval This as IDvdInfo ptr, byval pRegisterArray as DVD_REGISTER ptr) as HRESULT
 declare sub IDvdInfo_GetAllGPRMs_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IDvdInfo_GetAudioLanguage_Proxy(byval This as IDvdInfo ptr, byval ulStream as ULONG, byval pLanguage as LCID ptr) as HRESULT
 declare sub IDvdInfo_GetAudioLanguage_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
@@ -5046,29 +5019,11 @@ declare function IDvdInfo_GetTitleAttributes_Proxy(byval This as IDvdInfo ptr, b
 declare sub IDvdInfo_GetTitleAttributes_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IDvdInfo_GetVMGAttributes_Proxy(byval This as IDvdInfo ptr, byval pATR as DVD_ATR ptr) as HRESULT
 declare sub IDvdInfo_GetVMGAttributes_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-
-#ifdef __FB_64BIT__
-	'' TODO: HRESULT IDvdInfo_GetCurrentVideoAttributes_Proxy(IDvdInfo *This,DVD_VideoATR *pATR);
-#else
-	'' TODO: HRESULT __attribute__((__stdcall__)) IDvdInfo_GetCurrentVideoAttributes_Proxy(IDvdInfo *This,DVD_VideoATR *pATR);
-#endif
-
+declare function IDvdInfo_GetCurrentVideoAttributes_Proxy(byval This as IDvdInfo ptr, byval pATR as UBYTE ptr) as HRESULT
 declare sub IDvdInfo_GetCurrentVideoAttributes_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-
-#ifdef __FB_64BIT__
-	'' TODO: HRESULT IDvdInfo_GetCurrentAudioAttributes_Proxy(IDvdInfo *This,DVD_AudioATR *pATR);
-#else
-	'' TODO: HRESULT __attribute__((__stdcall__)) IDvdInfo_GetCurrentAudioAttributes_Proxy(IDvdInfo *This,DVD_AudioATR *pATR);
-#endif
-
+declare function IDvdInfo_GetCurrentAudioAttributes_Proxy(byval This as IDvdInfo ptr, byval pATR as UBYTE ptr) as HRESULT
 declare sub IDvdInfo_GetCurrentAudioAttributes_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-
-#ifdef __FB_64BIT__
-	'' TODO: HRESULT IDvdInfo_GetCurrentSubpictureAttributes_Proxy(IDvdInfo *This,DVD_SubpictureATR *pATR);
-#else
-	'' TODO: HRESULT __attribute__((__stdcall__)) IDvdInfo_GetCurrentSubpictureAttributes_Proxy(IDvdInfo *This,DVD_SubpictureATR *pATR);
-#endif
-
+declare function IDvdInfo_GetCurrentSubpictureAttributes_Proxy(byval This as IDvdInfo ptr, byval pATR as UBYTE ptr) as HRESULT
 declare sub IDvdInfo_GetCurrentSubpictureAttributes_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IDvdInfo_GetCurrentVolumeInfo_Proxy(byval This as IDvdInfo ptr, byval pulNumOfVol as ULONG ptr, byval pulThisVolNum as ULONG ptr, byval pSide as DVD_DISC_SIDE ptr, byval pulNumOfTitles as ULONG ptr) as HRESULT
 declare sub IDvdInfo_GetCurrentVolumeInfo_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
@@ -5353,15 +5308,8 @@ type IDvdInfo2Vtbl
 	GetCurrentAudio as function(byval This as IDvdInfo2 ptr, byval pulStreamsAvailable as ULONG ptr, byval pulCurrentStream as ULONG ptr) as HRESULT
 	GetCurrentSubpicture as function(byval This as IDvdInfo2 ptr, byval pulStreamsAvailable as ULONG ptr, byval pulCurrentStream as ULONG ptr, byval pbIsDisabled as WINBOOL ptr) as HRESULT
 	GetCurrentUOPS as function(byval This as IDvdInfo2 ptr, byval pulUOPs as ULONG ptr) as HRESULT
-
-	#ifdef __FB_64BIT__
-		'' TODO: HRESULT ( *GetAllSPRMs)(IDvdInfo2 *This,SPRMARRAY *pRegisterArray);
-		'' TODO: HRESULT ( *GetAllGPRMs)(IDvdInfo2 *This,GPRMARRAY *pRegisterArray);
-	#else
-		'' TODO: HRESULT (__attribute__((__stdcall__)) *GetAllSPRMs)(IDvdInfo2 *This,SPRMARRAY *pRegisterArray);
-		'' TODO: HRESULT (__attribute__((__stdcall__)) *GetAllGPRMs)(IDvdInfo2 *This,GPRMARRAY *pRegisterArray);
-	#endif
-
+	GetAllSPRMs as function(byval This as IDvdInfo2 ptr, byval pRegisterArray as DVD_REGISTER ptr) as HRESULT
+	GetAllGPRMs as function(byval This as IDvdInfo2 ptr, byval pRegisterArray as DVD_REGISTER ptr) as HRESULT
 	GetAudioLanguage as function(byval This as IDvdInfo2 ptr, byval ulStream as ULONG, byval pLanguage as LCID ptr) as HRESULT
 	GetSubpictureLanguage as function(byval This as IDvdInfo2 ptr, byval ulStream as ULONG, byval pLanguage as LCID ptr) as HRESULT
 	GetTitleAttributes as function(byval This as IDvdInfo2 ptr, byval ulTitle as ULONG, byval pMenu as DVD_MenuAttributes ptr, byval pTitle as DVD_TitleAttributes ptr) as HRESULT
@@ -5413,21 +5361,9 @@ declare function IDvdInfo2_GetCurrentSubpicture_Proxy(byval This as IDvdInfo2 pt
 declare sub IDvdInfo2_GetCurrentSubpicture_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IDvdInfo2_GetCurrentUOPS_Proxy(byval This as IDvdInfo2 ptr, byval pulUOPs as ULONG ptr) as HRESULT
 declare sub IDvdInfo2_GetCurrentUOPS_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-
-#ifdef __FB_64BIT__
-	'' TODO: HRESULT IDvdInfo2_GetAllSPRMs_Proxy(IDvdInfo2 *This,SPRMARRAY *pRegisterArray);
-#else
-	'' TODO: HRESULT __attribute__((__stdcall__)) IDvdInfo2_GetAllSPRMs_Proxy(IDvdInfo2 *This,SPRMARRAY *pRegisterArray);
-#endif
-
+declare function IDvdInfo2_GetAllSPRMs_Proxy(byval This as IDvdInfo2 ptr, byval pRegisterArray as DVD_REGISTER ptr) as HRESULT
 declare sub IDvdInfo2_GetAllSPRMs_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-
-#ifdef __FB_64BIT__
-	'' TODO: HRESULT IDvdInfo2_GetAllGPRMs_Proxy(IDvdInfo2 *This,GPRMARRAY *pRegisterArray);
-#else
-	'' TODO: HRESULT __attribute__((__stdcall__)) IDvdInfo2_GetAllGPRMs_Proxy(IDvdInfo2 *This,GPRMARRAY *pRegisterArray);
-#endif
-
+declare function IDvdInfo2_GetAllGPRMs_Proxy(byval This as IDvdInfo2 ptr, byval pRegisterArray as DVD_REGISTER ptr) as HRESULT
 declare sub IDvdInfo2_GetAllGPRMs_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IDvdInfo2_GetAudioLanguage_Proxy(byval This as IDvdInfo2 ptr, byval ulStream as ULONG, byval pLanguage as LCID ptr) as HRESULT
 declare sub IDvdInfo2_GetAudioLanguage_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
