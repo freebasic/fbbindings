@@ -1797,7 +1797,6 @@ declare function Wow64RevertWow64FsRedirection(byval OlValue as PVOID) as WINBOO
 declare function IsWow64Process(byval hProcess as HANDLE, byval Wow64Process as PBOOL) as WINBOOL
 
 #define GetCurrentTime() GetTickCount()
-#define DefineHandleTable(w) '' TODO: ( { (VOID)(w); TRUE; } )
 #define LimitEmsPages(dw)
 #define SetSwapAreaSize(w) (w)
 #define LockSegment(w) GlobalFix(cast(HANDLE, (w)))
