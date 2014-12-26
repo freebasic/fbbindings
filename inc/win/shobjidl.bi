@@ -5226,7 +5226,10 @@ declare sub INamespaceWalk_GetIDArrayResult_Stub(byval This as IRpcStubBuffer pt
 
 private sub FreeIDListArray cdecl(byval ppidls as LPITEMIDLIST ptr, byval cItems as UINT)
 	dim i as UINT
-	'' TODO: for (i = 0; i < cItems; i++) { CoTaskMemFree(ppidls[i]); }
+	while i < cItems
+		CoTaskMemFree(ppidls[i])
+		i += 1
+	wend
 	CoTaskMemFree(ppidls)
 end sub
 
@@ -8820,8 +8823,11 @@ extern CLSID_ExecuteFolder as const GUID
 	#define PROP_CONTRACT_DELEGATE wstr("ContractDelegate")
 
 	private sub SetContractDelegateWindow cdecl(byval hwndSource as HWND, byval hwndDelegate as HWND)
-		'' TODO: if (hwndDelegate != ((void *)0)) SetPropW (hwndSource, L"ContractDelegate", (HANDLE)hwndDelegate);
-		'' TODO: else RemovePropW(hwndSource, L"ContractDelegate");
+		if hwndDelegate <> NULL then
+			SetPropW(hwndSource, wstr("ContractDelegate"), cast(HANDLE, hwndDelegate))
+		else
+			RemovePropW(hwndSource, wstr("ContractDelegate"))
+		end if
 	end sub
 
 	private function GetContractDelegateWindow cdecl(byval hwndSource as HWND) as HWND
