@@ -589,7 +589,7 @@ declare function SHILCreateFromPath(byval pszPath as PCWSTR, byval ppidl as LPIT
 #define VOID_OFFSET(pv, cb) cptr(any ptr, cptr(UBYTE ptr, (pv)) + (cb))
 #define ILCloneFull ILClone
 #define ILCloneChild ILCloneFirst
-#define ILSkip(P, C) '' TODO: ((PUIDLIST_RELATIVE)VOID_OFFSET ((P),(C)))
+#define ILSkip(P, C) cptr(PUIDLIST_RELATIVE, VOID_OFFSET((P), (C)))
 #define ILNext(P) ILSkip(P, (P)->mkid.cb)
 #define ILIsAligned(P) ((cast(DWORD_PTR, (P)) and (sizeof(any ptr) - 1)) = 0)
 #define ILIsEmpty(P) (((P) = 0) orelse ((P)->mkid.cb = 0))
@@ -635,7 +635,7 @@ declare function SHCreateDirectoryExW(byval hwnd as HWND, byval pszPath as LPCWS
 declare function SHOpenFolderAndSelectItems(byval pidlFolder as LPCITEMIDLIST, byval cidl as UINT, byval apidl as LPCITEMIDLIST ptr, byval dwFlags as DWORD) as HRESULT
 declare function SHCreateShellItem(byval pidlParent as LPCITEMIDLIST, byval psfParent as IShellFolder ptr, byval pidl as LPCITEMIDLIST, byval ppsi as IShellItem ptr ptr) as HRESULT
 
-#define REGSTR_PATH_SPECIAL_FOLDERS '' TODO: REGSTR_PATH_EXPLORER TEXT ("\\Shell Folders")
+#define REGSTR_PATH_SPECIAL_FOLDERS (REGSTR_PATH_EXPLORER + TEXT(!"\\Shell Folders"))
 #define CSIDL_DESKTOP &h0000
 #define CSIDL_INTERNET &h0001
 #define CSIDL_PROGRAMS &h0002
@@ -2628,7 +2628,10 @@ declare function SHBindToParent(byval pidl as LPCITEMIDLIST, byval riid as const
 
 private function IDListContainerIsConsistent cdecl(byval p as LPCITEMIDLIST, byval sz as UINT) as WINBOOL
 	dim c as UINT = sizeof(p->mkid.cb)
-	'' TODO: while (c <= sz && p->mkid.cb >= sizeof (p->mkid.cb) && p->mkid.cb <= (sz - c)) { c += p->mkid.cb; p = ((LPITEMIDLIST)((void *) (((BYTE *) ((p)))+ (((p)->mkid.cb))))); }
+	while c <= sz andalso p->mkid.cb >= sizeof(p->mkid.cb) andalso p->mkid.cb <= (sz - c)
+		c += p->mkid.cb
+		p = ILNext(p)
+	wend
 	return -((c <= sz) andalso (p->mkid.cb = 0))
 end function
 
