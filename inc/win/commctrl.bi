@@ -2442,7 +2442,7 @@ private function ListView_GetItemRect(byval hwnd as HWND, byval i as long, byval
 	if prc then
 		prc->left = code
 	end if
-	function = SNDMSG(hwnd, LVM_GETITEMRECT, cast(WPARAM, clng(i)), prc)
+	function = SNDMSG(hwnd, LVM_GETITEMRECT, cast(WPARAM, i), prc)
 end function
 #define LVM_SETITEMPOSITION (LVM_FIRST + 15)
 #define ListView_SetItemPosition(hwndLV, i, x, y) cast(WINBOOL, SNDMSG((hwndLV), LVM_SETITEMPOSITION, cast(WPARAM, clng((i))), MAKELPARAM((x), (y))))
@@ -2784,7 +2784,13 @@ type PFNLVCOMPARE as function(byval as LPARAM, byval as LPARAM, byval as LPARAM)
 #endif
 
 #define LVM_GETSUBITEMRECT (LVM_FIRST + 56)
-#define ListView_GetSubItemRect(hwnd, iItem, iSubItem, code, prc) '' TODO: (WINBOOL)SNDMSG((hwnd),LVM_GETSUBITEMRECT,(WPARAM)(int)(iItem),((prc) ? ((((LPRECT)(prc))->top = iSubItem),(((LPRECT)(prc))->left = code),(LPARAM)(prc)) : (LPARAM)(LPRECT)NULL))
+private function ListView_GetSubItemRect(byval hwnd as HWND, byval iItem as long, byval iSubItem as long, byval code as long, byval prc as RECT ptr) as WINBOOL
+	if prc then
+		prc->top = iSubItem
+		prc->left = code
+	end if
+	function = SNDMSG(hwnd, LVM_GETSUBITEMRECT, cast(WPARAM, iItem), prc)
+end function
 #define LVM_SUBITEMHITTEST (LVM_FIRST + 57)
 #define ListView_SubItemHitTest(hwnd, plvhti) clng(SNDMSG((hwnd), LVM_SUBITEMHITTEST, 0, cast(LPARAM, cast(LPLVHITTESTINFO, (plvhti)))))
 #define LVM_SETCOLUMNORDERARRAY (LVM_FIRST + 58)
