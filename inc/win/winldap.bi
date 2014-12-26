@@ -3,7 +3,6 @@
 #include once "schnlsp.bi"
 
 '' The following symbols have been renamed:
-''     typedef LDAP => LDAP_
 ''     typedef LDAPControlA => LDAPControlA_
 ''     typedef LDAPControlW => LDAPControlW_
 ''     typedef LDAPModW => LDAPModW_
@@ -223,7 +222,6 @@ end enum
 	end type
 #endif
 
-type LDAP_ as ldap
 type PLDAP as ldap ptr
 
 #ifdef __FB_64BIT__
@@ -407,7 +405,7 @@ type PLDAPModA as ldapmodA ptr
 #endif
 
 #ifndef __FB_64BIT__
-	declare function ldap_openW(byval HostName as const PWCHAR, byval PortNumber as ULONG) as LDAP_ ptr
+	declare function ldap_openW(byval HostName as const PWCHAR, byval PortNumber as ULONG) as LDAP ptr
 #endif
 
 #define LDAP_IS_CLDAP(ld) ((ld)->ld_sb.sb_naddr > 0)
@@ -416,41 +414,41 @@ type PLDAPModA as ldapmodA ptr
 #define NAME_ERROR(n) ((n and &hf0) = &h20)
 
 #ifdef __FB_64BIT__
-	declare function ldap_openW(byval HostName as const PWCHAR, byval PortNumber as ULONG) as LDAP_ ptr
+	declare function ldap_openW(byval HostName as const PWCHAR, byval PortNumber as ULONG) as LDAP ptr
 #endif
 
-declare function ldap_openA(byval HostName as const PCHAR, byval PortNumber as ULONG) as LDAP_ ptr
-declare function ldap_initW(byval HostName as const PWCHAR, byval PortNumber as ULONG) as LDAP_ ptr
-declare function ldap_initA(byval HostName as const PCHAR, byval PortNumber as ULONG) as LDAP_ ptr
-declare function ldap_sslinitW(byval HostName as PWCHAR, byval PortNumber as ULONG, byval secure as long) as LDAP_ ptr
-declare function ldap_sslinitA(byval HostName as PCHAR, byval PortNumber as ULONG, byval secure as long) as LDAP_ ptr
-declare function ldap_connect(byval ld as LDAP_ ptr, byval timeout as l_timeval ptr) as ULONG
+declare function ldap_openA(byval HostName as const PCHAR, byval PortNumber as ULONG) as LDAP ptr
+declare function ldap_initW(byval HostName as const PWCHAR, byval PortNumber as ULONG) as LDAP ptr
+declare function ldap_initA(byval HostName as const PCHAR, byval PortNumber as ULONG) as LDAP ptr
+declare function ldap_sslinitW(byval HostName as PWCHAR, byval PortNumber as ULONG, byval secure as long) as LDAP ptr
+declare function ldap_sslinitA(byval HostName as PCHAR, byval PortNumber as ULONG, byval secure as long) as LDAP ptr
+declare function ldap_connect(byval ld as LDAP ptr, byval timeout as l_timeval ptr) as ULONG
 
 #ifdef UNICODE
 	#define ldap_open ldap_openW
 	#define ldap_init ldap_initW
 	#define ldap_sslinit ldap_sslinitW
 #else
-	declare function ldap_open(byval HostName as PCHAR, byval PortNumber as ULONG) as LDAP_ ptr
-	declare function ldap_init(byval HostName as PCHAR, byval PortNumber as ULONG) as LDAP_ ptr
-	declare function ldap_sslinit(byval HostName as PCHAR, byval PortNumber as ULONG, byval secure as long) as LDAP_ ptr
+	declare function ldap_open(byval HostName as PCHAR, byval PortNumber as ULONG) as LDAP ptr
+	declare function ldap_init(byval HostName as PCHAR, byval PortNumber as ULONG) as LDAP ptr
+	declare function ldap_sslinit(byval HostName as PCHAR, byval PortNumber as ULONG, byval secure as long) as LDAP ptr
 #endif
 
-declare function cldap_openW(byval HostName as PWCHAR, byval PortNumber as ULONG) as LDAP_ ptr
-declare function cldap_openA(byval HostName as PCHAR, byval PortNumber as ULONG) as LDAP_ ptr
+declare function cldap_openW(byval HostName as PWCHAR, byval PortNumber as ULONG) as LDAP ptr
+declare function cldap_openA(byval HostName as PCHAR, byval PortNumber as ULONG) as LDAP ptr
 
 #ifdef UNICODE
 	#define cldap_open cldap_openW
 #else
-	declare function cldap_open(byval HostName as PCHAR, byval PortNumber as ULONG) as LDAP_ ptr
+	declare function cldap_open(byval HostName as PCHAR, byval PortNumber as ULONG) as LDAP ptr
 #endif
 
-declare function ldap_unbind(byval ld as LDAP_ ptr) as ULONG
-declare function ldap_unbind_s(byval ld as LDAP_ ptr) as ULONG
-declare function ldap_get_option(byval ld as LDAP_ ptr, byval option_ as long, byval outvalue as any ptr) as ULONG
-declare function ldap_get_optionW(byval ld as LDAP_ ptr, byval option_ as long, byval outvalue as any ptr) as ULONG
-declare function ldap_set_option(byval ld as LDAP_ ptr, byval option_ as long, byval invalue as const any ptr) as ULONG
-declare function ldap_set_optionW(byval ld as LDAP_ ptr, byval option_ as long, byval invalue as const any ptr) as ULONG
+declare function ldap_unbind(byval ld as LDAP ptr) as ULONG
+declare function ldap_unbind_s(byval ld as LDAP ptr) as ULONG
+declare function ldap_get_option(byval ld as LDAP ptr, byval option_ as long, byval outvalue as any ptr) as ULONG
+declare function ldap_get_optionW(byval ld as LDAP ptr, byval option_ as long, byval outvalue as any ptr) as ULONG
+declare function ldap_set_option(byval ld as LDAP ptr, byval option_ as long, byval invalue as const any ptr) as ULONG
+declare function ldap_set_optionW(byval ld as LDAP ptr, byval option_ as long, byval invalue as const any ptr) as ULONG
 
 #ifdef UNICODE
 	#define ldap_get_option_ ldap_get_optionW
@@ -507,18 +505,18 @@ declare function ldap_set_optionW(byval ld as LDAP_ ptr, byval option_ as long, 
 #define LDAP_CHASE_SUBORDINATE_REFERRALS &h00000020
 #define LDAP_CHASE_EXTERNAL_REFERRALS &h00000040
 
-declare function ldap_simple_bindW(byval ld as LDAP_ ptr, byval dn as PWCHAR, byval passwd as PWCHAR) as ULONG
-declare function ldap_simple_bindA(byval ld as LDAP_ ptr, byval dn as PCHAR, byval passwd as PCHAR) as ULONG
-declare function ldap_simple_bind_sW(byval ld as LDAP_ ptr, byval dn as PWCHAR, byval passwd as PWCHAR) as ULONG
-declare function ldap_simple_bind_sA(byval ld as LDAP_ ptr, byval dn as PCHAR, byval passwd as PCHAR) as ULONG
-declare function ldap_bindW(byval ld as LDAP_ ptr, byval dn as PWCHAR, byval cred as PWCHAR, byval method as ULONG) as ULONG
-declare function ldap_bindA(byval ld as LDAP_ ptr, byval dn as PCHAR, byval cred as PCHAR, byval method as ULONG) as ULONG
-declare function ldap_bind_sW(byval ld as LDAP_ ptr, byval dn as PWCHAR, byval cred as PWCHAR, byval method as ULONG) as ULONG
-declare function ldap_bind_sA(byval ld as LDAP_ ptr, byval dn as PCHAR, byval cred as PCHAR, byval method as ULONG) as ULONG
-declare function ldap_sasl_bindA(byval ExternalHandle as LDAP_ ptr, byval DistName as const PCHAR, byval AuthMechanism as const PCHAR, byval cred as const BERVAL ptr, byval ServerCtrls as PLDAPControlA ptr, byval ClientCtrls as PLDAPControlA ptr, byval MessageNumber as long ptr) as INT_
-declare function ldap_sasl_bindW(byval ExternalHandle as LDAP_ ptr, byval DistName as const PWCHAR, byval AuthMechanism as const PWCHAR, byval cred as const BERVAL ptr, byval ServerCtrls as PLDAPControlW ptr, byval ClientCtrls as PLDAPControlW ptr, byval MessageNumber as long ptr) as INT_
-declare function ldap_sasl_bind_sA(byval ExternalHandle as LDAP_ ptr, byval DistName as const PCHAR, byval AuthMechanism as const PCHAR, byval cred as const BERVAL ptr, byval ServerCtrls as PLDAPControlA ptr, byval ClientCtrls as PLDAPControlA ptr, byval ServerData as PBERVAL ptr) as INT_
-declare function ldap_sasl_bind_sW(byval ExternalHandle as LDAP_ ptr, byval DistName as const PWCHAR, byval AuthMechanism as const PWCHAR, byval cred as const BERVAL ptr, byval ServerCtrls as PLDAPControlW ptr, byval ClientCtrls as PLDAPControlW ptr, byval ServerData as PBERVAL ptr) as INT_
+declare function ldap_simple_bindW(byval ld as LDAP ptr, byval dn as PWCHAR, byval passwd as PWCHAR) as ULONG
+declare function ldap_simple_bindA(byval ld as LDAP ptr, byval dn as PCHAR, byval passwd as PCHAR) as ULONG
+declare function ldap_simple_bind_sW(byval ld as LDAP ptr, byval dn as PWCHAR, byval passwd as PWCHAR) as ULONG
+declare function ldap_simple_bind_sA(byval ld as LDAP ptr, byval dn as PCHAR, byval passwd as PCHAR) as ULONG
+declare function ldap_bindW(byval ld as LDAP ptr, byval dn as PWCHAR, byval cred as PWCHAR, byval method as ULONG) as ULONG
+declare function ldap_bindA(byval ld as LDAP ptr, byval dn as PCHAR, byval cred as PCHAR, byval method as ULONG) as ULONG
+declare function ldap_bind_sW(byval ld as LDAP ptr, byval dn as PWCHAR, byval cred as PWCHAR, byval method as ULONG) as ULONG
+declare function ldap_bind_sA(byval ld as LDAP ptr, byval dn as PCHAR, byval cred as PCHAR, byval method as ULONG) as ULONG
+declare function ldap_sasl_bindA(byval ExternalHandle as LDAP ptr, byval DistName as const PCHAR, byval AuthMechanism as const PCHAR, byval cred as const BERVAL ptr, byval ServerCtrls as PLDAPControlA ptr, byval ClientCtrls as PLDAPControlA ptr, byval MessageNumber as long ptr) as INT_
+declare function ldap_sasl_bindW(byval ExternalHandle as LDAP ptr, byval DistName as const PWCHAR, byval AuthMechanism as const PWCHAR, byval cred as const BERVAL ptr, byval ServerCtrls as PLDAPControlW ptr, byval ClientCtrls as PLDAPControlW ptr, byval MessageNumber as long ptr) as INT_
+declare function ldap_sasl_bind_sA(byval ExternalHandle as LDAP ptr, byval DistName as const PCHAR, byval AuthMechanism as const PCHAR, byval cred as const BERVAL ptr, byval ServerCtrls as PLDAPControlA ptr, byval ClientCtrls as PLDAPControlA ptr, byval ServerData as PBERVAL ptr) as INT_
+declare function ldap_sasl_bind_sW(byval ExternalHandle as LDAP ptr, byval DistName as const PWCHAR, byval AuthMechanism as const PWCHAR, byval cred as const BERVAL ptr, byval ServerCtrls as PLDAPControlW ptr, byval ClientCtrls as PLDAPControlW ptr, byval ServerData as PBERVAL ptr) as INT_
 
 #ifdef UNICODE
 	#define ldap_simple_bind ldap_simple_bindW
@@ -528,10 +526,10 @@ declare function ldap_sasl_bind_sW(byval ExternalHandle as LDAP_ ptr, byval Dist
 	#define ldap_sasl_bind ldap_sasl_bindW
 	#define ldap_sasl_bind_s ldap_sasl_bind_sW
 #else
-	declare function ldap_simple_bind(byval ld as LDAP_ ptr, byval dn as const PCHAR, byval passwd as const PCHAR) as ULONG
-	declare function ldap_simple_bind_s(byval ld as LDAP_ ptr, byval dn as const PCHAR, byval passwd as const PCHAR) as ULONG
-	declare function ldap_bind(byval ld as LDAP_ ptr, byval dn as const PCHAR, byval cred as const PCHAR, byval method as ULONG) as ULONG
-	declare function ldap_bind_s(byval ld as LDAP_ ptr, byval dn as const PCHAR, byval cred as const PCHAR, byval method as ULONG) as ULONG
+	declare function ldap_simple_bind(byval ld as LDAP ptr, byval dn as const PCHAR, byval passwd as const PCHAR) as ULONG
+	declare function ldap_simple_bind_s(byval ld as LDAP ptr, byval dn as const PCHAR, byval passwd as const PCHAR) as ULONG
+	declare function ldap_bind(byval ld as LDAP ptr, byval dn as const PCHAR, byval cred as const PCHAR, byval method as ULONG) as ULONG
+	declare function ldap_bind_s(byval ld as LDAP ptr, byval dn as const PCHAR, byval cred as const PCHAR, byval method as ULONG) as ULONG
 
 	#define ldap_sasl_bind ldap_sasl_bindA
 	#define ldap_sasl_bind_s ldap_sasl_bind_sA
@@ -541,16 +539,16 @@ declare function ldap_sasl_bind_sW(byval ExternalHandle as LDAP_ ptr, byval Dist
 #define LDAP_SCOPE_ONELEVEL &h01
 #define LDAP_SCOPE_SUBTREE &h02
 
-declare function ldap_searchW(byval ld as LDAP_ ptr, byval base_ as const PWCHAR, byval scope_ as ULONG, byval filter as const PWCHAR, byval attrs as PWCHAR ptr, byval attrsonly as ULONG) as ULONG
-declare function ldap_searchA(byval ld as LDAP_ ptr, byval base_ as const PCHAR, byval scope_ as ULONG, byval filter as const PCHAR, byval attrs as PCHAR ptr, byval attrsonly as ULONG) as ULONG
-declare function ldap_search_sW(byval ld as LDAP_ ptr, byval base_ as const PWCHAR, byval scope_ as ULONG, byval filter as const PWCHAR, byval attrs as PWCHAR ptr, byval attrsonly as ULONG, byval res as LDAPMessage ptr ptr) as ULONG
-declare function ldap_search_sA(byval ld as LDAP_ ptr, byval base_ as const PCHAR, byval scope_ as ULONG, byval filter as const PCHAR, byval attrs as PCHAR ptr, byval attrsonly as ULONG, byval res as LDAPMessage ptr ptr) as ULONG
-declare function ldap_search_stW(byval ld as LDAP_ ptr, byval base_ as const PWCHAR, byval scope_ as ULONG, byval filter as const PWCHAR, byval attrs as PWCHAR ptr, byval attrsonly as ULONG, byval timeout as l_timeval ptr, byval res as LDAPMessage ptr ptr) as ULONG
-declare function ldap_search_stA(byval ld as LDAP_ ptr, byval base_ as const PCHAR, byval scope_ as ULONG, byval filter as const PCHAR, byval attrs as PCHAR ptr, byval attrsonly as ULONG, byval timeout as l_timeval ptr, byval res as LDAPMessage ptr ptr) as ULONG
-declare function ldap_search_extW(byval ld as LDAP_ ptr, byval base_ as const PWCHAR, byval scope_ as ULONG, byval filter as const PWCHAR, byval attrs as PWCHAR ptr, byval attrsonly as ULONG, byval ServerControls as PLDAPControlW ptr, byval ClientControls as PLDAPControlW ptr, byval TimeLimit as ULONG, byval SizeLimit as ULONG, byval MessageNumber as ULONG ptr) as ULONG
-declare function ldap_search_extA(byval ld as LDAP_ ptr, byval base_ as const PCHAR, byval scope_ as ULONG, byval filter as const PCHAR, byval attrs as PCHAR ptr, byval attrsonly as ULONG, byval ServerControls as PLDAPControlA ptr, byval ClientControls as PLDAPControlA ptr, byval TimeLimit as ULONG, byval SizeLimit as ULONG, byval MessageNumber as ULONG ptr) as ULONG
-declare function ldap_search_ext_sW(byval ld as LDAP_ ptr, byval base_ as const PWCHAR, byval scope_ as ULONG, byval filter as const PWCHAR, byval attrs as PWCHAR ptr, byval attrsonly as ULONG, byval ServerControls as PLDAPControlW ptr, byval ClientControls as PLDAPControlW ptr, byval timeout as l_timeval ptr, byval SizeLimit as ULONG, byval res as LDAPMessage ptr ptr) as ULONG
-declare function ldap_search_ext_sA(byval ld as LDAP_ ptr, byval base_ as const PCHAR, byval scope_ as ULONG, byval filter as const PCHAR, byval attrs as PCHAR ptr, byval attrsonly as ULONG, byval ServerControls as PLDAPControlA ptr, byval ClientControls as PLDAPControlA ptr, byval timeout as l_timeval ptr, byval SizeLimit as ULONG, byval res as LDAPMessage ptr ptr) as ULONG
+declare function ldap_searchW(byval ld as LDAP ptr, byval base_ as const PWCHAR, byval scope_ as ULONG, byval filter as const PWCHAR, byval attrs as PWCHAR ptr, byval attrsonly as ULONG) as ULONG
+declare function ldap_searchA(byval ld as LDAP ptr, byval base_ as const PCHAR, byval scope_ as ULONG, byval filter as const PCHAR, byval attrs as PCHAR ptr, byval attrsonly as ULONG) as ULONG
+declare function ldap_search_sW(byval ld as LDAP ptr, byval base_ as const PWCHAR, byval scope_ as ULONG, byval filter as const PWCHAR, byval attrs as PWCHAR ptr, byval attrsonly as ULONG, byval res as LDAPMessage ptr ptr) as ULONG
+declare function ldap_search_sA(byval ld as LDAP ptr, byval base_ as const PCHAR, byval scope_ as ULONG, byval filter as const PCHAR, byval attrs as PCHAR ptr, byval attrsonly as ULONG, byval res as LDAPMessage ptr ptr) as ULONG
+declare function ldap_search_stW(byval ld as LDAP ptr, byval base_ as const PWCHAR, byval scope_ as ULONG, byval filter as const PWCHAR, byval attrs as PWCHAR ptr, byval attrsonly as ULONG, byval timeout as l_timeval ptr, byval res as LDAPMessage ptr ptr) as ULONG
+declare function ldap_search_stA(byval ld as LDAP ptr, byval base_ as const PCHAR, byval scope_ as ULONG, byval filter as const PCHAR, byval attrs as PCHAR ptr, byval attrsonly as ULONG, byval timeout as l_timeval ptr, byval res as LDAPMessage ptr ptr) as ULONG
+declare function ldap_search_extW(byval ld as LDAP ptr, byval base_ as const PWCHAR, byval scope_ as ULONG, byval filter as const PWCHAR, byval attrs as PWCHAR ptr, byval attrsonly as ULONG, byval ServerControls as PLDAPControlW ptr, byval ClientControls as PLDAPControlW ptr, byval TimeLimit as ULONG, byval SizeLimit as ULONG, byval MessageNumber as ULONG ptr) as ULONG
+declare function ldap_search_extA(byval ld as LDAP ptr, byval base_ as const PCHAR, byval scope_ as ULONG, byval filter as const PCHAR, byval attrs as PCHAR ptr, byval attrsonly as ULONG, byval ServerControls as PLDAPControlA ptr, byval ClientControls as PLDAPControlA ptr, byval TimeLimit as ULONG, byval SizeLimit as ULONG, byval MessageNumber as ULONG ptr) as ULONG
+declare function ldap_search_ext_sW(byval ld as LDAP ptr, byval base_ as const PWCHAR, byval scope_ as ULONG, byval filter as const PWCHAR, byval attrs as PWCHAR ptr, byval attrsonly as ULONG, byval ServerControls as PLDAPControlW ptr, byval ClientControls as PLDAPControlW ptr, byval timeout as l_timeval ptr, byval SizeLimit as ULONG, byval res as LDAPMessage ptr ptr) as ULONG
+declare function ldap_search_ext_sA(byval ld as LDAP ptr, byval base_ as const PCHAR, byval scope_ as ULONG, byval filter as const PCHAR, byval attrs as PCHAR ptr, byval attrsonly as ULONG, byval ServerControls as PLDAPControlA ptr, byval ClientControls as PLDAPControlA ptr, byval timeout as l_timeval ptr, byval SizeLimit as ULONG, byval res as LDAPMessage ptr ptr) as ULONG
 
 #ifdef UNICODE
 	#define ldap_search ldap_searchW
@@ -559,15 +557,15 @@ declare function ldap_search_ext_sA(byval ld as LDAP_ ptr, byval base_ as const 
 	#define ldap_search_ext ldap_search_extW
 	#define ldap_search_ext_s ldap_search_ext_sW
 #else
-	declare function ldap_search(byval ld as LDAP_ ptr, byval base_ as PCHAR, byval scope_ as ULONG, byval filter as PCHAR, byval attrs as PCHAR ptr, byval attrsonly as ULONG) as ULONG
-	declare function ldap_search_s(byval ld as LDAP_ ptr, byval base_ as PCHAR, byval scope_ as ULONG, byval filter as PCHAR, byval attrs as PCHAR ptr, byval attrsonly as ULONG, byval res as LDAPMessage ptr ptr) as ULONG
-	declare function ldap_search_st(byval ld as LDAP_ ptr, byval base_ as PCHAR, byval scope_ as ULONG, byval filter as PCHAR, byval attrs as PCHAR ptr, byval attrsonly as ULONG, byval timeout as l_timeval ptr, byval res as LDAPMessage ptr ptr) as ULONG
-	declare function ldap_search_ext(byval ld as LDAP_ ptr, byval base_ as PCHAR, byval scope_ as ULONG, byval filter as PCHAR, byval attrs as PCHAR ptr, byval attrsonly as ULONG, byval ServerControls as PLDAPControlA ptr, byval ClientControls as PLDAPControlA ptr, byval TimeLimit as ULONG, byval SizeLimit as ULONG, byval MessageNumber as ULONG ptr) as ULONG
-	declare function ldap_search_ext_s(byval ld as LDAP_ ptr, byval base_ as PCHAR, byval scope_ as ULONG, byval filter as PCHAR, byval attrs as PCHAR ptr, byval attrsonly as ULONG, byval ServerControls as PLDAPControlA ptr, byval ClientControls as PLDAPControlA ptr, byval timeout as l_timeval ptr, byval SizeLimit as ULONG, byval res as LDAPMessage ptr ptr) as ULONG
+	declare function ldap_search(byval ld as LDAP ptr, byval base_ as PCHAR, byval scope_ as ULONG, byval filter as PCHAR, byval attrs as PCHAR ptr, byval attrsonly as ULONG) as ULONG
+	declare function ldap_search_s(byval ld as LDAP ptr, byval base_ as PCHAR, byval scope_ as ULONG, byval filter as PCHAR, byval attrs as PCHAR ptr, byval attrsonly as ULONG, byval res as LDAPMessage ptr ptr) as ULONG
+	declare function ldap_search_st(byval ld as LDAP ptr, byval base_ as PCHAR, byval scope_ as ULONG, byval filter as PCHAR, byval attrs as PCHAR ptr, byval attrsonly as ULONG, byval timeout as l_timeval ptr, byval res as LDAPMessage ptr ptr) as ULONG
+	declare function ldap_search_ext(byval ld as LDAP ptr, byval base_ as PCHAR, byval scope_ as ULONG, byval filter as PCHAR, byval attrs as PCHAR ptr, byval attrsonly as ULONG, byval ServerControls as PLDAPControlA ptr, byval ClientControls as PLDAPControlA ptr, byval TimeLimit as ULONG, byval SizeLimit as ULONG, byval MessageNumber as ULONG ptr) as ULONG
+	declare function ldap_search_ext_s(byval ld as LDAP ptr, byval base_ as PCHAR, byval scope_ as ULONG, byval filter as PCHAR, byval attrs as PCHAR ptr, byval attrsonly as ULONG, byval ServerControls as PLDAPControlA ptr, byval ClientControls as PLDAPControlA ptr, byval timeout as l_timeval ptr, byval SizeLimit as ULONG, byval res as LDAPMessage ptr ptr) as ULONG
 #endif
 
-declare function ldap_check_filterW(byval ld as LDAP_ ptr, byval SearchFilter as PWCHAR) as ULONG
-declare function ldap_check_filterA(byval ld as LDAP_ ptr, byval SearchFilter as PCHAR) as ULONG
+declare function ldap_check_filterW(byval ld as LDAP ptr, byval SearchFilter as PWCHAR) as ULONG
+declare function ldap_check_filterA(byval ld as LDAP ptr, byval SearchFilter as PCHAR) as ULONG
 
 #ifdef UNICODE
 	#define ldap_check_filter ldap_check_filterW
@@ -575,14 +573,14 @@ declare function ldap_check_filterA(byval ld as LDAP_ ptr, byval SearchFilter as
 	#define ldap_check_filter ldap_check_filterA
 #endif
 
-declare function ldap_modifyW(byval ld as LDAP_ ptr, byval dn as PWCHAR, byval mods as LDAPModW_ ptr ptr) as ULONG
-declare function ldap_modifyA(byval ld as LDAP_ ptr, byval dn as PCHAR, byval mods as LDAPModA_ ptr ptr) as ULONG
-declare function ldap_modify_sW(byval ld as LDAP_ ptr, byval dn as PWCHAR, byval mods as LDAPModW_ ptr ptr) as ULONG
-declare function ldap_modify_sA(byval ld as LDAP_ ptr, byval dn as PCHAR, byval mods as LDAPModA_ ptr ptr) as ULONG
-declare function ldap_modify_extW(byval ld as LDAP_ ptr, byval dn as const PWCHAR, byval mods as LDAPModW_ ptr ptr, byval ServerControls as PLDAPControlW ptr, byval ClientControls as PLDAPControlW ptr, byval MessageNumber as ULONG ptr) as ULONG
-declare function ldap_modify_extA(byval ld as LDAP_ ptr, byval dn as const PCHAR, byval mods as LDAPModA_ ptr ptr, byval ServerControls as PLDAPControlA ptr, byval ClientControls as PLDAPControlA ptr, byval MessageNumber as ULONG ptr) as ULONG
-declare function ldap_modify_ext_sW(byval ld as LDAP_ ptr, byval dn as const PWCHAR, byval mods as LDAPModW_ ptr ptr, byval ServerControls as PLDAPControlW ptr, byval ClientControls as PLDAPControlW ptr) as ULONG
-declare function ldap_modify_ext_sA(byval ld as LDAP_ ptr, byval dn as const PCHAR, byval mods as LDAPModA_ ptr ptr, byval ServerControls as PLDAPControlA ptr, byval ClientControls as PLDAPControlA ptr) as ULONG
+declare function ldap_modifyW(byval ld as LDAP ptr, byval dn as PWCHAR, byval mods as LDAPModW_ ptr ptr) as ULONG
+declare function ldap_modifyA(byval ld as LDAP ptr, byval dn as PCHAR, byval mods as LDAPModA_ ptr ptr) as ULONG
+declare function ldap_modify_sW(byval ld as LDAP ptr, byval dn as PWCHAR, byval mods as LDAPModW_ ptr ptr) as ULONG
+declare function ldap_modify_sA(byval ld as LDAP ptr, byval dn as PCHAR, byval mods as LDAPModA_ ptr ptr) as ULONG
+declare function ldap_modify_extW(byval ld as LDAP ptr, byval dn as const PWCHAR, byval mods as LDAPModW_ ptr ptr, byval ServerControls as PLDAPControlW ptr, byval ClientControls as PLDAPControlW ptr, byval MessageNumber as ULONG ptr) as ULONG
+declare function ldap_modify_extA(byval ld as LDAP ptr, byval dn as const PCHAR, byval mods as LDAPModA_ ptr ptr, byval ServerControls as PLDAPControlA ptr, byval ClientControls as PLDAPControlA ptr, byval MessageNumber as ULONG ptr) as ULONG
+declare function ldap_modify_ext_sW(byval ld as LDAP ptr, byval dn as const PWCHAR, byval mods as LDAPModW_ ptr ptr, byval ServerControls as PLDAPControlW ptr, byval ClientControls as PLDAPControlW ptr) as ULONG
+declare function ldap_modify_ext_sA(byval ld as LDAP ptr, byval dn as const PCHAR, byval mods as LDAPModA_ ptr ptr, byval ServerControls as PLDAPControlA ptr, byval ClientControls as PLDAPControlA ptr) as ULONG
 
 #ifdef UNICODE
 	#define ldap_modify ldap_modifyW
@@ -590,20 +588,20 @@ declare function ldap_modify_ext_sA(byval ld as LDAP_ ptr, byval dn as const PCH
 	#define ldap_modify_ext ldap_modify_extW
 	#define ldap_modify_ext_s ldap_modify_ext_sW
 #else
-	declare function ldap_modify(byval ld as LDAP_ ptr, byval dn as PCHAR, byval mods as LDAPModA_ ptr ptr) as ULONG
-	declare function ldap_modify_s(byval ld as LDAP_ ptr, byval dn as PCHAR, byval mods as LDAPModA_ ptr ptr) as ULONG
-	declare function ldap_modify_ext(byval ld as LDAP_ ptr, byval dn as const PCHAR, byval mods as LDAPModA_ ptr ptr, byval ServerControls as PLDAPControlA ptr, byval ClientControls as PLDAPControlA ptr, byval MessageNumber as ULONG ptr) as ULONG
-	declare function ldap_modify_ext_s(byval ld as LDAP_ ptr, byval dn as const PCHAR, byval mods as LDAPModA_ ptr ptr, byval ServerControls as PLDAPControlA ptr, byval ClientControls as PLDAPControlA ptr) as ULONG
+	declare function ldap_modify(byval ld as LDAP ptr, byval dn as PCHAR, byval mods as LDAPModA_ ptr ptr) as ULONG
+	declare function ldap_modify_s(byval ld as LDAP ptr, byval dn as PCHAR, byval mods as LDAPModA_ ptr ptr) as ULONG
+	declare function ldap_modify_ext(byval ld as LDAP ptr, byval dn as const PCHAR, byval mods as LDAPModA_ ptr ptr, byval ServerControls as PLDAPControlA ptr, byval ClientControls as PLDAPControlA ptr, byval MessageNumber as ULONG ptr) as ULONG
+	declare function ldap_modify_ext_s(byval ld as LDAP ptr, byval dn as const PCHAR, byval mods as LDAPModA_ ptr ptr, byval ServerControls as PLDAPControlA ptr, byval ClientControls as PLDAPControlA ptr) as ULONG
 #endif
 
-declare function ldap_modrdn2W(byval ExternalHandle as LDAP_ ptr, byval DistinguishedName as const PWCHAR, byval NewDistinguishedName as const PWCHAR, byval DeleteOldRdn as INT_) as ULONG
-declare function ldap_modrdn2A(byval ExternalHandle as LDAP_ ptr, byval DistinguishedName as const PCHAR, byval NewDistinguishedName as const PCHAR, byval DeleteOldRdn as INT_) as ULONG
-declare function ldap_modrdnW(byval ExternalHandle as LDAP_ ptr, byval DistinguishedName as const PWCHAR, byval NewDistinguishedName as const PWCHAR) as ULONG
-declare function ldap_modrdnA(byval ExternalHandle as LDAP_ ptr, byval DistinguishedName as const PCHAR, byval NewDistinguishedName as const PCHAR) as ULONG
-declare function ldap_modrdn2_sW(byval ExternalHandle as LDAP_ ptr, byval DistinguishedName as const PWCHAR, byval NewDistinguishedName as const PWCHAR, byval DeleteOldRdn as INT_) as ULONG
-declare function ldap_modrdn2_sA(byval ExternalHandle as LDAP_ ptr, byval DistinguishedName as const PCHAR, byval NewDistinguishedName as const PCHAR, byval DeleteOldRdn as INT_) as ULONG
-declare function ldap_modrdn_sW(byval ExternalHandle as LDAP_ ptr, byval DistinguishedName as const PWCHAR, byval NewDistinguishedName as const PWCHAR) as ULONG
-declare function ldap_modrdn_sA(byval ExternalHandle as LDAP_ ptr, byval DistinguishedName as const PCHAR, byval NewDistinguishedName as const PCHAR) as ULONG
+declare function ldap_modrdn2W(byval ExternalHandle as LDAP ptr, byval DistinguishedName as const PWCHAR, byval NewDistinguishedName as const PWCHAR, byval DeleteOldRdn as INT_) as ULONG
+declare function ldap_modrdn2A(byval ExternalHandle as LDAP ptr, byval DistinguishedName as const PCHAR, byval NewDistinguishedName as const PCHAR, byval DeleteOldRdn as INT_) as ULONG
+declare function ldap_modrdnW(byval ExternalHandle as LDAP ptr, byval DistinguishedName as const PWCHAR, byval NewDistinguishedName as const PWCHAR) as ULONG
+declare function ldap_modrdnA(byval ExternalHandle as LDAP ptr, byval DistinguishedName as const PCHAR, byval NewDistinguishedName as const PCHAR) as ULONG
+declare function ldap_modrdn2_sW(byval ExternalHandle as LDAP ptr, byval DistinguishedName as const PWCHAR, byval NewDistinguishedName as const PWCHAR, byval DeleteOldRdn as INT_) as ULONG
+declare function ldap_modrdn2_sA(byval ExternalHandle as LDAP ptr, byval DistinguishedName as const PCHAR, byval NewDistinguishedName as const PCHAR, byval DeleteOldRdn as INT_) as ULONG
+declare function ldap_modrdn_sW(byval ExternalHandle as LDAP ptr, byval DistinguishedName as const PWCHAR, byval NewDistinguishedName as const PWCHAR) as ULONG
+declare function ldap_modrdn_sA(byval ExternalHandle as LDAP ptr, byval DistinguishedName as const PCHAR, byval NewDistinguishedName as const PCHAR) as ULONG
 
 #ifdef UNICODE
 	#define ldap_modrdn2 ldap_modrdn2W
@@ -611,16 +609,16 @@ declare function ldap_modrdn_sA(byval ExternalHandle as LDAP_ ptr, byval Disting
 	#define ldap_modrdn2_s ldap_modrdn2_sW
 	#define ldap_modrdn_s ldap_modrdn_sW
 #else
-	declare function ldap_modrdn2(byval ExternalHandle as LDAP_ ptr, byval DistinguishedName as const PCHAR, byval NewDistinguishedName as const PCHAR, byval DeleteOldRdn as INT_) as ULONG
-	declare function ldap_modrdn(byval ExternalHandle as LDAP_ ptr, byval DistinguishedName as const PCHAR, byval NewDistinguishedName as const PCHAR) as ULONG
-	declare function ldap_modrdn2_s(byval ExternalHandle as LDAP_ ptr, byval DistinguishedName as const PCHAR, byval NewDistinguishedName as const PCHAR, byval DeleteOldRdn as INT_) as ULONG
-	declare function ldap_modrdn_s(byval ExternalHandle as LDAP_ ptr, byval DistinguishedName as const PCHAR, byval NewDistinguishedName as const PCHAR) as ULONG
+	declare function ldap_modrdn2(byval ExternalHandle as LDAP ptr, byval DistinguishedName as const PCHAR, byval NewDistinguishedName as const PCHAR, byval DeleteOldRdn as INT_) as ULONG
+	declare function ldap_modrdn(byval ExternalHandle as LDAP ptr, byval DistinguishedName as const PCHAR, byval NewDistinguishedName as const PCHAR) as ULONG
+	declare function ldap_modrdn2_s(byval ExternalHandle as LDAP ptr, byval DistinguishedName as const PCHAR, byval NewDistinguishedName as const PCHAR, byval DeleteOldRdn as INT_) as ULONG
+	declare function ldap_modrdn_s(byval ExternalHandle as LDAP ptr, byval DistinguishedName as const PCHAR, byval NewDistinguishedName as const PCHAR) as ULONG
 #endif
 
-declare function ldap_rename_extW(byval ld as LDAP_ ptr, byval dn as const PWCHAR, byval NewRDN as const PWCHAR, byval NewParent as const PWCHAR, byval DeleteOldRdn as INT_, byval ServerControls as PLDAPControlW ptr, byval ClientControls as PLDAPControlW ptr, byval MessageNumber as ULONG ptr) as ULONG
-declare function ldap_rename_extA(byval ld as LDAP_ ptr, byval dn as const PCHAR, byval NewRDN as const PCHAR, byval NewParent as const PCHAR, byval DeleteOldRdn as INT_, byval ServerControls as PLDAPControlA ptr, byval ClientControls as PLDAPControlA ptr, byval MessageNumber as ULONG ptr) as ULONG
-declare function ldap_rename_ext_sW(byval ld as LDAP_ ptr, byval dn as const PWCHAR, byval NewRDN as const PWCHAR, byval NewParent as const PWCHAR, byval DeleteOldRdn as INT_, byval ServerControls as PLDAPControlW ptr, byval ClientControls as PLDAPControlW ptr) as ULONG
-declare function ldap_rename_ext_sA(byval ld as LDAP_ ptr, byval dn as const PCHAR, byval NewRDN as const PCHAR, byval NewParent as const PCHAR, byval DeleteOldRdn as INT_, byval ServerControls as PLDAPControlA ptr, byval ClientControls as PLDAPControlA ptr) as ULONG
+declare function ldap_rename_extW(byval ld as LDAP ptr, byval dn as const PWCHAR, byval NewRDN as const PWCHAR, byval NewParent as const PWCHAR, byval DeleteOldRdn as INT_, byval ServerControls as PLDAPControlW ptr, byval ClientControls as PLDAPControlW ptr, byval MessageNumber as ULONG ptr) as ULONG
+declare function ldap_rename_extA(byval ld as LDAP ptr, byval dn as const PCHAR, byval NewRDN as const PCHAR, byval NewParent as const PCHAR, byval DeleteOldRdn as INT_, byval ServerControls as PLDAPControlA ptr, byval ClientControls as PLDAPControlA ptr, byval MessageNumber as ULONG ptr) as ULONG
+declare function ldap_rename_ext_sW(byval ld as LDAP ptr, byval dn as const PWCHAR, byval NewRDN as const PWCHAR, byval NewParent as const PWCHAR, byval DeleteOldRdn as INT_, byval ServerControls as PLDAPControlW ptr, byval ClientControls as PLDAPControlW ptr) as ULONG
+declare function ldap_rename_ext_sA(byval ld as LDAP ptr, byval dn as const PCHAR, byval NewRDN as const PCHAR, byval NewParent as const PCHAR, byval DeleteOldRdn as INT_, byval ServerControls as PLDAPControlA ptr, byval ClientControls as PLDAPControlA ptr) as ULONG
 
 #ifdef UNICODE
 	#define ldap_rename ldap_rename_extW
@@ -631,18 +629,18 @@ declare function ldap_rename_ext_sA(byval ld as LDAP_ ptr, byval dn as const PCH
 	#define ldap_rename ldap_rename_extA
 	#define ldap_rename_s ldap_rename_ext_sA
 
-	declare function ldap_rename_ext(byval ld as LDAP_ ptr, byval dn as const PCHAR, byval NewRDN as const PCHAR, byval NewParent as const PCHAR, byval DeleteOldRdn as INT_, byval ServerControls as PLDAPControlA ptr, byval ClientControls as PLDAPControlA ptr, byval MessageNumber as ULONG ptr) as ULONG
-	declare function ldap_rename_ext_s(byval ld as LDAP_ ptr, byval dn as const PCHAR, byval NewRDN as const PCHAR, byval NewParent as const PCHAR, byval DeleteOldRdn as INT_, byval ServerControls as PLDAPControlA ptr, byval ClientControls as PLDAPControlA ptr) as ULONG
+	declare function ldap_rename_ext(byval ld as LDAP ptr, byval dn as const PCHAR, byval NewRDN as const PCHAR, byval NewParent as const PCHAR, byval DeleteOldRdn as INT_, byval ServerControls as PLDAPControlA ptr, byval ClientControls as PLDAPControlA ptr, byval MessageNumber as ULONG ptr) as ULONG
+	declare function ldap_rename_ext_s(byval ld as LDAP ptr, byval dn as const PCHAR, byval NewRDN as const PCHAR, byval NewParent as const PCHAR, byval DeleteOldRdn as INT_, byval ServerControls as PLDAPControlA ptr, byval ClientControls as PLDAPControlA ptr) as ULONG
 #endif
 
-declare function ldap_addW(byval ld as LDAP_ ptr, byval dn as PWCHAR, byval attrs as LDAPModW_ ptr ptr) as ULONG
-declare function ldap_addA(byval ld as LDAP_ ptr, byval dn as PCHAR, byval attrs as LDAPModA_ ptr ptr) as ULONG
-declare function ldap_add_sW(byval ld as LDAP_ ptr, byval dn as PWCHAR, byval attrs as LDAPModW_ ptr ptr) as ULONG
-declare function ldap_add_sA(byval ld as LDAP_ ptr, byval dn as PCHAR, byval attrs as LDAPModA_ ptr ptr) as ULONG
-declare function ldap_add_extW(byval ld as LDAP_ ptr, byval dn as const PWCHAR, byval attrs as LDAPModW_ ptr ptr, byval ServerControls as PLDAPControlW ptr, byval ClientControls as PLDAPControlW ptr, byval MessageNumber as ULONG ptr) as ULONG
-declare function ldap_add_extA(byval ld as LDAP_ ptr, byval dn as const PCHAR, byval attrs as LDAPModA_ ptr ptr, byval ServerControls as PLDAPControlA ptr, byval ClientControls as PLDAPControlA ptr, byval MessageNumber as ULONG ptr) as ULONG
-declare function ldap_add_ext_sW(byval ld as LDAP_ ptr, byval dn as const PWCHAR, byval attrs as LDAPModW_ ptr ptr, byval ServerControls as PLDAPControlW ptr, byval ClientControls as PLDAPControlW ptr) as ULONG
-declare function ldap_add_ext_sA(byval ld as LDAP_ ptr, byval dn as const PCHAR, byval attrs as LDAPModA_ ptr ptr, byval ServerControls as PLDAPControlA ptr, byval ClientControls as PLDAPControlA ptr) as ULONG
+declare function ldap_addW(byval ld as LDAP ptr, byval dn as PWCHAR, byval attrs as LDAPModW_ ptr ptr) as ULONG
+declare function ldap_addA(byval ld as LDAP ptr, byval dn as PCHAR, byval attrs as LDAPModA_ ptr ptr) as ULONG
+declare function ldap_add_sW(byval ld as LDAP ptr, byval dn as PWCHAR, byval attrs as LDAPModW_ ptr ptr) as ULONG
+declare function ldap_add_sA(byval ld as LDAP ptr, byval dn as PCHAR, byval attrs as LDAPModA_ ptr ptr) as ULONG
+declare function ldap_add_extW(byval ld as LDAP ptr, byval dn as const PWCHAR, byval attrs as LDAPModW_ ptr ptr, byval ServerControls as PLDAPControlW ptr, byval ClientControls as PLDAPControlW ptr, byval MessageNumber as ULONG ptr) as ULONG
+declare function ldap_add_extA(byval ld as LDAP ptr, byval dn as const PCHAR, byval attrs as LDAPModA_ ptr ptr, byval ServerControls as PLDAPControlA ptr, byval ClientControls as PLDAPControlA ptr, byval MessageNumber as ULONG ptr) as ULONG
+declare function ldap_add_ext_sW(byval ld as LDAP ptr, byval dn as const PWCHAR, byval attrs as LDAPModW_ ptr ptr, byval ServerControls as PLDAPControlW ptr, byval ClientControls as PLDAPControlW ptr) as ULONG
+declare function ldap_add_ext_sA(byval ld as LDAP ptr, byval dn as const PCHAR, byval attrs as LDAPModA_ ptr ptr, byval ServerControls as PLDAPControlA ptr, byval ClientControls as PLDAPControlA ptr) as ULONG
 
 #ifdef UNICODE
 	#define ldap_add ldap_addW
@@ -650,46 +648,46 @@ declare function ldap_add_ext_sA(byval ld as LDAP_ ptr, byval dn as const PCHAR,
 	#define ldap_add_ext ldap_add_extW
 	#define ldap_add_ext_s ldap_add_ext_sW
 #else
-	declare function ldap_add(byval ld as LDAP_ ptr, byval dn as PCHAR, byval attrs as LDAPModA_ ptr ptr) as ULONG
-	declare function ldap_add_s(byval ld as LDAP_ ptr, byval dn as PCHAR, byval attrs as LDAPModA_ ptr ptr) as ULONG
-	declare function ldap_add_ext(byval ld as LDAP_ ptr, byval dn as const PCHAR, byval attrs as LDAPModA_ ptr ptr, byval ServerControls as PLDAPControlA ptr, byval ClientControls as PLDAPControlA ptr, byval MessageNumber as ULONG ptr) as ULONG
-	declare function ldap_add_ext_s(byval ld as LDAP_ ptr, byval dn as const PCHAR, byval attrs as LDAPModA_ ptr ptr, byval ServerControls as PLDAPControlA ptr, byval ClientControls as PLDAPControlA ptr) as ULONG
+	declare function ldap_add(byval ld as LDAP ptr, byval dn as PCHAR, byval attrs as LDAPModA_ ptr ptr) as ULONG
+	declare function ldap_add_s(byval ld as LDAP ptr, byval dn as PCHAR, byval attrs as LDAPModA_ ptr ptr) as ULONG
+	declare function ldap_add_ext(byval ld as LDAP ptr, byval dn as const PCHAR, byval attrs as LDAPModA_ ptr ptr, byval ServerControls as PLDAPControlA ptr, byval ClientControls as PLDAPControlA ptr, byval MessageNumber as ULONG ptr) as ULONG
+	declare function ldap_add_ext_s(byval ld as LDAP ptr, byval dn as const PCHAR, byval attrs as LDAPModA_ ptr ptr, byval ServerControls as PLDAPControlA ptr, byval ClientControls as PLDAPControlA ptr) as ULONG
 #endif
 
-declare function ldap_compareW(byval ld as LDAP_ ptr, byval dn as const PWCHAR, byval attr as const PWCHAR, byval value as PWCHAR) as ULONG
-declare function ldap_compareA(byval ld as LDAP_ ptr, byval dn as const PCHAR, byval attr as const PCHAR, byval value as PCHAR) as ULONG
-declare function ldap_compare_sW(byval ld as LDAP_ ptr, byval dn as const PWCHAR, byval attr as const PWCHAR, byval value as PWCHAR) as ULONG
-declare function ldap_compare_sA(byval ld as LDAP_ ptr, byval dn as const PCHAR, byval attr as const PCHAR, byval value as PCHAR) as ULONG
+declare function ldap_compareW(byval ld as LDAP ptr, byval dn as const PWCHAR, byval attr as const PWCHAR, byval value as PWCHAR) as ULONG
+declare function ldap_compareA(byval ld as LDAP ptr, byval dn as const PCHAR, byval attr as const PCHAR, byval value as PCHAR) as ULONG
+declare function ldap_compare_sW(byval ld as LDAP ptr, byval dn as const PWCHAR, byval attr as const PWCHAR, byval value as PWCHAR) as ULONG
+declare function ldap_compare_sA(byval ld as LDAP ptr, byval dn as const PCHAR, byval attr as const PCHAR, byval value as PCHAR) as ULONG
 
 #ifdef UNICODE
 	#define ldap_compare ldap_compareW
 	#define ldap_compare_s ldap_compare_sW
 #else
-	declare function ldap_compare(byval ld as LDAP_ ptr, byval dn as const PCHAR, byval attr as const PCHAR, byval value as PCHAR) as ULONG
-	declare function ldap_compare_s(byval ld as LDAP_ ptr, byval dn as const PCHAR, byval attr as const PCHAR, byval value as PCHAR) as ULONG
+	declare function ldap_compare(byval ld as LDAP ptr, byval dn as const PCHAR, byval attr as const PCHAR, byval value as PCHAR) as ULONG
+	declare function ldap_compare_s(byval ld as LDAP ptr, byval dn as const PCHAR, byval attr as const PCHAR, byval value as PCHAR) as ULONG
 #endif
 
-declare function ldap_compare_extW(byval ld as LDAP_ ptr, byval dn as const PWCHAR, byval Attr as const PWCHAR, byval Value as const PWCHAR, byval Data_ as berval ptr, byval ServerControls as PLDAPControlW ptr, byval ClientControls as PLDAPControlW ptr, byval MessageNumber as ULONG ptr) as ULONG
-declare function ldap_compare_extA(byval ld as LDAP_ ptr, byval dn as const PCHAR, byval Attr as const PCHAR, byval Value as const PCHAR, byval Data_ as berval ptr, byval ServerControls as PLDAPControlA ptr, byval ClientControls as PLDAPControlA ptr, byval MessageNumber as ULONG ptr) as ULONG
-declare function ldap_compare_ext_sW(byval ld as LDAP_ ptr, byval dn as const PWCHAR, byval Attr as const PWCHAR, byval Value as const PWCHAR, byval Data_ as berval ptr, byval ServerControls as PLDAPControlW ptr, byval ClientControls as PLDAPControlW ptr) as ULONG
-declare function ldap_compare_ext_sA(byval ld as LDAP_ ptr, byval dn as const PCHAR, byval Attr as const PCHAR, byval Value as const PCHAR, byval Data_ as berval ptr, byval ServerControls as PLDAPControlA ptr, byval ClientControls as PLDAPControlA ptr) as ULONG
+declare function ldap_compare_extW(byval ld as LDAP ptr, byval dn as const PWCHAR, byval Attr as const PWCHAR, byval Value as const PWCHAR, byval Data_ as berval ptr, byval ServerControls as PLDAPControlW ptr, byval ClientControls as PLDAPControlW ptr, byval MessageNumber as ULONG ptr) as ULONG
+declare function ldap_compare_extA(byval ld as LDAP ptr, byval dn as const PCHAR, byval Attr as const PCHAR, byval Value as const PCHAR, byval Data_ as berval ptr, byval ServerControls as PLDAPControlA ptr, byval ClientControls as PLDAPControlA ptr, byval MessageNumber as ULONG ptr) as ULONG
+declare function ldap_compare_ext_sW(byval ld as LDAP ptr, byval dn as const PWCHAR, byval Attr as const PWCHAR, byval Value as const PWCHAR, byval Data_ as berval ptr, byval ServerControls as PLDAPControlW ptr, byval ClientControls as PLDAPControlW ptr) as ULONG
+declare function ldap_compare_ext_sA(byval ld as LDAP ptr, byval dn as const PCHAR, byval Attr as const PCHAR, byval Value as const PCHAR, byval Data_ as berval ptr, byval ServerControls as PLDAPControlA ptr, byval ClientControls as PLDAPControlA ptr) as ULONG
 
 #ifdef UNICODE
 	#define ldap_compare_ext ldap_compare_extW
 	#define ldap_compare_ext_s ldap_compare_ext_sW
 #else
-	declare function ldap_compare_ext(byval ld as LDAP_ ptr, byval dn as const PCHAR, byval Attr as const PCHAR, byval Value as const PCHAR, byval Data_ as berval ptr, byval ServerControls as PLDAPControlA ptr, byval ClientControls as PLDAPControlA ptr, byval MessageNumber as ULONG ptr) as ULONG
-	declare function ldap_compare_ext_s(byval ld as LDAP_ ptr, byval dn as const PCHAR, byval Attr as const PCHAR, byval Value as const PCHAR, byval Data_ as berval ptr, byval ServerControls as PLDAPControlA ptr, byval ClientControls as PLDAPControlA ptr) as ULONG
+	declare function ldap_compare_ext(byval ld as LDAP ptr, byval dn as const PCHAR, byval Attr as const PCHAR, byval Value as const PCHAR, byval Data_ as berval ptr, byval ServerControls as PLDAPControlA ptr, byval ClientControls as PLDAPControlA ptr, byval MessageNumber as ULONG ptr) as ULONG
+	declare function ldap_compare_ext_s(byval ld as LDAP ptr, byval dn as const PCHAR, byval Attr as const PCHAR, byval Value as const PCHAR, byval Data_ as berval ptr, byval ServerControls as PLDAPControlA ptr, byval ClientControls as PLDAPControlA ptr) as ULONG
 #endif
 
-declare function ldap_deleteW(byval ld as LDAP_ ptr, byval dn as const PWCHAR) as ULONG
-declare function ldap_deleteA(byval ld as LDAP_ ptr, byval dn as const PCHAR) as ULONG
-declare function ldap_delete_sW(byval ld as LDAP_ ptr, byval dn as const PWCHAR) as ULONG
-declare function ldap_delete_sA(byval ld as LDAP_ ptr, byval dn as const PCHAR) as ULONG
-declare function ldap_delete_extW(byval ld as LDAP_ ptr, byval dn as const PWCHAR, byval ServerControls as PLDAPControlW ptr, byval ClientControls as PLDAPControlW ptr, byval MessageNumber as ULONG ptr) as ULONG
-declare function ldap_delete_extA(byval ld as LDAP_ ptr, byval dn as const PCHAR, byval ServerControls as PLDAPControlA ptr, byval ClientControls as PLDAPControlA ptr, byval MessageNumber as ULONG ptr) as ULONG
-declare function ldap_delete_ext_sW(byval ld as LDAP_ ptr, byval dn as const PWCHAR, byval ServerControls as PLDAPControlW ptr, byval ClientControls as PLDAPControlW ptr) as ULONG
-declare function ldap_delete_ext_sA(byval ld as LDAP_ ptr, byval dn as const PCHAR, byval ServerControls as PLDAPControlA ptr, byval ClientControls as PLDAPControlA ptr) as ULONG
+declare function ldap_deleteW(byval ld as LDAP ptr, byval dn as const PWCHAR) as ULONG
+declare function ldap_deleteA(byval ld as LDAP ptr, byval dn as const PCHAR) as ULONG
+declare function ldap_delete_sW(byval ld as LDAP ptr, byval dn as const PWCHAR) as ULONG
+declare function ldap_delete_sA(byval ld as LDAP ptr, byval dn as const PCHAR) as ULONG
+declare function ldap_delete_extW(byval ld as LDAP ptr, byval dn as const PWCHAR, byval ServerControls as PLDAPControlW ptr, byval ClientControls as PLDAPControlW ptr, byval MessageNumber as ULONG ptr) as ULONG
+declare function ldap_delete_extA(byval ld as LDAP ptr, byval dn as const PCHAR, byval ServerControls as PLDAPControlA ptr, byval ClientControls as PLDAPControlA ptr, byval MessageNumber as ULONG ptr) as ULONG
+declare function ldap_delete_ext_sW(byval ld as LDAP ptr, byval dn as const PWCHAR, byval ServerControls as PLDAPControlW ptr, byval ClientControls as PLDAPControlW ptr) as ULONG
+declare function ldap_delete_ext_sA(byval ld as LDAP ptr, byval dn as const PCHAR, byval ServerControls as PLDAPControlA ptr, byval ClientControls as PLDAPControlA ptr) as ULONG
 
 #ifdef UNICODE
 	#define ldap_delete ldap_deleteW
@@ -697,25 +695,25 @@ declare function ldap_delete_ext_sA(byval ld as LDAP_ ptr, byval dn as const PCH
 	#define ldap_delete_s ldap_delete_sW
 	#define ldap_delete_ext_s ldap_delete_ext_sW
 #else
-	declare function ldap_delete(byval ld as LDAP_ ptr, byval dn as PCHAR) as ULONG
-	declare function ldap_delete_s(byval ld as LDAP_ ptr, byval dn as PCHAR) as ULONG
-	declare function ldap_delete_ext(byval ld as LDAP_ ptr, byval dn as const PCHAR, byval ServerControls as PLDAPControlA ptr, byval ClientControls as PLDAPControlA ptr, byval MessageNumber as ULONG ptr) as ULONG
-	declare function ldap_delete_ext_s(byval ld as LDAP_ ptr, byval dn as const PCHAR, byval ServerControls as PLDAPControlA ptr, byval ClientControls as PLDAPControlA ptr) as ULONG
+	declare function ldap_delete(byval ld as LDAP ptr, byval dn as PCHAR) as ULONG
+	declare function ldap_delete_s(byval ld as LDAP ptr, byval dn as PCHAR) as ULONG
+	declare function ldap_delete_ext(byval ld as LDAP ptr, byval dn as const PCHAR, byval ServerControls as PLDAPControlA ptr, byval ClientControls as PLDAPControlA ptr, byval MessageNumber as ULONG ptr) as ULONG
+	declare function ldap_delete_ext_s(byval ld as LDAP ptr, byval dn as const PCHAR, byval ServerControls as PLDAPControlA ptr, byval ClientControls as PLDAPControlA ptr) as ULONG
 #endif
 
-declare function ldap_abandon(byval ld as LDAP_ ptr, byval msgid as ULONG) as ULONG
+declare function ldap_abandon(byval ld as LDAP ptr, byval msgid as ULONG) as ULONG
 
 #define LDAP_MSG_ONE 0
 #define LDAP_MSG_ALL 1
 #define LDAP_MSG_RECEIVED 2
 
-declare function ldap_result(byval ld as LDAP_ ptr, byval msgid as ULONG, byval all as ULONG, byval timeout as l_timeval ptr, byval res as LDAPMessage ptr ptr) as ULONG
+declare function ldap_result(byval ld as LDAP ptr, byval msgid as ULONG, byval all as ULONG, byval timeout as l_timeval ptr, byval res as LDAPMessage ptr ptr) as ULONG
 declare function ldap_msgfree(byval res as LDAPMessage ptr) as ULONG
-declare function ldap_result2error(byval ld as LDAP_ ptr, byval res as LDAPMessage ptr, byval freeit as ULONG) as ULONG
-declare function ldap_parse_resultW(byval Connection as LDAP_ ptr, byval ResultMessage as LDAPMessage ptr, byval ReturnCode as ULONG ptr, byval MatchedDNs as PWCHAR ptr, byval ErrorMessage as PWCHAR ptr, byval Referrals as PWCHAR ptr ptr, byval ServerControls as PLDAPControlW ptr ptr, byval Freeit as BOOLEAN) as ULONG
-declare function ldap_parse_resultA(byval Connection as LDAP_ ptr, byval ResultMessage as LDAPMessage ptr, byval ReturnCode as ULONG ptr, byval MatchedDNs as PCHAR ptr, byval ErrorMessage as PCHAR ptr, byval Referrals as PCHAR ptr ptr, byval ServerControls as PLDAPControlA ptr ptr, byval Freeit as BOOLEAN) as ULONG
-declare function ldap_parse_extended_resultA(byval Connection as LDAP_ ptr, byval ResultMessage as LDAPMessage ptr, byval ResultOID as PCHAR ptr, byval ResultData as berval ptr ptr, byval Freeit as BOOLEAN) as ULONG
-declare function ldap_parse_extended_resultW(byval Connection as LDAP_ ptr, byval ResultMessage as LDAPMessage ptr, byval ResultOID as PWCHAR ptr, byval ResultData as berval ptr ptr, byval Freeit as BOOLEAN) as ULONG
+declare function ldap_result2error(byval ld as LDAP ptr, byval res as LDAPMessage ptr, byval freeit as ULONG) as ULONG
+declare function ldap_parse_resultW(byval Connection as LDAP ptr, byval ResultMessage as LDAPMessage ptr, byval ReturnCode as ULONG ptr, byval MatchedDNs as PWCHAR ptr, byval ErrorMessage as PWCHAR ptr, byval Referrals as PWCHAR ptr ptr, byval ServerControls as PLDAPControlW ptr ptr, byval Freeit as BOOLEAN) as ULONG
+declare function ldap_parse_resultA(byval Connection as LDAP ptr, byval ResultMessage as LDAPMessage ptr, byval ReturnCode as ULONG ptr, byval MatchedDNs as PCHAR ptr, byval ErrorMessage as PCHAR ptr, byval Referrals as PCHAR ptr ptr, byval ServerControls as PLDAPControlA ptr ptr, byval Freeit as BOOLEAN) as ULONG
+declare function ldap_parse_extended_resultA(byval Connection as LDAP ptr, byval ResultMessage as LDAPMessage ptr, byval ResultOID as PCHAR ptr, byval ResultData as berval ptr ptr, byval Freeit as BOOLEAN) as ULONG
+declare function ldap_parse_extended_resultW(byval Connection as LDAP ptr, byval ResultMessage as LDAPMessage ptr, byval ResultOID as PWCHAR ptr, byval ResultData as berval ptr ptr, byval Freeit as BOOLEAN) as ULONG
 declare function ldap_controls_freeA(byval Controls as LDAPControlA_ ptr ptr) as ULONG
 declare function ldap_control_freeA(byval Controls as LDAPControlA_ ptr) as ULONG
 declare function ldap_controls_freeW(byval Control as LDAPControlW_ ptr ptr) as ULONG
@@ -732,7 +730,7 @@ declare function ldap_free_controlsA(byval Controls as LDAPControlA_ ptr ptr) as
 #else
 	#define ldap_parse_extended_result ldap_parse_extended_resultA
 
-	declare function ldap_parse_result(byval Connection as LDAP_ ptr, byval ResultMessage as LDAPMessage ptr, byval ReturnCode as ULONG ptr, byval MatchedDNs as PCHAR ptr, byval ErrorMessage as PCHAR ptr, byval Referrals as PCHAR ptr ptr, byval ServerControls as PLDAPControlA ptr ptr, byval Freeit as BOOLEAN) as ULONG
+	declare function ldap_parse_result(byval Connection as LDAP ptr, byval ResultMessage as LDAPMessage ptr, byval ReturnCode as ULONG ptr, byval MatchedDNs as PCHAR ptr, byval ErrorMessage as PCHAR ptr, byval Referrals as PCHAR ptr ptr, byval ServerControls as PLDAPControlA ptr ptr, byval Freeit as BOOLEAN) as ULONG
 	declare function ldap_controls_free(byval Controls as LDAPControlA_ ptr ptr) as ULONG
 	declare function ldap_control_free(byval Control as LDAPControlA_ ptr) as ULONG
 	declare function ldap_free_controls(byval Controls as LDAPControlA_ ptr ptr) as ULONG
@@ -747,10 +745,10 @@ declare function ldap_err2stringA(byval err_ as ULONG) as PCHAR
 	declare function ldap_err2string(byval err_ as ULONG) as PCHAR
 #endif
 
-declare sub ldap_perror(byval ld as LDAP_ ptr, byval msg as const PCHAR)
-declare function ldap_first_entry(byval ld as LDAP_ ptr, byval res as LDAPMessage ptr) as LDAPMessage ptr
-declare function ldap_next_entry(byval ld as LDAP_ ptr, byval entry as LDAPMessage ptr) as LDAPMessage ptr
-declare function ldap_count_entries(byval ld as LDAP_ ptr, byval res as LDAPMessage ptr) as ULONG
+declare sub ldap_perror(byval ld as LDAP ptr, byval msg as const PCHAR)
+declare function ldap_first_entry(byval ld as LDAP ptr, byval res as LDAPMessage ptr) as LDAPMessage ptr
+declare function ldap_next_entry(byval ld as LDAP ptr, byval entry as LDAPMessage ptr) as LDAPMessage ptr
+declare function ldap_count_entries(byval ld as LDAP ptr, byval res as LDAPMessage ptr) as ULONG
 
 type berelement
 	opaque_ as PCHAR
@@ -760,40 +758,40 @@ type BerElement_ as berelement
 
 #define NULLBER cptr(BerElement_ ptr, 0)
 
-declare function ldap_first_attributeW(byval ld as LDAP_ ptr, byval entry as LDAPMessage ptr, byval ptr_ as BerElement_ ptr ptr) as PWCHAR
-declare function ldap_first_attributeA(byval ld as LDAP_ ptr, byval entry as LDAPMessage ptr, byval ptr_ as BerElement_ ptr ptr) as PCHAR
+declare function ldap_first_attributeW(byval ld as LDAP ptr, byval entry as LDAPMessage ptr, byval ptr_ as BerElement_ ptr ptr) as PWCHAR
+declare function ldap_first_attributeA(byval ld as LDAP ptr, byval entry as LDAPMessage ptr, byval ptr_ as BerElement_ ptr ptr) as PCHAR
 
 #ifdef UNICODE
 	#define ldap_first_attribute ldap_first_attributeW
 #else
-	declare function ldap_first_attribute(byval ld as LDAP_ ptr, byval entry as LDAPMessage ptr, byval ptr_ as BerElement_ ptr ptr) as PCHAR
+	declare function ldap_first_attribute(byval ld as LDAP ptr, byval entry as LDAPMessage ptr, byval ptr_ as BerElement_ ptr ptr) as PCHAR
 #endif
 
-declare function ldap_next_attributeW(byval ld as LDAP_ ptr, byval entry as LDAPMessage ptr, byval ptr_ as BerElement_ ptr) as PWCHAR
-declare function ldap_next_attributeA(byval ld as LDAP_ ptr, byval entry as LDAPMessage ptr, byval ptr_ as BerElement_ ptr) as PCHAR
+declare function ldap_next_attributeW(byval ld as LDAP ptr, byval entry as LDAPMessage ptr, byval ptr_ as BerElement_ ptr) as PWCHAR
+declare function ldap_next_attributeA(byval ld as LDAP ptr, byval entry as LDAPMessage ptr, byval ptr_ as BerElement_ ptr) as PCHAR
 
 #ifdef UNICODE
 	#define ldap_next_attribute ldap_next_attributeW
 #else
-	declare function ldap_next_attribute(byval ld as LDAP_ ptr, byval entry as LDAPMessage ptr, byval ptr_ as BerElement_ ptr) as PCHAR
+	declare function ldap_next_attribute(byval ld as LDAP ptr, byval entry as LDAPMessage ptr, byval ptr_ as BerElement_ ptr) as PCHAR
 #endif
 
-declare function ldap_get_valuesW(byval ld as LDAP_ ptr, byval entry as LDAPMessage ptr, byval attr as const PWCHAR) as PWCHAR ptr
-declare function ldap_get_valuesA(byval ld as LDAP_ ptr, byval entry as LDAPMessage ptr, byval attr as const PCHAR) as PCHAR ptr
+declare function ldap_get_valuesW(byval ld as LDAP ptr, byval entry as LDAPMessage ptr, byval attr as const PWCHAR) as PWCHAR ptr
+declare function ldap_get_valuesA(byval ld as LDAP ptr, byval entry as LDAPMessage ptr, byval attr as const PCHAR) as PCHAR ptr
 
 #ifdef UNICODE
 	#define ldap_get_values ldap_get_valuesW
 #else
-	declare function ldap_get_values(byval ld as LDAP_ ptr, byval entry as LDAPMessage ptr, byval attr as const PCHAR) as PCHAR ptr
+	declare function ldap_get_values(byval ld as LDAP ptr, byval entry as LDAPMessage ptr, byval attr as const PCHAR) as PCHAR ptr
 #endif
 
-declare function ldap_get_values_lenW(byval ExternalHandle as LDAP_ ptr, byval Message as LDAPMessage ptr, byval attr as const PWCHAR) as berval ptr ptr
-declare function ldap_get_values_lenA(byval ExternalHandle as LDAP_ ptr, byval Message as LDAPMessage ptr, byval attr as const PCHAR) as berval ptr ptr
+declare function ldap_get_values_lenW(byval ExternalHandle as LDAP ptr, byval Message as LDAPMessage ptr, byval attr as const PWCHAR) as berval ptr ptr
+declare function ldap_get_values_lenA(byval ExternalHandle as LDAP ptr, byval Message as LDAPMessage ptr, byval attr as const PCHAR) as berval ptr ptr
 
 #ifdef UNICODE
 	#define ldap_get_values_len ldap_get_values_lenW
 #else
-	declare function ldap_get_values_len(byval ExternalHandle as LDAP_ ptr, byval Message as LDAPMessage ptr, byval attr as const PCHAR) as berval ptr ptr
+	declare function ldap_get_values_len(byval ExternalHandle as LDAP ptr, byval Message as LDAPMessage ptr, byval attr as const PCHAR) as berval ptr ptr
 #endif
 
 declare function ldap_count_valuesW(byval vals as PWCHAR ptr) as ULONG
@@ -816,13 +814,13 @@ declare function ldap_value_freeA(byval vals as PCHAR ptr) as ULONG
 #endif
 
 declare function ldap_value_free_len(byval vals as berval ptr ptr) as ULONG
-declare function ldap_get_dnW(byval ld as LDAP_ ptr, byval entry as LDAPMessage ptr) as PWCHAR
-declare function ldap_get_dnA(byval ld as LDAP_ ptr, byval entry as LDAPMessage ptr) as PCHAR
+declare function ldap_get_dnW(byval ld as LDAP ptr, byval entry as LDAPMessage ptr) as PWCHAR
+declare function ldap_get_dnA(byval ld as LDAP ptr, byval entry as LDAPMessage ptr) as PCHAR
 
 #ifdef UNICODE
 	#define ldap_get_dn ldap_get_dnW
 #else
-	declare function ldap_get_dn(byval ld as LDAP_ ptr, byval entry as LDAPMessage ptr) as PCHAR
+	declare function ldap_get_dn(byval ld as LDAP ptr, byval entry as LDAPMessage ptr) as PCHAR
 #endif
 
 declare function ldap_explode_dnW(byval dn as const PWCHAR, byval notypes as ULONG) as PWCHAR ptr
@@ -1088,33 +1086,33 @@ declare function ldap_stop_tls_s(byval ExternalHandle as PLDAP) as BOOLEAN
 #define LDAP_TTL_EXTENDED_OP_OID "1.3.6.1.4.1.1466.101.119.1"
 #define LDAP_TTL_EXTENDED_OP_OID_W wstr("1.3.6.1.4.1.1466.101.119.1")
 
-declare function ldap_first_reference(byval ld as LDAP_ ptr, byval res as LDAPMessage ptr) as LDAPMessage ptr
-declare function ldap_next_reference(byval ld as LDAP_ ptr, byval entry as LDAPMessage ptr) as LDAPMessage ptr
-declare function ldap_count_references(byval ld as LDAP_ ptr, byval res as LDAPMessage ptr) as ULONG
-declare function ldap_parse_referenceW(byval Connection as LDAP_ ptr, byval ResultMessage as LDAPMessage ptr, byval Referrals as PWCHAR ptr ptr) as ULONG
-declare function ldap_parse_referenceA(byval Connection as LDAP_ ptr, byval ResultMessage as LDAPMessage ptr, byval Referrals as PCHAR ptr ptr) as ULONG
+declare function ldap_first_reference(byval ld as LDAP ptr, byval res as LDAPMessage ptr) as LDAPMessage ptr
+declare function ldap_next_reference(byval ld as LDAP ptr, byval entry as LDAPMessage ptr) as LDAPMessage ptr
+declare function ldap_count_references(byval ld as LDAP ptr, byval res as LDAPMessage ptr) as ULONG
+declare function ldap_parse_referenceW(byval Connection as LDAP ptr, byval ResultMessage as LDAPMessage ptr, byval Referrals as PWCHAR ptr ptr) as ULONG
+declare function ldap_parse_referenceA(byval Connection as LDAP ptr, byval ResultMessage as LDAPMessage ptr, byval Referrals as PCHAR ptr ptr) as ULONG
 
 #ifdef UNICODE
 	#define ldap_parse_reference ldap_parse_referenceW
 #else
-	declare function ldap_parse_reference(byval Connection as LDAP_ ptr, byval ResultMessage as LDAPMessage ptr, byval Referrals as PCHAR ptr ptr) as ULONG
+	declare function ldap_parse_reference(byval Connection as LDAP ptr, byval ResultMessage as LDAPMessage ptr, byval Referrals as PCHAR ptr ptr) as ULONG
 #endif
 
-declare function ldap_extended_operationW(byval ld as LDAP_ ptr, byval Oid as const PWCHAR, byval Data_ as berval ptr, byval ServerControls as PLDAPControlW ptr, byval ClientControls as PLDAPControlW ptr, byval MessageNumber as ULONG ptr) as ULONG
-declare function ldap_extended_operationA(byval ld as LDAP_ ptr, byval Oid as const PCHAR, byval Data_ as berval ptr, byval ServerControls as PLDAPControlA ptr, byval ClientControls as PLDAPControlA ptr, byval MessageNumber as ULONG ptr) as ULONG
-declare function ldap_extended_operation_sA(byval ExternalHandle as LDAP_ ptr, byval Oid as PCHAR, byval Data_ as berval ptr, byval ServerControls as PLDAPControlA ptr, byval ClientControls as PLDAPControlA ptr, byval ReturnedOid as PCHAR ptr, byval ReturnedData as berval ptr ptr) as ULONG
-declare function ldap_extended_operation_sW(byval ExternalHandle as LDAP_ ptr, byval Oid as PWCHAR, byval Data_ as berval ptr, byval ServerControls as PLDAPControlW ptr, byval ClientControls as PLDAPControlW ptr, byval ReturnedOid as PWCHAR ptr, byval ReturnedData as berval ptr ptr) as ULONG
+declare function ldap_extended_operationW(byval ld as LDAP ptr, byval Oid as const PWCHAR, byval Data_ as berval ptr, byval ServerControls as PLDAPControlW ptr, byval ClientControls as PLDAPControlW ptr, byval MessageNumber as ULONG ptr) as ULONG
+declare function ldap_extended_operationA(byval ld as LDAP ptr, byval Oid as const PCHAR, byval Data_ as berval ptr, byval ServerControls as PLDAPControlA ptr, byval ClientControls as PLDAPControlA ptr, byval MessageNumber as ULONG ptr) as ULONG
+declare function ldap_extended_operation_sA(byval ExternalHandle as LDAP ptr, byval Oid as PCHAR, byval Data_ as berval ptr, byval ServerControls as PLDAPControlA ptr, byval ClientControls as PLDAPControlA ptr, byval ReturnedOid as PCHAR ptr, byval ReturnedData as berval ptr ptr) as ULONG
+declare function ldap_extended_operation_sW(byval ExternalHandle as LDAP ptr, byval Oid as PWCHAR, byval Data_ as berval ptr, byval ServerControls as PLDAPControlW ptr, byval ClientControls as PLDAPControlW ptr, byval ReturnedOid as PWCHAR ptr, byval ReturnedData as berval ptr ptr) as ULONG
 
 #ifdef UNICODE
 	#define ldap_extended_operation ldap_extended_operationW
 	#define ldap_extended_operation_s ldap_extended_operation_sW
 #else
-	declare function ldap_extended_operation(byval ld as LDAP_ ptr, byval Oid as const PCHAR, byval Data_ as berval ptr, byval ServerControls as PLDAPControlA ptr, byval ClientControls as PLDAPControlA ptr, byval MessageNumber as ULONG ptr) as ULONG
+	declare function ldap_extended_operation(byval ld as LDAP ptr, byval Oid as const PCHAR, byval Data_ as berval ptr, byval ServerControls as PLDAPControlA ptr, byval ClientControls as PLDAPControlA ptr, byval MessageNumber as ULONG ptr) as ULONG
 
 	#define ldap_extended_operation_s ldap_extended_operation_sA
 #endif
 
-declare function ldap_close_extended_op(byval ld as LDAP_ ptr, byval MessageNumber as ULONG) as ULONG
+declare function ldap_close_extended_op(byval ld as LDAP ptr, byval MessageNumber as ULONG) as ULONG
 
 #define LDAP_OPT_REFERRAL_CALLBACK &h70
 
@@ -1135,6 +1133,6 @@ declare function LdapMapErrorToWin32(byval LdapError as ULONG) as ULONG
 #define LDAP_OPT_SERVER_CERTIFICATE &h81
 #define LDAP_OPT_REF_DEREF_CONN_PER_MSG &h94
 
-declare function ldap_conn_from_msg(byval PrimaryConn as LDAP_ ptr, byval res as LDAPMessage ptr) as LDAP_ ptr
+declare function ldap_conn_from_msg(byval PrimaryConn as LDAP ptr, byval res as LDAPMessage ptr) as LDAP ptr
 
 end extern
