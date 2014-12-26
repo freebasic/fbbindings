@@ -327,18 +327,12 @@ type PCOBJECT_ATTRIBUTES as const OBJECT_ATTRIBUTES ptr
 #define OBJ_VALID_ATTRIBUTES &h000007F2
 #macro InitializeObjectAttributes(p, n, a, r, s)
 	scope
-		(p)->Length
-		'' TODO: (p)->Length = sizeof(OBJECT_ATTRIBUTES);
-		(p)->RootDirectory
-		'' TODO: (p)->RootDirectory = (r);
-		(p)->Attributes
-		'' TODO: (p)->Attributes = (a);
-		(p)->ObjectName
-		'' TODO: (p)->ObjectName = (n);
-		(p)->SecurityDescriptor
-		'' TODO: (p)->SecurityDescriptor = (s);
-		(p)->SecurityQualityOfService
-		'' TODO: (p)->SecurityQualityOfService = NULL;
+		(p)->Length = sizeof(OBJECT_ATTRIBUTES)
+		(p)->RootDirectory = (r)
+		(p)->Attributes = (a)
+		(p)->ObjectName = (n)
+		(p)->SecurityDescriptor = (s)
+		(p)->SecurityQualityOfService = NULL
 	end scope
 #endmacro
 
