@@ -2438,7 +2438,12 @@ type LPFINDINFOW as tagLVFINDINFOW ptr
 #define LVIR_LABEL 2
 #define LVIR_SELECTBOUNDS 3
 #define LVM_GETITEMRECT (LVM_FIRST + 14)
-#define ListView_GetItemRect(hwnd, i, prc, code) '' TODO: (WINBOOL)SNDMSG((hwnd),LVM_GETITEMRECT,(WPARAM)(int)(i),((prc) ? (((RECT *)(prc))->left = (code),(LPARAM)(RECT *)(prc)) : (LPARAM)(RECT *)NULL))
+private function ListView_GetItemRect(byval hwnd as HWND, byval i as long, byval prc as RECT ptr, byval code as long) as WINBOOL
+	if prc then
+		prc->left = code
+	end if
+	function = SNDMSG(hwnd, LVM_GETITEMRECT, cast(WPARAM, clng(i)), prc)
+end function
 #define LVM_SETITEMPOSITION (LVM_FIRST + 15)
 #define ListView_SetItemPosition(hwndLV, i, x, y) cast(WINBOOL, SNDMSG((hwndLV), LVM_SETITEMPOSITION, cast(WPARAM, clng((i))), MAKELPARAM((x), (y))))
 #define LVM_GETITEMPOSITION (LVM_FIRST + 16)
