@@ -2,9 +2,6 @@
 
 #include once "winsock2.bi"
 
-'' The following symbols have been renamed:
-''     typedef WSPDATA => WSPDATA_
-
 #ifdef __FB_64BIT__
 	extern "C"
 #else
@@ -20,7 +17,6 @@
 		szDescription as wstring * 255 + 1
 	end type
 
-	type WSPDATA_ as WSPData
 	type LPWSPDATA as WSPData ptr
 #endif
 
@@ -34,7 +30,6 @@
 		szDescription as wstring * 255 + 1
 	end type
 
-	type WSPDATA_ as WSPData
 	type LPWSPDATA as WSPData ptr
 
 	type _WSATHREADID

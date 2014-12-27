@@ -3197,7 +3197,7 @@ type IElementBehaviorRenderVtbl
 	Release as function(byval This as IElementBehaviorRender ptr) as ULONG
 	Draw as function(byval This as IElementBehaviorRender ptr, byval hdc as HDC, byval lLayer as LONG, byval pRect as RECT ptr, byval pReserved as IUnknown ptr) as HRESULT
 	GetRenderInfo as function(byval This as IElementBehaviorRender ptr, byval plRenderInfo as LONG ptr) as HRESULT
-	HitTestPoint as function(byval This as IElementBehaviorRender ptr, byval pPoint as POINT_ ptr, byval pReserved as IUnknown ptr, byval pbHit as WINBOOL ptr) as HRESULT
+	HitTestPoint as function(byval This as IElementBehaviorRender ptr, byval pPoint as POINT ptr, byval pReserved as IUnknown ptr, byval pbHit as WINBOOL ptr) as HRESULT
 end type
 
 type IElementBehaviorRender_
@@ -3208,7 +3208,7 @@ declare function IElementBehaviorRender_Draw_Proxy(byval This as IElementBehavio
 declare sub IElementBehaviorRender_Draw_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IElementBehaviorRender_GetRenderInfo_Proxy(byval This as IElementBehaviorRender ptr, byval plRenderInfo as LONG ptr) as HRESULT
 declare sub IElementBehaviorRender_GetRenderInfo_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IElementBehaviorRender_HitTestPoint_Proxy(byval This as IElementBehaviorRender ptr, byval pPoint as POINT_ ptr, byval pReserved as IUnknown ptr, byval pbHit as WINBOOL ptr) as HRESULT
+declare function IElementBehaviorRender_HitTestPoint_Proxy(byval This as IElementBehaviorRender ptr, byval pPoint as POINT ptr, byval pReserved as IUnknown ptr, byval pbHit as WINBOOL ptr) as HRESULT
 declare sub IElementBehaviorRender_HitTestPoint_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 
 #define __IElementBehaviorSiteRender_INTERFACE_DEFINED__
@@ -17830,7 +17830,7 @@ type IHTMLCaretVtbl
 	Hide as function(byval This as IHTMLCaret ptr) as HRESULT
 	InsertText as function(byval This as IHTMLCaret ptr, byval pText as wstring ptr, byval lLen as LONG) as HRESULT
 	ScrollIntoView as function(byval This as IHTMLCaret ptr) as HRESULT
-	GetLocation as function(byval This as IHTMLCaret ptr, byval pPoint as POINT_ ptr, byval fTranslate as WINBOOL) as HRESULT
+	GetLocation as function(byval This as IHTMLCaret ptr, byval pPoint as POINT ptr, byval fTranslate as WINBOOL) as HRESULT
 	GetCaretDirection as function(byval This as IHTMLCaret ptr, byval peDir as CARET_DIRECTION ptr) as HRESULT
 	SetCaretDirection as function(byval This as IHTMLCaret ptr, byval eDir as CARET_DIRECTION) as HRESULT
 end type
@@ -17857,7 +17857,7 @@ declare function IHTMLCaret_InsertText_Proxy(byval This as IHTMLCaret ptr, byval
 declare sub IHTMLCaret_InsertText_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IHTMLCaret_ScrollIntoView_Proxy(byval This as IHTMLCaret ptr) as HRESULT
 declare sub IHTMLCaret_ScrollIntoView_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IHTMLCaret_GetLocation_Proxy(byval This as IHTMLCaret ptr, byval pPoint as POINT_ ptr, byval fTranslate as WINBOOL) as HRESULT
+declare function IHTMLCaret_GetLocation_Proxy(byval This as IHTMLCaret ptr, byval pPoint as POINT ptr, byval fTranslate as WINBOOL) as HRESULT
 declare sub IHTMLCaret_GetLocation_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IHTMLCaret_GetCaretDirection_Proxy(byval This as IHTMLCaret ptr, byval peDir as CARET_DIRECTION ptr) as HRESULT
 declare sub IHTMLCaret_GetCaretDirection_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
@@ -17984,7 +17984,7 @@ type IDisplayPointerVtbl
 	QueryInterface as function(byval This as IDisplayPointer ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IDisplayPointer ptr) as ULONG
 	Release as function(byval This as IDisplayPointer ptr) as ULONG
-	MoveToPoint as function(byval This as IDisplayPointer ptr, byval ptPoint as POINT_, byval eCoordSystem as COORD_SYSTEM, byval pElementContext as IHTMLElement ptr, byval dwHitTestOptions as DWORD, byval pdwHitTestResults as DWORD ptr) as HRESULT
+	MoveToPoint as function(byval This as IDisplayPointer ptr, byval ptPoint as POINT, byval eCoordSystem as COORD_SYSTEM, byval pElementContext as IHTMLElement ptr, byval dwHitTestOptions as DWORD, byval pdwHitTestResults as DWORD ptr) as HRESULT
 	MoveUnit as function(byval This as IDisplayPointer ptr, byval eMoveUnit as DISPLAY_MOVEUNIT, byval lXPos as LONG) as HRESULT
 	PositionMarkupPointer as function(byval This as IDisplayPointer ptr, byval pMarkupPointer as IMarkupPointer ptr) as HRESULT
 	MoveToPointer as function(byval This as IDisplayPointer ptr, byval pDispPointer as IDisplayPointer ptr) as HRESULT
@@ -18009,7 +18009,7 @@ type IDisplayPointer_
 	lpVtbl as IDisplayPointerVtbl ptr
 end type
 
-declare function IDisplayPointer_MoveToPoint_Proxy(byval This as IDisplayPointer ptr, byval ptPoint as POINT_, byval eCoordSystem as COORD_SYSTEM, byval pElementContext as IHTMLElement ptr, byval dwHitTestOptions as DWORD, byval pdwHitTestResults as DWORD ptr) as HRESULT
+declare function IDisplayPointer_MoveToPoint_Proxy(byval This as IDisplayPointer ptr, byval ptPoint as POINT, byval eCoordSystem as COORD_SYSTEM, byval pElementContext as IHTMLElement ptr, byval dwHitTestOptions as DWORD, byval pdwHitTestResults as DWORD ptr) as HRESULT
 declare sub IDisplayPointer_MoveToPoint_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IDisplayPointer_MoveUnit_Proxy(byval This as IDisplayPointer ptr, byval eMoveUnit as DISPLAY_MOVEUNIT, byval lXPos as LONG) as HRESULT
 declare sub IDisplayPointer_MoveUnit_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
@@ -18058,7 +18058,7 @@ type IDisplayServicesVtbl
 	Release as function(byval This as IDisplayServices ptr) as ULONG
 	CreateDisplayPointer as function(byval This as IDisplayServices ptr, byval ppDispPointer as IDisplayPointer ptr ptr) as HRESULT
 	TransformRect as function(byval This as IDisplayServices ptr, byval pRect as RECT ptr, byval eSource as COORD_SYSTEM, byval eDestination as COORD_SYSTEM, byval pIElement as IHTMLElement ptr) as HRESULT
-	TransformPoint as function(byval This as IDisplayServices ptr, byval pPoint as POINT_ ptr, byval eSource as COORD_SYSTEM, byval eDestination as COORD_SYSTEM, byval pIElement as IHTMLElement ptr) as HRESULT
+	TransformPoint as function(byval This as IDisplayServices ptr, byval pPoint as POINT ptr, byval eSource as COORD_SYSTEM, byval eDestination as COORD_SYSTEM, byval pIElement as IHTMLElement ptr) as HRESULT
 	GetCaret as function(byval This as IDisplayServices ptr, byval ppCaret as IHTMLCaret ptr ptr) as HRESULT
 	GetComputedStyle as function(byval This as IDisplayServices ptr, byval pPointer as IMarkupPointer ptr, byval ppComputedStyle as IHTMLComputedStyle ptr ptr) as HRESULT
 	ScrollRectIntoView as function(byval This as IDisplayServices ptr, byval pIElement as IHTMLElement ptr, byval rect as RECT) as HRESULT
@@ -18073,7 +18073,7 @@ declare function IDisplayServices_CreateDisplayPointer_Proxy(byval This as IDisp
 declare sub IDisplayServices_CreateDisplayPointer_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IDisplayServices_TransformRect_Proxy(byval This as IDisplayServices ptr, byval pRect as RECT ptr, byval eSource as COORD_SYSTEM, byval eDestination as COORD_SYSTEM, byval pIElement as IHTMLElement ptr) as HRESULT
 declare sub IDisplayServices_TransformRect_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IDisplayServices_TransformPoint_Proxy(byval This as IDisplayServices ptr, byval pPoint as POINT_ ptr, byval eSource as COORD_SYSTEM, byval eDestination as COORD_SYSTEM, byval pIElement as IHTMLElement ptr) as HRESULT
+declare function IDisplayServices_TransformPoint_Proxy(byval This as IDisplayServices ptr, byval pPoint as POINT ptr, byval eSource as COORD_SYSTEM, byval eDestination as COORD_SYSTEM, byval pIElement as IHTMLElement ptr) as HRESULT
 declare sub IDisplayServices_TransformPoint_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IDisplayServices_GetCaret_Proxy(byval This as IDisplayServices ptr, byval ppCaret as IHTMLCaret ptr ptr) as HRESULT
 declare sub IDisplayServices_GetCaret_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
@@ -18868,7 +18868,7 @@ type IHTMLPainterVtbl
 	Draw as function(byval This as IHTMLPainter ptr, byval rcBounds as RECT, byval rcUpdate as RECT, byval lDrawFlags as LONG, byval hdc as HDC, byval pvDrawObject as LPVOID) as HRESULT
 	OnResize as function(byval This as IHTMLPainter ptr, byval size as SIZE) as HRESULT
 	GetPainterInfo as function(byval This as IHTMLPainter ptr, byval pInfo as HTML_PAINTER_INFO ptr) as HRESULT
-	HitTestPoint as function(byval This as IHTMLPainter ptr, byval pt as POINT_, byval pbHit as WINBOOL ptr, byval plPartID as LONG ptr) as HRESULT
+	HitTestPoint as function(byval This as IHTMLPainter ptr, byval pt as POINT, byval pbHit as WINBOOL ptr, byval plPartID as LONG ptr) as HRESULT
 end type
 
 type IHTMLPainter_
@@ -18881,7 +18881,7 @@ declare function IHTMLPainter_OnResize_Proxy(byval This as IHTMLPainter ptr, byv
 declare sub IHTMLPainter_OnResize_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IHTMLPainter_GetPainterInfo_Proxy(byval This as IHTMLPainter ptr, byval pInfo as HTML_PAINTER_INFO ptr) as HRESULT
 declare sub IHTMLPainter_GetPainterInfo_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IHTMLPainter_HitTestPoint_Proxy(byval This as IHTMLPainter ptr, byval pt as POINT_, byval pbHit as WINBOOL ptr, byval plPartID as LONG ptr) as HRESULT
+declare function IHTMLPainter_HitTestPoint_Proxy(byval This as IHTMLPainter ptr, byval pt as POINT, byval pbHit as WINBOOL ptr, byval plPartID as LONG ptr) as HRESULT
 declare sub IHTMLPainter_HitTestPoint_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 
 #define __IHTMLPaintSite_INTERFACE_DEFINED__
@@ -18896,8 +18896,8 @@ type IHTMLPaintSiteVtbl
 	InvalidateRect as function(byval This as IHTMLPaintSite ptr, byval prcInvalid as RECT ptr) as HRESULT
 	InvalidateRegion as function(byval This as IHTMLPaintSite ptr, byval rgnInvalid as HRGN) as HRESULT
 	GetDrawInfo as function(byval This as IHTMLPaintSite ptr, byval lFlags as LONG, byval pDrawInfo as HTML_PAINT_DRAW_INFO ptr) as HRESULT
-	TransformGlobalToLocal as function(byval This as IHTMLPaintSite ptr, byval ptGlobal as POINT_, byval pptLocal as POINT_ ptr) as HRESULT
-	TransformLocalToGlobal as function(byval This as IHTMLPaintSite ptr, byval ptLocal as POINT_, byval pptGlobal as POINT_ ptr) as HRESULT
+	TransformGlobalToLocal as function(byval This as IHTMLPaintSite ptr, byval ptGlobal as POINT, byval pptLocal as POINT ptr) as HRESULT
+	TransformLocalToGlobal as function(byval This as IHTMLPaintSite ptr, byval ptLocal as POINT, byval pptGlobal as POINT ptr) as HRESULT
 	GetHitTestCookie as function(byval This as IHTMLPaintSite ptr, byval plCookie as LONG ptr) as HRESULT
 end type
 
@@ -18913,9 +18913,9 @@ declare function IHTMLPaintSite_InvalidateRegion_Proxy(byval This as IHTMLPaintS
 declare sub IHTMLPaintSite_InvalidateRegion_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IHTMLPaintSite_GetDrawInfo_Proxy(byval This as IHTMLPaintSite ptr, byval lFlags as LONG, byval pDrawInfo as HTML_PAINT_DRAW_INFO ptr) as HRESULT
 declare sub IHTMLPaintSite_GetDrawInfo_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IHTMLPaintSite_TransformGlobalToLocal_Proxy(byval This as IHTMLPaintSite ptr, byval ptGlobal as POINT_, byval pptLocal as POINT_ ptr) as HRESULT
+declare function IHTMLPaintSite_TransformGlobalToLocal_Proxy(byval This as IHTMLPaintSite ptr, byval ptGlobal as POINT, byval pptLocal as POINT ptr) as HRESULT
 declare sub IHTMLPaintSite_TransformGlobalToLocal_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IHTMLPaintSite_TransformLocalToGlobal_Proxy(byval This as IHTMLPaintSite ptr, byval ptLocal as POINT_, byval pptGlobal as POINT_ ptr) as HRESULT
+declare function IHTMLPaintSite_TransformLocalToGlobal_Proxy(byval This as IHTMLPaintSite ptr, byval ptLocal as POINT, byval pptGlobal as POINT ptr) as HRESULT
 declare sub IHTMLPaintSite_TransformLocalToGlobal_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IHTMLPaintSite_GetHitTestCookie_Proxy(byval This as IHTMLPaintSite ptr, byval plCookie as LONG ptr) as HRESULT
 declare sub IHTMLPaintSite_GetHitTestCookie_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
@@ -19716,9 +19716,9 @@ type IElementBehaviorLayoutVtbl
 	QueryInterface as function(byval This as IElementBehaviorLayout ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IElementBehaviorLayout ptr) as ULONG
 	Release as function(byval This as IElementBehaviorLayout ptr) as ULONG
-	GetSize as function(byval This as IElementBehaviorLayout ptr, byval dwFlags as LONG, byval sizeContent as SIZE, byval pptTranslateBy as POINT_ ptr, byval pptTopLeft as POINT_ ptr, byval psizeProposed as SIZE ptr) as HRESULT
+	GetSize as function(byval This as IElementBehaviorLayout ptr, byval dwFlags as LONG, byval sizeContent as SIZE, byval pptTranslateBy as POINT ptr, byval pptTopLeft as POINT ptr, byval psizeProposed as SIZE ptr) as HRESULT
 	GetLayoutInfo as function(byval This as IElementBehaviorLayout ptr, byval plLayoutInfo as LONG ptr) as HRESULT
-	GetPosition as function(byval This as IElementBehaviorLayout ptr, byval lFlags as LONG, byval pptTopLeft as POINT_ ptr) as HRESULT
+	GetPosition as function(byval This as IElementBehaviorLayout ptr, byval lFlags as LONG, byval pptTopLeft as POINT ptr) as HRESULT
 	MapSize as function(byval This as IElementBehaviorLayout ptr, byval psizeIn as SIZE ptr, byval prcOut as RECT ptr) as HRESULT
 end type
 
@@ -19726,11 +19726,11 @@ type IElementBehaviorLayout_
 	lpVtbl as IElementBehaviorLayoutVtbl ptr
 end type
 
-declare function IElementBehaviorLayout_GetSize_Proxy(byval This as IElementBehaviorLayout ptr, byval dwFlags as LONG, byval sizeContent as SIZE, byval pptTranslateBy as POINT_ ptr, byval pptTopLeft as POINT_ ptr, byval psizeProposed as SIZE ptr) as HRESULT
+declare function IElementBehaviorLayout_GetSize_Proxy(byval This as IElementBehaviorLayout ptr, byval dwFlags as LONG, byval sizeContent as SIZE, byval pptTranslateBy as POINT ptr, byval pptTopLeft as POINT ptr, byval psizeProposed as SIZE ptr) as HRESULT
 declare sub IElementBehaviorLayout_GetSize_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IElementBehaviorLayout_GetLayoutInfo_Proxy(byval This as IElementBehaviorLayout ptr, byval plLayoutInfo as LONG ptr) as HRESULT
 declare sub IElementBehaviorLayout_GetLayoutInfo_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IElementBehaviorLayout_GetPosition_Proxy(byval This as IElementBehaviorLayout ptr, byval lFlags as LONG, byval pptTopLeft as POINT_ ptr) as HRESULT
+declare function IElementBehaviorLayout_GetPosition_Proxy(byval This as IElementBehaviorLayout ptr, byval lFlags as LONG, byval pptTopLeft as POINT ptr) as HRESULT
 declare sub IElementBehaviorLayout_GetPosition_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IElementBehaviorLayout_MapSize_Proxy(byval This as IElementBehaviorLayout ptr, byval psizeIn as SIZE ptr, byval prcOut as RECT ptr) as HRESULT
 declare sub IElementBehaviorLayout_MapSize_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)

@@ -46,8 +46,8 @@ end union
 type __MIDL___MIDL_itf_dimm_0000_0012
 	hWnd as HWND
 	fOpen as WINBOOL
-	ptStatusWndPos as POINT_
-	ptSoftKbdPos as POINT_
+	ptStatusWndPos as POINT
+	ptSoftKbdPos as POINT
 	fdwConversion as DWORD
 	fdwSentence as DWORD
 	lfFont as ____MIDL___MIDL_itf_dimm_0000_0012_lfFont
@@ -253,7 +253,7 @@ type IActiveIMMAppVtbl
 	GetProperty as function(byval This as IActiveIMMApp ptr, byval hKL as HKL, byval fdwIndex as DWORD, byval pdwProperty as DWORD ptr) as HRESULT
 	GetRegisterWordStyleA as function(byval This as IActiveIMMApp ptr, byval hKL as HKL, byval nItem as UINT, byval pStyleBuf as STYLEBUFA ptr, byval puCopied as UINT ptr) as HRESULT
 	GetRegisterWordStyleW as function(byval This as IActiveIMMApp ptr, byval hKL as HKL, byval nItem as UINT, byval pStyleBuf as STYLEBUFW ptr, byval puCopied as UINT ptr) as HRESULT
-	GetStatusWindowPos as function(byval This as IActiveIMMApp ptr, byval hIMC as HIMC, byval pptPos as POINT_ ptr) as HRESULT
+	GetStatusWindowPos as function(byval This as IActiveIMMApp ptr, byval hIMC as HIMC, byval pptPos as POINT ptr) as HRESULT
 	GetVirtualKey as function(byval This as IActiveIMMApp ptr, byval hWnd as HWND, byval puVirtualKey as UINT ptr) as HRESULT
 	InstallIMEA as function(byval This as IActiveIMMApp ptr, byval szIMEFileName as LPSTR, byval szLayoutText as LPSTR, byval phKL as HKL ptr) as HRESULT
 	InstallIMEW as function(byval This as IActiveIMMApp ptr, byval szIMEFileName as LPWSTR, byval szLayoutText as LPWSTR, byval phKL as HKL ptr) as HRESULT
@@ -272,7 +272,7 @@ type IActiveIMMAppVtbl
 	SetCompositionWindow as function(byval This as IActiveIMMApp ptr, byval hIMC as HIMC, byval pCompForm as COMPOSITIONFORM ptr) as HRESULT
 	SetConversionStatus as function(byval This as IActiveIMMApp ptr, byval hIMC as HIMC, byval fdwConversion as DWORD, byval fdwSentence as DWORD) as HRESULT
 	SetOpenStatus as function(byval This as IActiveIMMApp ptr, byval hIMC as HIMC, byval fOpen as WINBOOL) as HRESULT
-	SetStatusWindowPos as function(byval This as IActiveIMMApp ptr, byval hIMC as HIMC, byval pptPos as POINT_ ptr) as HRESULT
+	SetStatusWindowPos as function(byval This as IActiveIMMApp ptr, byval hIMC as HIMC, byval pptPos as POINT ptr) as HRESULT
 	SimulateHotKey as function(byval This as IActiveIMMApp ptr, byval hWnd as HWND, byval dwHotKeyID as DWORD) as HRESULT
 	UnregisterWordA as function(byval This as IActiveIMMApp ptr, byval hKL as HKL, byval szReading as LPSTR, byval dwStyle as DWORD, byval szUnregister as LPSTR) as HRESULT
 	UnregisterWordW as function(byval This as IActiveIMMApp ptr, byval hKL as HKL, byval szReading as LPWSTR, byval dwStyle as DWORD, byval szUnregister as LPWSTR) as HRESULT
@@ -361,7 +361,7 @@ declare function IActiveIMMApp_GetRegisterWordStyleA_Proxy(byval This as IActive
 declare sub IActiveIMMApp_GetRegisterWordStyleA_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IActiveIMMApp_GetRegisterWordStyleW_Proxy(byval This as IActiveIMMApp ptr, byval hKL as HKL, byval nItem as UINT, byval pStyleBuf as STYLEBUFW ptr, byval puCopied as UINT ptr) as HRESULT
 declare sub IActiveIMMApp_GetRegisterWordStyleW_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IActiveIMMApp_GetStatusWindowPos_Proxy(byval This as IActiveIMMApp ptr, byval hIMC as HIMC, byval pptPos as POINT_ ptr) as HRESULT
+declare function IActiveIMMApp_GetStatusWindowPos_Proxy(byval This as IActiveIMMApp ptr, byval hIMC as HIMC, byval pptPos as POINT ptr) as HRESULT
 declare sub IActiveIMMApp_GetStatusWindowPos_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IActiveIMMApp_GetVirtualKey_Proxy(byval This as IActiveIMMApp ptr, byval hWnd as HWND, byval puVirtualKey as UINT ptr) as HRESULT
 declare sub IActiveIMMApp_GetVirtualKey_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
@@ -399,7 +399,7 @@ declare function IActiveIMMApp_SetConversionStatus_Proxy(byval This as IActiveIM
 declare sub IActiveIMMApp_SetConversionStatus_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IActiveIMMApp_SetOpenStatus_Proxy(byval This as IActiveIMMApp ptr, byval hIMC as HIMC, byval fOpen as WINBOOL) as HRESULT
 declare sub IActiveIMMApp_SetOpenStatus_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IActiveIMMApp_SetStatusWindowPos_Proxy(byval This as IActiveIMMApp ptr, byval hIMC as HIMC, byval pptPos as POINT_ ptr) as HRESULT
+declare function IActiveIMMApp_SetStatusWindowPos_Proxy(byval This as IActiveIMMApp ptr, byval hIMC as HIMC, byval pptPos as POINT ptr) as HRESULT
 declare sub IActiveIMMApp_SetStatusWindowPos_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IActiveIMMApp_SimulateHotKey_Proxy(byval This as IActiveIMMApp ptr, byval hWnd as HWND, byval dwHotKeyID as DWORD) as HRESULT
 declare sub IActiveIMMApp_SimulateHotKey_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
@@ -472,7 +472,7 @@ type IActiveIMMIMEVtbl
 	GetProperty as function(byval This as IActiveIMMIME ptr, byval hKL as HKL, byval fdwIndex as DWORD, byval pdwProperty as DWORD ptr) as HRESULT
 	GetRegisterWordStyleA as function(byval This as IActiveIMMIME ptr, byval hKL as HKL, byval nItem as UINT, byval pStyleBuf as STYLEBUFA ptr, byval puCopied as UINT ptr) as HRESULT
 	GetRegisterWordStyleW as function(byval This as IActiveIMMIME ptr, byval hKL as HKL, byval nItem as UINT, byval pStyleBuf as STYLEBUFW ptr, byval puCopied as UINT ptr) as HRESULT
-	GetStatusWindowPos as function(byval This as IActiveIMMIME ptr, byval hIMC as HIMC, byval pptPos as POINT_ ptr) as HRESULT
+	GetStatusWindowPos as function(byval This as IActiveIMMIME ptr, byval hIMC as HIMC, byval pptPos as POINT ptr) as HRESULT
 	GetVirtualKey as function(byval This as IActiveIMMIME ptr, byval hWnd as HWND, byval puVirtualKey as UINT ptr) as HRESULT
 	InstallIMEA as function(byval This as IActiveIMMIME ptr, byval szIMEFileName as LPSTR, byval szLayoutText as LPSTR, byval phKL as HKL ptr) as HRESULT
 	InstallIMEW as function(byval This as IActiveIMMIME ptr, byval szIMEFileName as LPWSTR, byval szLayoutText as LPWSTR, byval phKL as HKL ptr) as HRESULT
@@ -491,7 +491,7 @@ type IActiveIMMIMEVtbl
 	SetCompositionWindow as function(byval This as IActiveIMMIME ptr, byval hIMC as HIMC, byval pCompForm as COMPOSITIONFORM ptr) as HRESULT
 	SetConversionStatus as function(byval This as IActiveIMMIME ptr, byval hIMC as HIMC, byval fdwConversion as DWORD, byval fdwSentence as DWORD) as HRESULT
 	SetOpenStatus as function(byval This as IActiveIMMIME ptr, byval hIMC as HIMC, byval fOpen as WINBOOL) as HRESULT
-	SetStatusWindowPos as function(byval This as IActiveIMMIME ptr, byval hIMC as HIMC, byval pptPos as POINT_ ptr) as HRESULT
+	SetStatusWindowPos as function(byval This as IActiveIMMIME ptr, byval hIMC as HIMC, byval pptPos as POINT ptr) as HRESULT
 	SimulateHotKey as function(byval This as IActiveIMMIME ptr, byval hWnd as HWND, byval dwHotKeyID as DWORD) as HRESULT
 	UnregisterWordA as function(byval This as IActiveIMMIME ptr, byval hKL as HKL, byval szReading as LPSTR, byval dwStyle as DWORD, byval szUnregister as LPSTR) as HRESULT
 	UnregisterWordW as function(byval This as IActiveIMMIME ptr, byval hKL as HKL, byval szReading as LPWSTR, byval dwStyle as DWORD, byval szUnregister as LPWSTR) as HRESULT
@@ -600,7 +600,7 @@ declare function IActiveIMMIME_GetRegisterWordStyleA_Proxy(byval This as IActive
 declare sub IActiveIMMIME_GetRegisterWordStyleA_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IActiveIMMIME_GetRegisterWordStyleW_Proxy(byval This as IActiveIMMIME ptr, byval hKL as HKL, byval nItem as UINT, byval pStyleBuf as STYLEBUFW ptr, byval puCopied as UINT ptr) as HRESULT
 declare sub IActiveIMMIME_GetRegisterWordStyleW_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IActiveIMMIME_GetStatusWindowPos_Proxy(byval This as IActiveIMMIME ptr, byval hIMC as HIMC, byval pptPos as POINT_ ptr) as HRESULT
+declare function IActiveIMMIME_GetStatusWindowPos_Proxy(byval This as IActiveIMMIME ptr, byval hIMC as HIMC, byval pptPos as POINT ptr) as HRESULT
 declare sub IActiveIMMIME_GetStatusWindowPos_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IActiveIMMIME_GetVirtualKey_Proxy(byval This as IActiveIMMIME ptr, byval hWnd as HWND, byval puVirtualKey as UINT ptr) as HRESULT
 declare sub IActiveIMMIME_GetVirtualKey_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
@@ -638,7 +638,7 @@ declare function IActiveIMMIME_SetConversionStatus_Proxy(byval This as IActiveIM
 declare sub IActiveIMMIME_SetConversionStatus_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IActiveIMMIME_SetOpenStatus_Proxy(byval This as IActiveIMMIME ptr, byval hIMC as HIMC, byval fOpen as WINBOOL) as HRESULT
 declare sub IActiveIMMIME_SetOpenStatus_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IActiveIMMIME_SetStatusWindowPos_Proxy(byval This as IActiveIMMIME ptr, byval hIMC as HIMC, byval pptPos as POINT_ ptr) as HRESULT
+declare function IActiveIMMIME_SetStatusWindowPos_Proxy(byval This as IActiveIMMIME ptr, byval hIMC as HIMC, byval pptPos as POINT ptr) as HRESULT
 declare sub IActiveIMMIME_SetStatusWindowPos_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IActiveIMMIME_SimulateHotKey_Proxy(byval This as IActiveIMMIME ptr, byval hWnd as HWND, byval dwHotKeyID as DWORD) as HRESULT
 declare sub IActiveIMMIME_SimulateHotKey_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)

@@ -1482,7 +1482,7 @@ type _DIDEVICEIMAGEINFOA
 	rcOverlay as RECT
 	dwObjID as DWORD
 	dwcValidPts as DWORD
-	rgptCalloutLine(0 to 4) as POINT_
+	rgptCalloutLine(0 to 4) as POINT
 	rcCalloutRect as RECT
 	dwTextAlign as DWORD
 end type
@@ -1498,7 +1498,7 @@ type _DIDEVICEIMAGEINFOW
 	rcOverlay as RECT
 	dwObjID as DWORD
 	dwcValidPts as DWORD
-	rgptCalloutLine(0 to 4) as POINT_
+	rgptCalloutLine(0 to 4) as POINT
 	rcCalloutRect as RECT
 	dwTextAlign as DWORD
 end type

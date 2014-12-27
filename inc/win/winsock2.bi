@@ -10,16 +10,6 @@
 
 '' The following symbols have been renamed:
 ''     #define FD_SET => FD_SET_
-''     typedef FD_SET => FD_SET__
-''     typedef HOSTENT => HOSTENT_
-''     typedef SERVENT => SERVENT_
-''     typedef PROTOENT => PROTOENT_
-''     typedef SOCKADDR => SOCKADDR_
-''     typedef SOCKADDR_IN => SOCKADDR_IN_
-''     typedef LINGER => LINGER_
-''     typedef TIMEVAL => TIMEVAL_
-''     typedef WSADATA => WSADATA_
-''     typedef SOCKADDR_STORAGE => SOCKADDR_STORAGE_
 ''     procedure select => select_
 
 #ifdef __FB_64BIT__
@@ -53,7 +43,6 @@ declare function __WSAFDIsSet(byval as SOCKET, byval as fd_set ptr) as long
 #define FD_ISSET(fd, set) __WSAFDIsSet(cast(SOCKET, (fd)), cptr(fd_set ptr, (set)))
 #define FD_SET_(fd, set) '' TODO: do { u_int __i; for(__i = 0; __i < ((fd_set *)(set))->fd_count; __i++) { if (((fd_set *)(set))->fd_array[__i] == (fd)) { break; } } if (__i == ((fd_set *)(set))->fd_count) { if (((fd_set *)(set))->fd_count < FD_SETSIZE) { ((fd_set *)(set))->fd_array[__i] = (fd); ((fd_set *)(set))->fd_count++; } } } while(0)
 
-type FD_SET__ as fd_set
 type PFD_SET as fd_set ptr
 type LPFD_SET as fd_set ptr
 
@@ -118,25 +107,18 @@ type sockaddr_in
 	sin_zero as zstring * 8
 end type
 
-type HOSTENT_ as hostent
 type PHOSTENT as hostent ptr
 type LPHOSTENT as hostent ptr
-type SERVENT_ as servent
 type PSERVENT as servent ptr
 type LPSERVENT as servent ptr
-type PROTOENT_ as protoent
 type PPROTOENT as protoent ptr
 type LPPROTOENT as protoent ptr
-type SOCKADDR_ as sockaddr
 type PSOCKADDR as sockaddr ptr
 type LPSOCKADDR as sockaddr ptr
-type SOCKADDR_IN_ as sockaddr_in
 type PSOCKADDR_IN as sockaddr_in ptr
 type LPSOCKADDR_IN as sockaddr_in ptr
-type LINGER_ as linger
 type PLINGER as linger ptr
 type LPLINGER as linger ptr
-type TIMEVAL_ as timeval
 type PTIMEVAL as timeval ptr
 type LPTIMEVAL as timeval ptr
 
@@ -163,7 +145,6 @@ type WSAData
 	#endif
 end type
 
-type WSADATA_ as WSAData
 type LPWSADATA as WSAData ptr
 
 #define IOCPARM_MASK &h7f
@@ -666,7 +647,6 @@ type LPWSACOMPLETION as _WSACOMPLETION ptr
 #define TH_NETDEV &h00000001
 #define TH_TAPI &h00000002
 
-type SOCKADDR_STORAGE_ as sockaddr_storage
 type PSOCKADDR_STORAGE as sockaddr_storage ptr
 type LPSOCKADDR_STORAGE as sockaddr_storage ptr
 type ADDRESS_FAMILY as u_short

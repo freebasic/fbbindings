@@ -4874,8 +4874,8 @@ type IDvdControlVtbl
 	KaraokeAudioPresentationModeChange as function(byval This as IDvdControl ptr, byval ulMode as ULONG) as HRESULT
 	VideoModePreferrence as function(byval This as IDvdControl ptr, byval ulPreferredDisplayMode as ULONG) as HRESULT
 	SetRoot as function(byval This as IDvdControl ptr, byval pszPath as LPCWSTR) as HRESULT
-	MouseActivate as function(byval This as IDvdControl ptr, byval point_ as POINT_) as HRESULT
-	MouseSelect as function(byval This as IDvdControl ptr, byval point_ as POINT_) as HRESULT
+	MouseActivate as function(byval This as IDvdControl ptr, byval point as POINT) as HRESULT
+	MouseSelect as function(byval This as IDvdControl ptr, byval point as POINT) as HRESULT
 	ChapterPlayAutoStop as function(byval This as IDvdControl ptr, byval ulTitle as ULONG, byval ulChapter as ULONG, byval ulChaptersToPlay as ULONG) as HRESULT
 end type
 
@@ -4947,9 +4947,9 @@ declare function IDvdControl_VideoModePreferrence_Proxy(byval This as IDvdContro
 declare sub IDvdControl_VideoModePreferrence_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IDvdControl_SetRoot_Proxy(byval This as IDvdControl ptr, byval pszPath as LPCWSTR) as HRESULT
 declare sub IDvdControl_SetRoot_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IDvdControl_MouseActivate_Proxy(byval This as IDvdControl ptr, byval point_ as POINT_) as HRESULT
+declare function IDvdControl_MouseActivate_Proxy(byval This as IDvdControl ptr, byval point as POINT) as HRESULT
 declare sub IDvdControl_MouseActivate_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IDvdControl_MouseSelect_Proxy(byval This as IDvdControl ptr, byval point_ as POINT_) as HRESULT
+declare function IDvdControl_MouseSelect_Proxy(byval This as IDvdControl ptr, byval point as POINT) as HRESULT
 declare sub IDvdControl_MouseSelect_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IDvdControl_ChapterPlayAutoStop_Proxy(byval This as IDvdControl ptr, byval ulTitle as ULONG, byval ulChapter as ULONG, byval ulChaptersToPlay as ULONG) as HRESULT
 declare sub IDvdControl_ChapterPlayAutoStop_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
@@ -5117,8 +5117,8 @@ type IDvdControl2Vtbl
 	SelectKaraokeAudioPresentationMode as function(byval This as IDvdControl2 ptr, byval ulMode as ULONG) as HRESULT
 	SelectVideoModePreference as function(byval This as IDvdControl2 ptr, byval ulPreferredDisplayMode as ULONG) as HRESULT
 	SetDVDDirectory as function(byval This as IDvdControl2 ptr, byval pszwPath as LPCWSTR) as HRESULT
-	ActivateAtPosition as function(byval This as IDvdControl2 ptr, byval point_ as POINT_) as HRESULT
-	SelectAtPosition as function(byval This as IDvdControl2 ptr, byval point_ as POINT_) as HRESULT
+	ActivateAtPosition as function(byval This as IDvdControl2 ptr, byval point as POINT) as HRESULT
+	SelectAtPosition as function(byval This as IDvdControl2 ptr, byval point as POINT) as HRESULT
 	PlayChaptersAutoStop as function(byval This as IDvdControl2 ptr, byval ulTitle as ULONG, byval ulChapter as ULONG, byval ulChaptersToPlay as ULONG, byval dwFlags as DWORD, byval ppCmd as IDvdCmd ptr ptr) as HRESULT
 	AcceptParentalLevelChange as function(byval This as IDvdControl2 ptr, byval bAccept as WINBOOL) as HRESULT
 	SetOption as function(byval This as IDvdControl2 ptr, byval flag as DVD_OPTION_FLAG, byval fState as WINBOOL) as HRESULT
@@ -5192,9 +5192,9 @@ declare function IDvdControl2_SelectVideoModePreference_Proxy(byval This as IDvd
 declare sub IDvdControl2_SelectVideoModePreference_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IDvdControl2_SetDVDDirectory_Proxy(byval This as IDvdControl2 ptr, byval pszwPath as LPCWSTR) as HRESULT
 declare sub IDvdControl2_SetDVDDirectory_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IDvdControl2_ActivateAtPosition_Proxy(byval This as IDvdControl2 ptr, byval point_ as POINT_) as HRESULT
+declare function IDvdControl2_ActivateAtPosition_Proxy(byval This as IDvdControl2 ptr, byval point as POINT) as HRESULT
 declare sub IDvdControl2_ActivateAtPosition_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IDvdControl2_SelectAtPosition_Proxy(byval This as IDvdControl2 ptr, byval point_ as POINT_) as HRESULT
+declare function IDvdControl2_SelectAtPosition_Proxy(byval This as IDvdControl2 ptr, byval point as POINT) as HRESULT
 declare sub IDvdControl2_SelectAtPosition_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IDvdControl2_PlayChaptersAutoStop_Proxy(byval This as IDvdControl2 ptr, byval ulTitle as ULONG, byval ulChapter as ULONG, byval ulChaptersToPlay as ULONG, byval dwFlags as DWORD, byval ppCmd as IDvdCmd ptr ptr) as HRESULT
 declare sub IDvdControl2_PlayChaptersAutoStop_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
@@ -5331,7 +5331,7 @@ type IDvdInfo2Vtbl
 	GetDiscID as function(byval This as IDvdInfo2 ptr, byval pszwPath as LPCWSTR, byval pullDiscID as ULONGLONG ptr) as HRESULT
 	GetState as function(byval This as IDvdInfo2 ptr, byval pStateData as IDvdState ptr ptr) as HRESULT
 	GetMenuLanguages as function(byval This as IDvdInfo2 ptr, byval pLanguages as LCID ptr, byval ulMaxLanguages as ULONG, byval pulActualLanguages as ULONG ptr) as HRESULT
-	GetButtonAtPosition as function(byval This as IDvdInfo2 ptr, byval point_ as POINT_, byval pulButtonIndex as ULONG ptr) as HRESULT
+	GetButtonAtPosition as function(byval This as IDvdInfo2 ptr, byval point as POINT, byval pulButtonIndex as ULONG ptr) as HRESULT
 	GetCmdFromEvent as function(byval This as IDvdInfo2 ptr, byval lParam1 as LONG_PTR, byval pCmdObj as IDvdCmd ptr ptr) as HRESULT
 	GetDefaultMenuLanguage as function(byval This as IDvdInfo2 ptr, byval pLanguage as LCID ptr) as HRESULT
 	GetDefaultAudioLanguage as function(byval This as IDvdInfo2 ptr, byval pLanguage as LCID ptr, byval pAudioExtension as DVD_AUDIO_LANG_EXT ptr) as HRESULT
@@ -5407,7 +5407,7 @@ declare function IDvdInfo2_GetState_Proxy(byval This as IDvdInfo2 ptr, byval pSt
 declare sub IDvdInfo2_GetState_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IDvdInfo2_GetMenuLanguages_Proxy(byval This as IDvdInfo2 ptr, byval pLanguages as LCID ptr, byval ulMaxLanguages as ULONG, byval pulActualLanguages as ULONG ptr) as HRESULT
 declare sub IDvdInfo2_GetMenuLanguages_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IDvdInfo2_GetButtonAtPosition_Proxy(byval This as IDvdInfo2 ptr, byval point_ as POINT_, byval pulButtonIndex as ULONG ptr) as HRESULT
+declare function IDvdInfo2_GetButtonAtPosition_Proxy(byval This as IDvdInfo2 ptr, byval point as POINT, byval pulButtonIndex as ULONG ptr) as HRESULT
 declare sub IDvdInfo2_GetButtonAtPosition_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IDvdInfo2_GetCmdFromEvent_Proxy(byval This as IDvdInfo2 ptr, byval lParam1 as LONG_PTR, byval pCmdObj as IDvdCmd ptr ptr) as HRESULT
 declare sub IDvdInfo2_GetCmdFromEvent_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)

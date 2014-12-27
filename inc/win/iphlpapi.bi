@@ -54,7 +54,7 @@ declare function GetUniDirectionalAdapterInfo(byval pIPIfInfo as PIP_UNIDIRECTIO
 
 #define NhpAllocateAndGetInterfaceInfoFromStack_DEFINED
 
-declare function NhpAllocateAndGetInterfaceInfoFromStack(byval ppTable as IP_INTERFACE_NAME_INFO_ ptr ptr, byval pdwCount as PDWORD, byval bOrder as WINBOOL, byval hHeap as HANDLE, byval dwFlags as DWORD) as DWORD
+declare function NhpAllocateAndGetInterfaceInfoFromStack(byval ppTable as ip_interface_name_info ptr ptr, byval pdwCount as PDWORD, byval bOrder as WINBOOL, byval hHeap as HANDLE, byval dwFlags as DWORD) as DWORD
 declare function GetBestInterface(byval dwDestAddr as IPAddr, byval pdwBestIfIndex as PDWORD) as DWORD
 declare function GetBestInterfaceEx(byval pDestAddr as sockaddr ptr, byval pdwBestIfIndex as PDWORD) as DWORD
 declare function GetBestRoute(byval dwDestAddr as DWORD, byval dwSourceAddr as DWORD, byval pBestRoute as PMIB_IPFORWARDROW) as DWORD
@@ -108,9 +108,9 @@ declare function GetOwnerModuleFromUdpEntry(byval pUdpEntry as PMIB_UDPROW_OWNER
 
 		union
 			NamedAddress as ___NET_ADDRESS_INFO_NamedAddress
-			Ipv4Address as SOCKADDR_IN_
-			Ipv6Address as SOCKADDR_IN6_
-			IpAddress as SOCKADDR_
+			Ipv4Address as sockaddr_in
+			Ipv6Address as sockaddr_in6
+			IpAddress as sockaddr
 		end union
 	end type
 
@@ -126,7 +126,7 @@ declare function GetOwnerModuleFromUdpEntry(byval pUdpEntry as PMIB_UDPROW_OWNER
 	declare function GetTcpTable2(byval TcpTable as PMIB_TCPTABLE2, byval SizePointer as PULONG, byval Order as WINBOOL) as ULONG
 	declare function GetUdp6Table(byval Udp6Table as PMIB_UDP6TABLE, byval SizePointer as PULONG, byval Order as WINBOOL) as ULONG
 	declare function NotifySecurityHealthChange(byval pHandle as PHANDLE, byval pOverLapped as LPOVERLAPPED, byval SecurityHealthFlags as PULONG) as DWORD
-	declare function ResolveNeighbor(byval NetworkAddress as SOCKADDR_ ptr, byval PhysicalAddress as PVOID, byval PhysicalAddressLength as PULONG) as ULONG
+	declare function ResolveNeighbor(byval NetworkAddress as sockaddr ptr, byval PhysicalAddress as PVOID, byval PhysicalAddressLength as PULONG) as ULONG
 	declare function SetIpStatisticsEx(byval pIpStats as PMIB_IPSTATS, byval Family as ULONG) as DWORD
 #endif
 

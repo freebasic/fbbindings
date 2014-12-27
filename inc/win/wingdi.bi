@@ -195,8 +195,8 @@
 #define META_CREATEREGION &h06FF
 
 type _DRAWPATRECT
-	ptPosition as POINT_
-	ptSize as POINT_
+	ptPosition as POINT
+	ptSize as POINT
 	wStyle as WORD
 	wPattern as WORD
 end type
@@ -1013,7 +1013,7 @@ type LPPATTERN as PATTERN ptr
 
 type tagLOGPEN
 	lopnStyle as UINT
-	lopnWidth as POINT_
+	lopnWidth as POINT
 	lopnColor as COLORREF
 end type
 
@@ -2172,10 +2172,10 @@ type _OUTLINETEXTMETRICA
 	otmMacDescent as long
 	otmMacLineGap as UINT
 	otmusMinimumPPEM as UINT
-	otmptSubscriptSize as POINT_
-	otmptSubscriptOffset as POINT_
-	otmptSuperscriptSize as POINT_
-	otmptSuperscriptOffset as POINT_
+	otmptSubscriptSize as POINT
+	otmptSubscriptOffset as POINT
+	otmptSuperscriptSize as POINT
+	otmptSuperscriptOffset as POINT
 	otmsStrikeoutSize as UINT
 	otmsStrikeoutPosition as long
 	otmsUnderscoreSize as long
@@ -2212,10 +2212,10 @@ type _OUTLINETEXTMETRICW
 	otmMacDescent as long
 	otmMacLineGap as UINT
 	otmusMinimumPPEM as UINT
-	otmptSubscriptSize as POINT_
-	otmptSubscriptOffset as POINT_
-	otmptSuperscriptSize as POINT_
-	otmptSuperscriptOffset as POINT_
+	otmptSubscriptSize as POINT
+	otmptSubscriptOffset as POINT
+	otmptSuperscriptSize as POINT
+	otmptSuperscriptOffset as POINT
 	otmsStrikeoutSize as UINT
 	otmsStrikeoutPosition as long
 	otmsUnderscoreSize as long
@@ -2305,7 +2305,7 @@ type LPMAT2 as _MAT2 ptr
 type _GLYPHMETRICS
 	gmBlackBoxX as UINT
 	gmBlackBoxY as UINT
-	gmptGlyphOrigin as POINT_
+	gmptGlyphOrigin as POINT
 	gmCellIncX as short
 	gmCellIncY as short
 end type
@@ -2575,7 +2575,7 @@ declare function CreateMetaFileW(byval pszFile as LPCWSTR) as HDC
 declare function CreatePalette(byval plpal as const LOGPALETTE ptr) as HPALETTE
 declare function CreatePen(byval iStyle as long, byval cWidth as long, byval color_ as COLORREF) as HPEN
 declare function CreatePenIndirect(byval plpen as const LOGPEN ptr) as HPEN
-declare function CreatePolyPolygonRgn(byval pptl as const POINT_ ptr, byval pc as const INT_ ptr, byval cPoly as long, byval iMode as long) as HRGN
+declare function CreatePolyPolygonRgn(byval pptl as const POINT ptr, byval pc as const INT_ ptr, byval cPoly as long, byval iMode as long) as HRGN
 declare function CreatePatternBrush(byval hbm as HBITMAP) as HBRUSH
 declare function CreateRectRgn(byval x1 as long, byval y1 as long, byval x2 as long, byval y2 as long) as HRGN
 declare function CreateRectRgnIndirect(byval lprect as const RECT ptr) as HRGN
@@ -2994,14 +2994,14 @@ declare function InvertRgn(byval hdc as HDC, byval hrgn as HRGN) as WINBOOL
 declare function LineDDA(byval xStart as long, byval yStart as long, byval xEnd as long, byval yEnd as long, byval lpProc as LINEDDAPROC, byval data_ as LPARAM) as WINBOOL
 declare function LineTo(byval hdc as HDC, byval x as long, byval y as long) as WINBOOL
 declare function MaskBlt(byval hdcDest as HDC, byval xDest as long, byval yDest as long, byval width_ as long, byval height as long, byval hdcSrc as HDC, byval xSrc as long, byval ySrc as long, byval hbmMask as HBITMAP, byval xMask as long, byval yMask as long, byval rop as DWORD) as WINBOOL
-declare function PlgBlt(byval hdcDest as HDC, byval lpPoint as const POINT_ ptr, byval hdcSrc as HDC, byval xSrc as long, byval ySrc as long, byval width_ as long, byval height as long, byval hbmMask as HBITMAP, byval xMask as long, byval yMask as long) as WINBOOL
+declare function PlgBlt(byval hdcDest as HDC, byval lpPoint as const POINT ptr, byval hdcSrc as HDC, byval xSrc as long, byval ySrc as long, byval width_ as long, byval height as long, byval hbmMask as HBITMAP, byval xMask as long, byval yMask as long) as WINBOOL
 declare function OffsetClipRgn(byval hdc as HDC, byval x as long, byval y as long) as long
 declare function OffsetRgn(byval hrgn as HRGN, byval x as long, byval y as long) as long
 declare function PatBlt(byval hdc as HDC, byval x as long, byval y as long, byval w as long, byval h as long, byval rop as DWORD) as WINBOOL
 declare function Pie(byval hdc as HDC, byval left_ as long, byval top as long, byval right_ as long, byval bottom as long, byval xr1 as long, byval yr1 as long, byval xr2 as long, byval yr2 as long) as WINBOOL
 declare function PlayMetaFile(byval hdc as HDC, byval hmf as HMETAFILE) as WINBOOL
 declare function PaintRgn(byval hdc as HDC, byval hrgn as HRGN) as WINBOOL
-declare function PolyPolygon(byval hdc as HDC, byval apt as const POINT_ ptr, byval asz as const INT_ ptr, byval csz as long) as WINBOOL
+declare function PolyPolygon(byval hdc as HDC, byval apt as const POINT ptr, byval asz as const INT_ ptr, byval csz as long) as WINBOOL
 declare function PtInRegion(byval hrgn as HRGN, byval x as long, byval y as long) as WINBOOL
 declare function PtVisible(byval hdc as HDC, byval x as long, byval y as long) as WINBOOL
 declare function RectInRegion(byval hrgn as HRGN, byval lprect as const RECT ptr) as WINBOOL
@@ -3176,7 +3176,7 @@ type LPDIBSECTION as tagDIBSECTION ptr
 type PDIBSECTION as tagDIBSECTION ptr
 
 declare function AngleArc(byval hdc as HDC, byval x as long, byval y as long, byval r as DWORD, byval StartAngle as FLOAT, byval SweepAngle as FLOAT) as WINBOOL
-declare function PolyPolyline(byval hdc as HDC, byval apt as const POINT_ ptr, byval asz as const DWORD ptr, byval csz as DWORD) as WINBOOL
+declare function PolyPolyline(byval hdc as HDC, byval apt as const POINT ptr, byval asz as const DWORD ptr, byval csz as DWORD) as WINBOOL
 declare function GetWorldTransform(byval hdc as HDC, byval lpxf as LPXFORM) as WINBOOL
 declare function SetWorldTransform(byval hdc as HDC, byval lpxf as const XFORM ptr) as WINBOOL
 declare function ModifyWorldTransform(byval hdc as HDC, byval lpxf as const XFORM ptr, byval mode as DWORD) as WINBOOL
@@ -3300,7 +3300,7 @@ declare function FillPath(byval hdc as HDC) as WINBOOL
 declare function FlattenPath(byval hdc as HDC) as WINBOOL
 declare function GetPath(byval hdc as HDC, byval apt as LPPOINT, byval aj as LPBYTE, byval cpt as long) as long
 declare function PathToRegion(byval hdc as HDC) as HRGN
-declare function PolyDraw(byval hdc as HDC, byval apt as const POINT_ ptr, byval aj as const UBYTE ptr, byval cpt as long) as WINBOOL
+declare function PolyDraw(byval hdc as HDC, byval apt as const POINT ptr, byval aj as const UBYTE ptr, byval cpt as long) as WINBOOL
 declare function SelectClipPath(byval hdc as HDC, byval mode as long) as WINBOOL
 declare function SetArcDirection(byval hdc as HDC, byval dir_ as long) as long
 declare function SetMiterLimit(byval hdc as HDC, byval limit as FLOAT, byval old as PFLOAT) as WINBOOL
@@ -3319,14 +3319,14 @@ declare function ExtTextOutA(byval hdc as HDC, byval x as long, byval y as long,
 declare function ExtTextOutW(byval hdc as HDC, byval x as long, byval y as long, byval options as UINT, byval lprect as const RECT ptr, byval lpString as LPCWSTR, byval c as UINT, byval lpDx as const INT_ ptr) as WINBOOL
 declare function PolyTextOutA(byval hdc as HDC, byval ppt as const POLYTEXTA ptr, byval nstrings as long) as WINBOOL
 declare function PolyTextOutW(byval hdc as HDC, byval ppt as const POLYTEXTW ptr, byval nstrings as long) as WINBOOL
-declare function CreatePolygonRgn(byval pptl as const POINT_ ptr, byval cPoint as long, byval iMode as long) as HRGN
+declare function CreatePolygonRgn(byval pptl as const POINT ptr, byval cPoint as long, byval iMode as long) as HRGN
 declare function DPtoLP(byval hdc as HDC, byval lppt as LPPOINT, byval c as long) as WINBOOL
 declare function LPtoDP(byval hdc as HDC, byval lppt as LPPOINT, byval c as long) as WINBOOL
-declare function Polygon(byval hdc as HDC, byval apt as const POINT_ ptr, byval cpt as long) as WINBOOL
-declare function Polyline(byval hdc as HDC, byval apt as const POINT_ ptr, byval cpt as long) as WINBOOL
-declare function PolyBezier(byval hdc as HDC, byval apt as const POINT_ ptr, byval cpt as DWORD) as WINBOOL
-declare function PolyBezierTo(byval hdc as HDC, byval apt as const POINT_ ptr, byval cpt as DWORD) as WINBOOL
-declare function PolylineTo(byval hdc as HDC, byval apt as const POINT_ ptr, byval cpt as DWORD) as WINBOOL
+declare function Polygon(byval hdc as HDC, byval apt as const POINT ptr, byval cpt as long) as WINBOOL
+declare function Polyline(byval hdc as HDC, byval apt as const POINT ptr, byval cpt as long) as WINBOOL
+declare function PolyBezier(byval hdc as HDC, byval apt as const POINT ptr, byval cpt as DWORD) as WINBOOL
+declare function PolyBezierTo(byval hdc as HDC, byval apt as const POINT ptr, byval cpt as DWORD) as WINBOOL
+declare function PolylineTo(byval hdc as HDC, byval apt as const POINT ptr, byval cpt as DWORD) as WINBOOL
 declare function SetViewportExtEx(byval hdc as HDC, byval x as long, byval y as long, byval lpsz as LPSIZE) as WINBOOL
 declare function SetViewportOrgEx(byval hdc as HDC, byval x as long, byval y as long, byval lppt as LPPOINT) as WINBOOL
 declare function SetWindowExtEx(byval hdc as HDC, byval x as long, byval y as long, byval lpsz as LPSIZE) as WINBOOL

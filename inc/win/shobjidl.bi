@@ -766,7 +766,7 @@ type _CMINVOKECOMMANDINFOEX
 	lpParametersW as LPCWSTR
 	lpDirectoryW as LPCWSTR
 	lpTitleW as LPCWSTR
-	ptInvoke as POINT_
+	ptInvoke as POINT
 end type
 
 type CMINVOKECOMMANDINFOEX as _CMINVOKECOMMANDINFOEX
@@ -856,7 +856,7 @@ type IExecuteCommandVtbl
 	Release as function(byval This as IExecuteCommand ptr) as ULONG
 	SetKeyState as function(byval This as IExecuteCommand ptr, byval grfKeyState as DWORD) as HRESULT
 	SetParameters as function(byval This as IExecuteCommand ptr, byval pszParameters as LPCWSTR) as HRESULT
-	SetPosition as function(byval This as IExecuteCommand ptr, byval pt as POINT_) as HRESULT
+	SetPosition as function(byval This as IExecuteCommand ptr, byval pt as POINT) as HRESULT
 	SetShowWindow as function(byval This as IExecuteCommand ptr, byval nShow as long) as HRESULT
 	SetNoShowUI as function(byval This as IExecuteCommand ptr, byval fNoShowUI as WINBOOL) as HRESULT
 	SetDirectory as function(byval This as IExecuteCommand ptr, byval pszDirectory as LPCWSTR) as HRESULT
@@ -871,7 +871,7 @@ declare function IExecuteCommand_SetKeyState_Proxy(byval This as IExecuteCommand
 declare sub IExecuteCommand_SetKeyState_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IExecuteCommand_SetParameters_Proxy(byval This as IExecuteCommand ptr, byval pszParameters as LPCWSTR) as HRESULT
 declare sub IExecuteCommand_SetParameters_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-declare function IExecuteCommand_SetPosition_Proxy(byval This as IExecuteCommand ptr, byval pt as POINT_) as HRESULT
+declare function IExecuteCommand_SetPosition_Proxy(byval This as IExecuteCommand ptr, byval pt as POINT) as HRESULT
 declare sub IExecuteCommand_SetPosition_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IExecuteCommand_SetShowWindow_Proxy(byval This as IExecuteCommand ptr, byval nShow as long) as HRESULT
 declare sub IExecuteCommand_SetShowWindow_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
@@ -1665,7 +1665,7 @@ type IShellView2Vtbl
 	GetView as function(byval This as IShellView2 ptr, byval pvid as SHELLVIEWID ptr, byval uView as ULONG) as HRESULT
 	CreateViewWindow2 as function(byval This as IShellView2 ptr, byval lpParams as LPSV2CVW2_PARAMS) as HRESULT
 	HandleRename as function(byval This as IShellView2 ptr, byval pidlNew as LPCITEMIDLIST) as HRESULT
-	SelectAndPositionItem as function(byval This as IShellView2 ptr, byval pidlItem as LPCITEMIDLIST, byval uFlags as UINT, byval ppt as POINT_ ptr) as HRESULT
+	SelectAndPositionItem as function(byval This as IShellView2 ptr, byval pidlItem as LPCITEMIDLIST, byval uFlags as UINT, byval ppt as POINT ptr) as HRESULT
 end type
 
 type IShellView2_
@@ -1678,7 +1678,7 @@ declare function IShellView2_CreateViewWindow2_Proxy(byval This as IShellView2 p
 declare sub IShellView2_CreateViewWindow2_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IShellView2_HandleRename_Proxy(byval This as IShellView2 ptr, byval pidlNew as LPCITEMIDLIST) as HRESULT
 declare sub IShellView2_HandleRename_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-declare function IShellView2_SelectAndPositionItem_Proxy(byval This as IShellView2 ptr, byval pidlItem as LPCITEMIDLIST, byval uFlags as UINT, byval ppt as POINT_ ptr) as HRESULT
+declare function IShellView2_SelectAndPositionItem_Proxy(byval This as IShellView2 ptr, byval pidlItem as LPCITEMIDLIST, byval uFlags as UINT, byval ppt as POINT ptr) as HRESULT
 declare sub IShellView2_SelectAndPositionItem_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 
 #if _WIN32_WINNT = &h0602
@@ -1716,7 +1716,7 @@ declare sub IShellView2_SelectAndPositionItem_Stub(byval This as IRpcStubBuffer 
 		GetView as function(byval This as IShellView3 ptr, byval pvid as SHELLVIEWID ptr, byval uView as ULONG) as HRESULT
 		CreateViewWindow2 as function(byval This as IShellView3 ptr, byval lpParams as LPSV2CVW2_PARAMS) as HRESULT
 		HandleRename as function(byval This as IShellView3 ptr, byval pidlNew as LPCITEMIDLIST) as HRESULT
-		SelectAndPositionItem as function(byval This as IShellView3 ptr, byval pidlItem as LPCITEMIDLIST, byval uFlags as UINT, byval ppt as POINT_ ptr) as HRESULT
+		SelectAndPositionItem as function(byval This as IShellView3 ptr, byval pidlItem as LPCITEMIDLIST, byval uFlags as UINT, byval ppt as POINT ptr) as HRESULT
 		CreateViewWindow3 as function(byval This as IShellView3 ptr, byval psbOwner as IShellBrowser ptr, byval psvPrev as IShellView ptr, byval dwViewFlags as SV3CVW3_FLAGS, byval dwMask as FOLDERFLAGS, byval dwFlags as FOLDERFLAGS, byval fvMode as FOLDERVIEWMODE, byval pvid as const SHELLVIEWID ptr, byval prcView as const RECT ptr, byval phwndView as HWND ptr) as HRESULT
 	end type
 
@@ -1744,12 +1744,12 @@ type IFolderViewVtbl
 	Items as function(byval This as IFolderView ptr, byval uFlags as UINT, byval riid as const IID const ptr, byval ppv as any ptr ptr) as HRESULT
 	GetSelectionMarkedItem as function(byval This as IFolderView ptr, byval piItem as long ptr) as HRESULT
 	GetFocusedItem as function(byval This as IFolderView ptr, byval piItem as long ptr) as HRESULT
-	GetItemPosition as function(byval This as IFolderView ptr, byval pidl as LPCITEMIDLIST, byval ppt as POINT_ ptr) as HRESULT
-	GetSpacing as function(byval This as IFolderView ptr, byval ppt as POINT_ ptr) as HRESULT
-	GetDefaultSpacing as function(byval This as IFolderView ptr, byval ppt as POINT_ ptr) as HRESULT
+	GetItemPosition as function(byval This as IFolderView ptr, byval pidl as LPCITEMIDLIST, byval ppt as POINT ptr) as HRESULT
+	GetSpacing as function(byval This as IFolderView ptr, byval ppt as POINT ptr) as HRESULT
+	GetDefaultSpacing as function(byval This as IFolderView ptr, byval ppt as POINT ptr) as HRESULT
 	GetAutoArrange as function(byval This as IFolderView ptr) as HRESULT
 	SelectItem as function(byval This as IFolderView ptr, byval iItem as long, byval dwFlags as DWORD) as HRESULT
-	SelectAndPositionItems as function(byval This as IFolderView ptr, byval cidl as UINT, byval apidl as LPCITEMIDLIST ptr, byval apt as POINT_ ptr, byval dwFlags as DWORD) as HRESULT
+	SelectAndPositionItems as function(byval This as IFolderView ptr, byval cidl as UINT, byval apidl as LPCITEMIDLIST ptr, byval apt as POINT ptr, byval dwFlags as DWORD) as HRESULT
 end type
 
 type IFolderView_
@@ -1772,17 +1772,17 @@ declare function IFolderView_GetSelectionMarkedItem_Proxy(byval This as IFolderV
 declare sub IFolderView_GetSelectionMarkedItem_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IFolderView_GetFocusedItem_Proxy(byval This as IFolderView ptr, byval piItem as long ptr) as HRESULT
 declare sub IFolderView_GetFocusedItem_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-declare function IFolderView_GetItemPosition_Proxy(byval This as IFolderView ptr, byval pidl as LPCITEMIDLIST, byval ppt as POINT_ ptr) as HRESULT
+declare function IFolderView_GetItemPosition_Proxy(byval This as IFolderView ptr, byval pidl as LPCITEMIDLIST, byval ppt as POINT ptr) as HRESULT
 declare sub IFolderView_GetItemPosition_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-declare function IFolderView_GetSpacing_Proxy(byval This as IFolderView ptr, byval ppt as POINT_ ptr) as HRESULT
+declare function IFolderView_GetSpacing_Proxy(byval This as IFolderView ptr, byval ppt as POINT ptr) as HRESULT
 declare sub IFolderView_GetSpacing_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-declare function IFolderView_GetDefaultSpacing_Proxy(byval This as IFolderView ptr, byval ppt as POINT_ ptr) as HRESULT
+declare function IFolderView_GetDefaultSpacing_Proxy(byval This as IFolderView ptr, byval ppt as POINT ptr) as HRESULT
 declare sub IFolderView_GetDefaultSpacing_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IFolderView_GetAutoArrange_Proxy(byval This as IFolderView ptr) as HRESULT
 declare sub IFolderView_GetAutoArrange_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IFolderView_SelectItem_Proxy(byval This as IFolderView ptr, byval iItem as long, byval dwFlags as DWORD) as HRESULT
 declare sub IFolderView_SelectItem_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-declare function IFolderView_SelectAndPositionItems_Proxy(byval This as IFolderView ptr, byval cidl as UINT, byval apidl as LPCITEMIDLIST ptr, byval apt as POINT_ ptr, byval dwFlags as DWORD) as HRESULT
+declare function IFolderView_SelectAndPositionItems_Proxy(byval This as IFolderView ptr, byval cidl as UINT, byval apidl as LPCITEMIDLIST ptr, byval apt as POINT ptr, byval dwFlags as DWORD) as HRESULT
 declare sub IFolderView_SelectAndPositionItems_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 
 #define SID_SFolderView IID_IFolderView
@@ -1845,12 +1845,12 @@ declare sub IFolderView_SelectAndPositionItems_Stub(byval This as IRpcStubBuffer
 		Items as function(byval This as IFolderView2 ptr, byval uFlags as UINT, byval riid as const IID const ptr, byval ppv as any ptr ptr) as HRESULT
 		GetSelectionMarkedItem as function(byval This as IFolderView2 ptr, byval piItem as long ptr) as HRESULT
 		GetFocusedItem as function(byval This as IFolderView2 ptr, byval piItem as long ptr) as HRESULT
-		GetItemPosition as function(byval This as IFolderView2 ptr, byval pidl as LPCITEMIDLIST, byval ppt as POINT_ ptr) as HRESULT
-		GetSpacing as function(byval This as IFolderView2 ptr, byval ppt as POINT_ ptr) as HRESULT
-		GetDefaultSpacing as function(byval This as IFolderView2 ptr, byval ppt as POINT_ ptr) as HRESULT
+		GetItemPosition as function(byval This as IFolderView2 ptr, byval pidl as LPCITEMIDLIST, byval ppt as POINT ptr) as HRESULT
+		GetSpacing as function(byval This as IFolderView2 ptr, byval ppt as POINT ptr) as HRESULT
+		GetDefaultSpacing as function(byval This as IFolderView2 ptr, byval ppt as POINT ptr) as HRESULT
 		GetAutoArrange as function(byval This as IFolderView2 ptr) as HRESULT
 		SelectItem as function(byval This as IFolderView2 ptr, byval iItem as long, byval dwFlags as DWORD) as HRESULT
-		SelectAndPositionItems as function(byval This as IFolderView2 ptr, byval cidl as UINT, byval apidl as LPCITEMIDLIST ptr, byval apt as POINT_ ptr, byval dwFlags as DWORD) as HRESULT
+		SelectAndPositionItems as function(byval This as IFolderView2 ptr, byval cidl as UINT, byval apidl as LPCITEMIDLIST ptr, byval apt as POINT ptr, byval dwFlags as DWORD) as HRESULT
 		SetGroupBy as function(byval This as IFolderView2 ptr, byval key as const PROPERTYKEY const ptr, byval fAscending as WINBOOL) as HRESULT
 		GetGroupBy as function(byval This as IFolderView2 ptr, byval pkey as PROPERTYKEY ptr, byval pfAscending as WINBOOL ptr) as HRESULT
 		SetViewProperty as function(byval This as IFolderView2 ptr, byval pidl as LPCITEMIDLIST, byval propkey as const PROPERTYKEY const ptr, byval propvar as const PROPVARIANT const ptr) as HRESULT
@@ -3324,7 +3324,7 @@ declare sub ICategorizer_CompareCategory_Stub(byval This as IRpcStubBuffer ptr, 
 
 type SHDRAGIMAGE
 	sizeDragImage as SIZE
-	ptOffset as POINT_
+	ptOffset as POINT
 	hbmpDragImage as HBITMAP
 	crColorKey as COLORREF
 end type
@@ -3340,10 +3340,10 @@ type IDropTargetHelperVtbl
 	QueryInterface as function(byval This as IDropTargetHelper ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IDropTargetHelper ptr) as ULONG
 	Release as function(byval This as IDropTargetHelper ptr) as ULONG
-	DragEnter as function(byval This as IDropTargetHelper ptr, byval hwndTarget as HWND, byval pDataObject as IDataObject ptr, byval ppt as POINT_ ptr, byval dwEffect as DWORD) as HRESULT
+	DragEnter as function(byval This as IDropTargetHelper ptr, byval hwndTarget as HWND, byval pDataObject as IDataObject ptr, byval ppt as POINT ptr, byval dwEffect as DWORD) as HRESULT
 	DragLeave as function(byval This as IDropTargetHelper ptr) as HRESULT
-	DragOver as function(byval This as IDropTargetHelper ptr, byval ppt as POINT_ ptr, byval dwEffect as DWORD) as HRESULT
-	Drop as function(byval This as IDropTargetHelper ptr, byval pDataObject as IDataObject ptr, byval ppt as POINT_ ptr, byval dwEffect as DWORD) as HRESULT
+	DragOver as function(byval This as IDropTargetHelper ptr, byval ppt as POINT ptr, byval dwEffect as DWORD) as HRESULT
+	Drop as function(byval This as IDropTargetHelper ptr, byval pDataObject as IDataObject ptr, byval ppt as POINT ptr, byval dwEffect as DWORD) as HRESULT
 	Show as function(byval This as IDropTargetHelper ptr, byval fShow as WINBOOL) as HRESULT
 end type
 
@@ -3351,13 +3351,13 @@ type IDropTargetHelper_
 	lpVtbl as IDropTargetHelperVtbl ptr
 end type
 
-declare function IDropTargetHelper_DragEnter_Proxy(byval This as IDropTargetHelper ptr, byval hwndTarget as HWND, byval pDataObject as IDataObject ptr, byval ppt as POINT_ ptr, byval dwEffect as DWORD) as HRESULT
+declare function IDropTargetHelper_DragEnter_Proxy(byval This as IDropTargetHelper ptr, byval hwndTarget as HWND, byval pDataObject as IDataObject ptr, byval ppt as POINT ptr, byval dwEffect as DWORD) as HRESULT
 declare sub IDropTargetHelper_DragEnter_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IDropTargetHelper_DragLeave_Proxy(byval This as IDropTargetHelper ptr) as HRESULT
 declare sub IDropTargetHelper_DragLeave_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-declare function IDropTargetHelper_DragOver_Proxy(byval This as IDropTargetHelper ptr, byval ppt as POINT_ ptr, byval dwEffect as DWORD) as HRESULT
+declare function IDropTargetHelper_DragOver_Proxy(byval This as IDropTargetHelper ptr, byval ppt as POINT ptr, byval dwEffect as DWORD) as HRESULT
 declare sub IDropTargetHelper_DragOver_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-declare function IDropTargetHelper_Drop_Proxy(byval This as IDropTargetHelper ptr, byval pDataObject as IDataObject ptr, byval ppt as POINT_ ptr, byval dwEffect as DWORD) as HRESULT
+declare function IDropTargetHelper_Drop_Proxy(byval This as IDropTargetHelper ptr, byval pDataObject as IDataObject ptr, byval ppt as POINT ptr, byval dwEffect as DWORD) as HRESULT
 declare sub IDropTargetHelper_Drop_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IDropTargetHelper_Show_Proxy(byval This as IDropTargetHelper ptr, byval fShow as WINBOOL) as HRESULT
 declare sub IDropTargetHelper_Show_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
@@ -3371,7 +3371,7 @@ type IDragSourceHelperVtbl
 	AddRef as function(byval This as IDragSourceHelper ptr) as ULONG
 	Release as function(byval This as IDragSourceHelper ptr) as ULONG
 	InitializeFromBitmap as function(byval This as IDragSourceHelper ptr, byval pshdi as LPSHDRAGIMAGE, byval pDataObject as IDataObject ptr) as HRESULT
-	InitializeFromWindow as function(byval This as IDragSourceHelper ptr, byval hwnd as HWND, byval ppt as POINT_ ptr, byval pDataObject as IDataObject ptr) as HRESULT
+	InitializeFromWindow as function(byval This as IDragSourceHelper ptr, byval hwnd as HWND, byval ppt as POINT ptr, byval pDataObject as IDataObject ptr) as HRESULT
 end type
 
 type IDragSourceHelper_
@@ -3380,7 +3380,7 @@ end type
 
 declare function IDragSourceHelper_InitializeFromBitmap_Proxy(byval This as IDragSourceHelper ptr, byval pshdi as LPSHDRAGIMAGE, byval pDataObject as IDataObject ptr) as HRESULT
 declare sub IDragSourceHelper_InitializeFromBitmap_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-declare function IDragSourceHelper_InitializeFromWindow_Proxy(byval This as IDragSourceHelper ptr, byval hwnd as HWND, byval ppt as POINT_ ptr, byval pDataObject as IDataObject ptr) as HRESULT
+declare function IDragSourceHelper_InitializeFromWindow_Proxy(byval This as IDragSourceHelper ptr, byval hwnd as HWND, byval ppt as POINT ptr, byval pDataObject as IDataObject ptr) as HRESULT
 declare sub IDragSourceHelper_InitializeFromWindow_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 
 #if _WIN32_WINNT = &h0602
@@ -3398,7 +3398,7 @@ declare sub IDragSourceHelper_InitializeFromWindow_Stub(byval This as IRpcStubBu
 		AddRef as function(byval This as IDragSourceHelper2 ptr) as ULONG
 		Release as function(byval This as IDragSourceHelper2 ptr) as ULONG
 		InitializeFromBitmap as function(byval This as IDragSourceHelper2 ptr, byval pshdi as LPSHDRAGIMAGE, byval pDataObject as IDataObject ptr) as HRESULT
-		InitializeFromWindow as function(byval This as IDragSourceHelper2 ptr, byval hwnd as HWND, byval ppt as POINT_ ptr, byval pDataObject as IDataObject ptr) as HRESULT
+		InitializeFromWindow as function(byval This as IDragSourceHelper2 ptr, byval hwnd as HWND, byval ppt as POINT ptr, byval pDataObject as IDataObject ptr) as HRESULT
 		SetFlags as function(byval This as IDragSourceHelper2 ptr, byval dwFlags as DWORD) as HRESULT
 	end type
 
@@ -3982,20 +3982,20 @@ type IUserNotificationCallbackVtbl
 	QueryInterface as function(byval This as IUserNotificationCallback ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IUserNotificationCallback ptr) as ULONG
 	Release as function(byval This as IUserNotificationCallback ptr) as ULONG
-	OnBalloonUserClick as function(byval This as IUserNotificationCallback ptr, byval pt as POINT_ ptr) as HRESULT
-	OnLeftClick as function(byval This as IUserNotificationCallback ptr, byval pt as POINT_ ptr) as HRESULT
-	OnContextMenu as function(byval This as IUserNotificationCallback ptr, byval pt as POINT_ ptr) as HRESULT
+	OnBalloonUserClick as function(byval This as IUserNotificationCallback ptr, byval pt as POINT ptr) as HRESULT
+	OnLeftClick as function(byval This as IUserNotificationCallback ptr, byval pt as POINT ptr) as HRESULT
+	OnContextMenu as function(byval This as IUserNotificationCallback ptr, byval pt as POINT ptr) as HRESULT
 end type
 
 type IUserNotificationCallback_
 	lpVtbl as IUserNotificationCallbackVtbl ptr
 end type
 
-declare function IUserNotificationCallback_OnBalloonUserClick_Proxy(byval This as IUserNotificationCallback ptr, byval pt as POINT_ ptr) as HRESULT
+declare function IUserNotificationCallback_OnBalloonUserClick_Proxy(byval This as IUserNotificationCallback ptr, byval pt as POINT ptr) as HRESULT
 declare sub IUserNotificationCallback_OnBalloonUserClick_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-declare function IUserNotificationCallback_OnLeftClick_Proxy(byval This as IUserNotificationCallback ptr, byval pt as POINT_ ptr) as HRESULT
+declare function IUserNotificationCallback_OnLeftClick_Proxy(byval This as IUserNotificationCallback ptr, byval pt as POINT ptr) as HRESULT
 declare sub IUserNotificationCallback_OnLeftClick_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-declare function IUserNotificationCallback_OnContextMenu_Proxy(byval This as IUserNotificationCallback ptr, byval pt as POINT_ ptr) as HRESULT
+declare function IUserNotificationCallback_OnContextMenu_Proxy(byval This as IUserNotificationCallback ptr, byval pt as POINT ptr) as HRESULT
 declare sub IUserNotificationCallback_OnContextMenu_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 
 #define __IUserNotification2_INTERFACE_DEFINED__
@@ -5394,14 +5394,14 @@ type IContextMenuSiteVtbl
 	QueryInterface as function(byval This as IContextMenuSite ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IContextMenuSite ptr) as ULONG
 	Release as function(byval This as IContextMenuSite ptr) as ULONG
-	DoContextMenuPopup as function(byval This as IContextMenuSite ptr, byval punkContextMenu as IUnknown ptr, byval fFlags as UINT, byval pt as POINT_) as HRESULT
+	DoContextMenuPopup as function(byval This as IContextMenuSite ptr, byval punkContextMenu as IUnknown ptr, byval fFlags as UINT, byval pt as POINT) as HRESULT
 end type
 
 type IContextMenuSite_
 	lpVtbl as IContextMenuSiteVtbl ptr
 end type
 
-declare function IContextMenuSite_DoContextMenuPopup_Proxy(byval This as IContextMenuSite ptr, byval punkContextMenu as IUnknown ptr, byval fFlags as UINT, byval pt as POINT_) as HRESULT
+declare function IContextMenuSite_DoContextMenuPopup_Proxy(byval This as IContextMenuSite ptr, byval punkContextMenu as IUnknown ptr, byval fFlags as UINT, byval pt as POINT) as HRESULT
 declare sub IContextMenuSite_DoContextMenuPopup_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 
 #define __IEnumReadyCallback_INTERFACE_DEFINED__
@@ -7167,7 +7167,7 @@ type INameSpaceTreeControlVtbl
 	EnsureItemVisible as function(byval This as INameSpaceTreeControl ptr, byval psi as IShellItem ptr) as HRESULT
 	SetTheme as function(byval This as INameSpaceTreeControl ptr, byval pszTheme as LPCWSTR) as HRESULT
 	GetNextItem as function(byval This as INameSpaceTreeControl ptr, byval psi as IShellItem ptr, byval nstcgi as NSTCGNI, byval ppsiNext as IShellItem ptr ptr) as HRESULT
-	HitTest as function(byval This as INameSpaceTreeControl ptr, byval ppt as POINT_ ptr, byval ppsiOut as IShellItem ptr ptr) as HRESULT
+	HitTest as function(byval This as INameSpaceTreeControl ptr, byval ppt as POINT ptr, byval ppsiOut as IShellItem ptr ptr) as HRESULT
 	GetItemRect as function(byval This as INameSpaceTreeControl ptr, byval psi as IShellItem ptr, byval prect as RECT ptr) as HRESULT
 	CollapseAll as function(byval This as INameSpaceTreeControl ptr) as HRESULT
 end type
@@ -7208,7 +7208,7 @@ declare function INameSpaceTreeControl_SetTheme_Proxy(byval This as INameSpaceTr
 declare sub INameSpaceTreeControl_SetTheme_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function INameSpaceTreeControl_GetNextItem_Proxy(byval This as INameSpaceTreeControl ptr, byval psi as IShellItem ptr, byval nstcgi as NSTCGNI, byval ppsiNext as IShellItem ptr ptr) as HRESULT
 declare sub INameSpaceTreeControl_GetNextItem_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-declare function INameSpaceTreeControl_HitTest_Proxy(byval This as INameSpaceTreeControl ptr, byval ppt as POINT_ ptr, byval ppsiOut as IShellItem ptr ptr) as HRESULT
+declare function INameSpaceTreeControl_HitTest_Proxy(byval This as INameSpaceTreeControl ptr, byval ppt as POINT ptr, byval ppsiOut as IShellItem ptr ptr) as HRESULT
 declare sub INameSpaceTreeControl_HitTest_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function INameSpaceTreeControl_GetItemRect_Proxy(byval This as INameSpaceTreeControl ptr, byval psi as IShellItem ptr, byval prect as RECT ptr) as HRESULT
 declare sub INameSpaceTreeControl_GetItemRect_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
@@ -7250,7 +7250,7 @@ type INameSpaceTreeControl2Vtbl
 	EnsureItemVisible as function(byval This as INameSpaceTreeControl2 ptr, byval psi as IShellItem ptr) as HRESULT
 	SetTheme as function(byval This as INameSpaceTreeControl2 ptr, byval pszTheme as LPCWSTR) as HRESULT
 	GetNextItem as function(byval This as INameSpaceTreeControl2 ptr, byval psi as IShellItem ptr, byval nstcgi as NSTCGNI, byval ppsiNext as IShellItem ptr ptr) as HRESULT
-	HitTest as function(byval This as INameSpaceTreeControl2 ptr, byval ppt as POINT_ ptr, byval ppsiOut as IShellItem ptr ptr) as HRESULT
+	HitTest as function(byval This as INameSpaceTreeControl2 ptr, byval ppt as POINT ptr, byval ppsiOut as IShellItem ptr ptr) as HRESULT
 	GetItemRect as function(byval This as INameSpaceTreeControl2 ptr, byval psi as IShellItem ptr, byval prect as RECT ptr) as HRESULT
 	CollapseAll as function(byval This as INameSpaceTreeControl2 ptr) as HRESULT
 	SetControlStyle as function(byval This as INameSpaceTreeControl2 ptr, byval nstcsMask as NSTCSTYLE, byval nstcsStyle as NSTCSTYLE) as HRESULT

@@ -161,7 +161,7 @@ type IDocHostUIHandlerVtbl
 	QueryInterface as function(byval This as IDocHostUIHandler ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IDocHostUIHandler ptr) as ULONG
 	Release as function(byval This as IDocHostUIHandler ptr) as ULONG
-	ShowContextMenu as function(byval This as IDocHostUIHandler ptr, byval dwID as DWORD, byval ppt as POINT_ ptr, byval pcmdtReserved as IUnknown ptr, byval pdispReserved as IDispatch ptr) as HRESULT
+	ShowContextMenu as function(byval This as IDocHostUIHandler ptr, byval dwID as DWORD, byval ppt as POINT ptr, byval pcmdtReserved as IUnknown ptr, byval pdispReserved as IDispatch ptr) as HRESULT
 	GetHostInfo as function(byval This as IDocHostUIHandler ptr, byval pInfo as DOCHOSTUIINFO ptr) as HRESULT
 	ShowUI as function(byval This as IDocHostUIHandler ptr, byval dwID as DWORD, byval pActiveObject as IOleInPlaceActiveObject ptr, byval pCommandTarget as IOleCommandTarget ptr, byval pFrame as IOleInPlaceFrame ptr, byval pDoc as IOleInPlaceUIWindow ptr) as HRESULT
 	HideUI as function(byval This as IDocHostUIHandler ptr) as HRESULT
@@ -182,7 +182,7 @@ type IDocHostUIHandler_
 	lpVtbl as IDocHostUIHandlerVtbl ptr
 end type
 
-declare function IDocHostUIHandler_ShowContextMenu_Proxy(byval This as IDocHostUIHandler ptr, byval dwID as DWORD, byval ppt as POINT_ ptr, byval pcmdtReserved as IUnknown ptr, byval pdispReserved as IDispatch ptr) as HRESULT
+declare function IDocHostUIHandler_ShowContextMenu_Proxy(byval This as IDocHostUIHandler ptr, byval dwID as DWORD, byval ppt as POINT ptr, byval pcmdtReserved as IUnknown ptr, byval pdispReserved as IDispatch ptr) as HRESULT
 declare sub IDocHostUIHandler_ShowContextMenu_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IDocHostUIHandler_GetHostInfo_Proxy(byval This as IDocHostUIHandler ptr, byval pInfo as DOCHOSTUIINFO ptr) as HRESULT
 declare sub IDocHostUIHandler_GetHostInfo_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
@@ -221,7 +221,7 @@ type IDocHostUIHandler2Vtbl
 	QueryInterface as function(byval This as IDocHostUIHandler2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IDocHostUIHandler2 ptr) as ULONG
 	Release as function(byval This as IDocHostUIHandler2 ptr) as ULONG
-	ShowContextMenu as function(byval This as IDocHostUIHandler2 ptr, byval dwID as DWORD, byval ppt as POINT_ ptr, byval pcmdtReserved as IUnknown ptr, byval pdispReserved as IDispatch ptr) as HRESULT
+	ShowContextMenu as function(byval This as IDocHostUIHandler2 ptr, byval dwID as DWORD, byval ppt as POINT ptr, byval pcmdtReserved as IUnknown ptr, byval pdispReserved as IDispatch ptr) as HRESULT
 	GetHostInfo as function(byval This as IDocHostUIHandler2 ptr, byval pInfo as DOCHOSTUIINFO ptr) as HRESULT
 	ShowUI as function(byval This as IDocHostUIHandler2 ptr, byval dwID as DWORD, byval pActiveObject as IOleInPlaceActiveObject ptr, byval pCommandTarget as IOleCommandTarget ptr, byval pFrame as IOleInPlaceFrame ptr, byval pDoc as IOleInPlaceUIWindow ptr) as HRESULT
 	HideUI as function(byval This as IDocHostUIHandler2 ptr) as HRESULT
@@ -277,7 +277,7 @@ type IDocHostShowUIVtbl
 	AddRef as function(byval This as IDocHostShowUI ptr) as ULONG
 	Release as function(byval This as IDocHostShowUI ptr) as ULONG
 	ShowMessage as function(byval This as IDocHostShowUI ptr, byval hwnd as HWND, byval lpstrText as LPOLESTR, byval lpstrCaption as LPOLESTR, byval dwType as DWORD, byval lpstrHelpFile as LPOLESTR, byval dwHelpContext as DWORD, byval plResult as LRESULT ptr) as HRESULT
-	ShowHelp as function(byval This as IDocHostShowUI ptr, byval hwnd as HWND, byval pszHelpFile as LPOLESTR, byval uCommand as UINT, byval dwData as DWORD, byval ptMouse as POINT_, byval pDispatchObjectHit as IDispatch ptr) as HRESULT
+	ShowHelp as function(byval This as IDocHostShowUI ptr, byval hwnd as HWND, byval pszHelpFile as LPOLESTR, byval uCommand as UINT, byval dwData as DWORD, byval ptMouse as POINT, byval pDispatchObjectHit as IDispatch ptr) as HRESULT
 end type
 
 type IDocHostShowUI_
@@ -286,7 +286,7 @@ end type
 
 declare function IDocHostShowUI_ShowMessage_Proxy(byval This as IDocHostShowUI ptr, byval hwnd as HWND, byval lpstrText as LPOLESTR, byval lpstrCaption as LPOLESTR, byval dwType as DWORD, byval lpstrHelpFile as LPOLESTR, byval dwHelpContext as DWORD, byval plResult as LRESULT ptr) as HRESULT
 declare sub IDocHostShowUI_ShowMessage_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IDocHostShowUI_ShowHelp_Proxy(byval This as IDocHostShowUI ptr, byval hwnd as HWND, byval pszHelpFile as LPOLESTR, byval uCommand as UINT, byval dwData as DWORD, byval ptMouse as POINT_, byval pDispatchObjectHit as IDispatch ptr) as HRESULT
+declare function IDocHostShowUI_ShowHelp_Proxy(byval This as IDocHostShowUI ptr, byval hwnd as HWND, byval pszHelpFile as LPOLESTR, byval uCommand as UINT, byval dwData as DWORD, byval ptMouse as POINT, byval pDispatchObjectHit as IDispatch ptr) as HRESULT
 declare sub IDocHostShowUI_ShowHelp_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 
 #define IClassFactory3 IClassFactoryEx

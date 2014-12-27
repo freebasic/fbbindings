@@ -1235,7 +1235,7 @@ type LPPAGESETUPHOOK as function(byval as HWND, byval as UINT, byval as WPARAM, 
 		hDevMode as HGLOBAL
 		hDevNames as HGLOBAL
 		Flags as DWORD
-		ptPaperSize as POINT_
+		ptPaperSize as POINT
 		rtMinMargin as RECT
 		rtMargin as RECT
 		hInstance as HINSTANCE
@@ -1252,7 +1252,7 @@ type LPPAGESETUPHOOK as function(byval as HWND, byval as UINT, byval as WPARAM, 
 		hDevMode as HGLOBAL
 		hDevNames as HGLOBAL
 		Flags as DWORD
-		ptPaperSize as POINT_
+		ptPaperSize as POINT
 		rtMinMargin as RECT
 		rtMargin as RECT
 		hInstance as HINSTANCE
@@ -1274,7 +1274,7 @@ type LPPAGESETUPDLGA as tagPSDA ptr
 		hDevMode as HGLOBAL
 		hDevNames as HGLOBAL
 		Flags as DWORD
-		ptPaperSize as POINT_
+		ptPaperSize as POINT
 		rtMinMargin as RECT
 		rtMargin as RECT
 		hInstance as HINSTANCE
@@ -1291,7 +1291,7 @@ type LPPAGESETUPDLGA as tagPSDA ptr
 		hDevMode as HGLOBAL
 		hDevNames as HGLOBAL
 		Flags as DWORD
-		ptPaperSize as POINT_
+		ptPaperSize as POINT
 		rtMinMargin as RECT
 		rtMargin as RECT
 		hInstance as HINSTANCE

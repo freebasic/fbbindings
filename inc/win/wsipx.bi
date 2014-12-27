@@ -1,8 +1,5 @@
 #pragma once
 
-'' The following symbols have been renamed:
-''     typedef SOCKADDR_IPX => SOCKADDR_IPX_
-
 #define _WSIPX_
 
 type sockaddr_ipx
@@ -12,7 +9,6 @@ type sockaddr_ipx
 	sa_socket as ushort
 end type
 
-type SOCKADDR_IPX_ as sockaddr_ipx
 type PSOCKADDR_IPX as sockaddr_ipx ptr
 type LPSOCKADDR_IPX as sockaddr_ipx ptr
 

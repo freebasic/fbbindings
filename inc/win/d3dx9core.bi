@@ -116,7 +116,7 @@ type ID3DXFontVtbl_
 	GetTextMetricsA as function(byval This as ID3DXFont ptr, byval metrics as TEXTMETRICA ptr) as WINBOOL
 	GetTextMetricsW as function(byval This as ID3DXFont ptr, byval metrics as TEXTMETRICW ptr) as WINBOOL
 	GetDC as function(byval This as ID3DXFont ptr) as HDC
-	GetGlyphData as function(byval This as ID3DXFont ptr, byval glyph as UINT, byval texture as IDirect3DTexture9 ptr ptr, byval blackbox as RECT ptr, byval cellinc as POINT_ ptr) as HRESULT
+	GetGlyphData as function(byval This as ID3DXFont ptr, byval glyph as UINT, byval texture as IDirect3DTexture9 ptr ptr, byval blackbox as RECT ptr, byval cellinc as POINT ptr) as HRESULT
 	PreloadCharacters as function(byval This as ID3DXFont ptr, byval first as UINT, byval last as UINT) as HRESULT
 	PreloadGlyphs as function(byval This as ID3DXFont ptr, byval first as UINT, byval last as UINT) as HRESULT
 	PreloadTextA as function(byval This as ID3DXFont ptr, byval string_ as const zstring ptr, byval count as INT_) as HRESULT

@@ -591,7 +591,7 @@ type LPKBDLLHOOKSTRUCT as tagKBDLLHOOKSTRUCT ptr
 type PKBDLLHOOKSTRUCT as tagKBDLLHOOKSTRUCT ptr
 
 type tagMSLLHOOKSTRUCT
-	pt as POINT_
+	pt as POINT
 	mouseData as DWORD
 	flags as DWORD
 	time as DWORD
@@ -616,7 +616,7 @@ type NPDEBUGHOOKINFO as tagDEBUGHOOKINFO ptr
 type LPDEBUGHOOKINFO as tagDEBUGHOOKINFO ptr
 
 type tagMOUSEHOOKSTRUCT
-	pt as POINT_
+	pt as POINT
 	hwnd as HWND
 	wHitTestCode as UINT
 	dwExtraInfo as ULONG_PTR
@@ -905,7 +905,7 @@ type tagMSG
 	wParam as WPARAM
 	lParam as LPARAM
 	time as DWORD
-	pt as POINT_
+	pt as POINT
 end type
 
 type MSG as tagMSG
@@ -1014,11 +1014,11 @@ type LPMSG as tagMSG ptr
 #define WM_GETMINMAXINFO &h0024
 
 type tagMINMAXINFO
-	ptReserved as POINT_
-	ptMaxSize as POINT_
-	ptMaxPosition as POINT_
-	ptMinTrackSize as POINT_
-	ptMaxTrackSize as POINT_
+	ptReserved as POINT
+	ptMaxSize as POINT
+	ptMaxPosition as POINT
+	ptMinTrackSize as POINT
+	ptMaxTrackSize as POINT
 end type
 
 type MINMAXINFO as tagMINMAXINFO
@@ -1676,8 +1676,8 @@ type tagWINDOWPLACEMENT
 	length as UINT
 	flags as UINT
 	showCmd as UINT
-	ptMinPosition as POINT_
-	ptMaxPosition as POINT_
+	ptMinPosition as POINT
+	ptMaxPosition as POINT
 	rcNormalPosition as RECT
 end type
 
@@ -2032,15 +2032,15 @@ declare function IsChild(byval hWndParent as HWND, byval hWnd as HWND) as WINBOO
 declare function DestroyWindow(byval hWnd as HWND) as WINBOOL
 declare function ShowWindow(byval hWnd as HWND, byval nCmdShow as long) as WINBOOL
 declare function AnimateWindow(byval hWnd as HWND, byval dwTime as DWORD, byval dwFlags as DWORD) as WINBOOL
-declare function UpdateLayeredWindow(byval hWnd as HWND, byval hdcDst as HDC, byval pptDst as POINT_ ptr, byval psize as SIZE ptr, byval hdcSrc as HDC, byval pptSrc as POINT_ ptr, byval crKey as COLORREF, byval pblend as BLENDFUNCTION ptr, byval dwFlags as DWORD) as WINBOOL
+declare function UpdateLayeredWindow(byval hWnd as HWND, byval hdcDst as HDC, byval pptDst as POINT ptr, byval psize as SIZE ptr, byval hdcSrc as HDC, byval pptSrc as POINT ptr, byval crKey as COLORREF, byval pblend as BLENDFUNCTION ptr, byval dwFlags as DWORD) as WINBOOL
 
 type tagUPDATELAYEREDWINDOWINFO
 	cbSize as DWORD
 	hdcDst as HDC
-	pptDst as const POINT_ ptr
+	pptDst as const POINT ptr
 	psize as const SIZE ptr
 	hdcSrc as HDC
-	pptSrc as const POINT_ ptr
+	pptSrc as const POINT ptr
 	crKey as COLORREF
 	pblend as const BLENDFUNCTION ptr
 	dwFlags as DWORD
@@ -2884,7 +2884,7 @@ declare function SetMenuItemInfoW(byval hmenu as HMENU, byval item as UINT, byva
 declare function GetMenuDefaultItem(byval hMenu as HMENU, byval fByPos as UINT, byval gmdiFlags as UINT) as UINT
 declare function SetMenuDefaultItem(byval hMenu as HMENU, byval uItem as UINT, byval fByPos as UINT) as WINBOOL
 declare function GetMenuItemRect(byval hWnd as HWND, byval hMenu as HMENU, byval uItem as UINT, byval lprcItem as LPRECT) as WINBOOL
-declare function MenuItemFromPoint(byval hWnd as HWND, byval hMenu as HMENU, byval ptScreen as POINT_) as long
+declare function MenuItemFromPoint(byval hWnd as HWND, byval hMenu as HMENU, byval ptScreen as POINT) as long
 
 #define TPM_LEFTBUTTON __MSABI_LONG(&h0000)
 #define TPM_RIGHTBUTTON __MSABI_LONG(&h0002)
@@ -2911,7 +2911,7 @@ type tagDROPSTRUCT
 	hwndSink as HWND
 	wFmt as DWORD
 	dwData as ULONG_PTR
-	ptDrop as POINT_
+	ptDrop as POINT
 	dwControlData as DWORD
 end type
 
@@ -2929,7 +2929,7 @@ type LPDROPSTRUCT as tagDROPSTRUCT ptr
 #define DO_PRINTFILE __MSABI_LONG(&h544E5250)
 
 declare function DragObject(byval hwndParent as HWND, byval hwndFrom as HWND, byval fmt as UINT, byval data_ as ULONG_PTR, byval hcur as HCURSOR) as DWORD
-declare function DragDetect(byval hwnd as HWND, byval pt as POINT_) as WINBOOL
+declare function DragDetect(byval hwnd as HWND, byval pt as POINT) as WINBOOL
 declare function DrawIcon(byval hDC as HDC, byval X as long, byval Y as long, byval hIcon as HICON) as WINBOOL
 
 #define DT_TOP &h00000000
@@ -3152,7 +3152,7 @@ type tagHELPINFO
 	iCtrlId as long
 	hItemHandle as HANDLE
 	dwContextId as DWORD_PTR
-	MousePos as POINT_
+	MousePos as POINT
 end type
 
 type HELPINFO as tagHELPINFO
@@ -3285,15 +3285,15 @@ declare function GetCaretPos(byval lpPoint as LPPOINT) as WINBOOL
 declare function ClientToScreen(byval hWnd as HWND, byval lpPoint as LPPOINT) as WINBOOL
 declare function ScreenToClient(byval hWnd as HWND, byval lpPoint as LPPOINT) as WINBOOL
 declare function MapWindowPoints(byval hWndFrom as HWND, byval hWndTo as HWND, byval lpPoints as LPPOINT, byval cPoints as UINT) as long
-declare function WindowFromPoint(byval Point_ as POINT_) as HWND
-declare function ChildWindowFromPoint(byval hWndParent as HWND, byval Point_ as POINT_) as HWND
+declare function WindowFromPoint(byval Point as POINT) as HWND
+declare function ChildWindowFromPoint(byval hWndParent as HWND, byval Point as POINT) as HWND
 
 #define CWP_ALL &h0000
 #define CWP_SKIPINVISIBLE &h0001
 #define CWP_SKIPDISABLED &h0002
 #define CWP_SKIPTRANSPARENT &h0004
 
-declare function ChildWindowFromPointEx(byval hwnd as HWND, byval pt as POINT_, byval flags as UINT) as HWND
+declare function ChildWindowFromPointEx(byval hwnd as HWND, byval pt as POINT, byval flags as UINT) as HWND
 
 #define CTLCOLOR_MSGBOX 0
 #define CTLCOLOR_EDIT 1
@@ -3357,7 +3357,7 @@ declare function SubtractRect(byval lprcDst as LPRECT, byval lprcSrc1 as const R
 declare function OffsetRect(byval lprc as LPRECT, byval dx as long, byval dy as long) as WINBOOL
 declare function IsRectEmpty(byval lprc as const RECT ptr) as WINBOOL
 declare function EqualRect(byval lprc1 as const RECT ptr, byval lprc2 as const RECT ptr) as WINBOOL
-declare function PtInRect(byval lprc as const RECT ptr, byval pt as POINT_) as WINBOOL
+declare function PtInRect(byval lprc as const RECT ptr, byval pt as POINT) as WINBOOL
 
 #ifdef UNICODE
 	#define GetWindowLong GetWindowLongW
@@ -5075,7 +5075,7 @@ declare function EndTask(byval hWnd as HWND, byval fShutDown as WINBOOL, byval f
 #define MONITOR_DEFAULTTOPRIMARY &h00000001
 #define MONITOR_DEFAULTTONEAREST &h00000002
 
-declare function MonitorFromPoint(byval pt as POINT_, byval dwFlags as DWORD) as HMONITOR
+declare function MonitorFromPoint(byval pt as POINT, byval dwFlags as DWORD) as HMONITOR
 declare function MonitorFromRect(byval lprc as LPCRECT, byval dwFlags as DWORD) as HMONITOR
 declare function MonitorFromWindow(byval hwnd as HWND, byval dwFlags as DWORD) as HMONITOR
 
@@ -5322,7 +5322,7 @@ type tagCURSORINFO
 	cbSize as DWORD
 	flags as DWORD
 	hCursor as HCURSOR
-	ptScreenPos as POINT_
+	ptScreenPos as POINT
 end type
 
 type CURSORINFO as tagCURSORINFO
@@ -5418,7 +5418,7 @@ declare function GetComboBoxInfo(byval hwndCombo as HWND, byval pcbi as PCOMBOBO
 #define GA_ROOTOWNER 3
 
 declare function GetAncestor(byval hwnd as HWND, byval gaFlags as UINT) as HWND
-declare function RealChildWindowFromPoint(byval hwndParent as HWND, byval ptParentClientCoords as POINT_) as HWND
+declare function RealChildWindowFromPoint(byval hwndParent as HWND, byval ptParentClientCoords as POINT) as HWND
 declare function RealGetWindowClassA(byval hwnd as HWND, byval ptszClassName as LPSTR, byval cchClassNameMax as UINT) as UINT
 declare function RealGetWindowClassW(byval hwnd as HWND, byval ptszClassName as LPWSTR, byval cchClassNameMax as UINT) as UINT
 
@@ -5437,7 +5437,7 @@ type tagALTTABINFO
 	iRowFocus as long
 	cxItem as long
 	cyItem as long
-	ptStart as POINT_
+	ptStart as POINT
 end type
 
 type ALTTABINFO as tagALTTABINFO

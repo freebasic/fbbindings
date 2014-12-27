@@ -2904,11 +2904,11 @@ type IDirect3DRMClippedVisualVtbl_
 	GetName as function(byval This as IDirect3DRMClippedVisual ptr, byval size as DWORD ptr, byval name_ as zstring ptr) as HRESULT
 	GetClassName as function(byval This as IDirect3DRMClippedVisual ptr, byval size as DWORD ptr, byval name_ as zstring ptr) as HRESULT
 	Init as function(byval This as IDirect3DRMClippedVisual ptr, byval visual as IDirect3DRMVisual ptr) as HRESULT
-	AddPlane as function(byval This as IDirect3DRMClippedVisual ptr, byval reference as IDirect3DRMFrame3 ptr, byval point_ as D3DVECTOR ptr, byval normal as D3DVECTOR ptr, byval flags as DWORD, byval id as DWORD ptr) as HRESULT
+	AddPlane as function(byval This as IDirect3DRMClippedVisual ptr, byval reference as IDirect3DRMFrame3 ptr, byval point as D3DVECTOR ptr, byval normal as D3DVECTOR ptr, byval flags as DWORD, byval id as DWORD ptr) as HRESULT
 	DeletePlane as function(byval This as IDirect3DRMClippedVisual ptr, byval as DWORD, byval as DWORD) as HRESULT
 	GetPlaneIDs as function(byval This as IDirect3DRMClippedVisual ptr, byval count as DWORD ptr, byval id as DWORD ptr, byval flags as DWORD) as HRESULT
-	GetPlane as function(byval This as IDirect3DRMClippedVisual ptr, byval id as DWORD, byval reference as IDirect3DRMFrame3 ptr, byval point_ as D3DVECTOR ptr, byval normal as D3DVECTOR ptr, byval flags as DWORD) as HRESULT
-	SetPlane as function(byval This as IDirect3DRMClippedVisual ptr, byval id as DWORD, byval reference as IDirect3DRMFrame3 ptr, byval point_ as D3DVECTOR ptr, byval normal as D3DVECTOR ptr, byval flags as DWORD) as HRESULT
+	GetPlane as function(byval This as IDirect3DRMClippedVisual ptr, byval id as DWORD, byval reference as IDirect3DRMFrame3 ptr, byval point as D3DVECTOR ptr, byval normal as D3DVECTOR ptr, byval flags as DWORD) as HRESULT
+	SetPlane as function(byval This as IDirect3DRMClippedVisual ptr, byval id as DWORD, byval reference as IDirect3DRMFrame3 ptr, byval point as D3DVECTOR ptr, byval normal as D3DVECTOR ptr, byval flags as DWORD) as HRESULT
 end type
 
 #define IDirect3DRMClippedVisual_QueryInterface(p, a, b) (p)->lpVtbl->QueryInterface(p, a, b)

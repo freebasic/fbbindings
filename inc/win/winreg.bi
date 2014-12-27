@@ -3,10 +3,6 @@
 #include once "_mingw_unicode.bi"
 #include once "reason.bi"
 
-'' The following symbols have been renamed:
-''     typedef PVALUEA => PVALUEA_
-''     typedef PVALUEW => PVALUEW_
-
 #ifdef __FB_64BIT__
 	extern "C"
 #else
@@ -58,7 +54,6 @@ type pvalueA
 	pv_type as DWORD
 end type
 
-type PVALUEA_ as pvalueA
 type PPVALUEA as pvalueA ptr
 
 type pvalueW
@@ -68,14 +63,13 @@ type pvalueW
 	pv_type as DWORD
 end type
 
-type PVALUEW_ as pvalueW
 type PPVALUEW as pvalueW ptr
 
 #ifdef UNICODE
-	type PVALUE as PVALUEW_
+	type PVALUE as pvalueW
 	type PPVALUE as PPVALUEW
 #else
-	type PVALUE as PVALUEA_
+	type PVALUE as pvalueA
 	type PPVALUE as PPVALUEA
 #endif
 

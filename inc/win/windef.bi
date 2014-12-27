@@ -8,7 +8,6 @@
 '' The following symbols have been renamed:
 ''     #define CONST => CONST_
 ''     typedef INT => INT_
-''     typedef POINT => POINT_
 
 #ifdef __FB_64BIT__
 	extern "C"
@@ -318,7 +317,7 @@ type tagPOINT
 	y as LONG
 end type
 
-type POINT_ as tagPOINT
+type POINT as tagPOINT
 type PPOINT as tagPOINT ptr
 type NPPOINT as tagPOINT ptr
 type LPPOINT as tagPOINT ptr

@@ -3,18 +3,6 @@
 #include once "in6addr.bi"
 #include once "inaddr.bi"
 
-'' The following symbols have been renamed:
-''     typedef IP_OPTION_INFORMATION => IP_OPTION_INFORMATION_
-''     #ifdef __FB_64BIT__
-''         typedef IP_OPTION_INFORMATION32 => IP_OPTION_INFORMATION32_
-''     #endif
-''     typedef ICMP_ECHO_REPLY => ICMP_ECHO_REPLY_
-''     #ifdef __FB_64BIT__
-''         typedef ICMP_ECHO_REPLY32 => ICMP_ECHO_REPLY32_
-''     #endif
-''     typedef ARP_SEND_REPLY => ARP_SEND_REPLY_
-''     typedef TCP_RESERVE_PORT_RANGE => TCP_RESERVE_PORT_RANGE_
-
 #define IP_EXPORT_INCLUDED 1
 
 type IPAddr as ULONG
@@ -30,7 +18,6 @@ type ip_option_information
 	OptionsData as PUCHAR
 end type
 
-type IP_OPTION_INFORMATION_ as ip_option_information
 type PIP_OPTION_INFORMATION as ip_option_information ptr
 
 #ifdef __FB_64BIT__
@@ -42,7 +29,6 @@ type PIP_OPTION_INFORMATION as ip_option_information ptr
 		OptionsData as UCHAR ptr
 	end type
 
-	type IP_OPTION_INFORMATION32_ as ip_option_information32
 	type PIP_OPTION_INFORMATION32 as ip_option_information32 ptr
 #endif
 
@@ -56,7 +42,6 @@ type icmp_echo_reply
 	Options as ip_option_information
 end type
 
-type ICMP_ECHO_REPLY_ as icmp_echo_reply
 type PICMP_ECHO_REPLY as icmp_echo_reply ptr
 
 #ifdef __FB_64BIT__
@@ -70,7 +55,6 @@ type PICMP_ECHO_REPLY as icmp_echo_reply ptr
 		Options as ip_option_information32
 	end type
 
-	type ICMP_ECHO_REPLY32_ as icmp_echo_reply32
 	type PICMP_ECHO_REPLY32 as icmp_echo_reply32 ptr
 #endif
 
@@ -79,7 +63,6 @@ type arp_send_reply
 	SrcAddress as IPAddr
 end type
 
-type ARP_SEND_REPLY_ as arp_send_reply
 type PARP_SEND_REPLY as arp_send_reply ptr
 
 type tcp_reserve_port_range
@@ -87,7 +70,6 @@ type tcp_reserve_port_range
 	LowerRange as USHORT
 end type
 
-type TCP_RESERVE_PORT_RANGE_ as tcp_reserve_port_range
 type PTCP_RESERVE_PORT_RANGE as tcp_reserve_port_range ptr
 
 #define MAX_ADAPTER_NAME 128
