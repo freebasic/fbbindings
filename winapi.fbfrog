@@ -329,6 +329,7 @@
 -nofbkeyword hibyte
 -nofbkeyword loword
 -nofbkeyword hiword
+-nofbkeyword point
 -renametypedef BYTE UBYTE
 -renametypedef byte ubyte
 -fixmingwaw
