@@ -57,6 +57,7 @@
 -removedefine C_ASSERT
 -removedefine cdecl
 -removedefine CDECL
+-removedefine _COM_interface
 -removedefine _CONST_RETURN
 -removedefine CONST_VTBL
 -removedefine _CRT_ALTERNATIVE_IMPORTED
