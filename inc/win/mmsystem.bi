@@ -20,8 +20,6 @@
 
 type MMVERSION as UINT
 
-#define _loadds
-#define _huge
 #define MAXPNAMELEN 32
 #define MAXERRORLENGTH 256
 #define MAX_JOYSTICKOEMVXDNAME 260
