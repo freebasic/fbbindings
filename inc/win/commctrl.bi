@@ -2442,7 +2442,7 @@ private function ListView_GetItemRect(byval hwnd as HWND, byval i as long, byval
 	if prc then
 		prc->left = code
 	end if
-	function = SNDMSG(hwnd, LVM_GETITEMRECT, cast(WPARAM, i), prc)
+	function = SNDMSG(hwnd, LVM_GETITEMRECT, cast(WPARAM, i), cast(LPARAM, prc))
 end function
 #define LVM_SETITEMPOSITION (LVM_FIRST + 15)
 #define ListView_SetItemPosition(hwndLV, i, x, y) cast(WINBOOL, SNDMSG((hwndLV), LVM_SETITEMPOSITION, cast(WPARAM, clng((i))), MAKELPARAM((x), (y))))
@@ -2777,7 +2777,7 @@ private function ListView_GetSubItemRect(byval hwnd as HWND, byval iItem as long
 		prc->top = iSubItem
 		prc->left = code
 	end if
-	function = SNDMSG(hwnd, LVM_GETSUBITEMRECT, cast(WPARAM, iItem), prc)
+	function = SNDMSG(hwnd, LVM_GETSUBITEMRECT, cast(WPARAM, iItem), cast(LPARAM, prc))
 end function
 #define LVM_SUBITEMHITTEST (LVM_FIRST + 57)
 #define ListView_SubItemHitTest(hwnd, plvhti) clng(SNDMSG((hwnd), LVM_SUBITEMHITTEST, 0, cast(LPARAM, cast(LPLVHITTESTINFO, (plvhti)))))
