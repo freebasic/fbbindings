@@ -856,7 +856,7 @@ type IDirect3DDevice7Vtbl_
 	CaptureStateBlock as function(byval This as IDirect3DDevice7 ptr, byval dwBlockHandle as DWORD) as HRESULT
 	DeleteStateBlock as function(byval This as IDirect3DDevice7 ptr, byval dwBlockHandle as DWORD) as HRESULT
 	CreateStateBlock as function(byval This as IDirect3DDevice7 ptr, byval d3dsbType as D3DSTATEBLOCKTYPE, byval lpdwBlockHandle as LPDWORD) as HRESULT
-	Load as function(byval This as IDirect3DDevice7 ptr, byval dst_surface as IDirectDrawSurface7 ptr, byval dst_point as POINT_ ptr, byval src_surface as IDirectDrawSurface7 ptr, byval src_rect as RECT ptr, byval flags as DWORD) as HRESULT
+	Load as function(byval This as IDirect3DDevice7 ptr, byval dst_surface as IDirectDrawSurface7 ptr, byval dst_point as POINT ptr, byval src_surface as IDirectDrawSurface7 ptr, byval src_rect as RECT ptr, byval flags as DWORD) as HRESULT
 	LightEnable as function(byval This as IDirect3DDevice7 ptr, byval dwLightIndex as DWORD, byval bEnable as WINBOOL) as HRESULT
 	GetLightEnable as function(byval This as IDirect3DDevice7 ptr, byval dwLightIndex as DWORD, byval pbEnable as WINBOOL ptr) as HRESULT
 	SetClipPlane as function(byval This as IDirect3DDevice7 ptr, byval dwIndex as DWORD, byval pPlaneEquation as D3DVALUE ptr) as HRESULT

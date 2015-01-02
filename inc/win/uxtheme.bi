@@ -169,7 +169,7 @@ declare function DrawThemeText(byval hTheme as HTHEME, byval hdc as HDC, byval i
 		crBorder as COLORREF
 		crShadow as COLORREF
 		iTextShadowType as long
-		ptShadowOffset as POINT_
+		ptShadowOffset as POINT
 		iBorderSize as long
 		iFontPropId as long
 		iColorPropId as long
@@ -212,7 +212,7 @@ declare function GetThemeBackgroundRegion(byval hTheme as HTHEME, byval hdc as H
 #define HTTB_SIZINGTEMPLATE &h0100
 #define HTTB_SYSTEMSIZINGMARGINS &h0200
 
-declare function HitTestThemeBackground(byval hTheme as HTHEME, byval hdc as HDC, byval iPartId as long, byval iStateId as long, byval dwOptions as DWORD, byval pRect as const RECT ptr, byval hrgn as HRGN, byval ptTest as POINT_, byval pwHitTestCode as WORD ptr) as HRESULT
+declare function HitTestThemeBackground(byval hTheme as HTHEME, byval hdc as HDC, byval iPartId as long, byval iStateId as long, byval dwOptions as DWORD, byval pRect as const RECT ptr, byval hrgn as HRGN, byval ptTest as POINT, byval pwHitTestCode as WORD ptr) as HRESULT
 declare function DrawThemeEdge(byval hTheme as HTHEME, byval hdc as HDC, byval iPartId as long, byval iStateId as long, byval pDestRect as const RECT ptr, byval uEdge as UINT, byval uFlags as UINT, byval pContentRect as RECT ptr) as HRESULT
 declare function DrawThemeIcon(byval hTheme as HTHEME, byval hdc as HDC, byval iPartId as long, byval iStateId as long, byval pRect as const RECT ptr, byval himl as HIMAGELIST, byval iImageIndex as long) as HRESULT
 declare function IsThemePartDefined(byval hTheme as HTHEME, byval iPartId as long, byval iStateId as long) as WINBOOL
@@ -223,7 +223,7 @@ declare function GetThemeString(byval hTheme as HTHEME, byval iPartId as long, b
 declare function GetThemeBool(byval hTheme as HTHEME, byval iPartId as long, byval iStateId as long, byval iPropId as long, byval pfVal as WINBOOL ptr) as HRESULT
 declare function GetThemeInt(byval hTheme as HTHEME, byval iPartId as long, byval iStateId as long, byval iPropId as long, byval piVal as long ptr) as HRESULT
 declare function GetThemeEnumValue(byval hTheme as HTHEME, byval iPartId as long, byval iStateId as long, byval iPropId as long, byval piVal as long ptr) as HRESULT
-declare function GetThemePosition(byval hTheme as HTHEME, byval iPartId as long, byval iStateId as long, byval iPropId as long, byval pPoint as POINT_ ptr) as HRESULT
+declare function GetThemePosition(byval hTheme as HTHEME, byval iPartId as long, byval iStateId as long, byval iPropId as long, byval pPoint as POINT ptr) as HRESULT
 declare function GetThemeFont(byval hTheme as HTHEME, byval hdc as HDC, byval iPartId as long, byval iStateId as long, byval iPropId as long, byval pFont as LOGFONT ptr) as HRESULT
 declare function GetThemeRect(byval hTheme as HTHEME, byval iPartId as long, byval iStateId as long, byval iPropId as long, byval pRect as RECT ptr) as HRESULT
 

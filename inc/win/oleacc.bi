@@ -32,7 +32,7 @@ type IAccPropServices as IAccPropServices_
 type LPFNLRESULTFROMOBJECT as function(byval riid as const IID const ptr, byval wParam as WPARAM, byval punk as LPUNKNOWN) as LRESULT
 type LPFNOBJECTFROMLRESULT as function(byval lResult as LRESULT, byval riid as const IID const ptr, byval wParam as WPARAM, byval ppvObject as any ptr ptr) as HRESULT
 type LPFNACCESSIBLEOBJECTFROMWINDOW as function(byval hwnd as HWND, byval dwId as DWORD, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-type LPFNACCESSIBLEOBJECTFROMPOINT as function(byval ptScreen as POINT_, byval ppacc as IAccessible ptr ptr, byval pvarChild as VARIANT ptr) as HRESULT
+type LPFNACCESSIBLEOBJECTFROMPOINT as function(byval ptScreen as POINT, byval ppacc as IAccessible ptr ptr, byval pvarChild as VARIANT ptr) as HRESULT
 type LPFNCREATESTDACCESSIBLEOBJECT as function(byval hwnd as HWND, byval idObject as LONG, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 type LPFNACCESSIBLECHILDREN as function(byval paccContainer as IAccessible ptr, byval iChildStart as LONG, byval cChildren as LONG, byval rgvarChildren as VARIANT ptr, byval pcObtained as LONG ptr) as HRESULT
 
@@ -60,7 +60,7 @@ declare function ObjectFromLresult(byval lResult as LRESULT, byval riid as const
 declare function WindowFromAccessibleObject(byval as IAccessible ptr, byval phwnd as HWND ptr) as HRESULT
 declare function AccessibleObjectFromWindow(byval hwnd as HWND, byval dwId as DWORD, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 declare function AccessibleObjectFromEvent(byval hwnd as HWND, byval dwId as DWORD, byval dwChildId as DWORD, byval ppacc as IAccessible ptr ptr, byval pvarChild as VARIANT ptr) as HRESULT
-declare function AccessibleObjectFromPoint(byval ptScreen as POINT_, byval ppacc as IAccessible ptr ptr, byval pvarChild as VARIANT ptr) as HRESULT
+declare function AccessibleObjectFromPoint(byval ptScreen as POINT, byval ppacc as IAccessible ptr ptr, byval pvarChild as VARIANT ptr) as HRESULT
 declare function AccessibleChildren(byval paccContainer as IAccessible ptr, byval iChildStart as LONG, byval cChildren as LONG, byval rgvarChildren as VARIANT ptr, byval pcObtained as LONG ptr) as HRESULT
 declare function GetRoleTextA(byval lRole as DWORD, byval lpszRole as LPSTR, byval cchRoleMax as UINT) as UINT
 declare function GetRoleTextW(byval lRole as DWORD, byval lpszRole as LPWSTR, byval cchRoleMax as UINT) as UINT

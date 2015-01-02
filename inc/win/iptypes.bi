@@ -4,9 +4,6 @@
 #include once "ifdef.bi"
 #include once "nldef.bi"
 
-'' The following symbols have been renamed:
-''     typedef IP_INTERFACE_NAME_INFO => IP_INTERFACE_NAME_INFO_
-
 #define IP_TYPES_INCLUDED
 #define MAX_ADAPTER_DESCRIPTION_LENGTH 128
 #define MAX_ADAPTER_NAME_LENGTH 256
@@ -99,5 +96,4 @@ type ip_interface_name_info
 	InterfaceGuid as GUID
 end type
 
-type IP_INTERFACE_NAME_INFO_ as ip_interface_name_info
 type PIP_INTERFACE_NAME_INFO as ip_interface_name_info ptr

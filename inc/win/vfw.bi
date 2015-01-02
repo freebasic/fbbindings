@@ -1520,7 +1520,7 @@ type tagCapStatus
 	fLiveWindow as WINBOOL
 	fOverlayWindow as WINBOOL
 	fScale as WINBOOL
-	ptScroll as POINT_
+	ptScroll as POINT
 	fUsingDefaultPalette as WINBOOL
 	fAudioHardware as WINBOOL
 	fCapFileExists as WINBOOL

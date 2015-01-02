@@ -5,7 +5,6 @@
 
 '' The following symbols have been renamed:
 ''     #define FINDTEXT => FINDTEXT_
-''     typedef HYPHRESULT => HYPHRESULT_
 
 #ifdef __FB_64BIT__
 	extern "C"
@@ -928,14 +927,12 @@ type hyphresult field = 4
 	chHyph as wchar_t
 end type
 
-type HYPHRESULT_ as hyphresult
-
-declare sub HyphenateProc(byval pszWord as wstring ptr, byval langid as LANGID, byval ichExceed as long, byval phyphresult as HYPHRESULT_ ptr)
+declare sub HyphenateProc(byval pszWord as wstring ptr, byval langid as LANGID, byval ichExceed as long, byval phyphresult as hyphresult ptr)
 
 type tagHyphenateInfo field = 4
 	cbSize as SHORT
 	dxHyphenateZone as SHORT
-	pfnHyphenate as sub(byval as wstring ptr, byval as LANGID, byval as long, byval as HYPHRESULT_ ptr)
+	pfnHyphenate as sub(byval as wstring ptr, byval as LANGID, byval as long, byval as hyphresult ptr)
 end type
 
 type HYPHENATEINFO as tagHyphenateInfo

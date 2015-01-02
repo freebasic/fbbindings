@@ -4,21 +4,12 @@
 #include once "in6addr.bi"
 #include once "winsock2.bi"
 
-'' The following symbols have been renamed:
-''     typedef IPV6_MREQ => IPV6_MREQ_
-''     typedef SOCKADDR_IN6 => SOCKADDR_IN6_
-''     typedef GROUP_FILTER => GROUP_FILTER_
-''     typedef GROUP_REQ => GROUP_REQ_
-''     typedef GROUP_SOURCE_REQ => GROUP_SOURCE_REQ_
-
 #define _INC_WS2IPDEF
 
 type ipv6_mreq
 	ipv6mr_multiaddr as in6_addr
 	ipv6mr_interface as ulong
 end type
-
-type IPV6_MREQ_ as ipv6_mreq
 
 type sockaddr_in6_old
 	sin6_family as short
@@ -45,7 +36,6 @@ type sockaddr_in6
 	end union
 end type
 
-type SOCKADDR_IN6_ as sockaddr_in6
 type PSOCKADDR_IN6 as sockaddr_in6 ptr
 type LPSOCKADDR_IN6 as sockaddr_in6 ptr
 
@@ -76,8 +66,8 @@ type SOCKADDR_IN6_PAIR as _sockaddr_in6_pair
 type PSOCKADDR_IN6_PAIR as _sockaddr_in6_pair ptr
 
 union _SOCKADDR_INET
-	Ipv4 as SOCKADDR_IN_
-	Ipv6 as SOCKADDR_IN6_
+	Ipv4 as sockaddr_in
+	Ipv6 as sockaddr_in6
 	si_family as ADDRESS_FAMILY
 end union
 
@@ -86,30 +76,27 @@ type PSOCKADDR_INET as _SOCKADDR_INET ptr
 
 type group_filter
 	gf_interface as ULONG
-	gf_group as SOCKADDR_STORAGE_
+	gf_group as sockaddr_storage
 	gf_fmode as MULTICAST_MODE_TYPE
 	gf_numsrc as ULONG
-	gf_slist(0 to 0) as SOCKADDR_STORAGE_
+	gf_slist(0 to 0) as sockaddr_storage
 end type
 
-type GROUP_FILTER_ as group_filter
 type PGROUP_FILTER as group_filter ptr
 
 type group_req
 	gr_interface as ULONG
-	gr_group as SOCKADDR_STORAGE_
+	gr_group as sockaddr_storage
 end type
 
-type GROUP_REQ_ as group_req
 type PGROUP_REQ as group_req ptr
 
 type group_source_req
 	gsr_interface as ULONG
-	gsr_group as SOCKADDR_STORAGE_
-	gsr_source as SOCKADDR_STORAGE_
+	gsr_group as sockaddr_storage
+	gsr_source as sockaddr_storage
 end type
 
-type GROUP_SOURCE_REQ_ as group_source_req
 type PGROUP_SOURCE_REQ as group_source_req ptr
 
 #define IPV6_HOPOPTS 1

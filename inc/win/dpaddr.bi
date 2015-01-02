@@ -180,10 +180,10 @@ type IDirectPlay8AddressIPVtbl_
 	QueryInterface as function(byval This as IDirectPlay8AddressIP ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IDirectPlay8AddressIP ptr) as ULONG
 	Release as function(byval This as IDirectPlay8AddressIP ptr) as ULONG
-	BuildFromSockAddr as function(byval This as IDirectPlay8AddressIP ptr, byval pSockAddr as const SOCKADDR_ const ptr) as HRESULT
+	BuildFromSockAddr as function(byval This as IDirectPlay8AddressIP ptr, byval pSockAddr as const sockaddr const ptr) as HRESULT
 	BuildAddress as function(byval This as IDirectPlay8AddressIP ptr, byval wszAddress as const wstring const ptr, byval usPort as const USHORT) as HRESULT
 	BuildLocalAddress as function(byval This as IDirectPlay8AddressIP ptr, byval pguidAdapter as const GUID const ptr, byval usPort as const USHORT) as HRESULT
-	GetSockAddress as function(byval This as IDirectPlay8AddressIP ptr, byval pSockAddr as SOCKADDR_ ptr, byval as PDWORD) as HRESULT
+	GetSockAddress as function(byval This as IDirectPlay8AddressIP ptr, byval pSockAddr as sockaddr ptr, byval as PDWORD) as HRESULT
 	GetLocalAddress as function(byval This as IDirectPlay8AddressIP ptr, byval pguidAdapter as GUID ptr, byval pusPort as USHORT ptr) as HRESULT
 	GetAddress as function(byval This as IDirectPlay8AddressIP ptr, byval wszAddress as wstring ptr, byval pdwAddressLength as PDWORD, byval psPort as USHORT ptr) as HRESULT
 end type

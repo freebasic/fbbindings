@@ -53,7 +53,7 @@ type HDROP as HDROP__ ptr
 
 declare function DragQueryFileA(byval hDrop as HDROP, byval iFile as UINT, byval lpszFile as LPSTR, byval cch as UINT) as UINT
 declare function DragQueryFileW(byval hDrop as HDROP, byval iFile as UINT, byval lpszFile as LPWSTR, byval cch as UINT) as UINT
-declare function DragQueryPoint(byval hDrop as HDROP, byval ppt as POINT_ ptr) as WINBOOL
+declare function DragQueryPoint(byval hDrop as HDROP, byval ppt as POINT ptr) as WINBOOL
 declare sub DragFinish(byval hDrop as HDROP)
 declare sub DragAcceptFiles(byval hWnd as HWND, byval fAccept as WINBOOL)
 declare function ShellExecuteA(byval hwnd as HWND, byval lpOperation as LPCSTR, byval lpFile as LPCSTR, byval lpParameters as LPCSTR, byval lpDirectory as LPCSTR, byval nShowCmd as INT_) as HINSTANCE
@@ -74,7 +74,7 @@ declare function ExtractIconW(byval hInst as HINSTANCE, byval pszExeFileName as 
 #ifdef __FB_64BIT__
 	type _DRAGINFOA
 		uSize as UINT
-		pt as POINT_
+		pt as POINT
 		fNC as WINBOOL
 		lpFileList as LPSTR
 		grfKeyState as DWORD
@@ -82,7 +82,7 @@ declare function ExtractIconW(byval hInst as HINSTANCE, byval pszExeFileName as 
 #else
 	type _DRAGINFOA field = 1
 		uSize as UINT
-		pt as POINT_
+		pt as POINT
 		fNC as WINBOOL
 		lpFileList as LPSTR
 		grfKeyState as DWORD
@@ -95,7 +95,7 @@ type LPDRAGINFOA as _DRAGINFOA ptr
 #ifdef __FB_64BIT__
 	type _DRAGINFOW
 		uSize as UINT
-		pt as POINT_
+		pt as POINT
 		fNC as WINBOOL
 		lpFileList as LPWSTR
 		grfKeyState as DWORD
@@ -103,7 +103,7 @@ type LPDRAGINFOA as _DRAGINFOA ptr
 #else
 	type _DRAGINFOW field = 1
 		uSize as UINT
-		pt as POINT_
+		pt as POINT
 		fNC as WINBOOL
 		lpFileList as LPWSTR
 		grfKeyState as DWORD

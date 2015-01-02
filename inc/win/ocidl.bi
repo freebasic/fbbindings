@@ -1307,7 +1307,7 @@ type IViewObjectExVtbl
 	GetExtent as function(byval This as IViewObjectEx ptr, byval dwDrawAspect as DWORD, byval lindex as LONG, byval ptd as DVTARGETDEVICE ptr, byval lpsizel as LPSIZEL) as HRESULT
 	GetRect as function(byval This as IViewObjectEx ptr, byval dwAspect as DWORD, byval pRect as LPRECTL) as HRESULT
 	GetViewStatus as function(byval This as IViewObjectEx ptr, byval pdwStatus as DWORD ptr) as HRESULT
-	QueryHitPoint as function(byval This as IViewObjectEx ptr, byval dwAspect as DWORD, byval pRectBounds as LPCRECT, byval ptlLoc as POINT_, byval lCloseHint as LONG, byval pHitResult as DWORD ptr) as HRESULT
+	QueryHitPoint as function(byval This as IViewObjectEx ptr, byval dwAspect as DWORD, byval pRectBounds as LPCRECT, byval ptlLoc as POINT, byval lCloseHint as LONG, byval pHitResult as DWORD ptr) as HRESULT
 	QueryHitRect as function(byval This as IViewObjectEx ptr, byval dwAspect as DWORD, byval pRectBounds as LPCRECT, byval pRectLoc as LPCRECT, byval lCloseHint as LONG, byval pHitResult as DWORD ptr) as HRESULT
 	GetNaturalExtent as function(byval This as IViewObjectEx ptr, byval dwAspect as DWORD, byval lindex as LONG, byval ptd as DVTARGETDEVICE ptr, byval hicTargetDev as HDC, byval pExtentInfo as DVEXTENTINFO ptr, byval pSizel as LPSIZEL) as HRESULT
 end type
@@ -1320,7 +1320,7 @@ declare function IViewObjectEx_GetRect_Proxy(byval This as IViewObjectEx ptr, by
 declare sub IViewObjectEx_GetRect_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IViewObjectEx_GetViewStatus_Proxy(byval This as IViewObjectEx ptr, byval pdwStatus as DWORD ptr) as HRESULT
 declare sub IViewObjectEx_GetViewStatus_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-declare function IViewObjectEx_QueryHitPoint_Proxy(byval This as IViewObjectEx ptr, byval dwAspect as DWORD, byval pRectBounds as LPCRECT, byval ptlLoc as POINT_, byval lCloseHint as LONG, byval pHitResult as DWORD ptr) as HRESULT
+declare function IViewObjectEx_QueryHitPoint_Proxy(byval This as IViewObjectEx ptr, byval dwAspect as DWORD, byval pRectBounds as LPCRECT, byval ptlLoc as POINT, byval lCloseHint as LONG, byval pHitResult as DWORD ptr) as HRESULT
 declare sub IViewObjectEx_QueryHitPoint_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IViewObjectEx_QueryHitRect_Proxy(byval This as IViewObjectEx ptr, byval dwAspect as DWORD, byval pRectBounds as LPCRECT, byval pRectLoc as LPCRECT, byval lCloseHint as LONG, byval pHitResult as DWORD ptr) as HRESULT
 declare sub IViewObjectEx_QueryHitRect_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)

@@ -7,14 +7,6 @@
 
 '' The following symbols have been renamed:
 ''     #define FD_SET => FD_SET_
-''     typedef HOSTENT => HOSTENT_
-''     typedef SERVENT => SERVENT_
-''     typedef PROTOENT => PROTOENT_
-''     typedef SOCKADDR => SOCKADDR_
-''     typedef SOCKADDR_IN => SOCKADDR_IN_
-''     typedef LINGER => LINGER_
-''     typedef TIMEVAL => TIMEVAL_
-''     typedef WSADATA => WSADATA_
 ''     procedure select => select_
 
 #inclib "wsock32"
@@ -138,25 +130,18 @@ type sockaddr_in
 	sin_zero as zstring * 8
 end type
 
-type HOSTENT_ as hostent
 type PHOSTENT as hostent ptr
 type LPHOSTENT as hostent ptr
-type SERVENT_ as servent
 type PSERVENT as servent ptr
 type LPSERVENT as servent ptr
-type PROTOENT_ as protoent
 type PPROTOENT as protoent ptr
 type LPPROTOENT as protoent ptr
-type SOCKADDR_ as sockaddr
 type PSOCKADDR as sockaddr ptr
 type LPSOCKADDR as sockaddr ptr
-type SOCKADDR_IN_ as sockaddr_in
 type PSOCKADDR_IN as sockaddr_in ptr
 type LPSOCKADDR_IN as sockaddr_in ptr
-type LINGER_ as linger
 type PLINGER as linger ptr
 type LPLINGER as linger ptr
-type TIMEVAL_ as timeval
 type PTIMEVAL as timeval ptr
 type LPTIMEVAL as timeval ptr
 
@@ -190,7 +175,6 @@ type WSAData
 	#endif
 end type
 
-type WSADATA_ as WSAData
 type LPWSADATA as WSAData ptr
 
 #define __MINGW_TRANSMIT_FILE_H

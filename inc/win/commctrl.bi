@@ -121,7 +121,7 @@ type tagNMMOUSE
 	hdr as NMHDR
 	dwItemSpec as DWORD_PTR
 	dwItemData as DWORD_PTR
-	pt as POINT_
+	pt as POINT
 	dwHitInfo as LPARAM
 end type
 
@@ -351,7 +351,7 @@ declare function ImageList_DragLeave(byval hwndLock as HWND) as WINBOOL
 declare function ImageList_DragMove(byval x as long, byval y as long) as WINBOOL
 declare function ImageList_SetDragCursorImage(byval himlDrag as HIMAGELIST, byval iDrag as long, byval dxHotspot as long, byval dyHotspot as long) as WINBOOL
 declare function ImageList_DragShowNolock(byval fShow as WINBOOL) as WINBOOL
-declare function ImageList_GetDragImage(byval ppt as POINT_ ptr, byval pptHotspot as POINT_ ptr) as HIMAGELIST
+declare function ImageList_GetDragImage(byval ppt as POINT ptr, byval pptHotspot as POINT ptr) as HIMAGELIST
 
 #define ImageList_RemoveAll(himl) ImageList_Remove(himl, -1)
 #define ImageList_ExtractIcon(hi, himl, i) ImageList_GetIcon(himl, i, 0)
@@ -579,7 +579,7 @@ type LPHDLAYOUT as _HD_LAYOUT ptr
 #define HD_HITTESTINFO HDHITTESTINFO
 
 type _HD_HITTESTINFO
-	pt as POINT_
+	pt as POINT
 	flags as UINT
 	iItem as long
 end type
@@ -1622,7 +1622,7 @@ type LPNMREBARAUTOBREAK as tagNMREBARAUTOBREAK ptr
 #define RBHT_CHEVRON &h8
 
 type _RB_HITTESTINFO
-	pt as POINT_
+	pt as POINT
 	flags as UINT
 	iBand as long
 end type
@@ -1807,7 +1807,7 @@ type PTTGETTITLE as _TTGETTITLE ptr
 
 type _TT_HITTESTINFOA
 	hwnd as HWND
-	pt as POINT_
+	pt as POINT
 	ti as TTTOOLINFOA
 end type
 
@@ -1816,7 +1816,7 @@ type LPTTHITTESTINFOA as _TT_HITTESTINFOA ptr
 
 type _TT_HITTESTINFOW
 	hwnd as HWND
-	pt as POINT_
+	pt as POINT
 	ti as TTTOOLINFOW
 end type
 
@@ -2044,7 +2044,7 @@ declare sub GetEffectiveClientRect(byval hWnd as HWND, byval lprc as LPRECT, byv
 type tagDRAGLISTINFO
 	uNotification as UINT
 	hWnd as HWND
-	ptCursor as POINT_
+	ptCursor as POINT
 end type
 
 type DRAGLISTINFO as tagDRAGLISTINFO
@@ -2062,7 +2062,7 @@ type LPDRAGLISTINFO as tagDRAGLISTINFO ptr
 
 declare function MakeDragList(byval hLB as HWND) as WINBOOL
 declare sub DrawInsert(byval handParent as HWND, byval hLB as HWND, byval nItem as long)
-declare function LBItemFromPt(byval hLB as HWND, byval pt as POINT_, byval bAutoScroll as WINBOOL) as long
+declare function LBItemFromPt(byval hLB as HWND, byval pt as POINT, byval bAutoScroll as WINBOOL) as long
 
 #define UPDOWN_CLASSA "msctls_updown32"
 #define UPDOWN_CLASSW wstr("msctls_updown32")
@@ -2399,7 +2399,7 @@ type tagLVFINDINFOA
 	flags as UINT
 	psz as LPCSTR
 	lParam as LPARAM
-	pt as POINT_
+	pt as POINT
 	vkDirection as UINT
 end type
 
@@ -2410,7 +2410,7 @@ type tagLVFINDINFOW
 	flags as UINT
 	psz as LPCWSTR
 	lParam as LPARAM
-	pt as POINT_
+	pt as POINT
 	vkDirection as UINT
 end type
 
@@ -2447,7 +2447,7 @@ end function
 #define LVM_SETITEMPOSITION (LVM_FIRST + 15)
 #define ListView_SetItemPosition(hwndLV, i, x, y) cast(WINBOOL, SNDMSG((hwndLV), LVM_SETITEMPOSITION, cast(WPARAM, clng((i))), MAKELPARAM((x), (y))))
 #define LVM_GETITEMPOSITION (LVM_FIRST + 16)
-#define ListView_GetItemPosition(hwndLV, i, ppt) cast(WINBOOL, SNDMSG((hwndLV), LVM_GETITEMPOSITION, cast(WPARAM, clng((i))), cast(LPARAM, cptr(POINT_ ptr, (ppt)))))
+#define ListView_GetItemPosition(hwndLV, i, ppt) cast(WINBOOL, SNDMSG((hwndLV), LVM_GETITEMPOSITION, cast(WPARAM, clng((i))), cast(LPARAM, cptr(POINT ptr, (ppt)))))
 #define LVM_GETSTRINGWIDTHA (LVM_FIRST + 17)
 #define LVM_GETSTRINGWIDTHW (LVM_FIRST + 87)
 
@@ -2471,7 +2471,7 @@ end function
 #define LVHITTESTINFO_V1_SIZE CCSIZEOF_STRUCT(LVHITTESTINFO, iItem)
 
 type tagLVHITTESTINFO
-	pt as POINT_
+	pt as POINT
 	flags as UINT
 	iItem as long
 	iSubItem as long
@@ -2646,7 +2646,7 @@ type LPLVCOLUMNW as tagLVCOLUMNW ptr
 #define LVM_GETCOUNTPERPAGE (LVM_FIRST + 40)
 #define ListView_GetCountPerPage(hwndLV) clng(SNDMSG((hwndLV), LVM_GETCOUNTPERPAGE, 0, 0))
 #define LVM_GETORIGIN (LVM_FIRST + 41)
-#define ListView_GetOrigin(hwndLV, ppt) cast(WINBOOL, SNDMSG((hwndLV), LVM_GETORIGIN, cast(WPARAM, 0), cast(LPARAM, cptr(POINT_ ptr, (ppt)))))
+#define ListView_GetOrigin(hwndLV, ppt) cast(WINBOOL, SNDMSG((hwndLV), LVM_GETORIGIN, cast(WPARAM, 0), cast(LPARAM, cptr(POINT ptr, (ppt)))))
 #define LVM_UPDATE (LVM_FIRST + 42)
 #define ListView_Update(hwndLV, i) cast(WINBOOL, SNDMSG((hwndLV), LVM_UPDATE, cast(WPARAM, (i)), cast(LPARAM, 0)))
 #define LVM_SETITEMSTATE (LVM_FIRST + 43)
@@ -2710,7 +2710,7 @@ type PFNLVCOMPARE as function(byval as LPARAM, byval as LPARAM, byval as LPARAM)
 #define LVM_SETITEMPOSITION32 (LVM_FIRST + 49)
 #macro ListView_SetItemPosition32(hwndLV, i, x0, y0)
 	scope
-		dim ptNewPos as POINT_
+		dim ptNewPos as POINT
 		ptNewPos.x = x0
 		ptNewPos.y = y0
 		SNDMSG((hwndLV), LVM_SETITEMPOSITION32, cast(WPARAM, clng((i))), cast(LPARAM, @ptNewPos))
@@ -3078,7 +3078,7 @@ type tagNMLISTVIEW
 	uNewState as UINT
 	uOldState as UINT
 	uChanged as UINT
-	ptAction as POINT_
+	ptAction as POINT
 	lParam as LPARAM
 end type
 
@@ -3092,7 +3092,7 @@ type tagNMITEMACTIVATE
 	uNewState as UINT
 	uOldState as UINT
 	uChanged as UINT
-	ptAction as POINT_
+	ptAction as POINT
 	lParam as LPARAM
 	uKeyFlags as UINT
 end type
@@ -3618,7 +3618,7 @@ end function
 #define TV_HITTESTINFO TVHITTESTINFO
 
 type tagTVHITTESTINFO
-	pt as POINT_
+	pt as POINT
 	flags as UINT
 	hItem as HTREEITEM
 end type
@@ -3737,7 +3737,7 @@ type tagNMTREEVIEWA
 	action as UINT
 	itemOld as TVITEMA
 	itemNew as TVITEMA
-	ptDrag as POINT_
+	ptDrag as POINT
 end type
 
 type NMTREEVIEWA as tagNMTREEVIEWA
@@ -3748,7 +3748,7 @@ type tagNMTREEVIEWW
 	action as UINT
 	itemOld as TVITEMW
 	itemNew as TVITEMW
-	ptDrag as POINT_
+	ptDrag as POINT
 end type
 
 type NMTREEVIEWW as tagNMTREEVIEWW
@@ -4309,7 +4309,7 @@ type LPTCITEMW as tagTCITEMW ptr
 #define TC_HITTESTINFO TCHITTESTINFO
 
 type tagTCHITTESTINFO
-	pt as POINT_
+	pt as POINT
 	flags as UINT
 end type
 
@@ -4449,7 +4449,7 @@ type LPMONTHDAYSTATE as DWORD ptr
 
 type MCHITTESTINFO
 	cbSize as UINT
-	pt as POINT_
+	pt as POINT
 	uHit as UINT
 	st as SYSTEMTIME
 end type
@@ -5039,7 +5039,7 @@ type LITEM as tagLITEM
 type PLITEM as tagLITEM ptr
 
 type tagLHITTESTINFO
-	pt as POINT_
+	pt as POINT
 	item as LITEM
 end type
 

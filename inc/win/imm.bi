@@ -28,7 +28,7 @@ type LPHKL as HKL ptr
 
 type tagCOMPOSITIONFORM
 	dwStyle as DWORD
-	ptCurrentPos as POINT_
+	ptCurrentPos as POINT
 	rcArea as RECT
 end type
 
@@ -40,7 +40,7 @@ type LPCOMPOSITIONFORM as tagCOMPOSITIONFORM ptr
 type tagCANDIDATEFORM
 	dwIndex as DWORD
 	dwStyle as DWORD
-	ptCurrentPos as POINT_
+	ptCurrentPos as POINT
 	rcArea as RECT
 end type
 
@@ -197,7 +197,7 @@ type LPIMEMENUITEMINFOW as tagIMEMENUITEMINFOW ptr
 type tagIMECHARPOSITION
 	dwSize as DWORD
 	dwCharPos as DWORD
-	pt as POINT_
+	pt as POINT
 	cLineHeight as UINT
 	rcDocument as RECT
 end type

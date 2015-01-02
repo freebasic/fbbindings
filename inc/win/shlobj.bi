@@ -1366,7 +1366,7 @@ type LPFILEGROUPDESCRIPTORW as _FILEGROUPDESCRIPTORW ptr
 
 type _DROPFILES field = 1
 	pFiles as DWORD
-	pt as POINT_
+	pt as POINT
 	fNC as WINBOOL
 	fWide as WINBOOL
 end type
@@ -1666,17 +1666,17 @@ type AUTO_SCROLL_DATA field = 1
 	iNextSample as long
 	dwLastScroll as DWORD
 	bFull as WINBOOL
-	pts(0 to 2) as POINT_
+	pts(0 to 2) as POINT
 	dwTimes(0 to 2) as DWORD
 end type
 
-declare function DAD_SetDragImage(byval him as HIMAGELIST, byval pptOffset as POINT_ ptr) as WINBOOL
-declare function DAD_DragEnterEx(byval hwndTarget as HWND, byval ptStart as const POINT_) as WINBOOL
-declare function DAD_DragEnterEx2(byval hwndTarget as HWND, byval ptStart as const POINT_, byval pdtObject as IDataObject ptr) as WINBOOL
+declare function DAD_SetDragImage(byval him as HIMAGELIST, byval pptOffset as POINT ptr) as WINBOOL
+declare function DAD_DragEnterEx(byval hwndTarget as HWND, byval ptStart as const POINT) as WINBOOL
+declare function DAD_DragEnterEx2(byval hwndTarget as HWND, byval ptStart as const POINT, byval pdtObject as IDataObject ptr) as WINBOOL
 declare function DAD_ShowDragImage(byval fShow as WINBOOL) as WINBOOL
-declare function DAD_DragMove(byval pt as POINT_) as WINBOOL
+declare function DAD_DragMove(byval pt as POINT) as WINBOOL
 declare function DAD_DragLeave() as WINBOOL
-declare function DAD_AutoScroll(byval hwnd as HWND, byval pad as AUTO_SCROLL_DATA ptr, byval pptNow as const POINT_ ptr) as WINBOOL
+declare function DAD_AutoScroll(byval hwnd as HWND, byval pad as AUTO_SCROLL_DATA ptr, byval pptNow as const POINT ptr) as WINBOOL
 
 type CABINETSTATE field = 1
 	cLength as WORD
@@ -2274,10 +2274,10 @@ type IShellFolderViewVtbl_
 	GetSelectedCount as function(byval This as IShellFolderView ptr, byval puSelected as UINT ptr) as HRESULT
 	GetSelectedObjects as function(byval This as IShellFolderView ptr, byval pppidl as LPCITEMIDLIST ptr ptr, byval puItems as UINT ptr) as HRESULT
 	IsDropOnSource as function(byval This as IShellFolderView ptr, byval pDropTarget as IDropTarget ptr) as HRESULT
-	GetDragPoint as function(byval This as IShellFolderView ptr, byval ppt as POINT_ ptr) as HRESULT
-	GetDropPoint as function(byval This as IShellFolderView ptr, byval ppt as POINT_ ptr) as HRESULT
+	GetDragPoint as function(byval This as IShellFolderView ptr, byval ppt as POINT ptr) as HRESULT
+	GetDropPoint as function(byval This as IShellFolderView ptr, byval ppt as POINT ptr) as HRESULT
 	MoveIcons as function(byval This as IShellFolderView ptr, byval pDataObject as IDataObject ptr) as HRESULT
-	SetItemPos as function(byval This as IShellFolderView ptr, byval pidl as LPCITEMIDLIST, byval ppt as POINT_ ptr) as HRESULT
+	SetItemPos as function(byval This as IShellFolderView ptr, byval pidl as LPCITEMIDLIST, byval ppt as POINT ptr) as HRESULT
 	IsBkDropTarget as function(byval This as IShellFolderView ptr, byval pDropTarget as IDropTarget ptr) as HRESULT
 	SetClipboard as function(byval This as IShellFolderView ptr, byval bMove as WINBOOL) as HRESULT
 	SetPoints as function(byval This as IShellFolderView ptr, byval pDataObject as IDataObject ptr) as HRESULT
@@ -2412,7 +2412,7 @@ type LPCSFV as _CSFV ptr
 
 type _SFV_SETITEMPOS
 	pidl as LPCITEMIDLIST
-	pt as POINT_
+	pt as POINT
 end type
 
 type SFV_SETITEMPOS as _SFV_SETITEMPOS

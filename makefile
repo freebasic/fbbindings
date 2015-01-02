@@ -3,7 +3,7 @@ FBC := fbc
 
 ALL := allegro4 allegro4-algif allegro4-alpng allegro5
 ALL += cgui clang cunit curl
-ALL += ffi
+ALL += fastcgi ffi
 ALL += iup
 ALL += jit
 ALL += llvm lua
@@ -132,6 +132,14 @@ curl:
 		-removedefine curl_multi_setopt \
 		\
 		-filterout '*typecheck-gcc.h'
+
+FASTCGI_TITLE := fcgi-2.4.1-SNAP-0311112127
+fastcgi:
+	./downloadextract.sh $(FASTCGI_TITLE) $(FASTCGI_TITLE).tar.gz "http://www.fastcgi.com/dist/fcgi.tar.gz"
+	mkdir -p inc/fastcgi
+	$(FBFROG) fastcgi.fbfrog -o inc/fastcgi/fastcgi.bi extracted/$(FASTCGI_TITLE)/include/fastcgi.h
+	$(FBFROG) fastcgi.fbfrog -o inc/fastcgi/fcgiapp.bi extracted/$(FASTCGI_TITLE)/include/fcgiapp.h
+	$(FBFROG) fastcgi.fbfrog -o inc/fastcgi/fcgi_stdio.bi extracted/$(FASTCGI_TITLE)/include/fcgi_stdio.h -filterout '*/fcgiapp.h'
 
 FFI_TITLE := libffi-3.1
 ffi:
