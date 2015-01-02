@@ -770,7 +770,7 @@ type GraphicsState as DWORD
 #define FlatnessDefault cast(REAL, 0.25f)
 
 private function ObjectTypeIsValid cdecl(byval type_ as ObjectType) as BOOL
-	'' TODO: switch (type) { case ObjectTypeBrush: case ObjectTypePen: case ObjectTypePath: case ObjectTypeRegion: case ObjectTypeFont: case ObjectTypeStringFormat: case ObjectTypeImageAttributes: case ObjectTypeCustomLineCap: case ObjectTypeGraphics: return 1; default: return 0; }
+	function = -((type_ >= ObjectTypeMin) and (type_ <= ObjectTypeMax))
 end function
 
 #define __GDIPLUS_TYPES_H
