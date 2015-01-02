@@ -1073,10 +1073,6 @@ declare function MCIWndRegisterClass cdecl() as WINBOOL
 #define MCIWndPlayReverse(hwnd) cast(LONG, MCIWndSM(hwnd, MCIWNDM_PLAYREVERSE, cast(WPARAM, 0), cast(LPARAM, 0)))
 #define MCIWndPlayFrom(hwnd, lPos) cast(LONG, MCIWndSM(hwnd, MCIWNDM_PLAYFROM, cast(WPARAM, 0), cast(LPARAM, cast(LONG, (lPos)))))
 #define MCIWndPlayTo(hwnd, lPos) cast(LONG, MCIWndSM(hwnd, MCIWNDM_PLAYTO, cast(WPARAM, 0), cast(LPARAM, cast(LONG, (lPos)))))
-private function MCIWndPlayFromTo(byval hwnd as HWND, byval lStart as long, byval lEnd as long) as LONG
-	MCIWndSeek(hwnd, lStart)
-	function = MCIWndPlayTo(hwnd, lEnd)
-end function
 #define MCIWndGetDeviceID(hwnd) cast(UINT, MCIWndSM(hwnd, MCIWNDM_GETDEVICEID, cast(WPARAM, 0), cast(LPARAM, 0)))
 #define MCIWndGetAlias(hwnd) cast(UINT, MCIWndSM(hwnd, MCIWNDM_GETALIAS, cast(WPARAM, 0), cast(LPARAM, 0)))
 #define MCIWndGetMode(hwnd, lp, len) cast(LONG, MCIWndSM(hwnd, MCIWNDM_GETMODE, cast(WPARAM, cast(UINT, (len))), cast(LPARAM, cast(LPTSTR, (lp)))))
@@ -1180,6 +1176,11 @@ end function
 #define MCIWNDM_NEWW (WM_USER + 234)
 #define MCIWNDM_RETURNSTRINGW (WM_USER + 238)
 #define MCIWNDM_OPENW (WM_USER + 252)
+
+private function MCIWndPlayFromTo(byval hwnd as HWND, byval lStart as long, byval lEnd as long) as LONG
+	MCIWndSeek(hwnd, lStart)
+	function = MCIWndPlayTo(hwnd, lEnd)
+end function
 
 #ifdef UNICODE
 	#define MCIWNDM_SENDSTRING MCIWNDM_SENDSTRINGW
