@@ -44,11 +44,9 @@ type _CONTEXT as _CONTEXT_
 
 #ifdef __FB_64BIT__
 	#define ALIGNMENT_MACHINE
-	#define UNALIGNED64 __unaligned
 	#define MAX_NATURAL_ALIGNMENT sizeof(ULONGLONG)
 	#define MEMORY_ALLOCATION_ALIGNMENT 16
 #else
-	#define UNALIGNED64
 	#define MAX_NATURAL_ALIGNMENT sizeof(DWORD)
 	#define MEMORY_ALLOCATION_ALIGNMENT 8
 #endif
@@ -1183,8 +1181,6 @@ type PSCOPE_TABLE_AMD64 as _SCOPE_TABLE_AMD64 ptr
 		end function
 	end extern
 #endif
-
-#define DbgRaiseAssertionFailure __int2c
 
 #ifdef __FB_64BIT__
 	#define GetCallersEflags() __getcallerseflags()

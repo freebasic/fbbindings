@@ -226,6 +226,4 @@ type PACTION_HEADER as _ACTION_HEADER ptr
 
 declare function Netbios(byval pncb as PNCB) as UCHAR
 
-#define NCB_POST '' TODO: void CALLBACK
-
 end extern

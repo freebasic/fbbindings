@@ -294,7 +294,6 @@ extern KSDATAFORMAT_SUBTYPE_PCM as const GUID
 	end scope
 #endmacro
 #define EXTRACT_MMREG_MID(guid) cast(USHORT, (guid)->Data1 - &hd5a47fa7)
-#define DEFINE_MMREG_MID_GUID(id) '' TODO: 0xd5a47fa7+(USHORT)(id),0x6d98,0x11d1,0xa2,0x1a,0x00,0xa0,0xc9,0x22,0x31,0x96
 #define IS_COMPATIBLE_MMREG_MID(guid) (((((((((((((guid)->Data1 >= &hd5a47fa7) andalso ((guid)->Data1 < (&hd5a47fa7 + &hffff))) andalso ((guid)->Data2 = &h6d98)) andalso ((guid)->Data3 = &h11d1)) andalso ((guid)->Data4(0) = &ha2)) andalso ((guid)->Data4(1) = &h1a)) andalso ((guid)->Data4(2) = &h00)) andalso ((guid)->Data4(3) = &ha0)) andalso ((guid)->Data4(4) = &hc9)) andalso ((guid)->Data4(5) = &h22)) andalso ((guid)->Data4(6) = &h31)) andalso ((guid)->Data4(7) = &h96))
 #macro INIT_MMREG_PID(guid, id)
 	scope
@@ -312,7 +311,6 @@ extern KSDATAFORMAT_SUBTYPE_PCM as const GUID
 	end scope
 #endmacro
 #define EXTRACT_MMREG_PID(guid) cast(USHORT, (guid)->Data1 - &he36dc2ac)
-#define DEFINE_MMREG_PID_GUID(id) '' TODO: 0xe36dc2ac+(USHORT)(id),0x6d9a,0x11d1,0xa2,0x1a,0x00,0xa0,0xc9,0x22,0x31,0x96
 #define IS_COMPATIBLE_MMREG_PID(guid) (((((((((((((guid)->Data1 >= &he36dc2ac) andalso ((guid)->Data1 < (&he36dc2ac + &hffff))) andalso ((guid)->Data2 = &h6d9a)) andalso ((guid)->Data3 = &h11d1)) andalso ((guid)->Data4(0) = &ha2)) andalso ((guid)->Data4(1) = &h1a)) andalso ((guid)->Data4(2) = &h00)) andalso ((guid)->Data4(3) = &ha0)) andalso ((guid)->Data4(4) = &hc9)) andalso ((guid)->Data4(5) = &h22)) andalso ((guid)->Data4(6) = &h31)) andalso ((guid)->Data4(7) = &h96))
 #define MM_MIDI_MAPPER 1
 #define MM_WAVE_MAPPER 2
@@ -1744,13 +1742,7 @@ extern KSDATAFORMAT_SUBTYPE_PCM as const GUID
 #define WAVE_FORMAT_DTS2 &h2001
 #define WAVE_FORMAT_EXTENSIBLE &hFFFE
 #define WAVE_FORMAT_DEVELOPMENT &hFFFF
-#define DEFINE_GUIDEX(name) '' TODO: EXTERN_C const CDECL GUID name
-#define DEFINE_GUIDSTRUCT(g, n) DEFINE_GUIDEX(n)
-#define DEFINE_GUIDNAMED(n) n
-#define DEFINE_WAVEFORMATEX_GUID(x) '' TODO: (USHORT)(x),0x0000,0x0010,0x80,0x00,0x00,0xaa,0x00,0x38,0x9b,0x71
-#define STATIC_KSDATAFORMAT_SUBTYPE_PCM DEFINE_WAVEFORMATEX_GUID(WAVE_FORMAT_PCM)
 #define KSDATAFORMAT_SUBTYPE_PCM_ DEFINE_GUIDNAMED(KSDATAFORMAT_SUBTYPE_PCM)
-#define STATIC_KSDATAFORMAT_SUBTYPE_IEEE_FLOAT DEFINE_WAVEFORMATEX_GUID(WAVE_FORMAT_IEEE_FLOAT)
 
 extern KSDATAFORMAT_SUBTYPE_IEEE_FLOAT as const GUID
 
