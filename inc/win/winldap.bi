@@ -632,10 +632,6 @@ declare function ldap_add_ext_sA(byval ld as ldap ptr, byval dn as const PCHAR, 
 	#define ldap_add_ext ldap_add_extW
 	#define ldap_add_ext_s ldap_add_ext_sW
 #else
-	declare function ldap_add(byval ld as LDAP ptr, byval dn as PCHAR, byval attrs as LDAPModA_ ptr ptr) as ULONG
-	declare function ldap_add_s(byval ld as LDAP ptr, byval dn as PCHAR, byval attrs as LDAPModA_ ptr ptr) as ULONG
-	declare function ldap_add_ext(byval ld as LDAP ptr, byval dn as const PCHAR, byval attrs as LDAPModA_ ptr ptr, byval ServerControls as PLDAPControlA ptr, byval ClientControls as PLDAPControlA ptr, byval MessageNumber as ULONG ptr) as ULONG
-	declare function ldap_add_ext_s(byval ld as LDAP ptr, byval dn as const PCHAR, byval attrs as LDAPModA_ ptr ptr, byval ServerControls as PLDAPControlA ptr, byval ClientControls as PLDAPControlA ptr) as ULONG
 	declare function ldap_add(byval ld as ldap ptr, byval dn as PCHAR, byval attrs as ldapmodA ptr ptr) as ULONG
 	declare function ldap_add_s(byval ld as ldap ptr, byval dn as PCHAR, byval attrs as ldapmodA ptr ptr) as ULONG
 	declare function ldap_add_ext(byval ld as ldap ptr, byval dn as const PCHAR, byval attrs as ldapmodA ptr ptr, byval ServerControls as PLDAPControlA ptr, byval ClientControls as PLDAPControlA ptr, byval MessageNumber as ULONG ptr) as ULONG
