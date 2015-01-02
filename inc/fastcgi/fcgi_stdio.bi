@@ -5,9 +5,8 @@
 ''     #define FCGI_stdout => FCGI_stdout_
 ''     #define FCGI_stderr => FCGI_stderr_
 
+#include once "crt.bi"
 #include once "crt/long.bi"
-#include once "crt/stdio.bi"
-#include once "crt/sys/types.bi"
 #include once "fcgiapp.bi"
 
 extern "C"
