@@ -71,6 +71,8 @@ declare function FCGI_fdopen(byval fd as long, byval mode as const zstring ptr) 
 declare function FCGI_popen(byval cmd as const zstring ptr, byval type_ as const zstring ptr) as FCGI_FILE ptr
 declare function FCGI_pclose(byval as FCGI_FILE ptr) as long
 
+#ifndef NO_FCGI_DEFINES
+
 #undef FILE
 #define FILE FCGI_FILE
 #undef stdin
@@ -153,5 +155,7 @@ declare function FCGI_pclose(byval as FCGI_FILE ptr) as long
 #define popen FCGI_popen
 #undef pclose
 #define pclose FCGI_pclose
+
+#endif
 
 end extern
