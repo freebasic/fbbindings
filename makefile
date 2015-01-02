@@ -486,6 +486,7 @@ WINAPI_FLAGS_ws2tcpip := -include winsock2.h
 
 # Some headers need additional options
 WINAPI_FLAGS__mingw    += -filterin '*_mingw_mac.h' -filterin '*sdks/_mingw_ddk.h' -filterin '*sdks/_mingw_directx.h'
+WINAPI_FLAGS_gdiplus   += -filterin '*/gdiplus*.h'
 WINAPI_FLAGS_imagehlp  += -filterin '*psdk_inc/_dbg_LOAD_IMAGE.h' -filterin '*psdk_inc/_dbg_common.h'
 WINAPI_FLAGS_intrin    += -filterin '*/psdk_inc/intrin-impl.h' -nofunctionbodies
 WINAPI_FLAGS_msacm     += -include mmreg.h
