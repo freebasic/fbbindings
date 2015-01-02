@@ -1,4 +1,5 @@
 #pragma once
+#inclib "fcgi"
 
 #include once "crt/stdarg.bi"
 
