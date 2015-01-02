@@ -19,7 +19,6 @@ type _FULL_PTR_XLAT_TABLES as _FULL_PTR_XLAT_TABLES_
 type NDR_ALLOC_ALL_NODES_CONTEXT as NDR_ALLOC_ALL_NODES_CONTEXT_
 type NDR_POINTER_QUEUE_STATE as NDR_POINTER_QUEUE_STATE_
 type _NDR_PROC_CONTEXT as _NDR_PROC_CONTEXT_
-type <error-recovery> as <error-recovery>_
 
 #define __RPCNDR_H_VERSION__ 475
 #define __RPCNDR_H__
@@ -54,8 +53,6 @@ type cs_byte as ubyte
 type boolean_ as ubyte
 
 #define _HYPER_DEFINED
-#define hyper longint
-#define MIDL_uhyper '' TODO: unsigned __int64
 #define __MIDL_user_allocate_free_DEFINED__
 
 declare function MIDL_user_allocate(byval as SIZE_T_) as any ptr
@@ -293,9 +290,6 @@ end type
 
 type GENERIC_BINDING_INFO as __GENERIC_BINDING_INFO
 type PGENERIC_BINDING_INFO as __GENERIC_BINDING_INFO ptr
-
-#define NDR_SHAREABLE '' TODO: __inline
-
 type XMIT_HELPER_ROUTINE as sub(byval as PMIDL_STUB_MESSAGE)
 
 type _XMIT_ROUTINE_QUINTUPLE
@@ -748,9 +742,6 @@ declare function NdrAllocate(byval pStubMsg as PMIDL_STUB_MESSAGE, byval Len_ as
 declare sub NdrClearOutParameters(byval pStubMsg as PMIDL_STUB_MESSAGE, byval pFormat as PFORMAT_STRING, byval ArgAddr as any ptr)
 declare function NdrOleAllocate(byval Size as uinteger) as any ptr
 declare sub NdrOleFree(byval NodeToFree as any ptr)
-
-#define MIDL_INTERFACE(x) '' TODO: struct
-#define EXTERN_GUID(itf, l1, s1, s2, c1, c2, c3, c4, c5, c6, c7, c8) '' TODO: const IID DECLSPEC_SELECTANY itf = {l1,s1,s2,{c1,c2,c3,c4,c5,c6,c7,c8}}
 
 type _NDR_USER_MARSHAL_INFO_LEVEL1
 	Buffer as any ptr

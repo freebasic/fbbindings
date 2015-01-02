@@ -49,11 +49,9 @@ type _ACTIVATION_CONTEXT as _ACTIVATION_CONTEXT_
 
 #ifdef __FB_64BIT__
 	#define ALIGNMENT_MACHINE
-	#define UNALIGNED64 __unaligned
 	#define MAX_NATURAL_ALIGNMENT sizeof(ULONGLONG)
 	#define MEMORY_ALLOCATION_ALIGNMENT 16
 #else
-	#define UNALIGNED64
 	#define MAX_NATURAL_ALIGNMENT sizeof(DWORD)
 	#define MEMORY_ALLOCATION_ALIGNMENT 8
 #endif
@@ -1192,37 +1190,6 @@ type PSCOPE_TABLE_AMD64 as _SCOPE_TABLE_AMD64 ptr
 	#define PF_NON_TEMPORAL_LEVEL_ALL _MM_HINT_NTA
 	#define ReadMxCsr _mm_getcsr
 	#define WriteMxCsr _mm_setcsr
-#else
-	#define YieldProcessor __buildpause
-
-	private sub MemoryBarrier cdecl()
-		dim Barrier as ubyte
-		__asm__
-		'' TODO: __asm__ __volatile__("xchg{b %%| }al, %0" :"=m" (Barrier) : : "eax", "memory");
-	end sub
-
-	#define PreFetchCacheLine(l, a)
-	#define ReadForWriteAccess(p) (*(p))
-	#define PF_TEMPORAL_LEVEL_1
-	#define PF_NON_TEMPORAL_LEVEL_ALL
-	#define PcTeb &h18
-
-	private function NtCurrentTeb cdecl() as _TEB ptr
-		return cptr(_TEB ptr, __readfsdword(&h18))
-	end function
-
-	private function GetCurrentFiber cdecl() as PVOID
-		return cast(PVOID, __readfsdword(&h10))
-	end function
-
-	private function GetFiberData cdecl() as PVOID
-		return *cptr(PVOID ptr, GetCurrentFiber())
-	end function
-#endif
-
-#define DbgRaiseAssertionFailure __int2c
-
-#ifdef __FB_64BIT__
 	#define GetCallersEflags() __getcallerseflags()
 
 	declare function __getcallerseflags() as ulong
@@ -1253,6 +1220,32 @@ type PSCOPE_TABLE_AMD64 as _SCOPE_TABLE_AMD64 ptr
 	declare function _umul128(byval Multiplier as DWORD64, byval Multiplicand as DWORD64, byval HighProduct as DWORD64 ptr) as DWORD64
 	declare function MultiplyExtract128(byval Multiplier as LONG64, byval Multiplicand as LONG64, byval Shift as UBYTE) as LONG64
 	declare function UnsignedMultiplyExtract128(byval Multiplier as DWORD64, byval Multiplicand as DWORD64, byval Shift as UBYTE) as DWORD64
+#else
+	#define YieldProcessor __buildpause
+
+	private sub MemoryBarrier cdecl()
+		dim Barrier as ubyte
+		__asm__
+		'' TODO: __asm__ __volatile__("xchg{b %%| }al, %0" :"=m" (Barrier) : : "eax", "memory");
+	end sub
+
+	#define PreFetchCacheLine(l, a)
+	#define ReadForWriteAccess(p) (*(p))
+	#define PF_TEMPORAL_LEVEL_1
+	#define PF_NON_TEMPORAL_LEVEL_ALL
+	#define PcTeb &h18
+
+	private function NtCurrentTeb cdecl() as _TEB ptr
+		return cptr(_TEB ptr, __readfsdword(&h18))
+	end function
+
+	private function GetCurrentFiber cdecl() as PVOID
+		return cast(PVOID, __readfsdword(&h10))
+	end function
+
+	private function GetFiberData cdecl() as PVOID
+		return *cptr(PVOID ptr, GetCurrentFiber())
+	end function
 #endif
 
 #define EXCEPTION_READ_FAULT 0

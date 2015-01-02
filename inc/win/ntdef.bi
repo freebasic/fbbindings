@@ -36,11 +36,9 @@
 
 #ifdef __FB_64BIT__
 	#define ALIGNMENT_MACHINE
-	#define UNALIGNED64 __unaligned
 	#define MAX_NATURAL_ALIGNMENT sizeof(ULONGLONG)
 	#define MEMORY_ALLOCATION_ALIGNMENT 16
 #else
-	#define UNALIGNED64
 	#define MAX_NATURAL_ALIGNMENT sizeof(ULONG)
 	#define MEMORY_ALLOCATION_ALIGNMENT 8
 #endif

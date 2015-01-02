@@ -35,11 +35,5 @@
 type RPC_STATUS as long
 
 #define RPC_UNICODE_SUPPORTED
-#define RpcTryExcept '' TODO: __try {
-#define RpcExcept(expr) '' TODO: } __except(expr) {
-#define RpcEndExcept '' TODO: }
-#define RpcTryFinally '' TODO: __try {
-#define RpcFinally '' TODO: } __finally {
-#define RpcEndFinally '' TODO: }
 #define RpcExceptionCode() GetExceptionCode()
 #define RpcAbnormalTermination() AbnormalTermination()

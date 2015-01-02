@@ -201,8 +201,6 @@ type in_pktinfo
 	ipi_ifindex as UINT
 end type
 
-declare sub __C_ASSERT__(byval as long ptr)
-
 type in6_pktinfo
 	ipi6_addr as in6_addr
 	ipi6_ifindex as UINT

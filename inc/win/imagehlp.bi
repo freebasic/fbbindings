@@ -1572,8 +1572,6 @@ end type
 type MINIDUMP_SYSTEM_INFO as _MINIDUMP_SYSTEM_INFO
 type PMINIDUMP_SYSTEM_INFO as _MINIDUMP_SYSTEM_INFO ptr
 
-declare sub __C_ASSERT__ cdecl(byval as long ptr)
-
 type _MINIDUMP_THREAD field = 4
 	ThreadId as ULONG32
 	SuspendCount as ULONG32

@@ -73,6 +73,7 @@
 -removedefine __CRT_UUID_DECL
 -removedefine __CRT_WIDE
 -removedefine _CRT_WIDE
+-removedefine DbgRaiseAssertionFailure
 -removedefine DBG_UNREFERENCED_LOCAL_VARIABLE
 -removedefine DBG_UNREFERENCED_PARAMETER
 -removedefine DBHLPAPI
@@ -94,7 +95,17 @@
 -removedefine DECLSPEC_SELECTANY
 -removedefine __DECLSPEC_SUPPORTED
 -removedefine DECLSPEC_UUID
+-removedefine DEFINE_GUID
+-removedefine DEFINE_GUIDEX
+-removedefine DEFINE_GUIDNAMED
+-removedefine DEFINE_GUIDSTRUCT
+-removedefine DEFINE_KNOWN_FOLDER
+-removedefine DEFINE_MIB_BUFFER
+-removedefine DEFINE_MMREG_MID_GUID
+-removedefine DEFINE_MMREG_PID_GUID
+-removedefine DEFINE_OLEGUID
 -removedefine DEFINE_PROPERTYKEY
+-removedefine DEFINE_WAVEFORMATEX_GUID
 -removedefine DEPRECATE_SUPPORTED
 -removedefine DMUS_PMSG_PART
 -removedefine DUMMYSTRUCTNAME
@@ -121,6 +132,7 @@
 -removedefine END_TM_SCHEMA
 -removedefine EXPORT
 -removedefine EXTERN_C
+-removedefine EXTERN_GUID
 -removedefine far
 -removedefine FAR
 -removedefine FARSTRUCT
@@ -129,6 +141,7 @@
 -removedefine FORCEINLINE
 -removedefine __GNU_EXTENSION
 -removedefine HUGEP
+-removedefine hyper
 -removedefine IFACEMETHOD
 -removedefine IFACEMETHOD_
 -removedefine IFACEMETHODV
@@ -142,6 +155,8 @@
 -removedefine INTERNETAPI
 -removedefine INTERNETAPI_
 -removedefine INTSHCUTAPI
+-removedefine KSDATAFORMAT_SUBTYPE_IEEE_FLOAT_
+-removedefine KSDATAFORMAT_SUBTYPE_PCM_
 -removedefine KSECDDDECLSPEC
 -removedefine LDAPAPI
 -removedefine LWSTDAPI
@@ -151,6 +166,8 @@
 -removedefine _MCRTIMP
 -removedefine __MIDL_DECLSPEC_DLLEXPORT
 -removedefine __MIDL_DECLSPEC_DLLIMPORT
+-removedefine MIDL_INTERFACE
+-removedefine MIDL_uhyper
 -removedefine __MINGW_ATTRIB_DEPRECATED_MSVC2005
 -removedefine __MINGW_ATTRIB_DEPRECATED_SEC_WARN
 -removedefine __MINGW_ATTRIB_DEPRECATED_STR
@@ -168,6 +185,8 @@
 -removedefine __MINGW_TYPEDEF_AW
 -removedefine __MINGW_TYPEDEF_UAW
 -removedefine _MRTIMP2
+-removedefine NCB_POST
+-removedefine NDR_SHAREABLE
 -removedefine near
 -removedefine NEAR
 -removedefine NETIOAPI_API
@@ -181,25 +200,43 @@
 -removedefine OUT
 -removedefine pascal
 -removedefine PASCAL
+-removedefine PROPSHEETPAGEA_V1_FIELDS
+-removedefine PROPSHEETPAGEW_V1_FIELDS
 -removedefine PSSTDAPI
 -removedefine PSSTDAPI_
 -removedefine __ptr32
 -removedefine __ptr64
 -removedefine PURE
+-removedefine REFCLSID
+-removedefine _REFCLSID_DEFINED
 -removedefine REFELEMENTID
 -removedefine REFEXPLORERPANE
+-removedefine REFFMTID
+-removedefine _REFFMTID_DEFINED
 -removedefine REFFOLDERTYPEID
+-removedefine REFGUID
+-removedefine _REFGUID_DEFINED
+-removedefine REFIID
+-removedefine _REFIID_DEFINED
 -removedefine REFKNOWNFOLDERID
 -removedefine REFPROPERTYKEY
+-removedefine REFPROPVARIANT
 -removedefine REFTASKOWNERID
+-removedefine REFVARIANT
 -removedefine __restrict_arr
 -removedefine __RPC_API
 -removedefine __RPC_CALLEE
+-removedefine RpcEndExcept
+-removedefine RpcEndFinally
 -removedefine RPC_ENTRY
+-removedefine RpcExcept
 -removedefine __RPC_FAR
+-removedefine RpcFinally
 -removedefine RPCNSAPI
 -removedefine RPCRTAPI
 -removedefine __RPC_STUB
+-removedefine RpcTryExcept
+-removedefine RpcTryFinally
 -removedefine __RPC_USER
 -removedefine RPC_VAR_ENTRY
 -removedefine SEC_ENTRY
@@ -215,6 +252,8 @@
 -removedefine SNMPAPI_CALL
 -removedefine SNMP_FUNC_TYPE
 -removedefine SQL_API
+-removedefine STATIC_KSDATAFORMAT_SUBTYPE_IEEE_FLOAT
+-removedefine STATIC_KSDATAFORMAT_SUBTYPE_PCM
 -removedefine STDAPI
 -removedefine STDAPI_
 -removedefine STDAPICALLTYPE
@@ -243,6 +282,7 @@
 -removedefine TM_STATE
 -removedefine __unaligned
 -removedefine UNALIGNED
+-removedefine UNALIGNED64
 -removedefine _UNION_NAME
 -removedefine UNREFERENCED_LOCAL_VARIABLE
 -removedefine UNREFERENCED_PARAMETER
@@ -285,6 +325,7 @@
 -removedefine WSAAPI
 
 -removeproc __debugbreak
+-removeproc __C_ASSERT__
 
 -noexpand AcquireCredentialsHandle
 -noexpand AddCredentials

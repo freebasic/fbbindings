@@ -4,8 +4,6 @@
 
 extern "C"
 
-#define DEFINE_KNOWN_FOLDER(name, l, w1, w2, b1, b2, b3, b4, b5, b6, b7, b8) '' TODO: EXTERN_C const GUID name
-
 extern FOLDERID_AccountPictures as const GUID
 extern FOLDERID_AddNewPrograms as const GUID
 extern FOLDERID_AdminTools as const GUID
