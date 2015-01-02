@@ -1,5 +1,10 @@
 #pragma once
 
+'' The following symbols have been renamed:
+''     #define FCGI_stdin => FCGI_stdin_
+''     #define FCGI_stdout => FCGI_stdout_
+''     #define FCGI_stderr => FCGI_stderr_
+
 #include once "crt/long.bi"
 #include once "crt/stdio.bi"
 #include once "crt/sys/types.bi"
@@ -28,9 +33,9 @@ declare sub FCGI_SetExitStatus(byval status as long)
 	extern _fcgi_sF(0 to 2) as FCGI_FILE
 #endif
 
-#define FCGI_stdin (@_fcgi_sF[0])
-#define FCGI_stdout (@_fcgi_sF[1])
-#define FCGI_stderr (@_fcgi_sF[2])
+#define FCGI_stdin_ (@_fcgi_sF[0])
+#define FCGI_stdout_ (@_fcgi_sF[1])
+#define FCGI_stderr_ (@_fcgi_sF[2])
 
 declare sub FCGI_perror(byval str_ as const zstring ptr)
 declare function FCGI_fopen(byval path as const zstring ptr, byval mode as const zstring ptr) as FCGI_FILE ptr
@@ -67,9 +72,9 @@ declare function FCGI_popen(byval cmd as const zstring ptr, byval type_ as const
 declare function FCGI_pclose(byval as FCGI_FILE ptr) as long
 
 #define FILE FCGI_FILE
-#define stdin FCGI_stdin
-#define stdout FCGI_stdout
-#define stderr FCGI_stderr
+#define stdin FCGI_stdin_
+#define stdout FCGI_stdout_
+#define stderr FCGI_stderr_
 #define perror FCGI_perror
 #define fopen FCGI_fopen
 #define fclose FCGI_fclose
