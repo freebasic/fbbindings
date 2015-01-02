@@ -23,9 +23,9 @@ declare sub FCGI_SetExitStatus(byval status as long)
 #define FCGI_ToFcgiStream(fcgi_file) fcgi_file->fcgx_stream
 
 #ifdef __FB_WIN32__
-	extern import _fcgi_sF(0 to ...) as FCGI_FILE
+	extern import _fcgi_sF(0 to 2) as FCGI_FILE
 #else
-	extern _fcgi_sF(0 to ...) as FCGI_FILE
+	extern _fcgi_sF(0 to 2) as FCGI_FILE
 #endif
 
 #define FCGI_stdin (@_fcgi_sF[0])
