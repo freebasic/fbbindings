@@ -40,10 +40,10 @@ declare function SCardEstablishContext(byval dwScope as DWORD, byval pvReserved1
 declare function SCardReleaseContext(byval hContext as SCARDCONTEXT) as LONG
 declare function SCardIsValidContext(byval hContext as SCARDCONTEXT) as LONG
 
-#define SCARD_ALL_READERS TEXT(!"SCard$AllReaders\0")
-#define SCARD_DEFAULT_READERS TEXT(!"SCard$DefaultReaders\0")
-#define SCARD_LOCAL_READERS TEXT(!"SCard$LocalReaders\0")
-#define SCARD_SYSTEM_READERS TEXT(!"SCard$SystemReaders\0")
+#define SCARD_ALL_READERS __TEXT(!"SCard$AllReaders\0")
+#define SCARD_DEFAULT_READERS __TEXT(!"SCard$DefaultReaders\0")
+#define SCARD_LOCAL_READERS __TEXT(!"SCard$LocalReaders\0")
+#define SCARD_SYSTEM_READERS __TEXT(!"SCard$SystemReaders\0")
 #define SCARD_PROVIDER_PRIMARY 1
 #define SCARD_PROVIDER_CSP 2
 

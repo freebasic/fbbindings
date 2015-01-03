@@ -823,9 +823,9 @@ end type
 
 type COMPCOLOR as _compcolor
 
-#define CF_RTF TEXT("Rich Text Format")
-#define CF_RTFNOOBJS TEXT("Rich Text Format Without Objects")
-#define CF_RETEXTOBJ TEXT("RichEdit Text and Objects")
+#define CF_RTF __TEXT("Rich Text Format")
+#define CF_RTFNOOBJS __TEXT("Rich Text Format Without Objects")
+#define CF_RETEXTOBJ __TEXT("RichEdit Text and Objects")
 
 type _repastespecial field = 4
 	dwAspect as DWORD

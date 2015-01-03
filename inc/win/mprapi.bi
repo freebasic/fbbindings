@@ -25,7 +25,7 @@ end enum
 
 type ROUTER_INTERFACE_TYPE as _ROUTER_INTERFACE_TYPE
 
-#define RRAS_SERVICE_NAME TEXT("RemoteAccess")
+#define RRAS_SERVICE_NAME __TEXT("RemoteAccess")
 #define PID_IPX &h0000002B
 #define PID_IP &h00000021
 #define PID_NBF &h0000003F

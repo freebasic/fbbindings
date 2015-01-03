@@ -3337,7 +3337,7 @@ type LPSHDRAGIMAGE as SHDRAGIMAGE ptr
 
 extern IID_IDropTargetHelper as const GUID
 
-#define DI_GETDRAGIMAGE TEXT("ShellGetDragImage")
+#define DI_GETDRAGIMAGE __TEXT("ShellGetDragImage")
 #define __IDropTargetHelper_INTERFACE_DEFINED__
 
 type IDropTargetHelperVtbl

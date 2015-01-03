@@ -22,7 +22,7 @@ type SEC_CHAR as zstring
 	#define __SECSTATUS_DEFINED__
 #endif
 
-#define SEC_TEXT TEXT
+#define SEC_TEXT __TEXT
 
 #ifdef UNICODE
 	type SECURITY_PSTR as wstring ptr

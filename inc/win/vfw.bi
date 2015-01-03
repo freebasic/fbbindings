@@ -1005,7 +1005,7 @@ declare function EditStreamSetInfoA(byval pavi as PAVISTREAM, byval lpInfo as LP
 #define AVIERR_USERABORT MAKE_AVIERR(198)
 #define AVIERR_ERROR MAKE_AVIERR(199)
 #define MCIWndSM SendMessage
-#define MCIWND_WINDOW_CLASS TEXT("MCIWndClass")
+#define MCIWND_WINDOW_CLASS __TEXT("MCIWndClass")
 
 #ifdef UNICODE
 	#define MCIWndCreate MCIWndCreateW
@@ -1094,8 +1094,8 @@ declare function MCIWndRegisterClass cdecl() as WINBOOL
 #define MCIWndValidateMedia(hwnd) MCIWndSM(hwnd, MCIWNDM_VALIDATEMEDIA, cast(WPARAM, 0), cast(LPARAM, 0))
 #define MCIWndSetRepeat(hwnd, f) cast(any, MCIWndSM(hwnd, MCIWNDM_SETREPEAT, cast(WPARAM, 0), cast(LPARAM, cast(WINBOOL, (f)))))
 #define MCIWndGetRepeat(hwnd) cast(WINBOOL, MCIWndSM(hwnd, MCIWNDM_GETREPEAT, cast(WPARAM, 0), cast(LPARAM, 0)))
-#define MCIWndUseFrames(hwnd) MCIWndSetTimeFormat(hwnd, TEXT("frames"))
-#define MCIWndUseTime(hwnd) MCIWndSetTimeFormat(hwnd, TEXT("ms"))
+#define MCIWndUseFrames(hwnd) MCIWndSetTimeFormat(hwnd, __TEXT("frames"))
+#define MCIWndUseTime(hwnd) MCIWndSetTimeFormat(hwnd, __TEXT("ms"))
 #define MCIWndSetActiveTimer(hwnd, active) MCIWndSM(hwnd, MCIWNDM_SETACTIVETIMER, cast(WPARAM, cast(UINT, (active))), cast(LPARAM, 0))
 #define MCIWndSetInactiveTimer(hwnd, inactive) MCIWndSM(hwnd, MCIWNDM_SETINACTIVETIMER, cast(WPARAM, cast(UINT, (inactive))), cast(LPARAM, 0))
 #define MCIWndSetTimers(hwnd, active, inactive) MCIWndSM(hwnd, MCIWNDM_SETTIMERS, cast(WPARAM, cast(UINT, (active))), cast(LPARAM, cast(UINT, (inactive))))

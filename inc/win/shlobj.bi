@@ -636,7 +636,7 @@ declare function SHCreateDirectoryExW(byval hwnd as HWND, byval pszPath as LPCWS
 declare function SHOpenFolderAndSelectItems(byval pidlFolder as LPCITEMIDLIST, byval cidl as UINT, byval apidl as LPCITEMIDLIST ptr, byval dwFlags as DWORD) as HRESULT
 declare function SHCreateShellItem(byval pidlParent as LPCITEMIDLIST, byval psfParent as IShellFolder ptr, byval pidl as LPCITEMIDLIST, byval ppsi as IShellItem ptr ptr) as HRESULT
 
-#define REGSTR_PATH_SPECIAL_FOLDERS (REGSTR_PATH_EXPLORER + TEXT(!"\\Shell Folders"))
+#define REGSTR_PATH_SPECIAL_FOLDERS (REGSTR_PATH_EXPLORER + __TEXT(!"\\Shell Folders"))
 #define CSIDL_DESKTOP &h0000
 #define CSIDL_INTERNET &h0001
 #define CSIDL_PROGRAMS &h0002
@@ -1220,35 +1220,35 @@ type IColumnProviderVtbl_ field = 1
 	GetItemData as function(byval This as IColumnProvider ptr, byval pscid as LPCSHCOLUMNID, byval pscd as LPCSHCOLUMNDATA, byval pvarData as VARIANT ptr) as HRESULT
 end type
 
-#define CFSTR_SHELLIDLIST TEXT("Shell IDList Array")
-#define CFSTR_SHELLIDLISTOFFSET TEXT("Shell Object Offsets")
-#define CFSTR_NETRESOURCES TEXT("Net Resource")
-#define CFSTR_FILEDESCRIPTORA TEXT("FileGroupDescriptor")
-#define CFSTR_FILEDESCRIPTORW TEXT("FileGroupDescriptorW")
-#define CFSTR_FILECONTENTS TEXT("FileContents")
-#define CFSTR_FILENAMEA TEXT("FileName")
-#define CFSTR_FILENAMEW TEXT("FileNameW")
-#define CFSTR_PRINTERGROUP TEXT("PrinterFriendlyName")
-#define CFSTR_FILENAMEMAPA TEXT("FileNameMap")
-#define CFSTR_FILENAMEMAPW TEXT("FileNameMapW")
-#define CFSTR_SHELLURL TEXT("UniformResourceLocator")
+#define CFSTR_SHELLIDLIST __TEXT("Shell IDList Array")
+#define CFSTR_SHELLIDLISTOFFSET __TEXT("Shell Object Offsets")
+#define CFSTR_NETRESOURCES __TEXT("Net Resource")
+#define CFSTR_FILEDESCRIPTORA __TEXT("FileGroupDescriptor")
+#define CFSTR_FILEDESCRIPTORW __TEXT("FileGroupDescriptorW")
+#define CFSTR_FILECONTENTS __TEXT("FileContents")
+#define CFSTR_FILENAMEA __TEXT("FileName")
+#define CFSTR_FILENAMEW __TEXT("FileNameW")
+#define CFSTR_PRINTERGROUP __TEXT("PrinterFriendlyName")
+#define CFSTR_FILENAMEMAPA __TEXT("FileNameMap")
+#define CFSTR_FILENAMEMAPW __TEXT("FileNameMapW")
+#define CFSTR_SHELLURL __TEXT("UniformResourceLocator")
 #define CFSTR_INETURLA CFSTR_SHELLURL
-#define CFSTR_INETURLW TEXT("UniformResourceLocatorW")
-#define CFSTR_PREFERREDDROPEFFECT TEXT("Preferred DropEffect")
-#define CFSTR_PERFORMEDDROPEFFECT TEXT("Performed DropEffect")
-#define CFSTR_PASTESUCCEEDED TEXT("Paste Succeeded")
-#define CFSTR_INDRAGLOOP TEXT("InShellDragLoop")
-#define CFSTR_MOUNTEDVOLUME TEXT("MountedVolume")
-#define CFSTR_PERSISTEDDATAOBJECT TEXT("PersistedDataObject")
-#define CFSTR_TARGETCLSID TEXT("TargetCLSID")
-#define CFSTR_LOGICALPERFORMEDDROPEFFECT TEXT("Logical Performed DropEffect")
-#define CFSTR_AUTOPLAY_SHELLIDLISTS TEXT("Autoplay Enumerated IDList Array")
-#define CFSTR_UNTRUSTEDDRAGDROP TEXT("UntrustedDragDrop")
-#define CFSTR_FILE_ATTRIBUTES_ARRAY TEXT("File Attributes Array")
-#define CFSTR_INVOKECOMMAND_DROPPARAM TEXT("InvokeCommand DropParam")
-#define CFSTR_SHELLDROPHANDLER TEXT("DropHandlerCLSID")
-#define CFSTR_DROPDESCRIPTION TEXT("DropDescription")
-#define CFSTR_ZONEIDENTIFIER TEXT("ZoneIdentifier")
+#define CFSTR_INETURLW __TEXT("UniformResourceLocatorW")
+#define CFSTR_PREFERREDDROPEFFECT __TEXT("Preferred DropEffect")
+#define CFSTR_PERFORMEDDROPEFFECT __TEXT("Performed DropEffect")
+#define CFSTR_PASTESUCCEEDED __TEXT("Paste Succeeded")
+#define CFSTR_INDRAGLOOP __TEXT("InShellDragLoop")
+#define CFSTR_MOUNTEDVOLUME __TEXT("MountedVolume")
+#define CFSTR_PERSISTEDDATAOBJECT __TEXT("PersistedDataObject")
+#define CFSTR_TARGETCLSID __TEXT("TargetCLSID")
+#define CFSTR_LOGICALPERFORMEDDROPEFFECT __TEXT("Logical Performed DropEffect")
+#define CFSTR_AUTOPLAY_SHELLIDLISTS __TEXT("Autoplay Enumerated IDList Array")
+#define CFSTR_UNTRUSTEDDRAGDROP __TEXT("UntrustedDragDrop")
+#define CFSTR_FILE_ATTRIBUTES_ARRAY __TEXT("File Attributes Array")
+#define CFSTR_INVOKECOMMAND_DROPPARAM __TEXT("InvokeCommand DropParam")
+#define CFSTR_SHELLDROPHANDLER __TEXT("DropHandlerCLSID")
+#define CFSTR_DROPDESCRIPTION __TEXT("DropDescription")
+#define CFSTR_ZONEIDENTIFIER __TEXT("ZoneIdentifier")
 
 #ifdef UNICODE
 	#define CFSTR_FILEDESCRIPTOR CFSTR_FILEDESCRIPTORW

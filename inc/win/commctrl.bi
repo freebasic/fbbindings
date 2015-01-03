@@ -2058,7 +2058,7 @@ type LPDRAGLISTINFO as tagDRAGLISTINFO ptr
 #define DL_STOPCURSOR 1
 #define DL_COPYCURSOR 2
 #define DL_MOVECURSOR 3
-#define DRAGLISTMSGSTRING TEXT("commctrl_DragListMsg")
+#define DRAGLISTMSGSTRING __TEXT("commctrl_DragListMsg")
 
 declare function MakeDragList(byval hLB as HWND) as WINBOOL
 declare sub DrawInsert(byval handParent as HWND, byval hLB as HWND, byval nItem as long)

@@ -420,8 +420,8 @@ declare sub SslFreeCertificate(byval pCertificate as PX509Certificate)
 
 declare function SslGetDefaultIssuers(byval pbIssuers as PBYTE, byval pcbIssuers as DWORD ptr) as WINBOOL
 
-#define SSL_CRACK_CERTIFICATE_NAME TEXT("SslCrackCertificate")
-#define SSL_FREE_CERTIFICATE_NAME TEXT("SslFreeCertificate")
+#define SSL_CRACK_CERTIFICATE_NAME __TEXT("SslCrackCertificate")
+#define SSL_FREE_CERTIFICATE_NAME __TEXT("SslFreeCertificate")
 
 #ifdef __FB_64BIT__
 	type SSL_CRACK_CERTIFICATE_FN as function(byval pbCertificate as PUCHAR, byval cbCertificate as DWORD, byval VerifySignature as WINBOOL, byval ppCertificate as PX509Certificate ptr) as WINBOOL

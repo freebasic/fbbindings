@@ -693,16 +693,16 @@ declare function LsaLookupNames(byval PolicyHandle as LSA_HANDLE, byval Count as
 declare function LsaLookupNames2(byval PolicyHandle as LSA_HANDLE, byval Flags as ULONG, byval Count as ULONG, byval Names as PLSA_UNICODE_STRING, byval ReferencedDomains as PLSA_REFERENCED_DOMAIN_LIST ptr, byval Sids as PLSA_TRANSLATED_SID2 ptr) as NTSTATUS
 declare function LsaLookupSids(byval PolicyHandle as LSA_HANDLE, byval Count as ULONG, byval Sids as PSID ptr, byval ReferencedDomains as PLSA_REFERENCED_DOMAIN_LIST ptr, byval Names as PLSA_TRANSLATED_NAME ptr) as NTSTATUS
 
-#define SE_INTERACTIVE_LOGON_NAME TEXT("SeInteractiveLogonRight")
-#define SE_NETWORK_LOGON_NAME TEXT("SeNetworkLogonRight")
-#define SE_BATCH_LOGON_NAME TEXT("SeBatchLogonRight")
-#define SE_SERVICE_LOGON_NAME TEXT("SeServiceLogonRight")
-#define SE_DENY_INTERACTIVE_LOGON_NAME TEXT("SeDenyInteractiveLogonRight")
-#define SE_DENY_NETWORK_LOGON_NAME TEXT("SeDenyNetworkLogonRight")
-#define SE_DENY_BATCH_LOGON_NAME TEXT("SeDenyBatchLogonRight")
-#define SE_DENY_SERVICE_LOGON_NAME TEXT("SeDenyServiceLogonRight")
-#define SE_REMOTE_INTERACTIVE_LOGON_NAME TEXT("SeRemoteInteractiveLogonRight")
-#define SE_DENY_REMOTE_INTERACTIVE_LOGON_NAME TEXT("SeDenyRemoteInteractiveLogonRight")
+#define SE_INTERACTIVE_LOGON_NAME __TEXT("SeInteractiveLogonRight")
+#define SE_NETWORK_LOGON_NAME __TEXT("SeNetworkLogonRight")
+#define SE_BATCH_LOGON_NAME __TEXT("SeBatchLogonRight")
+#define SE_SERVICE_LOGON_NAME __TEXT("SeServiceLogonRight")
+#define SE_DENY_INTERACTIVE_LOGON_NAME __TEXT("SeDenyInteractiveLogonRight")
+#define SE_DENY_NETWORK_LOGON_NAME __TEXT("SeDenyNetworkLogonRight")
+#define SE_DENY_BATCH_LOGON_NAME __TEXT("SeDenyBatchLogonRight")
+#define SE_DENY_SERVICE_LOGON_NAME __TEXT("SeDenyServiceLogonRight")
+#define SE_REMOTE_INTERACTIVE_LOGON_NAME __TEXT("SeRemoteInteractiveLogonRight")
+#define SE_DENY_REMOTE_INTERACTIVE_LOGON_NAME __TEXT("SeDenyRemoteInteractiveLogonRight")
 
 declare function LsaEnumerateAccountsWithUserRight(byval PolicyHandle as LSA_HANDLE, byval UserRight as PLSA_UNICODE_STRING, byval Buffer as PVOID ptr, byval CountReturned as PULONG) as NTSTATUS
 declare function LsaEnumerateAccountRights(byval PolicyHandle as LSA_HANDLE, byval AccountSid as PSID, byval UserRights as PLSA_UNICODE_STRING ptr, byval CountOfRights as PULONG) as NTSTATUS
