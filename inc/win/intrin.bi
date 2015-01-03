@@ -464,11 +464,6 @@ declare sub __writemsr(byval as ulong, byval as ulongint)
 declare function __builtin_ia32_crc32qi(byval as ulong, byval as ubyte) as ulong
 declare function __builtin_ia32_crc32hi(byval as ulong, byval as ushort) as ulong
 declare function __builtin_ia32_crc32si(byval as ulong, byval as ulong) as ulong
-
-#ifdef __FB_64BIT__
-	declare function ceil(byval as double) as double
-#endif
-
 declare sub _disable()
 declare function __emul(byval as long, byval as long) as longint
 declare function __emulu(byval as ulong, byval as ulong) as ulongint
