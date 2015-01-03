@@ -5,6 +5,7 @@
 #include once "windef.bi"
 #include once "wingdi.bi"
 #include once "basetyps.bi"
+#include once "ddraw.bi"
 
 '' The following symbols have been renamed:
 ''     struct Size => Size_
@@ -20,7 +21,6 @@
 	extern "Windows"
 #endif
 
-type IDirectDrawSurface7 as IDirectDrawSurface7_
 type GdiplusAbort as GdiplusAbort_
 
 #define __GDIPLUS_H
