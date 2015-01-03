@@ -9,8 +9,10 @@
 '' The following symbols have been renamed:
 ''     struct Size => Size_
 ''     struct Point => Point_
+''     struct PointF => PointF_
 ''     struct Rect => Rect_
 ''     struct Color => Color_
+''     struct ColorMap => ColorMap_
 
 #ifdef __FB_64BIT__
 	extern "C"
@@ -817,7 +819,7 @@ type Point_
 	Y as INT_
 end type
 
-type PointF
+type PointF_
 	X as REAL
 	Y as REAL
 end type
@@ -843,7 +845,7 @@ end type
 
 type PathData
 	Count as INT_
-	Points as PointF ptr
+	Points as PointF_ ptr
 	Types as UBYTE ptr
 end type
 
@@ -855,7 +857,7 @@ type GetThumbnailImageAbort as any ptr
 #define __GDIPLUS_GPSTUBS_H
 
 type GpPoint as Point_
-type GpPointF as PointF
+type GpPointF as PointF_
 type GpRect as Rect_
 type GpRectF as RectF
 type GpSize as Size_
@@ -1516,7 +1518,7 @@ enum
 	HistogramFormatA = 7
 end enum
 
-type ColorMap
+type ColorMap_
 	oldColor as Color_
 	newColor as Color_
 end type
@@ -1728,7 +1730,7 @@ declare function GdipDrawImageRectRectI(byval as GpGraphics ptr, byval as GpImag
 declare function GdipDrawImagePointsRect(byval as GpGraphics ptr, byval as GpImage ptr, byval as const GpPointF ptr, byval as INT_, byval as REAL, byval as REAL, byval as REAL, byval as REAL, byval as GpUnit, byval as const GpImageAttributes ptr, byval as DrawImageAbort, byval as any ptr) as GpStatus
 declare function GdipDrawImagePointsRectI(byval as GpGraphics ptr, byval as GpImage ptr, byval as const GpPoint ptr, byval as INT_, byval as INT_, byval as INT_, byval as INT_, byval as INT_, byval as GpUnit, byval as const GpImageAttributes ptr, byval as DrawImageAbort, byval as any ptr) as GpStatus
 declare function GdipDrawImageFX(byval as GpGraphics ptr, byval as GpImage ptr, byval as GpRectF ptr, byval as GpMatrix ptr, byval as CGpEffect ptr, byval as GpImageAttributes ptr, byval as GpUnit) as GpStatus
-declare function GdipEnumerateMetafileDestPoints(byval as GpGraphics ptr, byval as const GpMetafile ptr, byval as const PointF ptr, byval as INT_, byval as EnumerateMetafileProc, byval as any ptr, byval as const GpImageAttributes ptr) as GpStatus
+declare function GdipEnumerateMetafileDestPoints(byval as GpGraphics ptr, byval as const GpMetafile ptr, byval as const PointF_ ptr, byval as INT_, byval as EnumerateMetafileProc, byval as any ptr, byval as const GpImageAttributes ptr) as GpStatus
 declare function GdipEnumerateMetafileDestPointsI(byval as GpGraphics ptr, byval as const GpMetafile ptr, byval as const Point_ ptr, byval as INT_, byval as EnumerateMetafileProc, byval as any ptr, byval as const GpImageAttributes ptr) as GpStatus
 declare function GdipSetClipGraphics(byval as GpGraphics ptr, byval as GpGraphics ptr, byval as CombineMode) as GpStatus
 declare function GdipSetClipRect(byval as GpGraphics ptr, byval as REAL, byval as REAL, byval as REAL, byval as REAL, byval as CombineMode) as GpStatus
@@ -1886,7 +1888,7 @@ declare function GdipSetImageAttributesNoOp(byval as GpImageAttributes ptr, byva
 declare function GdipSetImageAttributesColorKeys(byval as GpImageAttributes ptr, byval as ColorAdjustType, byval as BOOL, byval as ARGB, byval as ARGB) as GpStatus
 declare function GdipSetImageAttributesOutputChannel(byval as GpImageAttributes ptr, byval as ColorAdjustType, byval as BOOL, byval as ColorChannelFlags) as GpStatus
 declare function GdipSetImageAttributesOutputChannelColorProfile(byval as GpImageAttributes ptr, byval as ColorAdjustType, byval as BOOL, byval as const wstring ptr) as GpStatus
-declare function GdipSetImageAttributesRemapTable(byval as GpImageAttributes ptr, byval as ColorAdjustType, byval as BOOL, byval as UINT, byval as const ColorMap ptr) as GpStatus
+declare function GdipSetImageAttributesRemapTable(byval as GpImageAttributes ptr, byval as ColorAdjustType, byval as BOOL, byval as UINT, byval as const ColorMap_ ptr) as GpStatus
 declare function GdipSetImageAttributesWrapMode(byval as GpImageAttributes ptr, byval as WrapMode, byval as ARGB, byval as BOOL) as GpStatus
 declare function GdipSetImageAttributesICMMode(byval as GpImageAttributes ptr, byval as BOOL) as GpStatus
 declare function GdipGetImageAttributesAdjustedPalette(byval as GpImageAttributes ptr, byval as ColorPalette ptr, byval as ColorAdjustType) as GpStatus
@@ -2123,8 +2125,8 @@ declare function GdipGetStringFormatMeasurableCharacterRangeCount(byval as const
 declare function GdipSetStringFormatMeasurableCharacterRanges(byval as GpStringFormat ptr, byval as INT_, byval as const CharacterRange ptr) as GpStatus
 declare function GdipDrawString(byval as GpGraphics ptr, byval as const wstring ptr, byval as INT_, byval as const GpFont ptr, byval as const RectF ptr, byval as const GpStringFormat ptr, byval as const GpBrush ptr) as GpStatus
 declare function GdipMeasureString(byval as GpGraphics ptr, byval as const wstring ptr, byval as INT_, byval as const GpFont ptr, byval as const RectF ptr, byval as const GpStringFormat ptr, byval as RectF ptr, byval as INT_ ptr, byval as INT_ ptr) as GpStatus
-declare function GdipDrawDriverString(byval as GpGraphics ptr, byval as const UINT16 ptr, byval as INT_, byval as const GpFont ptr, byval as const GpBrush ptr, byval as const PointF ptr, byval as INT_, byval as const GpMatrix ptr) as GpStatus
-declare function GdipMeasureDriverString(byval as GpGraphics ptr, byval as const UINT16 ptr, byval as INT_, byval as const GpFont ptr, byval as const PointF ptr, byval as INT_, byval as const GpMatrix ptr, byval as RectF ptr) as GpStatus
+declare function GdipDrawDriverString(byval as GpGraphics ptr, byval as const UINT16 ptr, byval as INT_, byval as const GpFont ptr, byval as const GpBrush ptr, byval as const PointF_ ptr, byval as INT_, byval as const GpMatrix ptr) as GpStatus
+declare function GdipMeasureDriverString(byval as GpGraphics ptr, byval as const UINT16 ptr, byval as INT_, byval as const GpFont ptr, byval as const PointF_ ptr, byval as INT_, byval as const GpMatrix ptr, byval as RectF ptr) as GpStatus
 declare function GdipCreateTexture(byval as GpImage ptr, byval as GpWrapMode, byval as GpTexture ptr ptr) as GpStatus
 declare function GdipCreateTexture2(byval as GpImage ptr, byval as GpWrapMode, byval as REAL, byval as REAL, byval as REAL, byval as REAL, byval as GpTexture ptr ptr) as GpStatus
 declare function GdipCreateTexture2I(byval as GpImage ptr, byval as GpWrapMode, byval as INT_, byval as INT_, byval as INT_, byval as INT_, byval as GpTexture ptr ptr) as GpStatus
