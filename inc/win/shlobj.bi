@@ -8,6 +8,7 @@
 #include once "shlguid.bi"
 #include once "shtypes.bi"
 #include once "shobjidl.bi"
+#include once "shellapi.bi"
 
 #if _WIN32_WINNT = &h0602
 	'' The following symbols have been renamed:
