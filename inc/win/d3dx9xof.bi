@@ -125,9 +125,9 @@ type ID3DXFileEnumObjectVtbl_
 	Release as function(byval This as ID3DXFileEnumObject ptr) as ULONG
 	GetFile as function(byval This as ID3DXFileEnumObject ptr, byval file as ID3DXFile ptr ptr) as HRESULT
 	GetChildren as function(byval This as ID3DXFileEnumObject ptr, byval as SIZE_T_ ptr) as HRESULT
-	GetChild as function(byval This as ID3DXFileEnumObject ptr, byval id as SIZE_T_, byval child as ID3DXFileData ptr ptr) as HRESULT
-	GetDataObjectById as function(byval This as ID3DXFileEnumObject ptr, byval guid as const GUID const ptr, byval obj as ID3DXFileData ptr ptr) as HRESULT
-	GetDataObjectByName as function(byval This as ID3DXFileEnumObject ptr, byval name_ as const zstring ptr, byval obj as ID3DXFileData ptr ptr) as HRESULT
+	GetChild as function(byval This as ID3DXFileEnumObject ptr, byval id as SIZE_T_, byval child as LPLPD3DXFILEDATA) as HRESULT
+	GetDataObjectById as function(byval This as ID3DXFileEnumObject ptr, byval guid as const GUID const ptr, byval obj as LPLPD3DXFILEDATA) as HRESULT
+	GetDataObjectByName as function(byval This as ID3DXFileEnumObject ptr, byval name_ as const zstring ptr, byval obj as LPLPD3DXFILEDATA) as HRESULT
 end type
 
 type ID3DXFileData
