@@ -464,11 +464,11 @@ type LPOFNOTIFYEXW as _OFNOTIFYEXW ptr
 #define CDM_GETFOLDERIDLIST (CDM_FIRST + 3)
 #define CommDlg_OpenSave_GetFolderIDList(_hdlg, _pidl, _cbmax) clng(SNDMSG(_hdlg, CDM_GETFOLDERIDLIST, cast(WPARAM, _cbmax), cast(LPARAM, cast(LPVOID, _pidl))))
 #define CDM_SETCONTROLTEXT (CDM_FIRST + 4)
-#define CommDlg_OpenSave_SetControlText(_hdlg, _id, _text) cast(any, SNDMSG(_hdlg, CDM_SETCONTROLTEXT, cast(WPARAM, _id), cast(LPARAM, cast(LPSTR, _text))))
+#define CommDlg_OpenSave_SetControlText(_hdlg, _id, _text) SNDMSG(_hdlg, CDM_SETCONTROLTEXT, cast(WPARAM, _id), cast(LPARAM, cast(LPSTR, _text)))
 #define CDM_HIDECONTROL (CDM_FIRST + 5)
-#define CommDlg_OpenSave_HideControl(_hdlg, _id) cast(any, SNDMSG(_hdlg, CDM_HIDECONTROL, cast(WPARAM, _id), 0))
+#define CommDlg_OpenSave_HideControl(_hdlg, _id) SNDMSG(_hdlg, CDM_HIDECONTROL, cast(WPARAM, _id), 0)
 #define CDM_SETDEFEXT (CDM_FIRST + 6)
-#define CommDlg_OpenSave_SetDefExt(_hdlg, _pszext) cast(any, SNDMSG(_hdlg, CDM_SETDEFEXT, 0, cast(LPARAM, cast(LPSTR, _pszext))))
+#define CommDlg_OpenSave_SetDefExt(_hdlg, _pszext) SNDMSG(_hdlg, CDM_SETDEFEXT, 0, cast(LPARAM, cast(LPSTR, _pszext)))
 
 #ifdef __FB_64BIT__
 	type tagCHOOSECOLORA

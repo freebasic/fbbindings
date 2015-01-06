@@ -1092,7 +1092,7 @@ declare function MCIWndRegisterClass cdecl() as WINBOOL
 #define MCIWndSetTimeFormat(hwnd, lp) cast(LONG, MCIWndSM(hwnd, MCIWNDM_SETTIMEFORMAT, cast(WPARAM, 0), cast(LPARAM, cast(LPTSTR, (lp)))))
 #define MCIWndGetTimeFormat(hwnd, lp, len) cast(LONG, MCIWndSM(hwnd, MCIWNDM_GETTIMEFORMAT, cast(WPARAM, cast(UINT, (len))), cast(LPARAM, cast(LPTSTR, (lp)))))
 #define MCIWndValidateMedia(hwnd) MCIWndSM(hwnd, MCIWNDM_VALIDATEMEDIA, cast(WPARAM, 0), cast(LPARAM, 0))
-#define MCIWndSetRepeat(hwnd, f) cast(any, MCIWndSM(hwnd, MCIWNDM_SETREPEAT, cast(WPARAM, 0), cast(LPARAM, cast(WINBOOL, (f)))))
+#define MCIWndSetRepeat(hwnd, f) MCIWndSM(hwnd, MCIWNDM_SETREPEAT, cast(WPARAM, 0), cast(LPARAM, cast(WINBOOL, (f))))
 #define MCIWndGetRepeat(hwnd) cast(WINBOOL, MCIWndSM(hwnd, MCIWNDM_GETREPEAT, cast(WPARAM, 0), cast(LPARAM, 0)))
 #define MCIWndUseFrames(hwnd) MCIWndSetTimeFormat(hwnd, __TEXT("frames"))
 #define MCIWndUseTime(hwnd) MCIWndSetTimeFormat(hwnd, __TEXT("ms"))

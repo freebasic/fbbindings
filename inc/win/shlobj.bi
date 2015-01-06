@@ -2408,8 +2408,8 @@ type LPCSFV as _CSFV ptr
 		SHShellFolderView_Message(_hwnd, SFVM_SETITEMPOS, cast(LPARAM, cast(LPSFV_SETITEMPOS, @_sip)))
 	end scope
 #endmacro
-#define ShellFolderView_SetClipboard(_hwnd, _dwEffect) cast(any, SHShellFolderView_Message(_hwnd, SFVM_SETCLIPBOARD, cast(LPARAM, cast(DWORD, (_dwEffect)))))
-#define ShellFolderView_SetPoints(_hwnd, _pdtobj) cast(any, SHShellFolderView_Message(_hwnd, SFVM_SETPOINTS, cast(LPARAM, (_pdtobj))))
+#define ShellFolderView_SetClipboard(_hwnd, _dwEffect) SHShellFolderView_Message(_hwnd, SFVM_SETCLIPBOARD, cast(LPARAM, cast(DWORD, (_dwEffect))))
+#define ShellFolderView_SetPoints(_hwnd, _pdtobj) SHShellFolderView_Message(_hwnd, SFVM_SETPOINTS, cast(LPARAM, (_pdtobj)))
 
 type _SFV_SETITEMPOS
 	pidl as LPCITEMIDLIST
