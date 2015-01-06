@@ -49,13 +49,6 @@ type _CONTEXT as _CONTEXT_
 	#define MEMORY_ALLOCATION_ALIGNMENT 8
 #endif
 
-#define TYPE_ALIGNMENT(t) '' TODO: FIELD_OFFSET(struct { char x; t test; }, test)
-#define PROBE_ALIGNMENT(_s) TYPE_ALIGNMENT(DWORD)
-
-#ifdef __FB_64BIT__
-	#define PROBE_ALIGNMENT32(_s) TYPE_ALIGNMENT(DWORD)
-#endif
-
 #define SYSTEM_CACHE_ALIGNMENT_SIZE 64
 #define PRAGMA_DEPRECATED_DDK 0
 

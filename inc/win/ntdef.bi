@@ -44,9 +44,6 @@
 
 #define ARGUMENT_PRESENT(ArgumentPointer) (cptr(zstring ptr, cast(ULONG_PTR, (ArgumentPointer))) <> cptr(zstring ptr, NULL))
 #define CONTAINING_RECORD(address, type, field) cptr(type ptr, cast(ULONG_PTR, address) - cast(ULONG_PTR, @cptr(type ptr, 0)->field))
-#define FIELD_OFFSET(Type, Field) __builtin_offsetof(Type, Field)
-#define TYPE_ALIGNMENT(t) '' TODO: FIELD_OFFSET(struct { char x; t test; }, test)
-#define PROBE_ALIGNMENT(v) TYPE_ALIGNMENT(ULONG)
 #define SYSTEM_CACHE_ALIGNMENT_SIZE 64
 #define min(a, b) iif((a) < (b), (a), (b))
 #define max(a, b) iif((a) > (b), (a), (b))

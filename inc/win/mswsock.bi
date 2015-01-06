@@ -214,7 +214,7 @@ type WSACMSGHDR as _WSACMSGHDR
 type PWSACMSGHDR as _WSACMSGHDR ptr
 type LPWSACMSGHDR as _WSACMSGHDR ptr
 
-#define WSA_CMSGHDR_ALIGN(length) ((((length) + TYPE_ALIGNMENT(WSACMSGHDR)) - 1) and (not (TYPE_ALIGNMENT(WSACMSGHDR) - 1)))
+#define WSA_CMSGHDR_ALIGN(length) ((((length) + MAX_NATURAL_ALIGNMENT) - 1) and (not (MAX_NATURAL_ALIGNMENT - 1)))
 #define WSA_CMSGDATA_ALIGN(length) ((((length) + MAX_NATURAL_ALIGNMENT) - 1) and (not (MAX_NATURAL_ALIGNMENT - 1)))
 #define WSA_CMSG_FIRSTHDR(msg) iif((msg)->Control.len >= sizeof(WSACMSGHDR), cast(LPWSACMSGHDR, (msg)->Control.buf), cast(LPWSACMSGHDR, NULL))
 #define WSA_CMSG_NXTHDR(msg, cmsg) iif((cmsg) = 0, WSA_CMSG_FIRSTHDR(msg), iif(((cptr(u_char ptr, (cmsg)) + WSA_CMSGHDR_ALIGN((cmsg)->cmsg_len)) + sizeof(WSACMSGHDR)) > (cptr(u_char ptr, (msg)->Control.buf) + (msg)->Control.len), cast(LPWSACMSGHDR, NULL), cast(LPWSACMSGHDR, cptr(u_char ptr, (cmsg)) + WSA_CMSGHDR_ALIGN((cmsg)->cmsg_len))))
