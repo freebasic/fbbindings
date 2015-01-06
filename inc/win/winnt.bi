@@ -57,7 +57,6 @@ type _CONTEXT as _CONTEXT_
 #endif
 
 #define SYSTEM_CACHE_ALIGNMENT_SIZE 64
-#define NOP_FUNCTION cast(any, 0)
 #define PRAGMA_DEPRECATED_DDK 0
 
 type PVOID as any ptr
