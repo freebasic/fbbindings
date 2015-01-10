@@ -25,7 +25,7 @@ type PUCHAR as UCHAR ptr
 type PSZ as zstring ptr
 
 #define MAX_PATH 260
-#define NULL cptr(any ptr, 0)
+#define NULL 0
 #define FALSE 0
 #define TRUE 1
 #define _DEF_WINBOOL_
