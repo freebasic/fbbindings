@@ -7,11 +7,7 @@
 
 #inclib "dxguid"
 
-#ifdef __FB_64BIT__
-	extern "C"
-#else
-	extern "Windows"
-#endif
+extern "Windows"
 
 type IDirect3DLight as IDirect3DLight_
 type IDirect3DDevice as IDirect3DDevice_

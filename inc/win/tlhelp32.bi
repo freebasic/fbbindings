@@ -16,11 +16,7 @@
 
 #inclib "kernel32"
 
-#ifdef __FB_64BIT__
-	extern "C"
-#else
-	extern "Windows"
-#endif
+extern "Windows"
 
 #define _INC_TOOLHELP32
 #define MAX_MODULE_NAME32 255

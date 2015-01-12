@@ -1,10 +1,6 @@
 #pragma once
 
-#ifdef __FB_64BIT__
-	extern "C"
-#else
-	extern "Windows"
-#endif
+extern "Windows"
 
 type _NCB
 	ncb_command as UCHAR

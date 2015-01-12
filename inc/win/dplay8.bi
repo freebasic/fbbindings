@@ -5,11 +5,7 @@
 
 #inclib "dxguid"
 
-#ifdef __FB_64BIT__
-	extern "C"
-#else
-	extern "Windows"
-#endif
+extern "Windows"
 
 type IDirectPlay8LobbiedApplication as IDirectPlay8LobbiedApplication_
 type IDirectPlay8ClientVtbl as IDirectPlay8ClientVtbl_

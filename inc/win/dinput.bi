@@ -5,11 +5,7 @@
 
 #inclib "uuid"
 
-#ifdef __FB_64BIT__
-	extern "C"
-#else
-	extern "Windows"
-#endif
+extern "Windows"
 
 type IDirectInputEffectVtbl as IDirectInputEffectVtbl_
 type IDirectInputDeviceAVtbl as IDirectInputDeviceAVtbl_

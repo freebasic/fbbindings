@@ -8,11 +8,7 @@
 #include once "urlmon.bi"
 #include once "propidl.bi"
 
-#ifdef __FB_64BIT__
-	extern "C"
-#else
-	extern "Windows"
-#endif
+extern "Windows"
 
 #define _OBJBASE_H_
 

@@ -8,11 +8,7 @@
 
 #inclib "ole32"
 
-#ifdef __FB_64BIT__
-	extern "C"
-#else
-	extern "Windows"
-#endif
+extern "Windows"
 
 #define _OLE2_H_
 

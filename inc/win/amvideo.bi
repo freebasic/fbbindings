@@ -7,11 +7,7 @@
 #include once "objidl.bi"
 #include once "ddraw.bi"
 
-#ifdef __FB_64BIT__
-	extern "C"
-#else
-	extern "Windows"
-#endif
+extern "Windows"
 
 type IDirectDrawVideo as IDirectDrawVideo_
 type IQualProp as IQualProp_

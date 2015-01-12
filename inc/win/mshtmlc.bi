@@ -15,11 +15,7 @@
 ''         field duplicate => duplicate_
 ''         field findText => findText_
 
-#ifdef __FB_64BIT__
-	extern "C"
-#else
-	extern "Windows"
-#endif
+extern "Windows"
 
 type IHTMLFiltersCollection as IHTMLFiltersCollection_
 type IHTMLEventObj as IHTMLEventObj_

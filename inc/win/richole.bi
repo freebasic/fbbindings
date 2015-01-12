@@ -4,11 +4,7 @@
 
 #inclib "uuid"
 
-#ifdef __FB_64BIT__
-	extern "C"
-#else
-	extern "Windows"
-#endif
+extern "Windows"
 
 type IRichEditOleVtbl as IRichEditOleVtbl_
 type IRichEditOleCallbackVtbl as IRichEditOleCallbackVtbl_

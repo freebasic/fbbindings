@@ -2,11 +2,7 @@
 
 #include once "ddraw.bi"
 
-#ifdef __FB_64BIT__
-	extern "C"
-#else
-	extern "Windows"
-#endif
+extern "Windows"
 
 #define __WINE_D3DCAPS_H
 

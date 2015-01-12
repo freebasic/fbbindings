@@ -11,11 +11,7 @@
 
 #inclib "wsock32"
 
-#ifdef __FB_64BIT__
-	extern "C"
-#else
-	extern "Windows"
-#endif
+extern "Windows"
 
 #define _WINSOCKAPI_
 #define ___WSA_SOCKET_TYPES_H

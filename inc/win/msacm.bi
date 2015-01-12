@@ -13,11 +13,7 @@
 
 #inclib "msacm32"
 
-#ifdef __FB_64BIT__
-	extern "C"
-#else
-	extern "Windows"
-#endif
+extern "Windows"
 
 type HACMDRIVERID__ field = 1
 	unused as long

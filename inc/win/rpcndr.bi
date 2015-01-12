@@ -6,11 +6,7 @@
 '' The following symbols have been renamed:
 ''     typedef boolean => boolean_
 
-#ifdef __FB_64BIT__
-	extern "C"
-#else
-	extern "Windows"
-#endif
+extern "Windows"
 
 type _MIDL_STUB_MESSAGE as _MIDL_STUB_MESSAGE_
 type _MIDL_STUB_DESC as _MIDL_STUB_DESC_

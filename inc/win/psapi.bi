@@ -4,11 +4,7 @@
 
 #inclib "psapi"
 
-#ifdef __FB_64BIT__
-	extern "C"
-#else
-	extern "Windows"
-#endif
+extern "Windows"
 
 #define _PSAPI_H_
 

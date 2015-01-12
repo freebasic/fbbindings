@@ -28,11 +28,7 @@
 #include once "sherrors.bi"
 #include once "commctrl.bi"
 
-#ifdef __FB_64BIT__
-	extern "C"
-#else
-	extern "Windows"
-#endif
+extern "Windows"
 
 type IContextMenu as IContextMenu_
 type IContextMenu2 as IContextMenu2_

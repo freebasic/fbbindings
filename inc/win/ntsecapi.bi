@@ -9,11 +9,7 @@
 ''     enum constant Unlock => Unlock_
 ''     typedef STRING => STRING_
 
-#ifdef __FB_64BIT__
-	extern "C"
-#else
-	extern "Windows"
-#endif
+extern "Windows"
 
 #define _NTSECAPI_
 

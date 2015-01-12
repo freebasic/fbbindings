@@ -7,11 +7,7 @@
 ''     inside struct IDirectPlay8AddressVtbl:
 ''         field Duplicate => Duplicate_
 
-#ifdef __FB_64BIT__
-	extern "C"
-#else
-	extern "Windows"
-#endif
+extern "Windows"
 
 type IDirectPlay8AddressVtbl as IDirectPlay8AddressVtbl_
 type IDirectPlay8AddressIPVtbl as IDirectPlay8AddressIPVtbl_

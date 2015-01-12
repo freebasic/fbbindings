@@ -13,11 +13,7 @@
 ''     inside struct Folder3Vtbl:
 ''         field Synchronize => Synchronize_
 
-#ifdef __FB_64BIT__
-	extern "C"
-#else
-	extern "Windows"
-#endif
+extern "Windows"
 
 type IFolderViewOC as IFolderViewOC_
 type DShellFolderViewEvents as DShellFolderViewEvents_

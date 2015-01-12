@@ -3,11 +3,7 @@
 '' The following symbols have been renamed:
 ''     typedef STRING => STRING_
 
-#ifdef __FB_64BIT__
-	extern "C"
-#else
-	extern "Windows"
-#endif
+extern "Windows"
 
 #define _NTSUBAUTH_
 

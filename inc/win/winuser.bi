@@ -12,11 +12,7 @@
 
 #inclib "user32"
 
-#ifdef __FB_64BIT__
-	extern "C"
-#else
-	extern "Windows"
-#endif
+extern "Windows"
 
 type tagCREATESTRUCTA as tagCREATESTRUCTA_
 type tagCREATESTRUCTW as tagCREATESTRUCTW_

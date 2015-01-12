@@ -24,11 +24,7 @@
 
 #inclib "shlwapi"
 
-#ifdef __FB_64BIT__
-	extern "C"
-#else
-	extern "Windows"
-#endif
+extern "Windows"
 
 type IQueryAssociationsVtbl as IQueryAssociationsVtbl_
 

@@ -6,11 +6,7 @@
 
 #inclib "userenv"
 
-#ifdef __FB_64BIT__
-	extern "C"
-#else
-	extern "Windows"
-#endif
+extern "Windows"
 
 #define _USERENV_H_
 #define PI_NOUI &h00000001

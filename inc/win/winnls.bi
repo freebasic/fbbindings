@@ -4,11 +4,7 @@
 #include once "winapifamily.bi"
 #include once "apiset.bi"
 
-#ifdef __FB_64BIT__
-	extern "C"
-#else
-	extern "Windows"
-#endif
+extern "Windows"
 
 #define _WINNLS_
 #define _DATETIMEAPI_H_

@@ -10,11 +10,7 @@
 ''         inside union ___DnsRecordA_Data:
 ''             field Null => Null_
 
-#ifdef __FB_64BIT__
-	extern "C"
-#else
-	extern "Windows"
-#endif
+extern "Windows"
 
 #define _WINDNS_INCLUDED_
 

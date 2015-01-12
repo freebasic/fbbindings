@@ -19,22 +19,13 @@
 ''     inside struct _IMAGE_DEBUG_MISC:
 ''         field Unicode => Unicode_
 
-#ifdef __FB_64BIT__
-	extern "C"
-#else
-	extern "Windows"
+extern "Windows"
 
-	type _TEB as _TEB_
-#endif
-
+type _TEB as _TEB_
 type _RTL_CRITICAL_SECTION as _RTL_CRITICAL_SECTION_
 type _ACTIVATION_CONTEXT as _ACTIVATION_CONTEXT_
 type _EXCEPTION_RECORD as _EXCEPTION_RECORD_
 type _CONTEXT as _CONTEXT_
-
-#ifdef __FB_64BIT__
-	type _TEB as _TEB_
-#endif
 
 #define _WINNT_
 #define ANYSIZE_ARRAY 1

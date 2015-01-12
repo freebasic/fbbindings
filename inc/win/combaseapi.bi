@@ -10,11 +10,7 @@
 #include once "guiddef.bi"
 #include once "cguid.bi"
 
-#ifdef __FB_64BIT__
-	extern "C"
-#else
-	extern "Windows"
-#endif
+extern "Windows"
 
 #define _COMBASEAPI_H_
 

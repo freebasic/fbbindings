@@ -10,11 +10,7 @@
 #include once "propidl.bi"
 #include once "winapifamily.bi"
 
-#ifdef __FB_64BIT__
-	extern "C"
-#else
-	extern "Windows"
-#endif
+extern "Windows"
 
 type IRichChunk as IRichChunk_
 type ICondition as ICondition_

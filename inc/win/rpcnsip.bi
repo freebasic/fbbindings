@@ -1,10 +1,6 @@
 #pragma once
 
-#ifdef __FB_64BIT__
-	extern "C"
-#else
-	extern "Windows"
-#endif
+extern "Windows"
 
 type RPC_IMPORT_CONTEXT_P
 	LookupContext as RPC_NS_HANDLE

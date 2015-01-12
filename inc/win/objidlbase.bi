@@ -1,10 +1,6 @@
 #pragma once
 
-#ifdef __FB_64BIT__
-	extern "C"
-#else
-	extern "Windows"
-#endif
+extern "Windows"
 
 type IMarshal as IMarshal_
 type INoMarshal as INoMarshal_

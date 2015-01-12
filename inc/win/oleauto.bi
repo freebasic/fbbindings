@@ -8,11 +8,7 @@
 ''     #define VarI4FromInt => VarI4FromInt_
 ''     #define VarI8FromInt => VarI8FromInt_
 
-#ifdef __FB_64BIT__
-	extern "C"
-#else
-	extern "Windows"
-#endif
+extern "Windows"
 
 extern IID_StdOle as const IID
 

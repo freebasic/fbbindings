@@ -7,11 +7,7 @@
 '' The following symbols have been renamed:
 ''     #define MOUSE_EVENT => MOUSE_EVENT_
 
-#ifdef __FB_64BIT__
-	extern "C"
-#else
-	extern "Windows"
-#endif
+extern "Windows"
 
 #define _WINCON_
 

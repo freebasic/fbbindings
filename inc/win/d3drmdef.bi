@@ -11,11 +11,7 @@
 ''         field aspectx => aspectx_
 ''         field aspecty => aspecty_
 
-#ifdef __FB_64BIT__
-	extern "C"
-#else
-	extern "Windows"
-#endif
+extern "Windows"
 
 #define __D3DRMDEFS_H__
 

@@ -5,11 +5,7 @@
 #include once "unknwn.bi"
 #include once "imm.bi"
 
-#ifdef __FB_64BIT__
-	extern "C"
-#else
-	extern "Windows"
-#endif
+extern "Windows"
 
 type IEnumRegisterWordA as IEnumRegisterWordA_
 type IEnumRegisterWordW as IEnumRegisterWordW_

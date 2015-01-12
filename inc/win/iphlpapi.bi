@@ -14,11 +14,7 @@
 
 #inclib "iphlpapi"
 
-#ifdef __FB_64BIT__
-	extern "C"
-#else
-	extern "Windows"
-#endif
+extern "Windows"
 
 #define __IPHLPAPI_H__
 

@@ -7,11 +7,7 @@
 #include once "oaidl.bi"
 #include once "ocidl.bi"
 
-#ifdef __FB_64BIT__
-	extern "C"
-#else
-	extern "Windows"
-#endif
+extern "Windows"
 
 type IObjectArray as IObjectArray_
 type IObjectCollection as IObjectCollection_

@@ -4,11 +4,7 @@
 #include once "crt/math.bi"
 #include once "d3dx9math.bi"
 
-#ifdef __FB_64BIT__
-	extern "C"
-#else
-	extern "Windows"
-#endif
+extern "Windows"
 
 type ID3DXMatrixStackVtbl as ID3DXMatrixStackVtbl_
 

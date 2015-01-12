@@ -9,11 +9,7 @@
 #inclib "dxguid"
 #inclib "d3d9"
 
-#ifdef __FB_64BIT__
-	extern "C"
-#else
-	extern "Windows"
-#endif
+extern "Windows"
 
 type IDirect3DDevice9 as IDirect3DDevice9_
 type IDirect3DDevice9Ex as IDirect3DDevice9Ex_

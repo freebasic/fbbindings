@@ -2,11 +2,7 @@
 
 #include once "_mingw_unicode.bi"
 
-#ifdef __FB_64BIT__
-	extern "C"
-#else
-	extern "Windows"
-#endif
+extern "Windows"
 
 type _PROPSHEETPAGEA as _PROPSHEETPAGEA_
 type _PROPSHEETPAGEW as _PROPSHEETPAGEW_

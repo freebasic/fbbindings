@@ -3,11 +3,7 @@
 #include once "windows.bi"
 #include once "ddraw.bi"
 
-#ifdef __FB_64BIT__
-	extern "C"
-#else
-	extern "Windows"
-#endif
+extern "Windows"
 
 #define __WINE_D3DTYPES_H
 #define D3DVALP(val, prec) csng((val))

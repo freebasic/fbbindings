@@ -11,11 +11,7 @@
 
 #inclib "setupapi"
 
-#ifdef __FB_64BIT__
-	extern "C"
-#else
-	extern "Windows"
-#endif
+extern "Windows"
 
 #define _INC_SETUPAPI
 #define _SETUPAPI_VER &h0502

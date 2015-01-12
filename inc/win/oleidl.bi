@@ -9,11 +9,7 @@
 
 #inclib "uuid"
 
-#ifdef __FB_64BIT__
-	extern "C"
-#else
-	extern "Windows"
-#endif
+extern "Windows"
 
 type IOleAdviseHolder as IOleAdviseHolder_
 type IOleCache as IOleCache_

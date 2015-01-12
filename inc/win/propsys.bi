@@ -12,11 +12,7 @@
 #include once "winapifamily.bi"
 #include once "propkeydef.bi"
 
-#ifdef __FB_64BIT__
-	extern "C"
-#else
-	extern "Windows"
-#endif
+extern "Windows"
 
 type IInitializeWithFile as IInitializeWithFile_
 type IInitializeWithStream as IInitializeWithStream_

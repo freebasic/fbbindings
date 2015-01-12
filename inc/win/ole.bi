@@ -8,11 +8,7 @@
 ''     #define LRESULT => LRESULT_
 ''     #define HGLOBAL => HGLOBAL_
 
-#ifdef __FB_64BIT__
-	extern "C"
-#else
-	extern "Windows"
-#endif
+extern "Windows"
 
 #define _INC_OLE
 #define OLE_LPCSTR LPCSTR

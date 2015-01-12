@@ -3,11 +3,7 @@
 #include once "snmp.bi"
 #include once "winsock.bi"
 
-#ifdef __FB_64BIT__
-	extern "C"
-#else
-	extern "Windows"
-#endif
+extern "Windows"
 
 #define _INC_MGMTAPI
 #define SNMP_MGMTAPI_TIMEOUT 40

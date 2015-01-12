@@ -10,11 +10,7 @@
 #include once "urlmon.bi"
 #include once "winapifamily.bi"
 
-#ifdef __FB_64BIT__
-	extern "C"
-#else
-	extern "Windows"
-#endif
+extern "Windows"
 
 type IEnumConnections as IEnumConnections_
 type IConnectionPoint as IConnectionPoint_

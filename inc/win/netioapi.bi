@@ -6,11 +6,7 @@
 #include once "ifdef.bi"
 #include once "ntddndis.bi"
 
-#ifdef __FB_64BIT__
-	extern "C"
-#else
-	extern "Windows"
-#endif
+extern "Windows"
 
 #define _INC_NETIOAPI
 #define NETIO_STATUS NTSTATUS

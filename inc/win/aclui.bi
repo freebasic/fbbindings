@@ -8,11 +8,7 @@
 
 #inclib "aclui"
 
-#ifdef __FB_64BIT__
-	extern "C"
-#else
-	extern "Windows"
-#endif
+extern "Windows"
 
 type ISecurityInformationVtbl as ISecurityInformationVtbl_
 type ISecurityInformation2Vtbl as ISecurityInformation2Vtbl_

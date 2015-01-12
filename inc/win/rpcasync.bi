@@ -2,11 +2,7 @@
 
 #include once "_mingw_unicode.bi"
 
-#ifdef __FB_64BIT__
-	extern "C"
-#else
-	extern "Windows"
-#endif
+extern "Windows"
 
 type _RPC_ASYNC_STATE as _RPC_ASYNC_STATE_
 

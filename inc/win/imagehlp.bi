@@ -24,11 +24,9 @@
 	''         field Address => Address_
 	''     inside struct _SYMBOL_INFOW:
 	''         field Address => Address_
-
-	extern "C"
-#else
-	extern "Windows"
 #endif
+
+extern "Windows"
 
 #define _IMAGEHLP_
 

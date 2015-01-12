@@ -5,27 +5,19 @@
 
 #inclib "shell32"
 
-#ifdef __FB_64BIT__
-	extern "C"
-#elseif (not defined(__FB_64BIT__)) and (_WIN32_WINNT = &h0602)
-	extern "Windows"
-#endif
+extern "Windows"
 
 #if _WIN32_WINNT = &h0602
 	type NET_ADDRESS_INFO_ as NET_ADDRESS_INFO__
 #endif
 
+#define _INC_SHELLAPI
+
 #ifdef __FB_64BIT__
 	type HDROP__
 		unused as long
 	end type
-#elseif (not defined(__FB_64BIT__)) and ((_WIN32_WINNT = &h0400) or (_WIN32_WINNT = &h0502))
-	extern "Windows"
-#endif
-
-#define _INC_SHELLAPI
-
-#ifndef __FB_64BIT__
+#else
 	type HDROP__ field = 1
 		unused as long
 	end type

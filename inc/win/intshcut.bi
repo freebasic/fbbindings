@@ -5,11 +5,7 @@
 
 #inclib "url"
 
-#ifdef __FB_64BIT__
-	extern "C"
-#else
-	extern "Windows"
-#endif
+extern "Windows"
 
 type IUniformResourceLocatorAVtbl as IUniformResourceLocatorAVtbl_
 type IUniformResourceLocatorWVtbl as IUniformResourceLocatorWVtbl_

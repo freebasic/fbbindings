@@ -7,11 +7,7 @@
 
 #inclib "dxguid"
 
-#ifdef __FB_64BIT__
-	extern "C"
-#else
-	extern "Windows"
-#endif
+extern "Windows"
 
 type IDirectMusicToolVtbl as IDirectMusicToolVtbl_
 type IDirectMusicTool8Vtbl as IDirectMusicTool8Vtbl_

@@ -3,11 +3,7 @@
 #include once "mmsystem.bi"
 #include once "dsound.bi"
 
-#ifdef __FB_64BIT__
-	extern "C"
-#else
-	extern "Windows"
-#endif
+extern "Windows"
 
 type IAMDirectSoundVtbl as IAMDirectSoundVtbl_
 

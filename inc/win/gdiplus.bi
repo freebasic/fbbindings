@@ -15,11 +15,7 @@
 ''     struct Color => Color_
 ''     struct ColorMap => ColorMap_
 
-#ifdef __FB_64BIT__
-	extern "C"
-#else
-	extern "Windows"
-#endif
+extern "Windows"
 
 type GdiplusAbort as GdiplusAbort_
 

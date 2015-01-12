@@ -6,11 +6,7 @@
 #inclib "ddraw"
 #inclib "dxguid"
 
-#ifdef __FB_64BIT__
-	extern "C"
-#else
-	extern "Windows"
-#endif
+extern "Windows"
 
 type IDirectDrawPaletteVtbl as IDirectDrawPaletteVtbl_
 type IDirectDrawClipperVtbl as IDirectDrawClipperVtbl_

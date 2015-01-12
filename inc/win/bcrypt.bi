@@ -2,11 +2,7 @@
 
 #include once "winapifamily.bi"
 
-#ifdef __FB_64BIT__
-	extern "C"
-#else
-	extern "Windows"
-#endif
+extern "Windows"
 
 #define __BCRYPT_H__
 #define _NTSTATUS_PSDK

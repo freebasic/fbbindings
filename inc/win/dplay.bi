@@ -5,11 +5,7 @@
 #inclib "dplayx"
 #inclib "dxguid"
 
-#ifdef __FB_64BIT__
-	extern "C"
-#else
-	extern "Windows"
-#endif
+extern "Windows"
 
 type IDirectPlayVtbl as IDirectPlayVtbl_
 type IDirectPlay2Vtbl as IDirectPlay2Vtbl_

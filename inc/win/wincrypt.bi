@@ -11,11 +11,7 @@
 ''     inside struct _PUBLICKEYSTRUC:
 ''         field bType => bType_
 
-#ifdef __FB_64BIT__
-	extern "C"
-#else
-	extern "Windows"
-#endif
+extern "Windows"
 
 #define __WINCRYPT_H__
 #define GET_ALG_CLASS(x) (x and (7 shl 13))

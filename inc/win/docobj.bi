@@ -14,11 +14,7 @@
 
 #inclib "uuid"
 
-#ifdef __FB_64BIT__
-	extern "C"
-#else
-	extern "Windows"
-#endif
+extern "Windows"
 
 type IOleDocument as IOleDocument_
 type IOleDocumentSite as IOleDocumentSite_

@@ -5,11 +5,7 @@
 
 #inclib "d3drm"
 
-#ifdef __FB_64BIT__
-	extern "C"
-#else
-	extern "Windows"
-#endif
+extern "Windows"
 
 type IDirect3DRM as IDirect3DRM_
 type IDirect3DRMVtbl as IDirect3DRMVtbl_

@@ -9,11 +9,7 @@
 
 #inclib "oleacc"
 
-#ifdef __FB_64BIT__
-	extern "C"
-#else
-	extern "Windows"
-#endif
+extern "Windows"
 
 type IAccessible as IAccessible_
 type IAccessibleHandler as IAccessibleHandler_

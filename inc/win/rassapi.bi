@@ -4,11 +4,7 @@
 
 #inclib "mprapi"
 
-#ifdef __FB_64BIT__
-	extern "C"
-#else
-	extern "Windows"
-#endif
+extern "Windows"
 
 #define _RASSAPI_H_
 #define RASSAPI_MAX_PHONENUMBER_SIZE 128

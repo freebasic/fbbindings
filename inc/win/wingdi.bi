@@ -19,11 +19,7 @@
 
 #inclib "gdi32"
 
-#ifdef __FB_64BIT__
-	extern "C"
-#else
-	extern "Windows"
-#endif
+extern "Windows"
 
 #define _WINGDI_
 #define R2_BLACK 1

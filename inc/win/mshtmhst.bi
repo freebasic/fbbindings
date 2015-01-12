@@ -7,11 +7,7 @@
 #include once "ocidl.bi"
 #include once "docobj.bi"
 
-#ifdef __FB_64BIT__
-	extern "C"
-#else
-	extern "Windows"
-#endif
+extern "Windows"
 
 type IHostDialogHelper as IHostDialogHelper_
 type IDocHostUIHandler as IDocHostUIHandler_

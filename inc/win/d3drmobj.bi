@@ -9,11 +9,7 @@
 ''     inside struct IDirect3DRMProgressiveMeshVtbl:
 ''         field Duplicate => Duplicate_
 
-#ifdef __FB_64BIT__
-	extern "C"
-#else
-	extern "Windows"
-#endif
+extern "Windows"
 
 type IDirect3DRMObject as IDirect3DRMObject_
 type IDirect3DRMDevice as IDirect3DRMDevice_

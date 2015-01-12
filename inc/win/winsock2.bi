@@ -16,11 +16,7 @@
 
 #inclib "ws2_32"
 
-#ifdef __FB_64BIT__
-	extern "C"
-#else
-	extern "Windows"
-#endif
+extern "Windows"
 
 #define _WINSOCK2API_
 #define _WINSOCKAPI_

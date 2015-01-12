@@ -15,11 +15,7 @@
 #include once "oaidl.bi"
 #include once "winapifamily.bi"
 
-#ifdef __FB_64BIT__
-	extern "C"
-#else
-	extern "Windows"
-#endif
+extern "Windows"
 
 type IPropertyStorage as IPropertyStorage_
 type IPropertySetStorage as IPropertySetStorage_

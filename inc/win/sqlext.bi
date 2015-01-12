@@ -3,11 +3,7 @@
 #include once "sql.bi"
 #include once "sqlucode.bi"
 
-#ifdef __FB_64BIT__
-	extern "C"
-#else
-	extern "Windows"
-#endif
+extern "Windows"
 
 #define __SQLEXT
 #define SQL_SPEC_MAJOR 3

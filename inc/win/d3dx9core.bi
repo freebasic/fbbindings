@@ -3,11 +3,7 @@
 #include once "_mingw_unicode.bi"
 #include once "d3dx9.bi"
 
-#ifdef __FB_64BIT__
-	extern "C"
-#else
-	extern "Windows"
-#endif
+extern "Windows"
 
 type ID3DXSprite as ID3DXSprite_
 type ID3DXBufferVtbl as ID3DXBufferVtbl_

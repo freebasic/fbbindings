@@ -7,11 +7,7 @@
 #include once "objidl.bi"
 #include once "winapifamily.bi"
 
-#ifdef __FB_64BIT__
-	extern "C"
-#else
-	extern "Windows"
-#endif
+extern "Windows"
 
 type IServiceProvider as IServiceProvider_
 

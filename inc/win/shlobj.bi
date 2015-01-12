@@ -17,11 +17,7 @@
 
 #inclib "shell32"
 
-#ifdef __FB_64BIT__
-	extern "C"
-#else
-	extern "Windows"
-#endif
+extern "Windows"
 
 type IExtractIconAVtbl as IExtractIconAVtbl_
 type IExtractIconWVtbl as IExtractIconWVtbl_

@@ -2,11 +2,7 @@
 
 #include once "_mingw_unicode.bi"
 
-#ifdef __FB_64BIT__
-	extern "C"
-#else
-	extern "Windows"
-#endif
+extern "Windows"
 
 type ID3DXAllocateHierarchyVtbl as ID3DXAllocateHierarchyVtbl_
 type ID3DXLoadUserDataVtbl as ID3DXLoadUserDataVtbl_

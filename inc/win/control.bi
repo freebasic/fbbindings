@@ -6,11 +6,7 @@
 #include once "ole2.bi"
 #include once "oaidl.bi"
 
-#ifdef __FB_64BIT__
-	extern "C"
-#else
-	extern "Windows"
-#endif
+extern "Windows"
 
 type IMediaControl as IMediaControl_
 type IAMCollection as IAMCollection_

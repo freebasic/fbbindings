@@ -13,11 +13,7 @@
 #include once "windows.bi"
 #include once "ole2.bi"
 
-#ifdef __FB_64BIT__
-	extern "C"
-#else
-	extern "Windows"
-#endif
+extern "Windows"
 
 type IWbemClassObject as IWbemClassObject_
 type IWbemObjectAccess as IWbemObjectAccess_

@@ -3,11 +3,7 @@
 #include once "_mingw_unicode.bi"
 #include once "vfwmsgs.bi"
 
-#ifdef __FB_64BIT__
-	extern "C"
-#else
-	extern "Windows"
-#endif
+extern "Windows"
 
 #define __ERRORS__
 #define AMOVIEAPI

@@ -1,14 +1,10 @@
 #pragma once
 
-#if defined(__FB_64BIT__) and (_WIN32_WINNT = &h0602)
-	extern "C"
-#elseif (not defined(__FB_64BIT__)) and (_WIN32_WINNT = &h0602)
-	extern "Windows"
-#endif
-
 #define _INC_NCRYPT
 
 #if _WIN32_WINNT = &h0602
+	extern "Windows"
+
 	#define NCRYPTBUFFER_SSL_CLIENT_RANDOM 20
 	#define NCRYPTBUFFER_SSL_SERVER_RANDOM 21
 	#define NCRYPTBUFFER_SSL_HIGHEST_VERSION 22

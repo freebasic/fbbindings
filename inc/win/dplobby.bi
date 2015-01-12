@@ -3,11 +3,7 @@
 #include once "_mingw_unicode.bi"
 #include once "dplay.bi"
 
-#ifdef __FB_64BIT__
-	extern "C"
-#else
-	extern "Windows"
-#endif
+extern "Windows"
 
 type IDirectPlayLobbyVtbl as IDirectPlayLobbyVtbl_
 type IDirectPlayLobby2Vtbl as IDirectPlayLobby2Vtbl_

@@ -2,11 +2,7 @@
 
 #include once "_mingw_unicode.bi"
 
-#ifdef __FB_64BIT__
-	extern "C"
-#else
-	extern "Windows"
-#endif
+extern "Windows"
 
 #define __RPCNSI_H__
 

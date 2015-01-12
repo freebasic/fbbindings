@@ -3,9 +3,7 @@
 #include once "_mingw_unicode.bi"
 #include once "winapifamily.bi"
 
-#if defined(__FB_64BIT__) and ((_WIN32_WINNT = &h0502) or (_WIN32_WINNT = &h0602))
-	extern "C"
-#elseif (not defined(__FB_64BIT__)) and ((_WIN32_WINNT = &h0502) or (_WIN32_WINNT = &h0602))
+#if (_WIN32_WINNT = &h0502) or (_WIN32_WINNT = &h0602)
 	extern "Windows"
 #endif
 

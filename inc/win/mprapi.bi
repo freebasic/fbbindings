@@ -3,11 +3,7 @@
 #include once "lmcons.bi"
 #include once "ras.bi"
 
-#ifdef __FB_64BIT__
-	extern "C"
-#else
-	extern "Windows"
-#endif
+extern "Windows"
 
 #define __ROUTING_MPRADMIN_H__
 

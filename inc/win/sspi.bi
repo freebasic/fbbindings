@@ -3,11 +3,7 @@
 #include once "_mingw_unicode.bi"
 #include once "ntsecapi.bi"
 
-#ifdef __FB_64BIT__
-	extern "C"
-#else
-	extern "Windows"
-#endif
+extern "Windows"
 
 #define __SSPI_H__
 #define ISSP_LEVEL 32

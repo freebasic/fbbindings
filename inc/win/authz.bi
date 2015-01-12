@@ -4,11 +4,7 @@
 #include once "windows.bi"
 #include once "adtgen.bi"
 
-#ifdef __FB_64BIT__
-	extern "C"
-#else
-	extern "Windows"
-#endif
+extern "Windows"
 
 #define __AUTHZ_H__
 #define AUTHZAPI DECLSPEC_IMPORT

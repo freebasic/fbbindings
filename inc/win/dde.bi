@@ -6,11 +6,7 @@
 ''     inside struct DDEUP:
 ''         field rgb => rgb_
 
-#ifdef __FB_64BIT__
-	extern "C"
-#else
-	extern "Windows"
-#endif
+extern "Windows"
 
 #define _DDEHEADER_INCLUDED_
 #define WM_DDE_FIRST &h03E0

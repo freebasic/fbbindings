@@ -2,11 +2,7 @@
 
 #include once "winsock2.bi"
 
-#ifdef __FB_64BIT__
-	extern "C"
-#else
-	extern "Windows"
-#endif
+extern "Windows"
 
 #define _WINSOCK2SPI_
 

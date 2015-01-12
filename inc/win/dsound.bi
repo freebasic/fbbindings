@@ -6,11 +6,7 @@
 #inclib "dsound"
 #inclib "uuid"
 
-#ifdef __FB_64BIT__
-	extern "C"
-#else
-	extern "Windows"
-#endif
+extern "Windows"
 
 type IDirectSoundVtbl as IDirectSoundVtbl_
 type IDirectSound8Vtbl as IDirectSound8Vtbl_

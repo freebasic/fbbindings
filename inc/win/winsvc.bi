@@ -5,11 +5,7 @@
 
 #inclib "advapi32"
 
-#ifdef __FB_64BIT__
-	extern "C"
-#else
-	extern "Windows"
-#endif
+extern "Windows"
 
 #define _WINSVC_
 #define SERVICES_ACTIVE_DATABASEW wstr("ServicesActive")

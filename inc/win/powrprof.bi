@@ -2,11 +2,7 @@
 
 #inclib "powrprof"
 
-#ifdef __FB_64BIT__
-	extern "C"
-#else
-	extern "Windows"
-#endif
+extern "Windows"
 
 type _GLOBAL_MACHINE_POWER_POLICY
 	Revision as ULONG

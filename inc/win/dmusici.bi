@@ -10,11 +10,7 @@
 ''     inside struct _DMUS_CURVE_PMSG:
 ''         field bType => bType_
 
-#ifdef __FB_64BIT__
-	extern "C"
-#else
-	extern "Windows"
-#endif
+extern "Windows"
 
 type IDirectMusicBand as IDirectMusicBand_
 type IDirectMusicChordMap as IDirectMusicChordMap_

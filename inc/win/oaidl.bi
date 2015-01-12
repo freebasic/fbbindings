@@ -9,11 +9,7 @@
 
 #inclib "uuid"
 
-#ifdef __FB_64BIT__
-	extern "C"
-#else
-	extern "Windows"
-#endif
+extern "Windows"
 
 type ICreateTypeInfo as ICreateTypeInfo_
 type ICreateTypeInfo2 as ICreateTypeInfo2_

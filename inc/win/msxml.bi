@@ -8,11 +8,7 @@
 #include once "objidl.bi"
 #include once "oaidl.bi"
 
-#ifdef __FB_64BIT__
-	extern "C"
-#else
-	extern "Windows"
-#endif
+extern "Windows"
 
 type IXMLDOMImplementation as IXMLDOMImplementation_
 type IXMLDOMNode as IXMLDOMNode_

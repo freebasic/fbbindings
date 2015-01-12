@@ -2,11 +2,7 @@
 
 #include once "dmusicc.bi"
 
-#ifdef __FB_64BIT__
-	extern "C"
-#else
-	extern "Windows"
-#endif
+extern "Windows"
 
 type IDirectMusicSynthSink as IDirectMusicSynthSink_
 type IDirectMusicSynthVtbl as IDirectMusicSynthVtbl_

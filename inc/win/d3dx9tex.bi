@@ -3,11 +3,7 @@
 #include once "_mingw_unicode.bi"
 #include once "d3dx9.bi"
 
-#ifdef __FB_64BIT__
-	extern "C"
-#else
-	extern "Windows"
-#endif
+extern "Windows"
 
 #define __WINE_D3DX9TEX_H
 #define D3DX_FILTER_NONE &h00000001

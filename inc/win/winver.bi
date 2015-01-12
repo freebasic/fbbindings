@@ -5,11 +5,7 @@
 
 #inclib "version"
 
-#ifdef __FB_64BIT__
-	extern "C"
-#else
-	extern "Windows"
-#endif
+extern "Windows"
 
 #define VER_H
 #define VS_FILE_INFO RT_VERSION

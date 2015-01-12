@@ -4,11 +4,7 @@
 
 #inclib "dxerr8"
 
-#ifdef __FB_64BIT__
-	extern "C"
-#else
-	extern "Windows"
-#endif
+extern "Windows"
 
 #define __WINE_DXERR8_H
 

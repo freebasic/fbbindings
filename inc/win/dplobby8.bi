@@ -2,11 +2,7 @@
 
 #include once "ole2.bi"
 
-#ifdef __FB_64BIT__
-	extern "C"
-#else
-	extern "Windows"
-#endif
+extern "Windows"
 
 type IDirectPlay8LobbiedApplicationVtbl as IDirectPlay8LobbiedApplicationVtbl_
 type IDirectPlay8LobbyClientVtbl as IDirectPlay8LobbyClientVtbl_

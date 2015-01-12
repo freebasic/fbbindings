@@ -11,11 +11,7 @@
 #include once "msxml.bi"
 #include once "winapifamily.bi"
 
-#ifdef __FB_64BIT__
-	extern "C"
-#else
-	extern "Windows"
-#endif
+extern "Windows"
 
 type IPersistMoniker as IPersistMoniker_
 type IMonikerProp as IMonikerProp_

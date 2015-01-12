@@ -29,11 +29,7 @@
 	''     #define SQLInstallTranslatorEx => SQLInstallTranslatorEx_
 #endif
 
-#ifdef __FB_64BIT__
-	extern "C"
-#else
-	extern "Windows"
-#endif
+extern "Windows"
 
 #define __ODBCINST_H
 #define ODBC_ADD_DSN 1

@@ -5,11 +5,7 @@
 
 #inclib "advapi32"
 
-#ifdef __FB_64BIT__
-	extern "C"
-#else
-	extern "Windows"
-#endif
+extern "Windows"
 
 #define _WINREG_
 #define RRF_RT_REG_NONE &h00000001

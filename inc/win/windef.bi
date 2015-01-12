@@ -7,11 +7,7 @@
 '' The following symbols have been renamed:
 ''     typedef INT => INT_
 
-#ifdef __FB_64BIT__
-	extern "C"
-#else
-	extern "Windows"
-#endif
+extern "Windows"
 
 #define _WINDEF_
 #define _MINWINDEF_
