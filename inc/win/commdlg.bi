@@ -3,13 +3,6 @@
 #include once "_mingw_unicode.bi"
 #include once "prsht.bi"
 
-'' The following symbols have been renamed:
-''     #define ChooseColor => ChooseColor_
-''     #define ChooseFont => ChooseFont_
-''     #define PrintDlg => PrintDlg_
-''     #define PrintDlgEx => PrintDlgEx_
-''     #define PageSetupDlg => PageSetupDlg_
-
 #inclib "comdlg32"
 
 extern "Windows"
@@ -536,9 +529,9 @@ declare function ChooseColorA(byval as LPCHOOSECOLORA) as WINBOOL
 declare function ChooseColorW(byval as LPCHOOSECOLORW) as WINBOOL
 
 #ifdef UNICODE
-	#define ChooseColor_ ChooseColorW
+	declare function ChooseColor alias "ChooseColorW"(byval as LPCHOOSECOLORW) as WINBOOL
 #else
-	#define ChooseColor_ ChooseColorA
+	declare function ChooseColor alias "ChooseColorA"(byval as LPCHOOSECOLORA) as WINBOOL
 #endif
 
 #define CC_RGBINIT &h1
@@ -653,9 +646,9 @@ declare function FindTextA(byval as LPFINDREPLACEA) as HWND
 declare function FindTextW(byval as LPFINDREPLACEW) as HWND
 
 #ifdef UNICODE
-	#define FindText FindTextW
+	declare function FindText alias "FindTextW"(byval as LPFINDREPLACEW) as HWND
 #else
-	#define FindText FindTextA
+	declare function FindText alias "FindTextA"(byval as LPFINDREPLACEA) as HWND
 #endif
 
 declare function ReplaceTextA(byval as LPFINDREPLACEA) as HWND
@@ -767,9 +760,9 @@ declare function ChooseFontA(byval as LPCHOOSEFONTA) as WINBOOL
 declare function ChooseFontW(byval as LPCHOOSEFONTW) as WINBOOL
 
 #ifdef UNICODE
-	#define ChooseFont_ ChooseFontW
+	declare function ChooseFont alias "ChooseFontW"(byval as LPCHOOSEFONTW) as WINBOOL
 #else
-	#define ChooseFont_ ChooseFontA
+	declare function ChooseFont alias "ChooseFontA"(byval as LPCHOOSEFONTA) as WINBOOL
 #endif
 
 #define CF_SCREENFONTS &h1
@@ -963,9 +956,9 @@ declare function PrintDlgA(byval as LPPRINTDLGA) as WINBOOL
 declare function PrintDlgW(byval as LPPRINTDLGW) as WINBOOL
 
 #ifdef UNICODE
-	#define PrintDlg_ PrintDlgW
+	declare function PrintDlg alias "PrintDlgW"(byval as LPPRINTDLGW) as WINBOOL
 #else
-	#define PrintDlg_ PrintDlgA
+	declare function PrintDlg alias "PrintDlgA"(byval as LPPRINTDLGA) as WINBOOL
 #endif
 
 #ifdef __FB_64BIT__
@@ -1153,9 +1146,9 @@ declare function PrintDlgExA(byval as LPPRINTDLGEXA) as HRESULT
 declare function PrintDlgExW(byval as LPPRINTDLGEXW) as HRESULT
 
 #ifdef UNICODE
-	#define PrintDlgEx_ PrintDlgExW
+	declare function PrintDlgEx alias "PrintDlgExW"(byval as LPPRINTDLGEXW) as HRESULT
 #else
-	#define PrintDlgEx_ PrintDlgExA
+	declare function PrintDlgEx alias "PrintDlgExA"(byval as LPPRINTDLGEXA) as HRESULT
 #endif
 
 #define PD_ALLPAGES &h0
@@ -1316,9 +1309,9 @@ declare function PageSetupDlgA(byval as LPPAGESETUPDLGA) as WINBOOL
 declare function PageSetupDlgW(byval as LPPAGESETUPDLGW) as WINBOOL
 
 #ifdef UNICODE
-	#define PageSetupDlg_ PageSetupDlgW
+	declare function PageSetupDlg alias "PageSetupDlgW"(byval as LPPAGESETUPDLGW) as WINBOOL
 #else
-	#define PageSetupDlg_ PageSetupDlgA
+	declare function PageSetupDlg alias "PageSetupDlgA"(byval as LPPAGESETUPDLGA) as WINBOOL
 #endif
 
 #define PSD_DEFAULTMINMARGINS &h0
