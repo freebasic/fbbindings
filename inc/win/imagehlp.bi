@@ -9,7 +9,6 @@
 	'' The following symbols have been renamed:
 	''     inside struct _tagSTACKFRAME64:
 	''         field KdHelp => KdHelp_
-	''     #define PSYMBOL_FUNCENTRY_CALLBACK => PSYMBOL_FUNCENTRY_CALLBACK_
 	''     inside struct _IMAGEHLP_SYMBOL64:
 	''         field Address => Address_
 	''     inside struct _IMAGEHLP_LINE64:
@@ -491,7 +490,7 @@ type PSYM_ENUMSYMBOLS_CALLBACK64W as function(byval SymbolName as PCWSTR, byval 
 type PENUMLOADED_MODULES_CALLBACK64 as function(byval ModuleName as PCSTR, byval ModuleBase as DWORD64, byval ModuleSize as ULONG, byval UserContext as PVOID) as WINBOOL
 type PENUMLOADED_MODULES_CALLBACKW64 as function(byval ModuleName as PCWSTR, byval ModuleBase as DWORD64, byval ModuleSize as ULONG, byval UserContext as PVOID) as WINBOOL
 type PSYMBOL_REGISTERED_CALLBACK64 as function(byval hProcess as HANDLE, byval ActionCode as ULONG, byval CallbackData as ULONG64, byval UserContext as ULONG64) as WINBOOL
-type PSYMBOL_FUNCENTRY_CALLBACK as function(byval hProcess as HANDLE, byval AddrBase as DWORD, byval UserContext as PVOID) as PVOID
+type PSYMBOL_FUNCENTRY_CALLBACK32 as function(byval hProcess as HANDLE, byval AddrBase as DWORD, byval UserContext as PVOID) as PVOID
 type PSYMBOL_FUNCENTRY_CALLBACK64 as function(byval hProcess as HANDLE, byval AddrBase as ULONG64, byval UserContext as ULONG64) as PVOID
 
 #ifdef __FB_64BIT__
@@ -500,13 +499,14 @@ type PSYMBOL_FUNCENTRY_CALLBACK64 as function(byval hProcess as HANDLE, byval Ad
 	#define PSYM_ENUMSYMBOLS_CALLBACKW PSYM_ENUMSYMBOLS_CALLBACK64W
 	#define PENUMLOADED_MODULES_CALLBACK PENUMLOADED_MODULES_CALLBACK64
 	#define PSYMBOL_REGISTERED_CALLBACK PSYMBOL_REGISTERED_CALLBACK64
-	#define PSYMBOL_FUNCENTRY_CALLBACK_ PSYMBOL_FUNCENTRY_CALLBACK64
+	#define PSYMBOL_FUNCENTRY_CALLBACK PSYMBOL_FUNCENTRY_CALLBACK64
 #else
 	type PSYM_ENUMMODULES_CALLBACK as function(byval ModuleName as PCSTR, byval BaseOfDll as ULONG, byval UserContext as PVOID) as WINBOOL
 	type PSYM_ENUMSYMBOLS_CALLBACK as function(byval SymbolName as PCSTR, byval SymbolAddress as ULONG, byval SymbolSize as ULONG, byval UserContext as PVOID) as WINBOOL
 	type PSYM_ENUMSYMBOLS_CALLBACKW as function(byval SymbolName as PCWSTR, byval SymbolAddress as ULONG, byval SymbolSize as ULONG, byval UserContext as PVOID) as WINBOOL
 	type PENUMLOADED_MODULES_CALLBACK as function(byval ModuleName as PCSTR, byval ModuleBase as ULONG, byval ModuleSize as ULONG, byval UserContext as PVOID) as WINBOOL
 	type PSYMBOL_REGISTERED_CALLBACK as function(byval hProcess as HANDLE, byval ActionCode as ULONG, byval CallbackData as PVOID, byval UserContext as PVOID) as WINBOOL
+	#define PSYMBOL_FUNCENTRY_CALLBACK PSYMBOL_FUNCENTRY_CALLBACK32
 #endif
 
 type SYM_TYPE as long
