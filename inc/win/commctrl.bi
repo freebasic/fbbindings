@@ -8,9 +8,6 @@
 #include once "unknwnbase.bi"
 #include once "objidlbase.bi"
 
-'' The following symbols have been renamed:
-''     typedef IMAGEINFO => IMAGEINFO_
-
 #inclib "comctl32"
 
 extern "Windows"
@@ -370,12 +367,12 @@ type _IMAGEINFO
 	rcImage as RECT
 end type
 
-type IMAGEINFO_ as _IMAGEINFO
+type IMAGEINFO as _IMAGEINFO
 type LPIMAGEINFO as _IMAGEINFO ptr
 
 declare function ImageList_GetIconSize(byval himl as HIMAGELIST, byval cx as long ptr, byval cy as long ptr) as WINBOOL
 declare function ImageList_SetIconSize(byval himl as HIMAGELIST, byval cx as long, byval cy as long) as WINBOOL
-declare function ImageList_GetImageInfo(byval himl as HIMAGELIST, byval i as long, byval pImageInfo as IMAGEINFO_ ptr) as WINBOOL
+declare function ImageList_GetImageInfo(byval himl as HIMAGELIST, byval i as long, byval pImageInfo as IMAGEINFO ptr) as WINBOOL
 declare function ImageList_Merge(byval himl1 as HIMAGELIST, byval i1 as long, byval himl2 as HIMAGELIST, byval i2 as long, byval dx as long, byval dy as long) as HIMAGELIST
 declare function ImageList_Duplicate(byval himl as HIMAGELIST) as HIMAGELIST
 
