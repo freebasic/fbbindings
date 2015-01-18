@@ -8,12 +8,6 @@
 #include once "crt/errno.bi"
 
 '' The following symbols have been renamed:
-''     #ifdef __FB_64BIT__
-''         inside anonymous scopeblock:
-''             variable var => var_
-''         inside anonymous scopeblock:
-''             variable var => var_
-''     #endif
 ''     procedure inp => inp_
 ''     #define _rotl64 => _rotl64_
 ''     #define _rotr64 => _rotr64_
