@@ -1,8 +1,5 @@
 #pragma once
 
-'' The following symbols have been renamed:
-''     struct tag_s_RIFFWAVE_INST => tag_s_RIFFWAVE_INST_
-
 #include once "mmsystem.bi"
 
 extern "C"
@@ -2255,7 +2252,7 @@ type tag_s_RIFFWAVE_inst field = 1
 	bHighVelocity as UBYTE
 end type
 
-type s_RIFFWAVE_inst as tag_s_RIFFWAVE_INST_
+type s_RIFFWAVE_inst as tag_s_RIFFWAVE_INST
 
 #define RIFFCPPO mmioFOURCC(asc("C"), asc("P"), asc("P"), asc("O"))
 #define RIFFCPPO_objr mmioFOURCC(asc("o"), asc("b"), asc("j"), asc("r"))
