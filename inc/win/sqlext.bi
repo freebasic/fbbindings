@@ -1017,7 +1017,9 @@ extern "Windows"
 #define SQL_DRIVER_PROMPT 2
 #define SQL_DRIVER_COMPLETE_REQUIRED 3
 
+#ifndef UNICODE
 declare function SQLDriverConnect(byval hdbc as SQLHDBC, byval hwnd as SQLHWND, byval szConnStrIn as SQLCHAR ptr, byval cbConnStrIn as SQLSMALLINT, byval szConnStrOut as SQLCHAR ptr, byval cbConnStrOutMax as SQLSMALLINT, byval pcbConnStrOut as SQLSMALLINT ptr, byval fDriverCompletion as SQLUSMALLINT) as SQLRETURN
+#endif
 
 #define SQL_FETCH_BOOKMARK 8
 #define SQL_ROW_SUCCESS 0
@@ -1055,16 +1057,19 @@ declare function SQLDriverConnect(byval hdbc as SQLHDBC, byval hwnd as SQLHWND, 
 #define SQL_PT_FUNCTION 2
 #define SQL_ODBC_KEYWORDS (((((((((((((((((((((((((((((("ABSOLUTE,ACTION,ADA,ADD,ALL,ALLOCATE,ALTER,AND,ANY,ARE,AS," + "ASC,ASSERTION,AT,AUTHORIZATION,AVG,") + "BEGIN,BETWEEN,BIT,BIT_LENGTH,BOTH,BY,CASCADE,CASCADED,CASE,CAST,CATALOG,") + "CHAR,CHAR_LENGTH,CHARACTER,CHARACTER_LENGTH,CHECK,CLOSE,COALESCE,") + "COLLATE,COLLATION,COLUMN,COMMIT,CONNECT,CONNECTION,CONSTRAINT,") + "CONSTRAINTS,CONTINUE,CONVERT,CORRESPONDING,COUNT,CREATE,CROSS,CURRENT,") + "CURRENT_DATE,CURRENT_TIME,CURRENT_TIMESTAMP,CURRENT_USER,CURSOR,") + "DATE,DAY,DEALLOCATE,DEC,DECIMAL,DECLARE,DEFAULT,DEFERRABLE,") + "DEFERRED,DELETE,DESC,DESCRIBE,DESCRIPTOR,DIAGNOSTICS,DISCONNECT,") + "DISTINCT,DOMAIN,DOUBLE,DROP,") + "ELSE,END,END-EXEC,ESCAPE,EXCEPT,EXCEPTION,EXEC,EXECUTE,") + "EXISTS,EXTERNAL,EXTRACT,") + "FALSE,FETCH,FIRST,FLOAT,FOR,FOREIGN,FORTRAN,FOUND,FROM,FULL,") + "GET,GLOBAL,GO,GOTO,GRANT,GROUP,HAVING,HOUR,") + "IDENTITY,IMMEDIATE,IN,INCLUDE,INDEX,INDICATOR,INITIALLY,INNER,") + "INPUT,INSENSITIVE,INSERT,INT,INTEGER,INTERSECT,INTERVAL,INTO,IS,ISOLATION,") + "JOIN,KEY,LANGUAGE,LAST,LEADING,LEFT,LEVEL,LIKE,LOCAL,LOWER,") + "MATCH,MAX,MIN,MINUTE,MODULE,MONTH,") + "NAMES,NATIONAL,NATURAL,NCHAR,NEXT,NO,NONE,NOT,NULL,NULLIF,NUMERIC,") + "OCTET_LENGTH,OF,ON,ONLY,OPEN,OPTION,OR,ORDER,OUTER,OUTPUT,OVERLAPS,") + "PAD,PARTIAL,PASCAL,PLI,POSITION,PRECISION,PREPARE,PRESERVE,") + "PRIMARY,PRIOR,PRIVILEGES,PROCEDURE,PUBLIC,") + "READ,REAL,REFERENCES,RELATIVE,RESTRICT,REVOKE,RIGHT,ROLLBACK,ROWS") + "SCHEMA,SCROLL,SECOND,SECTION,SELECT,SESSION,SESSION_USER,SET,SIZE,") + "SMALLINT,SOME,SPACE,SQL,SQLCA,SQLCODE,SQLERROR,SQLSTATE,SQLWARNING,") + "SUBSTRING,SUM,SYSTEM_USER,") + "TABLE,TEMPORARY,THEN,TIME,TIMESTAMP,TIMEZONE_HOUR,TIMEZONE_MINUTE,") + "TO,TRAILING,TRANSACTION,TRANSLATE,TRANSLATION,TRIM,TRUE,") + "UNION,UNIQUE,UNKNOWN,UPDATE,UPPER,USAGE,USER,USING,") + "VALUE,VALUES,VARCHAR,VARYING,VIEW,WHEN,WHENEVER,WHERE,WITH,WORK,WRITE,") + "YEAR,ZONE")
 
+#ifndef UNICODE
 declare function SQLBrowseConnect(byval hdbc as SQLHDBC, byval szConnStrIn as SQLCHAR ptr, byval cbConnStrIn as SQLSMALLINT, byval szConnStrOut as SQLCHAR ptr, byval cbConnStrOutMax as SQLSMALLINT, byval pcbConnStrOut as SQLSMALLINT ptr) as SQLRETURN
+#endif
 declare function SQLBulkOperations(byval StatementHandle as SQLHSTMT, byval Operation as SQLSMALLINT) as SQLRETURN
 
+#ifndef UNICODE
 #ifdef __FB_64BIT__
 	declare function SQLColAttributes(byval hstmt as SQLHSTMT, byval icol as SQLUSMALLINT, byval fDescType as SQLUSMALLINT, byval rgbDesc as SQLPOINTER, byval cbDescMax as SQLSMALLINT, byval pcbDesc as SQLSMALLINT ptr, byval pfDesc as SQLLEN ptr) as SQLRETURN
 #else
 	declare function SQLColAttributes(byval hstmt as SQLHSTMT, byval icol as SQLUSMALLINT, byval fDescType as SQLUSMALLINT, byval rgbDesc as SQLPOINTER, byval cbDescMax as SQLSMALLINT, byval pcbDesc as SQLSMALLINT ptr, byval pfDesc as SQLINTEGER ptr) as SQLRETURN
 #endif
-
 declare function SQLColumnPrivileges(byval hstmt as SQLHSTMT, byval szCatalogName as SQLCHAR ptr, byval cbCatalogName as SQLSMALLINT, byval szSchemaName as SQLCHAR ptr, byval cbSchemaName as SQLSMALLINT, byval szTableName as SQLCHAR ptr, byval cbTableName as SQLSMALLINT, byval szColumnName as SQLCHAR ptr, byval cbColumnName as SQLSMALLINT) as SQLRETURN
+#endif
 
 #ifdef __FB_64BIT__
 	declare function SQLDescribeParam(byval hstmt as SQLHSTMT, byval ipar as SQLUSMALLINT, byval pfSqlType as SQLSMALLINT ptr, byval pcbParamDef as SQLULEN ptr, byval pibScale as SQLSMALLINT ptr, byval pfNullable as SQLSMALLINT ptr) as SQLRETURN
@@ -1074,9 +1079,13 @@ declare function SQLColumnPrivileges(byval hstmt as SQLHSTMT, byval szCatalogNam
 	declare function SQLExtendedFetch(byval hstmt as SQLHSTMT, byval fFetchType as SQLUSMALLINT, byval irow as SQLINTEGER, byval pcrow as SQLUINTEGER ptr, byval rgfRowStatus as SQLUSMALLINT ptr) as SQLRETURN
 #endif
 
+#ifndef UNICODE
 declare function SQLForeignKeys(byval hstmt as SQLHSTMT, byval szPkCatalogName as SQLCHAR ptr, byval cbPkCatalogName as SQLSMALLINT, byval szPkSchemaName as SQLCHAR ptr, byval cbPkSchemaName as SQLSMALLINT, byval szPkTableName as SQLCHAR ptr, byval cbPkTableName as SQLSMALLINT, byval szFkCatalogName as SQLCHAR ptr, byval cbFkCatalogName as SQLSMALLINT, byval szFkSchemaName as SQLCHAR ptr, byval cbFkSchemaName as SQLSMALLINT, byval szFkTableName as SQLCHAR ptr, byval cbFkTableName as SQLSMALLINT) as SQLRETURN
+#endif
 declare function SQLMoreResults(byval hstmt as SQLHSTMT) as SQLRETURN
+#ifndef UNICODE
 declare function SQLNativeSql(byval hdbc as SQLHDBC, byval szSqlStrIn as SQLCHAR ptr, byval cbSqlStrIn as SQLINTEGER, byval szSqlStr as SQLCHAR ptr, byval cbSqlStrMax as SQLINTEGER, byval pcbSqlStr as SQLINTEGER ptr) as SQLRETURN
+#endif
 declare function SQLNumParams(byval hstmt as SQLHSTMT, byval pcpar as SQLSMALLINT ptr) as SQLRETURN
 
 #ifdef __FB_64BIT__
@@ -1085,9 +1094,11 @@ declare function SQLNumParams(byval hstmt as SQLHSTMT, byval pcpar as SQLSMALLIN
 	declare function SQLParamOptions(byval hstmt as SQLHSTMT, byval crow as SQLUINTEGER, byval pirow as SQLUINTEGER ptr) as SQLRETURN
 #endif
 
+#ifndef UNICODE
 declare function SQLPrimaryKeys(byval hstmt as SQLHSTMT, byval szCatalogName as SQLCHAR ptr, byval cbCatalogName as SQLSMALLINT, byval szSchemaName as SQLCHAR ptr, byval cbSchemaName as SQLSMALLINT, byval szTableName as SQLCHAR ptr, byval cbTableName as SQLSMALLINT) as SQLRETURN
 declare function SQLProcedureColumns(byval hstmt as SQLHSTMT, byval szCatalogName as SQLCHAR ptr, byval cbCatalogName as SQLSMALLINT, byval szSchemaName as SQLCHAR ptr, byval cbSchemaName as SQLSMALLINT, byval szProcName as SQLCHAR ptr, byval cbProcName as SQLSMALLINT, byval szColumnName as SQLCHAR ptr, byval cbColumnName as SQLSMALLINT) as SQLRETURN
 declare function SQLProcedures(byval hstmt as SQLHSTMT, byval szCatalogName as SQLCHAR ptr, byval cbCatalogName as SQLSMALLINT, byval szSchemaName as SQLCHAR ptr, byval cbSchemaName as SQLSMALLINT, byval szProcName as SQLCHAR ptr, byval cbProcName as SQLSMALLINT) as SQLRETURN
+#endif
 
 #ifdef __FB_64BIT__
 	declare function SQLSetPos(byval hstmt as SQLHSTMT, byval irow as SQLSETPOSIROW, byval fOption as SQLUSMALLINT, byval fLock as SQLUSMALLINT) as SQLRETURN
@@ -1095,8 +1106,10 @@ declare function SQLProcedures(byval hstmt as SQLHSTMT, byval szCatalogName as S
 	declare function SQLSetPos(byval hstmt as SQLHSTMT, byval irow as SQLUSMALLINT, byval fOption as SQLUSMALLINT, byval fLock as SQLUSMALLINT) as SQLRETURN
 #endif
 
+#ifndef UNICODE
 declare function SQLTablePrivileges(byval hstmt as SQLHSTMT, byval szCatalogName as SQLCHAR ptr, byval cbCatalogName as SQLSMALLINT, byval szSchemaName as SQLCHAR ptr, byval cbSchemaName as SQLSMALLINT, byval szTableName as SQLCHAR ptr, byval cbTableName as SQLSMALLINT) as SQLRETURN
 declare function SQLDrivers(byval henv as SQLHENV, byval fDirection as SQLUSMALLINT, byval szDriverDesc as SQLCHAR ptr, byval cbDriverDescMax as SQLSMALLINT, byval pcbDriverDesc as SQLSMALLINT ptr, byval szDriverAttributes as SQLCHAR ptr, byval cbDrvrAttrMax as SQLSMALLINT, byval pcbDrvrAttr as SQLSMALLINT ptr) as SQLRETURN
+#endif
 
 #ifdef __FB_64BIT__
 	declare function SQLBindParameter(byval hstmt as SQLHSTMT, byval ipar as SQLUSMALLINT, byval fParamType as SQLSMALLINT, byval fCType as SQLSMALLINT, byval fSqlType as SQLSMALLINT, byval cbColDef as SQLULEN, byval ibScale as SQLSMALLINT, byval rgbValue as SQLPOINTER, byval cbValueMax as SQLLEN, byval pcbValue as SQLLEN ptr) as SQLRETURN
