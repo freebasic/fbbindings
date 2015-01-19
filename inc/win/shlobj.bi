@@ -10,11 +10,6 @@
 #include once "shobjidl.bi"
 #include once "shellapi.bi"
 
-#if _WIN32_WINNT = &h0602
-	'' The following symbols have been renamed:
-	''     #define Shell_GetCachedImageIndex => Shell_GetCachedImageIndex_
-#endif
-
 #inclib "shell32"
 
 extern "Windows"
@@ -2026,17 +2021,17 @@ type POPENASINFO as _openasinfo ptr
 #endif
 
 declare function Shell_GetImageLists(byval phiml as HIMAGELIST ptr, byval phimlSmall as HIMAGELIST ptr) as WINBOOL
-declare function Shell_GetCachedImageIndex(byval pwszIconPath as PCWSTR, byval iIconIndex as long, byval uIconFlags as UINT) as long
 
 #if _WIN32_WINNT = &h0602
 	declare function Shell_GetCachedImageIndexA(byval pszIconPath as LPCSTR, byval iIconIndex as long, byval uIconFlags as UINT) as long
 	declare function Shell_GetCachedImageIndexW(byval pszIconPath as LPCWSTR, byval iIconIndex as long, byval uIconFlags as UINT) as long
-#endif
-
-#if defined(UNICODE) and (_WIN32_WINNT = &h0602)
-	#define Shell_GetCachedImageIndex_ Shell_GetCachedImageIndexW
-#elseif (not defined(UNICODE)) and (_WIN32_WINNT = &h0602)
-	#define Shell_GetCachedImageIndex_ Shell_GetCachedImageIndexA
+	#ifdef UNICODE
+		#define Shell_GetCachedImageIndex Shell_GetCachedImageIndexW
+	#else
+		#define Shell_GetCachedImageIndex Shell_GetCachedImageIndexA
+	#endif
+#else
+	declare function Shell_GetCachedImageIndex(byval pwszIconPath as PCWSTR, byval iIconIndex as long, byval uIconFlags as UINT) as long
 #endif
 
 type IDocViewSite field = 1
