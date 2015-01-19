@@ -8,25 +8,14 @@
 #include once "mstcpip.bi"
 
 '' The following symbols have been renamed:
-''     typedef ADDRINFO => ADDRINFO_
-''     #define GetAddrInfo => GetAddrInfo_
-''     #define FreeAddrInfo => FreeAddrInfo_
-''     #define GetNameInfo => GetNameInfo_
 ''     #if _WIN32_WINNT = &h0602
-''         typedef addrinfoexA => addrinfoexA_
 ''         inside struct addrinfoExA:
 ''             field ai_canonname => ai_canonname_
-''         typedef addrinfoexW => addrinfoexW_
 ''         inside struct addrinfoExW:
 ''             field ai_canonname => ai_canonname_
 ''     #endif
 
 extern "C"
-
-#if _WIN32_WINNT = &h0602
-	type addrinfoexA_ as addrinfoexA__
-	type addrinfoexW_ as addrinfoexW__
-#endif
 
 #define _WS2TCPIP_H_
 #define _MINGW_IP_MREQ1_H
@@ -242,7 +231,6 @@ type PADDRINFOW as addrinfoW ptr
 	type PADDRINFOT as ADDRINFOA ptr
 #endif
 
-type ADDRINFO_ as ADDRINFOA
 type LPADDRINFO as ADDRINFOA ptr
 
 #define AI_PASSIVE &h1
@@ -257,54 +245,48 @@ type LPADDRINFO as ADDRINFOA ptr
 #endif
 
 #ifdef UNICODE
-	#define GetAddrInfo_ GetAddrInfoW
+	#define GetAddrInfo GetAddrInfoW
 #else
-	#define GetAddrInfo_ GetAddrInfoA
+	#define GetAddrInfo GetAddrInfoA
 #endif
 
 #ifdef __FB_64BIT__
-	declare function getaddrinfo(byval nodename as const zstring ptr, byval servname as const zstring ptr, byval hints as const addrinfo ptr, byval res as addrinfo ptr ptr) as long
+	declare function GetAddrInfoA alias "getaddrinfo"(byval nodename as const zstring ptr, byval servname as const zstring ptr, byval hints as const addrinfo ptr, byval res as addrinfo ptr ptr) as long
 	declare function GetAddrInfoW(byval pNodeName as PCWSTR, byval pServiceName as PCWSTR, byval pHints as const addrinfoW ptr, byval ppResult as PADDRINFOW ptr) as long
 #else
-	declare function getaddrinfo stdcall(byval nodename as const zstring ptr, byval servname as const zstring ptr, byval hints as const addrinfo ptr, byval res as addrinfo ptr ptr) as long
+	declare function GetAddrInfoA stdcall alias "getaddrinfo"(byval nodename as const zstring ptr, byval servname as const zstring ptr, byval hints as const addrinfo ptr, byval res as addrinfo ptr ptr) as long
 	declare function GetAddrInfoW stdcall(byval pNodeName as PCWSTR, byval pServiceName as PCWSTR, byval pHints as const addrinfoW ptr, byval ppResult as PADDRINFOW ptr) as long
 #endif
 
-#define GetAddrInfoA getaddrinfo
-
 #ifdef UNICODE
-	#define FreeAddrInfo_ FreeAddrInfoW
+	#define FreeAddrInfo FreeAddrInfoW
 #else
-	#define FreeAddrInfo_ FreeAddrInfoA
+	#define FreeAddrInfo FreeAddrInfoA
 #endif
 
 #ifdef __FB_64BIT__
-	declare sub freeaddrinfo(byval pAddrInfo as LPADDRINFO)
+	declare sub FreeAddrInfoA alias "freeaddrinfo"(byval pAddrInfo as LPADDRINFO)
 	declare sub FreeAddrInfoW(byval pAddrInfo as PADDRINFOW)
 #else
-	declare sub freeaddrinfo stdcall(byval pAddrInfo as LPADDRINFO)
+	declare sub FreeAddrInfoA stdcall alias "freeaddrinfo"(byval pAddrInfo as LPADDRINFO)
 	declare sub FreeAddrInfoW stdcall(byval pAddrInfo as PADDRINFOW)
 #endif
-
-#define FreeAddrInfoA freeaddrinfo
 
 type socklen_t as long
 
 #ifdef UNICODE
-	#define GetNameInfo_ GetNameInfoW
+	#define GetNameInfo GetNameInfoW
 #else
-	#define GetNameInfo_ GetNameInfoA
+	#define GetNameInfo GetNameInfoA
 #endif
 
 #ifdef __FB_64BIT__
-	declare function getnameinfo(byval sa as const sockaddr ptr, byval salen as socklen_t, byval host as zstring ptr, byval hostlen as DWORD, byval serv as zstring ptr, byval servlen as DWORD, byval flags as long) as long
+	declare function GetNameInfoA alias "getnameinfo"(byval sa as const sockaddr ptr, byval salen as socklen_t, byval host as zstring ptr, byval hostlen as DWORD, byval serv as zstring ptr, byval servlen as DWORD, byval flags as long) as long
 	declare function GetNameInfoW(byval pSockaddr as const sockaddr ptr, byval SockaddrLength as socklen_t, byval pNodeBuffer as PWCHAR, byval NodeBufferSize as DWORD, byval pServiceBuffer as PWCHAR, byval ServiceBufferSize as DWORD, byval Flags as INT_) as INT_
 #else
-	declare function getnameinfo stdcall(byval sa as const sockaddr ptr, byval salen as socklen_t, byval host as zstring ptr, byval hostlen as DWORD, byval serv as zstring ptr, byval servlen as DWORD, byval flags as long) as long
+	declare function GetNameInfoA stdcall alias "getnameinfo"(byval sa as const sockaddr ptr, byval salen as socklen_t, byval host as zstring ptr, byval hostlen as DWORD, byval serv as zstring ptr, byval servlen as DWORD, byval flags as long) as long
 	declare function GetNameInfoW stdcall(byval pSockaddr as const sockaddr ptr, byval SockaddrLength as socklen_t, byval pNodeBuffer as PWCHAR, byval NodeBufferSize as DWORD, byval pServiceBuffer as PWCHAR, byval ServiceBufferSize as DWORD, byval Flags as INT_) as INT_
 #endif
-
-#define GetNameInfoA getnameinfo
 
 #ifdef UNICODE
 	#define gai_strerror gai_strerrorW
@@ -353,7 +335,7 @@ declare function gai_strerrorW(byval as long) as wstring ptr
 		ai_blob as any ptr
 		ai_bloblen as uinteger
 		ai_provider as LPGUID
-		ai_next as addrinfoexA_ ptr
+		ai_next as addrinfoexA ptr
 	end type
 
 	type PADDRINFOEXA as addrinfoExA ptr
@@ -369,7 +351,7 @@ declare function gai_strerrorW(byval as long) as wstring ptr
 		ai_blob as any ptr
 		ai_bloblen as uinteger
 		ai_provider as LPGUID
-		ai_next as addrinfoexW_ ptr
+		ai_next as addrinfoexW ptr
 	end type
 
 	type PADDRINFOEXW as addrinfoExW ptr
