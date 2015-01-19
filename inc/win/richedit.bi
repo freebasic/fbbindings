@@ -3,9 +3,6 @@
 #include once "crt/wchar.bi"
 #include once "_mingw_unicode.bi"
 
-'' The following symbols have been renamed:
-''     #define FINDTEXT => FINDTEXT_
-
 extern "Windows"
 
 #define _RICHEDIT_
@@ -547,9 +544,9 @@ end type
 type FINDTEXTW as _findtextw
 
 #ifdef UNICODE
-	#define FINDTEXT_ FINDTEXTW
+	type FINDTEXT as FINDTEXTW
 #else
-	#define FINDTEXT_ FINDTEXTA
+	type FINDTEXT as FINDTEXTA
 #endif
 
 type _findtextexa field = 4

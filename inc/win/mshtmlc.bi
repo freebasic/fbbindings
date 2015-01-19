@@ -13,7 +13,6 @@
 ''     enum constant False => False_
 ''     inside struct IHTMLTxtRangeVtbl:
 ''         field duplicate => duplicate_
-''         field findText => findText_
 
 extern "Windows"
 
@@ -8009,7 +8008,7 @@ type IHTMLTxtRangeVtbl
 	moveToElementText as function(byval This as IHTMLTxtRange ptr, byval element as IHTMLElement ptr) as HRESULT
 	setEndPoint as function(byval This as IHTMLTxtRange ptr, byval how as BSTR, byval SourceRange as IHTMLTxtRange ptr) as HRESULT
 	compareEndPoints as function(byval This as IHTMLTxtRange ptr, byval how as BSTR, byval SourceRange as IHTMLTxtRange ptr, byval ret as long ptr) as HRESULT
-	findText_ as function(byval This as IHTMLTxtRange ptr, byval String_ as BSTR, byval count as long, byval Flags as long, byval Success as VARIANT_BOOL ptr) as HRESULT
+	findText as function(byval This as IHTMLTxtRange ptr, byval String_ as BSTR, byval count as long, byval Flags as long, byval Success as VARIANT_BOOL ptr) as HRESULT
 	moveToPoint as function(byval This as IHTMLTxtRange ptr, byval x as long, byval y as long) as HRESULT
 	getBookmark as function(byval This as IHTMLTxtRange ptr, byval Boolmark as BSTR ptr) as HRESULT
 	moveToBookmark as function(byval This as IHTMLTxtRange ptr, byval Bookmark as BSTR, byval Success as VARIANT_BOOL ptr) as HRESULT
