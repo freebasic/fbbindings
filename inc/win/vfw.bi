@@ -6,8 +6,6 @@
 #include once "msacm.bi"
 
 '' The following symbols have been renamed:
-''     #define AVIFileInfo => AVIFileInfo_
-''     #define AVIStreamInfo => AVIStreamInfo_
 ''     inside struct IAVIStreamVtbl_:
 ''         field Delete => Delete__
 
@@ -630,10 +628,10 @@ type AVISTREAMINFOA as _AVISTREAMINFOA
 type LPAVISTREAMINFOA as _AVISTREAMINFOA ptr
 
 #ifdef UNICODE
-	#define AVISTREAMINFO AVISTREAMINFOW
+	type AVISTREAMINFO as AVISTREAMINFOW
 	#define LPAVISTREAMINFO LPAVISTREAMINFOW
 #else
-	#define AVISTREAMINFO AVISTREAMINFOA
+	type AVISTREAMINFO as AVISTREAMINFOA
 	#define LPAVISTREAMINFO LPAVISTREAMINFOA
 #endif
 
@@ -677,10 +675,10 @@ type AVIFILEINFOA as _AVIFILEINFOA
 type LPAVIFILEINFOA as _AVIFILEINFOA ptr
 
 #ifdef UNICODE
-	#define AVIFILEINFO AVIFILEINFOW
+	type AVIFILEINFO as AVIFILEINFOW
 	#define LPAVIFILEINFO LPAVIFILEINFOW
 #else
-	#define AVIFILEINFO AVIFILEINFOA
+	type AVIFILEINFO as AVIFILEINFOA
 	#define LPAVIFILEINFO LPAVIFILEINFOA
 #endif
 
@@ -838,15 +836,15 @@ extern CLSID_AVIFile as const GUID
 
 #ifdef UNICODE
 	#define AVIFileOpen AVIFileOpenW
-	#define AVIFileInfo_ AVIFileInfoW
+	declare function AVIFileInfo alias "AVIFileInfoW"(byval pfile as PAVIFILE, byval pfi as LPAVIFILEINFOW, byval lSize as LONG) as HRESULT
 	#define AVIFileCreateStream AVIFileCreateStreamW
-	#define AVIStreamInfo_ AVIStreamInfoW
+	declare function AVIStreamInfo alias "AVIStreamInfoW"(byval pavi as PAVISTREAM, byval psi as LPAVISTREAMINFOW, byval lSize as LONG) as HRESULT
 	#define AVIStreamOpenFromFile AVIStreamOpenFromFileW
 #else
 	#define AVIFileOpen AVIFileOpenA
-	#define AVIFileInfo_ AVIFileInfoA
+	declare function AVIFileInfo alias "AVIFileInfoA"(byval pfile as PAVIFILE, byval pfi as LPAVIFILEINFOA, byval lSize as LONG) as HRESULT
 	#define AVIFileCreateStream AVIFileCreateStreamA
-	#define AVIStreamInfo_ AVIStreamInfoA
+	declare function AVIStreamInfo alias "AVIStreamInfoA"(byval pavi as PAVISTREAM, byval psi as LPAVISTREAMINFOA, byval lSize as LONG) as HRESULT
 	#define AVIStreamOpenFromFile AVIStreamOpenFromFileA
 #endif
 
