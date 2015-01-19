@@ -7,9 +7,6 @@
 ''     inside struct _D3DRMBOX:
 ''         field min => min_
 ''         field max => max_
-''     inside struct _D3DRMIMAGE:
-''         field aspectx => aspectx_
-''         field aspecty => aspecty_
 
 extern "Windows"
 
@@ -169,8 +166,8 @@ type LPD3DRMPALETTEENTRY as _D3DRMPALETTEENTRY ptr
 type _D3DRMIMAGE
 	width as long
 	height as long
-	aspectx_ as long
-	aspecty_ as long
+	aspectx as long
+	aspecty as long
 	depth as long
 	rgb as long
 	bytes_per_line as long
