@@ -7,7 +7,6 @@
 #include once "ocidl.bi"
 
 '' The following symbols have been renamed:
-''     struct Shell => Shell_
 ''     inside struct Folder2Vtbl:
 ''         field Synchronize => Synchronize_
 ''     inside struct Folder3Vtbl:
