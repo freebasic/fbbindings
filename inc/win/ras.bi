@@ -6,16 +6,6 @@
 #include once "naptypes.bi"
 #include once "lmcons.bi"
 
-'' The following symbols have been renamed:
-''     inside struct tagRASCONNSTATUSW:
-''         field rasconnstate => rasconnstate_
-''     inside struct tagRASCONNSTATUSA:
-''         field rasconnstate => rasconnstate_
-''     inside struct tagRASDIALEXTENSIONS:
-''         field RasEapInfo => RasEapInfo_
-''     #define RASCTRYINFO => RASCTRYINFO_
-''     #define RASIPADDR => RASIPADDR_
-
 #inclib "rasapi32"
 
 extern "Windows"
@@ -90,7 +80,7 @@ end type
 #define LPRASCONN RASCONN ptr
 #define RASCS_PAUSED &h1000
 #define RASCS_DONE &h2000
-#define RASCONNSTATE tagRASCONNSTATE
+type RASCONNSTATE as tagRASCONNSTATE
 
 type tagRASCONNSTATE as long
 enum
@@ -132,7 +122,7 @@ end enum
 
 type tagRASCONNSTATUSW field = 4
 	dwSize as DWORD
-	rasconnstate_ as tagRASCONNSTATE
+	rasconnstate as tagRASCONNSTATE
 	dwError as DWORD
 	szDeviceType as wstring * 16 + 1
 	szDeviceName as wstring * 128 + 1
@@ -143,7 +133,7 @@ end type
 
 type tagRASCONNSTATUSA field = 4
 	dwSize as DWORD
-	rasconnstate_ as tagRASCONNSTATE
+	rasconnstate as tagRASCONNSTATE
 	dwError as DWORD
 	szDeviceType as zstring * 16 + 1
 	szDeviceName as zstring * 128 + 1
@@ -204,7 +194,7 @@ end type
 #define LPRASDIALPARAMSW RASDIALPARAMSW ptr
 #define LPRASDIALPARAMSA RASDIALPARAMSA ptr
 #define LPRASDIALPARAMS RASDIALPARAMS ptr
-#define RASEAPINFO tagRASEAPINFO
+type RASEAPINFO as tagRASEAPINFO
 
 type tagRASEAPINFO field = 4
 	dwSizeofEapInfo as DWORD
@@ -219,7 +209,7 @@ type tagRASDIALEXTENSIONS field = 4
 	hwndParent as HWND
 	reserved as ULONG_PTR
 	reserved1 as ULONG_PTR
-	RasEapInfo_ as tagRASEAPINFO
+	RasEapInfo as tagRASEAPINFO
 end type
 
 #define LPRASDIALEXTENSIONS RASDIALEXTENSIONS ptr
@@ -532,7 +522,6 @@ end type
 #define LPRASDEVINFOW RASDEVINFOW ptr
 #define LPRASDEVINFOA RASDEVINFOA ptr
 #define LPRASDEVINFO RASDEVINFO ptr
-#define RASCTRYINFO_ RASCTRYINFO
 
 type RASCTRYINFO field = 4
 	dwSize as DWORD
@@ -542,12 +531,11 @@ type RASCTRYINFO field = 4
 	dwCountryNameOffset as DWORD
 end type
 
-#define RASCTRYINFOW RASCTRYINFO_
-#define RASCTRYINFOA RASCTRYINFO_
+#define RASCTRYINFOW RASCTRYINFO
+#define RASCTRYINFOA RASCTRYINFO
 #define LPRASCTRYINFOW RASCTRYINFOW ptr
 #define LPRASCTRYINFOA RASCTRYINFOW ptr
 #define LPRASCTRYINFO RASCTRYINFO ptr
-#define RASIPADDR_ RASIPADDR
 
 type RASIPADDR field = 4
 	a as UBYTE
