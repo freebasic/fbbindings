@@ -4,10 +4,6 @@
 
 #inclib "oleaut32"
 
-'' The following symbols have been renamed:
-''     #define VarI4FromInt => VarI4FromInt_
-''     #define VarI8FromInt => VarI8FromInt_
-
 extern "Windows"
 
 extern IID_StdOle as const IID
@@ -330,9 +326,7 @@ declare function VarDecFromUI8(byval ui64In as ULONG64, byval pdecOut as DECIMAL
 #define VarUI1FromUint VarUI1FromUI4
 #define VarI2FromInt VarI2FromI4
 #define VarI2FromUint VarI2FromUI4
-#define VarI4FromInt_ VarI4FromI4
 #define VarI4FromUint VarI4FromUI4
-#define VarI8FromInt_ VarI8FromI4
 #define VarI8FromUint VarI8FromUI4
 #define VarR4FromInt VarR4FromI4
 #define VarR4FromUint VarR4FromUI4
