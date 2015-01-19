@@ -8,8 +8,8 @@
 ''     #define ERROR => ERROR_
 ''     #define RGB => BGR
 ''     #define STRETCHBLT => STRETCHBLT_
-''     #define StartDoc => StartDoc_
-''     #define ExtTextOut => ExtTextOut_
+''     #define STARTDOC => STARTDOC_
+''     #define EXTTEXTOUT => EXTTEXTOUT_
 ''     #define ENDDOC => ENDDOC_
 ''     #define ABORTDOC => ABORTDOC_
 ''     #define SETABORTPROC => SETABORTPROC_
@@ -213,7 +213,7 @@ type PDRAWPATRECT as _DRAWPATRECT ptr
 #define DRAFTMODE 7
 #define QUERYESCSUPPORT 8
 #define SETABORTPROC_ 9
-#define STARTDOC 10
+#define STARTDOC_ 10
 #define ENDDOC_ 11
 #define GETPHYSPAGESIZE 12
 #define GETPRINTINGOFFSET 13
@@ -249,7 +249,7 @@ type PDRAWPATRECT as _DRAWPATRECT ptr
 #define GETEXTENTTABLE 257
 #define GETPAIRKERNTABLE 258
 #define GETTRACKKERNTABLE 259
-#define EXTTEXTOUT 512
+#define EXTTEXTOUT_ 512
 #define GETFACENAME 513
 #define DOWNLOADFACE 514
 #define ENABLERELATIVEWIDTHS 768
@@ -3270,17 +3270,17 @@ type LPDOCINFOW as _DOCINFOW ptr
 #define DI_ROPS_READ_DESTINATION &h00000002
 
 #ifdef UNICODE
-	#define StartDoc_ StartDocW
+	#define StartDoc StartDocW
 	#define GetObject GetObjectW
 	#define TextOut TextOutW
-	#define ExtTextOut_ ExtTextOutW
+	#define ExtTextOut ExtTextOutW
 	#define PolyTextOut PolyTextOutW
 	#define GetTextFace GetTextFaceW
 #else
-	#define StartDoc_ StartDocA
+	#define StartDoc StartDocA
 	#define GetObject GetObjectA
 	#define TextOut TextOutA
-	#define ExtTextOut_ ExtTextOutA
+	#define ExtTextOut ExtTextOutA
 	#define PolyTextOut PolyTextOutA
 	#define GetTextFace GetTextFaceA
 #endif
