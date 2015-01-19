@@ -145,6 +145,10 @@
 -removedefine hyper
 -removedefine IFACEMETHOD
 -removedefine IFACEMETHOD_
+-removedefine IFACEMETHODIMP
+-removedefine IFACEMETHODIMP_
+-removedefine IFACEMETHODIMPV
+-removedefine IFACEMETHODIMPV_
 -removedefine IFACEMETHODV
 -removedefine IFACEMETHODV_
 -removedefine IMAGEAPI
