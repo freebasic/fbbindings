@@ -3,10 +3,6 @@
 #include once "schnlsp.bi"
 
 '' The following symbols have been renamed:
-''     #ifdef UNICODE
-''         #define ldap_get_option => ldap_get_option_
-''         #define ldap_set_option => ldap_set_option_
-''     #endif
 ''     inside struct berelement:
 ''         field opaque => opaque_
 
@@ -429,14 +425,17 @@ declare function cldap_openA(byval HostName as PCHAR, byval PortNumber as ULONG)
 
 declare function ldap_unbind(byval ld as ldap ptr) as ULONG
 declare function ldap_unbind_s(byval ld as ldap ptr) as ULONG
-declare function ldap_get_option(byval ld as ldap ptr, byval option_ as long, byval outvalue as any ptr) as ULONG
+declare function ldap_get_optionA alias "ldap_get_option"(byval ld as ldap ptr, byval option_ as long, byval outvalue as any ptr) as ULONG
 declare function ldap_get_optionW(byval ld as ldap ptr, byval option_ as long, byval outvalue as any ptr) as ULONG
-declare function ldap_set_option(byval ld as ldap ptr, byval option_ as long, byval invalue as const any ptr) as ULONG
+declare function ldap_set_optionA alias "ldap_set_option"(byval ld as ldap ptr, byval option_ as long, byval invalue as const any ptr) as ULONG
 declare function ldap_set_optionW(byval ld as ldap ptr, byval option_ as long, byval invalue as const any ptr) as ULONG
 
 #ifdef UNICODE
-	#define ldap_get_option_ ldap_get_optionW
-	#define ldap_set_option_ ldap_set_optionW
+	#define ldap_get_option ldap_get_optionW
+	#define ldap_set_option ldap_set_optionW
+#else
+	#define ldap_get_option ldap_get_optionA
+	#define ldap_set_option ldap_set_optionA
 #endif
 
 #define LDAP_OPT_API_INFO &h00
