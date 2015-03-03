@@ -26,7 +26,7 @@
 #include "win/dlgs.bi"
 #include "win/docobj.bi"
 #include "win/exdisp.bi"
-#include "win/gdiplus.bi"
+#include "win/gdiplus-c.bi"
 #include "win/guiddef.bi"
 #include "win/ifdef.bi"
 #include "win/imagehlp.bi"
