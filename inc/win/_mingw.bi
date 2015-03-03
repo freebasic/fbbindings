@@ -50,12 +50,6 @@ extern "C"
 
 '' TODO: #pragma pack(push,_CRT_PACKING)
 
-#ifdef __FB_64BIT__
-	type size_t as ulongint
-#else
-	type size_t as ulong
-#endif
-
 #define _DLL
 #define _MT
 #define _PGLOBAL
@@ -66,6 +60,13 @@ extern "C"
 #define _CRT_MANAGED_HEAP_DEPRECATE
 #define _CRT_OBSOLETE(_NewItem)
 #define _SIZE_T_DEFINED
+
+#ifdef __FB_64BIT__
+	type size_t as ulongint
+#else
+	type size_t as ulong
+#endif
+
 #define _SSIZE_T_DEFINED
 
 #ifdef __FB_64BIT__

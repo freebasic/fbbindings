@@ -2,35 +2,12 @@
 
 #include once "rpc.bi"
 #include once "rpcndr.bi"
-#include once "windows.bi"
-#include once "ole2.bi"
 
 #ifdef __FB_64BIT__
 	extern "C"
 #else
 	extern "Windows"
 #endif
-
-type IWbemClassObject as IWbemClassObject_
-type IWbemObjectAccess as IWbemObjectAccess_
-type IWbemQualifierSet as IWbemQualifierSet_
-type IWbemServices as IWbemServices_
-type IWbemLocator as IWbemLocator_
-type IWbemObjectSink as IWbemObjectSink_
-type IEnumWbemClassObject as IEnumWbemClassObject_
-type IWbemCallResult as IWbemCallResult_
-type IWbemContext as IWbemContext_
-type IUnsecuredApartment as IUnsecuredApartment_
-type IWbemUnsecuredApartment as IWbemUnsecuredApartment_
-type IWbemStatusCodeText as IWbemStatusCodeText_
-type IWbemBackupRestore as IWbemBackupRestore_
-type IWbemBackupRestoreEx as IWbemBackupRestoreEx_
-type IWbemRefresher as IWbemRefresher_
-type IWbemHiPerfEnum as IWbemHiPerfEnum_
-type IWbemConfigureRefresher as IWbemConfigureRefresher_
-type IWbemShutdown as IWbemShutdown_
-type IWbemObjectTextSrc as IWbemObjectTextSrc_
-type IMofCompiler as IMofCompiler_
 
 #define __wbemcli_h__
 #define __IWbemClassObject_FWD_DEFINED__
@@ -499,13 +476,16 @@ extern LIBID_WbemClient_v1 as const IID
 
 extern IID_IWbemClassObject as const IID
 
+type IWbemQualifierSet as IWbemQualifierSet_
+type IWbemClassObject as IWbemClassObject_
+
 type IWbemClassObjectVtbl
 	QueryInterface as function(byval This as IWbemClassObject ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IWbemClassObject ptr) as ULONG
 	Release as function(byval This as IWbemClassObject ptr) as ULONG
 	GetQualifierSet as function(byval This as IWbemClassObject ptr, byval ppQualSet as IWbemQualifierSet ptr ptr) as HRESULT
 	Get as function(byval This as IWbemClassObject ptr, byval wszName as LPCWSTR, byval lFlags as long, byval pVal as VARIANT ptr, byval pType as CIMTYPE ptr, byval plFlavor as long ptr) as HRESULT
-	Put as function(byval This as IWbemClassObject ptr, byval wszName as LPCWSTR, byval lFlags as long, byval pVal as VARIANT ptr, byval Type_ as CIMTYPE) as HRESULT
+	Put as function(byval This as IWbemClassObject ptr, byval wszName as LPCWSTR, byval lFlags as long, byval pVal as VARIANT ptr, byval Type as CIMTYPE) as HRESULT
 	Delete as function(byval This as IWbemClassObject ptr, byval wszName as LPCWSTR) as HRESULT
 	GetNames as function(byval This as IWbemClassObject ptr, byval wszQualifierName as LPCWSTR, byval lFlags as long, byval pQualifierVal as VARIANT ptr, byval pNames as SAFEARRAY ptr ptr) as HRESULT
 	BeginEnumeration as function(byval This as IWbemClassObject ptr, byval lEnumFlags as long) as HRESULT
@@ -537,7 +517,7 @@ declare function IWbemClassObject_GetQualifierSet_Proxy(byval This as IWbemClass
 declare sub IWbemClassObject_GetQualifierSet_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IWbemClassObject_Get_Proxy(byval This as IWbemClassObject ptr, byval wszName as LPCWSTR, byval lFlags as long, byval pVal as VARIANT ptr, byval pType as CIMTYPE ptr, byval plFlavor as long ptr) as HRESULT
 declare sub IWbemClassObject_Get_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IWbemClassObject_Put_Proxy(byval This as IWbemClassObject ptr, byval wszName as LPCWSTR, byval lFlags as long, byval pVal as VARIANT ptr, byval Type_ as CIMTYPE) as HRESULT
+declare function IWbemClassObject_Put_Proxy(byval This as IWbemClassObject ptr, byval wszName as LPCWSTR, byval lFlags as long, byval pVal as VARIANT ptr, byval Type as CIMTYPE) as HRESULT
 declare sub IWbemClassObject_Put_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IWbemClassObject_Delete_Proxy(byval This as IWbemClassObject ptr, byval wszName as LPCWSTR) as HRESULT
 declare sub IWbemClassObject_Delete_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
@@ -586,13 +566,15 @@ declare sub IWbemClassObject_GetMethodOrigin_Stub(byval This as IRpcStubBuffer p
 
 extern IID_IWbemObjectAccess as const IID
 
+type IWbemObjectAccess as IWbemObjectAccess_
+
 type IWbemObjectAccessVtbl
 	QueryInterface as function(byval This as IWbemObjectAccess ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IWbemObjectAccess ptr) as ULONG
 	Release as function(byval This as IWbemObjectAccess ptr) as ULONG
 	GetQualifierSet as function(byval This as IWbemObjectAccess ptr, byval ppQualSet as IWbemQualifierSet ptr ptr) as HRESULT
 	Get as function(byval This as IWbemObjectAccess ptr, byval wszName as LPCWSTR, byval lFlags as long, byval pVal as VARIANT ptr, byval pType as CIMTYPE ptr, byval plFlavor as long ptr) as HRESULT
-	Put as function(byval This as IWbemObjectAccess ptr, byval wszName as LPCWSTR, byval lFlags as long, byval pVal as VARIANT ptr, byval Type_ as CIMTYPE) as HRESULT
+	Put as function(byval This as IWbemObjectAccess ptr, byval wszName as LPCWSTR, byval lFlags as long, byval pVal as VARIANT ptr, byval Type as CIMTYPE) as HRESULT
 	Delete as function(byval This as IWbemObjectAccess ptr, byval wszName as LPCWSTR) as HRESULT
 	GetNames as function(byval This as IWbemObjectAccess ptr, byval wszQualifierName as LPCWSTR, byval lFlags as long, byval pQualifierVal as VARIANT ptr, byval pNames as SAFEARRAY ptr ptr) as HRESULT
 	BeginEnumeration as function(byval This as IWbemObjectAccess ptr, byval lEnumFlags as long) as HRESULT
@@ -691,6 +673,12 @@ declare sub IWbemQualifierSet_EndEnumeration_Stub(byval This as IRpcStubBuffer p
 
 extern IID_IWbemServices as const IID
 
+type IEnumWbemClassObject as IEnumWbemClassObject_
+type IWbemObjectSink as IWbemObjectSink_
+type IWbemCallResult as IWbemCallResult_
+type IWbemContext as IWbemContext_
+type IWbemServices as IWbemServices_
+
 type IWbemServicesVtbl
 	QueryInterface as function(byval This as IWbemServices ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IWbemServices ptr) as ULONG
@@ -774,6 +762,8 @@ declare sub IWbemServices_ExecMethodAsync_Stub(byval This as IRpcStubBuffer ptr,
 #define __IWbemLocator_INTERFACE_DEFINED__
 
 extern IID_IWbemLocator as const GUID
+
+type IWbemLocator as IWbemLocator_
 
 type IWbemLocatorVtbl
 	QueryInterface as function(byval This as IWbemLocator ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -913,6 +903,8 @@ declare sub IWbemContext_DeleteAll_Stub(byval This as IRpcStubBuffer ptr, byval 
 
 extern IID_IUnsecuredApartment as const IID
 
+type IUnsecuredApartment as IUnsecuredApartment_
+
 type IUnsecuredApartmentVtbl
 	QueryInterface as function(byval This as IUnsecuredApartment ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IUnsecuredApartment ptr) as ULONG
@@ -930,6 +922,8 @@ declare sub IUnsecuredApartment_CreateObjectStub_Stub(byval This as IRpcStubBuff
 #define __IWbemUnsecuredApartment_INTERFACE_DEFINED__
 
 extern IID_IWbemUnsecuredApartment as const IID
+
+type IWbemUnsecuredApartment as IWbemUnsecuredApartment_
 
 type IWbemUnsecuredApartmentVtbl
 	QueryInterface as function(byval This as IWbemUnsecuredApartment ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -949,6 +943,8 @@ declare sub IWbemUnsecuredApartment_CreateSinkStub_Stub(byval This as IRpcStubBu
 #define __IWbemStatusCodeText_INTERFACE_DEFINED__
 
 extern IID_IWbemStatusCodeText as const IID
+
+type IWbemStatusCodeText as IWbemStatusCodeText_
 
 type IWbemStatusCodeTextVtbl
 	QueryInterface as function(byval This as IWbemStatusCodeText ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -971,6 +967,8 @@ declare sub IWbemStatusCodeText_GetFacilityCodeText_Stub(byval This as IRpcStubB
 
 extern IID_IWbemBackupRestore as const IID
 
+type IWbemBackupRestore as IWbemBackupRestore_
+
 type IWbemBackupRestoreVtbl
 	QueryInterface as function(byval This as IWbemBackupRestore ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IWbemBackupRestore ptr) as ULONG
@@ -991,6 +989,8 @@ declare sub IWbemBackupRestore_Restore_Stub(byval This as IRpcStubBuffer ptr, by
 #define __IWbemBackupRestoreEx_INTERFACE_DEFINED__
 
 extern IID_IWbemBackupRestoreEx as const IID
+
+type IWbemBackupRestoreEx as IWbemBackupRestoreEx_
 
 type IWbemBackupRestoreExVtbl
 	QueryInterface as function(byval This as IWbemBackupRestoreEx ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -1015,6 +1015,8 @@ declare sub IWbemBackupRestoreEx_Resume_Stub(byval This as IRpcStubBuffer ptr, b
 
 extern IID_IWbemRefresher as const IID
 
+type IWbemRefresher as IWbemRefresher_
+
 type IWbemRefresherVtbl
 	QueryInterface as function(byval This as IWbemRefresher ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IWbemRefresher ptr) as ULONG
@@ -1032,6 +1034,8 @@ declare sub IWbemRefresher_Refresh_Stub(byval This as IRpcStubBuffer ptr, byval 
 #define __IWbemHiPerfEnum_INTERFACE_DEFINED__
 
 extern IID_IWbemHiPerfEnum as const IID
+
+type IWbemHiPerfEnum as IWbemHiPerfEnum_
 
 type IWbemHiPerfEnumVtbl
 	QueryInterface as function(byval This as IWbemHiPerfEnum ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -1059,6 +1063,8 @@ declare sub IWbemHiPerfEnum_RemoveAll_Stub(byval This as IRpcStubBuffer ptr, byv
 #define __IWbemConfigureRefresher_INTERFACE_DEFINED__
 
 extern IID_IWbemConfigureRefresher as const IID
+
+type IWbemConfigureRefresher as IWbemConfigureRefresher_
 
 type IWbemConfigureRefresherVtbl
 	QueryInterface as function(byval This as IWbemConfigureRefresher ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -1104,6 +1110,8 @@ extern __MIDL_itf_wbemcli_0116_v0_0_s_ifspec as RPC_IF_HANDLE
 
 extern IID_IWbemShutdown as const IID
 
+type IWbemShutdown as IWbemShutdown_
+
 type IWbemShutdownVtbl
 	QueryInterface as function(byval This as IWbemShutdown ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IWbemShutdown ptr) as ULONG
@@ -1143,6 +1151,8 @@ extern __MIDL_itf_wbemcli_0123_v0_0_s_ifspec as RPC_IF_HANDLE
 #define __IWbemObjectTextSrc_INTERFACE_DEFINED__
 
 extern IID_IWbemObjectTextSrc as const IID
+
+type IWbemObjectTextSrc as IWbemObjectTextSrc_
 
 type IWbemObjectTextSrcVtbl
 	QueryInterface as function(byval This as IWbemObjectTextSrc ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -1201,6 +1211,8 @@ extern __MIDL_itf_wbemcli_0125_v0_0_s_ifspec as RPC_IF_HANDLE
 
 extern IID_IMofCompiler as const IID
 
+type IMofCompiler as IMofCompiler_
+
 type IMofCompilerVtbl
 	QueryInterface as function(byval This as IMofCompiler ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IMofCompiler ptr) as ULONG
@@ -1243,5 +1255,10 @@ type WBEM_INFORMATION_FLAG_TYPE as tag_WBEM_INFORMATION_FLAG_TYPE
 
 extern __MIDL_itf_wbemcli_0128_v0_0_c_ifspec as RPC_IF_HANDLE
 extern __MIDL_itf_wbemcli_0128_v0_0_s_ifspec as RPC_IF_HANDLE
+
+declare function BSTR_UserSize(byval as ULONG ptr, byval as ULONG, byval as BSTR ptr) as ULONG
+declare function BSTR_UserMarshal(byval as ULONG ptr, byval as ubyte ptr, byval as BSTR ptr) as ubyte ptr
+declare function BSTR_UserUnmarshal(byval as ULONG ptr, byval as ubyte ptr, byval as BSTR ptr) as ubyte ptr
+declare sub BSTR_UserFree(byval as ULONG ptr, byval as BSTR ptr)
 
 end extern

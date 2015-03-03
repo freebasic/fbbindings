@@ -12,17 +12,6 @@
 	extern "Windows"
 #endif
 
-type ISecurityInformationVtbl as ISecurityInformationVtbl_
-type ISecurityInformation2Vtbl as ISecurityInformation2Vtbl_
-type IEffectivePermissionVtbl as IEffectivePermissionVtbl_
-type ISecurityObjectTypeInfoVtbl as ISecurityObjectTypeInfoVtbl_
-
-#if _WIN32_WINNT = &h0602
-	type ISecurityInformation3Vtbl as ISecurityInformation3Vtbl_
-	type ISecurityInformation4Vtbl as ISecurityInformation4Vtbl_
-	type IEffectivePermission2Vtbl as IEffectivePermission2Vtbl_
-#endif
-
 #define _ACLUI_H_
 
 type _SI_OBJECT_INFO
@@ -141,6 +130,8 @@ type SI_PAGE_ACTIVATED as _SI_PAGE_ACTIVATED
 #define DOBJ_RIBBON_LAUNCH __MSABI_LONG(&h00000010)
 #define PSPCB_SI_INITDIALOG (WM_USER + 1)
 
+type ISecurityInformationVtbl as ISecurityInformationVtbl_
+
 type ISecurityInformation
 	lpVtbl as ISecurityInformationVtbl ptr
 end type
@@ -159,6 +150,8 @@ type ISecurityInformationVtbl_
 end type
 
 type LPSECURITYINFO as ISecurityInformation ptr
+
+type ISecurityInformation2Vtbl as ISecurityInformation2Vtbl_
 
 type ISecurityInformation2
 	lpVtbl as ISecurityInformation2Vtbl ptr
@@ -194,6 +187,8 @@ end type
 type SID_INFO_LIST as _SID_INFO_LIST
 type PSID_INFO_LIST as _SID_INFO_LIST ptr
 
+type IEffectivePermissionVtbl as IEffectivePermissionVtbl_
+
 type IEffectivePermission
 	lpVtbl as IEffectivePermissionVtbl ptr
 end type
@@ -206,6 +201,8 @@ type IEffectivePermissionVtbl_
 end type
 
 type LPEFFECTIVEPERMISSION as IEffectivePermission ptr
+
+type ISecurityObjectTypeInfoVtbl as ISecurityObjectTypeInfoVtbl_
 
 type ISecurityObjectTypeInfo
 	lpVtbl as ISecurityObjectTypeInfoVtbl ptr
@@ -221,6 +218,8 @@ end type
 type LPSecurityObjectTypeInfo as ISecurityObjectTypeInfo ptr
 
 #if _WIN32_WINNT = &h0602
+	type ISecurityInformation3Vtbl as ISecurityInformation3Vtbl_
+
 	type ISecurityInformation3
 		lpVtbl as ISecurityInformation3Vtbl ptr
 	end type
@@ -263,6 +262,8 @@ type LPSecurityObjectTypeInfo as ISecurityObjectTypeInfo ptr
 	type EFFPERM_RESULT_LIST as _EFFPERM_RESULT_LIST
 	type PEFFPERM_RESULT_LIST as _EFFPERM_RESULT_LIST ptr
 
+	type ISecurityInformation4Vtbl as ISecurityInformation4Vtbl_
+
 	type ISecurityInformation4
 		lpVtbl as ISecurityInformation4Vtbl ptr
 	end type
@@ -275,6 +276,8 @@ type LPSecurityObjectTypeInfo as ISecurityObjectTypeInfo ptr
 	end type
 
 	type LPSECURITYINFO4 as ISecurityInformation4 ptr
+
+	type IEffectivePermission2Vtbl as IEffectivePermission2Vtbl_
 
 	type IEffectivePermission2
 		lpVtbl as IEffectivePermission2Vtbl ptr

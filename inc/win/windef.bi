@@ -5,23 +5,18 @@
 #include once "specstrings.bi"
 #include once "winnt.bi"
 
-'' The following symbols have been renamed:
-''     #define CONST => CONST_
-''     typedef INT => INT_
-
 #ifdef __FB_64BIT__
 	extern "C"
 #else
 	extern "Windows"
 #endif
 
-type ULONG as ulong
-
 #define _WINDEF_
 #define _MINWINDEF_
 #define STRICT 1
 #define BASETYPES
 
+type ULONG as ulong
 type PULONG as ULONG ptr
 type USHORT as ushort
 type PUSHORT as USHORT ptr
@@ -30,7 +25,6 @@ type PUCHAR as UCHAR ptr
 type PSZ as zstring ptr
 
 #define MAX_PATH 260
-#define NULL cptr(any ptr, 0)
 #define FALSE 0
 #define TRUE 1
 #define _DEF_WINBOOL_
@@ -58,7 +52,7 @@ type LPVOID as any ptr
 #define _LPCVOID_DEFINED
 
 type LPCVOID as const any ptr
-type INT_ as long
+type INT as long
 type UINT as ulong
 type PUINT as ulong ptr
 type WPARAM as UINT_PTR

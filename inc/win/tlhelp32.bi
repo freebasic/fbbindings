@@ -1,19 +1,5 @@
 #pragma once
 
-#ifdef UNICODE
-	'' The following symbols have been renamed:
-	''     #define Process32First => Process32First_
-	''     #define Process32Next => Process32Next_
-	''     #define PROCESSENTRY32 => PROCESSENTRY32_
-	''     #define PPROCESSENTRY32 => PPROCESSENTRY32_
-	''     #define LPPROCESSENTRY32 => LPPROCESSENTRY32_
-	''     #define Module32First => Module32First_
-	''     #define Module32Next => Module32Next_
-	''     #define MODULEENTRY32 => MODULEENTRY32_
-	''     #define PMODULEENTRY32 => PMODULEENTRY32_
-	''     #define LPMODULEENTRY32 => LPMODULEENTRY32_
-#endif
-
 #ifdef __FB_64BIT__
 	extern "C"
 #else
@@ -34,7 +20,7 @@ declare function CreateToolhelp32Snapshot(byval dwFlags as DWORD, byval th32Proc
 #define TH32CS_INHERIT &h80000000
 
 type tagHEAPLIST32
-	dwSize as SIZE_T_
+	dwSize as SIZE_T
 	th32ProcessID as DWORD
 	th32HeapID as ULONG_PTR
 	dwFlags as DWORD
@@ -51,10 +37,10 @@ declare function Heap32ListFirst(byval hSnapshot as HANDLE, byval lphl as LPHEAP
 declare function Heap32ListNext(byval hSnapshot as HANDLE, byval lphl as LPHEAPLIST32) as WINBOOL
 
 type tagHEAPENTRY32
-	dwSize as SIZE_T_
+	dwSize as SIZE_T
 	hHandle as HANDLE
 	dwAddress as ULONG_PTR
-	dwBlockSize as SIZE_T_
+	dwBlockSize as SIZE_T
 	dwFlags as DWORD
 	dwLockCount as DWORD
 	dwResvd as DWORD
@@ -72,7 +58,7 @@ type LPHEAPENTRY32 as HEAPENTRY32 ptr
 
 declare function Heap32First(byval lphe as LPHEAPENTRY32, byval th32ProcessID as DWORD, byval th32HeapID as ULONG_PTR) as WINBOOL
 declare function Heap32Next(byval lphe as LPHEAPENTRY32) as WINBOOL
-declare function Toolhelp32ReadProcessMemory(byval th32ProcessID as DWORD, byval lpBaseAddress as LPCVOID, byval lpBuffer as LPVOID, byval cbRead as SIZE_T_, byval lpNumberOfBytesRead as SIZE_T_ ptr) as WINBOOL
+declare function Toolhelp32ReadProcessMemory(byval th32ProcessID as DWORD, byval lpBaseAddress as LPCVOID, byval lpBuffer as LPVOID, byval cbRead as SIZE_T, byval lpNumberOfBytesRead as SIZE_T ptr) as WINBOOL
 
 type tagPROCESSENTRY32W
 	dwSize as DWORD
@@ -115,11 +101,11 @@ declare function Process32First(byval hSnapshot as HANDLE, byval lppe as LPPROCE
 declare function Process32Next(byval hSnapshot as HANDLE, byval lppe as LPPROCESSENTRY32) as WINBOOL
 
 #ifdef UNICODE
-	#define Process32First_ Process32FirstW
-	#define Process32Next_ Process32NextW
-	#define PROCESSENTRY32_ PROCESSENTRY32W
-	#define PPROCESSENTRY32_ PPROCESSENTRY32W
-	#define LPPROCESSENTRY32_ LPPROCESSENTRY32W
+	#define Process32First Process32FirstW
+	#define Process32Next Process32NextW
+	#define PROCESSENTRY32 PROCESSENTRY32W
+	#define PPROCESSENTRY32 PPROCESSENTRY32W
+	#define LPPROCESSENTRY32 LPPROCESSENTRY32W
 #endif
 
 type tagTHREADENTRY32
@@ -180,11 +166,11 @@ declare function Module32First(byval hSnapshot as HANDLE, byval lpme as LPMODULE
 declare function Module32Next(byval hSnapshot as HANDLE, byval lpme as LPMODULEENTRY32) as WINBOOL
 
 #ifdef UNICODE
-	#define Module32First_ Module32FirstW
-	#define Module32Next_ Module32NextW
-	#define MODULEENTRY32_ MODULEENTRY32W
-	#define PMODULEENTRY32_ PMODULEENTRY32W
-	#define LPMODULEENTRY32_ LPMODULEENTRY32W
+	#define Module32First Module32FirstW
+	#define Module32Next Module32NextW
+	#define MODULEENTRY32 MODULEENTRY32W
+	#define PMODULEENTRY32 PMODULEENTRY32W
+	#define LPMODULEENTRY32 LPMODULEENTRY32W
 #endif
 
 end extern

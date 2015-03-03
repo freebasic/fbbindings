@@ -1,35 +1,5 @@
 #pragma once
 
-'' The following symbols have been renamed:
-''     #define K_a => K_a_
-''     #define K_b => K_b_
-''     #define K_c => K_c_
-''     #define K_d => K_d_
-''     #define K_e => K_e_
-''     #define K_f => K_f_
-''     #define K_g => K_g_
-''     #define K_h => K_h_
-''     #define K_i => K_i_
-''     #define K_j => K_j_
-''     #define K_k => K_k_
-''     #define K_l => K_l_
-''     #define K_m => K_m_
-''     #define K_n => K_n_
-''     #define K_o => K_o_
-''     #define K_p => K_p_
-''     #define K_q => K_q_
-''     #define K_r => K_r_
-''     #define K_s => K_s_
-''     #define K_t => K_t_
-''     #define K_u => K_u_
-''     #define K_v => K_v_
-''     #define K_w => K_w_
-''     #define K_x => K_x_
-''     #define K_y => K_y_
-''     #define K_z => K_z_
-''     #define K_Ccedilla => K_Ccedilla_
-''     #define K_cR => K_cR_
-
 #define __IUPKEY_H
 #define K_SP asc(" ")
 #define K_exclam asc("!")
@@ -96,32 +66,32 @@
 #define K_circum asc("^")
 #define K_underscore asc("_")
 #define K_grave asc("`")
-#define K_a_ asc("a")
-#define K_b_ asc("b")
-#define K_c_ asc("c")
-#define K_d_ asc("d")
-#define K_e_ asc("e")
-#define K_f_ asc("f")
-#define K_g_ asc("g")
-#define K_h_ asc("h")
-#define K_i_ asc("i")
-#define K_j_ asc("j")
-#define K_k_ asc("k")
-#define K_l_ asc("l")
-#define K_m_ asc("m")
-#define K_n_ asc("n")
-#define K_o_ asc("o")
-#define K_p_ asc("p")
-#define K_q_ asc("q")
-#define K_r_ asc("r")
-#define K_s_ asc("s")
-#define K_t_ asc("t")
-#define K_u_ asc("u")
-#define K_v_ asc("v")
-#define K_w_ asc("w")
-#define K_x_ asc("x")
-#define K_y_ asc("y")
-#define K_z_ asc("z")
+#define K_a asc("a")
+#define K_b asc("b")
+#define K_c asc("c")
+#define K_d asc("d")
+#define K_e asc("e")
+#define K_f asc("f")
+#define K_g asc("g")
+#define K_h asc("h")
+#define K_i asc("i")
+#define K_j asc("j")
+#define K_k asc("k")
+#define K_l asc("l")
+#define K_m asc("m")
+#define K_n asc("n")
+#define K_o asc("o")
+#define K_p asc("p")
+#define K_q asc("q")
+#define K_r asc("r")
+#define K_s asc("s")
+#define K_t asc("t")
+#define K_u asc("u")
+#define K_v asc("v")
+#define K_w asc("w")
+#define K_x asc("x")
+#define K_y asc("y")
+#define K_z asc("z")
 #define K_braceleft asc("{")
 #define K_bar asc("|")
 #define K_braceright asc("}")
@@ -172,7 +142,7 @@
 #define K_SCROLL &hFF14
 #define K_CAPS &hFFE5
 #define K_ccedilla &h00E7
-#define K_Ccedilla_ &h00C7
+#define K_Ccedilla &h00C7
 #define K_acute &h00B4
 #define K_diaeresis &h00A8
 #define iup_isShiftXkey(_c) ((_c) and &h10000000)
@@ -232,7 +202,7 @@
 #define K_cBS iup_XkeyCtrl(K_BS)
 #define K_cPAUSE iup_XkeyCtrl(K_PAUSE)
 #define K_cESC iup_XkeyCtrl(K_ESC)
-#define K_cCcedilla iup_XkeyCtrl(K_Ccedilla_)
+#define K_cCcedilla iup_XkeyCtrl(K_Ccedilla)
 #define K_cF1 iup_XkeyCtrl(K_F1)
 #define K_cF2 iup_XkeyCtrl(K_F2)
 #define K_cF3 iup_XkeyCtrl(K_F3)
@@ -264,7 +234,7 @@
 #define K_mBS iup_XkeyAlt(K_BS)
 #define K_mPAUSE iup_XkeyAlt(K_PAUSE)
 #define K_mESC iup_XkeyAlt(K_ESC)
-#define K_mCcedilla iup_XkeyAlt(K_Ccedilla_)
+#define K_mCcedilla iup_XkeyAlt(K_Ccedilla)
 #define K_mF1 iup_XkeyAlt(K_F1)
 #define K_mF2 iup_XkeyAlt(K_F2)
 #define K_mF3 iup_XkeyAlt(K_F3)
@@ -296,7 +266,7 @@
 #define K_yBS iup_XkeySys(K_BS)
 #define K_yPAUSE iup_XkeySys(K_PAUSE)
 #define K_yESC iup_XkeySys(K_ESC)
-#define K_yCcedilla iup_XkeySys(K_Ccedilla_)
+#define K_yCcedilla iup_XkeySys(K_Ccedilla)
 #define K_yF1 iup_XkeySys(K_F1)
 #define K_yF2 iup_XkeySys(K_F2)
 #define K_yF3 iup_XkeySys(K_F3)
@@ -334,7 +304,7 @@
 #define K_cO iup_XkeyCtrl(K_O)
 #define K_cP iup_XkeyCtrl(K_P)
 #define K_cQ iup_XkeyCtrl(K_Q)
-#define K_cR_ iup_XkeyCtrl(K_R)
+#define K_cR iup_XkeyCtrl(K_R)
 #define K_cS iup_XkeyCtrl(K_S)
 #define K_cT iup_XkeyCtrl(K_T)
 #define K_cU iup_XkeyCtrl(K_U)

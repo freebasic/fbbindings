@@ -1,19 +1,7 @@
 #pragma once
 
-#include once "crt/wchar.bi"
 #include once "winapifamily.bi"
 #include once "_mingw_unicode.bi"
-
-'' The following symbols have been renamed:
-''     #define ERROR => ERROR_
-''     #define RGB => RGB_
-''     #define STRETCHBLT => STRETCHBLT_
-''     #define StartDoc => StartDoc_
-''     #define ExtTextOut => ExtTextOut_
-''     #define ENDDOC => ENDDOC_
-''     #define ABORTDOC => ABORTDOC_
-''     #define SETABORTPROC => SETABORTPROC_
-''     #define SETMITERLIMIT => SETMITERLIMIT_
 
 #ifdef __FB_64BIT__
 	extern "C"
@@ -59,11 +47,11 @@
 #define MAKEROP4(fore, back) cast(DWORD, (((back) shl 8) and &hFF000000) or (fore))
 #define GDI_ERROR __MSABI_LONG(&hFFFFFFFF)
 #define HGDI_ERROR LongToHandle(&hFFFFFFFF)
-#define ERROR_ 0
+#define ERROR 0
 #define NULLREGION 1
 #define SIMPLEREGION 2
 #define COMPLEXREGION 3
-#define RGN_ERROR ERROR_
+#define RGN_ERROR ERROR
 #define RGN_AND 1
 #define RGN_OR 2
 #define RGN_XOR 3
@@ -205,16 +193,16 @@ type DRAWPATRECT as _DRAWPATRECT
 type PDRAWPATRECT as _DRAWPATRECT ptr
 
 #define NEWFRAME 1
-#define ABORTDOC_ 2
+#define ABORTDOC 2
 #define NEXTBAND 3
 #define SETCOLORTABLE 4
 #define GETCOLORTABLE 5
 #define FLUSHOUTPUT 6
 #define DRAFTMODE 7
 #define QUERYESCSUPPORT 8
-#define SETABORTPROC_ 9
+#define SETABORTPROC 9
 #define STARTDOC 10
-#define ENDDOC_ 11
+#define ENDDOC 11
 #define GETPHYSPAGESIZE 12
 #define GETPRINTINGOFFSET 13
 #define GETSCALINGFACTOR 14
@@ -228,7 +216,7 @@ type PDRAWPATRECT as _DRAWPATRECT ptr
 #define GETTECHNOLOGY 20
 #define SETLINECAP 21
 #define SETLINEJOIN 22
-#define SETMITERLIMIT_ 23
+#define SETMITERLIMIT 23
 #define BANDINFO 24
 #define DRAWPATTERNRECT 25
 #define GETVECTORPENSIZE 26
@@ -257,7 +245,7 @@ type PDRAWPATRECT as _DRAWPATRECT ptr
 #define SETKERNTRACK 770
 #define SETALLJUSTVALUES 771
 #define SETCHARSET 772
-#define STRETCHBLT_ 2048
+#define STRETCHBLT 2048
 #define METAFILE_DRIVER 2049
 #define GETSETSCREENPARAMS 3072
 #define QUERYDIBSUPPORT 3073
@@ -670,6 +658,8 @@ type BITMAPFILEHEADER as tagBITMAPFILEHEADER
 type LPBITMAPFILEHEADER as tagBITMAPFILEHEADER ptr
 type PBITMAPFILEHEADER as tagBITMAPFILEHEADER ptr
 
+#define MAKEPOINTS(l) (*cptr(POINTS ptr, @(l)))
+
 type tagFONTSIGNATURE
 	fsUsb(0 to 3) as DWORD
 	fsCsb(0 to 1) as DWORD
@@ -678,8 +668,6 @@ end type
 type FONTSIGNATURE as tagFONTSIGNATURE
 type PFONTSIGNATURE as tagFONTSIGNATURE ptr
 type LPFONTSIGNATURE as tagFONTSIGNATURE ptr
-
-#define MAKEPOINTS(l) (*cptr(POINTS ptr, @(l)))
 
 type tagCHARSETINFO
 	ciCharset as UINT
@@ -866,6 +854,16 @@ type LPTEXTMETRICW as tagTEXTMETRICW ptr
 	type LPTEXTMETRIC as LPTEXTMETRICA
 #endif
 
+#define NTM_REGULAR __MSABI_LONG(&h00000040)
+#define NTM_BOLD __MSABI_LONG(&h00000020)
+#define NTM_ITALIC __MSABI_LONG(&h00000001)
+#define NTM_NONNEGATIVE_AC &h00010000
+#define NTM_PS_OPENTYPE &h00020000
+#define NTM_TT_OPENTYPE &h00040000
+#define NTM_MULTIPLEMASTER &h00080000
+#define NTM_TYPE1 &h00100000
+#define NTM_DSIG &h00200000
+
 type tagNEWTEXTMETRICA field = 4
 	tmHeight as LONG
 	tmAscent as LONG
@@ -897,16 +895,6 @@ type NEWTEXTMETRICA as tagNEWTEXTMETRICA
 type PNEWTEXTMETRICA as tagNEWTEXTMETRICA ptr
 type NPNEWTEXTMETRICA as tagNEWTEXTMETRICA ptr
 type LPNEWTEXTMETRICA as tagNEWTEXTMETRICA ptr
-
-#define NTM_REGULAR __MSABI_LONG(&h00000040)
-#define NTM_BOLD __MSABI_LONG(&h00000020)
-#define NTM_ITALIC __MSABI_LONG(&h00000001)
-#define NTM_NONNEGATIVE_AC &h00010000
-#define NTM_PS_OPENTYPE &h00020000
-#define NTM_TT_OPENTYPE &h00040000
-#define NTM_MULTIPLEMASTER &h00080000
-#define NTM_TYPE1 &h00100000
-#define NTM_DSIG &h00200000
 
 type tagNEWTEXTMETRICW field = 4
 	tmHeight as LONG
@@ -1462,8 +1450,8 @@ type LPEXTLOGFONTW as tagEXTLOGFONTW ptr
 #define RASTER_FONTTYPE &h0001
 #define DEVICE_FONTTYPE &h002
 #define TRUETYPE_FONTTYPE &h004
-#define RGB_(r, g, b) cast(COLORREF, (cast(UBYTE, (r)) or (cast(WORD, cast(UBYTE, (g))) shl 8)) or (cast(DWORD, cast(UBYTE, (b))) shl 16))
-#define PALETTERGB(r, g, b) (&h02000000 or RGB_(r, g, b))
+#define RGB(r, g, b) cast(COLORREF, (cast(UBYTE, (r)) or (cast(WORD, cast(UBYTE, (g))) shl 8)) or (cast(DWORD, cast(UBYTE, (b))) shl 16))
+#define PALETTERGB(r, g, b) (&h02000000 or RGB(r, g, b))
 #define PALETTEINDEX(i) cast(COLORREF, &h01000000 or cast(DWORD, cast(WORD, (i))))
 #define PC_RESERVED &h01
 #define PC_EXPLICIT &h02
@@ -2567,22 +2555,22 @@ declare function CreateFontIndirectA(byval lplf as const LOGFONTA ptr) as HFONT
 declare function CreateFontIndirectW(byval lplf as const LOGFONTW ptr) as HFONT
 declare function CreateFontA(byval cHeight as long, byval cWidth as long, byval cEscapement as long, byval cOrientation as long, byval cWeight as long, byval bItalic as DWORD, byval bUnderline as DWORD, byval bStrikeOut as DWORD, byval iCharSet as DWORD, byval iOutPrecision as DWORD, byval iClipPrecision as DWORD, byval iQuality as DWORD, byval iPitchAndFamily as DWORD, byval pszFaceName as LPCSTR) as HFONT
 declare function CreateFontW(byval cHeight as long, byval cWidth as long, byval cEscapement as long, byval cOrientation as long, byval cWeight as long, byval bItalic as DWORD, byval bUnderline as DWORD, byval bStrikeOut as DWORD, byval iCharSet as DWORD, byval iOutPrecision as DWORD, byval iClipPrecision as DWORD, byval iQuality as DWORD, byval iPitchAndFamily as DWORD, byval pszFaceName as LPCWSTR) as HFONT
-declare function CreateHatchBrush(byval iHatch as long, byval color_ as COLORREF) as HBRUSH
+declare function CreateHatchBrush(byval iHatch as long, byval color as COLORREF) as HBRUSH
 declare function CreateICA(byval pszDriver as LPCSTR, byval pszDevice as LPCSTR, byval pszPort as LPCSTR, byval pdm as const DEVMODEA ptr) as HDC
 declare function CreateICW(byval pszDriver as LPCWSTR, byval pszDevice as LPCWSTR, byval pszPort as LPCWSTR, byval pdm as const DEVMODEW ptr) as HDC
 declare function CreateMetaFileA(byval pszFile as LPCSTR) as HDC
 declare function CreateMetaFileW(byval pszFile as LPCWSTR) as HDC
 declare function CreatePalette(byval plpal as const LOGPALETTE ptr) as HPALETTE
-declare function CreatePen(byval iStyle as long, byval cWidth as long, byval color_ as COLORREF) as HPEN
+declare function CreatePen(byval iStyle as long, byval cWidth as long, byval color as COLORREF) as HPEN
 declare function CreatePenIndirect(byval plpen as const LOGPEN ptr) as HPEN
-declare function CreatePolyPolygonRgn(byval pptl as const POINT ptr, byval pc as const INT_ ptr, byval cPoly as long, byval iMode as long) as HRGN
+declare function CreatePolyPolygonRgn(byval pptl as const POINT ptr, byval pc as const INT ptr, byval cPoly as long, byval iMode as long) as HRGN
 declare function CreatePatternBrush(byval hbm as HBITMAP) as HBRUSH
 declare function CreateRectRgn(byval x1 as long, byval y1 as long, byval x2 as long, byval y2 as long) as HRGN
 declare function CreateRectRgnIndirect(byval lprect as const RECT ptr) as HRGN
 declare function CreateRoundRectRgn(byval x1 as long, byval y1 as long, byval x2 as long, byval y2 as long, byval w as long, byval h as long) as HRGN
 declare function CreateScalableFontResourceA(byval fdwHidden as DWORD, byval lpszFont as LPCSTR, byval lpszFile as LPCSTR, byval lpszPath as LPCSTR) as WINBOOL
 declare function CreateScalableFontResourceW(byval fdwHidden as DWORD, byval lpszFont as LPCWSTR, byval lpszFile as LPCWSTR, byval lpszPath as LPCWSTR) as WINBOOL
-declare function CreateSolidBrush(byval color_ as COLORREF) as HBRUSH
+declare function CreateSolidBrush(byval color as COLORREF) as HBRUSH
 declare function DeleteDC(byval hdc as HDC) as WINBOOL
 declare function DeleteMetaFile(byval hmf as HMETAFILE) as WINBOOL
 declare function DeleteObject(byval ho as HGDIOBJ) as WINBOOL
@@ -2680,7 +2668,7 @@ type LPFNDEVCAPS as function(byval as LPSTR, byval as LPSTR, byval as UINT, byva
 declare function DeviceCapabilitiesA(byval pDevice as LPCSTR, byval pPort as LPCSTR, byval fwCapability as WORD, byval pOutput as LPSTR, byval pDevMode as const DEVMODEA ptr) as long
 declare function DeviceCapabilitiesW(byval pDevice as LPCWSTR, byval pPort as LPCWSTR, byval fwCapability as WORD, byval pOutput as LPWSTR, byval pDevMode as const DEVMODEW ptr) as long
 declare function DrawEscape(byval hdc as HDC, byval iEscape as long, byval cjIn as long, byval lpIn as LPCSTR) as long
-declare function Ellipse(byval hdc as HDC, byval left_ as long, byval top as long, byval right_ as long, byval bottom as long) as WINBOOL
+declare function Ellipse(byval hdc as HDC, byval left as long, byval top as long, byval right as long, byval bottom as long) as WINBOOL
 declare function EnumFontFamiliesExA(byval hdc as HDC, byval lpLogfont as LPLOGFONTA, byval lpProc as FONTENUMPROCA, byval lParam as LPARAM, byval dwFlags as DWORD) as long
 declare function EnumFontFamiliesExW(byval hdc as HDC, byval lpLogfont as LPLOGFONTW, byval lpProc as FONTENUMPROCW, byval lParam as LPARAM, byval dwFlags as DWORD) as long
 declare function EnumFontFamiliesA(byval hdc as HDC, byval lpLogfont as LPCSTR, byval lpProc as FONTENUMPROCA, byval lParam as LPARAM) as long
@@ -2691,11 +2679,11 @@ declare function EnumObjects(byval hdc as HDC, byval nType as long, byval lpFunc
 declare function EqualRgn(byval hrgn1 as HRGN, byval hrgn2 as HRGN) as WINBOOL
 declare function Escape(byval hdc as HDC, byval iEscape as long, byval cjIn as long, byval pvIn as LPCSTR, byval pvOut as LPVOID) as long
 declare function ExtEscape(byval hdc as HDC, byval iEscape as long, byval cjInput as long, byval lpInData as LPCSTR, byval cjOutput as long, byval lpOutData as LPSTR) as long
-declare function ExcludeClipRect(byval hdc as HDC, byval left_ as long, byval top as long, byval right_ as long, byval bottom as long) as long
+declare function ExcludeClipRect(byval hdc as HDC, byval left as long, byval top as long, byval right as long, byval bottom as long) as long
 declare function ExtCreateRegion(byval lpx as const XFORM ptr, byval nCount as DWORD, byval lpData as const RGNDATA ptr) as HRGN
-declare function ExtFloodFill(byval hdc as HDC, byval x as long, byval y as long, byval color_ as COLORREF, byval type_ as UINT) as WINBOOL
+declare function ExtFloodFill(byval hdc as HDC, byval x as long, byval y as long, byval color as COLORREF, byval type as UINT) as WINBOOL
 declare function FillRgn(byval hdc as HDC, byval hrgn as HRGN, byval hbr as HBRUSH) as WINBOOL
-declare function FloodFill(byval hdc as HDC, byval x as long, byval y as long, byval color_ as COLORREF) as WINBOOL
+declare function FloodFill(byval hdc as HDC, byval x as long, byval y as long, byval color as COLORREF) as WINBOOL
 declare function FrameRgn(byval hdc as HDC, byval hrgn as HRGN, byval hbr as HBRUSH, byval w as long, byval h as long) as WINBOOL
 declare function GetROP2(byval hdc as HDC) as long
 declare function GetAspectRatioFilterEx(byval hdc as HDC, byval lpsize as LPSIZE) as WINBOOL
@@ -2720,7 +2708,7 @@ declare function GetCharABCWidthsFloatW(byval hdc as HDC, byval iFirst as UINT, 
 declare function GetClipBox(byval hdc as HDC, byval lprect as LPRECT) as long
 declare function GetClipRgn(byval hdc as HDC, byval hrgn as HRGN) as long
 declare function GetMetaRgn(byval hdc as HDC, byval hrgn as HRGN) as long
-declare function GetCurrentObject(byval hdc as HDC, byval type_ as UINT) as HGDIOBJ
+declare function GetCurrentObject(byval hdc as HDC, byval type as UINT) as HGDIOBJ
 declare function GetCurrentPositionEx(byval hdc as HDC, byval lppt as LPPOINT) as WINBOOL
 declare function GetDeviceCaps(byval hdc as HDC, byval index as long) as long
 declare function GetDIBits(byval hdc as HDC, byval hbm as HBITMAP, byval start as UINT, byval cLines as UINT, byval lpvBits as LPVOID, byval lpbmi as LPBITMAPINFO, byval usage as UINT) as long
@@ -2732,8 +2720,8 @@ declare function GetMapMode(byval hdc as HDC) as long
 declare function GetMetaFileBitsEx(byval hMF as HMETAFILE, byval cbBuffer as UINT, byval lpData as LPVOID) as UINT
 declare function GetMetaFileA(byval lpName as LPCSTR) as HMETAFILE
 declare function GetMetaFileW(byval lpName as LPCWSTR) as HMETAFILE
-declare function GetNearestColor(byval hdc as HDC, byval color_ as COLORREF) as COLORREF
-declare function GetNearestPaletteIndex(byval h as HPALETTE, byval color_ as COLORREF) as UINT
+declare function GetNearestColor(byval hdc as HDC, byval color as COLORREF) as COLORREF
+declare function GetNearestPaletteIndex(byval h as HPALETTE, byval color as COLORREF) as UINT
 declare function GetObjectType(byval h as HGDIOBJ) as DWORD
 
 #ifdef UNICODE
@@ -2762,7 +2750,7 @@ declare function GetPixel(byval hdc as HDC, byval x as long, byval y as long) as
 declare function GetPixelFormat(byval hdc as HDC) as long
 declare function GetPolyFillMode(byval hdc as HDC) as long
 declare function GetRasterizerCaps(byval lpraststat as LPRASTERIZER_STATUS, byval cjBytes as UINT) as WINBOOL
-declare function GetRandomRgn(byval hdc as HDC, byval hrgn as HRGN, byval i as INT_) as long
+declare function GetRandomRgn(byval hdc as HDC, byval hrgn as HRGN, byval i as INT) as long
 declare function GetRegionData(byval hrgn as HRGN, byval nCount as DWORD, byval lpRgnData as LPRGNDATA) as DWORD
 declare function GetRgnBox(byval hrgn as HRGN, byval lprc as LPRECT) as long
 declare function GetStockObject(byval i as long) as HGDIOBJ
@@ -2845,10 +2833,10 @@ type LPDESIGNVECTOR as tagDESIGNVECTOR ptr
 	#define RemoveFontResourceEx RemoveFontResourceExA
 #endif
 
-declare function AddFontResourceExA(byval name_ as LPCSTR, byval fl as DWORD, byval res as PVOID) as long
-declare function AddFontResourceExW(byval name_ as LPCWSTR, byval fl as DWORD, byval res as PVOID) as long
-declare function RemoveFontResourceExA(byval name_ as LPCSTR, byval fl as DWORD, byval pdv as PVOID) as WINBOOL
-declare function RemoveFontResourceExW(byval name_ as LPCWSTR, byval fl as DWORD, byval pdv as PVOID) as WINBOOL
+declare function AddFontResourceExA(byval name as LPCSTR, byval fl as DWORD, byval res as PVOID) as long
+declare function AddFontResourceExW(byval name as LPCWSTR, byval fl as DWORD, byval res as PVOID) as long
+declare function RemoveFontResourceExA(byval name as LPCSTR, byval fl as DWORD, byval pdv as PVOID) as WINBOOL
+declare function RemoveFontResourceExW(byval name as LPCWSTR, byval fl as DWORD, byval pdv as PVOID) as WINBOOL
 declare function AddFontMemResourceEx(byval pFileView as PVOID, byval cjSize as DWORD, byval pvResrved as PVOID, byval pNumFonts as DWORD ptr) as HANDLE
 declare function RemoveFontMemResourceEx(byval h as HANDLE) as WINBOOL
 
@@ -2989,31 +2977,31 @@ declare function GetViewportExtEx(byval hdc as HDC, byval lpsize as LPSIZE) as W
 declare function GetViewportOrgEx(byval hdc as HDC, byval lppoint as LPPOINT) as WINBOOL
 declare function GetWindowExtEx(byval hdc as HDC, byval lpsize as LPSIZE) as WINBOOL
 declare function GetWindowOrgEx(byval hdc as HDC, byval lppoint as LPPOINT) as WINBOOL
-declare function IntersectClipRect(byval hdc as HDC, byval left_ as long, byval top as long, byval right_ as long, byval bottom as long) as long
+declare function IntersectClipRect(byval hdc as HDC, byval left as long, byval top as long, byval right as long, byval bottom as long) as long
 declare function InvertRgn(byval hdc as HDC, byval hrgn as HRGN) as WINBOOL
-declare function LineDDA(byval xStart as long, byval yStart as long, byval xEnd as long, byval yEnd as long, byval lpProc as LINEDDAPROC, byval data_ as LPARAM) as WINBOOL
+declare function LineDDA(byval xStart as long, byval yStart as long, byval xEnd as long, byval yEnd as long, byval lpProc as LINEDDAPROC, byval data as LPARAM) as WINBOOL
 declare function LineTo(byval hdc as HDC, byval x as long, byval y as long) as WINBOOL
-declare function MaskBlt(byval hdcDest as HDC, byval xDest as long, byval yDest as long, byval width_ as long, byval height as long, byval hdcSrc as HDC, byval xSrc as long, byval ySrc as long, byval hbmMask as HBITMAP, byval xMask as long, byval yMask as long, byval rop as DWORD) as WINBOOL
-declare function PlgBlt(byval hdcDest as HDC, byval lpPoint as const POINT ptr, byval hdcSrc as HDC, byval xSrc as long, byval ySrc as long, byval width_ as long, byval height as long, byval hbmMask as HBITMAP, byval xMask as long, byval yMask as long) as WINBOOL
+declare function MaskBlt(byval hdcDest as HDC, byval xDest as long, byval yDest as long, byval width as long, byval height as long, byval hdcSrc as HDC, byval xSrc as long, byval ySrc as long, byval hbmMask as HBITMAP, byval xMask as long, byval yMask as long, byval rop as DWORD) as WINBOOL
+declare function PlgBlt(byval hdcDest as HDC, byval lpPoint as const POINT ptr, byval hdcSrc as HDC, byval xSrc as long, byval ySrc as long, byval width as long, byval height as long, byval hbmMask as HBITMAP, byval xMask as long, byval yMask as long) as WINBOOL
 declare function OffsetClipRgn(byval hdc as HDC, byval x as long, byval y as long) as long
 declare function OffsetRgn(byval hrgn as HRGN, byval x as long, byval y as long) as long
 declare function PatBlt(byval hdc as HDC, byval x as long, byval y as long, byval w as long, byval h as long, byval rop as DWORD) as WINBOOL
-declare function Pie(byval hdc as HDC, byval left_ as long, byval top as long, byval right_ as long, byval bottom as long, byval xr1 as long, byval yr1 as long, byval xr2 as long, byval yr2 as long) as WINBOOL
+declare function Pie(byval hdc as HDC, byval left as long, byval top as long, byval right as long, byval bottom as long, byval xr1 as long, byval yr1 as long, byval xr2 as long, byval yr2 as long) as WINBOOL
 declare function PlayMetaFile(byval hdc as HDC, byval hmf as HMETAFILE) as WINBOOL
 declare function PaintRgn(byval hdc as HDC, byval hrgn as HRGN) as WINBOOL
-declare function PolyPolygon(byval hdc as HDC, byval apt as const POINT ptr, byval asz as const INT_ ptr, byval csz as long) as WINBOOL
+declare function PolyPolygon(byval hdc as HDC, byval apt as const POINT ptr, byval asz as const INT ptr, byval csz as long) as WINBOOL
 declare function PtInRegion(byval hrgn as HRGN, byval x as long, byval y as long) as WINBOOL
 declare function PtVisible(byval hdc as HDC, byval x as long, byval y as long) as WINBOOL
 declare function RectInRegion(byval hrgn as HRGN, byval lprect as const RECT ptr) as WINBOOL
 declare function RectVisible(byval hdc as HDC, byval lprect as const RECT ptr) as WINBOOL
-declare function Rectangle(byval hdc as HDC, byval left_ as long, byval top as long, byval right_ as long, byval bottom as long) as WINBOOL
+declare function Rectangle(byval hdc as HDC, byval left as long, byval top as long, byval right as long, byval bottom as long) as WINBOOL
 declare function RestoreDC(byval hdc as HDC, byval nSavedDC as long) as WINBOOL
 declare function ResetDCA(byval hdc as HDC, byval lpdm as const DEVMODEA ptr) as HDC
 declare function ResetDCW(byval hdc as HDC, byval lpdm as const DEVMODEW ptr) as HDC
 declare function RealizePalette(byval hdc as HDC) as UINT
 declare function RemoveFontResourceA(byval lpFileName as LPCSTR) as WINBOOL
 declare function RemoveFontResourceW(byval lpFileName as LPCWSTR) as WINBOOL
-declare function RoundRect(byval hdc as HDC, byval left_ as long, byval top as long, byval right_ as long, byval bottom as long, byval width_ as long, byval height as long) as WINBOOL
+declare function RoundRect(byval hdc as HDC, byval left as long, byval top as long, byval right as long, byval bottom as long, byval width as long, byval height as long) as WINBOOL
 declare function ResizePalette(byval hpal as HPALETTE, byval n as UINT) as WINBOOL
 declare function SaveDC(byval hdc as HDC) as long
 declare function SelectClipRgn(byval hdc as HDC, byval hrgn as HRGN) as long
@@ -3021,9 +3009,9 @@ declare function ExtSelectClipRgn(byval hdc as HDC, byval hrgn as HRGN, byval mo
 declare function SetMetaRgn(byval hdc as HDC) as long
 declare function SelectObject(byval hdc as HDC, byval h as HGDIOBJ) as HGDIOBJ
 declare function SelectPalette(byval hdc as HDC, byval hPal as HPALETTE, byval bForceBkgd as WINBOOL) as HPALETTE
-declare function SetBkColor(byval hdc as HDC, byval color_ as COLORREF) as COLORREF
-declare function SetDCBrushColor(byval hdc as HDC, byval color_ as COLORREF) as COLORREF
-declare function SetDCPenColor(byval hdc as HDC, byval color_ as COLORREF) as COLORREF
+declare function SetBkColor(byval hdc as HDC, byval color as COLORREF) as COLORREF
+declare function SetDCBrushColor(byval hdc as HDC, byval color as COLORREF) as COLORREF
+declare function SetDCPenColor(byval hdc as HDC, byval color as COLORREF) as COLORREF
 declare function SetBkMode(byval hdc as HDC, byval mode as long) as long
 declare function SetBitmapBits(byval hbm as HBITMAP, byval cb as DWORD, byval pvBits as const any ptr) as LONG
 declare function SetBoundsRect(byval hdc as HDC, byval lprect as const RECT ptr, byval flags as UINT) as UINT
@@ -3036,18 +3024,18 @@ declare function SetLayout(byval hdc as HDC, byval l as DWORD) as DWORD
 declare function GetLayout(byval hdc as HDC) as DWORD
 declare function SetMetaFileBitsEx(byval cbBuffer as UINT, byval lpData as const UBYTE ptr) as HMETAFILE
 declare function SetPaletteEntries(byval hpal as HPALETTE, byval iStart as UINT, byval cEntries as UINT, byval pPalEntries as const PALETTEENTRY ptr) as UINT
-declare function SetPixel(byval hdc as HDC, byval x as long, byval y as long, byval color_ as COLORREF) as COLORREF
-declare function SetPixelV(byval hdc as HDC, byval x as long, byval y as long, byval color_ as COLORREF) as WINBOOL
+declare function SetPixel(byval hdc as HDC, byval x as long, byval y as long, byval color as COLORREF) as COLORREF
+declare function SetPixelV(byval hdc as HDC, byval x as long, byval y as long, byval color as COLORREF) as WINBOOL
 declare function SetPixelFormat(byval hdc as HDC, byval format as long, byval ppfd as const PIXELFORMATDESCRIPTOR ptr) as WINBOOL
 declare function SetPolyFillMode(byval hdc as HDC, byval mode as long) as long
 declare function StretchBlt(byval hdcDest as HDC, byval xDest as long, byval yDest as long, byval wDest as long, byval hDest as long, byval hdcSrc as HDC, byval xSrc as long, byval ySrc as long, byval wSrc as long, byval hSrc as long, byval rop as DWORD) as WINBOOL
-declare function SetRectRgn(byval hrgn as HRGN, byval left_ as long, byval top as long, byval right_ as long, byval bottom as long) as WINBOOL
+declare function SetRectRgn(byval hrgn as HRGN, byval left as long, byval top as long, byval right as long, byval bottom as long) as WINBOOL
 declare function StretchDIBits(byval hdc as HDC, byval xDest as long, byval yDest as long, byval DestWidth as long, byval DestHeight as long, byval xSrc as long, byval ySrc as long, byval SrcWidth as long, byval SrcHeight as long, byval lpBits as const any ptr, byval lpbmi as const BITMAPINFO ptr, byval iUsage as UINT, byval rop as DWORD) as long
 declare function SetROP2(byval hdc as HDC, byval rop2 as long) as long
 declare function SetStretchBltMode(byval hdc as HDC, byval mode as long) as long
 declare function SetSystemPaletteUse(byval hdc as HDC, byval use as UINT) as UINT
 declare function SetTextCharacterExtra(byval hdc as HDC, byval extra as long) as long
-declare function SetTextColor(byval hdc as HDC, byval color_ as COLORREF) as COLORREF
+declare function SetTextColor(byval hdc as HDC, byval color as COLORREF) as COLORREF
 declare function SetTextAlign(byval hdc as HDC, byval align as UINT) as UINT
 declare function SetTextJustification(byval hdc as HDC, byval extra as long, byval count as long) as WINBOOL
 declare function UpdateColors(byval hdc as HDC) as WINBOOL
@@ -3130,7 +3118,7 @@ type MFENUMPROC as function(byval hdc as HDC, byval lpht as HANDLETABLE ptr, byv
 
 declare function EnumMetaFile(byval hdc as HDC, byval hmf as HMETAFILE, byval lpProc as MFENUMPROC, byval lParam as LPARAM) as WINBOOL
 
-type ENHMFENUMPROC as function(byval hdc as HDC, byval lpht as HANDLETABLE ptr, byval lpmr as const ENHMETARECORD ptr, byval hHandles as long, byval data_ as LPARAM) as long
+type ENHMFENUMPROC as function(byval hdc as HDC, byval lpht as HANDLETABLE ptr, byval lpmr as const ENHMETARECORD ptr, byval hHandles as long, byval data as LPARAM) as long
 
 declare function CloseEnhMetaFile(byval hdc as HDC) as HENHMETAFILE
 declare function CopyEnhMetaFileA(byval hEnh as HENHMETAFILE, byval lpFileName as LPCSTR) as HENHMETAFILE
@@ -3147,7 +3135,7 @@ declare function GetEnhMetaFileDescriptionW(byval hemf as HENHMETAFILE, byval cc
 declare function GetEnhMetaFileHeader(byval hemf as HENHMETAFILE, byval nSize as UINT, byval lpEnhMetaHeader as LPENHMETAHEADER) as UINT
 declare function GetEnhMetaFilePaletteEntries(byval hemf as HENHMETAFILE, byval nNumEntries as UINT, byval lpPaletteEntries as LPPALETTEENTRY) as UINT
 declare function GetEnhMetaFilePixelFormat(byval hemf as HENHMETAFILE, byval cbBuffer as UINT, byval ppfd as PIXELFORMATDESCRIPTOR ptr) as UINT
-declare function GetWinMetaFileBits(byval hemf as HENHMETAFILE, byval cbData16 as UINT, byval pData16 as LPBYTE, byval iMapMode as INT_, byval hdcRef as HDC) as UINT
+declare function GetWinMetaFileBits(byval hemf as HENHMETAFILE, byval cbData16 as UINT, byval pData16 as LPBYTE, byval iMapMode as INT, byval hdcRef as HDC) as UINT
 declare function PlayEnhMetaFile(byval hdc as HDC, byval hmf as HENHMETAFILE, byval lprect as const RECT ptr) as WINBOOL
 declare function PlayEnhMetaFileRecord(byval hdc as HDC, byval pht as LPHANDLETABLE, byval pmr as const ENHMETARECORD ptr, byval cht as UINT) as WINBOOL
 declare function SetEnhMetaFileBits(byval nSize as UINT, byval pb as const UBYTE ptr) as HENHMETAFILE
@@ -3269,17 +3257,17 @@ type LPDOCINFOW as _DOCINFOW ptr
 #define DI_ROPS_READ_DESTINATION &h00000002
 
 #ifdef UNICODE
-	#define StartDoc_ StartDocW
+	#define StartDoc StartDocW
 	#define GetObject GetObjectW
 	#define TextOut TextOutW
-	#define ExtTextOut_ ExtTextOutW
+	#define ExtTextOut ExtTextOutW
 	#define PolyTextOut PolyTextOutW
 	#define GetTextFace GetTextFaceW
 #else
-	#define StartDoc_ StartDocA
+	#define StartDoc StartDocA
 	#define GetObject GetObjectA
 	#define TextOut TextOutA
-	#define ExtTextOut_ ExtTextOutA
+	#define ExtTextOut ExtTextOutA
 	#define PolyTextOut PolyTextOutA
 	#define GetTextFace GetTextFaceA
 #endif
@@ -3292,7 +3280,7 @@ declare function EndPage(byval hdc as HDC) as long
 declare function AbortDoc(byval hdc as HDC) as long
 declare function SetAbortProc(byval hdc as HDC, byval lpProc as ABORTPROC) as long
 declare function AbortPath(byval hdc as HDC) as WINBOOL
-declare function ArcTo(byval hdc as HDC, byval left_ as long, byval top as long, byval right_ as long, byval bottom as long, byval xr1 as long, byval yr1 as long, byval xr2 as long, byval yr2 as long) as WINBOOL
+declare function ArcTo(byval hdc as HDC, byval left as long, byval top as long, byval right as long, byval bottom as long, byval xr1 as long, byval yr1 as long, byval xr2 as long, byval yr2 as long) as WINBOOL
 declare function BeginPath(byval hdc as HDC) as WINBOOL
 declare function CloseFigure(byval hdc as HDC) as WINBOOL
 declare function EndPath(byval hdc as HDC) as WINBOOL
@@ -3302,7 +3290,7 @@ declare function GetPath(byval hdc as HDC, byval apt as LPPOINT, byval aj as LPB
 declare function PathToRegion(byval hdc as HDC) as HRGN
 declare function PolyDraw(byval hdc as HDC, byval apt as const POINT ptr, byval aj as const UBYTE ptr, byval cpt as long) as WINBOOL
 declare function SelectClipPath(byval hdc as HDC, byval mode as long) as WINBOOL
-declare function SetArcDirection(byval hdc as HDC, byval dir_ as long) as long
+declare function SetArcDirection(byval hdc as HDC, byval dir as long) as long
 declare function SetMiterLimit(byval hdc as HDC, byval limit as FLOAT, byval old as PFLOAT) as WINBOOL
 declare function StrokeAndFillPath(byval hdc as HDC) as WINBOOL
 declare function StrokePath(byval hdc as HDC) as WINBOOL
@@ -3315,8 +3303,8 @@ declare function GetObjectW(byval h as HANDLE, byval c as long, byval pv as LPVO
 declare function MoveToEx(byval hdc as HDC, byval x as long, byval y as long, byval lppt as LPPOINT) as WINBOOL
 declare function TextOutA(byval hdc as HDC, byval x as long, byval y as long, byval lpString as LPCSTR, byval c as long) as WINBOOL
 declare function TextOutW(byval hdc as HDC, byval x as long, byval y as long, byval lpString as LPCWSTR, byval c as long) as WINBOOL
-declare function ExtTextOutA(byval hdc as HDC, byval x as long, byval y as long, byval options as UINT, byval lprect as const RECT ptr, byval lpString as LPCSTR, byval c as UINT, byval lpDx as const INT_ ptr) as WINBOOL
-declare function ExtTextOutW(byval hdc as HDC, byval x as long, byval y as long, byval options as UINT, byval lprect as const RECT ptr, byval lpString as LPCWSTR, byval c as UINT, byval lpDx as const INT_ ptr) as WINBOOL
+declare function ExtTextOutA(byval hdc as HDC, byval x as long, byval y as long, byval options as UINT, byval lprect as const RECT ptr, byval lpString as LPCSTR, byval c as UINT, byval lpDx as const INT ptr) as WINBOOL
+declare function ExtTextOutW(byval hdc as HDC, byval x as long, byval y as long, byval options as UINT, byval lprect as const RECT ptr, byval lpString as LPCWSTR, byval c as UINT, byval lpDx as const INT ptr) as WINBOOL
 declare function PolyTextOutA(byval hdc as HDC, byval ppt as const POLYTEXTA ptr, byval nstrings as long) as WINBOOL
 declare function PolyTextOutW(byval hdc as HDC, byval ppt as const POLYTEXTW ptr, byval nstrings as long) as WINBOOL
 declare function CreatePolygonRgn(byval pptl as const POINT ptr, byval cPoint as long, byval iMode as long) as HRGN
@@ -3410,8 +3398,8 @@ declare function SetDeviceGammaRamp(byval hdc as HDC, byval lpRamp as LPVOID) as
 declare function ColorMatchToTarget(byval hdc as HDC, byval hdcTarget as HDC, byval action as DWORD) as WINBOOL
 declare function EnumICMProfilesA(byval hdc as HDC, byval lpProc as ICMENUMPROCA, byval lParam as LPARAM) as long
 declare function EnumICMProfilesW(byval hdc as HDC, byval lpProc as ICMENUMPROCW, byval lParam as LPARAM) as long
-declare function UpdateICMRegKeyA(byval reserved as DWORD, byval lpszCMID as LPSTR, byval lpszFileName as LPSTR, byval command_ as UINT) as WINBOOL
-declare function UpdateICMRegKeyW(byval reserved as DWORD, byval lpszCMID as LPWSTR, byval lpszFileName as LPWSTR, byval command_ as UINT) as WINBOOL
+declare function UpdateICMRegKeyA(byval reserved as DWORD, byval lpszCMID as LPSTR, byval lpszFileName as LPSTR, byval command as UINT) as WINBOOL
+declare function UpdateICMRegKeyW(byval reserved as DWORD, byval lpszCMID as LPWSTR, byval lpszFileName as LPWSTR, byval command as UINT) as WINBOOL
 declare function ColorCorrectPalette(byval hdc as HDC, byval hPal as HPALETTE, byval deFirst as DWORD, byval num as DWORD) as WINBOOL
 
 #define ENHMETA_SIGNATURE &h464D4520
@@ -4311,8 +4299,8 @@ type PEMRDELETECOLORSPACE as tagEMRSETCOLORSPACE ptr
 
 type tagEMREXTESCAPE
 	emr as EMR
-	iEscape as INT_
-	cbEscData as INT_
+	iEscape as INT
+	cbEscData as INT
 	EscData(0 to 0) as UBYTE
 end type
 
@@ -4323,9 +4311,9 @@ type PEMRDRAWESCAPE as tagEMREXTESCAPE ptr
 
 type tagEMRNAMEDESCAPE
 	emr as EMR
-	iEscape as INT_
-	cbDriver as INT_
-	cbEscData as INT_
+	iEscape as INT
+	cbDriver as INT
+	cbEscData as INT
 	EscData(0 to 0) as UBYTE
 end type
 

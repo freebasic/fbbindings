@@ -1,9 +1,5 @@
 #pragma once
 
-'' The following symbols have been renamed:
-''     typedef IFnIi => IFnIi_
-''     typedef IFniIIII => IFniIIII_
-
 extern "C"
 
 #define __IUPCBS_H
@@ -38,12 +34,12 @@ type IFniis as function(byval as Ihandle ptr, byval as long, byval as long, byva
 type IFniiis as function(byval as Ihandle ptr, byval as long, byval as long, byval as long, byval as zstring ptr) as long
 type IFniiiis as function(byval as Ihandle ptr, byval as long, byval as long, byval as long, byval as long, byval as zstring ptr) as long
 type IFniiiiiis as function(byval as Ihandle ptr, byval as long, byval as long, byval as long, byval as long, byval as long, byval as long, byval as zstring ptr) as long
-type IFnIi_ as function(byval as Ihandle ptr, byval as long ptr, byval as long) as long
+type IFnIi as function(byval as Ihandle ptr, byval as long ptr, byval as long) as long
 type IFnd as function(byval as Ihandle ptr, byval as double) as long
 type IFniiIII as function(byval as Ihandle ptr, byval as long, byval as long, byval as long ptr, byval as long ptr, byval as long ptr) as long
 type IFniinsii as function(byval as Ihandle ptr, byval as long, byval as long, byval as Ihandle ptr, byval as zstring ptr, byval as long, byval as long) as long
 type IFnccc as function(byval as Ihandle ptr, byval as ubyte, byval as ubyte, byval as ubyte) as long
-type IFniIIII_ as function(byval as Ihandle ptr, byval as long, byval as long ptr, byval as long ptr, byval as long ptr, byval as long ptr) as long
+type IFniIIII as function(byval as Ihandle ptr, byval as long, byval as long ptr, byval as long ptr, byval as long ptr, byval as long ptr) as long
 type IFnC as function(byval as Ihandle ptr, byval as any ptr) as long
 type IFniiff as function(byval as Ihandle ptr, byval as long, byval as long, byval as single, byval as single) as long
 type IFniiffi as function(byval as Ihandle ptr, byval as long, byval as long, byval as single, byval as single, byval as long) as long

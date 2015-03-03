@@ -4,17 +4,6 @@
 #include once "inaddr.bi"
 #include once "in6addr.bi"
 #include once "naptypes.bi"
-#include once "lmcons.bi"
-
-'' The following symbols have been renamed:
-''     inside struct tagRASCONNSTATUSW:
-''         field rasconnstate => rasconnstate_
-''     inside struct tagRASCONNSTATUSA:
-''         field rasconnstate => rasconnstate_
-''     inside struct tagRASDIALEXTENSIONS:
-''         field RasEapInfo => RasEapInfo_
-''     #define RASCTRYINFO => RASCTRYINFO_
-''     #define RASIPADDR => RASIPADDR_
 
 #ifdef __FB_64BIT__
 	extern "C"
@@ -24,12 +13,8 @@
 
 #define _RAS_H_
 
-type RASIPV4ADDR as in_addr
-type RASIPV6ADDR as in6_addr
-
-type HRASCONN__ field = 4
-	unused as long
-end type
+type RASIPV4ADDR as IN_ADDR
+type RASIPV6ADDR as IN6_ADDR
 
 #define RAS_MaxDeviceType 16
 #define RAS_MaxPhoneNumber 128
@@ -45,6 +30,10 @@ end type
 #define RAS_MaxUserData 200
 #define RAS_MaxReplyMessage 1024
 #define RAS_MaxDnsSuffix 256
+
+type HRASCONN__ field = 4
+	unused as long
+end type
 
 type HRASCONN as HRASCONN__ ptr
 
@@ -134,7 +123,7 @@ end enum
 
 type tagRASCONNSTATUSW field = 4
 	dwSize as DWORD
-	rasconnstate_ as tagRASCONNSTATE
+	rasconnstate as tagRASCONNSTATE
 	dwError as DWORD
 	szDeviceType as wstring * 16 + 1
 	szDeviceName as wstring * 128 + 1
@@ -145,7 +134,7 @@ end type
 
 type tagRASCONNSTATUSA field = 4
 	dwSize as DWORD
-	rasconnstate_ as tagRASCONNSTATE
+	rasconnstate as tagRASCONNSTATE
 	dwError as DWORD
 	szDeviceType as zstring * 16 + 1
 	szDeviceName as zstring * 128 + 1
@@ -221,7 +210,7 @@ type tagRASDIALEXTENSIONS field = 4
 	hwndParent as HWND
 	reserved as ULONG_PTR
 	reserved1 as ULONG_PTR
-	RasEapInfo_ as tagRASEAPINFO
+	RasEapInfo as tagRASEAPINFO
 end type
 
 #define LPRASDIALEXTENSIONS '' TODO: RASDIALEXTENSIONS*
@@ -483,8 +472,6 @@ end type
 #define LPRASSLIPW '' TODO: RASSLIPW*
 #define LPRASSLIPA '' TODO: RASSLIPA*
 #define LPRASSLIP '' TODO: RASSLIP*
-#define RASCCPCA_MPPC &h00000006
-#define RASCCPCA_STAC &h00000005
 #define RASCCPO_Compression &h00000001
 #define RASCCPO_HistoryLess &h00000002
 #define RASCCPO_Encryption56bit &h00000010
@@ -534,7 +521,7 @@ end type
 #define LPRASDEVINFOW '' TODO: RASDEVINFOW*
 #define LPRASDEVINFOA '' TODO: RASDEVINFOA*
 #define LPRASDEVINFO '' TODO: RASDEVINFO*
-#define RASCTRYINFO_ RASCTRYINFO
+#define RASCTRYINFO RASCTRYINFO
 
 type RASCTRYINFO field = 4
 	dwSize as DWORD
@@ -544,12 +531,12 @@ type RASCTRYINFO field = 4
 	dwCountryNameOffset as DWORD
 end type
 
-#define RASCTRYINFOW RASCTRYINFO_
-#define RASCTRYINFOA RASCTRYINFO_
+#define RASCTRYINFOW RASCTRYINFO
+#define RASCTRYINFOA RASCTRYINFO
 #define LPRASCTRYINFOW '' TODO: RASCTRYINFOW*
 #define LPRASCTRYINFOA '' TODO: RASCTRYINFOW*
 #define LPRASCTRYINFO '' TODO: RASCTRYINFO*
-#define RASIPADDR_ RASIPADDR
+#define RASIPADDR RASIPADDR
 
 type RASIPADDR field = 4
 	a as UBYTE
@@ -1025,9 +1012,9 @@ type PRAS_STATS as _RAS_STATS ptr
 type RasCustomHangUpFn as function(byval hRasConn as HRASCONN) as DWORD
 
 #ifdef UNICODE
-	type RasCustomDialFn as function(byval hInstDll as HINSTANCE, byval lpRasDialExtensions_ as tagRASDIALEXTENSIONS ptr, byval lpszPhonebook as LPCWSTR, byval lpRasDialParams_ as tagRASDIALPARAMSW ptr, byval dwNotifierType as DWORD, byval lpvNotifier as LPVOID, byval lphRasConn_ as HRASCONN ptr, byval dwFlags as DWORD) as DWORD
+	type RasCustomDialFn as function(byval hInstDll as HINSTANCE, byval lpRasDialExtensions as tagRASDIALEXTENSIONS ptr, byval lpszPhonebook as LPCWSTR, byval lpRasDialParams as tagRASDIALPARAMSW ptr, byval dwNotifierType as DWORD, byval lpvNotifier as LPVOID, byval lphRasConn as HRASCONN ptr, byval dwFlags as DWORD) as DWORD
 #else
-	type RasCustomDialFn as function(byval hInstDll as HINSTANCE, byval lpRasDialExtensions_ as tagRASDIALEXTENSIONS ptr, byval lpszPhonebook as LPCWSTR, byval lpRasDialParams_ as tagRASDIALPARAMSA ptr, byval dwNotifierType as DWORD, byval lpvNotifier as LPVOID, byval lphRasConn_ as HRASCONN ptr, byval dwFlags as DWORD) as DWORD
+	type RasCustomDialFn as function(byval hInstDll as HINSTANCE, byval lpRasDialExtensions as tagRASDIALEXTENSIONS ptr, byval lpszPhonebook as LPCWSTR, byval lpRasDialParams as tagRASDIALPARAMSA ptr, byval dwNotifierType as DWORD, byval lpvNotifier as LPVOID, byval lphRasConn as HRASCONN ptr, byval dwFlags as DWORD) as DWORD
 #endif
 
 type RasCustomDeleteEntryNotifyFn as function(byval lpszPhonebook as LPCWSTR, byval lpszEntry as LPCWSTR, byval dwFlags as DWORD) as DWORD

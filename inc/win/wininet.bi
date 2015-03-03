@@ -3,10 +3,6 @@
 #include once "_mingw_unicode.bi"
 #include once "specstrings.bi"
 
-'' The following symbols have been renamed:
-''     inside struct __GOPHER_UNKNOWN_ATTRIBUTE_TYPE:
-''         field Text => Text_
-
 #ifdef __FB_64BIT__
 	extern "C"
 #else
@@ -165,7 +161,7 @@ type LPINTERNET_DIAGNOSTIC_SOCKET_INFO as INTERNET_DIAGNOSTIC_SOCKET_INFO ptr
 type LPINTERNET_PROXY_INFO as INTERNET_PROXY_INFO ptr
 
 #ifdef __FB_64BIT__
-	union __Value
+	union INTERNET_PER_CONN_OPTIONA_Value
 		dwValue as DWORD
 		pszValue as LPSTR
 		ftValue as FILETIME
@@ -173,10 +169,10 @@ type LPINTERNET_PROXY_INFO as INTERNET_PROXY_INFO ptr
 
 	type INTERNET_PER_CONN_OPTIONA
 		dwOption as DWORD
-		Value as __Value
+		Value as INTERNET_PER_CONN_OPTIONA_Value
 	end type
 #else
-	union __Value field = 4
+	union INTERNET_PER_CONN_OPTIONA_Value field = 4
 		dwValue as DWORD
 		pszValue as LPSTR
 		ftValue as FILETIME
@@ -184,14 +180,14 @@ type LPINTERNET_PROXY_INFO as INTERNET_PROXY_INFO ptr
 
 	type INTERNET_PER_CONN_OPTIONA field = 4
 		dwOption as DWORD
-		Value as __Value
+		Value as INTERNET_PER_CONN_OPTIONA_Value
 	end type
 #endif
 
 type LPINTERNET_PER_CONN_OPTIONA as INTERNET_PER_CONN_OPTIONA ptr
 
 #ifdef __FB_64BIT__
-	union __Value
+	union INTERNET_PER_CONN_OPTIONW_Value
 		dwValue as DWORD
 		pszValue as LPWSTR
 		ftValue as FILETIME
@@ -199,10 +195,10 @@ type LPINTERNET_PER_CONN_OPTIONA as INTERNET_PER_CONN_OPTIONA ptr
 
 	type INTERNET_PER_CONN_OPTIONW
 		dwOption as DWORD
-		Value as __Value
+		Value as INTERNET_PER_CONN_OPTIONW_Value
 	end type
 #else
-	union __Value field = 4
+	union INTERNET_PER_CONN_OPTIONW_Value field = 4
 		dwValue as DWORD
 		pszValue as LPWSTR
 		ftValue as FILETIME
@@ -210,7 +206,7 @@ type LPINTERNET_PER_CONN_OPTIONA as INTERNET_PER_CONN_OPTIONA ptr
 
 	type INTERNET_PER_CONN_OPTIONW field = 4
 		dwOption as DWORD
-		Value as __Value
+		Value as INTERNET_PER_CONN_OPTIONW_Value
 	end type
 #endif
 
@@ -1093,11 +1089,11 @@ type LPGOPHER_TTL_ATTRIBUTE_TYPE as GOPHER_TTL_ATTRIBUTE_TYPE ptr
 
 #ifdef __FB_64BIT__
 	type GOPHER_SCORE_ATTRIBUTE_TYPE
-		Score as INT_
+		Score as INT
 	end type
 #else
 	type GOPHER_SCORE_ATTRIBUTE_TYPE field = 4
-		Score as INT_
+		Score as INT
 	end type
 #endif
 
@@ -1105,13 +1101,13 @@ type LPGOPHER_SCORE_ATTRIBUTE_TYPE as GOPHER_SCORE_ATTRIBUTE_TYPE ptr
 
 #ifdef __FB_64BIT__
 	type GOPHER_SCORE_RANGE_ATTRIBUTE_TYPE
-		LowerBound as INT_
-		UpperBound as INT_
+		LowerBound as INT
+		UpperBound as INT
 	end type
 #else
 	type GOPHER_SCORE_RANGE_ATTRIBUTE_TYPE field = 4
-		LowerBound as INT_
-		UpperBound as INT_
+		LowerBound as INT
+		UpperBound as INT
 	end type
 #endif
 
@@ -1155,21 +1151,21 @@ type LPGOPHER_LOCATION_ATTRIBUTE_TYPE as GOPHER_LOCATION_ATTRIBUTE_TYPE ptr
 
 #ifdef __FB_64BIT__
 	type GOPHER_GEOGRAPHICAL_LOCATION_ATTRIBUTE_TYPE
-		DegreesNorth as INT_
-		MinutesNorth as INT_
-		SecondsNorth as INT_
-		DegreesEast as INT_
-		MinutesEast as INT_
-		SecondsEast as INT_
+		DegreesNorth as INT
+		MinutesNorth as INT
+		SecondsNorth as INT
+		DegreesEast as INT
+		MinutesEast as INT
+		SecondsEast as INT
 	end type
 #else
 	type GOPHER_GEOGRAPHICAL_LOCATION_ATTRIBUTE_TYPE field = 4
-		DegreesNorth as INT_
-		MinutesNorth as INT_
-		SecondsNorth as INT_
-		DegreesEast as INT_
-		MinutesEast as INT_
-		SecondsEast as INT_
+		DegreesNorth as INT
+		MinutesNorth as INT
+		SecondsNorth as INT
+		DegreesEast as INT
+		MinutesEast as INT
+		SecondsEast as INT
 	end type
 #endif
 
@@ -1177,11 +1173,11 @@ type LPGOPHER_GEOGRAPHICAL_LOCATION_ATTRIBUTE_TYPE as GOPHER_GEOGRAPHICAL_LOCATI
 
 #ifdef __FB_64BIT__
 	type GOPHER_TIMEZONE_ATTRIBUTE_TYPE
-		Zone as INT_
+		Zone as INT
 	end type
 #else
 	type GOPHER_TIMEZONE_ATTRIBUTE_TYPE field = 4
-		Zone as INT_
+		Zone as INT
 	end type
 #endif
 
@@ -1269,18 +1265,18 @@ type LPGOPHER_ASK_ATTRIBUTE_TYPE as GOPHER_ASK_ATTRIBUTE_TYPE ptr
 
 #ifdef __FB_64BIT__
 	type GOPHER_UNKNOWN_ATTRIBUTE_TYPE
-		Text_ as LPCTSTR
+		Text as LPCTSTR
 	end type
 #else
 	type GOPHER_UNKNOWN_ATTRIBUTE_TYPE field = 4
-		Text_ as LPCTSTR
+		Text as LPCTSTR
 	end type
 #endif
 
 type LPGOPHER_UNKNOWN_ATTRIBUTE_TYPE as GOPHER_UNKNOWN_ATTRIBUTE_TYPE ptr
 
 #ifdef __FB_64BIT__
-	union __AttributeType
+	union GOPHER_ATTRIBUTE_TYPE_AttributeType
 		Admin as GOPHER_ADMIN_ATTRIBUTE_TYPE
 		ModDate as GOPHER_MOD_DATE_ATTRIBUTE_TYPE
 		Ttl as GOPHER_TTL_ATTRIBUTE_TYPE
@@ -1303,10 +1299,10 @@ type LPGOPHER_UNKNOWN_ATTRIBUTE_TYPE as GOPHER_UNKNOWN_ATTRIBUTE_TYPE ptr
 	type GOPHER_ATTRIBUTE_TYPE
 		CategoryId as DWORD
 		AttributeId as DWORD
-		AttributeType as __AttributeType
+		AttributeType as GOPHER_ATTRIBUTE_TYPE_AttributeType
 	end type
 #else
-	union __AttributeType field = 4
+	union GOPHER_ATTRIBUTE_TYPE_AttributeType field = 4
 		Admin as GOPHER_ADMIN_ATTRIBUTE_TYPE
 		ModDate as GOPHER_MOD_DATE_ATTRIBUTE_TYPE
 		Ttl as GOPHER_TTL_ATTRIBUTE_TYPE
@@ -1329,7 +1325,7 @@ type LPGOPHER_UNKNOWN_ATTRIBUTE_TYPE as GOPHER_UNKNOWN_ATTRIBUTE_TYPE ptr
 	type GOPHER_ATTRIBUTE_TYPE field = 4
 		CategoryId as DWORD
 		AttributeId as DWORD
-		AttributeType as __AttributeType
+		AttributeType as GOPHER_ATTRIBUTE_TYPE_AttributeType
 	end type
 #endif
 
@@ -2067,6 +2063,8 @@ declare function GetUrlCacheEntryInfoExW(byval lpszUrl as LPCWSTR, byval lpCache
 
 declare function SetUrlCacheEntryInfoA(byval lpszUrlName as LPCSTR, byval lpCacheEntryInfo as LPINTERNET_CACHE_ENTRY_INFOA, byval dwFieldControl as DWORD) as WINBOOL
 declare function SetUrlCacheEntryInfoW(byval lpszUrlName as LPCWSTR, byval lpCacheEntryInfo as LPINTERNET_CACHE_ENTRY_INFOW, byval dwFieldControl as DWORD) as WINBOOL
+declare function CreateUrlCacheGroup(byval dwFlags as DWORD, byval lpReserved as LPVOID) as GROUPID
+declare function DeleteUrlCacheGroup(byval GroupId as GROUPID, byval dwFlags as DWORD, byval lpReserved as LPVOID) as WINBOOL
 
 #define INTERNET_CACHE_GROUP_ADD 0
 #define INTERNET_CACHE_GROUP_REMOVE 1

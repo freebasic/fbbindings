@@ -1,8 +1,5 @@
 #pragma once
 
-'' The following symbols have been renamed:
-''     typedef STRING => STRING_
-
 #ifdef __FB_64BIT__
 	extern "C"
 #else
@@ -10,27 +7,6 @@
 #endif
 
 #define _NTSUBAUTH_
-#define __UNICODE_STRING_DEFINED
-
-type _UNICODE_STRING
-	Length as USHORT
-	MaximumLength as USHORT
-	Buffer as PWSTR
-end type
-
-type UNICODE_STRING as _UNICODE_STRING
-type PUNICODE_STRING as _UNICODE_STRING ptr
-
-#define __STRING_DEFINED
-
-type _STRING
-	Length as USHORT
-	MaximumLength as USHORT
-	Buffer as PCHAR
-end type
-
-type STRING_ as _STRING
-type PSTRING as _STRING ptr
 
 type _OLD_LARGE_INTEGER
 	LowPart as ULONG
@@ -131,17 +107,16 @@ end type
 type USER_ALL_INFORMATION as _USER_ALL_INFORMATION
 type PUSER_ALL_INFORMATION as _USER_ALL_INFORMATION ptr
 
-type _CLEAR_BLOCK
-	data as zstring * 8
-end type
-
-type CLEAR_BLOCK as _CLEAR_BLOCK
-
 #define _NTSAM_USER_ALL_INFO_
 #define USER_ALL_PARAMETERS &h00200000
 #define _NTSAM_SAM_USER_PARMS_
 #define CLEAR_BLOCK_LENGTH 8
 
+type _CLEAR_BLOCK
+	data as zstring * 8
+end type
+
+type CLEAR_BLOCK as _CLEAR_BLOCK
 type PCLEAR_BLOCK as CLEAR_BLOCK ptr
 
 #define CYPHER_BLOCK_LENGTH 8
@@ -220,8 +195,8 @@ type PNETLOGON_SERVICE_INFO as _NETLOGON_SERVICE_INFO ptr
 type _NETLOGON_NETWORK_INFO
 	Identity as NETLOGON_LOGON_IDENTITY_INFO
 	LmChallenge as LM_CHALLENGE
-	NtChallengeResponse as STRING_
-	LmChallengeResponse as STRING_
+	NtChallengeResponse as STRING
+	LmChallengeResponse as STRING
 end type
 
 type NETLOGON_NETWORK_INFO as _NETLOGON_NETWORK_INFO

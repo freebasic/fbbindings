@@ -9,29 +9,19 @@
 	#include once "crt/stddef.bi"
 #endif
 
-'' The following symbols have been renamed:
-''     typedef Byte => Byte_
-''     typedef uLong => uLong_
-''     inside struct z_stream_s:
-''         field opaque => opaque_
-''     #define zlib_version => zlib_version_
-''     #define gzgetc => gzgetc__
-
 extern "C"
-
-type internal_state as internal_state_
 
 #define ZLIB_H
 #define ZCONF_H
 
-type Byte_ as ubyte
+type Byte as ubyte
 type uInt as ulong
-type uLong_ as culong
-type Bytef as Byte_
+type uLong as culong
+type Bytef as Byte
 type charf as zstring
 type intf as long
 type uIntf as uInt
-type uLongf as uLong_
+type uLongf as uLong
 type voidpc as const any ptr
 type voidpf as any ptr
 type voidp as any ptr
@@ -49,24 +39,26 @@ type z_crc_t as culong
 #define ZLIB_VER_REVISION 8
 #define ZLIB_VER_SUBREVISION 0
 
-type alloc_func as function(byval opaque_ as voidpf, byval items as uInt, byval size as uInt) as voidpf
-type free_func as sub(byval opaque_ as voidpf, byval address as voidpf)
+type alloc_func as function(byval opaque as voidpf, byval items as uInt, byval size as uInt) as voidpf
+type free_func as sub(byval opaque as voidpf, byval address as voidpf)
+
+type internal_state as internal_state_
 
 type z_stream_s
 	next_in as Bytef ptr
 	avail_in as uInt
-	total_in as uLong_
+	total_in as uLong
 	next_out as Bytef ptr
 	avail_out as uInt
-	total_out as uLong_
+	total_out as uLong
 	msg as zstring ptr
 	state as internal_state ptr
 	zalloc as alloc_func
 	zfree as free_func
-	opaque_ as voidpf
+	opaque as voidpf
 	data_type as long
-	adler as uLong_
-	reserved as uLong_
+	adler as uLong
+	reserved as uLong
 end type
 
 type z_stream as z_stream_s
@@ -74,7 +66,7 @@ type z_streamp as z_stream ptr
 
 type gz_header_s
 	text as long
-	time as uLong_
+	time as uLong
 	xflags as long
 	os as long
 	extra as Bytef ptr
@@ -122,7 +114,7 @@ type gz_headerp as gz_header ptr
 #define Z_UNKNOWN 2
 #define Z_DEFLATED 8
 #define Z_NULL 0
-#define zlib_version_ zlibVersion()
+#define zlib_version zlibVersion()
 
 declare function zlibVersion() as const zstring ptr
 declare function deflate(byval strm as z_streamp, byval flush as long) as long
@@ -134,7 +126,7 @@ declare function deflateCopy(byval dest as z_streamp, byval source as z_streamp)
 declare function deflateReset(byval strm as z_streamp) as long
 declare function deflateParams(byval strm as z_streamp, byval level as long, byval strategy as long) as long
 declare function deflateTune(byval strm as z_streamp, byval good_length as long, byval max_lazy as long, byval nice_length as long, byval max_chain as long) as long
-declare function deflateBound(byval strm as z_streamp, byval sourceLen as uLong_) as uLong_
+declare function deflateBound(byval strm as z_streamp, byval sourceLen as uLong) as uLong
 declare function deflatePending(byval strm as z_streamp, byval pending as ulong ptr, byval bits as long ptr) as long
 declare function deflatePrime(byval strm as z_streamp, byval bits as long, byval value as long) as long
 declare function deflateSetHeader(byval strm as z_streamp, byval head as gz_headerp) as long
@@ -151,24 +143,24 @@ declare function inflateGetHeader(byval strm as z_streamp, byval head as gz_head
 type in_func as function(byval as any ptr, byval as ubyte ptr ptr) as ulong
 type out_func as function(byval as any ptr, byval as ubyte ptr, byval as ulong) as long
 
-declare function inflateBack(byval strm as z_streamp, byval in as in_func, byval in_desc as any ptr, byval out_ as out_func, byval out_desc as any ptr) as long
+declare function inflateBack(byval strm as z_streamp, byval in as in_func, byval in_desc as any ptr, byval out as out_func, byval out_desc as any ptr) as long
 declare function inflateBackEnd(byval strm as z_streamp) as long
-declare function zlibCompileFlags() as uLong_
-declare function compress(byval dest as Bytef ptr, byval destLen as uLongf ptr, byval source as const Bytef ptr, byval sourceLen as uLong_) as long
-declare function compress2(byval dest as Bytef ptr, byval destLen as uLongf ptr, byval source as const Bytef ptr, byval sourceLen as uLong_, byval level as long) as long
-declare function compressBound(byval sourceLen as uLong_) as uLong_
-declare function uncompress(byval dest as Bytef ptr, byval destLen as uLongf ptr, byval source as const Bytef ptr, byval sourceLen as uLong_) as long
+declare function zlibCompileFlags() as uLong
+declare function compress(byval dest as Bytef ptr, byval destLen as uLongf ptr, byval source as const Bytef ptr, byval sourceLen as uLong) as long
+declare function compress2(byval dest as Bytef ptr, byval destLen as uLongf ptr, byval source as const Bytef ptr, byval sourceLen as uLong, byval level as long) as long
+declare function compressBound(byval sourceLen as uLong) as uLong
+declare function uncompress(byval dest as Bytef ptr, byval destLen as uLongf ptr, byval source as const Bytef ptr, byval sourceLen as uLong) as long
 
 type gzFile as gzFile_s ptr
 
 declare function gzdopen(byval fd as long, byval mode as const zstring ptr) as gzFile
 declare function gzbuffer(byval file as gzFile, byval size as ulong) as long
 declare function gzsetparams(byval file as gzFile, byval level as long, byval strategy as long) as long
-declare function gzread(byval file as gzFile, byval buf as voidp, byval len_ as ulong) as long
-declare function gzwrite(byval file as gzFile, byval buf as voidpc, byval len_ as ulong) as long
+declare function gzread(byval file as gzFile, byval buf as voidp, byval len as ulong) as long
+declare function gzwrite(byval file as gzFile, byval buf as voidpc, byval len as ulong) as long
 declare function gzprintf(byval file as gzFile, byval format as const zstring ptr, ...) as long
 declare function gzputs(byval file as gzFile, byval s as const zstring ptr) as long
-declare function gzgets(byval file as gzFile, byval buf as zstring ptr, byval len_ as long) as zstring ptr
+declare function gzgets(byval file as gzFile, byval buf as zstring ptr, byval len as long) as zstring ptr
 declare function gzputc(byval file as gzFile, byval c as long) as long
 declare function gzgetc(byval file as gzFile) as long
 declare function gzungetc(byval c as long, byval file as gzFile) as long
@@ -181,13 +173,13 @@ declare function gzclose_r(byval file as gzFile) as long
 declare function gzclose_w(byval file as gzFile) as long
 declare function gzerror(byval file as gzFile, byval errnum as long ptr) as const zstring ptr
 declare sub gzclearerr(byval file as gzFile)
-declare function adler32(byval adler as uLong_, byval buf as const Bytef ptr, byval len_ as uInt) as uLong_
-declare function crc32(byval crc as uLong_, byval buf as const Bytef ptr, byval len_ as uInt) as uLong_
+declare function adler32(byval adler as uLong, byval buf as const Bytef ptr, byval len as uInt) as uLong
+declare function crc32(byval crc as uLong, byval buf as const Bytef ptr, byval len as uInt) as uLong
 declare function deflateInit_(byval strm as z_streamp, byval level as long, byval version as const zstring ptr, byval stream_size as long) as long
 declare function inflateInit_(byval strm as z_streamp, byval version as const zstring ptr, byval stream_size as long) as long
 declare function deflateInit2_(byval strm as z_streamp, byval level as long, byval method as long, byval windowBits as long, byval memLevel as long, byval strategy as long, byval version as const zstring ptr, byval stream_size as long) as long
 declare function inflateInit2_(byval strm as z_streamp, byval windowBits as long, byval version as const zstring ptr, byval stream_size as long) as long
-declare function inflateBackInit_(byval strm as z_streamp, byval windowBits as long, byval window_ as ubyte ptr, byval version as const zstring ptr, byval stream_size as long) as long
+declare function inflateBackInit_(byval strm as z_streamp, byval windowBits as long, byval window as ubyte ptr, byval version as const zstring ptr, byval stream_size as long) as long
 
 #define deflateInit(strm, level) deflateInit_((strm), (level), ZLIB_VERSION, clng(sizeof(z_stream)))
 #define inflateInit(strm) inflateInit_((strm), ZLIB_VERSION, clng(sizeof(z_stream)))
@@ -203,14 +195,14 @@ end type
 
 declare function gzgetc_(byval file as gzFile) as long
 
-#define gzgetc__(g) '' TODO: ((g)->have ? ((g)->have--, (g)->pos++, *((g)->next)++) : gzgetc(g))
+#define gzgetc(g) '' TODO: ((g)->have ? ((g)->have--, (g)->pos++, *((g)->next)++) : gzgetc(g))
 
 declare function gzopen(byval as const zstring ptr, byval as const zstring ptr) as gzFile
 declare function gzseek(byval as gzFile, byval as clong, byval as long) as clong
 declare function gztell(byval as gzFile) as clong
 declare function gzoffset(byval as gzFile) as clong
-declare function adler32_combine(byval as uLong_, byval as uLong_, byval as clong) as uLong_
-declare function crc32_combine(byval as uLong_, byval as uLong_, byval as clong) as uLong_
+declare function adler32_combine(byval as uLong, byval as uLong, byval as clong) as uLong
+declare function crc32_combine(byval as uLong, byval as uLong, byval as clong) as uLong
 
 type internal_state_
 	dummy as long

@@ -3,21 +3,11 @@
 #include once "_mingw_unicode.bi"
 #include once "prsht.bi"
 
-'' The following symbols have been renamed:
-''     #define ChooseColor => ChooseColor_
-''     #define ChooseFont => ChooseFont_
-''     #define PrintDlg => PrintDlg_
-''     #define PrintDlgEx => PrintDlgEx_
-''     #define PageSetupDlg => PageSetupDlg_
-
 #ifdef __FB_64BIT__
 	extern "C"
 #else
 	extern "Windows"
 #endif
-
-type IPrintDialogCallbackVtbl as IPrintDialogCallbackVtbl_
-type IPrintDialogServicesVtbl as IPrintDialogServicesVtbl_
 
 #define _INC_COMMDLG
 
@@ -538,9 +528,9 @@ declare function ChooseColorA(byval as LPCHOOSECOLORA) as WINBOOL
 declare function ChooseColorW(byval as LPCHOOSECOLORW) as WINBOOL
 
 #ifdef UNICODE
-	#define ChooseColor_ ChooseColorW
+	#define ChooseColor ChooseColorW
 #else
-	#define ChooseColor_ ChooseColorA
+	#define ChooseColor ChooseColorA
 #endif
 
 #define CC_RGBINIT &h1
@@ -647,9 +637,6 @@ type LPFINDREPLACEW as tagFINDREPLACEW ptr
 #define FR_HIDEMATCHCASE &h8000
 #define FR_HIDEWHOLEWORD &h10000
 #define FR_RAW &h20000
-#define FR_MATCHDIAC &h20000000
-#define FR_MATCHKASHIDA &h40000000
-#define FR_MATCHALEFHAMZA &h80000000
 
 declare function FindTextA(byval as LPFINDREPLACEA) as HWND
 declare function FindTextW(byval as LPFINDREPLACEW) as HWND
@@ -677,7 +664,7 @@ type LPCFHOOKPROC as function(byval as HWND, byval as UINT, byval as WPARAM, byv
 		hwndOwner as HWND
 		hDC as HDC
 		lpLogFont as LPLOGFONTA
-		iPointSize as INT_
+		iPointSize as INT
 		Flags as DWORD
 		rgbColors as COLORREF
 		lCustData as LPARAM
@@ -687,8 +674,8 @@ type LPCFHOOKPROC as function(byval as HWND, byval as UINT, byval as WPARAM, byv
 		lpszStyle as LPSTR
 		nFontType as WORD
 		___MISSING_ALIGNMENT__ as WORD
-		nSizeMin as INT_
-		nSizeMax as INT_
+		nSizeMin as INT
+		nSizeMax as INT
 	end type
 #else
 	type tagCHOOSEFONTA field = 1
@@ -696,7 +683,7 @@ type LPCFHOOKPROC as function(byval as HWND, byval as UINT, byval as WPARAM, byv
 		hwndOwner as HWND
 		hDC as HDC
 		lpLogFont as LPLOGFONTA
-		iPointSize as INT_
+		iPointSize as INT
 		Flags as DWORD
 		rgbColors as COLORREF
 		lCustData as LPARAM
@@ -706,8 +693,8 @@ type LPCFHOOKPROC as function(byval as HWND, byval as UINT, byval as WPARAM, byv
 		lpszStyle as LPSTR
 		nFontType as WORD
 		___MISSING_ALIGNMENT__ as WORD
-		nSizeMin as INT_
-		nSizeMax as INT_
+		nSizeMin as INT
+		nSizeMax as INT
 	end type
 #endif
 
@@ -720,7 +707,7 @@ type LPCHOOSEFONTA as tagCHOOSEFONTA ptr
 		hwndOwner as HWND
 		hDC as HDC
 		lpLogFont as LPLOGFONTW
-		iPointSize as INT_
+		iPointSize as INT
 		Flags as DWORD
 		rgbColors as COLORREF
 		lCustData as LPARAM
@@ -730,8 +717,8 @@ type LPCHOOSEFONTA as tagCHOOSEFONTA ptr
 		lpszStyle as LPWSTR
 		nFontType as WORD
 		___MISSING_ALIGNMENT__ as WORD
-		nSizeMin as INT_
-		nSizeMax as INT_
+		nSizeMin as INT
+		nSizeMax as INT
 	end type
 #else
 	type tagCHOOSEFONTW field = 1
@@ -739,7 +726,7 @@ type LPCHOOSEFONTA as tagCHOOSEFONTA ptr
 		hwndOwner as HWND
 		hDC as HDC
 		lpLogFont as LPLOGFONTW
-		iPointSize as INT_
+		iPointSize as INT
 		Flags as DWORD
 		rgbColors as COLORREF
 		lCustData as LPARAM
@@ -749,8 +736,8 @@ type LPCHOOSEFONTA as tagCHOOSEFONTA ptr
 		lpszStyle as LPWSTR
 		nFontType as WORD
 		___MISSING_ALIGNMENT__ as WORD
-		nSizeMin as INT_
-		nSizeMax as INT_
+		nSizeMin as INT
+		nSizeMax as INT
 	end type
 #endif
 
@@ -769,9 +756,9 @@ declare function ChooseFontA(byval as LPCHOOSEFONTA) as WINBOOL
 declare function ChooseFontW(byval as LPCHOOSEFONTW) as WINBOOL
 
 #ifdef UNICODE
-	#define ChooseFont_ ChooseFontW
+	#define ChooseFont ChooseFontW
 #else
-	#define ChooseFont_ ChooseFontA
+	#define ChooseFont ChooseFontA
 #endif
 
 #define CF_SCREENFONTS &h1
@@ -965,10 +952,12 @@ declare function PrintDlgA(byval as LPPRINTDLGA) as WINBOOL
 declare function PrintDlgW(byval as LPPRINTDLGW) as WINBOOL
 
 #ifdef UNICODE
-	#define PrintDlg_ PrintDlgW
+	#define PrintDlg PrintDlgW
 #else
-	#define PrintDlg_ PrintDlgA
+	#define PrintDlg PrintDlgA
 #endif
+
+type IPrintDialogCallbackVtbl as IPrintDialogCallbackVtbl_
 
 #ifdef __FB_64BIT__
 	type IPrintDialogCallback
@@ -983,7 +972,24 @@ declare function PrintDlgW(byval as LPPRINTDLGW) as WINBOOL
 		SelectionChange as function(byval This as IPrintDialogCallback ptr) as HRESULT
 		HandleMessage as function(byval This as IPrintDialogCallback ptr, byval hDlg as HWND, byval uMsg as UINT, byval wParam as WPARAM, byval lParam as LPARAM, byval pResult as LRESULT ptr) as HRESULT
 	end type
+#else
+	type IPrintDialogCallback field = 1
+		lpVtbl as IPrintDialogCallbackVtbl ptr
+	end type
 
+	type IPrintDialogCallbackVtbl_ field = 1
+		QueryInterface as function(byval This as IPrintDialogCallback ptr, byval riid as const IID const ptr, byval ppvObj as LPVOID ptr) as HRESULT
+		AddRef as function(byval This as IPrintDialogCallback ptr) as ULONG
+		Release as function(byval This as IPrintDialogCallback ptr) as ULONG
+		InitDone as function(byval This as IPrintDialogCallback ptr) as HRESULT
+		SelectionChange as function(byval This as IPrintDialogCallback ptr) as HRESULT
+		HandleMessage as function(byval This as IPrintDialogCallback ptr, byval hDlg as HWND, byval uMsg as UINT, byval wParam as WPARAM, byval lParam as LPARAM, byval pResult as LRESULT ptr) as HRESULT
+	end type
+#endif
+
+type IPrintDialogServicesVtbl as IPrintDialogServicesVtbl_
+
+#ifdef __FB_64BIT__
 	type IPrintDialogServices
 		lpVtbl as IPrintDialogServicesVtbl ptr
 	end type
@@ -1002,19 +1008,6 @@ declare function PrintDlgW(byval as LPPRINTDLGW) as WINBOOL
 		nToPage as DWORD
 	end type
 #else
-	type IPrintDialogCallback field = 1
-		lpVtbl as IPrintDialogCallbackVtbl ptr
-	end type
-
-	type IPrintDialogCallbackVtbl_ field = 1
-		QueryInterface as function(byval This as IPrintDialogCallback ptr, byval riid as const IID const ptr, byval ppvObj as LPVOID ptr) as HRESULT
-		AddRef as function(byval This as IPrintDialogCallback ptr) as ULONG
-		Release as function(byval This as IPrintDialogCallback ptr) as ULONG
-		InitDone as function(byval This as IPrintDialogCallback ptr) as HRESULT
-		SelectionChange as function(byval This as IPrintDialogCallback ptr) as HRESULT
-		HandleMessage as function(byval This as IPrintDialogCallback ptr, byval hDlg as HWND, byval uMsg as UINT, byval wParam as WPARAM, byval lParam as LPARAM, byval pResult as LRESULT ptr) as HRESULT
-	end type
-
 	type IPrintDialogServices field = 1
 		lpVtbl as IPrintDialogServicesVtbl ptr
 	end type
@@ -1155,9 +1148,9 @@ declare function PrintDlgExA(byval as LPPRINTDLGEXA) as HRESULT
 declare function PrintDlgExW(byval as LPPRINTDLGEXW) as HRESULT
 
 #ifdef UNICODE
-	#define PrintDlgEx_ PrintDlgExW
+	#define PrintDlgEx PrintDlgExW
 #else
-	#define PrintDlgEx_ PrintDlgExA
+	#define PrintDlgEx PrintDlgExA
 #endif
 
 #define PD_ALLPAGES &h0
@@ -1318,9 +1311,9 @@ declare function PageSetupDlgA(byval as LPPAGESETUPDLGA) as WINBOOL
 declare function PageSetupDlgW(byval as LPPAGESETUPDLGW) as WINBOOL
 
 #ifdef UNICODE
-	#define PageSetupDlg_ PageSetupDlgW
+	#define PageSetupDlg PageSetupDlgW
 #else
-	#define PageSetupDlg_ PageSetupDlgA
+	#define PageSetupDlg PageSetupDlgA
 #endif
 
 #define PSD_DEFAULTMINMARGINS &h0

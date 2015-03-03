@@ -1,34 +1,5 @@
 #pragma once
 
-'' The following symbols have been renamed:
-''     #define IUP_K_a => IUP_K_a_
-''     #define IUP_K_b => IUP_K_b_
-''     #define IUP_K_c => IUP_K_c_
-''     #define IUP_K_d => IUP_K_d_
-''     #define IUP_K_e => IUP_K_e_
-''     #define IUP_K_f => IUP_K_f_
-''     #define IUP_K_g => IUP_K_g_
-''     #define IUP_K_h => IUP_K_h_
-''     #define IUP_K_i => IUP_K_i_
-''     #define IUP_K_j => IUP_K_j_
-''     #define IUP_K_k => IUP_K_k_
-''     #define IUP_K_l => IUP_K_l_
-''     #define IUP_K_m => IUP_K_m_
-''     #define IUP_K_n => IUP_K_n_
-''     #define IUP_K_o => IUP_K_o_
-''     #define IUP_K_p => IUP_K_p_
-''     #define IUP_K_q => IUP_K_q_
-''     #define IUP_K_r => IUP_K_r_
-''     #define IUP_K_s => IUP_K_s_
-''     #define IUP_K_t => IUP_K_t_
-''     #define IUP_K_u => IUP_K_u_
-''     #define IUP_K_v => IUP_K_v_
-''     #define IUP_K_w => IUP_K_w_
-''     #define IUP_K_x => IUP_K_x_
-''     #define IUP_K_y => IUP_K_y_
-''     #define IUP_K_z => IUP_K_z_
-''     #define IUP_K_CR => IUP_K_CR_
-
 #define __IUPDEF_H
 #define IUP_RUN "RUN"
 #define IUP_ENGLISH "ENGLISH"
@@ -299,32 +270,32 @@
 #define IUP_K_circum "K_circum"
 #define IUP_K_underscore "K_underscore"
 #define IUP_K_quoteleft "K_quoteleft"
-#define IUP_K_a_ "K_a"
-#define IUP_K_b_ "K_b"
-#define IUP_K_c_ "K_c"
-#define IUP_K_d_ "K_d"
-#define IUP_K_e_ "K_e"
-#define IUP_K_f_ "K_f"
-#define IUP_K_g_ "K_g"
-#define IUP_K_h_ "K_h"
-#define IUP_K_i_ "K_i"
-#define IUP_K_j_ "K_j"
-#define IUP_K_k_ "K_k"
-#define IUP_K_l_ "K_l"
-#define IUP_K_m_ "K_m"
-#define IUP_K_n_ "K_n"
-#define IUP_K_o_ "K_o"
-#define IUP_K_p_ "K_p"
-#define IUP_K_q_ "K_q"
-#define IUP_K_r_ "K_r"
-#define IUP_K_s_ "K_s"
-#define IUP_K_t_ "K_t"
-#define IUP_K_u_ "K_u"
-#define IUP_K_v_ "K_v"
-#define IUP_K_w_ "K_w"
-#define IUP_K_x_ "K_x"
-#define IUP_K_y_ "K_y"
-#define IUP_K_z_ "K_z"
+#define IUP_K_a "K_a"
+#define IUP_K_b "K_b"
+#define IUP_K_c "K_c"
+#define IUP_K_d "K_d"
+#define IUP_K_e "K_e"
+#define IUP_K_f "K_f"
+#define IUP_K_g "K_g"
+#define IUP_K_h "K_h"
+#define IUP_K_i "K_i"
+#define IUP_K_j "K_j"
+#define IUP_K_k "K_k"
+#define IUP_K_l "K_l"
+#define IUP_K_m "K_m"
+#define IUP_K_n "K_n"
+#define IUP_K_o "K_o"
+#define IUP_K_p "K_p"
+#define IUP_K_q "K_q"
+#define IUP_K_r "K_r"
+#define IUP_K_s "K_s"
+#define IUP_K_t "K_t"
+#define IUP_K_u "K_u"
+#define IUP_K_v "K_v"
+#define IUP_K_w "K_w"
+#define IUP_K_x "K_x"
+#define IUP_K_y "K_y"
+#define IUP_K_z "K_z"
 #define IUP_K_braceleft "K_braceleft"
 #define IUP_K_bar "K_bar"
 #define IUP_K_braceright "K_braceright"
@@ -380,7 +351,7 @@
 #define IUP_K_mZ "K_mZ"
 #define IUP_K_BS "K_BS"
 #define IUP_K_TAB "K_TAB"
-#define IUP_K_CR_ "K_CR"
+#define IUP_K_CR "K_CR"
 #define IUP_K_SP "K_SP"
 #define IUP_K_ESC "K_ESC"
 #define IUP_K_sCR "K_sCR"

@@ -6,9 +6,6 @@
 #include once "ole2.bi"
 #include once "wtypesbase.bi"
 
-'' The following symbols have been renamed:
-''     typedef DATE => DATE_
-
 extern "C"
 
 #define __REQUIRED_RPCNDR_H_VERSION__ 475
@@ -114,33 +111,33 @@ type HCONTEXT as any ptr
 #define WDT_REMOTE_CALL &h52746457
 #define WDT_INPROC64_CALL &h50746457
 
-union ___userCLIPFORMAT_u
+union _userCLIPFORMAT_u
 	dwValue as DWORD
 	pwszName as wstring ptr
 end union
 
 type _userCLIPFORMAT
 	fContext as LONG
-	u as ___userCLIPFORMAT_u
+	u as _userCLIPFORMAT_u
 end type
 
 type userCLIPFORMAT as _userCLIPFORMAT
 type wireCLIPFORMAT as userCLIPFORMAT ptr
 type CLIPFORMAT as WORD
 
-union ___GDI_NONREMOTE_u
+union _GDI_NONREMOTE_u
 	hInproc as LONG
 	hRemote as DWORD_BLOB ptr
 end union
 
 type _GDI_NONREMOTE
 	fContext as LONG
-	u as ___GDI_NONREMOTE_u
+	u as _GDI_NONREMOTE_u
 end type
 
 type GDI_NONREMOTE as _GDI_NONREMOTE
 
-union ___userHGLOBAL_u
+union _userHGLOBAL_u
 	hInproc as LONG
 	hRemote as FLAGGED_BYTE_BLOB ptr
 	hInproc64 as INT64
@@ -148,13 +145,13 @@ end union
 
 type _userHGLOBAL
 	fContext as LONG
-	u as ___userHGLOBAL_u
+	u as _userHGLOBAL_u
 end type
 
 type userHGLOBAL as _userHGLOBAL
 type wireHGLOBAL as userHGLOBAL ptr
 
-union ___userHMETAFILE_u
+union _userHMETAFILE_u
 	hInproc as LONG
 	hRemote as BYTE_BLOB ptr
 	hInproc64 as INT64
@@ -162,7 +159,7 @@ end union
 
 type _userHMETAFILE
 	fContext as LONG
-	u as ___userHMETAFILE_u
+	u as _userHMETAFILE_u
 end type
 
 type userHMETAFILE as _userHMETAFILE
@@ -176,7 +173,7 @@ end type
 
 type remoteMETAFILEPICT as _remoteMETAFILEPICT
 
-union ___userHMETAFILEPICT_u
+union _userHMETAFILEPICT_u
 	hInproc as LONG
 	hRemote as remoteMETAFILEPICT ptr
 	hInproc64 as INT64
@@ -184,12 +181,12 @@ end union
 
 type _userHMETAFILEPICT
 	fContext as LONG
-	u as ___userHMETAFILEPICT_u
+	u as _userHMETAFILEPICT_u
 end type
 
 type userHMETAFILEPICT as _userHMETAFILEPICT
 
-union ___userHENHMETAFILE_u
+union _userHENHMETAFILE_u
 	hInproc as LONG
 	hRemote as BYTE_BLOB ptr
 	hInproc64 as INT64
@@ -197,7 +194,7 @@ end union
 
 type _userHENHMETAFILE
 	fContext as LONG
-	u as ___userHENHMETAFILE_u
+	u as _userHENHMETAFILE_u
 end type
 
 type userHENHMETAFILE as _userHENHMETAFILE
@@ -215,7 +212,7 @@ end type
 
 type userBITMAP as _userBITMAP
 
-union ___userHBITMAP_u
+union _userHBITMAP_u
 	hInproc as LONG
 	hRemote as userBITMAP ptr
 	hInproc64 as INT64
@@ -223,12 +220,12 @@ end union
 
 type _userHBITMAP
 	fContext as LONG
-	u as ___userHBITMAP_u
+	u as _userHBITMAP_u
 end type
 
 type userHBITMAP as _userHBITMAP
 
-union ___userHPALETTE_u
+union _userHPALETTE_u
 	hInproc as LONG
 	hRemote as LOGPALETTE ptr
 	hInproc64 as INT64
@@ -236,19 +233,19 @@ end union
 
 type _userHPALETTE
 	fContext as LONG
-	u as ___userHPALETTE_u
+	u as _userHPALETTE_u
 end type
 
 type userHPALETTE as _userHPALETTE
 
-union ___RemotableHandle_u
+union _RemotableHandle_u
 	hInproc as LONG
 	hRemote as LONG
 end union
 
 type _RemotableHandle
 	fContext as LONG
-	u as ___RemotableHandle_u
+	u as _RemotableHandle_u
 end type
 
 type RemotableHandle as _RemotableHandle
@@ -267,7 +264,7 @@ type wireHENHMETAFILE as userHENHMETAFILE ptr
 type wireHMETAFILE as userHMETAFILE ptr
 type wireHMETAFILEPICT as userHMETAFILEPICT ptr
 type HMETAFILEPICT as any ptr
-type DATE_ as double
+type DATE as double
 
 #define _tagCY_DEFINED
 #define _CY_DEFINED
@@ -313,11 +310,8 @@ type DECIMAL as tagDEC
 #define DECIMAL_NEG cast(UBYTE, &h80)
 #macro DECIMAL_SETZERO(dec)
 	scope
-		(dec).Lo64
 		'' TODO: (dec).Lo64 = 0;
-		(dec).Hi32
 		'' TODO: (dec).Hi32 = 0;
-		(dec).signscale
 		'' TODO: (dec).signscale = 0;
 	end scope
 #endmacro
@@ -453,29 +447,29 @@ end enum
 
 type TYSPEC as tagTYSPEC
 
-type ____WIDL_wtypes_generated_name_00000000_ByName
+type __WIDL_wtypes_generated_name_00000000_tagged_union_ByName
 	pPackageName as LPOLESTR
 	PolicyId as GUID
 end type
 
-type ____WIDL_wtypes_generated_name_00000000_ByObjectId
+type __WIDL_wtypes_generated_name_00000000_tagged_union_ByObjectId
 	ObjectId as GUID
 	PolicyId as GUID
 end type
 
-union ____WIDL_wtypes_generated_name_00000000_tagged_union
+union __WIDL_wtypes_generated_name_00000000_tagged_union
 	clsid as CLSID
 	pFileExt as LPOLESTR
 	pMimeType as LPOLESTR
 	pProgId as LPOLESTR
 	pFileName as LPOLESTR
-	ByName as ____WIDL_wtypes_generated_name_00000000_ByName
-	ByObjectId as ____WIDL_wtypes_generated_name_00000000_ByObjectId
+	ByName as __WIDL_wtypes_generated_name_00000000_tagged_union_ByName
+	ByObjectId as __WIDL_wtypes_generated_name_00000000_tagged_union_ByObjectId
 end union
 
 type __WIDL_wtypes_generated_name_00000000
 	tyspec as DWORD
-	tagged_union as ____WIDL_wtypes_generated_name_00000000_tagged_union
+	tagged_union as __WIDL_wtypes_generated_name_00000000_tagged_union
 end type
 
 type uCLSSPEC as __WIDL_wtypes_generated_name_00000000

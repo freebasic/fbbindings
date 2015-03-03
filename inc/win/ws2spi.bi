@@ -9,29 +9,26 @@
 #endif
 
 #define _WINSOCK2SPI_
-
-#ifndef __FB_64BIT__
-	type WSPData field = 4
-		wVersion as WORD
-		wHighVersion as WORD
-		szDescription as wstring * 255 + 1
-	end type
-
-	type LPWSPDATA as WSPData ptr
-#endif
-
 #define WSPDESCRIPTION_LEN 255
 #define WSS_OPERATION_IN_PROGRESS __MSABI_LONG(&h00000103)
 
 #ifdef __FB_64BIT__
-	type WSPData
+	type WSPDATA
 		wVersion as WORD
 		wHighVersion as WORD
 		szDescription as wstring * 255 + 1
 	end type
+#else
+	type WSPDATA field = 4
+		wVersion as WORD
+		wHighVersion as WORD
+		szDescription as wstring * 255 + 1
+	end type
+#endif
 
-	type LPWSPDATA as WSPData ptr
+type LPWSPDATA as WSPDATA ptr
 
+#ifdef __FB_64BIT__
 	type _WSATHREADID
 		ThreadHandle as HANDLE
 		Reserved as DWORD_PTR
@@ -50,36 +47,36 @@ type LPWSATHREADID as _WSATHREADID ptr
 
 type LPBLOCKINGCALLBACK as function(byval dwContext as DWORD_PTR) as WINBOOL
 type LPWSAUSERAPC as sub(byval dwContext as DWORD_PTR)
-type LPWSPACCEPT as function(byval s as SOCKET, byval addr as sockaddr ptr, byval addrlen as LPINT, byval lpfnCondition as LPCONDITIONPROC, byval dwCallbackData as DWORD_PTR, byval lpErrno as LPINT) as SOCKET
-type LPWSPADDRESSTOSTRING as function(byval lpsaAddress as LPSOCKADDR, byval dwAddressLength as DWORD, byval lpProtocolInfo as LPWSAPROTOCOL_INFOW, byval lpszAddressString as LPWSTR, byval lpdwAddressStringLength as LPDWORD, byval lpErrno as LPINT) as INT_
+type LPWSPACCEPT as function(byval s as SOCKET, byval addr as SOCKADDR ptr, byval addrlen as LPINT, byval lpfnCondition as LPCONDITIONPROC, byval dwCallbackData as DWORD_PTR, byval lpErrno as LPINT) as SOCKET
+type LPWSPADDRESSTOSTRING as function(byval lpsaAddress as LPSOCKADDR, byval dwAddressLength as DWORD, byval lpProtocolInfo as LPWSAPROTOCOL_INFOW, byval lpszAddressString as LPWSTR, byval lpdwAddressStringLength as LPDWORD, byval lpErrno as LPINT) as INT
 type LPWSPASYNCSELECT as function(byval s as SOCKET, byval hWnd as HWND, byval wMsg as ulong, byval lEvent as long, byval lpErrno as LPINT) as long
-type LPWSPBIND as function(byval s as SOCKET, byval name_ as const sockaddr ptr, byval namelen as long, byval lpErrno as LPINT) as long
+type LPWSPBIND as function(byval s as SOCKET, byval name as const SOCKADDR ptr, byval namelen as long, byval lpErrno as LPINT) as long
 type LPWSPCANCELBLOCKINGCALL as function(byval lpErrno as LPINT) as long
 type LPWSPCLEANUP as function(byval lpErrno as LPINT) as long
 type LPWSPCLOSESOCKET as function(byval s as SOCKET, byval lpErrno as LPINT) as long
-type LPWSPCONNECT as function(byval s as SOCKET, byval name_ as const sockaddr ptr, byval namelen as long, byval lpCallerData as LPWSABUF, byval lpCalleeData as LPWSABUF, byval lpSQOS as LPQOS, byval lpGQOS as LPQOS, byval lpErrno as LPINT) as long
+type LPWSPCONNECT as function(byval s as SOCKET, byval name as const SOCKADDR ptr, byval namelen as long, byval lpCallerData as LPWSABUF, byval lpCalleeData as LPWSABUF, byval lpSQOS as LPQOS, byval lpGQOS as LPQOS, byval lpErrno as LPINT) as long
 type LPWSPDUPLICATESOCKET as function(byval s as SOCKET, byval dwProcessId as DWORD, byval lpProtocolInfo as LPWSAPROTOCOL_INFOW, byval lpErrno as LPINT) as long
 type LPWSPENUMNETWORKEVENTS as function(byval s as SOCKET, byval hEventObject as HANDLE, byval lpNetworkEvents as LPWSANETWORKEVENTS, byval lpErrno as LPINT) as long
 type LPWSPEVENTSELECT as function(byval s as SOCKET, byval hEventObject as HANDLE, byval lNetworkEvents as long, byval lpErrno as LPINT) as long
 type LPWSPGETOVERLAPPEDRESULT as function(byval s as SOCKET, byval lpOverlapped as LPWSAOVERLAPPED, byval lpcbTransfer as LPDWORD, byval fWait as WINBOOL, byval lpdwFlags as LPDWORD, byval lpErrno as LPINT) as WINBOOL
-type LPWSPGETPEERNAME as function(byval s as SOCKET, byval name_ as sockaddr ptr, byval namelen as LPINT, byval lpErrno as LPINT) as long
-type LPWSPGETSOCKNAME as function(byval s as SOCKET, byval name_ as sockaddr ptr, byval namelen as LPINT, byval lpErrno as LPINT) as long
+type LPWSPGETPEERNAME as function(byval s as SOCKET, byval name as SOCKADDR ptr, byval namelen as LPINT, byval lpErrno as LPINT) as long
+type LPWSPGETSOCKNAME as function(byval s as SOCKET, byval name as SOCKADDR ptr, byval namelen as LPINT, byval lpErrno as LPINT) as long
 type LPWSPGETSOCKOPT as function(byval s as SOCKET, byval level as long, byval optname as long, byval optval as zstring ptr, byval optlen as LPINT, byval lpErrno as LPINT) as long
 type LPWSPGETQOSBYNAME as function(byval s as SOCKET, byval lpQOSName as LPWSABUF, byval lpQOS as LPQOS, byval lpErrno as LPINT) as WINBOOL
 type LPWSPIOCTL as function(byval s as SOCKET, byval dwIoControlCode as DWORD, byval lpvInBuffer as LPVOID, byval cbInBuffer as DWORD, byval lpvOutBuffer as LPVOID, byval cbOutBuffer as DWORD, byval lpcbBytesReturned as LPDWORD, byval lpOverlapped as LPWSAOVERLAPPED, byval lpCompletionRoutine as LPWSAOVERLAPPED_COMPLETION_ROUTINE, byval lpThreadId as LPWSATHREADID, byval lpErrno as LPINT) as long
-type LPWSPJOINLEAF as function(byval s as SOCKET, byval name_ as const sockaddr ptr, byval namelen as long, byval lpCallerData as LPWSABUF, byval lpCalleeData as LPWSABUF, byval lpSQOS as LPQOS, byval lpGQOS as LPQOS, byval dwFlags as DWORD, byval lpErrno as LPINT) as SOCKET
+type LPWSPJOINLEAF as function(byval s as SOCKET, byval name as const SOCKADDR ptr, byval namelen as long, byval lpCallerData as LPWSABUF, byval lpCalleeData as LPWSABUF, byval lpSQOS as LPQOS, byval lpGQOS as LPQOS, byval dwFlags as DWORD, byval lpErrno as LPINT) as SOCKET
 type LPWSPLISTEN as function(byval s as SOCKET, byval backlog as long, byval lpErrno as LPINT) as long
 type LPWSPRECV as function(byval s as SOCKET, byval lpBuffers as LPWSABUF, byval dwBufferCount as DWORD, byval lpNumberOfBytesRecvd as LPDWORD, byval lpFlags as LPDWORD, byval lpOverlapped as LPWSAOVERLAPPED, byval lpCompletionRoutine as LPWSAOVERLAPPED_COMPLETION_ROUTINE, byval lpThreadId as LPWSATHREADID, byval lpErrno as LPINT) as long
 type LPWSPRECVDISCONNECT as function(byval s as SOCKET, byval lpInboundDisconnectData as LPWSABUF, byval lpErrno as LPINT) as long
-type LPWSPRECVFROM as function(byval s as SOCKET, byval lpBuffers as LPWSABUF, byval dwBufferCount as DWORD, byval lpNumberOfBytesRecvd as LPDWORD, byval lpFlags as LPDWORD, byval lpFrom as sockaddr ptr, byval lpFromlen as LPINT, byval lpOverlapped as LPWSAOVERLAPPED, byval lpCompletionRoutine as LPWSAOVERLAPPED_COMPLETION_ROUTINE, byval lpThreadId as LPWSATHREADID, byval lpErrno as LPINT) as long
-type LPWSPSELECT as function(byval nfds as long, byval readfds as fd_set ptr, byval writefds as fd_set ptr, byval exceptfds as fd_set ptr, byval timeout as const PTIMEVAL, byval lpErrno as LPINT) as long
+type LPWSPRECVFROM as function(byval s as SOCKET, byval lpBuffers as LPWSABUF, byval dwBufferCount as DWORD, byval lpNumberOfBytesRecvd as LPDWORD, byval lpFlags as LPDWORD, byval lpFrom as SOCKADDR ptr, byval lpFromlen as LPINT, byval lpOverlapped as LPWSAOVERLAPPED, byval lpCompletionRoutine as LPWSAOVERLAPPED_COMPLETION_ROUTINE, byval lpThreadId as LPWSATHREADID, byval lpErrno as LPINT) as long
+type LPWSPSELECT as function(byval nfds as long, byval readfds as FD_SET ptr, byval writefds as FD_SET ptr, byval exceptfds as FD_SET ptr, byval timeout as const PTIMEVAL, byval lpErrno as LPINT) as long
 type LPWSPSEND as function(byval s as SOCKET, byval lpBuffers as LPWSABUF, byval dwBufferCount as DWORD, byval lpNumberOfBytesSent as LPDWORD, byval dwFlags as DWORD, byval lpOverlapped as LPWSAOVERLAPPED, byval lpCompletionRoutine as LPWSAOVERLAPPED_COMPLETION_ROUTINE, byval lpThreadId as LPWSATHREADID, byval lpErrno as LPINT) as long
 type LPWSPSENDDISCONNECT as function(byval s as SOCKET, byval lpOutboundDisconnectData as LPWSABUF, byval lpErrno as LPINT) as long
-type LPWSPSENDTO as function(byval s as SOCKET, byval lpBuffers as LPWSABUF, byval dwBufferCount as DWORD, byval lpNumberOfBytesSent as LPDWORD, byval dwFlags as DWORD, byval lpTo as const sockaddr ptr, byval iTolen as long, byval lpOverlapped as LPWSAOVERLAPPED, byval lpCompletionRoutine as LPWSAOVERLAPPED_COMPLETION_ROUTINE, byval lpThreadId as LPWSATHREADID, byval lpErrno as LPINT) as long
+type LPWSPSENDTO as function(byval s as SOCKET, byval lpBuffers as LPWSABUF, byval dwBufferCount as DWORD, byval lpNumberOfBytesSent as LPDWORD, byval dwFlags as DWORD, byval lpTo as const SOCKADDR ptr, byval iTolen as long, byval lpOverlapped as LPWSAOVERLAPPED, byval lpCompletionRoutine as LPWSAOVERLAPPED_COMPLETION_ROUTINE, byval lpThreadId as LPWSATHREADID, byval lpErrno as LPINT) as long
 type LPWSPSETSOCKOPT as function(byval s as SOCKET, byval level as long, byval optname as long, byval optval as const zstring ptr, byval optlen as long, byval lpErrno as LPINT) as long
 type LPWSPSHUTDOWN as function(byval s as SOCKET, byval how as long, byval lpErrno as LPINT) as long
-type LPWSPSOCKET as function(byval af as long, byval type_ as long, byval protocol as long, byval lpProtocolInfo as LPWSAPROTOCOL_INFOW, byval g as GROUP, byval dwFlags as DWORD, byval lpErrno as LPINT) as SOCKET
-type LPWSPSTRINGTOADDRESS as function(byval AddressString as LPWSTR, byval AddressFamily as INT_, byval lpProtocolInfo as LPWSAPROTOCOL_INFOW, byval lpAddress as LPSOCKADDR, byval lpAddressLength as LPINT, byval lpErrno as LPINT) as INT_
+type LPWSPSOCKET as function(byval af as long, byval type as long, byval protocol as long, byval lpProtocolInfo as LPWSAPROTOCOL_INFOW, byval g as GROUP, byval dwFlags as DWORD, byval lpErrno as LPINT) as SOCKET
+type LPWSPSTRINGTOADDRESS as function(byval AddressString as LPWSTR, byval AddressFamily as INT, byval lpProtocolInfo as LPWSAPROTOCOL_INFOW, byval lpAddress as LPSOCKADDR, byval lpAddressLength as LPINT, byval lpErrno as LPINT) as INT
 
 #ifdef __FB_64BIT__
 	type _WSPPROC_TABLE
@@ -155,7 +152,7 @@ type LPWPUCLOSEEVENT as function(byval hEvent as HANDLE, byval lpErrno as LPINT)
 type LPWPUCLOSESOCKETHANDLE as function(byval s as SOCKET, byval lpErrno as LPINT) as long
 type LPWPUCREATEEVENT as function(byval lpErrno as LPINT) as HANDLE
 type LPWPUCREATESOCKETHANDLE as function(byval dwCatalogEntryId as DWORD, byval dwContext as DWORD_PTR, byval lpErrno as LPINT) as SOCKET
-type LPWPUFDISSET as function(byval s as SOCKET, byval fdset as fd_set ptr) as long
+type LPWPUFDISSET as function(byval s as SOCKET, byval fdset as FD_SET ptr) as long
 type LPWPUGETPROVIDERPATH as function(byval lpProviderId as LPGUID, byval lpszProviderDllPath as wstring ptr, byval lpProviderDllPathLen as LPINT, byval lpErrno as LPINT) as long
 type LPWPUMODIFYIFSHANDLE as function(byval dwCatalogEntryId as DWORD, byval ProposedHandle as SOCKET, byval lpErrno as LPINT) as SOCKET
 type LPWPUPOSTMESSAGE as function(byval hWnd as HWND, byval Msg as UINT, byval wParam as WPARAM, byval lParam as LPARAM) as WINBOOL
@@ -238,7 +235,7 @@ declare function WPUCloseEvent(byval hEvent as HANDLE, byval lpErrno as LPINT) a
 declare function WPUCloseSocketHandle(byval s as SOCKET, byval lpErrno as LPINT) as long
 declare function WPUCreateEvent(byval lpErrno as LPINT) as HANDLE
 declare function WPUCreateSocketHandle(byval dwCatalogEntryId as DWORD, byval dwContext as DWORD_PTR, byval lpErrno as LPINT) as SOCKET
-declare function WPUFDIsSet(byval s as SOCKET, byval fdset as fd_set ptr) as long
+declare function WPUFDIsSet(byval s as SOCKET, byval fdset as FD_SET ptr) as long
 declare function WPUGetProviderPath(byval lpProviderId as LPGUID, byval lpszProviderDllPath as wstring ptr, byval lpProviderDllPathLen as LPINT, byval lpErrno as LPINT) as long
 declare function WPUModifyIFSHandle(byval dwCatalogEntryId as DWORD, byval ProposedHandle as SOCKET, byval lpErrno as LPINT) as SOCKET
 declare function WPUPostMessage(byval hWnd as HWND, byval Msg as UINT, byval wParam as WPARAM, byval lParam as LPARAM) as WINBOOL
@@ -255,32 +252,32 @@ declare function WPUCloseThread(byval lpThreadId as LPWSATHREADID, byval lpErrno
 #define LPFN_WSCENUMNAMESPACEPROVIDERS LPFN_WSAENUMNAMESPACEPROVIDERSW
 
 #ifdef __FB_64BIT__
-	declare function WSCEnumNameSpaceProviders32(byval lpdwBufferLength as LPDWORD, byval lpnspBuffer as LPWSANAMESPACE_INFOW) as INT_
+	declare function WSCEnumNameSpaceProviders32(byval lpdwBufferLength as LPDWORD, byval lpnspBuffer as LPWSANAMESPACE_INFOW) as INT
 #endif
 
-type LPWSCINSTALLNAMESPACE as function(byval lpszIdentifier as LPWSTR, byval lpszPathName as LPWSTR, byval dwNameSpace as DWORD, byval dwVersion as DWORD, byval lpProviderId as LPGUID) as INT_
-type LPWSCUNINSTALLNAMESPACE as function(byval lpProviderId as LPGUID) as INT_
-type LPWSCENABLENSPROVIDER as function(byval lpProviderId as LPGUID, byval fEnable as WINBOOL) as INT_
+type LPWSCINSTALLNAMESPACE as function(byval lpszIdentifier as LPWSTR, byval lpszPathName as LPWSTR, byval dwNameSpace as DWORD, byval dwVersion as DWORD, byval lpProviderId as LPGUID) as INT
+type LPWSCUNINSTALLNAMESPACE as function(byval lpProviderId as LPGUID) as INT
+type LPWSCENABLENSPROVIDER as function(byval lpProviderId as LPGUID, byval fEnable as WINBOOL) as INT
 
-declare function WSCInstallNameSpace(byval lpszIdentifier as LPWSTR, byval lpszPathName as LPWSTR, byval dwNameSpace as DWORD, byval dwVersion as DWORD, byval lpProviderId as LPGUID) as INT_
-declare function WSCUnInstallNameSpace(byval lpProviderId as LPGUID) as INT_
-declare function WSCEnableNSProvider(byval lpProviderId as LPGUID, byval fEnable as WINBOOL) as INT_
+declare function WSCInstallNameSpace(byval lpszIdentifier as LPWSTR, byval lpszPathName as LPWSTR, byval dwNameSpace as DWORD, byval dwVersion as DWORD, byval lpProviderId as LPGUID) as INT
+declare function WSCUnInstallNameSpace(byval lpProviderId as LPGUID) as INT
+declare function WSCEnableNSProvider(byval lpProviderId as LPGUID, byval fEnable as WINBOOL) as INT
 
 #ifdef __FB_64BIT__
-	declare function WSCInstallNameSpace32(byval lpszIdentifier as LPWSTR, byval lpszPathName as LPWSTR, byval dwNameSpace as DWORD, byval dwVersion as DWORD, byval lpProviderId as LPGUID) as INT_
-	declare function WSCUnInstallNameSpace32(byval lpProviderId as LPGUID) as INT_
-	declare function WSCEnableNSProvider32(byval lpProviderId as LPGUID, byval fEnable as WINBOOL) as INT_
+	declare function WSCInstallNameSpace32(byval lpszIdentifier as LPWSTR, byval lpszPathName as LPWSTR, byval dwNameSpace as DWORD, byval dwVersion as DWORD, byval lpProviderId as LPGUID) as INT
+	declare function WSCUnInstallNameSpace32(byval lpProviderId as LPGUID) as INT
+	declare function WSCEnableNSProvider32(byval lpProviderId as LPGUID, byval fEnable as WINBOOL) as INT
 #endif
 
-type LPNSPCLEANUP as function(byval lpProviderId as LPGUID) as INT_
-type LPNSPLOOKUPSERVICEBEGIN as function(byval lpProviderId as LPGUID, byval lpqsRestrictions as LPWSAQUERYSETW, byval lpServiceClassInfo as LPWSASERVICECLASSINFOW, byval dwControlFlags as DWORD, byval lphLookup as LPHANDLE) as INT_
-type LPNSPLOOKUPSERVICENEXT as function(byval hLookup as HANDLE, byval dwControlFlags as DWORD, byval lpdwBufferLength as LPDWORD, byval lpqsResults as LPWSAQUERYSETW) as INT_
-type LPNSPIOCTL as function(byval hLookup as HANDLE, byval dwControlCode as DWORD, byval lpvInBuffer as LPVOID, byval cbInBuffer as DWORD, byval lpvOutBuffer as LPVOID, byval cbOutBuffer as DWORD, byval lpcbBytesReturned as LPDWORD, byval lpCompletion as LPWSACOMPLETION, byval lpThreadId as LPWSATHREADID) as INT_
-type LPNSPLOOKUPSERVICEEND as function(byval hLookup as HANDLE) as INT_
-type LPNSPSETSERVICE as function(byval lpProviderId as LPGUID, byval lpServiceClassInfo as LPWSASERVICECLASSINFOW, byval lpqsRegInfo as LPWSAQUERYSETW, byval essOperation as WSAESETSERVICEOP, byval dwControlFlags as DWORD) as INT_
-type LPNSPINSTALLSERVICECLASS as function(byval lpProviderId as LPGUID, byval lpServiceClassInfo as LPWSASERVICECLASSINFOW) as INT_
-type LPNSPREMOVESERVICECLASS as function(byval lpProviderId as LPGUID, byval lpServiceClassId as LPGUID) as INT_
-type LPNSPGETSERVICECLASSINFO as function(byval lpProviderId as LPGUID, byval lpdwBufSize as LPDWORD, byval lpServiceClassInfo as LPWSASERVICECLASSINFOW) as INT_
+type LPNSPCLEANUP as function(byval lpProviderId as LPGUID) as INT
+type LPNSPLOOKUPSERVICEBEGIN as function(byval lpProviderId as LPGUID, byval lpqsRestrictions as LPWSAQUERYSETW, byval lpServiceClassInfo as LPWSASERVICECLASSINFOW, byval dwControlFlags as DWORD, byval lphLookup as LPHANDLE) as INT
+type LPNSPLOOKUPSERVICENEXT as function(byval hLookup as HANDLE, byval dwControlFlags as DWORD, byval lpdwBufferLength as LPDWORD, byval lpqsResults as LPWSAQUERYSETW) as INT
+type LPNSPIOCTL as function(byval hLookup as HANDLE, byval dwControlCode as DWORD, byval lpvInBuffer as LPVOID, byval cbInBuffer as DWORD, byval lpvOutBuffer as LPVOID, byval cbOutBuffer as DWORD, byval lpcbBytesReturned as LPDWORD, byval lpCompletion as LPWSACOMPLETION, byval lpThreadId as LPWSATHREADID) as INT
+type LPNSPLOOKUPSERVICEEND as function(byval hLookup as HANDLE) as INT
+type LPNSPSETSERVICE as function(byval lpProviderId as LPGUID, byval lpServiceClassInfo as LPWSASERVICECLASSINFOW, byval lpqsRegInfo as LPWSAQUERYSETW, byval essOperation as WSAESETSERVICEOP, byval dwControlFlags as DWORD) as INT
+type LPNSPINSTALLSERVICECLASS as function(byval lpProviderId as LPGUID, byval lpServiceClassInfo as LPWSASERVICECLASSINFOW) as INT
+type LPNSPREMOVESERVICECLASS as function(byval lpProviderId as LPGUID, byval lpServiceClassId as LPGUID) as INT
+type LPNSPGETSERVICECLASSINFO as function(byval lpProviderId as LPGUID, byval lpdwBufSize as LPDWORD, byval lpServiceClassInfo as LPWSASERVICECLASSINFOW) as INT
 
 #ifdef __FB_64BIT__
 	type _NSP_ROUTINE
@@ -316,9 +313,9 @@ type LPNSPGETSERVICECLASSINFO as function(byval lpProviderId as LPGUID, byval lp
 
 type NSP_ROUTINE as _NSP_ROUTINE
 type LPNSP_ROUTINE as _NSP_ROUTINE ptr
-type LPNSPSTARTUP as function(byval lpProviderId as LPGUID, byval lpnspRoutines as LPNSP_ROUTINE) as INT_
+type LPNSPSTARTUP as function(byval lpProviderId as LPGUID, byval lpnspRoutines as LPNSP_ROUTINE) as INT
 
-declare function NSPStartup(byval lpProviderId as LPGUID, byval lpnspRoutines as LPNSP_ROUTINE) as INT_
+declare function NSPStartup(byval lpProviderId as LPGUID, byval lpnspRoutines as LPNSP_ROUTINE) as INT
 
 #if _WIN32_WINNT = &h0602
 	type LPNSPV2CLEANUP as function(byval lpProviderId as LPGUID, byval pvClientSessionArg as LPVOID) as long
@@ -398,9 +395,9 @@ declare function NSPStartup(byval lpProviderId as LPGUID, byval lpnspRoutines as
 	type WSC_PROVIDER_AUDIT_INFO as _WSC_PROVIDER_AUDIT_INFO
 	type PWSC_PROVIDER_AUDIT_INFO as _WSC_PROVIDER_AUDIT_INFO ptr
 
-	declare function WSAAdvertiseProvider(byval puuidProviderId as const GUID ptr, byval pNSPv2Routine as const LPCNSPV2_ROUTINE ptr) as INT_
-	declare function WSAProviderCompleteAsyncCall(byval hAsyncCall as HANDLE, byval iRetCode as INT_) as INT_
-	declare function WSAUnadvertiseProvider(byval puuidProviderId as const GUID ptr) as INT_
+	declare function WSAAdvertiseProvider(byval puuidProviderId as const GUID ptr, byval pNSPv2Routine as const LPCNSPV2_ROUTINE ptr) as INT
+	declare function WSAProviderCompleteAsyncCall(byval hAsyncCall as HANDLE, byval iRetCode as INT) as INT
+	declare function WSAUnadvertiseProvider(byval puuidProviderId as const GUID ptr) as INT
 	declare function WSCGetApplicationCategory(byval Path as LPCWSTR, byval PathLength as DWORD, byval Extra as LPCWSTR, byval ExtraLength as DWORD, byval pPermittedLspCategories as DWORD ptr, byval lpErrno as LPINT) as long
 	declare function WSCGetProviderInfo(byval lpProviderId as LPGUID, byval InfoType as WSC_PROVIDER_INFO_TYPE, byval Info as PBYTE, byval InfoSize as uinteger ptr, byval Flags as DWORD, byval lpErrno as LPINT) as long
 #endif
@@ -419,7 +416,7 @@ declare function NSPStartup(byval lpProviderId as LPGUID, byval lpnspRoutines as
 #endif
 
 #if defined(__FB_64BIT__) and (_WIN32_WINNT = &h0602)
-	declare function WSCEnumNameSpaceProvidersEx32(byval lpdwBufferLength as LPDWORD, byval lpnspBuffer as LPWSANAMESPACE_INFOEXW) as INT_
+	declare function WSCEnumNameSpaceProvidersEx32(byval lpdwBufferLength as LPDWORD, byval lpnspBuffer as LPWSANAMESPACE_INFOEXW) as INT
 	declare function WSCGetProviderInfo32(byval lpProviderId as LPGUID, byval InfoType as WSC_PROVIDER_INFO_TYPE, byval Info as PBYTE, byval InfoSize as uinteger ptr, byval Flags as DWORD, byval lpErrno as LPINT) as long
 	declare function WSCInstallNameSpaceEx32(byval lpszIdentifier as LPWSTR, byval lpszPathName as LPWSTR, byval dwNameSpace as DWORD, byval dwVersion as DWORD, byval lpProviderId as LPGUID, byval lpProviderInfo as LPBLOB) as long
 	declare function WSCInstallProviderAndChains64_32(byval lpProviderId as const LPGUID, byval lpszProviderDllPath as const LPWSTR, byval lpszProviderDllPath32 as const LPWSTR, byval lpszLspName as const LPWSTR, byval dwServiceFlags as DWORD, byval lpProtocolInfoList as const LPWSAPROTOCOL_INFO, byval dwNumberOfEntries as DWORD, byval lpdwCatalogEntryId as LPDWORD, byval lpErrno as LPINT) as long

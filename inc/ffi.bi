@@ -7,22 +7,6 @@
 #include once "crt/stddef.bi"
 #include once "crt/limits.bi"
 
-'' The following symbols have been renamed:
-''     typedef FFI_TYPE => FFI_TYPE_
-''     #define FFI_TYPE_VOID => FFI_TYPE_VOID_
-''     #define FFI_TYPE_FLOAT => FFI_TYPE_FLOAT_
-''     #define FFI_TYPE_DOUBLE => FFI_TYPE_DOUBLE_
-''     #define FFI_TYPE_LONGDOUBLE => FFI_TYPE_LONGDOUBLE_
-''     #define FFI_TYPE_UINT8 => FFI_TYPE_UINT8_
-''     #define FFI_TYPE_SINT8 => FFI_TYPE_SINT8_
-''     #define FFI_TYPE_UINT16 => FFI_TYPE_UINT16_
-''     #define FFI_TYPE_SINT16 => FFI_TYPE_SINT16_
-''     #define FFI_TYPE_UINT32 => FFI_TYPE_UINT32_
-''     #define FFI_TYPE_SINT32 => FFI_TYPE_SINT32_
-''     #define FFI_TYPE_UINT64 => FFI_TYPE_UINT64_
-''     #define FFI_TYPE_SINT64 => FFI_TYPE_SINT64_
-''     #define FFI_TYPE_POINTER => FFI_TYPE_POINTER_
-
 extern "C"
 
 #define LIBFFI_H
@@ -155,7 +139,7 @@ enum
 	FFI_BAD_ABI
 end enum
 
-type FFI_TYPE_ as ulong
+type FFI_TYPE as ulong
 
 type ffi_cif
 	abi as ffi_abi
@@ -242,21 +226,21 @@ declare function ffi_prep_cif_var(byval cif as ffi_cif ptr, byval abi as ffi_abi
 declare sub ffi_call(byval cif as ffi_cif ptr, byval fn as sub(), byval rvalue as any ptr, byval avalue as any ptr ptr)
 
 #define FFI_FN(f) cptr(sub cdecl(), f)
-#define FFI_TYPE_VOID_ 0
+#define FFI_TYPE_VOID 0
 #define FFI_TYPE_INT 1
-#define FFI_TYPE_FLOAT_ 2
-#define FFI_TYPE_DOUBLE_ 3
-#define FFI_TYPE_LONGDOUBLE_ 4
-#define FFI_TYPE_UINT8_ 5
-#define FFI_TYPE_SINT8_ 6
-#define FFI_TYPE_UINT16_ 7
-#define FFI_TYPE_SINT16_ 8
-#define FFI_TYPE_UINT32_ 9
-#define FFI_TYPE_SINT32_ 10
-#define FFI_TYPE_UINT64_ 11
-#define FFI_TYPE_SINT64_ 12
+#define FFI_TYPE_FLOAT 2
+#define FFI_TYPE_DOUBLE 3
+#define FFI_TYPE_LONGDOUBLE 4
+#define FFI_TYPE_UINT8 5
+#define FFI_TYPE_SINT8 6
+#define FFI_TYPE_UINT16 7
+#define FFI_TYPE_SINT16 8
+#define FFI_TYPE_UINT32 9
+#define FFI_TYPE_SINT32 10
+#define FFI_TYPE_UINT64 11
+#define FFI_TYPE_SINT64 12
 #define FFI_TYPE_STRUCT 13
-#define FFI_TYPE_POINTER_ 14
-#define FFI_TYPE_LAST FFI_TYPE_POINTER_
+#define FFI_TYPE_POINTER 14
+#define FFI_TYPE_LAST FFI_TYPE_POINTER
 
 end extern

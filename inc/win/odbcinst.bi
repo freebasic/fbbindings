@@ -2,33 +2,6 @@
 
 #include once "sql.bi"
 
-#ifdef UNICODE
-	'' The following symbols have been renamed:
-	''     #define SQLInstallODBC => SQLInstallODBC_
-	''     #define SQLCreateDataSource => SQLCreateDataSource_
-	''     #define SQLGetTranslator => SQLGetTranslator_
-	''     #define SQLInstallDriver => SQLInstallDriver_
-	''     #define SQLInstallDriverManager => SQLInstallDriverManager_
-	''     #define SQLGetInstalledDrivers => SQLGetInstalledDrivers_
-	''     #define SQLGetAvailableDrivers => SQLGetAvailableDrivers_
-	''     #define SQLConfigDataSource => SQLConfigDataSource_
-	''     #define SQLWriteDSNToIni => SQLWriteDSNToIni_
-	''     #define SQLRemoveDSNFromIni => SQLRemoveDSNFromIni_
-	''     #define SQLValidDSN => SQLValidDSN_
-	''     #define SQLWritePrivateProfileString => SQLWritePrivateProfileString_
-	''     #define SQLGetPrivateProfileString => SQLGetPrivateProfileString_
-	''     #define SQLInstallTranslator => SQLInstallTranslator_
-	''     #define SQLRemoveTranslator => SQLRemoveTranslator_
-	''     #define SQLRemoveDriver => SQLRemoveDriver_
-	''     #define SQLConfigDriver => SQLConfigDriver_
-	''     #define SQLInstallerError => SQLInstallerError_
-	''     #define SQLPostInstallerError => SQLPostInstallerError_
-	''     #define SQLReadFileDSN => SQLReadFileDSN_
-	''     #define SQLWriteFileDSN => SQLWriteFileDSN_
-	''     #define SQLInstallDriverEx => SQLInstallDriverEx_
-	''     #define SQLInstallTranslatorEx => SQLInstallTranslatorEx_
-#endif
-
 #ifdef __FB_64BIT__
 	extern "C"
 #else
@@ -133,29 +106,29 @@ declare function ConfigDSNW(byval hwndParent as HWND, byval fRequest as WORD, by
 declare function ConfigDriverW(byval hwndParent as HWND, byval fRequest as WORD, byval lpszDriver as LPCWSTR, byval lpszArgs as LPCWSTR, byval lpszMsg as LPWSTR, byval cbMsgMax as WORD, byval pcbMsgOut as WORD ptr) as WINBOOL
 
 #ifdef UNICODE
-	#define SQLInstallODBC_ SQLInstallODBCW
-	#define SQLCreateDataSource_ SQLCreateDataSourceW
-	#define SQLGetTranslator_ SQLGetTranslatorW
-	#define SQLInstallDriver_ SQLInstallDriverW
-	#define SQLInstallDriverManager_ SQLInstallDriverManagerW
-	#define SQLGetInstalledDrivers_ SQLGetInstalledDriversW
-	#define SQLGetAvailableDrivers_ SQLGetAvailableDriversW
-	#define SQLConfigDataSource_ SQLConfigDataSourceW
-	#define SQLWriteDSNToIni_ SQLWriteDSNToIniW
-	#define SQLRemoveDSNFromIni_ SQLRemoveDSNFromIniW
-	#define SQLValidDSN_ SQLValidDSNW
-	#define SQLWritePrivateProfileString_ SQLWritePrivateProfileStringW
-	#define SQLGetPrivateProfileString_ SQLGetPrivateProfileStringW
-	#define SQLInstallTranslator_ SQLInstallTranslatorW
-	#define SQLRemoveTranslator_ SQLRemoveTranslatorW
-	#define SQLRemoveDriver_ SQLRemoveDriverW
-	#define SQLConfigDriver_ SQLConfigDriverW
-	#define SQLInstallerError_ SQLInstallerErrorW
-	#define SQLPostInstallerError_ SQLPostInstallerErrorW
-	#define SQLReadFileDSN_ SQLReadFileDSNW
-	#define SQLWriteFileDSN_ SQLWriteFileDSNW
-	#define SQLInstallDriverEx_ SQLInstallDriverExW
-	#define SQLInstallTranslatorEx_ SQLInstallTranslatorExW
+	#define SQLInstallODBC SQLInstallODBCW
+	#define SQLCreateDataSource SQLCreateDataSourceW
+	#define SQLGetTranslator SQLGetTranslatorW
+	#define SQLInstallDriver SQLInstallDriverW
+	#define SQLInstallDriverManager SQLInstallDriverManagerW
+	#define SQLGetInstalledDrivers SQLGetInstalledDriversW
+	#define SQLGetAvailableDrivers SQLGetAvailableDriversW
+	#define SQLConfigDataSource SQLConfigDataSourceW
+	#define SQLWriteDSNToIni SQLWriteDSNToIniW
+	#define SQLRemoveDSNFromIni SQLRemoveDSNFromIniW
+	#define SQLValidDSN SQLValidDSNW
+	#define SQLWritePrivateProfileString SQLWritePrivateProfileStringW
+	#define SQLGetPrivateProfileString SQLGetPrivateProfileStringW
+	#define SQLInstallTranslator SQLInstallTranslatorW
+	#define SQLRemoveTranslator SQLRemoveTranslatorW
+	#define SQLRemoveDriver SQLRemoveDriverW
+	#define SQLConfigDriver SQLConfigDriverW
+	#define SQLInstallerError SQLInstallerErrorW
+	#define SQLPostInstallerError SQLPostInstallerErrorW
+	#define SQLReadFileDSN SQLReadFileDSNW
+	#define SQLWriteFileDSN SQLWriteFileDSNW
+	#define SQLInstallDriverEx SQLInstallDriverExW
+	#define SQLInstallTranslatorEx SQLInstallTranslatorExW
 #endif
 
 end extern

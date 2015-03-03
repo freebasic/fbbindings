@@ -3,12 +3,6 @@
 #include once "_mingw_unicode.bi"
 #include once "ras.bi"
 
-'' The following symbols have been renamed:
-''     #define RASENTRYDLGA => RASENTRYDLGA_
-''     #define RASENTRYDLGW => RASENTRYDLGW_
-''     #define RasEntryDlg => RasEntryDlg_
-''     #define RasDialDlg => RasDialDlg_
-
 #ifdef __FB_64BIT__
 	extern "C"
 #else
@@ -115,7 +109,7 @@ end type
 #define RASEDFLAG_NewBroadbandEntry &h00000080
 #define RASEDFLAG_InternetEntry &h00000100
 #define RASEDFLAG_NAT &h00000200
-#define RASENTRYDLGW_ tagRASENTRYDLGW
+#define RASENTRYDLGW tagRASENTRYDLGW
 
 type tagRASENTRYDLGW field = 4
 	dwSize as DWORD
@@ -129,7 +123,7 @@ type tagRASENTRYDLGW field = 4
 	reserved2 as ULONG_PTR
 end type
 
-#define RASENTRYDLGA_ tagRASENTRYDLGA
+#define RASENTRYDLGA tagRASENTRYDLGA
 
 type tagRASENTRYDLGA field = 4
 	dwSize as DWORD
@@ -144,9 +138,9 @@ type tagRASENTRYDLGA field = 4
 end type
 
 #ifdef UNICODE
-	#define RASENTRYDLG RASENTRYDLGW_
+	#define RASENTRYDLG RASENTRYDLGW
 #else
-	#define RASENTRYDLG RASENTRYDLGA_
+	#define RASENTRYDLG RASENTRYDLGA
 #endif
 
 #define LPRASENTRYDLGW '' TODO: RASENTRYDLGW*
@@ -188,12 +182,12 @@ declare function RasDialDlgW(byval lpszPhonebook as LPWSTR, byval lpszEntry as L
 
 #ifdef UNICODE
 	#define RasPhonebookDlg RasPhonebookDlgW
-	#define RasEntryDlg_ RasEntryDlgW
-	#define RasDialDlg_ RasDialDlgW
+	#define RasEntryDlg RasEntryDlgW
+	#define RasDialDlg RasDialDlgW
 #else
 	#define RasPhonebookDlg RasPhonebookDlgA
-	#define RasEntryDlg_ RasEntryDlgA
-	#define RasDialDlg_ RasDialDlgA
+	#define RasEntryDlg RasEntryDlgA
+	#define RasDialDlg RasDialDlgA
 #endif
 
 end extern

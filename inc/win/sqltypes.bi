@@ -1,10 +1,6 @@
 #pragma once
 
-'' The following symbols have been renamed:
-''     typedef PTR => PTR_
-
 #define __SQLTYPES
-#define ODBCVER &h0351
 
 type SQLCHAR as ubyte
 type SQLSCHAR as byte
@@ -52,12 +48,13 @@ type SCHAR as byte
 type SDWORD as long
 type SWORD as short
 type UDWORD as ulong
+type UWORD as ushort
 type SLONG as long
 type SSHORT as short
 type SDOUBLE as double
 type LDOUBLE as double
 type SFLOAT as single
-type PTR_ as any ptr
+type PTR as any ptr
 type HENV as any ptr
 type HDBC as any ptr
 type HSTMT as any ptr
@@ -131,7 +128,7 @@ end type
 
 type SQL_DAY_SECOND_STRUCT as tagSQL_DAY_SECOND
 
-union __tagSQL_INTERVAL_STRUCT_intval
+union tagSQL_INTERVAL_STRUCT_intval
 	year_month as SQL_YEAR_MONTH_STRUCT
 	day_second as SQL_DAY_SECOND_STRUCT
 end union
@@ -139,7 +136,7 @@ end union
 type tagSQL_INTERVAL_STRUCT
 	interval_type as SQLINTERVAL
 	interval_sign as SQLSMALLINT
-	intval as __tagSQL_INTERVAL_STRUCT_intval
+	intval as tagSQL_INTERVAL_STRUCT_intval
 end type
 
 type SQL_INTERVAL_STRUCT as tagSQL_INTERVAL_STRUCT

@@ -10,37 +10,11 @@
 #include once "dlgs.bi"
 #include once "prsht.bi"
 
-'' The following symbols have been renamed:
-''     #define OleUIInsertObject => OleUIInsertObject_
-''     #define OleUIPasteSpecial => OleUIPasteSpecial_
-''     inside struct tagOLEUIEDITLINKSW:
-''         field lpOleUILinkContainer => lpOleUILinkContainer_
-''     inside struct tagOLEUIEDITLINKSA:
-''         field lpOleUILinkContainer => lpOleUILinkContainer_
-''     #define OleUIEditLinks => OleUIEditLinks_
-''     #define OleUIChangeIcon => OleUIChangeIcon_
-''     #define OleUIConvert => OleUIConvert_
-''     #define OleUIBusy => OleUIBusy_
-''     inside struct tagOLEUICHANGESOURCEW:
-''         field lpOleUILinkContainer => lpOleUILinkContainer_
-''     inside struct tagOLEUICHANGESOURCEA:
-''         field lpOleUILinkContainer => lpOleUILinkContainer_
-''     #define OleUIChangeSource => OleUIChangeSource_
-
 #ifdef __FB_64BIT__
 	extern "C"
 #else
 	extern "Windows"
 #endif
-
-type IOleUILinkContainerWVtbl as IOleUILinkContainerWVtbl_
-type IOleUILinkContainerAVtbl as IOleUILinkContainerAVtbl_
-type IOleUIObjInfoWVtbl as IOleUIObjInfoWVtbl_
-type IOleUIObjInfoAVtbl as IOleUIObjInfoAVtbl_
-type IOleUILinkInfoWVtbl as IOleUILinkInfoWVtbl_
-type IOleUILinkInfoAVtbl as IOleUILinkInfoAVtbl_
-type tagOLEUIOBJECTPROPSW as tagOLEUIOBJECTPROPSW_
-type tagOLEUIOBJECTPROPSA as tagOLEUIOBJECTPROPSA_
 
 #define _OLEDLG_H_
 
@@ -184,9 +158,10 @@ type tagOLEUIOBJECTPROPSA as tagOLEUIOBJECTPROPSA_
 	#define IDD_LINKTYPECHANGED IDD_LINKTYPECHANGEDA
 #endif
 
+#define OLESTDDELIM TEXT(!"\\")
+
 type LPFNOLEUIHOOK as function(byval as HWND, byval as UINT, byval as WPARAM, byval as LPARAM) as UINT
 
-#define OLESTDDELIM TEXT(!"\\")
 #define SZOLEUI_MSG_HELP TEXT("OLEUI_MSG_HELP")
 #define SZOLEUI_MSG_ENDDIALOG TEXT("OLEUI_MSG_ENDDIALOG")
 #define SZOLEUI_MSG_BROWSE TEXT("OLEUI_MSG_BROWSE")
@@ -298,13 +273,13 @@ declare function OleUIInsertObjectA(byval as LPOLEUIINSERTOBJECTA) as UINT
 	#define OLEUIINSERTOBJECT OLEUIINSERTOBJECTW
 	#define POLEUIINSERTOBJECT POLEUIINSERTOBJECTW
 	#define LPOLEUIINSERTOBJECT LPOLEUIINSERTOBJECTW
-	#define OleUIInsertObject_ OleUIInsertObjectW
+	#define OleUIInsertObject OleUIInsertObjectW
 #else
 	#define tagOLEUIINSERTOBJECT tagOLEUIINSERTOBJECTA
 	#define OLEUIINSERTOBJECT OLEUIINSERTOBJECTA
 	#define POLEUIINSERTOBJECT POLEUIINSERTOBJECTA
 	#define LPOLEUIINSERTOBJECT LPOLEUIINSERTOBJECTA
-	#define OleUIInsertObject_ OleUIInsertObjectA
+	#define OleUIInsertObject OleUIInsertObjectA
 #endif
 
 #define IOF_SHOWHELP __MSABI_LONG(&h00000001)
@@ -458,9 +433,9 @@ declare function OleUIPasteSpecialW(byval as LPOLEUIPASTESPECIALW) as UINT
 declare function OleUIPasteSpecialA(byval as LPOLEUIPASTESPECIALA) as UINT
 
 #ifdef UNICODE
-	#define OleUIPasteSpecial_ OleUIPasteSpecialW
+	#define OleUIPasteSpecial OleUIPasteSpecialW
 #else
-	#define OleUIPasteSpecial_ OleUIPasteSpecialA
+	#define OleUIPasteSpecial OleUIPasteSpecialA
 #endif
 
 #define PSF_SHOWHELP __MSABI_LONG(&h00000001)
@@ -476,6 +451,8 @@ declare function OleUIPasteSpecialA(byval as LPOLEUIPASTESPECIALA) as UINT
 #define OLEUI_IOERR_ARRLINKTYPESINVALID (OLEUI_ERR_STANDARDMAX + 2)
 #define OLEUI_PSERR_CLIPBOARDCHANGED (OLEUI_ERR_STANDARDMAX + 3)
 #define OLEUI_PSERR_GETCLIPBOARDFAILED (OLEUI_ERR_STANDARDMAX + 4)
+
+type IOleUILinkContainerWVtbl as IOleUILinkContainerWVtbl_
 
 type IOleUILinkContainerW
 	lpVtbl as IOleUILinkContainerWVtbl ptr
@@ -496,6 +473,8 @@ type IOleUILinkContainerWVtbl_
 end type
 
 type LPOLEUILINKCONTAINERW as IOleUILinkContainerW ptr
+
+type IOleUILinkContainerAVtbl as IOleUILinkContainerAVtbl_
 
 type IOleUILinkContainerA
 	lpVtbl as IOleUILinkContainerAVtbl ptr
@@ -537,7 +516,7 @@ type tagOLEUIEDITLINKSW
 	hInstance as HINSTANCE
 	lpszTemplate as LPCWSTR
 	hResource as HRSRC
-	lpOleUILinkContainer_ as LPOLEUILINKCONTAINERW
+	lpOleUILinkContainer as LPOLEUILINKCONTAINERW
 end type
 
 type OLEUIEDITLINKSW as tagOLEUIEDITLINKSW
@@ -554,7 +533,7 @@ type tagOLEUIEDITLINKSA
 	hInstance as HINSTANCE
 	lpszTemplate as LPCSTR
 	hResource as HRSRC
-	lpOleUILinkContainer_ as LPOLEUILINKCONTAINERA
+	lpOleUILinkContainer as LPOLEUILINKCONTAINERA
 end type
 
 type OLEUIEDITLINKSA as tagOLEUIEDITLINKSA
@@ -580,9 +559,9 @@ declare function OleUIEditLinksW(byval as LPOLEUIEDITLINKSW) as UINT
 declare function OleUIEditLinksA(byval as LPOLEUIEDITLINKSA) as UINT
 
 #ifdef UNICODE
-	#define OleUIEditLinks_ OleUIEditLinksW
+	#define OleUIEditLinks OleUIEditLinksW
 #else
-	#define OleUIEditLinks_ OleUIEditLinksA
+	#define OleUIEditLinks OleUIEditLinksA
 #endif
 
 #define ELF_SHOWHELP __MSABI_LONG(&h00000001)
@@ -639,13 +618,13 @@ declare function OleUIChangeIconA(byval as LPOLEUICHANGEICONA) as UINT
 	#define OLEUICHANGEICON OLEUICHANGEICONW
 	#define POLEUICHANGEICON POLEUICHANGEICONW
 	#define LPOLEUICHANGEICON LPOLEUICHANGEICONW
-	#define OleUIChangeIcon_ OleUIChangeIconW
+	#define OleUIChangeIcon OleUIChangeIconW
 #else
 	#define tagOLEUICHANGEICON tagOLEUICHANGEICONA
 	#define OLEUICHANGEICON OLEUICHANGEICONA
 	#define POLEUICHANGEICON POLEUICHANGEICONA
 	#define LPOLEUICHANGEICON LPOLEUICHANGEICONA
-	#define OleUIChangeIcon_ OleUIChangeIconA
+	#define OleUIChangeIcon OleUIChangeIconA
 #endif
 
 #define CIF_SHOWHELP __MSABI_LONG(&h00000001)
@@ -724,13 +703,13 @@ declare function OleUIConvertA(byval as LPOLEUICONVERTA) as UINT
 	#define OLEUICONVERT OLEUICONVERTW
 	#define POLEUICONVERT POLEUICONVERTW
 	#define LPOLEUICONVERT LPOLEUICONVERTW
-	#define OleUIConvert_ OleUIConvertW
+	#define OleUIConvert OleUIConvertW
 #else
 	#define tagOLEUICONVERT tagOLEUICONVERTA
 	#define OLEUICONVERT OLEUICONVERTA
 	#define POLEUICONVERT POLEUICONVERTA
 	#define LPOLEUICONVERT LPOLEUICONVERTA
-	#define OleUIConvert_ OleUIConvertA
+	#define OleUIConvert OleUIConvertA
 #endif
 
 declare function OleUICanConvertOrActivateAs(byval rClsid as const IID const ptr, byval fIsLinkedObject as WINBOOL, byval wFormat as WORD) as WINBOOL
@@ -794,13 +773,13 @@ declare function OleUIBusyA(byval as LPOLEUIBUSYA) as UINT
 	#define OLEUIBUSY OLEUIBUSYW
 	#define POLEUIBUSY POLEUIBUSYW
 	#define LPOLEUIBUSY LPOLEUIBUSYW
-	#define OleUIBusy_ OleUIBusyW
+	#define OleUIBusy OleUIBusyW
 #else
 	#define tagOLEUIBUSY tagOLEUIBUSYA
 	#define OLEUIBUSY OLEUIBUSYA
 	#define POLEUIBUSY POLEUIBUSYA
 	#define LPOLEUIBUSY LPOLEUIBUSYA
-	#define OleUIBusy_ OleUIBusyA
+	#define OleUIBusy OleUIBusyA
 #endif
 
 #define BZ_DISABLECANCELBUTTON __MSABI_LONG(&h00000001)
@@ -824,7 +803,7 @@ type tagOLEUICHANGESOURCEW
 	hResource as HRSRC
 	lpOFN as OPENFILENAMEW ptr
 	dwReserved1(0 to 3) as DWORD
-	lpOleUILinkContainer_ as LPOLEUILINKCONTAINERW
+	lpOleUILinkContainer as LPOLEUILINKCONTAINERW
 	dwLink as DWORD
 	lpszDisplayName as LPWSTR
 	nFileLength as ULONG
@@ -848,7 +827,7 @@ type tagOLEUICHANGESOURCEA
 	hResource as HRSRC
 	lpOFN as OPENFILENAMEA ptr
 	dwReserved1(0 to 3) as DWORD
-	lpOleUILinkContainer_ as LPOLEUILINKCONTAINERA
+	lpOleUILinkContainer as LPOLEUILINKCONTAINERA
 	dwLink as DWORD
 	lpszDisplayName as LPSTR
 	nFileLength as ULONG
@@ -868,13 +847,13 @@ declare function OleUIChangeSourceA(byval as LPOLEUICHANGESOURCEA) as UINT
 	#define OLEUICHANGESOURCE OLEUICHANGESOURCEW
 	#define POLEUICHANGESOURCE POLEUICHANGESOURCEW
 	#define LPOLEUICHANGESOURCE LPOLEUICHANGESOURCEW
-	#define OleUIChangeSource_ OleUIChangeSourceW
+	#define OleUIChangeSource OleUIChangeSourceW
 #else
 	#define tagOLEUICHANGESOURCE tagOLEUICHANGESOURCEA
 	#define OLEUICHANGESOURCE OLEUICHANGESOURCEA
 	#define POLEUICHANGESOURCE POLEUICHANGESOURCEA
 	#define LPOLEUICHANGESOURCE LPOLEUICHANGESOURCEA
-	#define OleUIChangeSource_ OleUIChangeSourceA
+	#define OleUIChangeSource OleUIChangeSourceA
 #endif
 
 #define CSF_SHOWHELP __MSABI_LONG(&h00000001)
@@ -889,6 +868,8 @@ declare function OleUIChangeSourceA(byval as LPOLEUICHANGESOURCEA) as UINT
 #define OLEUI_CSERR_SOURCEINVALID (OLEUI_ERR_STANDARDMAX + 5)
 #define OLEUI_CSERR_SOURCEPARSERROR (OLEUI_ERR_STANDARDMAX + 6)
 #define OLEUI_CSERR_SOURCEPARSEERROR (OLEUI_ERR_STANDARDMAX + 6)
+
+type IOleUIObjInfoWVtbl as IOleUIObjInfoWVtbl_
 
 type IOleUIObjInfoW
 	lpVtbl as IOleUIObjInfoWVtbl ptr
@@ -906,6 +887,8 @@ type IOleUIObjInfoWVtbl_
 end type
 
 type LPOLEUIOBJINFOW as IOleUIObjInfoW ptr
+
+type IOleUIObjInfoAVtbl as IOleUIObjInfoAVtbl_
 
 type IOleUIObjInfoA
 	lpVtbl as IOleUIObjInfoAVtbl ptr
@@ -934,6 +917,8 @@ type LPOLEUIOBJINFOA as IOleUIObjInfoA ptr
 	#define IOleUIObjInfoVtbl IOleUIObjInfoAVtbl
 #endif
 
+type IOleUILinkInfoWVtbl as IOleUILinkInfoWVtbl_
+
 type IOleUILinkInfoW
 	lpVtbl as IOleUILinkInfoWVtbl ptr
 end type
@@ -954,6 +939,8 @@ type IOleUILinkInfoWVtbl_
 end type
 
 type LPOLEUILINKINFOW as IOleUILinkInfoW ptr
+
+type IOleUILinkInfoAVtbl as IOleUILinkInfoAVtbl_
 
 type IOleUILinkInfoA
 	lpVtbl as IOleUILinkInfoAVtbl ptr
@@ -986,6 +973,8 @@ type LPOLEUILINKINFOA as IOleUILinkInfoA ptr
 	#define IOleUILinkInfoVtbl IOleUILinkInfoAVtbl
 #endif
 
+type tagOLEUIOBJECTPROPSW as tagOLEUIOBJECTPROPSW_
+
 type tagOLEUIGNRLPROPSW
 	cbStruct as DWORD
 	dwFlags as DWORD
@@ -999,6 +988,8 @@ end type
 type OLEUIGNRLPROPSW as tagOLEUIGNRLPROPSW
 type POLEUIGNRLPROPSW as tagOLEUIGNRLPROPSW ptr
 type LPOLEUIGNRLPROPSW as tagOLEUIGNRLPROPSW ptr
+
+type tagOLEUIOBJECTPROPSA as tagOLEUIOBJECTPROPSA_
 
 type tagOLEUIGNRLPROPSA
 	cbStruct as DWORD
@@ -1107,12 +1098,19 @@ type LPOLEUILINKPROPSA as tagOLEUILINKPROPSA ptr
 	#define OLEUILINKPROPS OLEUILINKPROPSW
 	#define POLEUILINKPROPS POLEUILINKPROPSW
 	#define LPOLEUILINKPROPS LPOLEUILINKPROPSW
-	#define LPPROPSHEETHEADER LPPROPSHEETHEADERW
 #else
 	#define tagOLEUILINKPROPS tagOLEUILINKPROPSA
 	#define OLEUILINKPROPS OLEUILINKPROPSA
 	#define POLEUILINKPROPS POLEUILINKPROPSA
 	#define LPOLEUILINKPROPS LPOLEUILINKPROPSA
+#endif
+
+type LPPROPSHEETHEADERW as _PROPSHEETHEADERW ptr
+type LPPROPSHEETHEADERA as _PROPSHEETHEADERA ptr
+
+#ifdef UNICODE
+	#define LPPROPSHEETHEADER LPPROPSHEETHEADERW
+#else
 	#define LPPROPSHEETHEADER LPPROPSHEETHEADERA
 #endif
 

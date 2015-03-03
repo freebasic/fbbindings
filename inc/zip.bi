@@ -5,15 +5,7 @@
 #include once "crt/stdio.bi"
 #include once "crt/time.bi"
 
-'' The following symbols have been renamed:
-''     enum constant ZIP_SOURCE_FREE => ZIP_SOURCE_FREE_
-''     #define ZIP_STAT_INDEX => ZIP_STAT_INDEX_
-
 extern "C"
-
-type zip as zip_
-type zip_file as zip_file_
-type zip_source as zip_source_
 
 #define LIBZIP_VERSION "0.11.2"
 #define LIBZIP_VERSION_MAJOR 0
@@ -159,12 +151,12 @@ enum
 	ZIP_SOURCE_CLOSE
 	ZIP_SOURCE_STAT
 	ZIP_SOURCE_ERROR
-	ZIP_SOURCE_FREE_
+	ZIP_SOURCE_FREE
 end enum
 
 #define ZIP_SOURCE_ERR_LOWER (-2)
 #define ZIP_STAT_NAME &h0001
-#define ZIP_STAT_INDEX_ &h0002
+#define ZIP_STAT_INDEX &h0002
 #define ZIP_STAT_SIZE &h0004
 #define ZIP_STAT_COMP_SIZE &h0008
 #define ZIP_STAT_MTIME &h0010

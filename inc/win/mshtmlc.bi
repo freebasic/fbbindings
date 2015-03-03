@@ -8,440 +8,11 @@
 #include once "dimm.bi"
 #include once "olectl.bi"
 
-'' The following symbols have been renamed:
-''     enum constant True => True_
-''     enum constant False => False_
-''     inside struct IHTMLTxtRangeVtbl:
-''         field duplicate => duplicate_
-''         field findText => findText_
-
 #ifdef __FB_64BIT__
 	extern "C"
 #else
 	extern "Windows"
 #endif
-
-type IHTMLFiltersCollection as IHTMLFiltersCollection_
-type IHTMLEventObj as IHTMLEventObj_
-type IElementBehaviorSite as IElementBehaviorSite_
-type IElementBehavior as IElementBehavior_
-type IElementBehaviorFactory as IElementBehaviorFactory_
-type IElementBehaviorSiteOM as IElementBehaviorSiteOM_
-type IElementBehaviorRender as IElementBehaviorRender_
-type IElementBehaviorSiteRender as IElementBehaviorSiteRender_
-type IHTMLStyle as IHTMLStyle_
-type IHTMLStyle2 as IHTMLStyle2_
-type IHTMLStyle3 as IHTMLStyle3_
-type IHTMLStyle4 as IHTMLStyle4_
-type IHTMLRuleStyle as IHTMLRuleStyle_
-type IHTMLRuleStyle2 as IHTMLRuleStyle2_
-type IHTMLRuleStyle3 as IHTMLRuleStyle3_
-type IHTMLRuleStyle4 as IHTMLRuleStyle4_
-type DispHTMLStyle as DispHTMLStyle_
-type DispHTMLRuleStyle as DispHTMLRuleStyle_
-type IHTMLRenderStyle as IHTMLRenderStyle_
-type DispHTMLRenderStyle as DispHTMLRenderStyle_
-type IHTMLCurrentStyle as IHTMLCurrentStyle_
-type IHTMLCurrentStyle2 as IHTMLCurrentStyle2_
-type IHTMLCurrentStyle3 as IHTMLCurrentStyle3_
-type DispHTMLCurrentStyle as DispHTMLCurrentStyle_
-type IHTMLElement as IHTMLElement_
-type IHTMLRect as IHTMLRect_
-type IHTMLRectCollection as IHTMLRectCollection_
-type IHTMLDOMNode as IHTMLDOMNode_
-type IHTMLDOMNode2 as IHTMLDOMNode2_
-type IHTMLDOMAttribute as IHTMLDOMAttribute_
-type IHTMLDOMAttribute2 as IHTMLDOMAttribute2_
-type IHTMLDOMTextNode as IHTMLDOMTextNode_
-type IHTMLDOMTextNode2 as IHTMLDOMTextNode2_
-type IHTMLDOMImplementation as IHTMLDOMImplementation_
-type DispHTMLDOMAttribute as DispHTMLDOMAttribute_
-type DispHTMLDOMTextNode as DispHTMLDOMTextNode_
-type DispHTMLDOMImplementation as DispHTMLDOMImplementation_
-type IHTMLAttributeCollection as IHTMLAttributeCollection_
-type IHTMLAttributeCollection2 as IHTMLAttributeCollection2_
-type IHTMLDOMChildrenCollection as IHTMLDOMChildrenCollection_
-type DispHTMLAttributeCollection as DispHTMLAttributeCollection_
-type DispDOMChildrenCollection as DispDOMChildrenCollection_
-type HTMLElementEvents2 as HTMLElementEvents2_
-type HTMLElementEvents as HTMLElementEvents_
-type IHTMLElementCollection as IHTMLElementCollection_
-type IHTMLElement2 as IHTMLElement2_
-type IHTMLElement3 as IHTMLElement3_
-type IHTMLElement4 as IHTMLElement4_
-type IHTMLElementRender as IHTMLElementRender_
-type IHTMLUniqueName as IHTMLUniqueName_
-type IHTMLDatabinding as IHTMLDatabinding_
-type IHTMLDocument as IHTMLDocument_
-type IHTMLElementDefaults as IHTMLElementDefaults_
-type DispHTMLDefaults as DispHTMLDefaults_
-type IHTCDefaultDispatch as IHTCDefaultDispatch_
-type IHTCPropertyBehavior as IHTCPropertyBehavior_
-type IHTCMethodBehavior as IHTCMethodBehavior_
-type IHTCEventBehavior as IHTCEventBehavior_
-type IHTCAttachBehavior as IHTCAttachBehavior_
-type IHTCAttachBehavior2 as IHTCAttachBehavior2_
-type IHTCDescBehavior as IHTCDescBehavior_
-type DispHTCDefaultDispatch as DispHTCDefaultDispatch_
-type DispHTCPropertyBehavior as DispHTCPropertyBehavior_
-type DispHTCMethodBehavior as DispHTCMethodBehavior_
-type DispHTCEventBehavior as DispHTCEventBehavior_
-type DispHTCAttachBehavior as DispHTCAttachBehavior_
-type DispHTCDescBehavior as DispHTCDescBehavior_
-type IHTMLUrnCollection as IHTMLUrnCollection_
-type IHTMLGenericElement as IHTMLGenericElement_
-type DispHTMLGenericElement as DispHTMLGenericElement_
-type IHTMLStyleSheetRule as IHTMLStyleSheetRule_
-type IHTMLStyleSheetRulesCollection as IHTMLStyleSheetRulesCollection_
-type IHTMLStyleSheetPage as IHTMLStyleSheetPage_
-type IHTMLStyleSheetPagesCollection as IHTMLStyleSheetPagesCollection_
-type IHTMLStyleSheetsCollection as IHTMLStyleSheetsCollection_
-type IHTMLStyleSheet as IHTMLStyleSheet_
-type IHTMLStyleSheet2 as IHTMLStyleSheet2_
-type DispHTMLStyleSheet as DispHTMLStyleSheet_
-type HTMLLinkElementEvents2 as HTMLLinkElementEvents2_
-type HTMLLinkElementEvents as HTMLLinkElementEvents_
-type IHTMLLinkElement as IHTMLLinkElement_
-type IHTMLLinkElement2 as IHTMLLinkElement2_
-type IHTMLLinkElement3 as IHTMLLinkElement3_
-type DispHTMLLinkElement as DispHTMLLinkElement_
-type IHTMLTxtRange as IHTMLTxtRange_
-type IHTMLTextRangeMetrics as IHTMLTextRangeMetrics_
-type IHTMLTextRangeMetrics2 as IHTMLTextRangeMetrics2_
-type IHTMLTxtRangeCollection as IHTMLTxtRangeCollection_
-type HTMLFormElementEvents2 as HTMLFormElementEvents2_
-type HTMLFormElementEvents as HTMLFormElementEvents_
-type IHTMLFormElement as IHTMLFormElement_
-type IHTMLFormElement2 as IHTMLFormElement2_
-type IHTMLFormElement3 as IHTMLFormElement3_
-type IHTMLSubmitData as IHTMLSubmitData_
-type DispHTMLFormElement as DispHTMLFormElement_
-type HTMLControlElementEvents2 as HTMLControlElementEvents2_
-type HTMLControlElementEvents as HTMLControlElementEvents_
-type IHTMLControlElement as IHTMLControlElement_
-type IHTMLTextElement as IHTMLTextElement_
-type DispHTMLTextElement as DispHTMLTextElement_
-type HTMLTextContainerEvents2 as HTMLTextContainerEvents2_
-type HTMLTextContainerEvents as HTMLTextContainerEvents_
-type IHTMLTextContainer as IHTMLTextContainer_
-type IHTMLControlRange as IHTMLControlRange_
-type IHTMLControlRange2 as IHTMLControlRange2_
-type HTMLImgEvents2 as HTMLImgEvents2_
-type HTMLImgEvents as HTMLImgEvents_
-type IHTMLImgElement as IHTMLImgElement_
-type IHTMLImgElement2 as IHTMLImgElement2_
-type IHTMLImageElementFactory as IHTMLImageElementFactory_
-type DispHTMLImg as DispHTMLImg_
-type IHTMLBodyElement as IHTMLBodyElement_
-type IHTMLBodyElement2 as IHTMLBodyElement2_
-type DispHTMLBody as DispHTMLBody_
-type IHTMLFontElement as IHTMLFontElement_
-type DispHTMLFontElement as DispHTMLFontElement_
-type HTMLAnchorEvents2 as HTMLAnchorEvents2_
-type HTMLAnchorEvents as HTMLAnchorEvents_
-type IHTMLAnchorElement as IHTMLAnchorElement_
-type IHTMLAnchorElement2 as IHTMLAnchorElement2_
-type DispHTMLAnchorElement as DispHTMLAnchorElement_
-type HTMLLabelEvents2 as HTMLLabelEvents2_
-type HTMLLabelEvents as HTMLLabelEvents_
-type IHTMLLabelElement as IHTMLLabelElement_
-type IHTMLLabelElement2 as IHTMLLabelElement2_
-type DispHTMLLabelElement as DispHTMLLabelElement_
-type IHTMLListElement as IHTMLListElement_
-type IHTMLListElement2 as IHTMLListElement2_
-type DispHTMLListElement as DispHTMLListElement_
-type IHTMLUListElement as IHTMLUListElement_
-type DispHTMLUListElement as DispHTMLUListElement_
-type IHTMLOListElement as IHTMLOListElement_
-type DispHTMLOListElement as DispHTMLOListElement_
-type IHTMLLIElement as IHTMLLIElement_
-type DispHTMLLIElement as DispHTMLLIElement_
-type IHTMLBlockElement as IHTMLBlockElement_
-type IHTMLBlockElement2 as IHTMLBlockElement2_
-type DispHTMLBlockElement as DispHTMLBlockElement_
-type IHTMLDivElement as IHTMLDivElement_
-type DispHTMLDivElement as DispHTMLDivElement_
-type IHTMLDDElement as IHTMLDDElement_
-type DispHTMLDDElement as DispHTMLDDElement_
-type IHTMLDTElement as IHTMLDTElement_
-type DispHTMLDTElement as DispHTMLDTElement_
-type IHTMLBRElement as IHTMLBRElement_
-type DispHTMLBRElement as DispHTMLBRElement_
-type IHTMLDListElement as IHTMLDListElement_
-type DispHTMLDListElement as DispHTMLDListElement_
-type IHTMLHRElement as IHTMLHRElement_
-type DispHTMLHRElement as DispHTMLHRElement_
-type IHTMLParaElement as IHTMLParaElement_
-type DispHTMLParaElement as DispHTMLParaElement_
-type IHTMLElementCollection2 as IHTMLElementCollection2_
-type IHTMLElementCollection3 as IHTMLElementCollection3_
-type DispHTMLElementCollection as DispHTMLElementCollection_
-type IHTMLHeaderElement as IHTMLHeaderElement_
-type DispHTMLHeaderElement as DispHTMLHeaderElement_
-type HTMLSelectElementEvents2 as HTMLSelectElementEvents2_
-type HTMLSelectElementEvents as HTMLSelectElementEvents_
-type IHTMLSelectElement as IHTMLSelectElement_
-type IHTMLSelectElement2 as IHTMLSelectElement2_
-type IHTMLSelectElement4 as IHTMLSelectElement4_
-type DispHTMLSelectElement as DispHTMLSelectElement_
-type IHTMLSelectionObject as IHTMLSelectionObject_
-type IHTMLSelectionObject2 as IHTMLSelectionObject2_
-type IHTMLOptionElement as IHTMLOptionElement_
-type IHTMLOptionElement3 as IHTMLOptionElement3_
-type IHTMLOptionElementFactory as IHTMLOptionElementFactory_
-type DispHTMLOptionElement as DispHTMLOptionElement_
-type HTMLButtonElementEvents2 as HTMLButtonElementEvents2_
-type HTMLButtonElementEvents as HTMLButtonElementEvents_
-type HTMLInputTextElementEvents2 as HTMLInputTextElementEvents2_
-type HTMLOptionButtonElementEvents2 as HTMLOptionButtonElementEvents2_
-type HTMLInputFileElementEvents2 as HTMLInputFileElementEvents2_
-type HTMLInputImageEvents2 as HTMLInputImageEvents2_
-type HTMLInputTextElementEvents as HTMLInputTextElementEvents_
-type HTMLOptionButtonElementEvents as HTMLOptionButtonElementEvents_
-type HTMLInputFileElementEvents as HTMLInputFileElementEvents_
-type HTMLInputImageEvents as HTMLInputImageEvents_
-type IHTMLInputElement as IHTMLInputElement_
-type IHTMLInputElement2 as IHTMLInputElement2_
-type IHTMLInputButtonElement as IHTMLInputButtonElement_
-type IHTMLInputHiddenElement as IHTMLInputHiddenElement_
-type IHTMLInputTextElement as IHTMLInputTextElement_
-type IHTMLInputFileElement as IHTMLInputFileElement_
-type IHTMLOptionButtonElement as IHTMLOptionButtonElement_
-type IHTMLInputImage as IHTMLInputImage_
-type DispHTMLInputElement as DispHTMLInputElement_
-type IHTMLTextAreaElement as IHTMLTextAreaElement_
-type DispHTMLTextAreaElement as DispHTMLTextAreaElement_
-type DispHTMLRichtextElement as DispHTMLRichtextElement_
-type IHTMLButtonElement as IHTMLButtonElement_
-type DispHTMLButtonElement as DispHTMLButtonElement_
-type HTMLMarqueeElementEvents2 as HTMLMarqueeElementEvents2_
-type HTMLMarqueeElementEvents as HTMLMarqueeElementEvents_
-type IHTMLMarqueeElement as IHTMLMarqueeElement_
-type DispHTMLMarqueeElement as DispHTMLMarqueeElement_
-type IHTMLHtmlElement as IHTMLHtmlElement_
-type IHTMLHeadElement as IHTMLHeadElement_
-type IHTMLTitleElement as IHTMLTitleElement_
-type IHTMLMetaElement as IHTMLMetaElement_
-type IHTMLMetaElement2 as IHTMLMetaElement2_
-type IHTMLBaseElement as IHTMLBaseElement_
-type IHTMLIsIndexElement as IHTMLIsIndexElement_
-type IHTMLIsIndexElement2 as IHTMLIsIndexElement2_
-type IHTMLNextIdElement as IHTMLNextIdElement_
-type DispHTMLHtmlElement as DispHTMLHtmlElement_
-type DispHTMLHeadElement as DispHTMLHeadElement_
-type DispHTMLTitleElement as DispHTMLTitleElement_
-type DispHTMLMetaElement as DispHTMLMetaElement_
-type DispHTMLBaseElement as DispHTMLBaseElement_
-type DispHTMLIsIndexElement as DispHTMLIsIndexElement_
-type DispHTMLNextIdElement as DispHTMLNextIdElement_
-type IHTMLBaseFontElement as IHTMLBaseFontElement_
-type DispHTMLBaseFontElement as DispHTMLBaseFontElement_
-type IHTMLUnknownElement as IHTMLUnknownElement_
-type DispHTMLUnknownElement as DispHTMLUnknownElement_
-type IOmHistory as IOmHistory_
-type IHTMLMimeTypesCollection as IHTMLMimeTypesCollection_
-type IHTMLPluginsCollection as IHTMLPluginsCollection_
-type IHTMLOpsProfile as IHTMLOpsProfile_
-type IOmNavigator as IOmNavigator_
-type IHTMLLocation as IHTMLLocation_
-type IHTMLBookmarkCollection as IHTMLBookmarkCollection_
-type IHTMLDataTransfer as IHTMLDataTransfer_
-type IHTMLEventObj2 as IHTMLEventObj2_
-type IHTMLEventObj3 as IHTMLEventObj3_
-type IHTMLEventObj4 as IHTMLEventObj4_
-type DispCEventObj as DispCEventObj_
-type HTMLWindowEvents2 as HTMLWindowEvents2_
-type HTMLWindowEvents as HTMLWindowEvents_
-type IHTMLDocument2 as IHTMLDocument2_
-type IHTMLFramesCollection2 as IHTMLFramesCollection2_
-type IHTMLWindow2 as IHTMLWindow2_
-type IHTMLWindow3 as IHTMLWindow3_
-type IHTMLFrameBase as IHTMLFrameBase_
-type IHTMLScreen as IHTMLScreen_
-type IHTMLScreen2 as IHTMLScreen2_
-type IHTMLWindow4 as IHTMLWindow4_
-type DispHTMLScreen as DispHTMLScreen_
-type DispHTMLWindow2 as DispHTMLWindow2_
-type DispHTMLWindowProxy as DispHTMLWindowProxy_
-type HTMLDocumentEvents2 as HTMLDocumentEvents2_
-type HTMLDocumentEvents as HTMLDocumentEvents_
-type IHTMLDocument3 as IHTMLDocument3_
-type IHTMLDocument4 as IHTMLDocument4_
-type IHTMLDocument5 as IHTMLDocument5_
-type DispHTMLDocument as DispHTMLDocument_
-type DWebBridgeEvents as DWebBridgeEvents_
-type IWebBridge as IWebBridge_
-type IWBScriptControl as IWBScriptControl_
-type IHTMLEmbedElement as IHTMLEmbedElement_
-type DispHTMLEmbed as DispHTMLEmbed_
-type HTMLMapEvents2 as HTMLMapEvents2_
-type HTMLMapEvents as HTMLMapEvents_
-type IHTMLAreasCollection as IHTMLAreasCollection_
-type IHTMLAreasCollection2 as IHTMLAreasCollection2_
-type IHTMLAreasCollection3 as IHTMLAreasCollection3_
-type IHTMLMapElement as IHTMLMapElement_
-type DispHTMLAreasCollection as DispHTMLAreasCollection_
-type DispHTMLMapElement as DispHTMLMapElement_
-type HTMLAreaEvents2 as HTMLAreaEvents2_
-type HTMLAreaEvents as HTMLAreaEvents_
-type IHTMLAreaElement as IHTMLAreaElement_
-type DispHTMLAreaElement as DispHTMLAreaElement_
-type IHTMLTableCaption as IHTMLTableCaption_
-type DispHTMLTableCaption as DispHTMLTableCaption_
-type IHTMLCommentElement as IHTMLCommentElement_
-type IHTMLCommentElement2 as IHTMLCommentElement2_
-type DispHTMLCommentElement as DispHTMLCommentElement_
-type IHTMLPhraseElement as IHTMLPhraseElement_
-type IHTMLPhraseElement2 as IHTMLPhraseElement2_
-type IHTMLSpanElement as IHTMLSpanElement_
-type DispHTMLPhraseElement as DispHTMLPhraseElement_
-type DispHTMLSpanElement as DispHTMLSpanElement_
-type HTMLTableEvents2 as HTMLTableEvents2_
-type HTMLTableEvents as HTMLTableEvents_
-type IHTMLTableSection as IHTMLTableSection_
-type IHTMLTable as IHTMLTable_
-type IHTMLTable2 as IHTMLTable2_
-type IHTMLTable3 as IHTMLTable3_
-type IHTMLTableCol as IHTMLTableCol_
-type IHTMLTableCol2 as IHTMLTableCol2_
-type IHTMLTableSection2 as IHTMLTableSection2_
-type IHTMLTableSection3 as IHTMLTableSection3_
-type IHTMLTableRow as IHTMLTableRow_
-type IHTMLTableRow2 as IHTMLTableRow2_
-type IHTMLTableRow3 as IHTMLTableRow3_
-type IHTMLTableRowMetrics as IHTMLTableRowMetrics_
-type IHTMLTableCell as IHTMLTableCell_
-type IHTMLTableCell2 as IHTMLTableCell2_
-type DispHTMLTable as DispHTMLTable_
-type DispHTMLTableCol as DispHTMLTableCol_
-type DispHTMLTableSection as DispHTMLTableSection_
-type DispHTMLTableRow as DispHTMLTableRow_
-type DispHTMLTableCell as DispHTMLTableCell_
-type HTMLScriptEvents2 as HTMLScriptEvents2_
-type HTMLScriptEvents as HTMLScriptEvents_
-type IHTMLScriptElement as IHTMLScriptElement_
-type IHTMLScriptElement2 as IHTMLScriptElement2_
-type DispHTMLScriptElement as DispHTMLScriptElement_
-type IHTMLNoShowElement as IHTMLNoShowElement_
-type DispHTMLNoShowElement as DispHTMLNoShowElement_
-type HTMLObjectElementEvents2 as HTMLObjectElementEvents2_
-type HTMLObjectElementEvents as HTMLObjectElementEvents_
-type IHTMLObjectElement as IHTMLObjectElement_
-type IHTMLObjectElement2 as IHTMLObjectElement2_
-type IHTMLObjectElement3 as IHTMLObjectElement3_
-type IHTMLParamElement as IHTMLParamElement_
-type DispHTMLObjectElement as DispHTMLObjectElement_
-type DispHTMLParamElement as DispHTMLParamElement_
-type HTMLFrameSiteEvents2 as HTMLFrameSiteEvents2_
-type HTMLFrameSiteEvents as HTMLFrameSiteEvents_
-type IHTMLFrameBase2 as IHTMLFrameBase2_
-type IHTMLFrameBase3 as IHTMLFrameBase3_
-type DispHTMLFrameBase as DispHTMLFrameBase_
-type IHTMLFrameElement as IHTMLFrameElement_
-type IHTMLFrameElement2 as IHTMLFrameElement2_
-type DispHTMLFrameElement as DispHTMLFrameElement_
-type IHTMLIFrameElement as IHTMLIFrameElement_
-type IHTMLIFrameElement2 as IHTMLIFrameElement2_
-type DispHTMLIFrame as DispHTMLIFrame_
-type IHTMLDivPosition as IHTMLDivPosition_
-type IHTMLFieldSetElement as IHTMLFieldSetElement_
-type IHTMLFieldSetElement2 as IHTMLFieldSetElement2_
-type IHTMLLegendElement as IHTMLLegendElement_
-type IHTMLLegendElement2 as IHTMLLegendElement2_
-type DispHTMLDivPosition as DispHTMLDivPosition_
-type DispHTMLFieldSetElement as DispHTMLFieldSetElement_
-type DispHTMLLegendElement as DispHTMLLegendElement_
-type IHTMLSpanFlow as IHTMLSpanFlow_
-type DispHTMLSpanFlow as DispHTMLSpanFlow_
-type IHTMLFrameSetElement as IHTMLFrameSetElement_
-type IHTMLFrameSetElement2 as IHTMLFrameSetElement2_
-type DispHTMLFrameSetSite as DispHTMLFrameSetSite_
-type IHTMLBGsound as IHTMLBGsound_
-type DispHTMLBGsound as DispHTMLBGsound_
-type IHTMLFontNamesCollection as IHTMLFontNamesCollection_
-type IHTMLFontSizesCollection as IHTMLFontSizesCollection_
-type IHTMLOptionsHolder as IHTMLOptionsHolder_
-type HTMLStyleElementEvents2 as HTMLStyleElementEvents2_
-type HTMLStyleElementEvents as HTMLStyleElementEvents_
-type IHTMLStyleElement as IHTMLStyleElement_
-type DispHTMLStyleElement as DispHTMLStyleElement_
-type IHTMLStyleFontFace as IHTMLStyleFontFace_
-type ICSSFilterSite as ICSSFilterSite_
-type IMarkupPointer as IMarkupPointer_
-type IMarkupContainer as IMarkupContainer_
-type IMarkupContainer2 as IMarkupContainer2_
-type IHTMLChangeLog as IHTMLChangeLog_
-type IHTMLChangeSink as IHTMLChangeSink_
-type ISegmentList as ISegmentList_
-type ISegmentListIterator as ISegmentListIterator_
-type IHTMLCaret as IHTMLCaret_
-type ISegment as ISegment_
-type IElementSegment as IElementSegment_
-type IHighlightSegment as IHighlightSegment_
-type IHighlightRenderingServices as IHighlightRenderingServices_
-type ILineInfo as ILineInfo_
-type IDisplayPointer as IDisplayPointer_
-type IDisplayServices as IDisplayServices_
-type IHtmlDlgSafeHelper as IHtmlDlgSafeHelper_
-type IBlockFormats as IBlockFormats_
-type IFontNames as IFontNames_
-type ICSSFilter as ICSSFilter_
-type ISecureUrlHost as ISecureUrlHost_
-type IMarkupServices as IMarkupServices_
-type IMarkupServices2 as IMarkupServices2_
-type IHTMLChangePlayback as IHTMLChangePlayback_
-type IMarkupPointer2 as IMarkupPointer2_
-type IMarkupTextFrags as IMarkupTextFrags_
-type IXMLGenericParse as IXMLGenericParse_
-type IHTMLEditHost as IHTMLEditHost_
-type IHTMLEditHost2 as IHTMLEditHost2_
-type ISequenceNumber as ISequenceNumber_
-type IIMEServices as IIMEServices_
-type ISelectionServicesListener as ISelectionServicesListener_
-type ISelectionServices as ISelectionServices_
-type IHTMLEditDesigner as IHTMLEditDesigner_
-type IHTMLEditServices as IHTMLEditServices_
-type IHTMLEditServices2 as IHTMLEditServices2_
-type IHTMLComputedStyle as IHTMLComputedStyle_
-type HTMLNamespaceEvents as HTMLNamespaceEvents_
-type IHTMLNamespace as IHTMLNamespace_
-type IHTMLNamespaceCollection as IHTMLNamespaceCollection_
-type IHTMLPainter as IHTMLPainter_
-type IHTMLPaintSite as IHTMLPaintSite_
-type IHTMLPainterEventInfo as IHTMLPainterEventInfo_
-type IHTMLPainterOverlay as IHTMLPainterOverlay_
-type IHTMLIPrintCollection as IHTMLIPrintCollection_
-type IEnumPrivacyRecords as IEnumPrivacyRecords_
-type IHTMLDialog as IHTMLDialog_
-type IHTMLDialog2 as IHTMLDialog2_
-type IHTMLDialog3 as IHTMLDialog3_
-type IHTMLModelessInit as IHTMLModelessInit_
-type IHTMLPopup as IHTMLPopup_
-type DispHTMLPopup as DispHTMLPopup_
-type IHTMLAppBehavior as IHTMLAppBehavior_
-type IHTMLAppBehavior2 as IHTMLAppBehavior2_
-type IHTMLAppBehavior3 as IHTMLAppBehavior3_
-type DispHTMLAppBehavior as DispHTMLAppBehavior_
-type DispIHTMLInputButtonElement as DispIHTMLInputButtonElement_
-type DispIHTMLInputTextElement as DispIHTMLInputTextElement_
-type DispIHTMLInputFileElement as DispIHTMLInputFileElement_
-type DispIHTMLOptionButtonElement as DispIHTMLOptionButtonElement_
-type DispIHTMLInputImage as DispIHTMLInputImage_
-type IElementNamespace as IElementNamespace_
-type IElementNamespaceTable as IElementNamespaceTable_
-type IElementNamespaceFactory as IElementNamespaceFactory_
-type IElementNamespaceFactory2 as IElementNamespaceFactory2_
-type IElementNamespaceFactoryCallback as IElementNamespaceFactoryCallback_
-type IElementBehaviorSiteOM2 as IElementBehaviorSiteOM2_
-type IElementBehaviorCategory as IElementBehaviorCategory_
-type IElementBehaviorSiteCategory as IElementBehaviorSiteCategory_
-type IElementBehaviorSubmit as IElementBehaviorSubmit_
-type IElementBehaviorFocus as IElementBehaviorFocus_
-type IElementBehaviorLayout as IElementBehaviorLayout_
-type IElementBehaviorLayout2 as IElementBehaviorLayout2_
-type IElementBehaviorSiteLayout as IElementBehaviorSiteLayout_
-type IElementBehaviorSiteLayout2 as IElementBehaviorSiteLayout2_
-type IHostBehaviorInit as IHostBehaviorInit_
 
 #define __mshtml_h__
 #define __IHTMLFiltersCollection_FWD_DEFINED__
@@ -748,7 +319,6 @@ type IHostBehaviorInit as IHostBehaviorInit_
 #define __HTMLWindowEvents_FWD_DEFINED__
 #define __IHTMLDocument2_FWD_DEFINED__
 #define __IHTMLFramesCollection2_FWD_DEFINED__
-#define __IHTMLWindow2_FWD_DEFINED__
 #define __IHTMLWindow3_FWD_DEFINED__
 #define __IHTMLFrameBase_FWD_DEFINED__
 #define __IHTMLScreen_FWD_DEFINED__
@@ -900,7 +470,6 @@ type IHostBehaviorInit as IHostBehaviorInit_
 #define __IMarkupContainer2_FWD_DEFINED__
 #define __IHTMLChangeLog_FWD_DEFINED__
 #define __IHTMLChangeSink_FWD_DEFINED__
-#define __IActiveIMMApp_FWD_DEFINED__
 #define __ISegmentList_FWD_DEFINED__
 #define __ISegmentListIterator_FWD_DEFINED__
 #define __IHTMLCaret_FWD_DEFINED__
@@ -988,7 +557,7 @@ type IHostBehaviorInit as IHostBehaviorInit_
 #define __IElementBehaviorSiteLayout2_FWD_DEFINED__
 #define __IHostBehaviorInit_FWD_DEFINED__
 
-extern CMDSETID_Forms3 as const GUID
+extern CGID_MSHTML as const GUID
 extern CLSID_MHTMLDocument as const GUID
 extern CLSID_HTADocument as const GUID
 extern CLSID_HTMLApplication as const GUID
@@ -1020,6 +589,8 @@ extern __MIDL_itf_mshtml_0000_v0_0_s_ifspec as RPC_IF_HANDLE
 #define __IHTMLFiltersCollection_INTERFACE_DEFINED__
 
 extern IID_IHTMLFiltersCollection as const IID
+
+type IHTMLFiltersCollection as IHTMLFiltersCollection_
 
 type IHTMLFiltersCollectionVtbl
 	QueryInterface as function(byval This as IHTMLFiltersCollection ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -2209,8 +1780,8 @@ extern CLSID_CScriptlet as const GUID
 
 type _BoolValue as long
 enum
-	True_ = 1
-	False_ = 0
+	True = 1
+	False = 0
 	BoolValue_Max = 2147483647
 end enum
 
@@ -3001,6 +2572,9 @@ extern LIBID_MSHTML as const IID
 
 extern IID_IHTMLEventObj as const IID
 
+type IHTMLElement as IHTMLElement_
+type IHTMLEventObj as IHTMLEventObj_
+
 type IHTMLEventObjVtbl
 	QueryInterface as function(byval This as IHTMLEventObj ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IHTMLEventObj ptr) as ULONG
@@ -3095,6 +2669,8 @@ declare sub IHTMLEventObj_get_srcFilter_Stub(byval This as IRpcStubBuffer ptr, b
 
 extern IID_IElementBehaviorSite as const IID
 
+type IElementBehaviorSite as IElementBehaviorSite_
+
 type IElementBehaviorSiteVtbl
 	QueryInterface as function(byval This as IElementBehaviorSite ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IElementBehaviorSite ptr) as ULONG
@@ -3115,6 +2691,8 @@ declare sub IElementBehaviorSite_RegisterNotification_Stub(byval This as IRpcStu
 #define __IElementBehavior_INTERFACE_DEFINED__
 
 extern IID_IElementBehavior as const IID
+
+type IElementBehavior as IElementBehavior_
 
 type IElementBehaviorVtbl
 	QueryInterface as function(byval This as IElementBehavior ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -3140,6 +2718,8 @@ declare sub IElementBehavior_Detach_Stub(byval This as IRpcStubBuffer ptr, byval
 
 extern IID_IElementBehaviorFactory as const IID
 
+type IElementBehaviorFactory as IElementBehaviorFactory_
+
 type IElementBehaviorFactoryVtbl
 	QueryInterface as function(byval This as IElementBehaviorFactory ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IElementBehaviorFactory ptr) as ULONG
@@ -3157,6 +2737,8 @@ declare sub IElementBehaviorFactory_FindBehavior_Stub(byval This as IRpcStubBuff
 #define __IElementBehaviorSiteOM_INTERFACE_DEFINED__
 
 extern IID_IElementBehaviorSiteOM as const IID
+
+type IElementBehaviorSiteOM as IElementBehaviorSiteOM_
 
 type IElementBehaviorSiteOMVtbl
 	QueryInterface as function(byval This as IElementBehaviorSiteOM ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -3191,6 +2773,8 @@ declare sub IElementBehaviorSiteOM_RegisterUrn_Stub(byval This as IRpcStubBuffer
 
 extern IID_IElementBehaviorRender as const IID
 
+type IElementBehaviorRender as IElementBehaviorRender_
+
 type IElementBehaviorRenderVtbl
 	QueryInterface as function(byval This as IElementBehaviorRender ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IElementBehaviorRender ptr) as ULONG
@@ -3215,6 +2799,8 @@ declare sub IElementBehaviorRender_HitTestPoint_Stub(byval This as IRpcStubBuffe
 
 extern IID_IElementBehaviorSiteRender as const IID
 
+type IElementBehaviorSiteRender as IElementBehaviorSiteRender_
+
 type IElementBehaviorSiteRenderVtbl
 	QueryInterface as function(byval This as IElementBehaviorSiteRender ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IElementBehaviorSiteRender ptr) as ULONG
@@ -3238,6 +2824,8 @@ declare sub IElementBehaviorSiteRender_InvalidateStyle_Stub(byval This as IRpcSt
 #define __IHTMLStyle_INTERFACE_DEFINED__
 
 extern IID_IHTMLStyle as const IID
+
+type IHTMLStyle as IHTMLStyle_
 
 type IHTMLStyleVtbl
 	QueryInterface as function(byval This as IHTMLStyle ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -3425,7 +3013,7 @@ type IHTMLStyleVtbl
 	setAttribute as function(byval This as IHTMLStyle ptr, byval strAttributeName as BSTR, byval AttributeValue as VARIANT, byval lFlags as LONG) as HRESULT
 	getAttribute as function(byval This as IHTMLStyle ptr, byval strAttributeName as BSTR, byval lFlags as LONG, byval AttributeValue as VARIANT ptr) as HRESULT
 	removeAttribute as function(byval This as IHTMLStyle ptr, byval strAttributeName as BSTR, byval lFlags as LONG, byval pfSuccess as VARIANT_BOOL ptr) as HRESULT
-	toString as function(byval This as IHTMLStyle ptr, byval String_ as BSTR ptr) as HRESULT
+	toString as function(byval This as IHTMLStyle ptr, byval String as BSTR ptr) as HRESULT
 end type
 
 type IHTMLStyle_
@@ -3788,12 +3376,14 @@ declare function IHTMLStyle_getAttribute_Proxy(byval This as IHTMLStyle ptr, byv
 declare sub IHTMLStyle_getAttribute_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IHTMLStyle_removeAttribute_Proxy(byval This as IHTMLStyle ptr, byval strAttributeName as BSTR, byval lFlags as LONG, byval pfSuccess as VARIANT_BOOL ptr) as HRESULT
 declare sub IHTMLStyle_removeAttribute_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IHTMLStyle_toString_Proxy(byval This as IHTMLStyle ptr, byval String_ as BSTR ptr) as HRESULT
+declare function IHTMLStyle_toString_Proxy(byval This as IHTMLStyle ptr, byval String as BSTR ptr) as HRESULT
 declare sub IHTMLStyle_toString_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 
 #define __IHTMLStyle2_INTERFACE_DEFINED__
 
 extern IID_IHTMLStyle2 as const IID
+
+type IHTMLStyle2 as IHTMLStyle2_
 
 type IHTMLStyle2Vtbl
 	QueryInterface as function(byval This as IHTMLStyle2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -4003,6 +3593,8 @@ declare sub IHTMLStyle2_get_accelerator_Stub(byval This as IRpcStubBuffer ptr, b
 
 extern IID_IHTMLStyle3 as const IID
 
+type IHTMLStyle3 as IHTMLStyle3_
+
 type IHTMLStyle3Vtbl
 	QueryInterface as function(byval This as IHTMLStyle3 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IHTMLStyle3 ptr) as ULONG
@@ -4112,6 +3704,8 @@ declare sub IHTMLStyle3_get_textKashidaSpace_Stub(byval This as IRpcStubBuffer p
 
 extern IID_IHTMLStyle4 as const IID
 
+type IHTMLStyle4 as IHTMLStyle4_
+
 type IHTMLStyle4Vtbl
 	QueryInterface as function(byval This as IHTMLStyle4 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IHTMLStyle4 ptr) as ULONG
@@ -4142,6 +3736,8 @@ declare sub IHTMLStyle4_get_minHeight_Stub(byval This as IRpcStubBuffer ptr, byv
 #define __IHTMLRuleStyle_INTERFACE_DEFINED__
 
 extern IID_IHTMLRuleStyle as const IID
+
+type IHTMLRuleStyle as IHTMLRuleStyle_
 
 type IHTMLRuleStyleVtbl
 	QueryInterface as function(byval This as IHTMLRuleStyle ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -4648,6 +4244,8 @@ declare sub IHTMLRuleStyle_removeAttribute_Stub(byval This as IRpcStubBuffer ptr
 
 extern IID_IHTMLRuleStyle2 as const IID
 
+type IHTMLRuleStyle2 as IHTMLRuleStyle2_
+
 type IHTMLRuleStyle2Vtbl
 	QueryInterface as function(byval This as IHTMLRuleStyle2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IHTMLRuleStyle2 ptr) as ULONG
@@ -4847,6 +4445,8 @@ declare sub IHTMLRuleStyle2_get_accelerator_Stub(byval This as IRpcStubBuffer pt
 
 extern IID_IHTMLRuleStyle3 as const IID
 
+type IHTMLRuleStyle3 as IHTMLRuleStyle3_
+
 type IHTMLRuleStyle3Vtbl
 	QueryInterface as function(byval This as IHTMLRuleStyle3 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IHTMLRuleStyle3 ptr) as ULONG
@@ -4956,6 +4556,8 @@ declare sub IHTMLRuleStyle3_get_textKashidaSpace_Stub(byval This as IRpcStubBuff
 
 extern IID_IHTMLRuleStyle4 as const IID
 
+type IHTMLRuleStyle4 as IHTMLRuleStyle4_
+
 type IHTMLRuleStyle4Vtbl
 	QueryInterface as function(byval This as IHTMLRuleStyle4 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IHTMLRuleStyle4 ptr) as ULONG
@@ -4987,6 +4589,8 @@ declare sub IHTMLRuleStyle4_get_minHeight_Stub(byval This as IRpcStubBuffer ptr,
 
 extern DIID_DispHTMLStyle as const IID
 
+type DispHTMLStyle as DispHTMLStyle_
+
 type DispHTMLStyleVtbl
 	QueryInterface as function(byval This as DispHTMLStyle ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as DispHTMLStyle ptr) as ULONG
@@ -5007,6 +4611,8 @@ extern CLSID_HTMLStyle as const CLSID
 
 extern DIID_DispHTMLRuleStyle as const IID
 
+type DispHTMLRuleStyle as DispHTMLRuleStyle_
+
 type DispHTMLRuleStyleVtbl
 	QueryInterface as function(byval This as DispHTMLRuleStyle ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as DispHTMLRuleStyle ptr) as ULONG
@@ -5026,6 +4632,8 @@ extern CLSID_HTMLRuleStyle as const CLSID
 #define __IHTMLRenderStyle_INTERFACE_DEFINED__
 
 extern IID_IHTMLRenderStyle as const IID
+
+type IHTMLRenderStyle as IHTMLRenderStyle_
 
 type IHTMLRenderStyleVtbl
 	QueryInterface as function(byval This as IHTMLRenderStyle ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -5100,6 +4708,8 @@ declare sub IHTMLRenderStyle_get_textDecoration_Stub(byval This as IRpcStubBuffe
 
 extern DIID_DispHTMLRenderStyle as const IID
 
+type DispHTMLRenderStyle as DispHTMLRenderStyle_
+
 type DispHTMLRenderStyleVtbl
 	QueryInterface as function(byval This as DispHTMLRenderStyle ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as DispHTMLRenderStyle ptr) as ULONG
@@ -5119,6 +4729,8 @@ extern CLSID_HTMLRenderStyle as const CLSID
 #define __IHTMLCurrentStyle_INTERFACE_DEFINED__
 
 extern IID_IHTMLCurrentStyle as const IID
+
+type IHTMLCurrentStyle as IHTMLCurrentStyle_
 
 type IHTMLCurrentStyleVtbl
 	QueryInterface as function(byval This as IHTMLCurrentStyle ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -5412,6 +5024,8 @@ declare sub IHTMLCurrentStyle_get_textTransform_Stub(byval This as IRpcStubBuffe
 
 extern IID_IHTMLCurrentStyle2 as const IID
 
+type IHTMLCurrentStyle2 as IHTMLCurrentStyle2_
+
 type IHTMLCurrentStyle2Vtbl
 	QueryInterface as function(byval This as IHTMLCurrentStyle2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IHTMLCurrentStyle2 ptr) as ULONG
@@ -5485,6 +5099,8 @@ declare sub IHTMLCurrentStyle2_get_isBlock_Stub(byval This as IRpcStubBuffer ptr
 
 extern IID_IHTMLCurrentStyle3 as const IID
 
+type IHTMLCurrentStyle3 as IHTMLCurrentStyle3_
+
 type IHTMLCurrentStyle3Vtbl
 	QueryInterface as function(byval This as IHTMLCurrentStyle3 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IHTMLCurrentStyle3 ptr) as ULONG
@@ -5515,6 +5131,8 @@ declare sub IHTMLCurrentStyle3_get_whiteSpace_Stub(byval This as IRpcStubBuffer 
 #define __DispHTMLCurrentStyle_DISPINTERFACE_DEFINED__
 
 extern DIID_DispHTMLCurrentStyle as const IID
+
+type DispHTMLCurrentStyle as DispHTMLCurrentStyle_
 
 type DispHTMLCurrentStyleVtbl
 	QueryInterface as function(byval This as DispHTMLCurrentStyle ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -5603,14 +5221,14 @@ type IHTMLElementVtbl
 	put_outerText as function(byval This as IHTMLElement ptr, byval v as BSTR) as HRESULT
 	get_outerText as function(byval This as IHTMLElement ptr, byval p as BSTR ptr) as HRESULT
 	insertAdjacentHTML as function(byval This as IHTMLElement ptr, byval where as BSTR, byval html as BSTR) as HRESULT
-	insertAdjacentText as function(byval This as IHTMLElement ptr, byval where as BSTR, byval text_ as BSTR) as HRESULT
+	insertAdjacentText as function(byval This as IHTMLElement ptr, byval where as BSTR, byval text as BSTR) as HRESULT
 	get_parentTextEdit as function(byval This as IHTMLElement ptr, byval p as IHTMLElement ptr ptr) as HRESULT
 	get_isTextEdit as function(byval This as IHTMLElement ptr, byval p as VARIANT_BOOL ptr) as HRESULT
 	click as function(byval This as IHTMLElement ptr) as HRESULT
 	get_filters as function(byval This as IHTMLElement ptr, byval p as IHTMLFiltersCollection ptr ptr) as HRESULT
 	put_ondragstart as function(byval This as IHTMLElement ptr, byval v as VARIANT) as HRESULT
 	get_ondragstart as function(byval This as IHTMLElement ptr, byval p as VARIANT ptr) as HRESULT
-	toString as function(byval This as IHTMLElement ptr, byval String_ as BSTR ptr) as HRESULT
+	toString as function(byval This as IHTMLElement ptr, byval String as BSTR ptr) as HRESULT
 	put_onbeforeupdate as function(byval This as IHTMLElement ptr, byval v as VARIANT) as HRESULT
 	get_onbeforeupdate as function(byval This as IHTMLElement ptr, byval p as VARIANT ptr) as HRESULT
 	put_onafterupdate as function(byval This as IHTMLElement ptr, byval v as VARIANT) as HRESULT
@@ -5755,7 +5373,7 @@ declare function IHTMLElement_get_outerText_Proxy(byval This as IHTMLElement ptr
 declare sub IHTMLElement_get_outerText_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IHTMLElement_insertAdjacentHTML_Proxy(byval This as IHTMLElement ptr, byval where as BSTR, byval html as BSTR) as HRESULT
 declare sub IHTMLElement_insertAdjacentHTML_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IHTMLElement_insertAdjacentText_Proxy(byval This as IHTMLElement ptr, byval where as BSTR, byval text_ as BSTR) as HRESULT
+declare function IHTMLElement_insertAdjacentText_Proxy(byval This as IHTMLElement ptr, byval where as BSTR, byval text as BSTR) as HRESULT
 declare sub IHTMLElement_insertAdjacentText_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IHTMLElement_get_parentTextEdit_Proxy(byval This as IHTMLElement ptr, byval p as IHTMLElement ptr ptr) as HRESULT
 declare sub IHTMLElement_get_parentTextEdit_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
@@ -5769,7 +5387,7 @@ declare function IHTMLElement_put_ondragstart_Proxy(byval This as IHTMLElement p
 declare sub IHTMLElement_put_ondragstart_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IHTMLElement_get_ondragstart_Proxy(byval This as IHTMLElement ptr, byval p as VARIANT ptr) as HRESULT
 declare sub IHTMLElement_get_ondragstart_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IHTMLElement_toString_Proxy(byval This as IHTMLElement ptr, byval String_ as BSTR ptr) as HRESULT
+declare function IHTMLElement_toString_Proxy(byval This as IHTMLElement ptr, byval String as BSTR ptr) as HRESULT
 declare sub IHTMLElement_toString_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IHTMLElement_put_onbeforeupdate_Proxy(byval This as IHTMLElement ptr, byval v as VARIANT) as HRESULT
 declare sub IHTMLElement_put_onbeforeupdate_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
@@ -5816,6 +5434,8 @@ declare sub IHTMLElement_get_all_Stub(byval This as IRpcStubBuffer ptr, byval _p
 
 extern IID_IHTMLRect as const IID
 
+type IHTMLRect as IHTMLRect_
+
 type IHTMLRectVtbl
 	QueryInterface as function(byval This as IHTMLRect ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IHTMLRect ptr) as ULONG
@@ -5859,6 +5479,8 @@ declare sub IHTMLRect_get_bottom_Stub(byval This as IRpcStubBuffer ptr, byval _p
 
 extern IID_IHTMLRectCollection as const IID
 
+type IHTMLRectCollection as IHTMLRectCollection_
+
 type IHTMLRectCollectionVtbl
 	QueryInterface as function(byval This as IHTMLRectCollection ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IHTMLRectCollection ptr) as ULONG
@@ -5886,6 +5508,8 @@ declare sub IHTMLRectCollection_item_Stub(byval This as IRpcStubBuffer ptr, byva
 #define __IHTMLDOMNode_INTERFACE_DEFINED__
 
 extern IID_IHTMLDOMNode as const IID
+
+type IHTMLDOMNode as IHTMLDOMNode_
 
 type IHTMLDOMNodeVtbl
 	QueryInterface as function(byval This as IHTMLDOMNode ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -5966,6 +5590,8 @@ declare sub IHTMLDOMNode_get_nextSibling_Stub(byval This as IRpcStubBuffer ptr, 
 
 extern IID_IHTMLDOMNode2 as const IID
 
+type IHTMLDOMNode2 as IHTMLDOMNode2_
+
 type IHTMLDOMNode2Vtbl
 	QueryInterface as function(byval This as IHTMLDOMNode2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IHTMLDOMNode2 ptr) as ULONG
@@ -5987,6 +5613,8 @@ declare sub IHTMLDOMNode2_get_ownerDocument_Stub(byval This as IRpcStubBuffer pt
 #define __IHTMLDOMAttribute_INTERFACE_DEFINED__
 
 extern IID_IHTMLDOMAttribute as const IID
+
+type IHTMLDOMAttribute as IHTMLDOMAttribute_
 
 type IHTMLDOMAttributeVtbl
 	QueryInterface as function(byval This as IHTMLDOMAttribute ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -6018,6 +5646,8 @@ declare sub IHTMLDOMAttribute_get_specified_Stub(byval This as IRpcStubBuffer pt
 #define __IHTMLDOMAttribute2_INTERFACE_DEFINED__
 
 extern IID_IHTMLDOMAttribute2 as const IID
+
+type IHTMLDOMAttribute2 as IHTMLDOMAttribute2_
 
 type IHTMLDOMAttribute2Vtbl
 	QueryInterface as function(byval This as IHTMLDOMAttribute2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -6095,6 +5725,8 @@ declare sub IHTMLDOMAttribute2_cloneNode_Stub(byval This as IRpcStubBuffer ptr, 
 
 extern IID_IHTMLDOMTextNode as const IID
 
+type IHTMLDOMTextNode as IHTMLDOMTextNode_
+
 type IHTMLDOMTextNodeVtbl
 	QueryInterface as function(byval This as IHTMLDOMTextNode ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IHTMLDOMTextNode ptr) as ULONG
@@ -6105,7 +5737,7 @@ type IHTMLDOMTextNodeVtbl
 	Invoke as function(byval This as IHTMLDOMTextNode ptr, byval dispIdMember as DISPID, byval riid as const IID const ptr, byval lcid as LCID, byval wFlags as WORD, byval pDispParams as DISPPARAMS ptr, byval pVarResult as VARIANT ptr, byval pExcepInfo as EXCEPINFO ptr, byval puArgErr as UINT ptr) as HRESULT
 	put_data as function(byval This as IHTMLDOMTextNode ptr, byval v as BSTR) as HRESULT
 	get_data as function(byval This as IHTMLDOMTextNode ptr, byval p as BSTR ptr) as HRESULT
-	toString as function(byval This as IHTMLDOMTextNode ptr, byval String_ as BSTR ptr) as HRESULT
+	toString as function(byval This as IHTMLDOMTextNode ptr, byval String as BSTR ptr) as HRESULT
 	get_length as function(byval This as IHTMLDOMTextNode ptr, byval p as long ptr) as HRESULT
 	splitText as function(byval This as IHTMLDOMTextNode ptr, byval offset as long, byval pRetNode as IHTMLDOMNode ptr ptr) as HRESULT
 end type
@@ -6118,7 +5750,7 @@ declare function IHTMLDOMTextNode_put_data_Proxy(byval This as IHTMLDOMTextNode 
 declare sub IHTMLDOMTextNode_put_data_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IHTMLDOMTextNode_get_data_Proxy(byval This as IHTMLDOMTextNode ptr, byval p as BSTR ptr) as HRESULT
 declare sub IHTMLDOMTextNode_get_data_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IHTMLDOMTextNode_toString_Proxy(byval This as IHTMLDOMTextNode ptr, byval String_ as BSTR ptr) as HRESULT
+declare function IHTMLDOMTextNode_toString_Proxy(byval This as IHTMLDOMTextNode ptr, byval String as BSTR ptr) as HRESULT
 declare sub IHTMLDOMTextNode_toString_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IHTMLDOMTextNode_get_length_Proxy(byval This as IHTMLDOMTextNode ptr, byval p as long ptr) as HRESULT
 declare sub IHTMLDOMTextNode_get_length_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
@@ -6128,6 +5760,8 @@ declare sub IHTMLDOMTextNode_splitText_Stub(byval This as IRpcStubBuffer ptr, by
 #define __IHTMLDOMTextNode2_INTERFACE_DEFINED__
 
 extern IID_IHTMLDOMTextNode2 as const IID
+
+type IHTMLDOMTextNode2 as IHTMLDOMTextNode2_
 
 type IHTMLDOMTextNode2Vtbl
 	QueryInterface as function(byval This as IHTMLDOMTextNode2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -6163,6 +5797,8 @@ declare sub IHTMLDOMTextNode2_replaceData_Stub(byval This as IRpcStubBuffer ptr,
 
 extern IID_IHTMLDOMImplementation as const IID
 
+type IHTMLDOMImplementation as IHTMLDOMImplementation_
+
 type IHTMLDOMImplementationVtbl
 	QueryInterface as function(byval This as IHTMLDOMImplementation ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IHTMLDOMImplementation ptr) as ULONG
@@ -6185,6 +5821,8 @@ declare sub IHTMLDOMImplementation_hasFeature_Stub(byval This as IRpcStubBuffer 
 
 extern DIID_DispHTMLDOMAttribute as const IID
 
+type DispHTMLDOMAttribute as DispHTMLDOMAttribute_
+
 type DispHTMLDOMAttributeVtbl
 	QueryInterface as function(byval This as DispHTMLDOMAttribute ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as DispHTMLDOMAttribute ptr) as ULONG
@@ -6204,6 +5842,8 @@ extern CLSID_HTMLDOMAttribute as const CLSID
 #define __DispHTMLDOMTextNode_DISPINTERFACE_DEFINED__
 
 extern DIID_DispHTMLDOMTextNode as const IID
+
+type DispHTMLDOMTextNode as DispHTMLDOMTextNode_
 
 type DispHTMLDOMTextNodeVtbl
 	QueryInterface as function(byval This as DispHTMLDOMTextNode ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -6225,6 +5865,8 @@ extern CLSID_HTMLDOMTextNode as const CLSID
 
 extern DIID_DispHTMLDOMImplementation as const IID
 
+type DispHTMLDOMImplementation as DispHTMLDOMImplementation_
+
 type DispHTMLDOMImplementationVtbl
 	QueryInterface as function(byval This as DispHTMLDOMImplementation ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as DispHTMLDOMImplementation ptr) as ULONG
@@ -6245,6 +5887,8 @@ extern CLSID_HTMLDOMImplementation as const CLSID
 
 extern IID_IHTMLAttributeCollection as const IID
 
+type IHTMLAttributeCollection as IHTMLAttributeCollection_
+
 type IHTMLAttributeCollectionVtbl
 	QueryInterface as function(byval This as IHTMLAttributeCollection ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IHTMLAttributeCollection ptr) as ULONG
@@ -6255,7 +5899,7 @@ type IHTMLAttributeCollectionVtbl
 	Invoke as function(byval This as IHTMLAttributeCollection ptr, byval dispIdMember as DISPID, byval riid as const IID const ptr, byval lcid as LCID, byval wFlags as WORD, byval pDispParams as DISPPARAMS ptr, byval pVarResult as VARIANT ptr, byval pExcepInfo as EXCEPINFO ptr, byval puArgErr as UINT ptr) as HRESULT
 	get_length as function(byval This as IHTMLAttributeCollection ptr, byval p as long ptr) as HRESULT
 	get__newEnum as function(byval This as IHTMLAttributeCollection ptr, byval p as IUnknown ptr ptr) as HRESULT
-	item as function(byval This as IHTMLAttributeCollection ptr, byval name_ as VARIANT ptr, byval pdisp as IDispatch ptr ptr) as HRESULT
+	item as function(byval This as IHTMLAttributeCollection ptr, byval name as VARIANT ptr, byval pdisp as IDispatch ptr ptr) as HRESULT
 end type
 
 type IHTMLAttributeCollection_
@@ -6266,12 +5910,14 @@ declare function IHTMLAttributeCollection_get_length_Proxy(byval This as IHTMLAt
 declare sub IHTMLAttributeCollection_get_length_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IHTMLAttributeCollection_get__newEnum_Proxy(byval This as IHTMLAttributeCollection ptr, byval p as IUnknown ptr ptr) as HRESULT
 declare sub IHTMLAttributeCollection_get__newEnum_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IHTMLAttributeCollection_item_Proxy(byval This as IHTMLAttributeCollection ptr, byval name_ as VARIANT ptr, byval pdisp as IDispatch ptr ptr) as HRESULT
+declare function IHTMLAttributeCollection_item_Proxy(byval This as IHTMLAttributeCollection ptr, byval name as VARIANT ptr, byval pdisp as IDispatch ptr ptr) as HRESULT
 declare sub IHTMLAttributeCollection_item_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 
 #define __IHTMLAttributeCollection2_INTERFACE_DEFINED__
 
 extern IID_IHTMLAttributeCollection2 as const IID
+
+type IHTMLAttributeCollection2 as IHTMLAttributeCollection2_
 
 type IHTMLAttributeCollection2Vtbl
 	QueryInterface as function(byval This as IHTMLAttributeCollection2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -6301,6 +5947,8 @@ declare sub IHTMLAttributeCollection2_removeNamedItem_Stub(byval This as IRpcStu
 
 extern IID_IHTMLDOMChildrenCollection as const IID
 
+type IHTMLDOMChildrenCollection as IHTMLDOMChildrenCollection_
+
 type IHTMLDOMChildrenCollectionVtbl
 	QueryInterface as function(byval This as IHTMLDOMChildrenCollection ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IHTMLDOMChildrenCollection ptr) as ULONG
@@ -6329,6 +5977,8 @@ declare sub IHTMLDOMChildrenCollection_item_Stub(byval This as IRpcStubBuffer pt
 
 extern DIID_DispHTMLAttributeCollection as const IID
 
+type DispHTMLAttributeCollection as DispHTMLAttributeCollection_
+
 type DispHTMLAttributeCollectionVtbl
 	QueryInterface as function(byval This as DispHTMLAttributeCollection ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as DispHTMLAttributeCollection ptr) as ULONG
@@ -6348,6 +5998,8 @@ extern CLSID_HTMLAttributeCollection as const CLSID
 #define __DispDOMChildrenCollection_DISPINTERFACE_DEFINED__
 
 extern DIID_DispDOMChildrenCollection as const IID
+
+type DispDOMChildrenCollection as DispDOMChildrenCollection_
 
 type DispDOMChildrenCollectionVtbl
 	QueryInterface as function(byval This as DispDOMChildrenCollection ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -6369,6 +6021,8 @@ extern CLSID_DOMChildrenCollection as const CLSID
 
 extern DIID_HTMLElementEvents2 as const IID
 
+type HTMLElementEvents2 as HTMLElementEvents2_
+
 type HTMLElementEvents2Vtbl
 	QueryInterface as function(byval This as HTMLElementEvents2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as HTMLElementEvents2 ptr) as ULONG
@@ -6386,6 +6040,8 @@ end type
 #define __HTMLElementEvents_DISPINTERFACE_DEFINED__
 
 extern DIID_HTMLElementEvents as const IID
+
+type HTMLElementEvents as HTMLElementEvents_
 
 type HTMLElementEventsVtbl
 	QueryInterface as function(byval This as HTMLElementEvents ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -6405,6 +6061,8 @@ end type
 
 extern IID_IHTMLElementCollection as const IID
 
+type IHTMLElementCollection as IHTMLElementCollection_
+
 type IHTMLElementCollectionVtbl
 	QueryInterface as function(byval This as IHTMLElementCollection ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IHTMLElementCollection ptr) as ULONG
@@ -6413,11 +6071,11 @@ type IHTMLElementCollectionVtbl
 	GetTypeInfo as function(byval This as IHTMLElementCollection ptr, byval iTInfo as UINT, byval lcid as LCID, byval ppTInfo as ITypeInfo ptr ptr) as HRESULT
 	GetIDsOfNames as function(byval This as IHTMLElementCollection ptr, byval riid as const IID const ptr, byval rgszNames as LPOLESTR ptr, byval cNames as UINT, byval lcid as LCID, byval rgDispId as DISPID ptr) as HRESULT
 	Invoke as function(byval This as IHTMLElementCollection ptr, byval dispIdMember as DISPID, byval riid as const IID const ptr, byval lcid as LCID, byval wFlags as WORD, byval pDispParams as DISPPARAMS ptr, byval pVarResult as VARIANT ptr, byval pExcepInfo as EXCEPINFO ptr, byval puArgErr as UINT ptr) as HRESULT
-	toString as function(byval This as IHTMLElementCollection ptr, byval String_ as BSTR ptr) as HRESULT
+	toString as function(byval This as IHTMLElementCollection ptr, byval String as BSTR ptr) as HRESULT
 	put_length as function(byval This as IHTMLElementCollection ptr, byval v as long) as HRESULT
 	get_length as function(byval This as IHTMLElementCollection ptr, byval p as long ptr) as HRESULT
 	get__newEnum as function(byval This as IHTMLElementCollection ptr, byval p as IUnknown ptr ptr) as HRESULT
-	item as function(byval This as IHTMLElementCollection ptr, byval name_ as VARIANT, byval index as VARIANT, byval pdisp as IDispatch ptr ptr) as HRESULT
+	item as function(byval This as IHTMLElementCollection ptr, byval name as VARIANT, byval index as VARIANT, byval pdisp as IDispatch ptr ptr) as HRESULT
 	tags as function(byval This as IHTMLElementCollection ptr, byval tagName as VARIANT, byval pdisp as IDispatch ptr ptr) as HRESULT
 end type
 
@@ -6425,7 +6083,7 @@ type IHTMLElementCollection_
 	lpVtbl as IHTMLElementCollectionVtbl ptr
 end type
 
-declare function IHTMLElementCollection_toString_Proxy(byval This as IHTMLElementCollection ptr, byval String_ as BSTR ptr) as HRESULT
+declare function IHTMLElementCollection_toString_Proxy(byval This as IHTMLElementCollection ptr, byval String as BSTR ptr) as HRESULT
 declare sub IHTMLElementCollection_toString_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IHTMLElementCollection_put_length_Proxy(byval This as IHTMLElementCollection ptr, byval v as long) as HRESULT
 declare sub IHTMLElementCollection_put_length_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
@@ -6433,7 +6091,7 @@ declare function IHTMLElementCollection_get_length_Proxy(byval This as IHTMLElem
 declare sub IHTMLElementCollection_get_length_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IHTMLElementCollection_get__newEnum_Proxy(byval This as IHTMLElementCollection ptr, byval p as IUnknown ptr ptr) as HRESULT
 declare sub IHTMLElementCollection_get__newEnum_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IHTMLElementCollection_item_Proxy(byval This as IHTMLElementCollection ptr, byval name_ as VARIANT, byval index as VARIANT, byval pdisp as IDispatch ptr ptr) as HRESULT
+declare function IHTMLElementCollection_item_Proxy(byval This as IHTMLElementCollection ptr, byval name as VARIANT, byval index as VARIANT, byval pdisp as IDispatch ptr ptr) as HRESULT
 declare sub IHTMLElementCollection_item_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IHTMLElementCollection_tags_Proxy(byval This as IHTMLElementCollection ptr, byval tagName as VARIANT, byval pdisp as IDispatch ptr ptr) as HRESULT
 declare sub IHTMLElementCollection_tags_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
@@ -6441,6 +6099,8 @@ declare sub IHTMLElementCollection_tags_Stub(byval This as IRpcStubBuffer ptr, b
 #define __IHTMLElement2_INTERFACE_DEFINED__
 
 extern IID_IHTMLElement2 as const IID
+
+type IHTMLElement2 as IHTMLElement2_
 
 type IHTMLElement2Vtbl
 	QueryInterface as function(byval This as IHTMLElement2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -6535,7 +6195,7 @@ type IHTMLElement2Vtbl
 	get_oncontextmenu as function(byval This as IHTMLElement2 ptr, byval p as VARIANT ptr) as HRESULT
 	insertAdjacentElement as function(byval This as IHTMLElement2 ptr, byval where as BSTR, byval insertedElement as IHTMLElement ptr, byval inserted as IHTMLElement ptr ptr) as HRESULT
 	applyElement as function(byval This as IHTMLElement2 ptr, byval apply as IHTMLElement ptr, byval where as BSTR, byval applied as IHTMLElement ptr ptr) as HRESULT
-	getAdjacentText as function(byval This as IHTMLElement2 ptr, byval where as BSTR, byval text_ as BSTR ptr) as HRESULT
+	getAdjacentText as function(byval This as IHTMLElement2 ptr, byval where as BSTR, byval text as BSTR ptr) as HRESULT
 	replaceAdjacentText as function(byval This as IHTMLElement2 ptr, byval where as BSTR, byval newText as BSTR, byval oldText as BSTR ptr) as HRESULT
 	get_canHaveChildren as function(byval This as IHTMLElement2 ptr, byval p as VARIANT_BOOL ptr) as HRESULT
 	addBehavior as function(byval This as IHTMLElement2 ptr, byval bstrUrl as BSTR, byval pvarFactory as VARIANT ptr, byval pCookie as long ptr) as HRESULT
@@ -6724,7 +6384,7 @@ declare function IHTMLElement2_insertAdjacentElement_Proxy(byval This as IHTMLEl
 declare sub IHTMLElement2_insertAdjacentElement_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IHTMLElement2_applyElement_Proxy(byval This as IHTMLElement2 ptr, byval apply as IHTMLElement ptr, byval where as BSTR, byval applied as IHTMLElement ptr ptr) as HRESULT
 declare sub IHTMLElement2_applyElement_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IHTMLElement2_getAdjacentText_Proxy(byval This as IHTMLElement2 ptr, byval where as BSTR, byval text_ as BSTR ptr) as HRESULT
+declare function IHTMLElement2_getAdjacentText_Proxy(byval This as IHTMLElement2 ptr, byval where as BSTR, byval text as BSTR ptr) as HRESULT
 declare sub IHTMLElement2_getAdjacentText_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IHTMLElement2_replaceAdjacentText_Proxy(byval This as IHTMLElement2 ptr, byval where as BSTR, byval newText as BSTR, byval oldText as BSTR ptr) as HRESULT
 declare sub IHTMLElement2_replaceAdjacentText_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
@@ -6754,6 +6414,8 @@ declare sub IHTMLElement2_getElementsByTagName_Stub(byval This as IRpcStubBuffer
 #define __IHTMLElement3_INTERFACE_DEFINED__
 
 extern IID_IHTMLElement3 as const IID
+
+type IHTMLElement3 as IHTMLElement3_
 
 type IHTMLElement3Vtbl
 	QueryInterface as function(byval This as IHTMLElement3 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -6903,6 +6565,8 @@ declare sub IHTMLElement3_get_glyphMode_Stub(byval This as IRpcStubBuffer ptr, b
 
 extern IID_IHTMLElement4 as const IID
 
+type IHTMLElement4 as IHTMLElement4_
+
 type IHTMLElement4Vtbl
 	QueryInterface as function(byval This as IHTMLElement4 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IHTMLElement4 ptr) as ULONG
@@ -6958,6 +6622,8 @@ declare sub IHTMLElement4_get_onfocusout_Stub(byval This as IRpcStubBuffer ptr, 
 
 extern IID_IHTMLElementRender as const IID
 
+type IHTMLElementRender as IHTMLElementRender_
+
 type IHTMLElementRenderVtbl
 	QueryInterface as function(byval This as IHTMLElementRender ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IHTMLElementRender ptr) as ULONG
@@ -6978,6 +6644,8 @@ declare sub IHTMLElementRender_SetDocumentPrinter_Stub(byval This as IRpcStubBuf
 #define __IHTMLUniqueName_INTERFACE_DEFINED__
 
 extern IID_IHTMLUniqueName as const IID
+
+type IHTMLUniqueName as IHTMLUniqueName_
 
 type IHTMLUniqueNameVtbl
 	QueryInterface as function(byval This as IHTMLUniqueName ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -7003,6 +6671,8 @@ declare sub IHTMLUniqueName_get_uniqueID_Stub(byval This as IRpcStubBuffer ptr, 
 #define __IHTMLDatabinding_INTERFACE_DEFINED__
 
 extern IID_IHTMLDatabinding as const IID
+
+type IHTMLDatabinding as IHTMLDatabinding_
 
 type IHTMLDatabindingVtbl
 	QueryInterface as function(byval This as IHTMLDatabinding ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -7041,6 +6711,8 @@ declare sub IHTMLDatabinding_get_dataFormatAs_Stub(byval This as IRpcStubBuffer 
 
 extern IID_IHTMLDocument as const IID
 
+type IHTMLDocument as IHTMLDocument_
+
 type IHTMLDocumentVtbl
 	QueryInterface as function(byval This as IHTMLDocument ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IHTMLDocument ptr) as ULONG
@@ -7062,6 +6734,8 @@ declare sub IHTMLDocument_get_Script_Stub(byval This as IRpcStubBuffer ptr, byva
 #define __IHTMLElementDefaults_INTERFACE_DEFINED__
 
 extern IID_IHTMLElementDefaults as const IID
+
+type IHTMLElementDefaults as IHTMLElementDefaults_
 
 type IHTMLElementDefaultsVtbl
 	QueryInterface as function(byval This as IHTMLElementDefaults ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -7145,6 +6819,8 @@ declare sub IHTMLElementDefaults_get_frozen_Stub(byval This as IRpcStubBuffer pt
 
 extern DIID_DispHTMLDefaults as const IID
 
+type DispHTMLDefaults as DispHTMLDefaults_
+
 type DispHTMLDefaultsVtbl
 	QueryInterface as function(byval This as DispHTMLDefaults ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as DispHTMLDefaults ptr) as ULONG
@@ -7164,6 +6840,8 @@ extern CLSID_HTMLDefaults as const CLSID
 #define __IHTCDefaultDispatch_INTERFACE_DEFINED__
 
 extern IID_IHTCDefaultDispatch as const IID
+
+type IHTCDefaultDispatch as IHTCDefaultDispatch_
 
 type IHTCDefaultDispatchVtbl
 	QueryInterface as function(byval This as IHTCDefaultDispatch ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -7196,6 +6874,8 @@ declare sub IHTCDefaultDispatch_get_document_Stub(byval This as IRpcStubBuffer p
 
 extern IID_IHTCPropertyBehavior as const IID
 
+type IHTCPropertyBehavior as IHTCPropertyBehavior_
+
 type IHTCPropertyBehaviorVtbl
 	QueryInterface as function(byval This as IHTCPropertyBehavior ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IHTCPropertyBehavior ptr) as ULONG
@@ -7224,6 +6904,8 @@ declare sub IHTCPropertyBehavior_get_value_Stub(byval This as IRpcStubBuffer ptr
 
 extern IID_IHTCMethodBehavior as const IID
 
+type IHTCMethodBehavior as IHTCMethodBehavior_
+
 type IHTCMethodBehaviorVtbl
 	QueryInterface as function(byval This as IHTCMethodBehavior ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IHTCMethodBehavior ptr) as ULONG
@@ -7241,6 +6923,8 @@ end type
 #define __IHTCEventBehavior_INTERFACE_DEFINED__
 
 extern IID_IHTCEventBehavior as const IID
+
+type IHTCEventBehavior as IHTCEventBehavior_
 
 type IHTCEventBehaviorVtbl
 	QueryInterface as function(byval This as IHTCEventBehavior ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -7263,6 +6947,8 @@ declare sub IHTCEventBehavior_fire_Stub(byval This as IRpcStubBuffer ptr, byval 
 #define __IHTCAttachBehavior_INTERFACE_DEFINED__
 
 extern IID_IHTCAttachBehavior as const IID
+
+type IHTCAttachBehavior as IHTCAttachBehavior_
 
 type IHTCAttachBehaviorVtbl
 	QueryInterface as function(byval This as IHTCAttachBehavior ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -7289,6 +6975,8 @@ declare sub IHTCAttachBehavior_detachEvent_Stub(byval This as IRpcStubBuffer ptr
 
 extern IID_IHTCAttachBehavior2 as const IID
 
+type IHTCAttachBehavior2 as IHTCAttachBehavior2_
+
 type IHTCAttachBehavior2Vtbl
 	QueryInterface as function(byval This as IHTCAttachBehavior2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IHTCAttachBehavior2 ptr) as ULONG
@@ -7310,6 +6998,8 @@ declare sub IHTCAttachBehavior2_fireEvent_Stub(byval This as IRpcStubBuffer ptr,
 #define __IHTCDescBehavior_INTERFACE_DEFINED__
 
 extern IID_IHTCDescBehavior as const IID
+
+type IHTCDescBehavior as IHTCDescBehavior_
 
 type IHTCDescBehaviorVtbl
 	QueryInterface as function(byval This as IHTCDescBehavior ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -7336,6 +7026,8 @@ declare sub IHTCDescBehavior_get_name_Stub(byval This as IRpcStubBuffer ptr, byv
 
 extern DIID_DispHTCDefaultDispatch as const IID
 
+type DispHTCDefaultDispatch as DispHTCDefaultDispatch_
+
 type DispHTCDefaultDispatchVtbl
 	QueryInterface as function(byval This as DispHTCDefaultDispatch ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as DispHTCDefaultDispatch ptr) as ULONG
@@ -7355,6 +7047,8 @@ extern CLSID_HTCDefaultDispatch as const CLSID
 #define __DispHTCPropertyBehavior_DISPINTERFACE_DEFINED__
 
 extern DIID_DispHTCPropertyBehavior as const IID
+
+type DispHTCPropertyBehavior as DispHTCPropertyBehavior_
 
 type DispHTCPropertyBehaviorVtbl
 	QueryInterface as function(byval This as DispHTCPropertyBehavior ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -7376,6 +7070,8 @@ extern CLSID_HTCPropertyBehavior as const CLSID
 
 extern DIID_DispHTCMethodBehavior as const IID
 
+type DispHTCMethodBehavior as DispHTCMethodBehavior_
+
 type DispHTCMethodBehaviorVtbl
 	QueryInterface as function(byval This as DispHTCMethodBehavior ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as DispHTCMethodBehavior ptr) as ULONG
@@ -7395,6 +7091,8 @@ extern CLSID_HTCMethodBehavior as const CLSID
 #define __DispHTCEventBehavior_DISPINTERFACE_DEFINED__
 
 extern DIID_DispHTCEventBehavior as const IID
+
+type DispHTCEventBehavior as DispHTCEventBehavior_
 
 type DispHTCEventBehaviorVtbl
 	QueryInterface as function(byval This as DispHTCEventBehavior ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -7416,6 +7114,8 @@ extern CLSID_HTCEventBehavior as const CLSID
 
 extern DIID_DispHTCAttachBehavior as const IID
 
+type DispHTCAttachBehavior as DispHTCAttachBehavior_
+
 type DispHTCAttachBehaviorVtbl
 	QueryInterface as function(byval This as DispHTCAttachBehavior ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as DispHTCAttachBehavior ptr) as ULONG
@@ -7436,6 +7136,8 @@ extern CLSID_HTCAttachBehavior as const CLSID
 
 extern DIID_DispHTCDescBehavior as const IID
 
+type DispHTCDescBehavior as DispHTCDescBehavior_
+
 type DispHTCDescBehaviorVtbl
 	QueryInterface as function(byval This as DispHTCDescBehavior ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as DispHTCDescBehavior ptr) as ULONG
@@ -7455,6 +7157,8 @@ extern CLSID_HTCDescBehavior as const CLSID
 #define __IHTMLUrnCollection_INTERFACE_DEFINED__
 
 extern IID_IHTMLUrnCollection as const IID
+
+type IHTMLUrnCollection as IHTMLUrnCollection_
 
 type IHTMLUrnCollectionVtbl
 	QueryInterface as function(byval This as IHTMLUrnCollection ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -7483,6 +7187,8 @@ extern CLSID_HTMLUrnCollection as const CLSID
 
 extern IID_IHTMLGenericElement as const IID
 
+type IHTMLGenericElement as IHTMLGenericElement_
+
 type IHTMLGenericElementVtbl
 	QueryInterface as function(byval This as IHTMLGenericElement ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IHTMLGenericElement ptr) as ULONG
@@ -7508,6 +7214,8 @@ declare sub IHTMLGenericElement_namedRecordset_Stub(byval This as IRpcStubBuffer
 
 extern DIID_DispHTMLGenericElement as const IID
 
+type DispHTMLGenericElement as DispHTMLGenericElement_
+
 type DispHTMLGenericElementVtbl
 	QueryInterface as function(byval This as DispHTMLGenericElement ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as DispHTMLGenericElement ptr) as ULONG
@@ -7527,6 +7235,8 @@ extern CLSID_HTMLGenericElement as const CLSID
 #define __IHTMLStyleSheetRule_INTERFACE_DEFINED__
 
 extern IID_IHTMLStyleSheetRule as const IID
+
+type IHTMLStyleSheetRule as IHTMLStyleSheetRule_
 
 type IHTMLStyleSheetRuleVtbl
 	QueryInterface as function(byval This as IHTMLStyleSheetRule ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -7559,6 +7269,8 @@ declare sub IHTMLStyleSheetRule_get_readOnly_Stub(byval This as IRpcStubBuffer p
 
 extern IID_IHTMLStyleSheetRulesCollection as const IID
 
+type IHTMLStyleSheetRulesCollection as IHTMLStyleSheetRulesCollection_
+
 type IHTMLStyleSheetRulesCollectionVtbl
 	QueryInterface as function(byval This as IHTMLStyleSheetRulesCollection ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IHTMLStyleSheetRulesCollection ptr) as ULONG
@@ -7587,6 +7299,8 @@ extern CLSID_HTMLStyleSheetRulesCollection as const CLSID
 
 extern IID_IHTMLStyleSheetPage as const IID
 
+type IHTMLStyleSheetPage as IHTMLStyleSheetPage_
+
 type IHTMLStyleSheetPageVtbl
 	QueryInterface as function(byval This as IHTMLStyleSheetPage ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IHTMLStyleSheetPage ptr) as ULONG
@@ -7611,6 +7325,8 @@ declare sub IHTMLStyleSheetPage_get_pseudoClass_Stub(byval This as IRpcStubBuffe
 #define __IHTMLStyleSheetPagesCollection_INTERFACE_DEFINED__
 
 extern IID_IHTMLStyleSheetPagesCollection as const IID
+
+type IHTMLStyleSheetPagesCollection as IHTMLStyleSheetPagesCollection_
 
 type IHTMLStyleSheetPagesCollectionVtbl
 	QueryInterface as function(byval This as IHTMLStyleSheetPagesCollection ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -7640,6 +7356,8 @@ extern CLSID_HTMLStyleSheetPagesCollection as const CLSID
 
 extern IID_IHTMLStyleSheetsCollection as const IID
 
+type IHTMLStyleSheetsCollection as IHTMLStyleSheetsCollection_
+
 type IHTMLStyleSheetsCollectionVtbl
 	QueryInterface as function(byval This as IHTMLStyleSheetsCollection ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IHTMLStyleSheetsCollection ptr) as ULONG
@@ -7667,6 +7385,8 @@ declare sub IHTMLStyleSheetsCollection_item_Stub(byval This as IRpcStubBuffer pt
 #define __IHTMLStyleSheet_INTERFACE_DEFINED__
 
 extern IID_IHTMLStyleSheet as const IID
+
+type IHTMLStyleSheet as IHTMLStyleSheet_
 
 type IHTMLStyleSheetVtbl
 	QueryInterface as function(byval This as IHTMLStyleSheet ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -7750,6 +7470,8 @@ declare sub IHTMLStyleSheet_get_rules_Stub(byval This as IRpcStubBuffer ptr, byv
 
 extern IID_IHTMLStyleSheet2 as const IID
 
+type IHTMLStyleSheet2 as IHTMLStyleSheet2_
+
 type IHTMLStyleSheet2Vtbl
 	QueryInterface as function(byval This as IHTMLStyleSheet2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IHTMLStyleSheet2 ptr) as ULONG
@@ -7775,6 +7497,8 @@ declare sub IHTMLStyleSheet2_addPageRule_Stub(byval This as IRpcStubBuffer ptr, 
 
 extern DIID_DispHTMLStyleSheet as const IID
 
+type DispHTMLStyleSheet as DispHTMLStyleSheet_
+
 type DispHTMLStyleSheetVtbl
 	QueryInterface as function(byval This as DispHTMLStyleSheet ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as DispHTMLStyleSheet ptr) as ULONG
@@ -7796,6 +7520,8 @@ extern CLSID_HTMLStyleSheetsCollection as const CLSID
 
 extern DIID_HTMLLinkElementEvents2 as const IID
 
+type HTMLLinkElementEvents2 as HTMLLinkElementEvents2_
+
 type HTMLLinkElementEvents2Vtbl
 	QueryInterface as function(byval This as HTMLLinkElementEvents2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as HTMLLinkElementEvents2 ptr) as ULONG
@@ -7814,6 +7540,8 @@ end type
 
 extern DIID_HTMLLinkElementEvents as const IID
 
+type HTMLLinkElementEvents as HTMLLinkElementEvents_
+
 type HTMLLinkElementEventsVtbl
 	QueryInterface as function(byval This as HTMLLinkElementEvents ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as HTMLLinkElementEvents ptr) as ULONG
@@ -7831,6 +7559,8 @@ end type
 #define __IHTMLLinkElement_INTERFACE_DEFINED__
 
 extern IID_IHTMLLinkElement as const IID
+
+type IHTMLLinkElement as IHTMLLinkElement_
 
 type IHTMLLinkElementVtbl
 	QueryInterface as function(byval This as IHTMLLinkElement ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -7911,6 +7641,8 @@ declare sub IHTMLLinkElement_get_media_Stub(byval This as IRpcStubBuffer ptr, by
 
 extern IID_IHTMLLinkElement2 as const IID
 
+type IHTMLLinkElement2 as IHTMLLinkElement2_
+
 type IHTMLLinkElement2Vtbl
 	QueryInterface as function(byval This as IHTMLLinkElement2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IHTMLLinkElement2 ptr) as ULONG
@@ -7935,6 +7667,8 @@ declare sub IHTMLLinkElement2_get_target_Stub(byval This as IRpcStubBuffer ptr, 
 #define __IHTMLLinkElement3_INTERFACE_DEFINED__
 
 extern IID_IHTMLLinkElement3 as const IID
+
+type IHTMLLinkElement3 as IHTMLLinkElement3_
 
 type IHTMLLinkElement3Vtbl
 	QueryInterface as function(byval This as IHTMLLinkElement3 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -7967,6 +7701,8 @@ declare sub IHTMLLinkElement3_get_hreflang_Stub(byval This as IRpcStubBuffer ptr
 
 extern DIID_DispHTMLLinkElement as const IID
 
+type DispHTMLLinkElement as DispHTMLLinkElement_
+
 type DispHTMLLinkElementVtbl
 	QueryInterface as function(byval This as DispHTMLLinkElement ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as DispHTMLLinkElement ptr) as ULONG
@@ -7987,6 +7723,8 @@ extern CLSID_HTMLLinkElement as const CLSID
 
 extern IID_IHTMLTxtRange as const IID
 
+type IHTMLTxtRange as IHTMLTxtRange_
+
 type IHTMLTxtRangeVtbl
 	QueryInterface as function(byval This as IHTMLTxtRange ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IHTMLTxtRange ptr) as ULONG
@@ -7999,7 +7737,7 @@ type IHTMLTxtRangeVtbl
 	put_text as function(byval This as IHTMLTxtRange ptr, byval v as BSTR) as HRESULT
 	get_text as function(byval This as IHTMLTxtRange ptr, byval p as BSTR ptr) as HRESULT
 	parentElement as function(byval This as IHTMLTxtRange ptr, byval parent as IHTMLElement ptr ptr) as HRESULT
-	duplicate_ as function(byval This as IHTMLTxtRange ptr, byval Duplicate_ as IHTMLTxtRange ptr ptr) as HRESULT
+	duplicate as function(byval This as IHTMLTxtRange ptr, byval Duplicate as IHTMLTxtRange ptr ptr) as HRESULT
 	inRange as function(byval This as IHTMLTxtRange ptr, byval Range as IHTMLTxtRange ptr, byval InRange as VARIANT_BOOL ptr) as HRESULT
 	isEqual as function(byval This as IHTMLTxtRange ptr, byval Range as IHTMLTxtRange ptr, byval IsEqual as VARIANT_BOOL ptr) as HRESULT
 	scrollIntoView as function(byval This as IHTMLTxtRange ptr, byval fStart as VARIANT_BOOL) as HRESULT
@@ -8013,7 +7751,7 @@ type IHTMLTxtRangeVtbl
 	moveToElementText as function(byval This as IHTMLTxtRange ptr, byval element as IHTMLElement ptr) as HRESULT
 	setEndPoint as function(byval This as IHTMLTxtRange ptr, byval how as BSTR, byval SourceRange as IHTMLTxtRange ptr) as HRESULT
 	compareEndPoints as function(byval This as IHTMLTxtRange ptr, byval how as BSTR, byval SourceRange as IHTMLTxtRange ptr, byval ret as long ptr) as HRESULT
-	findText_ as function(byval This as IHTMLTxtRange ptr, byval String_ as BSTR, byval count as long, byval Flags as long, byval Success as VARIANT_BOOL ptr) as HRESULT
+	findText as function(byval This as IHTMLTxtRange ptr, byval String as BSTR, byval count as long, byval Flags as long, byval Success as VARIANT_BOOL ptr) as HRESULT
 	moveToPoint as function(byval This as IHTMLTxtRange ptr, byval x as long, byval y as long) as HRESULT
 	getBookmark as function(byval This as IHTMLTxtRange ptr, byval Boolmark as BSTR ptr) as HRESULT
 	moveToBookmark as function(byval This as IHTMLTxtRange ptr, byval Bookmark as BSTR, byval Success as VARIANT_BOOL ptr) as HRESULT
@@ -8039,7 +7777,7 @@ declare function IHTMLTxtRange_get_text_Proxy(byval This as IHTMLTxtRange ptr, b
 declare sub IHTMLTxtRange_get_text_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IHTMLTxtRange_parentElement_Proxy(byval This as IHTMLTxtRange ptr, byval parent as IHTMLElement ptr ptr) as HRESULT
 declare sub IHTMLTxtRange_parentElement_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IHTMLTxtRange_duplicate_Proxy(byval This as IHTMLTxtRange ptr, byval Duplicate_ as IHTMLTxtRange ptr ptr) as HRESULT
+declare function IHTMLTxtRange_duplicate_Proxy(byval This as IHTMLTxtRange ptr, byval Duplicate as IHTMLTxtRange ptr ptr) as HRESULT
 declare sub IHTMLTxtRange_duplicate_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IHTMLTxtRange_inRange_Proxy(byval This as IHTMLTxtRange ptr, byval Range as IHTMLTxtRange ptr, byval InRange as VARIANT_BOOL ptr) as HRESULT
 declare sub IHTMLTxtRange_inRange_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
@@ -8067,7 +7805,7 @@ declare function IHTMLTxtRange_setEndPoint_Proxy(byval This as IHTMLTxtRange ptr
 declare sub IHTMLTxtRange_setEndPoint_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IHTMLTxtRange_compareEndPoints_Proxy(byval This as IHTMLTxtRange ptr, byval how as BSTR, byval SourceRange as IHTMLTxtRange ptr, byval ret as long ptr) as HRESULT
 declare sub IHTMLTxtRange_compareEndPoints_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IHTMLTxtRange_findText_Proxy(byval This as IHTMLTxtRange ptr, byval String_ as BSTR, byval count as long, byval Flags as long, byval Success as VARIANT_BOOL ptr) as HRESULT
+declare function IHTMLTxtRange_findText_Proxy(byval This as IHTMLTxtRange ptr, byval String as BSTR, byval count as long, byval Flags as long, byval Success as VARIANT_BOOL ptr) as HRESULT
 declare sub IHTMLTxtRange_findText_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IHTMLTxtRange_moveToPoint_Proxy(byval This as IHTMLTxtRange ptr, byval x as long, byval y as long) as HRESULT
 declare sub IHTMLTxtRange_moveToPoint_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
@@ -8095,6 +7833,8 @@ declare sub IHTMLTxtRange_execCommandShowHelp_Stub(byval This as IRpcStubBuffer 
 #define __IHTMLTextRangeMetrics_INTERFACE_DEFINED__
 
 extern IID_IHTMLTextRangeMetrics as const IID
+
+type IHTMLTextRangeMetrics as IHTMLTextRangeMetrics_
 
 type IHTMLTextRangeMetricsVtbl
 	QueryInterface as function(byval This as IHTMLTextRangeMetrics ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -8133,6 +7873,8 @@ declare sub IHTMLTextRangeMetrics_get_boundingHeight_Stub(byval This as IRpcStub
 
 extern IID_IHTMLTextRangeMetrics2 as const IID
 
+type IHTMLTextRangeMetrics2 as IHTMLTextRangeMetrics2_
+
 type IHTMLTextRangeMetrics2Vtbl
 	QueryInterface as function(byval This as IHTMLTextRangeMetrics2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IHTMLTextRangeMetrics2 ptr) as ULONG
@@ -8157,6 +7899,8 @@ declare sub IHTMLTextRangeMetrics2_getBoundingClientRect_Stub(byval This as IRpc
 #define __IHTMLTxtRangeCollection_INTERFACE_DEFINED__
 
 extern IID_IHTMLTxtRangeCollection as const IID
+
+type IHTMLTxtRangeCollection as IHTMLTxtRangeCollection_
 
 type IHTMLTxtRangeCollectionVtbl
 	QueryInterface as function(byval This as IHTMLTxtRangeCollection ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -8186,6 +7930,8 @@ declare sub IHTMLTxtRangeCollection_item_Stub(byval This as IRpcStubBuffer ptr, 
 
 extern DIID_HTMLFormElementEvents2 as const IID
 
+type HTMLFormElementEvents2 as HTMLFormElementEvents2_
+
 type HTMLFormElementEvents2Vtbl
 	QueryInterface as function(byval This as HTMLFormElementEvents2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as HTMLFormElementEvents2 ptr) as ULONG
@@ -8204,6 +7950,8 @@ end type
 
 extern DIID_HTMLFormElementEvents as const IID
 
+type HTMLFormElementEvents as HTMLFormElementEvents_
+
 type HTMLFormElementEventsVtbl
 	QueryInterface as function(byval This as HTMLFormElementEvents ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as HTMLFormElementEvents ptr) as ULONG
@@ -8221,6 +7969,8 @@ end type
 #define __IHTMLFormElement_INTERFACE_DEFINED__
 
 extern IID_IHTMLFormElement as const IID
+
+type IHTMLFormElement as IHTMLFormElement_
 
 type IHTMLFormElementVtbl
 	QueryInterface as function(byval This as IHTMLFormElement ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -8252,7 +8002,7 @@ type IHTMLFormElementVtbl
 	put_length as function(byval This as IHTMLFormElement ptr, byval v as long) as HRESULT
 	get_length as function(byval This as IHTMLFormElement ptr, byval p as long ptr) as HRESULT
 	get__newEnum as function(byval This as IHTMLFormElement ptr, byval p as IUnknown ptr ptr) as HRESULT
-	item as function(byval This as IHTMLFormElement ptr, byval name_ as VARIANT, byval index as VARIANT, byval pdisp as IDispatch ptr ptr) as HRESULT
+	item as function(byval This as IHTMLFormElement ptr, byval name as VARIANT, byval index as VARIANT, byval pdisp as IDispatch ptr ptr) as HRESULT
 	tags as function(byval This as IHTMLFormElement ptr, byval tagName as VARIANT, byval pdisp as IDispatch ptr ptr) as HRESULT
 end type
 
@@ -8304,7 +8054,7 @@ declare function IHTMLFormElement_get_length_Proxy(byval This as IHTMLFormElemen
 declare sub IHTMLFormElement_get_length_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IHTMLFormElement_get__newEnum_Proxy(byval This as IHTMLFormElement ptr, byval p as IUnknown ptr ptr) as HRESULT
 declare sub IHTMLFormElement_get__newEnum_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IHTMLFormElement_item_Proxy(byval This as IHTMLFormElement ptr, byval name_ as VARIANT, byval index as VARIANT, byval pdisp as IDispatch ptr ptr) as HRESULT
+declare function IHTMLFormElement_item_Proxy(byval This as IHTMLFormElement ptr, byval name as VARIANT, byval index as VARIANT, byval pdisp as IDispatch ptr ptr) as HRESULT
 declare sub IHTMLFormElement_item_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IHTMLFormElement_tags_Proxy(byval This as IHTMLFormElement ptr, byval tagName as VARIANT, byval pdisp as IDispatch ptr ptr) as HRESULT
 declare sub IHTMLFormElement_tags_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
@@ -8312,6 +8062,8 @@ declare sub IHTMLFormElement_tags_Stub(byval This as IRpcStubBuffer ptr, byval _
 #define __IHTMLFormElement2_INTERFACE_DEFINED__
 
 extern IID_IHTMLFormElement2 as const IID
+
+type IHTMLFormElement2 as IHTMLFormElement2_
 
 type IHTMLFormElement2Vtbl
 	QueryInterface as function(byval This as IHTMLFormElement2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -8341,6 +8093,8 @@ declare sub IHTMLFormElement2_urns_Stub(byval This as IRpcStubBuffer ptr, byval 
 
 extern IID_IHTMLFormElement3 as const IID
 
+type IHTMLFormElement3 as IHTMLFormElement3_
+
 type IHTMLFormElement3Vtbl
 	QueryInterface as function(byval This as IHTMLFormElement3 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IHTMLFormElement3 ptr) as ULONG
@@ -8349,19 +8103,21 @@ type IHTMLFormElement3Vtbl
 	GetTypeInfo as function(byval This as IHTMLFormElement3 ptr, byval iTInfo as UINT, byval lcid as LCID, byval ppTInfo as ITypeInfo ptr ptr) as HRESULT
 	GetIDsOfNames as function(byval This as IHTMLFormElement3 ptr, byval riid as const IID const ptr, byval rgszNames as LPOLESTR ptr, byval cNames as UINT, byval lcid as LCID, byval rgDispId as DISPID ptr) as HRESULT
 	Invoke as function(byval This as IHTMLFormElement3 ptr, byval dispIdMember as DISPID, byval riid as const IID const ptr, byval lcid as LCID, byval wFlags as WORD, byval pDispParams as DISPPARAMS ptr, byval pVarResult as VARIANT ptr, byval pExcepInfo as EXCEPINFO ptr, byval puArgErr as UINT ptr) as HRESULT
-	namedItem as function(byval This as IHTMLFormElement3 ptr, byval name_ as BSTR, byval pdisp as IDispatch ptr ptr) as HRESULT
+	namedItem as function(byval This as IHTMLFormElement3 ptr, byval name as BSTR, byval pdisp as IDispatch ptr ptr) as HRESULT
 end type
 
 type IHTMLFormElement3_
 	lpVtbl as IHTMLFormElement3Vtbl ptr
 end type
 
-declare function IHTMLFormElement3_namedItem_Proxy(byval This as IHTMLFormElement3 ptr, byval name_ as BSTR, byval pdisp as IDispatch ptr ptr) as HRESULT
+declare function IHTMLFormElement3_namedItem_Proxy(byval This as IHTMLFormElement3 ptr, byval name as BSTR, byval pdisp as IDispatch ptr ptr) as HRESULT
 declare sub IHTMLFormElement3_namedItem_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 
 #define __IHTMLSubmitData_INTERFACE_DEFINED__
 
 extern IID_IHTMLSubmitData as const IID
+
+type IHTMLSubmitData as IHTMLSubmitData_
 
 type IHTMLSubmitDataVtbl
 	QueryInterface as function(byval This as IHTMLSubmitData ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -8371,8 +8127,8 @@ type IHTMLSubmitDataVtbl
 	GetTypeInfo as function(byval This as IHTMLSubmitData ptr, byval iTInfo as UINT, byval lcid as LCID, byval ppTInfo as ITypeInfo ptr ptr) as HRESULT
 	GetIDsOfNames as function(byval This as IHTMLSubmitData ptr, byval riid as const IID const ptr, byval rgszNames as LPOLESTR ptr, byval cNames as UINT, byval lcid as LCID, byval rgDispId as DISPID ptr) as HRESULT
 	Invoke as function(byval This as IHTMLSubmitData ptr, byval dispIdMember as DISPID, byval riid as const IID const ptr, byval lcid as LCID, byval wFlags as WORD, byval pDispParams as DISPPARAMS ptr, byval pVarResult as VARIANT ptr, byval pExcepInfo as EXCEPINFO ptr, byval puArgErr as UINT ptr) as HRESULT
-	appendNameValuePair as function(byval This as IHTMLSubmitData ptr, byval name_ as BSTR, byval value as BSTR) as HRESULT
-	appendNameFilePair as function(byval This as IHTMLSubmitData ptr, byval name_ as BSTR, byval filename as BSTR) as HRESULT
+	appendNameValuePair as function(byval This as IHTMLSubmitData ptr, byval name as BSTR, byval value as BSTR) as HRESULT
+	appendNameFilePair as function(byval This as IHTMLSubmitData ptr, byval name as BSTR, byval filename as BSTR) as HRESULT
 	appendItemSeparator as function(byval This as IHTMLSubmitData ptr) as HRESULT
 end type
 
@@ -8380,9 +8136,9 @@ type IHTMLSubmitData_
 	lpVtbl as IHTMLSubmitDataVtbl ptr
 end type
 
-declare function IHTMLSubmitData_appendNameValuePair_Proxy(byval This as IHTMLSubmitData ptr, byval name_ as BSTR, byval value as BSTR) as HRESULT
+declare function IHTMLSubmitData_appendNameValuePair_Proxy(byval This as IHTMLSubmitData ptr, byval name as BSTR, byval value as BSTR) as HRESULT
 declare sub IHTMLSubmitData_appendNameValuePair_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IHTMLSubmitData_appendNameFilePair_Proxy(byval This as IHTMLSubmitData ptr, byval name_ as BSTR, byval filename as BSTR) as HRESULT
+declare function IHTMLSubmitData_appendNameFilePair_Proxy(byval This as IHTMLSubmitData ptr, byval name as BSTR, byval filename as BSTR) as HRESULT
 declare sub IHTMLSubmitData_appendNameFilePair_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IHTMLSubmitData_appendItemSeparator_Proxy(byval This as IHTMLSubmitData ptr) as HRESULT
 declare sub IHTMLSubmitData_appendItemSeparator_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
@@ -8390,6 +8146,8 @@ declare sub IHTMLSubmitData_appendItemSeparator_Stub(byval This as IRpcStubBuffe
 #define __DispHTMLFormElement_DISPINTERFACE_DEFINED__
 
 extern DIID_DispHTMLFormElement as const IID
+
+type DispHTMLFormElement as DispHTMLFormElement_
 
 type DispHTMLFormElementVtbl
 	QueryInterface as function(byval This as DispHTMLFormElement ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -8411,6 +8169,8 @@ extern CLSID_HTMLFormElement as const CLSID
 
 extern DIID_HTMLControlElementEvents2 as const IID
 
+type HTMLControlElementEvents2 as HTMLControlElementEvents2_
+
 type HTMLControlElementEvents2Vtbl
 	QueryInterface as function(byval This as HTMLControlElementEvents2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as HTMLControlElementEvents2 ptr) as ULONG
@@ -8429,6 +8189,8 @@ end type
 
 extern DIID_HTMLControlElementEvents as const IID
 
+type HTMLControlElementEvents as HTMLControlElementEvents_
+
 type HTMLControlElementEventsVtbl
 	QueryInterface as function(byval This as HTMLControlElementEvents ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as HTMLControlElementEvents ptr) as ULONG
@@ -8446,6 +8208,8 @@ end type
 #define __IHTMLControlElement_INTERFACE_DEFINED__
 
 extern IID_IHTMLControlElement as const IID
+
+type IHTMLControlElement as IHTMLControlElement_
 
 type IHTMLControlElementVtbl
 	QueryInterface as function(byval This as IHTMLControlElement ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -8520,6 +8284,8 @@ declare sub IHTMLControlElement_get_clientLeft_Stub(byval This as IRpcStubBuffer
 
 extern IID_IHTMLTextElement as const IID
 
+type IHTMLTextElement as IHTMLTextElement_
+
 type IHTMLTextElementVtbl
 	QueryInterface as function(byval This as IHTMLTextElement ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IHTMLTextElement ptr) as ULONG
@@ -8537,6 +8303,8 @@ end type
 #define __DispHTMLTextElement_DISPINTERFACE_DEFINED__
 
 extern DIID_DispHTMLTextElement as const IID
+
+type DispHTMLTextElement as DispHTMLTextElement_
 
 type DispHTMLTextElementVtbl
 	QueryInterface as function(byval This as DispHTMLTextElement ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -8558,6 +8326,8 @@ extern CLSID_HTMLTextElement as const CLSID
 
 extern DIID_HTMLTextContainerEvents2 as const IID
 
+type HTMLTextContainerEvents2 as HTMLTextContainerEvents2_
+
 type HTMLTextContainerEvents2Vtbl
 	QueryInterface as function(byval This as HTMLTextContainerEvents2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as HTMLTextContainerEvents2 ptr) as ULONG
@@ -8576,6 +8346,8 @@ end type
 
 extern DIID_HTMLTextContainerEvents as const IID
 
+type HTMLTextContainerEvents as HTMLTextContainerEvents_
+
 type HTMLTextContainerEventsVtbl
 	QueryInterface as function(byval This as HTMLTextContainerEvents ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as HTMLTextContainerEvents ptr) as ULONG
@@ -8593,6 +8365,8 @@ end type
 #define __IHTMLTextContainer_INTERFACE_DEFINED__
 
 extern IID_IHTMLTextContainer as const IID
+
+type IHTMLTextContainer as IHTMLTextContainer_
 
 type IHTMLTextContainerVtbl
 	QueryInterface as function(byval This as IHTMLTextContainer ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -8639,6 +8413,8 @@ declare sub IHTMLTextContainer_get_onscroll_Stub(byval This as IRpcStubBuffer pt
 #define __IHTMLControlRange_INTERFACE_DEFINED__
 
 extern IID_IHTMLControlRange as const IID
+
+type IHTMLControlRange as IHTMLControlRange_
 
 type IHTMLControlRangeVtbl
 	QueryInterface as function(byval This as IHTMLControlRange ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -8704,6 +8480,8 @@ declare sub IHTMLControlRange_get_length_Stub(byval This as IRpcStubBuffer ptr, 
 
 extern IID_IHTMLControlRange2 as const IID
 
+type IHTMLControlRange2 as IHTMLControlRange2_
+
 type IHTMLControlRange2Vtbl
 	QueryInterface as function(byval This as IHTMLControlRange2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IHTMLControlRange2 ptr) as ULONG
@@ -8726,6 +8504,8 @@ declare sub IHTMLControlRange2_addElement_Stub(byval This as IRpcStubBuffer ptr,
 
 extern DIID_HTMLImgEvents2 as const IID
 
+type HTMLImgEvents2 as HTMLImgEvents2_
+
 type HTMLImgEvents2Vtbl
 	QueryInterface as function(byval This as HTMLImgEvents2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as HTMLImgEvents2 ptr) as ULONG
@@ -8744,6 +8524,8 @@ end type
 
 extern DIID_HTMLImgEvents as const IID
 
+type HTMLImgEvents as HTMLImgEvents_
+
 type HTMLImgEventsVtbl
 	QueryInterface as function(byval This as HTMLImgEvents ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as HTMLImgEvents ptr) as ULONG
@@ -8761,6 +8543,8 @@ end type
 #define __IHTMLImgElement_INTERFACE_DEFINED__
 
 extern IID_IHTMLImgElement as const IID
+
+type IHTMLImgElement as IHTMLImgElement_
 
 type IHTMLImgElementVtbl
 	QueryInterface as function(byval This as IHTMLImgElement ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -8925,6 +8709,8 @@ declare sub IHTMLImgElement_get_start_Stub(byval This as IRpcStubBuffer ptr, byv
 
 extern IID_IHTMLImgElement2 as const IID
 
+type IHTMLImgElement2 as IHTMLImgElement2_
+
 type IHTMLImgElement2Vtbl
 	QueryInterface as function(byval This as IHTMLImgElement2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IHTMLImgElement2 ptr) as ULONG
@@ -8950,6 +8736,8 @@ declare sub IHTMLImgElement2_get_longDesc_Stub(byval This as IRpcStubBuffer ptr,
 
 extern IID_IHTMLImageElementFactory as const IID
 
+type IHTMLImageElementFactory as IHTMLImageElementFactory_
+
 type IHTMLImageElementFactoryVtbl
 	QueryInterface as function(byval This as IHTMLImageElementFactory ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IHTMLImageElementFactory ptr) as ULONG
@@ -8958,19 +8746,21 @@ type IHTMLImageElementFactoryVtbl
 	GetTypeInfo as function(byval This as IHTMLImageElementFactory ptr, byval iTInfo as UINT, byval lcid as LCID, byval ppTInfo as ITypeInfo ptr ptr) as HRESULT
 	GetIDsOfNames as function(byval This as IHTMLImageElementFactory ptr, byval riid as const IID const ptr, byval rgszNames as LPOLESTR ptr, byval cNames as UINT, byval lcid as LCID, byval rgDispId as DISPID ptr) as HRESULT
 	Invoke as function(byval This as IHTMLImageElementFactory ptr, byval dispIdMember as DISPID, byval riid as const IID const ptr, byval lcid as LCID, byval wFlags as WORD, byval pDispParams as DISPPARAMS ptr, byval pVarResult as VARIANT ptr, byval pExcepInfo as EXCEPINFO ptr, byval puArgErr as UINT ptr) as HRESULT
-	create as function(byval This as IHTMLImageElementFactory ptr, byval width_ as VARIANT, byval height as VARIANT, byval __MIDL_0011 as IHTMLImgElement ptr ptr) as HRESULT
+	create as function(byval This as IHTMLImageElementFactory ptr, byval width as VARIANT, byval height as VARIANT, byval __MIDL_0011 as IHTMLImgElement ptr ptr) as HRESULT
 end type
 
 type IHTMLImageElementFactory_
 	lpVtbl as IHTMLImageElementFactoryVtbl ptr
 end type
 
-declare function IHTMLImageElementFactory_create_Proxy(byval This as IHTMLImageElementFactory ptr, byval width_ as VARIANT, byval height as VARIANT, byval __MIDL_0011 as IHTMLImgElement ptr ptr) as HRESULT
+declare function IHTMLImageElementFactory_create_Proxy(byval This as IHTMLImageElementFactory ptr, byval width as VARIANT, byval height as VARIANT, byval __MIDL_0011 as IHTMLImgElement ptr ptr) as HRESULT
 declare sub IHTMLImageElementFactory_create_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 
 #define __DispHTMLImg_DISPINTERFACE_DEFINED__
 
 extern DIID_DispHTMLImg as const IID
+
+type DispHTMLImg as DispHTMLImg_
 
 type DispHTMLImgVtbl
 	QueryInterface as function(byval This as DispHTMLImg ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -8992,6 +8782,8 @@ extern CLSID_HTMLImageElementFactory as const CLSID
 #define __IHTMLBodyElement_INTERFACE_DEFINED__
 
 extern IID_IHTMLBodyElement as const IID
+
+type IHTMLBodyElement as IHTMLBodyElement_
 
 type IHTMLBodyElementVtbl
 	QueryInterface as function(byval This as IHTMLBodyElement ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -9117,6 +8909,8 @@ declare sub IHTMLBodyElement_createTextRange_Stub(byval This as IRpcStubBuffer p
 
 extern IID_IHTMLBodyElement2 as const IID
 
+type IHTMLBodyElement2 as IHTMLBodyElement2_
+
 type IHTMLBodyElement2Vtbl
 	QueryInterface as function(byval This as IHTMLBodyElement2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IHTMLBodyElement2 ptr) as ULONG
@@ -9148,6 +8942,8 @@ declare sub IHTMLBodyElement2_get_onafterprint_Stub(byval This as IRpcStubBuffer
 
 extern DIID_DispHTMLBody as const IID
 
+type DispHTMLBody as DispHTMLBody_
+
 type DispHTMLBodyVtbl
 	QueryInterface as function(byval This as DispHTMLBody ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as DispHTMLBody ptr) as ULONG
@@ -9167,6 +8963,8 @@ extern CLSID_HTMLBody as const CLSID
 #define __IHTMLFontElement_INTERFACE_DEFINED__
 
 extern IID_IHTMLFontElement as const IID
+
+type IHTMLFontElement as IHTMLFontElement_
 
 type IHTMLFontElementVtbl
 	QueryInterface as function(byval This as IHTMLFontElement ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -9205,6 +9003,8 @@ declare sub IHTMLFontElement_get_size_Stub(byval This as IRpcStubBuffer ptr, byv
 
 extern DIID_DispHTMLFontElement as const IID
 
+type DispHTMLFontElement as DispHTMLFontElement_
+
 type DispHTMLFontElementVtbl
 	QueryInterface as function(byval This as DispHTMLFontElement ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as DispHTMLFontElement ptr) as ULONG
@@ -9225,6 +9025,8 @@ extern CLSID_HTMLFontElement as const CLSID
 
 extern DIID_HTMLAnchorEvents2 as const IID
 
+type HTMLAnchorEvents2 as HTMLAnchorEvents2_
+
 type HTMLAnchorEvents2Vtbl
 	QueryInterface as function(byval This as HTMLAnchorEvents2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as HTMLAnchorEvents2 ptr) as ULONG
@@ -9243,6 +9045,8 @@ end type
 
 extern DIID_HTMLAnchorEvents as const IID
 
+type HTMLAnchorEvents as HTMLAnchorEvents_
+
 type HTMLAnchorEventsVtbl
 	QueryInterface as function(byval This as HTMLAnchorEvents ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as HTMLAnchorEvents ptr) as ULONG
@@ -9260,6 +9064,8 @@ end type
 #define __IHTMLAnchorElement_INTERFACE_DEFINED__
 
 extern IID_IHTMLAnchorElement as const IID
+
+type IHTMLAnchorElement as IHTMLAnchorElement_
 
 type IHTMLAnchorElementVtbl
 	QueryInterface as function(byval This as IHTMLAnchorElement ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -9403,6 +9209,8 @@ declare sub IHTMLAnchorElement_blur_Stub(byval This as IRpcStubBuffer ptr, byval
 
 extern IID_IHTMLAnchorElement2 as const IID
 
+type IHTMLAnchorElement2 as IHTMLAnchorElement2_
+
 type IHTMLAnchorElement2Vtbl
 	QueryInterface as function(byval This as IHTMLAnchorElement2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IHTMLAnchorElement2 ptr) as ULONG
@@ -9452,6 +9260,8 @@ declare sub IHTMLAnchorElement2_get_type_Stub(byval This as IRpcStubBuffer ptr, 
 
 extern DIID_DispHTMLAnchorElement as const IID
 
+type DispHTMLAnchorElement as DispHTMLAnchorElement_
+
 type DispHTMLAnchorElementVtbl
 	QueryInterface as function(byval This as DispHTMLAnchorElement ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as DispHTMLAnchorElement ptr) as ULONG
@@ -9472,6 +9282,8 @@ extern CLSID_HTMLAnchorElement as const CLSID
 
 extern DIID_HTMLLabelEvents2 as const IID
 
+type HTMLLabelEvents2 as HTMLLabelEvents2_
+
 type HTMLLabelEvents2Vtbl
 	QueryInterface as function(byval This as HTMLLabelEvents2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as HTMLLabelEvents2 ptr) as ULONG
@@ -9490,6 +9302,8 @@ end type
 
 extern DIID_HTMLLabelEvents as const IID
 
+type HTMLLabelEvents as HTMLLabelEvents_
+
 type HTMLLabelEventsVtbl
 	QueryInterface as function(byval This as HTMLLabelEvents ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as HTMLLabelEvents ptr) as ULONG
@@ -9507,6 +9321,8 @@ end type
 #define __IHTMLLabelElement_INTERFACE_DEFINED__
 
 extern IID_IHTMLLabelElement as const IID
+
+type IHTMLLabelElement as IHTMLLabelElement_
 
 type IHTMLLabelElementVtbl
 	QueryInterface as function(byval This as IHTMLLabelElement ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -9539,6 +9355,8 @@ declare sub IHTMLLabelElement_get_accessKey_Stub(byval This as IRpcStubBuffer pt
 
 extern IID_IHTMLLabelElement2 as const IID
 
+type IHTMLLabelElement2 as IHTMLLabelElement2_
+
 type IHTMLLabelElement2Vtbl
 	QueryInterface as function(byval This as IHTMLLabelElement2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IHTMLLabelElement2 ptr) as ULONG
@@ -9561,6 +9379,8 @@ declare sub IHTMLLabelElement2_get_form_Stub(byval This as IRpcStubBuffer ptr, b
 
 extern DIID_DispHTMLLabelElement as const IID
 
+type DispHTMLLabelElement as DispHTMLLabelElement_
+
 type DispHTMLLabelElementVtbl
 	QueryInterface as function(byval This as DispHTMLLabelElement ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as DispHTMLLabelElement ptr) as ULONG
@@ -9581,6 +9401,8 @@ extern CLSID_HTMLLabelElement as const CLSID
 
 extern IID_IHTMLListElement as const IID
 
+type IHTMLListElement as IHTMLListElement_
+
 type IHTMLListElementVtbl
 	QueryInterface as function(byval This as IHTMLListElement ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IHTMLListElement ptr) as ULONG
@@ -9598,6 +9420,8 @@ end type
 #define __IHTMLListElement2_INTERFACE_DEFINED__
 
 extern IID_IHTMLListElement2 as const IID
+
+type IHTMLListElement2 as IHTMLListElement2_
 
 type IHTMLListElement2Vtbl
 	QueryInterface as function(byval This as IHTMLListElement2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -9624,6 +9448,8 @@ declare sub IHTMLListElement2_get_compact_Stub(byval This as IRpcStubBuffer ptr,
 
 extern DIID_DispHTMLListElement as const IID
 
+type DispHTMLListElement as DispHTMLListElement_
+
 type DispHTMLListElementVtbl
 	QueryInterface as function(byval This as DispHTMLListElement ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as DispHTMLListElement ptr) as ULONG
@@ -9643,6 +9469,8 @@ extern CLSID_HTMLListElement as const CLSID
 #define __IHTMLUListElement_INTERFACE_DEFINED__
 
 extern IID_IHTMLUListElement as const IID
+
+type IHTMLUListElement as IHTMLUListElement_
 
 type IHTMLUListElementVtbl
 	QueryInterface as function(byval This as IHTMLUListElement ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -9675,6 +9503,8 @@ declare sub IHTMLUListElement_get_type_Stub(byval This as IRpcStubBuffer ptr, by
 
 extern DIID_DispHTMLUListElement as const IID
 
+type DispHTMLUListElement as DispHTMLUListElement_
+
 type DispHTMLUListElementVtbl
 	QueryInterface as function(byval This as DispHTMLUListElement ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as DispHTMLUListElement ptr) as ULONG
@@ -9694,6 +9524,8 @@ extern CLSID_HTMLUListElement as const CLSID
 #define __IHTMLOListElement_INTERFACE_DEFINED__
 
 extern IID_IHTMLOListElement as const IID
+
+type IHTMLOListElement as IHTMLOListElement_
 
 type IHTMLOListElementVtbl
 	QueryInterface as function(byval This as IHTMLOListElement ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -9732,6 +9564,8 @@ declare sub IHTMLOListElement_get_type_Stub(byval This as IRpcStubBuffer ptr, by
 
 extern DIID_DispHTMLOListElement as const IID
 
+type DispHTMLOListElement as DispHTMLOListElement_
+
 type DispHTMLOListElementVtbl
 	QueryInterface as function(byval This as DispHTMLOListElement ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as DispHTMLOListElement ptr) as ULONG
@@ -9751,6 +9585,8 @@ extern CLSID_HTMLOListElement as const CLSID
 #define __IHTMLLIElement_INTERFACE_DEFINED__
 
 extern IID_IHTMLLIElement as const IID
+
+type IHTMLLIElement as IHTMLLIElement_
 
 type IHTMLLIElementVtbl
 	QueryInterface as function(byval This as IHTMLLIElement ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -9783,6 +9619,8 @@ declare sub IHTMLLIElement_get_value_Stub(byval This as IRpcStubBuffer ptr, byva
 
 extern DIID_DispHTMLLIElement as const IID
 
+type DispHTMLLIElement as DispHTMLLIElement_
+
 type DispHTMLLIElementVtbl
 	QueryInterface as function(byval This as DispHTMLLIElement ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as DispHTMLLIElement ptr) as ULONG
@@ -9802,6 +9640,8 @@ extern CLSID_HTMLLIElement as const CLSID
 #define __IHTMLBlockElement_INTERFACE_DEFINED__
 
 extern IID_IHTMLBlockElement as const IID
+
+type IHTMLBlockElement as IHTMLBlockElement_
 
 type IHTMLBlockElementVtbl
 	QueryInterface as function(byval This as IHTMLBlockElement ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -9827,6 +9667,8 @@ declare sub IHTMLBlockElement_get_clear_Stub(byval This as IRpcStubBuffer ptr, b
 #define __IHTMLBlockElement2_INTERFACE_DEFINED__
 
 extern IID_IHTMLBlockElement2 as const IID
+
+type IHTMLBlockElement2 as IHTMLBlockElement2_
 
 type IHTMLBlockElement2Vtbl
 	QueryInterface as function(byval This as IHTMLBlockElement2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -9859,6 +9701,8 @@ declare sub IHTMLBlockElement2_get_width_Stub(byval This as IRpcStubBuffer ptr, 
 
 extern DIID_DispHTMLBlockElement as const IID
 
+type DispHTMLBlockElement as DispHTMLBlockElement_
+
 type DispHTMLBlockElementVtbl
 	QueryInterface as function(byval This as DispHTMLBlockElement ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as DispHTMLBlockElement ptr) as ULONG
@@ -9878,6 +9722,8 @@ extern CLSID_HTMLBlockElement as const CLSID
 #define __IHTMLDivElement_INTERFACE_DEFINED__
 
 extern IID_IHTMLDivElement as const IID
+
+type IHTMLDivElement as IHTMLDivElement_
 
 type IHTMLDivElementVtbl
 	QueryInterface as function(byval This as IHTMLDivElement ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -9910,6 +9756,8 @@ declare sub IHTMLDivElement_get_noWrap_Stub(byval This as IRpcStubBuffer ptr, by
 
 extern DIID_DispHTMLDivElement as const IID
 
+type DispHTMLDivElement as DispHTMLDivElement_
+
 type DispHTMLDivElementVtbl
 	QueryInterface as function(byval This as DispHTMLDivElement ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as DispHTMLDivElement ptr) as ULONG
@@ -9929,6 +9777,8 @@ extern CLSID_HTMLDivElement as const CLSID
 #define __IHTMLDDElement_INTERFACE_DEFINED__
 
 extern IID_IHTMLDDElement as const IID
+
+type IHTMLDDElement as IHTMLDDElement_
 
 type IHTMLDDElementVtbl
 	QueryInterface as function(byval This as IHTMLDDElement ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -9955,6 +9805,8 @@ declare sub IHTMLDDElement_get_noWrap_Stub(byval This as IRpcStubBuffer ptr, byv
 
 extern DIID_DispHTMLDDElement as const IID
 
+type DispHTMLDDElement as DispHTMLDDElement_
+
 type DispHTMLDDElementVtbl
 	QueryInterface as function(byval This as DispHTMLDDElement ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as DispHTMLDDElement ptr) as ULONG
@@ -9974,6 +9826,8 @@ extern CLSID_HTMLDDElement as const CLSID
 #define __IHTMLDTElement_INTERFACE_DEFINED__
 
 extern IID_IHTMLDTElement as const IID
+
+type IHTMLDTElement as IHTMLDTElement_
 
 type IHTMLDTElementVtbl
 	QueryInterface as function(byval This as IHTMLDTElement ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -10000,6 +9854,8 @@ declare sub IHTMLDTElement_get_noWrap_Stub(byval This as IRpcStubBuffer ptr, byv
 
 extern DIID_DispHTMLDTElement as const IID
 
+type DispHTMLDTElement as DispHTMLDTElement_
+
 type DispHTMLDTElementVtbl
 	QueryInterface as function(byval This as DispHTMLDTElement ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as DispHTMLDTElement ptr) as ULONG
@@ -10019,6 +9875,8 @@ extern CLSID_HTMLDTElement as const CLSID
 #define __IHTMLBRElement_INTERFACE_DEFINED__
 
 extern IID_IHTMLBRElement as const IID
+
+type IHTMLBRElement as IHTMLBRElement_
 
 type IHTMLBRElementVtbl
 	QueryInterface as function(byval This as IHTMLBRElement ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -10045,6 +9903,8 @@ declare sub IHTMLBRElement_get_clear_Stub(byval This as IRpcStubBuffer ptr, byva
 
 extern DIID_DispHTMLBRElement as const IID
 
+type DispHTMLBRElement as DispHTMLBRElement_
+
 type DispHTMLBRElementVtbl
 	QueryInterface as function(byval This as DispHTMLBRElement ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as DispHTMLBRElement ptr) as ULONG
@@ -10064,6 +9924,8 @@ extern CLSID_HTMLBRElement as const CLSID
 #define __IHTMLDListElement_INTERFACE_DEFINED__
 
 extern IID_IHTMLDListElement as const IID
+
+type IHTMLDListElement as IHTMLDListElement_
 
 type IHTMLDListElementVtbl
 	QueryInterface as function(byval This as IHTMLDListElement ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -10090,6 +9952,8 @@ declare sub IHTMLDListElement_get_compact_Stub(byval This as IRpcStubBuffer ptr,
 
 extern DIID_DispHTMLDListElement as const IID
 
+type DispHTMLDListElement as DispHTMLDListElement_
+
 type DispHTMLDListElementVtbl
 	QueryInterface as function(byval This as DispHTMLDListElement ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as DispHTMLDListElement ptr) as ULONG
@@ -10109,6 +9973,8 @@ extern CLSID_HTMLDListElement as const CLSID
 #define __IHTMLHRElement_INTERFACE_DEFINED__
 
 extern IID_IHTMLHRElement as const IID
+
+type IHTMLHRElement as IHTMLHRElement_
 
 type IHTMLHRElementVtbl
 	QueryInterface as function(byval This as IHTMLHRElement ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -10159,6 +10025,8 @@ declare sub IHTMLHRElement_get_size_Stub(byval This as IRpcStubBuffer ptr, byval
 
 extern DIID_DispHTMLHRElement as const IID
 
+type DispHTMLHRElement as DispHTMLHRElement_
+
 type DispHTMLHRElementVtbl
 	QueryInterface as function(byval This as DispHTMLHRElement ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as DispHTMLHRElement ptr) as ULONG
@@ -10178,6 +10046,8 @@ extern CLSID_HTMLHRElement as const CLSID
 #define __IHTMLParaElement_INTERFACE_DEFINED__
 
 extern IID_IHTMLParaElement as const IID
+
+type IHTMLParaElement as IHTMLParaElement_
 
 type IHTMLParaElementVtbl
 	QueryInterface as function(byval This as IHTMLParaElement ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -10204,6 +10074,8 @@ declare sub IHTMLParaElement_get_align_Stub(byval This as IRpcStubBuffer ptr, by
 
 extern DIID_DispHTMLParaElement as const IID
 
+type DispHTMLParaElement as DispHTMLParaElement_
+
 type DispHTMLParaElementVtbl
 	QueryInterface as function(byval This as DispHTMLParaElement ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as DispHTMLParaElement ptr) as ULONG
@@ -10223,6 +10095,8 @@ extern CLSID_HTMLParaElement as const CLSID
 #define __IHTMLElementCollection2_INTERFACE_DEFINED__
 
 extern IID_IHTMLElementCollection2 as const IID
+
+type IHTMLElementCollection2 as IHTMLElementCollection2_
 
 type IHTMLElementCollection2Vtbl
 	QueryInterface as function(byval This as IHTMLElementCollection2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -10246,6 +10120,8 @@ declare sub IHTMLElementCollection2_urns_Stub(byval This as IRpcStubBuffer ptr, 
 
 extern IID_IHTMLElementCollection3 as const IID
 
+type IHTMLElementCollection3 as IHTMLElementCollection3_
+
 type IHTMLElementCollection3Vtbl
 	QueryInterface as function(byval This as IHTMLElementCollection3 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IHTMLElementCollection3 ptr) as ULONG
@@ -10254,19 +10130,21 @@ type IHTMLElementCollection3Vtbl
 	GetTypeInfo as function(byval This as IHTMLElementCollection3 ptr, byval iTInfo as UINT, byval lcid as LCID, byval ppTInfo as ITypeInfo ptr ptr) as HRESULT
 	GetIDsOfNames as function(byval This as IHTMLElementCollection3 ptr, byval riid as const IID const ptr, byval rgszNames as LPOLESTR ptr, byval cNames as UINT, byval lcid as LCID, byval rgDispId as DISPID ptr) as HRESULT
 	Invoke as function(byval This as IHTMLElementCollection3 ptr, byval dispIdMember as DISPID, byval riid as const IID const ptr, byval lcid as LCID, byval wFlags as WORD, byval pDispParams as DISPPARAMS ptr, byval pVarResult as VARIANT ptr, byval pExcepInfo as EXCEPINFO ptr, byval puArgErr as UINT ptr) as HRESULT
-	namedItem as function(byval This as IHTMLElementCollection3 ptr, byval name_ as BSTR, byval pdisp as IDispatch ptr ptr) as HRESULT
+	namedItem as function(byval This as IHTMLElementCollection3 ptr, byval name as BSTR, byval pdisp as IDispatch ptr ptr) as HRESULT
 end type
 
 type IHTMLElementCollection3_
 	lpVtbl as IHTMLElementCollection3Vtbl ptr
 end type
 
-declare function IHTMLElementCollection3_namedItem_Proxy(byval This as IHTMLElementCollection3 ptr, byval name_ as BSTR, byval pdisp as IDispatch ptr ptr) as HRESULT
+declare function IHTMLElementCollection3_namedItem_Proxy(byval This as IHTMLElementCollection3 ptr, byval name as BSTR, byval pdisp as IDispatch ptr ptr) as HRESULT
 declare sub IHTMLElementCollection3_namedItem_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 
 #define __DispHTMLElementCollection_DISPINTERFACE_DEFINED__
 
 extern DIID_DispHTMLElementCollection as const IID
+
+type DispHTMLElementCollection as DispHTMLElementCollection_
 
 type DispHTMLElementCollectionVtbl
 	QueryInterface as function(byval This as DispHTMLElementCollection ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -10287,6 +10165,8 @@ extern CLSID_HTMLElementCollection as const CLSID
 #define __IHTMLHeaderElement_INTERFACE_DEFINED__
 
 extern IID_IHTMLHeaderElement as const IID
+
+type IHTMLHeaderElement as IHTMLHeaderElement_
 
 type IHTMLHeaderElementVtbl
 	QueryInterface as function(byval This as IHTMLHeaderElement ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -10313,6 +10193,8 @@ declare sub IHTMLHeaderElement_get_align_Stub(byval This as IRpcStubBuffer ptr, 
 
 extern DIID_DispHTMLHeaderElement as const IID
 
+type DispHTMLHeaderElement as DispHTMLHeaderElement_
+
 type DispHTMLHeaderElementVtbl
 	QueryInterface as function(byval This as DispHTMLHeaderElement ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as DispHTMLHeaderElement ptr) as ULONG
@@ -10333,6 +10215,8 @@ extern CLSID_HTMLHeaderElement as const CLSID
 
 extern DIID_HTMLSelectElementEvents2 as const IID
 
+type HTMLSelectElementEvents2 as HTMLSelectElementEvents2_
+
 type HTMLSelectElementEvents2Vtbl
 	QueryInterface as function(byval This as HTMLSelectElementEvents2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as HTMLSelectElementEvents2 ptr) as ULONG
@@ -10351,6 +10235,8 @@ end type
 
 extern DIID_HTMLSelectElementEvents as const IID
 
+type HTMLSelectElementEvents as HTMLSelectElementEvents_
+
 type HTMLSelectElementEventsVtbl
 	QueryInterface as function(byval This as HTMLSelectElementEvents ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as HTMLSelectElementEvents ptr) as ULONG
@@ -10368,6 +10254,8 @@ end type
 #define __IHTMLSelectElement_INTERFACE_DEFINED__
 
 extern IID_IHTMLSelectElement as const IID
+
+type IHTMLSelectElement as IHTMLSelectElement_
 
 type IHTMLSelectElementVtbl
 	QueryInterface as function(byval This as IHTMLSelectElement ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -10399,7 +10287,7 @@ type IHTMLSelectElementVtbl
 	put_length as function(byval This as IHTMLSelectElement ptr, byval v as long) as HRESULT
 	get_length as function(byval This as IHTMLSelectElement ptr, byval p as long ptr) as HRESULT
 	get__newEnum as function(byval This as IHTMLSelectElement ptr, byval p as IUnknown ptr ptr) as HRESULT
-	item as function(byval This as IHTMLSelectElement ptr, byval name_ as VARIANT, byval index as VARIANT, byval pdisp as IDispatch ptr ptr) as HRESULT
+	item as function(byval This as IHTMLSelectElement ptr, byval name as VARIANT, byval index as VARIANT, byval pdisp as IDispatch ptr ptr) as HRESULT
 	tags as function(byval This as IHTMLSelectElement ptr, byval tagName as VARIANT, byval pdisp as IDispatch ptr ptr) as HRESULT
 end type
 
@@ -10451,7 +10339,7 @@ declare function IHTMLSelectElement_get_length_Proxy(byval This as IHTMLSelectEl
 declare sub IHTMLSelectElement_get_length_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IHTMLSelectElement_get__newEnum_Proxy(byval This as IHTMLSelectElement ptr, byval p as IUnknown ptr ptr) as HRESULT
 declare sub IHTMLSelectElement_get__newEnum_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IHTMLSelectElement_item_Proxy(byval This as IHTMLSelectElement ptr, byval name_ as VARIANT, byval index as VARIANT, byval pdisp as IDispatch ptr ptr) as HRESULT
+declare function IHTMLSelectElement_item_Proxy(byval This as IHTMLSelectElement ptr, byval name as VARIANT, byval index as VARIANT, byval pdisp as IDispatch ptr ptr) as HRESULT
 declare sub IHTMLSelectElement_item_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IHTMLSelectElement_tags_Proxy(byval This as IHTMLSelectElement ptr, byval tagName as VARIANT, byval pdisp as IDispatch ptr ptr) as HRESULT
 declare sub IHTMLSelectElement_tags_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
@@ -10459,6 +10347,8 @@ declare sub IHTMLSelectElement_tags_Stub(byval This as IRpcStubBuffer ptr, byval
 #define __IHTMLSelectElement2_INTERFACE_DEFINED__
 
 extern IID_IHTMLSelectElement2 as const IID
+
+type IHTMLSelectElement2 as IHTMLSelectElement2_
 
 type IHTMLSelectElement2Vtbl
 	QueryInterface as function(byval This as IHTMLSelectElement2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -10482,6 +10372,8 @@ declare sub IHTMLSelectElement2_urns_Stub(byval This as IRpcStubBuffer ptr, byva
 
 extern IID_IHTMLSelectElement4 as const IID
 
+type IHTMLSelectElement4 as IHTMLSelectElement4_
+
 type IHTMLSelectElement4Vtbl
 	QueryInterface as function(byval This as IHTMLSelectElement4 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IHTMLSelectElement4 ptr) as ULONG
@@ -10490,19 +10382,21 @@ type IHTMLSelectElement4Vtbl
 	GetTypeInfo as function(byval This as IHTMLSelectElement4 ptr, byval iTInfo as UINT, byval lcid as LCID, byval ppTInfo as ITypeInfo ptr ptr) as HRESULT
 	GetIDsOfNames as function(byval This as IHTMLSelectElement4 ptr, byval riid as const IID const ptr, byval rgszNames as LPOLESTR ptr, byval cNames as UINT, byval lcid as LCID, byval rgDispId as DISPID ptr) as HRESULT
 	Invoke as function(byval This as IHTMLSelectElement4 ptr, byval dispIdMember as DISPID, byval riid as const IID const ptr, byval lcid as LCID, byval wFlags as WORD, byval pDispParams as DISPPARAMS ptr, byval pVarResult as VARIANT ptr, byval pExcepInfo as EXCEPINFO ptr, byval puArgErr as UINT ptr) as HRESULT
-	namedItem as function(byval This as IHTMLSelectElement4 ptr, byval name_ as BSTR, byval pdisp as IDispatch ptr ptr) as HRESULT
+	namedItem as function(byval This as IHTMLSelectElement4 ptr, byval name as BSTR, byval pdisp as IDispatch ptr ptr) as HRESULT
 end type
 
 type IHTMLSelectElement4_
 	lpVtbl as IHTMLSelectElement4Vtbl ptr
 end type
 
-declare function IHTMLSelectElement4_namedItem_Proxy(byval This as IHTMLSelectElement4 ptr, byval name_ as BSTR, byval pdisp as IDispatch ptr ptr) as HRESULT
+declare function IHTMLSelectElement4_namedItem_Proxy(byval This as IHTMLSelectElement4 ptr, byval name as BSTR, byval pdisp as IDispatch ptr ptr) as HRESULT
 declare sub IHTMLSelectElement4_namedItem_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 
 #define __DispHTMLSelectElement_DISPINTERFACE_DEFINED__
 
 extern DIID_DispHTMLSelectElement as const IID
+
+type DispHTMLSelectElement as DispHTMLSelectElement_
 
 type DispHTMLSelectElementVtbl
 	QueryInterface as function(byval This as DispHTMLSelectElement ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -10523,6 +10417,8 @@ extern CLSID_HTMLSelectElement as const CLSID
 #define __IHTMLSelectionObject_INTERFACE_DEFINED__
 
 extern IID_IHTMLSelectionObject as const IID
+
+type IHTMLSelectionObject as IHTMLSelectionObject_
 
 type IHTMLSelectionObjectVtbl
 	QueryInterface as function(byval This as IHTMLSelectionObject ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -10555,6 +10451,8 @@ declare sub IHTMLSelectionObject_get_type_Stub(byval This as IRpcStubBuffer ptr,
 
 extern IID_IHTMLSelectionObject2 as const IID
 
+type IHTMLSelectionObject2 as IHTMLSelectionObject2_
+
 type IHTMLSelectionObject2Vtbl
 	QueryInterface as function(byval This as IHTMLSelectionObject2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IHTMLSelectionObject2 ptr) as ULONG
@@ -10579,6 +10477,8 @@ declare sub IHTMLSelectionObject2_get_typeDetail_Stub(byval This as IRpcStubBuff
 #define __IHTMLOptionElement_INTERFACE_DEFINED__
 
 extern IID_IHTMLOptionElement as const IID
+
+type IHTMLOptionElement as IHTMLOptionElement_
 
 type IHTMLOptionElementVtbl
 	QueryInterface as function(byval This as IHTMLOptionElement ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -10632,6 +10532,8 @@ declare sub IHTMLOptionElement_get_form_Stub(byval This as IRpcStubBuffer ptr, b
 
 extern IID_IHTMLOptionElement3 as const IID
 
+type IHTMLOptionElement3 as IHTMLOptionElement3_
+
 type IHTMLOptionElement3Vtbl
 	QueryInterface as function(byval This as IHTMLOptionElement3 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IHTMLOptionElement3 ptr) as ULONG
@@ -10657,6 +10559,8 @@ declare sub IHTMLOptionElement3_get_label_Stub(byval This as IRpcStubBuffer ptr,
 
 extern IID_IHTMLOptionElementFactory as const IID
 
+type IHTMLOptionElementFactory as IHTMLOptionElementFactory_
+
 type IHTMLOptionElementFactoryVtbl
 	QueryInterface as function(byval This as IHTMLOptionElementFactory ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IHTMLOptionElementFactory ptr) as ULONG
@@ -10665,19 +10569,21 @@ type IHTMLOptionElementFactoryVtbl
 	GetTypeInfo as function(byval This as IHTMLOptionElementFactory ptr, byval iTInfo as UINT, byval lcid as LCID, byval ppTInfo as ITypeInfo ptr ptr) as HRESULT
 	GetIDsOfNames as function(byval This as IHTMLOptionElementFactory ptr, byval riid as const IID const ptr, byval rgszNames as LPOLESTR ptr, byval cNames as UINT, byval lcid as LCID, byval rgDispId as DISPID ptr) as HRESULT
 	Invoke as function(byval This as IHTMLOptionElementFactory ptr, byval dispIdMember as DISPID, byval riid as const IID const ptr, byval lcid as LCID, byval wFlags as WORD, byval pDispParams as DISPPARAMS ptr, byval pVarResult as VARIANT ptr, byval pExcepInfo as EXCEPINFO ptr, byval puArgErr as UINT ptr) as HRESULT
-	create as function(byval This as IHTMLOptionElementFactory ptr, byval text_ as VARIANT, byval value as VARIANT, byval defaultselected as VARIANT, byval selected as VARIANT, byval __MIDL_0012 as IHTMLOptionElement ptr ptr) as HRESULT
+	create as function(byval This as IHTMLOptionElementFactory ptr, byval text as VARIANT, byval value as VARIANT, byval defaultselected as VARIANT, byval selected as VARIANT, byval __MIDL_0012 as IHTMLOptionElement ptr ptr) as HRESULT
 end type
 
 type IHTMLOptionElementFactory_
 	lpVtbl as IHTMLOptionElementFactoryVtbl ptr
 end type
 
-declare function IHTMLOptionElementFactory_create_Proxy(byval This as IHTMLOptionElementFactory ptr, byval text_ as VARIANT, byval value as VARIANT, byval defaultselected as VARIANT, byval selected as VARIANT, byval __MIDL_0012 as IHTMLOptionElement ptr ptr) as HRESULT
+declare function IHTMLOptionElementFactory_create_Proxy(byval This as IHTMLOptionElementFactory ptr, byval text as VARIANT, byval value as VARIANT, byval defaultselected as VARIANT, byval selected as VARIANT, byval __MIDL_0012 as IHTMLOptionElement ptr ptr) as HRESULT
 declare sub IHTMLOptionElementFactory_create_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 
 #define __DispHTMLOptionElement_DISPINTERFACE_DEFINED__
 
 extern DIID_DispHTMLOptionElement as const IID
+
+type DispHTMLOptionElement as DispHTMLOptionElement_
 
 type DispHTMLOptionElementVtbl
 	QueryInterface as function(byval This as DispHTMLOptionElement ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -10700,6 +10606,8 @@ extern CLSID_HTMLOptionElementFactory as const CLSID
 
 extern DIID_HTMLButtonElementEvents2 as const IID
 
+type HTMLButtonElementEvents2 as HTMLButtonElementEvents2_
+
 type HTMLButtonElementEvents2Vtbl
 	QueryInterface as function(byval This as HTMLButtonElementEvents2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as HTMLButtonElementEvents2 ptr) as ULONG
@@ -10717,6 +10625,8 @@ end type
 #define __HTMLButtonElementEvents_DISPINTERFACE_DEFINED__
 
 extern DIID_HTMLButtonElementEvents as const IID
+
+type HTMLButtonElementEvents as HTMLButtonElementEvents_
 
 type HTMLButtonElementEventsVtbl
 	QueryInterface as function(byval This as HTMLButtonElementEvents ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -10736,6 +10646,8 @@ end type
 
 extern DIID_HTMLInputTextElementEvents2 as const IID
 
+type HTMLInputTextElementEvents2 as HTMLInputTextElementEvents2_
+
 type HTMLInputTextElementEvents2Vtbl
 	QueryInterface as function(byval This as HTMLInputTextElementEvents2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as HTMLInputTextElementEvents2 ptr) as ULONG
@@ -10753,6 +10665,8 @@ end type
 #define __HTMLOptionButtonElementEvents2_DISPINTERFACE_DEFINED__
 
 extern DIID_HTMLOptionButtonElementEvents2 as const IID
+
+type HTMLOptionButtonElementEvents2 as HTMLOptionButtonElementEvents2_
 
 type HTMLOptionButtonElementEvents2Vtbl
 	QueryInterface as function(byval This as HTMLOptionButtonElementEvents2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -10772,6 +10686,8 @@ end type
 
 extern DIID_HTMLInputFileElementEvents2 as const IID
 
+type HTMLInputFileElementEvents2 as HTMLInputFileElementEvents2_
+
 type HTMLInputFileElementEvents2Vtbl
 	QueryInterface as function(byval This as HTMLInputFileElementEvents2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as HTMLInputFileElementEvents2 ptr) as ULONG
@@ -10789,6 +10705,8 @@ end type
 #define __HTMLInputImageEvents2_DISPINTERFACE_DEFINED__
 
 extern DIID_HTMLInputImageEvents2 as const IID
+
+type HTMLInputImageEvents2 as HTMLInputImageEvents2_
 
 type HTMLInputImageEvents2Vtbl
 	QueryInterface as function(byval This as HTMLInputImageEvents2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -10808,6 +10726,8 @@ end type
 
 extern DIID_HTMLInputTextElementEvents as const IID
 
+type HTMLInputTextElementEvents as HTMLInputTextElementEvents_
+
 type HTMLInputTextElementEventsVtbl
 	QueryInterface as function(byval This as HTMLInputTextElementEvents ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as HTMLInputTextElementEvents ptr) as ULONG
@@ -10825,6 +10745,8 @@ end type
 #define __HTMLOptionButtonElementEvents_DISPINTERFACE_DEFINED__
 
 extern DIID_HTMLOptionButtonElementEvents as const IID
+
+type HTMLOptionButtonElementEvents as HTMLOptionButtonElementEvents_
 
 type HTMLOptionButtonElementEventsVtbl
 	QueryInterface as function(byval This as HTMLOptionButtonElementEvents ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -10844,6 +10766,8 @@ end type
 
 extern DIID_HTMLInputFileElementEvents as const IID
 
+type HTMLInputFileElementEvents as HTMLInputFileElementEvents_
+
 type HTMLInputFileElementEventsVtbl
 	QueryInterface as function(byval This as HTMLInputFileElementEvents ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as HTMLInputFileElementEvents ptr) as ULONG
@@ -10862,6 +10786,8 @@ end type
 
 extern DIID_HTMLInputImageEvents as const IID
 
+type HTMLInputImageEvents as HTMLInputImageEvents_
+
 type HTMLInputImageEventsVtbl
 	QueryInterface as function(byval This as HTMLInputImageEvents ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as HTMLInputImageEvents ptr) as ULONG
@@ -10879,6 +10805,8 @@ end type
 #define __IHTMLInputElement_INTERFACE_DEFINED__
 
 extern IID_IHTMLInputElement as const IID
+
+type IHTMLInputElement as IHTMLInputElement_
 
 type IHTMLInputElementVtbl
 	QueryInterface as function(byval This as IHTMLInputElement ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -11094,6 +11022,8 @@ declare sub IHTMLInputElement_get_start_Stub(byval This as IRpcStubBuffer ptr, b
 
 extern IID_IHTMLInputElement2 as const IID
 
+type IHTMLInputElement2 as IHTMLInputElement2_
+
 type IHTMLInputElement2Vtbl
 	QueryInterface as function(byval This as IHTMLInputElement2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IHTMLInputElement2 ptr) as ULONG
@@ -11124,6 +11054,8 @@ declare sub IHTMLInputElement2_get_useMap_Stub(byval This as IRpcStubBuffer ptr,
 #define __IHTMLInputButtonElement_INTERFACE_DEFINED__
 
 extern IID_IHTMLInputButtonElement as const IID
+
+type IHTMLInputButtonElement as IHTMLInputButtonElement_
 
 type IHTMLInputButtonElementVtbl
 	QueryInterface as function(byval This as IHTMLInputButtonElement ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -11177,6 +11109,8 @@ declare sub IHTMLInputButtonElement_createTextRange_Stub(byval This as IRpcStubB
 
 extern IID_IHTMLInputHiddenElement as const IID
 
+type IHTMLInputHiddenElement as IHTMLInputHiddenElement_
+
 type IHTMLInputHiddenElementVtbl
 	QueryInterface as function(byval This as IHTMLInputHiddenElement ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IHTMLInputHiddenElement ptr) as ULONG
@@ -11228,6 +11162,8 @@ declare sub IHTMLInputHiddenElement_createTextRange_Stub(byval This as IRpcStubB
 #define __IHTMLInputTextElement_INTERFACE_DEFINED__
 
 extern IID_IHTMLInputTextElement as const IID
+
+type IHTMLInputTextElement as IHTMLInputTextElement_
 
 type IHTMLInputTextElementVtbl
 	QueryInterface as function(byval This as IHTMLInputTextElement ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -11320,6 +11256,8 @@ declare sub IHTMLInputTextElement_createTextRange_Stub(byval This as IRpcStubBuf
 
 extern IID_IHTMLInputFileElement as const IID
 
+type IHTMLInputFileElement as IHTMLInputFileElement_
+
 type IHTMLInputFileElementVtbl
 	QueryInterface as function(byval This as IHTMLInputFileElement ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IHTMLInputFileElement ptr) as ULONG
@@ -11396,6 +11334,8 @@ declare sub IHTMLInputFileElement_get_value_Stub(byval This as IRpcStubBuffer pt
 
 extern IID_IHTMLOptionButtonElement as const IID
 
+type IHTMLOptionButtonElement as IHTMLOptionButtonElement_
+
 type IHTMLOptionButtonElementVtbl
 	QueryInterface as function(byval This as IHTMLOptionButtonElement ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IHTMLOptionButtonElement ptr) as ULONG
@@ -11468,6 +11408,8 @@ declare sub IHTMLOptionButtonElement_get_form_Stub(byval This as IRpcStubBuffer 
 #define __IHTMLInputImage_INTERFACE_DEFINED__
 
 extern IID_IHTMLInputImage as const IID
+
+type IHTMLInputImage as IHTMLInputImage_
 
 type IHTMLInputImageVtbl
 	QueryInterface as function(byval This as IHTMLInputImage ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -11605,6 +11547,8 @@ declare sub IHTMLInputImage_get_start_Stub(byval This as IRpcStubBuffer ptr, byv
 
 extern DIID_DispHTMLInputElement as const IID
 
+type DispHTMLInputElement as DispHTMLInputElement_
+
 type DispHTMLInputElementVtbl
 	QueryInterface as function(byval This as DispHTMLInputElement ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as DispHTMLInputElement ptr) as ULONG
@@ -11624,6 +11568,8 @@ extern CLSID_HTMLInputElement as const CLSID
 #define __IHTMLTextAreaElement_INTERFACE_DEFINED__
 
 extern IID_IHTMLTextAreaElement as const IID
+
+type IHTMLTextAreaElement as IHTMLTextAreaElement_
 
 type IHTMLTextAreaElementVtbl
 	QueryInterface as function(byval This as IHTMLTextAreaElement ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -11722,6 +11668,8 @@ declare sub IHTMLTextAreaElement_createTextRange_Stub(byval This as IRpcStubBuff
 
 extern DIID_DispHTMLTextAreaElement as const IID
 
+type DispHTMLTextAreaElement as DispHTMLTextAreaElement_
+
 type DispHTMLTextAreaElementVtbl
 	QueryInterface as function(byval This as DispHTMLTextAreaElement ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as DispHTMLTextAreaElement ptr) as ULONG
@@ -11742,6 +11690,8 @@ extern CLSID_HTMLTextAreaElement as const CLSID
 
 extern DIID_DispHTMLRichtextElement as const IID
 
+type DispHTMLRichtextElement as DispHTMLRichtextElement_
+
 type DispHTMLRichtextElementVtbl
 	QueryInterface as function(byval This as DispHTMLRichtextElement ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as DispHTMLRichtextElement ptr) as ULONG
@@ -11761,6 +11711,8 @@ extern CLSID_HTMLRichtextElement as const CLSID
 #define __IHTMLButtonElement_INTERFACE_DEFINED__
 
 extern IID_IHTMLButtonElement as const IID
+
+type IHTMLButtonElement as IHTMLButtonElement_
 
 type IHTMLButtonElementVtbl
 	QueryInterface as function(byval This as IHTMLButtonElement ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -11814,6 +11766,8 @@ declare sub IHTMLButtonElement_createTextRange_Stub(byval This as IRpcStubBuffer
 
 extern DIID_DispHTMLButtonElement as const IID
 
+type DispHTMLButtonElement as DispHTMLButtonElement_
+
 type DispHTMLButtonElementVtbl
 	QueryInterface as function(byval This as DispHTMLButtonElement ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as DispHTMLButtonElement ptr) as ULONG
@@ -11834,6 +11788,8 @@ extern CLSID_HTMLButtonElement as const CLSID
 
 extern DIID_HTMLMarqueeElementEvents2 as const IID
 
+type HTMLMarqueeElementEvents2 as HTMLMarqueeElementEvents2_
+
 type HTMLMarqueeElementEvents2Vtbl
 	QueryInterface as function(byval This as HTMLMarqueeElementEvents2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as HTMLMarqueeElementEvents2 ptr) as ULONG
@@ -11852,6 +11808,8 @@ end type
 
 extern DIID_HTMLMarqueeElementEvents as const IID
 
+type HTMLMarqueeElementEvents as HTMLMarqueeElementEvents_
+
 type HTMLMarqueeElementEventsVtbl
 	QueryInterface as function(byval This as HTMLMarqueeElementEvents ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as HTMLMarqueeElementEvents ptr) as ULONG
@@ -11869,6 +11827,8 @@ end type
 #define __IHTMLMarqueeElement_INTERFACE_DEFINED__
 
 extern IID_IHTMLMarqueeElement as const IID
+
+type IHTMLMarqueeElement as IHTMLMarqueeElement_
 
 type IHTMLMarqueeElementVtbl
 	QueryInterface as function(byval This as IHTMLMarqueeElement ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -11979,6 +11939,8 @@ declare sub IHTMLMarqueeElement_stop_Stub(byval This as IRpcStubBuffer ptr, byva
 
 extern DIID_DispHTMLMarqueeElement as const IID
 
+type DispHTMLMarqueeElement as DispHTMLMarqueeElement_
+
 type DispHTMLMarqueeElementVtbl
 	QueryInterface as function(byval This as DispHTMLMarqueeElement ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as DispHTMLMarqueeElement ptr) as ULONG
@@ -11998,6 +11960,8 @@ extern CLSID_HTMLMarqueeElement as const CLSID
 #define __IHTMLHtmlElement_INTERFACE_DEFINED__
 
 extern IID_IHTMLHtmlElement as const IID
+
+type IHTMLHtmlElement as IHTMLHtmlElement_
 
 type IHTMLHtmlElementVtbl
 	QueryInterface as function(byval This as IHTMLHtmlElement ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -12024,6 +11988,8 @@ declare sub IHTMLHtmlElement_get_version_Stub(byval This as IRpcStubBuffer ptr, 
 
 extern IID_IHTMLHeadElement as const IID
 
+type IHTMLHeadElement as IHTMLHeadElement_
+
 type IHTMLHeadElementVtbl
 	QueryInterface as function(byval This as IHTMLHeadElement ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IHTMLHeadElement ptr) as ULONG
@@ -12049,6 +12015,8 @@ declare sub IHTMLHeadElement_get_profile_Stub(byval This as IRpcStubBuffer ptr, 
 
 extern IID_IHTMLTitleElement as const IID
 
+type IHTMLTitleElement as IHTMLTitleElement_
+
 type IHTMLTitleElementVtbl
 	QueryInterface as function(byval This as IHTMLTitleElement ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IHTMLTitleElement ptr) as ULONG
@@ -12073,6 +12041,8 @@ declare sub IHTMLTitleElement_get_text_Stub(byval This as IRpcStubBuffer ptr, by
 #define __IHTMLMetaElement_INTERFACE_DEFINED__
 
 extern IID_IHTMLMetaElement as const IID
+
+type IHTMLMetaElement as IHTMLMetaElement_
 
 type IHTMLMetaElementVtbl
 	QueryInterface as function(byval This as IHTMLMetaElement ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -12123,6 +12093,8 @@ declare sub IHTMLMetaElement_get_charset_Stub(byval This as IRpcStubBuffer ptr, 
 
 extern IID_IHTMLMetaElement2 as const IID
 
+type IHTMLMetaElement2 as IHTMLMetaElement2_
+
 type IHTMLMetaElement2Vtbl
 	QueryInterface as function(byval This as IHTMLMetaElement2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IHTMLMetaElement2 ptr) as ULONG
@@ -12147,6 +12119,8 @@ declare sub IHTMLMetaElement2_get_scheme_Stub(byval This as IRpcStubBuffer ptr, 
 #define __IHTMLBaseElement_INTERFACE_DEFINED__
 
 extern IID_IHTMLBaseElement as const IID
+
+type IHTMLBaseElement as IHTMLBaseElement_
 
 type IHTMLBaseElementVtbl
 	QueryInterface as function(byval This as IHTMLBaseElement ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -12179,6 +12153,8 @@ declare sub IHTMLBaseElement_get_target_Stub(byval This as IRpcStubBuffer ptr, b
 
 extern IID_IHTMLIsIndexElement as const IID
 
+type IHTMLIsIndexElement as IHTMLIsIndexElement_
+
 type IHTMLIsIndexElementVtbl
 	QueryInterface as function(byval This as IHTMLIsIndexElement ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IHTMLIsIndexElement ptr) as ULONG
@@ -12210,6 +12186,8 @@ declare sub IHTMLIsIndexElement_get_action_Stub(byval This as IRpcStubBuffer ptr
 
 extern IID_IHTMLIsIndexElement2 as const IID
 
+type IHTMLIsIndexElement2 as IHTMLIsIndexElement2_
+
 type IHTMLIsIndexElement2Vtbl
 	QueryInterface as function(byval This as IHTMLIsIndexElement2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IHTMLIsIndexElement2 ptr) as ULONG
@@ -12231,6 +12209,8 @@ declare sub IHTMLIsIndexElement2_get_form_Stub(byval This as IRpcStubBuffer ptr,
 #define __IHTMLNextIdElement_INTERFACE_DEFINED__
 
 extern IID_IHTMLNextIdElement as const IID
+
+type IHTMLNextIdElement as IHTMLNextIdElement_
 
 type IHTMLNextIdElementVtbl
 	QueryInterface as function(byval This as IHTMLNextIdElement ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -12257,6 +12237,8 @@ declare sub IHTMLNextIdElement_get_n_Stub(byval This as IRpcStubBuffer ptr, byva
 
 extern DIID_DispHTMLHtmlElement as const IID
 
+type DispHTMLHtmlElement as DispHTMLHtmlElement_
+
 type DispHTMLHtmlElementVtbl
 	QueryInterface as function(byval This as DispHTMLHtmlElement ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as DispHTMLHtmlElement ptr) as ULONG
@@ -12276,6 +12258,8 @@ extern CLSID_HTMLHtmlElement as const CLSID
 #define __DispHTMLHeadElement_DISPINTERFACE_DEFINED__
 
 extern DIID_DispHTMLHeadElement as const IID
+
+type DispHTMLHeadElement as DispHTMLHeadElement_
 
 type DispHTMLHeadElementVtbl
 	QueryInterface as function(byval This as DispHTMLHeadElement ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -12297,6 +12281,8 @@ extern CLSID_HTMLHeadElement as const CLSID
 
 extern DIID_DispHTMLTitleElement as const IID
 
+type DispHTMLTitleElement as DispHTMLTitleElement_
+
 type DispHTMLTitleElementVtbl
 	QueryInterface as function(byval This as DispHTMLTitleElement ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as DispHTMLTitleElement ptr) as ULONG
@@ -12316,6 +12302,8 @@ extern CLSID_HTMLTitleElement as const CLSID
 #define __DispHTMLMetaElement_DISPINTERFACE_DEFINED__
 
 extern DIID_DispHTMLMetaElement as const IID
+
+type DispHTMLMetaElement as DispHTMLMetaElement_
 
 type DispHTMLMetaElementVtbl
 	QueryInterface as function(byval This as DispHTMLMetaElement ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -12337,6 +12325,8 @@ extern CLSID_HTMLMetaElement as const CLSID
 
 extern DIID_DispHTMLBaseElement as const IID
 
+type DispHTMLBaseElement as DispHTMLBaseElement_
+
 type DispHTMLBaseElementVtbl
 	QueryInterface as function(byval This as DispHTMLBaseElement ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as DispHTMLBaseElement ptr) as ULONG
@@ -12356,6 +12346,8 @@ extern CLSID_HTMLBaseElement as const CLSID
 #define __DispHTMLIsIndexElement_DISPINTERFACE_DEFINED__
 
 extern DIID_DispHTMLIsIndexElement as const IID
+
+type DispHTMLIsIndexElement as DispHTMLIsIndexElement_
 
 type DispHTMLIsIndexElementVtbl
 	QueryInterface as function(byval This as DispHTMLIsIndexElement ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -12377,6 +12369,8 @@ extern CLSID_HTMLIsIndexElement as const CLSID
 
 extern DIID_DispHTMLNextIdElement as const IID
 
+type DispHTMLNextIdElement as DispHTMLNextIdElement_
+
 type DispHTMLNextIdElementVtbl
 	QueryInterface as function(byval This as DispHTMLNextIdElement ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as DispHTMLNextIdElement ptr) as ULONG
@@ -12396,6 +12390,8 @@ extern CLSID_HTMLNextIdElement as const CLSID
 #define __IHTMLBaseFontElement_INTERFACE_DEFINED__
 
 extern IID_IHTMLBaseFontElement as const IID
+
+type IHTMLBaseFontElement as IHTMLBaseFontElement_
 
 type IHTMLBaseFontElementVtbl
 	QueryInterface as function(byval This as IHTMLBaseFontElement ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -12434,6 +12430,8 @@ declare sub IHTMLBaseFontElement_get_size_Stub(byval This as IRpcStubBuffer ptr,
 
 extern DIID_DispHTMLBaseFontElement as const IID
 
+type DispHTMLBaseFontElement as DispHTMLBaseFontElement_
+
 type DispHTMLBaseFontElementVtbl
 	QueryInterface as function(byval This as DispHTMLBaseFontElement ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as DispHTMLBaseFontElement ptr) as ULONG
@@ -12454,6 +12452,8 @@ extern CLSID_HTMLBaseFontElement as const CLSID
 
 extern IID_IHTMLUnknownElement as const IID
 
+type IHTMLUnknownElement as IHTMLUnknownElement_
+
 type IHTMLUnknownElementVtbl
 	QueryInterface as function(byval This as IHTMLUnknownElement ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IHTMLUnknownElement ptr) as ULONG
@@ -12471,6 +12471,8 @@ end type
 #define __DispHTMLUnknownElement_DISPINTERFACE_DEFINED__
 
 extern DIID_DispHTMLUnknownElement as const IID
+
+type DispHTMLUnknownElement as DispHTMLUnknownElement_
 
 type DispHTMLUnknownElementVtbl
 	QueryInterface as function(byval This as DispHTMLUnknownElement ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -12491,6 +12493,8 @@ extern CLSID_HTMLUnknownElement as const CLSID
 #define __IOmHistory_INTERFACE_DEFINED__
 
 extern IID_IOmHistory as const IID
+
+type IOmHistory as IOmHistory_
 
 type IOmHistoryVtbl
 	QueryInterface as function(byval This as IOmHistory ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -12523,6 +12527,8 @@ declare sub IOmHistory_go_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChan
 
 extern IID_IHTMLMimeTypesCollection as const IID
 
+type IHTMLMimeTypesCollection as IHTMLMimeTypesCollection_
+
 type IHTMLMimeTypesCollectionVtbl
 	QueryInterface as function(byval This as IHTMLMimeTypesCollection ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IHTMLMimeTypesCollection ptr) as ULONG
@@ -12544,6 +12550,8 @@ declare sub IHTMLMimeTypesCollection_get_length_Stub(byval This as IRpcStubBuffe
 #define __IHTMLPluginsCollection_INTERFACE_DEFINED__
 
 extern IID_IHTMLPluginsCollection as const IID
+
+type IHTMLPluginsCollection as IHTMLPluginsCollection_
 
 type IHTMLPluginsCollectionVtbl
 	QueryInterface as function(byval This as IHTMLPluginsCollection ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -12570,6 +12578,8 @@ declare sub IHTMLPluginsCollection_refresh_Stub(byval This as IRpcStubBuffer ptr
 
 extern IID_IHTMLOpsProfile as const IID
 
+type IHTMLOpsProfile as IHTMLOpsProfile_
+
 type IHTMLOpsProfileVtbl
 	QueryInterface as function(byval This as IHTMLOpsProfile ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IHTMLOpsProfile ptr) as ULONG
@@ -12578,13 +12588,13 @@ type IHTMLOpsProfileVtbl
 	GetTypeInfo as function(byval This as IHTMLOpsProfile ptr, byval iTInfo as UINT, byval lcid as LCID, byval ppTInfo as ITypeInfo ptr ptr) as HRESULT
 	GetIDsOfNames as function(byval This as IHTMLOpsProfile ptr, byval riid as const IID const ptr, byval rgszNames as LPOLESTR ptr, byval cNames as UINT, byval lcid as LCID, byval rgDispId as DISPID ptr) as HRESULT
 	Invoke as function(byval This as IHTMLOpsProfile ptr, byval dispIdMember as DISPID, byval riid as const IID const ptr, byval lcid as LCID, byval wFlags as WORD, byval pDispParams as DISPPARAMS ptr, byval pVarResult as VARIANT ptr, byval pExcepInfo as EXCEPINFO ptr, byval puArgErr as UINT ptr) as HRESULT
-	addRequest as function(byval This as IHTMLOpsProfile ptr, byval name_ as BSTR, byval reserved as VARIANT, byval success as VARIANT_BOOL ptr) as HRESULT
+	addRequest as function(byval This as IHTMLOpsProfile ptr, byval name as BSTR, byval reserved as VARIANT, byval success as VARIANT_BOOL ptr) as HRESULT
 	clearRequest as function(byval This as IHTMLOpsProfile ptr) as HRESULT
 	doRequest as function(byval This as IHTMLOpsProfile ptr, byval usage as VARIANT, byval fname as VARIANT, byval domain as VARIANT, byval path as VARIANT, byval expire as VARIANT, byval reserved as VARIANT) as HRESULT
-	getAttribute as function(byval This as IHTMLOpsProfile ptr, byval name_ as BSTR, byval value as BSTR ptr) as HRESULT
-	setAttribute as function(byval This as IHTMLOpsProfile ptr, byval name_ as BSTR, byval value as BSTR, byval prefs as VARIANT, byval success as VARIANT_BOOL ptr) as HRESULT
+	getAttribute as function(byval This as IHTMLOpsProfile ptr, byval name as BSTR, byval value as BSTR ptr) as HRESULT
+	setAttribute as function(byval This as IHTMLOpsProfile ptr, byval name as BSTR, byval value as BSTR, byval prefs as VARIANT, byval success as VARIANT_BOOL ptr) as HRESULT
 	commitChanges as function(byval This as IHTMLOpsProfile ptr, byval success as VARIANT_BOOL ptr) as HRESULT
-	addReadRequest as function(byval This as IHTMLOpsProfile ptr, byval name_ as BSTR, byval reserved as VARIANT, byval success as VARIANT_BOOL ptr) as HRESULT
+	addReadRequest as function(byval This as IHTMLOpsProfile ptr, byval name as BSTR, byval reserved as VARIANT, byval success as VARIANT_BOOL ptr) as HRESULT
 	doReadRequest as function(byval This as IHTMLOpsProfile ptr, byval usage as VARIANT, byval fname as VARIANT, byval domain as VARIANT, byval path as VARIANT, byval expire as VARIANT, byval reserved as VARIANT) as HRESULT
 	doWriteRequest as function(byval This as IHTMLOpsProfile ptr, byval success as VARIANT_BOOL ptr) as HRESULT
 end type
@@ -12593,19 +12603,19 @@ type IHTMLOpsProfile_
 	lpVtbl as IHTMLOpsProfileVtbl ptr
 end type
 
-declare function IHTMLOpsProfile_addRequest_Proxy(byval This as IHTMLOpsProfile ptr, byval name_ as BSTR, byval reserved as VARIANT, byval success as VARIANT_BOOL ptr) as HRESULT
+declare function IHTMLOpsProfile_addRequest_Proxy(byval This as IHTMLOpsProfile ptr, byval name as BSTR, byval reserved as VARIANT, byval success as VARIANT_BOOL ptr) as HRESULT
 declare sub IHTMLOpsProfile_addRequest_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IHTMLOpsProfile_clearRequest_Proxy(byval This as IHTMLOpsProfile ptr) as HRESULT
 declare sub IHTMLOpsProfile_clearRequest_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IHTMLOpsProfile_doRequest_Proxy(byval This as IHTMLOpsProfile ptr, byval usage as VARIANT, byval fname as VARIANT, byval domain as VARIANT, byval path as VARIANT, byval expire as VARIANT, byval reserved as VARIANT) as HRESULT
 declare sub IHTMLOpsProfile_doRequest_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IHTMLOpsProfile_getAttribute_Proxy(byval This as IHTMLOpsProfile ptr, byval name_ as BSTR, byval value as BSTR ptr) as HRESULT
+declare function IHTMLOpsProfile_getAttribute_Proxy(byval This as IHTMLOpsProfile ptr, byval name as BSTR, byval value as BSTR ptr) as HRESULT
 declare sub IHTMLOpsProfile_getAttribute_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IHTMLOpsProfile_setAttribute_Proxy(byval This as IHTMLOpsProfile ptr, byval name_ as BSTR, byval value as BSTR, byval prefs as VARIANT, byval success as VARIANT_BOOL ptr) as HRESULT
+declare function IHTMLOpsProfile_setAttribute_Proxy(byval This as IHTMLOpsProfile ptr, byval name as BSTR, byval value as BSTR, byval prefs as VARIANT, byval success as VARIANT_BOOL ptr) as HRESULT
 declare sub IHTMLOpsProfile_setAttribute_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IHTMLOpsProfile_commitChanges_Proxy(byval This as IHTMLOpsProfile ptr, byval success as VARIANT_BOOL ptr) as HRESULT
 declare sub IHTMLOpsProfile_commitChanges_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IHTMLOpsProfile_addReadRequest_Proxy(byval This as IHTMLOpsProfile ptr, byval name_ as BSTR, byval reserved as VARIANT, byval success as VARIANT_BOOL ptr) as HRESULT
+declare function IHTMLOpsProfile_addReadRequest_Proxy(byval This as IHTMLOpsProfile ptr, byval name as BSTR, byval reserved as VARIANT, byval success as VARIANT_BOOL ptr) as HRESULT
 declare sub IHTMLOpsProfile_addReadRequest_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IHTMLOpsProfile_doReadRequest_Proxy(byval This as IHTMLOpsProfile ptr, byval usage as VARIANT, byval fname as VARIANT, byval domain as VARIANT, byval path as VARIANT, byval expire as VARIANT, byval reserved as VARIANT) as HRESULT
 declare sub IHTMLOpsProfile_doReadRequest_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
@@ -12615,6 +12625,8 @@ declare sub IHTMLOpsProfile_doWriteRequest_Stub(byval This as IRpcStubBuffer ptr
 #define __IOmNavigator_INTERFACE_DEFINED__
 
 extern IID_IOmNavigator as const IID
+
+type IOmNavigator as IOmNavigator_
 
 type IOmNavigatorVtbl
 	QueryInterface as function(byval This as IOmNavigator ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -12634,7 +12646,7 @@ type IOmNavigatorVtbl
 	get_plugins as function(byval This as IOmNavigator ptr, byval p as IHTMLPluginsCollection ptr ptr) as HRESULT
 	get_cookieEnabled as function(byval This as IOmNavigator ptr, byval p as VARIANT_BOOL ptr) as HRESULT
 	get_opsProfile as function(byval This as IOmNavigator ptr, byval p as IHTMLOpsProfile ptr ptr) as HRESULT
-	toString as function(byval This as IOmNavigator ptr, byval string_ as BSTR ptr) as HRESULT
+	toString as function(byval This as IOmNavigator ptr, byval string as BSTR ptr) as HRESULT
 	get_cpuClass as function(byval This as IOmNavigator ptr, byval p as BSTR ptr) as HRESULT
 	get_systemLanguage as function(byval This as IOmNavigator ptr, byval p as BSTR ptr) as HRESULT
 	get_browserLanguage as function(byval This as IOmNavigator ptr, byval p as BSTR ptr) as HRESULT
@@ -12670,7 +12682,7 @@ declare function IOmNavigator_get_cookieEnabled_Proxy(byval This as IOmNavigator
 declare sub IOmNavigator_get_cookieEnabled_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IOmNavigator_get_opsProfile_Proxy(byval This as IOmNavigator ptr, byval p as IHTMLOpsProfile ptr ptr) as HRESULT
 declare sub IOmNavigator_get_opsProfile_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IOmNavigator_toString_Proxy(byval This as IOmNavigator ptr, byval string_ as BSTR ptr) as HRESULT
+declare function IOmNavigator_toString_Proxy(byval This as IOmNavigator ptr, byval string as BSTR ptr) as HRESULT
 declare sub IOmNavigator_toString_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IOmNavigator_get_cpuClass_Proxy(byval This as IOmNavigator ptr, byval p as BSTR ptr) as HRESULT
 declare sub IOmNavigator_get_cpuClass_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
@@ -12694,6 +12706,8 @@ declare sub IOmNavigator_get_userProfile_Stub(byval This as IRpcStubBuffer ptr, 
 #define __IHTMLLocation_INTERFACE_DEFINED__
 
 extern IID_IHTMLLocation as const IID
+
+type IHTMLLocation as IHTMLLocation_
 
 type IHTMLLocationVtbl
 	QueryInterface as function(byval This as IHTMLLocation ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -12722,7 +12736,7 @@ type IHTMLLocationVtbl
 	reload as function(byval This as IHTMLLocation ptr, byval flag as VARIANT_BOOL) as HRESULT
 	replace as function(byval This as IHTMLLocation ptr, byval bstr as BSTR) as HRESULT
 	assign as function(byval This as IHTMLLocation ptr, byval bstr as BSTR) as HRESULT
-	toString as function(byval This as IHTMLLocation ptr, byval string_ as BSTR ptr) as HRESULT
+	toString as function(byval This as IHTMLLocation ptr, byval string as BSTR ptr) as HRESULT
 end type
 
 type IHTMLLocation_
@@ -12767,16 +12781,21 @@ declare function IHTMLLocation_replace_Proxy(byval This as IHTMLLocation ptr, by
 declare sub IHTMLLocation_replace_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IHTMLLocation_assign_Proxy(byval This as IHTMLLocation ptr, byval bstr as BSTR) as HRESULT
 declare sub IHTMLLocation_assign_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IHTMLLocation_toString_Proxy(byval This as IHTMLLocation ptr, byval string_ as BSTR ptr) as HRESULT
+declare function IHTMLLocation_toString_Proxy(byval This as IHTMLLocation ptr, byval string as BSTR ptr) as HRESULT
 declare sub IHTMLLocation_toString_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 
 extern CLSID_HTMLHistory as const CLSID
+extern CLSID_CMimeTypes as const CLSID
+extern CLSID_CPlugins as const CLSID
+extern CLSID_COpsProfile as const CLSID
 extern CLSID_HTMLNavigator as const CLSID
 extern CLSID_HTMLLocation as const CLSID
 
 #define __IHTMLBookmarkCollection_INTERFACE_DEFINED__
 
 extern IID_IHTMLBookmarkCollection as const IID
+
+type IHTMLBookmarkCollection as IHTMLBookmarkCollection_
 
 type IHTMLBookmarkCollectionVtbl
 	QueryInterface as function(byval This as IHTMLBookmarkCollection ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -12806,6 +12825,8 @@ declare sub IHTMLBookmarkCollection_item_Stub(byval This as IRpcStubBuffer ptr, 
 
 extern IID_IHTMLDataTransfer as const IID
 
+type IHTMLDataTransfer as IHTMLDataTransfer_
+
 type IHTMLDataTransferVtbl
 	QueryInterface as function(byval This as IHTMLDataTransfer ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IHTMLDataTransfer ptr) as ULONG
@@ -12814,7 +12835,7 @@ type IHTMLDataTransferVtbl
 	GetTypeInfo as function(byval This as IHTMLDataTransfer ptr, byval iTInfo as UINT, byval lcid as LCID, byval ppTInfo as ITypeInfo ptr ptr) as HRESULT
 	GetIDsOfNames as function(byval This as IHTMLDataTransfer ptr, byval riid as const IID const ptr, byval rgszNames as LPOLESTR ptr, byval cNames as UINT, byval lcid as LCID, byval rgDispId as DISPID ptr) as HRESULT
 	Invoke as function(byval This as IHTMLDataTransfer ptr, byval dispIdMember as DISPID, byval riid as const IID const ptr, byval lcid as LCID, byval wFlags as WORD, byval pDispParams as DISPPARAMS ptr, byval pVarResult as VARIANT ptr, byval pExcepInfo as EXCEPINFO ptr, byval puArgErr as UINT ptr) as HRESULT
-	setData as function(byval This as IHTMLDataTransfer ptr, byval format as BSTR, byval data_ as VARIANT ptr, byval pret as VARIANT_BOOL ptr) as HRESULT
+	setData as function(byval This as IHTMLDataTransfer ptr, byval format as BSTR, byval data as VARIANT ptr, byval pret as VARIANT_BOOL ptr) as HRESULT
 	getData as function(byval This as IHTMLDataTransfer ptr, byval format as BSTR, byval pvarRet as VARIANT ptr) as HRESULT
 	clearData as function(byval This as IHTMLDataTransfer ptr, byval format as BSTR, byval pret as VARIANT_BOOL ptr) as HRESULT
 	put_dropEffect as function(byval This as IHTMLDataTransfer ptr, byval v as BSTR) as HRESULT
@@ -12827,7 +12848,7 @@ type IHTMLDataTransfer_
 	lpVtbl as IHTMLDataTransferVtbl ptr
 end type
 
-declare function IHTMLDataTransfer_setData_Proxy(byval This as IHTMLDataTransfer ptr, byval format as BSTR, byval data_ as VARIANT ptr, byval pret as VARIANT_BOOL ptr) as HRESULT
+declare function IHTMLDataTransfer_setData_Proxy(byval This as IHTMLDataTransfer ptr, byval format as BSTR, byval data as VARIANT ptr, byval pret as VARIANT_BOOL ptr) as HRESULT
 declare sub IHTMLDataTransfer_setData_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IHTMLDataTransfer_getData_Proxy(byval This as IHTMLDataTransfer ptr, byval format as BSTR, byval pvarRet as VARIANT ptr) as HRESULT
 declare sub IHTMLDataTransfer_getData_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
@@ -12845,6 +12866,8 @@ declare sub IHTMLDataTransfer_get_effectAllowed_Stub(byval This as IRpcStubBuffe
 #define __IHTMLEventObj2_INTERFACE_DEFINED__
 
 extern IID_IHTMLEventObj2 as const IID
+
+type IHTMLEventObj2 as IHTMLEventObj2_
 
 type IHTMLEventObj2Vtbl
 	QueryInterface as function(byval This as IHTMLEventObj2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -13033,6 +13056,8 @@ declare sub IHTMLEventObj2_get_dataTransfer_Stub(byval This as IRpcStubBuffer pt
 
 extern IID_IHTMLEventObj3 as const IID
 
+type IHTMLEventObj3 as IHTMLEventObj3_
+
 type IHTMLEventObj3Vtbl
 	QueryInterface as function(byval This as IHTMLEventObj3 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IHTMLEventObj3 ptr) as ULONG
@@ -13100,6 +13125,8 @@ declare sub IHTMLEventObj3_get_nextPage_Stub(byval This as IRpcStubBuffer ptr, b
 
 extern IID_IHTMLEventObj4 as const IID
 
+type IHTMLEventObj4 as IHTMLEventObj4_
+
 type IHTMLEventObj4Vtbl
 	QueryInterface as function(byval This as IHTMLEventObj4 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IHTMLEventObj4 ptr) as ULONG
@@ -13122,6 +13149,8 @@ declare sub IHTMLEventObj4_get_wheelDelta_Stub(byval This as IRpcStubBuffer ptr,
 
 extern DIID_DispCEventObj as const IID
 
+type DispCEventObj as DispCEventObj_
+
 type DispCEventObjVtbl
 	QueryInterface as function(byval This as DispCEventObj ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as DispCEventObj ptr) as ULONG
@@ -13136,9 +13165,13 @@ type DispCEventObj_
 	lpVtbl as DispCEventObjVtbl ptr
 end type
 
+extern CLSID_CEventObj as const CLSID
+
 #define __HTMLWindowEvents2_DISPINTERFACE_DEFINED__
 
 extern DIID_HTMLWindowEvents2 as const IID
+
+type HTMLWindowEvents2 as HTMLWindowEvents2_
 
 type HTMLWindowEvents2Vtbl
 	QueryInterface as function(byval This as HTMLWindowEvents2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -13158,6 +13191,8 @@ end type
 
 extern DIID_HTMLWindowEvents as const IID
 
+type HTMLWindowEvents as HTMLWindowEvents_
+
 type HTMLWindowEventsVtbl
 	QueryInterface as function(byval This as HTMLWindowEvents ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as HTMLWindowEvents ptr) as ULONG
@@ -13175,6 +13210,9 @@ end type
 #define __IHTMLDocument2_INTERFACE_DEFINED__
 
 extern IID_IHTMLDocument2 as const IID
+
+type IHTMLFramesCollection2 as IHTMLFramesCollection2_
+type IHTMLDocument2 as IHTMLDocument2_
 
 type IHTMLDocument2Vtbl
 	QueryInterface as function(byval This as IHTMLDocument2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -13238,7 +13276,7 @@ type IHTMLDocument2Vtbl
 	get_nameProp as function(byval This as IHTMLDocument2 ptr, byval p as BSTR ptr) as HRESULT
 	write as function(byval This as IHTMLDocument2 ptr, byval psarray as SAFEARRAY ptr) as HRESULT
 	writeln as function(byval This as IHTMLDocument2 ptr, byval psarray as SAFEARRAY ptr) as HRESULT
-	open as function(byval This as IHTMLDocument2 ptr, byval url as BSTR, byval name_ as VARIANT, byval features as VARIANT, byval replace as VARIANT, byval pomWindowResult as IDispatch ptr ptr) as HRESULT
+	open as function(byval This as IHTMLDocument2 ptr, byval url as BSTR, byval name as VARIANT, byval features as VARIANT, byval replace as VARIANT, byval pomWindowResult as IDispatch ptr ptr) as HRESULT
 	close as function(byval This as IHTMLDocument2 ptr) as HRESULT
 	clear as function(byval This as IHTMLDocument2 ptr) as HRESULT
 	queryCommandSupported as function(byval This as IHTMLDocument2 ptr, byval cmdID as BSTR, byval pfRet as VARIANT_BOOL ptr) as HRESULT
@@ -13291,7 +13329,7 @@ type IHTMLDocument2Vtbl
 	get_onbeforeupdate as function(byval This as IHTMLDocument2 ptr, byval p as VARIANT ptr) as HRESULT
 	put_onerrorupdate as function(byval This as IHTMLDocument2 ptr, byval v as VARIANT) as HRESULT
 	get_onerrorupdate as function(byval This as IHTMLDocument2 ptr, byval p as VARIANT ptr) as HRESULT
-	toString as function(byval This as IHTMLDocument2 ptr, byval String_ as BSTR ptr) as HRESULT
+	toString as function(byval This as IHTMLDocument2 ptr, byval String as BSTR ptr) as HRESULT
 	createStyleSheet as function(byval This as IHTMLDocument2 ptr, byval bstrHref as BSTR, byval lIndex as long, byval ppnewStyleSheet as IHTMLStyleSheet ptr ptr) as HRESULT
 end type
 
@@ -13405,7 +13443,7 @@ declare function IHTMLDocument2_write_Proxy(byval This as IHTMLDocument2 ptr, by
 declare sub IHTMLDocument2_write_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IHTMLDocument2_writeln_Proxy(byval This as IHTMLDocument2 ptr, byval psarray as SAFEARRAY ptr) as HRESULT
 declare sub IHTMLDocument2_writeln_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IHTMLDocument2_open_Proxy(byval This as IHTMLDocument2 ptr, byval url as BSTR, byval name_ as VARIANT, byval features as VARIANT, byval replace as VARIANT, byval pomWindowResult as IDispatch ptr ptr) as HRESULT
+declare function IHTMLDocument2_open_Proxy(byval This as IHTMLDocument2 ptr, byval url as BSTR, byval name as VARIANT, byval features as VARIANT, byval replace as VARIANT, byval pomWindowResult as IDispatch ptr ptr) as HRESULT
 declare sub IHTMLDocument2_open_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IHTMLDocument2_close_Proxy(byval This as IHTMLDocument2 ptr) as HRESULT
 declare sub IHTMLDocument2_close_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
@@ -13511,7 +13549,7 @@ declare function IHTMLDocument2_put_onerrorupdate_Proxy(byval This as IHTMLDocum
 declare sub IHTMLDocument2_put_onerrorupdate_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IHTMLDocument2_get_onerrorupdate_Proxy(byval This as IHTMLDocument2 ptr, byval p as VARIANT ptr) as HRESULT
 declare sub IHTMLDocument2_get_onerrorupdate_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IHTMLDocument2_toString_Proxy(byval This as IHTMLDocument2 ptr, byval String_ as BSTR ptr) as HRESULT
+declare function IHTMLDocument2_toString_Proxy(byval This as IHTMLDocument2 ptr, byval String as BSTR ptr) as HRESULT
 declare sub IHTMLDocument2_toString_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IHTMLDocument2_createStyleSheet_Proxy(byval This as IHTMLDocument2 ptr, byval bstrHref as BSTR, byval lIndex as long, byval ppnewStyleSheet as IHTMLStyleSheet ptr ptr) as HRESULT
 declare sub IHTMLDocument2_createStyleSheet_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
@@ -13545,6 +13583,8 @@ declare sub IHTMLFramesCollection2_get_length_Stub(byval This as IRpcStubBuffer 
 
 extern IID_IHTMLWindow2 as const IID
 
+type IHTMLScreen as IHTMLScreen_
+
 type IHTMLWindow2Vtbl
 	QueryInterface as function(byval This as IHTMLWindow2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IHTMLWindow2 ptr) as ULONG
@@ -13564,7 +13604,7 @@ type IHTMLWindow2Vtbl
 	clearTimeout as function(byval This as IHTMLWindow2 ptr, byval timerID as long) as HRESULT
 	alert as function(byval This as IHTMLWindow2 ptr, byval message as BSTR) as HRESULT
 	confirm as function(byval This as IHTMLWindow2 ptr, byval message as BSTR, byval confirmed as VARIANT_BOOL ptr) as HRESULT
-	prompt as function(byval This as IHTMLWindow2 ptr, byval message as BSTR, byval defstr_ as BSTR, byval textdata as VARIANT ptr) as HRESULT
+	prompt as function(byval This as IHTMLWindow2 ptr, byval message as BSTR, byval defstr as BSTR, byval textdata as VARIANT ptr) as HRESULT
 	get_Image as function(byval This as IHTMLWindow2 ptr, byval p as IHTMLImageElementFactory ptr ptr) as HRESULT
 	get_location as function(byval This as IHTMLWindow2 ptr, byval p as IHTMLLocation ptr ptr) as HRESULT
 	get_history as function(byval This as IHTMLWindow2 ptr, byval p as IOmHistory ptr ptr) as HRESULT
@@ -13575,7 +13615,7 @@ type IHTMLWindow2Vtbl
 	put_name as function(byval This as IHTMLWindow2 ptr, byval v as BSTR) as HRESULT
 	get_name as function(byval This as IHTMLWindow2 ptr, byval p as BSTR ptr) as HRESULT
 	get_parent as function(byval This as IHTMLWindow2 ptr, byval p as IHTMLWindow2 ptr ptr) as HRESULT
-	open as function(byval This as IHTMLWindow2 ptr, byval url as BSTR, byval name_ as BSTR, byval features as BSTR, byval replace as VARIANT_BOOL, byval pomWindowResult as IHTMLWindow2 ptr ptr) as HRESULT
+	open as function(byval This as IHTMLWindow2 ptr, byval url as BSTR, byval name as BSTR, byval features as BSTR, byval replace as VARIANT_BOOL, byval pomWindowResult as IHTMLWindow2 ptr ptr) as HRESULT
 	get_self as function(byval This as IHTMLWindow2 ptr, byval p as IHTMLWindow2 ptr ptr) as HRESULT
 	get_top as function(byval This as IHTMLWindow2 ptr, byval p as IHTMLWindow2 ptr ptr) as HRESULT
 	get_window as function(byval This as IHTMLWindow2 ptr, byval p as IHTMLWindow2 ptr ptr) as HRESULT
@@ -13615,7 +13655,7 @@ type IHTMLWindow2Vtbl
 	put_offscreenBuffering as function(byval This as IHTMLWindow2 ptr, byval v as VARIANT) as HRESULT
 	get_offscreenBuffering as function(byval This as IHTMLWindow2 ptr, byval p as VARIANT ptr) as HRESULT
 	execScript as function(byval This as IHTMLWindow2 ptr, byval code as BSTR, byval language as BSTR, byval pvarRet as VARIANT ptr) as HRESULT
-	toString as function(byval This as IHTMLWindow2 ptr, byval String_ as BSTR ptr) as HRESULT
+	toString as function(byval This as IHTMLWindow2 ptr, byval String as BSTR ptr) as HRESULT
 	scrollBy as function(byval This as IHTMLWindow2 ptr, byval x as long, byval y as long) as HRESULT
 	scrollTo as function(byval This as IHTMLWindow2 ptr, byval x as long, byval y as long) as HRESULT
 	moveTo as function(byval This as IHTMLWindow2 ptr, byval x as long, byval y as long) as HRESULT
@@ -13647,7 +13687,7 @@ declare function IHTMLWindow2_alert_Proxy(byval This as IHTMLWindow2 ptr, byval 
 declare sub IHTMLWindow2_alert_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IHTMLWindow2_confirm_Proxy(byval This as IHTMLWindow2 ptr, byval message as BSTR, byval confirmed as VARIANT_BOOL ptr) as HRESULT
 declare sub IHTMLWindow2_confirm_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IHTMLWindow2_prompt_Proxy(byval This as IHTMLWindow2 ptr, byval message as BSTR, byval defstr_ as BSTR, byval textdata as VARIANT ptr) as HRESULT
+declare function IHTMLWindow2_prompt_Proxy(byval This as IHTMLWindow2 ptr, byval message as BSTR, byval defstr as BSTR, byval textdata as VARIANT ptr) as HRESULT
 declare sub IHTMLWindow2_prompt_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IHTMLWindow2_get_Image_Proxy(byval This as IHTMLWindow2 ptr, byval p as IHTMLImageElementFactory ptr ptr) as HRESULT
 declare sub IHTMLWindow2_get_Image_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
@@ -13669,7 +13709,7 @@ declare function IHTMLWindow2_get_name_Proxy(byval This as IHTMLWindow2 ptr, byv
 declare sub IHTMLWindow2_get_name_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IHTMLWindow2_get_parent_Proxy(byval This as IHTMLWindow2 ptr, byval p as IHTMLWindow2 ptr ptr) as HRESULT
 declare sub IHTMLWindow2_get_parent_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IHTMLWindow2_open_Proxy(byval This as IHTMLWindow2 ptr, byval url as BSTR, byval name_ as BSTR, byval features as BSTR, byval replace as VARIANT_BOOL, byval pomWindowResult as IHTMLWindow2 ptr ptr) as HRESULT
+declare function IHTMLWindow2_open_Proxy(byval This as IHTMLWindow2 ptr, byval url as BSTR, byval name as BSTR, byval features as BSTR, byval replace as VARIANT_BOOL, byval pomWindowResult as IHTMLWindow2 ptr ptr) as HRESULT
 declare sub IHTMLWindow2_open_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IHTMLWindow2_get_self_Proxy(byval This as IHTMLWindow2 ptr, byval p as IHTMLWindow2 ptr ptr) as HRESULT
 declare sub IHTMLWindow2_get_self_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
@@ -13749,7 +13789,7 @@ declare function IHTMLWindow2_get_offscreenBuffering_Proxy(byval This as IHTMLWi
 declare sub IHTMLWindow2_get_offscreenBuffering_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IHTMLWindow2_execScript_Proxy(byval This as IHTMLWindow2 ptr, byval code as BSTR, byval language as BSTR, byval pvarRet as VARIANT ptr) as HRESULT
 declare sub IHTMLWindow2_execScript_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IHTMLWindow2_toString_Proxy(byval This as IHTMLWindow2 ptr, byval String_ as BSTR ptr) as HRESULT
+declare function IHTMLWindow2_toString_Proxy(byval This as IHTMLWindow2 ptr, byval String as BSTR ptr) as HRESULT
 declare sub IHTMLWindow2_toString_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IHTMLWindow2_scrollBy_Proxy(byval This as IHTMLWindow2 ptr, byval x as long, byval y as long) as HRESULT
 declare sub IHTMLWindow2_scrollBy_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
@@ -13769,6 +13809,8 @@ declare sub IHTMLWindow2_get_external_Stub(byval This as IRpcStubBuffer ptr, byv
 #define __IHTMLWindow3_INTERFACE_DEFINED__
 
 extern IID_IHTMLWindow3 as const IID
+
+type IHTMLWindow3 as IHTMLWindow3_
 
 type IHTMLWindow3Vtbl
 	QueryInterface as function(byval This as IHTMLWindow3 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -13827,6 +13869,8 @@ declare sub IHTMLWindow3_showModelessDialog_Stub(byval This as IRpcStubBuffer pt
 #define __IHTMLFrameBase_INTERFACE_DEFINED__
 
 extern IID_IHTMLFrameBase as const IID
+
+type IHTMLFrameBase as IHTMLFrameBase_
 
 type IHTMLFrameBaseVtbl
 	QueryInterface as function(byval This as IHTMLFrameBase ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -13950,6 +13994,8 @@ declare sub IHTMLScreen_get_fontSmoothingEnabled_Stub(byval This as IRpcStubBuff
 
 extern IID_IHTMLScreen2 as const IID
 
+type IHTMLScreen2 as IHTMLScreen2_
+
 type IHTMLScreen2Vtbl
 	QueryInterface as function(byval This as IHTMLScreen2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IHTMLScreen2 ptr) as ULONG
@@ -13981,6 +14027,8 @@ declare sub IHTMLScreen2_get_deviceYDPI_Stub(byval This as IRpcStubBuffer ptr, b
 
 extern IID_IHTMLWindow4 as const IID
 
+type IHTMLWindow4 as IHTMLWindow4_
+
 type IHTMLWindow4Vtbl
 	QueryInterface as function(byval This as IHTMLWindow4 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IHTMLWindow4 ptr) as ULONG
@@ -14008,6 +14056,8 @@ extern CLSID_FramesCollection as const CLSID
 
 extern DIID_DispHTMLScreen as const IID
 
+type DispHTMLScreen as DispHTMLScreen_
+
 type DispHTMLScreenVtbl
 	QueryInterface as function(byval This as DispHTMLScreen ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as DispHTMLScreen ptr) as ULONG
@@ -14027,6 +14077,8 @@ extern CLSID_HTMLScreen as const CLSID
 #define __DispHTMLWindow2_DISPINTERFACE_DEFINED__
 
 extern DIID_DispHTMLWindow2 as const IID
+
+type DispHTMLWindow2 as DispHTMLWindow2_
 
 type DispHTMLWindow2Vtbl
 	QueryInterface as function(byval This as DispHTMLWindow2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -14048,6 +14100,8 @@ extern CLSID_HTMLWindow2 as const CLSID
 
 extern DIID_DispHTMLWindowProxy as const IID
 
+type DispHTMLWindowProxy as DispHTMLWindowProxy_
+
 type DispHTMLWindowProxyVtbl
 	QueryInterface as function(byval This as DispHTMLWindowProxy ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as DispHTMLWindowProxy ptr) as ULONG
@@ -14068,6 +14122,8 @@ extern CLSID_HTMLWindowProxy as const CLSID
 
 extern DIID_HTMLDocumentEvents2 as const IID
 
+type HTMLDocumentEvents2 as HTMLDocumentEvents2_
+
 type HTMLDocumentEvents2Vtbl
 	QueryInterface as function(byval This as HTMLDocumentEvents2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as HTMLDocumentEvents2 ptr) as ULONG
@@ -14085,6 +14141,8 @@ end type
 #define __HTMLDocumentEvents_DISPINTERFACE_DEFINED__
 
 extern DIID_HTMLDocumentEvents as const IID
+
+type HTMLDocumentEvents as HTMLDocumentEvents_
 
 type HTMLDocumentEventsVtbl
 	QueryInterface as function(byval This as HTMLDocumentEvents ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -14104,6 +14162,8 @@ end type
 
 extern IID_IHTMLDocument3 as const IID
 
+type IHTMLDocument3 as IHTMLDocument3_
+
 type IHTMLDocument3Vtbl
 	QueryInterface as function(byval This as IHTMLDocument3 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IHTMLDocument3 ptr) as ULONG
@@ -14114,7 +14174,7 @@ type IHTMLDocument3Vtbl
 	Invoke as function(byval This as IHTMLDocument3 ptr, byval dispIdMember as DISPID, byval riid as const IID const ptr, byval lcid as LCID, byval wFlags as WORD, byval pDispParams as DISPPARAMS ptr, byval pVarResult as VARIANT ptr, byval pExcepInfo as EXCEPINFO ptr, byval puArgErr as UINT ptr) as HRESULT
 	releaseCapture as function(byval This as IHTMLDocument3 ptr) as HRESULT
 	recalc as function(byval This as IHTMLDocument3 ptr, byval fForce as VARIANT_BOOL) as HRESULT
-	createTextNode as function(byval This as IHTMLDocument3 ptr, byval text_ as BSTR, byval newTextNode as IHTMLDOMNode ptr ptr) as HRESULT
+	createTextNode as function(byval This as IHTMLDocument3 ptr, byval text as BSTR, byval newTextNode as IHTMLDOMNode ptr ptr) as HRESULT
 	get_documentElement as function(byval This as IHTMLDocument3 ptr, byval p as IHTMLElement ptr ptr) as HRESULT
 	get_uniqueID as function(byval This as IHTMLDocument3 ptr, byval p as BSTR ptr) as HRESULT
 	attachEvent as function(byval This as IHTMLDocument3 ptr, byval event as BSTR, byval pDisp as IDispatch ptr, byval pfResult as VARIANT_BOOL ptr) as HRESULT
@@ -14163,7 +14223,7 @@ declare function IHTMLDocument3_releaseCapture_Proxy(byval This as IHTMLDocument
 declare sub IHTMLDocument3_releaseCapture_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IHTMLDocument3_recalc_Proxy(byval This as IHTMLDocument3 ptr, byval fForce as VARIANT_BOOL) as HRESULT
 declare sub IHTMLDocument3_recalc_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IHTMLDocument3_createTextNode_Proxy(byval This as IHTMLDocument3 ptr, byval text_ as BSTR, byval newTextNode as IHTMLDOMNode ptr ptr) as HRESULT
+declare function IHTMLDocument3_createTextNode_Proxy(byval This as IHTMLDocument3 ptr, byval text as BSTR, byval newTextNode as IHTMLDOMNode ptr ptr) as HRESULT
 declare sub IHTMLDocument3_createTextNode_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IHTMLDocument3_get_documentElement_Proxy(byval This as IHTMLDocument3 ptr, byval p as IHTMLElement ptr ptr) as HRESULT
 declare sub IHTMLDocument3_get_documentElement_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
@@ -14246,6 +14306,8 @@ declare sub IHTMLDocument3_getElementsByTagName_Stub(byval This as IRpcStubBuffe
 
 extern IID_IHTMLDocument4 as const IID
 
+type IHTMLDocument4 as IHTMLDocument4_
+
 type IHTMLDocument4Vtbl
 	QueryInterface as function(byval This as IHTMLDocument4 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IHTMLDocument4 ptr) as ULONG
@@ -14306,6 +14368,8 @@ declare sub IHTMLDocument4_get_URLUnencoded_Stub(byval This as IRpcStubBuffer pt
 #define __IHTMLDocument5_INTERFACE_DEFINED__
 
 extern IID_IHTMLDocument5 as const IID
+
+type IHTMLDocument5 as IHTMLDocument5_
 
 type IHTMLDocument5Vtbl
 	QueryInterface as function(byval This as IHTMLDocument5 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -14383,6 +14447,8 @@ declare sub IHTMLDocument5_get_compatMode_Stub(byval This as IRpcStubBuffer ptr,
 
 extern DIID_DispHTMLDocument as const IID
 
+type DispHTMLDocument as DispHTMLDocument_
+
 type DispHTMLDocumentVtbl
 	QueryInterface as function(byval This as DispHTMLDocument ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as DispHTMLDocument ptr) as ULONG
@@ -14403,6 +14469,8 @@ extern CLSID_HTMLDocument as const CLSID
 
 extern DIID_DWebBridgeEvents as const IID
 
+type DWebBridgeEvents as DWebBridgeEvents_
+
 type DWebBridgeEventsVtbl
 	QueryInterface as function(byval This as DWebBridgeEvents ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as DWebBridgeEvents ptr) as ULONG
@@ -14420,6 +14488,8 @@ end type
 #define __IWebBridge_INTERFACE_DEFINED__
 
 extern IID_IWebBridge as const IID
+
+type IWebBridge as IWebBridge_
 
 type IWebBridgeVtbl
 	QueryInterface as function(byval This as IWebBridge ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -14467,6 +14537,8 @@ declare sub IWebBridge_AboutBox_Stub(byval This as IRpcStubBuffer ptr, byval _pR
 
 extern IID_IWBScriptControl as const IID
 
+type IWBScriptControl as IWBScriptControl_
+
 type IWBScriptControlVtbl
 	QueryInterface as function(byval This as IWBScriptControl ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IWBScriptControl ptr) as ULONG
@@ -14475,7 +14547,7 @@ type IWBScriptControlVtbl
 	GetTypeInfo as function(byval This as IWBScriptControl ptr, byval iTInfo as UINT, byval lcid as LCID, byval ppTInfo as ITypeInfo ptr ptr) as HRESULT
 	GetIDsOfNames as function(byval This as IWBScriptControl ptr, byval riid as const IID const ptr, byval rgszNames as LPOLESTR ptr, byval cNames as UINT, byval lcid as LCID, byval rgDispId as DISPID ptr) as HRESULT
 	Invoke as function(byval This as IWBScriptControl ptr, byval dispIdMember as DISPID, byval riid as const IID const ptr, byval lcid as LCID, byval wFlags as WORD, byval pDispParams as DISPPARAMS ptr, byval pVarResult as VARIANT ptr, byval pExcepInfo as EXCEPINFO ptr, byval puArgErr as UINT ptr) as HRESULT
-	raiseEvent as function(byval This as IWBScriptControl ptr, byval name_ as BSTR, byval eventData as VARIANT) as HRESULT
+	raiseEvent as function(byval This as IWBScriptControl ptr, byval name as BSTR, byval eventData as VARIANT) as HRESULT
 	bubbleEvent as function(byval This as IWBScriptControl ptr) as HRESULT
 	setContextMenu as function(byval This as IWBScriptControl ptr, byval menuItemPairs as VARIANT) as HRESULT
 	put_selectableContent as function(byval This as IWBScriptControl ptr, byval v as VARIANT_BOOL) as HRESULT
@@ -14493,7 +14565,7 @@ type IWBScriptControl_
 	lpVtbl as IWBScriptControlVtbl ptr
 end type
 
-declare function IWBScriptControl_raiseEvent_Proxy(byval This as IWBScriptControl ptr, byval name_ as BSTR, byval eventData as VARIANT) as HRESULT
+declare function IWBScriptControl_raiseEvent_Proxy(byval This as IWBScriptControl ptr, byval name as BSTR, byval eventData as VARIANT) as HRESULT
 declare sub IWBScriptControl_raiseEvent_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IWBScriptControl_bubbleEvent_Proxy(byval This as IWBScriptControl ptr) as HRESULT
 declare sub IWBScriptControl_bubbleEvent_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
@@ -14523,6 +14595,8 @@ extern CLSID_Scriptlet as const CLSID
 #define __IHTMLEmbedElement_INTERFACE_DEFINED__
 
 extern IID_IHTMLEmbedElement as const IID
+
+type IHTMLEmbedElement as IHTMLEmbedElement_
 
 type IHTMLEmbedElementVtbl
 	QueryInterface as function(byval This as IHTMLEmbedElement ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -14585,6 +14659,8 @@ declare sub IHTMLEmbedElement_get_height_Stub(byval This as IRpcStubBuffer ptr, 
 
 extern DIID_DispHTMLEmbed as const IID
 
+type DispHTMLEmbed as DispHTMLEmbed_
+
 type DispHTMLEmbedVtbl
 	QueryInterface as function(byval This as DispHTMLEmbed ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as DispHTMLEmbed ptr) as ULONG
@@ -14605,6 +14681,8 @@ extern CLSID_HTMLEmbed as const CLSID
 
 extern DIID_HTMLMapEvents2 as const IID
 
+type HTMLMapEvents2 as HTMLMapEvents2_
+
 type HTMLMapEvents2Vtbl
 	QueryInterface as function(byval This as HTMLMapEvents2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as HTMLMapEvents2 ptr) as ULONG
@@ -14622,6 +14700,8 @@ end type
 #define __HTMLMapEvents_DISPINTERFACE_DEFINED__
 
 extern DIID_HTMLMapEvents as const IID
+
+type HTMLMapEvents as HTMLMapEvents_
 
 type HTMLMapEventsVtbl
 	QueryInterface as function(byval This as HTMLMapEvents ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -14641,6 +14721,8 @@ end type
 
 extern IID_IHTMLAreasCollection as const IID
 
+type IHTMLAreasCollection as IHTMLAreasCollection_
+
 type IHTMLAreasCollectionVtbl
 	QueryInterface as function(byval This as IHTMLAreasCollection ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IHTMLAreasCollection ptr) as ULONG
@@ -14652,7 +14734,7 @@ type IHTMLAreasCollectionVtbl
 	put_length as function(byval This as IHTMLAreasCollection ptr, byval v as long) as HRESULT
 	get_length as function(byval This as IHTMLAreasCollection ptr, byval p as long ptr) as HRESULT
 	get__newEnum as function(byval This as IHTMLAreasCollection ptr, byval p as IUnknown ptr ptr) as HRESULT
-	item as function(byval This as IHTMLAreasCollection ptr, byval name_ as VARIANT, byval index as VARIANT, byval pdisp as IDispatch ptr ptr) as HRESULT
+	item as function(byval This as IHTMLAreasCollection ptr, byval name as VARIANT, byval index as VARIANT, byval pdisp as IDispatch ptr ptr) as HRESULT
 	tags as function(byval This as IHTMLAreasCollection ptr, byval tagName as VARIANT, byval pdisp as IDispatch ptr ptr) as HRESULT
 	add as function(byval This as IHTMLAreasCollection ptr, byval element as IHTMLElement ptr, byval before as VARIANT) as HRESULT
 	remove as function(byval This as IHTMLAreasCollection ptr, byval index as long) as HRESULT
@@ -14668,7 +14750,7 @@ declare function IHTMLAreasCollection_get_length_Proxy(byval This as IHTMLAreasC
 declare sub IHTMLAreasCollection_get_length_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IHTMLAreasCollection_get__newEnum_Proxy(byval This as IHTMLAreasCollection ptr, byval p as IUnknown ptr ptr) as HRESULT
 declare sub IHTMLAreasCollection_get__newEnum_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IHTMLAreasCollection_item_Proxy(byval This as IHTMLAreasCollection ptr, byval name_ as VARIANT, byval index as VARIANT, byval pdisp as IDispatch ptr ptr) as HRESULT
+declare function IHTMLAreasCollection_item_Proxy(byval This as IHTMLAreasCollection ptr, byval name as VARIANT, byval index as VARIANT, byval pdisp as IDispatch ptr ptr) as HRESULT
 declare sub IHTMLAreasCollection_item_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IHTMLAreasCollection_tags_Proxy(byval This as IHTMLAreasCollection ptr, byval tagName as VARIANT, byval pdisp as IDispatch ptr ptr) as HRESULT
 declare sub IHTMLAreasCollection_tags_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
@@ -14680,6 +14762,8 @@ declare sub IHTMLAreasCollection_remove_Stub(byval This as IRpcStubBuffer ptr, b
 #define __IHTMLAreasCollection2_INTERFACE_DEFINED__
 
 extern IID_IHTMLAreasCollection2 as const IID
+
+type IHTMLAreasCollection2 as IHTMLAreasCollection2_
 
 type IHTMLAreasCollection2Vtbl
 	QueryInterface as function(byval This as IHTMLAreasCollection2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -14703,6 +14787,8 @@ declare sub IHTMLAreasCollection2_urns_Stub(byval This as IRpcStubBuffer ptr, by
 
 extern IID_IHTMLAreasCollection3 as const IID
 
+type IHTMLAreasCollection3 as IHTMLAreasCollection3_
+
 type IHTMLAreasCollection3Vtbl
 	QueryInterface as function(byval This as IHTMLAreasCollection3 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IHTMLAreasCollection3 ptr) as ULONG
@@ -14711,19 +14797,21 @@ type IHTMLAreasCollection3Vtbl
 	GetTypeInfo as function(byval This as IHTMLAreasCollection3 ptr, byval iTInfo as UINT, byval lcid as LCID, byval ppTInfo as ITypeInfo ptr ptr) as HRESULT
 	GetIDsOfNames as function(byval This as IHTMLAreasCollection3 ptr, byval riid as const IID const ptr, byval rgszNames as LPOLESTR ptr, byval cNames as UINT, byval lcid as LCID, byval rgDispId as DISPID ptr) as HRESULT
 	Invoke as function(byval This as IHTMLAreasCollection3 ptr, byval dispIdMember as DISPID, byval riid as const IID const ptr, byval lcid as LCID, byval wFlags as WORD, byval pDispParams as DISPPARAMS ptr, byval pVarResult as VARIANT ptr, byval pExcepInfo as EXCEPINFO ptr, byval puArgErr as UINT ptr) as HRESULT
-	namedItem as function(byval This as IHTMLAreasCollection3 ptr, byval name_ as BSTR, byval pdisp as IDispatch ptr ptr) as HRESULT
+	namedItem as function(byval This as IHTMLAreasCollection3 ptr, byval name as BSTR, byval pdisp as IDispatch ptr ptr) as HRESULT
 end type
 
 type IHTMLAreasCollection3_
 	lpVtbl as IHTMLAreasCollection3Vtbl ptr
 end type
 
-declare function IHTMLAreasCollection3_namedItem_Proxy(byval This as IHTMLAreasCollection3 ptr, byval name_ as BSTR, byval pdisp as IDispatch ptr ptr) as HRESULT
+declare function IHTMLAreasCollection3_namedItem_Proxy(byval This as IHTMLAreasCollection3 ptr, byval name as BSTR, byval pdisp as IDispatch ptr ptr) as HRESULT
 declare sub IHTMLAreasCollection3_namedItem_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 
 #define __IHTMLMapElement_INTERFACE_DEFINED__
 
 extern IID_IHTMLMapElement as const IID
+
+type IHTMLMapElement as IHTMLMapElement_
 
 type IHTMLMapElementVtbl
 	QueryInterface as function(byval This as IHTMLMapElement ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -14753,6 +14841,8 @@ declare sub IHTMLMapElement_get_name_Stub(byval This as IRpcStubBuffer ptr, byva
 
 extern DIID_DispHTMLAreasCollection as const IID
 
+type DispHTMLAreasCollection as DispHTMLAreasCollection_
+
 type DispHTMLAreasCollectionVtbl
 	QueryInterface as function(byval This as DispHTMLAreasCollection ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as DispHTMLAreasCollection ptr) as ULONG
@@ -14772,6 +14862,8 @@ extern CLSID_HTMLAreasCollection as const CLSID
 #define __DispHTMLMapElement_DISPINTERFACE_DEFINED__
 
 extern DIID_DispHTMLMapElement as const IID
+
+type DispHTMLMapElement as DispHTMLMapElement_
 
 type DispHTMLMapElementVtbl
 	QueryInterface as function(byval This as DispHTMLMapElement ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -14793,6 +14885,8 @@ extern CLSID_HTMLMapElement as const CLSID
 
 extern DIID_HTMLAreaEvents2 as const IID
 
+type HTMLAreaEvents2 as HTMLAreaEvents2_
+
 type HTMLAreaEvents2Vtbl
 	QueryInterface as function(byval This as HTMLAreaEvents2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as HTMLAreaEvents2 ptr) as ULONG
@@ -14811,6 +14905,8 @@ end type
 
 extern DIID_HTMLAreaEvents as const IID
 
+type HTMLAreaEvents as HTMLAreaEvents_
+
 type HTMLAreaEventsVtbl
 	QueryInterface as function(byval This as HTMLAreaEvents ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as HTMLAreaEvents ptr) as ULONG
@@ -14828,6 +14924,8 @@ end type
 #define __IHTMLAreaElement_INTERFACE_DEFINED__
 
 extern IID_IHTMLAreaElement as const IID
+
+type IHTMLAreaElement as IHTMLAreaElement_
 
 type IHTMLAreaElementVtbl
 	QueryInterface as function(byval This as IHTMLAreaElement ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -14950,6 +15048,8 @@ declare sub IHTMLAreaElement_blur_Stub(byval This as IRpcStubBuffer ptr, byval _
 
 extern DIID_DispHTMLAreaElement as const IID
 
+type DispHTMLAreaElement as DispHTMLAreaElement_
+
 type DispHTMLAreaElementVtbl
 	QueryInterface as function(byval This as DispHTMLAreaElement ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as DispHTMLAreaElement ptr) as ULONG
@@ -14969,6 +15069,8 @@ extern CLSID_HTMLAreaElement as const CLSID
 #define __IHTMLTableCaption_INTERFACE_DEFINED__
 
 extern IID_IHTMLTableCaption as const IID
+
+type IHTMLTableCaption as IHTMLTableCaption_
 
 type IHTMLTableCaptionVtbl
 	QueryInterface as function(byval This as IHTMLTableCaption ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -15001,6 +15103,8 @@ declare sub IHTMLTableCaption_get_vAlign_Stub(byval This as IRpcStubBuffer ptr, 
 
 extern DIID_DispHTMLTableCaption as const IID
 
+type DispHTMLTableCaption as DispHTMLTableCaption_
+
 type DispHTMLTableCaptionVtbl
 	QueryInterface as function(byval This as DispHTMLTableCaption ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as DispHTMLTableCaption ptr) as ULONG
@@ -15020,6 +15124,8 @@ extern CLSID_HTMLTableCaption as const CLSID
 #define __IHTMLCommentElement_INTERFACE_DEFINED__
 
 extern IID_IHTMLCommentElement as const IID
+
+type IHTMLCommentElement as IHTMLCommentElement_
 
 type IHTMLCommentElementVtbl
 	QueryInterface as function(byval This as IHTMLCommentElement ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -15051,6 +15157,8 @@ declare sub IHTMLCommentElement_get_atomic_Stub(byval This as IRpcStubBuffer ptr
 #define __IHTMLCommentElement2_INTERFACE_DEFINED__
 
 extern IID_IHTMLCommentElement2 as const IID
+
+type IHTMLCommentElement2 as IHTMLCommentElement2_
 
 type IHTMLCommentElement2Vtbl
 	QueryInterface as function(byval This as IHTMLCommentElement2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -15095,6 +15203,8 @@ declare sub IHTMLCommentElement2_replaceData_Stub(byval This as IRpcStubBuffer p
 
 extern DIID_DispHTMLCommentElement as const IID
 
+type DispHTMLCommentElement as DispHTMLCommentElement_
+
 type DispHTMLCommentElementVtbl
 	QueryInterface as function(byval This as DispHTMLCommentElement ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as DispHTMLCommentElement ptr) as ULONG
@@ -15115,6 +15225,8 @@ extern CLSID_HTMLCommentElement as const CLSID
 
 extern IID_IHTMLPhraseElement as const IID
 
+type IHTMLPhraseElement as IHTMLPhraseElement_
+
 type IHTMLPhraseElementVtbl
 	QueryInterface as function(byval This as IHTMLPhraseElement ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IHTMLPhraseElement ptr) as ULONG
@@ -15132,6 +15244,8 @@ end type
 #define __IHTMLPhraseElement2_INTERFACE_DEFINED__
 
 extern IID_IHTMLPhraseElement2 as const IID
+
+type IHTMLPhraseElement2 as IHTMLPhraseElement2_
 
 type IHTMLPhraseElement2Vtbl
 	QueryInterface as function(byval This as IHTMLPhraseElement2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -15164,6 +15278,8 @@ declare sub IHTMLPhraseElement2_get_dateTime_Stub(byval This as IRpcStubBuffer p
 
 extern IID_IHTMLSpanElement as const IID
 
+type IHTMLSpanElement as IHTMLSpanElement_
+
 type IHTMLSpanElementVtbl
 	QueryInterface as function(byval This as IHTMLSpanElement ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IHTMLSpanElement ptr) as ULONG
@@ -15181,6 +15297,8 @@ end type
 #define __DispHTMLPhraseElement_DISPINTERFACE_DEFINED__
 
 extern DIID_DispHTMLPhraseElement as const IID
+
+type DispHTMLPhraseElement as DispHTMLPhraseElement_
 
 type DispHTMLPhraseElementVtbl
 	QueryInterface as function(byval This as DispHTMLPhraseElement ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -15202,6 +15320,8 @@ extern CLSID_HTMLPhraseElement as const CLSID
 
 extern DIID_DispHTMLSpanElement as const IID
 
+type DispHTMLSpanElement as DispHTMLSpanElement_
+
 type DispHTMLSpanElementVtbl
 	QueryInterface as function(byval This as DispHTMLSpanElement ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as DispHTMLSpanElement ptr) as ULONG
@@ -15222,6 +15342,8 @@ extern CLSID_HTMLSpanElement as const CLSID
 
 extern DIID_HTMLTableEvents2 as const IID
 
+type HTMLTableEvents2 as HTMLTableEvents2_
+
 type HTMLTableEvents2Vtbl
 	QueryInterface as function(byval This as HTMLTableEvents2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as HTMLTableEvents2 ptr) as ULONG
@@ -15240,6 +15362,8 @@ end type
 
 extern DIID_HTMLTableEvents as const IID
 
+type HTMLTableEvents as HTMLTableEvents_
+
 type HTMLTableEventsVtbl
 	QueryInterface as function(byval This as HTMLTableEvents ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as HTMLTableEvents ptr) as ULONG
@@ -15257,6 +15381,8 @@ end type
 #define __IHTMLTableSection_INTERFACE_DEFINED__
 
 extern IID_IHTMLTableSection as const IID
+
+type IHTMLTableSection as IHTMLTableSection_
 
 type IHTMLTableSectionVtbl
 	QueryInterface as function(byval This as IHTMLTableSection ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -15303,6 +15429,8 @@ declare sub IHTMLTableSection_deleteRow_Stub(byval This as IRpcStubBuffer ptr, b
 #define __IHTMLTable_INTERFACE_DEFINED__
 
 extern IID_IHTMLTable as const IID
+
+type IHTMLTable as IHTMLTable_
 
 type IHTMLTableVtbl
 	QueryInterface as function(byval This as IHTMLTable ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -15470,6 +15598,8 @@ declare sub IHTMLTable_get_onreadystatechange_Stub(byval This as IRpcStubBuffer 
 
 extern IID_IHTMLTable2 as const IID
 
+type IHTMLTable2 as IHTMLTable2_
+
 type IHTMLTable2Vtbl
 	QueryInterface as function(byval This as IHTMLTable2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IHTMLTable2 ptr) as ULONG
@@ -15501,6 +15631,8 @@ declare sub IHTMLTable2_moveRow_Stub(byval This as IRpcStubBuffer ptr, byval _pR
 
 extern IID_IHTMLTable3 as const IID
 
+type IHTMLTable3 as IHTMLTable3_
+
 type IHTMLTable3Vtbl
 	QueryInterface as function(byval This as IHTMLTable3 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IHTMLTable3 ptr) as ULONG
@@ -15525,6 +15657,8 @@ declare sub IHTMLTable3_get_summary_Stub(byval This as IRpcStubBuffer ptr, byval
 #define __IHTMLTableCol_INTERFACE_DEFINED__
 
 extern IID_IHTMLTableCol as const IID
+
+type IHTMLTableCol as IHTMLTableCol_
 
 type IHTMLTableColVtbl
 	QueryInterface as function(byval This as IHTMLTableCol ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -15569,6 +15703,8 @@ declare sub IHTMLTableCol_get_vAlign_Stub(byval This as IRpcStubBuffer ptr, byva
 
 extern IID_IHTMLTableCol2 as const IID
 
+type IHTMLTableCol2 as IHTMLTableCol2_
+
 type IHTMLTableCol2Vtbl
 	QueryInterface as function(byval This as IHTMLTableCol2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IHTMLTableCol2 ptr) as ULONG
@@ -15600,6 +15736,8 @@ declare sub IHTMLTableCol2_get_chOff_Stub(byval This as IRpcStubBuffer ptr, byva
 
 extern IID_IHTMLTableSection2 as const IID
 
+type IHTMLTableSection2 as IHTMLTableSection2_
+
 type IHTMLTableSection2Vtbl
 	QueryInterface as function(byval This as IHTMLTableSection2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IHTMLTableSection2 ptr) as ULONG
@@ -15621,6 +15759,8 @@ declare sub IHTMLTableSection2_moveRow_Stub(byval This as IRpcStubBuffer ptr, by
 #define __IHTMLTableSection3_INTERFACE_DEFINED__
 
 extern IID_IHTMLTableSection3 as const IID
+
+type IHTMLTableSection3 as IHTMLTableSection3_
 
 type IHTMLTableSection3Vtbl
 	QueryInterface as function(byval This as IHTMLTableSection3 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -15652,6 +15792,8 @@ declare sub IHTMLTableSection3_get_chOff_Stub(byval This as IRpcStubBuffer ptr, 
 #define __IHTMLTableRow_INTERFACE_DEFINED__
 
 extern IID_IHTMLTableRow as const IID
+
+type IHTMLTableRow as IHTMLTableRow_
 
 type IHTMLTableRowVtbl
 	QueryInterface as function(byval This as IHTMLTableRow ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -15723,6 +15865,8 @@ declare sub IHTMLTableRow_deleteCell_Stub(byval This as IRpcStubBuffer ptr, byva
 
 extern IID_IHTMLTableRow2 as const IID
 
+type IHTMLTableRow2 as IHTMLTableRow2_
+
 type IHTMLTableRow2Vtbl
 	QueryInterface as function(byval This as IHTMLTableRow2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IHTMLTableRow2 ptr) as ULONG
@@ -15747,6 +15891,8 @@ declare sub IHTMLTableRow2_get_height_Stub(byval This as IRpcStubBuffer ptr, byv
 #define __IHTMLTableRow3_INTERFACE_DEFINED__
 
 extern IID_IHTMLTableRow3 as const IID
+
+type IHTMLTableRow3 as IHTMLTableRow3_
 
 type IHTMLTableRow3Vtbl
 	QueryInterface as function(byval This as IHTMLTableRow3 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -15779,6 +15925,8 @@ declare sub IHTMLTableRow3_get_chOff_Stub(byval This as IRpcStubBuffer ptr, byva
 
 extern IID_IHTMLTableRowMetrics as const IID
 
+type IHTMLTableRowMetrics as IHTMLTableRowMetrics_
+
 type IHTMLTableRowMetricsVtbl
 	QueryInterface as function(byval This as IHTMLTableRowMetrics ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IHTMLTableRowMetrics ptr) as ULONG
@@ -15809,6 +15957,8 @@ declare sub IHTMLTableRowMetrics_get_clientLeft_Stub(byval This as IRpcStubBuffe
 #define __IHTMLTableCell_INTERFACE_DEFINED__
 
 extern IID_IHTMLTableCell as const IID
+
+type IHTMLTableCell as IHTMLTableCell_
 
 type IHTMLTableCellVtbl
 	QueryInterface as function(byval This as IHTMLTableCell ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -15904,6 +16054,8 @@ declare sub IHTMLTableCell_get_cellIndex_Stub(byval This as IRpcStubBuffer ptr, 
 
 extern IID_IHTMLTableCell2 as const IID
 
+type IHTMLTableCell2 as IHTMLTableCell2_
+
 type IHTMLTableCell2Vtbl
 	QueryInterface as function(byval This as IHTMLTableCell2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IHTMLTableCell2 ptr) as ULONG
@@ -15959,6 +16111,8 @@ declare sub IHTMLTableCell2_get_scope_Stub(byval This as IRpcStubBuffer ptr, byv
 
 extern DIID_DispHTMLTable as const IID
 
+type DispHTMLTable as DispHTMLTable_
+
 type DispHTMLTableVtbl
 	QueryInterface as function(byval This as DispHTMLTable ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as DispHTMLTable ptr) as ULONG
@@ -15978,6 +16132,8 @@ extern CLSID_HTMLTable as const CLSID
 #define __DispHTMLTableCol_DISPINTERFACE_DEFINED__
 
 extern DIID_DispHTMLTableCol as const IID
+
+type DispHTMLTableCol as DispHTMLTableCol_
 
 type DispHTMLTableColVtbl
 	QueryInterface as function(byval This as DispHTMLTableCol ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -15999,6 +16155,8 @@ extern CLSID_HTMLTableCol as const CLSID
 
 extern DIID_DispHTMLTableSection as const IID
 
+type DispHTMLTableSection as DispHTMLTableSection_
+
 type DispHTMLTableSectionVtbl
 	QueryInterface as function(byval This as DispHTMLTableSection ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as DispHTMLTableSection ptr) as ULONG
@@ -16018,6 +16176,8 @@ extern CLSID_HTMLTableSection as const CLSID
 #define __DispHTMLTableRow_DISPINTERFACE_DEFINED__
 
 extern DIID_DispHTMLTableRow as const IID
+
+type DispHTMLTableRow as DispHTMLTableRow_
 
 type DispHTMLTableRowVtbl
 	QueryInterface as function(byval This as DispHTMLTableRow ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -16039,6 +16199,8 @@ extern CLSID_HTMLTableRow as const CLSID
 
 extern DIID_DispHTMLTableCell as const IID
 
+type DispHTMLTableCell as DispHTMLTableCell_
+
 type DispHTMLTableCellVtbl
 	QueryInterface as function(byval This as DispHTMLTableCell ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as DispHTMLTableCell ptr) as ULONG
@@ -16059,6 +16221,8 @@ extern CLSID_HTMLTableCell as const CLSID
 
 extern DIID_HTMLScriptEvents2 as const IID
 
+type HTMLScriptEvents2 as HTMLScriptEvents2_
+
 type HTMLScriptEvents2Vtbl
 	QueryInterface as function(byval This as HTMLScriptEvents2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as HTMLScriptEvents2 ptr) as ULONG
@@ -16077,6 +16241,8 @@ end type
 
 extern DIID_HTMLScriptEvents as const IID
 
+type HTMLScriptEvents as HTMLScriptEvents_
+
 type HTMLScriptEventsVtbl
 	QueryInterface as function(byval This as HTMLScriptEvents ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as HTMLScriptEvents ptr) as ULONG
@@ -16094,6 +16260,8 @@ end type
 #define __IHTMLScriptElement_INTERFACE_DEFINED__
 
 extern IID_IHTMLScriptElement as const IID
+
+type IHTMLScriptElement as IHTMLScriptElement_
 
 type IHTMLScriptElementVtbl
 	QueryInterface as function(byval This as IHTMLScriptElement ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -16159,6 +16327,8 @@ declare sub IHTMLScriptElement_get_type_Stub(byval This as IRpcStubBuffer ptr, b
 
 extern IID_IHTMLScriptElement2 as const IID
 
+type IHTMLScriptElement2 as IHTMLScriptElement2_
+
 type IHTMLScriptElement2Vtbl
 	QueryInterface as function(byval This as IHTMLScriptElement2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IHTMLScriptElement2 ptr) as ULONG
@@ -16184,6 +16354,8 @@ declare sub IHTMLScriptElement2_get_charset_Stub(byval This as IRpcStubBuffer pt
 
 extern DIID_DispHTMLScriptElement as const IID
 
+type DispHTMLScriptElement as DispHTMLScriptElement_
+
 type DispHTMLScriptElementVtbl
 	QueryInterface as function(byval This as DispHTMLScriptElement ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as DispHTMLScriptElement ptr) as ULONG
@@ -16204,6 +16376,8 @@ extern CLSID_HTMLScriptElement as const CLSID
 
 extern IID_IHTMLNoShowElement as const IID
 
+type IHTMLNoShowElement as IHTMLNoShowElement_
+
 type IHTMLNoShowElementVtbl
 	QueryInterface as function(byval This as IHTMLNoShowElement ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IHTMLNoShowElement ptr) as ULONG
@@ -16221,6 +16395,8 @@ end type
 #define __DispHTMLNoShowElement_DISPINTERFACE_DEFINED__
 
 extern DIID_DispHTMLNoShowElement as const IID
+
+type DispHTMLNoShowElement as DispHTMLNoShowElement_
 
 type DispHTMLNoShowElementVtbl
 	QueryInterface as function(byval This as DispHTMLNoShowElement ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -16242,6 +16418,8 @@ extern CLSID_HTMLNoShowElement as const CLSID
 
 extern DIID_HTMLObjectElementEvents2 as const IID
 
+type HTMLObjectElementEvents2 as HTMLObjectElementEvents2_
+
 type HTMLObjectElementEvents2Vtbl
 	QueryInterface as function(byval This as HTMLObjectElementEvents2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as HTMLObjectElementEvents2 ptr) as ULONG
@@ -16260,6 +16438,8 @@ end type
 
 extern DIID_HTMLObjectElementEvents as const IID
 
+type HTMLObjectElementEvents as HTMLObjectElementEvents_
+
 type HTMLObjectElementEventsVtbl
 	QueryInterface as function(byval This as HTMLObjectElementEvents ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as HTMLObjectElementEvents ptr) as ULONG
@@ -16277,6 +16457,8 @@ end type
 #define __IHTMLObjectElement_INTERFACE_DEFINED__
 
 extern IID_IHTMLObjectElement as const IID
+
+type IHTMLObjectElement as IHTMLObjectElement_
 
 type IHTMLObjectElementVtbl
 	QueryInterface as function(byval This as IHTMLObjectElement ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -16399,6 +16581,8 @@ declare sub IHTMLObjectElement_get_hspace_Stub(byval This as IRpcStubBuffer ptr,
 
 extern IID_IHTMLObjectElement2 as const IID
 
+type IHTMLObjectElement2 as IHTMLObjectElement2_
+
 type IHTMLObjectElement2Vtbl
 	QueryInterface as function(byval This as IHTMLObjectElement2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IHTMLObjectElement2 ptr) as ULONG
@@ -16432,6 +16616,8 @@ declare sub IHTMLObjectElement2_get_data_Stub(byval This as IRpcStubBuffer ptr, 
 #define __IHTMLObjectElement3_INTERFACE_DEFINED__
 
 extern IID_IHTMLObjectElement3 as const IID
+
+type IHTMLObjectElement3 as IHTMLObjectElement3_
 
 type IHTMLObjectElement3Vtbl
 	QueryInterface as function(byval This as IHTMLObjectElement3 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -16488,6 +16674,8 @@ declare sub IHTMLObjectElement3_get_useMap_Stub(byval This as IRpcStubBuffer ptr
 
 extern IID_IHTMLParamElement as const IID
 
+type IHTMLParamElement as IHTMLParamElement_
+
 type IHTMLParamElementVtbl
 	QueryInterface as function(byval This as IHTMLParamElement ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IHTMLParamElement ptr) as ULONG
@@ -16531,6 +16719,8 @@ declare sub IHTMLParamElement_get_valueType_Stub(byval This as IRpcStubBuffer pt
 
 extern DIID_DispHTMLObjectElement as const IID
 
+type DispHTMLObjectElement as DispHTMLObjectElement_
+
 type DispHTMLObjectElementVtbl
 	QueryInterface as function(byval This as DispHTMLObjectElement ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as DispHTMLObjectElement ptr) as ULONG
@@ -16550,6 +16740,8 @@ extern CLSID_HTMLObjectElement as const CLSID
 #define __DispHTMLParamElement_DISPINTERFACE_DEFINED__
 
 extern DIID_DispHTMLParamElement as const IID
+
+type DispHTMLParamElement as DispHTMLParamElement_
 
 type DispHTMLParamElementVtbl
 	QueryInterface as function(byval This as DispHTMLParamElement ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -16571,6 +16763,8 @@ extern CLSID_HTMLParamElement as const CLSID
 
 extern DIID_HTMLFrameSiteEvents2 as const IID
 
+type HTMLFrameSiteEvents2 as HTMLFrameSiteEvents2_
+
 type HTMLFrameSiteEvents2Vtbl
 	QueryInterface as function(byval This as HTMLFrameSiteEvents2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as HTMLFrameSiteEvents2 ptr) as ULONG
@@ -16589,6 +16783,8 @@ end type
 
 extern DIID_HTMLFrameSiteEvents as const IID
 
+type HTMLFrameSiteEvents as HTMLFrameSiteEvents_
+
 type HTMLFrameSiteEventsVtbl
 	QueryInterface as function(byval This as HTMLFrameSiteEvents ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as HTMLFrameSiteEvents ptr) as ULONG
@@ -16606,6 +16802,8 @@ end type
 #define __IHTMLFrameBase2_INTERFACE_DEFINED__
 
 extern IID_IHTMLFrameBase2 as const IID
+
+type IHTMLFrameBase2 as IHTMLFrameBase2_
 
 type IHTMLFrameBase2Vtbl
 	QueryInterface as function(byval This as IHTMLFrameBase2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -16650,6 +16848,8 @@ declare sub IHTMLFrameBase2_get_allowTransparency_Stub(byval This as IRpcStubBuf
 
 extern IID_IHTMLFrameBase3 as const IID
 
+type IHTMLFrameBase3 as IHTMLFrameBase3_
+
 type IHTMLFrameBase3Vtbl
 	QueryInterface as function(byval This as IHTMLFrameBase3 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IHTMLFrameBase3 ptr) as ULONG
@@ -16675,6 +16875,8 @@ declare sub IHTMLFrameBase3_get_longDesc_Stub(byval This as IRpcStubBuffer ptr, 
 
 extern DIID_DispHTMLFrameBase as const IID
 
+type DispHTMLFrameBase as DispHTMLFrameBase_
+
 type DispHTMLFrameBaseVtbl
 	QueryInterface as function(byval This as DispHTMLFrameBase ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as DispHTMLFrameBase ptr) as ULONG
@@ -16694,6 +16896,8 @@ extern CLSID_HTMLFrameBase as const CLSID
 #define __IHTMLFrameElement_INTERFACE_DEFINED__
 
 extern IID_IHTMLFrameElement as const IID
+
+type IHTMLFrameElement as IHTMLFrameElement_
 
 type IHTMLFrameElementVtbl
 	QueryInterface as function(byval This as IHTMLFrameElement ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -16719,6 +16923,8 @@ declare sub IHTMLFrameElement_get_borderColor_Stub(byval This as IRpcStubBuffer 
 #define __IHTMLFrameElement2_INTERFACE_DEFINED__
 
 extern IID_IHTMLFrameElement2 as const IID
+
+type IHTMLFrameElement2 as IHTMLFrameElement2_
 
 type IHTMLFrameElement2Vtbl
 	QueryInterface as function(byval This as IHTMLFrameElement2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -16751,6 +16957,8 @@ declare sub IHTMLFrameElement2_get_width_Stub(byval This as IRpcStubBuffer ptr, 
 
 extern DIID_DispHTMLFrameElement as const IID
 
+type DispHTMLFrameElement as DispHTMLFrameElement_
+
 type DispHTMLFrameElementVtbl
 	QueryInterface as function(byval This as DispHTMLFrameElement ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as DispHTMLFrameElement ptr) as ULONG
@@ -16770,6 +16978,8 @@ extern CLSID_HTMLFrameElement as const CLSID
 #define __IHTMLIFrameElement_INTERFACE_DEFINED__
 
 extern IID_IHTMLIFrameElement as const IID
+
+type IHTMLIFrameElement as IHTMLIFrameElement_
 
 type IHTMLIFrameElementVtbl
 	QueryInterface as function(byval This as IHTMLIFrameElement ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -16808,6 +17018,8 @@ declare sub IHTMLIFrameElement_get_align_Stub(byval This as IRpcStubBuffer ptr, 
 
 extern IID_IHTMLIFrameElement2 as const IID
 
+type IHTMLIFrameElement2 as IHTMLIFrameElement2_
+
 type IHTMLIFrameElement2Vtbl
 	QueryInterface as function(byval This as IHTMLIFrameElement2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IHTMLIFrameElement2 ptr) as ULONG
@@ -16839,6 +17051,8 @@ declare sub IHTMLIFrameElement2_get_width_Stub(byval This as IRpcStubBuffer ptr,
 
 extern DIID_DispHTMLIFrame as const IID
 
+type DispHTMLIFrame as DispHTMLIFrame_
+
 type DispHTMLIFrameVtbl
 	QueryInterface as function(byval This as DispHTMLIFrame ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as DispHTMLIFrame ptr) as ULONG
@@ -16858,6 +17072,8 @@ extern CLSID_HTMLIFrame as const CLSID
 #define __IHTMLDivPosition_INTERFACE_DEFINED__
 
 extern IID_IHTMLDivPosition as const IID
+
+type IHTMLDivPosition as IHTMLDivPosition_
 
 type IHTMLDivPositionVtbl
 	QueryInterface as function(byval This as IHTMLDivPosition ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -16884,6 +17100,8 @@ declare sub IHTMLDivPosition_get_align_Stub(byval This as IRpcStubBuffer ptr, by
 
 extern IID_IHTMLFieldSetElement as const IID
 
+type IHTMLFieldSetElement as IHTMLFieldSetElement_
+
 type IHTMLFieldSetElementVtbl
 	QueryInterface as function(byval This as IHTMLFieldSetElement ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IHTMLFieldSetElement ptr) as ULONG
@@ -16909,6 +17127,8 @@ declare sub IHTMLFieldSetElement_get_align_Stub(byval This as IRpcStubBuffer ptr
 
 extern IID_IHTMLFieldSetElement2 as const IID
 
+type IHTMLFieldSetElement2 as IHTMLFieldSetElement2_
+
 type IHTMLFieldSetElement2Vtbl
 	QueryInterface as function(byval This as IHTMLFieldSetElement2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IHTMLFieldSetElement2 ptr) as ULONG
@@ -16930,6 +17150,8 @@ declare sub IHTMLFieldSetElement2_get_form_Stub(byval This as IRpcStubBuffer ptr
 #define __IHTMLLegendElement_INTERFACE_DEFINED__
 
 extern IID_IHTMLLegendElement as const IID
+
+type IHTMLLegendElement as IHTMLLegendElement_
 
 type IHTMLLegendElementVtbl
 	QueryInterface as function(byval This as IHTMLLegendElement ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -16956,6 +17178,8 @@ declare sub IHTMLLegendElement_get_align_Stub(byval This as IRpcStubBuffer ptr, 
 
 extern IID_IHTMLLegendElement2 as const IID
 
+type IHTMLLegendElement2 as IHTMLLegendElement2_
+
 type IHTMLLegendElement2Vtbl
 	QueryInterface as function(byval This as IHTMLLegendElement2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IHTMLLegendElement2 ptr) as ULONG
@@ -16978,6 +17202,8 @@ declare sub IHTMLLegendElement2_get_form_Stub(byval This as IRpcStubBuffer ptr, 
 
 extern DIID_DispHTMLDivPosition as const IID
 
+type DispHTMLDivPosition as DispHTMLDivPosition_
+
 type DispHTMLDivPositionVtbl
 	QueryInterface as function(byval This as DispHTMLDivPosition ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as DispHTMLDivPosition ptr) as ULONG
@@ -16997,6 +17223,8 @@ extern CLSID_HTMLDivPosition as const CLSID
 #define __DispHTMLFieldSetElement_DISPINTERFACE_DEFINED__
 
 extern DIID_DispHTMLFieldSetElement as const IID
+
+type DispHTMLFieldSetElement as DispHTMLFieldSetElement_
 
 type DispHTMLFieldSetElementVtbl
 	QueryInterface as function(byval This as DispHTMLFieldSetElement ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -17018,6 +17246,8 @@ extern CLSID_HTMLFieldSetElement as const CLSID
 
 extern DIID_DispHTMLLegendElement as const IID
 
+type DispHTMLLegendElement as DispHTMLLegendElement_
+
 type DispHTMLLegendElementVtbl
 	QueryInterface as function(byval This as DispHTMLLegendElement ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as DispHTMLLegendElement ptr) as ULONG
@@ -17037,6 +17267,8 @@ extern CLSID_HTMLLegendElement as const CLSID
 #define __IHTMLSpanFlow_INTERFACE_DEFINED__
 
 extern IID_IHTMLSpanFlow as const IID
+
+type IHTMLSpanFlow as IHTMLSpanFlow_
 
 type IHTMLSpanFlowVtbl
 	QueryInterface as function(byval This as IHTMLSpanFlow ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -17063,6 +17295,8 @@ declare sub IHTMLSpanFlow_get_align_Stub(byval This as IRpcStubBuffer ptr, byval
 
 extern DIID_DispHTMLSpanFlow as const IID
 
+type DispHTMLSpanFlow as DispHTMLSpanFlow_
+
 type DispHTMLSpanFlowVtbl
 	QueryInterface as function(byval This as DispHTMLSpanFlow ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as DispHTMLSpanFlow ptr) as ULONG
@@ -17082,6 +17316,8 @@ extern CLSID_HTMLSpanFlow as const CLSID
 #define __IHTMLFrameSetElement_INTERFACE_DEFINED__
 
 extern IID_IHTMLFrameSetElement as const IID
+
+type IHTMLFrameSetElement as IHTMLFrameSetElement_
 
 type IHTMLFrameSetElementVtbl
 	QueryInterface as function(byval This as IHTMLFrameSetElement ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -17162,6 +17398,8 @@ declare sub IHTMLFrameSetElement_get_onbeforeunload_Stub(byval This as IRpcStubB
 
 extern IID_IHTMLFrameSetElement2 as const IID
 
+type IHTMLFrameSetElement2 as IHTMLFrameSetElement2_
+
 type IHTMLFrameSetElement2Vtbl
 	QueryInterface as function(byval This as IHTMLFrameSetElement2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IHTMLFrameSetElement2 ptr) as ULONG
@@ -17193,6 +17431,8 @@ declare sub IHTMLFrameSetElement2_get_onafterprint_Stub(byval This as IRpcStubBu
 
 extern DIID_DispHTMLFrameSetSite as const IID
 
+type DispHTMLFrameSetSite as DispHTMLFrameSetSite_
+
 type DispHTMLFrameSetSiteVtbl
 	QueryInterface as function(byval This as DispHTMLFrameSetSite ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as DispHTMLFrameSetSite ptr) as ULONG
@@ -17212,6 +17452,8 @@ extern CLSID_HTMLFrameSetSite as const CLSID
 #define __IHTMLBGsound_INTERFACE_DEFINED__
 
 extern IID_IHTMLBGsound as const IID
+
+type IHTMLBGsound as IHTMLBGsound_
 
 type IHTMLBGsoundVtbl
 	QueryInterface as function(byval This as IHTMLBGsound ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -17256,6 +17498,8 @@ declare sub IHTMLBGsound_get_balance_Stub(byval This as IRpcStubBuffer ptr, byva
 
 extern DIID_DispHTMLBGsound as const IID
 
+type DispHTMLBGsound as DispHTMLBGsound_
+
 type DispHTMLBGsoundVtbl
 	QueryInterface as function(byval This as DispHTMLBGsound ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as DispHTMLBGsound ptr) as ULONG
@@ -17275,6 +17519,8 @@ extern CLSID_HTMLBGsound as const CLSID
 #define __IHTMLFontNamesCollection_INTERFACE_DEFINED__
 
 extern IID_IHTMLFontNamesCollection as const IID
+
+type IHTMLFontNamesCollection as IHTMLFontNamesCollection_
 
 type IHTMLFontNamesCollectionVtbl
 	QueryInterface as function(byval This as IHTMLFontNamesCollection ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -17303,6 +17549,8 @@ declare sub IHTMLFontNamesCollection_item_Stub(byval This as IRpcStubBuffer ptr,
 #define __IHTMLFontSizesCollection_INTERFACE_DEFINED__
 
 extern IID_IHTMLFontSizesCollection as const IID
+
+type IHTMLFontSizesCollection as IHTMLFontSizesCollection_
 
 type IHTMLFontSizesCollectionVtbl
 	QueryInterface as function(byval This as IHTMLFontSizesCollection ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -17334,6 +17582,8 @@ declare sub IHTMLFontSizesCollection_item_Stub(byval This as IRpcStubBuffer ptr,
 #define __IHTMLOptionsHolder_INTERFACE_DEFINED__
 
 extern IID_IHTMLOptionsHolder as const IID
+
+type IHTMLOptionsHolder as IHTMLOptionsHolder_
 
 type IHTMLOptionsHolderVtbl
 	QueryInterface as function(byval This as IHTMLOptionsHolder ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -17367,7 +17617,7 @@ type IHTMLOptionsHolderVtbl
 	savefiledlg as function(byval This as IHTMLOptionsHolder ptr, byval initFile as VARIANT, byval initDir as VARIANT, byval filter as VARIANT, byval title as VARIANT, byval pathName as BSTR ptr) as HRESULT
 	choosecolordlg as function(byval This as IHTMLOptionsHolder ptr, byval initColor as VARIANT, byval rgbColor as long ptr) as HRESULT
 	showSecurityInfo as function(byval This as IHTMLOptionsHolder ptr) as HRESULT
-	isApartmentModel as function(byval This as IHTMLOptionsHolder ptr, byval object_ as IHTMLObjectElement ptr, byval fApartment as VARIANT_BOOL ptr) as HRESULT
+	isApartmentModel as function(byval This as IHTMLOptionsHolder ptr, byval object as IHTMLObjectElement ptr, byval fApartment as VARIANT_BOOL ptr) as HRESULT
 	getCharset as function(byval This as IHTMLOptionsHolder ptr, byval fontName as BSTR, byval charset as long ptr) as HRESULT
 	get_secureConnectionInfo as function(byval This as IHTMLOptionsHolder ptr, byval p as BSTR ptr) as HRESULT
 end type
@@ -17424,7 +17674,7 @@ declare function IHTMLOptionsHolder_choosecolordlg_Proxy(byval This as IHTMLOpti
 declare sub IHTMLOptionsHolder_choosecolordlg_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IHTMLOptionsHolder_showSecurityInfo_Proxy(byval This as IHTMLOptionsHolder ptr) as HRESULT
 declare sub IHTMLOptionsHolder_showSecurityInfo_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IHTMLOptionsHolder_isApartmentModel_Proxy(byval This as IHTMLOptionsHolder ptr, byval object_ as IHTMLObjectElement ptr, byval fApartment as VARIANT_BOOL ptr) as HRESULT
+declare function IHTMLOptionsHolder_isApartmentModel_Proxy(byval This as IHTMLOptionsHolder ptr, byval object as IHTMLObjectElement ptr, byval fApartment as VARIANT_BOOL ptr) as HRESULT
 declare sub IHTMLOptionsHolder_isApartmentModel_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IHTMLOptionsHolder_getCharset_Proxy(byval This as IHTMLOptionsHolder ptr, byval fontName as BSTR, byval charset as long ptr) as HRESULT
 declare sub IHTMLOptionsHolder_getCharset_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
@@ -17434,6 +17684,8 @@ declare sub IHTMLOptionsHolder_get_secureConnectionInfo_Stub(byval This as IRpcS
 #define __HTMLStyleElementEvents2_DISPINTERFACE_DEFINED__
 
 extern DIID_HTMLStyleElementEvents2 as const IID
+
+type HTMLStyleElementEvents2 as HTMLStyleElementEvents2_
 
 type HTMLStyleElementEvents2Vtbl
 	QueryInterface as function(byval This as HTMLStyleElementEvents2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -17453,6 +17705,8 @@ end type
 
 extern DIID_HTMLStyleElementEvents as const IID
 
+type HTMLStyleElementEvents as HTMLStyleElementEvents_
+
 type HTMLStyleElementEventsVtbl
 	QueryInterface as function(byval This as HTMLStyleElementEvents ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as HTMLStyleElementEvents ptr) as ULONG
@@ -17470,6 +17724,8 @@ end type
 #define __IHTMLStyleElement_INTERFACE_DEFINED__
 
 extern IID_IHTMLStyleElement as const IID
+
+type IHTMLStyleElement as IHTMLStyleElement_
 
 type IHTMLStyleElementVtbl
 	QueryInterface as function(byval This as IHTMLStyleElement ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -17532,6 +17788,8 @@ declare sub IHTMLStyleElement_get_media_Stub(byval This as IRpcStubBuffer ptr, b
 
 extern DIID_DispHTMLStyleElement as const IID
 
+type DispHTMLStyleElement as DispHTMLStyleElement_
+
 type DispHTMLStyleElementVtbl
 	QueryInterface as function(byval This as DispHTMLStyleElement ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as DispHTMLStyleElement ptr) as ULONG
@@ -17551,6 +17809,8 @@ extern CLSID_HTMLStyleElement as const CLSID
 #define __IHTMLStyleFontFace_INTERFACE_DEFINED__
 
 extern IID_IHTMLStyleFontFace as const IID
+
+type IHTMLStyleFontFace as IHTMLStyleFontFace_
 
 type IHTMLStyleFontFaceVtbl
 	QueryInterface as function(byval This as IHTMLStyleFontFace ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -17579,6 +17839,8 @@ extern CLSID_HTMLStyleFontFace as const CLSID
 
 extern IID_ICSSFilterSite as const IID
 
+type ICSSFilterSite as ICSSFilterSite_
+
 type ICSSFilterSiteVtbl
 	QueryInterface as function(byval This as ICSSFilterSite ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as ICSSFilterSite ptr) as ULONG
@@ -17599,6 +17861,9 @@ declare sub ICSSFilterSite_FireOnFilterChangeEvent_Stub(byval This as IRpcStubBu
 #define __IMarkupPointer_INTERFACE_DEFINED__
 
 extern IID_IMarkupPointer as const IID
+
+type IMarkupContainer as IMarkupContainer_
+type IMarkupPointer as IMarkupPointer_
 
 type IMarkupPointerVtbl
 	QueryInterface as function(byval This as IMarkupPointer ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -17696,6 +17961,10 @@ declare sub IMarkupContainer_OwningDoc_Stub(byval This as IRpcStubBuffer ptr, by
 
 extern IID_IMarkupContainer2 as const IID
 
+type IHTMLChangeLog as IHTMLChangeLog_
+type IHTMLChangeSink as IHTMLChangeSink_
+type IMarkupContainer2 as IMarkupContainer2_
+
 type IMarkupContainer2Vtbl
 	QueryInterface as function(byval This as IMarkupContainer2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IMarkupContainer2 ptr) as ULONG
@@ -17766,6 +18035,9 @@ declare sub IHTMLChangeSink_Notify_Stub(byval This as IRpcStubBuffer ptr, byval 
 
 extern IID_ISegmentList as const IID
 
+type ISegmentListIterator as ISegmentListIterator_
+type ISegmentList as ISegmentList_
+
 type ISegmentListVtbl
 	QueryInterface as function(byval This as ISegmentList ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as ISegmentList ptr) as ULONG
@@ -17789,6 +18061,8 @@ declare sub ISegmentList_IsEmpty_Stub(byval This as IRpcStubBuffer ptr, byval _p
 #define __ISegmentListIterator_INTERFACE_DEFINED__
 
 extern IID_ISegmentListIterator as const IID
+
+type ISegment as ISegment_
 
 type ISegmentListIteratorVtbl
 	QueryInterface as function(byval This as ISegmentListIterator ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -17816,6 +18090,9 @@ declare sub ISegmentListIterator_Advance_Stub(byval This as IRpcStubBuffer ptr, 
 #define __IHTMLCaret_INTERFACE_DEFINED__
 
 extern IID_IHTMLCaret as const IID
+
+type IDisplayPointer as IDisplayPointer_
+type IHTMLCaret as IHTMLCaret_
 
 type IHTMLCaretVtbl
 	QueryInterface as function(byval This as IHTMLCaret ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -17886,6 +18163,8 @@ declare sub ISegment_GetPointers_Stub(byval This as IRpcStubBuffer ptr, byval _p
 
 extern IID_IElementSegment as const IID
 
+type IElementSegment as IElementSegment_
+
 type IElementSegmentVtbl
 	QueryInterface as function(byval This as IElementSegment ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IElementSegment ptr) as ULONG
@@ -17911,6 +18190,8 @@ declare sub IElementSegment_IsPrimary_Stub(byval This as IRpcStubBuffer ptr, byv
 
 extern IID_IHighlightSegment as const IID
 
+type IHighlightSegment as IHighlightSegment_
+
 type IHighlightSegmentVtbl
 	QueryInterface as function(byval This as IHighlightSegment ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IHighlightSegment ptr) as ULONG
@@ -17925,6 +18206,8 @@ end type
 #define __IHighlightRenderingServices_INTERFACE_DEFINED__
 
 extern IID_IHighlightRenderingServices as const IID
+
+type IHighlightRenderingServices as IHighlightRenderingServices_
 
 type IHighlightRenderingServicesVtbl
 	QueryInterface as function(byval This as IHighlightRenderingServices ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -17949,6 +18232,8 @@ declare sub IHighlightRenderingServices_RemoveSegment_Stub(byval This as IRpcStu
 #define __ILineInfo_INTERFACE_DEFINED__
 
 extern IID_ILineInfo as const IID
+
+type ILineInfo as ILineInfo_
 
 type ILineInfoVtbl
 	QueryInterface as function(byval This as ILineInfo ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -18052,6 +18337,9 @@ declare sub IDisplayPointer_QueryBreaks_Stub(byval This as IRpcStubBuffer ptr, b
 
 extern IID_IDisplayServices as const IID
 
+type IHTMLComputedStyle as IHTMLComputedStyle_
+type IDisplayServices as IDisplayServices_
+
 type IDisplayServicesVtbl
 	QueryInterface as function(byval This as IDisplayServices ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IDisplayServices ptr) as ULONG
@@ -18088,6 +18376,8 @@ declare sub IDisplayServices_HasFlowLayout_Stub(byval This as IRpcStubBuffer ptr
 
 extern IID_IHtmlDlgSafeHelper as const IID
 
+type IHtmlDlgSafeHelper as IHtmlDlgSafeHelper_
+
 type IHtmlDlgSafeHelperVtbl
 	QueryInterface as function(byval This as IHtmlDlgSafeHelper ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IHtmlDlgSafeHelper ptr) as ULONG
@@ -18119,6 +18409,8 @@ declare sub IHtmlDlgSafeHelper_get_BlockFormats_Stub(byval This as IRpcStubBuffe
 
 extern IID_IBlockFormats as const IID
 
+type IBlockFormats as IBlockFormats_
+
 type IBlockFormatsVtbl
 	QueryInterface as function(byval This as IBlockFormats ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IBlockFormats ptr) as ULONG
@@ -18146,6 +18438,8 @@ declare sub IBlockFormats_Item_Stub(byval This as IRpcStubBuffer ptr, byval _pRp
 #define __IFontNames_INTERFACE_DEFINED__
 
 extern IID_IFontNames as const IID
+
+type IFontNames as IFontNames_
 
 type IFontNamesVtbl
 	QueryInterface as function(byval This as IFontNames ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -18175,6 +18469,8 @@ declare sub IFontNames_Item_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcCh
 
 extern IID_ICSSFilter as const IID
 
+type ICSSFilter as ICSSFilter_
+
 type ICSSFilterVtbl
 	QueryInterface as function(byval This as ICSSFilter ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as ICSSFilter ptr) as ULONG
@@ -18196,6 +18492,8 @@ declare sub ICSSFilter_OnAmbientPropertyChange_Stub(byval This as IRpcStubBuffer
 
 extern IID_ISecureUrlHost as const IID
 
+type ISecureUrlHost as ISecureUrlHost_
+
 type ISecureUrlHostVtbl
 	QueryInterface as function(byval This as ISecureUrlHost ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as ISecureUrlHost ptr) as ULONG
@@ -18213,6 +18511,8 @@ declare sub ISecureUrlHost_ValidateSecureUrl_Stub(byval This as IRpcStubBuffer p
 #define __IMarkupServices_INTERFACE_DEFINED__
 
 extern IID_IMarkupServices as const IID
+
+type IMarkupServices as IMarkupServices_
 
 type IMarkupServicesVtbl
 	QueryInterface as function(byval This as IMarkupServices ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -18289,6 +18589,8 @@ declare sub IMarkupServices_EndUndoUnit_Stub(byval This as IRpcStubBuffer ptr, b
 
 extern IID_IMarkupServices2 as const IID
 
+type IMarkupServices2 as IMarkupServices2_
+
 type IMarkupServices2Vtbl
 	QueryInterface as function(byval This as IMarkupServices2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IMarkupServices2 ptr) as ULONG
@@ -18333,6 +18635,8 @@ declare sub IMarkupServices2_SaveSegmentsToClipboard_Stub(byval This as IRpcStub
 
 extern IID_IHTMLChangePlayback as const IID
 
+type IHTMLChangePlayback as IHTMLChangePlayback_
+
 type IHTMLChangePlaybackVtbl
 	QueryInterface as function(byval This as IHTMLChangePlayback ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IHTMLChangePlayback ptr) as ULONG
@@ -18350,6 +18654,8 @@ declare sub IHTMLChangePlayback_ExecChange_Stub(byval This as IRpcStubBuffer ptr
 #define __IMarkupPointer2_INTERFACE_DEFINED__
 
 extern IID_IMarkupPointer2 as const IID
+
+type IMarkupPointer2 as IMarkupPointer2_
 
 type IMarkupPointer2Vtbl
 	QueryInterface as function(byval This as IMarkupPointer2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -18405,6 +18711,8 @@ declare sub IMarkupPointer2_MoveToContent_Stub(byval This as IRpcStubBuffer ptr,
 
 extern IID_IMarkupTextFrags as const IID
 
+type IMarkupTextFrags as IMarkupTextFrags_
+
 type IMarkupTextFragsVtbl
 	QueryInterface as function(byval This as IMarkupTextFrags ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IMarkupTextFrags ptr) as ULONG
@@ -18435,6 +18743,8 @@ declare sub IMarkupTextFrags_FindTextFragFromMarkupPointer_Stub(byval This as IR
 
 extern IID_IXMLGenericParse as const IID
 
+type IXMLGenericParse as IXMLGenericParse_
+
 type IXMLGenericParseVtbl
 	QueryInterface as function(byval This as IXMLGenericParse ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IXMLGenericParse ptr) as ULONG
@@ -18453,6 +18763,8 @@ declare sub IXMLGenericParse_SetGenericParse_Stub(byval This as IRpcStubBuffer p
 
 extern IID_IHTMLEditHost as const IID
 
+type IHTMLEditHost as IHTMLEditHost_
+
 type IHTMLEditHostVtbl
 	QueryInterface as function(byval This as IHTMLEditHost ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IHTMLEditHost ptr) as ULONG
@@ -18470,6 +18782,8 @@ declare sub IHTMLEditHost_SnapRect_Stub(byval This as IRpcStubBuffer ptr, byval 
 #define __IHTMLEditHost2_INTERFACE_DEFINED__
 
 extern IID_IHTMLEditHost2 as const IID
+
+type IHTMLEditHost2 as IHTMLEditHost2_
 
 type IHTMLEditHost2Vtbl
 	QueryInterface as function(byval This as IHTMLEditHost2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -18490,6 +18804,8 @@ declare sub IHTMLEditHost2_PreDrag_Stub(byval This as IRpcStubBuffer ptr, byval 
 
 extern IID_ISequenceNumber as const IID
 
+type ISequenceNumber as ISequenceNumber_
+
 type ISequenceNumberVtbl
 	QueryInterface as function(byval This as ISequenceNumber ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as ISequenceNumber ptr) as ULONG
@@ -18508,6 +18824,8 @@ declare sub ISequenceNumber_GetSequenceNumber_Stub(byval This as IRpcStubBuffer 
 
 extern IID_IIMEServices as const IID
 
+type IIMEServices as IIMEServices_
+
 type IIMEServicesVtbl
 	QueryInterface as function(byval This as IIMEServices ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IIMEServices ptr) as ULONG
@@ -18525,6 +18843,8 @@ declare sub IIMEServices_GetActiveIMM_Stub(byval This as IRpcStubBuffer ptr, byv
 #define __ISelectionServicesListener_INTERFACE_DEFINED__
 
 extern IID_ISelectionServicesListener as const IID
+
+type ISelectionServicesListener as ISelectionServicesListener_
 
 type ISelectionServicesListenerVtbl
 	QueryInterface as function(byval This as ISelectionServicesListener ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -18555,6 +18875,8 @@ declare sub ISelectionServicesListener_GetTypeDetail_Stub(byval This as IRpcStub
 #define __ISelectionServices_INTERFACE_DEFINED__
 
 extern IID_ISelectionServices as const IID
+
+type ISelectionServices as ISelectionServices_
 
 type ISelectionServicesVtbl
 	QueryInterface as function(byval This as ISelectionServices ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -18589,6 +18911,8 @@ declare sub ISelectionServices_GetSelectionServicesListener_Stub(byval This as I
 
 extern IID_IHTMLEditDesigner as const IID
 
+type IHTMLEditDesigner as IHTMLEditDesigner_
+
 type IHTMLEditDesignerVtbl
 	QueryInterface as function(byval This as IHTMLEditDesigner ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IHTMLEditDesigner ptr) as ULONG
@@ -18615,6 +18939,8 @@ declare sub IHTMLEditDesigner_PostEditorEventNotify_Stub(byval This as IRpcStubB
 #define __IHTMLEditServices_INTERFACE_DEFINED__
 
 extern IID_IHTMLEditServices as const IID
+
+type IHTMLEditServices as IHTMLEditServices_
 
 type IHTMLEditServicesVtbl
 	QueryInterface as function(byval This as IHTMLEditServices ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -18648,6 +18974,8 @@ declare sub IHTMLEditServices_SelectRange_Stub(byval This as IRpcStubBuffer ptr,
 #define __IHTMLEditServices2_INTERFACE_DEFINED__
 
 extern IID_IHTMLEditServices2 as const IID
+
+type IHTMLEditServices2 as IHTMLEditServices2_
 
 type IHTMLEditServices2Vtbl
 	QueryInterface as function(byval This as IHTMLEditServices2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -18762,9 +19090,15 @@ declare sub IHTMLComputedStyle_get_OL_Stub(byval This as IRpcStubBuffer ptr, byv
 declare function IHTMLComputedStyle_IsEqual_Proxy(byval This as IHTMLComputedStyle ptr, byval pComputedStyle as IHTMLComputedStyle ptr, byval pfEqual as VARIANT_BOOL ptr) as HRESULT
 declare sub IHTMLComputedStyle_IsEqual_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 
+extern CLSID_HtmlDlgSafeHelper as const CLSID
+extern CLSID_BlockFormats as const CLSID
+extern CLSID_FontNames as const CLSID
+
 #define __HTMLNamespaceEvents_DISPINTERFACE_DEFINED__
 
 extern DIID_HTMLNamespaceEvents as const IID
+
+type HTMLNamespaceEvents as HTMLNamespaceEvents_
 
 type HTMLNamespaceEventsVtbl
 	QueryInterface as function(byval This as HTMLNamespaceEvents ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -18783,6 +19117,8 @@ end type
 #define __IHTMLNamespace_INTERFACE_DEFINED__
 
 extern IID_IHTMLNamespace as const IID
+
+type IHTMLNamespace as IHTMLNamespace_
 
 type IHTMLNamespaceVtbl
 	QueryInterface as function(byval This as IHTMLNamespace ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -18830,6 +19166,8 @@ declare sub IHTMLNamespace_detachEvent_Stub(byval This as IRpcStubBuffer ptr, by
 
 extern IID_IHTMLNamespaceCollection as const IID
 
+type IHTMLNamespaceCollection as IHTMLNamespaceCollection_
+
 type IHTMLNamespaceCollectionVtbl
 	QueryInterface as function(byval This as IHTMLNamespaceCollection ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IHTMLNamespaceCollection ptr) as ULONG
@@ -18861,6 +19199,8 @@ extern CLSID_HTMLNamespaceCollection as const CLSID
 
 extern IID_IHTMLPainter as const IID
 
+type IHTMLPainter as IHTMLPainter_
+
 type IHTMLPainterVtbl
 	QueryInterface as function(byval This as IHTMLPainter ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IHTMLPainter ptr) as ULONG
@@ -18887,6 +19227,8 @@ declare sub IHTMLPainter_HitTestPoint_Stub(byval This as IRpcStubBuffer ptr, byv
 #define __IHTMLPaintSite_INTERFACE_DEFINED__
 
 extern IID_IHTMLPaintSite as const IID
+
+type IHTMLPaintSite as IHTMLPaintSite_
 
 type IHTMLPaintSiteVtbl
 	QueryInterface as function(byval This as IHTMLPaintSite ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -18924,6 +19266,8 @@ declare sub IHTMLPaintSite_GetHitTestCookie_Stub(byval This as IRpcStubBuffer pt
 
 extern IID_IHTMLPainterEventInfo as const IID
 
+type IHTMLPainterEventInfo as IHTMLPainterEventInfo_
+
 type IHTMLPainterEventInfoVtbl
 	QueryInterface as function(byval This as IHTMLPainterEventInfo ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IHTMLPainterEventInfo ptr) as ULONG
@@ -18951,6 +19295,8 @@ declare sub IHTMLPainterEventInfo_StringFromPartID_Stub(byval This as IRpcStubBu
 
 extern IID_IHTMLPainterOverlay as const IID
 
+type IHTMLPainterOverlay as IHTMLPainterOverlay_
+
 type IHTMLPainterOverlayVtbl
 	QueryInterface as function(byval This as IHTMLPainterOverlay ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IHTMLPainterOverlay ptr) as ULONG
@@ -18968,6 +19314,8 @@ declare sub IHTMLPainterOverlay_OnMove_Stub(byval This as IRpcStubBuffer ptr, by
 #define __IHTMLIPrintCollection_INTERFACE_DEFINED__
 
 extern IID_IHTMLIPrintCollection as const IID
+
+type IHTMLIPrintCollection as IHTMLIPrintCollection_
 
 type IHTMLIPrintCollectionVtbl
 	QueryInterface as function(byval This as IHTMLIPrintCollection ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -18997,6 +19345,8 @@ declare sub IHTMLIPrintCollection_item_Stub(byval This as IRpcStubBuffer ptr, by
 
 extern IID_IEnumPrivacyRecords as const IID
 
+type IEnumPrivacyRecords as IEnumPrivacyRecords_
+
 type IEnumPrivacyRecordsVtbl
 	QueryInterface as function(byval This as IEnumPrivacyRecords ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IEnumPrivacyRecords ptr) as ULONG
@@ -19024,6 +19374,8 @@ declare sub IEnumPrivacyRecords_Next_Stub(byval This as IRpcStubBuffer ptr, byva
 
 extern IID_IHTMLDialog as const IID
 
+type IHTMLDialog as IHTMLDialog_
+
 type IHTMLDialogVtbl
 	QueryInterface as function(byval This as IHTMLDialog ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IHTMLDialog ptr) as ULONG
@@ -19045,7 +19397,7 @@ type IHTMLDialogVtbl
 	put_returnValue as function(byval This as IHTMLDialog ptr, byval v as VARIANT) as HRESULT
 	get_returnValue as function(byval This as IHTMLDialog ptr, byval p as VARIANT ptr) as HRESULT
 	close as function(byval This as IHTMLDialog ptr) as HRESULT
-	toString as function(byval This as IHTMLDialog ptr, byval String_ as BSTR ptr) as HRESULT
+	toString as function(byval This as IHTMLDialog ptr, byval String as BSTR ptr) as HRESULT
 end type
 
 type IHTMLDialog_
@@ -19078,12 +19430,14 @@ declare function IHTMLDialog_get_returnValue_Proxy(byval This as IHTMLDialog ptr
 declare sub IHTMLDialog_get_returnValue_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IHTMLDialog_close_Proxy(byval This as IHTMLDialog ptr) as HRESULT
 declare sub IHTMLDialog_close_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function IHTMLDialog_toString_Proxy(byval This as IHTMLDialog ptr, byval String_ as BSTR ptr) as HRESULT
+declare function IHTMLDialog_toString_Proxy(byval This as IHTMLDialog ptr, byval String as BSTR ptr) as HRESULT
 declare sub IHTMLDialog_toString_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 
 #define __IHTMLDialog2_INTERFACE_DEFINED__
 
 extern IID_IHTMLDialog2 as const IID
+
+type IHTMLDialog2 as IHTMLDialog2_
 
 type IHTMLDialog2Vtbl
 	QueryInterface as function(byval This as IHTMLDialog2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -19116,6 +19470,8 @@ declare sub IHTMLDialog2_get_resizable_Stub(byval This as IRpcStubBuffer ptr, by
 
 extern IID_IHTMLDialog3 as const IID
 
+type IHTMLDialog3 as IHTMLDialog3_
+
 type IHTMLDialog3Vtbl
 	QueryInterface as function(byval This as IHTMLDialog3 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IHTMLDialog3 ptr) as ULONG
@@ -19146,6 +19502,8 @@ declare sub IHTMLDialog3_get_dialogHide_Stub(byval This as IRpcStubBuffer ptr, b
 #define __IHTMLModelessInit_INTERFACE_DEFINED__
 
 extern IID_IHTMLModelessInit as const IID
+
+type IHTMLModelessInit as IHTMLModelessInit_
 
 type IHTMLModelessInitVtbl
 	QueryInterface as function(byval This as IHTMLModelessInit ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -19181,6 +19539,8 @@ extern CLSID_HTMLDialog as const CLSID
 
 extern IID_IHTMLPopup as const IID
 
+type IHTMLPopup as IHTMLPopup_
+
 type IHTMLPopupVtbl
 	QueryInterface as function(byval This as IHTMLPopup ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IHTMLPopup ptr) as ULONG
@@ -19212,6 +19572,8 @@ declare sub IHTMLPopup_get_isOpen_Stub(byval This as IRpcStubBuffer ptr, byval _
 
 extern DIID_DispHTMLPopup as const IID
 
+type DispHTMLPopup as DispHTMLPopup_
+
 type DispHTMLPopupVtbl
 	QueryInterface as function(byval This as DispHTMLPopup ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as DispHTMLPopup ptr) as ULONG
@@ -19231,6 +19593,8 @@ extern CLSID_HTMLPopup as const CLSID
 #define __IHTMLAppBehavior_INTERFACE_DEFINED__
 
 extern IID_IHTMLAppBehavior as const IID
+
+type IHTMLAppBehavior as IHTMLAppBehavior_
 
 type IHTMLAppBehaviorVtbl
 	QueryInterface as function(byval This as IHTMLAppBehavior ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -19326,6 +19690,8 @@ declare sub IHTMLAppBehavior_get_commandLine_Stub(byval This as IRpcStubBuffer p
 
 extern IID_IHTMLAppBehavior2 as const IID
 
+type IHTMLAppBehavior2 as IHTMLAppBehavior2_
+
 type IHTMLAppBehavior2Vtbl
 	QueryInterface as function(byval This as IHTMLAppBehavior2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IHTMLAppBehavior2 ptr) as ULONG
@@ -19375,6 +19741,8 @@ declare sub IHTMLAppBehavior2_get_selection_Stub(byval This as IRpcStubBuffer pt
 
 extern IID_IHTMLAppBehavior3 as const IID
 
+type IHTMLAppBehavior3 as IHTMLAppBehavior3_
+
 type IHTMLAppBehavior3Vtbl
 	QueryInterface as function(byval This as IHTMLAppBehavior3 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IHTMLAppBehavior3 ptr) as ULONG
@@ -19400,6 +19768,8 @@ declare sub IHTMLAppBehavior3_get_navigable_Stub(byval This as IRpcStubBuffer pt
 
 extern DIID_DispHTMLAppBehavior as const IID
 
+type DispHTMLAppBehavior as DispHTMLAppBehavior_
+
 type DispHTMLAppBehaviorVtbl
 	QueryInterface as function(byval This as DispHTMLAppBehavior ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as DispHTMLAppBehavior ptr) as ULONG
@@ -19422,6 +19792,8 @@ extern CLSID_OldHTMLFormElement as const CLSID
 
 extern DIID_DispIHTMLInputButtonElement as const IID
 
+type DispIHTMLInputButtonElement as DispIHTMLInputButtonElement_
+
 type DispIHTMLInputButtonElementVtbl
 	QueryInterface as function(byval This as DispIHTMLInputButtonElement ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as DispIHTMLInputButtonElement ptr) as ULONG
@@ -19441,6 +19813,8 @@ extern CLSID_HTMLInputButtonElement as const CLSID
 #define __DispIHTMLInputTextElement_DISPINTERFACE_DEFINED__
 
 extern DIID_DispIHTMLInputTextElement as const IID
+
+type DispIHTMLInputTextElement as DispIHTMLInputTextElement_
 
 type DispIHTMLInputTextElementVtbl
 	QueryInterface as function(byval This as DispIHTMLInputTextElement ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -19462,6 +19836,8 @@ extern CLSID_HTMLInputTextElement as const CLSID
 
 extern DIID_DispIHTMLInputFileElement as const IID
 
+type DispIHTMLInputFileElement as DispIHTMLInputFileElement_
+
 type DispIHTMLInputFileElementVtbl
 	QueryInterface as function(byval This as DispIHTMLInputFileElement ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as DispIHTMLInputFileElement ptr) as ULONG
@@ -19481,6 +19857,8 @@ extern CLSID_HTMLInputFileElement as const CLSID
 #define __DispIHTMLOptionButtonElement_DISPINTERFACE_DEFINED__
 
 extern DIID_DispIHTMLOptionButtonElement as const IID
+
+type DispIHTMLOptionButtonElement as DispIHTMLOptionButtonElement_
 
 type DispIHTMLOptionButtonElementVtbl
 	QueryInterface as function(byval This as DispIHTMLOptionButtonElement ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -19502,6 +19880,8 @@ extern CLSID_HTMLOptionButtonElement as const CLSID
 
 extern DIID_DispIHTMLInputImage as const IID
 
+type DispIHTMLInputImage as DispIHTMLInputImage_
+
 type DispIHTMLInputImageVtbl
 	QueryInterface as function(byval This as DispIHTMLInputImage ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as DispIHTMLInputImage ptr) as ULONG
@@ -19522,6 +19902,8 @@ extern CLSID_HTMLInputImage as const CLSID
 
 extern IID_IElementNamespace as const IID
 
+type IElementNamespace as IElementNamespace_
+
 type IElementNamespaceVtbl
 	QueryInterface as function(byval This as IElementNamespace ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IElementNamespace ptr) as ULONG
@@ -19539,6 +19921,8 @@ declare sub IElementNamespace_AddTag_Stub(byval This as IRpcStubBuffer ptr, byva
 #define __IElementNamespaceTable_INTERFACE_DEFINED__
 
 extern IID_IElementNamespaceTable as const IID
+
+type IElementNamespaceTable as IElementNamespaceTable_
 
 type IElementNamespaceTableVtbl
 	QueryInterface as function(byval This as IElementNamespaceTable ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -19558,6 +19942,8 @@ declare sub IElementNamespaceTable_AddNamespace_Stub(byval This as IRpcStubBuffe
 
 extern IID_IElementNamespaceFactory as const IID
 
+type IElementNamespaceFactory as IElementNamespaceFactory_
+
 type IElementNamespaceFactoryVtbl
 	QueryInterface as function(byval This as IElementNamespaceFactory ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IElementNamespaceFactory ptr) as ULONG
@@ -19575,6 +19961,8 @@ declare sub IElementNamespaceFactory_Create_Stub(byval This as IRpcStubBuffer pt
 #define __IElementNamespaceFactory2_INTERFACE_DEFINED__
 
 extern IID_IElementNamespaceFactory2 as const IID
+
+type IElementNamespaceFactory2 as IElementNamespaceFactory2_
 
 type IElementNamespaceFactory2Vtbl
 	QueryInterface as function(byval This as IElementNamespaceFactory2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -19595,6 +19983,8 @@ declare sub IElementNamespaceFactory2_CreateWithImplementation_Stub(byval This a
 
 extern IID_IElementNamespaceFactoryCallback as const IID
 
+type IElementNamespaceFactoryCallback as IElementNamespaceFactoryCallback_
+
 type IElementNamespaceFactoryCallbackVtbl
 	QueryInterface as function(byval This as IElementNamespaceFactoryCallback ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IElementNamespaceFactoryCallback ptr) as ULONG
@@ -19612,6 +20002,8 @@ declare sub IElementNamespaceFactoryCallback_Resolve_Stub(byval This as IRpcStub
 #define __IElementBehaviorSiteOM2_INTERFACE_DEFINED__
 
 extern IID_IElementBehaviorSiteOM2 as const IID
+
+type IElementBehaviorSiteOM2 as IElementBehaviorSiteOM2_
 
 type IElementBehaviorSiteOM2Vtbl
 	QueryInterface as function(byval This as IElementBehaviorSiteOM2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -19637,6 +20029,8 @@ declare sub IElementBehaviorSiteOM2_GetDefaults_Stub(byval This as IRpcStubBuffe
 
 extern IID_IElementBehaviorCategory as const IID
 
+type IElementBehaviorCategory as IElementBehaviorCategory_
+
 type IElementBehaviorCategoryVtbl
 	QueryInterface as function(byval This as IElementBehaviorCategory ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IElementBehaviorCategory ptr) as ULONG
@@ -19655,6 +20049,8 @@ declare sub IElementBehaviorCategory_GetCategory_Stub(byval This as IRpcStubBuff
 
 extern IID_IElementBehaviorSiteCategory as const IID
 
+type IElementBehaviorSiteCategory as IElementBehaviorSiteCategory_
+
 type IElementBehaviorSiteCategoryVtbl
 	QueryInterface as function(byval This as IElementBehaviorSiteCategory ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IElementBehaviorSiteCategory ptr) as ULONG
@@ -19672,6 +20068,8 @@ declare sub IElementBehaviorSiteCategory_GetRelatedBehaviors_Stub(byval This as 
 #define __IElementBehaviorSubmit_INTERFACE_DEFINED__
 
 extern IID_IElementBehaviorSubmit as const IID
+
+type IElementBehaviorSubmit as IElementBehaviorSubmit_
 
 type IElementBehaviorSubmitVtbl
 	QueryInterface as function(byval This as IElementBehaviorSubmit ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -19694,6 +20092,8 @@ declare sub IElementBehaviorSubmit_Reset_Stub(byval This as IRpcStubBuffer ptr, 
 
 extern IID_IElementBehaviorFocus as const IID
 
+type IElementBehaviorFocus as IElementBehaviorFocus_
+
 type IElementBehaviorFocusVtbl
 	QueryInterface as function(byval This as IElementBehaviorFocus ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IElementBehaviorFocus ptr) as ULONG
@@ -19711,6 +20111,8 @@ declare sub IElementBehaviorFocus_GetFocusRect_Stub(byval This as IRpcStubBuffer
 #define __IElementBehaviorLayout_INTERFACE_DEFINED__
 
 extern IID_IElementBehaviorLayout as const IID
+
+type IElementBehaviorLayout as IElementBehaviorLayout_
 
 type IElementBehaviorLayoutVtbl
 	QueryInterface as function(byval This as IElementBehaviorLayout ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -19739,6 +20141,8 @@ declare sub IElementBehaviorLayout_MapSize_Stub(byval This as IRpcStubBuffer ptr
 
 extern IID_IElementBehaviorLayout2 as const IID
 
+type IElementBehaviorLayout2 as IElementBehaviorLayout2_
+
 type IElementBehaviorLayout2Vtbl
 	QueryInterface as function(byval This as IElementBehaviorLayout2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IElementBehaviorLayout2 ptr) as ULONG
@@ -19756,6 +20160,8 @@ declare sub IElementBehaviorLayout2_GetTextDescent_Stub(byval This as IRpcStubBu
 #define __IElementBehaviorSiteLayout_INTERFACE_DEFINED__
 
 extern IID_IElementBehaviorSiteLayout as const IID
+
+type IElementBehaviorSiteLayout as IElementBehaviorSiteLayout_
 
 type IElementBehaviorSiteLayoutVtbl
 	QueryInterface as function(byval This as IElementBehaviorSiteLayout ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -19781,6 +20187,8 @@ declare sub IElementBehaviorSiteLayout_GetMediaResolution_Stub(byval This as IRp
 
 extern IID_IElementBehaviorSiteLayout2 as const IID
 
+type IElementBehaviorSiteLayout2 as IElementBehaviorSiteLayout2_
+
 type IElementBehaviorSiteLayout2Vtbl
 	QueryInterface as function(byval This as IElementBehaviorSiteLayout2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IElementBehaviorSiteLayout2 ptr) as ULONG
@@ -19799,6 +20207,8 @@ declare sub IElementBehaviorSiteLayout2_GetFontInfo_Stub(byval This as IRpcStubB
 
 extern IID_IHostBehaviorInit as const IID
 
+type IHostBehaviorInit as IHostBehaviorInit_
+
 type IHostBehaviorInitVtbl
 	QueryInterface as function(byval This as IHostBehaviorInit ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IHostBehaviorInit ptr) as ULONG
@@ -19812,5 +20222,9 @@ end type
 
 declare function IHostBehaviorInit_PopulateNamespaceTable_Proxy(byval This as IHostBehaviorInit ptr) as HRESULT
 declare sub IHostBehaviorInit_PopulateNamespaceTable_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
+declare function VARIANT_UserSize(byval as ULONG ptr, byval as ULONG, byval as VARIANT ptr) as ULONG
+declare function VARIANT_UserMarshal(byval as ULONG ptr, byval as ubyte ptr, byval as VARIANT ptr) as ubyte ptr
+declare function VARIANT_UserUnmarshal(byval as ULONG ptr, byval as ubyte ptr, byval as VARIANT ptr) as ubyte ptr
+declare sub VARIANT_UserFree(byval as ULONG ptr, byval as VARIANT ptr)
 
 end extern

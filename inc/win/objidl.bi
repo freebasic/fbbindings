@@ -14,47 +14,6 @@
 	extern "Windows"
 #endif
 
-type IMallocSpy as IMallocSpy_
-type IBindCtx as IBindCtx_
-type IEnumMoniker as IEnumMoniker_
-type IRunnableObject as IRunnableObject_
-type IRunningObjectTable as IRunningObjectTable_
-type IPersist as IPersist_
-type IPersistStream as IPersistStream_
-type IMoniker as IMoniker_
-type IROTData as IROTData_
-type IEnumSTATSTG as IEnumSTATSTG_
-type IStorage as IStorage_
-type IPersistFile as IPersistFile_
-type IPersistStorage as IPersistStorage_
-type ILockBytes as ILockBytes_
-type IEnumFORMATETC as IEnumFORMATETC_
-type IEnumSTATDATA as IEnumSTATDATA_
-type IRootStorage as IRootStorage_
-type IAdviseSink as IAdviseSink_
-type AsyncIAdviseSink as AsyncIAdviseSink_
-type IAdviseSink2 as IAdviseSink2_
-type AsyncIAdviseSink2 as AsyncIAdviseSink2_
-type IDataObject as IDataObject_
-type IDataAdviseHolder as IDataAdviseHolder_
-type IMessageFilter as IMessageFilter_
-type IClassActivator as IClassActivator_
-type IFillLockBytes as IFillLockBytes_
-type IProgressNotify as IProgressNotify_
-type ILayoutStorage as ILayoutStorage_
-type IBlockingLock as IBlockingLock_
-type ITimeAndNoticeControl as ITimeAndNoticeControl_
-type IOplockStorage as IOplockStorage_
-type IDirectWriterLock as IDirectWriterLock_
-type IUrlMon as IUrlMon_
-type IForegroundTransfer as IForegroundTransfer_
-type IThumbnailExtractor as IThumbnailExtractor_
-type IDummyHICONIncluder as IDummyHICONIncluder_
-type IProcessLock as IProcessLock_
-type ISurrogateService as ISurrogateService_
-type IInitializeSpy as IInitializeSpy_
-type IApartmentShutdown as IApartmentShutdown_
-
 #define __objidl_h__
 #define __IMallocSpy_FWD_DEFINED__
 #define __IBindCtx_FWD_DEFINED__
@@ -98,6 +57,8 @@ type IApartmentShutdown as IApartmentShutdown_
 #define __IApartmentShutdown_FWD_DEFINED__
 #define __IMallocSpy_INTERFACE_DEFINED__
 
+type IMallocSpy as IMallocSpy_
+
 type LPMALLOCSPY as IMallocSpy ptr
 
 extern IID_IMallocSpy as const GUID
@@ -106,14 +67,14 @@ type IMallocSpyVtbl
 	QueryInterface as function(byval This as IMallocSpy ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IMallocSpy ptr) as ULONG
 	Release as function(byval This as IMallocSpy ptr) as ULONG
-	PreAlloc as function(byval This as IMallocSpy ptr, byval cbRequest as SIZE_T_) as SIZE_T_
+	PreAlloc as function(byval This as IMallocSpy ptr, byval cbRequest as SIZE_T) as SIZE_T
 	PostAlloc as function(byval This as IMallocSpy ptr, byval pActual as any ptr) as any ptr
 	PreFree as function(byval This as IMallocSpy ptr, byval pRequest as any ptr, byval fSpyed as WINBOOL) as any ptr
 	PostFree as sub(byval This as IMallocSpy ptr, byval fSpyed as WINBOOL)
-	PreRealloc as function(byval This as IMallocSpy ptr, byval pRequest as any ptr, byval cbRequest as SIZE_T_, byval ppNewRequest as any ptr ptr, byval fSpyed as WINBOOL) as SIZE_T_
+	PreRealloc as function(byval This as IMallocSpy ptr, byval pRequest as any ptr, byval cbRequest as SIZE_T, byval ppNewRequest as any ptr ptr, byval fSpyed as WINBOOL) as SIZE_T
 	PostRealloc as function(byval This as IMallocSpy ptr, byval pActual as any ptr, byval fSpyed as WINBOOL) as any ptr
 	PreGetSize as function(byval This as IMallocSpy ptr, byval pRequest as any ptr, byval fSpyed as WINBOOL) as any ptr
-	PostGetSize as function(byval This as IMallocSpy ptr, byval cbActual as SIZE_T_, byval fSpyed as WINBOOL) as SIZE_T_
+	PostGetSize as function(byval This as IMallocSpy ptr, byval cbActual as SIZE_T, byval fSpyed as WINBOOL) as SIZE_T
 	PreDidAlloc as function(byval This as IMallocSpy ptr, byval pRequest as any ptr, byval fSpyed as WINBOOL) as any ptr
 	PostDidAlloc as function(byval This as IMallocSpy ptr, byval pRequest as any ptr, byval fSpyed as WINBOOL, byval fActual as long) as long
 	PreHeapMinimize as sub(byval This as IMallocSpy ptr)
@@ -124,7 +85,7 @@ type IMallocSpy_
 	lpVtbl as IMallocSpyVtbl ptr
 end type
 
-declare function IMallocSpy_PreAlloc_Proxy(byval This as IMallocSpy ptr, byval cbRequest as SIZE_T_) as SIZE_T_
+declare function IMallocSpy_PreAlloc_Proxy(byval This as IMallocSpy ptr, byval cbRequest as SIZE_T) as SIZE_T
 declare sub IMallocSpy_PreAlloc_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IMallocSpy_PostAlloc_Proxy(byval This as IMallocSpy ptr, byval pActual as any ptr) as any ptr
 declare sub IMallocSpy_PostAlloc_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
@@ -132,13 +93,13 @@ declare function IMallocSpy_PreFree_Proxy(byval This as IMallocSpy ptr, byval pR
 declare sub IMallocSpy_PreFree_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare sub IMallocSpy_PostFree_Proxy(byval This as IMallocSpy ptr, byval fSpyed as WINBOOL)
 declare sub IMallocSpy_PostFree_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-declare function IMallocSpy_PreRealloc_Proxy(byval This as IMallocSpy ptr, byval pRequest as any ptr, byval cbRequest as SIZE_T_, byval ppNewRequest as any ptr ptr, byval fSpyed as WINBOOL) as SIZE_T_
+declare function IMallocSpy_PreRealloc_Proxy(byval This as IMallocSpy ptr, byval pRequest as any ptr, byval cbRequest as SIZE_T, byval ppNewRequest as any ptr ptr, byval fSpyed as WINBOOL) as SIZE_T
 declare sub IMallocSpy_PreRealloc_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IMallocSpy_PostRealloc_Proxy(byval This as IMallocSpy ptr, byval pActual as any ptr, byval fSpyed as WINBOOL) as any ptr
 declare sub IMallocSpy_PostRealloc_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IMallocSpy_PreGetSize_Proxy(byval This as IMallocSpy ptr, byval pRequest as any ptr, byval fSpyed as WINBOOL) as any ptr
 declare sub IMallocSpy_PreGetSize_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-declare function IMallocSpy_PostGetSize_Proxy(byval This as IMallocSpy ptr, byval cbActual as SIZE_T_, byval fSpyed as WINBOOL) as SIZE_T_
+declare function IMallocSpy_PostGetSize_Proxy(byval This as IMallocSpy ptr, byval cbActual as SIZE_T, byval fSpyed as WINBOOL) as SIZE_T
 declare sub IMallocSpy_PostGetSize_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IMallocSpy_PreDidAlloc_Proxy(byval This as IMallocSpy ptr, byval pRequest as any ptr, byval fSpyed as WINBOOL) as any ptr
 declare sub IMallocSpy_PreDidAlloc_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
@@ -150,6 +111,8 @@ declare sub IMallocSpy_PostHeapMinimize_Proxy(byval This as IMallocSpy ptr)
 declare sub IMallocSpy_PostHeapMinimize_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 
 #define __IBindCtx_INTERFACE_DEFINED__
+
+type IBindCtx as IBindCtx_
 
 type LPBC as IBindCtx ptr
 type LPBINDCTX as IBindCtx ptr
@@ -203,6 +166,8 @@ type BIND_FLAGS as tagBIND_FLAGS
 
 extern IID_IBindCtx as const GUID
 
+type IRunningObjectTable as IRunningObjectTable_
+
 type IBindCtxVtbl
 	QueryInterface as function(byval This as IBindCtx ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IBindCtx ptr) as ULONG
@@ -250,9 +215,13 @@ declare function IBindCtx_GetBindOptions_Stub(byval This as IBindCtx ptr, byval 
 
 #define __IEnumMoniker_INTERFACE_DEFINED__
 
+type IEnumMoniker as IEnumMoniker_
+
 type LPENUMMONIKER as IEnumMoniker ptr
 
 extern IID_IEnumMoniker as const GUID
+
+type IMoniker as IMoniker_
 
 type IEnumMonikerVtbl
 	QueryInterface as function(byval This as IEnumMoniker ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -280,6 +249,8 @@ declare function IEnumMoniker_Next_Proxy(byval This as IEnumMoniker ptr, byval c
 declare function IEnumMoniker_Next_Stub(byval This as IEnumMoniker ptr, byval celt as ULONG, byval rgelt as IMoniker ptr ptr, byval pceltFetched as ULONG ptr) as HRESULT
 
 #define __IRunnableObject_INTERFACE_DEFINED__
+
+type IRunnableObject as IRunnableObject_
 
 type LPRUNNABLEOBJECT as IRunnableObject ptr
 
@@ -353,6 +324,8 @@ declare sub IRunningObjectTable_EnumRunning_Stub(byval This as IRpcStubBuffer pt
 
 #define __IPersist_INTERFACE_DEFINED__
 
+type IPersist as IPersist_
+
 type LPPERSIST as IPersist ptr
 
 extern IID_IPersist as const GUID
@@ -372,6 +345,8 @@ declare function IPersist_GetClassID_Proxy(byval This as IPersist ptr, byval pCl
 declare sub IPersist_GetClassID_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 
 #define __IPersistStream_INTERFACE_DEFINED__
+
+type IPersistStream as IPersistStream_
 
 type LPPERSISTSTREAM as IPersistStream ptr
 
@@ -502,6 +477,8 @@ declare function IMoniker_BindToStorage_Stub(byval This as IMoniker ptr, byval p
 
 extern IID_IROTData as const GUID
 
+type IROTData as IROTData_
+
 type IROTDataVtbl
 	QueryInterface as function(byval This as IROTData ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IROTData ptr) as ULONG
@@ -517,6 +494,8 @@ declare function IROTData_GetComparisonData_Proxy(byval This as IROTData ptr, by
 declare sub IROTData_GetComparisonData_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 
 #define __IEnumSTATSTG_INTERFACE_DEFINED__
+
+type IEnumSTATSTG as IEnumSTATSTG_
 
 type LPENUMSTATSTG as IEnumSTATSTG ptr
 
@@ -548,6 +527,8 @@ declare function IEnumSTATSTG_Next_Proxy(byval This as IEnumSTATSTG ptr, byval c
 declare function IEnumSTATSTG_Next_Stub(byval This as IEnumSTATSTG ptr, byval celt as ULONG, byval rgelt as STATSTG ptr, byval pceltFetched as ULONG ptr) as HRESULT
 
 #define __IStorage_INTERFACE_DEFINED__
+
+type IStorage as IStorage_
 
 type LPSTORAGE as IStorage ptr
 
@@ -627,6 +608,8 @@ declare function IStorage_EnumElements_Stub(byval This as IStorage ptr, byval re
 
 #define __IPersistFile_INTERFACE_DEFINED__
 
+type IPersistFile as IPersistFile_
+
 type LPPERSISTFILE as IPersistFile ptr
 
 extern IID_IPersistFile as const GUID
@@ -659,6 +642,8 @@ declare function IPersistFile_GetCurFile_Proxy(byval This as IPersistFile ptr, b
 declare sub IPersistFile_GetCurFile_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 
 #define __IPersistStorage_INTERFACE_DEFINED__
+
+type IPersistStorage as IPersistStorage_
 
 type LPPERSISTSTORAGE as IPersistStorage ptr
 
@@ -695,6 +680,8 @@ declare function IPersistStorage_HandsOffStorage_Proxy(byval This as IPersistSto
 declare sub IPersistStorage_HandsOffStorage_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 
 #define __ILockBytes_INTERFACE_DEFINED__
+
+type ILockBytes as ILockBytes_
 
 type LPLOCKBYTES as ILockBytes ptr
 
@@ -737,6 +724,8 @@ declare function ILockBytes_WriteAt_Proxy(byval This as ILockBytes ptr, byval ul
 declare function ILockBytes_WriteAt_Stub(byval This as ILockBytes ptr, byval ulOffset as ULARGE_INTEGER, byval pv as const ubyte ptr, byval cb as ULONG, byval pcbWritten as ULONG ptr) as HRESULT
 
 #define __IEnumFORMATETC_INTERFACE_DEFINED__
+
+type IEnumFORMATETC as IEnumFORMATETC_
 
 type LPENUMFORMATETC as IEnumFORMATETC ptr
 
@@ -792,6 +781,8 @@ declare function IEnumFORMATETC_Next_Stub(byval This as IEnumFORMATETC ptr, byva
 
 #define __IEnumSTATDATA_INTERFACE_DEFINED__
 
+type IEnumSTATDATA as IEnumSTATDATA_
+
 type LPENUMSTATDATA as IEnumSTATDATA ptr
 
 type tagADVF as long
@@ -806,6 +797,8 @@ enum
 end enum
 
 type ADVF as tagADVF
+
+type IAdviseSink as IAdviseSink_
 
 type tagSTATDATA
 	formatetc as FORMATETC
@@ -845,6 +838,8 @@ declare function IEnumSTATDATA_Next_Proxy(byval This as IEnumSTATDATA ptr, byval
 declare function IEnumSTATDATA_Next_Stub(byval This as IEnumSTATDATA ptr, byval celt as ULONG, byval rgelt as STATDATA ptr, byval pceltFetched as ULONG ptr) as HRESULT
 
 #define __IRootStorage_INTERFACE_DEFINED__
+
+type IRootStorage as IRootStorage_
 
 type LPROOTSTORAGE as IRootStorage ptr
 
@@ -911,7 +906,7 @@ end type
 
 type uSTGMEDIUM as tagSTGMEDIUM
 
-union ___GDI_OBJECT_u
+union _GDI_OBJECT_u
 	hBitmap as wireHBITMAP
 	hPalette as wireHPALETTE
 	hGeneric as wireHGLOBAL
@@ -919,12 +914,12 @@ end union
 
 type _GDI_OBJECT
 	ObjectType as DWORD
-	u as ___GDI_OBJECT_u
+	u as _GDI_OBJECT_u
 end type
 
 type GDI_OBJECT as _GDI_OBJECT
 
-union ___userSTGMEDIUM__STGMEDIUM_UNION_u
+union _userSTGMEDIUM__STGMEDIUM_UNION_u
 	hMetaFilePict as wireHMETAFILEPICT
 	hHEnhMetaFile as wireHENHMETAFILE
 	hGdiHandle as GDI_OBJECT ptr
@@ -936,7 +931,7 @@ end union
 
 type _STGMEDIUM_UNION
 	tymed as DWORD
-	u as ___userSTGMEDIUM__STGMEDIUM_UNION_u
+	u as _userSTGMEDIUM__STGMEDIUM_UNION_u
 end type
 
 type _userSTGMEDIUM
@@ -1009,6 +1004,8 @@ declare function IAdviseSink_OnClose_Stub(byval This as IAdviseSink ptr) as HRES
 
 extern IID_AsyncIAdviseSink as const GUID
 
+type AsyncIAdviseSink as AsyncIAdviseSink_
+
 type AsyncIAdviseSinkVtbl
 	QueryInterface as function(byval This as AsyncIAdviseSink ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as AsyncIAdviseSink ptr) as ULONG
@@ -1072,6 +1069,8 @@ declare function AsyncIAdviseSink_Finish_OnClose_Stub(byval This as IAdviseSink 
 
 #define __IAdviseSink2_INTERFACE_DEFINED__
 
+type IAdviseSink2 as IAdviseSink2_
+
 type LPADVISESINK2 as IAdviseSink2 ptr
 
 extern IID_IAdviseSink2 as const GUID
@@ -1100,6 +1099,8 @@ declare function IAdviseSink2_OnLinkSrcChange_Stub(byval This as IAdviseSink2 pt
 #define __AsyncIAdviseSink2_INTERFACE_DEFINED__
 
 extern IID_AsyncIAdviseSink2 as const GUID
+
+type AsyncIAdviseSink2 as AsyncIAdviseSink2_
 
 type AsyncIAdviseSink2Vtbl
 	QueryInterface as function(byval This as AsyncIAdviseSink2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -1133,6 +1134,8 @@ declare sub AsyncIAdviseSink2_Finish_OnLinkSrcChange_Proxy(byval This as IAdvise
 declare function AsyncIAdviseSink2_Finish_OnLinkSrcChange_Stub(byval This as IAdviseSink2 ptr, byval pmk as IMoniker ptr) as HRESULT
 
 #define __IDataObject_INTERFACE_DEFINED__
+
+type IDataObject as IDataObject_
 
 type LPDATAOBJECT as IDataObject ptr
 
@@ -1192,6 +1195,8 @@ declare function IDataObject_SetData_Stub(byval This as IDataObject ptr, byval p
 
 #define __IDataAdviseHolder_INTERFACE_DEFINED__
 
+type IDataAdviseHolder as IDataAdviseHolder_
+
 type LPDATAADVISEHOLDER as IDataAdviseHolder ptr
 
 extern IID_IDataAdviseHolder as const GUID
@@ -1220,6 +1225,8 @@ declare function IDataAdviseHolder_SendOnDataChange_Proxy(byval This as IDataAdv
 declare sub IDataAdviseHolder_SendOnDataChange_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 
 #define __IMessageFilter_INTERFACE_DEFINED__
+
+type IMessageFilter as IMessageFilter_
 
 type LPMESSAGEFILTER as IMessageFilter ptr
 
@@ -1304,6 +1311,8 @@ extern FMTID_MediaFileSummaryInformation as const FMTID
 
 extern IID_IClassActivator as const GUID
 
+type IClassActivator as IClassActivator_
+
 type IClassActivatorVtbl
 	QueryInterface as function(byval This as IClassActivator ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IClassActivator ptr) as ULONG
@@ -1321,6 +1330,8 @@ declare sub IClassActivator_GetClassObject_Stub(byval This as IRpcStubBuffer ptr
 #define __IFillLockBytes_INTERFACE_DEFINED__
 
 extern IID_IFillLockBytes as const GUID
+
+type IFillLockBytes as IFillLockBytes_
 
 type IFillLockBytesVtbl
 	QueryInterface as function(byval This as IFillLockBytes ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -1353,6 +1364,8 @@ declare function IFillLockBytes_FillAt_Stub(byval This as IFillLockBytes ptr, by
 
 extern IID_IProgressNotify as const GUID
 
+type IProgressNotify as IProgressNotify_
+
 type IProgressNotifyVtbl
 	QueryInterface as function(byval This as IProgressNotify ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IProgressNotify ptr) as ULONG
@@ -1379,6 +1392,8 @@ end type
 type StorageLayout as tagStorageLayout
 
 extern IID_ILayoutStorage as const GUID
+
+type ILayoutStorage as ILayoutStorage_
 
 type ILayoutStorageVtbl
 	QueryInterface as function(byval This as ILayoutStorage ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -1410,6 +1425,8 @@ declare sub ILayoutStorage_ReLayoutDocfileOnILockBytes_Stub(byval This as IRpcSt
 
 extern IID_IBlockingLock as const GUID
 
+type IBlockingLock as IBlockingLock_
+
 type IBlockingLockVtbl
 	QueryInterface as function(byval This as IBlockingLock ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IBlockingLock ptr) as ULONG
@@ -1431,6 +1448,8 @@ declare sub IBlockingLock_Unlock_Stub(byval This as IRpcStubBuffer ptr, byval pR
 
 extern IID_ITimeAndNoticeControl as const GUID
 
+type ITimeAndNoticeControl as ITimeAndNoticeControl_
+
 type ITimeAndNoticeControlVtbl
 	QueryInterface as function(byval This as ITimeAndNoticeControl ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as ITimeAndNoticeControl ptr) as ULONG
@@ -1448,6 +1467,8 @@ declare sub ITimeAndNoticeControl_SuppressChanges_Stub(byval This as IRpcStubBuf
 #define __IOplockStorage_INTERFACE_DEFINED__
 
 extern IID_IOplockStorage as const GUID
+
+type IOplockStorage as IOplockStorage_
 
 type IOplockStorageVtbl
 	QueryInterface as function(byval This as IOplockStorage ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -1469,6 +1490,8 @@ declare sub IOplockStorage_OpenStorageEx_Stub(byval This as IRpcStubBuffer ptr, 
 #define __IDirectWriterLock_INTERFACE_DEFINED__
 
 extern IID_IDirectWriterLock as const GUID
+
+type IDirectWriterLock as IDirectWriterLock_
 
 type IDirectWriterLockVtbl
 	QueryInterface as function(byval This as IDirectWriterLock ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -1494,6 +1517,8 @@ declare sub IDirectWriterLock_HaveWriteAccess_Stub(byval This as IRpcStubBuffer 
 
 extern IID_IUrlMon as const GUID
 
+type IUrlMon as IUrlMon_
+
 type IUrlMonVtbl
 	QueryInterface as function(byval This as IUrlMon ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IUrlMon ptr) as ULONG
@@ -1512,6 +1537,8 @@ declare sub IUrlMon_AsyncGetClassBits_Stub(byval This as IRpcStubBuffer ptr, byv
 
 extern IID_IForegroundTransfer as const GUID
 
+type IForegroundTransfer as IForegroundTransfer_
+
 type IForegroundTransferVtbl
 	QueryInterface as function(byval This as IForegroundTransfer ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IForegroundTransfer ptr) as ULONG
@@ -1529,6 +1556,8 @@ declare sub IForegroundTransfer_AllowForegroundTransfer_Stub(byval This as IRpcS
 #define __IThumbnailExtractor_INTERFACE_DEFINED__
 
 extern IID_IThumbnailExtractor as const GUID
+
+type IThumbnailExtractor as IThumbnailExtractor_
 
 type IThumbnailExtractorVtbl
 	QueryInterface as function(byval This as IThumbnailExtractor ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -1550,6 +1579,8 @@ declare sub IThumbnailExtractor_OnFileUpdated_Stub(byval This as IRpcStubBuffer 
 #define __IDummyHICONIncluder_INTERFACE_DEFINED__
 
 extern IID_IDummyHICONIncluder as const GUID
+
+type IDummyHICONIncluder as IDummyHICONIncluder_
 
 type IDummyHICONIncluderVtbl
 	QueryInterface as function(byval This as IDummyHICONIncluder ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -1585,6 +1616,8 @@ type ShutdownType as tagShutdownType
 
 extern IID_IProcessLock as const GUID
 
+type IProcessLock as IProcessLock_
+
 type IProcessLockVtbl
 	QueryInterface as function(byval This as IProcessLock ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IProcessLock ptr) as ULONG
@@ -1605,6 +1638,8 @@ declare sub IProcessLock_ReleaseRefOnProcess_Stub(byval This as IRpcStubBuffer p
 #define __ISurrogateService_INTERFACE_DEFINED__
 
 extern IID_ISurrogateService as const GUID
+
+type ISurrogateService as ISurrogateService_
 
 type ISurrogateServiceVtbl
 	QueryInterface as function(byval This as ISurrogateService ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -1633,6 +1668,8 @@ declare function ISurrogateService_ProcessShutdown_Proxy(byval This as ISurrogat
 declare sub ISurrogateService_ProcessShutdown_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 
 #define __IInitializeSpy_INTERFACE_DEFINED__
+
+type IInitializeSpy as IInitializeSpy_
 
 type LPINITIALIZESPY as IInitializeSpy ptr
 
@@ -1664,6 +1701,8 @@ declare sub IInitializeSpy_PostUninitialize_Stub(byval This as IRpcStubBuffer pt
 #define __IApartmentShutdown_INTERFACE_DEFINED__
 
 extern IID_IApartmentShutdown as const GUID
+
+type IApartmentShutdown as IApartmentShutdown_
 
 type IApartmentShutdownVtbl
 	QueryInterface as function(byval This as IApartmentShutdown ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT

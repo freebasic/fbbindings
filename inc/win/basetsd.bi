@@ -2,14 +2,6 @@
 
 #include once "_mingw.bi"
 
-'' The following symbols have been renamed:
-''     #define HandleToUlong => HandleToUlong_
-''     #define UlongToHandle => UlongToHandle_
-''     #define UlongToPtr => UlongToPtr_
-''     #define UintToPtr => UintToPtr_
-''     typedef SIZE_T => SIZE_T_
-''     typedef SSIZE_T => SSIZE_T_
-
 extern "C"
 
 #define _BASETSD_H_
@@ -170,7 +162,7 @@ type PDWORD32 as ulong ptr
 	#define PtrToUlong(p) cast(ULONG, cast(ULONG_PTR, (p)))
 	#define PtrToLong(p) cast(LONG, cast(LONG_PTR, (p)))
 	#define PtrToUint(p) cast(UINT, cast(UINT_PTR, (p)))
-	#define PtrToInt(p) cast(INT_, cast(INT_PTR, (p)))
+	#define PtrToInt(p) cast(INT, cast(INT_PTR, (p)))
 	#define PtrToUshort(p) cushort(cast(ULONG_PTR, (p)))
 	#define PtrToShort(p) cshort(cast(LONG_PTR, (p)))
 	#define IntToPtr(i) cptr(VOID ptr, cast(INT_PTR, clng(i)))
@@ -200,10 +192,10 @@ type PDWORD32 as ulong ptr
 #endif
 
 #define HandleToHandle32(h) PtrToPtr32(h)
-#define HandleToUlong_(h) HandleToULong(h)
-#define UlongToHandle_(ul) ULongToHandle(ul)
-#define UlongToPtr_(ul) ULongToPtr(ul)
-#define UintToPtr_(ui) UIntToPtr(ui)
+#define HandleToUlong(h) HandleToULong(h)
+#define UlongToHandle(ul) ULongToHandle(ul)
+#define UlongToPtr(ul) ULongToPtr(ul)
+#define UintToPtr(ui) UIntToPtr(ui)
 #define MAXUINT_PTR (not cast(UINT_PTR, 0))
 #define MAXINT_PTR cast(INT_PTR, MAXUINT_PTR shr 1)
 #define MININT_PTR (not MAXINT_PTR)
@@ -214,9 +206,9 @@ type PDWORD32 as ulong ptr
 #define MAXHALF_PTR cast(HALF_PTR, MAXUHALF_PTR shr 1)
 #define MINHALF_PTR (not MAXHALF_PTR)
 
-type SIZE_T_ as ULONG_PTR
+type SIZE_T as ULONG_PTR
 type PSIZE_T as ULONG_PTR ptr
-type SSIZE_T_ as LONG_PTR
+type SSIZE_T as LONG_PTR
 type PSSIZE_T as LONG_PTR ptr
 
 #if _WIN32_WINNT = &h0602
@@ -240,12 +232,12 @@ type PSSIZE_T as LONG_PTR ptr
 	#define MINLONG64 cast(LONG64, not MAXLONG64)
 	#define MAXULONGLONG cast(ULONGLONG, not cast(ULONGLONG, 0))
 	#define MINLONGLONG cast(LONGLONG, not MAXLONGLONG)
-	#define MAXSIZE_T cast(SIZE_T_, not cast(SIZE_T_, 0))
-	#define MAXSSIZE_T cast(SSIZE_T_, MAXSIZE_T shr 1)
-	#define MINSSIZE_T cast(SSIZE_T_, not MAXSSIZE_T)
+	#define MAXSIZE_T cast(SIZE_T, not cast(SIZE_T, 0))
+	#define MAXSSIZE_T cast(SSIZE_T, MAXSIZE_T shr 1)
+	#define MINSSIZE_T cast(SSIZE_T, not MAXSSIZE_T)
 	#define MAXUINT cast(UINT, not cast(UINT, 0))
-	#define MAXINT cast(INT_, MAXUINT shr 1)
-	#define MININT cast(INT_, not MAXINT)
+	#define MAXINT cast(INT, MAXUINT shr 1)
+	#define MININT cast(INT, not MAXINT)
 	#define MAXDWORD32 cast(DWORD32, not cast(DWORD32, 0))
 	#define MAXDWORD64 cast(DWORD64, not cast(DWORD64, 0))
 #endif

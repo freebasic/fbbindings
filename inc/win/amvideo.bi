@@ -2,8 +2,6 @@
 
 #include once "rpc.bi"
 #include once "rpcndr.bi"
-#include once "windows.bi"
-#include once "ole2.bi"
 #include once "objidl.bi"
 #include once "ddraw.bi"
 
@@ -12,12 +10,6 @@
 #else
 	extern "Windows"
 #endif
-
-type IDirectDrawVideo as IDirectDrawVideo_
-type IQualProp as IQualProp_
-type IFullScreenVideo as IFullScreenVideo_
-type IFullScreenVideoEx as IFullScreenVideoEx_
-type IBaseVideoMixer as IBaseVideoMixer_
 
 #define __amvideo_h__
 #define __IDirectDrawVideo_FWD_DEFINED__
@@ -40,6 +32,8 @@ type IBaseVideoMixer as IBaseVideoMixer_
 #define AMDDS_RGB ((AMDDS_RGBOFF or AMDDS_RGBOVR) or AMDDS_RGBFLP)
 #define AMDSS_PRIMARY (AMDDS_DCIPS or AMDDS_PS)
 #define __IDirectDrawVideo_INTERFACE_DEFINED__
+
+type IDirectDrawVideo as IDirectDrawVideo_
 
 type IDirectDrawVideoVtbl
 	QueryInterface as function(byval This as IDirectDrawVideo ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -102,6 +96,8 @@ declare sub IDirectDrawVideo_WillUseFullScreen_Stub(byval This as IRpcStubBuffer
 
 #define __IQualProp_INTERFACE_DEFINED__
 
+type IQualProp as IQualProp_
+
 type IQualPropVtbl
 	QueryInterface as function(byval This as IQualProp ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IQualProp ptr) as ULONG
@@ -132,6 +128,8 @@ declare function IQualProp_get_DevSyncOffset_Proxy(byval This as IQualProp ptr, 
 declare sub IQualProp_get_DevSyncOffset_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 
 #define __IFullScreenVideo_INTERFACE_DEFINED__
+
+type IFullScreenVideo as IFullScreenVideo_
 
 type IFullScreenVideoVtbl
 	QueryInterface as function(byval This as IFullScreenVideo ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -197,6 +195,8 @@ declare sub IFullScreenVideo_SetDefault_Stub(byval This as IRpcStubBuffer ptr, b
 
 #define __IFullScreenVideoEx_INTERFACE_DEFINED__
 
+type IFullScreenVideoEx as IFullScreenVideoEx_
+
 type IFullScreenVideoExVtbl
 	QueryInterface as function(byval This as IFullScreenVideoEx ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IFullScreenVideoEx ptr) as ULONG
@@ -238,6 +238,8 @@ declare function IFullScreenVideoEx_IsKeepPixelAspectRatio_Proxy(byval This as I
 declare sub IFullScreenVideoEx_IsKeepPixelAspectRatio_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 
 #define __IBaseVideoMixer_INTERFACE_DEFINED__
+
+type IBaseVideoMixer as IBaseVideoMixer_
 
 type IBaseVideoMixerVtbl
 	QueryInterface as function(byval This as IBaseVideoMixer ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -353,5 +355,14 @@ type _AM_FRAMESTEP_STEP
 end type
 
 type AM_FRAMESTEP_STEP as _AM_FRAMESTEP_STEP
+
+declare function HWND_UserSize(byval as ULONG ptr, byval as ULONG, byval as HWND ptr) as ULONG
+declare function HWND_UserMarshal(byval as ULONG ptr, byval as ubyte ptr, byval as HWND ptr) as ubyte ptr
+declare function HWND_UserUnmarshal(byval as ULONG ptr, byval as ubyte ptr, byval as HWND ptr) as ubyte ptr
+declare sub HWND_UserFree(byval as ULONG ptr, byval as HWND ptr)
+declare function BSTR_UserSize(byval as ULONG ptr, byval as ULONG, byval as BSTR ptr) as ULONG
+declare function BSTR_UserMarshal(byval as ULONG ptr, byval as ubyte ptr, byval as BSTR ptr) as ubyte ptr
+declare function BSTR_UserUnmarshal(byval as ULONG ptr, byval as ubyte ptr, byval as BSTR ptr) as ubyte ptr
+declare sub BSTR_UserFree(byval as ULONG ptr, byval as BSTR ptr)
 
 end extern

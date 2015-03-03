@@ -13,15 +13,6 @@
 	extern "Windows"
 #endif
 
-type IHostDialogHelper as IHostDialogHelper_
-type IDocHostUIHandler as IDocHostUIHandler_
-type IDocHostUIHandler2 as IDocHostUIHandler2_
-type ICustomDoc as ICustomDoc_
-type IDocHostShowUI as IDocHostShowUI_
-type IClassFactoryEx as IClassFactoryEx_
-type IHTMLOMWindowServices as IHTMLOMWindowServices_
-type IHTMLWindow2 as IHTMLWindow2_
-
 #define __mshtmhst_h__
 #define __IHostDialogHelper_FWD_DEFINED__
 #define __HostDialogHelper_FWD_DEFINED__
@@ -64,6 +55,9 @@ extern CGID_MSHTML as const GUID
 
 declare function ShowHTMLDialog(byval hwndParent as HWND, byval pMk as IMoniker ptr, byval pvarArgIn as VARIANT ptr, byval pchOptions as wstring ptr, byval pvarArgOut as VARIANT ptr) as HRESULT
 declare function ShowHTMLDialogEx(byval hwndParent as HWND, byval pMk as IMoniker ptr, byval dwDialogFlags as DWORD, byval pvarArgIn as VARIANT ptr, byval pchOptions as wstring ptr, byval pvarArgOut as VARIANT ptr) as HRESULT
+
+type IHTMLWindow2 as IHTMLWindow2_
+
 declare function ShowModelessHTMLDialog(byval hwndParent as HWND, byval pMk as IMoniker ptr, byval pvarArgIn as VARIANT ptr, byval pvarOptions as VARIANT ptr, byval ppWindow as IHTMLWindow2 ptr ptr) as HRESULT
 declare function RunHTMLApplication(byval hinst as HINSTANCE, byval hPrevInst as HINSTANCE, byval szCmdLine as LPSTR, byval nCmdShow as long) as HRESULT
 declare function CreateHTMLPropertyPage(byval pmk as IMoniker ptr, byval ppPP as IPropertyPage ptr ptr) as HRESULT
@@ -74,6 +68,8 @@ extern __MIDL_itf_mshtmhst_0000_v0_0_s_ifspec as RPC_IF_HANDLE
 #define __IHostDialogHelper_INTERFACE_DEFINED__
 
 extern IID_IHostDialogHelper as const IID
+
+type IHostDialogHelper as IHostDialogHelper_
 
 type IHostDialogHelperVtbl
 	QueryInterface as function(byval This as IHostDialogHelper ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -157,6 +153,8 @@ type DOCHOSTUIINFO as _DOCHOSTUIINFO
 
 extern IID_IDocHostUIHandler as const IID
 
+type IDocHostUIHandler as IDocHostUIHandler_
+
 type IDocHostUIHandlerVtbl
 	QueryInterface as function(byval This as IDocHostUIHandler ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IDocHostUIHandler ptr) as ULONG
@@ -217,6 +215,8 @@ declare sub IDocHostUIHandler_FilterDataObject_Stub(byval This as IRpcStubBuffer
 
 extern IID_IDocHostUIHandler2 as const IID
 
+type IDocHostUIHandler2 as IDocHostUIHandler2_
+
 type IDocHostUIHandler2Vtbl
 	QueryInterface as function(byval This as IDocHostUIHandler2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IDocHostUIHandler2 ptr) as ULONG
@@ -254,6 +254,8 @@ extern __MIDL_itf_mshtmhst_0279_v0_0_s_ifspec as RPC_IF_HANDLE
 
 extern IID_ICustomDoc as const IID
 
+type ICustomDoc as ICustomDoc_
+
 type ICustomDocVtbl
 	QueryInterface as function(byval This as ICustomDoc ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as ICustomDoc ptr) as ULONG
@@ -271,6 +273,8 @@ declare sub ICustomDoc_SetUIHandler_Stub(byval This as IRpcStubBuffer ptr, byval
 #define __IDocHostShowUI_INTERFACE_DEFINED__
 
 extern IID_IDocHostShowUI as const IID
+
+type IDocHostShowUI as IDocHostShowUI_
 
 type IDocHostShowUIVtbl
 	QueryInterface as function(byval This as IDocHostShowUI ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -299,6 +303,8 @@ extern __MIDL_itf_mshtmhst_0281_v0_0_s_ifspec as RPC_IF_HANDLE
 
 extern IID_IClassFactoryEx as const IID
 
+type IClassFactoryEx as IClassFactoryEx_
+
 type IClassFactoryExVtbl
 	QueryInterface as function(byval This as IClassFactoryEx ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IClassFactoryEx ptr) as ULONG
@@ -318,6 +324,8 @@ declare sub IClassFactoryEx_CreateInstanceWithContext_Stub(byval This as IRpcStu
 #define __IHTMLOMWindowServices_INTERFACE_DEFINED__
 
 extern IID_IHTMLOMWindowServices as const IID
+
+type IHTMLOMWindowServices as IHTMLOMWindowServices_
 
 type IHTMLOMWindowServicesVtbl
 	QueryInterface as function(byval This as IHTMLOMWindowServices ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT

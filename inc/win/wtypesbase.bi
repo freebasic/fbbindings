@@ -21,6 +21,10 @@ type LPCOLESTR as const wstring ptr
 
 #define OLESTR(str) L##str
 
+type UCHAR as ubyte
+type SHORT as short
+type USHORT as ushort
+type ULONG as DWORD
 type DOUBLE as double
 
 type _COAUTHIDENTITY

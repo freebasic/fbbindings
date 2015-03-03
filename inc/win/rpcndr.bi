@@ -4,21 +4,11 @@
 #include once "rpcnsip.bi"
 #include once "rpcsal.bi"
 
-'' The following symbols have been renamed:
-''     typedef boolean => boolean_
-
 #ifdef __FB_64BIT__
 	extern "C"
 #else
 	extern "Windows"
 #endif
-
-type _MIDL_STUB_MESSAGE as _MIDL_STUB_MESSAGE_
-type _MIDL_STUB_DESC as _MIDL_STUB_DESC_
-type _FULL_PTR_XLAT_TABLES as _FULL_PTR_XLAT_TABLES_
-type NDR_ALLOC_ALL_NODES_CONTEXT as NDR_ALLOC_ALL_NODES_CONTEXT_
-type NDR_POINTER_QUEUE_STATE as NDR_POINTER_QUEUE_STATE_
-type _NDR_PROC_CONTEXT as _NDR_PROC_CONTEXT_
 
 #define __RPCNDR_H_VERSION__ 475
 #define __RPCNDR_H__
@@ -50,12 +40,12 @@ type _NDR_PROC_CONTEXT as _NDR_PROC_CONTEXT_
 
 type ubyte as ubyte
 type cs_byte as ubyte
-type boolean_ as ubyte
+type BOOLEAN as ubyte
 
 #define _HYPER_DEFINED
 #define __MIDL_user_allocate_free_DEFINED__
 
-declare function MIDL_user_allocate(byval as SIZE_T_) as any ptr
+declare function MIDL_user_allocate(byval as SIZE_T) as any ptr
 declare sub MIDL_user_free(byval as any ptr)
 
 type NDR_CCONTEXT as any ptr
@@ -72,7 +62,7 @@ type NDR_SCONTEXT as _NDR_SCONTEXT ptr
 
 type NDR_RUNDOWN as sub(byval context as any ptr)
 type NDR_NOTIFY_ROUTINE as sub()
-type NDR_NOTIFY2_ROUTINE as sub(byval flag as boolean_)
+type NDR_NOTIFY2_ROUTINE as sub(byval flag as BOOLEAN)
 
 type _SCONTEXT_QUEUE
 	NumberOfObjects as ulong
@@ -95,7 +85,6 @@ declare sub RpcSsDestroyClientContext(byval ContextHandle as any ptr ptr)
 
 #macro byte_from_ndr(source, target)
 	scope
-		*(target)
 		'' TODO: *(target) = *(*(char **)&(source)->Buffer)++;
 	end scope
 #endmacro
@@ -107,7 +96,6 @@ declare sub RpcSsDestroyClientContext(byval ContextHandle as any ptr ptr)
 #endmacro
 #macro boolean_from_ndr(source, target)
 	scope
-		*(target)
 		'' TODO: *(target) = *(*(char **)&(source)->Buffer)++;
 	end scope
 #endmacro
@@ -119,13 +107,11 @@ declare sub RpcSsDestroyClientContext(byval ContextHandle as any ptr ptr)
 #endmacro
 #macro small_from_ndr(source, target)
 	scope
-		*(target)
 		'' TODO: *(target) = *(*(char **)&(source)->Buffer)++;
 	end scope
 #endmacro
 #macro small_from_ndr_temp(source, target, format)
 	scope
-		*(target)
 		'' TODO: *(target) = *(*(char **)(source))++;
 	end scope
 #endmacro
@@ -172,6 +158,9 @@ type error_status_t as ulong
 
 type RPC_BUFPTR as ubyte ptr
 type RPC_LENGTH as ulong
+
+type _MIDL_STUB_MESSAGE as _MIDL_STUB_MESSAGE_
+
 type EXPR_EVAL as sub(byval as _MIDL_STUB_MESSAGE ptr)
 type PFORMAT_STRING as const ubyte ptr
 
@@ -196,6 +185,10 @@ end type
 
 type MIDL_SYNTAX_INFO as _MIDL_SYNTAX_INFO
 type PMIDL_SYNTAX_INFO as _MIDL_SYNTAX_INFO ptr
+
+type IRpcChannelBuffer as IRpcChannelBuffer_
+type _FULL_PTR_XLAT_TABLES as _FULL_PTR_XLAT_TABLES_
+type _MIDL_STUB_DESC as _MIDL_STUB_DESC_
 
 type _MIDL_STUB_MESSAGE_
 	RpcMsg as PRPC_MESSAGE
@@ -391,7 +384,7 @@ end type
 
 type NDR_CS_ROUTINES as _NDR_CS_ROUTINES
 
-union ___MIDL_STUB_DESC_IMPLICIT_HANDLE_INFO
+union _MIDL_STUB_DESC_IMPLICIT_HANDLE_INFO
 	pAutoHandle as handle_t ptr
 	pPrimitiveHandle as handle_t ptr
 	pGenericBindingInfo as PGENERIC_BINDING_INFO
@@ -401,7 +394,7 @@ type _MIDL_STUB_DESC_
 	RpcInterfaceInformation as any ptr
 	pfnAllocate as function(byval as uinteger) as any ptr
 	pfnFree as sub(byval as any ptr)
-	IMPLICIT_HANDLE_INFO as ___MIDL_STUB_DESC_IMPLICIT_HANDLE_INFO
+	IMPLICIT_HANDLE_INFO as _MIDL_STUB_DESC_IMPLICIT_HANDLE_INFO
 	apfnNdrRundownRoutines as const NDR_RUNDOWN ptr
 	aGenericBindingRoutinePairs as const GENERIC_BINDING_ROUTINE_PAIR ptr
 	apfnExprEval as const EXPR_EVAL ptr
@@ -496,21 +489,21 @@ end type
 type FULL_PTR_TO_REFID_ELEMENT as _FULL_PTR_TO_REFID_ELEMENT
 type PFULL_PTR_TO_REFID_ELEMENT as _FULL_PTR_TO_REFID_ELEMENT ptr
 
-type ___FULL_PTR_XLAT_TABLES_RefIdToPointer
+type _FULL_PTR_XLAT_TABLES_RefIdToPointer
 	XlatTable as any ptr ptr
 	StateTable as ubyte ptr
 	NumberOfEntries as ulong
 end type
 
-type ___FULL_PTR_XLAT_TABLES_PointerToRefId
+type _FULL_PTR_XLAT_TABLES_PointerToRefId
 	XlatTable as PFULL_PTR_TO_REFID_ELEMENT ptr
 	NumberOfBuckets as ulong
 	HashMask as ulong
 end type
 
 type _FULL_PTR_XLAT_TABLES_
-	RefIdToPointer as ___FULL_PTR_XLAT_TABLES_RefIdToPointer
-	PointerToRefId as ___FULL_PTR_XLAT_TABLES_PointerToRefId
+	RefIdToPointer as _FULL_PTR_XLAT_TABLES_RefIdToPointer
+	PointerToRefId as _FULL_PTR_XLAT_TABLES_PointerToRefId
 	NextRefId as ulong
 	XlatSide as XLAT_SIDE
 end type
@@ -683,6 +676,9 @@ enum
 end enum
 
 declare sub NdrAsyncServerCall(byval pRpcMsg as PRPC_MESSAGE)
+
+type IRpcStubBuffer as IRpcStubBuffer_
+
 declare function NdrAsyncStubCall(byval pThis as IRpcStubBuffer ptr, byval pChannel as IRpcChannelBuffer ptr, byval pRpcMsg as PRPC_MESSAGE, byval pdwStubPhase as ulong ptr) as long
 declare function NdrDcomAsyncStubCall(byval pThis as IRpcStubBuffer ptr, byval pChannel as IRpcChannelBuffer ptr, byval pRpcMsg as PRPC_MESSAGE, byval pdwStubPhase as ulong ptr) as long
 declare function NdrStubCall2(byval pThis as IRpcStubBuffer ptr, byval pChannel as IRpcChannelBuffer ptr, byval pRpcMsg as PRPC_MESSAGE, byval pdwStubPhase as ulong ptr) as long
@@ -712,9 +708,9 @@ declare sub RpcSsDisableAllocate()
 declare sub RpcSsEnableAllocate()
 declare sub RpcSsFree(byval NodeToFree as any ptr)
 declare function RpcSsGetThreadHandle() as RPC_SS_THREAD_HANDLE
-declare sub RpcSsSetClientAllocFree(byval ClientAlloc as function(byval Size as uinteger) as any ptr, byval ClientFree as sub(byval Ptr_ as any ptr))
+declare sub RpcSsSetClientAllocFree(byval ClientAlloc as function(byval Size as uinteger) as any ptr, byval ClientFree as sub(byval Ptr as any ptr))
 declare sub RpcSsSetThreadHandle(byval Id as RPC_SS_THREAD_HANDLE)
-declare sub RpcSsSwapClientAllocFree(byval ClientAlloc as function(byval Size as uinteger) as any ptr, byval ClientFree as sub(byval Ptr_ as any ptr), byval OldClientAlloc as typeof(function(byval Size as uinteger) as any ptr) ptr, byval OldClientFree as typeof(sub(byval Ptr_ as any ptr)) ptr)
+declare sub RpcSsSwapClientAllocFree(byval ClientAlloc as function(byval Size as uinteger) as any ptr, byval ClientFree as sub(byval Ptr as any ptr), byval OldClientAlloc as typeof(function(byval Size as uinteger) as any ptr) ptr, byval OldClientFree as typeof(sub(byval Ptr as any ptr)) ptr)
 declare function RpcSmAllocate(byval Size as uinteger, byval pStatus as RPC_STATUS ptr) as any ptr
 declare function RpcSmClientFree(byval pNodeToFree as any ptr) as RPC_STATUS
 declare function RpcSmDestroyClientContext(byval ContextHandle as any ptr ptr) as RPC_STATUS
@@ -722,9 +718,9 @@ declare function RpcSmDisableAllocate() as RPC_STATUS
 declare function RpcSmEnableAllocate() as RPC_STATUS
 declare function RpcSmFree(byval NodeToFree as any ptr) as RPC_STATUS
 declare function RpcSmGetThreadHandle(byval pStatus as RPC_STATUS ptr) as RPC_SS_THREAD_HANDLE
-declare function RpcSmSetClientAllocFree(byval ClientAlloc as function(byval Size as uinteger) as any ptr, byval ClientFree as sub(byval Ptr_ as any ptr)) as RPC_STATUS
+declare function RpcSmSetClientAllocFree(byval ClientAlloc as function(byval Size as uinteger) as any ptr, byval ClientFree as sub(byval Ptr as any ptr)) as RPC_STATUS
 declare function RpcSmSetThreadHandle(byval Id as RPC_SS_THREAD_HANDLE) as RPC_STATUS
-declare function RpcSmSwapClientAllocFree(byval ClientAlloc as function(byval Size as uinteger) as any ptr, byval ClientFree as sub(byval Ptr_ as any ptr), byval OldClientAlloc as typeof(function(byval Size as uinteger) as any ptr) ptr, byval OldClientFree as typeof(sub(byval Ptr_ as any ptr)) ptr) as RPC_STATUS
+declare function RpcSmSwapClientAllocFree(byval ClientAlloc as function(byval Size as uinteger) as any ptr, byval ClientFree as sub(byval Ptr as any ptr), byval OldClientAlloc as typeof(function(byval Size as uinteger) as any ptr) ptr, byval OldClientFree as typeof(sub(byval Ptr as any ptr)) ptr) as RPC_STATUS
 declare sub NdrRpcSsEnableAllocate(byval pMessage as PMIDL_STUB_MESSAGE)
 declare sub NdrRpcSsDisableAllocate(byval pMessage as PMIDL_STUB_MESSAGE)
 declare sub NdrRpcSmSetClientToOsf(byval pMessage as PMIDL_STUB_MESSAGE)
@@ -737,8 +733,8 @@ declare sub NdrFullPointerXlatFree(byval pXlatTables as PFULL_PTR_XLAT_TABLES)
 declare function NdrFullPointerQueryPointer(byval pXlatTables as PFULL_PTR_XLAT_TABLES, byval pPointer as any ptr, byval QueryType as ubyte, byval pRefId as ulong ptr) as long
 declare function NdrFullPointerQueryRefId(byval pXlatTables as PFULL_PTR_XLAT_TABLES, byval RefId as ulong, byval QueryType as ubyte, byval ppPointer as any ptr ptr) as long
 declare sub NdrFullPointerInsertRefId(byval pXlatTables as PFULL_PTR_XLAT_TABLES, byval RefId as ulong, byval pPointer as any ptr)
-declare function NdrFullPointerFree(byval pXlatTables as PFULL_PTR_XLAT_TABLES, byval Pointer_ as any ptr) as long
-declare function NdrAllocate(byval pStubMsg as PMIDL_STUB_MESSAGE, byval Len_ as uinteger) as any ptr
+declare function NdrFullPointerFree(byval pXlatTables as PFULL_PTR_XLAT_TABLES, byval Pointer as any ptr) as long
+declare function NdrAllocate(byval pStubMsg as PMIDL_STUB_MESSAGE, byval Len as uinteger) as any ptr
 declare sub NdrClearOutParameters(byval pStubMsg as PMIDL_STUB_MESSAGE, byval pFormat as PFORMAT_STRING, byval ArgAddr as any ptr)
 declare function NdrOleAllocate(byval Size as uinteger) as any ptr
 declare sub NdrOleFree(byval NodeToFree as any ptr)

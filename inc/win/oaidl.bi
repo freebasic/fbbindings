@@ -13,28 +13,6 @@
 	extern "Windows"
 #endif
 
-type ICreateTypeInfo as ICreateTypeInfo_
-type ICreateTypeInfo2 as ICreateTypeInfo2_
-type ICreateTypeLib as ICreateTypeLib_
-type ICreateTypeLib2 as ICreateTypeLib2_
-type IDispatch as IDispatch_
-type IEnumVARIANT as IEnumVARIANT_
-type ITypeComp as ITypeComp_
-type ITypeInfo as ITypeInfo_
-type ITypeInfo2 as ITypeInfo2_
-type ITypeLib as ITypeLib_
-type ITypeLib2 as ITypeLib2_
-type ITypeChangeEvents as ITypeChangeEvents_
-type IErrorInfo as IErrorInfo_
-type ICreateErrorInfo as ICreateErrorInfo_
-type ISupportErrorInfo as ISupportErrorInfo_
-type ITypeFactory as ITypeFactory_
-type ITypeMarshal as ITypeMarshal_
-type IRecordInfo as IRecordInfo_
-type IErrorLog as IErrorLog_
-type IPropertyBag as IPropertyBag_
-type tagARRAYDESC as tagARRAYDESC_
-
 #define __oaidl_h__
 #define __ICreateTypeInfo_FWD_DEFINED__
 #define __ICreateTypeInfo2_FWD_DEFINED__
@@ -87,6 +65,8 @@ end type
 
 type SAFEARR_UNKNOWN as _wireSAFEARR_UNKNOWN
 
+type IDispatch as IDispatch_
+
 type _wireSAFEARR_DISPATCH
 	Size as ULONG
 	apDispatch as IDispatch ptr ptr
@@ -133,7 +113,7 @@ end enum
 
 type SF_TYPE as tagSF_TYPE
 
-union ___wireSAFEARRAY_UNION_u
+union _wireSAFEARRAY_UNION_u
 	BstrStr as SAFEARR_BSTR
 	UnknownStr as SAFEARR_UNKNOWN
 	DispatchStr as SAFEARR_DISPATCH
@@ -148,7 +128,7 @@ end union
 
 type _wireSAFEARRAY_UNION
 	sfType as ULONG
-	u as ___wireSAFEARRAY_UNION_u
+	u as _wireSAFEARRAY_UNION_u
 end type
 
 type SAFEARRAYUNION as _wireSAFEARRAY_UNION
@@ -199,6 +179,8 @@ type LPSAFEARRAY as SAFEARRAY ptr
 
 type VARIANT as tagVARIANT
 
+type IRecordInfo as IRecordInfo_
+
 type tagVARIANT
 	union
 		type
@@ -217,7 +199,7 @@ type tagVARIANT
 				boolVal as VARIANT_BOOL
 				scode as SCODE
 				cyVal as CY
-				date as DATE_
+				date as DATE
 				bstrVal as BSTR
 				punkVal as IUnknown ptr
 				pdispVal as IDispatch ptr
@@ -231,7 +213,7 @@ type tagVARIANT
 				pboolVal as VARIANT_BOOL ptr
 				pscode as SCODE ptr
 				pcyVal as CY ptr
-				pdate as DATE_ ptr
+				pdate as DATE ptr
 				pbstrVal as BSTR ptr
 				ppunkVal as IUnknown ptr ptr
 				ppdispVal as IDispatch ptr ptr
@@ -242,14 +224,14 @@ type tagVARIANT
 				uiVal as USHORT
 				ulVal as ULONG
 				ullVal as ULONGLONG
-				intVal as INT_
+				intVal as INT
 				uintVal as UINT
 				pdecVal as DECIMAL ptr
 				pcVal as zstring ptr
 				puiVal as USHORT ptr
 				pulVal as ULONG ptr
 				pullVal as ULONGLONG ptr
-				pintVal as INT_ ptr
+				pintVal as INT ptr
 				puintVal as UINT ptr
 
 				type
@@ -294,7 +276,7 @@ type _wireVARIANT
 		boolVal as VARIANT_BOOL
 		scode as SCODE
 		cyVal as CY
-		date as DATE_
+		date as DATE
 		bstrVal as wireBSTR
 		punkVal as IUnknown ptr
 		pdispVal as IDispatch ptr
@@ -309,7 +291,7 @@ type _wireVARIANT
 		pboolVal as VARIANT_BOOL ptr
 		pscode as SCODE ptr
 		pcyVal as CY ptr
-		pdate as DATE_ ptr
+		pdate as DATE ptr
 		pbstrVal as wireBSTR ptr
 		ppunkVal as IUnknown ptr ptr
 		ppdispVal as IDispatch ptr ptr
@@ -319,7 +301,7 @@ type _wireVARIANT
 		uiVal as USHORT
 		ulVal as ULONG
 		ullVal as ULONGLONG
-		intVal as INT_
+		intVal as INT
 		uintVal as UINT
 		decVal as DECIMAL
 		pdecVal as DECIMAL ptr
@@ -327,7 +309,7 @@ type _wireVARIANT
 		puiVal as USHORT ptr
 		pulVal as ULONG ptr
 		pullVal as ULONGLONG ptr
-		pintVal as INT_ ptr
+		pintVal as INT ptr
 		puintVal as UINT ptr
 	end union
 end type
@@ -350,6 +332,8 @@ enum
 end enum
 
 type TYPEKIND as tagTYPEKIND
+
+type tagARRAYDESC as tagARRAYDESC_
 
 type tagTYPEDESC
 	union
@@ -643,9 +627,13 @@ type LPCUSTDATA as tagCUSTDATA ptr
 
 #define __ICreateTypeInfo_INTERFACE_DEFINED__
 
+type ICreateTypeInfo as ICreateTypeInfo_
+
 type LPCREATETYPEINFO as ICreateTypeInfo ptr
 
 extern IID_ICreateTypeInfo as const GUID
+
+type ITypeInfo as ITypeInfo_
 
 type ICreateTypeInfoVtbl
 	QueryInterface as function(byval This as ICreateTypeInfo ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -659,7 +647,7 @@ type ICreateTypeInfoVtbl
 	AddRefTypeInfo as function(byval This as ICreateTypeInfo ptr, byval pTInfo as ITypeInfo ptr, byval phRefType as HREFTYPE ptr) as HRESULT
 	AddFuncDesc as function(byval This as ICreateTypeInfo ptr, byval index as UINT, byval pFuncDesc as FUNCDESC ptr) as HRESULT
 	AddImplType as function(byval This as ICreateTypeInfo ptr, byval index as UINT, byval hRefType as HREFTYPE) as HRESULT
-	SetImplTypeFlags as function(byval This as ICreateTypeInfo ptr, byval index as UINT, byval implTypeFlags as INT_) as HRESULT
+	SetImplTypeFlags as function(byval This as ICreateTypeInfo ptr, byval index as UINT, byval implTypeFlags as INT) as HRESULT
 	SetAlignment as function(byval This as ICreateTypeInfo ptr, byval cbAlignment as WORD) as HRESULT
 	SetSchema as function(byval This as ICreateTypeInfo ptr, byval pStrSchema as LPOLESTR) as HRESULT
 	AddVarDesc as function(byval This as ICreateTypeInfo ptr, byval index as UINT, byval pVarDesc as VARDESC ptr) as HRESULT
@@ -696,7 +684,7 @@ declare function ICreateTypeInfo_AddFuncDesc_Proxy(byval This as ICreateTypeInfo
 declare sub ICreateTypeInfo_AddFuncDesc_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function ICreateTypeInfo_AddImplType_Proxy(byval This as ICreateTypeInfo ptr, byval index as UINT, byval hRefType as HREFTYPE) as HRESULT
 declare sub ICreateTypeInfo_AddImplType_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-declare function ICreateTypeInfo_SetImplTypeFlags_Proxy(byval This as ICreateTypeInfo ptr, byval index as UINT, byval implTypeFlags as INT_) as HRESULT
+declare function ICreateTypeInfo_SetImplTypeFlags_Proxy(byval This as ICreateTypeInfo ptr, byval index as UINT, byval implTypeFlags as INT) as HRESULT
 declare sub ICreateTypeInfo_SetImplTypeFlags_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function ICreateTypeInfo_SetAlignment_Proxy(byval This as ICreateTypeInfo ptr, byval cbAlignment as WORD) as HRESULT
 declare sub ICreateTypeInfo_SetAlignment_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
@@ -729,6 +717,8 @@ declare sub ICreateTypeInfo_LayOut_Stub(byval This as IRpcStubBuffer ptr, byval 
 
 #define __ICreateTypeInfo2_INTERFACE_DEFINED__
 
+type ICreateTypeInfo2 as ICreateTypeInfo2_
+
 type LPCREATETYPEINFO2 as ICreateTypeInfo2 ptr
 
 extern IID_ICreateTypeInfo2 as const GUID
@@ -745,7 +735,7 @@ type ICreateTypeInfo2Vtbl
 	AddRefTypeInfo as function(byval This as ICreateTypeInfo2 ptr, byval pTInfo as ITypeInfo ptr, byval phRefType as HREFTYPE ptr) as HRESULT
 	AddFuncDesc as function(byval This as ICreateTypeInfo2 ptr, byval index as UINT, byval pFuncDesc as FUNCDESC ptr) as HRESULT
 	AddImplType as function(byval This as ICreateTypeInfo2 ptr, byval index as UINT, byval hRefType as HREFTYPE) as HRESULT
-	SetImplTypeFlags as function(byval This as ICreateTypeInfo2 ptr, byval index as UINT, byval implTypeFlags as INT_) as HRESULT
+	SetImplTypeFlags as function(byval This as ICreateTypeInfo2 ptr, byval index as UINT, byval implTypeFlags as INT) as HRESULT
 	SetAlignment as function(byval This as ICreateTypeInfo2 ptr, byval cbAlignment as WORD) as HRESULT
 	SetSchema as function(byval This as ICreateTypeInfo2 ptr, byval pStrSchema as LPOLESTR) as HRESULT
 	AddVarDesc as function(byval This as ICreateTypeInfo2 ptr, byval index as UINT, byval pVarDesc as VARDESC ptr) as HRESULT
@@ -814,6 +804,8 @@ declare sub ICreateTypeInfo2_SetName_Stub(byval This as IRpcStubBuffer ptr, byva
 
 #define __ICreateTypeLib_INTERFACE_DEFINED__
 
+type ICreateTypeLib as ICreateTypeLib_
+
 type LPCREATETYPELIB as ICreateTypeLib ptr
 
 extern IID_ICreateTypeLib as const GUID
@@ -860,6 +852,8 @@ declare function ICreateTypeLib_SaveAllChanges_Proxy(byval This as ICreateTypeLi
 declare sub ICreateTypeLib_SaveAllChanges_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 
 #define __ICreateTypeLib2_INTERFACE_DEFINED__
+
+type ICreateTypeLib2 as ICreateTypeLib2_
 
 type LPCREATETYPELIB2 as ICreateTypeLib2 ptr
 
@@ -940,6 +934,8 @@ declare function IDispatch_Invoke_Stub(byval This as IDispatch ptr, byval dispId
 
 #define __IEnumVARIANT_INTERFACE_DEFINED__
 
+type IEnumVARIANT as IEnumVARIANT_
+
 type LPENUMVARIANT as IEnumVARIANT ptr
 
 extern IID_IEnumVARIANT as const GUID
@@ -970,6 +966,8 @@ declare function IEnumVARIANT_Next_Proxy(byval This as IEnumVARIANT ptr, byval c
 declare function IEnumVARIANT_Next_Stub(byval This as IEnumVARIANT ptr, byval celt as ULONG, byval rgVar as VARIANT ptr, byval pCeltFetched as ULONG ptr) as HRESULT
 
 #define __ITypeComp_INTERFACE_DEFINED__
+
+type ITypeComp as ITypeComp_
 
 type LPTYPECOMP as ITypeComp ptr
 
@@ -1023,6 +1021,8 @@ type LPTYPEINFO as ITypeInfo ptr
 
 extern IID_ITypeInfo as const GUID
 
+type ITypeLib as ITypeLib_
+
 type ITypeInfoVtbl
 	QueryInterface as function(byval This as ITypeInfo ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as ITypeInfo ptr) as ULONG
@@ -1033,7 +1033,7 @@ type ITypeInfoVtbl
 	GetVarDesc as function(byval This as ITypeInfo ptr, byval index as UINT, byval ppVarDesc as VARDESC ptr ptr) as HRESULT
 	GetNames as function(byval This as ITypeInfo ptr, byval memid as MEMBERID, byval rgBstrNames as BSTR ptr, byval cMaxNames as UINT, byval pcNames as UINT ptr) as HRESULT
 	GetRefTypeOfImplType as function(byval This as ITypeInfo ptr, byval index as UINT, byval pRefType as HREFTYPE ptr) as HRESULT
-	GetImplTypeFlags as function(byval This as ITypeInfo ptr, byval index as UINT, byval pImplTypeFlags as INT_ ptr) as HRESULT
+	GetImplTypeFlags as function(byval This as ITypeInfo ptr, byval index as UINT, byval pImplTypeFlags as INT ptr) as HRESULT
 	GetIDsOfNames as function(byval This as ITypeInfo ptr, byval rgszNames as LPOLESTR ptr, byval cNames as UINT, byval pMemId as MEMBERID ptr) as HRESULT
 	Invoke as function(byval This as ITypeInfo ptr, byval pvInstance as PVOID, byval memid as MEMBERID, byval wFlags as WORD, byval pDispParams as DISPPARAMS ptr, byval pVarResult as VARIANT ptr, byval pExcepInfo as EXCEPINFO ptr, byval puArgErr as UINT ptr) as HRESULT
 	GetDocumentation as function(byval This as ITypeInfo ptr, byval memid as MEMBERID, byval pBstrName as BSTR ptr, byval pBstrDocString as BSTR ptr, byval pdwHelpContext as DWORD ptr, byval pBstrHelpFile as BSTR ptr) as HRESULT
@@ -1064,7 +1064,7 @@ declare function ITypeInfo_RemoteGetNames_Proxy(byval This as ITypeInfo ptr, byv
 declare sub ITypeInfo_RemoteGetNames_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function ITypeInfo_GetRefTypeOfImplType_Proxy(byval This as ITypeInfo ptr, byval index as UINT, byval pRefType as HREFTYPE ptr) as HRESULT
 declare sub ITypeInfo_GetRefTypeOfImplType_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-declare function ITypeInfo_GetImplTypeFlags_Proxy(byval This as ITypeInfo ptr, byval index as UINT, byval pImplTypeFlags as INT_ ptr) as HRESULT
+declare function ITypeInfo_GetImplTypeFlags_Proxy(byval This as ITypeInfo ptr, byval index as UINT, byval pImplTypeFlags as INT ptr) as HRESULT
 declare sub ITypeInfo_GetImplTypeFlags_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function ITypeInfo_LocalGetIDsOfNames_Proxy(byval This as ITypeInfo ptr) as HRESULT
 declare sub ITypeInfo_LocalGetIDsOfNames_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
@@ -1121,6 +1121,8 @@ declare function ITypeInfo_ReleaseVarDesc_Stub(byval This as ITypeInfo ptr) as H
 
 #define __ITypeInfo2_INTERFACE_DEFINED__
 
+type ITypeInfo2 as ITypeInfo2_
+
 type LPTYPEINFO2 as ITypeInfo2 ptr
 
 extern IID_ITypeInfo2 as const GUID
@@ -1135,7 +1137,7 @@ type ITypeInfo2Vtbl
 	GetVarDesc as function(byval This as ITypeInfo2 ptr, byval index as UINT, byval ppVarDesc as VARDESC ptr ptr) as HRESULT
 	GetNames as function(byval This as ITypeInfo2 ptr, byval memid as MEMBERID, byval rgBstrNames as BSTR ptr, byval cMaxNames as UINT, byval pcNames as UINT ptr) as HRESULT
 	GetRefTypeOfImplType as function(byval This as ITypeInfo2 ptr, byval index as UINT, byval pRefType as HREFTYPE ptr) as HRESULT
-	GetImplTypeFlags as function(byval This as ITypeInfo2 ptr, byval index as UINT, byval pImplTypeFlags as INT_ ptr) as HRESULT
+	GetImplTypeFlags as function(byval This as ITypeInfo2 ptr, byval index as UINT, byval pImplTypeFlags as INT ptr) as HRESULT
 	GetIDsOfNames as function(byval This as ITypeInfo2 ptr, byval rgszNames as LPOLESTR ptr, byval cNames as UINT, byval pMemId as MEMBERID ptr) as HRESULT
 	Invoke as function(byval This as ITypeInfo2 ptr, byval pvInstance as PVOID, byval memid as MEMBERID, byval wFlags as WORD, byval pDispParams as DISPPARAMS ptr, byval pVarResult as VARIANT ptr, byval pExcepInfo as EXCEPINFO ptr, byval puArgErr as UINT ptr) as HRESULT
 	GetDocumentation as function(byval This as ITypeInfo2 ptr, byval memid as MEMBERID, byval pBstrName as BSTR ptr, byval pBstrDocString as BSTR ptr, byval pdwHelpContext as DWORD ptr, byval pBstrHelpFile as BSTR ptr) as HRESULT
@@ -1249,7 +1251,7 @@ type ITypeLibVtbl
 	GetTypeInfoOfGuid as function(byval This as ITypeLib ptr, byval guid as const GUID const ptr, byval ppTinfo as ITypeInfo ptr ptr) as HRESULT
 	GetLibAttr as function(byval This as ITypeLib ptr, byval ppTLibAttr as TLIBATTR ptr ptr) as HRESULT
 	GetTypeComp as function(byval This as ITypeLib ptr, byval ppTComp as ITypeComp ptr ptr) as HRESULT
-	GetDocumentation as function(byval This as ITypeLib ptr, byval index as INT_, byval pBstrName as BSTR ptr, byval pBstrDocString as BSTR ptr, byval pdwHelpContext as DWORD ptr, byval pBstrHelpFile as BSTR ptr) as HRESULT
+	GetDocumentation as function(byval This as ITypeLib ptr, byval index as INT, byval pBstrName as BSTR ptr, byval pBstrDocString as BSTR ptr, byval pdwHelpContext as DWORD ptr, byval pBstrHelpFile as BSTR ptr) as HRESULT
 	IsName as function(byval This as ITypeLib ptr, byval szNameBuf as LPOLESTR, byval lHashVal as ULONG, byval pfName as WINBOOL ptr) as HRESULT
 	FindName as function(byval This as ITypeLib ptr, byval szNameBuf as LPOLESTR, byval lHashVal as ULONG, byval ppTInfo as ITypeInfo ptr ptr, byval rgMemId as MEMBERID ptr, byval pcFound as USHORT ptr) as HRESULT
 	ReleaseTLibAttr as sub(byval This as ITypeLib ptr, byval pTLibAttr as TLIBATTR ptr)
@@ -1271,7 +1273,7 @@ declare function ITypeLib_RemoteGetLibAttr_Proxy(byval This as ITypeLib ptr, byv
 declare sub ITypeLib_RemoteGetLibAttr_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function ITypeLib_GetTypeComp_Proxy(byval This as ITypeLib ptr, byval ppTComp as ITypeComp ptr ptr) as HRESULT
 declare sub ITypeLib_GetTypeComp_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-declare function ITypeLib_RemoteGetDocumentation_Proxy(byval This as ITypeLib ptr, byval index as INT_, byval refPtrFlags as DWORD, byval pBstrName as BSTR ptr, byval pBstrDocString as BSTR ptr, byval pdwHelpContext as DWORD ptr, byval pBstrHelpFile as BSTR ptr) as HRESULT
+declare function ITypeLib_RemoteGetDocumentation_Proxy(byval This as ITypeLib ptr, byval index as INT, byval refPtrFlags as DWORD, byval pBstrName as BSTR ptr, byval pBstrDocString as BSTR ptr, byval pdwHelpContext as DWORD ptr, byval pBstrHelpFile as BSTR ptr) as HRESULT
 declare sub ITypeLib_RemoteGetDocumentation_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function ITypeLib_RemoteIsName_Proxy(byval This as ITypeLib ptr, byval szNameBuf as LPOLESTR, byval lHashVal as ULONG, byval pfName as WINBOOL ptr, byval pBstrLibName as BSTR ptr) as HRESULT
 declare sub ITypeLib_RemoteIsName_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
@@ -1283,8 +1285,8 @@ declare function ITypeLib_GetTypeInfoCount_Proxy(byval This as ITypeLib ptr) as 
 declare function ITypeLib_GetTypeInfoCount_Stub(byval This as ITypeLib ptr, byval pcTInfo as UINT ptr) as HRESULT
 declare function ITypeLib_GetLibAttr_Proxy(byval This as ITypeLib ptr, byval ppTLibAttr as TLIBATTR ptr ptr) as HRESULT
 declare function ITypeLib_GetLibAttr_Stub(byval This as ITypeLib ptr, byval ppTLibAttr as LPTLIBATTR ptr, byval pDummy as CLEANLOCALSTORAGE ptr) as HRESULT
-declare function ITypeLib_GetDocumentation_Proxy(byval This as ITypeLib ptr, byval index as INT_, byval pBstrName as BSTR ptr, byval pBstrDocString as BSTR ptr, byval pdwHelpContext as DWORD ptr, byval pBstrHelpFile as BSTR ptr) as HRESULT
-declare function ITypeLib_GetDocumentation_Stub(byval This as ITypeLib ptr, byval index as INT_, byval refPtrFlags as DWORD, byval pBstrName as BSTR ptr, byval pBstrDocString as BSTR ptr, byval pdwHelpContext as DWORD ptr, byval pBstrHelpFile as BSTR ptr) as HRESULT
+declare function ITypeLib_GetDocumentation_Proxy(byval This as ITypeLib ptr, byval index as INT, byval pBstrName as BSTR ptr, byval pBstrDocString as BSTR ptr, byval pdwHelpContext as DWORD ptr, byval pBstrHelpFile as BSTR ptr) as HRESULT
+declare function ITypeLib_GetDocumentation_Stub(byval This as ITypeLib ptr, byval index as INT, byval refPtrFlags as DWORD, byval pBstrName as BSTR ptr, byval pBstrDocString as BSTR ptr, byval pdwHelpContext as DWORD ptr, byval pBstrHelpFile as BSTR ptr) as HRESULT
 declare function ITypeLib_IsName_Proxy(byval This as ITypeLib ptr, byval szNameBuf as LPOLESTR, byval lHashVal as ULONG, byval pfName as WINBOOL ptr) as HRESULT
 declare function ITypeLib_IsName_Stub(byval This as ITypeLib ptr, byval szNameBuf as LPOLESTR, byval lHashVal as ULONG, byval pfName as WINBOOL ptr, byval pBstrLibName as BSTR ptr) as HRESULT
 declare function ITypeLib_FindName_Proxy(byval This as ITypeLib ptr, byval szNameBuf as LPOLESTR, byval lHashVal as ULONG, byval ppTInfo as ITypeInfo ptr ptr, byval rgMemId as MEMBERID ptr, byval pcFound as USHORT ptr) as HRESULT
@@ -1293,6 +1295,8 @@ declare sub ITypeLib_ReleaseTLibAttr_Proxy(byval This as ITypeLib ptr, byval pTL
 declare function ITypeLib_ReleaseTLibAttr_Stub(byval This as ITypeLib ptr) as HRESULT
 
 #define __ITypeLib2_INTERFACE_DEFINED__
+
+type ITypeLib2 as ITypeLib2_
 
 type LPTYPELIB2 as ITypeLib2 ptr
 
@@ -1308,13 +1312,13 @@ type ITypeLib2Vtbl
 	GetTypeInfoOfGuid as function(byval This as ITypeLib2 ptr, byval guid as const GUID const ptr, byval ppTinfo as ITypeInfo ptr ptr) as HRESULT
 	GetLibAttr as function(byval This as ITypeLib2 ptr, byval ppTLibAttr as TLIBATTR ptr ptr) as HRESULT
 	GetTypeComp as function(byval This as ITypeLib2 ptr, byval ppTComp as ITypeComp ptr ptr) as HRESULT
-	GetDocumentation as function(byval This as ITypeLib2 ptr, byval index as INT_, byval pBstrName as BSTR ptr, byval pBstrDocString as BSTR ptr, byval pdwHelpContext as DWORD ptr, byval pBstrHelpFile as BSTR ptr) as HRESULT
+	GetDocumentation as function(byval This as ITypeLib2 ptr, byval index as INT, byval pBstrName as BSTR ptr, byval pBstrDocString as BSTR ptr, byval pdwHelpContext as DWORD ptr, byval pBstrHelpFile as BSTR ptr) as HRESULT
 	IsName as function(byval This as ITypeLib2 ptr, byval szNameBuf as LPOLESTR, byval lHashVal as ULONG, byval pfName as WINBOOL ptr) as HRESULT
 	FindName as function(byval This as ITypeLib2 ptr, byval szNameBuf as LPOLESTR, byval lHashVal as ULONG, byval ppTInfo as ITypeInfo ptr ptr, byval rgMemId as MEMBERID ptr, byval pcFound as USHORT ptr) as HRESULT
 	ReleaseTLibAttr as sub(byval This as ITypeLib2 ptr, byval pTLibAttr as TLIBATTR ptr)
 	GetCustData as function(byval This as ITypeLib2 ptr, byval guid as const GUID const ptr, byval pVarVal as VARIANT ptr) as HRESULT
 	GetLibStatistics as function(byval This as ITypeLib2 ptr, byval pcUniqueNames as ULONG ptr, byval pcchUniqueNames as ULONG ptr) as HRESULT
-	GetDocumentation2 as function(byval This as ITypeLib2 ptr, byval index as INT_, byval lcid as LCID, byval pbstrHelpString as BSTR ptr, byval pdwHelpStringContext as DWORD ptr, byval pbstrHelpStringDll as BSTR ptr) as HRESULT
+	GetDocumentation2 as function(byval This as ITypeLib2 ptr, byval index as INT, byval lcid as LCID, byval pbstrHelpString as BSTR ptr, byval pdwHelpStringContext as DWORD ptr, byval pbstrHelpStringDll as BSTR ptr) as HRESULT
 	GetAllCustData as function(byval This as ITypeLib2 ptr, byval pCustData as CUSTDATA ptr) as HRESULT
 end type
 
@@ -1326,16 +1330,18 @@ declare function ITypeLib2_GetCustData_Proxy(byval This as ITypeLib2 ptr, byval 
 declare sub ITypeLib2_GetCustData_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function ITypeLib2_RemoteGetLibStatistics_Proxy(byval This as ITypeLib2 ptr, byval pcUniqueNames as ULONG ptr, byval pcchUniqueNames as ULONG ptr) as HRESULT
 declare sub ITypeLib2_RemoteGetLibStatistics_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-declare function ITypeLib2_RemoteGetDocumentation2_Proxy(byval This as ITypeLib2 ptr, byval index as INT_, byval lcid as LCID, byval refPtrFlags as DWORD, byval pbstrHelpString as BSTR ptr, byval pdwHelpStringContext as DWORD ptr, byval pbstrHelpStringDll as BSTR ptr) as HRESULT
+declare function ITypeLib2_RemoteGetDocumentation2_Proxy(byval This as ITypeLib2 ptr, byval index as INT, byval lcid as LCID, byval refPtrFlags as DWORD, byval pbstrHelpString as BSTR ptr, byval pdwHelpStringContext as DWORD ptr, byval pbstrHelpStringDll as BSTR ptr) as HRESULT
 declare sub ITypeLib2_RemoteGetDocumentation2_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function ITypeLib2_GetAllCustData_Proxy(byval This as ITypeLib2 ptr, byval pCustData as CUSTDATA ptr) as HRESULT
 declare sub ITypeLib2_GetAllCustData_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function ITypeLib2_GetLibStatistics_Proxy(byval This as ITypeLib2 ptr, byval pcUniqueNames as ULONG ptr, byval pcchUniqueNames as ULONG ptr) as HRESULT
 declare function ITypeLib2_GetLibStatistics_Stub(byval This as ITypeLib2 ptr, byval pcUniqueNames as ULONG ptr, byval pcchUniqueNames as ULONG ptr) as HRESULT
-declare function ITypeLib2_GetDocumentation2_Proxy(byval This as ITypeLib2 ptr, byval index as INT_, byval lcid as LCID, byval pbstrHelpString as BSTR ptr, byval pdwHelpStringContext as DWORD ptr, byval pbstrHelpStringDll as BSTR ptr) as HRESULT
-declare function ITypeLib2_GetDocumentation2_Stub(byval This as ITypeLib2 ptr, byval index as INT_, byval lcid as LCID, byval refPtrFlags as DWORD, byval pbstrHelpString as BSTR ptr, byval pdwHelpStringContext as DWORD ptr, byval pbstrHelpStringDll as BSTR ptr) as HRESULT
+declare function ITypeLib2_GetDocumentation2_Proxy(byval This as ITypeLib2 ptr, byval index as INT, byval lcid as LCID, byval pbstrHelpString as BSTR ptr, byval pdwHelpStringContext as DWORD ptr, byval pbstrHelpStringDll as BSTR ptr) as HRESULT
+declare function ITypeLib2_GetDocumentation2_Stub(byval This as ITypeLib2 ptr, byval index as INT, byval lcid as LCID, byval refPtrFlags as DWORD, byval pbstrHelpString as BSTR ptr, byval pdwHelpStringContext as DWORD ptr, byval pbstrHelpStringDll as BSTR ptr) as HRESULT
 
 #define __ITypeChangeEvents_INTERFACE_DEFINED__
+
+type ITypeChangeEvents as ITypeChangeEvents_
 
 type LPTYPECHANGEEVENTS as ITypeChangeEvents ptr
 
@@ -1359,7 +1365,7 @@ type ITypeChangeEventsVtbl
 	QueryInterface as function(byval This as ITypeChangeEvents ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as ITypeChangeEvents ptr) as ULONG
 	Release as function(byval This as ITypeChangeEvents ptr) as ULONG
-	RequestTypeChange as function(byval This as ITypeChangeEvents ptr, byval changeKind as CHANGEKIND, byval pTInfoBefore as ITypeInfo ptr, byval pStrName as LPOLESTR, byval pfCancel as INT_ ptr) as HRESULT
+	RequestTypeChange as function(byval This as ITypeChangeEvents ptr, byval changeKind as CHANGEKIND, byval pTInfoBefore as ITypeInfo ptr, byval pStrName as LPOLESTR, byval pfCancel as INT ptr) as HRESULT
 	AfterTypeChange as function(byval This as ITypeChangeEvents ptr, byval changeKind as CHANGEKIND, byval pTInfoAfter as ITypeInfo ptr, byval pStrName as LPOLESTR) as HRESULT
 end type
 
@@ -1367,12 +1373,14 @@ type ITypeChangeEvents_
 	lpVtbl as ITypeChangeEventsVtbl ptr
 end type
 
-declare function ITypeChangeEvents_RequestTypeChange_Proxy(byval This as ITypeChangeEvents ptr, byval changeKind as CHANGEKIND, byval pTInfoBefore as ITypeInfo ptr, byval pStrName as LPOLESTR, byval pfCancel as INT_ ptr) as HRESULT
+declare function ITypeChangeEvents_RequestTypeChange_Proxy(byval This as ITypeChangeEvents ptr, byval changeKind as CHANGEKIND, byval pTInfoBefore as ITypeInfo ptr, byval pStrName as LPOLESTR, byval pfCancel as INT ptr) as HRESULT
 declare sub ITypeChangeEvents_RequestTypeChange_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function ITypeChangeEvents_AfterTypeChange_Proxy(byval This as ITypeChangeEvents ptr, byval changeKind as CHANGEKIND, byval pTInfoAfter as ITypeInfo ptr, byval pStrName as LPOLESTR) as HRESULT
 declare sub ITypeChangeEvents_AfterTypeChange_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 
 #define __IErrorInfo_INTERFACE_DEFINED__
+
+type IErrorInfo as IErrorInfo_
 
 type LPERRORINFO as IErrorInfo ptr
 
@@ -1406,6 +1414,8 @@ declare sub IErrorInfo_GetHelpContext_Stub(byval This as IRpcStubBuffer ptr, byv
 
 #define __ICreateErrorInfo_INTERFACE_DEFINED__
 
+type ICreateErrorInfo as ICreateErrorInfo_
+
 type LPCREATEERRORINFO as ICreateErrorInfo ptr
 
 extern IID_ICreateErrorInfo as const GUID
@@ -1438,6 +1448,8 @@ declare sub ICreateErrorInfo_SetHelpContext_Stub(byval This as IRpcStubBuffer pt
 
 #define __ISupportErrorInfo_INTERFACE_DEFINED__
 
+type ISupportErrorInfo as ISupportErrorInfo_
+
 type LPSUPPORTERRORINFO as ISupportErrorInfo ptr
 
 extern IID_ISupportErrorInfo as const GUID
@@ -1460,6 +1472,8 @@ declare sub ISupportErrorInfo_InterfaceSupportsErrorInfo_Stub(byval This as IRpc
 
 extern IID_ITypeFactory as const GUID
 
+type ITypeFactory as ITypeFactory_
+
 type ITypeFactoryVtbl
 	QueryInterface as function(byval This as ITypeFactory ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as ITypeFactory ptr) as ULONG
@@ -1477,6 +1491,8 @@ declare sub ITypeFactory_CreateFromTypeInfo_Stub(byval This as IRpcStubBuffer pt
 #define __ITypeMarshal_INTERFACE_DEFINED__
 
 extern IID_ITypeMarshal as const GUID
+
+type ITypeMarshal as ITypeMarshal_
 
 type ITypeMarshalVtbl
 	QueryInterface as function(byval This as ITypeMarshal ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -1568,6 +1584,8 @@ declare sub IRecordInfo_RecordDestroy_Stub(byval This as IRpcStubBuffer ptr, byv
 
 #define __IErrorLog_INTERFACE_DEFINED__
 
+type IErrorLog as IErrorLog_
+
 type LPERRORLOG as IErrorLog ptr
 
 extern IID_IErrorLog as const GUID
@@ -1587,6 +1605,8 @@ declare function IErrorLog_AddError_Proxy(byval This as IErrorLog ptr, byval psz
 declare sub IErrorLog_AddError_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 
 #define __IPropertyBag_INTERFACE_DEFINED__
+
+type IPropertyBag as IPropertyBag_
 
 type LPPROPERTYBAG as IPropertyBag ptr
 

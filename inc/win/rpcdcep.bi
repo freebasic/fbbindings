@@ -152,7 +152,7 @@ declare sub I_RpcRequestMutex(byval Mutex as I_RPC_MUTEX ptr)
 declare sub I_RpcClearMutex(byval Mutex as I_RPC_MUTEX)
 declare sub I_RpcDeleteMutex(byval Mutex as I_RPC_MUTEX)
 declare function I_RpcAllocate(byval Size as ulong) as any ptr
-declare sub I_RpcFree(byval Object_ as any ptr)
+declare sub I_RpcFree(byval Object as any ptr)
 declare sub I_RpcPauseExecution(byval Milliseconds as ulong)
 declare function I_RpcGetExtendedError() as RPC_STATUS
 
@@ -187,7 +187,7 @@ declare function I_RpcServerCheckClientRestriction(byval Context as RPC_BINDING_
 #define TRANSPORT_TYPE_LPC &h04
 #define TRANSPORT_TYPE_WMSG &h08
 
-declare function I_RpcBindingInqTransportType(byval Binding as RPC_BINDING_HANDLE, byval Type_ as ulong ptr) as RPC_STATUS
+declare function I_RpcBindingInqTransportType(byval Binding as RPC_BINDING_HANDLE, byval Type as ulong ptr) as RPC_STATUS
 
 type _RPC_TRANSFER_SYNTAX
 	Uuid as UUID
@@ -220,7 +220,7 @@ declare function I_RpcConnectionSetSockBuffSize(byval RecvBuffSize as ulong, byv
 type RPCLT_PDU_FILTER_FUNC as sub cdecl(byval Buffer as any ptr, byval BufferLength as ulong, byval fDatagram as long)
 type RPC_SETFILTER_FUNC as sub cdecl(byval pfnFilter as RPCLT_PDU_FILTER_FUNC)
 
-declare function I_RpcServerInqTransportType(byval Type_ as ulong ptr) as RPC_STATUS
+declare function I_RpcServerInqTransportType(byval Type as ulong ptr) as RPC_STATUS
 declare function I_RpcMapWin32Status(byval Status as RPC_STATUS) as long
 
 type _RPC_C_OPT_METADATA_DESCRIPTOR

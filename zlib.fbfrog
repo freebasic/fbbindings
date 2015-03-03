@@ -10,5 +10,3 @@
 -removedefine ZEXPORT
 -removedefine ZEXPORTVA
 -removedefine FAR
-
--reservedid OPAQUE

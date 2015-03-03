@@ -1,6 +1,6 @@
 FBFROG := fbfrog
 
-ALL := allegro4 allegro4-algif allegro4-alpng allegro5
+ALL := allegro4 allegro5
 ALL += cgui clang cunit curl
 ALL += fastcgi ffi
 ALL += iup
@@ -19,23 +19,10 @@ clean:
 
 ALLEGRO4_VERSION := 4.4.2
 ALLEGRO4_TITLE := allegro-$(ALLEGRO4_VERSION)
-allegro4-extract:
-	./downloadextract.sh $(ALLEGRO4_TITLE) $(ALLEGRO4_TITLE).tar.gz "http://cdn.allegro.cc/file/library/allegro/$(ALLEGRO4_VERSION)/$(ALLEGRO4_TITLE).tar.gz"
-allegro4: allegro4-extract
-	$(FBFROG) allegro4.fbfrog -o inc/allegro.bi \
-		extracted/$(ALLEGRO4_TITLE)/include/allegro.h \
-		-incdir extracted/$(ALLEGRO4_TITLE)/include
-
-allegro4-algif: allegro4-extract
-	./downloadextract.sh algif_1.3 algif_1.3.zip "http://prdownloads.sourceforge.net/algif/algif_1.3.zip?download"
-	mkdir -p inc/allegro
-	$(FBFROG) allegro4.fbfrog \
-		-incdir extracted/$(ALLEGRO4_TITLE)/include \
-		extracted/algif_1.3/src/algif.h \
-		-o inc/allegro/algif.bi -filterout '*'
-
 ALPNG_TARBALL := tarballs/alpng13.tar.gz
-allegro4-alpng: allegro4-extract
+allegro4:
+	./downloadextract.sh $(ALLEGRO4_TITLE) $(ALLEGRO4_TITLE).tar.gz "http://cdn.allegro.cc/file/library/allegro/$(ALLEGRO4_VERSION)/$(ALLEGRO4_TITLE).tar.gz"
+	./downloadextract.sh algif_1.3 algif_1.3.zip "http://prdownloads.sourceforge.net/algif/algif_1.3.zip?download"
 	if [ ! -f "$(ALPNG_TARBALL)" ]; then \
 		wget --no-verbose "http://sourceforge.net/projects/alpng/files/alpng/1.3/alpng13.tar.gz/download" -O "$(ALPNG_TARBALL)"; \
 	fi
@@ -43,31 +30,49 @@ allegro4-alpng: allegro4-extract
 		mkdir -p extracted/alpng13; \
 		tar xf "$(ALPNG_TARBALL)" -C extracted/alpng13; \
 	fi
+
 	mkdir -p inc/allegro
+
 	$(FBFROG) allegro4.fbfrog \
 		-incdir extracted/$(ALLEGRO4_TITLE)/include \
-		-include allegro.h \
+		extracted/$(ALLEGRO4_TITLE)/include/allegro.h \
+		extracted/algif_1.3/src/algif.h \
 		extracted/alpng13/src/alpng.h \
-		-o inc/allegro/alpng.bi -filterout '*'
+		-emit '*/algif.h' inc/allegro/algif.bi \
+		-emit '*/alpng.h' inc/allegro/alpng.bi \
+		-emit '*'         inc/allegro.bi
 
 ALLEGRO5_VERSION := 5.0.10
 ALLEGRO5_TITLE := allegro-$(ALLEGRO5_VERSION)
-ALLEGRO5_OPTIONS := allegro5.fbfrog -incdir extracted/$(ALLEGRO5_TITLE)/include -o inc/allegro5/
-ALLEGRO5_ADDON_OPTIONS := $(ALLEGRO5_OPTIONS) -filterout '*'
 allegro5:
 	./downloadextract.sh $(ALLEGRO5_TITLE) $(ALLEGRO5_TITLE).tar.gz "http://cdn.allegro.cc/file/library/allegro/$(ALLEGRO5_VERSION)/$(ALLEGRO5_TITLE).tar.gz"
 	mkdir -p inc/allegro5
-	$(FBFROG) $(ALLEGRO5_OPTIONS) extracted/$(ALLEGRO5_TITLE)/include/allegro5/allegro.h
-	$(FBFROG) $(ALLEGRO5_ADDON_OPTIONS) extracted/$(ALLEGRO5_TITLE)/addons/acodec/allegro5/allegro_acodec.h
-	$(FBFROG) $(ALLEGRO5_ADDON_OPTIONS) extracted/$(ALLEGRO5_TITLE)/addons/audio/allegro5/allegro_audio.h
-	$(FBFROG) $(ALLEGRO5_ADDON_OPTIONS) extracted/$(ALLEGRO5_TITLE)/addons/color/allegro5/allegro_color.h
-	$(FBFROG) $(ALLEGRO5_ADDON_OPTIONS) extracted/$(ALLEGRO5_TITLE)/addons/font/allegro5/allegro_font.h
-	$(FBFROG) $(ALLEGRO5_ADDON_OPTIONS) extracted/$(ALLEGRO5_TITLE)/addons/image/allegro5/allegro_image.h -include allegro5/allegro.h
-	$(FBFROG) $(ALLEGRO5_ADDON_OPTIONS) extracted/$(ALLEGRO5_TITLE)/addons/memfile/allegro5/allegro_memfile.h
-	$(FBFROG) $(ALLEGRO5_ADDON_OPTIONS) extracted/$(ALLEGRO5_TITLE)/addons/native_dialog/allegro5/allegro_native_dialog.h
-	$(FBFROG) $(ALLEGRO5_ADDON_OPTIONS) extracted/$(ALLEGRO5_TITLE)/addons/physfs/allegro5/allegro_physfs.h
-	$(FBFROG) $(ALLEGRO5_ADDON_OPTIONS) extracted/$(ALLEGRO5_TITLE)/addons/primitives/allegro5/allegro_primitives.h
-	$(FBFROG) $(ALLEGRO5_ADDON_OPTIONS) extracted/$(ALLEGRO5_TITLE)/addons/ttf/allegro5/allegro_ttf.h
+	$(FBFROG) allegro5.fbfrog \
+		-incdir extracted/$(ALLEGRO5_TITLE)/include \
+		-incdir extracted/$(ALLEGRO5_TITLE)/addons/audio \
+		-incdir extracted/$(ALLEGRO5_TITLE)/addons/font \
+		extracted/$(ALLEGRO5_TITLE)/include/allegro5/allegro.h \
+		extracted/$(ALLEGRO5_TITLE)/addons/acodec/allegro5/allegro_acodec.h \
+		extracted/$(ALLEGRO5_TITLE)/addons/audio/allegro5/allegro_audio.h \
+		extracted/$(ALLEGRO5_TITLE)/addons/color/allegro5/allegro_color.h \
+		extracted/$(ALLEGRO5_TITLE)/addons/font/allegro5/allegro_font.h \
+		extracted/$(ALLEGRO5_TITLE)/addons/image/allegro5/allegro_image.h \
+		extracted/$(ALLEGRO5_TITLE)/addons/memfile/allegro5/allegro_memfile.h \
+		extracted/$(ALLEGRO5_TITLE)/addons/native_dialog/allegro5/allegro_native_dialog.h \
+		extracted/$(ALLEGRO5_TITLE)/addons/physfs/allegro5/allegro_physfs.h \
+		extracted/$(ALLEGRO5_TITLE)/addons/primitives/allegro5/allegro_primitives.h \
+		extracted/$(ALLEGRO5_TITLE)/addons/ttf/allegro5/allegro_ttf.h \
+		-emit '*/allegro_acodec.h'        inc/allegro5/allegro_acodec.bi \
+		-emit '*/allegro_audio.h'         inc/allegro5/allegro_audio.bi \
+		-emit '*/allegro_color.h'         inc/allegro5/allegro_color.bi \
+		-emit '*/allegro_font.h'          inc/allegro5/allegro_font.bi \
+		-emit '*/allegro_image.h'         inc/allegro5/allegro_image.bi \
+		-emit '*/allegro_memfile.h'       inc/allegro5/allegro_memfile.bi \
+		-emit '*/allegro_native_dialog.h' inc/allegro5/allegro_native_dialog.bi \
+		-emit '*/allegro_physfs.h'        inc/allegro5/allegro_physfs.bi \
+		-emit '*/allegro_primitives.h'    inc/allegro5/allegro_primitives.bi \
+		-emit '*/allegro_ttf.h'           inc/allegro5/allegro_ttf.bi \
+		-emit '*'                         inc/allegro5/allegro.bi
 
 cgui:
 	./downloadextract.sh cgui cgui-2.0.3.tar.gz "http://sourceforge.net/projects/cgui/files/2.0.3/cgui-2.0.3.tar.gz/download"
@@ -90,21 +95,31 @@ cunit:
 	cd extracted/$(CUNIT_TITLE)/CUnit/Headers && \
 		sed -e 's/@VERSION@-@RELEASE@/$(CUNIT_VERSION)/g' < CUnit.h.in > CUnit.h
 	mkdir -p inc/CUnit
-	$(FBFROG) cunit.fbfrog -filterout '*' -o inc/CUnit/Automated.bi extracted/$(CUNIT_TITLE)/CUnit/Headers/Automated.h
-	$(FBFROG) cunit.fbfrog -filterout '*' -o inc/CUnit/Basic.bi     extracted/$(CUNIT_TITLE)/CUnit/Headers/Basic.h
-	$(FBFROG) cunit.fbfrog -filterout '*' -o inc/CUnit/Console.bi   extracted/$(CUNIT_TITLE)/CUnit/Headers/Console.h
-	$(FBFROG) cunit.fbfrog -filterout '*' -o inc/CUnit/CUCurses.bi  extracted/$(CUNIT_TITLE)/CUnit/Headers/CUCurses.h
-	$(FBFROG) cunit.fbfrog -filterout '*' -o inc/CUnit/CUError.bi   extracted/$(CUNIT_TITLE)/CUnit/Headers/CUError.h
-	$(FBFROG) cunit.fbfrog -filterout '*' -o inc/CUnit/CUnit.bi     extracted/$(CUNIT_TITLE)/CUnit/Headers/CUnit.h
-	$(FBFROG) cunit.fbfrog -filterout '*' -o inc/CUnit/TestDB.bi    extracted/$(CUNIT_TITLE)/CUnit/Headers/TestDB.h
-	$(FBFROG) cunit.fbfrog -filterout '*' -o inc/CUnit/TestRun.bi   extracted/$(CUNIT_TITLE)/CUnit/Headers/TestRun.h
-	$(FBFROG) cunit.fbfrog -filterout '*' -o inc/CUnit/Util.bi      extracted/$(CUNIT_TITLE)/CUnit/Headers/Util.h
-
+	$(FBFROG) cunit.fbfrog \
+		extracted/$(CUNIT_TITLE)/CUnit/Headers/CUnit.h \
+		extracted/$(CUNIT_TITLE)/CUnit/Headers/Automated.h \
+		extracted/$(CUNIT_TITLE)/CUnit/Headers/Basic.h \
+		extracted/$(CUNIT_TITLE)/CUnit/Headers/Console.h \
+		extracted/$(CUNIT_TITLE)/CUnit/Headers/CUCurses.h \
+		extracted/$(CUNIT_TITLE)/CUnit/Headers/Util.h \
+		-emit '*/Automated.h' inc/CUnit/Automated.bi		\
+		-emit '*/Basic.h'     inc/CUnit/Basic.bi		\
+		-emit '*/Console.h'   inc/CUnit/Console.bi		\
+		-emit '*/CUCurses.h'  inc/CUnit/CUCurses.bi		\
+		-emit '*/CUError.h'   inc/CUnit/CUError.bi		\
+		-emit '*/CUnit.h'     inc/CUnit/CUnit.bi		\
+		-emit '*/TestDB.h'    inc/CUnit/TestDB.bi		\
+		-emit '*/TestRun.h'   inc/CUnit/TestRun.bi		\
+		-emit '*/Util.h'      inc/CUnit/Util.bi
 
 CURL_TITLE := curl-7.39.0
 curl:
 	./downloadextract.sh $(CURL_TITLE) $(CURL_TITLE).tar.lzma "http://curl.haxx.se/download/$(CURL_TITLE).tar.lzma"
-	$(FBFROG) -o inc/curl.bi extracted/$(CURL_TITLE)/include/curl/curl.h \
+	$(FBFROG) \
+		extracted/$(CURL_TITLE)/include/curl/curl.h \
+		-dontemit '*/typecheck-gcc.h' \
+		-emit '*' inc/curl.bi \
+		\
 		-removedefine CINIT \
 		-removedefine CURL_EXTERN \
 		\
@@ -120,17 +135,19 @@ curl:
 		-removedefine curl_easy_setopt \
 		-removedefine curl_easy_getinfo \
 		-removedefine curl_share_setopt \
-		-removedefine curl_multi_setopt \
-		\
-		-filterout '*typecheck-gcc.h'
+		-removedefine curl_multi_setopt
 
 FASTCGI_TITLE := fcgi-2.4.1-SNAP-0311112127
 fastcgi:
 	./downloadextract.sh $(FASTCGI_TITLE) $(FASTCGI_TITLE).tar.gz "http://www.fastcgi.com/dist/fcgi.tar.gz"
 	mkdir -p inc/fastcgi
-	$(FBFROG) fastcgi.fbfrog -o inc/fastcgi/fastcgi.bi extracted/$(FASTCGI_TITLE)/include/fastcgi.h
-	$(FBFROG) fastcgi.fbfrog -o inc/fastcgi/fcgiapp.bi extracted/$(FASTCGI_TITLE)/include/fcgiapp.h
-	$(FBFROG) fastcgi.fbfrog -o inc/fastcgi/fcgi_stdio.bi extracted/$(FASTCGI_TITLE)/include/fcgi_stdio.h -filterout '*/fcgiapp.h'
+	$(FBFROG) fastcgi.fbfrog \
+		extracted/$(FASTCGI_TITLE)/include/fastcgi.h \
+		extracted/$(FASTCGI_TITLE)/include/fcgiapp.h \
+		extracted/$(FASTCGI_TITLE)/include/fcgi_stdio.h \
+		-emit '*/fastcgi.h'    inc/fastcgi/fastcgi.bi \
+		-emit '*/fcgiapp.h'    inc/fastcgi/fcgiapp.bi \
+		-emit '*/fcgi_stdio.h' inc/fastcgi/fcgi_stdio.bi
 
 FFI_TITLE := libffi-3.1
 ffi:
@@ -163,48 +180,55 @@ iup:
 	./downloadextract.sh iup $(IUP_TITLE).tar.gz "http://sourceforge.net/projects/iup/files/$(IUP_VERSION)/Docs%20and%20Sources/$(IUP_TITLE).tar.gz/download"
 	find extracted/iup/ -type d -exec chmod +x '{}' ';'
 	mkdir -p inc/IUP
-	$(FBFROG) -o inc/IUP -filterout '*' extracted/iup/include/iupcb.h
-	$(FBFROG) -o inc/IUP -filterout '*' extracted/iup/include/iupcbox.h
-	$(FBFROG) -o inc/IUP -filterout '*' extracted/iup/include/iupcbs.h
-	$(FBFROG) -o inc/IUP -filterout '*' extracted/iup/include/iupcells.h
-	$(FBFROG) -o inc/IUP -filterout '*' extracted/iup/include/iupcolorbar.h
-	$(FBFROG) -o inc/IUP -filterout '*' extracted/iup/include/iupcontrols.h
-	$(FBFROG) -o inc/IUP -filterout '*' extracted/iup/include/iupdef.h
-	$(FBFROG) -o inc/IUP -filterout '*' extracted/iup/include/iupdial.h
-	$(FBFROG) -o inc/IUP -filterout '*' extracted/iup/include/iupgauge.h
-	$(FBFROG) -o inc/IUP -filterout '*' extracted/iup/include/iupgc.h
-	$(FBFROG) -o inc/IUP -filterout '*' extracted/iup/include/iupgetparam.h
-	$(FBFROG) -o inc/IUP -filterout '*' extracted/iup/include/iupglcontrols.h
-	$(FBFROG) -o inc/IUP -filterout '*' extracted/iup/include/iupgl.h
-	$(FBFROG) -o inc/IUP -filterout '*' extracted/iup/include/iup.h
-	$(FBFROG) -o inc/IUP -filterout '*' extracted/iup/include/iupim.h		iupim.fbfrog
-	$(FBFROG) -o inc/IUP -filterout '*' extracted/iup/include/iupkey.h
-	$(FBFROG) -o inc/IUP -filterout '*' extracted/iup/include/iupluacontrols.h	iuplua.fbfrog
-	$(FBFROG) -o inc/IUP -filterout '*' extracted/iup/include/iupluaglcontrols.h	iuplua.fbfrog
-	$(FBFROG) -o inc/IUP -filterout '*' extracted/iup/include/iupluagl.h		iuplua.fbfrog
-	$(FBFROG) -o inc/IUP -filterout '*' extracted/iup/include/iuplua.h		iuplua.fbfrog
-	$(FBFROG) -o inc/IUP -filterout '*' extracted/iup/include/iupluaim.h		iuplua.fbfrog
-	$(FBFROG) -o inc/IUP -filterout '*' extracted/iup/include/iupluamatrixex.h	iuplua.fbfrog
-	$(FBFROG) -o inc/IUP -filterout '*' extracted/iup/include/iuplua_mglplot.h	iuplua.fbfrog
-	$(FBFROG) -o inc/IUP -filterout '*' extracted/iup/include/iupluaole.h		iuplua.fbfrog
-	$(FBFROG) -o inc/IUP -filterout '*' extracted/iup/include/iuplua_pplot.h	iuplua.fbfrog
-	$(FBFROG) -o inc/IUP -filterout '*' extracted/iup/include/iuplua_scintilla.h	iuplua.fbfrog iupscintilla.fbfrog
-	$(FBFROG) -o inc/IUP -filterout '*' extracted/iup/include/iupluatuio.h		iuplua.fbfrog
-	$(FBFROG) -o inc/IUP -filterout '*' extracted/iup/include/iupluaweb.h		iuplua.fbfrog
-	$(FBFROG) -o inc/IUP -filterout '*' extracted/iup/include/iupmask.h
-	$(FBFROG) -o inc/IUP -filterout '*' extracted/iup/include/iupmatrixex.h
-	$(FBFROG) -o inc/IUP -filterout '*' extracted/iup/include/iupmatrix.h
-	$(FBFROG) -o inc/IUP -filterout '*' extracted/iup/include/iup_mglplot.h
-	$(FBFROG) -o inc/IUP -filterout '*' extracted/iup/include/iupole.h
-	$(FBFROG) -o inc/IUP -filterout '*' extracted/iup/include/iup_pplot.h
-	$(FBFROG) -o inc/IUP -filterout '*' extracted/iup/include/iupsbox.h
-	$(FBFROG) -o inc/IUP -filterout '*' extracted/iup/include/iup_scintilla.h	iupscintilla.fbfrog
-	$(FBFROG) -o inc/IUP -filterout '*' extracted/iup/include/iupspin.h
-	$(FBFROG) -o inc/IUP -filterout '*' extracted/iup/include/iuptabs.h
-	$(FBFROG) -o inc/IUP -filterout '*' extracted/iup/include/iuptree.h
-	$(FBFROG) -o inc/IUP -filterout '*' extracted/iup/include/iuptuio.h
-	$(FBFROG) -o inc/IUP -filterout '*' extracted/iup/include/iupval.h
-	$(FBFROG) -o inc/IUP -filterout '*' extracted/iup/include/iupweb.h
+
+	$(FBFROG) \
+		extracted/iup/include/*.h \
+		-emit '*/iupcb.h'            inc/IUP/iupcb.bi            \
+		-emit '*/iupcbox.h'          inc/IUP/iupcbox.bi          \
+		-emit '*/iupcbs.h'           inc/IUP/iupcbs.bi           \
+		-emit '*/iupcells.h'         inc/IUP/iupcells.bi         \
+		-emit '*/iupcolorbar.h'      inc/IUP/iupcolorbar.bi      \
+		-emit '*/iupcontrols.h'      inc/IUP/iupcontrols.bi      \
+		-emit '*/iupdef.h'           inc/IUP/iupdef.bi           \
+		-emit '*/iupdial.h'          inc/IUP/iupdial.bi          \
+		-emit '*/iupgauge.h'         inc/IUP/iupgauge.bi         \
+		-emit '*/iupgc.h'            inc/IUP/iupgc.bi            \
+		-emit '*/iupgetparam.h'      inc/IUP/iupgetparam.bi      \
+		-emit '*/iupglcontrols.h'    inc/IUP/iupglcontrols.bi    \
+		-emit '*/iupgl.h'            inc/IUP/iupgl.bi            \
+		-emit '*/iup.h'              inc/IUP/iup.bi              \
+		-emit '*/iupkey.h'           inc/IUP/iupkey.bi           \
+		-emit '*/iupmask.h'          inc/IUP/iupmask.bi          \
+		-emit '*/iupmatrixex.h'      inc/IUP/iupmatrixex.bi      \
+		-emit '*/iupmatrix.h'        inc/IUP/iupmatrix.bi        \
+		-emit '*/iup_mglplot.h'      inc/IUP/iup_mglplot.bi      \
+		-emit '*/iupole.h'           inc/IUP/iupole.bi           \
+		-emit '*/iup_pplot.h'        inc/IUP/iup_pplot.bi        \
+		-emit '*/iupsbox.h'          inc/IUP/iupsbox.bi          \
+		-emit '*/iupspin.h'          inc/IUP/iupspin.bi          \
+		-emit '*/iuptabs.h'          inc/IUP/iuptabs.bi          \
+		-emit '*/iuptree.h'          inc/IUP/iuptree.bi          \
+		-emit '*/iuptuio.h'          inc/IUP/iuptuio.bi          \
+		-emit '*/iupval.h'           inc/IUP/iupval.bi           \
+		-emit '*/iupweb.h'           inc/IUP/iupweb.bi
+
+	$(FBFROG) iupim.fbfrog extracted/iup/include/iupim.h -o inc/IUP
+
+	$(FBFROG) iuplua.fbfrog iupscintilla.fbfrog \
+		extracted/iup/include/*.h \
+		-emit '*/iupluacontrols.h'   inc/IUP/iupluacontrols.bi   \
+		-emit '*/iupluaglcontrols.h' inc/IUP/iupluaglcontrols.bi \
+		-emit '*/iupluagl.h'         inc/IUP/iupluagl.bi         \
+		-emit '*/iuplua.h'           inc/IUP/iuplua.bi           \
+		-emit '*/iupluaim.h'         inc/IUP/iupluaim.bi         \
+		-emit '*/iupluamatrixex.h'   inc/IUP/iupluamatrixex.bi   \
+		-emit '*/iuplua_mglplot.h'   inc/IUP/iuplua_mglplot.bi   \
+		-emit '*/iupluaole.h'        inc/IUP/iupluaole.bi        \
+		-emit '*/iuplua_pplot.h'     inc/IUP/iuplua_pplot.bi     \
+		-emit '*/iuplua_scintilla.h' inc/IUP/iuplua_scintilla.bi \
+		-emit '*/iupluatuio.h'       inc/IUP/iupluatuio.bi       \
+		-emit '*/iupluaweb.h'        inc/IUP/iupluaweb.bi        \
+		-emit '*/iup_scintilla.h'    inc/IUP/iup_scintilla.bi
 
 JIT_TITLE := libjit-a8293e141b79c28734a3633a81a43f92f29fc2d7
 jit:
@@ -273,9 +297,14 @@ LUA_TITLE := lua-5.2.3
 lua:
 	./downloadextract.sh $(LUA_TITLE) $(LUA_TITLE).tar.gz "http://www.lua.org/ftp/$(LUA_TITLE).tar.gz"
 	mkdir -p inc/Lua
-	$(FBFROG) lua.fbfrog -o inc/Lua/lua.bi     extracted/$(LUA_TITLE)/src/lua.h
-	$(FBFROG) lua.fbfrog -o inc/Lua/lualib.bi  extracted/$(LUA_TITLE)/src/lualib.h  -filterout '*'
-	$(FBFROG) lua.fbfrog -o inc/Lua/lauxlib.bi extracted/$(LUA_TITLE)/src/lauxlib.h -filterout '*'
+	$(FBFROG) lua.fbfrog \
+		extracted/$(LUA_TITLE)/src/lua.h       \
+		extracted/$(LUA_TITLE)/src/lualib.h    \
+		extracted/$(LUA_TITLE)/src/lauxlib.h   \
+		-emit '*/lua.h'     inc/Lua/lua.bi     \
+		-emit '*/luaconf.h' inc/Lua/lua.bi     \
+		-emit '*/lualib.h'  inc/Lua/lualib.bi  \
+		-emit '*/lauxlib.h' inc/Lua/lauxlib.bi
 
 NCURSES_TITLE := ncurses-5.9
 ncurses:
@@ -374,6 +403,15 @@ png16:
 #    #include "win/winsock.bi"
 #    (legacy way of using winsock)
 #
+# mswsock.h has some declarations that also exist in winsock.h, and MinGW-w64's
+# winsock #defines __MSWSOCK_WS1_SHARED, which mswsock.h checks for to prevent
+# conflicts. This assumes that winsock is #included first, which could perhaps
+# happen if windows.h is included first. However, according to MSDN, mswsock is
+# a winsock2, not winsock, extension, and MinGW-w64's mswsock.h itself #includes
+# winsock2. Since our windows.bi won't default to winsock, it looks like we can
+# just have a pure winsock2-only mswsock.bi. Thus we have #include winsock2.h
+# instead of windows.h for the translation.
+#
 # Global #defines causing accidental renames in the C headers
 #
 #   On one hand we have #defines like this:
@@ -401,7 +439,7 @@ png16:
 #
 # INT typedef
 #
-#   INT is traditionally renamed to INT_ to avoit conflict with FB's int() function.
+#   INT is traditionally renamed to INT_ to avoid conflict with FB's int() function.
 #
 # Uses of C's long type
 #
@@ -411,7 +449,11 @@ png16:
 #
 
 MINGWW64_TITLE := mingw-w64-v3.3.0
-winapi-extract:
+WINAPI_FLAGS := winapi.fbfrog
+WINAPI_FLAGS += -incdir extracted/$(MINGWW64_TITLE)/mingw-w64-headers/crt
+WINAPI_FLAGS += -incdir extracted/$(MINGWW64_TITLE)/mingw-w64-headers/include
+WINAPI_FLAGS += -incdir extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include
+winapi:
 	./downloadextract.sh $(MINGWW64_TITLE) $(MINGWW64_TITLE).tar.bz2 "http://sourceforge.net/projects/mingw-w64/files/mingw-w64/mingw-w64-release/$(MINGWW64_TITLE).tar.bz2/download"
 	cd extracted/$(MINGWW64_TITLE)/mingw-w64-headers/crt && \
 		sed -e 's/@MINGW_HAS_SECURE_API@/#define MINGW_HAS_SECURE_API 1/g' < _mingw.h.in > _mingw.h && \
@@ -419,152 +461,60 @@ winapi-extract:
 		sed -e 's/MINGW_HAS_DDK$$/1/g' < sdks/_mingw_ddk.h.in > sdks/_mingw_ddk.h
 	mkdir -p inc/win
 
-WINAPI_FLAGS := winapi.fbfrog -o inc/win/
-WINAPI_FLAGS += -incdir extracted/$(MINGWW64_TITLE)/mingw-w64-headers/crt/
-WINAPI_FLAGS += -incdir extracted/$(MINGWW64_TITLE)/mingw-w64-headers/include/
-WINAPI_FLAGS += -incdir extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include
-WINAPI_FLAGS += -filterout '*'
-WINAPI_FLAGS += -filterin '*pshpack*.h'
-WINAPI_FLAGS += -filterin '*poppack.h'
+	# Main pass - winsock2.h, windows.h, Direct3D/DirectX 9
+	# winsock2.h has to be #included before windows.h in order to override
+	# winsock.h.
+	$(FBFROG) $(WINAPI_FLAGS) winapi-main.fbfrog
 
-# winapi.mk lists all the headers we want to translate
-include winapi.mk
+	# Direct3D 7 (?) pass
+	$(FBFROG) $(WINAPI_FLAGS) \
+		-include d3d.h \
+		-emit '*/d3d.h'      inc/win/d3d.bi     \
+		-emit '*/d3dcaps.h'  inc/win/d3dcaps.bi \
+		-emit '*/d3dtypes.h' inc/win/d3dtypes.bi
 
-# Add default options for most headers
-define add-default-winapi-flags
-  WINAPI_FLAGS_$(1) := -include windows.h -filterin '*/$(1).h'
+	# CRT intrin.h pass (separate because of -nofunctionbodies)
+	$(FBFROG) $(WINAPI_FLAGS) -nofunctionbodies \
+		-include windows.h \
+		-emit '*/intrin.h'               inc/win/intrin.bi \
+		-emit '*/psdk_inc/intrin-impl.h' inc/win/intrin.bi
 
-endef
-$(eval $(foreach i,$(WINAPI_BASE),$(call add-default-winapi-flags,$(i))))
-$(eval $(foreach i,$(WINAPI_DIRECTX),$(call add-default-winapi-flags,$(i))))
-$(eval $(foreach i,$(WINAPI_CRT),$(call add-default-winapi-flags,$(i))))
+	# winsock.h pass (separate because it can't be used together with
+	# winsock2.h)
+	$(FBFROG) $(WINAPI_FLAGS) \
+		-include windows.h \
+		-emit '*/winsock.h'                inc/win/winsock.bi \
+		-emit '*/psdk_inc/_socket_types.h' inc/win/winsock.bi \
+		-emit '*/psdk_inc/_fd_types.h'     inc/win/winsock.bi \
+		-emit '*/psdk_inc/_ip_types.h'     inc/win/winsock.bi \
+		-emit '*/psdk_inc/_ip_mreq1.h'     inc/win/winsock.bi \
+		-emit '*/psdk_inc/_wsadata.h'      inc/win/winsock.bi \
+		-emit '*/psdk_inc/_xmitfile.h'     inc/win/winsock.bi \
+		-emit '*/psdk_inc/_wsa_errnos.h'   inc/win/winsock.bi
 
-# Some need to override the defaults though
+	# ole.h pass (separate because it can't be #included with windows.h,
+	# even though windows.h has code to do just that, due to conflicts with
+	# ole2.h)
+	$(FBFROG) $(WINAPI_FLAGS) -define _Analysis_noreturn_ "" \
+		-include windef.h -include ole.h \
+		-emit '*/ole.h' inc/win/ole.bi
 
-# ole.h can't be #included with windows.h (even though windows.h has code to
-# do just that) due to conflicts with ole2.h
-WINAPI_FLAGS_ole := -include windef.h -define _Analysis_noreturn_ ""
-
-# winsock can be translated as part of windows.h, because that's how MinGW-w64
-# provides it anyways. That'll give us a windows.bi-compatible winsock. Even
-# though we'll change windows.bi to not provide winsock (but winsock2 instead,
-# but only under __USE_W32_SOCKETS), we probably don't need to make any
-# adjustments to prevent winsock/winsock2 collision. Since windows.bi doesn't
-# include anything by default, the user has full control.
-
-# winsock2 has to be translated without #including windows.h because MinGW-w64
-# expects winsock2.h to come before windows.h, in order to override winsock.
-# I.e. winsock2 takes care of #including everything it needs itself, and we
-# don't need to bother.
-WINAPI_FLAGS_winsock2 := 
-
-# mswsock.h has some declarations that also exist in winsock.h, and MinGW-w64's
-# winsock #defines __MSWSOCK_WS1_SHARED, which mswsock.h checks for to prevent
-# conflicts. This assumes that winsock is #included first, which could perhaps
-# happen if windows.h is included first. However, according to MSDN, mswsock is
-# a winsock2, not winsock, extension, and MinGW-w64's mswsock.h itself #includes
-# winsock2. Since our windows.bi won't default to winsock, it looks like we can
-# just have a pure winsock2-only mswsock.bi. Thus we have #include winsock2.h
-# instead of windows.h for the translation.
-WINAPI_FLAGS_mswsock := -include winsock2.h
-
-# Additional winsock2-related headers
-WINAPI_FLAGS_mstcpip := -include winsock2.h
-WINAPI_FLAGS_ws2def := -include winsock2.h -filterin '*/ws2def.h'
-WINAPI_FLAGS_ws2ipdef := -include winsock2.h
-WINAPI_FLAGS_ws2spi := -include winsock2.h
-WINAPI_FLAGS_ws2tcpip := -include winsock2.h
-
-# Some headers need additional options
-WINAPI_FLAGS__mingw    += -filterin '*_mingw_mac.h' -filterin '*sdks/_mingw_ddk.h' -filterin '*sdks/_mingw_directx.h'
-WINAPI_FLAGS_gdiplus   += -filterin '*/gdiplus*.h'
-WINAPI_FLAGS_imagehlp  += -filterin '*psdk_inc/_dbg_LOAD_IMAGE.h' -filterin '*psdk_inc/_dbg_common.h'
-WINAPI_FLAGS_intrin    += -filterin '*/psdk_inc/intrin-impl.h' -nofunctionbodies
-WINAPI_FLAGS_msacm     += -include mmreg.h
-WINAPI_FLAGS_mswsock   += -filterin '*/psdk_inc/_xmitfile.h'
-WINAPI_FLAGS_ntsecpkg  += -include sspi.h
-WINAPI_FLAGS_uuids     += -filterin '*ksuuids.h'
-WINAPI_FLAGS_winbase   += \
-	-filterin '*/minwinbase.h' \
-	-filterin '*/bemapiset.h' \
-	-filterin '*/debugapi.h' \
-	-filterin '*/errhandlingapi.h' \
-	-filterin '*/fibersapi.h' \
-	-filterin '*/fileapi.h' \
-	-filterin '*/handleapi.h' \
-	-filterin '*/heapapi.h' \
-	-filterin '*/ioapiset.h' \
-	-filterin '*/interlockedapi.h' \
-	-filterin '*/jobapi.h' \
-	-filterin '*/libloaderapi.h' \
-	-filterin '*/memoryapi.h' \
-	-filterin '*/namedpipeapi.h' \
-	-filterin '*/namespaceapi.h' \
-	-filterin '*/processenv.h' \
-	-filterin '*/processthreadsapi.h' \
-	-filterin '*/processtopologyapi.h' \
-	-filterin '*/profileapi.h' \
-	-filterin '*/realtimeapiset.h' \
-	-filterin '*/securityappcontainer.h' \
-	-filterin '*/securitybaseapi.h' \
-	-filterin '*/synchapi.h' \
-	-filterin '*/sysinfoapi.h' \
-	-filterin '*/systemtopologyapi.h' \
-	-filterin '*/threadpoolapiset.h' \
-	-filterin '*/threadpoollegacyapiset.h' \
-	-filterin '*/utilapiset.h' \
-	-filterin '*/wow64apiset.h' \
-	-filterin '*/timezoneapi.h'
-WINAPI_FLAGS_windef   += -filterin '*/minwindef.h'
-WINAPI_FLAGS_winerror += -filterin '*/fltwinerror.h'
-WINAPI_FLAGS_winnetwk += -filterin '*/wnnc.h'
-WINAPI_FLAGS_winnls   += \
-	-filterin '*/datetimeapi.h' \
-	-filterin '*/stringapiset.h'
-WINAPI_FLAGS_winsock  += \
-	-filterin '*/psdk_inc/_socket_types.h' \
-	-filterin '*/psdk_inc/_fd_types.h' \
-	-filterin '*/psdk_inc/_ip_types.h' \
-	-filterin '*/psdk_inc/_ip_mreq1.h' \
-	-filterin '*/psdk_inc/_wsadata.h' \
-	-filterin '*/psdk_inc/_xmitfile.h' \
-	-filterin '*/psdk_inc/_wsa_errnos.h'
-WINAPI_FLAGS_winsock2 += \
-	-filterin '*/psdk_inc/_socket_types.h' \
-	-filterin '*/psdk_inc/_fd_types.h' \
-	-filterin '*/psdk_inc/_ip_types.h' \
-	-filterin '*/psdk_inc/_wsadata.h' \
-	-filterin '*/psdk_inc/_wsa_errnos.h' \
-	-filterin '*/psdk_inc/_ws1_undef.h'
-WINAPI_FLAGS_winuser  += -filterin '*/tvout.h'
-WINAPI_FLAGS_ws2tcpip += -filterin '*/psdk_inc/_ip_mreq1.h'
-
-WINAPI_PATH_CRT     := extracted/$(MINGWW64_TITLE)/mingw-w64-headers/crt
-WINAPI_PATH_BASE    := extracted/$(MINGWW64_TITLE)/mingw-w64-headers/include
-WINAPI_PATH_DIRECTX := extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include
-WINAPI_PATH_DDK     := $(WINAPI_PATH_BASE)
-
-# Make a winapi-* target for each *.h header. It's too slow to always
-# (re)translate all of them in one go, so this allows updating individual
-# headers. And there are too many headers to list the targets manually...
-define declare-winapi-target
-  winapi: inc/win/$(1).bi
-  inc/win/$(1).bi:
-	$$(FBFROG) $$(WINAPI_FLAGS) $$(WINAPI_FLAGS_$(1)) $$(WINAPI_PATH_$(2))/$(1).h
-
-endef
-$(eval $(foreach i,$(WINAPI_CRT),$(call declare-winapi-target,$(i),CRT)))
-$(eval $(foreach i,$(WINAPI_BASE),$(call declare-winapi-target,$(i),BASE)))
-$(eval $(foreach i,$(WINAPI_DIRECTX),$(call declare-winapi-target,$(i),DIRECTX)))
-$(eval $(foreach i,$(WINAPI_DDK),$(call declare-winapi-target,$(i),DDK)))
-
-winapi: inc/windows.bi
-inc/windows.bi:
-	$(FBFROG) $(WINAPI_FLAGS) -o inc $(WINAPI_PATH_BASE)/windows.h \
+	# windows.h pass to get windows.bi (separate because of the additional
+	# -declarebool that would only slow down the main pass)
+	$(FBFROG) $(WINAPI_FLAGS) \
+		\
 		-declarebool WIN32_LEAN_AND_MEAN \
 		-ifdef WIN32_LEAN_AND_MEAN \
 			-define WIN32_LEAN_AND_MEAN 1 \
-		-endif
+		-endif \
+		\
+		-include windows.h \
+		-emit '*/windows.h' inc/windows.bi
+
+	# DDK pass
+	$(FBFROG) $(WINAPI_FLAGS) \
+		-include ntdef.h \
+		-emit '*/ntdef.h' inc/win/ntdef.bi
 
 
 ################################################################################

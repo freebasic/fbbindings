@@ -30,335 +30,6 @@
 	extern "Windows"
 #endif
 
-type IContextMenu as IContextMenu_
-type IContextMenu2 as IContextMenu2_
-type IContextMenu3 as IContextMenu3_
-type IExecuteCommand as IExecuteCommand_
-type IPersistFolder as IPersistFolder_
-type IRunnableTask as IRunnableTask_
-type IShellTaskScheduler as IShellTaskScheduler_
-type IQueryCodePage as IQueryCodePage_
-type IPersistFolder2 as IPersistFolder2_
-type IPersistFolder3 as IPersistFolder3_
-type IPersistIDList as IPersistIDList_
-type IEnumIDList as IEnumIDList_
-type IEnumFullIDList as IEnumFullIDList_
-
-#if _WIN32_WINNT = &h0602
-	type IObjectWithFolderEnumMode as IObjectWithFolderEnumMode_
-	type IParseAndCreateItem as IParseAndCreateItem_
-#endif
-
-type IShellFolder as IShellFolder_
-type IEnumExtraSearch as IEnumExtraSearch_
-type IShellFolder2 as IShellFolder2_
-type IFolderViewOptions as IFolderViewOptions_
-type IShellView as IShellView_
-type IShellView2 as IShellView2_
-
-#if _WIN32_WINNT = &h0602
-	type IShellView3 as IShellView3_
-#endif
-
-type IFolderView as IFolderView_
-
-#if _WIN32_WINNT = &h0602
-	type ISearchBoxInfo as ISearchBoxInfo_
-	type IFolderView2 as IFolderView2_
-	type IFolderViewSettings as IFolderViewSettings_
-	type IPreviewHandlerVisuals as IPreviewHandlerVisuals_
-	type IVisualProperties as IVisualProperties_
-#endif
-
-type ICommDlgBrowser as ICommDlgBrowser_
-type ICommDlgBrowser2 as ICommDlgBrowser2_
-
-#if _WIN32_WINNT = &h0602
-	type ICommDlgBrowser3 as ICommDlgBrowser3_
-	type IColumnManager as IColumnManager_
-#endif
-
-type IFolderFilterSite as IFolderFilterSite_
-type IFolderFilter as IFolderFilter_
-type IInputObjectSite as IInputObjectSite_
-type IInputObject as IInputObject_
-type IInputObject2 as IInputObject2_
-type IShellIcon as IShellIcon_
-type IShellBrowser as IShellBrowser_
-type IProfferService as IProfferService_
-type IShellItem as IShellItem_
-type IShellItem2 as IShellItem2_
-type IShellItemImageFactory as IShellItemImageFactory_
-type IUserAccountChangeCallback as IUserAccountChangeCallback_
-type IEnumShellItems as IEnumShellItems_
-
-#if (_WIN32_WINNT = &h0400) or (_WIN32_WINNT = &h0502)
-	type ITransferAdviseSink as ITransferAdviseSink_
-#else
-	type ITransferAdviseSink as ITransferAdviseSink_
-	type ITransferSource as ITransferSource_
-#endif
-
-type IEnumResources as IEnumResources_
-type IShellItemResources as IShellItemResources_
-type ITransferDestination as ITransferDestination_
-type IStreamAsync as IStreamAsync_
-type IStreamUnbufferedInfo as IStreamUnbufferedInfo_
-
-#if _WIN32_WINNT = &h0602
-	type IFileOperationProgressSink as IFileOperationProgressSink_
-#endif
-
-type IShellItemArray as IShellItemArray_
-type IInitializeWithItem as IInitializeWithItem_
-type IObjectWithSelection as IObjectWithSelection_
-type IObjectWithBackReferences as IObjectWithBackReferences_
-type IPropertyUI as IPropertyUI_
-type ICategoryProvider as ICategoryProvider_
-type ICategorizer as ICategorizer_
-type IDropTargetHelper as IDropTargetHelper_
-type IDragSourceHelper as IDragSourceHelper_
-
-#if _WIN32_WINNT = &h0602
-	type IDragSourceHelper2 as IDragSourceHelper2_
-#endif
-
-type IShellLinkA as IShellLinkA_
-type IShellLinkW as IShellLinkW_
-type IShellLinkDataList as IShellLinkDataList_
-type IResolveShellLink as IResolveShellLink_
-type IActionProgressDialog as IActionProgressDialog_
-type IHWEventHandler as IHWEventHandler_
-type IHWEventHandler2 as IHWEventHandler2_
-type IQueryCancelAutoPlay as IQueryCancelAutoPlay_
-
-#if _WIN32_WINNT = &h0602
-	type IDynamicHWHandler as IDynamicHWHandler_
-#endif
-
-type IActionProgress as IActionProgress_
-type IShellExtInit as IShellExtInit_
-type IShellPropSheetExt as IShellPropSheetExt_
-type IRemoteComputer as IRemoteComputer_
-type IQueryContinue as IQueryContinue_
-type IObjectWithCancelEvent as IObjectWithCancelEvent_
-type IUserNotification as IUserNotification_
-type IUserNotificationCallback as IUserNotificationCallback_
-type IUserNotification2 as IUserNotification2_
-type IItemNameLimits as IItemNameLimits_
-
-#if _WIN32_WINNT = &h0602
-	type ISearchFolderItemFactory as ISearchFolderItemFactory_
-#endif
-
-type IExtractImage as IExtractImage_
-type IExtractImage2 as IExtractImage2_
-type IThumbnailHandlerFactory as IThumbnailHandlerFactory_
-type IParentAndItem as IParentAndItem_
-type IDockingWindow as IDockingWindow_
-type IDeskBand as IDeskBand_
-
-#if _WIN32_WINNT = &h0602
-	type IDeskBandInfo as IDeskBandInfo_
-	type IDeskBand2 as IDeskBand2_
-#endif
-
-type ITaskbarList as ITaskbarList_
-type ITaskbarList2 as ITaskbarList2_
-type ITaskbarList3 as ITaskbarList3_
-type ITaskbarList4 as ITaskbarList4_
-type IStartMenuPinnedList as IStartMenuPinnedList_
-type ICDBurn as ICDBurn_
-type IWizardSite as IWizardSite_
-type IWizardExtension as IWizardExtension_
-type IWebWizardExtension as IWebWizardExtension_
-type IPublishingWizard as IPublishingWizard_
-type IFolderViewHost as IFolderViewHost_
-
-#if _WIN32_WINNT = &h0602
-	type IExplorerBrowserEvents as IExplorerBrowserEvents_
-	type IExplorerBrowser as IExplorerBrowser_
-	type IAccessibleObject as IAccessibleObject_
-#endif
-
-type IResultsFolder as IResultsFolder_
-
-#if _WIN32_WINNT = &h0602
-	type IEnumObjects as IEnumObjects_
-	type IOperationsProgressDialog as IOperationsProgressDialog_
-	type IIOCancelInformation as IIOCancelInformation_
-	type IFileOperation as IFileOperation_
-	type IObjectProvider as IObjectProvider_
-#endif
-
-type INamespaceWalkCB as INamespaceWalkCB_
-
-#if _WIN32_WINNT = &h0602
-	type INamespaceWalkCB2 as INamespaceWalkCB2_
-#endif
-
-type INamespaceWalk as INamespaceWalk_
-type IAutoCompleteDropDown as IAutoCompleteDropDown_
-type IBandSite as IBandSite_
-type IModalWindow as IModalWindow_
-type ICDBurnExt as ICDBurnExt_
-type IContextMenuSite as IContextMenuSite_
-type IEnumReadyCallback as IEnumReadyCallback_
-type IEnumerableView as IEnumerableView_
-type IInsertItem as IInsertItem_
-type IMenuBand as IMenuBand_
-type IFolderBandPriv as IFolderBandPriv_
-type IRegTreeItem as IRegTreeItem_
-type IImageRecompress as IImageRecompress_
-
-#if (_WIN32_WINNT = &h0502) or (_WIN32_WINNT = &h0602)
-	type IDeskBar as IDeskBar_
-	type IMenuPopup as IMenuPopup_
-#endif
-
-#if _WIN32_WINNT = &h0602
-	type IFileIsInUse as IFileIsInUse_
-	type IFileDialogEvents as IFileDialogEvents_
-	type IFileDialog as IFileDialog_
-	type IFileSaveDialog as IFileSaveDialog_
-	type IFileOpenDialog as IFileOpenDialog_
-	type IFileDialogCustomize as IFileDialogCustomize_
-	type IFileDialogControlEvents as IFileDialogControlEvents_
-	type IFileDialog2 as IFileDialog2_
-	type IApplicationAssociationRegistration as IApplicationAssociationRegistration_
-	type IApplicationAssociationRegistrationUI as IApplicationAssociationRegistrationUI_
-#endif
-
-type IDelegateFolder as IDelegateFolder_
-
-#if (_WIN32_WINNT = &h0502) or (_WIN32_WINNT = &h0602)
-	type IBrowserFrameOptions as IBrowserFrameOptions_
-#endif
-
-#if _WIN32_WINNT = &h0602
-	type INewWindowManager as INewWindowManager_
-	type IAttachmentExecute as IAttachmentExecute_
-#endif
-
-#if (_WIN32_WINNT = &h0502) or (_WIN32_WINNT = &h0602)
-	type IShellMenuCallback as IShellMenuCallback_
-	type IShellMenu as IShellMenu_
-#endif
-
-type IShellRunDll as IShellRunDll_
-
-#if _WIN32_WINNT = &h0602
-	type IKnownFolder as IKnownFolder_
-	type IKnownFolderManager as IKnownFolderManager_
-	type ISharingConfigurationManager as ISharingConfigurationManager_
-#endif
-
-type IPreviousVersionsInfo as IPreviousVersionsInfo_
-
-#if _WIN32_WINNT = &h0602
-	type IRelatedItem as IRelatedItem_
-	type IIdentityName as IIdentityName_
-	type IDelegateItem as IDelegateItem_
-	type ICurrentItem as ICurrentItem_
-	type ITransferMediumItem as ITransferMediumItem_
-	type IUseToBrowseItem as IUseToBrowseItem_
-	type IDisplayItem as IDisplayItem_
-	type IViewStateIdentityItem as IViewStateIdentityItem_
-	type IPreviewItem as IPreviewItem_
-#endif
-
-type IDestinationStreamFactory as IDestinationStreamFactory_
-type INewMenuClient as INewMenuClient_
-
-#if (_WIN32_WINNT = &h0400) or (_WIN32_WINNT = &h0502)
-	type IShellItemFilter as IShellItemFilter_
-#else
-	type IInitializeWithBindCtx as IInitializeWithBindCtx_
-	type IShellItemFilter as IShellItemFilter_
-#endif
-
-type INameSpaceTreeControl as INameSpaceTreeControl_
-type INameSpaceTreeControl2 as INameSpaceTreeControl2_
-type INameSpaceTreeControlEvents as INameSpaceTreeControlEvents_
-type INameSpaceTreeControlDropHandler as INameSpaceTreeControlDropHandler_
-type INameSpaceTreeAccessible as INameSpaceTreeAccessible_
-type INameSpaceTreeControlCustomDraw as INameSpaceTreeControlCustomDraw_
-
-#if _WIN32_WINNT = &h0602
-	type INameSpaceTreeControlFolderCapabilities as INameSpaceTreeControlFolderCapabilities_
-#endif
-
-type IPreviewHandler as IPreviewHandler_
-type IPreviewHandlerFrame as IPreviewHandlerFrame_
-
-#if (_WIN32_WINNT = &h0400) or (_WIN32_WINNT = &h0502)
-	type IContextMenuCB as IContextMenuCB_
-#else
-	type ITrayDeskBand as ITrayDeskBand_
-	type IBandHost as IBandHost_
-	type IExplorerPaneVisibility as IExplorerPaneVisibility_
-	type IContextMenuCB as IContextMenuCB_
-#endif
-
-type IDefaultExtractIconInit as IDefaultExtractIconInit_
-type IExplorerCommand as IExplorerCommand_
-type IExplorerCommandState as IExplorerCommandState_
-type IInitializeCommand as IInitializeCommand_
-type IEnumExplorerCommand as IEnumExplorerCommand_
-type IExplorerCommandProvider as IExplorerCommandProvider_
-type IInitializeNetworkFolder as IInitializeNetworkFolder_
-type IOpenControlPanel as IOpenControlPanel_
-type IComputerInfoChangeNotify as IComputerInfoChangeNotify_
-type IFileSystemBindData as IFileSystemBindData_
-type IFileSystemBindData2 as IFileSystemBindData2_
-
-#if _WIN32_WINNT = &h0602
-	type ICustomDestinationList as ICustomDestinationList_
-	type IApplicationDestinations as IApplicationDestinations_
-	type IApplicationDocumentLists as IApplicationDocumentLists_
-	type IObjectWithAppUserModelID as IObjectWithAppUserModelID_
-	type IObjectWithProgID as IObjectWithProgID_
-	type IUpdateIDList as IUpdateIDList_
-#endif
-
-type IDesktopGadget as IDesktopGadget_
-
-#if _WIN32_WINNT = &h0602
-	type IDesktopWallpaper as IDesktopWallpaper_
-#endif
-
-type IHomeGroup as IHomeGroup_
-type IInitializeWithPropertyStore as IInitializeWithPropertyStore_
-type IOpenSearchSource as IOpenSearchSource_
-type IShellLibrary as IShellLibrary_
-type IPlaybackManagerEvents as IPlaybackManagerEvents_
-type IPlaybackManager as IPlaybackManager_
-type IDefaultFolderMenuInitialize as IDefaultFolderMenuInitialize_
-
-#if _WIN32_WINNT = &h0602
-	type IApplicationActivationManager as IApplicationActivationManager_
-	type IAssocHandlerInvoker as IAssocHandlerInvoker_
-	type IAssocHandler as IAssocHandler_
-	type IEnumAssocHandlers as IEnumAssocHandlers_
-	type IDataObjectProvider as IDataObjectProvider_
-	type IDataTransferManagerInterop as IDataTransferManagerInterop_
-	type IFrameworkInputPaneHandler as IFrameworkInputPaneHandler_
-	type IFrameworkInputPane as IFrameworkInputPane_
-	type ISearchableApplication as ISearchableApplication_
-	type IAccessibilityDockingServiceCallback as IAccessibilityDockingServiceCallback_
-	type IAccessibilityDockingService as IAccessibilityDockingService_
-	type IAppVisibilityEvents as IAppVisibilityEvents_
-	type IAppVisibility as IAppVisibility_
-	type IPackageExecutionStateChangeNotification as IPackageExecutionStateChangeNotification_
-	type IPackageDebugSettings as IPackageDebugSettings_
-	type IExecuteCommandApplicationHostEnvironment as IExecuteCommandApplicationHostEnvironment_
-	type IExecuteCommandHost as IExecuteCommandHost_
-	type IApplicationDesignModeSettings as IApplicationDesignModeSettings_
-	type IInitializeWithWindow as IInitializeWithWindow_
-	type IHandlerInfo as IHandlerInfo_
-	type IHandlerActivationHost as IHandlerActivationHost_
-#endif
-
 #define __shobjidl_h__
 #define __IContextMenu_FWD_DEFINED__
 #define __IContextMenu2_FWD_DEFINED__
@@ -773,9 +444,11 @@ type CMINVOKECOMMANDINFOEX as _CMINVOKECOMMANDINFOEX
 type LPCMINVOKECOMMANDINFOEX as CMINVOKECOMMANDINFOEX ptr
 type PCCMINVOKECOMMANDINFOEX as const CMINVOKECOMMANDINFOEX ptr
 
+#define __IContextMenu_INTERFACE_DEFINED__
+
 extern IID_IContextMenu as const GUID
 
-#define __IContextMenu_INTERFACE_DEFINED__
+type IContextMenu as IContextMenu_
 
 type IContextMenuVtbl
 	QueryInterface as function(byval This as IContextMenu ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -803,6 +476,8 @@ type LPCONTEXTMENU as IContextMenu ptr
 
 extern IID_IContextMenu2 as const GUID
 
+type IContextMenu2 as IContextMenu2_
+
 type IContextMenu2Vtbl
 	QueryInterface as function(byval This as IContextMenu2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IContextMenu2 ptr) as ULONG
@@ -825,6 +500,8 @@ type LPCONTEXTMENU2 as IContextMenu2 ptr
 #define __IContextMenu3_INTERFACE_DEFINED__
 
 extern IID_IContextMenu3 as const GUID
+
+type IContextMenu3 as IContextMenu3_
 
 type IContextMenu3Vtbl
 	QueryInterface as function(byval This as IContextMenu3 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -849,6 +526,8 @@ type LPCONTEXTMENU3 as IContextMenu3 ptr
 #define __IExecuteCommand_INTERFACE_DEFINED__
 
 extern IID_IExecuteCommand as const GUID
+
+type IExecuteCommand as IExecuteCommand_
 
 type IExecuteCommandVtbl
 	QueryInterface as function(byval This as IExecuteCommand ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -886,6 +565,8 @@ declare sub IExecuteCommand_Execute_Stub(byval This as IRpcStubBuffer ptr, byval
 
 extern IID_IPersistFolder as const GUID
 
+type IPersistFolder as IPersistFolder_
+
 type IPersistFolderVtbl
 	QueryInterface as function(byval This as IPersistFolder ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IPersistFolder ptr) as ULONG
@@ -911,6 +592,8 @@ type LPPERSISTFOLDER as IPersistFolder ptr
 #define __IRunnableTask_INTERFACE_DEFINED__
 
 extern IID_IRunnableTask as const GUID
+
+type IRunnableTask as IRunnableTask_
 
 type IRunnableTaskVtbl
 	QueryInterface as function(byval This as IRunnableTask ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -953,6 +636,8 @@ declare sub IRunnableTask_IsRunning_Stub(byval This as IRpcStubBuffer ptr, byval
 
 extern IID_IShellTaskScheduler as const GUID
 
+type IShellTaskScheduler as IShellTaskScheduler_
+
 type IShellTaskSchedulerVtbl
 	QueryInterface as function(byval This as IShellTaskScheduler ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IShellTaskScheduler ptr) as ULONG
@@ -981,6 +666,8 @@ declare sub IShellTaskScheduler_Status_Stub(byval This as IRpcStubBuffer ptr, by
 
 extern IID_IQueryCodePage as const GUID
 
+type IQueryCodePage as IQueryCodePage_
+
 type IQueryCodePageVtbl
 	QueryInterface as function(byval This as IQueryCodePage ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IQueryCodePage ptr) as ULONG
@@ -1001,6 +688,8 @@ declare sub IQueryCodePage_SetCodePage_Stub(byval This as IRpcStubBuffer ptr, by
 #define __IPersistFolder2_INTERFACE_DEFINED__
 
 extern IID_IPersistFolder2 as const GUID
+
+type IPersistFolder2 as IPersistFolder2_
 
 type IPersistFolder2Vtbl
 	QueryInterface as function(byval This as IPersistFolder2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -1030,9 +719,11 @@ end type
 
 type PERSIST_FOLDER_TARGET_INFO as _PERSIST_FOLDER_TARGET_INFO
 
+#define __IPersistFolder3_INTERFACE_DEFINED__
+
 extern IID_IPersistFolder3 as const GUID
 
-#define __IPersistFolder3_INTERFACE_DEFINED__
+type IPersistFolder3 as IPersistFolder3_
 
 type IPersistFolder3Vtbl
 	QueryInterface as function(byval This as IPersistFolder3 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -1058,6 +749,8 @@ declare sub IPersistFolder3_GetFolderTargetInfo_Stub(byval This as IRpcStubBuffe
 
 extern IID_IPersistIDList as const GUID
 
+type IPersistIDList as IPersistIDList_
+
 type IPersistIDListVtbl
 	QueryInterface as function(byval This as IPersistIDList ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IPersistIDList ptr) as ULONG
@@ -1079,6 +772,8 @@ declare sub IPersistIDList_GetIDList_Stub(byval This as IRpcStubBuffer ptr, byva
 #define __IEnumIDList_INTERFACE_DEFINED__
 
 extern IID_IEnumIDList as const GUID
+
+type IEnumIDList as IEnumIDList_
 
 type IEnumIDListVtbl
 	QueryInterface as function(byval This as IEnumIDList ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -1110,6 +805,8 @@ type LPENUMIDLIST as IEnumIDList ptr
 #define __IEnumFullIDList_INTERFACE_DEFINED__
 
 extern IID_IEnumFullIDList as const GUID
+
+type IEnumFullIDList as IEnumFullIDList_
 
 type IEnumFullIDListVtbl
 	QueryInterface as function(byval This as IEnumFullIDList ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -1242,6 +939,8 @@ type SFGAOF as ULONG
 
 	extern IID_IObjectWithFolderEnumMode as const GUID
 
+	type IObjectWithFolderEnumMode as IObjectWithFolderEnumMode_
+
 	type IObjectWithFolderEnumModeVtbl
 		QueryInterface as function(byval This as IObjectWithFolderEnumMode ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 		AddRef as function(byval This as IObjectWithFolderEnumMode ptr) as ULONG
@@ -1269,6 +968,9 @@ type SFGAOF as ULONG
 
 	extern IID_IParseAndCreateItem as const GUID
 
+	type IShellItem as IShellItem_
+	type IParseAndCreateItem as IParseAndCreateItem_
+
 	type IParseAndCreateItemVtbl
 		QueryInterface as function(byval This as IParseAndCreateItem ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 		AddRef as function(byval This as IParseAndCreateItem ptr) as ULONG
@@ -1292,6 +994,8 @@ type SFGAOF as ULONG
 #define __IShellFolder_INTERFACE_DEFINED__
 
 extern IID_IShellFolder as const GUID
+
+type IShellFolder as IShellFolder_
 
 type IShellFolderVtbl
 	QueryInterface as function(byval This as IShellFolder ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -1350,6 +1054,8 @@ type LPEXTRASEARCH as EXTRASEARCH ptr
 
 extern IID_IEnumExtraSearch as const GUID
 
+type IEnumExtraSearch as IEnumExtraSearch_
+
 type IEnumExtraSearchVtbl
 	QueryInterface as function(byval This as IEnumExtraSearch ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IEnumExtraSearch ptr) as ULONG
@@ -1378,6 +1084,8 @@ type LPENUMEXTRASEARCH as IEnumExtraSearch ptr
 #define __IShellFolder2_INTERFACE_DEFINED__
 
 extern IID_IShellFolder2 as const GUID
+
+type IShellFolder2 as IShellFolder2_
 
 type IShellFolder2Vtbl
 	QueryInterface as function(byval This as IShellFolder2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -1513,6 +1221,8 @@ end enum
 
 extern IID_IFolderViewOptions as const GUID
 
+type IFolderViewOptions as IFolderViewOptions_
+
 type IFolderViewOptionsVtbl
 	QueryInterface as function(byval This as IFolderViewOptions ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IFolderViewOptions ptr) as ULONG
@@ -1576,6 +1286,9 @@ type LPFNSVADDPROPSHEETPAGE as LPFNADDPROPSHEETPAGE
 #define __IShellView_INTERFACE_DEFINED__
 
 extern IID_IShellView as const GUID
+
+type IShellBrowser as IShellBrowser_
+type IShellView as IShellView_
 
 type IShellViewVtbl
 	QueryInterface as function(byval This as IShellView ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -1645,6 +1358,8 @@ type LPSV2CVW2_PARAMS as _SV2CVW2_PARAMS ptr
 
 extern IID_IShellView2 as const GUID
 
+type IShellView2 as IShellView2_
+
 type IShellView2Vtbl
 	QueryInterface as function(byval This as IShellView2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IShellView2 ptr) as ULONG
@@ -1696,6 +1411,8 @@ declare sub IShellView2_SelectAndPositionItem_Stub(byval This as IRpcStubBuffer 
 
 	extern IID_IShellView3 as const GUID
 
+	type IShellView3 as IShellView3_
+
 	type IShellView3Vtbl
 		QueryInterface as function(byval This as IShellView3 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 		AddRef as function(byval This as IShellView3 ptr) as ULONG
@@ -1731,6 +1448,8 @@ declare sub IShellView2_SelectAndPositionItem_Stub(byval This as IRpcStubBuffer 
 #define __IFolderView_INTERFACE_DEFINED__
 
 extern IID_IFolderView as const GUID
+
+type IFolderView as IFolderView_
 
 type IFolderViewVtbl
 	QueryInterface as function(byval This as IFolderView ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -1792,6 +1511,8 @@ declare sub IFolderView_SelectAndPositionItems_Stub(byval This as IRpcStubBuffer
 
 	extern IID_ISearchBoxInfo as const GUID
 
+	type ISearchBoxInfo as ISearchBoxInfo_
+
 	type ISearchBoxInfoVtbl
 		QueryInterface as function(byval This as ISearchBoxInfo ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 		AddRef as function(byval This as ISearchBoxInfo ptr) as ULONG
@@ -1832,6 +1553,9 @@ declare sub IFolderView_SelectAndPositionItems_Stub(byval This as IRpcStubBuffer
 	#define __IFolderView2_INTERFACE_DEFINED__
 
 	extern IID_IFolderView2 as const GUID
+
+	type IShellItemArray as IShellItemArray_
+	type IFolderView2 as IFolderView2_
 
 	type IFolderView2Vtbl
 		QueryInterface as function(byval This as IFolderView2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -1939,6 +1663,8 @@ declare sub IFolderView_SelectAndPositionItems_Stub(byval This as IRpcStubBuffer
 
 	extern IID_IFolderViewSettings as const GUID
 
+	type IFolderViewSettings as IFolderViewSettings_
+
 	type IFolderViewSettingsVtbl
 		QueryInterface as function(byval This as IFolderViewSettings ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 		AddRef as function(byval This as IFolderViewSettings ptr) as ULONG
@@ -1975,24 +1701,26 @@ declare sub IFolderView_SelectAndPositionItems_Stub(byval This as IRpcStubBuffer
 
 	extern IID_IPreviewHandlerVisuals as const GUID
 
+	type IPreviewHandlerVisuals as IPreviewHandlerVisuals_
+
 	type IPreviewHandlerVisualsVtbl
 		QueryInterface as function(byval This as IPreviewHandlerVisuals ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 		AddRef as function(byval This as IPreviewHandlerVisuals ptr) as ULONG
 		Release as function(byval This as IPreviewHandlerVisuals ptr) as ULONG
-		SetBackgroundColor as function(byval This as IPreviewHandlerVisuals ptr, byval color_ as COLORREF) as HRESULT
+		SetBackgroundColor as function(byval This as IPreviewHandlerVisuals ptr, byval color as COLORREF) as HRESULT
 		SetFont as function(byval This as IPreviewHandlerVisuals ptr, byval plf as const LOGFONTW ptr) as HRESULT
-		SetTextColor as function(byval This as IPreviewHandlerVisuals ptr, byval color_ as COLORREF) as HRESULT
+		SetTextColor as function(byval This as IPreviewHandlerVisuals ptr, byval color as COLORREF) as HRESULT
 	end type
 
 	type IPreviewHandlerVisuals_
 		lpVtbl as IPreviewHandlerVisualsVtbl ptr
 	end type
 
-	declare function IPreviewHandlerVisuals_SetBackgroundColor_Proxy(byval This as IPreviewHandlerVisuals ptr, byval color_ as COLORREF) as HRESULT
+	declare function IPreviewHandlerVisuals_SetBackgroundColor_Proxy(byval This as IPreviewHandlerVisuals ptr, byval color as COLORREF) as HRESULT
 	declare sub IPreviewHandlerVisuals_SetBackgroundColor_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 	declare function IPreviewHandlerVisuals_SetFont_Proxy(byval This as IPreviewHandlerVisuals ptr, byval plf as const LOGFONTW ptr) as HRESULT
 	declare sub IPreviewHandlerVisuals_SetFont_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-	declare function IPreviewHandlerVisuals_SetTextColor_Proxy(byval This as IPreviewHandlerVisuals ptr, byval color_ as COLORREF) as HRESULT
+	declare function IPreviewHandlerVisuals_SetTextColor_Proxy(byval This as IPreviewHandlerVisuals ptr, byval color as COLORREF) as HRESULT
 	declare sub IPreviewHandlerVisuals_SetTextColor_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 
 	#define __IVisualProperties_INTERFACE_DEFINED__
@@ -2013,6 +1741,8 @@ declare sub IFolderView_SelectAndPositionItems_Stub(byval This as IRpcStubBuffer
 	end enum
 
 	extern IID_IVisualProperties as const GUID
+
+	type IVisualProperties as IVisualProperties_
 
 	type IVisualPropertiesVtbl
 		QueryInterface as function(byval This as IVisualProperties ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -2059,6 +1789,8 @@ declare sub IFolderView_SelectAndPositionItems_Stub(byval This as IRpcStubBuffer
 
 extern IID_ICommDlgBrowser as const GUID
 
+type ICommDlgBrowser as ICommDlgBrowser_
+
 type ICommDlgBrowserVtbl
 	QueryInterface as function(byval This as ICommDlgBrowser ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as ICommDlgBrowser ptr) as ULONG
@@ -2099,6 +1831,8 @@ type LPCOMMDLGBROWSER as ICommDlgBrowser ptr
 
 extern IID_ICommDlgBrowser2 as const GUID
 
+type ICommDlgBrowser2 as ICommDlgBrowser2_
+
 type ICommDlgBrowser2Vtbl
 	QueryInterface as function(byval This as ICommDlgBrowser2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as ICommDlgBrowser2 ptr) as ULONG
@@ -2128,6 +1862,8 @@ type LPCOMMDLGBROWSER2 as ICommDlgBrowser2 ptr
 	#define __ICommDlgBrowser3_INTERFACE_DEFINED__
 
 	extern IID_ICommDlgBrowser3 as const GUID
+
+	type ICommDlgBrowser3 as ICommDlgBrowser3_
 
 	type ICommDlgBrowser3Vtbl
 		QueryInterface as function(byval This as ICommDlgBrowser3 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -2199,6 +1935,8 @@ type LPCOMMDLGBROWSER2 as ICommDlgBrowser2 ptr
 
 	extern IID_IColumnManager as const GUID
 
+	type IColumnManager as IColumnManager_
+
 	type IColumnManagerVtbl
 		QueryInterface as function(byval This as IColumnManager ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 		AddRef as function(byval This as IColumnManager ptr) as ULONG
@@ -2230,6 +1968,8 @@ type LPCOMMDLGBROWSER2 as ICommDlgBrowser2 ptr
 
 extern IID_IFolderFilterSite as const GUID
 
+type IFolderFilterSite as IFolderFilterSite_
+
 type IFolderFilterSiteVtbl
 	QueryInterface as function(byval This as IFolderFilterSite ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IFolderFilterSite ptr) as ULONG
@@ -2247,6 +1987,8 @@ declare sub IFolderFilterSite_SetFilter_Stub(byval This as IRpcStubBuffer ptr, b
 #define __IFolderFilter_INTERFACE_DEFINED__
 
 extern IID_IFolderFilter as const GUID
+
+type IFolderFilter as IFolderFilter_
 
 type IFolderFilterVtbl
 	QueryInterface as function(byval This as IFolderFilter ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -2269,6 +2011,8 @@ declare sub IFolderFilter_GetEnumFlags_Stub(byval This as IRpcStubBuffer ptr, by
 
 extern IID_IInputObjectSite as const GUID
 
+type IInputObjectSite as IInputObjectSite_
+
 type IInputObjectSiteVtbl
 	QueryInterface as function(byval This as IInputObjectSite ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IInputObjectSite ptr) as ULONG
@@ -2286,6 +2030,8 @@ declare sub IInputObjectSite_OnFocusChangeIS_Stub(byval This as IRpcStubBuffer p
 #define __IInputObject_INTERFACE_DEFINED__
 
 extern IID_IInputObject as const GUID
+
+type IInputObject as IInputObject_
 
 type IInputObjectVtbl
 	QueryInterface as function(byval This as IInputObject ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -2311,6 +2057,8 @@ declare sub IInputObject_TranslateAcceleratorIO_Stub(byval This as IRpcStubBuffe
 
 extern IID_IInputObject2 as const GUID
 
+type IInputObject2 as IInputObject2_
+
 type IInputObject2Vtbl
 	QueryInterface as function(byval This as IInputObject2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IInputObject2 ptr) as ULONG
@@ -2331,6 +2079,8 @@ declare sub IInputObject2_TranslateAcceleratorGlobal_Stub(byval This as IRpcStub
 #define __IShellIcon_INTERFACE_DEFINED__
 
 extern IID_IShellIcon as const GUID
+
+type IShellIcon as IShellIcon_
 
 type IShellIconVtbl
 	QueryInterface as function(byval This as IShellIcon ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -2451,6 +2201,8 @@ type LPSHELLBROWSER as IShellBrowser ptr
 
 extern IID_IProfferService as const GUID
 
+type IProfferService as IProfferService_
+
 type IProfferServiceVtbl
 	QueryInterface as function(byval This as IProfferService ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IProfferService ptr) as ULONG
@@ -2500,6 +2252,10 @@ end enum
 type SICHINTF as DWORD
 
 extern IID_IShellItem as const GUID
+
+#if (_WIN32_WINNT = &h0400) or (_WIN32_WINNT = &h0502)
+	type IShellItem as IShellItem_
+#endif
 
 type IShellItemVtbl
 	QueryInterface as function(byval This as IShellItem ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -2561,6 +2317,8 @@ declare function SHSimpleIDListFromPath(byval pszPath as PCWSTR) as LPITEMIDLIST
 #define __IShellItem2_INTERFACE_DEFINED__
 
 extern IID_IShellItem2 as const GUID
+
+type IShellItem2 as IShellItem2_
 
 type IShellItem2Vtbl
 	QueryInterface as function(byval This as IShellItem2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -2637,6 +2395,8 @@ type SIIGBF as long
 
 extern IID_IShellItemImageFactory as const GUID
 
+type IShellItemImageFactory as IShellItemImageFactory_
+
 type IShellItemImageFactoryVtbl
 	QueryInterface as function(byval This as IShellItemImageFactory ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IShellItemImageFactory ptr) as ULONG
@@ -2655,6 +2415,8 @@ declare sub IShellItemImageFactory_GetImage_Stub(byval This as IRpcStubBuffer pt
 
 extern IID_IUserAccountChangeCallback as const GUID
 
+type IUserAccountChangeCallback as IUserAccountChangeCallback_
+
 type IUserAccountChangeCallbackVtbl
 	QueryInterface as function(byval This as IUserAccountChangeCallback ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IUserAccountChangeCallback ptr) as ULONG
@@ -2672,6 +2434,8 @@ declare sub IUserAccountChangeCallback_OnPictureChange_Stub(byval This as IRpcSt
 #define __IEnumShellItems_INTERFACE_DEFINED__
 
 extern IID_IEnumShellItems as const GUID
+
+type IEnumShellItems as IEnumShellItems_
 
 type IEnumShellItemsVtbl
 	QueryInterface as function(byval This as IEnumShellItems ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -2747,6 +2511,8 @@ type TRANSFER_SOURCE_FLAGS as DWORD
 
 	extern IID_ITransferAdviseSink as const GUID
 
+	type ITransferAdviseSink as ITransferAdviseSink_
+
 	type ITransferAdviseSinkVtbl
 		QueryInterface as function(byval This as ITransferAdviseSink ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 		AddRef as function(byval This as ITransferAdviseSink ptr) as ULONG
@@ -2782,6 +2548,8 @@ type TRANSFER_SOURCE_FLAGS as DWORD
 	#define __ITransferSource_INTERFACE_DEFINED__
 
 	extern IID_ITransferSource as const GUID
+
+	type ITransferSource as ITransferSource_
 
 	type ITransferSourceVtbl
 		QueryInterface as function(byval This as ITransferSource ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -2843,6 +2611,8 @@ end type
 
 extern IID_IEnumResources as const GUID
 
+type IEnumResources as IEnumResources_
+
 type IEnumResourcesVtbl
 	QueryInterface as function(byval This as IEnumResources ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IEnumResources ptr) as ULONG
@@ -2869,6 +2639,8 @@ declare sub IEnumResources_Clone_Stub(byval This as IRpcStubBuffer ptr, byval pR
 #define __IShellItemResources_INTERFACE_DEFINED__
 
 extern IID_IShellItemResources as const GUID
+
+type IShellItemResources as IShellItemResources_
 
 type IShellItemResourcesVtbl
 	QueryInterface as function(byval This as IShellItemResources ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -2915,6 +2687,8 @@ declare sub IShellItemResources_MarkForDelete_Stub(byval This as IRpcStubBuffer 
 
 extern IID_ITransferDestination as const GUID
 
+type ITransferDestination as ITransferDestination_
+
 type ITransferDestinationVtbl
 	QueryInterface as function(byval This as ITransferDestination ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as ITransferDestination ptr) as ULONG
@@ -2938,6 +2712,8 @@ declare sub ITransferDestination_CreateItem_Stub(byval This as IRpcStubBuffer pt
 #define __IStreamAsync_INTERFACE_DEFINED__
 
 extern IID_IStreamAsync as const GUID
+
+type IStreamAsync as IStreamAsync_
 
 type IStreamAsyncVtbl
 	QueryInterface as function(byval This as IStreamAsync ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -2977,6 +2753,8 @@ declare sub IStreamAsync_CancelIo_Stub(byval This as IRpcStubBuffer ptr, byval p
 
 extern IID_IStreamUnbufferedInfo as const GUID
 
+type IStreamUnbufferedInfo as IStreamUnbufferedInfo_
+
 type IStreamUnbufferedInfoVtbl
 	QueryInterface as function(byval This as IStreamUnbufferedInfo ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IStreamUnbufferedInfo ptr) as ULONG
@@ -2995,6 +2773,8 @@ declare sub IStreamUnbufferedInfo_GetSectorSize_Stub(byval This as IRpcStubBuffe
 	#define __IFileOperationProgressSink_INTERFACE_DEFINED__
 
 	extern IID_IFileOperationProgressSink as const GUID
+
+	type IFileOperationProgressSink as IFileOperationProgressSink_
 
 	type IFileOperationProgressSinkVtbl
 		QueryInterface as function(byval This as IFileOperationProgressSink ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -3069,6 +2849,10 @@ end enum
 
 extern IID_IShellItemArray as const GUID
 
+#if (_WIN32_WINNT = &h0400) or (_WIN32_WINNT = &h0502)
+	type IShellItemArray as IShellItemArray_
+#endif
+
 type IShellItemArrayVtbl
 	QueryInterface as function(byval This as IShellItemArray ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IShellItemArray ptr) as ULONG
@@ -3112,6 +2896,8 @@ declare sub IShellItemArray_EnumItems_Stub(byval This as IRpcStubBuffer ptr, byv
 
 extern IID_IInitializeWithItem as const GUID
 
+type IInitializeWithItem as IInitializeWithItem_
+
 type IInitializeWithItemVtbl
 	QueryInterface as function(byval This as IInitializeWithItem ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IInitializeWithItem ptr) as ULONG
@@ -3129,6 +2915,8 @@ declare sub IInitializeWithItem_Initialize_Stub(byval This as IRpcStubBuffer ptr
 #define __IObjectWithSelection_INTERFACE_DEFINED__
 
 extern IID_IObjectWithSelection as const GUID
+
+type IObjectWithSelection as IObjectWithSelection_
 
 type IObjectWithSelectionVtbl
 	QueryInterface as function(byval This as IObjectWithSelection ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -3150,6 +2938,8 @@ declare sub IObjectWithSelection_GetSelection_Stub(byval This as IRpcStubBuffer 
 #define __IObjectWithBackReferences_INTERFACE_DEFINED__
 
 extern IID_IObjectWithBackReferences as const GUID
+
+type IObjectWithBackReferences as IObjectWithBackReferences_
 
 type IObjectWithBackReferencesVtbl
 	QueryInterface as function(byval This as IObjectWithBackReferences ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -3197,6 +2987,8 @@ type PROPERTYUI_FORMAT_FLAGS as DWORD
 
 extern IID_IPropertyUI as const GUID
 
+type IPropertyUI as IPropertyUI_
+
 type IPropertyUIVtbl
 	QueryInterface as function(byval This as IPropertyUI ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IPropertyUI ptr) as ULONG
@@ -3235,6 +3027,9 @@ declare sub IPropertyUI_GetHelpInfo_Stub(byval This as IRpcStubBuffer ptr, byval
 #if _WIN32_WINNT = &h0602
 	declare function SHRemovePersonalPropertyValues(byval psia as IShellItemArray ptr) as HRESULT
 	declare function SHAddDefaultPropertiesByExt(byval pszExt as PCWSTR, byval pPropStore as IPropertyStore ptr) as HRESULT
+
+	type IFileOperation as IFileOperation_
+
 	declare function SHCreateDefaultPropertiesOp(byval psi as IShellItem ptr, byval ppFileOp as IFileOperation ptr ptr) as HRESULT
 	declare function SHSetDefaultProperties(byval hwnd as HWND, byval psi as IShellItem ptr, byval dwFileOpFlags as DWORD, byval pfops as IFileOperationProgressSink ptr) as HRESULT
 #endif
@@ -3242,6 +3037,8 @@ declare sub IPropertyUI_GetHelpInfo_Stub(byval This as IRpcStubBuffer ptr, byval
 #define __ICategoryProvider_INTERFACE_DEFINED__
 
 extern IID_ICategoryProvider as const GUID
+
+type ICategoryProvider as ICategoryProvider_
 
 type ICategoryProviderVtbl
 	QueryInterface as function(byval This as ICategoryProvider ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -3299,6 +3096,8 @@ end type
 
 extern IID_ICategorizer as const GUID
 
+type ICategorizer as ICategorizer_
+
 type ICategorizerVtbl
 	QueryInterface as function(byval This as ICategorizer ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as ICategorizer ptr) as ULONG
@@ -3331,10 +3130,12 @@ end type
 
 type LPSHDRAGIMAGE as SHDRAGIMAGE ptr
 
-extern IID_IDropTargetHelper as const GUID
-
 #define DI_GETDRAGIMAGE TEXT("ShellGetDragImage")
 #define __IDropTargetHelper_INTERFACE_DEFINED__
+
+extern IID_IDropTargetHelper as const GUID
+
+type IDropTargetHelper as IDropTargetHelper_
 
 type IDropTargetHelperVtbl
 	QueryInterface as function(byval This as IDropTargetHelper ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -3366,6 +3167,8 @@ declare sub IDropTargetHelper_Show_Stub(byval This as IRpcStubBuffer ptr, byval 
 
 extern IID_IDragSourceHelper as const GUID
 
+type IDragSourceHelper as IDragSourceHelper_
+
 type IDragSourceHelperVtbl
 	QueryInterface as function(byval This as IDragSourceHelper ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IDragSourceHelper ptr) as ULONG
@@ -3392,6 +3195,8 @@ declare sub IDragSourceHelper_InitializeFromWindow_Stub(byval This as IRpcStubBu
 	#define __IDragSourceHelper2_INTERFACE_DEFINED__
 
 	extern IID_IDragSourceHelper2 as const GUID
+
+	type IDragSourceHelper2 as IDragSourceHelper2_
 
 	type IDragSourceHelper2Vtbl
 		QueryInterface as function(byval This as IDragSourceHelper2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -3444,6 +3249,8 @@ end enum
 #define __IShellLinkA_INTERFACE_DEFINED__
 
 extern IID_IShellLinkA as const GUID
+
+type IShellLinkA as IShellLinkA_
 
 type IShellLinkAVtbl
 	QueryInterface as function(byval This as IShellLinkA ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -3514,6 +3321,8 @@ declare sub IShellLinkA_SetPath_Stub(byval This as IRpcStubBuffer ptr, byval pRp
 
 extern IID_IShellLinkW as const GUID
 
+type IShellLinkW as IShellLinkW_
+
 type IShellLinkWVtbl
 	QueryInterface as function(byval This as IShellLinkW ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IShellLinkW ptr) as ULONG
@@ -3583,6 +3392,8 @@ declare sub IShellLinkW_SetPath_Stub(byval This as IRpcStubBuffer ptr, byval pRp
 
 extern IID_IShellLinkDataList as const GUID
 
+type IShellLinkDataList as IShellLinkDataList_
+
 type IShellLinkDataListVtbl
 	QueryInterface as function(byval This as IShellLinkDataList ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IShellLinkDataList ptr) as ULONG
@@ -3608,6 +3419,8 @@ declare sub IShellLinkDataList_SetFlags_Stub(byval This as IRpcStubBuffer ptr, b
 #define __IResolveShellLink_INTERFACE_DEFINED__
 
 extern IID_IResolveShellLink as const GUID
+
+type IResolveShellLink as IResolveShellLink_
 
 type IResolveShellLinkVtbl
 	QueryInterface as function(byval This as IResolveShellLink ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -3636,6 +3449,8 @@ type SPINITF as DWORD
 
 extern IID_IActionProgressDialog as const GUID
 
+type IActionProgressDialog as IActionProgressDialog_
+
 type IActionProgressDialogVtbl
 	QueryInterface as function(byval This as IActionProgressDialog ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IActionProgressDialog ptr) as ULONG
@@ -3656,6 +3471,8 @@ declare sub IActionProgressDialog_Stop_Stub(byval This as IRpcStubBuffer ptr, by
 #define __IHWEventHandler_INTERFACE_DEFINED__
 
 extern IID_IHWEventHandler as const GUID
+
+type IHWEventHandler as IHWEventHandler_
 
 type IHWEventHandlerVtbl
 	QueryInterface as function(byval This as IHWEventHandler ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -3680,6 +3497,8 @@ declare sub IHWEventHandler_HandleEventWithContent_Stub(byval This as IRpcStubBu
 #define __IHWEventHandler2_INTERFACE_DEFINED__
 
 extern IID_IHWEventHandler2 as const GUID
+
+type IHWEventHandler2 as IHWEventHandler2_
 
 type IHWEventHandler2Vtbl
 	QueryInterface as function(byval This as IHWEventHandler2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -3729,6 +3548,8 @@ declare sub IHWEventHandler2_HandleEventWithHWND_Stub(byval This as IRpcStubBuff
 
 extern IID_IQueryCancelAutoPlay as const GUID
 
+type IQueryCancelAutoPlay as IQueryCancelAutoPlay_
+
 type IQueryCancelAutoPlayVtbl
 	QueryInterface as function(byval This as IQueryCancelAutoPlay ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IQueryCancelAutoPlay ptr) as ULONG
@@ -3747,6 +3568,8 @@ declare sub IQueryCancelAutoPlay_AllowAutoPlay_Stub(byval This as IRpcStubBuffer
 	#define __IDynamicHWHandler_INTERFACE_DEFINED__
 
 	extern IID_IDynamicHWHandler as const GUID
+
+	type IDynamicHWHandler as IDynamicHWHandler_
 
 	type IDynamicHWHandlerVtbl
 		QueryInterface as function(byval This as IDynamicHWHandler ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -3806,6 +3629,8 @@ type SPTEXT as _SPTEXT
 
 extern IID_IActionProgress as const GUID
 
+type IActionProgress as IActionProgress_
+
 type IActionProgressVtbl
 	QueryInterface as function(byval This as IActionProgress ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IActionProgress ptr) as ULONG
@@ -3839,6 +3664,8 @@ declare sub IActionProgress_End_Stub(byval This as IRpcStubBuffer ptr, byval pRp
 
 extern IID_IShellExtInit as const GUID
 
+type IShellExtInit as IShellExtInit_
+
 type IShellExtInitVtbl
 	QueryInterface as function(byval This as IShellExtInit ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IShellExtInit ptr) as ULONG
@@ -3866,6 +3693,8 @@ type EXPPS as UINT
 
 extern IID_IShellPropSheetExt as const GUID
 
+type IShellPropSheetExt as IShellPropSheetExt_
+
 type IShellPropSheetExtVtbl
 	QueryInterface as function(byval This as IShellPropSheetExt ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IShellPropSheetExt ptr) as ULONG
@@ -3889,6 +3718,8 @@ type LPSHELLPROPSHEETEXT as IShellPropSheetExt ptr
 
 extern IID_IRemoteComputer as const GUID
 
+type IRemoteComputer as IRemoteComputer_
+
 type IRemoteComputerVtbl
 	QueryInterface as function(byval This as IRemoteComputer ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IRemoteComputer ptr) as ULONG
@@ -3906,6 +3737,8 @@ declare sub IRemoteComputer_Initialize_Stub(byval This as IRpcStubBuffer ptr, by
 #define __IQueryContinue_INTERFACE_DEFINED__
 
 extern IID_IQueryContinue as const GUID
+
+type IQueryContinue as IQueryContinue_
 
 type IQueryContinueVtbl
 	QueryInterface as function(byval This as IQueryContinue ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -3925,6 +3758,8 @@ declare sub IQueryContinue_QueryContinue_Stub(byval This as IRpcStubBuffer ptr, 
 
 extern IID_IObjectWithCancelEvent as const GUID
 
+type IObjectWithCancelEvent as IObjectWithCancelEvent_
+
 type IObjectWithCancelEventVtbl
 	QueryInterface as function(byval This as IObjectWithCancelEvent ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IObjectWithCancelEvent ptr) as ULONG
@@ -3942,6 +3777,8 @@ declare sub IObjectWithCancelEvent_GetCancelEvent_Stub(byval This as IRpcStubBuf
 #define __IUserNotification_INTERFACE_DEFINED__
 
 extern IID_IUserNotification as const GUID
+
+type IUserNotification as IUserNotification_
 
 type IUserNotificationVtbl
 	QueryInterface as function(byval This as IUserNotification ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -3978,6 +3815,8 @@ declare sub IUserNotification_PlaySound_Stub(byval This as IRpcStubBuffer ptr, b
 
 extern IID_IUserNotificationCallback as const GUID
 
+type IUserNotificationCallback as IUserNotificationCallback_
+
 type IUserNotificationCallbackVtbl
 	QueryInterface as function(byval This as IUserNotificationCallback ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IUserNotificationCallback ptr) as ULONG
@@ -4001,6 +3840,8 @@ declare sub IUserNotificationCallback_OnContextMenu_Stub(byval This as IRpcStubB
 #define __IUserNotification2_INTERFACE_DEFINED__
 
 extern IID_IUserNotification2 as const GUID
+
+type IUserNotification2 as IUserNotification2_
 
 type IUserNotification2Vtbl
 	QueryInterface as function(byval This as IUserNotification2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -4037,6 +3878,8 @@ declare sub IUserNotification2_PlaySound_Stub(byval This as IRpcStubBuffer ptr, 
 
 extern IID_IItemNameLimits as const GUID
 
+type IItemNameLimits as IItemNameLimits_
+
 type IItemNameLimitsVtbl
 	QueryInterface as function(byval This as IItemNameLimits ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IItemNameLimits ptr) as ULONG
@@ -4058,6 +3901,8 @@ declare sub IItemNameLimits_GetMaxLength_Stub(byval This as IRpcStubBuffer ptr, 
 	#define __ISearchFolderItemFactory_INTERFACE_DEFINED__
 
 	extern IID_ISearchFolderItemFactory as const GUID
+
+	type ISearchFolderItemFactory as ISearchFolderItemFactory_
 
 	type ISearchFolderItemFactoryVtbl
 		QueryInterface as function(byval This as ISearchFolderItemFactory ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -4125,6 +3970,8 @@ declare sub IItemNameLimits_GetMaxLength_Stub(byval This as IRpcStubBuffer ptr, 
 
 extern IID_IExtractImage as const GUID
 
+type IExtractImage as IExtractImage_
+
 type IExtractImageVtbl
 	QueryInterface as function(byval This as IExtractImage ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IExtractImage ptr) as ULONG
@@ -4148,6 +3995,8 @@ type LPEXTRACTIMAGE as IExtractImage ptr
 
 extern IID_IExtractImage2 as const GUID
 
+type IExtractImage2 as IExtractImage2_
+
 type IExtractImage2Vtbl
 	QueryInterface as function(byval This as IExtractImage2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IExtractImage2 ptr) as ULONG
@@ -4170,6 +4019,8 @@ type LPEXTRACTIMAGE2 as IExtractImage2 ptr
 
 extern IID_IThumbnailHandlerFactory as const GUID
 
+type IThumbnailHandlerFactory as IThumbnailHandlerFactory_
+
 type IThumbnailHandlerFactoryVtbl
 	QueryInterface as function(byval This as IThumbnailHandlerFactory ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IThumbnailHandlerFactory ptr) as ULONG
@@ -4187,6 +4038,8 @@ declare sub IThumbnailHandlerFactory_GetThumbnailHandler_Stub(byval This as IRpc
 #define __IParentAndItem_INTERFACE_DEFINED__
 
 extern IID_IParentAndItem as const GUID
+
+type IParentAndItem as IParentAndItem_
 
 type IParentAndItemVtbl
 	QueryInterface as function(byval This as IParentAndItem ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -4210,6 +4063,8 @@ declare function IParentAndItem_GetParentAndItem_Stub(byval This as IParentAndIt
 #define __IDockingWindow_INTERFACE_DEFINED__
 
 extern IID_IDockingWindow as const GUID
+
+type IDockingWindow as IDockingWindow_
 
 type IDockingWindowVtbl
 	QueryInterface as function(byval This as IDockingWindow ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -4252,18 +4107,6 @@ type DESKBANDINFO
 	crBkgnd as COLORREF
 end type
 
-type tagDESKBANDCID as long
-enum
-	DBID_BANDINFOCHANGED = 0
-	DBID_SHOWONLY = 1
-	DBID_MAXIMIZEBAND = 2
-	DBID_PUSHCHEVRON = 3
-	DBID_DELAYINIT = 4
-	DBID_FINISHINIT = 5
-	DBID_SETWINDOWTHEME = 6
-	DBID_PERMITAUTOHIDE = 7
-end enum
-
 #define DBIMF_NORMAL &h0000
 #define DBIMF_FIXED &h0001
 #define DBIMF_FIXEDBMP &h0004
@@ -4286,12 +4129,27 @@ end enum
 #define DBIF_VIEWMODE_VERTICAL &h0001
 #define DBIF_VIEWMODE_FLOATING &h0002
 #define DBIF_VIEWMODE_TRANSPARENT &h0004
+
+type tagDESKBANDCID as long
+enum
+	DBID_BANDINFOCHANGED = 0
+	DBID_SHOWONLY = 1
+	DBID_MAXIMIZEBAND = 2
+	DBID_PUSHCHEVRON = 3
+	DBID_DELAYINIT = 4
+	DBID_FINISHINIT = 5
+	DBID_SETWINDOWTHEME = 6
+	DBID_PERMITAUTOHIDE = 7
+end enum
+
 #define DBPC_SELECTFIRST cast(DWORD, -1)
 #define DBPC_SELECTLAST cast(DWORD, -2)
 #define CGID_DeskBand IID_IDeskBand
 #define __IDeskBand_INTERFACE_DEFINED__
 
 extern IID_IDeskBand as const GUID
+
+type IDeskBand as IDeskBand_
 
 type IDeskBandVtbl
 	QueryInterface as function(byval This as IDeskBand ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -4317,6 +4175,8 @@ declare sub IDeskBand_GetBandInfo_Stub(byval This as IRpcStubBuffer ptr, byval p
 
 	extern IID_IDeskBandInfo as const GUID
 
+	type IDeskBandInfo as IDeskBandInfo_
+
 	type IDeskBandInfoVtbl
 		QueryInterface as function(byval This as IDeskBandInfo ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 		AddRef as function(byval This as IDeskBandInfo ptr) as ULONG
@@ -4334,6 +4194,8 @@ declare sub IDeskBand_GetBandInfo_Stub(byval This as IRpcStubBuffer ptr, byval p
 	#define __IDeskBand2_INTERFACE_DEFINED__
 
 	extern IID_IDeskBand2 as const GUID
+
+	type IDeskBand2 as IDeskBand2_
 
 	type IDeskBand2Vtbl
 		QueryInterface as function(byval This as IDeskBand2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -4366,6 +4228,8 @@ declare sub IDeskBand_GetBandInfo_Stub(byval This as IRpcStubBuffer ptr, byval p
 
 extern IID_ITaskbarList as const GUID
 
+type ITaskbarList as ITaskbarList_
+
 type ITaskbarListVtbl
 	QueryInterface as function(byval This as ITaskbarList ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as ITaskbarList ptr) as ULONG
@@ -4395,6 +4259,8 @@ declare sub ITaskbarList_SetActiveAlt_Stub(byval This as IRpcStubBuffer ptr, byv
 #define __ITaskbarList2_INTERFACE_DEFINED__
 
 extern IID_ITaskbarList2 as const GUID
+
+type ITaskbarList2 as ITaskbarList2_
 
 type ITaskbarList2Vtbl
 	QueryInterface as function(byval This as ITaskbarList2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -4444,6 +4310,9 @@ end type
 
 type LPTHUMBBUTTON as THUMBBUTTON ptr
 
+#define THBN_CLICKED &h1800
+#define __ITaskbarList3_INTERFACE_DEFINED__
+
 type TBPFLAG as long
 enum
 	TBPF_NOPROGRESS = &h0
@@ -4453,10 +4322,9 @@ enum
 	TBPF_PAUSED = &h8
 end enum
 
-#define THBN_CLICKED &h1800
-#define __ITaskbarList3_INTERFACE_DEFINED__
-
 extern IID_ITaskbarList3 as const GUID
+
+type ITaskbarList3 as ITaskbarList3_
 
 type ITaskbarList3Vtbl
 	QueryInterface as function(byval This as ITaskbarList3 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -4524,6 +4392,8 @@ end enum
 
 extern IID_ITaskbarList4 as const GUID
 
+type ITaskbarList4 as ITaskbarList4_
+
 type ITaskbarList4Vtbl
 	QueryInterface as function(byval This as ITaskbarList4 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as ITaskbarList4 ptr) as ULONG
@@ -4560,6 +4430,8 @@ declare sub ITaskbarList4_SetTabProperties_Stub(byval This as IRpcStubBuffer ptr
 
 extern IID_IStartMenuPinnedList as const GUID
 
+type IStartMenuPinnedList as IStartMenuPinnedList_
+
 type IStartMenuPinnedListVtbl
 	QueryInterface as function(byval This as IStartMenuPinnedList ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IStartMenuPinnedList ptr) as ULONG
@@ -4577,6 +4449,8 @@ declare sub IStartMenuPinnedList_RemoveFromList_Stub(byval This as IRpcStubBuffe
 #define __ICDBurn_INTERFACE_DEFINED__
 
 extern IID_ICDBurn as const GUID
+
+type ICDBurn as ICDBurn_
 
 type ICDBurnVtbl
 	QueryInterface as function(byval This as ICDBurn ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -4604,6 +4478,8 @@ declare sub ICDBurn_HasRecordableDrive_Stub(byval This as IRpcStubBuffer ptr, by
 
 extern IID_IWizardSite as const GUID
 
+type IWizardSite as IWizardSite_
+
 type IWizardSiteVtbl
 	QueryInterface as function(byval This as IWizardSite ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IWizardSite ptr) as ULONG
@@ -4629,6 +4505,8 @@ declare sub IWizardSite_GetCancelledPage_Stub(byval This as IRpcStubBuffer ptr, 
 
 extern IID_IWizardExtension as const GUID
 
+type IWizardExtension as IWizardExtension_
+
 type IWizardExtensionVtbl
 	QueryInterface as function(byval This as IWizardExtension ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IWizardExtension ptr) as ULONG
@@ -4652,6 +4530,8 @@ declare sub IWizardExtension_GetLastPage_Stub(byval This as IRpcStubBuffer ptr, 
 #define __IWebWizardExtension_INTERFACE_DEFINED__
 
 extern IID_IWebWizardExtension as const GUID
+
+type IWebWizardExtension as IWebWizardExtension_
 
 type IWebWizardExtensionVtbl
 	QueryInterface as function(byval This as IWebWizardExtension ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -4688,6 +4568,8 @@ declare sub IWebWizardExtension_SetErrorURL_Stub(byval This as IRpcStubBuffer pt
 
 extern IID_IPublishingWizard as const GUID
 
+type IPublishingWizard as IPublishingWizard_
+
 type IPublishingWizardVtbl
 	QueryInterface as function(byval This as IPublishingWizard ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IPublishingWizard ptr) as ULONG
@@ -4712,6 +4594,8 @@ declare sub IPublishingWizard_GetTransferManifest_Stub(byval This as IRpcStubBuf
 
 extern IID_IFolderViewHost as const GUID
 
+type IFolderViewHost as IFolderViewHost_
+
 type IFolderViewHostVtbl
 	QueryInterface as function(byval This as IFolderViewHost ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IFolderViewHost ptr) as ULONG
@@ -4730,6 +4614,8 @@ declare sub IFolderViewHost_Initialize_Stub(byval This as IRpcStubBuffer ptr, by
 	#define __IExplorerBrowserEvents_INTERFACE_DEFINED__
 
 	extern IID_IExplorerBrowserEvents as const GUID
+
+	type IExplorerBrowserEvents as IExplorerBrowserEvents_
 
 	type IExplorerBrowserEventsVtbl
 		QueryInterface as function(byval This as IExplorerBrowserEvents ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -4777,6 +4663,8 @@ declare sub IFolderViewHost_Initialize_Stub(byval This as IRpcStubBuffer ptr, by
 	#define __IExplorerBrowser_INTERFACE_DEFINED__
 
 	extern IID_IExplorerBrowser as const GUID
+
+	type IExplorerBrowser as IExplorerBrowser_
 
 	type IExplorerBrowserVtbl
 		QueryInterface as function(byval This as IExplorerBrowser ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -4834,6 +4722,8 @@ declare sub IFolderViewHost_Initialize_Stub(byval This as IRpcStubBuffer ptr, by
 
 	extern IID_IAccessibleObject as const GUID
 
+	type IAccessibleObject as IAccessibleObject_
+
 	type IAccessibleObjectVtbl
 		QueryInterface as function(byval This as IAccessibleObject ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 		AddRef as function(byval This as IAccessibleObject ptr) as ULONG
@@ -4852,6 +4742,8 @@ declare sub IFolderViewHost_Initialize_Stub(byval This as IRpcStubBuffer ptr, by
 #define __IResultsFolder_INTERFACE_DEFINED__
 
 extern IID_IResultsFolder as const GUID
+
+type IResultsFolder as IResultsFolder_
 
 type IResultsFolderVtbl
 	QueryInterface as function(byval This as IResultsFolder ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -4885,6 +4777,8 @@ declare function IResultsFolder_AddIDList_Stub(byval This as IResultsFolder ptr,
 	#define __IEnumObjects_INTERFACE_DEFINED__
 
 	extern IID_IEnumObjects as const GUID
+
+	type IEnumObjects as IEnumObjects_
 
 	type IEnumObjectsVtbl
 		QueryInterface as function(byval This as IEnumObjects ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -4949,6 +4843,8 @@ declare function IResultsFolder_AddIDList_Stub(byval This as IResultsFolder ptr,
 
 	extern IID_IOperationsProgressDialog as const GUID
 
+	type IOperationsProgressDialog as IOperationsProgressDialog_
+
 	type IOperationsProgressDialogVtbl
 		QueryInterface as function(byval This as IOperationsProgressDialog ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 		AddRef as function(byval This as IOperationsProgressDialog ptr) as ULONG
@@ -4996,6 +4892,8 @@ declare function IResultsFolder_AddIDList_Stub(byval This as IResultsFolder ptr,
 	#define __IIOCancelInformation_INTERFACE_DEFINED__
 
 	extern IID_IIOCancelInformation as const GUID
+
+	type IIOCancelInformation as IIOCancelInformation_
 
 	type IIOCancelInformationVtbl
 		QueryInterface as function(byval This as IIOCancelInformation ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -5109,6 +5007,8 @@ declare function IResultsFolder_AddIDList_Stub(byval This as IResultsFolder ptr,
 
 	extern IID_IObjectProvider as const GUID
 
+	type IObjectProvider as IObjectProvider_
+
 	type IObjectProviderVtbl
 		QueryInterface as function(byval This as IObjectProvider ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 		AddRef as function(byval This as IObjectProvider ptr) as ULONG
@@ -5127,6 +5027,8 @@ declare function IResultsFolder_AddIDList_Stub(byval This as IResultsFolder ptr,
 #define __INamespaceWalkCB_INTERFACE_DEFINED__
 
 extern IID_INamespaceWalkCB as const GUID
+
+type INamespaceWalkCB as INamespaceWalkCB_
 
 type INamespaceWalkCBVtbl
 	QueryInterface as function(byval This as INamespaceWalkCB ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -5155,6 +5057,8 @@ declare sub INamespaceWalkCB_InitializeProgressDialog_Stub(byval This as IRpcStu
 	#define __INamespaceWalkCB2_INTERFACE_DEFINED__
 
 	extern IID_INamespaceWalkCB2 as const GUID
+
+	type INamespaceWalkCB2 as INamespaceWalkCB2_
 
 	type INamespaceWalkCB2Vtbl
 		QueryInterface as function(byval This as INamespaceWalkCB2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -5203,6 +5107,8 @@ end enum
 
 extern IID_INamespaceWalk as const GUID
 
+type INamespaceWalk as INamespaceWalk_
+
 type INamespaceWalkVtbl
 	QueryInterface as function(byval This as INamespaceWalk ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as INamespaceWalk ptr) as ULONG
@@ -5232,6 +5138,8 @@ end sub
 #define __IAutoCompleteDropDown_INTERFACE_DEFINED__
 
 extern IID_IAutoCompleteDropDown as const GUID
+
+type IAutoCompleteDropDown as IAutoCompleteDropDown_
 
 type IAutoCompleteDropDownVtbl
 	QueryInterface as function(byval This as IAutoCompleteDropDown ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -5291,6 +5199,8 @@ end enum
 
 extern IID_IBandSite as const GUID
 
+type IBandSite as IBandSite_
+
 type IBandSiteVtbl
 	QueryInterface as function(byval This as IBandSite ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IBandSite ptr) as ULONG
@@ -5332,6 +5242,8 @@ declare function IBandSite_QueryBand_Stub(byval This as IBandSite ptr, byval dwB
 
 extern IID_IModalWindow as const GUID
 
+type IModalWindow as IModalWindow_
+
 type IModalWindowVtbl
 	QueryInterface as function(byval This as IModalWindow ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IModalWindow ptr) as ULONG
@@ -5372,6 +5284,8 @@ type CDBE_ACTIONS as DWORD
 
 extern IID_ICDBurnExt as const GUID
 
+type ICDBurnExt as ICDBurnExt_
+
 type ICDBurnExtVtbl
 	QueryInterface as function(byval This as ICDBurnExt ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as ICDBurnExt ptr) as ULONG
@@ -5389,6 +5303,8 @@ declare sub ICDBurnExt_GetSupportedActionTypes_Stub(byval This as IRpcStubBuffer
 #define __IContextMenuSite_INTERFACE_DEFINED__
 
 extern IID_IContextMenuSite as const GUID
+
+type IContextMenuSite as IContextMenuSite_
 
 type IContextMenuSiteVtbl
 	QueryInterface as function(byval This as IContextMenuSite ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -5408,6 +5324,8 @@ declare sub IContextMenuSite_DoContextMenuPopup_Stub(byval This as IRpcStubBuffe
 
 extern IID_IEnumReadyCallback as const GUID
 
+type IEnumReadyCallback as IEnumReadyCallback_
+
 type IEnumReadyCallbackVtbl
 	QueryInterface as function(byval This as IEnumReadyCallback ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IEnumReadyCallback ptr) as ULONG
@@ -5425,6 +5343,8 @@ declare sub IEnumReadyCallback_EnumReady_Stub(byval This as IRpcStubBuffer ptr, 
 #define __IEnumerableView_INTERFACE_DEFINED__
 
 extern IID_IEnumerableView as const GUID
+
+type IEnumerableView as IEnumerableView_
 
 type IEnumerableViewVtbl
 	QueryInterface as function(byval This as IEnumerableView ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -5447,6 +5367,8 @@ declare sub IEnumerableView_CreateEnumIDListFromContents_Stub(byval This as IRpc
 #define __IInsertItem_INTERFACE_DEFINED__
 
 extern IID_IInsertItem as const GUID
+
+type IInsertItem as IInsertItem_
 
 type IInsertItemVtbl
 	QueryInterface as function(byval This as IInsertItem ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -5471,6 +5393,8 @@ end enum
 
 extern IID_IMenuBand as const GUID
 
+type IMenuBand as IMenuBand_
+
 type IMenuBandVtbl
 	QueryInterface as function(byval This as IMenuBand ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IMenuBand ptr) as ULONG
@@ -5491,6 +5415,8 @@ declare sub IMenuBand_TranslateMenuMessage_Stub(byval This as IRpcStubBuffer ptr
 #define __IFolderBandPriv_INTERFACE_DEFINED__
 
 extern IID_IFolderBandPriv as const GUID
+
+type IFolderBandPriv as IFolderBandPriv_
 
 type IFolderBandPrivVtbl
 	QueryInterface as function(byval This as IFolderBandPriv ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -5519,6 +5445,8 @@ declare sub IFolderBandPriv_SetNoText_Stub(byval This as IRpcStubBuffer ptr, byv
 
 extern IID_IRegTreeItem as const GUID
 
+type IRegTreeItem as IRegTreeItem_
+
 type IRegTreeItemVtbl
 	QueryInterface as function(byval This as IRegTreeItem ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IRegTreeItem ptr) as ULONG
@@ -5540,6 +5468,8 @@ declare sub IRegTreeItem_SetCheckState_Stub(byval This as IRpcStubBuffer ptr, by
 
 extern IID_IImageRecompress as const GUID
 
+type IImageRecompress as IImageRecompress_
+
 type IImageRecompressVtbl
 	QueryInterface as function(byval This as IImageRecompress ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IImageRecompress ptr) as ULONG
@@ -5558,6 +5488,8 @@ declare sub IImageRecompress_RecompressImage_Stub(byval This as IRpcStubBuffer p
 	#define __IDeskBar_INTERFACE_DEFINED__
 
 	extern IID_IDeskBar as const GUID
+
+	type IDeskBar as IDeskBar_
 
 	type IDeskBarVtbl
 		QueryInterface as function(byval This as IDeskBar ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -5615,6 +5547,8 @@ declare sub IImageRecompress_RecompressImage_Stub(byval This as IRpcStubBuffer p
 
 	extern IID_IMenuPopup as const GUID
 
+	type IMenuPopup as IMenuPopup_
+
 	type IMenuPopupVtbl
 		QueryInterface as function(byval This as IMenuPopup ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 		AddRef as function(byval This as IMenuPopup ptr) as ULONG
@@ -5654,6 +5588,8 @@ declare sub IImageRecompress_RecompressImage_Stub(byval This as IRpcStubBuffer p
 	#define __IFileIsInUse_INTERFACE_DEFINED__
 
 	extern IID_IFileIsInUse as const GUID
+
+	type IFileIsInUse as IFileIsInUse_
 
 	type IFileIsInUseVtbl
 		QueryInterface as function(byval This as IFileIsInUse ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -5704,6 +5640,9 @@ declare sub IImageRecompress_RecompressImage_Stub(byval This as IRpcStubBuffer p
 	#define __IFileDialogEvents_INTERFACE_DEFINED__
 
 	extern IID_IFileDialogEvents as const GUID
+
+	type IFileDialog as IFileDialog_
+	type IFileDialogEvents as IFileDialogEvents_
 
 	type IFileDialogEventsVtbl
 		QueryInterface as function(byval This as IFileDialogEvents ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -5767,6 +5706,8 @@ declare sub IImageRecompress_RecompressImage_Stub(byval This as IRpcStubBuffer p
 	type FILEOPENDIALOGOPTIONS as DWORD
 
 	extern IID_IFileDialog as const GUID
+
+	type IShellItemFilter as IShellItemFilter_
 
 	type IFileDialogVtbl
 		QueryInterface as function(byval This as IFileDialog ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -5853,6 +5794,8 @@ declare sub IImageRecompress_RecompressImage_Stub(byval This as IRpcStubBuffer p
 
 	extern IID_IFileSaveDialog as const GUID
 
+	type IFileSaveDialog as IFileSaveDialog_
+
 	type IFileSaveDialogVtbl
 		QueryInterface as function(byval This as IFileSaveDialog ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 		AddRef as function(byval This as IFileSaveDialog ptr) as ULONG
@@ -5907,6 +5850,8 @@ declare sub IImageRecompress_RecompressImage_Stub(byval This as IRpcStubBuffer p
 
 	extern IID_IFileOpenDialog as const GUID
 
+	type IFileOpenDialog as IFileOpenDialog_
+
 	type IFileOpenDialogVtbl
 		QueryInterface as function(byval This as IFileOpenDialog ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 		AddRef as function(byval This as IFileOpenDialog ptr) as ULONG
@@ -5959,6 +5904,8 @@ declare sub IImageRecompress_RecompressImage_Stub(byval This as IRpcStubBuffer p
 	#define __IFileDialogCustomize_INTERFACE_DEFINED__
 
 	extern IID_IFileDialogCustomize as const GUID
+
+	type IFileDialogCustomize as IFileDialogCustomize_
 
 	type IFileDialogCustomizeVtbl
 		QueryInterface as function(byval This as IFileDialogCustomize ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -6056,6 +6003,8 @@ declare sub IImageRecompress_RecompressImage_Stub(byval This as IRpcStubBuffer p
 
 	extern IID_IFileDialogControlEvents as const GUID
 
+	type IFileDialogControlEvents as IFileDialogControlEvents_
+
 	type IFileDialogControlEventsVtbl
 		QueryInterface as function(byval This as IFileDialogControlEvents ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 		AddRef as function(byval This as IFileDialogControlEvents ptr) as ULONG
@@ -6082,6 +6031,8 @@ declare sub IImageRecompress_RecompressImage_Stub(byval This as IRpcStubBuffer p
 	#define __IFileDialog2_INTERFACE_DEFINED__
 
 	extern IID_IFileDialog2 as const GUID
+
+	type IFileDialog2 as IFileDialog2_
 
 	type IFileDialog2Vtbl
 		QueryInterface as function(byval This as IFileDialog2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -6143,6 +6094,8 @@ declare sub IImageRecompress_RecompressImage_Stub(byval This as IRpcStubBuffer p
 
 	extern IID_IApplicationAssociationRegistration as const GUID
 
+	type IApplicationAssociationRegistration as IApplicationAssociationRegistration_
+
 	type IApplicationAssociationRegistrationVtbl
 		QueryInterface as function(byval This as IApplicationAssociationRegistration ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 		AddRef as function(byval This as IApplicationAssociationRegistration ptr) as ULONG
@@ -6177,6 +6130,8 @@ declare sub IImageRecompress_RecompressImage_Stub(byval This as IRpcStubBuffer p
 
 	extern IID_IApplicationAssociationRegistrationUI as const GUID
 
+	type IApplicationAssociationRegistrationUI as IApplicationAssociationRegistrationUI_
+
 	type IApplicationAssociationRegistrationUIVtbl
 		QueryInterface as function(byval This as IApplicationAssociationRegistrationUI ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 		AddRef as function(byval This as IApplicationAssociationRegistrationUI ptr) as ULONG
@@ -6206,6 +6161,8 @@ type PDELEGATEITEMID as DELEGATEITEMID ptr
 
 extern IID_IDelegateFolder as const GUID
 
+type IDelegateFolder as IDelegateFolder_
+
 type IDelegateFolderVtbl
 	QueryInterface as function(byval This as IDelegateFolder ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IDelegateFolder ptr) as ULONG
@@ -6222,6 +6179,8 @@ declare sub IDelegateFolder_SetItemAlloc_Stub(byval This as IRpcStubBuffer ptr, 
 
 #if (_WIN32_WINNT = &h0502) or (_WIN32_WINNT = &h0602)
 	#define __IBrowserFrameOptions_INTERFACE_DEFINED__
+
+	type IBrowserFrameOptions as IBrowserFrameOptions_
 
 	type LPBROWSERFRAMEOPTIONS as IBrowserFrameOptions ptr
 
@@ -6292,6 +6251,8 @@ declare sub IDelegateFolder_SetItemAlloc_Stub(byval This as IRpcStubBuffer ptr, 
 
 	extern IID_INewWindowManager as const GUID
 
+	type INewWindowManager as INewWindowManager_
+
 	type INewWindowManagerVtbl
 		QueryInterface as function(byval This as INewWindowManager ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 		AddRef as function(byval This as INewWindowManager ptr) as ULONG
@@ -6324,6 +6285,8 @@ declare sub IDelegateFolder_SetItemAlloc_Stub(byval This as IRpcStubBuffer ptr, 
 	end enum
 
 	extern IID_IAttachmentExecute as const GUID
+
+	type IAttachmentExecute as IAttachmentExecute_
 
 	type IAttachmentExecuteVtbl
 		QueryInterface as function(byval This as IAttachmentExecute ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -6485,6 +6448,8 @@ declare sub IDelegateFolder_SetItemAlloc_Stub(byval This as IRpcStubBuffer ptr, 
 
 	extern IID_IShellMenuCallback as const GUID
 
+	type IShellMenuCallback as IShellMenuCallback_
+
 	type IShellMenuCallbackVtbl
 		QueryInterface as function(byval This as IShellMenuCallback ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 		AddRef as function(byval This as IShellMenuCallback ptr) as ULONG
@@ -6523,6 +6488,8 @@ declare sub IDelegateFolder_SetItemAlloc_Stub(byval This as IRpcStubBuffer ptr, 
 	#define __IShellMenu_INTERFACE_DEFINED__
 
 	extern IID_IShellMenu as const GUID
+
+	type IShellMenu as IShellMenu_
 
 	type IShellMenuVtbl
 		QueryInterface as function(byval This as IShellMenu ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -6566,6 +6533,8 @@ declare sub IDelegateFolder_SetItemAlloc_Stub(byval This as IRpcStubBuffer ptr, 
 #define __IShellRunDll_INTERFACE_DEFINED__
 
 extern IID_IShellRunDll as const GUID
+
+type IShellRunDll as IShellRunDll_
 
 type IShellRunDllVtbl
 	QueryInterface as function(byval This as IShellRunDll ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -6616,6 +6585,8 @@ declare sub IShellRunDll_Run_Stub(byval This as IRpcStubBuffer ptr, byval pRpcCh
 		KF_REDIRECT_EXCLUDE_ALL_KNOWN_SUBFOLDERS = &h800
 	end enum
 
+	type KF_REDIRECT_FLAGS as DWORD
+
 	type _KF_REDIRECTION_CAPABILITIES as long
 	enum
 		KF_REDIRECTION_CAPABILITIES_ALLOW_ALL = &hff
@@ -6647,6 +6618,8 @@ declare sub IShellRunDll_Run_Stub(byval This as IRpcStubBuffer ptr, byval pRpcCh
 	#define __IKnownFolder_INTERFACE_DEFINED__
 
 	extern IID_IKnownFolder as const GUID
+
+	type IKnownFolder as IKnownFolder_
 
 	type IKnownFolderVtbl
 		QueryInterface as function(byval This as IKnownFolder ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -6695,6 +6668,8 @@ declare sub IShellRunDll_Run_Stub(byval This as IRpcStubBuffer ptr, byval pRpcCh
 	end enum
 
 	extern IID_IKnownFolderManager as const GUID
+
+	type IKnownFolderManager as IKnownFolderManager_
 
 	type IKnownFolderManagerVtbl
 		QueryInterface as function(byval This as IKnownFolderManager ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -6771,6 +6746,8 @@ declare sub IShellRunDll_Run_Stub(byval This as IRpcStubBuffer ptr, byval pRpcCh
 
 	extern IID_ISharingConfigurationManager as const GUID
 
+	type ISharingConfigurationManager as ISharingConfigurationManager_
+
 	type ISharingConfigurationManagerVtbl
 		QueryInterface as function(byval This as ISharingConfigurationManager ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 		AddRef as function(byval This as ISharingConfigurationManager ptr) as ULONG
@@ -6808,6 +6785,8 @@ declare sub IShellRunDll_Run_Stub(byval This as IRpcStubBuffer ptr, byval pRpcCh
 
 extern IID_IPreviousVersionsInfo as const GUID
 
+type IPreviousVersionsInfo as IPreviousVersionsInfo_
+
 type IPreviousVersionsInfoVtbl
 	QueryInterface as function(byval This as IPreviousVersionsInfo ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IPreviousVersionsInfo ptr) as ULONG
@@ -6826,6 +6805,8 @@ declare sub IPreviousVersionsInfo_AreSnapshotsAvailable_Stub(byval This as IRpcS
 	#define __IRelatedItem_INTERFACE_DEFINED__
 
 	extern IID_IRelatedItem as const GUID
+
+	type IRelatedItem as IRelatedItem_
 
 	type IRelatedItemVtbl
 		QueryInterface as function(byval This as IRelatedItem ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -6848,6 +6829,8 @@ declare sub IPreviousVersionsInfo_AreSnapshotsAvailable_Stub(byval This as IRpcS
 
 	extern IID_IIdentityName as const GUID
 
+	type IIdentityName as IIdentityName_
+
 	type IIdentityNameVtbl
 		QueryInterface as function(byval This as IIdentityName ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 		AddRef as function(byval This as IIdentityName ptr) as ULONG
@@ -6863,6 +6846,8 @@ declare sub IPreviousVersionsInfo_AreSnapshotsAvailable_Stub(byval This as IRpcS
 	#define __IDelegateItem_INTERFACE_DEFINED__
 
 	extern IID_IDelegateItem as const GUID
+
+	type IDelegateItem as IDelegateItem_
 
 	type IDelegateItemVtbl
 		QueryInterface as function(byval This as IDelegateItem ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -6880,6 +6865,8 @@ declare sub IPreviousVersionsInfo_AreSnapshotsAvailable_Stub(byval This as IRpcS
 
 	extern IID_ICurrentItem as const GUID
 
+	type ICurrentItem as ICurrentItem_
+
 	type ICurrentItemVtbl
 		QueryInterface as function(byval This as ICurrentItem ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 		AddRef as function(byval This as ICurrentItem ptr) as ULONG
@@ -6895,6 +6882,8 @@ declare sub IPreviousVersionsInfo_AreSnapshotsAvailable_Stub(byval This as IRpcS
 	#define __ITransferMediumItem_INTERFACE_DEFINED__
 
 	extern IID_ITransferMediumItem as const GUID
+
+	type ITransferMediumItem as ITransferMediumItem_
 
 	type ITransferMediumItemVtbl
 		QueryInterface as function(byval This as ITransferMediumItem ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -6912,6 +6901,8 @@ declare sub IPreviousVersionsInfo_AreSnapshotsAvailable_Stub(byval This as IRpcS
 
 	extern IID_IUseToBrowseItem as const GUID
 
+	type IUseToBrowseItem as IUseToBrowseItem_
+
 	type IUseToBrowseItemVtbl
 		QueryInterface as function(byval This as IUseToBrowseItem ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 		AddRef as function(byval This as IUseToBrowseItem ptr) as ULONG
@@ -6927,6 +6918,8 @@ declare sub IPreviousVersionsInfo_AreSnapshotsAvailable_Stub(byval This as IRpcS
 	#define __IDisplayItem_INTERFACE_DEFINED__
 
 	extern IID_IDisplayItem as const GUID
+
+	type IDisplayItem as IDisplayItem_
 
 	type IDisplayItemVtbl
 		QueryInterface as function(byval This as IDisplayItem ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -6944,6 +6937,8 @@ declare sub IPreviousVersionsInfo_AreSnapshotsAvailable_Stub(byval This as IRpcS
 
 	extern IID_IViewStateIdentityItem as const GUID
 
+	type IViewStateIdentityItem as IViewStateIdentityItem_
+
 	type IViewStateIdentityItemVtbl
 		QueryInterface as function(byval This as IViewStateIdentityItem ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 		AddRef as function(byval This as IViewStateIdentityItem ptr) as ULONG
@@ -6959,6 +6954,8 @@ declare sub IPreviousVersionsInfo_AreSnapshotsAvailable_Stub(byval This as IRpcS
 	#define __IPreviewItem_INTERFACE_DEFINED__
 
 	extern IID_IPreviewItem as const GUID
+
+	type IPreviewItem as IPreviewItem_
 
 	type IPreviewItemVtbl
 		QueryInterface as function(byval This as IPreviewItem ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -6976,6 +6973,8 @@ declare sub IPreviousVersionsInfo_AreSnapshotsAvailable_Stub(byval This as IRpcS
 #define __IDestinationStreamFactory_INTERFACE_DEFINED__
 
 extern IID_IDestinationStreamFactory as const GUID
+
+type IDestinationStreamFactory as IDestinationStreamFactory_
 
 type IDestinationStreamFactoryVtbl
 	QueryInterface as function(byval This as IDestinationStreamFactory ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -7012,6 +7011,8 @@ type NMCSAEI_FLAGS as long
 
 extern IID_INewMenuClient as const GUID
 
+type INewMenuClient as INewMenuClient_
+
 type INewMenuClientVtbl
 	QueryInterface as function(byval This as INewMenuClient ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as INewMenuClient ptr) as ULONG
@@ -7037,6 +7038,8 @@ extern SID_SCommandBarState as const GUID
 	#define __IInitializeWithBindCtx_INTERFACE_DEFINED__
 
 	extern IID_IInitializeWithBindCtx as const GUID
+
+	type IInitializeWithBindCtx as IInitializeWithBindCtx_
 
 	type IInitializeWithBindCtxVtbl
 		QueryInterface as function(byval This as IInitializeWithBindCtx ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -7147,6 +7150,8 @@ end enum
 
 extern IID_INameSpaceTreeControl as const GUID
 
+type INameSpaceTreeControl as INameSpaceTreeControl_
+
 type INameSpaceTreeControlVtbl
 	QueryInterface as function(byval This as INameSpaceTreeControl ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as INameSpaceTreeControl ptr) as ULONG
@@ -7230,6 +7235,8 @@ end enum
 
 extern IID_INameSpaceTreeControl2 as const GUID
 
+type INameSpaceTreeControl2 as INameSpaceTreeControl2_
+
 type INameSpaceTreeControl2Vtbl
 	QueryInterface as function(byval This as INameSpaceTreeControl2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as INameSpaceTreeControl2 ptr) as ULONG
@@ -7308,6 +7315,8 @@ type NSTCECLICKTYPE as DWORD
 
 extern IID_INameSpaceTreeControlEvents as const GUID
 
+type INameSpaceTreeControlEvents as INameSpaceTreeControlEvents_
+
 type INameSpaceTreeControlEventsVtbl
 	QueryInterface as function(byval This as INameSpaceTreeControlEvents ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as INameSpaceTreeControlEvents ptr) as ULONG
@@ -7378,6 +7387,8 @@ declare sub INameSpaceTreeControlEvents_OnGetDefaultIconIndex_Stub(byval This as
 
 extern IID_INameSpaceTreeControlDropHandler as const GUID
 
+type INameSpaceTreeControlDropHandler as INameSpaceTreeControlDropHandler_
+
 type INameSpaceTreeControlDropHandlerVtbl
 	QueryInterface as function(byval This as INameSpaceTreeControlDropHandler ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as INameSpaceTreeControlDropHandler ptr) as ULONG
@@ -7410,6 +7421,8 @@ declare sub INameSpaceTreeControlDropHandler_OnDragLeave_Stub(byval This as IRpc
 #define __INameSpaceTreeAccessible_INTERFACE_DEFINED__
 
 extern IID_INameSpaceTreeAccessible as const GUID
+
+type INameSpaceTreeAccessible as INameSpaceTreeAccessible_
 
 type INameSpaceTreeAccessibleVtbl
 	QueryInterface as function(byval This as INameSpaceTreeAccessible ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -7446,6 +7459,8 @@ end type
 
 extern IID_INameSpaceTreeControlCustomDraw as const GUID
 
+type INameSpaceTreeControlCustomDraw as INameSpaceTreeControlCustomDraw_
+
 type INameSpaceTreeControlCustomDrawVtbl
 	QueryInterface as function(byval This as INameSpaceTreeControlCustomDraw ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as INameSpaceTreeControlCustomDraw ptr) as ULONG
@@ -7481,6 +7496,8 @@ declare sub INameSpaceTreeControlCustomDraw_ItemPostPaint_Stub(byval This as IRp
 
 	extern IID_INameSpaceTreeControlFolderCapabilities as const GUID
 
+	type INameSpaceTreeControlFolderCapabilities as INameSpaceTreeControlFolderCapabilities_
+
 	type INameSpaceTreeControlFolderCapabilitiesVtbl
 		QueryInterface as function(byval This as INameSpaceTreeControlFolderCapabilities ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 		AddRef as function(byval This as INameSpaceTreeControlFolderCapabilities ptr) as ULONG
@@ -7503,6 +7520,8 @@ declare sub INameSpaceTreeControlCustomDraw_ItemPostPaint_Stub(byval This as IRp
 #define __IPreviewHandler_INTERFACE_DEFINED__
 
 extern IID_IPreviewHandler as const GUID
+
+type IPreviewHandler as IPreviewHandler_
 
 type IPreviewHandlerVtbl
 	QueryInterface as function(byval This as IPreviewHandler ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -7545,6 +7564,8 @@ end type
 
 extern IID_IPreviewHandlerFrame as const GUID
 
+type IPreviewHandlerFrame as IPreviewHandlerFrame_
+
 type IPreviewHandlerFrameVtbl
 	QueryInterface as function(byval This as IPreviewHandlerFrame ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IPreviewHandlerFrame ptr) as ULONG
@@ -7566,6 +7587,8 @@ declare sub IPreviewHandlerFrame_TranslateAccelerator_Stub(byval This as IRpcStu
 	#define __ITrayDeskBand_INTERFACE_DEFINED__
 
 	extern IID_ITrayDeskBand as const GUID
+
+	type ITrayDeskBand as ITrayDeskBand_
 
 	type ITrayDeskBandVtbl
 		QueryInterface as function(byval This as ITrayDeskBand ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -7593,6 +7616,8 @@ declare sub IPreviewHandlerFrame_TranslateAccelerator_Stub(byval This as IRpcStu
 	#define __IBandHost_INTERFACE_DEFINED__
 
 	extern IID_IBandHost as const GUID
+
+	type IBandHost as IBandHost_
 
 	type IBandHostVtbl
 		QueryInterface as function(byval This as IBandHost ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -7634,6 +7659,8 @@ declare sub IPreviewHandlerFrame_TranslateAccelerator_Stub(byval This as IRpcStu
 
 	extern IID_IExplorerPaneVisibility as const GUID
 
+	type IExplorerPaneVisibility as IExplorerPaneVisibility_
+
 	type IExplorerPaneVisibilityVtbl
 		QueryInterface as function(byval This as IExplorerPaneVisibility ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 		AddRef as function(byval This as IExplorerPaneVisibility ptr) as ULONG
@@ -7653,6 +7680,8 @@ declare sub IPreviewHandlerFrame_TranslateAccelerator_Stub(byval This as IRpcStu
 
 	extern IID_IContextMenuCB as const GUID
 
+	type IContextMenuCB as IContextMenuCB_
+
 	type IContextMenuCBVtbl
 		QueryInterface as function(byval This as IContextMenuCB ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 		AddRef as function(byval This as IContextMenuCB ptr) as ULONG
@@ -7671,6 +7700,8 @@ declare sub IPreviewHandlerFrame_TranslateAccelerator_Stub(byval This as IRpcStu
 #define __IDefaultExtractIconInit_INTERFACE_DEFINED__
 
 extern IID_IDefaultExtractIconInit as const GUID
+
+type IDefaultExtractIconInit as IDefaultExtractIconInit_
 
 type IDefaultExtractIconInitVtbl
 	QueryInterface as function(byval This as IDefaultExtractIconInit ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -7735,6 +7766,9 @@ type EXPCMDFLAGS as DWORD
 
 extern IID_IExplorerCommand as const GUID
 
+type IEnumExplorerCommand as IEnumExplorerCommand_
+type IExplorerCommand as IExplorerCommand_
+
 type IExplorerCommandVtbl
 	QueryInterface as function(byval This as IExplorerCommand ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IExplorerCommand ptr) as ULONG
@@ -7774,6 +7808,8 @@ declare sub IExplorerCommand_EnumSubCommands_Stub(byval This as IRpcStubBuffer p
 
 extern IID_IExplorerCommandState as const GUID
 
+type IExplorerCommandState as IExplorerCommandState_
+
 type IExplorerCommandStateVtbl
 	QueryInterface as function(byval This as IExplorerCommandState ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IExplorerCommandState ptr) as ULONG
@@ -7791,6 +7827,8 @@ declare sub IExplorerCommandState_GetState_Stub(byval This as IRpcStubBuffer ptr
 #define __IInitializeCommand_INTERFACE_DEFINED__
 
 extern IID_IInitializeCommand as const GUID
+
+type IInitializeCommand as IInitializeCommand_
 
 type IInitializeCommandVtbl
 	QueryInterface as function(byval This as IInitializeCommand ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -7839,6 +7877,8 @@ declare function IEnumExplorerCommand_Next_Stub(byval This as IEnumExplorerComma
 
 extern IID_IExplorerCommandProvider as const GUID
 
+type IExplorerCommandProvider as IExplorerCommandProvider_
+
 type IExplorerCommandProviderVtbl
 	QueryInterface as function(byval This as IExplorerCommandProvider ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IExplorerCommandProvider ptr) as ULONG
@@ -7861,6 +7901,8 @@ type HTHEME as HANDLE
 #define __IInitializeNetworkFolder_INTERFACE_DEFINED__
 
 extern IID_IInitializeNetworkFolder as const GUID
+
+type IInitializeNetworkFolder as IInitializeNetworkFolder_
 
 type IInitializeNetworkFolderVtbl
 	QueryInterface as function(byval This as IInitializeNetworkFolder ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -7888,6 +7930,8 @@ end enum
 
 extern IID_IOpenControlPanel as const GUID
 
+type IOpenControlPanel as IOpenControlPanel_
+
 type IOpenControlPanelVtbl
 	QueryInterface as function(byval This as IOpenControlPanel ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IOpenControlPanel ptr) as ULONG
@@ -7912,6 +7956,8 @@ declare sub IOpenControlPanel_GetCurrentView_Stub(byval This as IRpcStubBuffer p
 
 extern IID_IComputerInfoChangeNotify as const GUID
 
+type IComputerInfoChangeNotify as IComputerInfoChangeNotify_
+
 type IComputerInfoChangeNotifyVtbl
 	QueryInterface as function(byval This as IComputerInfoChangeNotify ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IComputerInfoChangeNotify ptr) as ULONG
@@ -7930,6 +7976,8 @@ declare sub IComputerInfoChangeNotify_ComputerInfoChanged_Stub(byval This as IRp
 #define __IFileSystemBindData_INTERFACE_DEFINED__
 
 extern IID_IFileSystemBindData as const GUID
+
+type IFileSystemBindData as IFileSystemBindData_
 
 type IFileSystemBindDataVtbl
 	QueryInterface as function(byval This as IFileSystemBindData ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -7951,6 +7999,8 @@ declare sub IFileSystemBindData_GetFindData_Stub(byval This as IRpcStubBuffer pt
 #define __IFileSystemBindData2_INTERFACE_DEFINED__
 
 extern IID_IFileSystemBindData2 as const GUID
+
+type IFileSystemBindData2 as IFileSystemBindData2_
 
 type IFileSystemBindData2Vtbl
 	QueryInterface as function(byval This as IFileSystemBindData2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -7987,6 +8037,8 @@ declare sub IFileSystemBindData2_GetJunctionCLSID_Stub(byval This as IRpcStubBuf
 	end enum
 
 	extern IID_ICustomDestinationList as const GUID
+
+	type ICustomDestinationList as ICustomDestinationList_
 
 	type ICustomDestinationListVtbl
 		QueryInterface as function(byval This as ICustomDestinationList ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -8030,6 +8082,8 @@ declare sub IFileSystemBindData2_GetJunctionCLSID_Stub(byval This as IRpcStubBuf
 
 	extern IID_IApplicationDestinations as const GUID
 
+	type IApplicationDestinations as IApplicationDestinations_
+
 	type IApplicationDestinationsVtbl
 		QueryInterface as function(byval This as IApplicationDestinations ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 		AddRef as function(byval This as IApplicationDestinations ptr) as ULONG
@@ -8060,6 +8114,8 @@ declare sub IFileSystemBindData2_GetJunctionCLSID_Stub(byval This as IRpcStubBuf
 
 	extern IID_IApplicationDocumentLists as const GUID
 
+	type IApplicationDocumentLists as IApplicationDocumentLists_
+
 	type IApplicationDocumentListsVtbl
 		QueryInterface as function(byval This as IApplicationDocumentLists ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 		AddRef as function(byval This as IApplicationDocumentLists ptr) as ULONG
@@ -8080,6 +8136,8 @@ declare sub IFileSystemBindData2_GetJunctionCLSID_Stub(byval This as IRpcStubBuf
 	#define __IObjectWithAppUserModelID_INTERFACE_DEFINED__
 
 	extern IID_IObjectWithAppUserModelID as const GUID
+
+	type IObjectWithAppUserModelID as IObjectWithAppUserModelID_
 
 	type IObjectWithAppUserModelIDVtbl
 		QueryInterface as function(byval This as IObjectWithAppUserModelID ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -8102,6 +8160,8 @@ declare sub IFileSystemBindData2_GetJunctionCLSID_Stub(byval This as IRpcStubBuf
 
 	extern IID_IObjectWithProgID as const GUID
 
+	type IObjectWithProgID as IObjectWithProgID_
+
 	type IObjectWithProgIDVtbl
 		QueryInterface as function(byval This as IObjectWithProgID ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 		AddRef as function(byval This as IObjectWithProgID ptr) as ULONG
@@ -8123,6 +8183,8 @@ declare sub IFileSystemBindData2_GetJunctionCLSID_Stub(byval This as IRpcStubBuf
 
 	extern IID_IUpdateIDList as const GUID
 
+	type IUpdateIDList as IUpdateIDList_
+
 	type IUpdateIDListVtbl
 		QueryInterface as function(byval This as IUpdateIDList ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 		AddRef as function(byval This as IUpdateIDList ptr) as ULONG
@@ -8143,6 +8205,8 @@ declare sub IFileSystemBindData2_GetJunctionCLSID_Stub(byval This as IRpcStubBuf
 #define __IDesktopGadget_INTERFACE_DEFINED__
 
 extern IID_IDesktopGadget as const GUID
+
+type IDesktopGadget as IDesktopGadget_
 
 type IDesktopGadgetVtbl
 	QueryInterface as function(byval This as IDesktopGadget ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -8191,6 +8255,8 @@ declare sub IDesktopGadget_RunGadget_Stub(byval This as IRpcStubBuffer ptr, byva
 
 	extern IID_IDesktopWallpaper as const GUID
 
+	type IDesktopWallpaper as IDesktopWallpaper_
+
 	type IDesktopWallpaperVtbl
 		QueryInterface as function(byval This as IDesktopWallpaper ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 		AddRef as function(byval This as IDesktopWallpaper ptr) as ULONG
@@ -8200,8 +8266,8 @@ declare sub IDesktopGadget_RunGadget_Stub(byval This as IRpcStubBuffer ptr, byva
 		GetMonitorDevicePathAt as function(byval This as IDesktopWallpaper ptr, byval monitorIndex as UINT, byval monitorID as LPWSTR ptr) as HRESULT
 		GetMonitorDevicePathCount as function(byval This as IDesktopWallpaper ptr, byval count as UINT ptr) as HRESULT
 		GetMonitorRECT as function(byval This as IDesktopWallpaper ptr, byval monitorID as LPCWSTR, byval displayRect as RECT ptr) as HRESULT
-		SetBackgroundColor as function(byval This as IDesktopWallpaper ptr, byval color_ as COLORREF) as HRESULT
-		GetBackgroundColor as function(byval This as IDesktopWallpaper ptr, byval color_ as COLORREF ptr) as HRESULT
+		SetBackgroundColor as function(byval This as IDesktopWallpaper ptr, byval color as COLORREF) as HRESULT
+		GetBackgroundColor as function(byval This as IDesktopWallpaper ptr, byval color as COLORREF ptr) as HRESULT
 		SetPosition as function(byval This as IDesktopWallpaper ptr, byval position as DESKTOP_WALLPAPER_POSITION) as HRESULT
 		GetPosition as function(byval This as IDesktopWallpaper ptr, byval position as DESKTOP_WALLPAPER_POSITION ptr) as HRESULT
 		SetSlideshow as function(byval This as IDesktopWallpaper ptr, byval items as IShellItemArray ptr) as HRESULT
@@ -8227,9 +8293,9 @@ declare sub IDesktopGadget_RunGadget_Stub(byval This as IRpcStubBuffer ptr, byva
 	declare sub IDesktopWallpaper_GetMonitorDevicePathCount_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 	declare function IDesktopWallpaper_GetMonitorRECT_Proxy(byval This as IDesktopWallpaper ptr, byval monitorID as LPCWSTR, byval displayRect as RECT ptr) as HRESULT
 	declare sub IDesktopWallpaper_GetMonitorRECT_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-	declare function IDesktopWallpaper_SetBackgroundColor_Proxy(byval This as IDesktopWallpaper ptr, byval color_ as COLORREF) as HRESULT
+	declare function IDesktopWallpaper_SetBackgroundColor_Proxy(byval This as IDesktopWallpaper ptr, byval color as COLORREF) as HRESULT
 	declare sub IDesktopWallpaper_SetBackgroundColor_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-	declare function IDesktopWallpaper_GetBackgroundColor_Proxy(byval This as IDesktopWallpaper ptr, byval color_ as COLORREF ptr) as HRESULT
+	declare function IDesktopWallpaper_GetBackgroundColor_Proxy(byval This as IDesktopWallpaper ptr, byval color as COLORREF ptr) as HRESULT
 	declare sub IDesktopWallpaper_GetBackgroundColor_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 	declare function IDesktopWallpaper_SetPosition_Proxy(byval This as IDesktopWallpaper ptr, byval position as DESKTOP_WALLPAPER_POSITION) as HRESULT
 	declare sub IDesktopWallpaper_SetPosition_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
@@ -8267,6 +8333,8 @@ end enum
 
 extern IID_IHomeGroup as const GUID
 
+type IHomeGroup as IHomeGroup_
+
 type IHomeGroupVtbl
 	QueryInterface as function(byval This as IHomeGroup ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IHomeGroup ptr) as ULONG
@@ -8288,6 +8356,8 @@ declare sub IHomeGroup_ShowSharingWizard_Stub(byval This as IRpcStubBuffer ptr, 
 
 extern IID_IInitializeWithPropertyStore as const GUID
 
+type IInitializeWithPropertyStore as IInitializeWithPropertyStore_
+
 type IInitializeWithPropertyStoreVtbl
 	QueryInterface as function(byval This as IInitializeWithPropertyStore ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IInitializeWithPropertyStore ptr) as ULONG
@@ -8305,6 +8375,8 @@ declare sub IInitializeWithPropertyStore_Initialize_Stub(byval This as IRpcStubB
 #define __IOpenSearchSource_INTERFACE_DEFINED__
 
 extern IID_IOpenSearchSource as const GUID
+
+type IOpenSearchSource as IOpenSearchSource_
 
 type IOpenSearchSourceVtbl
 	QueryInterface as function(byval This as IOpenSearchSource ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -8351,6 +8423,8 @@ enum
 end enum
 
 extern IID_IShellLibrary as const GUID
+
+type IShellLibrary as IShellLibrary_
 
 type IShellLibraryVtbl
 	QueryInterface as function(byval This as IShellLibrary ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -8424,6 +8498,8 @@ end enum
 
 extern IID_IPlaybackManagerEvents as const GUID
 
+type IPlaybackManagerEvents as IPlaybackManagerEvents_
+
 type IPlaybackManagerEventsVtbl
 	QueryInterface as function(byval This as IPlaybackManagerEvents ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IPlaybackManagerEvents ptr) as ULONG
@@ -8461,11 +8537,13 @@ end enum
 
 extern IID_IPlaybackManager as const GUID
 
+type IPlaybackManager as IPlaybackManager_
+
 type IPlaybackManagerVtbl
 	QueryInterface as function(byval This as IPlaybackManager ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IPlaybackManager ptr) as ULONG
 	Release as function(byval This as IPlaybackManager ptr) as ULONG
-	Advise as function(byval This as IPlaybackManager ptr, byval type_ as PBM_SESSION_TYPE, byval pEvents as IPlaybackManagerEvents ptr, byval pdwSessionId as DWORD ptr) as HRESULT
+	Advise as function(byval This as IPlaybackManager ptr, byval type as PBM_SESSION_TYPE, byval pEvents as IPlaybackManagerEvents ptr, byval pdwSessionId as DWORD ptr) as HRESULT
 	Unadvise as function(byval This as IPlaybackManager ptr, byval dwSessionId as DWORD) as HRESULT
 	ChangeSessionState as function(byval This as IPlaybackManager ptr, byval dwSessionId as DWORD, byval state as PBM_PLAY_STATE, byval mute as PBM_MUTE_STATE) as HRESULT
 end type
@@ -8474,7 +8552,7 @@ type IPlaybackManager_
 	lpVtbl as IPlaybackManagerVtbl ptr
 end type
 
-declare function IPlaybackManager_Advise_Proxy(byval This as IPlaybackManager ptr, byval type_ as PBM_SESSION_TYPE, byval pEvents as IPlaybackManagerEvents ptr, byval pdwSessionId as DWORD ptr) as HRESULT
+declare function IPlaybackManager_Advise_Proxy(byval This as IPlaybackManager ptr, byval type as PBM_SESSION_TYPE, byval pEvents as IPlaybackManagerEvents ptr, byval pdwSessionId as DWORD ptr) as HRESULT
 declare sub IPlaybackManager_Advise_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IPlaybackManager_Unadvise_Proxy(byval This as IPlaybackManager ptr, byval dwSessionId as DWORD) as HRESULT
 declare sub IPlaybackManager_Unadvise_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
@@ -8497,6 +8575,8 @@ end enum
 #define __IDefaultFolderMenuInitialize_INTERFACE_DEFINED__
 
 extern IID_IDefaultFolderMenuInitialize as const GUID
+
+type IDefaultFolderMenuInitialize as IDefaultFolderMenuInitialize_
 
 type IDefaultFolderMenuInitializeVtbl
 	QueryInterface as function(byval This as IDefaultFolderMenuInitialize ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -8533,6 +8613,8 @@ declare sub IDefaultFolderMenuInitialize_SetHandlerClsid_Stub(byval This as IRpc
 	#define __IApplicationActivationManager_INTERFACE_DEFINED__
 
 	extern IID_IApplicationActivationManager as const GUID
+
+	type IApplicationActivationManager as IApplicationActivationManager_
 
 	type IApplicationActivationManagerVtbl
 		QueryInterface as function(byval This as IApplicationActivationManager ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -8645,6 +8727,8 @@ extern CLSID_ExecuteFolder as const GUID
 
 	extern IID_IAssocHandlerInvoker as const GUID
 
+	type IAssocHandlerInvoker as IAssocHandlerInvoker_
+
 	type IAssocHandlerInvokerVtbl
 		QueryInterface as function(byval This as IAssocHandlerInvoker ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 		AddRef as function(byval This as IAssocHandlerInvoker ptr) as ULONG
@@ -8665,6 +8749,8 @@ extern CLSID_ExecuteFolder as const GUID
 	#define __IAssocHandler_INTERFACE_DEFINED__
 
 	extern IID_IAssocHandler as const GUID
+
+	type IAssocHandler as IAssocHandler_
 
 	type IAssocHandlerVtbl
 		QueryInterface as function(byval This as IAssocHandler ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -8702,6 +8788,8 @@ extern CLSID_ExecuteFolder as const GUID
 
 	extern IID_IEnumAssocHandlers as const GUID
 
+	type IEnumAssocHandlers as IEnumAssocHandlers_
+
 	type IEnumAssocHandlersVtbl
 		QueryInterface as function(byval This as IEnumAssocHandlers ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 		AddRef as function(byval This as IEnumAssocHandlers ptr) as ULONG
@@ -8729,6 +8817,8 @@ extern CLSID_ExecuteFolder as const GUID
 
 	extern IID_IDataObjectProvider as const GUID
 
+	type IDataObjectProvider as IDataObjectProvider_
+
 	type IDataObjectProviderVtbl
 		QueryInterface as function(byval This as IDataObjectProvider ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 		AddRef as function(byval This as IDataObjectProvider ptr) as ULONG
@@ -8747,6 +8837,8 @@ extern CLSID_ExecuteFolder as const GUID
 	#define __IDataTransferManagerInterop_INTERFACE_DEFINED__
 
 	extern IID_IDataTransferManagerInterop as const GUID
+
+	type IDataTransferManagerInterop as IDataTransferManagerInterop_
 
 	type IDataTransferManagerInteropVtbl
 		QueryInterface as function(byval This as IDataTransferManagerInterop ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -8769,6 +8861,8 @@ extern CLSID_ExecuteFolder as const GUID
 
 	extern IID_IFrameworkInputPaneHandler as const GUID
 
+	type IFrameworkInputPaneHandler as IFrameworkInputPaneHandler_
+
 	type IFrameworkInputPaneHandlerVtbl
 		QueryInterface as function(byval This as IFrameworkInputPaneHandler ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 		AddRef as function(byval This as IFrameworkInputPaneHandler ptr) as ULONG
@@ -8789,6 +8883,8 @@ extern CLSID_ExecuteFolder as const GUID
 	#define __IFrameworkInputPane_INTERFACE_DEFINED__
 
 	extern IID_IFrameworkInputPane as const GUID
+
+	type IFrameworkInputPane as IFrameworkInputPane_
 
 	type IFrameworkInputPaneVtbl
 		QueryInterface as function(byval This as IFrameworkInputPane ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -8828,6 +8924,8 @@ extern CLSID_ExecuteFolder as const GUID
 
 	extern IID_ISearchableApplication as const GUID
 
+	type ISearchableApplication as ISearchableApplication_
+
 	type ISearchableApplicationVtbl
 		QueryInterface as function(byval This as ISearchableApplication ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 		AddRef as function(byval This as ISearchableApplication ptr) as ULONG
@@ -8852,6 +8950,8 @@ extern CLSID_ExecuteFolder as const GUID
 
 	extern IID_IAccessibilityDockingServiceCallback as const GUID
 
+	type IAccessibilityDockingServiceCallback as IAccessibilityDockingServiceCallback_
+
 	type IAccessibilityDockingServiceCallbackVtbl
 		QueryInterface as function(byval This as IAccessibilityDockingServiceCallback ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 		AddRef as function(byval This as IAccessibilityDockingServiceCallback ptr) as ULONG
@@ -8869,6 +8969,8 @@ extern CLSID_ExecuteFolder as const GUID
 	#define __IAccessibilityDockingService_INTERFACE_DEFINED__
 
 	extern IID_IAccessibilityDockingService as const GUID
+
+	type IAccessibilityDockingService as IAccessibilityDockingService_
 
 	type IAccessibilityDockingServiceVtbl
 		QueryInterface as function(byval This as IAccessibilityDockingService ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -8901,6 +9003,8 @@ extern CLSID_ExecuteFolder as const GUID
 
 	extern IID_IAppVisibilityEvents as const GUID
 
+	type IAppVisibilityEvents as IAppVisibilityEvents_
+
 	type IAppVisibilityEventsVtbl
 		QueryInterface as function(byval This as IAppVisibilityEvents ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 		AddRef as function(byval This as IAppVisibilityEvents ptr) as ULONG
@@ -8921,6 +9025,8 @@ extern CLSID_ExecuteFolder as const GUID
 	#define __IAppVisibility_INTERFACE_DEFINED__
 
 	extern IID_IAppVisibility as const GUID
+
+	type IAppVisibility as IAppVisibility_
 
 	type IAppVisibilityVtbl
 		QueryInterface as function(byval This as IAppVisibility ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -8958,6 +9064,8 @@ extern CLSID_ExecuteFolder as const GUID
 
 	extern IID_IPackageExecutionStateChangeNotification as const GUID
 
+	type IPackageExecutionStateChangeNotification as IPackageExecutionStateChangeNotification_
+
 	type IPackageExecutionStateChangeNotificationVtbl
 		QueryInterface as function(byval This as IPackageExecutionStateChangeNotification ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 		AddRef as function(byval This as IPackageExecutionStateChangeNotification ptr) as ULONG
@@ -8975,6 +9083,8 @@ extern CLSID_ExecuteFolder as const GUID
 	#define __IPackageDebugSettings_INTERFACE_DEFINED__
 
 	extern IID_IPackageDebugSettings as const GUID
+
+	type IPackageDebugSettings as IPackageDebugSettings_
 
 	type IPackageDebugSettingsVtbl
 		QueryInterface as function(byval This as IPackageDebugSettings ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -9042,6 +9152,8 @@ extern CLSID_ExecuteFolder as const GUID
 
 	extern IID_IExecuteCommandApplicationHostEnvironment as const GUID
 
+	type IExecuteCommandApplicationHostEnvironment as IExecuteCommandApplicationHostEnvironment_
+
 	type IExecuteCommandApplicationHostEnvironmentVtbl
 		QueryInterface as function(byval This as IExecuteCommandApplicationHostEnvironment ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 		AddRef as function(byval This as IExecuteCommandApplicationHostEnvironment ptr) as ULONG
@@ -9066,6 +9178,8 @@ extern CLSID_ExecuteFolder as const GUID
 	#define __IExecuteCommandHost_INTERFACE_DEFINED__
 
 	extern IID_IExecuteCommandHost as const GUID
+
+	type IExecuteCommandHost as IExecuteCommandHost_
 
 	type IExecuteCommandHostVtbl
 		QueryInterface as function(byval This as IExecuteCommandHost ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -9102,6 +9216,8 @@ extern CLSID_ExecuteFolder as const GUID
 
 	extern IID_IApplicationDesignModeSettings as const GUID
 
+	type IApplicationDesignModeSettings as IApplicationDesignModeSettings_
+
 	type IApplicationDesignModeSettingsVtbl
 		QueryInterface as function(byval This as IApplicationDesignModeSettings ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 		AddRef as function(byval This as IApplicationDesignModeSettings ptr) as ULONG
@@ -9135,6 +9251,8 @@ extern CLSID_ExecuteFolder as const GUID
 
 	extern IID_IInitializeWithWindow as const GUID
 
+	type IInitializeWithWindow as IInitializeWithWindow_
+
 	type IInitializeWithWindowVtbl
 		QueryInterface as function(byval This as IInitializeWithWindow ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 		AddRef as function(byval This as IInitializeWithWindow ptr) as ULONG
@@ -9152,6 +9270,8 @@ extern CLSID_ExecuteFolder as const GUID
 	#define __IHandlerInfo_INTERFACE_DEFINED__
 
 	extern IID_IHandlerInfo as const GUID
+
+	type IHandlerInfo as IHandlerInfo_
 
 	type IHandlerInfoVtbl
 		QueryInterface as function(byval This as IHandlerInfo ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -9176,6 +9296,8 @@ extern CLSID_ExecuteFolder as const GUID
 	#define __IHandlerActivationHost_INTERFACE_DEFINED__
 
 	extern IID_IHandlerActivationHost as const GUID
+
+	type IHandlerActivationHost as IHandlerActivationHost_
 
 	type IHandlerActivationHostVtbl
 		QueryInterface as function(byval This as IHandlerActivationHost ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -9211,6 +9333,10 @@ declare function PITEMID_CHILD_UserSize(byval as ULONG ptr, byval as ULONG, byva
 declare function PITEMID_CHILD_UserMarshal(byval as ULONG ptr, byval as ubyte ptr, byval as LPITEMIDLIST ptr) as ubyte ptr
 declare function PITEMID_CHILD_UserUnmarshal(byval as ULONG ptr, byval as ubyte ptr, byval as LPITEMIDLIST ptr) as ubyte ptr
 declare sub PITEMID_CHILD_UserFree(byval as ULONG ptr, byval as LPITEMIDLIST ptr)
+declare function HWND_UserSize(byval as ULONG ptr, byval as ULONG, byval as HWND ptr) as ULONG
+declare function HWND_UserMarshal(byval as ULONG ptr, byval as ubyte ptr, byval as HWND ptr) as ubyte ptr
+declare function HWND_UserUnmarshal(byval as ULONG ptr, byval as ubyte ptr, byval as HWND ptr) as ubyte ptr
+declare sub HWND_UserFree(byval as ULONG ptr, byval as HWND ptr)
 declare function PIDLIST_RELATIVE_UserSize(byval as ULONG ptr, byval as ULONG, byval as LPITEMIDLIST ptr) as ULONG
 declare function PIDLIST_RELATIVE_UserMarshal(byval as ULONG ptr, byval as ubyte ptr, byval as LPITEMIDLIST ptr) as ubyte ptr
 declare function PIDLIST_RELATIVE_UserUnmarshal(byval as ULONG ptr, byval as ubyte ptr, byval as LPITEMIDLIST ptr) as ubyte ptr
@@ -9223,6 +9349,38 @@ declare function PCUITEMID_CHILD_UserSize(byval as ULONG ptr, byval as ULONG, by
 declare function PCUITEMID_CHILD_UserMarshal(byval as ULONG ptr, byval as ubyte ptr, byval as LPCITEMIDLIST ptr) as ubyte ptr
 declare function PCUITEMID_CHILD_UserUnmarshal(byval as ULONG ptr, byval as ubyte ptr, byval as LPCITEMIDLIST ptr) as ubyte ptr
 declare sub PCUITEMID_CHILD_UserFree(byval as ULONG ptr, byval as LPCITEMIDLIST ptr)
+declare function VARIANT_UserSize(byval as ULONG ptr, byval as ULONG, byval as VARIANT ptr) as ULONG
+declare function VARIANT_UserMarshal(byval as ULONG ptr, byval as ubyte ptr, byval as VARIANT ptr) as ubyte ptr
+declare function VARIANT_UserUnmarshal(byval as ULONG ptr, byval as ubyte ptr, byval as VARIANT ptr) as ubyte ptr
+declare sub VARIANT_UserFree(byval as ULONG ptr, byval as VARIANT ptr)
+declare function BSTR_UserSize(byval as ULONG ptr, byval as ULONG, byval as BSTR ptr) as ULONG
+declare function BSTR_UserMarshal(byval as ULONG ptr, byval as ubyte ptr, byval as BSTR ptr) as ubyte ptr
+declare function BSTR_UserUnmarshal(byval as ULONG ptr, byval as ubyte ptr, byval as BSTR ptr) as ubyte ptr
+declare sub BSTR_UserFree(byval as ULONG ptr, byval as BSTR ptr)
+declare function LPSAFEARRAY_UserSize(byval as ULONG ptr, byval as ULONG, byval as LPSAFEARRAY ptr) as ULONG
+declare function LPSAFEARRAY_UserMarshal(byval as ULONG ptr, byval as ubyte ptr, byval as LPSAFEARRAY ptr) as ubyte ptr
+declare function LPSAFEARRAY_UserUnmarshal(byval as ULONG ptr, byval as ubyte ptr, byval as LPSAFEARRAY ptr) as ubyte ptr
+declare sub LPSAFEARRAY_UserFree(byval as ULONG ptr, byval as LPSAFEARRAY ptr)
+declare function HBITMAP_UserSize(byval as ULONG ptr, byval as ULONG, byval as HBITMAP ptr) as ULONG
+declare function HBITMAP_UserMarshal(byval as ULONG ptr, byval as ubyte ptr, byval as HBITMAP ptr) as ubyte ptr
+declare function HBITMAP_UserUnmarshal(byval as ULONG ptr, byval as ubyte ptr, byval as HBITMAP ptr) as ubyte ptr
+declare sub HBITMAP_UserFree(byval as ULONG ptr, byval as HBITMAP ptr)
+declare function HMENU_UserSize(byval as ULONG ptr, byval as ULONG, byval as HMENU ptr) as ULONG
+declare function HMENU_UserMarshal(byval as ULONG ptr, byval as ubyte ptr, byval as HMENU ptr) as ubyte ptr
+declare function HMENU_UserUnmarshal(byval as ULONG ptr, byval as ubyte ptr, byval as HMENU ptr) as ubyte ptr
+declare sub HMENU_UserFree(byval as ULONG ptr, byval as HMENU ptr)
+declare function HGLOBAL_UserSize(byval as ULONG ptr, byval as ULONG, byval as HGLOBAL ptr) as ULONG
+declare function HGLOBAL_UserMarshal(byval as ULONG ptr, byval as ubyte ptr, byval as HGLOBAL ptr) as ubyte ptr
+declare function HGLOBAL_UserUnmarshal(byval as ULONG ptr, byval as ubyte ptr, byval as HGLOBAL ptr) as ubyte ptr
+declare sub HGLOBAL_UserFree(byval as ULONG ptr, byval as HGLOBAL ptr)
+declare function HICON_UserSize(byval as ULONG ptr, byval as ULONG, byval as HICON ptr) as ULONG
+declare function HICON_UserMarshal(byval as ULONG ptr, byval as ubyte ptr, byval as HICON ptr) as ubyte ptr
+declare function HICON_UserUnmarshal(byval as ULONG ptr, byval as ubyte ptr, byval as HICON ptr) as ubyte ptr
+declare sub HICON_UserFree(byval as ULONG ptr, byval as HICON ptr)
+declare function HACCEL_UserSize(byval as ULONG ptr, byval as ULONG, byval as HACCEL ptr) as ULONG
+declare function HACCEL_UserMarshal(byval as ULONG ptr, byval as ubyte ptr, byval as HACCEL ptr) as ubyte ptr
+declare function HACCEL_UserUnmarshal(byval as ULONG ptr, byval as ubyte ptr, byval as HACCEL ptr) as ubyte ptr
+declare sub HACCEL_UserFree(byval as ULONG ptr, byval as HACCEL ptr)
 declare function HMONITOR_UserSize(byval as ULONG ptr, byval as ULONG, byval as HMONITOR ptr) as ULONG
 declare function HMONITOR_UserMarshal(byval as ULONG ptr, byval as ubyte ptr, byval as HMONITOR ptr) as ubyte ptr
 declare function HMONITOR_UserUnmarshal(byval as ULONG ptr, byval as ubyte ptr, byval as HMONITOR ptr) as ubyte ptr

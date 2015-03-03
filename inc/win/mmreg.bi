@@ -1,16 +1,8 @@
 #pragma once
 
-'' The following symbols have been renamed:
-''     #define KSDATAFORMAT_SUBTYPE_PCM => KSDATAFORMAT_SUBTYPE_PCM_
-''     #define KSDATAFORMAT_SUBTYPE_IEEE_FLOAT => KSDATAFORMAT_SUBTYPE_IEEE_FLOAT_
-''     struct tag_s_RIFFWAVE_INST => tag_s_RIFFWAVE_INST_
-
 extern "C"
 
 #define _INC_MMREG 158
-
-extern KSDATAFORMAT_SUBTYPE_PCM as const GUID
-
 #define MM_MICROSOFT 1
 #define MM_CREATIVE 2
 #define MM_MEDIAVISION 3
@@ -278,27 +270,16 @@ extern KSDATAFORMAT_SUBTYPE_PCM as const GUID
 #define MM_PID_UNMAPPED MM_UNMAPPED
 #macro INIT_MMREG_MID(guid, id)
 	scope
-		(guid)->Data1
 		'' TODO: (guid)->Data1 = 0xd5a47fa7 + (USHORT)(id);
-		(guid)->Data2
 		'' TODO: (guid)->Data2 = 0x6d98;
-		(guid)->Data3
 		'' TODO: (guid)->Data3 = 0x11d1;
-		(guid)->Data4[0]
 		'' TODO: (guid)->Data4[0] = 0xa2;
-		(guid)->Data4[1]
 		'' TODO: (guid)->Data4[1] = 0x1a;
-		(guid)->Data4[2]
 		'' TODO: (guid)->Data4[2] = 0x00;
-		(guid)->Data4[3]
 		'' TODO: (guid)->Data4[3] = 0xa0;
-		(guid)->Data4[4]
 		'' TODO: (guid)->Data4[4] = 0xc9;
-		(guid)->Data4[5]
 		'' TODO: (guid)->Data4[5] = 0x22;
-		(guid)->Data4[6]
 		'' TODO: (guid)->Data4[6] = 0x31;
-		(guid)->Data4[7]
 		'' TODO: (guid)->Data4[7] = 0x96;
 	end scope
 #endmacro
@@ -306,27 +287,16 @@ extern KSDATAFORMAT_SUBTYPE_PCM as const GUID
 #define IS_COMPATIBLE_MMREG_MID(guid) (((((((((((((guid)->Data1 >= &hd5a47fa7) andalso ((guid)->Data1 < (&hd5a47fa7 + &hffff))) andalso ((guid)->Data2 = &h6d98)) andalso ((guid)->Data3 = &h11d1)) andalso ((guid)->Data4[0] = &ha2)) andalso ((guid)->Data4[1] = &h1a)) andalso ((guid)->Data4[2] = &h00)) andalso ((guid)->Data4[3] = &ha0)) andalso ((guid)->Data4[4] = &hc9)) andalso ((guid)->Data4[5] = &h22)) andalso ((guid)->Data4[6] = &h31)) andalso ((guid)->Data4[7] = &h96))
 #macro INIT_MMREG_PID(guid, id)
 	scope
-		(guid)->Data1
 		'' TODO: (guid)->Data1 = 0xe36dc2ac + (USHORT)(id);
-		(guid)->Data2
 		'' TODO: (guid)->Data2 = 0x6d9a;
-		(guid)->Data3
 		'' TODO: (guid)->Data3 = 0x11d1;
-		(guid)->Data4[0]
 		'' TODO: (guid)->Data4[0] = 0xa2;
-		(guid)->Data4[1]
 		'' TODO: (guid)->Data4[1] = 0x1a;
-		(guid)->Data4[2]
 		'' TODO: (guid)->Data4[2] = 0x00;
-		(guid)->Data4[3]
 		'' TODO: (guid)->Data4[3] = 0xa0;
-		(guid)->Data4[4]
 		'' TODO: (guid)->Data4[4] = 0xc9;
-		(guid)->Data4[5]
 		'' TODO: (guid)->Data4[5] = 0x22;
-		(guid)->Data4[6]
 		'' TODO: (guid)->Data4[6] = 0x31;
-		(guid)->Data4[7]
 		'' TODO: (guid)->Data4[7] = 0x96;
 	end scope
 #endmacro
@@ -1762,14 +1732,17 @@ extern KSDATAFORMAT_SUBTYPE_PCM as const GUID
 #define WAVE_FORMAT_DTS2 &h2001
 #define WAVE_FORMAT_EXTENSIBLE &hFFFE
 #define WAVE_FORMAT_DEVELOPMENT &hFFFF
-#define KSDATAFORMAT_SUBTYPE_PCM_ DEFINE_GUIDNAMED(KSDATAFORMAT_SUBTYPE_PCM)
+
+extern KSDATAFORMAT_SUBTYPE_PCM as const GUID
+
+#define KSDATAFORMAT_SUBTYPE_PCM DEFINE_GUIDNAMED(KSDATAFORMAT_SUBTYPE_PCM)
 
 extern KSDATAFORMAT_SUBTYPE_IEEE_FLOAT as const GUID
 
-#define KSDATAFORMAT_SUBTYPE_IEEE_FLOAT_ DEFINE_GUIDNAMED(KSDATAFORMAT_SUBTYPE_IEEE_FLOAT)
+#define KSDATAFORMAT_SUBTYPE_IEEE_FLOAT DEFINE_GUIDNAMED(KSDATAFORMAT_SUBTYPE_IEEE_FLOAT)
 #define _WAVEFORMATEXTENSIBLE_
 
-union __Samples field = 1
+union WAVEFORMATEXTENSIBLE_Samples field = 1
 	wValidBitsPerSample as WORD
 	wSamplesPerBlock as WORD
 	wReserved as WORD
@@ -1777,7 +1750,7 @@ end union
 
 type WAVEFORMATEXTENSIBLE field = 1
 	Format as WAVEFORMATEX
-	Samples as __Samples
+	Samples as WAVEFORMATEXTENSIBLE_Samples
 	dwChannelMask as DWORD
 	SubFormat as GUID
 end type
@@ -2279,7 +2252,7 @@ type tag_s_RIFFWAVE_inst field = 1
 	bHighVelocity as UBYTE
 end type
 
-type s_RIFFWAVE_inst as tag_s_RIFFWAVE_INST_
+type s_RIFFWAVE_inst as tag_s_RIFFWAVE_INST
 
 #define RIFFCPPO mmioFOURCC(asc("C"), asc("P"), asc("P"), asc("O"))
 #define RIFFCPPO_objr mmioFOURCC(asc("o"), asc("b"), asc("j"), asc("r"))

@@ -10,28 +10,19 @@
 #include once "winerror.bi"
 #include once "rpcasync.bi"
 
-'' The following symbols have been renamed:
-''     #define midl_user_allocate => midl_user_allocate_
-''     #define midl_user_free => midl_user_free_
-
 #define __RPC_H__
 
 #ifdef __FB_64BIT__
 	#define __RPC_WIN64__
-
-	type I_RPC_HANDLE as any ptr
 #else
 	#define __RPC_WIN32__
 #endif
 
 #define __MIDL_USER_DEFINED
-#define midl_user_allocate_ MIDL_user_allocate
-#define midl_user_free_ MIDL_user_free
+#define midl_user_allocate MIDL_user_allocate
+#define midl_user_free MIDL_user_free
 
-#ifndef __FB_64BIT__
-	type I_RPC_HANDLE as any ptr
-#endif
-
+type I_RPC_HANDLE as any ptr
 type RPC_STATUS as long
 
 #define RPC_UNICODE_SUPPORTED

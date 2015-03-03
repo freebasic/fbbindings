@@ -2,70 +2,6 @@
 
 #include once "_mingw_unicode.bi"
 
-'' The following symbols have been renamed:
-''     inside struct _DnsRecordW:
-''         inside union ___DnsRecordW_Data:
-''             field Soa => Soa_
-''             field Ptr => Ptr_
-''             field Ns => Ns_
-''             field Cname => Cname_
-''             field Mb => Mb_
-''             field Md => Md_
-''             field Mf => Mf_
-''             field Mg => Mg_
-''             field Mr => Mr_
-''             field Minfo => Minfo_
-''             field Rp => Rp_
-''             field Mx => Mx_
-''             field Afsdb => Afsdb_
-''             field Rt => Rt_
-''             field Hinfo => Hinfo_
-''             field Isdn => Isdn_
-''             field Txt => Txt_
-''             field Null => Null_
-''             field Wks => Wks_
-''             field Key => Key_
-''             field Sig => Sig_
-''             field Atma => Atma_
-''             field Nxt => Nxt_
-''             field Srv => Srv_
-''             field Tkey => Tkey_
-''             field Tsig => Tsig_
-''             field Wins => Wins_
-''             field WinsR => WinsR_
-''             field Nbstat => Nbstat_
-''     inside struct _DnsRecordA:
-''         inside union ___DnsRecordA_Data:
-''             field Soa => Soa_
-''             field Ptr => Ptr_
-''             field Ns => Ns_
-''             field Cname => Cname_
-''             field Mb => Mb_
-''             field Md => Md_
-''             field Mf => Mf_
-''             field Mg => Mg_
-''             field Mr => Mr_
-''             field Minfo => Minfo_
-''             field Rp => Rp_
-''             field Mx => Mx_
-''             field Afsdb => Afsdb_
-''             field Rt => Rt_
-''             field Hinfo => Hinfo_
-''             field Isdn => Isdn_
-''             field Txt => Txt_
-''             field Null => Null_
-''             field Wks => Wks_
-''             field Key => Key_
-''             field Sig => Sig_
-''             field Atma => Atma_
-''             field Nxt => Nxt_
-''             field Srv => Srv_
-''             field Tkey => Tkey_
-''             field Tsig => Tsig_
-''             field Wins => Wins_
-''             field WinsR => WinsR_
-''             field Nbstat => Nbstat_
-
 #ifdef __FB_64BIT__
 	extern "C"
 #else
@@ -110,7 +46,6 @@ type PIP6_ADDRESS as IP6_ADDRESS ptr
 #macro INLINE_WORD_FLIP(out, in)
 	scope
 		dim _in as WORD = (in)
-		(out)
 		'' TODO: (out) = (_in << 8) | (_in >> 8);
 	end scope
 #endmacro
@@ -119,7 +54,6 @@ type PIP6_ADDRESS as IP6_ADDRESS ptr
 #macro INLINE_DWORD_FLIP(out, in)
 	scope
 		dim _in as DWORD = (in)
-		(out)
 		'' TODO: (out) = ((_in << 8) & 0x00ff0000) | (_in << 24) | ((_in >> 8) & 0x0000ff00) | (_in >> 24);
 	end scope
 #endmacro
@@ -207,28 +141,6 @@ end type
 
 type DNS_WIRE_RECORD as _DNS_WIRE_RECORD
 type PDNS_WIRE_RECORD as _DNS_WIRE_RECORD ptr
-
-type DNS_CONFIG_TYPE as long
-enum
-	DnsConfigPrimaryDomainName_W
-	DnsConfigPrimaryDomainName_A
-	DnsConfigPrimaryDomainName_UTF8
-	DnsConfigAdapterDomainName_W
-	DnsConfigAdapterDomainName_A
-	DnsConfigAdapterDomainName_UTF8
-	DnsConfigDnsServerList
-	DnsConfigSearchList
-	DnsConfigAdapterInfo
-	DnsConfigPrimaryHostNameRegistrationEnabled
-	DnsConfigAdapterHostNameRegistrationEnabled
-	DnsConfigAddressRegistrationMaxCount
-	DnsConfigHostName_W
-	DnsConfigHostName_A
-	DnsConfigHostName_UTF8
-	DnsConfigFullHostName_W
-	DnsConfigFullHostName_A
-	DnsConfigFullHostName_UTF8
-end enum
 
 #define DNS_OPCODE_QUERY 0
 #define DNS_OPCODE_IQUERY 1
@@ -437,6 +349,29 @@ end enum
 #define IS_WORD_ALIGNED(p) ((cast(UINT_PTR, (p)) and cast(UINT_PTR, 1)) = 0)
 #define IS_DWORD_ALIGNED(p) ((cast(UINT_PTR, (p)) and cast(UINT_PTR, 3)) = 0)
 #define IS_QWORD_ALIGNED(p) ((cast(UINT_PTR, (p)) and cast(UINT_PTR, 7)) = 0)
+
+type DNS_CONFIG_TYPE as long
+enum
+	DnsConfigPrimaryDomainName_W
+	DnsConfigPrimaryDomainName_A
+	DnsConfigPrimaryDomainName_UTF8
+	DnsConfigAdapterDomainName_W
+	DnsConfigAdapterDomainName_A
+	DnsConfigAdapterDomainName_UTF8
+	DnsConfigDnsServerList
+	DnsConfigSearchList
+	DnsConfigAdapterInfo
+	DnsConfigPrimaryHostNameRegistrationEnabled
+	DnsConfigAdapterHostNameRegistrationEnabled
+	DnsConfigAddressRegistrationMaxCount
+	DnsConfigHostName_W
+	DnsConfigHostName_A
+	DnsConfigHostName_UTF8
+	DnsConfigFullHostName_W
+	DnsConfigFullHostName_A
+	DnsConfigFullHostName_UTF8
+end enum
+
 #define DNS_CONFIG_FLAG_ALLOC &h00000001
 
 declare function DnsQueryConfig(byval Config as DNS_CONFIG_TYPE, byval Flag as DWORD, byval pwsAdapterName as PWSTR, byval pReserved as PVOID, byval pBuffer as PVOID, byval pBufferLength as PDWORD) as DNS_STATUS
@@ -825,72 +760,72 @@ type DNS_SECTION as _DnsSection
 #define DNSREC_DELETE &h00000004
 #define DNSREC_NOEXIST &h00000004
 
-union ___DnsRecordW_Flags
+union _DnsRecordW_Flags
 	DW as DWORD
 	S as DNS_RECORD_FLAGS
 end union
 
-union ___DnsRecordW_Data
+union _DnsRecordW_Data
 	A as DNS_A_DATA
 	SOA as DNS_SOA_DATAW
-	Soa_ as DNS_SOA_DATAW
+	Soa as DNS_SOA_DATAW
 	PTR as DNS_PTR_DATAW
-	Ptr_ as DNS_PTR_DATAW
+	Ptr as DNS_PTR_DATAW
 	NS as DNS_PTR_DATAW
-	Ns_ as DNS_PTR_DATAW
+	Ns as DNS_PTR_DATAW
 	CNAME as DNS_PTR_DATAW
-	Cname_ as DNS_PTR_DATAW
+	Cname as DNS_PTR_DATAW
 	MB as DNS_PTR_DATAW
-	Mb_ as DNS_PTR_DATAW
+	Mb as DNS_PTR_DATAW
 	MD as DNS_PTR_DATAW
-	Md_ as DNS_PTR_DATAW
+	Md as DNS_PTR_DATAW
 	MF as DNS_PTR_DATAW
-	Mf_ as DNS_PTR_DATAW
+	Mf as DNS_PTR_DATAW
 	MG as DNS_PTR_DATAW
-	Mg_ as DNS_PTR_DATAW
+	Mg as DNS_PTR_DATAW
 	MR as DNS_PTR_DATAW
-	Mr_ as DNS_PTR_DATAW
+	Mr as DNS_PTR_DATAW
 	MINFO as DNS_MINFO_DATAW
-	Minfo_ as DNS_MINFO_DATAW
+	Minfo as DNS_MINFO_DATAW
 	RP as DNS_MINFO_DATAW
-	Rp_ as DNS_MINFO_DATAW
+	Rp as DNS_MINFO_DATAW
 	MX as DNS_MX_DATAW
-	Mx_ as DNS_MX_DATAW
+	Mx as DNS_MX_DATAW
 	AFSDB as DNS_MX_DATAW
-	Afsdb_ as DNS_MX_DATAW
+	Afsdb as DNS_MX_DATAW
 	RT as DNS_MX_DATAW
-	Rt_ as DNS_MX_DATAW
+	Rt as DNS_MX_DATAW
 	HINFO as DNS_TXT_DATAW
-	Hinfo_ as DNS_TXT_DATAW
+	Hinfo as DNS_TXT_DATAW
 	ISDN as DNS_TXT_DATAW
-	Isdn_ as DNS_TXT_DATAW
+	Isdn as DNS_TXT_DATAW
 	TXT as DNS_TXT_DATAW
-	Txt_ as DNS_TXT_DATAW
+	Txt as DNS_TXT_DATAW
 	X25 as DNS_TXT_DATAW
-	Null_ as DNS_NULL_DATA
+	Null as DNS_NULL_DATA
 	WKS as DNS_WKS_DATA
-	Wks_ as DNS_WKS_DATA
+	Wks as DNS_WKS_DATA
 	AAAA as DNS_AAAA_DATA
 	KEY as DNS_KEY_DATA
-	Key_ as DNS_KEY_DATA
+	Key as DNS_KEY_DATA
 	SIG as DNS_SIG_DATAW
-	Sig_ as DNS_SIG_DATAW
+	Sig as DNS_SIG_DATAW
 	ATMA as DNS_ATMA_DATA
-	Atma_ as DNS_ATMA_DATA
+	Atma as DNS_ATMA_DATA
 	NXT as DNS_NXT_DATAW
-	Nxt_ as DNS_NXT_DATAW
+	Nxt as DNS_NXT_DATAW
 	SRV as DNS_SRV_DATAW
-	Srv_ as DNS_SRV_DATAW
+	Srv as DNS_SRV_DATAW
 	TKEY as DNS_TKEY_DATAW
-	Tkey_ as DNS_TKEY_DATAW
+	Tkey as DNS_TKEY_DATAW
 	TSIG as DNS_TSIG_DATAW
-	Tsig_ as DNS_TSIG_DATAW
+	Tsig as DNS_TSIG_DATAW
 	WINS as DNS_WINS_DATA
-	Wins_ as DNS_WINS_DATA
+	Wins as DNS_WINS_DATA
 	WINSR as DNS_WINSR_DATAW
-	WinsR_ as DNS_WINSR_DATAW
+	WinsR as DNS_WINSR_DATAW
 	NBSTAT as DNS_WINSR_DATAW
-	Nbstat_ as DNS_WINSR_DATAW
+	Nbstat as DNS_WINSR_DATAW
 end union
 
 type _DnsRecordW
@@ -898,81 +833,81 @@ type _DnsRecordW
 	pName as PWSTR
 	wType as WORD
 	wDataLength as WORD
-	Flags as ___DnsRecordW_Flags
+	Flags as _DnsRecordW_Flags
 	dwTtl as DWORD
 	dwReserved as DWORD
-	Data as ___DnsRecordW_Data
+	Data as _DnsRecordW_Data
 end type
 
 type DNS_RECORDW as _DnsRecordW
 type PDNS_RECORDW as _DnsRecordW ptr
 
-union ___DnsRecordA_Flags
+union _DnsRecordA_Flags
 	DW as DWORD
 	S as DNS_RECORD_FLAGS
 end union
 
-union ___DnsRecordA_Data
+union _DnsRecordA_Data
 	A as DNS_A_DATA
 	SOA as DNS_SOA_DATAA
-	Soa_ as DNS_SOA_DATAA
+	Soa as DNS_SOA_DATAA
 	PTR as DNS_PTR_DATAA
-	Ptr_ as DNS_PTR_DATAA
+	Ptr as DNS_PTR_DATAA
 	NS as DNS_PTR_DATAA
-	Ns_ as DNS_PTR_DATAA
+	Ns as DNS_PTR_DATAA
 	CNAME as DNS_PTR_DATAA
-	Cname_ as DNS_PTR_DATAA
+	Cname as DNS_PTR_DATAA
 	MB as DNS_PTR_DATAA
-	Mb_ as DNS_PTR_DATAA
+	Mb as DNS_PTR_DATAA
 	MD as DNS_PTR_DATAA
-	Md_ as DNS_PTR_DATAA
+	Md as DNS_PTR_DATAA
 	MF as DNS_PTR_DATAA
-	Mf_ as DNS_PTR_DATAA
+	Mf as DNS_PTR_DATAA
 	MG as DNS_PTR_DATAA
-	Mg_ as DNS_PTR_DATAA
+	Mg as DNS_PTR_DATAA
 	MR as DNS_PTR_DATAA
-	Mr_ as DNS_PTR_DATAA
+	Mr as DNS_PTR_DATAA
 	MINFO as DNS_MINFO_DATAA
-	Minfo_ as DNS_MINFO_DATAA
+	Minfo as DNS_MINFO_DATAA
 	RP as DNS_MINFO_DATAA
-	Rp_ as DNS_MINFO_DATAA
+	Rp as DNS_MINFO_DATAA
 	MX as DNS_MX_DATAA
-	Mx_ as DNS_MX_DATAA
+	Mx as DNS_MX_DATAA
 	AFSDB as DNS_MX_DATAA
-	Afsdb_ as DNS_MX_DATAA
+	Afsdb as DNS_MX_DATAA
 	RT as DNS_MX_DATAA
-	Rt_ as DNS_MX_DATAA
+	Rt as DNS_MX_DATAA
 	HINFO as DNS_TXT_DATAA
-	Hinfo_ as DNS_TXT_DATAA
+	Hinfo as DNS_TXT_DATAA
 	ISDN as DNS_TXT_DATAA
-	Isdn_ as DNS_TXT_DATAA
+	Isdn as DNS_TXT_DATAA
 	TXT as DNS_TXT_DATAA
-	Txt_ as DNS_TXT_DATAA
+	Txt as DNS_TXT_DATAA
 	X25 as DNS_TXT_DATAA
-	Null_ as DNS_NULL_DATA
+	Null as DNS_NULL_DATA
 	WKS as DNS_WKS_DATA
-	Wks_ as DNS_WKS_DATA
+	Wks as DNS_WKS_DATA
 	AAAA as DNS_AAAA_DATA
 	KEY as DNS_KEY_DATA
-	Key_ as DNS_KEY_DATA
+	Key as DNS_KEY_DATA
 	SIG as DNS_SIG_DATAA
-	Sig_ as DNS_SIG_DATAA
+	Sig as DNS_SIG_DATAA
 	ATMA as DNS_ATMA_DATA
-	Atma_ as DNS_ATMA_DATA
+	Atma as DNS_ATMA_DATA
 	NXT as DNS_NXT_DATAA
-	Nxt_ as DNS_NXT_DATAA
+	Nxt as DNS_NXT_DATAA
 	SRV as DNS_SRV_DATAA
-	Srv_ as DNS_SRV_DATAA
+	Srv as DNS_SRV_DATAA
 	TKEY as DNS_TKEY_DATAA
-	Tkey_ as DNS_TKEY_DATAA
+	Tkey as DNS_TKEY_DATAA
 	TSIG as DNS_TSIG_DATAA
-	Tsig_ as DNS_TSIG_DATAA
+	Tsig as DNS_TSIG_DATAA
 	WINS as DNS_WINS_DATA
-	Wins_ as DNS_WINS_DATA
+	Wins as DNS_WINS_DATA
 	WINSR as DNS_WINSR_DATAA
-	WinsR_ as DNS_WINSR_DATAA
+	WinsR as DNS_WINSR_DATAA
 	NBSTAT as DNS_WINSR_DATAA
-	Nbstat_ as DNS_WINSR_DATAA
+	Nbstat as DNS_WINSR_DATAA
 end union
 
 type _DnsRecordA
@@ -980,10 +915,10 @@ type _DnsRecordA
 	pName as PSTR
 	wType as WORD
 	wDataLength as WORD
-	Flags as ___DnsRecordA_Flags
+	Flags as _DnsRecordA_Flags
 	dwTtl as DWORD
 	dwReserved as DWORD
-	Data as ___DnsRecordA_Data
+	Data as _DnsRecordA_Data
 end type
 
 type DNS_RECORDA as _DnsRecordA
@@ -1011,9 +946,7 @@ type PDNS_RRSET as _DnsRRSet ptr
 #macro DNS_RRSET_INIT(rrset)
 	scope
 		dim _prrset as PDNS_RRSET = @(rrset)
-		_prrset->pFirstRR
 		'' TODO: _prrset->pFirstRR = NULL;
-		_prrset->pLastRR
 		'' TODO: _prrset->pLastRR = (PDNS_RECORD) &_prrset->pFirstRR;
 	end scope
 #endmacro
@@ -1021,16 +954,13 @@ type PDNS_RRSET as _DnsRRSet ptr
 	scope
 		dim _prrset as PDNS_RRSET = @(rrset)
 		dim _prrnew as PDNS_RECORD = (pnewRR)
-		_prrset->pLastRR->pNext
 		'' TODO: _prrset->pLastRR->pNext = _prrnew;
-		_prrset->pLastRR
 		'' TODO: _prrset->pLastRR = _prrnew;
 	end scope
 #endmacro
 #macro DNS_RRSET_TERMINATE(rrset)
 	scope
 		dim _prrset as PDNS_RRSET = @(rrset)
-		_prrset->pLastRR->pNext
 		'' TODO: _prrset->pLastRR->pNext = NULL;
 	end scope
 #endmacro

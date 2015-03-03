@@ -4,9 +4,6 @@
 
 extern "C"
 
-type ALLEGRO_FILECHOOSER as ALLEGRO_FILECHOOSER_
-type ALLEGRO_TEXTLOG as ALLEGRO_TEXTLOG_
-
 #define __al_included_allegro5_allegro_native_dialog_h
 
 declare function al_init_native_dialog_addon() as byte

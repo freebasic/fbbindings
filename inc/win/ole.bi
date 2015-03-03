@@ -2,10 +2,6 @@
 
 #include once "winapifamily.bi"
 
-'' The following symbols have been renamed:
-''     #define LRESULT => LRESULT_
-''     #define HGLOBAL => HGLOBAL_
-
 #ifdef __FB_64BIT__
 	extern "C"
 #else
@@ -14,8 +10,8 @@
 
 #define _INC_OLE
 #define OLE_LPCSTR LPCSTR
-#define LRESULT_ LONG_PTR
-#define HGLOBAL_ HANDLE
+#define LRESULT LONG_PTR
+#define HGLOBAL HANDLE
 #define OT_LINK __MSABI_LONG(1)
 #define OT_EMBEDDED __MSABI_LONG(2)
 #define OT_STATIC __MSABI_LONG(3)

@@ -18,32 +18,6 @@
 	extern "Windows"
 #endif
 
-type IInitializeWithFile as IInitializeWithFile_
-type IInitializeWithStream as IInitializeWithStream_
-type IPropertyStore as IPropertyStore_
-type INamedPropertyStore as INamedPropertyStore_
-type IObjectWithPropertyKey as IObjectWithPropertyKey_
-type IPropertyChange as IPropertyChange_
-type IPropertyChangeArray as IPropertyChangeArray_
-type IPropertyStoreCapabilities as IPropertyStoreCapabilities_
-type IPropertyStoreCache as IPropertyStoreCache_
-type IPropertyEnumType as IPropertyEnumType_
-type IPropertyEnumType2 as IPropertyEnumType2_
-type IPropertyEnumTypeList as IPropertyEnumTypeList_
-type IPropertyDescription as IPropertyDescription_
-type IPropertyDescription2 as IPropertyDescription2_
-type IPropertyDescriptionAliasInfo as IPropertyDescriptionAliasInfo_
-type IPropertyDescriptionSearchInfo as IPropertyDescriptionSearchInfo_
-type IPropertyDescriptionRelatedPropertyInfo as IPropertyDescriptionRelatedPropertyInfo_
-type IPropertySystem as IPropertySystem_
-type IPropertyDescriptionList as IPropertyDescriptionList_
-type IPropertyStoreFactory as IPropertyStoreFactory_
-type IDelayedPropertyStoreFactory as IDelayedPropertyStoreFactory_
-type IPersistSerializedPropStorage as IPersistSerializedPropStorage_
-type IPersistSerializedPropStorage2 as IPersistSerializedPropStorage2_
-type IPropertySystemChangeNotify as IPropertySystemChangeNotify_
-type ICreateObject as ICreateObject_
-
 #define __propsys_h__
 #define __IInitializeWithFile_FWD_DEFINED__
 #define __IInitializeWithStream_FWD_DEFINED__
@@ -76,6 +50,8 @@ type ICreateObject as ICreateObject_
 
 extern IID_IInitializeWithFile as const GUID
 
+type IInitializeWithFile as IInitializeWithFile_
+
 type IInitializeWithFileVtbl
 	QueryInterface as function(byval This as IInitializeWithFile ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IInitializeWithFile ptr) as ULONG
@@ -93,6 +69,8 @@ declare sub IInitializeWithFile_Initialize_Stub(byval This as IRpcStubBuffer ptr
 #define __IInitializeWithStream_INTERFACE_DEFINED__
 
 extern IID_IInitializeWithStream as const GUID
+
+type IInitializeWithStream as IInitializeWithStream_
 
 type IInitializeWithStreamVtbl
 	QueryInterface as function(byval This as IInitializeWithStream ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -113,6 +91,8 @@ declare function IInitializeWithStream_Initialize_Stub(byval This as IInitialize
 #define __IPropertyStore_INTERFACE_DEFINED__
 
 extern IID_IPropertyStore as const GUID
+
+type IPropertyStore as IPropertyStore_
 
 type IPropertyStoreVtbl
 	QueryInterface as function(byval This as IPropertyStore ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -145,6 +125,8 @@ type LPPROPERTYSTORE as IPropertyStore ptr
 #define __INamedPropertyStore_INTERFACE_DEFINED__
 
 extern IID_INamedPropertyStore as const GUID
+
+type INamedPropertyStore as INamedPropertyStore_
 
 type INamedPropertyStoreVtbl
 	QueryInterface as function(byval This as INamedPropertyStore ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -188,6 +170,8 @@ end enum
 
 extern IID_IObjectWithPropertyKey as const GUID
 
+type IObjectWithPropertyKey as IObjectWithPropertyKey_
+
 type IObjectWithPropertyKeyVtbl
 	QueryInterface as function(byval This as IObjectWithPropertyKey ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IObjectWithPropertyKey ptr) as ULONG
@@ -216,6 +200,8 @@ end enum
 
 extern IID_IPropertyChange as const GUID
 
+type IPropertyChange as IPropertyChange_
+
 type IPropertyChangeVtbl
 	QueryInterface as function(byval This as IPropertyChange ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IPropertyChange ptr) as ULONG
@@ -235,6 +221,8 @@ declare sub IPropertyChange_ApplyToPropVariant_Stub(byval This as IRpcStubBuffer
 #define __IPropertyChangeArray_INTERFACE_DEFINED__
 
 extern IID_IPropertyChangeArray as const GUID
+
+type IPropertyChangeArray as IPropertyChangeArray_
 
 type IPropertyChangeArrayVtbl
 	QueryInterface as function(byval This as IPropertyChangeArray ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -272,6 +260,8 @@ declare sub IPropertyChangeArray_IsKeyInArray_Stub(byval This as IRpcStubBuffer 
 
 extern IID_IPropertyStoreCapabilities as const GUID
 
+type IPropertyStoreCapabilities as IPropertyStoreCapabilities_
+
 type IPropertyStoreCapabilitiesVtbl
 	QueryInterface as function(byval This as IPropertyStoreCapabilities ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IPropertyStoreCapabilities ptr) as ULONG
@@ -297,6 +287,8 @@ enum
 end enum
 
 extern IID_IPropertyStoreCache as const GUID
+
+type IPropertyStoreCache as IPropertyStoreCache_
 
 type IPropertyStoreCacheVtbl
 	QueryInterface as function(byval This as IPropertyStoreCache ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -338,6 +330,8 @@ end enum
 
 extern IID_IPropertyEnumType as const GUID
 
+type IPropertyEnumType as IPropertyEnumType_
+
 type IPropertyEnumTypeVtbl
 	QueryInterface as function(byval This as IPropertyEnumType ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IPropertyEnumType ptr) as ULONG
@@ -368,6 +362,8 @@ declare sub IPropertyEnumType_GetDisplayText_Stub(byval This as IRpcStubBuffer p
 
 extern IID_IPropertyEnumType2 as const GUID
 
+type IPropertyEnumType2 as IPropertyEnumType2_
+
 type IPropertyEnumType2Vtbl
 	QueryInterface as function(byval This as IPropertyEnumType2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IPropertyEnumType2 ptr) as ULONG
@@ -390,6 +386,8 @@ declare sub IPropertyEnumType2_GetImageReference_Stub(byval This as IRpcStubBuff
 #define __IPropertyEnumTypeList_INTERFACE_DEFINED__
 
 extern IID_IPropertyEnumTypeList as const GUID
+
+type IPropertyEnumTypeList as IPropertyEnumTypeList_
 
 type IPropertyEnumTypeListVtbl
 	QueryInterface as function(byval This as IPropertyEnumTypeList ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -539,6 +537,8 @@ end enum
 
 extern IID_IPropertyDescription as const GUID
 
+type IPropertyDescription as IPropertyDescription_
+
 type IPropertyDescriptionVtbl
 	QueryInterface as function(byval This as IPropertyDescription ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IPropertyDescription ptr) as ULONG
@@ -619,6 +619,8 @@ declare function IPropertyDescription_CoerceToCanonicalValue_Stub(byval This as 
 
 extern IID_IPropertyDescription2 as const GUID
 
+type IPropertyDescription2 as IPropertyDescription2_
+
 type IPropertyDescription2Vtbl
 	QueryInterface as function(byval This as IPropertyDescription2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IPropertyDescription2 ptr) as ULONG
@@ -657,6 +659,8 @@ declare sub IPropertyDescription2_GetImageReferenceForValue_Stub(byval This as I
 #define __IPropertyDescriptionAliasInfo_INTERFACE_DEFINED__
 
 extern IID_IPropertyDescriptionAliasInfo as const GUID
+
+type IPropertyDescriptionAliasInfo as IPropertyDescriptionAliasInfo_
 
 type IPropertyDescriptionAliasInfoVtbl
 	QueryInterface as function(byval This as IPropertyDescriptionAliasInfo ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -720,6 +724,8 @@ end enum
 
 extern IID_IPropertyDescriptionSearchInfo as const GUID
 
+type IPropertyDescriptionSearchInfo as IPropertyDescriptionSearchInfo_
+
 type IPropertyDescriptionSearchInfoVtbl
 	QueryInterface as function(byval This as IPropertyDescriptionSearchInfo ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IPropertyDescriptionSearchInfo ptr) as ULONG
@@ -767,6 +773,8 @@ declare sub IPropertyDescriptionSearchInfo_GetMaxSize_Stub(byval This as IRpcStu
 #define __IPropertyDescriptionRelatedPropertyInfo_INTERFACE_DEFINED__
 
 extern IID_IPropertyDescriptionRelatedPropertyInfo as const GUID
+
+type IPropertyDescriptionRelatedPropertyInfo as IPropertyDescriptionRelatedPropertyInfo_
 
 type IPropertyDescriptionRelatedPropertyInfoVtbl
 	QueryInterface as function(byval This as IPropertyDescriptionRelatedPropertyInfo ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -818,6 +826,8 @@ end enum
 
 extern IID_IPropertySystem as const GUID
 
+type IPropertySystem as IPropertySystem_
+
 type IPropertySystemVtbl
 	QueryInterface as function(byval This as IPropertySystem ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IPropertySystem ptr) as ULONG
@@ -860,6 +870,8 @@ declare sub IPropertySystem_RefreshPropertySchema_Stub(byval This as IRpcStubBuf
 
 extern IID_IPropertyDescriptionList as const GUID
 
+type IPropertyDescriptionList as IPropertyDescriptionList_
+
 type IPropertyDescriptionListVtbl
 	QueryInterface as function(byval This as IPropertyDescriptionList ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IPropertyDescriptionList ptr) as ULONG
@@ -881,6 +893,8 @@ declare sub IPropertyDescriptionList_GetAt_Stub(byval This as IRpcStubBuffer ptr
 
 extern IID_IPropertyStoreFactory as const GUID
 
+type IPropertyStoreFactory as IPropertyStoreFactory_
+
 type IPropertyStoreFactoryVtbl
 	QueryInterface as function(byval This as IPropertyStoreFactory ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IPropertyStoreFactory ptr) as ULONG
@@ -901,6 +915,8 @@ declare sub IPropertyStoreFactory_GetPropertyStoreForKeys_Stub(byval This as IRp
 #define __IDelayedPropertyStoreFactory_INTERFACE_DEFINED__
 
 extern IID_IDelayedPropertyStoreFactory as const GUID
+
+type IDelayedPropertyStoreFactory as IDelayedPropertyStoreFactory_
 
 type IDelayedPropertyStoreFactoryVtbl
 	QueryInterface as function(byval This as IDelayedPropertyStoreFactory ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -934,6 +950,8 @@ type PCUSERIALIZEDPROPSTORAGE as const SERIALIZEDPROPSTORAGE ptr
 
 extern IID_IPersistSerializedPropStorage as const GUID
 
+type IPersistSerializedPropStorage as IPersistSerializedPropStorage_
+
 type IPersistSerializedPropStorageVtbl
 	QueryInterface as function(byval This as IPersistSerializedPropStorage ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IPersistSerializedPropStorage ptr) as ULONG
@@ -957,6 +975,8 @@ declare sub IPersistSerializedPropStorage_GetPropertyStorage_Stub(byval This as 
 #define __IPersistSerializedPropStorage2_INTERFACE_DEFINED__
 
 extern IID_IPersistSerializedPropStorage2 as const GUID
+
+type IPersistSerializedPropStorage2 as IPersistSerializedPropStorage2_
 
 type IPersistSerializedPropStorage2Vtbl
 	QueryInterface as function(byval This as IPersistSerializedPropStorage2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -982,6 +1002,8 @@ declare sub IPersistSerializedPropStorage2_GetPropertyStorageBuffer_Stub(byval T
 
 extern IID_IPropertySystemChangeNotify as const GUID
 
+type IPropertySystemChangeNotify as IPropertySystemChangeNotify_
+
 type IPropertySystemChangeNotifyVtbl
 	QueryInterface as function(byval This as IPropertySystemChangeNotify ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IPropertySystemChangeNotify ptr) as ULONG
@@ -999,6 +1021,8 @@ declare sub IPropertySystemChangeNotify_SchemaRefreshed_Stub(byval This as IRpcS
 #define __ICreateObject_INTERFACE_DEFINED__
 
 extern IID_ICreateObject as const GUID
+
+type ICreateObject as ICreateObject_
 
 type ICreateObjectVtbl
 	QueryInterface as function(byval This as ICreateObject ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -1049,7 +1073,7 @@ declare function PSPropertyBag_ReadBOOL(byval propBag as IPropertyBag ptr, byval
 declare function PSPropertyBag_ReadBSTR(byval propBag as IPropertyBag ptr, byval propName as LPCWSTR, byval value as BSTR ptr) as HRESULT
 declare function PSPropertyBag_ReadDWORD(byval propBag as IPropertyBag ptr, byval propName as LPCWSTR, byval value as DWORD ptr) as HRESULT
 declare function PSPropertyBag_ReadGUID(byval propBag as IPropertyBag ptr, byval propName as LPCWSTR, byval value as GUID ptr) as HRESULT
-declare function PSPropertyBag_ReadInt(byval propBag as IPropertyBag ptr, byval propName as LPCWSTR, byval value as INT_ ptr) as HRESULT
+declare function PSPropertyBag_ReadInt(byval propBag as IPropertyBag ptr, byval propName as LPCWSTR, byval value as INT ptr) as HRESULT
 declare function PSPropertyBag_ReadLONG(byval propBag as IPropertyBag ptr, byval propName as LPCWSTR, byval value as LONG ptr) as HRESULT
 declare function PSPropertyBag_ReadPOINTL(byval propBag as IPropertyBag ptr, byval propName as LPCWSTR, byval value as POINTL ptr) as HRESULT
 declare function PSPropertyBag_ReadPOINTS(byval propBag as IPropertyBag ptr, byval propName as LPCWSTR, byval value as POINTS ptr) as HRESULT
@@ -1059,14 +1083,14 @@ declare function PSPropertyBag_ReadSHORT(byval propBag as IPropertyBag ptr, byva
 declare function PSPropertyBag_ReadStr(byval propBag as IPropertyBag ptr, byval propName as LPCWSTR, byval value as LPWSTR, byval characterCount as long) as HRESULT
 declare function PSPropertyBag_ReadStrAlloc(byval propBag as IPropertyBag ptr, byval propName as LPCWSTR, byval value as PWSTR ptr) as HRESULT
 declare function PSPropertyBag_ReadStream(byval propBag as IPropertyBag ptr, byval propName as LPCWSTR, byval value as IStream ptr ptr) as HRESULT
-declare function PSPropertyBag_ReadType(byval propBag as IPropertyBag ptr, byval propName as LPCWSTR, byval var_ as VARIANT ptr, byval type_ as VARTYPE) as HRESULT
+declare function PSPropertyBag_ReadType(byval propBag as IPropertyBag ptr, byval propName as LPCWSTR, byval var as VARIANT ptr, byval type as VARTYPE) as HRESULT
 declare function PSPropertyBag_ReadULONGLONG(byval propBag as IPropertyBag ptr, byval propName as LPCWSTR, byval value as ULONGLONG ptr) as HRESULT
 declare function PSPropertyBag_ReadUnknown(byval propBag as IPropertyBag ptr, byval propName as LPCWSTR, byval riid as const IID const ptr, byval ppv as any ptr ptr) as HRESULT
 declare function PSPropertyBag_WriteBOOL(byval propBag as IPropertyBag ptr, byval propName as LPCWSTR, byval value as BOOL) as HRESULT
 declare function PSPropertyBag_WriteBSTR(byval propBag as IPropertyBag ptr, byval propName as LPCWSTR, byval value as BSTR) as HRESULT
 declare function PSPropertyBag_WriteDWORD(byval propBag as IPropertyBag ptr, byval propName as LPCWSTR, byval value as DWORD) as HRESULT
 declare function PSPropertyBag_WriteGUID(byval propBag as IPropertyBag ptr, byval propName as LPCWSTR, byval value as const GUID ptr) as HRESULT
-declare function PSPropertyBag_WriteInt(byval propBag as IPropertyBag ptr, byval propName as LPCWSTR, byval value as INT_) as HRESULT
+declare function PSPropertyBag_WriteInt(byval propBag as IPropertyBag ptr, byval propName as LPCWSTR, byval value as INT) as HRESULT
 declare function PSPropertyBag_WriteLONG(byval propBag as IPropertyBag ptr, byval propName as LPCWSTR, byval value as LONG) as HRESULT
 declare function PSPropertyBag_WritePOINTL(byval propBag as IPropertyBag ptr, byval propName as LPCWSTR, byval value as const POINTL ptr) as HRESULT
 declare function PSPropertyBag_WritePOINTS(byval propBag as IPropertyBag ptr, byval propName as LPCWSTR, byval value as const POINTS ptr) as HRESULT
@@ -1087,5 +1111,14 @@ declare function PSUnregisterPropertySchema(byval pszPath as PCWSTR) as HRESULT
 extern LIBID_PropSysObjects as const GUID
 extern CLSID_InMemoryPropertyStore as const GUID
 extern CLSID_PropertySystem as const GUID
+
+declare function BSTR_UserSize(byval as ULONG ptr, byval as ULONG, byval as BSTR ptr) as ULONG
+declare function BSTR_UserMarshal(byval as ULONG ptr, byval as ubyte ptr, byval as BSTR ptr) as ubyte ptr
+declare function BSTR_UserUnmarshal(byval as ULONG ptr, byval as ubyte ptr, byval as BSTR ptr) as ubyte ptr
+declare sub BSTR_UserFree(byval as ULONG ptr, byval as BSTR ptr)
+declare function LPSAFEARRAY_UserSize(byval as ULONG ptr, byval as ULONG, byval as LPSAFEARRAY ptr) as ULONG
+declare function LPSAFEARRAY_UserMarshal(byval as ULONG ptr, byval as ubyte ptr, byval as LPSAFEARRAY ptr) as ubyte ptr
+declare function LPSAFEARRAY_UserUnmarshal(byval as ULONG ptr, byval as ubyte ptr, byval as LPSAFEARRAY ptr) as ubyte ptr
+declare sub LPSAFEARRAY_UserFree(byval as ULONG ptr, byval as LPSAFEARRAY ptr)
 
 end extern

@@ -348,34 +348,15 @@
 -noexpand SetCredentialsAttributes
 -noexpand TranslateAccelerator
 
--dontrenamefield AcquireCredentialsHandle
--dontrenamefield AddCredentials
--dontrenamefield AddPort
--dontrenamefield FindText
--dontrenamefield GetClassName
--dontrenamefield GetObject
--dontrenamefield GetTimeFormat
--dontrenamefield LoadMenu
--dontrenamefield LogonUser
--dontrenamefield LogonUserEx
--dontrenamefield QueryContextAttributes
--dontrenamefield QueryCredentialsAttributes
--dontrenamefield SetContextAttributes
--dontrenamefield SetCredentialsAttributes
--dontrenamefield TranslateAccelerator
-
 -clong32
 -typedefhint __LONG32
--nofbkeyword short
--nofbkeyword ushort
--nofbkeyword long
--nofbkeyword ulong
--nofbkeyword double
--nofbkeyword lobyte
--nofbkeyword hibyte
--nofbkeyword loword
--nofbkeyword hiword
--nofbkeyword point
 -renametypedef BYTE UBYTE
 -renametypedef byte ubyte
 -fixmingwaw
+
+-removeinclude pshpack1.h
+-removeinclude pshpack2.h
+-removeinclude pshpack4.h
+-removeinclude pshpack8.h
+-removeinclude pshpck16.h
+-removeinclude poppack.h

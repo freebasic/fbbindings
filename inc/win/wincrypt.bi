@@ -8,10 +8,6 @@
 #include once "winapifamily.bi"
 #include once "apisetcconv.bi"
 
-'' The following symbols have been renamed:
-''     inside struct _PUBLICKEYSTRUC:
-''         field bType => bType_
-
 #ifdef __FB_64BIT__
 	extern "C"
 #else
@@ -486,7 +482,7 @@ end type
 type PROV_ENUMALGS_EX as _PROV_ENUMALGS_EX
 
 type _PUBLICKEYSTRUC
-	bType_ as UBYTE
+	bType as UBYTE
 	bVersion as UBYTE
 	reserved as WORD
 	aiKeyAlg as ALG_ID

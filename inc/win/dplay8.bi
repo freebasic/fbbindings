@@ -9,13 +9,6 @@
 	extern "Windows"
 #endif
 
-type IDirectPlay8LobbiedApplication as IDirectPlay8LobbiedApplication_
-type IDirectPlay8ClientVtbl as IDirectPlay8ClientVtbl_
-type IDirectPlay8ServerVtbl as IDirectPlay8ServerVtbl_
-type IDirectPlay8PeerVtbl as IDirectPlay8PeerVtbl_
-type IDirectPlay8ThreadPoolVtbl as IDirectPlay8ThreadPoolVtbl_
-type IDirectPlay8NATResolverVtbl as IDirectPlay8NATResolverVtbl_
-
 #define __WINE_DPLAY8_H
 
 type PFNDPNMESSAGEHANDLER as function(byval as PVOID, byval as DWORD, byval as PVOID) as HRESULT
@@ -430,6 +423,8 @@ end type
 type DPNMSG_DESTROY_PLAYER as _DPNMSG_DESTROY_PLAYER
 type PDPNMSG_DESTROY_PLAYER as _DPNMSG_DESTROY_PLAYER ptr
 
+type IDirectPlay8Address as IDirectPlay8Address_
+
 type _DPNMSG_ENUM_HOSTS_QUERY
 	dwSize as DWORD
 	pAddressSender as IDirectPlay8Address ptr
@@ -638,8 +633,12 @@ extern CLSID_DP8SP_SERIAL as const GUID
 extern CLSID_DP8SP_MODEM as const GUID
 extern CLSID_DP8SP_BLUETOOTH as const GUID
 
+type IDirectPlay8LobbiedApplication as IDirectPlay8LobbiedApplication_
+
 type PIDirectPlay8LobbiedApplication as IDirectPlay8LobbiedApplication ptr
 type DNLOBBIEDAPPLICATION as IDirectPlay8LobbiedApplication
+
+type IDirectPlay8ClientVtbl as IDirectPlay8ClientVtbl_
 
 type IDirectPlay8Client
 	lpVtbl as IDirectPlay8ClientVtbl ptr
@@ -692,6 +691,8 @@ end type
 #define IDirectPlay8Client_GetSPCaps(p, a, b, c) (p)->lpVtbl->GetSPCaps(p, a, b, c)
 #define IDirectPlay8Client_GetConnectionInfo(p, a, b) (p)->lpVtbl->GetConnectionInfo(p, a, b)
 #define IDirectPlay8Client_RegisterLobby(p, a, b, c) (p)->lpVtbl->RegisterLobby(p, a, b, c)
+
+type IDirectPlay8ServerVtbl as IDirectPlay8ServerVtbl_
 
 type IDirectPlay8Server
 	lpVtbl as IDirectPlay8ServerVtbl ptr
@@ -768,6 +769,8 @@ end type
 #define IDirectPlay8Server_GetSPCaps(p, a, b, c) (p)->lpVtbl->GetSPCaps(p, a, b, c)
 #define IDirectPlay8Server_GetConnectionInfo(p, a, b, c) (p)->lpVtbl->GetConnectionInfo(p, a, b, c)
 #define IDirectPlay8Server_RegisterLobby(p, a, b, c) (p)->lpVtbl->RegisterLobby(p, a, b, c)
+
+type IDirectPlay8PeerVtbl as IDirectPlay8PeerVtbl_
 
 type IDirectPlay8Peer
 	lpVtbl as IDirectPlay8PeerVtbl ptr
@@ -851,6 +854,8 @@ end type
 #define IDirectPlay8Peer_RegisterLobby(p, a, b, c) (p)->lpVtbl->RegisterLobby(p, a, b, c)
 #define IDirectPlay8Peer_TerminateSession(p, a, b, c) (p)->lpVtbl->TerminateSession(p, a, b, c)
 
+type IDirectPlay8ThreadPoolVtbl as IDirectPlay8ThreadPoolVtbl_
+
 type IDirectPlay8ThreadPool
 	lpVtbl as IDirectPlay8ThreadPoolVtbl ptr
 end type
@@ -874,6 +879,8 @@ end type
 #define IDirectPlay8ThreadPool_GetThreadCount(p, a, b, c) (p)->lpVtbl->GetThreadCount(p, a, b, c)
 #define IDirectPlay8ThreadPool_SetThreadCount(p, a, b, c) (p)->lpVtbl->SetThreadCount(p, a, b, c)
 #define IDirectPlay8ThreadPool_DoWork(p, a, b) (p)->lpVtbl->DoWork(p, a, b)
+
+type IDirectPlay8NATResolverVtbl as IDirectPlay8NATResolverVtbl_
 
 type IDirectPlay8NATResolver
 	lpVtbl as IDirectPlay8NATResolverVtbl ptr

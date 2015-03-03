@@ -5,22 +5,11 @@
 #include once "ole2.bi"
 #include once "msacm.bi"
 
-'' The following symbols have been renamed:
-''     #define AVIFileInfo => AVIFileInfo_
-''     #define AVIStreamInfo => AVIStreamInfo_
-
 #ifdef __FB_64BIT__
 	extern "C"
 #else
 	extern "Windows"
 #endif
-
-type IAVIStreamVtbl as IAVIStreamVtbl_
-type IAVIStreamingVtbl as IAVIStreamingVtbl_
-type IAVIEditStreamVtbl as IAVIEditStreamVtbl_
-type IAVIPersistFileVtbl as IAVIPersistFileVtbl_
-type IAVIFileVtbl as IAVIFileVtbl_
-type IGetFrameVtbl as IGetFrameVtbl_
 
 #define _INC_VFW
 
@@ -39,8 +28,6 @@ type HIC as HIC__ ptr
 
 #define BI_1632 &h32333631
 #define aviTWOCC(ch0, ch1) (cast(WORD, cast(UBYTE, (ch0))) or (cast(WORD, cast(UBYTE, (ch1))) shl 8))
-#define ICTYPE_VIDEO mmioFOURCC(asc("v"), asc("i"), asc("d"), asc("c"))
-#define ICTYPE_AUDIO mmioFOURCC(asc("a"), asc("u"), asc("d"), asc("c"))
 #define ICERR_OK __MSABI_LONG(0)
 #define ICERR_DONTDRAW __MSABI_LONG(1)
 #define ICERR_NEWPALETTE __MSABI_LONG(2)
@@ -199,8 +186,8 @@ type ICCOMPRESSFRAMES
 	dwScale as DWORD
 	dwOverheadPerFrame as DWORD
 	dwReserved2 as DWORD
-	GetData as function(byval lInput as LPARAM, byval lFrame as LONG, byval lpBits as LPVOID, byval len_ as LONG) as LONG
-	PutData as function(byval lOutput as LPARAM, byval lFrame as LONG, byval lpBits as LPVOID, byval len_ as LONG) as LONG
+	GetData as function(byval lInput as LPARAM, byval lFrame as LONG, byval lpBits as LPVOID, byval len as LONG) as LONG
+	PutData as function(byval lOutput as LPARAM, byval lFrame as LONG, byval lpBits as LPVOID, byval len as LONG) as LONG
 end type
 
 #define ICSTATUS_START 0
@@ -568,6 +555,8 @@ type AVIPALCHANGE
 	peNew(0 to ...) as PALETTEENTRY
 end type
 
+#define AVIGETFRAMEF_BESTDISPLAYFMT 1
+
 type _AVISTREAMINFOW
 	fccType as DWORD
 	fccHandler as DWORD
@@ -591,8 +580,6 @@ end type
 
 type AVISTREAMINFOW as _AVISTREAMINFOW
 type LPAVISTREAMINFOW as _AVISTREAMINFOW ptr
-
-#define AVIGETFRAMEF_BESTDISPLAYFMT 1
 
 type _AVISTREAMINFOA
 	fccType as DWORD
@@ -707,6 +694,8 @@ type LPAVICOMPRESSOPTIONS as AVICOMPRESSOPTIONS ptr
 #define AVICOMPRESSF_KEYFRAMES &h00000004
 #define AVICOMPRESSF_VALID &h00000008
 
+type IAVIStreamVtbl as IAVIStreamVtbl_
+
 type IAVIStream
 	lpVtbl as IAVIStreamVtbl ptr
 end type
@@ -717,9 +706,9 @@ type IAVIStreamVtbl_
 	Release as function(byval This as IAVIStream ptr) as ULONG
 	Create as function(byval This as IAVIStream ptr, byval lParam1 as LPARAM, byval lParam2 as LPARAM) as HRESULT
 	Info as function(byval This as IAVIStream ptr, byval psi as AVISTREAMINFOW ptr, byval lSize as LONG) as HRESULT
-	FindSample as function(byval This as IAVIStream ptr, byval lPos_ as LONG, byval lFlags as LONG) as LONG
-	ReadFormat as function(byval This as IAVIStream ptr, byval lPos_ as LONG, byval lpFormat as LPVOID, byval lpcbFormat as LONG ptr) as HRESULT
-	SetFormat as function(byval This as IAVIStream ptr, byval lPos_ as LONG, byval lpFormat as LPVOID, byval cbFormat as LONG) as HRESULT
+	FindSample as function(byval This as IAVIStream ptr, byval lPos as LONG, byval lFlags as LONG) as LONG
+	ReadFormat as function(byval This as IAVIStream ptr, byval lPos as LONG, byval lpFormat as LPVOID, byval lpcbFormat as LONG ptr) as HRESULT
+	SetFormat as function(byval This as IAVIStream ptr, byval lPos as LONG, byval lpFormat as LPVOID, byval cbFormat as LONG) as HRESULT
 	Read as function(byval This as IAVIStream ptr, byval lStart as LONG, byval lSamples as LONG, byval lpBuffer as LPVOID, byval cbBuffer as LONG, byval plBytes as LONG ptr, byval plSamples as LONG ptr) as HRESULT
 	Write as function(byval This as IAVIStream ptr, byval lStart as LONG, byval lSamples as LONG, byval lpBuffer as LPVOID, byval cbBuffer as LONG, byval dwFlags as DWORD, byval plSampWritten as LONG ptr, byval plBytesWritten as LONG ptr) as HRESULT
 	Delete as function(byval This as IAVIStream ptr, byval lStart as LONG, byval lSamples as LONG) as HRESULT
@@ -729,6 +718,8 @@ type IAVIStreamVtbl_
 end type
 
 type PAVISTREAM as IAVIStream ptr
+
+type IAVIStreamingVtbl as IAVIStreamingVtbl_
 
 type IAVIStreaming
 	lpVtbl as IAVIStreamingVtbl ptr
@@ -743,6 +734,8 @@ type IAVIStreamingVtbl_
 end type
 
 type PAVISTREAMING as IAVIStreaming ptr
+
+type IAVIEditStreamVtbl as IAVIEditStreamVtbl_
 
 type IAVIEditStream
 	lpVtbl as IAVIEditStreamVtbl ptr
@@ -761,6 +754,8 @@ end type
 
 type PAVIEDITSTREAM as IAVIEditStream ptr
 
+type IAVIPersistFileVtbl as IAVIPersistFileVtbl_
+
 type IAVIPersistFile
 	lpVtbl as IAVIPersistFileVtbl ptr
 end type
@@ -770,6 +765,8 @@ type IAVIPersistFileVtbl_
 end type
 
 type PAVIPERSISTFILE as IAVIPersistFile ptr
+
+type IAVIFileVtbl as IAVIFileVtbl_
 
 type IAVIFile
 	lpVtbl as IAVIFileVtbl ptr
@@ -790,6 +787,8 @@ end type
 
 type PAVIFILE as IAVIFile ptr
 
+type IGetFrameVtbl as IGetFrameVtbl_
+
 type IGetFrame
 	lpVtbl as IGetFrameVtbl ptr
 end type
@@ -798,7 +797,7 @@ type IGetFrameVtbl_
 	QueryInterface as function(byval This as IGetFrame ptr, byval riid as const IID const ptr, byval ppvObj as LPVOID ptr) as HRESULT
 	AddRef as function(byval This as IGetFrame ptr) as ULONG
 	Release as function(byval This as IGetFrame ptr) as ULONG
-	GetFrame as function(byval This as IGetFrame ptr, byval lPos_ as LONG) as LPVOID
+	GetFrame as function(byval This as IGetFrame ptr, byval lPos as LONG) as LPVOID
 	Begin as function(byval This as IGetFrame ptr, byval lStart as LONG, byval lEnd as LONG, byval lRate as LONG) as HRESULT
 	as function(byval This as IGetFrame ptr) as HRESULT End
 	SetFormat as function(byval This as IGetFrame ptr, byval lpbi as LPBITMAPINFOHEADER, byval lpBits as LPVOID, byval x as long, byval y as long, byval dx as long, byval dy as long) as HRESULT
@@ -827,15 +826,15 @@ extern CLSID_AVIFile as const GUID
 
 #ifdef UNICODE
 	#define AVIFileOpen AVIFileOpenW
-	#define AVIFileInfo_ AVIFileInfoW
+	#define AVIFileInfo AVIFileInfoW
 	#define AVIFileCreateStream AVIFileCreateStreamW
-	#define AVIStreamInfo_ AVIStreamInfoW
+	#define AVIStreamInfo AVIStreamInfoW
 	#define AVIStreamOpenFromFile AVIStreamOpenFromFileW
 #else
 	#define AVIFileOpen AVIFileOpenA
-	#define AVIFileInfo_ AVIFileInfoA
+	#define AVIFileInfo AVIFileInfoA
 	#define AVIFileCreateStream AVIFileCreateStreamA
-	#define AVIStreamInfo_ AVIStreamInfoA
+	#define AVIStreamInfo AVIStreamInfoA
 	#define AVIStreamOpenFromFile AVIStreamOpenFromFileA
 #endif
 
@@ -857,9 +856,9 @@ declare function AVIStreamAddRef(byval pavi as PAVISTREAM) as ULONG
 declare function AVIStreamRelease(byval pavi as PAVISTREAM) as ULONG
 declare function AVIStreamInfoW(byval pavi as PAVISTREAM, byval psi as LPAVISTREAMINFOW, byval lSize as LONG) as HRESULT
 declare function AVIStreamInfoA(byval pavi as PAVISTREAM, byval psi as LPAVISTREAMINFOA, byval lSize as LONG) as HRESULT
-declare function AVIStreamFindSample(byval pavi as PAVISTREAM, byval lPos_ as LONG, byval lFlags as LONG) as LONG
-declare function AVIStreamReadFormat(byval pavi as PAVISTREAM, byval lPos_ as LONG, byval lpFormat as LPVOID, byval lpcbFormat as LONG ptr) as HRESULT
-declare function AVIStreamSetFormat(byval pavi as PAVISTREAM, byval lPos_ as LONG, byval lpFormat as LPVOID, byval cbFormat as LONG) as HRESULT
+declare function AVIStreamFindSample(byval pavi as PAVISTREAM, byval lPos as LONG, byval lFlags as LONG) as LONG
+declare function AVIStreamReadFormat(byval pavi as PAVISTREAM, byval lPos as LONG, byval lpFormat as LPVOID, byval lpcbFormat as LONG ptr) as HRESULT
+declare function AVIStreamSetFormat(byval pavi as PAVISTREAM, byval lPos as LONG, byval lpFormat as LPVOID, byval cbFormat as LONG) as HRESULT
 declare function AVIStreamReadData(byval pavi as PAVISTREAM, byval fcc as DWORD, byval lp as LPVOID, byval lpcb as LONG ptr) as HRESULT
 declare function AVIStreamWriteData(byval pavi as PAVISTREAM, byval fcc as DWORD, byval lp as LPVOID, byval cb as LONG) as HRESULT
 declare function AVIStreamRead(byval pavi as PAVISTREAM, byval lStart as LONG, byval lSamples as LONG, byval lpBuffer as LPVOID, byval cbBuffer as LONG, byval plBytes as LONG ptr, byval plSamples as LONG ptr) as HRESULT
@@ -874,7 +873,7 @@ declare function AVIStreamSampleToTime(byval pavi as PAVISTREAM, byval lSample a
 declare function AVIStreamBeginStreaming(byval pavi as PAVISTREAM, byval lStart as LONG, byval lEnd as LONG, byval lRate as LONG) as HRESULT
 declare function AVIStreamEndStreaming(byval pavi as PAVISTREAM) as HRESULT
 declare function AVIStreamGetFrameOpen(byval pavi as PAVISTREAM, byval lpbiWanted as LPBITMAPINFOHEADER) as PGETFRAME
-declare function AVIStreamGetFrame(byval pg as PGETFRAME, byval lPos_ as LONG) as LPVOID
+declare function AVIStreamGetFrame(byval pg as PGETFRAME, byval lPos as LONG) as LPVOID
 declare function AVIStreamGetFrameClose(byval pg as PGETFRAME) as HRESULT
 declare function AVIStreamOpenFromFileA(byval ppavi as PAVISTREAM ptr, byval szFile as LPCSTR, byval fccType as DWORD, byval lParam as LONG, byval mode as UINT, byval pclsidHandler as CLSID ptr) as HRESULT
 declare function AVIStreamOpenFromFileW(byval ppavi as PAVISTREAM ptr, byval szFile as LPCWSTR, byval fccType as DWORD, byval lParam as LONG, byval mode as UINT, byval pclsidHandler as CLSID ptr) as HRESULT
@@ -1203,6 +1202,8 @@ end type
 
 type HVIDEO as HVIDEO__ ptr
 type LPHVIDEO as HVIDEO ptr
+
+declare function VideoForWindowsVersion() as DWORD
 
 #define DV_ERR_OK 0
 #define DV_ERR_BASE 1

@@ -1,6 +1,5 @@
 #pragma once
 
-#include once "crt/wchar.bi"
 #include once "_mingw.bi"
 #include once "crt/ctype.bi"
 #include once "basetsd.bi"
@@ -8,12 +7,6 @@
 #include once "sdkddkver.bi"
 #include once "crt/stdarg.bi"
 #include once "crt/string.bi"
-
-'' The following symbols have been renamed:
-''     #define CONST => CONST_
-''     typedef INT => INT_
-''     typedef CSHORT => CSHORT_
-''     typedef STRING => STRING_
 
 #ifdef __FB_64BIT__
 	extern "C"
@@ -44,7 +37,7 @@
 #endif
 
 #define RESTRICTED_POINTER
-#define ARGUMENT_PRESENT(ArgumentPointer) (cptr(zstring ptr, cast(ULONG_PTR, (ArgumentPointer))) <> cptr(zstring ptr, NULL))
+#define ARGUMENT_PRESENT(ArgumentPointer) (cptr(CHAR ptr, cast(ULONG_PTR, (ArgumentPointer))) <> cptr(CHAR ptr, NULL))
 #define CONTAINING_RECORD(address, type, field) cptr(type ptr, cast(ULONG_PTR, address) - cast(ULONG_PTR, @cptr(type ptr, 0)->field))
 #define FIELD_OFFSET(Type, Field) __builtin_offsetof(Type, Field)
 #define TYPE_ALIGNMENT(t) '' TODO: FIELD_OFFSET(struct { char x; t test; }, test)
@@ -65,7 +58,7 @@ type PHANDLE as HANDLE ptr
 type CHAR as zstring
 type SHORT as short
 type LONG as long
-type INT_ as long
+type INT as long
 type DOUBLE as double
 type UCHAR as ubyte
 type PUCHAR as ubyte ptr
@@ -151,7 +144,7 @@ type LPCUWSTR as const wstring ptr
 type PCUWSTR as const wstring ptr
 type CCHAR as zstring
 type PCCHAR as zstring ptr
-type CSHORT_ as short
+type CSHORT as short
 type PCSHORT as short ptr
 type CLONG as ULONG
 type PCLONG as ULONG ptr
@@ -173,7 +166,7 @@ type PUQUAD as _QUAD ptr
 
 #define _LARGE_INTEGER_DEFINED
 
-type ___LARGE_INTEGER_u
+type _LARGE_INTEGER_u
 	LowPart as ULONG
 	HighPart as LONG
 end type
@@ -184,14 +177,14 @@ union _LARGE_INTEGER
 		HighPart as LONG
 	end type
 
-	u as ___LARGE_INTEGER_u
+	u as _LARGE_INTEGER_u
 	QuadPart as LONGLONG
 end union
 
 type LARGE_INTEGER as _LARGE_INTEGER
 type PLARGE_INTEGER as _LARGE_INTEGER ptr
 
-type ___ULARGE_INTEGER_u
+type _ULARGE_INTEGER_u
 	LowPart as ULONG
 	HighPart as ULONG
 end type
@@ -202,7 +195,7 @@ union _ULARGE_INTEGER
 		HighPart as ULONG
 	end type
 
-	u as ___ULARGE_INTEGER_u
+	u as _ULARGE_INTEGER_u
 	QuadPart as ULONGLONG
 end union
 
@@ -255,14 +248,14 @@ type _STRING
 	Buffer as PCHAR
 end type
 
-type STRING_ as _STRING
+type STRING as _STRING
 type PSTRING as _STRING ptr
-type ANSI_STRING as STRING_
+type ANSI_STRING as STRING
 type PANSI_STRING as PSTRING
-type OEM_STRING as STRING_
+type OEM_STRING as STRING
 type POEM_STRING as PSTRING
-type PCOEM_STRING as const STRING_ ptr
-type CANSI_STRING as STRING_
+type PCOEM_STRING as const STRING ptr
+type CANSI_STRING as STRING
 type PCANSI_STRING as PSTRING
 
 type _STRING32
@@ -326,17 +319,11 @@ type PCOBJECT_ATTRIBUTES as const OBJECT_ATTRIBUTES ptr
 #define OBJ_VALID_ATTRIBUTES &h000007F2
 #macro InitializeObjectAttributes(p, n, a, r, s)
 	scope
-		(p)->Length
 		'' TODO: (p)->Length = sizeof(OBJECT_ATTRIBUTES);
-		(p)->RootDirectory
 		'' TODO: (p)->RootDirectory = (r);
-		(p)->Attributes
 		'' TODO: (p)->Attributes = (a);
-		(p)->ObjectName
 		'' TODO: (p)->ObjectName = (n);
-		(p)->SecurityDescriptor
 		'' TODO: (p)->SecurityDescriptor = (s);
-		(p)->SecurityQualityOfService
 		'' TODO: (p)->SecurityQualityOfService = NULL;
 	end scope
 #endmacro
@@ -641,7 +628,7 @@ type PGROUP_AFFINITY as _GROUP_AFFINITY ptr
 #define FILE_OPEN_NO_RECALL &h00400000
 #define FILE_OPEN_FOR_FREE_SPACE_QUERY &h00800000
 
-type ___REPARSE_DATA_BUFFER_SymbolicLinkReparseBuffer
+type _REPARSE_DATA_BUFFER_SymbolicLinkReparseBuffer
 	SubstituteNameOffset as USHORT
 	SubstituteNameLength as USHORT
 	PrintNameOffset as USHORT
@@ -650,7 +637,7 @@ type ___REPARSE_DATA_BUFFER_SymbolicLinkReparseBuffer
 	PathBuffer as wstring * 1
 end type
 
-type ___REPARSE_DATA_BUFFER_MountPointReparseBuffer
+type _REPARSE_DATA_BUFFER_MountPointReparseBuffer
 	SubstituteNameOffset as USHORT
 	SubstituteNameLength as USHORT
 	PrintNameOffset as USHORT
@@ -658,7 +645,7 @@ type ___REPARSE_DATA_BUFFER_MountPointReparseBuffer
 	PathBuffer as wstring * 1
 end type
 
-type ___REPARSE_DATA_BUFFER_GenericReparseBuffer
+type _REPARSE_DATA_BUFFER_GenericReparseBuffer
 	DataBuffer(0 to 0) as UCHAR
 end type
 
@@ -668,9 +655,9 @@ type _REPARSE_DATA_BUFFER
 	Reserved as USHORT
 
 	union
-		SymbolicLinkReparseBuffer as ___REPARSE_DATA_BUFFER_SymbolicLinkReparseBuffer
-		MountPointReparseBuffer as ___REPARSE_DATA_BUFFER_MountPointReparseBuffer
-		GenericReparseBuffer as ___REPARSE_DATA_BUFFER_GenericReparseBuffer
+		SymbolicLinkReparseBuffer as _REPARSE_DATA_BUFFER_SymbolicLinkReparseBuffer
+		MountPointReparseBuffer as _REPARSE_DATA_BUFFER_MountPointReparseBuffer
+		GenericReparseBuffer as _REPARSE_DATA_BUFFER_GenericReparseBuffer
 	end union
 end type
 

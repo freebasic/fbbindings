@@ -1,30 +1,12 @@
 #pragma once
 
-'' The following symbols have been renamed:
-''     #define acmDriverDetails => acmDriverDetails_
-''     #define acmFormatTagDetails => acmFormatTagDetails_
-''     #define acmFormatDetails => acmFormatDetails_
-''     #define acmFormatChoose => acmFormatChoose_
-''     #define acmFilterTagDetails => acmFilterTagDetails_
-''     #define acmFilterDetails => acmFilterDetails_
-''     #define acmFilterChoose => acmFilterChoose_
-
 #ifdef __FB_64BIT__
 	extern "C"
 #else
 	extern "Windows"
 #endif
 
-type HACMDRIVERID__ field = 1
-	unused as long
-end type
-
 #define _INC_ACM
-
-#ifdef UNICODE
-	#define _UNICODE
-#endif
-
 #define DRV_MAPPER_PREFERRED_INPUT_GET (DRV_USER + 0)
 #define DRV_MAPPER_PREFERRED_OUTPUT_GET (DRV_USER + 2)
 #define DRVM_MAPPER &h2000
@@ -37,6 +19,10 @@ end type
 #define WAVEOUT_MAPPER_STATUS_DEVICE 0
 #define WAVEOUT_MAPPER_STATUS_MAPPED 1
 #define WAVEOUT_MAPPER_STATUS_FORMAT 2
+
+type HACMDRIVERID__ field = 1
+	unused as long
+end type
 
 type HACMDRIVERID as HACMDRIVERID__ ptr
 type PHACMDRIVERID as HACMDRIVERID ptr
@@ -218,9 +204,9 @@ declare function acmDriverDetailsA(byval hadid as HACMDRIVERID, byval padd as LP
 declare function acmDriverDetailsW(byval hadid as HACMDRIVERID, byval padd as LPACMDRIVERDETAILSW, byval fdwDetails as DWORD) as MMRESULT
 
 #ifdef UNICODE
-	#define acmDriverDetails_ acmDriverDetailsW
+	#define acmDriverDetails acmDriverDetailsW
 #else
-	#define acmDriverDetails_ acmDriverDetailsA
+	#define acmDriverDetails acmDriverDetailsA
 #endif
 
 #define ACMFORMATTAGDETAILS_FORMATTAG_CHARS 48
@@ -267,9 +253,9 @@ declare function acmFormatTagDetailsA(byval had as HACMDRIVER, byval paftd as LP
 declare function acmFormatTagDetailsW(byval had as HACMDRIVER, byval paftd as LPACMFORMATTAGDETAILSW, byval fdwDetails as DWORD) as MMRESULT
 
 #ifdef UNICODE
-	#define acmFormatTagDetails_ acmFormatTagDetailsW
+	#define acmFormatTagDetails acmFormatTagDetailsW
 #else
-	#define acmFormatTagDetails_ acmFormatTagDetailsA
+	#define acmFormatTagDetails acmFormatTagDetailsA
 #endif
 
 #define ACM_FORMATTAGDETAILSF_INDEX __MSABI_LONG(&h00000000)
@@ -335,9 +321,9 @@ declare function acmFormatDetailsA(byval had as HACMDRIVER, byval pafd as LPACMF
 declare function acmFormatDetailsW(byval had as HACMDRIVER, byval pafd as LPACMFORMATDETAILSW, byval fdwDetails as DWORD) as MMRESULT
 
 #ifdef UNICODE
-	#define acmFormatDetails_ acmFormatDetailsW
+	#define acmFormatDetails acmFormatDetailsW
 #else
-	#define acmFormatDetails_ acmFormatDetailsA
+	#define acmFormatDetails acmFormatDetailsA
 #endif
 
 #define ACM_FORMATDETAILSF_INDEX __MSABI_LONG(&h00000000)
@@ -474,9 +460,9 @@ declare function acmFormatChooseA(byval pafmtc as LPACMFORMATCHOOSEA) as MMRESUL
 declare function acmFormatChooseW(byval pafmtc as LPACMFORMATCHOOSEW) as MMRESULT
 
 #ifdef UNICODE
-	#define acmFormatChoose_ acmFormatChooseW
+	#define acmFormatChoose acmFormatChooseW
 #else
-	#define acmFormatChoose_ acmFormatChooseA
+	#define acmFormatChoose acmFormatChooseA
 #endif
 
 #define ACMFILTERTAGDETAILS_FILTERTAG_CHARS 48
@@ -523,9 +509,9 @@ declare function acmFilterTagDetailsA(byval had as HACMDRIVER, byval paftd as LP
 declare function acmFilterTagDetailsW(byval had as HACMDRIVER, byval paftd as LPACMFILTERTAGDETAILSW, byval fdwDetails as DWORD) as MMRESULT
 
 #ifdef UNICODE
-	#define acmFilterTagDetails_ acmFilterTagDetailsW
+	#define acmFilterTagDetails acmFilterTagDetailsW
 #else
-	#define acmFilterTagDetails_ acmFilterTagDetailsA
+	#define acmFilterTagDetails acmFilterTagDetailsA
 #endif
 
 #define ACM_FILTERTAGDETAILSF_INDEX __MSABI_LONG(&h00000000)
@@ -591,9 +577,9 @@ declare function acmFilterDetailsA(byval had as HACMDRIVER, byval pafd as LPACMF
 declare function acmFilterDetailsW(byval had as HACMDRIVER, byval pafd as LPACMFILTERDETAILSW, byval fdwDetails as DWORD) as MMRESULT
 
 #ifdef UNICODE
-	#define acmFilterDetails_ acmFilterDetailsW
+	#define acmFilterDetails acmFilterDetailsW
 #else
-	#define acmFilterDetails_ acmFilterDetailsA
+	#define acmFilterDetails acmFilterDetailsA
 #endif
 
 #define ACM_FILTERDETAILSF_INDEX __MSABI_LONG(&h00000000)
@@ -697,9 +683,9 @@ declare function acmFilterChooseA(byval pafltrc as LPACMFILTERCHOOSEA) as MMRESU
 declare function acmFilterChooseW(byval pafltrc as LPACMFILTERCHOOSEW) as MMRESULT
 
 #ifdef UNICODE
-	#define acmFilterChoose_ acmFilterChooseW
+	#define acmFilterChoose acmFilterChooseW
 #else
-	#define acmFilterChoose_ acmFilterChooseA
+	#define acmFilterChoose acmFilterChooseA
 #endif
 
 #ifdef __FB_64BIT__

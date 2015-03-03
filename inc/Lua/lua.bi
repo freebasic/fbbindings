@@ -4,18 +4,7 @@
 #include once "crt/stddef.bi"
 #include once "crt/limits.bi"
 
-'' The following symbols have been renamed:
-''     #define LUA_NUMBER => LUA_NUMBER_
-''     #define LUA_INTEGER => LUA_INTEGER_
-''     #define LUA_UNSIGNED => LUA_UNSIGNED_
-''     #define LUA_VERSION => LUA_VERSION_
-''     #define lua_yield => lua_yield_
-
 extern "C"
-
-type lua_State as lua_State_
-type lua_Debug as lua_Debug_
-type CallInfo as CallInfo_
 
 #define lua_h
 #define lconfig_h
@@ -53,7 +42,7 @@ type CallInfo as CallInfo_
 #define LUAI_FIRSTPSEUDOIDX ((-LUAI_MAXSTACK) - 1000)
 #define LUAL_BUFFERSIZE BUFSIZ
 #define LUA_NUMBER_DOUBLE
-#define LUA_NUMBER_ double
+#define LUA_NUMBER double
 #define LUAI_UACNUMBER double
 #define LUA_NUMBER_SCAN "%lf"
 #define LUA_NUMBER_FMT "%.14g"
@@ -61,8 +50,8 @@ type CallInfo as CallInfo_
 #define LUAI_MAXNUMBER2STR 32
 #define l_mathop(x) (x)
 #define lua_str2number(s, p) strtod((s), (p))
-#define LUA_INTEGER_ integer
-#define LUA_UNSIGNED_ '' TODO: unsigned LUA_INT32
+#define LUA_INTEGER integer
+#define LUA_UNSIGNED '' TODO: unsigned LUA_INT32
 #define LUA_IEEE754TRICK
 
 #if defined(__FB_DOS__) or ((not defined(__FB_64BIT__)) and (defined(__FB_WIN32__) or defined(__FB_LINUX__)))
@@ -79,7 +68,7 @@ type CallInfo as CallInfo_
 #define LUA_VERSION_MINOR "2"
 #define LUA_VERSION_NUM 502
 #define LUA_VERSION_RELEASE "3"
-#define LUA_VERSION_ '' TODO: "Lua " LUA_VERSION_MAJOR "." LUA_VERSION_MINOR
+#define LUA_VERSION '' TODO: "Lua " LUA_VERSION_MAJOR "." LUA_VERSION_MINOR
 #define LUA_RELEASE '' TODO: LUA_VERSION "." LUA_VERSION_RELEASE
 #define LUA_COPYRIGHT '' TODO: LUA_RELEASE "  Copyright (C) 1994-2013 Lua.org, PUC-Rio"
 #define LUA_AUTHORS "R. Ierusalimschy, L. H. de Figueiredo, W. Celes"
@@ -98,7 +87,7 @@ type CallInfo as CallInfo_
 type lua_CFunction as function(byval L as lua_State ptr) as long
 type lua_Reader as function(byval L as lua_State ptr, byval ud as any ptr, byval sz as uinteger ptr) as const zstring ptr
 type lua_Writer as function(byval L as lua_State ptr, byval p as const any ptr, byval sz as uinteger, byval ud as any ptr) as long
-type lua_Alloc as function(byval ud as any ptr, byval ptr_ as any ptr, byval osize as uinteger, byval nsize as uinteger) as any ptr
+type lua_Alloc as function(byval ud as any ptr, byval ptr as any ptr, byval osize as uinteger, byval nsize as uinteger) as any ptr
 
 #define LUA_TNONE (-1)
 #define LUA_TNIL 0
@@ -136,7 +125,7 @@ declare sub lua_insert(byval L as lua_State ptr, byval idx as long)
 declare sub lua_replace(byval L as lua_State ptr, byval idx as long)
 declare sub lua_copy(byval L as lua_State ptr, byval fromidx as long, byval toidx as long)
 declare function lua_checkstack(byval L as lua_State ptr, byval sz as long) as long
-declare sub lua_xmove(byval from as lua_State ptr, byval to_ as lua_State ptr, byval n as long)
+declare sub lua_xmove(byval from as lua_State ptr, byval to as lua_State ptr, byval n as long)
 declare function lua_isnumber(byval L as lua_State ptr, byval idx as long) as long
 declare function lua_isstring(byval L as lua_State ptr, byval idx as long) as long
 declare function lua_iscfunction(byval L as lua_State ptr, byval idx as long) as long
@@ -147,7 +136,7 @@ declare function lua_tonumberx(byval L as lua_State ptr, byval idx as long, byva
 declare function lua_tointegerx(byval L as lua_State ptr, byval idx as long, byval isnum as long ptr) as lua_Integer
 declare function lua_tounsignedx(byval L as lua_State ptr, byval idx as long, byval isnum as long ptr) as lua_Unsigned
 declare function lua_toboolean(byval L as lua_State ptr, byval idx as long) as long
-declare function lua_tolstring(byval L as lua_State ptr, byval idx as long, byval len_ as uinteger ptr) as const zstring ptr
+declare function lua_tolstring(byval L as lua_State ptr, byval idx as long, byval len as uinteger ptr) as const zstring ptr
 declare function lua_rawlen(byval L as lua_State ptr, byval idx as long) as uinteger
 declare function lua_tocfunction(byval L as lua_State ptr, byval idx as long) as lua_CFunction
 declare function lua_touserdata(byval L as lua_State ptr, byval idx as long) as any ptr
@@ -174,7 +163,7 @@ declare sub lua_pushnil(byval L as lua_State ptr)
 declare sub lua_pushnumber(byval L as lua_State ptr, byval n as lua_Number)
 declare sub lua_pushinteger(byval L as lua_State ptr, byval n as lua_Integer)
 declare sub lua_pushunsigned(byval L as lua_State ptr, byval n as lua_Unsigned)
-declare function lua_pushlstring(byval L as lua_State ptr, byval s as const zstring ptr, byval l_ as uinteger) as const zstring ptr
+declare function lua_pushlstring(byval L as lua_State ptr, byval s as const zstring ptr, byval l as uinteger) as const zstring ptr
 declare function lua_pushstring(byval L as lua_State ptr, byval s as const zstring ptr) as const zstring ptr
 declare function lua_pushvfstring(byval L as lua_State ptr, byval fmt as const zstring ptr, byval argp as va_list) as const zstring ptr
 declare function lua_pushfstring(byval L as lua_State ptr, byval fmt as const zstring ptr, ...) as const zstring ptr
@@ -182,7 +171,7 @@ declare sub lua_pushcclosure(byval L as lua_State ptr, byval fn as lua_CFunction
 declare sub lua_pushboolean(byval L as lua_State ptr, byval b as long)
 declare sub lua_pushlightuserdata(byval L as lua_State ptr, byval p as any ptr)
 declare function lua_pushthread(byval L as lua_State ptr) as long
-declare sub lua_getglobal(byval L as lua_State ptr, byval var_ as const zstring ptr)
+declare sub lua_getglobal(byval L as lua_State ptr, byval var as const zstring ptr)
 declare sub lua_gettable(byval L as lua_State ptr, byval idx as long)
 declare sub lua_getfield(byval L as lua_State ptr, byval idx as long, byval k as const zstring ptr)
 declare sub lua_rawget(byval L as lua_State ptr, byval idx as long)
@@ -192,7 +181,7 @@ declare sub lua_createtable(byval L as lua_State ptr, byval narr as long, byval 
 declare function lua_newuserdata(byval L as lua_State ptr, byval sz as uinteger) as any ptr
 declare function lua_getmetatable(byval L as lua_State ptr, byval objindex as long) as long
 declare sub lua_getuservalue(byval L as lua_State ptr, byval idx as long)
-declare sub lua_setglobal(byval L as lua_State ptr, byval var_ as const zstring ptr)
+declare sub lua_setglobal(byval L as lua_State ptr, byval var as const zstring ptr)
 declare sub lua_settable(byval L as lua_State ptr, byval idx as long)
 declare sub lua_setfield(byval L as lua_State ptr, byval idx as long, byval k as const zstring ptr)
 declare sub lua_rawset(byval L as lua_State ptr, byval idx as long)
@@ -210,10 +199,10 @@ declare function lua_pcallk(byval L as lua_State ptr, byval nargs as long, byval
 #define lua_pcall(L, n, r, f) lua_pcallk(L, (n), (r), (f), 0, NULL)
 
 declare function lua_load(byval L as lua_State ptr, byval reader as lua_Reader, byval dt as any ptr, byval chunkname as const zstring ptr, byval mode as const zstring ptr) as long
-declare function lua_dump(byval L as lua_State ptr, byval writer as lua_Writer, byval data_ as any ptr) as long
+declare function lua_dump(byval L as lua_State ptr, byval writer as lua_Writer, byval data as any ptr) as long
 declare function lua_yieldk(byval L as lua_State ptr, byval nresults as long, byval ctx as long, byval k as lua_CFunction) as long
 
-#define lua_yield_(L, n) lua_yieldk(L, (n), 0, NULL)
+#define lua_yield(L, n) lua_yieldk(L, (n), 0, NULL)
 
 declare function lua_resume(byval L as lua_State ptr, byval from as lua_State ptr, byval narg as long) as long
 declare function lua_status(byval L as lua_State ptr) as long
@@ -231,7 +220,7 @@ declare function lua_status(byval L as lua_State ptr) as long
 #define LUA_GCGEN 10
 #define LUA_GCINC 11
 
-declare function lua_gc(byval L as lua_State ptr, byval what as long, byval data_ as long) as long
+declare function lua_gc(byval L as lua_State ptr, byval what as long, byval data as long) as long
 declare function lua_error(byval L as lua_State ptr) as long
 declare function lua_next(byval L as lua_State ptr, byval idx as long) as long
 declare sub lua_concat(byval L as lua_State ptr, byval n as long)
@@ -266,6 +255,8 @@ declare sub lua_setallocf(byval L as lua_State ptr, byval f as lua_Alloc, byval 
 #define LUA_MASKRET (1 shl LUA_HOOKRET)
 #define LUA_MASKLINE (1 shl LUA_HOOKLINE)
 #define LUA_MASKCOUNT (1 shl LUA_HOOKCOUNT)
+
+type lua_Debug as lua_Debug_
 
 type lua_Hook as sub(byval L as lua_State ptr, byval ar as lua_Debug ptr)
 

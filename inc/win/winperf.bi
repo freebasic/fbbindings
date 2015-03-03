@@ -1,16 +1,8 @@
 #pragma once
 
-#ifdef __FB_64BIT__
-	extern "C"
-#elseif (not defined(__FB_64BIT__)) and (_WIN32_WINNT = &h0602)
-	extern "Windows"
-#endif
-
-#if defined(__FB_64BIT__) or ((not defined(__FB_64BIT__)) and (_WIN32_WINNT = &h0602))
-	#define _WINPERF_
-#else
-	extern "Windows"
-#endif
+#define _WINPERF_
+#define PERF_DATA_VERSION 1
+#define PERF_DATA_REVISION 1
 
 type _PERF_DATA_BLOCK
 	Signature as wstring * 4
@@ -31,13 +23,6 @@ end type
 
 type PERF_DATA_BLOCK as _PERF_DATA_BLOCK
 type PPERF_DATA_BLOCK as _PERF_DATA_BLOCK ptr
-
-#if (not defined(__FB_64BIT__)) and ((_WIN32_WINNT = &h0400) or (_WIN32_WINNT = &h0502))
-	#define _WINPERF_
-#endif
-
-#define PERF_DATA_VERSION 1
-#define PERF_DATA_REVISION 1
 
 type _PERF_OBJECT_TYPE
 	TotalByteLength as DWORD
@@ -207,5 +192,3 @@ type PPERF_COUNTER_BLOCK as _PERF_COUNTER_BLOCK ptr
 #define WINPERF_LOG_USER 1
 #define WINPERF_LOG_DEBUG 2
 #define WINPERF_LOG_VERBOSE 3
-
-end extern

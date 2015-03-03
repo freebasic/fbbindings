@@ -1,11 +1,6 @@
 #pragma once
 
-#include once "crt/wchar.bi"
 #include once "guiddef.bi"
-
-'' The following symbols have been renamed:
-''     enum constant Unlock => Unlock_
-''     typedef STRING => STRING_
 
 #ifdef __FB_64BIT__
 	extern "C"
@@ -30,7 +25,7 @@ enum
 	Batch
 	Service
 	Proxy
-	Unlock_
+	Unlock
 	NetworkCleartext
 	NewCredentials
 	RemoteInteractive
@@ -596,7 +591,7 @@ end type
 type LSA_FOREST_TRUST_BINARY_DATA as _LSA_FOREST_TRUST_BINARY_DATA
 type PLSA_FOREST_TRUST_BINARY_DATA as _LSA_FOREST_TRUST_BINARY_DATA ptr
 
-union ___LSA_FOREST_TRUST_RECORD_ForestTrustData
+union _LSA_FOREST_TRUST_RECORD_ForestTrustData
 	TopLevelName as LSA_UNICODE_STRING
 	DomainInfo as LSA_FOREST_TRUST_DOMAIN_INFO
 	Data as LSA_FOREST_TRUST_BINARY_DATA
@@ -606,7 +601,7 @@ type _LSA_FOREST_TRUST_RECORD
 	Flags as ULONG
 	ForestTrustType as LSA_FOREST_TRUST_RECORD_TYPE
 	Time as LARGE_INTEGER
-	ForestTrustData as ___LSA_FOREST_TRUST_RECORD_ForestTrustData
+	ForestTrustData as _LSA_FOREST_TRUST_RECORD_ForestTrustData
 end type
 
 type LSA_FOREST_TRUST_RECORD as _LSA_FOREST_TRUST_RECORD
@@ -775,7 +770,7 @@ type PUNICODE_STRING as LSA_UNICODE_STRING ptr
 
 #define __STRING_DEFINED
 
-type STRING_ as LSA_STRING
+type STRING as LSA_STRING
 type PSTRING as LSA_STRING ptr
 
 #define _DOMAIN_PASSWORD_INFORMATION_DEFINED
@@ -902,8 +897,8 @@ type _MSV1_0_LM20_LOGON
 	UserName as UNICODE_STRING
 	Workstation as UNICODE_STRING
 	ChallengeToClient(0 to 7) as UCHAR
-	CaseSensitiveChallengeResponse as STRING_
-	CaseInsensitiveChallengeResponse as STRING_
+	CaseSensitiveChallengeResponse as STRING
+	CaseInsensitiveChallengeResponse as STRING
 	ParameterControl as ULONG
 end type
 
@@ -916,8 +911,8 @@ type _MSV1_0_SUBAUTH_LOGON
 	UserName as UNICODE_STRING
 	Workstation as UNICODE_STRING
 	ChallengeToClient(0 to 7) as UCHAR
-	AuthenticationInfo1 as STRING_
-	AuthenticationInfo2 as STRING_
+	AuthenticationInfo1 as STRING
+	AuthenticationInfo2 as STRING
 	ParameterControl as ULONG
 	SubAuthPackageId as ULONG
 end type
@@ -1199,9 +1194,6 @@ declare function SystemFunction041 cdecl(byval Memory as PVOID, byval MemorySize
 #define KRB_NT_MS_PRINCIPAL (-128)
 #define KRB_NT_MS_PRINCIPAL_AND_ID (-129)
 #define KERB_IS_MS_PRINCIPAL(_x_) (((_x_) <= KRB_NT_MS_PRINCIPAL) orelse ((_x_) >= KRB_NT_ENTERPRISE_PRINCIPAL))
-#define MICROSOFT_KERBEROS_NAME_A "Kerberos"
-#define MICROSOFT_KERBEROS_NAME_W wstr("Kerberos")
-#define MICROSOFT_KERBEROS_NAME MICROSOFT_KERBEROS_NAME_W
 #define KERB_WRAP_NO_ENCRYPT &h80000001
 
 type _KERB_LOGON_SUBMIT_TYPE as long

@@ -3,9 +3,6 @@
 #include once "_mingw_unicode.bi"
 #include once "prsht.bi"
 
-'' The following symbols have been renamed:
-''     typedef IMAGEINFO => IMAGEINFO_
-
 #ifdef __FB_64BIT__
 	extern "C"
 #else
@@ -367,12 +364,12 @@ type _IMAGEINFO
 	rcImage as RECT
 end type
 
-type IMAGEINFO_ as _IMAGEINFO
+type IMAGEINFO as _IMAGEINFO
 type LPIMAGEINFO as _IMAGEINFO ptr
 
 declare function ImageList_GetIconSize(byval himl as HIMAGELIST, byval cx as long ptr, byval cy as long ptr) as WINBOOL
 declare function ImageList_SetIconSize(byval himl as HIMAGELIST, byval cx as long, byval cy as long) as WINBOOL
-declare function ImageList_GetImageInfo(byval himl as HIMAGELIST, byval i as long, byval pImageInfo as IMAGEINFO_ ptr) as WINBOOL
+declare function ImageList_GetImageInfo(byval himl as HIMAGELIST, byval i as long, byval pImageInfo as IMAGEINFO ptr) as WINBOOL
 declare function ImageList_Merge(byval himl1 as HIMAGELIST, byval i1 as long, byval himl2 as HIMAGELIST, byval i2 as long, byval dx as long, byval dy as long) as HIMAGELIST
 declare function ImageList_Duplicate(byval himl as HIMAGELIST) as HIMAGELIST
 
@@ -418,7 +415,7 @@ declare function ImageList_Duplicate(byval himl as HIMAGELIST) as HIMAGELIST
 
 type _HD_TEXTFILTERA
 	pszText as LPSTR
-	cchTextMax as INT_
+	cchTextMax as INT
 end type
 
 type HD_TEXTFILTERA as _HD_TEXTFILTERA
@@ -426,7 +423,7 @@ type LPHD_TEXTFILTERA as _HD_TEXTFILTERA ptr
 
 type _HD_TEXTFILTERW
 	pszText as LPWSTR
-	cchTextMax as INT_
+	cchTextMax as INT
 end type
 
 type HD_TEXTFILTERW as _HD_TEXTFILTERW
@@ -725,7 +722,7 @@ type LPNMHDDISPINFOA as tagNMHDDISPINFOA ptr
 
 type tagNMHDFILTERBTNCLICK
 	hdr as NMHDR
-	iItem as INT_
+	iItem as INT
 	rc as RECT
 end type
 
@@ -1955,7 +1952,7 @@ declare function CreateStatusWindowW(byval style as LONG, byval lpszText as LPCW
 
 declare sub MenuHelp(byval uMsg as UINT, byval wParam as WPARAM, byval lParam as LPARAM, byval hMainMenu as HMENU, byval hInst as HINSTANCE, byval hwndStatus as HWND, byval lpwIDs as UINT ptr)
 declare function ShowHideMenuCtl(byval hWnd as HWND, byval uFlags as UINT_PTR, byval lpInfo as LPINT) as WINBOOL
-declare sub GetEffectiveClientRect(byval hWnd as HWND, byval lprc as LPRECT, byval lpInfo as const INT_ ptr)
+declare sub GetEffectiveClientRect(byval hWnd as HWND, byval lprc as LPRECT, byval lpInfo as const INT ptr)
 
 #define MINSYSCOMMAND SC_SIZE
 #define TRACKBAR_CLASSA "msctls_trackbar32"
@@ -2236,7 +2233,7 @@ type PPBRANGE as PBRANGE ptr
 #define LVM_SETBKCOLOR (LVM_FIRST + 1)
 #define ListView_SetBkColor(hwnd, clrBk) cast(WINBOOL, SNDMSG((hwnd), LVM_SETBKCOLOR, 0, cast(LPARAM, cast(COLORREF, (clrBk)))))
 #define LVM_GETIMAGELIST (LVM_FIRST + 2)
-#define ListView_GetImageList(hwnd, iImageList) cast(HIMAGELIST, SNDMSG((hwnd), LVM_GETIMAGELIST, cast(WPARAM, cast(INT_, (iImageList))), cast(LPARAM, 0)))
+#define ListView_GetImageList(hwnd, iImageList) cast(HIMAGELIST, SNDMSG((hwnd), LVM_GETIMAGELIST, cast(WPARAM, cast(INT, (iImageList))), cast(LPARAM, 0)))
 #define LVSIL_NORMAL 0
 #define LVSIL_SMALL 1
 #define LVSIL_STATE 2
@@ -2640,11 +2637,8 @@ type LPLVCOLUMNW as tagLVCOLUMNW ptr
 #define LVM_SETITEMSTATE (LVM_FIRST + 43)
 #macro ListView_SetItemState(hwndLV, i, data, mask)
 	scope
-		LV_ITEM
 		'' TODO: LV_ITEM _ms_lvi;
-		_ms_lvi.stateMask
 		'' TODO: _ms_lvi.stateMask = mask;
-		_ms_lvi.state
 		'' TODO: _ms_lvi.state = data;
 		SNDMSG((hwndLV), LVM_SETITEMSTATE, cast(WPARAM, (i)), cast(LPARAM, cptr(LV_ITEM ptr, @_ms_lvi)))
 	end scope
@@ -2664,13 +2658,9 @@ type LPLVCOLUMNW as tagLVCOLUMNW ptr
 
 #macro ListView_GetItemText(hwndLV, i, iSubItem_, pszText_, cchTextMax_)
 	scope
-		LV_ITEM
 		'' TODO: LV_ITEM _ms_lvi;
-		_ms_lvi.iSubItem
 		'' TODO: _ms_lvi.iSubItem = iSubItem_;
-		_ms_lvi.cchTextMax
 		'' TODO: _ms_lvi.cchTextMax = cchTextMax_;
-		_ms_lvi.pszText
 		'' TODO: _ms_lvi.pszText = pszText_;
 		SNDMSG((hwndLV), LVM_GETITEMTEXT, cast(WPARAM, (i)), cast(LPARAM, cptr(LV_ITEM ptr, @_ms_lvi)))
 	end scope
@@ -2686,11 +2676,8 @@ type LPLVCOLUMNW as tagLVCOLUMNW ptr
 
 #macro ListView_SetItemText(hwndLV, i, iSubItem_, pszText_)
 	scope
-		LV_ITEM
 		'' TODO: LV_ITEM _ms_lvi;
-		_ms_lvi.iSubItem
 		'' TODO: _ms_lvi.iSubItem = iSubItem_;
-		_ms_lvi.pszText
 		'' TODO: _ms_lvi.pszText = pszText_;
 		SNDMSG((hwndLV), LVM_SETITEMTEXT, cast(WPARAM, (i)), cast(LPARAM, cptr(LV_ITEM ptr, @_ms_lvi)))
 	end scope
@@ -2709,9 +2696,7 @@ type PFNLVCOMPARE as function(byval as LPARAM, byval as LPARAM, byval as LPARAM)
 #macro ListView_SetItemPosition32(hwndLV, i, x0, y0)
 	scope
 		dim ptNewPos as POINT
-		ptNewPos.x
 		'' TODO: ptNewPos.x = x0;
-		ptNewPos.y
 		'' TODO: ptNewPos.y = y0;
 		SNDMSG((hwndLV), LVM_SETITEMPOSITION32, cast(WPARAM, clng((i))), cast(LPARAM, @ptNewPos))
 	end scope
@@ -3269,6 +3254,8 @@ end type
 type NMLVKEYDOWN as tagLVKEYDOWN
 type LPNMLVKEYDOWN as tagLVKEYDOWN ptr
 
+#define LVN_MARQUEEBEGIN (LVN_FIRST - 56)
+
 type tagNMLVGETINFOTIPA
 	hdr as NMHDR
 	dwFlags as DWORD
@@ -3281,8 +3268,6 @@ end type
 
 type NMLVGETINFOTIPA as tagNMLVGETINFOTIPA
 type LPNMLVGETINFOTIPA as tagNMLVGETINFOTIPA ptr
-
-#define LVN_MARQUEEBEGIN (LVN_FIRST - 56)
 
 type tagNMLVGETINFOTIPW
 	hdr as NMHDR
@@ -3681,15 +3666,10 @@ type LPTVHITTESTINFO as tagTVHITTESTINFO ptr
 #define TreeView_GetInsertMarkColor(hwnd) cast(COLORREF, SNDMSG((hwnd), TVM_GETINSERTMARKCOLOR, 0, 0))
 #macro TreeView_SetItemState(hwndTV, hti, data, _mask)
 	scope
-		TVITEM
 		'' TODO: TVITEM _ms_TVi;
-		_ms_TVi.mask
 		'' TODO: _ms_TVi.mask = TVIF_STATE;
-		_ms_TVi.hItem
 		'' TODO: _ms_TVi.hItem = hti;
-		_ms_TVi.stateMask
 		'' TODO: _ms_TVi.stateMask = _mask;
-		_ms_TVi.state
 		'' TODO: _ms_TVi.state = data;
 		SNDMSG((hwndTV), TVM_SETITEM, 0, cast(LPARAM, cptr(TV_ITEM ptr, @_ms_TVi)))
 	end scope
@@ -3865,16 +3845,6 @@ end type
 type NMTVKEYDOWN as tagTVKEYDOWN
 type LPNMTVKEYDOWN as tagTVKEYDOWN ptr
 
-type tagNMTVCUSTOMDRAW
-	nmcd as NMCUSTOMDRAW
-	clrText as COLORREF
-	clrTextBk as COLORREF
-	iLevel as long
-end type
-
-type NMTVCUSTOMDRAW as tagNMTVCUSTOMDRAW
-type LPNMTVCUSTOMDRAW as tagNMTVCUSTOMDRAW ptr
-
 #ifdef UNICODE
 	#define TVN_SELCHANGING TVN_SELCHANGINGW
 	#define TVN_SELCHANGED TVN_SELCHANGEDW
@@ -3902,6 +3872,16 @@ type LPNMTVCUSTOMDRAW as tagNMTVCUSTOMDRAW ptr
 #endif
 
 #define NMTVCUSTOMDRAW_V3_SIZE CCSIZEOF_STRUCT(NMTVCUSTOMDRAW, clrTextBk)
+
+type tagNMTVCUSTOMDRAW
+	nmcd as NMCUSTOMDRAW
+	clrText as COLORREF
+	clrTextBk as COLORREF
+	iLevel as long
+end type
+
+type NMTVCUSTOMDRAW as tagNMTVCUSTOMDRAW
+type LPNMTVCUSTOMDRAW as tagNMTVCUSTOMDRAW ptr
 
 type tagNMTVGETINFOTIPA
 	hdr as NMHDR
@@ -4358,8 +4338,6 @@ type tagTCKEYDOWN field = 1
 end type
 
 type NMTCKEYDOWN as tagTCKEYDOWN
-type MONTHDAYSTATE as DWORD
-type LPMONTHDAYSTATE as DWORD ptr
 
 #define TCN_SELCHANGE (TCN_FIRST - 1)
 #define TCN_SELCHANGING (TCN_FIRST - 2)
@@ -4406,6 +4384,9 @@ type LPMONTHDAYSTATE as DWORD ptr
 #else
 	#define MONTHCAL_CLASS MONTHCAL_CLASSA
 #endif
+
+type MONTHDAYSTATE as DWORD
+type LPMONTHDAYSTATE as DWORD ptr
 
 #define MCM_FIRST &h1000
 #define MCM_GETCURSEL (MCM_FIRST + 1)
@@ -4817,6 +4798,10 @@ end type
 
 type LPNMPGSCROLL as NMPGSCROLL ptr
 
+#define PGN_CALCSIZE (PGN_FIRST - 2)
+#define PGF_CALCWIDTH 1
+#define PGF_CALCHEIGHT 2
+
 type NMPGCALCSIZE
 	hdr as NMHDR
 	dwFlag as DWORD
@@ -4826,9 +4811,6 @@ end type
 
 type LPNMPGCALCSIZE as NMPGCALCSIZE ptr
 
-#define PGN_CALCSIZE (PGN_FIRST - 2)
-#define PGF_CALCWIDTH 1
-#define PGF_CALCHEIGHT 2
 #define PGN_HOTITEMCHANGE (PGN_FIRST - 3)
 
 type tagNMPGHOTITEM
@@ -4967,7 +4949,7 @@ type _tagEDITBALLOONTIP
 	cbStruct as DWORD
 	pszTitle as LPCWSTR
 	pszText as LPCWSTR
-	ttiIcon as INT_
+	ttiIcon as INT
 end type
 
 type EDITBALLOONTIP as _tagEDITBALLOONTIP
@@ -5110,6 +5092,9 @@ type PFNDPAMERGECONST as function(byval as UINT, byval as const any ptr, byval a
 declare function DPA_LoadStream(byval phdpa as HDPA ptr, byval pfn as PFNDPASTREAM, byval pstream as IStream ptr, byval pvInstData as any ptr) as HRESULT
 declare function DPA_SaveStream(byval hdpa as HDPA, byval pfn as PFNDPASTREAM, byval pstream as IStream ptr, byval pvInstData as any ptr) as HRESULT
 declare function DPA_Grow(byval pdpa as HDPA, byval cp as long) as WINBOOL
+declare function DPA_InsertPtr(byval hdpa as HDPA, byval i as long, byval p as any ptr) as long
+declare function DPA_GetPtr(byval hdpa as HDPA, byval i as INT_PTR) as PVOID
+declare function DPA_SetPtr(byval hdpa as HDPA, byval i as long, byval p as any ptr) as WINBOOL
 declare function DPA_GetPtrIndex(byval hdpa as HDPA, byval p as const any ptr) as long
 
 #define DPA_GetPtrCount(hdpa) (*cptr(long ptr, (hdpa)))
@@ -5158,9 +5143,9 @@ declare function FlatSB_GetScrollProp(byval as HWND, byval propIndex as long, by
 	#define FlatSB_GetScrollPropPtr FlatSB_GetScrollProp
 #endif
 
-declare function FlatSB_SetScrollPos(byval as HWND, byval code as long, byval pos_ as long, byval fRedraw as WINBOOL) as long
+declare function FlatSB_SetScrollPos(byval as HWND, byval code as long, byval pos as long, byval fRedraw as WINBOOL) as long
 declare function FlatSB_SetScrollInfo(byval as HWND, byval code as long, byval as LPSCROLLINFO, byval fRedraw as WINBOOL) as long
-declare function FlatSB_SetScrollRange(byval as HWND, byval code as long, byval min_ as long, byval max_ as long, byval fRedraw as WINBOOL) as long
+declare function FlatSB_SetScrollRange(byval as HWND, byval code as long, byval min as long, byval max as long, byval fRedraw as WINBOOL) as long
 declare function FlatSB_SetScrollProp(byval as HWND, byval index as UINT, byval newValue as INT_PTR, byval as WINBOOL) as WINBOOL
 
 #define FlatSB_SetScrollPropPtr FlatSB_SetScrollProp

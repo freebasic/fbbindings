@@ -59,8 +59,8 @@ type LPCCSTYLEW as tagCCSTYLEW ptr
 
 type LPFNCCSTYLEA as function(byval hwndParent as HWND, byval pccs as LPCCSTYLEA) as WINBOOL
 type LPFNCCSTYLEW as function(byval hwndParent as HWND, byval pccs as LPCCSTYLEW) as WINBOOL
-type LPFNCCSIZETOTEXTA as function(byval flStyle as DWORD, byval flExtStyle as DWORD, byval hfont as HFONT, byval pszText as LPSTR) as INT_
-type LPFNCCSIZETOTEXTW as function(byval flStyle as DWORD, byval flExtStyle as DWORD, byval hfont as HFONT, byval pszText as LPWSTR) as INT_
+type LPFNCCSIZETOTEXTA as function(byval flStyle as DWORD, byval flExtStyle as DWORD, byval hfont as HFONT, byval pszText as LPSTR) as INT
+type LPFNCCSIZETOTEXTW as function(byval flStyle as DWORD, byval flExtStyle as DWORD, byval hfont as HFONT, byval pszText as LPWSTR) as INT
 
 type tagCCSTYLEFLAGA
 	flStyle as DWORD
@@ -92,7 +92,7 @@ type tagCCINFOA
 	flExtStyleDefault as DWORD
 	flCtrlTypeMask as DWORD
 	szTextDefault as zstring * 256
-	cStyleFlags as INT_
+	cStyleFlags as INT
 	aStyleFlags as LPCCSTYLEFLAGA
 	lpfnStyle as LPFNCCSTYLEA
 	lpfnSizeToText as LPFNCCSIZETOTEXTA
@@ -112,7 +112,7 @@ type tagCCINFOW
 	flStyleDefault as DWORD
 	flExtStyleDefault as DWORD
 	flCtrlTypeMask as DWORD
-	cStyleFlags as INT_
+	cStyleFlags as INT
 	aStyleFlags as LPCCSTYLEFLAGW
 	szTextDefault as wstring * 256
 	lpfnStyle as LPFNCCSTYLEW

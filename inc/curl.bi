@@ -29,14 +29,7 @@
 
 #include once "typecheck-gcc.bi"
 
-'' The following symbols have been renamed:
-''     struct CURLMsg => CURLMsg_
-''     #define curl_multi_socket => curl_multi_socket_
-
 extern "C"
-
-type curl_slist as curl_slist_
-type sockaddr as sockaddr_
 
 #define __CURL_CURL_H
 #define __CURL_CURLVER_H
@@ -94,18 +87,6 @@ type sockaddr as sockaddr_
 #endif
 
 #define __CURL_CURLRULES_H
-
-#if (defined(__FB_LINUX__) and (not defined(__FB_64BIT__))) or defined(__FB_DOS__) or defined(__FB_WIN32__)
-	type __curl_rule_01__ as zstring * iif(sizeof(clong) = 4, 1, -1)
-#else
-	type __curl_rule_01__ as zstring * iif(sizeof(clong) = 8, 1, -1)
-#endif
-
-type __curl_rule_02__ as zstring * iif(sizeof(curl_off_t) = 8, 1, -1)
-type __curl_rule_03__ as zstring * iif(sizeof(curl_off_t) >= sizeof(clong), 1, -1)
-type __curl_rule_04__ as zstring * iif(sizeof(curl_socklen_t) = 4, 1, -1)
-type __curl_rule_05__ as zstring * iif(sizeof(curl_socklen_t) >= sizeof(long), 1, -1)
-
 #define CURL_ISOCPP
 #define __CURL_OFF_T_C_HLPR2(Val, Suffix) Val##Suffix
 #define __CURL_OFF_T_C_HLPR1(Val, Suffix) __CURL_OFF_T_C_HLPR2(Val, Suffix)
@@ -125,6 +106,8 @@ type CURL as any
 #endif
 
 #define curl_socket_typedef
+
+type curl_slist as curl_slist_
 
 type curl_httppost
 	next as curl_httppost ptr
@@ -181,7 +164,7 @@ end enum
 #define CURLFINFOFLAG_KNOWN_SIZE (1 shl 6)
 #define CURLFINFOFLAG_KNOWN_HLINKCOUNT (1 shl 7)
 
-type __curl_fileinfo_strings
+type curl_fileinfo_strings
 	time as zstring ptr
 	perm as zstring ptr
 	user as zstring ptr
@@ -198,7 +181,7 @@ type curl_fileinfo
 	gid as long
 	size as curl_off_t
 	hardlinks as clong
-	strings as __curl_fileinfo_strings
+	strings as curl_fileinfo_strings
 	flags as ulong
 	b_data as zstring ptr
 	b_size as uinteger
@@ -209,18 +192,18 @@ end type
 #define CURL_CHUNK_BGN_FUNC_FAIL 1
 #define CURL_CHUNK_BGN_FUNC_SKIP 2
 
-type curl_chunk_bgn_callback as function(byval transfer_info as const any ptr, byval ptr_ as any ptr, byval remains as long) as clong
+type curl_chunk_bgn_callback as function(byval transfer_info as const any ptr, byval ptr as any ptr, byval remains as long) as clong
 
 #define CURL_CHUNK_END_FUNC_OK 0
 #define CURL_CHUNK_END_FUNC_FAIL 1
 
-type curl_chunk_end_callback as function(byval ptr_ as any ptr) as clong
+type curl_chunk_end_callback as function(byval ptr as any ptr) as clong
 
 #define CURL_FNMATCHFUNC_MATCH 0
 #define CURL_FNMATCHFUNC_NOMATCH 1
 #define CURL_FNMATCHFUNC_FAIL 2
 
-type curl_fnmatch_callback as function(byval ptr_ as any ptr, byval pattern as const zstring ptr, byval string_ as const zstring ptr) as long
+type curl_fnmatch_callback as function(byval ptr as any ptr, byval pattern as const zstring ptr, byval string as const zstring ptr) as long
 
 #define CURL_SEEKFUNC_OK 0
 #define CURL_SEEKFUNC_FAIL 1
@@ -274,9 +257,9 @@ end enum
 
 type curl_ioctl_callback as function(byval handle as CURL ptr, byval cmd as long, byval clientp as any ptr) as curlioerr
 type curl_malloc_callback as function(byval size as uinteger) as any ptr
-type curl_free_callback as sub(byval ptr_ as any ptr)
-type curl_realloc_callback as function(byval ptr_ as any ptr, byval size as uinteger) as any ptr
-type curl_strdup_callback as function(byval str_ as const zstring ptr) as zstring ptr
+type curl_free_callback as sub(byval ptr as any ptr)
+type curl_realloc_callback as function(byval ptr as any ptr, byval size as uinteger) as any ptr
+type curl_strdup_callback as function(byval str as const zstring ptr) as zstring ptr
 type curl_calloc_callback as function(byval nmemb as uinteger, byval size as uinteger) as any ptr
 
 type curl_infotype as long
@@ -291,7 +274,7 @@ enum
 	CURLINFO_END
 end enum
 
-type curl_debug_callback as function(byval handle as CURL ptr, byval type_ as curl_infotype, byval data_ as zstring ptr, byval size as uinteger, byval userptr as any ptr) as long
+type curl_debug_callback as function(byval handle as CURL ptr, byval type as curl_infotype, byval data as zstring ptr, byval size as uinteger, byval userptr as any ptr) as long
 
 type CURLcode as long
 enum
@@ -926,16 +909,16 @@ end enum
 
 declare function curl_formadd(byval httppost as curl_httppost ptr ptr, byval last_post as curl_httppost ptr ptr, ...) as CURLFORMcode
 
-type curl_formget_callback as function(byval arg as any ptr, byval buf as const zstring ptr, byval len_ as uinteger) as uinteger
+type curl_formget_callback as function(byval arg as any ptr, byval buf as const zstring ptr, byval len as uinteger) as uinteger
 
-declare function curl_formget(byval form as curl_httppost ptr, byval arg as any ptr, byval append_ as curl_formget_callback) as long
+declare function curl_formget(byval form as curl_httppost ptr, byval arg as any ptr, byval append as curl_formget_callback) as long
 declare sub curl_formfree(byval form as curl_httppost ptr)
 declare function curl_getenv(byval variable as const zstring ptr) as zstring ptr
 declare function curl_version() as zstring ptr
-declare function curl_easy_escape(byval handle as CURL ptr, byval string_ as const zstring ptr, byval length as long) as zstring ptr
-declare function curl_escape(byval string_ as const zstring ptr, byval length as long) as zstring ptr
-declare function curl_easy_unescape(byval handle as CURL ptr, byval string_ as const zstring ptr, byval length as long, byval outlength as long ptr) as zstring ptr
-declare function curl_unescape(byval string_ as const zstring ptr, byval length as long) as zstring ptr
+declare function curl_easy_escape(byval handle as CURL ptr, byval string as const zstring ptr, byval length as long) as zstring ptr
+declare function curl_escape(byval string as const zstring ptr, byval length as long) as zstring ptr
+declare function curl_easy_unescape(byval handle as CURL ptr, byval string as const zstring ptr, byval length as long, byval outlength as long ptr) as zstring ptr
+declare function curl_unescape(byval string as const zstring ptr, byval length as long) as zstring ptr
 declare sub curl_free(byval p as any ptr)
 declare function curl_global_init(byval flags as clong) as CURLcode
 declare function curl_global_init_mem(byval flags as clong, byval m as curl_malloc_callback, byval f as curl_free_callback, byval r as curl_realloc_callback, byval s as curl_strdup_callback, byval c as curl_calloc_callback) as CURLcode
@@ -1070,8 +1053,8 @@ enum
 	CURL_LOCK_ACCESS_LAST
 end enum
 
-type curl_lock_function as sub(byval handle as CURL ptr, byval data_ as curl_lock_data, byval locktype as curl_lock_access, byval userptr as any ptr)
-type curl_unlock_function as sub(byval handle as CURL ptr, byval data_ as curl_lock_data, byval userptr as any ptr)
+type curl_lock_function as sub(byval handle as CURL ptr, byval data as curl_lock_data, byval locktype as curl_lock_access, byval userptr as any ptr)
+type curl_unlock_function as sub(byval handle as CURL ptr, byval data as curl_lock_data, byval userptr as any ptr)
 type CURLSH as any
 
 type CURLSHcode as long
@@ -1097,7 +1080,7 @@ enum
 end enum
 
 declare function curl_share_init() as CURLSH ptr
-declare function curl_share_setopt(byval as CURLSH ptr, byval option_ as CURLSHoption, ...) as CURLSHcode
+declare function curl_share_setopt(byval as CURLSH ptr, byval option as CURLSHoption, ...) as CURLSHcode
 declare function curl_share_cleanup(byval as CURLSH ptr) as CURLSHcode
 
 type CURLversion as long
@@ -1161,7 +1144,7 @@ declare function curl_easy_pause(byval handle as CURL ptr, byval bitmask as long
 #define __CURL_EASY_H
 
 declare function curl_easy_init() as CURL ptr
-declare function curl_easy_setopt(byval curl as CURL ptr, byval option_ as CURLoption, ...) as CURLcode
+declare function curl_easy_setopt(byval curl as CURL ptr, byval option as CURLoption, ...) as CURLcode
 declare function curl_easy_perform(byval curl as CURL ptr) as CURLcode
 declare sub curl_easy_cleanup(byval curl as CURL ptr)
 declare function curl_easy_getinfo(byval curl as CURL ptr, byval info as CURLINFO, ...) as CURLcode
@@ -1197,15 +1180,15 @@ enum
 	CURLMSG_LAST
 end enum
 
-union __CURLMsg__data
+union CURLMsg_data
 	whatever as any ptr
 	result as CURLcode
 end union
 
-type CURLMsg_
+type CURLMsg
 	msg as CURLMSG
 	easy_handle as CURL ptr
-	data as __CURLMsg__data
+	data as CURLMsg_data
 end type
 
 #define CURL_WAIT_POLLIN &h0001
@@ -1225,7 +1208,7 @@ declare function curl_multi_fdset(byval multi_handle as CURLM ptr, byval read_fd
 declare function curl_multi_wait(byval multi_handle as CURLM ptr, byval extra_fds as curl_waitfd ptr, byval extra_nfds as ulong, byval timeout_ms as long, byval ret as long ptr) as CURLMcode
 declare function curl_multi_perform(byval multi_handle as CURLM ptr, byval running_handles as long ptr) as CURLMcode
 declare function curl_multi_cleanup(byval multi_handle as CURLM ptr) as CURLMcode
-declare function curl_multi_info_read(byval multi_handle as CURLM ptr, byval msgs_in_queue as long ptr) as CURLMsg_ ptr
+declare function curl_multi_info_read(byval multi_handle as CURLM ptr, byval msgs_in_queue as long ptr) as CURLMsg ptr
 declare function curl_multi_strerror(byval as CURLMcode) as const zstring ptr
 
 #define CURL_POLL_NONE 0
@@ -1245,7 +1228,7 @@ declare function curl_multi_socket(byval multi_handle as CURLM ptr, byval s as c
 declare function curl_multi_socket_action(byval multi_handle as CURLM ptr, byval s as curl_socket_t, byval ev_bitmask as long, byval running_handles as long ptr) as CURLMcode
 declare function curl_multi_socket_all(byval multi_handle as CURLM ptr, byval running_handles as long ptr) as CURLMcode
 
-#define curl_multi_socket_(x, y, z) curl_multi_socket_action(x, y, 0, z)
+#define curl_multi_socket(x, y, z) curl_multi_socket_action(x, y, 0, z)
 
 declare function curl_multi_timeout(byval multi_handle as CURLM ptr, byval milliseconds as clong ptr) as CURLMcode
 
@@ -1267,7 +1250,7 @@ enum
 	CURLMOPT_LASTENTRY
 end enum
 
-declare function curl_multi_setopt(byval multi_handle as CURLM ptr, byval option_ as CURLMoption, ...) as CURLMcode
+declare function curl_multi_setopt(byval multi_handle as CURLM ptr, byval option as CURLMoption, ...) as CURLMcode
 declare function curl_multi_assign(byval multi_handle as CURLM ptr, byval sockfd as curl_socket_t, byval sockp as any ptr) as CURLMcode
 
 end extern

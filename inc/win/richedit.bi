@@ -1,10 +1,6 @@
 #pragma once
 
-#include once "crt/wchar.bi"
 #include once "_mingw_unicode.bi"
-
-'' The following symbols have been renamed:
-''     #define FINDTEXT => FINDTEXT_
 
 #ifdef __FB_64BIT__
 	extern "C"
@@ -13,19 +9,6 @@
 #endif
 
 #define _RICHEDIT_
-
-type tagTextMode as long
-enum
-	TM_PLAINTEXT = 1
-	TM_RICHTEXT = 2
-	TM_SINGLELEVELUNDO = 4
-	TM_MULTILEVELUNDO = 8
-	TM_SINGLECODEPAGE = 16
-	TM_MULTICODEPAGE = 32
-end enum
-
-type TEXTMODE as tagTextMode
-
 #define _RICHEDIT_VER &h0300
 #define cchTextLimitDefault 32767
 #define MSFTEDIT_CLASS wstr("RICHEDIT50W")
@@ -81,6 +64,19 @@ type TEXTMODE as tagTextMode
 #define EM_STOPGROUPTYPING (WM_USER + 88)
 #define EM_SETTEXTMODE (WM_USER + 89)
 #define EM_GETTEXTMODE (WM_USER + 90)
+
+type tagTextMode as long
+enum
+	TM_PLAINTEXT = 1
+	TM_RICHTEXT = 2
+	TM_SINGLELEVELUNDO = 4
+	TM_MULTILEVELUNDO = 8
+	TM_SINGLECODEPAGE = 16
+	TM_MULTICODEPAGE = 32
+end enum
+
+type TEXTMODE as tagTextMode
+
 #define EM_AUTOURLDETECT (WM_USER + 91)
 #define EM_GETAUTOURLDETECT (WM_USER + 92)
 #define EM_SETPALETTE (WM_USER + 93)
@@ -307,7 +303,7 @@ type IMECOMPTEXT as _imecomptext
 #define WBF_BREAKLINE cast(UBYTE, &h20)
 #define WBF_BREAKAFTER cast(UBYTE, &h40)
 
-type EDITWORDBREAKPROCEX as function cdecl(byval pchText as zstring ptr, byval cchText as LONG, byval bCharSet as UBYTE, byval action as INT_) as LONG
+type EDITWORDBREAKPROCEX as function cdecl(byval pchText as zstring ptr, byval cchText as LONG, byval bCharSet as UBYTE, byval action as INT) as LONG
 
 type _charformat field = 4
 	cbSize as UINT
@@ -551,9 +547,9 @@ end type
 type FINDTEXTW as _findtextw
 
 #ifdef UNICODE
-	#define FINDTEXT_ FINDTEXTW
+	#define FINDTEXT FINDTEXTW
 #else
-	#define FINDTEXT_ FINDTEXTA
+	#define FINDTEXT FINDTEXTA
 #endif
 
 type _findtextexa field = 4
@@ -921,18 +917,18 @@ end enum
 
 type KHYPH as tagKHYPH
 
-type hyphresult field = 4
+type HYPHRESULT field = 4
 	khyph as KHYPH
 	ichHyph as long
 	chHyph as wchar_t
 end type
 
-declare sub HyphenateProc(byval pszWord as wstring ptr, byval langid as LANGID, byval ichExceed as long, byval phyphresult as hyphresult ptr)
+declare sub HyphenateProc(byval pszWord as wstring ptr, byval langid as LANGID, byval ichExceed as long, byval phyphresult as HYPHRESULT ptr)
 
 type tagHyphenateInfo field = 4
 	cbSize as SHORT
 	dxHyphenateZone as SHORT
-	pfnHyphenate as sub(byval as wstring ptr, byval as LANGID, byval as long, byval as hyphresult ptr)
+	pfnHyphenate as sub(byval as wstring ptr, byval as LANGID, byval as long, byval as HYPHRESULT ptr)
 end type
 
 type HYPHENATEINFO as tagHyphenateInfo

@@ -15,11 +15,6 @@
 	extern "Windows"
 #endif
 
-type IPropertyStorage as IPropertyStorage_
-type IPropertySetStorage as IPropertySetStorage_
-type IEnumSTATPROPSTG as IEnumSTATPROPSTG_
-type IEnumSTATPROPSETSTG as IEnumSTATPROPSETSTG_
-
 #define __propidl_h__
 #define __IPropertyStorage_FWD_DEFINED__
 #define __IPropertySetStorage_FWD_DEFINED__
@@ -40,6 +35,8 @@ type LPVERSIONEDSTREAM as tagVersionedStream ptr
 #define PROPSETFLAG_UNBUFFERED 4
 #define PROPSETFLAG_CASE_SENSITIVE 8
 #define PROPSET_BEHAVIOR_CASE_SENSITIVE 1
+
+type PROPVARIANT as tagPROPVARIANT
 
 type tagCAC
 	cElems as ULONG
@@ -106,7 +103,7 @@ type CACY as tagCACY
 
 type tagCADATE
 	cElems as ULONG
-	pElems as DATE_ ptr
+	pElems as DATE ptr
 end type
 
 type CADATE as tagCADATE
@@ -215,7 +212,7 @@ type tagPROPVARIANT
 				uiVal as USHORT
 				lVal as LONG
 				ulVal as ULONG
-				intVal as INT_
+				intVal as INT
 				uintVal as UINT
 				hVal as LARGE_INTEGER
 				uhVal as ULARGE_INTEGER
@@ -224,7 +221,7 @@ type tagPROPVARIANT
 				boolVal as VARIANT_BOOL
 				scode as SCODE
 				cyVal as CY
-				date as DATE_
+				date as DATE
 				filetime as FILETIME
 				puuid as CLSID ptr
 				pclipdata as CLIPDATA ptr
@@ -267,7 +264,7 @@ type tagPROPVARIANT
 				puiVal as USHORT ptr
 				plVal as LONG ptr
 				pulVal as ULONG ptr
-				pintVal as INT_ ptr
+				pintVal as INT ptr
 				puintVal as UINT ptr
 				pfltVal as FLOAT ptr
 				pdblVal as DOUBLE ptr
@@ -275,7 +272,7 @@ type tagPROPVARIANT
 				pdecVal as DECIMAL ptr
 				pscode as SCODE ptr
 				pcyVal as CY ptr
-				pdate as DATE_ ptr
+				pdate as DATE ptr
 				pbstrVal as BSTR ptr
 				ppunkVal as IUnknown ptr ptr
 				ppdispVal as IDispatch ptr ptr
@@ -405,6 +402,9 @@ type STATPROPSETSTG as tagSTATPROPSETSTG
 
 extern IID_IPropertyStorage as const GUID
 
+type IEnumSTATPROPSTG as IEnumSTATPROPSTG_
+type IPropertyStorage as IPropertyStorage_
+
 type IPropertyStorageVtbl
 	QueryInterface as function(byval This as IPropertyStorage ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IPropertyStorage ptr) as ULONG
@@ -454,9 +454,13 @@ declare sub IPropertyStorage_Stat_Stub(byval This as IRpcStubBuffer ptr, byval p
 
 #define __IPropertySetStorage_INTERFACE_DEFINED__
 
+type IPropertySetStorage as IPropertySetStorage_
+
 type LPPROPERTYSETSTORAGE as IPropertySetStorage ptr
 
 extern IID_IPropertySetStorage as const GUID
+
+type IEnumSTATPROPSETSTG as IEnumSTATPROPSETSTG_
 
 type IPropertySetStorageVtbl
 	QueryInterface as function(byval This as IPropertySetStorage ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -545,6 +549,10 @@ declare function IEnumSTATPROPSETSTG_Next_Stub(byval This as IEnumSTATPROPSETSTG
 
 type LPPROPERTYSTORAGE as IPropertyStorage ptr
 
+declare function PropVariantCopy(byval pvarDest as PROPVARIANT ptr, byval pvarSrc as const PROPVARIANT ptr) as HRESULT
+declare function PropVariantClear(byval pvar as PROPVARIANT ptr) as HRESULT
+declare function FreePropVariantArray(byval cVariants as ULONG, byval rgvars as PROPVARIANT ptr) as HRESULT
+
 #define _PROPVARIANTINIT_DEFINED_
 #define PropVariantInit(pvar) memset((pvar), 0, sizeof(PROPVARIANT))
 
@@ -567,6 +575,10 @@ end type
 type SERIALIZEDPROPERTYVALUE as tagSERIALIZEDPROPERTYVALUE
 
 declare function StgConvertVariantToProperty(byval pvar as const PROPVARIANT ptr, byval CodePage as USHORT, byval pprop as SERIALIZEDPROPERTYVALUE ptr, byval pcb as ULONG ptr, byval pid as PROPID, byval fReserved as BOOLEAN, byval pcIndirect as ULONG ptr) as SERIALIZEDPROPERTYVALUE ptr
+declare function BSTR_UserSize(byval as ULONG ptr, byval as ULONG, byval as BSTR ptr) as ULONG
+declare function BSTR_UserMarshal(byval as ULONG ptr, byval as ubyte ptr, byval as BSTR ptr) as ubyte ptr
+declare function BSTR_UserUnmarshal(byval as ULONG ptr, byval as ubyte ptr, byval as BSTR ptr) as ubyte ptr
+declare sub BSTR_UserFree(byval as ULONG ptr, byval as BSTR ptr)
 declare function LPSAFEARRAY_UserSize(byval as ULONG ptr, byval as ULONG, byval as LPSAFEARRAY ptr) as ULONG
 declare function LPSAFEARRAY_UserMarshal(byval as ULONG ptr, byval as ubyte ptr, byval as LPSAFEARRAY ptr) as ubyte ptr
 declare function LPSAFEARRAY_UserUnmarshal(byval as ULONG ptr, byval as ubyte ptr, byval as LPSAFEARRAY ptr) as ubyte ptr

@@ -5,8 +5,6 @@
 
 extern "C"
 
-type _HMAPPER as _HMAPPER_
-
 #define __SCHANNEL_H__
 #define UNISP_NAME_A "Microsoft Unified Security Protocol Provider"
 #define UNISP_NAME_W wstr("Microsoft Unified Security Protocol Provider")

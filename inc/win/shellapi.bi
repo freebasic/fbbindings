@@ -6,25 +6,17 @@
 
 #ifdef __FB_64BIT__
 	extern "C"
-#elseif (not defined(__FB_64BIT__)) and (_WIN32_WINNT = &h0602)
-	extern "Windows"
-#endif
-
-#if _WIN32_WINNT = &h0602
-	type NET_ADDRESS_INFO_ as NET_ADDRESS_INFO__
-#endif
-
-#ifdef __FB_64BIT__
-	type HDROP__
-		unused as long
-	end type
-#elseif (not defined(__FB_64BIT__)) and ((_WIN32_WINNT = &h0400) or (_WIN32_WINNT = &h0502))
+#else
 	extern "Windows"
 #endif
 
 #define _INC_SHELLAPI
 
-#ifndef __FB_64BIT__
+#ifdef __FB_64BIT__
+	type HDROP__
+		unused as long
+	end type
+#else
 	type HDROP__ field = 1
 		unused as long
 	end type
@@ -55,13 +47,13 @@ declare function DragQueryFileW(byval hDrop as HDROP, byval iFile as UINT, byval
 declare function DragQueryPoint(byval hDrop as HDROP, byval ppt as POINT ptr) as WINBOOL
 declare sub DragFinish(byval hDrop as HDROP)
 declare sub DragAcceptFiles(byval hWnd as HWND, byval fAccept as WINBOOL)
-declare function ShellExecuteA(byval hwnd as HWND, byval lpOperation as LPCSTR, byval lpFile as LPCSTR, byval lpParameters as LPCSTR, byval lpDirectory as LPCSTR, byval nShowCmd as INT_) as HINSTANCE
-declare function ShellExecuteW(byval hwnd as HWND, byval lpOperation as LPCWSTR, byval lpFile as LPCWSTR, byval lpParameters as LPCWSTR, byval lpDirectory as LPCWSTR, byval nShowCmd as INT_) as HINSTANCE
+declare function ShellExecuteA(byval hwnd as HWND, byval lpOperation as LPCSTR, byval lpFile as LPCSTR, byval lpParameters as LPCSTR, byval lpDirectory as LPCSTR, byval nShowCmd as INT) as HINSTANCE
+declare function ShellExecuteW(byval hwnd as HWND, byval lpOperation as LPCWSTR, byval lpFile as LPCWSTR, byval lpParameters as LPCWSTR, byval lpDirectory as LPCWSTR, byval nShowCmd as INT) as HINSTANCE
 declare function FindExecutableA(byval lpFile as LPCSTR, byval lpDirectory as LPCSTR, byval lpResult as LPSTR) as HINSTANCE
 declare function FindExecutableW(byval lpFile as LPCWSTR, byval lpDirectory as LPCWSTR, byval lpResult as LPWSTR) as HINSTANCE
 declare function CommandLineToArgvW(byval lpCmdLine as LPCWSTR, byval pNumArgs as long ptr) as LPWSTR ptr
-declare function ShellAboutA(byval hWnd as HWND, byval szApp as LPCSTR, byval szOtherStuff as LPCSTR, byval hIcon as HICON) as INT_
-declare function ShellAboutW(byval hWnd as HWND, byval szApp as LPCWSTR, byval szOtherStuff as LPCWSTR, byval hIcon as HICON) as INT_
+declare function ShellAboutA(byval hWnd as HWND, byval szApp as LPCSTR, byval szOtherStuff as LPCSTR, byval hIcon as HICON) as INT
+declare function ShellAboutW(byval hWnd as HWND, byval szApp as LPCWSTR, byval szOtherStuff as LPCWSTR, byval hIcon as HICON) as INT
 declare function DuplicateIcon(byval hInst as HINSTANCE, byval hIcon as HICON) as HICON
 declare function ExtractAssociatedIconA(byval hInst as HINSTANCE, byval pszIconPath as LPSTR, byval piIcon as WORD ptr) as HICON
 declare function ExtractAssociatedIconW(byval hInst as HINSTANCE, byval pszIconPath as LPWSTR, byval piIcon as WORD ptr) as HICON
@@ -1247,19 +1239,11 @@ declare function IsLFNDriveW(byval pszPath as LPCWSTR) as WINBOOL
 	type PFNSHOWSHAREFOLDERUIW as function(byval hwndParent as HWND, byval pszPath as PCWSTR) as HRESULT
 #endif
 
-#if (not defined(__FB_64BIT__)) and (_WIN32_WINNT = &h0602)
-	declare function InitNetworkAddressControl() as WINBOOL
-#endif
-
 #if _WIN32_WINNT = &h0602
 	#define WC_NETADDRESS wstr("msctls_netaddress")
-#endif
 
-#if defined(__FB_64BIT__) and (_WIN32_WINNT = &h0602)
 	declare function InitNetworkAddressControl() as WINBOOL
-#endif
 
-#if _WIN32_WINNT = &h0602
 	#define NCM_GETADDRESS (WM_USER + 1)
 	#define NetAddr_GetAddress(hwnd, pv) cast(HRESULT, SNDMSG(hwnd, NCM_GETADDRESS, 0, cast(LPARAM, pv)))
 

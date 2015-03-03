@@ -77,14 +77,14 @@ declare function GetDeviceDriverFileNameW(byval ImageBase as LPVOID, byval lpFil
 type _PROCESS_MEMORY_COUNTERS
 	cb as DWORD
 	PageFaultCount as DWORD
-	PeakWorkingSetSize as SIZE_T_
-	WorkingSetSize as SIZE_T_
-	QuotaPeakPagedPoolUsage as SIZE_T_
-	QuotaPagedPoolUsage as SIZE_T_
-	QuotaPeakNonPagedPoolUsage as SIZE_T_
-	QuotaNonPagedPoolUsage as SIZE_T_
-	PagefileUsage as SIZE_T_
-	PeakPagefileUsage as SIZE_T_
+	PeakWorkingSetSize as SIZE_T
+	WorkingSetSize as SIZE_T
+	QuotaPeakPagedPoolUsage as SIZE_T
+	QuotaPagedPoolUsage as SIZE_T
+	QuotaPeakNonPagedPoolUsage as SIZE_T
+	QuotaNonPagedPoolUsage as SIZE_T
+	PagefileUsage as SIZE_T
+	PeakPagefileUsage as SIZE_T
 end type
 
 type PROCESS_MEMORY_COUNTERS as _PROCESS_MEMORY_COUNTERS
@@ -93,15 +93,15 @@ type PPROCESS_MEMORY_COUNTERS as PROCESS_MEMORY_COUNTERS ptr
 type _PROCESS_MEMORY_COUNTERS_EX
 	cb as DWORD
 	PageFaultCount as DWORD
-	PeakWorkingSetSize as SIZE_T_
-	WorkingSetSize as SIZE_T_
-	QuotaPeakPagedPoolUsage as SIZE_T_
-	QuotaPagedPoolUsage as SIZE_T_
-	QuotaPeakNonPagedPoolUsage as SIZE_T_
-	QuotaNonPagedPoolUsage as SIZE_T_
-	PagefileUsage as SIZE_T_
-	PeakPagefileUsage as SIZE_T_
-	PrivateUsage as SIZE_T_
+	PeakWorkingSetSize as SIZE_T
+	WorkingSetSize as SIZE_T
+	QuotaPeakPagedPoolUsage as SIZE_T
+	QuotaPagedPoolUsage as SIZE_T
+	QuotaPeakNonPagedPoolUsage as SIZE_T
+	QuotaNonPagedPoolUsage as SIZE_T
+	PagefileUsage as SIZE_T
+	PeakPagefileUsage as SIZE_T
+	PrivateUsage as SIZE_T
 end type
 
 type PROCESS_MEMORY_COUNTERS_EX as _PROCESS_MEMORY_COUNTERS_EX
@@ -111,16 +111,16 @@ declare function GetProcessMemoryInfo(byval Process as HANDLE, byval ppsmemCount
 
 type _PERFORMANCE_INFORMATION
 	cb as DWORD
-	CommitTotal as SIZE_T_
-	CommitLimit as SIZE_T_
-	CommitPeak as SIZE_T_
-	PhysicalTotal as SIZE_T_
-	PhysicalAvailable as SIZE_T_
-	SystemCache as SIZE_T_
-	KernelTotal as SIZE_T_
-	KernelPaged as SIZE_T_
-	KernelNonpaged as SIZE_T_
-	PageSize as SIZE_T_
+	CommitTotal as SIZE_T
+	CommitLimit as SIZE_T
+	CommitPeak as SIZE_T
+	PhysicalTotal as SIZE_T
+	PhysicalAvailable as SIZE_T
+	SystemCache as SIZE_T
+	KernelTotal as SIZE_T
+	KernelPaged as SIZE_T
+	KernelNonpaged as SIZE_T
+	PageSize as SIZE_T
 	HandleCount as DWORD
 	ProcessCount as DWORD
 	ThreadCount as DWORD
@@ -136,9 +136,9 @@ declare function GetPerformanceInfo(byval pPerformanceInformation as PPERFORMACE
 type _ENUM_PAGE_FILE_INFORMATION
 	cb as DWORD
 	Reserved as DWORD
-	TotalSize as SIZE_T_
-	TotalInUse as SIZE_T_
-	PeakUsage as SIZE_T_
+	TotalSize as SIZE_T
+	TotalInUse as SIZE_T
+	PeakUsage as SIZE_T
 end type
 
 type ENUM_PAGE_FILE_INFORMATION as _ENUM_PAGE_FILE_INFORMATION

@@ -9,9 +9,9 @@
 	extern "Windows"
 #endif
 
-type IAMDirectSoundVtbl as IAMDirectSoundVtbl_
-
 #define __AMAUDIO__
+
+type IAMDirectSoundVtbl as IAMDirectSoundVtbl_
 
 type IAMDirectSound
 	lpVtbl as IAMDirectSoundVtbl ptr
