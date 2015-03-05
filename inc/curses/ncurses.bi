@@ -17,7 +17,6 @@
 ''     #define slk_attr_off => slk_attr_off_
 ''     #define slk_attr_on => slk_attr_on_
 ''     procedure getmouse => getmouse_
-''     #define mouse_trafo => mouse_trafo_
 
 extern "C"
 
@@ -747,9 +746,9 @@ declare function mousemask(byval as mmask_t, byval as mmask_t ptr) as mmask_t
 declare function wenclose(byval as const WINDOW_ ptr, byval as long, byval as long) as byte
 declare function mouseinterval(byval as long) as long
 declare function wmouse_trafo(byval as const WINDOW_ ptr, byval as long ptr, byval as long ptr, byval as byte) as byte
-declare function mouse_trafo(byval as long ptr, byval as long ptr, byval as byte) as byte
+declare function mouse_trafo_ alias "mouse_trafo"(byval as long ptr, byval as long ptr, byval as byte) as byte
 
-#define mouse_trafo_(y, x, to_screen) wmouse_trafo(stdscr, y, x, to_screen)
+#define mouse_trafo(y, x, to_screen) wmouse_trafo(stdscr, y, x, to_screen)
 
 declare function mcprint(byval as zstring ptr, byval as long) as long
 declare function has_key(byval as long) as long
