@@ -7,10 +7,6 @@
 #include once "ncrypt.bi"
 #include once "winapifamily.bi"
 
-'' The following symbols have been renamed:
-''     inside struct _PUBLICKEYSTRUC:
-''         field bType => bType_
-
 extern "Windows"
 
 #define __WINCRYPT_H__
@@ -481,7 +477,7 @@ end type
 type PROV_ENUMALGS_EX as _PROV_ENUMALGS_EX
 
 type _PUBLICKEYSTRUC
-	bType_ as UBYTE
+	bType as UBYTE
 	bVersion as UBYTE
 	reserved as WORD
 	aiKeyAlg as ALG_ID

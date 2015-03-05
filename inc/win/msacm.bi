@@ -1,21 +1,10 @@
 #pragma once
 
-#include once "mmreg.bi"
-
 #inclib "msacm32"
 
 extern "Windows"
 
-type HACMDRIVERID__ field = 1
-	unused as long
-end type
-
 #define _INC_ACM
-
-#ifdef UNICODE
-	#define _UNICODE
-#endif
-
 #define DRV_MAPPER_PREFERRED_INPUT_GET (DRV_USER + 0)
 #define DRV_MAPPER_PREFERRED_OUTPUT_GET (DRV_USER + 2)
 #define DRVM_MAPPER &h2000
@@ -28,6 +17,10 @@ end type
 #define WAVEOUT_MAPPER_STATUS_DEVICE 0
 #define WAVEOUT_MAPPER_STATUS_MAPPED 1
 #define WAVEOUT_MAPPER_STATUS_FORMAT 2
+
+type HACMDRIVERID__ field = 1
+	unused as long
+end type
 
 type HACMDRIVERID as HACMDRIVERID__ ptr
 type PHACMDRIVERID as HACMDRIVERID ptr
@@ -209,9 +202,9 @@ declare function acmDriverDetailsA(byval hadid as HACMDRIVERID, byval padd as LP
 declare function acmDriverDetailsW(byval hadid as HACMDRIVERID, byval padd as LPACMDRIVERDETAILSW, byval fdwDetails as DWORD) as MMRESULT
 
 #ifdef UNICODE
-	#define acmDriverDetails acmDriverDetailsW
+	declare function acmDriverDetails alias "acmDriverDetailsW"(byval hadid as HACMDRIVERID, byval padd as LPACMDRIVERDETAILSW, byval fdwDetails as DWORD) as MMRESULT
 #else
-	#define acmDriverDetails acmDriverDetailsA
+	declare function acmDriverDetails alias "acmDriverDetailsA"(byval hadid as HACMDRIVERID, byval padd as LPACMDRIVERDETAILSA, byval fdwDetails as DWORD) as MMRESULT
 #endif
 
 #define ACMFORMATTAGDETAILS_FORMATTAG_CHARS 48
@@ -258,9 +251,9 @@ declare function acmFormatTagDetailsA(byval had as HACMDRIVER, byval paftd as LP
 declare function acmFormatTagDetailsW(byval had as HACMDRIVER, byval paftd as LPACMFORMATTAGDETAILSW, byval fdwDetails as DWORD) as MMRESULT
 
 #ifdef UNICODE
-	#define acmFormatTagDetails acmFormatTagDetailsW
+	declare function acmFormatTagDetails alias "acmFormatTagDetailsW"(byval had as HACMDRIVER, byval paftd as LPACMFORMATTAGDETAILSW, byval fdwDetails as DWORD) as MMRESULT
 #else
-	#define acmFormatTagDetails acmFormatTagDetailsA
+	declare function acmFormatTagDetails alias "acmFormatTagDetailsA"(byval had as HACMDRIVER, byval paftd as LPACMFORMATTAGDETAILSA, byval fdwDetails as DWORD) as MMRESULT
 #endif
 
 #define ACM_FORMATTAGDETAILSF_INDEX __MSABI_LONG(&h00000000)
@@ -326,9 +319,9 @@ declare function acmFormatDetailsA(byval had as HACMDRIVER, byval pafd as LPACMF
 declare function acmFormatDetailsW(byval had as HACMDRIVER, byval pafd as LPACMFORMATDETAILSW, byval fdwDetails as DWORD) as MMRESULT
 
 #ifdef UNICODE
-	#define acmFormatDetails acmFormatDetailsW
+	declare function acmFormatDetails alias "acmFormatDetailsW"(byval had as HACMDRIVER, byval pafd as LPACMFORMATDETAILSW, byval fdwDetails as DWORD) as MMRESULT
 #else
-	#define acmFormatDetails acmFormatDetailsA
+	declare function acmFormatDetails alias "acmFormatDetailsA"(byval had as HACMDRIVER, byval pafd as LPACMFORMATDETAILSA, byval fdwDetails as DWORD) as MMRESULT
 #endif
 
 #define ACM_FORMATDETAILSF_INDEX __MSABI_LONG(&h00000000)
@@ -465,9 +458,9 @@ declare function acmFormatChooseA(byval pafmtc as LPACMFORMATCHOOSEA) as MMRESUL
 declare function acmFormatChooseW(byval pafmtc as LPACMFORMATCHOOSEW) as MMRESULT
 
 #ifdef UNICODE
-	#define acmFormatChoose acmFormatChooseW
+	declare function acmFormatChoose alias "acmFormatChooseW"(byval pafmtc as LPACMFORMATCHOOSEW) as MMRESULT
 #else
-	#define acmFormatChoose acmFormatChooseA
+	declare function acmFormatChoose alias "acmFormatChooseA"(byval pafmtc as LPACMFORMATCHOOSEA) as MMRESULT
 #endif
 
 #define ACMFILTERTAGDETAILS_FILTERTAG_CHARS 48
@@ -514,9 +507,9 @@ declare function acmFilterTagDetailsA(byval had as HACMDRIVER, byval paftd as LP
 declare function acmFilterTagDetailsW(byval had as HACMDRIVER, byval paftd as LPACMFILTERTAGDETAILSW, byval fdwDetails as DWORD) as MMRESULT
 
 #ifdef UNICODE
-	#define acmFilterTagDetails acmFilterTagDetailsW
+	declare function acmFilterTagDetails alias "acmFilterTagDetailsW"(byval had as HACMDRIVER, byval paftd as LPACMFILTERTAGDETAILSW, byval fdwDetails as DWORD) as MMRESULT
 #else
-	#define acmFilterTagDetails acmFilterTagDetailsA
+	declare function acmFilterTagDetails alias "acmFilterTagDetailsA"(byval had as HACMDRIVER, byval paftd as LPACMFILTERTAGDETAILSA, byval fdwDetails as DWORD) as MMRESULT
 #endif
 
 #define ACM_FILTERTAGDETAILSF_INDEX __MSABI_LONG(&h00000000)
@@ -582,9 +575,9 @@ declare function acmFilterDetailsA(byval had as HACMDRIVER, byval pafd as LPACMF
 declare function acmFilterDetailsW(byval had as HACMDRIVER, byval pafd as LPACMFILTERDETAILSW, byval fdwDetails as DWORD) as MMRESULT
 
 #ifdef UNICODE
-	#define acmFilterDetails acmFilterDetailsW
+	declare function acmFilterDetails alias "acmFilterDetailsW"(byval had as HACMDRIVER, byval pafd as LPACMFILTERDETAILSW, byval fdwDetails as DWORD) as MMRESULT
 #else
-	#define acmFilterDetails acmFilterDetailsA
+	declare function acmFilterDetails alias "acmFilterDetailsA"(byval had as HACMDRIVER, byval pafd as LPACMFILTERDETAILSA, byval fdwDetails as DWORD) as MMRESULT
 #endif
 
 #define ACM_FILTERDETAILSF_INDEX __MSABI_LONG(&h00000000)
@@ -688,9 +681,9 @@ declare function acmFilterChooseA(byval pafltrc as LPACMFILTERCHOOSEA) as MMRESU
 declare function acmFilterChooseW(byval pafltrc as LPACMFILTERCHOOSEW) as MMRESULT
 
 #ifdef UNICODE
-	#define acmFilterChoose acmFilterChooseW
+	declare function acmFilterChoose alias "acmFilterChooseW"(byval pafltrc as LPACMFILTERCHOOSEW) as MMRESULT
 #else
-	#define acmFilterChoose acmFilterChooseA
+	declare function acmFilterChoose alias "acmFilterChooseA"(byval pafltrc as LPACMFILTERCHOOSEA) as MMRESULT
 #endif
 
 #ifdef __FB_64BIT__

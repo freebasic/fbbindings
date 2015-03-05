@@ -3268,6 +3268,8 @@ end type
 type NMLVKEYDOWN as tagLVKEYDOWN
 type LPNMLVKEYDOWN as tagLVKEYDOWN ptr
 
+#define LVN_MARQUEEBEGIN (LVN_FIRST - 56)
+
 type tagNMLVGETINFOTIPA
 	hdr as NMHDR
 	dwFlags as DWORD
@@ -3280,8 +3282,6 @@ end type
 
 type NMLVGETINFOTIPA as tagNMLVGETINFOTIPA
 type LPNMLVGETINFOTIPA as tagNMLVGETINFOTIPA ptr
-
-#define LVN_MARQUEEBEGIN (LVN_FIRST - 56)
 
 type tagNMLVGETINFOTIPW
 	hdr as NMHDR
@@ -3862,16 +3862,6 @@ end type
 type NMTVKEYDOWN as tagTVKEYDOWN
 type LPNMTVKEYDOWN as tagTVKEYDOWN ptr
 
-type tagNMTVCUSTOMDRAW
-	nmcd as NMCUSTOMDRAW
-	clrText as COLORREF
-	clrTextBk as COLORREF
-	iLevel as long
-end type
-
-type NMTVCUSTOMDRAW as tagNMTVCUSTOMDRAW
-type LPNMTVCUSTOMDRAW as tagNMTVCUSTOMDRAW ptr
-
 #ifdef UNICODE
 	#define TVN_SELCHANGING TVN_SELCHANGINGW
 	#define TVN_SELCHANGED TVN_SELCHANGEDW
@@ -3899,6 +3889,16 @@ type LPNMTVCUSTOMDRAW as tagNMTVCUSTOMDRAW ptr
 #endif
 
 #define NMTVCUSTOMDRAW_V3_SIZE CCSIZEOF_STRUCT(NMTVCUSTOMDRAW, clrTextBk)
+
+type tagNMTVCUSTOMDRAW
+	nmcd as NMCUSTOMDRAW
+	clrText as COLORREF
+	clrTextBk as COLORREF
+	iLevel as long
+end type
+
+type NMTVCUSTOMDRAW as tagNMTVCUSTOMDRAW
+type LPNMTVCUSTOMDRAW as tagNMTVCUSTOMDRAW ptr
 
 type tagNMTVGETINFOTIPA
 	hdr as NMHDR
@@ -4355,8 +4355,6 @@ type tagTCKEYDOWN field = 1
 end type
 
 type NMTCKEYDOWN as tagTCKEYDOWN
-type MONTHDAYSTATE as DWORD
-type LPMONTHDAYSTATE as DWORD ptr
 
 #define TCN_SELCHANGE (TCN_FIRST - 1)
 #define TCN_SELCHANGING (TCN_FIRST - 2)
@@ -4403,6 +4401,9 @@ type LPMONTHDAYSTATE as DWORD ptr
 #else
 	#define MONTHCAL_CLASS MONTHCAL_CLASSA
 #endif
+
+type MONTHDAYSTATE as DWORD
+type LPMONTHDAYSTATE as DWORD ptr
 
 #define MCM_FIRST &h1000
 #define MCM_GETCURSEL (MCM_FIRST + 1)
@@ -4814,6 +4815,10 @@ end type
 
 type LPNMPGSCROLL as NMPGSCROLL ptr
 
+#define PGN_CALCSIZE (PGN_FIRST - 2)
+#define PGF_CALCWIDTH 1
+#define PGF_CALCHEIGHT 2
+
 type NMPGCALCSIZE
 	hdr as NMHDR
 	dwFlag as DWORD
@@ -4823,9 +4828,6 @@ end type
 
 type LPNMPGCALCSIZE as NMPGCALCSIZE ptr
 
-#define PGN_CALCSIZE (PGN_FIRST - 2)
-#define PGF_CALCWIDTH 1
-#define PGF_CALCHEIGHT 2
 #define PGN_HOTITEMCHANGE (PGN_FIRST - 3)
 
 type tagNMPGHOTITEM
@@ -5155,9 +5157,9 @@ declare function FlatSB_GetScrollProp(byval as HWND, byval propIndex as long, by
 	#define FlatSB_GetScrollPropPtr FlatSB_GetScrollProp
 #endif
 
-declare function FlatSB_SetScrollPos(byval as HWND, byval code as long, byval pos_ as long, byval fRedraw as WINBOOL) as long
+declare function FlatSB_SetScrollPos(byval as HWND, byval code as long, byval pos as long, byval fRedraw as WINBOOL) as long
 declare function FlatSB_SetScrollInfo(byval as HWND, byval code as long, byval as LPSCROLLINFO, byval fRedraw as WINBOOL) as long
-declare function FlatSB_SetScrollRange(byval as HWND, byval code as long, byval min_ as long, byval max_ as long, byval fRedraw as WINBOOL) as long
+declare function FlatSB_SetScrollRange(byval as HWND, byval code as long, byval min as long, byval max as long, byval fRedraw as WINBOOL) as long
 declare function FlatSB_SetScrollProp(byval as HWND, byval index as UINT, byval newValue as INT_PTR, byval as WINBOOL) as WINBOOL
 
 #define FlatSB_SetScrollPropPtr FlatSB_SetScrollProp

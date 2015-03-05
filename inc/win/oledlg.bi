@@ -5,22 +5,12 @@
 #include once "shellapi.bi"
 #include once "commdlg.bi"
 #include once "ole2.bi"
-#include once "crt/string.bi"
 #include once "dlgs.bi"
 #include once "prsht.bi"
 
 #inclib "oledlg"
 
 extern "Windows"
-
-type IOleUILinkContainerWVtbl as IOleUILinkContainerWVtbl_
-type IOleUILinkContainerAVtbl as IOleUILinkContainerAVtbl_
-type IOleUIObjInfoWVtbl as IOleUIObjInfoWVtbl_
-type IOleUIObjInfoAVtbl as IOleUIObjInfoAVtbl_
-type IOleUILinkInfoWVtbl as IOleUILinkInfoWVtbl_
-type IOleUILinkInfoAVtbl as IOleUILinkInfoAVtbl_
-type tagOLEUIOBJECTPROPSW as tagOLEUIOBJECTPROPSW_
-type tagOLEUIOBJECTPROPSA as tagOLEUIOBJECTPROPSA_
 
 #define _OLEDLG_H_
 
@@ -164,9 +154,10 @@ type tagOLEUIOBJECTPROPSA as tagOLEUIOBJECTPROPSA_
 	#define IDD_LINKTYPECHANGED IDD_LINKTYPECHANGEDA
 #endif
 
+#define OLESTDDELIM __TEXT(!"\\")
+
 type LPFNOLEUIHOOK as function(byval as HWND, byval as UINT, byval as WPARAM, byval as LPARAM) as UINT
 
-#define OLESTDDELIM __TEXT(!"\\")
 #define SZOLEUI_MSG_HELP __TEXT("OLEUI_MSG_HELP")
 #define SZOLEUI_MSG_ENDDIALOG __TEXT("OLEUI_MSG_ENDDIALOG")
 #define SZOLEUI_MSG_BROWSE __TEXT("OLEUI_MSG_BROWSE")
@@ -278,13 +269,13 @@ declare function OleUIInsertObjectA(byval as LPOLEUIINSERTOBJECTA) as UINT
 	type OLEUIINSERTOBJECT as OLEUIINSERTOBJECTW
 	type POLEUIINSERTOBJECT as POLEUIINSERTOBJECTW
 	type LPOLEUIINSERTOBJECT as LPOLEUIINSERTOBJECTW
-	#define OleUIInsertObject OleUIInsertObjectW
+	declare function OleUIInsertObject alias "OleUIInsertObjectW"(byval as LPOLEUIINSERTOBJECTW) as UINT
 #else
 	type tagOLEUIINSERTOBJECT as tagOLEUIINSERTOBJECTA
 	type OLEUIINSERTOBJECT as OLEUIINSERTOBJECTA
 	type POLEUIINSERTOBJECT as POLEUIINSERTOBJECTA
 	type LPOLEUIINSERTOBJECT as LPOLEUIINSERTOBJECTA
-	#define OleUIInsertObject OleUIInsertObjectA
+	declare function OleUIInsertObject alias "OleUIInsertObjectA"(byval as LPOLEUIINSERTOBJECTA) as UINT
 #endif
 
 #define IOF_SHOWHELP __MSABI_LONG(&h00000001)
@@ -438,9 +429,9 @@ declare function OleUIPasteSpecialW(byval as LPOLEUIPASTESPECIALW) as UINT
 declare function OleUIPasteSpecialA(byval as LPOLEUIPASTESPECIALA) as UINT
 
 #ifdef UNICODE
-	#define OleUIPasteSpecial OleUIPasteSpecialW
+	declare function OleUIPasteSpecial alias "OleUIPasteSpecialW"(byval as LPOLEUIPASTESPECIALW) as UINT
 #else
-	#define OleUIPasteSpecial OleUIPasteSpecialA
+	declare function OleUIPasteSpecial alias "OleUIPasteSpecialA"(byval as LPOLEUIPASTESPECIALA) as UINT
 #endif
 
 #define PSF_SHOWHELP __MSABI_LONG(&h00000001)
@@ -456,6 +447,8 @@ declare function OleUIPasteSpecialA(byval as LPOLEUIPASTESPECIALA) as UINT
 #define OLEUI_IOERR_ARRLINKTYPESINVALID (OLEUI_ERR_STANDARDMAX + 2)
 #define OLEUI_PSERR_CLIPBOARDCHANGED (OLEUI_ERR_STANDARDMAX + 3)
 #define OLEUI_PSERR_GETCLIPBOARDFAILED (OLEUI_ERR_STANDARDMAX + 4)
+
+type IOleUILinkContainerWVtbl as IOleUILinkContainerWVtbl_
 
 type IOleUILinkContainerW
 	lpVtbl as IOleUILinkContainerWVtbl ptr
@@ -476,6 +469,8 @@ type IOleUILinkContainerWVtbl_
 end type
 
 type LPOLEUILINKCONTAINERW as IOleUILinkContainerW ptr
+
+type IOleUILinkContainerAVtbl as IOleUILinkContainerAVtbl_
 
 type IOleUILinkContainerA
 	lpVtbl as IOleUILinkContainerAVtbl ptr
@@ -560,9 +555,9 @@ declare function OleUIEditLinksW(byval as LPOLEUIEDITLINKSW) as UINT
 declare function OleUIEditLinksA(byval as LPOLEUIEDITLINKSA) as UINT
 
 #ifdef UNICODE
-	#define OleUIEditLinks OleUIEditLinksW
+	declare function OleUIEditLinks alias "OleUIEditLinksW"(byval as LPOLEUIEDITLINKSW) as UINT
 #else
-	#define OleUIEditLinks OleUIEditLinksA
+	declare function OleUIEditLinks alias "OleUIEditLinksA"(byval as LPOLEUIEDITLINKSA) as UINT
 #endif
 
 #define ELF_SHOWHELP __MSABI_LONG(&h00000001)
@@ -619,13 +614,13 @@ declare function OleUIChangeIconA(byval as LPOLEUICHANGEICONA) as UINT
 	type OLEUICHANGEICON as OLEUICHANGEICONW
 	type POLEUICHANGEICON as POLEUICHANGEICONW
 	type LPOLEUICHANGEICON as LPOLEUICHANGEICONW
-	#define OleUIChangeIcon OleUIChangeIconW
+	declare function OleUIChangeIcon alias "OleUIChangeIconW"(byval as LPOLEUICHANGEICONW) as UINT
 #else
 	type tagOLEUICHANGEICON as tagOLEUICHANGEICONA
 	type OLEUICHANGEICON as OLEUICHANGEICONA
 	type POLEUICHANGEICON as POLEUICHANGEICONA
 	type LPOLEUICHANGEICON as LPOLEUICHANGEICONA
-	#define OleUIChangeIcon OleUIChangeIconA
+	declare function OleUIChangeIcon alias "OleUIChangeIconA"(byval as LPOLEUICHANGEICONA) as UINT
 #endif
 
 #define CIF_SHOWHELP __MSABI_LONG(&h00000001)
@@ -696,21 +691,18 @@ type OLEUICONVERTA as tagOLEUICONVERTA
 type POLEUICONVERTA as tagOLEUICONVERTA ptr
 type LPOLEUICONVERTA as tagOLEUICONVERTA ptr
 
-declare function OleUIConvertW(byval as LPOLEUICONVERTW) as UINT
-declare function OleUIConvertA(byval as LPOLEUICONVERTA) as UINT
-
 #ifdef UNICODE
 	type tagOLEUICONVERT as tagOLEUICONVERTW
 	type OLEUICONVERT as OLEUICONVERTW
 	type POLEUICONVERT as POLEUICONVERTW
 	type LPOLEUICONVERT as LPOLEUICONVERTW
-	#define OleUIConvert OleUIConvertW
+	declare function OleUIConvert alias "OleUIConvertW"(byval as LPOLEUICONVERTW) as UINT
 #else
 	type tagOLEUICONVERT as tagOLEUICONVERTA
 	type OLEUICONVERT as OLEUICONVERTA
 	type POLEUICONVERT as POLEUICONVERTA
 	type LPOLEUICONVERT as LPOLEUICONVERTA
-	#define OleUIConvert OleUIConvertA
+	declare function OleUIConvert alias "OleUIConvertA"(byval as LPOLEUICONVERTA) as UINT
 #endif
 
 declare function OleUICanConvertOrActivateAs(byval rClsid as const IID const ptr, byval fIsLinkedObject as WINBOOL, byval wFormat as WORD) as WINBOOL
@@ -774,13 +766,13 @@ declare function OleUIBusyA(byval as LPOLEUIBUSYA) as UINT
 	type OLEUIBUSY as OLEUIBUSYW
 	type POLEUIBUSY as POLEUIBUSYW
 	type LPOLEUIBUSY as LPOLEUIBUSYW
-	#define OleUIBusy OleUIBusyW
+	declare function OleUIBusy alias "OleUIBusyW"(byval as LPOLEUIBUSYW) as UINT
 #else
 	type tagOLEUIBUSY as tagOLEUIBUSYA
 	type OLEUIBUSY as OLEUIBUSYA
 	type POLEUIBUSY as POLEUIBUSYA
 	type LPOLEUIBUSY as LPOLEUIBUSYA
-	#define OleUIBusy OleUIBusyA
+	declare function OleUIBusy alias "OleUIBusyA"(byval as LPOLEUIBUSYA) as UINT
 #endif
 
 #define BZ_DISABLECANCELBUTTON __MSABI_LONG(&h00000001)
@@ -848,13 +840,13 @@ declare function OleUIChangeSourceA(byval as LPOLEUICHANGESOURCEA) as UINT
 	type OLEUICHANGESOURCE as OLEUICHANGESOURCEW
 	type POLEUICHANGESOURCE as POLEUICHANGESOURCEW
 	type LPOLEUICHANGESOURCE as LPOLEUICHANGESOURCEW
-	#define OleUIChangeSource OleUIChangeSourceW
+	declare function OleUIChangeSource alias "OleUIChangeSourceW"(byval as LPOLEUICHANGESOURCEW) as UINT
 #else
 	type tagOLEUICHANGESOURCE as tagOLEUICHANGESOURCEA
 	type OLEUICHANGESOURCE as OLEUICHANGESOURCEA
 	type POLEUICHANGESOURCE as POLEUICHANGESOURCEA
 	type LPOLEUICHANGESOURCE as LPOLEUICHANGESOURCEA
-	#define OleUIChangeSource OleUIChangeSourceA
+	declare function OleUIChangeSource alias "OleUIChangeSourceA"(byval as LPOLEUICHANGESOURCEA) as UINT
 #endif
 
 #define CSF_SHOWHELP __MSABI_LONG(&h00000001)
@@ -869,6 +861,8 @@ declare function OleUIChangeSourceA(byval as LPOLEUICHANGESOURCEA) as UINT
 #define OLEUI_CSERR_SOURCEINVALID (OLEUI_ERR_STANDARDMAX + 5)
 #define OLEUI_CSERR_SOURCEPARSERROR (OLEUI_ERR_STANDARDMAX + 6)
 #define OLEUI_CSERR_SOURCEPARSEERROR (OLEUI_ERR_STANDARDMAX + 6)
+
+type IOleUIObjInfoWVtbl as IOleUIObjInfoWVtbl_
 
 type IOleUIObjInfoW
 	lpVtbl as IOleUIObjInfoWVtbl ptr
@@ -886,6 +880,8 @@ type IOleUIObjInfoWVtbl_
 end type
 
 type LPOLEUIOBJINFOW as IOleUIObjInfoW ptr
+
+type IOleUIObjInfoAVtbl as IOleUIObjInfoAVtbl_
 
 type IOleUIObjInfoA
 	lpVtbl as IOleUIObjInfoAVtbl ptr
@@ -914,6 +910,8 @@ type LPOLEUIOBJINFOA as IOleUIObjInfoA ptr
 	#define IOleUIObjInfoVtbl IOleUIObjInfoAVtbl
 #endif
 
+type IOleUILinkInfoWVtbl as IOleUILinkInfoWVtbl_
+
 type IOleUILinkInfoW
 	lpVtbl as IOleUILinkInfoWVtbl ptr
 end type
@@ -934,6 +932,8 @@ type IOleUILinkInfoWVtbl_
 end type
 
 type LPOLEUILINKINFOW as IOleUILinkInfoW ptr
+
+type IOleUILinkInfoAVtbl as IOleUILinkInfoAVtbl_
 
 type IOleUILinkInfoA
 	lpVtbl as IOleUILinkInfoAVtbl ptr
@@ -966,6 +966,8 @@ type LPOLEUILINKINFOA as IOleUILinkInfoA ptr
 	#define IOleUILinkInfoVtbl IOleUILinkInfoAVtbl
 #endif
 
+type tagOLEUIOBJECTPROPSW as tagOLEUIOBJECTPROPSW_
+
 type tagOLEUIGNRLPROPSW
 	cbStruct as DWORD
 	dwFlags as DWORD
@@ -979,6 +981,8 @@ end type
 type OLEUIGNRLPROPSW as tagOLEUIGNRLPROPSW
 type POLEUIGNRLPROPSW as tagOLEUIGNRLPROPSW ptr
 type LPOLEUIGNRLPROPSW as tagOLEUIGNRLPROPSW ptr
+
+type tagOLEUIOBJECTPROPSA as tagOLEUIOBJECTPROPSA_
 
 type tagOLEUIGNRLPROPSA
 	cbStruct as DWORD
@@ -1087,12 +1091,19 @@ type LPOLEUILINKPROPSA as tagOLEUILINKPROPSA ptr
 	#define OLEUILINKPROPS OLEUILINKPROPSW
 	#define POLEUILINKPROPS POLEUILINKPROPSW
 	#define LPOLEUILINKPROPS LPOLEUILINKPROPSW
-	#define LPPROPSHEETHEADER LPPROPSHEETHEADERW
 #else
 	#define tagOLEUILINKPROPS tagOLEUILINKPROPSA
 	#define OLEUILINKPROPS OLEUILINKPROPSA
 	#define POLEUILINKPROPS POLEUILINKPROPSA
 	#define LPOLEUILINKPROPS LPOLEUILINKPROPSA
+#endif
+
+type LPPROPSHEETHEADERW as _PROPSHEETHEADERW ptr
+type LPPROPSHEETHEADERA as _PROPSHEETHEADERA ptr
+
+#ifdef UNICODE
+	#define LPPROPSHEETHEADER LPPROPSHEETHEADERW
+#else
 	#define LPPROPSHEETHEADER LPPROPSHEETHEADERA
 #endif
 
@@ -1138,13 +1149,13 @@ declare function OleUIObjectPropertiesA(byval as LPOLEUIOBJECTPROPSA) as UINT
 	#define OLEUIOBJECTPROPS OLEUIOBJECTPROPSW
 	#define POLEUIOBJECTPROPS POLEUIOBJECTPROPSW
 	#define LPOLEUIOBJECTPROPS LPOLEUIOBJECTPROPSW
-	#define OleUIObjectProperties OleUIObjectPropertiesW
+	declare function OleUIObjectProperties alias "OleUIObjectPropertiesW"(byval as LPOLEUIOBJECTPROPSW) as UINT
 #else
 	#define tagOLEUIOBJECTPROPS tagOLEUIOBJECTPROPSA
 	#define OLEUIOBJECTPROPS OLEUIOBJECTPROPSA
 	#define POLEUIOBJECTPROPS POLEUIOBJECTPROPSA
 	#define LPOLEUIOBJECTPROPS LPOLEUIOBJECTPROPSA
-	#define OleUIObjectProperties OleUIObjectPropertiesA
+	declare function OleUIObjectProperties alias "OleUIObjectPropertiesA"(byval as LPOLEUIOBJECTPROPSA) as UINT
 #endif
 
 #define OPF_OBJECTISLINK __MSABI_LONG(&h00000001)

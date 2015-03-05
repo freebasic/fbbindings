@@ -76,22 +76,22 @@ type LPFONTDESC as tagFONTDESC ptr
 #define PICTYPE_ICON 3
 #define PICTYPE_ENHMETAFILE 4
 
-type __tagPICTDESC_bmp
+type tagPICTDESC_bmp
 	hbitmap as HBITMAP
 	hpal as HPALETTE
 end type
 
-type __tagPICTDESC_wmf
+type tagPICTDESC_wmf
 	hmeta as HMETAFILE
 	xExt as long
 	yExt as long
 end type
 
-type __tagPICTDESC_icon
+type tagPICTDESC_icon
 	hicon as HICON
 end type
 
-type __tagPICTDESC_emf
+type tagPICTDESC_emf
 	hemf as HENHMETAFILE
 end type
 
@@ -100,10 +100,10 @@ type tagPICTDESC
 	picType as UINT
 
 	union
-		bmp as __tagPICTDESC_bmp
-		wmf as __tagPICTDESC_wmf
-		icon as __tagPICTDESC_icon
-		emf as __tagPICTDESC_emf
+		bmp as tagPICTDESC_bmp
+		wmf as tagPICTDESC_wmf
+		icon as tagPICTDESC_icon
+		emf as tagPICTDESC_emf
 	end union
 end type
 

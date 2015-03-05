@@ -21,9 +21,6 @@
 
 extern "C"
 
-type screen_ as screen__
-type ldat as ldat_
-
 #define __NCURSES_H
 #define CURSES 1
 #define CURSES_H 1
@@ -51,7 +48,7 @@ type mmask_t as culong
 type NCURSES_BOOL as ubyte
 
 #define NCURSES_BOOL_ bool
-#define NCURSES_CAST(type,value) cast(type, value)
+#define NCURSES_CAST(type, value) cast(type, value)
 #define WA_ATTRIBUTES A_ATTRIBUTES
 #define WA_NORMAL A_NORMAL
 #define WA_STANDOUT A_STANDOUT
@@ -149,6 +146,8 @@ type pdat
 	_pad_right as short
 end type
 
+type ldat as ldat_
+
 type _win_st
 	_cury as short
 	_curx as short
@@ -192,6 +191,7 @@ declare function curs_set(byval as long) as long
 declare function def_prog_mode() as long
 declare function def_shell_mode() as long
 declare function delay_output(byval as long) as long
+type screen_ as screen__
 declare sub delscreen(byval as screen_ ptr)
 declare function delwin(byval as WINDOW_ ptr) as long
 declare function derwin(byval as WINDOW_ ptr, byval as long, byval as long, byval as long, byval as long) as WINDOW_ ptr

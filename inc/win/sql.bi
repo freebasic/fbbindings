@@ -285,9 +285,6 @@ extern "Windows"
 #define SQL_AT_ADD_COLUMN __MSABI_LONG(&h00000001)
 #define SQL_AT_DROP_COLUMN __MSABI_LONG(&h00000002)
 #define SQL_AT_ADD_CONSTRAINT __MSABI_LONG(&h00000008)
-#define SQL_AM_NONE 0
-#define SQL_AM_CONNECTION 1
-#define SQL_AM_STATEMENT 2
 #define SQL_CB_DELETE 0
 #define SQL_CB_CLOSE 1
 #define SQL_CB_PRESERVE 2
@@ -389,10 +386,10 @@ declare function SQLFetch(byval StatementHandle as SQLHSTMT) as SQLRETURN
 declare function SQLFreeConnect(byval ConnectionHandle as SQLHDBC) as SQLRETURN
 declare function SQLFreeEnv(byval EnvironmentHandle as SQLHENV) as SQLRETURN
 declare function SQLFreeHandle(byval HandleType as SQLSMALLINT, byval Handle as SQLHANDLE) as SQLRETURN
-declare function SQLFreeStmt(byval StatementHandle as SQLHSTMT, byval Option_ as SQLUSMALLINT) as SQLRETURN
+declare function SQLFreeStmt(byval StatementHandle as SQLHSTMT, byval Option as SQLUSMALLINT) as SQLRETURN
 #ifndef UNICODE
 declare function SQLGetConnectAttr(byval ConnectionHandle as SQLHDBC, byval Attribute as SQLINTEGER, byval Value as SQLPOINTER, byval BufferLength as SQLINTEGER, byval StringLength as SQLINTEGER ptr) as SQLRETURN
-declare function SQLGetConnectOption(byval ConnectionHandle as SQLHDBC, byval Option_ as SQLUSMALLINT, byval Value as SQLPOINTER) as SQLRETURN
+declare function SQLGetConnectOption(byval ConnectionHandle as SQLHDBC, byval Option as SQLUSMALLINT, byval Value as SQLPOINTER) as SQLRETURN
 declare function SQLGetCursorName(byval StatementHandle as SQLHSTMT, byval CursorName as SQLCHAR ptr, byval BufferLength as SQLSMALLINT, byval NameLength as SQLSMALLINT ptr) as SQLRETURN
 #endif
 
@@ -408,9 +405,9 @@ declare function SQLGetDescField(byval DescriptorHandle as SQLHDESC, byval RecNu
 
 #ifndef UNICODE
 #ifdef __FB_64BIT__
-	declare function SQLGetDescRec(byval DescriptorHandle as SQLHDESC, byval RecNumber as SQLSMALLINT, byval Name_ as SQLCHAR ptr, byval BufferLength as SQLSMALLINT, byval StringLength as SQLSMALLINT ptr, byval Type_ as SQLSMALLINT ptr, byval SubType as SQLSMALLINT ptr, byval Length as SQLLEN ptr, byval Precision as SQLSMALLINT ptr, byval Scale as SQLSMALLINT ptr, byval Nullable as SQLSMALLINT ptr) as SQLRETURN
+	declare function SQLGetDescRec(byval DescriptorHandle as SQLHDESC, byval RecNumber as SQLSMALLINT, byval Name as SQLCHAR ptr, byval BufferLength as SQLSMALLINT, byval StringLength as SQLSMALLINT ptr, byval Type as SQLSMALLINT ptr, byval SubType as SQLSMALLINT ptr, byval Length as SQLLEN ptr, byval Precision as SQLSMALLINT ptr, byval Scale as SQLSMALLINT ptr, byval Nullable as SQLSMALLINT ptr) as SQLRETURN
 #else
-	declare function SQLGetDescRec(byval DescriptorHandle as SQLHDESC, byval RecNumber as SQLSMALLINT, byval Name_ as SQLCHAR ptr, byval BufferLength as SQLSMALLINT, byval StringLength as SQLSMALLINT ptr, byval Type_ as SQLSMALLINT ptr, byval SubType as SQLSMALLINT ptr, byval Length as SQLINTEGER ptr, byval Precision as SQLSMALLINT ptr, byval Scale as SQLSMALLINT ptr, byval Nullable as SQLSMALLINT ptr) as SQLRETURN
+	declare function SQLGetDescRec(byval DescriptorHandle as SQLHDESC, byval RecNumber as SQLSMALLINT, byval Name as SQLCHAR ptr, byval BufferLength as SQLSMALLINT, byval StringLength as SQLSMALLINT ptr, byval Type as SQLSMALLINT ptr, byval SubType as SQLSMALLINT ptr, byval Length as SQLINTEGER ptr, byval Precision as SQLSMALLINT ptr, byval Scale as SQLSMALLINT ptr, byval Nullable as SQLSMALLINT ptr) as SQLRETURN
 #endif
 #endif
 
@@ -424,7 +421,7 @@ declare function SQLGetFunctions(byval ConnectionHandle as SQLHDBC, byval Functi
 declare function SQLGetInfo(byval ConnectionHandle as SQLHDBC, byval InfoType as SQLUSMALLINT, byval InfoValue as SQLPOINTER, byval BufferLength as SQLSMALLINT, byval StringLength as SQLSMALLINT ptr) as SQLRETURN
 declare function SQLGetStmtAttr(byval StatementHandle as SQLHSTMT, byval Attribute as SQLINTEGER, byval Value as SQLPOINTER, byval BufferLength as SQLINTEGER, byval StringLength as SQLINTEGER ptr) as SQLRETURN
 #endif
-declare function SQLGetStmtOption(byval StatementHandle as SQLHSTMT, byval Option_ as SQLUSMALLINT, byval Value as SQLPOINTER) as SQLRETURN
+declare function SQLGetStmtOption(byval StatementHandle as SQLHSTMT, byval Option as SQLUSMALLINT, byval Value as SQLPOINTER) as SQLRETURN
 #ifndef UNICODE
 declare function SQLGetTypeInfo(byval StatementHandle as SQLHSTMT, byval DataType as SQLSMALLINT) as SQLRETURN
 #endif
@@ -435,28 +432,28 @@ declare function SQLPrepare(byval StatementHandle as SQLHSTMT, byval StatementTe
 #endif
 
 #ifdef __FB_64BIT__
-	declare function SQLPutData(byval StatementHandle as SQLHSTMT, byval Data_ as SQLPOINTER, byval StrLen_or_Ind as SQLLEN) as SQLRETURN
+	declare function SQLPutData(byval StatementHandle as SQLHSTMT, byval Data as SQLPOINTER, byval StrLen_or_Ind as SQLLEN) as SQLRETURN
 	declare function SQLRowCount(byval StatementHandle as SQLHSTMT, byval RowCount as SQLLEN ptr) as SQLRETURN
 #else
-	declare function SQLPutData(byval StatementHandle as SQLHSTMT, byval Data_ as SQLPOINTER, byval StrLen_or_Ind as SQLINTEGER) as SQLRETURN
+	declare function SQLPutData(byval StatementHandle as SQLHSTMT, byval Data as SQLPOINTER, byval StrLen_or_Ind as SQLINTEGER) as SQLRETURN
 	declare function SQLRowCount(byval StatementHandle as SQLHSTMT, byval RowCount as SQLINTEGER ptr) as SQLRETURN
 #endif
 
 #ifndef UNICODE
 declare function SQLSetConnectAttr(byval ConnectionHandle as SQLHDBC, byval Attribute as SQLINTEGER, byval Value as SQLPOINTER, byval StringLength as SQLINTEGER) as SQLRETURN
 #ifdef __FB_64BIT__
-	declare function SQLSetConnectOption(byval ConnectionHandle as SQLHDBC, byval Option_ as SQLUSMALLINT, byval Value as SQLULEN) as SQLRETURN
+	declare function SQLSetConnectOption(byval ConnectionHandle as SQLHDBC, byval Option as SQLUSMALLINT, byval Value as SQLULEN) as SQLRETURN
 #else
-	declare function SQLSetConnectOption(byval ConnectionHandle as SQLHDBC, byval Option_ as SQLUSMALLINT, byval Value as SQLUINTEGER) as SQLRETURN
+	declare function SQLSetConnectOption(byval ConnectionHandle as SQLHDBC, byval Option as SQLUSMALLINT, byval Value as SQLUINTEGER) as SQLRETURN
 #endif
 declare function SQLSetCursorName(byval StatementHandle as SQLHSTMT, byval CursorName as SQLCHAR ptr, byval NameLength as SQLSMALLINT) as SQLRETURN
 declare function SQLSetDescField(byval DescriptorHandle as SQLHDESC, byval RecNumber as SQLSMALLINT, byval FieldIdentifier as SQLSMALLINT, byval Value as SQLPOINTER, byval BufferLength as SQLINTEGER) as SQLRETURN
 #endif
 
 #ifdef __FB_64BIT__
-	declare function SQLSetDescRec(byval DescriptorHandle as SQLHDESC, byval RecNumber as SQLSMALLINT, byval Type_ as SQLSMALLINT, byval SubType as SQLSMALLINT, byval Length as SQLLEN, byval Precision as SQLSMALLINT, byval Scale as SQLSMALLINT, byval Data_ as SQLPOINTER, byval StringLength as SQLLEN ptr, byval Indicator as SQLLEN ptr) as SQLRETURN
+	declare function SQLSetDescRec(byval DescriptorHandle as SQLHDESC, byval RecNumber as SQLSMALLINT, byval Type as SQLSMALLINT, byval SubType as SQLSMALLINT, byval Length as SQLLEN, byval Precision as SQLSMALLINT, byval Scale as SQLSMALLINT, byval Data as SQLPOINTER, byval StringLength as SQLLEN ptr, byval Indicator as SQLLEN ptr) as SQLRETURN
 #else
-	declare function SQLSetDescRec(byval DescriptorHandle as SQLHDESC, byval RecNumber as SQLSMALLINT, byval Type_ as SQLSMALLINT, byval SubType as SQLSMALLINT, byval Length as SQLINTEGER, byval Precision as SQLSMALLINT, byval Scale as SQLSMALLINT, byval Data_ as SQLPOINTER, byval StringLength as SQLINTEGER ptr, byval Indicator as SQLINTEGER ptr) as SQLRETURN
+	declare function SQLSetDescRec(byval DescriptorHandle as SQLHDESC, byval RecNumber as SQLSMALLINT, byval Type as SQLSMALLINT, byval SubType as SQLSMALLINT, byval Length as SQLINTEGER, byval Precision as SQLSMALLINT, byval Scale as SQLSMALLINT, byval Data as SQLPOINTER, byval StringLength as SQLINTEGER ptr, byval Indicator as SQLINTEGER ptr) as SQLRETURN
 #endif
 
 declare function SQLSetEnvAttr(byval EnvironmentHandle as SQLHENV, byval Attribute as SQLINTEGER, byval Value as SQLPOINTER, byval StringLength as SQLINTEGER) as SQLRETURN
@@ -472,13 +469,13 @@ declare function SQLSetStmtAttr(byval StatementHandle as SQLHSTMT, byval Attribu
 #endif
 
 #ifdef __FB_64BIT__
-	declare function SQLSetStmtOption(byval StatementHandle as SQLHSTMT, byval Option_ as SQLUSMALLINT, byval Value as SQLULEN) as SQLRETURN
+	declare function SQLSetStmtOption(byval StatementHandle as SQLHSTMT, byval Option as SQLUSMALLINT, byval Value as SQLULEN) as SQLRETURN
 #else
-	declare function SQLSetStmtOption(byval StatementHandle as SQLHSTMT, byval Option_ as SQLUSMALLINT, byval Value as SQLUINTEGER) as SQLRETURN
+	declare function SQLSetStmtOption(byval StatementHandle as SQLHSTMT, byval Option as SQLUSMALLINT, byval Value as SQLUINTEGER) as SQLRETURN
 #endif
 
 #ifndef UNICODE
-declare function SQLSpecialColumns(byval StatementHandle as SQLHSTMT, byval IdentifierType as SQLUSMALLINT, byval CatalogName as SQLCHAR ptr, byval NameLength1 as SQLSMALLINT, byval SchemaName as SQLCHAR ptr, byval NameLength2 as SQLSMALLINT, byval TableName as SQLCHAR ptr, byval NameLength3 as SQLSMALLINT, byval Scope_ as SQLUSMALLINT, byval Nullable as SQLUSMALLINT) as SQLRETURN
+declare function SQLSpecialColumns(byval StatementHandle as SQLHSTMT, byval IdentifierType as SQLUSMALLINT, byval CatalogName as SQLCHAR ptr, byval NameLength1 as SQLSMALLINT, byval SchemaName as SQLCHAR ptr, byval NameLength2 as SQLSMALLINT, byval TableName as SQLCHAR ptr, byval NameLength3 as SQLSMALLINT, byval Scope as SQLUSMALLINT, byval Nullable as SQLUSMALLINT) as SQLRETURN
 declare function SQLStatistics(byval StatementHandle as SQLHSTMT, byval CatalogName as SQLCHAR ptr, byval NameLength1 as SQLSMALLINT, byval SchemaName as SQLCHAR ptr, byval NameLength2 as SQLSMALLINT, byval TableName as SQLCHAR ptr, byval NameLength3 as SQLSMALLINT, byval Unique as SQLUSMALLINT, byval Reserved as SQLUSMALLINT) as SQLRETURN
 declare function SQLTables(byval StatementHandle as SQLHSTMT, byval CatalogName as SQLCHAR ptr, byval NameLength1 as SQLSMALLINT, byval SchemaName as SQLCHAR ptr, byval NameLength2 as SQLSMALLINT, byval TableName as SQLCHAR ptr, byval NameLength3 as SQLSMALLINT, byval TableType as SQLCHAR ptr, byval NameLength4 as SQLSMALLINT) as SQLRETURN
 #endif

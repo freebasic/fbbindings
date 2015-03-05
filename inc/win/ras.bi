@@ -4,7 +4,6 @@
 #include once "inaddr.bi"
 #include once "in6addr.bi"
 #include once "naptypes.bi"
-#include once "lmcons.bi"
 
 #inclib "rasapi32"
 
@@ -12,12 +11,8 @@ extern "Windows"
 
 #define _RAS_H_
 
-type RASIPV4ADDR as in_addr
-type RASIPV6ADDR as in6_addr
-
-type HRASCONN__ field = 4
-	unused as long
-end type
+type RASIPV4ADDR as IN_ADDR
+type RASIPV6ADDR as IN6_ADDR
 
 #define RAS_MaxDeviceType 16
 #define RAS_MaxPhoneNumber 128
@@ -34,9 +29,13 @@ end type
 #define RAS_MaxReplyMessage 1024
 #define RAS_MaxDnsSuffix 256
 
+type HRASCONN__ field = 4
+	unused as long
+end type
+
 type HRASCONN as HRASCONN__ ptr
 
-#define LPHRASCONN HRASCONN ptr
+type LPHRASCONN as HRASCONN ptr
 #define RASCF_AllUsers &h00000001
 #define RASCF_GlobalCreds &h00000002
 #define RASCONNW tagRASCONNW
@@ -191,9 +190,9 @@ end type
 	#define RASDIALPARAMS RASDIALPARAMSA
 #endif
 
-#define LPRASDIALPARAMSW RASDIALPARAMSW ptr
-#define LPRASDIALPARAMSA RASDIALPARAMSA ptr
-#define LPRASDIALPARAMS RASDIALPARAMS ptr
+type LPRASDIALPARAMSW as RASDIALPARAMSW ptr
+type LPRASDIALPARAMSA as RASDIALPARAMSA ptr
+type LPRASDIALPARAMS as RASDIALPARAMS ptr
 type RASEAPINFO as tagRASEAPINFO
 
 type tagRASEAPINFO field = 4
@@ -212,7 +211,7 @@ type tagRASDIALEXTENSIONS field = 4
 	RasEapInfo as tagRASEAPINFO
 end type
 
-#define LPRASDIALEXTENSIONS RASDIALEXTENSIONS ptr
+type LPRASDIALEXTENSIONS as RASDIALEXTENSIONS ptr
 #define RDEOPT_UsePrefixSuffix &h00000001
 #define RDEOPT_PausedStates &h00000002
 #define RDEOPT_IgnoreModemSpeaker &h00000004
@@ -471,8 +470,6 @@ end type
 #define LPRASSLIPW RASSLIPW ptr
 #define LPRASSLIPA RASSLIPA ptr
 #define LPRASSLIP RASSLIP ptr
-#define RASCCPCA_MPPC &h00000006
-#define RASCCPCA_STAC &h00000005
 #define RASCCPO_Compression &h00000001
 #define RASCCPO_HistoryLess &h00000002
 #define RASCCPO_Encryption56bit &h00000010
@@ -1011,9 +1008,9 @@ type PRAS_STATS as _RAS_STATS ptr
 type RasCustomHangUpFn as function(byval hRasConn as HRASCONN) as DWORD
 
 #ifdef UNICODE
-	type RasCustomDialFn as function(byval hInstDll as HINSTANCE, byval lpRasDialExtensions_ as tagRASDIALEXTENSIONS ptr, byval lpszPhonebook as LPCWSTR, byval lpRasDialParams_ as tagRASDIALPARAMSW ptr, byval dwNotifierType as DWORD, byval lpvNotifier as LPVOID, byval lphRasConn_ as HRASCONN ptr, byval dwFlags as DWORD) as DWORD
+	type RasCustomDialFn as function(byval hInstDll as HINSTANCE, byval lpRasDialExtensions as tagRASDIALEXTENSIONS ptr, byval lpszPhonebook as LPCWSTR, byval lpRasDialParams as tagRASDIALPARAMSW ptr, byval dwNotifierType as DWORD, byval lpvNotifier as LPVOID, byval lphRasConn as HRASCONN ptr, byval dwFlags as DWORD) as DWORD
 #else
-	type RasCustomDialFn as function(byval hInstDll as HINSTANCE, byval lpRasDialExtensions_ as tagRASDIALEXTENSIONS ptr, byval lpszPhonebook as LPCWSTR, byval lpRasDialParams_ as tagRASDIALPARAMSA ptr, byval dwNotifierType as DWORD, byval lpvNotifier as LPVOID, byval lphRasConn_ as HRASCONN ptr, byval dwFlags as DWORD) as DWORD
+	type RasCustomDialFn as function(byval hInstDll as HINSTANCE, byval lpRasDialExtensions as tagRASDIALEXTENSIONS ptr, byval lpszPhonebook as LPCWSTR, byval lpRasDialParams as tagRASDIALPARAMSA ptr, byval dwNotifierType as DWORD, byval lpvNotifier as LPVOID, byval lphRasConn as HRASCONN ptr, byval dwFlags as DWORD) as DWORD
 #endif
 
 type RasCustomDeleteEntryNotifyFn as function(byval lpszPhonebook as LPCWSTR, byval lpszEntry as LPCWSTR, byval dwFlags as DWORD) as DWORD

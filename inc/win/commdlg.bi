@@ -7,9 +7,6 @@
 
 extern "Windows"
 
-type IPrintDialogCallbackVtbl as IPrintDialogCallbackVtbl_
-type IPrintDialogServicesVtbl as IPrintDialogServicesVtbl_
-
 #define _INC_COMMDLG
 
 extern IID_IPrintDialogCallback as const GUID
@@ -638,9 +635,6 @@ type LPFINDREPLACEW as tagFINDREPLACEW ptr
 #define FR_HIDEMATCHCASE &h8000
 #define FR_HIDEWHOLEWORD &h10000
 #define FR_RAW &h20000
-#define FR_MATCHDIAC &h20000000
-#define FR_MATCHKASHIDA &h40000000
-#define FR_MATCHALEFHAMZA &h80000000
 
 declare function FindTextA(byval as LPFINDREPLACEA) as HWND
 declare function FindTextW(byval as LPFINDREPLACEW) as HWND
@@ -961,6 +955,8 @@ declare function PrintDlgW(byval as LPPRINTDLGW) as WINBOOL
 	declare function PrintDlg alias "PrintDlgA"(byval as LPPRINTDLGA) as WINBOOL
 #endif
 
+type IPrintDialogCallbackVtbl as IPrintDialogCallbackVtbl_
+
 #ifdef __FB_64BIT__
 	type IPrintDialogCallback
 		lpVtbl as IPrintDialogCallbackVtbl ptr
@@ -974,7 +970,24 @@ declare function PrintDlgW(byval as LPPRINTDLGW) as WINBOOL
 		SelectionChange as function(byval This as IPrintDialogCallback ptr) as HRESULT
 		HandleMessage as function(byval This as IPrintDialogCallback ptr, byval hDlg as HWND, byval uMsg as UINT, byval wParam as WPARAM, byval lParam as LPARAM, byval pResult as LRESULT ptr) as HRESULT
 	end type
+#else
+	type IPrintDialogCallback field = 1
+		lpVtbl as IPrintDialogCallbackVtbl ptr
+	end type
 
+	type IPrintDialogCallbackVtbl_ field = 1
+		QueryInterface as function(byval This as IPrintDialogCallback ptr, byval riid as const IID const ptr, byval ppvObj as LPVOID ptr) as HRESULT
+		AddRef as function(byval This as IPrintDialogCallback ptr) as ULONG
+		Release as function(byval This as IPrintDialogCallback ptr) as ULONG
+		InitDone as function(byval This as IPrintDialogCallback ptr) as HRESULT
+		SelectionChange as function(byval This as IPrintDialogCallback ptr) as HRESULT
+		HandleMessage as function(byval This as IPrintDialogCallback ptr, byval hDlg as HWND, byval uMsg as UINT, byval wParam as WPARAM, byval lParam as LPARAM, byval pResult as LRESULT ptr) as HRESULT
+	end type
+#endif
+
+type IPrintDialogServicesVtbl as IPrintDialogServicesVtbl_
+
+#ifdef __FB_64BIT__
 	type IPrintDialogServices
 		lpVtbl as IPrintDialogServicesVtbl ptr
 	end type
@@ -993,19 +1006,6 @@ declare function PrintDlgW(byval as LPPRINTDLGW) as WINBOOL
 		nToPage as DWORD
 	end type
 #else
-	type IPrintDialogCallback field = 1
-		lpVtbl as IPrintDialogCallbackVtbl ptr
-	end type
-
-	type IPrintDialogCallbackVtbl_ field = 1
-		QueryInterface as function(byval This as IPrintDialogCallback ptr, byval riid as const IID const ptr, byval ppvObj as LPVOID ptr) as HRESULT
-		AddRef as function(byval This as IPrintDialogCallback ptr) as ULONG
-		Release as function(byval This as IPrintDialogCallback ptr) as ULONG
-		InitDone as function(byval This as IPrintDialogCallback ptr) as HRESULT
-		SelectionChange as function(byval This as IPrintDialogCallback ptr) as HRESULT
-		HandleMessage as function(byval This as IPrintDialogCallback ptr, byval hDlg as HWND, byval uMsg as UINT, byval wParam as WPARAM, byval lParam as LPARAM, byval pResult as LRESULT ptr) as HRESULT
-	end type
-
 	type IPrintDialogServices field = 1
 		lpVtbl as IPrintDialogServicesVtbl ptr
 	end type

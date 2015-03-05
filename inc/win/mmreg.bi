@@ -5,9 +5,6 @@
 extern "C"
 
 #define _INC_MMREG 158
-
-extern KSDATAFORMAT_SUBTYPE_PCM as const GUID
-
 #define MM_MICROSOFT 1
 #define MM_CREATIVE 2
 #define MM_MEDIAVISION 3
@@ -1738,11 +1735,12 @@ extern KSDATAFORMAT_SUBTYPE_PCM as const GUID
 #define WAVE_FORMAT_EXTENSIBLE &hFFFE
 #define WAVE_FORMAT_DEVELOPMENT &hFFFF
 
+extern KSDATAFORMAT_SUBTYPE_PCM as const GUID
 extern KSDATAFORMAT_SUBTYPE_IEEE_FLOAT as const GUID
 
 #define _WAVEFORMATEXTENSIBLE_
 
-union __Samples field = 1
+union WAVEFORMATEXTENSIBLE_Samples field = 1
 	wValidBitsPerSample as WORD
 	wSamplesPerBlock as WORD
 	wReserved as WORD
@@ -1750,7 +1748,7 @@ end union
 
 type WAVEFORMATEXTENSIBLE field = 1
 	Format as WAVEFORMATEX
-	Samples as __Samples
+	Samples as WAVEFORMATEXTENSIBLE_Samples
 	dwChannelMask as DWORD
 	SubFormat as GUID
 end type

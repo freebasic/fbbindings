@@ -1,6 +1,5 @@
 #pragma once
 
-#include once "crt/wchar.bi"
 #include once "mprapi.bi"
 #include once "ipmib.bi"
 #include once "ipifcons.bi"
@@ -839,13 +838,12 @@ type PMIB_MCAST_LIMIT_ROW as MIB_MCAST_LIMIT_ROW ptr
 #define SN_UNICODE
 
 type SN_CHAR as wstring
-type SCOPE_NAME_BUFFER as wstring * 255 + 1
 type SCOPE_NAME as wstring ptr
 
 type _MIB_IPMCAST_SCOPE
 	dwGroupAddress as DWORD
 	dwGroupMask as DWORD
-	snNameBuffer as wchar_t
+	snNameBuffer as wstring * 255 + 1
 	dwStatus as DWORD
 end type
 

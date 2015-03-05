@@ -7,21 +7,13 @@
 #include once "basetyps.bi"
 #include once "ddraw.bi"
 
-'' The following symbols have been renamed:
-''     struct Size => Size_
-''     struct Point => Point_
-''     struct PointF => PointF_
-''     struct Rect => Rect_
-''     struct Color => Color_
-''     struct ColorMap => ColorMap_
-
 extern "Windows"
-
-type GdiplusAbort as GdiplusAbort_
 
 #define __GDIPLUS_H
 
 type REAL as single
+type INT16 as SHORT
+type UINT16 as WORD
 
 #define __GDIPLUS_ENUMS_H
 
@@ -1478,7 +1470,7 @@ enum
 	ColorChannelFlagsLast = 4
 end enum
 
-type Color_
+type Color
 	Value as ARGB
 end type
 
@@ -1515,8 +1507,8 @@ enum
 end enum
 
 type ColorMap_
-	oldColor as Color_
-	newColor as Color_
+	oldColor as Color
+	newColor as Color
 end type
 
 type ColorMatrix
@@ -1643,6 +1635,7 @@ declare function GdipGetTextRenderingHint(byval as GpGraphics ptr, byval as Text
 declare function GdipSetTextContrast(byval as GpGraphics ptr, byval as UINT) as GpStatus
 declare function GdipGetTextContrast(byval as GpGraphics ptr, byval as UINT ptr) as GpStatus
 declare function GdipSetInterpolationMode(byval as GpGraphics ptr, byval as InterpolationMode) as GpStatus
+type GdiplusAbort as GdiplusAbort_
 declare function GdipGraphicsSetAbort(byval as GpGraphics ptr, byval as GdiplusAbort ptr) as GpStatus
 declare function GdipGetInterpolationMode(byval as GpGraphics ptr, byval as InterpolationMode ptr) as GpStatus
 declare function GdipSetWorldTransform(byval as GpGraphics ptr, byval as GpMatrix ptr) as GpStatus

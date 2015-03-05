@@ -165,7 +165,7 @@ type _OLEOBJECTVTBL
 	SetBounds as function(byval as LPOLEOBJECT, byval as const RECT ptr) as OLESTATUS
 	EnumFormats as function(byval as LPOLEOBJECT, byval as OLECLIPFORMAT) as OLECLIPFORMAT
 	SetColorScheme as function(byval as LPOLEOBJECT, byval as const LOGPALETTE ptr) as OLESTATUS
-	Delete as function(byval as LPOLEOBJECT) as OLESTATUS
+	Delete_ as function(byval as LPOLEOBJECT) as OLESTATUS
 	SetHostNames as function(byval as LPOLEOBJECT, byval as LPCSTR, byval as LPCSTR) as OLESTATUS
 	SaveToStream as function(byval as LPOLEOBJECT, byval as LPOLESTREAM) as OLESTATUS
 	Clone as function(byval as LPOLEOBJECT, byval as LPOLECLIENT, byval as LHCLIENTDOC, byval as LPCSTR, byval as LPOLEOBJECT ptr) as OLESTATUS
