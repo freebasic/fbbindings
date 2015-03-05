@@ -17,9 +17,6 @@
 ''     #define PNG_get_uint_32 => PNG_get_uint_32_
 ''     #define PNG_get_uint_16 => PNG_get_uint_16_
 ''     #define PNG_get_int_32 => PNG_get_int_32_
-''     #define png_get_uint_32 => png_get_uint_32__
-''     #define png_get_uint_16 => png_get_uint_16__
-''     #define png_get_int_32 => png_get_int_32__
 
 extern "C"
 
@@ -880,10 +877,7 @@ declare sub png_save_uint_16(byval buf as png_bytep, byval i as ulong)
 
 #define PNG_get_uint_32_(buf) ((((cast(png_uint_32, *(buf)) shl 24) + (cast(png_uint_32, *((buf) + 1)) shl 16)) + (cast(png_uint_32, *((buf) + 2)) shl 8)) + cast(png_uint_32, *((buf) + 3)))
 #define PNG_get_uint_16_(buf) cast(png_uint_16, (culng(*(buf)) shl 8) + culng(*((buf) + 1)))
-#define PNG_get_int_32_(buf) cast(png_int_32, iif((*(buf)) and &h80, -cast(png_int_32, (png_get_uint_32__(buf) xor cast(clong, &hffffffff)) + 1), cast(png_int_32, png_get_uint_32__(buf))))
-#define png_get_uint_32__(buf) PNG_get_uint_32_(buf)
-#define png_get_uint_16__(buf) PNG_get_uint_16_(buf)
-#define png_get_int_32__(buf) PNG_get_int_32_(buf)
+#define PNG_get_int_32_(buf) cast(png_int_32, iif((*(buf)) and &h80, -cast(png_int_32, (PNG_get_uint_32_(buf) xor cast(clong, &hffffffff)) + 1), cast(png_int_32, PNG_get_uint_32_(buf))))
 #define PNG_IMAGE_VERSION 1
 
 type png_controlp as png_control ptr
