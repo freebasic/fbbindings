@@ -11,7 +11,7 @@ ALL += ncurses
 ALL += pdcurses png png12 png14 png15 png16
 ALL += zip zlib
 
-.PHONY: all clean tests $(ALL)
+.PHONY: all clean tests tests-winapi $(ALL)
 
 all: $(ALL)
 
@@ -19,7 +19,10 @@ clean:
 	rm -rf extracted/*
 
 tests:
-	./tests.sh
+	lib/tests.sh
+
+tests-winapi:
+	lib/tests-winapi.sh
 
 ALLEGRO4_VERSION := 4.4.2
 ALLEGRO4_TITLE := allegro-$(ALLEGRO4_VERSION)
