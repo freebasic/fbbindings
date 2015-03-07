@@ -19,12 +19,7 @@ clean:
 	rm -rf extracted/*
 
 tests:
-	$(FBC) -rr -i inc tests/*.bas -v -maxerr 1 && rm -f tests/*.asm
-
-tests-winapi:
-	$(FBC) -target win32 -r -i inc tests/winapi/*.bas -v -maxerr 1
-	$(FBC) -target win64 -r -i inc tests/winapi/*.bas -v -maxerr 1
-	rm -f tests/winapi/*.asm tests/winapi/*.c
+	./tests.sh
 
 ALLEGRO4_VERSION := 4.4.2
 ALLEGRO4_TITLE := allegro-$(ALLEGRO4_VERSION)

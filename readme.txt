@@ -18,3 +18,11 @@ automatically. This way we could update FreeBASIC bindings without having to
 redo most of the manual work.
 
 License: LGPLv2
+
+Tests:
+  Bindings should at least compile ok. This should be tested for multiple
+  targets because bindings often have target-specific parts. However, some
+  bindings don't (and don't need to) work for all targets: for example, winapi
+  only supports win32/win64.
+  Ideally, common cases where several bindings are used together should also be
+  tested, to prevent inter-binding conflicts.
