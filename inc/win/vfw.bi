@@ -476,7 +476,7 @@ type TWOCC as WORD
 #define listtypeAVIMOVIE mmioFOURCC(asc("m"), asc("o"), asc("v"), asc("i"))
 #define listtypeAVIRECORD mmioFOURCC(asc("r"), asc("e"), asc("c"), asc(" "))
 #define ckidAVINEWINDEX mmioFOURCC(asc("i"), asc("d"), asc("x"), asc("1"))
-#define streamtypeANY __MSABI_LONG(0)
+#define streamtypeANY __MSABI_LONG(0u)
 #define streamtypeVIDEO mmioFOURCC(asc("v"), asc("i"), asc("d"), asc("s"))
 #define streamtypeAUDIO mmioFOURCC(asc("a"), asc("u"), asc("d"), asc("s"))
 #define streamtypeMIDI mmioFOURCC(asc("m"), asc("i"), asc("d"), asc("s"))

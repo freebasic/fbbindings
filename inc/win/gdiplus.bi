@@ -1443,7 +1443,7 @@ type ColorPalette
 end type
 
 private function GetPixelFormatSize cdecl(byval pixfmt as PixelFormat) as UINT
-	return (cast(UINT, pixfmt) and &hff00) shr 8
+	return (cast(UINT, pixfmt) and &hff00u) shr 8
 end function
 
 private function IsAlphaPixelFormat cdecl(byval pixfmt as PixelFormat) as BOOL

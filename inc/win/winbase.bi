@@ -1238,7 +1238,7 @@ declare function CreateProcessAsUserW(byval hToken as HANDLE, byval lpApplicatio
 #endif
 
 #if _WIN32_WINNT = &h0602
-	#define PROCESS_AFFINITY_ENABLE_AUTO_UPDATE __MSABI_LONG(&h1)
+	#define PROCESS_AFFINITY_ENABLE_AUTO_UPDATE __MSABI_LONG(&h1u)
 	#define PROC_THREAD_ATTRIBUTE_REPLACE_VALUE &h00000001
 
 	declare function GetProcessIdOfThread(byval Thread as HANDLE) as DWORD

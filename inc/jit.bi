@@ -42,7 +42,7 @@ type jit_stack_trace_t as jit_stack_trace ptr
 type jit_label_t as jit_nuint
 
 #define jit_label_undefined cast(jit_label_t, not cast(jit_uint, 0))
-#define JIT_NO_OFFSET (not culng(0))
+#define JIT_NO_OFFSET culng(not culng(0))
 
 type jit_meta_free_func as sub(byval data as any ptr)
 type jit_on_demand_func as function(byval func as jit_function_t) as long
@@ -207,7 +207,7 @@ declare function jit_type_get_field(byval type as jit_type_t, byval field_index 
 declare function jit_type_get_offset(byval type as jit_type_t, byval field_index as ulong) as jit_nuint
 declare function jit_type_get_name(byval type as jit_type_t, byval index as ulong) as const zstring ptr
 
-#define JIT_INVALID_NAME (not culng(0))
+#define JIT_INVALID_NAME culng(not culng(0))
 
 declare function jit_type_find_name(byval type as jit_type_t, byval name as const zstring ptr) as ulong
 declare function jit_type_num_params(byval type as jit_type_t) as ulong
