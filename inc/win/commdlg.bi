@@ -405,16 +405,16 @@ type LPOFNOTIFYEXW as _OFNOTIFYEXW ptr
 	type LPOFNOTIFYEX as LPOFNOTIFYEXA
 #endif
 
-#define CDN_FIRST (0 - 601)
-#define CDN_LAST (0 - 699)
+#define CDN_FIRST culng(0u - 601u)
+#define CDN_LAST culng(0u - 699u)
 #define CDN_INITDONE CDN_FIRST
-#define CDN_SELCHANGE (CDN_FIRST - 1)
-#define CDN_FOLDERCHANGE (CDN_FIRST - 2)
-#define CDN_SHAREVIOLATION (CDN_FIRST - 3)
-#define CDN_HELP (CDN_FIRST - 4)
-#define CDN_FILEOK (CDN_FIRST - 5)
-#define CDN_TYPECHANGE (CDN_FIRST - 6)
-#define CDN_INCLUDEITEM (CDN_FIRST - 7)
+#define CDN_SELCHANGE culng(CDN_FIRST - 1)
+#define CDN_FOLDERCHANGE culng(CDN_FIRST - 2)
+#define CDN_SHAREVIOLATION culng(CDN_FIRST - 3)
+#define CDN_HELP culng(CDN_FIRST - 4)
+#define CDN_FILEOK culng(CDN_FIRST - 5)
+#define CDN_TYPECHANGE culng(CDN_FIRST - 6)
+#define CDN_INCLUDEITEM culng(CDN_FIRST - 7)
 #define CDM_FIRST (WM_USER + 100)
 #define CDM_LAST (WM_USER + 200)
 #define CDM_GETSPEC CDM_FIRST
