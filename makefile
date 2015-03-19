@@ -1,6 +1,8 @@
 FBFROG := fbfrog
 override FBFROG += -disableconstants
 
+override FBFROG += -disableconstants
+
 ALL := allegro4 allegro5
 ALL += cgui clang cunit curl
 ALL += fastcgi ffi
@@ -305,7 +307,8 @@ lua:
 		-emit '*/lua.h'     inc/Lua/lua.bi     \
 		-emit '*/luaconf.h' inc/Lua/lua.bi     \
 		-emit '*/lualib.h'  inc/Lua/lualib.bi  \
-		-emit '*/lauxlib.h' inc/Lua/lauxlib.bi
+		-emit '*/lauxlib.h' inc/Lua/lauxlib.bi \
+		-inclib lua inc/Lua/lua.bi
 
 NCURSES_TITLE := ncurses-5.9
 ncurses:

@@ -56,10 +56,19 @@ declare sub luaL_setfuncs(byval L as lua_State ptr, byval l as const luaL_Reg pt
 declare function luaL_getsubtable(byval L as lua_State ptr, byval idx as long, byval fname as const zstring ptr) as long
 declare sub luaL_traceback(byval L as lua_State ptr, byval L1 as lua_State ptr, byval msg as const zstring ptr, byval level as long)
 declare sub luaL_requiref(byval L as lua_State ptr, byval modname as const zstring ptr, byval openf as lua_CFunction, byval glb as long)
+#define luaL_newlibtable(L, l_) lua_createtable(L, 0, (ubound(l_) - lbound(l_) + 1) - 1)
 
-#define luaL_newlibtable(L, l) lua_createtable(L, 0, (sizeof((l)) / sizeof((l)[0])) - 1)
-#define luaL_newlib(L, l) '' TODO: (luaL_newlibtable(L,l), luaL_setfuncs(L,l,0))
-#define luaL_argcheck(L, cond, numarg, extramsg) cast(any, -((cond) orelse luaL_argerror(L, (numarg), (extramsg))))
+#macro luaL_newlib(L, l_)
+	scope
+		luaL_newlibtable(L, l_)
+		luaL_setfuncs(L, l_, 0)
+	end scope
+#endmacro
+#macro luaL_argcheck(L, cond, numarg, extramsg)
+	if (cond) = 0 then
+		luaL_argerror(L, (numarg), (extramsg))
+	end if
+#endmacro
 #define luaL_checkstring(L, n) luaL_checklstring(L, (n), NULL)
 #define luaL_optstring(L, n, d) luaL_optlstring(L, (n), (d), NULL)
 #define luaL_checkint(L, n) clng(luaL_checkinteger(L, (n)))
@@ -67,8 +76,12 @@ declare sub luaL_requiref(byval L as lua_State ptr, byval modname as const zstri
 #define luaL_checklong(L, n) cast(clong, luaL_checkinteger(L, (n)))
 #define luaL_optlong(L, n, d) cast(clong, luaL_optinteger(L, (n), (d)))
 #define luaL_typename(L, i) lua_typename(L, lua_type(L, (i)))
-#define luaL_dofile(L, fn) (luaL_loadfile(L, fn) orelse lua_pcall(L, 0, LUA_MULTRET, 0))
-#define luaL_dostring(L, s) (luaL_loadstring(L, s) orelse lua_pcall(L, 0, LUA_MULTRET, 0))
+private function luaL_dofile(byval L as lua_State ptr, byval fn as const zstring ptr) as long
+	function = (luaL_loadfile(L, fn) orelse lua_pcall(L, 0, LUA_MULTRET, 0))
+end function
+private function luaL_dostring(byval L as lua_State ptr, byval s as const zstring ptr) as long
+	function = (luaL_loadstring(L, s) orelse lua_pcall(L, 0, LUA_MULTRET, 0))
+end function
 #define luaL_getmetatable(L, n) lua_getfield(L, LUA_REGISTRYINDEX, (n))
 #define luaL_opt(L, f, n, d) iif(lua_isnoneornil(L, (n)), (d), f(L, (n)))
 #define luaL_loadbuffer(L, s, sz, n) luaL_loadbufferx(L, s, sz, n, NULL)
@@ -78,11 +91,17 @@ type luaL_Buffer
 	size as uinteger
 	n as uinteger
 	L as lua_State ptr
-	initb as zstring * LUAL_BUFFERSIZE
+	initb(0 to LUAL_BUFFERSIZE - 1) as byte
 end type
 
-#define luaL_addchar(B, c) '' TODO: ((void)((B)->n < (B)->size || luaL_prepbuffsize((B), 1)), ((B)->b[(B)->n++] = (c)))
-#define luaL_addsize(B, s) '' TODO: ((B)->n += (s))
+#macro luaL_addchar(B,c)
+	if (B)->n >= (B)->size then
+		luaL_prepbuffsize((B), 1)
+	end if
+	(B)->b[(B)->n] = (c)
+	(B)->n += 1
+#endmacro
+#define luaL_addsize(B,s) (B)->n += (s)
 declare sub luaL_buffinit(byval L as lua_State ptr, byval B as luaL_Buffer ptr)
 declare function luaL_prepbuffsize(byval B as luaL_Buffer ptr, byval sz as uinteger) as zstring ptr
 declare sub luaL_addlstring(byval B as luaL_Buffer ptr, byval s as const zstring ptr, byval l as uinteger)
@@ -101,6 +120,6 @@ end type
 
 declare sub luaL_pushmodule(byval L as lua_State ptr, byval modname as const zstring ptr, byval sizehint as long)
 declare sub luaL_openlib(byval L as lua_State ptr, byval libname as const zstring ptr, byval l as const luaL_Reg ptr, byval nup as long)
-#define luaL_register(L, n, l) luaL_openlib(L, (n), (l), 0)
+#define luaL_register(L, n, l_) luaL_openlib(L, (n), (l_), 0)
 
 end extern

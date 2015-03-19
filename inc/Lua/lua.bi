@@ -1,8 +1,17 @@
 #pragma once
 
+#inclib "lua"
+
 #include once "crt/stdarg.bi"
 #include once "crt/stddef.bi"
 #include once "crt/limits.bi"
+
+'' The following symbols have been renamed:
+''     #define LUA_NUMBER => LUA_NUMBER_
+''     #define LUA_INTEGER => LUA_INTEGER_
+''     #define LUA_UNSIGNED => LUA_UNSIGNED_
+''     #define LUA_VERSION => LUA_VERSION_
+''     #define LUA_YIELD => LUA_YIELD_
 
 extern "C"
 
@@ -32,7 +41,12 @@ extern "C"
 #define LUA_QL(x) "'" x "'"
 #define LUA_QS LUA_QL("%s")
 #define LUA_IDSIZE 60
-#define luai_writestringerror(s, p) '' TODO: (fprintf(stderr, (s), (p)), fflush(stderr))
+#macro luai_writestringerror(s, p)
+	scope
+		fprintf(stderr, (s), (p))
+		fflush(stderr)
+	end scope
+#endmacro
 #define LUAI_MAXSHORTLEN 40
 #define LUAI_BITSINT 32
 #define LUA_INT32 long
@@ -42,7 +56,7 @@ extern "C"
 #define LUAI_FIRSTPSEUDOIDX ((-LUAI_MAXSTACK) - 1000)
 #define LUAL_BUFFERSIZE BUFSIZ
 #define LUA_NUMBER_DOUBLE
-#define LUA_NUMBER double
+#define LUA_NUMBER_ double
 #define LUAI_UACNUMBER double
 #define LUA_NUMBER_SCAN "%lf"
 #define LUA_NUMBER_FMT "%.14g"
@@ -50,8 +64,8 @@ extern "C"
 #define LUAI_MAXNUMBER2STR 32
 #define l_mathop(x) (x)
 #define lua_str2number(s, p) strtod((s), (p))
-#define LUA_INTEGER integer
-#define LUA_UNSIGNED '' TODO: unsigned LUA_INT32
+#define LUA_INTEGER_ integer
+#define LUA_UNSIGNED_ ulong
 #define LUA_IEEE754TRICK
 
 #if defined(__FB_DOS__) or ((not defined(__FB_64BIT__)) and (defined(__FB_WIN32__) or defined(__FB_LINUX__)))
@@ -68,8 +82,8 @@ extern "C"
 #define LUA_VERSION_MINOR "2"
 #define LUA_VERSION_NUM 502
 #define LUA_VERSION_RELEASE "3"
-#define LUA_VERSION "Lua " LUA_VERSION_MAJOR "." LUA_VERSION_MINOR
-#define LUA_RELEASE LUA_VERSION "." LUA_VERSION_RELEASE
+#define LUA_VERSION_ "Lua " LUA_VERSION_MAJOR "." LUA_VERSION_MINOR
+#define LUA_RELEASE LUA_VERSION_ "." LUA_VERSION_RELEASE
 #define LUA_COPYRIGHT LUA_RELEASE "  Copyright (C) 1994-2013 Lua.org, PUC-Rio"
 #define LUA_AUTHORS "R. Ierusalimschy, L. H. de Figueiredo, W. Celes"
 #define LUA_SIGNATURE !"\27Lua"
@@ -77,13 +91,14 @@ extern "C"
 #define LUA_REGISTRYINDEX LUAI_FIRSTPSEUDOIDX
 #define lua_upvalueindex(i) (LUA_REGISTRYINDEX - (i))
 #define LUA_OK 0
-#define LUA_YIELD 1
+#define LUA_YIELD_ 1
 #define LUA_ERRRUN 2
 #define LUA_ERRSYNTAX 3
 #define LUA_ERRMEM 4
 #define LUA_ERRGCMM 5
 #define LUA_ERRERR 6
 
+type lua_State as lua_State_
 type lua_CFunction as function(byval L as lua_State ptr) as long
 type lua_Reader as function(byval L as lua_State ptr, byval ud as any ptr, byval sz as uinteger ptr) as const zstring ptr
 type lua_Writer as function(byval L as lua_State ptr, byval p as const any ptr, byval sz as uinteger, byval ud as any ptr) as long
@@ -108,7 +123,8 @@ type lua_Alloc as function(byval ud as any ptr, byval ptr as any ptr, byval osiz
 type lua_Number as double
 type lua_Integer as integer
 type lua_Unsigned as ulong
-extern lua_ident as const zstring * ...
+extern __lua_ident alias "lua_ident" as const byte
+#define lua_ident (*cptr(const zstring ptr, @__lua_ident))
 
 declare function lua_newstate(byval f as lua_Alloc, byval ud as any ptr) as lua_State ptr
 declare sub lua_close(byval L as lua_State ptr)
@@ -224,7 +240,12 @@ declare sub lua_setallocf(byval L as lua_State ptr, byval f as lua_Alloc, byval 
 #define lua_tounsigned(L, i) lua_tounsignedx(L, i, NULL)
 #define lua_pop(L, n) lua_settop(L, (-(n)) - 1)
 #define lua_newtable(L) lua_createtable(L, 0, 0)
-#define lua_register(L, n, f) '' TODO: (lua_pushcfunction(L, (f)), lua_setglobal(L, (n)))
+#macro lua_register(L, n, f)
+	scope
+		lua_pushcfunction(L, (f))
+		lua_setglobal(L, (n))
+	end scope
+#endmacro
 #define lua_pushcfunction(L, f) lua_pushcclosure(L, (f), 0)
 #define lua_isfunction(L, n) (lua_type(L, (n)) = LUA_TFUNCTION)
 #define lua_istable(L, n) (lua_type(L, (n)) = LUA_TTABLE)
@@ -234,7 +255,7 @@ declare sub lua_setallocf(byval L as lua_State ptr, byval f as lua_Alloc, byval 
 #define lua_isthread(L, n) (lua_type(L, (n)) = LUA_TTHREAD)
 #define lua_isnone(L, n) (lua_type(L, (n)) = LUA_TNONE)
 #define lua_isnoneornil(L, n) (lua_type(L, (n)) <= 0)
-#define lua_pushliteral(L, s) lua_pushlstring(L, "" s, (sizeof((s)) / sizeof(byte)) - 1)
+#define lua_pushliteral(L, s) lua_pushlstring(L, "" s, len(s)-1)
 #define lua_pushglobaltable(L) lua_rawgeti(L, LUA_REGISTRYINDEX, LUA_RIDX_GLOBALS)
 #define lua_tostring(L, i) lua_tolstring(L, (i), NULL)
 #define LUA_HOOKCALL 0
@@ -261,6 +282,7 @@ declare function lua_sethook(byval L as lua_State ptr, byval func as lua_Hook, b
 declare function lua_gethook(byval L as lua_State ptr) as lua_Hook
 declare function lua_gethookmask(byval L as lua_State ptr) as long
 declare function lua_gethookcount(byval L as lua_State ptr) as long
+type CallInfo as CallInfo_
 
 type lua_Debug_
 	event as long

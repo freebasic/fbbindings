@@ -25,6 +25,5 @@ declare function luaopen_debug(byval L as lua_State ptr) as long
 #define LUA_LOADLIBNAME "package"
 declare function luaopen_package(byval L as lua_State ptr) as long
 declare sub luaL_openlibs(byval L as lua_State ptr)
-#define lua_assert(x) cast(any, 0)
 
 end extern
