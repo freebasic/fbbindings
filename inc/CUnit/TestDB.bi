@@ -4,6 +4,9 @@
 #include once "CUnit.bi"
 #include once "CUError.bi"
 
+'' The following symbols have been renamed:
+''     #define CU_ADD_TEST => CU_ADD_TEST_
+
 extern "C"
 
 #define CUNIT_TESTDB_H_SEEN
@@ -69,7 +72,7 @@ declare function CU_get_test(byval pSuite as CU_pSuite, byval strName as const z
 declare function CU_get_test_at_pos(byval pSuite as CU_pSuite, byval pos as ulong) as CU_pTest
 declare function CU_get_test_pos(byval pSuite as CU_pSuite, byval pTest as CU_pTest) as ulong
 declare function CU_get_test_pos_by_name(byval pSuite as CU_pSuite, byval strName as const zstring ptr) as ulong
-#define CU_ADD_TEST(suite, test) CU_add_test(suite, #test, cast(CU_TestFunc, test))
+#define CU_ADD_TEST_(suite, test) CU_add_test(suite, #test, cast(CU_TestFunc, test))
 
 type CU_TestInfo
 	pName as const zstring ptr

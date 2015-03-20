@@ -1,3 +1,8 @@
 -removedefine CU_EXPORT
 -removedefine CU_BOOL
 -removedefine CU_UNREFERENCED_PARAMETER
+
+-renamedefine CU_ADD_TEST CU_ADD_TEST_
+-renamedefine CU_TEST CU_TEST_
+
+-dropmacrobodyscopes
