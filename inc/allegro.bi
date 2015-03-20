@@ -1,5 +1,13 @@
 #pragma once
 
+#inclib "alleg"
+
+#undef screen
+#undef circle
+#undef line
+#undef palette
+#undef rgb
+
 #include once "crt/long.bi"
 #include once "crt/errno.bi"
 #include once "crt/limits.bi"
@@ -8,33 +16,69 @@
 #include once "crt/stdlib.bi"
 #include once "crt/time.bi"
 #include once "crt/string.bi"
-#include once "allegro/platform/alplatf.bi"
 
-#ifdef __FB_WIN32__
-	#include once "io.bi"
-#elseif defined(__FB_DOS__)
-	#include once "pc.bi"
-	#include once "dir.bi"
-	#include once "dpmi.bi"
-	#include once "go32.bi"
-#endif
-
-#include once "fcntl.bi"
-
-#ifdef __FB_WIN32__
-	#include once "direct.bi"
-	#include once "malloc.bi"
-#else
-	#include once "unistd.bi"
-#endif
-
-#ifdef __FB_LINUX__
-	#include once "allegro/platform/alunixac.bi"
-#elseif defined(__FB_DOS__)
-	#include once "sys/farptr.bi"
-#endif
-
-#include once "inttypes.bi"
+'' The following symbols have been renamed:
+''     #define MID => AL_MID
+''     #define EMPTY_STRING => EMPTY_STRING_
+''     #define SYSTEM_NONE => SYSTEM_NONE_
+''     #define MOUSEDRV_NONE => MOUSEDRV_NONE_
+''     #define DRAW_SPRITE_H_FLIP => DRAW_SPRITE_H_FLIP_
+''     #define DRAW_SPRITE_V_FLIP => DRAW_SPRITE_V_FLIP_
+''     #define DRAW_SPRITE_VH_FLIP => DRAW_SPRITE_VH_FLIP_
+''     #define MIDI_DIGMID => MIDI_DIGMID_
+''     #define EOF => EOF_
+''     #define cpu_fpu => cpu_fpu_
+''     #define cpu_mmx => cpu_mmx_
+''     #define cpu_3dnow => cpu_3dnow_
+''     #ifdef __FB_WIN32__
+''         #define SYSTEM_DIRECTX => SYSTEM_DIRECTX_
+''         #define GFX_DIRECTX_ACCEL => GFX_DIRECTX_ACCEL_
+''         #define GFX_DIRECTX_SAFE => GFX_DIRECTX_SAFE_
+''         #define GFX_DIRECTX_SOFT => GFX_DIRECTX_SOFT_
+''         #define GFX_DIRECTX_WIN => GFX_DIRECTX_WIN_
+''         #define GFX_DIRECTX_OVL => GFX_DIRECTX_OVL_
+''         #define GFX_GDI => GFX_GDI_
+''     #elseif defined(__FB_LINUX__)
+''         #define TIMERDRV_UNIX_PTHREADS => TIMERDRV_UNIX_PTHREADS_
+''         #define SYSTEM_LINUX => SYSTEM_LINUX_
+''     #else
+''         #define SYSTEM_DOS => SYSTEM_DOS_
+''         #define KEYDRV_PCDOS => KEYDRV_PCDOS_
+''         #define TIMEDRV_FIXED_RATE => TIMEDRV_FIXED_RATE_
+''         #define TIMEDRV_VARIABLE_RATE => TIMEDRV_VARIABLE_RATE_
+''         #define MOUSEDRV_MICKEYS => MOUSEDRV_MICKEYS_
+''         #define MOUSEDRV_INT33 => MOUSEDRV_INT33_
+''         #define MOUSEDRV_POLLING => MOUSEDRV_POLLING_
+''         #define MOUSEDRV_WINNT => MOUSEDRV_WINNT_
+''         #define MOUSEDRV_WIN2K => MOUSEDRV_WIN2K_
+''     #endif
+''     #if defined(__FB_DOS__) or defined(__FB_LINUX__)
+''         #define GFX_VGA => GFX_VGA_
+''         #define GFX_MODEX => GFX_MODEX_
+''         #define GFX_VBEAF => GFX_VBEAF_
+''     #endif
+''     #ifdef __FB_LINUX__
+''         #define MOUSEDRV_LINUX_PS2 => MOUSEDRV_LINUX_PS2_
+''         #define MOUSEDRV_LINUX_IPS2 => MOUSEDRV_LINUX_IPS2_
+''         #define MOUSEDRV_LINUX_GPMDATA => MOUSEDRV_LINUX_GPMDATA_
+''         #define MOUSEDRV_LINUX_MS => MOUSEDRV_LINUX_MS_
+''         #define MOUSEDRV_LINUX_IMS => MOUSEDRV_LINUX_IMS_
+''         #define MOUSEDRV_LINUX_EVDEV => MOUSEDRV_LINUX_EVDEV_
+''     #elseif defined(__FB_DOS__)
+''         #define GFX_XTENDED => GFX_XTENDED_
+''         #define DIGI_SB10 => DIGI_SB10_
+''         #define DIGI_SB15 => DIGI_SB15_
+''         #define DIGI_SB20 => DIGI_SB20_
+''         #define DIGI_SBPRO => DIGI_SBPRO_
+''         #define DIGI_SB16 => DIGI_SB16_
+''         #define DIGI_AUDIODRIVE => DIGI_AUDIODRIVE_
+''         #define DIGI_SOUNDSCAPE => DIGI_SOUNDSCAPE_
+''         #define MIDI_OPL2 => MIDI_OPL2_
+''         #define MIDI_2XOPL2 => MIDI_2XOPL2_
+''         #define MIDI_OPL3 => MIDI_OPL3_
+''         #define MIDI_SB_OUT => MIDI_SB_OUT_
+''         #define MIDI_AWE32 => MIDI_AWE32_
+''     #endif
 
 extern "C"
 
@@ -102,7 +146,12 @@ extern "C"
 	#define bmp_write8(addr, c) _farnspokeb(addr, c)
 	#define bmp_write15(addr, c) _farnspokew(addr, c)
 	#define bmp_write16(addr, c) _farnspokew(addr, c)
-	#define bmp_write24(addr, c) '' TODO: ({ _farnspokew(addr, c&0xFFFF); _farnspokeb(addr+2, c>>16); })
+	#macro bmp_write24(addr, c)
+		scope
+			_farnspokew(addr, c and &hFFFF)
+			_farnspokeb(addr + 2, c shr 16)
+		end scope
+	#endmacro
 	#define bmp_write32(addr, c) _farnspokel(addr, c)
 	#define bmp_read8(addr) _farnspeekb(addr)
 	#define bmp_read15(addr) _farnspeekw(addr)
@@ -133,7 +182,12 @@ extern "C"
 	#define uint64_t ulongint
 #endif
 
-#define _AL_SINCOS(x, s, c) '' TODO: do { (c) = cos(x); (s) = sin(x); } while (0)
+#macro _AL_SINCOS(x, s, c)
+	scope
+		(c) = cos(x)
+		(s) = sin(x)
+	end scope
+#endmacro
 #define END_OF_MAIN()
 
 #if defined(__FB_WIN32__) or defined(__FB_LINUX__)
@@ -174,23 +228,32 @@ extern "C"
 #if defined(__FB_WIN32__) or defined(__FB_LINUX__)
 	#define _video_ds() _default_ds()
 	#define _farsetsel(seg)
-	#define _farnspokeb(addr, val) '' TODO: (*((uint8_t *)(addr)) = (val))
-	#define _farnspokew(addr, val) '' TODO: (*((uint16_t *)(addr)) = (val))
-	#define _farnspokel(addr, val) '' TODO: (*((uint32_t *)(addr)) = (val))
+	#define _farnspokeb(addr, val) *cptr(ubyte ptr, (addr)) = (val)
+	#define _farnspokew(addr, val) *cptr(ushort ptr, (addr)) = (val)
+	#define _farnspokel(addr, val) *cptr(ulong ptr, (addr)) = (val)
 	#define _farnspeekb(addr) (*cptr(ubyte ptr, (addr)))
 	#define _farnspeekw(addr) (*cptr(ushort ptr, (addr)))
 	#define _farnspeekl(addr) (*cptr(ulong ptr, (addr)))
 #endif
 
-#define READ3BYTES(p) (((*cptr(ubyte ptr, (p))) or ((*(cptr(ubyte ptr, (p)) + 1)) shl 8)) or ((*(cptr(ubyte ptr, (p)) + 2)) shl 16))
-#define WRITE3BYTES(p, c) '' TODO: ((*(unsigned char *)(p) = (c)), (*((unsigned char *)(p) + 1) = (c) >> 8), (*((unsigned char *)(p) + 2) = (c) >> 16))
+#define READ3BYTES(p) _
+	( cptr(ubyte ptr, (p))[0]        or _
+	 (cptr(ubyte ptr, (p))[1] shl 8) or _
+	 (cptr(ubyte ptr, (p))[2] shl 16) )
+#macro WRITE3BYTES(p, c)
+	scope
+		cptr(ubyte ptr, (p))[0] = (c)
+		cptr(ubyte ptr, (p))[1] = (c) shr 8
+		cptr(ubyte ptr, (p))[2] = (c) shr 16
+	end scope
+#endmacro
 
 #if defined(__FB_WIN32__) or defined(__FB_LINUX__)
 	#define bmp_select(bmp)
-	#define bmp_write8(addr, c) '' TODO: (*((uint8_t *)(addr)) = (c))
-	#define bmp_write15(addr, c) '' TODO: (*((uint16_t *)(addr)) = (c))
-	#define bmp_write16(addr, c) '' TODO: (*((uint16_t *)(addr)) = (c))
-	#define bmp_write32(addr, c) '' TODO: (*((uint32_t *)(addr)) = (c))
+	#define bmp_write8(addr, c) *cptr(ubyte ptr, (addr)) = (c)
+	#define bmp_write15(addr, c) *cptr(ushort ptr, (addr)) = (c)
+	#define bmp_write16(addr, c) *cptr(ushort ptr, (addr)) = (c)
+	#define bmp_write32(addr, c) *cptr(ulong ptr, (addr)) = (c)
 	#define bmp_read8(addr) (*cptr(ubyte ptr, (addr)))
 	#define bmp_read15(addr) (*cptr(ushort ptr, (addr)))
 	#define bmp_read16(addr) (*cptr(ushort ptr, (addr)))
@@ -216,7 +279,7 @@ extern "C"
 #define FALSE 0
 #define MIN(x, y) iif((x) < (y), (x), (y))
 #define MAX(x, y) iif((x) > (y), (x), (y))
-#define MID(x, y, z) iif((x) > (y), iif((y) > (z), (y), iif((x) > (z), (z), (x))), iif((y) > (z), iif((z) > (x), (z), (x)), (y)))
+#define AL_MID(x, y, z) iif((x) > (y), iif((y) > (z), (y), iif((x) > (z), (z), (x))), iif((y) > (z), iif((z) > (x), (z), (x)), (y)))
 #define CLAMP(x, y, z) MAX((x), MIN((y), (z)))
 #define AL_PI 3.14159265358979323846
 #define AL_ID(a, b, c, d) (((((a) shl 24) or ((b) shl 16)) or ((c) shl 8)) or (d))
@@ -253,17 +316,10 @@ declare function uwidth_max(byval type as long) as long
 
 #define uconvert_ascii(s, buf) uconvert(s, U_ASCII, buf, U_CURRENT, sizeof((buf)))
 #define uconvert_toascii(s, buf) uconvert(s, U_CURRENT, buf, U_ASCII, sizeof((buf)))
-#define EMPTY_STRING !"\0\0\0"
+#define EMPTY_STRING_ !"\0\0\0"
 
 #if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
-	extern __empty_string alias "empty_string" as byte
-#else
-	extern import __empty_string alias "empty_string" as byte
-#endif
-
-#define empty_string (*cptr(zstring ptr, @__empty_string))
-
-#if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
+	extern empty_string as zstring * 4
 	extern ugetc as function(byval s as const zstring ptr) as long
 	extern ugetx as function(byval s as zstring ptr ptr) as long
 	extern ugetxc as function(byval s as const zstring ptr ptr) as long
@@ -272,6 +328,7 @@ declare function uwidth_max(byval type as long) as long
 	extern ucwidth as function(byval c as long) as long
 	extern uisok as function(byval c as long) as long
 #else
+	extern import empty_string as zstring * 4
 	extern import ugetc as function(byval s as const zstring ptr) as long
 	extern import ugetx as function(byval s as zstring ptr ptr) as long
 	extern import ugetxc as function(byval s as const zstring ptr ptr) as long
@@ -362,12 +419,11 @@ declare sub free_config_entries(byval names as const zstring ptr ptr ptr)
 #define allegro_id (*cptr(zstring ptr, @__allegro_id))
 
 #if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
-	extern __allegro_error alias "allegro_error" as byte
+	extern allegro_error as zstring * ALLEGRO_ERROR_SIZE
 #else
-	extern import __allegro_error alias "allegro_error" as byte
+	extern import allegro_error as zstring * ALLEGRO_ERROR_SIZE
 #endif
 
-#define allegro_error (*cptr(zstring ptr, @__allegro_error))
 #define OSTYPE_UNKNOWN 0
 #define OSTYPE_WIN3 AL_ID(asc("W"), asc("I"), asc("N"), asc("3"))
 #define OSTYPE_WIN95 AL_ID(asc("W"), asc("9"), asc("5"), asc(" "))
@@ -411,12 +467,12 @@ declare sub free_config_entries(byval names as const zstring ptr ptr ptr)
 #endif
 
 #define SYSTEM_AUTODETECT 0
-#define SYSTEM_NONE AL_ID(asc("N"), asc("O"), asc("N"), asc("E"))
+#define SYSTEM_NONE_ AL_ID(asc("N"), asc("O"), asc("N"), asc("E"))
 #define MAKE_VERSION(a, b, c) ((((a) shl 16) or ((b) shl 8)) or (c))
+
 declare function _install_allegro_version_check(byval system_id as long, byval errno_ptr as long ptr, byval atexit_ptr as function(byval func as sub()) as long, byval version as long) as long
 declare function install_allegro(byval system_id as long, byval errno_ptr as long ptr, byval atexit_ptr as function(byval func as sub()) as long) as long
-#define allegro_init() _install_allegro_version_check(SYSTEM_AUTODETECT, @errno, cptr(function cdecl(byval as sub cdecl()) as long, atexit), MAKE_VERSION(ALLEGRO_VERSION, ALLEGRO_SUB_VERSION, ALLEGRO_WIP_VERSION))
-
+#define allegro_init() _install_allegro_version_check(SYSTEM_AUTODETECT, @errno, cptr(function cdecl(byval as sub cdecl()) as long, @atexit), MAKE_VERSION(ALLEGRO_VERSION, ALLEGRO_SUB_VERSION, ALLEGRO_WIP_VERSION))
 declare sub allegro_exit()
 declare sub allegro_message(byval msg as const zstring ptr, ...)
 declare sub get_executable_name(byval output as zstring ptr, byval size as long)
@@ -489,18 +545,12 @@ declare sub check_cpu()
 #define CPU_MODEL_POWERPC_7450 11
 
 #if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
-	extern __cpu_vendor alias "cpu_vendor" as byte
-#else
-	extern import __cpu_vendor alias "cpu_vendor" as byte
-#endif
-
-#define cpu_vendor (*cptr(zstring ptr, @__cpu_vendor))
-
-#if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
+	extern cpu_vendor as zstring * _AL_CPU_VENDOR_SIZE
 	extern cpu_family as long
 	extern cpu_model as long
 	extern cpu_capabilities as long
 #else
+	extern import cpu_vendor as zstring * _AL_CPU_VENDOR_SIZE
 	extern import cpu_family as long
 	extern import cpu_model as long
 	extern import cpu_capabilities as long
@@ -581,7 +631,7 @@ declare function get_desktop_resolution(byval width as long ptr, byval height as
 
 #define ALLEGRO_MOUSE_H
 #define MOUSEDRV_AUTODETECT (-1)
-#define MOUSEDRV_NONE 0
+#define MOUSEDRV_NONE_ 0
 
 type MOUSE_DRIVER
 	id as long
@@ -792,20 +842,15 @@ declare function keyboard_needs_poll() as long
 #endif
 
 declare sub install_keyboard_hooks(byval keypressed as function() as long, byval readkey as function() as long)
+#define key(i) ((@__key)[i])
 
 #if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
 	extern __key alias "key" as byte
-#else
-	extern import __key alias "key" as byte
-#endif
-
-#define key (*cptr(zstring ptr, @__key))
-
-#if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
 	extern key_shifts as long
 	extern three_finger_flag as long
 	extern key_led_flag as long
 #else
+	extern import __key alias "key" as byte
 	extern import key_shifts as long
 	extern import three_finger_flag as long
 	extern import key_led_flag as long
@@ -1198,8 +1243,8 @@ end type
 	extern import ___joystick_driver_list alias "_joystick_driver_list" as _DRIVER_INFO
 #endif
 
-#define BEGIN_JOYSTICK_DRIVER_LIST '' TODO: _DRIVER_INFO _joystick_driver_list[] = {
-#define END_JOYSTICK_DRIVER_LIST '' TODO: { JOY_TYPE_NONE, &joystick_none, TRUE }, { 0, NULL, 0 } };
+#define BEGIN_JOYSTICK_DRIVER_LIST dim as _DRIVER_INFO _joystick_driver_list(0 to ...) = {
+#define END_JOYSTICK_DRIVER_LIST ( JOY_TYPE_NONE, @joystick_none, TRUE ), ( 0, NULL, 0 ) }
 declare function install_joystick(byval type as long) as long
 declare sub remove_joystick()
 declare function poll_joystick() as long
@@ -1305,9 +1350,9 @@ declare sub render_scene()
 #define DRAW_SPRITE_LIT 1
 #define DRAW_SPRITE_TRANS 2
 #define DRAW_SPRITE_NO_FLIP &h0
-#define DRAW_SPRITE_H_FLIP &h1
-#define DRAW_SPRITE_V_FLIP &h2
-#define DRAW_SPRITE_VH_FLIP &h3
+#define DRAW_SPRITE_H_FLIP_ &h1
+#define DRAW_SPRITE_V_FLIP_ &h2
+#define DRAW_SPRITE_VH_FLIP_ &h3
 #define blender_mode_none 0
 #define blender_mode_trans 1
 #define blender_mode_add 2
@@ -1387,8 +1432,8 @@ end type
 	extern import ___gfx_driver_list alias "_gfx_driver_list" as _DRIVER_INFO
 #endif
 
-#define BEGIN_GFX_DRIVER_LIST '' TODO: _DRIVER_INFO _gfx_driver_list[] = {
-#define END_GFX_DRIVER_LIST '' TODO: { 0, NULL, 0 } };
+#define BEGIN_GFX_DRIVER_LIST dim as _DRIVER_INFO _gfx_driver_list(0 to ...) = {
+#define END_GFX_DRIVER_LIST ( 0, NULL, 0 ) }
 #define GFX_CAN_SCROLL &h00000001
 #define GFX_CAN_TRIPLE_BUFFER &h00000002
 #define GFX_HW_CURSOR &h00000004
@@ -1518,13 +1563,13 @@ end type
 	extern import ___vtable_list alias "_vtable_list" as _VTABLE_INFO
 #endif
 
-#define BEGIN_COLOR_DEPTH_LIST '' TODO: _VTABLE_INFO _vtable_list[] = {
-#define END_COLOR_DEPTH_LIST '' TODO: { 0, NULL } };
-#define COLOR_DEPTH_8 '' TODO: { 8, &__linear_vtable8 },
-#define COLOR_DEPTH_15 '' TODO: { 15, &__linear_vtable15 },
-#define COLOR_DEPTH_16 '' TODO: { 16, &__linear_vtable16 },
-#define COLOR_DEPTH_24 '' TODO: { 24, &__linear_vtable24 },
-#define COLOR_DEPTH_32 '' TODO: { 32, &__linear_vtable32 },
+#define BEGIN_COLOR_DEPTH_LIST dim as _VTABLE_INFO _vtable_list(0 to ...) = {
+#define END_COLOR_DEPTH_LIST ( 0, NULL ) }
+#define COLOR_DEPTH_8 ( 8, @__linear_vtable8 ),
+#define COLOR_DEPTH_15 ( 15, @__linear_vtable15 ),
+#define COLOR_DEPTH_16 ( 16, @__linear_vtable16 ),
+#define COLOR_DEPTH_24 ( 24, @__linear_vtable24 ),
+#define COLOR_DEPTH_32 ( 32, @__linear_vtable32 ),
 
 type BITMAP_
 	w as long
@@ -1543,7 +1588,7 @@ type BITMAP_
 	x_ofs as long
 	y_ofs as long
 	seg as long
-	line(0 to ...) as ubyte ptr
+	line(0 to 1 - 1) as ubyte ptr
 end type
 
 #define BMP_ID_VIDEO &h80000000
@@ -1901,15 +1946,8 @@ declare function getpixel(byval bmp as BITMAP ptr, byval x as long, byval y as l
 declare sub putpixel(byval bmp as BITMAP ptr, byval x as long, byval y as long, byval color as long)
 declare sub _allegro_vline(byval bmp as BITMAP ptr, byval x as long, byval y_1 as long, byval y2 as long, byval color as long)
 declare sub _allegro_hline(byval bmp as BITMAP ptr, byval x1 as long, byval y as long, byval x2 as long, byval color as long)
-
-private sub vline(byval bmp as BITMAP ptr, byval x as long, byval y_1 as long, byval y2 as long, byval color as long)
-	_allegro_vline(bmp, x, y_1, y2, color)
-end sub
-
-private sub hline(byval bmp as BITMAP ptr, byval x1 as long, byval y as long, byval x2 as long, byval color as long)
-	_allegro_hline(bmp, x1, y, x2, color)
-end sub
-
+declare sub vline(byval bmp as BITMAP ptr, byval x as long, byval y_1 as long, byval y2 as long, byval color as long)
+declare sub hline(byval bmp as BITMAP ptr, byval x1 as long, byval y as long, byval x2 as long, byval color as long)
 declare sub line(byval bmp as BITMAP ptr, byval x1 as long, byval y_1 as long, byval x2 as long, byval y2 as long, byval color as long)
 declare sub fastline(byval bmp as BITMAP ptr, byval x1 as long, byval y_1 as long, byval x2 as long, byval y2 as long, byval color as long)
 declare sub rectfill(byval bmp as BITMAP ptr, byval x1 as long, byval y_1 as long, byval x2 as long, byval y2 as long, byval color as long)
@@ -1963,7 +2001,7 @@ type RLE_SPRITE_
 	h as long
 	color_depth as long
 	size as long
-	dat(0 to ...) as byte
+	dat(0 to 1 - 1) as byte
 end type
 
 declare function get_rle_sprite(byval bitmap as BITMAP ptr) as RLE_SPRITE ptr
@@ -2004,8 +2042,10 @@ declare sub destroy_font(byval f as FONT ptr)
 type FONT_GLYPH_
 	w as short
 	h as short
-	dat(0 to ...) as ubyte
+	dat(0 to 1 - 1) as ubyte
 end type
+
+type FONT_VTABLE as FONT_VTABLE_
 
 type FONT_
 	data as any ptr
@@ -2344,8 +2384,8 @@ end type
 	extern import ___digi_driver_list alias "_digi_driver_list" as _DRIVER_INFO
 #endif
 
-#define BEGIN_DIGI_DRIVER_LIST '' TODO: _DRIVER_INFO _digi_driver_list[] = {
-#define END_DIGI_DRIVER_LIST '' TODO: { 0, NULL, 0 } };
+#define BEGIN_DIGI_DRIVER_LIST dim as _DRIVER_INFO _digi_driver_list(0 to ...) = {
+#define END_DIGI_DRIVER_LIST ( 0, NULL, 0 ) }
 
 #if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
 	extern digi_driver as DIGI_DRIVER ptr
@@ -2460,7 +2500,7 @@ end type
 
 #define MIDI_AUTODETECT (-1)
 #define MIDI_NONE 0
-#define MIDI_DIGMID AL_ID(asc("D"), asc("I"), asc("G"), asc("I"))
+#define MIDI_DIGMID_ AL_ID(asc("D"), asc("I"), asc("G"), asc("I"))
 
 type MIDI_DRIVER
 	id as long
@@ -2503,9 +2543,9 @@ end type
 	extern import ___midi_driver_list alias "_midi_driver_list" as _DRIVER_INFO
 #endif
 
-#define BEGIN_MIDI_DRIVER_LIST '' TODO: _DRIVER_INFO _midi_driver_list[] = {
-#define END_MIDI_DRIVER_LIST '' TODO: { 0, NULL, 0 } };
-#define MIDI_DRIVER_DIGMID '' TODO: { MIDI_DIGMID, &midi_digmid, TRUE },
+#define BEGIN_MIDI_DRIVER_LIST dim as _DRIVER_INFO _midi_driver_list(0 to ...) = {
+#define END_MIDI_DRIVER_LIST ( 0, NULL, 0 ) }
+#define MIDI_DRIVER_DIGMID ( MIDI_DIGMID, @midi_digmid, TRUE ),
 
 #if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
 	extern midi_driver as MIDI_DRIVER ptr
@@ -2605,7 +2645,7 @@ declare function al_findfirst(byval pattern as const zstring ptr, byval info as 
 declare function al_findnext(byval info as al_ffblk ptr) as long
 declare sub al_findclose(byval info as al_ffblk ptr)
 
-#define EOF (-1)
+#define EOF_ (-1)
 #define F_READ "r"
 #define F_WRITE "w"
 #define F_READ_PACKED "rp"
@@ -2622,6 +2662,8 @@ declare sub al_findclose(byval info as al_ffblk ptr)
 #define PACKFILE_FLAG_ERROR 16
 #define PACKFILE_FLAG_OLD_CRYPT 32
 #define PACKFILE_FLAG_EXEDAT 64
+type LZSS_PACK_DATA as LZSS_PACK_DATA_
+type LZSS_UNPACK_DATA as LZSS_UNPACK_DATA_
 
 type _al_normal_packfile_details
 	hndl as long
@@ -2926,9 +2968,9 @@ declare sub persp_project_f(byval x as single, byval y as single, byval z as sin
 #define KB_NORMAL 1
 #define KB_EXTENDED 2
 #define SEND_MESSAGE object_message
-#define cpu_fpu (cpu_capabilities and CPU_FPU)
-#define cpu_mmx (cpu_capabilities and CPU_MMX)
-#define cpu_3dnow (cpu_capabilities and CPU_3DNOW)
+#define cpu_fpu_ (cpu_capabilities and CPU_FPU)
+#define cpu_mmx_ (cpu_capabilities and CPU_MMX)
+#define cpu_3dnow_ (cpu_capabilities and CPU_3DNOW)
 #define cpu_cpuid (cpu_capabilities and CPU_ID)
 #define joy_x joy[0].stick[0].axis[0].pos
 #define joy_y joy[0].stick[0].axis[1].pos
@@ -3018,7 +3060,7 @@ declare function timer_is_using_retrace() as long
 
 #ifdef __FB_WIN32__
 	declare function _WinMain(byval _main as any ptr, byval hInst as any ptr, byval hPrev as any ptr, byval Cmd as zstring ptr, byval nShow as long) as long
-	#define SYSTEM_DIRECTX AL_ID(asc("D"), asc("X"), asc(" "), asc(" "))
+	#define SYSTEM_DIRECTX_ AL_ID(asc("D"), asc("X"), asc(" "), asc(" "))
 #endif
 
 #if defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)
@@ -3033,12 +3075,12 @@ declare function timer_is_using_retrace() as long
 	#define KEYBOARD_DIRECTX AL_ID(asc("D"), asc("X"), asc(" "), asc(" "))
 	#define MOUSE_DIRECTX AL_ID(asc("D"), asc("X"), asc(" "), asc(" "))
 	#define GFX_DIRECTX AL_ID(asc("D"), asc("X"), asc("A"), asc("C"))
-	#define GFX_DIRECTX_ACCEL AL_ID(asc("D"), asc("X"), asc("A"), asc("C"))
-	#define GFX_DIRECTX_SAFE AL_ID(asc("D"), asc("X"), asc("S"), asc("A"))
-	#define GFX_DIRECTX_SOFT AL_ID(asc("D"), asc("X"), asc("S"), asc("O"))
-	#define GFX_DIRECTX_WIN AL_ID(asc("D"), asc("X"), asc("W"), asc("N"))
-	#define GFX_DIRECTX_OVL AL_ID(asc("D"), asc("X"), asc("O"), asc("V"))
-	#define GFX_GDI AL_ID(asc("G"), asc("D"), asc("I"), asc("B"))
+	#define GFX_DIRECTX_ACCEL_ AL_ID(asc("D"), asc("X"), asc("A"), asc("C"))
+	#define GFX_DIRECTX_SAFE_ AL_ID(asc("D"), asc("X"), asc("S"), asc("A"))
+	#define GFX_DIRECTX_SOFT_ AL_ID(asc("D"), asc("X"), asc("S"), asc("O"))
+	#define GFX_DIRECTX_WIN_ AL_ID(asc("D"), asc("X"), asc("W"), asc("N"))
+	#define GFX_DIRECTX_OVL_ AL_ID(asc("D"), asc("X"), asc("O"), asc("V"))
+	#define GFX_GDI_ AL_ID(asc("G"), asc("D"), asc("I"), asc("B"))
 #endif
 
 #if defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)
@@ -3058,7 +3100,7 @@ declare function timer_is_using_retrace() as long
 #endif
 
 #ifdef __FB_WIN32__
-	#define GFX_DRIVER_DIRECTX '' TODO: { GFX_DIRECTX_ACCEL, &gfx_directx_accel, TRUE }, { GFX_DIRECTX_SOFT, &gfx_directx_soft, TRUE }, { GFX_DIRECTX_SAFE, &gfx_directx_safe, TRUE }, { GFX_DIRECTX_WIN, &gfx_directx_win, TRUE }, { GFX_DIRECTX_OVL, &gfx_directx_ovl, TRUE }, { GFX_GDI, &gfx_gdi, FALSE },
+	#define GFX_DRIVER_DIRECTX ( GFX_DIRECTX_ACCEL, @gfx_directx_accel, TRUE ), ( GFX_DIRECTX_SOFT, @gfx_directx_soft, TRUE ), ( GFX_DIRECTX_SAFE, @gfx_directx_safe, TRUE ), ( GFX_DIRECTX_WIN, @gfx_directx_win, TRUE ), ( GFX_DIRECTX_OVL, @gfx_directx_ovl, TRUE ), ( GFX_GDI, @gfx_gdi, FALSE ),
 	#define DIGI_DIRECTX(n) AL_ID(asc("D"), asc("X"), asc("A") + (n), asc(" "))
 	#define DIGI_DIRECTAMX(n) AL_ID(asc("A"), asc("X"), asc("A") + (n), asc(" "))
 	#define DIGI_WAVOUTID(n) AL_ID(asc("W"), asc("O"), asc("A") + (n), asc(" "))
@@ -3078,12 +3120,12 @@ declare function timer_is_using_retrace() as long
 #endif
 
 #ifdef __FB_WIN32__
-	#define JOYSTICK_DRIVER_DIRECTX '' TODO: { JOY_TYPE_DIRECTX, &joystick_directx, TRUE },
-	#define JOYSTICK_DRIVER_WIN32 '' TODO: { JOY_TYPE_WIN32, &joystick_win32, TRUE },
+	#define JOYSTICK_DRIVER_DIRECTX ( JOY_TYPE_DIRECTX, @joystick_directx, TRUE ),
+	#define JOYSTICK_DRIVER_WIN32 ( JOY_TYPE_WIN32, @joystick_win32, TRUE ),
 #elseif defined(__FB_LINUX__)
 	extern __crt0_argc as long
 	extern __crt0_argv as zstring ptr ptr
-	#define TIMERDRV_UNIX_PTHREADS AL_ID(asc("P"), asc("T"), asc("H"), asc("R"))
+	#define TIMERDRV_UNIX_PTHREADS_ AL_ID(asc("P"), asc("T"), asc("H"), asc("R"))
 	#define TIMERDRV_UNIX_SIGALRM AL_ID(asc("A"), asc("L"), asc("R"), asc("M"))
 	extern timerdrv_unix_pthreads as TIMER_DRIVER
 	#define DIGI_OSS AL_ID(asc("O"), asc("S"), asc("S"), asc("D"))
@@ -3103,22 +3145,22 @@ declare function timer_is_using_retrace() as long
 	#define GFX_XDGA_FULLSCREEN AL_ID(asc("X"), asc("D"), asc("F"), asc("S"))
 	#define GFX_XDGA2 AL_ID(asc("D"), asc("G"), asc("A"), asc("2"))
 	#define GFX_XDGA2_SOFT AL_ID(asc("D"), asc("G"), asc("A"), asc("S"))
-	#define SYSTEM_LINUX AL_ID(asc("L"), asc("N"), asc("X"), asc("C"))
+	#define SYSTEM_LINUX_ AL_ID(asc("L"), asc("N"), asc("X"), asc("C"))
 #else
-	#define SYSTEM_DOS AL_ID(asc("D"), asc("O"), asc("S"), asc(" "))
+	#define SYSTEM_DOS_ AL_ID(asc("D"), asc("O"), asc("S"), asc(" "))
 	extern system_dos as SYSTEM_DRIVER
 	extern i_love_bill as long
-	#define KEYDRV_PCDOS AL_ID(asc("P"), asc("C"), asc("K"), asc("B"))
+	#define KEYDRV_PCDOS_ AL_ID(asc("P"), asc("C"), asc("K"), asc("B"))
 	extern keydrv_pcdos as KEYBOARD_DRIVER
-	#define TIMEDRV_FIXED_RATE AL_ID(asc("F"), asc("I"), asc("X"), asc("T"))
-	#define TIMEDRV_VARIABLE_RATE AL_ID(asc("V"), asc("A"), asc("R"), asc("T"))
+	#define TIMEDRV_FIXED_RATE_ AL_ID(asc("F"), asc("I"), asc("X"), asc("T"))
+	#define TIMEDRV_VARIABLE_RATE_ AL_ID(asc("V"), asc("A"), asc("R"), asc("T"))
 	extern timedrv_fixed_rate as TIMER_DRIVER
 	extern timedrv_variable_rate as TIMER_DRIVER
-	#define MOUSEDRV_MICKEYS AL_ID(asc("M"), asc("I"), asc("C"), asc("K"))
-	#define MOUSEDRV_INT33 AL_ID(asc("I"), asc("3"), asc("3"), asc(" "))
-	#define MOUSEDRV_POLLING AL_ID(asc("P"), asc("O"), asc("L"), asc("L"))
-	#define MOUSEDRV_WINNT AL_ID(asc("W"), asc("N"), asc("T"), asc(" "))
-	#define MOUSEDRV_WIN2K AL_ID(asc("W"), asc("2"), asc("K"), asc(" "))
+	#define MOUSEDRV_MICKEYS_ AL_ID(asc("M"), asc("I"), asc("C"), asc("K"))
+	#define MOUSEDRV_INT33_ AL_ID(asc("I"), asc("3"), asc("3"), asc(" "))
+	#define MOUSEDRV_POLLING_ AL_ID(asc("P"), asc("O"), asc("L"), asc("L"))
+	#define MOUSEDRV_WINNT_ AL_ID(asc("W"), asc("N"), asc("T"), asc(" "))
+	#define MOUSEDRV_WIN2K_ AL_ID(asc("W"), asc("2"), asc("K"), asc(" "))
 
 	extern mousedrv_mickeys as MOUSE_DRIVER
 	extern mousedrv_int33 as MOUSE_DRIVER
@@ -3191,20 +3233,20 @@ declare function timer_is_using_retrace() as long
 	extern joystick_sg2 as JOYSTICK_DRIVER
 	extern joystick_sg2f as JOYSTICK_DRIVER
 	extern joystick_ww as JOYSTICK_DRIVER
+	#define JOYSTICK_DRIVER_STANDARD ( JOY_TYPE_STANDARD, @joystick_standard, TRUE ), ( JOY_TYPE_2PADS, @joystick_2pads, FALSE ), ( JOY_TYPE_4BUTTON, @joystick_4button, FALSE ), ( JOY_TYPE_6BUTTON, @joystick_6button, FALSE ), ( JOY_TYPE_8BUTTON, @joystick_8button, FALSE ), ( JOY_TYPE_FSPRO, @joystick_fspro, FALSE ), ( JOY_TYPE_WINGEX, @joystick_wingex, FALSE ),
+	#define JOYSTICK_DRIVER_SIDEWINDER ( JOY_TYPE_SIDEWINDER, @joystick_sw, TRUE ), ( JOY_TYPE_SIDEWINDER_AG, @joystick_sw_ag, TRUE ), ( JOY_TYPE_SIDEWINDER_PP, @joystick_sw_pp, TRUE ),
+	#define JOYSTICK_DRIVER_GAMEPAD_PRO ( JOY_TYPE_GAMEPAD_PRO, @joystick_gpro, TRUE ),
+	#define JOYSTICK_DRIVER_GRIP ( JOY_TYPE_GRIP, @joystick_grip, TRUE ), ( JOY_TYPE_GRIP4, @joystick_grip4, TRUE ),
+	#define JOYSTICK_DRIVER_SNESPAD ( JOY_TYPE_SNESPAD_LPT1, @joystick_sp1, FALSE ), ( JOY_TYPE_SNESPAD_LPT2, @joystick_sp2, FALSE ), ( JOY_TYPE_SNESPAD_LPT3, @joystick_sp3, FALSE ),
+	#define JOYSTICK_DRIVER_PSXPAD ( JOY_TYPE_PSXPAD_LPT1, @joystick_psx1, FALSE ), ( JOY_TYPE_PSXPAD_LPT2, @joystick_psx2, FALSE ), ( JOY_TYPE_PSXPAD_LPT3, @joystick_psx3, FALSE ),
+	#define JOYSTICK_DRIVER_N64PAD ( JOY_TYPE_N64PAD_LPT1, @joystick_n641, FALSE ), ( JOY_TYPE_N64PAD_LPT2, @joystick_n642, FALSE ), ( JOY_TYPE_N64PAD_LPT3, @joystick_n643, FALSE ),
+	#define JOYSTICK_DRIVER_DB9 ( JOY_TYPE_DB9_LPT1, @joystick_db91, FALSE ), ( JOY_TYPE_DB9_LPT2, @joystick_db92, FALSE ), ( JOY_TYPE_DB9_LPT3, @joystick_db93, FALSE ),
+	#define JOYSTICK_DRIVER_TURBOGRAFX ( JOY_TYPE_TURBOGRAFX_LPT1,@joystick_tgx1, FALSE ), ( JOY_TYPE_TURBOGRAFX_LPT2,@joystick_tgx2, FALSE ), ( JOY_TYPE_TURBOGRAFX_LPT3,@joystick_tgx3, FALSE ),
+	#define JOYSTICK_DRIVER_IFSEGA_ISA ( JOY_TYPE_IFSEGA_ISA, @joystick_sg1, FALSE ),
+	#define JOYSTICK_DRIVER_IFSEGA_PCI ( JOY_TYPE_IFSEGA_PCI, @joystick_sg2, FALSE ),
+	#define JOYSTICK_DRIVER_IFSEGA_PCI_FAST ( JOY_TYPE_IFSEGA_PCI_FAST,@joystick_sg2f, FALSE ),
+	#define JOYSTICK_DRIVER_WINGWARRIOR ( JOY_TYPE_WINGWARRIOR, @joystick_ww, TRUE ),
 
-	#define JOYSTICK_DRIVER_STANDARD '' TODO: { JOY_TYPE_STANDARD, &joystick_standard, TRUE }, { JOY_TYPE_2PADS, &joystick_2pads, FALSE }, { JOY_TYPE_4BUTTON, &joystick_4button, FALSE }, { JOY_TYPE_6BUTTON, &joystick_6button, FALSE }, { JOY_TYPE_8BUTTON, &joystick_8button, FALSE }, { JOY_TYPE_FSPRO, &joystick_fspro, FALSE }, { JOY_TYPE_WINGEX, &joystick_wingex, FALSE },
-	#define JOYSTICK_DRIVER_SIDEWINDER '' TODO: { JOY_TYPE_SIDEWINDER, &joystick_sw, TRUE }, { JOY_TYPE_SIDEWINDER_AG, &joystick_sw_ag, TRUE }, { JOY_TYPE_SIDEWINDER_PP, &joystick_sw_pp, TRUE },
-	#define JOYSTICK_DRIVER_GAMEPAD_PRO '' TODO: { JOY_TYPE_GAMEPAD_PRO, &joystick_gpro, TRUE },
-	#define JOYSTICK_DRIVER_GRIP '' TODO: { JOY_TYPE_GRIP, &joystick_grip, TRUE }, { JOY_TYPE_GRIP4, &joystick_grip4, TRUE },
-	#define JOYSTICK_DRIVER_SNESPAD '' TODO: { JOY_TYPE_SNESPAD_LPT1, &joystick_sp1, FALSE }, { JOY_TYPE_SNESPAD_LPT2, &joystick_sp2, FALSE }, { JOY_TYPE_SNESPAD_LPT3, &joystick_sp3, FALSE },
-	#define JOYSTICK_DRIVER_PSXPAD '' TODO: { JOY_TYPE_PSXPAD_LPT1, &joystick_psx1, FALSE }, { JOY_TYPE_PSXPAD_LPT2, &joystick_psx2, FALSE }, { JOY_TYPE_PSXPAD_LPT3, &joystick_psx3, FALSE },
-	#define JOYSTICK_DRIVER_N64PAD '' TODO: { JOY_TYPE_N64PAD_LPT1, &joystick_n641, FALSE }, { JOY_TYPE_N64PAD_LPT2, &joystick_n642, FALSE }, { JOY_TYPE_N64PAD_LPT3, &joystick_n643, FALSE },
-	#define JOYSTICK_DRIVER_DB9 '' TODO: { JOY_TYPE_DB9_LPT1, &joystick_db91, FALSE }, { JOY_TYPE_DB9_LPT2, &joystick_db92, FALSE }, { JOY_TYPE_DB9_LPT3, &joystick_db93, FALSE },
-	#define JOYSTICK_DRIVER_TURBOGRAFX '' TODO: { JOY_TYPE_TURBOGRAFX_LPT1,&joystick_tgx1, FALSE }, { JOY_TYPE_TURBOGRAFX_LPT2,&joystick_tgx2, FALSE }, { JOY_TYPE_TURBOGRAFX_LPT3,&joystick_tgx3, FALSE },
-	#define JOYSTICK_DRIVER_IFSEGA_ISA '' TODO: { JOY_TYPE_IFSEGA_ISA, &joystick_sg1, FALSE },
-	#define JOYSTICK_DRIVER_IFSEGA_PCI '' TODO: { JOY_TYPE_IFSEGA_PCI, &joystick_sg2, FALSE },
-	#define JOYSTICK_DRIVER_IFSEGA_PCI_FAST '' TODO: { JOY_TYPE_IFSEGA_PCI_FAST,&joystick_sg2f, FALSE },
-	#define JOYSTICK_DRIVER_WINGWARRIOR '' TODO: { JOY_TYPE_WINGWARRIOR, &joystick_ww, TRUE },
 	#define joy_FSPRO_trigger joy_b1
 	#define joy_FSPRO_butleft joy_b2
 	#define joy_FSPRO_butright joy_b3
@@ -3224,8 +3266,8 @@ declare function timer_is_using_retrace() as long
 #endif
 
 #if defined(__FB_DOS__) or defined(__FB_LINUX__)
-	#define GFX_VGA AL_ID(asc("V"), asc("G"), asc("A"), asc(" "))
-	#define GFX_MODEX AL_ID(asc("M"), asc("O"), asc("D"), asc("X"))
+	#define GFX_VGA_ AL_ID(asc("V"), asc("G"), asc("A"), asc(" "))
+	#define GFX_MODEX_ AL_ID(asc("M"), asc("O"), asc("D"), asc("X"))
 #endif
 
 #ifdef __FB_LINUX__
@@ -3238,18 +3280,18 @@ declare function timer_is_using_retrace() as long
 #endif
 
 #if defined(__FB_DOS__) or defined(__FB_LINUX__)
-	#define GFX_VBEAF AL_ID(asc("V"), asc("B"), asc("A"), asc("F"))
+	#define GFX_VBEAF_ AL_ID(asc("V"), asc("B"), asc("A"), asc("F"))
 #endif
 
 #ifdef __FB_LINUX__
 	#define GFX_SVGALIB AL_ID(asc("S"), asc("V"), asc("G"), asc("A"))
 	#define KEYDRV_LINUX AL_ID(asc("L"), asc("N"), asc("X"), asc("C"))
-	#define MOUSEDRV_LINUX_PS2 AL_ID(asc("L"), asc("P"), asc("S"), asc("2"))
-	#define MOUSEDRV_LINUX_IPS2 AL_ID(asc("L"), asc("I"), asc("P"), asc("S"))
-	#define MOUSEDRV_LINUX_GPMDATA AL_ID(asc("G"), asc("P"), asc("M"), asc("D"))
-	#define MOUSEDRV_LINUX_MS AL_ID(asc("M"), asc("S"), asc(" "), asc(" "))
-	#define MOUSEDRV_LINUX_IMS AL_ID(asc("I"), asc("M"), asc("S"), asc(" "))
-	#define MOUSEDRV_LINUX_EVDEV AL_ID(asc("E"), asc("V"), asc(" "), asc(" "))
+	#define MOUSEDRV_LINUX_PS2_ AL_ID(asc("L"), asc("P"), asc("S"), asc("2"))
+	#define MOUSEDRV_LINUX_IPS2_ AL_ID(asc("L"), asc("I"), asc("P"), asc("S"))
+	#define MOUSEDRV_LINUX_GPMDATA_ AL_ID(asc("G"), asc("P"), asc("M"), asc("D"))
+	#define MOUSEDRV_LINUX_MS_ AL_ID(asc("M"), asc("S"), asc(" "), asc(" "))
+	#define MOUSEDRV_LINUX_IMS_ AL_ID(asc("I"), asc("M"), asc("S"), asc(" "))
+	#define MOUSEDRV_LINUX_EVDEV_ AL_ID(asc("E"), asc("V"), asc(" "), asc(" "))
 	#define JOY_TYPE_LINUX_ANALOGUE AL_ID(asc("L"), asc("N"), asc("X"), asc("A"))
 
 	extern system_linux as SYSTEM_DRIVER
@@ -3260,7 +3302,7 @@ declare function timer_is_using_retrace() as long
 	extern mousedrv_linux_ims as MOUSE_DRIVER
 	extern mousedrv_linux_evdev as MOUSE_DRIVER
 #elseif defined(__FB_DOS__)
-	#define GFX_XTENDED AL_ID(asc("X"), asc("T"), asc("N"), asc("D"))
+	#define GFX_XTENDED_ AL_ID(asc("X"), asc("T"), asc("N"), asc("D"))
 	extern gfx_vga as GFX_DRIVER
 	extern gfx_modex as GFX_DRIVER
 	extern gfx_vesa_1 as GFX_DRIVER
@@ -3269,15 +3311,14 @@ declare function timer_is_using_retrace() as long
 	extern gfx_vesa_3 as GFX_DRIVER
 	extern gfx_vbeaf as GFX_DRIVER
 	extern gfx_xtended as GFX_DRIVER
-
-	#define GFX_DRIVER_VGA '' TODO: { GFX_VGA, &gfx_vga, TRUE },
-	#define GFX_DRIVER_MODEX '' TODO: { GFX_MODEX, &gfx_modex, TRUE },
-	#define GFX_DRIVER_VBEAF '' TODO: { GFX_VBEAF, &gfx_vbeaf, TRUE },
-	#define GFX_DRIVER_VESA3 '' TODO: { GFX_VESA3, &gfx_vesa_3, TRUE },
-	#define GFX_DRIVER_VESA2L '' TODO: { GFX_VESA2L, &gfx_vesa_2l, TRUE },
-	#define GFX_DRIVER_VESA2B '' TODO: { GFX_VESA2B, &gfx_vesa_2b, TRUE },
-	#define GFX_DRIVER_XTENDED '' TODO: { GFX_XTENDED, &gfx_xtended, FALSE },
-	#define GFX_DRIVER_VESA1 '' TODO: { GFX_VESA1, &gfx_vesa_1, TRUE },
+	#define GFX_DRIVER_VGA ( GFX_VGA, @gfx_vga, TRUE ),
+	#define GFX_DRIVER_MODEX ( GFX_MODEX, @gfx_modex, TRUE ),
+	#define GFX_DRIVER_VBEAF ( GFX_VBEAF, @gfx_vbeaf, TRUE ),
+	#define GFX_DRIVER_VESA3 ( GFX_VESA3, @gfx_vesa_3, TRUE ),
+	#define GFX_DRIVER_VESA2L ( GFX_VESA2L, @gfx_vesa_2l, TRUE ),
+	#define GFX_DRIVER_VESA2B ( GFX_VESA2B, @gfx_vesa_2b, TRUE ),
+	#define GFX_DRIVER_XTENDED ( GFX_XTENDED, @gfx_xtended, FALSE ),
+	#define GFX_DRIVER_VESA1 ( GFX_VESA1, @gfx_vesa_1, TRUE ),
 #endif
 
 #if defined(__FB_DOS__) or defined(__FB_LINUX__)
@@ -3286,20 +3327,20 @@ declare function timer_is_using_retrace() as long
 
 #ifdef __FB_DOS__
 	declare sub _set_color(byval index as long, byval p as const RGB ptr)
-	#define DIGI_SB10 AL_ID(asc("S"), asc("B"), asc("1"), asc("0"))
-	#define DIGI_SB15 AL_ID(asc("S"), asc("B"), asc("1"), asc("5"))
-	#define DIGI_SB20 AL_ID(asc("S"), asc("B"), asc("2"), asc("0"))
-	#define DIGI_SBPRO AL_ID(asc("S"), asc("B"), asc("P"), asc(" "))
-	#define DIGI_SB16 AL_ID(asc("S"), asc("B"), asc("1"), asc("6"))
-	#define DIGI_AUDIODRIVE AL_ID(asc("E"), asc("S"), asc("S"), asc(" "))
-	#define DIGI_SOUNDSCAPE AL_ID(asc("E"), asc("S"), asc("C"), asc(" "))
+	#define DIGI_SB10_ AL_ID(asc("S"), asc("B"), asc("1"), asc("0"))
+	#define DIGI_SB15_ AL_ID(asc("S"), asc("B"), asc("1"), asc("5"))
+	#define DIGI_SB20_ AL_ID(asc("S"), asc("B"), asc("2"), asc("0"))
+	#define DIGI_SBPRO_ AL_ID(asc("S"), asc("B"), asc("P"), asc(" "))
+	#define DIGI_SB16_ AL_ID(asc("S"), asc("B"), asc("1"), asc("6"))
+	#define DIGI_AUDIODRIVE_ AL_ID(asc("E"), asc("S"), asc("S"), asc(" "))
+	#define DIGI_SOUNDSCAPE_ AL_ID(asc("E"), asc("S"), asc("C"), asc(" "))
 	#define DIGI_WINSOUNDSYS AL_ID(asc("W"), asc("S"), asc("S"), asc(" "))
-	#define MIDI_OPL2 AL_ID(asc("O"), asc("P"), asc("L"), asc("2"))
-	#define MIDI_2XOPL2 AL_ID(asc("O"), asc("P"), asc("L"), asc("X"))
-	#define MIDI_OPL3 AL_ID(asc("O"), asc("P"), asc("L"), asc("3"))
-	#define MIDI_SB_OUT AL_ID(asc("S"), asc("B"), asc(" "), asc(" "))
+	#define MIDI_OPL2_ AL_ID(asc("O"), asc("P"), asc("L"), asc("2"))
+	#define MIDI_2XOPL2_ AL_ID(asc("O"), asc("P"), asc("L"), asc("X"))
+	#define MIDI_OPL3_ AL_ID(asc("O"), asc("P"), asc("L"), asc("3"))
+	#define MIDI_SB_OUT_ AL_ID(asc("S"), asc("B"), asc(" "), asc(" "))
 	#define MIDI_MPU AL_ID(asc("M"), asc("P"), asc("U"), asc(" "))
-	#define MIDI_AWE32 AL_ID(asc("A"), asc("W"), asc("E"), asc(" "))
+	#define MIDI_AWE32_ AL_ID(asc("A"), asc("W"), asc("E"), asc(" "))
 
 	extern digi_sb10 as DIGI_DRIVER
 	extern digi_sb15 as DIGI_DRIVER
@@ -3315,15 +3356,14 @@ declare function timer_is_using_retrace() as long
 	extern midi_sb_out as MIDI_DRIVER
 	extern midi_mpu401 as MIDI_DRIVER
 	extern midi_awe32 as MIDI_DRIVER
-
-	#define DIGI_DRIVER_WINSOUNDSYS '' TODO: { DIGI_WINSOUNDSYS, &digi_wss, FALSE },
-	#define DIGI_DRIVER_AUDIODRIVE '' TODO: { DIGI_AUDIODRIVE, &digi_audiodrive, TRUE },
-	#define DIGI_DRIVER_SOUNDSCAPE '' TODO: { DIGI_SOUNDSCAPE, &digi_soundscape, TRUE },
-	#define DIGI_DRIVER_SB '' TODO: { DIGI_SB16, &digi_sb16, TRUE }, { DIGI_SBPRO, &digi_sbpro, TRUE }, { DIGI_SB20, &digi_sb20, TRUE }, { DIGI_SB15, &digi_sb15, TRUE }, { DIGI_SB10, &digi_sb10, TRUE },
-	#define MIDI_DRIVER_AWE32 '' TODO: { MIDI_AWE32, &midi_awe32, TRUE },
-	#define MIDI_DRIVER_ADLIB '' TODO: { MIDI_OPL3, &midi_opl3, TRUE }, { MIDI_2XOPL2, &midi_2xopl2, TRUE }, { MIDI_OPL2, &midi_opl2, TRUE },
-	#define MIDI_DRIVER_SB_OUT '' TODO: { MIDI_SB_OUT, &midi_sb_out, FALSE },
-	#define MIDI_DRIVER_MPU '' TODO: { MIDI_MPU, &midi_mpu401, FALSE },
+	#define DIGI_DRIVER_WINSOUNDSYS ( DIGI_WINSOUNDSYS, @digi_wss, FALSE ),
+	#define DIGI_DRIVER_AUDIODRIVE ( DIGI_AUDIODRIVE, @digi_audiodrive, TRUE ),
+	#define DIGI_DRIVER_SOUNDSCAPE ( DIGI_SOUNDSCAPE, @digi_soundscape, TRUE ),
+	#define DIGI_DRIVER_SB ( DIGI_SB16, @digi_sb16, TRUE ), ( DIGI_SBPRO, @digi_sbpro, TRUE ), ( DIGI_SB20, @digi_sb20, TRUE ), ( DIGI_SB15, @digi_sb15, TRUE ), ( DIGI_SB10, @digi_sb10, TRUE ),
+	#define MIDI_DRIVER_AWE32 ( MIDI_AWE32, @midi_awe32, TRUE ),
+	#define MIDI_DRIVER_ADLIB ( MIDI_OPL3, @midi_opl3, TRUE ), ( MIDI_2XOPL2, @midi_2xopl2, TRUE ), ( MIDI_OPL2, @midi_opl2, TRUE ),
+	#define MIDI_DRIVER_SB_OUT ( MIDI_SB_OUT, @midi_sb_out, FALSE ),
+	#define MIDI_DRIVER_MPU ( MIDI_MPU, @midi_mpu401, FALSE ),
 	declare function load_ibk(byval filename as const zstring ptr, byval drums as long) as long
 #endif
 

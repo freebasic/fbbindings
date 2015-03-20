@@ -43,7 +43,16 @@ allegro4:
 		extracted/alpng13/src/alpng.h \
 		-emit '*/algif.h' inc/allegro/algif.bi \
 		-emit '*/alpng.h' inc/allegro/alpng.bi \
-		-emit '*'         inc/allegro.bi
+		-emit '*'         inc/allegro.bi \
+		-inclib alleg  inc/allegro.bi \
+		-inclib algif  inc/allegro/algif.bi \
+		-inclib alpng  inc/allegro/alpng.bi \
+		-undef screen  inc/allegro.bi \
+		-undef circle  inc/allegro.bi \
+		-undef line    inc/allegro.bi \
+		-undef palette inc/allegro.bi \
+		-undef rgb     inc/allegro.bi \
+		-addinclude allegro.bi inc/allegro/alpng.bi
 
 ALLEGRO5_VERSION := 5.0.10
 ALLEGRO5_TITLE := allegro-$(ALLEGRO5_VERSION)

@@ -1,0 +1,166 @@
+convert c: #define bmp_write24(addr, c) ({ _farnspokew(addr, c&0xFFFF); _farnspokeb(addr+2, c>>16); })
+to c:      #define bmp_write24(addr, c)  { _farnspokew(addr, c&0xFFFF); _farnspokeb(addr+2, c>>16); }
+
+convert c: #define _AL_SINCOS(x, s, c) do { (c) = cos(x); (s) = sin(x); } while (0)
+to fb:
+	#macro _AL_SINCOS(x, s, c)
+		scope
+			(c) = cos(x)
+			(s) = sin(x)
+		end scope
+	#endmacro
+
+convert c: #define _farnspokeb(addr, val) (*((uint8_t *)(addr)) = (val))
+to fb:     #define _farnspokeb(addr, val) *cptr(ubyte ptr, (addr)) = (val)
+
+convert c: #define _farnspokew(addr, val) (*((uint16_t *)(addr)) = (val))
+to fb:     #define _farnspokew(addr, val) *cptr(ushort ptr, (addr)) = (val)
+
+convert c: #define _farnspokel(addr, val) (*((uint32_t *)(addr)) = (val))
+to fb:     #define _farnspokel(addr, val) *cptr(ulong ptr, (addr)) = (val)
+
+convert c:
+	#define READ3BYTES(p) \
+		  ((*(unsigned char *)(p)) \
+		| (*((unsigned char *)(p) + 1) << 8) \
+		| (*((unsigned char *)(p) + 2) << 16))
+to fb:
+	#define READ3BYTES(p) _
+		( cptr(ubyte ptr, (p))[0]        or _
+		 (cptr(ubyte ptr, (p))[1] shl 8) or _
+		 (cptr(ubyte ptr, (p))[2] shl 16) )
+
+convert c:
+	#define WRITE3BYTES(p, c) \
+		( (*(unsigned char *)(p) = (c)), \
+		 (*((unsigned char *)(p) + 1) = (c) >> 8), \
+		 (*((unsigned char *)(p) + 2) = (c) >> 16))
+to fb:
+	#macro WRITE3BYTES(p, c)
+		scope
+			cptr(ubyte ptr, (p))[0] = (c)
+			cptr(ubyte ptr, (p))[1] = (c) shr 8
+			cptr(ubyte ptr, (p))[2] = (c) shr 16
+		end scope
+	#endmacro
+
+convert c: #define bmp_write8(addr, c)  (*((uint8_t *)(addr)) = (c))
+to fb:     #define bmp_write8(addr, c) *cptr(ubyte ptr, (addr)) = (c)
+
+convert c: #define bmp_write15(addr, c) (*((uint16_t *)(addr)) = (c))
+to fb:     #define bmp_write15(addr, c) *cptr(ushort ptr, (addr)) = (c)
+
+convert c: #define bmp_write16(addr, c) (*((uint16_t *)(addr)) = (c))
+to fb:     #define bmp_write16(addr, c) *cptr(ushort ptr, (addr)) = (c)
+
+convert c: #define bmp_write32(addr, c) (*((uint32_t *)(addr)) = (c))
+to fb:     #define bmp_write32(addr, c) *cptr(ulong ptr, (addr)) = (c)
+
+convert c: #define allegro_init() _install_allegro_version_check(SYSTEM_AUTODETECT, &errno,                            (int (*)(void (*)(void)))atexit , MAKE_VERSION(ALLEGRO_VERSION, ALLEGRO_SUB_VERSION, ALLEGRO_WIP_VERSION))
+to fb:     #define allegro_init() _install_allegro_version_check(SYSTEM_AUTODETECT, @errno, cptr(function cdecl(byval as sub cdecl()) as long, @atexit), MAKE_VERSION(ALLEGRO_VERSION, ALLEGRO_SUB_VERSION, ALLEGRO_WIP_VERSION))
+
+convert c: #define BEGIN_JOYSTICK_DRIVER_LIST _DRIVER_INFO _joystick_driver_list[] = {
+to fb:     #define BEGIN_JOYSTICK_DRIVER_LIST dim as _DRIVER_INFO _joystick_driver_list(0 to ...) = {
+convert c: #define END_JOYSTICK_DRIVER_LIST { JOY_TYPE_NONE, &joystick_none, TRUE }, { 0, NULL, 0 } };
+to fb:     #define END_JOYSTICK_DRIVER_LIST ( JOY_TYPE_NONE, @joystick_none, TRUE ), ( 0, NULL, 0 ) }
+
+convert c: #define BEGIN_GFX_DRIVER_LIST _DRIVER_INFO _gfx_driver_list[] = {
+to fb:     #define BEGIN_GFX_DRIVER_LIST dim as _DRIVER_INFO _gfx_driver_list(0 to ...) = {
+convert c: #define END_GFX_DRIVER_LIST { 0, NULL, 0 } };
+to fb:     #define END_GFX_DRIVER_LIST ( 0, NULL, 0 ) }
+
+convert c: #define BEGIN_COLOR_DEPTH_LIST _VTABLE_INFO _vtable_list[] = {
+to fb:     #define BEGIN_COLOR_DEPTH_LIST dim as _VTABLE_INFO _vtable_list(0 to ...) = {
+convert c: #define END_COLOR_DEPTH_LIST { 0, NULL } };
+to fb:     #define END_COLOR_DEPTH_LIST ( 0, NULL ) }
+convert c: #define COLOR_DEPTH_8 { 8, &__linear_vtable8 },
+to fb:     #define COLOR_DEPTH_8 ( 8, @__linear_vtable8 ),
+convert c: #define COLOR_DEPTH_15 { 15, &__linear_vtable15 },
+to fb:     #define COLOR_DEPTH_15 ( 15, @__linear_vtable15 ),
+convert c: #define COLOR_DEPTH_16 { 16, &__linear_vtable16 },
+to fb:     #define COLOR_DEPTH_16 ( 16, @__linear_vtable16 ),
+convert c: #define COLOR_DEPTH_24 { 24, &__linear_vtable24 },
+to fb:     #define COLOR_DEPTH_24 ( 24, @__linear_vtable24 ),
+convert c: #define COLOR_DEPTH_32 { 32, &__linear_vtable32 },
+to fb:     #define COLOR_DEPTH_32 ( 32, @__linear_vtable32 ),
+
+convert c: #define BEGIN_DIGI_DRIVER_LIST _DRIVER_INFO _digi_driver_list[] = {
+to fb:     #define BEGIN_DIGI_DRIVER_LIST dim as _DRIVER_INFO _digi_driver_list(0 to ...) = {
+convert c: #define END_DIGI_DRIVER_LIST { 0, NULL, 0 } };
+to fb:     #define END_DIGI_DRIVER_LIST ( 0, NULL, 0 ) }
+
+convert c: #define BEGIN_MIDI_DRIVER_LIST _DRIVER_INFO _midi_driver_list[] = {
+to fb:     #define BEGIN_MIDI_DRIVER_LIST dim as _DRIVER_INFO _midi_driver_list(0 to ...) = {
+convert c: #define END_MIDI_DRIVER_LIST { 0, NULL, 0 } };
+to fb:     #define END_MIDI_DRIVER_LIST ( 0, NULL, 0 ) }
+convert c: #define MIDI_DRIVER_DIGMID { MIDI_DIGMID, &midi_digmid, TRUE },
+to fb:     #define MIDI_DRIVER_DIGMID ( MIDI_DIGMID, @midi_digmid, TRUE ),
+
+convert c: #define GFX_DRIVER_DIRECTX { GFX_DIRECTX_ACCEL, &gfx_directx_accel, TRUE }, { GFX_DIRECTX_SOFT, &gfx_directx_soft, TRUE }, { GFX_DIRECTX_SAFE, &gfx_directx_safe, TRUE }, { GFX_DIRECTX_WIN, &gfx_directx_win, TRUE }, { GFX_DIRECTX_OVL, &gfx_directx_ovl, TRUE }, { GFX_GDI, &gfx_gdi, FALSE },
+to fb:     #define GFX_DRIVER_DIRECTX ( GFX_DIRECTX_ACCEL, @gfx_directx_accel, TRUE ), ( GFX_DIRECTX_SOFT, @gfx_directx_soft, TRUE ), ( GFX_DIRECTX_SAFE, @gfx_directx_safe, TRUE ), ( GFX_DIRECTX_WIN, @gfx_directx_win, TRUE ), ( GFX_DIRECTX_OVL, @gfx_directx_ovl, TRUE ), ( GFX_GDI, @gfx_gdi, FALSE ),
+
+convert c: #define JOYSTICK_DRIVER_DIRECTX { JOY_TYPE_DIRECTX, &joystick_directx, TRUE },
+to fb:     #define JOYSTICK_DRIVER_DIRECTX ( JOY_TYPE_DIRECTX, @joystick_directx, TRUE ),
+convert c: #define JOYSTICK_DRIVER_WIN32 { JOY_TYPE_WIN32, &joystick_win32, TRUE },
+to fb:     #define JOYSTICK_DRIVER_WIN32 ( JOY_TYPE_WIN32, @joystick_win32, TRUE ),
+
+convert c: #define JOYSTICK_DRIVER_STANDARD { JOY_TYPE_STANDARD, &joystick_standard, TRUE }, { JOY_TYPE_2PADS, &joystick_2pads, FALSE }, { JOY_TYPE_4BUTTON, &joystick_4button, FALSE }, { JOY_TYPE_6BUTTON, &joystick_6button, FALSE }, { JOY_TYPE_8BUTTON, &joystick_8button, FALSE }, { JOY_TYPE_FSPRO, &joystick_fspro, FALSE }, { JOY_TYPE_WINGEX, &joystick_wingex, FALSE },
+to fb:     #define JOYSTICK_DRIVER_STANDARD ( JOY_TYPE_STANDARD, @joystick_standard, TRUE ), ( JOY_TYPE_2PADS, @joystick_2pads, FALSE ), ( JOY_TYPE_4BUTTON, @joystick_4button, FALSE ), ( JOY_TYPE_6BUTTON, @joystick_6button, FALSE ), ( JOY_TYPE_8BUTTON, @joystick_8button, FALSE ), ( JOY_TYPE_FSPRO, @joystick_fspro, FALSE ), ( JOY_TYPE_WINGEX, @joystick_wingex, FALSE ),
+convert c: #define JOYSTICK_DRIVER_SIDEWINDER { JOY_TYPE_SIDEWINDER, &joystick_sw, TRUE }, { JOY_TYPE_SIDEWINDER_AG, &joystick_sw_ag, TRUE }, { JOY_TYPE_SIDEWINDER_PP, &joystick_sw_pp, TRUE },
+to fb:     #define JOYSTICK_DRIVER_SIDEWINDER ( JOY_TYPE_SIDEWINDER, @joystick_sw, TRUE ), ( JOY_TYPE_SIDEWINDER_AG, @joystick_sw_ag, TRUE ), ( JOY_TYPE_SIDEWINDER_PP, @joystick_sw_pp, TRUE ),
+convert c: #define JOYSTICK_DRIVER_GAMEPAD_PRO { JOY_TYPE_GAMEPAD_PRO, &joystick_gpro, TRUE },
+to fb:     #define JOYSTICK_DRIVER_GAMEPAD_PRO ( JOY_TYPE_GAMEPAD_PRO, @joystick_gpro, TRUE ),
+convert c: #define JOYSTICK_DRIVER_GRIP { JOY_TYPE_GRIP, &joystick_grip, TRUE }, { JOY_TYPE_GRIP4, &joystick_grip4, TRUE },
+to fb:     #define JOYSTICK_DRIVER_GRIP ( JOY_TYPE_GRIP, @joystick_grip, TRUE ), ( JOY_TYPE_GRIP4, @joystick_grip4, TRUE ),
+convert c: #define JOYSTICK_DRIVER_SNESPAD { JOY_TYPE_SNESPAD_LPT1, &joystick_sp1, FALSE }, { JOY_TYPE_SNESPAD_LPT2, &joystick_sp2, FALSE }, { JOY_TYPE_SNESPAD_LPT3, &joystick_sp3, FALSE },
+to fb:     #define JOYSTICK_DRIVER_SNESPAD ( JOY_TYPE_SNESPAD_LPT1, @joystick_sp1, FALSE ), ( JOY_TYPE_SNESPAD_LPT2, @joystick_sp2, FALSE ), ( JOY_TYPE_SNESPAD_LPT3, @joystick_sp3, FALSE ),
+convert c: #define JOYSTICK_DRIVER_PSXPAD { JOY_TYPE_PSXPAD_LPT1, &joystick_psx1, FALSE }, { JOY_TYPE_PSXPAD_LPT2, &joystick_psx2, FALSE }, { JOY_TYPE_PSXPAD_LPT3, &joystick_psx3, FALSE },
+to fb:     #define JOYSTICK_DRIVER_PSXPAD ( JOY_TYPE_PSXPAD_LPT1, @joystick_psx1, FALSE ), ( JOY_TYPE_PSXPAD_LPT2, @joystick_psx2, FALSE ), ( JOY_TYPE_PSXPAD_LPT3, @joystick_psx3, FALSE ),
+convert c: #define JOYSTICK_DRIVER_N64PAD { JOY_TYPE_N64PAD_LPT1, &joystick_n641, FALSE }, { JOY_TYPE_N64PAD_LPT2, &joystick_n642, FALSE }, { JOY_TYPE_N64PAD_LPT3, &joystick_n643, FALSE },
+to fb:     #define JOYSTICK_DRIVER_N64PAD ( JOY_TYPE_N64PAD_LPT1, @joystick_n641, FALSE ), ( JOY_TYPE_N64PAD_LPT2, @joystick_n642, FALSE ), ( JOY_TYPE_N64PAD_LPT3, @joystick_n643, FALSE ),
+convert c: #define JOYSTICK_DRIVER_DB9 { JOY_TYPE_DB9_LPT1, &joystick_db91, FALSE }, { JOY_TYPE_DB9_LPT2, &joystick_db92, FALSE }, { JOY_TYPE_DB9_LPT3, &joystick_db93, FALSE },
+to fb:     #define JOYSTICK_DRIVER_DB9 ( JOY_TYPE_DB9_LPT1, @joystick_db91, FALSE ), ( JOY_TYPE_DB9_LPT2, @joystick_db92, FALSE ), ( JOY_TYPE_DB9_LPT3, @joystick_db93, FALSE ),
+convert c: #define JOYSTICK_DRIVER_TURBOGRAFX { JOY_TYPE_TURBOGRAFX_LPT1,&joystick_tgx1, FALSE }, { JOY_TYPE_TURBOGRAFX_LPT2,&joystick_tgx2, FALSE }, { JOY_TYPE_TURBOGRAFX_LPT3,&joystick_tgx3, FALSE },
+to fb:     #define JOYSTICK_DRIVER_TURBOGRAFX ( JOY_TYPE_TURBOGRAFX_LPT1,@joystick_tgx1, FALSE ), ( JOY_TYPE_TURBOGRAFX_LPT2,@joystick_tgx2, FALSE ), ( JOY_TYPE_TURBOGRAFX_LPT3,@joystick_tgx3, FALSE ),
+convert c: #define JOYSTICK_DRIVER_IFSEGA_ISA { JOY_TYPE_IFSEGA_ISA, &joystick_sg1, FALSE },
+to fb:     #define JOYSTICK_DRIVER_IFSEGA_ISA ( JOY_TYPE_IFSEGA_ISA, @joystick_sg1, FALSE ),
+convert c: #define JOYSTICK_DRIVER_IFSEGA_PCI { JOY_TYPE_IFSEGA_PCI, &joystick_sg2, FALSE },
+to fb:     #define JOYSTICK_DRIVER_IFSEGA_PCI ( JOY_TYPE_IFSEGA_PCI, @joystick_sg2, FALSE ),
+convert c: #define JOYSTICK_DRIVER_IFSEGA_PCI_FAST { JOY_TYPE_IFSEGA_PCI_FAST,&joystick_sg2f, FALSE },
+to fb:     #define JOYSTICK_DRIVER_IFSEGA_PCI_FAST ( JOY_TYPE_IFSEGA_PCI_FAST,@joystick_sg2f, FALSE ),
+convert c: #define JOYSTICK_DRIVER_WINGWARRIOR { JOY_TYPE_WINGWARRIOR, &joystick_ww, TRUE },
+to fb:     #define JOYSTICK_DRIVER_WINGWARRIOR ( JOY_TYPE_WINGWARRIOR, @joystick_ww, TRUE ),
+
+convert c: #define GFX_DRIVER_VGA { GFX_VGA, &gfx_vga, TRUE },
+to fb:     #define GFX_DRIVER_VGA ( GFX_VGA, @gfx_vga, TRUE ),
+convert c: #define GFX_DRIVER_MODEX { GFX_MODEX, &gfx_modex, TRUE },
+to fb:     #define GFX_DRIVER_MODEX ( GFX_MODEX, @gfx_modex, TRUE ),
+convert c: #define GFX_DRIVER_VBEAF { GFX_VBEAF, &gfx_vbeaf, TRUE },
+to fb:     #define GFX_DRIVER_VBEAF ( GFX_VBEAF, @gfx_vbeaf, TRUE ),
+convert c: #define GFX_DRIVER_VESA3 { GFX_VESA3, &gfx_vesa_3, TRUE },
+to fb:     #define GFX_DRIVER_VESA3 ( GFX_VESA3, @gfx_vesa_3, TRUE ),
+convert c: #define GFX_DRIVER_VESA2L { GFX_VESA2L, &gfx_vesa_2l, TRUE },
+to fb:     #define GFX_DRIVER_VESA2L ( GFX_VESA2L, @gfx_vesa_2l, TRUE ),
+convert c: #define GFX_DRIVER_VESA2B { GFX_VESA2B, &gfx_vesa_2b, TRUE },
+to fb:     #define GFX_DRIVER_VESA2B ( GFX_VESA2B, @gfx_vesa_2b, TRUE ),
+convert c: #define GFX_DRIVER_XTENDED { GFX_XTENDED, &gfx_xtended, FALSE },
+to fb:     #define GFX_DRIVER_XTENDED ( GFX_XTENDED, @gfx_xtended, FALSE ),
+convert c: #define GFX_DRIVER_VESA1 { GFX_VESA1, &gfx_vesa_1, TRUE },
+to fb:     #define GFX_DRIVER_VESA1 ( GFX_VESA1, @gfx_vesa_1, TRUE ),
+
+convert c: #define DIGI_DRIVER_WINSOUNDSYS { DIGI_WINSOUNDSYS, &digi_wss, FALSE },
+to fb:     #define DIGI_DRIVER_WINSOUNDSYS ( DIGI_WINSOUNDSYS, @digi_wss, FALSE ),
+convert c: #define DIGI_DRIVER_AUDIODRIVE { DIGI_AUDIODRIVE, &digi_audiodrive, TRUE },
+to fb:     #define DIGI_DRIVER_AUDIODRIVE ( DIGI_AUDIODRIVE, @digi_audiodrive, TRUE ),
+convert c: #define DIGI_DRIVER_SOUNDSCAPE { DIGI_SOUNDSCAPE, &digi_soundscape, TRUE },
+to fb:     #define DIGI_DRIVER_SOUNDSCAPE ( DIGI_SOUNDSCAPE, @digi_soundscape, TRUE ),
+convert c: #define DIGI_DRIVER_SB { DIGI_SB16, &digi_sb16, TRUE }, { DIGI_SBPRO, &digi_sbpro, TRUE }, { DIGI_SB20, &digi_sb20, TRUE }, { DIGI_SB15, &digi_sb15, TRUE }, { DIGI_SB10, &digi_sb10, TRUE },
+to fb:     #define DIGI_DRIVER_SB ( DIGI_SB16, @digi_sb16, TRUE ), ( DIGI_SBPRO, @digi_sbpro, TRUE ), ( DIGI_SB20, @digi_sb20, TRUE ), ( DIGI_SB15, @digi_sb15, TRUE ), ( DIGI_SB10, @digi_sb10, TRUE ),
+convert c: #define MIDI_DRIVER_AWE32 { MIDI_AWE32, &midi_awe32, TRUE },
+to fb:     #define MIDI_DRIVER_AWE32 ( MIDI_AWE32, @midi_awe32, TRUE ),
+convert c: #define MIDI_DRIVER_ADLIB { MIDI_OPL3, &midi_opl3, TRUE }, { MIDI_2XOPL2, &midi_2xopl2, TRUE }, { MIDI_OPL2, &midi_opl2, TRUE },
+to fb:     #define MIDI_DRIVER_ADLIB ( MIDI_OPL3, @midi_opl3, TRUE ), ( MIDI_2XOPL2, @midi_2xopl2, TRUE ), ( MIDI_OPL2, @midi_opl2, TRUE ),
+convert c: #define MIDI_DRIVER_SB_OUT { MIDI_SB_OUT, &midi_sb_out, FALSE },
+to fb:     #define MIDI_DRIVER_SB_OUT ( MIDI_SB_OUT, @midi_sb_out, FALSE ),
+convert c: #define MIDI_DRIVER_MPU { MIDI_MPU, &midi_mpu401, FALSE },
+to fb:     #define MIDI_DRIVER_MPU ( MIDI_MPU, @midi_mpu401, FALSE ),

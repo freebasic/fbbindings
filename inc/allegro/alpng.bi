@@ -1,5 +1,9 @@
 #pragma once
 
+#inclib "alpng"
+
+#include once "allegro.bi"
+
 extern "C"
 
 #define ALPNG_H
