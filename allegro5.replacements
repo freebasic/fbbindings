@@ -1,0 +1,2 @@
+convert c: #define al_init() (al_install_system(ALLEGRO_VERSION_INT, atexit))
+to c:      #define al_init() (al_install_system(ALLEGRO_VERSION_INT, &atexit))

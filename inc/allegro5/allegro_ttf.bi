@@ -1,5 +1,7 @@
 #pragma once
 
+#inclib "allegro_ttf"
+
 #include once "allegro5/allegro.bi"
 #include once "allegro5/allegro_font.bi"
 

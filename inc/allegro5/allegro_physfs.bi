@@ -1,5 +1,7 @@
 #pragma once
 
+#inclib "allegro_physfs"
+
 #include once "allegro5/allegro.bi"
 
 extern "C"

@@ -29,6 +29,8 @@
 -define ALLEGRO_HAVE_MEMCMP
 -define ALLEGRO_HAVE_SYS_TYPES_H
 
+-replacements allegro.replacements
+
 -removedefine AL_ALIAS
 -removedefine AL_ALIAS_VOID_RET
 -removedefine AL_ARRAY
@@ -68,3 +70,5 @@
 -removedefine ABS
 -removedefine SGN
 -removedefine PALLETE
+
+-renamedefine EOF EOF_

@@ -41,7 +41,6 @@ allegro.fbfrog
 -renamedefine DRAW_SPRITE_V_FLIP DRAW_SPRITE_V_FLIP_
 -renamedefine DRAW_SPRITE_VH_FLIP DRAW_SPRITE_VH_FLIP_
 -renamedefine MIDI_DIGMID MIDI_DIGMID_
--renamedefine EOF EOF_
 -renamedefine cpu_fpu cpu_fpu_
 -renamedefine cpu_mmx cpu_mmx_
 -renamedefine cpu_3dnow cpu_3dnow_

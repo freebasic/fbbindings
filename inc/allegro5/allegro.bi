@@ -1,5 +1,7 @@
 #pragma once
 
+#inclib "allegro"
+
 #include once "crt/errno.bi"
 #include once "crt/limits.bi"
 #include once "crt/stdarg.bi"
@@ -8,28 +10,9 @@
 #include once "crt/time.bi"
 #include once "crt/string.bi"
 #include once "crt/sys/types.bi"
-#include once "allegro5/platform/alplatf.bi"
 
-#ifdef __FB_WIN32__
-	#include once "io.bi"
-#endif
-
-#include once "fcntl.bi"
-
-#ifdef __FB_WIN32__
-	#include once "direct.bi"
-	#include once "malloc.bi"
-#else
-	#include once "unistd.bi"
-#endif
-
-#include once "inttypes.bi"
-#include once "stdbool.bi"
-#include once "crt/assert.bi"
-
-#ifdef __FB_WIN32__
-	#include once "windows.bi"
-#endif
+'' The following symbols have been renamed:
+''     #define EOF => EOF_
 
 extern "C"
 
@@ -52,10 +35,19 @@ extern "C"
 
 #define __al_included_allegro5_astdint_h
 #define __al_included_allegro5_astdbool_h
-#define READ3BYTES(p) (((*cptr(ubyte ptr, (p))) or ((*(cptr(ubyte ptr, (p)) + 1)) shl 8)) or ((*(cptr(ubyte ptr, (p)) + 2)) shl 16))
-#define WRITE3BYTES(p, c) '' TODO: ((*(unsigned char *)(p) = (c)), (*((unsigned char *)(p) + 1) = (c) >> 8), (*((unsigned char *)(p) + 2) = (c) >> 16))
-#define bmp_write16(addr, c) '' TODO: (*((uint16_t *)(addr)) = (c))
-#define bmp_write32(addr, c) '' TODO: (*((uint32_t *)(addr)) = (c))
+#define READ3BYTES(p) _
+	( cptr(ubyte ptr, (p))[0]        or _
+	 (cptr(ubyte ptr, (p))[1] shl 8) or _
+	 (cptr(ubyte ptr, (p))[2] shl 16) )
+#macro WRITE3BYTES(p, c)
+	scope
+		cptr(ubyte ptr, (p))[0] = (c)
+		cptr(ubyte ptr, (p))[1] = (c) shr 8
+		cptr(ubyte ptr, (p))[2] = (c) shr 16
+	end scope
+#endmacro
+#define bmp_write16(addr, c) *cptr(ushort ptr, (addr)) = (c)
+#define bmp_write32(addr, c) *cptr(ulong ptr, (addr)) = (c)
 #define bmp_read16(addr) (*cptr(ushort ptr, (addr)))
 #define bmp_read32(addr) (*cptr(ulong ptr, (addr)))
 #define AL_RAND() rand()
@@ -153,6 +145,7 @@ declare sub al_set_new_bitmap_flags(byval flags as long)
 declare function al_get_new_bitmap_format() as long
 declare function al_get_new_bitmap_flags() as long
 declare sub al_add_new_bitmap_flag(byval flag as long)
+type ALLEGRO_BITMAP as ALLEGRO_BITMAP_
 declare function al_get_bitmap_width(byval bitmap as ALLEGRO_BITMAP ptr) as long
 declare function al_get_bitmap_height(byval bitmap as ALLEGRO_BITMAP ptr) as long
 declare function al_get_bitmap_format(byval bitmap as ALLEGRO_BITMAP ptr) as long
@@ -201,6 +194,7 @@ declare sub al_draw_tinted_scaled_rotated_bitmap_region(byval bitmap as ALLEGRO_
 	#define ALLEGRO_NATIVE_DRIVE_SEP asc(!"\0")
 #endif
 
+type ALLEGRO_PATH as ALLEGRO_PATH_
 declare function al_create_path(byval str as const zstring ptr) as ALLEGRO_PATH ptr
 declare function al_create_path_for_directory(byval str as const zstring ptr) as ALLEGRO_PATH ptr
 declare function al_clone_path(byval path as const ALLEGRO_PATH ptr) as ALLEGRO_PATH ptr
@@ -301,6 +295,7 @@ declare function al_ustr_size_utf16(byval us as const ALLEGRO_USTR ptr) as uinte
 declare function al_ustr_encode_utf16(byval us as const ALLEGRO_USTR ptr, byval s as ushort ptr, byval n as uinteger) as uinteger
 declare function al_utf16_width(byval c as long) as uinteger
 declare function al_utf16_encode(byval s as ushort ptr, byval c as long) as uinteger
+type ALLEGRO_FILE as ALLEGRO_FILE_
 
 type ALLEGRO_FILE_INTERFACE
 	fi_fopen as function(byval path as const zstring ptr, byval mode as const zstring ptr) as any ptr
@@ -419,6 +414,7 @@ declare sub al_get_blender(byval op as long ptr, byval source as long ptr, byval
 declare sub al_set_separate_blender(byval op as long, byval source as long, byval dest as long, byval alpha_op as long, byval alpha_source as long, byval alpha_dest as long)
 declare sub al_get_separate_blender(byval op as long ptr, byval source as long ptr, byval dest as long ptr, byval alpha_op as long ptr, byval alpha_src as long ptr, byval alpha_dest as long ptr)
 #define __al_included_allegro5_config_h
+type ALLEGRO_CONFIG as ALLEGRO_CONFIG_
 declare function al_create_config() as ALLEGRO_CONFIG ptr
 declare sub al_add_config_section(byval config as ALLEGRO_CONFIG ptr, byval name as const zstring ptr)
 declare sub al_set_config_value(byval config as ALLEGRO_CONFIG ptr, byval section as const zstring ptr, byval key as const zstring ptr, byval value as const zstring ptr)
@@ -431,8 +427,10 @@ declare function al_save_config_file_f(byval file as ALLEGRO_FILE ptr, byval con
 declare sub al_merge_config_into(byval master as ALLEGRO_CONFIG ptr, byval add as const ALLEGRO_CONFIG ptr)
 declare function al_merge_config(byval cfg1 as const ALLEGRO_CONFIG ptr, byval cfg2 as const ALLEGRO_CONFIG ptr) as ALLEGRO_CONFIG ptr
 declare sub al_destroy_config(byval config as ALLEGRO_CONFIG ptr)
+type ALLEGRO_CONFIG_SECTION as ALLEGRO_CONFIG_SECTION_
 declare function al_get_first_config_section(byval config as const ALLEGRO_CONFIG ptr, byval iterator as ALLEGRO_CONFIG_SECTION ptr ptr) as const zstring ptr
 declare function al_get_next_config_section(byval iterator as ALLEGRO_CONFIG_SECTION ptr ptr) as const zstring ptr
+type ALLEGRO_CONFIG_ENTRY as ALLEGRO_CONFIG_ENTRY_
 declare function al_get_first_config_entry(byval config as const ALLEGRO_CONFIG ptr, byval section as const zstring ptr, byval iterator as ALLEGRO_CONFIG_ENTRY ptr ptr) as const zstring ptr
 declare function al_get_next_config_entry(byval iterator as ALLEGRO_CONFIG_ENTRY ptr ptr) as const zstring ptr
 #define __al_included_allegro5_debug_h
@@ -496,6 +494,8 @@ type ALLEGRO_ANY_EVENT
 	timestamp as double
 end type
 
+type ALLEGRO_DISPLAY as ALLEGRO_DISPLAY_
+
 type ALLEGRO_DISPLAY_EVENT
 	as ALLEGRO_EVENT_TYPE type
 	source as ALLEGRO_DISPLAY ptr
@@ -506,6 +506,8 @@ type ALLEGRO_DISPLAY_EVENT
 	height as long
 	orientation as long
 end type
+
+type ALLEGRO_JOYSTICK as ALLEGRO_JOYSTICK_
 
 type ALLEGRO_JOYSTICK_EVENT
 	as ALLEGRO_EVENT_TYPE type
@@ -518,6 +520,8 @@ type ALLEGRO_JOYSTICK_EVENT
 	button as long
 end type
 
+type ALLEGRO_KEYBOARD as ALLEGRO_KEYBOARD_
+
 type ALLEGRO_KEYBOARD_EVENT
 	as ALLEGRO_EVENT_TYPE type
 	source as ALLEGRO_KEYBOARD ptr
@@ -528,6 +532,8 @@ type ALLEGRO_KEYBOARD_EVENT
 	modifiers as ulong
 	repeat as byte
 end type
+
+type ALLEGRO_MOUSE as ALLEGRO_MOUSE_
 
 type ALLEGRO_MOUSE_EVENT
 	as ALLEGRO_EVENT_TYPE type
@@ -546,6 +552,8 @@ type ALLEGRO_MOUSE_EVENT
 	pressure as single
 end type
 
+type ALLEGRO_TIMER as ALLEGRO_TIMER_
+
 type ALLEGRO_TIMER_EVENT
 	as ALLEGRO_EVENT_TYPE type
 	source as ALLEGRO_TIMER ptr
@@ -553,6 +561,8 @@ type ALLEGRO_TIMER_EVENT
 	count as longint
 	error as double
 end type
+
+type ALLEGRO_USER_EVENT_DESCRIPTOR as ALLEGRO_USER_EVENT_DESCRIPTOR_
 
 type ALLEGRO_USER_EVENT
 	as ALLEGRO_EVENT_TYPE type
@@ -582,6 +592,7 @@ declare function al_emit_user_event(byval as ALLEGRO_EVENT_SOURCE ptr, byval as 
 declare sub al_unref_user_event(byval as ALLEGRO_USER_EVENT ptr)
 declare sub al_set_event_source_data(byval as ALLEGRO_EVENT_SOURCE ptr, byval data as integer)
 declare function al_get_event_source_data(byval as const ALLEGRO_EVENT_SOURCE ptr) as integer
+type ALLEGRO_EVENT_QUEUE as ALLEGRO_EVENT_QUEUE_
 declare function al_create_event_queue() as ALLEGRO_EVENT_QUEUE ptr
 declare sub al_destroy_event_queue(byval as ALLEGRO_EVENT_QUEUE ptr)
 declare sub al_register_event_source(byval as ALLEGRO_EVENT_QUEUE ptr, byval as ALLEGRO_EVENT_SOURCE ptr)
@@ -781,7 +792,7 @@ enum
 	ALLEGRO_FILEMODE_ISDIR = 1 shl 5
 end enum
 
-#define EOF (-1)
+#define EOF_ (-1)
 
 type ALLEGRO_FS_INTERFACE_
 	fs_create_entry as function(byval path as const zstring ptr) as ALLEGRO_FS_ENTRY ptr
@@ -1137,6 +1148,7 @@ enum
 	ALLEGRO_NUM_SYSTEM_MOUSE_CURSORS
 end enum
 
+type ALLEGRO_MOUSE_CURSOR as ALLEGRO_MOUSE_CURSOR_
 declare function al_create_mouse_cursor(byval sprite as ALLEGRO_BITMAP ptr, byval xfocus as long, byval yfocus as long) as ALLEGRO_MOUSE_CURSOR ptr
 declare sub al_destroy_mouse_cursor(byval as ALLEGRO_MOUSE_CURSOR ptr)
 declare function al_set_mouse_cursor(byval display as ALLEGRO_DISPLAY ptr, byval cursor as ALLEGRO_MOUSE_CURSOR ptr) as byte
@@ -1144,10 +1156,11 @@ declare function al_set_system_mouse_cursor(byval display as ALLEGRO_DISPLAY ptr
 declare function al_show_mouse_cursor(byval display as ALLEGRO_DISPLAY ptr) as byte
 declare function al_hide_mouse_cursor(byval display as ALLEGRO_DISPLAY ptr) as byte
 #define __al_included_allegro5_system_h
-#define al_init() al_install_system(ALLEGRO_VERSION_INT, atexit)
+#define al_init() al_install_system(ALLEGRO_VERSION_INT, @atexit)
 declare function al_install_system(byval version as long, byval atexit_ptr as function(byval as sub()) as long) as byte
 declare sub al_uninstall_system()
 declare function al_is_system_installed() as byte
+type ALLEGRO_SYSTEM as ALLEGRO_SYSTEM_
 declare function al_get_system_driver() as ALLEGRO_SYSTEM ptr
 declare function al_get_system_config() as ALLEGRO_CONFIG ptr
 
@@ -1170,6 +1183,7 @@ declare function al_get_org_name() as const zstring ptr
 declare function al_get_app_name() as const zstring ptr
 declare function al_inhibit_screensaver(byval inhibit as byte) as byte
 #define __al_included_allegro5_threads_h
+type ALLEGRO_THREAD as ALLEGRO_THREAD_
 declare function al_create_thread(byval proc as function(byval thread as ALLEGRO_THREAD ptr, byval arg as any ptr) as any ptr, byval arg as any ptr) as ALLEGRO_THREAD ptr
 declare sub al_start_thread(byval outer as ALLEGRO_THREAD ptr)
 declare sub al_join_thread(byval outer as ALLEGRO_THREAD ptr, byval ret_value as any ptr ptr)
@@ -1177,11 +1191,13 @@ declare sub al_set_thread_should_stop(byval outer as ALLEGRO_THREAD ptr)
 declare function al_get_thread_should_stop(byval outer as ALLEGRO_THREAD ptr) as byte
 declare sub al_destroy_thread(byval thread as ALLEGRO_THREAD ptr)
 declare sub al_run_detached_thread(byval proc as function(byval arg as any ptr) as any ptr, byval arg as any ptr)
+type ALLEGRO_MUTEX as ALLEGRO_MUTEX_
 declare function al_create_mutex() as ALLEGRO_MUTEX ptr
 declare function al_create_mutex_recursive() as ALLEGRO_MUTEX ptr
 declare sub al_lock_mutex(byval mutex as ALLEGRO_MUTEX ptr)
 declare sub al_unlock_mutex(byval mutex as ALLEGRO_MUTEX ptr)
 declare sub al_destroy_mutex(byval mutex as ALLEGRO_MUTEX ptr)
+type ALLEGRO_COND as ALLEGRO_COND_
 declare function al_create_cond() as ALLEGRO_COND ptr
 declare sub al_destroy_cond(byval cond as ALLEGRO_COND ptr)
 declare sub al_wait_cond(byval cond as ALLEGRO_COND ptr, byval mutex as ALLEGRO_MUTEX ptr)
@@ -1255,16 +1271,6 @@ declare function al_check_inverse(byval trans as const ALLEGRO_TRANSFORM ptr, by
 #ifdef __FB_WIN32__
 	declare function _WinMain(byval _main as any ptr, byval hInst as any ptr, byval hPrev as any ptr, byval Cmd as zstring ptr, byval nShow as long) as long
 	#define AL_JOY_TYPE_DIRECTX AL_ID(asc("D"), asc("X"), asc(" "), asc(" "))
-#endif
-
-#if defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)
-	extern _al_joydrv_directx as ALLEGRO_JOYSTICK_DRIVER
-#elseif defined(__FB_WIN32__) and (not defined(ALLEGRO_STATICLINK))
-	extern import _al_joydrv_directx as ALLEGRO_JOYSTICK_DRIVER
-#endif
-
-#ifdef __FB_WIN32__
-	#define _AL_JOYSTICK_DRIVER_DIRECTX '' TODO: { AL_JOY_TYPE_DIRECTX, &_al_joydrv_directx, true },
 #endif
 
 end extern

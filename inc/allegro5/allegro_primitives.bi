@@ -1,5 +1,7 @@
 #pragma once
 
+#inclib "allegro_primitives"
+
 #include once "allegro5/allegro.bi"
 
 extern "C"
@@ -57,6 +59,7 @@ end type
 declare function al_get_allegro_primitives_version() as ulong
 declare function al_init_primitives_addon() as byte
 declare sub al_shutdown_primitives_addon()
+type ALLEGRO_VERTEX_DECL as ALLEGRO_VERTEX_DECL_
 declare function al_draw_prim(byval vtxs as const any ptr, byval decl as const ALLEGRO_VERTEX_DECL ptr, byval texture as ALLEGRO_BITMAP ptr, byval start as long, byval end as long, byval type as long) as long
 declare function al_draw_indexed_prim(byval vtxs as const any ptr, byval decl as const ALLEGRO_VERTEX_DECL ptr, byval texture as ALLEGRO_BITMAP ptr, byval indices as const long ptr, byval num_vtx as long, byval type as long) as long
 declare function al_create_vertex_decl(byval elements as const ALLEGRO_VERTEX_ELEMENT ptr, byval stride as long) as ALLEGRO_VERTEX_DECL ptr

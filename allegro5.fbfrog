@@ -12,6 +12,50 @@
 
 allegro.fbfrog
 
+-replacements allegro5.replacements
+
+-addforwarddecl ALLEGRO_AUDIO_STREAM
+-addforwarddecl ALLEGRO_BITMAP
+-addforwarddecl ALLEGRO_COND
+-addforwarddecl ALLEGRO_CONFIG
+-addforwarddecl ALLEGRO_CONFIG_ENTRY
+-addforwarddecl ALLEGRO_CONFIG_SECTION
+-addforwarddecl ALLEGRO_DISPLAY
+-addforwarddecl ALLEGRO_EVENT_QUEUE
+-addforwarddecl ALLEGRO_FILE
+-addforwarddecl ALLEGRO_FILECHOOSER
+-addforwarddecl ALLEGRO_JOYSTICK
+-addforwarddecl ALLEGRO_KEYBOARD
+-addforwarddecl ALLEGRO_MIXER
+-addforwarddecl ALLEGRO_MOUSE
+-addforwarddecl ALLEGRO_MOUSE_CURSOR
+-addforwarddecl ALLEGRO_MUTEX
+-addforwarddecl ALLEGRO_PATH
+-addforwarddecl ALLEGRO_SAMPLE
+-addforwarddecl ALLEGRO_SAMPLE_INSTANCE
+-addforwarddecl ALLEGRO_SYSTEM
+-addforwarddecl ALLEGRO_TEXTLOG
+-addforwarddecl ALLEGRO_THREAD
+-addforwarddecl ALLEGRO_TIMER
+-addforwarddecl ALLEGRO_USER_EVENT_DESCRIPTOR
+-addforwarddecl ALLEGRO_VERTEX_DECL
+-addforwarddecl ALLEGRO_VOICE
+
+-removevar _al_joydrv_directx
+-removedefine _AL_JOYSTICK_DRIVER_DIRECTX
+
+-removeinclude allegro5/platform/alplatf.h
+-removeinclude assert.h
+-removeinclude direct.h
+-removeinclude dir.h
+-removeinclude fcntl.h
+-removeinclude inttypes.h
+-removeinclude io.h
+-removeinclude malloc.h
+-removeinclude stdbool.h
+-removeinclude unistd.h
+-removeinclude windows.h
+
 -removedefine _ALLEGRO_ACODEC_DLL
 -removedefine _ALLEGRO_KCM_AUDIO_DLL
 -removedefine _ALLEGRO_COLOR_DLL

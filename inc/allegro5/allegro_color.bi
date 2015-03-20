@@ -1,5 +1,7 @@
 #pragma once
 
+#inclib "allegro_color"
+
 #include once "allegro5/allegro.bi"
 
 extern "C"

@@ -1,5 +1,7 @@
 #pragma once
 
+#inclib "allegro_image"
+
 extern "C"
 
 #define __al_included_allegro5_allegro_image_h

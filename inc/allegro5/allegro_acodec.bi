@@ -1,5 +1,7 @@
 #pragma once
 
+#inclib "allegro_acodec"
+
 #include once "allegro5/allegro.bi"
 #include once "allegro5/allegro_audio.bi"
 

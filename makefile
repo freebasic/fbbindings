@@ -84,7 +84,18 @@ allegro5:
 		-emit '*/allegro_physfs.h'        inc/allegro5/allegro_physfs.bi \
 		-emit '*/allegro_primitives.h'    inc/allegro5/allegro_primitives.bi \
 		-emit '*/allegro_ttf.h'           inc/allegro5/allegro_ttf.bi \
-		-emit '*'                         inc/allegro5/allegro.bi
+		-emit '*'                         inc/allegro5/allegro.bi \
+		-inclib allegro            inc/allegro5/allegro.bi \
+		-inclib allegro_acodec     inc/allegro5/allegro_acodec.bi \
+		-inclib allegro_audio      inc/allegro5/allegro_audio.bi \
+		-inclib allegro_color      inc/allegro5/allegro_color.bi \
+		-inclib allegro_font       inc/allegro5/allegro_font.bi \
+		-inclib allegro_image      inc/allegro5/allegro_image.bi \
+		-inclib allegro_memfile    inc/allegro5/allegro_memfile.bi \
+		-inclib allegro_dialog     inc/allegro5/allegro_native_dialog.bi \
+		-inclib allegro_physfs     inc/allegro5/allegro_physfs.bi \
+		-inclib allegro_primitives inc/allegro5/allegro_primitives.bi \
+		-inclib allegro_ttf        inc/allegro5/allegro_ttf.bi
 
 cgui:
 	./downloadextract.sh cgui cgui-2.0.3.tar.gz "http://sourceforge.net/projects/cgui/files/2.0.3/cgui-2.0.3.tar.gz/download"

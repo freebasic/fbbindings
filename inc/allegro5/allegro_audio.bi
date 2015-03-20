@@ -1,5 +1,7 @@
 #pragma once
 
+#inclib "allegro_audio"
+
 #include once "allegro5/allegro.bi"
 
 extern "C"
@@ -57,8 +59,10 @@ type ALLEGRO_SAMPLE_ID
 	_id as long
 end type
 
+type ALLEGRO_SAMPLE as ALLEGRO_SAMPLE_
 declare function al_create_sample(byval buf as any ptr, byval samples as ulong, byval freq as ulong, byval depth as ALLEGRO_AUDIO_DEPTH, byval chan_conf as ALLEGRO_CHANNEL_CONF, byval free_buf as byte) as ALLEGRO_SAMPLE ptr
 declare sub al_destroy_sample(byval spl as ALLEGRO_SAMPLE ptr)
+type ALLEGRO_SAMPLE_INSTANCE as ALLEGRO_SAMPLE_INSTANCE_
 declare function al_create_sample_instance(byval data as ALLEGRO_SAMPLE ptr) as ALLEGRO_SAMPLE_INSTANCE ptr
 declare sub al_destroy_sample_instance(byval spl as ALLEGRO_SAMPLE_INSTANCE ptr)
 declare function al_get_sample_frequency(byval spl as const ALLEGRO_SAMPLE ptr) as ulong
@@ -90,6 +94,7 @@ declare function al_set_sample(byval spl as ALLEGRO_SAMPLE_INSTANCE ptr, byval d
 declare function al_get_sample(byval spl as ALLEGRO_SAMPLE_INSTANCE ptr) as ALLEGRO_SAMPLE ptr
 declare function al_play_sample_instance(byval spl as ALLEGRO_SAMPLE_INSTANCE ptr) as byte
 declare function al_stop_sample_instance(byval spl as ALLEGRO_SAMPLE_INSTANCE ptr) as byte
+type ALLEGRO_AUDIO_STREAM as ALLEGRO_AUDIO_STREAM_
 declare function al_create_audio_stream(byval buffer_count as uinteger, byval samples as ulong, byval freq as ulong, byval depth as ALLEGRO_AUDIO_DEPTH, byval chan_conf as ALLEGRO_CHANNEL_CONF) as ALLEGRO_AUDIO_STREAM ptr
 declare sub al_destroy_audio_stream(byval stream as ALLEGRO_AUDIO_STREAM ptr)
 declare sub al_drain_audio_stream(byval stream as ALLEGRO_AUDIO_STREAM ptr)
@@ -119,6 +124,7 @@ declare function al_get_audio_stream_position_secs(byval stream as ALLEGRO_AUDIO
 declare function al_get_audio_stream_length_secs(byval stream as ALLEGRO_AUDIO_STREAM ptr) as double
 declare function al_set_audio_stream_loop_secs(byval stream as ALLEGRO_AUDIO_STREAM ptr, byval start as double, byval end as double) as byte
 declare function al_get_audio_stream_event_source(byval stream as ALLEGRO_AUDIO_STREAM ptr) as ALLEGRO_EVENT_SOURCE ptr
+type ALLEGRO_MIXER as ALLEGRO_MIXER_
 declare function al_create_mixer(byval freq as ulong, byval depth as ALLEGRO_AUDIO_DEPTH, byval chan_conf as ALLEGRO_CHANNEL_CONF) as ALLEGRO_MIXER ptr
 declare sub al_destroy_mixer(byval mixer as ALLEGRO_MIXER ptr)
 declare function al_attach_sample_instance_to_mixer(byval stream as ALLEGRO_SAMPLE_INSTANCE ptr, byval mixer as ALLEGRO_MIXER ptr) as byte
@@ -137,6 +143,7 @@ declare function al_set_mixer_quality(byval mixer as ALLEGRO_MIXER ptr, byval va
 declare function al_set_mixer_gain(byval mixer as ALLEGRO_MIXER ptr, byval gain as single) as byte
 declare function al_set_mixer_playing(byval mixer as ALLEGRO_MIXER ptr, byval val as byte) as byte
 declare function al_detach_mixer(byval mixer as ALLEGRO_MIXER ptr) as byte
+type ALLEGRO_VOICE as ALLEGRO_VOICE_
 declare function al_create_voice(byval freq as ulong, byval depth as ALLEGRO_AUDIO_DEPTH, byval chan_conf as ALLEGRO_CHANNEL_CONF) as ALLEGRO_VOICE ptr
 declare sub al_destroy_voice(byval voice as ALLEGRO_VOICE ptr)
 declare function al_attach_sample_instance_to_voice(byval stream as ALLEGRO_SAMPLE_INSTANCE ptr, byval voice as ALLEGRO_VOICE ptr) as byte
