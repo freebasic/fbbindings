@@ -33,7 +33,6 @@ type HDDEDATA__
 end type
 
 type HDDEDATA as HDDEDATA__ ptr
-
 #define EXPENTRY CALLBACK
 
 type tagHSZPAIR
@@ -78,7 +77,6 @@ end type
 
 type CONVINFO as tagCONVINFO
 type PCONVINFO as tagCONVINFO ptr
-
 #define XST_NULL 0
 #define XST_INCOMPLETE 1
 #define XST_CONNECTED 2
@@ -171,12 +169,9 @@ type PCONVINFO as tagCONVINFO ptr
 #endif
 
 type PFNCALLBACK as function(byval wType as UINT, byval wFmt as UINT, byval hConv as HCONV, byval hsz1 as HSZ, byval hsz2 as HSZ, byval hData as HDDEDATA, byval dwData1 as ULONG_PTR, byval dwData2 as ULONG_PTR) as HDDEDATA
-
 #define CBR_BLOCK cast(HDDEDATA, -1)
-
 declare function DdeInitializeA(byval pidInst as LPDWORD, byval pfnCallback as PFNCALLBACK, byval afCmd as DWORD, byval ulRes as DWORD) as UINT
 declare function DdeInitializeW(byval pidInst as LPDWORD, byval pfnCallback as PFNCALLBACK, byval afCmd as DWORD, byval ulRes as DWORD) as UINT
-
 #define CBF_FAIL_SELFCONNECTIONS &h00001000
 #define CBF_FAIL_CONNECTIONS &h00002000
 #define CBF_FAIL_ADVISES &h00004000
@@ -226,9 +221,7 @@ declare function DdeGetData(byval hData as HDDEDATA, byval pDst as LPBYTE, byval
 declare function DdeAccessData(byval hData as HDDEDATA, byval pcbDataSize as LPDWORD) as LPBYTE
 declare function DdeUnaccessData(byval hData as HDDEDATA) as WINBOOL
 declare function DdeFreeDataHandle(byval hData as HDDEDATA) as WINBOOL
-
 #define HDATA_APPOWNED &h0001
-
 declare function DdeGetLastError(byval idInst as DWORD) as UINT
 
 #define DMLERR_NO_ERROR 0
@@ -392,7 +385,6 @@ end type
 
 type MONCONVSTRUCT as tagMONCONVSTRUCT
 type PMONCONVSTRUCT as tagMONCONVSTRUCT ptr
-
 #define MAX_MONITORS 4
 #define APPCLASS_MONITOR __MSABI_LONG(&h00000001)
 #define XTYP_MONITOR ((&h00F0 or XCLASS_NOTIFICATION) or XTYPF_NOBLOCK)

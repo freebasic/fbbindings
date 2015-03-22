@@ -5,7 +5,6 @@
 extern "C"
 
 #define __al_included_allegro5_allegro_native_dialog_h
-
 declare function al_init_native_dialog_addon() as byte
 declare sub al_shutdown_native_dialog_addon()
 declare function al_create_native_file_dialog(byval initial_path as const zstring ptr, byval title as const zstring ptr, byval patterns as const zstring ptr, byval mode as long) as ALLEGRO_FILECHOOSER ptr

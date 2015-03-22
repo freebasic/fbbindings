@@ -5,9 +5,7 @@
 #define _INC_CRTDEFS
 #define _CRTNOALIAS
 #define _CRTRESTRICT
-
 type rsize_t as uinteger
-
 #define _RSIZE_T_DEFINED
 #define __DEFINE_CPP_OVERLOAD_SECURE_FUNC_0_0(__ret, __func, __dsttype, __dst)
 #define __DEFINE_CPP_OVERLOAD_SECURE_FUNC_0_1(__ret, __func, __dsttype, __dst, __type1, __arg1)
@@ -21,7 +19,6 @@ type rsize_t as uinteger
 #define __DEFINE_CPP_OVERLOAD_SECURE_FUNC_0_1_ARGLIST(__ret, __func, __vfunc, __dsttype, __dst, __type1, __arg1)
 #define __DEFINE_CPP_OVERLOAD_SECURE_FUNC_0_2_ARGLIST(__ret, __func, __vfunc, __dsttype, __dst, __type1, __arg1, __type2, __arg2)
 #define __DEFINE_CPP_OVERLOAD_SECURE_FUNC_SPLITPATH(__ret, __func, __dsttype, __src)
-
 type pthreadlocinfo as threadlocaleinfostruct ptr
 type pthreadmbcinfo as threadmbcinfostruct ptr
 
@@ -32,7 +29,6 @@ end type
 
 type _locale_tstruct as localeinfo_struct
 type _locale_t as localeinfo_struct ptr
-
 #define _TAGLC_ID_DEFINED
 
 type tagLC_ID
@@ -43,7 +39,6 @@ end type
 
 type LC_ID as tagLC_ID
 type LPLC_ID as tagLC_ID ptr
-
 #define _THREADLOCALEINFO
 
 type threadlocaleinfostruct_lc_category
@@ -75,5 +70,4 @@ type threadlocaleinfostruct
 end type
 
 type threadlocinfo as threadlocaleinfostruct
-
 #define __crt_typefix(ctype)

@@ -13,7 +13,6 @@
 #endif
 
 #define __WINE_DMUSIC_PERFORMANCE_H
-
 extern CLSID_DirectMusicAudioPathConfig as const GUID
 extern CLSID_DirectMusicBand as const GUID
 extern CLSID_DirectMusicChordMap as const GUID
@@ -78,7 +77,6 @@ extern IID_IDirectMusicStyle8 as const GUID
 #define IID_IDirectMusicScript8 IID_IDirectMusicScript
 
 type IDirectMusicBand as IDirectMusicBand_
-
 type LPDIRECTMUSICBAND as IDirectMusicBand ptr
 type IDirectMusicBand8 as IDirectMusicBand
 type LPDIRECTMUSICBAND8 as IDirectMusicBand ptr
@@ -95,9 +93,7 @@ type IDirectMusicAudioPath8 as IDirectMusicAudioPath
 type LPDIRECTMUSICAUDIOPATH8 as IDirectMusicAudioPath ptr
 type LPDIRECTMUSICSTYLE as IDirectMusicStyle ptr
 type LPDIRECTMUSICSTYLE8 as IDirectMusicStyle8 ptr
-
 type IDirectMusicChordMap as IDirectMusicChordMap_
-
 type LPDIRECTMUSICCHORDMAP as IDirectMusicChordMap ptr
 type IDirectMusicChordMap8 as IDirectMusicChordMap
 type LPDIRECTMUSICCHORDMAP8 as IDirectMusicChordMap ptr
@@ -148,9 +144,7 @@ extern GUID_DownloadToAudioPath as const GUID
 extern GUID_Enable_Auto_Download as const GUID
 extern GUID_EnableTempo as const GUID
 extern GUID_EnableTimeSig as const GUID
-
 #define GUID_IgnoreBankSelectForGM GUID_StandardMIDIFile
-
 extern GUID_SeedVariations as const GUID
 extern GUID_StandardMIDIFile as const GUID
 extern GUID_Unload as const GUID
@@ -167,7 +161,6 @@ extern GUID_Buffer_EnvReverb as const GUID
 extern GUID_Buffer_Stereo as const GUID
 extern GUID_Buffer_3D_Dry as const GUID
 extern GUID_Buffer_Mono as const GUID
-
 type TRANSITION_TYPE as WORD
 type LPTRANSITION_TYPE as WORD ptr
 
@@ -516,10 +509,9 @@ type DMUS_BAND_PARAM as _DMUS_BAND_PARAM
 type LPDMUS_BAND_PARAM as _DMUS_BAND_PARAM ptr
 type DMUS_VARIATIONS_PARAM as _DMUS_VARIATIONS_PARAM
 type LPDMUS_VARIATIONS_PARAM as _DMUS_VARIATIONS_PARAM ptr
-
-type IDirectMusicGraph as IDirectMusicGraph_
-type IDirectMusicTool as IDirectMusicTool_
 type MUSIC_TIME as MUSIC_TIME_
+type IDirectMusicTool as IDirectMusicTool_
+type IDirectMusicGraph as IDirectMusicGraph_
 
 type _DMUS_PMSG
 	dwSize as DWORD
@@ -883,8 +875,8 @@ type IDirectMusicBand_
 	lpVtbl as IDirectMusicBandVtbl ptr
 end type
 
-type IDirectMusicPerformance as IDirectMusicPerformance_
 type IDirectMusicSegment as IDirectMusicSegment_
+type IDirectMusicPerformance as IDirectMusicPerformance_
 
 type IDirectMusicBandVtbl_
 	QueryInterface as function(byval This as IDirectMusicBand ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -901,7 +893,6 @@ end type
 #define IDirectMusicBand_CreateSegment(p, a) (p)->lpVtbl->CreateSegment(p, a)
 #define IDirectMusicBand_Download(p, a) (p)->lpVtbl->Download(p, a)
 #define IDirectMusicBand_Unload(p, a) (p)->lpVtbl->Unload(p, a)
-
 type IDirectMusicObjectVtbl as IDirectMusicObjectVtbl_
 
 type IDirectMusicObject
@@ -923,7 +914,6 @@ end type
 #define IDirectMusicObject_GetDescriptor(p, a) (p)->lpVtbl->GetDescriptor(p, a)
 #define IDirectMusicObject_SetDescriptor(p, a) (p)->lpVtbl->SetDescriptor(p, a)
 #define IDirectMusicObject_ParseDescriptor(p, a, b) (p)->lpVtbl->ParseDescriptor(p, a, b)
-
 type IDirectMusicLoaderVtbl as IDirectMusicLoaderVtbl_
 
 type IDirectMusicLoader
@@ -957,7 +947,6 @@ end type
 #define IDirectMusicLoader_ClearCache(p, a) (p)->lpVtbl->ClearCache(p, a)
 #define IDirectMusicLoader_EnableCache(p, a, b) (p)->lpVtbl->EnableCache(p, a, b)
 #define IDirectMusicLoader_EnumObject(p, a, b, c) (p)->lpVtbl->EnumObject(p, a, b, c)
-
 type IDirectMusicLoader8Vtbl as IDirectMusicLoader8Vtbl_
 
 type IDirectMusicLoader8
@@ -997,7 +986,6 @@ end type
 #define IDirectMusicLoader8_CollectGarbage(p) (p)->lpVtbl->CollectGarbage(p)
 #define IDirectMusicLoader8_ReleaseObjectByUnknown(p, a) (p)->lpVtbl->ReleaseObjectByUnknown(p, a)
 #define IDirectMusicLoader8_LoadObjectFromFile(p, a, b, c, d) (p)->lpVtbl->LoadObjectFromFile(p, a, b, c, d)
-
 type IDirectMusicGetLoaderVtbl as IDirectMusicGetLoaderVtbl_
 
 type IDirectMusicGetLoader
@@ -1015,15 +1003,14 @@ end type
 #define IDirectMusicGetLoader_AddRef(p) (p)->lpVtbl->AddRef(p)
 #define IDirectMusicGetLoader_Release(p) (p)->lpVtbl->Release(p)
 #define IDirectMusicGetLoader_GetLoader(p, a) (p)->lpVtbl->GetLoader(p, a)
-
 type IDirectMusicSegmentVtbl as IDirectMusicSegmentVtbl_
 
 type IDirectMusicSegment_
 	lpVtbl as IDirectMusicSegmentVtbl ptr
 end type
 
-type IDirectMusicSegmentState as IDirectMusicSegmentState_
 type IDirectMusicTrack as IDirectMusicTrack_
+type IDirectMusicSegmentState as IDirectMusicSegmentState_
 
 type IDirectMusicSegmentVtbl_
 	QueryInterface as function(byval This as IDirectMusicSegment ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -1080,7 +1067,6 @@ end type
 #define IDirectMusicSegment_SetLoopPoints(p, a, b) (p)->lpVtbl->SetLoopPoints(p, a, b)
 #define IDirectMusicSegment_GetLoopPoints(p, a, b) (p)->lpVtbl->GetLoopPoints(p, a, b)
 #define IDirectMusicSegment_SetPChannelsUsed(p, a, b) (p)->lpVtbl->SetPChannelsUsed(p, a, b)
-
 type IDirectMusicSegment8Vtbl as IDirectMusicSegment8Vtbl_
 
 type IDirectMusicSegment8
@@ -1152,7 +1138,6 @@ end type
 #define IDirectMusicSegment8_Compose(p, a, b, c, d) (p)->lpVtbl->Compose(p, a, b, c, d)
 #define IDirectMusicSegment8_Download(p, a) (p)->lpVtbl->Download(p, a)
 #define IDirectMusicSegment8_Unload(p, a) (p)->lpVtbl->Unload(p, a)
-
 type IDirectMusicSegmentStateVtbl as IDirectMusicSegmentStateVtbl_
 
 type IDirectMusicSegmentState_
@@ -1178,7 +1163,6 @@ end type
 #define IDirectMusicSegmentState_GetStartTime(p, a) (p)->lpVtbl->GetStartTime(p, a)
 #define IDirectMusicSegmentState_GetSeek(p, a) (p)->lpVtbl->GetSeek(p, a)
 #define IDirectMusicSegmentState_GetStartPoint(p, a) (p)->lpVtbl->GetStartPoint(p, a)
-
 type IDirectMusicSegmentState8Vtbl as IDirectMusicSegmentState8Vtbl_
 
 type IDirectMusicSegmentState8
@@ -1208,7 +1192,6 @@ end type
 #define IDirectMusicSegmentState8_GetStartPoint(p, a) (p)->lpVtbl->GetStartPoint(p, a)
 #define IDirectMusicSegmentState8_SetTrackConfig(p, a, b, c, d, e) (p)->lpVtbl->SetTrackConfig(p, a, b, c, d, e)
 #define IDirectMusicSegmentState8_GetObjectInPath(p, a, b, c, d, e, f, g) (p)->lpVtbl->GetObjectInPath(p, a, b, c, d, e, f, g)
-
 type IDirectMusicAudioPathVtbl as IDirectMusicAudioPathVtbl_
 
 type IDirectMusicAudioPath
@@ -1232,7 +1215,6 @@ end type
 #define IDirectMusicAudioPath_Activate(p, a) (p)->lpVtbl->Activate(p, a)
 #define IDirectMusicAudioPath_SetVolume(p, a, b) (p)->lpVtbl->SetVolume(p, a, b)
 #define IDirectMusicAudioPath_ConvertPChannel(p, a, b) (p)->lpVtbl->ConvertPChannel(p, a, b)
-
 type IDirectMusicPerformanceVtbl as IDirectMusicPerformanceVtbl_
 
 type IDirectMusicPerformance_
@@ -1332,7 +1314,6 @@ end type
 #define IDirectMusicPerformance_MusicToMIDI(p, a, b, c, d, e) (p)->lpVtbl->MusicToMIDI(p, a, b, c, d, e)
 #define IDirectMusicPerformance_TimeToRhythm(p, a, b, c, d, e, f) (p)->lpVtbl->TimeToRhythm(p, a, b, c, d, e, f)
 #define IDirectMusicPerformance_RhythmToTime(p, a, b, c, d, e, f) (p)->lpVtbl->RhythmToTime(p, a, b, c, d, e, f)
-
 type IDirectMusicPerformance8Vtbl as IDirectMusicPerformance8Vtbl_
 
 type IDirectMusicPerformance8
@@ -1448,7 +1429,6 @@ end type
 #define IDirectMusicPerformance8_SetDefaultAudioPath(p, a) (p)->lpVtbl->SetDefaultAudioPath(p, a)
 #define IDirectMusicPerformance8_GetDefaultAudioPath(p, a) (p)->lpVtbl->GetDefaultAudioPath(p, a)
 #define IDirectMusicPerformance8_GetParamEx(p, a, b, c, d, e, f, g) (p)->lpVtbl->GetParamEx(p, a, b, c, d, e, f, g)
-
 type IDirectMusicGraphVtbl as IDirectMusicGraphVtbl_
 
 type IDirectMusicGraph_
@@ -1472,7 +1452,6 @@ end type
 #define IDirectMusicGraph_InsertTool(p, a, b, c, d) (p)->lpVtbl->InsertTool(p, a, b, c, d)
 #define IDirectMusicGraph_GetTool(p, a, b) (p)->lpVtbl->GetTool(p, a, b)
 #define IDirectMusicGraph_RemoveTool(p, a) (p)->lpVtbl->RemoveTool(p, a)
-
 type IDirectMusicStyleVtbl as IDirectMusicStyleVtbl_
 
 type IDirectMusicStyle
@@ -1510,7 +1489,6 @@ end type
 #define IDirectMusicStyle_GetTimeSignature(p, a) (p)->lpVtbl->GetTimeSignature(p, a)
 #define IDirectMusicStyle_GetEmbellishmentLength(p, a, b, c, d) (p)->lpVtbl->GetEmbellishmentLength(p, a, b, c, d)
 #define IDirectMusicStyle_GetTempo(p, a) (p)->lpVtbl->GetTempo(p, a)
-
 type IDirectMusicStyle8Vtbl as IDirectMusicStyle8Vtbl_
 
 type IDirectMusicStyle8
@@ -1550,7 +1528,6 @@ end type
 #define IDirectMusicStyle8_GetEmbellishmentLength(p, a, b, c, d) (p)->lpVtbl->GetEmbellishmentLength(p, a, b, c, d)
 #define IDirectMusicStyle8_GetTempo(p, a) (p)->lpVtbl->GetTempo(p, a)
 #define IDirectMusicStyle8_EnumPattern(p, a, b, c) (p)->lpVtbl->EnumPattern(p, a, b, c)
-
 type IDirectMusicChordMapVtbl as IDirectMusicChordMapVtbl_
 
 type IDirectMusicChordMap_
@@ -1568,7 +1545,6 @@ end type
 #define IDirectMusicChordMap_AddRef(p) (p)->lpVtbl->AddRef(p)
 #define IDirectMusicChordMap_Release(p) (p)->lpVtbl->Release(p)
 #define IDirectMusicChordMap_GetScale(p, a) (p)->lpVtbl->GetScale(p, a)
-
 type IDirectMusicComposerVtbl as IDirectMusicComposerVtbl_
 
 type IDirectMusicComposer
@@ -1596,7 +1572,6 @@ end type
 #define IDirectMusicComposer_AutoTransition(p, a, b, c, d, e, f, g, h) (p)->lpVtbl->AutoTransition(p, a, b, c, d, e, f, g, h)
 #define IDirectMusicComposer_ComposeTemplateFromShape(p, a, b, c, d, e, f) (p)->lpVtbl->ComposeTemplateFromShape(p, a, b, c, d, e, f)
 #define IDirectMusicComposer_ChangeChordMap(p, a, b, c) (p)->lpVtbl->ChangeChordMap(p, a, b, c)
-
 type IDirectMusicPatternTrackVtbl as IDirectMusicPatternTrackVtbl_
 
 type IDirectMusicPatternTrack
@@ -1618,7 +1593,6 @@ end type
 #define IDirectMusicPatternTrack_CreateSegment(p, a, b) (p)->lpVtbl->CreateSegment(p, a, b)
 #define IDirectMusicPatternTrack_SetVariation(p, a, b, c) (p)->lpVtbl->SetVariation(p, a, b, c)
 #define IDirectMusicPatternTrack_SetPatternByName(p, a, b, c, d, e) (p)->lpVtbl->SetPatternByName(p, a, b, c, d, e)
-
 type IDirectMusicScriptVtbl as IDirectMusicScriptVtbl_
 
 type IDirectMusicScript
@@ -1654,7 +1628,6 @@ end type
 #define IDirectMusicPatternTrack_GetVariableObject(p, a, b, c, d) (p)->lpVtbl->GetVariableObject(p, a, b, c, d)
 #define IDirectMusicPatternTrack_EnumRoutine(p, a, b) (p)->lpVtbl->EnumRoutine(p, a, b)
 #define IDirectMusicPatternTrack_EnumVariable(p, a, b) (p)->lpVtbl->EnumVariable(p, a, b)
-
 type IDirectMusicContainerVtbl as IDirectMusicContainerVtbl_
 
 type IDirectMusicContainer

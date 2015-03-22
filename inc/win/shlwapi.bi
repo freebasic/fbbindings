@@ -11,7 +11,6 @@
 #endif
 
 #define _INC_SHLWAPI
-
 declare function StrChrA(byval lpStart as LPCSTR, byval wMatch as WORD) as LPSTR
 declare function StrChrW(byval lpStart as LPCWSTR, byval wMatch as wchar_t) as LPWSTR
 declare function StrChrIA(byval lpStart as LPCSTR, byval wMatch as WORD) as LPSTR
@@ -212,7 +211,6 @@ declare function SHLoadIndirectString(byval pszSource as LPCWSTR, byval pszOutBu
 
 declare function IntlStrEqWorkerA(byval fCaseSens as WINBOOL, byval lpString1 as LPCSTR, byval lpString2 as LPCSTR, byval nChar as long) as WINBOOL
 declare function IntlStrEqWorkerW(byval fCaseSens as WINBOOL, byval lpString1 as LPCWSTR, byval lpString2 as LPCWSTR, byval nChar as long) as WINBOOL
-
 #define IntlStrEqNA(s1, s2, nChar) IntlStrEqWorkerA(TRUE, s1, s2, nChar)
 #define IntlStrEqNW(s1, s2, nChar) IntlStrEqWorkerW(TRUE, s1, s2, nChar)
 #define IntlStrEqNIA(s1, s2, nChar) IntlStrEqWorkerA(FALSE, s1, s2, nChar)
@@ -376,13 +374,11 @@ declare function PathIsLFNFileSpecW(byval lpName as LPCWSTR) as WINBOOL
 
 declare function PathGetCharTypeA(byval ch as UCHAR) as UINT
 declare function PathGetCharTypeW(byval ch as wchar_t) as UINT
-
 #define GCT_INVALID &h0000
 #define GCT_LFNCHAR &h0001
 #define GCT_SHORTCHAR &h0002
 #define GCT_WILD &h0004
 #define GCT_SEPARATOR &h0008
-
 declare function PathGetDriveNumberA(byval pszPath as LPCSTR) as long
 declare function PathGetDriveNumberW(byval pszPath as LPCWSTR) as long
 
@@ -737,10 +733,8 @@ declare function UrlIsOpaqueA(byval pszURL as LPCSTR) as WINBOOL
 declare function UrlIsOpaqueW(byval pszURL as LPCWSTR) as WINBOOL
 declare function UrlIsNoHistoryA(byval pszURL as LPCSTR) as WINBOOL
 declare function UrlIsNoHistoryW(byval pszURL as LPCWSTR) as WINBOOL
-
 #define UrlIsFileUrlA(pszURL) UrlIsA(pszURL, URLIS_FILEURL)
 #define UrlIsFileUrlW(pszURL) UrlIsW(pszURL, URLIS_FILEURL)
-
 declare function UrlIsA(byval pszUrl as LPCSTR, byval UrlIs as URLIS) as WINBOOL
 declare function UrlIsW(byval pszUrl as LPCWSTR, byval UrlIs as URLIS) as WINBOOL
 declare function UrlGetLocationA(byval psz1 as LPCSTR) as LPCSTR
@@ -795,7 +789,6 @@ declare function HashData(byval pbData as LPBYTE, byval cbData as DWORD, byval p
 
 #define UrlEscapeSpaces(pszUrl, pszEscaped, pcchEscaped) UrlCanonicalize(pszUrl, pszEscaped, pcchEscaped, URL_ESCAPE_SPACES_ONLY or URL_DONT_ESCAPE_EXTRA_INFO)
 #define UrlUnescapeInPlace(pszUrl, dwFlags) UrlUnescape(pszUrl, NULL, NULL, dwFlags or URL_UNESCAPE_INPLACE)
-
 declare function SHDeleteEmptyKeyA(byval hkey as HKEY, byval pszSubKey as LPCSTR) as DWORD
 declare function SHDeleteEmptyKeyW(byval hkey as HKEY, byval pszSubKey as LPCWSTR) as DWORD
 
@@ -844,7 +837,6 @@ declare function SHSetValueW(byval hkey as HKEY, byval pszSubKey as LPCWSTR, byv
 
 #if (_WIN32_WINNT = &h0502) or (_WIN32_WINNT = &h0602)
 	type SRRF as DWORD
-
 	#define SRRF_RT_REG_NONE &h00000001
 	#define SRRF_RT_REG_SZ &h00000002
 	#define SRRF_RT_REG_EXPAND_SZ &h00000004
@@ -861,7 +853,6 @@ declare function SHSetValueW(byval hkey as HKEY, byval pszSubKey as LPCWSTR, byv
 	#define SRRF_RM_SAFENETWORK &h00040000
 	#define SRRF_NOEXPAND &h10000000
 	#define SRRF_ZEROONFAILURE &h20000000
-
 	declare function SHRegGetValueA(byval hkey as HKEY, byval pszSubKey as LPCSTR, byval pszValue as LPCSTR, byval dwFlags as SRRF, byval pdwType as DWORD ptr, byval pvData as any ptr, byval pcbData as DWORD ptr) as LONG
 	declare function SHRegGetValueW(byval hkey as HKEY, byval pszSubKey as LPCWSTR, byval pszValue as LPCWSTR, byval dwFlags as SRRF, byval pdwType as DWORD ptr, byval pvData as any ptr, byval pcbData as DWORD ptr) as LONG
 #endif
@@ -930,7 +921,6 @@ end enum
 #define SHREGSET_HKLM &h00000004
 #define SHREGSET_FORCE_HKLM &h00000008
 #define SHREGSET_DEFAULT (SHREGSET_FORCE_HKCU or SHREGSET_HKLM)
-
 type HUSKEY as HANDLE
 type PHUSKEY as HUSKEY ptr
 
@@ -1116,9 +1106,7 @@ declare function SHOpenRegStreamA(byval hkey as HKEY, byval pszSubkey as LPCSTR,
 declare function SHOpenRegStreamW(byval hkey as HKEY, byval pszSubkey as LPCWSTR, byval pszValue as LPCWSTR, byval grfMode as DWORD) as IStream ptr
 declare function SHOpenRegStream2A(byval hkey as HKEY, byval pszSubkey as LPCSTR, byval pszValue as LPCSTR, byval grfMode as DWORD) as IStream ptr
 declare function SHOpenRegStream2W(byval hkey as HKEY, byval pszSubkey as LPCWSTR, byval pszValue as LPCWSTR, byval grfMode as DWORD) as IStream ptr
-
 #define SHOpenRegStream SHOpenRegStream2
-
 declare function SHCreateStreamOnFileA(byval pszFile as LPCSTR, byval grfMode as DWORD, byval ppstm as IStream ptr ptr) as HRESULT
 declare function SHCreateStreamOnFileW(byval pszFile as LPCWSTR, byval grfMode as DWORD, byval ppstm as IStream ptr ptr) as HRESULT
 
@@ -1149,7 +1137,6 @@ declare function SHCreateStreamOnFileW(byval pszFile as LPCWSTR, byval grfMode a
 	#define SHGVSPB_FOLDERNODEFAULTS ((SHGVSPB_PERUSER or SHGVSPB_PERFOLDER) or SHGVSPB_NOAUTODEFAULTS)
 	#define SHGVSPB_USERDEFAULTS (SHGVSPB_PERUSER or SHGVSPB_ALLFOLDERS)
 	#define SHGVSPB_GLOBALDEAFAULTS (SHGVSPB_ALLUSERS or SHGVSPB_ALLFOLDERS)
-
 	declare function SHGetViewStatePropertyBag(byval pidl as LPCITEMIDLIST, byval pszBagName as LPCWSTR, byval dwFlags as DWORD, byval riid as const IID const ptr, byval ppv as any ptr ptr) as HRESULT
 #endif
 
@@ -1210,7 +1197,6 @@ type _DLLVERSIONINFO
 end type
 
 type DLLVERSIONINFO as _DLLVERSIONINFO
-
 #define DLLVER_PLATFORM_WINDOWS &h00000001
 #define DLLVER_PLATFORM_NT &h00000002
 
@@ -1221,15 +1207,12 @@ type _DLLVERSIONINFO2
 end type
 
 type DLLVERSIONINFO2 as _DLLVERSIONINFO2
-
 #define DLLVER_MAJOR_MASK &hFFFF000000000000
 #define DLLVER_MINOR_MASK &h0000FFFF00000000
 #define DLLVER_BUILD_MASK &h00000000FFFF0000
 #define DLLVER_QFE_MASK &h000000000000FFFF
 #define MAKEDLLVERULL(major, minor, build, qfe) ((((cast(ULONGLONG, (major)) shl 48) or (cast(ULONGLONG, (minor)) shl 32)) or (cast(ULONGLONG, (build)) shl 16)) or (cast(ULONGLONG, (qfe)) shl 0))
-
 type DLLGETVERSIONPROC as function(byval as DLLVERSIONINFO ptr) as HRESULT
-
 declare function DllInstall(byval bInstall as WINBOOL, byval pszCmdLine as LPCWSTR) as HRESULT
 
 #if (_WIN32_WINNT = &h0502) or (_WIN32_WINNT = &h0602)

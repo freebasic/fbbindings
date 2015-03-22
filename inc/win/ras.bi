@@ -12,10 +12,8 @@
 #endif
 
 #define _RAS_H_
-
 type RASIPV4ADDR as IN_ADDR
 type RASIPV6ADDR as IN6_ADDR
-
 #define RAS_MaxDeviceType 16
 #define RAS_MaxPhoneNumber 128
 #define RAS_MaxIpAddress 15
@@ -36,7 +34,6 @@ type HRASCONN__ field = 4
 end type
 
 type HRASCONN as HRASCONN__ ptr
-
 #define LPHRASCONN HRASCONN ptr
 #define RASCF_AllUsers &h00000001
 #define RASCF_GlobalCreds &h00000002
@@ -495,7 +492,6 @@ end type
 type RASDIALFUNC as sub(byval as UINT, byval as tagRASCONNSTATE, byval as DWORD)
 type RASDIALFUNC1 as sub(byval as HRASCONN, byval as UINT, byval as tagRASCONNSTATE, byval as DWORD, byval as DWORD)
 type RASDIALFUNC2 as function(byval as ULONG_PTR, byval as DWORD, byval as HRASCONN, byval as UINT, byval as tagRASCONNSTATE, byval as DWORD, byval as DWORD) as DWORD
-
 #define RASDEVINFOW tagRASDEVINFOW
 
 type tagRASDEVINFOW field = 4
@@ -735,9 +731,7 @@ end type
 #define RASET_Direct 3
 #define RASET_Internet 4
 #define RASET_Broadband 5
-
 type ORASADFUNC as function(byval as HWND, byval as LPSTR, byval as DWORD, byval as LPDWORD) as WINBOOL
-
 #define RASCN_Connection &h00000001
 #define RASCN_Disconnection &h00000002
 #define RASCN_BandwidthAdded &h00000004
@@ -758,7 +752,6 @@ end type
 
 #define LPRASADPARAMS '' TODO: RASADPARAMS*
 #define RASADFLG_PositionDlg &h00000001
-
 type RASADFUNCA as function(byval as LPSTR, byval as LPSTR, byval as tagRASADPARAMS ptr, byval as LPDWORD) as WINBOOL
 type RASADFUNCW as function(byval as LPWSTR, byval as LPWSTR, byval as tagRASADPARAMS ptr, byval as LPDWORD) as WINBOOL
 
@@ -894,7 +887,6 @@ end type
 
 #define LPRASEAPUSERIDENTITYW '' TODO: RASEAPUSERIDENTITYW*
 #define LPRASEAPUSERIDENTITYA '' TODO: RASEAPUSERIDENTITYA*
-
 type PFNRASGETBUFFER as function(byval ppBuffer as PBYTE ptr, byval pdwSize as PDWORD) as DWORD
 type PFNRASFREEBUFFER as function(byval pBufer as PBYTE) as DWORD
 type PFNRASSENDBUFFER as function(byval hPort as HANDLE, byval pBuffer as PBYTE, byval dwSize as DWORD) as DWORD
@@ -918,7 +910,6 @@ type tagRASCOMMSETTINGS field = 4
 end type
 
 type PFNRASSETCOMMSETTINGS as function(byval hPort as HANDLE, byval pRasCommSettings as tagRASCOMMSETTINGS ptr, byval pvReserved as PVOID) as DWORD
-
 #define RASCUSTOMSCRIPTEXTENSIONS tagRASCUSTOMSCRIPTEXTENSIONS
 
 type tagRASCUSTOMSCRIPTEXTENSIONS field = 4
@@ -1018,7 +1009,6 @@ type RasCustomHangUpFn as function(byval hRasConn as HRASCONN) as DWORD
 #endif
 
 type RasCustomDeleteEntryNotifyFn as function(byval lpszPhonebook as LPCWSTR, byval lpszEntry as LPCWSTR, byval dwFlags as DWORD) as DWORD
-
 #define RCD_SingleUser 0
 #define RCD_AllUsers &h00000001
 #define RCD_Eap &h00000002
@@ -1107,7 +1097,6 @@ declare function RasDeleteSubEntryW(byval pszPhonebook as LPCWSTR, byval pszEntr
 
 	type RASPPPIPV6 as _RASPPPIPV6
 	type LPRASPPPIPV6 as _RASPPPIPV6 ptr
-
 	declare function rasgetnapstatus cdecl(byval hRasConn as HRASCONN, byval pNapState as LPRASNAPSTATE) as DWORD
 
 	type RASAPIVERSION as long
@@ -1204,7 +1193,6 @@ declare function RasDeleteSubEntryW(byval pszPhonebook as LPCWSTR, byval pszEntr
 
 	type RASPPPIPV6 as _RASPPPIPV6
 	type LPRASPPPIPV6 as _RASPPPIPV6 ptr
-
 	declare function rasgetnapstatus cdecl(byval hRasConn as HRASCONN, byval pNapState as LPRASNAPSTATE) as DWORD
 
 	type RASAPIVERSION as long

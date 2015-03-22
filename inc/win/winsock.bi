@@ -12,9 +12,7 @@
 
 #define _WINSOCKAPI_
 #define ___WSA_SOCKET_TYPES_H
-
 type SOCKET as UINT_PTR
-
 #define INVALID_SOCKET cast(SOCKET, not 0)
 #define SOCKET_ERROR (-1)
 #define ___WSA_FD_TYPES_H
@@ -26,16 +24,13 @@ type FD_SET
 end type
 
 declare function __WSAFDIsSet(byval as SOCKET, byval as FD_SET ptr) as long
-
 #define FD_CLR(fd, set) '' TODO: do { u_int __i; for(__i = 0; __i < ((fd_set *)(set))->fd_count; __i++) { if (((fd_set *)(set))->fd_array[__i] == fd) { while (__i < ((fd_set *)(set))->fd_count - 1) { ((fd_set *)(set))->fd_array[__i] = ((fd_set *)(set))->fd_array[__i + 1]; __i++; } ((fd_set *)(set))->fd_count--; break; } } } while(0)
 #define FD_ZERO(set) '' TODO: (((fd_set *)(set))->fd_count = 0)
 #define FD_ISSET(fd, set) __WSAFDIsSet(cast(SOCKET, (fd)), cptr(FD_SET ptr, (set)))
 #define _FD_SET_WINSOCK_DEFINED
 #define FD_SET(fd, set) '' TODO: do { if (((fd_set *)(set))->fd_count < FD_SETSIZE) ((fd_set *)(set))->fd_array[((fd_set *)(set))->fd_count++] = (fd); } while(0)
-
 type PFD_SET as FD_SET ptr
 type LPFD_SET as FD_SET ptr
-
 #define _MINGW_IP_TYPES_H
 #define h_addr h_addr_list[0]
 
@@ -111,7 +106,6 @@ type PLINGER as LINGER ptr
 type LPLINGER as LINGER ptr
 type PTIMEVAL as TIMEVAL ptr
 type LPTIMEVAL as TIMEVAL ptr
-
 #define _MINGW_IP_MREQ1_H
 
 type ip_mreq
@@ -143,7 +137,6 @@ type WSADATA
 end type
 
 type LPWSADATA as WSADATA ptr
-
 #define __MINGW_TRANSMIT_FILE_H
 
 type _TRANSMIT_FILE_BUFFERS
@@ -400,9 +393,7 @@ declare function WSAAsyncGetHostByName(byval hWnd as HWND, byval wMsg as u_int, 
 declare function WSAAsyncGetHostByAddr(byval hWnd as HWND, byval wMsg as u_int, byval addr as const zstring ptr, byval len as long, byval type as long, byval buf as zstring ptr, byval buflen as long) as HANDLE
 declare function WSACancelAsyncRequest(byval hAsyncTaskHandle as HANDLE) as long
 declare function WSAAsyncSelect(byval s as SOCKET, byval hWnd as HWND, byval wMsg as u_int, byval lEvent as long) as long
-
 #define __WINSOCK_WS1_SHARED
-
 declare function WSARecvEx(byval s as SOCKET, byval buf as zstring ptr, byval len as long, byval flags as long ptr) as long
 
 #define TF_DISCONNECT &h01

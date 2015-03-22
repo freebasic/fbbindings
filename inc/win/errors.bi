@@ -13,7 +13,6 @@
 #define AMOVIEAPI
 #define VFW_FIRST_CODE &h200
 #define MAX_ERROR_TEXT_LEN 160
-
 type AMGETERRORTEXTPROCA as function(byval as HRESULT, byval as zstring ptr, byval as DWORD) as WINBOOL
 type AMGETERRORTEXTPROCW as function(byval as HRESULT, byval as wstring ptr, byval as DWORD) as WINBOOL
 

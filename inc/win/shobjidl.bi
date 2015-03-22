@@ -443,11 +443,8 @@ end type
 type CMINVOKECOMMANDINFOEX as _CMINVOKECOMMANDINFOEX
 type LPCMINVOKECOMMANDINFOEX as CMINVOKECOMMANDINFOEX ptr
 type PCCMINVOKECOMMANDINFOEX as const CMINVOKECOMMANDINFOEX ptr
-
 #define __IContextMenu_INTERFACE_DEFINED__
-
 extern IID_IContextMenu as const GUID
-
 type IContextMenu as IContextMenu_
 
 type IContextMenuVtbl
@@ -469,13 +466,9 @@ declare function IContextMenu_InvokeCommand_Proxy(byval This as IContextMenu ptr
 declare sub IContextMenu_InvokeCommand_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IContextMenu_GetCommandString_Proxy(byval This as IContextMenu ptr, byval idCmd as UINT_PTR, byval uType as UINT, byval pReserved as UINT ptr, byval pszName as zstring ptr, byval cchMax as UINT) as HRESULT
 declare sub IContextMenu_GetCommandString_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 type LPCONTEXTMENU as IContextMenu ptr
-
 #define __IContextMenu2_INTERFACE_DEFINED__
-
 extern IID_IContextMenu2 as const GUID
-
 type IContextMenu2 as IContextMenu2_
 
 type IContextMenu2Vtbl
@@ -494,13 +487,9 @@ end type
 
 declare function IContextMenu2_HandleMenuMsg_Proxy(byval This as IContextMenu2 ptr, byval uMsg as UINT, byval wParam as WPARAM, byval lParam as LPARAM) as HRESULT
 declare sub IContextMenu2_HandleMenuMsg_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 type LPCONTEXTMENU2 as IContextMenu2 ptr
-
 #define __IContextMenu3_INTERFACE_DEFINED__
-
 extern IID_IContextMenu3 as const GUID
-
 type IContextMenu3 as IContextMenu3_
 
 type IContextMenu3Vtbl
@@ -520,13 +509,9 @@ end type
 
 declare function IContextMenu3_HandleMenuMsg2_Proxy(byval This as IContextMenu3 ptr, byval uMsg as UINT, byval wParam as WPARAM, byval lParam as LPARAM, byval plResult as LRESULT ptr) as HRESULT
 declare sub IContextMenu3_HandleMenuMsg2_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 type LPCONTEXTMENU3 as IContextMenu3 ptr
-
 #define __IExecuteCommand_INTERFACE_DEFINED__
-
 extern IID_IExecuteCommand as const GUID
-
 type IExecuteCommand as IExecuteCommand_
 
 type IExecuteCommandVtbl
@@ -560,11 +545,8 @@ declare function IExecuteCommand_SetDirectory_Proxy(byval This as IExecuteComman
 declare sub IExecuteCommand_SetDirectory_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IExecuteCommand_Execute_Proxy(byval This as IExecuteCommand ptr) as HRESULT
 declare sub IExecuteCommand_Execute_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 #define __IPersistFolder_INTERFACE_DEFINED__
-
 extern IID_IPersistFolder as const GUID
-
 type IPersistFolder as IPersistFolder_
 
 type IPersistFolderVtbl
@@ -581,18 +563,14 @@ end type
 
 declare function IPersistFolder_Initialize_Proxy(byval This as IPersistFolder ptr, byval pidl as LPCITEMIDLIST) as HRESULT
 declare sub IPersistFolder_Initialize_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 type LPPERSISTFOLDER as IPersistFolder ptr
-
 #define IRTIR_TASK_NOT_RUNNING 0
 #define IRTIR_TASK_RUNNING 1
 #define IRTIR_TASK_SUSPENDED 2
 #define IRTIR_TASK_PENDING 3
 #define IRTIR_TASK_FINISHED 4
 #define __IRunnableTask_INTERFACE_DEFINED__
-
 extern IID_IRunnableTask as const GUID
-
 type IRunnableTask as IRunnableTask_
 
 type IRunnableTaskVtbl
@@ -633,9 +611,7 @@ declare sub IRunnableTask_IsRunning_Stub(byval This as IRpcStubBuffer ptr, byval
 #define ITSS_THREAD_TERMINATE_TIMEOUT INFINITE
 #define ITSS_THREAD_TIMEOUT_NO_CHANGE (INFINITE - 1)
 #define __IShellTaskScheduler_INTERFACE_DEFINED__
-
 extern IID_IShellTaskScheduler as const GUID
-
 type IShellTaskScheduler as IShellTaskScheduler_
 
 type IShellTaskSchedulerVtbl
@@ -660,12 +636,9 @@ declare function IShellTaskScheduler_CountTasks_Proxy(byval This as IShellTaskSc
 declare sub IShellTaskScheduler_CountTasks_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IShellTaskScheduler_Status_Proxy(byval This as IShellTaskScheduler ptr, byval dwReleaseStatus as DWORD, byval dwThreadTimeout as DWORD) as HRESULT
 declare sub IShellTaskScheduler_Status_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 #define SID_ShellTaskScheduler IID_IShellTaskScheduler
 #define __IQueryCodePage_INTERFACE_DEFINED__
-
 extern IID_IQueryCodePage as const GUID
-
 type IQueryCodePage as IQueryCodePage_
 
 type IQueryCodePageVtbl
@@ -684,11 +657,8 @@ declare function IQueryCodePage_GetCodePage_Proxy(byval This as IQueryCodePage p
 declare sub IQueryCodePage_GetCodePage_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IQueryCodePage_SetCodePage_Proxy(byval This as IQueryCodePage ptr, byval uiCodePage as UINT) as HRESULT
 declare sub IQueryCodePage_SetCodePage_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 #define __IPersistFolder2_INTERFACE_DEFINED__
-
 extern IID_IPersistFolder2 as const GUID
-
 type IPersistFolder2 as IPersistFolder2_
 
 type IPersistFolder2Vtbl
@@ -706,7 +676,6 @@ end type
 
 declare function IPersistFolder2_GetCurFolder_Proxy(byval This as IPersistFolder2 ptr, byval ppidl as LPITEMIDLIST ptr) as HRESULT
 declare sub IPersistFolder2_GetCurFolder_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 #define CSIDL_FLAG_PFTI_TRACKTARGET CSIDL_FLAG_DONT_VERIFY
 
 type _PERSIST_FOLDER_TARGET_INFO
@@ -718,11 +687,8 @@ type _PERSIST_FOLDER_TARGET_INFO
 end type
 
 type PERSIST_FOLDER_TARGET_INFO as _PERSIST_FOLDER_TARGET_INFO
-
 #define __IPersistFolder3_INTERFACE_DEFINED__
-
 extern IID_IPersistFolder3 as const GUID
-
 type IPersistFolder3 as IPersistFolder3_
 
 type IPersistFolder3Vtbl
@@ -744,11 +710,8 @@ declare function IPersistFolder3_InitializeEx_Proxy(byval This as IPersistFolder
 declare sub IPersistFolder3_InitializeEx_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IPersistFolder3_GetFolderTargetInfo_Proxy(byval This as IPersistFolder3 ptr, byval ppfti as PERSIST_FOLDER_TARGET_INFO ptr) as HRESULT
 declare sub IPersistFolder3_GetFolderTargetInfo_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 #define __IPersistIDList_INTERFACE_DEFINED__
-
 extern IID_IPersistIDList as const GUID
-
 type IPersistIDList as IPersistIDList_
 
 type IPersistIDListVtbl
@@ -768,11 +731,8 @@ declare function IPersistIDList_SetIDList_Proxy(byval This as IPersistIDList ptr
 declare sub IPersistIDList_SetIDList_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IPersistIDList_GetIDList_Proxy(byval This as IPersistIDList ptr, byval ppidl as LPITEMIDLIST ptr) as HRESULT
 declare sub IPersistIDList_GetIDList_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 #define __IEnumIDList_INTERFACE_DEFINED__
-
 extern IID_IEnumIDList as const GUID
-
 type IEnumIDList as IEnumIDList_
 
 type IEnumIDListVtbl
@@ -799,13 +759,9 @@ declare function IEnumIDList_Clone_Proxy(byval This as IEnumIDList ptr, byval pp
 declare sub IEnumIDList_Clone_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IEnumIDList_Next_Proxy(byval This as IEnumIDList ptr, byval celt as ULONG, byval rgelt as LPITEMIDLIST ptr, byval pceltFetched as ULONG ptr) as HRESULT
 declare function IEnumIDList_Next_Stub(byval This as IEnumIDList ptr, byval celt as ULONG, byval rgelt as LPITEMIDLIST ptr, byval pceltFetched as ULONG ptr) as HRESULT
-
 type LPENUMIDLIST as IEnumIDList ptr
-
 #define __IEnumFullIDList_INTERFACE_DEFINED__
-
 extern IID_IEnumFullIDList as const GUID
-
 type IEnumFullIDList as IEnumFullIDList_
 
 type IEnumFullIDListVtbl
@@ -862,7 +818,6 @@ enum
 end enum
 
 type SHCONTF as DWORD
-
 #define SHCIDS_ALLFIELDS __MSABI_LONG(&h80000000)
 #define SHCIDS_CANONICALONLY __MSABI_LONG(&h10000000)
 #define SHCIDS_BITMASK __MSABI_LONG(&hffff0000)
@@ -902,9 +857,7 @@ type SHCONTF as DWORD
 #define SFGAO_STORAGEANCESTOR __MSABI_LONG(&h00800000)
 #define SFGAO_STORAGECAPMASK __MSABI_LONG(&h70c50008)
 #define SFGAO_PKEYSFGAOMASK __MSABI_LONG(&h81044000)
-
 type SFGAOF as ULONG
-
 #define STR_BIND_FORCE_FOLDER_SHORTCUT_RESOLVE wstr("Force Folder Shortcut Resolve")
 #define STR_AVOID_DRIVE_RESTRICTION_POLICY wstr("Avoid Drive Restriction Policy")
 #define STR_SKIP_BINDING_CLSID wstr("Skip Binding CLSID")
@@ -936,9 +889,7 @@ type SFGAOF as ULONG
 	end enum
 
 	#define __IObjectWithFolderEnumMode_INTERFACE_DEFINED__
-
 	extern IID_IObjectWithFolderEnumMode as const GUID
-
 	type IObjectWithFolderEnumMode as IObjectWithFolderEnumMode_
 
 	type IObjectWithFolderEnumModeVtbl
@@ -965,11 +916,9 @@ type SFGAOF as ULONG
 	#define STR_PROPERTYBAG_PARAM wstr("SHBindCtxPropertyBag")
 	#define STR_ENUM_ITEMS_FLAGS wstr("SHCONTF")
 	#define __IParseAndCreateItem_INTERFACE_DEFINED__
-
 	extern IID_IParseAndCreateItem as const GUID
-
-	type IShellItem as IShellItem_
 	type IParseAndCreateItem as IParseAndCreateItem_
+	type IShellItem as IShellItem_
 
 	type IParseAndCreateItemVtbl
 		QueryInterface as function(byval This as IParseAndCreateItem ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -987,14 +936,11 @@ type SFGAOF as ULONG
 	declare sub IParseAndCreateItem_SetItem_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 	declare function IParseAndCreateItem_GetItem_Proxy(byval This as IParseAndCreateItem ptr, byval riid as const IID const ptr, byval ppv as any ptr ptr) as HRESULT
 	declare sub IParseAndCreateItem_GetItem_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 	#define STR_ITEM_CACHE_CONTEXT wstr("ItemCacheContext")
 #endif
 
 #define __IShellFolder_INTERFACE_DEFINED__
-
 extern IID_IShellFolder as const GUID
-
 type IShellFolder as IShellFolder_
 
 type IShellFolderVtbl
@@ -1039,7 +985,6 @@ declare function IShellFolder_RemoteSetNameOf_Proxy(byval This as IShellFolder p
 declare sub IShellFolder_RemoteSetNameOf_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IShellFolder_SetNameOf_Proxy(byval This as IShellFolder ptr, byval hwnd as HWND, byval pidl as LPCITEMIDLIST, byval pszName as LPCWSTR, byval uFlags as SHGDNF, byval ppidlOut as LPITEMIDLIST ptr) as HRESULT
 declare function IShellFolder_SetNameOf_Stub(byval This as IShellFolder ptr, byval hwnd as HWND, byval pidl as LPCITEMIDLIST, byval pszName as LPCWSTR, byval uFlags as SHGDNF, byval ppidlOut as LPITEMIDLIST ptr) as HRESULT
-
 type LPSHELLFOLDER as IShellFolder ptr
 
 type EXTRASEARCH
@@ -1049,11 +994,8 @@ type EXTRASEARCH
 end type
 
 type LPEXTRASEARCH as EXTRASEARCH ptr
-
 #define __IEnumExtraSearch_INTERFACE_DEFINED__
-
 extern IID_IEnumExtraSearch as const GUID
-
 type IEnumExtraSearch as IEnumExtraSearch_
 
 type IEnumExtraSearchVtbl
@@ -1078,13 +1020,9 @@ declare function IEnumExtraSearch_Reset_Proxy(byval This as IEnumExtraSearch ptr
 declare sub IEnumExtraSearch_Reset_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IEnumExtraSearch_Clone_Proxy(byval This as IEnumExtraSearch ptr, byval ppenum as IEnumExtraSearch ptr ptr) as HRESULT
 declare sub IEnumExtraSearch_Clone_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 type LPENUMEXTRASEARCH as IEnumExtraSearch ptr
-
 #define __IShellFolder2_INTERFACE_DEFINED__
-
 extern IID_IShellFolder2 as const GUID
-
 type IShellFolder2 as IShellFolder2_
 
 type IShellFolder2Vtbl
@@ -1128,7 +1066,6 @@ declare function IShellFolder2_GetDetailsOf_Proxy(byval This as IShellFolder2 pt
 declare sub IShellFolder2_GetDetailsOf_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IShellFolder2_MapColumnToSCID_Proxy(byval This as IShellFolder2 ptr, byval iColumn as UINT, byval pscid as SHCOLUMNID ptr) as HRESULT
 declare sub IShellFolder2_MapColumnToSCID_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 type LPVIEWSETTINGS as zstring ptr
 
 type FOLDERFLAGS as long
@@ -1205,7 +1142,6 @@ end type
 type LPFOLDERSETTINGS as FOLDERSETTINGS ptr
 type LPCFOLDERSETTINGS as const FOLDERSETTINGS ptr
 type PFOLDERSETTINGS as FOLDERSETTINGS ptr
-
 #define __IFolderViewOptions_INTERFACE_DEFINED__
 
 type FOLDERVIEWOPTIONS as long
@@ -1220,7 +1156,6 @@ enum
 end enum
 
 extern IID_IFolderViewOptions as const GUID
-
 type IFolderViewOptions as IFolderViewOptions_
 
 type IFolderViewOptionsVtbl
@@ -1258,7 +1193,6 @@ enum
 end enum
 
 #define SVSI_NOSTATECHANGE cast(UINT, &h80000000)
-
 type SVSIF as UINT
 
 type _SVGIO as long
@@ -1282,13 +1216,10 @@ enum
 end enum
 
 type LPFNSVADDPROPSHEETPAGE as LPFNADDPROPSHEETPAGE
-
 #define __IShellView_INTERFACE_DEFINED__
-
 extern IID_IShellView as const GUID
-
-type IShellBrowser as IShellBrowser_
 type IShellView as IShellView_
+type IShellBrowser as IShellBrowser_
 
 type IShellViewVtbl
 	QueryInterface as function(byval This as IShellView ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -1333,13 +1264,9 @@ declare function IShellView_SelectItem_Proxy(byval This as IShellView ptr, byval
 declare sub IShellView_SelectItem_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IShellView_GetItemObject_Proxy(byval This as IShellView ptr, byval uItem as UINT, byval riid as const IID const ptr, byval ppv as any ptr ptr) as HRESULT
 declare sub IShellView_GetItemObject_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 type LPSHELLVIEW as IShellView ptr
-
 #define __IShellView2_INTERFACE_DEFINED__
-
 type SHELLVIEWID as GUID
-
 #define SV2GV_CURRENTVIEW cast(UINT, -1)
 #define SV2GV_DEFAULTVIEW cast(UINT, -2)
 
@@ -1355,9 +1282,7 @@ end type
 
 type SV2CVW2_PARAMS as _SV2CVW2_PARAMS
 type LPSV2CVW2_PARAMS as _SV2CVW2_PARAMS ptr
-
 extern IID_IShellView2 as const GUID
-
 type IShellView2 as IShellView2_
 
 type IShellView2Vtbl
@@ -1408,9 +1333,7 @@ declare sub IShellView2_SelectAndPositionItem_Stub(byval This as IRpcStubBuffer 
 	end enum
 
 	type SV3CVW3_FLAGS as DWORD
-
 	extern IID_IShellView3 as const GUID
-
 	type IShellView3 as IShellView3_
 
 	type IShellView3Vtbl
@@ -1446,9 +1369,7 @@ declare sub IShellView2_SelectAndPositionItem_Stub(byval This as IRpcStubBuffer 
 #endif
 
 #define __IFolderView_INTERFACE_DEFINED__
-
 extern IID_IFolderView as const GUID
-
 type IFolderView as IFolderView_
 
 type IFolderViewVtbl
@@ -1503,14 +1424,11 @@ declare function IFolderView_SelectItem_Proxy(byval This as IFolderView ptr, byv
 declare sub IFolderView_SelectItem_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IFolderView_SelectAndPositionItems_Proxy(byval This as IFolderView ptr, byval cidl as UINT, byval apidl as LPCITEMIDLIST ptr, byval apt as POINT ptr, byval dwFlags as DWORD) as HRESULT
 declare sub IFolderView_SelectAndPositionItems_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 #define SID_SFolderView IID_IFolderView
 
 #if _WIN32_WINNT = &h0602
 	#define __ISearchBoxInfo_INTERFACE_DEFINED__
-
 	extern IID_ISearchBoxInfo as const GUID
-
 	type ISearchBoxInfo as ISearchBoxInfo_
 
 	type ISearchBoxInfoVtbl
@@ -1549,13 +1467,10 @@ declare sub IFolderView_SelectAndPositionItems_Stub(byval This as IRpcStubBuffer
 	end enum
 
 	type DEPRECATED_HRESULT as HRESULT
-
 	#define __IFolderView2_INTERFACE_DEFINED__
-
 	extern IID_IFolderView2 as const GUID
-
-	type IShellItemArray as IShellItemArray_
 	type IFolderView2 as IFolderView2_
+	type IShellItemArray as IShellItemArray_
 
 	type IFolderView2Vtbl
 		QueryInterface as function(byval This as IFolderView2 ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -1658,11 +1573,8 @@ declare sub IFolderView_SelectAndPositionItems_Stub(byval This as IRpcStubBuffer
 	declare sub IFolderView2_DoRename_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 	declare function IFolderView2_GetGroupBy_Proxy(byval This as IFolderView2 ptr, byval pkey as PROPERTYKEY ptr, byval pfAscending as WINBOOL ptr) as HRESULT
 	declare function IFolderView2_GetGroupBy_Stub(byval This as IFolderView2 ptr, byval pkey as PROPERTYKEY ptr, byval pfAscending as WINBOOL ptr) as HRESULT
-
 	#define __IFolderViewSettings_INTERFACE_DEFINED__
-
 	extern IID_IFolderViewSettings as const GUID
-
 	type IFolderViewSettings as IFolderViewSettings_
 
 	type IFolderViewSettingsVtbl
@@ -1696,11 +1608,8 @@ declare sub IFolderView_SelectAndPositionItems_Stub(byval This as IRpcStubBuffer
 	declare sub IFolderViewSettings_GetSortColumns_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 	declare function IFolderViewSettings_GetGroupSubsetCount_Proxy(byval This as IFolderViewSettings ptr, byval pcVisibleRows as UINT ptr) as HRESULT
 	declare sub IFolderViewSettings_GetGroupSubsetCount_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 	#define __IPreviewHandlerVisuals_INTERFACE_DEFINED__
-
 	extern IID_IPreviewHandlerVisuals as const GUID
-
 	type IPreviewHandlerVisuals as IPreviewHandlerVisuals_
 
 	type IPreviewHandlerVisualsVtbl
@@ -1722,7 +1631,6 @@ declare sub IFolderView_SelectAndPositionItems_Stub(byval This as IRpcStubBuffer
 	declare sub IPreviewHandlerVisuals_SetFont_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 	declare function IPreviewHandlerVisuals_SetTextColor_Proxy(byval This as IPreviewHandlerVisuals ptr, byval color as COLORREF) as HRESULT
 	declare sub IPreviewHandlerVisuals_SetTextColor_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 	#define __IVisualProperties_INTERFACE_DEFINED__
 
 	type VPWATERMARKFLAGS as long
@@ -1741,7 +1649,6 @@ declare sub IFolderView_SelectAndPositionItems_Stub(byval This as IRpcStubBuffer
 	end enum
 
 	extern IID_IVisualProperties as const GUID
-
 	type IVisualProperties as IVisualProperties_
 
 	type IVisualPropertiesVtbl
@@ -1786,9 +1693,7 @@ declare sub IFolderView_SelectAndPositionItems_Stub(byval This as IRpcStubBuffer
 #define CDBOSC_RENAME &h00000003
 #define CDBOSC_STATECHANGE &h00000004
 #define __ICommDlgBrowser_INTERFACE_DEFINED__
-
 extern IID_ICommDlgBrowser as const GUID
-
 type ICommDlgBrowser as ICommDlgBrowser_
 
 type ICommDlgBrowserVtbl
@@ -1810,7 +1715,6 @@ declare function ICommDlgBrowser_OnStateChange_Proxy(byval This as ICommDlgBrows
 declare sub ICommDlgBrowser_OnStateChange_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function ICommDlgBrowser_IncludeObject_Proxy(byval This as ICommDlgBrowser ptr, byval ppshv as IShellView ptr, byval pidl as LPCITEMIDLIST) as HRESULT
 declare sub ICommDlgBrowser_IncludeObject_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 type LPCOMMDLGBROWSER as ICommDlgBrowser ptr
 
 #define SID_SExplorerBrowserFrame IID_ICommDlgBrowser
@@ -1828,9 +1732,7 @@ type LPCOMMDLGBROWSER as ICommDlgBrowser ptr
 #endif
 
 #define __ICommDlgBrowser2_INTERFACE_DEFINED__
-
 extern IID_ICommDlgBrowser2 as const GUID
-
 type ICommDlgBrowser2 as ICommDlgBrowser2_
 
 type ICommDlgBrowser2Vtbl
@@ -1855,14 +1757,11 @@ declare function ICommDlgBrowser2_GetDefaultMenuText_Proxy(byval This as ICommDl
 declare sub ICommDlgBrowser2_GetDefaultMenuText_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function ICommDlgBrowser2_GetViewFlags_Proxy(byval This as ICommDlgBrowser2 ptr, byval pdwFlags as DWORD ptr) as HRESULT
 declare sub ICommDlgBrowser2_GetViewFlags_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 type LPCOMMDLGBROWSER2 as ICommDlgBrowser2 ptr
 
 #if _WIN32_WINNT = &h0602
 	#define __ICommDlgBrowser3_INTERFACE_DEFINED__
-
 	extern IID_ICommDlgBrowser3 as const GUID
-
 	type ICommDlgBrowser3 as ICommDlgBrowser3_
 
 	type ICommDlgBrowser3Vtbl
@@ -1932,9 +1831,7 @@ type LPCOMMDLGBROWSER2 as ICommDlgBrowser2 ptr
 	end type
 
 	#define __IColumnManager_INTERFACE_DEFINED__
-
 	extern IID_IColumnManager as const GUID
-
 	type IColumnManager as IColumnManager_
 
 	type IColumnManagerVtbl
@@ -1965,9 +1862,7 @@ type LPCOMMDLGBROWSER2 as ICommDlgBrowser2 ptr
 #endif
 
 #define __IFolderFilterSite_INTERFACE_DEFINED__
-
 extern IID_IFolderFilterSite as const GUID
-
 type IFolderFilterSite as IFolderFilterSite_
 
 type IFolderFilterSiteVtbl
@@ -1983,11 +1878,8 @@ end type
 
 declare function IFolderFilterSite_SetFilter_Proxy(byval This as IFolderFilterSite ptr, byval punk as IUnknown ptr) as HRESULT
 declare sub IFolderFilterSite_SetFilter_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 #define __IFolderFilter_INTERFACE_DEFINED__
-
 extern IID_IFolderFilter as const GUID
-
 type IFolderFilter as IFolderFilter_
 
 type IFolderFilterVtbl
@@ -2006,11 +1898,8 @@ declare function IFolderFilter_ShouldShow_Proxy(byval This as IFolderFilter ptr,
 declare sub IFolderFilter_ShouldShow_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IFolderFilter_GetEnumFlags_Proxy(byval This as IFolderFilter ptr, byval psf as IShellFolder ptr, byval pidlFolder as LPCITEMIDLIST, byval phwnd as HWND ptr, byval pgrfFlags as DWORD ptr) as HRESULT
 declare sub IFolderFilter_GetEnumFlags_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 #define __IInputObjectSite_INTERFACE_DEFINED__
-
 extern IID_IInputObjectSite as const GUID
-
 type IInputObjectSite as IInputObjectSite_
 
 type IInputObjectSiteVtbl
@@ -2026,11 +1915,8 @@ end type
 
 declare function IInputObjectSite_OnFocusChangeIS_Proxy(byval This as IInputObjectSite ptr, byval punkObj as IUnknown ptr, byval fSetFocus as WINBOOL) as HRESULT
 declare sub IInputObjectSite_OnFocusChangeIS_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 #define __IInputObject_INTERFACE_DEFINED__
-
 extern IID_IInputObject as const GUID
-
 type IInputObject as IInputObject_
 
 type IInputObjectVtbl
@@ -2052,11 +1938,8 @@ declare function IInputObject_HasFocusIO_Proxy(byval This as IInputObject ptr) a
 declare sub IInputObject_HasFocusIO_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IInputObject_TranslateAcceleratorIO_Proxy(byval This as IInputObject ptr, byval pMsg as MSG ptr) as HRESULT
 declare sub IInputObject_TranslateAcceleratorIO_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 #define __IInputObject2_INTERFACE_DEFINED__
-
 extern IID_IInputObject2 as const GUID
-
 type IInputObject2 as IInputObject2_
 
 type IInputObject2Vtbl
@@ -2075,11 +1958,8 @@ end type
 
 declare function IInputObject2_TranslateAcceleratorGlobal_Proxy(byval This as IInputObject2 ptr, byval pMsg as MSG ptr) as HRESULT
 declare sub IInputObject2_TranslateAcceleratorGlobal_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 #define __IShellIcon_INTERFACE_DEFINED__
-
 extern IID_IShellIcon as const GUID
-
 type IShellIcon as IShellIcon_
 
 type IShellIconVtbl
@@ -2095,7 +1975,6 @@ end type
 
 declare function IShellIcon_GetIconOf_Proxy(byval This as IShellIcon ptr, byval pidl as LPCITEMIDLIST, byval flags as UINT, byval pIconIndex as long ptr) as HRESULT
 declare sub IShellIcon_GetIconOf_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 #define SBSP_DEFBROWSER &h0000
 #define SBSP_SAMEBROWSER &h0001
 #define SBSP_NEWBROWSER &h0002
@@ -2140,11 +2019,8 @@ declare sub IShellIcon_GetIconOf_Stub(byval This as IRpcStubBuffer ptr, byval pR
 #define FCT_MERGE &h0001
 #define FCT_CONFIGABLE &h0002
 #define FCT_ADDTOEND &h0004
-
 type LPTBBUTTONSB as LPTBBUTTON
-
 #define __IShellBrowser_INTERFACE_DEFINED__
-
 extern IID_IShellBrowser as const GUID
 
 type IShellBrowserVtbl
@@ -2194,13 +2070,9 @@ declare function IShellBrowser_QueryActiveShellView_Proxy(byval This as IShellBr
 declare sub IShellBrowser_QueryActiveShellView_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IShellBrowser_OnViewWindowActive_Proxy(byval This as IShellBrowser ptr, byval pshv as IShellView ptr) as HRESULT
 declare sub IShellBrowser_OnViewWindowActive_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 type LPSHELLBROWSER as IShellBrowser ptr
-
 #define __IProfferService_INTERFACE_DEFINED__
-
 extern IID_IProfferService as const GUID
-
 type IProfferService as IProfferService_
 
 type IProfferServiceVtbl
@@ -2250,7 +2122,6 @@ enum
 end enum
 
 type SICHINTF as DWORD
-
 extern IID_IShellItem as const GUID
 
 #if (_WIN32_WINNT = &h0400) or (_WIN32_WINNT = &h0502)
@@ -2315,9 +2186,7 @@ declare function SHSimpleIDListFromPath(byval pszPath as PCWSTR) as LPITEMIDLIST
 #define STR_GPS_BESTEFFORT wstr("GPS_BESTEFFORT")
 #define STR_GPS_NO_OPLOCK wstr("GPS_NO_OPLOCK")
 #define __IShellItem2_INTERFACE_DEFINED__
-
 extern IID_IShellItem2 as const GUID
-
 type IShellItem2 as IShellItem2_
 
 type IShellItem2Vtbl
@@ -2390,11 +2259,8 @@ enum
 end enum
 
 type SIIGBF as long
-
 #define __IShellItemImageFactory_INTERFACE_DEFINED__
-
 extern IID_IShellItemImageFactory as const GUID
-
 type IShellItemImageFactory as IShellItemImageFactory_
 
 type IShellItemImageFactoryVtbl
@@ -2410,11 +2276,8 @@ end type
 
 declare function IShellItemImageFactory_GetImage_Proxy(byval This as IShellItemImageFactory ptr, byval size as SIZE, byval flags as SIIGBF, byval phbm as HBITMAP ptr) as HRESULT
 declare sub IShellItemImageFactory_GetImage_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 #define __IUserAccountChangeCallback_INTERFACE_DEFINED__
-
 extern IID_IUserAccountChangeCallback as const GUID
-
 type IUserAccountChangeCallback as IUserAccountChangeCallback_
 
 type IUserAccountChangeCallbackVtbl
@@ -2430,11 +2293,8 @@ end type
 
 declare function IUserAccountChangeCallback_OnPictureChange_Proxy(byval This as IUserAccountChangeCallback ptr, byval pszUserName as LPCWSTR) as HRESULT
 declare sub IUserAccountChangeCallback_OnPictureChange_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 #define __IEnumShellItems_INTERFACE_DEFINED__
-
 extern IID_IEnumShellItems as const GUID
-
 type IEnumShellItems as IEnumShellItems_
 
 type IEnumShellItemsVtbl
@@ -2461,7 +2321,6 @@ declare function IEnumShellItems_Clone_Proxy(byval This as IEnumShellItems ptr, 
 declare sub IEnumShellItems_Clone_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IEnumShellItems_Next_Proxy(byval This as IEnumShellItems ptr, byval celt as ULONG, byval rgelt as IShellItem ptr ptr, byval pceltFetched as ULONG ptr) as HRESULT
 declare function IEnumShellItems_Next_Stub(byval This as IEnumShellItems ptr, byval celt as ULONG, byval rgelt as IShellItem ptr ptr, byval pceltFetched as ULONG ptr) as HRESULT
-
 type STGTRANSCONFIRMATION as GUID
 type LPSTGTRANSCONFIRMATION as GUID ptr
 
@@ -2508,9 +2367,7 @@ type TRANSFER_SOURCE_FLAGS as DWORD
 	end enum
 
 	type TRANSFER_ADVISE_STATE as DWORD
-
 	extern IID_ITransferAdviseSink as const GUID
-
 	type ITransferAdviseSink as ITransferAdviseSink_
 
 	type ITransferAdviseSinkVtbl
@@ -2544,11 +2401,8 @@ type TRANSFER_SOURCE_FLAGS as DWORD
 	declare sub ITransferAdviseSink_SubStreamFailure_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 	declare function ITransferAdviseSink_PropertyFailure_Proxy(byval This as ITransferAdviseSink ptr, byval psi as IShellItem ptr, byval pkey as const PROPERTYKEY ptr, byval hrError as HRESULT) as HRESULT
 	declare sub ITransferAdviseSink_PropertyFailure_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 	#define __ITransferSource_INTERFACE_DEFINED__
-
 	extern IID_ITransferSource as const GUID
-
 	type ITransferSource as ITransferSource_
 
 	type ITransferSourceVtbl
@@ -2608,9 +2462,7 @@ type SHELL_ITEM_RESOURCE
 end type
 
 #define __IEnumResources_INTERFACE_DEFINED__
-
 extern IID_IEnumResources as const GUID
-
 type IEnumResources as IEnumResources_
 
 type IEnumResourcesVtbl
@@ -2635,11 +2487,8 @@ declare function IEnumResources_Reset_Proxy(byval This as IEnumResources ptr) as
 declare sub IEnumResources_Reset_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IEnumResources_Clone_Proxy(byval This as IEnumResources ptr, byval ppenumr as IEnumResources ptr ptr) as HRESULT
 declare sub IEnumResources_Clone_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 #define __IShellItemResources_INTERFACE_DEFINED__
-
 extern IID_IShellItemResources as const GUID
-
 type IShellItemResources as IShellItemResources_
 
 type IShellItemResourcesVtbl
@@ -2682,11 +2531,8 @@ declare function IShellItemResources_CreateResource_Proxy(byval This as IShellIt
 declare sub IShellItemResources_CreateResource_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IShellItemResources_MarkForDelete_Proxy(byval This as IShellItemResources ptr) as HRESULT
 declare sub IShellItemResources_MarkForDelete_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 #define __ITransferDestination_INTERFACE_DEFINED__
-
 extern IID_ITransferDestination as const GUID
-
 type ITransferDestination as ITransferDestination_
 
 type ITransferDestinationVtbl
@@ -2708,11 +2554,8 @@ declare function ITransferDestination_Unadvise_Proxy(byval This as ITransferDest
 declare sub ITransferDestination_Unadvise_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function ITransferDestination_CreateItem_Proxy(byval This as ITransferDestination ptr, byval pszName as LPCWSTR, byval dwAttributes as DWORD, byval ullSize as ULONGLONG, byval flags as TRANSFER_SOURCE_FLAGS, byval riidItem as const IID const ptr, byval ppvItem as any ptr ptr, byval riidResources as const IID const ptr, byval ppvResources as any ptr ptr) as HRESULT
 declare sub ITransferDestination_CreateItem_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 #define __IStreamAsync_INTERFACE_DEFINED__
-
 extern IID_IStreamAsync as const GUID
-
 type IStreamAsync as IStreamAsync_
 
 type IStreamAsyncVtbl
@@ -2748,11 +2591,8 @@ declare function IStreamAsync_OverlappedResult_Proxy(byval This as IStreamAsync 
 declare sub IStreamAsync_OverlappedResult_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IStreamAsync_CancelIo_Proxy(byval This as IStreamAsync ptr) as HRESULT
 declare sub IStreamAsync_CancelIo_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 #define __IStreamUnbufferedInfo_INTERFACE_DEFINED__
-
 extern IID_IStreamUnbufferedInfo as const GUID
-
 type IStreamUnbufferedInfo as IStreamUnbufferedInfo_
 
 type IStreamUnbufferedInfoVtbl
@@ -2771,9 +2611,7 @@ declare sub IStreamUnbufferedInfo_GetSectorSize_Stub(byval This as IRpcStubBuffe
 
 #if _WIN32_WINNT = &h0602
 	#define __IFileOperationProgressSink_INTERFACE_DEFINED__
-
 	extern IID_IFileOperationProgressSink as const GUID
-
 	type IFileOperationProgressSink as IFileOperationProgressSink_
 
 	type IFileOperationProgressSinkVtbl
@@ -2893,9 +2731,7 @@ declare sub IShellItemArray_EnumItems_Stub(byval This as IRpcStubBuffer ptr, byv
 #endif
 
 #define __IInitializeWithItem_INTERFACE_DEFINED__
-
 extern IID_IInitializeWithItem as const GUID
-
 type IInitializeWithItem as IInitializeWithItem_
 
 type IInitializeWithItemVtbl
@@ -2911,11 +2747,8 @@ end type
 
 declare function IInitializeWithItem_Initialize_Proxy(byval This as IInitializeWithItem ptr, byval psi as IShellItem ptr, byval grfMode as DWORD) as HRESULT
 declare sub IInitializeWithItem_Initialize_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 #define __IObjectWithSelection_INTERFACE_DEFINED__
-
 extern IID_IObjectWithSelection as const GUID
-
 type IObjectWithSelection as IObjectWithSelection_
 
 type IObjectWithSelectionVtbl
@@ -2934,11 +2767,8 @@ declare function IObjectWithSelection_SetSelection_Proxy(byval This as IObjectWi
 declare sub IObjectWithSelection_SetSelection_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IObjectWithSelection_GetSelection_Proxy(byval This as IObjectWithSelection ptr, byval riid as const IID const ptr, byval ppv as any ptr ptr) as HRESULT
 declare sub IObjectWithSelection_GetSelection_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 #define __IObjectWithBackReferences_INTERFACE_DEFINED__
-
 extern IID_IObjectWithBackReferences as const GUID
-
 type IObjectWithBackReferences as IObjectWithBackReferences_
 
 type IObjectWithBackReferencesVtbl
@@ -2982,11 +2812,8 @@ enum
 end enum
 
 type PROPERTYUI_FORMAT_FLAGS as DWORD
-
 #define __IPropertyUI_INTERFACE_DEFINED__
-
 extern IID_IPropertyUI as const GUID
-
 type IPropertyUI as IPropertyUI_
 
 type IPropertyUIVtbl
@@ -3027,17 +2854,13 @@ declare sub IPropertyUI_GetHelpInfo_Stub(byval This as IRpcStubBuffer ptr, byval
 #if _WIN32_WINNT = &h0602
 	declare function SHRemovePersonalPropertyValues(byval psia as IShellItemArray ptr) as HRESULT
 	declare function SHAddDefaultPropertiesByExt(byval pszExt as PCWSTR, byval pPropStore as IPropertyStore ptr) as HRESULT
-
 	type IFileOperation as IFileOperation_
-
 	declare function SHCreateDefaultPropertiesOp(byval psi as IShellItem ptr, byval ppFileOp as IFileOperation ptr ptr) as HRESULT
 	declare function SHSetDefaultProperties(byval hwnd as HWND, byval psi as IShellItem ptr, byval dwFileOpFlags as DWORD, byval pfops as IFileOperationProgressSink ptr) as HRESULT
 #endif
 
 #define __ICategoryProvider_INTERFACE_DEFINED__
-
 extern IID_ICategoryProvider as const GUID
-
 type ICategoryProvider as ICategoryProvider_
 
 type ICategoryProviderVtbl
@@ -3093,9 +2916,7 @@ type CATEGORY_INFO
 end type
 
 #define __ICategorizer_INTERFACE_DEFINED__
-
 extern IID_ICategorizer as const GUID
-
 type ICategorizer as ICategorizer_
 
 type ICategorizerVtbl
@@ -3129,12 +2950,9 @@ type SHDRAGIMAGE
 end type
 
 type LPSHDRAGIMAGE as SHDRAGIMAGE ptr
-
 #define DI_GETDRAGIMAGE TEXT("ShellGetDragImage")
 #define __IDropTargetHelper_INTERFACE_DEFINED__
-
 extern IID_IDropTargetHelper as const GUID
-
 type IDropTargetHelper as IDropTargetHelper_
 
 type IDropTargetHelperVtbl
@@ -3162,11 +2980,8 @@ declare function IDropTargetHelper_Drop_Proxy(byval This as IDropTargetHelper pt
 declare sub IDropTargetHelper_Drop_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IDropTargetHelper_Show_Proxy(byval This as IDropTargetHelper ptr, byval fShow as WINBOOL) as HRESULT
 declare sub IDropTargetHelper_Show_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 #define __IDragSourceHelper_INTERFACE_DEFINED__
-
 extern IID_IDragSourceHelper as const GUID
-
 type IDragSourceHelper as IDragSourceHelper_
 
 type IDragSourceHelperVtbl
@@ -3193,9 +3008,7 @@ declare sub IDragSourceHelper_InitializeFromWindow_Stub(byval This as IRpcStubBu
 	end enum
 
 	#define __IDragSourceHelper2_INTERFACE_DEFINED__
-
 	extern IID_IDragSourceHelper2 as const GUID
-
 	type IDragSourceHelper2 as IDragSourceHelper2_
 
 	type IDragSourceHelper2Vtbl
@@ -3247,9 +3060,7 @@ enum
 end enum
 
 #define __IShellLinkA_INTERFACE_DEFINED__
-
 extern IID_IShellLinkA as const GUID
-
 type IShellLinkA as IShellLinkA_
 
 type IShellLinkAVtbl
@@ -3316,11 +3127,8 @@ declare function IShellLinkA_Resolve_Proxy(byval This as IShellLinkA ptr, byval 
 declare sub IShellLinkA_Resolve_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IShellLinkA_SetPath_Proxy(byval This as IShellLinkA ptr, byval pszFile as LPCSTR) as HRESULT
 declare sub IShellLinkA_SetPath_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 #define __IShellLinkW_INTERFACE_DEFINED__
-
 extern IID_IShellLinkW as const GUID
-
 type IShellLinkW as IShellLinkW_
 
 type IShellLinkWVtbl
@@ -3387,11 +3195,8 @@ declare function IShellLinkW_Resolve_Proxy(byval This as IShellLinkW ptr, byval 
 declare sub IShellLinkW_Resolve_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IShellLinkW_SetPath_Proxy(byval This as IShellLinkW ptr, byval pszFile as LPCWSTR) as HRESULT
 declare sub IShellLinkW_SetPath_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 #define __IShellLinkDataList_INTERFACE_DEFINED__
-
 extern IID_IShellLinkDataList as const GUID
-
 type IShellLinkDataList as IShellLinkDataList_
 
 type IShellLinkDataListVtbl
@@ -3415,11 +3220,8 @@ declare function IShellLinkDataList_GetFlags_Proxy(byval This as IShellLinkDataL
 declare sub IShellLinkDataList_GetFlags_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IShellLinkDataList_SetFlags_Proxy(byval This as IShellLinkDataList ptr, byval dwFlags as DWORD) as HRESULT
 declare sub IShellLinkDataList_SetFlags_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 #define __IResolveShellLink_INTERFACE_DEFINED__
-
 extern IID_IResolveShellLink as const GUID
-
 type IResolveShellLink as IResolveShellLink_
 
 type IResolveShellLinkVtbl
@@ -3435,7 +3237,6 @@ end type
 
 declare function IResolveShellLink_ResolveShellLink_Proxy(byval This as IResolveShellLink ptr, byval punkLink as IUnknown ptr, byval hwnd as HWND, byval fFlags as DWORD) as HRESULT
 declare sub IResolveShellLink_ResolveShellLink_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 #define __IActionProgressDialog_INTERFACE_DEFINED__
 
 type _SPINITF as long
@@ -3446,9 +3247,7 @@ enum
 end enum
 
 type SPINITF as DWORD
-
 extern IID_IActionProgressDialog as const GUID
-
 type IActionProgressDialog as IActionProgressDialog_
 
 type IActionProgressDialogVtbl
@@ -3467,11 +3266,8 @@ declare function IActionProgressDialog_Initialize_Proxy(byval This as IActionPro
 declare sub IActionProgressDialog_Initialize_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IActionProgressDialog_Stop_Proxy(byval This as IActionProgressDialog ptr) as HRESULT
 declare sub IActionProgressDialog_Stop_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 #define __IHWEventHandler_INTERFACE_DEFINED__
-
 extern IID_IHWEventHandler as const GUID
-
 type IHWEventHandler as IHWEventHandler_
 
 type IHWEventHandlerVtbl
@@ -3493,11 +3289,8 @@ declare function IHWEventHandler_HandleEvent_Proxy(byval This as IHWEventHandler
 declare sub IHWEventHandler_HandleEvent_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IHWEventHandler_HandleEventWithContent_Proxy(byval This as IHWEventHandler ptr, byval pszDeviceID as LPCWSTR, byval pszAltDeviceID as LPCWSTR, byval pszEventType as LPCWSTR, byval pszContentTypeHandler as LPCWSTR, byval pdataobject as IDataObject ptr) as HRESULT
 declare sub IHWEventHandler_HandleEventWithContent_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 #define __IHWEventHandler2_INTERFACE_DEFINED__
-
 extern IID_IHWEventHandler2 as const GUID
-
 type IHWEventHandler2 as IHWEventHandler2_
 
 type IHWEventHandler2Vtbl
@@ -3516,7 +3309,6 @@ end type
 
 declare function IHWEventHandler2_HandleEventWithHWND_Proxy(byval This as IHWEventHandler2 ptr, byval pszDeviceID as LPCWSTR, byval pszAltDeviceID as LPCWSTR, byval pszEventType as LPCWSTR, byval hwndOwner as HWND) as HRESULT
 declare sub IHWEventHandler2_HandleEventWithHWND_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 #define ARCONTENT_AUTORUNINF &h00000002
 #define ARCONTENT_AUDIOCD &h00000004
 #define ARCONTENT_DVDMOVIE &h00000008
@@ -3545,9 +3337,7 @@ declare sub IHWEventHandler2_HandleEventWithHWND_Stub(byval This as IRpcStubBuff
 #endif
 
 #define __IQueryCancelAutoPlay_INTERFACE_DEFINED__
-
 extern IID_IQueryCancelAutoPlay as const GUID
-
 type IQueryCancelAutoPlay as IQueryCancelAutoPlay_
 
 type IQueryCancelAutoPlayVtbl
@@ -3566,9 +3356,7 @@ declare sub IQueryCancelAutoPlay_AllowAutoPlay_Stub(byval This as IRpcStubBuffer
 
 #if _WIN32_WINNT = &h0602
 	#define __IDynamicHWHandler_INTERFACE_DEFINED__
-
 	extern IID_IDynamicHWHandler as const GUID
-
 	type IDynamicHWHandler as IDynamicHWHandler_
 
 	type IDynamicHWHandlerVtbl
@@ -3626,9 +3414,7 @@ enum
 end enum
 
 type SPTEXT as _SPTEXT
-
 extern IID_IActionProgress as const GUID
-
 type IActionProgress as IActionProgress_
 
 type IActionProgressVtbl
@@ -3659,11 +3445,8 @@ declare function IActionProgress_ResetCancel_Proxy(byval This as IActionProgress
 declare sub IActionProgress_ResetCancel_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IActionProgress_End_Proxy(byval This as IActionProgress ptr) as HRESULT
 declare sub IActionProgress_End_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 #define __IShellExtInit_INTERFACE_DEFINED__
-
 extern IID_IShellExtInit as const GUID
-
 type IShellExtInit as IShellExtInit_
 
 type IShellExtInitVtbl
@@ -3679,9 +3462,7 @@ end type
 
 declare function IShellExtInit_Initialize_Proxy(byval This as IShellExtInit ptr, byval pidlFolder as LPCITEMIDLIST, byval pdtobj as IDataObject ptr, byval hkeyProgID as HKEY) as HRESULT
 declare sub IShellExtInit_Initialize_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 type LPSHELLEXTINIT as IShellExtInit ptr
-
 #define __IShellPropSheetExt_INTERFACE_DEFINED__
 
 type _EXPPS as long
@@ -3690,9 +3471,7 @@ enum
 end enum
 
 type EXPPS as UINT
-
 extern IID_IShellPropSheetExt as const GUID
-
 type IShellPropSheetExt as IShellPropSheetExt_
 
 type IShellPropSheetExtVtbl
@@ -3711,13 +3490,9 @@ declare function IShellPropSheetExt_AddPages_Proxy(byval This as IShellPropSheet
 declare sub IShellPropSheetExt_AddPages_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IShellPropSheetExt_ReplacePage_Proxy(byval This as IShellPropSheetExt ptr, byval uPageID as EXPPS, byval pfnReplaceWith as LPFNSVADDPROPSHEETPAGE, byval lParam as LPARAM) as HRESULT
 declare sub IShellPropSheetExt_ReplacePage_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 type LPSHELLPROPSHEETEXT as IShellPropSheetExt ptr
-
 #define __IRemoteComputer_INTERFACE_DEFINED__
-
 extern IID_IRemoteComputer as const GUID
-
 type IRemoteComputer as IRemoteComputer_
 
 type IRemoteComputerVtbl
@@ -3733,11 +3508,8 @@ end type
 
 declare function IRemoteComputer_Initialize_Proxy(byval This as IRemoteComputer ptr, byval pszMachine as LPCWSTR, byval bEnumerating as WINBOOL) as HRESULT
 declare sub IRemoteComputer_Initialize_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 #define __IQueryContinue_INTERFACE_DEFINED__
-
 extern IID_IQueryContinue as const GUID
-
 type IQueryContinue as IQueryContinue_
 
 type IQueryContinueVtbl
@@ -3753,11 +3525,8 @@ end type
 
 declare function IQueryContinue_QueryContinue_Proxy(byval This as IQueryContinue ptr) as HRESULT
 declare sub IQueryContinue_QueryContinue_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 #define __IObjectWithCancelEvent_INTERFACE_DEFINED__
-
 extern IID_IObjectWithCancelEvent as const GUID
-
 type IObjectWithCancelEvent as IObjectWithCancelEvent_
 
 type IObjectWithCancelEventVtbl
@@ -3773,11 +3542,8 @@ end type
 
 declare function IObjectWithCancelEvent_GetCancelEvent_Proxy(byval This as IObjectWithCancelEvent ptr, byval phEvent as HANDLE ptr) as HRESULT
 declare sub IObjectWithCancelEvent_GetCancelEvent_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 #define __IUserNotification_INTERFACE_DEFINED__
-
 extern IID_IUserNotification as const GUID
-
 type IUserNotification as IUserNotification_
 
 type IUserNotificationVtbl
@@ -3810,11 +3576,8 @@ declare function IUserNotification_Show_Proxy(byval This as IUserNotification pt
 declare sub IUserNotification_Show_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IUserNotification_PlaySound_Proxy(byval This as IUserNotification ptr, byval pszSoundName as LPCWSTR) as HRESULT
 declare sub IUserNotification_PlaySound_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 #define __IUserNotificationCallback_INTERFACE_DEFINED__
-
 extern IID_IUserNotificationCallback as const GUID
-
 type IUserNotificationCallback as IUserNotificationCallback_
 
 type IUserNotificationCallbackVtbl
@@ -3836,11 +3599,8 @@ declare function IUserNotificationCallback_OnLeftClick_Proxy(byval This as IUser
 declare sub IUserNotificationCallback_OnLeftClick_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IUserNotificationCallback_OnContextMenu_Proxy(byval This as IUserNotificationCallback ptr, byval pt as POINT ptr) as HRESULT
 declare sub IUserNotificationCallback_OnContextMenu_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 #define __IUserNotification2_INTERFACE_DEFINED__
-
 extern IID_IUserNotification2 as const GUID
-
 type IUserNotification2 as IUserNotification2_
 
 type IUserNotification2Vtbl
@@ -3873,11 +3633,8 @@ declare function IUserNotification2_Show_Proxy(byval This as IUserNotification2 
 declare sub IUserNotification2_Show_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IUserNotification2_PlaySound_Proxy(byval This as IUserNotification2 ptr, byval pszSoundName as LPCWSTR) as HRESULT
 declare sub IUserNotification2_PlaySound_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 #define __IItemNameLimits_INTERFACE_DEFINED__
-
 extern IID_IItemNameLimits as const GUID
-
 type IItemNameLimits as IItemNameLimits_
 
 type IItemNameLimitsVtbl
@@ -3899,9 +3656,7 @@ declare sub IItemNameLimits_GetMaxLength_Stub(byval This as IRpcStubBuffer ptr, 
 
 #if _WIN32_WINNT = &h0602
 	#define __ISearchFolderItemFactory_INTERFACE_DEFINED__
-
 	extern IID_ISearchFolderItemFactory as const GUID
-
 	type ISearchFolderItemFactory as ISearchFolderItemFactory_
 
 	type ISearchFolderItemFactoryVtbl
@@ -3967,9 +3722,7 @@ declare sub IItemNameLimits_GetMaxLength_Stub(byval This as IRpcStubBuffer ptr, 
 #define IEIFLAG_QUALITY &h0200
 #define IEIFLAG_REFRESH &h0400
 #define __IExtractImage_INTERFACE_DEFINED__
-
 extern IID_IExtractImage as const GUID
-
 type IExtractImage as IExtractImage_
 
 type IExtractImageVtbl
@@ -3988,13 +3741,9 @@ declare function IExtractImage_GetLocation_Proxy(byval This as IExtractImage ptr
 declare sub IExtractImage_GetLocation_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IExtractImage_Extract_Proxy(byval This as IExtractImage ptr, byval phBmpThumbnail as HBITMAP ptr) as HRESULT
 declare sub IExtractImage_Extract_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 type LPEXTRACTIMAGE as IExtractImage ptr
-
 #define __IExtractImage2_INTERFACE_DEFINED__
-
 extern IID_IExtractImage2 as const GUID
-
 type IExtractImage2 as IExtractImage2_
 
 type IExtractImage2Vtbl
@@ -4012,13 +3761,9 @@ end type
 
 declare function IExtractImage2_GetDateStamp_Proxy(byval This as IExtractImage2 ptr, byval pDateStamp as FILETIME ptr) as HRESULT
 declare sub IExtractImage2_GetDateStamp_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 type LPEXTRACTIMAGE2 as IExtractImage2 ptr
-
 #define __IThumbnailHandlerFactory_INTERFACE_DEFINED__
-
 extern IID_IThumbnailHandlerFactory as const GUID
-
 type IThumbnailHandlerFactory as IThumbnailHandlerFactory_
 
 type IThumbnailHandlerFactoryVtbl
@@ -4034,11 +3779,8 @@ end type
 
 declare function IThumbnailHandlerFactory_GetThumbnailHandler_Proxy(byval This as IThumbnailHandlerFactory ptr, byval pidlChild as LPCITEMIDLIST, byval pbc as IBindCtx ptr, byval riid as const IID const ptr, byval ppv as any ptr ptr) as HRESULT
 declare sub IThumbnailHandlerFactory_GetThumbnailHandler_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 #define __IParentAndItem_INTERFACE_DEFINED__
-
 extern IID_IParentAndItem as const GUID
-
 type IParentAndItem as IParentAndItem_
 
 type IParentAndItemVtbl
@@ -4059,11 +3801,8 @@ declare function IParentAndItem_RemoteGetParentAndItem_Proxy(byval This as IPare
 declare sub IParentAndItem_RemoteGetParentAndItem_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IParentAndItem_GetParentAndItem_Proxy(byval This as IParentAndItem ptr, byval ppidlParent as LPITEMIDLIST ptr, byval ppsf as IShellFolder ptr ptr, byval ppidlChild as LPITEMIDLIST ptr) as HRESULT
 declare function IParentAndItem_GetParentAndItem_Stub(byval This as IParentAndItem ptr, byval ppidlParent as LPITEMIDLIST ptr, byval ppsf as IShellFolder ptr ptr, byval ppidlChild as LPITEMIDLIST ptr) as HRESULT
-
 #define __IDockingWindow_INTERFACE_DEFINED__
-
 extern IID_IDockingWindow as const GUID
-
 type IDockingWindow as IDockingWindow_
 
 type IDockingWindowVtbl
@@ -4146,9 +3885,7 @@ end enum
 #define DBPC_SELECTLAST cast(DWORD, -2)
 #define CGID_DeskBand IID_IDeskBand
 #define __IDeskBand_INTERFACE_DEFINED__
-
 extern IID_IDeskBand as const GUID
-
 type IDeskBand as IDeskBand_
 
 type IDeskBandVtbl
@@ -4172,9 +3909,7 @@ declare sub IDeskBand_GetBandInfo_Stub(byval This as IRpcStubBuffer ptr, byval p
 
 #if _WIN32_WINNT = &h0602
 	#define __IDeskBandInfo_INTERFACE_DEFINED__
-
 	extern IID_IDeskBandInfo as const GUID
-
 	type IDeskBandInfo as IDeskBandInfo_
 
 	type IDeskBandInfoVtbl
@@ -4190,11 +3925,8 @@ declare sub IDeskBand_GetBandInfo_Stub(byval This as IRpcStubBuffer ptr, byval p
 
 	declare function IDeskBandInfo_GetDefaultBandWidth_Proxy(byval This as IDeskBandInfo ptr, byval dwBandID as DWORD, byval dwViewMode as DWORD, byval pnWidth as long ptr) as HRESULT
 	declare sub IDeskBandInfo_GetDefaultBandWidth_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 	#define __IDeskBand2_INTERFACE_DEFINED__
-
 	extern IID_IDeskBand2 as const GUID
-
 	type IDeskBand2 as IDeskBand2_
 
 	type IDeskBand2Vtbl
@@ -4225,9 +3957,7 @@ declare sub IDeskBand_GetBandInfo_Stub(byval This as IRpcStubBuffer ptr, byval p
 #endif
 
 #define __ITaskbarList_INTERFACE_DEFINED__
-
 extern IID_ITaskbarList as const GUID
-
 type ITaskbarList as ITaskbarList_
 
 type ITaskbarListVtbl
@@ -4255,11 +3985,8 @@ declare function ITaskbarList_ActivateTab_Proxy(byval This as ITaskbarList ptr, 
 declare sub ITaskbarList_ActivateTab_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function ITaskbarList_SetActiveAlt_Proxy(byval This as ITaskbarList ptr, byval hwnd as HWND) as HRESULT
 declare sub ITaskbarList_SetActiveAlt_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 #define __ITaskbarList2_INTERFACE_DEFINED__
-
 extern IID_ITaskbarList2 as const GUID
-
 type ITaskbarList2 as ITaskbarList2_
 
 type ITaskbarList2Vtbl
@@ -4309,7 +4036,6 @@ type THUMBBUTTON
 end type
 
 type LPTHUMBBUTTON as THUMBBUTTON ptr
-
 #define THBN_CLICKED &h1800
 #define __ITaskbarList3_INTERFACE_DEFINED__
 
@@ -4323,7 +4049,6 @@ enum
 end enum
 
 extern IID_ITaskbarList3 as const GUID
-
 type ITaskbarList3 as ITaskbarList3_
 
 type ITaskbarList3Vtbl
@@ -4378,7 +4103,6 @@ declare function ITaskbarList3_SetThumbnailTooltip_Proxy(byval This as ITaskbarL
 declare sub ITaskbarList3_SetThumbnailTooltip_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function ITaskbarList3_SetThumbnailClip_Proxy(byval This as ITaskbarList3 ptr, byval hwnd as HWND, byval prcClip as RECT ptr) as HRESULT
 declare sub ITaskbarList3_SetThumbnailClip_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 #define __ITaskbarList4_INTERFACE_DEFINED__
 
 type STPFLAG as long
@@ -4391,7 +4115,6 @@ enum
 end enum
 
 extern IID_ITaskbarList4 as const GUID
-
 type ITaskbarList4 as ITaskbarList4_
 
 type ITaskbarList4Vtbl
@@ -4425,11 +4148,8 @@ end type
 
 declare function ITaskbarList4_SetTabProperties_Proxy(byval This as ITaskbarList4 ptr, byval hwndTab as HWND, byval stpFlags as STPFLAG) as HRESULT
 declare sub ITaskbarList4_SetTabProperties_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 #define __IStartMenuPinnedList_INTERFACE_DEFINED__
-
 extern IID_IStartMenuPinnedList as const GUID
-
 type IStartMenuPinnedList as IStartMenuPinnedList_
 
 type IStartMenuPinnedListVtbl
@@ -4445,11 +4165,8 @@ end type
 
 declare function IStartMenuPinnedList_RemoveFromList_Proxy(byval This as IStartMenuPinnedList ptr, byval pitem as IShellItem ptr) as HRESULT
 declare sub IStartMenuPinnedList_RemoveFromList_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 #define __ICDBurn_INTERFACE_DEFINED__
-
 extern IID_ICDBurn as const GUID
-
 type ICDBurn as ICDBurn_
 
 type ICDBurnVtbl
@@ -4475,9 +4192,7 @@ declare sub ICDBurn_HasRecordableDrive_Stub(byval This as IRpcStubBuffer ptr, by
 #define IDD_WIZEXTN_FIRST &h5000
 #define IDD_WIZEXTN_LAST &h5100
 #define __IWizardSite_INTERFACE_DEFINED__
-
 extern IID_IWizardSite as const GUID
-
 type IWizardSite as IWizardSite_
 
 type IWizardSiteVtbl
@@ -4499,12 +4214,9 @@ declare function IWizardSite_GetNextPage_Proxy(byval This as IWizardSite ptr, by
 declare sub IWizardSite_GetNextPage_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IWizardSite_GetCancelledPage_Proxy(byval This as IWizardSite ptr, byval phpage as HPROPSHEETPAGE ptr) as HRESULT
 declare sub IWizardSite_GetCancelledPage_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 #define SID_WizardSite IID_IWizardSite
 #define __IWizardExtension_INTERFACE_DEFINED__
-
 extern IID_IWizardExtension as const GUID
-
 type IWizardExtension as IWizardExtension_
 
 type IWizardExtensionVtbl
@@ -4526,11 +4238,8 @@ declare function IWizardExtension_GetFirstPage_Proxy(byval This as IWizardExtens
 declare sub IWizardExtension_GetFirstPage_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IWizardExtension_GetLastPage_Proxy(byval This as IWizardExtension ptr, byval phpage as HPROPSHEETPAGE ptr) as HRESULT
 declare sub IWizardExtension_GetLastPage_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 #define __IWebWizardExtension_INTERFACE_DEFINED__
-
 extern IID_IWebWizardExtension as const GUID
-
 type IWebWizardExtension as IWebWizardExtension_
 
 type IWebWizardExtensionVtbl
@@ -4565,9 +4274,7 @@ declare sub IWebWizardExtension_SetErrorURL_Stub(byval This as IRpcStubBuffer pt
 
 #define SHPWHF_VALIDATEVIAWEBFOLDERS &h00010000
 #define __IPublishingWizard_INTERFACE_DEFINED__
-
 extern IID_IPublishingWizard as const GUID
-
 type IPublishingWizard as IPublishingWizard_
 
 type IPublishingWizardVtbl
@@ -4589,11 +4296,8 @@ declare function IPublishingWizard_Initialize_Proxy(byval This as IPublishingWiz
 declare sub IPublishingWizard_Initialize_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IPublishingWizard_GetTransferManifest_Proxy(byval This as IPublishingWizard ptr, byval phrFromTransfer as HRESULT ptr, byval pdocManifest as IXMLDOMDocument ptr ptr) as HRESULT
 declare sub IPublishingWizard_GetTransferManifest_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 #define __IFolderViewHost_INTERFACE_DEFINED__
-
 extern IID_IFolderViewHost as const GUID
-
 type IFolderViewHost as IFolderViewHost_
 
 type IFolderViewHostVtbl
@@ -4612,9 +4316,7 @@ declare sub IFolderViewHost_Initialize_Stub(byval This as IRpcStubBuffer ptr, by
 
 #if _WIN32_WINNT = &h0602
 	#define __IExplorerBrowserEvents_INTERFACE_DEFINED__
-
 	extern IID_IExplorerBrowserEvents as const GUID
-
 	type IExplorerBrowserEvents as IExplorerBrowserEvents_
 
 	type IExplorerBrowserEventsVtbl
@@ -4661,9 +4363,7 @@ declare sub IFolderViewHost_Initialize_Stub(byval This as IRpcStubBuffer ptr, by
 	end enum
 
 	#define __IExplorerBrowser_INTERFACE_DEFINED__
-
 	extern IID_IExplorerBrowser as const GUID
-
 	type IExplorerBrowser as IExplorerBrowser_
 
 	type IExplorerBrowserVtbl
@@ -4717,11 +4417,8 @@ declare sub IFolderViewHost_Initialize_Stub(byval This as IRpcStubBuffer ptr, by
 	declare sub IExplorerBrowser_RemoveAll_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 	declare function IExplorerBrowser_GetCurrentView_Proxy(byval This as IExplorerBrowser ptr, byval riid as const IID const ptr, byval ppv as any ptr ptr) as HRESULT
 	declare sub IExplorerBrowser_GetCurrentView_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 	#define __IAccessibleObject_INTERFACE_DEFINED__
-
 	extern IID_IAccessibleObject as const GUID
-
 	type IAccessibleObject as IAccessibleObject_
 
 	type IAccessibleObjectVtbl
@@ -4740,9 +4437,7 @@ declare sub IFolderViewHost_Initialize_Stub(byval This as IRpcStubBuffer ptr, by
 #endif
 
 #define __IResultsFolder_INTERFACE_DEFINED__
-
 extern IID_IResultsFolder as const GUID
-
 type IResultsFolder as IResultsFolder_
 
 type IResultsFolderVtbl
@@ -4775,9 +4470,7 @@ declare function IResultsFolder_AddIDList_Stub(byval This as IResultsFolder ptr,
 
 #if _WIN32_WINNT = &h0602
 	#define __IEnumObjects_INTERFACE_DEFINED__
-
 	extern IID_IEnumObjects as const GUID
-
 	type IEnumObjects as IEnumObjects_
 
 	type IEnumObjectsVtbl
@@ -4817,7 +4510,6 @@ declare function IResultsFolder_AddIDList_Stub(byval This as IResultsFolder ptr,
 	end enum
 
 	type OPPROGDLGF as DWORD
-
 	#define __IOperationsProgressDialog_INTERFACE_DEFINED__
 
 	type _PDMODE as long
@@ -4842,7 +4534,6 @@ declare function IResultsFolder_AddIDList_Stub(byval This as IResultsFolder ptr,
 	end enum
 
 	extern IID_IOperationsProgressDialog as const GUID
-
 	type IOperationsProgressDialog as IOperationsProgressDialog_
 
 	type IOperationsProgressDialogVtbl
@@ -4888,11 +4579,8 @@ declare function IResultsFolder_AddIDList_Stub(byval This as IResultsFolder ptr,
 	declare sub IOperationsProgressDialog_GetMilliseconds_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 	declare function IOperationsProgressDialog_GetOperationStatus_Proxy(byval This as IOperationsProgressDialog ptr, byval popstatus as PDOPSTATUS ptr) as HRESULT
 	declare sub IOperationsProgressDialog_GetOperationStatus_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 	#define __IIOCancelInformation_INTERFACE_DEFINED__
-
 	extern IID_IIOCancelInformation as const GUID
-
 	type IIOCancelInformation as IIOCancelInformation_
 
 	type IIOCancelInformationVtbl
@@ -4929,7 +4617,6 @@ declare function IResultsFolder_AddIDList_Stub(byval This as IResultsFolder ptr,
 	#define FOFX_COPYASDOWNLOAD &h40000000
 	#define FOFX_DONTDISPLAYLOCATIONS &h80000000
 	#define __IFileOperation_INTERFACE_DEFINED__
-
 	extern IID_IFileOperation as const GUID
 
 	type IFileOperationVtbl
@@ -5002,11 +4689,8 @@ declare function IResultsFolder_AddIDList_Stub(byval This as IResultsFolder ptr,
 	declare sub IFileOperation_PerformOperations_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 	declare function IFileOperation_GetAnyOperationsAborted_Proxy(byval This as IFileOperation ptr, byval pfAnyOperationsAborted as WINBOOL ptr) as HRESULT
 	declare sub IFileOperation_GetAnyOperationsAborted_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 	#define __IObjectProvider_INTERFACE_DEFINED__
-
 	extern IID_IObjectProvider as const GUID
-
 	type IObjectProvider as IObjectProvider_
 
 	type IObjectProviderVtbl
@@ -5025,9 +4709,7 @@ declare function IResultsFolder_AddIDList_Stub(byval This as IResultsFolder ptr,
 #endif
 
 #define __INamespaceWalkCB_INTERFACE_DEFINED__
-
 extern IID_INamespaceWalkCB as const GUID
-
 type INamespaceWalkCB as INamespaceWalkCB_
 
 type INamespaceWalkCBVtbl
@@ -5055,9 +4737,7 @@ declare sub INamespaceWalkCB_InitializeProgressDialog_Stub(byval This as IRpcStu
 
 #if _WIN32_WINNT = &h0602
 	#define __INamespaceWalkCB2_INTERFACE_DEFINED__
-
 	extern IID_INamespaceWalkCB2 as const GUID
-
 	type INamespaceWalkCB2 as INamespaceWalkCB2_
 
 	type INamespaceWalkCB2Vtbl
@@ -5104,9 +4784,7 @@ end enum
 
 #define NSWF_ENUMERATE_BEST_EFFORT &h00010000
 #define NSWF_TRAVERSE_ONLY_STORAGE &h00020000
-
 extern IID_INamespaceWalk as const GUID
-
 type INamespaceWalk as INamespaceWalk_
 
 type INamespaceWalkVtbl
@@ -5136,9 +4814,7 @@ end sub
 #define FreeIDListArrayChild FreeIDListArray
 #define ACDD_VISIBLE &h1
 #define __IAutoCompleteDropDown_INTERFACE_DEFINED__
-
 extern IID_IAutoCompleteDropDown as const GUID
-
 type IAutoCompleteDropDown as IAutoCompleteDropDown_
 
 type IAutoCompleteDropDownVtbl
@@ -5196,9 +4872,7 @@ end enum
 #define SID_SBandSite IID_IBandSite
 #define CGID_BandSite IID_IBandSite
 #define __IBandSite_INTERFACE_DEFINED__
-
 extern IID_IBandSite as const GUID
-
 type IBandSite as IBandSite_
 
 type IBandSiteVtbl
@@ -5237,11 +4911,8 @@ declare function IBandSite_GetBandSiteInfo_Proxy(byval This as IBandSite ptr, by
 declare sub IBandSite_GetBandSiteInfo_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IBandSite_QueryBand_Proxy(byval This as IBandSite ptr, byval dwBandID as DWORD, byval ppstb as IDeskBand ptr ptr, byval pdwState as DWORD ptr, byval pszName as LPWSTR, byval cchName as long) as HRESULT
 declare function IBandSite_QueryBand_Stub(byval This as IBandSite ptr, byval dwBandID as DWORD, byval ppstb as IDeskBand ptr ptr, byval pdwState as DWORD ptr, byval pszName as LPWSTR, byval cchName as long) as HRESULT
-
 #define __IModalWindow_INTERFACE_DEFINED__
-
 extern IID_IModalWindow as const GUID
-
 type IModalWindow as IModalWindow_
 
 type IModalWindowVtbl
@@ -5259,7 +4930,6 @@ declare function IModalWindow_RemoteShow_Proxy(byval This as IModalWindow ptr, b
 declare sub IModalWindow_RemoteShow_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IModalWindow_Show_Proxy(byval This as IModalWindow ptr, byval hwndOwner as HWND) as HRESULT
 declare function IModalWindow_Show_Stub(byval This as IModalWindow ptr, byval hwndOwner as HWND) as HRESULT
-
 #define PROPSTR_EXTENSIONCOMPLETIONSTATE wstr("ExtensionCompletionState")
 
 type tagCDBURNINGEXTENSIONRET as long
@@ -5279,11 +4949,8 @@ enum
 end enum
 
 type CDBE_ACTIONS as DWORD
-
 #define __ICDBurnExt_INTERFACE_DEFINED__
-
 extern IID_ICDBurnExt as const GUID
-
 type ICDBurnExt as ICDBurnExt_
 
 type ICDBurnExtVtbl
@@ -5299,11 +4966,8 @@ end type
 
 declare function ICDBurnExt_GetSupportedActionTypes_Proxy(byval This as ICDBurnExt ptr, byval pdwActions as CDBE_ACTIONS ptr) as HRESULT
 declare sub ICDBurnExt_GetSupportedActionTypes_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 #define __IContextMenuSite_INTERFACE_DEFINED__
-
 extern IID_IContextMenuSite as const GUID
-
 type IContextMenuSite as IContextMenuSite_
 
 type IContextMenuSiteVtbl
@@ -5319,11 +4983,8 @@ end type
 
 declare function IContextMenuSite_DoContextMenuPopup_Proxy(byval This as IContextMenuSite ptr, byval punkContextMenu as IUnknown ptr, byval fFlags as UINT, byval pt as POINT) as HRESULT
 declare sub IContextMenuSite_DoContextMenuPopup_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 #define __IEnumReadyCallback_INTERFACE_DEFINED__
-
 extern IID_IEnumReadyCallback as const GUID
-
 type IEnumReadyCallback as IEnumReadyCallback_
 
 type IEnumReadyCallbackVtbl
@@ -5339,11 +5000,8 @@ end type
 
 declare function IEnumReadyCallback_EnumReady_Proxy(byval This as IEnumReadyCallback ptr) as HRESULT
 declare sub IEnumReadyCallback_EnumReady_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 #define __IEnumerableView_INTERFACE_DEFINED__
-
 extern IID_IEnumerableView as const GUID
-
 type IEnumerableView as IEnumerableView_
 
 type IEnumerableViewVtbl
@@ -5362,12 +5020,9 @@ declare function IEnumerableView_SetEnumReadyCallback_Proxy(byval This as IEnume
 declare sub IEnumerableView_SetEnumReadyCallback_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IEnumerableView_CreateEnumIDListFromContents_Proxy(byval This as IEnumerableView ptr, byval pidlFolder as LPCITEMIDLIST, byval dwEnumFlags as DWORD, byval ppEnumIDList as IEnumIDList ptr ptr) as HRESULT
 declare sub IEnumerableView_CreateEnumIDListFromContents_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 #define SID_EnumerableView IID_IEnumerableView
 #define __IInsertItem_INTERFACE_DEFINED__
-
 extern IID_IInsertItem as const GUID
-
 type IInsertItem as IInsertItem_
 
 type IInsertItemVtbl
@@ -5383,7 +5038,6 @@ end type
 
 declare function IInsertItem_InsertItem_Proxy(byval This as IInsertItem ptr, byval pidl as LPCITEMIDLIST) as HRESULT
 declare sub IInsertItem_InsertItem_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 #define __IMenuBand_INTERFACE_DEFINED__
 
 type tagMENUBANDHANDLERCID as long
@@ -5392,7 +5046,6 @@ enum
 end enum
 
 extern IID_IMenuBand as const GUID
-
 type IMenuBand as IMenuBand_
 
 type IMenuBandVtbl
@@ -5411,11 +5064,8 @@ declare function IMenuBand_IsMenuMessage_Proxy(byval This as IMenuBand ptr, byva
 declare sub IMenuBand_IsMenuMessage_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IMenuBand_TranslateMenuMessage_Proxy(byval This as IMenuBand ptr, byval pmsg as MSG ptr, byval plRet as LRESULT ptr) as HRESULT
 declare sub IMenuBand_TranslateMenuMessage_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 #define __IFolderBandPriv_INTERFACE_DEFINED__
-
 extern IID_IFolderBandPriv as const GUID
-
 type IFolderBandPriv as IFolderBandPriv_
 
 type IFolderBandPrivVtbl
@@ -5440,11 +5090,8 @@ declare function IFolderBandPriv_SetNoIcons_Proxy(byval This as IFolderBandPriv 
 declare sub IFolderBandPriv_SetNoIcons_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IFolderBandPriv_SetNoText_Proxy(byval This as IFolderBandPriv ptr, byval fNoText as WINBOOL) as HRESULT
 declare sub IFolderBandPriv_SetNoText_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 #define __IRegTreeItem_INTERFACE_DEFINED__
-
 extern IID_IRegTreeItem as const GUID
-
 type IRegTreeItem as IRegTreeItem_
 
 type IRegTreeItemVtbl
@@ -5463,11 +5110,8 @@ declare function IRegTreeItem_GetCheckState_Proxy(byval This as IRegTreeItem ptr
 declare sub IRegTreeItem_GetCheckState_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IRegTreeItem_SetCheckState_Proxy(byval This as IRegTreeItem ptr, byval bCheck as WINBOOL) as HRESULT
 declare sub IRegTreeItem_SetCheckState_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 #define __IImageRecompress_INTERFACE_DEFINED__
-
 extern IID_IImageRecompress as const GUID
-
 type IImageRecompress as IImageRecompress_
 
 type IImageRecompressVtbl
@@ -5486,9 +5130,7 @@ declare sub IImageRecompress_RecompressImage_Stub(byval This as IRpcStubBuffer p
 
 #if (_WIN32_WINNT = &h0502) or (_WIN32_WINNT = &h0602)
 	#define __IDeskBar_INTERFACE_DEFINED__
-
 	extern IID_IDeskBar as const GUID
-
 	type IDeskBar as IDeskBar_
 
 	type IDeskBarVtbl
@@ -5512,7 +5154,6 @@ declare sub IImageRecompress_RecompressImage_Stub(byval This as IRpcStubBuffer p
 	declare sub IDeskBar_GetClient_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 	declare function IDeskBar_OnPosRectChangeDB_Proxy(byval This as IDeskBar ptr, byval prc as RECT ptr) as HRESULT
 	declare sub IDeskBar_OnPosRectChangeDB_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 	#define __IMenuPopup_INTERFACE_DEFINED__
 
 	type tagMENUPOPUPSELECT as long
@@ -5544,9 +5185,7 @@ declare sub IImageRecompress_RecompressImage_Stub(byval This as IRpcStubBuffer p
 	end enum
 
 	type MP_POPUPFLAGS as long
-
 	extern IID_IMenuPopup as const GUID
-
 	type IMenuPopup as IMenuPopup_
 
 	type IMenuPopupVtbl
@@ -5586,9 +5225,7 @@ declare sub IImageRecompress_RecompressImage_Stub(byval This as IRpcStubBuffer p
 	#define OF_CAP_CANSWITCHTO &h0001
 	#define OF_CAP_CANCLOSE &h0002
 	#define __IFileIsInUse_INTERFACE_DEFINED__
-
 	extern IID_IFileIsInUse as const GUID
-
 	type IFileIsInUse as IFileIsInUse_
 
 	type IFileIsInUseVtbl
@@ -5638,11 +5275,9 @@ declare sub IImageRecompress_RecompressImage_Stub(byval This as IRpcStubBuffer p
 	end enum
 
 	#define __IFileDialogEvents_INTERFACE_DEFINED__
-
 	extern IID_IFileDialogEvents as const GUID
-
-	type IFileDialog as IFileDialog_
 	type IFileDialogEvents as IFileDialogEvents_
+	type IFileDialog as IFileDialog_
 
 	type IFileDialogEventsVtbl
 		QueryInterface as function(byval This as IFileDialogEvents ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -5675,7 +5310,6 @@ declare sub IImageRecompress_RecompressImage_Stub(byval This as IRpcStubBuffer p
 	declare sub IFileDialogEvents_OnTypeChange_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 	declare function IFileDialogEvents_OnOverwrite_Proxy(byval This as IFileDialogEvents ptr, byval pfd as IFileDialog ptr, byval psi as IShellItem ptr, byval pResponse as FDE_OVERWRITE_RESPONSE ptr) as HRESULT
 	declare sub IFileDialogEvents_OnOverwrite_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 	#define __IFileDialog_INTERFACE_DEFINED__
 
 	type _FILEOPENDIALOGOPTIONS as long
@@ -5704,9 +5338,7 @@ declare sub IImageRecompress_RecompressImage_Stub(byval This as IRpcStubBuffer p
 	end enum
 
 	type FILEOPENDIALOGOPTIONS as DWORD
-
 	extern IID_IFileDialog as const GUID
-
 	type IShellItemFilter as IShellItemFilter_
 
 	type IFileDialogVtbl
@@ -5789,11 +5421,8 @@ declare sub IImageRecompress_RecompressImage_Stub(byval This as IRpcStubBuffer p
 	declare sub IFileDialog_ClearClientData_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 	declare function IFileDialog_SetFilter_Proxy(byval This as IFileDialog ptr, byval pFilter as IShellItemFilter ptr) as HRESULT
 	declare sub IFileDialog_SetFilter_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 	#define __IFileSaveDialog_INTERFACE_DEFINED__
-
 	extern IID_IFileSaveDialog as const GUID
-
 	type IFileSaveDialog as IFileSaveDialog_
 
 	type IFileSaveDialogVtbl
@@ -5845,11 +5474,8 @@ declare sub IImageRecompress_RecompressImage_Stub(byval This as IRpcStubBuffer p
 	declare sub IFileSaveDialog_GetProperties_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 	declare function IFileSaveDialog_ApplyProperties_Proxy(byval This as IFileSaveDialog ptr, byval psi as IShellItem ptr, byval pStore as IPropertyStore ptr, byval hwnd as HWND, byval pSink as IFileOperationProgressSink ptr) as HRESULT
 	declare sub IFileSaveDialog_ApplyProperties_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 	#define __IFileOpenDialog_INTERFACE_DEFINED__
-
 	extern IID_IFileOpenDialog as const GUID
-
 	type IFileOpenDialog as IFileOpenDialog_
 
 	type IFileOpenDialogVtbl
@@ -5902,9 +5528,7 @@ declare sub IImageRecompress_RecompressImage_Stub(byval This as IRpcStubBuffer p
 	end enum
 
 	#define __IFileDialogCustomize_INTERFACE_DEFINED__
-
 	extern IID_IFileDialogCustomize as const GUID
-
 	type IFileDialogCustomize as IFileDialogCustomize_
 
 	type IFileDialogCustomizeVtbl
@@ -5998,11 +5622,8 @@ declare sub IImageRecompress_RecompressImage_Stub(byval This as IRpcStubBuffer p
 	declare sub IFileDialogCustomize_MakeProminent_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 	declare function IFileDialogCustomize_SetControlItemText_Proxy(byval This as IFileDialogCustomize ptr, byval dwIDCtl as DWORD, byval dwIDItem as DWORD, byval pszLabel as LPCWSTR) as HRESULT
 	declare sub IFileDialogCustomize_SetControlItemText_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 	#define __IFileDialogControlEvents_INTERFACE_DEFINED__
-
 	extern IID_IFileDialogControlEvents as const GUID
-
 	type IFileDialogControlEvents as IFileDialogControlEvents_
 
 	type IFileDialogControlEventsVtbl
@@ -6027,11 +5648,8 @@ declare sub IImageRecompress_RecompressImage_Stub(byval This as IRpcStubBuffer p
 	declare sub IFileDialogControlEvents_OnCheckButtonToggled_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 	declare function IFileDialogControlEvents_OnControlActivating_Proxy(byval This as IFileDialogControlEvents ptr, byval pfdc as IFileDialogCustomize ptr, byval dwIDCtl as DWORD) as HRESULT
 	declare sub IFileDialogControlEvents_OnControlActivating_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 	#define __IFileDialog2_INTERFACE_DEFINED__
-
 	extern IID_IFileDialog2 as const GUID
-
 	type IFileDialog2 as IFileDialog2_
 
 	type IFileDialog2Vtbl
@@ -6091,9 +5709,7 @@ declare sub IImageRecompress_RecompressImage_Stub(byval This as IRpcStubBuffer p
 	end enum
 
 	#define __IApplicationAssociationRegistration_INTERFACE_DEFINED__
-
 	extern IID_IApplicationAssociationRegistration as const GUID
-
 	type IApplicationAssociationRegistration as IApplicationAssociationRegistration_
 
 	type IApplicationAssociationRegistrationVtbl
@@ -6125,11 +5741,8 @@ declare sub IImageRecompress_RecompressImage_Stub(byval This as IRpcStubBuffer p
 	declare function IApplicationAssociationRegistration_ClearUserAssociations_Proxy(byval This as IApplicationAssociationRegistration ptr) as HRESULT
 	declare sub IApplicationAssociationRegistration_ClearUserAssociations_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 	declare function SHCreateAssociationRegistration(byval riid as const IID const ptr, byval ppv as any ptr ptr) as HRESULT
-
 	#define __IApplicationAssociationRegistrationUI_INTERFACE_DEFINED__
-
 	extern IID_IApplicationAssociationRegistrationUI as const GUID
-
 	type IApplicationAssociationRegistrationUI as IApplicationAssociationRegistrationUI_
 
 	type IApplicationAssociationRegistrationUIVtbl
@@ -6156,11 +5769,8 @@ end type
 
 type PCDELEGATEITEMID as const DELEGATEITEMID ptr
 type PDELEGATEITEMID as DELEGATEITEMID ptr
-
 #define __IDelegateFolder_INTERFACE_DEFINED__
-
 extern IID_IDelegateFolder as const GUID
-
 type IDelegateFolder as IDelegateFolder_
 
 type IDelegateFolderVtbl
@@ -6179,9 +5789,7 @@ declare sub IDelegateFolder_SetItemAlloc_Stub(byval This as IRpcStubBuffer ptr, 
 
 #if (_WIN32_WINNT = &h0502) or (_WIN32_WINNT = &h0602)
 	#define __IBrowserFrameOptions_INTERFACE_DEFINED__
-
 	type IBrowserFrameOptions as IBrowserFrameOptions_
-
 	type LPBROWSERFRAMEOPTIONS as IBrowserFrameOptions ptr
 
 	type _BROWSERFRAMEOPTIONS as long
@@ -6209,7 +5817,6 @@ declare sub IDelegateFolder_SetItemAlloc_Stub(byval This as IRpcStubBuffer ptr, 
 	end enum
 
 	type BROWSERFRAMEOPTIONS as DWORD
-
 	extern IID_IBrowserFrameOptions as const GUID
 
 	type IBrowserFrameOptionsVtbl
@@ -6248,9 +5855,7 @@ declare sub IDelegateFolder_SetItemAlloc_Stub(byval This as IRpcStubBuffer ptr, 
 
 	#define SID_SNewWindowManager IID_INewWindowManager
 	#define __INewWindowManager_INTERFACE_DEFINED__
-
 	extern IID_INewWindowManager as const GUID
-
 	type INewWindowManager as INewWindowManager_
 
 	type INewWindowManagerVtbl
@@ -6266,7 +5871,6 @@ declare sub IDelegateFolder_SetItemAlloc_Stub(byval This as IRpcStubBuffer ptr, 
 
 	declare function INewWindowManager_EvaluateNewWindow_Proxy(byval This as INewWindowManager ptr, byval pszUrl as LPCWSTR, byval pszName as LPCWSTR, byval pszUrlContext as LPCWSTR, byval pszFeatures as LPCWSTR, byval fReplace as WINBOOL, byval dwFlags as DWORD, byval dwUserActionTime as DWORD) as HRESULT
 	declare sub INewWindowManager_EvaluateNewWindow_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 	#define __IAttachmentExecute_INTERFACE_DEFINED__
 
 	type ATTACHMENT_PROMPT as long
@@ -6285,7 +5889,6 @@ declare sub IDelegateFolder_SetItemAlloc_Stub(byval This as IRpcStubBuffer ptr, 
 	end enum
 
 	extern IID_IAttachmentExecute as const GUID
-
 	type IAttachmentExecute as IAttachmentExecute_
 
 	type IAttachmentExecuteVtbl
@@ -6354,7 +5957,6 @@ declare sub IDelegateFolder_SetItemAlloc_Stub(byval This as IRpcStubBuffer ptr, 
 
 	type SMDATA as tagSMDATA
 	type LPSMDATA as tagSMDATA ptr
-
 	#define SMDM_SHELLFOLDER &h00000001
 	#define SMDM_HMENU &h00000002
 	#define SMDM_TOOLBAR &h00000004
@@ -6445,9 +6047,7 @@ declare sub IDelegateFolder_SetItemAlloc_Stub(byval This as IRpcStubBuffer ptr, 
 
 #if (_WIN32_WINNT = &h0502) or (_WIN32_WINNT = &h0602)
 	#define __IShellMenuCallback_INTERFACE_DEFINED__
-
 	extern IID_IShellMenuCallback as const GUID
-
 	type IShellMenuCallback as IShellMenuCallback_
 
 	type IShellMenuCallbackVtbl
@@ -6463,7 +6063,6 @@ declare sub IDelegateFolder_SetItemAlloc_Stub(byval This as IRpcStubBuffer ptr, 
 
 	declare function IShellMenuCallback_CallbackSM_Proxy(byval This as IShellMenuCallback ptr, byval psmd as LPSMDATA, byval uMsg as UINT, byval wParam as WPARAM, byval lParam as LPARAM) as HRESULT
 	declare sub IShellMenuCallback_CallbackSM_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 	#define SMINIT_DEFAULT &h00000000
 	#define SMINIT_RESTRICT_DRAGDROP &h00000002
 	#define SMINIT_TOPLEVEL &h00000004
@@ -6486,9 +6085,7 @@ declare sub IDelegateFolder_SetItemAlloc_Stub(byval This as IRpcStubBuffer ptr, 
 	#define SMINV_REFRESH &h00000001
 	#define SMINV_ID &h00000008
 	#define __IShellMenu_INTERFACE_DEFINED__
-
 	extern IID_IShellMenu as const GUID
-
 	type IShellMenu as IShellMenu_
 
 	type IShellMenuVtbl
@@ -6531,9 +6128,7 @@ declare sub IDelegateFolder_SetItemAlloc_Stub(byval This as IRpcStubBuffer ptr, 
 #endif
 
 #define __IShellRunDll_INTERFACE_DEFINED__
-
 extern IID_IShellRunDll as const GUID
-
 type IShellRunDll as IShellRunDll_
 
 type IShellRunDllVtbl
@@ -6616,9 +6211,7 @@ declare sub IShellRunDll_Run_Stub(byval This as IRpcStubBuffer ptr, byval pRpcCh
 	end type
 
 	#define __IKnownFolder_INTERFACE_DEFINED__
-
 	extern IID_IKnownFolder as const GUID
-
 	type IKnownFolder as IKnownFolder_
 
 	type IKnownFolderVtbl
@@ -6658,7 +6251,6 @@ declare sub IShellRunDll_Run_Stub(byval This as IRpcStubBuffer ptr, byval pRpcCh
 	declare sub IKnownFolder_GetRedirectionCapabilities_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 	declare function IKnownFolder_GetFolderDefinition_Proxy(byval This as IKnownFolder ptr, byval pKFD as KNOWNFOLDER_DEFINITION ptr) as HRESULT
 	declare sub IKnownFolder_GetFolderDefinition_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 	#define __IKnownFolderManager_INTERFACE_DEFINED__
 
 	type FFFP_MODE as long
@@ -6668,7 +6260,6 @@ declare sub IShellRunDll_Run_Stub(byval This as IRpcStubBuffer ptr, byval pRpcCh
 	end enum
 
 	extern IID_IKnownFolderManager as const GUID
-
 	type IKnownFolderManager as IKnownFolderManager_
 
 	type IKnownFolderManagerVtbl
@@ -6743,9 +6334,7 @@ declare sub IShellRunDll_Run_Stub(byval This as IRpcStubBuffer ptr, byval pRpcCh
 	end enum
 
 	#define __ISharingConfigurationManager_INTERFACE_DEFINED__
-
 	extern IID_ISharingConfigurationManager as const GUID
-
 	type ISharingConfigurationManager as ISharingConfigurationManager_
 
 	type ISharingConfigurationManagerVtbl
@@ -6782,9 +6371,7 @@ declare sub IShellRunDll_Run_Stub(byval This as IRpcStubBuffer ptr, byval pRpcCh
 #endif
 
 #define __IPreviousVersionsInfo_INTERFACE_DEFINED__
-
 extern IID_IPreviousVersionsInfo as const GUID
-
 type IPreviousVersionsInfo as IPreviousVersionsInfo_
 
 type IPreviousVersionsInfoVtbl
@@ -6803,9 +6390,7 @@ declare sub IPreviousVersionsInfo_AreSnapshotsAvailable_Stub(byval This as IRpcS
 
 #if _WIN32_WINNT = &h0602
 	#define __IRelatedItem_INTERFACE_DEFINED__
-
 	extern IID_IRelatedItem as const GUID
-
 	type IRelatedItem as IRelatedItem_
 
 	type IRelatedItemVtbl
@@ -6824,11 +6409,8 @@ declare sub IPreviousVersionsInfo_AreSnapshotsAvailable_Stub(byval This as IRpcS
 	declare sub IRelatedItem_GetItemIDList_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 	declare function IRelatedItem_GetItem_Proxy(byval This as IRelatedItem ptr, byval ppsi as IShellItem ptr ptr) as HRESULT
 	declare sub IRelatedItem_GetItem_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 	#define __IIdentityName_INTERFACE_DEFINED__
-
 	extern IID_IIdentityName as const GUID
-
 	type IIdentityName as IIdentityName_
 
 	type IIdentityNameVtbl
@@ -6844,9 +6426,7 @@ declare sub IPreviousVersionsInfo_AreSnapshotsAvailable_Stub(byval This as IRpcS
 	end type
 
 	#define __IDelegateItem_INTERFACE_DEFINED__
-
 	extern IID_IDelegateItem as const GUID
-
 	type IDelegateItem as IDelegateItem_
 
 	type IDelegateItemVtbl
@@ -6862,9 +6442,7 @@ declare sub IPreviousVersionsInfo_AreSnapshotsAvailable_Stub(byval This as IRpcS
 	end type
 
 	#define __ICurrentItem_INTERFACE_DEFINED__
-
 	extern IID_ICurrentItem as const GUID
-
 	type ICurrentItem as ICurrentItem_
 
 	type ICurrentItemVtbl
@@ -6880,9 +6458,7 @@ declare sub IPreviousVersionsInfo_AreSnapshotsAvailable_Stub(byval This as IRpcS
 	end type
 
 	#define __ITransferMediumItem_INTERFACE_DEFINED__
-
 	extern IID_ITransferMediumItem as const GUID
-
 	type ITransferMediumItem as ITransferMediumItem_
 
 	type ITransferMediumItemVtbl
@@ -6898,9 +6474,7 @@ declare sub IPreviousVersionsInfo_AreSnapshotsAvailable_Stub(byval This as IRpcS
 	end type
 
 	#define __IUseToBrowseItem_INTERFACE_DEFINED__
-
 	extern IID_IUseToBrowseItem as const GUID
-
 	type IUseToBrowseItem as IUseToBrowseItem_
 
 	type IUseToBrowseItemVtbl
@@ -6916,9 +6490,7 @@ declare sub IPreviousVersionsInfo_AreSnapshotsAvailable_Stub(byval This as IRpcS
 	end type
 
 	#define __IDisplayItem_INTERFACE_DEFINED__
-
 	extern IID_IDisplayItem as const GUID
-
 	type IDisplayItem as IDisplayItem_
 
 	type IDisplayItemVtbl
@@ -6934,9 +6506,7 @@ declare sub IPreviousVersionsInfo_AreSnapshotsAvailable_Stub(byval This as IRpcS
 	end type
 
 	#define __IViewStateIdentityItem_INTERFACE_DEFINED__
-
 	extern IID_IViewStateIdentityItem as const GUID
-
 	type IViewStateIdentityItem as IViewStateIdentityItem_
 
 	type IViewStateIdentityItemVtbl
@@ -6952,9 +6522,7 @@ declare sub IPreviousVersionsInfo_AreSnapshotsAvailable_Stub(byval This as IRpcS
 	end type
 
 	#define __IPreviewItem_INTERFACE_DEFINED__
-
 	extern IID_IPreviewItem as const GUID
-
 	type IPreviewItem as IPreviewItem_
 
 	type IPreviewItemVtbl
@@ -6971,9 +6539,7 @@ declare sub IPreviousVersionsInfo_AreSnapshotsAvailable_Stub(byval This as IRpcS
 #endif
 
 #define __IDestinationStreamFactory_INTERFACE_DEFINED__
-
 extern IID_IDestinationStreamFactory as const GUID
-
 type IDestinationStreamFactory as IDestinationStreamFactory_
 
 type IDestinationStreamFactoryVtbl
@@ -7006,11 +6572,8 @@ enum
 end enum
 
 type NMCSAEI_FLAGS as long
-
 #define __INewMenuClient_INTERFACE_DEFINED__
-
 extern IID_INewMenuClient as const GUID
-
 type INewMenuClient as INewMenuClient_
 
 type INewMenuClientVtbl
@@ -7029,16 +6592,12 @@ declare function INewMenuClient_IncludeItems_Proxy(byval This as INewMenuClient 
 declare sub INewMenuClient_IncludeItems_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function INewMenuClient_SelectAndEditItem_Proxy(byval This as INewMenuClient ptr, byval pidlItem as LPCITEMIDLIST, byval flags as NMCSAEI_FLAGS) as HRESULT
 declare sub INewMenuClient_SelectAndEditItem_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 #define SID_SNewMenuClient IID_INewMenuClient
-
 extern SID_SCommandBarState as const GUID
 
 #if _WIN32_WINNT = &h0602
 	#define __IInitializeWithBindCtx_INTERFACE_DEFINED__
-
 	extern IID_IInitializeWithBindCtx as const GUID
-
 	type IInitializeWithBindCtx as IInitializeWithBindCtx_
 
 	type IInitializeWithBindCtxVtbl
@@ -7054,9 +6613,7 @@ extern SID_SCommandBarState as const GUID
 
 	declare function IInitializeWithBindCtx_Initialize_Proxy(byval This as IInitializeWithBindCtx ptr, byval pbc as IBindCtx ptr) as HRESULT
 	declare sub IInitializeWithBindCtx_Initialize_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 	#define __IShellItemFilter_INTERFACE_DEFINED__
-
 	extern IID_IShellItemFilter as const GUID
 
 	type IShellItemFilterVtbl
@@ -7149,7 +6706,6 @@ enum
 end enum
 
 extern IID_INameSpaceTreeControl as const GUID
-
 type INameSpaceTreeControl as INameSpaceTreeControl_
 
 type INameSpaceTreeControlVtbl
@@ -7219,7 +6775,6 @@ declare function INameSpaceTreeControl_GetItemRect_Proxy(byval This as INameSpac
 declare sub INameSpaceTreeControl_GetItemRect_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function INameSpaceTreeControl_CollapseAll_Proxy(byval This as INameSpaceTreeControl ptr) as HRESULT
 declare sub INameSpaceTreeControl_CollapseAll_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 #define __INameSpaceTreeControl2_INTERFACE_DEFINED__
 
 type NSTCSTYLE2 as long
@@ -7234,7 +6789,6 @@ enum
 end enum
 
 extern IID_INameSpaceTreeControl2 as const GUID
-
 type INameSpaceTreeControl2 as INameSpaceTreeControl2_
 
 type INameSpaceTreeControl2Vtbl
@@ -7312,9 +6866,7 @@ enum
 end enum
 
 type NSTCECLICKTYPE as DWORD
-
 extern IID_INameSpaceTreeControlEvents as const GUID
-
 type INameSpaceTreeControlEvents as INameSpaceTreeControlEvents_
 
 type INameSpaceTreeControlEventsVtbl
@@ -7381,12 +6933,9 @@ declare function INameSpaceTreeControlEvents_OnBeforeStateImageChange_Proxy(byva
 declare sub INameSpaceTreeControlEvents_OnBeforeStateImageChange_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function INameSpaceTreeControlEvents_OnGetDefaultIconIndex_Proxy(byval This as INameSpaceTreeControlEvents ptr, byval psi as IShellItem ptr, byval piDefaultIcon as long ptr, byval piOpenIcon as long ptr) as HRESULT
 declare sub INameSpaceTreeControlEvents_OnGetDefaultIconIndex_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 #define NSTCDHPOS_ONTOP (-1)
 #define __INameSpaceTreeControlDropHandler_INTERFACE_DEFINED__
-
 extern IID_INameSpaceTreeControlDropHandler as const GUID
-
 type INameSpaceTreeControlDropHandler as INameSpaceTreeControlDropHandler_
 
 type INameSpaceTreeControlDropHandlerVtbl
@@ -7417,11 +6966,8 @@ declare function INameSpaceTreeControlDropHandler_OnDropPosition_Proxy(byval Thi
 declare sub INameSpaceTreeControlDropHandler_OnDropPosition_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function INameSpaceTreeControlDropHandler_OnDragLeave_Proxy(byval This as INameSpaceTreeControlDropHandler ptr, byval psiOver as IShellItem ptr) as HRESULT
 declare sub INameSpaceTreeControlDropHandler_OnDragLeave_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 #define __INameSpaceTreeAccessible_INTERFACE_DEFINED__
-
 extern IID_INameSpaceTreeAccessible as const GUID
-
 type INameSpaceTreeAccessible as INameSpaceTreeAccessible_
 
 type INameSpaceTreeAccessibleVtbl
@@ -7443,7 +6989,6 @@ declare function INameSpaceTreeAccessible_OnDoDefaultAccessibilityAction_Proxy(b
 declare sub INameSpaceTreeAccessible_OnDoDefaultAccessibilityAction_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function INameSpaceTreeAccessible_OnGetAccessibilityRole_Proxy(byval This as INameSpaceTreeAccessible ptr, byval psi as IShellItem ptr, byval pvarRole as VARIANT ptr) as HRESULT
 declare sub INameSpaceTreeAccessible_OnGetAccessibilityRole_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 #define __INameSpaceTreeControlCustomDraw_INTERFACE_DEFINED__
 
 type NSTCCUSTOMDRAW
@@ -7458,7 +7003,6 @@ type NSTCCUSTOMDRAW
 end type
 
 extern IID_INameSpaceTreeControlCustomDraw as const GUID
-
 type INameSpaceTreeControlCustomDraw as INameSpaceTreeControlCustomDraw_
 
 type INameSpaceTreeControlCustomDrawVtbl
@@ -7495,7 +7039,6 @@ declare sub INameSpaceTreeControlCustomDraw_ItemPostPaint_Stub(byval This as IRp
 	end enum
 
 	extern IID_INameSpaceTreeControlFolderCapabilities as const GUID
-
 	type INameSpaceTreeControlFolderCapabilities as INameSpaceTreeControlFolderCapabilities_
 
 	type INameSpaceTreeControlFolderCapabilitiesVtbl
@@ -7518,9 +7061,7 @@ declare sub INameSpaceTreeControlCustomDraw_ItemPostPaint_Stub(byval This as IRp
 #define E_PREVIEWHANDLER_NOTFOUND _HRESULT_TYPEDEF_(cast(clong, &h86420003))
 #define E_PREVIEWHANDLER_CORRUPT _HRESULT_TYPEDEF_(cast(clong, &h86420004))
 #define __IPreviewHandler_INTERFACE_DEFINED__
-
 extern IID_IPreviewHandler as const GUID
-
 type IPreviewHandler as IPreviewHandler_
 
 type IPreviewHandlerVtbl
@@ -7554,7 +7095,6 @@ declare function IPreviewHandler_QueryFocus_Proxy(byval This as IPreviewHandler 
 declare sub IPreviewHandler_QueryFocus_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IPreviewHandler_TranslateAccelerator_Proxy(byval This as IPreviewHandler ptr, byval pmsg as MSG ptr) as HRESULT
 declare sub IPreviewHandler_TranslateAccelerator_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 #define __IPreviewHandlerFrame_INTERFACE_DEFINED__
 
 type PREVIEWHANDLERFRAMEINFO
@@ -7563,7 +7103,6 @@ type PREVIEWHANDLERFRAMEINFO
 end type
 
 extern IID_IPreviewHandlerFrame as const GUID
-
 type IPreviewHandlerFrame as IPreviewHandlerFrame_
 
 type IPreviewHandlerFrameVtbl
@@ -7585,9 +7124,7 @@ declare sub IPreviewHandlerFrame_TranslateAccelerator_Stub(byval This as IRpcStu
 
 #if _WIN32_WINNT = &h0602
 	#define __ITrayDeskBand_INTERFACE_DEFINED__
-
 	extern IID_ITrayDeskBand as const GUID
-
 	type ITrayDeskBand as ITrayDeskBand_
 
 	type ITrayDeskBandVtbl
@@ -7612,11 +7149,8 @@ declare sub IPreviewHandlerFrame_TranslateAccelerator_Stub(byval This as IRpcStu
 	declare sub ITrayDeskBand_IsDeskBandShown_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 	declare function ITrayDeskBand_DeskBandRegistrationChanged_Proxy(byval This as ITrayDeskBand ptr) as HRESULT
 	declare sub ITrayDeskBand_DeskBandRegistrationChanged_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 	#define __IBandHost_INTERFACE_DEFINED__
-
 	extern IID_IBandHost as const GUID
-
 	type IBandHost as IBandHost_
 
 	type IBandHostVtbl
@@ -7638,11 +7172,8 @@ declare sub IPreviewHandlerFrame_TranslateAccelerator_Stub(byval This as IRpcStu
 	declare sub IBandHost_SetBandAvailability_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 	declare function IBandHost_DestroyBand_Proxy(byval This as IBandHost ptr, byval rclsidBand as const IID const ptr) as HRESULT
 	declare sub IBandHost_DestroyBand_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 	#define SID_SBandHost IID_IBandHost
-
 	type EXPLORERPANE as GUID
-
 	#define __IExplorerPaneVisibility_INTERFACE_DEFINED__
 
 	type _EXPLORERPANESTATE as long
@@ -7656,9 +7187,7 @@ declare sub IPreviewHandlerFrame_TranslateAccelerator_Stub(byval This as IRpcStu
 	end enum
 
 	type EXPLORERPANESTATE as DWORD
-
 	extern IID_IExplorerPaneVisibility as const GUID
-
 	type IExplorerPaneVisibility as IExplorerPaneVisibility_
 
 	type IExplorerPaneVisibilityVtbl
@@ -7674,12 +7203,9 @@ declare sub IPreviewHandlerFrame_TranslateAccelerator_Stub(byval This as IRpcStu
 
 	declare function IExplorerPaneVisibility_GetPaneState_Proxy(byval This as IExplorerPaneVisibility ptr, byval ep as const EXPLORERPANE const ptr, byval peps as EXPLORERPANESTATE ptr) as HRESULT
 	declare sub IExplorerPaneVisibility_GetPaneState_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 	#define SID_ExplorerPaneVisibility IID_IExplorerPaneVisibility
 	#define __IContextMenuCB_INTERFACE_DEFINED__
-
 	extern IID_IContextMenuCB as const GUID
-
 	type IContextMenuCB as IContextMenuCB_
 
 	type IContextMenuCBVtbl
@@ -7698,9 +7224,7 @@ declare sub IPreviewHandlerFrame_TranslateAccelerator_Stub(byval This as IRpcStu
 #endif
 
 #define __IDefaultExtractIconInit_INTERFACE_DEFINED__
-
 extern IID_IDefaultExtractIconInit as const GUID
-
 type IDefaultExtractIconInit as IDefaultExtractIconInit_
 
 type IDefaultExtractIconInitVtbl
@@ -7732,7 +7256,6 @@ declare sub IDefaultExtractIconInit_SetShortcutIcon_Stub(byval This as IRpcStubB
 declare function IDefaultExtractIconInit_SetDefaultIcon_Proxy(byval This as IDefaultExtractIconInit ptr, byval pszFile as LPCWSTR, byval iIcon as long) as HRESULT
 declare sub IDefaultExtractIconInit_SetDefaultIcon_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function SHCreateDefaultExtractIcon(byval riid as const IID const ptr, byval ppv as any ptr ptr) as HRESULT
-
 #define __IExplorerCommand_INTERFACE_DEFINED__
 
 type _EXPCMDSTATE as long
@@ -7763,11 +7286,9 @@ enum
 end enum
 
 type EXPCMDFLAGS as DWORD
-
 extern IID_IExplorerCommand as const GUID
-
-type IEnumExplorerCommand as IEnumExplorerCommand_
 type IExplorerCommand as IExplorerCommand_
+type IEnumExplorerCommand as IEnumExplorerCommand_
 
 type IExplorerCommandVtbl
 	QueryInterface as function(byval This as IExplorerCommand ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -7803,11 +7324,8 @@ declare function IExplorerCommand_GetFlags_Proxy(byval This as IExplorerCommand 
 declare sub IExplorerCommand_GetFlags_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IExplorerCommand_EnumSubCommands_Proxy(byval This as IExplorerCommand ptr, byval ppEnum as IEnumExplorerCommand ptr ptr) as HRESULT
 declare sub IExplorerCommand_EnumSubCommands_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 #define __IExplorerCommandState_INTERFACE_DEFINED__
-
 extern IID_IExplorerCommandState as const GUID
-
 type IExplorerCommandState as IExplorerCommandState_
 
 type IExplorerCommandStateVtbl
@@ -7823,11 +7341,8 @@ end type
 
 declare function IExplorerCommandState_GetState_Proxy(byval This as IExplorerCommandState ptr, byval psiItemArray as IShellItemArray ptr, byval fOkToBeSlow as WINBOOL, byval pCmdState as EXPCMDSTATE ptr) as HRESULT
 declare sub IExplorerCommandState_GetState_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 #define __IInitializeCommand_INTERFACE_DEFINED__
-
 extern IID_IInitializeCommand as const GUID
-
 type IInitializeCommand as IInitializeCommand_
 
 type IInitializeCommandVtbl
@@ -7843,9 +7358,7 @@ end type
 
 declare function IInitializeCommand_Initialize_Proxy(byval This as IInitializeCommand ptr, byval pszCommandName as LPCWSTR, byval ppb as IPropertyBag ptr) as HRESULT
 declare sub IInitializeCommand_Initialize_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 #define __IEnumExplorerCommand_INTERFACE_DEFINED__
-
 extern IID_IEnumExplorerCommand as const GUID
 
 type IEnumExplorerCommandVtbl
@@ -7872,11 +7385,8 @@ declare function IEnumExplorerCommand_Clone_Proxy(byval This as IEnumExplorerCom
 declare sub IEnumExplorerCommand_Clone_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IEnumExplorerCommand_Next_Proxy(byval This as IEnumExplorerCommand ptr, byval celt as ULONG, byval pUICommand as IExplorerCommand ptr ptr, byval pceltFetched as ULONG ptr) as HRESULT
 declare function IEnumExplorerCommand_Next_Stub(byval This as IEnumExplorerCommand ptr, byval celt as ULONG, byval pUICommand as IExplorerCommand ptr ptr, byval pceltFetched as ULONG ptr) as HRESULT
-
 #define __IExplorerCommandProvider_INTERFACE_DEFINED__
-
 extern IID_IExplorerCommandProvider as const GUID
-
 type IExplorerCommandProvider as IExplorerCommandProvider_
 
 type IExplorerCommandProviderVtbl
@@ -7895,13 +7405,9 @@ declare function IExplorerCommandProvider_GetCommands_Proxy(byval This as IExplo
 declare sub IExplorerCommandProvider_GetCommands_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IExplorerCommandProvider_GetCommand_Proxy(byval This as IExplorerCommandProvider ptr, byval rguidCommandId as const GUID const ptr, byval riid as const IID const ptr, byval ppv as any ptr ptr) as HRESULT
 declare sub IExplorerCommandProvider_GetCommand_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 type HTHEME as HANDLE
-
 #define __IInitializeNetworkFolder_INTERFACE_DEFINED__
-
 extern IID_IInitializeNetworkFolder as const GUID
-
 type IInitializeNetworkFolder as IInitializeNetworkFolder_
 
 type IInitializeNetworkFolderVtbl
@@ -7927,9 +7433,7 @@ enum
 end enum
 
 #define __IOpenControlPanel_INTERFACE_DEFINED__
-
 extern IID_IOpenControlPanel as const GUID
-
 type IOpenControlPanel as IOpenControlPanel_
 
 type IOpenControlPanelVtbl
@@ -7951,11 +7455,8 @@ declare function IOpenControlPanel_GetPath_Proxy(byval This as IOpenControlPanel
 declare sub IOpenControlPanel_GetPath_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IOpenControlPanel_GetCurrentView_Proxy(byval This as IOpenControlPanel ptr, byval pView as CPVIEW ptr) as HRESULT
 declare sub IOpenControlPanel_GetCurrentView_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 #define __IComputerInfoChangeNotify_INTERFACE_DEFINED__
-
 extern IID_IComputerInfoChangeNotify as const GUID
-
 type IComputerInfoChangeNotify as IComputerInfoChangeNotify_
 
 type IComputerInfoChangeNotifyVtbl
@@ -7971,12 +7472,9 @@ end type
 
 declare function IComputerInfoChangeNotify_ComputerInfoChanged_Proxy(byval This as IComputerInfoChangeNotify ptr) as HRESULT
 declare sub IComputerInfoChangeNotify_ComputerInfoChanged_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 #define STR_FILE_SYS_BIND_DATA wstr("File System Bind Data")
 #define __IFileSystemBindData_INTERFACE_DEFINED__
-
 extern IID_IFileSystemBindData as const GUID
-
 type IFileSystemBindData as IFileSystemBindData_
 
 type IFileSystemBindDataVtbl
@@ -7995,11 +7493,8 @@ declare function IFileSystemBindData_SetFindData_Proxy(byval This as IFileSystem
 declare sub IFileSystemBindData_SetFindData_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IFileSystemBindData_GetFindData_Proxy(byval This as IFileSystemBindData ptr, byval pfd as WIN32_FIND_DATAW ptr) as HRESULT
 declare sub IFileSystemBindData_GetFindData_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 #define __IFileSystemBindData2_INTERFACE_DEFINED__
-
 extern IID_IFileSystemBindData2 as const GUID
-
 type IFileSystemBindData2 as IFileSystemBindData2_
 
 type IFileSystemBindData2Vtbl
@@ -8037,7 +7532,6 @@ declare sub IFileSystemBindData2_GetJunctionCLSID_Stub(byval This as IRpcStubBuf
 	end enum
 
 	extern IID_ICustomDestinationList as const GUID
-
 	type ICustomDestinationList as ICustomDestinationList_
 
 	type ICustomDestinationListVtbl
@@ -8077,11 +7571,8 @@ declare sub IFileSystemBindData2_GetJunctionCLSID_Stub(byval This as IRpcStubBuf
 	declare sub ICustomDestinationList_DeleteList_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 	declare function ICustomDestinationList_AbortList_Proxy(byval This as ICustomDestinationList ptr) as HRESULT
 	declare sub ICustomDestinationList_AbortList_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 	#define __IApplicationDestinations_INTERFACE_DEFINED__
-
 	extern IID_IApplicationDestinations as const GUID
-
 	type IApplicationDestinations as IApplicationDestinations_
 
 	type IApplicationDestinationsVtbl
@@ -8103,7 +7594,6 @@ declare sub IFileSystemBindData2_GetJunctionCLSID_Stub(byval This as IRpcStubBuf
 	declare sub IApplicationDestinations_RemoveDestination_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 	declare function IApplicationDestinations_RemoveAllDestinations_Proxy(byval This as IApplicationDestinations ptr) as HRESULT
 	declare sub IApplicationDestinations_RemoveAllDestinations_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 	#define __IApplicationDocumentLists_INTERFACE_DEFINED__
 
 	type APPDOCLISTTYPE as long
@@ -8113,7 +7603,6 @@ declare sub IFileSystemBindData2_GetJunctionCLSID_Stub(byval This as IRpcStubBuf
 	end enum
 
 	extern IID_IApplicationDocumentLists as const GUID
-
 	type IApplicationDocumentLists as IApplicationDocumentLists_
 
 	type IApplicationDocumentListsVtbl
@@ -8132,11 +7621,8 @@ declare sub IFileSystemBindData2_GetJunctionCLSID_Stub(byval This as IRpcStubBuf
 	declare sub IApplicationDocumentLists_SetAppID_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 	declare function IApplicationDocumentLists_GetList_Proxy(byval This as IApplicationDocumentLists ptr, byval listtype as APPDOCLISTTYPE, byval cItemsDesired as UINT, byval riid as const IID const ptr, byval ppv as any ptr ptr) as HRESULT
 	declare sub IApplicationDocumentLists_GetList_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 	#define __IObjectWithAppUserModelID_INTERFACE_DEFINED__
-
 	extern IID_IObjectWithAppUserModelID as const GUID
-
 	type IObjectWithAppUserModelID as IObjectWithAppUserModelID_
 
 	type IObjectWithAppUserModelIDVtbl
@@ -8155,11 +7641,8 @@ declare sub IFileSystemBindData2_GetJunctionCLSID_Stub(byval This as IRpcStubBuf
 	declare sub IObjectWithAppUserModelID_SetAppID_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 	declare function IObjectWithAppUserModelID_GetAppID_Proxy(byval This as IObjectWithAppUserModelID ptr, byval ppszAppID as LPWSTR ptr) as HRESULT
 	declare sub IObjectWithAppUserModelID_GetAppID_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 	#define __IObjectWithProgID_INTERFACE_DEFINED__
-
 	extern IID_IObjectWithProgID as const GUID
-
 	type IObjectWithProgID as IObjectWithProgID_
 
 	type IObjectWithProgIDVtbl
@@ -8178,11 +7661,8 @@ declare sub IFileSystemBindData2_GetJunctionCLSID_Stub(byval This as IRpcStubBuf
 	declare sub IObjectWithProgID_SetProgID_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 	declare function IObjectWithProgID_GetProgID_Proxy(byval This as IObjectWithProgID ptr, byval ppszProgID as LPWSTR ptr) as HRESULT
 	declare sub IObjectWithProgID_GetProgID_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 	#define __IUpdateIDList_INTERFACE_DEFINED__
-
 	extern IID_IUpdateIDList as const GUID
-
 	type IUpdateIDList as IUpdateIDList_
 
 	type IUpdateIDListVtbl
@@ -8203,9 +7683,7 @@ declare sub IFileSystemBindData2_GetJunctionCLSID_Stub(byval This as IRpcStubBuf
 #endif
 
 #define __IDesktopGadget_INTERFACE_DEFINED__
-
 extern IID_IDesktopGadget as const GUID
-
 type IDesktopGadget as IDesktopGadget_
 
 type IDesktopGadgetVtbl
@@ -8254,7 +7732,6 @@ declare sub IDesktopGadget_RunGadget_Stub(byval This as IRpcStubBuffer ptr, byva
 	end enum
 
 	extern IID_IDesktopWallpaper as const GUID
-
 	type IDesktopWallpaper as IDesktopWallpaper_
 
 	type IDesktopWallpaperVtbl
@@ -8332,7 +7809,6 @@ enum
 end enum
 
 extern IID_IHomeGroup as const GUID
-
 type IHomeGroup as IHomeGroup_
 
 type IHomeGroupVtbl
@@ -8351,11 +7827,8 @@ declare function IHomeGroup_IsMember_Proxy(byval This as IHomeGroup ptr, byval m
 declare sub IHomeGroup_IsMember_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IHomeGroup_ShowSharingWizard_Proxy(byval This as IHomeGroup ptr, byval owner as HWND, byval sharingchoices as HOMEGROUPSHARINGCHOICES ptr) as HRESULT
 declare sub IHomeGroup_ShowSharingWizard_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 #define __IInitializeWithPropertyStore_INTERFACE_DEFINED__
-
 extern IID_IInitializeWithPropertyStore as const GUID
-
 type IInitializeWithPropertyStore as IInitializeWithPropertyStore_
 
 type IInitializeWithPropertyStoreVtbl
@@ -8371,11 +7844,8 @@ end type
 
 declare function IInitializeWithPropertyStore_Initialize_Proxy(byval This as IInitializeWithPropertyStore ptr, byval pps as IPropertyStore ptr) as HRESULT
 declare sub IInitializeWithPropertyStore_Initialize_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 #define __IOpenSearchSource_INTERFACE_DEFINED__
-
 extern IID_IOpenSearchSource as const GUID
-
 type IOpenSearchSource as IOpenSearchSource_
 
 type IOpenSearchSourceVtbl
@@ -8391,7 +7861,6 @@ end type
 
 declare function IOpenSearchSource_GetResults_Proxy(byval This as IOpenSearchSource ptr, byval hwnd as HWND, byval pszQuery as LPCWSTR, byval dwStartIndex as DWORD, byval dwCount as DWORD, byval riid as const IID const ptr, byval ppv as any ptr ptr) as HRESULT
 declare sub IOpenSearchSource_GetResults_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 #define __IShellLibrary_INTERFACE_DEFINED__
 
 type LIBRARYFOLDERFILTER as long
@@ -8423,7 +7892,6 @@ enum
 end enum
 
 extern IID_IShellLibrary as const GUID
-
 type IShellLibrary as IShellLibrary_
 
 type IShellLibraryVtbl
@@ -8495,9 +7963,7 @@ enum
 end enum
 
 #define __IPlaybackManagerEvents_INTERFACE_DEFINED__
-
 extern IID_IPlaybackManagerEvents as const GUID
-
 type IPlaybackManagerEvents as IPlaybackManagerEvents_
 
 type IPlaybackManagerEventsVtbl
@@ -8534,9 +8000,7 @@ enum
 end enum
 
 #define __IPlaybackManager_INTERFACE_DEFINED__
-
 extern IID_IPlaybackManager as const GUID
-
 type IPlaybackManager as IPlaybackManager_
 
 type IPlaybackManagerVtbl
@@ -8573,9 +8037,7 @@ enum
 end enum
 
 #define __IDefaultFolderMenuInitialize_INTERFACE_DEFINED__
-
 extern IID_IDefaultFolderMenuInitialize as const GUID
-
 type IDefaultFolderMenuInitialize as IDefaultFolderMenuInitialize_
 
 type IDefaultFolderMenuInitializeVtbl
@@ -8611,9 +8073,7 @@ declare sub IDefaultFolderMenuInitialize_SetHandlerClsid_Stub(byval This as IRpc
 	end enum
 
 	#define __IApplicationActivationManager_INTERFACE_DEFINED__
-
 	extern IID_IApplicationActivationManager as const GUID
-
 	type IApplicationActivationManager as IApplicationActivationManager_
 
 	type IApplicationActivationManagerVtbl
@@ -8660,9 +8120,7 @@ extern CLSID_StartMenuPin as const GUID
 extern CLSID_WebWizardHost as const GUID
 extern CLSID_PublishDropTarget as const GUID
 extern CLSID_PublishingWizard as const GUID
-
 #define SID_PublishingWizard CLSID_PublishingWizard
-
 extern CLSID_InternetPrintOrdering as const GUID
 extern CLSID_FolderViewHost as const GUID
 extern CLSID_ExplorerBrowser as const GUID
@@ -8722,11 +8180,8 @@ extern CLSID_ExecuteFolder as const GUID
 
 	declare function SHShowManageLibraryUI(byval psiLibrary as IShellItem ptr, byval hwndOwner as HWND, byval pszTitle as LPCWSTR, byval pszInstruction as LPCWSTR, byval lmdOptions as LIBRARYMANAGEDIALOGOPTIONS) as HRESULT
 	declare function SHResolveLibrary(byval psiLibrary as IShellItem ptr) as HRESULT
-
 	#define __IAssocHandlerInvoker_INTERFACE_DEFINED__
-
 	extern IID_IAssocHandlerInvoker as const GUID
-
 	type IAssocHandlerInvoker as IAssocHandlerInvoker_
 
 	type IAssocHandlerInvokerVtbl
@@ -8745,11 +8200,8 @@ extern CLSID_ExecuteFolder as const GUID
 	declare sub IAssocHandlerInvoker_SupportsSelection_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 	declare function IAssocHandlerInvoker_Invoke_Proxy(byval This as IAssocHandlerInvoker ptr) as HRESULT
 	declare sub IAssocHandlerInvoker_Invoke_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 	#define __IAssocHandler_INTERFACE_DEFINED__
-
 	extern IID_IAssocHandler as const GUID
-
 	type IAssocHandler as IAssocHandler_
 
 	type IAssocHandlerVtbl
@@ -8783,11 +8235,8 @@ extern CLSID_ExecuteFolder as const GUID
 	declare sub IAssocHandler_Invoke_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 	declare function IAssocHandler_CreateInvoker_Proxy(byval This as IAssocHandler ptr, byval pdo as IDataObject ptr, byval ppInvoker as IAssocHandlerInvoker ptr ptr) as HRESULT
 	declare sub IAssocHandler_CreateInvoker_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 	#define __IEnumAssocHandlers_INTERFACE_DEFINED__
-
 	extern IID_IEnumAssocHandlers as const GUID
-
 	type IEnumAssocHandlers as IEnumAssocHandlers_
 
 	type IEnumAssocHandlersVtbl
@@ -8812,11 +8261,8 @@ extern CLSID_ExecuteFolder as const GUID
 
 	declare function SHAssocEnumHandlers(byval pszExtra as PCWSTR, byval afFilter as ASSOC_FILTER, byval ppEnumHandler as IEnumAssocHandlers ptr ptr) as HRESULT
 	declare function SHAssocEnumHandlersForProtocolByApplication(byval protocol as PCWSTR, byval riid as const IID const ptr, byval enumHandlers as any ptr ptr) as HRESULT
-
 	#define __IDataObjectProvider_INTERFACE_DEFINED__
-
 	extern IID_IDataObjectProvider as const GUID
-
 	type IDataObjectProvider as IDataObjectProvider_
 
 	type IDataObjectProviderVtbl
@@ -8833,11 +8279,8 @@ extern CLSID_ExecuteFolder as const GUID
 
 	declare function IDataObjectProvider_GetDataObject_Proxy(byval This as IDataObjectProvider ptr, byval dataObject as IDataObject ptr ptr) as HRESULT
 	declare sub IDataObjectProvider_GetDataObject_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 	#define __IDataTransferManagerInterop_INTERFACE_DEFINED__
-
 	extern IID_IDataTransferManagerInterop as const GUID
-
 	type IDataTransferManagerInterop as IDataTransferManagerInterop_
 
 	type IDataTransferManagerInteropVtbl
@@ -8856,11 +8299,8 @@ extern CLSID_ExecuteFolder as const GUID
 	declare sub IDataTransferManagerInterop_GetForWindow_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 	declare function IDataTransferManagerInterop_ShowShareUIForWindow_Proxy(byval This as IDataTransferManagerInterop ptr, byval appWindow as HWND) as HRESULT
 	declare sub IDataTransferManagerInterop_ShowShareUIForWindow_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 	#define __IFrameworkInputPaneHandler_INTERFACE_DEFINED__
-
 	extern IID_IFrameworkInputPaneHandler as const GUID
-
 	type IFrameworkInputPaneHandler as IFrameworkInputPaneHandler_
 
 	type IFrameworkInputPaneHandlerVtbl
@@ -8879,11 +8319,8 @@ extern CLSID_ExecuteFolder as const GUID
 	declare sub IFrameworkInputPaneHandler_Showing_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 	declare function IFrameworkInputPaneHandler_Hiding_Proxy(byval This as IFrameworkInputPaneHandler ptr, byval fEnsureFocusedElementInView as WINBOOL) as HRESULT
 	declare sub IFrameworkInputPaneHandler_Hiding_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 	#define __IFrameworkInputPane_INTERFACE_DEFINED__
-
 	extern IID_IFrameworkInputPane as const GUID
-
 	type IFrameworkInputPane as IFrameworkInputPane_
 
 	type IFrameworkInputPaneVtbl
@@ -8908,7 +8345,6 @@ extern CLSID_ExecuteFolder as const GUID
 	declare sub IFrameworkInputPane_Unadvise_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 	declare function IFrameworkInputPane_Location_Proxy(byval This as IFrameworkInputPane ptr, byval prcInputPaneScreenLocation as RECT ptr) as HRESULT
 	declare sub IFrameworkInputPane_Location_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 	#define PROP_CONTRACT_DELEGATE wstr("ContractDelegate")
 
 	private sub SetContractDelegateWindow cdecl(byval hwndSource as HWND, byval hwndDelegate as HWND)
@@ -8921,9 +8357,7 @@ extern CLSID_ExecuteFolder as const GUID
 	end function
 
 	#define __ISearchableApplication_INTERFACE_DEFINED__
-
 	extern IID_ISearchableApplication as const GUID
-
 	type ISearchableApplication as ISearchableApplication_
 
 	type ISearchableApplicationVtbl
@@ -8947,9 +8381,7 @@ extern CLSID_ExecuteFolder as const GUID
 	end enum
 
 	#define __IAccessibilityDockingServiceCallback_INTERFACE_DEFINED__
-
 	extern IID_IAccessibilityDockingServiceCallback as const GUID
-
 	type IAccessibilityDockingServiceCallback as IAccessibilityDockingServiceCallback_
 
 	type IAccessibilityDockingServiceCallbackVtbl
@@ -8965,11 +8397,8 @@ extern CLSID_ExecuteFolder as const GUID
 
 	declare function IAccessibilityDockingServiceCallback_Undocked_Proxy(byval This as IAccessibilityDockingServiceCallback ptr, byval undockReason as UNDOCK_REASON) as HRESULT
 	declare sub IAccessibilityDockingServiceCallback_Undocked_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 	#define __IAccessibilityDockingService_INTERFACE_DEFINED__
-
 	extern IID_IAccessibilityDockingService as const GUID
-
 	type IAccessibilityDockingService as IAccessibilityDockingService_
 
 	type IAccessibilityDockingServiceVtbl
@@ -9000,9 +8429,7 @@ extern CLSID_ExecuteFolder as const GUID
 	end enum
 
 	#define __IAppVisibilityEvents_INTERFACE_DEFINED__
-
 	extern IID_IAppVisibilityEvents as const GUID
-
 	type IAppVisibilityEvents as IAppVisibilityEvents_
 
 	type IAppVisibilityEventsVtbl
@@ -9021,11 +8448,8 @@ extern CLSID_ExecuteFolder as const GUID
 	declare sub IAppVisibilityEvents_AppVisibilityOnMonitorChanged_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 	declare function IAppVisibilityEvents_LauncherVisibilityChange_Proxy(byval This as IAppVisibilityEvents ptr, byval currentVisibleState as WINBOOL) as HRESULT
 	declare sub IAppVisibilityEvents_LauncherVisibilityChange_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 	#define __IAppVisibility_INTERFACE_DEFINED__
-
 	extern IID_IAppVisibility as const GUID
-
 	type IAppVisibility as IAppVisibility_
 
 	type IAppVisibilityVtbl
@@ -9061,9 +8485,7 @@ extern CLSID_ExecuteFolder as const GUID
 	end enum
 
 	#define __IPackageExecutionStateChangeNotification_INTERFACE_DEFINED__
-
 	extern IID_IPackageExecutionStateChangeNotification as const GUID
-
 	type IPackageExecutionStateChangeNotification as IPackageExecutionStateChangeNotification_
 
 	type IPackageExecutionStateChangeNotificationVtbl
@@ -9079,11 +8501,8 @@ extern CLSID_ExecuteFolder as const GUID
 
 	declare function IPackageExecutionStateChangeNotification_OnStateChanged_Proxy(byval This as IPackageExecutionStateChangeNotification ptr, byval pszPackageFullName as LPCWSTR, byval pesNewState as PACKAGE_EXECUTION_STATE) as HRESULT
 	declare sub IPackageExecutionStateChangeNotification_OnStateChanged_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 	#define __IPackageDebugSettings_INTERFACE_DEFINED__
-
 	extern IID_IPackageDebugSettings as const GUID
-
 	type IPackageDebugSettings as IPackageDebugSettings_
 
 	type IPackageDebugSettingsVtbl
@@ -9149,9 +8568,7 @@ extern CLSID_ExecuteFolder as const GUID
 	end enum
 
 	#define __IExecuteCommandApplicationHostEnvironment_INTERFACE_DEFINED__
-
 	extern IID_IExecuteCommandApplicationHostEnvironment as const GUID
-
 	type IExecuteCommandApplicationHostEnvironment as IExecuteCommandApplicationHostEnvironment_
 
 	type IExecuteCommandApplicationHostEnvironmentVtbl
@@ -9176,9 +8593,7 @@ extern CLSID_ExecuteFolder as const GUID
 	end enum
 
 	#define __IExecuteCommandHost_INTERFACE_DEFINED__
-
 	extern IID_IExecuteCommandHost as const GUID
-
 	type IExecuteCommandHost as IExecuteCommandHost_
 
 	type IExecuteCommandHostVtbl
@@ -9194,7 +8609,6 @@ extern CLSID_ExecuteFolder as const GUID
 
 	declare function IExecuteCommandHost_GetUIMode_Proxy(byval This as IExecuteCommandHost ptr, byval pUIMode as EC_HOST_UI_MODE ptr) as HRESULT
 	declare sub IExecuteCommandHost_GetUIMode_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 	#define SID_ExecuteCommandHost IID_IExecuteCommandHost
 
 	type APPLICATION_VIEW_STATE as long
@@ -9213,9 +8627,7 @@ extern CLSID_ExecuteFolder as const GUID
 	end enum
 
 	#define __IApplicationDesignModeSettings_INTERFACE_DEFINED__
-
 	extern IID_IApplicationDesignModeSettings as const GUID
-
 	type IApplicationDesignModeSettings as IApplicationDesignModeSettings_
 
 	type IApplicationDesignModeSettingsVtbl
@@ -9246,11 +8658,8 @@ extern CLSID_ExecuteFolder as const GUID
 	declare sub IApplicationDesignModeSettings_IsApplicationViewStateSupported_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 	declare function IApplicationDesignModeSettings_TriggerEdgeGesture_Proxy(byval This as IApplicationDesignModeSettings ptr, byval edgeGestureKind as EDGE_GESTURE_KIND) as HRESULT
 	declare sub IApplicationDesignModeSettings_TriggerEdgeGesture_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 	#define __IInitializeWithWindow_INTERFACE_DEFINED__
-
 	extern IID_IInitializeWithWindow as const GUID
-
 	type IInitializeWithWindow as IInitializeWithWindow_
 
 	type IInitializeWithWindowVtbl
@@ -9266,11 +8675,8 @@ extern CLSID_ExecuteFolder as const GUID
 
 	declare function IInitializeWithWindow_Initialize_Proxy(byval This as IInitializeWithWindow ptr, byval hwnd as HWND) as HRESULT
 	declare sub IInitializeWithWindow_Initialize_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 	#define __IHandlerInfo_INTERFACE_DEFINED__
-
 	extern IID_IHandlerInfo as const GUID
-
 	type IHandlerInfo as IHandlerInfo_
 
 	type IHandlerInfoVtbl
@@ -9292,11 +8698,8 @@ extern CLSID_ExecuteFolder as const GUID
 	declare sub IHandlerInfo_GetApplicationPublisher_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 	declare function IHandlerInfo_GetApplicationIconReference_Proxy(byval This as IHandlerInfo ptr, byval value as LPWSTR ptr) as HRESULT
 	declare sub IHandlerInfo_GetApplicationIconReference_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 	#define __IHandlerActivationHost_INTERFACE_DEFINED__
-
 	extern IID_IHandlerActivationHost as const GUID
-
 	type IHandlerActivationHost as IHandlerActivationHost_
 
 	type IHandlerActivationHostVtbl
@@ -9315,9 +8718,7 @@ extern CLSID_ExecuteFolder as const GUID
 	declare sub IHandlerActivationHost_BeforeCoCreateInstance_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 	declare function IHandlerActivationHost_BeforeCreateProcess_Proxy(byval This as IHandlerActivationHost ptr, byval applicationPath as LPCWSTR, byval commandLine as LPCWSTR, byval handlerInfo as IHandlerInfo ptr) as HRESULT
 	declare sub IHandlerActivationHost_BeforeCreateProcess_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 	#define SID_SHandlerActivationHost IID_IHandlerActivationHost
-
 	extern SID_ShellExecuteNamedPropertyStore as const GUID
 #endif
 

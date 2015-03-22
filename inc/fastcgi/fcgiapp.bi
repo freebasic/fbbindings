@@ -25,7 +25,6 @@ type FCGX_Stream
 end type
 
 type FCGX_ParamArray as zstring ptr ptr
-
 #define FCGI_FAIL_ACCEPT_ON_INTR 1
 
 type FCGX_Request

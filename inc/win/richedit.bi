@@ -76,7 +76,6 @@ enum
 end enum
 
 type TEXTMODE as tagTextMode
-
 #define EM_AUTOURLDETECT (WM_USER + 91)
 #define EM_GETAUTOURLDETECT (WM_USER + 92)
 #define EM_SETPALETTE (WM_USER + 93)
@@ -197,7 +196,6 @@ type _imecomptext field = 4
 end type
 
 type IMECOMPTEXT as _imecomptext
-
 #define ICT_RESULTREADSTR 1
 #define EMO_EXIT 0
 #define EMO_ENTER 1
@@ -302,7 +300,6 @@ type IMECOMPTEXT as _imecomptext
 #define WBF_ISWHITE cast(UBYTE, &h10)
 #define WBF_BREAKLINE cast(UBYTE, &h20)
 #define WBF_BREAKAFTER cast(UBYTE, &h40)
-
 type EDITWORDBREAKPROCEX as function cdecl(byval pchText as zstring ptr, byval cchText as LONG, byval bCharSet as UBYTE, byval action as INT) as LONG
 
 type _charformat field = 4
@@ -516,7 +513,6 @@ type _editstream field = 4
 end type
 
 type EDITSTREAM as _editstream
-
 #define SF_TEXT &h0001
 #define SF_RTF &h0002
 #define SF_RTFNOOBJS &h0003
@@ -583,7 +579,6 @@ type _formatrange field = 4
 end type
 
 type FORMATRANGE as _formatrange
-
 #define MAX_TAB_STOPS 32
 #define lDefaultTab 720
 #define MAX_TABLE_CELLS 63
@@ -632,7 +627,6 @@ type _paraformat2 field = 4
 end type
 
 type PARAFORMAT2 as _paraformat2
-
 #define PFM_STARTINDENT &h00000001
 #define PFM_RIGHTINDENT &h00000002
 #define PFM_OFFSET &h00000004
@@ -725,7 +719,6 @@ type _selchange field = 4
 end type
 
 type SELCHANGE as _selchange
-
 #define SEL_EMPTY &h0000
 #define SEL_TEXT &h0001
 #define SEL_OBJECT &h0002
@@ -768,7 +761,6 @@ type _enoleopfailed field = 4
 end type
 
 type ENOLEOPFAILED as _enoleopfailed
-
 #define OLEOP_DOVERB 1
 
 type _objectpositions field = 4
@@ -818,7 +810,6 @@ type _compcolor field = 4
 end type
 
 type COMPCOLOR as _compcolor
-
 #define CF_RTF TEXT("Rich Text Format")
 #define CF_RTFNOOBJS TEXT("Rich Text Format Without Objects")
 #define CF_RETEXTOBJ TEXT("RichEdit Text and Objects")
@@ -842,7 +833,6 @@ enum
 end enum
 
 type UNDONAMEID as _undonameid
-
 #define ST_DEFAULT 0
 #define ST_KEEPUNDO 1
 #define ST_SELECTION 2
@@ -854,7 +844,6 @@ type _settextex field = 4
 end type
 
 type SETTEXTEX as _settextex
-
 #define GT_DEFAULT 0
 #define GT_USECRLF 1
 #define GT_SELECTION 2
@@ -870,7 +859,6 @@ type _gettextex field = 4
 end type
 
 type GETTEXTEX as _gettextex
-
 #define GTL_DEFAULT 0
 #define GTL_USECRLF 1
 #define GTL_PRECISE 2
@@ -892,7 +880,6 @@ type _bidioptions field = 4
 end type
 
 type BIDIOPTIONS as _bidioptions
-
 #define BOM_NEUTRALOVERRIDE &h0004
 #define BOM_CONTEXTREADING &h0008
 #define BOM_CONTEXTALIGNMENT &h0010

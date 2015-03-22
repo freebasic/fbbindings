@@ -24,9 +24,7 @@
 type LPFNLRESULTFROMOBJECT as function(byval riid as const IID const ptr, byval wParam as WPARAM, byval punk as LPUNKNOWN) as LRESULT
 type LPFNOBJECTFROMLRESULT as function(byval lResult as LRESULT, byval riid as const IID const ptr, byval wParam as WPARAM, byval ppvObject as any ptr ptr) as HRESULT
 type LPFNACCESSIBLEOBJECTFROMWINDOW as function(byval hwnd as HWND, byval dwId as DWORD, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-
 type IAccessible as IAccessible_
-
 type LPFNACCESSIBLEOBJECTFROMPOINT as function(byval ptScreen as POINT, byval ppacc as IAccessible ptr ptr, byval pvarChild as VARIANT ptr) as HRESULT
 type LPFNCREATESTDACCESSIBLEOBJECT as function(byval hwnd as HWND, byval idObject as LONG, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 type LPFNACCESSIBLECHILDREN as function(byval paccContainer as IAccessible ptr, byval iChildStart as LONG, byval cChildren as LONG, byval rgvarChildren as VARIANT ptr, byval pcObtained as LONG ptr) as HRESULT
@@ -65,7 +63,6 @@ declare sub GetOleaccVersionInfo(byval pVer as DWORD ptr, byval pBuild as DWORD 
 declare function CreateStdAccessibleObject(byval hwnd as HWND, byval idObject as LONG, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 declare function CreateStdAccessibleProxyA(byval hwnd as HWND, byval pClassName as LPCSTR, byval idObject as LONG, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 declare function CreateStdAccessibleProxyW(byval hwnd as HWND, byval pClassName as LPCWSTR, byval idObject as LONG, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
-
 #define MSAA_MENU_SIG __MSABI_LONG(&hAA0DF00D)
 
 type tagMSAAMENUINFO
@@ -76,7 +73,6 @@ end type
 
 type MSAAMENUINFO as tagMSAAMENUINFO
 type LPMSAAMENUINFO as tagMSAAMENUINFO ptr
-
 extern PROPID_ACC_NAME as const GUID
 extern PROPID_ACC_VALUE as const GUID
 extern PROPID_ACC_DESCRIPTION as const GUID
@@ -186,9 +182,7 @@ extern PROPID_ACC_DODEFAULTACTION as const GUID
 #define ROLE_SYSTEM_IPADDRESS &h3f
 #define ROLE_SYSTEM_OUTLINEBUTTON &h40
 #define __IAccessible_INTERFACE_DEFINED__
-
 type LPACCESSIBLE as IAccessible ptr
-
 #define DISPID_ACC_PARENT (-5000)
 #define DISPID_ACC_CHILDCOUNT (-5001)
 #define DISPID_ACC_CHILD (-5002)
@@ -208,7 +202,6 @@ type LPACCESSIBLE as IAccessible ptr
 #define DISPID_ACC_NAVIGATE (-5016)
 #define DISPID_ACC_HITTEST (-5017)
 #define DISPID_ACC_DODEFAULTACTION (-5018)
-
 extern IID_IAccessible as const GUID
 
 type IAccessibleVtbl
@@ -288,13 +281,9 @@ declare function IAccessible_put_accName_Proxy(byval This as IAccessible ptr, by
 declare sub IAccessible_put_accName_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IAccessible_put_accValue_Proxy(byval This as IAccessible ptr, byval varID as VARIANT, byval pszValue as BSTR) as HRESULT
 declare sub IAccessible_put_accValue_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-
 #define __IAccessibleHandler_INTERFACE_DEFINED__
-
 type IAccessibleHandler as IAccessibleHandler_
-
 type LPACCESSIBLEHANDLER as IAccessibleHandler ptr
-
 extern IID_IAccessibleHandler as const IID
 
 type IAccessibleHandlerVtbl
@@ -318,14 +307,10 @@ enum
 end enum
 
 type MSAAPROPID as GUID
-
 extern __MIDL_itf_oleacc_0116_v0_0_c_ifspec as RPC_IF_HANDLE
 extern __MIDL_itf_oleacc_0116_v0_0_s_ifspec as RPC_IF_HANDLE
-
 #define __IAccIdentity_INTERFACE_DEFINED__
-
 extern IID_IAccIdentity as const IID
-
 type IAccIdentity as IAccIdentity_
 
 type IAccIdentityVtbl
@@ -341,11 +326,8 @@ end type
 
 declare function IAccIdentity_GetIdentityString_Proxy(byval This as IAccIdentity ptr, byval dwIDChild as DWORD, byval ppIDString as UBYTE ptr ptr, byval pdwIDStringLen as DWORD ptr) as HRESULT
 declare sub IAccIdentity_GetIdentityString_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-
 #define __IAccPropServer_INTERFACE_DEFINED__
-
 extern IID_IAccPropServer as const IID
-
 type IAccPropServer as IAccPropServer_
 
 type IAccPropServerVtbl
@@ -361,11 +343,8 @@ end type
 
 declare function IAccPropServer_GetPropValue_Proxy(byval This as IAccPropServer ptr, byval pIDString as const UBYTE ptr, byval dwIDStringLen as DWORD, byval idProp as MSAAPROPID, byval pvarValue as VARIANT ptr, byval pfHasProp as WINBOOL ptr) as HRESULT
 declare sub IAccPropServer_GetPropValue_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-
 #define __IAccPropServices_INTERFACE_DEFINED__
-
 extern IID_IAccPropServices as const IID
-
 type IAccPropServices as IAccPropServices_
 
 type IAccPropServicesVtbl
@@ -423,15 +402,11 @@ declare function IAccPropServices_ComposeHmenuIdentityString_Proxy(byval This as
 declare sub IAccPropServices_ComposeHmenuIdentityString_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IAccPropServices_DecomposeHmenuIdentityString_Proxy(byval This as IAccPropServices ptr, byval pIDString as const UBYTE ptr, byval dwIDStringLen as DWORD, byval phmenu as HMENU ptr, byval pidChild as DWORD ptr) as HRESULT
 declare sub IAccPropServices_DecomposeHmenuIdentityString_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-
 extern __MIDL_itf_oleacc_0119_v0_0_c_ifspec as RPC_IF_HANDLE
 extern __MIDL_itf_oleacc_0119_v0_0_s_ifspec as RPC_IF_HANDLE
-
 #define __Accessibility_LIBRARY_DEFINED__
-
 extern LIBID_Accessibility as const IID
 extern CLSID_CAccPropServices as const CLSID
-
 declare function BSTR_UserSize(byval as ULONG ptr, byval as ULONG, byval as BSTR ptr) as ULONG
 declare function BSTR_UserMarshal(byval as ULONG ptr, byval as ubyte ptr, byval as BSTR ptr) as ubyte ptr
 declare function BSTR_UserUnmarshal(byval as ULONG ptr, byval as ubyte ptr, byval as BSTR ptr) as ubyte ptr

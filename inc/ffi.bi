@@ -25,7 +25,6 @@ extern "C"
 #if defined(__FB_WIN32__) and defined(__FB_64BIT__)
 	#define FFI_SIZEOF_ARG 8
 	#define USE_BUILTIN_FFS 0
-
 	type ffi_arg as ulongint
 	type ffi_sarg as longint
 #else
@@ -102,7 +101,6 @@ type _ffi_type
 end type
 
 type ffi_type as _ffi_type
-
 #define ffi_type_uchar ffi_type_uint8
 #define ffi_type_schar ffi_type_sint8
 #define ffi_type_ushort ffi_type_uint16
@@ -169,7 +167,6 @@ union ffi_raw
 end union
 
 type ffi_java_raw as ffi_raw
-
 declare sub ffi_raw_call(byval cif as ffi_cif ptr, byval fn as sub(), byval rvalue as any ptr, byval avalue as ffi_raw ptr)
 declare sub ffi_ptrarray_to_raw(byval cif as ffi_cif ptr, byval args as any ptr ptr, byval raw as ffi_raw ptr)
 declare sub ffi_raw_to_ptrarray(byval cif as ffi_cif ptr, byval raw as ffi_raw ptr, byval args as any ptr ptr)

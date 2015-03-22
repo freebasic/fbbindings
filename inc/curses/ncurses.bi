@@ -24,15 +24,11 @@ extern "C"
 #define NCURSES_SIZE_T short
 #define NCURSES_TPARM_VARARGS 1
 #define NCURSES_CH_T chtype
-
 type chtype as culong
 type mmask_t as culong
-
 #define TRUE 1
 #define FALSE 0
-
 type NCURSES_BOOL as ubyte
-
 #define NCURSES_BOOL bool
 #define NCURSES_CAST(type, value) '' TODO: (type)(value)
 #define WA_ATTRIBUTES A_ATTRIBUTES
@@ -60,9 +56,7 @@ type NCURSES_BOOL as ubyte
 #define COLOR_MAGENTA 5
 #define COLOR_CYAN 6
 #define COLOR_WHITE 7
-
 extern acs_map(0 to ...) as chtype
-
 #define NCURSES_ACS(c) '' TODO: (acs_map[NCURSES_CAST(unsigned char,c)])
 #define ACS_ULCORNER NCURSES_ACS(asc("l"))
 #define ACS_LLCORNER NCURSES_ACS(asc("m"))
@@ -118,7 +112,6 @@ extern acs_map(0 to ...) as chtype
 #define _WRAPPED &h40
 #define _NOCHANGE (-1)
 #define _NEWINDEX (-1)
-
 type WINDOW as _win_st
 type attr_t as chtype
 
@@ -162,7 +155,6 @@ type _win_st
 end type
 
 type NCURSES_OUTC as function(byval as long) as long
-
 declare function baudrate() as long
 declare function beep() as long
 declare function can_change_color() as byte
@@ -321,13 +313,10 @@ declare function tigetstr(byval as zstring ptr) as zstring ptr
 declare function putp(byval as const zstring ptr) as long
 declare function tparm(byval as zstring ptr, ...) as zstring ptr
 declare function tiparm(byval as const zstring ptr, ...) as zstring ptr
-
 #define vid_attr(a, pair, opts) vidattr(a)
 #define NCURSES_EXT_FUNCS 20110404
-
 type NCURSES_WINDOW_CB as function(byval as WINDOW ptr, byval as any ptr) as long
 type NCURSES_SCREEN_CB as function(byval as SCREEN ptr, byval as any ptr) as long
-
 declare function is_term_resized(byval as long, byval as long) as byte
 declare function keybound(byval as long, byval as long) as zstring ptr
 declare function curses_version() as const zstring ptr
@@ -689,9 +678,7 @@ declare function wenclose(byval as const WINDOW ptr, byval as long, byval as lon
 declare function mouseinterval(byval as long) as long
 declare function wmouse_trafo(byval as const WINDOW ptr, byval as long ptr, byval as long ptr, byval as byte) as byte
 declare function mouse_trafo(byval as long ptr, byval as long ptr, byval as byte) as byte
-
 #define mouse_trafo(y, x, to_screen) wmouse_trafo(stdscr, y, x, to_screen)
-
 declare function mcprint(byval as zstring ptr, byval as long) as long
 declare function has_key(byval as long) as long
 declare sub _tracef(byval as const zstring ptr, ...)
@@ -702,10 +689,8 @@ declare function _nc_tracebits() as zstring ptr
 declare function _tracechar(byval as long) as zstring ptr
 declare function _tracechtype(byval as chtype) as zstring ptr
 declare function _tracechtype2(byval as long, byval as chtype) as zstring ptr
-
 #define _tracech_t _tracechtype
 #define _tracech_t2 _tracechtype2
-
 declare function _tracemouse(byval as const MEVENT ptr) as zstring ptr
 declare sub trace(byval as const ulong)
 
@@ -728,7 +713,6 @@ declare sub trace(byval as const ulong)
 #define TRACE_MAXIMUM ((1 shl TRACE_SHIFT) - 1)
 #define NCURSES_UNCTRL_H_incl 1
 #define NCURSES_VERSION "5.9"
-
 declare function unctrl(byval as chtype) as zstring ptr
 
 end extern

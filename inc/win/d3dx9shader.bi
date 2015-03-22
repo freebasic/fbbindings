@@ -28,7 +28,6 @@
 #define D3DXSHADER_OPTIMIZATION_LEVEL2 &hC000
 #define D3DXSHADER_OPTIMIZATION_LEVEL3 &h8000
 #define D3DXSHADER_USE_LEGACY_D3DX9_31_DLL &h10000
-
 type D3DXHANDLE as const zstring ptr
 
 type _D3DXREGISTER_SET as long
@@ -109,9 +108,7 @@ end type
 
 type D3DXCONSTANT_DESC as _D3DXCONSTANT_DESC
 type LPD3DXCONSTANT_DESC as _D3DXCONSTANT_DESC ptr
-
 extern IID_ID3DXConstantTable as const GUID
-
 type ID3DXConstantTableVtbl as ID3DXConstantTableVtbl_
 
 type ID3DXConstantTable
@@ -175,7 +172,6 @@ end type
 #define ID3DXConstantTable_SetMatrixTranspose(p, a, b, c) (p)->lpVtbl->SetMatrixTranspose(p, a, b, c)
 #define ID3DXConstantTable_SetMatrixTransposeArray(p, a, b, c, d) (p)->lpVtbl->SetMatrixTransposeArray(p, a, b, c, d)
 #define ID3DXConstantTable_SetMatrixTransposePointerArray(p, a, b, c, d) (p)->lpVtbl->SetMatrixTransposePointerArray(p, a, b, c, d)
-
 type LPD3DXCONSTANTTABLE as ID3DXConstantTable ptr
 
 type _D3DXMACRO
@@ -203,7 +199,6 @@ end enum
 
 type D3DXINCLUDE_TYPE as _D3DXINCLUDE_TYPE
 type LPD3DXINCLUDE_TYPE as _D3DXINCLUDE_TYPE ptr
-
 type ID3DXIncludeVtbl as ID3DXIncludeVtbl_
 
 type ID3DXInclude
@@ -217,9 +212,7 @@ end type
 
 #define ID3DXInclude_Open(p, a, b, c, d, e) (p)->lpVtbl->Open(p, a, b, c, d, e)
 #define ID3DXInclude_Close(p, a) (p)->lpVtbl->Close(p, a)
-
 type LPD3DXINCLUDE as ID3DXInclude ptr
-
 declare function D3DXGetPixelShaderProfile(byval device as IDirect3DDevice9 ptr) as const zstring ptr
 declare function D3DXGetShaderSize(byval byte_code as const DWORD ptr) as UINT
 declare function D3DXGetShaderVersion(byval byte_code as const DWORD ptr) as DWORD

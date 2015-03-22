@@ -61,10 +61,8 @@ end type
 #define SS_PORT(ssp) cptr(SOCKADDR_IN ptr, (ssp))->sin_port
 #define IN6ADDR_ANY_INIT (0)
 #define IN6ADDR_LOOPBACK_INIT (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1)
-
 extern in6addr_any as const IN6_ADDR
 extern in6addr_loopback as const IN6_ADDR
-
 #define WS2TCPIP_INLINE __CRT_INLINE
 
 declare function IN6_ADDR_EQUAL(byval as const IN6_ADDR ptr, byval as const IN6_ADDR ptr) as long
@@ -181,7 +179,6 @@ end type
 
 type INTERFACE_INFO_EX as _INTERFACE_INFO_EX
 type LPINTERFACE_INFO_EX as _INTERFACE_INFO_EX ptr
-
 #define IFF_UP &h00000001
 #define IFF_BROADCAST &h00000002
 #define IFF_LOOPBACK &h00000004
@@ -245,7 +242,6 @@ type PADDRINFOW as ADDRINFOW ptr
 
 type ADDRINFO as ADDRINFOA
 type LPADDRINFO as ADDRINFOA ptr
-
 #define AI_PASSIVE &h1
 #define AI_CANONNAME &h2
 #define AI_NUMERICHOST &h4
@@ -288,7 +284,6 @@ type LPADDRINFO as ADDRINFOA ptr
 #endif
 
 #define FreeAddrInfoA freeaddrinfo
-
 type socklen_t as long
 
 #ifdef UNICODE
@@ -314,10 +309,8 @@ type socklen_t as long
 #endif
 
 #define GAI_STRERROR_BUFFER_SIZE 1024
-
 declare function gai_strerrorA(byval as long) as zstring ptr
 declare function gai_strerrorW(byval as long) as wstring ptr
-
 #define NI_MAXHOST 1025
 #define NI_MAXSERV 32
 #define INET_ADDRSTRLEN 22

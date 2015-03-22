@@ -21,9 +21,7 @@ extern "C"
 #define CGUI_INIT_WINDOWED 1
 #define CGUI_INIT_FULLSCREEN 2
 #define CGUI_INIT_KEEP_CURRENT 0
-
 declare function InitCguiEx(byval w as long, byval h as long, byval colour_depth as long, byval errno_ptr as long ptr, byval atexit_ptr as function(byval f as sub()) as long) as long
-
 #define InitCguiLoadMode() InitCguiEx(0, CGUI_INIT_LOAD, CGUI_INIT_CODE, @errno, cptr(function cdecl(byval as sub cdecl()) as long, atexit))
 #define InitCguiFullscreenMode() InitCguiEx(0, CGUI_INIT_FULLSCREEN, CGUI_INIT_CODE, @errno, cptr(function cdecl(byval as sub cdecl()) as long, atexit))
 #define InitCguiWindowedMode() InitCguiEx(0, CGUI_INIT_WINDOWED, CGUI_INIT_CODE, @errno, cptr(function cdecl(byval as sub cdecl()) as long, atexit))
@@ -67,9 +65,7 @@ declare function CguiParseLabels(byval state as long) as long
 #define EQUALHEIGHT &h40000000
 #define ADAPTIVE '' TODO: 0,AUTOINDICATOR
 #define FILLSCREEN '' TODO: 1,AUTOINDICATOR
-
 declare function MkDialogue(byval width as long, byval height as long, byval label as const zstring ptr, byval attr as long) as long
-
 #define W_SIBLING (1 shl 0)
 #define W_NOMOVE (1 shl 2)
 #define W_FLOATING (1 shl 3)
@@ -93,7 +89,6 @@ declare function Request(byval title as const zstring ptr, byval options as long
 declare sub RedrawScreen()
 declare sub ScrMode(byval CallBack as sub())
 declare function MkProgressWindow(byval wlabel as const zstring ptr, byval blabel as const zstring ptr, byval w as long) as long
-
 #define ID_DESKTOP cgui_desktop_id
 
 #if defined(CGUI_STATICLINK) or ((not defined(CGUI_STATICLINK)) and (defined(__FB_DOS__) or defined(__FB_LINUX__)))
@@ -115,10 +110,8 @@ declare function HookMenuClose(byval CloseHook as sub(byval as any ptr), byval d
 declare function MkGroove() as long
 declare function AddButton(byval x as long, byval y as long, byval label as const zstring ptr, byval CallBack as sub(byval data as any ptr), byval data as any ptr) as long
 declare function AddCheck(byval x as long, byval y as long, byval label as const zstring ptr, byval sel as long ptr) as long
-
 #define R_HORIZONTAL 0
 #define R_VERTICAL 1
-
 declare function AddFlip(byval x as long, byval y as long, byval label as const zstring ptr, byval strs as const zstring const ptr ptr, byval sel as long ptr) as long
 declare function AddDropDown(byval x as long, byval y as long, byval width as long, byval label as const zstring ptr, byval sel as long ptr, byval data as const any ptr, byval n as long, byval CallBack as sub(byval data as const any ptr, byval i as long, byval s as zstring ptr)) as long
 declare function AddDropDownS(byval x as long, byval y as long, byval width as long, byval label as const zstring ptr, byval sel as long ptr, byval strs as const zstring const ptr ptr, byval n as long) as long
@@ -137,9 +130,7 @@ declare function MkCanvas(byval x as long, byval y as long, byval width as long,
 declare function GetRulerTabList(byval id as long, byval n as long ptr) as long ptr
 declare function FlipRulerTab(byval id as long, byval x as long) as long
 declare function AddTabRuler(byval x as long, byval y as long, byval width as long, byval height as long, byval dx as long, byval options as long, byval CallBack as sub(byval data as any ptr, byval x as long, byval tabs as long ptr, byval n as long), byval data as any ptr) as long
-
 #define TR_SHOWPOS 1
-
 declare function UpdateProgressValue(byval id as long, byval percent as long) as long
 declare function AddProgressBar(byval x as long, byval y as long, byval w as long, byval h as long) as long
 
@@ -167,10 +158,8 @@ declare function TextboxGetHighlightedText(byval id as long) as const zstring pt
 #define TB_WHITE &h04000000
 #define TB_TEXTFILE &h02000000
 #define TB_FOCUS_END &h01000000
-
 declare function UpdateTextBoxText(byval id as long, byval s as const zstring ptr) as long
 declare function AddEditBox(byval x as long, byval y as long, byval width as long, byval label as const zstring ptr, byval format as long, byval string_buffer_size as long, byval data as any ptr) as long
-
 #define TERMINATE_EDIT 999
 
 declare sub CguiEditBoxSetSelectionMode(byval mode as long)
@@ -214,10 +203,8 @@ declare function InsertPoint(byval id as long) as long
 #define IMAGE_TRANS_BMP 1
 #define IMAGE_RLE_SPRITE 2
 #define IMAGE_CMP_SPRITE 3
-
 declare function RegisterImage(byval data as any ptr, byval imagename as const zstring ptr, byval type as long, byval id as long) as long
 declare function GetRegisteredImage(byval name as const zstring ptr, byval type as long ptr, byval id as long) as const any ptr
-
 #define LEFT_MOUSE 1
 #define RIGHT_MOUSE 2
 
@@ -272,7 +259,6 @@ declare sub SetBlitLimit(byval x1 as long, byval y1 as long, byval x2 as long, b
 
 #define CT_BORDER 1
 #define CT_OBJECT_TABLE 2
-
 declare function StartContainer(byval x as long, byval y as long, byval width as long, byval height as long, byval label as const zstring ptr, byval options as long) as long
 declare sub EndContainer()
 declare sub SelectContainer(byval id as long)
@@ -309,9 +295,7 @@ declare function SetInsertHandler(byval listid as long, byval CallBack as sub(by
 declare function GetListIndex(byval id as long) as long
 declare function HookExit(byval id as long, byval ExitFun as sub(byval data as any ptr), byval data as any ptr) as long
 declare function NotifyFocusMove(byval listid as long, byval CallBack as sub(byval id as long, byval rowobject as any ptr)) as long
-
 #define TR_HIDE_ROOT &h00000001
-
 declare function ListTreeView(byval listid as long, byval width as long, byval IsLeaf as function(byval rowobject as any ptr) as long, byval options as long) as long
 declare function ListTreeSetNodesExpandedState(byval listid as long, byval IsExpanded as function(byval data as any ptr) as long) as long
 declare function ListTreeSetNodeExpandedState(byval listid as long, byval new_expanded_state as long, byval data as any ptr) as long
@@ -520,7 +504,6 @@ declare sub SelectCursor(byval cursor_no as long)
 #define CURS_CROSS 4
 #define CURS_BUSY 5
 #define CURS_DEFAULT 6
-
 declare sub CguiSetMouseInput(byval MouseInput as sub(byval x as long ptr, byval y as long ptr, byval z as long ptr, byval buttons as long ptr), byval ForcePos as sub(byval x as long, byval y as long), byval SetRange as sub(byval x as long, byval y as long, byval w as long, byval h as long))
 declare sub SetMousePos(byval x as long, byval y as long)
 
@@ -540,7 +523,6 @@ declare sub ConditionalRefresh(byval calldata as any ptr, byval reason as long)
 declare function GetSizeOffset(byval id as long, byval x as long ptr, byval y as long ptr) as long
 declare function SetSizeOffset(byval id as long, byval x as long, byval y as long) as long
 declare function MakeStretchable(byval id as long, byval Notify as sub(byval as any ptr), byval data as any ptr, byval options as long) as long
-
 #define NO_VERTICAL 1
 #define NO_HORIZONTAL 2
 

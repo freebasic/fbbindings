@@ -5,6 +5,9 @@
 #include once "specstrings.bi"
 #include once "winnt.bi"
 
+'' The following symbols have been renamed:
+''     typedef BYTE => UBYTE
+
 #ifdef __FB_64BIT__
 	extern "C"
 #else
@@ -48,9 +51,7 @@ type LPLONG as long ptr
 type PDWORD as DWORD ptr
 type LPDWORD as DWORD ptr
 type LPVOID as any ptr
-
 #define _LPCVOID_DEFINED
-
 type LPCVOID as const any ptr
 type INT as long
 type UINT as ulong
@@ -164,7 +165,6 @@ end type
 type FILETIME as _FILETIME
 type PFILETIME as _FILETIME ptr
 type LPFILETIME as _FILETIME ptr
-
 #define _FILETIME_
 
 type HWND__
@@ -278,7 +278,6 @@ end type
 
 type HUMPD as HUMPD__ ptr
 type LPCOLORREF as DWORD ptr
-
 #define HFILE_ERROR cast(HFILE, -1)
 
 type tagRECT

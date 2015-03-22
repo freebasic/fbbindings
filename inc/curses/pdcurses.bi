@@ -22,7 +22,6 @@ extern "C"
 #define TRUE 1
 #define ERR (-1)
 #define OK 0
-
 type bool as ubyte
 
 #if defined(__FB_WIN32__) or (defined(__FB_LINUX__) and (not defined(__FB_64BIT__))) or defined(__FB_DOS__)
@@ -103,7 +102,6 @@ end type
 #define BUTTON_MODIFIER_ALT cast(clong, &h10000000)
 #define ALL_MOUSE_EVENTS cast(clong, &h1fffffff)
 #define REPORT_MOUSE_POSITION cast(clong, &h20000000)
-
 type mmask_t as culong
 
 type MEVENT

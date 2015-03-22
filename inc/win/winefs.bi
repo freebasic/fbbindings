@@ -51,7 +51,6 @@ end type
 
 type ENCRYPTION_CERTIFICATE as _ENCRYPTION_CERTIFICATE
 type PENCRYPTION_CERTIFICATE as _ENCRYPTION_CERTIFICATE ptr
-
 #define MAX_SID_SIZE 256
 
 type _ENCRYPTION_CERTIFICATE_HASH
@@ -79,7 +78,6 @@ end type
 
 type ENCRYPTION_CERTIFICATE_LIST as _ENCRYPTION_CERTIFICATE_LIST
 type PENCRYPTION_CERTIFICATE_LIST as _ENCRYPTION_CERTIFICATE_LIST ptr
-
 declare function QueryUsersOnEncryptedFile(byval lpFileName as LPCWSTR, byval pUsers as PENCRYPTION_CERTIFICATE_HASH_LIST ptr) as DWORD
 declare function QueryRecoveryAgentsOnEncryptedFile(byval lpFileName as LPCWSTR, byval pRecoveryAgents as PENCRYPTION_CERTIFICATE_HASH_LIST ptr) as DWORD
 declare function RemoveUsersFromEncryptedFile(byval lpFileName as LPCWSTR, byval pHashes as PENCRYPTION_CERTIFICATE_HASH_LIST) as DWORD

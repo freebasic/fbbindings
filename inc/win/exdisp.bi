@@ -75,7 +75,6 @@ enum
 end enum
 
 extern LIBID_SHDocVw as const IID
-
 #define __IWebBrowser_INTERFACE_DEFINED__
 
 type BrowserNavConstants as long
@@ -101,7 +100,6 @@ enum
 end enum
 
 extern IID_IWebBrowser as const IID
-
 type IWebBrowser as IWebBrowser_
 
 type IWebBrowserVtbl
@@ -193,11 +191,8 @@ declare function IWebBrowser_get_LocationURL_Proxy(byval This as IWebBrowser ptr
 declare sub IWebBrowser_get_LocationURL_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IWebBrowser_get_Busy_Proxy(byval This as IWebBrowser ptr, byval pBool as VARIANT_BOOL ptr) as HRESULT
 declare sub IWebBrowser_get_Busy_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-
 #define __DWebBrowserEvents_DISPINTERFACE_DEFINED__
-
 extern DIID_DWebBrowserEvents as const IID
-
 type DWebBrowserEvents as DWebBrowserEvents_
 
 type DWebBrowserEventsVtbl
@@ -215,9 +210,7 @@ type DWebBrowserEvents_
 end type
 
 #define __IWebBrowserApp_INTERFACE_DEFINED__
-
 extern IID_IWebBrowserApp as const IID
-
 type IWebBrowserApp as IWebBrowserApp_
 
 type IWebBrowserAppVtbl
@@ -319,11 +312,8 @@ declare function IWebBrowserApp_get_FullScreen_Proxy(byval This as IWebBrowserAp
 declare sub IWebBrowserApp_get_FullScreen_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IWebBrowserApp_put_FullScreen_Proxy(byval This as IWebBrowserApp ptr, byval bFullScreen as VARIANT_BOOL) as HRESULT
 declare sub IWebBrowserApp_put_FullScreen_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-
 #define __IWebBrowser2_INTERFACE_DEFINED__
-
 extern IID_IWebBrowser2 as const IID
-
 type IWebBrowser2 as IWebBrowser2_
 
 type IWebBrowser2Vtbl
@@ -442,11 +432,8 @@ declare function IWebBrowser2_get_Resizable_Proxy(byval This as IWebBrowser2 ptr
 declare sub IWebBrowser2_get_Resizable_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IWebBrowser2_put_Resizable_Proxy(byval This as IWebBrowser2 ptr, byval Value as VARIANT_BOOL) as HRESULT
 declare sub IWebBrowser2_put_Resizable_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-
 #define __DWebBrowserEvents2_DISPINTERFACE_DEFINED__
-
 extern DIID_DWebBrowserEvents2 as const IID
-
 type DWebBrowserEvents2 as DWebBrowserEvents2_
 
 type DWebBrowserEvents2Vtbl
@@ -467,11 +454,8 @@ extern CLSID_WebBrowser_V1 as const CLSID
 extern CLSID_WebBrowser as const CLSID
 extern CLSID_InternetExplorer as const CLSID
 extern CLSID_ShellBrowserWindow as const CLSID
-
 #define __DShellWindowsEvents_DISPINTERFACE_DEFINED__
-
 extern DIID_DShellWindowsEvents as const IID
-
 type DShellWindowsEvents as DShellWindowsEvents_
 
 type DShellWindowsEventsVtbl
@@ -489,9 +473,7 @@ type DShellWindowsEvents_
 end type
 
 #define __IShellWindows_INTERFACE_DEFINED__
-
 extern IID_IShellWindows as const IID
-
 type IShellWindows as IShellWindows_
 
 type IShellWindowsVtbl
@@ -541,13 +523,9 @@ declare function IShellWindows_OnCreated_Proxy(byval This as IShellWindows ptr, 
 declare sub IShellWindows_OnCreated_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IShellWindows_ProcessAttachDetach_Proxy(byval This as IShellWindows ptr, byval fAttach as VARIANT_BOOL) as HRESULT
 declare sub IShellWindows_ProcessAttachDetach_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-
 extern CLSID_ShellWindows as const CLSID
-
 #define __IShellUIHelper_INTERFACE_DEFINED__
-
 extern IID_IShellUIHelper as const IID
-
 type IShellUIHelper as IShellUIHelper_
 
 type IShellUIHelperVtbl
@@ -603,13 +581,9 @@ declare function IShellUIHelper_AutoCompleteAttach_Proxy(byval This as IShellUIH
 declare sub IShellUIHelper_AutoCompleteAttach_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IShellUIHelper_ShowBrowserUI_Proxy(byval This as IShellUIHelper ptr, byval bstrName as BSTR, byval pvarIn as VARIANT ptr, byval pvarOut as VARIANT ptr) as HRESULT
 declare sub IShellUIHelper_ShowBrowserUI_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-
 extern CLSID_ShellUIHelper as const CLSID
-
 #define __DShellNameSpaceEvents_DISPINTERFACE_DEFINED__
-
 extern DIID_DShellNameSpaceEvents as const IID
-
 type DShellNameSpaceEvents as DShellNameSpaceEvents_
 
 type DShellNameSpaceEventsVtbl
@@ -627,9 +601,7 @@ type DShellNameSpaceEvents_
 end type
 
 #define __IShellFavoritesNameSpace_INTERFACE_DEFINED__
-
 extern IID_IShellFavoritesNameSpace as const IID
-
 type IShellFavoritesNameSpace as IShellFavoritesNameSpace_
 
 type IShellFavoritesNameSpaceVtbl
@@ -685,11 +657,8 @@ declare function IShellFavoritesNameSpace_DeleteSubscriptionForSelection_Proxy(b
 declare sub IShellFavoritesNameSpace_DeleteSubscriptionForSelection_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IShellFavoritesNameSpace_SetRoot_Proxy(byval This as IShellFavoritesNameSpace ptr, byval bstrFullPath as BSTR) as HRESULT
 declare sub IShellFavoritesNameSpace_SetRoot_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-
 #define __IShellNameSpace_INTERFACE_DEFINED__
-
 extern IID_IShellNameSpace as const IID
-
 type IShellNameSpace as IShellNameSpace_
 
 type IShellNameSpaceVtbl
@@ -782,13 +751,9 @@ declare function IShellNameSpace_Expand_Proxy(byval This as IShellNameSpace ptr,
 declare sub IShellNameSpace_Expand_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IShellNameSpace_UnselectAll_Proxy(byval This as IShellNameSpace ptr) as HRESULT
 declare sub IShellNameSpace_UnselectAll_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-
 extern CLSID_ShellNameSpace as const CLSID
-
 #define __IScriptErrorList_INTERFACE_DEFINED__
-
 extern IID_IScriptErrorList as const IID
-
 type IScriptErrorList as IScriptErrorList_
 
 type IScriptErrorListVtbl
@@ -847,13 +812,9 @@ declare function IScriptErrorList_getPerErrorDisplay_Proxy(byval This as IScript
 declare sub IScriptErrorList_getPerErrorDisplay_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function IScriptErrorList_setPerErrorDisplay_Proxy(byval This as IScriptErrorList ptr, byval fPerErrorDisplay as WINBOOL) as HRESULT
 declare sub IScriptErrorList_setPerErrorDisplay_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-
 extern CLSID_CScriptErrorList as const CLSID
-
 #define __ISearch_INTERFACE_DEFINED__
-
 extern IID_ISearch as const IID
-
 type ISearch as ISearch_
 
 type ISearchVtbl
@@ -879,11 +840,8 @@ declare function ISearch_get_Id_Proxy(byval This as ISearch ptr, byval pbstrId a
 declare sub ISearch_get_Id_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function ISearch_get_Url_Proxy(byval This as ISearch ptr, byval pbstrUrl as BSTR ptr) as HRESULT
 declare sub ISearch_get_Url_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-
 #define __ISearches_INTERFACE_DEFINED__
-
 extern IID_ISearches as const IID
-
 type ISearches as ISearches_
 
 type ISearchesVtbl
@@ -912,11 +870,8 @@ declare function ISearches_Item_Proxy(byval This as ISearches ptr, byval index a
 declare sub ISearches_Item_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function ISearches__NewEnum_Proxy(byval This as ISearches ptr, byval ppunk as IUnknown ptr ptr) as HRESULT
 declare sub ISearches__NewEnum_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-
 #define __ISearchAssistantOC_INTERFACE_DEFINED__
-
 extern IID_ISearchAssistantOC as const IID
-
 type ISearchAssistantOC as ISearchAssistantOC_
 
 type ISearchAssistantOCVtbl
@@ -1014,11 +969,8 @@ declare function ISearchAssistantOC_get_Version_Proxy(byval This as ISearchAssis
 declare sub ISearchAssistantOC_get_Version_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function ISearchAssistantOC_EncodeString_Proxy(byval This as ISearchAssistantOC ptr, byval bstrValue as BSTR, byval bstrCharSet as BSTR, byval bUseUTF8 as VARIANT_BOOL, byval pbstrResult as BSTR ptr) as HRESULT
 declare sub ISearchAssistantOC_EncodeString_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-
 #define __ISearchAssistantOC2_INTERFACE_DEFINED__
-
 extern IID_ISearchAssistantOC2 as const IID
-
 type ISearchAssistantOC2 as ISearchAssistantOC2_
 
 type ISearchAssistantOC2Vtbl
@@ -1065,11 +1017,8 @@ end type
 
 declare function ISearchAssistantOC2_get_ShowFindPrinter_Proxy(byval This as ISearchAssistantOC2 ptr, byval pbShowFindPrinter as VARIANT_BOOL ptr) as HRESULT
 declare sub ISearchAssistantOC2_get_ShowFindPrinter_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-
 #define __ISearchAssistantOC3_INTERFACE_DEFINED__
-
 extern IID_ISearchAssistantOC3 as const IID
-
 type ISearchAssistantOC3 as ISearchAssistantOC3_
 
 type ISearchAssistantOC3Vtbl
@@ -1123,11 +1072,8 @@ declare function ISearchAssistantOC3_put_UseSearchCompanion_Proxy(byval This as 
 declare sub ISearchAssistantOC3_put_UseSearchCompanion_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function ISearchAssistantOC3_get_UseSearchCompanion_Proxy(byval This as ISearchAssistantOC3 ptr, byval pbUseSC as VARIANT_BOOL ptr) as HRESULT
 declare sub ISearchAssistantOC3_get_UseSearchCompanion_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-
 #define ___SearchAssistantEvents_DISPINTERFACE_DEFINED__
-
 extern DIID__SearchAssistantEvents as const IID
-
 type _SearchAssistantEvents as _SearchAssistantEvents_
 
 type _SearchAssistantEventsVtbl

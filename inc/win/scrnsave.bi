@@ -24,7 +24,6 @@
 
 #ifdef UNICODE
 	declare function ScreenSaverProcW(byval hWnd as HWND, byval message as UINT, byval wParam as WPARAM, byval lParam as LPARAM) as LRESULT
-
 	#define ScreenSaverProc ScreenSaverProcW
 #else
 	declare function ScreenSaverProc(byval hWnd as HWND, byval message as UINT, byval wParam as WPARAM, byval lParam as LPARAM) as LRESULT
@@ -61,9 +60,7 @@ extern fChildPreview as WINBOOL
 #endif
 
 extern MyHelpMessage as UINT
-
 #define SCRM_VERIFYPW WM_APP
-
 declare sub ScreenSaverChangePassword(byval hParent as HWND)
 
 end extern

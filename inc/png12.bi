@@ -178,9 +178,7 @@ type png_uint_16 as ushort
 type png_int_16 as short
 type png_byte as ubyte
 type png_size_t as uinteger
-
 #define png_sizeof(x) sizeof((x))
-
 type png_fixed_point as png_int_32
 type png_voidp as any ptr
 type png_bytep as png_byte ptr
@@ -330,7 +328,6 @@ end type
 type png_time as png_time_struct
 type png_timep as png_time ptr
 type png_timepp as png_time ptr ptr
-
 #define PNG_CHUNK_NAME_LENGTH 5
 
 type png_unknown_chunk_t
@@ -529,7 +526,6 @@ type png_unknown_chunk_ptr as sub(byval as png_structp)
 #define PNG_FLAG_MNG_EMPTY_PLTE &h01
 #define PNG_FLAG_MNG_FILTER_64 &h04
 #define PNG_ALL_MNG_FEATURES &h05
-
 type png_malloc_ptr as function(byval as png_structp, byval as png_size_t) as png_voidp
 type png_free_ptr as sub(byval as png_structp, byval as png_voidp)
 
@@ -676,7 +672,6 @@ end type
 
 type version_1_2_51 as png_structp
 type png_structpp as png_struct ptr ptr
-
 declare function png_access_version_number() as png_uint_32
 declare sub png_set_sig_bytes(byval png_ptr as png_structp, byval num_bytes as long)
 declare function png_sig_cmp(byval sig as png_bytep, byval start as png_size_t, byval num_to_check as png_size_t) as long
@@ -694,9 +689,7 @@ declare sub png_write_chunk_data(byval png_ptr as png_structp, byval data as png
 declare sub png_write_chunk_end(byval png_ptr as png_structp)
 declare function png_create_info_struct(byval png_ptr as png_structp) as png_infop
 declare sub png_info_init(byval info_ptr as png_infop)
-
 #define png_info_init(info_ptr) '' TODO: png_info_init_3(&info_ptr, png_sizeof(png_info));
-
 declare sub png_info_init_3(byval info_ptr as png_infopp, byval png_info_struct_size as png_size_t)
 declare sub png_write_info_before_PLTE(byval png_ptr as png_structp, byval info_ptr as png_infop)
 declare sub png_write_info(byval png_ptr as png_structp, byval info_ptr as png_infop)
@@ -719,10 +712,8 @@ declare sub png_set_strip_alpha(byval png_ptr as png_structp)
 declare sub png_set_swap_alpha(byval png_ptr as png_structp)
 declare sub png_set_invert_alpha(byval png_ptr as png_structp)
 declare sub png_set_filler(byval png_ptr as png_structp, byval filler as png_uint_32, byval flags as long)
-
 #define PNG_FILLER_BEFORE 0
 #define PNG_FILLER_AFTER 1
-
 declare sub png_set_add_alpha(byval png_ptr as png_structp, byval filler as png_uint_32, byval flags as long)
 declare sub png_set_swap(byval png_ptr as png_structp)
 declare sub png_set_packing(byval png_ptr as png_structp)
@@ -766,9 +757,7 @@ declare sub png_set_crc_action(byval png_ptr as png_structp, byval crit_action a
 #define PNG_CRC_WARN_USE 3
 #define PNG_CRC_QUIET_USE 4
 #define PNG_CRC_NO_CHANGE 5
-
 declare sub png_set_filter(byval png_ptr as png_structp, byval method as long, byval filters as long)
-
 #define PNG_NO_FILTERS &h00
 #define PNG_FILTER_NONE &h08
 #define PNG_FILTER_SUB &h10
@@ -782,9 +771,7 @@ declare sub png_set_filter(byval png_ptr as png_structp, byval method as long, b
 #define PNG_FILTER_VALUE_AVG 3
 #define PNG_FILTER_VALUE_PAETH 4
 #define PNG_FILTER_VALUE_LAST 5
-
 declare sub png_set_filter_heuristics(byval png_ptr as png_structp, byval heuristic_method as long, byval num_weights as long, byval filter_weights as png_doublep, byval filter_costs as png_doublep)
-
 #define PNG_FILTER_HEURISTIC_DEFAULT 0
 #define PNG_FILTER_HEURISTIC_UNWEIGHTED 1
 #define PNG_FILTER_HEURISTIC_WEIGHTED 2
@@ -956,7 +943,6 @@ declare sub png_set_strip_error_numbers(byval png_ptr as png_structp, byval stri
 declare sub png_set_user_limits(byval png_ptr as png_structp, byval user_width_max as png_uint_32, byval user_height_max as png_uint_32)
 declare function png_get_user_width_max(byval png_ptr as png_structp) as png_uint_32
 declare function png_get_user_height_max(byval png_ptr as png_structp) as png_uint_32
-
 #macro png_composite(composite, fg, alpha, bg)
 	scope
 		dim temp as png_uint_16 = cast(png_uint_16, ((cast(png_uint_16, (fg)) * cast(png_uint_16, (alpha))) + (cast(png_uint_16, (bg)) * cast(png_uint_16, 255 - cast(png_uint_16, (alpha))))) + cast(png_uint_16, 128))
@@ -969,7 +955,6 @@ declare function png_get_user_height_max(byval png_ptr as png_structp) as png_ui
 		'' TODO: (composite) = (png_uint_16)((temp + (temp >> 16)) >> 16);
 	end scope
 #endmacro
-
 declare function png_get_uint_32(byval buf as png_bytep) as png_uint_32
 declare function png_get_uint_16(byval buf as png_bytep) as png_uint_16
 declare function png_get_int_32(byval buf as png_bytep) as png_int_32

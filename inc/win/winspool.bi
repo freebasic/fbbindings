@@ -939,7 +939,6 @@ end type
 
 type PRINTPROCESSOR_CAPS_1 as _PRINTPROCESSOR_CAPS_1
 type PPRINTPROCESSOR_CAPS_1 as _PRINTPROCESSOR_CAPS_1 ptr
-
 #define NORMAL_PRINT &h00000000
 #define REVERSE_PRINT &h00000001
 
@@ -1194,19 +1193,16 @@ type LPPRINTER_ENUM_VALUESW as _PRINTER_ENUM_VALUESW ptr
 	type PRINTER_ENUM_VALUES as PRINTER_ENUM_VALUESW
 	type PPRINTER_ENUM_VALUES as PPRINTER_ENUM_VALUESW
 	type LPPRINTER_ENUM_VALUES as LPPRINTER_ENUM_VALUESW
-
 	#define EnumPrinters EnumPrintersW
 #else
 	type PRINTER_ENUM_VALUES as PRINTER_ENUM_VALUESA
 	type PPRINTER_ENUM_VALUES as PPRINTER_ENUM_VALUESA
 	type LPPRINTER_ENUM_VALUES as LPPRINTER_ENUM_VALUESA
-
 	#define EnumPrinters EnumPrintersA
 #endif
 
 declare function EnumPrintersA(byval Flags as DWORD, byval Name as LPSTR, byval Level as DWORD, byval pPrinterEnum as LPBYTE, byval cbBuf as DWORD, byval pcbNeeded as LPDWORD, byval pcReturned as LPDWORD) as WINBOOL
 declare function EnumPrintersW(byval Flags as DWORD, byval Name as LPWSTR, byval Level as DWORD, byval pPrinterEnum as LPBYTE, byval cbBuf as DWORD, byval pcbNeeded as LPDWORD, byval pcReturned as LPDWORD) as WINBOOL
-
 #define PRINTER_ENUM_DEFAULT &h00000001
 #define PRINTER_ENUM_LOCAL &h00000002
 #define PRINTER_ENUM_CONNECTIONS &h00000004
@@ -1448,7 +1444,6 @@ end type
 type PRINTER_NOTIFY_OPTIONS_TYPE as _PRINTER_NOTIFY_OPTIONS_TYPE
 type PPRINTER_NOTIFY_OPTIONS_TYPE as _PRINTER_NOTIFY_OPTIONS_TYPE ptr
 type LPPRINTER_NOTIFY_OPTIONS_TYPE as _PRINTER_NOTIFY_OPTIONS_TYPE ptr
-
 #define PRINTER_NOTIFY_OPTIONS_REFRESH &h01
 
 type _PRINTER_NOTIFY_OPTIONS
@@ -1461,7 +1456,6 @@ end type
 type PRINTER_NOTIFY_OPTIONS as _PRINTER_NOTIFY_OPTIONS
 type PPRINTER_NOTIFY_OPTIONS as _PRINTER_NOTIFY_OPTIONS ptr
 type LPPRINTER_NOTIFY_OPTIONS as _PRINTER_NOTIFY_OPTIONS ptr
-
 #define PRINTER_NOTIFY_INFO_DISCARDED &h01
 
 type _PRINTER_NOTIFY_INFO_DATA_NotifyData_Data
@@ -1669,7 +1663,6 @@ declare function FindClosePrinterChangeNotification(byval hChange as HANDLE) as 
 
 declare function PrinterMessageBoxA(byval hPrinter as HANDLE, byval Error as DWORD, byval hWnd as HWND, byval pText as LPSTR, byval pCaption as LPSTR, byval dwType as DWORD) as DWORD
 declare function PrinterMessageBoxW(byval hPrinter as HANDLE, byval Error as DWORD, byval hWnd as HWND, byval pText as LPWSTR, byval pCaption as LPWSTR, byval dwType as DWORD) as DWORD
-
 #define PRINTER_ERROR_INFORMATION &h80000000
 #define PRINTER_ERROR_WARNING &h40000000
 #define PRINTER_ERROR_SEVERE &h20000000
@@ -1703,9 +1696,7 @@ declare function ConfigurePortW(byval pName as LPWSTR, byval hWnd as HWND, byval
 declare function DeletePortA(byval pName as LPSTR, byval hWnd as HWND, byval pPortName as LPSTR) as WINBOOL
 declare function DeletePortW(byval pName as LPWSTR, byval hWnd as HWND, byval pPortName as LPWSTR) as WINBOOL
 declare function XcvDataW(byval hXcv as HANDLE, byval pszDataName as PCWSTR, byval pInputData as PBYTE, byval cbInputData as DWORD, byval pOutputData as PBYTE, byval cbOutputData as DWORD, byval pcbOutputNeeded as PDWORD, byval pdwStatus as PDWORD) as WINBOOL
-
 #define XcvData XcvDataW
-
 declare function GetDefaultPrinterA(byval pszBuffer as LPSTR, byval pcchBuffer as LPDWORD) as WINBOOL
 declare function GetDefaultPrinterW(byval pszBuffer as LPWSTR, byval pcchBuffer as LPDWORD) as WINBOOL
 declare function SetDefaultPrinterA(byval pszPrinter as LPCSTR) as WINBOOL
@@ -1938,7 +1929,6 @@ declare function IsValidDevmodeW(byval pDevmode as PDEVMODEW, byval DevmodeSize 
 
 	type PRINTER_CONNECTION_INFO_1 as _PRINTER_CONNECTION_INFO_1
 	type PPRINTER_CONNECTION_INFO_1 as _PRINTER_CONNECTION_INFO_1 ptr
-
 	declare function AddPrinterConnection2W cdecl(byval hWnd as HWND, byval pszName as LPCWSTR, byval dwLevel as DWORD, byval pConnectionInfo as PVOID) as WINBOOL
 	declare function AddPrinterConnection2A cdecl(byval hWnd as HWND, byval pszName as LPCSTR, byval dwLevel as DWORD, byval pConnectionInfo as PVOID) as WINBOOL
 	declare function DeletePrinterDriverPackageA(byval pszServer as LPCSTR, byval pszInfPath as LPCSTR, byval pszEnvironment as LPCSTR) as HRESULT
@@ -2072,7 +2062,6 @@ declare function IsValidDevmodeW(byval pDevmode as PDEVMODEW, byval DevmodeSize 
 
 	type PRINTPROCESSOR_CAPS_2 as _PRINTPROCESSOR_CAPS_2
 	type PPRINTPROCESSOR_CAPS_2 as _PRINTPROCESSOR_CAPS_2 ptr
-
 	declare function ReportJobProcessingProgress cdecl(byval printerHandle as HANDLE, byval jobId as ULONG, byval jobOperation as EPrintXPSJobOperation, byval jobProgress as EPrintXPSJobProgress) as HRESULT
 
 	type _CORE_PRINTER_DRIVERA
@@ -2107,7 +2096,6 @@ declare function IsValidDevmodeW(byval pDevmode as PDEVMODEW, byval DevmodeSize 
 #if defined(UNICODE) and (_WIN32_WINNT = &h0602)
 	type CORE_PRINTER_DRIVER as CORE_PRINTER_DRIVERW
 	type PCORE_PRINTER_DRIVER as PCORE_PRINTER_DRIVERW
-
 	#define GetCorePrinterDrivers GetCorePrinterDriversW
 	#define GetPrinterDriver2 GetPrinterDriver2W
 	#define GetPrinterDriverPackagePath GetPrinterDriverPackagePathW
@@ -2115,7 +2103,6 @@ declare function IsValidDevmodeW(byval pDevmode as PDEVMODEW, byval DevmodeSize 
 #elseif (not defined(UNICODE)) and (_WIN32_WINNT = &h0602)
 	type CORE_PRINTER_DRIVER as CORE_PRINTER_DRIVERA
 	type PCORE_PRINTER_DRIVER as PCORE_PRINTER_DRIVERA
-
 	#define GetCorePrinterDrivers GetCorePrinterDriversA
 	#define GetPrinterDriver2 GetPrinterDriver2A
 	#define GetPrinterDriverPackagePath GetPrinterDriverPackagePathA

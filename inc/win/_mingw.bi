@@ -47,9 +47,7 @@ extern "C"
 #define MINGW_DDRAW_VERSION 7
 #define MINGW_DDK_H
 #define MINGW_HAS_DDK_H 1
-
 '' TODO: #pragma pack(push,_CRT_PACKING)
-
 #define _DLL
 #define _MT
 #define _PGLOBAL
@@ -103,12 +101,9 @@ extern "C"
 #endif
 
 #define _WCHAR_T_DEFINED
-
 type wchar_t as ushort
-
 #define _WCTYPE_T_DEFINED
 #define _WINT_T
-
 type wint_t as ushort
 type wctype_t as ushort
 
@@ -117,17 +112,11 @@ type wctype_t as ushort
 #endif
 
 #define _ERRCODE_DEFINED
-
 type errno_t as long
-
 #define _TIME32_T_DEFINED
-
 type __time32_t as long
-
 #define _TIME64_T_DEFINED
-
 type __time64_t as longint
-
 #define _TIME_T_DEFINED
 
 #ifdef __FB_64BIT__
@@ -140,7 +129,6 @@ type __time64_t as longint
 #define _TRUNCATE cuint(-1)
 #define _CRT_glob _dowildcard
 #define __ANONYMOUS_DEFINED
-
 declare function __mingw_get_crt_info() as const zstring ptr
 
 end extern

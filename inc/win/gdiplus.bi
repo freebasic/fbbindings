@@ -13,11 +13,9 @@
 #endif
 
 #define __GDIPLUS_H
-
 type REAL as single
 type INT16 as SHORT
 type UINT16 as WORD
-
 #define __GDIPLUS_ENUMS_H
 
 type BrushType as long
@@ -759,7 +757,6 @@ end enum
 
 type GraphicsContainer as DWORD
 type GraphicsState as DWORD
-
 #define FlatnessDefault cast(REAL, 0.25f)
 
 private function ObjectTypeIsValid cdecl(byval type as ObjectType) as BOOL
@@ -844,9 +841,7 @@ type DebugEventProc as any ptr
 type EnumerateMetafileProc as function(byval as EmfPlusRecordType, byval as UINT, byval as UINT, byval as const UBYTE ptr, byval as any ptr) as BOOL
 type DrawImageAbort as any ptr
 type GetThumbnailImageAbort as any ptr
-
 #define __GDIPLUS_GPSTUBS_H
-
 type GpPoint as Point
 type GpPointF as PointF
 type GpRect as Rect
@@ -921,7 +916,6 @@ type GpRegion as any
 type GpSolidFill as any
 type GpStringFormat as any
 type GpTexture as any
-
 #define __GDIPLUS_IMAGING_H
 
 type ImageCodecFlags as long
@@ -1296,7 +1290,6 @@ extern ImageFormatWMF as const GUID
 extern FrameDimensionPage as const GUID
 extern FrameDimensionResolution as const GUID
 extern FrameDimensionTime as const GUID
-
 #define __GDIPLUS_INIT_H
 
 type GdiplusStartupInput
@@ -1318,12 +1311,9 @@ declare function GdiplusStartup(byval as ULONG_PTR ptr, byval as const GdiplusSt
 declare sub GdiplusShutdown(byval as ULONG_PTR)
 declare function GdiplusNotificationHook(byval as ULONG_PTR ptr) as GpStatus
 declare sub GdiplusNotificationUnhook(byval as ULONG_PTR)
-
 #define __GDIPLUS_MEM_H
-
 declare function GdipAlloc(byval as uinteger) as any ptr
 declare sub GdipFree(byval as any ptr)
-
 #define __GDIPLUS_METAHEADER_H
 #define GDIP_EMFPLUSFLAGS_DISPLAY cast(UINT, 1)
 
@@ -1387,10 +1377,8 @@ type MetafileHeader
 end type
 
 #define __GDIPLUS_PIXELFORMATS_H
-
 type ARGB as DWORD
 type PixelFormat as INT
-
 #define PixelFormatIndexed cast(INT, &h00010000)
 #define PixelFormatGDI cast(INT, &h00020000)
 #define PixelFormatAlpha cast(INT, &h00040000)
@@ -1519,7 +1507,6 @@ type ColorMatrix
 end type
 
 #define __GDIPLUS_FLAT_H
-
 declare function GdipCreateAdjustableArrowCap(byval as REAL, byval as REAL, byval as BOOL, byval as GpAdjustableArrowCap ptr ptr) as GpStatus
 declare function GdipSetAdjustableArrowCapHeight(byval as GpAdjustableArrowCap ptr, byval as REAL) as GpStatus
 declare function GdipGetAdjustableArrowCapHeight(byval as GpAdjustableArrowCap ptr, byval as REAL ptr) as GpStatus
@@ -1535,9 +1522,7 @@ declare function GdipCreateBitmapFromStreamICM(byval as IStream ptr, byval as Gp
 declare function GdipCreateBitmapFromFileICM(byval as const wstring ptr, byval as GpBitmap ptr ptr) as GpStatus
 declare function GdipCreateBitmapFromScan0(byval as INT, byval as INT, byval as INT, byval as PixelFormat, byval as UBYTE ptr, byval as GpBitmap ptr ptr) as GpStatus
 declare function GdipCreateBitmapFromGraphics(byval as INT, byval as INT, byval as GpGraphics ptr, byval as GpBitmap ptr ptr) as GpStatus
-
 type IDirectDrawSurface7 as IDirectDrawSurface7_
-
 declare function GdipCreateBitmapFromDirectDrawSurface(byval as IDirectDrawSurface7 ptr, byval as GpBitmap ptr ptr) as GpStatus
 declare function GdipCreateBitmapFromGdiDib(byval as const BITMAPINFO ptr, byval as any ptr, byval as GpBitmap ptr ptr) as GpStatus
 declare function GdipCreateBitmapFromHBITMAP(byval as HBITMAP, byval as HPALETTE, byval as GpBitmap ptr ptr) as GpStatus
@@ -2137,7 +2122,6 @@ declare function GdipSetTextureWrapMode(byval as GpTexture ptr, byval as GpWrapM
 declare function GdipGetTextureWrapMode(byval as GpTexture ptr, byval as GpWrapMode ptr) as GpStatus
 declare function GdipGetTextureImage(byval as GpTexture ptr, byval as GpImage ptr ptr) as GpStatus
 declare function GdipTestControl(byval as GpTestControlEnum, byval as any ptr) as GpStatus
-
 #define __GDIPLUS_EFFECTS_H
 
 type CurveAdjustments as long
@@ -2227,7 +2211,6 @@ extern LevelsEffectGuid as const GUID
 extern RedEyeCorrectionEffectGuid as const GUID
 extern SharpenEffectGuid as const GUID
 extern TintEffectGuid as const GUID
-
 #define __GDIPLUS_IMAGECODEC_H
 
 private function GetImageDecoders cdecl(byval numDecoders as UINT, byval size as UINT, byval decoders as ImageCodecInfo ptr) as GpStatus

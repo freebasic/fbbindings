@@ -13,7 +13,6 @@ extern "C"
 
 #define ZLIB_H
 #define ZCONF_H
-
 type Byte as ubyte
 type uInt as ulong
 type uLong as culong
@@ -41,7 +40,6 @@ type z_crc_t as culong
 
 type alloc_func as function(byval opaque as voidpf, byval items as uInt, byval size as uInt) as voidpf
 type free_func as sub(byval opaque as voidpf, byval address as voidpf)
-
 type internal_state as internal_state_
 
 type z_stream_s
@@ -82,7 +80,6 @@ end type
 
 type gz_header as gz_header_s
 type gz_headerp as gz_header ptr
-
 #define Z_NO_FLUSH 0
 #define Z_PARTIAL_FLUSH 1
 #define Z_SYNC_FLUSH 2
@@ -139,10 +136,8 @@ declare function inflateReset2(byval strm as z_streamp, byval windowBits as long
 declare function inflatePrime(byval strm as z_streamp, byval bits as long, byval value as long) as long
 declare function inflateMark(byval strm as z_streamp) as clong
 declare function inflateGetHeader(byval strm as z_streamp, byval head as gz_headerp) as long
-
 type in_func as function(byval as any ptr, byval as ubyte ptr ptr) as ulong
 type out_func as function(byval as any ptr, byval as ubyte ptr, byval as ulong) as long
-
 declare function inflateBack(byval strm as z_streamp, byval in as in_func, byval in_desc as any ptr, byval out as out_func, byval out_desc as any ptr) as long
 declare function inflateBackEnd(byval strm as z_streamp) as long
 declare function zlibCompileFlags() as uLong
@@ -150,9 +145,7 @@ declare function compress(byval dest as Bytef ptr, byval destLen as uLongf ptr, 
 declare function compress2(byval dest as Bytef ptr, byval destLen as uLongf ptr, byval source as const Bytef ptr, byval sourceLen as uLong, byval level as long) as long
 declare function compressBound(byval sourceLen as uLong) as uLong
 declare function uncompress(byval dest as Bytef ptr, byval destLen as uLongf ptr, byval source as const Bytef ptr, byval sourceLen as uLong) as long
-
 type gzFile as gzFile_s ptr
-
 declare function gzdopen(byval fd as long, byval mode as const zstring ptr) as gzFile
 declare function gzbuffer(byval file as gzFile, byval size as ulong) as long
 declare function gzsetparams(byval file as gzFile, byval level as long, byval strategy as long) as long
@@ -194,9 +187,7 @@ type gzFile_s
 end type
 
 declare function gzgetc_(byval file as gzFile) as long
-
 #define gzgetc(g) '' TODO: ((g)->have ? ((g)->have--, (g)->pos++, *((g)->next)++) : gzgetc(g))
-
 declare function gzopen(byval as const zstring ptr, byval as const zstring ptr) as gzFile
 declare function gzseek(byval as gzFile, byval as clong, byval as long) as clong
 declare function gztell(byval as gzFile) as clong

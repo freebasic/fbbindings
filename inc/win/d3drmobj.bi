@@ -12,7 +12,6 @@
 
 #define __D3DRMOBJ_H__
 #define VIRTUAL
-
 extern CLSID_CDirect3DRMDevice as const GUID
 extern CLSID_CDirect3DRMViewport as const GUID
 extern CLSID_CDirect3DRMFrame as const GUID
@@ -81,40 +80,29 @@ extern IID_IDirect3DRMPicked2Array as const GUID
 extern IID_IDirect3DRMClippedVisual as const GUID
 
 type IDirect3DRMObject as IDirect3DRMObject_
-
 type LPDIRECT3DRMOBJECT as IDirect3DRMObject ptr
 type LPLPDIRECT3DRMOBJECT as IDirect3DRMObject ptr ptr
 type LPDIRECT3DRMOBJECT2 as IDirect3DRMObject2 ptr
 type LPLPDIRECT3DRMOBJECT2 as IDirect3DRMObject2 ptr ptr
-
 type IDirect3DRMDevice as IDirect3DRMDevice_
-
 type LPDIRECT3DRMDEVICE as IDirect3DRMDevice ptr
 type LPLPDIRECT3DRMDEVICE as IDirect3DRMDevice ptr ptr
 type LPDIRECT3DRMDEVICE2 as IDirect3DRMDevice2 ptr
 type LPLPDIRECT3DRMDEVICE2 as IDirect3DRMDevice2 ptr ptr
-
 type IDirect3DRMDevice3 as IDirect3DRMDevice3_
-
 type LPDIRECT3DRMDEVICE3 as IDirect3DRMDevice3 ptr
 type LPLPDIRECT3DRMDEVICE3 as IDirect3DRMDevice3 ptr ptr
-
 type IDirect3DRMViewport as IDirect3DRMViewport_
-
 type LPDIRECT3DRMVIEWPORT as IDirect3DRMViewport ptr
 type LPLPDIRECT3DRMVIEWPORT as IDirect3DRMViewport ptr ptr
 type LPDIRECT3DRMVIEWPORT2 as IDirect3DRMViewport2 ptr
 type LPLPDIRECT3DRMVIEWPORT2 as IDirect3DRMViewport2 ptr ptr
-
 type IDirect3DRMFrame as IDirect3DRMFrame_
-
 type LPDIRECT3DRMFRAME as IDirect3DRMFrame ptr
 type LPLPDIRECT3DRMFRAME as IDirect3DRMFrame ptr ptr
 type LPDIRECT3DRMFRAME2 as IDirect3DRMFrame2 ptr
 type LPLPDIRECT3DRMFRAME2 as IDirect3DRMFrame2 ptr ptr
-
 type IDirect3DRMFrame3 as IDirect3DRMFrame3_
-
 type LPDIRECT3DRMFRAME3 as IDirect3DRMFrame3 ptr
 type LPLPDIRECT3DRMFRAME3 as IDirect3DRMFrame3 ptr ptr
 type LPDIRECT3DRMVISUAL as IDirect3DRMVisual ptr
@@ -131,33 +119,23 @@ type LPDIRECT3DRMFACE as IDirect3DRMFace ptr
 type LPLPDIRECT3DRMFACE as IDirect3DRMFace ptr ptr
 type LPDIRECT3DRMFACE2 as IDirect3DRMFace2 ptr
 type LPLPDIRECT3DRMFACE2 as IDirect3DRMFace2 ptr ptr
-
 type IDirect3DRMLight as IDirect3DRMLight_
-
 type LPDIRECT3DRMLIGHT as IDirect3DRMLight ptr
 type LPLPDIRECT3DRMLIGHT as IDirect3DRMLight ptr ptr
-
 type IDirect3DRMTexture as IDirect3DRMTexture_
-
 type LPDIRECT3DRMTEXTURE as IDirect3DRMTexture ptr
 type LPLPDIRECT3DRMTEXTURE as IDirect3DRMTexture ptr ptr
 type LPDIRECT3DRMTEXTURE2 as IDirect3DRMTexture2 ptr
 type LPLPDIRECT3DRMTEXTURE2 as IDirect3DRMTexture2 ptr ptr
-
 type IDirect3DRMTexture3 as IDirect3DRMTexture3_
-
 type LPDIRECT3DRMTEXTURE3 as IDirect3DRMTexture3 ptr
 type LPLPDIRECT3DRMTEXTURE3 as IDirect3DRMTexture3 ptr ptr
 type LPDIRECT3DRMWRAP as IDirect3DRMWrap ptr
 type LPLPDIRECT3DRMWRAP as IDirect3DRMWrap ptr ptr
-
 type IDirect3DRMMaterial as IDirect3DRMMaterial_
-
 type LPDIRECT3DRMMATERIAL as IDirect3DRMMaterial ptr
 type LPLPDIRECT3DRMMATERIAL as IDirect3DRMMaterial ptr ptr
-
 type IDirect3DRMMaterial2 as IDirect3DRMMaterial2_
-
 type LPDIRECT3DRMMATERIAL2 as IDirect3DRMMaterial2 ptr
 type LPLPDIRECT3DRMMATERIAL2 as IDirect3DRMMaterial2 ptr ptr
 type LPDIRECT3DRMANIMATION as IDirect3DRMAnimation ptr
@@ -168,9 +146,7 @@ type LPDIRECT3DRMANIMATIONSET as IDirect3DRMAnimationSet ptr
 type LPLPDIRECT3DRMANIMATIONSET as IDirect3DRMAnimationSet ptr ptr
 type LPDIRECT3DRMANIMATIONSET2 as IDirect3DRMAnimationSet2 ptr
 type LPLPDIRECT3DRMANIMATIONSET2 as IDirect3DRMAnimationSet2 ptr ptr
-
 type IDirect3DRMUserVisual as IDirect3DRMUserVisual_
-
 type LPDIRECT3DRMUSERVISUAL as IDirect3DRMUserVisual ptr
 type LPLPDIRECT3DRMUSERVISUAL as IDirect3DRMUserVisual ptr ptr
 type LPDIRECT3DRMSHADOW as IDirect3DRMShadow ptr
@@ -183,44 +159,28 @@ type LPDIRECT3DRMOBJECTARRAY as IDirect3DRMObjectArray ptr
 type LPLPDIRECT3DRMOBJECTARRAY as IDirect3DRMObjectArray ptr ptr
 type LPDIRECT3DRMDEVICEARRAY as IDirect3DRMDeviceArray ptr
 type LPLPDIRECT3DRMDEVICEARRAY as IDirect3DRMDeviceArray ptr ptr
-
 type IDirect3DRMFaceArray as IDirect3DRMFaceArray_
-
 type LPDIRECT3DRMFACEARRAY as IDirect3DRMFaceArray ptr
 type LPLPDIRECT3DRMFACEARRAY as IDirect3DRMFaceArray ptr ptr
-
 type IDirect3DRMViewportArray as IDirect3DRMViewportArray_
-
 type LPDIRECT3DRMVIEWPORTARRAY as IDirect3DRMViewportArray ptr
 type LPLPDIRECT3DRMVIEWPORTARRAY as IDirect3DRMViewportArray ptr ptr
-
 type IDirect3DRMFrameArray as IDirect3DRMFrameArray_
-
 type LPDIRECT3DRMFRAMEARRAY as IDirect3DRMFrameArray ptr
 type LPLPDIRECT3DRMFRAMEARRAY as IDirect3DRMFrameArray ptr ptr
-
 type IDirect3DRMAnimationArray as IDirect3DRMAnimationArray_
-
 type LPDIRECT3DRMANIMATIONARRAY as IDirect3DRMAnimationArray ptr
 type LPLPDIRECT3DRMANIMATIONARRAY as IDirect3DRMAnimationArray ptr ptr
-
 type IDirect3DRMVisualArray as IDirect3DRMVisualArray_
-
 type LPDIRECT3DRMVISUALARRAY as IDirect3DRMVisualArray ptr
 type LPLPDIRECT3DRMVISUALARRAY as IDirect3DRMVisualArray ptr ptr
-
 type IDirect3DRMPickedArray as IDirect3DRMPickedArray_
-
 type LPDIRECT3DRMPICKEDARRAY as IDirect3DRMPickedArray ptr
 type LPLPDIRECT3DRMPICKEDARRAY as IDirect3DRMPickedArray ptr ptr
-
 type IDirect3DRMPicked2Array as IDirect3DRMPicked2Array_
-
 type LPDIRECT3DRMPICKED2ARRAY as IDirect3DRMPicked2Array ptr
 type LPLPDIRECT3DRMPICKED2ARRAY as IDirect3DRMPicked2Array ptr ptr
-
 type IDirect3DRMLightArray as IDirect3DRMLightArray_
-
 type LPDIRECT3DRMLIGHTARRAY as IDirect3DRMLightArray ptr
 type LPLPDIRECT3DRMLIGHTARRAY as IDirect3DRMLightArray ptr ptr
 type LPDIRECT3DRMPROGRESSIVEMESH as IDirect3DRMProgressiveMesh ptr
@@ -260,7 +220,6 @@ end type
 
 type D3DRMPICKDESC2 as _D3DRMPICKDESC2
 type LPD3DRMPICKDESC2 as _D3DRMPICKDESC2 ptr
-
 type IDirect3DRMObjectVtbl as IDirect3DRMObjectVtbl_
 
 type IDirect3DRMObject_
@@ -292,7 +251,6 @@ end type
 #define IDirect3DRMObject_SetName(p, a) (p)->lpVtbl->SetName(p, a)
 #define IDirect3DRMObject_GetName(p, a, b) (p)->lpVtbl->GetName(p, a, b)
 #define IDirect3DRMObject_GetClassName(p, a, b) (p)->lpVtbl->GetClassName(p, a, b)
-
 type IDirect3DRMObject2Vtbl as IDirect3DRMObject2Vtbl_
 
 type IDirect3DRMObject2
@@ -326,7 +284,6 @@ end type
 #define IDirect3DRMObject2_SetClientData(p, a, b, c) (p)->lpVtbl->SetClientData(p, a, b, c)
 #define IDirect3DRMObject2_SetName(p, a) (p)->lpVtbl->SetName(p, a)
 #define IDirect3DRMObject2_GetAge(p, a, b) (p)->lpVtbl->GetAge(p, a, b)
-
 type IDirect3DRMVisualVtbl as IDirect3DRMVisualVtbl_
 
 type IDirect3DRMVisual
@@ -358,7 +315,6 @@ end type
 #define IDirect3DRMVisual_SetName(p, a) (p)->lpVtbl->SetName(p, a)
 #define IDirect3DRMVisual_GetName(p, a, b) (p)->lpVtbl->GetName(p, a, b)
 #define IDirect3DRMVisual_GetClassName(p, a, b) (p)->lpVtbl->GetClassName(p, a, b)
-
 type IDirect3DRMDeviceVtbl as IDirect3DRMDeviceVtbl_
 
 type IDirect3DRMDevice_
@@ -436,7 +392,6 @@ end type
 #define IDirect3DRMDevice_GetColorModel(p) (p)->lpVtbl->GetColorModel(p)
 #define IDirect3DRMDevice_GetTextureQuality(p) (p)->lpVtbl->GetTextureQuality(p)
 #define IDirect3DRMDevice_GetDirect3DDevice(p, a) (p)->lpVtbl->GetDirect3DDevice(p, a)
-
 type IDirect3DRMDevice2Vtbl as IDirect3DRMDevice2Vtbl_
 
 type IDirect3DRMDevice2
@@ -524,7 +479,6 @@ end type
 #define IDirect3DRMDevice2_SetRenderMode(p, a) (p)->lpVtbl->SetRenderMode(p, a)
 #define IDirect3DRMDevice2_GetRenderMode(p) (p)->lpVtbl->GetRenderMode(p)
 #define IDirect3DRMDevice2_GetDirect3DDevice2(p, a) (p)->lpVtbl->GetDirect3DDevice2(p, a)
-
 type IDirect3DRMDevice3Vtbl as IDirect3DRMDevice3Vtbl_
 
 type IDirect3DRMDevice3_
@@ -622,7 +576,6 @@ end type
 #define IDirect3DRMDevice3_LightStateChange(p, a, b, c) (p)->lpVtbl->LightStateChange(p, a, b, c)
 #define IDirect3DRMDevice3_GetStateChangeOptions(p, a, b, c) (p)->lpVtbl->GetStateChangeOptions(p, a, b, c)
 #define IDirect3DRMDevice3_SetStateChangeOptions(p, a, b, c) (p)->lpVtbl->SetStateChangeOptions(p, a, b, c)
-
 type IDirect3DRMViewportVtbl as IDirect3DRMViewportVtbl_
 
 type IDirect3DRMViewport_
@@ -710,7 +663,6 @@ end type
 #define IDirect3DRMViewport_GetFront(p) (p)->lpVtbl->GetFront(p)
 #define IDirect3DRMViewport_GetProjection(p) (p)->lpVtbl->GetProjection(p)
 #define IDirect3DRMViewport_GetDirect3DViewport(p, a) (p)->lpVtbl->GetDirect3DViewport(p, a)
-
 type IDirect3DRMViewport2Vtbl as IDirect3DRMViewport2Vtbl_
 
 type IDirect3DRMViewport2
@@ -802,7 +754,6 @@ end type
 #define IDirect3DRMViewport2_GetDirect3DViewport(p, a) (p)->lpVtbl->GetDirect3DViewport(p, a)
 #define IDirect3DRMViewport2_TransformVectors(p, a, b, c) (p)->lpVtbl->TransformVectors(p, a, b, c)
 #define IDirect3DRMViewport2_InverseTransformVectors(p, a, b, c) (p)->lpVtbl->InverseTransformVectors(p, a, b, c)
-
 type IDirect3DRMFrameVtbl as IDirect3DRMFrameVtbl_
 
 type IDirect3DRMFrame_
@@ -950,7 +901,6 @@ end type
 #define IDirect3DRMFrame_SetVelocity(p, a, b, c, d, e) (p)->lpVtbl->SetVelocity(p, a, b, c, d, e)
 #define IDirect3DRMFrame_SetZbufferMode(p, a) (p)->lpVtbl->SetZbufferMode(p, a)
 #define IDirect3DRMFrame_Transform(p, a, b) (p)->lpVtbl->Transform(p, a, b)
-
 type IDirect3DRMFrame2Vtbl as IDirect3DRMFrame2Vtbl_
 
 type IDirect3DRMFrame2
@@ -1128,7 +1078,6 @@ end type
 #define IDirect3DRMFrame2_SetQuaternion(p, a, b) (p)->lpVtbl->SetQuaternion(p, a, b)
 #define IDirect3DRMFrame2_RayPick(p, a, b, c, d) (p)->lpVtbl->RayPick(p, a, b, c, d)
 #define IDirect3DRMFrame2_Save(p, a, b, c) (p)->lpVtbl->Save(p, a, b, c)
-
 type IDirect3DRMFrame3Vtbl as IDirect3DRMFrame3Vtbl_
 
 type IDirect3DRMFrame3_
@@ -1316,7 +1265,6 @@ end type
 #define IDirect3DRMFrame3_GetSceneFogMethod(p, a) (p)->lpVtbl->GetSceneFogMethod(p, a)
 #define IDirect3DRMFrame3_SetMaterialOverride(p, a) (p)->lpVtbl->SetMaterialOverride(p, a)
 #define IDirect3DRMFrame3_GetMaterialOverride(p, a) (p)->lpVtbl->GetMaterialOverride(p, a)
-
 type IDirect3DRMMeshVtbl as IDirect3DRMMeshVtbl_
 
 type IDirect3DRMMesh
@@ -1386,7 +1334,6 @@ end type
 #define IDirect3DRMMesh_GetGroupQuality(p, a) (p)->lpVtbl->GetGroupQuality(p, a)
 #define IDirect3DRMMesh_GetGroupMaterial(p, a, b) (p)->lpVtbl->GetGroupMaterial(p, a, b)
 #define IDirect3DRMMesh_GetGroupTexture(p, a, b) (p)->lpVtbl->GetGroupTexture(p, a, b)
-
 type IDirect3DRMProgressiveMeshVtbl as IDirect3DRMProgressiveMeshVtbl_
 
 type IDirect3DRMProgressiveMesh
@@ -1454,7 +1401,6 @@ end type
 #define IDirect3DRMProgressiveMesh_GetBox(p, a) (p)->lpVtbl->GetBox(p, a)
 #define IDirect3DRMProgressiveMesh_SetQuality(p, a) (p)->lpVtbl->SetQuality(p, a)
 #define IDirect3DRMProgressiveMesh_GetQuality(p, a) (p)->lpVtbl->GetQuality(p, a)
-
 type IDirect3DRMShadowVtbl as IDirect3DRMShadowVtbl_
 
 type IDirect3DRMShadow
@@ -1488,7 +1434,6 @@ end type
 #define IDirect3DRMShadow_GetName(p, a, b) (p)->lpVtbl->GetName(p, a, b)
 #define IDirect3DRMShadow_GetClassName(p, a, b) (p)->lpVtbl->GetClassName(p, a, b)
 #define IDirect3DRMShadow_Init(p, a, b, c, d, e, f, g) (p)->lpVtbl->Load(p, a, b, c, d, e, f, g)
-
 type IDirect3DRMShadow2Vtbl as IDirect3DRMShadow2Vtbl_
 
 type IDirect3DRMShadow2
@@ -1538,7 +1483,6 @@ end type
 #define IDirect3DRMShadow2_SetPlane(p, a, b, c, d, e, f) (p)->lpVtbl->SetPlane(p, a, b, c, d, e, f)
 #define IDirect3DRMShadow2_GetOptions(p, a) (p)->lpVtbl->GetOptions(p, a)
 #define IDirect3DRMShadow2_SetOptions(p, a) (p)->lpVtbl->SetOptions(p, a)
-
 type IDirect3DRMFaceVtbl as IDirect3DRMFaceVtbl_
 
 type IDirect3DRMFace
@@ -1607,7 +1551,6 @@ end type
 #define IDirect3DRMFace_GetVertexIndex(p, a) (p)->lpVtbl->GetVertexIndex(p, a)
 #define IDirect3DRMFace_GetTextureCoordinateIndex(p, a) (p)->lpVtbl->GetTextureCoordinateIndex(p, a)
 #define IDirect3DRMFace_GetColor(p, a) (p)->lpVtbl->GetColor(p, a)
-
 type IDirect3DRMFace2Vtbl as IDirect3DRMFace2Vtbl_
 
 type IDirect3DRMFace2
@@ -1676,7 +1619,6 @@ end type
 #define IDirect3DRMFace2_GetVertexIndex(p, a) (p)->lpVtbl->GetVertexIndex(p, a)
 #define IDirect3DRMFace2_GetTextureCoordinateIndex(p, a) (p)->lpVtbl->GetTextureCoordinateIndex(p, a)
 #define IDirect3DRMFace2_GetColor(p, a) (p)->lpVtbl->GetColor(p, a)
-
 type IDirect3DRMMeshBuilderVtbl as IDirect3DRMMeshBuilderVtbl_
 
 type IDirect3DRMMeshBuilder
@@ -1784,7 +1726,6 @@ end type
 #define IDirect3DRMMeshBuilder_GetVertexCount(p) (p)->lpVtbl->GetVertexCount(p)
 #define IDirect3DRMMeshBuilder_GetVertexColor(p, a) (p)->lpVtbl->GetVertexColor(p, a)
 #define IDirect3DRMMeshBuilder_CreateMesh(p, a) (p)->lpVtbl->CreateMesh(p, a)
-
 type IDirect3DRMMeshBuilder2Vtbl as IDirect3DRMMeshBuilder2Vtbl_
 
 type IDirect3DRMMeshBuilder2
@@ -1896,7 +1837,6 @@ end type
 #define IDirect3DRMMeshBuilder2_CreateMesh(p, a) (p)->lpVtbl->CreateMesh(p, a)
 #define IDirect3DRMMeshBuilder2_GenerateNormals2(p, a, b) (p)->lpVtbl->GenerateNormals2(p, a, b)
 #define IDirect3DRMMeshBuilder2_GetFace(p, a, b) (p)->lpVtbl->GetFace(p, a, b)
-
 type IDirect3DRMMeshBuilder3Vtbl as IDirect3DRMMeshBuilder3Vtbl_
 
 type IDirect3DRMMeshBuilder3
@@ -2045,7 +1985,6 @@ end type
 #define IDirect3DRMMeshBuilder3_SetNormals(p, a, b, c) (p)->lpVtbl->SetNormals(p, a, b, c)
 #define IDirect3DRMMeshBuilder3_GetNormals(p, a, b, c) (p)->lpVtbl->GetNormals(p, a, b, c)
 #define IDirect3DRMMeshBuilder3_GetNormalCount(p) (p)->lpVtbl->GetNormalCount(p)
-
 type IDirect3DRMLightVtbl as IDirect3DRMLightVtbl_
 
 type IDirect3DRMLight_
@@ -2115,7 +2054,6 @@ end type
 #define IDirect3DRMLight_GetType(p) (p)->lpVtbl->GetType(p)
 #define IDirect3DRMLight_SetEnableFrame(p, a) (p)->lpVtbl->SetEnableFrame(p, a)
 #define IDirect3DRMLight_GetEnableFrame(p, a) (p)->lpVtbl->GetEnableFrame(p, a)
-
 type IDirect3DRMTextureVtbl as IDirect3DRMTextureVtbl_
 
 type IDirect3DRMTexture_
@@ -2185,7 +2123,6 @@ end type
 #define IDirect3DRMTexture_GetDecalScale(p) (p)->lpVtbl->GetDecalScale(p)
 #define IDirect3DRMTexture_GetDecalTransparency(p) (p)->lpVtbl->GetDecalTransparency(p)
 #define IDirect3DRMTexture_GetDecalTransparencyColor(p) (p)->lpVtbl->GetDecalTransparencyColor(p)
-
 type IDirect3DRMTexture2Vtbl as IDirect3DRMTexture2Vtbl_
 
 type IDirect3DRMTexture2
@@ -2261,7 +2198,6 @@ end type
 #define IDirect3DRMTexture2_InitFromImage(p, a) (p)->lpVtbl->InitFromImage(p, a)
 #define IDirect3DRMTexture2_InitFromResource2(p, a, b, c) (p)->lpVtbl->InitFromResource2(p, a, b, c)
 #define IDirect3DRMTexture2_GenerateMIPMap(p, a) (p)->lpVtbl->GenerateMIPMap(p, a)
-
 type IDirect3DRMTexture3Vtbl as IDirect3DRMTexture3Vtbl_
 
 type IDirect3DRMTexture3_
@@ -2347,7 +2283,6 @@ end type
 #define IDirect3DRMTexture3_GetCacheOptions(p, a, b) (p)->lpVtbl->GetCacheOptions(p, a, b)
 #define IDirect3DRMTexture3_SetDownsampleCallback(p, a, b) (p)->lpVtbl->SetDownsampleCallback(p, a, b)
 #define IDirect3DRMTexture3_SetValidationCallback(p, a, b) (p)->lpVtbl->SetValidationCallback(p, a, b)
-
 type IDirect3DRMWrapVtbl as IDirect3DRMWrapVtbl_
 
 type IDirect3DRMWrap
@@ -2385,7 +2320,6 @@ end type
 #define IDirect3DRMWrap_Init(p, a, b, c, d, e, f, g, h, i, j, k, l, m, n, o) (p)->lpVtbl->Init(p, a, b, c, d, e, f, g, h, i, j, k, l, m, n, o)
 #define IDirect3DRMWrap_Apply(p, a) (p)->lpVtbl->Apply(p, a)
 #define IDirect3DRMWrap_ApplyRelative(p, a, b) (p)->lpVtbl->ApplyRelative(p, a, b)
-
 type IDirect3DRMMaterialVtbl as IDirect3DRMMaterialVtbl_
 
 type IDirect3DRMMaterial_
@@ -2429,7 +2363,6 @@ end type
 #define IDirect3DRMMaterial_GetPower(p) (p)->lpVtbl->GetPower(p)
 #define IDirect3DRMMaterial_GetSpecular(p, a, b, c) (p)->lpVtbl->GetSpecular(p, a, b, c)
 #define IDirect3DRMMaterial_GetEmissive(p, a, b, c) (p)->lpVtbl->GetEmissive(p, a, b, c)
-
 type IDirect3DRMMaterial2Vtbl as IDirect3DRMMaterial2Vtbl_
 
 type IDirect3DRMMaterial2_
@@ -2477,7 +2410,6 @@ end type
 #define IDirect3DRMMaterial2_GetEmissive(p, a, b, c) (p)->lpVtbl->GetEmissive(p, a, b, c)
 #define IDirect3DRMMaterial2_SetAmbient(p, a, b, c) (p)->lpVtbl->SetAmbient(p, a, b, c)
 #define IDirect3DRMMaterial2_GetAmbient(p, a, b, c) (p)->lpVtbl->GetAmbient(p, a, b, c)
-
 type IDirect3DRMAnimationVtbl as IDirect3DRMAnimationVtbl_
 
 type IDirect3DRMAnimation
@@ -2525,7 +2457,6 @@ end type
 #define IDirect3DRMAnimation_SetFrame(p, a) (p)->lpVtbl->SetFrame(p, a)
 #define IDirect3DRMAnimation_SetTime(p, a) (p)->lpVtbl->SetTime(p, a)
 #define IDirect3DRMAnimation_GetOptions(p) (p)->lpVtbl->GetOptions(p)
-
 type IDirect3DRMAnimation2Vtbl as IDirect3DRMAnimation2Vtbl_
 
 type IDirect3DRMAnimation2
@@ -2583,7 +2514,6 @@ end type
 #define IDirect3DRMAnimation2_AddKey(p, a) (p)->lpVtbl->AddKey(p, a)
 #define IDirect3DRMAnimation2_ModifyKey(p, a) (p)->lpVtbl->ModifyKey(p, a)
 #define IDirect3DRMAnimation2_GetKeys(p, a, b, c, d) (p)->lpVtbl->GetKeys(p, a, b, c, d)
-
 type IDirect3DRMAnimationSetVtbl as IDirect3DRMAnimationSetVtbl_
 
 type IDirect3DRMAnimationSet
@@ -2623,7 +2553,6 @@ end type
 #define IDirect3DRMAnimationSet_Load(p, a, b, c, d, e, f) (p)->lpVtbl->Load(p, a, b, c, d, e, f)
 #define IDirect3DRMAnimationSet_DeleteAnimation(p, a) (p)->lpVtbl->DeleteAnimation(p, a)
 #define IDirect3DRMAnimationSet_SetTime(p, a) (p)->lpVtbl->SetTime(p, a)
-
 type IDirect3DRMAnimationSet2Vtbl as IDirect3DRMAnimationSet2Vtbl_
 
 type IDirect3DRMAnimationSet2
@@ -2665,7 +2594,6 @@ end type
 #define IDirect3DRMAnimationSet2_DeleteAnimation(p, a) (p)->lpVtbl->DeleteAnimation(p, a)
 #define IDirect3DRMAnimationSet2_SetTime(p, a) (p)->lpVtbl->SetTime(p, a)
 #define IDirect3DRMAnimationSet2_GetAnimations(p, a) (p)->lpVtbl->GetAnimations(p, a)
-
 type IDirect3DRMUserVisualVtbl as IDirect3DRMUserVisualVtbl_
 
 type IDirect3DRMUserVisual_
@@ -2699,7 +2627,6 @@ end type
 #define IDirect3DRMUserVisual_GetName(p, a, b) (p)->lpVtbl->GetName(p, a, b)
 #define IDirect3DRMUserVisual_GetClassName(p, a, b) (p)->lpVtbl->GetClassName(p, a, b)
 #define IDirect3DRMUserVisual_Init(p, a, b) (p)->lpVtbl->Init(p, a, b)
-
 type IDirect3DRMArrayVtbl as IDirect3DRMArrayVtbl_
 
 type IDirect3DRMArray
@@ -2717,7 +2644,6 @@ end type
 #define IDirect3DRMArray_AddRef(p) (p)->lpVtbl->AddRef(p)
 #define IDirect3DRMArray_Release(p) (p)->lpVtbl->Release(p)
 #define IDirect3DRMArray_GetSize(p) (p)->lpVtbl->GetSize(p)
-
 type IDirect3DRMObjectArrayVtbl as IDirect3DRMObjectArrayVtbl_
 
 type IDirect3DRMObjectArray
@@ -2737,7 +2663,6 @@ end type
 #define IDirect3DRMObjectArray_Release(p) (p)->lpVtbl->Release(p)
 #define IDirect3DRMObjectArray_GetSize(p) (p)->lpVtbl->GetSize(p)
 #define IDirect3DRMObjectArray_GetElement(p, a, b) (p)->lpVtbl->GetElement(p, a, b)
-
 type IDirect3DRMDeviceArrayVtbl as IDirect3DRMDeviceArrayVtbl_
 
 type IDirect3DRMDeviceArray
@@ -2757,7 +2682,6 @@ end type
 #define IDirect3DRMDeviceArray_Release(p) (p)->lpVtbl->Release(p)
 #define IDirect3DRMDeviceArray_GetSize(p) (p)->lpVtbl->GetSize(p)
 #define IDirect3DRMDeviceArray_GetElement(p, a, b) (p)->lpVtbl->GetElement(p, a, b)
-
 type IDirect3DRMFrameArrayVtbl as IDirect3DRMFrameArrayVtbl_
 
 type IDirect3DRMFrameArray_
@@ -2777,7 +2701,6 @@ end type
 #define IDirect3DRMFrameArray_Release(p) (p)->lpVtbl->Release(p)
 #define IDirect3DRMFrameArray_GetSize(p) (p)->lpVtbl->GetSize(p)
 #define IDirect3DRMFrameArray_GetElement(p, a, b) (p)->lpVtbl->GetElement(p, a, b)
-
 type IDirect3DRMViewportArrayVtbl as IDirect3DRMViewportArrayVtbl_
 
 type IDirect3DRMViewportArray_
@@ -2797,7 +2720,6 @@ end type
 #define IDirect3DRMViewportArray_Release(p) (p)->lpVtbl->Release(p)
 #define IDirect3DRMViewportArray_GetSize(p) (p)->lpVtbl->GetSize(p)
 #define IDirect3DRMViewportArray_GetElement(p, a, b) (p)->lpVtbl->GetElement(p, a, b)
-
 type IDirect3DRMVisualArrayVtbl as IDirect3DRMVisualArrayVtbl_
 
 type IDirect3DRMVisualArray_
@@ -2817,7 +2739,6 @@ end type
 #define IDirect3DRMVisualArray_Release(p) (p)->lpVtbl->Release(p)
 #define IDirect3DRMVisualArray_GetSize(p) (p)->lpVtbl->GetSize(p)
 #define IDirect3DRMVisualArray_GetElement(p, a, b) (p)->lpVtbl->GetElement(p, a, b)
-
 type IDirect3DRMAnimationArrayVtbl as IDirect3DRMAnimationArrayVtbl_
 
 type IDirect3DRMAnimationArray_
@@ -2837,7 +2758,6 @@ end type
 #define IDirect3DRMAnimationArray_Release(p) (p)->lpVtbl->Release(p)
 #define IDirect3DRMAnimationArray_GetSize(p) (p)->lpVtbl->GetSize(p)
 #define IDirect3DRMAnimationArray_GetElement(p, a, b) (p)->lpVtbl->GetElement(p, a, b)
-
 type IDirect3DRMPickedArrayVtbl as IDirect3DRMPickedArrayVtbl_
 
 type IDirect3DRMPickedArray_
@@ -2857,7 +2777,6 @@ end type
 #define IDirect3DRMPickedArray_Release(p) (p)->lpVtbl->Release(p)
 #define IDirect3DRMPickedArray_GetSize(p) (p)->lpVtbl->GetSize(p)
 #define IDirect3DRMPickedArray_GetPick(p, a, b, c, d) (p)->lpVtbl->GetPick(p, a, b, c, d)
-
 type IDirect3DRMLightArrayVtbl as IDirect3DRMLightArrayVtbl_
 
 type IDirect3DRMLightArray_
@@ -2877,7 +2796,6 @@ end type
 #define IDirect3DRMLightArray_Release(p) (p)->lpVtbl->Release(p)
 #define IDirect3DRMLightArray_GetSize(p) (p)->lpVtbl->GetSize(p)
 #define IDirect3DRMLightArray_GetElement(p, a, b) (p)->lpVtbl->GetElement(p, a, b)
-
 type IDirect3DRMFaceArrayVtbl as IDirect3DRMFaceArrayVtbl_
 
 type IDirect3DRMFaceArray_
@@ -2897,7 +2815,6 @@ end type
 #define IDirect3DRMFaceArray_Release(p) (p)->lpVtbl->Release(p)
 #define IDirect3DRMFaceArray_GetSize(p) (p)->lpVtbl->GetSize(p)
 #define IDirect3DRMFaceArray_GetElement(p, a, b) (p)->lpVtbl->GetElement(p, a, b)
-
 type IDirect3DRMPicked2ArrayVtbl as IDirect3DRMPicked2ArrayVtbl_
 
 type IDirect3DRMPicked2Array_
@@ -2917,7 +2834,6 @@ end type
 #define IDirect3DRMPicked2Array_Release(p) (p)->lpVtbl->Release(p)
 #define IDirect3DRMPicked2Array_GetSize(p) (p)->lpVtbl->GetSize(p)
 #define IDirect3DRMPicked2Array_GetPick(p, a, b, c, d) (p)->lpVtbl->GetPick(p, a, b, c, d)
-
 type IDirect3DRMInterpolatorVtbl as IDirect3DRMInterpolatorVtbl_
 
 type IDirect3DRMInterpolator
@@ -2961,7 +2877,6 @@ end type
 #define IDirect3DRMInterpolator_SetIndex(p, a) (p)->lpVtbl->SetIndex(p, a)
 #define IDirect3DRMInterpolator_GetIndex(p) (p)->lpVtbl->GetIndex(p)
 #define IDirect3DRMInterpolator_Interpolate(p, a, b, c) (p)->lpVtbl->Interpolate(p, a, b, c)
-
 type IDirect3DRMClippedVisualVtbl as IDirect3DRMClippedVisualVtbl_
 
 type IDirect3DRMClippedVisual

@@ -9,7 +9,6 @@
 #endif
 
 #define __WINE_DXERR8_H
-
 declare function DXGetErrorString8A(byval hr as HRESULT) as const zstring ptr
 declare function DXGetErrorString8W(byval hr as HRESULT) as const wstring ptr
 

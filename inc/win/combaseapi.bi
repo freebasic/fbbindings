@@ -106,7 +106,6 @@ enum
 end enum
 
 type STDMSHLFLAGS as tagSTDMSHLFLAGS
-
 declare function CoGetMarshalSizeMax(byval pulSize as ULONG ptr, byval riid as const IID const ptr, byval pUnk as LPUNKNOWN, byval dwDestContext as DWORD, byval pvDestContext as LPVOID, byval mshlflags as DWORD) as HRESULT
 declare function CoMarshalInterface(byval pStm as LPSTREAM, byval riid as const IID const ptr, byval pUnk as LPUNKNOWN, byval dwDestContext as DWORD, byval pvDestContext as LPVOID, byval mshlflags as DWORD) as HRESULT
 declare function CoUnmarshalInterface(byval pStm as LPSTREAM, byval riid as const IID const ptr, byval ppv as LPVOID ptr) as HRESULT
@@ -126,7 +125,6 @@ declare function CoSwitchCallContext(byval pNewObject as IUnknown ptr, byval ppO
 #define COM_RIGHTS_EXECUTE_REMOTE 4
 #define COM_RIGHTS_ACTIVATE_LOCAL 8
 #define COM_RIGHTS_ACTIVATE_REMOTE 16
-
 declare function CoCreateInstanceFromApp(byval Clsid as const IID const ptr, byval punkOuter as IUnknown ptr, byval dwClsCtx as DWORD, byval reserved as PVOID, byval dwCount as DWORD, byval pResults as MULTI_QI ptr) as HRESULT
 declare function CoIsHandlerConnected(byval pUnk as LPUNKNOWN) as WINBOOL
 
@@ -158,9 +156,7 @@ declare function ProgIDFromCLSID(byval clsid as const IID const ptr, byval lplps
 declare function CLSIDFromProgID(byval lpszProgID as LPCOLESTR, byval lpclsid as LPCLSID) as HRESULT
 declare function StringFromGUID2(byval rguid as const GUID const ptr, byval lpsz as LPOLESTR, byval cchMax as long) as long
 declare function CoCreateGuid(byval pguid as GUID ptr) as HRESULT
-
 type PROPVARIANT as tagPROPVARIANT
-
 declare function PropVariantCopy(byval pvarDest as PROPVARIANT ptr, byval pvarSrc as const PROPVARIANT ptr) as HRESULT
 declare function PropVariantClear(byval pvar as PROPVARIANT ptr) as HRESULT
 declare function FreePropVariantArray(byval cVariants as ULONG, byval rgvars as PROPVARIANT ptr) as HRESULT
@@ -188,13 +184,10 @@ type COWAIT_FLAGS as tagCOWAIT_FLAGS
 #endif
 
 #define CWMO_MAX_HANDLES 56
-
 declare function CoGetTreatAsClass(byval clsidOld as const IID const ptr, byval pClsidNew as LPCLSID) as HRESULT
 declare function CoInvalidateRemoteMachineBindings(byval pszMachineName as LPOLESTR) as HRESULT
-
 type LPFNGETCLASSOBJECT as function(byval as const IID const ptr, byval as const IID const ptr, byval as LPVOID ptr) as HRESULT
 type LPFNCANUNLOADNOW as function() as HRESULT
-
 declare function DllGetClassObject(byval rclsid as const IID const ptr, byval riid as const IID const ptr, byval ppv as LPVOID ptr) as HRESULT
 declare function DllCanUnloadNow() as HRESULT
 declare function CoTaskMemAlloc(byval cb as SIZE_T) as LPVOID

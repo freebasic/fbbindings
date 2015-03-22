@@ -68,9 +68,7 @@ end type
 
 type D3DXFUNCTION_DESC as _D3DXFUNCTION_DESC
 type LPD3DXEFFECTPOOL as ID3DXEffectPool ptr
-
 extern IID_ID3DXEffectPool as const GUID
-
 type ID3DXEffectPoolVtbl as ID3DXEffectPoolVtbl_
 
 type ID3DXEffectPool
@@ -84,9 +82,7 @@ type ID3DXEffectPoolVtbl_
 end type
 
 type LPD3DXBASEEFFECT as ID3DXBaseEffect ptr
-
 extern IID_ID3DXBaseEffect as const GUID
-
 type ID3DXBaseEffectVtbl as ID3DXBaseEffectVtbl_
 
 type ID3DXBaseEffect
@@ -154,9 +150,7 @@ type ID3DXBaseEffectVtbl_
 end type
 
 type LPD3DXEFFECTSTATEMANAGER as ID3DXEffectStateManager ptr
-
 extern IID_ID3DXEffectStateManager as const GUID
-
 type ID3DXEffectStateManagerVtbl as ID3DXEffectStateManagerVtbl_
 
 type ID3DXEffectStateManager
@@ -188,9 +182,7 @@ type ID3DXEffectStateManagerVtbl_
 end type
 
 type LPD3DXEFFECT as ID3DXEffect ptr
-
 extern IID_ID3DXEffect as const GUID
-
 type ID3DXEffectVtbl as ID3DXEffectVtbl_
 
 type ID3DXEffect
@@ -280,9 +272,7 @@ type ID3DXEffectVtbl_
 end type
 
 type LPD3DXEFFECTCOMPILER as ID3DXEffectCompiler ptr
-
 extern IID_ID3DXEffectCompiler as const GUID
-
 type ID3DXEffectCompilerVtbl as ID3DXEffectCompilerVtbl_
 
 type ID3DXEffectCompiler
