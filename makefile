@@ -153,7 +153,9 @@ fastcgi:
 		extracted/$(FASTCGI_TITLE)/include/fcgi_stdio.h \
 		-emit '*/fastcgi.h'    inc/fastcgi/fastcgi.bi \
 		-emit '*/fcgiapp.h'    inc/fastcgi/fcgiapp.bi \
-		-emit '*/fcgi_stdio.h' inc/fastcgi/fcgi_stdio.bi
+		-emit '*/fcgi_stdio.h' inc/fastcgi/fcgi_stdio.bi \
+		-addinclude crt.bi inc/fastcgi/fcgi_stdio.bi \
+		-inclib fcgi inc/fastcgi/fcgiapp.bi
 
 FFI_TITLE := libffi-3.1
 ffi:

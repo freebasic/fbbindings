@@ -1,9 +1,13 @@
 #pragma once
 
 #include once "crt/long.bi"
-#include once "crt/stdio.bi"
-#include once "crt/sys/types.bi"
 #include once "fcgiapp.bi"
+#include once "crt.bi"
+
+'' The following symbols have been renamed:
+''     #define FCGI_stdin => FCGI_stdin_
+''     #define FCGI_stdout => FCGI_stdout_
+''     #define FCGI_stderr => FCGI_stderr_
 
 extern "C"
 
@@ -22,14 +26,14 @@ declare sub FCGI_SetExitStatus(byval status as long)
 #define FCGI_ToFcgiStream(fcgi_file) fcgi_file->fcgx_stream
 
 #ifdef __FB_WIN32__
-	extern import _fcgi_sF(0 to ...) as FCGI_FILE
+	extern import _fcgi_sF(0 to 3 - 1) as FCGI_FILE
 #else
-	extern _fcgi_sF(0 to ...) as FCGI_FILE
+	extern _fcgi_sF(0 to 3 - 1) as FCGI_FILE
 #endif
 
-#define FCGI_stdin (@_fcgi_sF[0])
-#define FCGI_stdout (@_fcgi_sF[1])
-#define FCGI_stderr (@_fcgi_sF[2])
+#define FCGI_stdin_ (@_fcgi_sF(0))
+#define FCGI_stdout_ (@_fcgi_sF(1))
+#define FCGI_stderr_ (@_fcgi_sF(2))
 
 declare sub FCGI_perror(byval str as const zstring ptr)
 declare function FCGI_fopen(byval path as const zstring ptr, byval mode as const zstring ptr) as FCGI_FILE ptr
@@ -65,46 +69,89 @@ declare function FCGI_fdopen(byval fd as long, byval mode as const zstring ptr) 
 declare function FCGI_popen(byval cmd as const zstring ptr, byval type as const zstring ptr) as FCGI_FILE ptr
 declare function FCGI_pclose(byval as FCGI_FILE ptr) as long
 
-#define FILE FCGI_FILE
-#define stdin FCGI_stdin
-#define stdout FCGI_stdout
-#define stderr FCGI_stderr
-#define perror FCGI_perror
-#define fopen FCGI_fopen
-#define fclose FCGI_fclose
-#define fflush FCGI_fflush
-#define freopen FCGI_freopen
-#define setvbuf FCGI_setvbuf
-#define setbuf FCGI_setbuf
-#define fseek FCGI_fseek
-#define ftell FCGI_ftell
-#define rewind FCGI_rewind
-#define fgetpos FCGI_fgetpos
-#define fsetpos FCGI_fsetpos
-#define fgetc FCGI_fgetc
-#define getc FCGI_fgetc
-#define getchar FCGI_getchar
-#define ungetc FCGI_ungetc
-#define fgets FCGI_fgets
-#define gets FCGI_gets
-#define fputc FCGI_fputc
-#define putc FCGI_fputc
-#define putchar FCGI_putchar
-#define fputs FCGI_fputs
-#define puts FCGI_puts
-#define fprintf FCGI_fprintf
-#define printf FCGI_printf
-#define vfprintf FCGI_vfprintf
-#define vprintf FCGI_vprintf
-#define fread FCGI_fread
-#define fwrite FCGI_fwrite
-#define feof FCGI_feof
-#define ferror FCGI_ferror
-#define clearerr FCGI_clearerr
-#define tmpfile FCGI_tmpfile
-#define fileno FCGI_fileno
-#define fdopen FCGI_fdopen
-#define popen FCGI_popen
-#define pclose FCGI_pclose
+#ifndef NO_FCGI_DEFINES
+	#undef FILE
+	#define FILE FCGI_FILE
+	#undef stdin
+	#define stdin FCGI_stdin_
+	#undef stdout
+	#define stdout FCGI_stdout_
+	#undef stderr
+	#define stderr FCGI_stderr_
+	#undef perror
+	#define perror FCGI_perror
+	#undef fopen
+	#define fopen FCGI_fopen
+	#undef fclose
+	#define fclose FCGI_fclose
+	#undef fflush
+	#define fflush FCGI_fflush
+	#undef freopen
+	#define freopen FCGI_freopen
+	#undef setvbuf
+	#define setvbuf FCGI_setvbuf
+	#undef setbuf
+	#define setbuf FCGI_setbuf
+	#undef fseek
+	#define fseek FCGI_fseek
+	#undef ftell
+	#define ftell FCGI_ftell
+	#undef rewind
+	#define rewind FCGI_rewind
+	#undef fgetpos
+	#define fgetpos FCGI_fgetpos
+	#undef fsetpos
+	#define fsetpos FCGI_fsetpos
+	#undef fgetc
+	#define fgetc FCGI_fgetc
+	#undef getc
+	#define getc FCGI_fgetc
+	#undef getchar
+	#define getchar FCGI_getchar
+	#undef ungetc
+	#define ungetc FCGI_ungetc
+	#undef fgets
+	#define fgets FCGI_fgets
+	#undef gets
+	#define gets FCGI_gets
+	#undef fputc
+	#define fputc FCGI_fputc
+	#undef putc
+	#define putc FCGI_fputc
+	#undef putchar
+	#define putchar FCGI_putchar
+	#undef fputs
+	#define fputs FCGI_fputs
+	#undef puts
+	#define puts FCGI_puts
+	#undef fprintf
+	#define fprintf FCGI_fprintf
+	#undef printf
+	#define printf FCGI_printf
+	#undef vfprintf
+	#define vfprintf FCGI_vfprintf
+	#undef vprintf
+	#define vprintf FCGI_vprintf
+	#undef fread
+	#define fread FCGI_fread
+	#undef fwrite
+	#define fwrite FCGI_fwrite
+	#undef feof
+	#define feof FCGI_feof
+	#undef ferror
+	#define ferror FCGI_ferror
+	#undef clearerr
+	#define clearerr FCGI_clearerr
+	#undef tmpfile
+	#define tmpfile FCGI_tmpfile
+	#undef fileno
+	#define fileno FCGI_fileno
+	#undef fdopen
+	#define fdopen FCGI_fdopen
+	#undef popen
+	#define popen FCGI_popen
+	#undef pclose
+	#define pclose FCGI_pclose
+#endif
 
 end extern
