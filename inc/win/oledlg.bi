@@ -1,5 +1,7 @@
 #pragma once
 
+#inclib "oledlg"
+
 #include once "_mingw_unicode.bi"
 #include once "windows.bi"
 #include once "shellapi.bi"

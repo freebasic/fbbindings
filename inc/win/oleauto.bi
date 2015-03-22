@@ -1,5 +1,7 @@
 #pragma once
 
+#inclib "oleaut32"
+
 #include once "oaidl.bi"
 
 #ifdef __FB_64BIT__

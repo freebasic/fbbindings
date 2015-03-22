@@ -1,5 +1,8 @@
 #pragma once
 
+#inclib "dplayx"
+#inclib "dxguid"
+
 #include once "ole2.bi"
 
 #ifdef __FB_64BIT__

@@ -1,5 +1,7 @@
 #pragma once
 
+#inclib "dxguid"
+
 #include once "ole2.bi"
 #include once "dpaddr.bi"
 

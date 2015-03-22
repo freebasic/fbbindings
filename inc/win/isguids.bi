@@ -1,5 +1,7 @@
 #pragma once
 
+#inclib "uuid"
+
 #include once "_mingw_unicode.bi"
 
 extern "C"

@@ -1,5 +1,7 @@
 #pragma once
 
+#inclib "uuid"
+
 #include once "rpc.bi"
 #include once "rpcndr.bi"
 #include once "ocidl.bi"

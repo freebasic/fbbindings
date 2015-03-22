@@ -1,5 +1,7 @@
 #pragma once
 
+#inclib "gdi32"
+
 #include once "winapifamily.bi"
 #include once "_mingw_unicode.bi"
 

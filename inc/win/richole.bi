@@ -1,5 +1,7 @@
 #pragma once
 
+#inclib "uuid"
+
 #include once "richedit.bi"
 
 #ifdef __FB_64BIT__

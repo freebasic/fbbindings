@@ -1,5 +1,7 @@
 #pragma once
 
+#inclib "kernel32"
+
 #include once "_mingw_unicode.bi"
 #include once "apisetcconv.bi"
 #include once "winapifamily.bi"

@@ -1,5 +1,7 @@
 #pragma once
 
+#inclib "psapi"
+
 #include once "_mingw_unicode.bi"
 
 #ifdef __FB_64BIT__

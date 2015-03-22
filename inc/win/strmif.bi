@@ -1,5 +1,7 @@
 #pragma once
 
+#inclib "strmiids"
+
 #include once "rpc.bi"
 #include once "rpcndr.bi"
 #include once "windows.bi"

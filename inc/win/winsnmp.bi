@@ -1,5 +1,7 @@
 #pragma once
 
+#inclib "wsnmp32"
+
 #include once "crt/limits.bi"
 
 #ifdef __FB_64BIT__

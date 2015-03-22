@@ -486,7 +486,8 @@ winapi:
 		-include d3d.h \
 		-emit '*/d3d.h'      inc/win/d3d.bi     \
 		-emit '*/d3dcaps.h'  inc/win/d3dcaps.bi \
-		-emit '*/d3dtypes.h' inc/win/d3dtypes.bi
+		-emit '*/d3dtypes.h' inc/win/d3dtypes.bi \
+		-inclib dxguid       inc/win/d3d.bi
 
 	# CRT intrin.h pass (separate because of -nofunctionbodies)
 	$(FBFROG) $(WINAPI_FLAGS) -nofunctionbodies \
@@ -505,14 +506,17 @@ winapi:
 		-emit '*/psdk_inc/_ip_mreq1.h'     inc/win/winsock.bi \
 		-emit '*/psdk_inc/_wsadata.h'      inc/win/winsock.bi \
 		-emit '*/psdk_inc/_xmitfile.h'     inc/win/winsock.bi \
-		-emit '*/psdk_inc/_wsa_errnos.h'   inc/win/winsock.bi
+		-emit '*/psdk_inc/_wsa_errnos.h'   inc/win/winsock.bi \
+		-inclib wsock32                    inc/win/winsock.bi
+
 
 	# ole.h pass (separate because it can't be #included with windows.h,
 	# even though windows.h has code to do just that, due to conflicts with
 	# ole2.h)
 	$(FBFROG) $(WINAPI_FLAGS) -define _Analysis_noreturn_ "" \
 		-include windef.h -include ole.h \
-		-emit '*/ole.h' inc/win/ole.bi
+		-emit '*/ole.h' inc/win/ole.bi \
+		-inclib ole32   inc/win/ole.bi
 
 	# windows.h pass to get windows.bi (separate because of the additional
 	# -declarebool that would only slow down the main pass)

@@ -1,5 +1,7 @@
 #pragma once
 
+#inclib "odbc32"
+
 #include once "sqltypes.bi"
 
 #ifdef __FB_64BIT__

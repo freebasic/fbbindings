@@ -1,5 +1,7 @@
 #pragma once
 
+#inclib "uxtheme"
+
 #include once "commctrl.bi"
 
 #ifdef __FB_64BIT__

@@ -1,5 +1,8 @@
 #pragma once
 
+#inclib "snmpapi"
+#inclib "igmpagnt"
+
 #include once "windows.bi"
 
 #ifdef __FB_64BIT__

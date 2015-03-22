@@ -1,5 +1,8 @@
 #pragma once
 
+#inclib "uuid"
+#inclib "shell32"
+
 #include once "winapifamily.bi"
 #include once "_mingw_unicode.bi"
 #include once "isguids.bi"

@@ -1,5 +1,7 @@
 #pragma once
 
+#inclib "dxguid"
+
 #include once "windows.bi"
 #include once "objbase.bi"
 #include once "mmsystem.bi"

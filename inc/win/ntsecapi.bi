@@ -1,5 +1,7 @@
 #pragma once
 
+#inclib "advapi32"
+
 #include once "guiddef.bi"
 
 #ifdef __FB_64BIT__

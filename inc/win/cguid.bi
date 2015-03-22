@@ -1,5 +1,7 @@
 #pragma once
 
+#inclib "uuid"
+
 extern "C"
 
 #define __CGUID_H__

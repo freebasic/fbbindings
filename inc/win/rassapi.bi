@@ -1,5 +1,7 @@
 #pragma once
 
+#inclib "mprapi"
+
 #ifdef __FB_64BIT__
 	extern "C"
 #else

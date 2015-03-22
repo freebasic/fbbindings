@@ -329,6 +329,8 @@
 -removedefine WINSPOOLAPI
 -removedefine WSAAPI
 
+-replacements winapi.replacements
+
 -removeproc __debugbreak
 -removeproc __C_ASSERT__
 

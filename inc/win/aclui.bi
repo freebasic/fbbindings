@@ -1,5 +1,7 @@
 #pragma once
 
+#inclib "aclui"
+
 #include once "winapifamily.bi"
 #include once "objbase.bi"
 #include once "commctrl.bi"

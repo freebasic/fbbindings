@@ -1,5 +1,7 @@
 #pragma once
 
+#inclib "ole32"
+
 #include once "winapifamily.bi"
 #include once "winerror.bi"
 #include once "objbase.bi"

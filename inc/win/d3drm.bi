@@ -1,5 +1,7 @@
 #pragma once
 
+#inclib "d3drm"
+
 #include once "ddraw.bi"
 #include once "d3drmobj.bi"
 

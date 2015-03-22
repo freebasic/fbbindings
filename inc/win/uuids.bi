@@ -1,5 +1,8 @@
 #pragma once
 
+#inclib "uuid"
+#inclib "dxguid"
+
 extern "C"
 
 extern MEDIASUBTYPE_None as const GUID

@@ -1,5 +1,7 @@
 #pragma once
 
+#inclib "setupapi"
+
 #include once "_mingw_unicode.bi"
 #include once "commctrl.bi"
 

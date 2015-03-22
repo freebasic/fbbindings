@@ -1,5 +1,10 @@
 #pragma once
 
+#inclib "avifil32"
+#inclib "avicap32"
+#inclib "uuid"
+#inclib "vfw32"
+
 #include once "_mingw_unicode.bi"
 #include once "mmreg.bi"
 #include once "ole2.bi"

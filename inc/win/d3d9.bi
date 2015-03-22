@@ -1,5 +1,8 @@
 #pragma once
 
+#inclib "dxguid"
+#inclib "d3d9"
+
 #include once "crt/stdlib.bi"
 #include once "objbase.bi"
 #include once "windows.bi"

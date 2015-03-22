@@ -1,5 +1,8 @@
 #pragma once
 
+#inclib "dsound"
+#inclib "uuid"
+
 #include once "_mingw_unicode.bi"
 #include once "objbase.bi"
 #include once "crt/float.bi"

@@ -6,7 +6,7 @@
 	#define __MINGW_NAME_AW_EXT(func, ext) func##W##ext
 	#define __MINGW_NAME_UAW(func) func##_W
 	#define __MINGW_NAME_UAW_EXT(func, ext) func##_W_##ext
-	#define __MINGW_STRING_AW(str) L##str
+	#define __MINGW_STRING_AW(str) wstr(str)
 	#define __MINGW_PROCNAMEEXT_AW "W"
 #else
 	#define _INC_CRT_UNICODE_MACROS 2

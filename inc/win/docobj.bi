@@ -1,5 +1,7 @@
 #pragma once
 
+#inclib "uuid"
+
 #include once "crt/long.bi"
 #include once "rpc.bi"
 #include once "rpcndr.bi"

@@ -1,5 +1,7 @@
 #pragma once
 
+#inclib "wldap32"
+
 #include once "winapifamily.bi"
 
 extern "C"

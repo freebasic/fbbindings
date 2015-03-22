@@ -1,5 +1,7 @@
 #pragma once
 
+#inclib "shlwapi"
+
 #include once "_mingw_unicode.bi"
 #include once "objbase.bi"
 #include once "shtypes.bi"

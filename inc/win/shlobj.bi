@@ -1,5 +1,7 @@
 #pragma once
 
+#inclib "shell32"
+
 #include once "crt/long.bi"
 #include once "winapifamily.bi"
 #include once "_mingw_unicode.bi"

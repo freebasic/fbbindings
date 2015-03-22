@@ -1,5 +1,7 @@
 #pragma once
 
+#inclib "url"
+
 #include once "_mingw_unicode.bi"
 #include once "isguids.bi"
 

@@ -1,5 +1,7 @@
 #pragma once
 
+#inclib "comctl32"
+
 #include once "_mingw_unicode.bi"
 #include once "prsht.bi"
 

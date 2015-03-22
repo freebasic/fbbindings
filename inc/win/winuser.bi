@@ -1,5 +1,7 @@
 #pragma once
 
+#inclib "user32"
+
 #include once "_mingw_unicode.bi"
 #include once "apisetcconv.bi"
 #include once "_mingw.bi"

@@ -1,5 +1,7 @@
 #pragma once
 
+#inclib "powrprof"
+
 #ifdef __FB_64BIT__
 	extern "C"
 #else

@@ -1,5 +1,7 @@
 #pragma once
 
+#inclib "msacm32"
+
 #ifdef __FB_64BIT__
 	extern "C"
 #else

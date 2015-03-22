@@ -1,5 +1,7 @@
 #pragma once
 
+#inclib "ws2_32"
+
 #include once "_mingw_unicode.bi"
 #include once "windows.bi"
 #include once "_timeval.bi"

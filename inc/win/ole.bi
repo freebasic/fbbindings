@@ -1,5 +1,7 @@
 #pragma once
 
+#inclib "ole32"
+
 #include once "winapifamily.bi"
 
 #ifdef __FB_64BIT__

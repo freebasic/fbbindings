@@ -1,5 +1,7 @@
 #pragma once
 
+#inclib "wsock32"
+
 #include once "_timeval.bi"
 #include once "_bsd_types.bi"
 #include once "inaddr.bi"

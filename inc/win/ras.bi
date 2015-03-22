@@ -1,5 +1,7 @@
 #pragma once
 
+#inclib "rasapi32"
+
 #include once "_mingw_unicode.bi"
 #include once "inaddr.bi"
 #include once "in6addr.bi"
