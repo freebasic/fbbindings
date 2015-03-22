@@ -289,10 +289,7 @@ llvm:
 	cd extracted/$(LLVM_TITLE) && \
 		if [ ! -f include/llvm/Config/Targets.def ]; then ./configure --prefix=/usr; fi
 
-	$(FBFROG) -o inc/llvm-c.bi \
-		-fbfroginclude stdbool.h \
-		-define __STDC_LIMIT_MACROS 1 \
-		-define __STDC_CONSTANT_MACROS 1 \
+	$(FBFROG) -o inc/llvm-c.bi llvm.fbfrog \
 		-incdir extracted/$(LLVM_TITLE)/include \
 		extracted/$(LLVM_TITLE)/include/llvm-c/Analysis.h		\
 		extracted/$(LLVM_TITLE)/include/llvm-c/BitReader.h		\
@@ -308,16 +305,7 @@ llvm:
 		extracted/$(LLVM_TITLE)/include/llvm-c/Object.h			\
 		extracted/$(LLVM_TITLE)/include/llvm-c/Support.h		\
 		extracted/$(LLVM_TITLE)/include/llvm-c/Target.h			\
-		extracted/$(LLVM_TITLE)/include/llvm-c/TargetMachine.h		\
-		-removedefine HAVE_INTTYPES_H	\
-		-removedefine HAVE_STDINT_H	\
-		-removedefine HAVE_UINT64_T	\
-		-removedefine INT64_MAX		\
-		-removedefine INT64_MIN		\
-		-removedefine UINT64_MAX	\
-		-removedefine HUGE_VALF		\
-		-removedefine LLVM_FOR_EACH_VALUE_SUBCLASS	\
-		-removedefine LLVM_DECLARE_VALUE_CAST
+		extracted/$(LLVM_TITLE)/include/llvm-c/TargetMachine.h
 
 LUA_TITLE := lua-5.2.3
 lua:

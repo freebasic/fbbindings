@@ -1,0 +1,17 @@
+-fbfroginclude stdbool.h
+
+-define __STDC_LIMIT_MACROS 1
+-define __STDC_CONSTANT_MACROS 1
+
+-removedefine HAVE_INTTYPES_H
+-removedefine HAVE_STDINT_H
+-removedefine HAVE_UINT64_T
+-removedefine INT64_MAX
+-removedefine INT64_MIN
+-removedefine UINT64_MAX
+-removedefine HUGE_VALF
+-removedefine LLVM_FOR_EACH_VALUE_SUBCLASS
+-removedefine LLVM_DECLARE_VALUE_CAST
+
+-removeinclude inttypes.h
+-removeinclude stdbool.h
