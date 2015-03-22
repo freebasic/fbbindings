@@ -1,5 +1,24 @@
 #pragma once
 
+#inclib "iup"
+
+#ifdef __FB_WIN32__
+	#inclib "gdi32"
+	#inclib "user32"
+	#inclib "comdlg32"
+	#inclib "comctl32"
+	#inclib "ole32"
+#else
+	#inclib "gtk-x11-2.0"
+	#inclib "gdk-x11-2.0"
+	#inclib "pangox-1.0"
+	#inclib "gdk_pixbuf-2.0"
+	#inclib "pango-1.0"
+	#inclib "gobject-2.0"
+	#inclib "gmodule-2.0"
+	#inclib "glib-2.0"
+#endif
+
 #include once "iupkey.bi"
 #include once "iupdef.bi"
 

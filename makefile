@@ -189,7 +189,7 @@ iup:
 	find extracted/iup/ -type d -exec chmod +x '{}' ';'
 	mkdir -p inc/IUP
 
-	$(FBFROG) \
+	$(FBFROG) iup.fbfrog \
 		extracted/iup/include/*.h \
 		-emit '*/iupcb.h'            inc/IUP/iupcb.bi            \
 		-emit '*/iupcbox.h'          inc/IUP/iupcbox.bi          \
@@ -218,7 +218,25 @@ iup:
 		-emit '*/iuptree.h'          inc/IUP/iuptree.bi          \
 		-emit '*/iuptuio.h'          inc/IUP/iuptuio.bi          \
 		-emit '*/iupval.h'           inc/IUP/iupval.bi           \
-		-emit '*/iupweb.h'           inc/IUP/iupweb.bi
+		-emit '*/iupweb.h'           inc/IUP/iupweb.bi           \
+		-inclib iup                  inc/IUP/iup.bi              \
+		-ifdef __FB_WIN32__                                      \
+			-inclib gdi32        inc/IUP/iup.bi              \
+			-inclib user32       inc/IUP/iup.bi              \
+			-inclib comdlg32     inc/IUP/iup.bi              \
+			-inclib comctl32     inc/IUP/iup.bi              \
+			-inclib ole32        inc/IUP/iup.bi              \
+		-else                                                    \
+			-inclib gtk-x11-2.0  inc/IUP/iup.bi              \
+			-inclib gdk-x11-2.0  inc/IUP/iup.bi              \
+			-inclib pangox-1.0   inc/IUP/iup.bi              \
+			-inclib gdk_pixbuf-2.0 inc/IUP/iup.bi            \
+			-inclib pango-1.0    inc/IUP/iup.bi              \
+			-inclib gobject-2.0  inc/IUP/iup.bi              \
+			-inclib gmodule-2.0  inc/IUP/iup.bi              \
+			-inclib glib-2.0     inc/IUP/iup.bi              \
+		-endif
+
 
 	$(FBFROG) iupim.fbfrog extracted/iup/include/iupim.h -o inc/IUP
 
