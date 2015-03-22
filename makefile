@@ -1,4 +1,5 @@
 FBFROG := fbfrog
+override FBFROG += -disableconstants
 FBC := fbc
 
 ALL := allegro4 allegro5
