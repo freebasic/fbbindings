@@ -1,12 +1,30 @@
 #pragma once
 
+#inclib "jit"
+
 #include once "crt/longdouble.bi"
+
+'' The following symbols have been renamed:
+''     #define JIT_TYPE_VOID => JIT_TYPE_VOID_
+''     #define JIT_TYPE_SBYTE => JIT_TYPE_SBYTE_
+''     #define JIT_TYPE_UBYTE => JIT_TYPE_UBYTE_
+''     #define JIT_TYPE_SHORT => JIT_TYPE_SHORT_
+''     #define JIT_TYPE_USHORT => JIT_TYPE_USHORT_
+''     #define JIT_TYPE_INT => JIT_TYPE_INT_
+''     #define JIT_TYPE_UINT => JIT_TYPE_UINT_
+''     #define JIT_TYPE_NINT => JIT_TYPE_NINT_
+''     #define JIT_TYPE_NUINT => JIT_TYPE_NUINT_
+''     #define JIT_TYPE_LONG => JIT_TYPE_LONG_
+''     #define JIT_TYPE_ULONG => JIT_TYPE_ULONG_
+''     #define JIT_TYPE_FLOAT32 => JIT_TYPE_FLOAT32_
+''     #define JIT_TYPE_FLOAT64 => JIT_TYPE_FLOAT64_
+''     #define JIT_TYPE_NFLOAT => JIT_TYPE_NFLOAT_
 
 extern "C"
 
 #define _JIT_H
 #define _JIT_DEFS_H
-type jit_sbyte as zstring
+type jit_sbyte as byte
 type jit_ubyte as ubyte
 type jit_short as short
 type jit_ushort as ushort
@@ -133,21 +151,21 @@ extern jit_type_sys_double as const jit_type_t
 extern jit_type_sys_long_double as const jit_type_t
 
 #define JIT_TYPE_INVALID (-1)
-#define JIT_TYPE_VOID 0
-#define JIT_TYPE_SBYTE 1
-#define JIT_TYPE_UBYTE 2
-#define JIT_TYPE_SHORT 3
-#define JIT_TYPE_USHORT 4
-#define JIT_TYPE_INT 5
-#define JIT_TYPE_UINT 6
-#define JIT_TYPE_NINT 7
-#define JIT_TYPE_NUINT 8
-#define JIT_TYPE_LONG 9
-#define JIT_TYPE_ULONG 10
-#define JIT_TYPE_FLOAT32 11
-#define JIT_TYPE_FLOAT64 12
-#define JIT_TYPE_NFLOAT 13
-#define JIT_TYPE_MAX_PRIMITIVE JIT_TYPE_NFLOAT
+#define JIT_TYPE_VOID_ 0
+#define JIT_TYPE_SBYTE_ 1
+#define JIT_TYPE_UBYTE_ 2
+#define JIT_TYPE_SHORT_ 3
+#define JIT_TYPE_USHORT_ 4
+#define JIT_TYPE_INT_ 5
+#define JIT_TYPE_UINT_ 6
+#define JIT_TYPE_NINT_ 7
+#define JIT_TYPE_NUINT_ 8
+#define JIT_TYPE_LONG_ 9
+#define JIT_TYPE_ULONG_ 10
+#define JIT_TYPE_FLOAT32_ 11
+#define JIT_TYPE_FLOAT64_ 12
+#define JIT_TYPE_NFLOAT_ 13
+#define JIT_TYPE_MAX_PRIMITIVE JIT_TYPE_NFLOAT_
 #define JIT_TYPE_STRUCT 14
 #define JIT_TYPE_UNION 15
 #define JIT_TYPE_SIGNATURE 16
@@ -1496,13 +1514,39 @@ extern jit_opcodes(0 to 438) as const jit_opcode_info_t
 		return_address as any ptr
 	end type
 
-	#define _JIT_ARCH_GET_CURRENT_FRAME(f) '' TODO: do { register void *__f asm("rbp"); f = __f; } while(0)
-	#define _JIT_ARCH_GET_NEXT_FRAME(n, f) '' TODO: do { (n) = (void *)((f) ? ((_jit_arch_frame_t *)(f))->next_frame : 0); } while(0)
-	#define _JIT_ARCH_GET_RETURN_ADDRESS(r, f) '' TODO: do { (r) = (void *)((f) ? ((_jit_arch_frame_t *)(f))->return_address : 0); } while(0)
-	#define _JIT_ARCH_GET_CURRENT_RETURN(r) '' TODO: do { void *__frame; _JIT_ARCH_GET_CURRENT_FRAME(__frame); _JIT_ARCH_GET_RETURN_ADDRESS((r), __frame); } while(0)
+	#macro _JIT_ARCH_GET_CURRENT_FRAME(f)
+		scope
+			dim __f as any ptr
+			asm mov qword ptr [__f], rbp
+			f = __f
+		end scope
+	#endmacro
+	#macro _JIT_ARCH_GET_NEXT_FRAME(n, f)
+		scope
+			(n) = cptr(any ptr, iif((f), cptr(_jit_arch_frame_t ptr, (f))->next_frame, 0))
+		end scope
+	#endmacro
+	#macro _JIT_ARCH_GET_RETURN_ADDRESS(r, f)
+		scope
+			(r) = cptr(any ptr, iif((f), cptr(_jit_arch_frame_t ptr, (f))->return_address, 0))
+		end scope
+	#endmacro
+	#macro _JIT_ARCH_GET_CURRENT_RETURN(r)
+		scope
+			dim __frame as any ptr
+			_JIT_ARCH_GET_CURRENT_FRAME(__frame)
+			_JIT_ARCH_GET_RETURN_ADDRESS((r), __frame)
+		end scope
+	#endmacro
 #else
 	#define _JIT_ARCH_X86_H
-	#define _JIT_ARCH_GET_CURRENT_FRAME(f) '' TODO: do { register void *__f asm("ebp"); f = __f; } while(0)
+	#macro _JIT_ARCH_GET_CURRENT_FRAME(f)
+		scope
+			dim __f as any ptr
+			asm mov dword ptr [__f], ebp
+			f = __f
+		end scope
+	#endmacro
 #endif
 
 type jit_unwind_context_t
@@ -1621,30 +1665,19 @@ declare function _jit_get_frame_address(byval start as any ptr, byval n as ulong
 
 #define jit_get_frame_address(n) _jit_get_frame_address(jit_get_current_frame(), (n))
 #define JIT_FAST_GET_CURRENT_FRAME 1
-#define jit_get_current_frame() '' TODO: ({ void *address; _JIT_ARCH_GET_CURRENT_FRAME(address); address; })
+#define jit_get_current_frame() jit_get_frame_address(0)
 declare function _jit_get_next_frame_address(byval frame as any ptr) as any ptr
-
-#if defined(__FB_64BIT__) and (defined(__FB_WIN32__) or defined(__FB_LINUX__))
-	#define jit_get_next_frame_address(frame) '' TODO: ({ void *address; _JIT_ARCH_GET_NEXT_FRAME(address, (frame)); address; })
-#else
-	#define jit_get_next_frame_address(frame) _jit_get_next_frame_address(frame)
-#endif
+#define jit_get_next_frame_address(frame) _jit_get_next_frame_address(frame)
 
 declare function _jit_get_return_address(byval frame as any ptr, byval frame0 as any ptr, byval return0 as any ptr) as any ptr
-
-#if defined(__FB_64BIT__) and (defined(__FB_WIN32__) or defined(__FB_LINUX__))
-	#define jit_get_return_address(frame) '' TODO: ({ void *address; _JIT_ARCH_GET_RETURN_ADDRESS(address, (frame)); address; })
-	#define jit_get_current_return() '' TODO: ({ void *address; _JIT_ARCH_GET_CURRENT_RETURN(address); address; })
-#else
-	#define jit_get_return_address(frame) _jit_get_return_address((frame), __builtin_frame_address(0), __builtin_return_address(0))
-	#define jit_get_current_return() __builtin_return_address(0)
-#endif
+#define jit_get_return_address(frame) (_jit_get_return_address((frame), 0, 0))
+#define jit_get_current_return() (jit_get_return_address(jit_get_current_frame()))
 
 type jit_crawl_mark_t
 	mark as any ptr
 end type
 
-#define jit_declare_crawl_mark(name) '' TODO: jit_crawl_mark_t name = {0}
+#define jit_declare_crawl_mark(name) dim as jit_crawl_mark_t name = {0}
 declare function jit_frame_contains_crawl_mark(byval frame as any ptr, byval mark as jit_crawl_mark_t ptr) as long
 
 end extern
