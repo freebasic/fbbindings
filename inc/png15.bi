@@ -1,11 +1,23 @@
 #pragma once
 
+#inclib "png"
+#inclib "z"
+
 #include once "crt/long.bi"
 #include once "crt/setjmp.bi"
 #include once "crt/time.bi"
 #include once "crt/limits.bi"
 #include once "crt/string.bi"
 #include once "crt/stdio.bi"
+
+'' The following symbols have been renamed:
+''     #define PNG_LIBPNG_VER => PNG_LIBPNG_VER_
+''     #define PNG_READ_TEXT_SUPPORTED => PNG_READ_TEXT_SUPPORTED_
+''     #define PNG_TEXT_SUPPORTED => PNG_TEXT_SUPPORTED_
+''     #define PNG_WRITE_TEXT_SUPPORTED => PNG_WRITE_TEXT_SUPPORTED_
+''     #define png_get_uint_32 => png_get_uint_32_
+''     #define png_get_uint_16 => png_get_uint_16_
+''     #define png_get_int_32 => png_get_int_32_
 
 extern "C"
 
@@ -27,7 +39,7 @@ extern "C"
 #define PNG_LIBPNG_BUILD_PRIVATE 16
 #define PNG_LIBPNG_BUILD_SPECIAL 32
 #define PNG_LIBPNG_BUILD_BASE_TYPE PNG_LIBPNG_BUILD_STABLE
-#define PNG_LIBPNG_VER 10519
+#define PNG_LIBPNG_VER_ 10519
 #define PNGLCONF_H
 #define PNG_16BIT_SUPPORTED
 #define PNG_ALIGNED_MEMORY_SUPPORTED
@@ -80,7 +92,7 @@ extern "C"
 #define PNG_READ_SUPPORTED
 #define PNG_READ_SWAP_ALPHA_SUPPORTED
 #define PNG_READ_SWAP_SUPPORTED
-#define PNG_READ_TEXT_SUPPORTED
+#define PNG_READ_TEXT_SUPPORTED_
 #define PNG_READ_TRANSFORMS_SUPPORTED
 #define PNG_READ_UNKNOWN_CHUNKS_SUPPORTED
 #define PNG_READ_USER_CHUNKS_SUPPORTED
@@ -109,7 +121,7 @@ extern "C"
 #define PNG_SET_CHUNK_MALLOC_LIMIT_SUPPORTED
 #define PNG_SET_USER_LIMITS_SUPPORTED
 #define PNG_STDIO_SUPPORTED
-#define PNG_TEXT_SUPPORTED
+#define PNG_TEXT_SUPPORTED_
 #define PNG_TIME_RFC1123_SUPPORTED
 #define PNG_UNKNOWN_CHUNKS_SUPPORTED
 #define PNG_USER_CHUNKS_SUPPORTED
@@ -139,7 +151,7 @@ extern "C"
 #define PNG_WRITE_SUPPORTED
 #define PNG_WRITE_SWAP_ALPHA_SUPPORTED
 #define PNG_WRITE_SWAP_SUPPORTED
-#define PNG_WRITE_TEXT_SUPPORTED
+#define PNG_WRITE_TEXT_SUPPORTED_
 #define PNG_WRITE_TRANSFORMS_SUPPORTED
 #define PNG_WRITE_UNKNOWN_CHUNKS_SUPPORTED
 #define PNG_WRITE_USER_TRANSFORM_SUPPORTED
@@ -198,7 +210,7 @@ type png_uint_16 as ushort
 type png_int_16 as short
 type png_byte as ubyte
 type png_size_t as uinteger
-#define png_sizeof(x) sizeof((x))
+#define png_sizeof(x) sizeof(x)
 type png_fixed_point as png_int_32
 type png_voidp as any ptr
 type png_const_voidp as const any ptr
@@ -483,7 +495,7 @@ declare function png_create_write_struct(byval user_png_ver as png_const_charp, 
 declare function png_get_compression_buffer_size(byval png_ptr as png_const_structp) as png_size_t
 declare sub png_set_compression_buffer_size(byval png_ptr as png_structp, byval size as png_size_t)
 declare function png_set_longjmp_fn(byval png_ptr as png_structp, byval longjmp_fn as png_longjmp_ptr, byval jmp_buf_size as uinteger) as jmp_buf ptr
-#define png_jmpbuf(png_ptr) (*png_set_longjmp_fn((png_ptr), longjmp, sizeof(jmp_buf)))
+#define png_jmpbuf(png_ptr) png_set_longjmp_fn((png_ptr), @longjmp, sizeof(jmp_buf))
 declare sub png_longjmp(byval png_ptr as png_structp, byval val as long)
 declare function png_reset_zstream(byval png_ptr as png_structp) as long
 declare function png_create_read_struct_2(byval user_png_ver as png_const_charp, byval error_ptr as png_voidp, byval error_fn as png_error_ptr, byval warn_fn as png_error_ptr, byval mem_ptr as png_voidp, byval malloc_fn as png_malloc_ptr, byval free_fn as png_free_ptr) as png_structp
@@ -804,13 +816,13 @@ declare function png_get_io_chunk_type(byval png_ptr as png_const_structp) as pn
 #macro png_composite(composite, fg, alpha, bg)
 	scope
 		dim temp as png_uint_16 = cast(png_uint_16, ((cast(png_uint_16, (fg)) * cast(png_uint_16, (alpha))) + (cast(png_uint_16, (bg)) * cast(png_uint_16, 255 - cast(png_uint_16, (alpha))))) + 128)
-		'' TODO: (composite) = (png_byte)((temp + (temp >> 8)) >> 8);
+		(composite) = cast(png_byte, ((temp + (temp shr 8)) shr 8))
 	end scope
 #endmacro
 #macro png_composite_16(composite, fg, alpha, bg)
 	scope
 		dim temp as png_uint_32 = cast(png_uint_32, ((cast(png_uint_32, (fg)) * cast(png_uint_32, (alpha))) + (cast(png_uint_32, (bg)) * (65535 - cast(png_uint_32, (alpha))))) + 32768)
-		'' TODO: (composite) = (png_uint_16)((temp + (temp >> 16)) >> 16);
+		(composite) = cast(png_uint_16, ((temp + (temp shr 16)) shr 16))
 	end scope
 #endmacro
 
@@ -822,9 +834,9 @@ declare sub png_save_uint_32(byval buf as png_bytep, byval i as png_uint_32)
 declare sub png_save_int_32(byval buf as png_bytep, byval i as png_int_32)
 declare sub png_save_uint_16(byval buf as png_bytep, byval i as ulong)
 
-#define png_get_uint_32(buf) ((((cast(png_uint_32, *(buf)) shl 24) + (cast(png_uint_32, *((buf) + 1)) shl 16)) + (cast(png_uint_32, *((buf) + 2)) shl 8)) + cast(png_uint_32, *((buf) + 3)))
-#define png_get_uint_16(buf) cast(png_uint_16, culng(culng(culng(*(buf)) shl 8) + culng(*((buf) + 1))))
-#define png_get_int_32(buf) cast(png_int_32, iif((*(buf)) and &h80, -cast(png_int_32, (png_get_uint_32(buf) xor cast(clong, &hffffffff)) + 1), cast(png_int_32, png_get_uint_32(buf))))
+#define png_get_uint_32_(buf) ((((cast(png_uint_32, *(buf)) shl 24) + (cast(png_uint_32, *((buf) + 1)) shl 16)) + (cast(png_uint_32, *((buf) + 2)) shl 8)) + cast(png_uint_32, *((buf) + 3)))
+#define png_get_uint_16_(buf) cast(png_uint_16, culng(culng(culng(*(buf)) shl 8) + culng(*((buf) + 1))))
+#define png_get_int_32_(buf) cast(png_int_32, iif((*(buf)) and &h80, -cast(png_int_32, (png_get_uint_32_(buf) xor cast(clong, &hffffffff)) + 1), cast(png_int_32, png_get_uint_32_(buf))))
 declare sub png_set_check_for_invalid_index(byval png_ptr as png_structp, byval allowed as long)
 declare function png_get_palette_max(byval png_ptr as png_const_structp, byval info_ptr as png_const_infop) as long
 

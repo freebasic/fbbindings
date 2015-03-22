@@ -1,0 +1,3 @@
+-renamedefine png_get_uint_32 png_get_uint_32_
+-renamedefine png_get_uint_16 png_get_uint_16_
+-renamedefine png_get_int_32 png_get_int_32_

@@ -1,0 +1,72 @@
+convert c: #define png_sizeof(x) sizeof(x)
+to fb:     #define png_sizeof(x) sizeof(x)
+convert c: #define png_sizeof(x) (sizeof(x))
+to fb:     #define png_sizeof(x) sizeof(x)
+
+convert c: #define png_jmpbuf(png_ptr) ((png_ptr)->jmpbuf)
+to fb:     #define png_jmpbuf(png_ptr) (@(png_ptr)->jmpbuf)
+convert c: #define png_jmpbuf(png_ptr) (*png_set_longjmp_fn((png_ptr), longjmp, sizeof(jmp_buf)))
+to fb:     #define png_jmpbuf(png_ptr) png_set_longjmp_fn((png_ptr), @longjmp, sizeof(jmp_buf))
+convert c: #define png_jmpbuf(png_ptr) (*png_set_longjmp_fn((png_ptr), longjmp, (sizeof(jmp_buf))))
+to fb:     #define png_jmpbuf(png_ptr) png_set_longjmp_fn((png_ptr), @longjmp, sizeof(jmp_buf))
+
+convert c: #define png_info_init(info_ptr) png_info_init_3(&info_ptr, png_sizeof(png_info));
+to c:      #define png_info_init(info_ptr) png_info_init_3(&info_ptr, png_sizeof(png_info))
+
+convert c:
+    #  define png_composite(composite, fg, alpha, bg)                            \
+         { png_uint_16 temp = (png_uint_16)((png_uint_16)(fg) * (png_uint_16)(alpha) \
+                            +        (png_uint_16)(bg)*(png_uint_16)(255 -       \
+                            (png_uint_16)(alpha)) + (png_uint_16)128);           \
+           (composite) = (png_byte)((temp + (temp >> 8)) >> 8); }
+to fb:
+	#macro png_composite(composite, fg, alpha, bg)
+		scope
+			dim temp as png_uint_16 = cast(png_uint_16, ((cast(png_uint_16, (fg)) * cast(png_uint_16, (alpha))) + (cast(png_uint_16, (bg)) * cast(png_uint_16, 255 - cast(png_uint_16, (alpha))))) + cast(png_uint_16, 128))
+			(composite) = cast(png_byte, ((temp + (temp shr 8)) shr 8))
+		end scope
+	#endmacro
+
+convert c:
+    #  define png_composite(composite, fg, alpha, bg)         \
+         { png_uint_16 temp = (png_uint_16)((png_uint_16)(fg) \
+               * (png_uint_16)(alpha)                         \
+               + (png_uint_16)(bg)*(png_uint_16)(255          \
+               - (png_uint_16)(alpha)) + 128);                \
+           (composite) = (png_byte)((temp + (temp >> 8)) >> 8); }
+to fb:
+	#macro png_composite(composite, fg, alpha, bg)
+		scope
+			dim temp as png_uint_16 = cast(png_uint_16, ((cast(png_uint_16, (fg)) * cast(png_uint_16, (alpha))) + (cast(png_uint_16, (bg)) * cast(png_uint_16, 255 - cast(png_uint_16, (alpha))))) + 128)
+			(composite) = cast(png_byte, ((temp + (temp shr 8)) shr 8))
+		end scope
+	#endmacro
+
+convert c:
+    #  define png_composite_16(composite, fg, alpha, bg)                         \
+         { png_uint_32 temp = (png_uint_32)((png_uint_32)(fg) * (png_uint_32)(alpha) \
+                            + (png_uint_32)(bg)*(png_uint_32)(65535L -           \
+                            (png_uint_32)(alpha)) + (png_uint_32)32768L);        \
+           (composite) = (png_uint_16)((temp + (temp >> 16)) >> 16); }
+to fb:
+	#macro png_composite_16(composite, fg, alpha, bg)
+		scope
+			dim temp as png_uint_32 = cast(png_uint_32, ((cast(png_uint_32, (fg)) * cast(png_uint_32, (alpha))) + (cast(png_uint_32, (bg)) * cast(png_uint_32, cast(clong, 65535) - cast(png_uint_32, (alpha))))) + cast(png_uint_32, cast(clong, 32768)))
+			(composite) = cast(png_uint_16, ((temp + (temp shr 16)) shr 16))
+		end scope
+	#endmacro
+
+convert c:
+    #  define png_composite_16(composite, fg, alpha, bg)       \
+         { png_uint_32 temp = (png_uint_32)((png_uint_32)(fg)  \
+               * (png_uint_32)(alpha)                          \
+               + (png_uint_32)(bg)*(65535                      \
+               - (png_uint_32)(alpha)) + 32768);               \
+           (composite) = (png_uint_16)((temp + (temp >> 16)) >> 16); }
+to fb:
+	#macro png_composite_16(composite, fg, alpha, bg)
+		scope
+			dim temp as png_uint_32 = cast(png_uint_32, ((cast(png_uint_32, (fg)) * cast(png_uint_32, (alpha))) + (cast(png_uint_32, (bg)) * (65535 - cast(png_uint_32, (alpha))))) + 32768)
+			(composite) = cast(png_uint_16, ((temp + (temp shr 16)) shr 16))
+		end scope
+	#endmacro

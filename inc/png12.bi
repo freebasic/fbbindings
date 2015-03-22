@@ -1,5 +1,8 @@
 #pragma once
 
+#inclib "png"
+#inclib "z"
+
 #include once "crt/long.bi"
 #include once "zlib.bi"
 #include once "crt/stdio.bi"
@@ -7,6 +10,13 @@
 #include once "crt/setjmp.bi"
 #include once "crt/string.bi"
 #include once "crt/time.bi"
+
+'' The following symbols have been renamed:
+''     #define PNG_LIBPNG_VER => PNG_LIBPNG_VER_
+''     #define PNG_READ_TEXT_SUPPORTED => PNG_READ_TEXT_SUPPORTED_
+''     #define PNG_TEXT_SUPPORTED => PNG_TEXT_SUPPORTED_
+''     #define PNG_WRITE_TEXT_SUPPORTED => PNG_WRITE_TEXT_SUPPORTED_
+''     procedure png_info_init => png_info_init_
 
 extern "C"
 
@@ -28,7 +38,7 @@ extern "C"
 #define PNG_LIBPNG_BUILD_PRIVATE 16
 #define PNG_LIBPNG_BUILD_SPECIAL 32
 #define PNG_LIBPNG_BUILD_BASE_TYPE PNG_LIBPNG_BUILD_STABLE
-#define PNG_LIBPNG_VER 10251
+#define PNG_LIBPNG_VER_ 10251
 #define PNGCONF_H
 #define PNG_1_2_X
 #define PNG_WARN_UNINITIALIZED_ROW 1
@@ -143,8 +153,8 @@ extern "C"
 #define PNG_READ_zTXt_SUPPORTED
 #define PNG_zTXt_SUPPORTED
 #define PNG_READ_OPT_PLTE_SUPPORTED
-#define PNG_READ_TEXT_SUPPORTED
-#define PNG_TEXT_SUPPORTED
+#define PNG_READ_TEXT_SUPPORTED_
+#define PNG_TEXT_SUPPORTED_
 #define PNG_READ_UNKNOWN_CHUNKS_SUPPORTED
 #define PNG_UNKNOWN_CHUNKS_SUPPORTED
 #define PNG_READ_USER_CHUNKS_SUPPORTED
@@ -166,7 +176,7 @@ extern "C"
 #define PNG_WRITE_tIME_SUPPORTED
 #define PNG_WRITE_tRNS_SUPPORTED
 #define PNG_WRITE_zTXt_SUPPORTED
-#define PNG_WRITE_TEXT_SUPPORTED
+#define PNG_WRITE_TEXT_SUPPORTED_
 #define PNG_CONVERT_tIME_SUPPORTED
 #define PNG_WRITE_FILTER_SUPPORTED
 #define PNG_WRITE_UNKNOWN_CHUNKS_SUPPORTED
@@ -178,7 +188,7 @@ type png_uint_16 as ushort
 type png_int_16 as short
 type png_byte as ubyte
 type png_size_t as uinteger
-#define png_sizeof(x) sizeof((x))
+#define png_sizeof(x) sizeof(x)
 type png_fixed_point as png_int_32
 type png_voidp as any ptr
 type png_bytep as png_byte ptr
@@ -207,7 +217,7 @@ type png_zstreamp as z_stream ptr
 
 #define PNG_USE_GLOBAL_ARRAYS
 #define PNG_ABORT() abort()
-#define png_jmpbuf(png_ptr) (png_ptr)->jmpbuf
+#define png_jmpbuf(png_ptr) (@(png_ptr)->jmpbuf)
 #define png_snprintf snprintf
 #define png_snprintf2 snprintf
 #define png_snprintf6 snprintf
@@ -688,8 +698,8 @@ declare sub png_write_chunk_start(byval png_ptr as png_structp, byval chunk_name
 declare sub png_write_chunk_data(byval png_ptr as png_structp, byval data as png_bytep, byval length as png_size_t)
 declare sub png_write_chunk_end(byval png_ptr as png_structp)
 declare function png_create_info_struct(byval png_ptr as png_structp) as png_infop
-declare sub png_info_init(byval info_ptr as png_infop)
-#define png_info_init(info_ptr) '' TODO: png_info_init_3(&info_ptr, png_sizeof(png_info));
+declare sub png_info_init_ alias "png_info_init"(byval info_ptr as png_infop)
+#define png_info_init(info_ptr) png_info_init_3(@info_ptr, png_sizeof(png_info))
 declare sub png_info_init_3(byval info_ptr as png_infopp, byval png_info_struct_size as png_size_t)
 declare sub png_write_info_before_PLTE(byval png_ptr as png_structp, byval info_ptr as png_infop)
 declare sub png_write_info(byval png_ptr as png_structp, byval info_ptr as png_infop)
@@ -946,13 +956,13 @@ declare function png_get_user_height_max(byval png_ptr as png_structp) as png_ui
 #macro png_composite(composite, fg, alpha, bg)
 	scope
 		dim temp as png_uint_16 = cast(png_uint_16, ((cast(png_uint_16, (fg)) * cast(png_uint_16, (alpha))) + (cast(png_uint_16, (bg)) * cast(png_uint_16, 255 - cast(png_uint_16, (alpha))))) + cast(png_uint_16, 128))
-		'' TODO: (composite) = (png_byte)((temp + (temp >> 8)) >> 8);
+		(composite) = cast(png_byte, ((temp + (temp shr 8)) shr 8))
 	end scope
 #endmacro
 #macro png_composite_16(composite, fg, alpha, bg)
 	scope
 		dim temp as png_uint_32 = cast(png_uint_32, ((cast(png_uint_32, (fg)) * cast(png_uint_32, (alpha))) + (cast(png_uint_32, (bg)) * cast(png_uint_32, cast(clong, 65535) - cast(png_uint_32, (alpha))))) + cast(png_uint_32, cast(clong, 32768)))
-		'' TODO: (composite) = (png_uint_16)((temp + (temp >> 16)) >> 16);
+		(composite) = cast(png_uint_16, ((temp + (temp shr 16)) shr 16))
 	end scope
 #endmacro
 declare function png_get_uint_32(byval buf as png_bytep) as png_uint_32
