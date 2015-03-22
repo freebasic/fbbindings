@@ -1,9 +1,14 @@
 #pragma once
 
-#include once "inttypes.bi"
-#include once "crt/sys/types.bi"
+#inclib "zip"
+#inclib "z"
+
 #include once "crt/stdio.bi"
 #include once "crt/time.bi"
+#include once "crt/stdint.bi"
+
+'' The following symbols have been renamed:
+''     #define ZIP_STAT_INDEX => ZIP_STAT_INDEX_
 
 extern "C"
 
@@ -140,7 +145,7 @@ end enum
 
 #define ZIP_SOURCE_ERR_LOWER (-2)
 #define ZIP_STAT_NAME &h0001u
-#define ZIP_STAT_INDEX &h0002u
+#define ZIP_STAT_INDEX_ &h0002u
 #define ZIP_STAT_SIZE &h0004u
 #define ZIP_STAT_COMP_SIZE &h0008u
 #define ZIP_STAT_MTIME &h0010u
@@ -164,6 +169,9 @@ end type
 
 type zip_flags_t as zip_uint32_t
 type zip_source_callback as function(byval as any ptr, byval as any ptr, byval as zip_uint64_t, byval as zip_source_cmd) as zip_int64_t
+type zip as zip_
+type zip_source as zip_source_
+
 declare function zip_add(byval as zip ptr, byval as const zstring ptr, byval as zip_source ptr) as zip_int64_t
 declare function zip_add_dir(byval as zip ptr, byval as const zstring ptr) as zip_int64_t
 declare function zip_get_file_comment(byval as zip ptr, byval as zip_uint64_t, byval as long ptr, byval as long) as const zstring ptr
@@ -180,6 +188,7 @@ declare sub zip_error_clear(byval as zip ptr)
 declare sub zip_error_get(byval as zip ptr, byval as long ptr, byval as long ptr)
 declare function zip_error_get_sys_type(byval as long) as long
 declare function zip_error_to_str(byval as zstring ptr, byval as zip_uint64_t, byval as long, byval as long) as long
+type zip_file as zip_file_
 declare function zip_fclose(byval as zip_file ptr) as long
 declare function zip_fdopen(byval as long, byval as long, byval as long ptr) as zip ptr
 declare function zip_file_add(byval as zip ptr, byval as const zstring ptr, byval as zip_source ptr, byval as zip_flags_t) as zip_int64_t
