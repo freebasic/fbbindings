@@ -1,7 +1,4 @@
 -fbfroginclude limits.h
--removedefine FFI_EXTERN
--noexpand FFI_TRAMPOLINE_SIZE
--noexpand FFI_SIZEOF_ARG
 
 -nodefaultscript
 
@@ -16,3 +13,23 @@
 -ifdef __FB_64BIT__
 	-define __FBFROG_64BIT__
 -endif
+
+-inclib ffi
+-removedefine FFI_EXTERN
+-noexpand FFI_TRAMPOLINE_SIZE
+-noexpand FFI_SIZEOF_ARG
+
+-renametypedef FFI_TYPE FFI_TYPE_
+-renamedefine FFI_TYPE_VOID       FFI_TYPE_VOID_
+-renamedefine FFI_TYPE_FLOAT      FFI_TYPE_FLOAT_
+-renamedefine FFI_TYPE_DOUBLE     FFI_TYPE_DOUBLE_
+-renamedefine FFI_TYPE_LONGDOUBLE FFI_TYPE_LONGDOUBLE_
+-renamedefine FFI_TYPE_UINT8      FFI_TYPE_UINT8_
+-renamedefine FFI_TYPE_SINT8      FFI_TYPE_SINT8_
+-renamedefine FFI_TYPE_UINT16     FFI_TYPE_UINT16_
+-renamedefine FFI_TYPE_SINT16     FFI_TYPE_SINT16_
+-renamedefine FFI_TYPE_UINT32     FFI_TYPE_UINT32_
+-renamedefine FFI_TYPE_SINT32     FFI_TYPE_SINT32_
+-renamedefine FFI_TYPE_UINT64     FFI_TYPE_UINT64_
+-renamedefine FFI_TYPE_SINT64     FFI_TYPE_SINT64_
+-renamedefine FFI_TYPE_POINTER    FFI_TYPE_POINTER_
