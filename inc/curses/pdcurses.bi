@@ -1,5 +1,7 @@
 #pragma once
 
+#inclib "pdcurses"
+
 #include once "crt/long.bi"
 #include once "crt/stdarg.bi"
 #include once "crt/stddef.bi"
@@ -8,6 +10,16 @@
 #ifdef PDC_WIDE
 	#include once "crt/wchar.bi"
 #endif
+
+'' The following symbols have been renamed:
+''     #define ERR => ERR_
+''     typedef WINDOW => WINDOW_
+''     struct SCREEN => SCREEN_
+''     procedure beep => beep_
+''     procedure clear => clear_
+''     procedure erase => erase_
+''     procedure instr => instr_
+''     procedure getmouse => getmouse_
 
 extern "C"
 
@@ -20,15 +32,10 @@ extern "C"
 #define CHTYPE_LONG 1
 #define FALSE 0
 #define TRUE 1
-#define ERR (-1)
+#define ERR_ (-1)
 #define OK 0
 type bool as ubyte
-
-#if defined(__FB_WIN32__) or (defined(__FB_LINUX__) and (not defined(__FB_64BIT__))) or defined(__FB_DOS__)
-	type chtype as culong
-#else
-	type chtype as ulong
-#endif
+type chtype as ulong
 
 #ifdef PDC_WIDE
 	type cchar_t as chtype
@@ -65,7 +72,7 @@ end type
 #define MOUSE_MOVED (Mouse_status.changes and PDC_MOUSE_MOVED)
 #define MOUSE_POS_REPORT (Mouse_status.changes and PDC_MOUSE_POSITION)
 #define BUTTON_CHANGED(x) (Mouse_status.changes and (1 shl ((x) - 1)))
-#define BUTTON_STATUS(x) '' TODO: (Mouse_status.button[(x) - 1])
+#define BUTTON_STATUS(x) (Mouse_status.button((x) - 1))
 #define MOUSE_WHEEL_UP (Mouse_status.changes and PDC_MOUSE_WHEEL_UP)
 #define MOUSE_WHEEL_DOWN (Mouse_status.changes and PDC_MOUSE_WHEEL_DOWN)
 #define BUTTON1_RELEASED cast(clong, &h00000001)
@@ -144,9 +151,9 @@ type _win
 	_parent as _win ptr
 end type
 
-type WINDOW as _win
+type WINDOW_ as _win
 
-type SCREEN
+type SCREEN_
 	alive as bool
 	autocr as bool
 	cbreak as bool
@@ -169,7 +176,7 @@ type SCREEN
 	_map_mbe_to_key as culong
 	mouse_wait as long
 	slklines as long
-	slk_winptr as WINDOW ptr
+	slk_winptr as WINDOW_ ptr
 	linesrippedoff as long
 	linesrippedoffontop as long
 	delaytenths as long
@@ -184,29 +191,36 @@ end type
 #if defined(__FB_WIN32__) and defined(PDC_DLL_BUILD)
 	extern import LINES as long
 	extern import COLS as long
-	extern import stdscr as WINDOW ptr
-	extern import curscr as WINDOW ptr
-	extern import SP as SCREEN ptr
+	extern import stdscr as WINDOW_ ptr
+	extern import curscr as WINDOW_ ptr
+	extern import SP as SCREEN_ ptr
 	extern import Mouse_status as MOUSE_STATUS
 	extern import COLORS as long
 	extern import COLOR_PAIRS as long
 	extern import TABSIZE as long
-	extern import acs_map(0 to ...) as chtype
-	extern import ttytype as zstring * ...
 #else
 	extern LINES as long
 	extern COLS as long
-	extern stdscr as WINDOW ptr
-	extern curscr as WINDOW ptr
-	extern SP as SCREEN ptr
+	extern stdscr as WINDOW_ ptr
+	extern curscr as WINDOW_ ptr
+	extern SP as SCREEN_ ptr
 	extern Mouse_status as MOUSE_STATUS
 	extern COLORS as long
 	extern COLOR_PAIRS as long
 	extern TABSIZE as long
-	extern acs_map(0 to ...) as chtype
-	extern ttytype as zstring * ...
 #endif
 
+#define acs_map(i) ((@__acs_map)[i])
+
+#if defined(__FB_WIN32__) and defined(PDC_DLL_BUILD)
+	extern import __acs_map alias "acs_map" as chtype
+	extern import __ttytype alias "ttytype" as byte
+#else
+	extern __acs_map alias "acs_map" as chtype
+	extern __ttytype alias "ttytype" as byte
+#endif
+
+#define ttytype (*cptr(zstring ptr, @__ttytype))
 #define A_NORMAL cast(chtype, 0)
 #define A_ALTCHARSET cast(chtype, &h00010000)
 #define A_RIGHTLINE cast(chtype, &h00020000)
@@ -588,75 +602,75 @@ declare function attr_off(byval as attr_t, byval as any ptr) as long
 declare function attr_on(byval as attr_t, byval as any ptr) as long
 declare function attr_set(byval as attr_t, byval as short, byval as any ptr) as long
 declare function baudrate() as long
-declare function beep() as long
+declare function beep_ alias "beep"() as long
 declare function bkgd(byval as chtype) as long
 declare sub bkgdset(byval as chtype)
 declare function border(byval as chtype, byval as chtype, byval as chtype, byval as chtype, byval as chtype, byval as chtype, byval as chtype, byval as chtype) as long
-declare function box(byval as WINDOW ptr, byval as chtype, byval as chtype) as long
+declare function box(byval as WINDOW_ ptr, byval as chtype, byval as chtype) as long
 declare function can_change_color() as bool
 declare function cbreak() as long
 declare function chgat(byval as long, byval as attr_t, byval as short, byval as const any ptr) as long
-declare function clearok(byval as WINDOW ptr, byval as bool) as long
-declare function clear() as long
+declare function clearok(byval as WINDOW_ ptr, byval as bool) as long
+declare function clear_ alias "clear"() as long
 declare function clrtobot() as long
 declare function clrtoeol() as long
 declare function color_content(byval as short, byval as short ptr, byval as short ptr, byval as short ptr) as long
 declare function color_set(byval as short, byval as any ptr) as long
-declare function copywin(byval as const WINDOW ptr, byval as WINDOW ptr, byval as long, byval as long, byval as long, byval as long, byval as long, byval as long, byval as long) as long
+declare function copywin(byval as const WINDOW_ ptr, byval as WINDOW_ ptr, byval as long, byval as long, byval as long, byval as long, byval as long, byval as long, byval as long) as long
 declare function curs_set(byval as long) as long
 declare function def_prog_mode() as long
 declare function def_shell_mode() as long
 declare function delay_output(byval as long) as long
 declare function delch() as long
 declare function deleteln() as long
-declare sub delscreen(byval as SCREEN ptr)
-declare function delwin(byval as WINDOW ptr) as long
-declare function derwin(byval as WINDOW ptr, byval as long, byval as long, byval as long, byval as long) as WINDOW ptr
+declare sub delscreen(byval as SCREEN_ ptr)
+declare function delwin(byval as WINDOW_ ptr) as long
+declare function derwin(byval as WINDOW_ ptr, byval as long, byval as long, byval as long, byval as long) as WINDOW_ ptr
 declare function doupdate() as long
-declare function dupwin(byval as WINDOW ptr) as WINDOW ptr
+declare function dupwin(byval as WINDOW_ ptr) as WINDOW_ ptr
 declare function echochar(byval as const chtype) as long
 declare function echo() as long
 declare function endwin() as long
 declare function erasechar() as byte
-declare function erase() as long
+declare function erase_ alias "erase"() as long
 declare sub filter()
 declare function flash() as long
 declare function flushinp() as long
-declare function getbkgd(byval as WINDOW ptr) as chtype
+declare function getbkgd(byval as WINDOW_ ptr) as chtype
 declare function getnstr(byval as zstring ptr, byval as long) as long
 declare function getstr(byval as zstring ptr) as long
-declare function getwin(byval as FILE ptr) as WINDOW ptr
+declare function getwin(byval as FILE ptr) as WINDOW_ ptr
 declare function halfdelay(byval as long) as long
 declare function has_colors() as bool
 declare function has_ic() as bool
 declare function has_il() as bool
 declare function hline(byval as chtype, byval as long) as long
-declare sub idcok(byval as WINDOW ptr, byval as bool)
-declare function idlok(byval as WINDOW ptr, byval as bool) as long
-declare sub immedok(byval as WINDOW ptr, byval as bool)
+declare sub idcok(byval as WINDOW_ ptr, byval as bool)
+declare function idlok(byval as WINDOW_ ptr, byval as bool) as long
+declare sub immedok(byval as WINDOW_ ptr, byval as bool)
 declare function inchnstr(byval as chtype ptr, byval as long) as long
 declare function inchstr(byval as chtype ptr) as long
 declare function inch() as chtype
 declare function init_color(byval as short, byval as short, byval as short, byval as short) as long
 declare function init_pair(byval as short, byval as short, byval as short) as long
-declare function initscr() as WINDOW ptr
+declare function initscr() as WINDOW_ ptr
 declare function innstr(byval as zstring ptr, byval as long) as long
 declare function insch(byval as chtype) as long
 declare function insdelln(byval as long) as long
 declare function insertln() as long
 declare function insnstr(byval as const zstring ptr, byval as long) as long
 declare function insstr(byval as const zstring ptr) as long
-declare function instr(byval as zstring ptr) as long
-declare function intrflush(byval as WINDOW ptr, byval as bool) as long
+declare function instr_ alias "instr"(byval as zstring ptr) as long
+declare function intrflush(byval as WINDOW_ ptr, byval as bool) as long
 declare function isendwin() as bool
-declare function is_linetouched(byval as WINDOW ptr, byval as long) as bool
-declare function is_wintouched(byval as WINDOW ptr) as bool
+declare function is_linetouched(byval as WINDOW_ ptr, byval as long) as bool
+declare function is_wintouched(byval as WINDOW_ ptr) as bool
 declare function keyname(byval as long) as zstring ptr
-declare function keypad(byval as WINDOW ptr, byval as bool) as long
+declare function keypad(byval as WINDOW_ ptr, byval as bool) as long
 declare function killchar() as byte
-declare function leaveok(byval as WINDOW ptr, byval as bool) as long
+declare function leaveok(byval as WINDOW_ ptr, byval as bool) as long
 declare function longname() as zstring ptr
-declare function meta(byval as WINDOW ptr, byval as bool) as long
+declare function meta(byval as WINDOW_ ptr, byval as bool) as long
 declare function move(byval as long, byval as long) as long
 declare function mvaddch(byval as long, byval as long, byval as const chtype) as long
 declare function mvaddchnstr(byval as long, byval as long, byval as const chtype ptr, byval as long) as long
@@ -666,7 +680,7 @@ declare function mvaddstr(byval as long, byval as long, byval as const zstring p
 declare function mvchgat(byval as long, byval as long, byval as long, byval as attr_t, byval as short, byval as const any ptr) as long
 declare function mvcur(byval as long, byval as long, byval as long, byval as long) as long
 declare function mvdelch(byval as long, byval as long) as long
-declare function mvderwin(byval as WINDOW ptr, byval as long, byval as long) as long
+declare function mvderwin(byval as WINDOW_ ptr, byval as long, byval as long) as long
 declare function mvgetch(byval as long, byval as long) as long
 declare function mvgetnstr(byval as long, byval as long, byval as zstring ptr, byval as long) as long
 declare function mvgetstr(byval as long, byval as long, byval as zstring ptr) as long
@@ -682,57 +696,57 @@ declare function mvinstr(byval as long, byval as long, byval as zstring ptr) as 
 declare function mvprintw(byval as long, byval as long, byval as const zstring ptr, ...) as long
 declare function mvscanw(byval as long, byval as long, byval as const zstring ptr, ...) as long
 declare function mvvline(byval as long, byval as long, byval as chtype, byval as long) as long
-declare function mvwaddchnstr(byval as WINDOW ptr, byval as long, byval as long, byval as const chtype ptr, byval as long) as long
-declare function mvwaddchstr(byval as WINDOW ptr, byval as long, byval as long, byval as const chtype ptr) as long
-declare function mvwaddch(byval as WINDOW ptr, byval as long, byval as long, byval as const chtype) as long
-declare function mvwaddnstr(byval as WINDOW ptr, byval as long, byval as long, byval as const zstring ptr, byval as long) as long
-declare function mvwaddstr(byval as WINDOW ptr, byval as long, byval as long, byval as const zstring ptr) as long
-declare function mvwchgat(byval as WINDOW ptr, byval as long, byval as long, byval as long, byval as attr_t, byval as short, byval as const any ptr) as long
-declare function mvwdelch(byval as WINDOW ptr, byval as long, byval as long) as long
-declare function mvwgetch(byval as WINDOW ptr, byval as long, byval as long) as long
-declare function mvwgetnstr(byval as WINDOW ptr, byval as long, byval as long, byval as zstring ptr, byval as long) as long
-declare function mvwgetstr(byval as WINDOW ptr, byval as long, byval as long, byval as zstring ptr) as long
-declare function mvwhline(byval as WINDOW ptr, byval as long, byval as long, byval as chtype, byval as long) as long
-declare function mvwinchnstr(byval as WINDOW ptr, byval as long, byval as long, byval as chtype ptr, byval as long) as long
-declare function mvwinchstr(byval as WINDOW ptr, byval as long, byval as long, byval as chtype ptr) as long
-declare function mvwinch(byval as WINDOW ptr, byval as long, byval as long) as chtype
-declare function mvwinnstr(byval as WINDOW ptr, byval as long, byval as long, byval as zstring ptr, byval as long) as long
-declare function mvwinsch(byval as WINDOW ptr, byval as long, byval as long, byval as chtype) as long
-declare function mvwinsnstr(byval as WINDOW ptr, byval as long, byval as long, byval as const zstring ptr, byval as long) as long
-declare function mvwinsstr(byval as WINDOW ptr, byval as long, byval as long, byval as const zstring ptr) as long
-declare function mvwinstr(byval as WINDOW ptr, byval as long, byval as long, byval as zstring ptr) as long
-declare function mvwin(byval as WINDOW ptr, byval as long, byval as long) as long
-declare function mvwprintw(byval as WINDOW ptr, byval as long, byval as long, byval as const zstring ptr, ...) as long
-declare function mvwscanw(byval as WINDOW ptr, byval as long, byval as long, byval as const zstring ptr, ...) as long
-declare function mvwvline(byval as WINDOW ptr, byval as long, byval as long, byval as chtype, byval as long) as long
+declare function mvwaddchnstr(byval as WINDOW_ ptr, byval as long, byval as long, byval as const chtype ptr, byval as long) as long
+declare function mvwaddchstr(byval as WINDOW_ ptr, byval as long, byval as long, byval as const chtype ptr) as long
+declare function mvwaddch(byval as WINDOW_ ptr, byval as long, byval as long, byval as const chtype) as long
+declare function mvwaddnstr(byval as WINDOW_ ptr, byval as long, byval as long, byval as const zstring ptr, byval as long) as long
+declare function mvwaddstr(byval as WINDOW_ ptr, byval as long, byval as long, byval as const zstring ptr) as long
+declare function mvwchgat(byval as WINDOW_ ptr, byval as long, byval as long, byval as long, byval as attr_t, byval as short, byval as const any ptr) as long
+declare function mvwdelch(byval as WINDOW_ ptr, byval as long, byval as long) as long
+declare function mvwgetch(byval as WINDOW_ ptr, byval as long, byval as long) as long
+declare function mvwgetnstr(byval as WINDOW_ ptr, byval as long, byval as long, byval as zstring ptr, byval as long) as long
+declare function mvwgetstr(byval as WINDOW_ ptr, byval as long, byval as long, byval as zstring ptr) as long
+declare function mvwhline(byval as WINDOW_ ptr, byval as long, byval as long, byval as chtype, byval as long) as long
+declare function mvwinchnstr(byval as WINDOW_ ptr, byval as long, byval as long, byval as chtype ptr, byval as long) as long
+declare function mvwinchstr(byval as WINDOW_ ptr, byval as long, byval as long, byval as chtype ptr) as long
+declare function mvwinch(byval as WINDOW_ ptr, byval as long, byval as long) as chtype
+declare function mvwinnstr(byval as WINDOW_ ptr, byval as long, byval as long, byval as zstring ptr, byval as long) as long
+declare function mvwinsch(byval as WINDOW_ ptr, byval as long, byval as long, byval as chtype) as long
+declare function mvwinsnstr(byval as WINDOW_ ptr, byval as long, byval as long, byval as const zstring ptr, byval as long) as long
+declare function mvwinsstr(byval as WINDOW_ ptr, byval as long, byval as long, byval as const zstring ptr) as long
+declare function mvwinstr(byval as WINDOW_ ptr, byval as long, byval as long, byval as zstring ptr) as long
+declare function mvwin(byval as WINDOW_ ptr, byval as long, byval as long) as long
+declare function mvwprintw(byval as WINDOW_ ptr, byval as long, byval as long, byval as const zstring ptr, ...) as long
+declare function mvwscanw(byval as WINDOW_ ptr, byval as long, byval as long, byval as const zstring ptr, ...) as long
+declare function mvwvline(byval as WINDOW_ ptr, byval as long, byval as long, byval as chtype, byval as long) as long
 declare function napms(byval as long) as long
-declare function newpad(byval as long, byval as long) as WINDOW ptr
-declare function newterm(byval as const zstring ptr, byval as FILE ptr, byval as FILE ptr) as SCREEN ptr
-declare function newwin(byval as long, byval as long, byval as long, byval as long) as WINDOW ptr
+declare function newpad(byval as long, byval as long) as WINDOW_ ptr
+declare function newterm(byval as const zstring ptr, byval as FILE ptr, byval as FILE ptr) as SCREEN_ ptr
+declare function newwin(byval as long, byval as long, byval as long, byval as long) as WINDOW_ ptr
 declare function nl() as long
 declare function nocbreak() as long
-declare function nodelay(byval as WINDOW ptr, byval as bool) as long
+declare function nodelay(byval as WINDOW_ ptr, byval as bool) as long
 declare function noecho() as long
 declare function nonl() as long
 declare sub noqiflush()
 declare function noraw() as long
-declare function notimeout(byval as WINDOW ptr, byval as bool) as long
-declare function overlay(byval as const WINDOW ptr, byval as WINDOW ptr) as long
-declare function overwrite(byval as const WINDOW ptr, byval as WINDOW ptr) as long
+declare function notimeout(byval as WINDOW_ ptr, byval as bool) as long
+declare function overlay(byval as const WINDOW_ ptr, byval as WINDOW_ ptr) as long
+declare function overwrite(byval as const WINDOW_ ptr, byval as WINDOW_ ptr) as long
 declare function pair_content(byval as short, byval as short ptr, byval as short ptr) as long
-declare function pechochar(byval as WINDOW ptr, byval as chtype) as long
-declare function pnoutrefresh(byval as WINDOW ptr, byval as long, byval as long, byval as long, byval as long, byval as long, byval as long) as long
-declare function prefresh(byval as WINDOW ptr, byval as long, byval as long, byval as long, byval as long, byval as long, byval as long) as long
+declare function pechochar(byval as WINDOW_ ptr, byval as chtype) as long
+declare function pnoutrefresh(byval as WINDOW_ ptr, byval as long, byval as long, byval as long, byval as long, byval as long, byval as long) as long
+declare function prefresh(byval as WINDOW_ ptr, byval as long, byval as long, byval as long, byval as long, byval as long, byval as long) as long
 declare function printw(byval as const zstring ptr, ...) as long
-declare function putwin(byval as WINDOW ptr, byval as FILE ptr) as long
+declare function putwin(byval as WINDOW_ ptr, byval as FILE ptr) as long
 declare sub qiflush()
 declare function raw() as long
-declare function redrawwin(byval as WINDOW ptr) as long
+declare function redrawwin(byval as WINDOW_ ptr) as long
 declare function refresh() as long
 declare function reset_prog_mode() as long
 declare function reset_shell_mode() as long
 declare function resetty() as long
-declare function ripoffline(byval as long, byval as function(byval as WINDOW ptr, byval as long) as long) as long
+declare function ripoffline(byval as long, byval as function(byval as WINDOW_ ptr, byval as long) as long) as long
 declare function savetty() as long
 declare function scanw(byval as const zstring ptr, ...) as long
 declare function scr_dump(byval as const zstring ptr) as long
@@ -740,9 +754,9 @@ declare function scr_init(byval as const zstring ptr) as long
 declare function scr_restore(byval as const zstring ptr) as long
 declare function scr_set(byval as const zstring ptr) as long
 declare function scrl(byval as long) as long
-declare function scroll(byval as WINDOW ptr) as long
-declare function scrollok(byval as WINDOW ptr, byval as bool) as long
-declare function set_term(byval as SCREEN ptr) as SCREEN ptr
+declare function scroll(byval as WINDOW_ ptr) as long
+declare function scrollok(byval as WINDOW_ ptr, byval as bool) as long
+declare function set_term(byval as SCREEN_ ptr) as SCREEN_ ptr
 declare function setscrreg(byval as long, byval as long) as long
 declare function slk_attroff(byval as const chtype) as long
 declare function slk_attr_off(byval as const attr_t, byval as any ptr) as long
@@ -762,81 +776,81 @@ declare function slk_touch() as long
 declare function standend() as long
 declare function standout() as long
 declare function start_color() as long
-declare function subpad(byval as WINDOW ptr, byval as long, byval as long, byval as long, byval as long) as WINDOW ptr
-declare function subwin(byval as WINDOW ptr, byval as long, byval as long, byval as long, byval as long) as WINDOW ptr
-declare function syncok(byval as WINDOW ptr, byval as bool) as long
+declare function subpad(byval as WINDOW_ ptr, byval as long, byval as long, byval as long, byval as long) as WINDOW_ ptr
+declare function subwin(byval as WINDOW_ ptr, byval as long, byval as long, byval as long, byval as long) as WINDOW_ ptr
+declare function syncok(byval as WINDOW_ ptr, byval as bool) as long
 declare function termattrs() as chtype
 declare function term_attrs() as attr_t
 declare function termname() as zstring ptr
 declare sub timeout(byval as long)
-declare function touchline(byval as WINDOW ptr, byval as long, byval as long) as long
-declare function touchwin(byval as WINDOW ptr) as long
+declare function touchline(byval as WINDOW_ ptr, byval as long, byval as long) as long
+declare function touchwin(byval as WINDOW_ ptr) as long
 declare function typeahead(byval as long) as long
-declare function untouchwin(byval as WINDOW ptr) as long
+declare function untouchwin(byval as WINDOW_ ptr) as long
 declare sub use_env(byval as bool)
 declare function vidattr(byval as chtype) as long
 declare function vid_attr(byval as attr_t, byval as short, byval as any ptr) as long
 declare function vidputs(byval as chtype, byval as function(byval as long) as long) as long
 declare function vid_puts(byval as attr_t, byval as short, byval as any ptr, byval as function(byval as long) as long) as long
 declare function vline(byval as chtype, byval as long) as long
-declare function vw_printw(byval as WINDOW ptr, byval as const zstring ptr, byval as va_list) as long
-declare function vwprintw(byval as WINDOW ptr, byval as const zstring ptr, byval as va_list) as long
-declare function vw_scanw(byval as WINDOW ptr, byval as const zstring ptr, byval as va_list) as long
-declare function vwscanw(byval as WINDOW ptr, byval as const zstring ptr, byval as va_list) as long
-declare function waddchnstr(byval as WINDOW ptr, byval as const chtype ptr, byval as long) as long
-declare function waddchstr(byval as WINDOW ptr, byval as const chtype ptr) as long
-declare function waddch(byval as WINDOW ptr, byval as const chtype) as long
-declare function waddnstr(byval as WINDOW ptr, byval as const zstring ptr, byval as long) as long
-declare function waddstr(byval as WINDOW ptr, byval as const zstring ptr) as long
-declare function wattroff(byval as WINDOW ptr, byval as chtype) as long
-declare function wattron(byval as WINDOW ptr, byval as chtype) as long
-declare function wattrset(byval as WINDOW ptr, byval as chtype) as long
-declare function wattr_get(byval as WINDOW ptr, byval as attr_t ptr, byval as short ptr, byval as any ptr) as long
-declare function wattr_off(byval as WINDOW ptr, byval as attr_t, byval as any ptr) as long
-declare function wattr_on(byval as WINDOW ptr, byval as attr_t, byval as any ptr) as long
-declare function wattr_set(byval as WINDOW ptr, byval as attr_t, byval as short, byval as any ptr) as long
-declare sub wbkgdset(byval as WINDOW ptr, byval as chtype)
-declare function wbkgd(byval as WINDOW ptr, byval as chtype) as long
-declare function wborder(byval as WINDOW ptr, byval as chtype, byval as chtype, byval as chtype, byval as chtype, byval as chtype, byval as chtype, byval as chtype, byval as chtype) as long
-declare function wchgat(byval as WINDOW ptr, byval as long, byval as attr_t, byval as short, byval as const any ptr) as long
-declare function wclear(byval as WINDOW ptr) as long
-declare function wclrtobot(byval as WINDOW ptr) as long
-declare function wclrtoeol(byval as WINDOW ptr) as long
-declare function wcolor_set(byval as WINDOW ptr, byval as short, byval as any ptr) as long
-declare sub wcursyncup(byval as WINDOW ptr)
-declare function wdelch(byval as WINDOW ptr) as long
-declare function wdeleteln(byval as WINDOW ptr) as long
-declare function wechochar(byval as WINDOW ptr, byval as const chtype) as long
-declare function werase(byval as WINDOW ptr) as long
-declare function wgetch(byval as WINDOW ptr) as long
-declare function wgetnstr(byval as WINDOW ptr, byval as zstring ptr, byval as long) as long
-declare function wgetstr(byval as WINDOW ptr, byval as zstring ptr) as long
-declare function whline(byval as WINDOW ptr, byval as chtype, byval as long) as long
-declare function winchnstr(byval as WINDOW ptr, byval as chtype ptr, byval as long) as long
-declare function winchstr(byval as WINDOW ptr, byval as chtype ptr) as long
-declare function winch(byval as WINDOW ptr) as chtype
-declare function winnstr(byval as WINDOW ptr, byval as zstring ptr, byval as long) as long
-declare function winsch(byval as WINDOW ptr, byval as chtype) as long
-declare function winsdelln(byval as WINDOW ptr, byval as long) as long
-declare function winsertln(byval as WINDOW ptr) as long
-declare function winsnstr(byval as WINDOW ptr, byval as const zstring ptr, byval as long) as long
-declare function winsstr(byval as WINDOW ptr, byval as const zstring ptr) as long
-declare function winstr(byval as WINDOW ptr, byval as zstring ptr) as long
-declare function wmove(byval as WINDOW ptr, byval as long, byval as long) as long
-declare function wnoutrefresh(byval as WINDOW ptr) as long
-declare function wprintw(byval as WINDOW ptr, byval as const zstring ptr, ...) as long
-declare function wredrawln(byval as WINDOW ptr, byval as long, byval as long) as long
-declare function wrefresh(byval as WINDOW ptr) as long
-declare function wscanw(byval as WINDOW ptr, byval as const zstring ptr, ...) as long
-declare function wscrl(byval as WINDOW ptr, byval as long) as long
-declare function wsetscrreg(byval as WINDOW ptr, byval as long, byval as long) as long
-declare function wstandend(byval as WINDOW ptr) as long
-declare function wstandout(byval as WINDOW ptr) as long
-declare sub wsyncdown(byval as WINDOW ptr)
-declare sub wsyncup(byval as WINDOW ptr)
-declare sub wtimeout(byval as WINDOW ptr, byval as long)
-declare function wtouchln(byval as WINDOW ptr, byval as long, byval as long, byval as long) as long
-declare function wvline(byval as WINDOW ptr, byval as chtype, byval as long) as long
+declare function vw_printw(byval as WINDOW_ ptr, byval as const zstring ptr, byval as va_list) as long
+declare function vwprintw(byval as WINDOW_ ptr, byval as const zstring ptr, byval as va_list) as long
+declare function vw_scanw(byval as WINDOW_ ptr, byval as const zstring ptr, byval as va_list) as long
+declare function vwscanw(byval as WINDOW_ ptr, byval as const zstring ptr, byval as va_list) as long
+declare function waddchnstr(byval as WINDOW_ ptr, byval as const chtype ptr, byval as long) as long
+declare function waddchstr(byval as WINDOW_ ptr, byval as const chtype ptr) as long
+declare function waddch(byval as WINDOW_ ptr, byval as const chtype) as long
+declare function waddnstr(byval as WINDOW_ ptr, byval as const zstring ptr, byval as long) as long
+declare function waddstr(byval as WINDOW_ ptr, byval as const zstring ptr) as long
+declare function wattroff(byval as WINDOW_ ptr, byval as chtype) as long
+declare function wattron(byval as WINDOW_ ptr, byval as chtype) as long
+declare function wattrset(byval as WINDOW_ ptr, byval as chtype) as long
+declare function wattr_get(byval as WINDOW_ ptr, byval as attr_t ptr, byval as short ptr, byval as any ptr) as long
+declare function wattr_off(byval as WINDOW_ ptr, byval as attr_t, byval as any ptr) as long
+declare function wattr_on(byval as WINDOW_ ptr, byval as attr_t, byval as any ptr) as long
+declare function wattr_set(byval as WINDOW_ ptr, byval as attr_t, byval as short, byval as any ptr) as long
+declare sub wbkgdset(byval as WINDOW_ ptr, byval as chtype)
+declare function wbkgd(byval as WINDOW_ ptr, byval as chtype) as long
+declare function wborder(byval as WINDOW_ ptr, byval as chtype, byval as chtype, byval as chtype, byval as chtype, byval as chtype, byval as chtype, byval as chtype, byval as chtype) as long
+declare function wchgat(byval as WINDOW_ ptr, byval as long, byval as attr_t, byval as short, byval as const any ptr) as long
+declare function wclear(byval as WINDOW_ ptr) as long
+declare function wclrtobot(byval as WINDOW_ ptr) as long
+declare function wclrtoeol(byval as WINDOW_ ptr) as long
+declare function wcolor_set(byval as WINDOW_ ptr, byval as short, byval as any ptr) as long
+declare sub wcursyncup(byval as WINDOW_ ptr)
+declare function wdelch(byval as WINDOW_ ptr) as long
+declare function wdeleteln(byval as WINDOW_ ptr) as long
+declare function wechochar(byval as WINDOW_ ptr, byval as const chtype) as long
+declare function werase(byval as WINDOW_ ptr) as long
+declare function wgetch(byval as WINDOW_ ptr) as long
+declare function wgetnstr(byval as WINDOW_ ptr, byval as zstring ptr, byval as long) as long
+declare function wgetstr(byval as WINDOW_ ptr, byval as zstring ptr) as long
+declare function whline(byval as WINDOW_ ptr, byval as chtype, byval as long) as long
+declare function winchnstr(byval as WINDOW_ ptr, byval as chtype ptr, byval as long) as long
+declare function winchstr(byval as WINDOW_ ptr, byval as chtype ptr) as long
+declare function winch(byval as WINDOW_ ptr) as chtype
+declare function winnstr(byval as WINDOW_ ptr, byval as zstring ptr, byval as long) as long
+declare function winsch(byval as WINDOW_ ptr, byval as chtype) as long
+declare function winsdelln(byval as WINDOW_ ptr, byval as long) as long
+declare function winsertln(byval as WINDOW_ ptr) as long
+declare function winsnstr(byval as WINDOW_ ptr, byval as const zstring ptr, byval as long) as long
+declare function winsstr(byval as WINDOW_ ptr, byval as const zstring ptr) as long
+declare function winstr(byval as WINDOW_ ptr, byval as zstring ptr) as long
+declare function wmove(byval as WINDOW_ ptr, byval as long, byval as long) as long
+declare function wnoutrefresh(byval as WINDOW_ ptr) as long
+declare function wprintw(byval as WINDOW_ ptr, byval as const zstring ptr, ...) as long
+declare function wredrawln(byval as WINDOW_ ptr, byval as long, byval as long) as long
+declare function wrefresh(byval as WINDOW_ ptr) as long
+declare function wscanw(byval as WINDOW_ ptr, byval as const zstring ptr, ...) as long
+declare function wscrl(byval as WINDOW_ ptr, byval as long) as long
+declare function wsetscrreg(byval as WINDOW_ ptr, byval as long, byval as long) as long
+declare function wstandend(byval as WINDOW_ ptr) as long
+declare function wstandout(byval as WINDOW_ ptr) as long
+declare sub wsyncdown(byval as WINDOW_ ptr)
+declare sub wsyncup(byval as WINDOW_ ptr)
+declare sub wtimeout(byval as WINDOW_ ptr, byval as long)
+declare function wtouchln(byval as WINDOW_ ptr, byval as long, byval as long, byval as long) as long
+declare function wvline(byval as WINDOW_ ptr, byval as chtype, byval as long) as long
 
 #ifdef PDC_WIDE
 	declare function addnwstr(byval as const wstring ptr, byval as long) as long
@@ -845,7 +859,7 @@ declare function wvline(byval as WINDOW ptr, byval as chtype, byval as long) as 
 	declare function add_wchnstr(byval as const cchar_t ptr, byval as long) as long
 	declare function add_wchstr(byval as const cchar_t ptr) as long
 	declare function border_set(byval as const cchar_t ptr, byval as const cchar_t ptr, byval as const cchar_t ptr, byval as const cchar_t ptr, byval as const cchar_t ptr, byval as const cchar_t ptr, byval as const cchar_t ptr, byval as const cchar_t ptr) as long
-	declare function box_set(byval as WINDOW ptr, byval as const cchar_t ptr, byval as const cchar_t ptr) as long
+	declare function box_set(byval as WINDOW_ ptr, byval as const cchar_t ptr, byval as const cchar_t ptr) as long
 	declare function echo_wchar(byval as const cchar_t ptr) as long
 	declare function erasewchar(byval as wstring ptr) as long
 	declare function getbkgrnd(byval as cchar_t ptr) as long
@@ -882,64 +896,64 @@ declare function wvline(byval as WINDOW ptr, byval as chtype, byval as long) as 
 	declare function mvin_wchnstr(byval as long, byval as long, byval as cchar_t ptr, byval as long) as long
 	declare function mvin_wchstr(byval as long, byval as long, byval as cchar_t ptr) as long
 	declare function mvvline_set(byval as long, byval as long, byval as const cchar_t ptr, byval as long) as long
-	declare function mvwaddnwstr(byval as WINDOW ptr, byval as long, byval as long, byval as const wstring ptr, byval as long) as long
-	declare function mvwaddwstr(byval as WINDOW ptr, byval as long, byval as long, byval as const wstring ptr) as long
-	declare function mvwadd_wch(byval as WINDOW ptr, byval as long, byval as long, byval as const cchar_t ptr) as long
-	declare function mvwadd_wchnstr(byval as WINDOW ptr, byval as long, byval as long, byval as const cchar_t ptr, byval as long) as long
-	declare function mvwadd_wchstr(byval as WINDOW ptr, byval as long, byval as long, byval as const cchar_t ptr) as long
-	declare function mvwgetn_wstr(byval as WINDOW ptr, byval as long, byval as long, byval as wint_t ptr, byval as long) as long
-	declare function mvwget_wch(byval as WINDOW ptr, byval as long, byval as long, byval as wint_t ptr) as long
-	declare function mvwget_wstr(byval as WINDOW ptr, byval as long, byval as long, byval as wint_t ptr) as long
-	declare function mvwhline_set(byval as WINDOW ptr, byval as long, byval as long, byval as const cchar_t ptr, byval as long) as long
-	declare function mvwinnwstr(byval as WINDOW ptr, byval as long, byval as long, byval as wstring ptr, byval as long) as long
-	declare function mvwins_nwstr(byval as WINDOW ptr, byval as long, byval as long, byval as const wstring ptr, byval as long) as long
-	declare function mvwins_wch(byval as WINDOW ptr, byval as long, byval as long, byval as const cchar_t ptr) as long
-	declare function mvwins_wstr(byval as WINDOW ptr, byval as long, byval as long, byval as const wstring ptr) as long
-	declare function mvwin_wch(byval as WINDOW ptr, byval as long, byval as long, byval as cchar_t ptr) as long
-	declare function mvwin_wchnstr(byval as WINDOW ptr, byval as long, byval as long, byval as cchar_t ptr, byval as long) as long
-	declare function mvwin_wchstr(byval as WINDOW ptr, byval as long, byval as long, byval as cchar_t ptr) as long
-	declare function mvwinwstr(byval as WINDOW ptr, byval as long, byval as long, byval as wstring ptr) as long
-	declare function mvwvline_set(byval as WINDOW ptr, byval as long, byval as long, byval as const cchar_t ptr, byval as long) as long
-	declare function pecho_wchar(byval as WINDOW ptr, byval as const cchar_t ptr) as long
+	declare function mvwaddnwstr(byval as WINDOW_ ptr, byval as long, byval as long, byval as const wstring ptr, byval as long) as long
+	declare function mvwaddwstr(byval as WINDOW_ ptr, byval as long, byval as long, byval as const wstring ptr) as long
+	declare function mvwadd_wch(byval as WINDOW_ ptr, byval as long, byval as long, byval as const cchar_t ptr) as long
+	declare function mvwadd_wchnstr(byval as WINDOW_ ptr, byval as long, byval as long, byval as const cchar_t ptr, byval as long) as long
+	declare function mvwadd_wchstr(byval as WINDOW_ ptr, byval as long, byval as long, byval as const cchar_t ptr) as long
+	declare function mvwgetn_wstr(byval as WINDOW_ ptr, byval as long, byval as long, byval as wint_t ptr, byval as long) as long
+	declare function mvwget_wch(byval as WINDOW_ ptr, byval as long, byval as long, byval as wint_t ptr) as long
+	declare function mvwget_wstr(byval as WINDOW_ ptr, byval as long, byval as long, byval as wint_t ptr) as long
+	declare function mvwhline_set(byval as WINDOW_ ptr, byval as long, byval as long, byval as const cchar_t ptr, byval as long) as long
+	declare function mvwinnwstr(byval as WINDOW_ ptr, byval as long, byval as long, byval as wstring ptr, byval as long) as long
+	declare function mvwins_nwstr(byval as WINDOW_ ptr, byval as long, byval as long, byval as const wstring ptr, byval as long) as long
+	declare function mvwins_wch(byval as WINDOW_ ptr, byval as long, byval as long, byval as const cchar_t ptr) as long
+	declare function mvwins_wstr(byval as WINDOW_ ptr, byval as long, byval as long, byval as const wstring ptr) as long
+	declare function mvwin_wch(byval as WINDOW_ ptr, byval as long, byval as long, byval as cchar_t ptr) as long
+	declare function mvwin_wchnstr(byval as WINDOW_ ptr, byval as long, byval as long, byval as cchar_t ptr, byval as long) as long
+	declare function mvwin_wchstr(byval as WINDOW_ ptr, byval as long, byval as long, byval as cchar_t ptr) as long
+	declare function mvwinwstr(byval as WINDOW_ ptr, byval as long, byval as long, byval as wstring ptr) as long
+	declare function mvwvline_set(byval as WINDOW_ ptr, byval as long, byval as long, byval as const cchar_t ptr, byval as long) as long
+	declare function pecho_wchar(byval as WINDOW_ ptr, byval as const cchar_t ptr) as long
 	declare function setcchar(byval as cchar_t ptr, byval as const wstring ptr, byval as const attr_t, byval as short, byval as const any ptr) as long
 	declare function slk_wset(byval as long, byval as const wstring ptr, byval as long) as long
 	declare function unget_wch(byval as const wchar_t) as long
 	declare function vline_set(byval as const cchar_t ptr, byval as long) as long
-	declare function waddnwstr(byval as WINDOW ptr, byval as const wstring ptr, byval as long) as long
-	declare function waddwstr(byval as WINDOW ptr, byval as const wstring ptr) as long
-	declare function wadd_wch(byval as WINDOW ptr, byval as const cchar_t ptr) as long
-	declare function wadd_wchnstr(byval as WINDOW ptr, byval as const cchar_t ptr, byval as long) as long
-	declare function wadd_wchstr(byval as WINDOW ptr, byval as const cchar_t ptr) as long
-	declare function wbkgrnd(byval as WINDOW ptr, byval as const cchar_t ptr) as long
-	declare sub wbkgrndset(byval as WINDOW ptr, byval as const cchar_t ptr)
-	declare function wborder_set(byval as WINDOW ptr, byval as const cchar_t ptr, byval as const cchar_t ptr, byval as const cchar_t ptr, byval as const cchar_t ptr, byval as const cchar_t ptr, byval as const cchar_t ptr, byval as const cchar_t ptr, byval as const cchar_t ptr) as long
-	declare function wecho_wchar(byval as WINDOW ptr, byval as const cchar_t ptr) as long
-	declare function wgetbkgrnd(byval as WINDOW ptr, byval as cchar_t ptr) as long
-	declare function wgetn_wstr(byval as WINDOW ptr, byval as wint_t ptr, byval as long) as long
-	declare function wget_wch(byval as WINDOW ptr, byval as wint_t ptr) as long
-	declare function wget_wstr(byval as WINDOW ptr, byval as wint_t ptr) as long
-	declare function whline_set(byval as WINDOW ptr, byval as const cchar_t ptr, byval as long) as long
-	declare function winnwstr(byval as WINDOW ptr, byval as wstring ptr, byval as long) as long
-	declare function wins_nwstr(byval as WINDOW ptr, byval as const wstring ptr, byval as long) as long
-	declare function wins_wch(byval as WINDOW ptr, byval as const cchar_t ptr) as long
-	declare function wins_wstr(byval as WINDOW ptr, byval as const wstring ptr) as long
-	declare function winwstr(byval as WINDOW ptr, byval as wstring ptr) as long
-	declare function win_wch(byval as WINDOW ptr, byval as cchar_t ptr) as long
-	declare function win_wchnstr(byval as WINDOW ptr, byval as cchar_t ptr, byval as long) as long
-	declare function win_wchstr(byval as WINDOW ptr, byval as cchar_t ptr) as long
+	declare function waddnwstr(byval as WINDOW_ ptr, byval as const wstring ptr, byval as long) as long
+	declare function waddwstr(byval as WINDOW_ ptr, byval as const wstring ptr) as long
+	declare function wadd_wch(byval as WINDOW_ ptr, byval as const cchar_t ptr) as long
+	declare function wadd_wchnstr(byval as WINDOW_ ptr, byval as const cchar_t ptr, byval as long) as long
+	declare function wadd_wchstr(byval as WINDOW_ ptr, byval as const cchar_t ptr) as long
+	declare function wbkgrnd(byval as WINDOW_ ptr, byval as const cchar_t ptr) as long
+	declare sub wbkgrndset(byval as WINDOW_ ptr, byval as const cchar_t ptr)
+	declare function wborder_set(byval as WINDOW_ ptr, byval as const cchar_t ptr, byval as const cchar_t ptr, byval as const cchar_t ptr, byval as const cchar_t ptr, byval as const cchar_t ptr, byval as const cchar_t ptr, byval as const cchar_t ptr, byval as const cchar_t ptr) as long
+	declare function wecho_wchar(byval as WINDOW_ ptr, byval as const cchar_t ptr) as long
+	declare function wgetbkgrnd(byval as WINDOW_ ptr, byval as cchar_t ptr) as long
+	declare function wgetn_wstr(byval as WINDOW_ ptr, byval as wint_t ptr, byval as long) as long
+	declare function wget_wch(byval as WINDOW_ ptr, byval as wint_t ptr) as long
+	declare function wget_wstr(byval as WINDOW_ ptr, byval as wint_t ptr) as long
+	declare function whline_set(byval as WINDOW_ ptr, byval as const cchar_t ptr, byval as long) as long
+	declare function winnwstr(byval as WINDOW_ ptr, byval as wstring ptr, byval as long) as long
+	declare function wins_nwstr(byval as WINDOW_ ptr, byval as const wstring ptr, byval as long) as long
+	declare function wins_wch(byval as WINDOW_ ptr, byval as const cchar_t ptr) as long
+	declare function wins_wstr(byval as WINDOW_ ptr, byval as const wstring ptr) as long
+	declare function winwstr(byval as WINDOW_ ptr, byval as wstring ptr) as long
+	declare function win_wch(byval as WINDOW_ ptr, byval as cchar_t ptr) as long
+	declare function win_wchnstr(byval as WINDOW_ ptr, byval as cchar_t ptr, byval as long) as long
+	declare function win_wchstr(byval as WINDOW_ ptr, byval as cchar_t ptr) as long
 	declare function wunctrl(byval as cchar_t ptr) as wstring ptr
-	declare function wvline_set(byval as WINDOW ptr, byval as const cchar_t ptr, byval as long) as long
+	declare function wvline_set(byval as WINDOW_ ptr, byval as const cchar_t ptr, byval as long) as long
 #endif
 
-declare function getattrs(byval as WINDOW ptr) as chtype
-declare function getbegx(byval as WINDOW ptr) as long
-declare function getbegy(byval as WINDOW ptr) as long
-declare function getmaxx(byval as WINDOW ptr) as long
-declare function getmaxy(byval as WINDOW ptr) as long
-declare function getparx(byval as WINDOW ptr) as long
-declare function getpary(byval as WINDOW ptr) as long
-declare function getcurx(byval as WINDOW ptr) as long
-declare function getcury(byval as WINDOW ptr) as long
+declare function getattrs(byval as WINDOW_ ptr) as chtype
+declare function getbegx(byval as WINDOW_ ptr) as long
+declare function getbegy(byval as WINDOW_ ptr) as long
+declare function getmaxx(byval as WINDOW_ ptr) as long
+declare function getmaxy(byval as WINDOW_ ptr) as long
+declare function getparx(byval as WINDOW_ ptr) as long
+declare function getpary(byval as WINDOW_ ptr) as long
+declare function getcurx(byval as WINDOW_ ptr) as long
+declare function getcury(byval as WINDOW_ ptr) as long
 declare sub traceoff()
 declare sub traceon()
 declare function unctrl(byval as chtype) as zstring ptr
@@ -955,21 +969,21 @@ declare function mouse_on(byval as culong) as long
 declare function mouse_off(byval as culong) as long
 declare function request_mouse_pos() as long
 declare function map_button(byval as culong) as long
-declare sub wmouse_position(byval as WINDOW ptr, byval as long ptr, byval as long ptr)
-declare function getmouse() as culong
+declare sub wmouse_position(byval as WINDOW_ ptr, byval as long ptr, byval as long ptr)
+declare function getmouse_ alias "getmouse"() as culong
 declare function getbmap() as culong
 declare function assume_default_colors(byval as long, byval as long) as long
 declare function curses_version() as const zstring ptr
 declare function has_key(byval as long) as bool
 declare function use_default_colors() as long
-declare function wresize(byval as WINDOW ptr, byval as long, byval as long) as long
+declare function wresize(byval as WINDOW_ ptr, byval as long, byval as long) as long
 declare function mouseinterval(byval as long) as long
 declare function mousemask(byval as mmask_t, byval as mmask_t ptr) as mmask_t
 declare function mouse_trafo(byval as long ptr, byval as long ptr, byval as bool) as bool
 declare function nc_getmouse(byval as MEVENT ptr) as long
 declare function ungetmouse(byval as MEVENT ptr) as long
-declare function wenclose(byval as const WINDOW ptr, byval as long, byval as long) as bool
-declare function wmouse_trafo(byval as const WINDOW ptr, byval as long ptr, byval as long ptr, byval as bool) as bool
+declare function wenclose(byval as const WINDOW_ ptr, byval as long, byval as long) as bool
+declare function wmouse_trafo(byval as const WINDOW_ ptr, byval as long ptr, byval as long ptr, byval as bool) as bool
 declare function addrawch(byval as chtype) as long
 declare function insrawch(byval as chtype) as long
 declare function is_termresized() as bool
@@ -977,15 +991,15 @@ declare function mvaddrawch(byval as long, byval as long, byval as chtype) as lo
 declare function mvdeleteln(byval as long, byval as long) as long
 declare function mvinsertln(byval as long, byval as long) as long
 declare function mvinsrawch(byval as long, byval as long, byval as chtype) as long
-declare function mvwaddrawch(byval as WINDOW ptr, byval as long, byval as long, byval as chtype) as long
-declare function mvwdeleteln(byval as WINDOW ptr, byval as long, byval as long) as long
-declare function mvwinsertln(byval as WINDOW ptr, byval as long, byval as long) as long
-declare function mvwinsrawch(byval as WINDOW ptr, byval as long, byval as long, byval as chtype) as long
+declare function mvwaddrawch(byval as WINDOW_ ptr, byval as long, byval as long, byval as chtype) as long
+declare function mvwdeleteln(byval as WINDOW_ ptr, byval as long, byval as long) as long
+declare function mvwinsertln(byval as WINDOW_ ptr, byval as long, byval as long) as long
+declare function mvwinsrawch(byval as WINDOW_ ptr, byval as long, byval as long, byval as chtype) as long
 declare function raw_output(byval as bool) as long
 declare function resize_term(byval as long, byval as long) as long
-declare function resize_window(byval as WINDOW ptr, byval as long, byval as long) as WINDOW ptr
-declare function waddrawch(byval as WINDOW ptr, byval as chtype) as long
-declare function winsrawch(byval as WINDOW ptr, byval as chtype) as long
+declare function resize_window(byval as WINDOW_ ptr, byval as long, byval as long) as WINDOW_ ptr
+declare function waddrawch(byval as WINDOW_ ptr, byval as chtype) as long
+declare function winsrawch(byval as WINDOW_ ptr, byval as chtype) as long
 declare function wordchar() as byte
 
 #ifdef PDC_WIDE
@@ -1010,15 +1024,17 @@ declare function PDC_save_key_modifiers(byval as bool) as long
 #define ungetch(ch) PDC_ungetch(ch)
 #define COLOR_PAIR(n) ((cast(chtype, (n)) shl PDC_COLOR_SHIFT) and A_COLOR)
 #define PAIR_NUMBER(n) (((n) and A_COLOR) shr PDC_COLOR_SHIFT)
-#define getbegyx(w, y, x) '' TODO: (y = getbegy(w), x = getbegx(w))
-#define getmaxyx(w, y, x) '' TODO: (y = getmaxy(w), x = getmaxx(w))
-#define getparyx(w, y, x) '' TODO: (y = getpary(w), x = getparx(w))
-#define getyx(w, y, x) '' TODO: (y = getcury(w), x = getcurx(w))
+#define getbegyx(w, y, x) y = getbegy(w) : x = getbegx(w))
+#define getmaxyx(w, y, x) y = getmaxy(w) : x = getmaxx(w))
+#define getparyx(w, y, x) y = getpary(w) : x = getparx(w))
+#define getyx(w, y, x) y = getcury(w) : x = getcurx(w))
 #macro getsyx(y, x)
-	scope
-		'' TODO: if (curscr->_leaveit) (y)=(x)=-1;
-		'' TODO: else getyx(curscr,(y),(x));
-	end scope
+	if (curscr->_leaveit) then
+		(y) = -1
+		(x) = -1
+	else
+		getyx(curscr, (y), (x))
+	end if
 #endmacro
 #define PDC_CLIP_SUCCESS 0
 #define PDC_CLIP_ACCESS_ERROR 1

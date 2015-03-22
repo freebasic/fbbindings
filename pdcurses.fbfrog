@@ -12,3 +12,19 @@
 		-define PDC_DLL_BUILD 1
 	-endif
 -endif
+
+-replacements pdcurses.replacements
+
+-inclib pdcurses
+
+-fixunsizedarrays
+
+-renamedefine ERR ERR_
+-renametypedef WINDOW WINDOW_
+-renametypedef SCREEN SCREEN_
+-renametag SCREEN SCREEN_
+-renameproc beep beep_
+-renameproc clear clear_
+-renameproc erase erase_
+-renameproc instr instr_
+-renameproc getmouse getmouse_
