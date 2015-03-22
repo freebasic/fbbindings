@@ -138,27 +138,10 @@ cunit:
 CURL_TITLE := curl-7.39.0
 curl:
 	./downloadextract.sh $(CURL_TITLE) $(CURL_TITLE).tar.lzma "http://curl.haxx.se/download/$(CURL_TITLE).tar.lzma"
-	$(FBFROG) \
+	$(FBFROG) curl.fbfrog \
 		extracted/$(CURL_TITLE)/include/curl/curl.h \
 		-dontemit '*/typecheck-gcc.h' \
-		-emit '*' inc/curl.bi \
-		\
-		-removedefine CINIT \
-		-removedefine CURL_EXTERN \
-		\
-		-noexpand CURLOPTTYPE_LONG \
-		-noexpand CURLOPTTYPE_OBJECTPOINT \
-		-noexpand CURLOPTTYPE_FUNCTIONPOINT \
-		-noexpand CURLOPTTYPE_OFF_T \
-		-noexpand CURLINFO_STRING \
-		-noexpand CURLINFO_LONG \
-		-noexpand CURLINFO_DOUBLE \
-		-noexpand CURLINFO_SLIST \
-		\
-		-removedefine curl_easy_setopt \
-		-removedefine curl_easy_getinfo \
-		-removedefine curl_share_setopt \
-		-removedefine curl_multi_setopt
+		-emit '*' inc/curl.bi
 
 FASTCGI_TITLE := fcgi-2.4.1-SNAP-0311112127
 fastcgi:

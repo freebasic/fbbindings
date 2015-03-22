@@ -1,0 +1,40 @@
+-replacements curl.replacements
+-inclib curl
+
+-removeinclude sys/types.h
+-removeinclude sys/socket.h
+-removeinclude sys/time.h
+-removeinclude time.h
+-removeinclude winsock2.h
+-removeinclude ws2tcpip.h
+-removeinclude typecheck-gcc.h
+
+-addinclude crt/sys/types.bi
+-addinclude crt/time.bi
+-ifdef __FB_WIN32__
+	-addinclude win/winsock2.bi
+	-addinclude win/ws2tcpip.bi
+-else
+	-addinclude crt/sys/socket.bi
+	-addinclude crt/sys/select.bi
+-endif
+
+-renametypedef CURLMSG CURLMSG_
+-renameproc curl_multi_socket curl_multi_socket_
+
+-removedefine CINIT
+-removedefine CURL_EXTERN
+
+-noexpand CURLOPTTYPE_LONG
+-noexpand CURLOPTTYPE_OBJECTPOINT
+-noexpand CURLOPTTYPE_FUNCTIONPOINT
+-noexpand CURLOPTTYPE_OFF_T
+-noexpand CURLINFO_STRING
+-noexpand CURLINFO_LONG
+-noexpand CURLINFO_DOUBLE
+-noexpand CURLINFO_SLIST
+
+-removedefine curl_easy_setopt
+-removedefine curl_easy_getinfo
+-removedefine curl_share_setopt
+-removedefine curl_multi_setopt

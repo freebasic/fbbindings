@@ -1,33 +1,24 @@
 #pragma once
 
+#inclib "curl"
+
 #include once "crt/long.bi"
-
-#ifdef __FB_LINUX__
-	#include once "crt/sys/types.bi"
-	#include once "crt/sys/socket.bi"
-#endif
-
 #include once "crt/stdio.bi"
 #include once "crt/limits.bi"
-
-#if defined(__FB_DOS__) or defined(__FB_WIN32__)
-	#include once "crt/sys/types.bi"
-#endif
-
+#include once "crt/sys/types.bi"
 #include once "crt/time.bi"
 
 #ifdef __FB_WIN32__
-	#include once "winsock2.bi"
-	#include once "ws2tcpip.bi"
-#elseif defined(__FB_DOS__)
+	#include once "win/winsock2.bi"
+	#include once "win/ws2tcpip.bi"
+#else
 	#include once "crt/sys/socket.bi"
+	#include once "crt/sys/select.bi"
 #endif
 
-#if defined(__FB_DOS__) or defined(__FB_LINUX__)
-	#include once "sys/time.bi"
-#endif
-
-#include once "typecheck-gcc.bi"
+'' The following symbols have been renamed:
+''     enum CURLMSG => CURLMSG_
+''     procedure curl_multi_socket => curl_multi_socket_
 
 extern "C"
 
@@ -62,30 +53,17 @@ extern "C"
 #endif
 
 #define CURL_SIZEOF_CURL_OFF_T 8
-
-#if (defined(__FB_LINUX__) and (not defined(__FB_64BIT__))) or defined(__FB_DOS__) or defined(__FB_WIN32__)
-	#define CURL_SUFFIX_CURL_OFF_T LL
-	#define CURL_SUFFIX_CURL_OFF_TU ULL
-#else
-	#define CURL_SUFFIX_CURL_OFF_T L
-	#define CURL_SUFFIX_CURL_OFF_TU UL
-#endif
-
+#define CURL_SUFFIX_CURL_OFF_T LL
+#define CURL_SUFFIX_CURL_OFF_TU ULL
 #define CURL_SIZEOF_CURL_SOCKLEN_T 4
 
 #if defined(__FB_DOS__) or defined(__FB_WIN32__)
 	type curl_socklen_t as long
-#elseif defined(__FB_LINUX__) and (not defined(__FB_64BIT__))
-	type curl_socklen_t as socklen_t
-#endif
-
-#if (defined(__FB_LINUX__) and (not defined(__FB_64BIT__))) or defined(__FB_DOS__) or defined(__FB_WIN32__)
-	type curl_off_t as longint
 #else
 	type curl_socklen_t as socklen_t
-	type curl_off_t as clong
 #endif
 
+type curl_off_t as longint
 #define __CURL_CURLRULES_H
 #define CURL_ISOCPP
 #define __CURL_OFF_T_C_HLPR2(Val, Suffix) Val##Suffix
@@ -1151,7 +1129,7 @@ end enum
 
 #define CURLM_CALL_MULTI_SOCKET CURLM_CALL_MULTI_PERFORM
 
-type CURLMSG as long
+type CURLMSG_ as long
 enum
 	CURLMSG_NONE
 	CURLMSG_DONE
@@ -1164,7 +1142,7 @@ union CURLMsg_data
 end union
 
 type CURLMsg
-	msg as CURLMSG
+	msg as CURLMSG_
 	easy_handle as CURL ptr
 	data as CURLMsg_data
 end type
@@ -1201,7 +1179,7 @@ declare function curl_multi_strerror(byval as CURLMcode) as const zstring ptr
 type curl_socket_callback as function(byval easy as CURL ptr, byval s as curl_socket_t, byval what as long, byval userp as any ptr, byval socketp as any ptr) as long
 type curl_multi_timer_callback as function(byval multi as CURLM ptr, byval timeout_ms as clong, byval userp as any ptr) as long
 
-declare function curl_multi_socket(byval multi_handle as CURLM ptr, byval s as curl_socket_t, byval running_handles as long ptr) as CURLMcode
+declare function curl_multi_socket_ alias "curl_multi_socket"(byval multi_handle as CURLM ptr, byval s as curl_socket_t, byval running_handles as long ptr) as CURLMcode
 declare function curl_multi_socket_action(byval multi_handle as CURLM ptr, byval s as curl_socket_t, byval ev_bitmask as long, byval running_handles as long ptr) as CURLMcode
 declare function curl_multi_socket_all(byval multi_handle as CURLM ptr, byval running_handles as long ptr) as CURLMcode
 #define curl_multi_socket(x, y, z) curl_multi_socket_action(x, y, 0, z)

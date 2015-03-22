@@ -1,0 +1,8 @@
+convert c: typedef long curl_off_t;
+to c: typedef long long curl_off_t;
+
+convert c: #define CURL_SUFFIX_CURL_OFF_T L
+to c:      #define CURL_SUFFIX_CURL_OFF_T LL
+
+convert c: #define CURL_SUFFIX_CURL_OFF_TU UL
+to c:      #define CURL_SUFFIX_CURL_OFF_TU ULL
