@@ -1,3 +1,13 @@
+-inclib z
+
+-removeinclude limits.h
+-removeinclude sys/types.h
+-removeinclude stddef.h
+
+-renametypedef Byte Byte_
+-renametypedef uLong uLong_
+-renamedefine zlib_version zlib_version_
+
 -removedefine UNALIGNED_OK
 -removedefine STDC
 -removedefine STDC99
@@ -10,3 +20,4 @@
 -removedefine ZEXPORT
 -removedefine ZEXPORTVA
 -removedefine FAR
+-removedefine gzgetc
