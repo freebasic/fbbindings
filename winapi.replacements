@@ -199,9 +199,9 @@ to fb:     #define D3DSINCOSCONST2 -0.020833334f, -0.12500000f, 1.0f, 0.50000000
 convert c: #define D3DRMRENDER_PHONG (D3DRMSHADE_PHONG+D3DRMLIGHT_ON+D3DRMFILL_SOLID
 to c:      #define D3DRMRENDER_PHONG (D3DRMSHADE_PHONG + D3DRMLIGHT_ON + D3DRMFILL_SOLID)
 convert c: #define ED_DEVTYPE_MIXER_VIDEO 0x000010OE
-to c:      #define ED_DEVTYPE_MIXER_VIDEO &h0000100E
+to c:      #define ED_DEVTYPE_MIXER_VIDEO 0x0000100E
 convert c: #define ED_DEVTYPE_DVE 0x000010OF
-to c:      #define ED_DEVTYPE_DVE &h0000100F
+to c:      #define ED_DEVTYPE_DVE 0x0000100F
 
 convert c: #define DISEQUENCE_COMPARE(dwSq1, cmp, dwSq2) ((int)((dwSq1) - (dwSq2)) cmp 0)
 to fb:     #define DISEQUENCE_COMPARE(dwSq1, cmp, dwSq2) (clng((dwSq1) - (dwSq2)) cmp 0)
