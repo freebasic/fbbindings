@@ -12,7 +12,7 @@
 #include once "crt/sys/types.bi"
 
 '' The following symbols have been renamed:
-''     constant EOF => EOF_
+''     #define EOF => EOF_
 
 extern "C"
 
@@ -773,7 +773,7 @@ enum
 	ALLEGRO_FILEMODE_ISDIR = 1 shl 5
 end enum
 
-const EOF_ = -1
+#define EOF_ (-1)
 
 type ALLEGRO_FS_INTERFACE_
 	fs_create_entry as function(byval path as const zstring ptr) as ALLEGRO_FS_ENTRY ptr
