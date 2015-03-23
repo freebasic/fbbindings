@@ -1,7 +1,4 @@
 FBFROG := fbfrog
-override FBFROG += -disableconstants
-
-override FBFROG += -disableconstants
 
 ALL := allegro4 allegro5
 ALL += cgui clang cunit curl
