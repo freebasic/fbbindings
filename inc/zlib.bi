@@ -8,8 +8,6 @@
 '' The following symbols have been renamed:
 ''     typedef Byte => Byte_
 ''     typedef uLong => uLong_
-''     inside struct z_stream_s:
-''         field opaque => opaque_
 ''     #define zlib_version => zlib_version_
 
 extern "C"
@@ -41,8 +39,8 @@ const ZLIB_VER_MINOR = 2
 const ZLIB_VER_REVISION = 8
 const ZLIB_VER_SUBREVISION = 0
 
-type alloc_func as function(byval opaque_ as voidpf, byval items as uInt, byval size as uInt) as voidpf
-type free_func as sub(byval opaque_ as voidpf, byval address as voidpf)
+type alloc_func as function(byval opaque as voidpf, byval items as uInt, byval size as uInt) as voidpf
+type free_func as sub(byval opaque as voidpf, byval address as voidpf)
 type internal_state as internal_state_
 
 type z_stream_s
@@ -56,7 +54,7 @@ type z_stream_s
 	state as internal_state ptr
 	zalloc as alloc_func
 	zfree as free_func
-	opaque_ as voidpf
+	opaque as voidpf
 	data_type as long
 	adler as uLong_
 	reserved as uLong_
