@@ -2373,9 +2373,6 @@ declare sub al_findclose(byval info as al_ffblk ptr)
 type LZSS_PACK_DATA as LZSS_PACK_DATA_
 type LZSS_UNPACK_DATA as LZSS_UNPACK_DATA_
 
-type LZSS_PACK_DATA as LZSS_PACK_DATA_
-type LZSS_UNPACK_DATA as LZSS_UNPACK_DATA_
-
 type _al_normal_packfile_details
 	hndl as long
 	flags as long
