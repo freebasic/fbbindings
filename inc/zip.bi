@@ -8,9 +8,6 @@
 #include once "crt/stdint.bi"
 
 '' The following symbols have been renamed:
-''     #define ZIP_STAT_INDEX => ZIP_STAT_INDEX_
-
-'' The following symbols have been renamed:
 ''     enum constant ZIP_SOURCE_FREE => ZIP_SOURCE_FREE_
 ''     #define ZIP_STAT_INDEX => ZIP_STAT_INDEX_
 
