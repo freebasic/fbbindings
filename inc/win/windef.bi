@@ -17,7 +17,7 @@
 
 #define _WINDEF_
 #define _MINWINDEF_
-#define STRICT 1
+const STRICT = 1
 #define BASETYPES
 
 type ULONG as ulong
@@ -28,9 +28,9 @@ type UCHAR as ubyte
 type PUCHAR as UCHAR ptr
 type PSZ as zstring ptr
 
-#define MAX_PATH 260
-#define FALSE 0
-#define TRUE 1
+const MAX_PATH = 260
+const FALSE = 0
+const TRUE = 1
 #define _DEF_WINBOOL_
 
 type WINBOOL as long

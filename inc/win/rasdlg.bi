@@ -14,14 +14,14 @@
 #define _RASDLG_H_
 type RASPBDLGFUNCW as sub(byval as ULONG_PTR, byval as DWORD, byval as LPWSTR, byval as LPVOID)
 type RASPBDLGFUNCA as sub(byval as ULONG_PTR, byval as DWORD, byval as LPSTR, byval as LPVOID)
-#define RASPBDEVENT_AddEntry 1
-#define RASPBDEVENT_EditEntry 2
-#define RASPBDEVENT_RemoveEntry 3
-#define RASPBDEVENT_DialEntry 4
-#define RASPBDEVENT_EditGlobals 5
-#define RASPBDEVENT_NoUser 6
-#define RASPBDEVENT_NoUserEdit 7
-#define RASNOUSER_SmartCard &h00000001
+const RASPBDEVENT_AddEntry = 1
+const RASPBDEVENT_EditEntry = 2
+const RASPBDEVENT_RemoveEntry = 3
+const RASPBDEVENT_DialEntry = 4
+const RASPBDEVENT_EditGlobals = 5
+const RASPBDEVENT_NoUser = 6
+const RASPBDEVENT_NoUserEdit = 7
+const RASNOUSER_SmartCard = &h00000001
 #define RASNOUSERW tagRASNOUSERW
 
 type tagRASNOUSERW field = 4
@@ -53,10 +53,10 @@ end type
 #define LPRASNOUSERW '' TODO: RASNOUSERW*
 #define LPRASNOUSERA '' TODO: RASNOUSERA*
 #define LPRASNOUSER '' TODO: RASNOUSER*
-#define RASPBDFLAG_PositionDlg &h00000001
-#define RASPBDFLAG_ForceCloseOnDial &h00000002
-#define RASPBDFLAG_NoUser &h00000010
-#define RASPBDFLAG_UpdateDefaults &h80000000
+const RASPBDFLAG_PositionDlg = &h00000001
+const RASPBDFLAG_ForceCloseOnDial = &h00000002
+const RASPBDFLAG_NoUser = &h00000010
+const RASPBDFLAG_UpdateDefaults = &h80000000
 #define RASPBDLGW tagRASPBDLGW
 
 type tagRASPBDLGW field = 4
@@ -98,17 +98,17 @@ end type
 #define LPRASPBDLGW '' TODO: RASPBDLGW*
 #define LPRASPBDLGA '' TODO: RASPBDLGA*
 #define LPRASPBDLG '' TODO: RASPBDLG*
-#define RASEDFLAG_PositionDlg &h00000001
-#define RASEDFLAG_NewEntry &h00000002
-#define RASEDFLAG_CloneEntry &h00000004
-#define RASEDFLAG_NoRename &h00000008
-#define RASEDFLAG_ShellOwned &h40000000
-#define RASEDFLAG_NewPhoneEntry &h00000010
-#define RASEDFLAG_NewTunnelEntry &h00000020
-#define RASEDFLAG_NewDirectEntry &h00000040
-#define RASEDFLAG_NewBroadbandEntry &h00000080
-#define RASEDFLAG_InternetEntry &h00000100
-#define RASEDFLAG_NAT &h00000200
+const RASEDFLAG_PositionDlg = &h00000001
+const RASEDFLAG_NewEntry = &h00000002
+const RASEDFLAG_CloneEntry = &h00000004
+const RASEDFLAG_NoRename = &h00000008
+const RASEDFLAG_ShellOwned = &h40000000
+const RASEDFLAG_NewPhoneEntry = &h00000010
+const RASEDFLAG_NewTunnelEntry = &h00000020
+const RASEDFLAG_NewDirectEntry = &h00000040
+const RASEDFLAG_NewBroadbandEntry = &h00000080
+const RASEDFLAG_InternetEntry = &h00000100
+const RASEDFLAG_NAT = &h00000200
 #define RASENTRYDLGW tagRASENTRYDLGW
 
 type tagRASENTRYDLGW field = 4
@@ -146,9 +146,9 @@ end type
 #define LPRASENTRYDLGW '' TODO: RASENTRYDLGW*
 #define LPRASENTRYDLGA '' TODO: RASENTRYDLGA*
 #define LPRASENTRYDLG '' TODO: RASENTRYDLG*
-#define RASDDFLAG_PositionDlg &h00000001
-#define RASDDFLAG_NoPrompt &h00000002
-#define RASDDFLAG_LinkFailure &h80000000
+const RASDDFLAG_PositionDlg = &h00000001
+const RASDDFLAG_NoPrompt = &h00000002
+const RASDDFLAG_LinkFailure = &h80000000
 #define RASDIALDLG tagRASDIALDLG
 
 type tagRASDIALDLG field = 4

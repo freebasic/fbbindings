@@ -9,9 +9,9 @@
 #endif
 
 #define _INC_CUSTCNTL
-#define CCHCCCLASS 32
-#define CCHCCDESC 32
-#define CCHCCTEXT 256
+const CCHCCCLASS = 32
+const CCHCCDESC = 32
+const CCHCCTEXT = 256
 
 type tagCCSTYLEA
 	flStyle as DWORD
@@ -79,7 +79,7 @@ end type
 
 type CCSTYLEFLAGW as tagCCSTYLEFLAGW
 type LPCCSTYLEFLAGW as tagCCSTYLEFLAGW ptr
-#define CCF_NOTEXT &h00000001
+const CCF_NOTEXT = &h00000001
 
 type tagCCINFOA
 	szClass as zstring * 32
