@@ -192,9 +192,9 @@ type PNLA_BLOB as _NLA_BLOB ptr
 type LPNLA_BLOB as _NLA_BLOB ptr
 
 type _WSACMSGHDR
-	cmsg_len as SIZE_T
-	cmsg_level as INT
-	cmsg_type as INT
+	cmsg_len as SIZE_T_
+	cmsg_level as INT_
+	cmsg_type as INT_
 end type
 
 type WSACMSGHDR as _WSACMSGHDR
@@ -212,19 +212,19 @@ type LPWSACMSGHDR as _WSACMSGHDR ptr
 #define MSG_CTRUNC &h0200
 #define MSG_BCAST &h0400
 #define MSG_MCAST &h0800
-type LPFN_WSARECVMSG as function(byval s as SOCKET, byval lpMsg as LPWSAMSG, byval lpdwNumberOfBytesRecvd as LPDWORD, byval lpOverlapped as LPWSAOVERLAPPED, byval lpCompletionRoutine as LPWSAOVERLAPPED_COMPLETION_ROUTINE) as INT
+type LPFN_WSARECVMSG as function(byval s as SOCKET, byval lpMsg as LPWSAMSG, byval lpdwNumberOfBytesRecvd as LPDWORD, byval lpOverlapped as LPWSAOVERLAPPED, byval lpCompletionRoutine as LPWSAOVERLAPPED_COMPLETION_ROUTINE) as INT_
 #define WSAID_WSARECVMSG (&hf689d7c8, &h6f1f, &h436b, (&h8a, &h53, &he5, &h4f, &he3, &h51, &hc3, &h22))
 
 #if _WIN32_WINNT = &h0602
 	type WSAPOLLDATA
 		result as long
 		fds as ULONG
-		timeout as INT
+		timeout as INT_
 		fdArray(0 to -1) as WSAPOLLFD
 	end type
 
 	type LPWSAPOLLDATA as WSAPOLLDATA ptr
-	type LPFN_WSAPOLL as function(byval fdarray as LPWSAPOLLFD, byval nfds as ULONG, byval timeout as INT) as INT
+	type LPFN_WSAPOLL as function(byval fdarray as LPWSAPOLLFD, byval nfds as ULONG, byval timeout as INT_) as INT_
 	#define WSAID_WSAPOLL (&h18C76F85, &hDC66, &h4964, (&h97, &h2E, &h23, &hC2, &h72, &h38, &h31, &h2B))
 
 	type WSASENDMSG
@@ -236,7 +236,7 @@ type LPFN_WSARECVMSG as function(byval s as SOCKET, byval lpMsg as LPWSAMSG, byv
 	end type
 
 	type LPWSASENDMSG as WSASENDMSG ptr
-	type LPFN_WSASENDMSG as function(byval s as SOCKET, byval lpMsg as LPWSAMSG, byval dwFlags as DWORD, byval lpNumberOfBytesSent as LPDWORD, byval lpOverlapped as LPWSAOVERLAPPED, byval lpCompletionRoutine as LPWSAOVERLAPPED_COMPLETION_ROUTINE) as INT
+	type LPFN_WSASENDMSG as function(byval s as SOCKET, byval lpMsg as LPWSAMSG, byval dwFlags as DWORD, byval lpNumberOfBytesSent as LPDWORD, byval lpOverlapped as LPWSAOVERLAPPED, byval lpCompletionRoutine as LPWSAOVERLAPPED_COMPLETION_ROUTINE) as INT_
 	#define WSAID_WSASENDMSG (&ha441e712, &h754f, &h43ca, (&h84, &ha7, &h0d, &hee, &h44, &hcf, &h60, &h6d))
 #endif
 

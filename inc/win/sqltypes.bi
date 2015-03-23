@@ -1,5 +1,8 @@
 #pragma once
 
+'' The following symbols have been renamed:
+''     typedef PTR => PTR_
+
 #define __SQLTYPES
 type SQLCHAR as ubyte
 type SQLSCHAR as byte
@@ -53,7 +56,7 @@ type SSHORT as short
 type SDOUBLE as double
 type LDOUBLE as double
 type SFLOAT as single
-type PTR as any ptr
+type PTR_ as any ptr
 type HENV as any ptr
 type HDBC as any ptr
 type HSTMT as any ptr

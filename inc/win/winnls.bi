@@ -746,7 +746,7 @@ declare function EnumDateFormatsExA(byval lpDateFmtEnumProcEx as DATEFMT_ENUMPRO
 declare function EnumDateFormatsExW(byval lpDateFmtEnumProcEx as DATEFMT_ENUMPROCEXW, byval Locale as LCID, byval dwFlags as DWORD) as WINBOOL
 declare function IsValidLanguageGroup(byval LanguageGroup as LGRPID, byval dwFlags as DWORD) as WINBOOL
 declare function GetNLSVersion(byval Function as NLS_FUNCTION, byval Locale as LCID, byval lpVersionInformation as LPNLSVERSIONINFO) as WINBOOL
-declare function IsNLSDefinedString(byval Function as NLS_FUNCTION, byval dwFlags as DWORD, byval lpVersionInformation as LPNLSVERSIONINFO, byval lpString as LPCWSTR, byval cchStr as INT) as WINBOOL
+declare function IsNLSDefinedString(byval Function as NLS_FUNCTION, byval dwFlags as DWORD, byval lpVersionInformation as LPNLSVERSIONINFO, byval lpString as LPCWSTR, byval cchStr as INT_) as WINBOOL
 declare function IsValidLocale(byval Locale as LCID, byval dwFlags as DWORD) as WINBOOL
 declare function SetLocaleInfoA(byval Locale as LCID, byval LCType as LCTYPE, byval lpLCData as LPCSTR) as WINBOOL
 declare function SetLocaleInfoW(byval Locale as LCID, byval LCType as LCTYPE, byval lpLCData as LPCWSTR) as WINBOOL

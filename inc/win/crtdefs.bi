@@ -48,6 +48,8 @@ type threadlocaleinfostruct_lc_category
 	wrefcount as long ptr
 end type
 
+type __lc_time_data as __lc_time_data_
+
 type threadlocaleinfostruct
 	refcount as long
 	lc_codepage as ulong

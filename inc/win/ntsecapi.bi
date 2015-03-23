@@ -4,6 +4,9 @@
 
 #include once "guiddef.bi"
 
+'' The following symbols have been renamed:
+''     typedef STRING => STRING_
+
 #ifdef __FB_64BIT__
 	extern "C"
 #else
@@ -753,7 +756,7 @@ type PNEGOTIATE_CALLER_NAME_RESPONSE as _NEGOTIATE_CALLER_NAME_RESPONSE ptr
 type UNICODE_STRING as LSA_UNICODE_STRING
 type PUNICODE_STRING as LSA_UNICODE_STRING ptr
 #define __STRING_DEFINED
-type STRING as LSA_STRING
+type STRING_ as LSA_STRING
 type PSTRING as LSA_STRING ptr
 #define _DOMAIN_PASSWORD_INFORMATION_DEFINED
 
@@ -871,8 +874,8 @@ type _MSV1_0_LM20_LOGON
 	UserName as UNICODE_STRING
 	Workstation as UNICODE_STRING
 	ChallengeToClient(0 to 7) as UCHAR
-	CaseSensitiveChallengeResponse as STRING
-	CaseInsensitiveChallengeResponse as STRING
+	CaseSensitiveChallengeResponse as STRING_
+	CaseInsensitiveChallengeResponse as STRING_
 	ParameterControl as ULONG
 end type
 
@@ -885,8 +888,8 @@ type _MSV1_0_SUBAUTH_LOGON
 	UserName as UNICODE_STRING
 	Workstation as UNICODE_STRING
 	ChallengeToClient(0 to 7) as UCHAR
-	AuthenticationInfo1 as STRING
-	AuthenticationInfo2 as STRING
+	AuthenticationInfo1 as STRING_
+	AuthenticationInfo2 as STRING_
 	ParameterControl as ULONG
 	SubAuthPackageId as ULONG
 end type

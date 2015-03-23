@@ -12,8 +12,6 @@
 
 #define _INC_OLE
 #define OLE_LPCSTR LPCSTR
-#define LRESULT LONG_PTR
-#define HGLOBAL HANDLE
 #define OT_LINK __MSABI_LONG(1)
 #define OT_EMBEDDED __MSABI_LONG(2)
 #define OT_STATIC __MSABI_LONG(3)

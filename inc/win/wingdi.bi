@@ -5,6 +5,19 @@
 #include once "winapifamily.bi"
 #include once "_mingw_unicode.bi"
 
+'' The following symbols have been renamed:
+''     #define ERROR => ERROR_
+''     #define ABORTDOC => ABORTDOC_
+''     #define SETABORTPROC => SETABORTPROC_
+''     #define STARTDOC => STARTDOC_
+''     #define ENDDOC => ENDDOC_
+''     #define SETMITERLIMIT => SETMITERLIMIT_
+''     #define EXTTEXTOUT => EXTTEXTOUT_
+''     #define STRETCHBLT => STRETCHBLT_
+''     #define RGB => BGR
+''     #define BITSPIXEL => BITSPIXEL_
+''     #define PLANES => PLANES_
+
 #ifdef __FB_64BIT__
 	extern "C"
 #else
@@ -49,11 +62,11 @@
 #define MAKEROP4(fore, back) cast(DWORD, (((back) shl 8) and &hFF000000) or (fore))
 #define GDI_ERROR __MSABI_LONG(&hFFFFFFFF)
 #define HGDI_ERROR LongToHandle(&hFFFFFFFF)
-#define ERROR 0
+#define ERROR_ 0
 #define NULLREGION 1
 #define SIMPLEREGION 2
 #define COMPLEXREGION 3
-#define RGN_ERROR ERROR
+#define RGN_ERROR ERROR_
 #define RGN_AND 1
 #define RGN_OR 2
 #define RGN_XOR 3
@@ -194,16 +207,16 @@ end type
 type DRAWPATRECT as _DRAWPATRECT
 type PDRAWPATRECT as _DRAWPATRECT ptr
 #define NEWFRAME 1
-#define ABORTDOC 2
+#define ABORTDOC_ 2
 #define NEXTBAND 3
 #define SETCOLORTABLE 4
 #define GETCOLORTABLE 5
 #define FLUSHOUTPUT 6
 #define DRAFTMODE 7
 #define QUERYESCSUPPORT 8
-#define SETABORTPROC 9
-#define STARTDOC 10
-#define ENDDOC 11
+#define SETABORTPROC_ 9
+#define STARTDOC_ 10
+#define ENDDOC_ 11
 #define GETPHYSPAGESIZE 12
 #define GETPRINTINGOFFSET 13
 #define GETSCALINGFACTOR 14
@@ -217,7 +230,7 @@ type PDRAWPATRECT as _DRAWPATRECT ptr
 #define GETTECHNOLOGY 20
 #define SETLINECAP 21
 #define SETLINEJOIN 22
-#define SETMITERLIMIT 23
+#define SETMITERLIMIT_ 23
 #define BANDINFO 24
 #define DRAWPATTERNRECT 25
 #define GETVECTORPENSIZE 26
@@ -238,7 +251,7 @@ type PDRAWPATRECT as _DRAWPATRECT ptr
 #define GETEXTENTTABLE 257
 #define GETPAIRKERNTABLE 258
 #define GETTRACKKERNTABLE 259
-#define EXTTEXTOUT 512
+#define EXTTEXTOUT_ 512
 #define GETFACENAME 513
 #define DOWNLOADFACE 514
 #define ENABLERELATIVEWIDTHS 768
@@ -246,7 +259,7 @@ type PDRAWPATRECT as _DRAWPATRECT ptr
 #define SETKERNTRACK 770
 #define SETALLJUSTVALUES 771
 #define SETCHARSET 772
-#define STRETCHBLT 2048
+#define STRETCHBLT_ 2048
 #define METAFILE_DRIVER 2049
 #define GETSETSCREENPARAMS 3072
 #define QUERYDIBSUPPORT 3073
@@ -1438,8 +1451,8 @@ type LPEXTLOGFONTW as tagEXTLOGFONTW ptr
 #define RASTER_FONTTYPE &h0001
 #define DEVICE_FONTTYPE &h002
 #define TRUETYPE_FONTTYPE &h004
-#define RGB(r, g, b) cast(COLORREF, (cast(UBYTE, (r)) or (cast(WORD, cast(UBYTE, (g))) shl 8)) or (cast(DWORD, cast(UBYTE, (b))) shl 16))
-#define PALETTERGB(r, g, b) (&h02000000 or RGB(r, g, b))
+#define BGR(r, g, b) cast(COLORREF, (cast(UBYTE, (r)) or (cast(WORD, cast(UBYTE, (g))) shl 8)) or (cast(DWORD, cast(UBYTE, (b))) shl 16))
+#define PALETTERGB(r, g, b) (&h02000000 or BGR(r, g, b))
 #define PALETTEINDEX(i) cast(COLORREF, &h01000000 or cast(DWORD, cast(WORD, (i))))
 #define PC_RESERVED &h01
 #define PC_EXPLICIT &h02
@@ -1539,8 +1552,8 @@ type LPEXTLOGFONTW as tagEXTLOGFONTW ptr
 #define VERTSIZE 6
 #define HORZRES 8
 #define VERTRES 10
-#define BITSPIXEL 12
-#define PLANES 14
+#define BITSPIXEL_ 12
+#define PLANES_ 14
 #define NUMBRUSHES 16
 #define NUMPENS 18
 #define NUMMARKERS 20
@@ -2546,7 +2559,7 @@ declare function CreateMetaFileW(byval pszFile as LPCWSTR) as HDC
 declare function CreatePalette(byval plpal as const LOGPALETTE ptr) as HPALETTE
 declare function CreatePen(byval iStyle as long, byval cWidth as long, byval color as COLORREF) as HPEN
 declare function CreatePenIndirect(byval plpen as const LOGPEN ptr) as HPEN
-declare function CreatePolyPolygonRgn(byval pptl as const POINT ptr, byval pc as const INT ptr, byval cPoly as long, byval iMode as long) as HRGN
+declare function CreatePolyPolygonRgn(byval pptl as const POINT ptr, byval pc as const INT_ ptr, byval cPoly as long, byval iMode as long) as HRGN
 declare function CreatePatternBrush(byval hbm as HBITMAP) as HBRUSH
 declare function CreateRectRgn(byval x1 as long, byval y1 as long, byval x2 as long, byval y2 as long) as HRGN
 declare function CreateRectRgnIndirect(byval lprect as const RECT ptr) as HRGN
@@ -2732,7 +2745,7 @@ declare function GetPixel(byval hdc as HDC, byval x as long, byval y as long) as
 declare function GetPixelFormat(byval hdc as HDC) as long
 declare function GetPolyFillMode(byval hdc as HDC) as long
 declare function GetRasterizerCaps(byval lpraststat as LPRASTERIZER_STATUS, byval cjBytes as UINT) as WINBOOL
-declare function GetRandomRgn(byval hdc as HDC, byval hrgn as HRGN, byval i as INT) as long
+declare function GetRandomRgn(byval hdc as HDC, byval hrgn as HRGN, byval i as INT_) as long
 declare function GetRegionData(byval hrgn as HRGN, byval nCount as DWORD, byval lpRgnData as LPRGNDATA) as DWORD
 declare function GetRgnBox(byval hrgn as HRGN, byval lprc as LPRECT) as long
 declare function GetStockObject(byval i as long) as HGDIOBJ
@@ -2966,7 +2979,7 @@ declare function PatBlt(byval hdc as HDC, byval x as long, byval y as long, byva
 declare function Pie(byval hdc as HDC, byval left as long, byval top as long, byval right as long, byval bottom as long, byval xr1 as long, byval yr1 as long, byval xr2 as long, byval yr2 as long) as WINBOOL
 declare function PlayMetaFile(byval hdc as HDC, byval hmf as HMETAFILE) as WINBOOL
 declare function PaintRgn(byval hdc as HDC, byval hrgn as HRGN) as WINBOOL
-declare function PolyPolygon(byval hdc as HDC, byval apt as const POINT ptr, byval asz as const INT ptr, byval csz as long) as WINBOOL
+declare function PolyPolygon(byval hdc as HDC, byval apt as const POINT ptr, byval asz as const INT_ ptr, byval csz as long) as WINBOOL
 declare function PtInRegion(byval hrgn as HRGN, byval x as long, byval y as long) as WINBOOL
 declare function PtVisible(byval hdc as HDC, byval x as long, byval y as long) as WINBOOL
 declare function RectInRegion(byval hrgn as HRGN, byval lprect as const RECT ptr) as WINBOOL
@@ -3104,7 +3117,7 @@ declare function GetEnhMetaFileDescriptionW(byval hemf as HENHMETAFILE, byval cc
 declare function GetEnhMetaFileHeader(byval hemf as HENHMETAFILE, byval nSize as UINT, byval lpEnhMetaHeader as LPENHMETAHEADER) as UINT
 declare function GetEnhMetaFilePaletteEntries(byval hemf as HENHMETAFILE, byval nNumEntries as UINT, byval lpPaletteEntries as LPPALETTEENTRY) as UINT
 declare function GetEnhMetaFilePixelFormat(byval hemf as HENHMETAFILE, byval cbBuffer as UINT, byval ppfd as PIXELFORMATDESCRIPTOR ptr) as UINT
-declare function GetWinMetaFileBits(byval hemf as HENHMETAFILE, byval cbData16 as UINT, byval pData16 as LPBYTE, byval iMapMode as INT, byval hdcRef as HDC) as UINT
+declare function GetWinMetaFileBits(byval hemf as HENHMETAFILE, byval cbData16 as UINT, byval pData16 as LPBYTE, byval iMapMode as INT_, byval hdcRef as HDC) as UINT
 declare function PlayEnhMetaFile(byval hdc as HDC, byval hmf as HENHMETAFILE, byval lprect as const RECT ptr) as WINBOOL
 declare function PlayEnhMetaFileRecord(byval hdc as HDC, byval pht as LPHANDLETABLE, byval pmr as const ENHMETARECORD ptr, byval cht as UINT) as WINBOOL
 declare function SetEnhMetaFileBits(byval nSize as UINT, byval pb as const UBYTE ptr) as HENHMETAFILE
@@ -3271,8 +3284,8 @@ declare function GetObjectW(byval h as HANDLE, byval c as long, byval pv as LPVO
 declare function MoveToEx(byval hdc as HDC, byval x as long, byval y as long, byval lppt as LPPOINT) as WINBOOL
 declare function TextOutA(byval hdc as HDC, byval x as long, byval y as long, byval lpString as LPCSTR, byval c as long) as WINBOOL
 declare function TextOutW(byval hdc as HDC, byval x as long, byval y as long, byval lpString as LPCWSTR, byval c as long) as WINBOOL
-declare function ExtTextOutA(byval hdc as HDC, byval x as long, byval y as long, byval options as UINT, byval lprect as const RECT ptr, byval lpString as LPCSTR, byval c as UINT, byval lpDx as const INT ptr) as WINBOOL
-declare function ExtTextOutW(byval hdc as HDC, byval x as long, byval y as long, byval options as UINT, byval lprect as const RECT ptr, byval lpString as LPCWSTR, byval c as UINT, byval lpDx as const INT ptr) as WINBOOL
+declare function ExtTextOutA(byval hdc as HDC, byval x as long, byval y as long, byval options as UINT, byval lprect as const RECT ptr, byval lpString as LPCSTR, byval c as UINT, byval lpDx as const INT_ ptr) as WINBOOL
+declare function ExtTextOutW(byval hdc as HDC, byval x as long, byval y as long, byval options as UINT, byval lprect as const RECT ptr, byval lpString as LPCWSTR, byval c as UINT, byval lpDx as const INT_ ptr) as WINBOOL
 declare function PolyTextOutA(byval hdc as HDC, byval ppt as const POLYTEXTA ptr, byval nstrings as long) as WINBOOL
 declare function PolyTextOutW(byval hdc as HDC, byval ppt as const POLYTEXTW ptr, byval nstrings as long) as WINBOOL
 declare function CreatePolygonRgn(byval pptl as const POINT ptr, byval cPoint as long, byval iMode as long) as HRGN
@@ -4265,8 +4278,8 @@ type PEMRDELETECOLORSPACE as tagEMRSETCOLORSPACE ptr
 
 type tagEMREXTESCAPE
 	emr as EMR
-	iEscape as INT
-	cbEscData as INT
+	iEscape as INT_
+	cbEscData as INT_
 	EscData(0 to 0) as UBYTE
 end type
 
@@ -4277,9 +4290,9 @@ type PEMRDRAWESCAPE as tagEMREXTESCAPE ptr
 
 type tagEMRNAMEDESCAPE
 	emr as EMR
-	iEscape as INT
-	cbDriver as INT
-	cbEscData as INT
+	iEscape as INT_
+	cbDriver as INT_
+	cbEscData as INT_
 	EscData(0 to 0) as UBYTE
 end type
 

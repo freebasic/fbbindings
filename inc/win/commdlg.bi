@@ -660,7 +660,7 @@ type LPCFHOOKPROC as function(byval as HWND, byval as UINT, byval as WPARAM, byv
 		hwndOwner as HWND
 		hDC as HDC
 		lpLogFont as LPLOGFONTA
-		iPointSize as INT
+		iPointSize as INT_
 		Flags as DWORD
 		rgbColors as COLORREF
 		lCustData as LPARAM
@@ -670,8 +670,8 @@ type LPCFHOOKPROC as function(byval as HWND, byval as UINT, byval as WPARAM, byv
 		lpszStyle as LPSTR
 		nFontType as WORD
 		___MISSING_ALIGNMENT__ as WORD
-		nSizeMin as INT
-		nSizeMax as INT
+		nSizeMin as INT_
+		nSizeMax as INT_
 	end type
 #else
 	type tagCHOOSEFONTA field = 1
@@ -679,7 +679,7 @@ type LPCFHOOKPROC as function(byval as HWND, byval as UINT, byval as WPARAM, byv
 		hwndOwner as HWND
 		hDC as HDC
 		lpLogFont as LPLOGFONTA
-		iPointSize as INT
+		iPointSize as INT_
 		Flags as DWORD
 		rgbColors as COLORREF
 		lCustData as LPARAM
@@ -689,8 +689,8 @@ type LPCFHOOKPROC as function(byval as HWND, byval as UINT, byval as WPARAM, byv
 		lpszStyle as LPSTR
 		nFontType as WORD
 		___MISSING_ALIGNMENT__ as WORD
-		nSizeMin as INT
-		nSizeMax as INT
+		nSizeMin as INT_
+		nSizeMax as INT_
 	end type
 #endif
 
@@ -703,7 +703,7 @@ type LPCHOOSEFONTA as tagCHOOSEFONTA ptr
 		hwndOwner as HWND
 		hDC as HDC
 		lpLogFont as LPLOGFONTW
-		iPointSize as INT
+		iPointSize as INT_
 		Flags as DWORD
 		rgbColors as COLORREF
 		lCustData as LPARAM
@@ -713,8 +713,8 @@ type LPCHOOSEFONTA as tagCHOOSEFONTA ptr
 		lpszStyle as LPWSTR
 		nFontType as WORD
 		___MISSING_ALIGNMENT__ as WORD
-		nSizeMin as INT
-		nSizeMax as INT
+		nSizeMin as INT_
+		nSizeMax as INT_
 	end type
 #else
 	type tagCHOOSEFONTW field = 1
@@ -722,7 +722,7 @@ type LPCHOOSEFONTA as tagCHOOSEFONTA ptr
 		hwndOwner as HWND
 		hDC as HDC
 		lpLogFont as LPLOGFONTW
-		iPointSize as INT
+		iPointSize as INT_
 		Flags as DWORD
 		rgbColors as COLORREF
 		lCustData as LPARAM
@@ -732,8 +732,8 @@ type LPCHOOSEFONTA as tagCHOOSEFONTA ptr
 		lpszStyle as LPWSTR
 		nFontType as WORD
 		___MISSING_ALIGNMENT__ as WORD
-		nSizeMin as INT
-		nSizeMax as INT
+		nSizeMin as INT_
+		nSizeMax as INT_
 	end type
 #endif
 

@@ -158,8 +158,8 @@
 		EcnNoncesRcvd as ULONG
 		CurReasmQueue as ULONG
 		MaxReasmQueue as ULONG
-		CurAppRQueue as SIZE_T
-		MaxAppRQueue as SIZE_T
+		CurAppRQueue as SIZE_T_
+		MaxAppRQueue as SIZE_T_
 		WinScaleSent as UCHAR
 	end type
 
@@ -174,10 +174,10 @@
 	type PTCP_ESTATS_REC_RW_v0 as _TCP_ESTATS_REC_RW_v0 ptr
 
 	type _TCP_ESTATS_SEND_BUFF_ROD_v0
-		CurRetxQueue as SIZE_T
-		MaxRetxQueue as SIZE_T
-		CurAppWQueue as SIZE_T
-		MaxAppWQueue as SIZE_T
+		CurRetxQueue as SIZE_T_
+		MaxRetxQueue as SIZE_T_
+		CurAppWQueue as SIZE_T_
+		MaxAppWQueue as SIZE_T_
 	end type
 
 	type TCP_ESTATS_SEND_BUFF_ROD_v0 as _TCP_ESTATS_SEND_BUFF_ROD_v0
@@ -193,13 +193,13 @@
 	type _TCP_ESTATS_SND_CONG_ROD_v0
 		SndLimTransRwin as ULONG
 		SndLimTimeRwin as ULONG
-		SndLimBytesRwin as SIZE_T
+		SndLimBytesRwin as SIZE_T_
 		SndLimTransCwnd as ULONG
 		SndLimTimeCwnd as ULONG
-		SndLimBytesCwnd as SIZE_T
+		SndLimBytesCwnd as SIZE_T_
 		SndLimTransSnd as ULONG
 		SndLimTimeSnd as ULONG
-		SndLimBytesSnd as SIZE_T
+		SndLimBytesSnd as SIZE_T_
 		SlowStart as ULONG
 		CongAvoid as ULONG
 		OtherReductions as ULONG

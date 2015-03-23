@@ -856,7 +856,7 @@ type IDirect3DDevice9Vtbl_
 	SetNPatchMode as function(byval This as IDirect3DDevice9 ptr, byval nSegments as single) as HRESULT
 	GetNPatchMode as function(byval This as IDirect3DDevice9 ptr) as single
 	DrawPrimitive as function(byval This as IDirect3DDevice9 ptr, byval PrimitiveType as D3DPRIMITIVETYPE, byval StartVertex as UINT, byval PrimitiveCount as UINT) as HRESULT
-	DrawIndexedPrimitive as function(byval This as IDirect3DDevice9 ptr, byval as D3DPRIMITIVETYPE, byval BaseVertexIndex as INT, byval MinVertexIndex as UINT, byval NumVertices as UINT, byval startIndex as UINT, byval primCount as UINT) as HRESULT
+	DrawIndexedPrimitive as function(byval This as IDirect3DDevice9 ptr, byval as D3DPRIMITIVETYPE, byval BaseVertexIndex as INT_, byval MinVertexIndex as UINT, byval NumVertices as UINT, byval startIndex as UINT, byval primCount as UINT) as HRESULT
 	DrawPrimitiveUP as function(byval This as IDirect3DDevice9 ptr, byval PrimitiveType as D3DPRIMITIVETYPE, byval PrimitiveCount as UINT, byval pVertexStreamZeroData as const any ptr, byval VertexStreamZeroStride as UINT) as HRESULT
 	DrawIndexedPrimitiveUP as function(byval This as IDirect3DDevice9 ptr, byval PrimitiveType as D3DPRIMITIVETYPE, byval MinVertexIndex as UINT, byval NumVertices as UINT, byval PrimitiveCount as UINT, byval pIndexData as const any ptr, byval IndexDataFormat as D3DFORMAT, byval pVertexStreamZeroData as const any ptr, byval VertexStreamZeroStride as UINT) as HRESULT
 	ProcessVertices as function(byval This as IDirect3DDevice9 ptr, byval SrcStartIndex as UINT, byval DestIndex as UINT, byval VertexCount as UINT, byval pDestBuffer as IDirect3DVertexBuffer9 ptr, byval pVertexDecl as IDirect3DVertexDeclaration9 ptr, byval Flags as DWORD) as HRESULT
@@ -1103,7 +1103,7 @@ type IDirect3DDevice9ExVtbl_
 	SetNPatchMode as function(byval This as IDirect3DDevice9Ex ptr, byval nSegments as single) as HRESULT
 	GetNPatchMode as function(byval This as IDirect3DDevice9Ex ptr) as single
 	DrawPrimitive as function(byval This as IDirect3DDevice9Ex ptr, byval PrimitiveType as D3DPRIMITIVETYPE, byval StartVertex as UINT, byval PrimitiveCount as UINT) as HRESULT
-	DrawIndexedPrimitive as function(byval This as IDirect3DDevice9Ex ptr, byval as D3DPRIMITIVETYPE, byval BaseVertexIndex as INT, byval MinVertexIndex as UINT, byval NumVertices as UINT, byval startIndex as UINT, byval primCount as UINT) as HRESULT
+	DrawIndexedPrimitive as function(byval This as IDirect3DDevice9Ex ptr, byval as D3DPRIMITIVETYPE, byval BaseVertexIndex as INT_, byval MinVertexIndex as UINT, byval NumVertices as UINT, byval startIndex as UINT, byval primCount as UINT) as HRESULT
 	DrawPrimitiveUP as function(byval This as IDirect3DDevice9Ex ptr, byval PrimitiveType as D3DPRIMITIVETYPE, byval PrimitiveCount as UINT, byval pVertexStreamZeroData as const any ptr, byval VertexStreamZeroStride as UINT) as HRESULT
 	DrawIndexedPrimitiveUP as function(byval This as IDirect3DDevice9Ex ptr, byval PrimitiveType as D3DPRIMITIVETYPE, byval MinVertexIndex as UINT, byval NumVertices as UINT, byval PrimitiveCount as UINT, byval pIndexData as const any ptr, byval IndexDataFormat as D3DFORMAT, byval pVertexStreamZeroData as const any ptr, byval VertexStreamZeroStride as UINT) as HRESULT
 	ProcessVertices as function(byval This as IDirect3DDevice9Ex ptr, byval SrcStartIndex as UINT, byval DestIndex as UINT, byval VertexCount as UINT, byval pDestBuffer as IDirect3DVertexBuffer9 ptr, byval pVertexDecl as IDirect3DVertexDeclaration9 ptr, byval Flags as DWORD) as HRESULT
@@ -1141,10 +1141,10 @@ type IDirect3DDevice9ExVtbl_
 	DeletePatch as function(byval This as IDirect3DDevice9Ex ptr, byval Handle as UINT) as HRESULT
 	CreateQuery as function(byval This as IDirect3DDevice9Ex ptr, byval Type as D3DQUERYTYPE, byval ppQuery as IDirect3DQuery9 ptr ptr) as HRESULT
 	SetConvolutionMonoKernel as function(byval This as IDirect3DDevice9Ex ptr, byval width as UINT, byval height as UINT, byval rows as single ptr, byval columns as single ptr) as HRESULT
-	ComposeRects as function(byval This as IDirect3DDevice9Ex ptr, byval src_surface as IDirect3DSurface9 ptr, byval dst_surface as IDirect3DSurface9 ptr, byval src_descs as IDirect3DVertexBuffer9 ptr, byval rect_count as UINT, byval dst_descs as IDirect3DVertexBuffer9 ptr, byval operation as D3DCOMPOSERECTSOP, byval offset_x as INT, byval offset_y as INT) as HRESULT
+	ComposeRects as function(byval This as IDirect3DDevice9Ex ptr, byval src_surface as IDirect3DSurface9 ptr, byval dst_surface as IDirect3DSurface9 ptr, byval src_descs as IDirect3DVertexBuffer9 ptr, byval rect_count as UINT, byval dst_descs as IDirect3DVertexBuffer9 ptr, byval operation as D3DCOMPOSERECTSOP, byval offset_x as INT_, byval offset_y as INT_) as HRESULT
 	PresentEx as function(byval This as IDirect3DDevice9Ex ptr, byval pSourceRect as const RECT ptr, byval pDestRect as const RECT ptr, byval hDestWindowOverride as HWND, byval pDirtyRegion as const RGNDATA ptr, byval dwFlags as DWORD) as HRESULT
-	GetGPUThreadPriority as function(byval This as IDirect3DDevice9Ex ptr, byval pPriority as INT ptr) as HRESULT
-	SetGPUThreadPriority as function(byval This as IDirect3DDevice9Ex ptr, byval Priority as INT) as HRESULT
+	GetGPUThreadPriority as function(byval This as IDirect3DDevice9Ex ptr, byval pPriority as INT_ ptr) as HRESULT
+	SetGPUThreadPriority as function(byval This as IDirect3DDevice9Ex ptr, byval Priority as INT_) as HRESULT
 	WaitForVBlank as function(byval This as IDirect3DDevice9Ex ptr, byval iSwapChain as UINT) as HRESULT
 	CheckResourceResidency as function(byval This as IDirect3DDevice9Ex ptr, byval resources as IDirect3DResource9 ptr ptr, byval resource_count as UINT32) as HRESULT
 	SetMaximumFrameLatency as function(byval This as IDirect3DDevice9Ex ptr, byval MaxLatency as UINT) as HRESULT

@@ -114,19 +114,19 @@
 
 type _D3DVSHADERCAPS2_0
 	Caps as DWORD
-	DynamicFlowControlDepth as INT
-	NumTemps as INT
-	StaticFlowControlDepth as INT
+	DynamicFlowControlDepth as INT_
+	NumTemps as INT_
+	StaticFlowControlDepth as INT_
 end type
 
 type D3DVSHADERCAPS2_0 as _D3DVSHADERCAPS2_0
 
 type _D3DPSHADERCAPS2_0
 	Caps as DWORD
-	DynamicFlowControlDepth as INT
-	NumTemps as INT
-	StaticFlowControlDepth as INT
-	NumInstructionSlots as INT
+	DynamicFlowControlDepth as INT_
+	NumTemps as INT_
+	StaticFlowControlDepth as INT_
+	NumInstructionSlots as INT_
 end type
 
 type D3DPSHADERCAPS2_0 as _D3DPSHADERCAPS2_0

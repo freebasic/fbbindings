@@ -167,10 +167,10 @@ type IMallocVtbl
 	QueryInterface as function(byval This as IMalloc ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IMalloc ptr) as ULONG
 	Release as function(byval This as IMalloc ptr) as ULONG
-	Alloc as function(byval This as IMalloc ptr, byval cb as SIZE_T) as any ptr
-	Realloc as function(byval This as IMalloc ptr, byval pv as any ptr, byval cb as SIZE_T) as any ptr
+	Alloc as function(byval This as IMalloc ptr, byval cb as SIZE_T_) as any ptr
+	Realloc as function(byval This as IMalloc ptr, byval pv as any ptr, byval cb as SIZE_T_) as any ptr
 	Free as sub(byval This as IMalloc ptr, byval pv as any ptr)
-	GetSize as function(byval This as IMalloc ptr, byval pv as any ptr) as SIZE_T
+	GetSize as function(byval This as IMalloc ptr, byval pv as any ptr) as SIZE_T_
 	DidAlloc as function(byval This as IMalloc ptr, byval pv as any ptr) as long
 	HeapMinimize as sub(byval This as IMalloc ptr)
 end type
@@ -179,13 +179,13 @@ type IMalloc_
 	lpVtbl as IMallocVtbl ptr
 end type
 
-declare function IMalloc_Alloc_Proxy(byval This as IMalloc ptr, byval cb as SIZE_T) as any ptr
+declare function IMalloc_Alloc_Proxy(byval This as IMalloc ptr, byval cb as SIZE_T_) as any ptr
 declare sub IMalloc_Alloc_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-declare function IMalloc_Realloc_Proxy(byval This as IMalloc ptr, byval pv as any ptr, byval cb as SIZE_T) as any ptr
+declare function IMalloc_Realloc_Proxy(byval This as IMalloc ptr, byval pv as any ptr, byval cb as SIZE_T_) as any ptr
 declare sub IMalloc_Realloc_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare sub IMalloc_Free_Proxy(byval This as IMalloc ptr, byval pv as any ptr)
 declare sub IMalloc_Free_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-declare function IMalloc_GetSize_Proxy(byval This as IMalloc ptr, byval pv as any ptr) as SIZE_T
+declare function IMalloc_GetSize_Proxy(byval This as IMalloc ptr, byval pv as any ptr) as SIZE_T_
 declare sub IMalloc_GetSize_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IMalloc_DidAlloc_Proxy(byval This as IMalloc ptr, byval pv as any ptr) as long
 declare sub IMalloc_DidAlloc_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)

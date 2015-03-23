@@ -6,6 +6,9 @@
 #include once "ole2.bi"
 #include once "wtypesbase.bi"
 
+'' The following symbols have been renamed:
+''     typedef DATE => DATE_
+
 extern "C"
 
 #define __REQUIRED_RPCNDR_H_VERSION__ 475
@@ -261,7 +264,7 @@ type wireHENHMETAFILE as userHENHMETAFILE ptr
 type wireHMETAFILE as userHMETAFILE ptr
 type wireHMETAFILEPICT as userHMETAFILEPICT ptr
 type HMETAFILEPICT as any ptr
-type DATE as double
+type DATE_ as double
 #define _tagCY_DEFINED
 #define _CY_DEFINED
 
@@ -305,9 +308,9 @@ type DECIMAL as tagDEC
 #define DECIMAL_NEG cast(UBYTE, &h80)
 #macro DECIMAL_SETZERO(dec)
 	scope
-		'' TODO: (dec).Lo64 = 0;
-		'' TODO: (dec).Hi32 = 0;
-		'' TODO: (dec).signscale = 0;
+		(dec).Lo64 = 0
+		(dec).Hi32 = 0
+		(dec).signscale = 0
 	end scope
 #endmacro
 type LPDECIMAL as DECIMAL ptr
@@ -315,7 +318,6 @@ type wireBSTR as FLAGGED_WORD_BLOB ptr
 type BSTR as wstring ptr
 type LPBSTR as BSTR ptr
 type VARIANT_BOOL as short
-#define _VARIANT_BOOL '' TODO: /##/
 #define _tagBSTRBLOB_DEFINED
 
 type tagBSTRBLOB

@@ -20,6 +20,10 @@
 #include once "crt/string.bi"
 #include once "ktmtypes.bi"
 
+'' The following symbols have been renamed:
+''     typedef INT => INT_
+''     #define DELETE => DELETE__
+
 #ifdef __FB_64BIT__
 	extern "C"
 #else
@@ -28,7 +32,6 @@
 
 #define _WINNT_
 #define ANYSIZE_ARRAY 1
-#define RESTRICTED_POINTER
 
 #ifdef __FB_64BIT__
 	#define ALIGNMENT_MACHINE
@@ -39,24 +42,15 @@
 	#define MEMORY_ALLOCATION_ALIGNMENT 8
 #endif
 
-#define TYPE_ALIGNMENT(t) '' TODO: FIELD_OFFSET(struct { char x; t test; }, test)
-#define PROBE_ALIGNMENT(_s) TYPE_ALIGNMENT(DWORD)
-
-#ifdef __FB_64BIT__
-	#define PROBE_ALIGNMENT32(_s) TYPE_ALIGNMENT(DWORD)
-#endif
-
 #define SYSTEM_CACHE_ALIGNMENT_SIZE 64
-#define NOP_FUNCTION cast(any, 0)
 #define PRAGMA_DEPRECATED_DDK 0
 type PVOID as any ptr
 type PVOID64 as any ptr
 #define VOID any
-
 type CHAR as zstring
 type SHORT as short
 type LONG as long
-type INT as long
+type INT_ as long
 #define __WCHAR_DEFINED
 type WCHAR as wstring
 type PWCHAR as wstring ptr
@@ -150,7 +144,7 @@ type PCNZCH as const zstring ptr
 	type PCNZTCH as PCNZWCH
 	type PUNZTCH as PUNZWCH
 	type PCUNZTCH as PCUNZWCH
-	#define __TEXT(quote) L##quote
+	#define __TEXT(quote) wstr(quote)
 #else
 	type TCHAR as zstring
 	type PTCHAR as zstring ptr
@@ -366,7 +360,6 @@ type OBJECTID as _OBJECTID
 #define MAXBYTE &hff
 #define MAXWORD &hffff
 #define MAXDWORD &hffffffff
-#define FIELD_OFFSET(type, field) cast(LONG, cast(LONG_PTR, @cptr(type ptr, 0)->field))
 #define RTL_FIELD_SIZE(type, field) sizeof(cptr(type ptr, 0)->field)
 #define RTL_SIZEOF_THROUGH_FIELD(type, field) (FIELD_OFFSET(type, field) + RTL_FIELD_SIZE(type, field))
 #define RTL_CONTAINS_FIELD(Struct, Size, Field) ((cast(PCHAR, @(Struct)->Field) + sizeof((Struct)->Field)) <= (cast(PCHAR, (Struct)) + (Size)))
@@ -1122,22 +1115,6 @@ type PSCOPE_TABLE_AMD64 as _SCOPE_TABLE_AMD64 ptr
 		return _InterlockedExchangeAdd64(Addend, Value) + Value
 	end function
 
-	#define CacheLineFlush(Address) _mm_clflush(Address)
-	#define FastFence __faststorefence
-	#define LoadFence _mm_lfence
-	#define MemoryFence _mm_mfence
-	#define StoreFence _mm_sfence
-	#define YieldProcessor _mm_pause
-	#define MemoryBarrier _mm_mfence
-	#define PreFetchCacheLine(l, a) '' TODO: _mm_prefetch((CHAR CONST *) a,l)
-	#define PrefetchForWrite(p) _m_prefetchw(p)
-	#define ReadForWriteAccess(p) '' TODO: (_m_prefetchw(p),*(p))
-	#define PF_TEMPORAL_LEVEL_1 _MM_HINT_T0
-	#define PF_TEMPORAL_LEVEL_2 _MM_HINT_T1
-	#define PF_TEMPORAL_LEVEL_3 _MM_HINT_T2
-	#define PF_NON_TEMPORAL_LEVEL_ALL _MM_HINT_NTA
-	#define ReadMxCsr _mm_getcsr
-	#define WriteMxCsr _mm_setcsr
 	#define GetCallersEflags() __getcallerseflags()
 	declare function __getcallerseflags() as ulong
 	#define GetSegmentLimit __segmentlimit
@@ -1159,20 +1136,8 @@ type PSCOPE_TABLE_AMD64 as _SCOPE_TABLE_AMD64 ptr
 	declare function MultiplyExtract128(byval Multiplier as LONG64, byval Multiplicand as LONG64, byval Shift as UBYTE) as LONG64
 	declare function UnsignedMultiplyExtract128(byval Multiplier as DWORD64, byval Multiplicand as DWORD64, byval Shift as UBYTE) as DWORD64
 #else
-	#define YieldProcessor __buildpause
-	declare sub MemoryBarrier cdecl()
-
-	private sub MemoryBarrier cdecl()
-		dim Barrier as ubyte
-		'' TODO: __asm__ __volatile__("xchg{b %%| }al, %0" :"=m" (Barrier) : : "eax", "memory");
-	end sub
-
-	#define PreFetchCacheLine(l, a)
-	#define ReadForWriteAccess(p) (*(p))
-	#define PF_TEMPORAL_LEVEL_1
-	#define PF_NON_TEMPORAL_LEVEL_ALL
 	#define PcTeb &h18
-
+	type _TEB as _TEB_
 	declare function NtCurrentTeb cdecl() as _TEB ptr
 	declare function GetCurrentFiber cdecl() as PVOID
 	declare function GetFiberData cdecl() as PVOID
@@ -1543,7 +1508,7 @@ type PCLAIMS_BLOB as PVOID
 type ACCESS_MASK as DWORD
 type PACCESS_MASK as ACCESS_MASK ptr
 
-#define DELETE __MSABI_LONG(&h00010000)
+#define DELETE__ __MSABI_LONG(&h00010000)
 #define READ_CONTROL __MSABI_LONG(&h00020000)
 #define WRITE_DAC __MSABI_LONG(&h00040000)
 #define WRITE_OWNER __MSABI_LONG(&h00080000)
@@ -3004,11 +2969,11 @@ type UMS_CREATE_THREAD_ATTRIBUTES as _UMS_CREATE_THREAD_ATTRIBUTES
 type PUMS_CREATE_THREAD_ATTRIBUTES as _UMS_CREATE_THREAD_ATTRIBUTES ptr
 
 type _QUOTA_LIMITS
-	PagedPoolLimit as SIZE_T
-	NonPagedPoolLimit as SIZE_T
-	MinimumWorkingSetSize as SIZE_T
-	MaximumWorkingSetSize as SIZE_T
-	PagefileLimit as SIZE_T
+	PagedPoolLimit as SIZE_T_
+	NonPagedPoolLimit as SIZE_T_
+	MinimumWorkingSetSize as SIZE_T_
+	MaximumWorkingSetSize as SIZE_T_
+	PagefileLimit as SIZE_T_
 	TimeLimit as LARGE_INTEGER
 end type
 
@@ -3033,16 +2998,16 @@ type RATE_QUOTA_LIMIT as _RATE_QUOTA_LIMIT
 type PRATE_QUOTA_LIMIT as _RATE_QUOTA_LIMIT ptr
 
 type _QUOTA_LIMITS_EX
-	PagedPoolLimit as SIZE_T
-	NonPagedPoolLimit as SIZE_T
-	MinimumWorkingSetSize as SIZE_T
-	MaximumWorkingSetSize as SIZE_T
-	PagefileLimit as SIZE_T
+	PagedPoolLimit as SIZE_T_
+	NonPagedPoolLimit as SIZE_T_
+	MinimumWorkingSetSize as SIZE_T_
+	MaximumWorkingSetSize as SIZE_T_
+	PagefileLimit as SIZE_T_
 	TimeLimit as LARGE_INTEGER
-	WorkingSetLimit as SIZE_T
-	Reserved2 as SIZE_T
-	Reserved3 as SIZE_T
-	Reserved4 as SIZE_T
+	WorkingSetLimit as SIZE_T_
+	Reserved2 as SIZE_T_
+	Reserved3 as SIZE_T_
+	Reserved4 as SIZE_T_
 	Flags as DWORD
 	CpuRateLimit as RATE_QUOTA_LIMIT
 end type
@@ -3183,8 +3148,8 @@ type _JOBOBJECT_BASIC_LIMIT_INFORMATION
 	PerProcessUserTimeLimit as LARGE_INTEGER
 	PerJobUserTimeLimit as LARGE_INTEGER
 	LimitFlags as DWORD
-	MinimumWorkingSetSize as SIZE_T
-	MaximumWorkingSetSize as SIZE_T
+	MinimumWorkingSetSize as SIZE_T_
+	MaximumWorkingSetSize as SIZE_T_
 	ActiveProcessLimit as DWORD
 	Affinity as ULONG_PTR
 	PriorityClass as DWORD
@@ -3197,10 +3162,10 @@ type PJOBOBJECT_BASIC_LIMIT_INFORMATION as _JOBOBJECT_BASIC_LIMIT_INFORMATION pt
 type _JOBOBJECT_EXTENDED_LIMIT_INFORMATION
 	BasicLimitInformation as JOBOBJECT_BASIC_LIMIT_INFORMATION
 	IoInfo as IO_COUNTERS
-	ProcessMemoryLimit as SIZE_T
-	JobMemoryLimit as SIZE_T
-	PeakProcessMemoryUsed as SIZE_T
-	PeakJobMemoryUsed as SIZE_T
+	ProcessMemoryLimit as SIZE_T_
+	JobMemoryLimit as SIZE_T_
+	PeakProcessMemoryUsed as SIZE_T_
+	PeakJobMemoryUsed as SIZE_T_
 end type
 
 type JOBOBJECT_EXTENDED_LIMIT_INFORMATION as _JOBOBJECT_EXTENDED_LIMIT_INFORMATION
@@ -3671,7 +3636,7 @@ type _MEMORY_BASIC_INFORMATION
 	BaseAddress as PVOID
 	AllocationBase as PVOID
 	AllocationProtect as DWORD
-	RegionSize as SIZE_T
+	RegionSize as SIZE_T_
 	State as DWORD
 	Protect as DWORD
 	as DWORD Type
@@ -5927,8 +5892,18 @@ type PIMAGE_RELOCATION as IMAGE_RELOCATION ptr
 #define IMAGE_REL_EBC_REL32 &h0002
 #define IMAGE_REL_EBC_SECTION &h0003
 #define IMAGE_REL_EBC_SECREL &h0004
-#define EXT_IMM64(Value, Address, Size, InstPos, ValPos) '' TODO: Value |= (((ULONGLONG)((*(Address) >> InstPos) & (((ULONGLONG)1 << Size) - 1))) << ValPos)
-#define INS_IMM64(Value, Address, Size, InstPos, ValPos) '' TODO: *(PDWORD)Address = (*(PDWORD)Address & ~(((1 << Size) - 1) << InstPos)) | ((DWORD)((((ULONGLONG)Value >> ValPos) & (((ULONGLONG)1 << Size) - 1))) << InstPos)
+#macro EXT_IMM64(Value, Address, Size, InstPos, ValPos)
+	scope
+		Value or= cast(ULONGLONG, (*(Address) shr InstPos) and ((cast(ULONGLONG, 1) shl Size) - 1)) shl ValPos
+	end scope
+#endmacro
+#macro INS_IMM64(Value, Address, Size, InstPos, ValPos)
+	scope
+		*cptr(PDWORD, Address) = _
+			(*cptr(PDWORD, Address) and not (((1 shl Size) - 1) shl InstPos)) or _
+			(cast(DWORD, (cast(ULONGLONG, Value) shr ValPos) and ((cast(ULONGLONG, 1) shl Size) - 1)) shl InstPos)
+	end scope
+#endmacro
 #define EMARCH_ENC_I17_IMM7B_INST_WORD_X 3
 #define EMARCH_ENC_I17_IMM7B_SIZE_X 7
 #define EMARCH_ENC_I17_IMM7B_INST_WORD_POS_X 4
@@ -6646,7 +6621,7 @@ end type
 type PIMAGE_COR20_HEADER as IMAGE_COR20_HEADER ptr
 declare function RtlCaptureStackBackTrace(byval FramesToSkip as DWORD, byval FramesToCapture as DWORD, byval BackTrace as PVOID ptr, byval BackTraceHash as PDWORD) as WORD
 declare sub RtlCaptureContext(byval ContextRecord as PCONTEXT)
-declare function RtlCompareMemory(byval Source1 as const any ptr, byval Source2 as const any ptr, byval Length as SIZE_T) as SIZE_T
+declare function RtlCompareMemory(byval Source1 as const any ptr, byval Source2 as const any ptr, byval Length as SIZE_T_) as SIZE_T_
 
 #if defined(__FB_64BIT__) and (_WIN32_WINNT = &h0602)
 	declare function RtlAddGrowableFunctionTable(byval DynamicTable as PVOID ptr, byval FunctionTable as PRUNTIME_FUNCTION, byval EntryCount as DWORD, byval MaximumEntryCount as DWORD, byval RangeBase as ULONG_PTR, byval RangeEnd as ULONG_PTR) as DWORD
@@ -6814,7 +6789,7 @@ type PRTL_BARRIER as _RTL_BARRIER ptr
 #define RtlCopyMemory(Destination, Source, Length) memcpy((Destination), (Source), (Length))
 #define RtlFillMemory(Destination, Length, Fill) memset((Destination), (Fill), (Length))
 #define RtlZeroMemory(Destination, Length) memset((Destination), 0, (Length))
-declare function RtlSecureZeroMemory(byval ptr as PVOID, byval cnt as SIZE_T) as PVOID
+declare function RtlSecureZeroMemory(byval ptr as PVOID, byval cnt as SIZE_T_) as PVOID
 
 type _MESSAGE_RESOURCE_ENTRY
 	Length as WORD
@@ -6965,7 +6940,7 @@ type PRTL_OSVERSIONINFOEXW as _OSVERSIONINFOEXW ptr
 #define VER_PLATFORM_WIN32_WINDOWS 1
 #define VER_PLATFORM_WIN32_NT 2
 declare function VerSetConditionMask(byval ConditionMask as ULONGLONG, byval TypeMask as DWORD, byval Condition as UBYTE) as ULONGLONG
-#define VER_SET_CONDITION(_m_, _t_, _c_) '' TODO: ((_m_) = VerSetConditionMask((_m_),(_t_),(_c_)))
+#define VER_SET_CONDITION(_m_, _t_, _c_) scope : (_m_) = VerSetConditionMask((_m_), (_t_), (_c_)) : end scope
 
 #if _WIN32_WINNT = &h0602
 	declare function RtlGetProductInfo(byval OSMajorVersion as DWORD, byval OSMinorVersion as DWORD, byval SpMajorVersion as DWORD, byval SpMinorVersion as DWORD, byval ReturnedProductType as PDWORD) as BOOLEAN
@@ -7084,7 +7059,7 @@ type APC_CALLBACK_FUNCTION as sub(byval as DWORD, byval as PVOID, byval as PVOID
 type WAITORTIMERCALLBACKFUNC as sub(byval as PVOID, byval as BOOLEAN)
 type WAITORTIMERCALLBACK as WAITORTIMERCALLBACKFUNC
 type PFLS_CALLBACK_FUNCTION as sub(byval lpFlsData as PVOID)
-type PSECURE_MEMORY_CACHE_CALLBACK as function(byval Addr as PVOID, byval Range as SIZE_T) as BOOLEAN
+type PSECURE_MEMORY_CACHE_CALLBACK as function(byval Addr as PVOID, byval Range as SIZE_T_) as BOOLEAN
 
 #define WT_EXECUTEDEFAULT &h00000000
 #define WT_EXECUTEINIOTHREAD &h00000001
@@ -7096,7 +7071,7 @@ type PSECURE_MEMORY_CACHE_CALLBACK as function(byval Addr as PVOID, byval Range 
 #define WT_EXECUTEINPERSISTENTIOTHREAD &h00000040
 #define WT_EXECUTEINPERSISTENTTHREAD &h00000080
 #define WT_TRANSFER_IMPERSONATION &h00000100
-#define WT_SET_MAX_THREADPOOL_THREADS(Flags, Limit) '' TODO: ((Flags) |= (Limit) << 16)
+#define WT_SET_MAX_THREADPOOL_THREADS(Flags, Limit) scope : (Flags) or= (Limit) shl 16 : end scope
 #define WT_EXECUTEDELETEWAIT &h00000008
 #define WT_EXECUTEINLONGTHREAD &h00000010
 
@@ -7248,9 +7223,9 @@ type PCACTIVATION_CONTEXT_DETAILED_INFORMATION as const _ACTIVATION_CONTEXT_DETA
 #define INVALID_OS_COUNT &hffff
 #define CREATE_BOUNDARY_DESCRIPTOR_ADD_APPCONTAINER_SID &h1
 
-type RTL_VERIFIER_DLL_LOAD_CALLBACK as sub(byval DllName as PWSTR, byval DllBase as PVOID, byval DllSize as SIZE_T, byval Reserved as PVOID)
-type RTL_VERIFIER_DLL_UNLOAD_CALLBACK as sub(byval DllName as PWSTR, byval DllBase as PVOID, byval DllSize as SIZE_T, byval Reserved as PVOID)
-type RTL_VERIFIER_NTDLLHEAPFREE_CALLBACK as sub(byval AllocationBase as PVOID, byval AllocationSize as SIZE_T)
+type RTL_VERIFIER_DLL_LOAD_CALLBACK as sub(byval DllName as PWSTR, byval DllBase as PVOID, byval DllSize as SIZE_T_, byval Reserved as PVOID)
+type RTL_VERIFIER_DLL_UNLOAD_CALLBACK as sub(byval DllName as PWSTR, byval DllBase as PVOID, byval DllSize as SIZE_T_, byval Reserved as PVOID)
+type RTL_VERIFIER_NTDLLHEAPFREE_CALLBACK as sub(byval AllocationBase as PVOID, byval AllocationSize as SIZE_T_)
 
 type _RTL_VERIFIER_THUNK_DESCRIPTOR
 	ThunkName as PCHAR
@@ -7388,9 +7363,9 @@ type PRTL_VERIFIER_PROVIDER_DESCRIPTOR as _RTL_VERIFIER_PROVIDER_DESCRIPTOR ptr
 #endmacro
 
 declare sub RtlApplicationVerifierStop(byval Code as ULONG_PTR, byval Message as PSTR, byval Param1 as ULONG_PTR, byval Description1 as PSTR, byval Param2 as ULONG_PTR, byval Description2 as PSTR, byval Param3 as ULONG_PTR, byval Description3 as PSTR, byval Param4 as ULONG_PTR, byval Description4 as PSTR)
-declare function RtlSetHeapInformation(byval HeapHandle as PVOID, byval HeapInformationClass as HEAP_INFORMATION_CLASS, byval HeapInformation as PVOID, byval HeapInformationLength as SIZE_T) as DWORD
-declare function RtlQueryHeapInformation(byval HeapHandle as PVOID, byval HeapInformationClass as HEAP_INFORMATION_CLASS, byval HeapInformation as PVOID, byval HeapInformationLength as SIZE_T, byval ReturnLength as PSIZE_T) as DWORD
-declare function RtlMultipleAllocateHeap(byval HeapHandle as PVOID, byval Flags as DWORD, byval Size as SIZE_T, byval Count as DWORD, byval Array as PVOID ptr) as DWORD
+declare function RtlSetHeapInformation(byval HeapHandle as PVOID, byval HeapInformationClass as HEAP_INFORMATION_CLASS, byval HeapInformation as PVOID, byval HeapInformationLength as SIZE_T_) as DWORD
+declare function RtlQueryHeapInformation(byval HeapHandle as PVOID, byval HeapInformationClass as HEAP_INFORMATION_CLASS, byval HeapInformation as PVOID, byval HeapInformationLength as SIZE_T_, byval ReturnLength as PSIZE_T) as DWORD
+declare function RtlMultipleAllocateHeap(byval HeapHandle as PVOID, byval Flags as DWORD, byval Size as SIZE_T_, byval Count as DWORD, byval Array as PVOID ptr) as DWORD
 declare function RtlMultipleFreeHeap(byval HeapHandle as PVOID, byval Flags as DWORD, byval Count as DWORD, byval Array as PVOID ptr) as DWORD
 
 type _HARDWARE_COUNTER_DATA
@@ -7837,8 +7812,8 @@ end enum
 type TP_CALLBACK_PRIORITY as _TP_CALLBACK_PRIORITY
 
 type _TP_POOL_STACK_INFORMATION
-	StackReserve as SIZE_T
-	StackCommit as SIZE_T
+	StackReserve as SIZE_T_
+	StackCommit as SIZE_T_
 end type
 
 type TP_POOL_STACK_INFORMATION as _TP_POOL_STACK_INFORMATION
@@ -7858,7 +7833,22 @@ type PTP_CLEANUP_GROUP_CANCEL_CALLBACK as sub(byval ObjectContext as PVOID, byva
 		Flags as DWORD
 		s as _TP_CALLBACK_ENVIRON_V1_u_s
 	end union
+#else
+	type _TP_CALLBACK_ENVIRON_V3_u_s
+		LongFunction : 1 as DWORD
+		Persistent : 1 as DWORD
+		as DWORD Private : 30
+	end type
 
+	union _TP_CALLBACK_ENVIRON_V3_u
+		Flags as DWORD
+		s as _TP_CALLBACK_ENVIRON_V3_u_s
+	end union
+#endif
+
+type _ACTIVATION_CONTEXT as _ACTIVATION_CONTEXT_
+
+#if (_WIN32_WINNT = &h0400) or (_WIN32_WINNT = &h0502)
 	type _TP_CALLBACK_ENVIRON_V1
 		Version as TP_VERSION
 		Pool as PTP_POOL
@@ -7874,17 +7864,6 @@ type PTP_CLEANUP_GROUP_CANCEL_CALLBACK as sub(byval ObjectContext as PVOID, byva
 	type TP_CALLBACK_ENVIRON as TP_CALLBACK_ENVIRON_V1
 	type PTP_CALLBACK_ENVIRON as TP_CALLBACK_ENVIRON_V1 ptr
 #else
-	type _TP_CALLBACK_ENVIRON_V3_u_s
-		LongFunction : 1 as DWORD
-		Persistent : 1 as DWORD
-		as DWORD Private : 30
-	end type
-
-	union _TP_CALLBACK_ENVIRON_V3_u
-		Flags as DWORD
-		s as _TP_CALLBACK_ENVIRON_V3_u_s
-	end union
-
 	type _TP_CALLBACK_ENVIRON_V3
 		Version as TP_VERSION
 		Pool as PTP_POOL
@@ -7989,6 +7968,7 @@ end sub
 	'' TODO: } struct _TEB *NtCurrentTeb(void);
 	declare function GetCurrentFiber() as PVOID
 	declare function GetFiberData() as PVOID
+	type _TEB as _TEB_
 
 	private function NtCurrentTeb() as _TEB ptr
 		return cptr(_TEB ptr, __readgsqword(cast(LONG, cast(LONG_PTR, @cptr(NT_TIB ptr, 0)->Self))))

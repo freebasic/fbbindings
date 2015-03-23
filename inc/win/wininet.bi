@@ -1081,11 +1081,11 @@ type LPGOPHER_TTL_ATTRIBUTE_TYPE as GOPHER_TTL_ATTRIBUTE_TYPE ptr
 
 #ifdef __FB_64BIT__
 	type GOPHER_SCORE_ATTRIBUTE_TYPE
-		Score as INT
+		Score as INT_
 	end type
 #else
 	type GOPHER_SCORE_ATTRIBUTE_TYPE field = 4
-		Score as INT
+		Score as INT_
 	end type
 #endif
 
@@ -1093,13 +1093,13 @@ type LPGOPHER_SCORE_ATTRIBUTE_TYPE as GOPHER_SCORE_ATTRIBUTE_TYPE ptr
 
 #ifdef __FB_64BIT__
 	type GOPHER_SCORE_RANGE_ATTRIBUTE_TYPE
-		LowerBound as INT
-		UpperBound as INT
+		LowerBound as INT_
+		UpperBound as INT_
 	end type
 #else
 	type GOPHER_SCORE_RANGE_ATTRIBUTE_TYPE field = 4
-		LowerBound as INT
-		UpperBound as INT
+		LowerBound as INT_
+		UpperBound as INT_
 	end type
 #endif
 
@@ -1143,21 +1143,21 @@ type LPGOPHER_LOCATION_ATTRIBUTE_TYPE as GOPHER_LOCATION_ATTRIBUTE_TYPE ptr
 
 #ifdef __FB_64BIT__
 	type GOPHER_GEOGRAPHICAL_LOCATION_ATTRIBUTE_TYPE
-		DegreesNorth as INT
-		MinutesNorth as INT
-		SecondsNorth as INT
-		DegreesEast as INT
-		MinutesEast as INT
-		SecondsEast as INT
+		DegreesNorth as INT_
+		MinutesNorth as INT_
+		SecondsNorth as INT_
+		DegreesEast as INT_
+		MinutesEast as INT_
+		SecondsEast as INT_
 	end type
 #else
 	type GOPHER_GEOGRAPHICAL_LOCATION_ATTRIBUTE_TYPE field = 4
-		DegreesNorth as INT
-		MinutesNorth as INT
-		SecondsNorth as INT
-		DegreesEast as INT
-		MinutesEast as INT
-		SecondsEast as INT
+		DegreesNorth as INT_
+		MinutesNorth as INT_
+		SecondsNorth as INT_
+		DegreesEast as INT_
+		MinutesEast as INT_
+		SecondsEast as INT_
 	end type
 #endif
 
@@ -1165,11 +1165,11 @@ type LPGOPHER_GEOGRAPHICAL_LOCATION_ATTRIBUTE_TYPE as GOPHER_GEOGRAPHICAL_LOCATI
 
 #ifdef __FB_64BIT__
 	type GOPHER_TIMEZONE_ATTRIBUTE_TYPE
-		Zone as INT
+		Zone as INT_
 	end type
 #else
 	type GOPHER_TIMEZONE_ATTRIBUTE_TYPE field = 4
-		Zone as INT
+		Zone as INT_
 	end type
 #endif
 

@@ -1103,7 +1103,7 @@ type IOleInPlaceSiteWindowlessVtbl
 	ReleaseDC as function(byval This as IOleInPlaceSiteWindowless ptr, byval hDC as HDC) as HRESULT
 	InvalidateRect as function(byval This as IOleInPlaceSiteWindowless ptr, byval pRect as LPCRECT, byval fErase as WINBOOL) as HRESULT
 	InvalidateRgn as function(byval This as IOleInPlaceSiteWindowless ptr, byval hRGN as HRGN, byval fErase as WINBOOL) as HRESULT
-	ScrollRect as function(byval This as IOleInPlaceSiteWindowless ptr, byval dx as INT, byval dy as INT, byval pRectScroll as LPCRECT, byval pRectClip as LPCRECT) as HRESULT
+	ScrollRect as function(byval This as IOleInPlaceSiteWindowless ptr, byval dx as INT_, byval dy as INT_, byval pRectScroll as LPCRECT, byval pRectClip as LPCRECT) as HRESULT
 	AdjustRect as function(byval This as IOleInPlaceSiteWindowless ptr, byval prc as LPRECT) as HRESULT
 	OnDefWindowMessage as function(byval This as IOleInPlaceSiteWindowless ptr, byval msg as UINT, byval wParam as WPARAM, byval lParam as LPARAM, byval plResult as LRESULT ptr) as HRESULT
 end type
@@ -1130,7 +1130,7 @@ declare function IOleInPlaceSiteWindowless_InvalidateRect_Proxy(byval This as IO
 declare sub IOleInPlaceSiteWindowless_InvalidateRect_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IOleInPlaceSiteWindowless_InvalidateRgn_Proxy(byval This as IOleInPlaceSiteWindowless ptr, byval hRGN as HRGN, byval fErase as WINBOOL) as HRESULT
 declare sub IOleInPlaceSiteWindowless_InvalidateRgn_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-declare function IOleInPlaceSiteWindowless_ScrollRect_Proxy(byval This as IOleInPlaceSiteWindowless ptr, byval dx as INT, byval dy as INT, byval pRectScroll as LPCRECT, byval pRectClip as LPCRECT) as HRESULT
+declare function IOleInPlaceSiteWindowless_ScrollRect_Proxy(byval This as IOleInPlaceSiteWindowless ptr, byval dx as INT_, byval dy as INT_, byval pRectScroll as LPCRECT, byval pRectClip as LPCRECT) as HRESULT
 declare sub IOleInPlaceSiteWindowless_ScrollRect_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IOleInPlaceSiteWindowless_AdjustRect_Proxy(byval This as IOleInPlaceSiteWindowless ptr, byval prc as LPRECT) as HRESULT
 declare sub IOleInPlaceSiteWindowless_AdjustRect_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)

@@ -88,16 +88,41 @@ type LPMODEMSETTINGS as _MODEMSETTINGS ptr
 #define MDM_MASK_EXTENDEDINFO (MDM_MASK_BEARERMODE or MDM_MASK_PROTOCOLINFO)
 #define MDM_SHIFT_EXTENDEDINFO MDM_SHIFT_BEARERMODE
 #define MDM_GET_BEARERMODE(_dwOptions) (((_dwOptions) and MDM_MASK_BEARERMODE) shr MDM_SHIFT_BEARERMODE)
-#define MDM_SET_BEARERMODE(_dwOptions, _bm) '' TODO: (((_dwOptions) &= ~MDM_MASK_BEARERMODE),((_dwOptions) |= (((_bm)<<MDM_SHIFT_BEARERMODE)&MDM_MASK_BEARERMODE)))
+#macro MDM_SET_BEARERMODE(_dwOptions, _bm)
+	scope
+		(_dwOptions) and= not MDM_MASK_BEARERMODE
+		(_dwOptions) or= ((_bm) shl MDM_SHIFT_BEARERMODE) and MDM_MASK_BEARERMODE
+	end scope
+#endmacro
 #define MDM_GET_PROTOCOLID(_dwOptions) (((_dwOptions) and MDM_MASK_PROTOCOLID) shr MDM_SHIFT_PROTOCOLID)
-#define MDM_SET_PROTOCOLID(_dwOptions, _prot) '' TODO: (((_dwOptions) &= ~MDM_MASK_PROTOCOLID),((_dwOptions) |= (((_prot)<<MDM_SHIFT_PROTOCOLID)&MDM_MASK_PROTOCOLID)))
+#macro MDM_SET_PROTOCOLID(_dwOptions, _prot)
+	scope
+		(_dwOptions) and= not MDM_MASK_PROTOCOLID
+		(_dwOptions) or= ((_prot) shl MDM_SHIFT_PROTOCOLID) and MDM_MASK_PROTOCOLID
+	end scope
+#endmacro
 #define MDM_GET_PROTOCOLDATA(_dwOptions) (((_dwOptions) and MDM_MASK_PROTOCOLDATA) shr MDM_SHIFT_PROTOCOLDATA)
-#define MDM_SET_PROTOCOLDATA(_dwOptions, _pd) '' TODO: (((_dwOptions) &= ~MDM_MASK_PROTOCOLDATA),((_dwOptions) |= (((_pd)<<MDM_SHIFT_PROTOCOLDATA)&MDM_MASK_PROTOCOLDATA)))
+#macro MDM_SET_PROTOCOLDATA(_dwOptions, _pd)
+	scope
+		(_dwOptions) and= not MDM_MASK_PROTOCOLDATA
+		(_dwOptions) or= ((_pd) shl MDM_SHIFT_PROTOCOLDATA) and MDM_MASK_PROTOCOLDATA
+	end scope
+#endmacro
 #define MDM_GET_PROTOCOLINFO(_dwOptions) ((_dwOptions) and MDM_MASK_PROTOCOLINFO)
-#define MDM_SET_PROTOCOLINFO(_dwOptions, _pinfo) '' TODO: (((_dwOptions) &= ~MDM_MASK_PROTOCOLINFO),((_dwOptions) |= ((_pinfo)&MDM_MASK_PROTOCOLINFO)))
+#macro MDM_SET_PROTOCOLINFO(_dwOptions, _pinfo)
+	scope
+		(_dwOptions) and= not MDM_MASK_PROTOCOLINFO
+		(_dwOptions) or= (_pinfo) and MDM_MASK_PROTOCOLINFO
+	end scope
+#endmacro
 #define MDM_GEN_PROTOCOLINFO(_pid, _pdata) ((((_pid) shl MDM_SHIFT_PROTOCOLID) and MDM_MASK_PROTOCOLID) or (((_pdata) shl MDM_SHIFT_PROTOCOLDATA) and MDM_MASK_PROTOCOLDATA))
 #define MDM_GET_EXTENDEDINFO(_dwOptions) ((_dwOptions) and MDM_MASK_EXTENDEDINFO)
-#define MDM_SET_EXTENDEDINFO(_dwOptions, _extinfo) '' TODO: (((_dwOptions) &= ~MDM_MASK_EXTENDEDINFO),((_dwOptions) |= ((_extinfo) & MDM_MASK_EXTENDEDINFO)))
+#macro MDM_SET_EXTENDEDINFO(_dwOptions, _extinfo)
+	scope
+		(_dwOptions) and= notMDM_MASK_EXTENDEDINFO
+		(_dwOptions) or= (_extinfo) and MDM_MASK_EXTENDEDINFO
+	end scope
+#endmacro
 #define MDM_GEN_EXTENDEDINFO(_bearermode, _pinfo) (((_pinfo) and MDM_MASK_PROTOCOLINFO) or (((_bearermode) shl MDM_SHIFT_BEARERMODE) and MDM_MASK_BEARERMODE))
 #define MDM_BEARERMODE_ANALOG &h0
 #define MDM_BEARERMODE_ISDN &h1

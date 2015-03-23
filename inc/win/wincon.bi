@@ -3,6 +3,9 @@
 #include once "_mingw_unicode.bi"
 #include once "winapifamily.bi"
 
+'' The following symbols have been renamed:
+''     #define MOUSE_EVENT => MOUSE_EVENT_
+
 #ifdef __FB_64BIT__
 	extern "C"
 #else
@@ -121,7 +124,7 @@ end type
 type INPUT_RECORD as _INPUT_RECORD
 type PINPUT_RECORD as _INPUT_RECORD ptr
 #define KEY_EVENT &h1
-#define MOUSE_EVENT &h2
+#define MOUSE_EVENT_ &h2
 #define WINDOW_BUFFER_SIZE_EVENT &h4
 #define MENU_EVENT &h8
 #define FOCUS_EVENT &h10

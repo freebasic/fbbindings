@@ -33,10 +33,45 @@ type FD_SET
 end type
 
 declare function __WSAFDIsSet(byval as SOCKET, byval as FD_SET ptr) as long
-#define FD_CLR(fd, set) '' TODO: do { u_int __i; for(__i = 0; __i < ((fd_set *)(set))->fd_count; __i++) { if (((fd_set *)(set))->fd_array[__i] == fd) { while (__i < ((fd_set *)(set))->fd_count - 1) { ((fd_set *)(set))->fd_array[__i] = ((fd_set *)(set))->fd_array[__i + 1]; __i++; } ((fd_set *)(set))->fd_count--; break; } } } while(0)
-#define FD_ZERO(set) '' TODO: (((fd_set *)(set))->fd_count = 0)
+#macro FD_CLR(fd, set)
+	scope
+		dim __i as u_int
+		while __i < cptr(fd_set ptr, set)->fd_count
+			if cptr(fd_set ptr, set)->fd_array[__i] = fd then
+				while __i < cptr(fd_set ptr, set)->fd_count - 1
+					cptr(fd_set ptr, set)->fd_array[__i] = cptr(fd_set ptr, set)->fd_array[__i + 1]
+					__i += 1
+				wend
+				cptr(fd_set ptr, set)->fd_count -= 1
+				exit while
+			end if
+			__i += 1
+		wend
+	end scope
+#endmacro
+#macro FD_ZERO(set)
+	scope
+		cptr(fd_set ptr, set)->fd_count = 0
+	end scope
+#endmacro
 #define FD_ISSET(fd, set) __WSAFDIsSet(cast(SOCKET, (fd)), cptr(FD_SET ptr, (set)))
-#define FD_SET(fd, set) '' TODO: do { u_int __i; for(__i = 0; __i < ((fd_set *)(set))->fd_count; __i++) { if (((fd_set *)(set))->fd_array[__i] == (fd)) { break; } } if (__i == ((fd_set *)(set))->fd_count) { if (((fd_set *)(set))->fd_count < FD_SETSIZE) { ((fd_set *)(set))->fd_array[__i] = (fd); ((fd_set *)(set))->fd_count++; } } } while(0)
+#macro FD_SET_(fd, set)
+	scope
+		dim __i as u_int
+		while __i < cptr(fd_set ptr, set)->fd_count
+			if cptr(fd_set ptr, set)->fd_array[__i] = (fd)
+				exit while
+			end if
+			__i += 1
+		wend
+		if __i = cptr(fd_set ptr, set)->fd_count
+			if cptr(fd_set ptr, set)->fd_count < FD_SETSIZE
+				cptr(fd_set ptr, set)->fd_array[__i] = (fd)
+				cptr(fd_set ptr, set)->fd_count += 1
+			end if
+		end if
+	end scope
+#endmacro
 type PFD_SET as FD_SET ptr
 type LPFD_SET as FD_SET ptr
 #define _MINGW_IP_TYPES_H
@@ -393,7 +428,7 @@ type LPWSAOVERLAPPED as _OVERLAPPED ptr
 #define WSA_INVALID_PARAMETER ERROR_INVALID_PARAMETER
 #define WSA_NOT_ENOUGH_MEMORY ERROR_NOT_ENOUGH_MEMORY
 #define WSA_OPERATION_ABORTED ERROR_OPERATION_ABORTED
-#define WSA_INVALID_EVENT '' TODO: ((WSAEVENT)NULL)
+#define WSA_INVALID_EVENT cast(WSAEVENT, NULL)
 #define WSA_MAXIMUM_WAIT_EVENTS MAXIMUM_WAIT_OBJECTS
 #define WSA_WAIT_FAILED WAIT_FAILED
 #define WSA_WAIT_EVENT_0 WAIT_OBJECT_0
@@ -657,7 +692,7 @@ type ADDRESS_FAMILY as u_short
 
 type _SOCKET_ADDRESS
 	lpSockaddr as LPSOCKADDR
-	iSockaddrLength as INT
+	iSockaddrLength as INT_
 end type
 
 type SOCKET_ADDRESS as _SOCKET_ADDRESS
@@ -667,8 +702,8 @@ type LPSOCKET_ADDRESS as _SOCKET_ADDRESS ptr
 type _CSADDR_INFO
 	LocalAddr as SOCKET_ADDRESS
 	RemoteAddr as SOCKET_ADDRESS
-	iSocketType as INT
-	iProtocol as INT
+	iSocketType as INT_
+	iProtocol as INT_
 end type
 
 type CSADDR_INFO as _CSADDR_INFO
@@ -676,7 +711,7 @@ type PCSADDR_INFO as _CSADDR_INFO ptr
 type LPCSADDR_INFO as _CSADDR_INFO ptr
 
 type _SOCKET_ADDRESS_LIST
-	iAddressCount as INT
+	iAddressCount as INT_
 	Address(0 to 0) as SOCKET_ADDRESS
 end type
 
@@ -685,8 +720,8 @@ type PSOCKET_ADDRESS_LIST as _SOCKET_ADDRESS_LIST ptr
 type LPSOCKET_ADDRESS_LIST as _SOCKET_ADDRESS_LIST ptr
 
 type _AFPROTOCOLS
-	iAddressFamily as INT
-	iProtocol as INT
+	iAddressFamily as INT_
+	iProtocol as INT_
 end type
 
 type AFPROTOCOLS as _AFPROTOCOLS
@@ -907,7 +942,7 @@ type LPWSANAMESPACE_INFOW as _WSANAMESPACE_INFOW ptr
 
 type _WSAMSG
 	name as LPSOCKADDR
-	namelen as INT
+	namelen as INT_
 	lpBuffers as LPWSABUF
 	dwBufferCount as DWORD
 	Control as WSABUF
@@ -1021,28 +1056,28 @@ declare function WSASetEvent(byval hEvent as HANDLE) as WINBOOL
 declare function WSASocketA(byval af as long, byval type as long, byval protocol as long, byval lpProtocolInfo as LPWSAPROTOCOL_INFOA, byval g as GROUP, byval dwFlags as DWORD) as SOCKET
 declare function WSASocketW(byval af as long, byval type as long, byval protocol as long, byval lpProtocolInfo as LPWSAPROTOCOL_INFOW, byval g as GROUP, byval dwFlags as DWORD) as SOCKET
 declare function WSAWaitForMultipleEvents(byval cEvents as DWORD, byval lphEvents as const HANDLE ptr, byval fWaitAll as WINBOOL, byval dwTimeout as DWORD, byval fAlertable as WINBOOL) as DWORD
-declare function WSAAddressToStringA(byval lpsaAddress as LPSOCKADDR, byval dwAddressLength as DWORD, byval lpProtocolInfo as LPWSAPROTOCOL_INFOA, byval lpszAddressString as LPSTR, byval lpdwAddressStringLength as LPDWORD) as INT
-declare function WSAAddressToStringW(byval lpsaAddress as LPSOCKADDR, byval dwAddressLength as DWORD, byval lpProtocolInfo as LPWSAPROTOCOL_INFOW, byval lpszAddressString as LPWSTR, byval lpdwAddressStringLength as LPDWORD) as INT
-declare function WSAStringToAddressA(byval AddressString as LPSTR, byval AddressFamily as INT, byval lpProtocolInfo as LPWSAPROTOCOL_INFOA, byval lpAddress as LPSOCKADDR, byval lpAddressLength as LPINT) as INT
-declare function WSAStringToAddressW(byval AddressString as LPWSTR, byval AddressFamily as INT, byval lpProtocolInfo as LPWSAPROTOCOL_INFOW, byval lpAddress as LPSOCKADDR, byval lpAddressLength as LPINT) as INT
-declare function WSALookupServiceBeginA(byval lpqsRestrictions as LPWSAQUERYSETA, byval dwControlFlags as DWORD, byval lphLookup as LPHANDLE) as INT
-declare function WSALookupServiceBeginW(byval lpqsRestrictions as LPWSAQUERYSETW, byval dwControlFlags as DWORD, byval lphLookup as LPHANDLE) as INT
-declare function WSALookupServiceNextA(byval hLookup as HANDLE, byval dwControlFlags as DWORD, byval lpdwBufferLength as LPDWORD, byval lpqsResults as LPWSAQUERYSETA) as INT
-declare function WSALookupServiceNextW(byval hLookup as HANDLE, byval dwControlFlags as DWORD, byval lpdwBufferLength as LPDWORD, byval lpqsResults as LPWSAQUERYSETW) as INT
-declare function WSANSPIoctl(byval hLookup as HANDLE, byval dwControlCode as DWORD, byval lpvInBuffer as LPVOID, byval cbInBuffer as DWORD, byval lpvOutBuffer as LPVOID, byval cbOutBuffer as DWORD, byval lpcbBytesReturned as LPDWORD, byval lpCompletion as LPWSACOMPLETION) as INT
-declare function WSALookupServiceEnd(byval hLookup as HANDLE) as INT
-declare function WSAInstallServiceClassA(byval lpServiceClassInfo as LPWSASERVICECLASSINFOA) as INT
-declare function WSAInstallServiceClassW(byval lpServiceClassInfo as LPWSASERVICECLASSINFOW) as INT
-declare function WSARemoveServiceClass(byval lpServiceClassId as LPGUID) as INT
-declare function WSAGetServiceClassInfoA(byval lpProviderId as LPGUID, byval lpServiceClassId as LPGUID, byval lpdwBufSize as LPDWORD, byval lpServiceClassInfo as LPWSASERVICECLASSINFOA) as INT
-declare function WSAGetServiceClassInfoW(byval lpProviderId as LPGUID, byval lpServiceClassId as LPGUID, byval lpdwBufSize as LPDWORD, byval lpServiceClassInfo as LPWSASERVICECLASSINFOW) as INT
-declare function WSAEnumNameSpaceProvidersA(byval lpdwBufferLength as LPDWORD, byval lpnspBuffer as LPWSANAMESPACE_INFOA) as INT
-declare function WSAEnumNameSpaceProvidersW(byval lpdwBufferLength as LPDWORD, byval lpnspBuffer as LPWSANAMESPACE_INFOW) as INT
-declare function WSAGetServiceClassNameByClassIdA(byval lpServiceClassId as LPGUID, byval lpszServiceClassName as LPSTR, byval lpdwBufferLength as LPDWORD) as INT
-declare function WSAGetServiceClassNameByClassIdW(byval lpServiceClassId as LPGUID, byval lpszServiceClassName as LPWSTR, byval lpdwBufferLength as LPDWORD) as INT
-declare function WSASetServiceA(byval lpqsRegInfo as LPWSAQUERYSETA, byval essoperation as WSAESETSERVICEOP, byval dwControlFlags as DWORD) as INT
-declare function WSASetServiceW(byval lpqsRegInfo as LPWSAQUERYSETW, byval essoperation as WSAESETSERVICEOP, byval dwControlFlags as DWORD) as INT
-declare function WSAProviderConfigChange(byval lpNotificationHandle as LPHANDLE, byval lpOverlapped as LPWSAOVERLAPPED, byval lpCompletionRoutine as LPWSAOVERLAPPED_COMPLETION_ROUTINE) as INT
+declare function WSAAddressToStringA(byval lpsaAddress as LPSOCKADDR, byval dwAddressLength as DWORD, byval lpProtocolInfo as LPWSAPROTOCOL_INFOA, byval lpszAddressString as LPSTR, byval lpdwAddressStringLength as LPDWORD) as INT_
+declare function WSAAddressToStringW(byval lpsaAddress as LPSOCKADDR, byval dwAddressLength as DWORD, byval lpProtocolInfo as LPWSAPROTOCOL_INFOW, byval lpszAddressString as LPWSTR, byval lpdwAddressStringLength as LPDWORD) as INT_
+declare function WSAStringToAddressA(byval AddressString as LPSTR, byval AddressFamily as INT_, byval lpProtocolInfo as LPWSAPROTOCOL_INFOA, byval lpAddress as LPSOCKADDR, byval lpAddressLength as LPINT) as INT_
+declare function WSAStringToAddressW(byval AddressString as LPWSTR, byval AddressFamily as INT_, byval lpProtocolInfo as LPWSAPROTOCOL_INFOW, byval lpAddress as LPSOCKADDR, byval lpAddressLength as LPINT) as INT_
+declare function WSALookupServiceBeginA(byval lpqsRestrictions as LPWSAQUERYSETA, byval dwControlFlags as DWORD, byval lphLookup as LPHANDLE) as INT_
+declare function WSALookupServiceBeginW(byval lpqsRestrictions as LPWSAQUERYSETW, byval dwControlFlags as DWORD, byval lphLookup as LPHANDLE) as INT_
+declare function WSALookupServiceNextA(byval hLookup as HANDLE, byval dwControlFlags as DWORD, byval lpdwBufferLength as LPDWORD, byval lpqsResults as LPWSAQUERYSETA) as INT_
+declare function WSALookupServiceNextW(byval hLookup as HANDLE, byval dwControlFlags as DWORD, byval lpdwBufferLength as LPDWORD, byval lpqsResults as LPWSAQUERYSETW) as INT_
+declare function WSANSPIoctl(byval hLookup as HANDLE, byval dwControlCode as DWORD, byval lpvInBuffer as LPVOID, byval cbInBuffer as DWORD, byval lpvOutBuffer as LPVOID, byval cbOutBuffer as DWORD, byval lpcbBytesReturned as LPDWORD, byval lpCompletion as LPWSACOMPLETION) as INT_
+declare function WSALookupServiceEnd(byval hLookup as HANDLE) as INT_
+declare function WSAInstallServiceClassA(byval lpServiceClassInfo as LPWSASERVICECLASSINFOA) as INT_
+declare function WSAInstallServiceClassW(byval lpServiceClassInfo as LPWSASERVICECLASSINFOW) as INT_
+declare function WSARemoveServiceClass(byval lpServiceClassId as LPGUID) as INT_
+declare function WSAGetServiceClassInfoA(byval lpProviderId as LPGUID, byval lpServiceClassId as LPGUID, byval lpdwBufSize as LPDWORD, byval lpServiceClassInfo as LPWSASERVICECLASSINFOA) as INT_
+declare function WSAGetServiceClassInfoW(byval lpProviderId as LPGUID, byval lpServiceClassId as LPGUID, byval lpdwBufSize as LPDWORD, byval lpServiceClassInfo as LPWSASERVICECLASSINFOW) as INT_
+declare function WSAEnumNameSpaceProvidersA(byval lpdwBufferLength as LPDWORD, byval lpnspBuffer as LPWSANAMESPACE_INFOA) as INT_
+declare function WSAEnumNameSpaceProvidersW(byval lpdwBufferLength as LPDWORD, byval lpnspBuffer as LPWSANAMESPACE_INFOW) as INT_
+declare function WSAGetServiceClassNameByClassIdA(byval lpServiceClassId as LPGUID, byval lpszServiceClassName as LPSTR, byval lpdwBufferLength as LPDWORD) as INT_
+declare function WSAGetServiceClassNameByClassIdW(byval lpServiceClassId as LPGUID, byval lpszServiceClassName as LPWSTR, byval lpdwBufferLength as LPDWORD) as INT_
+declare function WSASetServiceA(byval lpqsRegInfo as LPWSAQUERYSETA, byval essoperation as WSAESETSERVICEOP, byval dwControlFlags as DWORD) as INT_
+declare function WSASetServiceW(byval lpqsRegInfo as LPWSAQUERYSETW, byval essoperation as WSAESETSERVICEOP, byval dwControlFlags as DWORD) as INT_
+declare function WSAProviderConfigChange(byval lpNotificationHandle as LPHANDLE, byval lpOverlapped as LPWSAOVERLAPPED, byval lpCompletionRoutine as LPWSAOVERLAPPED_COMPLETION_ROUTINE) as INT_
 
 #define WSAMAKEASYNCREPLY(buflen, error) MAKELONG(buflen, error)
 #define WSAMAKESELECTREPLY(event, error) MAKELONG(event, error)
@@ -1165,8 +1200,8 @@ declare function WSAProviderConfigChange(byval lpNotificationHandle as LPHANDLE,
 #endif
 
 #if _WIN32_WINNT = &h0602
-	declare function WSAEnumNameSpaceProvidersExA(byval lpdwBufferLength as LPDWORD, byval lpnspBuffer as LPWSANAMESPACE_INFOEXA) as INT
-	declare function WSAEnumNameSpaceProvidersExW(byval lpdwBufferLength as LPDWORD, byval lpnspBuffer as LPWSANAMESPACE_INFOEXW) as INT
+	declare function WSAEnumNameSpaceProvidersExA(byval lpdwBufferLength as LPDWORD, byval lpnspBuffer as LPWSANAMESPACE_INFOEXA) as INT_
+	declare function WSAEnumNameSpaceProvidersExW(byval lpdwBufferLength as LPDWORD, byval lpnspBuffer as LPWSANAMESPACE_INFOEXW) as INT_
 #endif
 
 #if defined(UNICODE) and (_WIN32_WINNT = &h0602)
@@ -1176,7 +1211,7 @@ declare function WSAProviderConfigChange(byval lpNotificationHandle as LPHANDLE,
 #endif
 
 #if _WIN32_WINNT = &h0602
-	declare function WSAPoll(byval fdarray as WSAPOLLFD ptr, byval nfds as ULONG, byval timeout as INT) as long
+	declare function WSAPoll(byval fdarray as WSAPOLLFD ptr, byval nfds as ULONG, byval timeout as INT_) as long
 	declare function WSASendMsg(byval s as SOCKET, byval lpMsg as LPWSAMSG, byval dwFlags as DWORD, byval lpNumberOfBytesSent as LPDWORD, byval lpOverlapped as LPWSAOVERLAPPED, byval lpCompletionRoutine as LPWSAOVERLAPPED_COMPLETION_ROUTINE) as long
 #endif
 

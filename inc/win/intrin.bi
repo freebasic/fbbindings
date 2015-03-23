@@ -3,32 +3,6 @@
 extern "C"
 
 #define _INTRIN_MAC_
-#define __buildstos(x, y, z) '' TODO: void x(y *Dest, y Data, size_t Count){ __asm__ __volatile__ ("rep stos{%z[Data]|" z "}" : "+D" (Dest), "+c" (Count) : [Data] "a" (Data) : "memory");}
-#define __buildlogicali(x, y, o) '' TODO: y x(volatile y *Destination, y Value){ return __sync_fetch_and_ ## o(Destination, Value);}
-#define __buildbittesti(x, y, z, a, b) '' TODO: unsigned char x(b y *Base, y Offset){ unsigned char old; __asm__ __volatile__ (z "%z[Base] {%[Offset],%[Base] | %[Base],%[Offset]} ; setc %[old]" : [old] "=qm" (old), [Base] "+m" (*Base) : [Offset] a "r" (Offset) : "memory", "cc"); return old;}
-#define __buildpause() '' TODO: __asm__ __volatile__("rep nop")
-#define __buildint(a) '' TODO: __asm__ __volatile__("int {$}" #a :)
-#macro __buildmemorybarrier
-	scope
-		dim Barrier as ubyte
-		'' TODO: __asm__ __volatile__("xchg{b %%| }al, %0" :"=m" (Barrier) : : "eax", "memory");
-	end scope
-#endmacro
-#define __buildreadseg(x, y, z) '' TODO: y x(unsigned __LONG32 Offset) { y ret; __asm__ ("mov{%z[ret] %%" z ":%[offset], %[ret] | %[ret], %%" z ":%[offset]}" : [ret] "=r" (ret) : [offset] "m" ((*(y *) (size_t) Offset))); return ret;}
-#define __buildwriteseg(x, y, z) '' TODO: void x(unsigned __LONG32 Offset, y Data) { __asm__ ("mov{%z[offset] %[Data], %%" z ":%[offset] | %%" z ":%[offset], %[Data]}" : [offset] "=m" ((*(y *) (size_t) Offset)) : [Data] "ri" (Data));}
-#define __buildbitscan(x, y, z) '' TODO: unsigned char x(unsigned __LONG32 *Index, y Mask){ y n; __asm__ (z "{%z[Mask] %[Mask],%[Index] | %[Index],%[Mask]}" : [Index] "=r" (n) : [Mask] "r" (Mask) : "cc"); *Index = n; return Mask!=0;}
-#define __buildbittest(x, y, a) '' TODO: unsigned char x(const y *Base, y Offset){ unsigned char old; __asm__ ("bt{%z[Base] %[Offset],%[Base] | %[Base],%[Offset]} ; setc %[old]" : [old] "=rm" (old) : [Offset] a "r" (Offset), [Base] "rm" (*Base) : "cc"); return old;}
-#define __buildbittestand(x, y, z, a) '' TODO: unsigned char x(y *Base, y Offset){ unsigned char old; __asm__ (z "%z[Base] {%[Offset],%[Base] | %[Base],%[Offset]} ; setc %[old]" : [old] "=r" (old), [Base] "+rm" (*Base) : [Offset] a "r" (Offset) : "cc"); return old;}
-#define __build_inport(x, y) '' TODO: y x(unsigned short Port) { y value; __asm__ __volatile__ ("in{%z0 %w1,%0| %0,%w1}" : "=a" (value) : "Nd" (Port)); return value; }
-#define __build_outport(x, y) '' TODO: void x(unsigned short Port, y Data) { __asm__ __volatile__ ("out{%z0 %0,%w1| %w1,%0}" : : "a" (Data), "Nd" (Port)); }
-#define __build_inportstring(x, y, z, a) '' TODO: void x(unsigned short Port, y *Buffer, unsigned __LONG32 Count) { __asm__ __volatile__ ("cld ; rep ins{" z "|" a "}" : "=D" (Buffer), "=c" (Count) : "d"(Port), "0"(Buffer), "1" (Count)); }
-#define __build_outportstring(x, y, z, a) '' TODO: void x(unsigned short Port, y *Buffer, unsigned __LONG32 Count) { __asm__ __volatile__ ("cld ; rep outs{" z "|" a "}" : "=S" (Buffer), "=c" (Count) : "d"(Port), "0"(Buffer), "1" (Count)); }
-#define __build_readcr(x, y, z) '' TODO: y x(void) { y value; __asm__ __volatile__ ("mov {%%cr" z ", %[value] | %[value], %%cr" z "}" : [value] "=q" (value)); return value; }
-#define __build_writecr(x, y, z) '' TODO: void x(y Data) { __asm__ __volatile__ ("mov {%[Data], %%cr" z "|%%cr" z ", %[Data]}" : : [Data] "q" (Data) : "memory"); }
-#define __buildmov(x, y, z) '' TODO: void x(y *Destination, y const *Source, size_t Count){ __asm__ __volatile__ ( "rep movs" z : "=D" (Destination), "=S" (Source), "=c" (Count) : "0" (Destination), "1" (Source), "2" (Count) : "memory");}
-#define _ReadWriteBarrier() '' TODO: __asm__ __volatile__ ("" ::: "memory")
-#define _ReadBarrier _ReadWriteBarrier
-#define _WriteBarrier _ReadWriteBarrier
 #define __INTRINSIC_SPECIAL___faststorefence
 #define __INTRINSIC_SPECIAL___int2c
 #define __INTRINSIC_SPECIAL___stosb

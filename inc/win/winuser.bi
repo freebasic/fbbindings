@@ -894,13 +894,13 @@ type MSG as tagMSG
 type PMSG as tagMSG ptr
 type NPMSG as tagMSG ptr
 type LPMSG as tagMSG ptr
-
 #macro POINTSTOPOINT(pt, pts)
 	scope
-		'' TODO: (pt).x = (LONG)(SHORT)LOWORD(*(LONG*)&pts);
-		'' TODO: (pt).y = (LONG)(SHORT)HIWORD(*(LONG*)&pts);
+		(pt).x = cast(LONG, cast(SHORT, LOWORD(*cptr(LONG ptr, @pts))))
+		(pt).y = cast(LONG, cast(SHORT, HIWORD(*cptr(LONG ptr, @pts))))
 	end scope
 #endmacro
+
 #define POINTTOPOINTS(pt) MAKELONG(cshort((pt).x), cshort((pt).y))
 #define MAKEWPARAM(l, h) cast(WPARAM, cast(DWORD, MAKELONG(l, h)))
 #define MAKELPARAM(l, h) cast(LPARAM, cast(DWORD, MAKELONG(l, h)))
@@ -2936,10 +2936,10 @@ declare function GrayStringW(byval hDC as HDC, byval hBrush as HBRUSH, byval lpO
 
 declare function DrawStateA(byval hdc as HDC, byval hbrFore as HBRUSH, byval qfnCallBack as DRAWSTATEPROC, byval lData as LPARAM, byval wData as WPARAM, byval x as long, byval y as long, byval cx as long, byval cy as long, byval uFlags as UINT) as WINBOOL
 declare function DrawStateW(byval hdc as HDC, byval hbrFore as HBRUSH, byval qfnCallBack as DRAWSTATEPROC, byval lData as LPARAM, byval wData as WPARAM, byval x as long, byval y as long, byval cx as long, byval cy as long, byval uFlags as UINT) as WINBOOL
-declare function TabbedTextOutA(byval hdc as HDC, byval x as long, byval y as long, byval lpString as LPCSTR, byval chCount as long, byval nTabPositions as long, byval lpnTabStopPositions as const INT ptr, byval nTabOrigin as long) as LONG
-declare function TabbedTextOutW(byval hdc as HDC, byval x as long, byval y as long, byval lpString as LPCWSTR, byval chCount as long, byval nTabPositions as long, byval lpnTabStopPositions as const INT ptr, byval nTabOrigin as long) as LONG
-declare function GetTabbedTextExtentA(byval hdc as HDC, byval lpString as LPCSTR, byval chCount as long, byval nTabPositions as long, byval lpnTabStopPositions as const INT ptr) as DWORD
-declare function GetTabbedTextExtentW(byval hdc as HDC, byval lpString as LPCWSTR, byval chCount as long, byval nTabPositions as long, byval lpnTabStopPositions as const INT ptr) as DWORD
+declare function TabbedTextOutA(byval hdc as HDC, byval x as long, byval y as long, byval lpString as LPCSTR, byval chCount as long, byval nTabPositions as long, byval lpnTabStopPositions as const INT_ ptr, byval nTabOrigin as long) as LONG
+declare function TabbedTextOutW(byval hdc as HDC, byval x as long, byval y as long, byval lpString as LPCWSTR, byval chCount as long, byval nTabPositions as long, byval lpnTabStopPositions as const INT_ ptr, byval nTabOrigin as long) as LONG
+declare function GetTabbedTextExtentA(byval hdc as HDC, byval lpString as LPCSTR, byval chCount as long, byval nTabPositions as long, byval lpnTabStopPositions as const INT_ ptr) as DWORD
+declare function GetTabbedTextExtentW(byval hdc as HDC, byval lpString as LPCWSTR, byval chCount as long, byval nTabPositions as long, byval lpnTabStopPositions as const INT_ ptr) as DWORD
 declare function UpdateWindow(byval hWnd as HWND) as WINBOOL
 declare function SetActiveWindow(byval hWnd as HWND) as HWND
 declare function GetForegroundWindow() as HWND
@@ -3256,7 +3256,7 @@ declare function ChildWindowFromPointEx(byval hwnd as HWND, byval pt as POINT, b
 
 declare function GetSysColor(byval nIndex as long) as DWORD
 declare function GetSysColorBrush(byval nIndex as long) as HBRUSH
-declare function SetSysColors(byval cElements as long, byval lpaElements as const INT ptr, byval lpaRgbValues as const COLORREF ptr) as WINBOOL
+declare function SetSysColors(byval cElements as long, byval lpaElements as const INT_ ptr, byval lpaRgbValues as const COLORREF ptr) as WINBOOL
 declare function DrawFocusRect(byval hDC as HDC, byval lprc as const RECT ptr) as WINBOOL
 declare function FillRect(byval hDC as HDC, byval lprc as const RECT ptr, byval hbr as HBRUSH) as long
 declare function FrameRect(byval hDC as HDC, byval lprc as const RECT ptr, byval hbr as HBRUSH) as long
@@ -5593,7 +5593,7 @@ end type
 type RAWINPUTDEVICELIST as tagRAWINPUTDEVICELIST
 type PRAWINPUTDEVICELIST as tagRAWINPUTDEVICELIST ptr
 declare function GetRawInputDeviceList(byval pRawInputDeviceList as PRAWINPUTDEVICELIST, byval puiNumDevices as PUINT, byval cbSize as UINT) as UINT
-declare function DefRawInputProc(byval paRawInput as PRAWINPUT ptr, byval nInput as INT, byval cbSizeHeader as UINT) as LRESULT
+declare function DefRawInputProc(byval paRawInput as PRAWINPUT ptr, byval nInput as INT_, byval cbSizeHeader as UINT) as LRESULT
 
 #if _WIN32_WINNT = &h0602
 	type _AUDIODESCRIPTION

@@ -793,8 +793,8 @@ enum
 end enum
 
 type Size
-	Width as INT
-	Height as INT
+	Width as INT_
+	Height as INT_
 end type
 
 type SizeF
@@ -803,8 +803,8 @@ type SizeF
 end type
 
 type Point
-	X as INT
-	Y as INT
+	X as INT_
+	Y as INT_
 end type
 
 type PointF
@@ -813,10 +813,10 @@ type PointF
 end type
 
 type Rect
-	X as INT
-	Y as INT
-	Width as INT
-	Height as INT
+	X as INT_
+	Y as INT_
+	Width as INT_
+	Height as INT_
 end type
 
 type RectF
@@ -827,12 +827,12 @@ type RectF
 end type
 
 type CharacterRange
-	First as INT
-	Length as INT
+	First as INT_
+	Length as INT_
 end type
 
 type PathData
-	Count as INT
+	Count as INT_
 	Points as PointF ptr
 	Types as UBYTE ptr
 end type
@@ -986,8 +986,8 @@ end enum
 type BitmapData
 	Width as UINT
 	Height as UINT
-	Stride as INT
-	PixelFormat as INT
+	Stride as INT_
+	PixelFormat as INT_
 	Scan0 as any ptr
 	Reserved as UINT_PTR
 end type
@@ -1361,47 +1361,47 @@ type MetafileHeader
 	EmfPlusFlags as UINT
 	DpiX as REAL
 	DpiY as REAL
-	X as INT
-	Y as INT
-	Width as INT
-	Height as INT
+	X as INT_
+	Y as INT_
+	Width as INT_
+	Height as INT_
 
 	union
 		WmfHeader as METAHEADER
 		EmfHeader as ENHMETAHEADER3
 	end union
 
-	EmfPlusHeaderSize as INT
-	LogicalDpiX as INT
-	LogicalDpiY as INT
+	EmfPlusHeaderSize as INT_
+	LogicalDpiX as INT_
+	LogicalDpiY as INT_
 end type
 
 #define __GDIPLUS_PIXELFORMATS_H
 type ARGB as DWORD
-type PixelFormat as INT
-#define PixelFormatIndexed cast(INT, &h00010000)
-#define PixelFormatGDI cast(INT, &h00020000)
-#define PixelFormatAlpha cast(INT, &h00040000)
-#define PixelFormatPAlpha cast(INT, &h00080000)
-#define PixelFormatExtended cast(INT, &h00100000)
-#define PixelFormatCanonical cast(INT, &h00200000)
-#define PixelFormatUndefined cast(INT, 0)
-#define PixelFormatDontCare cast(INT, 0)
-#define PixelFormat1bppIndexed cast(INT, ((1 or (1 shl 8)) or PixelFormatIndexed) or PixelFormatGDI)
-#define PixelFormat4bppIndexed cast(INT, ((2 or (4 shl 8)) or PixelFormatIndexed) or PixelFormatGDI)
-#define PixelFormat8bppIndexed cast(INT, ((3 or (8 shl 8)) or PixelFormatIndexed) or PixelFormatGDI)
-#define PixelFormat16bppGrayScale cast(INT, (4 or (16 shl 8)) or PixelFormatExtended)
-#define PixelFormat16bppRGB555 cast(INT, (5 or (16 shl 8)) or PixelFormatGDI)
-#define PixelFormat16bppRGB565 cast(INT, (6 or (16 shl 8)) or PixelFormatGDI)
-#define PixelFormat16bppARGB1555 cast(INT, ((7 or (16 shl 8)) or PixelFormatAlpha) or PixelFormatGDI)
-#define PixelFormat24bppRGB cast(INT, (8 or (24 shl 8)) or PixelFormatGDI)
-#define PixelFormat32bppRGB cast(INT, (9 or (32 shl 8)) or PixelFormatGDI)
-#define PixelFormat32bppARGB cast(INT, (((10 or (32 shl 8)) or PixelFormatAlpha) or PixelFormatGDI) or PixelFormatCanonical)
-#define PixelFormat32bppPARGB cast(INT, (((11 or (32 shl 8)) or PixelFormatAlpha) or PixelFormatPAlpha) or PixelFormatGDI)
-#define PixelFormat48bppRGB cast(INT, (12 or (48 shl 8)) or PixelFormatExtended)
-#define PixelFormat64bppARGB cast(INT, (((13 or (64 shl 8)) or PixelFormatAlpha) or PixelFormatCanonical) or PixelFormatExtended)
-#define PixelFormat64bppPARGB cast(INT, (((14 or (64 shl 8)) or PixelFormatAlpha) or PixelFormatPAlpha) or PixelFormatExtended)
-#define PixelFormatMax cast(INT, 15)
+type PixelFormat as INT_
+#define PixelFormatIndexed cast(INT_, &h00010000)
+#define PixelFormatGDI cast(INT_, &h00020000)
+#define PixelFormatAlpha cast(INT_, &h00040000)
+#define PixelFormatPAlpha cast(INT_, &h00080000)
+#define PixelFormatExtended cast(INT_, &h00100000)
+#define PixelFormatCanonical cast(INT_, &h00200000)
+#define PixelFormatUndefined cast(INT_, 0)
+#define PixelFormatDontCare cast(INT_, 0)
+#define PixelFormat1bppIndexed cast(INT_, ((1 or (1 shl 8)) or PixelFormatIndexed) or PixelFormatGDI)
+#define PixelFormat4bppIndexed cast(INT_, ((2 or (4 shl 8)) or PixelFormatIndexed) or PixelFormatGDI)
+#define PixelFormat8bppIndexed cast(INT_, ((3 or (8 shl 8)) or PixelFormatIndexed) or PixelFormatGDI)
+#define PixelFormat16bppGrayScale cast(INT_, (4 or (16 shl 8)) or PixelFormatExtended)
+#define PixelFormat16bppRGB555 cast(INT_, (5 or (16 shl 8)) or PixelFormatGDI)
+#define PixelFormat16bppRGB565 cast(INT_, (6 or (16 shl 8)) or PixelFormatGDI)
+#define PixelFormat16bppARGB1555 cast(INT_, ((7 or (16 shl 8)) or PixelFormatAlpha) or PixelFormatGDI)
+#define PixelFormat24bppRGB cast(INT_, (8 or (24 shl 8)) or PixelFormatGDI)
+#define PixelFormat32bppRGB cast(INT_, (9 or (32 shl 8)) or PixelFormatGDI)
+#define PixelFormat32bppARGB cast(INT_, (((10 or (32 shl 8)) or PixelFormatAlpha) or PixelFormatGDI) or PixelFormatCanonical)
+#define PixelFormat32bppPARGB cast(INT_, (((11 or (32 shl 8)) or PixelFormatAlpha) or PixelFormatPAlpha) or PixelFormatGDI)
+#define PixelFormat48bppRGB cast(INT_, (12 or (48 shl 8)) or PixelFormatExtended)
+#define PixelFormat64bppARGB cast(INT_, (((13 or (64 shl 8)) or PixelFormatAlpha) or PixelFormatCanonical) or PixelFormatExtended)
+#define PixelFormat64bppPARGB cast(INT_, (((14 or (64 shl 8)) or PixelFormatAlpha) or PixelFormatPAlpha) or PixelFormatExtended)
+#define PixelFormatMax cast(INT_, 15)
 
 type PaletteFlags as long
 enum
@@ -1435,19 +1435,19 @@ private function GetPixelFormatSize cdecl(byval pixfmt as PixelFormat) as UINT
 end function
 
 private function IsAlphaPixelFormat cdecl(byval pixfmt as PixelFormat) as BOOL
-	return -((pixfmt and cast(INT, &h00040000)) <> 0)
+	return -((pixfmt and cast(INT_, &h00040000)) <> 0)
 end function
 
 private function IsCanonicalPixelFormat cdecl(byval pixfmt as PixelFormat) as BOOL
-	return -((pixfmt and cast(INT, &h00200000)) <> 0)
+	return -((pixfmt and cast(INT_, &h00200000)) <> 0)
 end function
 
 private function IsExtendedPixelFormat cdecl(byval pixfmt as PixelFormat) as BOOL
-	return -((pixfmt and cast(INT, &h00100000)) <> 0)
+	return -((pixfmt and cast(INT_, &h00100000)) <> 0)
 end function
 
 private function IsIndexedPixelFormat cdecl(byval pixfmt as PixelFormat) as BOOL
-	return -((pixfmt and cast(INT, &h00010000)) <> 0)
+	return -((pixfmt and cast(INT_, &h00010000)) <> 0)
 end function
 
 #define __GDIPLUS_COLOR_H
@@ -1520,8 +1520,8 @@ declare function GdipCreateBitmapFromStream(byval as IStream ptr, byval as GpBit
 declare function GdipCreateBitmapFromFile(byval as const wstring ptr, byval as GpBitmap ptr ptr) as GpStatus
 declare function GdipCreateBitmapFromStreamICM(byval as IStream ptr, byval as GpBitmap ptr ptr) as GpStatus
 declare function GdipCreateBitmapFromFileICM(byval as const wstring ptr, byval as GpBitmap ptr ptr) as GpStatus
-declare function GdipCreateBitmapFromScan0(byval as INT, byval as INT, byval as INT, byval as PixelFormat, byval as UBYTE ptr, byval as GpBitmap ptr ptr) as GpStatus
-declare function GdipCreateBitmapFromGraphics(byval as INT, byval as INT, byval as GpGraphics ptr, byval as GpBitmap ptr ptr) as GpStatus
+declare function GdipCreateBitmapFromScan0(byval as INT_, byval as INT_, byval as INT_, byval as PixelFormat, byval as UBYTE ptr, byval as GpBitmap ptr ptr) as GpStatus
+declare function GdipCreateBitmapFromGraphics(byval as INT_, byval as INT_, byval as GpGraphics ptr, byval as GpBitmap ptr ptr) as GpStatus
 type IDirectDrawSurface7 as IDirectDrawSurface7_
 declare function GdipCreateBitmapFromDirectDrawSurface(byval as IDirectDrawSurface7 ptr, byval as GpBitmap ptr ptr) as GpStatus
 declare function GdipCreateBitmapFromGdiDib(byval as const BITMAPINFO ptr, byval as any ptr, byval as GpBitmap ptr ptr) as GpStatus
@@ -1531,16 +1531,16 @@ declare function GdipCreateBitmapFromHICON(byval as HICON, byval as GpBitmap ptr
 declare function GdipCreateHICONFromBitmap(byval as GpBitmap ptr, byval as HICON ptr) as GpStatus
 declare function GdipCreateBitmapFromResource(byval as HINSTANCE, byval as const wstring ptr, byval as GpBitmap ptr ptr) as GpStatus
 declare function GdipCloneBitmapArea(byval as REAL, byval as REAL, byval as REAL, byval as REAL, byval as PixelFormat, byval as GpBitmap ptr, byval as GpBitmap ptr ptr) as GpStatus
-declare function GdipCloneBitmapAreaI(byval as INT, byval as INT, byval as INT, byval as INT, byval as PixelFormat, byval as GpBitmap ptr, byval as GpBitmap ptr ptr) as GpStatus
+declare function GdipCloneBitmapAreaI(byval as INT_, byval as INT_, byval as INT_, byval as INT_, byval as PixelFormat, byval as GpBitmap ptr, byval as GpBitmap ptr ptr) as GpStatus
 declare function GdipBitmapLockBits(byval as GpBitmap ptr, byval as const GpRect ptr, byval as UINT, byval as PixelFormat, byval as BitmapData ptr) as GpStatus
 declare function GdipBitmapUnlockBits(byval as GpBitmap ptr, byval as BitmapData ptr) as GpStatus
-declare function GdipBitmapGetPixel(byval as GpBitmap ptr, byval as INT, byval as INT, byval as ARGB ptr) as GpStatus
-declare function GdipBitmapSetPixel(byval as GpBitmap ptr, byval as INT, byval as INT, byval as ARGB) as GpStatus
+declare function GdipBitmapGetPixel(byval as GpBitmap ptr, byval as INT_, byval as INT_, byval as ARGB ptr) as GpStatus
+declare function GdipBitmapSetPixel(byval as GpBitmap ptr, byval as INT_, byval as INT_, byval as ARGB) as GpStatus
 declare function GdipBitmapSetResolution(byval as GpBitmap ptr, byval as REAL, byval as REAL) as GpStatus
 declare function GdipBitmapConvertFormat(byval as GpBitmap ptr, byval as PixelFormat, byval as DitherType, byval as PaletteType, byval as ColorPalette ptr, byval as REAL) as GpStatus
-declare function GdipInitializePalette(byval as ColorPalette ptr, byval as PaletteType, byval as INT, byval as BOOL, byval as GpBitmap ptr) as GpStatus
-declare function GdipBitmapApplyEffect(byval as GpBitmap ptr, byval as CGpEffect ptr, byval as RECT ptr, byval as BOOL, byval as any ptr ptr, byval as INT ptr) as GpStatus
-declare function GdipBitmapCreateApplyEffect(byval as GpBitmap ptr ptr, byval as INT, byval as CGpEffect ptr, byval as RECT ptr, byval as RECT ptr, byval as GpBitmap ptr ptr, byval as BOOL, byval as any ptr ptr, byval as INT ptr) as GpStatus
+declare function GdipInitializePalette(byval as ColorPalette ptr, byval as PaletteType, byval as INT_, byval as BOOL, byval as GpBitmap ptr) as GpStatus
+declare function GdipBitmapApplyEffect(byval as GpBitmap ptr, byval as CGpEffect ptr, byval as RECT ptr, byval as BOOL, byval as any ptr ptr, byval as INT_ ptr) as GpStatus
+declare function GdipBitmapCreateApplyEffect(byval as GpBitmap ptr ptr, byval as INT_, byval as CGpEffect ptr, byval as RECT ptr, byval as RECT ptr, byval as GpBitmap ptr ptr, byval as BOOL, byval as any ptr ptr, byval as INT_ ptr) as GpStatus
 declare function GdipBitmapGetHistogram(byval as GpBitmap ptr, byval as HistogramFormat, byval as UINT, byval as UINT ptr, byval as UINT ptr, byval as UINT ptr, byval as UINT ptr) as GpStatus
 declare function GdipBitmapGetHistogramSize(byval as HistogramFormat, byval as UINT ptr) as GpStatus
 declare function GdipCloneBrush(byval as GpBrush ptr, byval as GpBrush ptr ptr) as GpStatus
@@ -1548,7 +1548,7 @@ declare function GdipDeleteBrush(byval as GpBrush ptr) as GpStatus
 declare function GdipGetBrushType(byval as GpBrush ptr, byval as GpBrushType ptr) as GpStatus
 declare function GdipCreateCachedBitmap(byval as GpBitmap ptr, byval as GpGraphics ptr, byval as GpCachedBitmap ptr ptr) as GpStatus
 declare function GdipDeleteCachedBitmap(byval as GpCachedBitmap ptr) as GpStatus
-declare function GdipDrawCachedBitmap(byval as GpGraphics ptr, byval as GpCachedBitmap ptr, byval as INT, byval as INT) as GpStatus
+declare function GdipDrawCachedBitmap(byval as GpGraphics ptr, byval as GpCachedBitmap ptr, byval as INT_, byval as INT_) as GpStatus
 declare function GdipCreateCustomLineCap(byval as GpPath ptr, byval as GpPath ptr, byval as GpLineCap, byval as REAL, byval as GpCustomLineCap ptr ptr) as GpStatus
 declare function GdipDeleteCustomLineCap(byval as GpCustomLineCap ptr) as GpStatus
 declare function GdipCloneCustomLineCap(byval as GpCustomLineCap ptr, byval as GpCustomLineCap ptr ptr) as GpStatus
@@ -1571,11 +1571,11 @@ declare function GdipGetEffectParameters(byval as CGpEffect ptr, byval as UINT p
 declare function GdipCreateFontFromDC(byval as HDC, byval as GpFont ptr ptr) as GpStatus
 declare function GdipCreateFontFromLogfontA(byval as HDC, byval as const LOGFONTA ptr, byval as GpFont ptr ptr) as GpStatus
 declare function GdipCreateFontFromLogfontW(byval as HDC, byval as const LOGFONTW ptr, byval as GpFont ptr ptr) as GpStatus
-declare function GdipCreateFont(byval as const GpFontFamily ptr, byval as REAL, byval as INT, byval as Unit, byval as GpFont ptr ptr) as GpStatus
+declare function GdipCreateFont(byval as const GpFontFamily ptr, byval as REAL, byval as INT_, byval as Unit, byval as GpFont ptr ptr) as GpStatus
 declare function GdipCloneFont(byval as GpFont ptr, byval as GpFont ptr ptr) as GpStatus
 declare function GdipDeleteFont(byval as GpFont ptr) as GpStatus
 declare function GdipGetFamily(byval as GpFont ptr, byval as GpFontFamily ptr ptr) as GpStatus
-declare function GdipGetFontStyle(byval as GpFont ptr, byval as INT ptr) as GpStatus
+declare function GdipGetFontStyle(byval as GpFont ptr, byval as INT_ ptr) as GpStatus
 declare function GdipGetFontSize(byval as GpFont ptr, byval as REAL ptr) as GpStatus
 declare function GdipGetFontUnit(byval as GpFont ptr, byval as Unit ptr) as GpStatus
 declare function GdipGetFontHeight(byval as const GpFont ptr, byval as const GpGraphics ptr, byval as REAL ptr) as GpStatus
@@ -1585,10 +1585,10 @@ declare function GdipGetLogFontW(byval as GpFont ptr, byval as GpGraphics ptr, b
 declare function GdipNewInstalledFontCollection(byval as GpFontCollection ptr ptr) as GpStatus
 declare function GdipNewPrivateFontCollection(byval as GpFontCollection ptr ptr) as GpStatus
 declare function GdipDeletePrivateFontCollection(byval as GpFontCollection ptr ptr) as GpStatus
-declare function GdipGetFontCollectionFamilyCount(byval as GpFontCollection ptr, byval as INT ptr) as GpStatus
-declare function GdipGetFontCollectionFamilyList(byval as GpFontCollection ptr, byval as INT, byval as GpFontFamily ptr ptr, byval as INT ptr) as GpStatus
+declare function GdipGetFontCollectionFamilyCount(byval as GpFontCollection ptr, byval as INT_ ptr) as GpStatus
+declare function GdipGetFontCollectionFamilyList(byval as GpFontCollection ptr, byval as INT_, byval as GpFontFamily ptr ptr, byval as INT_ ptr) as GpStatus
 declare function GdipPrivateAddFontFile(byval as GpFontCollection ptr, byval as const wstring ptr) as GpStatus
-declare function GdipPrivateAddMemoryFont(byval as GpFontCollection ptr, byval as const any ptr, byval as INT) as GpStatus
+declare function GdipPrivateAddMemoryFont(byval as GpFontCollection ptr, byval as const any ptr, byval as INT_) as GpStatus
 declare function GdipCreateFontFamilyFromName(byval as const wstring ptr, byval as GpFontCollection ptr, byval as GpFontFamily ptr ptr) as GpStatus
 declare function GdipDeleteFontFamily(byval as GpFontFamily ptr) as GpStatus
 declare function GdipCloneFontFamily(byval as GpFontFamily ptr, byval as GpFontFamily ptr ptr) as GpStatus
@@ -1596,13 +1596,13 @@ declare function GdipGetGenericFontFamilySansSerif(byval as GpFontFamily ptr ptr
 declare function GdipGetGenericFontFamilySerif(byval as GpFontFamily ptr ptr) as GpStatus
 declare function GdipGetGenericFontFamilyMonospace(byval as GpFontFamily ptr ptr) as GpStatus
 declare function GdipGetFamilyName(byval as const GpFontFamily ptr, byval as wstring ptr, byval as LANGID) as GpStatus
-declare function GdipIsStyleAvailable(byval as const GpFontFamily ptr, byval as INT, byval as BOOL ptr) as GpStatus
-declare function GdipFontCollectionEnumerable(byval as GpFontCollection ptr, byval as GpGraphics ptr, byval as INT ptr) as GpStatus
-declare function GdipFontCollectionEnumerate(byval as GpFontCollection ptr, byval as INT, byval as GpFontFamily ptr ptr, byval as INT ptr, byval as GpGraphics ptr) as GpStatus
-declare function GdipGetEmHeight(byval as const GpFontFamily ptr, byval as INT, byval as UINT16 ptr) as GpStatus
-declare function GdipGetCellAscent(byval as const GpFontFamily ptr, byval as INT, byval as UINT16 ptr) as GpStatus
-declare function GdipGetCellDescent(byval as const GpFontFamily ptr, byval as INT, byval as UINT16 ptr) as GpStatus
-declare function GdipGetLineSpacing(byval as const GpFontFamily ptr, byval as INT, byval as UINT16 ptr) as GpStatus
+declare function GdipIsStyleAvailable(byval as const GpFontFamily ptr, byval as INT_, byval as BOOL ptr) as GpStatus
+declare function GdipFontCollectionEnumerable(byval as GpFontCollection ptr, byval as GpGraphics ptr, byval as INT_ ptr) as GpStatus
+declare function GdipFontCollectionEnumerate(byval as GpFontCollection ptr, byval as INT_, byval as GpFontFamily ptr ptr, byval as INT_ ptr, byval as GpGraphics ptr) as GpStatus
+declare function GdipGetEmHeight(byval as const GpFontFamily ptr, byval as INT_, byval as UINT16 ptr) as GpStatus
+declare function GdipGetCellAscent(byval as const GpFontFamily ptr, byval as INT_, byval as UINT16 ptr) as GpStatus
+declare function GdipGetCellDescent(byval as const GpFontFamily ptr, byval as INT_, byval as UINT16 ptr) as GpStatus
+declare function GdipGetLineSpacing(byval as const GpFontFamily ptr, byval as INT_, byval as UINT16 ptr) as GpStatus
 declare function GdipFlush(byval as GpGraphics ptr, byval as GpFlushIntention) as GpStatus
 declare function GdipCreateFromHDC(byval as HDC, byval as GpGraphics ptr ptr) as GpStatus
 declare function GdipCreateFromHDC2(byval as HDC, byval as HANDLE, byval as GpGraphics ptr ptr) as GpStatus
@@ -1613,8 +1613,8 @@ declare function GdipGetDC(byval as GpGraphics ptr, byval as HDC ptr) as GpStatu
 declare function GdipReleaseDC(byval as GpGraphics ptr, byval as HDC) as GpStatus
 declare function GdipSetCompositingMode(byval as GpGraphics ptr, byval as CompositingMode) as GpStatus
 declare function GdipGetCompositingMode(byval as GpGraphics ptr, byval as CompositingMode ptr) as GpStatus
-declare function GdipSetRenderingOrigin(byval as GpGraphics ptr, byval as INT, byval as INT) as GpStatus
-declare function GdipGetRenderingOrigin(byval as GpGraphics ptr, byval as INT ptr, byval as INT ptr) as GpStatus
+declare function GdipSetRenderingOrigin(byval as GpGraphics ptr, byval as INT_, byval as INT_) as GpStatus
+declare function GdipGetRenderingOrigin(byval as GpGraphics ptr, byval as INT_ ptr, byval as INT_ ptr) as GpStatus
 declare function GdipSetCompositingQuality(byval as GpGraphics ptr, byval as CompositingQuality) as GpStatus
 declare function GdipGetCompositingQuality(byval as GpGraphics ptr, byval as CompositingQuality ptr) as GpStatus
 declare function GdipSetSmoothingMode(byval as GpGraphics ptr, byval as SmoothingMode) as GpStatus
@@ -1642,84 +1642,84 @@ declare function GdipSetPageUnit(byval as GpGraphics ptr, byval as GpUnit) as Gp
 declare function GdipSetPageScale(byval as GpGraphics ptr, byval as REAL) as GpStatus
 declare function GdipGetDpiX(byval as GpGraphics ptr, byval as REAL ptr) as GpStatus
 declare function GdipGetDpiY(byval as GpGraphics ptr, byval as REAL ptr) as GpStatus
-declare function GdipTransformPoints(byval as GpGraphics ptr, byval as GpCoordinateSpace, byval as GpCoordinateSpace, byval as GpPointF ptr, byval as INT) as GpStatus
-declare function GdipTransformPointsI(byval as GpGraphics ptr, byval as GpCoordinateSpace, byval as GpCoordinateSpace, byval as GpPoint ptr, byval as INT) as GpStatus
+declare function GdipTransformPoints(byval as GpGraphics ptr, byval as GpCoordinateSpace, byval as GpCoordinateSpace, byval as GpPointF ptr, byval as INT_) as GpStatus
+declare function GdipTransformPointsI(byval as GpGraphics ptr, byval as GpCoordinateSpace, byval as GpCoordinateSpace, byval as GpPoint ptr, byval as INT_) as GpStatus
 declare function GdipGetNearestColor(byval as GpGraphics ptr, byval as ARGB ptr) as GpStatus
 declare function GdipCreateHalftonePalette() as HPALETTE
 declare function GdipDrawLine(byval as GpGraphics ptr, byval as GpPen ptr, byval as REAL, byval as REAL, byval as REAL, byval as REAL) as GpStatus
-declare function GdipDrawLineI(byval as GpGraphics ptr, byval as GpPen ptr, byval as INT, byval as INT, byval as INT, byval as INT) as GpStatus
-declare function GdipDrawLines(byval as GpGraphics ptr, byval as GpPen ptr, byval as const GpPointF ptr, byval as INT) as GpStatus
-declare function GdipDrawLinesI(byval as GpGraphics ptr, byval as GpPen ptr, byval as const GpPoint ptr, byval as INT) as GpStatus
+declare function GdipDrawLineI(byval as GpGraphics ptr, byval as GpPen ptr, byval as INT_, byval as INT_, byval as INT_, byval as INT_) as GpStatus
+declare function GdipDrawLines(byval as GpGraphics ptr, byval as GpPen ptr, byval as const GpPointF ptr, byval as INT_) as GpStatus
+declare function GdipDrawLinesI(byval as GpGraphics ptr, byval as GpPen ptr, byval as const GpPoint ptr, byval as INT_) as GpStatus
 declare function GdipDrawArc(byval as GpGraphics ptr, byval as GpPen ptr, byval as REAL, byval as REAL, byval as REAL, byval as REAL, byval as REAL, byval as REAL) as GpStatus
-declare function GdipDrawArcI(byval as GpGraphics ptr, byval as GpPen ptr, byval as INT, byval as INT, byval as INT, byval as INT, byval as REAL, byval as REAL) as GpStatus
+declare function GdipDrawArcI(byval as GpGraphics ptr, byval as GpPen ptr, byval as INT_, byval as INT_, byval as INT_, byval as INT_, byval as REAL, byval as REAL) as GpStatus
 declare function GdipDrawBezier(byval as GpGraphics ptr, byval as GpPen ptr, byval as REAL, byval as REAL, byval as REAL, byval as REAL, byval as REAL, byval as REAL, byval as REAL, byval as REAL) as GpStatus
-declare function GdipDrawBezierI(byval as GpGraphics ptr, byval as GpPen ptr, byval as INT, byval as INT, byval as INT, byval as INT, byval as INT, byval as INT, byval as INT, byval as INT) as GpStatus
-declare function GdipDrawBeziers(byval as GpGraphics ptr, byval as GpPen ptr, byval as const GpPointF ptr, byval as INT) as GpStatus
-declare function GdipDrawBeziersI(byval as GpGraphics ptr, byval as GpPen ptr, byval as const GpPoint ptr, byval as INT) as GpStatus
+declare function GdipDrawBezierI(byval as GpGraphics ptr, byval as GpPen ptr, byval as INT_, byval as INT_, byval as INT_, byval as INT_, byval as INT_, byval as INT_, byval as INT_, byval as INT_) as GpStatus
+declare function GdipDrawBeziers(byval as GpGraphics ptr, byval as GpPen ptr, byval as const GpPointF ptr, byval as INT_) as GpStatus
+declare function GdipDrawBeziersI(byval as GpGraphics ptr, byval as GpPen ptr, byval as const GpPoint ptr, byval as INT_) as GpStatus
 declare function GdipDrawRectangle(byval as GpGraphics ptr, byval as GpPen ptr, byval as REAL, byval as REAL, byval as REAL, byval as REAL) as GpStatus
-declare function GdipDrawRectangleI(byval as GpGraphics ptr, byval as GpPen ptr, byval as INT, byval as INT, byval as INT, byval as INT) as GpStatus
-declare function GdipDrawRectangles(byval as GpGraphics ptr, byval as GpPen ptr, byval as const GpRectF ptr, byval as INT) as GpStatus
-declare function GdipDrawRectanglesI(byval as GpGraphics ptr, byval as GpPen ptr, byval as const GpRect ptr, byval as INT) as GpStatus
+declare function GdipDrawRectangleI(byval as GpGraphics ptr, byval as GpPen ptr, byval as INT_, byval as INT_, byval as INT_, byval as INT_) as GpStatus
+declare function GdipDrawRectangles(byval as GpGraphics ptr, byval as GpPen ptr, byval as const GpRectF ptr, byval as INT_) as GpStatus
+declare function GdipDrawRectanglesI(byval as GpGraphics ptr, byval as GpPen ptr, byval as const GpRect ptr, byval as INT_) as GpStatus
 declare function GdipDrawEllipse(byval as GpGraphics ptr, byval as GpPen ptr, byval as REAL, byval as REAL, byval as REAL, byval as REAL) as GpStatus
-declare function GdipDrawEllipseI(byval as GpGraphics ptr, byval as GpPen ptr, byval as INT, byval as INT, byval as INT, byval as INT) as GpStatus
+declare function GdipDrawEllipseI(byval as GpGraphics ptr, byval as GpPen ptr, byval as INT_, byval as INT_, byval as INT_, byval as INT_) as GpStatus
 declare function GdipDrawPie(byval as GpGraphics ptr, byval as GpPen ptr, byval as REAL, byval as REAL, byval as REAL, byval as REAL, byval as REAL, byval as REAL) as GpStatus
-declare function GdipDrawPieI(byval as GpGraphics ptr, byval as GpPen ptr, byval as INT, byval as INT, byval as INT, byval as INT, byval as REAL, byval as REAL) as GpStatus
-declare function GdipDrawPolygon(byval as GpGraphics ptr, byval as GpPen ptr, byval as const GpPointF ptr, byval as INT) as GpStatus
-declare function GdipDrawPolygonI(byval as GpGraphics ptr, byval as GpPen ptr, byval as const GpPoint ptr, byval as INT) as GpStatus
+declare function GdipDrawPieI(byval as GpGraphics ptr, byval as GpPen ptr, byval as INT_, byval as INT_, byval as INT_, byval as INT_, byval as REAL, byval as REAL) as GpStatus
+declare function GdipDrawPolygon(byval as GpGraphics ptr, byval as GpPen ptr, byval as const GpPointF ptr, byval as INT_) as GpStatus
+declare function GdipDrawPolygonI(byval as GpGraphics ptr, byval as GpPen ptr, byval as const GpPoint ptr, byval as INT_) as GpStatus
 declare function GdipDrawPath(byval as GpGraphics ptr, byval as GpPen ptr, byval as GpPath ptr) as GpStatus
-declare function GdipDrawCurve(byval as GpGraphics ptr, byval as GpPen ptr, byval as const GpPointF ptr, byval as INT) as GpStatus
-declare function GdipDrawCurveI(byval as GpGraphics ptr, byval as GpPen ptr, byval as const GpPoint ptr, byval as INT) as GpStatus
-declare function GdipDrawCurve2(byval as GpGraphics ptr, byval as GpPen ptr, byval as const GpPointF ptr, byval as INT, byval as REAL) as GpStatus
-declare function GdipDrawCurve2I(byval as GpGraphics ptr, byval as GpPen ptr, byval as const GpPoint ptr, byval as INT, byval as REAL) as GpStatus
-declare function GdipDrawCurve3(byval as GpGraphics ptr, byval as GpPen ptr, byval as const GpPointF ptr, byval as INT, byval as INT, byval as INT, byval as REAL) as GpStatus
-declare function GdipDrawCurve3I(byval as GpGraphics ptr, byval as GpPen ptr, byval as const GpPoint ptr, byval as INT, byval as INT, byval as INT, byval as REAL) as GpStatus
-declare function GdipDrawClosedCurve(byval as GpGraphics ptr, byval as GpPen ptr, byval as const GpPointF ptr, byval as INT) as GpStatus
-declare function GdipDrawClosedCurveI(byval as GpGraphics ptr, byval as GpPen ptr, byval as const GpPoint ptr, byval as INT) as GpStatus
-declare function GdipDrawClosedCurve2(byval as GpGraphics ptr, byval as GpPen ptr, byval as const GpPointF ptr, byval as INT, byval as REAL) as GpStatus
-declare function GdipDrawClosedCurve2I(byval as GpGraphics ptr, byval as GpPen ptr, byval as const GpPoint ptr, byval as INT, byval as REAL) as GpStatus
+declare function GdipDrawCurve(byval as GpGraphics ptr, byval as GpPen ptr, byval as const GpPointF ptr, byval as INT_) as GpStatus
+declare function GdipDrawCurveI(byval as GpGraphics ptr, byval as GpPen ptr, byval as const GpPoint ptr, byval as INT_) as GpStatus
+declare function GdipDrawCurve2(byval as GpGraphics ptr, byval as GpPen ptr, byval as const GpPointF ptr, byval as INT_, byval as REAL) as GpStatus
+declare function GdipDrawCurve2I(byval as GpGraphics ptr, byval as GpPen ptr, byval as const GpPoint ptr, byval as INT_, byval as REAL) as GpStatus
+declare function GdipDrawCurve3(byval as GpGraphics ptr, byval as GpPen ptr, byval as const GpPointF ptr, byval as INT_, byval as INT_, byval as INT_, byval as REAL) as GpStatus
+declare function GdipDrawCurve3I(byval as GpGraphics ptr, byval as GpPen ptr, byval as const GpPoint ptr, byval as INT_, byval as INT_, byval as INT_, byval as REAL) as GpStatus
+declare function GdipDrawClosedCurve(byval as GpGraphics ptr, byval as GpPen ptr, byval as const GpPointF ptr, byval as INT_) as GpStatus
+declare function GdipDrawClosedCurveI(byval as GpGraphics ptr, byval as GpPen ptr, byval as const GpPoint ptr, byval as INT_) as GpStatus
+declare function GdipDrawClosedCurve2(byval as GpGraphics ptr, byval as GpPen ptr, byval as const GpPointF ptr, byval as INT_, byval as REAL) as GpStatus
+declare function GdipDrawClosedCurve2I(byval as GpGraphics ptr, byval as GpPen ptr, byval as const GpPoint ptr, byval as INT_, byval as REAL) as GpStatus
 declare function GdipGraphicsClear(byval as GpGraphics ptr, byval as ARGB) as GpStatus
 declare function GdipFillRectangle(byval as GpGraphics ptr, byval as GpBrush ptr, byval as REAL, byval as REAL, byval as REAL, byval as REAL) as GpStatus
-declare function GdipFillRectangleI(byval as GpGraphics ptr, byval as GpBrush ptr, byval as INT, byval as INT, byval as INT, byval as INT) as GpStatus
-declare function GdipFillRectangles(byval as GpGraphics ptr, byval as GpBrush ptr, byval as const GpRectF ptr, byval as INT) as GpStatus
-declare function GdipFillRectanglesI(byval as GpGraphics ptr, byval as GpBrush ptr, byval as const GpRect ptr, byval as INT) as GpStatus
-declare function GdipFillPolygon(byval as GpGraphics ptr, byval as GpBrush ptr, byval as const GpPointF ptr, byval as INT, byval as GpFillMode) as GpStatus
-declare function GdipFillPolygonI(byval as GpGraphics ptr, byval as GpBrush ptr, byval as const GpPoint ptr, byval as INT, byval as GpFillMode) as GpStatus
-declare function GdipFillPolygon2(byval as GpGraphics ptr, byval as GpBrush ptr, byval as const GpPointF ptr, byval as INT) as GpStatus
-declare function GdipFillPolygon2I(byval as GpGraphics ptr, byval as GpBrush ptr, byval as const GpPoint ptr, byval as INT) as GpStatus
+declare function GdipFillRectangleI(byval as GpGraphics ptr, byval as GpBrush ptr, byval as INT_, byval as INT_, byval as INT_, byval as INT_) as GpStatus
+declare function GdipFillRectangles(byval as GpGraphics ptr, byval as GpBrush ptr, byval as const GpRectF ptr, byval as INT_) as GpStatus
+declare function GdipFillRectanglesI(byval as GpGraphics ptr, byval as GpBrush ptr, byval as const GpRect ptr, byval as INT_) as GpStatus
+declare function GdipFillPolygon(byval as GpGraphics ptr, byval as GpBrush ptr, byval as const GpPointF ptr, byval as INT_, byval as GpFillMode) as GpStatus
+declare function GdipFillPolygonI(byval as GpGraphics ptr, byval as GpBrush ptr, byval as const GpPoint ptr, byval as INT_, byval as GpFillMode) as GpStatus
+declare function GdipFillPolygon2(byval as GpGraphics ptr, byval as GpBrush ptr, byval as const GpPointF ptr, byval as INT_) as GpStatus
+declare function GdipFillPolygon2I(byval as GpGraphics ptr, byval as GpBrush ptr, byval as const GpPoint ptr, byval as INT_) as GpStatus
 declare function GdipFillEllipse(byval as GpGraphics ptr, byval as GpBrush ptr, byval as REAL, byval as REAL, byval as REAL, byval as REAL) as GpStatus
-declare function GdipFillEllipseI(byval as GpGraphics ptr, byval as GpBrush ptr, byval as INT, byval as INT, byval as INT, byval as INT) as GpStatus
+declare function GdipFillEllipseI(byval as GpGraphics ptr, byval as GpBrush ptr, byval as INT_, byval as INT_, byval as INT_, byval as INT_) as GpStatus
 declare function GdipFillPie(byval as GpGraphics ptr, byval as GpBrush ptr, byval as REAL, byval as REAL, byval as REAL, byval as REAL, byval as REAL, byval as REAL) as GpStatus
-declare function GdipFillPieI(byval as GpGraphics ptr, byval as GpBrush ptr, byval as INT, byval as INT, byval as INT, byval as INT, byval as REAL, byval as REAL) as GpStatus
+declare function GdipFillPieI(byval as GpGraphics ptr, byval as GpBrush ptr, byval as INT_, byval as INT_, byval as INT_, byval as INT_, byval as REAL, byval as REAL) as GpStatus
 declare function GdipFillPath(byval as GpGraphics ptr, byval as GpBrush ptr, byval as GpPath ptr) as GpStatus
-declare function GdipFillClosedCurve(byval as GpGraphics ptr, byval as GpBrush ptr, byval as const GpPointF ptr, byval as INT) as GpStatus
-declare function GdipFillClosedCurveI(byval as GpGraphics ptr, byval as GpBrush ptr, byval as const GpPoint ptr, byval as INT) as GpStatus
-declare function GdipFillClosedCurve2(byval as GpGraphics ptr, byval as GpBrush ptr, byval as const GpPointF ptr, byval as INT, byval as REAL, byval as GpFillMode) as GpStatus
-declare function GdipFillClosedCurve2I(byval as GpGraphics ptr, byval as GpBrush ptr, byval as const GpPoint ptr, byval as INT, byval as REAL, byval as GpFillMode) as GpStatus
+declare function GdipFillClosedCurve(byval as GpGraphics ptr, byval as GpBrush ptr, byval as const GpPointF ptr, byval as INT_) as GpStatus
+declare function GdipFillClosedCurveI(byval as GpGraphics ptr, byval as GpBrush ptr, byval as const GpPoint ptr, byval as INT_) as GpStatus
+declare function GdipFillClosedCurve2(byval as GpGraphics ptr, byval as GpBrush ptr, byval as const GpPointF ptr, byval as INT_, byval as REAL, byval as GpFillMode) as GpStatus
+declare function GdipFillClosedCurve2I(byval as GpGraphics ptr, byval as GpBrush ptr, byval as const GpPoint ptr, byval as INT_, byval as REAL, byval as GpFillMode) as GpStatus
 declare function GdipFillRegion(byval as GpGraphics ptr, byval as GpBrush ptr, byval as GpRegion ptr) as GpStatus
 declare function GdipDrawImage(byval as GpGraphics ptr, byval as GpImage ptr, byval as REAL, byval as REAL) as GpStatus
-declare function GdipDrawImageI(byval as GpGraphics ptr, byval as GpImage ptr, byval as INT, byval as INT) as GpStatus
+declare function GdipDrawImageI(byval as GpGraphics ptr, byval as GpImage ptr, byval as INT_, byval as INT_) as GpStatus
 declare function GdipDrawImageRect(byval as GpGraphics ptr, byval as GpImage ptr, byval as REAL, byval as REAL, byval as REAL, byval as REAL) as GpStatus
-declare function GdipDrawImageRectI(byval as GpGraphics ptr, byval as GpImage ptr, byval as INT, byval as INT, byval as INT, byval as INT) as GpStatus
-declare function GdipDrawImagePoints(byval as GpGraphics ptr, byval as GpImage ptr, byval as const GpPointF ptr, byval as INT) as GpStatus
-declare function GdipDrawImagePointsI(byval as GpGraphics ptr, byval as GpImage ptr, byval as const GpPoint ptr, byval as INT) as GpStatus
+declare function GdipDrawImageRectI(byval as GpGraphics ptr, byval as GpImage ptr, byval as INT_, byval as INT_, byval as INT_, byval as INT_) as GpStatus
+declare function GdipDrawImagePoints(byval as GpGraphics ptr, byval as GpImage ptr, byval as const GpPointF ptr, byval as INT_) as GpStatus
+declare function GdipDrawImagePointsI(byval as GpGraphics ptr, byval as GpImage ptr, byval as const GpPoint ptr, byval as INT_) as GpStatus
 declare function GdipDrawImagePointRect(byval as GpGraphics ptr, byval as GpImage ptr, byval as REAL, byval as REAL, byval as REAL, byval as REAL, byval as REAL, byval as REAL, byval as GpUnit) as GpStatus
-declare function GdipDrawImagePointRectI(byval as GpGraphics ptr, byval as GpImage ptr, byval as INT, byval as INT, byval as INT, byval as INT, byval as INT, byval as INT, byval as GpUnit) as GpStatus
+declare function GdipDrawImagePointRectI(byval as GpGraphics ptr, byval as GpImage ptr, byval as INT_, byval as INT_, byval as INT_, byval as INT_, byval as INT_, byval as INT_, byval as GpUnit) as GpStatus
 declare function GdipDrawImageRectRect(byval as GpGraphics ptr, byval as GpImage ptr, byval as REAL, byval as REAL, byval as REAL, byval as REAL, byval as REAL, byval as REAL, byval as REAL, byval as REAL, byval as GpUnit, byval as const GpImageAttributes ptr, byval as DrawImageAbort, byval as any ptr) as GpStatus
-declare function GdipDrawImageRectRectI(byval as GpGraphics ptr, byval as GpImage ptr, byval as INT, byval as INT, byval as INT, byval as INT, byval as INT, byval as INT, byval as INT, byval as INT, byval as GpUnit, byval as const GpImageAttributes ptr, byval as DrawImageAbort, byval as any ptr) as GpStatus
-declare function GdipDrawImagePointsRect(byval as GpGraphics ptr, byval as GpImage ptr, byval as const GpPointF ptr, byval as INT, byval as REAL, byval as REAL, byval as REAL, byval as REAL, byval as GpUnit, byval as const GpImageAttributes ptr, byval as DrawImageAbort, byval as any ptr) as GpStatus
-declare function GdipDrawImagePointsRectI(byval as GpGraphics ptr, byval as GpImage ptr, byval as const GpPoint ptr, byval as INT, byval as INT, byval as INT, byval as INT, byval as INT, byval as GpUnit, byval as const GpImageAttributes ptr, byval as DrawImageAbort, byval as any ptr) as GpStatus
+declare function GdipDrawImageRectRectI(byval as GpGraphics ptr, byval as GpImage ptr, byval as INT_, byval as INT_, byval as INT_, byval as INT_, byval as INT_, byval as INT_, byval as INT_, byval as INT_, byval as GpUnit, byval as const GpImageAttributes ptr, byval as DrawImageAbort, byval as any ptr) as GpStatus
+declare function GdipDrawImagePointsRect(byval as GpGraphics ptr, byval as GpImage ptr, byval as const GpPointF ptr, byval as INT_, byval as REAL, byval as REAL, byval as REAL, byval as REAL, byval as GpUnit, byval as const GpImageAttributes ptr, byval as DrawImageAbort, byval as any ptr) as GpStatus
+declare function GdipDrawImagePointsRectI(byval as GpGraphics ptr, byval as GpImage ptr, byval as const GpPoint ptr, byval as INT_, byval as INT_, byval as INT_, byval as INT_, byval as INT_, byval as GpUnit, byval as const GpImageAttributes ptr, byval as DrawImageAbort, byval as any ptr) as GpStatus
 declare function GdipDrawImageFX(byval as GpGraphics ptr, byval as GpImage ptr, byval as GpRectF ptr, byval as GpMatrix ptr, byval as CGpEffect ptr, byval as GpImageAttributes ptr, byval as GpUnit) as GpStatus
-declare function GdipEnumerateMetafileDestPoints(byval as GpGraphics ptr, byval as const GpMetafile ptr, byval as const PointF ptr, byval as INT, byval as EnumerateMetafileProc, byval as any ptr, byval as const GpImageAttributes ptr) as GpStatus
-declare function GdipEnumerateMetafileDestPointsI(byval as GpGraphics ptr, byval as const GpMetafile ptr, byval as const Point ptr, byval as INT, byval as EnumerateMetafileProc, byval as any ptr, byval as const GpImageAttributes ptr) as GpStatus
+declare function GdipEnumerateMetafileDestPoints(byval as GpGraphics ptr, byval as const GpMetafile ptr, byval as const PointF ptr, byval as INT_, byval as EnumerateMetafileProc, byval as any ptr, byval as const GpImageAttributes ptr) as GpStatus
+declare function GdipEnumerateMetafileDestPointsI(byval as GpGraphics ptr, byval as const GpMetafile ptr, byval as const Point ptr, byval as INT_, byval as EnumerateMetafileProc, byval as any ptr, byval as const GpImageAttributes ptr) as GpStatus
 declare function GdipSetClipGraphics(byval as GpGraphics ptr, byval as GpGraphics ptr, byval as CombineMode) as GpStatus
 declare function GdipSetClipRect(byval as GpGraphics ptr, byval as REAL, byval as REAL, byval as REAL, byval as REAL, byval as CombineMode) as GpStatus
-declare function GdipSetClipRectI(byval as GpGraphics ptr, byval as INT, byval as INT, byval as INT, byval as INT, byval as CombineMode) as GpStatus
+declare function GdipSetClipRectI(byval as GpGraphics ptr, byval as INT_, byval as INT_, byval as INT_, byval as INT_, byval as CombineMode) as GpStatus
 declare function GdipSetClipPath(byval as GpGraphics ptr, byval as GpPath ptr, byval as CombineMode) as GpStatus
 declare function GdipSetClipRegion(byval as GpGraphics ptr, byval as GpRegion ptr, byval as CombineMode) as GpStatus
 declare function GdipSetClipHrgn(byval as GpGraphics ptr, byval as HRGN, byval as CombineMode) as GpStatus
 declare function GdipResetClip(byval as GpGraphics ptr) as GpStatus
 declare function GdipTranslateClip(byval as GpGraphics ptr, byval as REAL, byval as REAL) as GpStatus
-declare function GdipTranslateClipI(byval as GpGraphics ptr, byval as INT, byval as INT) as GpStatus
+declare function GdipTranslateClipI(byval as GpGraphics ptr, byval as INT_, byval as INT_) as GpStatus
 declare function GdipGetClip(byval as GpGraphics ptr, byval as GpRegion ptr) as GpStatus
 declare function GdipGetClipBounds(byval as GpGraphics ptr, byval as GpRectF ptr) as GpStatus
 declare function GdipGetClipBoundsI(byval as GpGraphics ptr, byval as GpRect ptr) as GpStatus
@@ -1728,9 +1728,9 @@ declare function GdipGetVisibleClipBounds(byval as GpGraphics ptr, byval as GpRe
 declare function GdipGetVisibleClipBoundsI(byval as GpGraphics ptr, byval as GpRect ptr) as GpStatus
 declare function GdipIsVisibleClipEmpty(byval as GpGraphics ptr, byval as BOOL ptr) as GpStatus
 declare function GdipIsVisiblePoint(byval as GpGraphics ptr, byval as REAL, byval as REAL, byval as BOOL ptr) as GpStatus
-declare function GdipIsVisiblePointI(byval as GpGraphics ptr, byval as INT, byval as INT, byval as BOOL ptr) as GpStatus
+declare function GdipIsVisiblePointI(byval as GpGraphics ptr, byval as INT_, byval as INT_, byval as BOOL ptr) as GpStatus
 declare function GdipIsVisibleRect(byval as GpGraphics ptr, byval as REAL, byval as REAL, byval as REAL, byval as REAL, byval as BOOL ptr) as GpStatus
-declare function GdipIsVisibleRectI(byval as GpGraphics ptr, byval as INT, byval as INT, byval as INT, byval as INT, byval as BOOL ptr) as GpStatus
+declare function GdipIsVisibleRectI(byval as GpGraphics ptr, byval as INT_, byval as INT_, byval as INT_, byval as INT_, byval as BOOL ptr) as GpStatus
 declare function GdipSaveGraphics(byval as GpGraphics ptr, byval as GraphicsState ptr) as GpStatus
 declare function GdipRestoreGraphics(byval as GpGraphics ptr, byval as GraphicsState) as GpStatus
 declare function GdipBeginContainer(byval as GpGraphics ptr, byval as const GpRectF ptr, byval as const GpRectF ptr, byval as GpUnit, byval as GraphicsContainer ptr) as GpStatus
@@ -1739,15 +1739,15 @@ declare function GdipBeginContainer2(byval as GpGraphics ptr, byval as GraphicsC
 declare function GdipEndContainer(byval as GpGraphics ptr, byval as GraphicsContainer) as GpStatus
 declare function GdipComment(byval as GpGraphics ptr, byval as UINT, byval as const UBYTE ptr) as GpStatus
 declare function GdipCreatePath(byval as GpFillMode, byval as GpPath ptr ptr) as GpStatus
-declare function GdipCreatePath2(byval as const GpPointF ptr, byval as const UBYTE ptr, byval as INT, byval as GpFillMode, byval as GpPath ptr ptr) as GpStatus
-declare function GdipCreatePath2I(byval as const GpPoint ptr, byval as const UBYTE ptr, byval as INT, byval as GpFillMode, byval as GpPath ptr ptr) as GpStatus
+declare function GdipCreatePath2(byval as const GpPointF ptr, byval as const UBYTE ptr, byval as INT_, byval as GpFillMode, byval as GpPath ptr ptr) as GpStatus
+declare function GdipCreatePath2I(byval as const GpPoint ptr, byval as const UBYTE ptr, byval as INT_, byval as GpFillMode, byval as GpPath ptr ptr) as GpStatus
 declare function GdipClonePath(byval as GpPath ptr, byval as GpPath ptr ptr) as GpStatus
 declare function GdipDeletePath(byval as GpPath ptr) as GpStatus
 declare function GdipResetPath(byval as GpPath ptr) as GpStatus
-declare function GdipGetPointCount(byval as GpPath ptr, byval as INT ptr) as GpStatus
-declare function GdipGetPathTypes(byval as GpPath ptr, byval as UBYTE ptr, byval as INT) as GpStatus
-declare function GdipGetPathPoints(byval as GpPath ptr, byval as GpPointF ptr, byval as INT) as GpStatus
-declare function GdipGetPathPointsI(byval as GpPath ptr, byval as GpPoint ptr, byval as INT) as GpStatus
+declare function GdipGetPointCount(byval as GpPath ptr, byval as INT_ ptr) as GpStatus
+declare function GdipGetPathTypes(byval as GpPath ptr, byval as UBYTE ptr, byval as INT_) as GpStatus
+declare function GdipGetPathPoints(byval as GpPath ptr, byval as GpPointF ptr, byval as INT_) as GpStatus
+declare function GdipGetPathPointsI(byval as GpPath ptr, byval as GpPoint ptr, byval as INT_) as GpStatus
 declare function GdipGetPathFillMode(byval as GpPath ptr, byval as GpFillMode ptr) as GpStatus
 declare function GdipSetPathFillMode(byval as GpPath ptr, byval as GpFillMode) as GpStatus
 declare function GdipGetPathData(byval as GpPath ptr, byval as GpPathData ptr) as GpStatus
@@ -1759,49 +1759,49 @@ declare function GdipClearPathMarkers(byval as GpPath ptr) as GpStatus
 declare function GdipReversePath(byval as GpPath ptr) as GpStatus
 declare function GdipGetPathLastPoint(byval as GpPath ptr, byval as GpPointF ptr) as GpStatus
 declare function GdipAddPathLine(byval as GpPath ptr, byval as REAL, byval as REAL, byval as REAL, byval as REAL) as GpStatus
-declare function GdipAddPathLine2(byval as GpPath ptr, byval as const GpPointF ptr, byval as INT) as GpStatus
+declare function GdipAddPathLine2(byval as GpPath ptr, byval as const GpPointF ptr, byval as INT_) as GpStatus
 declare function GdipAddPathArc(byval as GpPath ptr, byval as REAL, byval as REAL, byval as REAL, byval as REAL, byval as REAL, byval as REAL) as GpStatus
 declare function GdipAddPathBezier(byval as GpPath ptr, byval as REAL, byval as REAL, byval as REAL, byval as REAL, byval as REAL, byval as REAL, byval as REAL, byval as REAL) as GpStatus
-declare function GdipAddPathBeziers(byval as GpPath ptr, byval as const GpPointF ptr, byval as INT) as GpStatus
-declare function GdipAddPathCurve(byval as GpPath ptr, byval as const GpPointF ptr, byval as INT) as GpStatus
-declare function GdipAddPathCurve2(byval as GpPath ptr, byval as const GpPointF ptr, byval as INT, byval as REAL) as GpStatus
-declare function GdipAddPathCurve3(byval as GpPath ptr, byval as const GpPointF ptr, byval as INT, byval as INT, byval as INT, byval as REAL) as GpStatus
-declare function GdipAddPathClosedCurve(byval as GpPath ptr, byval as const GpPointF ptr, byval as INT) as GpStatus
-declare function GdipAddPathClosedCurve2(byval as GpPath ptr, byval as const GpPointF ptr, byval as INT, byval as REAL) as GpStatus
+declare function GdipAddPathBeziers(byval as GpPath ptr, byval as const GpPointF ptr, byval as INT_) as GpStatus
+declare function GdipAddPathCurve(byval as GpPath ptr, byval as const GpPointF ptr, byval as INT_) as GpStatus
+declare function GdipAddPathCurve2(byval as GpPath ptr, byval as const GpPointF ptr, byval as INT_, byval as REAL) as GpStatus
+declare function GdipAddPathCurve3(byval as GpPath ptr, byval as const GpPointF ptr, byval as INT_, byval as INT_, byval as INT_, byval as REAL) as GpStatus
+declare function GdipAddPathClosedCurve(byval as GpPath ptr, byval as const GpPointF ptr, byval as INT_) as GpStatus
+declare function GdipAddPathClosedCurve2(byval as GpPath ptr, byval as const GpPointF ptr, byval as INT_, byval as REAL) as GpStatus
 declare function GdipAddPathRectangle(byval as GpPath ptr, byval as REAL, byval as REAL, byval as REAL, byval as REAL) as GpStatus
-declare function GdipAddPathRectangles(byval as GpPath ptr, byval as const GpRectF ptr, byval as INT) as GpStatus
+declare function GdipAddPathRectangles(byval as GpPath ptr, byval as const GpRectF ptr, byval as INT_) as GpStatus
 declare function GdipAddPathEllipse(byval as GpPath ptr, byval as REAL, byval as REAL, byval as REAL, byval as REAL) as GpStatus
 declare function GdipAddPathPie(byval as GpPath ptr, byval as REAL, byval as REAL, byval as REAL, byval as REAL, byval as REAL, byval as REAL) as GpStatus
-declare function GdipAddPathPolygon(byval as GpPath ptr, byval as const GpPointF ptr, byval as INT) as GpStatus
+declare function GdipAddPathPolygon(byval as GpPath ptr, byval as const GpPointF ptr, byval as INT_) as GpStatus
 declare function GdipAddPathPath(byval as GpPath ptr, byval as const GpPath ptr, byval as BOOL) as GpStatus
-declare function GdipAddPathString(byval as GpPath ptr, byval as const wstring ptr, byval as INT, byval as const GpFontFamily ptr, byval as INT, byval as REAL, byval as const RectF ptr, byval as const GpStringFormat ptr) as GpStatus
-declare function GdipAddPathStringI(byval as GpPath ptr, byval as const wstring ptr, byval as INT, byval as const GpFontFamily ptr, byval as INT, byval as REAL, byval as const Rect ptr, byval as const GpStringFormat ptr) as GpStatus
-declare function GdipAddPathLineI(byval as GpPath ptr, byval as INT, byval as INT, byval as INT, byval as INT) as GpStatus
-declare function GdipAddPathLine2I(byval as GpPath ptr, byval as const GpPoint ptr, byval as INT) as GpStatus
-declare function GdipAddPathArcI(byval as GpPath ptr, byval as INT, byval as INT, byval as INT, byval as INT, byval as REAL, byval as REAL) as GpStatus
-declare function GdipAddPathBezierI(byval as GpPath ptr, byval as INT, byval as INT, byval as INT, byval as INT, byval as INT, byval as INT, byval as INT, byval as INT) as GpStatus
-declare function GdipAddPathBeziersI(byval as GpPath ptr, byval as const GpPoint ptr, byval as INT) as GpStatus
-declare function GdipAddPathCurveI(byval as GpPath ptr, byval as const GpPoint ptr, byval as INT) as GpStatus
-declare function GdipAddPathCurve2I(byval as GpPath ptr, byval as const GpPoint ptr, byval as INT, byval as REAL) as GpStatus
-declare function GdipAddPathCurve3I(byval as GpPath ptr, byval as const GpPoint ptr, byval as INT, byval as INT, byval as INT, byval as REAL) as GpStatus
-declare function GdipAddPathClosedCurveI(byval as GpPath ptr, byval as const GpPoint ptr, byval as INT) as GpStatus
-declare function GdipAddPathClosedCurve2I(byval as GpPath ptr, byval as const GpPoint ptr, byval as INT, byval as REAL) as GpStatus
-declare function GdipAddPathRectangleI(byval as GpPath ptr, byval as INT, byval as INT, byval as INT, byval as INT) as GpStatus
-declare function GdipAddPathRectanglesI(byval as GpPath ptr, byval as const GpRect ptr, byval as INT) as GpStatus
-declare function GdipAddPathEllipseI(byval as GpPath ptr, byval as INT, byval as INT, byval as INT, byval as INT) as GpStatus
-declare function GdipAddPathPieI(byval as GpPath ptr, byval as INT, byval as INT, byval as INT, byval as INT, byval as REAL, byval as REAL) as GpStatus
-declare function GdipAddPathPolygonI(byval as GpPath ptr, byval as const GpPoint ptr, byval as INT) as GpStatus
+declare function GdipAddPathString(byval as GpPath ptr, byval as const wstring ptr, byval as INT_, byval as const GpFontFamily ptr, byval as INT_, byval as REAL, byval as const RectF ptr, byval as const GpStringFormat ptr) as GpStatus
+declare function GdipAddPathStringI(byval as GpPath ptr, byval as const wstring ptr, byval as INT_, byval as const GpFontFamily ptr, byval as INT_, byval as REAL, byval as const Rect ptr, byval as const GpStringFormat ptr) as GpStatus
+declare function GdipAddPathLineI(byval as GpPath ptr, byval as INT_, byval as INT_, byval as INT_, byval as INT_) as GpStatus
+declare function GdipAddPathLine2I(byval as GpPath ptr, byval as const GpPoint ptr, byval as INT_) as GpStatus
+declare function GdipAddPathArcI(byval as GpPath ptr, byval as INT_, byval as INT_, byval as INT_, byval as INT_, byval as REAL, byval as REAL) as GpStatus
+declare function GdipAddPathBezierI(byval as GpPath ptr, byval as INT_, byval as INT_, byval as INT_, byval as INT_, byval as INT_, byval as INT_, byval as INT_, byval as INT_) as GpStatus
+declare function GdipAddPathBeziersI(byval as GpPath ptr, byval as const GpPoint ptr, byval as INT_) as GpStatus
+declare function GdipAddPathCurveI(byval as GpPath ptr, byval as const GpPoint ptr, byval as INT_) as GpStatus
+declare function GdipAddPathCurve2I(byval as GpPath ptr, byval as const GpPoint ptr, byval as INT_, byval as REAL) as GpStatus
+declare function GdipAddPathCurve3I(byval as GpPath ptr, byval as const GpPoint ptr, byval as INT_, byval as INT_, byval as INT_, byval as REAL) as GpStatus
+declare function GdipAddPathClosedCurveI(byval as GpPath ptr, byval as const GpPoint ptr, byval as INT_) as GpStatus
+declare function GdipAddPathClosedCurve2I(byval as GpPath ptr, byval as const GpPoint ptr, byval as INT_, byval as REAL) as GpStatus
+declare function GdipAddPathRectangleI(byval as GpPath ptr, byval as INT_, byval as INT_, byval as INT_, byval as INT_) as GpStatus
+declare function GdipAddPathRectanglesI(byval as GpPath ptr, byval as const GpRect ptr, byval as INT_) as GpStatus
+declare function GdipAddPathEllipseI(byval as GpPath ptr, byval as INT_, byval as INT_, byval as INT_, byval as INT_) as GpStatus
+declare function GdipAddPathPieI(byval as GpPath ptr, byval as INT_, byval as INT_, byval as INT_, byval as INT_, byval as REAL, byval as REAL) as GpStatus
+declare function GdipAddPathPolygonI(byval as GpPath ptr, byval as const GpPoint ptr, byval as INT_) as GpStatus
 declare function GdipFlattenPath(byval as GpPath ptr, byval as GpMatrix ptr, byval as REAL) as GpStatus
 declare function GdipWindingModeOutline(byval as GpPath ptr, byval as GpMatrix ptr, byval as REAL) as GpStatus
 declare function GdipWidenPath(byval as GpPath ptr, byval as GpPen ptr, byval as GpMatrix ptr, byval as REAL) as GpStatus
-declare function GdipWarpPath(byval as GpPath ptr, byval as GpMatrix ptr, byval as const GpPointF ptr, byval as INT, byval as REAL, byval as REAL, byval as REAL, byval as REAL, byval as WarpMode, byval as REAL) as GpStatus
+declare function GdipWarpPath(byval as GpPath ptr, byval as GpMatrix ptr, byval as const GpPointF ptr, byval as INT_, byval as REAL, byval as REAL, byval as REAL, byval as REAL, byval as WarpMode, byval as REAL) as GpStatus
 declare function GdipTransformPath(byval as GpPath ptr, byval as GpMatrix ptr) as GpStatus
 declare function GdipGetPathWorldBounds(byval as GpPath ptr, byval as GpRectF ptr, byval as const GpMatrix ptr, byval as const GpPen ptr) as GpStatus
 declare function GdipGetPathWorldBoundsI(byval as GpPath ptr, byval as GpRect ptr, byval as const GpMatrix ptr, byval as const GpPen ptr) as GpStatus
 declare function GdipIsVisiblePathPoint(byval as GpPath ptr, byval as REAL, byval as REAL, byval as GpGraphics ptr, byval as BOOL ptr) as GpStatus
-declare function GdipIsVisiblePathPointI(byval as GpPath ptr, byval as INT, byval as INT, byval as GpGraphics ptr, byval as BOOL ptr) as GpStatus
+declare function GdipIsVisiblePathPointI(byval as GpPath ptr, byval as INT_, byval as INT_, byval as GpGraphics ptr, byval as BOOL ptr) as GpStatus
 declare function GdipIsOutlineVisiblePathPoint(byval as GpPath ptr, byval as REAL, byval as REAL, byval as GpPen ptr, byval as GpGraphics ptr, byval as BOOL ptr) as GpStatus
-declare function GdipIsOutlineVisiblePathPointI(byval as GpPath ptr, byval as INT, byval as INT, byval as GpPen ptr, byval as GpGraphics ptr, byval as BOOL ptr) as GpStatus
+declare function GdipIsOutlineVisiblePathPointI(byval as GpPath ptr, byval as INT_, byval as INT_, byval as GpPen ptr, byval as GpGraphics ptr, byval as BOOL ptr) as GpStatus
 declare function GdipCreateHatchBrush(byval as GpHatchStyle, byval as ARGB, byval as ARGB, byval as GpHatch ptr ptr) as GpStatus
 declare function GdipGetHatchStyle(byval as GpHatch ptr, byval as GpHatchStyle ptr) as GpStatus
 declare function GdipGetHatchForegroundColor(byval as GpHatch ptr, byval as ARGB ptr) as GpStatus
@@ -1835,9 +1835,9 @@ declare function GdipImageGetFrameDimensionsList(byval as GpImage ptr, byval as 
 declare function GdipImageGetFrameCount(byval as GpImage ptr, byval as const GUID ptr, byval as UINT ptr) as GpStatus
 declare function GdipImageSelectActiveFrame(byval as GpImage ptr, byval as const GUID ptr, byval as UINT) as GpStatus
 declare function GdipImageRotateFlip(byval as GpImage ptr, byval as RotateFlipType) as GpStatus
-declare function GdipGetImagePalette(byval as GpImage ptr, byval as ColorPalette ptr, byval as INT) as GpStatus
+declare function GdipGetImagePalette(byval as GpImage ptr, byval as ColorPalette ptr, byval as INT_) as GpStatus
 declare function GdipSetImagePalette(byval as GpImage ptr, byval as const ColorPalette ptr) as GpStatus
-declare function GdipGetImagePaletteSize(byval as GpImage ptr, byval as INT ptr) as GpStatus
+declare function GdipGetImagePaletteSize(byval as GpImage ptr, byval as INT_ ptr) as GpStatus
 declare function GdipGetPropertyCount(byval as GpImage ptr, byval as UINT ptr) as GpStatus
 declare function GdipGetPropertyIdList(byval as GpImage ptr, byval as UINT, byval as PROPID ptr) as GpStatus
 declare function GdipGetPropertyItemSize(byval as GpImage ptr, byval as PROPID, byval as UINT ptr) as GpStatus
@@ -1884,12 +1884,12 @@ declare function GdipGetLineRect(byval as GpLineGradient ptr, byval as GpRectF p
 declare function GdipGetLineRectI(byval as GpLineGradient ptr, byval as GpRect ptr) as GpStatus
 declare function GdipSetLineGammaCorrection(byval as GpLineGradient ptr, byval as BOOL) as GpStatus
 declare function GdipGetLineGammaCorrection(byval as GpLineGradient ptr, byval as BOOL ptr) as GpStatus
-declare function GdipGetLineBlendCount(byval as GpLineGradient ptr, byval as INT ptr) as GpStatus
-declare function GdipGetLineBlend(byval as GpLineGradient ptr, byval as REAL ptr, byval as REAL ptr, byval as INT) as GpStatus
-declare function GdipSetLineBlend(byval as GpLineGradient ptr, byval as const REAL ptr, byval as const REAL ptr, byval as INT) as GpStatus
-declare function GdipGetLinePresetBlendCount(byval as GpLineGradient ptr, byval as INT ptr) as GpStatus
-declare function GdipGetLinePresetBlend(byval as GpLineGradient ptr, byval as ARGB ptr, byval as REAL ptr, byval as INT) as GpStatus
-declare function GdipSetLinePresetBlend(byval as GpLineGradient ptr, byval as const ARGB ptr, byval as const REAL ptr, byval as INT) as GpStatus
+declare function GdipGetLineBlendCount(byval as GpLineGradient ptr, byval as INT_ ptr) as GpStatus
+declare function GdipGetLineBlend(byval as GpLineGradient ptr, byval as REAL ptr, byval as REAL ptr, byval as INT_) as GpStatus
+declare function GdipSetLineBlend(byval as GpLineGradient ptr, byval as const REAL ptr, byval as const REAL ptr, byval as INT_) as GpStatus
+declare function GdipGetLinePresetBlendCount(byval as GpLineGradient ptr, byval as INT_ ptr) as GpStatus
+declare function GdipGetLinePresetBlend(byval as GpLineGradient ptr, byval as ARGB ptr, byval as REAL ptr, byval as INT_) as GpStatus
+declare function GdipSetLinePresetBlend(byval as GpLineGradient ptr, byval as const ARGB ptr, byval as const REAL ptr, byval as INT_) as GpStatus
 declare function GdipSetLineSigmaBlend(byval as GpLineGradient ptr, byval as REAL, byval as REAL) as GpStatus
 declare function GdipSetLineLinearBlend(byval as GpLineGradient ptr, byval as REAL, byval as REAL) as GpStatus
 declare function GdipSetLineWrapMode(byval as GpLineGradient ptr, byval as GpWrapMode) as GpStatus
@@ -1914,10 +1914,10 @@ declare function GdipScaleMatrix(byval as GpMatrix ptr, byval as REAL, byval as 
 declare function GdipRotateMatrix(byval as GpMatrix ptr, byval as REAL, byval as GpMatrixOrder) as GpStatus
 declare function GdipShearMatrix(byval as GpMatrix ptr, byval as REAL, byval as REAL, byval as GpMatrixOrder) as GpStatus
 declare function GdipInvertMatrix(byval as GpMatrix ptr) as GpStatus
-declare function GdipTransformMatrixPoints(byval as GpMatrix ptr, byval as GpPointF ptr, byval as INT) as GpStatus
-declare function GdipTransformMatrixPointsI(byval as GpMatrix ptr, byval as GpPoint ptr, byval as INT) as GpStatus
-declare function GdipVectorTransformMatrixPoints(byval as GpMatrix ptr, byval as GpPointF ptr, byval as INT) as GpStatus
-declare function GdipVectorTransformMatrixPointsI(byval as GpMatrix ptr, byval as GpPoint ptr, byval as INT) as GpStatus
+declare function GdipTransformMatrixPoints(byval as GpMatrix ptr, byval as GpPointF ptr, byval as INT_) as GpStatus
+declare function GdipTransformMatrixPointsI(byval as GpMatrix ptr, byval as GpPoint ptr, byval as INT_) as GpStatus
+declare function GdipVectorTransformMatrixPoints(byval as GpMatrix ptr, byval as GpPointF ptr, byval as INT_) as GpStatus
+declare function GdipVectorTransformMatrixPointsI(byval as GpMatrix ptr, byval as GpPoint ptr, byval as INT_) as GpStatus
 declare function GdipGetMatrixElements(byval as const GpMatrix ptr, byval as REAL ptr) as GpStatus
 declare function GdipIsMatrixInvertible(byval as const GpMatrix ptr, byval as BOOL ptr) as GpStatus
 declare function GdipIsMatrixIdentity(byval as const GpMatrix ptr, byval as BOOL ptr) as GpStatus
@@ -1945,14 +1945,14 @@ declare function GdipGetMetafileDownLevelRasterizationLimit(byval as const GpMet
 declare function GdipConvertToEmfPlus(byval as const GpGraphics ptr, byval as GpMetafile ptr, byval as BOOL ptr, byval as EmfType, byval as const wstring ptr, byval as GpMetafile ptr ptr) as GpStatus
 declare function GdipConvertToEmfPlusToFile(byval as const GpGraphics ptr, byval as GpMetafile ptr, byval as BOOL ptr, byval as const wstring ptr, byval as EmfType, byval as const wstring ptr, byval as GpMetafile ptr ptr) as GpStatus
 declare function GdipConvertToEmfPlusToStream(byval as const GpGraphics ptr, byval as GpMetafile ptr, byval as BOOL ptr, byval as IStream ptr, byval as EmfType, byval as const wstring ptr, byval as GpMetafile ptr ptr) as GpStatus
-declare function GdipEmfToWmfBits(byval as HENHMETAFILE, byval as UINT, byval as LPBYTE, byval as INT, byval as INT) as UINT
-declare function GdipCreatePathGradient(byval as const GpPointF ptr, byval as INT, byval as GpWrapMode, byval as GpPathGradient ptr ptr) as GpStatus
-declare function GdipCreatePathGradientI(byval as const GpPoint ptr, byval as INT, byval as GpWrapMode, byval as GpPathGradient ptr ptr) as GpStatus
+declare function GdipEmfToWmfBits(byval as HENHMETAFILE, byval as UINT, byval as LPBYTE, byval as INT_, byval as INT_) as UINT
+declare function GdipCreatePathGradient(byval as const GpPointF ptr, byval as INT_, byval as GpWrapMode, byval as GpPathGradient ptr ptr) as GpStatus
+declare function GdipCreatePathGradientI(byval as const GpPoint ptr, byval as INT_, byval as GpWrapMode, byval as GpPathGradient ptr ptr) as GpStatus
 declare function GdipCreatePathGradientFromPath(byval as const GpPath ptr, byval as GpPathGradient ptr ptr) as GpStatus
 declare function GdipGetPathGradientCenterColor(byval as GpPathGradient ptr, byval as ARGB ptr) as GpStatus
 declare function GdipSetPathGradientCenterColor(byval as GpPathGradient ptr, byval as ARGB) as GpStatus
-declare function GdipGetPathGradientSurroundColorsWithCount(byval as GpPathGradient ptr, byval as ARGB ptr, byval as INT ptr) as GpStatus
-declare function GdipSetPathGradientSurroundColorsWithCount(byval as GpPathGradient ptr, byval as const ARGB ptr, byval as INT ptr) as GpStatus
+declare function GdipGetPathGradientSurroundColorsWithCount(byval as GpPathGradient ptr, byval as ARGB ptr, byval as INT_ ptr) as GpStatus
+declare function GdipSetPathGradientSurroundColorsWithCount(byval as GpPathGradient ptr, byval as const ARGB ptr, byval as INT_ ptr) as GpStatus
 declare function GdipGetPathGradientPath(byval as GpPathGradient ptr, byval as GpPath ptr) as GpStatus
 declare function GdipSetPathGradientPath(byval as GpPathGradient ptr, byval as const GpPath ptr) as GpStatus
 declare function GdipGetPathGradientCenterPoint(byval as GpPathGradient ptr, byval as GpPointF ptr) as GpStatus
@@ -1961,16 +1961,16 @@ declare function GdipSetPathGradientCenterPoint(byval as GpPathGradient ptr, byv
 declare function GdipSetPathGradientCenterPointI(byval as GpPathGradient ptr, byval as const GpPoint ptr) as GpStatus
 declare function GdipGetPathGradientRect(byval as GpPathGradient ptr, byval as GpRectF ptr) as GpStatus
 declare function GdipGetPathGradientRectI(byval as GpPathGradient ptr, byval as GpRect ptr) as GpStatus
-declare function GdipGetPathGradientPointCount(byval as GpPathGradient ptr, byval as INT ptr) as GpStatus
-declare function GdipGetPathGradientSurroundColorCount(byval as GpPathGradient ptr, byval as INT ptr) as GpStatus
+declare function GdipGetPathGradientPointCount(byval as GpPathGradient ptr, byval as INT_ ptr) as GpStatus
+declare function GdipGetPathGradientSurroundColorCount(byval as GpPathGradient ptr, byval as INT_ ptr) as GpStatus
 declare function GdipSetPathGradientGammaCorrection(byval as GpPathGradient ptr, byval as BOOL) as GpStatus
 declare function GdipGetPathGradientGammaCorrection(byval as GpPathGradient ptr, byval as BOOL ptr) as GpStatus
-declare function GdipGetPathGradientBlendCount(byval as GpPathGradient ptr, byval as INT ptr) as GpStatus
-declare function GdipGetPathGradientBlend(byval as GpPathGradient ptr, byval as REAL ptr, byval as REAL ptr, byval as INT) as GpStatus
-declare function GdipSetPathGradientBlend(byval as GpPathGradient ptr, byval as const REAL ptr, byval as const REAL ptr, byval as INT) as GpStatus
-declare function GdipGetPathGradientPresetBlendCount(byval as GpPathGradient ptr, byval as INT ptr) as GpStatus
-declare function GdipGetPathGradientPresetBlend(byval as GpPathGradient ptr, byval as ARGB ptr, byval as REAL ptr, byval as INT) as GpStatus
-declare function GdipSetPathGradientPresetBlend(byval as GpPathGradient ptr, byval as const ARGB ptr, byval as const REAL ptr, byval as INT) as GpStatus
+declare function GdipGetPathGradientBlendCount(byval as GpPathGradient ptr, byval as INT_ ptr) as GpStatus
+declare function GdipGetPathGradientBlend(byval as GpPathGradient ptr, byval as REAL ptr, byval as REAL ptr, byval as INT_) as GpStatus
+declare function GdipSetPathGradientBlend(byval as GpPathGradient ptr, byval as const REAL ptr, byval as const REAL ptr, byval as INT_) as GpStatus
+declare function GdipGetPathGradientPresetBlendCount(byval as GpPathGradient ptr, byval as INT_ ptr) as GpStatus
+declare function GdipGetPathGradientPresetBlend(byval as GpPathGradient ptr, byval as ARGB ptr, byval as REAL ptr, byval as INT_) as GpStatus
+declare function GdipSetPathGradientPresetBlend(byval as GpPathGradient ptr, byval as const ARGB ptr, byval as const REAL ptr, byval as INT_) as GpStatus
 declare function GdipSetPathGradientSigmaBlend(byval as GpPathGradient ptr, byval as REAL, byval as REAL) as GpStatus
 declare function GdipSetPathGradientLinearBlend(byval as GpPathGradient ptr, byval as REAL, byval as REAL) as GpStatus
 declare function GdipGetPathGradientWrapMode(byval as GpPathGradient ptr, byval as GpWrapMode ptr) as GpStatus
@@ -1986,18 +1986,18 @@ declare function GdipGetPathGradientFocusScales(byval as GpPathGradient ptr, byv
 declare function GdipSetPathGradientFocusScales(byval as GpPathGradient ptr, byval as REAL, byval as REAL) as GpStatus
 declare function GdipCreatePathIter(byval as GpPathIterator ptr ptr, byval as GpPath ptr) as GpStatus
 declare function GdipDeletePathIter(byval as GpPathIterator ptr) as GpStatus
-declare function GdipPathIterNextSubpath(byval as GpPathIterator ptr, byval as INT ptr, byval as INT ptr, byval as INT ptr, byval as BOOL ptr) as GpStatus
-declare function GdipPathIterNextSubpathPath(byval as GpPathIterator ptr, byval as INT ptr, byval as GpPath ptr, byval as BOOL ptr) as GpStatus
-declare function GdipPathIterNextPathType(byval as GpPathIterator ptr, byval as INT ptr, byval as UBYTE ptr, byval as INT ptr, byval as INT ptr) as GpStatus
-declare function GdipPathIterNextMarker(byval as GpPathIterator ptr, byval as INT ptr, byval as INT ptr, byval as INT ptr) as GpStatus
-declare function GdipPathIterNextMarkerPath(byval as GpPathIterator ptr, byval as INT ptr, byval as GpPath ptr) as GpStatus
-declare function GdipPathIterGetCount(byval as GpPathIterator ptr, byval as INT ptr) as GpStatus
-declare function GdipPathIterGetSubpathCount(byval as GpPathIterator ptr, byval as INT ptr) as GpStatus
+declare function GdipPathIterNextSubpath(byval as GpPathIterator ptr, byval as INT_ ptr, byval as INT_ ptr, byval as INT_ ptr, byval as BOOL ptr) as GpStatus
+declare function GdipPathIterNextSubpathPath(byval as GpPathIterator ptr, byval as INT_ ptr, byval as GpPath ptr, byval as BOOL ptr) as GpStatus
+declare function GdipPathIterNextPathType(byval as GpPathIterator ptr, byval as INT_ ptr, byval as UBYTE ptr, byval as INT_ ptr, byval as INT_ ptr) as GpStatus
+declare function GdipPathIterNextMarker(byval as GpPathIterator ptr, byval as INT_ ptr, byval as INT_ ptr, byval as INT_ ptr) as GpStatus
+declare function GdipPathIterNextMarkerPath(byval as GpPathIterator ptr, byval as INT_ ptr, byval as GpPath ptr) as GpStatus
+declare function GdipPathIterGetCount(byval as GpPathIterator ptr, byval as INT_ ptr) as GpStatus
+declare function GdipPathIterGetSubpathCount(byval as GpPathIterator ptr, byval as INT_ ptr) as GpStatus
 declare function GdipPathIterIsValid(byval as GpPathIterator ptr, byval as BOOL ptr) as GpStatus
 declare function GdipPathIterHasCurve(byval as GpPathIterator ptr, byval as BOOL ptr) as GpStatus
 declare function GdipPathIterRewind(byval as GpPathIterator ptr) as GpStatus
-declare function GdipPathIterEnumerate(byval as GpPathIterator ptr, byval as INT ptr, byval as GpPointF ptr, byval as UBYTE ptr, byval as INT) as GpStatus
-declare function GdipPathIterCopyData(byval as GpPathIterator ptr, byval as INT ptr, byval as GpPointF ptr, byval as UBYTE ptr, byval as INT, byval as INT) as GpStatus
+declare function GdipPathIterEnumerate(byval as GpPathIterator ptr, byval as INT_ ptr, byval as GpPointF ptr, byval as UBYTE ptr, byval as INT_) as GpStatus
+declare function GdipPathIterCopyData(byval as GpPathIterator ptr, byval as INT_ ptr, byval as GpPointF ptr, byval as UBYTE ptr, byval as INT_, byval as INT_) as GpStatus
 declare function GdipCreatePen1(byval as ARGB, byval as REAL, byval as GpUnit, byval as GpPen ptr ptr) as GpStatus
 declare function GdipCreatePen2(byval as GpBrush ptr, byval as REAL, byval as GpUnit, byval as GpPen ptr ptr) as GpStatus
 declare function GdipClonePen(byval as GpPen ptr, byval as GpPen ptr ptr) as GpStatus
@@ -2039,17 +2039,17 @@ declare function GdipGetPenDashStyle(byval as GpPen ptr, byval as GpDashStyle pt
 declare function GdipSetPenDashStyle(byval as GpPen ptr, byval as GpDashStyle) as GpStatus
 declare function GdipGetPenDashOffset(byval as GpPen ptr, byval as REAL ptr) as GpStatus
 declare function GdipSetPenDashOffset(byval as GpPen ptr, byval as REAL) as GpStatus
-declare function GdipGetPenDashCount(byval as GpPen ptr, byval as INT ptr) as GpStatus
-declare function GdipSetPenDashArray(byval as GpPen ptr, byval as const REAL ptr, byval as INT) as GpStatus
-declare function GdipGetPenDashArray(byval as GpPen ptr, byval as REAL ptr, byval as INT) as GpStatus
-declare function GdipGetPenCompoundCount(byval as GpPen ptr, byval as INT ptr) as GpStatus
-declare function GdipSetPenCompoundArray(byval as GpPen ptr, byval as const REAL ptr, byval as INT) as GpStatus
-declare function GdipGetPenCompoundArray(byval as GpPen ptr, byval as REAL ptr, byval as INT) as GpStatus
+declare function GdipGetPenDashCount(byval as GpPen ptr, byval as INT_ ptr) as GpStatus
+declare function GdipSetPenDashArray(byval as GpPen ptr, byval as const REAL ptr, byval as INT_) as GpStatus
+declare function GdipGetPenDashArray(byval as GpPen ptr, byval as REAL ptr, byval as INT_) as GpStatus
+declare function GdipGetPenCompoundCount(byval as GpPen ptr, byval as INT_ ptr) as GpStatus
+declare function GdipSetPenCompoundArray(byval as GpPen ptr, byval as const REAL ptr, byval as INT_) as GpStatus
+declare function GdipGetPenCompoundArray(byval as GpPen ptr, byval as REAL ptr, byval as INT_) as GpStatus
 declare function GdipCreateRegion(byval as GpRegion ptr ptr) as GpStatus
 declare function GdipCreateRegionRect(byval as const GpRectF ptr, byval as GpRegion ptr ptr) as GpStatus
 declare function GdipCreateRegionRectI(byval as const GpRect ptr, byval as GpRegion ptr ptr) as GpStatus
 declare function GdipCreateRegionPath(byval as GpPath ptr, byval as GpRegion ptr ptr) as GpStatus
-declare function GdipCreateRegionRgnData(byval as const UBYTE ptr, byval as INT, byval as GpRegion ptr ptr) as GpStatus
+declare function GdipCreateRegionRgnData(byval as const UBYTE ptr, byval as INT_, byval as GpRegion ptr ptr) as GpStatus
 declare function GdipCreateRegionHrgn(byval as HRGN, byval as GpRegion ptr ptr) as GpStatus
 declare function GdipCloneRegion(byval as GpRegion ptr, byval as GpRegion ptr ptr) as GpStatus
 declare function GdipDeleteRegion(byval as GpRegion ptr) as GpStatus
@@ -2060,7 +2060,7 @@ declare function GdipCombineRegionRectI(byval as GpRegion ptr, byval as const Gp
 declare function GdipCombineRegionPath(byval as GpRegion ptr, byval as GpPath ptr, byval as CombineMode) as GpStatus
 declare function GdipCombineRegionRegion(byval as GpRegion ptr, byval as GpRegion ptr, byval as CombineMode) as GpStatus
 declare function GdipTranslateRegion(byval as GpRegion ptr, byval as REAL, byval as REAL) as GpStatus
-declare function GdipTranslateRegionI(byval as GpRegion ptr, byval as INT, byval as INT) as GpStatus
+declare function GdipTranslateRegionI(byval as GpRegion ptr, byval as INT_, byval as INT_) as GpStatus
 declare function GdipTransformRegion(byval as GpRegion ptr, byval as GpMatrix ptr) as GpStatus
 declare function GdipGetRegionBounds(byval as GpRegion ptr, byval as GpGraphics ptr, byval as GpRectF ptr) as GpStatus
 declare function GdipGetRegionBoundsI(byval as GpRegion ptr, byval as GpGraphics ptr, byval as GpRect ptr) as GpStatus
@@ -2071,46 +2071,46 @@ declare function GdipIsEqualRegion(byval as GpRegion ptr, byval as GpRegion ptr,
 declare function GdipGetRegionDataSize(byval as GpRegion ptr, byval as UINT ptr) as GpStatus
 declare function GdipGetRegionData(byval as GpRegion ptr, byval as UBYTE ptr, byval as UINT, byval as UINT ptr) as GpStatus
 declare function GdipIsVisibleRegionPoint(byval as GpRegion ptr, byval as REAL, byval as REAL, byval as GpGraphics ptr, byval as BOOL ptr) as GpStatus
-declare function GdipIsVisibleRegionPointI(byval as GpRegion ptr, byval as INT, byval as INT, byval as GpGraphics ptr, byval as BOOL ptr) as GpStatus
+declare function GdipIsVisibleRegionPointI(byval as GpRegion ptr, byval as INT_, byval as INT_, byval as GpGraphics ptr, byval as BOOL ptr) as GpStatus
 declare function GdipIsVisibleRegionRect(byval as GpRegion ptr, byval as REAL, byval as REAL, byval as REAL, byval as REAL, byval as GpGraphics ptr, byval as BOOL ptr) as GpStatus
-declare function GdipIsVisibleRegionRectI(byval as GpRegion ptr, byval as INT, byval as INT, byval as INT, byval as INT, byval as GpGraphics ptr, byval as BOOL ptr) as GpStatus
+declare function GdipIsVisibleRegionRectI(byval as GpRegion ptr, byval as INT_, byval as INT_, byval as INT_, byval as INT_, byval as GpGraphics ptr, byval as BOOL ptr) as GpStatus
 declare function GdipGetRegionScansCount(byval as GpRegion ptr, byval as UINT ptr, byval as GpMatrix ptr) as GpStatus
-declare function GdipGetRegionScans(byval as GpRegion ptr, byval as GpRectF ptr, byval as INT ptr, byval as GpMatrix ptr) as GpStatus
-declare function GdipGetRegionScansI(byval as GpRegion ptr, byval as GpRect ptr, byval as INT ptr, byval as GpMatrix ptr) as GpStatus
+declare function GdipGetRegionScans(byval as GpRegion ptr, byval as GpRectF ptr, byval as INT_ ptr, byval as GpMatrix ptr) as GpStatus
+declare function GdipGetRegionScansI(byval as GpRegion ptr, byval as GpRect ptr, byval as INT_ ptr, byval as GpMatrix ptr) as GpStatus
 declare function GdipCreateSolidFill(byval as ARGB, byval as GpSolidFill ptr ptr) as GpStatus
 declare function GdipSetSolidFillColor(byval as GpSolidFill ptr, byval as ARGB) as GpStatus
 declare function GdipGetSolidFillColor(byval as GpSolidFill ptr, byval as ARGB ptr) as GpStatus
-declare function GdipCreateStringFormat(byval as INT, byval as LANGID, byval as GpStringFormat ptr ptr) as GpStatus
+declare function GdipCreateStringFormat(byval as INT_, byval as LANGID, byval as GpStringFormat ptr ptr) as GpStatus
 declare function GdipStringFormatGetGenericDefault(byval as GpStringFormat ptr ptr) as GpStatus
 declare function GdipStringFormatGetGenericTypographic(byval as GpStringFormat ptr ptr) as GpStatus
 declare function GdipDeleteStringFormat(byval as GpStringFormat ptr) as GpStatus
 declare function GdipCloneStringFormat(byval as const GpStringFormat ptr, byval as GpStringFormat ptr ptr) as GpStatus
-declare function GdipSetStringFormatFlags(byval as GpStringFormat ptr, byval as INT) as GpStatus
-declare function GdipGetStringFormatFlags(byval as const GpStringFormat ptr, byval as INT ptr) as GpStatus
+declare function GdipSetStringFormatFlags(byval as GpStringFormat ptr, byval as INT_) as GpStatus
+declare function GdipGetStringFormatFlags(byval as const GpStringFormat ptr, byval as INT_ ptr) as GpStatus
 declare function GdipSetStringFormatAlign(byval as GpStringFormat ptr, byval as StringAlignment) as GpStatus
 declare function GdipGetStringFormatAlign(byval as const GpStringFormat ptr, byval as StringAlignment ptr) as GpStatus
 declare function GdipSetStringFormatLineAlign(byval as GpStringFormat ptr, byval as StringAlignment) as GpStatus
 declare function GdipGetStringFormatLineAlign(byval as const GpStringFormat ptr, byval as StringAlignment ptr) as GpStatus
 declare function GdipSetStringFormatTrimming(byval as GpStringFormat ptr, byval as StringTrimming) as GpStatus
 declare function GdipGetStringFormatTrimming(byval as const GpStringFormat ptr, byval as StringTrimming ptr) as GpStatus
-declare function GdipSetStringFormatHotkeyPrefix(byval as GpStringFormat ptr, byval as INT) as GpStatus
-declare function GdipGetStringFormatHotkeyPrefix(byval as const GpStringFormat ptr, byval as INT ptr) as GpStatus
-declare function GdipSetStringFormatTabStops(byval as GpStringFormat ptr, byval as REAL, byval as INT, byval as const REAL ptr) as GpStatus
-declare function GdipGetStringFormatTabStops(byval as const GpStringFormat ptr, byval as INT, byval as REAL ptr, byval as REAL ptr) as GpStatus
-declare function GdipGetStringFormatTabStopCount(byval as const GpStringFormat ptr, byval as INT ptr) as GpStatus
+declare function GdipSetStringFormatHotkeyPrefix(byval as GpStringFormat ptr, byval as INT_) as GpStatus
+declare function GdipGetStringFormatHotkeyPrefix(byval as const GpStringFormat ptr, byval as INT_ ptr) as GpStatus
+declare function GdipSetStringFormatTabStops(byval as GpStringFormat ptr, byval as REAL, byval as INT_, byval as const REAL ptr) as GpStatus
+declare function GdipGetStringFormatTabStops(byval as const GpStringFormat ptr, byval as INT_, byval as REAL ptr, byval as REAL ptr) as GpStatus
+declare function GdipGetStringFormatTabStopCount(byval as const GpStringFormat ptr, byval as INT_ ptr) as GpStatus
 declare function GdipSetStringFormatDigitSubstitution(byval as GpStringFormat ptr, byval as LANGID, byval as StringDigitSubstitute) as GpStatus
 declare function GdipGetStringFormatDigitSubstitution(byval as const GpStringFormat ptr, byval as LANGID ptr, byval as StringDigitSubstitute ptr) as GpStatus
-declare function GdipGetStringFormatMeasurableCharacterRangeCount(byval as const GpStringFormat ptr, byval as INT ptr) as GpStatus
-declare function GdipSetStringFormatMeasurableCharacterRanges(byval as GpStringFormat ptr, byval as INT, byval as const CharacterRange ptr) as GpStatus
-declare function GdipDrawString(byval as GpGraphics ptr, byval as const wstring ptr, byval as INT, byval as const GpFont ptr, byval as const RectF ptr, byval as const GpStringFormat ptr, byval as const GpBrush ptr) as GpStatus
-declare function GdipMeasureString(byval as GpGraphics ptr, byval as const wstring ptr, byval as INT, byval as const GpFont ptr, byval as const RectF ptr, byval as const GpStringFormat ptr, byval as RectF ptr, byval as INT ptr, byval as INT ptr) as GpStatus
-declare function GdipDrawDriverString(byval as GpGraphics ptr, byval as const UINT16 ptr, byval as INT, byval as const GpFont ptr, byval as const GpBrush ptr, byval as const PointF ptr, byval as INT, byval as const GpMatrix ptr) as GpStatus
-declare function GdipMeasureDriverString(byval as GpGraphics ptr, byval as const UINT16 ptr, byval as INT, byval as const GpFont ptr, byval as const PointF ptr, byval as INT, byval as const GpMatrix ptr, byval as RectF ptr) as GpStatus
+declare function GdipGetStringFormatMeasurableCharacterRangeCount(byval as const GpStringFormat ptr, byval as INT_ ptr) as GpStatus
+declare function GdipSetStringFormatMeasurableCharacterRanges(byval as GpStringFormat ptr, byval as INT_, byval as const CharacterRange ptr) as GpStatus
+declare function GdipDrawString(byval as GpGraphics ptr, byval as const wstring ptr, byval as INT_, byval as const GpFont ptr, byval as const RectF ptr, byval as const GpStringFormat ptr, byval as const GpBrush ptr) as GpStatus
+declare function GdipMeasureString(byval as GpGraphics ptr, byval as const wstring ptr, byval as INT_, byval as const GpFont ptr, byval as const RectF ptr, byval as const GpStringFormat ptr, byval as RectF ptr, byval as INT_ ptr, byval as INT_ ptr) as GpStatus
+declare function GdipDrawDriverString(byval as GpGraphics ptr, byval as const UINT16 ptr, byval as INT_, byval as const GpFont ptr, byval as const GpBrush ptr, byval as const PointF ptr, byval as INT_, byval as const GpMatrix ptr) as GpStatus
+declare function GdipMeasureDriverString(byval as GpGraphics ptr, byval as const UINT16 ptr, byval as INT_, byval as const GpFont ptr, byval as const PointF ptr, byval as INT_, byval as const GpMatrix ptr, byval as RectF ptr) as GpStatus
 declare function GdipCreateTexture(byval as GpImage ptr, byval as GpWrapMode, byval as GpTexture ptr ptr) as GpStatus
 declare function GdipCreateTexture2(byval as GpImage ptr, byval as GpWrapMode, byval as REAL, byval as REAL, byval as REAL, byval as REAL, byval as GpTexture ptr ptr) as GpStatus
-declare function GdipCreateTexture2I(byval as GpImage ptr, byval as GpWrapMode, byval as INT, byval as INT, byval as INT, byval as INT, byval as GpTexture ptr ptr) as GpStatus
+declare function GdipCreateTexture2I(byval as GpImage ptr, byval as GpWrapMode, byval as INT_, byval as INT_, byval as INT_, byval as INT_, byval as GpTexture ptr ptr) as GpStatus
 declare function GdipCreateTextureIA(byval as GpImage ptr, byval as const GpImageAttributes ptr, byval as REAL, byval as REAL, byval as REAL, byval as REAL, byval as GpTexture ptr ptr) as GpStatus
-declare function GdipCreateTextureIAI(byval as GpImage ptr, byval as const GpImageAttributes ptr, byval as INT, byval as INT, byval as INT, byval as INT, byval as GpTexture ptr ptr) as GpStatus
+declare function GdipCreateTextureIAI(byval as GpImage ptr, byval as const GpImageAttributes ptr, byval as INT_, byval as INT_, byval as INT_, byval as INT_, byval as GpTexture ptr ptr) as GpStatus
 declare function GdipGetTextureTransform(byval as GpTexture ptr, byval as GpMatrix ptr) as GpStatus
 declare function GdipSetTextureTransform(byval as GpTexture ptr, byval as const GpMatrix ptr) as GpStatus
 declare function GdipResetTextureTransform(byval as GpTexture ptr) as GpStatus
@@ -2150,20 +2150,20 @@ type BlurParams
 end type
 
 type BrightnessContrastParams
-	brightnessLevel as INT
-	contrastLevel as INT
+	brightnessLevel as INT_
+	contrastLevel as INT_
 end type
 
 type ColorBalanceParams
-	cyanRed as INT
-	magentaGreen as INT
-	yellowBlue as INT
+	cyanRed as INT_
+	magentaGreen as INT_
+	yellowBlue as INT_
 end type
 
 type ColorCurveParams
 	adjustment as CurveAdjustments
 	channel as CurveChannel
-	adjustValue as INT
+	adjustValue as INT_
 end type
 
 type ColorLUTParams
@@ -2174,15 +2174,15 @@ type ColorLUTParams
 end type
 
 type HueSaturationLightnessParams
-	hueLevel as INT
-	saturationLevel as INT
-	lightnessLevel as INT
+	hueLevel as INT_
+	saturationLevel as INT_
+	lightnessLevel as INT_
 end type
 
 type LevelsParams
-	highlight as INT
-	midtone as INT
-	shadow as INT
+	highlight as INT_
+	midtone as INT_
+	shadow as INT_
 end type
 
 type RedEyeCorrectionParams
@@ -2196,8 +2196,8 @@ type SharpenParams
 end type
 
 type TintParams
-	hue as INT
-	amount as INT
+	hue as INT_
+	amount as INT_
 end type
 
 extern BlurEffectGuid as const GUID

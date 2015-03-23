@@ -44,7 +44,7 @@ type PIP6_ADDRESS as IP6_ADDRESS ptr
 #macro INLINE_WORD_FLIP(out, in)
 	scope
 		dim _in as WORD = (in)
-		'' TODO: (out) = (_in << 8) | (_in >> 8);
+		(out) = (_in shl 8) or (_in shr 8)
 	end scope
 #endmacro
 #define INLINE_HTONS(out, in) INLINE_WORD_FLIP(out, in)
@@ -52,7 +52,7 @@ type PIP6_ADDRESS as IP6_ADDRESS ptr
 #macro INLINE_DWORD_FLIP(out, in)
 	scope
 		dim _in as DWORD = (in)
-		'' TODO: (out) = ((_in << 8) & 0x00ff0000) | (_in << 24) | ((_in >> 8) & 0x0000ff00) | (_in >> 24);
+		(out) = ((_in shl 8) and &h00ff0000) or (_in shl 24) or ((_in shr 8) and &h0000ff00) or (_in shr 24)
 	end scope
 #endmacro
 #define INLINE_NTOHL(out, in) INLINE_DWORD_FLIP(out, in)
@@ -119,7 +119,7 @@ type PDNS_HEADER as _DNS_HEADER ptr
 #define DNS_OFFSET_TO_QUESTION_NAME sizeof(DNS_HEADER)
 #define DNS_COMPRESSED_QUESTION_NAME &hC00C
 #define DNS_QUESTION_NAME_FROM_HEADER(_pHeader_) cast(PCHAR, cast(PDNS_HEADER, (_pHeader_)) + 1)
-#define DNS_ANSWER_FROM_QUESTION(_pQuestion_) '' TODO: ((PCHAR)((PDNS_QUESTION)(_pQuestion_) + 1))
+#define DNS_ANSWER_FROM_QUESTION(_pQuestion_) cast(PCHAR, cast(PDNS_QUESTION, (_pQuestion_)) + 1)
 
 type _DNS_WIRE_QUESTION field = 1
 	QuestionType as WORD
@@ -939,22 +939,22 @@ type PDNS_RRSET as _DnsRRSet ptr
 #macro DNS_RRSET_INIT(rrset)
 	scope
 		dim _prrset as PDNS_RRSET = @(rrset)
-		'' TODO: _prrset->pFirstRR = NULL;
-		'' TODO: _prrset->pLastRR = (PDNS_RECORD) &_prrset->pFirstRR;
+		_prrset->pFirstRR = NULL
+		_prrset->pLastRR = cptr(PDNS_RECORD, @_prrset->pFirstRR)
 	end scope
 #endmacro
 #macro DNS_RRSET_ADD(rrset, pnewRR)
 	scope
 		dim _prrset as PDNS_RRSET = @(rrset)
 		dim _prrnew as PDNS_RECORD = (pnewRR)
-		'' TODO: _prrset->pLastRR->pNext = _prrnew;
-		'' TODO: _prrset->pLastRR = _prrnew;
+		_prrset->pLastRR->pNext = _prrnew
+		_prrset->pLastRR = _prrnew
 	end scope
 #endmacro
 #macro DNS_RRSET_TERMINATE(rrset)
 	scope
 		dim _prrset as PDNS_RRSET = @(rrset)
-		'' TODO: _prrset->pLastRR->pNext = NULL;
+		_prrset->pLastRR->pNext = NULL
 	end scope
 #endmacro
 

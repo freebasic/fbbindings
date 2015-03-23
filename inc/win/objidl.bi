@@ -66,14 +66,14 @@ type IMallocSpyVtbl
 	QueryInterface as function(byval This as IMallocSpy ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IMallocSpy ptr) as ULONG
 	Release as function(byval This as IMallocSpy ptr) as ULONG
-	PreAlloc as function(byval This as IMallocSpy ptr, byval cbRequest as SIZE_T) as SIZE_T
+	PreAlloc as function(byval This as IMallocSpy ptr, byval cbRequest as SIZE_T_) as SIZE_T_
 	PostAlloc as function(byval This as IMallocSpy ptr, byval pActual as any ptr) as any ptr
 	PreFree as function(byval This as IMallocSpy ptr, byval pRequest as any ptr, byval fSpyed as WINBOOL) as any ptr
 	PostFree as sub(byval This as IMallocSpy ptr, byval fSpyed as WINBOOL)
-	PreRealloc as function(byval This as IMallocSpy ptr, byval pRequest as any ptr, byval cbRequest as SIZE_T, byval ppNewRequest as any ptr ptr, byval fSpyed as WINBOOL) as SIZE_T
+	PreRealloc as function(byval This as IMallocSpy ptr, byval pRequest as any ptr, byval cbRequest as SIZE_T_, byval ppNewRequest as any ptr ptr, byval fSpyed as WINBOOL) as SIZE_T_
 	PostRealloc as function(byval This as IMallocSpy ptr, byval pActual as any ptr, byval fSpyed as WINBOOL) as any ptr
 	PreGetSize as function(byval This as IMallocSpy ptr, byval pRequest as any ptr, byval fSpyed as WINBOOL) as any ptr
-	PostGetSize as function(byval This as IMallocSpy ptr, byval cbActual as SIZE_T, byval fSpyed as WINBOOL) as SIZE_T
+	PostGetSize as function(byval This as IMallocSpy ptr, byval cbActual as SIZE_T_, byval fSpyed as WINBOOL) as SIZE_T_
 	PreDidAlloc as function(byval This as IMallocSpy ptr, byval pRequest as any ptr, byval fSpyed as WINBOOL) as any ptr
 	PostDidAlloc as function(byval This as IMallocSpy ptr, byval pRequest as any ptr, byval fSpyed as WINBOOL, byval fActual as long) as long
 	PreHeapMinimize as sub(byval This as IMallocSpy ptr)
@@ -84,7 +84,7 @@ type IMallocSpy_
 	lpVtbl as IMallocSpyVtbl ptr
 end type
 
-declare function IMallocSpy_PreAlloc_Proxy(byval This as IMallocSpy ptr, byval cbRequest as SIZE_T) as SIZE_T
+declare function IMallocSpy_PreAlloc_Proxy(byval This as IMallocSpy ptr, byval cbRequest as SIZE_T_) as SIZE_T_
 declare sub IMallocSpy_PreAlloc_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IMallocSpy_PostAlloc_Proxy(byval This as IMallocSpy ptr, byval pActual as any ptr) as any ptr
 declare sub IMallocSpy_PostAlloc_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
@@ -92,13 +92,13 @@ declare function IMallocSpy_PreFree_Proxy(byval This as IMallocSpy ptr, byval pR
 declare sub IMallocSpy_PreFree_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare sub IMallocSpy_PostFree_Proxy(byval This as IMallocSpy ptr, byval fSpyed as WINBOOL)
 declare sub IMallocSpy_PostFree_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-declare function IMallocSpy_PreRealloc_Proxy(byval This as IMallocSpy ptr, byval pRequest as any ptr, byval cbRequest as SIZE_T, byval ppNewRequest as any ptr ptr, byval fSpyed as WINBOOL) as SIZE_T
+declare function IMallocSpy_PreRealloc_Proxy(byval This as IMallocSpy ptr, byval pRequest as any ptr, byval cbRequest as SIZE_T_, byval ppNewRequest as any ptr ptr, byval fSpyed as WINBOOL) as SIZE_T_
 declare sub IMallocSpy_PreRealloc_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IMallocSpy_PostRealloc_Proxy(byval This as IMallocSpy ptr, byval pActual as any ptr, byval fSpyed as WINBOOL) as any ptr
 declare sub IMallocSpy_PostRealloc_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IMallocSpy_PreGetSize_Proxy(byval This as IMallocSpy ptr, byval pRequest as any ptr, byval fSpyed as WINBOOL) as any ptr
 declare sub IMallocSpy_PreGetSize_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-declare function IMallocSpy_PostGetSize_Proxy(byval This as IMallocSpy ptr, byval cbActual as SIZE_T, byval fSpyed as WINBOOL) as SIZE_T
+declare function IMallocSpy_PostGetSize_Proxy(byval This as IMallocSpy ptr, byval cbActual as SIZE_T_, byval fSpyed as WINBOOL) as SIZE_T_
 declare sub IMallocSpy_PostGetSize_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IMallocSpy_PreDidAlloc_Proxy(byval This as IMallocSpy ptr, byval pRequest as any ptr, byval fSpyed as WINBOOL) as any ptr
 declare sub IMallocSpy_PreDidAlloc_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)

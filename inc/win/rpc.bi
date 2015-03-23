@@ -19,8 +19,6 @@
 #endif
 
 #define __MIDL_USER_DEFINED
-#define midl_user_allocate MIDL_user_allocate
-#define midl_user_free MIDL_user_free
 type I_RPC_HANDLE as any ptr
 type RPC_STATUS as long
 #define RPC_UNICODE_SUPPORTED

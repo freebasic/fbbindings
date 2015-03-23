@@ -101,7 +101,7 @@ type CACY as tagCACY
 
 type tagCADATE
 	cElems as ULONG
-	pElems as DATE ptr
+	pElems as DATE_ ptr
 end type
 
 type CADATE as tagCADATE
@@ -209,7 +209,7 @@ type tagPROPVARIANT
 				uiVal as USHORT
 				lVal as LONG
 				ulVal as ULONG
-				intVal as INT
+				intVal as INT_
 				uintVal as UINT
 				hVal as LARGE_INTEGER
 				uhVal as ULARGE_INTEGER
@@ -218,7 +218,7 @@ type tagPROPVARIANT
 				boolVal as VARIANT_BOOL
 				scode as SCODE
 				cyVal as CY
-				date as DATE
+				date as DATE_
 				filetime as FILETIME
 				puuid as CLSID ptr
 				pclipdata as CLIPDATA ptr
@@ -261,7 +261,7 @@ type tagPROPVARIANT
 				puiVal as USHORT ptr
 				plVal as LONG ptr
 				pulVal as ULONG ptr
-				pintVal as INT ptr
+				pintVal as INT_ ptr
 				puintVal as UINT ptr
 				pfltVal as FLOAT ptr
 				pdblVal as DOUBLE ptr
@@ -269,7 +269,7 @@ type tagPROPVARIANT
 				pdecVal as DECIMAL ptr
 				pscode as SCODE ptr
 				pcyVal as CY ptr
-				pdate as DATE ptr
+				pdate as DATE_ ptr
 				pbstrVal as BSTR ptr
 				ppunkVal as IUnknown ptr ptr
 				ppdispVal as IDispatch ptr ptr

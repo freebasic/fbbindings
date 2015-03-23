@@ -116,10 +116,10 @@ type ID3DXBaseEffectVtbl_
 	GetBool as function(byval This as ID3DXBaseEffect ptr, byval parameter as D3DXHANDLE, byval b as WINBOOL ptr) as HRESULT
 	SetBoolArray as function(byval This as ID3DXBaseEffect ptr, byval parameter as D3DXHANDLE, byval b as const WINBOOL ptr, byval count as UINT) as HRESULT
 	GetBoolArray as function(byval This as ID3DXBaseEffect ptr, byval parameter as D3DXHANDLE, byval b as WINBOOL ptr, byval count as UINT) as HRESULT
-	SetInt as function(byval This as ID3DXBaseEffect ptr, byval parameter as D3DXHANDLE, byval n as INT) as HRESULT
-	GetInt as function(byval This as ID3DXBaseEffect ptr, byval parameter as D3DXHANDLE, byval n as INT ptr) as HRESULT
-	SetIntArray as function(byval This as ID3DXBaseEffect ptr, byval parameter as D3DXHANDLE, byval n as const INT ptr, byval count as UINT) as HRESULT
-	GetIntArray as function(byval This as ID3DXBaseEffect ptr, byval parameter as D3DXHANDLE, byval n as INT ptr, byval count as UINT) as HRESULT
+	SetInt as function(byval This as ID3DXBaseEffect ptr, byval parameter as D3DXHANDLE, byval n as INT_) as HRESULT
+	GetInt as function(byval This as ID3DXBaseEffect ptr, byval parameter as D3DXHANDLE, byval n as INT_ ptr) as HRESULT
+	SetIntArray as function(byval This as ID3DXBaseEffect ptr, byval parameter as D3DXHANDLE, byval n as const INT_ ptr, byval count as UINT) as HRESULT
+	GetIntArray as function(byval This as ID3DXBaseEffect ptr, byval parameter as D3DXHANDLE, byval n as INT_ ptr, byval count as UINT) as HRESULT
 	SetFloat as function(byval This as ID3DXBaseEffect ptr, byval parameter as D3DXHANDLE, byval f as FLOAT) as HRESULT
 	GetFloat as function(byval This as ID3DXBaseEffect ptr, byval parameter as D3DXHANDLE, byval f as FLOAT ptr) as HRESULT
 	SetFloatArray as function(byval This as ID3DXBaseEffect ptr, byval parameter as D3DXHANDLE, byval f as const FLOAT ptr, byval count as UINT) as HRESULT
@@ -173,11 +173,11 @@ type ID3DXEffectStateManagerVtbl_
 	SetFVF as function(byval This as ID3DXEffectStateManager ptr, byval format as DWORD) as HRESULT
 	SetVertexShader as function(byval This as ID3DXEffectStateManager ptr, byval shader as IDirect3DVertexShader9 ptr) as HRESULT
 	SetVertexShaderConstantF as function(byval This as ID3DXEffectStateManager ptr, byval register_index as UINT, byval constant_data as const FLOAT ptr, byval register_count as UINT) as HRESULT
-	SetVertexShaderConstantI as function(byval This as ID3DXEffectStateManager ptr, byval register_index as UINT, byval constant_data as const INT ptr, byval register_count as UINT) as HRESULT
+	SetVertexShaderConstantI as function(byval This as ID3DXEffectStateManager ptr, byval register_index as UINT, byval constant_data as const INT_ ptr, byval register_count as UINT) as HRESULT
 	SetVertexShaderConstantB as function(byval This as ID3DXEffectStateManager ptr, byval register_index as UINT, byval constant_data as const WINBOOL ptr, byval register_count as UINT) as HRESULT
 	SetPixelShader as function(byval This as ID3DXEffectStateManager ptr, byval shader as IDirect3DPixelShader9 ptr) as HRESULT
 	SetPixelShaderConstantF as function(byval This as ID3DXEffectStateManager ptr, byval register_index as UINT, byval constant_data as const FLOAT ptr, byval register_count as UINT) as HRESULT
-	SetPixelShaderConstantI as function(byval This as ID3DXEffectStateManager ptr, byval register_index as UINT, byval constant_data as const INT ptr, byval register_count as UINT) as HRESULT
+	SetPixelShaderConstantI as function(byval This as ID3DXEffectStateManager ptr, byval register_index as UINT, byval constant_data as const INT_ ptr, byval register_count as UINT) as HRESULT
 	SetPixelShaderConstantB as function(byval This as ID3DXEffectStateManager ptr, byval register_index as UINT, byval constant_data as const WINBOOL ptr, byval register_count as UINT) as HRESULT
 end type
 
@@ -216,10 +216,10 @@ type ID3DXEffectVtbl_
 	GetBool as function(byval This as ID3DXEffect ptr, byval parameter as D3DXHANDLE, byval b as WINBOOL ptr) as HRESULT
 	SetBoolArray as function(byval This as ID3DXEffect ptr, byval parameter as D3DXHANDLE, byval b as const WINBOOL ptr, byval count as UINT) as HRESULT
 	GetBoolArray as function(byval This as ID3DXEffect ptr, byval parameter as D3DXHANDLE, byval b as WINBOOL ptr, byval count as UINT) as HRESULT
-	SetInt as function(byval This as ID3DXEffect ptr, byval parameter as D3DXHANDLE, byval n as INT) as HRESULT
-	GetInt as function(byval This as ID3DXEffect ptr, byval parameter as D3DXHANDLE, byval n as INT ptr) as HRESULT
-	SetIntArray as function(byval This as ID3DXEffect ptr, byval parameter as D3DXHANDLE, byval n as const INT ptr, byval count as UINT) as HRESULT
-	GetIntArray as function(byval This as ID3DXEffect ptr, byval parameter as D3DXHANDLE, byval n as INT ptr, byval count as UINT) as HRESULT
+	SetInt as function(byval This as ID3DXEffect ptr, byval parameter as D3DXHANDLE, byval n as INT_) as HRESULT
+	GetInt as function(byval This as ID3DXEffect ptr, byval parameter as D3DXHANDLE, byval n as INT_ ptr) as HRESULT
+	SetIntArray as function(byval This as ID3DXEffect ptr, byval parameter as D3DXHANDLE, byval n as const INT_ ptr, byval count as UINT) as HRESULT
+	GetIntArray as function(byval This as ID3DXEffect ptr, byval parameter as D3DXHANDLE, byval n as INT_ ptr, byval count as UINT) as HRESULT
 	SetFloat as function(byval This as ID3DXEffect ptr, byval parameter as D3DXHANDLE, byval f as FLOAT) as HRESULT
 	GetFloat as function(byval This as ID3DXEffect ptr, byval parameter as D3DXHANDLE, byval f as FLOAT ptr) as HRESULT
 	SetFloatArray as function(byval This as ID3DXEffect ptr, byval parameter as D3DXHANDLE, byval f as const FLOAT ptr, byval count as UINT) as HRESULT
@@ -306,10 +306,10 @@ type ID3DXEffectCompilerVtbl_
 	GetBool as function(byval This as ID3DXEffectCompiler ptr, byval parameter as D3DXHANDLE, byval b as WINBOOL ptr) as HRESULT
 	SetBoolArray as function(byval This as ID3DXEffectCompiler ptr, byval parameter as D3DXHANDLE, byval b as const WINBOOL ptr, byval count as UINT) as HRESULT
 	GetBoolArray as function(byval This as ID3DXEffectCompiler ptr, byval parameter as D3DXHANDLE, byval b as WINBOOL ptr, byval count as UINT) as HRESULT
-	SetInt as function(byval This as ID3DXEffectCompiler ptr, byval parameter as D3DXHANDLE, byval n as INT) as HRESULT
-	GetInt as function(byval This as ID3DXEffectCompiler ptr, byval parameter as D3DXHANDLE, byval n as INT ptr) as HRESULT
-	SetIntArray as function(byval This as ID3DXEffectCompiler ptr, byval parameter as D3DXHANDLE, byval n as const INT ptr, byval count as UINT) as HRESULT
-	GetIntArray as function(byval This as ID3DXEffectCompiler ptr, byval parameter as D3DXHANDLE, byval n as INT ptr, byval count as UINT) as HRESULT
+	SetInt as function(byval This as ID3DXEffectCompiler ptr, byval parameter as D3DXHANDLE, byval n as INT_) as HRESULT
+	GetInt as function(byval This as ID3DXEffectCompiler ptr, byval parameter as D3DXHANDLE, byval n as INT_ ptr) as HRESULT
+	SetIntArray as function(byval This as ID3DXEffectCompiler ptr, byval parameter as D3DXHANDLE, byval n as const INT_ ptr, byval count as UINT) as HRESULT
+	GetIntArray as function(byval This as ID3DXEffectCompiler ptr, byval parameter as D3DXHANDLE, byval n as INT_ ptr, byval count as UINT) as HRESULT
 	SetFloat as function(byval This as ID3DXEffectCompiler ptr, byval parameter as D3DXHANDLE, byval f as FLOAT) as HRESULT
 	GetFloat as function(byval This as ID3DXEffectCompiler ptr, byval parameter as D3DXHANDLE, byval f as FLOAT ptr) as HRESULT
 	SetFloatArray as function(byval This as ID3DXEffectCompiler ptr, byval parameter as D3DXHANDLE, byval f as const FLOAT ptr, byval count as UINT) as HRESULT

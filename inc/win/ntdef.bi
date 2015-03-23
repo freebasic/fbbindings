@@ -8,6 +8,11 @@
 #include once "crt/stdarg.bi"
 #include once "crt/string.bi"
 
+'' The following symbols have been renamed:
+''     typedef INT => INT_
+''     typedef CSHORT => CSHORT_
+''     typedef STRING => STRING_
+
 #ifdef __FB_64BIT__
 	extern "C"
 #else
@@ -36,13 +41,8 @@
 	#define MEMORY_ALLOCATION_ALIGNMENT 8
 #endif
 
-#define RESTRICTED_POINTER
 #define ARGUMENT_PRESENT(ArgumentPointer) (cptr(CHAR ptr, cast(ULONG_PTR, (ArgumentPointer))) <> cptr(CHAR ptr, NULL))
 #define CONTAINING_RECORD(address, type, field) cptr(type ptr, cast(ULONG_PTR, address) - cast(ULONG_PTR, @cptr(type ptr, 0)->field))
-#define FIELD_OFFSET(Type, Field) __builtin_offsetof(Type, Field)
-#define TYPE_ALIGNMENT(t) '' TODO: FIELD_OFFSET(struct { char x; t test; }, test)
-#define PROBE_ALIGNMENT(v) TYPE_ALIGNMENT(ULONG)
-#define NOP_FUNCTION cast(any, 0)
 #define SYSTEM_CACHE_ALIGNMENT_SIZE 64
 #define min(a, b) iif((a) < (b), (a), (b))
 #define max(a, b) iif((a) > (b), (a), (b))
@@ -56,7 +56,7 @@ type PHANDLE as HANDLE ptr
 type CHAR as zstring
 type SHORT as short
 type LONG as long
-type INT as long
+type INT_ as long
 type DOUBLE as double
 type UCHAR as ubyte
 type PUCHAR as ubyte ptr
@@ -132,7 +132,7 @@ type LPCUWSTR as const wstring ptr
 type PCUWSTR as const wstring ptr
 type CCHAR as zstring
 type PCCHAR as zstring ptr
-type CSHORT as short
+type CSHORT_ as short
 type PCSHORT as short ptr
 type CLONG as ULONG
 type PCLONG as ULONG ptr
@@ -233,14 +233,14 @@ type _STRING
 	Buffer as PCHAR
 end type
 
-type STRING as _STRING
+type STRING_ as _STRING
 type PSTRING as _STRING ptr
-type ANSI_STRING as STRING
+type ANSI_STRING as STRING_
 type PANSI_STRING as PSTRING
-type OEM_STRING as STRING
+type OEM_STRING as STRING_
 type POEM_STRING as PSTRING
-type PCOEM_STRING as const STRING ptr
-type CANSI_STRING as STRING
+type PCOEM_STRING as const STRING_ ptr
+type CANSI_STRING as STRING_
 type PCANSI_STRING as PSTRING
 
 type _STRING32
@@ -304,12 +304,12 @@ type PCOBJECT_ATTRIBUTES as const OBJECT_ATTRIBUTES ptr
 #define OBJ_VALID_ATTRIBUTES &h000007F2
 #macro InitializeObjectAttributes(p, n, a, r, s)
 	scope
-		'' TODO: (p)->Length = sizeof(OBJECT_ATTRIBUTES);
-		'' TODO: (p)->RootDirectory = (r);
-		'' TODO: (p)->Attributes = (a);
-		'' TODO: (p)->ObjectName = (n);
-		'' TODO: (p)->SecurityDescriptor = (s);
-		'' TODO: (p)->SecurityQualityOfService = NULL;
+		(p)->Length = sizeof(OBJECT_ATTRIBUTES)
+		(p)->RootDirectory = (r)
+		(p)->Attributes = (a)
+		(p)->ObjectName = (n)
+		(p)->SecurityDescriptor = (s)
+		(p)->SecurityQualityOfService = NULL
 	end scope
 #endmacro
 

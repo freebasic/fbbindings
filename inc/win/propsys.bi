@@ -1004,7 +1004,7 @@ declare function PSPropertyBag_ReadBOOL(byval propBag as IPropertyBag ptr, byval
 declare function PSPropertyBag_ReadBSTR(byval propBag as IPropertyBag ptr, byval propName as LPCWSTR, byval value as BSTR ptr) as HRESULT
 declare function PSPropertyBag_ReadDWORD(byval propBag as IPropertyBag ptr, byval propName as LPCWSTR, byval value as DWORD ptr) as HRESULT
 declare function PSPropertyBag_ReadGUID(byval propBag as IPropertyBag ptr, byval propName as LPCWSTR, byval value as GUID ptr) as HRESULT
-declare function PSPropertyBag_ReadInt(byval propBag as IPropertyBag ptr, byval propName as LPCWSTR, byval value as INT ptr) as HRESULT
+declare function PSPropertyBag_ReadInt(byval propBag as IPropertyBag ptr, byval propName as LPCWSTR, byval value as INT_ ptr) as HRESULT
 declare function PSPropertyBag_ReadLONG(byval propBag as IPropertyBag ptr, byval propName as LPCWSTR, byval value as LONG ptr) as HRESULT
 declare function PSPropertyBag_ReadPOINTL(byval propBag as IPropertyBag ptr, byval propName as LPCWSTR, byval value as POINTL ptr) as HRESULT
 declare function PSPropertyBag_ReadPOINTS(byval propBag as IPropertyBag ptr, byval propName as LPCWSTR, byval value as POINTS ptr) as HRESULT
@@ -1021,7 +1021,7 @@ declare function PSPropertyBag_WriteBOOL(byval propBag as IPropertyBag ptr, byva
 declare function PSPropertyBag_WriteBSTR(byval propBag as IPropertyBag ptr, byval propName as LPCWSTR, byval value as BSTR) as HRESULT
 declare function PSPropertyBag_WriteDWORD(byval propBag as IPropertyBag ptr, byval propName as LPCWSTR, byval value as DWORD) as HRESULT
 declare function PSPropertyBag_WriteGUID(byval propBag as IPropertyBag ptr, byval propName as LPCWSTR, byval value as const GUID ptr) as HRESULT
-declare function PSPropertyBag_WriteInt(byval propBag as IPropertyBag ptr, byval propName as LPCWSTR, byval value as INT) as HRESULT
+declare function PSPropertyBag_WriteInt(byval propBag as IPropertyBag ptr, byval propName as LPCWSTR, byval value as INT_) as HRESULT
 declare function PSPropertyBag_WriteLONG(byval propBag as IPropertyBag ptr, byval propName as LPCWSTR, byval value as LONG) as HRESULT
 declare function PSPropertyBag_WritePOINTL(byval propBag as IPropertyBag ptr, byval propName as LPCWSTR, byval value as const POINTL ptr) as HRESULT
 declare function PSPropertyBag_WritePOINTS(byval propBag as IPropertyBag ptr, byval propName as LPCWSTR, byval value as const POINTS ptr) as HRESULT

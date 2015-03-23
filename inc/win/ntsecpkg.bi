@@ -48,7 +48,7 @@ type PLSA_GET_CREDENTIALS as function(byval LogonId as PLUID, byval Authenticati
 type PLSA_DELETE_CREDENTIAL as function(byval LogonId as PLUID, byval AuthenticationPackage as ULONG, byval PrimaryKeyValue as PLSA_STRING) as NTSTATUS
 type PLSA_ALLOCATE_LSA_HEAP as function(byval Length as ULONG) as PVOID
 type PLSA_FREE_LSA_HEAP as sub(byval Base as PVOID)
-type PLSA_ALLOCATE_PRIVATE_HEAP as function(byval Length as SIZE_T) as PVOID
+type PLSA_ALLOCATE_PRIVATE_HEAP as function(byval Length as SIZE_T_) as PVOID
 type PLSA_FREE_PRIVATE_HEAP as sub(byval Base as PVOID)
 type PLSA_ALLOCATE_CLIENT_BUFFER as function(byval ClientRequest as PLSA_CLIENT_REQUEST, byval LengthRequired as ULONG, byval ClientBaseAddress as PVOID ptr) as NTSTATUS
 type PLSA_FREE_CLIENT_BUFFER as function(byval ClientRequest as PLSA_CLIENT_REQUEST, byval ClientBaseAddress as PVOID) as NTSTATUS
@@ -586,7 +586,15 @@ end type
 
 type KSEC_LIST_ENTRY as _KSEC_LIST_ENTRY
 type PKSEC_LIST_ENTRY as _KSEC_LIST_ENTRY ptr
-#define KsecInitializeListEntry(Entry, SigValue) '' TODO: ((PKSEC_LIST_ENTRY) Entry)->List.Flink = ((PKSEC_LIST_ENTRY) Entry)->List.Blink = NULL; ((PKSEC_LIST_ENTRY) Entry)->RefCount = 1; ((PKSEC_LIST_ENTRY) Entry)->Signature = SigValue; ((PKSEC_LIST_ENTRY) Entry)->OwningList = NULL; ((PKSEC_LIST_ENTRY) Entry)->Reserved = NULL;
+#macro KsecInitializeListEntry(Entry, SigValue)
+	cast(PKSEC_LIST_ENTRY, Entry)->List.Flink = NULL
+	cast(PKSEC_LIST_ENTRY, Entry)->List.Blink = NULL
+	cast(PKSEC_LIST_ENTRY, Entry)->RefCount = 1
+	cast(PKSEC_LIST_ENTRY, Entry)->Signature = SigValue
+	cast(PKSEC_LIST_ENTRY, Entry)->OwningList = NULL
+	cast(PKSEC_LIST_ENTRY, Entry)->Reserved = NULL
+#endmacro
+
 declare function KSecCreateContextList(byval Type as KSEC_CONTEXT_TYPE) as PVOID
 declare sub KSecInsertListEntry(byval List as PVOID, byval Entry as PKSEC_LIST_ENTRY)
 declare function KSecReferenceListEntry(byval Entry as PKSEC_LIST_ENTRY, byval Signature as ULONG, byval RemoveNoRef as BOOLEAN) as NTSTATUS

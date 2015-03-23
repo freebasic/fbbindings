@@ -17,7 +17,7 @@
 #define API_SET_RELEASE_SCHEMA_ORDINAL 3
 #define API_SET_STRING_X(s) #s
 #define API_SET_STRING(s) API_SET_STRING_X(s)
-#define API_SET_STRING_U_Y(s) L##s
+#define API_SET_STRING_U_Y(s) wstr(s)
 #define API_SET_STRING_U_X(s) API_SET_STRING_U_Y(s)
 #define API_SET_STRING_U(s) API_SET_STRING_U_X(API_SET_STRING(s))
 #define API_SET_OVERRIDE(X) X##Implementation

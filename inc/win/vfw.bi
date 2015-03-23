@@ -311,11 +311,19 @@ declare function ICSendMessage(byval hic as HIC, byval msg as UINT, byval dw1 as
 #define ICGetState(hic, pv, cb) ICSendMessage(hic, ICM_GETSTATE, cast(DWORD_PTR, cast(LPVOID, (pv))), cast(DWORD_PTR, (cb)))
 #define ICSetState(hic, pv, cb) ICSendMessage(hic, ICM_SETSTATE, cast(DWORD_PTR, cast(LPVOID, (pv))), cast(DWORD_PTR, (cb)))
 #define ICGetStateSize(hic) cast(DWORD, ICGetState(hic, NULL, 0))
+
 dim shared dwICValue as DWORD
-#define ICGetDefaultQuality(hic) '' TODO: (ICSendMessage(hic,ICM_GETDEFAULTQUALITY,(DWORD_PTR)(LPVOID)&dwICValue,sizeof(DWORD)),dwICValue)
-#define ICGetDefaultKeyFrameRate(hic) '' TODO: (ICSendMessage(hic,ICM_GETDEFAULTKEYFRAMERATE,(DWORD_PTR)(LPVOID)&dwICValue,sizeof(DWORD)),dwICValue)
+private function ICGetDefaultQuality(byval hic as HIC) as DWORD
+	ICSendMessage(hic, ICM_GETDEFAULTQUALITY, cast(DWORD_PTR, cast(LPVOID, @dwICValue)), sizeof(DWORD))
+	function = dwICValue
+end function
+private function ICGetDefaultKeyFrameRate(byval hic as HIC) as DWORD
+	ICSendMessage(hic, ICM_GETDEFAULTKEYFRAMERATE, cast(DWORD_PTR, cast(LPVOID, @dwICValue)), sizeof(DWORD))
+	function = dwICValue
+end function
 #define ICDrawWindow(hic, prc) ICSendMessage(hic, ICM_DRAW_WINDOW, cast(DWORD_PTR, cast(LPVOID, (prc))), sizeof(RECT))
 declare function ICCompress cdecl(byval hic as HIC, byval dwFlags as DWORD, byval lpbiOutput as LPBITMAPINFOHEADER, byval lpData as LPVOID, byval lpbiInput as LPBITMAPINFOHEADER, byval lpBits as LPVOID, byval lpckid as LPDWORD, byval lpdwFlags as LPDWORD, byval lFrameNum as LONG, byval dwFrameSize as DWORD, byval dwQuality as DWORD, byval lpbiPrev as LPBITMAPINFOHEADER, byval lpPrev as LPVOID) as DWORD
+
 #define ICCompressBegin(hic, lpbiInput, lpbiOutput) ICSendMessage(hic, ICM_COMPRESS_BEGIN, cast(DWORD_PTR, cast(LPVOID, (lpbiInput))), cast(DWORD_PTR, cast(LPVOID, (lpbiOutput))))
 #define ICCompressQuery(hic, lpbiInput, lpbiOutput) ICSendMessage(hic, ICM_COMPRESS_QUERY, cast(DWORD_PTR, cast(LPVOID, (lpbiInput))), cast(DWORD_PTR, cast(LPVOID, (lpbiOutput))))
 #define ICCompressGetFormat(hic, lpbiInput, lpbiOutput) ICSendMessage(hic, ICM_COMPRESS_GET_FORMAT, cast(DWORD_PTR, cast(LPVOID, (lpbiInput))), cast(DWORD_PTR, cast(LPVOID, (lpbiOutput))))
@@ -1025,7 +1033,10 @@ declare function MCIWndRegisterClass cdecl() as WINBOOL
 #define MCIWndPlayReverse(hwnd) cast(LONG, MCIWndSM(hwnd, MCIWNDM_PLAYREVERSE, cast(WPARAM, 0), cast(LPARAM, 0)))
 #define MCIWndPlayFrom(hwnd, lPos) cast(LONG, MCIWndSM(hwnd, MCIWNDM_PLAYFROM, cast(WPARAM, 0), cast(LPARAM, cast(LONG, (lPos)))))
 #define MCIWndPlayTo(hwnd, lPos) cast(LONG, MCIWndSM(hwnd, MCIWNDM_PLAYTO, cast(WPARAM, 0), cast(LPARAM, cast(LONG, (lPos)))))
-#define MCIWndPlayFromTo(hwnd, lStart, lEnd) '' TODO: (MCIWndSeek(hwnd,lStart),MCIWndPlayTo(hwnd,lEnd))
+private function MCIWndPlayFromTo(byval hwnd as HWND, byval lStart as long, byval lEnd as long) as LONG
+	MCIWndSeek(hwnd, lStart)
+	function = MCIWndPlayTo(hwnd, lEnd)
+end function
 #define MCIWndGetDeviceID(hwnd) cast(UINT, MCIWndSM(hwnd, MCIWNDM_GETDEVICEID, cast(WPARAM, 0), cast(LPARAM, 0)))
 #define MCIWndGetAlias(hwnd) cast(UINT, MCIWndSM(hwnd, MCIWNDM_GETALIAS, cast(WPARAM, 0), cast(LPARAM, 0)))
 #define MCIWndGetMode(hwnd, lp, len) cast(LONG, MCIWndSM(hwnd, MCIWNDM_GETMODE, cast(WPARAM, cast(UINT, (len))), cast(LPARAM, cast(LPTSTR, (lp)))))
@@ -1052,8 +1063,8 @@ declare function MCIWndRegisterClass cdecl() as WINBOOL
 #define MCIWndSetActiveTimer(hwnd, active) '' TODO: (VOID)MCIWndSM(hwnd,MCIWNDM_SETACTIVETIMER,(WPARAM)(UINT)(active),(LPARAM)0)
 #define MCIWndSetInactiveTimer(hwnd, inactive) '' TODO: (VOID)MCIWndSM(hwnd,MCIWNDM_SETINACTIVETIMER,(WPARAM)(UINT)(inactive),(LPARAM)0)
 #define MCIWndSetTimers(hwnd, active, inactive) '' TODO: (VOID)MCIWndSM(hwnd,MCIWNDM_SETTIMERS,(WPARAM)(UINT)(active),(LPARAM)(UINT)(inactive))
-#define MCIWndGetActiveTimer(hwnd) '' TODO: (UINT)MCIWndSM(hwnd,MCIWNDM_GETACTIVETIMER,(WPARAM)0,(LPARAM)0);
-#define MCIWndGetInactiveTimer(hwnd) '' TODO: (UINT)MCIWndSM(hwnd,MCIWNDM_GETINACTIVETIMER,(WPARAM)0,(LPARAM)0);
+#define MCIWndGetActiveTimer(hwnd) cast(UINT, MCIWndSM(hwnd, MCIWNDM_GETACTIVETIMER, cast(WPARAM, 0), cast(LPARAM, 0)))
+#define MCIWndGetInactiveTimer(hwnd) cast(UINT, MCIWndSM(hwnd, MCIWNDM_GETINACTIVETIMER, cast(WPARAM, 0), cast(LPARAM, 0)))
 #define MCIWndRealize(hwnd, fBkgnd) cast(LONG, MCIWndSM(hwnd, MCIWNDM_REALIZE, cast(WPARAM, cast(WINBOOL, (fBkgnd))), cast(LPARAM, 0)))
 #define MCIWndSendString(hwnd, sz) cast(LONG, MCIWndSM(hwnd, MCIWNDM_SENDSTRING, cast(WPARAM, 0), cast(LPARAM, cast(LPTSTR, (sz)))))
 #define MCIWndReturnString(hwnd, lp, len) cast(LONG, MCIWndSM(hwnd, MCIWNDM_RETURNSTRING, cast(WPARAM, cast(UINT, (len))), cast(LPARAM, cast(LPVOID, (lp)))))

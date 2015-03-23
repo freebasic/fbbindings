@@ -300,7 +300,7 @@ type IMECOMPTEXT as _imecomptext
 #define WBF_ISWHITE cast(UBYTE, &h10)
 #define WBF_BREAKLINE cast(UBYTE, &h20)
 #define WBF_BREAKAFTER cast(UBYTE, &h40)
-type EDITWORDBREAKPROCEX as function cdecl(byval pchText as zstring ptr, byval cchText as LONG, byval bCharSet as UBYTE, byval action as INT) as LONG
+type EDITWORDBREAKPROCEX as function cdecl(byval pchText as zstring ptr, byval cchText as LONG, byval bCharSet as UBYTE, byval action as INT_) as LONG
 
 type _charformat field = 4
 	cbSize as UINT

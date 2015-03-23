@@ -348,15 +348,15 @@ type MIB_MULTICASTIPADDRESS_TABLE as _MIB_MULTICASTIPADDRESS_TABLE
 type PMIB_MULTICASTIPADDRESS_TABLE as _MIB_MULTICASTIPADDRESS_TABLE ptr
 declare function CancelMibChangeNotify2(byval NotificationHandle as HANDLE) as DWORD
 declare function ConvertInterfaceAliasToLuid(byval InterfaceAlias as const wstring ptr, byval InterfaceLuid as PNET_LUID) as DWORD
-declare function ConvertInterfaceLuidToNameA(byval InterfaceLuid as const NET_LUID ptr, byval InterfaceName as PSTR, byval Length as SIZE_T) as DWORD
-declare function ConvertInterfaceLuidToNameW(byval InterfaceLuid as const NET_LUID ptr, byval InterfaceName as PWSTR, byval Length as SIZE_T) as DWORD
+declare function ConvertInterfaceLuidToNameA(byval InterfaceLuid as const NET_LUID ptr, byval InterfaceName as PSTR, byval Length as SIZE_T_) as DWORD
+declare function ConvertInterfaceLuidToNameW(byval InterfaceLuid as const NET_LUID ptr, byval InterfaceName as PWSTR, byval Length as SIZE_T_) as DWORD
 declare function ConvertInterfaceNameToLuidA(byval InterfaceName as const zstring ptr, byval InterfaceLuid as PNET_LUID) as DWORD
 declare function ConvertInterfaceNameToLuidW(byval InterfaceName as const wstring ptr, byval InterfaceLuid as PNET_LUID) as DWORD
 declare function if_indextoname(byval InterfaceIndex as NET_IFINDEX, byval InterfaceName as PCHAR) as PCHAR
 declare function if_nametoindex(byval InterfaceName as PCSTR) as NET_IFINDEX
 declare function ConvertInterfaceGuidToLuid(byval InterfaceGuid as const GUID ptr, byval InterfaceLuid as PNET_LUID) as DWORD
 declare function ConvertInterfaceIndexToLuid(byval InterfaceIndex as NET_IFINDEX, byval InterfaceLuid as PNET_LUID) as DWORD
-declare function ConvertInterfaceLuidToAlias(byval InterfaceLuid as const NET_LUID ptr, byval InterfaceAlias as PWSTR, byval Length as SIZE_T) as DWORD
+declare function ConvertInterfaceLuidToAlias(byval InterfaceLuid as const NET_LUID ptr, byval InterfaceAlias as PWSTR, byval Length as SIZE_T_) as DWORD
 declare function ConvertInterfaceLuidToGuid(byval InterfaceLuid as const NET_LUID ptr, byval InterfaceGuid as GUID ptr) as DWORD
 declare function ConvertInterfaceLuidToIndex(byval InterfaceLuid as const NET_LUID ptr, byval InterfaceIndex as PNET_IFINDEX) as DWORD
 declare function ConvertIpv4MaskToLength(byval Mask as ULONG, byval MaskLength as PUINT8) as DWORD

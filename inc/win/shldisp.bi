@@ -280,8 +280,8 @@ type FolderItemVtbl
 	get_IsFolder as function(byval This as FolderItem ptr, byval pb as VARIANT_BOOL ptr) as HRESULT
 	get_IsFileSystem as function(byval This as FolderItem ptr, byval pb as VARIANT_BOOL ptr) as HRESULT
 	get_IsBrowsable as function(byval This as FolderItem ptr, byval pb as VARIANT_BOOL ptr) as HRESULT
-	get_ModifyDate as function(byval This as FolderItem ptr, byval pdt as DATE ptr) as HRESULT
-	put_ModifyDate as function(byval This as FolderItem ptr, byval dt as DATE) as HRESULT
+	get_ModifyDate as function(byval This as FolderItem ptr, byval pdt as DATE_ ptr) as HRESULT
+	put_ModifyDate as function(byval This as FolderItem ptr, byval dt as DATE_) as HRESULT
 	get_Size as function(byval This as FolderItem ptr, byval pul as LONG ptr) as HRESULT
 	get_Type as function(byval This as FolderItem ptr, byval pbs as BSTR ptr) as HRESULT
 	Verbs as function(byval This as FolderItem ptr, byval ppfic as FolderItemVerbs ptr ptr) as HRESULT
@@ -314,9 +314,9 @@ declare function FolderItem_get_IsFileSystem_Proxy(byval This as FolderItem ptr,
 declare sub FolderItem_get_IsFileSystem_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function FolderItem_get_IsBrowsable_Proxy(byval This as FolderItem ptr, byval pb as VARIANT_BOOL ptr) as HRESULT
 declare sub FolderItem_get_IsBrowsable_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function FolderItem_get_ModifyDate_Proxy(byval This as FolderItem ptr, byval pdt as DATE ptr) as HRESULT
+declare function FolderItem_get_ModifyDate_Proxy(byval This as FolderItem ptr, byval pdt as DATE_ ptr) as HRESULT
 declare sub FolderItem_get_ModifyDate_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
-declare function FolderItem_put_ModifyDate_Proxy(byval This as FolderItem ptr, byval dt as DATE) as HRESULT
+declare function FolderItem_put_ModifyDate_Proxy(byval This as FolderItem ptr, byval dt as DATE_) as HRESULT
 declare sub FolderItem_put_ModifyDate_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 declare function FolderItem_get_Size_Proxy(byval This as FolderItem ptr, byval pul as LONG ptr) as HRESULT
 declare sub FolderItem_get_Size_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
@@ -574,8 +574,8 @@ type FolderItem2Vtbl
 	get_IsFolder as function(byval This as FolderItem2 ptr, byval pb as VARIANT_BOOL ptr) as HRESULT
 	get_IsFileSystem as function(byval This as FolderItem2 ptr, byval pb as VARIANT_BOOL ptr) as HRESULT
 	get_IsBrowsable as function(byval This as FolderItem2 ptr, byval pb as VARIANT_BOOL ptr) as HRESULT
-	get_ModifyDate as function(byval This as FolderItem2 ptr, byval pdt as DATE ptr) as HRESULT
-	put_ModifyDate as function(byval This as FolderItem2 ptr, byval dt as DATE) as HRESULT
+	get_ModifyDate as function(byval This as FolderItem2 ptr, byval pdt as DATE_ ptr) as HRESULT
+	put_ModifyDate as function(byval This as FolderItem2 ptr, byval dt as DATE_) as HRESULT
 	get_Size as function(byval This as FolderItem2 ptr, byval pul as LONG ptr) as HRESULT
 	get_Type as function(byval This as FolderItem2 ptr, byval pbs as BSTR ptr) as HRESULT
 	Verbs as function(byval This as FolderItem2 ptr, byval ppfic as FolderItemVerbs ptr ptr) as HRESULT

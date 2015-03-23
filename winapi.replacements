@@ -3,3 +3,754 @@ to fb:     #define __MINGW64_VERSION_STR __MINGW64_STRINGIFY(__MINGW64_VERSION_M
 
 convert c: #define __MINGW_STRING_AW(str) L##str
 to fb:     #define __MINGW_STRING_AW(str) wstr(str)
+convert c: #define API_SET_STRING_U_Y(s) L##s
+to fb:     #define API_SET_STRING_U_Y(s) wstr(s)
+convert c: #define __TEXT(quote) L##quote
+to fb:     #define __TEXT(quote) wstr(quote)
+convert c: #define OLESTR(str) L##str
+to fb:     #define OLESTR(str) wstr(str)
+
+convert c:
+	#define BCRYPT_INIT_AUTH_MODE_INFO(_AUTH_INFO_STRUCT_) \
+		RtlZeroMemory((&_AUTH_INFO_STRUCT_), sizeof (BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO)); \
+		(_AUTH_INFO_STRUCT_).cbSize = sizeof (BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO); \
+		(_AUTH_INFO_STRUCT_).dwInfoVersion = BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO_VERSION;
+to fb:
+	#macro BCRYPT_INIT_AUTH_MODE_INFO(_AUTH_INFO_STRUCT_)
+		scope
+			RtlZeroMemory((@_AUTH_INFO_STRUCT_), sizeof(BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO))
+			(_AUTH_INFO_STRUCT_).cbSize = sizeof(BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO)
+			(_AUTH_INFO_STRUCT_).dwInfoVersion = BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO_VERSION
+		end scope
+	#endmacro
+
+convert c: #define LISet32(li, v) ((li).HighPart = ((LONG) (v)) < 0 ? -1 : 0,(li).LowPart = (v))
+to fb:
+	#macro LISet32(li, v)
+		scope
+			(li).HighPart = iif(cast(LONG, (v)) < 0, -1, 0)
+			(li).LowPart = (v)
+		end scope
+	#endmacro
+
+convert c: #define ULISet32(li, v) ((li).HighPart = 0,(li).LowPart = (v))
+to fb:
+	#macro ULISet32(li, v)
+		scope
+			(li).HighPart = 0
+			(li).LowPart = (v)
+		end scope
+	#endmacro
+
+convert c: #define HANDLE_WM_NOTIFY(hwnd, wParam, lParam, fn) (fn)((hwnd),(int)(wParam),(NMHDR *)(lParam))
+to c:      #define HANDLE_WM_NOTIFY(hwnd, wParam, lParam, fn) fn((hwnd),(int)(wParam),(NMHDR *)(lParam))
+
+convert c: #define FORWARD_WM_NOTIFY(hwnd, idFrom, pnmhdr, fn) (LRESULT)(fn)((hwnd),WM_NOTIFY,(WPARAM)(int)(idFrom),(LPARAM)(NMHDR *)(pnmhdr))
+to c:      #define FORWARD_WM_NOTIFY(hwnd, idFrom, pnmhdr, fn) (LRESULT)fn((hwnd),WM_NOTIFY,(WPARAM)(int)(idFrom),(LPARAM)(NMHDR *)(pnmhdr))
+
+convert c:
+	#define ListView_GetItemRect(hwnd, i, prc, code) \
+		(WINBOOL)SNDMSG((hwnd), LVM_GETITEMRECT, (WPARAM)(int)(i), \
+			((prc) ? \
+				(((RECT *)(prc))->left = (code),(LPARAM)(RECT *)(prc)) : \
+				(LPARAM)(RECT *)NULL))
+to fb:
+	private function ListView_GetItemRect(byval hwnd as HWND, byval i as long, byval prc as RECT ptr, byval code as long) as WINBOOL
+		if prc then
+			prc->left = code
+		end if
+		function = SNDMSG(hwnd, LVM_GETITEMRECT, cast(WPARAM, i), cast(LPARAM, prc))
+	end function
+
+convert c:
+	#define ListView_SetItemState(hwndLV,i,data,mask) \
+		{ \
+			LV_ITEM _ms_lvi; \
+			_ms_lvi.stateMask = mask; \
+			_ms_lvi.state = data; \
+			SNDMSG((hwndLV),LVM_SETITEMSTATE,(WPARAM)(i),(LPARAM)(LV_ITEM *)&_ms_lvi); \
+		}
+to fb:
+	#macro ListView_SetItemState(hwndLV, i, data, mask)
+		scope
+			dim _ms_lvi as LV_ITEM
+			_ms_lvi.stateMask = mask
+			_ms_lvi.state = data
+			SNDMSG((hwndLV), LVM_SETITEMSTATE, cast(WPARAM, (i)), cast(LPARAM, cptr(LV_ITEM ptr, @_ms_lvi)))
+		end scope
+	#endmacro
+
+convert c:
+	#define ListView_GetItemText(hwndLV,i,iSubItem_,pszText_,cchTextMax_)  \
+		{ \
+			LV_ITEM _ms_lvi; \
+			_ms_lvi.iSubItem = iSubItem_; \
+			_ms_lvi.cchTextMax = cchTextMax_; \
+			_ms_lvi.pszText = pszText_; \
+			SNDMSG((hwndLV),LVM_GETITEMTEXT,(WPARAM)(i),(LPARAM)(LV_ITEM *)&_ms_lvi); \
+		}
+to fb:
+	#macro ListView_GetItemText(hwndLV, i, iSubItem_, pszText_, cchTextMax_)
+		scope
+			dim _ms_lvi as LV_ITEM
+			_ms_lvi.iSubItem = iSubItem_
+			_ms_lvi.cchTextMax = cchTextMax_
+			_ms_lvi.pszText = pszText_
+			SNDMSG((hwndLV), LVM_GETITEMTEXT, cast(WPARAM, (i)), cast(LPARAM, cptr(LV_ITEM ptr, @_ms_lvi)))
+		end scope
+	#endmacro
+
+convert c:
+	#define ListView_SetItemText(hwndLV,i,iSubItem_,pszText_) \
+		{ \
+			LV_ITEM _ms_lvi; \
+			_ms_lvi.iSubItem = iSubItem_; \
+			_ms_lvi.pszText = pszText_; \
+			SNDMSG((hwndLV),LVM_SETITEMTEXT,(WPARAM)(i),(LPARAM)(LV_ITEM *)&_ms_lvi); \
+		}
+to fb:
+	#macro ListView_SetItemText(hwndLV, i, iSubItem_, pszText_)
+		scope
+			dim _ms_lvi as LV_ITEM
+			_ms_lvi.iSubItem = iSubItem_
+			_ms_lvi.pszText = pszText_
+			SNDMSG((hwndLV), LVM_SETITEMTEXT, cast(WPARAM, (i)), cast(LPARAM, cptr(LV_ITEM ptr, @_ms_lvi)))
+		end scope
+	#endmacro
+
+convert c:
+	#define ListView_SetItemPosition32(hwndLV,i,x0,y0) \
+		{ \
+			POINT ptNewPos; \
+			ptNewPos.x = x0; \
+			ptNewPos.y = y0; \
+			SNDMSG((hwndLV),LVM_SETITEMPOSITION32,(WPARAM)(int)(i),(LPARAM)&ptNewPos); \
+		}
+to fb:
+	#macro ListView_SetItemPosition32(hwndLV, i, x0, y0)
+		scope
+			dim ptNewPos as POINT
+			ptNewPos.x = x0
+			ptNewPos.y = y0
+			SNDMSG((hwndLV), LVM_SETITEMPOSITION32, cast(WPARAM, clng((i))), cast(LPARAM, @ptNewPos))
+		end scope
+	#endmacro
+
+convert c:
+	#define ListView_GetSubItemRect(hwnd, iItem, iSubItem, code, prc) \
+		(WINBOOL)SNDMSG((hwnd), LVM_GETSUBITEMRECT, (WPARAM)(int)(iItem), \
+			((prc) ? \
+				((((LPRECT)(prc))->top = iSubItem), \
+				 (((LPRECT)(prc))->left = code),
+				 (LPARAM)(prc)) : \
+				(LPARAM)(LPRECT)NULL))
+to fb:
+	private function ListView_GetSubItemRect(byval hwnd as HWND, byval iItem as long, byval iSubItem as long, byval code as long, byval prc as RECT ptr) as WINBOOL
+		if prc then
+			prc->top = iSubItem
+			prc->left = code
+		end if
+		function = SNDMSG(hwnd, LVM_GETSUBITEMRECT, cast(WPARAM, iItem), cast(LPARAM, prc))
+	end function
+
+convert c:
+	#define TreeView_GetItemRect(hwnd, hitem, prc, code) \
+		(*(HTREEITEM *)prc = (hitem), \
+		 (WINBOOL)SNDMSG((hwnd), TVM_GETITEMRECT, (WPARAM)(code), (LPARAM)(RECT *)(prc)))
+to fb:
+	private function TreeView_GetItemRect(byval hwnd as HWND, byval hitem as HTREEITEM, byval prc as RECT ptr, byval code as long) as WINBOOL
+		*cptr(HTREEITEM ptr, prc) = hitem
+		function = SNDMSG(hwnd, TVM_GETITEMRECT, cast(WPARAM, code), cast(LPARAM, prc))
+	end function
+
+convert c:
+	#define TreeView_SetItemState(hwndTV,hti,data,_mask) \
+		{ \
+			TVITEM _ms_TVi; \
+			_ms_TVi.mask = TVIF_STATE; \
+			_ms_TVi.hItem = hti; \
+			_ms_TVi.stateMask = _mask; \
+			_ms_TVi.state = data; \
+			SNDMSG((hwndTV),TVM_SETITEM,0,(LPARAM)(TV_ITEM *)&_ms_TVi); \
+		}
+to fb:
+	#macro TreeView_SetItemState(hwndTV, hti, data, _mask)
+		scope
+			dim _ms_TVi as TVITEM
+			_ms_TVi.mask = TVIF_STATE
+			_ms_TVi.hItem = hti
+			_ms_TVi.stateMask = _mask
+			_ms_TVi.state = data
+			SNDMSG((hwndTV), TVM_SETITEM, 0, cast(LPARAM, cptr(TV_ITEM ptr, @_ms_TVi)))
+		end scope
+	#endmacro
+
+convert c: #define DPA_SetPtrCount(hdpa, cItems) (*(int *)(hdpa) = (cItems))
+to fb:     #define DPA_SetPtrCount(hdpa, cItems) scope : *cptr(long ptr, (hdpa)) = (cItems) : end scope
+
+convert c: #define DPA_FastDeleteLastPtr(hdpa) (--*(int *)(hdpa))
+to fb:     #define DPA_FastDeleteLastPtr(hdpa) scope : *cptr(long ptr, (hdpa)) -= 1 : end scope
+
+convert c: #define D3DSINCOSCONST1 -1.5500992e-006f, -2.1701389e-005f, 0.0026041667f, 0.00026041668f
+to fb:     #define D3DSINCOSCONST1 -1.5500992e-006f, -2.1701389e-005f, 0.0026041667f, 0.00026041668f
+convert c: #define D3DSINCOSCONST2 -0.020833334f, -0.12500000f, 1.0f, 0.50000000f
+to fb:     #define D3DSINCOSCONST2 -0.020833334f, -0.12500000f, 1.0f, 0.50000000f
+
+convert c: #define D3DRMRENDER_PHONG (D3DRMSHADE_PHONG+D3DRMLIGHT_ON+D3DRMFILL_SOLID
+to c:      #define D3DRMRENDER_PHONG (D3DRMSHADE_PHONG + D3DRMLIGHT_ON + D3DRMFILL_SOLID)
+convert c: #define ED_DEVTYPE_MIXER_VIDEO 0x000010OE
+to c:      #define ED_DEVTYPE_MIXER_VIDEO &h0000100E
+convert c: #define ED_DEVTYPE_DVE 0x000010OF
+to c:      #define ED_DEVTYPE_DVE &h0000100F
+
+convert c: #define DISEQUENCE_COMPARE(dwSq1, cmp, dwSq2) ((int)((dwSq1) - (dwSq2)) cmp 0)
+to fb:     #define DISEQUENCE_COMPARE(dwSq1, cmp, dwSq2) (clng((dwSq1) - (dwSq2)) cmp 0)
+
+convert c: #define CAST_MIB_INFO(X, Y, Z) Z = (Y)(X->rgbyData)
+to fb:     #define CAST_MIB_INFO(X, Y, Z) scope : Z = cast(Y, X->rgbyData) : end scope
+
+convert c:
+	#define MDM_SET_BEARERMODE(_dwOptions, _bm) \
+		(((_dwOptions) &= ~MDM_MASK_BEARERMODE), \
+		 ((_dwOptions) |= (((_bm)<<MDM_SHIFT_BEARERMODE)&MDM_MASK_BEARERMODE)))
+to fb:
+	#macro MDM_SET_BEARERMODE(_dwOptions, _bm)
+		scope
+			(_dwOptions) and= not MDM_MASK_BEARERMODE
+			(_dwOptions) or= ((_bm) shl MDM_SHIFT_BEARERMODE) and MDM_MASK_BEARERMODE
+		end scope
+	#endmacro
+
+convert c:
+	#define MDM_SET_PROTOCOLID(_dwOptions, _prot) \
+		(((_dwOptions) &= ~MDM_MASK_PROTOCOLID), \
+		 ((_dwOptions) |= (((_prot)<<MDM_SHIFT_PROTOCOLID)&MDM_MASK_PROTOCOLID)))
+to fb:
+	#macro MDM_SET_PROTOCOLID(_dwOptions, _prot)
+		scope
+			(_dwOptions) and= not MDM_MASK_PROTOCOLID
+			(_dwOptions) or= ((_prot) shl MDM_SHIFT_PROTOCOLID) and MDM_MASK_PROTOCOLID
+		end scope
+	#endmacro
+
+convert c:
+	#define MDM_SET_PROTOCOLDATA(_dwOptions, _pd) \
+		(((_dwOptions) &= ~MDM_MASK_PROTOCOLDATA), \
+		 ((_dwOptions) |= (((_pd)<<MDM_SHIFT_PROTOCOLDATA)&MDM_MASK_PROTOCOLDATA)))
+to fb:
+	#macro MDM_SET_PROTOCOLDATA(_dwOptions, _pd)
+		scope
+			(_dwOptions) and= not MDM_MASK_PROTOCOLDATA
+			(_dwOptions) or= ((_pd) shl MDM_SHIFT_PROTOCOLDATA) and MDM_MASK_PROTOCOLDATA
+		end scope
+	#endmacro
+
+convert c:
+	#define MDM_SET_PROTOCOLINFO(_dwOptions, _pinfo) \
+		(((_dwOptions) &= ~MDM_MASK_PROTOCOLINFO), \
+		 ((_dwOptions) |= ((_pinfo)&MDM_MASK_PROTOCOLINFO)))
+to fb:
+	#macro MDM_SET_PROTOCOLINFO(_dwOptions, _pinfo)
+		scope
+			(_dwOptions) and= not MDM_MASK_PROTOCOLINFO
+			(_dwOptions) or= (_pinfo) and MDM_MASK_PROTOCOLINFO
+		end scope
+	#endmacro
+
+convert c:
+	#define MDM_SET_EXTENDEDINFO(_dwOptions, _extinfo) \
+		(((_dwOptions) &= ~MDM_MASK_EXTENDEDINFO), \
+		 ((_dwOptions) |= ((_extinfo) & MDM_MASK_EXTENDEDINFO)))
+to fb:
+	#macro MDM_SET_EXTENDEDINFO(_dwOptions, _extinfo)
+		scope
+			(_dwOptions) and= notMDM_MASK_EXTENDEDINFO
+			(_dwOptions) or= (_extinfo) and MDM_MASK_EXTENDEDINFO
+		end scope
+	#endmacro
+
+convert c:
+	#define INIT_MMREG_MID(guid, id) \
+		{ \
+			(guid)->Data1 = 0xd5a47fa7 + (USHORT)(id); \
+			(guid)->Data2 = 0x6d98; \
+			(guid)->Data3 = 0x11d1; \
+			(guid)->Data4[0] = 0xa2; \
+			(guid)->Data4[1] = 0x1a; \
+			(guid)->Data4[2] = 0x00; \
+			(guid)->Data4[3] = 0xa0; \
+			(guid)->Data4[4] = 0xc9; \
+			(guid)->Data4[5] = 0x22; \
+			(guid)->Data4[6] = 0x31; \
+			(guid)->Data4[7] = 0x96; \
+		}
+to fb:
+	#macro INIT_MMREG_MID(guid, id)
+		scope
+			(guid)->Data1 = &hd5a47fa7 + cast(USHORT, id)
+			(guid)->Data2 = &h6d98
+			(guid)->Data3 = &h11d1
+			(guid)->Data4(0) = &ha2
+			(guid)->Data4(1) = &h1a
+			(guid)->Data4(2) = &h00
+			(guid)->Data4(3) = &ha0
+			(guid)->Data4(4) = &hc9
+			(guid)->Data4(5) = &h22
+			(guid)->Data4(6) = &h31
+			(guid)->Data4(7) = &h96
+		end scope
+	#endmacro
+
+convert c: #define IS_COMPATIBLE_MMREG_MID(guid) (((((((((((((guid)->Data1 >= &hd5a47fa7) andalso ((guid)->Data1 < (&hd5a47fa7 + &hffff))) andalso ((guid)->Data2 = &h6d98)) andalso ((guid)->Data3 = &h11d1)) andalso ((guid)->Data4[0] = &ha2)) andalso ((guid)->Data4[1] = &h1a)) andalso ((guid)->Data4[2] = &h00)) andalso ((guid)->Data4[3] = &ha0)) andalso ((guid)->Data4[4] = &hc9)) andalso ((guid)->Data4[5] = &h22)) andalso ((guid)->Data4[6] = &h31)) andalso ((guid)->Data4[7] = &h96))
+to fb:     #define IS_COMPATIBLE_MMREG_MID(guid) (((((((((((((guid)->Data1 >= &hd5a47fa7) andalso ((guid)->Data1 < (&hd5a47fa7 + &hffff))) andalso ((guid)->Data2 = &h6d98)) andalso ((guid)->Data3 = &h11d1)) andalso ((guid)->Data4(0) = &ha2)) andalso ((guid)->Data4(1) = &h1a)) andalso ((guid)->Data4(2) = &h00)) andalso ((guid)->Data4(3) = &ha0)) andalso ((guid)->Data4(4) = &hc9)) andalso ((guid)->Data4(5) = &h22)) andalso ((guid)->Data4(6) = &h31)) andalso ((guid)->Data4(7) = &h96))
+
+convert c:
+	#define INIT_MMREG_PID(guid, id) \
+		{ \
+			(guid)->Data1 = 0xe36dc2ac + (USHORT)(id); \
+			(guid)->Data2 = 0x6d9a; \
+			(guid)->Data3 = 0x11d1; \
+			(guid)->Data4[0] = 0xa2; \
+			(guid)->Data4[1] = 0x1a; \
+			(guid)->Data4[2] = 0x00; \
+			(guid)->Data4[3] = 0xa0; \
+			(guid)->Data4[4] = 0xc9; \
+			(guid)->Data4[5] = 0x22; \
+			(guid)->Data4[6] = 0x31; \
+			(guid)->Data4[7] = 0x96; \
+		}
+to fb:
+	#macro INIT_MMREG_PID(guid, id)
+		scope
+			(guid)->Data1 = &he36dc2ac + cast(USHORT, id)
+			(guid)->Data2 = &h6d9a
+			(guid)->Data3 = &h11d1
+			(guid)->Data4(0) = &ha2
+			(guid)->Data4(1) = &h1a
+			(guid)->Data4(2) = &h00
+			(guid)->Data4(3) = &ha0
+			(guid)->Data4(4) = &hc9
+			(guid)->Data4(5) = &h22
+			(guid)->Data4(6) = &h31
+			(guid)->Data4(7) = &h96
+		end scope
+	#endmacro
+
+convert c: #define IS_COMPATIBLE_MMREG_PID(guid) (((((((((((((guid)->Data1 >= &he36dc2ac) andalso ((guid)->Data1 < (&he36dc2ac + &hffff))) andalso ((guid)->Data2 = &h6d9a)) andalso ((guid)->Data3 = &h11d1)) andalso ((guid)->Data4[0] = &ha2)) andalso ((guid)->Data4[1] = &h1a)) andalso ((guid)->Data4[2] = &h00)) andalso ((guid)->Data4[3] = &ha0)) andalso ((guid)->Data4[4] = &hc9)) andalso ((guid)->Data4[5] = &h22)) andalso ((guid)->Data4[6] = &h31)) andalso ((guid)->Data4[7] = &h96))
+to fb:     #define IS_COMPATIBLE_MMREG_PID(guid) (((((((((((((guid)->Data1 >= &he36dc2ac) andalso ((guid)->Data1 < (&he36dc2ac + &hffff))) andalso ((guid)->Data2 = &h6d9a)) andalso ((guid)->Data3 = &h11d1)) andalso ((guid)->Data4(0) = &ha2)) andalso ((guid)->Data4(1) = &h1a)) andalso ((guid)->Data4(2) = &h00)) andalso ((guid)->Data4(3) = &ha0)) andalso ((guid)->Data4(4) = &hc9)) andalso ((guid)->Data4(5) = &h22)) andalso ((guid)->Data4(6) = &h31)) andalso ((guid)->Data4(7) = &h96))
+
+convert c:
+	#define InitializeObjectAttributes(p, n, a, r, s) \
+		{ \
+			(p)->Length = sizeof(OBJECT_ATTRIBUTES); \
+			(p)->RootDirectory = (r); \
+			(p)->Attributes = (a); \
+			(p)->ObjectName = (n); \
+			(p)->SecurityDescriptor = (s); \
+			(p)->SecurityQualityOfService = NULL; \
+		}
+to fb:
+	#macro InitializeObjectAttributes(p, n, a, r, s)
+		scope
+			(p)->Length = sizeof(OBJECT_ATTRIBUTES)
+			(p)->RootDirectory = (r)
+			(p)->Attributes = (a)
+			(p)->ObjectName = (n)
+			(p)->SecurityDescriptor = (s)
+			(p)->SecurityQualityOfService = NULL
+		end scope
+	#endmacro
+
+convert c:
+	#define KsecInitializeListEntry(Entry, SigValue) \
+		((PKSEC_LIST_ENTRY) Entry)->List.Flink = ((PKSEC_LIST_ENTRY) Entry)->List.Blink = NULL; \
+		((PKSEC_LIST_ENTRY) Entry)->RefCount = 1; \
+		((PKSEC_LIST_ENTRY) Entry)->Signature = SigValue; \
+		((PKSEC_LIST_ENTRY) Entry)->OwningList = NULL; \
+		((PKSEC_LIST_ENTRY) Entry)->Reserved = NULL;
+to fb:
+	#macro KsecInitializeListEntry(Entry, SigValue)
+		cast(PKSEC_LIST_ENTRY, Entry)->List.Flink = NULL
+		cast(PKSEC_LIST_ENTRY, Entry)->List.Blink = NULL
+		cast(PKSEC_LIST_ENTRY, Entry)->RefCount = 1
+		cast(PKSEC_LIST_ENTRY, Entry)->Signature = SigValue
+		cast(PKSEC_LIST_ENTRY, Entry)->OwningList = NULL
+		cast(PKSEC_LIST_ENTRY, Entry)->Reserved = NULL
+	#endmacro
+
+convert c: #define VarUI4FromUI4(in, pOut) (*(pOut) = (in))
+to fb:     #define VarUI4FromUI4(in, pOut) scope : *(pOut) = (in) : end scope
+
+convert c: #define VarI4FromI4(in, pOut) (*(pOut) = (in))
+to fb:     #define VarI4FromI4(in, pOut) scope : *(pOut) = (in) : end scope
+
+convert c: #define VarUI8FromUI8(in, pOut) (*(pOut) = (in))
+to fb:     #define VarUI8FromUI8(in, pOut) scope : *(pOut) = (in) : end scope
+
+convert c: #define VarI8FromI8(in, pOut) (*(pOut) = (in))
+to fb:     #define VarI8FromI8(in, pOut) scope : *(pOut) = (in) : end scope
+
+convert c: #define FONTSIZE(n) { n##0000,0 }
+to fb:     #define FONTSIZE(n) (n##0000, 0)
+
+convert c: #define byte_from_ndr(source,target) { *(target) = *(*(char **)&(source)->Buffer)++; }
+to fb:
+	#macro byte_from_ndr(source, target)
+		scope
+			*(target) = **cptr(byte ptr ptr, @(source)->Buffer)
+			*cptr(byte ptr ptr, @(source)->Buffer) += 1
+		end scope
+	#endmacro
+
+convert c:
+	#define byte_array_from_ndr(Source,LowerIndex,UpperIndex,Target) \
+		{ \
+			NDRcopy ((((char *)(Target))+(LowerIndex)),(Source)->Buffer,(unsigned int)((UpperIndex)-(LowerIndex))); \
+			*(unsigned __LONG32 *)&(Source)->Buffer += ((UpperIndex)-(LowerIndex)); \
+		}
+to fb:
+	#macro byte_array_from_ndr(Source, LowerIndex, UpperIndex, Target)
+		scope
+			NDRcopy(cptr(zstring ptr, (Target)) + (LowerIndex), (Source)->Buffer, culng((UpperIndex) - (LowerIndex)))
+			*cptr(ulong ptr, @(Source)->Buffer) += ((UpperIndex) - (LowerIndex))
+		end scope
+	#endmacro
+
+convert c: #define boolean_from_ndr(source,target) { *(target) = *(*(char **)&(source)->Buffer)++; }
+to c:      #define boolean_from_ndr(source,target) byte_from_ndr(source, target)
+
+convert c: #define boolean_array_from_ndr(Source,LowerIndex,UpperIndex,Target) { NDRcopy ((((char *)(Target))+(LowerIndex)),(Source)->Buffer,(unsigned int)((UpperIndex)-(LowerIndex))); *(unsigned __LONG32 *)&(Source)->Buffer += ((UpperIndex)-(LowerIndex)); }
+to c:      #define boolean_array_from_ndr(Source,LowerIndex,UpperIndex,Target) byte_array_from_ndr(Source, LowerIndex, UpperIndex, Target)
+
+convert c: #define small_from_ndr(source,target) { *(target) = *(*(char **)&(source)->Buffer)++; }
+to c:      #define small_from_ndr(source,target) byte_from_ndr(source, target)
+
+convert c: #define small_from_ndr_temp(source,target,format) { *(target) = *(*(char **)(source))++; }
+to fb:
+	#macro small_from_ndr_temp(source, target, format)
+		scope
+			*(target) = **cptr(byte ptr ptr, source)
+			*cptr(byte ptr ptr, source) += 1
+		end scope
+	#endmacro
+
+convert c:
+	#define small_array_from_ndr(Source,LowerIndex,UpperIndex,Target) { \
+		NDRcopy ((((char *)(Target))+(LowerIndex)),(Source)->Buffer,(unsigned int)((UpperIndex)-(LowerIndex))); \
+		*(unsigned __LONG32 *)&(Source)->Buffer += ((UpperIndex)-(LowerIndex)); \
+	}
+to c: #define small_array_from_ndr(Source, LowerIndex, UpperIndex, Target) byte_array_from_ndr(Source, LowerIndex, UpperIndex, Target)
+
+convert c:
+	#define SecInvalidateHandle(x) \
+		((PSecHandle) x)->dwLower = ((ULONG_PTR) ((INT_PTR)-1)); \
+		((PSecHandle) x)->dwUpper = ((ULONG_PTR) ((INT_PTR)-1));
+to fb:
+	#macro SecInvalidateHandle(x)
+		scope
+			cast(PSecHandle, x)->dwLower = cast(ULONG_PTR, cast(INT_PTR, -1))
+			cast(PSecHandle, x)->dwUpper = cast(ULONG_PTR, cast(INT_PTR, -1))
+		end scope
+	#endmacro
+
+convert c: #define SetUrlPolicyPermissions(dw, dw2) ((dw) = ((dw) & ~(URLPOLICY_MASK_PERMISSIONS)) | (dw2))
+to fb:     #define SetUrlPolicyPermissions(dw, dw2) scope : (dw) = ((dw) and (not URLPOLICY_MASK_PERMISSIONS)) or (dw2) : end scope
+
+convert c:
+	#define ICGetDefaultQuality(hic) \
+		(ICSendMessage(hic,ICM_GETDEFAULTQUALITY,(DWORD_PTR)(LPVOID)&dwICValue,sizeof(DWORD)), \
+		 dwICValue)
+to fb:
+	private function ICGetDefaultQuality(byval hic as HIC) as DWORD
+		ICSendMessage(hic, ICM_GETDEFAULTQUALITY, cast(DWORD_PTR, cast(LPVOID, @dwICValue)), sizeof(DWORD))
+		function = dwICValue
+	end function
+
+convert c:
+	#define ICGetDefaultKeyFrameRate(hic) \
+		(ICSendMessage(hic,ICM_GETDEFAULTKEYFRAMERATE,(DWORD_PTR)(LPVOID)&dwICValue,sizeof(DWORD)), \
+		 dwICValue)
+to fb:
+	private function ICGetDefaultKeyFrameRate(byval hic as HIC) as DWORD
+		ICSendMessage(hic, ICM_GETDEFAULTKEYFRAMERATE, cast(DWORD_PTR, cast(LPVOID, @dwICValue)), sizeof(DWORD))
+		function = dwICValue
+	end function
+
+convert c: #define MCIWndGetActiveTimer(hwnd) (UINT)MCIWndSM(hwnd,MCIWNDM_GETACTIVETIMER,(WPARAM)0,(LPARAM)0);
+to c:      #define MCIWndGetActiveTimer(hwnd) (UINT)MCIWndSM(hwnd,MCIWNDM_GETACTIVETIMER,(WPARAM)0,(LPARAM)0)
+
+convert c: #define MCIWndGetInactiveTimer(hwnd) (UINT)MCIWndSM(hwnd,MCIWNDM_GETINACTIVETIMER,(WPARAM)0,(LPARAM)0);
+to c:      #define MCIWndGetInactiveTimer(hwnd) (UINT)MCIWndSM(hwnd,MCIWNDM_GETINACTIVETIMER,(WPARAM)0,(LPARAM)0)
+
+convert c: #define MCIWndPlayFromTo(hwnd, lStart, lEnd) (MCIWndSeek(hwnd,lStart), MCIWndPlayTo(hwnd,lEnd))
+to fb:
+	private function MCIWndPlayFromTo(byval hwnd as HWND, byval lStart as long, byval lEnd as long) as LONG
+		MCIWndSeek(hwnd, lStart)
+		function = MCIWndPlayTo(hwnd, lEnd)
+	end function
+
+convert c: #define INLINE_WORD_FLIP(out,in) { WORD _in = (in); (out) = (_in << 8) | (_in >> 8); }
+to fb:
+	#macro INLINE_WORD_FLIP(out, in)
+		scope
+			dim _in as WORD = (in)
+			(out) = (_in shl 8) or (_in shr 8)
+		end scope
+	#endmacro
+
+convert c:
+	#define INLINE_DWORD_FLIP(out,in) { \
+		DWORD _in = (in); \
+		(out) = ((_in << 8) & 0x00ff0000) | (_in << 24) | ((_in >> 8) & 0x0000ff00) | (_in >> 24); \
+	}
+to fb:
+	#macro INLINE_DWORD_FLIP(out, in)
+		scope
+			dim _in as DWORD = (in)
+			(out) = ((_in shl 8) and &h00ff0000) or (_in shl 24) or ((_in shr 8) and &h0000ff00) or (_in shr 24)
+		end scope
+	#endmacro
+
+convert c:
+	#define DNS_RRSET_INIT(rrset) { \
+		PDNS_RRSET _prrset = &(rrset); \
+		_prrset->pFirstRR = NULL; \
+		_prrset->pLastRR = (PDNS_RECORD) &_prrset->pFirstRR; \
+	}
+to fb:
+	#macro DNS_RRSET_INIT(rrset)
+		scope
+			dim _prrset as PDNS_RRSET = @(rrset)
+			_prrset->pFirstRR = NULL
+			_prrset->pLastRR = cptr(PDNS_RECORD, @_prrset->pFirstRR)
+		end scope
+	#endmacro
+
+convert c:
+	#define DNS_RRSET_ADD(rrset,pnewRR) { \
+		PDNS_RRSET _prrset = &(rrset); \
+		PDNS_RECORD _prrnew = (pnewRR); \
+		_prrset->pLastRR->pNext = _prrnew; \
+		_prrset->pLastRR = _prrnew; \
+	}
+to fb:
+	#macro DNS_RRSET_ADD(rrset, pnewRR)
+		scope
+			dim _prrset as PDNS_RRSET = @(rrset)
+			dim _prrnew as PDNS_RECORD = (pnewRR)
+			_prrset->pLastRR->pNext = _prrnew
+			_prrset->pLastRR = _prrnew
+		end scope
+	#endmacro
+
+convert c:
+	#define DNS_RRSET_TERMINATE(rrset) { \
+		PDNS_RRSET _prrset = &(rrset);  \
+		_prrset->pLastRR->pNext = NULL;  \
+	}
+to fb:
+	#macro DNS_RRSET_TERMINATE(rrset)
+		scope
+			dim _prrset as PDNS_RRSET = @(rrset)
+			_prrset->pLastRR->pNext = NULL
+		end scope
+	#endmacro
+
+convert c:
+	#define FILTER_HRESULT_FROM_FLT_NTSTATUS(x) \
+		(NT_ASSERT((x & 0xfff0000) == 0x001c0000),
+		 (HRESULT) (((x) & 0x8000ffff) | (FACILITY_USERMODE_FILTER_MANAGER << 16)))
+to c:
+	#define FILTER_HRESULT_FROM_FLT_NTSTATUS(x) \
+		(HRESULT) (((x) & 0x8000ffff) | (FACILITY_USERMODE_FILTER_MANAGER << 16))
+
+convert c:
+	#define EXT_IMM64(Value, Address, Size, InstPos, ValPos) \
+		Value |= (((ULONGLONG)((*(Address) >> InstPos) & (((ULONGLONG)1 << Size) - 1))) << ValPos)
+to fb:
+	#macro EXT_IMM64(Value, Address, Size, InstPos, ValPos)
+		scope
+			Value or= cast(ULONGLONG, (*(Address) shr InstPos) and ((cast(ULONGLONG, 1) shl Size) - 1)) shl ValPos
+		end scope
+	#endmacro
+
+convert c:
+	#define INS_IMM64(Value, Address, Size, InstPos, ValPos) \
+		*(PDWORD)Address = \
+			(*(PDWORD)Address & ~(((1 << Size) - 1) << InstPos)) | \
+			((DWORD)((((ULONGLONG)Value >> ValPos) & (((ULONGLONG)1 << Size) - 1))) << InstPos)
+to fb:
+	#macro INS_IMM64(Value, Address, Size, InstPos, ValPos)
+		scope
+			*cptr(PDWORD, Address) = _
+				(*cptr(PDWORD, Address) and not (((1 shl Size) - 1) shl InstPos)) or _
+				(cast(DWORD, (cast(ULONGLONG, Value) shr ValPos) and ((cast(ULONGLONG, 1) shl Size) - 1)) shl InstPos)
+		end scope
+	#endmacro
+
+convert c: #define VER_SET_CONDITION(_m_, _t_, _c_)        ((_m_) = VerSetConditionMask((_m_), (_t_), (_c_)))
+to fb:     #define VER_SET_CONDITION(_m_, _t_, _c_) scope : (_m_) = VerSetConditionMask((_m_), (_t_), (_c_)) : end scope
+
+convert c: #define WT_SET_MAX_THREADPOOL_THREADS(Flags, Limit) ((Flags) |= (Limit) << 16)
+to fb:     #define WT_SET_MAX_THREADPOOL_THREADS(Flags, Limit) scope : (Flags) or= (Limit) shl 16 : end scope
+
+convert c:
+	#define FD_CLR(fd, set) \
+		do { \
+			u_int __i; \
+			for (__i = 0; __i < ((fd_set *)(set))->fd_count; __i++) { \
+				if (((fd_set *)(set))->fd_array[__i] == fd) { \
+					while (__i < ((fd_set *)(set))->fd_count - 1) { \
+						((fd_set *)(set))->fd_array[__i] = ((fd_set *)(set))->fd_array[__i + 1]; \
+						__i++; \
+					} \
+					((fd_set *)(set))->fd_count--; \
+					break; \
+				} \
+			} \
+		} while(0)
+to fb:
+	#macro FD_CLR(fd, set)
+		scope
+			dim __i as u_int
+			while __i < cptr(fd_set ptr, set)->fd_count
+				if cptr(fd_set ptr, set)->fd_array[__i] = fd then
+					while __i < cptr(fd_set ptr, set)->fd_count - 1
+						cptr(fd_set ptr, set)->fd_array[__i] = cptr(fd_set ptr, set)->fd_array[__i + 1]
+						__i += 1
+					wend
+					cptr(fd_set ptr, set)->fd_count -= 1
+					exit while
+				end if
+				__i += 1
+			wend
+		end scope
+	#endmacro
+
+convert c: #define FD_ZERO(set) (((fd_set *)(set))->fd_count = 0)
+to fb:
+	#macro FD_ZERO(set)
+		scope
+			cptr(fd_set ptr, set)->fd_count = 0
+		end scope
+	#endmacro
+
+convert c:
+	#define FD_SET(fd, set) \
+		do { \
+			if (((fd_set *)(set))->fd_count < FD_SETSIZE) \
+				((fd_set *)(set))->fd_array[((fd_set *)(set))->fd_count++] = (fd); \
+		} while(0)
+to fb:
+	#macro FD_SET_(fd, set)
+		scope
+			if cptr(fd_set ptr, set)->fd_count < FD_SETSIZE then
+				cptr(fd_set ptr, set)->fd_array[cptr(fd_set ptr, set)->fd_count] = (fd)
+				cptr(fd_set ptr, set)->fd_count += 1
+			end if
+		end scope
+	#endmacro
+
+convert c:
+	#define FD_CLR(fd, set) \
+		do { \
+			u_int __i; \
+			for (__i = 0; __i < ((fd_set *)(set))->fd_count; __i++) { \
+				if (((fd_set *)(set))->fd_array[__i] == fd) { \
+					while (__i < ((fd_set *)(set))->fd_count - 1) { \
+						((fd_set *)(set))->fd_array[__i] = ((fd_set *)(set))->fd_array[__i + 1]; \
+						__i++; \
+					} \
+					((fd_set *)(set))->fd_count--; \
+					break; \
+				} \
+			} \
+		} while(0)
+to fb:
+	#macro FD_CLR(fd, set)
+		scope
+			dim __i as u_int
+			while __i < cptr(fd_set ptr, set)->fd_count
+				if cptr(fd_set ptr, set)->fd_array[__i] = fd then
+					while __i < cptr(fd_set ptr, set)->fd_count - 1
+						cptr(fd_set ptr, set)->fd_array[__i] = cptr(fd_set ptr, set)->fd_array[__i + 1]
+						__i += 1
+					wend
+					cptr(fd_set ptr, set)->fd_count -= 1
+					exit while
+				end if
+				__i += 1
+			wend
+		end scope
+	#endmacro
+
+convert c: #define FD_ZERO(set) (((fd_set *)(set))->fd_count = 0)
+to fb:
+	#macro FD_ZERO(set)
+		scope
+			cptr(fd_set ptr, set)->fd_count = 0
+		end scope
+	#endmacro
+
+convert c:
+	#define FD_SET(fd, set) \
+		do { \
+			u_int __i; \
+			for (__i = 0; __i < ((fd_set *)(set))->fd_count; __i++) { \
+				if (((fd_set *)(set))->fd_array[__i] == (fd)) { \
+					break; \
+				} \
+			} \
+			if (__i == ((fd_set *)(set))->fd_count) { \
+				if (((fd_set *)(set))->fd_count < FD_SETSIZE) { \
+					((fd_set *)(set))->fd_array[__i] = (fd); \
+					((fd_set *)(set))->fd_count++; \
+				} \
+			} \
+		} while(0)
+to fb:
+	#macro FD_SET_(fd, set)
+		scope
+			dim __i as u_int
+			while __i < cptr(fd_set ptr, set)->fd_count
+				if cptr(fd_set ptr, set)->fd_array[__i] = (fd)
+					exit while
+				end if
+				__i += 1
+			wend
+			if __i = cptr(fd_set ptr, set)->fd_count
+				if cptr(fd_set ptr, set)->fd_count < FD_SETSIZE
+					cptr(fd_set ptr, set)->fd_array[__i] = (fd)
+					cptr(fd_set ptr, set)->fd_count += 1
+				end if
+			end if
+		end scope
+	#endmacro
+
+convert c:
+	#define POINTSTOPOINT(pt,pts) { \
+		(pt).x = (LONG)(SHORT)LOWORD(*(LONG*)&pts); \
+		(pt).y = (LONG)(SHORT)HIWORD(*(LONG*)&pts); \
+	}
+to fb:
+	#macro POINTSTOPOINT(pt, pts)
+		scope
+			(pt).x = cast(LONG, cast(SHORT, LOWORD(*cptr(LONG ptr, @pts))))
+			(pt).y = cast(LONG, cast(SHORT, HIWORD(*cptr(LONG ptr, @pts))))
+		end scope
+	#endmacro
+
+convert c:
+	#define DECIMAL_SETZERO(dec) { \
+		(dec).Lo64 = 0; \
+		(dec).Hi32 = 0; \
+		(dec).signscale = 0; \
+	}
+to fb:
+	#macro DECIMAL_SETZERO(dec)
+		scope
+			(dec).Lo64 = 0
+			(dec).Hi32 = 0
+			(dec).signscale = 0
+		end scope
+	#endmacro

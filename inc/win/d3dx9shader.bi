@@ -131,8 +131,8 @@ type ID3DXConstantTableVtbl_
 	SetValue as function(byval This as ID3DXConstantTable ptr, byval device as IDirect3DDevice9 ptr, byval constant as D3DXHANDLE, byval data as const any ptr, byval data_size as UINT) as HRESULT
 	SetBool as function(byval This as ID3DXConstantTable ptr, byval device as IDirect3DDevice9 ptr, byval constant as D3DXHANDLE, byval value as WINBOOL) as HRESULT
 	SetBoolArray as function(byval This as ID3DXConstantTable ptr, byval device as IDirect3DDevice9 ptr, byval constant as D3DXHANDLE, byval values as const WINBOOL ptr, byval value_count as UINT) as HRESULT
-	SetInt as function(byval This as ID3DXConstantTable ptr, byval device as IDirect3DDevice9 ptr, byval constant as D3DXHANDLE, byval value as INT) as HRESULT
-	SetIntArray as function(byval This as ID3DXConstantTable ptr, byval device as IDirect3DDevice9 ptr, byval constant as D3DXHANDLE, byval values as const INT ptr, byval value_count as UINT) as HRESULT
+	SetInt as function(byval This as ID3DXConstantTable ptr, byval device as IDirect3DDevice9 ptr, byval constant as D3DXHANDLE, byval value as INT_) as HRESULT
+	SetIntArray as function(byval This as ID3DXConstantTable ptr, byval device as IDirect3DDevice9 ptr, byval constant as D3DXHANDLE, byval values as const INT_ ptr, byval value_count as UINT) as HRESULT
 	SetFloat as function(byval This as ID3DXConstantTable ptr, byval device as IDirect3DDevice9 ptr, byval constant as D3DXHANDLE, byval value as single) as HRESULT
 	SetFloatArray as function(byval This as ID3DXConstantTable ptr, byval device as IDirect3DDevice9 ptr, byval constant as D3DXHANDLE, byval values as const single ptr, byval value_count as UINT) as HRESULT
 	SetVector as function(byval This as ID3DXConstantTable ptr, byval device as IDirect3DDevice9 ptr, byval constant as D3DXHANDLE, byval value as const D3DXVECTOR4 ptr) as HRESULT

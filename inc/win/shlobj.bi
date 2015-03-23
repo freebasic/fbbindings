@@ -18,7 +18,7 @@
 
 #define _SHLOBJ_H_
 declare function SHGetMalloc(byval ppMalloc as IMalloc ptr ptr) as HRESULT
-declare function SHAlloc(byval cb as SIZE_T) as any ptr
+declare function SHAlloc(byval cb as SIZE_T_) as any ptr
 declare sub SHFree(byval pv as any ptr)
 
 #define GIL_OPENICON &h1
@@ -545,7 +545,7 @@ declare function SHILCreateFromPath(byval pszPath as PCWSTR, byval ppidl as LPIT
 #define VOID_OFFSET(pv, cb) cptr(any ptr, cptr(UBYTE ptr, (pv)) + (cb))
 #define ILCloneFull ILClone
 #define ILCloneChild ILCloneFirst
-#define ILSkip(P, C) '' TODO: ((PUIDLIST_RELATIVE)VOID_OFFSET ((P),(C)))
+#define ILSkip(P, C) cast(PUIDLIST_RELATIVE, VOID_OFFSET((P), (C)))
 #define ILNext(P) ILSkip(P, (P)->mkid.cb)
 #define ILIsAligned(P) ((cast(DWORD_PTR, (P)) and (sizeof(any ptr) - 1)) = 0)
 #define ILIsEmpty(P) (((P) = 0) orelse ((P)->mkid.cb = 0))

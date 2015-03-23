@@ -46,7 +46,7 @@ type cs_byte as ubyte
 type BOOLEAN as ubyte
 #define _HYPER_DEFINED
 #define __MIDL_user_allocate_free_DEFINED__
-declare function MIDL_user_allocate(byval as SIZE_T) as any ptr
+declare function MIDL_user_allocate(byval as SIZE_T_) as any ptr
 declare sub MIDL_user_free(byval as any ptr)
 type NDR_CCONTEXT as any ptr
 
@@ -79,76 +79,34 @@ declare sub NDRSContextMarshall2(byval BindingHandle as RPC_BINDING_HANDLE, byva
 declare function NDRSContextUnmarshallEx(byval BindingHandle as RPC_BINDING_HANDLE, byval pBuff as any ptr, byval DataRepresentation as ulong) as NDR_SCONTEXT
 declare function NDRSContextUnmarshall2(byval BindingHandle as RPC_BINDING_HANDLE, byval pBuff as any ptr, byval DataRepresentation as ulong, byval CtxGuard as any ptr, byval Flags as ulong) as NDR_SCONTEXT
 declare sub RpcSsDestroyClientContext(byval ContextHandle as any ptr ptr)
-
 #macro byte_from_ndr(source, target)
 	scope
-		'' TODO: *(target) = *(*(char **)&(source)->Buffer)++;
+		*(target) = **cptr(byte ptr ptr, @(source)->Buffer)
+		*cptr(byte ptr ptr, @(source)->Buffer) += 1
 	end scope
 #endmacro
 #macro byte_array_from_ndr(Source, LowerIndex, UpperIndex, Target)
 	scope
 		NDRcopy(cptr(zstring ptr, (Target)) + (LowerIndex), (Source)->Buffer, culng((UpperIndex) - (LowerIndex)))
-		'' TODO: *(unsigned __LONG32 *)&(Source)->Buffer += ((UpperIndex)-(LowerIndex));
+		*cptr(ulong ptr, @(Source)->Buffer) += ((UpperIndex) - (LowerIndex))
 	end scope
 #endmacro
-#macro boolean_from_ndr(source, target)
-	scope
-		'' TODO: *(target) = *(*(char **)&(source)->Buffer)++;
-	end scope
-#endmacro
-#macro boolean_array_from_ndr(Source, LowerIndex, UpperIndex, Target)
-	scope
-		NDRcopy(cptr(zstring ptr, (Target)) + (LowerIndex), (Source)->Buffer, culng((UpperIndex) - (LowerIndex)))
-		'' TODO: *(unsigned __LONG32 *)&(Source)->Buffer += ((UpperIndex)-(LowerIndex));
-	end scope
-#endmacro
-#macro small_from_ndr(source, target)
-	scope
-		'' TODO: *(target) = *(*(char **)&(source)->Buffer)++;
-	end scope
-#endmacro
+
+#define boolean_from_ndr(source, target) byte_from_ndr(source, target)
+#define boolean_array_from_ndr(Source, LowerIndex, UpperIndex, Target) byte_array_from_ndr(Source, LowerIndex, UpperIndex, Target)
+#define small_from_ndr(source, target) byte_from_ndr(source, target)
 #macro small_from_ndr_temp(source, target, format)
 	scope
-		'' TODO: *(target) = *(*(char **)(source))++;
+		*(target) = **cptr(byte ptr ptr, source)
+		*cptr(byte ptr ptr, source) += 1
 	end scope
 #endmacro
-#macro small_array_from_ndr(Source, LowerIndex, UpperIndex, Target)
-	scope
-		NDRcopy(cptr(zstring ptr, (Target)) + (LowerIndex), (Source)->Buffer, culng((UpperIndex) - (LowerIndex)))
-		'' TODO: *(unsigned __LONG32 *)&(Source)->Buffer += ((UpperIndex)-(LowerIndex));
-	end scope
-#endmacro
+#define small_array_from_ndr(Source, LowerIndex, UpperIndex, Target) byte_array_from_ndr(Source, LowerIndex, UpperIndex, Target)
 #define MIDL_ascii_strlen(string) strlen(string)
 #define MIDL_ascii_strcpy(target, source) strcpy(target, source)
 #define MIDL_memset(s, c, n) memset(s, c, n)
 #define _ERROR_STATUS_T_DEFINED
 type error_status_t as ulong
-#define _midl_ma1(p, cast) '' TODO: *(*(cast **)&p)++
-#define _midl_ma2(p, cast) '' TODO: *(*(cast **)&p)++
-#define _midl_ma4(p, cast) '' TODO: *(*(cast **)&p)++
-#define _midl_ma8(p, cast) '' TODO: *(*(cast **)&p)++
-#define _midl_unma1(p, cast) '' TODO: *((cast *)p)++
-#define _midl_unma2(p, cast) '' TODO: *((cast *)p)++
-#define _midl_unma3(p, cast) '' TODO: *((cast *)p)++
-#define _midl_unma4(p, cast) '' TODO: *((cast *)p)++
-#define _midl_fa2(p) '' TODO: (p = (RPC_BUFPTR)((ULONG_PTR)(p+1) & ~0x1))
-#define _midl_fa4(p) '' TODO: (p = (RPC_BUFPTR)((ULONG_PTR)(p+3) & ~0x3))
-#define _midl_fa8(p) '' TODO: (p = (RPC_BUFPTR)((ULONG_PTR)(p+7) & ~0x7))
-#define _midl_addp(p, n) '' TODO: (p += n)
-#define _midl_marsh_lhs(p, cast) '' TODO: *(*(cast **)&p)++
-#define _midl_marsh_up(mp, p) '' TODO: *(*(unsigned __LONG32 **)&mp)++ = (unsigned __LONG32)p
-#define _midl_advmp(mp) '' TODO: *(*(unsigned __LONG32 **)&mp)++
-#define _midl_unmarsh_up(p) '' TODO: (*(*(unsigned __LONG32 **)&p)++)
-#define NdrMarshConfStringHdr(p, s, l) '' TODO: (_midl_ma4(p,unsigned __LONG32) = s,_midl_ma4(p,unsigned __LONG32) = 0,_midl_ma4(p,unsigned __LONG32) = l)
-#define NdrUnMarshConfStringHdr(p, s, l) '' TODO: (s=_midl_unma4(p,unsigned __LONG32),(_midl_addp(p,4)),(l=_midl_unma4(p,unsigned __LONG32)))
-#define NdrMarshCCtxtHdl(pc, p) '' TODO: (NDRCContextMarshall((NDR_CCONTEXT)pc,p),p+20)
-#define NdrUnMarshCCtxtHdl(pc, p, h, drep) '' TODO: (NDRCContextUnmarshall((NDR_CCONTEXT)pc,h,p,drep),p+20)
-#define NdrUnMarshSCtxtHdl(pc, p, drep) '' TODO: (pc = NdrSContextUnMarshall(p,drep))
-#define NdrMarshSCtxtHdl(pc, p, rd) NdrSContextMarshall(cast(NDR_SCONTEXT, pc), p, cast(NDR_RUNDOWN, rd))
-#define NdrFieldOffset(s, f) cast(LONG_PTR, @cptr(s ptr, 0)->f)
-#define NdrFieldPad(s, f, p, t) '' TODO: ((unsigned __LONG32)(NdrFieldOffset(s,f) - NdrFieldOffset(s,p)) - sizeof(t))
-#define NdrFcShort(s) '' TODO: (unsigned char)(s & 0xff),(unsigned char)(s >> 8)
-#define NdrFcLong(s) '' TODO: (unsigned char)(s & 0xff),(unsigned char)((s & 0x0000ff00) >> 8),(unsigned char)((s & 0x00ff0000) >> 16),(unsigned char)(s >> 24)
 #define RPC_BAD_STUB_DATA_EXCEPTION_FILTER ((((RpcExceptionCode() = STATUS_ACCESS_VIOLATION) orelse (RpcExceptionCode() = STATUS_DATATYPE_MISALIGNMENT)) orelse (RpcExceptionCode() = RPC_X_BAD_STUB_DATA)) orelse (RpcExceptionCode() = RPC_S_INVALID_BOUND))
 
 type RPC_BUFPTR as ubyte ptr
@@ -178,9 +136,12 @@ end type
 
 type MIDL_SYNTAX_INFO as _MIDL_SYNTAX_INFO
 type PMIDL_SYNTAX_INFO as _MIDL_SYNTAX_INFO ptr
+type NDR_ALLOC_ALL_NODES_CONTEXT as NDR_ALLOC_ALL_NODES_CONTEXT_
+type NDR_POINTER_QUEUE_STATE as NDR_POINTER_QUEUE_STATE_
 type _MIDL_STUB_DESC as _MIDL_STUB_DESC_
 type _FULL_PTR_XLAT_TABLES as _FULL_PTR_XLAT_TABLES_
 type IRpcChannelBuffer as IRpcChannelBuffer_
+type _NDR_PROC_CONTEXT as _NDR_PROC_CONTEXT_
 
 type _MIDL_STUB_MESSAGE_
 	RpcMsg as PRPC_MESSAGE

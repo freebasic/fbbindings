@@ -20,7 +20,7 @@ declare function CreateToolhelp32Snapshot(byval dwFlags as DWORD, byval th32Proc
 #define TH32CS_INHERIT &h80000000
 
 type tagHEAPLIST32
-	dwSize as SIZE_T
+	dwSize as SIZE_T_
 	th32ProcessID as DWORD
 	th32HeapID as ULONG_PTR
 	dwFlags as DWORD
@@ -35,10 +35,10 @@ declare function Heap32ListFirst(byval hSnapshot as HANDLE, byval lphl as LPHEAP
 declare function Heap32ListNext(byval hSnapshot as HANDLE, byval lphl as LPHEAPLIST32) as WINBOOL
 
 type tagHEAPENTRY32
-	dwSize as SIZE_T
+	dwSize as SIZE_T_
 	hHandle as HANDLE
 	dwAddress as ULONG_PTR
-	dwBlockSize as SIZE_T
+	dwBlockSize as SIZE_T_
 	dwFlags as DWORD
 	dwLockCount as DWORD
 	dwResvd as DWORD
@@ -56,7 +56,7 @@ type LPHEAPENTRY32 as HEAPENTRY32 ptr
 
 declare function Heap32First(byval lphe as LPHEAPENTRY32, byval th32ProcessID as DWORD, byval th32HeapID as ULONG_PTR) as WINBOOL
 declare function Heap32Next(byval lphe as LPHEAPENTRY32) as WINBOOL
-declare function Toolhelp32ReadProcessMemory(byval th32ProcessID as DWORD, byval lpBaseAddress as LPCVOID, byval lpBuffer as LPVOID, byval cbRead as SIZE_T, byval lpNumberOfBytesRead as SIZE_T ptr) as WINBOOL
+declare function Toolhelp32ReadProcessMemory(byval th32ProcessID as DWORD, byval lpBaseAddress as LPCVOID, byval lpBuffer as LPVOID, byval cbRead as SIZE_T_, byval lpNumberOfBytesRead as SIZE_T_ ptr) as WINBOOL
 
 type tagPROCESSENTRY32W
 	dwSize as DWORD

@@ -1642,14 +1642,14 @@ type PSP_PROPSHEETPAGE_REQUEST as _SP_PROPSHEETPAGE_REQUEST ptr
 	type _SP_BACKUP_QUEUE_PARAMS_V2_A
 		cbSize as DWORD
 		FullInfPath as zstring * 260
-		FilenameOffset as INT
+		FilenameOffset as INT_
 		ReinstallInstance as zstring * 260
 	end type
 #else
 	type _SP_BACKUP_QUEUE_PARAMS_V2_A field = 1
 		cbSize as DWORD
 		FullInfPath as zstring * 260
-		FilenameOffset as INT
+		FilenameOffset as INT_
 		ReinstallInstance as zstring * 260
 	end type
 #endif
@@ -1661,14 +1661,14 @@ type PSP_BACKUP_QUEUE_PARAMS_V2_A as _SP_BACKUP_QUEUE_PARAMS_V2_A ptr
 	type _SP_BACKUP_QUEUE_PARAMS_V2_W
 		cbSize as DWORD
 		FullInfPath as wstring * 260
-		FilenameOffset as INT
+		FilenameOffset as INT_
 		ReinstallInstance as wstring * 260
 	end type
 #else
 	type _SP_BACKUP_QUEUE_PARAMS_V2_W field = 1
 		cbSize as DWORD
 		FullInfPath as wstring * 260
-		FilenameOffset as INT
+		FilenameOffset as INT_
 		ReinstallInstance as wstring * 260
 	end type
 #endif
@@ -1680,13 +1680,13 @@ type PSP_BACKUP_QUEUE_PARAMS_V2_W as _SP_BACKUP_QUEUE_PARAMS_V2_W ptr
 	type _SP_BACKUP_QUEUE_PARAMS_V1_A
 		cbSize as DWORD
 		FullInfPath as zstring * 260
-		FilenameOffset as INT
+		FilenameOffset as INT_
 	end type
 #else
 	type _SP_BACKUP_QUEUE_PARAMS_V1_A field = 1
 		cbSize as DWORD
 		FullInfPath as zstring * 260
-		FilenameOffset as INT
+		FilenameOffset as INT_
 	end type
 #endif
 
@@ -1697,13 +1697,13 @@ type PSP_BACKUP_QUEUE_PARAMS_V1_A as _SP_BACKUP_QUEUE_PARAMS_V1_A ptr
 	type _SP_BACKUP_QUEUE_PARAMS_V1_W
 		cbSize as DWORD
 		FullInfPath as wstring * 260
-		FilenameOffset as INT
+		FilenameOffset as INT_
 	end type
 #else
 	type _SP_BACKUP_QUEUE_PARAMS_V1_W field = 1
 		cbSize as DWORD
 		FullInfPath as wstring * 260
-		FilenameOffset as INT
+		FilenameOffset as INT_
 	end type
 #endif
 
@@ -2195,7 +2195,7 @@ declare function SetupRemoveInstallSectionFromDiskSpaceListA(byval DiskSpace as 
 declare function SetupRemoveInstallSectionFromDiskSpaceListW(byval DiskSpace as HDSKSPC, byval InfHandle as HINF, byval LayoutInfHandle as HINF, byval SectionName as PCWSTR, byval Reserved1 as PVOID, byval Reserved2 as UINT) as WINBOOL
 declare function SetupIterateCabinetA(byval CabinetFile as PCSTR, byval Reserved as DWORD, byval MsgHandler as PSP_FILE_CALLBACK_A, byval Context as PVOID) as WINBOOL
 declare function SetupIterateCabinetW(byval CabinetFile as PCWSTR, byval Reserved as DWORD, byval MsgHandler as PSP_FILE_CALLBACK_W, byval Context as PVOID) as WINBOOL
-declare function SetupPromptReboot(byval FileQueue as HSPFILEQ, byval Owner as HWND, byval ScanOnly as WINBOOL) as INT
+declare function SetupPromptReboot(byval FileQueue as HSPFILEQ, byval Owner as HWND, byval ScanOnly as WINBOOL) as INT_
 
 #define SPFILEQ_FILE_IN_USE &h00000001
 #define SPFILEQ_REBOOT_RECOMMENDED &h00000002
@@ -2325,8 +2325,8 @@ declare function SetupInstallServicesFromInfSectionA(byval InfHandle as HINF, by
 declare function SetupInstallServicesFromInfSectionW(byval InfHandle as HINF, byval SectionName as PCWSTR, byval Flags as DWORD) as WINBOOL
 declare function SetupInstallServicesFromInfSectionExA(byval InfHandle as HINF, byval SectionName as PCSTR, byval Flags as DWORD, byval DeviceInfoSet as HDEVINFO, byval DeviceInfoData as PSP_DEVINFO_DATA, byval Reserved1 as PVOID, byval Reserved2 as PVOID) as WINBOOL
 declare function SetupInstallServicesFromInfSectionExW(byval InfHandle as HINF, byval SectionName as PCWSTR, byval Flags as DWORD, byval DeviceInfoSet as HDEVINFO, byval DeviceInfoData as PSP_DEVINFO_DATA, byval Reserved1 as PVOID, byval Reserved2 as PVOID) as WINBOOL
-declare sub InstallHinfSectionA(byval Window as HWND, byval ModuleHandle as HINSTANCE, byval CommandLine as PCSTR, byval ShowCommand as INT)
-declare sub InstallHinfSectionW(byval Window as HWND, byval ModuleHandle as HINSTANCE, byval CommandLine as PCWSTR, byval ShowCommand as INT)
+declare sub InstallHinfSectionA(byval Window as HWND, byval ModuleHandle as HINSTANCE, byval CommandLine as PCSTR, byval ShowCommand as INT_)
+declare sub InstallHinfSectionW(byval Window as HWND, byval ModuleHandle as HINSTANCE, byval CommandLine as PCWSTR, byval ShowCommand as INT_)
 declare function SetupInitializeFileLogA(byval LogFileName as PCSTR, byval Flags as DWORD) as HSPFILELOG
 declare function SetupInitializeFileLogW(byval LogFileName as PCWSTR, byval Flags as DWORD) as HSPFILELOG
 declare function SetupTerminateFileLog(byval FileLogHandle as HSPFILELOG) as WINBOOL
@@ -2685,7 +2685,7 @@ declare function SetupDiLoadClassIcon(byval ClassGuid as const GUID ptr, byval L
 #define DMI_BKCOLOR &h00000002
 #define DMI_USERECT &h00000004
 
-declare function SetupDiDrawMiniIcon(byval hdc as HDC, byval rc as RECT, byval MiniIconIndex as INT, byval Flags as DWORD) as INT
+declare function SetupDiDrawMiniIcon(byval hdc as HDC, byval rc as RECT, byval MiniIconIndex as INT_, byval Flags as DWORD) as INT_
 declare function SetupDiGetClassBitmapIndex(byval ClassGuid as const GUID ptr, byval MiniIconIndex as PINT) as WINBOOL
 declare function SetupDiGetClassImageList(byval ClassImageListData as PSP_CLASSIMAGELIST_DATA) as WINBOOL
 declare function SetupDiGetClassImageListExA(byval ClassImageListData as PSP_CLASSIMAGELIST_DATA, byval MachineName as PCSTR, byval Reserved as PVOID) as WINBOOL

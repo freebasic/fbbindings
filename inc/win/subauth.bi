@@ -188,8 +188,8 @@ type PNETLOGON_SERVICE_INFO as _NETLOGON_SERVICE_INFO ptr
 type _NETLOGON_NETWORK_INFO
 	Identity as NETLOGON_LOGON_IDENTITY_INFO
 	LmChallenge as LM_CHALLENGE
-	NtChallengeResponse as STRING
-	LmChallengeResponse as STRING
+	NtChallengeResponse as STRING_
+	LmChallengeResponse as STRING_
 end type
 
 type NETLOGON_NETWORK_INFO as _NETLOGON_NETWORK_INFO

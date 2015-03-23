@@ -128,7 +128,7 @@ end type
 #define SNMP_ACCESS_READ_ONLY 2
 #define SNMP_ACCESS_READ_WRITE 3
 #define SNMP_ACCESS_READ_CREATE 4
-#define SNMPAPI INT
+#define SNMPAPI INT_
 #define SNMPAPI_NOERROR TRUE
 #define SNMPAPI_ERROR FALSE
 
@@ -148,20 +148,20 @@ type PFNSNMPEXTENSIONQUERYEX as function(byval nRequestType as UINT, byval nTran
 type PFNSNMPEXTENSIONTRAP as function(byval pEnterpriseOid as AsnObjectIdentifier ptr, byval pGenericTrapId as AsnInteger32 ptr, byval pSpecificTrapId as AsnInteger32 ptr, byval pTimeStamp as AsnTimeticks ptr, byval pVarBindList as SnmpVarBindList ptr) as WINBOOL
 type PFNSNMPEXTENSIONCLOSE as sub()
 
-declare function SnmpUtilOidCpy(byval pOidDst as AsnObjectIdentifier ptr, byval pOidSrc as AsnObjectIdentifier ptr) as INT
-declare function SnmpUtilOidAppend(byval pOidDst as AsnObjectIdentifier ptr, byval pOidSrc as AsnObjectIdentifier ptr) as INT
-declare function SnmpUtilOidNCmp(byval pOid1 as AsnObjectIdentifier ptr, byval pOid2 as AsnObjectIdentifier ptr, byval nSubIds as UINT) as INT
-declare function SnmpUtilOidCmp(byval pOid1 as AsnObjectIdentifier ptr, byval pOid2 as AsnObjectIdentifier ptr) as INT
+declare function SnmpUtilOidCpy(byval pOidDst as AsnObjectIdentifier ptr, byval pOidSrc as AsnObjectIdentifier ptr) as INT_
+declare function SnmpUtilOidAppend(byval pOidDst as AsnObjectIdentifier ptr, byval pOidSrc as AsnObjectIdentifier ptr) as INT_
+declare function SnmpUtilOidNCmp(byval pOid1 as AsnObjectIdentifier ptr, byval pOid2 as AsnObjectIdentifier ptr, byval nSubIds as UINT) as INT_
+declare function SnmpUtilOidCmp(byval pOid1 as AsnObjectIdentifier ptr, byval pOid2 as AsnObjectIdentifier ptr) as INT_
 declare sub SnmpUtilOidFree(byval pOid as AsnObjectIdentifier ptr)
-declare function SnmpUtilOctetsCmp(byval pOctets1 as AsnOctetString ptr, byval pOctets2 as AsnOctetString ptr) as INT
-declare function SnmpUtilOctetsNCmp(byval pOctets1 as AsnOctetString ptr, byval pOctets2 as AsnOctetString ptr, byval nChars as UINT) as INT
-declare function SnmpUtilOctetsCpy(byval pOctetsDst as AsnOctetString ptr, byval pOctetsSrc as AsnOctetString ptr) as INT
+declare function SnmpUtilOctetsCmp(byval pOctets1 as AsnOctetString ptr, byval pOctets2 as AsnOctetString ptr) as INT_
+declare function SnmpUtilOctetsNCmp(byval pOctets1 as AsnOctetString ptr, byval pOctets2 as AsnOctetString ptr, byval nChars as UINT) as INT_
+declare function SnmpUtilOctetsCpy(byval pOctetsDst as AsnOctetString ptr, byval pOctetsSrc as AsnOctetString ptr) as INT_
 declare sub SnmpUtilOctetsFree(byval pOctets as AsnOctetString ptr)
-declare function SnmpUtilAsnAnyCpy(byval pAnyDst as AsnAny ptr, byval pAnySrc as AsnAny ptr) as INT
+declare function SnmpUtilAsnAnyCpy(byval pAnyDst as AsnAny ptr, byval pAnySrc as AsnAny ptr) as INT_
 declare sub SnmpUtilAsnAnyFree(byval pAny as AsnAny ptr)
-declare function SnmpUtilVarBindCpy(byval pVbDst as SnmpVarBind ptr, byval pVbSrc as SnmpVarBind ptr) as INT
+declare function SnmpUtilVarBindCpy(byval pVbDst as SnmpVarBind ptr, byval pVbSrc as SnmpVarBind ptr) as INT_
 declare sub SnmpUtilVarBindFree(byval pVb as SnmpVarBind ptr)
-declare function SnmpUtilVarBindListCpy(byval pVblDst as SnmpVarBindList ptr, byval pVblSrc as SnmpVarBindList ptr) as INT
+declare function SnmpUtilVarBindListCpy(byval pVblDst as SnmpVarBindList ptr, byval pVblSrc as SnmpVarBindList ptr) as INT_
 declare sub SnmpUtilVarBindListFree(byval pVbl as SnmpVarBindList ptr)
 declare sub SnmpUtilMemFree(byval pMem as LPVOID)
 declare function SnmpUtilMemAlloc(byval nBytes as UINT) as LPVOID
@@ -171,8 +171,8 @@ declare function SnmpUtilIdsToA(byval Ids as UINT ptr, byval IdLength as UINT) a
 declare sub SnmpUtilPrintOid(byval Oid as AsnObjectIdentifier ptr)
 declare sub SnmpUtilPrintAsnAny(byval pAny as AsnAny ptr)
 declare function SnmpSvcGetUptime() as DWORD
-declare sub SnmpSvcSetLogLevel(byval nLogLevel as INT)
-declare sub SnmpSvcSetLogType(byval nLogType as INT)
+declare sub SnmpSvcSetLogLevel(byval nLogLevel as INT_)
+declare sub SnmpSvcSetLogType(byval nLogType as INT_)
 
 #define SNMP_LOG_SILENT &h0
 #define SNMP_LOG_FATAL &h1
@@ -184,7 +184,7 @@ declare sub SnmpSvcSetLogType(byval nLogType as INT)
 #define SNMP_OUTPUT_TO_LOGFILE &h2
 #define SNMP_OUTPUT_TO_EVENTLOG &h4
 #define SNMP_OUTPUT_TO_DEBUGGER &h8
-declare sub SnmpUtilDbgPrint cdecl(byval nLogLevel as INT, byval szFormat as LPSTR, ...)
+declare sub SnmpUtilDbgPrint cdecl(byval nLogLevel as INT_, byval szFormat as LPSTR, ...)
 #define SNMPDBG(_x_)
 #define DEFINE_SIZEOF(Array) (sizeof((Array)) / sizeof((Array)[0]))
 #define DEFINE_OID(SubIdArray) (DEFINE_SIZEOF(SubIdArray), (SubIdArray))

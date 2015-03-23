@@ -294,10 +294,10 @@ type socklen_t as long
 
 #ifdef __FB_64BIT__
 	declare function getnameinfo(byval sa as const SOCKADDR ptr, byval salen as socklen_t, byval host as zstring ptr, byval hostlen as DWORD, byval serv as zstring ptr, byval servlen as DWORD, byval flags as long) as long
-	declare function GetNameInfoW(byval pSockaddr as const SOCKADDR ptr, byval SockaddrLength as socklen_t, byval pNodeBuffer as PWCHAR, byval NodeBufferSize as DWORD, byval pServiceBuffer as PWCHAR, byval ServiceBufferSize as DWORD, byval Flags as INT) as INT
+	declare function GetNameInfoW(byval pSockaddr as const SOCKADDR ptr, byval SockaddrLength as socklen_t, byval pNodeBuffer as PWCHAR, byval NodeBufferSize as DWORD, byval pServiceBuffer as PWCHAR, byval ServiceBufferSize as DWORD, byval Flags as INT_) as INT_
 #else
 	declare function getnameinfo stdcall(byval sa as const SOCKADDR ptr, byval salen as socklen_t, byval host as zstring ptr, byval hostlen as DWORD, byval serv as zstring ptr, byval servlen as DWORD, byval flags as long) as long
-	declare function GetNameInfoW stdcall(byval pSockaddr as const SOCKADDR ptr, byval SockaddrLength as socklen_t, byval pNodeBuffer as PWCHAR, byval NodeBufferSize as DWORD, byval pServiceBuffer as PWCHAR, byval ServiceBufferSize as DWORD, byval Flags as INT) as INT
+	declare function GetNameInfoW stdcall(byval pSockaddr as const SOCKADDR ptr, byval SockaddrLength as socklen_t, byval pNodeBuffer as PWCHAR, byval NodeBufferSize as DWORD, byval pServiceBuffer as PWCHAR, byval ServiceBufferSize as DWORD, byval Flags as INT_) as INT_
 #endif
 
 #define GetNameInfoA getnameinfo
@@ -401,11 +401,11 @@ declare function gai_strerrorW(byval as long) as wstring ptr
 #endif
 
 #if defined(__FB_64BIT__) and (_WIN32_WINNT = &h0602)
-	declare function InetNtopW(byval Family as INT, byval pAddr as PVOID, byval pStringBuf as LPWSTR, byval StringBufSIze as uinteger) as LPCWSTR
-	declare function inet_ntop(byval Family as INT, byval pAddr as PVOID, byval pStringBuf as LPSTR, byval StringBufSize as uinteger) as LPCSTR
+	declare function InetNtopW(byval Family as INT_, byval pAddr as PVOID, byval pStringBuf as LPWSTR, byval StringBufSIze as uinteger) as LPCWSTR
+	declare function inet_ntop(byval Family as INT_, byval pAddr as PVOID, byval pStringBuf as LPSTR, byval StringBufSize as uinteger) as LPCSTR
 #elseif (not defined(__FB_64BIT__)) and (_WIN32_WINNT = &h0602)
-	declare function InetNtopW stdcall(byval Family as INT, byval pAddr as PVOID, byval pStringBuf as LPWSTR, byval StringBufSIze as uinteger) as LPCWSTR
-	declare function inet_ntop stdcall(byval Family as INT, byval pAddr as PVOID, byval pStringBuf as LPSTR, byval StringBufSize as uinteger) as LPCSTR
+	declare function InetNtopW stdcall(byval Family as INT_, byval pAddr as PVOID, byval pStringBuf as LPWSTR, byval StringBufSIze as uinteger) as LPCWSTR
+	declare function inet_ntop stdcall(byval Family as INT_, byval pAddr as PVOID, byval pStringBuf as LPSTR, byval StringBufSize as uinteger) as LPCSTR
 #endif
 
 #if defined(UNICODE) and (_WIN32_WINNT = &h0602)
@@ -419,11 +419,11 @@ declare function gai_strerrorW(byval as long) as wstring ptr
 #endif
 
 #if defined(__FB_64BIT__) and (_WIN32_WINNT = &h0602)
-	declare function InetPtonW(byval Family as INT, byval pStringBuf as LPCWSTR, byval pAddr as PVOID) as INT
-	declare function inet_pton(byval Family as INT, byval pStringBuf as LPCSTR, byval pAddr as PVOID) as INT
+	declare function InetPtonW(byval Family as INT_, byval pStringBuf as LPCWSTR, byval pAddr as PVOID) as INT_
+	declare function inet_pton(byval Family as INT_, byval pStringBuf as LPCSTR, byval pAddr as PVOID) as INT_
 #elseif (not defined(__FB_64BIT__)) and (_WIN32_WINNT = &h0602)
-	declare function InetPtonW stdcall(byval Family as INT, byval pStringBuf as LPCWSTR, byval pAddr as PVOID) as INT
-	declare function inet_pton stdcall(byval Family as INT, byval pStringBuf as LPCSTR, byval pAddr as PVOID) as INT
+	declare function InetPtonW stdcall(byval Family as INT_, byval pStringBuf as LPCWSTR, byval pAddr as PVOID) as INT_
+	declare function inet_pton stdcall(byval Family as INT_, byval pStringBuf as LPCSTR, byval pAddr as PVOID) as INT_
 #endif
 
 #if defined(UNICODE) and (_WIN32_WINNT = &h0602)

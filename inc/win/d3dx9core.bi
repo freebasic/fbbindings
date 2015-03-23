@@ -57,7 +57,7 @@ end type
 #define ID3DXBuffer_GetBufferSize(p) (p)->lpVtbl->GetBufferSize(p)
 
 type _D3DXFONT_DESCA
-	Height as INT
+	Height as INT_
 	Width as UINT
 	Weight as UINT
 	MipLevels as UINT
@@ -73,7 +73,7 @@ type D3DXFONT_DESCA as _D3DXFONT_DESCA
 type LPD3DXFONT_DESCA as _D3DXFONT_DESCA ptr
 
 type _D3DXFONT_DESCW
-	Height as INT
+	Height as INT_
 	Width as UINT
 	Weight as UINT
 	MipLevels as UINT
@@ -115,10 +115,10 @@ type ID3DXFontVtbl_
 	GetGlyphData as function(byval This as ID3DXFont ptr, byval glyph as UINT, byval texture as IDirect3DTexture9 ptr ptr, byval blackbox as RECT ptr, byval cellinc as POINT ptr) as HRESULT
 	PreloadCharacters as function(byval This as ID3DXFont ptr, byval first as UINT, byval last as UINT) as HRESULT
 	PreloadGlyphs as function(byval This as ID3DXFont ptr, byval first as UINT, byval last as UINT) as HRESULT
-	PreloadTextA as function(byval This as ID3DXFont ptr, byval string as const zstring ptr, byval count as INT) as HRESULT
-	PreloadTextW as function(byval This as ID3DXFont ptr, byval string as const wstring ptr, byval count as INT) as HRESULT
-	DrawTextA as function(byval This as ID3DXFont ptr, byval sprite as ID3DXSprite ptr, byval string as const zstring ptr, byval count as INT, byval rect as RECT ptr, byval format as DWORD, byval color as D3DCOLOR) as INT
-	DrawTextW as function(byval This as ID3DXFont ptr, byval sprite as ID3DXSprite ptr, byval string as const wstring ptr, byval count as INT, byval rect as RECT ptr, byval format as DWORD, byval color as D3DCOLOR) as INT
+	PreloadTextA as function(byval This as ID3DXFont ptr, byval string as const zstring ptr, byval count as INT_) as HRESULT
+	PreloadTextW as function(byval This as ID3DXFont ptr, byval string as const wstring ptr, byval count as INT_) as HRESULT
+	DrawTextA as function(byval This as ID3DXFont ptr, byval sprite as ID3DXSprite ptr, byval string as const zstring ptr, byval count as INT_, byval rect as RECT ptr, byval format as DWORD, byval color as D3DCOLOR) as INT_
+	DrawTextW as function(byval This as ID3DXFont ptr, byval sprite as ID3DXSprite ptr, byval string as const wstring ptr, byval count as INT_, byval rect as RECT ptr, byval format as DWORD, byval color as D3DCOLOR) as INT_
 	OnLostDevice as function(byval This as ID3DXFont ptr) as HRESULT
 	OnResetDevice as function(byval This as ID3DXFont ptr) as HRESULT
 end type
@@ -323,8 +323,8 @@ end type
 #define ID3DXSprite_OnResetDevice(p) (p)->lpVtbl->OnResetDevice(p)
 
 declare function D3DXCheckVersion(byval d3dsdkvers as UINT, byval d3dxsdkvers as UINT) as WINBOOL
-declare function D3DXCreateFontA(byval device as IDirect3DDevice9 ptr, byval height as INT, byval width as UINT, byval weight as UINT, byval miplevels as UINT, byval italic as WINBOOL, byval charset as DWORD, byval precision as DWORD, byval quality as DWORD, byval pitchandfamily as DWORD, byval facename as const zstring ptr, byval font as ID3DXFont ptr ptr) as HRESULT
-declare function D3DXCreateFontW(byval device as IDirect3DDevice9 ptr, byval height as INT, byval width as UINT, byval weight as UINT, byval miplevels as UINT, byval italic as WINBOOL, byval charset as DWORD, byval precision as DWORD, byval quality as DWORD, byval pitchandfamily as DWORD, byval facename as const wstring ptr, byval font as ID3DXFont ptr ptr) as HRESULT
+declare function D3DXCreateFontA(byval device as IDirect3DDevice9 ptr, byval height as INT_, byval width as UINT, byval weight as UINT, byval miplevels as UINT, byval italic as WINBOOL, byval charset as DWORD, byval precision as DWORD, byval quality as DWORD, byval pitchandfamily as DWORD, byval facename as const zstring ptr, byval font as ID3DXFont ptr ptr) as HRESULT
+declare function D3DXCreateFontW(byval device as IDirect3DDevice9 ptr, byval height as INT_, byval width as UINT, byval weight as UINT, byval miplevels as UINT, byval italic as WINBOOL, byval charset as DWORD, byval precision as DWORD, byval quality as DWORD, byval pitchandfamily as DWORD, byval facename as const wstring ptr, byval font as ID3DXFont ptr ptr) as HRESULT
 
 #ifdef UNICODE
 	#define D3DXCreateFont D3DXCreateFontW

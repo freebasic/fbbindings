@@ -16,7 +16,7 @@ extern IWinTypesBase_v0_1_s_ifspec as RPC_IF_HANDLE
 type OLECHAR as wstring
 type LPOLESTR as wstring ptr
 type LPCOLESTR as const wstring ptr
-#define OLESTR(str) L##str
+#define OLESTR(str) wstr(str)
 type UCHAR as ubyte
 type SHORT as short
 type USHORT as ushort
