@@ -26,7 +26,7 @@
 ''     constant DRAW_SPRITE_V_FLIP => DRAW_SPRITE_V_FLIP_
 ''     constant DRAW_SPRITE_VH_FLIP => DRAW_SPRITE_VH_FLIP_
 ''     #define MIDI_DIGMID => MIDI_DIGMID_
-''     constant EOF => EOF_
+''     #define EOF => EOF_
 ''     #define cpu_fpu => cpu_fpu_
 ''     #define cpu_mmx => cpu_mmx_
 ''     #define cpu_3dnow => cpu_3dnow_
@@ -2353,7 +2353,7 @@ declare function al_findfirst(byval pattern as const zstring ptr, byval info as 
 declare function al_findnext(byval info as al_ffblk ptr) as long
 declare sub al_findclose(byval info as al_ffblk ptr)
 
-const EOF_ = -1
+#define EOF_ (-1)
 #define F_READ "r"
 #define F_WRITE "w"
 #define F_READ_PACKED "rp"
@@ -2370,9 +2370,6 @@ const PACKFILE_FLAG_EOF = 8
 const PACKFILE_FLAG_ERROR = 16
 const PACKFILE_FLAG_OLD_CRYPT = 32
 const PACKFILE_FLAG_EXEDAT = 64
-type LZSS_PACK_DATA as LZSS_PACK_DATA_
-type LZSS_UNPACK_DATA as LZSS_UNPACK_DATA_
-
 type LZSS_PACK_DATA as LZSS_PACK_DATA_
 type LZSS_UNPACK_DATA as LZSS_UNPACK_DATA_
 
