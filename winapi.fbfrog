@@ -20,6 +20,7 @@
 
 -define SECURITY_WIN32 1
 -define __CRT__NO_INLINE
+-define OEMRESOURCE 1
 
 -removedefine ACLUIAPI
 -removedefine ACMAPI
