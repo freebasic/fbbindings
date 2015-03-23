@@ -329,6 +329,8 @@
 -removedefine WINSPOOLAPI
 -removedefine WSAAPI
 
+-replacements winapi.replacements
+
 -removeproc __debugbreak
 -removeproc __C_ASSERT__
 
@@ -352,7 +354,48 @@
 -typedefhint __LONG32
 -renametypedef BYTE UBYTE
 -renametypedef byte ubyte
--fixmingwaw
+-typedefhint LPTV_INSERTSTRUCT
+-typedefhint LPTV_HITTESTINFO
+-typedefhint LPTV_SORTCB
+-typedefhint REFGUID
+-typedefhint PUIDLIST_RELATIVE
+-typedefhint PDNS_QUESTION
+-typedefhint WSAEVENT
+-renametypedef SSIZE_T SSIZE_T_
+-renametypedef SIZE_T SIZE_T_
+-renametypedef INT INT_
+-renametypedef CSHORT CSHORT_
+-renametypedef STRING STRING_
+-renametypedef DATE DATE_
+-renametypedef PTR PTR_
+-removedefine XSKINEXP_TEMPLATES  # too big for FB, hitting on fbc's lexer's soft limit
+-removedefine XEXTENSIONS_TEMPLATES
+-renameproc Sleep Sleep_
+-renameproc Beep Beep_
+-removeproc WinMain
+-removeproc wWinMain
+-removeproc MemoryBarrier
+
+-expandindefine __MINGW_NAME_AW
+-expandindefine __MINGW_NAME_AW_EXT
+-expandindefine __MINGW_NAME_UAW
+-expandindefine __MINGW_NAME_UAW_EXT
+-expandindefine WINELIB_NAME_AW
+-expandindefine TEXT
+
+-addforwarddecl __lc_time_data
+-addforwarddecl NDR_ALLOC_ALL_NODES_CONTEXT
+-addforwarddecl NDR_POINTER_QUEUE_STATE
+-addforwarddecl _NDR_PROC_CONTEXT
+-addforwarddecl _HMAPPER
+-addforwarddecl NET_ADDRESS_INFO_
+-addforwarddecl _EXCEPTION_RECORD
+-addforwarddecl _CONTEXT
+-addforwarddecl _TEB
+-addforwarddecl _ACTIVATION_CONTEXT
+-addforwarddecl SIP_DISPATCH_INFO_
+-addforwarddecl SIP_SUBJECTINFO_
+-addforwarddecl SIP_INDIRECT_DATA_
 
 -removeinclude pshpack1.h
 -removeinclude pshpack2.h
@@ -360,3 +403,142 @@
 -removeinclude pshpack8.h
 -removeinclude pshpck16.h
 -removeinclude poppack.h
+
+-removedefine __buildstos
+-removedefine __buildlogicali
+-removedefine __buildbittesti
+-removedefine __buildpause
+-removedefine __buildint
+-removedefine __buildmemorybarrier
+-removedefine __buildreadseg
+-removedefine __buildwriteseg
+-removedefine __buildbitscan
+-removedefine __buildbittest
+-removedefine __buildbittestand
+-removedefine __build_inport
+-removedefine __build_outport
+-removedefine __build_inportstring
+-removedefine __build_outportstring
+-removedefine __build_readcr
+-removedefine __build_writecr
+-removedefine __buildmov
+-removedefine _ReadWriteBarrier
+-removedefine _ReadBarrier
+-removedefine _WriteBarrier
+-removedefine _loadds
+-removedefine _huge
+-removedefine RESTRICTED_POINTER
+-removedefine FIELD_OFFSET
+-removedefine TYPE_ALIGNMENT
+-removedefine PROBE_ALIGNMENT
+-removedefine PROBE_ALIGNMENT32
+-removedefine NOP_FUNCTION
+-removedefine midl_user_allocate
+-removedefine midl_user_free
+-removedefine _midl_ma1
+-removedefine _midl_ma2
+-removedefine _midl_ma4
+-removedefine _midl_ma8
+-removedefine _midl_unma1
+-removedefine _midl_unma2
+-removedefine _midl_unma3
+-removedefine _midl_unma4
+-removedefine _midl_fa2
+-removedefine _midl_fa4
+-removedefine _midl_fa8
+-removedefine _midl_addp
+-removedefine _midl_marsh_lhs
+-removedefine _midl_marsh_up
+-removedefine _midl_advmp
+-removedefine _midl_unmarsh_up
+-removedefine NdrMarshConfStringHdr
+-removedefine NdrUnMarshConfStringHdr
+-removedefine NdrMarshCCtxtHdl
+-removedefine NdrUnMarshCCtxtHdl
+-removedefine NdrUnMarshSCtxtHdl
+-removedefine NdrMarshSCtxtHdl
+-removedefine NdrFieldOffset
+-removedefine NdrFieldPad
+-removedefine NdrFcShort
+-removedefine NdrFcLong
+-removedefine DefineHandleTable
+-removedefine UnlockResource
+-removedefine CacheLineFlush
+-removedefine FastFence
+-removedefine LoadFence
+-removedefine MemoryFence
+-removedefine StoreFence
+-removedefine YieldProcessor
+-removedefine MemoryBarrier
+-removedefine PreFetchCacheLine
+-removedefine PrefetchForWrite
+-removedefine ReadForWriteAccess
+-removedefine PF_TEMPORAL_LEVEL_1
+-removedefine PF_TEMPORAL_LEVEL_2
+-removedefine PF_TEMPORAL_LEVEL_3
+-removedefine PF_NON_TEMPORAL_LEVEL_ALL
+-removedefine ReadMxCsr
+-removedefine WriteMxCsr
+-removedefine YieldProcessor
+-removedefine PreFetchCacheLine
+-removedefine ReadForWriteAccess
+-removedefine PF_TEMPORAL_LEVEL_1
+-removedefine PF_NON_TEMPORAL_LEVEL_ALL
+-removedefine _VARIANT_BOOL
+
+# Already exist as enumconsts
+-removedefine MIB_IPPROTO_OTHER
+-removedefine MIB_IPPROTO_LOCAL
+-removedefine MIB_IPPROTO_NETMGMT
+-removedefine MIB_IPPROTO_ICMP
+-removedefine MIB_IPPROTO_EGP
+-removedefine MIB_IPPROTO_GGP
+-removedefine MIB_IPPROTO_HELLO
+-removedefine MIB_IPPROTO_RIP
+-removedefine MIB_IPPROTO_IS_IS
+-removedefine MIB_IPPROTO_ES_IS
+-removedefine MIB_IPPROTO_CISCO
+-removedefine MIB_IPPROTO_BBN
+-removedefine MIB_IPPROTO_OSPF
+-removedefine MIB_IPPROTO_BGP
+-removedefine MIB_IPPROTO_NT_AUTOSTATIC
+-removedefine MIB_IPPROTO_NT_STATIC
+-removedefine MIB_IPPROTO_NT_STATIC_NON_DOD
+
+# Unnecessary alias
+-removedefine KSDATAFORMAT_SUBTYPE_PCM
+-removedefine KSDATAFORMAT_SUBTYPE_IEEE_FLOAT
+
+-removedefine LRESULT
+-removedefine HGLOBAL
+-removedefine VarI4FromInt
+-removedefine VarI8FromInt
+
+-removedefine OLEMISC_INVISIBLEATRUNTIME
+-removedefine OLEMISC_ALWAYSRUN
+-removedefine OLEMISC_ACTSLIKEBUTTON
+-removedefine OLEMISC_ACTSLIKELABEL
+-removedefine OLEMISC_NOUIACTIVATE
+-removedefine OLEMISC_ALIGNABLE
+-removedefine OLEMISC_SIMPLEFRAME
+-removedefine OLEMISC_SETCLIENTSITEFIRST
+-removedefine OLEMISC_IMEMODE
+
+-renamedefine MOUSE_EVENT MOUSE_EVENT_
+-renamedefine ERROR ERROR_
+-renamedefine RGB BGR
+-renamedefine STRETCHBLT STRETCHBLT_
+-renamedefine STARTDOC STARTDOC_
+-renamedefine EXTTEXTOUT EXTTEXTOUT_
+-renamedefine ENDDOC ENDDOC_
+-renamedefine ABORTDOC ABORTDOC_
+-renamedefine SETABORTPROC SETABORTPROC_
+-renamedefine SETMITERLIMIT SETMITERLIMIT_
+-renamedefine BITSPIXEL BITSPIXEL_
+-renamedefine PLANES PLANES_
+-renamedefine DELETE DELETE__
+
+-removedefine LOWORD
+-removedefine HIWORD
+-removedefine LOBYTE
+-removedefine HIBYTE

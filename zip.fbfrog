@@ -1,3 +1,17 @@
+-inclib zip
+-inclib z
+
+-removeinclude inttypes.h
+-removeinclude sys/types.h
+-addinclude crt/stdint.bi
+
+-addforwarddecl zip
+-addforwarddecl zip_file
+-addforwarddecl zip_source
+
+#-rename ZIP_SOURCE_FREE ZIP_SOURCE_FREE_
+-renamedefine ZIP_STAT_INDEX ZIP_STAT_INDEX_
+
 -removedefine _HAD_ZIP_H
 -removedefine _HAD_ZIPCONF_H
 -removedefine ZIP_EXTERN

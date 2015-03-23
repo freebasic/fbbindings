@@ -1,15 +1,26 @@
+-define PNG_NO_TYPECAST_NULL
+-define PNG_NO_PEDANTIC_WARNINGS
 -fbfroginclude limits.h
+
+-replacements png.replacements
+
+-inclib png
+-inclib z
+
+-renamedefine PNG_LIBPNG_VER PNG_LIBPNG_VER_
+-renamedefine PNG_READ_TEXT_SUPPORTED PNG_READ_TEXT_SUPPORTED_
+-renamedefine PNG_TEXT_SUPPORTED PNG_TEXT_SUPPORTED_
+-renamedefine PNG_WRITE_TEXT_SUPPORTED PNG_WRITE_TEXT_SUPPORTED_
+-renameproc png_info_init png_info_init_
 
 -removedefine FAR
 -removedefine FARDATA
 -removedefine CVT_PTR
 -removedefine CVT_PTR_NOCHECK
-
 -removedefine PNGAPI
 -removedefine PNGARG
 -removedefine PNGCAPI
 -removedefine PNGCBAPI
-
 -removedefine PNG_ALLOCATED
 -removedefine PNG_CALLBACK
 -removedefine PNG_CONST
@@ -33,6 +44,3 @@
 -removedefine PNG_RESTRICT
 -removedefine PNG_UNUSED
 -removedefine PNG_USE_RESULT
-
--define PNG_NO_TYPECAST_NULL
--define PNG_NO_PEDANTIC_WARNINGS

@@ -1,0 +1,20 @@
+convert c:
+	#define _JIT_ARCH_GET_CURRENT_FRAME(f) \
+		do { \
+			register void *__f asm("ebp"); \
+			f = __f; \
+		} while(0)
+to fb:
+	#macro _JIT_ARCH_GET_CURRENT_FRAME(f)
+		scope
+			dim __f as any ptr
+			asm mov dword ptr [__f], ebp
+			f = __f
+		end scope
+	#endmacro
+
+convert c: #define jit_get_return_address(frame) (_jit_get_return_address((frame), __builtin_frame_address(0), __builtin_return_address(0)))
+to fb:     #define jit_get_return_address(frame) (_jit_get_return_address((frame), 0, 0))
+
+convert c: #define jit_get_current_return() (__builtin_return_address(0))
+to fb:     #define jit_get_current_return() (jit_get_return_address(jit_get_current_frame()))

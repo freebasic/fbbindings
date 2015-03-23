@@ -3,3 +3,84 @@
 -endif
 
 allegro.fbfrog
+
+-replacements allegro4.replacements
+
+-setarraysize empty_string 4
+-setarraysize allegro_error ALLEGRO_ERROR_SIZE
+-setarraysize cpu_vendor _AL_CPU_VENDOR_SIZE
+-setarraysize line 1 # BITMAP_.line
+-setarraysize dat 1 # RLE_SPRITE_.dat and FONT_DATA_.dat
+-moveabove _AL_CPU_VENDOR_SIZE cpu_vendor
+-nostring key
+-dropprocbody vline
+-dropprocbody hline
+-addforwarddecl FONT_VTABLE
+-addforwarddecl LZSS_PACK_DATA
+-addforwarddecl LZSS_UNPACK_DATA
+
+-removeinclude allegro/platform/alplatf.h
+-removeinclude allegro/platform/alunixac.h
+-removeinclude dir.h
+-removeinclude direct.h
+-removeinclude dpmi.h
+-removeinclude fcntl.h
+-removeinclude go32.h
+-removeinclude inttypes.h
+-removeinclude io.h
+-removeinclude malloc.h
+-removeinclude pc.h
+-removeinclude sys/farptr.h
+-removeinclude unistd.h
+
+-renamedefine MID AL_MID
+-renamedefine EMPTY_STRING EMPTY_STRING_
+-renamedefine SYSTEM_NONE SYSTEM_NONE_
+-renamedefine MOUSEDRV_NONE MOUSEDRV_NONE_
+-renamedefine DRAW_SPRITE_H_FLIP DRAW_SPRITE_H_FLIP_
+-renamedefine DRAW_SPRITE_V_FLIP DRAW_SPRITE_V_FLIP_
+-renamedefine DRAW_SPRITE_VH_FLIP DRAW_SPRITE_VH_FLIP_
+-renamedefine MIDI_DIGMID MIDI_DIGMID_
+-renamedefine cpu_fpu cpu_fpu_
+-renamedefine cpu_mmx cpu_mmx_
+-renamedefine cpu_3dnow cpu_3dnow_
+-renamedefine SYSTEM_DIRECTX SYSTEM_DIRECTX_
+-renamedefine GFX_DIRECTX_ACCEL GFX_DIRECTX_ACCEL_
+-renamedefine GFX_DIRECTX_SAFE GFX_DIRECTX_SAFE_
+-renamedefine GFX_DIRECTX_SOFT GFX_DIRECTX_SOFT_
+-renamedefine GFX_DIRECTX_WIN GFX_DIRECTX_WIN_
+-renamedefine GFX_DIRECTX_OVL GFX_DIRECTX_OVL_
+-renamedefine GFX_GDI GFX_GDI_
+-renamedefine TIMERDRV_UNIX_PTHREADS TIMERDRV_UNIX_PTHREADS_
+-renamedefine SYSTEM_LINUX SYSTEM_LINUX_
+-renamedefine SYSTEM_DOS SYSTEM_DOS_
+-renamedefine KEYDRV_PCDOS KEYDRV_PCDOS_
+-renamedefine TIMEDRV_FIXED_RATE TIMEDRV_FIXED_RATE_
+-renamedefine TIMEDRV_VARIABLE_RATE TIMEDRV_VARIABLE_RATE_
+-renamedefine MOUSEDRV_MICKEYS MOUSEDRV_MICKEYS_
+-renamedefine MOUSEDRV_INT33 MOUSEDRV_INT33_
+-renamedefine MOUSEDRV_POLLING MOUSEDRV_POLLING_
+-renamedefine MOUSEDRV_WINNT MOUSEDRV_WINNT_
+-renamedefine MOUSEDRV_WIN2K MOUSEDRV_WIN2K_
+-renamedefine GFX_VGA GFX_VGA_
+-renamedefine GFX_MODEX GFX_MODEX_
+-renamedefine DIGI_SB10 DIGI_SB10_
+-renamedefine DIGI_SB15 DIGI_SB15_
+-renamedefine DIGI_SB20 DIGI_SB20_
+-renamedefine DIGI_SBPRO DIGI_SBPRO_
+-renamedefine DIGI_SB16 DIGI_SB16_
+-renamedefine DIGI_AUDIODRIVE DIGI_AUDIODRIVE_
+-renamedefine DIGI_SOUNDSCAPE DIGI_SOUNDSCAPE_
+-renamedefine MIDI_OPL2 MIDI_OPL2_
+-renamedefine MIDI_2XOPL2 MIDI_2XOPL2_
+-renamedefine MIDI_OPL3 MIDI_OPL3_
+-renamedefine MIDI_SB_OUT MIDI_SB_OUT_
+-renamedefine MIDI_AWE32 MIDI_AWE32_
+-renamedefine GFX_VBEAF GFX_VBEAF_
+-renamedefine GFX_XTENDED GFX_XTENDED_
+-renamedefine MOUSEDRV_LINUX_PS2 MOUSEDRV_LINUX_PS2_
+-renamedefine MOUSEDRV_LINUX_IPS2 MOUSEDRV_LINUX_IPS2_
+-renamedefine MOUSEDRV_LINUX_GPMDATA MOUSEDRV_LINUX_GPMDATA_
+-renamedefine MOUSEDRV_LINUX_MS MOUSEDRV_LINUX_MS_
+-renamedefine MOUSEDRV_LINUX_IMS MOUSEDRV_LINUX_IMS_
+-renamedefine MOUSEDRV_LINUX_EVDEV MOUSEDRV_LINUX_EVDEV_

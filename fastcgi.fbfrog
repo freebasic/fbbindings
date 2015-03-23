@@ -1,1 +1,98 @@
+-declarebool NO_FCGI_DEFINES
+
+-replacements fastcgi.replacements
+
 -removedefine DLLAPI
+-setarraysize _fcgi_sF 3
+-renamedefine FCGI_stdin FCGI_stdin_
+-renamedefine FCGI_stdout FCGI_stdout_
+-renamedefine FCGI_stderr FCGI_stderr_
+-removeinclude sys/types.h
+-removeinclude stdio.h
+-addforwarddecl Params
+
+-ifdef NO_FCGI_DEFINES
+	-removedefine FILE
+	-removedefine stdin
+	-removedefine stdout
+	-removedefine stderr
+	-removedefine perror
+	-removedefine fopen
+	-removedefine fclose
+	-removedefine fflush
+	-removedefine freopen
+	-removedefine setvbuf
+	-removedefine setbuf
+	-removedefine fseek
+	-removedefine ftell
+	-removedefine rewind
+	-removedefine fgetpos
+	-removedefine fsetpos
+	-removedefine fgetc
+	-removedefine getc
+	-removedefine getchar
+	-removedefine ungetc
+	-removedefine fgets
+	-removedefine gets
+	-removedefine fputc
+	-removedefine putc
+	-removedefine putchar
+	-removedefine fputs
+	-removedefine puts
+	-removedefine fprintf
+	-removedefine printf
+	-removedefine vfprintf
+	-removedefine vprintf
+	-removedefine fread
+	-removedefine fwrite
+	-removedefine feof
+	-removedefine ferror
+	-removedefine clearerr
+	-removedefine tmpfile
+	-removedefine fileno
+	-removedefine fdopen
+	-removedefine popen
+	-removedefine pclose
+-else
+	-undefbeforedecl FILE
+	-undefbeforedecl stdin
+	-undefbeforedecl stdout
+	-undefbeforedecl stderr
+	-undefbeforedecl perror
+	-undefbeforedecl fopen
+	-undefbeforedecl fclose
+	-undefbeforedecl fflush
+	-undefbeforedecl freopen
+	-undefbeforedecl setvbuf
+	-undefbeforedecl setbuf
+	-undefbeforedecl fseek
+	-undefbeforedecl ftell
+	-undefbeforedecl rewind
+	-undefbeforedecl fgetpos
+	-undefbeforedecl fsetpos
+	-undefbeforedecl fgetc
+	-undefbeforedecl getc
+	-undefbeforedecl getchar
+	-undefbeforedecl ungetc
+	-undefbeforedecl fgets
+	-undefbeforedecl gets
+	-undefbeforedecl fputc
+	-undefbeforedecl putc
+	-undefbeforedecl putchar
+	-undefbeforedecl fputs
+	-undefbeforedecl puts
+	-undefbeforedecl fprintf
+	-undefbeforedecl printf
+	-undefbeforedecl vfprintf
+	-undefbeforedecl vprintf
+	-undefbeforedecl fread
+	-undefbeforedecl fwrite
+	-undefbeforedecl feof
+	-undefbeforedecl ferror
+	-undefbeforedecl clearerr
+	-undefbeforedecl tmpfile
+	-undefbeforedecl fileno
+	-undefbeforedecl fdopen
+	-undefbeforedecl popen
+	-undefbeforedecl pclose
+-endif

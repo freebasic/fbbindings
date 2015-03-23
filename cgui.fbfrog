@@ -23,3 +23,196 @@
 -ifdef CGUI_STATICLINK
 	-define CGUI_STATICLINK 1
 -endif
+
+-replacements cgui.replacements
+
+-inclib cgui
+-addinclude allegro.bi  # For the FONT, BITMAP, DATAFILE types
+-moveabove t_cgui_colors cgui_colors
+-setarraysize cgui_colors NR_OF_CGUI_COLORS
+-renameproc Remove Remove_
+
+-renamedefine DIR_TOPLEFT   CGUI_DIR_TOPLEFT
+-renamedefine DIR_RIGHT     CGUI_DIR_RIGHT
+-renamedefine DIR_LEFT      CGUI_DIR_LEFT
+-renamedefine DIR_DOWNLEFT  CGUI_DIR_DOWNLEFT
+-renamedefine DIR_DOWN      CGUI_DIR_DOWN
+-renamedefine AUTOINDICATOR CGUI_AUTOINDICATOR
+-renamedefine TOPLEFT       CGUI_TOPLEFT
+-renamedefine RIGHT         CGUI_RIGHT
+-renamedefine DOWNLEFT      CGUI_DOWNLEFT
+-renamedefine LEFT          CGUI_LEFT
+-renamedefine DOWN          CGUI_DOWN
+-renamedefine ADAPTIVE      CGUI_ADAPTIVE
+-renamedefine FILLSCREEN    CGUI_FILLSCREEN
+-renamedefine ALIGNCENTRE   CGUI_ALIGNCENTRE
+-renamedefine ALIGNBOTTOM   CGUI_ALIGNBOTTOM
+-renamedefine ALIGNRIGHT    CGUI_ALIGNRIGHT
+-renamedefine HORIZONTAL    CGUI_HORIZONTAL
+-renamedefine VERTICAL      CGUI_VERTICAL
+-renamedefine FILLSPACE     CGUI_FILLSPACE
+-renamedefine EQUALWIDTH    CGUI_EQUALWIDTH
+-renamedefine EQUALHEIGHT   CGUI_EQUALHEIGHT
+
+-renamedefine W_SIBLING  CGUI_W_SIBLING
+-renamedefine W_NOMOVE   CGUI_W_NOMOVE
+-renamedefine W_FLOATING CGUI_W_FLOATING
+-renamedefine W_TOP      CGUI_W_TOP
+-renamedefine W_BOTTOM   CGUI_W_BOTTOM
+-renamedefine W_LEFT     CGUI_W_LEFT
+-renamedefine W_RIGHT    CGUI_W_RIGHT
+-renamedefine W_CENTRE_H CGUI_W_CENTRE_H
+-renamedefine W_CENTRE_V CGUI_W_CENTRE_V
+-renamedefine W_CENTRE   CGUI_W_CENTRE
+
+-renamedefine ID_DESKTOP CGUI_ID_DESKTOP
+
+-renamedefine R_HORIZONTAL CGUI_R_HORIZONTAL
+-renamedefine R_VERTICAL   CGUI_R_VERTICAL
+
+-renamedefine TR_SHOWPOS CGUI_TR_SHOWPOS
+
+-renamedefine SL_SCALE  CGUI_SL_SCALE
+-renamedefine SL_LABEL  CGUI_SL_LABEL
+-renamedefine SL_STYLE1 CGUI_SL_STYLE1
+-renamedefine SL_STYLE2 CGUI_SL_STYLE2
+-renamedefine SL_STYLE3 CGUI_SL_STYLE3
+
+-renamedefine TB_FRAMERAISE CGUI_TB_FRAMERAISE
+-renamedefine TB_FRAMESINK  CGUI_TB_FRAMESINK
+-renamedefine TB_PREFORMAT  CGUI_TB_PREFORMAT
+-renamedefine TB_LINEFEED_  CGUI_TB_LINEFEED_
+-renamedefine TB_FIXFONT    CGUI_TB_FIXFONT
+-renamedefine TB_WHITE      CGUI_TB_WHITE
+-renamedefine TB_TEXTFILE   CGUI_TB_TEXTFILE
+-renamedefine TB_FOCUS_END  CGUI_TB_FOCUS_END
+
+-renamedefine TERMINATE_EDIT CGUI_TERMINATE_EDIT
+
+-renamedefine FBYTE        CGUI_FBYTE
+-renamedefine FSHORT       CGUI_FSHORT
+-renamedefine FINT         CGUI_FINT
+-renamedefine FLONG        CGUI_FLONG
+-renamedefine FSTRING      CGUI_FSTRING
+-renamedefine FPTRSTR      CGUI_FPTRSTR
+-renamedefine FPOINTS      CGUI_FPOINTS
+-renamedefine FBPOINTS     CGUI_FBPOINTS
+-renamedefine FFLOAT       CGUI_FFLOAT
+-renamedefine FHEX1        CGUI_FHEX1
+-renamedefine FHEX2        CGUI_FHEX2
+-renamedefine FHEX4        CGUI_FHEX4
+-renamedefine FOCT1        CGUI_FOCT1
+-renamedefine FOCT2        CGUI_FOCT2
+-renamedefine FOCT3        CGUI_FOCT3
+-renamedefine FOCT4        CGUI_FOCT4
+-renamedefine FNAME        CGUI_FNAME
+-renamedefine FBLANK0      CGUI_FBLANK0
+-renamedefine FUNDEF       CGUI_FUNDEF
+-renamedefine B_UNDEF_VAL  CGUI_B_UNDEF_VAL
+-renamedefine S_UNDEF_VAL  CGUI_S_UNDEF_VAL
+-renamedefine I_UNDEF_VAL  CGUI_I_UNDEF_VAL
+-renamedefine L_UNDEF_VAL  CGUI_L_UNDEF_VAL
+-renamedefine P_UNDEF_VAL  CGUI_P_UNDEF_VAL
+-renamedefine BP_UNDEF_VAL CGUI_BP_UNDEF_VAL
+
+-renamedefine IMAGE_BMP        CGUI_IMAGE_BMP
+-renamedefine IMAGE_TRANS_BMP  CGUI_IMAGE_TRANS_BMP
+-renamedefine IMAGE_RLE_SPRITE CGUI_IMAGE_RLE_SPRITE
+-renamedefine IMAGE_CMP_SPRITE CGUI_IMAGE_CMP_SPRITE
+
+-renamedefine LEFT_MOUSE  CGUI_LEFT_MOUSE
+-renamedefine RIGHT_MOUSE CGUI_RIGHT_MOUSE
+
+-renamedefine DD_GRIPPED       CGUI_DD_GRIPPED
+-renamedefine DD_UNGRIPPED     CGUI_DD_UNGRIPPED
+-renamedefine DD_SUCCESS       CGUI_DD_SUCCESS
+-renamedefine DD_OVER_GRIP     CGUI_DD_OVER_GRIP
+-renamedefine DD_OVER_DROP     CGUI_DD_OVER_DROP
+-renamedefine DD_END_OVER_DROP CGUI_DD_END_OVER_DROP
+-renamedefine SL_OVER          CGUI_SL_OVER
+-renamedefine SL_OVER_END      CGUI_SL_OVER_END
+-renamedefine SL_STARTED       CGUI_SL_STARTED
+-renamedefine SL_PROGRESS      CGUI_SL_PROGRESS
+-renamedefine SL_STOPPED       CGUI_SL_STOPPED
+
+-renamedefine SV_HIDE_LABEL    CGUI_SV_HIDE_LABEL
+-renamedefine SV_HIDE_ICON     CGUI_SV_HIDE_ICON
+-renamedefine SV_NO_TOOLTIP    CGUI_SV_NO_TOOLTIP
+-renamedefine SV_ONLY_BRIEF    CGUI_SV_ONLY_BRIEF
+-renamedefine SV_ONLY_LONG     CGUI_SV_ONLY_LONG
+-renamedefine SV_PREFERE_BRIEF CGUI_SV_PREFERE_BRIEF
+-renamedefine SV_PREFERE_LONG  CGUI_SV_PREFERE_LONG
+
+-renamedefine CT_BORDER       CGUI_CT_BORDER
+-renamedefine CT_OBJECT_TABLE CGUI_CT_OBJECT_TABLE
+
+-renamedefine OFF                  CGUI_OFF
+-renamedefine ON                   CGUI_ON
+-renamedefine ROW_STRIKE           CGUI_ROW_STRIKE
+-renamedefine ROW_UNDERLINE        CGUI_ROW_UNDERLINE
+-renamedefine ROW_CHECK            CGUI_ROW_CHECK
+-renamedefine ROW_UNCHECK          CGUI_ROW_UNCHECK
+-renamedefine COL_RIGHT_ALIGN      CGUI_COL_RIGHT_ALIGN
+-renamedefine ROW_COLUMN_UNDERLINE CGUI_ROW_COLUMN_UNDERLINE
+
+-renamedefine TR_HIDE_ROOT CGUI_TR_HIDE_ROOT
+
+-renamedefine LIST_COLUMNS_ADJUSTABLE                CGUI_LIST_COLUMNS_ADJUSTABLE
+-renamedefine LIST_COLUMNS_ADJUSTABLE_KEEP_BOX_WIDTH CGUI_LIST_COLUMNS_ADJUSTABLE_KEEP_BOX_WIDTH
+-renamedefine LIST_COLUMNS_DELIMITER                 CGUI_LIST_COLUMNS_DELIMITER
+
+-renamedefine FS_BROWSE_DAT                    CGUI_FS_BROWSE_DAT
+-renamedefine FS_DISABLE_EDIT_DAT              CGUI_FS_DISABLE_EDIT_DAT
+-renamedefine FS_WARN_EXISTING_FILE            CGUI_FS_WARN_EXISTING_FILE
+-renamedefine FS_FORBID_EXISTING_FILE          CGUI_FS_FORBID_EXISTING_FILE
+-renamedefine FS_REQUIRE_EXISTING_FILE         CGUI_FS_REQUIRE_EXISTING_FILE
+-renamedefine FS_SELECT_DIR                    CGUI_FS_SELECT_DIR
+-renamedefine FS_DISABLE_CREATE_DIR            CGUI_FS_DISABLE_CREATE_DIR
+-renamedefine FS_DISABLE_DELETING              CGUI_FS_DISABLE_DELETING
+-renamedefine FS_DISABLE_COPYING               CGUI_FS_DISABLE_COPYING
+-renamedefine FS_SHOW_MENU                     CGUI_FS_SHOW_MENU
+-renamedefine FS_NO_SETTINGS_IN_CONFIG         CGUI_FS_NO_SETTINGS_IN_CONFIG
+-renamedefine FS_MULTIPLE_SELECTION            CGUI_FS_MULTIPLE_SELECTION
+-renamedefine FS_NO_DRAG_DROP                  CGUI_FS_NO_DRAG_DROP
+-renamedefine FS_DIRECT_SELECT_BY_DOUBLE_CLICK CGUI_FS_DIRECT_SELECT_BY_DOUBLE_CLICK
+-renamedefine FS_SAVE_AS                       CGUI_FS_SAVE_AS
+-renamedefine FS_SHOW_DIR_TREE                 CGUI_FS_SHOW_DIR_TREE
+-renamedefine FS_SHOW_DIRS_IN_FILE_VIEW        CGUI_FS_SHOW_DIRS_IN_FILE_VIEW
+-renamedefine FS_HIDE_LOCATION                 CGUI_FS_HIDE_LOCATION
+-renamedefine FS_HIDE_UP_BUTTON                CGUI_FS_HIDE_UP_BUTTON
+-renamedefine FS_HIDE_UP_DIRECTORY             CGUI_FS_HIDE_UP_DIRECTORY
+-renamedefine FS_FILE_FILTER_IS_READ_ONLY      CGUI_FS_FILE_FILTER_IS_READ_ONLY
+-renamedefine FM_HIDE_FILE_VEW                 CGUI_FM_HIDE_FILE_VEW
+-renamedefine FM_DO_NOT_SHOW_MENU              CGUI_FM_DO_NOT_SHOW_MENU
+-renamedefine FM_NO_FLOATING                   CGUI_FM_NO_FLOATING
+-renamedefine FM_BROWSE_DAT                    CGUI_FM_BROWSE_DAT
+-renamedefine FM_DISABLE_EDIT_DAT              CGUI_FM_DISABLE_EDIT_DAT
+-renamedefine FM_DISABLE_CREATE_DIR            CGUI_FM_DISABLE_CREATE_DIR
+-renamedefine FM_DISABLE_DELETING              CGUI_FM_DISABLE_DELETING
+-renamedefine FM_DISABLE_COPYING               CGUI_FM_DISABLE_COPYING
+-renamedefine FM_NO_SETTINGS_IN_CONFIG         CGUI_FM_NO_SETTINGS_IN_CONFIG
+-renamedefine FM_SHOW_DIR_TREE                 CGUI_FM_SHOW_DIR_TREE
+-renamedefine FM_SHOW_DIRS_IN_FILE_VIEW        CGUI_FM_SHOW_DIRS_IN_FILE_VIEW
+-renamedefine FM_HIDE_LOCATION                 CGUI_FM_HIDE_LOCATION
+-renamedefine FM_HIDE_UP_BUTTON                CGUI_FM_HIDE_UP_BUTTON
+-renamedefine FM_HIDE_UP_DIRECTORY             CGUI_FM_HIDE_UP_DIRECTORY
+
+-renamedefine CLOCK_SHOW_SECONDS CGUI_CLOCK_SHOW_SECONDS
+-renamedefine CLOCK_SHOW_MINUTES CGUI_CLOCK_SHOW_MINUTES
+-renamedefine CLOCK_NO_DIALOGUE  CGUI_CLOCK_NO_DIALOGUE
+
+-renamedefine CURS_ILLEGAL   CGUI_CURS_ILLEGAL
+-renamedefine CURS_DRAGGABLE CGUI_CURS_DRAGGABLE
+-renamedefine CURS_DRAG_V    CGUI_CURS_DRAG_V
+-renamedefine CURS_DRAG_H    CGUI_CURS_DRAG_H
+-renamedefine CURS_CROSS     CGUI_CURS_CROSS
+-renamedefine CURS_BUSY      CGUI_CURS_BUSY
+-renamedefine CURS_DEFAULT   CGUI_CURS_DEFAULT
+
+-renamedefine NO_VERTICAL   CGUI_NO_VERTICAL
+-renamedefine NO_HORIZONTAL CGUI_NO_HORIZONTAL
+
+-renamedefine FRAMERAISE CGUI_FRAMERAISE
+-renamedefine FRAMESINK  CGUI_FRAMESINK
+-renamedefine W_NOMODAL  CGUI_W_NOMODAL
+-renamedefine W_CHILD    CGUI_W_CHILD

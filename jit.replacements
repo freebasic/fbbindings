@@ -1,0 +1,45 @@
+convert c:
+	#define _JIT_ARCH_GET_NEXT_FRAME(n, f) \
+		do { \
+			(n) = (void *)((f) ? ((_jit_arch_frame_t *)(f))->next_frame : 0); \
+		} while(0)
+to fb:
+	#macro _JIT_ARCH_GET_NEXT_FRAME(n, f)
+		scope
+			(n) = cptr(any ptr, iif((f), cptr(_jit_arch_frame_t ptr, (f))->next_frame, 0))
+		end scope
+	#endmacro
+
+convert c:
+	#define _JIT_ARCH_GET_RETURN_ADDRESS(r, f) \
+		do { \
+			(r) = (void *)((f) ? ((_jit_arch_frame_t *)(f))->return_address : 0); \
+		} while(0)
+to fb:
+	#macro _JIT_ARCH_GET_RETURN_ADDRESS(r, f)
+		scope
+			(r) = cptr(any ptr, iif((f), cptr(_jit_arch_frame_t ptr, (f))->return_address, 0))
+		end scope
+	#endmacro
+
+convert c:
+	#define _JIT_ARCH_GET_CURRENT_RETURN(r) \
+		do { \
+			void *__frame; \
+			_JIT_ARCH_GET_CURRENT_FRAME(__frame); \
+			_JIT_ARCH_GET_RETURN_ADDRESS((r), __frame); \
+		} while(0)
+to fb:
+	#macro _JIT_ARCH_GET_CURRENT_RETURN(r)
+		scope
+			dim __frame as any ptr
+			_JIT_ARCH_GET_CURRENT_FRAME(__frame)
+			_JIT_ARCH_GET_RETURN_ADDRESS((r), __frame)
+		end scope
+	#endmacro
+
+convert c: #define jit_get_current_frame() ({ void *address; _JIT_ARCH_GET_CURRENT_FRAME(address); address; })
+to c:      #define jit_get_current_frame() jit_get_frame_address(0)
+
+convert c: #define jit_declare_crawl_mark(name) jit_crawl_mark_t name = {0}
+to fb:     #define jit_declare_crawl_mark(name) dim as jit_crawl_mark_t name = {0}

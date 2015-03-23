@@ -1,6 +1,8 @@
 FBFROG := fbfrog
 override FBFROG += -disableconstants
 
+override FBFROG += -disableconstants
+
 ALL := allegro4 allegro5
 ALL += cgui clang cunit curl
 ALL += fastcgi ffi
@@ -47,7 +49,16 @@ allegro4:
 		extracted/alpng13/src/alpng.h \
 		-emit '*/algif.h' inc/allegro/algif.bi \
 		-emit '*/alpng.h' inc/allegro/alpng.bi \
-		-emit '*'         inc/allegro.bi
+		-emit '*'         inc/allegro.bi \
+		-inclib alleg  inc/allegro.bi \
+		-inclib algif  inc/allegro/algif.bi \
+		-inclib alpng  inc/allegro/alpng.bi \
+		-undef screen  inc/allegro.bi \
+		-undef circle  inc/allegro.bi \
+		-undef line    inc/allegro.bi \
+		-undef palette inc/allegro.bi \
+		-undef rgb     inc/allegro.bi \
+		-addinclude allegro.bi inc/allegro/alpng.bi
 
 ALLEGRO5_VERSION := 5.0.10
 ALLEGRO5_TITLE := allegro-$(ALLEGRO5_VERSION)
@@ -79,7 +90,18 @@ allegro5:
 		-emit '*/allegro_physfs.h'        inc/allegro5/allegro_physfs.bi \
 		-emit '*/allegro_primitives.h'    inc/allegro5/allegro_primitives.bi \
 		-emit '*/allegro_ttf.h'           inc/allegro5/allegro_ttf.bi \
-		-emit '*'                         inc/allegro5/allegro.bi
+		-emit '*'                         inc/allegro5/allegro.bi \
+		-inclib allegro            inc/allegro5/allegro.bi \
+		-inclib allegro_acodec     inc/allegro5/allegro_acodec.bi \
+		-inclib allegro_audio      inc/allegro5/allegro_audio.bi \
+		-inclib allegro_color      inc/allegro5/allegro_color.bi \
+		-inclib allegro_font       inc/allegro5/allegro_font.bi \
+		-inclib allegro_image      inc/allegro5/allegro_image.bi \
+		-inclib allegro_memfile    inc/allegro5/allegro_memfile.bi \
+		-inclib allegro_dialog     inc/allegro5/allegro_native_dialog.bi \
+		-inclib allegro_physfs     inc/allegro5/allegro_physfs.bi \
+		-inclib allegro_primitives inc/allegro5/allegro_primitives.bi \
+		-inclib allegro_ttf        inc/allegro5/allegro_ttf.bi
 
 cgui:
 	./downloadextract.sh cgui cgui-2.0.3.tar.gz "http://sourceforge.net/projects/cgui/files/2.0.3/cgui-2.0.3.tar.gz/download"
@@ -122,27 +144,10 @@ cunit:
 CURL_TITLE := curl-7.39.0
 curl:
 	./downloadextract.sh $(CURL_TITLE) $(CURL_TITLE).tar.lzma "http://curl.haxx.se/download/$(CURL_TITLE).tar.lzma"
-	$(FBFROG) \
+	$(FBFROG) curl.fbfrog \
 		extracted/$(CURL_TITLE)/include/curl/curl.h \
 		-dontemit '*/typecheck-gcc.h' \
-		-emit '*' inc/curl.bi \
-		\
-		-removedefine CINIT \
-		-removedefine CURL_EXTERN \
-		\
-		-noexpand CURLOPTTYPE_LONG \
-		-noexpand CURLOPTTYPE_OBJECTPOINT \
-		-noexpand CURLOPTTYPE_FUNCTIONPOINT \
-		-noexpand CURLOPTTYPE_OFF_T \
-		-noexpand CURLINFO_STRING \
-		-noexpand CURLINFO_LONG \
-		-noexpand CURLINFO_DOUBLE \
-		-noexpand CURLINFO_SLIST \
-		\
-		-removedefine curl_easy_setopt \
-		-removedefine curl_easy_getinfo \
-		-removedefine curl_share_setopt \
-		-removedefine curl_multi_setopt
+		-emit '*' inc/curl.bi
 
 FASTCGI_TITLE := fcgi-2.4.1-SNAP-0311112127
 fastcgi:
@@ -154,7 +159,9 @@ fastcgi:
 		extracted/$(FASTCGI_TITLE)/include/fcgi_stdio.h \
 		-emit '*/fastcgi.h'    inc/fastcgi/fastcgi.bi \
 		-emit '*/fcgiapp.h'    inc/fastcgi/fcgiapp.bi \
-		-emit '*/fcgi_stdio.h' inc/fastcgi/fcgi_stdio.bi
+		-emit '*/fcgi_stdio.h' inc/fastcgi/fcgi_stdio.bi \
+		-addinclude crt.bi inc/fastcgi/fcgi_stdio.bi \
+		-inclib fcgi inc/fastcgi/fcgiapp.bi
 
 FFI_TITLE := libffi-3.1
 ffi:
@@ -188,7 +195,7 @@ iup:
 	find extracted/iup/ -type d -exec chmod +x '{}' ';'
 	mkdir -p inc/IUP
 
-	$(FBFROG) \
+	$(FBFROG) iup.fbfrog \
 		extracted/iup/include/*.h \
 		-emit '*/iupcb.h'            inc/IUP/iupcb.bi            \
 		-emit '*/iupcbox.h'          inc/IUP/iupcbox.bi          \
@@ -217,7 +224,25 @@ iup:
 		-emit '*/iuptree.h'          inc/IUP/iuptree.bi          \
 		-emit '*/iuptuio.h'          inc/IUP/iuptuio.bi          \
 		-emit '*/iupval.h'           inc/IUP/iupval.bi           \
-		-emit '*/iupweb.h'           inc/IUP/iupweb.bi
+		-emit '*/iupweb.h'           inc/IUP/iupweb.bi           \
+		-inclib iup                  inc/IUP/iup.bi              \
+		-ifdef __FB_WIN32__                                      \
+			-inclib gdi32        inc/IUP/iup.bi              \
+			-inclib user32       inc/IUP/iup.bi              \
+			-inclib comdlg32     inc/IUP/iup.bi              \
+			-inclib comctl32     inc/IUP/iup.bi              \
+			-inclib ole32        inc/IUP/iup.bi              \
+		-else                                                    \
+			-inclib gtk-x11-2.0  inc/IUP/iup.bi              \
+			-inclib gdk-x11-2.0  inc/IUP/iup.bi              \
+			-inclib pangox-1.0   inc/IUP/iup.bi              \
+			-inclib gdk_pixbuf-2.0 inc/IUP/iup.bi            \
+			-inclib pango-1.0    inc/IUP/iup.bi              \
+			-inclib gobject-2.0  inc/IUP/iup.bi              \
+			-inclib gmodule-2.0  inc/IUP/iup.bi              \
+			-inclib glib-2.0     inc/IUP/iup.bi              \
+		-endif
+
 
 	$(FBFROG) iupim.fbfrog extracted/iup/include/iupim.h -o inc/IUP
 
@@ -270,10 +295,7 @@ llvm:
 	cd extracted/$(LLVM_TITLE) && \
 		if [ ! -f include/llvm/Config/Targets.def ]; then ./configure --prefix=/usr; fi
 
-	$(FBFROG) -o inc/llvm-c.bi \
-		-fbfroginclude stdbool.h \
-		-define __STDC_LIMIT_MACROS 1 \
-		-define __STDC_CONSTANT_MACROS 1 \
+	$(FBFROG) -o inc/llvm-c.bi llvm.fbfrog \
 		-incdir extracted/$(LLVM_TITLE)/include \
 		extracted/$(LLVM_TITLE)/include/llvm-c/Analysis.h		\
 		extracted/$(LLVM_TITLE)/include/llvm-c/BitReader.h		\
@@ -289,16 +311,7 @@ llvm:
 		extracted/$(LLVM_TITLE)/include/llvm-c/Object.h			\
 		extracted/$(LLVM_TITLE)/include/llvm-c/Support.h		\
 		extracted/$(LLVM_TITLE)/include/llvm-c/Target.h			\
-		extracted/$(LLVM_TITLE)/include/llvm-c/TargetMachine.h		\
-		-removedefine HAVE_INTTYPES_H	\
-		-removedefine HAVE_STDINT_H	\
-		-removedefine HAVE_UINT64_T	\
-		-removedefine INT64_MAX		\
-		-removedefine INT64_MIN		\
-		-removedefine UINT64_MAX	\
-		-removedefine HUGE_VALF		\
-		-removedefine LLVM_FOR_EACH_VALUE_SUBCLASS	\
-		-removedefine LLVM_DECLARE_VALUE_CAST
+		extracted/$(LLVM_TITLE)/include/llvm-c/TargetMachine.h
 
 LUA_TITLE := lua-5.2.3
 lua:
@@ -311,7 +324,8 @@ lua:
 		-emit '*/lua.h'     inc/Lua/lua.bi     \
 		-emit '*/luaconf.h' inc/Lua/lua.bi     \
 		-emit '*/lualib.h'  inc/Lua/lualib.bi  \
-		-emit '*/lauxlib.h' inc/Lua/lauxlib.bi
+		-emit '*/lauxlib.h' inc/Lua/lauxlib.bi \
+		-inclib lua inc/Lua/lua.bi
 
 NCURSES_TITLE := ncurses-5.9
 ncurses:
@@ -355,26 +369,26 @@ png: png12 png14 png15 png16
 PNG12_TITLE := libpng-1.2.51
 png12:
 	./downloadextract.sh $(PNG12_TITLE) $(PNG12_TITLE).tar.xz "http://downloads.sourceforge.net/libpng/$(PNG12_TITLE).tar.xz?download"
-	$(FBFROG) png.fbfrog -o inc/png12.bi extracted/$(PNG12_TITLE)/png.h
+	$(FBFROG) png.fbfrog png12.fbfrog -o inc/png12.bi extracted/$(PNG12_TITLE)/png.h
 
 PNG14_TITLE := libpng-1.4.13
 png14:
 	./downloadextract.sh $(PNG14_TITLE) $(PNG14_TITLE).tar.xz "http://downloads.sourceforge.net/libpng/$(PNG14_TITLE).tar.xz?download"
-	$(FBFROG) png.fbfrog -o inc/png14.bi extracted/$(PNG14_TITLE)/png.h
+	$(FBFROG) png.fbfrog png14.fbfrog -o inc/png14.bi extracted/$(PNG14_TITLE)/png.h
 
 PNG15_TITLE := libpng-1.5.19
 png15:
 	./downloadextract.sh $(PNG15_TITLE) $(PNG15_TITLE).tar.xz "http://downloads.sourceforge.net/libpng/$(PNG15_TITLE).tar.xz?download"
 	cp extracted/$(PNG15_TITLE)/scripts/pnglibconf.h.prebuilt \
 	   extracted/$(PNG15_TITLE)/pnglibconf.h
-	$(FBFROG) png.fbfrog -o inc/png15.bi extracted/$(PNG15_TITLE)/png.h
+	$(FBFROG) png.fbfrog png15.fbfrog -o inc/png15.bi extracted/$(PNG15_TITLE)/png.h
 
 PNG16_TITLE := libpng-1.6.14
 png16:
 	./downloadextract.sh $(PNG16_TITLE) $(PNG16_TITLE).tar.xz "http://downloads.sourceforge.net/libpng/$(PNG16_TITLE).tar.xz?download"
 	cp extracted/$(PNG16_TITLE)/scripts/pnglibconf.h.prebuilt \
 	   extracted/$(PNG16_TITLE)/pnglibconf.h
-	$(FBFROG) png.fbfrog -o inc/png16.bi extracted/$(PNG16_TITLE)/png.h
+	$(FBFROG) png.fbfrog png16.fbfrog -o inc/png16.bi extracted/$(PNG16_TITLE)/png.h
 
 ################################################################################
 # Windows API, based on MinGW-w64 headers
@@ -478,7 +492,8 @@ winapi:
 		-include d3d.h \
 		-emit '*/d3d.h'      inc/win/d3d.bi     \
 		-emit '*/d3dcaps.h'  inc/win/d3dcaps.bi \
-		-emit '*/d3dtypes.h' inc/win/d3dtypes.bi
+		-emit '*/d3dtypes.h' inc/win/d3dtypes.bi \
+		-inclib dxguid       inc/win/d3d.bi
 
 	# CRT intrin.h pass (separate because of -nofunctionbodies)
 	$(FBFROG) $(WINAPI_FLAGS) -nofunctionbodies \
@@ -497,14 +512,17 @@ winapi:
 		-emit '*/psdk_inc/_ip_mreq1.h'     inc/win/winsock.bi \
 		-emit '*/psdk_inc/_wsadata.h'      inc/win/winsock.bi \
 		-emit '*/psdk_inc/_xmitfile.h'     inc/win/winsock.bi \
-		-emit '*/psdk_inc/_wsa_errnos.h'   inc/win/winsock.bi
+		-emit '*/psdk_inc/_wsa_errnos.h'   inc/win/winsock.bi \
+		-inclib wsock32                    inc/win/winsock.bi
+
 
 	# ole.h pass (separate because it can't be #included with windows.h,
 	# even though windows.h has code to do just that, due to conflicts with
 	# ole2.h)
 	$(FBFROG) $(WINAPI_FLAGS) -define _Analysis_noreturn_ "" \
 		-include windef.h -include ole.h \
-		-emit '*/ole.h' inc/win/ole.bi
+		-emit '*/ole.h' inc/win/ole.bi \
+		-inclib ole32   inc/win/ole.bi
 
 	# windows.h pass to get windows.bi (separate because of the additional
 	# -declarebool that would only slow down the main pass)
