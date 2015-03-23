@@ -148,18 +148,18 @@ declare function FreeGPOListW(byval pGPOList as PGROUP_POLICY_OBJECTW) as WINBOO
 declare function GetAppliedGPOListA(byval dwFlags as DWORD, byval pMachineName as LPCSTR, byval pSidUser as PSID, byval pGuidExtension as GUID ptr, byval ppGPOList as PGROUP_POLICY_OBJECTA ptr) as DWORD
 declare function GetAppliedGPOListW(byval dwFlags as DWORD, byval pMachineName as LPCWSTR, byval pSidUser as PSID, byval pGuidExtension as GUID ptr, byval ppGPOList as PGROUP_POLICY_OBJECTW ptr) as DWORD
 
-#define GP_DLLNAME TEXT("DllName")
-#define GP_ENABLEASYNCHRONOUSPROCESSING TEXT("EnableAsynchronousProcessing")
-#define GP_MAXNOGPOLISTCHANGESINTERVAL TEXT("MaxNoGPOListChangesInterval")
-#define GP_NOBACKGROUNDPOLICY TEXT("NoBackgroundPolicy")
-#define GP_NOGPOLISTCHANGES TEXT("NoGPOListChanges")
-#define GP_NOMACHINEPOLICY TEXT("NoMachinePolicy")
-#define GP_NOSLOWLINK TEXT("NoSlowLink")
-#define GP_NOTIFYLINKTRANSITION TEXT("NotifyLinkTransition")
-#define GP_NOUSERPOLICY TEXT("NoUserPolicy")
-#define GP_PERUSERLOCALSETTINGS TEXT("PerUserLocalSettings")
-#define GP_PROCESSGROUPPOLICY TEXT("ProcessGroupPolicy")
-#define GP_REQUIRESSUCCESSFULREGISTRY TEXT("RequiresSuccessfulRegistry")
+#define GP_DLLNAME __TEXT("DllName")
+#define GP_ENABLEASYNCHRONOUSPROCESSING __TEXT("EnableAsynchronousProcessing")
+#define GP_MAXNOGPOLISTCHANGESINTERVAL __TEXT("MaxNoGPOListChangesInterval")
+#define GP_NOBACKGROUNDPOLICY __TEXT("NoBackgroundPolicy")
+#define GP_NOGPOLISTCHANGES __TEXT("NoGPOListChanges")
+#define GP_NOMACHINEPOLICY __TEXT("NoMachinePolicy")
+#define GP_NOSLOWLINK __TEXT("NoSlowLink")
+#define GP_NOTIFYLINKTRANSITION __TEXT("NotifyLinkTransition")
+#define GP_NOUSERPOLICY __TEXT("NoUserPolicy")
+#define GP_PERUSERLOCALSETTINGS __TEXT("PerUserLocalSettings")
+#define GP_PROCESSGROUPPOLICY __TEXT("ProcessGroupPolicy")
+#define GP_REQUIRESSUCCESSFULREGISTRY __TEXT("RequiresSuccessfulRegistry")
 #define GPO_INFO_FLAG_MACHINE &h00000001
 #define GPO_INFO_FLAG_BACKGROUND &h00000010
 #define GPO_INFO_FLAG_SLOWLINK &h00000020

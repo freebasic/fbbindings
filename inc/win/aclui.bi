@@ -163,7 +163,7 @@ type ISecurityInformation2Vtbl_
 end type
 
 type LPSECURITYINFO2 as ISecurityInformation2 ptr
-#define CFSTR_ACLUI_SID_INFO_LIST TEXT("CFSTR_ACLUI_SID_INFO_LIST")
+#define CFSTR_ACLUI_SID_INFO_LIST __TEXT("CFSTR_ACLUI_SID_INFO_LIST")
 
 type _SID_INFO
 	pSid as PSID

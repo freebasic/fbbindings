@@ -469,10 +469,10 @@ declare sub free_config_entries(byval names as const zstring ptr ptr ptr)
 #define SYSTEM_AUTODETECT 0
 #define SYSTEM_NONE_ AL_ID(asc("N"), asc("O"), asc("N"), asc("E"))
 #define MAKE_VERSION(a, b, c) ((((a) shl 16) or ((b) shl 8)) or (c))
-
 declare function _install_allegro_version_check(byval system_id as long, byval errno_ptr as long ptr, byval atexit_ptr as function(byval func as sub()) as long, byval version as long) as long
 declare function install_allegro(byval system_id as long, byval errno_ptr as long ptr, byval atexit_ptr as function(byval func as sub()) as long) as long
 #define allegro_init() _install_allegro_version_check(SYSTEM_AUTODETECT, @errno, cptr(function cdecl(byval as sub cdecl()) as long, @atexit), MAKE_VERSION(ALLEGRO_VERSION, ALLEGRO_SUB_VERSION, ALLEGRO_WIP_VERSION))
+
 declare sub allegro_exit()
 declare sub allegro_message(byval msg as const zstring ptr, ...)
 declare sub get_executable_name(byval output as zstring ptr, byval size as long)

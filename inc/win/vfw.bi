@@ -965,7 +965,7 @@ declare function EditStreamSetInfoA(byval pavi as PAVISTREAM, byval lpInfo as LP
 #define AVIERR_USERABORT MAKE_AVIERR(198)
 #define AVIERR_ERROR MAKE_AVIERR(199)
 #define MCIWndSM SendMessage
-#define MCIWND_WINDOW_CLASS TEXT("MCIWndClass")
+#define MCIWND_WINDOW_CLASS __TEXT("MCIWndClass")
 
 #ifdef UNICODE
 	#define MCIWndCreate MCIWndCreateW
@@ -1056,10 +1056,10 @@ end function
 #define MCIWndSetTimeFormat(hwnd, lp) cast(LONG, MCIWndSM(hwnd, MCIWNDM_SETTIMEFORMAT, cast(WPARAM, 0), cast(LPARAM, cast(LPTSTR, (lp)))))
 #define MCIWndGetTimeFormat(hwnd, lp, len) cast(LONG, MCIWndSM(hwnd, MCIWNDM_GETTIMEFORMAT, cast(WPARAM, cast(UINT, (len))), cast(LPARAM, cast(LPTSTR, (lp)))))
 #define MCIWndValidateMedia(hwnd) '' TODO: (VOID)MCIWndSM(hwnd,MCIWNDM_VALIDATEMEDIA,(WPARAM)0,(LPARAM)0)
-#define MCIWndSetRepeat(hwnd, f) cast(any, MCIWndSM(hwnd, MCIWNDM_SETREPEAT, cast(WPARAM, 0), cast(LPARAM, cast(WINBOOL, (f)))))
+#define MCIWndSetRepeat(hwnd, f) MCIWndSM(hwnd, MCIWNDM_SETREPEAT, cast(WPARAM, 0), cast(LPARAM, cast(WINBOOL, (f))))
 #define MCIWndGetRepeat(hwnd) cast(WINBOOL, MCIWndSM(hwnd, MCIWNDM_GETREPEAT, cast(WPARAM, 0), cast(LPARAM, 0)))
-#define MCIWndUseFrames(hwnd) MCIWndSetTimeFormat(hwnd, TEXT("frames"))
-#define MCIWndUseTime(hwnd) MCIWndSetTimeFormat(hwnd, TEXT("ms"))
+#define MCIWndUseFrames(hwnd) MCIWndSetTimeFormat(hwnd, __TEXT("frames"))
+#define MCIWndUseTime(hwnd) MCIWndSetTimeFormat(hwnd, __TEXT("ms"))
 #define MCIWndSetActiveTimer(hwnd, active) '' TODO: (VOID)MCIWndSM(hwnd,MCIWNDM_SETACTIVETIMER,(WPARAM)(UINT)(active),(LPARAM)0)
 #define MCIWndSetInactiveTimer(hwnd, inactive) '' TODO: (VOID)MCIWndSM(hwnd,MCIWNDM_SETINACTIVETIMER,(WPARAM)(UINT)(inactive),(LPARAM)0)
 #define MCIWndSetTimers(hwnd, active, inactive) '' TODO: (VOID)MCIWndSM(hwnd,MCIWNDM_SETTIMERS,(WPARAM)(UINT)(active),(LPARAM)(UINT)(inactive))

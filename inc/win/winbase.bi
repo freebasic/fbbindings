@@ -3120,10 +3120,10 @@ type PGET_SYSTEM_WOW64_DIRECTORY_A as function(byval lpBuffer as LPSTR, byval uS
 type PGET_SYSTEM_WOW64_DIRECTORY_W as function(byval lpBuffer as LPWSTR, byval uSize as UINT) as UINT
 #define GET_SYSTEM_WOW64_DIRECTORY_NAME_A_A "GetSystemWow64DirectoryA"
 #define GET_SYSTEM_WOW64_DIRECTORY_NAME_A_W wstr("GetSystemWow64DirectoryA")
-#define GET_SYSTEM_WOW64_DIRECTORY_NAME_A_T TEXT("GetSystemWow64DirectoryA")
+#define GET_SYSTEM_WOW64_DIRECTORY_NAME_A_T __TEXT("GetSystemWow64DirectoryA")
 #define GET_SYSTEM_WOW64_DIRECTORY_NAME_W_A "GetSystemWow64DirectoryW"
 #define GET_SYSTEM_WOW64_DIRECTORY_NAME_W_W wstr("GetSystemWow64DirectoryW")
-#define GET_SYSTEM_WOW64_DIRECTORY_NAME_W_T TEXT("GetSystemWow64DirectoryW")
+#define GET_SYSTEM_WOW64_DIRECTORY_NAME_W_T __TEXT("GetSystemWow64DirectoryW")
 
 #ifdef UNICODE
 	#define GET_SYSTEM_WOW64_DIRECTORY_NAME_T_A GET_SYSTEM_WOW64_DIRECTORY_NAME_W_A
