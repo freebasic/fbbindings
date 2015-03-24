@@ -1,0 +1,114 @@
+convert c:
+	#define SDL_VERSION(X) { \
+		(X)->major = SDL_MAJOR_VERSION; \
+		(X)->minor = SDL_MINOR_VERSION; \
+		(X)->patch = SDL_PATCHLEVEL; \
+	}
+to fb:
+	#macro SDL_VERSION(X)
+		scope
+			(X)->major = SDL_MAJOR_VERSION
+			(X)->minor = SDL_MINOR_VERSION
+			(X)->patch = SDL_PATCHLEVEL
+		end scope
+	#endmacro
+
+convert c:
+	#define SDL_MIXER_VERSION(X) { \
+		(X)->major = SDL_MIXER_MAJOR_VERSION; \
+		(X)->minor = SDL_MIXER_MINOR_VERSION; \
+		(X)->patch = SDL_MIXER_PATCHLEVEL; \
+	}
+to fb:
+	#macro SDL_MIXER_VERSION(X)
+		scope
+			(X)->major = SDL_MIXER_MAJOR_VERSION
+			(X)->minor = SDL_MIXER_MINOR_VERSION
+			(X)->patch = SDL_MIXER_PATCHLEVEL
+		end scope
+	#endmacro
+
+convert c:
+	#define SDL_NET_VERSION(X) { \
+		(X)->major = SDL_NET_MAJOR_VERSION; \
+		(X)->minor = SDL_NET_MINOR_VERSION; \
+		(X)->patch = SDL_NET_PATCHLEVEL; \
+	}
+to fb:
+	#macro SDL_NET_VERSION(X)
+		scope
+			(X)->major = SDL_NET_MAJOR_VERSION
+			(X)->minor = SDL_NET_MINOR_VERSION
+			(X)->patch = SDL_NET_PATCHLEVEL
+		end scope
+	#endmacro
+
+convert c:
+	#define SDL_TTF_VERSION(X) { \
+		(X)->major = SDL_TTF_MAJOR_VERSION; \
+		(X)->minor = SDL_TTF_MINOR_VERSION; \
+		(X)->patch = SDL_TTF_PATCHLEVEL; \
+	}
+to fb:
+	#macro SDL_TTF_VERSION(X)
+		scope
+			(X)->major = SDL_TTF_MAJOR_VERSION
+			(X)->minor = SDL_TTF_MINOR_VERSION
+			(X)->patch = SDL_TTF_PATCHLEVEL
+		end scope
+	#endmacro
+
+convert c:
+	#define SDL_IMAGE_VERSION(X) { \
+		(X)->major = SDL_IMAGE_MAJOR_VERSION; \
+		(X)->minor = SDL_IMAGE_MINOR_VERSION; \
+		(X)->patch = SDL_IMAGE_PATCHLEVEL; \
+	}
+to fb:
+	#macro SDL_IMAGE_VERSION(X)
+		scope
+			(X)->major = SDL_IMAGE_MAJOR_VERSION
+			(X)->minor = SDL_IMAGE_MINOR_VERSION
+			(X)->patch = SDL_IMAGE_PATCHLEVEL
+		end scope
+	#endmacro
+
+convert c: #define SDL_QuitRequested() (SDL_PumpEvents(), SDL_PeepEvents(NULL, 0, SDL_PEEKEVENT, SDL_QUITMASK))
+to fb:
+	private function SDL_QuitRequested() as SDL_bool
+		SDL_PumpEvents()
+		function = SDL_PeepEvents(NULL, 0, SDL_PEEKEVENT, SDL_QUITMASK)
+	end function
+
+convert c:
+	#define FRAMES_TO_MSF(f, M, S, F) { \
+		int value = f; \
+		*(F) = value % CD_FPS; \
+		value /= CD_FPS; \
+		*(S) = value % 60; \
+		value /= 60; \
+		*(M) = value; \
+	}
+to fb:
+	#macro FRAMES_TO_MSF(f_, M, S, F)
+		scope
+			dim value as long = f_
+			*(F) = value mod CD_FPS
+			value \= CD_FPS
+			*(S) = value mod 60
+			value \= 60
+			*(M) = value
+		end scope
+	#endmacro
+
+convert c: #define SDLNet_Write16(value, areap) (*SDL_reinterpret_cast(Uint16 *, areap) = SDL_SwapBE16(value))
+to fb:     #define SDLNet_Write16(value, areap) scope : *cptr(Uint16 ptr, areap) = SDL_SwapBE16(value) : end scope
+
+convert c: #define SDLNet_Write32(value, areap) *SDL_reinterpret_cast(Uint32 *, areap) = SDL_SwapBE32(value);
+to fb:     #define SDLNet_Write32(value, areap) scope : *cptr(Uint32 ptr, areap) = SDL_SwapBE32(value) : end scope
+
+convert c: #define SDLNet_Read16(areap) (SDL_SwapBE16(*SDL_reinterpret_cast(Uint16 *, areap)))
+to c:      #define SDLNet_Read16(areap) SDL_SwapBE16(*(Uint16 *)areap)
+
+convert c: #define SDLNet_Read32(areap) (SDL_SwapBE32(*SDL_reinterpret_cast(Uint32 *, areap)))
+to c:      #define SDLNet_Read32(areap) SDL_SwapBE32(*(Uint32 *)areap)

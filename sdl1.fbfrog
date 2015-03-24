@@ -1,0 +1,43 @@
+nodos.fbfrog
+
+-replacements sdl1.replacements
+
+-removedefine SDL_arraysize
+-removedefine SDL_TABLESIZE
+-removedefine SDL_reinterpret_cast
+-removedefine SDL_static_cast
+-removedefine SDL_COMPILE_TIME_ASSERT
+-removedefine DECLSPEC
+-removedefine SDLCALL
+-removedefine SDL_INLINE_OKAY
+-removedefine alloca
+-removedefine DLLINTERFACE
+-removedefine C_LINKAGE
+-removedefine main
+
+-removedefine SDL_AUDIO_DRIVER_DUMMY
+-removedefine SDL_CDROM_WIN32
+-removedefine SDL_JOYSTICK_WINMM
+-removedefine SDL_LOADSO_WIN32
+-removedefine SDL_THREAD_WIN32
+-removedefine SDL_TIMER_WIN32
+-removedefine SDL_VIDEO_DRIVER_DDRAW
+-removedefine SDL_CDROM_DISABLED
+-removedefine SDL_JOYSTICK_DISABLED
+-removedefine SDL_LOADSO_DISABLED
+-removedefine SDL_THREADS_DISABLED
+-removedefine SDL_TIMERS_DISABLED
+-removedefine SDL_VIDEO_DRIVER_DUMMY
+-removedefine SDL_VIDEO_DRIVER_WINDIB
+-removedefine SDL_VIDEO_OPENGL
+-removedefine SDL_VIDEO_OPENGL_WGL
+-removedefine SDL_VIDEO_DISABLE_SCREENSAVER
+-removedefine SDL_ASSEMBLY_ROUTINES
+
+-removeinclude stdlib.h
+-removeinclude stddef.h
+-removeinclude stdarg.h
+-removeinclude stdint.h
+-removeinclude ctype.h
+-removeinclude string.h
+-removeinclude endian.h

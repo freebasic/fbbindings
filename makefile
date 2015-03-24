@@ -8,6 +8,7 @@ ALL += jit
 ALL += llvm lua
 ALL += ncurses
 ALL += pdcurses png png12 png14 png15 png16
+ALL += sdl sdl1
 ALL += zip zlib
 
 .PHONY: all clean $(ALL)
@@ -380,6 +381,103 @@ png16:
 	cp extracted/$(PNG16_TITLE)/scripts/pnglibconf.h.prebuilt \
 	   extracted/$(PNG16_TITLE)/pnglibconf.h
 	$(FBFROG) png.fbfrog png16.fbfrog -o inc/png16.bi extracted/$(PNG16_TITLE)/png.h
+
+sdl: sdl1
+
+SDL1_MAIN := SDL-1.2.15
+SDL1_IMAGE := SDL_image-1.2.12
+SDL1_MIXER := SDL_mixer-1.2.12
+SDL1_NET := SDL_net-1.2.8
+SDL1_TTF := SDL_ttf-2.0.11
+SDL1_GFX := SDL_gfx-2.0.13
+sdl1:
+	./downloadextract.sh $(SDL1_MAIN)  $(SDL1_MAIN).tar.gz  "http://www.libsdl.org/release/$(SDL1_MAIN).tar.gz"
+	./downloadextract.sh $(SDL1_IMAGE) $(SDL1_IMAGE).tar.gz "http://www.libsdl.org/projects/SDL_image/release/$(SDL1_IMAGE).tar.gz"
+	./downloadextract.sh $(SDL1_MIXER) $(SDL1_MIXER).tar.gz "http://www.libsdl.org/projects/SDL_mixer/release/$(SDL1_MIXER).tar.gz"
+	./downloadextract.sh $(SDL1_NET)   $(SDL1_NET).tar.gz   "http://www.libsdl.org/projects/SDL_net/release/$(SDL1_NET).tar.gz"
+	./downloadextract.sh $(SDL1_TTF)   $(SDL1_TTF).tar.gz   "http://www.libsdl.org/projects/SDL_ttf/release/$(SDL1_TTF).tar.gz"
+	./downloadextract.sh $(SDL1_GFX)   $(SDL1_GFX).tar.gz   "http://www.ferzkopp.net/Software/SDL_gfx-2.0/$(SDL1_GFX).tar.gz"
+
+	# SDL_config.h is target-specific.
+	# For Windows/DOS we can probably use the prepackaged SDL_config.h.default,
+	# but for Linux we have to generate it based on SDL_config.h.in.
+	cd extracted/$(SDL1_MAIN)/include && \
+		rm -f SDL_config.h && \
+		mkdir -p unix default && \
+		cp SDL_config.h.in unix/SDL_config.h && \
+		cp SDL_config.h.default default/SDL_config.h
+	cat sdl1-unix-config.h >> extracted/$(SDL1_MAIN)/include/unix/SDL_config.h
+
+	mkdir -p inc/SDL
+	$(FBFROG) sdl1.fbfrog \
+		\
+		-incdir extracted/$(SDL1_MAIN)/include \
+			-ifdef __FB_WIN32__ \
+				-incdir extracted/$(SDL1_MAIN)/include/default \
+			-else \
+				-ifdef __FB_DOS__ \
+					-incdir extracted/$(SDL1_MAIN)/include/default \
+				-else \
+					-incdir extracted/$(SDL1_MAIN)/include/unix \
+				-endif \
+			-endif \
+			-include SDL.h \
+			-include SDL_getenv.h \
+			-include SDL_syswm.h \
+		-incdir extracted/$(SDL1_IMAGE) -include SDL_image.h \
+		-incdir extracted/$(SDL1_MIXER) -include SDL_mixer.h \
+		-incdir extracted/$(SDL1_NET)   -include SDL_net.h \
+		-incdir extracted/$(SDL1_TTF)   -include SDL_ttf.h \
+		-incdir extracted/$(SDL1_GFX) \
+			-include SDL_framerate.h          \
+			-include SDL_gfxPrimitives_font.h \
+			-include SDL_gfxPrimitives.h      \
+			-include SDL_imageFilter.h        \
+			-include SDL_rotozoom.h           \
+		\
+		-emit '*/SDL_active.h'    inc/SDL/SDL_active.bi \
+		-emit '*/SDL_audio.h'     inc/SDL/SDL_audio.bi \
+		-emit '*/SDL.h'           inc/SDL/SDL.bi \
+		-emit '*/SDL_byteorder.h' inc/SDL/SDL_byteorder.bi \
+		-emit '*/SDL_cdrom.h'     inc/SDL/SDL_cdrom.bi \
+		-emit '*/SDL_cpuinfo.h'   inc/SDL/SDL_cpuinfo.bi \
+		-emit '*/SDL_endian.h'    inc/SDL/SDL_endian.bi \
+		-emit '*/SDL_error.h'     inc/SDL/SDL_error.bi \
+		-emit '*/SDL_events.h'    inc/SDL/SDL_events.bi \
+		-emit '*/SDL_getenv.h'    inc/SDL/SDL_getenv.bi \
+		-emit '*/SDL_framerate.h'          inc/SDL/SDL_gfx_framerate.bi \
+		-emit '*/SDL_imageFilter.h'        inc/SDL/SDL_gfx_imageFilter.bi \
+		-emit '*/SDL_gfxPrimitives.h'      inc/SDL/SDL_gfx_primitives.bi \
+		-emit '*/SDL_gfxPrimitives_font.h' inc/SDL/SDL_gfx_primitives_font.bi \
+		-emit '*/SDL_rotozoom.h'           inc/SDL/SDL_gfx_rotozoom.bi \
+		-emit '*/SDL_image.h'     inc/SDL/SDL_image.bi \
+		-emit '*/SDL_joystick.h'  inc/SDL/SDL_joystick.bi \
+		-emit '*/SDL_keyboard.h'  inc/SDL/SDL_keyboard.bi \
+		-emit '*/SDL_keysym.h'    inc/SDL/SDL_keysym.bi \
+		-emit '*/SDL_loadso.h'    inc/SDL/SDL_loadso.bi \
+		-emit '*/SDL_main.h'      inc/SDL/SDL_main.bi \
+		-emit '*/SDL_mixer.h'     inc/SDL/SDL_mixer.bi \
+		-emit '*/SDL_mouse.h'     inc/SDL/SDL_mouse.bi \
+		-emit '*/SDL_mutex.h'     inc/SDL/SDL_mutex.bi \
+		-emit '*/SDL_net.h'       inc/SDL/SDL_net.bi \
+		-emit '*/SDL_quit.h'      inc/SDL/SDL_quit.bi \
+		-emit '*/SDL_rwops.h'     inc/SDL/SDL_rwops.bi \
+		-emit '*/SDL_syswm.h'     inc/SDL/SDL_syswm.bi \
+		-emit '*/SDL_thread.h'    inc/SDL/SDL_thread.bi \
+		-emit '*/SDL_timer.h'     inc/SDL/SDL_timer.bi \
+		-emit '*/SDL_ttf.h'       inc/SDL/SDL_ttf.bi \
+		-emit '*/SDL_types.h'     inc/SDL/SDL_types.bi \
+		-emit '*/SDL_version.h'   inc/SDL/SDL_version.bi \
+		-emit '*/SDL_video.h'     inc/SDL/SDL_video.bi \
+		\
+		-inclib SDL inc/SDL/SDL.bi \
+		-ifdef __FB_WIN32__ \
+			-inclib gdi32    inc/SDL/SDL.bi \
+			-inclib user32   inc/SDL/SDL.bi \
+			-inclib winmm    inc/SDL/SDL.bi \
+			-inclib dxguid   inc/SDL/SDL.bi \
+			-inclib advapi32 inc/SDL/SDL.bi \
+		-endif
 
 ################################################################################
 # Windows API, based on MinGW-w64 headers
