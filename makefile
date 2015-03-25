@@ -180,6 +180,31 @@ ffi:
 		-endif								\
 		-incdir extracted/$(FFI_TITLE)/src/x86
 
+# GNU libiconv, not glibc's iconv
+ICONV := libiconv-1.14
+ICONV_SED_COMMON  := -e 's/@EILSEQ@//g'
+ICONV_SED_COMMON  += -e 's/@ICONV_CONST@/const/g'
+ICONV_SED_COMMON  += -e 's/@USE_MBSTATE_T@/1/g'
+ICONV_SED_COMMON  += -e 's/@BROKEN_WCHAR_H@/0/g'
+ICONV_SED_COMMON  += -e 's/@HAVE_WCHAR_T@/1/g'
+ICONV_SED_DEFAULT := $(ICONV_SED_COMMON) -e 's/@DLL_VARIABLE@//g'
+ICONV_SED_WINDOWS := $(ICONV_SED_COMMON) -e 's/@DLL_VARIABLE@/__declspec(dllimport)/g'
+iconv:
+	./downloadextract.sh $(ICONV) $(ICONV).tar.gz "http://ftp.gnu.org/pub/gnu/libiconv/$(ICONV).tar.gz"
+
+	cd extracted/$(ICONV)/include && \
+		sed $(ICONV_SED_DEFAULT) < iconv.h.in > iconv-default.h && \
+		sed $(ICONV_SED_WINDOWS) < iconv.h.in > iconv-windows.h
+
+	$(FBFROG) \
+		-ifdef __FB_WIN32__ \
+			extracted/$(ICONV)/include/iconv-windows.h \
+		-else \
+			extracted/$(ICONV)/include/iconv-default.h \
+		-endif \
+		-define EILSEQ "" \
+		-o inc/libiconv.bi
+
 IUP_VERSION := 3.11.2
 IUP_TITLE := iup-3.11.2_Sources
 iup:
