@@ -690,9 +690,13 @@ x11:
 	cp extracted/xorg/$(X11_X11)/include/X11/*.h extracted/xorg/X11
 	cp extracted/xorg/$(X11_XPROTO)/*.h          extracted/xorg/X11
 
+	mkdir -p inc/X11
 	$(FBFROG) x11.fbfrog \
 		-incdir extracted/xorg \
-		-include X11/Xlib.h
+		-include X11/Xlib.h \
+		-emit '*/X11/Xlib.h'    inc/X11/Xlib.bi \
+		-emit '*/X11/X.h'       inc/X11/X.bi \
+		-emit '*/X11/Xosdefs.h' inc/X11/Xosdefs.bi
 
 ZIP_TITLE := libzip-0.11.2
 zip:
