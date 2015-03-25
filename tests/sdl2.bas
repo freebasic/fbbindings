@@ -1,0 +1,5 @@
+#include "SDL2/SDL.bi"
+#include "SDL2/SDL_image.bi"
+#include "SDL2/SDL_mixer.bi"
+#include "SDL2/SDL_net.bi"
+#include "SDL2/SDL_ttf.bi"
