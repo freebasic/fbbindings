@@ -343,7 +343,7 @@ end type
 
 type Display as _XDisplay
 
-type _0
+type _XPrivDisplay_0
 	ext_data as XExtData ptr
 	private1 as _XPrivate ptr
 	fd as long
@@ -390,7 +390,7 @@ type _0
 	xdefaults as zstring ptr
 end type
 
-type _XPrivDisplay as _0 ptr
+type _XPrivDisplay as _XPrivDisplay_0 ptr
 
 type XKeyEvent
 	as long type
