@@ -9,6 +9,7 @@ ALL += llvm lua
 ALL += ncurses
 ALL += pdcurses png png12 png14 png15 png16
 ALL += sdl sdl1 sdl2
+ALL += x11
 ALL += zip zlib
 
 .PHONY: all clean $(ALL)
@@ -674,8 +675,24 @@ winapi: winapi-extract
 		-include ntdef.h \
 		-emit '*/ntdef.h' inc/win/ntdef.bi
 
-
 ################################################################################
+
+X11_X11          := libX11-1.6.3
+X11_XPROTO       := xproto-7.0.27
+x11:
+	mkdir -p extracted/xorg
+	mkdir -p tarballs/xorg
+	./downloadextractxorg.sh $(X11_X11)      $(X11_X11).tar.bz2       "http://xorg.freedesktop.org/releases/individual/lib/$(X11_X11).tar.bz2"
+	./downloadextractxorg.sh $(X11_XPROTO)           $(X11_XPROTO).tar.bz2           "http://xorg.freedesktop.org/releases/individual/proto/$(X11_XPROTO).tar.bz2"
+
+	rm -rf extracted/xorg/X11
+	mkdir extracted/xorg/X11
+	cp extracted/xorg/$(X11_X11)/include/X11/*.h extracted/xorg/X11
+	cp extracted/xorg/$(X11_XPROTO)/*.h          extracted/xorg/X11
+
+	$(FBFROG) x11.fbfrog \
+		-incdir extracted/xorg \
+		-include X11/Xlib.h
 
 ZIP_TITLE := libzip-0.11.2
 zip:
