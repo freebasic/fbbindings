@@ -431,40 +431,16 @@ sdl1:
 			-include SDL_imageFilter.h        \
 			-include SDL_rotozoom.h           \
 		\
-		-emit '*/SDL_active.h'    inc/SDL/SDL_active.bi \
-		-emit '*/SDL_audio.h'     inc/SDL/SDL_audio.bi \
-		-emit '*/SDL.h'           inc/SDL/SDL.bi \
-		-emit '*/SDL_byteorder.h' inc/SDL/SDL_byteorder.bi \
-		-emit '*/SDL_cdrom.h'     inc/SDL/SDL_cdrom.bi \
-		-emit '*/SDL_cpuinfo.h'   inc/SDL/SDL_cpuinfo.bi \
-		-emit '*/SDL_endian.h'    inc/SDL/SDL_endian.bi \
-		-emit '*/SDL_error.h'     inc/SDL/SDL_error.bi \
-		-emit '*/SDL_events.h'    inc/SDL/SDL_events.bi \
-		-emit '*/SDL_getenv.h'    inc/SDL/SDL_getenv.bi \
 		-emit '*/SDL_framerate.h'          inc/SDL/SDL_gfx_framerate.bi \
 		-emit '*/SDL_imageFilter.h'        inc/SDL/SDL_gfx_imageFilter.bi \
 		-emit '*/SDL_gfxPrimitives.h'      inc/SDL/SDL_gfx_primitives.bi \
 		-emit '*/SDL_gfxPrimitives_font.h' inc/SDL/SDL_gfx_primitives_font.bi \
 		-emit '*/SDL_rotozoom.h'           inc/SDL/SDL_gfx_rotozoom.bi \
-		-emit '*/SDL_image.h'     inc/SDL/SDL_image.bi \
-		-emit '*/SDL_joystick.h'  inc/SDL/SDL_joystick.bi \
-		-emit '*/SDL_keyboard.h'  inc/SDL/SDL_keyboard.bi \
-		-emit '*/SDL_keysym.h'    inc/SDL/SDL_keysym.bi \
-		-emit '*/SDL_loadso.h'    inc/SDL/SDL_loadso.bi \
-		-emit '*/SDL_main.h'      inc/SDL/SDL_main.bi \
-		-emit '*/SDL_mixer.h'     inc/SDL/SDL_mixer.bi \
-		-emit '*/SDL_mouse.h'     inc/SDL/SDL_mouse.bi \
-		-emit '*/SDL_mutex.h'     inc/SDL/SDL_mutex.bi \
-		-emit '*/SDL_net.h'       inc/SDL/SDL_net.bi \
-		-emit '*/SDL_quit.h'      inc/SDL/SDL_quit.bi \
-		-emit '*/SDL_rwops.h'     inc/SDL/SDL_rwops.bi \
-		-emit '*/SDL_syswm.h'     inc/SDL/SDL_syswm.bi \
-		-emit '*/SDL_thread.h'    inc/SDL/SDL_thread.bi \
-		-emit '*/SDL_timer.h'     inc/SDL/SDL_timer.bi \
-		-emit '*/SDL_ttf.h'       inc/SDL/SDL_ttf.bi \
-		-emit '*/SDL_types.h'     inc/SDL/SDL_types.bi \
-		-emit '*/SDL_version.h'   inc/SDL/SDL_version.bi \
-		-emit '*/SDL_video.h'     inc/SDL/SDL_video.bi \
+		-emit '*/SDL_image.h' inc/SDL/SDL_image.bi \
+		-emit '*/SDL_mixer.h' inc/SDL/SDL_mixer.bi \
+		-emit '*/SDL_net.h'   inc/SDL/SDL_net.bi \
+		-emit '*/SDL_ttf.h'   inc/SDL/SDL_ttf.bi \
+		-emit '*/extracted/$(SDL1_MAIN)/include/*' inc/SDL/SDL.bi \
 		\
 		-inclib SDL inc/SDL/SDL.bi \
 		-ifdef __FB_WIN32__ \
