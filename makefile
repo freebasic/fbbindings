@@ -679,6 +679,9 @@ winapi: winapi-extract
 
 X11_X11          := libX11-1.6.3
 X11_XPROTO       := xproto-7.0.27
+
+SED_X11_XFUNCPROTO := -e 's/\#undef NARROWPROTO/\#define NARROWPROTO 1/g'
+
 x11:
 	mkdir -p extracted/xorg
 	mkdir -p tarballs/xorg
@@ -689,6 +692,7 @@ x11:
 	mkdir extracted/xorg/X11
 	cp extracted/xorg/$(X11_X11)/include/X11/*.h extracted/xorg/X11
 	cp extracted/xorg/$(X11_XPROTO)/*.h          extracted/xorg/X11
+	sed $(SED_X11_XFUNCPROTO) < extracted/xorg/$(X11_XPROTO)/Xfuncproto.h.in > extracted/xorg/X11/Xfuncproto.h
 
 	mkdir -p inc/X11
 	$(FBFROG) x11.fbfrog \
@@ -697,6 +701,7 @@ x11:
 		-emit '*/X11/Xlib.h'    inc/X11/Xlib.bi \
 		-emit '*/X11/X.h'       inc/X11/X.bi \
 		-emit '*/X11/Xosdefs.h' inc/X11/Xosdefs.bi
+
 
 ZIP_TITLE := libzip-0.11.2
 zip:

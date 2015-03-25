@@ -1209,13 +1209,13 @@ type XIMValuesList
 end type
 
 #ifdef __FB_WIN32__
-	'' TODO: _XFUNCPROTOBEGIN extern int (*_Xdebug_p);
 	#define _Xdebug (*_Xdebug_p)
+	extern _Xdebug_p as long ptr
 #else
-	'' TODO: _XFUNCPROTOBEGIN extern int _Xdebug;
+	extern _Xdebug as long
 #endif
 
-'' TODO: extern XFontStruct *XLoadQueryFont( Display*, _Xconst char*);
+declare function XLoadQueryFont(byval as Display ptr, byval as const zstring ptr) as XFontStruct ptr
 declare function XQueryFont(byval as Display ptr, byval as XID) as XFontStruct ptr
 declare function XGetMotionEvents(byval as Display ptr, byval as Window, byval as Time, byval as Time, byval as long ptr) as XTimeCoord ptr
 declare function XDeleteModifiermapEntry(byval as XModifierKeymap ptr, byval as KeyCode, byval as long) as XModifierKeymap ptr
@@ -1226,45 +1226,45 @@ declare function XCreateImage(byval as Display ptr, byval as Visual ptr, byval a
 declare function XInitImage(byval as XImage ptr) as long
 declare function XGetImage(byval as Display ptr, byval as Drawable, byval as long, byval as long, byval as ulong, byval as ulong, byval as culong, byval as long) as XImage ptr
 declare function XGetSubImage(byval as Display ptr, byval as Drawable, byval as long, byval as long, byval as ulong, byval as ulong, byval as culong, byval as long, byval as XImage ptr, byval as long, byval as long) as XImage ptr
-'' TODO: extern Display *XOpenDisplay( _Xconst char*);
+declare function XOpenDisplay(byval as const zstring ptr) as Display ptr
 declare sub XrmInitialize()
 declare function XFetchBytes(byval as Display ptr, byval as long ptr) as zstring ptr
 declare function XFetchBuffer(byval as Display ptr, byval as long ptr, byval as long) as zstring ptr
 declare function XGetAtomName(byval as Display ptr, byval as Atom) as zstring ptr
 declare function XGetAtomNames(byval as Display ptr, byval as Atom ptr, byval as long, byval as zstring ptr ptr) as long
-'' TODO: extern char *XGetDefault( Display*, _Xconst char*, _Xconst char*);
-'' TODO: extern char *XDisplayName( _Xconst char*);
+declare function XGetDefault(byval as Display ptr, byval as const zstring ptr, byval as const zstring ptr) as zstring ptr
+declare function XDisplayName(byval as const zstring ptr) as zstring ptr
 declare function XKeysymToString(byval as KeySym) as zstring ptr
 declare function XSynchronize(byval as Display ptr, byval as long) as function(byval as Display ptr) as long
 declare function XSetAfterFunction(byval as Display ptr, byval as function(byval as Display ptr) as long) as function(byval as Display ptr) as long
-'' TODO: extern Atom XInternAtom( Display*, _Xconst char*, int);
+declare function XInternAtom(byval as Display ptr, byval as const zstring ptr, byval as long) as Atom
 declare function XInternAtoms(byval as Display ptr, byval as zstring ptr ptr, byval as long, byval as long, byval as Atom ptr) as long
 declare function XCopyColormapAndFree(byval as Display ptr, byval as Colormap) as Colormap
 declare function XCreateColormap(byval as Display ptr, byval as Window, byval as Visual ptr, byval as long) as Colormap
 declare function XCreatePixmapCursor(byval as Display ptr, byval as Pixmap, byval as Pixmap, byval as XColor ptr, byval as XColor ptr, byval as ulong, byval as ulong) as Cursor
-'' TODO: extern Cursor XCreateGlyphCursor( Display*, Font, Font, unsigned int, unsigned int, XColor _Xconst *, XColor _Xconst *);
+declare function XCreateGlyphCursor(byval as Display ptr, byval as Font, byval as Font, byval as ulong, byval as ulong, byval as const XColor ptr, byval as const XColor ptr) as Cursor
 declare function XCreateFontCursor(byval as Display ptr, byval as ulong) as Cursor
-'' TODO: extern Font XLoadFont( Display*, _Xconst char*);
+declare function XLoadFont(byval as Display ptr, byval as const zstring ptr) as Font
 declare function XCreateGC(byval as Display ptr, byval as Drawable, byval as culong, byval as XGCValues ptr) as GC
 declare function XGContextFromGC(byval as GC) as GContext
 declare sub XFlushGC(byval as Display ptr, byval as GC)
 declare function XCreatePixmap(byval as Display ptr, byval as Drawable, byval as ulong, byval as ulong, byval as ulong) as Pixmap
-'' TODO: extern Pixmap XCreateBitmapFromData( Display*, Drawable, _Xconst char*, unsigned int, unsigned int);
+declare function XCreateBitmapFromData(byval as Display ptr, byval as Drawable, byval as const zstring ptr, byval as ulong, byval as ulong) as Pixmap
 declare function XCreatePixmapFromBitmapData(byval as Display ptr, byval as Drawable, byval as zstring ptr, byval as ulong, byval as ulong, byval as culong, byval as culong, byval as ulong) as Pixmap
 declare function XCreateSimpleWindow(byval as Display ptr, byval as Window, byval as long, byval as long, byval as ulong, byval as ulong, byval as ulong, byval as culong, byval as culong) as Window
 declare function XGetSelectionOwner(byval as Display ptr, byval as Atom) as Window
 declare function XCreateWindow(byval as Display ptr, byval as Window, byval as long, byval as long, byval as ulong, byval as ulong, byval as ulong, byval as long, byval as ulong, byval as Visual ptr, byval as culong, byval as XSetWindowAttributes ptr) as Window
 declare function XListInstalledColormaps(byval as Display ptr, byval as Window, byval as long ptr) as Colormap ptr
-'' TODO: extern char **XListFonts( Display*, _Xconst char*, int, int*);
-'' TODO: extern char **XListFontsWithInfo( Display*, _Xconst char*, int, int*, XFontStruct**);
+declare function XListFonts(byval as Display ptr, byval as const zstring ptr, byval as long, byval as long ptr) as zstring ptr ptr
+declare function XListFontsWithInfo(byval as Display ptr, byval as const zstring ptr, byval as long, byval as long ptr, byval as XFontStruct ptr ptr) as zstring ptr ptr
 declare function XGetFontPath(byval as Display ptr, byval as long ptr) as zstring ptr ptr
 declare function XListExtensions(byval as Display ptr, byval as long ptr) as zstring ptr ptr
 declare function XListProperties(byval as Display ptr, byval as Window, byval as long ptr) as Atom ptr
 declare function XListHosts(byval as Display ptr, byval as long ptr, byval as long ptr) as XHostAddress ptr
-'' TODO: _X_DEPRECATED extern KeySym XKeycodeToKeysym( Display*, KeyCode, int);
+declare function XKeycodeToKeysym(byval as Display ptr, byval as KeyCode, byval as long) as KeySym
 declare function XLookupKeysym(byval as XKeyEvent ptr, byval as long) as KeySym
 declare function XGetKeyboardMapping(byval as Display ptr, byval as KeyCode, byval as long, byval as long ptr) as KeySym ptr
-'' TODO: extern KeySym XStringToKeysym( _Xconst char*);
+declare function XStringToKeysym(byval as const zstring ptr) as KeySym
 declare function XMaxRequestSize(byval as Display ptr) as clong
 declare function XExtendedMaxRequestSize(byval as Display ptr) as clong
 declare function XResourceManagerString(byval as Display ptr) as zstring ptr
@@ -1274,7 +1274,7 @@ declare function XVisualIDFromVisual(byval as Visual ptr) as VisualID
 declare function XInitThreads() as long
 declare sub XLockDisplay(byval as Display ptr)
 declare sub XUnlockDisplay(byval as Display ptr)
-'' TODO: extern XExtCodes *XInitExtension( Display*, _Xconst char*);
+declare function XInitExtension(byval as Display ptr, byval as const zstring ptr) as XExtCodes ptr
 declare function XAddExtension(byval as Display ptr) as XExtCodes ptr
 declare function XFindOnExtensionList(byval as XExtData ptr ptr, byval as long) as XExtData ptr
 declare function XEHeadOfExtensionList(byval as XEDataObject) as XExtData ptr ptr
@@ -1325,7 +1325,7 @@ declare function XAddToSaveSet(byval as Display ptr, byval as Window) as long
 declare function XAllocColor(byval as Display ptr, byval as Colormap, byval as XColor ptr) as long
 declare function XAllocColorCells(byval as Display ptr, byval as Colormap, byval as long, byval as culong ptr, byval as ulong, byval as culong ptr, byval as ulong) as long
 declare function XAllocColorPlanes(byval as Display ptr, byval as Colormap, byval as long, byval as culong ptr, byval as long, byval as long, byval as long, byval as long, byval as culong ptr, byval as culong ptr, byval as culong ptr) as long
-'' TODO: extern int XAllocNamedColor( Display*, Colormap, _Xconst char*, XColor*, XColor*);
+declare function XAllocNamedColor(byval as Display ptr, byval as Colormap, byval as const zstring ptr, byval as XColor ptr, byval as XColor ptr) as long
 declare function XAllowEvents(byval as Display ptr, byval as long, byval as Time) as long
 declare function XAutoRepeatOff(byval as Display ptr) as long
 declare function XAutoRepeatOn(byval as Display ptr) as long
@@ -1339,7 +1339,7 @@ declare function XChangeGC(byval as Display ptr, byval as GC, byval as culong, b
 declare function XChangeKeyboardControl(byval as Display ptr, byval as culong, byval as XKeyboardControl ptr) as long
 declare function XChangeKeyboardMapping(byval as Display ptr, byval as long, byval as long, byval as KeySym ptr, byval as long) as long
 declare function XChangePointerControl(byval as Display ptr, byval as long, byval as long, byval as long, byval as long, byval as long) as long
-'' TODO: extern int XChangeProperty( Display*, Window, Atom, Atom, int, int, _Xconst unsigned char*, int);
+declare function XChangeProperty(byval as Display ptr, byval as Window, byval as Atom, byval as Atom, byval as long, byval as long, byval as const ubyte ptr, byval as long) as long
 declare function XChangeSaveSet(byval as Display ptr, byval as Window, byval as long) as long
 declare function XChangeWindowAttributes(byval as Display ptr, byval as Window, byval as culong, byval as XSetWindowAttributes ptr) as long
 declare function XCheckIfEvent(byval as Display ptr, byval as XEvent ptr, byval as function(byval as Display ptr, byval as XEvent ptr, byval as XPointer) as long, byval as XPointer) as long
@@ -1378,8 +1378,8 @@ declare function XDisplayWidth(byval as Display ptr, byval as long) as long
 declare function XDisplayWidthMM(byval as Display ptr, byval as long) as long
 declare function XDrawArc(byval as Display ptr, byval as Drawable, byval as GC, byval as long, byval as long, byval as ulong, byval as ulong, byval as long, byval as long) as long
 declare function XDrawArcs(byval as Display ptr, byval as Drawable, byval as GC, byval as XArc ptr, byval as long) as long
-'' TODO: extern int XDrawImageString( Display*, Drawable, GC, int, int, _Xconst char*, int);
-'' TODO: extern int XDrawImageString16( Display*, Drawable, GC, int, int, _Xconst XChar2b*, int);
+declare function XDrawImageString(byval as Display ptr, byval as Drawable, byval as GC, byval as long, byval as long, byval as const zstring ptr, byval as long) as long
+declare function XDrawImageString16(byval as Display ptr, byval as Drawable, byval as GC, byval as long, byval as long, byval as const XChar2b ptr, byval as long) as long
 declare function XDrawLine(byval as Display ptr, byval as Drawable, byval as GC, byval as long, byval as long, byval as long, byval as long) as long
 declare function XDrawLines(byval as Display ptr, byval as Drawable, byval as GC, byval as XPoint ptr, byval as long, byval as long) as long
 declare function XDrawPoint(byval as Display ptr, byval as Drawable, byval as GC, byval as long, byval as long) as long
@@ -1387,8 +1387,8 @@ declare function XDrawPoints(byval as Display ptr, byval as Drawable, byval as G
 declare function XDrawRectangle(byval as Display ptr, byval as Drawable, byval as GC, byval as long, byval as long, byval as ulong, byval as ulong) as long
 declare function XDrawRectangles(byval as Display ptr, byval as Drawable, byval as GC, byval as XRectangle ptr, byval as long) as long
 declare function XDrawSegments(byval as Display ptr, byval as Drawable, byval as GC, byval as XSegment ptr, byval as long) as long
-'' TODO: extern int XDrawString( Display*, Drawable, GC, int, int, _Xconst char*, int);
-'' TODO: extern int XDrawString16( Display*, Drawable, GC, int, int, _Xconst XChar2b*, int);
+declare function XDrawString(byval as Display ptr, byval as Drawable, byval as GC, byval as long, byval as long, byval as const zstring ptr, byval as long) as long
+declare function XDrawString16(byval as Display ptr, byval as Drawable, byval as GC, byval as long, byval as long, byval as const XChar2b ptr, byval as long) as long
 declare function XDrawText(byval as Display ptr, byval as Drawable, byval as GC, byval as long, byval as long, byval as XTextItem ptr, byval as long) as long
 declare function XDrawText16(byval as Display ptr, byval as Drawable, byval as GC, byval as long, byval as long, byval as XTextItem16 ptr, byval as long) as long
 declare function XEnableAccessControl(byval as Display ptr) as long
@@ -1413,8 +1413,8 @@ declare function XFreeFontPath(byval as zstring ptr ptr) as long
 declare function XFreeGC(byval as Display ptr, byval as GC) as long
 declare function XFreeModifiermap(byval as XModifierKeymap ptr) as long
 declare function XFreePixmap(byval as Display ptr, byval as Pixmap) as long
-'' TODO: extern int XGeometry( Display*, int, _Xconst char*, _Xconst char*, unsigned int, unsigned int, unsigned int, int, int, int*, int*, int*, int*);
-'' TODO: extern int XGetErrorDatabaseText( Display*, _Xconst char*, _Xconst char*, _Xconst char*, char*, int);
+declare function XGeometry(byval as Display ptr, byval as long, byval as const zstring ptr, byval as const zstring ptr, byval as ulong, byval as ulong, byval as ulong, byval as long, byval as long, byval as long ptr, byval as long ptr, byval as long ptr, byval as long ptr) as long
+declare function XGetErrorDatabaseText(byval as Display ptr, byval as const zstring ptr, byval as const zstring ptr, byval as const zstring ptr, byval as zstring ptr, byval as long) as long
 declare function XGetErrorText(byval as Display ptr, byval as long, byval as zstring ptr, byval as long) as long
 declare function XGetFontProperty(byval as XFontStruct ptr, byval as Atom, byval as culong ptr) as long
 declare function XGetGCValues(byval as Display ptr, byval as GC, byval as culong, byval as XGCValues ptr) as long
@@ -1440,7 +1440,7 @@ declare function XImageByteOrder(byval as Display ptr) as long
 declare function XInstallColormap(byval as Display ptr, byval as Colormap) as long
 declare function XKeysymToKeycode(byval as Display ptr, byval as KeySym) as KeyCode
 declare function XKillClient(byval as Display ptr, byval as XID) as long
-'' TODO: extern int XLookupColor( Display*, Colormap, _Xconst char*, XColor*, XColor*);
+declare function XLookupColor(byval as Display ptr, byval as Colormap, byval as const zstring ptr, byval as XColor ptr, byval as XColor ptr) as long
 declare function XLowerWindow(byval as Display ptr, byval as Window) as long
 declare function XMapRaised(byval as Display ptr, byval as Window) as long
 declare function XMapSubwindows(byval as Display ptr, byval as Window) as long
@@ -1452,8 +1452,8 @@ declare function XMoveResizeWindow(byval as Display ptr, byval as Window, byval 
 declare function XMoveWindow(byval as Display ptr, byval as Window, byval as long, byval as long) as long
 declare function XNextEvent(byval as Display ptr, byval as XEvent ptr) as long
 declare function XNoOp(byval as Display ptr) as long
-'' TODO: extern int XParseColor( Display*, Colormap, _Xconst char*, XColor*);
-'' TODO: extern int XParseGeometry( _Xconst char*, int*, int*, unsigned int*, unsigned int*);
+declare function XParseColor(byval as Display ptr, byval as Colormap, byval as const zstring ptr, byval as XColor ptr) as long
+declare function XParseGeometry(byval as const zstring ptr, byval as long ptr, byval as long ptr, byval as ulong ptr, byval as ulong ptr) as long
 declare function XPeekEvent(byval as Display ptr, byval as XEvent ptr) as long
 declare function XPeekIfEvent(byval as Display ptr, byval as XEvent ptr, byval as function(byval as Display ptr, byval as XEvent ptr, byval as XPointer) as long, byval as XPointer) as long
 declare function XPending(byval as Display ptr) as long
@@ -1469,18 +1469,16 @@ declare function XQueryBestStipple(byval as Display ptr, byval as Drawable, byva
 declare function XQueryBestTile(byval as Display ptr, byval as Drawable, byval as ulong, byval as ulong, byval as ulong ptr, byval as ulong ptr) as long
 declare function XQueryColor(byval as Display ptr, byval as Colormap, byval as XColor ptr) as long
 declare function XQueryColors(byval as Display ptr, byval as Colormap, byval as XColor ptr, byval as long) as long
-'' TODO: extern int XQueryExtension( Display*, _Xconst char*, int*, int*, int*);
+declare function XQueryExtension(byval as Display ptr, byval as const zstring ptr, byval as long ptr, byval as long ptr, byval as long ptr) as long
 declare function XQueryKeymap(byval as Display ptr, byval as zstring ptr) as long
 declare function XQueryPointer(byval as Display ptr, byval as Window, byval as Window ptr, byval as Window ptr, byval as long ptr, byval as long ptr, byval as long ptr, byval as long ptr, byval as ulong ptr) as long
-'' TODO: extern int XQueryTextExtents( Display*, XID, _Xconst char*, int, int*, int*, int*, XCharStruct*);
-'' TODO: extern int XQueryTextExtents16( Display*, XID, _Xconst XChar2b*, int, int*, int*, int*, XCharStruct*);
+declare function XQueryTextExtents(byval as Display ptr, byval as XID, byval as const zstring ptr, byval as long, byval as long ptr, byval as long ptr, byval as long ptr, byval as XCharStruct ptr) as long
+declare function XQueryTextExtents16(byval as Display ptr, byval as XID, byval as const XChar2b ptr, byval as long, byval as long ptr, byval as long ptr, byval as long ptr, byval as XCharStruct ptr) as long
 declare function XQueryTree(byval as Display ptr, byval as Window, byval as Window ptr, byval as Window ptr, byval as Window ptr ptr, byval as ulong ptr) as long
 declare function XRaiseWindow(byval as Display ptr, byval as Window) as long
-
-'' TODO: extern int XReadBitmapFile( Display*, Drawable, _Xconst char*, unsigned int*, unsigned int*, Pixmap*, int*, int*);
-'' TODO: extern int XReadBitmapFileData( _Xconst char*, unsigned int*, unsigned int*, unsigned char**, int*, int*);
-'' TODO: extern int XRebindKeysym( Display*, KeySym, KeySym*, int, _Xconst unsigned char*, int);
-
+declare function XReadBitmapFile(byval as Display ptr, byval as Drawable, byval as const zstring ptr, byval as ulong ptr, byval as ulong ptr, byval as Pixmap ptr, byval as long ptr, byval as long ptr) as long
+declare function XReadBitmapFileData(byval as const zstring ptr, byval as ulong ptr, byval as ulong ptr, byval as ubyte ptr ptr, byval as long ptr, byval as long ptr) as long
+declare function XRebindKeysym(byval as Display ptr, byval as KeySym, byval as KeySym ptr, byval as long, byval as const ubyte ptr, byval as long) as long
 declare function XRecolorCursor(byval as Display ptr, byval as Cursor, byval as XColor ptr, byval as XColor ptr) as long
 declare function XRefreshKeyboardMapping(byval as XMappingEvent ptr) as long
 declare function XRemoveFromSaveSet(byval as Display ptr, byval as Window) as long
@@ -1503,7 +1501,7 @@ declare function XSetClipOrigin(byval as Display ptr, byval as GC, byval as long
 declare function XSetClipRectangles(byval as Display ptr, byval as GC, byval as long, byval as long, byval as XRectangle ptr, byval as long, byval as long) as long
 declare function XSetCloseDownMode(byval as Display ptr, byval as long) as long
 declare function XSetCommand(byval as Display ptr, byval as Window, byval as zstring ptr ptr, byval as long) as long
-'' TODO: extern int XSetDashes( Display*, GC, int, _Xconst char*, int);
+declare function XSetDashes(byval as Display ptr, byval as GC, byval as long, byval as const zstring ptr, byval as long) as long
 declare function XSetFillRule(byval as Display ptr, byval as GC, byval as long) as long
 declare function XSetFillStyle(byval as Display ptr, byval as GC, byval as long) as long
 declare function XSetFont(byval as Display ptr, byval as GC, byval as Font) as long
@@ -1511,12 +1509,12 @@ declare function XSetFontPath(byval as Display ptr, byval as zstring ptr ptr, by
 declare function XSetForeground(byval as Display ptr, byval as GC, byval as culong) as long
 declare function XSetFunction(byval as Display ptr, byval as GC, byval as long) as long
 declare function XSetGraphicsExposures(byval as Display ptr, byval as GC, byval as long) as long
-'' TODO: extern int XSetIconName( Display*, Window, _Xconst char*);
+declare function XSetIconName(byval as Display ptr, byval as Window, byval as const zstring ptr) as long
 declare function XSetInputFocus(byval as Display ptr, byval as Window, byval as long, byval as Time) as long
 declare function XSetLineAttributes(byval as Display ptr, byval as GC, byval as ulong, byval as long, byval as long, byval as long) as long
 declare function XSetModifierMapping(byval as Display ptr, byval as XModifierKeymap ptr) as long
 declare function XSetPlaneMask(byval as Display ptr, byval as GC, byval as culong) as long
-'' TODO: extern int XSetPointerMapping( Display*, _Xconst unsigned char*, int);
+declare function XSetPointerMapping(byval as Display ptr, byval as const ubyte ptr, byval as long) as long
 declare function XSetScreenSaver(byval as Display ptr, byval as long, byval as long, byval as long, byval as long) as long
 declare function XSetSelectionOwner(byval as Display ptr, byval as Atom, byval as Window, byval as Time) as long
 declare function XSetState(byval as Display ptr, byval as GC, byval as culong, byval as culong, byval as long, byval as culong) as long
@@ -1530,19 +1528,17 @@ declare function XSetWindowBorder(byval as Display ptr, byval as Window, byval a
 declare function XSetWindowBorderPixmap(byval as Display ptr, byval as Window, byval as Pixmap) as long
 declare function XSetWindowBorderWidth(byval as Display ptr, byval as Window, byval as ulong) as long
 declare function XSetWindowColormap(byval as Display ptr, byval as Window, byval as Colormap) as long
-'' TODO: extern int XStoreBuffer( Display*, _Xconst char*, int, int);
-'' TODO: extern int XStoreBytes( Display*, _Xconst char*, int);
+declare function XStoreBuffer(byval as Display ptr, byval as const zstring ptr, byval as long, byval as long) as long
+declare function XStoreBytes(byval as Display ptr, byval as const zstring ptr, byval as long) as long
 declare function XStoreColor(byval as Display ptr, byval as Colormap, byval as XColor ptr) as long
 declare function XStoreColors(byval as Display ptr, byval as Colormap, byval as XColor ptr, byval as long) as long
-'' TODO: extern int XStoreName( Display*, Window, _Xconst char*);
-'' TODO: extern int XStoreNamedColor( Display*, Colormap, _Xconst char*, unsigned long, int);
+declare function XStoreName(byval as Display ptr, byval as Window, byval as const zstring ptr) as long
+declare function XStoreNamedColor(byval as Display ptr, byval as Colormap, byval as const zstring ptr, byval as culong, byval as long) as long
 declare function XSync(byval as Display ptr, byval as long) as long
-
-'' TODO: extern int XTextExtents( XFontStruct*, _Xconst char*, int, int*, int*, int*, XCharStruct*);
-'' TODO: extern int XTextExtents16( XFontStruct*, _Xconst XChar2b*, int, int*, int*, int*, XCharStruct*);
-'' TODO: extern int XTextWidth( XFontStruct*, _Xconst char*, int);
-'' TODO: extern int XTextWidth16( XFontStruct*, _Xconst XChar2b*, int);
-
+declare function XTextExtents(byval as XFontStruct ptr, byval as const zstring ptr, byval as long, byval as long ptr, byval as long ptr, byval as long ptr, byval as XCharStruct ptr) as long
+declare function XTextExtents16(byval as XFontStruct ptr, byval as const XChar2b ptr, byval as long, byval as long ptr, byval as long ptr, byval as long ptr, byval as XCharStruct ptr) as long
+declare function XTextWidth(byval as XFontStruct ptr, byval as const zstring ptr, byval as long) as long
+declare function XTextWidth16(byval as XFontStruct ptr, byval as const XChar2b ptr, byval as long) as long
 declare function XTranslateCoordinates(byval as Display ptr, byval as Window, byval as Window, byval as long, byval as long, byval as long ptr, byval as long ptr, byval as Window ptr) as long
 declare function XUndefineCursor(byval as Display ptr, byval as Window) as long
 declare function XUngrabButton(byval as Display ptr, byval as ulong, byval as ulong, byval as Window) as long
@@ -1559,23 +1555,21 @@ declare function XWarpPointer(byval as Display ptr, byval as Window, byval as Wi
 declare function XWidthMMOfScreen(byval as Screen ptr) as long
 declare function XWidthOfScreen(byval as Screen ptr) as long
 declare function XWindowEvent(byval as Display ptr, byval as Window, byval as clong, byval as XEvent ptr) as long
-'' TODO: extern int XWriteBitmapFile( Display*, _Xconst char*, Pixmap, unsigned int, unsigned int, int, int);
+declare function XWriteBitmapFile(byval as Display ptr, byval as const zstring ptr, byval as Pixmap, byval as ulong, byval as ulong, byval as long, byval as long) as long
 declare function XSupportsLocale() as long
 declare function XSetLocaleModifiers(byval as const zstring ptr) as zstring ptr
-'' TODO: extern XOM XOpenOM( Display*, struct _XrmHashBucketRec*, _Xconst char*, _Xconst char*);
+declare function XOpenOM(byval as Display ptr, byval as _XrmHashBucketRec ptr, byval as const zstring ptr, byval as const zstring ptr) as XOM
 declare function XCloseOM(byval as XOM) as long
-'' TODO: extern char *XSetOMValues( XOM, ...) _X_SENTINEL(0);
-'' TODO: extern char *XGetOMValues( XOM, ...) _X_SENTINEL(0);
+declare function XSetOMValues(byval as XOM, ...) as zstring ptr
+declare function XGetOMValues(byval as XOM, ...) as zstring ptr
 declare function XDisplayOfOM(byval as XOM) as Display ptr
 declare function XLocaleOfOM(byval as XOM) as zstring ptr
-'' TODO: extern XOC XCreateOC( XOM, ...) _X_SENTINEL(0);
+declare function XCreateOC(byval as XOM, ...) as XOC
 declare sub XDestroyOC(byval as XOC)
 declare function XOMOfOC(byval as XOC) as XOM
-
-'' TODO: extern char *XSetOCValues( XOC, ...) _X_SENTINEL(0);
-'' TODO: extern char *XGetOCValues( XOC, ...) _X_SENTINEL(0);
-'' TODO: extern XFontSet XCreateFontSet( Display*, _Xconst char*, char***, int*, char**);
-
+declare function XSetOCValues(byval as XOC, ...) as zstring ptr
+declare function XGetOCValues(byval as XOC, ...) as zstring ptr
+declare function XCreateFontSet(byval as Display ptr, byval as const zstring ptr, byval as zstring ptr ptr ptr, byval as long ptr, byval as zstring ptr ptr) as XFontSet
 declare sub XFreeFontSet(byval as Display ptr, byval as XFontSet)
 declare function XFontsOfFontSet(byval as XFontSet, byval as XFontStruct ptr ptr ptr, byval as zstring ptr ptr ptr) as long
 declare function XBaseFontNameListOfFontSet(byval as XFontSet) as zstring ptr
@@ -1584,49 +1578,45 @@ declare function XContextDependentDrawing(byval as XFontSet) as long
 declare function XDirectionalDependentDrawing(byval as XFontSet) as long
 declare function XContextualDrawing(byval as XFontSet) as long
 declare function XExtentsOfFontSet(byval as XFontSet) as XFontSetExtents ptr
-
-'' TODO: extern int XmbTextEscapement( XFontSet, _Xconst char*, int);
-'' TODO: extern int XwcTextEscapement( XFontSet, _Xconst wchar_t*, int);
-'' TODO: extern int Xutf8TextEscapement( XFontSet, _Xconst char*, int);
-'' TODO: extern int XmbTextExtents( XFontSet, _Xconst char*, int, XRectangle*, XRectangle*);
-'' TODO: extern int XwcTextExtents( XFontSet, _Xconst wchar_t*, int, XRectangle*, XRectangle*);
-'' TODO: extern int Xutf8TextExtents( XFontSet, _Xconst char*, int, XRectangle*, XRectangle*);
-'' TODO: extern int XmbTextPerCharExtents( XFontSet, _Xconst char*, int, XRectangle*, XRectangle*, int, int*, XRectangle*, XRectangle*);
-'' TODO: extern int XwcTextPerCharExtents( XFontSet, _Xconst wchar_t*, int, XRectangle*, XRectangle*, int, int*, XRectangle*, XRectangle*);
-'' TODO: extern int Xutf8TextPerCharExtents( XFontSet, _Xconst char*, int, XRectangle*, XRectangle*, int, int*, XRectangle*, XRectangle*);
-
+declare function XmbTextEscapement(byval as XFontSet, byval as const zstring ptr, byval as long) as long
+declare function XwcTextEscapement(byval as XFontSet, byval as const wstring ptr, byval as long) as long
+declare function Xutf8TextEscapement(byval as XFontSet, byval as const zstring ptr, byval as long) as long
+declare function XmbTextExtents(byval as XFontSet, byval as const zstring ptr, byval as long, byval as XRectangle ptr, byval as XRectangle ptr) as long
+declare function XwcTextExtents(byval as XFontSet, byval as const wstring ptr, byval as long, byval as XRectangle ptr, byval as XRectangle ptr) as long
+declare function Xutf8TextExtents(byval as XFontSet, byval as const zstring ptr, byval as long, byval as XRectangle ptr, byval as XRectangle ptr) as long
+declare function XmbTextPerCharExtents(byval as XFontSet, byval as const zstring ptr, byval as long, byval as XRectangle ptr, byval as XRectangle ptr, byval as long, byval as long ptr, byval as XRectangle ptr, byval as XRectangle ptr) as long
+declare function XwcTextPerCharExtents(byval as XFontSet, byval as const wstring ptr, byval as long, byval as XRectangle ptr, byval as XRectangle ptr, byval as long, byval as long ptr, byval as XRectangle ptr, byval as XRectangle ptr) as long
+declare function Xutf8TextPerCharExtents(byval as XFontSet, byval as const zstring ptr, byval as long, byval as XRectangle ptr, byval as XRectangle ptr, byval as long, byval as long ptr, byval as XRectangle ptr, byval as XRectangle ptr) as long
 declare sub XmbDrawText(byval as Display ptr, byval as Drawable, byval as GC, byval as long, byval as long, byval as XmbTextItem ptr, byval as long)
 declare sub XwcDrawText(byval as Display ptr, byval as Drawable, byval as GC, byval as long, byval as long, byval as XwcTextItem ptr, byval as long)
 declare sub Xutf8DrawText(byval as Display ptr, byval as Drawable, byval as GC, byval as long, byval as long, byval as XmbTextItem ptr, byval as long)
-
-'' TODO: extern void XmbDrawString( Display*, Drawable, XFontSet, GC, int, int, _Xconst char*, int);
-'' TODO: extern void XwcDrawString( Display*, Drawable, XFontSet, GC, int, int, _Xconst wchar_t*, int);
-'' TODO: extern void Xutf8DrawString( Display*, Drawable, XFontSet, GC, int, int, _Xconst char*, int);
-'' TODO: extern void XmbDrawImageString( Display*, Drawable, XFontSet, GC, int, int, _Xconst char*, int);
-'' TODO: extern void XwcDrawImageString( Display*, Drawable, XFontSet, GC, int, int, _Xconst wchar_t*, int);
-'' TODO: extern void Xutf8DrawImageString( Display*, Drawable, XFontSet, GC, int, int, _Xconst char*, int);
+declare sub XmbDrawString(byval as Display ptr, byval as Drawable, byval as XFontSet, byval as GC, byval as long, byval as long, byval as const zstring ptr, byval as long)
+declare sub XwcDrawString(byval as Display ptr, byval as Drawable, byval as XFontSet, byval as GC, byval as long, byval as long, byval as const wstring ptr, byval as long)
+declare sub Xutf8DrawString(byval as Display ptr, byval as Drawable, byval as XFontSet, byval as GC, byval as long, byval as long, byval as const zstring ptr, byval as long)
+declare sub XmbDrawImageString(byval as Display ptr, byval as Drawable, byval as XFontSet, byval as GC, byval as long, byval as long, byval as const zstring ptr, byval as long)
+declare sub XwcDrawImageString(byval as Display ptr, byval as Drawable, byval as XFontSet, byval as GC, byval as long, byval as long, byval as const wstring ptr, byval as long)
+declare sub Xutf8DrawImageString(byval as Display ptr, byval as Drawable, byval as XFontSet, byval as GC, byval as long, byval as long, byval as const zstring ptr, byval as long)
 declare function XOpenIM(byval as Display ptr, byval as _XrmHashBucketRec ptr, byval as zstring ptr, byval as zstring ptr) as XIM
 declare function XCloseIM(byval as XIM) as long
-'' TODO: extern char *XGetIMValues( XIM, ...) _X_SENTINEL(0);
-'' TODO: extern char *XSetIMValues( XIM, ...) _X_SENTINEL(0);
+declare function XGetIMValues(byval as XIM, ...) as zstring ptr
+declare function XSetIMValues(byval as XIM, ...) as zstring ptr
 declare function XDisplayOfIM(byval as XIM) as Display ptr
 declare function XLocaleOfIM(byval as XIM) as zstring ptr
-'' TODO: extern XIC XCreateIC( XIM, ...) _X_SENTINEL(0);
-
+declare function XCreateIC(byval as XIM, ...) as XIC
 declare sub XDestroyIC(byval as XIC)
 declare sub XSetICFocus(byval as XIC)
 declare sub XUnsetICFocus(byval as XIC)
 declare function XwcResetIC(byval as XIC) as wstring ptr
 declare function XmbResetIC(byval as XIC) as zstring ptr
 declare function Xutf8ResetIC(byval as XIC) as zstring ptr
-'' TODO: extern char *XSetICValues( XIC, ...) _X_SENTINEL(0);
-'' TODO: extern char *XGetICValues( XIC, ...) _X_SENTINEL(0);
+declare function XSetICValues(byval as XIC, ...) as zstring ptr
+declare function XGetICValues(byval as XIC, ...) as zstring ptr
 declare function XIMOfIC(byval as XIC) as XIM
 declare function XFilterEvent(byval as XEvent ptr, byval as Window) as long
 declare function XmbLookupString(byval as XIC, byval as XKeyPressedEvent ptr, byval as zstring ptr, byval as long, byval as KeySym ptr, byval as long ptr) as long
 declare function XwcLookupString(byval as XIC, byval as XKeyPressedEvent ptr, byval as wstring ptr, byval as long, byval as KeySym ptr, byval as long ptr) as long
 declare function Xutf8LookupString(byval as XIC, byval as XKeyPressedEvent ptr, byval as zstring ptr, byval as long, byval as KeySym ptr, byval as long ptr) as long
-'' TODO: extern XVaNestedList XVaCreateNestedList( int, ...) _X_SENTINEL(0);
+declare function XVaCreateNestedList(byval as long, ...) as XVaNestedList
 declare function XRegisterIMInstantiateCallback(byval as Display ptr, byval as _XrmHashBucketRec ptr, byval as zstring ptr, byval as zstring ptr, byval as XIDProc, byval as XPointer) as long
 declare function XUnregisterIMInstantiateCallback(byval as Display ptr, byval as _XrmHashBucketRec ptr, byval as zstring ptr, byval as zstring ptr, byval as XIDProc, byval as XPointer) as long
 type XConnectionWatchProc as sub(byval as Display ptr, byval as XPointer, byval as long, byval as long, byval as XPointer ptr)
@@ -1639,6 +1629,5 @@ declare function _Xmbtowc(byval as wstring ptr, byval as zstring ptr, byval as l
 declare function _Xwctomb(byval as zstring ptr, byval as wchar_t) as long
 declare function XGetEventData(byval as Display ptr, byval as XGenericEventCookie ptr) as long
 declare sub XFreeEventData(byval as Display ptr, byval as XGenericEventCookie ptr)
-'' TODO: _XFUNCPROTOEND
 
 end extern
