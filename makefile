@@ -23,8 +23,8 @@ ALLEGRO4_VERSION := 4.4.2
 ALLEGRO4_TITLE := allegro-$(ALLEGRO4_VERSION)
 ALPNG_TARBALL := tarballs/alpng13.tar.gz
 allegro4:
-	./downloadextract.sh $(ALLEGRO4_TITLE) $(ALLEGRO4_TITLE).tar.gz "http://cdn.allegro.cc/file/library/allegro/$(ALLEGRO4_VERSION)/$(ALLEGRO4_TITLE).tar.gz"
-	./downloadextract.sh algif_1.3 algif_1.3.zip "http://prdownloads.sourceforge.net/algif/algif_1.3.zip?download"
+	./get.sh $(ALLEGRO4_TITLE) $(ALLEGRO4_TITLE).tar.gz "http://cdn.allegro.cc/file/library/allegro/$(ALLEGRO4_VERSION)/$(ALLEGRO4_TITLE).tar.gz"
+	./get.sh algif_1.3 algif_1.3.zip "http://prdownloads.sourceforge.net/algif/algif_1.3.zip?download"
 	if [ ! -f "$(ALPNG_TARBALL)" ]; then \
 		wget --no-verbose "http://sourceforge.net/projects/alpng/files/alpng/1.3/alpng13.tar.gz/download" -O "$(ALPNG_TARBALL)"; \
 	fi
@@ -56,7 +56,7 @@ allegro4:
 ALLEGRO5_VERSION := 5.0.10
 ALLEGRO5_TITLE := allegro-$(ALLEGRO5_VERSION)
 allegro5:
-	./downloadextract.sh $(ALLEGRO5_TITLE) $(ALLEGRO5_TITLE).tar.gz "http://cdn.allegro.cc/file/library/allegro/$(ALLEGRO5_VERSION)/$(ALLEGRO5_TITLE).tar.gz"
+	./get.sh $(ALLEGRO5_TITLE) $(ALLEGRO5_TITLE).tar.gz "http://cdn.allegro.cc/file/library/allegro/$(ALLEGRO5_VERSION)/$(ALLEGRO5_TITLE).tar.gz"
 	mkdir -p inc/allegro5
 	$(FBFROG) allegro5.fbfrog \
 		-incdir extracted/$(ALLEGRO5_TITLE)/include \
@@ -97,13 +97,13 @@ allegro5:
 		-inclib allegro_ttf        inc/allegro5/allegro_ttf.bi
 
 cgui:
-	./downloadextract.sh cgui cgui-2.0.3.tar.gz "http://sourceforge.net/projects/cgui/files/2.0.3/cgui-2.0.3.tar.gz/download"
+	./get.sh cgui cgui-2.0.3.tar.gz "http://sourceforge.net/projects/cgui/files/2.0.3/cgui-2.0.3.tar.gz/download"
 	$(FBFROG) cgui.fbfrog -o inc extracted/cgui/include/cgui.h
 
 CLANG_VERSION := 3.5.0
 CLANG_TITLE := cfe-$(CLANG_VERSION).src
 clang:
-	./downloadextract.sh $(CLANG_TITLE) $(CLANG_TITLE).tar.xz "http://llvm.org/releases/$(CLANG_VERSION)/$(CLANG_TITLE).tar.xz"
+	./get.sh $(CLANG_TITLE) $(CLANG_TITLE).tar.xz "http://llvm.org/releases/$(CLANG_VERSION)/$(CLANG_TITLE).tar.xz"
 	$(FBFROG) -o inc/clang-c.bi \
 		extracted/$(CLANG_TITLE)/include/clang-c/Index.h \
 		extracted/$(CLANG_TITLE)/include/clang-c/CXCompilationDatabase.h \
@@ -113,7 +113,7 @@ clang:
 CUNIT_VERSION := 2.1-3
 CUNIT_TITLE := CUnit-$(CUNIT_VERSION)
 cunit:
-	./downloadextract.sh $(CUNIT_TITLE) $(CUNIT_TITLE).tar.bz2 "http://sourceforge.net/projects/cunit/files/CUnit/$(CUNIT_VERSION)/$(CUNIT_TITLE).tar.bz2/download"
+	./get.sh $(CUNIT_TITLE) $(CUNIT_TITLE).tar.bz2 "http://sourceforge.net/projects/cunit/files/CUnit/$(CUNIT_VERSION)/$(CUNIT_TITLE).tar.bz2/download"
 	cd extracted/$(CUNIT_TITLE)/CUnit/Headers && \
 		sed -e 's/@VERSION@-@RELEASE@/$(CUNIT_VERSION)/g' < CUnit.h.in > CUnit.h
 	mkdir -p inc/CUnit
@@ -136,7 +136,7 @@ cunit:
 
 CURL_TITLE := curl-7.39.0
 curl:
-	./downloadextract.sh $(CURL_TITLE) $(CURL_TITLE).tar.lzma "http://curl.haxx.se/download/$(CURL_TITLE).tar.lzma"
+	./get.sh $(CURL_TITLE) $(CURL_TITLE).tar.lzma "http://curl.haxx.se/download/$(CURL_TITLE).tar.lzma"
 	$(FBFROG) curl.fbfrog \
 		extracted/$(CURL_TITLE)/include/curl/curl.h \
 		-dontemit '*/typecheck-gcc.h' \
@@ -144,7 +144,7 @@ curl:
 
 FASTCGI_TITLE := fcgi-2.4.1-SNAP-0311112127
 fastcgi:
-	./downloadextract.sh $(FASTCGI_TITLE) $(FASTCGI_TITLE).tar.gz "http://www.fastcgi.com/dist/fcgi.tar.gz"
+	./get.sh $(FASTCGI_TITLE) $(FASTCGI_TITLE).tar.gz "http://www.fastcgi.com/dist/fcgi.tar.gz"
 	mkdir -p inc/fastcgi
 	$(FBFROG) fastcgi.fbfrog \
 		extracted/$(FASTCGI_TITLE)/include/fastcgi.h \
@@ -158,7 +158,7 @@ fastcgi:
 
 FFI_TITLE := libffi-3.1
 ffi:
-	./downloadextract.sh $(FFI_TITLE) $(FFI_TITLE).tar.gz "ftp://sourceware.org/pub/libffi/$(FFI_TITLE).tar.gz"
+	./get.sh $(FFI_TITLE) $(FFI_TITLE).tar.gz "ftp://sourceware.org/pub/libffi/$(FFI_TITLE).tar.gz"
 	# libffi's configure script generates ffi.h based on ffi.h.in (inserting @TARGET@)
 	# and symlinks ffitarget.h to ../src/<arch>/ffitarget.h.
 	# Both are target-specific, but since the process it's not very complex,
@@ -191,7 +191,7 @@ ICONV_SED_COMMON  += -e 's/@HAVE_WCHAR_T@/1/g'
 ICONV_SED_DEFAULT := $(ICONV_SED_COMMON) -e 's/@DLL_VARIABLE@//g'
 ICONV_SED_WINDOWS := $(ICONV_SED_COMMON) -e 's/@DLL_VARIABLE@/__declspec(dllimport)/g'
 iconv:
-	./downloadextract.sh $(ICONV) $(ICONV).tar.gz "http://ftp.gnu.org/pub/gnu/libiconv/$(ICONV).tar.gz"
+	./get.sh $(ICONV) $(ICONV).tar.gz "http://ftp.gnu.org/pub/gnu/libiconv/$(ICONV).tar.gz"
 
 	cd extracted/$(ICONV)/include && \
 		sed $(ICONV_SED_DEFAULT) < iconv.h.in > iconv-default.h && \
@@ -210,7 +210,7 @@ iconv:
 IUP_VERSION := 3.11.2
 IUP_TITLE := iup-3.11.2_Sources
 iup:
-	./downloadextract.sh iup $(IUP_TITLE).tar.gz "http://sourceforge.net/projects/iup/files/$(IUP_VERSION)/Docs%20and%20Sources/$(IUP_TITLE).tar.gz/download"
+	./get.sh iup $(IUP_TITLE).tar.gz "http://sourceforge.net/projects/iup/files/$(IUP_VERSION)/Docs%20and%20Sources/$(IUP_TITLE).tar.gz/download"
 	find extracted/iup/ -type d -exec chmod +x '{}' ';'
 	mkdir -p inc/IUP
 
@@ -283,7 +283,7 @@ iup:
 
 JIT_TITLE := libjit-a8293e141b79c28734a3633a81a43f92f29fc2d7
 jit:
-	./downloadextract.sh $(JIT_TITLE) $(JIT_TITLE).tar.gz "http://git.savannah.gnu.org/cgit/libjit.git/snapshot/$(JIT_TITLE).tar.gz"
+	./get.sh $(JIT_TITLE) $(JIT_TITLE).tar.gz "http://git.savannah.gnu.org/cgit/libjit.git/snapshot/$(JIT_TITLE).tar.gz"
 
 	# libjit symlinks jit-arch.h to jit-arch-{x86|x86-64}.h and generates
 	# jit-opcode.h (and jit-opcode-x86.h) during its build process.
@@ -309,7 +309,7 @@ jit:
 LLVM_VERSION := 3.5.0
 LLVM_TITLE := llvm-$(LLVM_VERSION).src
 llvm:
-	./downloadextract.sh $(LLVM_TITLE) $(LLVM_TITLE).tar.xz "http://llvm.org/releases/$(LLVM_VERSION)/$(LLVM_TITLE).tar.xz"
+	./get.sh $(LLVM_TITLE) $(LLVM_TITLE).tar.xz "http://llvm.org/releases/$(LLVM_VERSION)/$(LLVM_TITLE).tar.xz"
 
 	cd extracted/$(LLVM_TITLE) && \
 		if [ ! -f include/llvm/Config/Targets.def ]; then ./configure --prefix=/usr; fi
@@ -334,7 +334,7 @@ llvm:
 
 LUA_TITLE := lua-5.2.3
 lua:
-	./downloadextract.sh $(LUA_TITLE) $(LUA_TITLE).tar.gz "http://www.lua.org/ftp/$(LUA_TITLE).tar.gz"
+	./get.sh $(LUA_TITLE) $(LUA_TITLE).tar.gz "http://www.lua.org/ftp/$(LUA_TITLE).tar.gz"
 	mkdir -p inc/Lua
 	$(FBFROG) lua.fbfrog \
 		extracted/$(LUA_TITLE)/src/lua.h       \
@@ -348,14 +348,14 @@ lua:
 
 NCURSES_TITLE := ncurses-5.9
 ncurses:
-	./downloadextract.sh $(NCURSES_TITLE) $(NCURSES_TITLE).tar.gz "http://ftp.gnu.org/pub/gnu/ncurses/$(NCURSES_TITLE).tar.gz"
+	./get.sh $(NCURSES_TITLE) $(NCURSES_TITLE).tar.gz "http://ftp.gnu.org/pub/gnu/ncurses/$(NCURSES_TITLE).tar.gz"
 	cd extracted/$(NCURSES_TITLE) && \
 		if [ ! -f include/curses.h ]; then ./configure && cd include && make; fi
 	mkdir -p inc/curses
 	$(FBFROG) ncurses.fbfrog -o inc/curses/ncurses.bi  extracted/$(NCURSES_TITLE)/include/curses.h
 
 pdcurses:
-	./downloadextract.sh PDCurses-3.4 PDCurses-3.4.tar.gz "http://sourceforge.net/projects/pdcurses/files/pdcurses/3.4/PDCurses-3.4.tar.gz/download"
+	./get.sh PDCurses-3.4 PDCurses-3.4.tar.gz "http://sourceforge.net/projects/pdcurses/files/pdcurses/3.4/PDCurses-3.4.tar.gz/download"
 	mkdir -p inc/curses
 	$(FBFROG) pdcurses.fbfrog -o inc/curses/pdcurses.bi extracted/PDCurses-3.4/curses.h
 
@@ -387,24 +387,24 @@ png: png12 png14 png15 png16
 
 PNG12_TITLE := libpng-1.2.53
 png12:
-	./downloadextract.sh $(PNG12_TITLE) $(PNG12_TITLE).tar.xz "http://downloads.sourceforge.net/libpng/$(PNG12_TITLE).tar.xz?download"
+	./get.sh $(PNG12_TITLE) $(PNG12_TITLE).tar.xz "http://downloads.sourceforge.net/libpng/$(PNG12_TITLE).tar.xz?download"
 	$(FBFROG) png.fbfrog png12.fbfrog -o inc/png12.bi extracted/$(PNG12_TITLE)/png.h
 
 PNG14_TITLE := libpng-1.4.16
 png14:
-	./downloadextract.sh $(PNG14_TITLE) $(PNG14_TITLE).tar.xz "http://downloads.sourceforge.net/libpng/$(PNG14_TITLE).tar.xz?download"
+	./get.sh $(PNG14_TITLE) $(PNG14_TITLE).tar.xz "http://downloads.sourceforge.net/libpng/$(PNG14_TITLE).tar.xz?download"
 	$(FBFROG) png.fbfrog png14.fbfrog -o inc/png14.bi extracted/$(PNG14_TITLE)/png.h
 
 PNG15_TITLE := libpng-1.5.21
 png15:
-	./downloadextract.sh $(PNG15_TITLE) $(PNG15_TITLE).tar.xz "http://downloads.sourceforge.net/libpng/$(PNG15_TITLE).tar.xz?download"
+	./get.sh $(PNG15_TITLE) $(PNG15_TITLE).tar.xz "http://downloads.sourceforge.net/libpng/$(PNG15_TITLE).tar.xz?download"
 	cp extracted/$(PNG15_TITLE)/scripts/pnglibconf.h.prebuilt \
 	   extracted/$(PNG15_TITLE)/pnglibconf.h
 	$(FBFROG) png.fbfrog png15.fbfrog -o inc/png15.bi extracted/$(PNG15_TITLE)/png.h
 
 PNG16_TITLE := libpng-1.6.16
 png16:
-	./downloadextract.sh $(PNG16_TITLE) $(PNG16_TITLE).tar.xz "http://downloads.sourceforge.net/libpng/$(PNG16_TITLE).tar.xz?download"
+	./get.sh $(PNG16_TITLE) $(PNG16_TITLE).tar.xz "http://downloads.sourceforge.net/libpng/$(PNG16_TITLE).tar.xz?download"
 	cp extracted/$(PNG16_TITLE)/scripts/pnglibconf.h.prebuilt \
 	   extracted/$(PNG16_TITLE)/pnglibconf.h
 	$(FBFROG) png.fbfrog png16.fbfrog -o inc/png16.bi extracted/$(PNG16_TITLE)/png.h
@@ -418,12 +418,12 @@ SDL1_NET := SDL_net-1.2.8
 SDL1_TTF := SDL_ttf-2.0.11
 SDL1_GFX := SDL_gfx-2.0.13
 sdl1:
-	./downloadextract.sh $(SDL1_MAIN)  $(SDL1_MAIN).tar.gz  "http://www.libsdl.org/release/$(SDL1_MAIN).tar.gz"
-	./downloadextract.sh $(SDL1_IMAGE) $(SDL1_IMAGE).tar.gz "http://www.libsdl.org/projects/SDL_image/release/$(SDL1_IMAGE).tar.gz"
-	./downloadextract.sh $(SDL1_MIXER) $(SDL1_MIXER).tar.gz "http://www.libsdl.org/projects/SDL_mixer/release/$(SDL1_MIXER).tar.gz"
-	./downloadextract.sh $(SDL1_NET)   $(SDL1_NET).tar.gz   "http://www.libsdl.org/projects/SDL_net/release/$(SDL1_NET).tar.gz"
-	./downloadextract.sh $(SDL1_TTF)   $(SDL1_TTF).tar.gz   "http://www.libsdl.org/projects/SDL_ttf/release/$(SDL1_TTF).tar.gz"
-	./downloadextract.sh $(SDL1_GFX)   $(SDL1_GFX).tar.gz   "http://www.ferzkopp.net/Software/SDL_gfx-2.0/$(SDL1_GFX).tar.gz"
+	./get.sh $(SDL1_MAIN)  $(SDL1_MAIN).tar.gz  "http://www.libsdl.org/release/$(SDL1_MAIN).tar.gz"
+	./get.sh $(SDL1_IMAGE) $(SDL1_IMAGE).tar.gz "http://www.libsdl.org/projects/SDL_image/release/$(SDL1_IMAGE).tar.gz"
+	./get.sh $(SDL1_MIXER) $(SDL1_MIXER).tar.gz "http://www.libsdl.org/projects/SDL_mixer/release/$(SDL1_MIXER).tar.gz"
+	./get.sh $(SDL1_NET)   $(SDL1_NET).tar.gz   "http://www.libsdl.org/projects/SDL_net/release/$(SDL1_NET).tar.gz"
+	./get.sh $(SDL1_TTF)   $(SDL1_TTF).tar.gz   "http://www.libsdl.org/projects/SDL_ttf/release/$(SDL1_TTF).tar.gz"
+	./get.sh $(SDL1_GFX)   $(SDL1_GFX).tar.gz   "http://www.ferzkopp.net/Software/SDL_gfx-2.0/$(SDL1_GFX).tar.gz"
 
 	# SDL_config.h is target-specific, so we'll have to use two versions
 	# in separate incdirs, one for Windows (it's probably ok to just use the
@@ -484,11 +484,11 @@ SDL2_MIXER := SDL2_mixer-2.0.0
 SDL2_NET := SDL2_net-2.0.0
 SDL2_TTF := SDL2_ttf-2.0.12
 sdl2: winapi-extract
-	./downloadextract.sh $(SDL2_MAIN)  $(SDL2_MAIN).tar.gz  "http://www.libsdl.org/release/$(SDL2_MAIN).tar.gz"
-	./downloadextract.sh $(SDL2_IMAGE) $(SDL2_IMAGE).tar.gz "http://www.libsdl.org/projects/SDL_image/release/$(SDL2_IMAGE).tar.gz"
-	./downloadextract.sh $(SDL2_MIXER) $(SDL2_MIXER).tar.gz "http://www.libsdl.org/projects/SDL_mixer/release/$(SDL2_MIXER).tar.gz"
-	./downloadextract.sh $(SDL2_NET)   $(SDL2_NET).tar.gz   "http://www.libsdl.org/projects/SDL_net/release/$(SDL2_NET).tar.gz"
-	./downloadextract.sh $(SDL2_TTF)   $(SDL2_TTF).tar.gz   "http://www.libsdl.org/projects/SDL_ttf/release/$(SDL2_TTF).tar.gz"
+	./get.sh $(SDL2_MAIN)  $(SDL2_MAIN).tar.gz  "http://www.libsdl.org/release/$(SDL2_MAIN).tar.gz"
+	./get.sh $(SDL2_IMAGE) $(SDL2_IMAGE).tar.gz "http://www.libsdl.org/projects/SDL_image/release/$(SDL2_IMAGE).tar.gz"
+	./get.sh $(SDL2_MIXER) $(SDL2_MIXER).tar.gz "http://www.libsdl.org/projects/SDL_mixer/release/$(SDL2_MIXER).tar.gz"
+	./get.sh $(SDL2_NET)   $(SDL2_NET).tar.gz   "http://www.libsdl.org/projects/SDL_net/release/$(SDL2_NET).tar.gz"
+	./get.sh $(SDL2_TTF)   $(SDL2_TTF).tar.gz   "http://www.libsdl.org/projects/SDL_ttf/release/$(SDL2_TTF).tar.gz"
 
 	# SDL_config.h is target-specific, so we'll have to use two versions
 	# in separate incdirs, one for Windows (it's probably ok to just use the
@@ -608,7 +608,7 @@ WINAPI_FLAGS += -incdir extracted/$(MINGWW64_TITLE)/mingw-w64-headers/crt
 WINAPI_FLAGS += -incdir extracted/$(MINGWW64_TITLE)/mingw-w64-headers/include
 WINAPI_FLAGS += -incdir extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include
 winapi-extract:
-	./downloadextract.sh $(MINGWW64_TITLE) $(MINGWW64_TITLE).tar.bz2 "http://sourceforge.net/projects/mingw-w64/files/mingw-w64/mingw-w64-release/$(MINGWW64_TITLE).tar.bz2/download"
+	./get.sh $(MINGWW64_TITLE) $(MINGWW64_TITLE).tar.bz2 "http://sourceforge.net/projects/mingw-w64/files/mingw-w64/mingw-w64-release/$(MINGWW64_TITLE).tar.bz2/download"
 	cd extracted/$(MINGWW64_TITLE)/mingw-w64-headers/crt && \
 		sed -e 's/@MINGW_HAS_SECURE_API@/#define MINGW_HAS_SECURE_API 1/g' < _mingw.h.in > _mingw.h && \
 		sed -e 's/MINGW_HAS_DX$$/1/g' < sdks/_mingw_directx.h.in > sdks/_mingw_directx.h && \
@@ -682,8 +682,8 @@ X11_XPROTO       := xproto-7.0.27
 x11:
 	mkdir -p extracted/xorg
 	mkdir -p tarballs/xorg
-	./downloadextractxorg.sh $(X11_X11)      $(X11_X11).tar.bz2       "http://xorg.freedesktop.org/releases/individual/lib/$(X11_X11).tar.bz2"
-	./downloadextractxorg.sh $(X11_XPROTO)           $(X11_XPROTO).tar.bz2           "http://xorg.freedesktop.org/releases/individual/proto/$(X11_XPROTO).tar.bz2"
+	./getxorg.sh $(X11_X11)      $(X11_X11).tar.bz2       "http://xorg.freedesktop.org/releases/individual/lib/$(X11_X11).tar.bz2"
+	./getxorg.sh $(X11_XPROTO)           $(X11_XPROTO).tar.bz2           "http://xorg.freedesktop.org/releases/individual/proto/$(X11_XPROTO).tar.bz2"
 
 	rm -rf extracted/xorg/X11
 	mkdir extracted/xorg/X11
@@ -696,7 +696,7 @@ x11:
 
 ZIP_TITLE := libzip-0.11.2
 zip:
-	./downloadextract.sh $(ZIP_TITLE) $(ZIP_TITLE).tar.xz "http://www.nih.at/libzip/$(ZIP_TITLE).tar.xz"
+	./get.sh $(ZIP_TITLE) $(ZIP_TITLE).tar.xz "http://www.nih.at/libzip/$(ZIP_TITLE).tar.xz"
 	# Need to compile libzip in order to get zipconf.h
 	# (luckily it's the same for all targets)
 	cd extracted/$(ZIP_TITLE) && \
@@ -705,5 +705,5 @@ zip:
 
 ZLIB_TITLE := zlib-1.2.8
 zlib:
-	./downloadextract.sh $(ZLIB_TITLE) $(ZLIB_TITLE).tar.xz "http://zlib.net/$(ZLIB_TITLE).tar.xz"
+	./get.sh $(ZLIB_TITLE) $(ZLIB_TITLE).tar.xz "http://zlib.net/$(ZLIB_TITLE).tar.xz"
 	$(FBFROG) zlib.fbfrog -o inc extracted/$(ZLIB_TITLE)/zlib.h
