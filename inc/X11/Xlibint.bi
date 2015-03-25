@@ -249,8 +249,8 @@ declare sub _XFlushGCCache(byval dpy as Display ptr, byval gc as GC)
 
 #if defined(__FB_64BIT__) and (defined(__FB_WIN32__) or defined(__FB_LINUX__))
 	#define Data32(dpy, data, len) _XData32(dpy, cptr(const clong ptr, data), len)
-	'' TODO: extern int _XData32( Display *dpy, register const long *data, unsigned len);
-	'' TODO: extern void _XRead32( Display *dpy, register long *data, long len);
+	declare function _XData32(byval dpy as Display ptr, byval data as const clong ptr, byval len as ulong) as long
+	declare sub _XRead32(byval dpy as Display ptr, byval data as clong ptr, byval len as clong)
 #else
 	#define Data32(dpy, data, len) Data((dpy), cptr(const zstring ptr, (data)), (len))
 	#define _XRead32(dpy, data, len) _XRead((dpy), cptr(zstring ptr, (data)), (len))
@@ -363,11 +363,11 @@ end type
 type _XExtension as _XExten
 #define _XLIB_COLD _X_COLD
 declare function _XError(byval as Display ptr, byval as xError ptr) as long
-'' TODO: extern int _XIOError( Display*) __attribute((noreturn));
+declare function _XIOError(byval as Display ptr) as long
 extern _XIOErrorFunction as function(byval as Display ptr) as long
 extern _XErrorFunction as function(byval as Display ptr, byval as XErrorEvent ptr) as long
-'' TODO: extern void _XEatData( Display*, unsigned long) __attribute__((__cold__));
-'' TODO: extern void _XEatDataWords( Display*, unsigned long) __attribute__((__cold__));
+declare sub _XEatData(byval as Display ptr, byval as culong)
+declare sub _XEatDataWords(byval as Display ptr, byval as culong)
 declare function _XAllocScratch(byval as Display ptr, byval as culong) as zstring ptr
 declare function _XAllocTemp(byval as Display ptr, byval as culong) as zstring ptr
 declare sub _XFreeTemp(byval as Display ptr, byval as zstring ptr, byval as culong)
@@ -456,13 +456,12 @@ declare function _XTextHeight16(byval as XFontStruct ptr, byval as const XChar2b
 
 declare function _XEventToWire(byval dpy as Display ptr, byval re as XEvent ptr, byval event as xEvent ptr) as long
 declare function _XF86LoadQueryLocaleFont(byval as Display ptr, byval as const zstring ptr, byval as XFontStruct ptr ptr, byval as Font ptr) as long
-'' TODO: extern void _XProcessWindowAttributes ( register Display *dpy, xChangeWindowAttributesReq *req, register unsigned long valuemask, register XSetWindowAttributes *attributes);
+declare sub _XProcessWindowAttributes(byval dpy as Display ptr, byval req as xChangeWindowAttributesReq ptr, byval valuemask as culong, byval attributes as XSetWindowAttributes ptr)
 declare function _XDefaultError(byval dpy as Display ptr, byval event as XErrorEvent ptr) as long
 declare function _XDefaultIOError(byval dpy as Display ptr) as long
-'' TODO: extern void _XSetClipRectangles ( register Display *dpy, GC gc, int clip_x_origin, int clip_y_origin, XRectangle *rectangles, int n, int ordering);
-'' TODO: int _XGetWindowAttributes( register Display *dpy, Window w, XWindowAttributes *attr);
-'' TODO: int _XPutBackEvent ( register Display *dpy, register XEvent *event);
-
+declare sub _XSetClipRectangles(byval dpy as Display ptr, byval gc as GC, byval clip_x_origin as long, byval clip_y_origin as long, byval rectangles as XRectangle ptr, byval n as long, byval ordering as long)
+declare function _XGetWindowAttributes(byval dpy as Display ptr, byval w as Window, byval attr as XWindowAttributes ptr) as long
+declare function _XPutBackEvent(byval dpy as Display ptr, byval event as XEvent ptr) as long
 declare function _XIsEventCookie(byval dpy as Display ptr, byval ev as XEvent ptr) as long
 declare sub _XFreeEventCookies(byval dpy as Display ptr)
 declare sub _XStoreEventCookie(byval dpy as Display ptr, byval ev as XEvent ptr)
