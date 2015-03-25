@@ -8,7 +8,7 @@ ALL += jit
 ALL += llvm lua
 ALL += ncurses
 ALL += pdcurses png png12 png14 png15 png16
-ALL += sdl sdl1
+ALL += sdl sdl1 sdl2
 ALL += zip zlib
 
 .PHONY: all clean $(ALL)
@@ -382,7 +382,7 @@ png16:
 	   extracted/$(PNG16_TITLE)/pnglibconf.h
 	$(FBFROG) png.fbfrog png16.fbfrog -o inc/png16.bi extracted/$(PNG16_TITLE)/png.h
 
-sdl: sdl1
+sdl: sdl1 sdl2
 
 SDL1_MAIN := SDL-1.2.15
 SDL1_IMAGE := SDL_image-1.2.12
@@ -398,28 +398,24 @@ sdl1:
 	./downloadextract.sh $(SDL1_TTF)   $(SDL1_TTF).tar.gz   "http://www.libsdl.org/projects/SDL_ttf/release/$(SDL1_TTF).tar.gz"
 	./downloadextract.sh $(SDL1_GFX)   $(SDL1_GFX).tar.gz   "http://www.ferzkopp.net/Software/SDL_gfx-2.0/$(SDL1_GFX).tar.gz"
 
-	# SDL_config.h is target-specific.
-	# For Windows/DOS we can probably use the prepackaged SDL_config.h.default,
-	# but for Linux we have to generate it based on SDL_config.h.in.
+	# SDL_config.h is target-specific, so we'll have to use two versions
+	# in separate incdirs, one for Windows (it's probably ok to just use the
+	# prepackaged SDL_config.h for this), and one for Linux (generated based
+	# on SDL_config.h.in).
 	cd extracted/$(SDL1_MAIN)/include && \
-		rm -f SDL_config.h && \
-		mkdir -p unix default && \
-		cp SDL_config.h.in unix/SDL_config.h && \
-		cp SDL_config.h.default default/SDL_config.h
-	cat sdl1-unix-config.h >> extracted/$(SDL1_MAIN)/include/unix/SDL_config.h
+		mkdir -p unix windows && \
+		if [ -f SDL_config.h ]; then mv SDL_config.h windows; fi && \
+		cp SDL_config.h.in unix/SDL_config.h
+	cat sdl-unix-config.h >> extracted/$(SDL1_MAIN)/include/unix/SDL_config.h
 
 	mkdir -p inc/SDL
 	$(FBFROG) sdl1.fbfrog \
 		\
 		-incdir extracted/$(SDL1_MAIN)/include \
 			-ifdef __FB_WIN32__ \
-				-incdir extracted/$(SDL1_MAIN)/include/default \
+				-incdir extracted/$(SDL1_MAIN)/include/windows \
 			-else \
-				-ifdef __FB_DOS__ \
-					-incdir extracted/$(SDL1_MAIN)/include/default \
-				-else \
-					-incdir extracted/$(SDL1_MAIN)/include/unix \
-				-endif \
+				-incdir extracted/$(SDL1_MAIN)/include/unix \
 			-endif \
 			-include SDL.h \
 			-include SDL_getenv.h \
@@ -478,6 +474,51 @@ sdl1:
 			-inclib dxguid   inc/SDL/SDL.bi \
 			-inclib advapi32 inc/SDL/SDL.bi \
 		-endif
+
+SDL2_MAIN := SDL2-2.0.3
+SDL2_IMAGE := SDL2_image-2.0.0
+SDL2_MIXER := SDL2_mixer-2.0.0
+SDL2_NET := SDL2_net-2.0.0
+SDL2_TTF := SDL2_ttf-2.0.12
+sdl2: winapi-extract
+	./downloadextract.sh $(SDL2_MAIN)  $(SDL2_MAIN).tar.gz  "http://www.libsdl.org/release/$(SDL2_MAIN).tar.gz"
+	./downloadextract.sh $(SDL2_IMAGE) $(SDL2_IMAGE).tar.gz "http://www.libsdl.org/projects/SDL_image/release/$(SDL2_IMAGE).tar.gz"
+	./downloadextract.sh $(SDL2_MIXER) $(SDL2_MIXER).tar.gz "http://www.libsdl.org/projects/SDL_mixer/release/$(SDL2_MIXER).tar.gz"
+	./downloadextract.sh $(SDL2_NET)   $(SDL2_NET).tar.gz   "http://www.libsdl.org/projects/SDL_net/release/$(SDL2_NET).tar.gz"
+	./downloadextract.sh $(SDL2_TTF)   $(SDL2_TTF).tar.gz   "http://www.libsdl.org/projects/SDL_ttf/release/$(SDL2_TTF).tar.gz"
+
+	# SDL_config.h is target-specific, so we'll have to use two versions
+	# in separate incdirs, one for Windows (it's probably ok to just use the
+	# prepackaged SDL_config.h for this), and one for Linux (generated based
+	# on SDL_config.h.in).
+	cd extracted/$(SDL2_MAIN)/include && \
+		mkdir -p unix windows && \
+		if [ -f SDL_config.h ]; then mv SDL_config.h windows; fi && \
+		cp SDL_config.h.in unix/SDL_config.h
+	cat sdl-unix-config.h >> extracted/$(SDL2_MAIN)/include/unix/SDL_config.h
+
+	mkdir -p inc/SDL2
+	$(FBFROG) sdl2.fbfrog \
+		\
+		-incdir extracted/$(SDL2_MAIN)/include \
+			-ifdef __FB_WIN32__ \
+				-incdir extracted/$(SDL2_MAIN)/include/windows \
+				-incdir extracted/$(MINGWW64_TITLE)/mingw-w64-headers/crt \
+				-incdir extracted/$(MINGWW64_TITLE)/mingw-w64-headers/include \
+			-else \
+				-incdir extracted/$(SDL2_MAIN)/include/unix \
+			-endif \
+			-include SDL.h \
+		-incdir extracted/$(SDL2_IMAGE) -include SDL_image.h \
+		-incdir extracted/$(SDL2_MIXER) -include SDL_mixer.h \
+		-incdir extracted/$(SDL2_NET)   -include SDL_net.h \
+		-incdir extracted/$(SDL2_TTF)   -include SDL_ttf.h \
+		\
+		-emit '*/SDL_image.h' inc/SDL2/SDL_image.bi \
+		-emit '*/SDL_mixer.h' inc/SDL2/SDL_mixer.bi \
+		-emit '*/SDL_net.h'   inc/SDL2/SDL_net.bi \
+		-emit '*/SDL_ttf.h'   inc/SDL2/SDL_ttf.bi \
+		-emit '*/extracted/$(SDL2_MAIN)/include/*' inc/SDL2/SDL.bi
 
 ################################################################################
 # Windows API, based on MinGW-w64 headers
@@ -563,12 +604,13 @@ WINAPI_FLAGS := winapi.fbfrog
 WINAPI_FLAGS += -incdir extracted/$(MINGWW64_TITLE)/mingw-w64-headers/crt
 WINAPI_FLAGS += -incdir extracted/$(MINGWW64_TITLE)/mingw-w64-headers/include
 WINAPI_FLAGS += -incdir extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include
-winapi:
+winapi-extract:
 	./downloadextract.sh $(MINGWW64_TITLE) $(MINGWW64_TITLE).tar.bz2 "http://sourceforge.net/projects/mingw-w64/files/mingw-w64/mingw-w64-release/$(MINGWW64_TITLE).tar.bz2/download"
 	cd extracted/$(MINGWW64_TITLE)/mingw-w64-headers/crt && \
 		sed -e 's/@MINGW_HAS_SECURE_API@/#define MINGW_HAS_SECURE_API 1/g' < _mingw.h.in > _mingw.h && \
 		sed -e 's/MINGW_HAS_DX$$/1/g' < sdks/_mingw_directx.h.in > sdks/_mingw_directx.h && \
 		sed -e 's/MINGW_HAS_DDK$$/1/g' < sdks/_mingw_ddk.h.in > sdks/_mingw_ddk.h
+winapi: winapi-extract
 	mkdir -p inc/win
 
 	# Main pass - winsock2.h, windows.h, Direct3D/DirectX 9
