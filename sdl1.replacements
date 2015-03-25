@@ -1,3 +1,19 @@
+# SDL 1: SDL_VERSION with upper-case X parameter...
+convert c:
+	#define SDL_VERSION(X) { \
+		(X)->major = SDL_MAJOR_VERSION; \
+		(X)->minor = SDL_MINOR_VERSION; \
+		(X)->patch = SDL_PATCHLEVEL; \
+	}
+to fb:
+	#macro SDL_VERSION(X)
+		scope
+			(X)->major = SDL_MAJOR_VERSION
+			(X)->minor = SDL_MINOR_VERSION
+			(X)->patch = SDL_PATCHLEVEL
+		end scope
+	#endmacro
+
 convert c: #define SDL_QuitRequested() (SDL_PumpEvents(), SDL_PeepEvents(NULL, 0, SDL_PEEKEVENT, SDL_QUITMASK))
 to fb:
 	private function SDL_QuitRequested() as SDL_bool

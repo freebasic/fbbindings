@@ -2541,9 +2541,9 @@ const SDL_MINOR_VERSION = 0
 const SDL_PATCHLEVEL = 3
 #macro SDL_VERSION(x)
 	scope
-		'' TODO: (x)->major = SDL_MAJOR_VERSION;
-		'' TODO: (x)->minor = SDL_MINOR_VERSION;
-		'' TODO: (x)->patch = SDL_PATCHLEVEL;
+		(x)->major = SDL_MAJOR_VERSION
+		(x)->minor = SDL_MINOR_VERSION
+		(x)->patch = SDL_PATCHLEVEL
 	end scope
 #endmacro
 #define SDL_VERSIONNUM(X, Y, Z) ((((X) * 1000) + ((Y) * 100)) + (Z))

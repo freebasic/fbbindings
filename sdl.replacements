@@ -1,19 +1,4 @@
 convert c:
-	#define SDL_VERSION(X) { \
-		(X)->major = SDL_MAJOR_VERSION; \
-		(X)->minor = SDL_MINOR_VERSION; \
-		(X)->patch = SDL_PATCHLEVEL; \
-	}
-to fb:
-	#macro SDL_VERSION(X)
-		scope
-			(X)->major = SDL_MAJOR_VERSION
-			(X)->minor = SDL_MINOR_VERSION
-			(X)->patch = SDL_PATCHLEVEL
-		end scope
-	#endmacro
-
-convert c:
 	#define SDL_MIXER_VERSION(X) { \
 		(X)->major = SDL_MIXER_MAJOR_VERSION; \
 		(X)->minor = SDL_MIXER_MINOR_VERSION; \
