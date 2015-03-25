@@ -203,6 +203,7 @@ iconv:
 			extracted/$(ICONV)/include/iconv-default.h \
 		-endif \
 		-define EILSEQ "" \
+		-renamedefine _LIBICONV_VERSION _LIBICONV_VERSION_ \
 		-o inc/libiconv.bi
 
 IUP_VERSION := 3.11.2

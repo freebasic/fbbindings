@@ -4,10 +4,13 @@
 #include once "crt/errno.bi"
 #include once "crt/wchar.bi"
 
+'' The following symbols have been renamed:
+''     constant _LIBICONV_VERSION => _LIBICONV_VERSION_
+
 extern "C"
 
 #define _LIBICONV_H
-const _LIBICONV_VERSION = &h010E
+const _LIBICONV_VERSION_ = &h010E
 
 #ifdef __FB_WIN32__
 	extern import _libiconv_version as long
