@@ -55,7 +55,7 @@ declare function SDL_GetPlatform() as const zstring ptr
 	#define _SDL_config_windows_h
 #endif
 
-#define SDL_FOURCC(A, B, C, D) ((((SDL_static_cast(Uint32, SDL_static_cast(Uint8, (A))) shl 0) or (SDL_static_cast(Uint32, SDL_static_cast(Uint8, (B))) shl 8)) or (SDL_static_cast(Uint32, SDL_static_cast(Uint8, (C))) shl 16)) or (SDL_static_cast(Uint32, SDL_static_cast(Uint8, (D))) shl 24))
+#define SDL_FOURCC(A, B, C, D) ((((cast(Uint32, cast(Uint8, (A))) shl 0) or (cast(Uint32, cast(Uint8, (B))) shl 8)) or (cast(Uint32, cast(Uint8, (C))) shl 16)) or (cast(Uint32, cast(Uint8, (D))) shl 24))
 
 type SDL_bool as long
 enum

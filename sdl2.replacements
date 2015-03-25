@@ -4,3 +4,16 @@ to fb:
 		SDL_PumpEvents()
 		function = (SDL_PeepEvents(NULL, 0, SDL_PEEKEVENT, SDL_QUIT, SDL_QUIT) > 0)
 	end function
+
+convert c:
+	#define SDL_FOURCC(A, B, C, D) \
+		((SDL_static_cast(Uint32, SDL_static_cast(Uint8, (A))) << 0) | \
+		 (SDL_static_cast(Uint32, SDL_static_cast(Uint8, (B))) << 8) | \
+		 (SDL_static_cast(Uint32, SDL_static_cast(Uint8, (C))) << 16) | \
+		 (SDL_static_cast(Uint32, SDL_static_cast(Uint8, (D))) << 24))
+to c:
+	#define SDL_FOURCC(A, B, C, D) \
+		((((Uint32)(Uint8)(A)) << 0) | \
+		 (((Uint32)(Uint8)(B)) << 8) | \
+		 (((Uint32)(Uint8)(C)) << 16) | \
+		 (((Uint32)(Uint8)(D)) << 24))
