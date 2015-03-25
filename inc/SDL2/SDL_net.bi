@@ -15,9 +15,9 @@ const SDL_NET_MINOR_VERSION = 0
 const SDL_NET_PATCHLEVEL = 0
 #macro SDL_NET_VERSION(X)
 	scope
-		'' TODO: (X)->major = SDL_NET_MAJOR_VERSION;
-		'' TODO: (X)->minor = SDL_NET_MINOR_VERSION;
-		'' TODO: (X)->patch = SDL_NET_PATCHLEVEL;
+		(X)->major = SDL_NET_MAJOR_VERSION
+		(X)->minor = SDL_NET_MINOR_VERSION
+		(X)->patch = SDL_NET_PATCHLEVEL
 	end scope
 #endmacro
 

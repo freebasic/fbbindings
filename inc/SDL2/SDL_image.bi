@@ -13,9 +13,9 @@ const SDL_IMAGE_MINOR_VERSION = 0
 const SDL_IMAGE_PATCHLEVEL = 0
 #macro SDL_IMAGE_VERSION(X)
 	scope
-		'' TODO: (X)->major = SDL_IMAGE_MAJOR_VERSION;
-		'' TODO: (X)->minor = SDL_IMAGE_MINOR_VERSION;
-		'' TODO: (X)->patch = SDL_IMAGE_PATCHLEVEL;
+		(X)->major = SDL_IMAGE_MAJOR_VERSION
+		(X)->minor = SDL_IMAGE_MINOR_VERSION
+		(X)->patch = SDL_IMAGE_PATCHLEVEL
 	end scope
 #endmacro
 declare function IMG_Linked_Version() as const SDL_version ptr

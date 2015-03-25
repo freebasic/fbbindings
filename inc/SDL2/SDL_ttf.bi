@@ -13,9 +13,9 @@ const SDL_TTF_MINOR_VERSION = 0
 const SDL_TTF_PATCHLEVEL = 12
 #macro SDL_TTF_VERSION(X)
 	scope
-		'' TODO: (X)->major = SDL_TTF_MAJOR_VERSION;
-		'' TODO: (X)->minor = SDL_TTF_MINOR_VERSION;
-		'' TODO: (X)->patch = SDL_TTF_PATCHLEVEL;
+		(X)->major = SDL_TTF_MAJOR_VERSION
+		(X)->minor = SDL_TTF_MINOR_VERSION
+		(X)->patch = SDL_TTF_PATCHLEVEL
 	end scope
 #endmacro
 #define TTF_MAJOR_VERSION SDL_TTF_MAJOR_VERSION
