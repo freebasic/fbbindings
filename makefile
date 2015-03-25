@@ -681,6 +681,8 @@ X11_X11          := libX11-1.6.3
 X11_XPROTO       := xproto-7.0.27
 
 SED_X11_XFUNCPROTO := -e 's/\#undef NARROWPROTO/\#define NARROWPROTO 1/g'
+SED_X11_XLIBCONF := -e 's/\#undef XTHREADS/\#define XTHREADS 1/g'
+SED_X11_XLIBCONF += -e 's/\#undef XUSE_MTSAFE_API/\#define XUSE_MTSAFE_API 1/g'
 
 x11:
 	mkdir -p extracted/xorg
@@ -692,16 +694,38 @@ x11:
 	mkdir extracted/xorg/X11
 	cp extracted/xorg/$(X11_X11)/include/X11/*.h extracted/xorg/X11
 	cp extracted/xorg/$(X11_XPROTO)/*.h          extracted/xorg/X11
-	sed $(SED_X11_XFUNCPROTO) < extracted/xorg/$(X11_XPROTO)/Xfuncproto.h.in > extracted/xorg/X11/Xfuncproto.h
+	sed $(SED_X11_XLIBCONF)   < extracted/xorg/$(X11_X11)/include/X11/XlibConf.h.in > extracted/xorg/X11/XlibConf.h
+	sed $(SED_X11_XFUNCPROTO) < extracted/xorg/$(X11_XPROTO)/Xfuncproto.h.in        > extracted/xorg/X11/Xfuncproto.h
 
 	mkdir -p inc/X11
-	$(FBFROG) x11.fbfrog \
-		-incdir extracted/xorg \
+	$(FBFROG) x11.fbfrog -incdir extracted/xorg \
+		\
 		-include X11/Xlib.h \
-		-emit '*/X11/Xlib.h'    inc/X11/Xlib.bi \
-		-emit '*/X11/X.h'       inc/X11/X.bi \
-		-emit '*/X11/Xosdefs.h' inc/X11/Xosdefs.bi
-
+		-include X11/Xatom.h \
+		-include X11/Xcms.h \
+		-include X11/Xproto.h \
+		-include X11/Xresource.h \
+		-include X11/Xutil.h \
+		-include X11/cursorfont.h \
+		-include X11/Xlibint.h \
+		\
+		-emit '*/X11/cursorfont.h'   inc/X11/cursorfont.bi \
+		-emit '*/X11/keysymdef.h'    inc/X11/keysymdef.bi \
+		-emit '*/X11/keysym.h'       inc/X11/keysym.bi \
+		-emit '*/X11/Xatom.h'        inc/X11/Xatom.bi \
+		-emit '*/X11/Xcms.h'         inc/X11/Xcms.bi \
+		-emit '*/X11/Xfuncproto.h'   inc/X11/Xfuncproto.bi \
+		-emit '*/X11/Xfuncs.h'       inc/X11/Xfuncs.bi \
+		-emit '*/X11/X.h'            inc/X11/X.bi \
+		-emit '*/X11/XlibConf.h'     inc/X11/XlibConf.bi \
+		-emit '*/X11/Xlib.h'         inc/X11/Xlib.bi \
+		-emit '*/X11/Xlibint.h'      inc/X11/Xlibint.bi \
+		-emit '*/X11/Xmd.h'          inc/X11/Xmd.bi \
+		-emit '*/X11/Xosdefs.h'      inc/X11/Xosdefs.bi \
+		-emit '*/X11/Xproto.h'       inc/X11/Xproto.bi \
+		-emit '*/X11/Xprotostr.h'    inc/X11/Xprotostr.bi \
+		-emit '*/X11/Xresource.h'    inc/X11/Xresource.bi \
+		-emit '*/X11/Xutil.h'        inc/X11/Xutil.bi
 
 ZIP_TITLE := libzip-0.11.2
 zip:
