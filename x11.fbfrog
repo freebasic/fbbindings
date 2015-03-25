@@ -1,0 +1,16 @@
+-expandindefine _Xconst
+
+-removedefine B16
+-removedefine B32
+-removedefine __has_attribute
+-removedefine LONG64
+-removedefine _X_EXPORT
+-removedefine _XFUNCPROTOBEGIN
+-removedefine _XFUNCPROTOEND
+-removedefine _X_HIDDEN
+-removedefine _X_INLINE
+-removedefine _X_INTERNAL
+-removedefine _X_LIKELY
+-removedefine _X_NORETURN
+-removedefine _X_RESTRICT_KYWD
+-removedefine _X_UNLIKELY
