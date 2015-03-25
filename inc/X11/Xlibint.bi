@@ -131,7 +131,7 @@ type _XDisplay_
 	cookiejar as any ptr
 end type
 
-#define XAllocIDs(dpy, ids, n) '' TODO: (*(dpy)->idlist_alloc)(dpy,ids,n)
+#define XAllocIDs(dpy, ids, n) ((dpy)->idlist_alloc)(dpy, ids, n)
 
 type _XSQEvent_
 	next as _XSQEvent ptr
@@ -168,12 +168,36 @@ end type
 	extern _Xglobal_lock as LockInfoPtr
 #endif
 
-#define LockDisplay(d) '' TODO: if ((d)->lock_fns) (*(d)->lock_fns->lock_display)(d)
-#define UnlockDisplay(d) '' TODO: if ((d)->lock_fns) (*(d)->lock_fns->unlock_display)(d)
-#define _XLockMutex(lock) '' TODO: if (_XLockMutex_fn) (*_XLockMutex_fn)(lock)
-#define _XUnlockMutex(lock) '' TODO: if (_XUnlockMutex_fn) (*_XUnlockMutex_fn)(lock)
-#define _XCreateMutex(lock) '' TODO: if (_XCreateMutex_fn) (*_XCreateMutex_fn)(lock);
-#define _XFreeMutex(lock) '' TODO: if (_XFreeMutex_fn) (*_XFreeMutex_fn)(lock);
+#macro LockDisplay(d)
+	if (d)->lock_fns then
+		(d)->lock_fns->lock_display(d)
+	end if
+#endmacro
+#macro UnlockDisplay(d)
+	if (d)->lock_fns then
+		(d)->lock_fns->unlock_display(d)
+	end if
+#endmacro
+#macro _XLockMutex(lock)
+	if _XLockMutex_fn then
+		_XLockMutex_fn(lock)
+	end if
+#endmacro
+#macro _XUnlockMutex(lock)
+	if _XUnlockMutex_fn then
+		_XUnlockMutex_fn(lock)
+	end if
+#endmacro
+#macro _XCreateMutex(lock)
+	if _XCreateMutex_fn then
+		_XCreateMutex_fn(lock)
+	end if
+#endmacro
+#macro _XFreeMutex(lock)
+	if _XFreeMutex_fn then
+		_XFreeMutex_fn(lock)
+	end if
+#endmacro
 #define Xfree(ptr) free((ptr))
 #define Xmalloc(size) malloc((size))
 #define Xrealloc(ptr, size) realloc((ptr), (size))
@@ -200,21 +224,34 @@ const XlibDisplayWriting = cast(clong, 1) shl 6
 const XlibDisplayDfltRMDB = cast(clong, 1) shl 7
 #define WORD64ALIGN
 declare function _XGetRequest(byval dpy as Display ptr, byval type as CARD8, byval len as uinteger) as any ptr
-#define GetReqSized(name, sz, req) '' TODO: req = (x##name##Req *) _XGetRequest(dpy, X_##name, sz)
+#macro GetReqSized(name, sz, req)
+	scope
+		req = cptr(x##name##Req ptr, _XGetRequest(dpy, X_##name, sz))
+	end scope
+#endmacro
 #define GetReq(name, req) GetReqSized(name, SIZEOF(x##name##Req), req)
 #define GetReqExtra(name, n, req) GetReqSized(name, SIZEOF(x##name##Req) + n, req)
-#define GetResReq(name, rid, req) '' TODO: req = (xResourceReq *) _XGetRequest(dpy, X_##name, SIZEOF(xResourceReq)); req->id = (rid)
-#define GetEmptyReq(name, req) '' TODO: req = (xReq *) _XGetRequest(dpy, X_##name, SIZEOF(xReq))
+#macro GetResReq(name, rid, req)
+	scope
+		req = cptr(xResourceReq ptr, _XGetRequest(dpy, X_##name, SIZEOF(xResourceReq)))
+		req->id = (rid)
+	end scope
+#endmacro
+#macro GetEmptyReq(name, req)
+	scope
+		req = cptr(xReq ptr, _XGetRequest(dpy, X_##name, SIZEOF(xReq)))
+	end scope
+#endmacro
 
 #if defined(__FB_64BIT__) and (defined(__FB_WIN32__) or defined(__FB_LINUX__))
 	#macro MakeBigReq(req, n)
 		scope
 			dim _BRdat as CARD64
 			dim _BRlen as CARD32 = req->length - 1
-			'' TODO: req->length = 0;
-			'' TODO: _BRdat = ((CARD32 *)req)[_BRlen];
+			req->length = 0
+			_BRdat = cptr(CARD32 ptr, req)[_BRlen]
 			memmove(cptr(zstring ptr, req) + 8, cptr(zstring ptr, req) + 4, (_BRlen - 1) shl 2)
-			'' TODO: ((CARD32 *)req)[1] = _BRlen + n + 2;
+			cptr(CARD32 ptr, req)[1] = _BRlen + n + 2
 			Data32(dpy, @_BRdat, 4)
 		end scope
 	#endmacro
@@ -223,26 +260,56 @@ declare function _XGetRequest(byval dpy as Display ptr, byval type as CARD8, byv
 		scope
 			dim _BRdat as CARD32
 			dim _BRlen as CARD32 = req->length - 1
-			'' TODO: req->length = 0;
-			'' TODO: _BRdat = ((CARD32 *)req)[_BRlen];
+			req->length = 0
+			_BRdat = cptr(CARD32 ptr, req)[_BRlen]
 			memmove(cptr(zstring ptr, req) + 8, cptr(zstring ptr, req) + 4, (_BRlen - 1) shl 2)
-			'' TODO: ((CARD32 *)req)[1] = _BRlen + n + 2;
+			cptr(CARD32 ptr, req)[1] = _BRlen + n + 2
 			Data32(dpy, @_BRdat, 4)
 		end scope
 	#endmacro
 #endif
 
-#define SetReqLen(req, n, badlen) '' TODO: if ((req->length + n) > (unsigned)65535) { if (dpy->bigreq_size) { MakeBigReq(req,n) } else { n = badlen; req->length += n; } } else req->length += n
-#define SyncHandle() '' TODO: if (dpy->synchandler) (*dpy->synchandler)(dpy)
+#macro SetReqLen(req, n, badlen)
+	if (req->length + n) > 65535ul then
+		if dpy->bigreq_size then
+			MakeBigReq(req,n)
+		else
+			n = badlen
+			req->length += n
+		end if
+	else
+		req->length += n
+	end if
+#endmacro
+#macro SyncHandle()
+	if dpy->synchandler then
+		dpy->synchandler(dpy)
+	end if
+#endmacro
 declare sub _XFlushGCCache(byval dpy as Display ptr, byval gc as GC)
-#define FlushGC(dpy, gc) '' TODO: if ((gc)->dirty) _XFlushGCCache((dpy), (gc))
+#macro FlushGC(dpy, gc)
+	if (gc)->dirty then
+		_XFlushGCCache((dpy), (gc))
+	end if
+#endmacro
 #macro Data(dpy, data, len)
 	scope
-		'' TODO: if (dpy->bufptr + (len) <= dpy->bufmax) { memcpy(dpy->bufptr, data, (int)len); dpy->bufptr += ((len) + 3) & ~3; }
-		'' TODO: else _XSend(dpy, data, len);
+		if dpy->bufptr + (len) <= dpy->bufmax then
+			memcpy(dpy->bufptr, data, clng(len))
+			dpy->bufptr += ((len) + 3) and (not 3)
+		else
+			_XSend(dpy, data, len)
+		end if
 	end scope
 #endmacro
-#define BufAlloc(type, ptr, n) '' TODO: if (dpy->bufptr + (n) > dpy->bufmax) _XFlush (dpy); ptr = (type) dpy->bufptr; memset(ptr, '\0', n); dpy->bufptr += (n);
+#macro BufAlloc(type, ptr, n)
+	if dpy->bufptr + (n) > dpy->bufmax then
+		_XFlush(dpy)
+		ptr = cast(type, dpy->bufptr)
+		memset(ptr, 0, n)
+		dpy->bufptr += (n)
+	end if
+#endmacro
 #define Data16(dpy, data, len) Data((dpy), cptr(const zstring ptr, (data)), (len))
 #define _XRead16Pad(dpy, data, len) _XReadPad((dpy), cptr(zstring ptr, (data)), (len))
 #define _XRead16(dpy, data, len) _XRead((dpy), cptr(zstring ptr, (data)), (len))
@@ -264,15 +331,33 @@ declare sub _XFlushGCCache(byval dpy as Display ptr, byval gc as GC)
 #define CI_NONEXISTCHAR(cs) (((cs)->width = 0) andalso (((((cs)->rbearing or (cs)->lbearing) or (cs)->ascent) or (cs)->descent) = 0))
 #macro CI_GET_CHAR_INFO_1D(fs, col, def, cs)
 	scope
-		'' TODO: cs = def;
-		'' TODO: if (col >= fs->min_char_or_byte2 && col <= fs->max_char_or_byte2) { if (fs->per_char == NULL) { cs = &fs->min_bounds; } else { cs = &fs->per_char[(col - fs->min_char_or_byte2)]; if (CI_NONEXISTCHAR(cs)) cs = def; } }
+		cs = def
+		if col >= fs->min_char_or_byte2 andalso col <= fs->max_char_or_byte2 then
+			if fs->per_char == NULL then
+				cs = @fs->min_bounds
+			else
+				cs = @fs->per_char[col - fs->min_char_or_byte2]
+				if CI_NONEXISTCHAR(cs) then
+					cs = def
+				end if
+			end if
+		end if
 	end scope
 #endmacro
 #define CI_GET_DEFAULT_INFO_1D(fs, cs) CI_GET_CHAR_INFO_1D(fs, fs->default_char, NULL, cs)
 #macro CI_GET_CHAR_INFO_2D(fs, row, col, def, cs)
 	scope
-		'' TODO: cs = def;
-		'' TODO: if (row >= fs->min_byte1 && row <= fs->max_byte1 && col >= fs->min_char_or_byte2 && col <= fs->max_char_or_byte2) { if (fs->per_char == NULL) { cs = &fs->min_bounds; } else { cs = &fs->per_char[((row - fs->min_byte1) * (fs->max_char_or_byte2 - fs->min_char_or_byte2 + 1)) + (col - fs->min_char_or_byte2)]; if (CI_NONEXISTCHAR(cs)) cs = def; } }
+		cs = def
+		if row >= fs->min_byte1 andalso row <= fs->max_byte1 andalso col >= fs->min_char_or_byte2 andalso col <= fs->max_char_or_byte2 then
+			if fs->per_char = NULL then
+				cs = @fs->min_bounds
+			else
+				cs = @fs->per_char[((row - fs->min_byte1) * (fs->max_char_or_byte2 - fs->min_char_or_byte2 + 1)) + (col - fs->min_char_or_byte2)]
+				if CI_NONEXISTCHAR(cs) then
+					cs = def
+				end if
+			end if
+		end if
 	end scope
 #endmacro
 #macro CI_GET_DEFAULT_INFO_2D(fs, cs)
@@ -284,7 +369,7 @@ declare sub _XFlushGCCache(byval dpy as Display ptr, byval gc as GC)
 #endmacro
 #macro OneDataCard32(dpy, dstaddr, srcvar)
 	scope
-		'' TODO: *(CARD32 *)(dstaddr) = (srcvar);
+		*cptr(CARD32 ptr, dstaddr) = (srcvar)
 	end scope
 #endmacro
 
@@ -310,8 +395,11 @@ type _XAsyncErrorState as _XAsyncEState
 declare sub _XDeqAsyncHandler(byval dpy as Display ptr, byval handler as _XAsyncHandler ptr)
 #macro DeqAsyncHandler(dpy, handler)
 	scope
-		'' TODO: if (dpy->async_handlers == (handler)) dpy->async_handlers = (handler)->next;
-		'' TODO: else _XDeqAsyncHandler(dpy, handler);
+		if dpy->async_handlers = (handler) then
+			dpy->async_handlers = (handler)->next
+		else
+			_XDeqAsyncHandler(dpy, handler)
+		end if
 	end scope
 #endmacro
 type FreeFuncType as sub(byval as Display ptr)
