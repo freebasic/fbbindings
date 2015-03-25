@@ -409,7 +409,7 @@ sdl1:
 	cat sdl-unix-config.h >> extracted/$(SDL1_MAIN)/include/unix/SDL_config.h
 
 	mkdir -p inc/SDL
-	$(FBFROG) sdl1.fbfrog \
+	$(FBFROG) sdl.fbfrog sdl1.fbfrog \
 		\
 		-incdir extracted/$(SDL1_MAIN)/include \
 			-ifdef __FB_WIN32__ \
@@ -474,7 +474,7 @@ sdl2: winapi-extract
 	cat sdl-unix-config.h >> extracted/$(SDL2_MAIN)/include/unix/SDL_config.h
 
 	mkdir -p inc/SDL2
-	$(FBFROG) sdl2.fbfrog \
+	$(FBFROG) sdl.fbfrog sdl2.fbfrog \
 		\
 		-incdir extracted/$(SDL2_MAIN)/include \
 			-ifdef __FB_WIN32__ \

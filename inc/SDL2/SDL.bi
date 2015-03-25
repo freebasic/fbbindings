@@ -195,7 +195,6 @@ declare function SDL_iconv_string(byval tocode as const zstring ptr, byval fromc
 #define SDL_iconv_utf8_locale(S) SDL_iconv_string("", "UTF-8", S, SDL_strlen(S) + 1)
 #define SDL_iconv_utf8_ucs2(S) cptr(Uint16 ptr, SDL_iconv_string("UCS-2-INTERNAL", "UTF-8", S, SDL_strlen(S) + 1))
 #define SDL_iconv_utf8_ucs4(S) cptr(Uint32 ptr, SDL_iconv_string("UCS-4-INTERNAL", "UTF-8", S, SDL_strlen(S) + 1))
-#define C_LINKAGE
 declare function SDL_main(byval argc as long, byval argv as zstring ptr ptr) as long
 declare sub SDL_SetMainReady()
 
