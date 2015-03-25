@@ -106,19 +106,21 @@ const NULL = cptr(any ptr, 0)
 #define SDL_toupper(X) toupper(X)
 #define SDL_tolower(X) tolower(X)
 #define SDL_memset memset
-
+#define SDL_memset4(dst, val, len) SDL_memset(dst, val, (len) shl 2)
+#define SDL_memcpy memcpy
+#define SDL_memcpy4(dst, src, len) SDL_memcpy(dst, src, (len) shl 2)
 #ifdef __FB_64BIT__
-	#define SDL_memset4(dst, val, len) '' TODO: do { unsigned _count = (len); unsigned _n = (_count + 3) / 4; Uint32 *_p = SDL_static_cast(Uint32 *, dst); Uint32 _val = (val); if (len == 0) break; switch (_count % 4) { case 0: do { *_p++ = _val; case 3: *_p++ = _val; case 2: *_p++ = _val; case 1: *_p++ = _val; } while ( --_n ); }} while(0)
-	#define SDL_memcpy memcpy
-	#define SDL_memcpy4(dst, src, len) SDL_memcpy(dst, src, (len) shl 2)
 	declare function SDL_revcpy(byval dst as any ptr, byval src as const any ptr, byval len as uinteger) as any ptr
 #else
-	#define SDL_memset4(dst, val, len) '' TODO: do { int u0, u1, u2; __asm__ __volatile__ ( "cld\n\t" "rep ; stosl\n\t" : "=&D" (u0), "=&a" (u1), "=&c" (u2) : "0" (dst), "1" (val), "2" (SDL_static_cast(Uint32, len)) : "memory" );} while(0)
-	#define SDL_memcpy(dst, src, len) '' TODO: do { int u0, u1, u2; __asm__ __volatile__ ( "cld\n\t" "rep ; movsl\n\t" "testb $2,%b4\n\t" "je 1f\n\t" "movsw\n" "1:\ttestb $1,%b4\n\t" "je 2f\n\t" "movsb\n" "2:" : "=&c" (u0), "=&D" (u1), "=&S" (u2) : "0" (SDL_static_cast(unsigned, len)/4), "q" (len), "1" (dst),"2" (src) : "memory" );} while(0)
-	#define SDL_memcpy4(dst, src, len) '' TODO: do { int ecx, edi, esi; __asm__ __volatile__ ( "cld\n\t" "rep ; movsl" : "=&c" (ecx), "=&D" (edi), "=&S" (esi) : "0" (SDL_static_cast(unsigned, len)), "1" (dst), "2" (src) : "memory" );} while(0)
-	#define SDL_revcpy(dst, src, len) '' TODO: do { int u0, u1, u2; char *dstp = SDL_static_cast(char *, dst); char *srcp = SDL_static_cast(char *, src); int n = (len); if ( n >= 4 ) { __asm__ __volatile__ ( "std\n\t" "rep ; movsl\n\t" "cld\n\t" : "=&c" (u0), "=&D" (u1), "=&S" (u2) : "0" (n >> 2), "1" (dstp+(n-4)), "2" (srcp+(n-4)) : "memory" ); } switch (n & 3) { case 3: dstp[2] = srcp[2]; case 2: dstp[1] = srcp[1]; case 1: dstp[0] = srcp[0]; break; default: break; }} while(0)
+	private function SDL_revcpy(byval dst as any ptr, byval src as const any ptr, byval length as uinteger) as any ptr
+		dim as const byte ptr s = src
+		dim as byte ptr d = dst
+		for i as integer = length - 1 to 0 step -1
+			d[i] = s[i]
+		next
+		function = dst
+	end function
 #endif
-
 #define SDL_memmove memmove
 #define SDL_memcmp memcmp
 #define SDL_strlen strlen
@@ -249,47 +251,15 @@ const SDL_BIG_ENDIAN = 4321
 	#define SDL_BYTEORDER SDL_LIL_ENDIAN
 #endif
 
-#ifdef __FB_64BIT__
-	private function SDL_Swap16(byval x as Uint16) as Uint16
-		'' TODO: __asm__("xchgb %b0,%h0" : "=Q" (x) : "0" (x));
-		return x
-	end function
-
-	private function SDL_Swap32(byval x as Uint32) as Uint32
-		'' TODO: __asm__("bswapl %0" : "=r" (x) : "0" (x));
-		return x
-	end function
-
-	private function SDL_Swap64(byval x as Uint64) as Uint64
-		'' TODO: __asm__("bswapq %0" : "=r" (x) : "0" (x));
-		return x
-	end function
-#else
-	private function SDL_Swap16(byval x as Uint16) as Uint16
-		'' TODO: __asm__("xchgb %b0,%h0" : "=q" (x) : "0" (x));
-		return x
-	end function
-
-	private function SDL_Swap32(byval x as Uint32) as Uint32
-		'' TODO: __asm__("bswap %0" : "=r" (x) : "0" (x));
-		return x
-	end function
-
-	private function SDL_Swap64(byval x as Uint64) as Uint64
-		type v_s
-			a as Uint32
-			b as Uint32
-		end type
-		union v
-			s as v_s
-			u as Uint64
-		end union
-		dim v as v
-		'' TODO: v.u = x;
-		'' TODO: __asm__("bswapl %0 ; bswapl %1 ; xchgl %0,%1" : "=r" (v.s.a), "=r" (v.s.b) : "0" (v.s.a), "1" (v.s.b));
-		return v.u
-	end function
-#endif
+#define SDL_Swap16(x) cushort((cushort(x) shl 8) or (cushort(x) shr 8))
+#define SDL_Swap32(x) _
+	culng((culng(x) shl 24) or _
+	      ((culng(x) shl 8) and &h00FF0000) or _
+	      ((culng(x) shr 8) and &h0000FF00) or _
+	      (culng(x) shr 24))
+#define SDL_Swap64(x) _
+	culngint((SDL_Swap32(culngint(x) and &hFFFFFFFF) shl 32) or _
+	         SDL_Swap32(culngint(x) shr 32))
 
 #define SDL_SwapLE16(X) (X)
 #define SDL_SwapLE32(X) (X)
