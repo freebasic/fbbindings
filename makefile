@@ -679,8 +679,32 @@ winapi: winapi-extract
 
 ################################################################################
 
+X11_ICE          := libICE-1.0.9
+X11_SM           := libSM-1.2.2
+X11_XAU          := libXau-1.0.8
 X11_X11          := libX11-1.6.3
+X11_XT           := libXt-1.1.4
+X11_XEXT         := libXext-1.3.3
+X11_XPM          := libXpm-3.5.11
+X11_XRENDER      := libXrender-0.9.8
+X11_XRANDR       := libXrandr-1.4.2
+X11_XI           := libXi-1.7.4
+X11_XDMCP        := libXdmcp-1.1.2
+X11_XXF86DGA     := libXxf86dga-1.1.4
+X11_XXF86VM      := libXxf86vm-1.1.4
+X11_XV           := libXv-1.0.10
+X11_XTRANS       := xtrans-1.3.5
+X11_UTILMACROS   := util-macros-1.19.0
 X11_XPROTO       := xproto-7.0.27
+X11_XEXTPROTO    := xextproto-7.3.0
+X11_RENDERPROTO  := renderproto-0.11.1
+X11_RANDRPROTO   := randrproto-1.4.1
+X11_KBPROTO      := kbproto-1.0.6
+X11_INPUTPROTO   := inputproto-2.3.1
+X11_DRI2PROTO    := dri2proto-2.8
+X11_XF86DGAPROTO := xf86dgaproto-2.1
+X11_XF86VIDMODEPROTO := xf86vidmodeproto-2.3.1
+X11_VIDEOPROTO   := videoproto-2.3.2
 
 SED_X11_XFUNCPROTO := -e 's/\#undef NARROWPROTO/\#define NARROWPROTO 1/g'
 SED_X11_XLIBCONF := -e 's/\#undef XTHREADS/\#define XTHREADS 1/g'
@@ -689,8 +713,32 @@ SED_X11_XLIBCONF += -e 's/\#undef XUSE_MTSAFE_API/\#define XUSE_MTSAFE_API 1/g'
 x11:
 	mkdir -p extracted/xorg
 	mkdir -p tarballs/xorg
+	./getxorg.sh $(X11_ICE)      $(X11_ICE).tar.bz2       "http://xorg.freedesktop.org/releases/individual/lib/$(X11_ICE).tar.bz2"
+	./getxorg.sh $(X11_SM)       $(X11_SM).tar.bz2        "http://xorg.freedesktop.org/releases/individual/lib/$(X11_SM).tar.bz2"
+	./getxorg.sh $(X11_XAU)      $(X11_XAU).tar.bz2       "http://xorg.freedesktop.org/releases/individual/lib/$(X11_XAU).tar.bz2"
 	./getxorg.sh $(X11_X11)      $(X11_X11).tar.bz2       "http://xorg.freedesktop.org/releases/individual/lib/$(X11_X11).tar.bz2"
+	./getxorg.sh $(X11_XT)       $(X11_XT).tar.bz2        "http://xorg.freedesktop.org/releases/individual/lib/$(X11_XT).tar.bz2"
+	./getxorg.sh $(X11_XEXT)     $(X11_XEXT).tar.bz2      "http://xorg.freedesktop.org/releases/individual/lib/$(X11_XEXT).tar.bz2"
+	./getxorg.sh $(X11_XPM)      $(X11_XPM).tar.bz2       "http://xorg.freedesktop.org/releases/individual/lib/$(X11_XPM).tar.bz2"
+	./getxorg.sh $(X11_XRENDER)  $(X11_XRENDER).tar.bz2   "http://xorg.freedesktop.org/releases/individual/lib/$(X11_XRENDER).tar.bz2"
+	./getxorg.sh $(X11_XRANDR)   $(X11_XRANDR).tar.bz2    "http://xorg.freedesktop.org/releases/individual/lib/$(X11_XRANDR).tar.bz2"
+	./getxorg.sh $(X11_XI)       $(X11_XI).tar.bz2        "http://xorg.freedesktop.org/releases/individual/lib/$(X11_XI).tar.bz2"
+	./getxorg.sh $(X11_XDMCP)    $(X11_XDMCP).tar.bz2     "http://xorg.freedesktop.org/releases/individual/lib/$(X11_XDMCP).tar.bz2"
+	./getxorg.sh $(X11_XXF86DGA) $(X11_XXF86DGA).tar.bz2  "http://xorg.freedesktop.org/releases/individual/lib/$(X11_XXF86DGA).tar.bz2"
+	./getxorg.sh $(X11_XXF86VM)  $(X11_XXF86VM).tar.bz2   "http://xorg.freedesktop.org/releases/individual/lib/$(X11_XXF86VM).tar.bz2"
+	./getxorg.sh $(X11_XV)       $(X11_XV).tar.bz2        "http://xorg.freedesktop.org/releases/individual/lib/$(X11_XV).tar.bz2"
+	./getxorg.sh $(X11_XTRANS)   $(X11_XTRANS).tar.bz2    "http://xorg.freedesktop.org/releases/individual/lib/$(X11_XTRANS).tar.bz2"
+	./getxorg.sh $(X11_UTILMACROS)       $(X11_UTILMACROS).tar.bz2       "http://xorg.freedesktop.org/releases/individual/util/$(X11_UTILMACROS).tar.bz2"
 	./getxorg.sh $(X11_XPROTO)           $(X11_XPROTO).tar.bz2           "http://xorg.freedesktop.org/releases/individual/proto/$(X11_XPROTO).tar.bz2"
+	./getxorg.sh $(X11_XEXTPROTO)        $(X11_XEXTPROTO).tar.bz2        "http://xorg.freedesktop.org/releases/individual/proto/$(X11_XEXTPROTO).tar.bz2"
+	./getxorg.sh $(X11_RENDERPROTO)      $(X11_RENDERPROTO).tar.bz2      "http://xorg.freedesktop.org/releases/individual/proto/$(X11_RENDERPROTO).tar.bz2"
+	./getxorg.sh $(X11_RANDRPROTO)       $(X11_RANDRPROTO).tar.bz2       "http://xorg.freedesktop.org/releases/individual/proto/$(X11_RANDRPROTO).tar.bz2"
+	./getxorg.sh $(X11_KBPROTO)          $(X11_KBPROTO).tar.bz2          "http://xorg.freedesktop.org/releases/individual/proto/$(X11_KBPROTO).tar.bz2"
+	./getxorg.sh $(X11_INPUTPROTO)       $(X11_INPUTPROTO).tar.bz2       "http://xorg.freedesktop.org/releases/individual/proto/$(X11_INPUTPROTO).tar.bz2"
+	./getxorg.sh $(X11_DRI2PROTO)        $(X11_DRI2PROTO).tar.bz2        "http://xorg.freedesktop.org/releases/individual/proto/$(X11_DRI2PROTO).tar.bz2"
+	./getxorg.sh $(X11_XF86DGAPROTO)     $(X11_XF86DGAPROTO).tar.bz2     "http://xorg.freedesktop.org/releases/individual/proto/$(X11_XF86DGAPROTO).tar.bz2"
+	./getxorg.sh $(X11_XF86VIDMODEPROTO) $(X11_XF86VIDMODEPROTO).tar.bz2 "http://xorg.freedesktop.org/releases/individual/proto/$(X11_XF86VIDMODEPROTO).tar.bz2"
+	./getxorg.sh $(X11_VIDEOPROTO)       $(X11_VIDEOPROTO).tar.bz2       "http://xorg.freedesktop.org/releases/individual/proto/$(X11_VIDEOPROTO).tar.bz2"
 
 	rm -rf extracted/xorg/X11
 	mkdir extracted/xorg/X11
@@ -728,6 +776,12 @@ x11:
 		-emit '*/X11/Xprotostr.h'    inc/X11/Xprotostr.bi \
 		-emit '*/X11/Xresource.h'    inc/X11/Xresource.bi \
 		-emit '*/X11/Xutil.h'        inc/X11/Xutil.bi
+
+xcb:
+	./downloadextract.sh xcb-proto-1.8          xcb-proto-1.8.tar.bz2          "http://xcb.freedesktop.org/dist/xcb-proto-1.8.tar.bz2"
+	./downloadextract.sh libpthread-stubs-0.3 libpthread-stubs-0.3.tar.bz2 "http://xcb.freedesktop.org/dist/libpthread-stubs-0.3.tar.bz2"
+	./downloadextract.sh libxcb-1.9           libxcb-1.9.tar.bz2           "http://xcb.freedesktop.org/dist/libxcb-1.9.tar.bz2"
+
 
 ZIP_TITLE := libzip-0.11.2
 zip:
