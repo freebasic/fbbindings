@@ -3,6 +3,7 @@ nodos.fbfrog
 -noexpand SDL_DEFINE_PIXELFORMAT
 -noexpand SDL_DEFINE_PIXELFOURCC
 
+-replacements sdl.replacements
 -replacements sdl2.replacements
 
 -removedefine SDL_arraysize

@@ -1,5 +1,6 @@
 nodos.fbfrog
 
+-replacements sdl.replacements
 -replacements sdl1.replacements
 
 -removedefine SDL_arraysize
