@@ -112,9 +112,6 @@
 	#define xcondition_wait(c, m) pthread_cond_wait(c, m)
 	#define xcondition_signal(c) pthread_cond_signal(c)
 	#define xcondition_broadcast(c) pthread_cond_broadcast(c)
-#endif
-
-#ifdef __FB_LINUX__
 	#define xthread_have_id(id) (pthread_equal(id, 0) = 0)
 	#define xthread_clear_id(id) '' TODO: id = 0
 	#define xthread_equal(id1, id2) pthread_equal(id1, id2)
@@ -127,7 +124,7 @@ type xmutex_t as xmutex_rec ptr
 #define xmutex_malloc() cast(xmutex_t, xmalloc(sizeof(xmutex_rec)))
 #define xmutex_free(m) xfree(cptr(zstring ptr, m))
 
-#if defined(__FB_DOS__) or defined(__FB_WIN32__)
+#ifdef __FB_WIN32__
 	#define xthread_have_id(id) id
 	#define xthread_clear_id(id) '' TODO: id = 0
 	#define xthread_equal(id1, id2) ((id1) = (id2))

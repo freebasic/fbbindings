@@ -217,7 +217,7 @@ declare function _XGetRequest(byval dpy as Display ptr, byval type as CARD8, byv
 #define GetResReq(name, rid, req) '' TODO: req = (xResourceReq *) _XGetRequest(dpy, X_##name, SIZEOF(xResourceReq)); req->id = (rid)
 #define GetEmptyReq(name, req) '' TODO: req = (xReq *) _XGetRequest(dpy, X_##name, SIZEOF(xReq))
 
-#if defined(__FB_64BIT__) and (defined(__FB_WIN32__) or defined(__FB_LINUX__))
+#ifdef __FB_64BIT__
 	#macro MakeBigReq(req, n)
 		scope
 			dim _BRdat as CARD64
@@ -258,7 +258,7 @@ declare sub _XFlushGCCache(byval dpy as Display ptr, byval gc as GC)
 #define _XRead16Pad(dpy, data, len) _XReadPad((dpy), cptr(zstring ptr, (data)), (len))
 #define _XRead16(dpy, data, len) _XRead((dpy), cptr(zstring ptr, (data)), (len))
 
-#if defined(__FB_64BIT__) and (defined(__FB_WIN32__) or defined(__FB_LINUX__))
+#ifdef __FB_64BIT__
 	#define Data32(dpy, data, len) _XData32(dpy, cptr(const clong ptr, data), len)
 	declare function _XData32(byval dpy as Display ptr, byval data as const clong ptr, byval len as ulong) as long
 	declare sub _XRead32(byval dpy as Display ptr, byval data as clong ptr, byval len as clong)
