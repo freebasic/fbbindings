@@ -1593,7 +1593,7 @@ end enum
 type SDL_Keysym
 	scancode as SDL_Scancode
 	sym as SDL_Keycode
-	mod as Uint16
+	mod_ as Uint16
 	unused as Uint32
 end type
 

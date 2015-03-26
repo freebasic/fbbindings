@@ -807,8 +807,8 @@ end enum
 type SDL_keysym
 	scancode as Uint8
 	sym as SDLKey
-	mod as SDLMod
-	unicode as Uint16
+	mod_ as SDLMod
+	unicode_ as Uint16
 end type
 
 const SDL_ALL_HOTKEYS = &hFFFFFFFF
