@@ -359,7 +359,7 @@ type XkbClientMapPtr as _XkbClientMapRec ptr
 #define XkbCMKeyNumGroups(m, k) XkbNumGroups((m)->key_sym_map[k].group_info)
 #define XkbCMKeyGroupWidth(m, k, g) XkbCMKeyType(m, k, g)->num_levels
 #define XkbCMKeyGroupsWidth(m, k) (m)->key_sym_map[k].width
-#define XkbCMKeyTypeIndex(m, k, g) ((m)->key_sym_map[k].kt_index[g and &h3])
+#define XkbCMKeyTypeIndex(m, k, g) (m)->key_sym_map[k].kt_index[(g and &h3)]
 #define XkbCMKeyType(m, k, g) (@(m)->types[XkbCMKeyTypeIndex(m, k, g)])
 #define XkbCMKeyNumSyms(m, k) (XkbCMKeyGroupsWidth(m, k) * XkbCMKeyNumGroups(m, k))
 #define XkbCMKeySymsOffset(m, k) (m)->key_sym_map[k].offset

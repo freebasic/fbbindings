@@ -95,7 +95,7 @@ const XIDirectTouch = 1
 const XIDependentTouch = 2
 #define XISetMask(ptr, event) '' TODO: (((unsigned char*)(ptr))[(event)>>3] |= (1 << ((event) & 7)))
 #define XIClearMask(ptr, event) '' TODO: (((unsigned char*)(ptr))[(event)>>3] &= ~(1 << ((event) & 7)))
-#define XIMaskIsSet(ptr, event) '' TODO: (((unsigned char*)(ptr))[(event)>>3] & (1 << ((event) & 7)))
+#define XIMaskIsSet(ptr, event) (cptr(ubyte ptr, (ptr))[((event) shr 3)] and (1 shl ((event) and 7)))
 #define XIMaskLen(event) (((event) shr 3) + 1)
 const XIAllDevices = 0
 const XIAllMasterDevices = 1

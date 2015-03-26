@@ -134,8 +134,6 @@ const XPM_GRAY4 = 3
 const XPM_GREY = 4
 const XPM_GRAY = 4
 const XPM_COLOR = 5
-#define FUNC(f, t, p) '' TODO: extern t f p
-#define LFUNC(f, t, p) '' TODO: static t f p
 
 declare function XpmCreatePixmapFromData(byval display as Display ptr, byval d as Drawable, byval data as zstring ptr ptr, byval pixmap_return as Pixmap ptr, byval shapemask_return as Pixmap ptr, byval attributes as XpmAttributes ptr) as long
 declare function XpmCreateDataFromPixmap(byval display as Display ptr, byval data_return as zstring ptr ptr ptr, byval pixmap as Pixmap, byval shapemask as Pixmap, byval attributes as XpmAttributes ptr) as long

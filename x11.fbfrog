@@ -46,6 +46,13 @@ nodos.fbfrog
 -removedefine MINSHORT
 -removedefine KEYBOARD
 -removedefine POINTER
+-removedefine FUNC
+-removedefine LFUNC
+-removedefine alloca
+-removedefine ALLOCATE_LOCAL
+-removedefine DEALLOCATE_LOCAL
+-removedefine AssignMax
+-removedefine AssignMin
 
 -addforwarddecl _XPrivate
 -addforwarddecl _XrmHashBucketRec

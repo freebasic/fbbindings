@@ -318,8 +318,8 @@ type TMGlobalRec as _TMGlobalRec
 extern _XtGlobalTM as TMGlobalRec
 const TM_MOD_SEGMENT_SIZE = 16
 const TM_TYPE_SEGMENT_SIZE = 16
-#define TMGetTypeMatch(idx) cast(TMTypeMatch, @((_XtGlobalTM.typeMatchSegmentTbl[((idx) shr 4)])[(idx) and 15]))
-#define TMGetModifierMatch(idx) cast(TMModifierMatch, @((_XtGlobalTM.modMatchSegmentTbl[(idx) shr 4])[(idx) and 15]))
+#define TMGetTypeMatch(idx) cast(TMTypeMatch, @_XtGlobalTM.typeMatchSegmentTbl[((idx) shr 4)][((idx) and 15)])
+#define TMGetModifierMatch(idx) cast(TMModifierMatch, @_XtGlobalTM.modMatchSegmentTbl[((idx) shr 4)][((idx) and 15)])
 #define TMNewMatchSemantics() _XtGlobalTM.newMatchSemantics
 #define TMBranchMore(branch) branch->more
 #define TMComplexBranchHead(tree, br) cast(TMComplexStateTree, tree)->complexBranchHeadTbl[TMBranchMore(br)]
