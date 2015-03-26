@@ -6,6 +6,12 @@
 #include once "begin_code.bi"
 #include once "close_code.bi"
 
+'' The following symbols have been renamed:
+''     procedure SDLNet_Write16 => SDLNet_Write16_
+''     procedure SDLNet_Write32 => SDLNet_Write32_
+''     procedure SDLNet_Read16 => SDLNet_Read16_
+''     procedure SDLNet_Read32 => SDLNet_Read32_
+
 extern "C"
 
 #define _SDL_NET_H
@@ -89,10 +95,10 @@ declare function SDLNet_DelSocket(byval set as SDLNet_SocketSet, byval sock as S
 declare function SDLNet_CheckSockets(byval set as SDLNet_SocketSet, byval timeout as Uint32) as long
 #define SDLNet_SocketReady(sock) ((sock <> NULL) andalso SDL_reinterpret_cast(SDLNet_GenericSocket, sock)->ready)
 declare sub SDLNet_FreeSocketSet(byval set as SDLNet_SocketSet)
-declare sub SDLNet_Write16(byval value as Uint16, byval area as any ptr)
-declare sub SDLNet_Write32(byval value as Uint32, byval area as any ptr)
-declare function SDLNet_Read16(byval area as any ptr) as Uint16
-declare function SDLNet_Read32(byval area as any ptr) as Uint32
+declare sub SDLNet_Write16_ alias "SDLNet_Write16"(byval value as Uint16, byval area as any ptr)
+declare sub SDLNet_Write32_ alias "SDLNet_Write32"(byval value as Uint32, byval area as any ptr)
+declare function SDLNet_Read16_ alias "SDLNet_Read16"(byval area as any ptr) as Uint16
+declare function SDLNet_Read32_ alias "SDLNet_Read32"(byval area as any ptr) as Uint32
 
 #define SDLNet_SetError SDL_SetError
 #define SDLNet_GetError SDL_GetError
