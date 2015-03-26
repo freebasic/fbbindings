@@ -21,8 +21,6 @@ const sz_XRecordRange = 32
 const sz_XRecordClientInfo = 12
 const sz_XRecordState = 16
 const sz_XRecordDatum = 32
-#define XRecordGlobaldef
-#define XRecordGlobalref '' TODO: extern
 const RecordMaxEvent = cast(clong, 128) - cast(clong, 1)
 const RecordMinDeviceEvent = cast(clong, 2)
 const RecordMaxDeviceEvent = cast(clong, 6)
