@@ -34,6 +34,7 @@ nodos.fbfrog
 -addforwarddecl _XtransConnInfo
 -addforwarddecl _X11XCBPrivate
 -addforwarddecl ZlibInfo
+-addforwarddecl _XtransConnInfo
 
 -renametypedef BYTE UBYTE
 -renametypedef xSegment xSegment_
@@ -416,26 +417,67 @@ nodos.fbfrog
 -rename ReqType ReqType_
 -rename RepType RepType_
 
+-renametag _xkbAccessXNotify _xkbAccessXNotify_
+-renametag _xkbActionMessage _xkbActionMessage_
+-renametag _xkbAnyEvent _xkbAnyEvent_
+-renametag _xkbBellNotify _xkbBellNotify_
+-renametag _xkbCompatMapNotify _xkbCompatMapNotify_
+-renametag _xkbControlsNotify _xkbControlsNotify_
+-renametag _xkbEvent _xkbEvent_
+-renametag _xkbExtensionDeviceNotify _xkbExtensionDeviceNotify
+-renametag _xkbIndicatorNotify _xkbIndicatorNotify_
+-renametag _xkbNamesNotify _xkbNamesNotify_
+-renametag _xkbNewKeyboardNotify _xkbNewKeyboardNotify_
+-renametag _xRRModeInfo _xRRModeInfo_
 -renametypedef xDbeSwapInfo xDbeSwapInfo_
+-renametypedef xGlyphInfo xGlyphInfo_
+-renametypedef xIndexValue xIndexValue_
+-renametypedef xkbAccessXNotify xkbAccessXNotify_
+-renametypedef xkbActionMessage xkbActionMessage_
+-renametypedef xkbAnyEvent xkbAnyEvent_
+-renametypedef xkbBellNotify xkbBellNotify_
+-renametypedef xkbCompatMapNotify xkbCompatMapNotify_
+-renametypedef xkbControlsNotify xkbControlsNotify_
+-renametypedef xkbEvent xkbEvent_
+-renametypedef xkbIndicatorNotify xkbIndicatorNotify_
+-renametypedef xkbNamesNotify xkbNamesNotify_
+-renametypedef xkbNewKeyboardNotify xkbNewKeyboardNotify_
+-renametypedef xLineFixed xLineFixed_
 -renametypedef xMbufBufferInfo xMbufBufferInfo_
 -renametypedef xMbufClobberNotifyEvent xMbufClobberNotifyEvent_
 -renametypedef xMbufUpdateNotifyEvent xMbufUpdateNotifyEvent_
--renametypedef xRecordRange xRecordRange_
+-renametypedef xPointFixed xPointFixed_
 -renametypedef xRecordClientInfo xRecordClientInfo_
+-renametypedef xRecordRange xRecordRange_
+-renametypedef xRenderColor xRenderColor_
+-renametypedef xRRCrtcChangeNotifyEvent xRRCrtcChangeNotifyEvent_
+-renametypedef xRRModeInfo xRRModeInfo_
+-renametypedef xRROutputChangeNotifyEvent xRROutputChangeNotifyEvent_
+-renametypedef xRROutputPropertyNotifyEvent xRROutputPropertyNotifyEvent_
+-renametypedef xRRProviderChangeNotifyEvent xRRProviderChangeNotifyEvent_
+-renametypedef xRRProviderPropertyNotifyEvent xRRProviderPropertyNotifyEvent_
+-renametypedef xRRResourceChangeNotifyEvent xRRResourceChangeNotifyEvent_
+-renametypedef xRRScreenChangeNotifyEvent xRRScreenChangeNotifyEvent_
 -renametypedef xSecurityAuthorizationRevokedEvent xSecurityAuthorizationRevokedEvent_
+-renametypedef xShmCompletionEvent xShmCompletionEvent_
+-renametypedef xSpanFix xSpanFix_
+-renametypedef xSyncAlarmNotifyEvent xSyncAlarmNotifyEvent_
+-renametypedef xSyncCounterNotifyEvent xSyncCounterNotifyEvent_
 -renametypedef xSyncSystemCounter xSyncSystemCounter_
 -renametypedef xSyncWaitCondition xSyncWaitCondition_
--renametypedef xSyncCounterNotifyEvent xSyncCounterNotifyEvent_
--renametypedef xSyncAlarmNotifyEvent xSyncAlarmNotifyEvent_
--renametypedef xIndexValue xIndexValue_
--renametypedef xRenderColor xRenderColor_
--renametypedef xPointFixed xPointFixed_
--renametypedef xLineFixed xLineFixed_
--renametypedef xTriangle xTriangle_
+-renametypedef xTestFakeAckEvent xTestFakeAckEvent_
+-renametypedef xTestInputActionEvent xTestInputActionEvent_
 -renametypedef xTrapezoid xTrapezoid_
--renametypedef xGlyphInfo xGlyphInfo_
--renametypedef xSpanFix xSpanFix_
 -renametypedef xTrap xTrap_
+-renametypedef xTriangle xTriangle_
+-renametypedef xvAdaptorInfo xvAdaptorInfo_
+-renametypedef xvEncodingInfo xvEncodingInfo_
+-renametypedef xvFormat xvFormat_
+-renametypedef xvmcSurfaceInfo xvmcSurfaceInfo_
+-renametypedef xvRational xvRational_
 
 -renamedefine sz_xRecordRange sz_xRecordRange_
 -removedefine sz_RECORDRANGE
+
+-renamedefine XtNwaitforwm XtNwaitforwm_
+-renamedefine XtCWaitforwm XtCWaitforwm_

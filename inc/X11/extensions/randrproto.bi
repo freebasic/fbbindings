@@ -3,6 +3,17 @@
 #include once "X11/extensions/randr.bi"
 #include once "X11/extensions/renderproto.bi"
 
+'' The following symbols have been renamed:
+''     struct _xRRModeInfo => _xRRModeInfo_
+''     typedef xRRModeInfo => xRRModeInfo_
+''     struct xRRScreenChangeNotifyEvent => xRRScreenChangeNotifyEvent_
+''     struct xRRCrtcChangeNotifyEvent => xRRCrtcChangeNotifyEvent_
+''     struct xRROutputChangeNotifyEvent => xRROutputChangeNotifyEvent_
+''     struct xRROutputPropertyNotifyEvent => xRROutputPropertyNotifyEvent_
+''     struct xRRProviderChangeNotifyEvent => xRRProviderChangeNotifyEvent_
+''     struct xRRProviderPropertyNotifyEvent => xRRProviderPropertyNotifyEvent_
+''     struct xRRResourceChangeNotifyEvent => xRRResourceChangeNotifyEvent_
+
 #define _XRANDRP_H_
 
 type xScreenSizes
@@ -121,7 +132,7 @@ end type
 
 const sz_xRRSelectInputReq = 12
 
-type _xRRModeInfo
+type _xRRModeInfo_
 	id as CARD32
 	width as CARD16
 	height as CARD16
@@ -137,7 +148,7 @@ type _xRRModeInfo
 	modeFlags as CARD32
 end type
 
-type xRRModeInfo as _xRRModeInfo
+type xRRModeInfo_ as _xRRModeInfo_
 const sz_xRRModeInfo = 32
 
 type xRRGetScreenSizeRangeReq
@@ -362,7 +373,7 @@ type xRRCreateModeReq
 	randrReqType as CARD8
 	length as CARD16
 	window as CARD32
-	modeInfo as xRRModeInfo
+	modeInfo as xRRModeInfo_
 end type
 
 const sz_xRRCreateModeReq = 40
@@ -806,7 +817,7 @@ end type
 
 const sz_xRRGetProviderPropertyReply = 32
 
-type xRRScreenChangeNotifyEvent
+type xRRScreenChangeNotifyEvent_
 	as CARD8 type
 	rotation as CARD8
 	sequenceNumber as CARD16
@@ -824,7 +835,7 @@ end type
 
 const sz_xRRScreenChangeNotifyEvent = 32
 
-type xRRCrtcChangeNotifyEvent
+type xRRCrtcChangeNotifyEvent_
 	as CARD8 type
 	subCode as CARD8
 	sequenceNumber as CARD16
@@ -842,7 +853,7 @@ end type
 
 const sz_xRRCrtcChangeNotifyEvent = 32
 
-type xRROutputChangeNotifyEvent
+type xRROutputChangeNotifyEvent_
 	as CARD8 type
 	subCode as CARD8
 	sequenceNumber as CARD16
@@ -859,7 +870,7 @@ end type
 
 const sz_xRROutputChangeNotifyEvent = 32
 
-type xRROutputPropertyNotifyEvent
+type xRROutputPropertyNotifyEvent_
 	as CARD8 type
 	subCode as CARD8
 	sequenceNumber as CARD16
@@ -876,7 +887,7 @@ end type
 
 const sz_xRROutputPropertyNotifyEvent = 32
 
-type xRRProviderChangeNotifyEvent
+type xRRProviderChangeNotifyEvent_
 	as CARD8 type
 	subCode as CARD8
 	sequenceNumber as CARD16
@@ -891,7 +902,7 @@ end type
 
 const sz_xRRProviderChangeNotifyEvent = 32
 
-type xRRProviderPropertyNotifyEvent
+type xRRProviderPropertyNotifyEvent_
 	as CARD8 type
 	subCode as CARD8
 	sequenceNumber as CARD16
@@ -908,7 +919,7 @@ end type
 
 const sz_xRRProviderPropertyNotifyEvent = 32
 
-type xRRResourceChangeNotifyEvent
+type xRRResourceChangeNotifyEvent_
 	as CARD8 type
 	subCode as CARD8
 	sequenceNumber as CARD16

@@ -2,6 +2,10 @@
 
 #include once "X11/extensions/xtestext1const.bi"
 
+'' The following symbols have been renamed:
+''     struct xTestInputActionEvent => xTestInputActionEvent_
+''     struct xTestFakeAckEvent => xTestFakeAckEvent_
+
 const _XTESTEXT1PROTO_H = 1
 const X_TestFakeInput = 1
 const X_TestGetInput = 2
@@ -65,14 +69,14 @@ type xTestQueryInputSizeReply
 	pad6 as CARD32
 end type
 
-type xTestInputActionEvent
+type xTestInputActionEvent_
 	as CARD8 type
 	pad00 as CARD8
 	sequenceNumber as CARD16
 	actions(0 to 27) as CARD8
 end type
 
-type xTestFakeAckEvent
+type xTestFakeAckEvent_
 	as CARD8 type
 	pad00 as CARD8
 	sequenceNumber as CARD16

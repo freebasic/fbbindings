@@ -1,5 +1,8 @@
 #pragma once
 
+'' The following symbols have been renamed:
+''     struct xvmcSurfaceInfo => xvmcSurfaceInfo_
+
 #define _XVMCPROTO_H_
 const xvmc_QueryVersion = 0
 const xvmc_ListSurfaceTypes = 1
@@ -14,7 +17,7 @@ const xvmc_GetDRInfo = 9
 #define xvmc_LastRequest xvmc_GetDRInfo
 #define xvmcNumRequest (xvmc_LastRequest + 1)
 
-type xvmcSurfaceInfo
+type xvmcSurfaceInfo_
 	surface_type_id as CARD32
 	chroma_format as CARD16
 	pad0 as CARD16

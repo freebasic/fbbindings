@@ -2,6 +2,9 @@
 
 #include once "X11/extensions/shm.bi"
 
+'' The following symbols have been renamed:
+''     typedef xShmCompletionEvent => xShmCompletionEvent_
+
 #define _SHMPROTO_H_
 const X_ShmQueryVersion = 0
 const X_ShmAttach = 1
@@ -160,7 +163,7 @@ type _ShmCompletion
 	pad2 as CARD32
 end type
 
-type xShmCompletionEvent as _ShmCompletion
+type xShmCompletionEvent_ as _ShmCompletion
 const sz_xShmCompletionEvent = 32
 
 type _ShmAttachFd

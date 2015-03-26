@@ -4,6 +4,29 @@
 #include once "X11/Xmd.bi"
 #include once "X11/extensions/XKB.bi"
 
+'' The following symbols have been renamed:
+''     struct _xkbAnyEvent => _xkbAnyEvent_
+''     typedef xkbAnyEvent => xkbAnyEvent_
+''     struct _xkbNewKeyboardNotify => _xkbNewKeyboardNotify_
+''     typedef xkbNewKeyboardNotify => xkbNewKeyboardNotify_
+''     struct _xkbControlsNotify => _xkbControlsNotify_
+''     typedef xkbControlsNotify => xkbControlsNotify_
+''     struct _xkbIndicatorNotify => _xkbIndicatorNotify_
+''     typedef xkbIndicatorNotify => xkbIndicatorNotify_
+''     struct _xkbNamesNotify => _xkbNamesNotify_
+''     typedef xkbNamesNotify => xkbNamesNotify_
+''     struct _xkbCompatMapNotify => _xkbCompatMapNotify_
+''     typedef xkbCompatMapNotify => xkbCompatMapNotify_
+''     struct _xkbBellNotify => _xkbBellNotify_
+''     typedef xkbBellNotify => xkbBellNotify_
+''     struct _xkbActionMessage => _xkbActionMessage_
+''     typedef xkbActionMessage => xkbActionMessage_
+''     struct _xkbAccessXNotify => _xkbAccessXNotify_
+''     typedef xkbAccessXNotify => xkbAccessXNotify_
+''     struct _xkbExtensionDeviceNotify => _xkbExtensionDeviceNotify
+''     struct _xkbEvent => _xkbEvent_
+''     typedef xkbEvent => xkbEvent_
+
 #define _XKBPROTO_H_
 #define XkbPaddedSize(n) culng(culng(culng(culng((n)) + 3) shr 2) shl 2)
 
@@ -1106,7 +1129,7 @@ end type
 type xkbSetDebuggingFlagsReply as _xkbSetDebuggingFlagsReply
 const sz_xkbSetDebuggingFlagsReply = 32
 
-type _xkbAnyEvent
+type _xkbAnyEvent_
 	as UBYTE type
 	xkbType as UBYTE
 	sequenceNumber as CARD16
@@ -1121,10 +1144,10 @@ type _xkbAnyEvent
 	pad7 as CARD32
 end type
 
-type xkbAnyEvent as _xkbAnyEvent
+type xkbAnyEvent_ as _xkbAnyEvent_
 const sz_xkbAnyEvent = 32
 
-type _xkbNewKeyboardNotify
+type _xkbNewKeyboardNotify_
 	as UBYTE type
 	xkbType as UBYTE
 	sequenceNumber as CARD16
@@ -1145,7 +1168,7 @@ type _xkbNewKeyboardNotify
 	pad4 as CARD32
 end type
 
-type xkbNewKeyboardNotify as _xkbNewKeyboardNotify
+type xkbNewKeyboardNotify_ as _xkbNewKeyboardNotify_
 const sz_xkbNewKeyboardNotify = 32
 
 type _xkbMapNotify
@@ -1209,7 +1232,7 @@ end type
 type xkbStateNotify as _xkbStateNotify
 const sz_xkbStateNotify = 32
 
-type _xkbControlsNotify
+type _xkbControlsNotify_
 	as UBYTE type
 	xkbType as UBYTE
 	sequenceNumber as CARD16
@@ -1227,10 +1250,10 @@ type _xkbControlsNotify
 	pad2 as CARD32
 end type
 
-type xkbControlsNotify as _xkbControlsNotify
+type xkbControlsNotify_ as _xkbControlsNotify_
 const sz_xkbControlsNotify = 32
 
-type _xkbIndicatorNotify
+type _xkbIndicatorNotify_
 	as UBYTE type
 	xkbType as UBYTE
 	sequenceNumber as CARD16
@@ -1245,10 +1268,10 @@ type _xkbIndicatorNotify
 	pad5 as CARD32
 end type
 
-type xkbIndicatorNotify as _xkbIndicatorNotify
+type xkbIndicatorNotify_ as _xkbIndicatorNotify_
 const sz_xkbIndicatorNotify = 32
 
-type _xkbNamesNotify
+type _xkbNamesNotify_
 	as UBYTE type
 	xkbType as UBYTE
 	sequenceNumber as CARD16
@@ -1271,10 +1294,10 @@ type _xkbNamesNotify
 	pad3 as CARD32
 end type
 
-type xkbNamesNotify as _xkbNamesNotify
+type xkbNamesNotify_ as _xkbNamesNotify_
 const sz_xkbNamesNotify = 32
 
-type _xkbCompatMapNotify
+type _xkbCompatMapNotify_
 	as UBYTE type
 	xkbType as UBYTE
 	sequenceNumber as CARD16
@@ -1290,10 +1313,10 @@ type _xkbCompatMapNotify
 	pad4 as CARD32
 end type
 
-type xkbCompatMapNotify as _xkbCompatMapNotify
+type xkbCompatMapNotify_ as _xkbCompatMapNotify_
 const sz_xkbCompatMapNotify = 32
 
-type _xkbBellNotify
+type _xkbBellNotify_
 	as UBYTE type
 	xkbType as UBYTE
 	sequenceNumber as CARD16
@@ -1312,10 +1335,10 @@ type _xkbBellNotify
 	pad3 as CARD32
 end type
 
-type xkbBellNotify as _xkbBellNotify
+type xkbBellNotify_ as _xkbBellNotify_
 const sz_xkbBellNotify = 32
 
-type _xkbActionMessage
+type _xkbActionMessage_
 	as UBYTE type
 	xkbType as UBYTE
 	sequenceNumber as CARD16
@@ -1332,10 +1355,10 @@ type _xkbActionMessage
 	pad3 as CARD32
 end type
 
-type xkbActionMessage as _xkbActionMessage
+type xkbActionMessage_ as _xkbActionMessage_
 const sz_xkbActionMessage = 32
 
-type _xkbAccessXNotify
+type _xkbAccessXNotify_
 	as UBYTE type
 	xkbType as UBYTE
 	sequenceNumber as CARD16
@@ -1351,7 +1374,7 @@ type _xkbAccessXNotify
 	pad4 as CARD32
 end type
 
-type xkbAccessXNotify as _xkbAccessXNotify
+type xkbAccessXNotify_ as _xkbAccessXNotify_
 const sz_xkbAccessXNotify = 32
 
 type _xkbExtensionDeviceNotify
@@ -1377,23 +1400,23 @@ type xkbExtensionDeviceNotify as _xkbExtensionDeviceNotify
 const sz_xkbExtensionDeviceNotify = 32
 
 union _xkbEvent_u
-	any as xkbAnyEvent
-	new_kbd as xkbNewKeyboardNotify
+	any as xkbAnyEvent_
+	new_kbd as xkbNewKeyboardNotify_
 	map as xkbMapNotify
 	state as xkbStateNotify
-	ctrls as xkbControlsNotify
-	indicators as xkbIndicatorNotify
-	names as xkbNamesNotify
-	compat as xkbCompatMapNotify
-	bell as xkbBellNotify
-	message as xkbActionMessage
-	accessx as xkbAccessXNotify
+	ctrls as xkbControlsNotify_
+	indicators as xkbIndicatorNotify_
+	names as xkbNamesNotify_
+	compat as xkbCompatMapNotify_
+	bell as xkbBellNotify_
+	message as xkbActionMessage_
+	accessx as xkbAccessXNotify_
 	device as xkbExtensionDeviceNotify
 end union
 
-type _xkbEvent
+type _xkbEvent_
 	u as _xkbEvent_u
 end type
 
-type xkbEvent as _xkbEvent
+type xkbEvent_ as _xkbEvent_
 const sz_xkbEvent = 32
