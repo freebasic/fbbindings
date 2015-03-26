@@ -140,3 +140,8 @@ nodos.fbfrog
 -rename SDL_version SDL_version_
 -rename SDL_EventMask SDL_EventMask_
 -rename SDL_QUIT SDL_QUIT_
+
+-addforwarddecl SDL_mutex
+-addforwarddecl SDL_cond
+-addforwarddecl SDL_Thread
+-addforwarddecl SDL_BlitMap

@@ -304,6 +304,7 @@ const SDL_BIG_ENDIAN = 4321
 #define _SDL_mutex_h
 const SDL_MUTEX_TIMEDOUT = 1
 #define SDL_MUTEX_MAXWAIT (not cast(Uint32, 0))
+type SDL_mutex as SDL_mutex_
 declare function SDL_CreateMutex() as SDL_mutex ptr
 #define SDL_LockMutex(m) SDL_mutexP(m)
 declare function SDL_mutexP(byval mutex as SDL_mutex ptr) as long
@@ -319,6 +320,7 @@ declare function SDL_SemTryWait(byval sem as SDL_sem ptr) as long
 declare function SDL_SemWaitTimeout(byval sem as SDL_sem ptr, byval ms as Uint32) as long
 declare function SDL_SemPost(byval sem as SDL_sem ptr) as long
 declare function SDL_SemValue(byval sem as SDL_sem ptr) as Uint32
+type SDL_cond as SDL_cond_
 declare function SDL_CreateCond() as SDL_cond ptr
 declare sub SDL_DestroyCond(byval cond as SDL_cond ptr)
 declare function SDL_CondSignal(byval cond as SDL_cond ptr) as long
@@ -326,6 +328,7 @@ declare function SDL_CondBroadcast(byval cond as SDL_cond ptr) as long
 declare function SDL_CondWait(byval cond as SDL_cond ptr, byval mut as SDL_mutex ptr) as long
 declare function SDL_CondWaitTimeout(byval cond as SDL_cond ptr, byval mutex as SDL_mutex ptr, byval ms as Uint32) as long
 #define _SDL_thread_h
+type SDL_Thread as SDL_Thread_
 declare function SDL_CreateThread(byval fn as function(byval as any ptr) as long, byval data as any ptr) as SDL_Thread ptr
 declare function SDL_ThreadID() as Uint32
 declare function SDL_GetThreadID(byval thread as SDL_Thread ptr) as Uint32
@@ -872,6 +875,9 @@ type SDL_PixelFormat
 	alpha as Uint8
 end type
 
+type private_hwdata as private_hwdata_
+type SDL_BlitMap as SDL_BlitMap_
+
 type SDL_Surface
 	flags as Uint32
 	format as SDL_PixelFormat ptr
@@ -933,6 +939,8 @@ const SDL_IYUV_OVERLAY = &h56555949
 const SDL_YUY2_OVERLAY = &h32595559
 const SDL_UYVY_OVERLAY = &h59565955
 const SDL_YVYU_OVERLAY = &h55595659
+type private_yuvhwfuncs as private_yuvhwfuncs_
+type private_yuvhwdata as private_yuvhwdata_
 
 type SDL_Overlay
 	format as Uint32
@@ -1040,6 +1048,7 @@ end enum
 
 declare function SDL_WM_GrabInput(byval mode as SDL_GrabMode) as SDL_GrabMode
 declare function SDL_SoftStretch(byval src as SDL_Surface ptr, byval srcrect as SDL_Rect ptr, byval dst as SDL_Surface ptr, byval dstrect as SDL_Rect ptr) as long
+type WMcursor as WMcursor_
 
 type SDL_Cursor
 	area as SDL_Rect

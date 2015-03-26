@@ -7,3 +7,8 @@
 -renameproc SDLNet_Read32 SDLNet_Read32_
 
 -noexpand SDL_EVENTMASK
+
+-addforwarddecl private_hwdata
+-addforwarddecl private_yuvhwfuncs
+-addforwarddecl private_yuvhwdata
+-addforwarddecl WMcursor
