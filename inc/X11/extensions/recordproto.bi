@@ -5,6 +5,7 @@
 
 '' The following symbols have been renamed:
 ''     struct xRecordRange => xRecordRange_
+''     constant sz_xRecordRange => sz_xRecordRange_
 ''     typedef xRecordClientInfo => xRecordClientInfo_
 
 #define _RECORDPROTO_H_
@@ -82,7 +83,7 @@ type xRecordRange_
 	clientDied as BOOL
 end type
 
-const sz_xRecordRange = 24
+const sz_xRecordRange_ = 24
 
 type RECORD_CLIENT_INFO
 	clientResource as CARD32

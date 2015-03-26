@@ -3,6 +3,17 @@
 #include once "X11/Xmd.bi"
 #include once "X11/extensions/render.bi"
 
+'' The following symbols have been renamed:
+''     struct xIndexValue => xIndexValue_
+''     struct xRenderColor => xRenderColor_
+''     struct xPointFixed => xPointFixed_
+''     struct xLineFixed => xLineFixed_
+''     struct xTriangle => xTriangle_
+''     struct xTrapezoid => xTrapezoid_
+''     struct xGlyphInfo => xGlyphInfo_
+''     struct xSpanFix => xSpanFix_
+''     struct xTrap => xTrap_
+
 #define _XRENDERP_H_
 
 type xDirectFormat
@@ -52,7 +63,7 @@ end type
 
 const sz_xPictScreen = 8
 
-type xIndexValue
+type xIndexValue_
 	pixel as CARD32
 	red as CARD16
 	green as CARD16
@@ -62,7 +73,7 @@ end type
 
 const sz_xIndexValue = 12
 
-type xRenderColor
+type xRenderColor_
 	red as CARD16
 	green as CARD16
 	blue as CARD16
@@ -71,38 +82,38 @@ end type
 
 const sz_xRenderColor = 8
 
-type xPointFixed
+type xPointFixed_
 	x as INT32
 	y as INT32
 end type
 
 const sz_xPointFixed = 8
 
-type xLineFixed
-	p1 as xPointFixed
-	p2 as xPointFixed
+type xLineFixed_
+	p1 as xPointFixed_
+	p2 as xPointFixed_
 end type
 
 const sz_xLineFixed = 16
 
-type xTriangle
-	p1 as xPointFixed
-	p2 as xPointFixed
-	p3 as xPointFixed
+type xTriangle_
+	p1 as xPointFixed_
+	p2 as xPointFixed_
+	p3 as xPointFixed_
 end type
 
 const sz_xTriangle = 24
 
-type xTrapezoid
+type xTrapezoid_
 	top as INT32
 	bottom as INT32
-	left as xLineFixed
-	right as xLineFixed
+	left as xLineFixed_
+	right as xLineFixed_
 end type
 
 const sz_xTrapezoid = 40
 
-type xGlyphInfo
+type xGlyphInfo_
 	width as CARD16
 	height as CARD16
 	x as INT16
@@ -123,7 +134,7 @@ end type
 
 const sz_xGlyphElt = 8
 
-type xSpanFix
+type xSpanFix_
 	l as INT32
 	r as INT32
 	y as INT32
@@ -131,9 +142,9 @@ end type
 
 const sz_xSpanFix = 12
 
-type xTrap
-	top as xSpanFix
-	bot as xSpanFix
+type xTrap_
+	top as xSpanFix_
+	bot as xSpanFix_
 end type
 
 const sz_xTrap = 24
@@ -435,7 +446,7 @@ type xRenderFillRectanglesReq
 	pad1 as CARD8
 	pad2 as CARD16
 	dst as CARD32
-	color as xRenderColor
+	color as xRenderColor_
 end type
 
 const sz_xRenderFillRectanglesReq = 20
@@ -543,7 +554,7 @@ type xRenderCreateSolidFillReq
 	renderReqType as CARD8
 	length as CARD16
 	pid as CARD32
-	color as xRenderColor
+	color as xRenderColor_
 end type
 
 const sz_xRenderCreateSolidFillReq = 16
@@ -553,8 +564,8 @@ type xRenderCreateLinearGradientReq
 	renderReqType as CARD8
 	length as CARD16
 	pid as CARD32
-	p1 as xPointFixed
-	p2 as xPointFixed
+	p1 as xPointFixed_
+	p2 as xPointFixed_
 	nStops as CARD32
 end type
 
@@ -565,8 +576,8 @@ type xRenderCreateRadialGradientReq
 	renderReqType as CARD8
 	length as CARD16
 	pid as CARD32
-	inner as xPointFixed
-	outer as xPointFixed
+	inner as xPointFixed_
+	outer as xPointFixed_
 	inner_radius as INT32
 	outer_radius as INT32
 	nStops as CARD32
@@ -579,7 +590,7 @@ type xRenderCreateConicalGradientReq
 	renderReqType as CARD8
 	length as CARD16
 	pid as CARD32
-	center as xPointFixed
+	center as xPointFixed_
 	angle as INT32
 	nStops as CARD32
 end type
