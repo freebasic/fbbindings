@@ -779,7 +779,7 @@ x11:
 	cp extracted/xorg/$(X11_DRI2PROTO)/*.h extracted/xorg/X11/extensions
 	cp extracted/xorg/$(X11_XF86DGAPROTO)/*.h extracted/xorg/X11/extensions
 	cp extracted/xorg/$(X11_XF86VIDMODEPROTO)/*.h extracted/xorg/X11/extensions
-	#$(X11_VIDEOPROTO)
+	cp extracted/xorg/$(X11_VIDEOPROTO)/*.h extracted/xorg/X11/extensions
 
 	mkdir -p inc/X11/extensions inc/X11/ICE inc/X11/SM inc/X11/Xtrans
 	$(FBFROG) x11.fbfrog -incdir extracted/xorg \
@@ -889,6 +889,11 @@ x11:
 		-include X11/extensions/xf86vm.h \
 		-include X11/extensions/xf86vmproto.h \
 		-include X11/extensions/xf86vmstr.h \
+		-include X11/extensions/vldXvMC.h \
+		-include X11/extensions/Xv.h \
+		-include X11/extensions/XvMC.h \
+		-include X11/extensions/XvMCproto.h \
+		-include X11/extensions/Xvproto.h \
 		-include X11/Xdmcp.h \
 		-include X11/xpm.h \
 		-include X11/Xtrans/Xtrans.h \
@@ -1029,6 +1034,11 @@ x11:
 		-emit '*/X11/extensions/xf86vm.h'          inc/X11/extensions/xf86vm.bi \
 		-emit '*/X11/extensions/xf86vmproto.h'     inc/X11/extensions/xf86vmproto.bi \
 		-emit '*/X11/extensions/xf86vmstr.h'       inc/X11/extensions/xf86vmstr.bi \
+		-emit '*/X11/extensions/vldXvMC.h'         inc/X11/extensions/vldXvMC.bi \
+		-emit '*/X11/extensions/Xv.h'              inc/X11/extensions/Xv.bi \
+		-emit '*/X11/extensions/XvMC.h'            inc/X11/extensions/XvMC.bi \
+		-emit '*/X11/extensions/XvMCproto.h'       inc/X11/extensions/XvMCproto.bi \
+		-emit '*/X11/extensions/Xvproto.h'         inc/X11/extensions/Xvproto.bi \
 		-emit '*/X11/Xtrans/Xtrans.h'        inc/X11/Xtrans/Xtrans.bi \
 		-emit '*/X11/Xdmcp.h' inc/X11/Xdmcp.bi \
 		-emit '*/X11/xpm.h'   inc/X11/xpm.bi
