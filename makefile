@@ -749,16 +749,16 @@ x11:
 	cp extracted/xorg/$(X11_XPROTO)/*.h          extracted/xorg/X11
 	sed $(SED_X11_XFUNCPROTO) < extracted/xorg/$(X11_XPROTO)/Xfuncproto.h.in > extracted/xorg/X11/Xfuncproto.h
 
-	cp -R extracted/xorg/$(X11_ICE)/include/X11 extracted/xorg
-	cp -R extracted/xorg/$(X11_SM)/include/X11 extracted/xorg
-	cp -R extracted/xorg/$(X11_XAU)/include/X11 extracted/xorg
-	cp -R extracted/xorg/$(X11_XT)/include/X11 extracted/xorg
-	cp -R extracted/xorg/$(X11_XEXT)/include/X11 extracted/xorg
-	cp -R extracted/xorg/$(X11_XPM)/include/X11 extracted/xorg
+	cp -R extracted/xorg/$(X11_ICE)/include/X11     extracted/xorg
+	cp -R extracted/xorg/$(X11_SM)/include/X11      extracted/xorg
+	cp -R extracted/xorg/$(X11_XAU)/include/X11     extracted/xorg
+	cp -R extracted/xorg/$(X11_XT)/include/X11      extracted/xorg
+	cp -R extracted/xorg/$(X11_XEXT)/include/X11    extracted/xorg
+	cp -R extracted/xorg/$(X11_XPM)/include/X11     extracted/xorg
 	cp -R extracted/xorg/$(X11_XRENDER)/include/X11 extracted/xorg
-	cp -R extracted/xorg/$(X11_XRANDR)/include/X11 extracted/xorg
-	cp -R extracted/xorg/$(X11_XI)/include/X11 extracted/xorg
-	#$(X11_XDMCP)
+	cp -R extracted/xorg/$(X11_XRANDR)/include/X11  extracted/xorg
+	cp -R extracted/xorg/$(X11_XI)/include/X11      extracted/xorg
+	cp -R extracted/xorg/$(X11_XDMCP)/include/X11   extracted/xorg
 	#$(X11_XXF86DGA)
 	#$(X11_XXF86VM)
 	#$(X11_XV)
@@ -840,6 +840,7 @@ x11:
 		-include X11/extensions/Xrandr.h \
 		-include X11/extensions/XInput.h \
 		-include X11/extensions/XInput2.h \
+		-include X11/Xdmcp.h \
 		-include X11/xpm.h \
 		\
 		-emit '*/X11/ap_keysym.h'    inc/X11/ap_keysym.bi \
@@ -916,7 +917,8 @@ x11:
 		-emit '*/X11/extensions/Xrandr.h'    inc/X11/extensions/Xrandr.bi    \
 		-emit '*/X11/extensions/XInput.h'    inc/X11/extensions/XInput.bi    \
 		-emit '*/X11/extensions/XInput2.h'   inc/X11/extensions/XInput2.bi   \
-		-emit '*/X11/xpm.h' inc/X11/xpm.bi
+		-emit '*/X11/Xdmcp.h' inc/X11/Xdmcp.bi \
+		-emit '*/X11/xpm.h'   inc/X11/xpm.bi
 
 	$(FBFROG) x11.fbfrog -incdir extracted/xorg \
 		\
