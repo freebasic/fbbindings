@@ -13,7 +13,6 @@ const XMD_H = 1
 #define XSIZEOF(x) _XSIZEOF(x)
 
 #ifdef __FB_64BIT__
-	type INT64 as clong
 	type INT32 as long
 #else
 	type INT32 as clong
