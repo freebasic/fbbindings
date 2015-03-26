@@ -79,10 +79,18 @@ end type
 
 type XkbShapeDoodadRec as _XkbShapeDoodad
 type XkbShapeDoodadPtr as _XkbShapeDoodad ptr
-#define XkbShapeDoodadColor(g, d) '' TODO: (&(g)->colors[(d)->color_ndx])
-#define XkbShapeDoodadShape(g, d) '' TODO: (&(g)->shapes[(d)->shape_ndx])
-#define XkbSetShapeDoodadColor(g, d, c) '' TODO: ((d)->color_ndx= (c)-&(g)->colors[0])
-#define XkbSetShapeDoodadShape(g, d, s) '' TODO: ((d)->shape_ndx= (s)-&(g)->shapes[0])
+#define XkbShapeDoodadColor(g, d) (@(g)->colors[(d)->color_ndx])
+#define XkbShapeDoodadShape(g, d) (@(g)->shapes[(d)->shape_ndx])
+#macro XkbSetShapeDoodadColor(g, d, c)
+	scope
+		(d)->color_ndx = (c) - @(g)->colors[0]
+	end scope
+#endmacro
+#macro XkbSetShapeDoodadShape(g, d, s)
+	scope
+		(d)->shape_ndx = (s) - @(g)->shapes[0]
+	end scope
+#endmacro
 
 type _XkbTextDoodad
 	name as XAtom
@@ -100,8 +108,12 @@ end type
 
 type XkbTextDoodadRec as _XkbTextDoodad
 type XkbTextDoodadPtr as _XkbTextDoodad ptr
-#define XkbTextDoodadColor(g, d) '' TODO: (&(g)->colors[(d)->color_ndx])
-#define XkbSetTextDoodadColor(g, d, c) '' TODO: ((d)->color_ndx= (c)-&(g)->colors[0])
+#define XkbTextDoodadColor(g, d) (@(g)->colors[(d)->color_ndx])
+#macro XkbSetTextDoodadColor(g, d, c)
+	scope
+		(d)->color_ndx = (c) - @(g)->colors[0]
+	end scope
+#endmacro
 
 type _XkbIndicatorDoodad
 	name as XAtom

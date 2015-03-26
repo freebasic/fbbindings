@@ -5,7 +5,12 @@
 
 #define _XKBSTR_H_
 #define XkbCharToInt(v) iif((v) and &h80, clng((v) or (not &hff)), clng((v) and &h7f))
-#define XkbIntTo2Chars(i, h, l) '' TODO: (((h)=((i>>8)&0xff)),((l)=((i)&0xff)))
+#macro XkbIntTo2Chars(i, h, l)
+	scope
+		(h) = (i shr 8) and &hff
+		(l) = (i) and &hff
+	end scope
+#endmacro
 #define Xkb2CharsToInt(h, l) cshort(((h) shl 8) or (l))
 
 type _XkbStateRec
@@ -97,7 +102,12 @@ end type
 
 type XkbModAction as _XkbModAction
 #define XkbModActionVMods(a) cshort(((a)->vmods1 shl 8) or (a)->vmods2)
-#define XkbSetModActionVMods(a, v) '' TODO: (((a)->vmods1=(((v)>>8)&0xff)),(a)->vmods2=((v)&0xff))
+#macro XkbSetModActionVMods(a, v)
+	scope
+		(a)->vmods1 = ((v) shr 8) and &hff
+		(a)->vmods2 = (v) and &hff
+	end scope
+#endmacro
 
 type _XkbGroupAction
 	as ubyte type
@@ -107,7 +117,11 @@ end type
 
 type XkbGroupAction as _XkbGroupAction
 #define XkbSAGroup(a) XkbCharToInt((a)->group_XXX)
-#define XkbSASetGroup(a, g) '' TODO: ((a)->group_XXX=(g))
+#macro XkbSASetGroup(a, g)
+	scope
+		(a)->group_XXX = (g)
+	end scope
+#endmacro
 
 type _XkbISOAction
 	as ubyte type
@@ -155,7 +169,11 @@ end type
 
 type XkbPtrDfltAction as _XkbPtrDfltAction
 #define XkbSAPtrDfltValue(a) XkbCharToInt((a)->valueXXX)
-#define XkbSASetPtrDfltValue(a, c) '' TODO: ((a)->valueXXX= ((c)&0xff))
+#macro XkbSASetPtrDfltValue(a, c)
+	scope
+		(a)->valueXXX = (c) and &hff
+	end scope
+#endmacro
 
 type _XkbSwitchScreenAction
 	as ubyte type
@@ -165,7 +183,11 @@ end type
 
 type XkbSwitchScreenAction as _XkbSwitchScreenAction
 #define XkbSAScreen(a) XkbCharToInt((a)->screenXXX)
-#define XkbSASetScreen(a, s) '' TODO: ((a)->screenXXX= ((s)&0xff))
+#macro XkbSASetScreen(a, s)
+	scope
+		(a)->screenXXX = (s) and &hff
+	end scope
+#endmacro
 
 type _XkbCtrlsAction
 	as ubyte type
@@ -177,7 +199,14 @@ type _XkbCtrlsAction
 end type
 
 type XkbCtrlsAction as _XkbCtrlsAction
-#define XkbActionSetCtrls(a, c) '' TODO: (((a)->ctrls3=(((c)>>24)&0xff)), ((a)->ctrls2=(((c)>>16)&0xff)), ((a)->ctrls1=(((c)>>8)&0xff)), ((a)->ctrls0=((c)&0xff)))
+#macro XkbActionSetCtrls(a, c)
+	scope
+		(a)->ctrls3 = ((c) shr 24) and &hff
+		(a)->ctrls2 = ((c) shr 16) and &hff
+		(a)->ctrls1 = ((c) shr 8) and &hff
+		(a)->ctrls0 = (c) and &hff
+	end scope
+#endmacro
 #define XkbActionCtrls(a) culng(culng(culng(culng(culng((a)->ctrls3) shl 24) or culng(culng((a)->ctrls2) shl 16)) or culng(culng((a)->ctrls1) shl 8)) or culng((a)->ctrls0))
 
 type _XkbMessageAction
@@ -201,9 +230,19 @@ end type
 
 type XkbRedirectKeyAction as _XkbRedirectKeyAction
 #define XkbSARedirectVMods(a) culng(culng(culng((a)->vmods1) shl 8) or culng((a)->vmods0))
-#define XkbSARedirectSetVMods(a, m) '' TODO: (((a)->vmods_mask1=(((m)>>8)&0xff)), ((a)->vmods_mask0=((m)&0xff)))
+#macro XkbSARedirectSetVMods(a, m)
+	scope
+		(a)->vmods_mask1 = ((m) shr 8) and &hff
+		(a)->vmods_mask0 = (m) and &hff
+	end scope
+#endmacro
 #define XkbSARedirectVModsMask(a) culng(culng(culng((a)->vmods_mask1) shl 8) or culng((a)->vmods_mask0))
-#define XkbSARedirectSetVModsMask(a, m) '' TODO: (((a)->vmods_mask1=(((m)>>8)&0xff)), ((a)->vmods_mask0=((m)&0xff)))
+#macro XkbSARedirectSetVModsMask(a, m)
+	scope
+		(a)->vmods_mask1 = ((m) shr 8) and &hff
+		(a)->vmods_mask0 = (m) and &hff
+	end scope
+#endmacro
 
 type _XkbDeviceBtnAction
 	as ubyte type
@@ -291,7 +330,7 @@ end type
 
 type XkbServerMapRec as _XkbServerMapRec
 type XkbServerMapPtr as _XkbServerMapRec ptr
-#define XkbSMKeyActionsPtr(m, k) '' TODO: (&(m)->acts[(m)->key_acts[k]])
+#define XkbSMKeyActionsPtr(m, k) (@(m)->acts[(m)->key_acts[k]])
 
 type _XkbSymMapRec
 	kt_index(0 to 3) as ubyte
@@ -320,7 +359,7 @@ type XkbClientMapPtr as _XkbClientMapRec ptr
 #define XkbCMKeyNumGroups(m, k) XkbNumGroups((m)->key_sym_map[k].group_info)
 #define XkbCMKeyGroupWidth(m, k, g) XkbCMKeyType(m, k, g)->num_levels
 #define XkbCMKeyGroupsWidth(m, k) (m)->key_sym_map[k].width
-#define XkbCMKeyTypeIndex(m, k, g) '' TODO: ((m)->key_sym_map[k].kt_index[g&0x3])
+#define XkbCMKeyTypeIndex(m, k, g) ((m)->key_sym_map[k].kt_index[g and &h3])
 #define XkbCMKeyType(m, k, g) (@(m)->types[XkbCMKeyTypeIndex(m, k, g)])
 #define XkbCMKeyNumSyms(m, k) (XkbCMKeyGroupsWidth(m, k) * XkbCMKeyNumGroups(m, k))
 #define XkbCMKeySymsOffset(m, k) (m)->key_sym_map[k].offset

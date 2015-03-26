@@ -14,15 +14,51 @@ extern _XtProcessLock as sub()
 extern _XtProcessUnlock as sub()
 extern _XtInitAppLock as sub(byval as XtAppContext)
 
-#define INIT_APP_LOCK(app) '' TODO: if(_XtInitAppLock) (*_XtInitAppLock)(app)
-#define FREE_APP_LOCK(app) '' TODO: if(app && app->free_lock)(*app->free_lock)(app)
-#define LOCK_PROCESS '' TODO: if(_XtProcessLock)(*_XtProcessLock)()
-#define UNLOCK_PROCESS '' TODO: if(_XtProcessUnlock)(*_XtProcessUnlock)()
-#define LOCK_APP(app) '' TODO: if(app && app->lock)(*app->lock)(app)
-#define UNLOCK_APP(app) '' TODO: if(app && app->unlock)(*app->unlock)(app)
-#define YIELD_APP_LOCK(app, push, pushed, level) '' TODO: if(app && app->yield_lock) (*app->yield_lock)(app,push,pushed,level)
-#define RESTORE_APP_LOCK(app, level, pushed) '' TODO: if(app && app->restore_lock) (*app->restore_lock)(app,level,pushed)
-#define WIDGET_TO_APPCON(w) '' TODO: XtAppContext app = (w && _XtProcessLock ? XtWidgetToApplicationContext(w) : NULL)
-#define DPY_TO_APPCON(d) '' TODO: XtAppContext app = (_XtProcessLock ? XtDisplayToApplicationContext(d): NULL)
+#macro INIT_APP_LOCK(app)
+	if _XtInitAppLock then
+		_XtInitAppLock(app)
+	end if
+#endmacro
+#macro FREE_APP_LOCK(app)
+	if app andalso app->free_lock then
+		app->free_lock(app)
+	end if
+#endmacro
+#macro LOCK_PROCESS
+	if _XtProcessLock then
+		_XtProcessLock()
+	end if
+#endmacro
+#macro UNLOCK_PROCESS
+	if _XtProcessUnlock then
+		_XtProcessUnlock()
+	end if
+#endmacro
+#macro LOCK_APP(app)
+	if app andalso app->lock then
+		app->lock(app)
+	end if
+#endmacro
+#macro UNLOCK_APP(app)
+	if app andalso app->unlock then
+		app->unlock(app)
+	end if
+#endmacro
+#macro YIELD_APP_LOCK(app, push, pushed, level)
+	if app andalso app->yield_lock then
+		app->yield_lock(app,push,pushed,level)
+	end if
+#endmacro
+#macro RESTORE_APP_LOCK(app, level, pushed)
+	if app andalso app->restore_lock then
+		app->restore_lock(app,level,pushed)
+	end if
+#endmacro
+#macro WIDGET_TO_APPCON(w)
+	dim as XtAppContext app = iif(w andalso _XtProcessLock, XtWidgetToApplicationContext(w), NULL)
+#endmacro
+#macro DPY_TO_APPCON(d)
+	dim as XtAppContext app = iif(_XtProcessLock, XtDisplayToApplicationContext(d), NULL)
+#endmacro
 
 end extern

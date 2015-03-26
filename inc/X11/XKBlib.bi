@@ -323,8 +323,16 @@ declare function XkbGetDeviceIndicatorState(byval as Display ptr, byval as ulong
 declare function XkbGetIndicatorMap(byval as Display ptr, byval as culong, byval as XkbDescPtr) as long
 declare function XkbSetIndicatorMap(byval as Display ptr, byval as culong, byval as XkbDescPtr) as long
 
-#define XkbNoteIndicatorMapChanges(o, n, w) '' TODO: ((o)->map_changes|=((n)->map_changes&(w)))
-#define XkbNoteIndicatorStateChanges(o, n, w) '' TODO: ((o)->state_changes|=((n)->state_changes&(w)))
+#macro XkbNoteIndicatorMapChanges(o, n, w)
+	scope
+		(o)->map_changes or= (n)->map_changes and (w)
+	end scope
+#endmacro
+#macro XkbNoteIndicatorStateChanges(o, n, w)
+	scope
+		(o)->state_changes or= (n)->state_changes and (w)
+	end scope
+#endmacro
 #define XkbGetIndicatorMapChanges(d, x, c) XkbGetIndicatorMap((d), (c)->map_changes, x)
 #define XkbChangeIndicatorMaps(d, x, c) XkbSetIndicatorMap((d), (c)->map_changes, x)
 

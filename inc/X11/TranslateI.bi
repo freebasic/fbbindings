@@ -318,14 +318,18 @@ type TMGlobalRec as _TMGlobalRec
 extern _XtGlobalTM as TMGlobalRec
 const TM_MOD_SEGMENT_SIZE = 16
 const TM_TYPE_SEGMENT_SIZE = 16
-#define TMGetTypeMatch(idx) '' TODO: ((TMTypeMatch) &((_XtGlobalTM.typeMatchSegmentTbl[((idx) >> 4)])[(idx) & 15]))
-#define TMGetModifierMatch(idx) '' TODO: ((TMModifierMatch) &((_XtGlobalTM.modMatchSegmentTbl[(idx) >> 4])[(idx) & 15]))
+#define TMGetTypeMatch(idx) cast(TMTypeMatch, @((_XtGlobalTM.typeMatchSegmentTbl[((idx) shr 4)])[(idx) and 15]))
+#define TMGetModifierMatch(idx) cast(TMModifierMatch, @((_XtGlobalTM.modMatchSegmentTbl[(idx) shr 4])[(idx) and 15]))
 #define TMNewMatchSemantics() _XtGlobalTM.newMatchSemantics
 #define TMBranchMore(branch) branch->more
 #define TMComplexBranchHead(tree, br) cast(TMComplexStateTree, tree)->complexBranchHeadTbl[TMBranchMore(br)]
 #define TMGetComplexBindEntry(bindData, idx) cast(TMComplexBindProcs, @cast(TMComplexBindData, bindData)->bindTbl[idx])
 #define TMGetSimpleBindEntry(bindData, idx) cast(TMSimpleBindProcs, @cast(TMSimpleBindData, bindData)->bindTbl[idx])
-#define _InitializeKeysymTables(dpy, pd) '' TODO: if (pd->keysyms == NULL) _XtBuildKeysymTables(dpy, pd)
+#macro _InitializeKeysymTables(dpy, pd)
+	if pd->keysyms = NULL then
+		_XtBuildKeysymTables(dpy, pd)
+	end if
+#endmacro
 
 declare sub _XtPopup(byval as Widget, byval as XtGrabKind, byval as byte)
 declare function _XtPrintXlations(byval as Widget, byval as XtTranslations, byval as Widget, byval as byte) as String_

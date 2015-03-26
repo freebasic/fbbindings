@@ -37,12 +37,27 @@ type XmuArea as _XmuArea
 #define XmuCreateArea() XmuNewArea(0, 0, 0, 0)
 #define XmuAreaOr(dst, src) XmuAreaOrXor((dst), (src), True)
 #define XmuAreaXor(dst, src) XmuAreaOrXor((dst), (src), False)
-#define XmuDestroyArea(a) '' TODO: do { XmuDestroyScanlineList((a)->scanline); XtFree((char *)(a)); } while (0)
-#define FreeArea(a) '' TODO: do { XmuDestroyScanlineList((a)->scanline); a->scanline = (Scanline *)0; } while (0)
+#macro XmuDestroyArea(a)
+	scope
+		XmuDestroyScanlineList((a)->scanline)
+		XtFree(cptr(any ptr, (a)))
+	end scope
+#endmacro
+#macro FreeArea(a)
+	scope
+		XmuDestroyScanlineList((a)->scanline)
+		a->scanline = 0
+	end scope
+#endmacro
 #define XmuValidSegment(s) ((s)->x1 < (s)->x2)
 #define XmuSegmentEqu(s1, s2) (((s1)->x1 = (s2)->x1) andalso ((s1)->x2 = (s2)->x2))
 #define XmuDestroySegment(s) XtFree(cptr(zstring ptr, (s)))
-#define XmuDestroyScanline(s) '' TODO: do { XmuDestroySegmentList((s)->segment); XtFree((char*)(s)); } while (0)
+#macro XmuDestroyScanline(s)
+	scope
+		XmuDestroySegmentList((s)->segment)
+		XtFree(cptr(any ptr, (s)))
+	end scope
+#endmacro
 
 declare function XmuNewArea(byval as long, byval as long, byval as long, byval as long) as XmuArea ptr
 declare function XmuAreaDup(byval as XmuArea ptr) as XmuArea ptr

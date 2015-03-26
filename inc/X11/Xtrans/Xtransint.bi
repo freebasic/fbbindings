@@ -22,7 +22,7 @@ extern "C"
 	#define ESET(val) WSASetLastError(val)
 	#define EGET() WSAGetLastError()
 #else
-	#define ESET(val) '' TODO: errno = val
+	#define ESET(val) scope : errno = val : end scope
 	#define EGET() errno
 #endif
 
