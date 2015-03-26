@@ -41,6 +41,8 @@ extern "C"
 	#endif
 #endif
 
+#define SDLCALL cdecl
+
 declare function SDL_GetPlatform() as const zstring ptr
 
 #ifdef __FB_WIN32__

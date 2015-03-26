@@ -64,6 +64,7 @@ enum
 	DUMMY_ENUM_VALUE
 end enum
 
+#define SDLCALL cdecl
 #ifndef NULL
 const NULL = cptr(any ptr, 0)
 #endif
