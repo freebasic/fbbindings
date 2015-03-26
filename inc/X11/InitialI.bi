@@ -85,6 +85,8 @@ type Heap
 end type
 
 type DestroyRec as _DestroyRec
+type _ActionListRec as _ActionListRec_
+type _TMBindCacheRec as _TMBindCacheRec_
 
 type _XtAppStruct
 	next as XtAppContext
@@ -170,6 +172,8 @@ type _ExtensionSelectorRec
 end type
 
 type ExtSelectRec as _ExtensionSelectorRec
+type _GCrec as _GCrec_
+type _WWTable as _WWTable_
 
 type _XtPerDisplayStruct
 	destroy_callbacks as InternalCallbackList

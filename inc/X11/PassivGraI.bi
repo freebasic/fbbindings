@@ -3,8 +3,6 @@
 extern "C"
 
 #define _PDI_h_
-#define KEYBOARD TRUE
-#define POINTER FALSE
 
 type XtServerGrabType as long
 enum

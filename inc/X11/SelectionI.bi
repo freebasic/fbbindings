@@ -3,12 +3,15 @@
 #include once "crt/long.bi"
 #include once "Intrinsic.bi"
 
+'' The following symbols have been renamed:
+''     typedef Select => Select_
+
 #define _XtselectionI_h
 type Request as _RequestRec ptr
-type Select as _SelectRec ptr
+type Select_ as _SelectRec ptr
 
 type _RequestRec
-	ctx as Select
+	ctx as Select_
 	widget as Widget
 	requestor as Window
 	property as XAtom
@@ -116,7 +119,7 @@ type CallBackInfoRec
 	proc as XtEventHandler
 	widget as Widget
 	time as Time
-	ctx as Select
+	ctx as Select_
 	incremental as zstring ptr
 	current as long
 end type

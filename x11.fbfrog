@@ -42,6 +42,8 @@ nodos.fbfrog
 -removedefine FALSE
 -removedefine MAXSHORT
 -removedefine MINSHORT
+-removedefine KEYBOARD
+-removedefine POINTER
 
 -addforwarddecl _XPrivate
 -addforwarddecl _XrmHashBucketRec
@@ -57,6 +59,10 @@ nodos.fbfrog
 -addforwarddecl _XtransConnInfo
 -addforwarddecl _XctPriv
 -addforwarddecl _XtransConnFd
+-addforwarddecl _ActionListRec
+-addforwarddecl _TMBindCacheRec
+-addforwarddecl _GCrec
+-addforwarddecl _WWTable
 
 -renametypedef BOOL XBOOL
 -renametypedef Atom XAtom
@@ -78,6 +84,7 @@ nodos.fbfrog
 -renamedefine Data Data_
 -rename new new_
 -rename delete delete_
+-renametypedef Select Select_
 
 -renamedefine XK_KATAKANA XK_KATAKANA_
 -renamedefine XK_CURRENCY XK_CURRENCY_
