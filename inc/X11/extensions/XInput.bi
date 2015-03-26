@@ -311,7 +311,7 @@ type XDevicePropertyNotifyEvent
 	window as Window
 	time as Time
 	deviceid as XID
-	atom as Atom
+	atom as XAtom
 	state as long
 end type
 
@@ -520,7 +520,7 @@ type XDeviceInfoPtr as _XDeviceInfo ptr
 
 type _XDeviceInfo
 	id as XID
-	as Atom type
+	as XAtom type
 	name as zstring ptr
 	num_classes as long
 	use as long
@@ -659,9 +659,9 @@ declare function XSendExtensionEvent(byval as Display ptr, byval as XDevice ptr,
 declare function XGetDeviceMotionEvents(byval as Display ptr, byval as XDevice ptr, byval as Time, byval as Time, byval as long ptr, byval as long ptr, byval as long ptr) as XDeviceTimeCoord ptr
 declare sub XFreeDeviceMotionEvents(byval as XDeviceTimeCoord ptr)
 declare sub XFreeDeviceControl(byval as XDeviceControl ptr)
-declare function XListDeviceProperties(byval as Display ptr, byval as XDevice ptr, byval as long ptr) as Atom ptr
-declare sub XChangeDeviceProperty(byval as Display ptr, byval as XDevice ptr, byval as Atom, byval as Atom, byval as long, byval as long, byval as const ubyte ptr, byval as long)
-declare sub XDeleteDeviceProperty(byval as Display ptr, byval as XDevice ptr, byval as Atom)
-declare function XGetDeviceProperty(byval as Display ptr, byval as XDevice ptr, byval as Atom, byval as clong, byval as clong, byval as long, byval as Atom, byval as Atom ptr, byval as long ptr, byval as culong ptr, byval as culong ptr, byval as ubyte ptr ptr) as long
+declare function XListDeviceProperties(byval as Display ptr, byval as XDevice ptr, byval as long ptr) as XAtom ptr
+declare sub XChangeDeviceProperty(byval as Display ptr, byval as XDevice ptr, byval as XAtom, byval as XAtom, byval as long, byval as long, byval as const ubyte ptr, byval as long)
+declare sub XDeleteDeviceProperty(byval as Display ptr, byval as XDevice ptr, byval as XAtom)
+declare function XGetDeviceProperty(byval as Display ptr, byval as XDevice ptr, byval as XAtom, byval as clong, byval as clong, byval as long, byval as XAtom, byval as XAtom ptr, byval as long ptr, byval as culong ptr, byval as culong ptr, byval as ubyte ptr ptr) as long
 
 end extern

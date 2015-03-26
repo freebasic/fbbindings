@@ -217,8 +217,8 @@ type _XtPerDisplayStruct
 	ext_select_list as ExtSelectRec ptr
 	ext_select_count as long
 	hook_object as Widget
-	rcm_init as Atom
-	rcm_data as Atom
+	rcm_init as XAtom
+	rcm_data as XAtom
 end type
 
 type XtPerDisplayStruct as _XtPerDisplayStruct

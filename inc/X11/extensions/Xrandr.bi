@@ -86,7 +86,7 @@ type XRROutputPropertyNotifyEvent
 	window as Window
 	subtype as long
 	output as RROutput
-	property as Atom
+	property as XAtom
 	timestamp as Time
 	state as long
 end type
@@ -111,7 +111,7 @@ type XRRProviderPropertyNotifyEvent
 	window as Window
 	subtype as long
 	provider as RRProvider
-	property as Atom
+	property as XAtom
 	timestamp as Time
 	state as long
 end type
@@ -204,7 +204,7 @@ end type
 type XRROutputInfo as _XRROutputInfo
 declare function XRRGetOutputInfo(byval dpy as Display ptr, byval resources as XRRScreenResources ptr, byval output as RROutput) as XRROutputInfo ptr
 declare sub XRRFreeOutputInfo(byval outputInfo as XRROutputInfo ptr)
-declare function XRRListOutputProperties(byval dpy as Display ptr, byval output as RROutput, byval nprop as long ptr) as Atom ptr
+declare function XRRListOutputProperties(byval dpy as Display ptr, byval output as RROutput, byval nprop as long ptr) as XAtom ptr
 
 type XRRPropertyInfo
 	pending as long
@@ -214,11 +214,11 @@ type XRRPropertyInfo
 	values as clong ptr
 end type
 
-declare function XRRQueryOutputProperty(byval dpy as Display ptr, byval output as RROutput, byval property as Atom) as XRRPropertyInfo ptr
-declare sub XRRConfigureOutputProperty(byval dpy as Display ptr, byval output as RROutput, byval property as Atom, byval pending as long, byval range as long, byval num_values as long, byval values as clong ptr)
-declare sub XRRChangeOutputProperty(byval dpy as Display ptr, byval output as RROutput, byval property as Atom, byval type as Atom, byval format as long, byval mode as long, byval data as const ubyte ptr, byval nelements as long)
-declare sub XRRDeleteOutputProperty(byval dpy as Display ptr, byval output as RROutput, byval property as Atom)
-declare function XRRGetOutputProperty(byval dpy as Display ptr, byval output as RROutput, byval property as Atom, byval offset as clong, byval length as clong, byval _delete as long, byval pending as long, byval req_type as Atom, byval actual_type as Atom ptr, byval actual_format as long ptr, byval nitems as culong ptr, byval bytes_after as culong ptr, byval prop as ubyte ptr ptr) as long
+declare function XRRQueryOutputProperty(byval dpy as Display ptr, byval output as RROutput, byval property as XAtom) as XRRPropertyInfo ptr
+declare sub XRRConfigureOutputProperty(byval dpy as Display ptr, byval output as RROutput, byval property as XAtom, byval pending as long, byval range as long, byval num_values as long, byval values as clong ptr)
+declare sub XRRChangeOutputProperty(byval dpy as Display ptr, byval output as RROutput, byval property as XAtom, byval type as XAtom, byval format as long, byval mode as long, byval data as const ubyte ptr, byval nelements as long)
+declare sub XRRDeleteOutputProperty(byval dpy as Display ptr, byval output as RROutput, byval property as XAtom)
+declare function XRRGetOutputProperty(byval dpy as Display ptr, byval output as RROutput, byval property as XAtom, byval offset as clong, byval length as clong, byval _delete as long, byval pending as long, byval req_type as XAtom, byval actual_type as XAtom ptr, byval actual_format as long ptr, byval nitems as culong ptr, byval bytes_after as culong ptr, byval prop as ubyte ptr ptr) as long
 declare function XRRAllocModeInfo(byval name as const zstring ptr, byval nameLength as long) as XRRModeInfo ptr
 declare function XRRCreateMode(byval dpy as Display ptr, byval window as Window, byval modeInfo as XRRModeInfo ptr) as RRMode
 declare sub XRRDestroyMode(byval dpy as Display ptr, byval mode as RRMode)
@@ -328,11 +328,11 @@ declare function XRRGetProviderInfo(byval dpy as Display ptr, byval resources as
 declare sub XRRFreeProviderInfo(byval provider as XRRProviderInfo ptr)
 declare function XRRSetProviderOutputSource(byval dpy as Display ptr, byval provider as XID, byval source_provider as XID) as long
 declare function XRRSetProviderOffloadSink(byval dpy as Display ptr, byval provider as XID, byval sink_provider as XID) as long
-declare function XRRListProviderProperties(byval dpy as Display ptr, byval provider as RRProvider, byval nprop as long ptr) as Atom ptr
-declare function XRRQueryProviderProperty(byval dpy as Display ptr, byval provider as RRProvider, byval property as Atom) as XRRPropertyInfo ptr
-declare sub XRRConfigureProviderProperty(byval dpy as Display ptr, byval provider as RRProvider, byval property as Atom, byval pending as long, byval range as long, byval num_values as long, byval values as clong ptr)
-declare sub XRRChangeProviderProperty(byval dpy as Display ptr, byval provider as RRProvider, byval property as Atom, byval type as Atom, byval format as long, byval mode as long, byval data as const ubyte ptr, byval nelements as long)
-declare sub XRRDeleteProviderProperty(byval dpy as Display ptr, byval provider as RRProvider, byval property as Atom)
-declare function XRRGetProviderProperty(byval dpy as Display ptr, byval provider as RRProvider, byval property as Atom, byval offset as clong, byval length as clong, byval _delete as long, byval pending as long, byval req_type as Atom, byval actual_type as Atom ptr, byval actual_format as long ptr, byval nitems as culong ptr, byval bytes_after as culong ptr, byval prop as ubyte ptr ptr) as long
+declare function XRRListProviderProperties(byval dpy as Display ptr, byval provider as RRProvider, byval nprop as long ptr) as XAtom ptr
+declare function XRRQueryProviderProperty(byval dpy as Display ptr, byval provider as RRProvider, byval property as XAtom) as XRRPropertyInfo ptr
+declare sub XRRConfigureProviderProperty(byval dpy as Display ptr, byval provider as RRProvider, byval property as XAtom, byval pending as long, byval range as long, byval num_values as long, byval values as clong ptr)
+declare sub XRRChangeProviderProperty(byval dpy as Display ptr, byval provider as RRProvider, byval property as XAtom, byval type as XAtom, byval format as long, byval mode as long, byval data as const ubyte ptr, byval nelements as long)
+declare sub XRRDeleteProviderProperty(byval dpy as Display ptr, byval provider as RRProvider, byval property as XAtom)
+declare function XRRGetProviderProperty(byval dpy as Display ptr, byval provider as RRProvider, byval property as XAtom, byval offset as clong, byval length as clong, byval _delete as long, byval pending as long, byval req_type as XAtom, byval actual_type as XAtom ptr, byval actual_format as long ptr, byval nitems as culong ptr, byval bytes_after as culong ptr, byval prop as ubyte ptr ptr) as long
 
 end extern

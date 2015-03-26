@@ -55,7 +55,7 @@ type _XRenderPictureAttributes
 	subwindow_mode as long
 	poly_edge as long
 	poly_mode as long
-	dither as Atom
+	dither as XAtom
 	component_alpha as long
 end type
 

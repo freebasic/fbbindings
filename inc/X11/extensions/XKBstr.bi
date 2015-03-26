@@ -58,8 +58,8 @@ type _XkbKeyType
 	map_count as ubyte
 	map as XkbKTMapEntryPtr
 	preserve as XkbModsPtr
-	name as Atom
-	level_names as Atom ptr
+	name as XAtom
+	level_names as XAtom ptr
 end type
 
 type XkbKeyTypeRec as _XkbKeyType
@@ -386,18 +386,18 @@ type XkbKeyAliasRec as _XkbKeyAliasRec
 type XkbKeyAliasPtr as _XkbKeyAliasRec ptr
 
 type _XkbNamesRec
-	keycodes as Atom
-	geometry as Atom
-	symbols as Atom
-	types as Atom
-	compat as Atom
-	vmods(0 to 15) as Atom
-	indicators(0 to 31) as Atom
-	groups(0 to 3) as Atom
+	keycodes as XAtom
+	geometry as XAtom
+	symbols as XAtom
+	types as XAtom
+	compat as XAtom
+	vmods(0 to 15) as XAtom
+	indicators(0 to 31) as XAtom
+	groups(0 to 3) as XAtom
 	keys as XkbKeyNamePtr
 	key_aliases as XkbKeyAliasPtr
-	radio_groups as Atom ptr
-	phys_symbols as Atom
+	radio_groups as XAtom ptr
+	phys_symbols as XAtom
 	num_keys as ubyte
 	num_key_aliases as ubyte
 	num_rg as ushort
@@ -569,7 +569,7 @@ type _XkbDeviceLedInfo
 	maps_present as ulong
 	names_present as ulong
 	state as ulong
-	names(0 to 31) as Atom
+	names(0 to 31) as XAtom
 	maps(0 to 31) as XkbIndicatorMapRec
 end type
 
@@ -578,7 +578,7 @@ type XkbDeviceLedInfoPtr as _XkbDeviceLedInfo ptr
 
 type _XkbDeviceInfo
 	name as zstring ptr
-	as Atom type
+	as XAtom type
 	device_spec as ushort
 	has_own_state as long
 	supported as ushort

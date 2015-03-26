@@ -209,14 +209,14 @@ end type
 type Substitution as SubstitutionRec ptr
 type XtFilePredicate as function(byval as String_) as byte
 type XtRequestId as XtPointer
-type XtConvertSelectionProc as function(byval as Widget, byval as Atom ptr, byval as Atom ptr, byval as Atom ptr, byval as XtPointer ptr, byval as culong ptr, byval as long ptr) as byte
-type XtLoseSelectionProc as sub(byval as Widget, byval as Atom ptr)
-type XtSelectionDoneProc as sub(byval as Widget, byval as Atom ptr, byval as Atom ptr)
-type XtSelectionCallbackProc as sub(byval as Widget, byval as XtPointer, byval as Atom ptr, byval as Atom ptr, byval as XtPointer, byval as culong ptr, byval as long ptr)
-type XtLoseSelectionIncrProc as sub(byval as Widget, byval as Atom ptr, byval as XtPointer)
-type XtSelectionDoneIncrProc as sub(byval as Widget, byval as Atom ptr, byval as Atom ptr, byval as XtRequestId ptr, byval as XtPointer)
-type XtConvertSelectionIncrProc as function(byval as Widget, byval as Atom ptr, byval as Atom ptr, byval as Atom ptr, byval as XtPointer ptr, byval as culong ptr, byval as long ptr, byval as culong ptr, byval as XtPointer, byval as XtRequestId ptr) as byte
-type XtCancelConvertSelectionProc as sub(byval as Widget, byval as Atom ptr, byval as Atom ptr, byval as XtRequestId ptr, byval as XtPointer)
+type XtConvertSelectionProc as function(byval as Widget, byval as XAtom ptr, byval as XAtom ptr, byval as XAtom ptr, byval as XtPointer ptr, byval as culong ptr, byval as long ptr) as byte
+type XtLoseSelectionProc as sub(byval as Widget, byval as XAtom ptr)
+type XtSelectionDoneProc as sub(byval as Widget, byval as XAtom ptr, byval as XAtom ptr)
+type XtSelectionCallbackProc as sub(byval as Widget, byval as XtPointer, byval as XAtom ptr, byval as XAtom ptr, byval as XtPointer, byval as culong ptr, byval as long ptr)
+type XtLoseSelectionIncrProc as sub(byval as Widget, byval as XAtom ptr, byval as XtPointer)
+type XtSelectionDoneIncrProc as sub(byval as Widget, byval as XAtom ptr, byval as XAtom ptr, byval as XtRequestId ptr, byval as XtPointer)
+type XtConvertSelectionIncrProc as function(byval as Widget, byval as XAtom ptr, byval as XAtom ptr, byval as XAtom ptr, byval as XtPointer ptr, byval as culong ptr, byval as long ptr, byval as culong ptr, byval as XtPointer, byval as XtRequestId ptr) as byte
+type XtCancelConvertSelectionProc as sub(byval as Widget, byval as XAtom ptr, byval as XAtom ptr, byval as XtRequestId ptr, byval as XtPointer)
 type XtEventDispatchProc as function(byval as XEvent ptr) as byte
 type XtExtensionSelectProc as sub(byval as Widget, byval as long ptr, byval as XtPointer ptr, byval as long, byval as XtPointer)
 
@@ -233,8 +233,8 @@ declare function _XtIsSubclassOf(byval as Widget, byval as WidgetClass, byval as
 declare function XtIsManaged(byval as Widget) as byte
 declare function XtIsRealized(byval as Widget) as byte
 declare function XtIsSensitive(byval as Widget) as byte
-declare function XtOwnSelection(byval as Widget, byval as Atom, byval as Time, byval as XtConvertSelectionProc, byval as XtLoseSelectionProc, byval as XtSelectionDoneProc) as byte
-declare function XtOwnSelectionIncremental(byval as Widget, byval as Atom, byval as Time, byval as XtConvertSelectionIncrProc, byval as XtLoseSelectionIncrProc, byval as XtSelectionDoneIncrProc, byval as XtCancelConvertSelectionProc, byval as XtPointer) as byte
+declare function XtOwnSelection(byval as Widget, byval as XAtom, byval as Time, byval as XtConvertSelectionProc, byval as XtLoseSelectionProc, byval as XtSelectionDoneProc) as byte
+declare function XtOwnSelectionIncremental(byval as Widget, byval as XAtom, byval as Time, byval as XtConvertSelectionIncrProc, byval as XtLoseSelectionIncrProc, byval as XtSelectionDoneIncrProc, byval as XtCancelConvertSelectionProc, byval as XtPointer) as byte
 declare function XtMakeResizeRequest(byval as Widget, byval as Dimension, byval as Dimension, byval as Dimension ptr, byval as Dimension ptr) as XtGeometryResult
 declare sub XtTranslateCoords(byval as Widget, byval as Position, byval as Position, byval as Position ptr, byval as Position ptr)
 declare function XtGetKeysymTable(byval as Display ptr, byval as KeyCode ptr, byval as long ptr) as KeySym ptr
@@ -498,24 +498,24 @@ declare sub XtCallbackReleaseCacheRefList(byval as Widget, byval as XtPointer, b
 declare sub XtSetWMColormapWindows(byval as Widget, byval as Widget ptr, byval as Cardinal)
 declare function XtFindFile(byval as const zstring ptr, byval as Substitution, byval as Cardinal, byval as XtFilePredicate) as String_
 declare function XtResolvePathname(byval as Display ptr, byval as const zstring ptr, byval as const zstring ptr, byval as const zstring ptr, byval as const zstring ptr, byval as Substitution, byval as Cardinal, byval as XtFilePredicate) as String_
-#define XT_CONVERT_FAIL cast(Atom, &h80000001)
-declare sub XtDisownSelection(byval as Widget, byval as Atom, byval as Time)
-declare sub XtGetSelectionValue(byval as Widget, byval as Atom, byval as Atom, byval as XtSelectionCallbackProc, byval as XtPointer, byval as Time)
-declare sub XtGetSelectionValues(byval as Widget, byval as Atom, byval as Atom ptr, byval as long, byval as XtSelectionCallbackProc, byval as XtPointer ptr, byval as Time)
+#define XT_CONVERT_FAIL cast(XAtom, &h80000001)
+declare sub XtDisownSelection(byval as Widget, byval as XAtom, byval as Time)
+declare sub XtGetSelectionValue(byval as Widget, byval as XAtom, byval as XAtom, byval as XtSelectionCallbackProc, byval as XtPointer, byval as Time)
+declare sub XtGetSelectionValues(byval as Widget, byval as XAtom, byval as XAtom ptr, byval as long, byval as XtSelectionCallbackProc, byval as XtPointer ptr, byval as Time)
 declare sub XtAppSetSelectionTimeout(byval as XtAppContext, byval as culong)
 declare sub XtSetSelectionTimeout(byval as culong)
 declare function XtAppGetSelectionTimeout(byval as XtAppContext) as culong
 declare function XtGetSelectionTimeout() as culong
-declare function XtGetSelectionRequest(byval as Widget, byval as Atom, byval as XtRequestId) as XSelectionRequestEvent ptr
-declare sub XtGetSelectionValueIncremental(byval as Widget, byval as Atom, byval as Atom, byval as XtSelectionCallbackProc, byval as XtPointer, byval as Time)
-declare sub XtGetSelectionValuesIncremental(byval as Widget, byval as Atom, byval as Atom ptr, byval as long, byval as XtSelectionCallbackProc, byval as XtPointer ptr, byval as Time)
-declare sub XtSetSelectionParameters(byval as Widget, byval as Atom, byval as Atom, byval as XtPointer, byval as culong, byval as long)
-declare sub XtGetSelectionParameters(byval as Widget, byval as Atom, byval as XtRequestId, byval as Atom ptr, byval as XtPointer ptr, byval as culong ptr, byval as long ptr)
-declare sub XtCreateSelectionRequest(byval as Widget, byval as Atom)
-declare sub XtSendSelectionRequest(byval as Widget, byval as Atom, byval as Time)
-declare sub XtCancelSelectionRequest(byval as Widget, byval as Atom)
-declare function XtReservePropertyAtom(byval as Widget) as Atom
-declare sub XtReleasePropertyAtom(byval as Widget, byval as Atom)
+declare function XtGetSelectionRequest(byval as Widget, byval as XAtom, byval as XtRequestId) as XSelectionRequestEvent ptr
+declare sub XtGetSelectionValueIncremental(byval as Widget, byval as XAtom, byval as XAtom, byval as XtSelectionCallbackProc, byval as XtPointer, byval as Time)
+declare sub XtGetSelectionValuesIncremental(byval as Widget, byval as XAtom, byval as XAtom ptr, byval as long, byval as XtSelectionCallbackProc, byval as XtPointer ptr, byval as Time)
+declare sub XtSetSelectionParameters(byval as Widget, byval as XAtom, byval as XAtom, byval as XtPointer, byval as culong, byval as long)
+declare sub XtGetSelectionParameters(byval as Widget, byval as XAtom, byval as XtRequestId, byval as XAtom ptr, byval as XtPointer ptr, byval as culong ptr, byval as long ptr)
+declare sub XtCreateSelectionRequest(byval as Widget, byval as XAtom)
+declare sub XtSendSelectionRequest(byval as Widget, byval as XAtom, byval as Time)
+declare sub XtCancelSelectionRequest(byval as Widget, byval as XAtom)
+declare function XtReservePropertyAtom(byval as Widget) as XAtom
+declare sub XtReleasePropertyAtom(byval as Widget, byval as XAtom)
 declare sub XtGrabKey(byval as Widget, byval as KeyCode, byval as Modifiers, byval as byte, byval as long, byval as long)
 declare sub XtUngrabKey(byval as Widget, byval as KeyCode, byval as Modifiers)
 declare function XtGrabKeyboard(byval as Widget, byval as byte, byval as long, byval as long, byval as Time) as long
