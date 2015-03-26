@@ -772,8 +772,8 @@ x11:
 	cp -R extracted/xorg/$(X11_XTRANS)/Xtrans.h     extracted/xorg/X11/Xtrans
 
 	cp extracted/xorg/$(X11_XEXTPROTO)/*.h extracted/xorg/X11/extensions
+	cp extracted/xorg/$(X11_RENDERPROTO)/*.h extracted/xorg/X11/extensions
 
-	#$(X11_RENDERPROTO)
 	#$(X11_RANDRPROTO)
 	#$(X11_KBPROTO)
 	#$(X11_INPUTPROTO)
@@ -868,6 +868,7 @@ x11:
 		-include X11/extensions/xtestext1const.h \
 		-include X11/extensions/xtestext1proto.h \
 		-include X11/extensions/xtestproto.h \
+		-include X11/extensions/renderproto.h \
 		-include X11/Xdmcp.h \
 		-include X11/xpm.h \
 		-include X11/Xtrans/Xtrans.h \
@@ -983,6 +984,8 @@ x11:
 		-emit '*/X11/extensions/xtestext1const.h'  inc/X11/extensions/xtestext1const.bi \
 		-emit '*/X11/extensions/xtestext1proto.h'  inc/X11/extensions/xtestext1proto.bi \
 		-emit '*/X11/extensions/xtestproto.h'      inc/X11/extensions/xtestproto.bi \
+		-emit '*/X11/extensions/render.h'          inc/X11/extensions/render.bi \
+		-emit '*/X11/extensions/renderproto.h'     inc/X11/extensions/renderproto.bi \
 		-emit '*/X11/Xtrans/Xtrans.h'        inc/X11/Xtrans/Xtrans.bi \
 		-emit '*/X11/Xdmcp.h' inc/X11/Xdmcp.bi \
 		-emit '*/X11/xpm.h'   inc/X11/xpm.bi
