@@ -742,12 +742,44 @@ x11:
 
 	rm -rf extracted/xorg/X11
 	mkdir extracted/xorg/X11
+
 	cp extracted/xorg/$(X11_X11)/include/X11/*.h extracted/xorg/X11
+	sed $(SED_X11_XLIBCONF) < extracted/xorg/$(X11_X11)/include/X11/XlibConf.h.in > extracted/xorg/X11/XlibConf.h
+
 	cp extracted/xorg/$(X11_XPROTO)/*.h          extracted/xorg/X11
-	sed $(SED_X11_XLIBCONF)   < extracted/xorg/$(X11_X11)/include/X11/XlibConf.h.in > extracted/xorg/X11/XlibConf.h
-	sed $(SED_X11_XFUNCPROTO) < extracted/xorg/$(X11_XPROTO)/Xfuncproto.h.in        > extracted/xorg/X11/Xfuncproto.h
+	sed $(SED_X11_XFUNCPROTO) < extracted/xorg/$(X11_XPROTO)/Xfuncproto.h.in > extracted/xorg/X11/Xfuncproto.h
+
+	cp -R extracted/xorg/$(X11_ICE)/include/X11 extracted/xorg
+	#$(X11_SM)
+	#$(X11_XAU)
+	#$(X11_X11)
+	#$(X11_XT)
+	#$(X11_XEXT)
+	#$(X11_XPM)
+	#$(X11_XRENDER)
+	#$(X11_XRANDR)
+	#$(X11_XI)
+	#$(X11_XDMCP)
+	#$(X11_XXF86DGA)
+	#$(X11_XXF86VM)
+	#$(X11_XV)
+	#$(X11_XTRANS)
+	#$(X11_UTILMACROS)
+	#$(X11_XPROTO)
+	#$(X11_XEXTPROTO)
+	#$(X11_RENDERPROTO)
+	#$(X11_RANDRPROTO)
+	#$(X11_KBPROTO)
+	#$(X11_INPUTPROTO)
+	#$(X11_DRI2PROTO)
+	#$(X11_XF86DGAPROTO)
+	#$(X11_XF86VIDMODEPROTO)
+	#$(X11_VIDEOPROTO)
+
+	# TODO: X11/Xlib-xcb.h
 
 	mkdir -p inc/X11
+	mkdir -p inc/X11/ICE
 	$(FBFROG) x11.fbfrog -incdir extracted/xorg \
 		\
 		-include X11/Xlib.h \
@@ -758,6 +790,31 @@ x11:
 		-include X11/Xutil.h \
 		-include X11/cursorfont.h \
 		-include X11/Xlibint.h \
+		-include X11/ICE/ICEconn.h \
+		-include X11/ICE/ICE.h \
+		-include X11/ICE/ICElib.h \
+		-include X11/ICE/ICEmsg.h \
+		-include X11/ICE/ICEproto.h \
+		-include X11/ICE/ICEutil.h \
+		-include X11/ap_keysym.h \
+		-include X11/DECkeysym.h \
+		-include X11/HPkeysym.h \
+		-include X11/ImUtil.h \
+		-include X11/Sunkeysym.h \
+		-include X11/Xalloca.h \
+		-include X11/Xarch.h \
+		-include X11/Xdefs.h \
+		-include X11/XF86keysym.h \
+		-include X11/XKBlib.h \
+		-include X11/Xlocale.h \
+		-include X11/Xos.h \
+		-include X11/Xos_r.h \
+		-include X11/Xregion.h \
+		-include X11/Xthreads.h \
+		-include X11/Xw32defs.h \
+		-include X11/XWDFile.h \
+		-include X11/Xwindows.h \
+		-include X11/Xwinsock.h \
 		\
 		-emit '*/X11/cursorfont.h'   inc/X11/cursorfont.bi \
 		-emit '*/X11/keysymdef.h'    inc/X11/keysymdef.bi \
@@ -775,6 +832,31 @@ x11:
 		-emit '*/X11/Xproto.h'       inc/X11/Xproto.bi \
 		-emit '*/X11/Xprotostr.h'    inc/X11/Xprotostr.bi \
 		-emit '*/X11/Xresource.h'    inc/X11/Xresource.bi \
+		-emit '*/X11/ICE/ICEconn.h'  inc/X11/ICE/ICEconn.bi \
+		-emit '*/X11/ICE/ICE.h'      inc/X11/ICE/ICE.bi \
+		-emit '*/X11/ICE/ICElib.h'   inc/X11/ICE/ICElib.bi \
+		-emit '*/X11/ICE/ICEmsg.h'   inc/X11/ICE/ICEmsg.bi \
+		-emit '*/X11/ICE/ICEproto.h' inc/X11/ICE/ICEproto.bi \
+		-emit '*/X11/ICE/ICEutil.h'  inc/X11/ICE/ICEutil.bi \
+		-emit '*/X11/ap_keysym.h'    inc/X11/ap_keysym.bi \
+		-emit '*/X11/DECkeysym.h'    inc/X11/DECkeysym.bi \
+		-emit '*/X11/HPkeysym.h'     inc/X11/HPkeysym.bi \
+		-emit '*/X11/ImUtil.h'       inc/X11/ImUtil.bi \
+		-emit '*/X11/Sunkeysym.h'    inc/X11/Sunkeysym.bi \
+		-emit '*/X11/Xalloca.h'      inc/X11/Xalloca.bi \
+		-emit '*/X11/Xarch.h'        inc/X11/Xarch.bi \
+		-emit '*/X11/Xdefs.h'        inc/X11/Xdefs.bi \
+		-emit '*/X11/XF86keysym.h'   inc/X11/XF86keysym.bi \
+		-emit '*/X11/XKBlib.h'       inc/X11/XKBlib.bi \
+		-emit '*/X11/Xlocale.h'      inc/X11/Xlocale.bi \
+		-emit '*/X11/Xos.h'          inc/X11/Xos.bi \
+		-emit '*/X11/Xos_r.h'        inc/X11/Xos_r.bi \
+		-emit '*/X11/Xregion.h'      inc/X11/Xregion.bi \
+		-emit '*/X11/Xthreads.h'     inc/X11/Xthreads.bi \
+		-emit '*/X11/Xw32defs.h'     inc/X11/Xw32defs.bi \
+		-emit '*/X11/XWDFile.h'      inc/X11/XWDFile.bi \
+		-emit '*/X11/Xwindows.h'     inc/X11/Xwindows.bi \
+		-emit '*/X11/Xwinsock.h'     inc/X11/Xwinsock.bi \
 		-emit '*/X11/Xutil.h'        inc/X11/Xutil.bi
 
 xcb:
