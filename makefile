@@ -704,6 +704,7 @@ X11_XXF86VM      := libXxf86vm-1.1.4
 X11_XV           := libXv-1.0.10
 X11_XFT          := libXft-2.3.2
 X11_XCURSOR      := libXcursor-1.1.14
+X11_XMU          := libXmu-1.1.2
 X11_XTRANS       := xtrans-1.3.5
 X11_XPROTO       := xproto-7.0.27
 X11_XEXTPROTO    := xextproto-7.3.0
@@ -739,6 +740,7 @@ x11:
 	./getxorg.sh $(X11_XV)       $(X11_XV).tar.bz2        "http://xorg.freedesktop.org/releases/individual/lib/$(X11_XV).tar.bz2"
 	./getxorg.sh $(X11_XFT)      $(X11_XFT).tar.bz2       "http://xorg.freedesktop.org/releases/individual/lib/$(X11_XFT).tar.bz2"
 	./getxorg.sh $(X11_XCURSOR)  $(X11_XCURSOR).tar.bz2   "http://xorg.freedesktop.org/releases/individual/lib/$(X11_XCURSOR).tar.bz2"
+	./getxorg.sh $(X11_XMU)      $(X11_XMU).tar.bz2       "http://xorg.freedesktop.org/releases/individual/lib/$(X11_XMU).tar.bz2"
 	./getxorg.sh $(X11_XTRANS)   $(X11_XTRANS).tar.bz2    "http://xorg.freedesktop.org/releases/individual/lib/$(X11_XTRANS).tar.bz2"
 	./getxorg.sh $(X11_XPROTO)           $(X11_XPROTO).tar.bz2           "http://xorg.freedesktop.org/releases/individual/proto/$(X11_XPROTO).tar.bz2"
 	./getxorg.sh $(X11_XEXTPROTO)        $(X11_XEXTPROTO).tar.bz2        "http://xorg.freedesktop.org/releases/individual/proto/$(X11_XEXTPROTO).tar.bz2"
@@ -781,6 +783,7 @@ x11:
 	cp -R extracted/xorg/$(X11_XV)/include/X11      extracted/xorg
 	cp -R extracted/xorg/$(X11_XFT)/include/X11     extracted/xorg
 	cp -R extracted/xorg/$(X11_XCURSOR)/include/X11 extracted/xorg
+	cp -R extracted/xorg/$(X11_XMU)/include/X11     extracted/xorg
 	cp -R extracted/xorg/$(X11_XTRANS)/Xtrans.h     extracted/xorg/X11/Xtrans
 
 	cp extracted/xorg/$(X11_XEXTPROTO)/*.h extracted/xorg/X11/extensions
@@ -793,7 +796,7 @@ x11:
 	cp extracted/xorg/$(X11_XF86VIDMODEPROTO)/*.h extracted/xorg/X11/extensions
 	cp extracted/xorg/$(X11_VIDEOPROTO)/*.h extracted/xorg/X11/extensions
 
-	mkdir -p inc/X11/extensions inc/X11/ICE inc/X11/SM inc/X11/Xft inc/X11/Xcursor inc/X11/Xtrans
+	mkdir -p inc/X11/extensions inc/X11/ICE inc/X11/SM inc/X11/Xft inc/X11/Xcursor inc/X11/Xmu inc/X11/Xtrans
 	$(FBFROG) x11.fbfrog -incdir extracted/xorg \
 		\
 		-include X11/Xlib.h \
@@ -913,6 +916,22 @@ x11:
 		-include X11/Xft/Xft.h \
 		-include X11/Xft/XftCompat.h \
 		-include X11/Xcursor/Xcursor.h \
+		-include X11/Xmu/Xmu.h \
+		-include X11/Xmu/CloseHook.h \
+		-include X11/Xmu/CurUtil.h \
+		-include X11/Xmu/CvtCache.h \
+		-include X11/Xmu/Editres.h \
+		-include X11/Xmu/EditresP.h \
+		-include X11/Xmu/ExtAgent.h \
+		-include X11/Xmu/Initer.h \
+		-include X11/Xmu/Lookup.h \
+		-include X11/Xmu/Misc.h \
+		-include X11/Xmu/StdCmap.h \
+		-include X11/Xmu/SysUtil.h \
+		-include X11/Xmu/WhitePoint.h \
+		-include X11/Xmu/WidgetNode.h \
+		-include X11/Xmu/WinUtil.h \
+		-include X11/Xmu/Xct.h \
 		-include X11/Xtrans/Xtrans.h \
 		\
 		-emit '*/X11/ap_keysym.h'    inc/X11/ap_keysym.bi \
@@ -1061,6 +1080,29 @@ x11:
 		-emit '*/X11/Xft/Xft.h'              inc/X11/Xft/Xft.bi \
 		-emit '*/X11/Xft/XftCompat.h'        inc/X11/Xft/XftCompat.bi \
 		-emit '*/X11/Xcursor/Xcursor.h'      inc/X11/Xcursor/Xcursor.bi \
+		-emit '*/X11/Xmu/Atoms.h'            inc/X11/Xmu/Atoms.bi \
+		-emit '*/X11/Xmu/CharSet.h'          inc/X11/Xmu/CharSet.bi \
+		-emit '*/X11/Xmu/CloseHook.h'        inc/X11/Xmu/CloseHook.bi \
+		-emit '*/X11/Xmu/Converters.h'       inc/X11/Xmu/Converters.bi \
+		-emit '*/X11/Xmu/CurUtil.h'          inc/X11/Xmu/CurUtil.bi \
+		-emit '*/X11/Xmu/CvtCache.h'         inc/X11/Xmu/CvtCache.bi \
+		-emit '*/X11/Xmu/DisplayQue.h'       inc/X11/Xmu/DisplayQue.bi \
+		-emit '*/X11/Xmu/Drawing.h'          inc/X11/Xmu/Drawing.bi \
+		-emit '*/X11/Xmu/Editres.h'          inc/X11/Xmu/Editres.bi \
+		-emit '*/X11/Xmu/EditresP.h'         inc/X11/Xmu/EditresP.bi \
+		-emit '*/X11/Xmu/Error.h'            inc/X11/Xmu/Error.bi \
+		-emit '*/X11/Xmu/ExtAgent.h'         inc/X11/Xmu/ExtAgent.bi \
+		-emit '*/X11/Xmu/Initer.h'           inc/X11/Xmu/Initer.bi \
+		-emit '*/X11/Xmu/Lookup.h'           inc/X11/Xmu/Lookup.bi \
+		-emit '*/X11/Xmu/Misc.h'             inc/X11/Xmu/Misc.bi \
+		-emit '*/X11/Xmu/StdCmap.h'          inc/X11/Xmu/StdCmap.bi \
+		-emit '*/X11/Xmu/StdSel.h'           inc/X11/Xmu/StdSel.bi \
+		-emit '*/X11/Xmu/SysUtil.h'          inc/X11/Xmu/SysUtil.bi \
+		-emit '*/X11/Xmu/WhitePoint.h'       inc/X11/Xmu/WhitePoint.bi \
+		-emit '*/X11/Xmu/WidgetNode.h'       inc/X11/Xmu/WidgetNode.bi \
+		-emit '*/X11/Xmu/WinUtil.h'          inc/X11/Xmu/WinUtil.bi \
+		-emit '*/X11/Xmu/Xct.h'              inc/X11/Xmu/Xct.bi \
+		-emit '*/X11/Xmu/Xmu.h'              inc/X11/Xmu/Xmu.bi \
 		-emit '*/X11/Xtrans/Xtrans.h'        inc/X11/Xtrans/Xtrans.bi \
 		-emit '*/X11/Xdmcp.h' inc/X11/Xdmcp.bi \
 		-emit '*/X11/xpm.h'   inc/X11/xpm.bi
