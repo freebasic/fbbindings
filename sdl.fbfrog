@@ -129,3 +129,6 @@ nodos.fbfrog
 -removedefine SDL_VIDEO_DRIVER_X11
 -removedefine SIZEOF_VOIDP
 -removedefine STDC_HEADERS
+
+# already defined by crt/math.bi
+-removedefine M_PI

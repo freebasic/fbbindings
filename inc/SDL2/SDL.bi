@@ -163,7 +163,6 @@ declare function SDL_sscanf(byval text as const zstring ptr, byval fmt as const 
 declare function SDL_vsscanf(byval text as const zstring ptr, byval fmt as const zstring ptr, byval ap as va_list) as long
 declare function SDL_snprintf(byval text as zstring ptr, byval maxlen as uinteger, byval fmt as const zstring ptr, ...) as long
 declare function SDL_vsnprintf(byval text as zstring ptr, byval maxlen as uinteger, byval fmt as const zstring ptr, byval ap as va_list) as long
-const M_PI = 3.14159265358979323846264338327950288
 declare function SDL_acos(byval x as double) as double
 declare function SDL_asin(byval x as double) as double
 declare function SDL_atan(byval x as double) as double

@@ -6,7 +6,6 @@
 extern "C"
 
 #define _SDL_gfxPrimitives_h
-const M_PI = 3.141592654
 const SDL_GFXPRIMITIVES_MAJOR = 2
 const SDL_GFXPRIMITIVES_MINOR = 0
 const SDL_GFXPRIMITIVES_MICRO = 13
