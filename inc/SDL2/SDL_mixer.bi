@@ -25,7 +25,7 @@ const SDL_MIXER_PATCHLEVEL = 0
 #define MIX_MINOR_VERSION SDL_MIXER_MINOR_VERSION
 #define MIX_PATCHLEVEL SDL_MIXER_PATCHLEVEL
 #define MIX_VERSION(X) SDL_MIXER_VERSION(X)
-declare function Mix_Linked_Version() as const SDL_version ptr
+declare function Mix_Linked_Version() as const SDL_version_ ptr
 
 type MIX_InitFlags as long
 enum

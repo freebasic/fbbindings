@@ -45,6 +45,10 @@
 	#include once "X11/Xatom.bi"
 #endif
 
+'' The following symbols have been renamed:
+''     enum SDL_EventMask => SDL_EventMask_
+''     struct SDL_version => SDL_version_
+
 extern "C"
 
 #define _SDL_H
@@ -230,7 +234,7 @@ declare sub SDL_SetError(byval fmt as const zstring ptr, ...)
 declare function SDL_GetError() as zstring ptr
 declare sub SDL_ClearError()
 #define SDL_OutOfMemory() SDL_Error(SDL_ENOMEM)
-#define SDL_Unsupported() SDL_Error(SDL_UNSUPPORTED)
+#define SDL_Unsupported() SDL_Error(SDL_UNSUPPORTED_)
 
 type SDL_errorcode as long
 enum
@@ -238,7 +242,7 @@ enum
 	SDL_EFREAD
 	SDL_EFWRITE
 	SDL_EFSEEK
-	SDL_UNSUPPORTED
+	SDL_UNSUPPORTED_
 	SDL_LASTERROR
 end enum
 
@@ -270,6 +274,7 @@ const SDL_BIG_ENDIAN = 4321
 #define _SDL_mutex_h
 const SDL_MUTEX_TIMEDOUT = 1
 #define SDL_MUTEX_MAXWAIT (not cast(Uint32, 0))
+type SDL_mutex as SDL_mutex_
 declare function SDL_CreateMutex() as SDL_mutex ptr
 #define SDL_LockMutex(m) SDL_mutexP(m)
 declare function SDL_mutexP(byval mutex as SDL_mutex ptr) as long
@@ -285,6 +290,7 @@ declare function SDL_SemTryWait(byval sem as SDL_sem ptr) as long
 declare function SDL_SemWaitTimeout(byval sem as SDL_sem ptr, byval ms as Uint32) as long
 declare function SDL_SemPost(byval sem as SDL_sem ptr) as long
 declare function SDL_SemValue(byval sem as SDL_sem ptr) as Uint32
+type SDL_cond as SDL_cond_
 declare function SDL_CreateCond() as SDL_cond ptr
 declare sub SDL_DestroyCond(byval cond as SDL_cond ptr)
 declare function SDL_CondSignal(byval cond as SDL_cond ptr) as long
@@ -292,6 +298,7 @@ declare function SDL_CondBroadcast(byval cond as SDL_cond ptr) as long
 declare function SDL_CondWait(byval cond as SDL_cond ptr, byval mut as SDL_mutex ptr) as long
 declare function SDL_CondWaitTimeout(byval cond as SDL_cond ptr, byval mutex as SDL_mutex ptr, byval ms as Uint32) as long
 #define _SDL_thread_h
+type SDL_Thread as SDL_Thread_
 declare function SDL_CreateThread(byval fn as function(byval as any ptr) as long, byval data as any ptr) as SDL_Thread ptr
 declare function SDL_ThreadID() as Uint32
 declare function SDL_GetThreadID(byval thread as SDL_Thread ptr) as Uint32
@@ -777,8 +784,8 @@ end enum
 type SDL_keysym
 	scancode as Uint8
 	sym as SDLKey
-	mod as SDLMod
-	unicode as Uint16
+	mod_ as SDLMod
+	unicode_ as Uint16
 end type
 
 const SDL_ALL_HOTKEYS = &hFFFFFFFF
@@ -837,6 +844,9 @@ type SDL_PixelFormat
 	colorkey as Uint32
 	alpha as Uint8
 end type
+
+type private_hwdata as private_hwdata_
+type SDL_BlitMap as SDL_BlitMap_
 
 type SDL_Surface
 	flags as Uint32
@@ -899,6 +909,8 @@ const SDL_IYUV_OVERLAY = &h56555949
 const SDL_YUY2_OVERLAY = &h32595559
 const SDL_UYVY_OVERLAY = &h59565955
 const SDL_YVYU_OVERLAY = &h55595659
+type private_yuvhwfuncs as private_yuvhwfuncs_
+type private_yuvhwdata as private_yuvhwdata_
 
 type SDL_Overlay
 	format as Uint32
@@ -1006,6 +1018,7 @@ end enum
 
 declare function SDL_WM_GrabInput(byval mode as SDL_GrabMode) as SDL_GrabMode
 declare function SDL_SoftStretch(byval src as SDL_Surface ptr, byval srcrect as SDL_Rect ptr, byval dst as SDL_Surface ptr, byval dstrect as SDL_Rect ptr) as long
+type WMcursor as WMcursor_
 
 type SDL_Cursor
 	area as SDL_Rect
@@ -1092,7 +1105,7 @@ enum
 	SDL_JOYHATMOTION
 	SDL_JOYBUTTONDOWN
 	SDL_JOYBUTTONUP
-	SDL_QUIT
+	SDL_QUIT_
 	SDL_SYSWMEVENT
 	SDL_EVENT_RESERVEDA
 	SDL_EVENT_RESERVEDB
@@ -1110,26 +1123,26 @@ end enum
 
 #define SDL_EVENTMASK(X) (1 shl (X))
 
-type SDL_EventMask as long
+type SDL_EventMask_ as long
 enum
-	SDL_ACTIVEEVENTMASK = 1 shl SDL_ACTIVEEVENT
-	SDL_KEYDOWNMASK = 1 shl SDL_KEYDOWN
-	SDL_KEYUPMASK = 1 shl SDL_KEYUP
-	SDL_KEYEVENTMASK = (1 shl SDL_KEYDOWN) or (1 shl SDL_KEYUP)
-	SDL_MOUSEMOTIONMASK = 1 shl SDL_MOUSEMOTION
-	SDL_MOUSEBUTTONDOWNMASK = 1 shl SDL_MOUSEBUTTONDOWN
-	SDL_MOUSEBUTTONUPMASK = 1 shl SDL_MOUSEBUTTONUP
-	SDL_MOUSEEVENTMASK = ((1 shl SDL_MOUSEMOTION) or (1 shl SDL_MOUSEBUTTONDOWN)) or (1 shl SDL_MOUSEBUTTONUP)
-	SDL_JOYAXISMOTIONMASK = 1 shl SDL_JOYAXISMOTION
-	SDL_JOYBALLMOTIONMASK = 1 shl SDL_JOYBALLMOTION
-	SDL_JOYHATMOTIONMASK = 1 shl SDL_JOYHATMOTION
-	SDL_JOYBUTTONDOWNMASK = 1 shl SDL_JOYBUTTONDOWN
-	SDL_JOYBUTTONUPMASK = 1 shl SDL_JOYBUTTONUP
-	SDL_JOYEVENTMASK = ((((1 shl SDL_JOYAXISMOTION) or (1 shl SDL_JOYBALLMOTION)) or (1 shl SDL_JOYHATMOTION)) or (1 shl SDL_JOYBUTTONDOWN)) or (1 shl SDL_JOYBUTTONUP)
-	SDL_VIDEORESIZEMASK = 1 shl SDL_VIDEORESIZE
-	SDL_VIDEOEXPOSEMASK = 1 shl SDL_VIDEOEXPOSE
-	SDL_QUITMASK = 1 shl SDL_QUIT
-	SDL_SYSWMEVENTMASK = 1 shl SDL_SYSWMEVENT
+	SDL_ACTIVEEVENTMASK = SDL_EVENTMASK(SDL_ACTIVEEVENT)
+	SDL_KEYDOWNMASK = SDL_EVENTMASK(SDL_KEYDOWN)
+	SDL_KEYUPMASK = SDL_EVENTMASK(SDL_KEYUP)
+	SDL_KEYEVENTMASK = SDL_EVENTMASK(SDL_KEYDOWN) or SDL_EVENTMASK(SDL_KEYUP)
+	SDL_MOUSEMOTIONMASK = SDL_EVENTMASK(SDL_MOUSEMOTION)
+	SDL_MOUSEBUTTONDOWNMASK = SDL_EVENTMASK(SDL_MOUSEBUTTONDOWN)
+	SDL_MOUSEBUTTONUPMASK = SDL_EVENTMASK(SDL_MOUSEBUTTONUP)
+	SDL_MOUSEEVENTMASK = (SDL_EVENTMASK(SDL_MOUSEMOTION) or SDL_EVENTMASK(SDL_MOUSEBUTTONDOWN)) or SDL_EVENTMASK(SDL_MOUSEBUTTONUP)
+	SDL_JOYAXISMOTIONMASK = SDL_EVENTMASK(SDL_JOYAXISMOTION)
+	SDL_JOYBALLMOTIONMASK = SDL_EVENTMASK(SDL_JOYBALLMOTION)
+	SDL_JOYHATMOTIONMASK = SDL_EVENTMASK(SDL_JOYHATMOTION)
+	SDL_JOYBUTTONDOWNMASK = SDL_EVENTMASK(SDL_JOYBUTTONDOWN)
+	SDL_JOYBUTTONUPMASK = SDL_EVENTMASK(SDL_JOYBUTTONUP)
+	SDL_JOYEVENTMASK = (((SDL_EVENTMASK(SDL_JOYAXISMOTION) or SDL_EVENTMASK(SDL_JOYBALLMOTION)) or SDL_EVENTMASK(SDL_JOYHATMOTION)) or SDL_EVENTMASK(SDL_JOYBUTTONDOWN)) or SDL_EVENTMASK(SDL_JOYBUTTONUP)
+	SDL_VIDEORESIZEMASK = SDL_EVENTMASK(SDL_VIDEORESIZE)
+	SDL_VIDEOEXPOSEMASK = SDL_EVENTMASK(SDL_VIDEOEXPOSE)
+	SDL_QUITMASK = SDL_EVENTMASK(SDL_QUIT_)
+	SDL_SYSWMEVENTMASK = SDL_EVENTMASK(SDL_SYSWMEVENT)
 end enum
 
 const SDL_ALLEVENTS = &hFFFFFFFF
@@ -1284,7 +1297,7 @@ const SDL_MAJOR_VERSION = 1
 const SDL_MINOR_VERSION = 2
 const SDL_PATCHLEVEL = 15
 
-type SDL_version
+type SDL_version_
 	major as Uint8
 	minor as Uint8
 	patch as Uint8
@@ -1300,7 +1313,7 @@ end type
 #define SDL_VERSIONNUM(X, Y, Z) ((((X) * 1000) + ((Y) * 100)) + (Z))
 #define SDL_COMPILEDVERSION SDL_VERSIONNUM(SDL_MAJOR_VERSION, SDL_MINOR_VERSION, SDL_PATCHLEVEL)
 #define SDL_VERSION_ATLEAST(X, Y, Z) (SDL_COMPILEDVERSION >= SDL_VERSIONNUM(X, Y, Z))
-declare function SDL_Linked_Version() as const SDL_version ptr
+declare function SDL_Linked_Version() as const SDL_version_ ptr
 const SDL_INIT_TIMER = &h00000001
 const SDL_INIT_AUDIO = &h00000010
 const SDL_INIT_VIDEO = &h00000020
@@ -1330,7 +1343,7 @@ declare sub SDL_Quit()
 #endif
 
 type SDL_SysWMmsg_
-	version as SDL_version
+	version as SDL_version_
 
 	#ifdef __FB_WIN32__
 		hwnd as HWND
@@ -1360,7 +1373,7 @@ end type
 #endif
 
 type SDL_SysWMinfo
-	version as SDL_version
+	version as SDL_version_
 
 	#ifdef __FB_WIN32__
 		window as HWND
