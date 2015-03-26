@@ -69,26 +69,33 @@ end type
 
 type XtTMRec as _XtTMRec
 type XtTM as _XtTMRec ptr
+#undef XtDisplay
 #define XtDisplay(widget) DisplayOfScreen((widget)->core.screen)
+#undef XtScreen
 #define XtScreen(widget) (widget)->core.screen
+#undef XtWindow
 #define XtWindow(widget) (widget)->core.window
+#undef XtClass
 #define XtClass(widget) (widget)->core.widget_class
+#undef XtSuperclass
 #define XtSuperclass(widget) XtClass(widget)->core_class.superclass
+#undef XtIsRealized
 #define XtIsRealized(object) (XtWindowOfObject(object) <> None)
+#undef XtParent
 #define XtParent(widget) (widget)->core.parent
-declare function XtIsRectObj(byval as Widget) as byte
+#undef XtIsRectObj
 #define XtIsRectObj(obj) (cast(Object_, (obj))->object.widget_class->core_class.class_inited and &h02)
-declare function XtIsWidget(byval as Widget) as byte
+#undef XtIsWidget
 #define XtIsWidget(obj) (cast(Object_, (obj))->object.widget_class->core_class.class_inited and &h04)
-declare function XtIsComposite(byval as Widget) as byte
+#undef XtIsComposite
 #define XtIsComposite(obj) (cast(Object_, (obj))->object.widget_class->core_class.class_inited and &h08)
-declare function XtIsConstraint(byval as Widget) as byte
+#undef XtIsConstraint
 #define XtIsConstraint(obj) (cast(Object_, (obj))->object.widget_class->core_class.class_inited and &h10)
-declare function XtIsShell(byval as Widget) as byte
+#undef XtIsShell
 #define XtIsShell(obj) (cast(Object_, (obj))->object.widget_class->core_class.class_inited and &h20)
-declare function XtIsWMShell(byval as Widget) as byte
+#undef XtIsWMShell
 #define XtIsWMShell(obj) (cast(Object_, (obj))->object.widget_class->core_class.class_inited and &h40)
-declare function XtIsTopLevelShell(byval as Widget) as byte
+#undef XtIsTopLevelShell
 #define XtIsTopLevelShell(obj) (cast(Object_, (obj))->object.widget_class->core_class.class_inited and &h80)
 #define XtCheckSubclass(w, widget_class, message)
 

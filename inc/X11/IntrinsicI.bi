@@ -26,10 +26,15 @@ const ConstraintClassFlag = &h10
 const ShellClassFlag = &h20
 const WMShellClassFlag = &h40
 const TopLevelClassFlag = &h80
+#undef XtDisplayOfObject
 #define XtDisplayOfObject(object) iif(XtIsWidget(object), (object)->core.screen->display, iif(_XtIsHookObject(object), cast(HookObject, (object))->hooks.screen->display, _XtWindowedAncestor(object)->core.screen->display))
+#undef XtScreenOfObject
 #define XtScreenOfObject(object) iif(XtIsWidget(object), (object)->core.screen, iif(_XtIsHookObject(object), cast(HookObject, (object))->hooks.screen, _XtWindowedAncestor(object)->core.screen))
+#undef XtWindowOfObject
 #define XtWindowOfObject(object) iif(XtIsWidget(object), (object), _XtWindowedAncestor(object))->core.window
+#undef XtIsManaged
 #define XtIsManaged(object) iif(XtIsRectObj(object), (object)->core.managed, False)
+#undef XtIsSensitive
 #define XtIsSensitive(object) iif(XtIsRectObj(object), -((object)->core.sensitive andalso (object)->core.ancestor_sensitive), False)
 #define _XBCOPYFUNC _XtBcopy
 #define XtMemmove(dst, src, size) '' TODO: if ((char *)(dst) != (char *)(src)) { (void) memcpy((char *) (dst), (char *) (src), (int) (size)); }
