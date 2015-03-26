@@ -80,7 +80,7 @@ end type
 type XGlyphInfo as _XGlyphInfo
 
 type _XGlyphElt8
-	glyphset as GlyphSet
+	glyphset as XGlyphSet
 	chars as const zstring ptr
 	nchars as long
 	xOff as long
@@ -90,7 +90,7 @@ end type
 type XGlyphElt8 as _XGlyphElt8
 
 type _XGlyphElt16
-	glyphset as GlyphSet
+	glyphset as XGlyphSet
 	chars as const ushort ptr
 	nchars as long
 	xOff as long
@@ -100,7 +100,7 @@ end type
 type XGlyphElt16 as _XGlyphElt16
 
 type _XGlyphElt32
-	glyphset as GlyphSet
+	glyphset as XGlyphSet
 	chars as const ulong ptr
 	nchars as long
 	xOff as long
@@ -250,14 +250,14 @@ declare sub XRenderSetPictureClipRegion(byval dpy as Display ptr, byval picture 
 declare sub XRenderSetPictureTransform(byval dpy as Display ptr, byval picture as Picture, byval transform as XTransform ptr)
 declare sub XRenderFreePicture(byval dpy as Display ptr, byval picture as Picture)
 declare sub XRenderComposite(byval dpy as Display ptr, byval op as long, byval src as Picture, byval mask as Picture, byval dst as Picture, byval src_x as long, byval src_y as long, byval mask_x as long, byval mask_y as long, byval dst_x as long, byval dst_y as long, byval width as ulong, byval height as ulong)
-declare function XRenderCreateGlyphSet(byval dpy as Display ptr, byval format as const XRenderPictFormat ptr) as GlyphSet
-declare function XRenderReferenceGlyphSet(byval dpy as Display ptr, byval existing as GlyphSet) as GlyphSet
-declare sub XRenderFreeGlyphSet(byval dpy as Display ptr, byval glyphset as GlyphSet)
-declare sub XRenderAddGlyphs(byval dpy as Display ptr, byval glyphset as GlyphSet, byval gids as const Glyph ptr, byval glyphs as const XGlyphInfo ptr, byval nglyphs as long, byval images as const zstring ptr, byval nbyte_images as long)
-declare sub XRenderFreeGlyphs(byval dpy as Display ptr, byval glyphset as GlyphSet, byval gids as const Glyph ptr, byval nglyphs as long)
-declare sub XRenderCompositeString8(byval dpy as Display ptr, byval op as long, byval src as Picture, byval dst as Picture, byval maskFormat as const XRenderPictFormat ptr, byval glyphset as GlyphSet, byval xSrc as long, byval ySrc as long, byval xDst as long, byval yDst as long, byval string as const zstring ptr, byval nchar as long)
-declare sub XRenderCompositeString16(byval dpy as Display ptr, byval op as long, byval src as Picture, byval dst as Picture, byval maskFormat as const XRenderPictFormat ptr, byval glyphset as GlyphSet, byval xSrc as long, byval ySrc as long, byval xDst as long, byval yDst as long, byval string as const ushort ptr, byval nchar as long)
-declare sub XRenderCompositeString32(byval dpy as Display ptr, byval op as long, byval src as Picture, byval dst as Picture, byval maskFormat as const XRenderPictFormat ptr, byval glyphset as GlyphSet, byval xSrc as long, byval ySrc as long, byval xDst as long, byval yDst as long, byval string as const ulong ptr, byval nchar as long)
+declare function XRenderCreateGlyphSet(byval dpy as Display ptr, byval format as const XRenderPictFormat ptr) as XGlyphSet
+declare function XRenderReferenceGlyphSet(byval dpy as Display ptr, byval existing as XGlyphSet) as XGlyphSet
+declare sub XRenderFreeGlyphSet(byval dpy as Display ptr, byval glyphset as XGlyphSet)
+declare sub XRenderAddGlyphs(byval dpy as Display ptr, byval glyphset as XGlyphSet, byval gids as const Glyph ptr, byval glyphs as const XGlyphInfo ptr, byval nglyphs as long, byval images as const zstring ptr, byval nbyte_images as long)
+declare sub XRenderFreeGlyphs(byval dpy as Display ptr, byval glyphset as XGlyphSet, byval gids as const Glyph ptr, byval nglyphs as long)
+declare sub XRenderCompositeString8(byval dpy as Display ptr, byval op as long, byval src as Picture, byval dst as Picture, byval maskFormat as const XRenderPictFormat ptr, byval glyphset as XGlyphSet, byval xSrc as long, byval ySrc as long, byval xDst as long, byval yDst as long, byval string as const zstring ptr, byval nchar as long)
+declare sub XRenderCompositeString16(byval dpy as Display ptr, byval op as long, byval src as Picture, byval dst as Picture, byval maskFormat as const XRenderPictFormat ptr, byval glyphset as XGlyphSet, byval xSrc as long, byval ySrc as long, byval xDst as long, byval yDst as long, byval string as const ushort ptr, byval nchar as long)
+declare sub XRenderCompositeString32(byval dpy as Display ptr, byval op as long, byval src as Picture, byval dst as Picture, byval maskFormat as const XRenderPictFormat ptr, byval glyphset as XGlyphSet, byval xSrc as long, byval ySrc as long, byval xDst as long, byval yDst as long, byval string as const ulong ptr, byval nchar as long)
 declare sub XRenderCompositeText8(byval dpy as Display ptr, byval op as long, byval src as Picture, byval dst as Picture, byval maskFormat as const XRenderPictFormat ptr, byval xSrc as long, byval ySrc as long, byval xDst as long, byval yDst as long, byval elts as const XGlyphElt8 ptr, byval nelt as long)
 declare sub XRenderCompositeText16(byval dpy as Display ptr, byval op as long, byval src as Picture, byval dst as Picture, byval maskFormat as const XRenderPictFormat ptr, byval xSrc as long, byval ySrc as long, byval xDst as long, byval yDst as long, byval elts as const XGlyphElt16 ptr, byval nelt as long)
 declare sub XRenderCompositeText32(byval dpy as Display ptr, byval op as long, byval src as Picture, byval dst as Picture, byval maskFormat as const XRenderPictFormat ptr, byval xSrc as long, byval ySrc as long, byval xDst as long, byval yDst as long, byval elts as const XGlyphElt32 ptr, byval nelt as long)

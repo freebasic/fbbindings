@@ -503,3 +503,9 @@ nodos.fbfrog
 
 -renamedefine XtNwaitforwm XtNwaitforwm_
 -renamedefine XtCWaitforwm XtCWaitforwm_
+
+-rename Relative XRelative
+-rename Absolute XAbsolute
+-rename ACCEPT XACCEPT
+-rename FAILED XFAILED
+-renametypedef GlyphSet XGlyphSet
