@@ -527,7 +527,9 @@ sdl2: winapi-extract
 		-emit '*/SDL_mixer.h' inc/SDL2/SDL_mixer.bi \
 		-emit '*/SDL_net.h'   inc/SDL2/SDL_net.bi \
 		-emit '*/SDL_ttf.h'   inc/SDL2/SDL_ttf.bi \
-		-emit '*/extracted/$(SDL2_MAIN)/include/*' inc/SDL2/SDL.bi
+		-emit '*/extracted/$(SDL2_MAIN)/include/*' inc/SDL2/SDL.bi \
+		\
+		-inclib SDL2 inc/SDL2/SDL.bi
 
 ################################################################################
 # Windows API, based on MinGW-w64 headers

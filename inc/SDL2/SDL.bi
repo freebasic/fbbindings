@@ -1,5 +1,7 @@
 #pragma once
 
+#inclib "SDL2"
+
 #include once "crt/long.bi"
 #include once "crt/stdarg.bi"
 
