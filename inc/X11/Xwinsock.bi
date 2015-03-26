@@ -1,6 +1,8 @@
 #pragma once
 
-#include once "winsock2.bi"
+#ifdef __FB_WIN32__
+	#include once "winsock2.bi"
 
-#define _NO_BOOL_TYPEDEF
-#define wBOOL WINBOOL
+	#define _NO_BOOL_TYPEDEF
+	#define wBOOL WINBOOL
+#endif

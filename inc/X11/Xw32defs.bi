@@ -1,5 +1,7 @@
 #pragma once
 
-#define _XW32DEFS_H
-type caddr_t as zstring ptr
-#define lstat stat
+#ifdef __FB_WIN32__
+	#define _XW32DEFS_H
+	type caddr_t as zstring ptr
+	#define lstat stat
+#endif

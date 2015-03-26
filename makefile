@@ -865,10 +865,7 @@ x11:
 		-include X11/Xos_r.h \
 		-include X11/Xregion.h \
 		-include X11/Xthreads.h \
-		-include X11/Xw32defs.h \
 		-include X11/XWDFile.h \
-		-include X11/Xwindows.h \
-		-include X11/Xwinsock.h \
 		-include X11/SM/SMlib.h \
 		-include X11/SM/SMproto.h \
 		-include X11/Xauth.h \
@@ -987,6 +984,12 @@ x11:
 		-include X11/Xmu/Xct.h \
 		-include X11/Xtrans/Xtrans.h \
 		-include X11/Xtrans/Xtransint.h \
+		\
+		-ifdef __FB_WIN32__ \
+			-include X11/Xw32defs.h \
+			-include X11/Xwindows.h \
+			-include X11/Xwinsock.h \
+		-endif \
 		\
 		-emit '*/X11/ap_keysym.h'    inc/X11/ap_keysym.bi \
 		-emit '*/X11/Composite.h'    inc/X11/Composite.bi \
