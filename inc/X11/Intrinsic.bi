@@ -15,6 +15,7 @@
 #include once "X11/RectObj.bi"
 
 '' The following symbols have been renamed:
+''     typedef String => String_
 ''     procedure XtIsOverrideShell => XtIsOverrideShell_
 ''     procedure XtIsVendorShell => XtIsVendorShell_
 ''     procedure XtIsTransientShell => XtIsTransientShell_
@@ -28,7 +29,7 @@ extern "C"
 
 #define _XtIntrinsic_h
 const XtSpecificationRelease = 6
-type String as zstring ptr
+type String_ as zstring ptr
 #define _XtString zstring ptr
 #define _XtBoolean Boolean
 #define _XtDimension Dimension
@@ -72,11 +73,11 @@ type Opaque as XtPointer
 type XtTranslations as _TranslationData ptr
 type XtAccelerators as _TranslationData ptr
 type Modifiers as ulong
-type XtActionProc as sub(byval as Widget, byval as XEvent ptr, byval as String ptr, byval as Cardinal ptr)
+type XtActionProc as sub(byval as Widget, byval as XEvent ptr, byval as String_ ptr, byval as Cardinal ptr)
 type XtBoundActions as XtActionProc ptr
 
 type _XtActionsRec
-	string as String
+	string as String_
 	proc as XtActionProc
 end type
 
@@ -120,7 +121,7 @@ type XtTypeConverter as function(byval as Display ptr, byval as XrmValue ptr, by
 type XtDestructor as sub(byval as XtAppContext, byval as XrmValue ptr, byval as XtPointer, byval as XrmValue ptr, byval as Cardinal ptr)
 type XtCacheRef as Opaque
 type XtActionHookId as Opaque
-type XtActionHookProc as sub(byval as Widget, byval as XtPointer, byval as String, byval as XEvent ptr, byval as String ptr, byval as Cardinal ptr)
+type XtActionHookProc as sub(byval as Widget, byval as XtPointer, byval as String_, byval as XEvent ptr, byval as String_ ptr, byval as Cardinal ptr)
 type XtBlockHookId as culong
 type XtBlockHookProc as sub(byval as XtPointer)
 type XtKeyProc as sub(byval as Display ptr, byval as KeyCode, byval as Modifiers, byval as Modifiers ptr, byval as KeySym ptr)
@@ -145,7 +146,7 @@ type XtInputCallbackProc as sub(byval as XtPointer, byval as long ptr, byval as 
 type XtSignalCallbackProc as sub(byval as XtPointer, byval as XtSignalId ptr)
 
 type Arg
-	name as String
+	name as String_
 	value as XtArgVal
 end type
 
@@ -191,31 +192,31 @@ end type
 type XtPopdownID as XtPopdownIDRec ptr
 
 type _XtResource
-	resource_name as String
-	resource_class as String
-	resource_type as String
+	resource_name as String_
+	resource_class as String_
+	resource_type as String_
 	resource_size as Cardinal
 	resource_offset as Cardinal
-	default_type as String
+	default_type as String_
 	default_addr as XtPointer
 end type
 
 type XtResource as _XtResource
 type XtResourceList as _XtResource ptr
 type XtResourceDefaultProc as sub(byval as Widget, byval as long, byval as XrmValue ptr)
-type XtLanguageProc as function(byval as Display ptr, byval as String, byval as XtPointer) as String
-type XtErrorMsgHandler as sub(byval as String, byval as String, byval as String, byval as String, byval as String ptr, byval as Cardinal ptr)
-type XtErrorHandler as sub(byval as String)
+type XtLanguageProc as function(byval as Display ptr, byval as String_, byval as XtPointer) as String_
+type XtErrorMsgHandler as sub(byval as String_, byval as String_, byval as String_, byval as String_, byval as String_ ptr, byval as Cardinal ptr)
+type XtErrorHandler as sub(byval as String_)
 type XtCreatePopupChildProc as sub(byval as Widget)
 type XtWorkProc as function(byval as XtPointer) as byte
 
 type SubstitutionRec
 	match as byte
-	substitution as String
+	substitution as String_
 end type
 
 type Substitution as SubstitutionRec ptr
-type XtFilePredicate as function(byval as String) as byte
+type XtFilePredicate as function(byval as String_) as byte
 type XtRequestId as XtPointer
 type XtConvertSelectionProc as function(byval as Widget, byval as Atom ptr, byval as Atom ptr, byval as Atom ptr, byval as XtPointer ptr, byval as culong ptr, byval as long ptr) as byte
 type XtLoseSelectionProc as sub(byval as Widget, byval as Atom ptr)
@@ -271,7 +272,7 @@ declare sub XtAddActions(byval as XtActionList, byval as Cardinal)
 declare function XtAppAddActionHook(byval as XtAppContext, byval as XtActionHookProc, byval as XtPointer) as XtActionHookId
 declare sub XtRemoveActionHook(byval as XtActionHookId)
 declare sub XtGetActionList(byval as WidgetClass, byval as XtActionList ptr, byval as Cardinal ptr)
-declare sub XtCallActionProc(byval as Widget, byval as const zstring ptr, byval as XEvent ptr, byval as String ptr, byval as Cardinal)
+declare sub XtCallActionProc(byval as Widget, byval as const zstring ptr, byval as XEvent ptr, byval as String_ ptr, byval as Cardinal)
 declare sub XtRegisterGrabAction(byval as XtActionProc, byval as byte, byval as ulong, byval as long, byval as long)
 declare sub XtSetMultiClickTime(byval as Display ptr, byval as long)
 declare function XtGetMultiClickTime(byval as Display ptr) as long
@@ -366,7 +367,7 @@ declare function XtScreen(byval as Widget) as Screen ptr
 declare function XtScreenOfObject(byval as Widget) as Screen ptr
 declare function XtWindow(byval as Widget) as Window
 declare function XtWindowOfObject(byval as Widget) as Window
-declare function XtName(byval as Widget) as String
+declare function XtName(byval as Widget) as String_
 declare function XtSuperclass(byval as Widget) as WidgetClass
 declare function XtClass(byval as Widget) as WidgetClass
 declare function XtParent(byval as Widget) as Widget
@@ -393,7 +394,7 @@ declare sub XtCallbackNonexclusive(byval as Widget, byval as XtPointer, byval as
 declare sub XtCallbackExclusive(byval as Widget, byval as XtPointer, byval as XtPointer)
 declare sub XtPopdown(byval as Widget)
 declare sub XtCallbackPopdown(byval as Widget, byval as XtPointer, byval as XtPointer)
-declare sub XtMenuPopupAction(byval as Widget, byval as XEvent ptr, byval as String ptr, byval as Cardinal ptr)
+declare sub XtMenuPopupAction(byval as Widget, byval as XEvent ptr, byval as String_ ptr, byval as Cardinal ptr)
 declare function XtCreateWidget(byval as const zstring ptr, byval as WidgetClass, byval as Widget, byval as ArgList, byval as Cardinal) as Widget
 declare function XtCreateManagedWidget(byval as const zstring ptr, byval as WidgetClass, byval as Widget, byval as ArgList, byval as Cardinal) as Widget
 declare function XtVaCreateWidget(byval as const zstring ptr, byval as WidgetClass, byval as Widget, ...) as Widget
@@ -404,14 +405,14 @@ declare function XtVaAppCreateShell(byval as const zstring ptr, byval as const z
 declare sub XtToolkitInitialize()
 declare function XtSetLanguageProc(byval as XtAppContext, byval as XtLanguageProc, byval as XtPointer) as XtLanguageProc
 declare sub XtDisplayInitialize(byval as XtAppContext, byval as Display ptr, byval as const zstring ptr, byval as const zstring ptr, byval as XrmOptionDescRec ptr, byval as Cardinal, byval as long ptr, byval as zstring ptr ptr)
-declare function XtOpenApplication(byval as XtAppContext ptr, byval as const zstring ptr, byval as XrmOptionDescList, byval as Cardinal, byval as long ptr, byval as String ptr, byval as String ptr, byval as WidgetClass, byval as ArgList, byval as Cardinal) as Widget
-declare function XtVaOpenApplication(byval as XtAppContext ptr, byval as const zstring ptr, byval as XrmOptionDescList, byval as Cardinal, byval as long ptr, byval as String ptr, byval as String ptr, byval as WidgetClass, ...) as Widget
-declare function XtAppInitialize(byval as XtAppContext ptr, byval as const zstring ptr, byval as XrmOptionDescList, byval as Cardinal, byval as long ptr, byval as String ptr, byval as String ptr, byval as ArgList, byval as Cardinal) as Widget
-declare function XtVaAppInitialize(byval as XtAppContext ptr, byval as const zstring ptr, byval as XrmOptionDescList, byval as Cardinal, byval as long ptr, byval as String ptr, byval as String ptr, ...) as Widget
+declare function XtOpenApplication(byval as XtAppContext ptr, byval as const zstring ptr, byval as XrmOptionDescList, byval as Cardinal, byval as long ptr, byval as String_ ptr, byval as String_ ptr, byval as WidgetClass, byval as ArgList, byval as Cardinal) as Widget
+declare function XtVaOpenApplication(byval as XtAppContext ptr, byval as const zstring ptr, byval as XrmOptionDescList, byval as Cardinal, byval as long ptr, byval as String_ ptr, byval as String_ ptr, byval as WidgetClass, ...) as Widget
+declare function XtAppInitialize(byval as XtAppContext ptr, byval as const zstring ptr, byval as XrmOptionDescList, byval as Cardinal, byval as long ptr, byval as String_ ptr, byval as String_ ptr, byval as ArgList, byval as Cardinal) as Widget
+declare function XtVaAppInitialize(byval as XtAppContext ptr, byval as const zstring ptr, byval as XrmOptionDescList, byval as Cardinal, byval as long ptr, byval as String_ ptr, byval as String_ ptr, ...) as Widget
 declare function XtInitialize(byval as const zstring ptr, byval as const zstring ptr, byval as XrmOptionDescRec ptr, byval as Cardinal, byval as long ptr, byval as zstring ptr ptr) as Widget
 declare function XtOpenDisplay(byval as XtAppContext, byval as const zstring ptr, byval as const zstring ptr, byval as const zstring ptr, byval as XrmOptionDescRec ptr, byval as Cardinal, byval as long ptr, byval as zstring ptr ptr) as Display ptr
 declare function XtCreateApplicationContext() as XtAppContext
-declare sub XtAppSetFallbackResources(byval as XtAppContext, byval as String ptr)
+declare sub XtAppSetFallbackResources(byval as XtAppContext, byval as String_ ptr)
 declare sub XtDestroyApplicationContext(byval as XtAppContext)
 declare sub XtInitializeWidgetClass(byval as WidgetClass)
 declare function XtWidgetToApplicationContext(byval as Widget) as XtAppContext
@@ -469,10 +470,10 @@ declare function XtAppSetErrorMsgHandler(byval as XtAppContext, byval as XtError
 declare sub XtSetErrorMsgHandler(byval as XtErrorMsgHandler)
 declare function XtAppSetWarningMsgHandler(byval as XtAppContext, byval as XtErrorMsgHandler) as XtErrorMsgHandler
 declare sub XtSetWarningMsgHandler(byval as XtErrorMsgHandler)
-declare sub XtAppErrorMsg(byval as XtAppContext, byval as const zstring ptr, byval as const zstring ptr, byval as const zstring ptr, byval as const zstring ptr, byval as String ptr, byval as Cardinal ptr)
-declare sub XtErrorMsg(byval as const zstring ptr, byval as const zstring ptr, byval as const zstring ptr, byval as const zstring ptr, byval as String ptr, byval as Cardinal ptr)
-declare sub XtAppWarningMsg(byval as XtAppContext, byval as const zstring ptr, byval as const zstring ptr, byval as const zstring ptr, byval as const zstring ptr, byval as String ptr, byval as Cardinal ptr)
-declare sub XtWarningMsg(byval as const zstring ptr, byval as const zstring ptr, byval as const zstring ptr, byval as const zstring ptr, byval as String ptr, byval as Cardinal ptr)
+declare sub XtAppErrorMsg(byval as XtAppContext, byval as const zstring ptr, byval as const zstring ptr, byval as const zstring ptr, byval as const zstring ptr, byval as String_ ptr, byval as Cardinal ptr)
+declare sub XtErrorMsg(byval as const zstring ptr, byval as const zstring ptr, byval as const zstring ptr, byval as const zstring ptr, byval as String_ ptr, byval as Cardinal ptr)
+declare sub XtAppWarningMsg(byval as XtAppContext, byval as const zstring ptr, byval as const zstring ptr, byval as const zstring ptr, byval as const zstring ptr, byval as String_ ptr, byval as Cardinal ptr)
+declare sub XtWarningMsg(byval as const zstring ptr, byval as const zstring ptr, byval as const zstring ptr, byval as const zstring ptr, byval as String_ ptr, byval as Cardinal ptr)
 declare function XtAppSetErrorHandler(byval as XtAppContext, byval as XtErrorHandler) as XtErrorHandler
 declare sub XtSetErrorHandler(byval as XtErrorHandler)
 declare function XtAppSetWarningHandler(byval as XtAppContext, byval as XtErrorHandler) as XtErrorHandler
@@ -483,15 +484,15 @@ declare sub XtAppWarning(byval as XtAppContext, byval as const zstring ptr)
 declare sub XtWarning(byval as const zstring ptr)
 declare function XtAppGetErrorDatabase(byval as XtAppContext) as XrmDatabase ptr
 declare function XtGetErrorDatabase() as XrmDatabase ptr
-declare sub XtAppGetErrorDatabaseText(byval as XtAppContext, byval as const zstring ptr, byval as const zstring ptr, byval as const zstring ptr, byval as const zstring ptr, byval as String, byval as long, byval as XrmDatabase)
-declare sub XtGetErrorDatabaseText(byval as const zstring ptr, byval as const zstring ptr, byval as const zstring ptr, byval as const zstring ptr, byval as String, byval as long)
+declare sub XtAppGetErrorDatabaseText(byval as XtAppContext, byval as const zstring ptr, byval as const zstring ptr, byval as const zstring ptr, byval as const zstring ptr, byval as String_, byval as long, byval as XrmDatabase)
+declare sub XtGetErrorDatabaseText(byval as const zstring ptr, byval as const zstring ptr, byval as const zstring ptr, byval as const zstring ptr, byval as String_, byval as long)
 declare function XtMalloc(byval as Cardinal) as zstring ptr
 declare function XtCalloc(byval as Cardinal, byval as Cardinal) as zstring ptr
 declare function XtRealloc(byval as zstring ptr, byval as Cardinal) as zstring ptr
 declare sub XtFree(byval as zstring ptr)
-declare function XtAsprintf(byval new_string as String ptr, byval format as const zstring ptr, ...) as Cardinal
+declare function XtAsprintf(byval new_string as String_ ptr, byval format as const zstring ptr, ...) as Cardinal
 #define XtNew(type) cptr(type ptr, XtMalloc(culng(sizeof((type)))))
-declare function XtNewString_ alias "XtNewString"(byval as String) as String
+declare function XtNewString_ alias "XtNewString"(byval as String_) as String_
 #define XtNewString(str) iif((str) <> NULL, strcpy(XtMalloc(culng(culng(strlen(str)) + 1)), str), NULL)
 declare function XtAddWorkProc(byval as XtWorkProc, byval as XtPointer) as XtWorkProcId
 declare function XtAppAddWorkProc(byval as XtAppContext, byval as XtWorkProc, byval as XtPointer) as XtWorkProcId
@@ -504,8 +505,8 @@ declare sub XtAppReleaseCacheRefs(byval as XtAppContext, byval as XtCacheRef ptr
 declare sub XtCallbackReleaseCacheRef(byval as Widget, byval as XtPointer, byval as XtPointer)
 declare sub XtCallbackReleaseCacheRefList(byval as Widget, byval as XtPointer, byval as XtPointer)
 declare sub XtSetWMColormapWindows(byval as Widget, byval as Widget ptr, byval as Cardinal)
-declare function XtFindFile(byval as const zstring ptr, byval as Substitution, byval as Cardinal, byval as XtFilePredicate) as String
-declare function XtResolvePathname(byval as Display ptr, byval as const zstring ptr, byval as const zstring ptr, byval as const zstring ptr, byval as const zstring ptr, byval as Substitution, byval as Cardinal, byval as XtFilePredicate) as String
+declare function XtFindFile(byval as const zstring ptr, byval as Substitution, byval as Cardinal, byval as XtFilePredicate) as String_
+declare function XtResolvePathname(byval as Display ptr, byval as const zstring ptr, byval as const zstring ptr, byval as const zstring ptr, byval as const zstring ptr, byval as Substitution, byval as Cardinal, byval as XtFilePredicate) as String_
 #define XT_CONVERT_FAIL cast(Atom, &h80000001)
 declare sub XtDisownSelection(byval as Widget, byval as Atom, byval as Time)
 declare sub XtGetSelectionValue(byval as Widget, byval as Atom, byval as Atom, byval as XtSelectionCallbackProc, byval as XtPointer, byval as Time)
@@ -532,13 +533,13 @@ declare sub XtGrabButton(byval as Widget, byval as long, byval as Modifiers, byv
 declare sub XtUngrabButton(byval as Widget, byval as ulong, byval as Modifiers)
 declare function XtGrabPointer(byval as Widget, byval as byte, byval as ulong, byval as long, byval as long, byval as Window, byval as Cursor, byval as Time) as long
 declare sub XtUngrabPointer(byval as Widget, byval as Time)
-declare sub XtGetApplicationNameAndClass(byval as Display ptr, byval as String ptr, byval as String ptr)
+declare sub XtGetApplicationNameAndClass(byval as Display ptr, byval as String_ ptr, byval as String_ ptr)
 declare sub XtRegisterDrawable(byval as Display ptr, byval as Drawable, byval as Widget)
 declare sub XtUnregisterDrawable(byval as Display ptr, byval as Drawable)
 declare function XtHooksOfDisplay(byval as Display ptr) as Widget
 
 type XtCreateHookDataRec
-	as String type
+	as String_ type
 	widget as Widget
 	args as ArgList
 	num_args as Cardinal
@@ -547,7 +548,7 @@ end type
 type XtCreateHookData as XtCreateHookDataRec ptr
 
 type XtChangeHookDataRec
-	as String type
+	as String_ type
 	widget as Widget
 	event_data as XtPointer
 	num_event_data as Cardinal
@@ -565,7 +566,7 @@ end type
 type XtChangeHookSetValuesData as XtChangeHookSetValuesDataRec ptr
 
 type XtConfigureHookDataRec
-	as String type
+	as String_ type
 	widget as Widget
 	changeMask as XtGeometryMask
 	changes as XWindowChanges
@@ -574,7 +575,7 @@ end type
 type XtConfigureHookData as XtConfigureHookDataRec ptr
 
 type XtGeometryHookDataRec
-	as String type
+	as String_ type
 	widget as Widget
 	request as XtWidgetGeometry ptr
 	reply as XtWidgetGeometry ptr
@@ -584,7 +585,7 @@ end type
 type XtGeometryHookData as XtGeometryHookDataRec ptr
 
 type XtDestroyHookDataRec
-	as String type
+	as String_ type
 	widget as Widget
 end type
 

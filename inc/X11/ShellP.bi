@@ -130,7 +130,7 @@ type WMShellPart
 	transient as byte
 	urgency as byte
 	client_leader as Widget
-	window_role as String
+	window_role as String_
 	size_hints as _OldXSizeHints
 	wm_hints as XWMHints
 	base_width as long
@@ -269,15 +269,15 @@ type XtSaveYourself as _XtSaveYourselfRec ptr
 
 type SessionShellPart
 	connection as SmcConn
-	session_id as String
-	restart_command as String ptr
-	clone_command as String ptr
-	discard_command as String ptr
-	resign_command as String ptr
-	shutdown_command as String ptr
-	environment as String ptr
-	current_dir as String
-	program_path as String
+	session_id as String_
+	restart_command as String_ ptr
+	clone_command as String_ ptr
+	discard_command as String_ ptr
+	resign_command as String_ ptr
+	shutdown_command as String_ ptr
+	environment as String_ ptr
+	current_dir as String_
+	program_path as String_
 	restart_style as ubyte
 	checkpoint_state as ubyte
 	join_session as byte

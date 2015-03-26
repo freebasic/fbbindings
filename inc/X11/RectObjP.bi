@@ -29,7 +29,7 @@ type RectObjRec as _RectObjRec
 
 type _RectObjClassPart
 	superclass as WidgetClass
-	class_name as String
+	class_name as String_
 	widget_size as Cardinal
 	class_initialize as XtProc
 	class_part_initialize as XtWidgetClassProc
@@ -56,7 +56,7 @@ type _RectObjClassPart
 	rect9 as XtProc
 	version as XtVersionType
 	callback_private as XtPointer
-	rect10 as String
+	rect10 as String_
 	query_geometry as XtGeometryHandler
 	rect11 as XtProc
 	extension as XtPointer

@@ -6,7 +6,7 @@ extern "C"
 
 #define XtCoreP_h
 extern _XtInheritTranslations as long
-#define XtInheritTranslations cast(String, @_XtInheritTranslations)
+#define XtInheritTranslations cast(String_, @_XtInheritTranslations)
 #define XtInheritRealize cast(XtRealizeProc, _XtInherit)
 #define XtInheritResize cast(XtWidgetProc, _XtInherit)
 #define XtInheritExpose cast(XtExposeProc, _XtInherit)
@@ -38,7 +38,7 @@ type _CorePart
 	border_pixmap as Pixmap
 	popup_list as WidgetList
 	num_popups as Cardinal
-	name as String
+	name as String_
 	screen as Screen ptr
 	colormap as Colormap
 	window as Window
@@ -60,7 +60,7 @@ type CoreRec as _WidgetRec
 
 type _CoreClassPart
 	superclass as WidgetClass
-	class_name as String
+	class_name as String_
 	widget_size as Cardinal
 	class_initialize as XtProc
 	class_part_initialize as XtWidgetClassProc
@@ -87,7 +87,7 @@ type _CoreClassPart
 	accept_focus as XtAcceptFocusProc
 	version as XtVersionType
 	callback_private as XtPointer
-	tm_table as String
+	tm_table as String_
 	query_geometry as XtGeometryHandler
 	display_accelerator as XtStringProc
 	extension as XtPointer

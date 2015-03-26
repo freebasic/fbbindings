@@ -122,7 +122,7 @@ type _XtAppStruct
 	error_inited as byte
 	identify_windows as byte
 	heap as Heap
-	fallback_resources as String ptr
+	fallback_resources as String_ ptr
 	action_hook_list as _ActionHookRec ptr
 	block_hook_list as _BlockHookRec ptr
 	destroy_list_size as long
@@ -132,7 +132,7 @@ type _XtAppStruct
 	in_phase2_destroy as Widget
 	langProcRec as LangProcRec
 	free_bindings as _TMBindCacheRec ptr
-	display_name_tried as String
+	display_name_tried as String_
 	dpy_destroy_list as Display ptr ptr
 	dpy_destroy_count as long
 	exit_flag as byte
@@ -153,7 +153,7 @@ declare sub _XtSetDefaultErrorHandlers(byval as XtErrorMsgHandler ptr, byval as 
 declare sub _XtSetDefaultSelectionTimeout(byval as culong ptr)
 declare function _XtDefaultAppContext() as XtAppContext
 declare function _XtGetProcessContext() as ProcessContext
-declare function _XtAppInit(byval as XtAppContext ptr, byval as String, byval as XrmOptionDescRec ptr, byval as Cardinal, byval as long ptr, byval as String ptr ptr, byval as String ptr) as Display ptr
+declare function _XtAppInit(byval as XtAppContext ptr, byval as String_, byval as XrmOptionDescRec ptr, byval as Cardinal, byval as long ptr, byval as String_ ptr ptr, byval as String_ ptr) as Display ptr
 declare sub _XtDestroyAppContexts()
 declare sub _XtCloseDisplays(byval as XtAppContext)
 extern _XtAppDestroyCount as long
@@ -202,7 +202,7 @@ type _XtPerDisplayStruct
 	heap as Heap
 	GClist as _GCrec ptr
 	pixmap_tab as Drawable ptr ptr
-	language as String
+	language as String_
 	last_event as XEvent
 	last_timestamp as Time
 	multi_click_time as long
@@ -245,7 +245,7 @@ declare sub _XtExtensionSelect(byval as Widget)
 #define _XtSafeToDestroy(app) ((app)->dispatch_level = 0)
 declare sub _XtAllocWWTable(byval pd as XtPerDisplay)
 declare sub _XtFreeWWTable(byval pd as XtPerDisplay)
-declare function _XtGetUserName(byval dest as String, byval len as long) as String
-declare function _XtPreparseCommandLine(byval urlist as XrmOptionDescRec ptr, byval num_urs as Cardinal, byval argc as long, byval argv as String ptr, byval applName as String ptr, byval displayName as String ptr, byval language as String ptr) as XrmDatabase
+declare function _XtGetUserName(byval dest as String_, byval len as long) as String_
+declare function _XtPreparseCommandLine(byval urlist as XrmOptionDescRec ptr, byval num_urs as Cardinal, byval argc as long, byval argv as String_ ptr, byval applName as String_ ptr, byval displayName as String_ ptr, byval language as String_ ptr) as XrmDatabase
 
 end extern

@@ -57,7 +57,7 @@ extern _XA_UTF8_STRING as AtomPtr
 
 declare function XmuGetAtomName(byval dpy as Display ptr, byval atom as Atom) as zstring ptr
 declare function XmuInternAtom(byval dpy as Display ptr, byval atom_ptr as AtomPtr) as Atom
-declare sub XmuInternStrings(byval dpy as Display ptr, byval names as String ptr, byval count as Cardinal, byval atoms_return as Atom ptr)
+declare sub XmuInternStrings(byval dpy as Display ptr, byval names as String_ ptr, byval count as Cardinal, byval atoms_return as Atom ptr)
 declare function XmuMakeAtom(byval name as const zstring ptr) as AtomPtr
 declare function XmuNameOfAtom(byval atom_ptr as AtomPtr) as zstring ptr
 
