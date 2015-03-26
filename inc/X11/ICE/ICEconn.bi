@@ -2,6 +2,7 @@
 
 #include once "crt/long.bi"
 #include once "X11/ICE/ICElib.bi"
+#include once "X11/Xtrans/Xtrans.bi"
 
 #define _ICECONN_H_
 

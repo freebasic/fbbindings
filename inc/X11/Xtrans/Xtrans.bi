@@ -32,6 +32,7 @@ end type
 	type BytesReadable_t as clong
 #endif
 
+type _XtransConnInfo as _XtransConnInfo_
 type XtransConnInfo as _XtransConnInfo ptr
 const TRANS_NONBLOCKING = 1
 const TRANS_CLOSEONEXEC = 2

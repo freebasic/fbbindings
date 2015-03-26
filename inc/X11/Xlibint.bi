@@ -12,6 +12,7 @@
 #include once "X11/Xfuncproto.bi"
 #include once "crt/stddef.bi"
 #include once "crt/sys/types.bi"
+#include once "X11/Xtrans/Xtrans.bi"
 
 '' The following symbols have been renamed:
 ''     #define Xfree => Xfree_
@@ -55,7 +56,6 @@ type _XIMFilter as _XIMFilter_
 type _XConnectionInfo as _XConnectionInfo_
 type _XConnWatchInfo as _XConnWatchInfo_
 type _XkbInfoRec as _XkbInfoRec_
-type _XtransConnInfo as _XtransConnInfo_
 type _X11XCBPrivate as _X11XCBPrivate_
 
 type _XDisplay_
