@@ -44,6 +44,8 @@
 -renamedefine _SIZEOF _XSIZEOF
 -renamedefine SIZEOF XSIZEOF
 -renamedefine Data Data_
+-rename new new_
+-rename delete delete_
 
 -renamedefine XK_KATAKANA XK_KATAKANA_
 -renamedefine XK_CURRENCY XK_CURRENCY_

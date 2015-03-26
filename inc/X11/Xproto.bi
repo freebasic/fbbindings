@@ -1131,7 +1131,7 @@ type _xEvent_u_colormap
 	pad00 as CARD32
 	window as CARD32
 	colormap as CARD32
-	new as BOOL
+	new_ as BOOL
 	state as UBYTE
 	pad1 as UBYTE
 	pad2 as UBYTE
@@ -1386,7 +1386,7 @@ end type
 
 type xGetPropertyReq
 	reqType as CARD8
-	delete as BOOL
+	delete_ as BOOL
 	length as CARD16
 	window as CARD32
 	property as CARD32
