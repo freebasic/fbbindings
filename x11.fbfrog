@@ -57,6 +57,10 @@ nodos.fbfrog
 -addforwarddecl _XtransConnInfo
 -addforwarddecl _XctPriv
 -addforwarddecl _XtransConnFd
+-addforwarddecl _ActionListRec
+-addforwarddecl _TMBindCacheRec
+-addforwarddecl _GCrec
+-addforwarddecl _WWTable
 
 -renametypedef BOOL XBOOL
 -renametypedef Atom XAtom
