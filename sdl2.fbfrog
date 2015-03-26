@@ -8,3 +8,5 @@
 -addforwarddecl SDL_SysWMmsg
 -addforwarddecl SDL_Renderer
 -addforwarddecl SDL_Texture
+
+-renameproc SDL_Log SDL_Log_

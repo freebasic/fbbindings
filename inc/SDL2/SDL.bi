@@ -34,6 +34,7 @@
 #endif
 
 '' The following symbols have been renamed:
+''     procedure SDL_Log => SDL_Log_
 ''     struct SDL_version => SDL_version_
 
 extern "C"
@@ -2408,7 +2409,7 @@ declare sub SDL_LogSetAllPriority(byval priority as SDL_LogPriority)
 declare sub SDL_LogSetPriority(byval category as long, byval priority as SDL_LogPriority)
 declare function SDL_LogGetPriority(byval category as long) as SDL_LogPriority
 declare sub SDL_LogResetPriorities()
-declare sub SDL_Log(byval fmt as const zstring ptr, ...)
+declare sub SDL_Log_ alias "SDL_Log"(byval fmt as const zstring ptr, ...)
 declare sub SDL_LogVerbose(byval category as long, byval fmt as const zstring ptr, ...)
 declare sub SDL_LogDebug(byval category as long, byval fmt as const zstring ptr, ...)
 declare sub SDL_LogInfo(byval category as long, byval fmt as const zstring ptr, ...)
