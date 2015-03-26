@@ -2,8 +2,8 @@ FBFROG := fbfrog
 
 ALL := allegro4 allegro5
 ALL += cgui clang cunit curl
-ALL += fastcgi ffi
-ALL += iup
+ALL += fastcgi ffi fontconfig
+ALL += iconv iup
 ALL += jit
 ALL += llvm lua
 ALL += ncurses
@@ -186,6 +186,19 @@ ffi:
 			extracted/$(FFI_TITLE)/include/ffi-x86.h		\
 		-endif								\
 		-incdir extracted/$(FFI_TITLE)/src/x86
+
+FONTCONFIG := fontconfig-2.11.1
+fontconfig:
+	./get.sh $(FONTCONFIG) $(FONTCONFIG).tar.bz2 "http://www.freedesktop.org/software/fontconfig/release/$(FONTCONFIG).tar.bz2"
+	mkdir -p inc/fontconfig
+	$(FBFROG) fontconfig.fbfrog \
+		-incdir extracted/$(FONTCONFIG)/fontconfig \
+		-include fontconfig.h \
+		-include fcfreetype.h \
+		-include fcprivate.h \
+		-emit '*/fontconfig.h' inc/fontconfig/fontconfig.bi \
+		-emit '*/fcfreetype.h' inc/fontconfig/fcfreetype.bi \
+		-emit '*/fcprivate.h'  inc/fontconfig/fcprivate.bi
 
 # GNU libiconv, not glibc's iconv
 ICONV := libiconv-1.14
