@@ -5,6 +5,8 @@
 
 #ifdef __FB_LINUX__
 	#include once "crt/limits.bi"
+#elseif defined(__FB_WIN32__)
+	#include once "win/winsock2.bi"
 #endif
 
 #include once "X11/Xos.bi"
