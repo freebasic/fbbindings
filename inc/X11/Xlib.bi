@@ -742,7 +742,7 @@ type XColormapEvent
 	display as Display ptr
 	window as Window
 	colormap as Colormap
-	new as long
+	new_ as long
 	state as long
 end type
 
