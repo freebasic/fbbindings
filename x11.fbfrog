@@ -427,5 +427,15 @@ nodos.fbfrog
 -renametypedef xSyncWaitCondition xSyncWaitCondition_
 -renametypedef xSyncCounterNotifyEvent xSyncCounterNotifyEvent_
 -renametypedef xSyncAlarmNotifyEvent xSyncAlarmNotifyEvent_
+-renametypedef xIndexValue xIndexValue_
+-renametypedef xRenderColor xRenderColor_
+-renametypedef xPointFixed xPointFixed_
+-renametypedef xLineFixed xLineFixed_
+-renametypedef xTriangle xTriangle_
+-renametypedef xTrapezoid xTrapezoid_
+-renametypedef xGlyphInfo xGlyphInfo_
+-renametypedef xSpanFix xSpanFix_
+-renametypedef xTrap xTrap_
 
+-renamedefine sz_xRecordRange sz_xRecordRange_
 -removedefine sz_RECORDRANGE
