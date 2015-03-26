@@ -3,6 +3,7 @@
 #include once "X11/extensions/dbe.bi"
 
 '' The following symbols have been renamed:
+''     typedef xDbeBackBuffer => xDbeBackBuffer_
 ''     struct xDbeSwapInfo => xDbeSwapInfo_
 
 #define DBE_PROTO_H
@@ -15,7 +16,7 @@ const X_DbeEndIdiom = 5
 const X_DbeGetVisualInfo = 6
 const X_DbeGetBackBufferAttributes = 7
 type xDbeSwapAction as CARD8
-type xDbeBackBuffer as CARD32
+type xDbeBackBuffer_ as CARD32
 
 type xDbeSwapInfo_
 	window as CARD32
@@ -74,7 +75,7 @@ type xDbeAllocateBackBufferNameReq
 	dbeReqType as CARD8
 	length as CARD16
 	window as CARD32
-	buffer as xDbeBackBuffer
+	buffer as xDbeBackBuffer_
 	swapAction as xDbeSwapAction
 	pad1 as CARD8
 	pad2 as CARD16
@@ -86,7 +87,7 @@ type xDbeDeallocateBackBufferNameReq
 	reqType as CARD8
 	dbeReqType as CARD8
 	length as CARD16
-	buffer as xDbeBackBuffer
+	buffer as xDbeBackBuffer_
 end type
 
 const sz_xDbeDeallocateBackBufferNameReq = 8
@@ -144,7 +145,7 @@ type xDbeGetBackBufferAttributesReq
 	reqType as CARD8
 	dbeReqType as CARD8
 	length as CARD16
-	buffer as xDbeBackBuffer
+	buffer as xDbeBackBuffer_
 end type
 
 const sz_xDbeGetBackBufferAttributesReq = 8

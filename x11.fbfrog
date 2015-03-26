@@ -470,6 +470,7 @@ nodos.fbfrog
 -renametag _xRRModeInfo _xRRModeInfo_
 -renametag _xValuatorInfo _xValuatorInfo_
 
+-renametypedef xDbeBackBuffer xDbeBackBuffer_
 -renametypedef changeDeviceNotify changeDeviceNotify_
 -renametypedef deviceMappingNotify deviceMappingNotify_
 -renametypedef devicePropertyNotify devicePropertyNotify_
