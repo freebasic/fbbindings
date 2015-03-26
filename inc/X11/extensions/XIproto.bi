@@ -56,7 +56,6 @@ type _XExtEventInfo
 end type
 
 type XExtEventInfo as _XExtEventInfo
-type Pointer as any ptr
 
 type tmask
 	mask as CARD32
