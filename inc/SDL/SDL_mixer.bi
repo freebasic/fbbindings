@@ -1,5 +1,7 @@
 #pragma once
 
+#inclib "SDL_mixer"
+
 #include once "SDL.bi"
 
 extern "C"
