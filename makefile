@@ -790,6 +790,7 @@ x11:
 	cp -R extracted/xorg/$(X11_XCURSOR)/include/X11 extracted/xorg
 	cp -R extracted/xorg/$(X11_XMU)/include/X11     extracted/xorg
 	cp -R extracted/xorg/$(X11_XTRANS)/Xtrans.h     extracted/xorg/X11/Xtrans
+	cp -R extracted/xorg/$(X11_XTRANS)/Xtransint.h  extracted/xorg/X11/Xtrans
 
 	cp extracted/xorg/$(X11_XEXTPROTO)/*.h extracted/xorg/X11/extensions
 	cp extracted/xorg/$(X11_RENDERPROTO)/*.h extracted/xorg/X11/extensions
@@ -939,6 +940,7 @@ x11:
 		-include X11/Xmu/WinUtil.h \
 		-include X11/Xmu/Xct.h \
 		-include X11/Xtrans/Xtrans.h \
+		-include X11/Xtrans/Xtransint.h \
 		\
 		-emit '*/X11/ap_keysym.h'    inc/X11/ap_keysym.bi \
 		-emit '*/X11/Composite.h'    inc/X11/Composite.bi \
@@ -1110,6 +1112,7 @@ x11:
 		-emit '*/X11/Xmu/Xct.h'              inc/X11/Xmu/Xct.bi \
 		-emit '*/X11/Xmu/Xmu.h'              inc/X11/Xmu/Xmu.bi \
 		-emit '*/X11/Xtrans/Xtrans.h'        inc/X11/Xtrans/Xtrans.bi \
+		-emit '*/X11/Xtrans/Xtransint.h'     inc/X11/Xtrans/Xtransint.bi \
 		-emit '*/X11/Xpoll.h' inc/X11/Xpoll.bi \
 		-emit '*/X11/Xdmcp.h' inc/X11/Xdmcp.bi \
 		-emit '*/X11/xpm.h'   inc/X11/xpm.bi
