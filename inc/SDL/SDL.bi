@@ -64,7 +64,9 @@ enum
 	DUMMY_ENUM_VALUE
 end enum
 
+#ifndef NULL
 const NULL = cptr(any ptr, 0)
+#endif
 #define SDL_malloc malloc
 #define SDL_calloc calloc
 #define SDL_realloc realloc
