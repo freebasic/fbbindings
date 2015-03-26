@@ -1,5 +1,7 @@
 #pragma once
 
+#inclib "SDL_mixer"
+
 #include once "SDL_types.bi"
 #include once "SDL_rwops.bi"
 #include once "SDL_audio.bi"

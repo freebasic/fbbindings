@@ -1,5 +1,7 @@
 #pragma once
 
+#inclib "SDL_gfx"
+
 extern "C"
 
 #define _SDL_imageFilter_h

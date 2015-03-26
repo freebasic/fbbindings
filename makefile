@@ -489,7 +489,20 @@ sdl1:
 			-inclib winmm    inc/SDL/SDL.bi \
 			-inclib dxguid   inc/SDL/SDL.bi \
 			-inclib advapi32 inc/SDL/SDL.bi \
-		-endif
+		-endif \
+		-inclib SDL_gfx inc/SDL/SDL_gfx_framerate.bi \
+		-inclib SDL_gfx inc/SDL/SDL_gfx_imageFilter.bi \
+		-inclib SDL_gfx inc/SDL/SDL_gfx_primitives.bi \
+		-inclib SDL_gfx inc/SDL/SDL_gfx_primitives_font.bi \
+		-inclib SDL_gfx inc/SDL/SDL_gfx_rotozoom.bi \
+		-inclib SDL_image inc/SDL/SDL_image.bi \
+		-inclib SDL_mixer inc/SDL/SDL_mixer.bi \
+		-inclib SDL_net inc/SDL/SDL_net.bi \
+		-ifdef __FB_WIN32__ \
+			-inclib ws2_32   inc/SDL/SDL_net.bi \
+			-inclib iphlpapi inc/SDL/SDL_net.bi \
+		-endif \
+		-inclib SDL_ttf inc/SDL/SDL_ttf.bi
 
 SDL2_MAIN := SDL2-2.0.3
 SDL2_IMAGE := SDL2_image-2.0.0
