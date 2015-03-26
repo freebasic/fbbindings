@@ -89,7 +89,6 @@
 #include "X11/extensions/XKB.bi"
 #include "X11/extensions/XKBgeom.bi"
 #include "X11/extensions/XKBproto.bi"
-#include "X11/extensions/XKBsrv.bi"
 #include "X11/extensions/XKBstr.bi"
 #include "X11/extensions/XLbx.bi"
 #include "X11/extensions/Xrandr.bi"
