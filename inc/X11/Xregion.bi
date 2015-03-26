@@ -27,8 +27,6 @@ const TRUE = 1
 const FALSE = 0
 const MAXSHORT = 32767
 #define MINSHORT (-MAXSHORT)
-#define MAX(a, b) iif((a) > (b), (a), (b))
-#define MIN(a, b) iif((a) < (b), (a), (b))
 
 type _XRegion
 	size as clong

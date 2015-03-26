@@ -338,8 +338,6 @@ declare sub _XFlushGCCache(byval dpy as Display ptr, byval gc as GC)
 #define PackData16(dpy, data, len) Data16(dpy, data, len)
 #define PackData32(dpy, data, len) Data32(dpy, data, len)
 #define PackData(dpy, data, len) PackData16(dpy, data, len)
-#define min(a, b) iif((a) < (b), (a), (b))
-#define max(a, b) iif((a) > (b), (a), (b))
 #define CI_NONEXISTCHAR(cs) (((cs)->width = 0) andalso (((((cs)->rbearing or (cs)->lbearing) or (cs)->ascent) or (cs)->descent) = 0))
 #macro CI_GET_CHAR_INFO_1D(fs, col, def, cs)
 	scope
