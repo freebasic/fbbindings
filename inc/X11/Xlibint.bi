@@ -234,7 +234,6 @@ const XlibDisplayReadEvents = cast(clong, 1) shl 5
 const XlibDisplayReply = cast(clong, 1) shl 5
 const XlibDisplayWriting = cast(clong, 1) shl 6
 const XlibDisplayDfltRMDB = cast(clong, 1) shl 7
-#define WORD64ALIGN
 declare function _XGetRequest(byval dpy as Display ptr, byval type as CARD8, byval len as uinteger) as any ptr
 #macro GetReqSized(name, sz, req)
 	scope
