@@ -182,7 +182,9 @@
 #include "X11/Xtrans/Xtrans.bi"
 #include "X11/Xtrans/Xtransint.bi"
 #include "X11/Xutil.bi"
-#include "X11/Xw32defs.bi"
 #include "X11/XWDFile.bi"
-#include "X11/Xwindows.bi"
-#include "X11/Xwinsock.bi"
+#ifdef __FB_WIN32__
+	#include "X11/Xw32defs.bi"
+	#include "X11/Xwindows.bi"
+	#include "X11/Xwinsock.bi"
+#endif
