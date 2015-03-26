@@ -777,7 +777,7 @@ x11:
 	cp extracted/xorg/$(X11_KBPROTO)/*.h extracted/xorg/X11/extensions
 	cp extracted/xorg/$(X11_INPUTPROTO)/*.h extracted/xorg/X11/extensions
 	cp extracted/xorg/$(X11_DRI2PROTO)/*.h extracted/xorg/X11/extensions
-	#$(X11_XF86DGAPROTO)
+	cp extracted/xorg/$(X11_XF86DGAPROTO)/*.h extracted/xorg/X11/extensions
 	#$(X11_XF86VIDMODEPROTO)
 	#$(X11_VIDEOPROTO)
 
@@ -879,6 +879,13 @@ x11:
 		-include X11/extensions/XI2proto.h \
 		-include X11/extensions/dri2proto.h \
 		-include X11/extensions/dri2tokens.h \
+		-include X11/extensions/xf86dga.h \
+		-include X11/extensions/xf86dga1const.h \
+		-include X11/extensions/xf86dga1str.h \
+		-include X11/extensions/xf86dga1proto.h \
+		-include X11/extensions/xf86dgaconst.h \
+		-include X11/extensions/xf86dgaproto.h \
+		-include X11/extensions/xf86dgastr.h \
 		-include X11/Xdmcp.h \
 		-include X11/xpm.h \
 		-include X11/Xtrans/Xtrans.h \
@@ -1009,6 +1016,13 @@ x11:
 		-emit '*/X11/extensions/XI2proto.h'        inc/X11/extensions/XI2proto.bi \
 		-emit '*/X11/extensions/dri2proto.h'       inc/X11/extensions/dri2proto.bi \
 		-emit '*/X11/extensions/dri2tokens.h'      inc/X11/extensions/dri2tokens.bi \
+		-emit '*/X11/extensions/xf86dga.h'         inc/X11/extensions/xf86dga.bi \
+		-emit '*/X11/extensions/xf86dga1const.h'   inc/X11/extensions/xf86dga1const.bi \
+		-emit '*/X11/extensions/xf86dga1str.h'     inc/X11/extensions/xf86dga1str.bi \
+		-emit '*/X11/extensions/xf86dga1proto.h'   inc/X11/extensions/xf86dga1proto.bi \
+		-emit '*/X11/extensions/xf86dgaconst.h'    inc/X11/extensions/xf86dgaconst.bi \
+		-emit '*/X11/extensions/xf86dgaproto.h'    inc/X11/extensions/xf86dgaproto.bi \
+		-emit '*/X11/extensions/xf86dgastr.h'      inc/X11/extensions/xf86dgastr.bi \
 		-emit '*/X11/Xtrans/Xtrans.h'        inc/X11/Xtrans/Xtrans.bi \
 		-emit '*/X11/Xdmcp.h' inc/X11/Xdmcp.bi \
 		-emit '*/X11/xpm.h'   inc/X11/xpm.bi
