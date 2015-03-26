@@ -8,11 +8,7 @@
 #include once "X11/Xosdefs.bi"
 #include once "crt/string.bi"
 #include once "crt/stddef.bi"
-#include once "X11/Core.bi"
 #include once "X11/Composite.bi"
-#include once "X11/Constraint.bi"
-#include once "X11/Object.bi"
-#include once "X11/RectObj.bi"
 
 '' The following symbols have been renamed:
 ''     typedef String => String_
@@ -626,3 +622,8 @@ declare function XtCvtColorToPixel(byval as Display ptr, byval as XrmValuePtr, b
 #define XtCvtPixelToColor XtCvtIntToColor
 
 end extern
+
+#include once "X11/Core.bi"
+#include once "X11/Constraint.bi"
+#include once "X11/Object.bi"
+#include once "X11/RectObj.bi"

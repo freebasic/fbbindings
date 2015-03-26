@@ -1,9 +1,12 @@
 #pragma once
 
 #include once "crt/sys/types.bi"
-
 #ifdef __FB_LINUX__
-	#include once "sys/uio.bi"
+	#include once "crt/sys/uio.bi"
+#endif
+#include once "X11/Xdefs.bi"
+#ifdef __FB_WIN32__
+	#include once "X11/Xw32defs.bi"
 #endif
 
 extern "C"

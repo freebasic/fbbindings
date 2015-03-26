@@ -1,5 +1,7 @@
 #pragma once
 
+#include once "X11/Intrinsic.bi"
+
 extern "C"
 
 #define _XtComposite_h

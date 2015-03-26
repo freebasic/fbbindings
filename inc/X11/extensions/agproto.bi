@@ -1,6 +1,7 @@
 #pragma once
 
 #include once "X11/extensions/ag.bi"
+#include once "X11/Xmd.bi"
 
 #define _AGPROTO_H_
 const X_XagQueryVersion = 0

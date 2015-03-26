@@ -7,8 +7,8 @@
 	#include once "crt/limits.bi"
 #else
 	#include once "crt/sys/socket.bi"
-	#include once "netinet/in.bi"
-	#include once "arpa/inet.bi"
+	#include once "crt/netinet/in.bi"
+	#include once "crt/arpa/inet.bi"
 #endif
 
 #include once "crt/stddef.bi"

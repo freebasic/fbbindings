@@ -4,7 +4,7 @@
 	#include once "X11/Xwinsock.bi"
 #else
 	#include once "X11/Xos.bi"
-	#include once "sys/select.bi"
+	#include once "crt/sys/select.bi"
 	#include once "X11/Xmd.bi"
 #endif
 

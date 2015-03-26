@@ -1,28 +1,14 @@
 #pragma once
 
-#ifdef __FB_WIN32__
-	#include once "crt/long.bi"
-#endif
-
-#include once "X11/Xosdefs.bi"
 #include once "crt/sys/types.bi"
 #include once "crt/string.bi"
-#include once "fcntl.bi"
-
-#ifdef __FB_WIN32__
-	#include once "X11/Xw32defs.bi"
-#else
-	#include once "unistd.bi"
-	#include once "sys/time.bi"
-#endif
-
 #include once "crt/time.bi"
-
-#ifdef __FB_WIN32__
-	#include once "sys/timeb.bi"
-#endif
-
+#include once "X11/Xosdefs.bi"
 #include once "X11/Xarch.bi"
+#ifdef __FB_WIN32__
+	#include once "crt/long.bi"
+	#include once "X11/Xw32defs.bi"
+#endif
 
 #define _XOS_H_
 #define index(s, c) strchr((s), (c))

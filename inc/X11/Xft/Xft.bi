@@ -2,8 +2,7 @@
 
 #include once "crt/long.bi"
 #include once "crt/stdarg.bi"
-#include once "ft2build.bi"
-#include once "freetype.bi"
+#include once "freetype2/freetype.bi"
 #include once "fontconfig/fontconfig.bi"
 #include once "X11/extensions/Xrender.bi"
 #include once "X11/Xfuncproto.bi"

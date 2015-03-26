@@ -1,5 +1,7 @@
 #pragma once
 
+#include once "lbxproto.bi"
+
 extern "C"
 
 #define LBX_DELTA_STRUCT_H

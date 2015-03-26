@@ -9,7 +9,11 @@
 
 #ifdef __FB_LINUX__
 	#include once "crt/sys/socket.bi"
-	#include once "sys/uio.bi"
+	#include once "crt/sys/uio.bi"
+#endif
+
+#ifdef __FB_WIN32__
+	#include once "X11/Xw32defs.bi"
 #endif
 
 extern "C"

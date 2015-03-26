@@ -1,6 +1,7 @@
 #pragma once
 
 #include once "X11/extensions/Xext.bi"
+#include once "X11/Xproto.bi"
 
 extern "C"
 
