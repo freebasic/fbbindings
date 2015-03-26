@@ -49,7 +49,6 @@ const XtCacheAll = &h002
 const XtCacheByDisplay = &h003
 const XtCacheRefCount = &h100
 
-type Boolean as zstring
 type XtArgVal as clong
 type XtEnum as ubyte
 type Cardinal as ulong
