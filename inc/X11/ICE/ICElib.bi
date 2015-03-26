@@ -7,8 +7,6 @@
 extern "C"
 
 #define _ICELIB_H_
-const True = 1
-const False = 0
 type IcePointer as any ptr
 
 type IcePoAuthStatus as long
