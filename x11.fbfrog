@@ -16,6 +16,7 @@
 -removedefine _X_UNLIKELY
 -removedefine Bool
 -removedefine Status
+-removedefine WORD64ALIGN
 
 -addforwarddecl _XPrivate
 -addforwarddecl _XrmHashBucketRec
