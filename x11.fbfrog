@@ -56,9 +56,9 @@
 -renamedefine XK_dead_O XK_dead_O_
 -renamedefine XK_dead_U XK_dead_U_
 -renamedefine XK_Ch XK_Ch_
--renamedefine XK_CH XK_CH_
+-renamedefine XK_CH XK_CH__
 -renamedefine XK_C_h XK_C_h_
--renamedefine XK_C_H XK_C_H_
+-renamedefine XK_C_H XK_C_H__
 -renamedefine XK_a XK_a_
 -renamedefine XK_b XK_b_
 -renamedefine XK_c XK_c_
@@ -85,8 +85,6 @@
 -renamedefine XK_x XK_x_
 -renamedefine XK_y XK_y_
 -renamedefine XK_z XK_z_
--renamedefine XK_ETH XK_ETH_
--renamedefine XK_THORN XK_THORN_
 -renamedefine XK_agrave XK_agrave_
 -renamedefine XK_aacute XK_aacute_
 -renamedefine XK_acircumflex XK_acircumflex_
@@ -392,3 +390,7 @@
 -renamedefine XK_ytilde XK_ytilde_
 -renamedefine XK_ohorn XK_ohorn_
 -renamedefine XK_uhorn XK_uhorn_
+
+# case-aliases
+-removedefine XK_ETH    # = XK_Eth
+-removedefine XK_THORN  # = XK_Thorn
