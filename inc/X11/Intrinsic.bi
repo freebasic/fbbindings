@@ -30,16 +30,7 @@ extern "C"
 #define _XtIntrinsic_h
 const XtSpecificationRelease = 6
 type String_ as zstring ptr
-#define _XtString zstring ptr
-#define _XtBoolean Boolean
-#define _XtDimension Dimension
-#define _XtKeyCode KeyCode
-#define _XtPosition Position
-#define _XtXtEnum XtEnum
-#define externalref '' TODO: extern
-#define externaldef(psect)
 #define XtNumber(arr) cast(Cardinal, sizeof((arr)) / sizeof(arr[0]))
-
 type Widget as _WidgetRec ptr
 type WidgetList as Widget ptr
 type WidgetClass as _WidgetClassRec ptr

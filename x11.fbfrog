@@ -28,6 +28,14 @@ nodos.fbfrog
 -removedefine max
 -removedefine Max
 -removedefine MAX
+-removedefine _XtString
+-removedefine _XtBoolean
+-removedefine _XtDimension
+-removedefine _XtKeyCode
+-removedefine _XtPosition
+-removedefine _XtXtEnum
+-removedefine externalref
+-removedefine externaldef
 
 -addforwarddecl _XPrivate
 -addforwarddecl _XrmHashBucketRec
