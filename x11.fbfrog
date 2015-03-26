@@ -22,6 +22,12 @@ nodos.fbfrog
 -removedefine Bool
 -removedefine Status
 -removedefine WORD64ALIGN
+-removedefine min
+-removedefine Min
+-removedefine MIN
+-removedefine max
+-removedefine Max
+-removedefine MAX
 
 -addforwarddecl _XPrivate
 -addforwarddecl _XrmHashBucketRec
