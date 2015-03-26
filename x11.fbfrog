@@ -2,6 +2,7 @@ nodos.fbfrog
 
 -fixunsizedarrays
 
+-define FT_FREETYPE_H '"freetype.h"'
 -expandindefine _Xconst
 
 -removedefine B16

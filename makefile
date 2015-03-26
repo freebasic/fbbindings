@@ -702,6 +702,7 @@ X11_XDMCP        := libXdmcp-1.1.2
 X11_XXF86DGA     := libXxf86dga-1.1.4
 X11_XXF86VM      := libXxf86vm-1.1.4
 X11_XV           := libXv-1.0.10
+X11_XFT          := libXft-2.3.2
 X11_XTRANS       := xtrans-1.3.5
 X11_XPROTO       := xproto-7.0.27
 X11_XEXTPROTO    := xextproto-7.3.0
@@ -735,6 +736,7 @@ x11:
 	./getxorg.sh $(X11_XXF86DGA) $(X11_XXF86DGA).tar.bz2  "http://xorg.freedesktop.org/releases/individual/lib/$(X11_XXF86DGA).tar.bz2"
 	./getxorg.sh $(X11_XXF86VM)  $(X11_XXF86VM).tar.bz2   "http://xorg.freedesktop.org/releases/individual/lib/$(X11_XXF86VM).tar.bz2"
 	./getxorg.sh $(X11_XV)       $(X11_XV).tar.bz2        "http://xorg.freedesktop.org/releases/individual/lib/$(X11_XV).tar.bz2"
+	./getxorg.sh $(X11_XFT)      $(X11_XFT).tar.bz2       "http://xorg.freedesktop.org/releases/individual/lib/$(X11_XFT).tar.bz2"
 	./getxorg.sh $(X11_XTRANS)   $(X11_XTRANS).tar.bz2    "http://xorg.freedesktop.org/releases/individual/lib/$(X11_XTRANS).tar.bz2"
 	./getxorg.sh $(X11_XPROTO)           $(X11_XPROTO).tar.bz2           "http://xorg.freedesktop.org/releases/individual/proto/$(X11_XPROTO).tar.bz2"
 	./getxorg.sh $(X11_XEXTPROTO)        $(X11_XEXTPROTO).tar.bz2        "http://xorg.freedesktop.org/releases/individual/proto/$(X11_XEXTPROTO).tar.bz2"
@@ -775,6 +777,7 @@ x11:
 	cp -R extracted/xorg/$(X11_XXF86DGA)/include/X11 extracted/xorg
 	cp -R extracted/xorg/$(X11_XXF86VM)/include/X11  extracted/xorg
 	cp -R extracted/xorg/$(X11_XV)/include/X11      extracted/xorg
+	cp -R extracted/xorg/$(X11_XFT)/include/X11     extracted/xorg
 	cp -R extracted/xorg/$(X11_XTRANS)/Xtrans.h     extracted/xorg/X11/Xtrans
 
 	cp extracted/xorg/$(X11_XEXTPROTO)/*.h extracted/xorg/X11/extensions
@@ -787,7 +790,7 @@ x11:
 	cp extracted/xorg/$(X11_XF86VIDMODEPROTO)/*.h extracted/xorg/X11/extensions
 	cp extracted/xorg/$(X11_VIDEOPROTO)/*.h extracted/xorg/X11/extensions
 
-	mkdir -p inc/X11/extensions inc/X11/ICE inc/X11/SM inc/X11/Xtrans
+	mkdir -p inc/X11/extensions inc/X11/ICE inc/X11/SM inc/X11/Xft inc/X11/Xtrans
 	$(FBFROG) x11.fbfrog -incdir extracted/xorg \
 		\
 		-include X11/Xlib.h \
@@ -904,6 +907,8 @@ x11:
 		-include X11/extensions/Xvproto.h \
 		-include X11/Xdmcp.h \
 		-include X11/xpm.h \
+		-include X11/Xft/Xft.h \
+		-include X11/Xft/XftCompat.h \
 		-include X11/Xtrans/Xtrans.h \
 		\
 		-emit '*/X11/ap_keysym.h'    inc/X11/ap_keysym.bi \
@@ -1049,6 +1054,8 @@ x11:
 		-emit '*/X11/extensions/XvMC.h'            inc/X11/extensions/XvMC.bi \
 		-emit '*/X11/extensions/XvMCproto.h'       inc/X11/extensions/XvMCproto.bi \
 		-emit '*/X11/extensions/Xvproto.h'         inc/X11/extensions/Xvproto.bi \
+		-emit '*/X11/Xft/Xft.h'              inc/X11/Xft/Xft.bi \
+		-emit '*/X11/Xft/XftCompat.h'        inc/X11/Xft/XftCompat.bi \
 		-emit '*/X11/Xtrans/Xtrans.h'        inc/X11/Xtrans/Xtrans.bi \
 		-emit '*/X11/Xdmcp.h' inc/X11/Xdmcp.bi \
 		-emit '*/X11/xpm.h'   inc/X11/xpm.bi
