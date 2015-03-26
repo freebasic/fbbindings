@@ -411,3 +411,6 @@ nodos.fbfrog
 
 -renametypedef Object Object_
 -renametypedef pointer pointer_
+
+-rename ReqType ReqType_
+-rename RepType RepType_

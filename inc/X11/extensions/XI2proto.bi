@@ -123,7 +123,7 @@ end type
 
 type xXIQueryVersionReq
 	reqType as ubyte
-	ReqType as ubyte
+	ReqType_ as ubyte
 	length as ushort
 	major_version as ushort
 	minor_version as ushort
@@ -133,7 +133,7 @@ const sz_xXIQueryVersionReq = 8
 
 type xXIQueryVersionReply
 	repType as ubyte
-	RepType as ubyte
+	RepType_ as ubyte
 	sequenceNumber as ushort
 	length as ulong
 	major_version as ushort
@@ -149,7 +149,7 @@ const sz_xXIQueryVersionReply = 32
 
 type xXIQueryDeviceReq
 	reqType as ubyte
-	ReqType as ubyte
+	ReqType_ as ubyte
 	length as ushort
 	deviceid as ushort
 	pad as ushort
@@ -159,7 +159,7 @@ const sz_xXIQueryDeviceReq = 8
 
 type xXIQueryDeviceReply
 	repType as ubyte
-	RepType as ubyte
+	RepType_ as ubyte
 	sequenceNumber as ushort
 	length as ulong
 	num_devices as ushort
@@ -175,7 +175,7 @@ const sz_xXIQueryDeviceReply = 32
 
 type xXISelectEventsReq
 	reqType as ubyte
-	ReqType as ubyte
+	ReqType_ as ubyte
 	length as ushort
 	win as ulong
 	num_masks as ushort
@@ -186,7 +186,7 @@ const sz_xXISelectEventsReq = 12
 
 type xXIGetSelectedEventsReq
 	reqType as ubyte
-	ReqType as ubyte
+	ReqType_ as ubyte
 	length as ushort
 	win as ulong
 end type
@@ -195,7 +195,7 @@ const sz_xXIGetSelectedEventsReq = 8
 
 type xXIGetSelectedEventsReply
 	repType as ubyte
-	RepType as ubyte
+	RepType_ as ubyte
 	sequenceNumber as ushort
 	length as ulong
 	num_masks as ushort
@@ -211,7 +211,7 @@ const sz_xXIGetSelectedEventsReply = 32
 
 type xXIQueryPointerReq
 	reqType as ubyte
-	ReqType as ubyte
+	ReqType_ as ubyte
 	length as ushort
 	win as ulong
 	deviceid as ushort
@@ -222,7 +222,7 @@ const sz_xXIQueryPointerReq = 12
 
 type xXIQueryPointerReply
 	repType as ubyte
-	RepType as ubyte
+	RepType_ as ubyte
 	sequenceNumber as ushort
 	length as ulong
 	root as ulong
@@ -242,7 +242,7 @@ const sz_xXIQueryPointerReply = 56
 
 type xXIWarpPointerReq
 	reqType as ubyte
-	ReqType as ubyte
+	ReqType_ as ubyte
 	length as ushort
 	src_win as ulong
 	dst_win as ulong
@@ -260,7 +260,7 @@ const sz_xXIWarpPointerReq = 36
 
 type xXIChangeCursorReq
 	reqType as ubyte
-	ReqType as ubyte
+	ReqType_ as ubyte
 	length as ushort
 	win as ulong
 	cursor as ulong
@@ -272,7 +272,7 @@ const sz_xXIChangeCursorReq = 16
 
 type xXIChangeHierarchyReq
 	reqType as ubyte
-	ReqType as ubyte
+	ReqType_ as ubyte
 	length as ushort
 	num_changes as ubyte
 	pad0 as ubyte
@@ -320,7 +320,7 @@ end type
 
 type xXISetClientPointerReq
 	reqType as ubyte
-	ReqType as ubyte
+	ReqType_ as ubyte
 	length as ushort
 	win as ulong
 	deviceid as ushort
@@ -331,7 +331,7 @@ const sz_xXISetClientPointerReq = 12
 
 type xXIGetClientPointerReq
 	reqType as ubyte
-	ReqType as ubyte
+	ReqType_ as ubyte
 	length as ushort
 	win as ulong
 end type
@@ -340,7 +340,7 @@ const sz_xXIGetClientPointerReq = 8
 
 type xXIGetClientPointerReply
 	repType as ubyte
-	RepType as ubyte
+	RepType_ as ubyte
 	sequenceNumber as ushort
 	length as ulong
 	set as BOOL
@@ -357,7 +357,7 @@ const sz_xXIGetClientPointerReply = 32
 
 type xXISetFocusReq
 	reqType as ubyte
-	ReqType as ubyte
+	ReqType_ as ubyte
 	length as ushort
 	focus as ulong
 	time as ulong
@@ -369,7 +369,7 @@ const sz_xXISetFocusReq = 16
 
 type xXIGetFocusReq
 	reqType as ubyte
-	ReqType as ubyte
+	ReqType_ as ubyte
 	length as ushort
 	deviceid as ushort
 	pad0 as ushort
@@ -379,7 +379,7 @@ const sz_xXIGetFocusReq = 8
 
 type xXIGetFocusReply
 	repType as ubyte
-	RepType as ubyte
+	RepType_ as ubyte
 	sequenceNumber as ushort
 	length as ulong
 	focus as ulong
@@ -394,7 +394,7 @@ const sz_xXIGetFocusReply = 32
 
 type xXIGrabDeviceReq
 	reqType as ubyte
-	ReqType as ubyte
+	ReqType_ as ubyte
 	length as ushort
 	grab_window as ulong
 	time as ulong
@@ -418,7 +418,7 @@ end type
 
 type xXIGrabDeviceReply
 	repType as ubyte
-	RepType as ubyte
+	RepType_ as ubyte
 	sequenceNumber as ushort
 	length as ulong
 	status as ubyte
@@ -435,7 +435,7 @@ const sz_xXIGrabDeviceReply = 32
 
 type xXIUngrabDeviceReq
 	reqType as ubyte
-	ReqType as ubyte
+	ReqType_ as ubyte
 	length as ushort
 	time as ulong
 	deviceid as ushort
@@ -446,7 +446,7 @@ const sz_xXIUngrabDeviceReq = 12
 
 type xXIAllowEventsReq
 	reqType as ubyte
-	ReqType as ubyte
+	ReqType_ as ubyte
 	length as ushort
 	time as ulong
 	deviceid as ushort
@@ -458,7 +458,7 @@ const sz_xXIAllowEventsReq = 12
 
 type xXI2_2AllowEventsReq
 	reqType as ubyte
-	ReqType as ubyte
+	ReqType_ as ubyte
 	length as ushort
 	time as ulong
 	deviceid as ushort
@@ -472,7 +472,7 @@ const sz_xXI2_2AllowEventsReq = 20
 
 type xXIPassiveGrabDeviceReq
 	reqType as ubyte
-	ReqType as ubyte
+	ReqType_ as ubyte
 	length as ushort
 	time as ulong
 	grab_window as ulong
@@ -492,7 +492,7 @@ const sz_xXIPassiveGrabDeviceReq = 32
 
 type xXIPassiveGrabDeviceReply
 	repType as ubyte
-	RepType as ubyte
+	RepType_ as ubyte
 	sequenceNumber as ushort
 	length as ulong
 	num_modifiers as ushort
@@ -508,7 +508,7 @@ const sz_xXIPassiveGrabDeviceReply = 32
 
 type xXIPassiveUngrabDeviceReq
 	reqType as ubyte
-	ReqType as ubyte
+	ReqType_ as ubyte
 	length as ushort
 	grab_window as ulong
 	detail as ulong
@@ -523,7 +523,7 @@ const sz_xXIPassiveUngrabDeviceReq = 20
 
 type xXIListPropertiesReq
 	reqType as ubyte
-	ReqType as ubyte
+	ReqType_ as ubyte
 	length as ushort
 	deviceid as ushort
 	pad as ushort
@@ -533,7 +533,7 @@ const sz_xXIListPropertiesReq = 8
 
 type xXIListPropertiesReply
 	repType as ubyte
-	RepType as ubyte
+	RepType_ as ubyte
 	sequenceNumber as ushort
 	length as ulong
 	num_properties as ushort
@@ -549,7 +549,7 @@ const sz_xXIListPropertiesReply = 32
 
 type xXIChangePropertyReq
 	reqType as ubyte
-	ReqType as ubyte
+	ReqType_ as ubyte
 	length as ushort
 	deviceid as ushort
 	mode as ubyte
@@ -563,7 +563,7 @@ const sz_xXIChangePropertyReq = 20
 
 type xXIDeletePropertyReq
 	reqType as ubyte
-	ReqType as ubyte
+	ReqType_ as ubyte
 	length as ushort
 	deviceid as ushort
 	pad0 as ushort
@@ -574,7 +574,7 @@ const sz_xXIDeletePropertyReq = 12
 
 type xXIGetPropertyReq
 	reqType as ubyte
-	ReqType as ubyte
+	ReqType_ as ubyte
 	length as ushort
 	deviceid as ushort
 	delete_ as ubyte
@@ -589,7 +589,7 @@ const sz_xXIGetPropertyReq = 24
 
 type xXIGetPropertyReply
 	repType as ubyte
-	RepType as ubyte
+	RepType_ as ubyte
 	sequenceNumber as ushort
 	length as ulong
 	as ulong type
@@ -613,7 +613,7 @@ end type
 
 type xXIBarrierReleasePointerReq
 	reqType as ubyte
-	ReqType as ubyte
+	ReqType_ as ubyte
 	length as ushort
 	num_barriers as ulong
 end type
