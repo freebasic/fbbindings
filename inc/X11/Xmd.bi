@@ -11,7 +11,7 @@ const XMD_H = 1
 #define _XSIZEOF(x) sz_##x
 #define XSIZEOF(x) _XSIZEOF(x)
 
-#if defined(__FB_64BIT__) and (defined(__FB_WIN32__) or defined(__FB_LINUX__))
+#ifdef __FB_64BIT__
 	type INT64 as clong
 	type INT32 as long
 #else
@@ -21,7 +21,7 @@ const XMD_H = 1
 type INT16 as short
 type INT8 as byte
 
-#if defined(__FB_64BIT__) and (defined(__FB_WIN32__) or defined(__FB_LINUX__))
+#ifdef __FB_64BIT__
 	type CARD64 as culong
 	type CARD32 as ulong
 #else

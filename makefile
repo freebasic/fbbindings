@@ -685,27 +685,145 @@ winapi: winapi-extract
 
 ################################################################################
 
+# X.org X11 headers
+#
+# TODO: X11/Xlib-xcb.h
+#
+# xtrans: it installs .c files into include/X11/Xtrans, and the README says
+# there is no shared library version of it. This can't easily be translated to
+# FB. But it seems to be an internal library anyways, so it's probably not worth
+# it to make a binding.
+
+X11_ICE          := libICE-1.0.9
+X11_SM           := libSM-1.2.2
+X11_XAU          := libXau-1.0.8
 X11_X11          := libX11-1.6.3
+X11_XT           := libXt-1.1.4
+X11_XEXT         := libXext-1.3.3
+X11_XPM          := libXpm-3.5.11
+X11_XRENDER      := libXrender-0.9.8
+X11_XRANDR       := libXrandr-1.4.2
+X11_XI           := libXi-1.7.4
+X11_XDMCP        := libXdmcp-1.1.2
+X11_XXF86DGA     := libXxf86dga-1.1.4
+X11_XXF86VM      := libXxf86vm-1.1.4
+X11_XV           := libXv-1.0.10
+X11_XFT          := libXft-2.3.2
+X11_XCURSOR      := libXcursor-1.1.14
+X11_XMU          := libXmu-1.1.2
+X11_XTST         := libXtst-1.2.2
+X11_XFIXES       := libXfixes-5.0.1
+X11_XINERAMA     := libXinerama-1.1.3
+X11_LBXUTIL      := liblbxutil-1.1.0
+X11_XTRANS       := xtrans-1.3.5
 X11_XPROTO       := xproto-7.0.27
+X11_XEXTPROTO    := xextproto-7.3.0
+X11_RENDERPROTO  := renderproto-0.11.1
+X11_RANDRPROTO   := randrproto-1.4.1
+X11_KBPROTO      := kbproto-1.0.6
+X11_INPUTPROTO   := inputproto-2.3.1
+X11_DRI2PROTO    := dri2proto-2.8
+X11_XF86DGAPROTO := xf86dgaproto-2.1
+X11_XF86VIDMODEPROTO := xf86vidmodeproto-2.3.1
+X11_VIDEOPROTO   := videoproto-2.3.2
+X11_FIXESPROTO   := fixesproto-5.0
 
 SED_X11_XFUNCPROTO := -e 's/\#undef NARROWPROTO/\#define NARROWPROTO 1/g'
 SED_X11_XLIBCONF := -e 's/\#undef XTHREADS/\#define XTHREADS 1/g'
 SED_X11_XLIBCONF += -e 's/\#undef XUSE_MTSAFE_API/\#define XUSE_MTSAFE_API 1/g'
+SED_X11_XPOLL := -e 's/@USE_FDS_BITS@/__fds_bits/g'
 
 x11:
 	mkdir -p extracted/xorg
 	mkdir -p tarballs/xorg
+	./getxorg.sh $(X11_ICE)      $(X11_ICE).tar.bz2       "http://xorg.freedesktop.org/releases/individual/lib/$(X11_ICE).tar.bz2"
+	./getxorg.sh $(X11_SM)       $(X11_SM).tar.bz2        "http://xorg.freedesktop.org/releases/individual/lib/$(X11_SM).tar.bz2"
+	./getxorg.sh $(X11_XAU)      $(X11_XAU).tar.bz2       "http://xorg.freedesktop.org/releases/individual/lib/$(X11_XAU).tar.bz2"
 	./getxorg.sh $(X11_X11)      $(X11_X11).tar.bz2       "http://xorg.freedesktop.org/releases/individual/lib/$(X11_X11).tar.bz2"
+	./getxorg.sh $(X11_XT)       $(X11_XT).tar.bz2        "http://xorg.freedesktop.org/releases/individual/lib/$(X11_XT).tar.bz2"
+	./getxorg.sh $(X11_XEXT)     $(X11_XEXT).tar.bz2      "http://xorg.freedesktop.org/releases/individual/lib/$(X11_XEXT).tar.bz2"
+	./getxorg.sh $(X11_XPM)      $(X11_XPM).tar.bz2       "http://xorg.freedesktop.org/releases/individual/lib/$(X11_XPM).tar.bz2"
+	./getxorg.sh $(X11_XRENDER)  $(X11_XRENDER).tar.bz2   "http://xorg.freedesktop.org/releases/individual/lib/$(X11_XRENDER).tar.bz2"
+	./getxorg.sh $(X11_XRANDR)   $(X11_XRANDR).tar.bz2    "http://xorg.freedesktop.org/releases/individual/lib/$(X11_XRANDR).tar.bz2"
+	./getxorg.sh $(X11_XI)       $(X11_XI).tar.bz2        "http://xorg.freedesktop.org/releases/individual/lib/$(X11_XI).tar.bz2"
+	./getxorg.sh $(X11_XDMCP)    $(X11_XDMCP).tar.bz2     "http://xorg.freedesktop.org/releases/individual/lib/$(X11_XDMCP).tar.bz2"
+	./getxorg.sh $(X11_XXF86DGA) $(X11_XXF86DGA).tar.bz2  "http://xorg.freedesktop.org/releases/individual/lib/$(X11_XXF86DGA).tar.bz2"
+	./getxorg.sh $(X11_XXF86VM)  $(X11_XXF86VM).tar.bz2   "http://xorg.freedesktop.org/releases/individual/lib/$(X11_XXF86VM).tar.bz2"
+	./getxorg.sh $(X11_XV)       $(X11_XV).tar.bz2        "http://xorg.freedesktop.org/releases/individual/lib/$(X11_XV).tar.bz2"
+	./getxorg.sh $(X11_XFT)      $(X11_XFT).tar.bz2       "http://xorg.freedesktop.org/releases/individual/lib/$(X11_XFT).tar.bz2"
+	./getxorg.sh $(X11_XCURSOR)  $(X11_XCURSOR).tar.bz2   "http://xorg.freedesktop.org/releases/individual/lib/$(X11_XCURSOR).tar.bz2"
+	./getxorg.sh $(X11_XMU)      $(X11_XMU).tar.bz2       "http://xorg.freedesktop.org/releases/individual/lib/$(X11_XMU).tar.bz2"
+	./getxorg.sh $(X11_XTST)     $(X11_XTST).tar.bz2      "http://xorg.freedesktop.org/releases/individual/lib/$(X11_XTST).tar.bz2"
+	./getxorg.sh $(X11_XFIXES)   $(X11_XFIXES).tar.bz2    "http://xorg.freedesktop.org/releases/individual/lib/$(X11_XFIXES).tar.bz2"
+	./getxorg.sh $(X11_XINERAMA) $(X11_XINERAMA).tar.bz2  "http://xorg.freedesktop.org/releases/individual/lib/$(X11_XINERAMA).tar.bz2"
+	./getxorg.sh $(X11_LBXUTIL)  $(X11_LBXUTIL).tar.bz2   "http://xorg.freedesktop.org/releases/individual/lib/$(X11_LBXUTIL).tar.bz2"
+	./getxorg.sh $(X11_XTRANS)   $(X11_XTRANS).tar.bz2    "http://xorg.freedesktop.org/releases/individual/lib/$(X11_XTRANS).tar.bz2"
 	./getxorg.sh $(X11_XPROTO)           $(X11_XPROTO).tar.bz2           "http://xorg.freedesktop.org/releases/individual/proto/$(X11_XPROTO).tar.bz2"
+	./getxorg.sh $(X11_XEXTPROTO)        $(X11_XEXTPROTO).tar.bz2        "http://xorg.freedesktop.org/releases/individual/proto/$(X11_XEXTPROTO).tar.bz2"
+	./getxorg.sh $(X11_RENDERPROTO)      $(X11_RENDERPROTO).tar.bz2      "http://xorg.freedesktop.org/releases/individual/proto/$(X11_RENDERPROTO).tar.bz2"
+	./getxorg.sh $(X11_RANDRPROTO)       $(X11_RANDRPROTO).tar.bz2       "http://xorg.freedesktop.org/releases/individual/proto/$(X11_RANDRPROTO).tar.bz2"
+	./getxorg.sh $(X11_KBPROTO)          $(X11_KBPROTO).tar.bz2          "http://xorg.freedesktop.org/releases/individual/proto/$(X11_KBPROTO).tar.bz2"
+	./getxorg.sh $(X11_INPUTPROTO)       $(X11_INPUTPROTO).tar.bz2       "http://xorg.freedesktop.org/releases/individual/proto/$(X11_INPUTPROTO).tar.bz2"
+	./getxorg.sh $(X11_DRI2PROTO)        $(X11_DRI2PROTO).tar.bz2        "http://xorg.freedesktop.org/releases/individual/proto/$(X11_DRI2PROTO).tar.bz2"
+	./getxorg.sh $(X11_XF86DGAPROTO)     $(X11_XF86DGAPROTO).tar.bz2     "http://xorg.freedesktop.org/releases/individual/proto/$(X11_XF86DGAPROTO).tar.bz2"
+	./getxorg.sh $(X11_XF86VIDMODEPROTO) $(X11_XF86VIDMODEPROTO).tar.bz2 "http://xorg.freedesktop.org/releases/individual/proto/$(X11_XF86VIDMODEPROTO).tar.bz2"
+	./getxorg.sh $(X11_VIDEOPROTO)       $(X11_VIDEOPROTO).tar.bz2       "http://xorg.freedesktop.org/releases/individual/proto/$(X11_VIDEOPROTO).tar.bz2"
+	./getxorg.sh $(X11_FIXESPROTO)       $(X11_FIXESPROTO).tar.bz2       "http://xorg.freedesktop.org/releases/individual/proto/$(X11_FIXESPROTO).tar.bz2"
+
+	# Xt: X11/Shell.h and X11/StringDefs.h are generated during the build process
+	cd extracted/xorg/$(X11_XT) && \
+		if [ ! -f include/X11/Shell.h ]; then \
+			(./configure && make) \
+		fi
 
 	rm -rf extracted/xorg/X11
-	mkdir extracted/xorg/X11
+	mkdir -p extracted/xorg/X11/Xtrans
+
 	cp extracted/xorg/$(X11_X11)/include/X11/*.h extracted/xorg/X11
 	cp extracted/xorg/$(X11_XPROTO)/*.h          extracted/xorg/X11
+
+	# X11: X11/XlibConf.h.in => X11/XlibConf.h
+	# xproto: Xfuncproto.h.in => X11/Xfuncproto.h
+	# xproto: Xpoll.h.in => X11/Xpoll.h
 	sed $(SED_X11_XLIBCONF)   < extracted/xorg/$(X11_X11)/include/X11/XlibConf.h.in > extracted/xorg/X11/XlibConf.h
 	sed $(SED_X11_XFUNCPROTO) < extracted/xorg/$(X11_XPROTO)/Xfuncproto.h.in        > extracted/xorg/X11/Xfuncproto.h
+	sed $(SED_X11_XPOLL)      < extracted/xorg/$(X11_XPROTO)/Xpoll.h.in             > extracted/xorg/X11/Xpoll.h
 
-	mkdir -p inc/X11
+	cp -R extracted/xorg/$(X11_ICE)/include/X11     extracted/xorg
+	cp -R extracted/xorg/$(X11_SM)/include/X11      extracted/xorg
+	cp -R extracted/xorg/$(X11_XAU)/include/X11     extracted/xorg
+	cp -R extracted/xorg/$(X11_XT)/include/X11      extracted/xorg
+	cp -R extracted/xorg/$(X11_XEXT)/include/X11    extracted/xorg
+	cp -R extracted/xorg/$(X11_XPM)/include/X11     extracted/xorg
+	cp -R extracted/xorg/$(X11_XRENDER)/include/X11 extracted/xorg
+	cp -R extracted/xorg/$(X11_XRANDR)/include/X11  extracted/xorg
+	cp -R extracted/xorg/$(X11_XI)/include/X11      extracted/xorg
+	cp -R extracted/xorg/$(X11_XDMCP)/include/X11   extracted/xorg
+	cp -R extracted/xorg/$(X11_XXF86DGA)/include/X11 extracted/xorg
+	cp -R extracted/xorg/$(X11_XXF86VM)/include/X11  extracted/xorg
+	cp -R extracted/xorg/$(X11_XV)/include/X11      extracted/xorg
+	cp -R extracted/xorg/$(X11_XFT)/include/X11     extracted/xorg
+	cp -R extracted/xorg/$(X11_XCURSOR)/include/X11 extracted/xorg
+	cp -R extracted/xorg/$(X11_XMU)/include/X11     extracted/xorg
+	cp -R extracted/xorg/$(X11_XTST)/include/X11    extracted/xorg
+	cp -R extracted/xorg/$(X11_XFIXES)/include/X11  extracted/xorg
+	cp -R extracted/xorg/$(X11_XINERAMA)/include/X11 extracted/xorg
+	cp -R extracted/xorg/$(X11_LBXUTIL)/include/X11 extracted/xorg
+	cp -R extracted/xorg/$(X11_XTRANS)/Xtrans.h     extracted/xorg/X11/Xtrans
+	cp -R extracted/xorg/$(X11_XTRANS)/Xtransint.h  extracted/xorg/X11/Xtrans
+
+	cp extracted/xorg/$(X11_XEXTPROTO)/*.h extracted/xorg/X11/extensions
+	cp extracted/xorg/$(X11_RENDERPROTO)/*.h extracted/xorg/X11/extensions
+	cp extracted/xorg/$(X11_RANDRPROTO)/*.h extracted/xorg/X11/extensions
+	cp extracted/xorg/$(X11_KBPROTO)/*.h extracted/xorg/X11/extensions
+	cp extracted/xorg/$(X11_INPUTPROTO)/*.h extracted/xorg/X11/extensions
+	cp extracted/xorg/$(X11_DRI2PROTO)/*.h extracted/xorg/X11/extensions
+	cp extracted/xorg/$(X11_XF86DGAPROTO)/*.h extracted/xorg/X11/extensions
+	cp extracted/xorg/$(X11_XF86VIDMODEPROTO)/*.h extracted/xorg/X11/extensions
+	cp extracted/xorg/$(X11_VIDEOPROTO)/*.h extracted/xorg/X11/extensions
+	cp extracted/xorg/$(X11_FIXESPROTO)/*.h extracted/xorg/X11/extensions
+
+	mkdir -p inc/X11/extensions inc/X11/ICE inc/X11/SM inc/X11/Xft inc/X11/Xcursor inc/X11/Xmu inc/X11/Xtrans
 	$(FBFROG) x11.fbfrog -incdir extracted/xorg \
 		\
 		-include X11/Xlib.h \
@@ -716,24 +834,376 @@ x11:
 		-include X11/Xutil.h \
 		-include X11/cursorfont.h \
 		-include X11/Xlibint.h \
+		-include X11/ICE/ICEconn.h \
+		-include X11/ICE/ICE.h \
+		-include X11/ICE/ICElib.h \
+		-include X11/ICE/ICEmsg.h \
+		-include X11/ICE/ICEproto.h \
+		-include X11/ICE/ICEutil.h \
+		-include X11/ap_keysym.h \
+		-include X11/DECkeysym.h \
+		-include X11/HPkeysym.h \
+		-include X11/ImUtil.h \
+		-include X11/Sunkeysym.h \
+		-include X11/Xalloca.h \
+		-include X11/Xarch.h \
+		-include X11/Xdefs.h \
+		-include X11/XF86keysym.h \
+		-include X11/XKBlib.h \
+		-include X11/Xlocale.h \
+		-include X11/Xos.h \
+		-include X11/Xos_r.h \
+		-include X11/Xregion.h \
+		-include X11/Xthreads.h \
+		-include X11/Xw32defs.h \
+		-include X11/XWDFile.h \
+		-include X11/Xwindows.h \
+		-include X11/Xwinsock.h \
+		-include X11/SM/SMlib.h \
+		-include X11/SM/SMproto.h \
+		-include X11/Xauth.h \
+		-include X11/Intrinsic.h \
+		-include X11/Shell.h \
+		-include X11/StringDefs.h \
+		-include X11/Vendor.h \
+		-include X11/Xtos.h \
+		-include X11/extensions/Xcup.h \
+		-include X11/extensions/Xext.h \
+		-include X11/extensions/Xag.h \
+		-include X11/extensions/XShm.h \
+		-include X11/extensions/XLbx.h \
+		-include X11/extensions/Xge.h \
+		-include X11/extensions/extutil.h \
+		-include X11/extensions/Xdbe.h \
+		-include X11/extensions/xtestext1.h \
+		-include X11/extensions/MITMisc.h \
+		-include X11/extensions/multibuf.h \
+		-include X11/extensions/XEVI.h \
+		-include X11/extensions/security.h \
+		-include X11/extensions/sync.h \
+		-include X11/extensions/dpms.h \
+		-include X11/extensions/shape.h \
+		-include X11/extensions/Xrender.h \
+		-include X11/extensions/Xrandr.h \
+		-include X11/extensions/XInput.h \
+		-include X11/extensions/XInput2.h \
+		-include X11/extensions/Xxf86dga.h \
+		-include X11/extensions/xf86vmode.h \
+		-include X11/extensions/Xvlib.h \
+		-include X11/extensions/EVIproto.h \
+		-include X11/extensions/agproto.h \
+		-include X11/extensions/cupproto.h \
+		-include X11/extensions/dbeproto.h \
+		-include X11/extensions/dpmsproto.h \
+		-include X11/extensions/ge.h \
+		-include X11/extensions/geproto.h \
+		-include X11/extensions/lbxproto.h \
+		-include X11/extensions/mitmiscproto.h \
+		-include X11/extensions/multibufproto.h \
+		-include X11/extensions/securproto.h \
+		-include X11/extensions/shapeproto.h \
+		-include X11/extensions/shapestr.h \
+		-include X11/extensions/shmproto.h \
+		-include X11/extensions/shmstr.h \
+		-include X11/extensions/syncproto.h \
+		-include X11/extensions/syncstr.h \
+		-include X11/extensions/xtestconst.h \
+		-include X11/extensions/xtestext1const.h \
+		-include X11/extensions/xtestext1proto.h \
+		-include X11/extensions/xtestproto.h \
+		-include X11/extensions/randrproto.h \
+		-include X11/extensions/XKB.h \
+		-include X11/extensions/XKBgeom.h \
+		-include X11/extensions/XKBproto.h \
+		-include X11/extensions/XKBsrv.h \
+		-include X11/extensions/XKBstr.h \
+		-include X11/extensions/XI.h \
+		-include X11/extensions/XI2.h \
+		-include X11/extensions/XIproto.h \
+		-include X11/extensions/XI2proto.h \
+		-include X11/extensions/dri2proto.h \
+		-include X11/extensions/dri2tokens.h \
+		-include X11/extensions/xf86dga.h \
+		-include X11/extensions/xf86dga1const.h \
+		-include X11/extensions/xf86dga1str.h \
+		-include X11/extensions/xf86dga1proto.h \
+		-include X11/extensions/xf86dgaconst.h \
+		-include X11/extensions/xf86dgaproto.h \
+		-include X11/extensions/xf86dgastr.h \
+		-include X11/extensions/xf86vm.h \
+		-include X11/extensions/xf86vmproto.h \
+		-include X11/extensions/xf86vmstr.h \
+		-include X11/extensions/vldXvMC.h \
+		-include X11/extensions/Xv.h \
+		-include X11/extensions/XvMC.h \
+		-include X11/extensions/XvMCproto.h \
+		-include X11/extensions/Xvproto.h \
+		-include X11/extensions/XTest.h \
+		-include X11/extensions/record.h \
+		-include X11/extensions/xfixesproto.h \
+		-include X11/extensions/xfixeswire.h \
+		-include X11/Xpoll.h \
+		-include X11/Xdmcp.h \
+		-include X11/xpm.h \
+		-include X11/extensions/Xfixes.h \
+		-include X11/extensions/Xinerama.h \
+		-include X11/extensions/panoramiXext.h \
+		-include X11/extensions/lbxbuf.h \
+		-include X11/extensions/lbxbufstr.h \
+		-include X11/extensions/lbxdeltastr.h \
+		-include X11/extensions/lbximage.h \
+		-include X11/extensions/lbxopts.h \
+		-include X11/extensions/lbxzlib.h \
+		-include X11/Xft/Xft.h \
+		-include X11/Xft/XftCompat.h \
+		-include X11/Xcursor/Xcursor.h \
+		-include X11/Xmu/Xmu.h \
+		-include X11/Xmu/CloseHook.h \
+		-include X11/Xmu/CurUtil.h \
+		-include X11/Xmu/CvtCache.h \
+		-include X11/Xmu/Editres.h \
+		-include X11/Xmu/EditresP.h \
+		-include X11/Xmu/ExtAgent.h \
+		-include X11/Xmu/Initer.h \
+		-include X11/Xmu/Lookup.h \
+		-include X11/Xmu/Misc.h \
+		-include X11/Xmu/StdCmap.h \
+		-include X11/Xmu/SysUtil.h \
+		-include X11/Xmu/WhitePoint.h \
+		-include X11/Xmu/WidgetNode.h \
+		-include X11/Xmu/WinUtil.h \
+		-include X11/Xmu/Xct.h \
+		-include X11/Xtrans/Xtrans.h \
+		-include X11/Xtrans/Xtransint.h \
 		\
+		-emit '*/X11/ap_keysym.h'    inc/X11/ap_keysym.bi \
+		-emit '*/X11/Composite.h'    inc/X11/Composite.bi \
+		-emit '*/X11/Constraint.h'   inc/X11/Constraint.bi \
+		-emit '*/X11/Core.h'         inc/X11/Core.bi \
 		-emit '*/X11/cursorfont.h'   inc/X11/cursorfont.bi \
+		-emit '*/X11/DECkeysym.h'    inc/X11/DECkeysym.bi \
+		-emit '*/X11/HPkeysym.h'     inc/X11/HPkeysym.bi \
+		-emit '*/X11/ICE/ICEconn.h'  inc/X11/ICE/ICEconn.bi \
+		-emit '*/X11/ICE/ICE.h'      inc/X11/ICE/ICE.bi \
+		-emit '*/X11/ICE/ICElib.h'   inc/X11/ICE/ICElib.bi \
+		-emit '*/X11/ICE/ICEmsg.h'   inc/X11/ICE/ICEmsg.bi \
+		-emit '*/X11/ICE/ICEproto.h' inc/X11/ICE/ICEproto.bi \
+		-emit '*/X11/ICE/ICEutil.h'  inc/X11/ICE/ICEutil.bi \
+		-emit '*/X11/ImUtil.h'       inc/X11/ImUtil.bi \
+		-emit '*/X11/Intrinsic.h'    inc/X11/Intrinsic.bi \
+		-emit '*/X11/Shell.h'        inc/X11/Shell.bi \
+		-emit '*/X11/StringDefs.h'   inc/X11/StringDefs.bi \
 		-emit '*/X11/keysymdef.h'    inc/X11/keysymdef.bi \
 		-emit '*/X11/keysym.h'       inc/X11/keysym.bi \
+		-emit '*/X11/Object.h'       inc/X11/Object.bi \
+		-emit '*/X11/RectObj.h'      inc/X11/RectObj.bi \
+		-emit '*/X11/SM/SM.h'        inc/X11/SM/SM.bi \
+		-emit '*/X11/SM/SMlib.h'     inc/X11/SM/SMlib.bi \
+		-emit '*/X11/SM/SMproto.h'   inc/X11/SM/SMproto.bi \
+		-emit '*/X11/Sunkeysym.h'    inc/X11/Sunkeysym.bi \
+		-emit '*/X11/Vendor.h'       inc/X11/Vendor.bi \
+		-emit '*/X11/Xalloca.h'      inc/X11/Xalloca.bi \
+		-emit '*/X11/Xarch.h'        inc/X11/Xarch.bi \
 		-emit '*/X11/Xatom.h'        inc/X11/Xatom.bi \
+		-emit '*/X11/Xauth.h'        inc/X11/Xauth.bi \
 		-emit '*/X11/Xcms.h'         inc/X11/Xcms.bi \
+		-emit '*/X11/Xdefs.h'        inc/X11/Xdefs.bi \
+		-emit '*/X11/XF86keysym.h'   inc/X11/XF86keysym.bi \
 		-emit '*/X11/Xfuncproto.h'   inc/X11/Xfuncproto.bi \
 		-emit '*/X11/Xfuncs.h'       inc/X11/Xfuncs.bi \
 		-emit '*/X11/X.h'            inc/X11/X.bi \
+		-emit '*/X11/XKBlib.h'       inc/X11/XKBlib.bi \
 		-emit '*/X11/XlibConf.h'     inc/X11/XlibConf.bi \
 		-emit '*/X11/Xlib.h'         inc/X11/Xlib.bi \
 		-emit '*/X11/Xlibint.h'      inc/X11/Xlibint.bi \
+		-emit '*/X11/Xlocale.h'      inc/X11/Xlocale.bi \
 		-emit '*/X11/Xmd.h'          inc/X11/Xmd.bi \
 		-emit '*/X11/Xosdefs.h'      inc/X11/Xosdefs.bi \
+		-emit '*/X11/Xos.h'          inc/X11/Xos.bi \
+		-emit '*/X11/Xos_r.h'        inc/X11/Xos_r.bi \
 		-emit '*/X11/Xproto.h'       inc/X11/Xproto.bi \
 		-emit '*/X11/Xprotostr.h'    inc/X11/Xprotostr.bi \
+		-emit '*/X11/Xregion.h'      inc/X11/Xregion.bi \
 		-emit '*/X11/Xresource.h'    inc/X11/Xresource.bi \
-		-emit '*/X11/Xutil.h'        inc/X11/Xutil.bi
+		-emit '*/X11/Xthreads.h'     inc/X11/Xthreads.bi \
+		-emit '*/X11/Xtos.h'         inc/X11/Xtos.bi \
+		-emit '*/X11/Xutil.h'        inc/X11/Xutil.bi \
+		-emit '*/X11/Xw32defs.h'     inc/X11/Xw32defs.bi \
+		-emit '*/X11/XWDFile.h'      inc/X11/XWDFile.bi \
+		-emit '*/X11/Xwindows.h'     inc/X11/Xwindows.bi \
+		-emit '*/X11/Xwinsock.h'     inc/X11/Xwinsock.bi \
+		-emit '*/X11/extensions/Xcup.h'      inc/X11/extensions/Xcup.bi      \
+		-emit '*/X11/extensions/Xext.h'      inc/X11/extensions/Xext.bi      \
+		-emit '*/X11/extensions/Xag.h'       inc/X11/extensions/Xag.bi       \
+		-emit '*/X11/extensions/XShm.h'      inc/X11/extensions/XShm.bi      \
+		-emit '*/X11/extensions/XLbx.h'      inc/X11/extensions/XLbx.bi      \
+		-emit '*/X11/extensions/Xge.h'       inc/X11/extensions/Xge.bi       \
+		-emit '*/X11/extensions/extutil.h'   inc/X11/extensions/extutil.bi   \
+		-emit '*/X11/extensions/Xdbe.h'      inc/X11/extensions/Xdbe.bi      \
+		-emit '*/X11/extensions/xtestext1.h' inc/X11/extensions/xtestext1.bi \
+		-emit '*/X11/extensions/MITMisc.h'   inc/X11/extensions/MITMisc.bi   \
+		-emit '*/X11/extensions/multibuf.h'  inc/X11/extensions/multibuf.bi  \
+		-emit '*/X11/extensions/XEVI.h'      inc/X11/extensions/XEVI.bi      \
+		-emit '*/X11/extensions/security.h'  inc/X11/extensions/security.bi  \
+		-emit '*/X11/extensions/sync.h'      inc/X11/extensions/sync.bi      \
+		-emit '*/X11/extensions/dpms.h'      inc/X11/extensions/dpms.bi      \
+		-emit '*/X11/extensions/shape.h'     inc/X11/extensions/shape.bi     \
+		-emit '*/X11/extensions/Xrender.h'   inc/X11/extensions/Xrender.bi   \
+		-emit '*/X11/extensions/Xrandr.h'    inc/X11/extensions/Xrandr.bi    \
+		-emit '*/X11/extensions/XInput.h'    inc/X11/extensions/XInput.bi    \
+		-emit '*/X11/extensions/XInput2.h'   inc/X11/extensions/XInput2.bi   \
+		-emit '*/X11/extensions/Xxf86dga.h'  inc/X11/extensions/Xxf86dga.bi  \
+		-emit '*/X11/extensions/xf86dga1.h'  inc/X11/extensions/xf86dga1.bi  \
+		-emit '*/X11/extensions/xf86vmode.h' inc/X11/extensions/xf86vmode.bi \
+		-emit '*/X11/extensions/Xvlib.h'     inc/X11/extensions/Xvlib.bi     \
+		-emit '*/X11/extensions/ag.h'              inc/X11/extensions/ag.bi \
+		-emit '*/X11/extensions/agproto.h'         inc/X11/extensions/agproto.bi \
+		-emit '*/X11/extensions/cup.h'             inc/X11/extensions/cup.bi \
+		-emit '*/X11/extensions/cupproto.h'        inc/X11/extensions/cupproto.bi \
+		-emit '*/X11/extensions/dbe.h'             inc/X11/extensions/dbe.bi \
+		-emit '*/X11/extensions/dbeproto.h'        inc/X11/extensions/dbeproto.bi \
+		-emit '*/X11/extensions/dpmsconst.h'       inc/X11/extensions/dpmsconst.bi \
+		-emit '*/X11/extensions/dpmsproto.h'       inc/X11/extensions/dpmsproto.bi \
+		-emit '*/X11/extensions/EVI.h'             inc/X11/extensions/EVI.bi \
+		-emit '*/X11/extensions/EVIproto.h'        inc/X11/extensions/EVIproto.bi \
+		-emit '*/X11/extensions/ge.h'              inc/X11/extensions/ge.bi \
+		-emit '*/X11/extensions/geproto.h'         inc/X11/extensions/geproto.bi \
+		-emit '*/X11/extensions/lbx.h'             inc/X11/extensions/lbx.bi \
+		-emit '*/X11/extensions/lbxproto.h'        inc/X11/extensions/lbxproto.bi \
+		-emit '*/X11/extensions/mitmiscconst.h'    inc/X11/extensions/mitmiscconst.bi \
+		-emit '*/X11/extensions/mitmiscproto.h'    inc/X11/extensions/mitmiscproto.bi \
+		-emit '*/X11/extensions/multibufconst.h'   inc/X11/extensions/multibufconst.bi \
+		-emit '*/X11/extensions/multibufproto.h'   inc/X11/extensions/multibufproto.bi \
+		-emit '*/X11/extensions/secur.h'           inc/X11/extensions/secur.bi \
+		-emit '*/X11/extensions/securproto.h'      inc/X11/extensions/securproto.bi \
+		-emit '*/X11/extensions/shapeconst.h'      inc/X11/extensions/shapeconst.bi \
+		-emit '*/X11/extensions/shapeproto.h'      inc/X11/extensions/shapeproto.bi \
+		-emit '*/X11/extensions/shapestr.h'        inc/X11/extensions/shapestr.bi \
+		-emit '*/X11/extensions/shm.h'             inc/X11/extensions/shm.bi \
+		-emit '*/X11/extensions/shmproto.h'        inc/X11/extensions/shmproto.bi \
+		-emit '*/X11/extensions/shmstr.h'          inc/X11/extensions/shmstr.bi \
+		-emit '*/X11/extensions/syncconst.h'       inc/X11/extensions/syncconst.bi \
+		-emit '*/X11/extensions/syncproto.h'       inc/X11/extensions/syncproto.bi \
+		-emit '*/X11/extensions/syncstr.h'         inc/X11/extensions/syncstr.bi \
+		-emit '*/X11/extensions/xtestconst.h'      inc/X11/extensions/xtestconst.bi \
+		-emit '*/X11/extensions/xtestext1const.h'  inc/X11/extensions/xtestext1const.bi \
+		-emit '*/X11/extensions/xtestext1proto.h'  inc/X11/extensions/xtestext1proto.bi \
+		-emit '*/X11/extensions/xtestproto.h'      inc/X11/extensions/xtestproto.bi \
+		-emit '*/X11/extensions/render.h'          inc/X11/extensions/render.bi \
+		-emit '*/X11/extensions/renderproto.h'     inc/X11/extensions/renderproto.bi \
+		-emit '*/X11/extensions/randr.h'           inc/X11/extensions/randr.bi \
+		-emit '*/X11/extensions/randrproto.h'      inc/X11/extensions/randrproto.bi \
+		-emit '*/X11/extensions/XKB.h'             inc/X11/extensions/XKB.bi \
+		-emit '*/X11/extensions/XKBgeom.h'         inc/X11/extensions/XKBgeom.bi \
+		-emit '*/X11/extensions/XKBproto.h'        inc/X11/extensions/XKBproto.bi \
+		-emit '*/X11/extensions/XKBsrv.h'          inc/X11/extensions/XKBsrv.bi \
+		-emit '*/X11/extensions/XKBstr.h'          inc/X11/extensions/XKBstr.bi \
+		-emit '*/X11/extensions/XI.h'              inc/X11/extensions/XI.bi \
+		-emit '*/X11/extensions/XI2.h'             inc/X11/extensions/XI2.bi \
+		-emit '*/X11/extensions/XIproto.h'         inc/X11/extensions/XIproto.bi \
+		-emit '*/X11/extensions/XI2proto.h'        inc/X11/extensions/XI2proto.bi \
+		-emit '*/X11/extensions/dri2proto.h'       inc/X11/extensions/dri2proto.bi \
+		-emit '*/X11/extensions/dri2tokens.h'      inc/X11/extensions/dri2tokens.bi \
+		-emit '*/X11/extensions/xf86dga.h'         inc/X11/extensions/xf86dga.bi \
+		-emit '*/X11/extensions/xf86dga1const.h'   inc/X11/extensions/xf86dga1const.bi \
+		-emit '*/X11/extensions/xf86dga1str.h'     inc/X11/extensions/xf86dga1str.bi \
+		-emit '*/X11/extensions/xf86dga1proto.h'   inc/X11/extensions/xf86dga1proto.bi \
+		-emit '*/X11/extensions/xf86dgaconst.h'    inc/X11/extensions/xf86dgaconst.bi \
+		-emit '*/X11/extensions/xf86dgaproto.h'    inc/X11/extensions/xf86dgaproto.bi \
+		-emit '*/X11/extensions/xf86dgastr.h'      inc/X11/extensions/xf86dgastr.bi \
+		-emit '*/X11/extensions/xf86vm.h'          inc/X11/extensions/xf86vm.bi \
+		-emit '*/X11/extensions/xf86vmproto.h'     inc/X11/extensions/xf86vmproto.bi \
+		-emit '*/X11/extensions/xf86vmstr.h'       inc/X11/extensions/xf86vmstr.bi \
+		-emit '*/X11/extensions/vldXvMC.h'         inc/X11/extensions/vldXvMC.bi \
+		-emit '*/X11/extensions/Xv.h'              inc/X11/extensions/Xv.bi \
+		-emit '*/X11/extensions/XvMC.h'            inc/X11/extensions/XvMC.bi \
+		-emit '*/X11/extensions/XvMCproto.h'       inc/X11/extensions/XvMCproto.bi \
+		-emit '*/X11/extensions/Xvproto.h'         inc/X11/extensions/Xvproto.bi \
+		-emit '*/X11/extensions/XTest.h'           inc/X11/extensions/XTest.bi \
+		-emit '*/X11/extensions/record.h'          inc/X11/extensions/record.bi \
+		-emit '*/X11/extensions/Xfixes.h'          inc/X11/extensions/Xfixes.bi \
+		-emit '*/X11/extensions/Xinerama.h'        inc/X11/extensions/Xinerama.bi \
+		-emit '*/X11/extensions/panoramiXext.h'    inc/X11/extensions/panoramiXext.bi \
+		-emit '*/X11/extensions/lbxbuf.h'          inc/X11/extensions/lbxbuf.bi \
+		-emit '*/X11/extensions/lbxbufstr.h'       inc/X11/extensions/lbxbufstr.bi \
+		-emit '*/X11/extensions/lbxdeltastr.h'     inc/X11/extensions/lbxdeltastr.bi \
+		-emit '*/X11/extensions/lbximage.h'        inc/X11/extensions/lbximage.bi \
+		-emit '*/X11/extensions/lbxopts.h'         inc/X11/extensions/lbxopts.bi \
+		-emit '*/X11/extensions/lbxzlib.h'         inc/X11/extensions/lbxzlib.bi \
+		-emit '*/X11/extensions/xfixesproto.h'     inc/X11/extensions/xfixesproto.bi \
+		-emit '*/X11/extensions/xfixeswire.h'      inc/X11/extensions/xfixeswire.bi \
+		-emit '*/X11/Xft/Xft.h'              inc/X11/Xft/Xft.bi \
+		-emit '*/X11/Xft/XftCompat.h'        inc/X11/Xft/XftCompat.bi \
+		-emit '*/X11/Xcursor/Xcursor.h'      inc/X11/Xcursor/Xcursor.bi \
+		-emit '*/X11/Xmu/Atoms.h'            inc/X11/Xmu/Atoms.bi \
+		-emit '*/X11/Xmu/CharSet.h'          inc/X11/Xmu/CharSet.bi \
+		-emit '*/X11/Xmu/CloseHook.h'        inc/X11/Xmu/CloseHook.bi \
+		-emit '*/X11/Xmu/Converters.h'       inc/X11/Xmu/Converters.bi \
+		-emit '*/X11/Xmu/CurUtil.h'          inc/X11/Xmu/CurUtil.bi \
+		-emit '*/X11/Xmu/CvtCache.h'         inc/X11/Xmu/CvtCache.bi \
+		-emit '*/X11/Xmu/DisplayQue.h'       inc/X11/Xmu/DisplayQue.bi \
+		-emit '*/X11/Xmu/Drawing.h'          inc/X11/Xmu/Drawing.bi \
+		-emit '*/X11/Xmu/Editres.h'          inc/X11/Xmu/Editres.bi \
+		-emit '*/X11/Xmu/EditresP.h'         inc/X11/Xmu/EditresP.bi \
+		-emit '*/X11/Xmu/Error.h'            inc/X11/Xmu/Error.bi \
+		-emit '*/X11/Xmu/ExtAgent.h'         inc/X11/Xmu/ExtAgent.bi \
+		-emit '*/X11/Xmu/Initer.h'           inc/X11/Xmu/Initer.bi \
+		-emit '*/X11/Xmu/Lookup.h'           inc/X11/Xmu/Lookup.bi \
+		-emit '*/X11/Xmu/Misc.h'             inc/X11/Xmu/Misc.bi \
+		-emit '*/X11/Xmu/StdCmap.h'          inc/X11/Xmu/StdCmap.bi \
+		-emit '*/X11/Xmu/StdSel.h'           inc/X11/Xmu/StdSel.bi \
+		-emit '*/X11/Xmu/SysUtil.h'          inc/X11/Xmu/SysUtil.bi \
+		-emit '*/X11/Xmu/WhitePoint.h'       inc/X11/Xmu/WhitePoint.bi \
+		-emit '*/X11/Xmu/WidgetNode.h'       inc/X11/Xmu/WidgetNode.bi \
+		-emit '*/X11/Xmu/WinUtil.h'          inc/X11/Xmu/WinUtil.bi \
+		-emit '*/X11/Xmu/Xct.h'              inc/X11/Xmu/Xct.bi \
+		-emit '*/X11/Xmu/Xmu.h'              inc/X11/Xmu/Xmu.bi \
+		-emit '*/X11/Xtrans/Xtrans.h'        inc/X11/Xtrans/Xtrans.bi \
+		-emit '*/X11/Xtrans/Xtransint.h'     inc/X11/Xtrans/Xtransint.bi \
+		-emit '*/X11/Xpoll.h'  inc/X11/Xpoll.bi \
+		-emit '*/X11/Xdmcp.h'  inc/X11/Xdmcp.bi \
+		-emit '*/X11/xpm.h'    inc/X11/xpm.bi
+
+	$(FBFROG) x11.fbfrog -incdir extracted/xorg \
+		\
+		-include X11/IntrinsicI.h \
+		-include X11/ShellI.h \
+		-include X11/ShellP.h \
+		-include X11/VarargsI.h \
+		-include X11/VendorP.h \
+		-include X11/CreateI.h \
+		-include X11/ResConfigP.h \
+		-include X11/SelectionI.h \
+		\
+		-emit '*/X11/CallbackI.h'    inc/X11/CallbackI.bi \
+		-emit '*/X11/CompositeP.h'   inc/X11/CompositeP.bi \
+		-emit '*/X11/ConstrainP.h'   inc/X11/ConstrainP.bi \
+		-emit '*/X11/ConvertI.h'     inc/X11/ConvertI.bi \
+		-emit '*/X11/CoreP.h'        inc/X11/CoreP.bi \
+		-emit '*/X11/CreateI.h'      inc/X11/CreateI.bi \
+		-emit '*/X11/EventI.h'       inc/X11/EventI.bi \
+		-emit '*/X11/HookObjI.h'     inc/X11/HookObjI.bi \
+		-emit '*/X11/InitialI.h'     inc/X11/InitialI.bi \
+		-emit '*/X11/IntrinsicI.h'   inc/X11/IntrinsicI.bi \
+		-emit '*/X11/IntrinsicP.h'   inc/X11/IntrinsicP.bi \
+		-emit '*/X11/ObjectP.h'      inc/X11/ObjectP.bi \
+		-emit '*/X11/PassivGraI.h'   inc/X11/PassivGraI.bi \
+		-emit '*/X11/RectObjP.h'     inc/X11/RectObjP.bi \
+		-emit '*/X11/ResConfigP.h'   inc/X11/ResConfigP.bi \
+		-emit '*/X11/ResourceI.h'    inc/X11/ResourceI.bi \
+		-emit '*/X11/SelectionI.h'   inc/X11/SelectionI.bi \
+		-emit '*/X11/ShellI.h'       inc/X11/ShellI.bi \
+		-emit '*/X11/ShellP.h'       inc/X11/ShellP.bi \
+		-emit '*/X11/ThreadsI.h'     inc/X11/ThreadsI.bi \
+		-emit '*/X11/TranslateI.h'   inc/X11/TranslateI.bi \
+		-emit '*/X11/VarargsI.h'     inc/X11/VarargsI.bi \
+		-emit '*/X11/VendorP.h'      inc/X11/VendorP.bi \
+
+xcb:
+	./downloadextract.sh xcb-proto-1.8          xcb-proto-1.8.tar.bz2          "http://xcb.freedesktop.org/dist/xcb-proto-1.8.tar.bz2"
+	./downloadextract.sh libpthread-stubs-0.3 libpthread-stubs-0.3.tar.bz2 "http://xcb.freedesktop.org/dist/libpthread-stubs-0.3.tar.bz2"
+	./downloadextract.sh libxcb-1.9           libxcb-1.9.tar.bz2           "http://xcb.freedesktop.org/dist/libxcb-1.9.tar.bz2"
+
 
 ZIP_TITLE := libzip-0.11.2
 zip:

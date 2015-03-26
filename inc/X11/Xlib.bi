@@ -17,8 +17,6 @@ const XlibSpecificationRelease = 6
 declare function _Xmblen(byval str as zstring ptr, byval len as long) as long
 const X_HAVE_UTF8_STRING = 1
 type XPointer as zstring ptr
-const True = 1
-const False = 0
 const QueuedAlready = 0
 const QueuedAfterReading = 1
 const QueuedAfterFlush = 2
