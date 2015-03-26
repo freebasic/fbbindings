@@ -700,7 +700,10 @@ winapi: winapi-extract
 
 # X.org X11 headers
 #
-# TODO: X11/Xlib-xcb.h
+# TODO:
+#    X11/Xlib-xcb.h (needs xcb headers first)
+#    X11/Xpoll.h (lots of conflicts with win/winsock2.bi and crt/sys/select.bi)
+#    X11/Xthreads.h (needs pthread headers first)
 #
 # xtrans: it installs .c files into include/X11/Xtrans, and the README says
 # there is no shared library version of it. This can't easily be translated to
@@ -1046,7 +1049,6 @@ x11:
 		-emit '*/X11/Xprotostr.h'    inc/X11/Xprotostr.bi \
 		-emit '*/X11/Xregion.h'      inc/X11/Xregion.bi \
 		-emit '*/X11/Xresource.h'    inc/X11/Xresource.bi \
-		-emit '*/X11/Xthreads.h'     inc/X11/Xthreads.bi \
 		-emit '*/X11/Xtos.h'         inc/X11/Xtos.bi \
 		-emit '*/X11/Xutil.h'        inc/X11/Xutil.bi \
 		-emit '*/X11/Xw32defs.h'     inc/X11/Xw32defs.bi \
@@ -1183,7 +1185,6 @@ x11:
 		-emit '*/X11/Xmu/Xmu.h'              inc/X11/Xmu/Xmu.bi \
 		-emit '*/X11/Xtrans/Xtrans.h'        inc/X11/Xtrans/Xtrans.bi \
 		-emit '*/X11/Xtrans/Xtransint.h'     inc/X11/Xtrans/Xtransint.bi \
-		-emit '*/X11/Xpoll.h'  inc/X11/Xpoll.bi \
 		-emit '*/X11/Xdmcp.h'  inc/X11/Xdmcp.bi \
 		-emit '*/X11/xpm.h'    inc/X11/xpm.bi
 
