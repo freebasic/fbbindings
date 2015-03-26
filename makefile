@@ -761,7 +761,7 @@ x11:
 	cp -R extracted/xorg/$(X11_XDMCP)/include/X11   extracted/xorg
 	cp -R extracted/xorg/$(X11_XXF86DGA)/include/X11 extracted/xorg
 	cp -R extracted/xorg/$(X11_XXF86VM)/include/X11  extracted/xorg
-	#$(X11_XV)
+	cp -R extracted/xorg/$(X11_XV)/include/X11      extracted/xorg
 	#$(X11_XTRANS)
 	#$(X11_UTILMACROS)
 	#$(X11_XPROTO)
@@ -842,6 +842,7 @@ x11:
 		-include X11/extensions/XInput2.h \
 		-include X11/extensions/Xxf86dga.h \
 		-include X11/extensions/xf86vmode.h \
+		-include X11/extensions/Xvlib.h \
 		-include X11/Xdmcp.h \
 		-include X11/xpm.h \
 		\
@@ -922,6 +923,7 @@ x11:
 		-emit '*/X11/extensions/Xxf86dga.h'  inc/X11/extensions/Xxf86dga.bi  \
 		-emit '*/X11/extensions/xf86dga1.h'  inc/X11/extensions/xf86dga1.bi  \
 		-emit '*/X11/extensions/xf86vmode.h' inc/X11/extensions/xf86vmode.bi \
+		-emit '*/X11/extensions/Xvlib.h'     inc/X11/extensions/Xvlib.bi     \
 		-emit '*/X11/Xdmcp.h' inc/X11/Xdmcp.bi \
 		-emit '*/X11/xpm.h'   inc/X11/xpm.bi
 
