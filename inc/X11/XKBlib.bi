@@ -209,7 +209,7 @@ type _XkbActionMessage
 	key_event_follows as long
 	group as long
 	mods as ulong
-	message as zstring * XkbActionMessageLength + 1
+	message as zstring * 6 + 1
 end type
 
 type XkbActionMessageEvent as _XkbActionMessage

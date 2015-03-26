@@ -126,7 +126,6 @@ type _XComposeStatus
 end type
 
 type XComposeStatus as _XComposeStatus
-#define IsKeypadKey(keysym) ((cast(KeySym, (keysym)) >= XK_KP_Space) andalso (cast(KeySym, (keysym)) <= XK_KP_Equal))
 #define IsPrivateKeypadKey(keysym) ((cast(KeySym, (keysym)) >= &h11000000) andalso (cast(KeySym, (keysym)) <= &h1100FFFF))
 #define IsCursorKey(keysym) ((cast(KeySym, (keysym)) >= XK_Home) andalso (cast(KeySym, (keysym)) < XK_Select))
 #define IsPFKey(keysym) ((cast(KeySym, (keysym)) >= XK_KP_F1) andalso (cast(KeySym, (keysym)) <= XK_KP_F4))

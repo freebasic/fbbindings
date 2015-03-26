@@ -774,7 +774,7 @@ x11:
 	cp extracted/xorg/$(X11_XEXTPROTO)/*.h extracted/xorg/X11/extensions
 	cp extracted/xorg/$(X11_RENDERPROTO)/*.h extracted/xorg/X11/extensions
 	cp extracted/xorg/$(X11_RANDRPROTO)/*.h extracted/xorg/X11/extensions
-	#$(X11_KBPROTO)
+	cp extracted/xorg/$(X11_KBPROTO)/*.h extracted/xorg/X11/extensions
 	#$(X11_INPUTPROTO)
 	#$(X11_DRI2PROTO)
 	#$(X11_XF86DGAPROTO)
@@ -868,6 +868,11 @@ x11:
 		-include X11/extensions/xtestext1proto.h \
 		-include X11/extensions/xtestproto.h \
 		-include X11/extensions/randrproto.h \
+		-include X11/extensions/XKB.h \
+		-include X11/extensions/XKBgeom.h \
+		-include X11/extensions/XKBproto.h \
+		-include X11/extensions/XKBsrv.h \
+		-include X11/extensions/XKBstr.h \
 		-include X11/Xdmcp.h \
 		-include X11/xpm.h \
 		-include X11/Xtrans/Xtrans.h \
@@ -987,6 +992,11 @@ x11:
 		-emit '*/X11/extensions/renderproto.h'     inc/X11/extensions/renderproto.bi \
 		-emit '*/X11/extensions/randr.h'           inc/X11/extensions/randr.bi \
 		-emit '*/X11/extensions/randrproto.h'      inc/X11/extensions/randrproto.bi \
+		-emit '*/X11/extensions/XKB.h'             inc/X11/extensions/XKB.bi \
+		-emit '*/X11/extensions/XKBgeom.h'         inc/X11/extensions/XKBgeom.bi \
+		-emit '*/X11/extensions/XKBproto.h'        inc/X11/extensions/XKBproto.bi \
+		-emit '*/X11/extensions/XKBsrv.h'          inc/X11/extensions/XKBsrv.bi \
+		-emit '*/X11/extensions/XKBstr.h'          inc/X11/extensions/XKBstr.bi \
 		-emit '*/X11/Xtrans/Xtrans.h'        inc/X11/Xtrans/Xtrans.bi \
 		-emit '*/X11/Xdmcp.h' inc/X11/Xdmcp.bi \
 		-emit '*/X11/xpm.h'   inc/X11/xpm.bi
