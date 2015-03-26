@@ -1,1 +1,7 @@
 -replacements sdl1.replacements
+
+# These also exists as macros
+-renameproc SDLNet_Write16 SDLNet_Write16_
+-renameproc SDLNet_Write32 SDLNet_Write32_
+-renameproc SDLNet_Read16 SDLNet_Read16_
+-renameproc SDLNet_Read32 SDLNet_Read32_
