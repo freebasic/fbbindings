@@ -7,6 +7,9 @@
 #include once "X11/Xosdefs.bi"
 #include once "crt/stddef.bi"
 
+'' The following symbols have been renamed:
+''     constant XLookupKeySym => XLookupKeySym_
+
 extern "C"
 
 #define _X11_XLIB_H_
@@ -14,8 +17,6 @@ const XlibSpecificationRelease = 6
 declare function _Xmblen(byval str as zstring ptr, byval len as long) as long
 const X_HAVE_UTF8_STRING = 1
 type XPointer as zstring ptr
-#define Bool long
-#define Status long
 const True = 1
 const False = 0
 const QueuedAlready = 0
@@ -342,6 +343,8 @@ type XModifierKeymap
 end type
 
 type Display as _XDisplay
+type _XPrivate as _XPrivate_
+type _XrmHashBucketRec as _XrmHashBucketRec_
 
 type _XPrivDisplay_0
 	ext_data as XExtData ptr
@@ -1036,7 +1039,7 @@ const XIMStatusNone = cast(clong, &h0800)
 const XBufferOverflow = -1
 const XLookupNone = 1
 const XLookupChars = 2
-const XLookupKeySym = 3
+const XLookupKeySym_ = 3
 const XLookupBoth = 4
 type XVaNestedList as any ptr
 

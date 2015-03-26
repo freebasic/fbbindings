@@ -3,6 +3,13 @@
 #include once "X11/Xmd.bi"
 #include once "X11/Xprotostr.bi"
 
+'' The following symbols have been renamed:
+''     struct xTimecoord => xTimecoord_
+''     struct xFontProp => xFontProp_
+''     typedef xEvent => xEvent_
+''     struct xGenericEvent => xGenericEvent_
+''     struct xKeymapEvent => xKeymapEvent_
+
 #define XPROTO_H
 const sz_xSegment = 8
 const sz_xPoint = 4
@@ -164,7 +171,7 @@ type KeyButMask as CARD16
 
 type xConnClientPrefix
 	byteOrder as CARD8
-	pad as BYTE
+	pad as UBYTE
 	majorVersion as CARD16
 	minorVersion as CARD16
 	nbytesAuthProto as CARD16
@@ -174,7 +181,7 @@ end type
 
 type xConnSetupPrefix
 	success as CARD8
-	lengthReason as BYTE
+	lengthReason as UBYTE
 	majorVersion as CARD16
 	minorVersion as CARD16
 	length as CARD16
@@ -243,7 +250,7 @@ type xWindowRoot
 	nDepths as CARD8
 end type
 
-type xTimecoord
+type xTimecoord_
 	time as CARD32
 	x as INT16
 	y as INT16
@@ -251,7 +258,7 @@ end type
 
 type xHostEntry
 	family as CARD8
-	pad as BYTE
+	pad as UBYTE
 	length as CARD16
 end type
 
@@ -264,7 +271,7 @@ type xCharInfo
 	attributes as CARD16
 end type
 
-type xFontProp
+type xFontProp_
 	name as CARD32
 	value as CARD32
 end type
@@ -293,8 +300,8 @@ end type
 type KEYCODE as CARD8
 
 type xGenericReply
-	as BYTE type
-	data1 as BYTE
+	as UBYTE type
+	data1 as UBYTE
 	sequenceNumber as CARD16
 	length as CARD32
 	data00 as CARD32
@@ -306,7 +313,7 @@ type xGenericReply
 end type
 
 type xGetWindowAttributesReply
-	as BYTE type
+	as UBYTE type
 	backingStore as CARD8
 	sequenceNumber as CARD16
 	length as CARD32
@@ -328,7 +335,7 @@ type xGetWindowAttributesReply
 end type
 
 type xGetGeometryReply
-	as BYTE type
+	as UBYTE type
 	depth as CARD8
 	sequenceNumber as CARD16
 	length as CARD32
@@ -344,8 +351,8 @@ type xGetGeometryReply
 end type
 
 type xQueryTreeReply
-	as BYTE type
-	pad1 as BYTE
+	as UBYTE type
+	pad1 as UBYTE
 	sequenceNumber as CARD16
 	length as CARD32
 	root as CARD32
@@ -358,8 +365,8 @@ type xQueryTreeReply
 end type
 
 type xInternAtomReply
-	as BYTE type
-	pad1 as BYTE
+	as UBYTE type
+	pad1 as UBYTE
 	sequenceNumber as CARD16
 	length as CARD32
 	atom as CARD32
@@ -371,8 +378,8 @@ type xInternAtomReply
 end type
 
 type xGetAtomNameReply
-	as BYTE type
-	pad1 as BYTE
+	as UBYTE type
+	pad1 as UBYTE
 	sequenceNumber as CARD16
 	length as CARD32
 	nameLength as CARD16
@@ -385,7 +392,7 @@ type xGetAtomNameReply
 end type
 
 type xGetPropertyReply
-	as BYTE type
+	as UBYTE type
 	format as CARD8
 	sequenceNumber as CARD16
 	length as CARD32
@@ -398,8 +405,8 @@ type xGetPropertyReply
 end type
 
 type xListPropertiesReply
-	as BYTE type
-	pad1 as BYTE
+	as UBYTE type
+	pad1 as UBYTE
 	sequenceNumber as CARD16
 	length as CARD32
 	nProperties as CARD16
@@ -412,8 +419,8 @@ type xListPropertiesReply
 end type
 
 type xGetSelectionOwnerReply
-	as BYTE type
-	pad1 as BYTE
+	as UBYTE type
+	pad1 as UBYTE
 	sequenceNumber as CARD16
 	length as CARD32
 	owner as CARD32
@@ -425,8 +432,8 @@ type xGetSelectionOwnerReply
 end type
 
 type xGrabPointerReply
-	as BYTE type
-	status as BYTE
+	as UBYTE type
+	status as UBYTE
 	sequenceNumber as CARD16
 	length as CARD32
 	pad1 as CARD32
@@ -440,7 +447,7 @@ end type
 type xGrabKeyboardReply as xGrabPointerReply
 
 type xQueryPointerReply
-	as BYTE type
+	as UBYTE type
 	sameScreen as BOOL
 	sequenceNumber as CARD16
 	length as CARD32
@@ -456,8 +463,8 @@ type xQueryPointerReply
 end type
 
 type xGetMotionEventsReply
-	as BYTE type
-	pad1 as BYTE
+	as UBYTE type
+	pad1 as UBYTE
 	sequenceNumber as CARD16
 	length as CARD32
 	nEvents as CARD32
@@ -469,7 +476,7 @@ type xGetMotionEventsReply
 end type
 
 type xTranslateCoordsReply
-	as BYTE type
+	as UBYTE type
 	sameScreen as BOOL
 	sequenceNumber as CARD16
 	length as CARD32
@@ -483,7 +490,7 @@ type xTranslateCoordsReply
 end type
 
 type xGetInputFocusReply
-	as BYTE type
+	as UBYTE type
 	revertTo as CARD8
 	sequenceNumber as CARD16
 	length as CARD32
@@ -496,16 +503,16 @@ type xGetInputFocusReply
 end type
 
 type xQueryKeymapReply
-	as BYTE type
-	pad1 as BYTE
+	as UBYTE type
+	pad1 as UBYTE
 	sequenceNumber as CARD16
 	length as CARD32
-	map(0 to 31) as BYTE
+	map(0 to 31) as UBYTE
 end type
 
 type _xQueryFontReply
-	as BYTE type
-	pad1 as BYTE
+	as UBYTE type
+	pad1 as UBYTE
 	sequenceNumber as CARD16
 	length as CARD32
 	minBounds as xCharInfo
@@ -528,7 +535,7 @@ end type
 type xQueryFontReply as _xQueryFontReply
 
 type xQueryTextExtentsReply
-	as BYTE type
+	as UBYTE type
 	drawDirection as CARD8
 	sequenceNumber as CARD16
 	length as CARD32
@@ -543,8 +550,8 @@ type xQueryTextExtentsReply
 end type
 
 type xListFontsReply
-	as BYTE type
-	pad1 as BYTE
+	as UBYTE type
+	pad1 as UBYTE
 	sequenceNumber as CARD16
 	length as CARD32
 	nFonts as CARD16
@@ -557,7 +564,7 @@ type xListFontsReply
 end type
 
 type xListFontsWithInfoReply
-	as BYTE type
+	as UBYTE type
 	nameLength as CARD8
 	sequenceNumber as CARD16
 	length as CARD32
@@ -579,8 +586,8 @@ type xListFontsWithInfoReply
 end type
 
 type xGetFontPathReply
-	as BYTE type
-	pad1 as BYTE
+	as UBYTE type
+	pad1 as UBYTE
 	sequenceNumber as CARD16
 	length as CARD32
 	nPaths as CARD16
@@ -593,7 +600,7 @@ type xGetFontPathReply
 end type
 
 type xGetImageReply
-	as BYTE type
+	as UBYTE type
 	depth as CARD8
 	sequenceNumber as CARD16
 	length as CARD32
@@ -606,8 +613,8 @@ type xGetImageReply
 end type
 
 type xListInstalledColormapsReply
-	as BYTE type
-	pad1 as BYTE
+	as UBYTE type
+	pad1 as UBYTE
 	sequenceNumber as CARD16
 	length as CARD32
 	nColormaps as CARD16
@@ -620,8 +627,8 @@ type xListInstalledColormapsReply
 end type
 
 type xAllocColorReply
-	as BYTE type
-	pad1 as BYTE
+	as UBYTE type
+	pad1 as UBYTE
 	sequenceNumber as CARD16
 	length as CARD32
 	red as CARD16
@@ -635,8 +642,8 @@ type xAllocColorReply
 end type
 
 type xAllocNamedColorReply
-	as BYTE type
-	pad1 as BYTE
+	as UBYTE type
+	pad1 as UBYTE
 	sequenceNumber as CARD16
 	length as CARD32
 	pixel as CARD32
@@ -651,8 +658,8 @@ type xAllocNamedColorReply
 end type
 
 type xAllocColorCellsReply
-	as BYTE type
-	pad1 as BYTE
+	as UBYTE type
+	pad1 as UBYTE
 	sequenceNumber as CARD16
 	length as CARD32
 	nPixels as CARD16
@@ -665,8 +672,8 @@ type xAllocColorCellsReply
 end type
 
 type xAllocColorPlanesReply
-	as BYTE type
-	pad1 as BYTE
+	as UBYTE type
+	pad1 as UBYTE
 	sequenceNumber as CARD16
 	length as CARD32
 	nPixels as CARD16
@@ -679,8 +686,8 @@ type xAllocColorPlanesReply
 end type
 
 type xQueryColorsReply
-	as BYTE type
-	pad1 as BYTE
+	as UBYTE type
+	pad1 as UBYTE
 	sequenceNumber as CARD16
 	length as CARD32
 	nColors as CARD16
@@ -693,8 +700,8 @@ type xQueryColorsReply
 end type
 
 type xLookupColorReply
-	as BYTE type
-	pad1 as BYTE
+	as UBYTE type
+	pad1 as UBYTE
 	sequenceNumber as CARD16
 	length as CARD32
 	exactRed as CARD16
@@ -709,8 +716,8 @@ type xLookupColorReply
 end type
 
 type xQueryBestSizeReply
-	as BYTE type
-	pad1 as BYTE
+	as UBYTE type
+	pad1 as UBYTE
 	sequenceNumber as CARD16
 	length as CARD32
 	width as CARD16
@@ -723,8 +730,8 @@ type xQueryBestSizeReply
 end type
 
 type xQueryExtensionReply
-	as BYTE type
-	pad1 as BYTE
+	as UBYTE type
+	pad1 as UBYTE
 	sequenceNumber as CARD16
 	length as CARD32
 	present as BOOL
@@ -739,7 +746,7 @@ type xQueryExtensionReply
 end type
 
 type xListExtensionsReply
-	as BYTE type
+	as UBYTE type
 	nExtensions as CARD8
 	sequenceNumber as CARD16
 	length as CARD32
@@ -752,7 +759,7 @@ type xListExtensionsReply
 end type
 
 type xSetMappingReply
-	as BYTE type
+	as UBYTE type
 	success as CARD8
 	sequenceNumber as CARD16
 	length as CARD32
@@ -768,7 +775,7 @@ type xSetPointerMappingReply as xSetMappingReply
 type xSetModifierMappingReply as xSetMappingReply
 
 type xGetPointerMappingReply
-	as BYTE type
+	as UBYTE type
 	nElts as CARD8
 	sequenceNumber as CARD16
 	length as CARD32
@@ -781,7 +788,7 @@ type xGetPointerMappingReply
 end type
 
 type xGetKeyboardMappingReply
-	as BYTE type
+	as UBYTE type
 	keySymsPerKeyCode as CARD8
 	sequenceNumber as CARD16
 	length as CARD32
@@ -794,7 +801,7 @@ type xGetKeyboardMappingReply
 end type
 
 type xGetModifierMappingReply
-	as BYTE type
+	as UBYTE type
 	numKeyPerModifier as CARD8
 	sequenceNumber as CARD16
 	length as CARD32
@@ -807,7 +814,7 @@ type xGetModifierMappingReply
 end type
 
 type xGetKeyboardControlReply
-	as BYTE type
+	as UBYTE type
 	globalAutoRepeat as BOOL
 	sequenceNumber as CARD16
 	length as CARD32
@@ -817,12 +824,12 @@ type xGetKeyboardControlReply
 	bellPitch as CARD16
 	bellDuration as CARD16
 	pad as CARD16
-	map(0 to 31) as BYTE
+	map(0 to 31) as UBYTE
 end type
 
 type xGetPointerControlReply
-	as BYTE type
-	pad1 as BYTE
+	as UBYTE type
+	pad1 as UBYTE
 	sequenceNumber as CARD16
 	length as CARD32
 	accelNumerator as CARD16
@@ -836,8 +843,8 @@ type xGetPointerControlReply
 end type
 
 type xGetScreenSaverReply
-	as BYTE type
-	pad1 as BYTE
+	as UBYTE type
+	pad1 as UBYTE
 	sequenceNumber as CARD16
 	length as CARD32
 	timeout as CARD16
@@ -852,7 +859,7 @@ type xGetScreenSaverReply
 end type
 
 type xListHostsReply
-	as BYTE type
+	as UBYTE type
 	enabled as BOOL
 	sequenceNumber as CARD16
 	length as CARD32
@@ -866,13 +873,13 @@ type xListHostsReply
 end type
 
 type xError
-	as BYTE type
-	errorCode as BYTE
+	as UBYTE type
+	errorCode as UBYTE
 	sequenceNumber as CARD16
 	resourceID as CARD32
 	minorCode as CARD16
 	majorCode as CARD8
-	pad1 as BYTE
+	pad1 as UBYTE
 	pad3 as CARD32
 	pad4 as CARD32
 	pad5 as CARD32
@@ -881,8 +888,8 @@ type xError
 end type
 
 type _xEvent_u_u
-	as BYTE type
-	detail as BYTE
+	as UBYTE type
+	detail as UBYTE
 	sequenceNumber as CARD16
 end type
 
@@ -898,7 +905,7 @@ type _xEvent_u_keyButtonPointer
 	eventY as INT16
 	state as KeyButMask
 	sameScreen as BOOL
-	pad1 as BYTE
+	pad1 as UBYTE
 end type
 
 type _xEvent_u_enterLeave
@@ -912,17 +919,17 @@ type _xEvent_u_enterLeave
 	eventX as INT16
 	eventY as INT16
 	state as KeyButMask
-	mode as BYTE
-	flags as BYTE
+	mode as UBYTE
+	flags as UBYTE
 end type
 
 type _xEvent_u_focus
 	pad00 as CARD32
 	window as CARD32
-	mode as BYTE
-	pad1 as BYTE
-	pad2 as BYTE
-	pad3 as BYTE
+	mode as UBYTE
+	pad1 as UBYTE
+	pad2 as UBYTE
+	pad3 as UBYTE
 end type
 
 type _xEvent_u_expose
@@ -945,27 +952,27 @@ type _xEvent_u_graphicsExposure
 	height as CARD16
 	minorEvent as CARD16
 	count as CARD16
-	majorEvent as BYTE
-	pad1 as BYTE
-	pad2 as BYTE
-	pad3 as BYTE
+	majorEvent as UBYTE
+	pad1 as UBYTE
+	pad2 as UBYTE
+	pad3 as UBYTE
 end type
 
 type _xEvent_u_noExposure
 	pad00 as CARD32
 	drawable as CARD32
 	minorEvent as CARD16
-	majorEvent as BYTE
-	bpad as BYTE
+	majorEvent as UBYTE
+	bpad as UBYTE
 end type
 
 type _xEvent_u_visibility
 	pad00 as CARD32
 	window as CARD32
 	state as CARD8
-	pad1 as BYTE
-	pad2 as BYTE
-	pad3 as BYTE
+	pad1 as UBYTE
+	pad2 as UBYTE
+	pad3 as UBYTE
 end type
 
 type _xEvent_u_createNotify
@@ -978,7 +985,7 @@ type _xEvent_u_createNotify
 	height as CARD16
 	borderWidth as CARD16
 	override as BOOL
-	bpad as BYTE
+	bpad as UBYTE
 end type
 
 type _xEvent_u_destroyNotify
@@ -992,9 +999,9 @@ type _xEvent_u_unmapNotify
 	event as CARD32
 	window as CARD32
 	fromConfigure as BOOL
-	pad1 as BYTE
-	pad2 as BYTE
-	pad3 as BYTE
+	pad1 as UBYTE
+	pad2 as UBYTE
+	pad3 as UBYTE
 end type
 
 type _xEvent_u_mapNotify
@@ -1002,9 +1009,9 @@ type _xEvent_u_mapNotify
 	event as CARD32
 	window as CARD32
 	override as BOOL
-	pad1 as BYTE
-	pad2 as BYTE
-	pad3 as BYTE
+	pad1 as UBYTE
+	pad2 as UBYTE
+	pad3 as UBYTE
 end type
 
 type _xEvent_u_mapRequest
@@ -1021,9 +1028,9 @@ type _xEvent_u_reparent
 	x as INT16
 	y as INT16
 	override as BOOL
-	pad1 as BYTE
-	pad2 as BYTE
-	pad3 as BYTE
+	pad1 as UBYTE
+	pad2 as UBYTE
+	pad3 as UBYTE
 end type
 
 type _xEvent_u_configureNotify
@@ -1037,7 +1044,7 @@ type _xEvent_u_configureNotify
 	height as CARD16
 	borderWidth as CARD16
 	override as BOOL
-	bpad as BYTE
+	bpad as UBYTE
 end type
 
 type _xEvent_u_configureRequest
@@ -1078,10 +1085,10 @@ type _xEvent_u_circulate
 	event as CARD32
 	window as CARD32
 	parent as CARD32
-	place as BYTE
-	pad1 as BYTE
-	pad2 as BYTE
-	pad3 as BYTE
+	place as UBYTE
+	pad1 as UBYTE
+	pad2 as UBYTE
+	pad3 as UBYTE
 end type
 
 type _xEvent_u_property
@@ -1089,8 +1096,8 @@ type _xEvent_u_property
 	window as CARD32
 	atom as CARD32
 	time as CARD32
-	state as BYTE
-	pad1 as BYTE
+	state as UBYTE
+	pad1 as UBYTE
 	pad2 as CARD16
 end type
 
@@ -1125,9 +1132,9 @@ type _xEvent_u_colormap
 	window as CARD32
 	colormap as CARD32
 	new as BOOL
-	state as BYTE
-	pad1 as BYTE
-	pad2 as BYTE
+	state as UBYTE
+	pad1 as UBYTE
+	pad2 as UBYTE
 end type
 
 type _xEvent_u_mappingNotify
@@ -1135,7 +1142,7 @@ type _xEvent_u_mappingNotify
 	request as CARD8
 	firstKeyCode as CARD8
 	count as CARD8
-	pad1 as BYTE
+	pad1 as UBYTE
 end type
 
 type _xEvent_u_clientMessage_u_l
@@ -1211,12 +1218,12 @@ type _xEvent
 	u as _xEvent_u
 end type
 
-type xEvent as _xEvent
+type xEvent_ as _xEvent
 const ELFlagFocus = 1 shl 0
 const ELFlagSameScreen = 1 shl 1
 
-type xGenericEvent
-	as BYTE type
+type xGenericEvent_
+	as UBYTE type
 	extension as CARD8
 	sequenceNumber as CARD16
 	length as CARD32
@@ -1229,12 +1236,12 @@ type xGenericEvent
 	pad7 as CARD32
 end type
 
-type xKeymapEvent
-	as BYTE type
-	map(0 to 30) as BYTE
+type xKeymapEvent_
+	as UBYTE type
+	map(0 to 30) as UBYTE
 end type
 
-#define XEventSize sizeof(xEvent)
+#define XEventSize sizeof(xEvent_)
 
 union xReply
 	generic as xGenericReply
@@ -1274,7 +1281,7 @@ union xReply
 	screenSaver as xGetScreenSaverReply
 	hosts as xListHostsReply
 	error as xError
-	event as xEvent
+	event as xEvent_
 end union
 
 type _xReq
@@ -1287,7 +1294,7 @@ type xReq as _xReq
 
 type xResourceReq
 	reqType as CARD8
-	pad as BYTE
+	pad as UBYTE
 	length as CARD16
 	id as CARD32
 end type
@@ -1310,7 +1317,7 @@ end type
 
 type xChangeWindowAttributesReq
 	reqType as CARD8
-	pad as BYTE
+	pad as UBYTE
 	length as CARD16
 	window as CARD32
 	valueMask as CARD32
@@ -1318,14 +1325,14 @@ end type
 
 type xChangeSaveSetReq
 	reqType as CARD8
-	mode as BYTE
+	mode as UBYTE
 	length as CARD16
 	window as CARD32
 end type
 
 type xReparentWindowReq
 	reqType as CARD8
-	pad as BYTE
+	pad as UBYTE
 	length as CARD16
 	window as CARD32
 	parent as CARD32
@@ -1365,13 +1372,13 @@ type xChangePropertyReq
 	property as CARD32
 	as CARD32 type
 	format as CARD8
-	pad(0 to 2) as BYTE
+	pad(0 to 2) as UBYTE
 	nUnits as CARD32
 end type
 
 type xDeletePropertyReq
 	reqType as CARD8
-	pad as BYTE
+	pad as UBYTE
 	length as CARD16
 	window as CARD32
 	property as CARD32
@@ -1390,7 +1397,7 @@ end type
 
 type xSetSelectionOwnerReq
 	reqType as CARD8
-	pad as BYTE
+	pad as UBYTE
 	length as CARD16
 	window as CARD32
 	selection as CARD32
@@ -1399,7 +1406,7 @@ end type
 
 type xConvertSelectionReq
 	reqType as CARD8
-	pad as BYTE
+	pad as UBYTE
 	length as CARD16
 	requestor as CARD32
 	selection as CARD32
@@ -1414,7 +1421,7 @@ type xSendEventReq
 	length as CARD16
 	destination as CARD32
 	eventMask as CARD32
-	event as xEvent
+	event as xEvent_
 end type
 
 type xGrabPointerReq
@@ -1423,8 +1430,8 @@ type xGrabPointerReq
 	length as CARD16
 	grabWindow as CARD32
 	eventMask as CARD16
-	pointerMode as BYTE
-	keyboardMode as BYTE
+	pointerMode as UBYTE
+	keyboardMode as UBYTE
 	confineTo as CARD32
 	cursor as CARD32
 	time as CARD32
@@ -1436,12 +1443,12 @@ type xGrabButtonReq
 	length as CARD16
 	grabWindow as CARD32
 	eventMask as CARD16
-	pointerMode as BYTE
-	keyboardMode as BYTE
+	pointerMode as UBYTE
+	keyboardMode as UBYTE
 	confineTo as CARD32
 	cursor as CARD32
 	button as CARD8
-	pad as BYTE
+	pad as UBYTE
 	modifiers as CARD16
 end type
 
@@ -1456,7 +1463,7 @@ end type
 
 type xChangeActivePointerGrabReq
 	reqType as CARD8
-	pad as BYTE
+	pad as UBYTE
 	length as CARD16
 	cursor as CARD32
 	time as CARD32
@@ -1470,8 +1477,8 @@ type xGrabKeyboardReq
 	length as CARD16
 	grabWindow as CARD32
 	time as CARD32
-	pointerMode as BYTE
-	keyboardMode as BYTE
+	pointerMode as UBYTE
+	keyboardMode as UBYTE
 	pad as CARD16
 end type
 
@@ -1482,11 +1489,11 @@ type xGrabKeyReq
 	grabWindow as CARD32
 	modifiers as CARD16
 	key as CARD8
-	pointerMode as BYTE
-	keyboardMode as BYTE
-	pad1 as BYTE
-	pad2 as BYTE
-	pad3 as BYTE
+	pointerMode as UBYTE
+	keyboardMode as UBYTE
+	pad1 as UBYTE
+	pad2 as UBYTE
+	pad3 as UBYTE
 end type
 
 type xUngrabKeyReq
@@ -1507,7 +1514,7 @@ end type
 
 type xGetMotionEventsReq
 	reqType as CARD8
-	pad as BYTE
+	pad as UBYTE
 	length as CARD16
 	window as CARD32
 	start as CARD32
@@ -1516,7 +1523,7 @@ end type
 
 type xTranslateCoordsReq
 	reqType as CARD8
-	pad as BYTE
+	pad as UBYTE
 	length as CARD16
 	srcWid as CARD32
 	dstWid as CARD32
@@ -1526,7 +1533,7 @@ end type
 
 type xWarpPointerReq
 	reqType as CARD8
-	pad as BYTE
+	pad as UBYTE
 	length as CARD16
 	srcWid as CARD32
 	dstWid as CARD32
@@ -1548,12 +1555,12 @@ end type
 
 type xOpenFontReq
 	reqType as CARD8
-	pad as BYTE
+	pad as UBYTE
 	length as CARD16
 	fid as CARD32
 	nbytes as CARD16
-	pad1 as BYTE
-	pad2 as BYTE
+	pad1 as UBYTE
+	pad2 as UBYTE
 end type
 
 type xQueryTextExtentsReq
@@ -1565,7 +1572,7 @@ end type
 
 type xListFontsReq
 	reqType as CARD8
-	pad as BYTE
+	pad as UBYTE
 	length as CARD16
 	maxNames as CARD16
 	nbytes as CARD16
@@ -1575,11 +1582,11 @@ type xListFontsWithInfoReq as xListFontsReq
 
 type xSetFontPathReq
 	reqType as CARD8
-	pad as BYTE
+	pad as UBYTE
 	length as CARD16
 	nFonts as CARD16
-	pad1 as BYTE
-	pad2 as BYTE
+	pad1 as UBYTE
+	pad2 as UBYTE
 end type
 
 type xCreatePixmapReq
@@ -1594,7 +1601,7 @@ end type
 
 type xCreateGCReq
 	reqType as CARD8
-	pad as BYTE
+	pad as UBYTE
 	length as CARD16
 	gc as CARD32
 	drawable as CARD32
@@ -1603,7 +1610,7 @@ end type
 
 type xChangeGCReq
 	reqType as CARD8
-	pad as BYTE
+	pad as UBYTE
 	length as CARD16
 	gc as CARD32
 	mask as CARD32
@@ -1611,7 +1618,7 @@ end type
 
 type xCopyGCReq
 	reqType as CARD8
-	pad as BYTE
+	pad as UBYTE
 	length as CARD16
 	srcGC as CARD32
 	dstGC as CARD32
@@ -1620,7 +1627,7 @@ end type
 
 type xSetDashesReq
 	reqType as CARD8
-	pad as BYTE
+	pad as UBYTE
 	length as CARD16
 	gc as CARD32
 	dashOffset as CARD16
@@ -1629,7 +1636,7 @@ end type
 
 type xSetClipRectanglesReq
 	reqType as CARD8
-	ordering as BYTE
+	ordering as UBYTE
 	length as CARD16
 	gc as CARD32
 	xOrigin as INT16
@@ -1649,7 +1656,7 @@ end type
 
 type xCopyAreaReq
 	reqType as CARD8
-	pad as BYTE
+	pad as UBYTE
 	length as CARD16
 	srcDrawable as CARD32
 	dstDrawable as CARD32
@@ -1664,7 +1671,7 @@ end type
 
 type xCopyPlaneReq
 	reqType as CARD8
-	pad as BYTE
+	pad as UBYTE
 	length as CARD16
 	srcDrawable as CARD32
 	dstDrawable as CARD32
@@ -1680,7 +1687,7 @@ end type
 
 type xPolyPointReq
 	reqType as CARD8
-	coordMode as BYTE
+	coordMode as UBYTE
 	length as CARD16
 	drawable as CARD32
 	gc as CARD32
@@ -1690,7 +1697,7 @@ type xPolyLineReq as xPolyPointReq
 
 type xPolySegmentReq
 	reqType as CARD8
-	pad as BYTE
+	pad as UBYTE
 	length as CARD16
 	drawable as CARD32
 	gc as CARD32
@@ -1703,12 +1710,12 @@ type xPolyFillArcReq as xPolySegmentReq
 
 type _FillPolyReq
 	reqType as CARD8
-	pad as BYTE
+	pad as UBYTE
 	length as CARD16
 	drawable as CARD32
 	gc as CARD32
-	shape as BYTE
-	coordMode as BYTE
+	shape as UBYTE
+	coordMode as UBYTE
 	pad1 as CARD16
 end type
 
@@ -1758,7 +1765,7 @@ type xPolyText16Req as xPolyTextReq
 
 type xImageTextReq
 	reqType as CARD8
-	nChars as BYTE
+	nChars as UBYTE
 	length as CARD16
 	drawable as CARD32
 	gc as CARD32
@@ -1771,7 +1778,7 @@ type xImageText16Req as xImageTextReq
 
 type xCreateColormapReq
 	reqType as CARD8
-	alloc as BYTE
+	alloc as UBYTE
 	length as CARD16
 	mid as CARD32
 	window as CARD32
@@ -1780,7 +1787,7 @@ end type
 
 type xCopyColormapAndFreeReq
 	reqType as CARD8
-	pad as BYTE
+	pad as UBYTE
 	length as CARD16
 	mid as CARD32
 	srcCmap as CARD32
@@ -1788,7 +1795,7 @@ end type
 
 type xAllocColorReq
 	reqType as CARD8
-	pad as BYTE
+	pad as UBYTE
 	length as CARD16
 	cmap as CARD32
 	red as CARD16
@@ -1799,12 +1806,12 @@ end type
 
 type xAllocNamedColorReq
 	reqType as CARD8
-	pad as BYTE
+	pad as UBYTE
 	length as CARD16
 	cmap as CARD32
 	nbytes as CARD16
-	pad1 as BYTE
-	pad2 as BYTE
+	pad1 as UBYTE
+	pad2 as UBYTE
 end type
 
 type xAllocColorCellsReq
@@ -1829,7 +1836,7 @@ end type
 
 type xFreeColorsReq
 	reqType as CARD8
-	pad as BYTE
+	pad as UBYTE
 	length as CARD16
 	cmap as CARD32
 	planeMask as CARD32
@@ -1837,7 +1844,7 @@ end type
 
 type xStoreColorsReq
 	reqType as CARD8
-	pad as BYTE
+	pad as UBYTE
 	length as CARD16
 	cmap as CARD32
 end type
@@ -1849,30 +1856,30 @@ type xStoreNamedColorReq
 	cmap as CARD32
 	pixel as CARD32
 	nbytes as CARD16
-	pad1 as BYTE
-	pad2 as BYTE
+	pad1 as UBYTE
+	pad2 as UBYTE
 end type
 
 type xQueryColorsReq
 	reqType as CARD8
-	pad as BYTE
+	pad as UBYTE
 	length as CARD16
 	cmap as CARD32
 end type
 
 type xLookupColorReq
 	reqType as CARD8
-	pad as BYTE
+	pad as UBYTE
 	length as CARD16
 	cmap as CARD32
 	nbytes as CARD16
-	pad1 as BYTE
-	pad2 as BYTE
+	pad1 as UBYTE
+	pad2 as UBYTE
 end type
 
 type xCreateCursorReq
 	reqType as CARD8
-	pad as BYTE
+	pad as UBYTE
 	length as CARD16
 	cid as CARD32
 	source as CARD32
@@ -1889,7 +1896,7 @@ end type
 
 type xCreateGlyphCursorReq
 	reqType as CARD8
-	pad as BYTE
+	pad as UBYTE
 	length as CARD16
 	cid as CARD32
 	source as CARD32
@@ -1906,7 +1913,7 @@ end type
 
 type xRecolorCursorReq
 	reqType as CARD8
-	pad as BYTE
+	pad as UBYTE
 	length as CARD16
 	cursor as CARD32
 	foreRed as CARD16
@@ -1928,11 +1935,11 @@ end type
 
 type xQueryExtensionReq
 	reqType as CARD8
-	pad as BYTE
+	pad as UBYTE
 	length as CARD16
 	nbytes as CARD16
-	pad1 as BYTE
-	pad2 as BYTE
+	pad1 as UBYTE
+	pad2 as UBYTE
 end type
 
 type xSetModifierMappingReq
@@ -1949,7 +1956,7 @@ end type
 
 type xGetKeyboardMappingReq
 	reqType as CARD8
-	pad as BYTE
+	pad as UBYTE
 	length as CARD16
 	firstKeyCode as CARD8
 	count as CARD8
@@ -1967,7 +1974,7 @@ end type
 
 type xChangeKeyboardControlReq
 	reqType as CARD8
-	pad as BYTE
+	pad as UBYTE
 	length as CARD16
 	mask as CARD32
 end type
@@ -1980,7 +1987,7 @@ end type
 
 type xChangePointerControlReq
 	reqType as CARD8
-	pad as BYTE
+	pad as UBYTE
 	length as CARD16
 	accelNum as INT16
 	accelDenum as INT16
@@ -1991,33 +1998,33 @@ end type
 
 type xSetScreenSaverReq
 	reqType as CARD8
-	pad as BYTE
+	pad as UBYTE
 	length as CARD16
 	timeout as INT16
 	interval as INT16
-	preferBlank as BYTE
-	allowExpose as BYTE
+	preferBlank as UBYTE
+	allowExpose as UBYTE
 	pad2 as CARD16
 end type
 
 type xChangeHostsReq
 	reqType as CARD8
-	mode as BYTE
+	mode as UBYTE
 	length as CARD16
 	hostFamily as CARD8
-	pad as BYTE
+	pad as UBYTE
 	hostLength as CARD16
 end type
 
 type xListHostsReq
 	reqType as CARD8
-	pad as BYTE
+	pad as UBYTE
 	length as CARD16
 end type
 
 type xChangeModeReq
 	reqType as CARD8
-	mode as BYTE
+	mode as UBYTE
 	length as CARD16
 end type
 
@@ -2027,7 +2034,7 @@ type xForceScreenSaverReq as xChangeModeReq
 
 type xRotatePropertiesReq
 	reqType as CARD8
-	pad as BYTE
+	pad as UBYTE
 	length as CARD16
 	window as CARD32
 	nAtoms as CARD16

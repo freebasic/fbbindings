@@ -2,9 +2,14 @@
 
 #include once "crt/long.bi"
 
+'' The following symbols have been renamed:
+''     #define _SIZEOF => _XSIZEOF
+''     #define SIZEOF => XSIZEOF
+''     typedef BYTE => UBYTE
+
 const XMD_H = 1
-#define _SIZEOF(x) sz_##x
-#define SIZEOF(x) _SIZEOF(x)
+#define _XSIZEOF(x) sz_##x
+#define XSIZEOF(x) _XSIZEOF(x)
 
 #if defined(__FB_64BIT__) and (defined(__FB_WIN32__) or defined(__FB_LINUX__))
 	type INT64 as clong
@@ -28,7 +33,7 @@ type CARD16 as ushort
 type CARD8 as ubyte
 type BITS32 as CARD32
 type BITS16 as CARD16
-type BYTE as CARD8
+type UBYTE as CARD8
 type BOOL as CARD8
 
 #define cvtINT8toInt(val) (val)

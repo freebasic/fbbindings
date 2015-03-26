@@ -2,6 +2,12 @@
 
 #include once "X11/Xmd.bi"
 
+'' The following symbols have been renamed:
+''     typedef xSegment => xSegment_
+''     typedef xPoint => xPoint_
+''     typedef xRectangle => xRectangle_
+''     typedef xArc => xArc_
+
 #define XPROTOSTRUCTS_H
 
 type _xSegment
@@ -11,14 +17,14 @@ type _xSegment
 	y2 as INT16
 end type
 
-type xSegment as _xSegment
+type xSegment_ as _xSegment
 
 type _xPoint
 	x as INT16
 	y as INT16
 end type
 
-type xPoint as _xPoint
+type xPoint_ as _xPoint
 
 type _xRectangle
 	x as INT16
@@ -27,7 +33,7 @@ type _xRectangle
 	height as CARD16
 end type
 
-type xRectangle as _xRectangle
+type xRectangle_ as _xRectangle
 
 type _xArc
 	x as INT16
@@ -38,4 +44,4 @@ type _xArc
 	angle2 as INT16
 end type
 
-type xArc as _xArc
+type xArc_ as _xArc

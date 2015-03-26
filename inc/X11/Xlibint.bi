@@ -12,6 +12,10 @@
 #include once "X11/Xfuncproto.bi"
 #include once "crt/stddef.bi"
 
+'' The following symbols have been renamed:
+''     #define Xfree => Xfree_
+''     #define Data => Data_
+
 extern "C"
 
 const _X11_XLIBINT_H_ = 1
@@ -40,10 +44,18 @@ end type
 type _XFreeFuncs as _XFreeFuncs_
 type _XSQEvent as _XSQEvent_
 type _XExten as _XExten_
+type _XLockInfo as _XLockInfo_
 type _XInternalAsync as _XInternalAsync_
 type _XLockPtrs as _XLockPtrs_
+type _XKeytrans as _XKeytrans_
+type _XDisplayAtoms as _XDisplayAtoms_
+type _XContextDB as _XContextDB_
+type _XIMFilter as _XIMFilter_
 type _XConnectionInfo as _XConnectionInfo_
 type _XConnWatchInfo as _XConnWatchInfo_
+type _XkbInfoRec as _XkbInfoRec_
+type _XtransConnInfo as _XtransConnInfo_
+type _X11XCBPrivate as _X11XCBPrivate_
 
 type _XDisplay_
 	ext_data as XExtData ptr
@@ -94,8 +106,8 @@ type _XDisplay_
 	scratch_length as culong
 	ext_number as long
 	ext_procs as _XExten ptr
-	event_vec(0 to 127) as function(byval as Display ptr, byval as XEvent ptr, byval as xEvent ptr) as long
-	wire_vec(0 to 127) as function(byval as Display ptr, byval as XEvent ptr, byval as xEvent ptr) as long
+	event_vec(0 to 127) as function(byval as Display ptr, byval as XEvent ptr, byval as xEvent_ ptr) as long
+	wire_vec(0 to 127) as function(byval as Display ptr, byval as XEvent ptr, byval as xEvent_ ptr) as long
 	lock_meaning as KeySym
 	lock as _XLockInfo ptr
 	async_handlers as _XInternalAsync ptr
@@ -126,7 +138,7 @@ type _XDisplay_
 	trans_conn as _XtransConnInfo ptr
 	xcb as _X11XCBPrivate ptr
 	next_cookie as ulong
-	generic_event_vec(0 to 127) as function(byval as Display ptr, byval as XGenericEventCookie ptr, byval as xEvent ptr) as long
+	generic_event_vec(0 to 127) as function(byval as Display ptr, byval as XGenericEventCookie ptr, byval as xEvent_ ptr) as long
 	generic_event_copy_vec(0 to 127) as function(byval as Display ptr, byval as XGenericEventCookie ptr, byval as XGenericEventCookie ptr) as long
 	cookiejar as any ptr
 end type
@@ -198,7 +210,7 @@ end type
 		_XFreeMutex_fn(lock)
 	end if
 #endmacro
-#define Xfree(ptr) free((ptr))
+#define Xfree_(ptr) free((ptr))
 #define Xmalloc(size) malloc((size))
 #define Xrealloc(ptr, size) realloc((ptr), (size))
 #define Xcalloc(nelem, elsize) calloc((nelem), (elsize))
@@ -229,17 +241,17 @@ declare function _XGetRequest(byval dpy as Display ptr, byval type as CARD8, byv
 		req = cptr(x##name##Req ptr, _XGetRequest(dpy, X_##name, sz))
 	end scope
 #endmacro
-#define GetReq(name, req) GetReqSized(name, SIZEOF(x##name##Req), req)
-#define GetReqExtra(name, n, req) GetReqSized(name, SIZEOF(x##name##Req) + n, req)
+#define GetReq(name, req) GetReqSized(name, XSIZEOF(x##name##Req), req)
+#define GetReqExtra(name, n, req) GetReqSized(name, XSIZEOF(x##name##Req) + n, req)
 #macro GetResReq(name, rid, req)
 	scope
-		req = cptr(xResourceReq ptr, _XGetRequest(dpy, X_##name, SIZEOF(xResourceReq)))
+		req = cptr(xResourceReq ptr, _XGetRequest(dpy, X_##name, XSIZEOF(xResourceReq)))
 		req->id = (rid)
 	end scope
 #endmacro
 #macro GetEmptyReq(name, req)
 	scope
-		req = cptr(xReq ptr, _XGetRequest(dpy, X_##name, SIZEOF(xReq)))
+		req = cptr(xReq ptr, _XGetRequest(dpy, X_##name, XSIZEOF(xReq)))
 	end scope
 #endmacro
 
@@ -292,7 +304,7 @@ declare sub _XFlushGCCache(byval dpy as Display ptr, byval gc as GC)
 		_XFlushGCCache((dpy), (gc))
 	end if
 #endmacro
-#macro Data(dpy, data, len)
+#macro Data_(dpy, data, len)
 	scope
 		if dpy->bufptr + (len) <= dpy->bufmax then
 			memcpy(dpy->bufptr, data, clng(len))
@@ -310,7 +322,7 @@ declare sub _XFlushGCCache(byval dpy as Display ptr, byval gc as GC)
 		dpy->bufptr += (n)
 	end if
 #endmacro
-#define Data16(dpy, data, len) Data((dpy), cptr(const zstring ptr, (data)), (len))
+#define Data16(dpy, data, len) Data_((dpy), cptr(const zstring ptr, (data)), (len))
 #define _XRead16Pad(dpy, data, len) _XReadPad((dpy), cptr(zstring ptr, (data)), (len))
 #define _XRead16(dpy, data, len) _XRead((dpy), cptr(zstring ptr, (data)), (len))
 
@@ -319,7 +331,7 @@ declare sub _XFlushGCCache(byval dpy as Display ptr, byval gc as GC)
 	declare function _XData32(byval dpy as Display ptr, byval data as const clong ptr, byval len as ulong) as long
 	declare sub _XRead32(byval dpy as Display ptr, byval data as clong ptr, byval len as clong)
 #else
-	#define Data32(dpy, data, len) Data((dpy), cptr(const zstring ptr, (data)), (len))
+	#define Data32(dpy, data, len) Data_((dpy), cptr(const zstring ptr, (data)), (len))
 	#define _XRead32(dpy, data, len) _XRead((dpy), cptr(zstring ptr, (data)), (len))
 #endif
 
@@ -479,13 +491,13 @@ declare function _XRead(byval as Display ptr, byval as zstring ptr, byval as clo
 declare sub _XReadPad(byval as Display ptr, byval as zstring ptr, byval as clong)
 declare sub _XSend(byval as Display ptr, byval as const zstring ptr, byval as clong)
 declare function _XReply(byval as Display ptr, byval as xReply ptr, byval as long, byval as long) as long
-declare sub _XEnq(byval as Display ptr, byval as xEvent ptr)
+declare sub _XEnq(byval as Display ptr, byval as xEvent_ ptr)
 declare sub _XDeq(byval as Display ptr, byval as _XQEvent ptr, byval as _XQEvent ptr)
-declare function _XUnknownWireEvent(byval as Display ptr, byval as XEvent ptr, byval as xEvent ptr) as long
-declare function _XUnknownWireEventCookie(byval as Display ptr, byval as XGenericEventCookie ptr, byval as xEvent ptr) as long
+declare function _XUnknownWireEvent(byval as Display ptr, byval as XEvent ptr, byval as xEvent_ ptr) as long
+declare function _XUnknownWireEventCookie(byval as Display ptr, byval as XGenericEventCookie ptr, byval as xEvent_ ptr) as long
 declare function _XUnknownCopyEventCookie(byval as Display ptr, byval as XGenericEventCookie ptr, byval as XGenericEventCookie ptr) as long
-declare function _XUnknownNativeEvent(byval as Display ptr, byval as XEvent ptr, byval as xEvent ptr) as long
-declare function _XWireToEvent(byval dpy as Display ptr, byval re as XEvent ptr, byval event as xEvent ptr) as long
+declare function _XUnknownNativeEvent(byval as Display ptr, byval as XEvent ptr, byval as xEvent_ ptr) as long
+declare function _XWireToEvent(byval dpy as Display ptr, byval re as XEvent ptr, byval event as xEvent_ ptr) as long
 declare function _XDefaultWireError(byval display as Display ptr, byval he as XErrorEvent ptr, byval we as xError ptr) as long
 declare function _XPollfdCacheInit(byval dpy as Display ptr) as long
 declare sub _XPollfdCacheAdd(byval dpy as Display ptr, byval fd as long)
@@ -503,10 +515,10 @@ declare function XESetCloseDisplay(byval as Display ptr, byval as long, byval as
 declare function XESetError(byval as Display ptr, byval as long, byval as function(byval as Display ptr, byval as xError ptr, byval as XExtCodes ptr, byval as long ptr) as long) as function(byval as Display ptr, byval as xError ptr, byval as XExtCodes ptr, byval as long ptr) as long
 declare function XESetErrorString(byval as Display ptr, byval as long, byval as function(byval as Display ptr, byval as long, byval as XExtCodes ptr, byval as zstring ptr, byval as long) as zstring ptr) as function(byval as Display ptr, byval as long, byval as XExtCodes ptr, byval as zstring ptr, byval as long) as zstring ptr
 declare function XESetPrintErrorValues(byval as Display ptr, byval as long, byval as sub(byval as Display ptr, byval as XErrorEvent ptr, byval as any ptr)) as sub(byval as Display ptr, byval as XErrorEvent ptr, byval as any ptr)
-declare function XESetWireToEvent(byval as Display ptr, byval as long, byval as function(byval as Display ptr, byval as XEvent ptr, byval as xEvent ptr) as long) as function(byval as Display ptr, byval as XEvent ptr, byval as xEvent ptr) as long
-declare function XESetWireToEventCookie(byval as Display ptr, byval as long, byval as function(byval as Display ptr, byval as XGenericEventCookie ptr, byval as xEvent ptr) as long) as function(byval as Display ptr, byval as XGenericEventCookie ptr, byval as xEvent ptr) as long
+declare function XESetWireToEvent(byval as Display ptr, byval as long, byval as function(byval as Display ptr, byval as XEvent ptr, byval as xEvent_ ptr) as long) as function(byval as Display ptr, byval as XEvent ptr, byval as xEvent_ ptr) as long
+declare function XESetWireToEventCookie(byval as Display ptr, byval as long, byval as function(byval as Display ptr, byval as XGenericEventCookie ptr, byval as xEvent_ ptr) as long) as function(byval as Display ptr, byval as XGenericEventCookie ptr, byval as xEvent_ ptr) as long
 declare function XESetCopyEventCookie(byval as Display ptr, byval as long, byval as function(byval as Display ptr, byval as XGenericEventCookie ptr, byval as XGenericEventCookie ptr) as long) as function(byval as Display ptr, byval as XGenericEventCookie ptr, byval as XGenericEventCookie ptr) as long
-declare function XESetEventToWire(byval as Display ptr, byval as long, byval as function(byval as Display ptr, byval as XEvent ptr, byval as xEvent ptr) as long) as function(byval as Display ptr, byval as XEvent ptr, byval as xEvent ptr) as long
+declare function XESetEventToWire(byval as Display ptr, byval as long, byval as function(byval as Display ptr, byval as XEvent ptr, byval as xEvent_ ptr) as long) as function(byval as Display ptr, byval as XEvent ptr, byval as xEvent_ ptr) as long
 declare function XESetWireToError(byval as Display ptr, byval as long, byval as function(byval as Display ptr, byval as XErrorEvent ptr, byval as xError ptr) as long) as function(byval as Display ptr, byval as XErrorEvent ptr, byval as xError ptr) as long
 declare function XESetBeforeFlush(byval as Display ptr, byval as long, byval as sub(byval as Display ptr, byval as XExtCodes ptr, byval as const zstring ptr, byval as clong)) as sub(byval as Display ptr, byval as XExtCodes ptr, byval as const zstring ptr, byval as clong)
 type _XInternalConnectionProc as sub(byval as Display ptr, byval as long, byval as XPointer)
@@ -542,7 +554,7 @@ declare function _XTextHeight16(byval as XFontStruct ptr, byval as const XChar2b
 	#define _XFopenFile(path, mode) fopen(path, mode)
 #endif
 
-declare function _XEventToWire(byval dpy as Display ptr, byval re as XEvent ptr, byval event as xEvent ptr) as long
+declare function _XEventToWire(byval dpy as Display ptr, byval re as XEvent ptr, byval event as xEvent_ ptr) as long
 declare function _XF86LoadQueryLocaleFont(byval as Display ptr, byval as const zstring ptr, byval as XFontStruct ptr ptr, byval as Font ptr) as long
 declare sub _XProcessWindowAttributes(byval dpy as Display ptr, byval req as xChangeWindowAttributesReq ptr, byval valuemask as culong, byval attributes as XSetWindowAttributes ptr)
 declare function _XDefaultError(byval dpy as Display ptr, byval event as XErrorEvent ptr) as long
