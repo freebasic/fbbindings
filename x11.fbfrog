@@ -408,3 +408,6 @@ nodos.fbfrog
 -renameproc XtMapWidget XtMapWidget_
 -renameproc XtUnmapWidget XtUnmapWidget_
 -renameproc XtNewString XtNewString_
+
+-renametypedef Object Object_
+-renametypedef pointer pointer_

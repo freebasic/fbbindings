@@ -1,9 +1,12 @@
 #pragma once
 
+'' The following symbols have been renamed:
+''     typedef Object => Object_
+
 extern "C"
 
 #define _XtObject_h
-type Object as _ObjectRec ptr
+type Object_ as _ObjectRec ptr
 type ObjectClass as _ObjectClassRec ptr
 extern objectClass as WidgetClass
 

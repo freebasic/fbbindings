@@ -82,19 +82,19 @@ type XtTM as _XtTMRec ptr
 #define XtIsRealized(object) (XtWindowOfObject(object) <> None)
 #define XtParent(widget) (widget)->core.parent
 declare function XtIsRectObj(byval as Widget) as byte
-#define XtIsRectObj(obj) (cast(Object, (obj))->object.widget_class->core_class.class_inited and &h02)
+#define XtIsRectObj(obj) (cast(Object_, (obj))->object.widget_class->core_class.class_inited and &h02)
 declare function XtIsWidget(byval as Widget) as byte
-#define XtIsWidget(obj) (cast(Object, (obj))->object.widget_class->core_class.class_inited and &h04)
+#define XtIsWidget(obj) (cast(Object_, (obj))->object.widget_class->core_class.class_inited and &h04)
 declare function XtIsComposite(byval as Widget) as byte
-#define XtIsComposite(obj) (cast(Object, (obj))->object.widget_class->core_class.class_inited and &h08)
+#define XtIsComposite(obj) (cast(Object_, (obj))->object.widget_class->core_class.class_inited and &h08)
 declare function XtIsConstraint(byval as Widget) as byte
-#define XtIsConstraint(obj) (cast(Object, (obj))->object.widget_class->core_class.class_inited and &h10)
+#define XtIsConstraint(obj) (cast(Object_, (obj))->object.widget_class->core_class.class_inited and &h10)
 declare function XtIsShell(byval as Widget) as byte
-#define XtIsShell(obj) (cast(Object, (obj))->object.widget_class->core_class.class_inited and &h20)
+#define XtIsShell(obj) (cast(Object_, (obj))->object.widget_class->core_class.class_inited and &h20)
 declare function XtIsWMShell(byval as Widget) as byte
-#define XtIsWMShell(obj) (cast(Object, (obj))->object.widget_class->core_class.class_inited and &h40)
+#define XtIsWMShell(obj) (cast(Object_, (obj))->object.widget_class->core_class.class_inited and &h40)
 declare function XtIsTopLevelShell(byval as Widget) as byte
-#define XtIsTopLevelShell(obj) (cast(Object, (obj))->object.widget_class->core_class.class_inited and &h80)
+#define XtIsTopLevelShell(obj) (cast(Object_, (obj))->object.widget_class->core_class.class_inited and &h80)
 #define XtCheckSubclass(w, widget_class, message)
 
 declare function _XtWindowedAncestor(byval as Widget) as Widget

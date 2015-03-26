@@ -2,11 +2,14 @@
 
 #include once "crt/long.bi"
 
+'' The following symbols have been renamed:
+''     typedef pointer => pointer_
+
 extern "C"
 
 #define _XDEFS_H
 #define _XTYPEDEF_POINTER
-type pointer as any ptr
+type pointer_ as any ptr
 type ClientPtr as _Client ptr
 #define _XTYPEDEF_CLIENTPTR
 #define _XTYPEDEF_FONTPTR
