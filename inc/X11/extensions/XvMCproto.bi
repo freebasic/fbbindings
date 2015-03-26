@@ -29,7 +29,7 @@ type xvmcSurfaceInfo_
 	flags as CARD32
 end type
 
-#define sz_xvmcSurfaceInfo '' TODO: 24;
+const sz_xvmcSurfaceInfo = 24
 
 type xvmcQueryVersionReq
 	reqType as CARD8
@@ -37,7 +37,7 @@ type xvmcQueryVersionReq
 	length as CARD16
 end type
 
-#define sz_xvmcQueryVersionReq '' TODO: 4;
+const sz_xvmcQueryVersionReq = 4
 
 type xvmcQueryVersionReply
 	as UBYTE type
@@ -61,7 +61,7 @@ type xvmcListSurfaceTypesReq
 	port as CARD32
 end type
 
-#define sz_xvmcListSurfaceTypesReq '' TODO: 8;
+const sz_xvmcListSurfaceTypesReq = 8
 
 type xvmcListSurfaceTypesReply
 	as UBYTE type
@@ -90,7 +90,7 @@ type xvmcCreateContextReq
 	flags as CARD32
 end type
 
-#define sz_xvmcCreateContextReq '' TODO: 24;
+const sz_xvmcCreateContextReq = 24
 
 type xvmcCreateContextReply
 	as UBYTE type
@@ -115,7 +115,7 @@ type xvmcDestroyContextReq
 	context_id as CARD32
 end type
 
-#define sz_xvmcDestroyContextReq '' TODO: 8;
+const sz_xvmcDestroyContextReq = 8
 
 type xvmcCreateSurfaceReq
 	reqType as CARD8
@@ -125,7 +125,7 @@ type xvmcCreateSurfaceReq
 	context_id as CARD32
 end type
 
-#define sz_xvmcCreateSurfaceReq '' TODO: 12;
+const sz_xvmcCreateSurfaceReq = 12
 
 type xvmcCreateSurfaceReply
 	as UBYTE type
@@ -149,7 +149,7 @@ type xvmcDestroySurfaceReq
 	surface_id as CARD32
 end type
 
-#define sz_xvmcDestroySurfaceReq '' TODO: 8;
+const sz_xvmcDestroySurfaceReq = 8
 
 type xvmcCreateSubpictureReq
 	reqType as CARD8
@@ -162,7 +162,7 @@ type xvmcCreateSubpictureReq
 	height as CARD16
 end type
 
-#define sz_xvmcCreateSubpictureReq '' TODO: 20;
+const sz_xvmcCreateSubpictureReq = 20
 
 type xvmcCreateSubpictureReply
 	as UBYTE type
@@ -188,7 +188,7 @@ type xvmcDestroySubpictureReq
 	subpicture_id as CARD32
 end type
 
-#define sz_xvmcDestroySubpictureReq '' TODO: 8;
+const sz_xvmcDestroySubpictureReq = 8
 
 type xvmcListSubpictureTypesReq
 	reqType as CARD8
@@ -198,7 +198,7 @@ type xvmcListSubpictureTypesReq
 	surface_type_id as CARD32
 end type
 
-#define sz_xvmcListSubpictureTypesReq '' TODO: 12;
+const sz_xvmcListSubpictureTypesReq = 12
 
 type xvmcListSubpictureTypesReply
 	as UBYTE type
@@ -224,7 +224,7 @@ type xvmcGetDRInfoReq
 	magic as CARD32
 end type
 
-#define sz_xvmcGetDRInfoReq '' TODO: 16;
+const sz_xvmcGetDRInfoReq = 16
 
 type xvmcGetDRInfoReply
 	as UBYTE type

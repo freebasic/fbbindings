@@ -23,10 +23,17 @@ const _propertyNotify = 6
 #macro FindTypeAndClass(d, type, _class, classid, offset)
 	scope
 		dim _i as long
-		dim _ip as XInputClassInfo ptr
-		'' TODO: type = 0;
-		'' TODO: _class = 0;
-		'' TODO: for (_i=0, _ip= ((XDevice *) d)->classes; _i< ((XDevice *) d)->num_classes; _i++, _ip++) if (_ip->input_class == classid) {type = _ip->event_type_base + offset; _class = ((XDevice *) d)->device_id << 8 | type;}
+		dim _ip as XInputClassInfo ptr = cptr(XDevice ptr, d)->classes
+		type = 0
+		_class = 0
+		while _i < cptr(XDevice ptr, d)->num_classes
+			if _ip->input_class = classid then
+				type = _ip->event_type_base + offset
+				_class = (cptr(XDevice ptr, d)->device_id shl 8) or type
+			end if
+			_i += 1
+			_ip += 1
+		wend
 	end scope
 #endmacro
 #define DeviceKeyPress(d, type, _class) FindTypeAndClass(d, type, _class, KeyClass, _deviceKeyPress)
@@ -44,52 +51,52 @@ const _propertyNotify = 6
 #define DevicePropertyNotify(d, type, _class) FindTypeAndClass(d, type, _class, OtherClass, _propertyNotify)
 #macro DevicePointerMotionHint(d, type, _class)
 	scope
-		'' TODO: _class = ((XDevice *) d)->device_id << 8 | _devicePointerMotionHint;
+		_class = (cptr(XDevice ptr, d)->device_id shl 8) or _devicePointerMotionHint
 	end scope
 #endmacro
 #macro DeviceButton1Motion(d, type, _class)
 	scope
-		'' TODO: _class = ((XDevice *) d)->device_id << 8 | _deviceButton1Motion;
+		_class = (cptr(XDevice ptr, d)->device_id shl 8) or _deviceButton1Motion
 	end scope
 #endmacro
 #macro DeviceButton2Motion(d, type, _class)
 	scope
-		'' TODO: _class = ((XDevice *) d)->device_id << 8 | _deviceButton2Motion;
+		_class = (cptr(XDevice ptr, d)->device_id shl 8) or _deviceButton2Motion
 	end scope
 #endmacro
 #macro DeviceButton3Motion(d, type, _class)
 	scope
-		'' TODO: _class = ((XDevice *) d)->device_id << 8 | _deviceButton3Motion;
+		_class = (cptr(XDevice ptr, d)->device_id shl 8) or _deviceButton3Motion
 	end scope
 #endmacro
 #macro DeviceButton4Motion(d, type, _class)
 	scope
-		'' TODO: _class = ((XDevice *) d)->device_id << 8 | _deviceButton4Motion;
+		_class = (cptr(XDevice ptr, d)->device_id shl 8) or _deviceButton4Motion
 	end scope
 #endmacro
 #macro DeviceButton5Motion(d, type, _class)
 	scope
-		'' TODO: _class = ((XDevice *) d)->device_id << 8 | _deviceButton5Motion;
+		_class = (cptr(XDevice ptr, d)->device_id shl 8) or _deviceButton5Motion
 	end scope
 #endmacro
 #macro DeviceButtonMotion(d, type, _class)
 	scope
-		'' TODO: _class = ((XDevice *) d)->device_id << 8 | _deviceButtonMotion;
+		_class = (cptr(XDevice ptr, d)->device_id shl 8) or _deviceButtonMotion
 	end scope
 #endmacro
 #macro DeviceOwnerGrabButton(d, type, _class)
 	scope
-		'' TODO: _class = ((XDevice *) d)->device_id << 8 | _deviceOwnerGrabButton;
+		_class = (cptr(XDevice ptr, d)->device_id shl 8) or _deviceOwnerGrabButton
 	end scope
 #endmacro
 #macro DeviceButtonPressGrab(d, type, _class)
 	scope
-		'' TODO: _class = ((XDevice *) d)->device_id << 8 | _deviceButtonGrab;
+		_class = (cptr(XDevice ptr, d)->device_id shl 8) or _deviceButtonGrab
 	end scope
 #endmacro
 #macro NoExtensionEvent(d, type, _class)
 	scope
-		'' TODO: _class = ((XDevice *) d)->device_id << 8 | _noExtensionEvent;
+		_class = (cptr(XDevice ptr, d)->device_id shl 8) or _noExtensionEvent
 	end scope
 #endmacro
 
@@ -102,8 +109,8 @@ declare sub _xidevicebusy(byval dpy as Display ptr, byval error as long ptr)
 
 #macro DevicePresence(dpy, type, _class)
 	scope
-		'' TODO: type = _XiGetDevicePresenceNotifyEvent(dpy);
-		'' TODO: _class = (0x10000 | _devicePresence);
+		type = _XiGetDevicePresenceNotifyEvent(dpy)
+		_class = (&h10000 or _devicePresence)
 	end scope
 #endmacro
 #define BadDevice(dpy, error) _xibaddevice(dpy, @error)
