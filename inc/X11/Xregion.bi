@@ -31,7 +31,6 @@ type _XRegion
 	extents as BOX
 end type
 
-type REGION as _XRegion
 #define EXTENTCHECK(r1, r2) (((((r1)->x2 > (r2)->x1) andalso ((r1)->x1 < (r2)->x2)) andalso ((r1)->y2 > (r2)->y1)) andalso ((r1)->y1 < (r2)->y2))
 #macro EXTENTS(r, idRect)
 	scope
