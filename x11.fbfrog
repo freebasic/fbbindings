@@ -84,6 +84,7 @@ nodos.fbfrog
 -renamedefine Data Data_
 -rename new new_
 -rename delete delete_
+-renametypedef Select Select_
 
 -renamedefine XK_KATAKANA XK_KATAKANA_
 -renamedefine XK_CURRENCY XK_CURRENCY_
