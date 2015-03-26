@@ -912,7 +912,6 @@ x11:
 		-include X11/extensions/XKB.h \
 		-include X11/extensions/XKBgeom.h \
 		-include X11/extensions/XKBproto.h \
-		-include X11/extensions/XKBsrv.h \
 		-include X11/extensions/XKBstr.h \
 		-include X11/extensions/XI.h \
 		-include X11/extensions/XI2.h \
@@ -1096,7 +1095,6 @@ x11:
 		-emit '*/X11/extensions/XKB.h'             inc/X11/extensions/XKB.bi \
 		-emit '*/X11/extensions/XKBgeom.h'         inc/X11/extensions/XKBgeom.bi \
 		-emit '*/X11/extensions/XKBproto.h'        inc/X11/extensions/XKBproto.bi \
-		-emit '*/X11/extensions/XKBsrv.h'          inc/X11/extensions/XKBsrv.bi \
 		-emit '*/X11/extensions/XKBstr.h'          inc/X11/extensions/XKBstr.bi \
 		-emit '*/X11/extensions/XI.h'              inc/X11/extensions/XI.bi \
 		-emit '*/X11/extensions/XI2.h'             inc/X11/extensions/XI2.bi \
