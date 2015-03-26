@@ -2,11 +2,6 @@
 
 #include once "crt/long.bi"
 #include once "X11/Intrinsic.bi"
-#include once "X11/CoreP.bi"
-#include once "X11/CompositeP.bi"
-#include once "X11/ConstrainP.bi"
-#include once "X11/ObjectP.bi"
-#include once "X11/RectObjP.bi"
 
 extern "C"
 
@@ -109,3 +104,9 @@ declare sub XtProcessLock()
 declare sub XtProcessUnlock()
 
 end extern
+
+#include once "X11/CoreP.bi"
+#include once "X11/CompositeP.bi"
+#include once "X11/ConstrainP.bi"
+#include once "X11/ObjectP.bi"
+#include once "X11/RectObjP.bi"

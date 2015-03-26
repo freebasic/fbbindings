@@ -2,7 +2,6 @@
 
 #include once "crt/long.bi"
 #include once "X11/Shell.bi"
-#include once "X11/VendorP.bi"
 
 extern "C"
 
@@ -147,6 +146,12 @@ type WMShellRec
 end type
 
 type WMShellWidget as WMShellRec ptr
+
+end extern
+
+#include once "X11/VendorP.bi"
+
+extern "C"
 
 type TransientShellClassPart
 	extension as XtPointer

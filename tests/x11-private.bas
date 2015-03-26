@@ -1,3 +1,6 @@
+#include "X11/IntrinsicP.bi"
+#include "X11/IntrinsicI.bi"
+
 #include "X11/CallbackI.bi"
 #include "X11/CompositeP.bi"
 #include "X11/ConstrainP.bi"
@@ -7,8 +10,6 @@
 #include "X11/EventI.bi"
 #include "X11/HookObjI.bi"
 #include "X11/InitialI.bi"
-#include "X11/IntrinsicI.bi"
-#include "X11/IntrinsicP.bi"
 #include "X11/ObjectP.bi"
 #include "X11/PassivGraI.bi"
 #include "X11/RectObjP.bi"

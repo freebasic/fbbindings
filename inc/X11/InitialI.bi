@@ -1,14 +1,13 @@
 #pragma once
 
 #include once "crt/long.bi"
+#include once "crt/sys/time.bi"
 
 #ifdef __FB_LINUX__
 	#include once "crt/limits.bi"
-	#include once "sys/param.bi"
 #endif
 
 #include once "X11/Xos.bi"
-#include once "X11/Xpoll.bi"
 
 extern "C"
 
