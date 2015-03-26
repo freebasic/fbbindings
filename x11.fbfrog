@@ -509,3 +509,5 @@ nodos.fbfrog
 -rename ACCEPT XACCEPT
 -rename FAILED XFAILED
 -renametypedef GlyphSet XGlyphSet
+
+-removedefine PATH_MAX
