@@ -11,36 +11,15 @@
 #endif
 
 #include once "crt/long.bi"
-
-#ifdef __FB_LINUX__
-	#include once "crt/stdarg.bi"
-	#include once "crt/sys/types.bi"
-#endif
-
 #include once "crt/stdio.bi"
 #include once "crt/stdlib.bi"
-#include once "crt/stddef.bi"
-
+#include once "crt/string.bi"
+#include once "crt/ctype.bi"
 #ifdef __FB_WIN32__
 	#include once "crt/stdarg.bi"
-#endif
-
-#include once "crt/string.bi"
-
-#ifdef __FB_WIN32__
-	#include once "crt/stdint.bi"
-#else
-	#include once "strings.bi"
-	#include once "inttypes.bi"
-#endif
-
-#include once "crt/ctype.bi"
-
-#ifdef __FB_WIN32__
 	#include once "windows.bi"
 #else
-	#include once "iconv.bi"
-	#include once "alloca.bi"
+	#include once "crt/iconv.bi"
 	#include once "X11/Xlib.bi"
 	#include once "X11/Xatom.bi"
 #endif
