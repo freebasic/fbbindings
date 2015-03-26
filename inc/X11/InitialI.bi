@@ -14,12 +14,6 @@ extern "C"
 
 #define _XtinitialI_h
 
-#ifdef __FB_WIN32__
-	const PATH_MAX = 512
-#else
-	const PATH_MAX = 1024
-#endif
-
 type _TimerEventRec
 	te_timer_value as timeval
 	te_next as _TimerEventRec ptr
