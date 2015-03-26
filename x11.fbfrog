@@ -33,6 +33,7 @@ nodos.fbfrog
 -addforwarddecl _XkbInfoRec
 -addforwarddecl _XtransConnInfo
 -addforwarddecl _X11XCBPrivate
+-addforwarddecl ZlibInfo
 
 -renametypedef BYTE UBYTE
 -renametypedef xSegment xSegment_
