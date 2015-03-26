@@ -708,6 +708,7 @@ X11_XMU          := libXmu-1.1.2
 X11_XTST         := libXtst-1.2.2
 X11_XFIXES       := libXfixes-5.0.1
 X11_XINERAMA     := libXinerama-1.1.3
+X11_LBXUTIL      := liblbxutil-1.1.0
 X11_XTRANS       := xtrans-1.3.5
 X11_XPROTO       := xproto-7.0.27
 X11_XEXTPROTO    := xextproto-7.3.0
@@ -748,6 +749,7 @@ x11:
 	./getxorg.sh $(X11_XTST)     $(X11_XTST).tar.bz2      "http://xorg.freedesktop.org/releases/individual/lib/$(X11_XTST).tar.bz2"
 	./getxorg.sh $(X11_XFIXES)   $(X11_XFIXES).tar.bz2    "http://xorg.freedesktop.org/releases/individual/lib/$(X11_XFIXES).tar.bz2"
 	./getxorg.sh $(X11_XINERAMA) $(X11_XINERAMA).tar.bz2  "http://xorg.freedesktop.org/releases/individual/lib/$(X11_XINERAMA).tar.bz2"
+	./getxorg.sh $(X11_LBXUTIL)  $(X11_LBXUTIL).tar.bz2   "http://xorg.freedesktop.org/releases/individual/lib/$(X11_LBXUTIL).tar.bz2"
 	./getxorg.sh $(X11_XTRANS)   $(X11_XTRANS).tar.bz2    "http://xorg.freedesktop.org/releases/individual/lib/$(X11_XTRANS).tar.bz2"
 	./getxorg.sh $(X11_XPROTO)           $(X11_XPROTO).tar.bz2           "http://xorg.freedesktop.org/releases/individual/proto/$(X11_XPROTO).tar.bz2"
 	./getxorg.sh $(X11_XEXTPROTO)        $(X11_XEXTPROTO).tar.bz2        "http://xorg.freedesktop.org/releases/individual/proto/$(X11_XEXTPROTO).tar.bz2"
@@ -798,6 +800,7 @@ x11:
 	cp -R extracted/xorg/$(X11_XTST)/include/X11    extracted/xorg
 	cp -R extracted/xorg/$(X11_XFIXES)/include/X11  extracted/xorg
 	cp -R extracted/xorg/$(X11_XINERAMA)/include/X11 extracted/xorg
+	cp -R extracted/xorg/$(X11_LBXUTIL)/include/X11 extracted/xorg
 	cp -R extracted/xorg/$(X11_XTRANS)/Xtrans.h     extracted/xorg/X11/Xtrans
 	cp -R extracted/xorg/$(X11_XTRANS)/Xtransint.h  extracted/xorg/X11/Xtrans
 
@@ -934,6 +937,12 @@ x11:
 		-include X11/extensions/Xfixes.h \
 		-include X11/extensions/Xinerama.h \
 		-include X11/extensions/panoramiXext.h \
+		-include X11/extensions/lbxbuf.h \
+		-include X11/extensions/lbxbufstr.h \
+		-include X11/extensions/lbxdeltastr.h \
+		-include X11/extensions/lbximage.h \
+		-include X11/extensions/lbxopts.h \
+		-include X11/extensions/lbxzlib.h \
 		-include X11/Xft/Xft.h \
 		-include X11/Xft/XftCompat.h \
 		-include X11/Xcursor/Xcursor.h \
@@ -1104,6 +1113,12 @@ x11:
 		-emit '*/X11/extensions/Xfixes.h'          inc/X11/extensions/Xfixes.bi \
 		-emit '*/X11/extensions/Xinerama.h'        inc/X11/extensions/Xinerama.bi \
 		-emit '*/X11/extensions/panoramiXext.h'    inc/X11/extensions/panoramiXext.bi \
+		-emit '*/X11/extensions/lbxbuf.h'          inc/X11/extensions/lbxbuf.bi \
+		-emit '*/X11/extensions/lbxbufstr.h'       inc/X11/extensions/lbxbufstr.bi \
+		-emit '*/X11/extensions/lbxdeltastr.h'     inc/X11/extensions/lbxdeltastr.bi \
+		-emit '*/X11/extensions/lbximage.h'        inc/X11/extensions/lbximage.bi \
+		-emit '*/X11/extensions/lbxopts.h'         inc/X11/extensions/lbxopts.bi \
+		-emit '*/X11/extensions/lbxzlib.h'         inc/X11/extensions/lbxzlib.bi \
 		-emit '*/X11/Xft/Xft.h'              inc/X11/Xft/Xft.bi \
 		-emit '*/X11/Xft/XftCompat.h'        inc/X11/Xft/XftCompat.bi \
 		-emit '*/X11/Xcursor/Xcursor.h'      inc/X11/Xcursor/Xcursor.bi \
