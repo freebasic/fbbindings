@@ -56,9 +56,9 @@
 -renamedefine XK_dead_O XK_dead_O_
 -renamedefine XK_dead_U XK_dead_U_
 -renamedefine XK_Ch XK_Ch_
--renamedefine XK_CH XK_CH_
+-renamedefine XK_CH XK_CH__
 -renamedefine XK_C_h XK_C_h_
--renamedefine XK_C_H XK_C_H_
+-renamedefine XK_C_H XK_C_H__
 -renamedefine XK_a XK_a_
 -renamedefine XK_b XK_b_
 -renamedefine XK_c XK_c_
