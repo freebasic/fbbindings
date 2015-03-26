@@ -751,7 +751,7 @@ x11:
 
 	cp -R extracted/xorg/$(X11_ICE)/include/X11 extracted/xorg
 	cp -R extracted/xorg/$(X11_SM)/include/X11 extracted/xorg
-	#$(X11_XAU)
+	cp -R extracted/xorg/$(X11_XAU)/include/X11 extracted/xorg
 	#$(X11_X11)
 	#$(X11_XT)
 	#$(X11_XEXT)
@@ -818,6 +818,7 @@ x11:
 		-include X11/Xwinsock.h \
 		-include X11/SM/SMlib.h \
 		-include X11/SM/SMproto.h \
+		-include X11/Xauth.h \
 		\
 		-emit '*/X11/cursorfont.h'   inc/X11/cursorfont.bi \
 		-emit '*/X11/keysymdef.h'    inc/X11/keysymdef.bi \
@@ -863,6 +864,7 @@ x11:
 		-emit '*/X11/SM/SM.h'        inc/X11/SM/SM.bi \
 		-emit '*/X11/SM/SMlib.h'     inc/X11/SM/SMlib.bi \
 		-emit '*/X11/SM/SMproto.h'   inc/X11/SM/SMproto.bi \
+		-emit '*/X11/Xauth.h'        inc/X11/Xauth.bi \
 		-emit '*/X11/Xutil.h'        inc/X11/Xutil.bi
 
 xcb:
