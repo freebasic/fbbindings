@@ -1084,10 +1084,6 @@ declare function SDL_JoystickGetButton(byval joystick as SDL_Joystick ptr, byval
 declare sub SDL_JoystickClose(byval joystick as SDL_Joystick ptr)
 
 #define _SDL_quit_h
-private function SDL_QuitRequested() as SDL_bool
-	SDL_PumpEvents()
-	function = SDL_PeepEvents(NULL, 0, SDL_PEEKEVENT, SDL_QUITMASK)
-end function
 const SDL_RELEASED = 0
 const SDL_PRESSED = 1
 
@@ -1263,6 +1259,10 @@ enum
 end enum
 
 declare function SDL_PeepEvents(byval events as SDL_Event ptr, byval numevents as long, byval action as SDL_eventaction, byval mask as Uint32) as long
+private function SDL_QuitRequested() as SDL_bool
+	SDL_PumpEvents()
+	function = SDL_PeepEvents(NULL, 0, SDL_PEEKEVENT, SDL_QUITMASK)
+end function
 declare function SDL_PollEvent(byval event as SDL_Event ptr) as long
 declare function SDL_WaitEvent(byval event as SDL_Event ptr) as long
 declare function SDL_PushEvent(byval event as SDL_Event ptr) as long

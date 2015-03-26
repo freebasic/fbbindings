@@ -1741,10 +1741,6 @@ declare function SDL_GameControllerGetButton(byval gamecontroller as SDL_GameCon
 declare sub SDL_GameControllerClose(byval gamecontroller as SDL_GameController ptr)
 
 #define _SDL_quit_h
-private function SDL_QuitRequested() as SDL_bool
-	SDL_PumpEvents()
-	function = (SDL_PeepEvents(NULL, 0, SDL_PEEKEVENT, SDL_QUIT, SDL_QUIT) > 0)
-end function
 #define _SDL_gesture_h
 #define _SDL_touch_h
 type SDL_TouchID as Sint64
@@ -2080,6 +2076,10 @@ enum
 end enum
 
 declare function SDL_PeepEvents(byval events as SDL_Event ptr, byval numevents as long, byval action as SDL_eventaction, byval minType as Uint32, byval maxType as Uint32) as long
+private function SDL_QuitRequested() as SDL_bool
+	SDL_PumpEvents()
+	function = (SDL_PeepEvents(NULL, 0, SDL_PEEKEVENT, SDL_QUIT, SDL_QUIT) > 0)
+end function
 declare function SDL_HasEvent(byval type as Uint32) as SDL_bool
 declare function SDL_HasEvents(byval minType as Uint32, byval maxType as Uint32) as SDL_bool
 declare sub SDL_FlushEvent(byval type as Uint32)
