@@ -40,8 +40,8 @@ const LBX_OPT_DELTA_MSGLEN_DFLT = 64
 type LbxStreamCompHandle as any ptr
 
 type _LbxStreamOpts
-	streamCompInit as function(byval fd as long, byval arg as pointer) as LbxStreamCompHandle
-	streamCompArg as pointer
+	streamCompInit as function(byval fd as long, byval arg as pointer_) as LbxStreamCompHandle
+	streamCompArg as pointer_
 	streamCompStuffInput as function(byval fd as long, byval buf as ubyte ptr, byval buflen as long) as long
 	streamCompInputAvail as function(byval fd as long) as long
 	streamCompFlush as function(byval fd as long) as long

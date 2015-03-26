@@ -14,6 +14,16 @@
 #include once "X11/Object.bi"
 #include once "X11/RectObj.bi"
 
+'' The following symbols have been renamed:
+''     procedure XtIsOverrideShell => XtIsOverrideShell_
+''     procedure XtIsVendorShell => XtIsVendorShell_
+''     procedure XtIsTransientShell => XtIsTransientShell_
+''     procedure XtIsApplicationShell => XtIsApplicationShell_
+''     procedure XtIsSessionShell => XtIsSessionShell_
+''     procedure XtMapWidget => XtMapWidget_
+''     procedure XtUnmapWidget => XtUnmapWidget_
+''     procedure XtNewString => XtNewString_
+
 extern "C"
 
 #define _XtIntrinsic_h
@@ -324,17 +334,17 @@ declare sub XtRemoveBlockHook(byval as XtBlockHookId)
 #define XtIsComposite(widget) _XtCheckSubclassFlag(widget, cast(XtEnum, &h08))
 #define XtIsConstraint(widget) _XtCheckSubclassFlag(widget, cast(XtEnum, &h10))
 #define XtIsShell(widget) _XtCheckSubclassFlag(widget, cast(XtEnum, &h20))
-declare function XtIsOverrideShell(byval as Widget) as byte
+declare function XtIsOverrideShell_ alias "XtIsOverrideShell"(byval as Widget) as byte
 #define XtIsOverrideShell(widget) _XtIsSubclassOf(widget, cast(WidgetClass, overrideShellWidgetClass), cast(WidgetClass, shellWidgetClass), cast(XtEnum, &h20))
 #define XtIsWMShell(widget) _XtCheckSubclassFlag(widget, cast(XtEnum, &h40))
-declare function XtIsVendorShell(byval as Widget) as byte
+declare function XtIsVendorShell_ alias "XtIsVendorShell"(byval as Widget) as byte
 #define XtIsVendorShell(widget) _XtIsSubclassOf(widget, cast(WidgetClass, vendorShellWidgetClass), cast(WidgetClass, wmShellWidgetClass), cast(XtEnum, &h40))
-declare function XtIsTransientShell(byval as Widget) as byte
+declare function XtIsTransientShell_ alias "XtIsTransientShell"(byval as Widget) as byte
 #define XtIsTransientShell(widget) _XtIsSubclassOf(widget, cast(WidgetClass, transientShellWidgetClass), cast(WidgetClass, wmShellWidgetClass), cast(XtEnum, &h40))
 #define XtIsTopLevelShell(widget) _XtCheckSubclassFlag(widget, cast(XtEnum, &h80))
-declare function XtIsApplicationShell(byval as Widget) as byte
+declare function XtIsApplicationShell_ alias "XtIsApplicationShell"(byval as Widget) as byte
 #define XtIsApplicationShell(widget) _XtIsSubclassOf(widget, cast(WidgetClass, applicationShellWidgetClass), cast(WidgetClass, topLevelShellWidgetClass), cast(XtEnum, &h80))
-declare function XtIsSessionShell(byval as Widget) as byte
+declare function XtIsSessionShell_ alias "XtIsSessionShell"(byval as Widget) as byte
 #define XtIsSessionShell(widget) _XtIsSubclassOf(widget, cast(WidgetClass, sessionShellWidgetClass), cast(WidgetClass, topLevelShellWidgetClass), cast(XtEnum, &h80))
 
 declare sub XtRealizeWidget(byval as Widget)
@@ -360,9 +370,9 @@ declare function XtName(byval as Widget) as String
 declare function XtSuperclass(byval as Widget) as WidgetClass
 declare function XtClass(byval as Widget) as WidgetClass
 declare function XtParent(byval as Widget) as Widget
-declare sub XtMapWidget(byval as Widget)
+declare sub XtMapWidget_ alias "XtMapWidget"(byval as Widget)
 #define XtMapWidget(widget) XMapWindow(XtDisplay(widget), XtWindow(widget))
-declare sub XtUnmapWidget(byval as Widget)
+declare sub XtUnmapWidget_ alias "XtUnmapWidget"(byval as Widget)
 #define XtUnmapWidget(widget) XUnmapWindow(XtDisplay(widget), XtWindow(widget))
 declare sub XtAddCallback(byval as Widget, byval as const zstring ptr, byval as XtCallbackProc, byval as XtPointer)
 declare sub XtRemoveCallback(byval as Widget, byval as const zstring ptr, byval as XtCallbackProc, byval as XtPointer)
@@ -481,7 +491,7 @@ declare function XtRealloc(byval as zstring ptr, byval as Cardinal) as zstring p
 declare sub XtFree(byval as zstring ptr)
 declare function XtAsprintf(byval new_string as String ptr, byval format as const zstring ptr, ...) as Cardinal
 #define XtNew(type) cptr(type ptr, XtMalloc(culng(sizeof((type)))))
-declare function XtNewString(byval as String) as String
+declare function XtNewString_ alias "XtNewString"(byval as String) as String
 #define XtNewString(str) iif((str) <> NULL, strcpy(XtMalloc(culng(culng(strlen(str)) + 1)), str), NULL)
 declare function XtAddWorkProc(byval as XtWorkProc, byval as XtPointer) as XtWorkProcId
 declare function XtAppAddWorkProc(byval as XtAppContext, byval as XtWorkProc, byval as XtPointer) as XtWorkProcId

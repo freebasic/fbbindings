@@ -19,8 +19,9 @@ const ZLIB_DATALEN_MASK = &h0f
 #endmacro
 #define ZLIB_GET_DATALEN(p) culng(culng(culng((p)[0] and ZLIB_DATALEN_MASK) shl 8) or culng((p)[1]))
 #define ZLIB_COMPRESSED(p) ((p)[0] and ZLIB_COMPRESS_FLAG)
-
 declare function ZlibInit(byval fd as long, byval level as long) as any ptr
+type ZlibInfo as ZlibInfo_
+
 declare sub ZlibFree(byval comp as ZlibInfo ptr)
 declare function ZlibFlush(byval fd as long) as long
 declare function ZlibStuffInput(byval fd as long, byval buffer as ubyte ptr, byval buflen as long) as long

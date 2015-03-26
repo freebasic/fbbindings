@@ -87,7 +87,7 @@ const X_GetDeviceProperty = 39
 
 type xGetExtensionVersionReq
 	reqType as CARD8
-	ReqType as CARD8
+	ReqType_ as CARD8
 	length as CARD16
 	nbytes as CARD16
 	pad1 as CARD8
@@ -96,7 +96,7 @@ end type
 
 type xGetExtensionVersionReply
 	repType as CARD8
-	RepType as CARD8
+	RepType_ as CARD8
 	sequenceNumber as CARD16
 	length as CARD32
 	major_version as CARD16
@@ -113,13 +113,13 @@ end type
 
 type xListInputDevicesReq
 	reqType as CARD8
-	ReqType as CARD8
+	ReqType_ as CARD8
 	length as CARD16
 end type
 
 type xListInputDevicesReply
 	repType as CARD8
-	RepType as CARD8
+	RepType_ as CARD8
 	sequenceNumber as CARD16
 	length as CARD32
 	ndevices as CARD8
@@ -197,7 +197,7 @@ type xAxisInfo as _xAxisInfo
 
 type xOpenDeviceReq
 	reqType as CARD8
-	ReqType as CARD8
+	ReqType_ as CARD8
 	length as CARD16
 	deviceid as CARD8
 	pad1 as UBYTE
@@ -207,7 +207,7 @@ end type
 
 type xOpenDeviceReply
 	repType as CARD8
-	RepType as CARD8
+	RepType_ as CARD8
 	sequenceNumber as CARD16
 	length as CARD32
 	num_classes as CARD8
@@ -228,7 +228,7 @@ end type
 
 type xCloseDeviceReq
 	reqType as CARD8
-	ReqType as CARD8
+	ReqType_ as CARD8
 	length as CARD16
 	deviceid as CARD8
 	pad1 as UBYTE
@@ -238,7 +238,7 @@ end type
 
 type xSetDeviceModeReq
 	reqType as CARD8
-	ReqType as CARD8
+	ReqType_ as CARD8
 	length as CARD16
 	deviceid as CARD8
 	mode as CARD8
@@ -248,7 +248,7 @@ end type
 
 type xSetDeviceModeReply
 	repType as CARD8
-	RepType as CARD8
+	RepType_ as CARD8
 	sequenceNumber as CARD16
 	length as CARD32
 	status as CARD8
@@ -264,7 +264,7 @@ end type
 
 type xSelectExtensionEventReq
 	reqType as CARD8
-	ReqType as CARD8
+	ReqType_ as CARD8
 	length as CARD16
 	window as CARD32
 	count as CARD16
@@ -273,14 +273,14 @@ end type
 
 type xGetSelectedExtensionEventsReq
 	reqType as CARD8
-	ReqType as CARD8
+	ReqType_ as CARD8
 	length as CARD16
 	window as CARD32
 end type
 
 type xGetSelectedExtensionEventsReply
 	repType as CARD8
-	RepType as CARD8
+	RepType_ as CARD8
 	sequenceNumber as CARD16
 	length as CARD32
 	this_client_count as CARD16
@@ -294,7 +294,7 @@ end type
 
 type xChangeDeviceDontPropagateListReq
 	reqType as CARD8
-	ReqType as CARD8
+	ReqType_ as CARD8
 	length as CARD16
 	window as CARD32
 	count as CARD16
@@ -304,14 +304,14 @@ end type
 
 type xGetDeviceDontPropagateListReq
 	reqType as CARD8
-	ReqType as CARD8
+	ReqType_ as CARD8
 	length as CARD16
 	window as CARD32
 end type
 
 type xGetDeviceDontPropagateListReply
 	repType as CARD8
-	RepType as CARD8
+	RepType_ as CARD8
 	sequenceNumber as CARD16
 	length as CARD32
 	count as CARD16
@@ -325,7 +325,7 @@ end type
 
 type xGetDeviceMotionEventsReq
 	reqType as CARD8
-	ReqType as CARD8
+	ReqType_ as CARD8
 	length as CARD16
 	start as CARD32
 	stop as CARD32
@@ -337,7 +337,7 @@ end type
 
 type xGetDeviceMotionEventsReply
 	repType as CARD8
-	RepType as CARD8
+	RepType_ as CARD8
 	sequenceNumber as CARD16
 	length as CARD32
 	nEvents as CARD32
@@ -353,7 +353,7 @@ end type
 
 type xChangeKeyboardDeviceReq
 	reqType as CARD8
-	ReqType as CARD8
+	ReqType_ as CARD8
 	length as CARD16
 	deviceid as CARD8
 	pad1 as UBYTE
@@ -363,7 +363,7 @@ end type
 
 type xChangeKeyboardDeviceReply
 	repType as CARD8
-	RepType as CARD8
+	RepType_ as CARD8
 	sequenceNumber as CARD16
 	length as CARD32
 	status as CARD8
@@ -379,7 +379,7 @@ end type
 
 type xChangePointerDeviceReq
 	reqType as CARD8
-	ReqType as CARD8
+	ReqType_ as CARD8
 	length as CARD16
 	xaxis as CARD8
 	yaxis as CARD8
@@ -389,7 +389,7 @@ end type
 
 type xChangePointerDeviceReply
 	repType as CARD8
-	RepType as CARD8
+	RepType_ as CARD8
 	sequenceNumber as CARD16
 	length as CARD32
 	status as CARD8
@@ -405,7 +405,7 @@ end type
 
 type xGrabDeviceReq
 	reqType as CARD8
-	ReqType as CARD8
+	ReqType_ as CARD8
 	length as CARD16
 	grabWindow as CARD32
 	time as CARD32
@@ -419,7 +419,7 @@ end type
 
 type xGrabDeviceReply
 	repType as CARD8
-	RepType as CARD8
+	RepType_ as CARD8
 	sequenceNumber as CARD16
 	length as CARD32
 	status as CARD8
@@ -435,7 +435,7 @@ end type
 
 type xUngrabDeviceReq
 	reqType as CARD8
-	ReqType as CARD8
+	ReqType_ as CARD8
 	length as CARD16
 	time as CARD32
 	deviceid as CARD8
@@ -446,7 +446,7 @@ end type
 
 type xGrabDeviceKeyReq
 	reqType as CARD8
-	ReqType as CARD8
+	ReqType_ as CARD8
 	length as CARD16
 	grabWindow as CARD32
 	event_count as CARD16
@@ -463,7 +463,7 @@ end type
 
 type xUngrabDeviceKeyReq
 	reqType as CARD8
-	ReqType as CARD8
+	ReqType_ as CARD8
 	length as CARD16
 	grabWindow as CARD32
 	modifiers as CARD16
@@ -477,7 +477,7 @@ end type
 
 type xGrabDeviceButtonReq
 	reqType as CARD8
-	ReqType as CARD8
+	ReqType_ as CARD8
 	length as CARD16
 	grabWindow as CARD32
 	grabbed_device as CARD8
@@ -494,7 +494,7 @@ end type
 
 type xUngrabDeviceButtonReq
 	reqType as CARD8
-	ReqType as CARD8
+	ReqType_ as CARD8
 	length as CARD16
 	grabWindow as CARD32
 	modifiers as CARD16
@@ -508,7 +508,7 @@ end type
 
 type xAllowDeviceEventsReq
 	reqType as CARD8
-	ReqType as CARD8
+	ReqType_ as CARD8
 	length as CARD16
 	time as CARD32
 	mode as CARD8
@@ -519,7 +519,7 @@ end type
 
 type xGetDeviceFocusReq
 	reqType as CARD8
-	ReqType as CARD8
+	ReqType_ as CARD8
 	length as CARD16
 	deviceid as CARD8
 	pad1 as UBYTE
@@ -529,7 +529,7 @@ end type
 
 type xGetDeviceFocusReply
 	repType as CARD8
-	RepType as CARD8
+	RepType_ as CARD8
 	sequenceNumber as CARD16
 	length as CARD32
 	focus as CARD32
@@ -545,7 +545,7 @@ end type
 
 type xSetDeviceFocusReq
 	reqType as CARD8
-	ReqType as CARD8
+	ReqType_ as CARD8
 	length as CARD16
 	focus as CARD32
 	time as CARD32
@@ -556,7 +556,7 @@ end type
 
 type xGetFeedbackControlReq
 	reqType as CARD8
-	ReqType as CARD8
+	ReqType_ as CARD8
 	length as CARD16
 	deviceid as CARD8
 	pad1 as UBYTE
@@ -566,7 +566,7 @@ end type
 
 type xGetFeedbackControlReply
 	repType as CARD8
-	RepType as CARD8
+	RepType_ as CARD8
 	sequenceNumber as CARD16
 	length as CARD32
 	num_feedbacks as CARD16
@@ -649,7 +649,7 @@ end type
 
 type xChangeFeedbackControlReq
 	reqType as CARD8
-	ReqType as CARD8
+	ReqType_ as CARD8
 	length as CARD16
 	mask as CARD32
 	deviceid as CARD8
@@ -727,7 +727,7 @@ end type
 
 type xGetDeviceKeyMappingReq
 	reqType as CARD8
-	ReqType as CARD8
+	ReqType_ as CARD8
 	length as CARD16
 	deviceid as CARD8
 	firstKeyCode as CARD8
@@ -737,7 +737,7 @@ end type
 
 type xGetDeviceKeyMappingReply
 	repType as CARD8
-	RepType as CARD8
+	RepType_ as CARD8
 	sequenceNumber as CARD16
 	length as CARD32
 	keySymsPerKeyCode as CARD8
@@ -752,7 +752,7 @@ end type
 
 type xChangeDeviceKeyMappingReq
 	reqType as CARD8
-	ReqType as CARD8
+	ReqType_ as CARD8
 	length as CARD16
 	deviceid as CARD8
 	firstKeyCode as CARD8
@@ -762,7 +762,7 @@ end type
 
 type xGetDeviceModifierMappingReq
 	reqType as CARD8
-	ReqType as CARD8
+	ReqType_ as CARD8
 	length as CARD16
 	deviceid as CARD8
 	pad1 as UBYTE
@@ -772,7 +772,7 @@ end type
 
 type xGetDeviceModifierMappingReply
 	repType as CARD8
-	RepType as CARD8
+	RepType_ as CARD8
 	sequenceNumber as CARD16
 	length as CARD32
 	numKeyPerModifier as CARD8
@@ -787,7 +787,7 @@ end type
 
 type xSetDeviceModifierMappingReq
 	reqType as CARD8
-	ReqType as CARD8
+	ReqType_ as CARD8
 	length as CARD16
 	deviceid as CARD8
 	numKeyPerModifier as CARD8
@@ -796,7 +796,7 @@ end type
 
 type xSetDeviceModifierMappingReply
 	repType as CARD8
-	RepType as CARD8
+	RepType_ as CARD8
 	sequenceNumber as CARD16
 	length as CARD32
 	success as CARD8
@@ -811,7 +811,7 @@ end type
 
 type xGetDeviceButtonMappingReq
 	reqType as CARD8
-	ReqType as CARD8
+	ReqType_ as CARD8
 	length as CARD16
 	deviceid as CARD8
 	pad1 as UBYTE
@@ -821,7 +821,7 @@ end type
 
 type xGetDeviceButtonMappingReply
 	repType as CARD8
-	RepType as CARD8
+	RepType_ as CARD8
 	sequenceNumber as CARD16
 	length as CARD32
 	nElts as CARD8
@@ -837,7 +837,7 @@ end type
 
 type xSetDeviceButtonMappingReq
 	reqType as CARD8
-	ReqType as CARD8
+	ReqType_ as CARD8
 	length as CARD16
 	deviceid as CARD8
 	map_length as CARD8
@@ -847,7 +847,7 @@ end type
 
 type xSetDeviceButtonMappingReply
 	repType as CARD8
-	RepType as CARD8
+	RepType_ as CARD8
 	sequenceNumber as CARD16
 	length as CARD32
 	status as CARD8
@@ -862,7 +862,7 @@ end type
 
 type xQueryDeviceStateReq
 	reqType as CARD8
-	ReqType as CARD8
+	ReqType_ as CARD8
 	length as CARD16
 	deviceid as CARD8
 	pad1 as UBYTE
@@ -872,7 +872,7 @@ end type
 
 type xQueryDeviceStateReply
 	repType as CARD8
-	RepType as CARD8
+	RepType_ as CARD8
 	sequenceNumber as CARD16
 	length as CARD32
 	num_classes as CARD8
@@ -910,7 +910,7 @@ end type
 
 type xSendExtensionEventReq
 	reqType as CARD8
-	ReqType as CARD8
+	ReqType_ as CARD8
 	length as CARD16
 	destination as CARD32
 	deviceid as CARD8
@@ -924,7 +924,7 @@ end type
 
 type xDeviceBellReq
 	reqType as CARD8
-	ReqType as CARD8
+	ReqType_ as CARD8
 	length as CARD16
 	deviceid as CARD8
 	feedbackid as CARD8
@@ -934,7 +934,7 @@ end type
 
 type xSetDeviceValuatorsReq
 	reqType as CARD8
-	ReqType as CARD8
+	ReqType_ as CARD8
 	length as CARD16
 	deviceid as CARD8
 	first_valuator as CARD8
@@ -944,7 +944,7 @@ end type
 
 type xSetDeviceValuatorsReply
 	repType as CARD8
-	RepType as CARD8
+	RepType_ as CARD8
 	sequenceNumber as CARD16
 	length as CARD32
 	status as CARD8
@@ -960,7 +960,7 @@ end type
 
 type xGetDeviceControlReq
 	reqType as CARD8
-	ReqType as CARD8
+	ReqType_ as CARD8
 	length as CARD16
 	control as CARD16
 	deviceid as CARD8
@@ -969,7 +969,7 @@ end type
 
 type xGetDeviceControlReply
 	repType as CARD8
-	RepType as CARD8
+	RepType_ as CARD8
 	sequenceNumber as CARD16
 	length as CARD32
 	status as CARD8
@@ -1036,7 +1036,7 @@ end type
 
 type xChangeDeviceControlReq
 	reqType as CARD8
-	ReqType as CARD8
+	ReqType_ as CARD8
 	length as CARD16
 	control as CARD16
 	deviceid as CARD8
@@ -1045,7 +1045,7 @@ end type
 
 type xChangeDeviceControlReply
 	repType as CARD8
-	RepType as CARD8
+	RepType_ as CARD8
 	sequenceNumber as CARD16
 	length as CARD32
 	status as CARD8
@@ -1115,7 +1115,7 @@ end type
 
 type xListDevicePropertiesReq
 	reqType as CARD8
-	ReqType as CARD8
+	ReqType_ as CARD8
 	length as CARD16
 	deviceid as CARD8
 	pad0 as CARD8
@@ -1124,7 +1124,7 @@ end type
 
 type xListDevicePropertiesReply
 	repType as CARD8
-	RepType as CARD8
+	RepType_ as CARD8
 	sequenceNumber as CARD16
 	length as CARD32
 	nAtoms as CARD16
@@ -1138,7 +1138,7 @@ end type
 
 type xChangeDevicePropertyReq
 	reqType as CARD8
-	ReqType as CARD8
+	ReqType_ as CARD8
 	length as CARD16
 	property as CARD32
 	as CARD32 type
@@ -1151,7 +1151,7 @@ end type
 
 type xDeleteDevicePropertyReq
 	reqType as CARD8
-	ReqType as CARD8
+	ReqType_ as CARD8
 	length as CARD16
 	property as CARD32
 	deviceid as CARD8
@@ -1161,7 +1161,7 @@ end type
 
 type xGetDevicePropertyReq
 	reqType as CARD8
-	ReqType as CARD8
+	ReqType_ as CARD8
 	length as CARD16
 	property as CARD32
 	as CARD32 type
@@ -1174,7 +1174,7 @@ end type
 
 type xGetDevicePropertyReply
 	repType as CARD8
-	RepType as CARD8
+	RepType_ as CARD8
 	sequenceNumber as CARD16
 	length as CARD32
 	propertyType as CARD32

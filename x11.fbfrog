@@ -33,6 +33,7 @@ nodos.fbfrog
 -addforwarddecl _XkbInfoRec
 -addforwarddecl _XtransConnInfo
 -addforwarddecl _X11XCBPrivate
+-addforwarddecl ZlibInfo
 
 -renametypedef BYTE UBYTE
 -renametypedef xSegment xSegment_
@@ -399,3 +400,32 @@ nodos.fbfrog
 # case-aliases
 -removedefine XK_ETH    # = XK_Eth
 -removedefine XK_THORN  # = XK_Thorn
+
+-renameproc XtIsOverrideShell XtIsOverrideShell_
+-renameproc XtIsVendorShell XtIsVendorShell_
+-renameproc XtIsTransientShell XtIsTransientShell_
+-renameproc XtIsApplicationShell XtIsApplicationShell_
+-renameproc XtIsSessionShell XtIsSessionShell_
+-renameproc XtMapWidget XtMapWidget_
+-renameproc XtUnmapWidget XtUnmapWidget_
+-renameproc XtNewString XtNewString_
+
+-renametypedef Object Object_
+-renametypedef pointer pointer_
+
+-rename ReqType ReqType_
+-rename RepType RepType_
+
+-renametypedef xDbeSwapInfo xDbeSwapInfo_
+-renametypedef xMbufBufferInfo xMbufBufferInfo_
+-renametypedef xMbufClobberNotifyEvent xMbufClobberNotifyEvent_
+-renametypedef xMbufUpdateNotifyEvent xMbufUpdateNotifyEvent_
+-renametypedef xRecordRange xRecordRange_
+-renametypedef xRecordClientInfo xRecordClientInfo_
+-renametypedef xSecurityAuthorizationRevokedEvent xSecurityAuthorizationRevokedEvent_
+-renametypedef xSyncSystemCounter xSyncSystemCounter_
+-renametypedef xSyncWaitCondition xSyncWaitCondition_
+-renametypedef xSyncCounterNotifyEvent xSyncCounterNotifyEvent_
+-renametypedef xSyncAlarmNotifyEvent xSyncAlarmNotifyEvent_
+
+-removedefine sz_RECORDRANGE

@@ -9,13 +9,13 @@ const X_GEGetExtensionVersion = 1
 
 type xGEReq
 	reqType as CARD8
-	ReqType as CARD8
+	ReqType_ as CARD8
 	length as CARD16
 end type
 
 type xGEQueryVersionReq
 	reqType as CARD8
-	ReqType as CARD8
+	ReqType_ as CARD8
 	length as CARD16
 	majorVersion as CARD16
 	minorVersion as CARD16
@@ -25,7 +25,7 @@ const sz_xGEQueryVersionReq = 8
 
 type xGEQueryVersionReply
 	repType as CARD8
-	RepType as CARD8
+	RepType_ as CARD8
 	sequenceNumber as CARD16
 	length as CARD32
 	majorVersion as CARD16
