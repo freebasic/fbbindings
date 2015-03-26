@@ -399,3 +399,12 @@ nodos.fbfrog
 # case-aliases
 -removedefine XK_ETH    # = XK_Eth
 -removedefine XK_THORN  # = XK_Thorn
+
+-renameproc XtIsOverrideShell XtIsOverrideShell_
+-renameproc XtIsVendorShell XtIsVendorShell_
+-renameproc XtIsTransientShell XtIsTransientShell_
+-renameproc XtIsApplicationShell XtIsApplicationShell_
+-renameproc XtIsSessionShell XtIsSessionShell_
+-renameproc XtMapWidget XtMapWidget_
+-renameproc XtUnmapWidget XtUnmapWidget_
+-renameproc XtNewString XtNewString_
