@@ -33,7 +33,6 @@ type CARD16 as ushort
 type CARD8 as ubyte
 type BITS32 as CARD32
 type BITS16 as CARD16
-type UBYTE as CARD8
 type BOOL as CARD8
 
 #define cvtINT8toInt(val) (val)
