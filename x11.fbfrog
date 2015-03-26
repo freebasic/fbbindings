@@ -36,6 +36,12 @@ nodos.fbfrog
 -removedefine _XtXtEnum
 -removedefine externalref
 -removedefine externaldef
+-removedefine sleep
+-removedefine PATH_MAX
+-removedefine TRUE
+-removedefine FALSE
+-removedefine MAXSHORT
+-removedefine MINSHORT
 
 -addforwarddecl _XPrivate
 -addforwarddecl _XrmHashBucketRec
@@ -437,6 +443,10 @@ nodos.fbfrog
 -rename ReqType ReqType_
 -rename RepType RepType_
 
+-renametag _xAnyClassinfo _xAnyClassinfo_
+-renametag _xAxisInfo _xAxisInfo_
+-renametag _xButtonInfo _xButtonInfo_
+-renametag _xDeviceInfo _xDeviceInfo_
 -renametag _xkbAccessXNotify _xkbAccessXNotify_
 -renametag _xkbActionMessage _xkbActionMessage_
 -renametag _xkbAnyEvent _xkbAnyEvent_
@@ -448,27 +458,54 @@ nodos.fbfrog
 -renametag _xkbIndicatorNotify _xkbIndicatorNotify_
 -renametag _xkbNamesNotify _xkbNamesNotify_
 -renametag _xkbNewKeyboardNotify _xkbNewKeyboardNotify_
+-renametag _xKeyInfo _xKeyInfo_
+-renametag xMbufBufferInfo xMbufBufferInfo_
 -renametag _xRRModeInfo _xRRModeInfo_
+-renametag _xValuatorInfo _xValuatorInfo_
 
+-renametypedef changeDeviceNotify changeDeviceNotify_
+-renametypedef deviceMappingNotify deviceMappingNotify_
+-renametypedef devicePropertyNotify devicePropertyNotify_
+-renametypedef deviceStateNotify deviceStateNotify_
+-renametypedef xAnyClassPtr xAnyClassPtr_
+-renametypedef xAxisInfoPtr xAxisInfoPtr_
+-renametypedef xBellFeedbackState xBellFeedbackState_
+-renametypedef xButtonInfoPtr xButtonInfoPtr_
+-renametypedef xButtonState xButtonState_
 -renametypedef xDbeSwapInfo xDbeSwapInfo_
+-renametypedef xDeviceAbsAreaState xDeviceAbsAreaState_
+-renametypedef xDeviceAbsCalibState xDeviceAbsCalibState_
+-renametypedef xDeviceCoreState xDeviceCoreState_
+-renametypedef xDeviceEnableState xDeviceEnableState_
+-renametypedef xDeviceInfoPtr xDeviceInfoPtr_
+-renametypedef xDeviceResolutionState xDeviceResolutionState_
+-renametypedef xDeviceState xDeviceState_
+-renametypedef xFeedbackState xFeedbackState_
 -renametypedef xGlyphInfo xGlyphInfo_
 -renametypedef xIndexValue xIndexValue_
+-renametypedef xInputClassInfo xInputClassInfo_
+-renametypedef xIntegerFeedbackState xIntegerFeedbackState_
 -renametypedef xkbAccessXNotify xkbAccessXNotify_
 -renametypedef xkbActionMessage xkbActionMessage_
 -renametypedef xkbAnyEvent xkbAnyEvent_
 -renametypedef xkbBellNotify xkbBellNotify_
 -renametypedef xkbCompatMapNotify xkbCompatMapNotify_
 -renametypedef xkbControlsNotify xkbControlsNotify_
+-renametypedef xKbdFeedbackState xKbdFeedbackState_
 -renametypedef xkbEvent xkbEvent_
 -renametypedef xkbExtensionDeviceNotify xkbExtensionDeviceNotify_
 -renametypedef xkbIndicatorNotify xkbIndicatorNotify_
 -renametypedef xkbNamesNotify xkbNamesNotify_
 -renametypedef xkbNewKeyboardNotify xkbNewKeyboardNotify_
+-renametypedef xKeyInfoPtr xKeyInfoPtr_
+-renametypedef xKeyState xKeyState_
+-renametypedef xLedFeedbackState xLedFeedbackState_
 -renametypedef xLineFixed xLineFixed_
 -renametypedef xMbufBufferInfo xMbufBufferInfo_
 -renametypedef xMbufClobberNotifyEvent xMbufClobberNotifyEvent_
 -renametypedef xMbufUpdateNotifyEvent xMbufUpdateNotifyEvent_
 -renametypedef xPointFixed xPointFixed_
+-renametypedef xPtrFeedbackState xPtrFeedbackState_
 -renametypedef xRecordClientInfo xRecordClientInfo_
 -renametypedef xRecordRange xRecordRange_
 -renametypedef xRenderColor xRenderColor_
@@ -483,6 +520,7 @@ nodos.fbfrog
 -renametypedef xSecurityAuthorizationRevokedEvent xSecurityAuthorizationRevokedEvent_
 -renametypedef xShmCompletionEvent xShmCompletionEvent_
 -renametypedef xSpanFix xSpanFix_
+-renametypedef xStringFeedbackState xStringFeedbackState_
 -renametypedef xSyncAlarmNotifyEvent xSyncAlarmNotifyEvent_
 -renametypedef xSyncCounterNotifyEvent xSyncCounterNotifyEvent_
 -renametypedef xSyncSystemCounter xSyncSystemCounter_
@@ -493,6 +531,8 @@ nodos.fbfrog
 -renametypedef xTrap xTrap_
 -renametypedef xTriangle xTriangle_
 -renametypedef xvAdaptorInfo xvAdaptorInfo_
+-renametypedef xValuatorInfoPtr xValuatorInfoPtr_
+-renametypedef xValuatorState xValuatorState_
 -renametypedef xvEncodingInfo xvEncodingInfo_
 -renametypedef xvFormat xvFormat_
 -renametypedef xvmcSurfaceInfo xvmcSurfaceInfo_
@@ -509,5 +549,3 @@ nodos.fbfrog
 -rename ACCEPT XACCEPT
 -rename FAILED XFAILED
 -renametypedef GlyphSet XGlyphSet
--removedefine sleep
--removedefine PATH_MAX
