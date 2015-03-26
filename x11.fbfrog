@@ -53,6 +53,8 @@ nodos.fbfrog
 -removedefine DEALLOCATE_LOCAL
 -removedefine AssignMax
 -removedefine AssignMin
+-removedefine XRecordGlobaldef
+-removedefine XRecordGlobalref
 
 -addforwarddecl _XPrivate
 -addforwarddecl _XrmHashBucketRec
