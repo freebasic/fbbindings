@@ -756,7 +756,7 @@ x11:
 	cp -R extracted/xorg/$(X11_XEXT)/include/X11 extracted/xorg
 	cp -R extracted/xorg/$(X11_XPM)/include/X11 extracted/xorg
 	cp -R extracted/xorg/$(X11_XRENDER)/include/X11 extracted/xorg
-	#$(X11_XRANDR)
+	cp -R extracted/xorg/$(X11_XRANDR)/include/X11 extracted/xorg
 	#$(X11_XI)
 	#$(X11_XDMCP)
 	#$(X11_XXF86DGA)
@@ -837,6 +837,7 @@ x11:
 		-include X11/extensions/dpms.h \
 		-include X11/extensions/shape.h \
 		-include X11/extensions/Xrender.h \
+		-include X11/extensions/Xrandr.h \
 		-include X11/xpm.h \
 		\
 		-emit '*/X11/ap_keysym.h'    inc/X11/ap_keysym.bi \
@@ -910,6 +911,7 @@ x11:
 		-emit '*/X11/extensions/dpms.h'      inc/X11/extensions/dpms.bi      \
 		-emit '*/X11/extensions/shape.h'     inc/X11/extensions/shape.bi     \
 		-emit '*/X11/extensions/Xrender.h'   inc/X11/extensions/Xrender.bi   \
+		-emit '*/X11/extensions/Xrandr.h'    inc/X11/extensions/Xrandr.bi    \
 		-emit '*/X11/xpm.h' inc/X11/xpm.bi
 
 	$(FBFROG) x11.fbfrog -incdir extracted/xorg \
