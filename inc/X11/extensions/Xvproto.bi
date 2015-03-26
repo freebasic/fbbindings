@@ -7,6 +7,7 @@
 ''     struct xvAdaptorInfo => xvAdaptorInfo_
 ''     struct xvEncodingInfo => xvEncodingInfo_
 ''     struct xvFormat => xvFormat_
+''     struct xvEvent => xvEvent_
 
 #define XVPROTO_H
 
@@ -569,6 +570,6 @@ union xvEvent_u
 	portNotify as xvEvent_u_portNotify
 end union
 
-type xvEvent
+type xvEvent_
 	u as xvEvent_u
 end type

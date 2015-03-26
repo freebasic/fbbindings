@@ -7,15 +7,21 @@
 ''     typedef xDeviceInfoPtr => xDeviceInfoPtr_
 ''     typedef xAnyClassPtr => xAnyClassPtr_
 ''     struct _xAnyClassinfo => _xAnyClassinfo_
+''     typedef xAnyClassInfo => xAnyClassInfo_
 ''     struct _xDeviceInfo => _xDeviceInfo_
+''     typedef xDeviceInfo => xDeviceInfo_
 ''     typedef xKeyInfoPtr => xKeyInfoPtr_
 ''     struct _xKeyInfo => _xKeyInfo_
+''     typedef xKeyInfo => xKeyInfo_
 ''     typedef xButtonInfoPtr => xButtonInfoPtr_
 ''     struct _xButtonInfo => _xButtonInfo_
+''     typedef xButtonInfo => xButtonInfo_
 ''     typedef xValuatorInfoPtr => xValuatorInfoPtr_
 ''     struct _xValuatorInfo => _xValuatorInfo_
+''     typedef xValuatorInfo => xValuatorInfo_
 ''     typedef xAxisInfoPtr => xAxisInfoPtr_
 ''     struct _xAxisInfo => _xAxisInfo_
+''     typedef xAxisInfo => xAxisInfo_
 ''     struct xInputClassInfo => xInputClassInfo_
 ''     struct xFeedbackState => xFeedbackState_
 ''     struct xKbdFeedbackState => xKbdFeedbackState_
@@ -176,7 +182,7 @@ type _xAnyClassinfo_
 	length as CARD8
 end type
 
-type xAnyClassInfo as _xAnyClassinfo_
+type xAnyClassInfo_ as _xAnyClassinfo_
 
 type _xDeviceInfo_
 	as CARD32 type
@@ -186,7 +192,7 @@ type _xDeviceInfo_
 	attached as CARD8
 end type
 
-type xDeviceInfo as _xDeviceInfo_
+type xDeviceInfo_ as _xDeviceInfo_
 type xKeyInfoPtr_ as _xKeyInfo_ ptr
 
 type _xKeyInfo_
@@ -199,7 +205,7 @@ type _xKeyInfo_
 	pad2 as CARD8
 end type
 
-type xKeyInfo as _xKeyInfo_
+type xKeyInfo_ as _xKeyInfo_
 type xButtonInfoPtr_ as _xButtonInfo_ ptr
 
 type _xButtonInfo_
@@ -208,7 +214,7 @@ type _xButtonInfo_
 	num_buttons as CARD16
 end type
 
-type xButtonInfo as _xButtonInfo_
+type xButtonInfo_ as _xButtonInfo_
 type xValuatorInfoPtr_ as _xValuatorInfo_ ptr
 
 type _xValuatorInfo_
@@ -219,7 +225,7 @@ type _xValuatorInfo_
 	motion_buffer_size as CARD32
 end type
 
-type xValuatorInfo as _xValuatorInfo_
+type xValuatorInfo_ as _xValuatorInfo_
 type xAxisInfoPtr_ as _xAxisInfo_ ptr
 
 type _xAxisInfo_
@@ -228,7 +234,7 @@ type _xAxisInfo_
 	max_value as CARD32
 end type
 
-type xAxisInfo as _xAxisInfo_
+type xAxisInfo_ as _xAxisInfo_
 
 type xOpenDeviceReq
 	reqType as CARD8

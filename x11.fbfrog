@@ -467,10 +467,13 @@ nodos.fbfrog
 -renametypedef deviceMappingNotify deviceMappingNotify_
 -renametypedef devicePropertyNotify devicePropertyNotify_
 -renametypedef deviceStateNotify deviceStateNotify_
+-renametypedef xAnyClassInfo xAnyClassInfo_
 -renametypedef xAnyClassPtr xAnyClassPtr_
 -renametypedef xAxisInfoPtr xAxisInfoPtr_
+-renametypedef xAxisInfo xAxisInfo_
 -renametypedef xBellFeedbackState xBellFeedbackState_
 -renametypedef xButtonInfoPtr xButtonInfoPtr_
+-renametypedef xButtonInfo xButtonInfo_
 -renametypedef xButtonState xButtonState_
 -renametypedef xDbeSwapInfo xDbeSwapInfo_
 -renametypedef xDeviceAbsAreaState xDeviceAbsAreaState_
@@ -478,6 +481,7 @@ nodos.fbfrog
 -renametypedef xDeviceCoreState xDeviceCoreState_
 -renametypedef xDeviceEnableState xDeviceEnableState_
 -renametypedef xDeviceInfoPtr xDeviceInfoPtr_
+-renametypedef xDeviceInfo xDeviceInfo_
 -renametypedef xDeviceResolutionState xDeviceResolutionState_
 -renametypedef xDeviceState xDeviceState_
 -renametypedef xFeedbackState xFeedbackState_
@@ -498,6 +502,7 @@ nodos.fbfrog
 -renametypedef xkbNamesNotify xkbNamesNotify_
 -renametypedef xkbNewKeyboardNotify xkbNewKeyboardNotify_
 -renametypedef xKeyInfoPtr xKeyInfoPtr_
+-renametypedef xKeyInfo xKeyInfo_
 -renametypedef xKeyState xKeyState_
 -renametypedef xLedFeedbackState xLedFeedbackState_
 -renametypedef xLineFixed xLineFixed_
@@ -532,8 +537,10 @@ nodos.fbfrog
 -renametypedef xTriangle xTriangle_
 -renametypedef xvAdaptorInfo xvAdaptorInfo_
 -renametypedef xValuatorInfoPtr xValuatorInfoPtr_
+-renametypedef xValuatorInfo xValuatorInfo_
 -renametypedef xValuatorState xValuatorState_
 -renametypedef xvEncodingInfo xvEncodingInfo_
+-renametypedef xvEvent xvEvent_
 -renametypedef xvFormat xvFormat_
 -renametypedef xvmcSurfaceInfo xvmcSurfaceInfo_
 -renametypedef xvRational xvRational_
