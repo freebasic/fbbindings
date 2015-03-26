@@ -1214,11 +1214,10 @@ union _xEvent_u
 	clientMessage as _xEvent_u_clientMessage
 end union
 
-type _xEvent
+type xEvent_
 	u as _xEvent_u
 end type
 
-type xEvent_ as _xEvent
 const ELFlagFocus = 1 shl 0
 const ELFlagSameScreen = 1 shl 1
 

@@ -812,7 +812,7 @@ type XGenericEventCookie
 	data as any ptr
 end type
 
-union _XEvent
+union XEvent
 	as long type
 	xany as XAnyEvent
 	xkey as XKeyEvent
@@ -850,7 +850,6 @@ union _XEvent
 	pad(0 to 23) as clong
 end union
 
-type XEvent as _XEvent
 #define XAllocID(dpy) (cptr(_XPrivDisplay, dpy)->resource_alloc(dpy))
 
 type XCharStruct
