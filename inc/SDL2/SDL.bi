@@ -34,6 +34,7 @@
 #endif
 
 '' The following symbols have been renamed:
+''     procedure SDL_Log => SDL_Log_
 ''     struct SDL_version => SDL_version_
 
 extern "C"
@@ -972,6 +973,7 @@ declare function SDL_GetDisplayMode(byval displayIndex as long, byval modeIndex 
 declare function SDL_GetDesktopDisplayMode(byval displayIndex as long, byval mode as SDL_DisplayMode ptr) as long
 declare function SDL_GetCurrentDisplayMode(byval displayIndex as long, byval mode as SDL_DisplayMode ptr) as long
 declare function SDL_GetClosestDisplayMode(byval displayIndex as long, byval mode as const SDL_DisplayMode ptr, byval closest as SDL_DisplayMode ptr) as SDL_DisplayMode ptr
+type SDL_Window as SDL_Window_
 declare function SDL_GetWindowDisplayIndex(byval window as SDL_Window ptr) as long
 declare function SDL_SetWindowDisplayMode(byval window as SDL_Window ptr, byval mode as const SDL_DisplayMode ptr) as long
 declare function SDL_GetWindowDisplayMode(byval window as SDL_Window ptr, byval mode as SDL_DisplayMode ptr) as long
@@ -1595,6 +1597,7 @@ declare function SDL_GetRelativeMouseState(byval x as long ptr, byval y as long 
 declare sub SDL_WarpMouseInWindow(byval window as SDL_Window ptr, byval x as long, byval y as long)
 declare function SDL_SetRelativeMouseMode(byval enabled as SDL_bool) as long
 declare function SDL_GetRelativeMouseMode() as SDL_bool
+type SDL_Cursor as SDL_Cursor_
 declare function SDL_CreateCursor(byval data as const Uint8 ptr, byval mask as const Uint8 ptr, byval w as long, byval h as long, byval hot_x as long, byval hot_y as long) as SDL_Cursor ptr
 declare function SDL_CreateColorCursor(byval surface as SDL_Surface ptr, byval hot_x as long, byval hot_y as long) as SDL_Cursor ptr
 declare function SDL_CreateSystemCursor(byval id as SDL_SystemCursor) as SDL_Cursor ptr
@@ -2032,6 +2035,8 @@ type SDL_UserEvent
 	data2 as any ptr
 end type
 
+type SDL_SysWMmsg as SDL_SysWMmsg_
+
 type SDL_SysWMEvent
 	as Uint32 type
 	timestamp as Uint32
@@ -2078,7 +2083,7 @@ end enum
 declare function SDL_PeepEvents(byval events as SDL_Event ptr, byval numevents as long, byval action as SDL_eventaction, byval minType as Uint32, byval maxType as Uint32) as long
 private function SDL_QuitRequested() as SDL_bool
 	SDL_PumpEvents()
-	function = (SDL_PeepEvents(NULL, 0, SDL_PEEKEVENT, SDL_QUIT, SDL_QUIT) > 0)
+	function = (SDL_PeepEvents(NULL, 0, SDL_PEEKEVENT, SDL_QUIT_, SDL_QUIT_) > 0)
 end function
 declare function SDL_HasEvent(byval type as Uint32) as SDL_bool
 declare function SDL_HasEvents(byval minType as Uint32, byval maxType as Uint32) as SDL_bool
@@ -2350,7 +2355,7 @@ declare sub SDL_LogSetAllPriority(byval priority as SDL_LogPriority)
 declare sub SDL_LogSetPriority(byval category as long, byval priority as SDL_LogPriority)
 declare function SDL_LogGetPriority(byval category as long) as SDL_LogPriority
 declare sub SDL_LogResetPriorities()
-declare sub SDL_Log(byval fmt as const zstring ptr, ...)
+declare sub SDL_Log_ alias "SDL_Log"(byval fmt as const zstring ptr, ...)
 declare sub SDL_LogVerbose(byval category as long, byval fmt as const zstring ptr, ...)
 declare sub SDL_LogDebug(byval category as long, byval fmt as const zstring ptr, ...)
 declare sub SDL_LogInfo(byval category as long, byval fmt as const zstring ptr, ...)
@@ -2469,12 +2474,14 @@ end enum
 
 declare function SDL_GetNumRenderDrivers() as long
 declare function SDL_GetRenderDriverInfo(byval index as long, byval info as SDL_RendererInfo ptr) as long
+type SDL_Renderer as SDL_Renderer_
 declare function SDL_CreateWindowAndRenderer(byval width as long, byval height as long, byval window_flags as Uint32, byval window as SDL_Window ptr ptr, byval renderer as SDL_Renderer ptr ptr) as long
 declare function SDL_CreateRenderer(byval window as SDL_Window ptr, byval index as long, byval flags as Uint32) as SDL_Renderer ptr
 declare function SDL_CreateSoftwareRenderer(byval surface as SDL_Surface ptr) as SDL_Renderer ptr
 declare function SDL_GetRenderer(byval window as SDL_Window ptr) as SDL_Renderer ptr
 declare function SDL_GetRendererInfo(byval renderer as SDL_Renderer ptr, byval info as SDL_RendererInfo ptr) as long
 declare function SDL_GetRendererOutputSize(byval renderer as SDL_Renderer ptr, byval w as long ptr, byval h as long ptr) as long
+type SDL_Texture as SDL_Texture_
 declare function SDL_CreateTexture(byval renderer as SDL_Renderer ptr, byval format as Uint32, byval access as long, byval w as long, byval h as long) as SDL_Texture ptr
 declare function SDL_CreateTextureFromSurface(byval renderer as SDL_Renderer ptr, byval surface as SDL_Surface ptr) as SDL_Texture ptr
 declare function SDL_QueryTexture(byval texture as SDL_Texture ptr, byval format as Uint32 ptr, byval access as long ptr, byval w as long ptr, byval h as long ptr) as long

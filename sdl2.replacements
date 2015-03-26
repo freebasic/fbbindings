@@ -18,7 +18,7 @@ convert c: #define SDL_QuitRequested() (SDL_PumpEvents(), (SDL_PeepEvents(NULL, 
 to fb:
 	private function SDL_QuitRequested() as SDL_bool
 		SDL_PumpEvents()
-		function = (SDL_PeepEvents(NULL, 0, SDL_PEEKEVENT, SDL_QUIT, SDL_QUIT) > 0)
+		function = (SDL_PeepEvents(NULL, 0, SDL_PEEKEVENT, SDL_QUIT_, SDL_QUIT_) > 0)
 	end function
 
 convert c:
