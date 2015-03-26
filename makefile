@@ -703,7 +703,6 @@ X11_XXF86DGA     := libXxf86dga-1.1.4
 X11_XXF86VM      := libXxf86vm-1.1.4
 X11_XV           := libXv-1.0.10
 X11_XTRANS       := xtrans-1.3.5
-X11_UTILMACROS   := util-macros-1.19.0
 X11_XPROTO       := xproto-7.0.27
 X11_XEXTPROTO    := xextproto-7.3.0
 X11_RENDERPROTO  := renderproto-0.11.1
@@ -737,7 +736,6 @@ x11:
 	./getxorg.sh $(X11_XXF86VM)  $(X11_XXF86VM).tar.bz2   "http://xorg.freedesktop.org/releases/individual/lib/$(X11_XXF86VM).tar.bz2"
 	./getxorg.sh $(X11_XV)       $(X11_XV).tar.bz2        "http://xorg.freedesktop.org/releases/individual/lib/$(X11_XV).tar.bz2"
 	./getxorg.sh $(X11_XTRANS)   $(X11_XTRANS).tar.bz2    "http://xorg.freedesktop.org/releases/individual/lib/$(X11_XTRANS).tar.bz2"
-	./getxorg.sh $(X11_UTILMACROS)       $(X11_UTILMACROS).tar.bz2       "http://xorg.freedesktop.org/releases/individual/util/$(X11_UTILMACROS).tar.bz2"
 	./getxorg.sh $(X11_XPROTO)           $(X11_XPROTO).tar.bz2           "http://xorg.freedesktop.org/releases/individual/proto/$(X11_XPROTO).tar.bz2"
 	./getxorg.sh $(X11_XEXTPROTO)        $(X11_XEXTPROTO).tar.bz2        "http://xorg.freedesktop.org/releases/individual/proto/$(X11_XEXTPROTO).tar.bz2"
 	./getxorg.sh $(X11_RENDERPROTO)      $(X11_RENDERPROTO).tar.bz2      "http://xorg.freedesktop.org/releases/individual/proto/$(X11_RENDERPROTO).tar.bz2"
@@ -773,7 +771,6 @@ x11:
 	cp -R extracted/xorg/$(X11_XXF86VM)/include/X11  extracted/xorg
 	cp -R extracted/xorg/$(X11_XV)/include/X11      extracted/xorg
 	cp -R extracted/xorg/$(X11_XTRANS)/Xtrans.h     extracted/xorg/X11/Xtrans
-	#$(X11_UTILMACROS)
 	#$(X11_XPROTO)
 	#$(X11_XEXTPROTO)
 	#$(X11_RENDERPROTO)
