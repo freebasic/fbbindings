@@ -40,6 +40,8 @@ nodos.fbfrog
 -removedefine PATH_MAX
 -removedefine TRUE
 -removedefine FALSE
+-removedefine True
+-removedefine False
 -removedefine MAXSHORT
 -removedefine MINSHORT
 -removedefine KEYBOARD
