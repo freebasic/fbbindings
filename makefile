@@ -776,7 +776,7 @@ x11:
 	cp extracted/xorg/$(X11_RANDRPROTO)/*.h extracted/xorg/X11/extensions
 	cp extracted/xorg/$(X11_KBPROTO)/*.h extracted/xorg/X11/extensions
 	cp extracted/xorg/$(X11_INPUTPROTO)/*.h extracted/xorg/X11/extensions
-	#$(X11_DRI2PROTO)
+	cp extracted/xorg/$(X11_DRI2PROTO)/*.h extracted/xorg/X11/extensions
 	#$(X11_XF86DGAPROTO)
 	#$(X11_XF86VIDMODEPROTO)
 	#$(X11_VIDEOPROTO)
@@ -877,6 +877,8 @@ x11:
 		-include X11/extensions/XI2.h \
 		-include X11/extensions/XIproto.h \
 		-include X11/extensions/XI2proto.h \
+		-include X11/extensions/dri2proto.h \
+		-include X11/extensions/dri2tokens.h \
 		-include X11/Xdmcp.h \
 		-include X11/xpm.h \
 		-include X11/Xtrans/Xtrans.h \
@@ -1005,6 +1007,8 @@ x11:
 		-emit '*/X11/extensions/XI2.h'             inc/X11/extensions/XI2.bi \
 		-emit '*/X11/extensions/XIproto.h'         inc/X11/extensions/XIproto.bi \
 		-emit '*/X11/extensions/XI2proto.h'        inc/X11/extensions/XI2proto.bi \
+		-emit '*/X11/extensions/dri2proto.h'       inc/X11/extensions/dri2proto.bi \
+		-emit '*/X11/extensions/dri2tokens.h'      inc/X11/extensions/dri2tokens.bi \
 		-emit '*/X11/Xtrans/Xtrans.h'        inc/X11/Xtrans/Xtrans.bi \
 		-emit '*/X11/Xdmcp.h' inc/X11/Xdmcp.bi \
 		-emit '*/X11/xpm.h'   inc/X11/xpm.bi
