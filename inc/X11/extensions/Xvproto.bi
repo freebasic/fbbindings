@@ -2,16 +2,22 @@
 
 #include once "X11/Xmd.bi"
 
+'' The following symbols have been renamed:
+''     struct xvRational => xvRational_
+''     struct xvAdaptorInfo => xvAdaptorInfo_
+''     struct xvEncodingInfo => xvEncodingInfo_
+''     struct xvFormat => xvFormat_
+
 #define XVPROTO_H
 
-type xvRational
+type xvRational_
 	numerator as INT32
 	denominator as INT32
 end type
 
 const sz_xvRational = 8
 
-type xvAdaptorInfo
+type xvAdaptorInfo_
 	base_id as CARD32
 	name_size as CARD16
 	num_ports as CARD16
@@ -22,18 +28,18 @@ end type
 
 const sz_xvAdaptorInfo = 12
 
-type xvEncodingInfo
+type xvEncodingInfo_
 	encoding as CARD32
 	name_size as CARD16
 	width as CARD16
 	height as CARD16
 	pad as CARD16
-	rate as xvRational
+	rate as xvRational_
 end type
 
 #define sz_xvEncodingInfo (12 + sz_xvRational)
 
-type xvFormat
+type xvFormat_
 	visual as CARD32
 	depth as CARD8
 	pad1 as CARD8

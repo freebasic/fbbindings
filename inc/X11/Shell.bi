@@ -3,6 +3,10 @@
 #include once "X11/SM/SMlib.bi"
 #include once "X11/Intrinsic.bi"
 
+'' The following symbols have been renamed:
+''     #define XtNwaitforwm => XtNwaitforwm_
+''     #define XtCWaitforwm => XtCWaitforwm_
+
 extern "C"
 
 #define _XtShell_h
@@ -85,8 +89,8 @@ extern __XtShellStrings alias "XtShellStrings" as const byte
 #define XtCWmTimeout cptr(zstring ptr, @XtShellStrings[763])
 #define XtNwaitForWm cptr(zstring ptr, @XtShellStrings[773])
 #define XtCWaitForWm cptr(zstring ptr, @XtShellStrings[783])
-#define XtNwaitforwm cptr(zstring ptr, @XtShellStrings[793])
-#define XtCWaitforwm cptr(zstring ptr, @XtShellStrings[803])
+#define XtNwaitforwm_ cptr(zstring ptr, @XtShellStrings[793])
+#define XtCWaitforwm_ cptr(zstring ptr, @XtShellStrings[803])
 #define XtNclientLeader cptr(zstring ptr, @XtShellStrings[813])
 #define XtCClientLeader cptr(zstring ptr, @XtShellStrings[826])
 #define XtNwindowRole cptr(zstring ptr, @XtShellStrings[839])
