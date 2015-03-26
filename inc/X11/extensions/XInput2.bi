@@ -79,7 +79,7 @@ type XIButtonClassInfo
 	as long type
 	sourceid as long
 	num_buttons as long
-	labels as Atom ptr
+	labels as XAtom ptr
 	state as XIButtonState
 end type
 
@@ -94,7 +94,7 @@ type XIValuatorClassInfo
 	as long type
 	sourceid as long
 	number as long
-	label as Atom
+	label as XAtom
 	min as double
 	max as double
 	value as double
@@ -267,7 +267,7 @@ type XIPropertyEvent
 	evtype as long
 	time as Time
 	deviceid as long
-	property as Atom
+	property as XAtom
 	what as long
 end type
 
@@ -337,10 +337,10 @@ declare function XIUngrabKeycode(byval display as Display ptr, byval deviceid as
 declare function XIUngrabEnter(byval display as Display ptr, byval deviceid as long, byval grab_window as Window, byval num_modifiers as long, byval modifiers as XIGrabModifiers ptr) as long
 declare function XIUngrabFocusIn(byval display as Display ptr, byval deviceid as long, byval grab_window as Window, byval num_modifiers as long, byval modifiers as XIGrabModifiers ptr) as long
 declare function XIUngrabTouchBegin(byval display as Display ptr, byval deviceid as long, byval grab_window as Window, byval num_modifiers as long, byval modifiers as XIGrabModifiers ptr) as long
-declare function XIListProperties(byval display as Display ptr, byval deviceid as long, byval num_props_return as long ptr) as Atom ptr
-declare sub XIChangeProperty(byval display as Display ptr, byval deviceid as long, byval property as Atom, byval type as Atom, byval format as long, byval mode as long, byval data as ubyte ptr, byval num_items as long)
-declare sub XIDeleteProperty(byval display as Display ptr, byval deviceid as long, byval property as Atom)
-declare function XIGetProperty(byval display as Display ptr, byval deviceid as long, byval property as Atom, byval offset as clong, byval length as clong, byval delete_property as long, byval type as Atom, byval type_return as Atom ptr, byval format_return as long ptr, byval num_items_return as culong ptr, byval bytes_after_return as culong ptr, byval data as ubyte ptr ptr) as long
+declare function XIListProperties(byval display as Display ptr, byval deviceid as long, byval num_props_return as long ptr) as XAtom ptr
+declare sub XIChangeProperty(byval display as Display ptr, byval deviceid as long, byval property as XAtom, byval type as XAtom, byval format as long, byval mode as long, byval data as ubyte ptr, byval num_items as long)
+declare sub XIDeleteProperty(byval display as Display ptr, byval deviceid as long, byval property as XAtom)
+declare function XIGetProperty(byval display as Display ptr, byval deviceid as long, byval property as XAtom, byval offset as clong, byval length as clong, byval delete_property as long, byval type as XAtom, byval type_return as XAtom ptr, byval format_return as long ptr, byval num_items_return as culong ptr, byval bytes_after_return as culong ptr, byval data as ubyte ptr ptr) as long
 declare sub XIBarrierReleasePointers(byval display as Display ptr, byval barriers as XIBarrierReleasePointerInfo ptr, byval num_barriers as long)
 declare sub XIBarrierReleasePointer(byval display as Display ptr, byval deviceid as long, byval barrier as PointerBarrier, byval eventid as BarrierEventID)
 declare sub XIFreeDeviceInfo(byval info as XIDeviceInfo ptr)

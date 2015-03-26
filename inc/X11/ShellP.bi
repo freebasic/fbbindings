@@ -136,7 +136,7 @@ type WMShellPart
 	base_width as long
 	base_height as long
 	win_gravity as long
-	title_encoding as Atom
+	title_encoding as XAtom
 end type
 
 type WMShellRec
@@ -198,7 +198,7 @@ extern topLevelShellClassRec as TopLevelShellClassRec
 type TopLevelShellPart
 	icon_name as zstring ptr
 	iconic as byte
-	icon_name_encoding as Atom
+	icon_name_encoding as XAtom
 end type
 
 type TopLevelShellRec

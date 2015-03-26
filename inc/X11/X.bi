@@ -2,6 +2,9 @@
 
 #include once "crt/long.bi"
 
+'' The following symbols have been renamed:
+''     typedef Atom => XAtom
+
 #define X_H
 const X_PROTOCOL = 11
 const X_PROTOCOL_REVISION = 0
@@ -11,7 +14,7 @@ type XID as culong
 type Mask as culong
 #define _XTYPEDEF_ATOM
 
-type Atom as culong
+type XAtom as culong
 type VisualID as culong
 type Time as culong
 type Window as XID

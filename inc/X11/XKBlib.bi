@@ -189,7 +189,7 @@ type _XkbBellNotify
 	duration as long
 	bell_class as long
 	bell_id as long
-	name as Atom
+	name as XAtom
 	window as Window
 	event_only as long
 end type
@@ -296,8 +296,8 @@ declare function XkbLibraryVersion(byval as long ptr, byval as long ptr) as long
 declare function XkbSetXlibControls(byval as Display ptr, byval as ulong, byval as ulong) as ulong
 declare function XkbGetXlibControls(byval as Display ptr) as ulong
 declare function XkbXlibControlsImplemented() as ulong
-type XkbInternAtomFunc as function(byval as Display ptr, byval as const zstring ptr, byval as long) as Atom
-type XkbGetAtomNameFunc as function(byval as Display ptr, byval as Atom) as zstring ptr
+type XkbInternAtomFunc as function(byval as Display ptr, byval as const zstring ptr, byval as long) as XAtom
+type XkbGetAtomNameFunc as function(byval as Display ptr, byval as XAtom) as zstring ptr
 declare sub XkbSetAtomFuncs(byval as XkbInternAtomFunc, byval as XkbGetAtomNameFunc)
 declare function XkbKeycodeToKeysym(byval as Display ptr, byval as KeyCode, byval as long, byval as long) as KeySym
 declare function XkbKeysymToModifiers(byval as Display ptr, byval as KeySym) as ulong
@@ -308,12 +308,12 @@ declare function XkbTranslateKeySym(byval as Display ptr, byval as KeySym ptr, b
 declare function XkbSetAutoRepeatRate(byval as Display ptr, byval as ulong, byval as ulong, byval as ulong) as long
 declare function XkbGetAutoRepeatRate(byval as Display ptr, byval as ulong, byval as ulong ptr, byval as ulong ptr) as long
 declare function XkbChangeEnabledControls(byval as Display ptr, byval as ulong, byval as ulong, byval as ulong) as long
-declare function XkbDeviceBell(byval as Display ptr, byval as Window, byval as long, byval as long, byval as long, byval as long, byval as Atom) as long
+declare function XkbDeviceBell(byval as Display ptr, byval as Window, byval as long, byval as long, byval as long, byval as long, byval as XAtom) as long
 declare function XkbForceDeviceBell(byval as Display ptr, byval as long, byval as long, byval as long, byval as long) as long
-declare function XkbDeviceBellEvent(byval as Display ptr, byval as Window, byval as long, byval as long, byval as long, byval as long, byval as Atom) as long
-declare function XkbBell(byval as Display ptr, byval as Window, byval as long, byval as Atom) as long
+declare function XkbDeviceBellEvent(byval as Display ptr, byval as Window, byval as long, byval as long, byval as long, byval as long, byval as XAtom) as long
+declare function XkbBell(byval as Display ptr, byval as Window, byval as long, byval as XAtom) as long
 declare function XkbForceBell(byval as Display ptr, byval as long) as long
-declare function XkbBellEvent(byval as Display ptr, byval as Window, byval as long, byval as Atom) as long
+declare function XkbBellEvent(byval as Display ptr, byval as Window, byval as long, byval as XAtom) as long
 declare function XkbSelectEvents(byval as Display ptr, byval as ulong, byval as ulong, byval as ulong) as long
 declare function XkbSelectEventDetails(byval as Display ptr, byval as ulong, byval as ulong, byval as culong, byval as culong) as long
 declare sub XkbNoteMapChanges(byval as XkbMapChangesPtr, byval as XkbMapNotifyEvent ptr, byval as ulong)
@@ -328,10 +328,10 @@ declare function XkbSetIndicatorMap(byval as Display ptr, byval as culong, byval
 #define XkbGetIndicatorMapChanges(d, x, c) XkbGetIndicatorMap((d), (c)->map_changes, x)
 #define XkbChangeIndicatorMaps(d, x, c) XkbSetIndicatorMap((d), (c)->map_changes, x)
 
-declare function XkbGetNamedIndicator(byval as Display ptr, byval as Atom, byval as long ptr, byval as long ptr, byval as XkbIndicatorMapPtr, byval as long ptr) as long
-declare function XkbGetNamedDeviceIndicator(byval as Display ptr, byval as ulong, byval as ulong, byval as ulong, byval as Atom, byval as long ptr, byval as long ptr, byval as XkbIndicatorMapPtr, byval as long ptr) as long
-declare function XkbSetNamedIndicator(byval as Display ptr, byval as Atom, byval as long, byval as long, byval as long, byval as XkbIndicatorMapPtr) as long
-declare function XkbSetNamedDeviceIndicator(byval as Display ptr, byval as ulong, byval as ulong, byval as ulong, byval as Atom, byval as long, byval as long, byval as long, byval as XkbIndicatorMapPtr) as long
+declare function XkbGetNamedIndicator(byval as Display ptr, byval as XAtom, byval as long ptr, byval as long ptr, byval as XkbIndicatorMapPtr, byval as long ptr) as long
+declare function XkbGetNamedDeviceIndicator(byval as Display ptr, byval as ulong, byval as ulong, byval as ulong, byval as XAtom, byval as long ptr, byval as long ptr, byval as XkbIndicatorMapPtr, byval as long ptr) as long
+declare function XkbSetNamedIndicator(byval as Display ptr, byval as XAtom, byval as long, byval as long, byval as long, byval as XkbIndicatorMapPtr) as long
+declare function XkbSetNamedDeviceIndicator(byval as Display ptr, byval as ulong, byval as ulong, byval as ulong, byval as XAtom, byval as long, byval as long, byval as long, byval as XkbIndicatorMapPtr) as long
 declare function XkbLockModifiers(byval as Display ptr, byval as ulong, byval as ulong, byval as ulong) as long
 declare function XkbLatchModifiers(byval as Display ptr, byval as ulong, byval as ulong, byval as ulong) as long
 declare function XkbLockGroup(byval as Display ptr, byval as ulong, byval as ulong) as long
@@ -347,7 +347,7 @@ declare function XkbAllocClientMap(byval as XkbDescPtr, byval as ulong, byval as
 declare function XkbAllocServerMap(byval as XkbDescPtr, byval as ulong, byval as ulong) as long
 declare sub XkbFreeClientMap(byval as XkbDescPtr, byval as ulong, byval as long)
 declare sub XkbFreeServerMap(byval as XkbDescPtr, byval as ulong, byval as long)
-declare function XkbAddKeyType(byval as XkbDescPtr, byval as Atom, byval as long, byval as long, byval as long) as XkbKeyTypePtr
+declare function XkbAddKeyType(byval as XkbDescPtr, byval as XAtom, byval as long, byval as long, byval as long) as XkbKeyTypePtr
 declare function XkbAllocIndicatorMaps(byval as XkbDescPtr) as long
 declare sub XkbFreeIndicatorMaps(byval as XkbDescPtr)
 declare function XkbGetMap(byval as Display ptr, byval as ulong, byval as ulong) as XkbDescPtr

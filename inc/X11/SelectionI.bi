@@ -11,9 +11,9 @@ type _RequestRec
 	ctx as Select
 	widget as Widget
 	requestor as Window
-	property as Atom
-	target as Atom
-	as Atom type
+	property as XAtom
+	target as XAtom
+	as XAtom type
 	format as long
 	value as XtPointer
 	bytelength as culong
@@ -26,7 +26,7 @@ end type
 type RequestRec as _RequestRec
 
 type SelectionPropRec
-	prop as Atom
+	prop as XAtom
 	avail as byte
 end type
 
@@ -34,9 +34,9 @@ type SelectionProp as SelectionPropRec ptr
 
 type PropListRec
 	dpy as Display ptr
-	incr_atom as Atom
-	indirect_atom as Atom
-	timestamp_atom as Atom
+	incr_atom as XAtom
+	indirect_atom as XAtom
+	timestamp_atom as XAtom
 	propCount as long
 	list as SelectionProp
 end type
@@ -44,7 +44,7 @@ end type
 type PropList as PropListRec ptr
 
 type _SelectRec
-	selection as Atom
+	selection as XAtom
 	dpy as Display ptr
 	widget as Widget
 	time as Time
@@ -65,8 +65,8 @@ end type
 type SelectRec as _SelectRec
 
 type _ParamRec
-	selection as Atom
-	param as Atom
+	selection as XAtom
+	param as XAtom
 end type
 
 type ParamRec as _ParamRec
@@ -81,9 +81,9 @@ type ParamInfoRec as _ParamInfoRec
 type ParamInfo as _ParamInfoRec ptr
 
 type _QueuedRequestRec
-	selection as Atom
-	target as Atom
-	param as Atom
+	selection as XAtom
+	target as XAtom
+	param as XAtom
 	callback as XtSelectionCallbackProc
 	closure as XtPointer
 	time as Time
@@ -95,7 +95,7 @@ type QueuedRequest as _QueuedRequestRec ptr
 
 type _QueuedRequestInfoRec
 	count as long
-	selections as Atom ptr
+	selections as XAtom ptr
 	requests as QueuedRequest ptr
 end type
 
@@ -105,9 +105,9 @@ type QueuedRequestInfo as _QueuedRequestInfoRec ptr
 type CallBackInfoRec
 	callbacks as XtSelectionCallbackProc ptr
 	req_closure as XtPointer ptr
-	property as Atom
-	target as Atom ptr
-	as Atom type
+	property as XAtom
+	target as XAtom ptr
+	as XAtom type
 	format as long
 	value as zstring ptr
 	bytelength as long
@@ -124,8 +124,8 @@ end type
 type CallBackInfo as CallBackInfoRec ptr
 
 type IndirectPair
-	target as Atom
-	property as Atom
+	target as XAtom
+	property as XAtom
 end type
 
 const IndirectPairWordSize = 2

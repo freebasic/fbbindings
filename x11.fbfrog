@@ -53,7 +53,7 @@ nodos.fbfrog
 -addforwarddecl _XtransConnFd
 
 -renametypedef BOOL XBOOL
--renametypedef ATOM XATOM
+-renametypedef Atom XAtom
 -renametypedef BOOLEAN XBOOLEAN
 -renametypedef BYTE UBYTE
 -renametypedef xSegment xSegment_

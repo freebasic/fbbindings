@@ -63,7 +63,7 @@ type XvPortNotifyEvent
 	display as Display ptr
 	port_id as XvPortID
 	time as Time
-	attribute as Atom
+	attribute as XAtom
 	value as clong
 end type
 
@@ -123,8 +123,8 @@ declare function XvGrabPort(byval as Display ptr, byval as XvPortID, byval as Ti
 declare function XvUngrabPort(byval as Display ptr, byval as XvPortID, byval as Time) as long
 declare function XvSelectVideoNotify(byval as Display ptr, byval as Drawable, byval as long) as long
 declare function XvSelectPortNotify(byval as Display ptr, byval as XvPortID, byval as long) as long
-declare function XvSetPortAttribute(byval as Display ptr, byval as XvPortID, byval as Atom, byval as long) as long
-declare function XvGetPortAttribute(byval as Display ptr, byval as XvPortID, byval as Atom, byval as long ptr) as long
+declare function XvSetPortAttribute(byval as Display ptr, byval as XvPortID, byval as XAtom, byval as long) as long
+declare function XvGetPortAttribute(byval as Display ptr, byval as XvPortID, byval as XAtom, byval as long ptr) as long
 declare function XvQueryBestSize(byval as Display ptr, byval as XvPortID, byval as long, byval as ulong, byval as ulong, byval as ulong, byval as ulong, byval as ulong ptr, byval as ulong ptr) as long
 declare function XvQueryPortAttributes(byval as Display ptr, byval as XvPortID, byval as long ptr) as XvAttribute ptr
 declare sub XvFreeAdaptorInfo(byval as XvAdaptorInfo ptr)

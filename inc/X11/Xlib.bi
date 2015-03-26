@@ -693,7 +693,7 @@ type XPropertyEvent
 	send_event as long
 	display as Display ptr
 	window as Window
-	atom as Atom
+	atom as XAtom
 	time as Time
 	state as long
 end type
@@ -704,7 +704,7 @@ type XSelectionClearEvent
 	send_event as long
 	display as Display ptr
 	window as Window
-	selection as Atom
+	selection as XAtom
 	time as Time
 end type
 
@@ -715,9 +715,9 @@ type XSelectionRequestEvent
 	display as Display ptr
 	owner as Window
 	requestor as Window
-	selection as Atom
-	target as Atom
-	property as Atom
+	selection as XAtom
+	target as XAtom
+	property as XAtom
 	time as Time
 end type
 
@@ -727,9 +727,9 @@ type XSelectionEvent
 	send_event as long
 	display as Display ptr
 	requestor as Window
-	selection as Atom
-	target as Atom
-	property as Atom
+	selection as XAtom
+	target as XAtom
+	property as XAtom
 	time as Time
 end type
 
@@ -756,7 +756,7 @@ type XClientMessageEvent
 	send_event as long
 	display as Display ptr
 	window as Window
-	message_type as Atom
+	message_type as XAtom
 	format as long
 	data as XClientMessageEvent_data
 end type
@@ -860,7 +860,7 @@ type XCharStruct
 end type
 
 type XFontProp
-	name as Atom
+	name as XAtom
 	card32 as culong
 end type
 
@@ -1232,15 +1232,15 @@ declare function XOpenDisplay(byval as const zstring ptr) as Display ptr
 declare sub XrmInitialize()
 declare function XFetchBytes(byval as Display ptr, byval as long ptr) as zstring ptr
 declare function XFetchBuffer(byval as Display ptr, byval as long ptr, byval as long) as zstring ptr
-declare function XGetAtomName(byval as Display ptr, byval as Atom) as zstring ptr
-declare function XGetAtomNames(byval as Display ptr, byval as Atom ptr, byval as long, byval as zstring ptr ptr) as long
+declare function XGetAtomName(byval as Display ptr, byval as XAtom) as zstring ptr
+declare function XGetAtomNames(byval as Display ptr, byval as XAtom ptr, byval as long, byval as zstring ptr ptr) as long
 declare function XGetDefault(byval as Display ptr, byval as const zstring ptr, byval as const zstring ptr) as zstring ptr
 declare function XDisplayName(byval as const zstring ptr) as zstring ptr
 declare function XKeysymToString(byval as KeySym) as zstring ptr
 declare function XSynchronize(byval as Display ptr, byval as long) as function(byval as Display ptr) as long
 declare function XSetAfterFunction(byval as Display ptr, byval as function(byval as Display ptr) as long) as function(byval as Display ptr) as long
-declare function XInternAtom(byval as Display ptr, byval as const zstring ptr, byval as long) as Atom
-declare function XInternAtoms(byval as Display ptr, byval as zstring ptr ptr, byval as long, byval as long, byval as Atom ptr) as long
+declare function XInternAtom(byval as Display ptr, byval as const zstring ptr, byval as long) as XAtom
+declare function XInternAtoms(byval as Display ptr, byval as zstring ptr ptr, byval as long, byval as long, byval as XAtom ptr) as long
 declare function XCopyColormapAndFree(byval as Display ptr, byval as Colormap) as Colormap
 declare function XCreateColormap(byval as Display ptr, byval as Window, byval as Visual ptr, byval as long) as Colormap
 declare function XCreatePixmapCursor(byval as Display ptr, byval as Pixmap, byval as Pixmap, byval as XColor ptr, byval as XColor ptr, byval as ulong, byval as ulong) as Cursor
@@ -1254,14 +1254,14 @@ declare function XCreatePixmap(byval as Display ptr, byval as Drawable, byval as
 declare function XCreateBitmapFromData(byval as Display ptr, byval as Drawable, byval as const zstring ptr, byval as ulong, byval as ulong) as Pixmap
 declare function XCreatePixmapFromBitmapData(byval as Display ptr, byval as Drawable, byval as zstring ptr, byval as ulong, byval as ulong, byval as culong, byval as culong, byval as ulong) as Pixmap
 declare function XCreateSimpleWindow(byval as Display ptr, byval as Window, byval as long, byval as long, byval as ulong, byval as ulong, byval as ulong, byval as culong, byval as culong) as Window
-declare function XGetSelectionOwner(byval as Display ptr, byval as Atom) as Window
+declare function XGetSelectionOwner(byval as Display ptr, byval as XAtom) as Window
 declare function XCreateWindow(byval as Display ptr, byval as Window, byval as long, byval as long, byval as ulong, byval as ulong, byval as ulong, byval as long, byval as ulong, byval as Visual ptr, byval as culong, byval as XSetWindowAttributes ptr) as Window
 declare function XListInstalledColormaps(byval as Display ptr, byval as Window, byval as long ptr) as Colormap ptr
 declare function XListFonts(byval as Display ptr, byval as const zstring ptr, byval as long, byval as long ptr) as zstring ptr ptr
 declare function XListFontsWithInfo(byval as Display ptr, byval as const zstring ptr, byval as long, byval as long ptr, byval as XFontStruct ptr ptr) as zstring ptr ptr
 declare function XGetFontPath(byval as Display ptr, byval as long ptr) as zstring ptr ptr
 declare function XListExtensions(byval as Display ptr, byval as long ptr) as zstring ptr ptr
-declare function XListProperties(byval as Display ptr, byval as Window, byval as long ptr) as Atom ptr
+declare function XListProperties(byval as Display ptr, byval as Window, byval as long ptr) as XAtom ptr
 declare function XListHosts(byval as Display ptr, byval as long ptr, byval as long ptr) as XHostAddress ptr
 declare function XKeycodeToKeysym(byval as Display ptr, byval as KeyCode, byval as long) as KeySym
 declare function XLookupKeysym(byval as XKeyEvent ptr, byval as long) as KeySym
@@ -1310,8 +1310,8 @@ declare function XSetIOErrorHandler(byval as XIOErrorHandler) as XIOErrorHandler
 declare function XListPixmapFormats(byval as Display ptr, byval as long ptr) as XPixmapFormatValues ptr
 declare function XListDepths(byval as Display ptr, byval as long, byval as long ptr) as long ptr
 declare function XReconfigureWMWindow(byval as Display ptr, byval as Window, byval as long, byval as ulong, byval as XWindowChanges ptr) as long
-declare function XGetWMProtocols(byval as Display ptr, byval as Window, byval as Atom ptr ptr, byval as long ptr) as long
-declare function XSetWMProtocols(byval as Display ptr, byval as Window, byval as Atom ptr, byval as long) as long
+declare function XGetWMProtocols(byval as Display ptr, byval as Window, byval as XAtom ptr ptr, byval as long ptr) as long
+declare function XSetWMProtocols(byval as Display ptr, byval as Window, byval as XAtom ptr, byval as long) as long
 declare function XIconifyWindow(byval as Display ptr, byval as Window, byval as long) as long
 declare function XWithdrawWindow(byval as Display ptr, byval as Window, byval as long) as long
 declare function XGetCommand(byval as Display ptr, byval as Window, byval as zstring ptr ptr ptr, byval as long ptr) as long
@@ -1341,7 +1341,7 @@ declare function XChangeGC(byval as Display ptr, byval as GC, byval as culong, b
 declare function XChangeKeyboardControl(byval as Display ptr, byval as culong, byval as XKeyboardControl ptr) as long
 declare function XChangeKeyboardMapping(byval as Display ptr, byval as long, byval as long, byval as KeySym ptr, byval as long) as long
 declare function XChangePointerControl(byval as Display ptr, byval as long, byval as long, byval as long, byval as long, byval as long) as long
-declare function XChangeProperty(byval as Display ptr, byval as Window, byval as Atom, byval as Atom, byval as long, byval as long, byval as const ubyte ptr, byval as long) as long
+declare function XChangeProperty(byval as Display ptr, byval as Window, byval as XAtom, byval as XAtom, byval as long, byval as long, byval as const ubyte ptr, byval as long) as long
 declare function XChangeSaveSet(byval as Display ptr, byval as Window, byval as long) as long
 declare function XChangeWindowAttributes(byval as Display ptr, byval as Window, byval as culong, byval as XSetWindowAttributes ptr) as long
 declare function XCheckIfEvent(byval as Display ptr, byval as XEvent ptr, byval as function(byval as Display ptr, byval as XEvent ptr, byval as XPointer) as long, byval as XPointer) as long
@@ -1357,7 +1357,7 @@ declare function XClearWindow(byval as Display ptr, byval as Window) as long
 declare function XCloseDisplay(byval as Display ptr) as long
 declare function XConfigureWindow(byval as Display ptr, byval as Window, byval as ulong, byval as XWindowChanges ptr) as long
 declare function XConnectionNumber(byval as Display ptr) as long
-declare function XConvertSelection(byval as Display ptr, byval as Atom, byval as Atom, byval as Atom, byval as Window, byval as Time) as long
+declare function XConvertSelection(byval as Display ptr, byval as XAtom, byval as XAtom, byval as XAtom, byval as Window, byval as Time) as long
 declare function XCopyArea(byval as Display ptr, byval as Drawable, byval as Drawable, byval as GC, byval as long, byval as long, byval as ulong, byval as ulong, byval as long, byval as long) as long
 declare function XCopyGC(byval as Display ptr, byval as GC, byval as culong, byval as GC) as long
 declare function XCopyPlane(byval as Display ptr, byval as Drawable, byval as Drawable, byval as GC, byval as long, byval as long, byval as ulong, byval as ulong, byval as long, byval as long, byval as culong) as long
@@ -1365,7 +1365,7 @@ declare function XDefaultDepth(byval as Display ptr, byval as long) as long
 declare function XDefaultDepthOfScreen(byval as Screen ptr) as long
 declare function XDefaultScreen(byval as Display ptr) as long
 declare function XDefineCursor(byval as Display ptr, byval as Window, byval as Cursor) as long
-declare function XDeleteProperty(byval as Display ptr, byval as Window, byval as Atom) as long
+declare function XDeleteProperty(byval as Display ptr, byval as Window, byval as XAtom) as long
 declare function XDestroyWindow(byval as Display ptr, byval as Window) as long
 declare function XDestroySubwindows(byval as Display ptr, byval as Window) as long
 declare function XDoesBackingStore(byval as Screen ptr) as long
@@ -1418,7 +1418,7 @@ declare function XFreePixmap(byval as Display ptr, byval as Pixmap) as long
 declare function XGeometry(byval as Display ptr, byval as long, byval as const zstring ptr, byval as const zstring ptr, byval as ulong, byval as ulong, byval as ulong, byval as long, byval as long, byval as long ptr, byval as long ptr, byval as long ptr, byval as long ptr) as long
 declare function XGetErrorDatabaseText(byval as Display ptr, byval as const zstring ptr, byval as const zstring ptr, byval as const zstring ptr, byval as zstring ptr, byval as long) as long
 declare function XGetErrorText(byval as Display ptr, byval as long, byval as zstring ptr, byval as long) as long
-declare function XGetFontProperty(byval as XFontStruct ptr, byval as Atom, byval as culong ptr) as long
+declare function XGetFontProperty(byval as XFontStruct ptr, byval as XAtom, byval as culong ptr) as long
 declare function XGetGCValues(byval as Display ptr, byval as GC, byval as culong, byval as XGCValues ptr) as long
 declare function XGetGeometry(byval as Display ptr, byval as Drawable, byval as Window ptr, byval as long ptr, byval as long ptr, byval as ulong ptr, byval as ulong ptr, byval as ulong ptr, byval as ulong ptr) as long
 declare function XGetIconName(byval as Display ptr, byval as Window, byval as zstring ptr ptr) as long
@@ -1428,7 +1428,7 @@ declare function XGetPointerControl(byval as Display ptr, byval as long ptr, byv
 declare function XGetPointerMapping(byval as Display ptr, byval as ubyte ptr, byval as long) as long
 declare function XGetScreenSaver(byval as Display ptr, byval as long ptr, byval as long ptr, byval as long ptr, byval as long ptr) as long
 declare function XGetTransientForHint(byval as Display ptr, byval as Window, byval as Window ptr) as long
-declare function XGetWindowProperty(byval as Display ptr, byval as Window, byval as Atom, byval as clong, byval as clong, byval as long, byval as Atom, byval as Atom ptr, byval as long ptr, byval as culong ptr, byval as culong ptr, byval as ubyte ptr ptr) as long
+declare function XGetWindowProperty(byval as Display ptr, byval as Window, byval as XAtom, byval as clong, byval as clong, byval as long, byval as XAtom, byval as XAtom ptr, byval as long ptr, byval as culong ptr, byval as culong ptr, byval as ubyte ptr ptr) as long
 declare function XGetWindowAttributes(byval as Display ptr, byval as Window, byval as XWindowAttributes ptr) as long
 declare function XGrabButton(byval as Display ptr, byval as ulong, byval as ulong, byval as Window, byval as long, byval as ulong, byval as long, byval as long, byval as Window, byval as Cursor) as long
 declare function XGrabKey(byval as Display ptr, byval as long, byval as ulong, byval as Window, byval as long, byval as long, byval as long) as long
@@ -1491,7 +1491,7 @@ declare function XResetScreenSaver(byval as Display ptr) as long
 declare function XResizeWindow(byval as Display ptr, byval as Window, byval as ulong, byval as ulong) as long
 declare function XRestackWindows(byval as Display ptr, byval as Window ptr, byval as long) as long
 declare function XRotateBuffers(byval as Display ptr, byval as long) as long
-declare function XRotateWindowProperties(byval as Display ptr, byval as Window, byval as Atom ptr, byval as long, byval as long) as long
+declare function XRotateWindowProperties(byval as Display ptr, byval as Window, byval as XAtom ptr, byval as long, byval as long) as long
 declare function XScreenCount(byval as Display ptr) as long
 declare function XSelectInput(byval as Display ptr, byval as Window, byval as clong) as long
 declare function XSendEvent(byval as Display ptr, byval as Window, byval as long, byval as clong, byval as XEvent ptr) as long
@@ -1518,7 +1518,7 @@ declare function XSetModifierMapping(byval as Display ptr, byval as XModifierKey
 declare function XSetPlaneMask(byval as Display ptr, byval as GC, byval as culong) as long
 declare function XSetPointerMapping(byval as Display ptr, byval as const ubyte ptr, byval as long) as long
 declare function XSetScreenSaver(byval as Display ptr, byval as long, byval as long, byval as long, byval as long) as long
-declare function XSetSelectionOwner(byval as Display ptr, byval as Atom, byval as Window, byval as Time) as long
+declare function XSetSelectionOwner(byval as Display ptr, byval as XAtom, byval as Window, byval as Time) as long
 declare function XSetState(byval as Display ptr, byval as GC, byval as culong, byval as culong, byval as long, byval as culong) as long
 declare function XSetStipple(byval as Display ptr, byval as GC, byval as Pixmap) as long
 declare function XSetSubwindowMode(byval as Display ptr, byval as GC, byval as long) as long

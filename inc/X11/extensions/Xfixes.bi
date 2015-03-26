@@ -19,7 +19,7 @@ type XFixesSelectionNotifyEvent
 	window as Window
 	subtype as long
 	owner as Window
-	selection as Atom
+	selection as XAtom
 	timestamp as Time
 	selection_timestamp as Time
 end type
@@ -33,7 +33,7 @@ type XFixesCursorNotifyEvent
 	subtype as long
 	cursor_serial as culong
 	timestamp as Time
-	cursor_name as Atom
+	cursor_name as XAtom
 end type
 
 type XFixesCursorImage
@@ -45,7 +45,7 @@ type XFixesCursorImage
 	yhot as ushort
 	cursor_serial as culong
 	pixels as culong ptr
-	atom as Atom
+	atom as XAtom
 	name as const zstring ptr
 end type
 
@@ -60,7 +60,7 @@ type XFixesCursorImageAndName
 	yhot as ushort
 	cursor_serial as culong
 	pixels as culong ptr
-	atom as Atom
+	atom as XAtom
 	name as const zstring ptr
 end type
 
@@ -68,7 +68,7 @@ declare function XFixesQueryExtension(byval dpy as Display ptr, byval event_base
 declare function XFixesQueryVersion(byval dpy as Display ptr, byval major_version_return as long ptr, byval minor_version_return as long ptr) as long
 declare function XFixesVersion() as long
 declare sub XFixesChangeSaveSet(byval dpy as Display ptr, byval win as Window, byval mode as long, byval target as long, byval map as long)
-declare sub XFixesSelectSelectionInput(byval dpy as Display ptr, byval win as Window, byval selection as Atom, byval eventMask as culong)
+declare sub XFixesSelectSelectionInput(byval dpy as Display ptr, byval win as Window, byval selection as XAtom, byval eventMask as culong)
 declare sub XFixesSelectCursorInput(byval dpy as Display ptr, byval win as Window, byval eventMask as culong)
 declare function XFixesGetCursorImage(byval dpy as Display ptr) as XFixesCursorImage ptr
 declare function XFixesCreateRegion(byval dpy as Display ptr, byval rectangles as XRectangle ptr, byval nrectangles as long) as XserverRegion
@@ -91,7 +91,7 @@ declare sub XFixesSetGCClipRegion(byval dpy as Display ptr, byval gc as GC, byva
 declare sub XFixesSetWindowShapeRegion(byval dpy as Display ptr, byval win as Window, byval shape_kind as long, byval x_off as long, byval y_off as long, byval region as XserverRegion)
 declare sub XFixesSetPictureClipRegion(byval dpy as Display ptr, byval picture as XID, byval clip_x_origin as long, byval clip_y_origin as long, byval region as XserverRegion)
 declare sub XFixesSetCursorName(byval dpy as Display ptr, byval cursor as Cursor, byval name as const zstring ptr)
-declare function XFixesGetCursorName(byval dpy as Display ptr, byval cursor as Cursor, byval atom as Atom ptr) as const zstring ptr
+declare function XFixesGetCursorName(byval dpy as Display ptr, byval cursor as Cursor, byval atom as XAtom ptr) as const zstring ptr
 declare sub XFixesChangeCursor(byval dpy as Display ptr, byval source as Cursor, byval destination as Cursor)
 declare sub XFixesChangeCursorByName(byval dpy as Display ptr, byval source as Cursor, byval name as const zstring ptr)
 declare sub XFixesExpandRegion(byval dpy as Display ptr, byval dst as XserverRegion, byval src as XserverRegion, byval left as ulong, byval right as ulong, byval top as ulong, byval bottom as ulong)

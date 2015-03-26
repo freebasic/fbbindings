@@ -82,7 +82,7 @@ const InactiveState = 4
 
 type XTextProperty
 	value as ubyte ptr
-	encoding as Atom
+	encoding as XAtom
 	format as long
 	nitems as culong
 end type
@@ -204,17 +204,17 @@ declare function XFindContext(byval as Display ptr, byval as XID, byval as XCont
 declare function XGetClassHint(byval as Display ptr, byval as Window, byval as XClassHint ptr) as long
 declare function XGetIconSizes(byval as Display ptr, byval as Window, byval as XIconSize ptr ptr, byval as long ptr) as long
 declare function XGetNormalHints(byval as Display ptr, byval as Window, byval as XSizeHints ptr) as long
-declare function XGetRGBColormaps(byval as Display ptr, byval as Window, byval as XStandardColormap ptr ptr, byval as long ptr, byval as Atom) as long
-declare function XGetSizeHints(byval as Display ptr, byval as Window, byval as XSizeHints ptr, byval as Atom) as long
-declare function XGetStandardColormap(byval as Display ptr, byval as Window, byval as XStandardColormap ptr, byval as Atom) as long
-declare function XGetTextProperty(byval as Display ptr, byval as Window, byval as XTextProperty ptr, byval as Atom) as long
+declare function XGetRGBColormaps(byval as Display ptr, byval as Window, byval as XStandardColormap ptr ptr, byval as long ptr, byval as XAtom) as long
+declare function XGetSizeHints(byval as Display ptr, byval as Window, byval as XSizeHints ptr, byval as XAtom) as long
+declare function XGetStandardColormap(byval as Display ptr, byval as Window, byval as XStandardColormap ptr, byval as XAtom) as long
+declare function XGetTextProperty(byval as Display ptr, byval as Window, byval as XTextProperty ptr, byval as XAtom) as long
 declare function XGetVisualInfo(byval as Display ptr, byval as clong, byval as XVisualInfo ptr, byval as long ptr) as XVisualInfo ptr
 declare function XGetWMClientMachine(byval as Display ptr, byval as Window, byval as XTextProperty ptr) as long
 declare function XGetWMHints(byval as Display ptr, byval as Window) as XWMHints ptr
 declare function XGetWMIconName(byval as Display ptr, byval as Window, byval as XTextProperty ptr) as long
 declare function XGetWMName(byval as Display ptr, byval as Window, byval as XTextProperty ptr) as long
 declare function XGetWMNormalHints(byval as Display ptr, byval as Window, byval as XSizeHints ptr, byval as clong ptr) as long
-declare function XGetWMSizeHints(byval as Display ptr, byval as Window, byval as XSizeHints ptr, byval as clong ptr, byval as Atom) as long
+declare function XGetWMSizeHints(byval as Display ptr, byval as Window, byval as XSizeHints ptr, byval as clong ptr, byval as XAtom) as long
 declare function XGetZoomHints(byval as Display ptr, byval as Window, byval as XSizeHints ptr) as long
 declare function XIntersectRegion(byval as Region, byval as Region, byval as Region) as long
 declare sub XConvertCase(byval as KeySym, byval as KeySym ptr, byval as KeySym ptr)
@@ -228,10 +228,10 @@ declare function XSaveContext(byval as Display ptr, byval as XID, byval as XCont
 declare function XSetClassHint(byval as Display ptr, byval as Window, byval as XClassHint ptr) as long
 declare function XSetIconSizes(byval as Display ptr, byval as Window, byval as XIconSize ptr, byval as long) as long
 declare function XSetNormalHints(byval as Display ptr, byval as Window, byval as XSizeHints ptr) as long
-declare sub XSetRGBColormaps(byval as Display ptr, byval as Window, byval as XStandardColormap ptr, byval as long, byval as Atom)
-declare function XSetSizeHints(byval as Display ptr, byval as Window, byval as XSizeHints ptr, byval as Atom) as long
+declare sub XSetRGBColormaps(byval as Display ptr, byval as Window, byval as XStandardColormap ptr, byval as long, byval as XAtom)
+declare function XSetSizeHints(byval as Display ptr, byval as Window, byval as XSizeHints ptr, byval as XAtom) as long
 declare function XSetStandardProperties(byval as Display ptr, byval as Window, byval as const zstring ptr, byval as const zstring ptr, byval as Pixmap, byval as zstring ptr ptr, byval as long, byval as XSizeHints ptr) as long
-declare sub XSetTextProperty(byval as Display ptr, byval as Window, byval as XTextProperty ptr, byval as Atom)
+declare sub XSetTextProperty(byval as Display ptr, byval as Window, byval as XTextProperty ptr, byval as XAtom)
 declare sub XSetWMClientMachine(byval as Display ptr, byval as Window, byval as XTextProperty ptr)
 declare function XSetWMHints(byval as Display ptr, byval as Window, byval as XWMHints ptr) as long
 declare sub XSetWMIconName(byval as Display ptr, byval as Window, byval as XTextProperty ptr)
@@ -240,9 +240,9 @@ declare sub XSetWMNormalHints(byval as Display ptr, byval as Window, byval as XS
 declare sub XSetWMProperties(byval as Display ptr, byval as Window, byval as XTextProperty ptr, byval as XTextProperty ptr, byval as zstring ptr ptr, byval as long, byval as XSizeHints ptr, byval as XWMHints ptr, byval as XClassHint ptr)
 declare sub XmbSetWMProperties(byval as Display ptr, byval as Window, byval as const zstring ptr, byval as const zstring ptr, byval as zstring ptr ptr, byval as long, byval as XSizeHints ptr, byval as XWMHints ptr, byval as XClassHint ptr)
 declare sub Xutf8SetWMProperties(byval as Display ptr, byval as Window, byval as const zstring ptr, byval as const zstring ptr, byval as zstring ptr ptr, byval as long, byval as XSizeHints ptr, byval as XWMHints ptr, byval as XClassHint ptr)
-declare sub XSetWMSizeHints(byval as Display ptr, byval as Window, byval as XSizeHints ptr, byval as Atom)
+declare sub XSetWMSizeHints(byval as Display ptr, byval as Window, byval as XSizeHints ptr, byval as XAtom)
 declare function XSetRegion(byval as Display ptr, byval as GC, byval as Region) as long
-declare sub XSetStandardColormap(byval as Display ptr, byval as Window, byval as XStandardColormap ptr, byval as Atom)
+declare sub XSetStandardColormap(byval as Display ptr, byval as Window, byval as XStandardColormap ptr, byval as XAtom)
 declare function XSetZoomHints(byval as Display ptr, byval as Window, byval as XSizeHints ptr) as long
 declare function XShrinkRegion(byval as Region, byval as long, byval as long) as long
 declare function XStringListToTextProperty(byval as zstring ptr ptr, byval as long, byval as XTextProperty ptr) as long
