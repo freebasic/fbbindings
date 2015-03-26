@@ -752,8 +752,7 @@ x11:
 	cp -R extracted/xorg/$(X11_ICE)/include/X11 extracted/xorg
 	cp -R extracted/xorg/$(X11_SM)/include/X11 extracted/xorg
 	cp -R extracted/xorg/$(X11_XAU)/include/X11 extracted/xorg
-	#$(X11_X11)
-	#$(X11_XT)
+	cp -R extracted/xorg/$(X11_XT)/include/X11 extracted/xorg
 	#$(X11_XEXT)
 	#$(X11_XPM)
 	#$(X11_XRENDER)
@@ -819,53 +818,99 @@ x11:
 		-include X11/SM/SMlib.h \
 		-include X11/SM/SMproto.h \
 		-include X11/Xauth.h \
+		-include X11/Intrinsic.h \
+		-include X11/Vendor.h \
+		-include X11/Xtos.h \
 		\
+		-emit '*/X11/ap_keysym.h'    inc/X11/ap_keysym.bi \
+		-emit '*/X11/Composite.h'    inc/X11/Composite.bi \
+		-emit '*/X11/Constraint.h'   inc/X11/Constraint.bi \
+		-emit '*/X11/Core.h'         inc/X11/Core.bi \
 		-emit '*/X11/cursorfont.h'   inc/X11/cursorfont.bi \
-		-emit '*/X11/keysymdef.h'    inc/X11/keysymdef.bi \
-		-emit '*/X11/keysym.h'       inc/X11/keysym.bi \
-		-emit '*/X11/Xatom.h'        inc/X11/Xatom.bi \
-		-emit '*/X11/Xcms.h'         inc/X11/Xcms.bi \
-		-emit '*/X11/Xfuncproto.h'   inc/X11/Xfuncproto.bi \
-		-emit '*/X11/Xfuncs.h'       inc/X11/Xfuncs.bi \
-		-emit '*/X11/X.h'            inc/X11/X.bi \
-		-emit '*/X11/XlibConf.h'     inc/X11/XlibConf.bi \
-		-emit '*/X11/Xlib.h'         inc/X11/Xlib.bi \
-		-emit '*/X11/Xlibint.h'      inc/X11/Xlibint.bi \
-		-emit '*/X11/Xmd.h'          inc/X11/Xmd.bi \
-		-emit '*/X11/Xosdefs.h'      inc/X11/Xosdefs.bi \
-		-emit '*/X11/Xproto.h'       inc/X11/Xproto.bi \
-		-emit '*/X11/Xprotostr.h'    inc/X11/Xprotostr.bi \
-		-emit '*/X11/Xresource.h'    inc/X11/Xresource.bi \
+		-emit '*/X11/DECkeysym.h'    inc/X11/DECkeysym.bi \
+		-emit '*/X11/HPkeysym.h'     inc/X11/HPkeysym.bi \
 		-emit '*/X11/ICE/ICEconn.h'  inc/X11/ICE/ICEconn.bi \
 		-emit '*/X11/ICE/ICE.h'      inc/X11/ICE/ICE.bi \
 		-emit '*/X11/ICE/ICElib.h'   inc/X11/ICE/ICElib.bi \
 		-emit '*/X11/ICE/ICEmsg.h'   inc/X11/ICE/ICEmsg.bi \
 		-emit '*/X11/ICE/ICEproto.h' inc/X11/ICE/ICEproto.bi \
 		-emit '*/X11/ICE/ICEutil.h'  inc/X11/ICE/ICEutil.bi \
-		-emit '*/X11/ap_keysym.h'    inc/X11/ap_keysym.bi \
-		-emit '*/X11/DECkeysym.h'    inc/X11/DECkeysym.bi \
-		-emit '*/X11/HPkeysym.h'     inc/X11/HPkeysym.bi \
 		-emit '*/X11/ImUtil.h'       inc/X11/ImUtil.bi \
-		-emit '*/X11/Sunkeysym.h'    inc/X11/Sunkeysym.bi \
-		-emit '*/X11/Xalloca.h'      inc/X11/Xalloca.bi \
-		-emit '*/X11/Xarch.h'        inc/X11/Xarch.bi \
-		-emit '*/X11/Xdefs.h'        inc/X11/Xdefs.bi \
-		-emit '*/X11/XF86keysym.h'   inc/X11/XF86keysym.bi \
-		-emit '*/X11/XKBlib.h'       inc/X11/XKBlib.bi \
-		-emit '*/X11/Xlocale.h'      inc/X11/Xlocale.bi \
-		-emit '*/X11/Xos.h'          inc/X11/Xos.bi \
-		-emit '*/X11/Xos_r.h'        inc/X11/Xos_r.bi \
-		-emit '*/X11/Xregion.h'      inc/X11/Xregion.bi \
-		-emit '*/X11/Xthreads.h'     inc/X11/Xthreads.bi \
-		-emit '*/X11/Xw32defs.h'     inc/X11/Xw32defs.bi \
-		-emit '*/X11/XWDFile.h'      inc/X11/XWDFile.bi \
-		-emit '*/X11/Xwindows.h'     inc/X11/Xwindows.bi \
-		-emit '*/X11/Xwinsock.h'     inc/X11/Xwinsock.bi \
+		-emit '*/X11/Intrinsic.h'    inc/X11/Intrinsic.bi \
+		-emit '*/X11/keysymdef.h'    inc/X11/keysymdef.bi \
+		-emit '*/X11/keysym.h'       inc/X11/keysym.bi \
+		-emit '*/X11/Object.h'       inc/X11/Object.bi \
+		-emit '*/X11/RectObj.h'      inc/X11/RectObj.bi \
 		-emit '*/X11/SM/SM.h'        inc/X11/SM/SM.bi \
 		-emit '*/X11/SM/SMlib.h'     inc/X11/SM/SMlib.bi \
 		-emit '*/X11/SM/SMproto.h'   inc/X11/SM/SMproto.bi \
+		-emit '*/X11/Sunkeysym.h'    inc/X11/Sunkeysym.bi \
+		-emit '*/X11/Vendor.h'       inc/X11/Vendor.bi \
+		-emit '*/X11/Xalloca.h'      inc/X11/Xalloca.bi \
+		-emit '*/X11/Xarch.h'        inc/X11/Xarch.bi \
+		-emit '*/X11/Xatom.h'        inc/X11/Xatom.bi \
 		-emit '*/X11/Xauth.h'        inc/X11/Xauth.bi \
-		-emit '*/X11/Xutil.h'        inc/X11/Xutil.bi
+		-emit '*/X11/Xcms.h'         inc/X11/Xcms.bi \
+		-emit '*/X11/Xdefs.h'        inc/X11/Xdefs.bi \
+		-emit '*/X11/XF86keysym.h'   inc/X11/XF86keysym.bi \
+		-emit '*/X11/Xfuncproto.h'   inc/X11/Xfuncproto.bi \
+		-emit '*/X11/Xfuncs.h'       inc/X11/Xfuncs.bi \
+		-emit '*/X11/X.h'            inc/X11/X.bi \
+		-emit '*/X11/XKBlib.h'       inc/X11/XKBlib.bi \
+		-emit '*/X11/XlibConf.h'     inc/X11/XlibConf.bi \
+		-emit '*/X11/Xlib.h'         inc/X11/Xlib.bi \
+		-emit '*/X11/Xlibint.h'      inc/X11/Xlibint.bi \
+		-emit '*/X11/Xlocale.h'      inc/X11/Xlocale.bi \
+		-emit '*/X11/Xmd.h'          inc/X11/Xmd.bi \
+		-emit '*/X11/Xosdefs.h'      inc/X11/Xosdefs.bi \
+		-emit '*/X11/Xos.h'          inc/X11/Xos.bi \
+		-emit '*/X11/Xos_r.h'        inc/X11/Xos_r.bi \
+		-emit '*/X11/Xproto.h'       inc/X11/Xproto.bi \
+		-emit '*/X11/Xprotostr.h'    inc/X11/Xprotostr.bi \
+		-emit '*/X11/Xregion.h'      inc/X11/Xregion.bi \
+		-emit '*/X11/Xresource.h'    inc/X11/Xresource.bi \
+		-emit '*/X11/Xthreads.h'     inc/X11/Xthreads.bi \
+		-emit '*/X11/Xtos.h'         inc/X11/Xtos.bi \
+		-emit '*/X11/Xutil.h'        inc/X11/Xutil.bi \
+		-emit '*/X11/Xw32defs.h'     inc/X11/Xw32defs.bi \
+		-emit '*/X11/XWDFile.h'      inc/X11/XWDFile.bi \
+		-emit '*/X11/Xwindows.h'     inc/X11/Xwindows.bi \
+		-emit '*/X11/Xwinsock.h'     inc/X11/Xwinsock.bi
+
+	$(FBFROG) x11.fbfrog -incdir extracted/xorg \
+		\
+		-include X11/IntrinsicI.h \
+		-include X11/ShellI.h \
+		-include X11/ShellP.h \
+		-include X11/VarargsI.h \
+		-include X11/VendorP.h \
+		-include X11/CreateI.h \
+		-include X11/ResConfigP.h \
+		-include X11/SelectionI.h \
+		\
+		-emit '*/X11/CallbackI.h'    inc/X11/CallbackI.bi \
+		-emit '*/X11/CompositeP.h'   inc/X11/CompositeP.bi \
+		-emit '*/X11/ConstrainP.h'   inc/X11/ConstrainP.bi \
+		-emit '*/X11/ConvertI.h'     inc/X11/ConvertI.bi \
+		-emit '*/X11/CoreP.h'        inc/X11/CoreP.bi \
+		-emit '*/X11/CreateI.h'      inc/X11/CreateI.bi \
+		-emit '*/X11/EventI.h'       inc/X11/EventI.bi \
+		-emit '*/X11/HookObjI.h'     inc/X11/HookObjI.bi \
+		-emit '*/X11/InitialI.h'     inc/X11/InitialI.bi \
+		-emit '*/X11/IntrinsicI.h'   inc/X11/IntrinsicI.bi \
+		-emit '*/X11/IntrinsicP.h'   inc/X11/IntrinsicP.bi \
+		-emit '*/X11/ObjectP.h'      inc/X11/ObjectP.bi \
+		-emit '*/X11/PassivGraI.h'   inc/X11/PassivGraI.bi \
+		-emit '*/X11/RectObjP.h'     inc/X11/RectObjP.bi \
+		-emit '*/X11/ResConfigP.h'   inc/X11/ResConfigP.bi \
+		-emit '*/X11/ResourceI.h'    inc/X11/ResourceI.bi \
+		-emit '*/X11/SelectionI.h'   inc/X11/SelectionI.bi \
+		-emit '*/X11/ShellI.h'       inc/X11/ShellI.bi \
+		-emit '*/X11/ShellP.h'       inc/X11/ShellP.bi \
+		-emit '*/X11/ThreadsI.h'     inc/X11/ThreadsI.bi \
+		-emit '*/X11/TranslateI.h'   inc/X11/TranslateI.bi \
+		-emit '*/X11/VarargsI.h'     inc/X11/VarargsI.bi \
+		-emit '*/X11/VendorP.h'      inc/X11/VendorP.bi \
 
 xcb:
 	./downloadextract.sh xcb-proto-1.8          xcb-proto-1.8.tar.bz2          "http://xcb.freedesktop.org/dist/xcb-proto-1.8.tar.bz2"
