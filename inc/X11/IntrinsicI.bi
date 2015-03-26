@@ -45,9 +45,9 @@ const TopLevelClassFlag = &h80
 #define XTERROR_PREFIX ""
 #define XTWARNING_PREFIX ""
 #define ERRORDB "/usr/lib/X11/XtErrorDB"
-extern XtCXtToolkitError as String
+extern XtCXtToolkitError as String_
 
-declare sub _XtAllocError(byval as String)
+declare sub _XtAllocError(byval as String_)
 declare sub _XtCompileResourceList(byval as XtResourceList, byval as Cardinal)
 declare function _XtMakeGeometryRequest(byval as Widget, byval as XtWidgetGeometry ptr, byval as XtWidgetGeometry ptr, byval as zstring ptr) as XtGeometryResult
 declare function _XtIsHookObject(byval as Widget) as byte

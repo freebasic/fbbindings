@@ -23,7 +23,8 @@
 ''     typedef xkbActionMessage => xkbActionMessage_
 ''     struct _xkbAccessXNotify => _xkbAccessXNotify_
 ''     typedef xkbAccessXNotify => xkbAccessXNotify_
-''     struct _xkbExtensionDeviceNotify => _xkbExtensionDeviceNotify
+''     struct _xkbExtensionDeviceNotify => _xkbExtensionDeviceNotify_
+''     typedef xkbExtensionDeviceNotify => xkbExtensionDeviceNotify_
 ''     struct _xkbEvent => _xkbEvent_
 ''     typedef xkbEvent => xkbEvent_
 
@@ -1377,7 +1378,7 @@ end type
 type xkbAccessXNotify_ as _xkbAccessXNotify_
 const sz_xkbAccessXNotify = 32
 
-type _xkbExtensionDeviceNotify
+type _xkbExtensionDeviceNotify_
 	as UBYTE type
 	xkbType as UBYTE
 	sequenceNumber as CARD16
@@ -1396,7 +1397,7 @@ type _xkbExtensionDeviceNotify
 	pad3 as CARD16
 end type
 
-type xkbExtensionDeviceNotify as _xkbExtensionDeviceNotify
+type xkbExtensionDeviceNotify_ as _xkbExtensionDeviceNotify_
 const sz_xkbExtensionDeviceNotify = 32
 
 union _xkbEvent_u
@@ -1411,7 +1412,7 @@ union _xkbEvent_u
 	bell as xkbBellNotify_
 	message as xkbActionMessage_
 	accessx as xkbAccessXNotify_
-	device as xkbExtensionDeviceNotify
+	device as xkbExtensionDeviceNotify_
 end union
 
 type _xkbEvent_

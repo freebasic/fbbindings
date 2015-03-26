@@ -51,11 +51,11 @@ const XtExposeNoRegion = &h80
 
 type XtRealizeProc as sub(byval as Widget, byval as XtValueMask ptr, byval as XSetWindowAttributes ptr)
 type XtGeometryHandler as function(byval as Widget, byval as XtWidgetGeometry ptr, byval as XtWidgetGeometry ptr) as XtGeometryResult
-type XtStringProc as sub(byval as Widget, byval as String)
+type XtStringProc as sub(byval as Widget, byval as String_)
 
 type XtTypedArg
-	name as String
-	as String type
+	name as String_
+	as String_ type
 	value as XtArgVal
 	size as long
 end type

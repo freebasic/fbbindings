@@ -413,6 +413,7 @@ nodos.fbfrog
 
 -renametypedef Object Object_
 -renametypedef pointer pointer_
+-renametypedef String String_
 
 -rename ReqType ReqType_
 -rename RepType RepType_
@@ -424,11 +425,12 @@ nodos.fbfrog
 -renametag _xkbCompatMapNotify _xkbCompatMapNotify_
 -renametag _xkbControlsNotify _xkbControlsNotify_
 -renametag _xkbEvent _xkbEvent_
--renametag _xkbExtensionDeviceNotify _xkbExtensionDeviceNotify
+-renametag _xkbExtensionDeviceNotify _xkbExtensionDeviceNotify_
 -renametag _xkbIndicatorNotify _xkbIndicatorNotify_
 -renametag _xkbNamesNotify _xkbNamesNotify_
 -renametag _xkbNewKeyboardNotify _xkbNewKeyboardNotify_
 -renametag _xRRModeInfo _xRRModeInfo_
+
 -renametypedef xDbeSwapInfo xDbeSwapInfo_
 -renametypedef xGlyphInfo xGlyphInfo_
 -renametypedef xIndexValue xIndexValue_
@@ -439,6 +441,7 @@ nodos.fbfrog
 -renametypedef xkbCompatMapNotify xkbCompatMapNotify_
 -renametypedef xkbControlsNotify xkbControlsNotify_
 -renametypedef xkbEvent xkbEvent_
+-renametypedef xkbExtensionDeviceNotify xkbExtensionDeviceNotify_
 -renametypedef xkbIndicatorNotify xkbIndicatorNotify_
 -renametypedef xkbNamesNotify xkbNamesNotify_
 -renametypedef xkbNewKeyboardNotify xkbNewKeyboardNotify_

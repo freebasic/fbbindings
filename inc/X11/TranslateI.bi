@@ -47,7 +47,7 @@ type ActionPtr as _ActionsRec ptr
 
 type _ActionsRec
 	idx as long
-	params as String ptr
+	params as String_ ptr
 	num_params as Cardinal
 	next as ActionPtr
 end type
@@ -328,7 +328,7 @@ const TM_TYPE_SEGMENT_SIZE = 16
 #define _InitializeKeysymTables(dpy, pd) '' TODO: if (pd->keysyms == NULL) _XtBuildKeysymTables(dpy, pd)
 
 declare sub _XtPopup(byval as Widget, byval as XtGrabKind, byval as byte)
-declare function _XtPrintXlations(byval as Widget, byval as XtTranslations, byval as Widget, byval as byte) as String
+declare function _XtPrintXlations(byval as Widget, byval as XtTranslations, byval as Widget, byval as byte) as String_
 declare sub _XtRegisterGrabs(byval as Widget)
 declare function _XtInitializeActionData(byval as _XtActionsRec ptr, byval as Cardinal, byval as byte) as XtPointer
 declare sub _XtAddEventSeqToStateTree(byval as EventSeqPtr, byval as TMParseStateTree)
@@ -338,9 +338,9 @@ declare function _XtRegularMatch(byval as TMTypeMatch, byval as TMModifierMatch,
 declare function _XtMatchAtom(byval as TMTypeMatch, byval as TMModifierMatch, byval as TMEventPtr) as byte
 declare sub _XtTranslateEvent(byval as Widget, byval as XEvent ptr)
 declare sub _XtBuildKeysymTables(byval dpy as Display ptr, byval pd as XtPerDisplay)
-declare sub _XtDisplayTranslations(byval as Widget, byval as XEvent ptr, byval as String ptr, byval as Cardinal ptr)
-declare sub _XtDisplayAccelerators(byval as Widget, byval as XEvent ptr, byval as String ptr, byval as Cardinal ptr)
-declare sub _XtDisplayInstalledAccelerators(byval as Widget, byval as XEvent ptr, byval as String ptr, byval as Cardinal ptr)
+declare sub _XtDisplayTranslations(byval as Widget, byval as XEvent ptr, byval as String_ ptr, byval as Cardinal ptr)
+declare sub _XtDisplayAccelerators(byval as Widget, byval as XEvent ptr, byval as String_ ptr, byval as Cardinal ptr)
+declare sub _XtDisplayInstalledAccelerators(byval as Widget, byval as XEvent ptr, byval as String_ ptr, byval as Cardinal ptr)
 declare sub _XtPopupInitialize(byval as XtAppContext)
 declare sub _XtBindActions(byval as Widget, byval as XtTM)
 declare function _XtComputeLateBindings(byval as Display ptr, byval as LateBindingsPtr, byval as Modifiers ptr, byval as Modifiers ptr) as byte
@@ -359,9 +359,9 @@ declare sub _XtDestroyTMData(byval as Widget)
 declare sub _XtMergeTranslations(byval as Widget, byval as XtTranslations, byval as _XtTranslateOp)
 declare sub _XtActionInitialize(byval as XtAppContext)
 declare function _XtParseTreeToStateTree(byval as TMParseStateTree) as TMStateTree
-declare function _XtPrintActions(byval as ActionRec ptr, byval as XrmQuark ptr) as String
-declare function _XtPrintState(byval as TMStateTree, byval as TMBranchHead) as String
-declare function _XtPrintEventSeq(byval as EventSeqPtr, byval as Display ptr) as String
+declare function _XtPrintActions(byval as ActionRec ptr, byval as XrmQuark ptr) as String_
+declare function _XtPrintState(byval as TMStateTree, byval as TMBranchHead) as String_
+declare function _XtPrintEventSeq(byval as EventSeqPtr, byval as Display ptr) as String_
 type _XtTraversalProc as function(byval as StatePtr, byval as XtPointer) as byte
 declare sub _XtTraverseStateTree(byval as TMStateTree, byval as _XtTraversalProc, byval as XtPointer)
 declare sub _XtTranslateInitialize()

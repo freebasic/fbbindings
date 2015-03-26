@@ -27,7 +27,7 @@ type ObjectRec as _ObjectRec
 
 type _ObjectClassPart
 	superclass as WidgetClass
-	class_name as String
+	class_name as String_
 	widget_size as Cardinal
 	class_initialize as XtProc
 	class_part_initialize as XtWidgetClassProc
@@ -54,7 +54,7 @@ type _ObjectClassPart
 	obj11 as XtProc
 	version as XtVersionType
 	callback_private as XtPointer
-	obj12 as String
+	obj12 as String_
 	obj13 as XtProc
 	obj14 as XtProc
 	extension as XtPointer
