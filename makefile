@@ -778,7 +778,7 @@ x11:
 	cp extracted/xorg/$(X11_INPUTPROTO)/*.h extracted/xorg/X11/extensions
 	cp extracted/xorg/$(X11_DRI2PROTO)/*.h extracted/xorg/X11/extensions
 	cp extracted/xorg/$(X11_XF86DGAPROTO)/*.h extracted/xorg/X11/extensions
-	#$(X11_XF86VIDMODEPROTO)
+	cp extracted/xorg/$(X11_XF86VIDMODEPROTO)/*.h extracted/xorg/X11/extensions
 	#$(X11_VIDEOPROTO)
 
 	mkdir -p inc/X11/extensions inc/X11/ICE inc/X11/SM inc/X11/Xtrans
@@ -886,6 +886,9 @@ x11:
 		-include X11/extensions/xf86dgaconst.h \
 		-include X11/extensions/xf86dgaproto.h \
 		-include X11/extensions/xf86dgastr.h \
+		-include X11/extensions/xf86vm.h \
+		-include X11/extensions/xf86vmproto.h \
+		-include X11/extensions/xf86vmstr.h \
 		-include X11/Xdmcp.h \
 		-include X11/xpm.h \
 		-include X11/Xtrans/Xtrans.h \
@@ -1023,6 +1026,9 @@ x11:
 		-emit '*/X11/extensions/xf86dgaconst.h'    inc/X11/extensions/xf86dgaconst.bi \
 		-emit '*/X11/extensions/xf86dgaproto.h'    inc/X11/extensions/xf86dgaproto.bi \
 		-emit '*/X11/extensions/xf86dgastr.h'      inc/X11/extensions/xf86dgastr.bi \
+		-emit '*/X11/extensions/xf86vm.h'          inc/X11/extensions/xf86vm.bi \
+		-emit '*/X11/extensions/xf86vmproto.h'     inc/X11/extensions/xf86vmproto.bi \
+		-emit '*/X11/extensions/xf86vmstr.h'       inc/X11/extensions/xf86vmstr.bi \
 		-emit '*/X11/Xtrans/Xtrans.h'        inc/X11/Xtrans/Xtrans.bi \
 		-emit '*/X11/Xdmcp.h' inc/X11/Xdmcp.bi \
 		-emit '*/X11/xpm.h'   inc/X11/xpm.bi
