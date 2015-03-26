@@ -4,7 +4,8 @@
 #include once "crt/stdarg.bi"
 
 #ifdef __FB_WIN32__
-	#include once "winapifamily.bi"
+	#include once "windows.bi"
+	#include once "win/d3d9.bi"
 #else
 	#include once "crt/stdio.bi"
 	#include once "crt/string.bi"
