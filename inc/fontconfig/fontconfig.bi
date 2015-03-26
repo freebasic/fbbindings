@@ -1,8 +1,8 @@
 #pragma once
 
 #include once "crt/sys/types.bi"
-#include once "sys/stat.bi"
 #include once "crt/stdarg.bi"
+type stat as stat_  '' TODO: remove as soon as fbc's CRT headers define it
 
 extern "C"
 

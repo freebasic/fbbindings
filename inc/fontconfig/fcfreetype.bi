@@ -1,7 +1,6 @@
 #pragma once
 
-#include once "ft2build.bi"
-#include once "freetype.bi"
+#include once "freetype2/freetype.bi"
 
 extern "C"
 
