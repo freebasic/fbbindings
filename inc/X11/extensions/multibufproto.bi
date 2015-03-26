@@ -3,7 +3,7 @@
 #include once "X11/extensions/multibufconst.bi"
 
 '' The following symbols have been renamed:
-''     typedef xMbufBufferInfo => xMbufBufferInfo_
+''     struct xMbufBufferInfo => xMbufBufferInfo_
 ''     struct xMbufClobberNotifyEvent => xMbufClobberNotifyEvent_
 ''     struct xMbufUpdateNotifyEvent => xMbufUpdateNotifyEvent_
 
@@ -20,14 +20,13 @@ const X_MbufGetBufferInfo = 8
 const X_MbufCreateStereoWindow = 9
 const X_MbufClearImageBufferArea = 10
 
-type xMbufBufferInfo
+type xMbufBufferInfo_
 	visualID as CARD32
 	maxBuffers as CARD16
 	depth as CARD8
 	unused as CARD8
 end type
 
-type xMbufBufferInfo_ as xMbufBufferInfo
 const sz_xMbufBufferInfo = 8
 
 type xMbufClobberNotifyEvent_

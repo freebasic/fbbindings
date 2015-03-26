@@ -3,6 +3,41 @@
 #include once "X11/Xproto.bi"
 #include once "X11/X.bi"
 
+'' The following symbols have been renamed:
+''     typedef xDeviceInfoPtr => xDeviceInfoPtr_
+''     typedef xAnyClassPtr => xAnyClassPtr_
+''     struct _xAnyClassinfo => _xAnyClassinfo_
+''     struct _xDeviceInfo => _xDeviceInfo_
+''     typedef xKeyInfoPtr => xKeyInfoPtr_
+''     struct _xKeyInfo => _xKeyInfo_
+''     typedef xButtonInfoPtr => xButtonInfoPtr_
+''     struct _xButtonInfo => _xButtonInfo_
+''     typedef xValuatorInfoPtr => xValuatorInfoPtr_
+''     struct _xValuatorInfo => _xValuatorInfo_
+''     typedef xAxisInfoPtr => xAxisInfoPtr_
+''     struct _xAxisInfo => _xAxisInfo_
+''     struct xInputClassInfo => xInputClassInfo_
+''     struct xFeedbackState => xFeedbackState_
+''     struct xKbdFeedbackState => xKbdFeedbackState_
+''     struct xPtrFeedbackState => xPtrFeedbackState_
+''     struct xIntegerFeedbackState => xIntegerFeedbackState_
+''     struct xStringFeedbackState => xStringFeedbackState_
+''     struct xBellFeedbackState => xBellFeedbackState_
+''     struct xLedFeedbackState => xLedFeedbackState_
+''     struct xKeyState => xKeyState_
+''     struct xButtonState => xButtonState_
+''     struct xValuatorState => xValuatorState_
+''     struct xDeviceState => xDeviceState_
+''     struct xDeviceResolutionState => xDeviceResolutionState_
+''     struct xDeviceAbsCalibState => xDeviceAbsCalibState_
+''     struct xDeviceAbsAreaState => xDeviceAbsAreaState_
+''     struct xDeviceCoreState => xDeviceCoreState_
+''     struct xDeviceEnableState => xDeviceEnableState_
+''     struct deviceStateNotify => deviceStateNotify_
+''     struct deviceMappingNotify => deviceMappingNotify_
+''     struct changeDeviceNotify => changeDeviceNotify_
+''     struct devicePropertyNotify => devicePropertyNotify_
+
 #define _XIPROTO_H
 const MORE_EVENTS = &h80
 const DEVICE_BITS = &h7F
@@ -133,17 +168,17 @@ type xListInputDevicesReply
 	pad05 as CARD32
 end type
 
-type xDeviceInfoPtr as _xDeviceInfo ptr
-type xAnyClassPtr as _xAnyClassinfo ptr
+type xDeviceInfoPtr_ as _xDeviceInfo_ ptr
+type xAnyClassPtr_ as _xAnyClassinfo_ ptr
 
-type _xAnyClassinfo
+type _xAnyClassinfo_
 	class as CARD8
 	length as CARD8
 end type
 
-type xAnyClassInfo as _xAnyClassinfo
+type xAnyClassInfo as _xAnyClassinfo_
 
-type _xDeviceInfo
+type _xDeviceInfo_
 	as CARD32 type
 	id as CARD8
 	num_classes as CARD8
@@ -151,10 +186,10 @@ type _xDeviceInfo
 	attached as CARD8
 end type
 
-type xDeviceInfo as _xDeviceInfo
-type xKeyInfoPtr as _xKeyInfo ptr
+type xDeviceInfo as _xDeviceInfo_
+type xKeyInfoPtr_ as _xKeyInfo_ ptr
 
-type _xKeyInfo
+type _xKeyInfo_
 	class as CARD8
 	length as CARD8
 	min_keycode as CARD8
@@ -164,19 +199,19 @@ type _xKeyInfo
 	pad2 as CARD8
 end type
 
-type xKeyInfo as _xKeyInfo
-type xButtonInfoPtr as _xButtonInfo ptr
+type xKeyInfo as _xKeyInfo_
+type xButtonInfoPtr_ as _xButtonInfo_ ptr
 
-type _xButtonInfo
+type _xButtonInfo_
 	class as CARD8
 	length as CARD8
 	num_buttons as CARD16
 end type
 
-type xButtonInfo as _xButtonInfo
-type xValuatorInfoPtr as _xValuatorInfo ptr
+type xButtonInfo as _xButtonInfo_
+type xValuatorInfoPtr_ as _xValuatorInfo_ ptr
 
-type _xValuatorInfo
+type _xValuatorInfo_
 	class as CARD8
 	length as CARD8
 	num_axes as CARD8
@@ -184,16 +219,16 @@ type _xValuatorInfo
 	motion_buffer_size as CARD32
 end type
 
-type xValuatorInfo as _xValuatorInfo
-type xAxisInfoPtr as _xAxisInfo ptr
+type xValuatorInfo as _xValuatorInfo_
+type xAxisInfoPtr_ as _xAxisInfo_ ptr
 
-type _xAxisInfo
+type _xAxisInfo_
 	resolution as CARD32
 	min_value as CARD32
 	max_value as CARD32
 end type
 
-type xAxisInfo as _xAxisInfo
+type xAxisInfo as _xAxisInfo_
 
 type xOpenDeviceReq
 	reqType as CARD8
@@ -221,7 +256,7 @@ type xOpenDeviceReply
 	pad04 as CARD32
 end type
 
-type xInputClassInfo
+type xInputClassInfo_
 	class as CARD8
 	event_type_base as CARD8
 end type
@@ -578,13 +613,13 @@ type xGetFeedbackControlReply
 	pad06 as CARD32
 end type
 
-type xFeedbackState
+type xFeedbackState_
 	class as CARD8
 	id as CARD8
 	length as CARD16
 end type
 
-type xKbdFeedbackState
+type xKbdFeedbackState_
 	class as CARD8
 	id as CARD8
 	length as CARD16
@@ -599,7 +634,7 @@ type xKbdFeedbackState
 	auto_repeats(0 to 31) as UBYTE
 end type
 
-type xPtrFeedbackState
+type xPtrFeedbackState_
 	class as CARD8
 	id as CARD8
 	length as CARD16
@@ -610,7 +645,7 @@ type xPtrFeedbackState
 	threshold as CARD16
 end type
 
-type xIntegerFeedbackState
+type xIntegerFeedbackState_
 	class as CARD8
 	id as CARD8
 	length as CARD16
@@ -619,7 +654,7 @@ type xIntegerFeedbackState
 	max_value as INT32
 end type
 
-type xStringFeedbackState
+type xStringFeedbackState_
 	class as CARD8
 	id as CARD8
 	length as CARD16
@@ -627,7 +662,7 @@ type xStringFeedbackState
 	num_syms_supported as CARD16
 end type
 
-type xBellFeedbackState
+type xBellFeedbackState_
 	class as CARD8
 	id as CARD8
 	length as CARD16
@@ -639,7 +674,7 @@ type xBellFeedbackState
 	duration as CARD16
 end type
 
-type xLedFeedbackState
+type xLedFeedbackState_
 	class as CARD8
 	id as CARD8
 	length as CARD16
@@ -885,7 +920,7 @@ type xQueryDeviceStateReply
 	pad6 as CARD32
 end type
 
-type xKeyState
+type xKeyState_
 	class as CARD8
 	length as CARD8
 	num_keys as CARD8
@@ -893,7 +928,7 @@ type xKeyState
 	keys(0 to 31) as CARD8
 end type
 
-type xButtonState
+type xButtonState_
 	class as CARD8
 	length as CARD8
 	num_buttons as CARD8
@@ -901,7 +936,7 @@ type xButtonState
 	buttons(0 to 31) as CARD8
 end type
 
-type xValuatorState
+type xValuatorState_
 	class as CARD8
 	length as CARD8
 	num_valuators as CARD8
@@ -983,18 +1018,18 @@ type xGetDeviceControlReply
 	pad05 as CARD32
 end type
 
-type xDeviceState
+type xDeviceState_
 	control as CARD16
 	length as CARD16
 end type
 
-type xDeviceResolutionState
+type xDeviceResolutionState_
 	control as CARD16
 	length as CARD16
 	num_valuators as CARD32
 end type
 
-type xDeviceAbsCalibState
+type xDeviceAbsCalibState_
 	control as CARD16
 	length as CARD16
 	min_x as INT32
@@ -1007,7 +1042,7 @@ type xDeviceAbsCalibState
 	button_threshold as CARD32
 end type
 
-type xDeviceAbsAreaState
+type xDeviceAbsAreaState_
 	control as CARD16
 	length as CARD16
 	offset_x as CARD32
@@ -1018,7 +1053,7 @@ type xDeviceAbsAreaState
 	following as CARD32
 end type
 
-type xDeviceCoreState
+type xDeviceCoreState_
 	control as CARD16
 	length as CARD16
 	status as CARD8
@@ -1026,7 +1061,7 @@ type xDeviceCoreState
 	pad1 as CARD16
 end type
 
-type xDeviceEnableState
+type xDeviceEnableState_
 	control as CARD16
 	length as CARD16
 	enable as CARD8
@@ -1235,7 +1270,7 @@ type deviceFocus
 	pad03 as CARD32
 end type
 
-type deviceStateNotify
+type deviceStateNotify_
 	as UBYTE type
 	deviceid as UBYTE
 	sequenceNumber as CARD16
@@ -1265,7 +1300,7 @@ type deviceButtonStateNotify
 	buttons(0 to 27) as CARD8
 end type
 
-type deviceMappingNotify
+type deviceMappingNotify_
 	as UBYTE type
 	deviceid as UBYTE
 	sequenceNumber as CARD16
@@ -1281,7 +1316,7 @@ type deviceMappingNotify
 	pad04 as CARD32
 end type
 
-type changeDeviceNotify
+type changeDeviceNotify_
 	as UBYTE type
 	deviceid as UBYTE
 	sequenceNumber as CARD16
@@ -1312,7 +1347,7 @@ type devicePresenceNotify
 	pad06 as CARD32
 end type
 
-type devicePropertyNotify
+type devicePropertyNotify_
 	as UBYTE type
 	state as UBYTE
 	sequenceNumber as CARD16
