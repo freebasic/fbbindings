@@ -87,6 +87,9 @@ end type
 type DestroyRec as _DestroyRec
 type _ActionListRec as _ActionListRec_
 type _TMBindCacheRec as _TMBindCacheRec_
+type ActionHookRec as _ActionHookRec
+type ModToKeysymTable as _ModToKeysymTable
+type TMKeyContextRec as _TMKeyContextRec
 
 type _XtAppStruct
 	next as XtAppContext
@@ -118,7 +121,7 @@ type _XtAppStruct
 	identify_windows as byte
 	heap as Heap
 	fallback_resources as String_ ptr
-	action_hook_list as _ActionHookRec ptr
+	action_hook_list as ActionHookRec ptr
 	block_hook_list as _BlockHookRec ptr
 	destroy_list_size as long
 	destroy_count as long
@@ -203,7 +206,7 @@ type _XtPerDisplayStruct
 	last_event as XEvent
 	last_timestamp as Time
 	multi_click_time as long
-	tm_context as _TMKeyContextRec ptr
+	tm_context as TMKeyContextRec ptr
 	mapping_callbacks as InternalCallbackList
 	pdi as XtPerDisplayInputRec
 	WWtable as _WWTable ptr
