@@ -720,6 +720,7 @@ X11_DRI2PROTO    := dri2proto-2.8
 X11_XF86DGAPROTO := xf86dgaproto-2.1
 X11_XF86VIDMODEPROTO := xf86vidmodeproto-2.3.1
 X11_VIDEOPROTO   := videoproto-2.3.2
+X11_FIXESPROTO   := fixesproto-5.0
 
 SED_X11_XFUNCPROTO := -e 's/\#undef NARROWPROTO/\#define NARROWPROTO 1/g'
 SED_X11_XLIBCONF := -e 's/\#undef XTHREADS/\#define XTHREADS 1/g'
@@ -761,6 +762,7 @@ x11:
 	./getxorg.sh $(X11_XF86DGAPROTO)     $(X11_XF86DGAPROTO).tar.bz2     "http://xorg.freedesktop.org/releases/individual/proto/$(X11_XF86DGAPROTO).tar.bz2"
 	./getxorg.sh $(X11_XF86VIDMODEPROTO) $(X11_XF86VIDMODEPROTO).tar.bz2 "http://xorg.freedesktop.org/releases/individual/proto/$(X11_XF86VIDMODEPROTO).tar.bz2"
 	./getxorg.sh $(X11_VIDEOPROTO)       $(X11_VIDEOPROTO).tar.bz2       "http://xorg.freedesktop.org/releases/individual/proto/$(X11_VIDEOPROTO).tar.bz2"
+	./getxorg.sh $(X11_FIXESPROTO)       $(X11_FIXESPROTO).tar.bz2       "http://xorg.freedesktop.org/releases/individual/proto/$(X11_FIXESPROTO).tar.bz2"
 
 	# Xt: X11/Shell.h and X11/StringDefs.h are generated during the build process
 	cd extracted/xorg/$(X11_XT) && \
@@ -813,6 +815,7 @@ x11:
 	cp extracted/xorg/$(X11_XF86DGAPROTO)/*.h extracted/xorg/X11/extensions
 	cp extracted/xorg/$(X11_XF86VIDMODEPROTO)/*.h extracted/xorg/X11/extensions
 	cp extracted/xorg/$(X11_VIDEOPROTO)/*.h extracted/xorg/X11/extensions
+	cp extracted/xorg/$(X11_FIXESPROTO)/*.h extracted/xorg/X11/extensions
 
 	mkdir -p inc/X11/extensions inc/X11/ICE inc/X11/SM inc/X11/Xft inc/X11/Xcursor inc/X11/Xmu inc/X11/Xtrans
 	$(FBFROG) x11.fbfrog -incdir extracted/xorg \
@@ -931,6 +934,8 @@ x11:
 		-include X11/extensions/Xvproto.h \
 		-include X11/extensions/XTest.h \
 		-include X11/extensions/record.h \
+		-include X11/extensions/xfixesproto.h \
+		-include X11/extensions/xfixeswire.h \
 		-include X11/Xpoll.h \
 		-include X11/Xdmcp.h \
 		-include X11/xpm.h \
@@ -1119,6 +1124,8 @@ x11:
 		-emit '*/X11/extensions/lbximage.h'        inc/X11/extensions/lbximage.bi \
 		-emit '*/X11/extensions/lbxopts.h'         inc/X11/extensions/lbxopts.bi \
 		-emit '*/X11/extensions/lbxzlib.h'         inc/X11/extensions/lbxzlib.bi \
+		-emit '*/X11/extensions/xfixesproto.h'     inc/X11/extensions/xfixesproto.bi \
+		-emit '*/X11/extensions/xfixeswire.h'      inc/X11/extensions/xfixeswire.bi \
 		-emit '*/X11/Xft/Xft.h'              inc/X11/Xft/Xft.bi \
 		-emit '*/X11/Xft/XftCompat.h'        inc/X11/Xft/XftCompat.bi \
 		-emit '*/X11/Xcursor/Xcursor.h'      inc/X11/Xcursor/Xcursor.bi \
