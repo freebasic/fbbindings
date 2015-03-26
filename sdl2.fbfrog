@@ -10,3 +10,8 @@
 -addforwarddecl SDL_Texture
 
 -renameproc SDL_Log SDL_Log_
+
+# For Windows, SDL2 has a SDL_CreateThread() macro that wraps the SDL_CreateThread() function
+-ifdef __FB_WIN32__
+	-renameproc SDL_CreateThread SDL_CreateThread_
+-endif

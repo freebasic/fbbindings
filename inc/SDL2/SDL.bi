@@ -15,6 +15,9 @@
 #endif
 
 '' The following symbols have been renamed:
+''     #ifdef __FB_WIN32__
+''         procedure SDL_CreateThread => SDL_CreateThread_
+''     #endif
 ''     procedure SDL_Log => SDL_Log_
 ''     struct SDL_version => SDL_version_
 
@@ -351,8 +354,8 @@ type SDL_ThreadFunction as function(byval data as any ptr) as long
 type SDL_Thread as SDL_Thread_
 
 #ifdef __FB_WIN32__
-	declare function SDL_CreateThread(byval fn as SDL_ThreadFunction, byval name as const zstring ptr, byval data as any ptr, byval pfnBeginThread as pfnSDL_CurrentBeginThread, byval pfnEndThread as pfnSDL_CurrentEndThread) as SDL_Thread ptr
-	#define SDL_CreateThread(fn, name, data) SDL_CreateThread(fn, name, data, cast(pfnSDL_CurrentBeginThread, _beginthreadex), cast(pfnSDL_CurrentEndThread, _endthreadex))
+	declare function SDL_CreateThread_ alias "SDL_CreateThread"(byval fn as SDL_ThreadFunction, byval name as const zstring ptr, byval data as any ptr, byval pfnBeginThread as pfnSDL_CurrentBeginThread, byval pfnEndThread as pfnSDL_CurrentEndThread) as SDL_Thread ptr
+	#define SDL_CreateThread(fn, name, data) SDL_CreateThread_(fn, name, data, cast(pfnSDL_CurrentBeginThread, _beginthreadex), cast(pfnSDL_CurrentEndThread, _endthreadex))
 #else
 	declare function SDL_CreateThread(byval fn as SDL_ThreadFunction, byval name as const zstring ptr, byval data as any ptr) as SDL_Thread ptr
 #endif
