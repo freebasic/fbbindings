@@ -720,6 +720,7 @@ X11_VIDEOPROTO   := videoproto-2.3.2
 SED_X11_XFUNCPROTO := -e 's/\#undef NARROWPROTO/\#define NARROWPROTO 1/g'
 SED_X11_XLIBCONF := -e 's/\#undef XTHREADS/\#define XTHREADS 1/g'
 SED_X11_XLIBCONF += -e 's/\#undef XUSE_MTSAFE_API/\#define XUSE_MTSAFE_API 1/g'
+SED_X11_XPOLL := -e 's/@USE_FDS_BITS@/__fds_bits/g'
 
 x11:
 	mkdir -p extracted/xorg
@@ -763,10 +764,14 @@ x11:
 	mkdir -p extracted/xorg/X11/Xtrans
 
 	cp extracted/xorg/$(X11_X11)/include/X11/*.h extracted/xorg/X11
-	sed $(SED_X11_XLIBCONF) < extracted/xorg/$(X11_X11)/include/X11/XlibConf.h.in > extracted/xorg/X11/XlibConf.h
-
 	cp extracted/xorg/$(X11_XPROTO)/*.h          extracted/xorg/X11
-	sed $(SED_X11_XFUNCPROTO) < extracted/xorg/$(X11_XPROTO)/Xfuncproto.h.in > extracted/xorg/X11/Xfuncproto.h
+
+	# X11: X11/XlibConf.h.in => X11/XlibConf.h
+	# xproto: Xfuncproto.h.in => X11/Xfuncproto.h
+	# xproto: Xpoll.h.in => X11/Xpoll.h
+	sed $(SED_X11_XLIBCONF)   < extracted/xorg/$(X11_X11)/include/X11/XlibConf.h.in > extracted/xorg/X11/XlibConf.h
+	sed $(SED_X11_XFUNCPROTO) < extracted/xorg/$(X11_XPROTO)/Xfuncproto.h.in        > extracted/xorg/X11/Xfuncproto.h
+	sed $(SED_X11_XPOLL)      < extracted/xorg/$(X11_XPROTO)/Xpoll.h.in             > extracted/xorg/X11/Xpoll.h
 
 	cp -R extracted/xorg/$(X11_ICE)/include/X11     extracted/xorg
 	cp -R extracted/xorg/$(X11_SM)/include/X11      extracted/xorg
@@ -911,6 +916,7 @@ x11:
 		-include X11/extensions/XvMC.h \
 		-include X11/extensions/XvMCproto.h \
 		-include X11/extensions/Xvproto.h \
+		-include X11/Xpoll.h \
 		-include X11/Xdmcp.h \
 		-include X11/xpm.h \
 		-include X11/Xft/Xft.h \
@@ -1104,6 +1110,7 @@ x11:
 		-emit '*/X11/Xmu/Xct.h'              inc/X11/Xmu/Xct.bi \
 		-emit '*/X11/Xmu/Xmu.h'              inc/X11/Xmu/Xmu.bi \
 		-emit '*/X11/Xtrans/Xtrans.h'        inc/X11/Xtrans/Xtrans.bi \
+		-emit '*/X11/Xpoll.h' inc/X11/Xpoll.bi \
 		-emit '*/X11/Xdmcp.h' inc/X11/Xdmcp.bi \
 		-emit '*/X11/xpm.h'   inc/X11/xpm.bi
 
