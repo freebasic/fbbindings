@@ -753,7 +753,7 @@ x11:
 	cp -R extracted/xorg/$(X11_SM)/include/X11 extracted/xorg
 	cp -R extracted/xorg/$(X11_XAU)/include/X11 extracted/xorg
 	cp -R extracted/xorg/$(X11_XT)/include/X11 extracted/xorg
-	#$(X11_XEXT)
+	cp -R extracted/xorg/$(X11_XEXT)/include/X11 extracted/xorg
 	#$(X11_XPM)
 	#$(X11_XRENDER)
 	#$(X11_XRANDR)
@@ -777,9 +777,8 @@ x11:
 
 	# TODO: X11/Xlib-xcb.h
 
-	mkdir -p inc/X11
-	mkdir -p inc/X11/ICE
-	mkdir -p inc/X11/SM
+	mkdir -p inc/X11/extensions inc/X11/ICE inc/X11/SM
+
 	$(FBFROG) x11.fbfrog -incdir extracted/xorg \
 		\
 		-include X11/Xlib.h \
@@ -821,6 +820,22 @@ x11:
 		-include X11/Intrinsic.h \
 		-include X11/Vendor.h \
 		-include X11/Xtos.h \
+		-include X11/extensions/Xcup.h \
+		-include X11/extensions/Xext.h \
+		-include X11/extensions/Xag.h \
+		-include X11/extensions/XShm.h \
+		-include X11/extensions/XLbx.h \
+		-include X11/extensions/Xge.h \
+		-include X11/extensions/extutil.h \
+		-include X11/extensions/Xdbe.h \
+		-include X11/extensions/xtestext1.h \
+		-include X11/extensions/MITMisc.h \
+		-include X11/extensions/multibuf.h \
+		-include X11/extensions/XEVI.h \
+		-include X11/extensions/security.h \
+		-include X11/extensions/sync.h \
+		-include X11/extensions/dpms.h \
+		-include X11/extensions/shape.h \
 		\
 		-emit '*/X11/ap_keysym.h'    inc/X11/ap_keysym.bi \
 		-emit '*/X11/Composite.h'    inc/X11/Composite.bi \
@@ -875,7 +890,23 @@ x11:
 		-emit '*/X11/Xw32defs.h'     inc/X11/Xw32defs.bi \
 		-emit '*/X11/XWDFile.h'      inc/X11/XWDFile.bi \
 		-emit '*/X11/Xwindows.h'     inc/X11/Xwindows.bi \
-		-emit '*/X11/Xwinsock.h'     inc/X11/Xwinsock.bi
+		-emit '*/X11/Xwinsock.h'     inc/X11/Xwinsock.bi \
+		-emit '*/X11/extensions/Xcup.h'      inc/X11/extensions/Xcup.bi      \
+		-emit '*/X11/extensions/Xext.h'      inc/X11/extensions/Xext.bi      \
+		-emit '*/X11/extensions/Xag.h'       inc/X11/extensions/Xag.bi       \
+		-emit '*/X11/extensions/XShm.h'      inc/X11/extensions/XShm.bi      \
+		-emit '*/X11/extensions/XLbx.h'      inc/X11/extensions/XLbx.bi      \
+		-emit '*/X11/extensions/Xge.h'       inc/X11/extensions/Xge.bi       \
+		-emit '*/X11/extensions/extutil.h'   inc/X11/extensions/extutil.bi   \
+		-emit '*/X11/extensions/Xdbe.h'      inc/X11/extensions/Xdbe.bi      \
+		-emit '*/X11/extensions/xtestext1.h' inc/X11/extensions/xtestext1.bi \
+		-emit '*/X11/extensions/MITMisc.h'   inc/X11/extensions/MITMisc.bi   \
+		-emit '*/X11/extensions/multibuf.h'  inc/X11/extensions/multibuf.bi  \
+		-emit '*/X11/extensions/XEVI.h'      inc/X11/extensions/XEVI.bi      \
+		-emit '*/X11/extensions/security.h'  inc/X11/extensions/security.bi  \
+		-emit '*/X11/extensions/sync.h'      inc/X11/extensions/sync.bi      \
+		-emit '*/X11/extensions/dpms.h'      inc/X11/extensions/dpms.bi      \
+		-emit '*/X11/extensions/shape.h'     inc/X11/extensions/shape.bi
 
 	$(FBFROG) x11.fbfrog -incdir extracted/xorg \
 		\
