@@ -1,9 +1,8 @@
 #pragma once
 
-#include once "windows.bi"
-
 #ifdef __FB_WIN32__
-	const PATH_MAX = 1024
-#endif
+	#include once "windows.bi"
 
-#define sleep(x) Sleep((x) * 1000)
+	const PATH_MAX = 1024
+	#define sleep(x) Sleep((x) * 1000)
+#endif
