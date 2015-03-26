@@ -1,5 +1,7 @@
 nodos.fbfrog
 
+-fixunsizedarrays
+
 -expandindefine _Xconst
 
 -removedefine B16

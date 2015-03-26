@@ -3,7 +3,8 @@
 extern "C"
 
 #define _XtStringDefs_h_
-extern XtStrings as const zstring * ...
+extern __XtStrings alias "XtStrings" as const byte
+#define XtStrings (*cptr(const zstring ptr, @__XtStrings))
 #define XtNaccelerators cptr(zstring ptr, @XtStrings[0])
 #define XtNallowHoriz cptr(zstring ptr, @XtStrings[13])
 #define XtNallowVert cptr(zstring ptr, @XtStrings[24])

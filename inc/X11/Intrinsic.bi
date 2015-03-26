@@ -239,8 +239,10 @@ declare function XtGetKeysymTable(byval as Display ptr, byval as KeyCode ptr, by
 declare sub XtKeysymToKeycodeList(byval as Display ptr, byval as KeySym, byval as KeyCode ptr ptr, byval as Cardinal ptr)
 declare sub XtStringConversionWarning(byval as const zstring ptr, byval as const zstring ptr)
 declare sub XtDisplayStringConversionWarning(byval as Display ptr, byval as const zstring ptr, byval as const zstring ptr)
-extern colorConvertArgs(0 to ...) as const XtConvertArgRec
-extern screenConvertArg(0 to ...) as const XtConvertArgRec
+#define colorConvertArgs(i) ((@__colorConvertArgs)[i])
+extern __colorConvertArgs alias "colorConvertArgs" as const XtConvertArgRec
+#define screenConvertArg(i) ((@__screenConvertArg)[i])
+extern __screenConvertArg alias "screenConvertArg" as const XtConvertArgRec
 declare sub XtAppAddConverter(byval as XtAppContext, byval as const zstring ptr, byval as const zstring ptr, byval as XtConverter, byval as XtConvertArgList, byval as Cardinal)
 declare sub XtAddConverter(byval as const zstring ptr, byval as const zstring ptr, byval as XtConverter, byval as XtConvertArgList, byval as Cardinal)
 declare sub XtSetTypeConverter(byval as const zstring ptr, byval as const zstring ptr, byval as XtTypeConverter, byval as XtConvertArgList, byval as Cardinal, byval as XtCacheType, byval as XtDestructor)

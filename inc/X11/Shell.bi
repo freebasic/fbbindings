@@ -6,7 +6,8 @@
 extern "C"
 
 #define _XtShell_h
-extern XtShellStrings as const zstring * ...
+extern __XtShellStrings alias "XtShellStrings" as const byte
+#define XtShellStrings (*cptr(const zstring ptr, @__XtShellStrings))
 #define XtNiconName cptr(zstring ptr, @XtShellStrings[0])
 #define XtCIconName cptr(zstring ptr, @XtShellStrings[9])
 #define XtNiconPixmap cptr(zstring ptr, @XtShellStrings[18])
