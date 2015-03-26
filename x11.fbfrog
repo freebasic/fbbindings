@@ -41,6 +41,8 @@ nodos.fbfrog
 -addforwarddecl _X11XCBPrivate
 -addforwarddecl ZlibInfo
 -addforwarddecl _XtransConnInfo
+-addforwarddecl _XctPriv
+-addforwarddecl _XtransConnFd
 
 -renametypedef BOOL XBOOL
 -renametypedef ATOM XATOM
