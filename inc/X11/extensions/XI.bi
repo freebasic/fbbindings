@@ -2,6 +2,10 @@
 
 #include once "crt/long.bi"
 
+'' The following symbols have been renamed:
+''     constant Relative => XRelative
+''     constant Absolute => XAbsolute
+
 #define _XI_H_
 const sz_xGetExtensionVersionReq = 8
 const sz_xGetExtensionVersionReply = 32
@@ -147,8 +151,8 @@ const DvAutoRepeatMode = cast(clong, 1) shl 7
 const DvString = cast(clong, 1) shl 0
 const DvInteger = cast(clong, 1) shl 0
 const DeviceMode = cast(clong, 1) shl 0
-const Relative = 0
-const Absolute = 1
+const XRelative = 0
+const XAbsolute = 1
 const ProximityState = cast(clong, 1) shl 1
 const InProximity = cast(clong, 0) shl 1
 const OutOfProximity = cast(clong, 1) shl 1

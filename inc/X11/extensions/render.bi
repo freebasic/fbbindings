@@ -2,9 +2,12 @@
 
 #include once "X11/Xdefs.bi"
 
+'' The following symbols have been renamed:
+''     typedef GlyphSet => XGlyphSet
+
 #define _RENDER_H_
 type Glyph as XID
-type GlyphSet as XID
+type XGlyphSet as XID
 type Picture as XID
 type PictFormat as XID
 
