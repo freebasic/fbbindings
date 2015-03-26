@@ -754,7 +754,7 @@ x11:
 	cp -R extracted/xorg/$(X11_XAU)/include/X11 extracted/xorg
 	cp -R extracted/xorg/$(X11_XT)/include/X11 extracted/xorg
 	cp -R extracted/xorg/$(X11_XEXT)/include/X11 extracted/xorg
-	#$(X11_XPM)
+	cp -R extracted/xorg/$(X11_XPM)/include/X11 extracted/xorg
 	#$(X11_XRENDER)
 	#$(X11_XRANDR)
 	#$(X11_XI)
@@ -836,6 +836,7 @@ x11:
 		-include X11/extensions/sync.h \
 		-include X11/extensions/dpms.h \
 		-include X11/extensions/shape.h \
+		-include X11/xpm.h \
 		\
 		-emit '*/X11/ap_keysym.h'    inc/X11/ap_keysym.bi \
 		-emit '*/X11/Composite.h'    inc/X11/Composite.bi \
@@ -906,7 +907,8 @@ x11:
 		-emit '*/X11/extensions/security.h'  inc/X11/extensions/security.bi  \
 		-emit '*/X11/extensions/sync.h'      inc/X11/extensions/sync.bi      \
 		-emit '*/X11/extensions/dpms.h'      inc/X11/extensions/dpms.bi      \
-		-emit '*/X11/extensions/shape.h'     inc/X11/extensions/shape.bi
+		-emit '*/X11/extensions/shape.h'     inc/X11/extensions/shape.bi     \
+		-emit '*/X11/xpm.h' inc/X11/xpm.bi
 
 	$(FBFROG) x11.fbfrog -incdir extracted/xorg \
 		\
