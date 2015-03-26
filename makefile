@@ -747,6 +747,12 @@ x11:
 	./getxorg.sh $(X11_XF86VIDMODEPROTO) $(X11_XF86VIDMODEPROTO).tar.bz2 "http://xorg.freedesktop.org/releases/individual/proto/$(X11_XF86VIDMODEPROTO).tar.bz2"
 	./getxorg.sh $(X11_VIDEOPROTO)       $(X11_VIDEOPROTO).tar.bz2       "http://xorg.freedesktop.org/releases/individual/proto/$(X11_VIDEOPROTO).tar.bz2"
 
+	# Xt: X11/Shell.h and X11/StringDefs.h are generated during the build process
+	cd extracted/xorg/$(X11_XT) && \
+		if [ ! -f include/X11/Shell.h ]; then \
+			(./configure && make) \
+		fi
+
 	rm -rf extracted/xorg/X11
 	mkdir -p extracted/xorg/X11/Xtrans
 
@@ -821,6 +827,8 @@ x11:
 		-include X11/SM/SMproto.h \
 		-include X11/Xauth.h \
 		-include X11/Intrinsic.h \
+		-include X11/Shell.h \
+		-include X11/StringDefs.h \
 		-include X11/Vendor.h \
 		-include X11/Xtos.h \
 		-include X11/extensions/Xcup.h \
@@ -913,6 +921,8 @@ x11:
 		-emit '*/X11/ICE/ICEutil.h'  inc/X11/ICE/ICEutil.bi \
 		-emit '*/X11/ImUtil.h'       inc/X11/ImUtil.bi \
 		-emit '*/X11/Intrinsic.h'    inc/X11/Intrinsic.bi \
+		-emit '*/X11/Shell.h'        inc/X11/Shell.bi \
+		-emit '*/X11/StringDefs.h'   inc/X11/StringDefs.bi \
 		-emit '*/X11/keysymdef.h'    inc/X11/keysymdef.bi \
 		-emit '*/X11/keysym.h'       inc/X11/keysym.bi \
 		-emit '*/X11/Object.h'       inc/X11/Object.bi \
