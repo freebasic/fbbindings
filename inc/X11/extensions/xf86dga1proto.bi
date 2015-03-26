@@ -15,7 +15,7 @@ const sz_xXF86DGAQueryVersionReq = 4
 
 type xXF86DGAQueryVersionReply
 	as UBYTE type
-	pad1 as BOOL
+	pad1 as XBOOL
 	sequenceNumber as CARD16
 	length as CARD32
 	majorVersion as CARD16
@@ -54,7 +54,7 @@ const sz_xXF86DGAInstallColormapReq = 12
 
 type xXF86DGAGetVideoLLReply
 	as UBYTE type
-	pad1 as BOOL
+	pad1 as XBOOL
 	sequenceNumber as CARD16
 	length as CARD32
 	offset as CARD32
@@ -91,7 +91,7 @@ const sz_xXF86DGAGetViewPortSizeReq = 8
 
 type xXF86DGAGetViewPortSizeReply
 	as UBYTE type
-	pad1 as BOOL
+	pad1 as XBOOL
 	sequenceNumber as CARD16
 	length as CARD32
 	width as CARD32
@@ -130,7 +130,7 @@ const sz_xXF86DGAGetVidPageReq = 8
 
 type xXF86DGAGetVidPageReply
 	as UBYTE type
-	pad1 as BOOL
+	pad1 as XBOOL
 	sequenceNumber as CARD16
 	length as CARD32
 	vpage as CARD32
@@ -167,7 +167,7 @@ const sz_xXF86DGAQueryDirectVideoReq = 8
 
 type xXF86DGAQueryDirectVideoReply
 	as UBYTE type
-	pad1 as BOOL
+	pad1 as XBOOL
 	sequenceNumber as CARD16
 	length as CARD32
 	flags as CARD32
@@ -193,7 +193,7 @@ const sz_xXF86DGAViewPortChangedReq = 8
 
 type xXF86DGAViewPortChangedReply
 	as UBYTE type
-	pad1 as BOOL
+	pad1 as XBOOL
 	sequenceNumber as CARD16
 	length as CARD32
 	result as CARD32

@@ -48,8 +48,8 @@ const X_LbxAllocColor = 42
 const X_LbxSync = 43
 
 type xLbxConnSetupPrefix
-	success as BOOL
-	changeType as BOOL
+	success as XBOOL
+	changeType as XBOOL
 	majorVersion as CARD16
 	minorVersion as CARD16
 	length as CARD16
@@ -338,10 +338,10 @@ type xLbxGetWinAttrAndGeomReply
 	winGravity as CARD8
 	backingBitPlanes as CARD32
 	backingPixel as CARD32
-	saveUnder as BOOL
-	mapInstalled as BOOL
+	saveUnder as XBOOL
+	mapInstalled as XBOOL
 	mapState as CARD8
-	override as BOOL
+	override as XBOOL
 	colormap as CARD32
 	allEventMasks as CARD32
 	yourEventMask as CARD32
@@ -414,7 +414,7 @@ type xLbxFontInfo
 	drawDirection as CARD8
 	minByte1 as CARD8
 	maxByte1 as CARD8
-	allCharsExist as BOOL
+	allCharsExist as XBOOL
 	fontAscent as INT16
 	fontDescent as INT16
 	nCharInfos as CARD32
@@ -697,7 +697,7 @@ type _LbxQueryExtensionReply
 	numReqs as CARD8
 	sequenceNumber as CARD16
 	length as CARD32
-	present as BOOL
+	present as XBOOL
 	major_opcode as CARD8
 	first_event as CARD8
 	first_error as CARD8

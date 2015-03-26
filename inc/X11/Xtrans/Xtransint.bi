@@ -27,6 +27,7 @@ extern "C"
 #endif
 
 type _Xtransport as _Xtransport_
+type _XtransConnFd as _XtransConnFd_
 
 type _XtransConnInfo_
 	transptr as _Xtransport ptr

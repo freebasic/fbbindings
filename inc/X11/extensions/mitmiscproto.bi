@@ -10,7 +10,7 @@ type _SetBugMode
 	reqType as CARD8
 	mitReqType as CARD8
 	length as CARD16
-	onOff as BOOL
+	onOff as XBOOL
 	pad0 as UBYTE
 	pad1 as CARD16
 end type
@@ -29,7 +29,7 @@ const sz_xMITGetBugModeReq = 4
 
 type xMITGetBugModeReply
 	as UBYTE type
-	onOff as BOOL
+	onOff as XBOOL
 	sequenceNumber as CARD16
 	length as CARD32
 	pad0 as CARD32

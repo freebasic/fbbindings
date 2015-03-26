@@ -44,7 +44,7 @@ const sz_xkbUseExtensionReq = 8
 
 type _xkbUseExtensionReply
 	as UBYTE type
-	supported as BOOL
+	supported as XBOOL
 	sequenceNumber as CARD16
 	length as CARD32
 	serverMajor as CARD16
@@ -82,8 +82,8 @@ type _xkbBell
 	bellClass as CARD16
 	bellID as CARD16
 	percent as INT8
-	forceSound as BOOL
-	eventOnly as BOOL
+	forceSound as XBOOL
+	eventOnly as XBOOL
 	pad1 as CARD8
 	pitch as INT16
 	duration as INT16
@@ -140,12 +140,12 @@ type _xkbLatchLockState
 	deviceSpec as CARD16
 	affectModLocks as CARD8
 	modLocks as CARD8
-	lockGroup as BOOL
+	lockGroup as XBOOL
 	groupLock as CARD8
 	affectModLatches as CARD8
 	modLatches as CARD8
 	pad as CARD8
-	latchGroup as BOOL
+	latchGroup as XBOOL
 	groupLatch as INT16
 end type
 
@@ -242,7 +242,7 @@ type xkbSetControlsReq as _xkbSetControls
 const sz_xkbSetControlsReq = 100
 
 type _xkbKTMapEntryWireDesc
-	active as BOOL
+	active as XBOOL
 	mask as CARD8
 	level as CARD8
 	realMods as CARD8
@@ -277,7 +277,7 @@ type _xkbKeyTypeWireDesc
 	virtualMods as CARD16
 	numLevels as CARD8
 	nMapEntries as CARD8
-	preserve as BOOL
+	preserve as XBOOL
 	pad as CARD8
 end type
 
@@ -442,7 +442,7 @@ type _xkbGetCompatMap
 	length as CARD16
 	deviceSpec as CARD16
 	groups as CARD8
-	getAllSI as BOOL
+	getAllSI as XBOOL
 	firstSI as CARD16
 	nSI as CARD16
 end type
@@ -475,8 +475,8 @@ type _xkbSetCompatMap
 	length as CARD16
 	deviceSpec as CARD16
 	pad1 as CARD8
-	recomputeActions as BOOL
-	truncateSI as BOOL
+	recomputeActions as XBOOL
+	truncateSI as XBOOL
 	groups as CARD8
 	firstSI as CARD16
 	nSI as CARD16
@@ -589,9 +589,9 @@ type _xkbGetNamedIndicatorReply
 	sequenceNumber as CARD16
 	length as CARD32
 	indicator as CARD32
-	found as BOOL
-	on as BOOL
-	realIndicator as BOOL
+	found as XBOOL
+	on as XBOOL
+	realIndicator as XBOOL
 	ndx as CARD8
 	flags as CARD8
 	whichGroups as CARD8
@@ -601,7 +601,7 @@ type _xkbGetNamedIndicatorReply
 	realMods as CARD8
 	virtualMods as CARD16
 	ctrls as CARD32
-	supported as BOOL
+	supported as XBOOL
 	pad1 as CARD8
 	pad2 as CARD16
 end type
@@ -618,10 +618,10 @@ type _xkbSetNamedIndicator
 	ledID as CARD16
 	pad1 as CARD16
 	indicator as CARD32
-	setState as BOOL
-	on as BOOL
-	setMap as BOOL
-	createMap as BOOL
+	setState as XBOOL
+	on as XBOOL
+	setMap as XBOOL
+	createMap as XBOOL
 	pad2 as CARD8
 	flags as CARD8
 	whichGroups as CARD8
@@ -743,7 +743,7 @@ type _xkbRowWireDesc
 	top as INT16
 	left as INT16
 	nKeys as CARD8
-	vertical as BOOL
+	vertical as XBOOL
 	pad as CARD16
 end type
 
@@ -896,7 +896,7 @@ type _xkbGetGeometryReply
 	sequenceNumber as CARD16
 	length as CARD32
 	name as CARD32
-	found as BOOL
+	found as XBOOL
 	pad as CARD8
 	widthMM as CARD16
 	heightMM as CARD16
@@ -1005,7 +1005,7 @@ type _xkbGetKbdByName
 	deviceSpec as CARD16
 	need as CARD16
 	want as CARD16
-	load as BOOL
+	load as XBOOL
 	pad as CARD8
 end type
 
@@ -1019,8 +1019,8 @@ type _xkbGetKbdByNameReply
 	length as CARD32
 	minKeyCode as CARD8
 	maxKeyCode as CARD8
-	loaded as BOOL
-	newKeyboard as BOOL
+	loaded as XBOOL
+	newKeyboard as XBOOL
 	found as CARD16
 	reported as CARD16
 	pad1 as CARD32
@@ -1050,7 +1050,7 @@ type _xkbGetDeviceInfo
 	length as CARD16
 	deviceSpec as CARD16
 	wanted as CARD16
-	allBtns as BOOL
+	allBtns as XBOOL
 	firstBtn as CARD8
 	nBtns as CARD8
 	pad as CARD8
@@ -1075,7 +1075,7 @@ type _xkbGetDeviceInfoReply
 	firstBtnRtrn as CARD8
 	nBtnsRtrn as CARD8
 	totalBtns as CARD8
-	hasOwnState as BOOL
+	hasOwnState as XBOOL
 	dfltKbdFB as CARD16
 	dfltLedFB as CARD16
 	pad as CARD16
@@ -1330,7 +1330,7 @@ type _xkbBellNotify_
 	duration as CARD16
 	name as CARD32
 	window as CARD32
-	eventOnly as BOOL
+	eventOnly as XBOOL
 	pad1 as CARD8
 	pad2 as CARD16
 	pad3 as CARD32
@@ -1346,8 +1346,8 @@ type _xkbActionMessage_
 	time as CARD32
 	deviceID as CARD8
 	keycode as CARD8
-	press as BOOL
-	keyEventFollows as BOOL
+	press as XBOOL
+	keyEventFollows as XBOOL
 	mods as CARD8
 	group as CARD8
 	message(0 to 7) as CARD8

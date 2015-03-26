@@ -228,7 +228,7 @@ type xSyncQueryAlarmReply
 	test_type as CARD32
 	delta_hi as INT32
 	delta_lo as CARD32
-	events as BOOL
+	events as XBOOL
 	state as UBYTE
 	pad0 as UBYTE
 	pad1 as UBYTE
@@ -289,7 +289,7 @@ type _xSyncCreateFenceReq
 	length as CARD16
 	d as CARD32
 	fid as CARD32
-	initially_triggered as BOOL
+	initially_triggered as XBOOL
 	pad0 as CARD8
 	pad1 as CARD16
 end type
@@ -351,7 +351,7 @@ type xSyncQueryFenceReply
 	unused as CARD8
 	sequenceNumber as CARD16
 	length as CARD32
-	triggered as BOOL
+	triggered as XBOOL
 	pad0 as UBYTE
 	pad1 as CARD16
 	pad2 as CARD32
@@ -374,7 +374,7 @@ type _xSyncCounterNotifyEvent
 	counter_value_lo as CARD32
 	time as CARD32
 	count as CARD16
-	destroyed as BOOL
+	destroyed as XBOOL
 	pad0 as UBYTE
 end type
 

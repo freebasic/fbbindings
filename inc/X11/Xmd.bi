@@ -6,6 +6,7 @@
 ''     #define _SIZEOF => _XSIZEOF
 ''     #define SIZEOF => XSIZEOF
 ''     typedef BYTE => UBYTE
+''     typedef BOOL => XBOOL
 
 const XMD_H = 1
 #define _XSIZEOF(x) sz_##x
@@ -33,7 +34,7 @@ type CARD16 as ushort
 type CARD8 as ubyte
 type BITS32 as CARD32
 type BITS16 as CARD16
-type BOOL as CARD8
+type XBOOL as CARD8
 
 #define cvtINT8toInt(val) (val)
 #define cvtINT16toInt(val) (val)

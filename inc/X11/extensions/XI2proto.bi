@@ -343,7 +343,7 @@ type xXIGetClientPointerReply
 	RepType_ as ubyte
 	sequenceNumber as ushort
 	length as ulong
-	set as BOOL
+	set as XBOOL
 	pad0 as ubyte
 	deviceid as ushort
 	pad1 as ulong
@@ -634,7 +634,7 @@ type xXIHierarchyInfo
 	deviceid as ushort
 	attachment as ushort
 	use as ubyte
-	enabled as BOOL
+	enabled as XBOOL
 	pad as ushort
 	flags as ulong
 end type
@@ -748,8 +748,8 @@ type xXIEnterEvent
 	root_y as FP1616
 	event_x as FP1616
 	event_y as FP1616
-	same_screen as BOOL
-	focus as BOOL
+	same_screen as XBOOL
+	focus as XBOOL
 	buttons_len as ushort
 	mods as xXIModifierInfo
 	group as xXIGroupInfo

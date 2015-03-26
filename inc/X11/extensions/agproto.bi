@@ -24,7 +24,7 @@ const sz_xXagQueryVersionReq = 8
 
 type xXagQueryVersionReply
 	as UBYTE type
-	pad1 as BOOL
+	pad1 as XBOOL
 	sequence_number as CARD16
 	length as CARD32
 	server_major_version as CARD16
@@ -78,7 +78,7 @@ const sz_xXagGetAttrReq = 8
 
 type xXagGetAttrReply
 	as UBYTE type
-	pad1 as BOOL
+	pad1 as XBOOL
 	sequence_number as CARD16
 	length as CARD32
 	default_root as CARD32
@@ -86,8 +86,8 @@ type xXagGetAttrReply
 	default_colormap as CARD32
 	black_pixel as CARD32
 	white_pixel as CARD32
-	single_screen as BOOL
-	app_group_leader as BOOL
+	single_screen as XBOOL
+	app_group_leader as XBOOL
 	pad2 as CARD16
 end type
 
@@ -105,7 +105,7 @@ const sz_xXagQueryReq = 8
 
 type xXagQueryReply
 	as UBYTE type
-	pad1 as BOOL
+	pad1 as XBOOL
 	sequence_number as CARD16
 	length as CARD32
 	app_group as CARD32

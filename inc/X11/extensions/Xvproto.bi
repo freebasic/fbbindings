@@ -243,7 +243,7 @@ type xvSelectVideoNotifyReq
 	xvReqType as CARD8
 	length as CARD16
 	drawable as CARD32
-	onoff as BOOL
+	onoff as XBOOL
 	pad1 as CARD8
 	pad2 as CARD16
 end type
@@ -255,7 +255,7 @@ type xvSelectPortNotifyReq
 	xvReqType as CARD8
 	length as CARD16
 	port as CARD32
-	onoff as BOOL
+	onoff as XBOOL
 	pad1 as CARD8
 	pad2 as CARD16
 end type

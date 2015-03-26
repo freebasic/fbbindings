@@ -26,7 +26,7 @@ const sz_xShmQueryVersionReq = 4
 
 type xShmQueryVersionReply
 	as UBYTE type
-	sharedPixmaps as BOOL
+	sharedPixmaps as XBOOL
 	sequenceNumber as CARD16
 	length as CARD32
 	majorVersion as CARD16
@@ -49,7 +49,7 @@ type _ShmAttach
 	length as CARD16
 	shmseg as CARD32
 	shmid as CARD32
-	readOnly as BOOL
+	readOnly as XBOOL
 	pad0 as UBYTE
 	pad1 as CARD16
 end type
@@ -171,7 +171,7 @@ type _ShmAttachFd
 	shmReqType as CARD8
 	length as CARD16
 	shmseg as CARD32
-	readOnly as BOOL
+	readOnly as XBOOL
 	pad0 as UBYTE
 	pad1 as CARD16
 end type
@@ -185,7 +185,7 @@ type _ShmCreateSegment
 	length as CARD16
 	shmseg as CARD32
 	size as CARD32
-	readOnly as BOOL
+	readOnly as XBOOL
 	pad0 as UBYTE
 	pad1 as CARD16
 end type

@@ -286,9 +286,9 @@ type xRRQueryOutputPropertyReply
 	pad0 as UBYTE
 	sequenceNumber as CARD16
 	length as CARD32
-	pending as BOOL
-	range as BOOL
-	immutable as BOOL
+	pending as XBOOL
+	range as XBOOL
+	immutable as XBOOL
 	pad1 as UBYTE
 	pad2 as CARD32
 	pad3 as CARD32
@@ -305,8 +305,8 @@ type xRRConfigureOutputPropertyReq
 	length as CARD16
 	output as CARD32
 	property as CARD32
-	pending as BOOL
-	range as BOOL
+	pending as XBOOL
+	range as XBOOL
 	pad as CARD16
 end type
 
@@ -346,8 +346,8 @@ type xRRGetOutputPropertyReq
 	as CARD32 type
 	longOffset as CARD32
 	longLength as CARD32
-	delete_ as BOOL
-	pending as BOOL
+	delete_ as XBOOL
+	pending as XBOOL
 	pad1 as CARD16
 end type
 
@@ -735,9 +735,9 @@ type xRRQueryProviderPropertyReply
 	pad0 as UBYTE
 	sequenceNumber as CARD16
 	length as CARD32
-	pending as BOOL
-	range as BOOL
-	immutable as BOOL
+	pending as XBOOL
+	range as XBOOL
+	immutable as XBOOL
 	pad1 as UBYTE
 	pad2 as CARD32
 	pad3 as CARD32
@@ -754,8 +754,8 @@ type xRRConfigureProviderPropertyReq
 	length as CARD16
 	provider as CARD32
 	property as CARD32
-	pending as BOOL
-	range as BOOL
+	pending as XBOOL
+	range as XBOOL
 	pad as CARD16
 end type
 
@@ -795,8 +795,8 @@ type xRRGetProviderPropertyReq
 	as CARD32 type
 	longOffset as CARD32
 	longLength as CARD32
-	delete_ as BOOL
-	pending as BOOL
+	delete_ as XBOOL
+	pending as XBOOL
 	pad1 as CARD16
 end type
 

@@ -20,7 +20,7 @@ const sz_xXcupQueryVersionReq = 8
 
 type xXcupQueryVersionReply
 	as UBYTE type
-	pad1 as BOOL
+	pad1 as XBOOL
 	sequence_number as CARD16
 	length as CARD32
 	server_major_version as CARD16
@@ -46,7 +46,7 @@ const sz_xXcupGetReservedColormapEntriesReq = 8
 
 type xXcupGetReservedColormapEntriesReply
 	as UBYTE type
-	pad1 as BOOL
+	pad1 as XBOOL
 	sequence_number as CARD16
 	length as CARD32
 	pad2 as CARD32
@@ -71,7 +71,7 @@ const sz_xXcupStoreColorsReq = 8
 
 type xXcupStoreColorsReply
 	as UBYTE type
-	pad1 as BOOL
+	pad1 as XBOOL
 	sequence_number as CARD16
 	length as CARD32
 	pad2 as CARD32

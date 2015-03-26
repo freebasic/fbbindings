@@ -101,7 +101,7 @@ type xGetExtensionVersionReply
 	length as CARD32
 	major_version as CARD16
 	minor_version as CARD16
-	present as BOOL
+	present as XBOOL
 	pad1 as CARD8
 	pad2 as CARD8
 	pad3 as CARD8
@@ -412,7 +412,7 @@ type xGrabDeviceReq
 	event_count as CARD16
 	this_device_mode as CARD8
 	other_devices_mode as CARD8
-	ownerEvents as BOOL
+	ownerEvents as XBOOL
 	deviceid as CARD8
 	pad01 as CARD16
 end type
@@ -456,7 +456,7 @@ type xGrabDeviceKeyReq
 	key as CARD8
 	this_device_mode as UBYTE
 	other_devices_mode as UBYTE
-	ownerEvents as BOOL
+	ownerEvents as XBOOL
 	pad1 as UBYTE
 	pad2 as UBYTE
 end type
@@ -487,7 +487,7 @@ type xGrabDeviceButtonReq
 	this_device_mode as UBYTE
 	other_devices_mode as UBYTE
 	button as CARD8
-	ownerEvents as BOOL
+	ownerEvents as XBOOL
 	pad1 as UBYTE
 	pad2 as UBYTE
 end type
@@ -592,7 +592,7 @@ type xKbdFeedbackState
 	duration as CARD16
 	led_mask as CARD32
 	led_values as CARD32
-	global_auto_repeat as BOOL
+	global_auto_repeat as XBOOL
 	click as CARD8
 	percent as CARD8
 	pad as UBYTE
@@ -914,7 +914,7 @@ type xSendExtensionEventReq
 	length as CARD16
 	destination as CARD32
 	deviceid as CARD8
-	propagate as BOOL
+	propagate as XBOOL
 	count as CARD16
 	num_events as CARD8
 	pad1 as UBYTE
@@ -1168,7 +1168,7 @@ type xGetDevicePropertyReq
 	longOffset as CARD32
 	longLength as CARD32
 	deviceid as CARD8
-	delete_ as BOOL
+	delete_ as XBOOL
 	pad as CARD16
 end type
 
@@ -1215,7 +1215,7 @@ type deviceKeyButtonPointer
 	event_x as INT16
 	event_y as INT16
 	state as KeyButMask
-	same_screen as BOOL
+	same_screen as XBOOL
 	deviceid as CARD8
 end type
 

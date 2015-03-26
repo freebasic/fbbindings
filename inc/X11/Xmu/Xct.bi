@@ -39,6 +39,8 @@ enum
 	XctError
 end enum
 
+type _XctPriv as _XctPriv_
+
 type _XctRec
 	total_string as XctString
 	total_length as long

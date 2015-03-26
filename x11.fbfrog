@@ -28,6 +28,14 @@ nodos.fbfrog
 -removedefine max
 -removedefine Max
 -removedefine MAX
+-removedefine _XtString
+-removedefine _XtBoolean
+-removedefine _XtDimension
+-removedefine _XtKeyCode
+-removedefine _XtPosition
+-removedefine _XtXtEnum
+-removedefine externalref
+-removedefine externaldef
 
 -addforwarddecl _XPrivate
 -addforwarddecl _XrmHashBucketRec
@@ -41,7 +49,12 @@ nodos.fbfrog
 -addforwarddecl _X11XCBPrivate
 -addforwarddecl ZlibInfo
 -addforwarddecl _XtransConnInfo
+-addforwarddecl _XctPriv
+-addforwarddecl _XtransConnFd
 
+-renametypedef BOOL XBOOL
+-renametypedef ATOM XATOM
+-renametypedef BOOLEAN XBOOLEAN
 -renametypedef BYTE UBYTE
 -renametypedef xSegment xSegment_
 -renametypedef xPoint xPoint_
