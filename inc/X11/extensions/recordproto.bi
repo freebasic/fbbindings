@@ -59,8 +59,6 @@ type RECORDRANGE
 	clientDied as BOOL
 end type
 
-const sz_RECORDRANGE = 24
-
 type xRecordRange_
 	coreRequestsFirst as CARD8
 	coreRequestsLast as CARD8
