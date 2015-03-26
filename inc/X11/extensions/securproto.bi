@@ -2,6 +2,9 @@
 
 #include once "X11/extensions/secur.bi"
 
+'' The following symbols have been renamed:
+''     typedef xSecurityAuthorizationRevokedEvent => xSecurityAuthorizationRevokedEvent_
+
 #define _SECURPROTO_H
 const X_SecurityQueryVersion = 0
 const X_SecurityGenerateAuthorization = 1
@@ -82,5 +85,5 @@ type _xSecurityAuthorizationRevokedEvent
 	pad5 as CARD32
 end type
 
-type xSecurityAuthorizationRevokedEvent as _xSecurityAuthorizationRevokedEvent
+type xSecurityAuthorizationRevokedEvent_ as _xSecurityAuthorizationRevokedEvent
 const sz_xSecurityAuthorizationRevokedEvent = 32

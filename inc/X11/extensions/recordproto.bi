@@ -3,6 +3,10 @@
 #include once "crt/long.bi"
 #include once "X11/extensions/recordconst.bi"
 
+'' The following symbols have been renamed:
+''     struct xRecordRange => xRecordRange_
+''     typedef xRecordClientInfo => xRecordClientInfo_
+
 #define _RECORDPROTO_H_
 const X_RecordQueryVersion = 0
 const X_RecordCreateContext = 1
@@ -57,7 +61,7 @@ end type
 
 const sz_RECORDRANGE = 24
 
-type xRecordRange
+type xRecordRange_
 	coreRequestsFirst as CARD8
 	coreRequestsLast as CARD8
 	coreRepliesFirst as CARD8
@@ -87,7 +91,7 @@ type RECORD_CLIENT_INFO
 	nRanges as CARD32
 end type
 
-type xRecordClientInfo as RECORD_CLIENT_INFO
+type xRecordClientInfo_ as RECORD_CLIENT_INFO
 
 type xRecordQueryVersionReq
 	reqType as CARD8

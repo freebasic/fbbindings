@@ -415,3 +415,15 @@ nodos.fbfrog
 
 -rename ReqType ReqType_
 -rename RepType RepType_
+
+-renametypedef xDbeSwapInfo xDbeSwapInfo_
+-renametypedef xMbufBufferInfo xMbufBufferInfo_
+-renametypedef xMbufClobberNotifyEvent xMbufClobberNotifyEvent_
+-renametypedef xMbufUpdateNotifyEvent xMbufUpdateNotifyEvent_
+-renametypedef xRecordRange xRecordRange_
+-renametypedef xRecordClientInfo xRecordClientInfo_
+-renametypedef xSecurityAuthorizationRevokedEvent xSecurityAuthorizationRevokedEvent_
+-renametypedef xSyncSystemCounter xSyncSystemCounter_
+-renametypedef xSyncWaitCondition xSyncWaitCondition_
+-renametypedef xSyncCounterNotifyEvent xSyncCounterNotifyEvent_
+-renametypedef xSyncAlarmNotifyEvent xSyncAlarmNotifyEvent_

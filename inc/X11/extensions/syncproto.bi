@@ -2,6 +2,12 @@
 
 #include once "X11/extensions/syncconst.bi"
 
+'' The following symbols have been renamed:
+''     struct xSyncSystemCounter => xSyncSystemCounter_
+''     typedef xSyncWaitCondition => xSyncWaitCondition_
+''     typedef xSyncCounterNotifyEvent => xSyncCounterNotifyEvent_
+''     typedef xSyncAlarmNotifyEvent => xSyncAlarmNotifyEvent_
+
 #define _SYNCPROTO_H_
 const X_SyncInitialize = 0
 const X_SyncListSystemCounters = 1
@@ -77,7 +83,7 @@ end type
 
 const sz_xSyncListSystemCountersReply = 32
 
-type xSyncSystemCounter
+type xSyncSystemCounter_
 	counter as CARD32
 	resolution_hi as INT32
 	resolution_lo as CARD32
@@ -176,7 +182,7 @@ type _xSyncWaitCondition
 	event_threshold_lo as CARD32
 end type
 
-type xSyncWaitCondition as _xSyncWaitCondition
+type xSyncWaitCondition_ as _xSyncWaitCondition
 const sz_xSyncWaitCondition = 28
 
 type _xSyncCreateAlarmReq
@@ -372,7 +378,7 @@ type _xSyncCounterNotifyEvent
 	pad0 as UBYTE
 end type
 
-type xSyncCounterNotifyEvent as _xSyncCounterNotifyEvent
+type xSyncCounterNotifyEvent_ as _xSyncCounterNotifyEvent
 
 type _xSyncAlarmNotifyEvent
 	as UBYTE type
@@ -390,4 +396,4 @@ type _xSyncAlarmNotifyEvent
 	pad2 as UBYTE
 end type
 
-type xSyncAlarmNotifyEvent as _xSyncAlarmNotifyEvent
+type xSyncAlarmNotifyEvent_ as _xSyncAlarmNotifyEvent

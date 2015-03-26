@@ -2,6 +2,11 @@
 
 #include once "X11/extensions/multibufconst.bi"
 
+'' The following symbols have been renamed:
+''     typedef xMbufBufferInfo => xMbufBufferInfo_
+''     struct xMbufClobberNotifyEvent => xMbufClobberNotifyEvent_
+''     struct xMbufUpdateNotifyEvent => xMbufUpdateNotifyEvent_
+
 #define _MULTIBUFPROTO_H_
 const X_MbufGetBufferVersion = 0
 const X_MbufCreateImageBuffers = 1
@@ -22,9 +27,10 @@ type xMbufBufferInfo
 	unused as CARD8
 end type
 
+type xMbufBufferInfo_ as xMbufBufferInfo
 const sz_xMbufBufferInfo = 8
 
-type xMbufClobberNotifyEvent
+type xMbufClobberNotifyEvent_
 	as UBYTE type
 	unused as UBYTE
 	sequenceNumber as CARD16
@@ -39,7 +45,7 @@ type xMbufClobberNotifyEvent
 	unused7 as CARD32
 end type
 
-type xMbufUpdateNotifyEvent
+type xMbufUpdateNotifyEvent_
 	as UBYTE type
 	unused as UBYTE
 	sequenceNumber as CARD16
