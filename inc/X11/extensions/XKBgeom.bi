@@ -79,8 +79,8 @@ end type
 
 type XkbShapeDoodadRec as _XkbShapeDoodad
 type XkbShapeDoodadPtr as _XkbShapeDoodad ptr
-#define XkbShapeDoodadColor(g, d) '' TODO: (&(g)->colors[(d)->color_ndx])
-#define XkbShapeDoodadShape(g, d) '' TODO: (&(g)->shapes[(d)->shape_ndx])
+#define XkbShapeDoodadColor(g, d) (@(g)->colors[(d)->color_ndx])
+#define XkbShapeDoodadShape(g, d) (@(g)->shapes[(d)->shape_ndx])
 #define XkbSetShapeDoodadColor(g, d, c) '' TODO: ((d)->color_ndx= (c)-&(g)->colors[0])
 #define XkbSetShapeDoodadShape(g, d, s) '' TODO: ((d)->shape_ndx= (s)-&(g)->shapes[0])
 
@@ -100,7 +100,7 @@ end type
 
 type XkbTextDoodadRec as _XkbTextDoodad
 type XkbTextDoodadPtr as _XkbTextDoodad ptr
-#define XkbTextDoodadColor(g, d) '' TODO: (&(g)->colors[(d)->color_ndx])
+#define XkbTextDoodadColor(g, d) (@(g)->colors[(d)->color_ndx])
 #define XkbSetTextDoodadColor(g, d, c) '' TODO: ((d)->color_ndx= (c)-&(g)->colors[0])
 
 type _XkbIndicatorDoodad
@@ -117,9 +117,9 @@ end type
 
 type XkbIndicatorDoodadRec as _XkbIndicatorDoodad
 type XkbIndicatorDoodadPtr as _XkbIndicatorDoodad ptr
-#define XkbIndicatorDoodadShape(g, d) '' TODO: (&(g)->shapes[(d)->shape_ndx])
-#define XkbIndicatorDoodadOnColor(g, d) '' TODO: (&(g)->colors[(d)->on_color_ndx])
-#define XkbIndicatorDoodadOffColor(g, d) '' TODO: (&(g)->colors[(d)->off_color_ndx])
+#define XkbIndicatorDoodadShape(g, d) (@(g)->shapes[(d)->shape_ndx])
+#define XkbIndicatorDoodadOnColor(g, d) (@(g)->colors[(d)->on_color_ndx])
+#define XkbIndicatorDoodadOffColor(g, d) (@(g)->colors[(d)->off_color_ndx])
 #define XkbSetIndicatorDoodadOnColor(g, d, c) '' TODO: ((d)->on_color_ndx= (c)-&(g)->colors[0])
 #define XkbSetIndicatorDoodadOffColor(g, d, c) '' TODO: ((d)->off_color_ndx= (c)-&(g)->colors[0])
 #define XkbSetIndicatorDoodadShape(g, d, s) '' TODO: ((d)->shape_ndx= (s)-&(g)->shapes[0])
@@ -138,8 +138,8 @@ end type
 
 type XkbLogoDoodadRec as _XkbLogoDoodad
 type XkbLogoDoodadPtr as _XkbLogoDoodad ptr
-#define XkbLogoDoodadColor(g, d) '' TODO: (&(g)->colors[(d)->color_ndx])
-#define XkbLogoDoodadShape(g, d) '' TODO: (&(g)->shapes[(d)->shape_ndx])
+#define XkbLogoDoodadColor(g, d) (@(g)->colors[(d)->color_ndx])
+#define XkbLogoDoodadShape(g, d) (@(g)->shapes[(d)->shape_ndx])
 #define XkbSetLogoDoodadColor(g, d, c) '' TODO: ((d)->color_ndx= (c)-&(g)->colors[0])
 #define XkbSetLogoDoodadShape(g, d, s) '' TODO: ((d)->shape_ndx= (s)-&(g)->shapes[0])
 
@@ -181,8 +181,8 @@ end type
 
 type XkbKeyRec as _XkbKey
 type XkbKeyPtr as _XkbKey ptr
-#define XkbKeyShape(g, k) '' TODO: (&(g)->shapes[(k)->shape_ndx])
-#define XkbKeyColor(g, k) '' TODO: (&(g)->colors[(k)->color_ndx])
+#define XkbKeyShape(g, k) (@(g)->shapes[(k)->shape_ndx])
+#define XkbKeyColor(g, k) (@(g)->colors[(k)->color_ndx])
 #define XkbSetKeyShape(g, k, s) '' TODO: ((k)->shape_ndx= (s)-&(g)->shapes[0])
 #define XkbSetKeyColor(g, k, c) '' TODO: ((k)->color_ndx= (c)-&(g)->colors[0])
 
