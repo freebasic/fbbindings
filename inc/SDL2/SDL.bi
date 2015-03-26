@@ -1797,7 +1797,7 @@ declare sub SDL_GameControllerClose(byval gamecontroller as SDL_GameController p
 #define _SDL_quit_h
 private function SDL_QuitRequested() as SDL_bool
 	SDL_PumpEvents()
-	function = (SDL_PeepEvents(NULL, 0, SDL_PEEKEVENT, SDL_QUIT, SDL_QUIT) > 0)
+	function = (SDL_PeepEvents(NULL, 0, SDL_PEEKEVENT, SDL_QUIT_, SDL_QUIT_) > 0)
 end function
 #define _SDL_gesture_h
 #define _SDL_touch_h
