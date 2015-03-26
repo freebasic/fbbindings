@@ -11,7 +11,7 @@ type XTestInputActionEvent
 	as long type
 	display as Display ptr
 	window as Window
-	actions(0 to XTestACTIONS_SIZE - 1) as CARD8
+	actions(0 to 27) as CARD8
 end type
 
 type XTestFakeAckEvent

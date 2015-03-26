@@ -748,7 +748,7 @@ x11:
 	./getxorg.sh $(X11_VIDEOPROTO)       $(X11_VIDEOPROTO).tar.bz2       "http://xorg.freedesktop.org/releases/individual/proto/$(X11_VIDEOPROTO).tar.bz2"
 
 	rm -rf extracted/xorg/X11
-	mkdir extracted/xorg/X11
+	mkdir -p extracted/xorg/X11/Xtrans
 
 	cp extracted/xorg/$(X11_X11)/include/X11/*.h extracted/xorg/X11
 	sed $(SED_X11_XLIBCONF) < extracted/xorg/$(X11_X11)/include/X11/XlibConf.h.in > extracted/xorg/X11/XlibConf.h
@@ -756,7 +756,6 @@ x11:
 	cp extracted/xorg/$(X11_XPROTO)/*.h          extracted/xorg/X11
 	sed $(SED_X11_XFUNCPROTO) < extracted/xorg/$(X11_XPROTO)/Xfuncproto.h.in > extracted/xorg/X11/Xfuncproto.h
 
-	mkdir -p extracted/xorg/X11/Xtrans
 	cp -R extracted/xorg/$(X11_ICE)/include/X11     extracted/xorg
 	cp -R extracted/xorg/$(X11_SM)/include/X11      extracted/xorg
 	cp -R extracted/xorg/$(X11_XAU)/include/X11     extracted/xorg
@@ -771,8 +770,9 @@ x11:
 	cp -R extracted/xorg/$(X11_XXF86VM)/include/X11  extracted/xorg
 	cp -R extracted/xorg/$(X11_XV)/include/X11      extracted/xorg
 	cp -R extracted/xorg/$(X11_XTRANS)/Xtrans.h     extracted/xorg/X11/Xtrans
-	#$(X11_XPROTO)
-	#$(X11_XEXTPROTO)
+
+	cp extracted/xorg/$(X11_XEXTPROTO)/*.h extracted/xorg/X11/extensions
+
 	#$(X11_RENDERPROTO)
 	#$(X11_RANDRPROTO)
 	#$(X11_KBPROTO)
@@ -847,6 +847,27 @@ x11:
 		-include X11/extensions/Xxf86dga.h \
 		-include X11/extensions/xf86vmode.h \
 		-include X11/extensions/Xvlib.h \
+		-include X11/extensions/EVIproto.h \
+		-include X11/extensions/agproto.h \
+		-include X11/extensions/cupproto.h \
+		-include X11/extensions/dbeproto.h \
+		-include X11/extensions/dpmsproto.h \
+		-include X11/extensions/ge.h \
+		-include X11/extensions/geproto.h \
+		-include X11/extensions/lbxproto.h \
+		-include X11/extensions/mitmiscproto.h \
+		-include X11/extensions/multibufproto.h \
+		-include X11/extensions/securproto.h \
+		-include X11/extensions/shapeproto.h \
+		-include X11/extensions/shapestr.h \
+		-include X11/extensions/shmproto.h \
+		-include X11/extensions/shmstr.h \
+		-include X11/extensions/syncproto.h \
+		-include X11/extensions/syncstr.h \
+		-include X11/extensions/xtestconst.h \
+		-include X11/extensions/xtestext1const.h \
+		-include X11/extensions/xtestext1proto.h \
+		-include X11/extensions/xtestproto.h \
 		-include X11/Xdmcp.h \
 		-include X11/xpm.h \
 		-include X11/Xtrans/Xtrans.h \
@@ -929,6 +950,39 @@ x11:
 		-emit '*/X11/extensions/xf86dga1.h'  inc/X11/extensions/xf86dga1.bi  \
 		-emit '*/X11/extensions/xf86vmode.h' inc/X11/extensions/xf86vmode.bi \
 		-emit '*/X11/extensions/Xvlib.h'     inc/X11/extensions/Xvlib.bi     \
+		-emit '*/X11/extensions/ag.h'              inc/X11/extensions/ag.bi \
+		-emit '*/X11/extensions/agproto.h'         inc/X11/extensions/agproto.bi \
+		-emit '*/X11/extensions/cup.h'             inc/X11/extensions/cup.bi \
+		-emit '*/X11/extensions/cupproto.h'        inc/X11/extensions/cupproto.bi \
+		-emit '*/X11/extensions/dbe.h'             inc/X11/extensions/dbe.bi \
+		-emit '*/X11/extensions/dbeproto.h'        inc/X11/extensions/dbeproto.bi \
+		-emit '*/X11/extensions/dpmsconst.h'       inc/X11/extensions/dpmsconst.bi \
+		-emit '*/X11/extensions/dpmsproto.h'       inc/X11/extensions/dpmsproto.bi \
+		-emit '*/X11/extensions/EVI.h'             inc/X11/extensions/EVI.bi \
+		-emit '*/X11/extensions/EVIproto.h'        inc/X11/extensions/EVIproto.bi \
+		-emit '*/X11/extensions/ge.h'              inc/X11/extensions/ge.bi \
+		-emit '*/X11/extensions/geproto.h'         inc/X11/extensions/geproto.bi \
+		-emit '*/X11/extensions/lbx.h'             inc/X11/extensions/lbx.bi \
+		-emit '*/X11/extensions/lbxproto.h'        inc/X11/extensions/lbxproto.bi \
+		-emit '*/X11/extensions/mitmiscconst.h'    inc/X11/extensions/mitmiscconst.bi \
+		-emit '*/X11/extensions/mitmiscproto.h'    inc/X11/extensions/mitmiscproto.bi \
+		-emit '*/X11/extensions/multibufconst.h'   inc/X11/extensions/multibufconst.bi \
+		-emit '*/X11/extensions/multibufproto.h'   inc/X11/extensions/multibufproto.bi \
+		-emit '*/X11/extensions/secur.h'           inc/X11/extensions/secur.bi \
+		-emit '*/X11/extensions/securproto.h'      inc/X11/extensions/securproto.bi \
+		-emit '*/X11/extensions/shapeconst.h'      inc/X11/extensions/shapeconst.bi \
+		-emit '*/X11/extensions/shapeproto.h'      inc/X11/extensions/shapeproto.bi \
+		-emit '*/X11/extensions/shapestr.h'        inc/X11/extensions/shapestr.bi \
+		-emit '*/X11/extensions/shm.h'             inc/X11/extensions/shm.bi \
+		-emit '*/X11/extensions/shmproto.h'        inc/X11/extensions/shmproto.bi \
+		-emit '*/X11/extensions/shmstr.h'          inc/X11/extensions/shmstr.bi \
+		-emit '*/X11/extensions/syncconst.h'       inc/X11/extensions/syncconst.bi \
+		-emit '*/X11/extensions/syncproto.h'       inc/X11/extensions/syncproto.bi \
+		-emit '*/X11/extensions/syncstr.h'         inc/X11/extensions/syncstr.bi \
+		-emit '*/X11/extensions/xtestconst.h'      inc/X11/extensions/xtestconst.bi \
+		-emit '*/X11/extensions/xtestext1const.h'  inc/X11/extensions/xtestext1const.bi \
+		-emit '*/X11/extensions/xtestext1proto.h'  inc/X11/extensions/xtestext1proto.bi \
+		-emit '*/X11/extensions/xtestproto.h'      inc/X11/extensions/xtestproto.bi \
 		-emit '*/X11/Xtrans/Xtrans.h'        inc/X11/Xtrans/Xtrans.bi \
 		-emit '*/X11/Xdmcp.h' inc/X11/Xdmcp.bi \
 		-emit '*/X11/xpm.h'   inc/X11/xpm.bi
