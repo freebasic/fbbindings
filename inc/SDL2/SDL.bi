@@ -33,6 +33,9 @@
 	#include once "emmintrin.bi"
 #endif
 
+'' The following symbols have been renamed:
+''     struct SDL_version => SDL_version_
+
 extern "C"
 
 #define _SDL_H
@@ -278,7 +281,7 @@ declare function SDL_GetError() as const zstring ptr
 declare sub SDL_ClearError()
 
 #define SDL_OutOfMemory() SDL_Error(SDL_ENOMEM)
-#define SDL_Unsupported() SDL_Error(SDL_UNSUPPORTED)
+#define SDL_Unsupported() SDL_Error(SDL_UNSUPPORTED_)
 #define SDL_InvalidParamError(param) SDL_SetError("Parameter '%s' is invalid", (param))
 
 type SDL_errorcode as long
@@ -287,7 +290,7 @@ enum
 	SDL_EFREAD
 	SDL_EFWRITE
 	SDL_EFSEEK
-	SDL_UNSUPPORTED
+	SDL_UNSUPPORTED_
 	SDL_LASTERROR
 end enum
 
@@ -1816,7 +1819,7 @@ const SDL_PRESSED = 1
 type SDL_EventType as long
 enum
 	SDL_FIRSTEVENT = 0
-	SDL_QUIT = &h100
+	SDL_QUIT_ = &h100
 	SDL_APP_TERMINATING
 	SDL_APP_LOWMEMORY
 	SDL_APP_WILLENTERBACKGROUND
@@ -2583,7 +2586,7 @@ declare function SDL_AddTimer(byval interval as Uint32, byval callback as SDL_Ti
 declare function SDL_RemoveTimer(byval id as SDL_TimerID) as SDL_bool
 #define _SDL_version_h
 
-type SDL_version
+type SDL_version_
 	major as Uint8
 	minor as Uint8
 	patch as Uint8
@@ -2603,7 +2606,7 @@ const SDL_PATCHLEVEL = 3
 #define SDL_COMPILEDVERSION SDL_VERSIONNUM(SDL_MAJOR_VERSION, SDL_MINOR_VERSION, SDL_PATCHLEVEL)
 #define SDL_VERSION_ATLEAST(X, Y, Z) (SDL_COMPILEDVERSION >= SDL_VERSIONNUM(X, Y, Z))
 
-declare sub SDL_GetVersion(byval ver as SDL_version ptr)
+declare sub SDL_GetVersion(byval ver as SDL_version_ ptr)
 declare function SDL_GetRevision() as const zstring ptr
 declare function SDL_GetRevisionNumber() as long
 

@@ -45,6 +45,10 @@
 	#include once "X11/Xatom.bi"
 #endif
 
+'' The following symbols have been renamed:
+''     enum SDL_EventMask => SDL_EventMask_
+''     struct SDL_version => SDL_version_
+
 extern "C"
 
 #define _SDL_H
@@ -228,7 +232,7 @@ declare sub SDL_SetError(byval fmt as const zstring ptr, ...)
 declare function SDL_GetError() as zstring ptr
 declare sub SDL_ClearError()
 #define SDL_OutOfMemory() SDL_Error(SDL_ENOMEM)
-#define SDL_Unsupported() SDL_Error(SDL_UNSUPPORTED)
+#define SDL_Unsupported() SDL_Error(SDL_UNSUPPORTED_)
 
 type SDL_errorcode as long
 enum
@@ -236,7 +240,7 @@ enum
 	SDL_EFREAD
 	SDL_EFWRITE
 	SDL_EFSEEK
-	SDL_UNSUPPORTED
+	SDL_UNSUPPORTED_
 	SDL_LASTERROR
 end enum
 
@@ -1122,7 +1126,7 @@ enum
 	SDL_JOYHATMOTION
 	SDL_JOYBUTTONDOWN
 	SDL_JOYBUTTONUP
-	SDL_QUIT
+	SDL_QUIT_
 	SDL_SYSWMEVENT
 	SDL_EVENT_RESERVEDA
 	SDL_EVENT_RESERVEDB
@@ -1140,7 +1144,7 @@ end enum
 
 #define SDL_EVENTMASK(X) (1 shl (X))
 
-type SDL_EventMask as long
+type SDL_EventMask_ as long
 enum
 	SDL_ACTIVEEVENTMASK = SDL_EVENTMASK(SDL_ACTIVEEVENT)
 	SDL_KEYDOWNMASK = SDL_EVENTMASK(SDL_KEYDOWN)
@@ -1158,7 +1162,7 @@ enum
 	SDL_JOYEVENTMASK = (((SDL_EVENTMASK(SDL_JOYAXISMOTION) or SDL_EVENTMASK(SDL_JOYBALLMOTION)) or SDL_EVENTMASK(SDL_JOYHATMOTION)) or SDL_EVENTMASK(SDL_JOYBUTTONDOWN)) or SDL_EVENTMASK(SDL_JOYBUTTONUP)
 	SDL_VIDEORESIZEMASK = SDL_EVENTMASK(SDL_VIDEORESIZE)
 	SDL_VIDEOEXPOSEMASK = SDL_EVENTMASK(SDL_VIDEOEXPOSE)
-	SDL_QUITMASK = SDL_EVENTMASK(SDL_QUIT)
+	SDL_QUITMASK = SDL_EVENTMASK(SDL_QUIT_)
 	SDL_SYSWMEVENTMASK = SDL_EVENTMASK(SDL_SYSWMEVENT)
 end enum
 
@@ -1314,7 +1318,7 @@ const SDL_MAJOR_VERSION = 1
 const SDL_MINOR_VERSION = 2
 const SDL_PATCHLEVEL = 15
 
-type SDL_version
+type SDL_version_
 	major as Uint8
 	minor as Uint8
 	patch as Uint8
@@ -1330,7 +1334,7 @@ end type
 #define SDL_VERSIONNUM(X, Y, Z) ((((X) * 1000) + ((Y) * 100)) + (Z))
 #define SDL_COMPILEDVERSION SDL_VERSIONNUM(SDL_MAJOR_VERSION, SDL_MINOR_VERSION, SDL_PATCHLEVEL)
 #define SDL_VERSION_ATLEAST(X, Y, Z) (SDL_COMPILEDVERSION >= SDL_VERSIONNUM(X, Y, Z))
-declare function SDL_Linked_Version() as const SDL_version ptr
+declare function SDL_Linked_Version() as const SDL_version_ ptr
 const SDL_INIT_TIMER = &h00000001
 const SDL_INIT_AUDIO = &h00000010
 const SDL_INIT_VIDEO = &h00000020
@@ -1360,7 +1364,7 @@ declare sub SDL_Quit()
 #endif
 
 type SDL_SysWMmsg_
-	version as SDL_version
+	version as SDL_version_
 
 	#ifdef __FB_WIN32__
 		hwnd as HWND
@@ -1390,7 +1394,7 @@ end type
 #endif
 
 type SDL_SysWMinfo
-	version as SDL_version
+	version as SDL_version_
 
 	#ifdef __FB_WIN32__
 		window as HWND

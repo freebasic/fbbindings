@@ -9,7 +9,7 @@
 extern "C"
 
 #define _SDL_NET_H
-type SDLNet_version as SDL_version
+type SDLNet_version as SDL_version_
 const SDL_NET_MAJOR_VERSION = 2
 const SDL_NET_MINOR_VERSION = 0
 const SDL_NET_PATCHLEVEL = 0

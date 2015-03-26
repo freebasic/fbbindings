@@ -135,3 +135,8 @@ nodos.fbfrog
 
 -rename mod mod_
 -rename unicode unicode_
+
+-rename SDL_UNSUPPORTED SDL_UNSUPPORTED_
+-rename SDL_version SDL_version_
+-rename SDL_EventMask SDL_EventMask_
+-rename SDL_QUIT SDL_QUIT_
