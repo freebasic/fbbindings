@@ -33,13 +33,6 @@ const LBX_OPT_DELTA_NCACHE_DFLT = 16
 const LBX_OPT_DELTA_MSGLEN_MIN = 32
 const LBX_OPT_DELTA_MSGLEN_DFLT = 64
 
-#ifdef __FB_WIN32__
-	type iovec
-		iov_base as caddr_t
-		iov_len as long
-	end type
-#endif
-
 type LbxStreamCompHandle as any ptr
 
 type _LbxStreamOpts

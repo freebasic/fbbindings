@@ -32,13 +32,6 @@ end type
 	type BytesReadable_t as clong
 #endif
 
-#ifdef __FB_WIN32__
-	type iovec
-		iov_base as caddr_t
-		iov_len as long
-	end type
-#endif
-
 type XtransConnInfo as _XtransConnInfo ptr
 const TRANS_NONBLOCKING = 1
 const TRANS_CLOSEONEXEC = 2
