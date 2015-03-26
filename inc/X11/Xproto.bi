@@ -245,7 +245,7 @@ type xWindowRoot
 	maxInstalledMaps as CARD16
 	rootVisualID as CARD32
 	backingStore as CARD8
-	saveUnders as BOOL
+	saveUnders as XBOOL
 	rootDepth as CARD8
 	nDepths as CARD8
 end type
@@ -323,10 +323,10 @@ type xGetWindowAttributesReply
 	winGravity as CARD8
 	backingBitPlanes as CARD32
 	backingPixel as CARD32
-	saveUnder as BOOL
-	mapInstalled as BOOL
+	saveUnder as XBOOL
+	mapInstalled as XBOOL
 	mapState as CARD8
-	override as BOOL
+	override as XBOOL
 	colormap as CARD32
 	allEventMasks as CARD32
 	yourEventMask as CARD32
@@ -448,7 +448,7 @@ type xGrabKeyboardReply as xGrabPointerReply
 
 type xQueryPointerReply
 	as UBYTE type
-	sameScreen as BOOL
+	sameScreen as XBOOL
 	sequenceNumber as CARD16
 	length as CARD32
 	root as CARD32
@@ -477,7 +477,7 @@ end type
 
 type xTranslateCoordsReply
 	as UBYTE type
-	sameScreen as BOOL
+	sameScreen as XBOOL
 	sequenceNumber as CARD16
 	length as CARD32
 	child as CARD32
@@ -526,7 +526,7 @@ type _xQueryFontReply
 	drawDirection as CARD8
 	minByte1 as CARD8
 	maxByte1 as CARD8
-	allCharsExist as BOOL
+	allCharsExist as XBOOL
 	fontAscent as INT16
 	fontDescent as INT16
 	nCharInfos as CARD32
@@ -579,7 +579,7 @@ type xListFontsWithInfoReply
 	drawDirection as CARD8
 	minByte1 as CARD8
 	maxByte1 as CARD8
-	allCharsExist as BOOL
+	allCharsExist as XBOOL
 	fontAscent as INT16
 	fontDescent as INT16
 	nReplies as CARD32
@@ -734,7 +734,7 @@ type xQueryExtensionReply
 	pad1 as UBYTE
 	sequenceNumber as CARD16
 	length as CARD32
-	present as BOOL
+	present as XBOOL
 	major_opcode as CARD8
 	first_event as CARD8
 	first_error as CARD8
@@ -815,7 +815,7 @@ end type
 
 type xGetKeyboardControlReply
 	as UBYTE type
-	globalAutoRepeat as BOOL
+	globalAutoRepeat as XBOOL
 	sequenceNumber as CARD16
 	length as CARD32
 	ledMask as CARD32
@@ -849,8 +849,8 @@ type xGetScreenSaverReply
 	length as CARD32
 	timeout as CARD16
 	interval as CARD16
-	preferBlanking as BOOL
-	allowExposures as BOOL
+	preferBlanking as XBOOL
+	allowExposures as XBOOL
 	pad2 as CARD16
 	pad3 as CARD32
 	pad4 as CARD32
@@ -860,7 +860,7 @@ end type
 
 type xListHostsReply
 	as UBYTE type
-	enabled as BOOL
+	enabled as XBOOL
 	sequenceNumber as CARD16
 	length as CARD32
 	nHosts as CARD16
@@ -904,7 +904,7 @@ type _xEvent_u_keyButtonPointer
 	eventX as INT16
 	eventY as INT16
 	state as KeyButMask
-	sameScreen as BOOL
+	sameScreen as XBOOL
 	pad1 as UBYTE
 end type
 
@@ -984,7 +984,7 @@ type _xEvent_u_createNotify
 	width as CARD16
 	height as CARD16
 	borderWidth as CARD16
-	override as BOOL
+	override as XBOOL
 	bpad as UBYTE
 end type
 
@@ -998,7 +998,7 @@ type _xEvent_u_unmapNotify
 	pad00 as CARD32
 	event as CARD32
 	window as CARD32
-	fromConfigure as BOOL
+	fromConfigure as XBOOL
 	pad1 as UBYTE
 	pad2 as UBYTE
 	pad3 as UBYTE
@@ -1008,7 +1008,7 @@ type _xEvent_u_mapNotify
 	pad00 as CARD32
 	event as CARD32
 	window as CARD32
-	override as BOOL
+	override as XBOOL
 	pad1 as UBYTE
 	pad2 as UBYTE
 	pad3 as UBYTE
@@ -1027,7 +1027,7 @@ type _xEvent_u_reparent
 	parent as CARD32
 	x as INT16
 	y as INT16
-	override as BOOL
+	override as XBOOL
 	pad1 as UBYTE
 	pad2 as UBYTE
 	pad3 as UBYTE
@@ -1043,7 +1043,7 @@ type _xEvent_u_configureNotify
 	width as CARD16
 	height as CARD16
 	borderWidth as CARD16
-	override as BOOL
+	override as XBOOL
 	bpad as UBYTE
 end type
 
@@ -1131,7 +1131,7 @@ type _xEvent_u_colormap
 	pad00 as CARD32
 	window as CARD32
 	colormap as CARD32
-	new_ as BOOL
+	new_ as XBOOL
 	state as UBYTE
 	pad1 as UBYTE
 	pad2 as UBYTE
@@ -1358,7 +1358,7 @@ end type
 
 type xInternAtomReq
 	reqType as CARD8
-	onlyIfExists as BOOL
+	onlyIfExists as XBOOL
 	length as CARD16
 	nbytes as CARD16
 	pad as CARD16
@@ -1386,7 +1386,7 @@ end type
 
 type xGetPropertyReq
 	reqType as CARD8
-	delete_ as BOOL
+	delete_ as XBOOL
 	length as CARD16
 	window as CARD32
 	property as CARD32
@@ -1417,7 +1417,7 @@ end type
 
 type xSendEventReq
 	reqType as CARD8
-	propagate as BOOL
+	propagate as XBOOL
 	length as CARD16
 	destination as CARD32
 	eventMask as CARD32
@@ -1426,7 +1426,7 @@ end type
 
 type xGrabPointerReq
 	reqType as CARD8
-	ownerEvents as BOOL
+	ownerEvents as XBOOL
 	length as CARD16
 	grabWindow as CARD32
 	eventMask as CARD16
@@ -1439,7 +1439,7 @@ end type
 
 type xGrabButtonReq
 	reqType as CARD8
-	ownerEvents as BOOL
+	ownerEvents as XBOOL
 	length as CARD16
 	grabWindow as CARD32
 	eventMask as CARD16
@@ -1473,7 +1473,7 @@ end type
 
 type xGrabKeyboardReq
 	reqType as CARD8
-	ownerEvents as BOOL
+	ownerEvents as XBOOL
 	length as CARD16
 	grabWindow as CARD32
 	time as CARD32
@@ -1484,7 +1484,7 @@ end type
 
 type xGrabKeyReq
 	reqType as CARD8
-	ownerEvents as BOOL
+	ownerEvents as XBOOL
 	length as CARD16
 	grabWindow as CARD32
 	modifiers as CARD16
@@ -1565,7 +1565,7 @@ end type
 
 type xQueryTextExtentsReq
 	reqType as CARD8
-	oddLength as BOOL
+	oddLength as XBOOL
 	length as CARD16
 	fid as CARD32
 end type
@@ -1645,7 +1645,7 @@ end type
 
 type xClearAreaReq
 	reqType as CARD8
-	exposures as BOOL
+	exposures as XBOOL
 	length as CARD16
 	window as CARD32
 	x as INT16
@@ -1816,7 +1816,7 @@ end type
 
 type xAllocColorCellsReq
 	reqType as CARD8
-	contiguous as BOOL
+	contiguous as XBOOL
 	length as CARD16
 	cmap as CARD32
 	colors as CARD16
@@ -1825,7 +1825,7 @@ end type
 
 type xAllocColorPlanesReq
 	reqType as CARD8
-	contiguous as BOOL
+	contiguous as XBOOL
 	length as CARD16
 	cmap as CARD32
 	colors as CARD16
@@ -1992,8 +1992,8 @@ type xChangePointerControlReq
 	accelNum as INT16
 	accelDenum as INT16
 	threshold as INT16
-	doAccel as BOOL
-	doThresh as BOOL
+	doAccel as XBOOL
+	doThresh as XBOOL
 end type
 
 type xSetScreenSaverReq

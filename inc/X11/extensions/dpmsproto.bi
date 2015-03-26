@@ -53,7 +53,7 @@ type xDPMSCapableReply
 	pad0 as CARD8
 	sequenceNumber as CARD16
 	length as CARD32
-	capable as BOOL
+	capable as XBOOL
 	pad1 as CARD8
 	pad2 as CARD16
 	pad3 as CARD32
@@ -142,7 +142,7 @@ type xDPMSInfoReply
 	sequenceNumber as CARD16
 	length as CARD32
 	power_level as CARD16
-	state as BOOL
+	state as XBOOL
 	pad1 as CARD8
 	pad2 as CARD32
 	pad3 as CARD32

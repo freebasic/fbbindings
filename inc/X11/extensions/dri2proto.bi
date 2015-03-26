@@ -327,7 +327,7 @@ const sz_xDRI2GetParamReq = 12
 
 type xDRI2GetParamReply
 	as UBYTE type
-	is_param_recognized as BOOL
+	is_param_recognized as XBOOL
 	sequenceNumber as CARD16
 	length as CARD32
 	value_hi as CARD32

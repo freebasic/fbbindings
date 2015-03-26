@@ -15,6 +15,6 @@ declare function DPMSGetTimeouts(byval as Display ptr, byval as CARD16 ptr, byva
 declare function DPMSEnable(byval as Display ptr) as long
 declare function DPMSDisable(byval as Display ptr) as long
 declare function DPMSForceLevel(byval as Display ptr, byval as CARD16) as long
-declare function DPMSInfo(byval as Display ptr, byval as CARD16 ptr, byval as BOOL ptr) as long
+declare function DPMSInfo(byval as Display ptr, byval as CARD16 ptr, byval as XBOOL ptr) as long
 
 end extern

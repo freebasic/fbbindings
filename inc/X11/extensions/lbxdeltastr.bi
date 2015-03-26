@@ -38,7 +38,7 @@ type lbxMotionCache
 	eventX as INT16
 	eventY as INT16
 	state as KeyButMask
-	sameScreen as BOOL
+	sameScreen as XBOOL
 end type
 
 type lbxQuickMotionDeltaEvent

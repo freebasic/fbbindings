@@ -47,7 +47,7 @@ const sz_xXTestCompareCursorReq = 12
 
 type xXTestCompareCursorReply
 	as UBYTE type
-	same as BOOL
+	same as XBOOL
 	sequenceNumber as CARD16
 	length as CARD32
 	pad0 as CARD32
@@ -85,7 +85,7 @@ type xXTestGrabControlReq
 	reqType as CARD8
 	xtReqType as CARD8
 	length as CARD16
-	impervious as BOOL
+	impervious as XBOOL
 	pad0 as CARD8
 	pad1 as CARD8
 	pad2 as CARD8

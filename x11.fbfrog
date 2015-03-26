@@ -42,6 +42,9 @@ nodos.fbfrog
 -addforwarddecl ZlibInfo
 -addforwarddecl _XtransConnInfo
 
+-renametypedef BOOL XBOOL
+-renametypedef ATOM XATOM
+-renametypedef BOOLEAN XBOOLEAN
 -renametypedef BYTE UBYTE
 -renametypedef xSegment xSegment_
 -renametypedef xPoint xPoint_

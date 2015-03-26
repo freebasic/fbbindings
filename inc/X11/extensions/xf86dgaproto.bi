@@ -19,7 +19,7 @@ const sz_xXDGAQueryVersionReq = 4
 
 type xXDGAQueryVersionReply
 	as UBYTE type
-	pad1 as BOOL
+	pad1 as XBOOL
 	sequenceNumber as CARD16
 	length as CARD32
 	majorVersion as CARD16
@@ -45,7 +45,7 @@ const sz_xXDGAQueryModesReq = 8
 
 type xXDGAQueryModesReply
 	as UBYTE type
-	pad1 as BOOL
+	pad1 as XBOOL
 	sequenceNumber as CARD16
 	length as CARD32
 	number as CARD32
@@ -72,7 +72,7 @@ const sz_xXDGASetModeReq = 16
 
 type xXDGASetModeReply
 	as UBYTE type
-	pad1 as BOOL
+	pad1 as XBOOL
 	sequenceNumber as CARD16
 	length as CARD32
 	offset as CARD32
@@ -129,7 +129,7 @@ const sz_xXDGAOpenFramebufferReq = 8
 
 type xXDGAOpenFramebufferReply
 	as UBYTE type
-	pad1 as BOOL
+	pad1 as XBOOL
 	sequenceNumber as CARD16
 	length as CARD32
 	mem1 as CARD32
@@ -247,7 +247,7 @@ const sz_xXDGAGetViewportStatusReq = 8
 
 type xXDGAGetViewportStatusReply
 	as UBYTE type
-	pad1 as BOOL
+	pad1 as XBOOL
 	sequenceNumber as CARD16
 	length as CARD32
 	status as CARD32
@@ -272,7 +272,7 @@ const sz_xXDGASyncReq = 8
 
 type xXDGASyncReply
 	as UBYTE type
-	pad1 as BOOL
+	pad1 as XBOOL
 	sequenceNumber as CARD16
 	length as CARD32
 	pad2 as CARD32
@@ -310,7 +310,7 @@ const sz_xXDGAChangePixmapModeReq = 16
 
 type xXDGAChangePixmapModeReply
 	as UBYTE type
-	pad1 as BOOL
+	pad1 as XBOOL
 	sequenceNumber as CARD16
 	length as CARD32
 	x as CARD16

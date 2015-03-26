@@ -266,7 +266,7 @@ type xMbufClearImageBufferAreaReq
 	unused0 as CARD8
 	unused1 as CARD8
 	unused2 as CARD8
-	exposures as BOOL
+	exposures as XBOOL
 end type
 
 const sz_xMbufClearImageBufferAreaReq = 20

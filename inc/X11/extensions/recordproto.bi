@@ -56,8 +56,8 @@ type RECORDRANGE
 	deliveredEvents as RECORD_RANGE8
 	deviceEvents as RECORD_RANGE8
 	errors as RECORD_RANGE8
-	clientStarted as BOOL
-	clientDied as BOOL
+	clientStarted as XBOOL
+	clientDied as XBOOL
 end type
 
 type xRecordRange_
@@ -79,8 +79,8 @@ type xRecordRange_
 	deviceEventsLast as CARD8
 	errorsFirst as CARD8
 	errorsLast as CARD8
-	clientStarted as BOOL
-	clientDied as BOOL
+	clientStarted as XBOOL
+	clientDied as XBOOL
 end type
 
 const sz_xRecordRange_ = 24
@@ -167,7 +167,7 @@ const sz_xRecordGetContextReq = 8
 
 type xRecordGetContextReply
 	as CARD8 type
-	enabled as BOOL
+	enabled as XBOOL
 	sequenceNumber as CARD16
 	length as CARD32
 	elementHeader as CARD8
@@ -197,7 +197,7 @@ type xRecordEnableContextReply
 	sequenceNumber as CARD16
 	length as CARD32
 	elementHeader as CARD8
-	clientSwapped as BOOL
+	clientSwapped as XBOOL
 	pad1 as CARD16
 	idBase as CARD32
 	serverTime as CARD32

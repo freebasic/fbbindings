@@ -39,7 +39,7 @@ const sz_xXF86VidModeQueryVersionReq = 4
 
 type xXF86VidModeQueryVersionReply
 	as UBYTE type
-	pad1 as BOOL
+	pad1 as XBOOL
 	sequenceNumber as CARD16
 	length as CARD32
 	majorVersion as CARD16
@@ -77,7 +77,7 @@ const sz_xXF86VidModeGetPermissionsReq = 8
 
 type xXF86VidModeGetModeLineReply
 	as UBYTE type
-	pad1 as BOOL
+	pad1 as XBOOL
 	sequenceNumber as CARD16
 	length as CARD32
 	dotclock as CARD32
@@ -102,7 +102,7 @@ const sz_xXF86VidModeGetModeLineReply = 52
 
 type xXF86OldVidModeGetModeLineReply
 	as UBYTE type
-	pad1 as BOOL
+	pad1 as XBOOL
 	sequenceNumber as CARD16
 	length as CARD32
 	dotclock as CARD32
@@ -155,7 +155,7 @@ end type
 
 type xXF86VidModeGetAllModeLinesReply
 	as UBYTE type
-	pad1 as BOOL
+	pad1 as XBOOL
 	sequenceNumber as CARD16
 	length as CARD32
 	modecount as CARD32
@@ -366,7 +366,7 @@ const sz_xXF86VidModeLockModeSwitchReq = 8
 
 type xXF86VidModeValidateModeLineReply
 	as UBYTE type
-	pad1 as BOOL
+	pad1 as XBOOL
 	sequenceNumber as CARD16
 	length as CARD32
 	status as CARD32
@@ -381,7 +381,7 @@ const sz_xXF86VidModeValidateModeLineReply = 32
 
 type xXF86VidModeGetMonitorReply
 	as UBYTE type
-	pad1 as BOOL
+	pad1 as XBOOL
 	sequenceNumber as CARD16
 	length as CARD32
 	vendorLength as CARD8
@@ -399,7 +399,7 @@ const sz_xXF86VidModeGetMonitorReply = 32
 
 type xXF86VidModeGetViewPortReply
 	as UBYTE type
-	pad1 as BOOL
+	pad1 as XBOOL
 	sequenceNumber as CARD16
 	length as CARD32
 	x as CARD32
@@ -427,7 +427,7 @@ const sz_xXF86VidModeSetViewPortReq = 16
 
 type xXF86VidModeGetDotClocksReply
 	as UBYTE type
-	pad1 as BOOL
+	pad1 as XBOOL
 	sequenceNumber as CARD16
 	length as CARD32
 	flags as CARD32
@@ -470,7 +470,7 @@ const sz_xXF86VidModeGetGammaReq = 32
 
 type xXF86VidModeGetGammaReply
 	as UBYTE type
-	pad as BOOL
+	pad as XBOOL
 	sequenceNumber as CARD16
 	length as CARD32
 	red as CARD32
@@ -524,7 +524,7 @@ const sz_xXF86VidModeGetGammaRampReq = 8
 
 type xXF86VidModeGetGammaRampReply
 	as UBYTE type
-	pad as BOOL
+	pad as XBOOL
 	sequenceNumber as CARD16
 	length as CARD32
 	size as CARD16
@@ -551,7 +551,7 @@ const sz_xXF86VidModeGetGammaRampSizeReq = 8
 
 type xXF86VidModeGetGammaRampSizeReply
 	as UBYTE type
-	pad as BOOL
+	pad as XBOOL
 	sequenceNumber as CARD16
 	length as CARD32
 	size as CARD16
@@ -567,7 +567,7 @@ const sz_xXF86VidModeGetGammaRampSizeReply = 32
 
 type xXF86VidModeGetPermissionsReply
 	as UBYTE type
-	pad as BOOL
+	pad as XBOOL
 	sequenceNumber as CARD16
 	length as CARD32
 	permissions as CARD32
