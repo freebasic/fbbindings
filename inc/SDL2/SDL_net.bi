@@ -1,10 +1,6 @@
 #pragma once
 
 #include once "SDL.bi"
-#include once "SDL_endian.bi"
-#include once "SDL_version.bi"
-#include once "begin_code.bi"
-#include once "close_code.bi"
 
 extern "C"
 

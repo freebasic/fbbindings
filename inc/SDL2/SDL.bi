@@ -1,36 +1,16 @@
 #pragma once
 
 #include once "crt/long.bi"
+#include once "crt/stdarg.bi"
 
 #ifdef __FB_WIN32__
 	#include once "winapifamily.bi"
 #else
-	#include once "crt/sys/types.bi"
 	#include once "crt/stdio.bi"
-	#include once "crt/stdlib.bi"
-#endif
-
-#include once "crt/stddef.bi"
-#include once "crt/stdarg.bi"
-
-#ifdef __FB_WIN32__
-	#include once "crt/stdint.bi"
-	#include once "process.bi"
-	#include once "intrin.bi"
-#else
 	#include once "crt/string.bi"
-	#include once "strings.bi"
-	#include once "inttypes.bi"
 	#include once "crt/ctype.bi"
 	#include once "crt/math.bi"
-	#include once "iconv.bi"
-	#include once "alloca.bi"
-#endif
-
-#if defined(__FB_LINUX__) and defined(__FB_64BIT__)
-	#include once "mmintrin.bi"
-	#include once "xmmintrin.bi"
-	#include once "emmintrin.bi"
+	#include once "crt/iconv.bi"
 #endif
 
 '' The following symbols have been renamed:
@@ -50,7 +30,9 @@ extern "C"
 	const __WIN32__ = 1
 #else
 	const __LINUX__ = 1
-	const NULL = cptr(any ptr, 0)
+	#ifndef NULL
+		const NULL = cptr(any ptr, 0)
+	#endif
 #endif
 
 declare function SDL_GetPlatform() as const zstring ptr
