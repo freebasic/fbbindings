@@ -85,8 +85,6 @@
 -renamedefine XK_x XK_x_
 -renamedefine XK_y XK_y_
 -renamedefine XK_z XK_z_
--renamedefine XK_ETH XK_ETH_
--renamedefine XK_THORN XK_THORN_
 -renamedefine XK_agrave XK_agrave_
 -renamedefine XK_aacute XK_aacute_
 -renamedefine XK_acircumflex XK_acircumflex_
@@ -392,3 +390,7 @@
 -renamedefine XK_ytilde XK_ytilde_
 -renamedefine XK_ohorn XK_ohorn_
 -renamedefine XK_uhorn XK_uhorn_
+
+# case-aliases
+-removedefine XK_ETH    # = XK_Eth
+-removedefine XK_THORN  # = XK_Thorn
