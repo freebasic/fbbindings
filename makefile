@@ -679,6 +679,15 @@ winapi: winapi-extract
 
 ################################################################################
 
+# X.org X11 headers
+#
+# TODO: X11/Xlib-xcb.h
+#
+# xtrans: it installs .c files into include/X11/Xtrans, and the README says
+# there is no shared library version of it. This can't easily be translated to
+# FB. But it seems to be an internal library anyways, so it's probably not worth
+# it to make a binding.
+
 X11_ICE          := libICE-1.0.9
 X11_SM           := libSM-1.2.2
 X11_XAU          := libXau-1.0.8
@@ -749,6 +758,7 @@ x11:
 	cp extracted/xorg/$(X11_XPROTO)/*.h          extracted/xorg/X11
 	sed $(SED_X11_XFUNCPROTO) < extracted/xorg/$(X11_XPROTO)/Xfuncproto.h.in > extracted/xorg/X11/Xfuncproto.h
 
+	mkdir -p extracted/xorg/X11/Xtrans
 	cp -R extracted/xorg/$(X11_ICE)/include/X11     extracted/xorg
 	cp -R extracted/xorg/$(X11_SM)/include/X11      extracted/xorg
 	cp -R extracted/xorg/$(X11_XAU)/include/X11     extracted/xorg
@@ -762,7 +772,7 @@ x11:
 	cp -R extracted/xorg/$(X11_XXF86DGA)/include/X11 extracted/xorg
 	cp -R extracted/xorg/$(X11_XXF86VM)/include/X11  extracted/xorg
 	cp -R extracted/xorg/$(X11_XV)/include/X11      extracted/xorg
-	#$(X11_XTRANS)
+	cp -R extracted/xorg/$(X11_XTRANS)/Xtrans.h     extracted/xorg/X11/Xtrans
 	#$(X11_UTILMACROS)
 	#$(X11_XPROTO)
 	#$(X11_XEXTPROTO)
@@ -775,10 +785,7 @@ x11:
 	#$(X11_XF86VIDMODEPROTO)
 	#$(X11_VIDEOPROTO)
 
-	# TODO: X11/Xlib-xcb.h
-
-	mkdir -p inc/X11/extensions inc/X11/ICE inc/X11/SM
-
+	mkdir -p inc/X11/extensions inc/X11/ICE inc/X11/SM inc/X11/Xtrans
 	$(FBFROG) x11.fbfrog -incdir extracted/xorg \
 		\
 		-include X11/Xlib.h \
@@ -845,6 +852,7 @@ x11:
 		-include X11/extensions/Xvlib.h \
 		-include X11/Xdmcp.h \
 		-include X11/xpm.h \
+		-include X11/Xtrans/Xtrans.h \
 		\
 		-emit '*/X11/ap_keysym.h'    inc/X11/ap_keysym.bi \
 		-emit '*/X11/Composite.h'    inc/X11/Composite.bi \
@@ -924,6 +932,7 @@ x11:
 		-emit '*/X11/extensions/xf86dga1.h'  inc/X11/extensions/xf86dga1.bi  \
 		-emit '*/X11/extensions/xf86vmode.h' inc/X11/extensions/xf86vmode.bi \
 		-emit '*/X11/extensions/Xvlib.h'     inc/X11/extensions/Xvlib.bi     \
+		-emit '*/X11/Xtrans/Xtrans.h'        inc/X11/Xtrans/Xtrans.bi \
 		-emit '*/X11/Xdmcp.h' inc/X11/Xdmcp.bi \
 		-emit '*/X11/xpm.h'   inc/X11/xpm.bi
 
