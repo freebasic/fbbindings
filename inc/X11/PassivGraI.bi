@@ -4,6 +4,8 @@ extern "C"
 
 #define _PDI_h_
 
+type XtGrabList as _XtGrabRec ptr
+
 type XtServerGrabType as long
 enum
 	XtNoServerGrab

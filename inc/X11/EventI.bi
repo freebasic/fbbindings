@@ -5,7 +5,6 @@
 extern "C"
 
 #define _Event_h_
-type XtGrabList as _XtGrabRec ptr
 declare sub _XtEventInitialize()
 
 type _XtEventRec
