@@ -6,7 +6,7 @@ convert c:
 		(x)->patch = SDL_PATCHLEVEL; \
 	}
 to fb:
-	#macro SDL_VERSION(x)
+	#macro SDL_VERSION_(x)
 		scope
 			(x)->major = SDL_MAJOR_VERSION
 			(x)->minor = SDL_MINOR_VERSION

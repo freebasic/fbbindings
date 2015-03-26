@@ -21,7 +21,6 @@
 ''         procedure SDL_CreateThread => SDL_CreateThread_
 ''     #endif
 ''     procedure SDL_Log => SDL_Log_
-''     struct SDL_version => SDL_version_
 
 extern "C"
 
@@ -2537,7 +2536,7 @@ declare function SDL_AddTimer(byval interval as Uint32, byval callback as SDL_Ti
 declare function SDL_RemoveTimer(byval id as SDL_TimerID) as SDL_bool
 #define _SDL_version_h
 
-type SDL_version_
+type SDL_version
 	major as Uint8
 	minor as Uint8
 	patch as Uint8
@@ -2546,7 +2545,7 @@ end type
 const SDL_MAJOR_VERSION = 2
 const SDL_MINOR_VERSION = 0
 const SDL_PATCHLEVEL = 3
-#macro SDL_VERSION(x)
+#macro SDL_VERSION_(x)
 	scope
 		(x)->major = SDL_MAJOR_VERSION
 		(x)->minor = SDL_MINOR_VERSION
@@ -2557,7 +2556,7 @@ const SDL_PATCHLEVEL = 3
 #define SDL_COMPILEDVERSION SDL_VERSIONNUM(SDL_MAJOR_VERSION, SDL_MINOR_VERSION, SDL_PATCHLEVEL)
 #define SDL_VERSION_ATLEAST(X, Y, Z) (SDL_COMPILEDVERSION >= SDL_VERSIONNUM(X, Y, Z))
 
-declare sub SDL_GetVersion(byval ver as SDL_version_ ptr)
+declare sub SDL_GetVersion(byval ver as SDL_version ptr)
 declare function SDL_GetRevision() as const zstring ptr
 declare function SDL_GetRevisionNumber() as long
 

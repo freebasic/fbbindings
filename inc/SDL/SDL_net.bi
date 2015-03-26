@@ -29,7 +29,7 @@ const SDL_NET_PATCHLEVEL = 8
 	end scope
 #endmacro
 
-declare function SDLNet_Linked_Version() as const SDL_version_ ptr
+declare function SDLNet_Linked_Version() as const SDL_version ptr
 declare function SDLNet_Init() as long
 declare sub SDLNet_Quit()
 

@@ -15,7 +15,7 @@ const SDL_IMAGE_PATCHLEVEL = 0
 		(X)->patch = SDL_IMAGE_PATCHLEVEL
 	end scope
 #endmacro
-declare function IMG_Linked_Version() as const SDL_version_ ptr
+declare function IMG_Linked_Version() as const SDL_version ptr
 
 type IMG_InitFlags as long
 enum

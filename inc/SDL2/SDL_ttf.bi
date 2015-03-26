@@ -20,7 +20,7 @@ const SDL_TTF_PATCHLEVEL = 12
 #define TTF_MINOR_VERSION SDL_TTF_MINOR_VERSION
 #define TTF_PATCHLEVEL SDL_TTF_PATCHLEVEL
 #define TTF_VERSION(X) SDL_TTF_VERSION(X)
-declare function TTF_Linked_Version() as const SDL_version_ ptr
+declare function TTF_Linked_Version() as const SDL_version ptr
 const UNICODE_BOM_NATIVE = &hFEFF
 const UNICODE_BOM_SWAPPED = &hFFFE
 declare sub TTF_ByteSwappedUNICODE(byval swapped as long)

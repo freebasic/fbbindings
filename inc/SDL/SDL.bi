@@ -26,7 +26,6 @@
 
 '' The following symbols have been renamed:
 ''     enum SDL_EventMask => SDL_EventMask_
-''     struct SDL_version => SDL_version_
 
 extern "C"
 
@@ -1279,13 +1278,13 @@ const SDL_MAJOR_VERSION = 1
 const SDL_MINOR_VERSION = 2
 const SDL_PATCHLEVEL = 15
 
-type SDL_version_
+type SDL_version
 	major as Uint8
 	minor as Uint8
 	patch as Uint8
 end type
 
-#macro SDL_VERSION(X)
+#macro SDL_VERSION_(X)
 	scope
 		(X)->major = SDL_MAJOR_VERSION
 		(X)->minor = SDL_MINOR_VERSION
@@ -1295,7 +1294,7 @@ end type
 #define SDL_VERSIONNUM(X, Y, Z) ((((X) * 1000) + ((Y) * 100)) + (Z))
 #define SDL_COMPILEDVERSION SDL_VERSIONNUM(SDL_MAJOR_VERSION, SDL_MINOR_VERSION, SDL_PATCHLEVEL)
 #define SDL_VERSION_ATLEAST(X, Y, Z) (SDL_COMPILEDVERSION >= SDL_VERSIONNUM(X, Y, Z))
-declare function SDL_Linked_Version() as const SDL_version_ ptr
+declare function SDL_Linked_Version() as const SDL_version ptr
 const SDL_INIT_TIMER = &h00000001
 const SDL_INIT_AUDIO = &h00000010
 const SDL_INIT_VIDEO = &h00000020
@@ -1325,7 +1324,7 @@ declare sub SDL_Quit()
 #endif
 
 type SDL_SysWMmsg_
-	version as SDL_version_
+	version as SDL_version
 
 	#ifdef __FB_WIN32__
 		hwnd as HWND
@@ -1355,7 +1354,7 @@ end type
 #endif
 
 type SDL_SysWMinfo
-	version as SDL_version_
+	version as SDL_version
 
 	#ifdef __FB_WIN32__
 		window as HWND
