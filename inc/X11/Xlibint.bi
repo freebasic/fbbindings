@@ -11,6 +11,7 @@
 #include once "crt/string.bi"
 #include once "X11/Xfuncproto.bi"
 #include once "crt/stddef.bi"
+#include once "crt/sys/types.bi"
 
 '' The following symbols have been renamed:
 ''     #define Xfree => Xfree_
@@ -544,7 +545,7 @@ declare function _XTextHeight16(byval as XFontStruct ptr, byval as const XChar2b
 
 #ifdef __FB_WIN32__
 	declare function _XOpenFile(byval as const zstring ptr, byval as long) as long
-	declare function _XOpenFileMode(byval as const zstring ptr, byval as long, byval as mode_t) as long
+	declare function _XOpenFileMode(byval as const zstring ptr, byval as long, byval as _mode_t) as long
 	declare function _XFopenFile(byval as const zstring ptr, byval as const zstring ptr) as any ptr
 	declare function _XAccessFile(byval as const zstring ptr) as long
 #else
