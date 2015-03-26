@@ -23,10 +23,6 @@ end type
 
 type RectangleRec as RECTANGLE
 type RectanglePtr as RECTANGLE ptr
-const TRUE = 1
-const FALSE = 0
-const MAXSHORT = 32767
-#define MINSHORT (-MAXSHORT)
 
 type _XRegion
 	size as clong

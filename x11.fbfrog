@@ -36,6 +36,12 @@ nodos.fbfrog
 -removedefine _XtXtEnum
 -removedefine externalref
 -removedefine externaldef
+-removedefine sleep
+-removedefine PATH_MAX
+-removedefine TRUE
+-removedefine FALSE
+-removedefine MAXSHORT
+-removedefine MINSHORT
 
 -addforwarddecl _XPrivate
 -addforwarddecl _XrmHashBucketRec
@@ -509,5 +515,3 @@ nodos.fbfrog
 -rename ACCEPT XACCEPT
 -rename FAILED XFAILED
 -renametypedef GlyphSet XGlyphSet
--removedefine sleep
--removedefine PATH_MAX
