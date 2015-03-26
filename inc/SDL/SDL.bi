@@ -85,6 +85,7 @@ enum
 	DUMMY_ENUM_VALUE
 end enum
 
+#define SDLCALL cdecl
 const NULL = cptr(any ptr, 0)
 #define SDL_malloc malloc
 #define SDL_calloc calloc

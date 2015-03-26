@@ -8,7 +8,6 @@ nodos.fbfrog
 -removedefine DLLINTERFACE
 -removedefine main
 -removedefine SDL_arraysize
--removedefine SDLCALL
 -removedefine SDL_COMPILE_TIME_ASSERT
 -removedefine SDL_const_cast
 -removedefine SDL_INLINE

@@ -55,6 +55,11 @@ extern "C"
 	const __WIN32__ = 1
 #else
 	const __LINUX__ = 1
+#endif
+
+#define SDLCALL cdecl
+
+#ifdef __FB_LINUX__
 	const NULL = cptr(any ptr, 0)
 #endif
 
