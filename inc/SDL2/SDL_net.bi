@@ -109,25 +109,10 @@ declare sub SDLNet_SetError(byval fmt as const zstring ptr, ...)
 declare function SDLNet_GetError() as const zstring ptr
 
 const SDL_DATA_ALIGNED = 0
-#define SDLNet_Write16(value, areap) _SDLNet_Write16(value, areap)
-#define SDLNet_Write32(value, areap) _SDLNet_Write32(value, areap)
-#define SDLNet_Read16(areap) _SDLNet_Read16(areap)
-#define SDLNet_Read32(areap) _SDLNet_Read32(areap)
 
-private sub _SDLNet_Write16(byval value as Uint16, byval areap as any ptr)
-	'' TODO: *(Uint16 *)areap = SDL_Swap16(value);
-end sub
-
-private sub _SDLNet_Write32(byval value as Uint32, byval areap as any ptr)
-	'' TODO: *(Uint32 *)areap = SDL_Swap32(value);
-end sub
-
-private function _SDLNet_Read16(byval areap as const any ptr) as Uint16
-	return SDL_Swap16(*cptr(const Uint16 ptr, areap))
-end function
-
-private function _SDLNet_Read32(byval areap as const any ptr) as Uint32
-	return SDL_Swap32(*cptr(const Uint32 ptr, areap))
-end function
+#define SDLNet_Write16(value, areap) scope : *cptr(Uint16 ptr, areap) = SDL_Swap16(value) : end scope
+#define SDLNet_Write32(value, areap) scope : *cptr(Uint32 ptr, areap) = SDL_Swap32(value) : end scope
+#define SDLNet_Read16(areap) SDL_Swap16(*cptr(const Uint16 ptr, areap))
+#define SDLNet_Read32(areap) SDL_Swap32(*cptr(const Uint32 ptr, areap))
 
 end extern
