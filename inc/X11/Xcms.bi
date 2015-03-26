@@ -57,7 +57,7 @@ end type
 type XcmsCIExyY
 	x as XcmsFloat
 	y as XcmsFloat
-	Y as XcmsFloat
+	Y_ as XcmsFloat
 end type
 
 type XcmsCIELab
