@@ -750,7 +750,7 @@ x11:
 	sed $(SED_X11_XFUNCPROTO) < extracted/xorg/$(X11_XPROTO)/Xfuncproto.h.in > extracted/xorg/X11/Xfuncproto.h
 
 	cp -R extracted/xorg/$(X11_ICE)/include/X11 extracted/xorg
-	#$(X11_SM)
+	cp -R extracted/xorg/$(X11_SM)/include/X11 extracted/xorg
 	#$(X11_XAU)
 	#$(X11_X11)
 	#$(X11_XT)
@@ -780,6 +780,7 @@ x11:
 
 	mkdir -p inc/X11
 	mkdir -p inc/X11/ICE
+	mkdir -p inc/X11/SM
 	$(FBFROG) x11.fbfrog -incdir extracted/xorg \
 		\
 		-include X11/Xlib.h \
@@ -815,6 +816,8 @@ x11:
 		-include X11/XWDFile.h \
 		-include X11/Xwindows.h \
 		-include X11/Xwinsock.h \
+		-include X11/SM/SMlib.h \
+		-include X11/SM/SMproto.h \
 		\
 		-emit '*/X11/cursorfont.h'   inc/X11/cursorfont.bi \
 		-emit '*/X11/keysymdef.h'    inc/X11/keysymdef.bi \
@@ -857,6 +860,9 @@ x11:
 		-emit '*/X11/XWDFile.h'      inc/X11/XWDFile.bi \
 		-emit '*/X11/Xwindows.h'     inc/X11/Xwindows.bi \
 		-emit '*/X11/Xwinsock.h'     inc/X11/Xwinsock.bi \
+		-emit '*/X11/SM/SM.h'        inc/X11/SM/SM.bi \
+		-emit '*/X11/SM/SMlib.h'     inc/X11/SM/SMlib.bi \
+		-emit '*/X11/SM/SMproto.h'   inc/X11/SM/SMproto.bi \
 		-emit '*/X11/Xutil.h'        inc/X11/Xutil.bi
 
 xcb:
