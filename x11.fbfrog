@@ -42,6 +42,8 @@ nodos.fbfrog
 -removedefine FALSE
 -removedefine MAXSHORT
 -removedefine MINSHORT
+-removedefine KEYBOARD
+-removedefine POINTER
 
 -addforwarddecl _XPrivate
 -addforwarddecl _XrmHashBucketRec
