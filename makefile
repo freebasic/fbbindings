@@ -706,6 +706,7 @@ X11_XFT          := libXft-2.3.2
 X11_XCURSOR      := libXcursor-1.1.14
 X11_XMU          := libXmu-1.1.2
 X11_XTST         := libXtst-1.2.2
+X11_XFIXES       := libXfixes-5.0.1
 X11_XTRANS       := xtrans-1.3.5
 X11_XPROTO       := xproto-7.0.27
 X11_XEXTPROTO    := xextproto-7.3.0
@@ -744,6 +745,7 @@ x11:
 	./getxorg.sh $(X11_XCURSOR)  $(X11_XCURSOR).tar.bz2   "http://xorg.freedesktop.org/releases/individual/lib/$(X11_XCURSOR).tar.bz2"
 	./getxorg.sh $(X11_XMU)      $(X11_XMU).tar.bz2       "http://xorg.freedesktop.org/releases/individual/lib/$(X11_XMU).tar.bz2"
 	./getxorg.sh $(X11_XTST)     $(X11_XTST).tar.bz2      "http://xorg.freedesktop.org/releases/individual/lib/$(X11_XTST).tar.bz2"
+	./getxorg.sh $(X11_XFIXES)   $(X11_XFIXES).tar.bz2    "http://xorg.freedesktop.org/releases/individual/lib/$(X11_XFIXES).tar.bz2"
 	./getxorg.sh $(X11_XTRANS)   $(X11_XTRANS).tar.bz2    "http://xorg.freedesktop.org/releases/individual/lib/$(X11_XTRANS).tar.bz2"
 	./getxorg.sh $(X11_XPROTO)           $(X11_XPROTO).tar.bz2           "http://xorg.freedesktop.org/releases/individual/proto/$(X11_XPROTO).tar.bz2"
 	./getxorg.sh $(X11_XEXTPROTO)        $(X11_XEXTPROTO).tar.bz2        "http://xorg.freedesktop.org/releases/individual/proto/$(X11_XEXTPROTO).tar.bz2"
@@ -792,6 +794,7 @@ x11:
 	cp -R extracted/xorg/$(X11_XCURSOR)/include/X11 extracted/xorg
 	cp -R extracted/xorg/$(X11_XMU)/include/X11     extracted/xorg
 	cp -R extracted/xorg/$(X11_XTST)/include/X11    extracted/xorg
+	cp -R extracted/xorg/$(X11_XFIXES)/include/X11  extracted/xorg
 	cp -R extracted/xorg/$(X11_XTRANS)/Xtrans.h     extracted/xorg/X11/Xtrans
 	cp -R extracted/xorg/$(X11_XTRANS)/Xtransint.h  extracted/xorg/X11/Xtrans
 
@@ -925,6 +928,7 @@ x11:
 		-include X11/Xpoll.h \
 		-include X11/Xdmcp.h \
 		-include X11/xpm.h \
+		-include X11/extensions/Xfixes.h \
 		-include X11/Xft/Xft.h \
 		-include X11/Xft/XftCompat.h \
 		-include X11/Xcursor/Xcursor.h \
@@ -1092,6 +1096,7 @@ x11:
 		-emit '*/X11/extensions/Xvproto.h'         inc/X11/extensions/Xvproto.bi \
 		-emit '*/X11/extensions/XTest.h'           inc/X11/extensions/XTest.bi \
 		-emit '*/X11/extensions/record.h'          inc/X11/extensions/record.bi \
+		-emit '*/X11/extensions/Xfixes.h'          inc/X11/extensions/Xfixes.bi \
 		-emit '*/X11/Xft/Xft.h'              inc/X11/Xft/Xft.bi \
 		-emit '*/X11/Xft/XftCompat.h'        inc/X11/Xft/XftCompat.bi \
 		-emit '*/X11/Xcursor/Xcursor.h'      inc/X11/Xcursor/Xcursor.bi \
@@ -1120,9 +1125,9 @@ x11:
 		-emit '*/X11/Xmu/Xmu.h'              inc/X11/Xmu/Xmu.bi \
 		-emit '*/X11/Xtrans/Xtrans.h'        inc/X11/Xtrans/Xtrans.bi \
 		-emit '*/X11/Xtrans/Xtransint.h'     inc/X11/Xtrans/Xtransint.bi \
-		-emit '*/X11/Xpoll.h' inc/X11/Xpoll.bi \
-		-emit '*/X11/Xdmcp.h' inc/X11/Xdmcp.bi \
-		-emit '*/X11/xpm.h'   inc/X11/xpm.bi
+		-emit '*/X11/Xpoll.h'  inc/X11/Xpoll.bi \
+		-emit '*/X11/Xdmcp.h'  inc/X11/Xdmcp.bi \
+		-emit '*/X11/xpm.h'    inc/X11/xpm.bi
 
 	$(FBFROG) x11.fbfrog -incdir extracted/xorg \
 		\
