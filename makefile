@@ -53,10 +53,10 @@ allegro4:
 		-undef rgb     inc/allegro.bi \
 		-addinclude allegro.bi inc/allegro/alpng.bi
 
-ALLEGRO5_VERSION := 5.0.10
+ALLEGRO5_VERSION := 5.0.11
 ALLEGRO5_TITLE := allegro-$(ALLEGRO5_VERSION)
 allegro5:
-	./get.sh $(ALLEGRO5_TITLE) $(ALLEGRO5_TITLE).tar.gz "http://cdn.allegro.cc/file/library/allegro/$(ALLEGRO5_VERSION)/$(ALLEGRO5_TITLE).tar.gz"
+	./get.sh $(ALLEGRO5_TITLE) $(ALLEGRO5_TITLE).tar.gz "http://sourceforge.net/projects/alleg/files/allegro/$(ALLEGRO5_VERSION)/$(ALLEGRO5_TITLE).tar.gz/download"
 	mkdir -p inc/allegro5
 	$(FBFROG) allegro5.fbfrog \
 		-incdir extracted/$(ALLEGRO5_TITLE)/include \
