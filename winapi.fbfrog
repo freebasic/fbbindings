@@ -544,7 +544,3 @@
 -removedefine HIWORD
 -removedefine LOBYTE
 -removedefine HIBYTE
-
-# Case-alias for IN_ADDR.S_un.S_addr = recursive define in FB
-# It was removed from fbc's old winapi headers too.
--removedefine s_addr
