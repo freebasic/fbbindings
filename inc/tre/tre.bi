@@ -2,7 +2,6 @@
 
 #inclib "tre"
 
-#include once "tre-config.bi"
 #include once "crt/sys/types.bi"
 
 #ifdef TRE_USE_SYSTEM_REGEX_H
