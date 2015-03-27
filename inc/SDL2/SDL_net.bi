@@ -1,5 +1,7 @@
 #pragma once
 
+#inclib "SDL2_net"
+
 #include once "SDL.bi"
 #include once "SDL_endian.bi"
 #include once "SDL_version.bi"

@@ -1,5 +1,7 @@
 #pragma once
 
+#inclib "SDL2_gfx"
+
 #include once "SDL.bi"
 
 extern "C"

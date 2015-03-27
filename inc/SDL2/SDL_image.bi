@@ -1,5 +1,7 @@
 #pragma once
 
+#inclib "SDL2_image"
+
 #include once "SDL.bi"
 #include once "SDL_version.bi"
 #include once "begin_code.bi"

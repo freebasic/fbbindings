@@ -1,5 +1,7 @@
 #pragma once
 
+#inclib "SDL2_ttf"
+
 #include once "crt/long.bi"
 #include once "SDL.bi"
 #include once "begin_code.bi"

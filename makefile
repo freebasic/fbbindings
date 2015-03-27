@@ -562,7 +562,16 @@ sdl2: winapi-extract
 		-emit '*/SDL_ttf.h'   inc/SDL2/SDL_ttf.bi \
 		-emit '*/extracted/$(SDL2_MAIN)/include/*' inc/SDL2/SDL.bi \
 		\
-		-inclib SDL2 inc/SDL2/SDL.bi
+		-inclib SDL2       inc/SDL2/SDL.bi \
+		-inclib SDL2_gfx   inc/SDL2/SDL2_gfx_framerate.bi \
+		-inclib SDL2_gfx   inc/SDL2/SDL2_gfx_imageFilter.bi \
+		-inclib SDL2_gfx   inc/SDL2/SDL2_gfx_primitives.bi \
+		-inclib SDL2_gfx   inc/SDL2/SDL2_gfx_primitives_font.bi \
+		-inclib SDL2_gfx   inc/SDL2/SDL2_gfx_rotozoom.bi \
+		-inclib SDL2_image inc/SDL2/SDL_image.bi \
+		-inclib SDL2_mixer inc/SDL2/SDL_mixer.bi \
+		-inclib SDL2_net   inc/SDL2/SDL_net.bi \
+		-inclib SDL2_ttf   inc/SDL2/SDL_ttf.bi
 
 ################################################################################
 # Windows API, based on MinGW-w64 headers
