@@ -515,12 +515,14 @@ SDL2_IMAGE := SDL2_image-2.0.0
 SDL2_MIXER := SDL2_mixer-2.0.0
 SDL2_NET := SDL2_net-2.0.0
 SDL2_TTF := SDL2_ttf-2.0.12
+SDL2_GFX := SDL2_gfx-1.0.1
 sdl2: winapi-extract
 	./get.sh $(SDL2_MAIN)  $(SDL2_MAIN).tar.gz  "http://www.libsdl.org/release/$(SDL2_MAIN).tar.gz"
 	./get.sh $(SDL2_IMAGE) $(SDL2_IMAGE).tar.gz "http://www.libsdl.org/projects/SDL_image/release/$(SDL2_IMAGE).tar.gz"
 	./get.sh $(SDL2_MIXER) $(SDL2_MIXER).tar.gz "http://www.libsdl.org/projects/SDL_mixer/release/$(SDL2_MIXER).tar.gz"
 	./get.sh $(SDL2_NET)   $(SDL2_NET).tar.gz   "http://www.libsdl.org/projects/SDL_net/release/$(SDL2_NET).tar.gz"
 	./get.sh $(SDL2_TTF)   $(SDL2_TTF).tar.gz   "http://www.libsdl.org/projects/SDL_ttf/release/$(SDL2_TTF).tar.gz"
+	./get.sh $(SDL2_GFX)   $(SDL2_GFX).tar.gz   "http://www.ferzkopp.net/Software/SDL2_gfx/$(SDL2_GFX).tar.gz"
 
 	# SDL_config.h is target-specific, so we'll have to use two versions
 	# in separate incdirs, one for Windows (it's probably ok to just use the
@@ -548,14 +550,34 @@ sdl2: winapi-extract
 		-incdir extracted/$(SDL2_MIXER) -include SDL_mixer.h \
 		-incdir extracted/$(SDL2_NET)   -include SDL_net.h \
 		-incdir extracted/$(SDL2_TTF)   -include SDL_ttf.h \
+		-incdir extracted/$(SDL2_GFX) \
+			-include SDL2_framerate.h          \
+			-include SDL2_gfxPrimitives_font.h \
+			-include SDL2_gfxPrimitives.h      \
+			-include SDL2_imageFilter.h        \
+			-include SDL2_rotozoom.h           \
 		\
+		-emit '*/SDL2_framerate.h'          inc/SDL2/SDL2_gfx_framerate.bi \
+		-emit '*/SDL2_imageFilter.h'        inc/SDL2/SDL2_gfx_imageFilter.bi \
+		-emit '*/SDL2_gfxPrimitives.h'      inc/SDL2/SDL2_gfx_primitives.bi \
+		-emit '*/SDL2_gfxPrimitives_font.h' inc/SDL2/SDL2_gfx_primitives_font.bi \
+		-emit '*/SDL2_rotozoom.h'           inc/SDL2/SDL2_gfx_rotozoom.bi \
 		-emit '*/SDL_image.h' inc/SDL2/SDL_image.bi \
 		-emit '*/SDL_mixer.h' inc/SDL2/SDL_mixer.bi \
 		-emit '*/SDL_net.h'   inc/SDL2/SDL_net.bi \
 		-emit '*/SDL_ttf.h'   inc/SDL2/SDL_ttf.bi \
 		-emit '*/extracted/$(SDL2_MAIN)/include/*' inc/SDL2/SDL.bi \
 		\
-		-inclib SDL2 inc/SDL2/SDL.bi
+		-inclib SDL2       inc/SDL2/SDL.bi \
+		-inclib SDL2_gfx   inc/SDL2/SDL2_gfx_framerate.bi \
+		-inclib SDL2_gfx   inc/SDL2/SDL2_gfx_imageFilter.bi \
+		-inclib SDL2_gfx   inc/SDL2/SDL2_gfx_primitives.bi \
+		-inclib SDL2_gfx   inc/SDL2/SDL2_gfx_primitives_font.bi \
+		-inclib SDL2_gfx   inc/SDL2/SDL2_gfx_rotozoom.bi \
+		-inclib SDL2_image inc/SDL2/SDL_image.bi \
+		-inclib SDL2_mixer inc/SDL2/SDL_mixer.bi \
+		-inclib SDL2_net   inc/SDL2/SDL_net.bi \
+		-inclib SDL2_ttf   inc/SDL2/SDL_ttf.bi
 
 ################################################################################
 # Windows API, based on MinGW-w64 headers

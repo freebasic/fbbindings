@@ -15,3 +15,8 @@
 -ifdef __FB_WIN32__
 	-renameproc SDL_CreateThread SDL_CreateThread_
 -endif
+
+-removedefine SDL2_FRAMERATE_SCOPE
+-removedefine SDL2_IMAGEFILTER_SCOPE
+-removedefine SDL2_GFXPRIMITIVES_SCOPE
+-removedefine SDL2_ROTOZOOM_SCOPE
