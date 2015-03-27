@@ -195,10 +195,8 @@ fontconfig:
 		-incdir extracted/$(FONTCONFIG)/fontconfig \
 		-include fontconfig.h \
 		-include fcfreetype.h \
-		-include fcprivate.h \
 		-emit '*/fontconfig.h' inc/fontconfig/fontconfig.bi \
-		-emit '*/fcfreetype.h' inc/fontconfig/fcfreetype.bi \
-		-emit '*/fcprivate.h'  inc/fontconfig/fcprivate.bi
+		-emit '*/fcfreetype.h' inc/fontconfig/fcfreetype.bi
 
 # GNU libiconv, not glibc's iconv
 ICONV := libiconv-1.14
