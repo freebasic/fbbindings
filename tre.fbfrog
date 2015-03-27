@@ -1,0 +1,20 @@
+-define TRE_SYSTEM_REGEX_H_PATH '"crt/regex.bi"'
+-define HAVE_SYS_TYPES_H 1
+-define HAVE_WCHAR_H 1
+
+# These libtre config options can be enabled easily - they just cause additional
+# declarations to be exposed.
+-define TRE_APPROX 1
+-define TRE_MULTIBYTE 1
+
+# For now, we enable TRE_WCHAR. Besides exposing additional declarations,
+# this slightly changes the API for the tre_reguexec() function. fbc's old
+# libtre binding had TRE_WCHAR disabled. But it should be better to enable it,
+# because it looks like libtre on Ubuntu and also libtre's default win32 config
+# has TRE_WCHAR enabled.
+-define TRE_WCHAR 1
+
+-declarebool TRE_USE_SYSTEM_REGEX_H
+-ifdef TRE_USE_SYSTEM_REGEX_H
+	-define TRE_USE_SYSTEM_REGEX_H 1
+-endif

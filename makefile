@@ -9,6 +9,7 @@ ALL += llvm lua
 ALL += ncurses
 ALL += pdcurses png png12 png14 png15 png16
 ALL += sdl sdl1 sdl2
+ALL += tre
 ALL += x11
 ALL += zip zlib
 
@@ -609,6 +610,34 @@ sdl2: winapi-extract
 		-inclib SDL2_mixer inc/SDL2/SDL_mixer.bi \
 		-inclib SDL2_net   inc/SDL2/SDL_net.bi \
 		-inclib SDL2_ttf   inc/SDL2/SDL_ttf.bi
+
+#
+# libtre - regex matching library, provides an implementation of the POSIX
+# reg*() functions. libtre's functions (tre/tre.h) have a tre_* prefix,
+# tre/regex.h can be used to #define the POSIX reg* names to tre_reg*.
+#
+# There is a potential conflict with glibc (regex.h): It also provides the
+# reg*() functions, but without a prefix. Furthermore, the regex_t type is
+# different from the one of libtre. I.e. glibc and libtre are not
+# ABI-compatible. But then libtre also has #ifdef TRE_USE_SYSTEM_REGEX_H,
+# which allows to mix glibc's reg*() with libtre's extensions.
+#
+# fbc traditionally provided a regex.bi which means libtre's regex.h.
+# This new libtre binding for fbc should provide tre/tre.bi and tre/regex.bi,
+# and keep regex.bi as a wrapper for tre/regex.bi (libtre implementation) and
+# crt/regex.bi (glibc implementation), with an #ifdef for switching.
+#
+TRE := tre-0.8.0
+tre:
+	./get.sh $(TRE) $(TRE).tar.bz2 "http://laurikari.net/tre/$(TRE).tar.bz2"
+
+	mkdir -p inc/tre
+	$(FBFROG) tre.fbfrog \
+		-incdir extracted/$(TRE)/lib \
+		-include regex.h -include tre.h \
+		-emit '*/tre.h'   inc/tre/tre.bi \
+		-emit '*/regex.h' inc/tre/regex.bi \
+		-inclib tre       inc/tre/tre.bi
 
 ################################################################################
 # Windows API, based on MinGW-w64 headers
