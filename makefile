@@ -55,6 +55,15 @@ allegro4:
 
 ALLEGRO5_VERSION := 5.0.11
 ALLEGRO5_TITLE := allegro-$(ALLEGRO5_VERSION)
+# For Win32, the Allegro5 libs follow a specific naming pattern,
+# e.g. "liballegro-5.0.10-md.a":
+#     https://www.allegro.cc/manual/5/install/windows.html
+# On Ubuntu though it's just "liballegro.so".
+# We want to make #inclibs match that.
+# This seems to be the latest version of the Win32 binary builds available on
+# the Allegro homepage:
+ALLEGRO5_LIB := -5.0.10-static-md
+ALLEGRO5_DLL := -5.0.10-md
 allegro5:
 	./get.sh $(ALLEGRO5_TITLE) $(ALLEGRO5_TITLE).tar.gz "http://sourceforge.net/projects/alleg/files/allegro/$(ALLEGRO5_VERSION)/$(ALLEGRO5_TITLE).tar.gz/download"
 	mkdir -p inc/allegro5
@@ -84,17 +93,47 @@ allegro5:
 		-emit '*/allegro_primitives.h'    inc/allegro5/allegro_primitives.bi \
 		-emit '*/allegro_ttf.h'           inc/allegro5/allegro_ttf.bi \
 		-emit '*'                         inc/allegro5/allegro.bi \
-		-inclib allegro            inc/allegro5/allegro.bi \
-		-inclib allegro_acodec     inc/allegro5/allegro_acodec.bi \
-		-inclib allegro_audio      inc/allegro5/allegro_audio.bi \
-		-inclib allegro_color      inc/allegro5/allegro_color.bi \
-		-inclib allegro_font       inc/allegro5/allegro_font.bi \
-		-inclib allegro_image      inc/allegro5/allegro_image.bi \
-		-inclib allegro_memfile    inc/allegro5/allegro_memfile.bi \
-		-inclib allegro_dialog     inc/allegro5/allegro_native_dialog.bi \
-		-inclib allegro_physfs     inc/allegro5/allegro_physfs.bi \
-		-inclib allegro_primitives inc/allegro5/allegro_primitives.bi \
-		-inclib allegro_ttf        inc/allegro5/allegro_ttf.bi
+		\
+		-ifdef __FB_WIN32__ \
+			-ifdef ALLEGRO_STATICLINK \
+				-inclib allegro$(ALLEGRO5_LIB)            inc/allegro5/allegro.bi \
+				-inclib allegro_acodec$(ALLEGRO5_LIB)     inc/allegro5/allegro_acodec.bi \
+				-inclib allegro_audio$(ALLEGRO5_LIB)      inc/allegro5/allegro_audio.bi \
+				-inclib allegro_color$(ALLEGRO5_LIB)      inc/allegro5/allegro_color.bi \
+				-inclib allegro_font$(ALLEGRO5_LIB)       inc/allegro5/allegro_font.bi \
+				-inclib allegro_image$(ALLEGRO5_LIB)      inc/allegro5/allegro_image.bi \
+				-inclib allegro_memfile$(ALLEGRO5_LIB)    inc/allegro5/allegro_memfile.bi \
+				-inclib allegro_dialog$(ALLEGRO5_LIB)     inc/allegro5/allegro_native_dialog.bi \
+				-inclib allegro_physfs$(ALLEGRO5_LIB)     inc/allegro5/allegro_physfs.bi \
+				-inclib allegro_primitives$(ALLEGRO5_LIB) inc/allegro5/allegro_primitives.bi \
+				-inclib allegro_ttf$(ALLEGRO5_LIB)        inc/allegro5/allegro_ttf.bi \
+			-else \
+				-inclib allegro$(ALLEGRO5_DLL)            inc/allegro5/allegro.bi \
+				-inclib allegro_acodec$(ALLEGRO5_DLL)     inc/allegro5/allegro_acodec.bi \
+				-inclib allegro_audio$(ALLEGRO5_DLL)      inc/allegro5/allegro_audio.bi \
+				-inclib allegro_color$(ALLEGRO5_DLL)      inc/allegro5/allegro_color.bi \
+				-inclib allegro_font$(ALLEGRO5_DLL)       inc/allegro5/allegro_font.bi \
+				-inclib allegro_image$(ALLEGRO5_DLL)      inc/allegro5/allegro_image.bi \
+				-inclib allegro_memfile$(ALLEGRO5_DLL)    inc/allegro5/allegro_memfile.bi \
+				-inclib allegro_dialog$(ALLEGRO5_DLL)     inc/allegro5/allegro_native_dialog.bi \
+				-inclib allegro_physfs$(ALLEGRO5_DLL)     inc/allegro5/allegro_physfs.bi \
+				-inclib allegro_primitives$(ALLEGRO5_DLL) inc/allegro5/allegro_primitives.bi \
+				-inclib allegro_ttf$(ALLEGRO5_DLL)        inc/allegro5/allegro_ttf.bi \
+			-endif \
+		-else \
+			-inclib allegro            inc/allegro5/allegro.bi \
+			-inclib allegro_acodec     inc/allegro5/allegro_acodec.bi \
+			-inclib allegro_audio      inc/allegro5/allegro_audio.bi \
+			-inclib allegro_color      inc/allegro5/allegro_color.bi \
+			-inclib allegro_font       inc/allegro5/allegro_font.bi \
+			-inclib allegro_image      inc/allegro5/allegro_image.bi \
+			-inclib allegro_memfile    inc/allegro5/allegro_memfile.bi \
+			-inclib allegro_dialog     inc/allegro5/allegro_native_dialog.bi \
+			-inclib allegro_physfs     inc/allegro5/allegro_physfs.bi \
+			-inclib allegro_primitives inc/allegro5/allegro_primitives.bi \
+			-inclib allegro_ttf        inc/allegro5/allegro_ttf.bi \
+		-endif
+
 
 cgui:
 	./get.sh cgui cgui-2.0.3.tar.gz "http://sourceforge.net/projects/cgui/files/2.0.3/cgui-2.0.3.tar.gz/download"
