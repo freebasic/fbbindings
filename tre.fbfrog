@@ -18,3 +18,7 @@
 -ifdef TRE_USE_SYSTEM_REGEX_H
 	-define TRE_USE_SYSTEM_REGEX_H 1
 -endif
+
+# Since we specified the config options manually, we don't need to bother with
+# tre-config.h anymore
+-removeinclude tre-config.h
