@@ -143,7 +143,14 @@ type _FcMatrix
 end type
 
 type FcMatrix as _FcMatrix
-#define FcMatrixInit(m) '' TODO: ((m)->xx = (m)->yy = 1, (m)->xy = (m)->yx = 0)
+#macro FcMatrixInit(m)
+	scope
+		(m)->xx = 1
+		(m)->yy = 1
+		(m)->xy = 0
+		(m)->yx = 0
+	end scope
+#endmacro
 type FcCharSet as _FcCharSet
 
 type _FcObjectType
