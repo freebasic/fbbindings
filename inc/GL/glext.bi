@@ -1,8 +1,5 @@
 #pragma once
 
-#include once "crt/stddef.bi"
-#include once "inttypes.bi"
-
 #ifdef __FB_WIN32__
 	extern "Windows"
 #else

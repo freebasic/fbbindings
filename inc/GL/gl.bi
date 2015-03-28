@@ -1,9 +1,5 @@
 #pragma once
 
-#ifdef __FB_WIN32__
-	#include once "windows.bi"
-#endif
-
 #include once "GL/glext.bi"
 
 #ifdef __FB_WIN32__
