@@ -1,6 +1,8 @@
 #pragma once
 
-#include once "GL/glext.bi"
+#ifndef GL_GLEXT_LEGACY
+	#include once "GL/glext.bi"
+#endif
 
 #ifdef __FB_WIN32__
 	extern "Windows"
@@ -1324,6 +1326,12 @@ declare sub glBlendEquationSeparateATI(byval modeRGB as GLenum, byval modeA as G
 type PFNGLBLENDEQUATIONSEPARATEATIPROC as sub(byval modeRGB as GLenum, byval modeA as GLenum)
 type GLeglImageOES as any ptr
 const GL_OES_EGL_image = 1
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glEGLImageTargetTexture2DOES(byval target as GLenum, byval image as GLeglImageOES)
+	declare sub glEGLImageTargetRenderbufferStorageOES(byval target as GLenum, byval image as GLeglImageOES)
+#endif
+
 type PFNGLEGLIMAGETARGETTEXTURE2DOESPROC as sub(byval target as GLenum, byval image as GLeglImageOES)
 type PFNGLEGLIMAGETARGETRENDERBUFFERSTORAGEOESPROC as sub(byval target as GLenum, byval image as GLeglImageOES)
 
