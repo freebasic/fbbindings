@@ -2,25 +2,17 @@
 
 #ifdef __FB_WIN32__
 	#inclib "opengl32"
-#elseif defined(__FB_LINUX__) and (not defined(GL_GLEXT_LEGACY))
+#elseif defined(__FB_LINUX__)
 	#inclib "GL"
-#elseif defined(__FB_DOS__) and (not defined(GL_GLEXT_LEGACY))
+#else
 	#inclib "gl"
 #endif
 
-#ifndef GL_GLEXT_LEGACY
-	#include once "GL/glext.bi"
-#endif
+#include once "GL/glext.bi"
 
 #ifdef __FB_WIN32__
 	extern "Windows"
-#elseif defined(__FB_LINUX__) and defined(GL_GLEXT_LEGACY)
-	#inclib "GL"
-#elseif defined(__FB_DOS__) and defined(GL_GLEXT_LEGACY)
-	#inclib "gl"
-#endif
-
-#if defined(__FB_LINUX__) or defined(__FB_DOS__)
+#else
 	extern "C"
 #endif
 
