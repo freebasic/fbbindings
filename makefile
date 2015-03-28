@@ -441,6 +441,23 @@ opengl:
 			-inclib GL  inc/GL/gl.bi \
 			-inclib GLU inc/GL/glu.bi \
 		-endselect
+
+GLUT := glut-3.7
+glut:
+	./get.sh $(GLUT) $(GLUT).tar.gz https://www.opengl.org/resources/libraries/glut/$(GLUT).tar.gz
+	mkdir -p inc/GL
+	$(FBFROG) glut.fbfrog \
+		extracted/$(GLUT)/include/GL/glut.h -o inc/GL/glut.bi \
+		-select \
+		-case __FB_WIN32__ \
+			-inclib glut32 \
+		-case __FB_DOS__ \
+			-inclib GLUT \
+			-inclib alleg \
+		-caseelse \
+			-inclib glut \
+		-endselect
+
 pdcurses:
 	./get.sh PDCurses-3.4 PDCurses-3.4.tar.gz "http://sourceforge.net/projects/pdcurses/files/pdcurses/3.4/PDCurses-3.4.tar.gz/download"
 	mkdir -p inc/curses

@@ -1,0 +1,2 @@
+-removedefine CALLBACK
+-removedefine _WCHAR_T_DEFINED
