@@ -17,9 +17,9 @@
 #define __FREEGLUT_STD_H__
 
 #if defined(__FB_WIN32__) and defined(FREEGLUT_STATIC)
-	#inclib "freeglut_staticd"
+	#inclib "freeglut_static"
 #elseif defined(__FB_WIN32__) and (not defined(FREEGLUT_STATIC))
-	#inclib "freeglutd"
+	#inclib "freeglut"
 #endif
 
 #ifdef __FB_WIN32__
