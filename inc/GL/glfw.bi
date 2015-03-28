@@ -8,7 +8,7 @@ extern "C"
 
 #define __glfw_h_
 const NULL = cptr(any ptr, 0)
-#define GLFWCALL
+#define GLFWCALL cdecl
 const GLFW_VERSION_MAJOR = 2
 const GLFW_VERSION_MINOR = 7
 const GLFW_VERSION_REVISION = 9
