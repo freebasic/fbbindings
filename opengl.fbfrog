@@ -19,3 +19,7 @@
 -addforwarddecl GLUnurbs
 -addforwarddecl GLUquadric
 -addforwarddecl GLUtesselator
+
+# There also are lower-case versions
+-removedefine __GL_H__
+-removedefine __GLU_H__
