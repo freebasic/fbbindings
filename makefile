@@ -234,6 +234,17 @@ fontconfig:
 		-emit '*/fontconfig.h' inc/fontconfig/fontconfig.bi \
 		-emit '*/fcfreetype.h' inc/fontconfig/fcfreetype.bi
 
+GLFW2_VERSION := 2.7.9
+GLFW3_VERSION := 3.1.1
+GLFW2 := glfw-$(GLFW2_VERSION)
+GLFW3 := glfw-$(GLFW3_VERSION)
+glfw:
+	./get.sh $(GLFW2) $(GLFW2).tar.bz2 http://sourceforge.net/projects/glfw/files/glfw/$(GLFW2_VERSION)/$(GLFW2).tar.bz2/download
+	./get.sh $(GLFW3) $(GLFW3).tar.bz2 http://sourceforge.net/projects/glfw/files/glfw/$(GLFW3_VERSION)/$(GLFW3).tar.bz2/download
+	mkdir -p inc/GL inc/GLFW
+	$(FBFROG) glfw.fbfrog extracted/$(GLFW2)/include/GL/glfw.h -o inc/GL/glfw.bi
+	$(FBFROG) glfw.fbfrog extracted/$(GLFW3)/include/GLFW/glfw3.h -o inc/GLFW/glfw3.bi
+
 GLUT := glut-3.7
 glut:
 	./get.sh $(GLUT) $(GLUT).tar.gz https://www.opengl.org/resources/libraries/glut/$(GLUT).tar.gz
