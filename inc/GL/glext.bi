@@ -105,10 +105,60 @@ type PFNGLWINDOWPOS3SPROC as sub(byval x as GLshort, byval y as GLshort, byval z
 type PFNGLWINDOWPOS3SVPROC as sub(byval v as const GLshort ptr)
 type PFNGLBLENDCOLORPROC as sub(byval red as GLfloat, byval green as GLfloat, byval blue as GLfloat, byval alpha as GLfloat)
 type PFNGLBLENDEQUATIONPROC as sub(byval mode as GLenum)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glBlendFuncSeparate(byval sfactorRGB as GLenum, byval dfactorRGB as GLenum, byval sfactorAlpha as GLenum, byval dfactorAlpha as GLenum)
+	declare sub glMultiDrawArrays(byval mode as GLenum, byval first as const GLint ptr, byval count as const GLsizei ptr, byval drawcount as GLsizei)
+	declare sub glMultiDrawElements(byval mode as GLenum, byval count as const GLsizei ptr, byval type as GLenum, byval indices as const any const ptr ptr, byval drawcount as GLsizei)
+	declare sub glPointParameterf(byval pname as GLenum, byval param as GLfloat)
+	declare sub glPointParameterfv(byval pname as GLenum, byval params as const GLfloat ptr)
+	declare sub glPointParameteri(byval pname as GLenum, byval param as GLint)
+	declare sub glPointParameteriv(byval pname as GLenum, byval params as const GLint ptr)
+	declare sub glFogCoordf(byval coord as GLfloat)
+	declare sub glFogCoordfv(byval coord as const GLfloat ptr)
+	declare sub glFogCoordd(byval coord as GLdouble)
+	declare sub glFogCoorddv(byval coord as const GLdouble ptr)
+	declare sub glFogCoordPointer(byval type as GLenum, byval stride as GLsizei, byval pointer as const any ptr)
+	declare sub glSecondaryColor3b(byval red as GLbyte, byval green as GLbyte, byval blue as GLbyte)
+	declare sub glSecondaryColor3bv(byval v as const GLbyte ptr)
+	declare sub glSecondaryColor3d(byval red as GLdouble, byval green as GLdouble, byval blue as GLdouble)
+	declare sub glSecondaryColor3dv(byval v as const GLdouble ptr)
+	declare sub glSecondaryColor3f(byval red as GLfloat, byval green as GLfloat, byval blue as GLfloat)
+	declare sub glSecondaryColor3fv(byval v as const GLfloat ptr)
+	declare sub glSecondaryColor3i(byval red as GLint, byval green as GLint, byval blue as GLint)
+	declare sub glSecondaryColor3iv(byval v as const GLint ptr)
+	declare sub glSecondaryColor3s(byval red as GLshort, byval green as GLshort, byval blue as GLshort)
+	declare sub glSecondaryColor3sv(byval v as const GLshort ptr)
+	declare sub glSecondaryColor3ub(byval red as GLubyte, byval green as GLubyte, byval blue as GLubyte)
+	declare sub glSecondaryColor3ubv(byval v as const GLubyte ptr)
+	declare sub glSecondaryColor3ui(byval red as GLuint, byval green as GLuint, byval blue as GLuint)
+	declare sub glSecondaryColor3uiv(byval v as const GLuint ptr)
+	declare sub glSecondaryColor3us(byval red as GLushort, byval green as GLushort, byval blue as GLushort)
+	declare sub glSecondaryColor3usv(byval v as const GLushort ptr)
+	declare sub glSecondaryColorPointer(byval size as GLint, byval type as GLenum, byval stride as GLsizei, byval pointer as const any ptr)
+	declare sub glWindowPos2d(byval x as GLdouble, byval y as GLdouble)
+	declare sub glWindowPos2dv(byval v as const GLdouble ptr)
+	declare sub glWindowPos2f(byval x as GLfloat, byval y as GLfloat)
+	declare sub glWindowPos2fv(byval v as const GLfloat ptr)
+	declare sub glWindowPos2i(byval x as GLint, byval y as GLint)
+	declare sub glWindowPos2iv(byval v as const GLint ptr)
+	declare sub glWindowPos2s(byval x as GLshort, byval y as GLshort)
+	declare sub glWindowPos2sv(byval v as const GLshort ptr)
+	declare sub glWindowPos3d(byval x as GLdouble, byval y as GLdouble, byval z as GLdouble)
+	declare sub glWindowPos3dv(byval v as const GLdouble ptr)
+	declare sub glWindowPos3f(byval x as GLfloat, byval y as GLfloat, byval z as GLfloat)
+	declare sub glWindowPos3fv(byval v as const GLfloat ptr)
+	declare sub glWindowPos3i(byval x as GLint, byval y as GLint, byval z as GLint)
+	declare sub glWindowPos3iv(byval v as const GLint ptr)
+	declare sub glWindowPos3s(byval x as GLshort, byval y as GLshort, byval z as GLshort)
+	declare sub glWindowPos3sv(byval v as const GLshort ptr)
+	declare sub glBlendColor(byval red as GLfloat, byval green as GLfloat, byval blue as GLfloat, byval alpha as GLfloat)
+	declare sub glBlendEquation(byval mode as GLenum)
+#endif
+
 const GL_VERSION_1_5 = 1
 type GLsizeiptr as integer
 type GLintptr as integer
-
 const GL_BUFFER_SIZE = &h8764
 const GL_BUFFER_USAGE = &h8765
 const GL_QUERY_COUNTER_BITS = &h8864
@@ -179,9 +229,31 @@ type PFNGLMAPBUFFERPROC as function(byval target as GLenum, byval access as GLen
 type PFNGLUNMAPBUFFERPROC as function(byval target as GLenum) as GLboolean
 type PFNGLGETBUFFERPARAMETERIVPROC as sub(byval target as GLenum, byval pname as GLenum, byval params as GLint ptr)
 type PFNGLGETBUFFERPOINTERVPROC as sub(byval target as GLenum, byval pname as GLenum, byval params as any ptr ptr)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glGenQueries(byval n as GLsizei, byval ids as GLuint ptr)
+	declare sub glDeleteQueries(byval n as GLsizei, byval ids as const GLuint ptr)
+	declare function glIsQuery(byval id as GLuint) as GLboolean
+	declare sub glBeginQuery(byval target as GLenum, byval id as GLuint)
+	declare sub glEndQuery(byval target as GLenum)
+	declare sub glGetQueryiv(byval target as GLenum, byval pname as GLenum, byval params as GLint ptr)
+	declare sub glGetQueryObjectiv(byval id as GLuint, byval pname as GLenum, byval params as GLint ptr)
+	declare sub glGetQueryObjectuiv(byval id as GLuint, byval pname as GLenum, byval params as GLuint ptr)
+	declare sub glBindBuffer(byval target as GLenum, byval buffer as GLuint)
+	declare sub glDeleteBuffers(byval n as GLsizei, byval buffers as const GLuint ptr)
+	declare sub glGenBuffers(byval n as GLsizei, byval buffers as GLuint ptr)
+	declare function glIsBuffer(byval buffer as GLuint) as GLboolean
+	declare sub glBufferData(byval target as GLenum, byval size as GLsizeiptr, byval data as const any ptr, byval usage as GLenum)
+	declare sub glBufferSubData(byval target as GLenum, byval offset as GLintptr, byval size as GLsizeiptr, byval data as const any ptr)
+	declare sub glGetBufferSubData(byval target as GLenum, byval offset as GLintptr, byval size as GLsizeiptr, byval data as any ptr)
+	declare function glMapBuffer(byval target as GLenum, byval access as GLenum) as any ptr
+	declare function glUnmapBuffer(byval target as GLenum) as GLboolean
+	declare sub glGetBufferParameteriv(byval target as GLenum, byval pname as GLenum, byval params as GLint ptr)
+	declare sub glGetBufferPointerv(byval target as GLenum, byval pname as GLenum, byval params as any ptr ptr)
+#endif
+
 const GL_VERSION_2_0 = 1
 type GLchar as zstring
-
 const GL_BLEND_EQUATION_RGB = &h8009
 const GL_VERTEX_ATTRIB_ARRAY_ENABLED = &h8622
 const GL_VERTEX_ATTRIB_ARRAY_SIZE = &h8623
@@ -361,6 +433,102 @@ type PFNGLVERTEXATTRIB4UIVPROC as sub(byval index as GLuint, byval v as const GL
 type PFNGLVERTEXATTRIB4USVPROC as sub(byval index as GLuint, byval v as const GLushort ptr)
 type PFNGLVERTEXATTRIBPOINTERPROC as sub(byval index as GLuint, byval size as GLint, byval type as GLenum, byval normalized as GLboolean, byval stride as GLsizei, byval pointer as const any ptr)
 
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glBlendEquationSeparate(byval modeRGB as GLenum, byval modeAlpha as GLenum)
+	declare sub glDrawBuffers(byval n as GLsizei, byval bufs as const GLenum ptr)
+	declare sub glStencilOpSeparate(byval face as GLenum, byval sfail as GLenum, byval dpfail as GLenum, byval dppass as GLenum)
+	declare sub glStencilFuncSeparate(byval face as GLenum, byval func as GLenum, byval ref as GLint, byval mask as GLuint)
+	declare sub glStencilMaskSeparate(byval face as GLenum, byval mask as GLuint)
+	declare sub glAttachShader(byval program as GLuint, byval shader as GLuint)
+	declare sub glBindAttribLocation(byval program as GLuint, byval index as GLuint, byval name as const zstring ptr)
+	declare sub glCompileShader(byval shader as GLuint)
+	declare function glCreateProgram() as GLuint
+	declare function glCreateShader(byval type as GLenum) as GLuint
+	declare sub glDeleteProgram(byval program as GLuint)
+	declare sub glDeleteShader(byval shader as GLuint)
+	declare sub glDetachShader(byval program as GLuint, byval shader as GLuint)
+	declare sub glDisableVertexAttribArray(byval index as GLuint)
+	declare sub glEnableVertexAttribArray(byval index as GLuint)
+	declare sub glGetActiveAttrib(byval program as GLuint, byval index as GLuint, byval bufSize as GLsizei, byval length as GLsizei ptr, byval size as GLint ptr, byval type as GLenum ptr, byval name as zstring ptr)
+	declare sub glGetActiveUniform(byval program as GLuint, byval index as GLuint, byval bufSize as GLsizei, byval length as GLsizei ptr, byval size as GLint ptr, byval type as GLenum ptr, byval name as zstring ptr)
+	declare sub glGetAttachedShaders(byval program as GLuint, byval maxCount as GLsizei, byval count as GLsizei ptr, byval shaders as GLuint ptr)
+	declare function glGetAttribLocation(byval program as GLuint, byval name as const zstring ptr) as GLint
+	declare sub glGetProgramiv(byval program as GLuint, byval pname as GLenum, byval params as GLint ptr)
+	declare sub glGetProgramInfoLog(byval program as GLuint, byval bufSize as GLsizei, byval length as GLsizei ptr, byval infoLog as zstring ptr)
+	declare sub glGetShaderiv(byval shader as GLuint, byval pname as GLenum, byval params as GLint ptr)
+	declare sub glGetShaderInfoLog(byval shader as GLuint, byval bufSize as GLsizei, byval length as GLsizei ptr, byval infoLog as zstring ptr)
+	declare sub glGetShaderSource(byval shader as GLuint, byval bufSize as GLsizei, byval length as GLsizei ptr, byval source as zstring ptr)
+	declare function glGetUniformLocation(byval program as GLuint, byval name as const zstring ptr) as GLint
+	declare sub glGetUniformfv(byval program as GLuint, byval location as GLint, byval params as GLfloat ptr)
+	declare sub glGetUniformiv(byval program as GLuint, byval location as GLint, byval params as GLint ptr)
+	declare sub glGetVertexAttribdv(byval index as GLuint, byval pname as GLenum, byval params as GLdouble ptr)
+	declare sub glGetVertexAttribfv(byval index as GLuint, byval pname as GLenum, byval params as GLfloat ptr)
+	declare sub glGetVertexAttribiv(byval index as GLuint, byval pname as GLenum, byval params as GLint ptr)
+	declare sub glGetVertexAttribPointerv(byval index as GLuint, byval pname as GLenum, byval pointer as any ptr ptr)
+	declare function glIsProgram(byval program as GLuint) as GLboolean
+	declare function glIsShader(byval shader as GLuint) as GLboolean
+	declare sub glLinkProgram(byval program as GLuint)
+	declare sub glShaderSource(byval shader as GLuint, byval count as GLsizei, byval string as const zstring const ptr ptr, byval length as const GLint ptr)
+	declare sub glUseProgram(byval program as GLuint)
+	declare sub glUniform1f(byval location as GLint, byval v0 as GLfloat)
+	declare sub glUniform2f(byval location as GLint, byval v0 as GLfloat, byval v1 as GLfloat)
+	declare sub glUniform3f(byval location as GLint, byval v0 as GLfloat, byval v1 as GLfloat, byval v2 as GLfloat)
+	declare sub glUniform4f(byval location as GLint, byval v0 as GLfloat, byval v1 as GLfloat, byval v2 as GLfloat, byval v3 as GLfloat)
+	declare sub glUniform1i(byval location as GLint, byval v0 as GLint)
+	declare sub glUniform2i(byval location as GLint, byval v0 as GLint, byval v1 as GLint)
+	declare sub glUniform3i(byval location as GLint, byval v0 as GLint, byval v1 as GLint, byval v2 as GLint)
+	declare sub glUniform4i(byval location as GLint, byval v0 as GLint, byval v1 as GLint, byval v2 as GLint, byval v3 as GLint)
+	declare sub glUniform1fv(byval location as GLint, byval count as GLsizei, byval value as const GLfloat ptr)
+	declare sub glUniform2fv(byval location as GLint, byval count as GLsizei, byval value as const GLfloat ptr)
+	declare sub glUniform3fv(byval location as GLint, byval count as GLsizei, byval value as const GLfloat ptr)
+	declare sub glUniform4fv(byval location as GLint, byval count as GLsizei, byval value as const GLfloat ptr)
+	declare sub glUniform1iv(byval location as GLint, byval count as GLsizei, byval value as const GLint ptr)
+	declare sub glUniform2iv(byval location as GLint, byval count as GLsizei, byval value as const GLint ptr)
+	declare sub glUniform3iv(byval location as GLint, byval count as GLsizei, byval value as const GLint ptr)
+	declare sub glUniform4iv(byval location as GLint, byval count as GLsizei, byval value as const GLint ptr)
+	declare sub glUniformMatrix2fv(byval location as GLint, byval count as GLsizei, byval transpose as GLboolean, byval value as const GLfloat ptr)
+	declare sub glUniformMatrix3fv(byval location as GLint, byval count as GLsizei, byval transpose as GLboolean, byval value as const GLfloat ptr)
+	declare sub glUniformMatrix4fv(byval location as GLint, byval count as GLsizei, byval transpose as GLboolean, byval value as const GLfloat ptr)
+	declare sub glValidateProgram(byval program as GLuint)
+	declare sub glVertexAttrib1d(byval index as GLuint, byval x as GLdouble)
+	declare sub glVertexAttrib1dv(byval index as GLuint, byval v as const GLdouble ptr)
+	declare sub glVertexAttrib1f(byval index as GLuint, byval x as GLfloat)
+	declare sub glVertexAttrib1fv(byval index as GLuint, byval v as const GLfloat ptr)
+	declare sub glVertexAttrib1s(byval index as GLuint, byval x as GLshort)
+	declare sub glVertexAttrib1sv(byval index as GLuint, byval v as const GLshort ptr)
+	declare sub glVertexAttrib2d(byval index as GLuint, byval x as GLdouble, byval y as GLdouble)
+	declare sub glVertexAttrib2dv(byval index as GLuint, byval v as const GLdouble ptr)
+	declare sub glVertexAttrib2f(byval index as GLuint, byval x as GLfloat, byval y as GLfloat)
+	declare sub glVertexAttrib2fv(byval index as GLuint, byval v as const GLfloat ptr)
+	declare sub glVertexAttrib2s(byval index as GLuint, byval x as GLshort, byval y as GLshort)
+	declare sub glVertexAttrib2sv(byval index as GLuint, byval v as const GLshort ptr)
+	declare sub glVertexAttrib3d(byval index as GLuint, byval x as GLdouble, byval y as GLdouble, byval z as GLdouble)
+	declare sub glVertexAttrib3dv(byval index as GLuint, byval v as const GLdouble ptr)
+	declare sub glVertexAttrib3f(byval index as GLuint, byval x as GLfloat, byval y as GLfloat, byval z as GLfloat)
+	declare sub glVertexAttrib3fv(byval index as GLuint, byval v as const GLfloat ptr)
+	declare sub glVertexAttrib3s(byval index as GLuint, byval x as GLshort, byval y as GLshort, byval z as GLshort)
+	declare sub glVertexAttrib3sv(byval index as GLuint, byval v as const GLshort ptr)
+	declare sub glVertexAttrib4Nbv(byval index as GLuint, byval v as const GLbyte ptr)
+	declare sub glVertexAttrib4Niv(byval index as GLuint, byval v as const GLint ptr)
+	declare sub glVertexAttrib4Nsv(byval index as GLuint, byval v as const GLshort ptr)
+	declare sub glVertexAttrib4Nub(byval index as GLuint, byval x as GLubyte, byval y as GLubyte, byval z as GLubyte, byval w as GLubyte)
+	declare sub glVertexAttrib4Nubv(byval index as GLuint, byval v as const GLubyte ptr)
+	declare sub glVertexAttrib4Nuiv(byval index as GLuint, byval v as const GLuint ptr)
+	declare sub glVertexAttrib4Nusv(byval index as GLuint, byval v as const GLushort ptr)
+	declare sub glVertexAttrib4bv(byval index as GLuint, byval v as const GLbyte ptr)
+	declare sub glVertexAttrib4d(byval index as GLuint, byval x as GLdouble, byval y as GLdouble, byval z as GLdouble, byval w as GLdouble)
+	declare sub glVertexAttrib4dv(byval index as GLuint, byval v as const GLdouble ptr)
+	declare sub glVertexAttrib4f(byval index as GLuint, byval x as GLfloat, byval y as GLfloat, byval z as GLfloat, byval w as GLfloat)
+	declare sub glVertexAttrib4fv(byval index as GLuint, byval v as const GLfloat ptr)
+	declare sub glVertexAttrib4iv(byval index as GLuint, byval v as const GLint ptr)
+	declare sub glVertexAttrib4s(byval index as GLuint, byval x as GLshort, byval y as GLshort, byval z as GLshort, byval w as GLshort)
+	declare sub glVertexAttrib4sv(byval index as GLuint, byval v as const GLshort ptr)
+	declare sub glVertexAttrib4ubv(byval index as GLuint, byval v as const GLubyte ptr)
+	declare sub glVertexAttrib4uiv(byval index as GLuint, byval v as const GLuint ptr)
+	declare sub glVertexAttrib4usv(byval index as GLuint, byval v as const GLushort ptr)
+	declare sub glVertexAttribPointer(byval index as GLuint, byval size as GLint, byval type as GLenum, byval normalized as GLboolean, byval stride as GLsizei, byval pointer as const any ptr)
+#endif
+
 const GL_VERSION_2_1 = 1
 const GL_PIXEL_PACK_BUFFER = &h88EB
 const GL_PIXEL_UNPACK_BUFFER = &h88EC
@@ -392,9 +560,18 @@ type PFNGLUNIFORMMATRIX2X4FVPROC as sub(byval location as GLint, byval count as 
 type PFNGLUNIFORMMATRIX4X2FVPROC as sub(byval location as GLint, byval count as GLsizei, byval transpose as GLboolean, byval value as const GLfloat ptr)
 type PFNGLUNIFORMMATRIX3X4FVPROC as sub(byval location as GLint, byval count as GLsizei, byval transpose as GLboolean, byval value as const GLfloat ptr)
 type PFNGLUNIFORMMATRIX4X3FVPROC as sub(byval location as GLint, byval count as GLsizei, byval transpose as GLboolean, byval value as const GLfloat ptr)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glUniformMatrix2x3fv(byval location as GLint, byval count as GLsizei, byval transpose as GLboolean, byval value as const GLfloat ptr)
+	declare sub glUniformMatrix3x2fv(byval location as GLint, byval count as GLsizei, byval transpose as GLboolean, byval value as const GLfloat ptr)
+	declare sub glUniformMatrix2x4fv(byval location as GLint, byval count as GLsizei, byval transpose as GLboolean, byval value as const GLfloat ptr)
+	declare sub glUniformMatrix4x2fv(byval location as GLint, byval count as GLsizei, byval transpose as GLboolean, byval value as const GLfloat ptr)
+	declare sub glUniformMatrix3x4fv(byval location as GLint, byval count as GLsizei, byval transpose as GLboolean, byval value as const GLfloat ptr)
+	declare sub glUniformMatrix4x3fv(byval location as GLint, byval count as GLsizei, byval transpose as GLboolean, byval value as const GLfloat ptr)
+#endif
+
 const GL_VERSION_3_0 = 1
 type GLhalf as ushort
-
 const GL_COMPARE_REF_TO_TEXTURE = &h884E
 const GL_CLIP_DISTANCE0 = &h3000
 const GL_CLIP_DISTANCE1 = &h3001
@@ -702,6 +879,93 @@ type PFNGLDELETEVERTEXARRAYSPROC as sub(byval n as GLsizei, byval arrays as cons
 type PFNGLGENVERTEXARRAYSPROC as sub(byval n as GLsizei, byval arrays as GLuint ptr)
 type PFNGLISVERTEXARRAYPROC as function(byval array as GLuint) as GLboolean
 
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glColorMaski(byval index as GLuint, byval r as GLboolean, byval g as GLboolean, byval b as GLboolean, byval a as GLboolean)
+	declare sub glGetBooleani_v(byval target as GLenum, byval index as GLuint, byval data as GLboolean ptr)
+	declare sub glGetIntegeri_v(byval target as GLenum, byval index as GLuint, byval data as GLint ptr)
+	declare sub glEnablei(byval target as GLenum, byval index as GLuint)
+	declare sub glDisablei(byval target as GLenum, byval index as GLuint)
+	declare function glIsEnabledi(byval target as GLenum, byval index as GLuint) as GLboolean
+	declare sub glBeginTransformFeedback(byval primitiveMode as GLenum)
+	declare sub glEndTransformFeedback()
+	declare sub glBindBufferRange(byval target as GLenum, byval index as GLuint, byval buffer as GLuint, byval offset as GLintptr, byval size as GLsizeiptr)
+	declare sub glBindBufferBase(byval target as GLenum, byval index as GLuint, byval buffer as GLuint)
+	declare sub glTransformFeedbackVaryings(byval program as GLuint, byval count as GLsizei, byval varyings as const zstring const ptr ptr, byval bufferMode as GLenum)
+	declare sub glGetTransformFeedbackVarying(byval program as GLuint, byval index as GLuint, byval bufSize as GLsizei, byval length as GLsizei ptr, byval size as GLsizei ptr, byval type as GLenum ptr, byval name as zstring ptr)
+	declare sub glClampColor(byval target as GLenum, byval clamp as GLenum)
+	declare sub glBeginConditionalRender(byval id as GLuint, byval mode as GLenum)
+	declare sub glEndConditionalRender()
+	declare sub glVertexAttribIPointer(byval index as GLuint, byval size as GLint, byval type as GLenum, byval stride as GLsizei, byval pointer as const any ptr)
+	declare sub glGetVertexAttribIiv(byval index as GLuint, byval pname as GLenum, byval params as GLint ptr)
+	declare sub glGetVertexAttribIuiv(byval index as GLuint, byval pname as GLenum, byval params as GLuint ptr)
+	declare sub glVertexAttribI1i(byval index as GLuint, byval x as GLint)
+	declare sub glVertexAttribI2i(byval index as GLuint, byval x as GLint, byval y as GLint)
+	declare sub glVertexAttribI3i(byval index as GLuint, byval x as GLint, byval y as GLint, byval z as GLint)
+	declare sub glVertexAttribI4i(byval index as GLuint, byval x as GLint, byval y as GLint, byval z as GLint, byval w as GLint)
+	declare sub glVertexAttribI1ui(byval index as GLuint, byval x as GLuint)
+	declare sub glVertexAttribI2ui(byval index as GLuint, byval x as GLuint, byval y as GLuint)
+	declare sub glVertexAttribI3ui(byval index as GLuint, byval x as GLuint, byval y as GLuint, byval z as GLuint)
+	declare sub glVertexAttribI4ui(byval index as GLuint, byval x as GLuint, byval y as GLuint, byval z as GLuint, byval w as GLuint)
+	declare sub glVertexAttribI1iv(byval index as GLuint, byval v as const GLint ptr)
+	declare sub glVertexAttribI2iv(byval index as GLuint, byval v as const GLint ptr)
+	declare sub glVertexAttribI3iv(byval index as GLuint, byval v as const GLint ptr)
+	declare sub glVertexAttribI4iv(byval index as GLuint, byval v as const GLint ptr)
+	declare sub glVertexAttribI1uiv(byval index as GLuint, byval v as const GLuint ptr)
+	declare sub glVertexAttribI2uiv(byval index as GLuint, byval v as const GLuint ptr)
+	declare sub glVertexAttribI3uiv(byval index as GLuint, byval v as const GLuint ptr)
+	declare sub glVertexAttribI4uiv(byval index as GLuint, byval v as const GLuint ptr)
+	declare sub glVertexAttribI4bv(byval index as GLuint, byval v as const GLbyte ptr)
+	declare sub glVertexAttribI4sv(byval index as GLuint, byval v as const GLshort ptr)
+	declare sub glVertexAttribI4ubv(byval index as GLuint, byval v as const GLubyte ptr)
+	declare sub glVertexAttribI4usv(byval index as GLuint, byval v as const GLushort ptr)
+	declare sub glGetUniformuiv(byval program as GLuint, byval location as GLint, byval params as GLuint ptr)
+	declare sub glBindFragDataLocation(byval program as GLuint, byval color as GLuint, byval name as const zstring ptr)
+	declare function glGetFragDataLocation(byval program as GLuint, byval name as const zstring ptr) as GLint
+	declare sub glUniform1ui(byval location as GLint, byval v0 as GLuint)
+	declare sub glUniform2ui(byval location as GLint, byval v0 as GLuint, byval v1 as GLuint)
+	declare sub glUniform3ui(byval location as GLint, byval v0 as GLuint, byval v1 as GLuint, byval v2 as GLuint)
+	declare sub glUniform4ui(byval location as GLint, byval v0 as GLuint, byval v1 as GLuint, byval v2 as GLuint, byval v3 as GLuint)
+	declare sub glUniform1uiv(byval location as GLint, byval count as GLsizei, byval value as const GLuint ptr)
+	declare sub glUniform2uiv(byval location as GLint, byval count as GLsizei, byval value as const GLuint ptr)
+	declare sub glUniform3uiv(byval location as GLint, byval count as GLsizei, byval value as const GLuint ptr)
+	declare sub glUniform4uiv(byval location as GLint, byval count as GLsizei, byval value as const GLuint ptr)
+	declare sub glTexParameterIiv(byval target as GLenum, byval pname as GLenum, byval params as const GLint ptr)
+	declare sub glTexParameterIuiv(byval target as GLenum, byval pname as GLenum, byval params as const GLuint ptr)
+	declare sub glGetTexParameterIiv(byval target as GLenum, byval pname as GLenum, byval params as GLint ptr)
+	declare sub glGetTexParameterIuiv(byval target as GLenum, byval pname as GLenum, byval params as GLuint ptr)
+	declare sub glClearBufferiv(byval buffer as GLenum, byval drawbuffer as GLint, byval value as const GLint ptr)
+	declare sub glClearBufferuiv(byval buffer as GLenum, byval drawbuffer as GLint, byval value as const GLuint ptr)
+	declare sub glClearBufferfv(byval buffer as GLenum, byval drawbuffer as GLint, byval value as const GLfloat ptr)
+	declare sub glClearBufferfi(byval buffer as GLenum, byval drawbuffer as GLint, byval depth as GLfloat, byval stencil as GLint)
+	declare function glGetStringi(byval name as GLenum, byval index as GLuint) as const GLubyte ptr
+	declare function glIsRenderbuffer(byval renderbuffer as GLuint) as GLboolean
+	declare sub glBindRenderbuffer(byval target as GLenum, byval renderbuffer as GLuint)
+	declare sub glDeleteRenderbuffers(byval n as GLsizei, byval renderbuffers as const GLuint ptr)
+	declare sub glGenRenderbuffers(byval n as GLsizei, byval renderbuffers as GLuint ptr)
+	declare sub glRenderbufferStorage(byval target as GLenum, byval internalformat as GLenum, byval width as GLsizei, byval height as GLsizei)
+	declare sub glGetRenderbufferParameteriv(byval target as GLenum, byval pname as GLenum, byval params as GLint ptr)
+	declare function glIsFramebuffer(byval framebuffer as GLuint) as GLboolean
+	declare sub glBindFramebuffer(byval target as GLenum, byval framebuffer as GLuint)
+	declare sub glDeleteFramebuffers(byval n as GLsizei, byval framebuffers as const GLuint ptr)
+	declare sub glGenFramebuffers(byval n as GLsizei, byval framebuffers as GLuint ptr)
+	declare function glCheckFramebufferStatus(byval target as GLenum) as GLenum
+	declare sub glFramebufferTexture1D(byval target as GLenum, byval attachment as GLenum, byval textarget as GLenum, byval texture as GLuint, byval level as GLint)
+	declare sub glFramebufferTexture2D(byval target as GLenum, byval attachment as GLenum, byval textarget as GLenum, byval texture as GLuint, byval level as GLint)
+	declare sub glFramebufferTexture3D(byval target as GLenum, byval attachment as GLenum, byval textarget as GLenum, byval texture as GLuint, byval level as GLint, byval zoffset as GLint)
+	declare sub glFramebufferRenderbuffer(byval target as GLenum, byval attachment as GLenum, byval renderbuffertarget as GLenum, byval renderbuffer as GLuint)
+	declare sub glGetFramebufferAttachmentParameteriv(byval target as GLenum, byval attachment as GLenum, byval pname as GLenum, byval params as GLint ptr)
+	declare sub glGenerateMipmap(byval target as GLenum)
+	declare sub glBlitFramebuffer(byval srcX0 as GLint, byval srcY0 as GLint, byval srcX1 as GLint, byval srcY1 as GLint, byval dstX0 as GLint, byval dstY0 as GLint, byval dstX1 as GLint, byval dstY1 as GLint, byval mask as GLbitfield, byval filter as GLenum)
+	declare sub glRenderbufferStorageMultisample(byval target as GLenum, byval samples as GLsizei, byval internalformat as GLenum, byval width as GLsizei, byval height as GLsizei)
+	declare sub glFramebufferTextureLayer(byval target as GLenum, byval attachment as GLenum, byval texture as GLuint, byval level as GLint, byval layer as GLint)
+	declare function glMapBufferRange(byval target as GLenum, byval offset as GLintptr, byval length as GLsizeiptr, byval access as GLbitfield) as any ptr
+	declare sub glFlushMappedBufferRange(byval target as GLenum, byval offset as GLintptr, byval length as GLsizeiptr)
+	declare sub glBindVertexArray(byval array as GLuint)
+	declare sub glDeleteVertexArrays(byval n as GLsizei, byval arrays as const GLuint ptr)
+	declare sub glGenVertexArrays(byval n as GLsizei, byval arrays as GLuint ptr)
+	declare function glIsVertexArray(byval array as GLuint) as GLboolean
+#endif
+
 const GL_VERSION_3_1 = 1
 const GL_SAMPLER_2D_RECT = &h8B63
 const GL_SAMPLER_2D_RECT_SHADOW = &h8B64
@@ -777,12 +1041,27 @@ type PFNGLGETUNIFORMBLOCKINDEXPROC as function(byval program as GLuint, byval un
 type PFNGLGETACTIVEUNIFORMBLOCKIVPROC as sub(byval program as GLuint, byval uniformBlockIndex as GLuint, byval pname as GLenum, byval params as GLint ptr)
 type PFNGLGETACTIVEUNIFORMBLOCKNAMEPROC as sub(byval program as GLuint, byval uniformBlockIndex as GLuint, byval bufSize as GLsizei, byval length as GLsizei ptr, byval uniformBlockName as zstring ptr)
 type PFNGLUNIFORMBLOCKBINDINGPROC as sub(byval program as GLuint, byval uniformBlockIndex as GLuint, byval uniformBlockBinding as GLuint)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glDrawArraysInstanced(byval mode as GLenum, byval first as GLint, byval count as GLsizei, byval instancecount as GLsizei)
+	declare sub glDrawElementsInstanced(byval mode as GLenum, byval count as GLsizei, byval type as GLenum, byval indices as const any ptr, byval instancecount as GLsizei)
+	declare sub glTexBuffer(byval target as GLenum, byval internalformat as GLenum, byval buffer as GLuint)
+	declare sub glPrimitiveRestartIndex(byval index as GLuint)
+	declare sub glCopyBufferSubData(byval readTarget as GLenum, byval writeTarget as GLenum, byval readOffset as GLintptr, byval writeOffset as GLintptr, byval size as GLsizeiptr)
+	declare sub glGetUniformIndices(byval program as GLuint, byval uniformCount as GLsizei, byval uniformNames as const zstring const ptr ptr, byval uniformIndices as GLuint ptr)
+	declare sub glGetActiveUniformsiv(byval program as GLuint, byval uniformCount as GLsizei, byval uniformIndices as const GLuint ptr, byval pname as GLenum, byval params as GLint ptr)
+	declare sub glGetActiveUniformName(byval program as GLuint, byval uniformIndex as GLuint, byval bufSize as GLsizei, byval length as GLsizei ptr, byval uniformName as zstring ptr)
+	declare function glGetUniformBlockIndex(byval program as GLuint, byval uniformBlockName as const zstring ptr) as GLuint
+	declare sub glGetActiveUniformBlockiv(byval program as GLuint, byval uniformBlockIndex as GLuint, byval pname as GLenum, byval params as GLint ptr)
+	declare sub glGetActiveUniformBlockName(byval program as GLuint, byval uniformBlockIndex as GLuint, byval bufSize as GLsizei, byval length as GLsizei ptr, byval uniformBlockName as zstring ptr)
+	declare sub glUniformBlockBinding(byval program as GLuint, byval uniformBlockIndex as GLuint, byval uniformBlockBinding as GLuint)
+#endif
+
 const GL_VERSION_3_2 = 1
 type GLsync as __GLsync ptr
 #define GLEXT_64_TYPES_DEFINED
 type GLuint64 as ulongint
 type GLint64 as longint
-
 const GL_CONTEXT_CORE_PROFILE_BIT = &h00000001
 const GL_CONTEXT_COMPATIBILITY_PROFILE_BIT = &h00000002
 const GL_LINES_ADJACENCY = &h000A
@@ -868,6 +1147,28 @@ type PFNGLTEXIMAGE3DMULTISAMPLEPROC as sub(byval target as GLenum, byval samples
 type PFNGLGETMULTISAMPLEFVPROC as sub(byval pname as GLenum, byval index as GLuint, byval val as GLfloat ptr)
 type PFNGLSAMPLEMASKIPROC as sub(byval maskNumber as GLuint, byval mask as GLbitfield)
 
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glDrawElementsBaseVertex(byval mode as GLenum, byval count as GLsizei, byval type as GLenum, byval indices as const any ptr, byval basevertex as GLint)
+	declare sub glDrawRangeElementsBaseVertex(byval mode as GLenum, byval start as GLuint, byval end as GLuint, byval count as GLsizei, byval type as GLenum, byval indices as const any ptr, byval basevertex as GLint)
+	declare sub glDrawElementsInstancedBaseVertex(byval mode as GLenum, byval count as GLsizei, byval type as GLenum, byval indices as const any ptr, byval instancecount as GLsizei, byval basevertex as GLint)
+	declare sub glMultiDrawElementsBaseVertex(byval mode as GLenum, byval count as const GLsizei ptr, byval type as GLenum, byval indices as const any const ptr ptr, byval drawcount as GLsizei, byval basevertex as const GLint ptr)
+	declare sub glProvokingVertex(byval mode as GLenum)
+	declare function glFenceSync(byval condition as GLenum, byval flags as GLbitfield) as GLsync
+	declare function glIsSync(byval sync as GLsync) as GLboolean
+	declare sub glDeleteSync(byval sync as GLsync)
+	declare function glClientWaitSync(byval sync as GLsync, byval flags as GLbitfield, byval timeout as GLuint64) as GLenum
+	declare sub glWaitSync(byval sync as GLsync, byval flags as GLbitfield, byval timeout as GLuint64)
+	declare sub glGetInteger64v(byval pname as GLenum, byval data as GLint64 ptr)
+	declare sub glGetSynciv(byval sync as GLsync, byval pname as GLenum, byval bufSize as GLsizei, byval length as GLsizei ptr, byval values as GLint ptr)
+	declare sub glGetInteger64i_v(byval target as GLenum, byval index as GLuint, byval data as GLint64 ptr)
+	declare sub glGetBufferParameteri64v(byval target as GLenum, byval pname as GLenum, byval params as GLint64 ptr)
+	declare sub glFramebufferTexture(byval target as GLenum, byval attachment as GLenum, byval texture as GLuint, byval level as GLint)
+	declare sub glTexImage2DMultisample(byval target as GLenum, byval samples as GLsizei, byval internalformat as GLenum, byval width as GLsizei, byval height as GLsizei, byval fixedsamplelocations as GLboolean)
+	declare sub glTexImage3DMultisample(byval target as GLenum, byval samples as GLsizei, byval internalformat as GLenum, byval width as GLsizei, byval height as GLsizei, byval depth as GLsizei, byval fixedsamplelocations as GLboolean)
+	declare sub glGetMultisamplefv(byval pname as GLenum, byval index as GLuint, byval val as GLfloat ptr)
+	declare sub glSampleMaski(byval maskNumber as GLuint, byval mask as GLbitfield)
+#endif
+
 const GL_VERSION_3_3 = 1
 const GL_VERTEX_ATTRIB_ARRAY_DIVISOR = &h88FE
 const GL_SRC1_COLOR = &h88F9
@@ -944,6 +1245,67 @@ type PFNGLCOLORP4UIPROC as sub(byval type as GLenum, byval color as GLuint)
 type PFNGLCOLORP4UIVPROC as sub(byval type as GLenum, byval color as const GLuint ptr)
 type PFNGLSECONDARYCOLORP3UIPROC as sub(byval type as GLenum, byval color as GLuint)
 type PFNGLSECONDARYCOLORP3UIVPROC as sub(byval type as GLenum, byval color as const GLuint ptr)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glBindFragDataLocationIndexed(byval program as GLuint, byval colorNumber as GLuint, byval index as GLuint, byval name as const zstring ptr)
+	declare function glGetFragDataIndex(byval program as GLuint, byval name as const zstring ptr) as GLint
+	declare sub glGenSamplers(byval count as GLsizei, byval samplers as GLuint ptr)
+	declare sub glDeleteSamplers(byval count as GLsizei, byval samplers as const GLuint ptr)
+	declare function glIsSampler(byval sampler as GLuint) as GLboolean
+	declare sub glBindSampler(byval unit as GLuint, byval sampler as GLuint)
+	declare sub glSamplerParameteri(byval sampler as GLuint, byval pname as GLenum, byval param as GLint)
+	declare sub glSamplerParameteriv(byval sampler as GLuint, byval pname as GLenum, byval param as const GLint ptr)
+	declare sub glSamplerParameterf(byval sampler as GLuint, byval pname as GLenum, byval param as GLfloat)
+	declare sub glSamplerParameterfv(byval sampler as GLuint, byval pname as GLenum, byval param as const GLfloat ptr)
+	declare sub glSamplerParameterIiv(byval sampler as GLuint, byval pname as GLenum, byval param as const GLint ptr)
+	declare sub glSamplerParameterIuiv(byval sampler as GLuint, byval pname as GLenum, byval param as const GLuint ptr)
+	declare sub glGetSamplerParameteriv(byval sampler as GLuint, byval pname as GLenum, byval params as GLint ptr)
+	declare sub glGetSamplerParameterIiv(byval sampler as GLuint, byval pname as GLenum, byval params as GLint ptr)
+	declare sub glGetSamplerParameterfv(byval sampler as GLuint, byval pname as GLenum, byval params as GLfloat ptr)
+	declare sub glGetSamplerParameterIuiv(byval sampler as GLuint, byval pname as GLenum, byval params as GLuint ptr)
+	declare sub glQueryCounter(byval id as GLuint, byval target as GLenum)
+	declare sub glGetQueryObjecti64v(byval id as GLuint, byval pname as GLenum, byval params as GLint64 ptr)
+	declare sub glGetQueryObjectui64v(byval id as GLuint, byval pname as GLenum, byval params as GLuint64 ptr)
+	declare sub glVertexAttribDivisor(byval index as GLuint, byval divisor as GLuint)
+	declare sub glVertexAttribP1ui(byval index as GLuint, byval type as GLenum, byval normalized as GLboolean, byval value as GLuint)
+	declare sub glVertexAttribP1uiv(byval index as GLuint, byval type as GLenum, byval normalized as GLboolean, byval value as const GLuint ptr)
+	declare sub glVertexAttribP2ui(byval index as GLuint, byval type as GLenum, byval normalized as GLboolean, byval value as GLuint)
+	declare sub glVertexAttribP2uiv(byval index as GLuint, byval type as GLenum, byval normalized as GLboolean, byval value as const GLuint ptr)
+	declare sub glVertexAttribP3ui(byval index as GLuint, byval type as GLenum, byval normalized as GLboolean, byval value as GLuint)
+	declare sub glVertexAttribP3uiv(byval index as GLuint, byval type as GLenum, byval normalized as GLboolean, byval value as const GLuint ptr)
+	declare sub glVertexAttribP4ui(byval index as GLuint, byval type as GLenum, byval normalized as GLboolean, byval value as GLuint)
+	declare sub glVertexAttribP4uiv(byval index as GLuint, byval type as GLenum, byval normalized as GLboolean, byval value as const GLuint ptr)
+	declare sub glVertexP2ui(byval type as GLenum, byval value as GLuint)
+	declare sub glVertexP2uiv(byval type as GLenum, byval value as const GLuint ptr)
+	declare sub glVertexP3ui(byval type as GLenum, byval value as GLuint)
+	declare sub glVertexP3uiv(byval type as GLenum, byval value as const GLuint ptr)
+	declare sub glVertexP4ui(byval type as GLenum, byval value as GLuint)
+	declare sub glVertexP4uiv(byval type as GLenum, byval value as const GLuint ptr)
+	declare sub glTexCoordP1ui(byval type as GLenum, byval coords as GLuint)
+	declare sub glTexCoordP1uiv(byval type as GLenum, byval coords as const GLuint ptr)
+	declare sub glTexCoordP2ui(byval type as GLenum, byval coords as GLuint)
+	declare sub glTexCoordP2uiv(byval type as GLenum, byval coords as const GLuint ptr)
+	declare sub glTexCoordP3ui(byval type as GLenum, byval coords as GLuint)
+	declare sub glTexCoordP3uiv(byval type as GLenum, byval coords as const GLuint ptr)
+	declare sub glTexCoordP4ui(byval type as GLenum, byval coords as GLuint)
+	declare sub glTexCoordP4uiv(byval type as GLenum, byval coords as const GLuint ptr)
+	declare sub glMultiTexCoordP1ui(byval texture as GLenum, byval type as GLenum, byval coords as GLuint)
+	declare sub glMultiTexCoordP1uiv(byval texture as GLenum, byval type as GLenum, byval coords as const GLuint ptr)
+	declare sub glMultiTexCoordP2ui(byval texture as GLenum, byval type as GLenum, byval coords as GLuint)
+	declare sub glMultiTexCoordP2uiv(byval texture as GLenum, byval type as GLenum, byval coords as const GLuint ptr)
+	declare sub glMultiTexCoordP3ui(byval texture as GLenum, byval type as GLenum, byval coords as GLuint)
+	declare sub glMultiTexCoordP3uiv(byval texture as GLenum, byval type as GLenum, byval coords as const GLuint ptr)
+	declare sub glMultiTexCoordP4ui(byval texture as GLenum, byval type as GLenum, byval coords as GLuint)
+	declare sub glMultiTexCoordP4uiv(byval texture as GLenum, byval type as GLenum, byval coords as const GLuint ptr)
+	declare sub glNormalP3ui(byval type as GLenum, byval coords as GLuint)
+	declare sub glNormalP3uiv(byval type as GLenum, byval coords as const GLuint ptr)
+	declare sub glColorP3ui(byval type as GLenum, byval color as GLuint)
+	declare sub glColorP3uiv(byval type as GLenum, byval color as const GLuint ptr)
+	declare sub glColorP4ui(byval type as GLenum, byval color as GLuint)
+	declare sub glColorP4uiv(byval type as GLenum, byval color as const GLuint ptr)
+	declare sub glSecondaryColorP3ui(byval type as GLenum, byval color as GLuint)
+	declare sub glSecondaryColorP3uiv(byval type as GLenum, byval color as const GLuint ptr)
+#endif
 
 const GL_VERSION_4_0 = 1
 const GL_SAMPLE_SHADING = &h8C36
@@ -1071,6 +1433,55 @@ type PFNGLBEGINQUERYINDEXEDPROC as sub(byval target as GLenum, byval index as GL
 type PFNGLENDQUERYINDEXEDPROC as sub(byval target as GLenum, byval index as GLuint)
 type PFNGLGETQUERYINDEXEDIVPROC as sub(byval target as GLenum, byval index as GLuint, byval pname as GLenum, byval params as GLint ptr)
 
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glMinSampleShading(byval value as GLfloat)
+	declare sub glBlendEquationi(byval buf as GLuint, byval mode as GLenum)
+	declare sub glBlendEquationSeparatei(byval buf as GLuint, byval modeRGB as GLenum, byval modeAlpha as GLenum)
+	declare sub glBlendFunci(byval buf as GLuint, byval src as GLenum, byval dst as GLenum)
+	declare sub glBlendFuncSeparatei(byval buf as GLuint, byval srcRGB as GLenum, byval dstRGB as GLenum, byval srcAlpha as GLenum, byval dstAlpha as GLenum)
+	declare sub glDrawArraysIndirect(byval mode as GLenum, byval indirect as const any ptr)
+	declare sub glDrawElementsIndirect(byval mode as GLenum, byval type as GLenum, byval indirect as const any ptr)
+	declare sub glUniform1d(byval location as GLint, byval x as GLdouble)
+	declare sub glUniform2d(byval location as GLint, byval x as GLdouble, byval y as GLdouble)
+	declare sub glUniform3d(byval location as GLint, byval x as GLdouble, byval y as GLdouble, byval z as GLdouble)
+	declare sub glUniform4d(byval location as GLint, byval x as GLdouble, byval y as GLdouble, byval z as GLdouble, byval w as GLdouble)
+	declare sub glUniform1dv(byval location as GLint, byval count as GLsizei, byval value as const GLdouble ptr)
+	declare sub glUniform2dv(byval location as GLint, byval count as GLsizei, byval value as const GLdouble ptr)
+	declare sub glUniform3dv(byval location as GLint, byval count as GLsizei, byval value as const GLdouble ptr)
+	declare sub glUniform4dv(byval location as GLint, byval count as GLsizei, byval value as const GLdouble ptr)
+	declare sub glUniformMatrix2dv(byval location as GLint, byval count as GLsizei, byval transpose as GLboolean, byval value as const GLdouble ptr)
+	declare sub glUniformMatrix3dv(byval location as GLint, byval count as GLsizei, byval transpose as GLboolean, byval value as const GLdouble ptr)
+	declare sub glUniformMatrix4dv(byval location as GLint, byval count as GLsizei, byval transpose as GLboolean, byval value as const GLdouble ptr)
+	declare sub glUniformMatrix2x3dv(byval location as GLint, byval count as GLsizei, byval transpose as GLboolean, byval value as const GLdouble ptr)
+	declare sub glUniformMatrix2x4dv(byval location as GLint, byval count as GLsizei, byval transpose as GLboolean, byval value as const GLdouble ptr)
+	declare sub glUniformMatrix3x2dv(byval location as GLint, byval count as GLsizei, byval transpose as GLboolean, byval value as const GLdouble ptr)
+	declare sub glUniformMatrix3x4dv(byval location as GLint, byval count as GLsizei, byval transpose as GLboolean, byval value as const GLdouble ptr)
+	declare sub glUniformMatrix4x2dv(byval location as GLint, byval count as GLsizei, byval transpose as GLboolean, byval value as const GLdouble ptr)
+	declare sub glUniformMatrix4x3dv(byval location as GLint, byval count as GLsizei, byval transpose as GLboolean, byval value as const GLdouble ptr)
+	declare sub glGetUniformdv(byval program as GLuint, byval location as GLint, byval params as GLdouble ptr)
+	declare function glGetSubroutineUniformLocation(byval program as GLuint, byval shadertype as GLenum, byval name as const zstring ptr) as GLint
+	declare function glGetSubroutineIndex(byval program as GLuint, byval shadertype as GLenum, byval name as const zstring ptr) as GLuint
+	declare sub glGetActiveSubroutineUniformiv(byval program as GLuint, byval shadertype as GLenum, byval index as GLuint, byval pname as GLenum, byval values as GLint ptr)
+	declare sub glGetActiveSubroutineUniformName(byval program as GLuint, byval shadertype as GLenum, byval index as GLuint, byval bufsize as GLsizei, byval length as GLsizei ptr, byval name as zstring ptr)
+	declare sub glGetActiveSubroutineName(byval program as GLuint, byval shadertype as GLenum, byval index as GLuint, byval bufsize as GLsizei, byval length as GLsizei ptr, byval name as zstring ptr)
+	declare sub glUniformSubroutinesuiv(byval shadertype as GLenum, byval count as GLsizei, byval indices as const GLuint ptr)
+	declare sub glGetUniformSubroutineuiv(byval shadertype as GLenum, byval location as GLint, byval params as GLuint ptr)
+	declare sub glGetProgramStageiv(byval program as GLuint, byval shadertype as GLenum, byval pname as GLenum, byval values as GLint ptr)
+	declare sub glPatchParameteri(byval pname as GLenum, byval value as GLint)
+	declare sub glPatchParameterfv(byval pname as GLenum, byval values as const GLfloat ptr)
+	declare sub glBindTransformFeedback(byval target as GLenum, byval id as GLuint)
+	declare sub glDeleteTransformFeedbacks(byval n as GLsizei, byval ids as const GLuint ptr)
+	declare sub glGenTransformFeedbacks(byval n as GLsizei, byval ids as GLuint ptr)
+	declare function glIsTransformFeedback(byval id as GLuint) as GLboolean
+	declare sub glPauseTransformFeedback()
+	declare sub glResumeTransformFeedback()
+	declare sub glDrawTransformFeedback(byval mode as GLenum, byval id as GLuint)
+	declare sub glDrawTransformFeedbackStream(byval mode as GLenum, byval id as GLuint, byval stream as GLuint)
+	declare sub glBeginQueryIndexed(byval target as GLenum, byval index as GLuint, byval id as GLuint)
+	declare sub glEndQueryIndexed(byval target as GLenum, byval index as GLuint)
+	declare sub glGetQueryIndexediv(byval target as GLenum, byval index as GLuint, byval pname as GLenum, byval params as GLint ptr)
+#endif
+
 const GL_VERSION_4_1 = 1
 const GL_FIXED = &h140C
 const GL_IMPLEMENTATION_COLOR_READ_TYPE = &h8B9A
@@ -1196,6 +1607,97 @@ type PFNGLDEPTHRANGEARRAYVPROC as sub(byval first as GLuint, byval count as GLsi
 type PFNGLDEPTHRANGEINDEXEDPROC as sub(byval index as GLuint, byval n as GLdouble, byval f as GLdouble)
 type PFNGLGETFLOATI_VPROC as sub(byval target as GLenum, byval index as GLuint, byval data as GLfloat ptr)
 type PFNGLGETDOUBLEI_VPROC as sub(byval target as GLenum, byval index as GLuint, byval data as GLdouble ptr)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glReleaseShaderCompiler()
+	declare sub glShaderBinary(byval count as GLsizei, byval shaders as const GLuint ptr, byval binaryformat as GLenum, byval binary as const any ptr, byval length as GLsizei)
+	declare sub glGetShaderPrecisionFormat(byval shadertype as GLenum, byval precisiontype as GLenum, byval range as GLint ptr, byval precision as GLint ptr)
+	declare sub glDepthRangef(byval n as GLfloat, byval f as GLfloat)
+	declare sub glClearDepthf(byval d as GLfloat)
+	declare sub glGetProgramBinary(byval program as GLuint, byval bufSize as GLsizei, byval length as GLsizei ptr, byval binaryFormat as GLenum ptr, byval binary as any ptr)
+	declare sub glProgramBinary(byval program as GLuint, byval binaryFormat as GLenum, byval binary as const any ptr, byval length as GLsizei)
+	declare sub glProgramParameteri(byval program as GLuint, byval pname as GLenum, byval value as GLint)
+	declare sub glUseProgramStages(byval pipeline as GLuint, byval stages as GLbitfield, byval program as GLuint)
+	declare sub glActiveShaderProgram(byval pipeline as GLuint, byval program as GLuint)
+	declare function glCreateShaderProgramv(byval type as GLenum, byval count as GLsizei, byval strings as const zstring const ptr ptr) as GLuint
+	declare sub glBindProgramPipeline(byval pipeline as GLuint)
+	declare sub glDeleteProgramPipelines(byval n as GLsizei, byval pipelines as const GLuint ptr)
+	declare sub glGenProgramPipelines(byval n as GLsizei, byval pipelines as GLuint ptr)
+	declare function glIsProgramPipeline(byval pipeline as GLuint) as GLboolean
+	declare sub glGetProgramPipelineiv(byval pipeline as GLuint, byval pname as GLenum, byval params as GLint ptr)
+	declare sub glProgramUniform1i(byval program as GLuint, byval location as GLint, byval v0 as GLint)
+	declare sub glProgramUniform1iv(byval program as GLuint, byval location as GLint, byval count as GLsizei, byval value as const GLint ptr)
+	declare sub glProgramUniform1f(byval program as GLuint, byval location as GLint, byval v0 as GLfloat)
+	declare sub glProgramUniform1fv(byval program as GLuint, byval location as GLint, byval count as GLsizei, byval value as const GLfloat ptr)
+	declare sub glProgramUniform1d(byval program as GLuint, byval location as GLint, byval v0 as GLdouble)
+	declare sub glProgramUniform1dv(byval program as GLuint, byval location as GLint, byval count as GLsizei, byval value as const GLdouble ptr)
+	declare sub glProgramUniform1ui(byval program as GLuint, byval location as GLint, byval v0 as GLuint)
+	declare sub glProgramUniform1uiv(byval program as GLuint, byval location as GLint, byval count as GLsizei, byval value as const GLuint ptr)
+	declare sub glProgramUniform2i(byval program as GLuint, byval location as GLint, byval v0 as GLint, byval v1 as GLint)
+	declare sub glProgramUniform2iv(byval program as GLuint, byval location as GLint, byval count as GLsizei, byval value as const GLint ptr)
+	declare sub glProgramUniform2f(byval program as GLuint, byval location as GLint, byval v0 as GLfloat, byval v1 as GLfloat)
+	declare sub glProgramUniform2fv(byval program as GLuint, byval location as GLint, byval count as GLsizei, byval value as const GLfloat ptr)
+	declare sub glProgramUniform2d(byval program as GLuint, byval location as GLint, byval v0 as GLdouble, byval v1 as GLdouble)
+	declare sub glProgramUniform2dv(byval program as GLuint, byval location as GLint, byval count as GLsizei, byval value as const GLdouble ptr)
+	declare sub glProgramUniform2ui(byval program as GLuint, byval location as GLint, byval v0 as GLuint, byval v1 as GLuint)
+	declare sub glProgramUniform2uiv(byval program as GLuint, byval location as GLint, byval count as GLsizei, byval value as const GLuint ptr)
+	declare sub glProgramUniform3i(byval program as GLuint, byval location as GLint, byval v0 as GLint, byval v1 as GLint, byval v2 as GLint)
+	declare sub glProgramUniform3iv(byval program as GLuint, byval location as GLint, byval count as GLsizei, byval value as const GLint ptr)
+	declare sub glProgramUniform3f(byval program as GLuint, byval location as GLint, byval v0 as GLfloat, byval v1 as GLfloat, byval v2 as GLfloat)
+	declare sub glProgramUniform3fv(byval program as GLuint, byval location as GLint, byval count as GLsizei, byval value as const GLfloat ptr)
+	declare sub glProgramUniform3d(byval program as GLuint, byval location as GLint, byval v0 as GLdouble, byval v1 as GLdouble, byval v2 as GLdouble)
+	declare sub glProgramUniform3dv(byval program as GLuint, byval location as GLint, byval count as GLsizei, byval value as const GLdouble ptr)
+	declare sub glProgramUniform3ui(byval program as GLuint, byval location as GLint, byval v0 as GLuint, byval v1 as GLuint, byval v2 as GLuint)
+	declare sub glProgramUniform3uiv(byval program as GLuint, byval location as GLint, byval count as GLsizei, byval value as const GLuint ptr)
+	declare sub glProgramUniform4i(byval program as GLuint, byval location as GLint, byval v0 as GLint, byval v1 as GLint, byval v2 as GLint, byval v3 as GLint)
+	declare sub glProgramUniform4iv(byval program as GLuint, byval location as GLint, byval count as GLsizei, byval value as const GLint ptr)
+	declare sub glProgramUniform4f(byval program as GLuint, byval location as GLint, byval v0 as GLfloat, byval v1 as GLfloat, byval v2 as GLfloat, byval v3 as GLfloat)
+	declare sub glProgramUniform4fv(byval program as GLuint, byval location as GLint, byval count as GLsizei, byval value as const GLfloat ptr)
+	declare sub glProgramUniform4d(byval program as GLuint, byval location as GLint, byval v0 as GLdouble, byval v1 as GLdouble, byval v2 as GLdouble, byval v3 as GLdouble)
+	declare sub glProgramUniform4dv(byval program as GLuint, byval location as GLint, byval count as GLsizei, byval value as const GLdouble ptr)
+	declare sub glProgramUniform4ui(byval program as GLuint, byval location as GLint, byval v0 as GLuint, byval v1 as GLuint, byval v2 as GLuint, byval v3 as GLuint)
+	declare sub glProgramUniform4uiv(byval program as GLuint, byval location as GLint, byval count as GLsizei, byval value as const GLuint ptr)
+	declare sub glProgramUniformMatrix2fv(byval program as GLuint, byval location as GLint, byval count as GLsizei, byval transpose as GLboolean, byval value as const GLfloat ptr)
+	declare sub glProgramUniformMatrix3fv(byval program as GLuint, byval location as GLint, byval count as GLsizei, byval transpose as GLboolean, byval value as const GLfloat ptr)
+	declare sub glProgramUniformMatrix4fv(byval program as GLuint, byval location as GLint, byval count as GLsizei, byval transpose as GLboolean, byval value as const GLfloat ptr)
+	declare sub glProgramUniformMatrix2dv(byval program as GLuint, byval location as GLint, byval count as GLsizei, byval transpose as GLboolean, byval value as const GLdouble ptr)
+	declare sub glProgramUniformMatrix3dv(byval program as GLuint, byval location as GLint, byval count as GLsizei, byval transpose as GLboolean, byval value as const GLdouble ptr)
+	declare sub glProgramUniformMatrix4dv(byval program as GLuint, byval location as GLint, byval count as GLsizei, byval transpose as GLboolean, byval value as const GLdouble ptr)
+	declare sub glProgramUniformMatrix2x3fv(byval program as GLuint, byval location as GLint, byval count as GLsizei, byval transpose as GLboolean, byval value as const GLfloat ptr)
+	declare sub glProgramUniformMatrix3x2fv(byval program as GLuint, byval location as GLint, byval count as GLsizei, byval transpose as GLboolean, byval value as const GLfloat ptr)
+	declare sub glProgramUniformMatrix2x4fv(byval program as GLuint, byval location as GLint, byval count as GLsizei, byval transpose as GLboolean, byval value as const GLfloat ptr)
+	declare sub glProgramUniformMatrix4x2fv(byval program as GLuint, byval location as GLint, byval count as GLsizei, byval transpose as GLboolean, byval value as const GLfloat ptr)
+	declare sub glProgramUniformMatrix3x4fv(byval program as GLuint, byval location as GLint, byval count as GLsizei, byval transpose as GLboolean, byval value as const GLfloat ptr)
+	declare sub glProgramUniformMatrix4x3fv(byval program as GLuint, byval location as GLint, byval count as GLsizei, byval transpose as GLboolean, byval value as const GLfloat ptr)
+	declare sub glProgramUniformMatrix2x3dv(byval program as GLuint, byval location as GLint, byval count as GLsizei, byval transpose as GLboolean, byval value as const GLdouble ptr)
+	declare sub glProgramUniformMatrix3x2dv(byval program as GLuint, byval location as GLint, byval count as GLsizei, byval transpose as GLboolean, byval value as const GLdouble ptr)
+	declare sub glProgramUniformMatrix2x4dv(byval program as GLuint, byval location as GLint, byval count as GLsizei, byval transpose as GLboolean, byval value as const GLdouble ptr)
+	declare sub glProgramUniformMatrix4x2dv(byval program as GLuint, byval location as GLint, byval count as GLsizei, byval transpose as GLboolean, byval value as const GLdouble ptr)
+	declare sub glProgramUniformMatrix3x4dv(byval program as GLuint, byval location as GLint, byval count as GLsizei, byval transpose as GLboolean, byval value as const GLdouble ptr)
+	declare sub glProgramUniformMatrix4x3dv(byval program as GLuint, byval location as GLint, byval count as GLsizei, byval transpose as GLboolean, byval value as const GLdouble ptr)
+	declare sub glValidateProgramPipeline(byval pipeline as GLuint)
+	declare sub glGetProgramPipelineInfoLog(byval pipeline as GLuint, byval bufSize as GLsizei, byval length as GLsizei ptr, byval infoLog as zstring ptr)
+	declare sub glVertexAttribL1d(byval index as GLuint, byval x as GLdouble)
+	declare sub glVertexAttribL2d(byval index as GLuint, byval x as GLdouble, byval y as GLdouble)
+	declare sub glVertexAttribL3d(byval index as GLuint, byval x as GLdouble, byval y as GLdouble, byval z as GLdouble)
+	declare sub glVertexAttribL4d(byval index as GLuint, byval x as GLdouble, byval y as GLdouble, byval z as GLdouble, byval w as GLdouble)
+	declare sub glVertexAttribL1dv(byval index as GLuint, byval v as const GLdouble ptr)
+	declare sub glVertexAttribL2dv(byval index as GLuint, byval v as const GLdouble ptr)
+	declare sub glVertexAttribL3dv(byval index as GLuint, byval v as const GLdouble ptr)
+	declare sub glVertexAttribL4dv(byval index as GLuint, byval v as const GLdouble ptr)
+	declare sub glVertexAttribLPointer(byval index as GLuint, byval size as GLint, byval type as GLenum, byval stride as GLsizei, byval pointer as const any ptr)
+	declare sub glGetVertexAttribLdv(byval index as GLuint, byval pname as GLenum, byval params as GLdouble ptr)
+	declare sub glViewportArrayv(byval first as GLuint, byval count as GLsizei, byval v as const GLfloat ptr)
+	declare sub glViewportIndexedf(byval index as GLuint, byval x as GLfloat, byval y as GLfloat, byval w as GLfloat, byval h as GLfloat)
+	declare sub glViewportIndexedfv(byval index as GLuint, byval v as const GLfloat ptr)
+	declare sub glScissorArrayv(byval first as GLuint, byval count as GLsizei, byval v as const GLint ptr)
+	declare sub glScissorIndexed(byval index as GLuint, byval left as GLint, byval bottom as GLint, byval width as GLsizei, byval height as GLsizei)
+	declare sub glScissorIndexedv(byval index as GLuint, byval v as const GLint ptr)
+	declare sub glDepthRangeArrayv(byval first as GLuint, byval count as GLsizei, byval v as const GLdouble ptr)
+	declare sub glDepthRangeIndexed(byval index as GLuint, byval n as GLdouble, byval f as GLdouble)
+	declare sub glGetFloati_v(byval target as GLenum, byval index as GLuint, byval data as GLfloat ptr)
+	declare sub glGetDoublei_v(byval target as GLenum, byval index as GLuint, byval data as GLdouble ptr)
+#endif
 
 const GL_VERSION_4_2 = 1
 const GL_COPY_READ_BUFFER_BINDING = &h8F36
@@ -1323,9 +1825,24 @@ type PFNGLTEXSTORAGE2DPROC as sub(byval target as GLenum, byval levels as GLsize
 type PFNGLTEXSTORAGE3DPROC as sub(byval target as GLenum, byval levels as GLsizei, byval internalformat as GLenum, byval width as GLsizei, byval height as GLsizei, byval depth as GLsizei)
 type PFNGLDRAWTRANSFORMFEEDBACKINSTANCEDPROC as sub(byval mode as GLenum, byval id as GLuint, byval instancecount as GLsizei)
 type PFNGLDRAWTRANSFORMFEEDBACKSTREAMINSTANCEDPROC as sub(byval mode as GLenum, byval id as GLuint, byval stream as GLuint, byval instancecount as GLsizei)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glDrawArraysInstancedBaseInstance(byval mode as GLenum, byval first as GLint, byval count as GLsizei, byval instancecount as GLsizei, byval baseinstance as GLuint)
+	declare sub glDrawElementsInstancedBaseInstance(byval mode as GLenum, byval count as GLsizei, byval type as GLenum, byval indices as const any ptr, byval instancecount as GLsizei, byval baseinstance as GLuint)
+	declare sub glDrawElementsInstancedBaseVertexBaseInstance(byval mode as GLenum, byval count as GLsizei, byval type as GLenum, byval indices as const any ptr, byval instancecount as GLsizei, byval basevertex as GLint, byval baseinstance as GLuint)
+	declare sub glGetInternalformativ(byval target as GLenum, byval internalformat as GLenum, byval pname as GLenum, byval bufSize as GLsizei, byval params as GLint ptr)
+	declare sub glGetActiveAtomicCounterBufferiv(byval program as GLuint, byval bufferIndex as GLuint, byval pname as GLenum, byval params as GLint ptr)
+	declare sub glBindImageTexture(byval unit as GLuint, byval texture as GLuint, byval level as GLint, byval layered as GLboolean, byval layer as GLint, byval access as GLenum, byval format as GLenum)
+	declare sub glMemoryBarrier(byval barriers as GLbitfield)
+	declare sub glTexStorage1D(byval target as GLenum, byval levels as GLsizei, byval internalformat as GLenum, byval width as GLsizei)
+	declare sub glTexStorage2D(byval target as GLenum, byval levels as GLsizei, byval internalformat as GLenum, byval width as GLsizei, byval height as GLsizei)
+	declare sub glTexStorage3D(byval target as GLenum, byval levels as GLsizei, byval internalformat as GLenum, byval width as GLsizei, byval height as GLsizei, byval depth as GLsizei)
+	declare sub glDrawTransformFeedbackInstanced(byval mode as GLenum, byval id as GLuint, byval instancecount as GLsizei)
+	declare sub glDrawTransformFeedbackStreamInstanced(byval mode as GLenum, byval id as GLuint, byval stream as GLuint, byval instancecount as GLsizei)
+#endif
+
 const GL_VERSION_4_3 = 1
 type GLDEBUGPROC as sub(byval source as GLenum, byval type as GLenum, byval id as GLuint, byval severity as GLenum, byval length as GLsizei, byval message as const zstring ptr, byval userParam as const any ptr)
-
 const GL_NUM_SHADING_LANGUAGE_VERSIONS = &h82E9
 const GL_VERTEX_ATTRIB_ARRAY_LONG = &h874E
 const GL_COMPRESSED_RGB8_ETC2 = &h9274
@@ -1630,6 +2147,52 @@ type PFNGLGETOBJECTLABELPROC as sub(byval identifier as GLenum, byval name as GL
 type PFNGLOBJECTPTRLABELPROC as sub(byval ptr as const any ptr, byval length as GLsizei, byval label as const zstring ptr)
 type PFNGLGETOBJECTPTRLABELPROC as sub(byval ptr as const any ptr, byval bufSize as GLsizei, byval length as GLsizei ptr, byval label as zstring ptr)
 
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glClearBufferData(byval target as GLenum, byval internalformat as GLenum, byval format as GLenum, byval type as GLenum, byval data as const any ptr)
+	declare sub glClearBufferSubData(byval target as GLenum, byval internalformat as GLenum, byval offset as GLintptr, byval size as GLsizeiptr, byval format as GLenum, byval type as GLenum, byval data as const any ptr)
+	declare sub glDispatchCompute(byval num_groups_x as GLuint, byval num_groups_y as GLuint, byval num_groups_z as GLuint)
+	declare sub glDispatchComputeIndirect(byval indirect as GLintptr)
+	declare sub glCopyImageSubData(byval srcName as GLuint, byval srcTarget as GLenum, byval srcLevel as GLint, byval srcX as GLint, byval srcY as GLint, byval srcZ as GLint, byval dstName as GLuint, byval dstTarget as GLenum, byval dstLevel as GLint, byval dstX as GLint, byval dstY as GLint, byval dstZ as GLint, byval srcWidth as GLsizei, byval srcHeight as GLsizei, byval srcDepth as GLsizei)
+	declare sub glFramebufferParameteri(byval target as GLenum, byval pname as GLenum, byval param as GLint)
+	declare sub glGetFramebufferParameteriv(byval target as GLenum, byval pname as GLenum, byval params as GLint ptr)
+	declare sub glGetInternalformati64v(byval target as GLenum, byval internalformat as GLenum, byval pname as GLenum, byval bufSize as GLsizei, byval params as GLint64 ptr)
+	declare sub glInvalidateTexSubImage(byval texture as GLuint, byval level as GLint, byval xoffset as GLint, byval yoffset as GLint, byval zoffset as GLint, byval width as GLsizei, byval height as GLsizei, byval depth as GLsizei)
+	declare sub glInvalidateTexImage(byval texture as GLuint, byval level as GLint)
+	declare sub glInvalidateBufferSubData(byval buffer as GLuint, byval offset as GLintptr, byval length as GLsizeiptr)
+	declare sub glInvalidateBufferData(byval buffer as GLuint)
+	declare sub glInvalidateFramebuffer(byval target as GLenum, byval numAttachments as GLsizei, byval attachments as const GLenum ptr)
+	declare sub glInvalidateSubFramebuffer(byval target as GLenum, byval numAttachments as GLsizei, byval attachments as const GLenum ptr, byval x as GLint, byval y as GLint, byval width as GLsizei, byval height as GLsizei)
+	declare sub glMultiDrawArraysIndirect(byval mode as GLenum, byval indirect as const any ptr, byval drawcount as GLsizei, byval stride as GLsizei)
+	declare sub glMultiDrawElementsIndirect(byval mode as GLenum, byval type as GLenum, byval indirect as const any ptr, byval drawcount as GLsizei, byval stride as GLsizei)
+	declare sub glGetProgramInterfaceiv(byval program as GLuint, byval programInterface as GLenum, byval pname as GLenum, byval params as GLint ptr)
+	declare function glGetProgramResourceIndex(byval program as GLuint, byval programInterface as GLenum, byval name as const zstring ptr) as GLuint
+	declare sub glGetProgramResourceName(byval program as GLuint, byval programInterface as GLenum, byval index as GLuint, byval bufSize as GLsizei, byval length as GLsizei ptr, byval name as zstring ptr)
+	declare sub glGetProgramResourceiv(byval program as GLuint, byval programInterface as GLenum, byval index as GLuint, byval propCount as GLsizei, byval props as const GLenum ptr, byval bufSize as GLsizei, byval length as GLsizei ptr, byval params as GLint ptr)
+	declare function glGetProgramResourceLocation(byval program as GLuint, byval programInterface as GLenum, byval name as const zstring ptr) as GLint
+	declare function glGetProgramResourceLocationIndex(byval program as GLuint, byval programInterface as GLenum, byval name as const zstring ptr) as GLint
+	declare sub glShaderStorageBlockBinding(byval program as GLuint, byval storageBlockIndex as GLuint, byval storageBlockBinding as GLuint)
+	declare sub glTexBufferRange(byval target as GLenum, byval internalformat as GLenum, byval buffer as GLuint, byval offset as GLintptr, byval size as GLsizeiptr)
+	declare sub glTexStorage2DMultisample(byval target as GLenum, byval samples as GLsizei, byval internalformat as GLenum, byval width as GLsizei, byval height as GLsizei, byval fixedsamplelocations as GLboolean)
+	declare sub glTexStorage3DMultisample(byval target as GLenum, byval samples as GLsizei, byval internalformat as GLenum, byval width as GLsizei, byval height as GLsizei, byval depth as GLsizei, byval fixedsamplelocations as GLboolean)
+	declare sub glTextureView(byval texture as GLuint, byval target as GLenum, byval origtexture as GLuint, byval internalformat as GLenum, byval minlevel as GLuint, byval numlevels as GLuint, byval minlayer as GLuint, byval numlayers as GLuint)
+	declare sub glBindVertexBuffer(byval bindingindex as GLuint, byval buffer as GLuint, byval offset as GLintptr, byval stride as GLsizei)
+	declare sub glVertexAttribFormat(byval attribindex as GLuint, byval size as GLint, byval type as GLenum, byval normalized as GLboolean, byval relativeoffset as GLuint)
+	declare sub glVertexAttribIFormat(byval attribindex as GLuint, byval size as GLint, byval type as GLenum, byval relativeoffset as GLuint)
+	declare sub glVertexAttribLFormat(byval attribindex as GLuint, byval size as GLint, byval type as GLenum, byval relativeoffset as GLuint)
+	declare sub glVertexAttribBinding(byval attribindex as GLuint, byval bindingindex as GLuint)
+	declare sub glVertexBindingDivisor(byval bindingindex as GLuint, byval divisor as GLuint)
+	declare sub glDebugMessageControl(byval source as GLenum, byval type as GLenum, byval severity as GLenum, byval count as GLsizei, byval ids as const GLuint ptr, byval enabled as GLboolean)
+	declare sub glDebugMessageInsert(byval source as GLenum, byval type as GLenum, byval id as GLuint, byval severity as GLenum, byval length as GLsizei, byval buf as const zstring ptr)
+	declare sub glDebugMessageCallback(byval callback as GLDEBUGPROC, byval userParam as const any ptr)
+	declare function glGetDebugMessageLog(byval count as GLuint, byval bufSize as GLsizei, byval sources as GLenum ptr, byval types as GLenum ptr, byval ids as GLuint ptr, byval severities as GLenum ptr, byval lengths as GLsizei ptr, byval messageLog as zstring ptr) as GLuint
+	declare sub glPushDebugGroup(byval source as GLenum, byval id as GLuint, byval length as GLsizei, byval message as const zstring ptr)
+	declare sub glPopDebugGroup()
+	declare sub glObjectLabel(byval identifier as GLenum, byval name as GLuint, byval length as GLsizei, byval label as const zstring ptr)
+	declare sub glGetObjectLabel(byval identifier as GLenum, byval name as GLuint, byval bufSize as GLsizei, byval length as GLsizei ptr, byval label as zstring ptr)
+	declare sub glObjectPtrLabel(byval ptr as const any ptr, byval length as GLsizei, byval label as const zstring ptr)
+	declare sub glGetObjectPtrLabel(byval ptr as const any ptr, byval bufSize as GLsizei, byval length as GLsizei ptr, byval label as zstring ptr)
+#endif
+
 const GL_VERSION_4_4 = 1
 const GL_MAX_VERTEX_ATTRIB_STRIDE = &h82E5
 const GL_PRIMITIVE_RESTART_FOR_PATCHES_SUPPORTED = &h8221
@@ -1660,6 +2223,18 @@ type PFNGLBINDTEXTURESPROC as sub(byval first as GLuint, byval count as GLsizei,
 type PFNGLBINDSAMPLERSPROC as sub(byval first as GLuint, byval count as GLsizei, byval samplers as const GLuint ptr)
 type PFNGLBINDIMAGETEXTURESPROC as sub(byval first as GLuint, byval count as GLsizei, byval textures as const GLuint ptr)
 type PFNGLBINDVERTEXBUFFERSPROC as sub(byval first as GLuint, byval count as GLsizei, byval buffers as const GLuint ptr, byval offsets as const GLintptr ptr, byval strides as const GLsizei ptr)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glBufferStorage(byval target as GLenum, byval size as GLsizeiptr, byval data as const any ptr, byval flags as GLbitfield)
+	declare sub glClearTexImage(byval texture as GLuint, byval level as GLint, byval format as GLenum, byval type as GLenum, byval data as const any ptr)
+	declare sub glClearTexSubImage(byval texture as GLuint, byval level as GLint, byval xoffset as GLint, byval yoffset as GLint, byval zoffset as GLint, byval width as GLsizei, byval height as GLsizei, byval depth as GLsizei, byval format as GLenum, byval type as GLenum, byval data as const any ptr)
+	declare sub glBindBuffersBase(byval target as GLenum, byval first as GLuint, byval count as GLsizei, byval buffers as const GLuint ptr)
+	declare sub glBindBuffersRange(byval target as GLenum, byval first as GLuint, byval count as GLsizei, byval buffers as const GLuint ptr, byval offsets as const GLintptr ptr, byval sizes as const GLsizeiptr ptr)
+	declare sub glBindTextures(byval first as GLuint, byval count as GLsizei, byval textures as const GLuint ptr)
+	declare sub glBindSamplers(byval first as GLuint, byval count as GLsizei, byval samplers as const GLuint ptr)
+	declare sub glBindImageTextures(byval first as GLuint, byval count as GLsizei, byval textures as const GLuint ptr)
+	declare sub glBindVertexBuffers(byval first as GLuint, byval count as GLsizei, byval buffers as const GLuint ptr, byval offsets as const GLintptr ptr, byval strides as const GLsizei ptr)
+#endif
 
 const GL_VERSION_4_5 = 1
 const GL_CONTEXT_LOST = &h0507
@@ -1808,6 +2383,131 @@ type PFNGLGETNHISTOGRAMPROC as sub(byval target as GLenum, byval reset as GLbool
 type PFNGLGETNMINMAXPROC as sub(byval target as GLenum, byval reset as GLboolean, byval format as GLenum, byval type as GLenum, byval bufSize as GLsizei, byval values as any ptr)
 type PFNGLTEXTUREBARRIERPROC as sub()
 
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glClipControl(byval origin as GLenum, byval depth as GLenum)
+	declare sub glCreateTransformFeedbacks(byval n as GLsizei, byval ids as GLuint ptr)
+	declare sub glTransformFeedbackBufferBase(byval xfb as GLuint, byval index as GLuint, byval buffer as GLuint)
+	declare sub glTransformFeedbackBufferRange(byval xfb as GLuint, byval index as GLuint, byval buffer as GLuint, byval offset as GLintptr, byval size as GLsizeiptr)
+	declare sub glGetTransformFeedbackiv(byval xfb as GLuint, byval pname as GLenum, byval param as GLint ptr)
+	declare sub glGetTransformFeedbacki_v(byval xfb as GLuint, byval pname as GLenum, byval index as GLuint, byval param as GLint ptr)
+	declare sub glGetTransformFeedbacki64_v(byval xfb as GLuint, byval pname as GLenum, byval index as GLuint, byval param as GLint64 ptr)
+	declare sub glCreateBuffers(byval n as GLsizei, byval buffers as GLuint ptr)
+	declare sub glNamedBufferStorage(byval buffer as GLuint, byval size as GLsizeiptr, byval data as const any ptr, byval flags as GLbitfield)
+	declare sub glNamedBufferData(byval buffer as GLuint, byval size as GLsizeiptr, byval data as const any ptr, byval usage as GLenum)
+	declare sub glNamedBufferSubData(byval buffer as GLuint, byval offset as GLintptr, byval size as GLsizeiptr, byval data as const any ptr)
+	declare sub glCopyNamedBufferSubData(byval readBuffer as GLuint, byval writeBuffer as GLuint, byval readOffset as GLintptr, byval writeOffset as GLintptr, byval size as GLsizeiptr)
+	declare sub glClearNamedBufferData(byval buffer as GLuint, byval internalformat as GLenum, byval format as GLenum, byval type as GLenum, byval data as const any ptr)
+	declare sub glClearNamedBufferSubData(byval buffer as GLuint, byval internalformat as GLenum, byval offset as GLintptr, byval size as GLsizeiptr, byval format as GLenum, byval type as GLenum, byval data as const any ptr)
+	declare function glMapNamedBuffer(byval buffer as GLuint, byval access as GLenum) as any ptr
+	declare function glMapNamedBufferRange(byval buffer as GLuint, byval offset as GLintptr, byval length as GLsizeiptr, byval access as GLbitfield) as any ptr
+	declare function glUnmapNamedBuffer(byval buffer as GLuint) as GLboolean
+	declare sub glFlushMappedNamedBufferRange(byval buffer as GLuint, byval offset as GLintptr, byval length as GLsizeiptr)
+	declare sub glGetNamedBufferParameteriv(byval buffer as GLuint, byval pname as GLenum, byval params as GLint ptr)
+	declare sub glGetNamedBufferParameteri64v(byval buffer as GLuint, byval pname as GLenum, byval params as GLint64 ptr)
+	declare sub glGetNamedBufferPointerv(byval buffer as GLuint, byval pname as GLenum, byval params as any ptr ptr)
+	declare sub glGetNamedBufferSubData(byval buffer as GLuint, byval offset as GLintptr, byval size as GLsizeiptr, byval data as any ptr)
+	declare sub glCreateFramebuffers(byval n as GLsizei, byval framebuffers as GLuint ptr)
+	declare sub glNamedFramebufferRenderbuffer(byval framebuffer as GLuint, byval attachment as GLenum, byval renderbuffertarget as GLenum, byval renderbuffer as GLuint)
+	declare sub glNamedFramebufferParameteri(byval framebuffer as GLuint, byval pname as GLenum, byval param as GLint)
+	declare sub glNamedFramebufferTexture(byval framebuffer as GLuint, byval attachment as GLenum, byval texture as GLuint, byval level as GLint)
+	declare sub glNamedFramebufferTextureLayer(byval framebuffer as GLuint, byval attachment as GLenum, byval texture as GLuint, byval level as GLint, byval layer as GLint)
+	declare sub glNamedFramebufferDrawBuffer(byval framebuffer as GLuint, byval buf as GLenum)
+	declare sub glNamedFramebufferDrawBuffers(byval framebuffer as GLuint, byval n as GLsizei, byval bufs as const GLenum ptr)
+	declare sub glNamedFramebufferReadBuffer(byval framebuffer as GLuint, byval src as GLenum)
+	declare sub glInvalidateNamedFramebufferData(byval framebuffer as GLuint, byval numAttachments as GLsizei, byval attachments as const GLenum ptr)
+	declare sub glInvalidateNamedFramebufferSubData(byval framebuffer as GLuint, byval numAttachments as GLsizei, byval attachments as const GLenum ptr, byval x as GLint, byval y as GLint, byval width as GLsizei, byval height as GLsizei)
+	declare sub glClearNamedFramebufferiv(byval framebuffer as GLuint, byval buffer as GLenum, byval drawbuffer as GLint, byval value as const GLint ptr)
+	declare sub glClearNamedFramebufferuiv(byval framebuffer as GLuint, byval buffer as GLenum, byval drawbuffer as GLint, byval value as const GLuint ptr)
+	declare sub glClearNamedFramebufferfv(byval framebuffer as GLuint, byval buffer as GLenum, byval drawbuffer as GLint, byval value as const GLfloat ptr)
+	declare sub glClearNamedFramebufferfi(byval framebuffer as GLuint, byval buffer as GLenum, byval depth as const GLfloat, byval stencil as GLint)
+	declare sub glBlitNamedFramebuffer(byval readFramebuffer as GLuint, byval drawFramebuffer as GLuint, byval srcX0 as GLint, byval srcY0 as GLint, byval srcX1 as GLint, byval srcY1 as GLint, byval dstX0 as GLint, byval dstY0 as GLint, byval dstX1 as GLint, byval dstY1 as GLint, byval mask as GLbitfield, byval filter as GLenum)
+	declare function glCheckNamedFramebufferStatus(byval framebuffer as GLuint, byval target as GLenum) as GLenum
+	declare sub glGetNamedFramebufferParameteriv(byval framebuffer as GLuint, byval pname as GLenum, byval param as GLint ptr)
+	declare sub glGetNamedFramebufferAttachmentParameteriv(byval framebuffer as GLuint, byval attachment as GLenum, byval pname as GLenum, byval params as GLint ptr)
+	declare sub glCreateRenderbuffers(byval n as GLsizei, byval renderbuffers as GLuint ptr)
+	declare sub glNamedRenderbufferStorage(byval renderbuffer as GLuint, byval internalformat as GLenum, byval width as GLsizei, byval height as GLsizei)
+	declare sub glNamedRenderbufferStorageMultisample(byval renderbuffer as GLuint, byval samples as GLsizei, byval internalformat as GLenum, byval width as GLsizei, byval height as GLsizei)
+	declare sub glGetNamedRenderbufferParameteriv(byval renderbuffer as GLuint, byval pname as GLenum, byval params as GLint ptr)
+	declare sub glCreateTextures(byval target as GLenum, byval n as GLsizei, byval textures as GLuint ptr)
+	declare sub glTextureBuffer(byval texture as GLuint, byval internalformat as GLenum, byval buffer as GLuint)
+	declare sub glTextureBufferRange(byval texture as GLuint, byval internalformat as GLenum, byval buffer as GLuint, byval offset as GLintptr, byval size as GLsizeiptr)
+	declare sub glTextureStorage1D(byval texture as GLuint, byval levels as GLsizei, byval internalformat as GLenum, byval width as GLsizei)
+	declare sub glTextureStorage2D(byval texture as GLuint, byval levels as GLsizei, byval internalformat as GLenum, byval width as GLsizei, byval height as GLsizei)
+	declare sub glTextureStorage3D(byval texture as GLuint, byval levels as GLsizei, byval internalformat as GLenum, byval width as GLsizei, byval height as GLsizei, byval depth as GLsizei)
+	declare sub glTextureStorage2DMultisample(byval texture as GLuint, byval samples as GLsizei, byval internalformat as GLenum, byval width as GLsizei, byval height as GLsizei, byval fixedsamplelocations as GLboolean)
+	declare sub glTextureStorage3DMultisample(byval texture as GLuint, byval samples as GLsizei, byval internalformat as GLenum, byval width as GLsizei, byval height as GLsizei, byval depth as GLsizei, byval fixedsamplelocations as GLboolean)
+	declare sub glTextureSubImage1D(byval texture as GLuint, byval level as GLint, byval xoffset as GLint, byval width as GLsizei, byval format as GLenum, byval type as GLenum, byval pixels as const any ptr)
+	declare sub glTextureSubImage2D(byval texture as GLuint, byval level as GLint, byval xoffset as GLint, byval yoffset as GLint, byval width as GLsizei, byval height as GLsizei, byval format as GLenum, byval type as GLenum, byval pixels as const any ptr)
+	declare sub glTextureSubImage3D(byval texture as GLuint, byval level as GLint, byval xoffset as GLint, byval yoffset as GLint, byval zoffset as GLint, byval width as GLsizei, byval height as GLsizei, byval depth as GLsizei, byval format as GLenum, byval type as GLenum, byval pixels as const any ptr)
+	declare sub glCompressedTextureSubImage1D(byval texture as GLuint, byval level as GLint, byval xoffset as GLint, byval width as GLsizei, byval format as GLenum, byval imageSize as GLsizei, byval data as const any ptr)
+	declare sub glCompressedTextureSubImage2D(byval texture as GLuint, byval level as GLint, byval xoffset as GLint, byval yoffset as GLint, byval width as GLsizei, byval height as GLsizei, byval format as GLenum, byval imageSize as GLsizei, byval data as const any ptr)
+	declare sub glCompressedTextureSubImage3D(byval texture as GLuint, byval level as GLint, byval xoffset as GLint, byval yoffset as GLint, byval zoffset as GLint, byval width as GLsizei, byval height as GLsizei, byval depth as GLsizei, byval format as GLenum, byval imageSize as GLsizei, byval data as const any ptr)
+	declare sub glCopyTextureSubImage1D(byval texture as GLuint, byval level as GLint, byval xoffset as GLint, byval x as GLint, byval y as GLint, byval width as GLsizei)
+	declare sub glCopyTextureSubImage2D(byval texture as GLuint, byval level as GLint, byval xoffset as GLint, byval yoffset as GLint, byval x as GLint, byval y as GLint, byval width as GLsizei, byval height as GLsizei)
+	declare sub glCopyTextureSubImage3D(byval texture as GLuint, byval level as GLint, byval xoffset as GLint, byval yoffset as GLint, byval zoffset as GLint, byval x as GLint, byval y as GLint, byval width as GLsizei, byval height as GLsizei)
+	declare sub glTextureParameterf(byval texture as GLuint, byval pname as GLenum, byval param as GLfloat)
+	declare sub glTextureParameterfv(byval texture as GLuint, byval pname as GLenum, byval param as const GLfloat ptr)
+	declare sub glTextureParameteri(byval texture as GLuint, byval pname as GLenum, byval param as GLint)
+	declare sub glTextureParameterIiv(byval texture as GLuint, byval pname as GLenum, byval params as const GLint ptr)
+	declare sub glTextureParameterIuiv(byval texture as GLuint, byval pname as GLenum, byval params as const GLuint ptr)
+	declare sub glTextureParameteriv(byval texture as GLuint, byval pname as GLenum, byval param as const GLint ptr)
+	declare sub glGenerateTextureMipmap(byval texture as GLuint)
+	declare sub glBindTextureUnit(byval unit as GLuint, byval texture as GLuint)
+	declare sub glGetTextureImage(byval texture as GLuint, byval level as GLint, byval format as GLenum, byval type as GLenum, byval bufSize as GLsizei, byval pixels as any ptr)
+	declare sub glGetCompressedTextureImage(byval texture as GLuint, byval level as GLint, byval bufSize as GLsizei, byval pixels as any ptr)
+	declare sub glGetTextureLevelParameterfv(byval texture as GLuint, byval level as GLint, byval pname as GLenum, byval params as GLfloat ptr)
+	declare sub glGetTextureLevelParameteriv(byval texture as GLuint, byval level as GLint, byval pname as GLenum, byval params as GLint ptr)
+	declare sub glGetTextureParameterfv(byval texture as GLuint, byval pname as GLenum, byval params as GLfloat ptr)
+	declare sub glGetTextureParameterIiv(byval texture as GLuint, byval pname as GLenum, byval params as GLint ptr)
+	declare sub glGetTextureParameterIuiv(byval texture as GLuint, byval pname as GLenum, byval params as GLuint ptr)
+	declare sub glGetTextureParameteriv(byval texture as GLuint, byval pname as GLenum, byval params as GLint ptr)
+	declare sub glCreateVertexArrays(byval n as GLsizei, byval arrays as GLuint ptr)
+	declare sub glDisableVertexArrayAttrib(byval vaobj as GLuint, byval index as GLuint)
+	declare sub glEnableVertexArrayAttrib(byval vaobj as GLuint, byval index as GLuint)
+	declare sub glVertexArrayElementBuffer(byval vaobj as GLuint, byval buffer as GLuint)
+	declare sub glVertexArrayVertexBuffer(byval vaobj as GLuint, byval bindingindex as GLuint, byval buffer as GLuint, byval offset as GLintptr, byval stride as GLsizei)
+	declare sub glVertexArrayVertexBuffers(byval vaobj as GLuint, byval first as GLuint, byval count as GLsizei, byval buffers as const GLuint ptr, byval offsets as const GLintptr ptr, byval strides as const GLsizei ptr)
+	declare sub glVertexArrayAttribBinding(byval vaobj as GLuint, byval attribindex as GLuint, byval bindingindex as GLuint)
+	declare sub glVertexArrayAttribFormat(byval vaobj as GLuint, byval attribindex as GLuint, byval size as GLint, byval type as GLenum, byval normalized as GLboolean, byval relativeoffset as GLuint)
+	declare sub glVertexArrayAttribIFormat(byval vaobj as GLuint, byval attribindex as GLuint, byval size as GLint, byval type as GLenum, byval relativeoffset as GLuint)
+	declare sub glVertexArrayAttribLFormat(byval vaobj as GLuint, byval attribindex as GLuint, byval size as GLint, byval type as GLenum, byval relativeoffset as GLuint)
+	declare sub glVertexArrayBindingDivisor(byval vaobj as GLuint, byval bindingindex as GLuint, byval divisor as GLuint)
+	declare sub glGetVertexArrayiv(byval vaobj as GLuint, byval pname as GLenum, byval param as GLint ptr)
+	declare sub glGetVertexArrayIndexediv(byval vaobj as GLuint, byval index as GLuint, byval pname as GLenum, byval param as GLint ptr)
+	declare sub glGetVertexArrayIndexed64iv(byval vaobj as GLuint, byval index as GLuint, byval pname as GLenum, byval param as GLint64 ptr)
+	declare sub glCreateSamplers(byval n as GLsizei, byval samplers as GLuint ptr)
+	declare sub glCreateProgramPipelines(byval n as GLsizei, byval pipelines as GLuint ptr)
+	declare sub glCreateQueries(byval target as GLenum, byval n as GLsizei, byval ids as GLuint ptr)
+	declare sub glGetQueryBufferObjecti64v(byval id as GLuint, byval buffer as GLuint, byval pname as GLenum, byval offset as GLintptr)
+	declare sub glGetQueryBufferObjectiv(byval id as GLuint, byval buffer as GLuint, byval pname as GLenum, byval offset as GLintptr)
+	declare sub glGetQueryBufferObjectui64v(byval id as GLuint, byval buffer as GLuint, byval pname as GLenum, byval offset as GLintptr)
+	declare sub glGetQueryBufferObjectuiv(byval id as GLuint, byval buffer as GLuint, byval pname as GLenum, byval offset as GLintptr)
+	declare sub glMemoryBarrierByRegion(byval barriers as GLbitfield)
+	declare sub glGetTextureSubImage(byval texture as GLuint, byval level as GLint, byval xoffset as GLint, byval yoffset as GLint, byval zoffset as GLint, byval width as GLsizei, byval height as GLsizei, byval depth as GLsizei, byval format as GLenum, byval type as GLenum, byval bufSize as GLsizei, byval pixels as any ptr)
+	declare sub glGetCompressedTextureSubImage(byval texture as GLuint, byval level as GLint, byval xoffset as GLint, byval yoffset as GLint, byval zoffset as GLint, byval width as GLsizei, byval height as GLsizei, byval depth as GLsizei, byval bufSize as GLsizei, byval pixels as any ptr)
+	declare function glGetGraphicsResetStatus() as GLenum
+	declare sub glGetnCompressedTexImage(byval target as GLenum, byval lod as GLint, byval bufSize as GLsizei, byval pixels as any ptr)
+	declare sub glGetnTexImage(byval target as GLenum, byval level as GLint, byval format as GLenum, byval type as GLenum, byval bufSize as GLsizei, byval pixels as any ptr)
+	declare sub glGetnUniformdv(byval program as GLuint, byval location as GLint, byval bufSize as GLsizei, byval params as GLdouble ptr)
+	declare sub glGetnUniformfv(byval program as GLuint, byval location as GLint, byval bufSize as GLsizei, byval params as GLfloat ptr)
+	declare sub glGetnUniformiv(byval program as GLuint, byval location as GLint, byval bufSize as GLsizei, byval params as GLint ptr)
+	declare sub glGetnUniformuiv(byval program as GLuint, byval location as GLint, byval bufSize as GLsizei, byval params as GLuint ptr)
+	declare sub glReadnPixels(byval x as GLint, byval y as GLint, byval width as GLsizei, byval height as GLsizei, byval format as GLenum, byval type as GLenum, byval bufSize as GLsizei, byval data as any ptr)
+	declare sub glGetnMapdv(byval target as GLenum, byval query as GLenum, byval bufSize as GLsizei, byval v as GLdouble ptr)
+	declare sub glGetnMapfv(byval target as GLenum, byval query as GLenum, byval bufSize as GLsizei, byval v as GLfloat ptr)
+	declare sub glGetnMapiv(byval target as GLenum, byval query as GLenum, byval bufSize as GLsizei, byval v as GLint ptr)
+	declare sub glGetnPixelMapfv(byval map as GLenum, byval bufSize as GLsizei, byval values as GLfloat ptr)
+	declare sub glGetnPixelMapuiv(byval map as GLenum, byval bufSize as GLsizei, byval values as GLuint ptr)
+	declare sub glGetnPixelMapusv(byval map as GLenum, byval bufSize as GLsizei, byval values as GLushort ptr)
+	declare sub glGetnPolygonStipple(byval bufSize as GLsizei, byval pattern as GLubyte ptr)
+	declare sub glGetnColorTable(byval target as GLenum, byval format as GLenum, byval type as GLenum, byval bufSize as GLsizei, byval table as any ptr)
+	declare sub glGetnConvolutionFilter(byval target as GLenum, byval format as GLenum, byval type as GLenum, byval bufSize as GLsizei, byval image as any ptr)
+	declare sub glGetnSeparableFilter(byval target as GLenum, byval format as GLenum, byval type as GLenum, byval rowBufSize as GLsizei, byval row as any ptr, byval columnBufSize as GLsizei, byval column as any ptr, byval span as any ptr)
+	declare sub glGetnHistogram(byval target as GLenum, byval reset as GLboolean, byval format as GLenum, byval type as GLenum, byval bufSize as GLsizei, byval values as any ptr)
+	declare sub glGetnMinmax(byval target as GLenum, byval reset as GLboolean, byval format as GLenum, byval type as GLenum, byval bufSize as GLsizei, byval values as any ptr)
+	declare sub glTextureBarrier()
+#endif
+
 const GL_ARB_ES2_compatibility = 1
 const GL_ARB_ES3_1_compatibility = 1
 const GL_ARB_ES3_compatibility = 1
@@ -1834,6 +2534,25 @@ type PFNGLVERTEXATTRIBL1UI64ARBPROC as sub(byval index as GLuint, byval x as GLu
 type PFNGLVERTEXATTRIBL1UI64VARBPROC as sub(byval index as GLuint, byval v as const GLuint64EXT ptr)
 type PFNGLGETVERTEXATTRIBLUI64VARBPROC as sub(byval index as GLuint, byval pname as GLenum, byval params as GLuint64EXT ptr)
 
+#ifdef GL_GLEXT_PROTOTYPES
+	declare function glGetTextureHandleARB(byval texture as GLuint) as GLuint64
+	declare function glGetTextureSamplerHandleARB(byval texture as GLuint, byval sampler as GLuint) as GLuint64
+	declare sub glMakeTextureHandleResidentARB(byval handle as GLuint64)
+	declare sub glMakeTextureHandleNonResidentARB(byval handle as GLuint64)
+	declare function glGetImageHandleARB(byval texture as GLuint, byval level as GLint, byval layered as GLboolean, byval layer as GLint, byval format as GLenum) as GLuint64
+	declare sub glMakeImageHandleResidentARB(byval handle as GLuint64, byval access as GLenum)
+	declare sub glMakeImageHandleNonResidentARB(byval handle as GLuint64)
+	declare sub glUniformHandleui64ARB(byval location as GLint, byval value as GLuint64)
+	declare sub glUniformHandleui64vARB(byval location as GLint, byval count as GLsizei, byval value as const GLuint64 ptr)
+	declare sub glProgramUniformHandleui64ARB(byval program as GLuint, byval location as GLint, byval value as GLuint64)
+	declare sub glProgramUniformHandleui64vARB(byval program as GLuint, byval location as GLint, byval count as GLsizei, byval values as const GLuint64 ptr)
+	declare function glIsTextureHandleResidentARB(byval handle as GLuint64) as GLboolean
+	declare function glIsImageHandleResidentARB(byval handle as GLuint64) as GLboolean
+	declare sub glVertexAttribL1ui64ARB(byval index as GLuint, byval x as GLuint64EXT)
+	declare sub glVertexAttribL1ui64vARB(byval index as GLuint, byval v as const GLuint64EXT ptr)
+	declare sub glGetVertexAttribLui64vARB(byval index as GLuint, byval pname as GLenum, byval params as GLuint64EXT ptr)
+#endif
+
 const GL_ARB_blend_func_extended = 1
 const GL_ARB_buffer_storage = 1
 const GL_ARB_cl_event = 1
@@ -1843,6 +2562,10 @@ const GL_SYNC_CL_EVENT_COMPLETE_ARB = &h8241
 type _cl_context as _cl_context_
 type _cl_event as _cl_event_
 type PFNGLCREATESYNCFROMCLEVENTARBPROC as function(byval context as _cl_context ptr, byval event as _cl_event ptr, byval flags as GLbitfield) as GLsync
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare function glCreateSyncFromCLeventARB(byval context as _cl_context ptr, byval event as _cl_event ptr, byval flags as GLbitfield) as GLsync
+#endif
 
 const GL_ARB_clear_buffer_object = 1
 const GL_ARB_clear_texture = 1
@@ -1854,6 +2577,11 @@ const GL_CLAMP_FRAGMENT_COLOR_ARB = &h891B
 const GL_CLAMP_READ_COLOR_ARB = &h891C
 const GL_FIXED_ONLY_ARB = &h891D
 type PFNGLCLAMPCOLORARBPROC as sub(byval target as GLenum, byval clamp as GLenum)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glClampColorARB(byval target as GLenum, byval clamp as GLenum)
+#endif
+
 const GL_ARB_compatibility = 1
 const GL_ARB_compressed_texture_pixel_storage = 1
 const GL_ARB_compute_shader = 1
@@ -1863,6 +2591,11 @@ const GL_MAX_COMPUTE_FIXED_GROUP_INVOCATIONS_ARB = &h90EB
 const GL_MAX_COMPUTE_VARIABLE_GROUP_SIZE_ARB = &h9345
 const GL_MAX_COMPUTE_FIXED_GROUP_SIZE_ARB = &h91BF
 type PFNGLDISPATCHCOMPUTEGROUPSIZEARBPROC as sub(byval num_groups_x as GLuint, byval num_groups_y as GLuint, byval num_groups_z as GLuint, byval group_size_x as GLuint, byval group_size_y as GLuint, byval group_size_z as GLuint)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glDispatchComputeGroupSizeARB(byval num_groups_x as GLuint, byval num_groups_y as GLuint, byval num_groups_z as GLuint, byval group_size_x as GLuint, byval group_size_y as GLuint, byval group_size_z as GLuint)
+#endif
+
 const GL_ARB_conditional_render_inverted = 1
 const GL_ARB_conservative_depth = 1
 const GL_ARB_copy_buffer = 1
@@ -1898,6 +2631,13 @@ type PFNGLDEBUGMESSAGEINSERTARBPROC as sub(byval source as GLenum, byval type as
 type PFNGLDEBUGMESSAGECALLBACKARBPROC as sub(byval callback as GLDEBUGPROCARB, byval userParam as const any ptr)
 type PFNGLGETDEBUGMESSAGELOGARBPROC as function(byval count as GLuint, byval bufSize as GLsizei, byval sources as GLenum ptr, byval types as GLenum ptr, byval ids as GLuint ptr, byval severities as GLenum ptr, byval lengths as GLsizei ptr, byval messageLog as zstring ptr) as GLuint
 
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glDebugMessageControlARB(byval source as GLenum, byval type as GLenum, byval severity as GLenum, byval count as GLsizei, byval ids as const GLuint ptr, byval enabled as GLboolean)
+	declare sub glDebugMessageInsertARB(byval source as GLenum, byval type as GLenum, byval id as GLuint, byval severity as GLenum, byval length as GLsizei, byval buf as const zstring ptr)
+	declare sub glDebugMessageCallbackARB(byval callback as GLDEBUGPROCARB, byval userParam as const any ptr)
+	declare function glGetDebugMessageLogARB(byval count as GLuint, byval bufSize as GLsizei, byval sources as GLenum ptr, byval types as GLenum ptr, byval ids as GLuint ptr, byval severities as GLenum ptr, byval lengths as GLsizei ptr, byval messageLog as zstring ptr) as GLuint
+#endif
+
 const GL_ARB_depth_buffer_float = 1
 const GL_ARB_depth_clamp = 1
 const GL_ARB_depth_texture = 1
@@ -1927,18 +2667,35 @@ const GL_DRAW_BUFFER13_ARB = &h8832
 const GL_DRAW_BUFFER14_ARB = &h8833
 const GL_DRAW_BUFFER15_ARB = &h8834
 type PFNGLDRAWBUFFERSARBPROC as sub(byval n as GLsizei, byval bufs as const GLenum ptr)
-const GL_ARB_draw_buffers_blend = 1
 
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glDrawBuffersARB(byval n as GLsizei, byval bufs as const GLenum ptr)
+#endif
+
+const GL_ARB_draw_buffers_blend = 1
 type PFNGLBLENDEQUATIONIARBPROC as sub(byval buf as GLuint, byval mode as GLenum)
 type PFNGLBLENDEQUATIONSEPARATEIARBPROC as sub(byval buf as GLuint, byval modeRGB as GLenum, byval modeAlpha as GLenum)
 type PFNGLBLENDFUNCIARBPROC as sub(byval buf as GLuint, byval src as GLenum, byval dst as GLenum)
 type PFNGLBLENDFUNCSEPARATEIARBPROC as sub(byval buf as GLuint, byval srcRGB as GLenum, byval dstRGB as GLenum, byval srcAlpha as GLenum, byval dstAlpha as GLenum)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glBlendEquationiARB(byval buf as GLuint, byval mode as GLenum)
+	declare sub glBlendEquationSeparateiARB(byval buf as GLuint, byval modeRGB as GLenum, byval modeAlpha as GLenum)
+	declare sub glBlendFunciARB(byval buf as GLuint, byval src as GLenum, byval dst as GLenum)
+	declare sub glBlendFuncSeparateiARB(byval buf as GLuint, byval srcRGB as GLenum, byval dstRGB as GLenum, byval srcAlpha as GLenum, byval dstAlpha as GLenum)
+#endif
 
 const GL_ARB_draw_elements_base_vertex = 1
 const GL_ARB_draw_indirect = 1
 const GL_ARB_draw_instanced = 1
 type PFNGLDRAWARRAYSINSTANCEDARBPROC as sub(byval mode as GLenum, byval first as GLint, byval count as GLsizei, byval primcount as GLsizei)
 type PFNGLDRAWELEMENTSINSTANCEDARBPROC as sub(byval mode as GLenum, byval count as GLsizei, byval type as GLenum, byval indices as const any ptr, byval primcount as GLsizei)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glDrawArraysInstancedARB(byval mode as GLenum, byval first as GLint, byval count as GLsizei, byval primcount as GLsizei)
+	declare sub glDrawElementsInstancedARB(byval mode as GLenum, byval count as GLsizei, byval type as GLenum, byval indices as const any ptr, byval primcount as GLsizei)
+#endif
+
 const GL_ARB_enhanced_layouts = 1
 const GL_ARB_explicit_attrib_location = 1
 const GL_ARB_explicit_uniform_location = 1
@@ -2044,6 +2801,28 @@ type PFNGLGETPROGRAMIVARBPROC as sub(byval target as GLenum, byval pname as GLen
 type PFNGLGETPROGRAMSTRINGARBPROC as sub(byval target as GLenum, byval pname as GLenum, byval string as any ptr)
 type PFNGLISPROGRAMARBPROC as function(byval program as GLuint) as GLboolean
 
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glProgramStringARB(byval target as GLenum, byval format as GLenum, byval len as GLsizei, byval string as const any ptr)
+	declare sub glBindProgramARB(byval target as GLenum, byval program as GLuint)
+	declare sub glDeleteProgramsARB(byval n as GLsizei, byval programs as const GLuint ptr)
+	declare sub glGenProgramsARB(byval n as GLsizei, byval programs as GLuint ptr)
+	declare sub glProgramEnvParameter4dARB(byval target as GLenum, byval index as GLuint, byval x as GLdouble, byval y as GLdouble, byval z as GLdouble, byval w as GLdouble)
+	declare sub glProgramEnvParameter4dvARB(byval target as GLenum, byval index as GLuint, byval params as const GLdouble ptr)
+	declare sub glProgramEnvParameter4fARB(byval target as GLenum, byval index as GLuint, byval x as GLfloat, byval y as GLfloat, byval z as GLfloat, byval w as GLfloat)
+	declare sub glProgramEnvParameter4fvARB(byval target as GLenum, byval index as GLuint, byval params as const GLfloat ptr)
+	declare sub glProgramLocalParameter4dARB(byval target as GLenum, byval index as GLuint, byval x as GLdouble, byval y as GLdouble, byval z as GLdouble, byval w as GLdouble)
+	declare sub glProgramLocalParameter4dvARB(byval target as GLenum, byval index as GLuint, byval params as const GLdouble ptr)
+	declare sub glProgramLocalParameter4fARB(byval target as GLenum, byval index as GLuint, byval x as GLfloat, byval y as GLfloat, byval z as GLfloat, byval w as GLfloat)
+	declare sub glProgramLocalParameter4fvARB(byval target as GLenum, byval index as GLuint, byval params as const GLfloat ptr)
+	declare sub glGetProgramEnvParameterdvARB(byval target as GLenum, byval index as GLuint, byval params as GLdouble ptr)
+	declare sub glGetProgramEnvParameterfvARB(byval target as GLenum, byval index as GLuint, byval params as GLfloat ptr)
+	declare sub glGetProgramLocalParameterdvARB(byval target as GLenum, byval index as GLuint, byval params as GLdouble ptr)
+	declare sub glGetProgramLocalParameterfvARB(byval target as GLenum, byval index as GLuint, byval params as GLfloat ptr)
+	declare sub glGetProgramivARB(byval target as GLenum, byval pname as GLenum, byval params as GLint ptr)
+	declare sub glGetProgramStringARB(byval target as GLenum, byval pname as GLenum, byval string as any ptr)
+	declare function glIsProgramARB(byval program as GLuint) as GLboolean
+#endif
+
 const GL_ARB_fragment_program_shadow = 1
 const GL_ARB_fragment_shader = 1
 const GL_FRAGMENT_SHADER_ARB = &h8B30
@@ -2077,6 +2856,13 @@ type PFNGLFRAMEBUFFERTEXTUREARBPROC as sub(byval target as GLenum, byval attachm
 type PFNGLFRAMEBUFFERTEXTURELAYERARBPROC as sub(byval target as GLenum, byval attachment as GLenum, byval texture as GLuint, byval level as GLint, byval layer as GLint)
 type PFNGLFRAMEBUFFERTEXTUREFACEARBPROC as sub(byval target as GLenum, byval attachment as GLenum, byval texture as GLuint, byval level as GLint, byval face as GLenum)
 
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glProgramParameteriARB(byval program as GLuint, byval pname as GLenum, byval value as GLint)
+	declare sub glFramebufferTextureARB(byval target as GLenum, byval attachment as GLenum, byval texture as GLuint, byval level as GLint)
+	declare sub glFramebufferTextureLayerARB(byval target as GLenum, byval attachment as GLenum, byval texture as GLuint, byval level as GLint, byval layer as GLint)
+	declare sub glFramebufferTextureFaceARB(byval target as GLenum, byval attachment as GLenum, byval texture as GLuint, byval level as GLint, byval face as GLenum)
+#endif
+
 const GL_ARB_get_program_binary = 1
 const GL_ARB_get_texture_sub_image = 1
 const GL_ARB_gpu_shader5 = 1
@@ -2090,9 +2876,20 @@ const GL_PARAMETER_BUFFER_ARB = &h80EE
 const GL_PARAMETER_BUFFER_BINDING_ARB = &h80EF
 type PFNGLMULTIDRAWARRAYSINDIRECTCOUNTARBPROC as sub(byval mode as GLenum, byval indirect as GLintptr, byval drawcount as GLintptr, byval maxdrawcount as GLsizei, byval stride as GLsizei)
 type PFNGLMULTIDRAWELEMENTSINDIRECTCOUNTARBPROC as sub(byval mode as GLenum, byval type as GLenum, byval indirect as GLintptr, byval drawcount as GLintptr, byval maxdrawcount as GLsizei, byval stride as GLsizei)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glMultiDrawArraysIndirectCountARB(byval mode as GLenum, byval indirect as GLintptr, byval drawcount as GLintptr, byval maxdrawcount as GLsizei, byval stride as GLsizei)
+	declare sub glMultiDrawElementsIndirectCountARB(byval mode as GLenum, byval type as GLenum, byval indirect as GLintptr, byval drawcount as GLintptr, byval maxdrawcount as GLsizei, byval stride as GLsizei)
+#endif
+
 const GL_ARB_instanced_arrays = 1
 const GL_VERTEX_ATTRIB_ARRAY_DIVISOR_ARB = &h88FE
 type PFNGLVERTEXATTRIBDIVISORARBPROC as sub(byval index as GLuint, byval divisor as GLuint)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glVertexAttribDivisorARB(byval index as GLuint, byval divisor as GLuint)
+#endif
+
 const GL_ARB_internalformat_query = 1
 const GL_ARB_internalformat_query2 = 1
 const GL_SRGB_DECODE_ARB = &h8299
@@ -2117,6 +2914,14 @@ type PFNGLMATRIXINDEXUSVARBPROC as sub(byval size as GLint, byval indices as con
 type PFNGLMATRIXINDEXUIVARBPROC as sub(byval size as GLint, byval indices as const GLuint ptr)
 type PFNGLMATRIXINDEXPOINTERARBPROC as sub(byval size as GLint, byval type as GLenum, byval stride as GLsizei, byval pointer as const any ptr)
 
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glCurrentPaletteMatrixARB(byval index as GLint)
+	declare sub glMatrixIndexubvARB(byval size as GLint, byval indices as const GLubyte ptr)
+	declare sub glMatrixIndexusvARB(byval size as GLint, byval indices as const GLushort ptr)
+	declare sub glMatrixIndexuivARB(byval size as GLint, byval indices as const GLuint ptr)
+	declare sub glMatrixIndexPointerARB(byval size as GLint, byval type as GLenum, byval stride as GLsizei, byval pointer as const any ptr)
+#endif
+
 const GL_ARB_multi_bind = 1
 const GL_ARB_multi_draw_indirect = 1
 const GL_ARB_multisample = 1
@@ -2130,6 +2935,11 @@ const GL_SAMPLE_COVERAGE_VALUE_ARB = &h80AA
 const GL_SAMPLE_COVERAGE_INVERT_ARB = &h80AB
 const GL_MULTISAMPLE_BIT_ARB = &h20000000
 type PFNGLSAMPLECOVERAGEARBPROC as sub(byval value as GLfloat, byval invert as GLboolean)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glSampleCoverageARB(byval value as GLfloat, byval invert as GLboolean)
+#endif
+
 const GL_ARB_occlusion_query = 1
 const GL_QUERY_COUNTER_BITS_ARB = &h8864
 const GL_CURRENT_QUERY_ARB = &h8865
@@ -2145,6 +2955,17 @@ type PFNGLENDQUERYARBPROC as sub(byval target as GLenum)
 type PFNGLGETQUERYIVARBPROC as sub(byval target as GLenum, byval pname as GLenum, byval params as GLint ptr)
 type PFNGLGETQUERYOBJECTIVARBPROC as sub(byval id as GLuint, byval pname as GLenum, byval params as GLint ptr)
 type PFNGLGETQUERYOBJECTUIVARBPROC as sub(byval id as GLuint, byval pname as GLenum, byval params as GLuint ptr)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glGenQueriesARB(byval n as GLsizei, byval ids as GLuint ptr)
+	declare sub glDeleteQueriesARB(byval n as GLsizei, byval ids as const GLuint ptr)
+	declare function glIsQueryARB(byval id as GLuint) as GLboolean
+	declare sub glBeginQueryARB(byval target as GLenum, byval id as GLuint)
+	declare sub glEndQueryARB(byval target as GLenum)
+	declare sub glGetQueryivARB(byval target as GLenum, byval pname as GLenum, byval params as GLint ptr)
+	declare sub glGetQueryObjectivARB(byval id as GLuint, byval pname as GLenum, byval params as GLint ptr)
+	declare sub glGetQueryObjectuivARB(byval id as GLuint, byval pname as GLenum, byval params as GLuint ptr)
+#endif
 
 const GL_ARB_occlusion_query2 = 1
 const GL_ARB_pipeline_statistics_query = 1
@@ -2170,6 +2991,12 @@ const GL_POINT_FADE_THRESHOLD_SIZE_ARB = &h8128
 const GL_POINT_DISTANCE_ATTENUATION_ARB = &h8129
 type PFNGLPOINTPARAMETERFARBPROC as sub(byval pname as GLenum, byval param as GLfloat)
 type PFNGLPOINTPARAMETERFVARBPROC as sub(byval pname as GLenum, byval params as const GLfloat ptr)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glPointParameterfARB(byval pname as GLenum, byval param as GLfloat)
+	declare sub glPointParameterfvARB(byval pname as GLenum, byval params as const GLfloat ptr)
+#endif
+
 const GL_ARB_point_sprite = 1
 const GL_POINT_SPRITE_ARB = &h8861
 const GL_COORD_REPLACE_ARB = &h8862
@@ -2207,11 +3034,39 @@ type PFNGLGETNSEPARABLEFILTERARBPROC as sub(byval target as GLenum, byval format
 type PFNGLGETNHISTOGRAMARBPROC as sub(byval target as GLenum, byval reset as GLboolean, byval format as GLenum, byval type as GLenum, byval bufSize as GLsizei, byval values as any ptr)
 type PFNGLGETNMINMAXARBPROC as sub(byval target as GLenum, byval reset as GLboolean, byval format as GLenum, byval type as GLenum, byval bufSize as GLsizei, byval values as any ptr)
 
+#ifdef GL_GLEXT_PROTOTYPES
+	declare function glGetGraphicsResetStatusARB() as GLenum
+	declare sub glGetnTexImageARB(byval target as GLenum, byval level as GLint, byval format as GLenum, byval type as GLenum, byval bufSize as GLsizei, byval img as any ptr)
+	declare sub glReadnPixelsARB(byval x as GLint, byval y as GLint, byval width as GLsizei, byval height as GLsizei, byval format as GLenum, byval type as GLenum, byval bufSize as GLsizei, byval data as any ptr)
+	declare sub glGetnCompressedTexImageARB(byval target as GLenum, byval lod as GLint, byval bufSize as GLsizei, byval img as any ptr)
+	declare sub glGetnUniformfvARB(byval program as GLuint, byval location as GLint, byval bufSize as GLsizei, byval params as GLfloat ptr)
+	declare sub glGetnUniformivARB(byval program as GLuint, byval location as GLint, byval bufSize as GLsizei, byval params as GLint ptr)
+	declare sub glGetnUniformuivARB(byval program as GLuint, byval location as GLint, byval bufSize as GLsizei, byval params as GLuint ptr)
+	declare sub glGetnUniformdvARB(byval program as GLuint, byval location as GLint, byval bufSize as GLsizei, byval params as GLdouble ptr)
+	declare sub glGetnMapdvARB(byval target as GLenum, byval query as GLenum, byval bufSize as GLsizei, byval v as GLdouble ptr)
+	declare sub glGetnMapfvARB(byval target as GLenum, byval query as GLenum, byval bufSize as GLsizei, byval v as GLfloat ptr)
+	declare sub glGetnMapivARB(byval target as GLenum, byval query as GLenum, byval bufSize as GLsizei, byval v as GLint ptr)
+	declare sub glGetnPixelMapfvARB(byval map as GLenum, byval bufSize as GLsizei, byval values as GLfloat ptr)
+	declare sub glGetnPixelMapuivARB(byval map as GLenum, byval bufSize as GLsizei, byval values as GLuint ptr)
+	declare sub glGetnPixelMapusvARB(byval map as GLenum, byval bufSize as GLsizei, byval values as GLushort ptr)
+	declare sub glGetnPolygonStippleARB(byval bufSize as GLsizei, byval pattern as GLubyte ptr)
+	declare sub glGetnColorTableARB(byval target as GLenum, byval format as GLenum, byval type as GLenum, byval bufSize as GLsizei, byval table as any ptr)
+	declare sub glGetnConvolutionFilterARB(byval target as GLenum, byval format as GLenum, byval type as GLenum, byval bufSize as GLsizei, byval image as any ptr)
+	declare sub glGetnSeparableFilterARB(byval target as GLenum, byval format as GLenum, byval type as GLenum, byval rowBufSize as GLsizei, byval row as any ptr, byval columnBufSize as GLsizei, byval column as any ptr, byval span as any ptr)
+	declare sub glGetnHistogramARB(byval target as GLenum, byval reset as GLboolean, byval format as GLenum, byval type as GLenum, byval bufSize as GLsizei, byval values as any ptr)
+	declare sub glGetnMinmaxARB(byval target as GLenum, byval reset as GLboolean, byval format as GLenum, byval type as GLenum, byval bufSize as GLsizei, byval values as any ptr)
+#endif
+
 const GL_ARB_robustness_isolation = 1
 const GL_ARB_sample_shading = 1
 const GL_SAMPLE_SHADING_ARB = &h8C36
 const GL_MIN_SAMPLE_SHADING_VALUE_ARB = &h8C37
 type PFNGLMINSAMPLESHADINGARBPROC as sub(byval value as GLfloat)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glMinSampleShadingARB(byval value as GLfloat)
+#endif
+
 const GL_ARB_sampler_objects = 1
 const GL_ARB_seamless_cube_map = 1
 const GL_ARB_seamless_cubemap_per_texture = 1
@@ -2300,6 +3155,48 @@ type PFNGLGETUNIFORMFVARBPROC as sub(byval programObj as GLhandleARB, byval loca
 type PFNGLGETUNIFORMIVARBPROC as sub(byval programObj as GLhandleARB, byval location as GLint, byval params as GLint ptr)
 type PFNGLGETSHADERSOURCEARBPROC as sub(byval obj as GLhandleARB, byval maxLength as GLsizei, byval length as GLsizei ptr, byval source as zstring ptr)
 
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glDeleteObjectARB(byval obj as GLhandleARB)
+	declare function glGetHandleARB(byval pname as GLenum) as GLhandleARB
+	declare sub glDetachObjectARB(byval containerObj as GLhandleARB, byval attachedObj as GLhandleARB)
+	declare function glCreateShaderObjectARB(byval shaderType as GLenum) as GLhandleARB
+	declare sub glShaderSourceARB(byval shaderObj as GLhandleARB, byval count as GLsizei, byval string as const zstring ptr ptr, byval length as const GLint ptr)
+	declare sub glCompileShaderARB(byval shaderObj as GLhandleARB)
+	declare function glCreateProgramObjectARB() as GLhandleARB
+	declare sub glAttachObjectARB(byval containerObj as GLhandleARB, byval obj as GLhandleARB)
+	declare sub glLinkProgramARB(byval programObj as GLhandleARB)
+	declare sub glUseProgramObjectARB(byval programObj as GLhandleARB)
+	declare sub glValidateProgramARB(byval programObj as GLhandleARB)
+	declare sub glUniform1fARB(byval location as GLint, byval v0 as GLfloat)
+	declare sub glUniform2fARB(byval location as GLint, byval v0 as GLfloat, byval v1 as GLfloat)
+	declare sub glUniform3fARB(byval location as GLint, byval v0 as GLfloat, byval v1 as GLfloat, byval v2 as GLfloat)
+	declare sub glUniform4fARB(byval location as GLint, byval v0 as GLfloat, byval v1 as GLfloat, byval v2 as GLfloat, byval v3 as GLfloat)
+	declare sub glUniform1iARB(byval location as GLint, byval v0 as GLint)
+	declare sub glUniform2iARB(byval location as GLint, byval v0 as GLint, byval v1 as GLint)
+	declare sub glUniform3iARB(byval location as GLint, byval v0 as GLint, byval v1 as GLint, byval v2 as GLint)
+	declare sub glUniform4iARB(byval location as GLint, byval v0 as GLint, byval v1 as GLint, byval v2 as GLint, byval v3 as GLint)
+	declare sub glUniform1fvARB(byval location as GLint, byval count as GLsizei, byval value as const GLfloat ptr)
+	declare sub glUniform2fvARB(byval location as GLint, byval count as GLsizei, byval value as const GLfloat ptr)
+	declare sub glUniform3fvARB(byval location as GLint, byval count as GLsizei, byval value as const GLfloat ptr)
+	declare sub glUniform4fvARB(byval location as GLint, byval count as GLsizei, byval value as const GLfloat ptr)
+	declare sub glUniform1ivARB(byval location as GLint, byval count as GLsizei, byval value as const GLint ptr)
+	declare sub glUniform2ivARB(byval location as GLint, byval count as GLsizei, byval value as const GLint ptr)
+	declare sub glUniform3ivARB(byval location as GLint, byval count as GLsizei, byval value as const GLint ptr)
+	declare sub glUniform4ivARB(byval location as GLint, byval count as GLsizei, byval value as const GLint ptr)
+	declare sub glUniformMatrix2fvARB(byval location as GLint, byval count as GLsizei, byval transpose as GLboolean, byval value as const GLfloat ptr)
+	declare sub glUniformMatrix3fvARB(byval location as GLint, byval count as GLsizei, byval transpose as GLboolean, byval value as const GLfloat ptr)
+	declare sub glUniformMatrix4fvARB(byval location as GLint, byval count as GLsizei, byval transpose as GLboolean, byval value as const GLfloat ptr)
+	declare sub glGetObjectParameterfvARB(byval obj as GLhandleARB, byval pname as GLenum, byval params as GLfloat ptr)
+	declare sub glGetObjectParameterivARB(byval obj as GLhandleARB, byval pname as GLenum, byval params as GLint ptr)
+	declare sub glGetInfoLogARB(byval obj as GLhandleARB, byval maxLength as GLsizei, byval length as GLsizei ptr, byval infoLog as zstring ptr)
+	declare sub glGetAttachedObjectsARB(byval containerObj as GLhandleARB, byval maxCount as GLsizei, byval count as GLsizei ptr, byval obj as GLhandleARB ptr)
+	declare function glGetUniformLocationARB(byval programObj as GLhandleARB, byval name as const zstring ptr) as GLint
+	declare sub glGetActiveUniformARB(byval programObj as GLhandleARB, byval index as GLuint, byval maxLength as GLsizei, byval length as GLsizei ptr, byval size as GLint ptr, byval type as GLenum ptr, byval name as zstring ptr)
+	declare sub glGetUniformfvARB(byval programObj as GLhandleARB, byval location as GLint, byval params as GLfloat ptr)
+	declare sub glGetUniformivARB(byval programObj as GLhandleARB, byval location as GLint, byval params as GLint ptr)
+	declare sub glGetShaderSourceARB(byval obj as GLhandleARB, byval maxLength as GLsizei, byval length as GLsizei ptr, byval source as zstring ptr)
+#endif
+
 const GL_ARB_shader_precision = 1
 const GL_ARB_shader_stencil_export = 1
 const GL_ARB_shader_storage_buffer_object = 1
@@ -2321,6 +3218,15 @@ type PFNGLISNAMEDSTRINGARBPROC as function(byval namelen as GLint, byval name as
 type PFNGLGETNAMEDSTRINGARBPROC as sub(byval namelen as GLint, byval name as const zstring ptr, byval bufSize as GLsizei, byval stringlen as GLint ptr, byval string as zstring ptr)
 type PFNGLGETNAMEDSTRINGIVARBPROC as sub(byval namelen as GLint, byval name as const zstring ptr, byval pname as GLenum, byval params as GLint ptr)
 
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glNamedStringARB(byval type as GLenum, byval namelen as GLint, byval name as const zstring ptr, byval stringlen as GLint, byval string as const zstring ptr)
+	declare sub glDeleteNamedStringARB(byval namelen as GLint, byval name as const zstring ptr)
+	declare sub glCompileShaderIncludeARB(byval shader as GLuint, byval count as GLsizei, byval path as const zstring const ptr ptr, byval length as const GLint ptr)
+	declare function glIsNamedStringARB(byval namelen as GLint, byval name as const zstring ptr) as GLboolean
+	declare sub glGetNamedStringARB(byval namelen as GLint, byval name as const zstring ptr, byval bufSize as GLsizei, byval stringlen as GLint ptr, byval string as zstring ptr)
+	declare sub glGetNamedStringivARB(byval namelen as GLint, byval name as const zstring ptr, byval pname as GLenum, byval params as GLint ptr)
+#endif
+
 const GL_ARB_shading_language_packing = 1
 const GL_ARB_shadow = 1
 const GL_TEXTURE_COMPARE_MODE_ARB = &h884C
@@ -2336,6 +3242,12 @@ type PFNGLBUFFERPAGECOMMITMENTARBPROC as sub(byval target as GLenum, byval offse
 type PFNGLNAMEDBUFFERPAGECOMMITMENTEXTPROC as sub(byval buffer as GLuint, byval offset as GLintptr, byval size as GLsizeiptr, byval commit as GLboolean)
 type PFNGLNAMEDBUFFERPAGECOMMITMENTARBPROC as sub(byval buffer as GLuint, byval offset as GLintptr, byval size as GLsizeiptr, byval commit as GLboolean)
 
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glBufferPageCommitmentARB(byval target as GLenum, byval offset as GLintptr, byval size as GLsizeiptr, byval commit as GLboolean)
+	declare sub glNamedBufferPageCommitmentEXT(byval buffer as GLuint, byval offset as GLintptr, byval size as GLsizeiptr, byval commit as GLboolean)
+	declare sub glNamedBufferPageCommitmentARB(byval buffer as GLuint, byval offset as GLintptr, byval size as GLsizeiptr, byval commit as GLboolean)
+#endif
+
 const GL_ARB_sparse_texture = 1
 const GL_TEXTURE_SPARSE_ARB = &h91A6
 const GL_VIRTUAL_PAGE_SIZE_INDEX_ARB = &h91A7
@@ -2349,6 +3261,11 @@ const GL_MAX_SPARSE_3D_TEXTURE_SIZE_ARB = &h9199
 const GL_MAX_SPARSE_ARRAY_TEXTURE_LAYERS_ARB = &h919A
 const GL_SPARSE_TEXTURE_FULL_ARRAY_CUBE_MIPMAPS_ARB = &h91A9
 type PFNGLTEXPAGECOMMITMENTARBPROC as sub(byval target as GLenum, byval level as GLint, byval xoffset as GLint, byval yoffset as GLint, byval zoffset as GLint, byval width as GLsizei, byval height as GLsizei, byval depth as GLsizei, byval resident as GLboolean)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glTexPageCommitmentARB(byval target as GLenum, byval level as GLint, byval xoffset as GLint, byval yoffset as GLint, byval zoffset as GLint, byval width as GLsizei, byval height as GLsizei, byval depth as GLsizei, byval resident as GLboolean)
+#endif
+
 const GL_ARB_stencil_texturing = 1
 const GL_ARB_sync = 1
 const GL_ARB_tessellation_shader = 1
@@ -2362,6 +3279,11 @@ const GL_TEXTURE_BINDING_BUFFER_ARB = &h8C2C
 const GL_TEXTURE_BUFFER_DATA_STORE_BINDING_ARB = &h8C2D
 const GL_TEXTURE_BUFFER_FORMAT_ARB = &h8C2E
 type PFNGLTEXBUFFERARBPROC as sub(byval target as GLenum, byval internalformat as GLenum, byval buffer as GLuint)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glTexBufferARB(byval target as GLenum, byval internalformat as GLenum, byval buffer as GLuint)
+#endif
+
 const GL_ARB_texture_buffer_object_rgb32 = 1
 const GL_ARB_texture_buffer_range = 1
 const GL_ARB_texture_compression = 1
@@ -2384,6 +3306,16 @@ type PFNGLCOMPRESSEDTEXSUBIMAGE3DARBPROC as sub(byval target as GLenum, byval le
 type PFNGLCOMPRESSEDTEXSUBIMAGE2DARBPROC as sub(byval target as GLenum, byval level as GLint, byval xoffset as GLint, byval yoffset as GLint, byval width as GLsizei, byval height as GLsizei, byval format as GLenum, byval imageSize as GLsizei, byval data as const any ptr)
 type PFNGLCOMPRESSEDTEXSUBIMAGE1DARBPROC as sub(byval target as GLenum, byval level as GLint, byval xoffset as GLint, byval width as GLsizei, byval format as GLenum, byval imageSize as GLsizei, byval data as const any ptr)
 type PFNGLGETCOMPRESSEDTEXIMAGEARBPROC as sub(byval target as GLenum, byval level as GLint, byval img as any ptr)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glCompressedTexImage3DARB(byval target as GLenum, byval level as GLint, byval internalformat as GLenum, byval width as GLsizei, byval height as GLsizei, byval depth as GLsizei, byval border as GLint, byval imageSize as GLsizei, byval data as const any ptr)
+	declare sub glCompressedTexImage2DARB(byval target as GLenum, byval level as GLint, byval internalformat as GLenum, byval width as GLsizei, byval height as GLsizei, byval border as GLint, byval imageSize as GLsizei, byval data as const any ptr)
+	declare sub glCompressedTexImage1DARB(byval target as GLenum, byval level as GLint, byval internalformat as GLenum, byval width as GLsizei, byval border as GLint, byval imageSize as GLsizei, byval data as const any ptr)
+	declare sub glCompressedTexSubImage3DARB(byval target as GLenum, byval level as GLint, byval xoffset as GLint, byval yoffset as GLint, byval zoffset as GLint, byval width as GLsizei, byval height as GLsizei, byval depth as GLsizei, byval format as GLenum, byval imageSize as GLsizei, byval data as const any ptr)
+	declare sub glCompressedTexSubImage2DARB(byval target as GLenum, byval level as GLint, byval xoffset as GLint, byval yoffset as GLint, byval width as GLsizei, byval height as GLsizei, byval format as GLenum, byval imageSize as GLsizei, byval data as const any ptr)
+	declare sub glCompressedTexSubImage1DARB(byval target as GLenum, byval level as GLint, byval xoffset as GLint, byval width as GLsizei, byval format as GLenum, byval imageSize as GLsizei, byval data as const any ptr)
+	declare sub glGetCompressedTexImageARB(byval target as GLenum, byval level as GLint, byval img as any ptr)
+#endif
 
 const GL_ARB_texture_compression_bptc = 1
 const GL_COMPRESSED_RGBA_BPTC_UNORM_ARB = &h8E8C
@@ -2502,6 +3434,13 @@ type PFNGLLOADTRANSPOSEMATRIXDARBPROC as sub(byval m as const GLdouble ptr)
 type PFNGLMULTTRANSPOSEMATRIXFARBPROC as sub(byval m as const GLfloat ptr)
 type PFNGLMULTTRANSPOSEMATRIXDARBPROC as sub(byval m as const GLdouble ptr)
 
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glLoadTransposeMatrixfARB(byval m as const GLfloat ptr)
+	declare sub glLoadTransposeMatrixdARB(byval m as const GLdouble ptr)
+	declare sub glMultTransposeMatrixfARB(byval m as const GLfloat ptr)
+	declare sub glMultTransposeMatrixdARB(byval m as const GLdouble ptr)
+#endif
+
 const GL_ARB_uniform_buffer_object = 1
 const GL_ARB_vertex_array_bgra = 1
 const GL_ARB_vertex_array_object = 1
@@ -2561,10 +3500,23 @@ type PFNGLWEIGHTUSVARBPROC as sub(byval size as GLint, byval weights as const GL
 type PFNGLWEIGHTUIVARBPROC as sub(byval size as GLint, byval weights as const GLuint ptr)
 type PFNGLWEIGHTPOINTERARBPROC as sub(byval size as GLint, byval type as GLenum, byval stride as GLsizei, byval pointer as const any ptr)
 type PFNGLVERTEXBLENDARBPROC as sub(byval count as GLint)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glWeightbvARB(byval size as GLint, byval weights as const GLbyte ptr)
+	declare sub glWeightsvARB(byval size as GLint, byval weights as const GLshort ptr)
+	declare sub glWeightivARB(byval size as GLint, byval weights as const GLint ptr)
+	declare sub glWeightfvARB(byval size as GLint, byval weights as const GLfloat ptr)
+	declare sub glWeightdvARB(byval size as GLint, byval weights as const GLdouble ptr)
+	declare sub glWeightubvARB(byval size as GLint, byval weights as const GLubyte ptr)
+	declare sub glWeightusvARB(byval size as GLint, byval weights as const GLushort ptr)
+	declare sub glWeightuivARB(byval size as GLint, byval weights as const GLuint ptr)
+	declare sub glWeightPointerARB(byval size as GLint, byval type as GLenum, byval stride as GLsizei, byval pointer as const any ptr)
+	declare sub glVertexBlendARB(byval count as GLint)
+#endif
+
 const GL_ARB_vertex_buffer_object = 1
 type GLsizeiptrARB as integer
 type GLintptrARB as integer
-
 const GL_BUFFER_SIZE_ARB = &h8764
 const GL_BUFFER_USAGE_ARB = &h8765
 const GL_ARRAY_BUFFER_ARB = &h8892
@@ -2608,6 +3560,20 @@ type PFNGLMAPBUFFERARBPROC as function(byval target as GLenum, byval access as G
 type PFNGLUNMAPBUFFERARBPROC as function(byval target as GLenum) as GLboolean
 type PFNGLGETBUFFERPARAMETERIVARBPROC as sub(byval target as GLenum, byval pname as GLenum, byval params as GLint ptr)
 type PFNGLGETBUFFERPOINTERVARBPROC as sub(byval target as GLenum, byval pname as GLenum, byval params as any ptr ptr)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glBindBufferARB(byval target as GLenum, byval buffer as GLuint)
+	declare sub glDeleteBuffersARB(byval n as GLsizei, byval buffers as const GLuint ptr)
+	declare sub glGenBuffersARB(byval n as GLsizei, byval buffers as GLuint ptr)
+	declare function glIsBufferARB(byval buffer as GLuint) as GLboolean
+	declare sub glBufferDataARB(byval target as GLenum, byval size as GLsizeiptrARB, byval data as const any ptr, byval usage as GLenum)
+	declare sub glBufferSubDataARB(byval target as GLenum, byval offset as GLintptrARB, byval size as GLsizeiptrARB, byval data as const any ptr)
+	declare sub glGetBufferSubDataARB(byval target as GLenum, byval offset as GLintptrARB, byval size as GLsizeiptrARB, byval data as any ptr)
+	declare function glMapBufferARB(byval target as GLenum, byval access as GLenum) as any ptr
+	declare function glUnmapBufferARB(byval target as GLenum) as GLboolean
+	declare sub glGetBufferParameterivARB(byval target as GLenum, byval pname as GLenum, byval params as GLint ptr)
+	declare sub glGetBufferPointervARB(byval target as GLenum, byval pname as GLenum, byval params as any ptr ptr)
+#endif
 
 const GL_ARB_vertex_program = 1
 const GL_COLOR_SUM_ARB = &h8458
@@ -2671,6 +3637,52 @@ type PFNGLGETVERTEXATTRIBFVARBPROC as sub(byval index as GLuint, byval pname as 
 type PFNGLGETVERTEXATTRIBIVARBPROC as sub(byval index as GLuint, byval pname as GLenum, byval params as GLint ptr)
 type PFNGLGETVERTEXATTRIBPOINTERVARBPROC as sub(byval index as GLuint, byval pname as GLenum, byval pointer as any ptr ptr)
 
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glVertexAttrib1dARB(byval index as GLuint, byval x as GLdouble)
+	declare sub glVertexAttrib1dvARB(byval index as GLuint, byval v as const GLdouble ptr)
+	declare sub glVertexAttrib1fARB(byval index as GLuint, byval x as GLfloat)
+	declare sub glVertexAttrib1fvARB(byval index as GLuint, byval v as const GLfloat ptr)
+	declare sub glVertexAttrib1sARB(byval index as GLuint, byval x as GLshort)
+	declare sub glVertexAttrib1svARB(byval index as GLuint, byval v as const GLshort ptr)
+	declare sub glVertexAttrib2dARB(byval index as GLuint, byval x as GLdouble, byval y as GLdouble)
+	declare sub glVertexAttrib2dvARB(byval index as GLuint, byval v as const GLdouble ptr)
+	declare sub glVertexAttrib2fARB(byval index as GLuint, byval x as GLfloat, byval y as GLfloat)
+	declare sub glVertexAttrib2fvARB(byval index as GLuint, byval v as const GLfloat ptr)
+	declare sub glVertexAttrib2sARB(byval index as GLuint, byval x as GLshort, byval y as GLshort)
+	declare sub glVertexAttrib2svARB(byval index as GLuint, byval v as const GLshort ptr)
+	declare sub glVertexAttrib3dARB(byval index as GLuint, byval x as GLdouble, byval y as GLdouble, byval z as GLdouble)
+	declare sub glVertexAttrib3dvARB(byval index as GLuint, byval v as const GLdouble ptr)
+	declare sub glVertexAttrib3fARB(byval index as GLuint, byval x as GLfloat, byval y as GLfloat, byval z as GLfloat)
+	declare sub glVertexAttrib3fvARB(byval index as GLuint, byval v as const GLfloat ptr)
+	declare sub glVertexAttrib3sARB(byval index as GLuint, byval x as GLshort, byval y as GLshort, byval z as GLshort)
+	declare sub glVertexAttrib3svARB(byval index as GLuint, byval v as const GLshort ptr)
+	declare sub glVertexAttrib4NbvARB(byval index as GLuint, byval v as const GLbyte ptr)
+	declare sub glVertexAttrib4NivARB(byval index as GLuint, byval v as const GLint ptr)
+	declare sub glVertexAttrib4NsvARB(byval index as GLuint, byval v as const GLshort ptr)
+	declare sub glVertexAttrib4NubARB(byval index as GLuint, byval x as GLubyte, byval y as GLubyte, byval z as GLubyte, byval w as GLubyte)
+	declare sub glVertexAttrib4NubvARB(byval index as GLuint, byval v as const GLubyte ptr)
+	declare sub glVertexAttrib4NuivARB(byval index as GLuint, byval v as const GLuint ptr)
+	declare sub glVertexAttrib4NusvARB(byval index as GLuint, byval v as const GLushort ptr)
+	declare sub glVertexAttrib4bvARB(byval index as GLuint, byval v as const GLbyte ptr)
+	declare sub glVertexAttrib4dARB(byval index as GLuint, byval x as GLdouble, byval y as GLdouble, byval z as GLdouble, byval w as GLdouble)
+	declare sub glVertexAttrib4dvARB(byval index as GLuint, byval v as const GLdouble ptr)
+	declare sub glVertexAttrib4fARB(byval index as GLuint, byval x as GLfloat, byval y as GLfloat, byval z as GLfloat, byval w as GLfloat)
+	declare sub glVertexAttrib4fvARB(byval index as GLuint, byval v as const GLfloat ptr)
+	declare sub glVertexAttrib4ivARB(byval index as GLuint, byval v as const GLint ptr)
+	declare sub glVertexAttrib4sARB(byval index as GLuint, byval x as GLshort, byval y as GLshort, byval z as GLshort, byval w as GLshort)
+	declare sub glVertexAttrib4svARB(byval index as GLuint, byval v as const GLshort ptr)
+	declare sub glVertexAttrib4ubvARB(byval index as GLuint, byval v as const GLubyte ptr)
+	declare sub glVertexAttrib4uivARB(byval index as GLuint, byval v as const GLuint ptr)
+	declare sub glVertexAttrib4usvARB(byval index as GLuint, byval v as const GLushort ptr)
+	declare sub glVertexAttribPointerARB(byval index as GLuint, byval size as GLint, byval type as GLenum, byval normalized as GLboolean, byval stride as GLsizei, byval pointer as const any ptr)
+	declare sub glEnableVertexAttribArrayARB(byval index as GLuint)
+	declare sub glDisableVertexAttribArrayARB(byval index as GLuint)
+	declare sub glGetVertexAttribdvARB(byval index as GLuint, byval pname as GLenum, byval params as GLdouble ptr)
+	declare sub glGetVertexAttribfvARB(byval index as GLuint, byval pname as GLenum, byval params as GLfloat ptr)
+	declare sub glGetVertexAttribivARB(byval index as GLuint, byval pname as GLenum, byval params as GLint ptr)
+	declare sub glGetVertexAttribPointervARB(byval index as GLuint, byval pname as GLenum, byval pointer as any ptr ptr)
+#endif
+
 const GL_ARB_vertex_shader = 1
 const GL_VERTEX_SHADER_ARB = &h8B31
 const GL_MAX_VERTEX_UNIFORM_COMPONENTS_ARB = &h8B4A
@@ -2683,6 +3695,12 @@ const GL_OBJECT_ACTIVE_ATTRIBUTE_MAX_LENGTH_ARB = &h8B8A
 type PFNGLBINDATTRIBLOCATIONARBPROC as sub(byval programObj as GLhandleARB, byval index as GLuint, byval name as const zstring ptr)
 type PFNGLGETACTIVEATTRIBARBPROC as sub(byval programObj as GLhandleARB, byval index as GLuint, byval maxLength as GLsizei, byval length as GLsizei ptr, byval size as GLint ptr, byval type as GLenum ptr, byval name as zstring ptr)
 type PFNGLGETATTRIBLOCATIONARBPROC as function(byval programObj as GLhandleARB, byval name as const zstring ptr) as GLint
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glBindAttribLocationARB(byval programObj as GLhandleARB, byval index as GLuint, byval name as const zstring ptr)
+	declare sub glGetActiveAttribARB(byval programObj as GLhandleARB, byval index as GLuint, byval maxLength as GLsizei, byval length as GLsizei ptr, byval size as GLint ptr, byval type as GLenum ptr, byval name as zstring ptr)
+	declare function glGetAttribLocationARB(byval programObj as GLhandleARB, byval name as const zstring ptr) as GLint
+#endif
 
 const GL_ARB_vertex_type_10f_11f_11f_rev = 1
 const GL_ARB_vertex_type_2_10_10_10_rev = 1
@@ -2706,6 +3724,25 @@ type PFNGLWINDOWPOS3IVARBPROC as sub(byval v as const GLint ptr)
 type PFNGLWINDOWPOS3SARBPROC as sub(byval x as GLshort, byval y as GLshort, byval z as GLshort)
 type PFNGLWINDOWPOS3SVARBPROC as sub(byval v as const GLshort ptr)
 
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glWindowPos2dARB(byval x as GLdouble, byval y as GLdouble)
+	declare sub glWindowPos2dvARB(byval v as const GLdouble ptr)
+	declare sub glWindowPos2fARB(byval x as GLfloat, byval y as GLfloat)
+	declare sub glWindowPos2fvARB(byval v as const GLfloat ptr)
+	declare sub glWindowPos2iARB(byval x as GLint, byval y as GLint)
+	declare sub glWindowPos2ivARB(byval v as const GLint ptr)
+	declare sub glWindowPos2sARB(byval x as GLshort, byval y as GLshort)
+	declare sub glWindowPos2svARB(byval v as const GLshort ptr)
+	declare sub glWindowPos3dARB(byval x as GLdouble, byval y as GLdouble, byval z as GLdouble)
+	declare sub glWindowPos3dvARB(byval v as const GLdouble ptr)
+	declare sub glWindowPos3fARB(byval x as GLfloat, byval y as GLfloat, byval z as GLfloat)
+	declare sub glWindowPos3fvARB(byval v as const GLfloat ptr)
+	declare sub glWindowPos3iARB(byval x as GLint, byval y as GLint, byval z as GLint)
+	declare sub glWindowPos3ivARB(byval v as const GLint ptr)
+	declare sub glWindowPos3sARB(byval x as GLshort, byval y as GLshort, byval z as GLshort)
+	declare sub glWindowPos3svARB(byval v as const GLshort ptr)
+#endif
+
 const GL_KHR_blend_equation_advanced = 1
 const GL_MULTIPLY_KHR = &h9294
 const GL_SCREEN_KHR = &h9295
@@ -2723,6 +3760,11 @@ const GL_HSL_SATURATION_KHR = &h92AE
 const GL_HSL_COLOR_KHR = &h92AF
 const GL_HSL_LUMINOSITY_KHR = &h92B0
 type PFNGLBLENDBARRIERKHRPROC as sub()
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glBlendBarrierKHR()
+#endif
+
 const GL_KHR_blend_equation_advanced_coherent = 1
 const GL_BLEND_ADVANCED_COHERENT_KHR = &h9285
 const GL_KHR_context_flush_control = 1
@@ -2784,6 +3826,31 @@ type PFNGLVERTEX3BOESPROC as sub(byval x as GLbyte, byval y as GLbyte, byval z a
 type PFNGLVERTEX3BVOESPROC as sub(byval coords as const GLbyte ptr)
 type PFNGLVERTEX4BOESPROC as sub(byval x as GLbyte, byval y as GLbyte, byval z as GLbyte, byval w as GLbyte)
 type PFNGLVERTEX4BVOESPROC as sub(byval coords as const GLbyte ptr)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glMultiTexCoord1bOES(byval texture as GLenum, byval s as GLbyte)
+	declare sub glMultiTexCoord1bvOES(byval texture as GLenum, byval coords as const GLbyte ptr)
+	declare sub glMultiTexCoord2bOES(byval texture as GLenum, byval s as GLbyte, byval t as GLbyte)
+	declare sub glMultiTexCoord2bvOES(byval texture as GLenum, byval coords as const GLbyte ptr)
+	declare sub glMultiTexCoord3bOES(byval texture as GLenum, byval s as GLbyte, byval t as GLbyte, byval r as GLbyte)
+	declare sub glMultiTexCoord3bvOES(byval texture as GLenum, byval coords as const GLbyte ptr)
+	declare sub glMultiTexCoord4bOES(byval texture as GLenum, byval s as GLbyte, byval t as GLbyte, byval r as GLbyte, byval q as GLbyte)
+	declare sub glMultiTexCoord4bvOES(byval texture as GLenum, byval coords as const GLbyte ptr)
+	declare sub glTexCoord1bOES(byval s as GLbyte)
+	declare sub glTexCoord1bvOES(byval coords as const GLbyte ptr)
+	declare sub glTexCoord2bOES(byval s as GLbyte, byval t as GLbyte)
+	declare sub glTexCoord2bvOES(byval coords as const GLbyte ptr)
+	declare sub glTexCoord3bOES(byval s as GLbyte, byval t as GLbyte, byval r as GLbyte)
+	declare sub glTexCoord3bvOES(byval coords as const GLbyte ptr)
+	declare sub glTexCoord4bOES(byval s as GLbyte, byval t as GLbyte, byval r as GLbyte, byval q as GLbyte)
+	declare sub glTexCoord4bvOES(byval coords as const GLbyte ptr)
+	declare sub glVertex2bOES(byval x as GLbyte, byval y as GLbyte)
+	declare sub glVertex2bvOES(byval coords as const GLbyte ptr)
+	declare sub glVertex3bOES(byval x as GLbyte, byval y as GLbyte, byval z as GLbyte)
+	declare sub glVertex3bvOES(byval coords as const GLbyte ptr)
+	declare sub glVertex4bOES(byval x as GLbyte, byval y as GLbyte, byval z as GLbyte, byval w as GLbyte)
+	declare sub glVertex4bvOES(byval coords as const GLbyte ptr)
+#endif
 
 const GL_OES_compressed_paletted_texture = 1
 const GL_PALETTE4_RGB8_OES = &h8B90
@@ -2904,8 +3971,120 @@ type PFNGLVERTEX3XOESPROC as sub(byval x as GLfixed, byval y as GLfixed)
 type PFNGLVERTEX3XVOESPROC as sub(byval coords as const GLfixed ptr)
 type PFNGLVERTEX4XOESPROC as sub(byval x as GLfixed, byval y as GLfixed, byval z as GLfixed)
 type PFNGLVERTEX4XVOESPROC as sub(byval coords as const GLfixed ptr)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glAlphaFuncxOES(byval func as GLenum, byval ref as GLfixed)
+	declare sub glClearColorxOES(byval red as GLfixed, byval green as GLfixed, byval blue as GLfixed, byval alpha as GLfixed)
+	declare sub glClearDepthxOES(byval depth as GLfixed)
+	declare sub glClipPlanexOES(byval plane as GLenum, byval equation as const GLfixed ptr)
+	declare sub glColor4xOES(byval red as GLfixed, byval green as GLfixed, byval blue as GLfixed, byval alpha as GLfixed)
+	declare sub glDepthRangexOES(byval n as GLfixed, byval f as GLfixed)
+	declare sub glFogxOES(byval pname as GLenum, byval param as GLfixed)
+	declare sub glFogxvOES(byval pname as GLenum, byval param as const GLfixed ptr)
+	declare sub glFrustumxOES(byval l as GLfixed, byval r as GLfixed, byval b as GLfixed, byval t as GLfixed, byval n as GLfixed, byval f as GLfixed)
+	declare sub glGetClipPlanexOES(byval plane as GLenum, byval equation as GLfixed ptr)
+	declare sub glGetFixedvOES(byval pname as GLenum, byval params as GLfixed ptr)
+	declare sub glGetTexEnvxvOES(byval target as GLenum, byval pname as GLenum, byval params as GLfixed ptr)
+	declare sub glGetTexParameterxvOES(byval target as GLenum, byval pname as GLenum, byval params as GLfixed ptr)
+	declare sub glLightModelxOES(byval pname as GLenum, byval param as GLfixed)
+	declare sub glLightModelxvOES(byval pname as GLenum, byval param as const GLfixed ptr)
+	declare sub glLightxOES(byval light as GLenum, byval pname as GLenum, byval param as GLfixed)
+	declare sub glLightxvOES(byval light as GLenum, byval pname as GLenum, byval params as const GLfixed ptr)
+	declare sub glLineWidthxOES(byval width as GLfixed)
+	declare sub glLoadMatrixxOES(byval m as const GLfixed ptr)
+	declare sub glMaterialxOES(byval face as GLenum, byval pname as GLenum, byval param as GLfixed)
+	declare sub glMaterialxvOES(byval face as GLenum, byval pname as GLenum, byval param as const GLfixed ptr)
+	declare sub glMultMatrixxOES(byval m as const GLfixed ptr)
+	declare sub glMultiTexCoord4xOES(byval texture as GLenum, byval s as GLfixed, byval t as GLfixed, byval r as GLfixed, byval q as GLfixed)
+	declare sub glNormal3xOES(byval nx as GLfixed, byval ny as GLfixed, byval nz as GLfixed)
+	declare sub glOrthoxOES(byval l as GLfixed, byval r as GLfixed, byval b as GLfixed, byval t as GLfixed, byval n as GLfixed, byval f as GLfixed)
+	declare sub glPointParameterxvOES(byval pname as GLenum, byval params as const GLfixed ptr)
+	declare sub glPointSizexOES(byval size as GLfixed)
+	declare sub glPolygonOffsetxOES(byval factor as GLfixed, byval units as GLfixed)
+	declare sub glRotatexOES(byval angle as GLfixed, byval x as GLfixed, byval y as GLfixed, byval z as GLfixed)
+	declare sub glSampleCoverageOES(byval value as GLfixed, byval invert as GLboolean)
+	declare sub glScalexOES(byval x as GLfixed, byval y as GLfixed, byval z as GLfixed)
+	declare sub glTexEnvxOES(byval target as GLenum, byval pname as GLenum, byval param as GLfixed)
+	declare sub glTexEnvxvOES(byval target as GLenum, byval pname as GLenum, byval params as const GLfixed ptr)
+	declare sub glTexParameterxOES(byval target as GLenum, byval pname as GLenum, byval param as GLfixed)
+	declare sub glTexParameterxvOES(byval target as GLenum, byval pname as GLenum, byval params as const GLfixed ptr)
+	declare sub glTranslatexOES(byval x as GLfixed, byval y as GLfixed, byval z as GLfixed)
+	declare sub glAccumxOES(byval op as GLenum, byval value as GLfixed)
+	declare sub glBitmapxOES(byval width as GLsizei, byval height as GLsizei, byval xorig as GLfixed, byval yorig as GLfixed, byval xmove as GLfixed, byval ymove as GLfixed, byval bitmap as const GLubyte ptr)
+	declare sub glBlendColorxOES(byval red as GLfixed, byval green as GLfixed, byval blue as GLfixed, byval alpha as GLfixed)
+	declare sub glClearAccumxOES(byval red as GLfixed, byval green as GLfixed, byval blue as GLfixed, byval alpha as GLfixed)
+	declare sub glColor3xOES(byval red as GLfixed, byval green as GLfixed, byval blue as GLfixed)
+	declare sub glColor3xvOES(byval components as const GLfixed ptr)
+	declare sub glColor4xvOES(byval components as const GLfixed ptr)
+	declare sub glConvolutionParameterxOES(byval target as GLenum, byval pname as GLenum, byval param as GLfixed)
+	declare sub glConvolutionParameterxvOES(byval target as GLenum, byval pname as GLenum, byval params as const GLfixed ptr)
+	declare sub glEvalCoord1xOES(byval u as GLfixed)
+	declare sub glEvalCoord1xvOES(byval coords as const GLfixed ptr)
+	declare sub glEvalCoord2xOES(byval u as GLfixed, byval v as GLfixed)
+	declare sub glEvalCoord2xvOES(byval coords as const GLfixed ptr)
+	declare sub glFeedbackBufferxOES(byval n as GLsizei, byval type as GLenum, byval buffer as const GLfixed ptr)
+	declare sub glGetConvolutionParameterxvOES(byval target as GLenum, byval pname as GLenum, byval params as GLfixed ptr)
+	declare sub glGetHistogramParameterxvOES(byval target as GLenum, byval pname as GLenum, byval params as GLfixed ptr)
+	declare sub glGetLightxOES(byval light as GLenum, byval pname as GLenum, byval params as GLfixed ptr)
+	declare sub glGetMapxvOES(byval target as GLenum, byval query as GLenum, byval v as GLfixed ptr)
+	declare sub glGetMaterialxOES(byval face as GLenum, byval pname as GLenum, byval param as GLfixed)
+	declare sub glGetPixelMapxv(byval map as GLenum, byval size as GLint, byval values as GLfixed ptr)
+	declare sub glGetTexGenxvOES(byval coord as GLenum, byval pname as GLenum, byval params as GLfixed ptr)
+	declare sub glGetTexLevelParameterxvOES(byval target as GLenum, byval level as GLint, byval pname as GLenum, byval params as GLfixed ptr)
+	declare sub glIndexxOES(byval component as GLfixed)
+	declare sub glIndexxvOES(byval component as const GLfixed ptr)
+	declare sub glLoadTransposeMatrixxOES(byval m as const GLfixed ptr)
+	declare sub glMap1xOES(byval target as GLenum, byval u1 as GLfixed, byval u2 as GLfixed, byval stride as GLint, byval order as GLint, byval points as GLfixed)
+	declare sub glMap2xOES(byval target as GLenum, byval u1 as GLfixed, byval u2 as GLfixed, byval ustride as GLint, byval uorder as GLint, byval v1 as GLfixed, byval v2 as GLfixed, byval vstride as GLint, byval vorder as GLint, byval points as GLfixed)
+	declare sub glMapGrid1xOES(byval n as GLint, byval u1 as GLfixed, byval u2 as GLfixed)
+	declare sub glMapGrid2xOES(byval n as GLint, byval u1 as GLfixed, byval u2 as GLfixed, byval v1 as GLfixed, byval v2 as GLfixed)
+	declare sub glMultTransposeMatrixxOES(byval m as const GLfixed ptr)
+	declare sub glMultiTexCoord1xOES(byval texture as GLenum, byval s as GLfixed)
+	declare sub glMultiTexCoord1xvOES(byval texture as GLenum, byval coords as const GLfixed ptr)
+	declare sub glMultiTexCoord2xOES(byval texture as GLenum, byval s as GLfixed, byval t as GLfixed)
+	declare sub glMultiTexCoord2xvOES(byval texture as GLenum, byval coords as const GLfixed ptr)
+	declare sub glMultiTexCoord3xOES(byval texture as GLenum, byval s as GLfixed, byval t as GLfixed, byval r as GLfixed)
+	declare sub glMultiTexCoord3xvOES(byval texture as GLenum, byval coords as const GLfixed ptr)
+	declare sub glMultiTexCoord4xvOES(byval texture as GLenum, byval coords as const GLfixed ptr)
+	declare sub glNormal3xvOES(byval coords as const GLfixed ptr)
+	declare sub glPassThroughxOES(byval token as GLfixed)
+	declare sub glPixelMapx(byval map as GLenum, byval size as GLint, byval values as const GLfixed ptr)
+	declare sub glPixelStorex(byval pname as GLenum, byval param as GLfixed)
+	declare sub glPixelTransferxOES(byval pname as GLenum, byval param as GLfixed)
+	declare sub glPixelZoomxOES(byval xfactor as GLfixed, byval yfactor as GLfixed)
+	declare sub glPrioritizeTexturesxOES(byval n as GLsizei, byval textures as const GLuint ptr, byval priorities as const GLfixed ptr)
+	declare sub glRasterPos2xOES(byval x as GLfixed, byval y as GLfixed)
+	declare sub glRasterPos2xvOES(byval coords as const GLfixed ptr)
+	declare sub glRasterPos3xOES(byval x as GLfixed, byval y as GLfixed, byval z as GLfixed)
+	declare sub glRasterPos3xvOES(byval coords as const GLfixed ptr)
+	declare sub glRasterPos4xOES(byval x as GLfixed, byval y as GLfixed, byval z as GLfixed, byval w as GLfixed)
+	declare sub glRasterPos4xvOES(byval coords as const GLfixed ptr)
+	declare sub glRectxOES(byval x1 as GLfixed, byval y1 as GLfixed, byval x2 as GLfixed, byval y2 as GLfixed)
+	declare sub glRectxvOES(byval v1 as const GLfixed ptr, byval v2 as const GLfixed ptr)
+	declare sub glTexCoord1xOES(byval s as GLfixed)
+	declare sub glTexCoord1xvOES(byval coords as const GLfixed ptr)
+	declare sub glTexCoord2xOES(byval s as GLfixed, byval t as GLfixed)
+	declare sub glTexCoord2xvOES(byval coords as const GLfixed ptr)
+	declare sub glTexCoord3xOES(byval s as GLfixed, byval t as GLfixed, byval r as GLfixed)
+	declare sub glTexCoord3xvOES(byval coords as const GLfixed ptr)
+	declare sub glTexCoord4xOES(byval s as GLfixed, byval t as GLfixed, byval r as GLfixed, byval q as GLfixed)
+	declare sub glTexCoord4xvOES(byval coords as const GLfixed ptr)
+	declare sub glTexGenxOES(byval coord as GLenum, byval pname as GLenum, byval param as GLfixed)
+	declare sub glTexGenxvOES(byval coord as GLenum, byval pname as GLenum, byval params as const GLfixed ptr)
+	declare sub glVertex2xOES(byval x as GLfixed)
+	declare sub glVertex2xvOES(byval coords as const GLfixed ptr)
+	declare sub glVertex3xOES(byval x as GLfixed, byval y as GLfixed)
+	declare sub glVertex3xvOES(byval coords as const GLfixed ptr)
+	declare sub glVertex4xOES(byval x as GLfixed, byval y as GLfixed, byval z as GLfixed)
+	declare sub glVertex4xvOES(byval coords as const GLfixed ptr)
+#endif
+
 const GL_OES_query_matrix = 1
 type PFNGLQUERYMATRIXXOESPROC as function(byval mantissa as GLfixed ptr, byval exponent as GLint ptr) as GLbitfield
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare function glQueryMatrixxOES(byval mantissa as GLfixed ptr, byval exponent as GLint ptr) as GLbitfield
+#endif
 
 const GL_OES_read_format = 1
 const GL_IMPLEMENTATION_COLOR_READ_TYPE_OES = &h8B9A
@@ -2919,6 +4098,15 @@ type PFNGLFRUSTUMFOESPROC as sub(byval l as GLfloat, byval r as GLfloat, byval b
 type PFNGLGETCLIPPLANEFOESPROC as sub(byval plane as GLenum, byval equation as GLfloat ptr)
 type PFNGLORTHOFOESPROC as sub(byval l as GLfloat, byval r as GLfloat, byval b as GLfloat, byval t as GLfloat, byval n as GLfloat, byval f as GLfloat)
 
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glClearDepthfOES(byval depth as GLclampf)
+	declare sub glClipPlanefOES(byval plane as GLenum, byval equation as const GLfloat ptr)
+	declare sub glDepthRangefOES(byval n as GLclampf, byval f as GLclampf)
+	declare sub glFrustumfOES(byval l as GLfloat, byval r as GLfloat, byval b as GLfloat, byval t as GLfloat, byval n as GLfloat, byval f as GLfloat)
+	declare sub glGetClipPlanefOES(byval plane as GLenum, byval equation as GLfloat ptr)
+	declare sub glOrthofOES(byval l as GLfloat, byval r as GLfloat, byval b as GLfloat, byval t as GLfloat, byval n as GLfloat, byval f as GLfloat)
+#endif
+
 const GL_3DFX_multisample = 1
 const GL_MULTISAMPLE_3DFX = &h86B2
 const GL_SAMPLE_BUFFERS_3DFX = &h86B3
@@ -2926,6 +4114,11 @@ const GL_SAMPLES_3DFX = &h86B4
 const GL_MULTISAMPLE_BIT_3DFX = &h20000000
 const GL_3DFX_tbuffer = 1
 type PFNGLTBUFFERMASK3DFXPROC as sub(byval mask as GLuint)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glTbufferMask3DFX(byval mask as GLuint)
+#endif
+
 const GL_3DFX_texture_compression_FXT1 = 1
 const GL_COMPRESSED_RGB_FXT1_3DFX = &h86B0
 const GL_COMPRESSED_RGBA_FXT1_3DFX = &h86B1
@@ -2955,6 +4148,13 @@ type PFNGLDEBUGMESSAGEINSERTAMDPROC as sub(byval category as GLenum, byval sever
 type PFNGLDEBUGMESSAGECALLBACKAMDPROC as sub(byval callback as GLDEBUGPROCAMD, byval userParam as any ptr)
 type PFNGLGETDEBUGMESSAGELOGAMDPROC as function(byval count as GLuint, byval bufsize as GLsizei, byval categories as GLenum ptr, byval severities as GLuint ptr, byval ids as GLuint ptr, byval lengths as GLsizei ptr, byval message as zstring ptr) as GLuint
 
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glDebugMessageEnableAMD(byval category as GLenum, byval severity as GLenum, byval count as GLsizei, byval ids as const GLuint ptr, byval enabled as GLboolean)
+	declare sub glDebugMessageInsertAMD(byval category as GLenum, byval severity as GLenum, byval id as GLuint, byval length as GLsizei, byval buf as const zstring ptr)
+	declare sub glDebugMessageCallbackAMD(byval callback as GLDEBUGPROCAMD, byval userParam as any ptr)
+	declare function glGetDebugMessageLogAMD(byval count as GLuint, byval bufsize as GLsizei, byval categories as GLenum ptr, byval severities as GLuint ptr, byval ids as GLuint ptr, byval lengths as GLsizei ptr, byval message as zstring ptr) as GLuint
+#endif
+
 const GL_AMD_depth_clamp_separate = 1
 const GL_DEPTH_CLAMP_NEAR_AMD = &h901E
 const GL_DEPTH_CLAMP_FAR_AMD = &h901F
@@ -2964,10 +4164,17 @@ type PFNGLBLENDFUNCINDEXEDAMDPROC as sub(byval buf as GLuint, byval src as GLenu
 type PFNGLBLENDFUNCSEPARATEINDEXEDAMDPROC as sub(byval buf as GLuint, byval srcRGB as GLenum, byval dstRGB as GLenum, byval srcAlpha as GLenum, byval dstAlpha as GLenum)
 type PFNGLBLENDEQUATIONINDEXEDAMDPROC as sub(byval buf as GLuint, byval mode as GLenum)
 type PFNGLBLENDEQUATIONSEPARATEINDEXEDAMDPROC as sub(byval buf as GLuint, byval modeRGB as GLenum, byval modeAlpha as GLenum)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glBlendFuncIndexedAMD(byval buf as GLuint, byval src as GLenum, byval dst as GLenum)
+	declare sub glBlendFuncSeparateIndexedAMD(byval buf as GLuint, byval srcRGB as GLenum, byval dstRGB as GLenum, byval srcAlpha as GLenum, byval dstAlpha as GLenum)
+	declare sub glBlendEquationIndexedAMD(byval buf as GLuint, byval mode as GLenum)
+	declare sub glBlendEquationSeparateIndexedAMD(byval buf as GLuint, byval modeRGB as GLenum, byval modeAlpha as GLenum)
+#endif
+
 const GL_AMD_gcn_shader = 1
 const GL_AMD_gpu_shader_int64 = 1
 type GLint64EXT as longint
-
 const GL_INT64_NV = &h140E
 const GL_UNSIGNED_INT64_NV = &h140F
 const GL_INT8_NV = &h8FE0
@@ -3032,13 +4239,61 @@ type PFNGLPROGRAMUNIFORM2UI64VNVPROC as sub(byval program as GLuint, byval locat
 type PFNGLPROGRAMUNIFORM3UI64VNVPROC as sub(byval program as GLuint, byval location as GLint, byval count as GLsizei, byval value as const GLuint64EXT ptr)
 type PFNGLPROGRAMUNIFORM4UI64VNVPROC as sub(byval program as GLuint, byval location as GLint, byval count as GLsizei, byval value as const GLuint64EXT ptr)
 
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glUniform1i64NV(byval location as GLint, byval x as GLint64EXT)
+	declare sub glUniform2i64NV(byval location as GLint, byval x as GLint64EXT, byval y as GLint64EXT)
+	declare sub glUniform3i64NV(byval location as GLint, byval x as GLint64EXT, byval y as GLint64EXT, byval z as GLint64EXT)
+	declare sub glUniform4i64NV(byval location as GLint, byval x as GLint64EXT, byval y as GLint64EXT, byval z as GLint64EXT, byval w as GLint64EXT)
+	declare sub glUniform1i64vNV(byval location as GLint, byval count as GLsizei, byval value as const GLint64EXT ptr)
+	declare sub glUniform2i64vNV(byval location as GLint, byval count as GLsizei, byval value as const GLint64EXT ptr)
+	declare sub glUniform3i64vNV(byval location as GLint, byval count as GLsizei, byval value as const GLint64EXT ptr)
+	declare sub glUniform4i64vNV(byval location as GLint, byval count as GLsizei, byval value as const GLint64EXT ptr)
+	declare sub glUniform1ui64NV(byval location as GLint, byval x as GLuint64EXT)
+	declare sub glUniform2ui64NV(byval location as GLint, byval x as GLuint64EXT, byval y as GLuint64EXT)
+	declare sub glUniform3ui64NV(byval location as GLint, byval x as GLuint64EXT, byval y as GLuint64EXT, byval z as GLuint64EXT)
+	declare sub glUniform4ui64NV(byval location as GLint, byval x as GLuint64EXT, byval y as GLuint64EXT, byval z as GLuint64EXT, byval w as GLuint64EXT)
+	declare sub glUniform1ui64vNV(byval location as GLint, byval count as GLsizei, byval value as const GLuint64EXT ptr)
+	declare sub glUniform2ui64vNV(byval location as GLint, byval count as GLsizei, byval value as const GLuint64EXT ptr)
+	declare sub glUniform3ui64vNV(byval location as GLint, byval count as GLsizei, byval value as const GLuint64EXT ptr)
+	declare sub glUniform4ui64vNV(byval location as GLint, byval count as GLsizei, byval value as const GLuint64EXT ptr)
+	declare sub glGetUniformi64vNV(byval program as GLuint, byval location as GLint, byval params as GLint64EXT ptr)
+	declare sub glGetUniformui64vNV(byval program as GLuint, byval location as GLint, byval params as GLuint64EXT ptr)
+	declare sub glProgramUniform1i64NV(byval program as GLuint, byval location as GLint, byval x as GLint64EXT)
+	declare sub glProgramUniform2i64NV(byval program as GLuint, byval location as GLint, byval x as GLint64EXT, byval y as GLint64EXT)
+	declare sub glProgramUniform3i64NV(byval program as GLuint, byval location as GLint, byval x as GLint64EXT, byval y as GLint64EXT, byval z as GLint64EXT)
+	declare sub glProgramUniform4i64NV(byval program as GLuint, byval location as GLint, byval x as GLint64EXT, byval y as GLint64EXT, byval z as GLint64EXT, byval w as GLint64EXT)
+	declare sub glProgramUniform1i64vNV(byval program as GLuint, byval location as GLint, byval count as GLsizei, byval value as const GLint64EXT ptr)
+	declare sub glProgramUniform2i64vNV(byval program as GLuint, byval location as GLint, byval count as GLsizei, byval value as const GLint64EXT ptr)
+	declare sub glProgramUniform3i64vNV(byval program as GLuint, byval location as GLint, byval count as GLsizei, byval value as const GLint64EXT ptr)
+	declare sub glProgramUniform4i64vNV(byval program as GLuint, byval location as GLint, byval count as GLsizei, byval value as const GLint64EXT ptr)
+	declare sub glProgramUniform1ui64NV(byval program as GLuint, byval location as GLint, byval x as GLuint64EXT)
+	declare sub glProgramUniform2ui64NV(byval program as GLuint, byval location as GLint, byval x as GLuint64EXT, byval y as GLuint64EXT)
+	declare sub glProgramUniform3ui64NV(byval program as GLuint, byval location as GLint, byval x as GLuint64EXT, byval y as GLuint64EXT, byval z as GLuint64EXT)
+	declare sub glProgramUniform4ui64NV(byval program as GLuint, byval location as GLint, byval x as GLuint64EXT, byval y as GLuint64EXT, byval z as GLuint64EXT, byval w as GLuint64EXT)
+	declare sub glProgramUniform1ui64vNV(byval program as GLuint, byval location as GLint, byval count as GLsizei, byval value as const GLuint64EXT ptr)
+	declare sub glProgramUniform2ui64vNV(byval program as GLuint, byval location as GLint, byval count as GLsizei, byval value as const GLuint64EXT ptr)
+	declare sub glProgramUniform3ui64vNV(byval program as GLuint, byval location as GLint, byval count as GLsizei, byval value as const GLuint64EXT ptr)
+	declare sub glProgramUniform4ui64vNV(byval program as GLuint, byval location as GLint, byval count as GLsizei, byval value as const GLuint64EXT ptr)
+#endif
+
 const GL_AMD_interleaved_elements = 1
 const GL_VERTEX_ELEMENT_SWIZZLE_AMD = &h91A4
 const GL_VERTEX_ID_SWIZZLE_AMD = &h91A5
 type PFNGLVERTEXATTRIBPARAMETERIAMDPROC as sub(byval index as GLuint, byval pname as GLenum, byval param as GLint)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glVertexAttribParameteriAMD(byval index as GLuint, byval pname as GLenum, byval param as GLint)
+#endif
+
 const GL_AMD_multi_draw_indirect = 1
 type PFNGLMULTIDRAWARRAYSINDIRECTAMDPROC as sub(byval mode as GLenum, byval indirect as const any ptr, byval primcount as GLsizei, byval stride as GLsizei)
 type PFNGLMULTIDRAWELEMENTSINDIRECTAMDPROC as sub(byval mode as GLenum, byval type as GLenum, byval indirect as const any ptr, byval primcount as GLsizei, byval stride as GLsizei)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glMultiDrawArraysIndirectAMD(byval mode as GLenum, byval indirect as const any ptr, byval primcount as GLsizei, byval stride as GLsizei)
+	declare sub glMultiDrawElementsIndirectAMD(byval mode as GLenum, byval type as GLenum, byval indirect as const any ptr, byval primcount as GLsizei, byval stride as GLsizei)
+#endif
+
 const GL_AMD_name_gen_delete = 1
 const GL_DATA_BUFFER_AMD = &h9151
 const GL_PERFORMANCE_MONITOR_AMD = &h9152
@@ -3050,6 +4305,12 @@ type PFNGLGENNAMESAMDPROC as sub(byval identifier as GLenum, byval num as GLuint
 type PFNGLDELETENAMESAMDPROC as sub(byval identifier as GLenum, byval num as GLuint, byval names as const GLuint ptr)
 type PFNGLISNAMEAMDPROC as function(byval identifier as GLenum, byval name as GLuint) as GLboolean
 
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glGenNamesAMD(byval identifier as GLenum, byval num as GLuint, byval names as GLuint ptr)
+	declare sub glDeleteNamesAMD(byval identifier as GLenum, byval num as GLuint, byval names as const GLuint ptr)
+	declare function glIsNameAMD(byval identifier as GLenum, byval name as GLuint) as GLboolean
+#endif
+
 const GL_AMD_occlusion_query_event = 1
 const GL_OCCLUSION_QUERY_EVENT_MASK_AMD = &h874F
 const GL_QUERY_DEPTH_PASS_EVENT_BIT_AMD = &h00000001
@@ -3058,6 +4319,11 @@ const GL_QUERY_STENCIL_FAIL_EVENT_BIT_AMD = &h00000004
 const GL_QUERY_DEPTH_BOUNDS_FAIL_EVENT_BIT_AMD = &h00000008
 const GL_QUERY_ALL_EVENT_BITS_AMD = &hFFFFFFFF
 type PFNGLQUERYOBJECTPARAMETERUIAMDPROC as sub(byval target as GLenum, byval id as GLuint, byval pname as GLenum, byval param as GLuint)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glQueryObjectParameteruiAMD(byval target as GLenum, byval id as GLuint, byval pname as GLenum, byval param as GLuint)
+#endif
+
 const GL_AMD_performance_monitor = 1
 const GL_COUNTER_TYPE_AMD = &h8BC0
 const GL_COUNTER_RANGE_AMD = &h8BC1
@@ -3079,6 +4345,20 @@ type PFNGLBEGINPERFMONITORAMDPROC as sub(byval monitor as GLuint)
 type PFNGLENDPERFMONITORAMDPROC as sub(byval monitor as GLuint)
 type PFNGLGETPERFMONITORCOUNTERDATAAMDPROC as sub(byval monitor as GLuint, byval pname as GLenum, byval dataSize as GLsizei, byval data as GLuint ptr, byval bytesWritten as GLint ptr)
 
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glGetPerfMonitorGroupsAMD(byval numGroups as GLint ptr, byval groupsSize as GLsizei, byval groups as GLuint ptr)
+	declare sub glGetPerfMonitorCountersAMD(byval group as GLuint, byval numCounters as GLint ptr, byval maxActiveCounters as GLint ptr, byval counterSize as GLsizei, byval counters as GLuint ptr)
+	declare sub glGetPerfMonitorGroupStringAMD(byval group as GLuint, byval bufSize as GLsizei, byval length as GLsizei ptr, byval groupString as zstring ptr)
+	declare sub glGetPerfMonitorCounterStringAMD(byval group as GLuint, byval counter as GLuint, byval bufSize as GLsizei, byval length as GLsizei ptr, byval counterString as zstring ptr)
+	declare sub glGetPerfMonitorCounterInfoAMD(byval group as GLuint, byval counter as GLuint, byval pname as GLenum, byval data as any ptr)
+	declare sub glGenPerfMonitorsAMD(byval n as GLsizei, byval monitors as GLuint ptr)
+	declare sub glDeletePerfMonitorsAMD(byval n as GLsizei, byval monitors as GLuint ptr)
+	declare sub glSelectPerfMonitorCountersAMD(byval monitor as GLuint, byval enable as GLboolean, byval group as GLuint, byval numCounters as GLint, byval counterList as GLuint ptr)
+	declare sub glBeginPerfMonitorAMD(byval monitor as GLuint)
+	declare sub glEndPerfMonitorAMD(byval monitor as GLuint)
+	declare sub glGetPerfMonitorCounterDataAMD(byval monitor as GLuint, byval pname as GLenum, byval dataSize as GLsizei, byval data as GLuint ptr, byval bytesWritten as GLint ptr)
+#endif
+
 const GL_AMD_pinned_memory = 1
 const GL_EXTERNAL_VIRTUAL_MEMORY_BUFFER_AMD = &h9160
 const GL_AMD_query_buffer_object = 1
@@ -3088,6 +4368,11 @@ const GL_QUERY_RESULT_NO_WAIT_AMD = &h9194
 const GL_AMD_sample_positions = 1
 const GL_SUBSAMPLE_DISTANCE_AMD = &h883F
 type PFNGLSETMULTISAMPLEFVAMDPROC as sub(byval pname as GLenum, byval index as GLuint, byval val as const GLfloat ptr)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glSetMultisamplefvAMD(byval pname as GLenum, byval index as GLuint, byval val as const GLfloat ptr)
+#endif
+
 const GL_AMD_seamless_cubemap_per_texture = 1
 const GL_AMD_shader_atomic_counter_ops = 1
 const GL_AMD_shader_stencil_export = 1
@@ -3104,12 +4389,23 @@ const GL_MIN_LOD_WARNING_AMD = &h919C
 const GL_TEXTURE_STORAGE_SPARSE_BIT_AMD = &h00000001
 type PFNGLTEXSTORAGESPARSEAMDPROC as sub(byval target as GLenum, byval internalFormat as GLenum, byval width as GLsizei, byval height as GLsizei, byval depth as GLsizei, byval layers as GLsizei, byval flags as GLbitfield)
 type PFNGLTEXTURESTORAGESPARSEAMDPROC as sub(byval texture as GLuint, byval target as GLenum, byval internalFormat as GLenum, byval width as GLsizei, byval height as GLsizei, byval depth as GLsizei, byval layers as GLsizei, byval flags as GLbitfield)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glTexStorageSparseAMD(byval target as GLenum, byval internalFormat as GLenum, byval width as GLsizei, byval height as GLsizei, byval depth as GLsizei, byval layers as GLsizei, byval flags as GLbitfield)
+	declare sub glTextureStorageSparseAMD(byval texture as GLuint, byval target as GLenum, byval internalFormat as GLenum, byval width as GLsizei, byval height as GLsizei, byval depth as GLsizei, byval layers as GLsizei, byval flags as GLbitfield)
+#endif
+
 const GL_AMD_stencil_operation_extended = 1
 const GL_SET_AMD = &h874A
 const GL_REPLACE_VALUE_AMD = &h874B
 const GL_STENCIL_OP_VALUE_AMD = &h874C
 const GL_STENCIL_BACK_OP_VALUE_AMD = &h874D
 type PFNGLSTENCILOPVALUEAMDPROC as sub(byval face as GLenum, byval value as GLuint)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glStencilOpValueAMD(byval face as GLenum, byval value as GLuint)
+#endif
+
 const GL_AMD_texture_texture4 = 1
 const GL_AMD_transform_feedback3_lines_triangles = 1
 const GL_AMD_transform_feedback4 = 1
@@ -3125,6 +4421,12 @@ const GL_DISCRETE_AMD = &h9006
 const GL_CONTINUOUS_AMD = &h9007
 type PFNGLTESSELLATIONFACTORAMDPROC as sub(byval factor as GLfloat)
 type PFNGLTESSELLATIONMODEAMDPROC as sub(byval mode as GLenum)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glTessellationFactorAMD(byval factor as GLfloat)
+	declare sub glTessellationModeAMD(byval mode as GLenum)
+#endif
+
 const GL_AMD_vertex_shader_viewport_index = 1
 const GL_APPLE_aux_depth_stencil = 1
 const GL_AUX_DEPTH_STENCIL_APPLE = &h8A14
@@ -3141,6 +4443,14 @@ type PFNGLDRAWRANGEELEMENTARRAYAPPLEPROC as sub(byval mode as GLenum, byval star
 type PFNGLMULTIDRAWELEMENTARRAYAPPLEPROC as sub(byval mode as GLenum, byval first as const GLint ptr, byval count as const GLsizei ptr, byval primcount as GLsizei)
 type PFNGLMULTIDRAWRANGEELEMENTARRAYAPPLEPROC as sub(byval mode as GLenum, byval start as GLuint, byval end as GLuint, byval first as const GLint ptr, byval count as const GLsizei ptr, byval primcount as GLsizei)
 
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glElementPointerAPPLE(byval type as GLenum, byval pointer as const any ptr)
+	declare sub glDrawElementArrayAPPLE(byval mode as GLenum, byval first as GLint, byval count as GLsizei)
+	declare sub glDrawRangeElementArrayAPPLE(byval mode as GLenum, byval start as GLuint, byval end as GLuint, byval first as GLint, byval count as GLsizei)
+	declare sub glMultiDrawElementArrayAPPLE(byval mode as GLenum, byval first as const GLint ptr, byval count as const GLsizei ptr, byval primcount as GLsizei)
+	declare sub glMultiDrawRangeElementArrayAPPLE(byval mode as GLenum, byval start as GLuint, byval end as GLuint, byval first as const GLint ptr, byval count as const GLsizei ptr, byval primcount as GLsizei)
+#endif
+
 const GL_APPLE_fence = 1
 const GL_DRAW_PIXELS_APPLE = &h8A0A
 const GL_FENCE_APPLE = &h8A0B
@@ -3153,6 +4463,17 @@ type PFNGLTESTFENCEAPPLEPROC as function(byval fence as GLuint) as GLboolean
 type PFNGLFINISHFENCEAPPLEPROC as sub(byval fence as GLuint)
 type PFNGLTESTOBJECTAPPLEPROC as function(byval object as GLenum, byval name as GLuint) as GLboolean
 type PFNGLFINISHOBJECTAPPLEPROC as sub(byval object as GLenum, byval name as GLint)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glGenFencesAPPLE(byval n as GLsizei, byval fences as GLuint ptr)
+	declare sub glDeleteFencesAPPLE(byval n as GLsizei, byval fences as const GLuint ptr)
+	declare sub glSetFenceAPPLE(byval fence as GLuint)
+	declare function glIsFenceAPPLE(byval fence as GLuint) as GLboolean
+	declare function glTestFenceAPPLE(byval fence as GLuint) as GLboolean
+	declare sub glFinishFenceAPPLE(byval fence as GLuint)
+	declare function glTestObjectAPPLE(byval object as GLenum, byval name as GLuint) as GLboolean
+	declare sub glFinishObjectAPPLE(byval object as GLenum, byval name as GLint)
+#endif
 
 const GL_APPLE_float_pixels = 1
 const GL_HALF_APPLE = &h140B
@@ -3174,6 +4495,12 @@ const GL_BUFFER_SERIALIZED_MODIFY_APPLE = &h8A12
 const GL_BUFFER_FLUSHING_UNMAP_APPLE = &h8A13
 type PFNGLBUFFERPARAMETERIAPPLEPROC as sub(byval target as GLenum, byval pname as GLenum, byval param as GLint)
 type PFNGLFLUSHMAPPEDBUFFERRANGEAPPLEPROC as sub(byval target as GLenum, byval offset as GLintptr, byval size as GLsizeiptr)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glBufferParameteriAPPLE(byval target as GLenum, byval pname as GLenum, byval param as GLint)
+	declare sub glFlushMappedBufferRangeAPPLE(byval target as GLenum, byval offset as GLintptr, byval size as GLsizeiptr)
+#endif
+
 const GL_APPLE_object_purgeable = 1
 const GL_BUFFER_OBJECT_APPLE = &h85B3
 const GL_RELEASED_APPLE = &h8A19
@@ -3185,6 +4512,12 @@ const GL_PURGEABLE_APPLE = &h8A1D
 type PFNGLOBJECTPURGEABLEAPPLEPROC as function(byval objectType as GLenum, byval name as GLuint, byval option as GLenum) as GLenum
 type PFNGLOBJECTUNPURGEABLEAPPLEPROC as function(byval objectType as GLenum, byval name as GLuint, byval option as GLenum) as GLenum
 type PFNGLGETOBJECTPARAMETERIVAPPLEPROC as sub(byval objectType as GLenum, byval name as GLuint, byval pname as GLenum, byval params as GLint ptr)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare function glObjectPurgeableAPPLE(byval objectType as GLenum, byval name as GLuint, byval option as GLenum) as GLenum
+	declare function glObjectUnpurgeableAPPLE(byval objectType as GLenum, byval name as GLuint, byval option as GLenum) as GLenum
+	declare sub glGetObjectParameterivAPPLE(byval objectType as GLenum, byval name as GLuint, byval pname as GLenum, byval params as GLint ptr)
+#endif
 
 const GL_APPLE_rgb_422 = 1
 const GL_RGB_422_APPLE = &h8A1F
@@ -3205,6 +4538,12 @@ const GL_STORAGE_CACHED_APPLE = &h85BE
 const GL_STORAGE_SHARED_APPLE = &h85BF
 type PFNGLTEXTURERANGEAPPLEPROC as sub(byval target as GLenum, byval length as GLsizei, byval pointer as const any ptr)
 type PFNGLGETTEXPARAMETERPOINTERVAPPLEPROC as sub(byval target as GLenum, byval pname as GLenum, byval params as any ptr ptr)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glTextureRangeAPPLE(byval target as GLenum, byval length as GLsizei, byval pointer as const any ptr)
+	declare sub glGetTexParameterPointervAPPLE(byval target as GLenum, byval pname as GLenum, byval params as any ptr ptr)
+#endif
+
 const GL_APPLE_transform_hint = 1
 const GL_TRANSFORM_HINT_APPLE = &h85B1
 const GL_APPLE_vertex_array_object = 1
@@ -3214,6 +4553,13 @@ type PFNGLBINDVERTEXARRAYAPPLEPROC as sub(byval array as GLuint)
 type PFNGLDELETEVERTEXARRAYSAPPLEPROC as sub(byval n as GLsizei, byval arrays as const GLuint ptr)
 type PFNGLGENVERTEXARRAYSAPPLEPROC as sub(byval n as GLsizei, byval arrays as GLuint ptr)
 type PFNGLISVERTEXARRAYAPPLEPROC as function(byval array as GLuint) as GLboolean
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glBindVertexArrayAPPLE(byval array as GLuint)
+	declare sub glDeleteVertexArraysAPPLE(byval n as GLsizei, byval arrays as const GLuint ptr)
+	declare sub glGenVertexArraysAPPLE(byval n as GLsizei, byval arrays as GLuint ptr)
+	declare function glIsVertexArrayAPPLE(byval array as GLuint) as GLboolean
+#endif
 
 const GL_APPLE_vertex_array_range = 1
 const GL_VERTEX_ARRAY_RANGE_APPLE = &h851D
@@ -3225,6 +4571,12 @@ const GL_STORAGE_CLIENT_APPLE = &h85B4
 type PFNGLVERTEXARRAYRANGEAPPLEPROC as sub(byval length as GLsizei, byval pointer as any ptr)
 type PFNGLFLUSHVERTEXARRAYRANGEAPPLEPROC as sub(byval length as GLsizei, byval pointer as any ptr)
 type PFNGLVERTEXARRAYPARAMETERIAPPLEPROC as sub(byval pname as GLenum, byval param as GLint)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glVertexArrayRangeAPPLE(byval length as GLsizei, byval pointer as any ptr)
+	declare sub glFlushVertexArrayRangeAPPLE(byval length as GLsizei, byval pointer as any ptr)
+	declare sub glVertexArrayParameteriAPPLE(byval pname as GLenum, byval param as GLint)
+#endif
 
 const GL_APPLE_vertex_program_evaluators = 1
 const GL_VERTEX_ATTRIB_MAP1_APPLE = &h8A00
@@ -3245,6 +4597,16 @@ type PFNGLMAPVERTEXATTRIB1DAPPLEPROC as sub(byval index as GLuint, byval size as
 type PFNGLMAPVERTEXATTRIB1FAPPLEPROC as sub(byval index as GLuint, byval size as GLuint, byval u1 as GLfloat, byval u2 as GLfloat, byval stride as GLint, byval order as GLint, byval points as const GLfloat ptr)
 type PFNGLMAPVERTEXATTRIB2DAPPLEPROC as sub(byval index as GLuint, byval size as GLuint, byval u1 as GLdouble, byval u2 as GLdouble, byval ustride as GLint, byval uorder as GLint, byval v1 as GLdouble, byval v2 as GLdouble, byval vstride as GLint, byval vorder as GLint, byval points as const GLdouble ptr)
 type PFNGLMAPVERTEXATTRIB2FAPPLEPROC as sub(byval index as GLuint, byval size as GLuint, byval u1 as GLfloat, byval u2 as GLfloat, byval ustride as GLint, byval uorder as GLint, byval v1 as GLfloat, byval v2 as GLfloat, byval vstride as GLint, byval vorder as GLint, byval points as const GLfloat ptr)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glEnableVertexAttribAPPLE(byval index as GLuint, byval pname as GLenum)
+	declare sub glDisableVertexAttribAPPLE(byval index as GLuint, byval pname as GLenum)
+	declare function glIsVertexAttribEnabledAPPLE(byval index as GLuint, byval pname as GLenum) as GLboolean
+	declare sub glMapVertexAttrib1dAPPLE(byval index as GLuint, byval size as GLuint, byval u1 as GLdouble, byval u2 as GLdouble, byval stride as GLint, byval order as GLint, byval points as const GLdouble ptr)
+	declare sub glMapVertexAttrib1fAPPLE(byval index as GLuint, byval size as GLuint, byval u1 as GLfloat, byval u2 as GLfloat, byval stride as GLint, byval order as GLint, byval points as const GLfloat ptr)
+	declare sub glMapVertexAttrib2dAPPLE(byval index as GLuint, byval size as GLuint, byval u1 as GLdouble, byval u2 as GLdouble, byval ustride as GLint, byval uorder as GLint, byval v1 as GLdouble, byval v2 as GLdouble, byval vstride as GLint, byval vorder as GLint, byval points as const GLdouble ptr)
+	declare sub glMapVertexAttrib2fAPPLE(byval index as GLuint, byval size as GLuint, byval u1 as GLfloat, byval u2 as GLfloat, byval ustride as GLint, byval uorder as GLint, byval v1 as GLfloat, byval v2 as GLfloat, byval vstride as GLint, byval vorder as GLint, byval points as const GLfloat ptr)
+#endif
 
 const GL_APPLE_ycbcr_422 = 1
 const GL_YCBCR_422_APPLE = &h85B9
@@ -3267,6 +4629,11 @@ const GL_DRAW_BUFFER13_ATI = &h8832
 const GL_DRAW_BUFFER14_ATI = &h8833
 const GL_DRAW_BUFFER15_ATI = &h8834
 type PFNGLDRAWBUFFERSATIPROC as sub(byval n as GLsizei, byval bufs as const GLenum ptr)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glDrawBuffersATI(byval n as GLsizei, byval bufs as const GLenum ptr)
+#endif
+
 const GL_ATI_element_array = 1
 const GL_ELEMENT_ARRAY_ATI = &h8768
 const GL_ELEMENT_ARRAY_TYPE_ATI = &h8769
@@ -3275,6 +4642,12 @@ const GL_ELEMENT_ARRAY_POINTER_ATI = &h876A
 type PFNGLELEMENTPOINTERATIPROC as sub(byval type as GLenum, byval pointer as const any ptr)
 type PFNGLDRAWELEMENTARRAYATIPROC as sub(byval mode as GLenum, byval count as GLsizei)
 type PFNGLDRAWRANGEELEMENTARRAYATIPROC as sub(byval mode as GLenum, byval start as GLuint, byval end as GLuint, byval count as GLsizei)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glElementPointerATI(byval type as GLenum, byval pointer as const any ptr)
+	declare sub glDrawElementArrayATI(byval mode as GLenum, byval count as GLsizei)
+	declare sub glDrawRangeElementArrayATI(byval mode as GLenum, byval start as GLuint, byval end as GLuint, byval count as GLsizei)
+#endif
 
 const GL_ATI_envmap_bumpmap = 1
 const GL_BUMP_ROT_MATRIX_ATI = &h8775
@@ -3290,6 +4663,13 @@ type PFNGLTEXBUMPPARAMETERIVATIPROC as sub(byval pname as GLenum, byval param as
 type PFNGLTEXBUMPPARAMETERFVATIPROC as sub(byval pname as GLenum, byval param as const GLfloat ptr)
 type PFNGLGETTEXBUMPPARAMETERIVATIPROC as sub(byval pname as GLenum, byval param as GLint ptr)
 type PFNGLGETTEXBUMPPARAMETERFVATIPROC as sub(byval pname as GLenum, byval param as GLfloat ptr)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glTexBumpParameterivATI(byval pname as GLenum, byval param as const GLint ptr)
+	declare sub glTexBumpParameterfvATI(byval pname as GLenum, byval param as const GLfloat ptr)
+	declare sub glGetTexBumpParameterivATI(byval pname as GLenum, byval param as GLint ptr)
+	declare sub glGetTexBumpParameterfvATI(byval pname as GLenum, byval param as GLfloat ptr)
+#endif
 
 const GL_ATI_fragment_shader = 1
 const GL_FRAGMENT_SHADER_ATI = &h8920
@@ -3411,9 +4791,32 @@ type PFNGLALPHAFRAGMENTOP1ATIPROC as sub(byval op as GLenum, byval dst as GLuint
 type PFNGLALPHAFRAGMENTOP2ATIPROC as sub(byval op as GLenum, byval dst as GLuint, byval dstMod as GLuint, byval arg1 as GLuint, byval arg1Rep as GLuint, byval arg1Mod as GLuint, byval arg2 as GLuint, byval arg2Rep as GLuint, byval arg2Mod as GLuint)
 type PFNGLALPHAFRAGMENTOP3ATIPROC as sub(byval op as GLenum, byval dst as GLuint, byval dstMod as GLuint, byval arg1 as GLuint, byval arg1Rep as GLuint, byval arg1Mod as GLuint, byval arg2 as GLuint, byval arg2Rep as GLuint, byval arg2Mod as GLuint, byval arg3 as GLuint, byval arg3Rep as GLuint, byval arg3Mod as GLuint)
 type PFNGLSETFRAGMENTSHADERCONSTANTATIPROC as sub(byval dst as GLuint, byval value as const GLfloat ptr)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare function glGenFragmentShadersATI(byval range as GLuint) as GLuint
+	declare sub glBindFragmentShaderATI(byval id as GLuint)
+	declare sub glDeleteFragmentShaderATI(byval id as GLuint)
+	declare sub glBeginFragmentShaderATI()
+	declare sub glEndFragmentShaderATI()
+	declare sub glPassTexCoordATI(byval dst as GLuint, byval coord as GLuint, byval swizzle as GLenum)
+	declare sub glSampleMapATI(byval dst as GLuint, byval interp as GLuint, byval swizzle as GLenum)
+	declare sub glColorFragmentOp1ATI(byval op as GLenum, byval dst as GLuint, byval dstMask as GLuint, byval dstMod as GLuint, byval arg1 as GLuint, byval arg1Rep as GLuint, byval arg1Mod as GLuint)
+	declare sub glColorFragmentOp2ATI(byval op as GLenum, byval dst as GLuint, byval dstMask as GLuint, byval dstMod as GLuint, byval arg1 as GLuint, byval arg1Rep as GLuint, byval arg1Mod as GLuint, byval arg2 as GLuint, byval arg2Rep as GLuint, byval arg2Mod as GLuint)
+	declare sub glColorFragmentOp3ATI(byval op as GLenum, byval dst as GLuint, byval dstMask as GLuint, byval dstMod as GLuint, byval arg1 as GLuint, byval arg1Rep as GLuint, byval arg1Mod as GLuint, byval arg2 as GLuint, byval arg2Rep as GLuint, byval arg2Mod as GLuint, byval arg3 as GLuint, byval arg3Rep as GLuint, byval arg3Mod as GLuint)
+	declare sub glAlphaFragmentOp1ATI(byval op as GLenum, byval dst as GLuint, byval dstMod as GLuint, byval arg1 as GLuint, byval arg1Rep as GLuint, byval arg1Mod as GLuint)
+	declare sub glAlphaFragmentOp2ATI(byval op as GLenum, byval dst as GLuint, byval dstMod as GLuint, byval arg1 as GLuint, byval arg1Rep as GLuint, byval arg1Mod as GLuint, byval arg2 as GLuint, byval arg2Rep as GLuint, byval arg2Mod as GLuint)
+	declare sub glAlphaFragmentOp3ATI(byval op as GLenum, byval dst as GLuint, byval dstMod as GLuint, byval arg1 as GLuint, byval arg1Rep as GLuint, byval arg1Mod as GLuint, byval arg2 as GLuint, byval arg2Rep as GLuint, byval arg2Mod as GLuint, byval arg3 as GLuint, byval arg3Rep as GLuint, byval arg3Mod as GLuint)
+	declare sub glSetFragmentShaderConstantATI(byval dst as GLuint, byval value as const GLfloat ptr)
+#endif
+
 const GL_ATI_map_object_buffer = 1
 type PFNGLMAPOBJECTBUFFERATIPROC as function(byval buffer as GLuint) as any ptr
 type PFNGLUNMAPOBJECTBUFFERATIPROC as sub(byval buffer as GLuint)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare function glMapObjectBufferATI(byval buffer as GLuint) as any ptr
+	declare sub glUnmapObjectBufferATI(byval buffer as GLuint)
+#endif
 
 const GL_ATI_meminfo = 1
 const GL_VBO_FREE_MEMORY_ATI = &h87FB
@@ -3434,6 +4837,12 @@ const GL_PN_TRIANGLES_NORMAL_MODE_LINEAR_ATI = &h87F7
 const GL_PN_TRIANGLES_NORMAL_MODE_QUADRATIC_ATI = &h87F8
 type PFNGLPNTRIANGLESIATIPROC as sub(byval pname as GLenum, byval param as GLint)
 type PFNGLPNTRIANGLESFATIPROC as sub(byval pname as GLenum, byval param as GLfloat)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glPNTrianglesiATI(byval pname as GLenum, byval param as GLint)
+	declare sub glPNTrianglesfATI(byval pname as GLenum, byval param as GLfloat)
+#endif
+
 const GL_ATI_separate_stencil = 1
 const GL_STENCIL_BACK_FUNC_ATI = &h8800
 const GL_STENCIL_BACK_FAIL_ATI = &h8801
@@ -3441,6 +4850,12 @@ const GL_STENCIL_BACK_PASS_DEPTH_FAIL_ATI = &h8802
 const GL_STENCIL_BACK_PASS_DEPTH_PASS_ATI = &h8803
 type PFNGLSTENCILOPSEPARATEATIPROC as sub(byval face as GLenum, byval sfail as GLenum, byval dpfail as GLenum, byval dppass as GLenum)
 type PFNGLSTENCILFUNCSEPARATEATIPROC as sub(byval frontfunc as GLenum, byval backfunc as GLenum, byval ref as GLint, byval mask as GLuint)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glStencilOpSeparateATI(byval face as GLenum, byval sfail as GLenum, byval dpfail as GLenum, byval dppass as GLenum)
+	declare sub glStencilFuncSeparateATI(byval frontfunc as GLenum, byval backfunc as GLenum, byval ref as GLint, byval mask as GLuint)
+#endif
+
 const GL_ATI_text_fragment_shader = 1
 const GL_TEXT_FRAGMENT_SHADER_ATI = &h8200
 const GL_ATI_texture_env_combine3 = 1
@@ -3485,10 +4900,32 @@ type PFNGLGETARRAYOBJECTIVATIPROC as sub(byval array as GLenum, byval pname as G
 type PFNGLVARIANTARRAYOBJECTATIPROC as sub(byval id as GLuint, byval type as GLenum, byval stride as GLsizei, byval buffer as GLuint, byval offset as GLuint)
 type PFNGLGETVARIANTARRAYOBJECTFVATIPROC as sub(byval id as GLuint, byval pname as GLenum, byval params as GLfloat ptr)
 type PFNGLGETVARIANTARRAYOBJECTIVATIPROC as sub(byval id as GLuint, byval pname as GLenum, byval params as GLint ptr)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare function glNewObjectBufferATI(byval size as GLsizei, byval pointer as const any ptr, byval usage as GLenum) as GLuint
+	declare function glIsObjectBufferATI(byval buffer as GLuint) as GLboolean
+	declare sub glUpdateObjectBufferATI(byval buffer as GLuint, byval offset as GLuint, byval size as GLsizei, byval pointer as const any ptr, byval preserve as GLenum)
+	declare sub glGetObjectBufferfvATI(byval buffer as GLuint, byval pname as GLenum, byval params as GLfloat ptr)
+	declare sub glGetObjectBufferivATI(byval buffer as GLuint, byval pname as GLenum, byval params as GLint ptr)
+	declare sub glFreeObjectBufferATI(byval buffer as GLuint)
+	declare sub glArrayObjectATI(byval array as GLenum, byval size as GLint, byval type as GLenum, byval stride as GLsizei, byval buffer as GLuint, byval offset as GLuint)
+	declare sub glGetArrayObjectfvATI(byval array as GLenum, byval pname as GLenum, byval params as GLfloat ptr)
+	declare sub glGetArrayObjectivATI(byval array as GLenum, byval pname as GLenum, byval params as GLint ptr)
+	declare sub glVariantArrayObjectATI(byval id as GLuint, byval type as GLenum, byval stride as GLsizei, byval buffer as GLuint, byval offset as GLuint)
+	declare sub glGetVariantArrayObjectfvATI(byval id as GLuint, byval pname as GLenum, byval params as GLfloat ptr)
+	declare sub glGetVariantArrayObjectivATI(byval id as GLuint, byval pname as GLenum, byval params as GLint ptr)
+#endif
+
 const GL_ATI_vertex_attrib_array_object = 1
 type PFNGLVERTEXATTRIBARRAYOBJECTATIPROC as sub(byval index as GLuint, byval size as GLint, byval type as GLenum, byval normalized as GLboolean, byval stride as GLsizei, byval buffer as GLuint, byval offset as GLuint)
 type PFNGLGETVERTEXATTRIBARRAYOBJECTFVATIPROC as sub(byval index as GLuint, byval pname as GLenum, byval params as GLfloat ptr)
 type PFNGLGETVERTEXATTRIBARRAYOBJECTIVATIPROC as sub(byval index as GLuint, byval pname as GLenum, byval params as GLint ptr)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glVertexAttribArrayObjectATI(byval index as GLuint, byval size as GLint, byval type as GLenum, byval normalized as GLboolean, byval stride as GLsizei, byval buffer as GLuint, byval offset as GLuint)
+	declare sub glGetVertexAttribArrayObjectfvATI(byval index as GLuint, byval pname as GLenum, byval params as GLfloat ptr)
+	declare sub glGetVertexAttribArrayObjectivATI(byval index as GLuint, byval pname as GLenum, byval params as GLint ptr)
+#endif
 
 const GL_ATI_vertex_streams = 1
 const GL_MAX_VERTEX_STREAMS_ATI = &h876B
@@ -3548,6 +4985,54 @@ type PFNGLCLIENTACTIVEVERTEXSTREAMATIPROC as sub(byval stream as GLenum)
 type PFNGLVERTEXBLENDENVIATIPROC as sub(byval pname as GLenum, byval param as GLint)
 type PFNGLVERTEXBLENDENVFATIPROC as sub(byval pname as GLenum, byval param as GLfloat)
 
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glVertexStream1sATI(byval stream as GLenum, byval x as GLshort)
+	declare sub glVertexStream1svATI(byval stream as GLenum, byval coords as const GLshort ptr)
+	declare sub glVertexStream1iATI(byval stream as GLenum, byval x as GLint)
+	declare sub glVertexStream1ivATI(byval stream as GLenum, byval coords as const GLint ptr)
+	declare sub glVertexStream1fATI(byval stream as GLenum, byval x as GLfloat)
+	declare sub glVertexStream1fvATI(byval stream as GLenum, byval coords as const GLfloat ptr)
+	declare sub glVertexStream1dATI(byval stream as GLenum, byval x as GLdouble)
+	declare sub glVertexStream1dvATI(byval stream as GLenum, byval coords as const GLdouble ptr)
+	declare sub glVertexStream2sATI(byval stream as GLenum, byval x as GLshort, byval y as GLshort)
+	declare sub glVertexStream2svATI(byval stream as GLenum, byval coords as const GLshort ptr)
+	declare sub glVertexStream2iATI(byval stream as GLenum, byval x as GLint, byval y as GLint)
+	declare sub glVertexStream2ivATI(byval stream as GLenum, byval coords as const GLint ptr)
+	declare sub glVertexStream2fATI(byval stream as GLenum, byval x as GLfloat, byval y as GLfloat)
+	declare sub glVertexStream2fvATI(byval stream as GLenum, byval coords as const GLfloat ptr)
+	declare sub glVertexStream2dATI(byval stream as GLenum, byval x as GLdouble, byval y as GLdouble)
+	declare sub glVertexStream2dvATI(byval stream as GLenum, byval coords as const GLdouble ptr)
+	declare sub glVertexStream3sATI(byval stream as GLenum, byval x as GLshort, byval y as GLshort, byval z as GLshort)
+	declare sub glVertexStream3svATI(byval stream as GLenum, byval coords as const GLshort ptr)
+	declare sub glVertexStream3iATI(byval stream as GLenum, byval x as GLint, byval y as GLint, byval z as GLint)
+	declare sub glVertexStream3ivATI(byval stream as GLenum, byval coords as const GLint ptr)
+	declare sub glVertexStream3fATI(byval stream as GLenum, byval x as GLfloat, byval y as GLfloat, byval z as GLfloat)
+	declare sub glVertexStream3fvATI(byval stream as GLenum, byval coords as const GLfloat ptr)
+	declare sub glVertexStream3dATI(byval stream as GLenum, byval x as GLdouble, byval y as GLdouble, byval z as GLdouble)
+	declare sub glVertexStream3dvATI(byval stream as GLenum, byval coords as const GLdouble ptr)
+	declare sub glVertexStream4sATI(byval stream as GLenum, byval x as GLshort, byval y as GLshort, byval z as GLshort, byval w as GLshort)
+	declare sub glVertexStream4svATI(byval stream as GLenum, byval coords as const GLshort ptr)
+	declare sub glVertexStream4iATI(byval stream as GLenum, byval x as GLint, byval y as GLint, byval z as GLint, byval w as GLint)
+	declare sub glVertexStream4ivATI(byval stream as GLenum, byval coords as const GLint ptr)
+	declare sub glVertexStream4fATI(byval stream as GLenum, byval x as GLfloat, byval y as GLfloat, byval z as GLfloat, byval w as GLfloat)
+	declare sub glVertexStream4fvATI(byval stream as GLenum, byval coords as const GLfloat ptr)
+	declare sub glVertexStream4dATI(byval stream as GLenum, byval x as GLdouble, byval y as GLdouble, byval z as GLdouble, byval w as GLdouble)
+	declare sub glVertexStream4dvATI(byval stream as GLenum, byval coords as const GLdouble ptr)
+	declare sub glNormalStream3bATI(byval stream as GLenum, byval nx as GLbyte, byval ny as GLbyte, byval nz as GLbyte)
+	declare sub glNormalStream3bvATI(byval stream as GLenum, byval coords as const GLbyte ptr)
+	declare sub glNormalStream3sATI(byval stream as GLenum, byval nx as GLshort, byval ny as GLshort, byval nz as GLshort)
+	declare sub glNormalStream3svATI(byval stream as GLenum, byval coords as const GLshort ptr)
+	declare sub glNormalStream3iATI(byval stream as GLenum, byval nx as GLint, byval ny as GLint, byval nz as GLint)
+	declare sub glNormalStream3ivATI(byval stream as GLenum, byval coords as const GLint ptr)
+	declare sub glNormalStream3fATI(byval stream as GLenum, byval nx as GLfloat, byval ny as GLfloat, byval nz as GLfloat)
+	declare sub glNormalStream3fvATI(byval stream as GLenum, byval coords as const GLfloat ptr)
+	declare sub glNormalStream3dATI(byval stream as GLenum, byval nx as GLdouble, byval ny as GLdouble, byval nz as GLdouble)
+	declare sub glNormalStream3dvATI(byval stream as GLenum, byval coords as const GLdouble ptr)
+	declare sub glClientActiveVertexStreamATI(byval stream as GLenum)
+	declare sub glVertexBlendEnviATI(byval pname as GLenum, byval param as GLint)
+	declare sub glVertexBlendEnvfATI(byval pname as GLenum, byval param as GLfloat)
+#endif
+
 const GL_EXT_422_pixels = 1
 const GL_422_EXT = &h80CC
 const GL_422_REV_EXT = &h80CD
@@ -3570,6 +5055,12 @@ type PFNGLUNIFORMBUFFEREXTPROC as sub(byval program as GLuint, byval location as
 type PFNGLGETUNIFORMBUFFERSIZEEXTPROC as function(byval program as GLuint, byval location as GLint) as GLint
 type PFNGLGETUNIFORMOFFSETEXTPROC as function(byval program as GLuint, byval location as GLint) as GLintptr
 
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glUniformBufferEXT(byval program as GLuint, byval location as GLint, byval buffer as GLuint)
+	declare function glGetUniformBufferSizeEXT(byval program as GLuint, byval location as GLint) as GLint
+	declare function glGetUniformOffsetEXT(byval program as GLuint, byval location as GLint) as GLintptr
+#endif
+
 const GL_EXT_blend_color = 1
 const GL_CONSTANT_COLOR_EXT = &h8001
 const GL_ONE_MINUS_CONSTANT_COLOR_EXT = &h8002
@@ -3577,16 +5068,31 @@ const GL_CONSTANT_ALPHA_EXT = &h8003
 const GL_ONE_MINUS_CONSTANT_ALPHA_EXT = &h8004
 const GL_BLEND_COLOR_EXT = &h8005
 type PFNGLBLENDCOLOREXTPROC as sub(byval red as GLfloat, byval green as GLfloat, byval blue as GLfloat, byval alpha as GLfloat)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glBlendColorEXT(byval red as GLfloat, byval green as GLfloat, byval blue as GLfloat, byval alpha as GLfloat)
+#endif
+
 const GL_EXT_blend_equation_separate = 1
 const GL_BLEND_EQUATION_RGB_EXT = &h8009
 const GL_BLEND_EQUATION_ALPHA_EXT = &h883D
 type PFNGLBLENDEQUATIONSEPARATEEXTPROC as sub(byval modeRGB as GLenum, byval modeAlpha as GLenum)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glBlendEquationSeparateEXT(byval modeRGB as GLenum, byval modeAlpha as GLenum)
+#endif
+
 const GL_EXT_blend_func_separate = 1
 const GL_BLEND_DST_RGB_EXT = &h80C8
 const GL_BLEND_SRC_RGB_EXT = &h80C9
 const GL_BLEND_DST_ALPHA_EXT = &h80CA
 const GL_BLEND_SRC_ALPHA_EXT = &h80CB
 type PFNGLBLENDFUNCSEPARATEEXTPROC as sub(byval sfactorRGB as GLenum, byval dfactorRGB as GLenum, byval sfactorAlpha as GLenum, byval dfactorAlpha as GLenum)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glBlendFuncSeparateEXT(byval sfactorRGB as GLenum, byval dfactorRGB as GLenum, byval sfactorAlpha as GLenum, byval dfactorAlpha as GLenum)
+#endif
+
 const GL_EXT_blend_logic_op = 1
 const GL_EXT_blend_minmax = 1
 const GL_MIN_EXT = &h8007
@@ -3594,6 +5100,11 @@ const GL_MAX_EXT = &h8008
 const GL_FUNC_ADD_EXT = &h8006
 const GL_BLEND_EQUATION_EXT = &h8009
 type PFNGLBLENDEQUATIONEXTPROC as sub(byval mode as GLenum)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glBlendEquationEXT(byval mode as GLenum)
+#endif
+
 const GL_EXT_blend_subtract = 1
 const GL_FUNC_SUBTRACT_EXT = &h800A
 const GL_FUNC_REVERSE_SUBTRACT_EXT = &h800B
@@ -3607,11 +5118,23 @@ const GL_UNPACK_CMYK_HINT_EXT = &h800F
 const GL_EXT_color_subtable = 1
 type PFNGLCOLORSUBTABLEEXTPROC as sub(byval target as GLenum, byval start as GLsizei, byval count as GLsizei, byval format as GLenum, byval type as GLenum, byval data as const any ptr)
 type PFNGLCOPYCOLORSUBTABLEEXTPROC as sub(byval target as GLenum, byval start as GLsizei, byval x as GLint, byval y as GLint, byval width as GLsizei)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glColorSubTableEXT(byval target as GLenum, byval start as GLsizei, byval count as GLsizei, byval format as GLenum, byval type as GLenum, byval data as const any ptr)
+	declare sub glCopyColorSubTableEXT(byval target as GLenum, byval start as GLsizei, byval x as GLint, byval y as GLint, byval width as GLsizei)
+#endif
+
 const GL_EXT_compiled_vertex_array = 1
 const GL_ARRAY_ELEMENT_LOCK_FIRST_EXT = &h81A8
 const GL_ARRAY_ELEMENT_LOCK_COUNT_EXT = &h81A9
 type PFNGLLOCKARRAYSEXTPROC as sub(byval first as GLint, byval count as GLsizei)
 type PFNGLUNLOCKARRAYSEXTPROC as sub()
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glLockArraysEXT(byval first as GLint, byval count as GLsizei)
+	declare sub glUnlockArraysEXT()
+#endif
+
 const GL_EXT_convolution = 1
 const GL_CONVOLUTION_1D_EXT = &h8010
 const GL_CONVOLUTION_2D_EXT = &h8011
@@ -3647,6 +5170,22 @@ type PFNGLGETCONVOLUTIONPARAMETERFVEXTPROC as sub(byval target as GLenum, byval 
 type PFNGLGETCONVOLUTIONPARAMETERIVEXTPROC as sub(byval target as GLenum, byval pname as GLenum, byval params as GLint ptr)
 type PFNGLGETSEPARABLEFILTEREXTPROC as sub(byval target as GLenum, byval format as GLenum, byval type as GLenum, byval row as any ptr, byval column as any ptr, byval span as any ptr)
 type PFNGLSEPARABLEFILTER2DEXTPROC as sub(byval target as GLenum, byval internalformat as GLenum, byval width as GLsizei, byval height as GLsizei, byval format as GLenum, byval type as GLenum, byval row as const any ptr, byval column as const any ptr)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glConvolutionFilter1DEXT(byval target as GLenum, byval internalformat as GLenum, byval width as GLsizei, byval format as GLenum, byval type as GLenum, byval image as const any ptr)
+	declare sub glConvolutionFilter2DEXT(byval target as GLenum, byval internalformat as GLenum, byval width as GLsizei, byval height as GLsizei, byval format as GLenum, byval type as GLenum, byval image as const any ptr)
+	declare sub glConvolutionParameterfEXT(byval target as GLenum, byval pname as GLenum, byval params as GLfloat)
+	declare sub glConvolutionParameterfvEXT(byval target as GLenum, byval pname as GLenum, byval params as const GLfloat ptr)
+	declare sub glConvolutionParameteriEXT(byval target as GLenum, byval pname as GLenum, byval params as GLint)
+	declare sub glConvolutionParameterivEXT(byval target as GLenum, byval pname as GLenum, byval params as const GLint ptr)
+	declare sub glCopyConvolutionFilter1DEXT(byval target as GLenum, byval internalformat as GLenum, byval x as GLint, byval y as GLint, byval width as GLsizei)
+	declare sub glCopyConvolutionFilter2DEXT(byval target as GLenum, byval internalformat as GLenum, byval x as GLint, byval y as GLint, byval width as GLsizei, byval height as GLsizei)
+	declare sub glGetConvolutionFilterEXT(byval target as GLenum, byval format as GLenum, byval type as GLenum, byval image as any ptr)
+	declare sub glGetConvolutionParameterfvEXT(byval target as GLenum, byval pname as GLenum, byval params as GLfloat ptr)
+	declare sub glGetConvolutionParameterivEXT(byval target as GLenum, byval pname as GLenum, byval params as GLint ptr)
+	declare sub glGetSeparableFilterEXT(byval target as GLenum, byval format as GLenum, byval type as GLenum, byval row as any ptr, byval column as any ptr, byval span as any ptr)
+	declare sub glSeparableFilter2DEXT(byval target as GLenum, byval internalformat as GLenum, byval width as GLsizei, byval height as GLsizei, byval format as GLenum, byval type as GLenum, byval row as const any ptr, byval column as const any ptr)
+#endif
 
 const GL_EXT_coordinate_frame = 1
 const GL_TANGENT_ARRAY_EXT = &h8439
@@ -3686,6 +5225,32 @@ type PFNGLBINORMAL3SEXTPROC as sub(byval bx as GLshort, byval by as GLshort, byv
 type PFNGLBINORMAL3SVEXTPROC as sub(byval v as const GLshort ptr)
 type PFNGLTANGENTPOINTEREXTPROC as sub(byval type as GLenum, byval stride as GLsizei, byval pointer as const any ptr)
 type PFNGLBINORMALPOINTEREXTPROC as sub(byval type as GLenum, byval stride as GLsizei, byval pointer as const any ptr)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glTangent3bEXT(byval tx as GLbyte, byval ty as GLbyte, byval tz as GLbyte)
+	declare sub glTangent3bvEXT(byval v as const GLbyte ptr)
+	declare sub glTangent3dEXT(byval tx as GLdouble, byval ty as GLdouble, byval tz as GLdouble)
+	declare sub glTangent3dvEXT(byval v as const GLdouble ptr)
+	declare sub glTangent3fEXT(byval tx as GLfloat, byval ty as GLfloat, byval tz as GLfloat)
+	declare sub glTangent3fvEXT(byval v as const GLfloat ptr)
+	declare sub glTangent3iEXT(byval tx as GLint, byval ty as GLint, byval tz as GLint)
+	declare sub glTangent3ivEXT(byval v as const GLint ptr)
+	declare sub glTangent3sEXT(byval tx as GLshort, byval ty as GLshort, byval tz as GLshort)
+	declare sub glTangent3svEXT(byval v as const GLshort ptr)
+	declare sub glBinormal3bEXT(byval bx as GLbyte, byval by as GLbyte, byval bz as GLbyte)
+	declare sub glBinormal3bvEXT(byval v as const GLbyte ptr)
+	declare sub glBinormal3dEXT(byval bx as GLdouble, byval by as GLdouble, byval bz as GLdouble)
+	declare sub glBinormal3dvEXT(byval v as const GLdouble ptr)
+	declare sub glBinormal3fEXT(byval bx as GLfloat, byval by as GLfloat, byval bz as GLfloat)
+	declare sub glBinormal3fvEXT(byval v as const GLfloat ptr)
+	declare sub glBinormal3iEXT(byval bx as GLint, byval by as GLint, byval bz as GLint)
+	declare sub glBinormal3ivEXT(byval v as const GLint ptr)
+	declare sub glBinormal3sEXT(byval bx as GLshort, byval by as GLshort, byval bz as GLshort)
+	declare sub glBinormal3svEXT(byval v as const GLshort ptr)
+	declare sub glTangentPointerEXT(byval type as GLenum, byval stride as GLsizei, byval pointer as const any ptr)
+	declare sub glBinormalPointerEXT(byval type as GLenum, byval stride as GLsizei, byval pointer as const any ptr)
+#endif
+
 const GL_EXT_copy_texture = 1
 type PFNGLCOPYTEXIMAGE1DEXTPROC as sub(byval target as GLenum, byval level as GLint, byval internalformat as GLenum, byval x as GLint, byval y as GLint, byval width as GLsizei, byval border as GLint)
 type PFNGLCOPYTEXIMAGE2DEXTPROC as sub(byval target as GLenum, byval level as GLint, byval internalformat as GLenum, byval x as GLint, byval y as GLint, byval width as GLsizei, byval height as GLsizei, byval border as GLint)
@@ -3693,12 +5258,26 @@ type PFNGLCOPYTEXSUBIMAGE1DEXTPROC as sub(byval target as GLenum, byval level as
 type PFNGLCOPYTEXSUBIMAGE2DEXTPROC as sub(byval target as GLenum, byval level as GLint, byval xoffset as GLint, byval yoffset as GLint, byval x as GLint, byval y as GLint, byval width as GLsizei, byval height as GLsizei)
 type PFNGLCOPYTEXSUBIMAGE3DEXTPROC as sub(byval target as GLenum, byval level as GLint, byval xoffset as GLint, byval yoffset as GLint, byval zoffset as GLint, byval x as GLint, byval y as GLint, byval width as GLsizei, byval height as GLsizei)
 
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glCopyTexImage1DEXT(byval target as GLenum, byval level as GLint, byval internalformat as GLenum, byval x as GLint, byval y as GLint, byval width as GLsizei, byval border as GLint)
+	declare sub glCopyTexImage2DEXT(byval target as GLenum, byval level as GLint, byval internalformat as GLenum, byval x as GLint, byval y as GLint, byval width as GLsizei, byval height as GLsizei, byval border as GLint)
+	declare sub glCopyTexSubImage1DEXT(byval target as GLenum, byval level as GLint, byval xoffset as GLint, byval x as GLint, byval y as GLint, byval width as GLsizei)
+	declare sub glCopyTexSubImage2DEXT(byval target as GLenum, byval level as GLint, byval xoffset as GLint, byval yoffset as GLint, byval x as GLint, byval y as GLint, byval width as GLsizei, byval height as GLsizei)
+	declare sub glCopyTexSubImage3DEXT(byval target as GLenum, byval level as GLint, byval xoffset as GLint, byval yoffset as GLint, byval zoffset as GLint, byval x as GLint, byval y as GLint, byval width as GLsizei, byval height as GLsizei)
+#endif
+
 const GL_EXT_cull_vertex = 1
 const GL_CULL_VERTEX_EXT = &h81AA
 const GL_CULL_VERTEX_EYE_POSITION_EXT = &h81AB
 const GL_CULL_VERTEX_OBJECT_POSITION_EXT = &h81AC
 type PFNGLCULLPARAMETERDVEXTPROC as sub(byval pname as GLenum, byval params as GLdouble ptr)
 type PFNGLCULLPARAMETERFVEXTPROC as sub(byval pname as GLenum, byval params as GLfloat ptr)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glCullParameterdvEXT(byval pname as GLenum, byval params as GLdouble ptr)
+	declare sub glCullParameterfvEXT(byval pname as GLenum, byval params as GLfloat ptr)
+#endif
+
 const GL_EXT_debug_label = 1
 const GL_PROGRAM_PIPELINE_OBJECT_EXT = &h8A4F
 const GL_PROGRAM_OBJECT_EXT = &h8B40
@@ -3708,16 +5287,32 @@ const GL_QUERY_OBJECT_EXT = &h9153
 const GL_VERTEX_ARRAY_OBJECT_EXT = &h9154
 type PFNGLLABELOBJECTEXTPROC as sub(byval type as GLenum, byval object as GLuint, byval length as GLsizei, byval label as const zstring ptr)
 type PFNGLGETOBJECTLABELEXTPROC as sub(byval type as GLenum, byval object as GLuint, byval bufSize as GLsizei, byval length as GLsizei ptr, byval label as zstring ptr)
-const GL_EXT_debug_marker = 1
 
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glLabelObjectEXT(byval type as GLenum, byval object as GLuint, byval length as GLsizei, byval label as const zstring ptr)
+	declare sub glGetObjectLabelEXT(byval type as GLenum, byval object as GLuint, byval bufSize as GLsizei, byval length as GLsizei ptr, byval label as zstring ptr)
+#endif
+
+const GL_EXT_debug_marker = 1
 type PFNGLINSERTEVENTMARKEREXTPROC as sub(byval length as GLsizei, byval marker as const zstring ptr)
 type PFNGLPUSHGROUPMARKEREXTPROC as sub(byval length as GLsizei, byval marker as const zstring ptr)
 type PFNGLPOPGROUPMARKEREXTPROC as sub()
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glInsertEventMarkerEXT(byval length as GLsizei, byval marker as const zstring ptr)
+	declare sub glPushGroupMarkerEXT(byval length as GLsizei, byval marker as const zstring ptr)
+	declare sub glPopGroupMarkerEXT()
+#endif
 
 const GL_EXT_depth_bounds_test = 1
 const GL_DEPTH_BOUNDS_TEST_EXT = &h8890
 const GL_DEPTH_BOUNDS_EXT = &h8891
 type PFNGLDEPTHBOUNDSEXTPROC as sub(byval zmin as GLclampd, byval zmax as GLclampd)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glDepthBoundsEXT(byval zmin as GLclampd, byval zmax as GLclampd)
+#endif
+
 const GL_EXT_direct_state_access = 1
 const GL_PROGRAM_MATRIX_EXT = &h8E2D
 const GL_TRANSPOSE_PROGRAM_MATRIX_EXT = &h8E2E
@@ -3978,16 +5573,290 @@ type PFNGLVERTEXARRAYVERTEXBINDINGDIVISOREXTPROC as sub(byval vaobj as GLuint, b
 type PFNGLVERTEXARRAYVERTEXATTRIBLOFFSETEXTPROC as sub(byval vaobj as GLuint, byval buffer as GLuint, byval index as GLuint, byval size as GLint, byval type as GLenum, byval stride as GLsizei, byval offset as GLintptr)
 type PFNGLTEXTUREPAGECOMMITMENTEXTPROC as sub(byval texture as GLuint, byval level as GLint, byval xoffset as GLint, byval yoffset as GLint, byval zoffset as GLint, byval width as GLsizei, byval height as GLsizei, byval depth as GLsizei, byval resident as GLboolean)
 type PFNGLVERTEXARRAYVERTEXATTRIBDIVISOREXTPROC as sub(byval vaobj as GLuint, byval index as GLuint, byval divisor as GLuint)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glMatrixLoadfEXT(byval mode as GLenum, byval m as const GLfloat ptr)
+	declare sub glMatrixLoaddEXT(byval mode as GLenum, byval m as const GLdouble ptr)
+	declare sub glMatrixMultfEXT(byval mode as GLenum, byval m as const GLfloat ptr)
+	declare sub glMatrixMultdEXT(byval mode as GLenum, byval m as const GLdouble ptr)
+	declare sub glMatrixLoadIdentityEXT(byval mode as GLenum)
+	declare sub glMatrixRotatefEXT(byval mode as GLenum, byval angle as GLfloat, byval x as GLfloat, byval y as GLfloat, byval z as GLfloat)
+	declare sub glMatrixRotatedEXT(byval mode as GLenum, byval angle as GLdouble, byval x as GLdouble, byval y as GLdouble, byval z as GLdouble)
+	declare sub glMatrixScalefEXT(byval mode as GLenum, byval x as GLfloat, byval y as GLfloat, byval z as GLfloat)
+	declare sub glMatrixScaledEXT(byval mode as GLenum, byval x as GLdouble, byval y as GLdouble, byval z as GLdouble)
+	declare sub glMatrixTranslatefEXT(byval mode as GLenum, byval x as GLfloat, byval y as GLfloat, byval z as GLfloat)
+	declare sub glMatrixTranslatedEXT(byval mode as GLenum, byval x as GLdouble, byval y as GLdouble, byval z as GLdouble)
+	declare sub glMatrixFrustumEXT(byval mode as GLenum, byval left as GLdouble, byval right as GLdouble, byval bottom as GLdouble, byval top as GLdouble, byval zNear as GLdouble, byval zFar as GLdouble)
+	declare sub glMatrixOrthoEXT(byval mode as GLenum, byval left as GLdouble, byval right as GLdouble, byval bottom as GLdouble, byval top as GLdouble, byval zNear as GLdouble, byval zFar as GLdouble)
+	declare sub glMatrixPopEXT(byval mode as GLenum)
+	declare sub glMatrixPushEXT(byval mode as GLenum)
+	declare sub glClientAttribDefaultEXT(byval mask as GLbitfield)
+	declare sub glPushClientAttribDefaultEXT(byval mask as GLbitfield)
+	declare sub glTextureParameterfEXT(byval texture as GLuint, byval target as GLenum, byval pname as GLenum, byval param as GLfloat)
+	declare sub glTextureParameterfvEXT(byval texture as GLuint, byval target as GLenum, byval pname as GLenum, byval params as const GLfloat ptr)
+	declare sub glTextureParameteriEXT(byval texture as GLuint, byval target as GLenum, byval pname as GLenum, byval param as GLint)
+	declare sub glTextureParameterivEXT(byval texture as GLuint, byval target as GLenum, byval pname as GLenum, byval params as const GLint ptr)
+	declare sub glTextureImage1DEXT(byval texture as GLuint, byval target as GLenum, byval level as GLint, byval internalformat as GLint, byval width as GLsizei, byval border as GLint, byval format as GLenum, byval type as GLenum, byval pixels as const any ptr)
+	declare sub glTextureImage2DEXT(byval texture as GLuint, byval target as GLenum, byval level as GLint, byval internalformat as GLint, byval width as GLsizei, byval height as GLsizei, byval border as GLint, byval format as GLenum, byval type as GLenum, byval pixels as const any ptr)
+	declare sub glTextureSubImage1DEXT(byval texture as GLuint, byval target as GLenum, byval level as GLint, byval xoffset as GLint, byval width as GLsizei, byval format as GLenum, byval type as GLenum, byval pixels as const any ptr)
+	declare sub glTextureSubImage2DEXT(byval texture as GLuint, byval target as GLenum, byval level as GLint, byval xoffset as GLint, byval yoffset as GLint, byval width as GLsizei, byval height as GLsizei, byval format as GLenum, byval type as GLenum, byval pixels as const any ptr)
+	declare sub glCopyTextureImage1DEXT(byval texture as GLuint, byval target as GLenum, byval level as GLint, byval internalformat as GLenum, byval x as GLint, byval y as GLint, byval width as GLsizei, byval border as GLint)
+	declare sub glCopyTextureImage2DEXT(byval texture as GLuint, byval target as GLenum, byval level as GLint, byval internalformat as GLenum, byval x as GLint, byval y as GLint, byval width as GLsizei, byval height as GLsizei, byval border as GLint)
+	declare sub glCopyTextureSubImage1DEXT(byval texture as GLuint, byval target as GLenum, byval level as GLint, byval xoffset as GLint, byval x as GLint, byval y as GLint, byval width as GLsizei)
+	declare sub glCopyTextureSubImage2DEXT(byval texture as GLuint, byval target as GLenum, byval level as GLint, byval xoffset as GLint, byval yoffset as GLint, byval x as GLint, byval y as GLint, byval width as GLsizei, byval height as GLsizei)
+	declare sub glGetTextureImageEXT(byval texture as GLuint, byval target as GLenum, byval level as GLint, byval format as GLenum, byval type as GLenum, byval pixels as any ptr)
+	declare sub glGetTextureParameterfvEXT(byval texture as GLuint, byval target as GLenum, byval pname as GLenum, byval params as GLfloat ptr)
+	declare sub glGetTextureParameterivEXT(byval texture as GLuint, byval target as GLenum, byval pname as GLenum, byval params as GLint ptr)
+	declare sub glGetTextureLevelParameterfvEXT(byval texture as GLuint, byval target as GLenum, byval level as GLint, byval pname as GLenum, byval params as GLfloat ptr)
+	declare sub glGetTextureLevelParameterivEXT(byval texture as GLuint, byval target as GLenum, byval level as GLint, byval pname as GLenum, byval params as GLint ptr)
+	declare sub glTextureImage3DEXT(byval texture as GLuint, byval target as GLenum, byval level as GLint, byval internalformat as GLint, byval width as GLsizei, byval height as GLsizei, byval depth as GLsizei, byval border as GLint, byval format as GLenum, byval type as GLenum, byval pixels as const any ptr)
+	declare sub glTextureSubImage3DEXT(byval texture as GLuint, byval target as GLenum, byval level as GLint, byval xoffset as GLint, byval yoffset as GLint, byval zoffset as GLint, byval width as GLsizei, byval height as GLsizei, byval depth as GLsizei, byval format as GLenum, byval type as GLenum, byval pixels as const any ptr)
+	declare sub glCopyTextureSubImage3DEXT(byval texture as GLuint, byval target as GLenum, byval level as GLint, byval xoffset as GLint, byval yoffset as GLint, byval zoffset as GLint, byval x as GLint, byval y as GLint, byval width as GLsizei, byval height as GLsizei)
+	declare sub glBindMultiTextureEXT(byval texunit as GLenum, byval target as GLenum, byval texture as GLuint)
+	declare sub glMultiTexCoordPointerEXT(byval texunit as GLenum, byval size as GLint, byval type as GLenum, byval stride as GLsizei, byval pointer as const any ptr)
+	declare sub glMultiTexEnvfEXT(byval texunit as GLenum, byval target as GLenum, byval pname as GLenum, byval param as GLfloat)
+	declare sub glMultiTexEnvfvEXT(byval texunit as GLenum, byval target as GLenum, byval pname as GLenum, byval params as const GLfloat ptr)
+	declare sub glMultiTexEnviEXT(byval texunit as GLenum, byval target as GLenum, byval pname as GLenum, byval param as GLint)
+	declare sub glMultiTexEnvivEXT(byval texunit as GLenum, byval target as GLenum, byval pname as GLenum, byval params as const GLint ptr)
+	declare sub glMultiTexGendEXT(byval texunit as GLenum, byval coord as GLenum, byval pname as GLenum, byval param as GLdouble)
+	declare sub glMultiTexGendvEXT(byval texunit as GLenum, byval coord as GLenum, byval pname as GLenum, byval params as const GLdouble ptr)
+	declare sub glMultiTexGenfEXT(byval texunit as GLenum, byval coord as GLenum, byval pname as GLenum, byval param as GLfloat)
+	declare sub glMultiTexGenfvEXT(byval texunit as GLenum, byval coord as GLenum, byval pname as GLenum, byval params as const GLfloat ptr)
+	declare sub glMultiTexGeniEXT(byval texunit as GLenum, byval coord as GLenum, byval pname as GLenum, byval param as GLint)
+	declare sub glMultiTexGenivEXT(byval texunit as GLenum, byval coord as GLenum, byval pname as GLenum, byval params as const GLint ptr)
+	declare sub glGetMultiTexEnvfvEXT(byval texunit as GLenum, byval target as GLenum, byval pname as GLenum, byval params as GLfloat ptr)
+	declare sub glGetMultiTexEnvivEXT(byval texunit as GLenum, byval target as GLenum, byval pname as GLenum, byval params as GLint ptr)
+	declare sub glGetMultiTexGendvEXT(byval texunit as GLenum, byval coord as GLenum, byval pname as GLenum, byval params as GLdouble ptr)
+	declare sub glGetMultiTexGenfvEXT(byval texunit as GLenum, byval coord as GLenum, byval pname as GLenum, byval params as GLfloat ptr)
+	declare sub glGetMultiTexGenivEXT(byval texunit as GLenum, byval coord as GLenum, byval pname as GLenum, byval params as GLint ptr)
+	declare sub glMultiTexParameteriEXT(byval texunit as GLenum, byval target as GLenum, byval pname as GLenum, byval param as GLint)
+	declare sub glMultiTexParameterivEXT(byval texunit as GLenum, byval target as GLenum, byval pname as GLenum, byval params as const GLint ptr)
+	declare sub glMultiTexParameterfEXT(byval texunit as GLenum, byval target as GLenum, byval pname as GLenum, byval param as GLfloat)
+	declare sub glMultiTexParameterfvEXT(byval texunit as GLenum, byval target as GLenum, byval pname as GLenum, byval params as const GLfloat ptr)
+	declare sub glMultiTexImage1DEXT(byval texunit as GLenum, byval target as GLenum, byval level as GLint, byval internalformat as GLint, byval width as GLsizei, byval border as GLint, byval format as GLenum, byval type as GLenum, byval pixels as const any ptr)
+	declare sub glMultiTexImage2DEXT(byval texunit as GLenum, byval target as GLenum, byval level as GLint, byval internalformat as GLint, byval width as GLsizei, byval height as GLsizei, byval border as GLint, byval format as GLenum, byval type as GLenum, byval pixels as const any ptr)
+	declare sub glMultiTexSubImage1DEXT(byval texunit as GLenum, byval target as GLenum, byval level as GLint, byval xoffset as GLint, byval width as GLsizei, byval format as GLenum, byval type as GLenum, byval pixels as const any ptr)
+	declare sub glMultiTexSubImage2DEXT(byval texunit as GLenum, byval target as GLenum, byval level as GLint, byval xoffset as GLint, byval yoffset as GLint, byval width as GLsizei, byval height as GLsizei, byval format as GLenum, byval type as GLenum, byval pixels as const any ptr)
+	declare sub glCopyMultiTexImage1DEXT(byval texunit as GLenum, byval target as GLenum, byval level as GLint, byval internalformat as GLenum, byval x as GLint, byval y as GLint, byval width as GLsizei, byval border as GLint)
+	declare sub glCopyMultiTexImage2DEXT(byval texunit as GLenum, byval target as GLenum, byval level as GLint, byval internalformat as GLenum, byval x as GLint, byval y as GLint, byval width as GLsizei, byval height as GLsizei, byval border as GLint)
+	declare sub glCopyMultiTexSubImage1DEXT(byval texunit as GLenum, byval target as GLenum, byval level as GLint, byval xoffset as GLint, byval x as GLint, byval y as GLint, byval width as GLsizei)
+	declare sub glCopyMultiTexSubImage2DEXT(byval texunit as GLenum, byval target as GLenum, byval level as GLint, byval xoffset as GLint, byval yoffset as GLint, byval x as GLint, byval y as GLint, byval width as GLsizei, byval height as GLsizei)
+	declare sub glGetMultiTexImageEXT(byval texunit as GLenum, byval target as GLenum, byval level as GLint, byval format as GLenum, byval type as GLenum, byval pixels as any ptr)
+	declare sub glGetMultiTexParameterfvEXT(byval texunit as GLenum, byval target as GLenum, byval pname as GLenum, byval params as GLfloat ptr)
+	declare sub glGetMultiTexParameterivEXT(byval texunit as GLenum, byval target as GLenum, byval pname as GLenum, byval params as GLint ptr)
+	declare sub glGetMultiTexLevelParameterfvEXT(byval texunit as GLenum, byval target as GLenum, byval level as GLint, byval pname as GLenum, byval params as GLfloat ptr)
+	declare sub glGetMultiTexLevelParameterivEXT(byval texunit as GLenum, byval target as GLenum, byval level as GLint, byval pname as GLenum, byval params as GLint ptr)
+	declare sub glMultiTexImage3DEXT(byval texunit as GLenum, byval target as GLenum, byval level as GLint, byval internalformat as GLint, byval width as GLsizei, byval height as GLsizei, byval depth as GLsizei, byval border as GLint, byval format as GLenum, byval type as GLenum, byval pixels as const any ptr)
+	declare sub glMultiTexSubImage3DEXT(byval texunit as GLenum, byval target as GLenum, byval level as GLint, byval xoffset as GLint, byval yoffset as GLint, byval zoffset as GLint, byval width as GLsizei, byval height as GLsizei, byval depth as GLsizei, byval format as GLenum, byval type as GLenum, byval pixels as const any ptr)
+	declare sub glCopyMultiTexSubImage3DEXT(byval texunit as GLenum, byval target as GLenum, byval level as GLint, byval xoffset as GLint, byval yoffset as GLint, byval zoffset as GLint, byval x as GLint, byval y as GLint, byval width as GLsizei, byval height as GLsizei)
+	declare sub glEnableClientStateIndexedEXT(byval array as GLenum, byval index as GLuint)
+	declare sub glDisableClientStateIndexedEXT(byval array as GLenum, byval index as GLuint)
+	declare sub glGetFloatIndexedvEXT(byval target as GLenum, byval index as GLuint, byval data as GLfloat ptr)
+	declare sub glGetDoubleIndexedvEXT(byval target as GLenum, byval index as GLuint, byval data as GLdouble ptr)
+	declare sub glGetPointerIndexedvEXT(byval target as GLenum, byval index as GLuint, byval data as any ptr ptr)
+	declare sub glEnableIndexedEXT(byval target as GLenum, byval index as GLuint)
+	declare sub glDisableIndexedEXT(byval target as GLenum, byval index as GLuint)
+	declare function glIsEnabledIndexedEXT(byval target as GLenum, byval index as GLuint) as GLboolean
+	declare sub glGetIntegerIndexedvEXT(byval target as GLenum, byval index as GLuint, byval data as GLint ptr)
+	declare sub glGetBooleanIndexedvEXT(byval target as GLenum, byval index as GLuint, byval data as GLboolean ptr)
+	declare sub glCompressedTextureImage3DEXT(byval texture as GLuint, byval target as GLenum, byval level as GLint, byval internalformat as GLenum, byval width as GLsizei, byval height as GLsizei, byval depth as GLsizei, byval border as GLint, byval imageSize as GLsizei, byval bits as const any ptr)
+	declare sub glCompressedTextureImage2DEXT(byval texture as GLuint, byval target as GLenum, byval level as GLint, byval internalformat as GLenum, byval width as GLsizei, byval height as GLsizei, byval border as GLint, byval imageSize as GLsizei, byval bits as const any ptr)
+	declare sub glCompressedTextureImage1DEXT(byval texture as GLuint, byval target as GLenum, byval level as GLint, byval internalformat as GLenum, byval width as GLsizei, byval border as GLint, byval imageSize as GLsizei, byval bits as const any ptr)
+	declare sub glCompressedTextureSubImage3DEXT(byval texture as GLuint, byval target as GLenum, byval level as GLint, byval xoffset as GLint, byval yoffset as GLint, byval zoffset as GLint, byval width as GLsizei, byval height as GLsizei, byval depth as GLsizei, byval format as GLenum, byval imageSize as GLsizei, byval bits as const any ptr)
+	declare sub glCompressedTextureSubImage2DEXT(byval texture as GLuint, byval target as GLenum, byval level as GLint, byval xoffset as GLint, byval yoffset as GLint, byval width as GLsizei, byval height as GLsizei, byval format as GLenum, byval imageSize as GLsizei, byval bits as const any ptr)
+	declare sub glCompressedTextureSubImage1DEXT(byval texture as GLuint, byval target as GLenum, byval level as GLint, byval xoffset as GLint, byval width as GLsizei, byval format as GLenum, byval imageSize as GLsizei, byval bits as const any ptr)
+	declare sub glGetCompressedTextureImageEXT(byval texture as GLuint, byval target as GLenum, byval lod as GLint, byval img as any ptr)
+	declare sub glCompressedMultiTexImage3DEXT(byval texunit as GLenum, byval target as GLenum, byval level as GLint, byval internalformat as GLenum, byval width as GLsizei, byval height as GLsizei, byval depth as GLsizei, byval border as GLint, byval imageSize as GLsizei, byval bits as const any ptr)
+	declare sub glCompressedMultiTexImage2DEXT(byval texunit as GLenum, byval target as GLenum, byval level as GLint, byval internalformat as GLenum, byval width as GLsizei, byval height as GLsizei, byval border as GLint, byval imageSize as GLsizei, byval bits as const any ptr)
+	declare sub glCompressedMultiTexImage1DEXT(byval texunit as GLenum, byval target as GLenum, byval level as GLint, byval internalformat as GLenum, byval width as GLsizei, byval border as GLint, byval imageSize as GLsizei, byval bits as const any ptr)
+	declare sub glCompressedMultiTexSubImage3DEXT(byval texunit as GLenum, byval target as GLenum, byval level as GLint, byval xoffset as GLint, byval yoffset as GLint, byval zoffset as GLint, byval width as GLsizei, byval height as GLsizei, byval depth as GLsizei, byval format as GLenum, byval imageSize as GLsizei, byval bits as const any ptr)
+	declare sub glCompressedMultiTexSubImage2DEXT(byval texunit as GLenum, byval target as GLenum, byval level as GLint, byval xoffset as GLint, byval yoffset as GLint, byval width as GLsizei, byval height as GLsizei, byval format as GLenum, byval imageSize as GLsizei, byval bits as const any ptr)
+	declare sub glCompressedMultiTexSubImage1DEXT(byval texunit as GLenum, byval target as GLenum, byval level as GLint, byval xoffset as GLint, byval width as GLsizei, byval format as GLenum, byval imageSize as GLsizei, byval bits as const any ptr)
+	declare sub glGetCompressedMultiTexImageEXT(byval texunit as GLenum, byval target as GLenum, byval lod as GLint, byval img as any ptr)
+	declare sub glMatrixLoadTransposefEXT(byval mode as GLenum, byval m as const GLfloat ptr)
+	declare sub glMatrixLoadTransposedEXT(byval mode as GLenum, byval m as const GLdouble ptr)
+	declare sub glMatrixMultTransposefEXT(byval mode as GLenum, byval m as const GLfloat ptr)
+	declare sub glMatrixMultTransposedEXT(byval mode as GLenum, byval m as const GLdouble ptr)
+	declare sub glNamedBufferDataEXT(byval buffer as GLuint, byval size as GLsizeiptr, byval data as const any ptr, byval usage as GLenum)
+	declare sub glNamedBufferSubDataEXT(byval buffer as GLuint, byval offset as GLintptr, byval size as GLsizeiptr, byval data as const any ptr)
+	declare function glMapNamedBufferEXT(byval buffer as GLuint, byval access as GLenum) as any ptr
+	declare function glUnmapNamedBufferEXT(byval buffer as GLuint) as GLboolean
+	declare sub glGetNamedBufferParameterivEXT(byval buffer as GLuint, byval pname as GLenum, byval params as GLint ptr)
+	declare sub glGetNamedBufferPointervEXT(byval buffer as GLuint, byval pname as GLenum, byval params as any ptr ptr)
+	declare sub glGetNamedBufferSubDataEXT(byval buffer as GLuint, byval offset as GLintptr, byval size as GLsizeiptr, byval data as any ptr)
+	declare sub glProgramUniform1fEXT(byval program as GLuint, byval location as GLint, byval v0 as GLfloat)
+	declare sub glProgramUniform2fEXT(byval program as GLuint, byval location as GLint, byval v0 as GLfloat, byval v1 as GLfloat)
+	declare sub glProgramUniform3fEXT(byval program as GLuint, byval location as GLint, byval v0 as GLfloat, byval v1 as GLfloat, byval v2 as GLfloat)
+	declare sub glProgramUniform4fEXT(byval program as GLuint, byval location as GLint, byval v0 as GLfloat, byval v1 as GLfloat, byval v2 as GLfloat, byval v3 as GLfloat)
+	declare sub glProgramUniform1iEXT(byval program as GLuint, byval location as GLint, byval v0 as GLint)
+	declare sub glProgramUniform2iEXT(byval program as GLuint, byval location as GLint, byval v0 as GLint, byval v1 as GLint)
+	declare sub glProgramUniform3iEXT(byval program as GLuint, byval location as GLint, byval v0 as GLint, byval v1 as GLint, byval v2 as GLint)
+	declare sub glProgramUniform4iEXT(byval program as GLuint, byval location as GLint, byval v0 as GLint, byval v1 as GLint, byval v2 as GLint, byval v3 as GLint)
+	declare sub glProgramUniform1fvEXT(byval program as GLuint, byval location as GLint, byval count as GLsizei, byval value as const GLfloat ptr)
+	declare sub glProgramUniform2fvEXT(byval program as GLuint, byval location as GLint, byval count as GLsizei, byval value as const GLfloat ptr)
+	declare sub glProgramUniform3fvEXT(byval program as GLuint, byval location as GLint, byval count as GLsizei, byval value as const GLfloat ptr)
+	declare sub glProgramUniform4fvEXT(byval program as GLuint, byval location as GLint, byval count as GLsizei, byval value as const GLfloat ptr)
+	declare sub glProgramUniform1ivEXT(byval program as GLuint, byval location as GLint, byval count as GLsizei, byval value as const GLint ptr)
+	declare sub glProgramUniform2ivEXT(byval program as GLuint, byval location as GLint, byval count as GLsizei, byval value as const GLint ptr)
+	declare sub glProgramUniform3ivEXT(byval program as GLuint, byval location as GLint, byval count as GLsizei, byval value as const GLint ptr)
+	declare sub glProgramUniform4ivEXT(byval program as GLuint, byval location as GLint, byval count as GLsizei, byval value as const GLint ptr)
+	declare sub glProgramUniformMatrix2fvEXT(byval program as GLuint, byval location as GLint, byval count as GLsizei, byval transpose as GLboolean, byval value as const GLfloat ptr)
+	declare sub glProgramUniformMatrix3fvEXT(byval program as GLuint, byval location as GLint, byval count as GLsizei, byval transpose as GLboolean, byval value as const GLfloat ptr)
+	declare sub glProgramUniformMatrix4fvEXT(byval program as GLuint, byval location as GLint, byval count as GLsizei, byval transpose as GLboolean, byval value as const GLfloat ptr)
+	declare sub glProgramUniformMatrix2x3fvEXT(byval program as GLuint, byval location as GLint, byval count as GLsizei, byval transpose as GLboolean, byval value as const GLfloat ptr)
+	declare sub glProgramUniformMatrix3x2fvEXT(byval program as GLuint, byval location as GLint, byval count as GLsizei, byval transpose as GLboolean, byval value as const GLfloat ptr)
+	declare sub glProgramUniformMatrix2x4fvEXT(byval program as GLuint, byval location as GLint, byval count as GLsizei, byval transpose as GLboolean, byval value as const GLfloat ptr)
+	declare sub glProgramUniformMatrix4x2fvEXT(byval program as GLuint, byval location as GLint, byval count as GLsizei, byval transpose as GLboolean, byval value as const GLfloat ptr)
+	declare sub glProgramUniformMatrix3x4fvEXT(byval program as GLuint, byval location as GLint, byval count as GLsizei, byval transpose as GLboolean, byval value as const GLfloat ptr)
+	declare sub glProgramUniformMatrix4x3fvEXT(byval program as GLuint, byval location as GLint, byval count as GLsizei, byval transpose as GLboolean, byval value as const GLfloat ptr)
+	declare sub glTextureBufferEXT(byval texture as GLuint, byval target as GLenum, byval internalformat as GLenum, byval buffer as GLuint)
+	declare sub glMultiTexBufferEXT(byval texunit as GLenum, byval target as GLenum, byval internalformat as GLenum, byval buffer as GLuint)
+	declare sub glTextureParameterIivEXT(byval texture as GLuint, byval target as GLenum, byval pname as GLenum, byval params as const GLint ptr)
+	declare sub glTextureParameterIuivEXT(byval texture as GLuint, byval target as GLenum, byval pname as GLenum, byval params as const GLuint ptr)
+	declare sub glGetTextureParameterIivEXT(byval texture as GLuint, byval target as GLenum, byval pname as GLenum, byval params as GLint ptr)
+	declare sub glGetTextureParameterIuivEXT(byval texture as GLuint, byval target as GLenum, byval pname as GLenum, byval params as GLuint ptr)
+	declare sub glMultiTexParameterIivEXT(byval texunit as GLenum, byval target as GLenum, byval pname as GLenum, byval params as const GLint ptr)
+	declare sub glMultiTexParameterIuivEXT(byval texunit as GLenum, byval target as GLenum, byval pname as GLenum, byval params as const GLuint ptr)
+	declare sub glGetMultiTexParameterIivEXT(byval texunit as GLenum, byval target as GLenum, byval pname as GLenum, byval params as GLint ptr)
+	declare sub glGetMultiTexParameterIuivEXT(byval texunit as GLenum, byval target as GLenum, byval pname as GLenum, byval params as GLuint ptr)
+	declare sub glProgramUniform1uiEXT(byval program as GLuint, byval location as GLint, byval v0 as GLuint)
+	declare sub glProgramUniform2uiEXT(byval program as GLuint, byval location as GLint, byval v0 as GLuint, byval v1 as GLuint)
+	declare sub glProgramUniform3uiEXT(byval program as GLuint, byval location as GLint, byval v0 as GLuint, byval v1 as GLuint, byval v2 as GLuint)
+	declare sub glProgramUniform4uiEXT(byval program as GLuint, byval location as GLint, byval v0 as GLuint, byval v1 as GLuint, byval v2 as GLuint, byval v3 as GLuint)
+	declare sub glProgramUniform1uivEXT(byval program as GLuint, byval location as GLint, byval count as GLsizei, byval value as const GLuint ptr)
+	declare sub glProgramUniform2uivEXT(byval program as GLuint, byval location as GLint, byval count as GLsizei, byval value as const GLuint ptr)
+	declare sub glProgramUniform3uivEXT(byval program as GLuint, byval location as GLint, byval count as GLsizei, byval value as const GLuint ptr)
+	declare sub glProgramUniform4uivEXT(byval program as GLuint, byval location as GLint, byval count as GLsizei, byval value as const GLuint ptr)
+	declare sub glNamedProgramLocalParameters4fvEXT(byval program as GLuint, byval target as GLenum, byval index as GLuint, byval count as GLsizei, byval params as const GLfloat ptr)
+	declare sub glNamedProgramLocalParameterI4iEXT(byval program as GLuint, byval target as GLenum, byval index as GLuint, byval x as GLint, byval y as GLint, byval z as GLint, byval w as GLint)
+	declare sub glNamedProgramLocalParameterI4ivEXT(byval program as GLuint, byval target as GLenum, byval index as GLuint, byval params as const GLint ptr)
+	declare sub glNamedProgramLocalParametersI4ivEXT(byval program as GLuint, byval target as GLenum, byval index as GLuint, byval count as GLsizei, byval params as const GLint ptr)
+	declare sub glNamedProgramLocalParameterI4uiEXT(byval program as GLuint, byval target as GLenum, byval index as GLuint, byval x as GLuint, byval y as GLuint, byval z as GLuint, byval w as GLuint)
+	declare sub glNamedProgramLocalParameterI4uivEXT(byval program as GLuint, byval target as GLenum, byval index as GLuint, byval params as const GLuint ptr)
+	declare sub glNamedProgramLocalParametersI4uivEXT(byval program as GLuint, byval target as GLenum, byval index as GLuint, byval count as GLsizei, byval params as const GLuint ptr)
+	declare sub glGetNamedProgramLocalParameterIivEXT(byval program as GLuint, byval target as GLenum, byval index as GLuint, byval params as GLint ptr)
+	declare sub glGetNamedProgramLocalParameterIuivEXT(byval program as GLuint, byval target as GLenum, byval index as GLuint, byval params as GLuint ptr)
+	declare sub glEnableClientStateiEXT(byval array as GLenum, byval index as GLuint)
+	declare sub glDisableClientStateiEXT(byval array as GLenum, byval index as GLuint)
+	declare sub glGetFloati_vEXT(byval pname as GLenum, byval index as GLuint, byval params as GLfloat ptr)
+	declare sub glGetDoublei_vEXT(byval pname as GLenum, byval index as GLuint, byval params as GLdouble ptr)
+	declare sub glGetPointeri_vEXT(byval pname as GLenum, byval index as GLuint, byval params as any ptr ptr)
+	declare sub glNamedProgramStringEXT(byval program as GLuint, byval target as GLenum, byval format as GLenum, byval len as GLsizei, byval string as const any ptr)
+	declare sub glNamedProgramLocalParameter4dEXT(byval program as GLuint, byval target as GLenum, byval index as GLuint, byval x as GLdouble, byval y as GLdouble, byval z as GLdouble, byval w as GLdouble)
+	declare sub glNamedProgramLocalParameter4dvEXT(byval program as GLuint, byval target as GLenum, byval index as GLuint, byval params as const GLdouble ptr)
+	declare sub glNamedProgramLocalParameter4fEXT(byval program as GLuint, byval target as GLenum, byval index as GLuint, byval x as GLfloat, byval y as GLfloat, byval z as GLfloat, byval w as GLfloat)
+	declare sub glNamedProgramLocalParameter4fvEXT(byval program as GLuint, byval target as GLenum, byval index as GLuint, byval params as const GLfloat ptr)
+	declare sub glGetNamedProgramLocalParameterdvEXT(byval program as GLuint, byval target as GLenum, byval index as GLuint, byval params as GLdouble ptr)
+	declare sub glGetNamedProgramLocalParameterfvEXT(byval program as GLuint, byval target as GLenum, byval index as GLuint, byval params as GLfloat ptr)
+	declare sub glGetNamedProgramivEXT(byval program as GLuint, byval target as GLenum, byval pname as GLenum, byval params as GLint ptr)
+	declare sub glGetNamedProgramStringEXT(byval program as GLuint, byval target as GLenum, byval pname as GLenum, byval string as any ptr)
+	declare sub glNamedRenderbufferStorageEXT(byval renderbuffer as GLuint, byval internalformat as GLenum, byval width as GLsizei, byval height as GLsizei)
+	declare sub glGetNamedRenderbufferParameterivEXT(byval renderbuffer as GLuint, byval pname as GLenum, byval params as GLint ptr)
+	declare sub glNamedRenderbufferStorageMultisampleEXT(byval renderbuffer as GLuint, byval samples as GLsizei, byval internalformat as GLenum, byval width as GLsizei, byval height as GLsizei)
+	declare sub glNamedRenderbufferStorageMultisampleCoverageEXT(byval renderbuffer as GLuint, byval coverageSamples as GLsizei, byval colorSamples as GLsizei, byval internalformat as GLenum, byval width as GLsizei, byval height as GLsizei)
+	declare function glCheckNamedFramebufferStatusEXT(byval framebuffer as GLuint, byval target as GLenum) as GLenum
+	declare sub glNamedFramebufferTexture1DEXT(byval framebuffer as GLuint, byval attachment as GLenum, byval textarget as GLenum, byval texture as GLuint, byval level as GLint)
+	declare sub glNamedFramebufferTexture2DEXT(byval framebuffer as GLuint, byval attachment as GLenum, byval textarget as GLenum, byval texture as GLuint, byval level as GLint)
+	declare sub glNamedFramebufferTexture3DEXT(byval framebuffer as GLuint, byval attachment as GLenum, byval textarget as GLenum, byval texture as GLuint, byval level as GLint, byval zoffset as GLint)
+	declare sub glNamedFramebufferRenderbufferEXT(byval framebuffer as GLuint, byval attachment as GLenum, byval renderbuffertarget as GLenum, byval renderbuffer as GLuint)
+	declare sub glGetNamedFramebufferAttachmentParameterivEXT(byval framebuffer as GLuint, byval attachment as GLenum, byval pname as GLenum, byval params as GLint ptr)
+	declare sub glGenerateTextureMipmapEXT(byval texture as GLuint, byval target as GLenum)
+	declare sub glGenerateMultiTexMipmapEXT(byval texunit as GLenum, byval target as GLenum)
+	declare sub glFramebufferDrawBufferEXT(byval framebuffer as GLuint, byval mode as GLenum)
+	declare sub glFramebufferDrawBuffersEXT(byval framebuffer as GLuint, byval n as GLsizei, byval bufs as const GLenum ptr)
+	declare sub glFramebufferReadBufferEXT(byval framebuffer as GLuint, byval mode as GLenum)
+	declare sub glGetFramebufferParameterivEXT(byval framebuffer as GLuint, byval pname as GLenum, byval params as GLint ptr)
+	declare sub glNamedCopyBufferSubDataEXT(byval readBuffer as GLuint, byval writeBuffer as GLuint, byval readOffset as GLintptr, byval writeOffset as GLintptr, byval size as GLsizeiptr)
+	declare sub glNamedFramebufferTextureEXT(byval framebuffer as GLuint, byval attachment as GLenum, byval texture as GLuint, byval level as GLint)
+	declare sub glNamedFramebufferTextureLayerEXT(byval framebuffer as GLuint, byval attachment as GLenum, byval texture as GLuint, byval level as GLint, byval layer as GLint)
+	declare sub glNamedFramebufferTextureFaceEXT(byval framebuffer as GLuint, byval attachment as GLenum, byval texture as GLuint, byval level as GLint, byval face as GLenum)
+	declare sub glTextureRenderbufferEXT(byval texture as GLuint, byval target as GLenum, byval renderbuffer as GLuint)
+	declare sub glMultiTexRenderbufferEXT(byval texunit as GLenum, byval target as GLenum, byval renderbuffer as GLuint)
+	declare sub glVertexArrayVertexOffsetEXT(byval vaobj as GLuint, byval buffer as GLuint, byval size as GLint, byval type as GLenum, byval stride as GLsizei, byval offset as GLintptr)
+	declare sub glVertexArrayColorOffsetEXT(byval vaobj as GLuint, byval buffer as GLuint, byval size as GLint, byval type as GLenum, byval stride as GLsizei, byval offset as GLintptr)
+	declare sub glVertexArrayEdgeFlagOffsetEXT(byval vaobj as GLuint, byval buffer as GLuint, byval stride as GLsizei, byval offset as GLintptr)
+	declare sub glVertexArrayIndexOffsetEXT(byval vaobj as GLuint, byval buffer as GLuint, byval type as GLenum, byval stride as GLsizei, byval offset as GLintptr)
+	declare sub glVertexArrayNormalOffsetEXT(byval vaobj as GLuint, byval buffer as GLuint, byval type as GLenum, byval stride as GLsizei, byval offset as GLintptr)
+	declare sub glVertexArrayTexCoordOffsetEXT(byval vaobj as GLuint, byval buffer as GLuint, byval size as GLint, byval type as GLenum, byval stride as GLsizei, byval offset as GLintptr)
+	declare sub glVertexArrayMultiTexCoordOffsetEXT(byval vaobj as GLuint, byval buffer as GLuint, byval texunit as GLenum, byval size as GLint, byval type as GLenum, byval stride as GLsizei, byval offset as GLintptr)
+	declare sub glVertexArrayFogCoordOffsetEXT(byval vaobj as GLuint, byval buffer as GLuint, byval type as GLenum, byval stride as GLsizei, byval offset as GLintptr)
+	declare sub glVertexArraySecondaryColorOffsetEXT(byval vaobj as GLuint, byval buffer as GLuint, byval size as GLint, byval type as GLenum, byval stride as GLsizei, byval offset as GLintptr)
+	declare sub glVertexArrayVertexAttribOffsetEXT(byval vaobj as GLuint, byval buffer as GLuint, byval index as GLuint, byval size as GLint, byval type as GLenum, byval normalized as GLboolean, byval stride as GLsizei, byval offset as GLintptr)
+	declare sub glVertexArrayVertexAttribIOffsetEXT(byval vaobj as GLuint, byval buffer as GLuint, byval index as GLuint, byval size as GLint, byval type as GLenum, byval stride as GLsizei, byval offset as GLintptr)
+	declare sub glEnableVertexArrayEXT(byval vaobj as GLuint, byval array as GLenum)
+	declare sub glDisableVertexArrayEXT(byval vaobj as GLuint, byval array as GLenum)
+	declare sub glEnableVertexArrayAttribEXT(byval vaobj as GLuint, byval index as GLuint)
+	declare sub glDisableVertexArrayAttribEXT(byval vaobj as GLuint, byval index as GLuint)
+	declare sub glGetVertexArrayIntegervEXT(byval vaobj as GLuint, byval pname as GLenum, byval param as GLint ptr)
+	declare sub glGetVertexArrayPointervEXT(byval vaobj as GLuint, byval pname as GLenum, byval param as any ptr ptr)
+	declare sub glGetVertexArrayIntegeri_vEXT(byval vaobj as GLuint, byval index as GLuint, byval pname as GLenum, byval param as GLint ptr)
+	declare sub glGetVertexArrayPointeri_vEXT(byval vaobj as GLuint, byval index as GLuint, byval pname as GLenum, byval param as any ptr ptr)
+	declare function glMapNamedBufferRangeEXT(byval buffer as GLuint, byval offset as GLintptr, byval length as GLsizeiptr, byval access as GLbitfield) as any ptr
+	declare sub glFlushMappedNamedBufferRangeEXT(byval buffer as GLuint, byval offset as GLintptr, byval length as GLsizeiptr)
+	declare sub glNamedBufferStorageEXT(byval buffer as GLuint, byval size as GLsizeiptr, byval data as const any ptr, byval flags as GLbitfield)
+	declare sub glClearNamedBufferDataEXT(byval buffer as GLuint, byval internalformat as GLenum, byval format as GLenum, byval type as GLenum, byval data as const any ptr)
+	declare sub glClearNamedBufferSubDataEXT(byval buffer as GLuint, byval internalformat as GLenum, byval offset as GLsizeiptr, byval size as GLsizeiptr, byval format as GLenum, byval type as GLenum, byval data as const any ptr)
+	declare sub glNamedFramebufferParameteriEXT(byval framebuffer as GLuint, byval pname as GLenum, byval param as GLint)
+	declare sub glGetNamedFramebufferParameterivEXT(byval framebuffer as GLuint, byval pname as GLenum, byval params as GLint ptr)
+	declare sub glProgramUniform1dEXT(byval program as GLuint, byval location as GLint, byval x as GLdouble)
+	declare sub glProgramUniform2dEXT(byval program as GLuint, byval location as GLint, byval x as GLdouble, byval y as GLdouble)
+	declare sub glProgramUniform3dEXT(byval program as GLuint, byval location as GLint, byval x as GLdouble, byval y as GLdouble, byval z as GLdouble)
+	declare sub glProgramUniform4dEXT(byval program as GLuint, byval location as GLint, byval x as GLdouble, byval y as GLdouble, byval z as GLdouble, byval w as GLdouble)
+	declare sub glProgramUniform1dvEXT(byval program as GLuint, byval location as GLint, byval count as GLsizei, byval value as const GLdouble ptr)
+	declare sub glProgramUniform2dvEXT(byval program as GLuint, byval location as GLint, byval count as GLsizei, byval value as const GLdouble ptr)
+	declare sub glProgramUniform3dvEXT(byval program as GLuint, byval location as GLint, byval count as GLsizei, byval value as const GLdouble ptr)
+	declare sub glProgramUniform4dvEXT(byval program as GLuint, byval location as GLint, byval count as GLsizei, byval value as const GLdouble ptr)
+	declare sub glProgramUniformMatrix2dvEXT(byval program as GLuint, byval location as GLint, byval count as GLsizei, byval transpose as GLboolean, byval value as const GLdouble ptr)
+	declare sub glProgramUniformMatrix3dvEXT(byval program as GLuint, byval location as GLint, byval count as GLsizei, byval transpose as GLboolean, byval value as const GLdouble ptr)
+	declare sub glProgramUniformMatrix4dvEXT(byval program as GLuint, byval location as GLint, byval count as GLsizei, byval transpose as GLboolean, byval value as const GLdouble ptr)
+	declare sub glProgramUniformMatrix2x3dvEXT(byval program as GLuint, byval location as GLint, byval count as GLsizei, byval transpose as GLboolean, byval value as const GLdouble ptr)
+	declare sub glProgramUniformMatrix2x4dvEXT(byval program as GLuint, byval location as GLint, byval count as GLsizei, byval transpose as GLboolean, byval value as const GLdouble ptr)
+	declare sub glProgramUniformMatrix3x2dvEXT(byval program as GLuint, byval location as GLint, byval count as GLsizei, byval transpose as GLboolean, byval value as const GLdouble ptr)
+	declare sub glProgramUniformMatrix3x4dvEXT(byval program as GLuint, byval location as GLint, byval count as GLsizei, byval transpose as GLboolean, byval value as const GLdouble ptr)
+	declare sub glProgramUniformMatrix4x2dvEXT(byval program as GLuint, byval location as GLint, byval count as GLsizei, byval transpose as GLboolean, byval value as const GLdouble ptr)
+	declare sub glProgramUniformMatrix4x3dvEXT(byval program as GLuint, byval location as GLint, byval count as GLsizei, byval transpose as GLboolean, byval value as const GLdouble ptr)
+	declare sub glTextureBufferRangeEXT(byval texture as GLuint, byval target as GLenum, byval internalformat as GLenum, byval buffer as GLuint, byval offset as GLintptr, byval size as GLsizeiptr)
+	declare sub glTextureStorage1DEXT(byval texture as GLuint, byval target as GLenum, byval levels as GLsizei, byval internalformat as GLenum, byval width as GLsizei)
+	declare sub glTextureStorage2DEXT(byval texture as GLuint, byval target as GLenum, byval levels as GLsizei, byval internalformat as GLenum, byval width as GLsizei, byval height as GLsizei)
+	declare sub glTextureStorage3DEXT(byval texture as GLuint, byval target as GLenum, byval levels as GLsizei, byval internalformat as GLenum, byval width as GLsizei, byval height as GLsizei, byval depth as GLsizei)
+	declare sub glTextureStorage2DMultisampleEXT(byval texture as GLuint, byval target as GLenum, byval samples as GLsizei, byval internalformat as GLenum, byval width as GLsizei, byval height as GLsizei, byval fixedsamplelocations as GLboolean)
+	declare sub glTextureStorage3DMultisampleEXT(byval texture as GLuint, byval target as GLenum, byval samples as GLsizei, byval internalformat as GLenum, byval width as GLsizei, byval height as GLsizei, byval depth as GLsizei, byval fixedsamplelocations as GLboolean)
+	declare sub glVertexArrayBindVertexBufferEXT(byval vaobj as GLuint, byval bindingindex as GLuint, byval buffer as GLuint, byval offset as GLintptr, byval stride as GLsizei)
+	declare sub glVertexArrayVertexAttribFormatEXT(byval vaobj as GLuint, byval attribindex as GLuint, byval size as GLint, byval type as GLenum, byval normalized as GLboolean, byval relativeoffset as GLuint)
+	declare sub glVertexArrayVertexAttribIFormatEXT(byval vaobj as GLuint, byval attribindex as GLuint, byval size as GLint, byval type as GLenum, byval relativeoffset as GLuint)
+	declare sub glVertexArrayVertexAttribLFormatEXT(byval vaobj as GLuint, byval attribindex as GLuint, byval size as GLint, byval type as GLenum, byval relativeoffset as GLuint)
+	declare sub glVertexArrayVertexAttribBindingEXT(byval vaobj as GLuint, byval attribindex as GLuint, byval bindingindex as GLuint)
+	declare sub glVertexArrayVertexBindingDivisorEXT(byval vaobj as GLuint, byval bindingindex as GLuint, byval divisor as GLuint)
+	declare sub glVertexArrayVertexAttribLOffsetEXT(byval vaobj as GLuint, byval buffer as GLuint, byval index as GLuint, byval size as GLint, byval type as GLenum, byval stride as GLsizei, byval offset as GLintptr)
+	declare sub glTexturePageCommitmentEXT(byval texture as GLuint, byval level as GLint, byval xoffset as GLint, byval yoffset as GLint, byval zoffset as GLint, byval width as GLsizei, byval height as GLsizei, byval depth as GLsizei, byval resident as GLboolean)
+	declare sub glVertexArrayVertexAttribDivisorEXT(byval vaobj as GLuint, byval index as GLuint, byval divisor as GLuint)
+#endif
+
 const GL_EXT_draw_buffers2 = 1
 type PFNGLCOLORMASKINDEXEDEXTPROC as sub(byval index as GLuint, byval r as GLboolean, byval g as GLboolean, byval b as GLboolean, byval a as GLboolean)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glColorMaskIndexedEXT(byval index as GLuint, byval r as GLboolean, byval g as GLboolean, byval b as GLboolean, byval a as GLboolean)
+#endif
+
 const GL_EXT_draw_instanced = 1
 type PFNGLDRAWARRAYSINSTANCEDEXTPROC as sub(byval mode as GLenum, byval start as GLint, byval count as GLsizei, byval primcount as GLsizei)
 type PFNGLDRAWELEMENTSINSTANCEDEXTPROC as sub(byval mode as GLenum, byval count as GLsizei, byval type as GLenum, byval indices as const any ptr, byval primcount as GLsizei)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glDrawArraysInstancedEXT(byval mode as GLenum, byval start as GLint, byval count as GLsizei, byval primcount as GLsizei)
+	declare sub glDrawElementsInstancedEXT(byval mode as GLenum, byval count as GLsizei, byval type as GLenum, byval indices as const any ptr, byval primcount as GLsizei)
+#endif
 
 const GL_EXT_draw_range_elements = 1
 const GL_MAX_ELEMENTS_VERTICES_EXT = &h80E8
 const GL_MAX_ELEMENTS_INDICES_EXT = &h80E9
 type PFNGLDRAWRANGEELEMENTSEXTPROC as sub(byval mode as GLenum, byval start as GLuint, byval end as GLuint, byval count as GLsizei, byval type as GLenum, byval indices as const any ptr)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glDrawRangeElementsEXT(byval mode as GLenum, byval start as GLuint, byval end as GLuint, byval count as GLsizei, byval type as GLenum, byval indices as const any ptr)
+#endif
+
 const GL_EXT_fog_coord = 1
 const GL_FOG_COORDINATE_SOURCE_EXT = &h8450
 const GL_FOG_COORDINATE_EXT = &h8451
@@ -4004,17 +5873,35 @@ type PFNGLFOGCOORDDEXTPROC as sub(byval coord as GLdouble)
 type PFNGLFOGCOORDDVEXTPROC as sub(byval coord as const GLdouble ptr)
 type PFNGLFOGCOORDPOINTEREXTPROC as sub(byval type as GLenum, byval stride as GLsizei, byval pointer as const any ptr)
 
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glFogCoordfEXT(byval coord as GLfloat)
+	declare sub glFogCoordfvEXT(byval coord as const GLfloat ptr)
+	declare sub glFogCoorddEXT(byval coord as GLdouble)
+	declare sub glFogCoorddvEXT(byval coord as const GLdouble ptr)
+	declare sub glFogCoordPointerEXT(byval type as GLenum, byval stride as GLsizei, byval pointer as const any ptr)
+#endif
+
 const GL_EXT_framebuffer_blit = 1
 const GL_READ_FRAMEBUFFER_EXT = &h8CA8
 const GL_DRAW_FRAMEBUFFER_EXT = &h8CA9
 const GL_DRAW_FRAMEBUFFER_BINDING_EXT = &h8CA6
 const GL_READ_FRAMEBUFFER_BINDING_EXT = &h8CAA
 type PFNGLBLITFRAMEBUFFEREXTPROC as sub(byval srcX0 as GLint, byval srcY0 as GLint, byval srcX1 as GLint, byval srcY1 as GLint, byval dstX0 as GLint, byval dstY0 as GLint, byval dstX1 as GLint, byval dstY1 as GLint, byval mask as GLbitfield, byval filter as GLenum)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glBlitFramebufferEXT(byval srcX0 as GLint, byval srcY0 as GLint, byval srcX1 as GLint, byval srcY1 as GLint, byval dstX0 as GLint, byval dstY0 as GLint, byval dstX1 as GLint, byval dstY1 as GLint, byval mask as GLbitfield, byval filter as GLenum)
+#endif
+
 const GL_EXT_framebuffer_multisample = 1
 const GL_RENDERBUFFER_SAMPLES_EXT = &h8CAB
 const GL_FRAMEBUFFER_INCOMPLETE_MULTISAMPLE_EXT = &h8D56
 const GL_MAX_SAMPLES_EXT = &h8D57
 type PFNGLRENDERBUFFERSTORAGEMULTISAMPLEEXTPROC as sub(byval target as GLenum, byval samples as GLsizei, byval internalformat as GLenum, byval width as GLsizei, byval height as GLsizei)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glRenderbufferStorageMultisampleEXT(byval target as GLenum, byval samples as GLsizei, byval internalformat as GLenum, byval width as GLsizei, byval height as GLsizei)
+#endif
+
 const GL_EXT_framebuffer_multisample_blit_scaled = 1
 const GL_SCALED_RESOLVE_FASTEST_EXT = &h90BA
 const GL_SCALED_RESOLVE_NICEST_EXT = &h90BB
@@ -4089,6 +5976,26 @@ type PFNGLFRAMEBUFFERRENDERBUFFEREXTPROC as sub(byval target as GLenum, byval at
 type PFNGLGETFRAMEBUFFERATTACHMENTPARAMETERIVEXTPROC as sub(byval target as GLenum, byval attachment as GLenum, byval pname as GLenum, byval params as GLint ptr)
 type PFNGLGENERATEMIPMAPEXTPROC as sub(byval target as GLenum)
 
+#ifdef GL_GLEXT_PROTOTYPES
+	declare function glIsRenderbufferEXT(byval renderbuffer as GLuint) as GLboolean
+	declare sub glBindRenderbufferEXT(byval target as GLenum, byval renderbuffer as GLuint)
+	declare sub glDeleteRenderbuffersEXT(byval n as GLsizei, byval renderbuffers as const GLuint ptr)
+	declare sub glGenRenderbuffersEXT(byval n as GLsizei, byval renderbuffers as GLuint ptr)
+	declare sub glRenderbufferStorageEXT(byval target as GLenum, byval internalformat as GLenum, byval width as GLsizei, byval height as GLsizei)
+	declare sub glGetRenderbufferParameterivEXT(byval target as GLenum, byval pname as GLenum, byval params as GLint ptr)
+	declare function glIsFramebufferEXT(byval framebuffer as GLuint) as GLboolean
+	declare sub glBindFramebufferEXT(byval target as GLenum, byval framebuffer as GLuint)
+	declare sub glDeleteFramebuffersEXT(byval n as GLsizei, byval framebuffers as const GLuint ptr)
+	declare sub glGenFramebuffersEXT(byval n as GLsizei, byval framebuffers as GLuint ptr)
+	declare function glCheckFramebufferStatusEXT(byval target as GLenum) as GLenum
+	declare sub glFramebufferTexture1DEXT(byval target as GLenum, byval attachment as GLenum, byval textarget as GLenum, byval texture as GLuint, byval level as GLint)
+	declare sub glFramebufferTexture2DEXT(byval target as GLenum, byval attachment as GLenum, byval textarget as GLenum, byval texture as GLuint, byval level as GLint)
+	declare sub glFramebufferTexture3DEXT(byval target as GLenum, byval attachment as GLenum, byval textarget as GLenum, byval texture as GLuint, byval level as GLint, byval zoffset as GLint)
+	declare sub glFramebufferRenderbufferEXT(byval target as GLenum, byval attachment as GLenum, byval renderbuffertarget as GLenum, byval renderbuffer as GLuint)
+	declare sub glGetFramebufferAttachmentParameterivEXT(byval target as GLenum, byval attachment as GLenum, byval pname as GLenum, byval params as GLint ptr)
+	declare sub glGenerateMipmapEXT(byval target as GLenum)
+#endif
+
 const GL_EXT_framebuffer_sRGB = 1
 const GL_FRAMEBUFFER_SRGB_EXT = &h8DB9
 const GL_FRAMEBUFFER_SRGB_CAPABLE_EXT = &h8DBA
@@ -4114,9 +6021,20 @@ const GL_FRAMEBUFFER_ATTACHMENT_LAYERED_EXT = &h8DA7
 const GL_FRAMEBUFFER_ATTACHMENT_TEXTURE_LAYER_EXT = &h8CD4
 const GL_PROGRAM_POINT_SIZE_EXT = &h8642
 type PFNGLPROGRAMPARAMETERIEXTPROC as sub(byval program as GLuint, byval pname as GLenum, byval value as GLint)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glProgramParameteriEXT(byval program as GLuint, byval pname as GLenum, byval value as GLint)
+#endif
+
 const GL_EXT_gpu_program_parameters = 1
 type PFNGLPROGRAMENVPARAMETERS4FVEXTPROC as sub(byval target as GLenum, byval index as GLuint, byval count as GLsizei, byval params as const GLfloat ptr)
 type PFNGLPROGRAMLOCALPARAMETERS4FVEXTPROC as sub(byval target as GLenum, byval index as GLuint, byval count as GLsizei, byval params as const GLfloat ptr)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glProgramEnvParameters4fvEXT(byval target as GLenum, byval index as GLuint, byval count as GLsizei, byval params as const GLfloat ptr)
+	declare sub glProgramLocalParameters4fvEXT(byval target as GLenum, byval index as GLuint, byval count as GLsizei, byval params as const GLfloat ptr)
+#endif
+
 const GL_EXT_gpu_shader4 = 1
 const GL_VERTEX_ATTRIB_ARRAY_INTEGER_EXT = &h88FD
 const GL_SAMPLER_1D_ARRAY_EXT = &h8DC0
@@ -4159,6 +6077,20 @@ type PFNGLUNIFORM2UIVEXTPROC as sub(byval location as GLint, byval count as GLsi
 type PFNGLUNIFORM3UIVEXTPROC as sub(byval location as GLint, byval count as GLsizei, byval value as const GLuint ptr)
 type PFNGLUNIFORM4UIVEXTPROC as sub(byval location as GLint, byval count as GLsizei, byval value as const GLuint ptr)
 
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glGetUniformuivEXT(byval program as GLuint, byval location as GLint, byval params as GLuint ptr)
+	declare sub glBindFragDataLocationEXT(byval program as GLuint, byval color as GLuint, byval name as const zstring ptr)
+	declare function glGetFragDataLocationEXT(byval program as GLuint, byval name as const zstring ptr) as GLint
+	declare sub glUniform1uiEXT(byval location as GLint, byval v0 as GLuint)
+	declare sub glUniform2uiEXT(byval location as GLint, byval v0 as GLuint, byval v1 as GLuint)
+	declare sub glUniform3uiEXT(byval location as GLint, byval v0 as GLuint, byval v1 as GLuint, byval v2 as GLuint)
+	declare sub glUniform4uiEXT(byval location as GLint, byval v0 as GLuint, byval v1 as GLuint, byval v2 as GLuint, byval v3 as GLuint)
+	declare sub glUniform1uivEXT(byval location as GLint, byval count as GLsizei, byval value as const GLuint ptr)
+	declare sub glUniform2uivEXT(byval location as GLint, byval count as GLsizei, byval value as const GLuint ptr)
+	declare sub glUniform3uivEXT(byval location as GLint, byval count as GLsizei, byval value as const GLuint ptr)
+	declare sub glUniform4uivEXT(byval location as GLint, byval count as GLsizei, byval value as const GLuint ptr)
+#endif
+
 const GL_EXT_histogram = 1
 const GL_HISTOGRAM_EXT = &h8024
 const GL_PROXY_HISTOGRAM_EXT = &h8025
@@ -4186,6 +6118,19 @@ type PFNGLMINMAXEXTPROC as sub(byval target as GLenum, byval internalformat as G
 type PFNGLRESETHISTOGRAMEXTPROC as sub(byval target as GLenum)
 type PFNGLRESETMINMAXEXTPROC as sub(byval target as GLenum)
 
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glGetHistogramEXT(byval target as GLenum, byval reset as GLboolean, byval format as GLenum, byval type as GLenum, byval values as any ptr)
+	declare sub glGetHistogramParameterfvEXT(byval target as GLenum, byval pname as GLenum, byval params as GLfloat ptr)
+	declare sub glGetHistogramParameterivEXT(byval target as GLenum, byval pname as GLenum, byval params as GLint ptr)
+	declare sub glGetMinmaxEXT(byval target as GLenum, byval reset as GLboolean, byval format as GLenum, byval type as GLenum, byval values as any ptr)
+	declare sub glGetMinmaxParameterfvEXT(byval target as GLenum, byval pname as GLenum, byval params as GLfloat ptr)
+	declare sub glGetMinmaxParameterivEXT(byval target as GLenum, byval pname as GLenum, byval params as GLint ptr)
+	declare sub glHistogramEXT(byval target as GLenum, byval width as GLsizei, byval internalformat as GLenum, byval sink as GLboolean)
+	declare sub glMinmaxEXT(byval target as GLenum, byval internalformat as GLenum, byval sink as GLboolean)
+	declare sub glResetHistogramEXT(byval target as GLenum)
+	declare sub glResetMinmaxEXT(byval target as GLenum)
+#endif
+
 const GL_EXT_index_array_formats = 1
 const GL_IUI_V2F_EXT = &h81AD
 const GL_IUI_V3F_EXT = &h81AE
@@ -4200,11 +6145,21 @@ const GL_INDEX_TEST_EXT = &h81B5
 const GL_INDEX_TEST_FUNC_EXT = &h81B6
 const GL_INDEX_TEST_REF_EXT = &h81B7
 type PFNGLINDEXFUNCEXTPROC as sub(byval func as GLenum, byval ref as GLclampf)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glIndexFuncEXT(byval func as GLenum, byval ref as GLclampf)
+#endif
+
 const GL_EXT_index_material = 1
 const GL_INDEX_MATERIAL_EXT = &h81B8
 const GL_INDEX_MATERIAL_PARAMETER_EXT = &h81B9
 const GL_INDEX_MATERIAL_FACE_EXT = &h81BA
 type PFNGLINDEXMATERIALEXTPROC as sub(byval face as GLenum, byval mode as GLenum)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glIndexMaterialEXT(byval face as GLenum, byval mode as GLenum)
+#endif
+
 const GL_EXT_index_texture = 1
 const GL_EXT_light_texture = 1
 const GL_FRAGMENT_MATERIAL_EXT = &h8349
@@ -4220,10 +6175,22 @@ const GL_TEXTURE_MATERIAL_PARAMETER_EXT = &h8352
 type PFNGLAPPLYTEXTUREEXTPROC as sub(byval mode as GLenum)
 type PFNGLTEXTURELIGHTEXTPROC as sub(byval pname as GLenum)
 type PFNGLTEXTUREMATERIALEXTPROC as sub(byval face as GLenum, byval mode as GLenum)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glApplyTextureEXT(byval mode as GLenum)
+	declare sub glTextureLightEXT(byval pname as GLenum)
+	declare sub glTextureMaterialEXT(byval face as GLenum, byval mode as GLenum)
+#endif
+
 const GL_EXT_misc_attribute = 1
 const GL_EXT_multi_draw_arrays = 1
 type PFNGLMULTIDRAWARRAYSEXTPROC as sub(byval mode as GLenum, byval first as const GLint ptr, byval count as const GLsizei ptr, byval primcount as GLsizei)
 type PFNGLMULTIDRAWELEMENTSEXTPROC as sub(byval mode as GLenum, byval count as const GLsizei ptr, byval type as GLenum, byval indices as const any const ptr ptr, byval primcount as GLsizei)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glMultiDrawArraysEXT(byval mode as GLenum, byval first as const GLint ptr, byval count as const GLsizei ptr, byval primcount as GLsizei)
+	declare sub glMultiDrawElementsEXT(byval mode as GLenum, byval count as const GLsizei ptr, byval type as GLenum, byval indices as const any const ptr ptr, byval primcount as GLsizei)
+#endif
 
 const GL_EXT_multisample = 1
 const GL_MULTISAMPLE_EXT = &h809D
@@ -4245,6 +6212,12 @@ const GL_SAMPLE_PATTERN_EXT = &h80AC
 const GL_MULTISAMPLE_BIT_EXT = &h20000000
 type PFNGLSAMPLEMASKEXTPROC as sub(byval value as GLclampf, byval invert as GLboolean)
 type PFNGLSAMPLEPATTERNEXTPROC as sub(byval pattern as GLenum)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glSampleMaskEXT(byval value as GLclampf, byval invert as GLboolean)
+	declare sub glSamplePatternEXT(byval pattern as GLenum)
+#endif
+
 const GL_EXT_packed_depth_stencil = 1
 const GL_DEPTH_STENCIL_EXT = &h84F9
 const GL_UNSIGNED_INT_24_8_EXT = &h84FA
@@ -4274,6 +6247,13 @@ type PFNGLGETCOLORTABLEEXTPROC as sub(byval target as GLenum, byval format as GL
 type PFNGLGETCOLORTABLEPARAMETERIVEXTPROC as sub(byval target as GLenum, byval pname as GLenum, byval params as GLint ptr)
 type PFNGLGETCOLORTABLEPARAMETERFVEXTPROC as sub(byval target as GLenum, byval pname as GLenum, byval params as GLfloat ptr)
 
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glColorTableEXT(byval target as GLenum, byval internalFormat as GLenum, byval width as GLsizei, byval format as GLenum, byval type as GLenum, byval table as const any ptr)
+	declare sub glGetColorTableEXT(byval target as GLenum, byval format as GLenum, byval type as GLenum, byval data as any ptr)
+	declare sub glGetColorTableParameterivEXT(byval target as GLenum, byval pname as GLenum, byval params as GLint ptr)
+	declare sub glGetColorTableParameterfvEXT(byval target as GLenum, byval pname as GLenum, byval params as GLfloat ptr)
+#endif
+
 const GL_EXT_pixel_buffer_object = 1
 const GL_PIXEL_PACK_BUFFER_EXT = &h88EB
 const GL_PIXEL_UNPACK_BUFFER_EXT = &h88EC
@@ -4297,6 +6277,15 @@ type PFNGLPIXELTRANSFORMPARAMETERFVEXTPROC as sub(byval target as GLenum, byval 
 type PFNGLGETPIXELTRANSFORMPARAMETERIVEXTPROC as sub(byval target as GLenum, byval pname as GLenum, byval params as GLint ptr)
 type PFNGLGETPIXELTRANSFORMPARAMETERFVEXTPROC as sub(byval target as GLenum, byval pname as GLenum, byval params as GLfloat ptr)
 
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glPixelTransformParameteriEXT(byval target as GLenum, byval pname as GLenum, byval param as GLint)
+	declare sub glPixelTransformParameterfEXT(byval target as GLenum, byval pname as GLenum, byval param as GLfloat)
+	declare sub glPixelTransformParameterivEXT(byval target as GLenum, byval pname as GLenum, byval params as const GLint ptr)
+	declare sub glPixelTransformParameterfvEXT(byval target as GLenum, byval pname as GLenum, byval params as const GLfloat ptr)
+	declare sub glGetPixelTransformParameterivEXT(byval target as GLenum, byval pname as GLenum, byval params as GLint ptr)
+	declare sub glGetPixelTransformParameterfvEXT(byval target as GLenum, byval pname as GLenum, byval params as GLfloat ptr)
+#endif
+
 const GL_EXT_pixel_transform_color_table = 1
 const GL_EXT_point_parameters = 1
 const GL_POINT_SIZE_MIN_EXT = &h8126
@@ -4305,14 +6294,30 @@ const GL_POINT_FADE_THRESHOLD_SIZE_EXT = &h8128
 const GL_DISTANCE_ATTENUATION_EXT = &h8129
 type PFNGLPOINTPARAMETERFEXTPROC as sub(byval pname as GLenum, byval param as GLfloat)
 type PFNGLPOINTPARAMETERFVEXTPROC as sub(byval pname as GLenum, byval params as const GLfloat ptr)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glPointParameterfEXT(byval pname as GLenum, byval param as GLfloat)
+	declare sub glPointParameterfvEXT(byval pname as GLenum, byval params as const GLfloat ptr)
+#endif
+
 const GL_EXT_polygon_offset = 1
 const GL_POLYGON_OFFSET_EXT = &h8037
 const GL_POLYGON_OFFSET_FACTOR_EXT = &h8038
 const GL_POLYGON_OFFSET_BIAS_EXT = &h8039
 type PFNGLPOLYGONOFFSETEXTPROC as sub(byval factor as GLfloat, byval bias as GLfloat)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glPolygonOffsetEXT(byval factor as GLfloat, byval bias as GLfloat)
+#endif
+
 const GL_EXT_polygon_offset_clamp = 1
 const GL_POLYGON_OFFSET_CLAMP_EXT = &h8E1B
 type PFNGLPOLYGONOFFSETCLAMPEXTPROC as sub(byval factor as GLfloat, byval units as GLfloat, byval clamp as GLfloat)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glPolygonOffsetClampEXT(byval factor as GLfloat, byval units as GLfloat, byval clamp as GLfloat)
+#endif
+
 const GL_EXT_post_depth_coverage = 1
 const GL_EXT_provoking_vertex = 1
 const GL_QUADS_FOLLOW_PROVOKING_VERTEX_CONVENTION_EXT = &h8E4C
@@ -4320,6 +6325,11 @@ const GL_FIRST_VERTEX_CONVENTION_EXT = &h8E4D
 const GL_LAST_VERTEX_CONVENTION_EXT = &h8E4E
 const GL_PROVOKING_VERTEX_EXT = &h8E4F
 type PFNGLPROVOKINGVERTEXEXTPROC as sub(byval mode as GLenum)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glProvokingVertexEXT(byval mode as GLenum)
+#endif
+
 const GL_EXT_raster_multisample = 1
 const GL_RASTER_MULTISAMPLE_EXT = &h9327
 const GL_RASTER_SAMPLES_EXT = &h9328
@@ -4328,6 +6338,11 @@ const GL_RASTER_FIXED_SAMPLE_LOCATIONS_EXT = &h932A
 const GL_MULTISAMPLE_RASTERIZATION_ALLOWED_EXT = &h932B
 const GL_EFFECTIVE_RASTER_SAMPLES_EXT = &h932C
 type PFNGLRASTERSAMPLESEXTPROC as sub(byval samples as GLuint, byval fixedsamplelocations as GLboolean)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glRasterSamplesEXT(byval samples as GLuint, byval fixedsamplelocations as GLboolean)
+#endif
+
 const GL_EXT_rescale_normal = 1
 const GL_RESCALE_NORMAL_EXT = &h803A
 const GL_EXT_secondary_color = 1
@@ -4356,11 +6371,38 @@ type PFNGLSECONDARYCOLOR3UIVEXTPROC as sub(byval v as const GLuint ptr)
 type PFNGLSECONDARYCOLOR3USEXTPROC as sub(byval red as GLushort, byval green as GLushort, byval blue as GLushort)
 type PFNGLSECONDARYCOLOR3USVEXTPROC as sub(byval v as const GLushort ptr)
 type PFNGLSECONDARYCOLORPOINTEREXTPROC as sub(byval size as GLint, byval type as GLenum, byval stride as GLsizei, byval pointer as const any ptr)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glSecondaryColor3bEXT(byval red as GLbyte, byval green as GLbyte, byval blue as GLbyte)
+	declare sub glSecondaryColor3bvEXT(byval v as const GLbyte ptr)
+	declare sub glSecondaryColor3dEXT(byval red as GLdouble, byval green as GLdouble, byval blue as GLdouble)
+	declare sub glSecondaryColor3dvEXT(byval v as const GLdouble ptr)
+	declare sub glSecondaryColor3fEXT(byval red as GLfloat, byval green as GLfloat, byval blue as GLfloat)
+	declare sub glSecondaryColor3fvEXT(byval v as const GLfloat ptr)
+	declare sub glSecondaryColor3iEXT(byval red as GLint, byval green as GLint, byval blue as GLint)
+	declare sub glSecondaryColor3ivEXT(byval v as const GLint ptr)
+	declare sub glSecondaryColor3sEXT(byval red as GLshort, byval green as GLshort, byval blue as GLshort)
+	declare sub glSecondaryColor3svEXT(byval v as const GLshort ptr)
+	declare sub glSecondaryColor3ubEXT(byval red as GLubyte, byval green as GLubyte, byval blue as GLubyte)
+	declare sub glSecondaryColor3ubvEXT(byval v as const GLubyte ptr)
+	declare sub glSecondaryColor3uiEXT(byval red as GLuint, byval green as GLuint, byval blue as GLuint)
+	declare sub glSecondaryColor3uivEXT(byval v as const GLuint ptr)
+	declare sub glSecondaryColor3usEXT(byval red as GLushort, byval green as GLushort, byval blue as GLushort)
+	declare sub glSecondaryColor3usvEXT(byval v as const GLushort ptr)
+	declare sub glSecondaryColorPointerEXT(byval size as GLint, byval type as GLenum, byval stride as GLsizei, byval pointer as const any ptr)
+#endif
+
 const GL_EXT_separate_shader_objects = 1
 const GL_ACTIVE_PROGRAM_EXT = &h8B8D
 type PFNGLUSESHADERPROGRAMEXTPROC as sub(byval type as GLenum, byval program as GLuint)
 type PFNGLACTIVEPROGRAMEXTPROC as sub(byval program as GLuint)
 type PFNGLCREATESHADERPROGRAMEXTPROC as function(byval type as GLenum, byval string as const zstring ptr) as GLuint
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glUseShaderProgramEXT(byval type as GLenum, byval program as GLuint)
+	declare sub glActiveProgramEXT(byval program as GLuint)
+	declare function glCreateShaderProgramEXT(byval type as GLenum, byval string as const zstring ptr) as GLuint
+#endif
 
 const GL_EXT_separate_specular_color = 1
 const GL_LIGHT_MODEL_COLOR_CONTROL_EXT = &h81F8
@@ -4425,6 +6467,12 @@ const GL_ATOMIC_COUNTER_BARRIER_BIT_EXT = &h00001000
 const GL_ALL_BARRIER_BITS_EXT = &hFFFFFFFF
 type PFNGLBINDIMAGETEXTUREEXTPROC as sub(byval index as GLuint, byval texture as GLuint, byval level as GLint, byval layered as GLboolean, byval layer as GLint, byval access as GLenum, byval format as GLint)
 type PFNGLMEMORYBARRIEREXTPROC as sub(byval barriers as GLbitfield)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glBindImageTextureEXT(byval index as GLuint, byval texture as GLuint, byval level as GLint, byval layered as GLboolean, byval layer as GLint, byval access as GLenum, byval format as GLint)
+	declare sub glMemoryBarrierEXT(byval barriers as GLbitfield)
+#endif
+
 const GL_EXT_shader_integer_mix = 1
 const GL_EXT_shadow_funcs = 1
 const GL_EXT_shared_texture_palette = 1
@@ -4434,16 +6482,32 @@ const GL_EXT_stencil_clear_tag = 1
 const GL_STENCIL_TAG_BITS_EXT = &h88F2
 const GL_STENCIL_CLEAR_TAG_VALUE_EXT = &h88F3
 type PFNGLSTENCILCLEARTAGEXTPROC as sub(byval stencilTagBits as GLsizei, byval stencilClearTag as GLuint)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glStencilClearTagEXT(byval stencilTagBits as GLsizei, byval stencilClearTag as GLuint)
+#endif
+
 const GL_EXT_stencil_two_side = 1
 const GL_STENCIL_TEST_TWO_SIDE_EXT = &h8910
 const GL_ACTIVE_STENCIL_FACE_EXT = &h8911
 type PFNGLACTIVESTENCILFACEEXTPROC as sub(byval face as GLenum)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glActiveStencilFaceEXT(byval face as GLenum)
+#endif
+
 const GL_EXT_stencil_wrap = 1
 const GL_INCR_WRAP_EXT = &h8507
 const GL_DECR_WRAP_EXT = &h8508
 const GL_EXT_subtexture = 1
 type PFNGLTEXSUBIMAGE1DEXTPROC as sub(byval target as GLenum, byval level as GLint, byval xoffset as GLint, byval width as GLsizei, byval format as GLenum, byval type as GLenum, byval pixels as const any ptr)
 type PFNGLTEXSUBIMAGE2DEXTPROC as sub(byval target as GLenum, byval level as GLint, byval xoffset as GLint, byval yoffset as GLint, byval width as GLsizei, byval height as GLsizei, byval format as GLenum, byval type as GLenum, byval pixels as const any ptr)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glTexSubImage1DEXT(byval target as GLenum, byval level as GLint, byval xoffset as GLint, byval width as GLsizei, byval format as GLenum, byval type as GLenum, byval pixels as const any ptr)
+	declare sub glTexSubImage2DEXT(byval target as GLenum, byval level as GLint, byval xoffset as GLint, byval yoffset as GLint, byval width as GLsizei, byval height as GLsizei, byval format as GLenum, byval type as GLenum, byval pixels as const any ptr)
+#endif
+
 const GL_EXT_texture = 1
 const GL_ALPHA4_EXT = &h803B
 const GL_ALPHA8_EXT = &h803C
@@ -4500,6 +6564,12 @@ const GL_TEXTURE_WRAP_R_EXT = &h8072
 const GL_MAX_3D_TEXTURE_SIZE_EXT = &h8073
 type PFNGLTEXIMAGE3DEXTPROC as sub(byval target as GLenum, byval level as GLint, byval internalformat as GLenum, byval width as GLsizei, byval height as GLsizei, byval depth as GLsizei, byval border as GLint, byval format as GLenum, byval type as GLenum, byval pixels as const any ptr)
 type PFNGLTEXSUBIMAGE3DEXTPROC as sub(byval target as GLenum, byval level as GLint, byval xoffset as GLint, byval yoffset as GLint, byval zoffset as GLint, byval width as GLsizei, byval height as GLsizei, byval depth as GLsizei, byval format as GLenum, byval type as GLenum, byval pixels as const any ptr)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glTexImage3DEXT(byval target as GLenum, byval level as GLint, byval internalformat as GLenum, byval width as GLsizei, byval height as GLsizei, byval depth as GLsizei, byval border as GLint, byval format as GLenum, byval type as GLenum, byval pixels as const any ptr)
+	declare sub glTexSubImage3DEXT(byval target as GLenum, byval level as GLint, byval xoffset as GLint, byval yoffset as GLint, byval zoffset as GLint, byval width as GLsizei, byval height as GLsizei, byval depth as GLsizei, byval format as GLenum, byval type as GLenum, byval pixels as const any ptr)
+#endif
+
 const GL_EXT_texture_array = 1
 const GL_TEXTURE_1D_ARRAY_EXT = &h8C18
 const GL_PROXY_TEXTURE_1D_ARRAY_EXT = &h8C19
@@ -4510,6 +6580,11 @@ const GL_TEXTURE_BINDING_2D_ARRAY_EXT = &h8C1D
 const GL_MAX_ARRAY_TEXTURE_LAYERS_EXT = &h88FF
 const GL_COMPARE_REF_DEPTH_TO_TEXTURE_EXT = &h884E
 type PFNGLFRAMEBUFFERTEXTURELAYEREXTPROC as sub(byval target as GLenum, byval attachment as GLenum, byval texture as GLuint, byval level as GLint, byval layer as GLint)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glFramebufferTextureLayerEXT(byval target as GLenum, byval attachment as GLenum, byval texture as GLuint, byval level as GLint, byval layer as GLint)
+#endif
+
 const GL_EXT_texture_buffer_object = 1
 const GL_TEXTURE_BUFFER_EXT = &h8C2A
 const GL_MAX_TEXTURE_BUFFER_SIZE_EXT = &h8C2B
@@ -4517,6 +6592,11 @@ const GL_TEXTURE_BINDING_BUFFER_EXT = &h8C2C
 const GL_TEXTURE_BUFFER_DATA_STORE_BINDING_EXT = &h8C2D
 const GL_TEXTURE_BUFFER_FORMAT_EXT = &h8C2E
 type PFNGLTEXBUFFEREXTPROC as sub(byval target as GLenum, byval internalformat as GLenum, byval buffer as GLuint)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glTexBufferEXT(byval target as GLenum, byval internalformat as GLenum, byval buffer as GLuint)
+#endif
+
 const GL_EXT_texture_compression_latc = 1
 const GL_COMPRESSED_LUMINANCE_LATC1_EXT = &h8C70
 const GL_COMPRESSED_SIGNED_LUMINANCE_LATC1_EXT = &h8C71
@@ -4631,6 +6711,15 @@ type PFNGLGETTEXPARAMETERIUIVEXTPROC as sub(byval target as GLenum, byval pname 
 type PFNGLCLEARCOLORIIEXTPROC as sub(byval red as GLint, byval green as GLint, byval blue as GLint, byval alpha as GLint)
 type PFNGLCLEARCOLORIUIEXTPROC as sub(byval red as GLuint, byval green as GLuint, byval blue as GLuint, byval alpha as GLuint)
 
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glTexParameterIivEXT(byval target as GLenum, byval pname as GLenum, byval params as const GLint ptr)
+	declare sub glTexParameterIuivEXT(byval target as GLenum, byval pname as GLenum, byval params as const GLuint ptr)
+	declare sub glGetTexParameterIivEXT(byval target as GLenum, byval pname as GLenum, byval params as GLint ptr)
+	declare sub glGetTexParameterIuivEXT(byval target as GLenum, byval pname as GLenum, byval params as GLuint ptr)
+	declare sub glClearColorIiEXT(byval red as GLint, byval green as GLint, byval blue as GLint, byval alpha as GLint)
+	declare sub glClearColorIuiEXT(byval red as GLuint, byval green as GLuint, byval blue as GLuint, byval alpha as GLuint)
+#endif
+
 const GL_EXT_texture_lod_bias = 1
 const GL_MAX_TEXTURE_LOD_BIAS_EXT = &h84FD
 const GL_TEXTURE_FILTER_CONTROL_EXT = &h8500
@@ -4653,10 +6742,24 @@ type PFNGLGENTEXTURESEXTPROC as sub(byval n as GLsizei, byval textures as GLuint
 type PFNGLISTEXTUREEXTPROC as function(byval texture as GLuint) as GLboolean
 type PFNGLPRIORITIZETEXTURESEXTPROC as sub(byval n as GLsizei, byval textures as const GLuint ptr, byval priorities as const GLclampf ptr)
 
+#ifdef GL_GLEXT_PROTOTYPES
+	declare function glAreTexturesResidentEXT(byval n as GLsizei, byval textures as const GLuint ptr, byval residences as GLboolean ptr) as GLboolean
+	declare sub glBindTextureEXT(byval target as GLenum, byval texture as GLuint)
+	declare sub glDeleteTexturesEXT(byval n as GLsizei, byval textures as const GLuint ptr)
+	declare sub glGenTexturesEXT(byval n as GLsizei, byval textures as GLuint ptr)
+	declare function glIsTextureEXT(byval texture as GLuint) as GLboolean
+	declare sub glPrioritizeTexturesEXT(byval n as GLsizei, byval textures as const GLuint ptr, byval priorities as const GLclampf ptr)
+#endif
+
 const GL_EXT_texture_perturb_normal = 1
 const GL_PERTURB_EXT = &h85AE
 const GL_TEXTURE_NORMAL_EXT = &h85AF
 type PFNGLTEXTURENORMALEXTPROC as sub(byval mode as GLenum)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glTextureNormalEXT(byval mode as GLenum)
+#endif
+
 const GL_EXT_texture_sRGB = 1
 const GL_SRGB_EXT = &h8C40
 const GL_SRGB8_EXT = &h8C41
@@ -4709,6 +6812,12 @@ const GL_EXT_timer_query = 1
 const GL_TIME_ELAPSED_EXT = &h88BF
 type PFNGLGETQUERYOBJECTI64VEXTPROC as sub(byval id as GLuint, byval pname as GLenum, byval params as GLint64 ptr)
 type PFNGLGETQUERYOBJECTUI64VEXTPROC as sub(byval id as GLuint, byval pname as GLenum, byval params as GLuint64 ptr)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glGetQueryObjecti64vEXT(byval id as GLuint, byval pname as GLenum, byval params as GLint64 ptr)
+	declare sub glGetQueryObjectui64vEXT(byval id as GLuint, byval pname as GLenum, byval params as GLuint64 ptr)
+#endif
+
 const GL_EXT_transform_feedback = 1
 const GL_TRANSFORM_FEEDBACK_BUFFER_EXT = &h8C8E
 const GL_TRANSFORM_FEEDBACK_BUFFER_START_EXT = &h8C84
@@ -4733,6 +6842,16 @@ type PFNGLBINDBUFFEROFFSETEXTPROC as sub(byval target as GLenum, byval index as 
 type PFNGLBINDBUFFERBASEEXTPROC as sub(byval target as GLenum, byval index as GLuint, byval buffer as GLuint)
 type PFNGLTRANSFORMFEEDBACKVARYINGSEXTPROC as sub(byval program as GLuint, byval count as GLsizei, byval varyings as const zstring const ptr ptr, byval bufferMode as GLenum)
 type PFNGLGETTRANSFORMFEEDBACKVARYINGEXTPROC as sub(byval program as GLuint, byval index as GLuint, byval bufSize as GLsizei, byval length as GLsizei ptr, byval size as GLsizei ptr, byval type as GLenum ptr, byval name as zstring ptr)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glBeginTransformFeedbackEXT(byval primitiveMode as GLenum)
+	declare sub glEndTransformFeedbackEXT()
+	declare sub glBindBufferRangeEXT(byval target as GLenum, byval index as GLuint, byval buffer as GLuint, byval offset as GLintptr, byval size as GLsizeiptr)
+	declare sub glBindBufferOffsetEXT(byval target as GLenum, byval index as GLuint, byval buffer as GLuint, byval offset as GLintptr)
+	declare sub glBindBufferBaseEXT(byval target as GLenum, byval index as GLuint, byval buffer as GLuint)
+	declare sub glTransformFeedbackVaryingsEXT(byval program as GLuint, byval count as GLsizei, byval varyings as const zstring const ptr ptr, byval bufferMode as GLenum)
+	declare sub glGetTransformFeedbackVaryingEXT(byval program as GLuint, byval index as GLuint, byval bufSize as GLsizei, byval length as GLsizei ptr, byval size as GLsizei ptr, byval type as GLenum ptr, byval name as zstring ptr)
+#endif
 
 const GL_EXT_vertex_array = 1
 const GL_VERTEX_ARRAY_EXT = &h8074
@@ -4778,6 +6897,18 @@ type PFNGLNORMALPOINTEREXTPROC as sub(byval type as GLenum, byval stride as GLsi
 type PFNGLTEXCOORDPOINTEREXTPROC as sub(byval size as GLint, byval type as GLenum, byval stride as GLsizei, byval count as GLsizei, byval pointer as const any ptr)
 type PFNGLVERTEXPOINTEREXTPROC as sub(byval size as GLint, byval type as GLenum, byval stride as GLsizei, byval count as GLsizei, byval pointer as const any ptr)
 
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glArrayElementEXT(byval i as GLint)
+	declare sub glColorPointerEXT(byval size as GLint, byval type as GLenum, byval stride as GLsizei, byval count as GLsizei, byval pointer as const any ptr)
+	declare sub glDrawArraysEXT(byval mode as GLenum, byval first as GLint, byval count as GLsizei)
+	declare sub glEdgeFlagPointerEXT(byval stride as GLsizei, byval count as GLsizei, byval pointer as const GLboolean ptr)
+	declare sub glGetPointervEXT(byval pname as GLenum, byval params as any ptr ptr)
+	declare sub glIndexPointerEXT(byval type as GLenum, byval stride as GLsizei, byval count as GLsizei, byval pointer as const any ptr)
+	declare sub glNormalPointerEXT(byval type as GLenum, byval stride as GLsizei, byval count as GLsizei, byval pointer as const any ptr)
+	declare sub glTexCoordPointerEXT(byval size as GLint, byval type as GLenum, byval stride as GLsizei, byval count as GLsizei, byval pointer as const any ptr)
+	declare sub glVertexPointerEXT(byval size as GLint, byval type as GLenum, byval stride as GLsizei, byval count as GLsizei, byval pointer as const any ptr)
+#endif
+
 const GL_EXT_vertex_array_bgra = 1
 const GL_EXT_vertex_attrib_64bit = 1
 const GL_DOUBLE_VEC2_EXT = &h8FFC
@@ -4803,6 +6934,19 @@ type PFNGLVERTEXATTRIBL3DVEXTPROC as sub(byval index as GLuint, byval v as const
 type PFNGLVERTEXATTRIBL4DVEXTPROC as sub(byval index as GLuint, byval v as const GLdouble ptr)
 type PFNGLVERTEXATTRIBLPOINTEREXTPROC as sub(byval index as GLuint, byval size as GLint, byval type as GLenum, byval stride as GLsizei, byval pointer as const any ptr)
 type PFNGLGETVERTEXATTRIBLDVEXTPROC as sub(byval index as GLuint, byval pname as GLenum, byval params as GLdouble ptr)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glVertexAttribL1dEXT(byval index as GLuint, byval x as GLdouble)
+	declare sub glVertexAttribL2dEXT(byval index as GLuint, byval x as GLdouble, byval y as GLdouble)
+	declare sub glVertexAttribL3dEXT(byval index as GLuint, byval x as GLdouble, byval y as GLdouble, byval z as GLdouble)
+	declare sub glVertexAttribL4dEXT(byval index as GLuint, byval x as GLdouble, byval y as GLdouble, byval z as GLdouble, byval w as GLdouble)
+	declare sub glVertexAttribL1dvEXT(byval index as GLuint, byval v as const GLdouble ptr)
+	declare sub glVertexAttribL2dvEXT(byval index as GLuint, byval v as const GLdouble ptr)
+	declare sub glVertexAttribL3dvEXT(byval index as GLuint, byval v as const GLdouble ptr)
+	declare sub glVertexAttribL4dvEXT(byval index as GLuint, byval v as const GLdouble ptr)
+	declare sub glVertexAttribLPointerEXT(byval index as GLuint, byval size as GLint, byval type as GLenum, byval stride as GLsizei, byval pointer as const any ptr)
+	declare sub glGetVertexAttribLdvEXT(byval index as GLuint, byval pname as GLenum, byval params as GLdouble ptr)
+#endif
 
 const GL_EXT_vertex_shader = 1
 const GL_VERTEX_SHADER_EXT = &h8780
@@ -4959,6 +7103,51 @@ type PFNGLGETLOCALCONSTANTBOOLEANVEXTPROC as sub(byval id as GLuint, byval value
 type PFNGLGETLOCALCONSTANTINTEGERVEXTPROC as sub(byval id as GLuint, byval value as GLenum, byval data as GLint ptr)
 type PFNGLGETLOCALCONSTANTFLOATVEXTPROC as sub(byval id as GLuint, byval value as GLenum, byval data as GLfloat ptr)
 
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glBeginVertexShaderEXT()
+	declare sub glEndVertexShaderEXT()
+	declare sub glBindVertexShaderEXT(byval id as GLuint)
+	declare function glGenVertexShadersEXT(byval range as GLuint) as GLuint
+	declare sub glDeleteVertexShaderEXT(byval id as GLuint)
+	declare sub glShaderOp1EXT(byval op as GLenum, byval res as GLuint, byval arg1 as GLuint)
+	declare sub glShaderOp2EXT(byval op as GLenum, byval res as GLuint, byval arg1 as GLuint, byval arg2 as GLuint)
+	declare sub glShaderOp3EXT(byval op as GLenum, byval res as GLuint, byval arg1 as GLuint, byval arg2 as GLuint, byval arg3 as GLuint)
+	declare sub glSwizzleEXT(byval res as GLuint, byval in as GLuint, byval outX as GLenum, byval outY as GLenum, byval outZ as GLenum, byval outW as GLenum)
+	declare sub glWriteMaskEXT(byval res as GLuint, byval in as GLuint, byval outX as GLenum, byval outY as GLenum, byval outZ as GLenum, byval outW as GLenum)
+	declare sub glInsertComponentEXT(byval res as GLuint, byval src as GLuint, byval num as GLuint)
+	declare sub glExtractComponentEXT(byval res as GLuint, byval src as GLuint, byval num as GLuint)
+	declare function glGenSymbolsEXT(byval datatype as GLenum, byval storagetype as GLenum, byval range as GLenum, byval components as GLuint) as GLuint
+	declare sub glSetInvariantEXT(byval id as GLuint, byval type as GLenum, byval addr as const any ptr)
+	declare sub glSetLocalConstantEXT(byval id as GLuint, byval type as GLenum, byval addr as const any ptr)
+	declare sub glVariantbvEXT(byval id as GLuint, byval addr as const GLbyte ptr)
+	declare sub glVariantsvEXT(byval id as GLuint, byval addr as const GLshort ptr)
+	declare sub glVariantivEXT(byval id as GLuint, byval addr as const GLint ptr)
+	declare sub glVariantfvEXT(byval id as GLuint, byval addr as const GLfloat ptr)
+	declare sub glVariantdvEXT(byval id as GLuint, byval addr as const GLdouble ptr)
+	declare sub glVariantubvEXT(byval id as GLuint, byval addr as const GLubyte ptr)
+	declare sub glVariantusvEXT(byval id as GLuint, byval addr as const GLushort ptr)
+	declare sub glVariantuivEXT(byval id as GLuint, byval addr as const GLuint ptr)
+	declare sub glVariantPointerEXT(byval id as GLuint, byval type as GLenum, byval stride as GLuint, byval addr as const any ptr)
+	declare sub glEnableVariantClientStateEXT(byval id as GLuint)
+	declare sub glDisableVariantClientStateEXT(byval id as GLuint)
+	declare function glBindLightParameterEXT(byval light as GLenum, byval value as GLenum) as GLuint
+	declare function glBindMaterialParameterEXT(byval face as GLenum, byval value as GLenum) as GLuint
+	declare function glBindTexGenParameterEXT(byval unit as GLenum, byval coord as GLenum, byval value as GLenum) as GLuint
+	declare function glBindTextureUnitParameterEXT(byval unit as GLenum, byval value as GLenum) as GLuint
+	declare function glBindParameterEXT(byval value as GLenum) as GLuint
+	declare function glIsVariantEnabledEXT(byval id as GLuint, byval cap as GLenum) as GLboolean
+	declare sub glGetVariantBooleanvEXT(byval id as GLuint, byval value as GLenum, byval data as GLboolean ptr)
+	declare sub glGetVariantIntegervEXT(byval id as GLuint, byval value as GLenum, byval data as GLint ptr)
+	declare sub glGetVariantFloatvEXT(byval id as GLuint, byval value as GLenum, byval data as GLfloat ptr)
+	declare sub glGetVariantPointervEXT(byval id as GLuint, byval value as GLenum, byval data as any ptr ptr)
+	declare sub glGetInvariantBooleanvEXT(byval id as GLuint, byval value as GLenum, byval data as GLboolean ptr)
+	declare sub glGetInvariantIntegervEXT(byval id as GLuint, byval value as GLenum, byval data as GLint ptr)
+	declare sub glGetInvariantFloatvEXT(byval id as GLuint, byval value as GLenum, byval data as GLfloat ptr)
+	declare sub glGetLocalConstantBooleanvEXT(byval id as GLuint, byval value as GLenum, byval data as GLboolean ptr)
+	declare sub glGetLocalConstantIntegervEXT(byval id as GLuint, byval value as GLenum, byval data as GLint ptr)
+	declare sub glGetLocalConstantFloatvEXT(byval id as GLuint, byval value as GLenum, byval data as GLfloat ptr)
+#endif
+
 const GL_EXT_vertex_weighting = 1
 const GL_MODELVIEW0_STACK_DEPTH_EXT = &h0BA3
 const GL_MODELVIEW1_STACK_DEPTH_EXT = &h8502
@@ -4977,13 +7166,34 @@ const GL_VERTEX_WEIGHT_ARRAY_POINTER_EXT = &h8510
 type PFNGLVERTEXWEIGHTFEXTPROC as sub(byval weight as GLfloat)
 type PFNGLVERTEXWEIGHTFVEXTPROC as sub(byval weight as const GLfloat ptr)
 type PFNGLVERTEXWEIGHTPOINTEREXTPROC as sub(byval size as GLint, byval type as GLenum, byval stride as GLsizei, byval pointer as const any ptr)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glVertexWeightfEXT(byval weight as GLfloat)
+	declare sub glVertexWeightfvEXT(byval weight as const GLfloat ptr)
+	declare sub glVertexWeightPointerEXT(byval size as GLint, byval type as GLenum, byval stride as GLsizei, byval pointer as const any ptr)
+#endif
+
 const GL_EXT_x11_sync_object = 1
 const GL_SYNC_X11_FENCE_EXT = &h90E1
 type PFNGLIMPORTSYNCEXTPROC as function(byval external_sync_type as GLenum, byval external_sync as GLintptr, byval flags as GLbitfield) as GLsync
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare function glImportSyncEXT(byval external_sync_type as GLenum, byval external_sync as GLintptr, byval flags as GLbitfield) as GLsync
+#endif
+
 const GL_GREMEDY_frame_terminator = 1
 type PFNGLFRAMETERMINATORGREMEDYPROC as sub()
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glFrameTerminatorGREMEDY()
+#endif
+
 const GL_GREMEDY_string_marker = 1
 type PFNGLSTRINGMARKERGREMEDYPROC as sub(byval len as GLsizei, byval string as const any ptr)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glStringMarkerGREMEDY(byval len as GLsizei, byval string as const any ptr)
+#endif
 
 const GL_HP_convolution_border_modes = 1
 const GL_IGNORE_BORDER_HP = &h8150
@@ -5014,6 +7224,15 @@ type PFNGLIMAGETRANSFORMPARAMETERFVHPPROC as sub(byval target as GLenum, byval p
 type PFNGLGETIMAGETRANSFORMPARAMETERIVHPPROC as sub(byval target as GLenum, byval pname as GLenum, byval params as GLint ptr)
 type PFNGLGETIMAGETRANSFORMPARAMETERFVHPPROC as sub(byval target as GLenum, byval pname as GLenum, byval params as GLfloat ptr)
 
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glImageTransformParameteriHP(byval target as GLenum, byval pname as GLenum, byval param as GLint)
+	declare sub glImageTransformParameterfHP(byval target as GLenum, byval pname as GLenum, byval param as GLfloat)
+	declare sub glImageTransformParameterivHP(byval target as GLenum, byval pname as GLenum, byval params as const GLint ptr)
+	declare sub glImageTransformParameterfvHP(byval target as GLenum, byval pname as GLenum, byval params as const GLfloat ptr)
+	declare sub glGetImageTransformParameterivHP(byval target as GLenum, byval pname as GLenum, byval params as GLint ptr)
+	declare sub glGetImageTransformParameterfvHP(byval target as GLenum, byval pname as GLenum, byval params as GLfloat ptr)
+#endif
+
 const GL_HP_occlusion_test = 1
 const GL_OCCLUSION_TEST_HP = &h8165
 const GL_OCCLUSION_TEST_RESULT_HP = &h8166
@@ -5026,12 +7245,23 @@ const GL_CULL_VERTEX_IBM = 103050
 const GL_IBM_multimode_draw_arrays = 1
 type PFNGLMULTIMODEDRAWARRAYSIBMPROC as sub(byval mode as const GLenum ptr, byval first as const GLint ptr, byval count as const GLsizei ptr, byval primcount as GLsizei, byval modestride as GLint)
 type PFNGLMULTIMODEDRAWELEMENTSIBMPROC as sub(byval mode as const GLenum ptr, byval count as const GLsizei ptr, byval type as GLenum, byval indices as const any const ptr ptr, byval primcount as GLsizei, byval modestride as GLint)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glMultiModeDrawArraysIBM(byval mode as const GLenum ptr, byval first as const GLint ptr, byval count as const GLsizei ptr, byval primcount as GLsizei, byval modestride as GLint)
+	declare sub glMultiModeDrawElementsIBM(byval mode as const GLenum ptr, byval count as const GLsizei ptr, byval type as GLenum, byval indices as const any const ptr ptr, byval primcount as GLsizei, byval modestride as GLint)
+#endif
+
 const GL_IBM_rasterpos_clip = 1
 const GL_RASTER_POSITION_UNCLIPPED_IBM = &h19262
 const GL_IBM_static_data = 1
 const GL_ALL_STATIC_DATA_IBM = 103060
 const GL_STATIC_VERTEX_ARRAY_IBM = 103061
 type PFNGLFLUSHSTATICDATAIBMPROC as sub(byval target as GLenum)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glFlushStaticDataIBM(byval target as GLenum)
+#endif
+
 const GL_IBM_texture_mirrored_repeat = 1
 const GL_MIRRORED_REPEAT_IBM = &h8370
 const GL_IBM_vertex_array_lists = 1
@@ -5060,8 +7290,24 @@ type PFNGLINDEXPOINTERLISTIBMPROC as sub(byval type as GLenum, byval stride as G
 type PFNGLNORMALPOINTERLISTIBMPROC as sub(byval type as GLenum, byval stride as GLint, byval pointer as const any ptr ptr, byval ptrstride as GLint)
 type PFNGLTEXCOORDPOINTERLISTIBMPROC as sub(byval size as GLint, byval type as GLenum, byval stride as GLint, byval pointer as const any ptr ptr, byval ptrstride as GLint)
 type PFNGLVERTEXPOINTERLISTIBMPROC as sub(byval size as GLint, byval type as GLenum, byval stride as GLint, byval pointer as const any ptr ptr, byval ptrstride as GLint)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glColorPointerListIBM(byval size as GLint, byval type as GLenum, byval stride as GLint, byval pointer as const any ptr ptr, byval ptrstride as GLint)
+	declare sub glSecondaryColorPointerListIBM(byval size as GLint, byval type as GLenum, byval stride as GLint, byval pointer as const any ptr ptr, byval ptrstride as GLint)
+	declare sub glEdgeFlagPointerListIBM(byval stride as GLint, byval pointer as const GLboolean ptr ptr, byval ptrstride as GLint)
+	declare sub glFogCoordPointerListIBM(byval type as GLenum, byval stride as GLint, byval pointer as const any ptr ptr, byval ptrstride as GLint)
+	declare sub glIndexPointerListIBM(byval type as GLenum, byval stride as GLint, byval pointer as const any ptr ptr, byval ptrstride as GLint)
+	declare sub glNormalPointerListIBM(byval type as GLenum, byval stride as GLint, byval pointer as const any ptr ptr, byval ptrstride as GLint)
+	declare sub glTexCoordPointerListIBM(byval size as GLint, byval type as GLenum, byval stride as GLint, byval pointer as const any ptr ptr, byval ptrstride as GLint)
+	declare sub glVertexPointerListIBM(byval size as GLint, byval type as GLenum, byval stride as GLint, byval pointer as const any ptr ptr, byval ptrstride as GLint)
+#endif
+
 const GL_INGR_blend_func_separate = 1
 type PFNGLBLENDFUNCSEPARATEINGRPROC as sub(byval sfactorRGB as GLenum, byval dfactorRGB as GLenum, byval sfactorAlpha as GLenum, byval dfactorAlpha as GLenum)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glBlendFuncSeparateINGR(byval sfactorRGB as GLenum, byval dfactorRGB as GLenum, byval sfactorAlpha as GLenum, byval dfactorAlpha as GLenum)
+#endif
 
 const GL_INGR_color_clamp = 1
 const GL_RED_MIN_CLAMP_INGR = &h8560
@@ -5085,6 +7331,12 @@ type PFNGLSYNCTEXTUREINTELPROC as sub(byval texture as GLuint)
 type PFNGLUNMAPTEXTURE2DINTELPROC as sub(byval texture as GLuint, byval level as GLint)
 type PFNGLMAPTEXTURE2DINTELPROC as function(byval texture as GLuint, byval level as GLint, byval access as GLbitfield, byval stride as GLint ptr, byval layout as GLenum ptr) as any ptr
 
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glSyncTextureINTEL(byval texture as GLuint)
+	declare sub glUnmapTexture2DINTEL(byval texture as GLuint, byval level as GLint)
+	declare function glMapTexture2DINTEL(byval texture as GLuint, byval level as GLint, byval access as GLbitfield, byval stride as GLint ptr, byval layout as GLenum ptr) as any ptr
+#endif
+
 const GL_INTEL_parallel_arrays = 1
 const GL_PARALLEL_ARRAYS_INTEL = &h83F4
 const GL_VERTEX_ARRAY_PARALLEL_POINTERS_INTEL = &h83F5
@@ -5096,6 +7348,13 @@ type PFNGLVERTEXPOINTERVINTELPROC as sub(byval size as GLint, byval type as GLen
 type PFNGLNORMALPOINTERVINTELPROC as sub(byval type as GLenum, byval pointer as const any ptr ptr)
 type PFNGLCOLORPOINTERVINTELPROC as sub(byval size as GLint, byval type as GLenum, byval pointer as const any ptr ptr)
 type PFNGLTEXCOORDPOINTERVINTELPROC as sub(byval size as GLint, byval type as GLenum, byval pointer as const any ptr ptr)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glVertexPointervINTEL(byval size as GLint, byval type as GLenum, byval pointer as const any ptr ptr)
+	declare sub glNormalPointervINTEL(byval type as GLenum, byval pointer as const any ptr ptr)
+	declare sub glColorPointervINTEL(byval size as GLint, byval type as GLenum, byval pointer as const any ptr ptr)
+	declare sub glTexCoordPointervINTEL(byval size as GLint, byval type as GLenum, byval pointer as const any ptr ptr)
+#endif
 
 const GL_INTEL_performance_query = 1
 const GL_PERFQUERY_SINGLE_CONTEXT_INTEL = &h00000000
@@ -5130,6 +7389,19 @@ type PFNGLGETPERFQUERYDATAINTELPROC as sub(byval queryHandle as GLuint, byval fl
 type PFNGLGETPERFQUERYIDBYNAMEINTELPROC as sub(byval queryName as zstring ptr, byval queryId as GLuint ptr)
 type PFNGLGETPERFQUERYINFOINTELPROC as sub(byval queryId as GLuint, byval queryNameLength as GLuint, byval queryName as zstring ptr, byval dataSize as GLuint ptr, byval noCounters as GLuint ptr, byval noInstances as GLuint ptr, byval capsMask as GLuint ptr)
 
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glBeginPerfQueryINTEL(byval queryHandle as GLuint)
+	declare sub glCreatePerfQueryINTEL(byval queryId as GLuint, byval queryHandle as GLuint ptr)
+	declare sub glDeletePerfQueryINTEL(byval queryHandle as GLuint)
+	declare sub glEndPerfQueryINTEL(byval queryHandle as GLuint)
+	declare sub glGetFirstPerfQueryIdINTEL(byval queryId as GLuint ptr)
+	declare sub glGetNextPerfQueryIdINTEL(byval queryId as GLuint, byval nextQueryId as GLuint ptr)
+	declare sub glGetPerfCounterInfoINTEL(byval queryId as GLuint, byval counterId as GLuint, byval counterNameLength as GLuint, byval counterName as zstring ptr, byval counterDescLength as GLuint, byval counterDesc as zstring ptr, byval counterOffset as GLuint ptr, byval counterDataSize as GLuint ptr, byval counterTypeEnum as GLuint ptr, byval counterDataTypeEnum as GLuint ptr, byval rawCounterMaxValue as GLuint64 ptr)
+	declare sub glGetPerfQueryDataINTEL(byval queryHandle as GLuint, byval flags as GLuint, byval dataSize as GLsizei, byval data as GLvoid ptr, byval bytesWritten as GLuint ptr)
+	declare sub glGetPerfQueryIdByNameINTEL(byval queryName as zstring ptr, byval queryId as GLuint ptr)
+	declare sub glGetPerfQueryInfoINTEL(byval queryId as GLuint, byval queryNameLength as GLuint, byval queryName as zstring ptr, byval dataSize as GLuint ptr, byval noCounters as GLuint ptr, byval noInstances as GLuint ptr, byval capsMask as GLuint ptr)
+#endif
+
 const GL_MESAX_texture_stack = 1
 const GL_TEXTURE_1D_STACK_MESAX = &h8759
 const GL_TEXTURE_2D_STACK_MESAX = &h875A
@@ -5141,8 +7413,12 @@ const GL_MESA_pack_invert = 1
 const GL_PACK_INVERT_MESA = &h8758
 const GL_MESA_resize_buffers = 1
 type PFNGLRESIZEBUFFERSMESAPROC as sub()
-const GL_MESA_window_pos = 1
 
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glResizeBuffersMESA()
+#endif
+
+const GL_MESA_window_pos = 1
 type PFNGLWINDOWPOS2DMESAPROC as sub(byval x as GLdouble, byval y as GLdouble)
 type PFNGLWINDOWPOS2DVMESAPROC as sub(byval v as const GLdouble ptr)
 type PFNGLWINDOWPOS2FMESAPROC as sub(byval x as GLfloat, byval y as GLfloat)
@@ -5168,6 +7444,33 @@ type PFNGLWINDOWPOS4IVMESAPROC as sub(byval v as const GLint ptr)
 type PFNGLWINDOWPOS4SMESAPROC as sub(byval x as GLshort, byval y as GLshort, byval z as GLshort, byval w as GLshort)
 type PFNGLWINDOWPOS4SVMESAPROC as sub(byval v as const GLshort ptr)
 
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glWindowPos2dMESA(byval x as GLdouble, byval y as GLdouble)
+	declare sub glWindowPos2dvMESA(byval v as const GLdouble ptr)
+	declare sub glWindowPos2fMESA(byval x as GLfloat, byval y as GLfloat)
+	declare sub glWindowPos2fvMESA(byval v as const GLfloat ptr)
+	declare sub glWindowPos2iMESA(byval x as GLint, byval y as GLint)
+	declare sub glWindowPos2ivMESA(byval v as const GLint ptr)
+	declare sub glWindowPos2sMESA(byval x as GLshort, byval y as GLshort)
+	declare sub glWindowPos2svMESA(byval v as const GLshort ptr)
+	declare sub glWindowPos3dMESA(byval x as GLdouble, byval y as GLdouble, byval z as GLdouble)
+	declare sub glWindowPos3dvMESA(byval v as const GLdouble ptr)
+	declare sub glWindowPos3fMESA(byval x as GLfloat, byval y as GLfloat, byval z as GLfloat)
+	declare sub glWindowPos3fvMESA(byval v as const GLfloat ptr)
+	declare sub glWindowPos3iMESA(byval x as GLint, byval y as GLint, byval z as GLint)
+	declare sub glWindowPos3ivMESA(byval v as const GLint ptr)
+	declare sub glWindowPos3sMESA(byval x as GLshort, byval y as GLshort, byval z as GLshort)
+	declare sub glWindowPos3svMESA(byval v as const GLshort ptr)
+	declare sub glWindowPos4dMESA(byval x as GLdouble, byval y as GLdouble, byval z as GLdouble, byval w as GLdouble)
+	declare sub glWindowPos4dvMESA(byval v as const GLdouble ptr)
+	declare sub glWindowPos4fMESA(byval x as GLfloat, byval y as GLfloat, byval z as GLfloat, byval w as GLfloat)
+	declare sub glWindowPos4fvMESA(byval v as const GLfloat ptr)
+	declare sub glWindowPos4iMESA(byval x as GLint, byval y as GLint, byval z as GLint, byval w as GLint)
+	declare sub glWindowPos4ivMESA(byval v as const GLint ptr)
+	declare sub glWindowPos4sMESA(byval x as GLshort, byval y as GLshort, byval z as GLshort, byval w as GLshort)
+	declare sub glWindowPos4svMESA(byval v as const GLshort ptr)
+#endif
+
 const GL_MESA_ycbcr_texture = 1
 const GL_UNSIGNED_SHORT_8_8_MESA = &h85BA
 const GL_UNSIGNED_SHORT_8_8_REV_MESA = &h85BB
@@ -5175,6 +7478,12 @@ const GL_YCBCR_MESA = &h8757
 const GL_NVX_conditional_render = 1
 type PFNGLBEGINCONDITIONALRENDERNVXPROC as sub(byval id as GLuint)
 type PFNGLENDCONDITIONALRENDERNVXPROC as sub()
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glBeginConditionalRenderNVX(byval id as GLuint)
+	declare sub glEndConditionalRenderNVX()
+#endif
+
 const GL_NVX_gpu_memory_info = 1
 const GL_GPU_MEMORY_INFO_DEDICATED_VIDMEM_NVX = &h9047
 const GL_GPU_MEMORY_INFO_TOTAL_AVAILABLE_MEMORY_NVX = &h9048
@@ -5184,11 +7493,22 @@ const GL_GPU_MEMORY_INFO_EVICTED_MEMORY_NVX = &h904B
 const GL_NV_bindless_multi_draw_indirect = 1
 type PFNGLMULTIDRAWARRAYSINDIRECTBINDLESSNVPROC as sub(byval mode as GLenum, byval indirect as const any ptr, byval drawCount as GLsizei, byval stride as GLsizei, byval vertexBufferCount as GLint)
 type PFNGLMULTIDRAWELEMENTSINDIRECTBINDLESSNVPROC as sub(byval mode as GLenum, byval type as GLenum, byval indirect as const any ptr, byval drawCount as GLsizei, byval stride as GLsizei, byval vertexBufferCount as GLint)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glMultiDrawArraysIndirectBindlessNV(byval mode as GLenum, byval indirect as const any ptr, byval drawCount as GLsizei, byval stride as GLsizei, byval vertexBufferCount as GLint)
+	declare sub glMultiDrawElementsIndirectBindlessNV(byval mode as GLenum, byval type as GLenum, byval indirect as const any ptr, byval drawCount as GLsizei, byval stride as GLsizei, byval vertexBufferCount as GLint)
+#endif
+
 const GL_NV_bindless_multi_draw_indirect_count = 1
 type PFNGLMULTIDRAWARRAYSINDIRECTBINDLESSCOUNTNVPROC as sub(byval mode as GLenum, byval indirect as const any ptr, byval drawCount as GLsizei, byval maxDrawCount as GLsizei, byval stride as GLsizei, byval vertexBufferCount as GLint)
 type PFNGLMULTIDRAWELEMENTSINDIRECTBINDLESSCOUNTNVPROC as sub(byval mode as GLenum, byval type as GLenum, byval indirect as const any ptr, byval drawCount as GLsizei, byval maxDrawCount as GLsizei, byval stride as GLsizei, byval vertexBufferCount as GLint)
-const GL_NV_bindless_texture = 1
 
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glMultiDrawArraysIndirectBindlessCountNV(byval mode as GLenum, byval indirect as const any ptr, byval drawCount as GLsizei, byval maxDrawCount as GLsizei, byval stride as GLsizei, byval vertexBufferCount as GLint)
+	declare sub glMultiDrawElementsIndirectBindlessCountNV(byval mode as GLenum, byval type as GLenum, byval indirect as const any ptr, byval drawCount as GLsizei, byval maxDrawCount as GLsizei, byval stride as GLsizei, byval vertexBufferCount as GLint)
+#endif
+
+const GL_NV_bindless_texture = 1
 type PFNGLGETTEXTUREHANDLENVPROC as function(byval texture as GLuint) as GLuint64
 type PFNGLGETTEXTURESAMPLERHANDLENVPROC as function(byval texture as GLuint, byval sampler as GLuint) as GLuint64
 type PFNGLMAKETEXTUREHANDLERESIDENTNVPROC as sub(byval handle as GLuint64)
@@ -5202,6 +7522,22 @@ type PFNGLPROGRAMUNIFORMHANDLEUI64NVPROC as sub(byval program as GLuint, byval l
 type PFNGLPROGRAMUNIFORMHANDLEUI64VNVPROC as sub(byval program as GLuint, byval location as GLint, byval count as GLsizei, byval values as const GLuint64 ptr)
 type PFNGLISTEXTUREHANDLERESIDENTNVPROC as function(byval handle as GLuint64) as GLboolean
 type PFNGLISIMAGEHANDLERESIDENTNVPROC as function(byval handle as GLuint64) as GLboolean
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare function glGetTextureHandleNV(byval texture as GLuint) as GLuint64
+	declare function glGetTextureSamplerHandleNV(byval texture as GLuint, byval sampler as GLuint) as GLuint64
+	declare sub glMakeTextureHandleResidentNV(byval handle as GLuint64)
+	declare sub glMakeTextureHandleNonResidentNV(byval handle as GLuint64)
+	declare function glGetImageHandleNV(byval texture as GLuint, byval level as GLint, byval layered as GLboolean, byval layer as GLint, byval format as GLenum) as GLuint64
+	declare sub glMakeImageHandleResidentNV(byval handle as GLuint64, byval access as GLenum)
+	declare sub glMakeImageHandleNonResidentNV(byval handle as GLuint64)
+	declare sub glUniformHandleui64NV(byval location as GLint, byval value as GLuint64)
+	declare sub glUniformHandleui64vNV(byval location as GLint, byval count as GLsizei, byval value as const GLuint64 ptr)
+	declare sub glProgramUniformHandleui64NV(byval program as GLuint, byval location as GLint, byval value as GLuint64)
+	declare sub glProgramUniformHandleui64vNV(byval program as GLuint, byval location as GLint, byval count as GLsizei, byval values as const GLuint64 ptr)
+	declare function glIsTextureHandleResidentNV(byval handle as GLuint64) as GLboolean
+	declare function glIsImageHandleResidentNV(byval handle as GLuint64) as GLboolean
+#endif
 
 const GL_NV_blend_equation_advanced = 1
 const GL_BLEND_OVERLAP_NV = &h9281
@@ -5255,6 +7591,12 @@ const GL_VIVIDLIGHT_NV = &h92A6
 const GL_XOR_NV = &h1506
 type PFNGLBLENDPARAMETERINVPROC as sub(byval pname as GLenum, byval value as GLint)
 type PFNGLBLENDBARRIERNVPROC as sub()
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glBlendParameteriNV(byval pname as GLenum, byval value as GLint)
+	declare sub glBlendBarrierNV()
+#endif
+
 const GL_NV_blend_equation_advanced_coherent = 1
 const GL_BLEND_ADVANCED_COHERENT_NV = &h9285
 const GL_NV_blend_square = 1
@@ -5268,17 +7610,33 @@ const GL_QUERY_BY_REGION_WAIT_NV = &h8E15
 const GL_QUERY_BY_REGION_NO_WAIT_NV = &h8E16
 type PFNGLBEGINCONDITIONALRENDERNVPROC as sub(byval id as GLuint, byval mode as GLenum)
 type PFNGLENDCONDITIONALRENDERNVPROC as sub()
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glBeginConditionalRenderNV(byval id as GLuint, byval mode as GLenum)
+	declare sub glEndConditionalRenderNV()
+#endif
+
 const GL_NV_conservative_raster = 1
 const GL_CONSERVATIVE_RASTERIZATION_NV = &h9346
 const GL_SUBPIXEL_PRECISION_BIAS_X_BITS_NV = &h9347
 const GL_SUBPIXEL_PRECISION_BIAS_Y_BITS_NV = &h9348
 const GL_MAX_SUBPIXEL_PRECISION_BIAS_BITS_NV = &h9349
 type PFNGLSUBPIXELPRECISIONBIASNVPROC as sub(byval xbits as GLuint, byval ybits as GLuint)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glSubpixelPrecisionBiasNV(byval xbits as GLuint, byval ybits as GLuint)
+#endif
+
 const GL_NV_copy_depth_to_color = 1
 const GL_DEPTH_STENCIL_TO_RGBA_NV = &h886E
 const GL_DEPTH_STENCIL_TO_BGRA_NV = &h886F
 const GL_NV_copy_image = 1
 type PFNGLCOPYIMAGESUBDATANVPROC as sub(byval srcName as GLuint, byval srcTarget as GLenum, byval srcLevel as GLint, byval srcX as GLint, byval srcY as GLint, byval srcZ as GLint, byval dstName as GLuint, byval dstTarget as GLenum, byval dstLevel as GLint, byval dstX as GLint, byval dstY as GLint, byval dstZ as GLint, byval width as GLsizei, byval height as GLsizei, byval depth as GLsizei)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glCopyImageSubDataNV(byval srcName as GLuint, byval srcTarget as GLenum, byval srcLevel as GLint, byval srcX as GLint, byval srcY as GLint, byval srcZ as GLint, byval dstName as GLuint, byval dstTarget as GLenum, byval dstLevel as GLint, byval dstX as GLint, byval dstY as GLint, byval dstZ as GLint, byval width as GLsizei, byval height as GLsizei, byval depth as GLsizei)
+#endif
+
 const GL_NV_deep_texture3D = 1
 const GL_MAX_DEEP_3D_TEXTURE_WIDTH_HEIGHT_NV = &h90D0
 const GL_MAX_DEEP_3D_TEXTURE_DEPTH_NV = &h90D1
@@ -5292,10 +7650,21 @@ type PFNGLDEPTHRANGEDNVPROC as sub(byval zNear as GLdouble, byval zFar as GLdoub
 type PFNGLCLEARDEPTHDNVPROC as sub(byval depth as GLdouble)
 type PFNGLDEPTHBOUNDSDNVPROC as sub(byval zmin as GLdouble, byval zmax as GLdouble)
 
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glDepthRangedNV(byval zNear as GLdouble, byval zFar as GLdouble)
+	declare sub glClearDepthdNV(byval depth as GLdouble)
+	declare sub glDepthBoundsdNV(byval zmin as GLdouble, byval zmax as GLdouble)
+#endif
+
 const GL_NV_depth_clamp = 1
 const GL_DEPTH_CLAMP_NV = &h864F
 const GL_NV_draw_texture = 1
 type PFNGLDRAWTEXTURENVPROC as sub(byval texture as GLuint, byval sampler as GLuint, byval x0 as GLfloat, byval y0 as GLfloat, byval x1 as GLfloat, byval y1 as GLfloat, byval z as GLfloat, byval s0 as GLfloat, byval t0 as GLfloat, byval s1 as GLfloat, byval t1 as GLfloat)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glDrawTextureNV(byval texture as GLuint, byval sampler as GLuint, byval x0 as GLfloat, byval y0 as GLfloat, byval x1 as GLfloat, byval y1 as GLfloat, byval z as GLfloat, byval s0 as GLfloat, byval t0 as GLfloat, byval s1 as GLfloat, byval t1 as GLfloat)
+#endif
+
 const GL_NV_evaluators = 1
 const GL_EVAL_2D_NV = &h86C0
 const GL_EVAL_TRIANGULAR_2D_NV = &h86C1
@@ -5332,6 +7701,18 @@ type PFNGLGETMAPATTRIBPARAMETERIVNVPROC as sub(byval target as GLenum, byval ind
 type PFNGLGETMAPATTRIBPARAMETERFVNVPROC as sub(byval target as GLenum, byval index as GLuint, byval pname as GLenum, byval params as GLfloat ptr)
 type PFNGLEVALMAPSNVPROC as sub(byval target as GLenum, byval mode as GLenum)
 
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glMapControlPointsNV(byval target as GLenum, byval index as GLuint, byval type as GLenum, byval ustride as GLsizei, byval vstride as GLsizei, byval uorder as GLint, byval vorder as GLint, byval packed as GLboolean, byval points as const any ptr)
+	declare sub glMapParameterivNV(byval target as GLenum, byval pname as GLenum, byval params as const GLint ptr)
+	declare sub glMapParameterfvNV(byval target as GLenum, byval pname as GLenum, byval params as const GLfloat ptr)
+	declare sub glGetMapControlPointsNV(byval target as GLenum, byval index as GLuint, byval type as GLenum, byval ustride as GLsizei, byval vstride as GLsizei, byval packed as GLboolean, byval points as any ptr)
+	declare sub glGetMapParameterivNV(byval target as GLenum, byval pname as GLenum, byval params as GLint ptr)
+	declare sub glGetMapParameterfvNV(byval target as GLenum, byval pname as GLenum, byval params as GLfloat ptr)
+	declare sub glGetMapAttribParameterivNV(byval target as GLenum, byval index as GLuint, byval pname as GLenum, byval params as GLint ptr)
+	declare sub glGetMapAttribParameterfvNV(byval target as GLenum, byval index as GLuint, byval pname as GLenum, byval params as GLfloat ptr)
+	declare sub glEvalMapsNV(byval target as GLenum, byval mode as GLenum)
+#endif
+
 const GL_NV_explicit_multisample = 1
 const GL_SAMPLE_POSITION_NV = &h8E50
 const GL_SAMPLE_MASK_NV = &h8E51
@@ -5348,6 +7729,12 @@ type PFNGLGETMULTISAMPLEFVNVPROC as sub(byval pname as GLenum, byval index as GL
 type PFNGLSAMPLEMASKINDEXEDNVPROC as sub(byval index as GLuint, byval mask as GLbitfield)
 type PFNGLTEXRENDERBUFFERNVPROC as sub(byval target as GLenum, byval renderbuffer as GLuint)
 
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glGetMultisamplefvNV(byval pname as GLenum, byval index as GLuint, byval val as GLfloat ptr)
+	declare sub glSampleMaskIndexedNV(byval index as GLuint, byval mask as GLbitfield)
+	declare sub glTexRenderbufferNV(byval target as GLenum, byval renderbuffer as GLuint)
+#endif
+
 const GL_NV_fence = 1
 const GL_ALL_COMPLETED_NV = &h84F2
 const GL_FENCE_STATUS_NV = &h84F3
@@ -5360,6 +7747,16 @@ type PFNGLTESTFENCENVPROC as function(byval fence as GLuint) as GLboolean
 type PFNGLGETFENCEIVNVPROC as sub(byval fence as GLuint, byval pname as GLenum, byval params as GLint ptr)
 type PFNGLFINISHFENCENVPROC as sub(byval fence as GLuint)
 type PFNGLSETFENCENVPROC as sub(byval fence as GLuint, byval condition as GLenum)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glDeleteFencesNV(byval n as GLsizei, byval fences as const GLuint ptr)
+	declare sub glGenFencesNV(byval n as GLsizei, byval fences as GLuint ptr)
+	declare function glIsFenceNV(byval fence as GLuint) as GLboolean
+	declare function glTestFenceNV(byval fence as GLuint) as GLboolean
+	declare sub glGetFenceivNV(byval fence as GLuint, byval pname as GLenum, byval params as GLint ptr)
+	declare sub glFinishFenceNV(byval fence as GLuint)
+	declare sub glSetFenceNV(byval fence as GLuint, byval condition as GLenum)
+#endif
 
 const GL_NV_fill_rectangle = 1
 const GL_FILL_RECTANGLE_NV = &h933C
@@ -5387,6 +7784,11 @@ const GL_NV_fragment_coverage_to_color = 1
 const GL_FRAGMENT_COVERAGE_TO_COLOR_NV = &h92DD
 const GL_FRAGMENT_COVERAGE_COLOR_NV = &h92DE
 type PFNGLFRAGMENTCOVERAGECOLORNVPROC as sub(byval color as GLuint)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glFragmentCoverageColorNV(byval color as GLuint)
+#endif
+
 const GL_NV_fragment_program = 1
 const GL_MAX_FRAGMENT_PROGRAM_LOCAL_PARAMETERS_NV = &h8868
 const GL_FRAGMENT_PROGRAM_NV = &h8870
@@ -5401,6 +7803,15 @@ type PFNGLPROGRAMNAMEDPARAMETER4DNVPROC as sub(byval id as GLuint, byval len as 
 type PFNGLPROGRAMNAMEDPARAMETER4DVNVPROC as sub(byval id as GLuint, byval len as GLsizei, byval name as const GLubyte ptr, byval v as const GLdouble ptr)
 type PFNGLGETPROGRAMNAMEDPARAMETERFVNVPROC as sub(byval id as GLuint, byval len as GLsizei, byval name as const GLubyte ptr, byval params as GLfloat ptr)
 type PFNGLGETPROGRAMNAMEDPARAMETERDVNVPROC as sub(byval id as GLuint, byval len as GLsizei, byval name as const GLubyte ptr, byval params as GLdouble ptr)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glProgramNamedParameter4fNV(byval id as GLuint, byval len as GLsizei, byval name as const GLubyte ptr, byval x as GLfloat, byval y as GLfloat, byval z as GLfloat, byval w as GLfloat)
+	declare sub glProgramNamedParameter4fvNV(byval id as GLuint, byval len as GLsizei, byval name as const GLubyte ptr, byval v as const GLfloat ptr)
+	declare sub glProgramNamedParameter4dNV(byval id as GLuint, byval len as GLsizei, byval name as const GLubyte ptr, byval x as GLdouble, byval y as GLdouble, byval z as GLdouble, byval w as GLdouble)
+	declare sub glProgramNamedParameter4dvNV(byval id as GLuint, byval len as GLsizei, byval name as const GLubyte ptr, byval v as const GLdouble ptr)
+	declare sub glGetProgramNamedParameterfvNV(byval id as GLuint, byval len as GLsizei, byval name as const GLubyte ptr, byval params as GLfloat ptr)
+	declare sub glGetProgramNamedParameterdvNV(byval id as GLuint, byval len as GLsizei, byval name as const GLubyte ptr, byval params as GLdouble ptr)
+#endif
 
 const GL_NV_fragment_program2 = 1
 const GL_MAX_PROGRAM_EXEC_INSTRUCTIONS_NV = &h88F4
@@ -5425,12 +7836,23 @@ type PFNGLCOVERAGEMODULATIONTABLENVPROC as sub(byval n as GLsizei, byval v as co
 type PFNGLGETCOVERAGEMODULATIONTABLENVPROC as sub(byval bufsize as GLsizei, byval v as GLfloat ptr)
 type PFNGLCOVERAGEMODULATIONNVPROC as sub(byval components as GLenum)
 
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glCoverageModulationTableNV(byval n as GLsizei, byval v as const GLfloat ptr)
+	declare sub glGetCoverageModulationTableNV(byval bufsize as GLsizei, byval v as GLfloat ptr)
+	declare sub glCoverageModulationNV(byval components as GLenum)
+#endif
+
 const GL_NV_framebuffer_multisample_coverage = 1
 const GL_RENDERBUFFER_COVERAGE_SAMPLES_NV = &h8CAB
 const GL_RENDERBUFFER_COLOR_SAMPLES_NV = &h8E10
 const GL_MAX_MULTISAMPLE_COVERAGE_MODES_NV = &h8E11
 const GL_MULTISAMPLE_COVERAGE_MODES_NV = &h8E12
 type PFNGLRENDERBUFFERSTORAGEMULTISAMPLECOVERAGENVPROC as sub(byval target as GLenum, byval coverageSamples as GLsizei, byval colorSamples as GLsizei, byval internalformat as GLenum, byval width as GLsizei, byval height as GLsizei)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glRenderbufferStorageMultisampleCoverageNV(byval target as GLenum, byval coverageSamples as GLsizei, byval colorSamples as GLsizei, byval internalformat as GLenum, byval width as GLsizei, byval height as GLsizei)
+#endif
+
 const GL_NV_geometry_program4 = 1
 const GL_GEOMETRY_PROGRAM_NV = &h8C26
 const GL_MAX_PROGRAM_OUTPUT_VERTICES_NV = &h8C27
@@ -5439,6 +7861,12 @@ const GL_MAX_PROGRAM_TOTAL_OUTPUT_COMPONENTS_NV = &h8C28
 type PFNGLPROGRAMVERTEXLIMITNVPROC as sub(byval target as GLenum, byval limit as GLint)
 type PFNGLFRAMEBUFFERTEXTUREEXTPROC as sub(byval target as GLenum, byval attachment as GLenum, byval texture as GLuint, byval level as GLint)
 type PFNGLFRAMEBUFFERTEXTUREFACEEXTPROC as sub(byval target as GLenum, byval attachment as GLenum, byval texture as GLuint, byval level as GLint, byval face as GLenum)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glProgramVertexLimitNV(byval target as GLenum, byval limit as GLint)
+	declare sub glFramebufferTextureEXT(byval target as GLenum, byval attachment as GLenum, byval texture as GLuint, byval level as GLint)
+	declare sub glFramebufferTextureFaceEXT(byval target as GLenum, byval attachment as GLenum, byval texture as GLuint, byval level as GLint, byval face as GLenum)
+#endif
 
 const GL_NV_geometry_shader4 = 1
 const GL_NV_geometry_shader_passthrough = 1
@@ -5469,6 +7897,25 @@ type PFNGLGETPROGRAMLOCALPARAMETERIUIVNVPROC as sub(byval target as GLenum, byva
 type PFNGLGETPROGRAMENVPARAMETERIIVNVPROC as sub(byval target as GLenum, byval index as GLuint, byval params as GLint ptr)
 type PFNGLGETPROGRAMENVPARAMETERIUIVNVPROC as sub(byval target as GLenum, byval index as GLuint, byval params as GLuint ptr)
 
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glProgramLocalParameterI4iNV(byval target as GLenum, byval index as GLuint, byval x as GLint, byval y as GLint, byval z as GLint, byval w as GLint)
+	declare sub glProgramLocalParameterI4ivNV(byval target as GLenum, byval index as GLuint, byval params as const GLint ptr)
+	declare sub glProgramLocalParametersI4ivNV(byval target as GLenum, byval index as GLuint, byval count as GLsizei, byval params as const GLint ptr)
+	declare sub glProgramLocalParameterI4uiNV(byval target as GLenum, byval index as GLuint, byval x as GLuint, byval y as GLuint, byval z as GLuint, byval w as GLuint)
+	declare sub glProgramLocalParameterI4uivNV(byval target as GLenum, byval index as GLuint, byval params as const GLuint ptr)
+	declare sub glProgramLocalParametersI4uivNV(byval target as GLenum, byval index as GLuint, byval count as GLsizei, byval params as const GLuint ptr)
+	declare sub glProgramEnvParameterI4iNV(byval target as GLenum, byval index as GLuint, byval x as GLint, byval y as GLint, byval z as GLint, byval w as GLint)
+	declare sub glProgramEnvParameterI4ivNV(byval target as GLenum, byval index as GLuint, byval params as const GLint ptr)
+	declare sub glProgramEnvParametersI4ivNV(byval target as GLenum, byval index as GLuint, byval count as GLsizei, byval params as const GLint ptr)
+	declare sub glProgramEnvParameterI4uiNV(byval target as GLenum, byval index as GLuint, byval x as GLuint, byval y as GLuint, byval z as GLuint, byval w as GLuint)
+	declare sub glProgramEnvParameterI4uivNV(byval target as GLenum, byval index as GLuint, byval params as const GLuint ptr)
+	declare sub glProgramEnvParametersI4uivNV(byval target as GLenum, byval index as GLuint, byval count as GLsizei, byval params as const GLuint ptr)
+	declare sub glGetProgramLocalParameterIivNV(byval target as GLenum, byval index as GLuint, byval params as GLint ptr)
+	declare sub glGetProgramLocalParameterIuivNV(byval target as GLenum, byval index as GLuint, byval params as GLuint ptr)
+	declare sub glGetProgramEnvParameterIivNV(byval target as GLenum, byval index as GLuint, byval params as GLint ptr)
+	declare sub glGetProgramEnvParameterIuivNV(byval target as GLenum, byval index as GLuint, byval params as GLuint ptr)
+#endif
+
 const GL_NV_gpu_program5 = 1
 const GL_MAX_GEOMETRY_PROGRAM_INVOCATIONS_NV = &h8E5A
 const GL_MIN_FRAGMENT_INTERPOLATION_OFFSET_NV = &h8E5B
@@ -5480,6 +7927,12 @@ const GL_MAX_PROGRAM_SUBROUTINE_PARAMETERS_NV = &h8F44
 const GL_MAX_PROGRAM_SUBROUTINE_NUM_NV = &h8F45
 type PFNGLPROGRAMSUBROUTINEPARAMETERSUIVNVPROC as sub(byval target as GLenum, byval count as GLsizei, byval params as const GLuint ptr)
 type PFNGLGETPROGRAMSUBROUTINEPARAMETERUIVNVPROC as sub(byval target as GLenum, byval index as GLuint, byval param as GLuint ptr)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glProgramSubroutineParametersuivNV(byval target as GLenum, byval count as GLsizei, byval params as const GLuint ptr)
+	declare sub glGetProgramSubroutineParameteruivNV(byval target as GLenum, byval index as GLuint, byval param as GLuint ptr)
+#endif
+
 const GL_NV_gpu_program5_mem_extended = 1
 const GL_NV_gpu_shader5 = 1
 const GL_NV_half_float = 1
@@ -5533,12 +7986,66 @@ type PFNGLVERTEXATTRIBS2HVNVPROC as sub(byval index as GLuint, byval n as GLsize
 type PFNGLVERTEXATTRIBS3HVNVPROC as sub(byval index as GLuint, byval n as GLsizei, byval v as const GLhalfNV ptr)
 type PFNGLVERTEXATTRIBS4HVNVPROC as sub(byval index as GLuint, byval n as GLsizei, byval v as const GLhalfNV ptr)
 
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glVertex2hNV(byval x as GLhalfNV, byval y as GLhalfNV)
+	declare sub glVertex2hvNV(byval v as const GLhalfNV ptr)
+	declare sub glVertex3hNV(byval x as GLhalfNV, byval y as GLhalfNV, byval z as GLhalfNV)
+	declare sub glVertex3hvNV(byval v as const GLhalfNV ptr)
+	declare sub glVertex4hNV(byval x as GLhalfNV, byval y as GLhalfNV, byval z as GLhalfNV, byval w as GLhalfNV)
+	declare sub glVertex4hvNV(byval v as const GLhalfNV ptr)
+	declare sub glNormal3hNV(byval nx as GLhalfNV, byval ny as GLhalfNV, byval nz as GLhalfNV)
+	declare sub glNormal3hvNV(byval v as const GLhalfNV ptr)
+	declare sub glColor3hNV(byval red as GLhalfNV, byval green as GLhalfNV, byval blue as GLhalfNV)
+	declare sub glColor3hvNV(byval v as const GLhalfNV ptr)
+	declare sub glColor4hNV(byval red as GLhalfNV, byval green as GLhalfNV, byval blue as GLhalfNV, byval alpha as GLhalfNV)
+	declare sub glColor4hvNV(byval v as const GLhalfNV ptr)
+	declare sub glTexCoord1hNV(byval s as GLhalfNV)
+	declare sub glTexCoord1hvNV(byval v as const GLhalfNV ptr)
+	declare sub glTexCoord2hNV(byval s as GLhalfNV, byval t as GLhalfNV)
+	declare sub glTexCoord2hvNV(byval v as const GLhalfNV ptr)
+	declare sub glTexCoord3hNV(byval s as GLhalfNV, byval t as GLhalfNV, byval r as GLhalfNV)
+	declare sub glTexCoord3hvNV(byval v as const GLhalfNV ptr)
+	declare sub glTexCoord4hNV(byval s as GLhalfNV, byval t as GLhalfNV, byval r as GLhalfNV, byval q as GLhalfNV)
+	declare sub glTexCoord4hvNV(byval v as const GLhalfNV ptr)
+	declare sub glMultiTexCoord1hNV(byval target as GLenum, byval s as GLhalfNV)
+	declare sub glMultiTexCoord1hvNV(byval target as GLenum, byval v as const GLhalfNV ptr)
+	declare sub glMultiTexCoord2hNV(byval target as GLenum, byval s as GLhalfNV, byval t as GLhalfNV)
+	declare sub glMultiTexCoord2hvNV(byval target as GLenum, byval v as const GLhalfNV ptr)
+	declare sub glMultiTexCoord3hNV(byval target as GLenum, byval s as GLhalfNV, byval t as GLhalfNV, byval r as GLhalfNV)
+	declare sub glMultiTexCoord3hvNV(byval target as GLenum, byval v as const GLhalfNV ptr)
+	declare sub glMultiTexCoord4hNV(byval target as GLenum, byval s as GLhalfNV, byval t as GLhalfNV, byval r as GLhalfNV, byval q as GLhalfNV)
+	declare sub glMultiTexCoord4hvNV(byval target as GLenum, byval v as const GLhalfNV ptr)
+	declare sub glFogCoordhNV(byval fog as GLhalfNV)
+	declare sub glFogCoordhvNV(byval fog as const GLhalfNV ptr)
+	declare sub glSecondaryColor3hNV(byval red as GLhalfNV, byval green as GLhalfNV, byval blue as GLhalfNV)
+	declare sub glSecondaryColor3hvNV(byval v as const GLhalfNV ptr)
+	declare sub glVertexWeighthNV(byval weight as GLhalfNV)
+	declare sub glVertexWeighthvNV(byval weight as const GLhalfNV ptr)
+	declare sub glVertexAttrib1hNV(byval index as GLuint, byval x as GLhalfNV)
+	declare sub glVertexAttrib1hvNV(byval index as GLuint, byval v as const GLhalfNV ptr)
+	declare sub glVertexAttrib2hNV(byval index as GLuint, byval x as GLhalfNV, byval y as GLhalfNV)
+	declare sub glVertexAttrib2hvNV(byval index as GLuint, byval v as const GLhalfNV ptr)
+	declare sub glVertexAttrib3hNV(byval index as GLuint, byval x as GLhalfNV, byval y as GLhalfNV, byval z as GLhalfNV)
+	declare sub glVertexAttrib3hvNV(byval index as GLuint, byval v as const GLhalfNV ptr)
+	declare sub glVertexAttrib4hNV(byval index as GLuint, byval x as GLhalfNV, byval y as GLhalfNV, byval z as GLhalfNV, byval w as GLhalfNV)
+	declare sub glVertexAttrib4hvNV(byval index as GLuint, byval v as const GLhalfNV ptr)
+	declare sub glVertexAttribs1hvNV(byval index as GLuint, byval n as GLsizei, byval v as const GLhalfNV ptr)
+	declare sub glVertexAttribs2hvNV(byval index as GLuint, byval n as GLsizei, byval v as const GLhalfNV ptr)
+	declare sub glVertexAttribs3hvNV(byval index as GLuint, byval n as GLsizei, byval v as const GLhalfNV ptr)
+	declare sub glVertexAttribs4hvNV(byval index as GLuint, byval n as GLsizei, byval v as const GLhalfNV ptr)
+#endif
+
 const GL_NV_internalformat_sample_query = 1
 const GL_MULTISAMPLES_NV = &h9371
 const GL_SUPERSAMPLE_SCALE_X_NV = &h9372
 const GL_SUPERSAMPLE_SCALE_Y_NV = &h9373
 const GL_CONFORMANT_NV = &h9374
 type PFNGLGETINTERNALFORMATSAMPLEIVNVPROC as sub(byval target as GLenum, byval internalformat as GLenum, byval samples as GLsizei, byval pname as GLenum, byval bufSize as GLsizei, byval params as GLint ptr)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glGetInternalformatSampleivNV(byval target as GLenum, byval internalformat as GLenum, byval samples as GLsizei, byval pname as GLenum, byval bufSize as GLsizei, byval params as GLint ptr)
+#endif
+
 const GL_NV_light_max_exponent = 1
 const GL_MAX_SHININESS_NV = &h8504
 const GL_MAX_SPOT_EXPONENT_NV = &h8505
@@ -5559,6 +8066,16 @@ type PFNGLENDOCCLUSIONQUERYNVPROC as sub()
 type PFNGLGETOCCLUSIONQUERYIVNVPROC as sub(byval id as GLuint, byval pname as GLenum, byval params as GLint ptr)
 type PFNGLGETOCCLUSIONQUERYUIVNVPROC as sub(byval id as GLuint, byval pname as GLenum, byval params as GLuint ptr)
 
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glGenOcclusionQueriesNV(byval n as GLsizei, byval ids as GLuint ptr)
+	declare sub glDeleteOcclusionQueriesNV(byval n as GLsizei, byval ids as const GLuint ptr)
+	declare function glIsOcclusionQueryNV(byval id as GLuint) as GLboolean
+	declare sub glBeginOcclusionQueryNV(byval id as GLuint)
+	declare sub glEndOcclusionQueryNV()
+	declare sub glGetOcclusionQueryivNV(byval id as GLuint, byval pname as GLenum, byval params as GLint ptr)
+	declare sub glGetOcclusionQueryuivNV(byval id as GLuint, byval pname as GLenum, byval params as GLuint ptr)
+#endif
+
 const GL_NV_packed_depth_stencil = 1
 const GL_DEPTH_STENCIL_NV = &h84F9
 const GL_UNSIGNED_INT_24_8_NV = &h84FA
@@ -5572,6 +8089,12 @@ const GL_FRAGMENT_PROGRAM_PARAMETER_BUFFER_NV = &h8DA4
 type PFNGLPROGRAMBUFFERPARAMETERSFVNVPROC as sub(byval target as GLenum, byval bindingIndex as GLuint, byval wordIndex as GLuint, byval count as GLsizei, byval params as const GLfloat ptr)
 type PFNGLPROGRAMBUFFERPARAMETERSIIVNVPROC as sub(byval target as GLenum, byval bindingIndex as GLuint, byval wordIndex as GLuint, byval count as GLsizei, byval params as const GLint ptr)
 type PFNGLPROGRAMBUFFERPARAMETERSIUIVNVPROC as sub(byval target as GLenum, byval bindingIndex as GLuint, byval wordIndex as GLuint, byval count as GLsizei, byval params as const GLuint ptr)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glProgramBufferParametersfvNV(byval target as GLenum, byval bindingIndex as GLuint, byval wordIndex as GLuint, byval count as GLsizei, byval params as const GLfloat ptr)
+	declare sub glProgramBufferParametersIivNV(byval target as GLenum, byval bindingIndex as GLuint, byval wordIndex as GLuint, byval count as GLsizei, byval params as const GLint ptr)
+	declare sub glProgramBufferParametersIuivNV(byval target as GLenum, byval bindingIndex as GLuint, byval wordIndex as GLuint, byval count as GLsizei, byval params as const GLuint ptr)
+#endif
 
 const GL_NV_parameter_buffer_object2 = 1
 const GL_NV_path_rendering = 1
@@ -5804,6 +8327,73 @@ type PFNGLGETPATHCOLORGENFVNVPROC as sub(byval color as GLenum, byval pname as G
 type PFNGLGETPATHTEXGENIVNVPROC as sub(byval texCoordSet as GLenum, byval pname as GLenum, byval value as GLint ptr)
 type PFNGLGETPATHTEXGENFVNVPROC as sub(byval texCoordSet as GLenum, byval pname as GLenum, byval value as GLfloat ptr)
 
+#ifdef GL_GLEXT_PROTOTYPES
+	declare function glGenPathsNV(byval range as GLsizei) as GLuint
+	declare sub glDeletePathsNV(byval path as GLuint, byval range as GLsizei)
+	declare function glIsPathNV(byval path as GLuint) as GLboolean
+	declare sub glPathCommandsNV(byval path as GLuint, byval numCommands as GLsizei, byval commands as const GLubyte ptr, byval numCoords as GLsizei, byval coordType as GLenum, byval coords as const any ptr)
+	declare sub glPathCoordsNV(byval path as GLuint, byval numCoords as GLsizei, byval coordType as GLenum, byval coords as const any ptr)
+	declare sub glPathSubCommandsNV(byval path as GLuint, byval commandStart as GLsizei, byval commandsToDelete as GLsizei, byval numCommands as GLsizei, byval commands as const GLubyte ptr, byval numCoords as GLsizei, byval coordType as GLenum, byval coords as const any ptr)
+	declare sub glPathSubCoordsNV(byval path as GLuint, byval coordStart as GLsizei, byval numCoords as GLsizei, byval coordType as GLenum, byval coords as const any ptr)
+	declare sub glPathStringNV(byval path as GLuint, byval format as GLenum, byval length as GLsizei, byval pathString as const any ptr)
+	declare sub glPathGlyphsNV(byval firstPathName as GLuint, byval fontTarget as GLenum, byval fontName as const any ptr, byval fontStyle as GLbitfield, byval numGlyphs as GLsizei, byval type as GLenum, byval charcodes as const any ptr, byval handleMissingGlyphs as GLenum, byval pathParameterTemplate as GLuint, byval emScale as GLfloat)
+	declare sub glPathGlyphRangeNV(byval firstPathName as GLuint, byval fontTarget as GLenum, byval fontName as const any ptr, byval fontStyle as GLbitfield, byval firstGlyph as GLuint, byval numGlyphs as GLsizei, byval handleMissingGlyphs as GLenum, byval pathParameterTemplate as GLuint, byval emScale as GLfloat)
+	declare sub glWeightPathsNV(byval resultPath as GLuint, byval numPaths as GLsizei, byval paths as const GLuint ptr, byval weights as const GLfloat ptr)
+	declare sub glCopyPathNV(byval resultPath as GLuint, byval srcPath as GLuint)
+	declare sub glInterpolatePathsNV(byval resultPath as GLuint, byval pathA as GLuint, byval pathB as GLuint, byval weight as GLfloat)
+	declare sub glTransformPathNV(byval resultPath as GLuint, byval srcPath as GLuint, byval transformType as GLenum, byval transformValues as const GLfloat ptr)
+	declare sub glPathParameterivNV(byval path as GLuint, byval pname as GLenum, byval value as const GLint ptr)
+	declare sub glPathParameteriNV(byval path as GLuint, byval pname as GLenum, byval value as GLint)
+	declare sub glPathParameterfvNV(byval path as GLuint, byval pname as GLenum, byval value as const GLfloat ptr)
+	declare sub glPathParameterfNV(byval path as GLuint, byval pname as GLenum, byval value as GLfloat)
+	declare sub glPathDashArrayNV(byval path as GLuint, byval dashCount as GLsizei, byval dashArray as const GLfloat ptr)
+	declare sub glPathStencilFuncNV(byval func as GLenum, byval ref as GLint, byval mask as GLuint)
+	declare sub glPathStencilDepthOffsetNV(byval factor as GLfloat, byval units as GLfloat)
+	declare sub glStencilFillPathNV(byval path as GLuint, byval fillMode as GLenum, byval mask as GLuint)
+	declare sub glStencilStrokePathNV(byval path as GLuint, byval reference as GLint, byval mask as GLuint)
+	declare sub glStencilFillPathInstancedNV(byval numPaths as GLsizei, byval pathNameType as GLenum, byval paths as const any ptr, byval pathBase as GLuint, byval fillMode as GLenum, byval mask as GLuint, byval transformType as GLenum, byval transformValues as const GLfloat ptr)
+	declare sub glStencilStrokePathInstancedNV(byval numPaths as GLsizei, byval pathNameType as GLenum, byval paths as const any ptr, byval pathBase as GLuint, byval reference as GLint, byval mask as GLuint, byval transformType as GLenum, byval transformValues as const GLfloat ptr)
+	declare sub glPathCoverDepthFuncNV(byval func as GLenum)
+	declare sub glCoverFillPathNV(byval path as GLuint, byval coverMode as GLenum)
+	declare sub glCoverStrokePathNV(byval path as GLuint, byval coverMode as GLenum)
+	declare sub glCoverFillPathInstancedNV(byval numPaths as GLsizei, byval pathNameType as GLenum, byval paths as const any ptr, byval pathBase as GLuint, byval coverMode as GLenum, byval transformType as GLenum, byval transformValues as const GLfloat ptr)
+	declare sub glCoverStrokePathInstancedNV(byval numPaths as GLsizei, byval pathNameType as GLenum, byval paths as const any ptr, byval pathBase as GLuint, byval coverMode as GLenum, byval transformType as GLenum, byval transformValues as const GLfloat ptr)
+	declare sub glGetPathParameterivNV(byval path as GLuint, byval pname as GLenum, byval value as GLint ptr)
+	declare sub glGetPathParameterfvNV(byval path as GLuint, byval pname as GLenum, byval value as GLfloat ptr)
+	declare sub glGetPathCommandsNV(byval path as GLuint, byval commands as GLubyte ptr)
+	declare sub glGetPathCoordsNV(byval path as GLuint, byval coords as GLfloat ptr)
+	declare sub glGetPathDashArrayNV(byval path as GLuint, byval dashArray as GLfloat ptr)
+	declare sub glGetPathMetricsNV(byval metricQueryMask as GLbitfield, byval numPaths as GLsizei, byval pathNameType as GLenum, byval paths as const any ptr, byval pathBase as GLuint, byval stride as GLsizei, byval metrics as GLfloat ptr)
+	declare sub glGetPathMetricRangeNV(byval metricQueryMask as GLbitfield, byval firstPathName as GLuint, byval numPaths as GLsizei, byval stride as GLsizei, byval metrics as GLfloat ptr)
+	declare sub glGetPathSpacingNV(byval pathListMode as GLenum, byval numPaths as GLsizei, byval pathNameType as GLenum, byval paths as const any ptr, byval pathBase as GLuint, byval advanceScale as GLfloat, byval kerningScale as GLfloat, byval transformType as GLenum, byval returnedSpacing as GLfloat ptr)
+	declare function glIsPointInFillPathNV(byval path as GLuint, byval mask as GLuint, byval x as GLfloat, byval y as GLfloat) as GLboolean
+	declare function glIsPointInStrokePathNV(byval path as GLuint, byval x as GLfloat, byval y as GLfloat) as GLboolean
+	declare function glGetPathLengthNV(byval path as GLuint, byval startSegment as GLsizei, byval numSegments as GLsizei) as GLfloat
+	declare function glPointAlongPathNV(byval path as GLuint, byval startSegment as GLsizei, byval numSegments as GLsizei, byval distance as GLfloat, byval x as GLfloat ptr, byval y as GLfloat ptr, byval tangentX as GLfloat ptr, byval tangentY as GLfloat ptr) as GLboolean
+	declare sub glMatrixLoad3x2fNV(byval matrixMode as GLenum, byval m as const GLfloat ptr)
+	declare sub glMatrixLoad3x3fNV(byval matrixMode as GLenum, byval m as const GLfloat ptr)
+	declare sub glMatrixLoadTranspose3x3fNV(byval matrixMode as GLenum, byval m as const GLfloat ptr)
+	declare sub glMatrixMult3x2fNV(byval matrixMode as GLenum, byval m as const GLfloat ptr)
+	declare sub glMatrixMult3x3fNV(byval matrixMode as GLenum, byval m as const GLfloat ptr)
+	declare sub glMatrixMultTranspose3x3fNV(byval matrixMode as GLenum, byval m as const GLfloat ptr)
+	declare sub glStencilThenCoverFillPathNV(byval path as GLuint, byval fillMode as GLenum, byval mask as GLuint, byval coverMode as GLenum)
+	declare sub glStencilThenCoverStrokePathNV(byval path as GLuint, byval reference as GLint, byval mask as GLuint, byval coverMode as GLenum)
+	declare sub glStencilThenCoverFillPathInstancedNV(byval numPaths as GLsizei, byval pathNameType as GLenum, byval paths as const any ptr, byval pathBase as GLuint, byval fillMode as GLenum, byval mask as GLuint, byval coverMode as GLenum, byval transformType as GLenum, byval transformValues as const GLfloat ptr)
+	declare sub glStencilThenCoverStrokePathInstancedNV(byval numPaths as GLsizei, byval pathNameType as GLenum, byval paths as const any ptr, byval pathBase as GLuint, byval reference as GLint, byval mask as GLuint, byval coverMode as GLenum, byval transformType as GLenum, byval transformValues as const GLfloat ptr)
+	declare function glPathGlyphIndexRangeNV(byval fontTarget as GLenum, byval fontName as const any ptr, byval fontStyle as GLbitfield, byval pathParameterTemplate as GLuint, byval emScale as GLfloat, byval baseAndCount as GLuint ptr) as GLenum
+	declare function glPathGlyphIndexArrayNV(byval firstPathName as GLuint, byval fontTarget as GLenum, byval fontName as const any ptr, byval fontStyle as GLbitfield, byval firstGlyphIndex as GLuint, byval numGlyphs as GLsizei, byval pathParameterTemplate as GLuint, byval emScale as GLfloat) as GLenum
+	declare function glPathMemoryGlyphIndexArrayNV(byval firstPathName as GLuint, byval fontTarget as GLenum, byval fontSize as GLsizeiptr, byval fontData as const any ptr, byval faceIndex as GLsizei, byval firstGlyphIndex as GLuint, byval numGlyphs as GLsizei, byval pathParameterTemplate as GLuint, byval emScale as GLfloat) as GLenum
+	declare sub glProgramPathFragmentInputGenNV(byval program as GLuint, byval location as GLint, byval genMode as GLenum, byval components as GLint, byval coeffs as const GLfloat ptr)
+	declare sub glGetProgramResourcefvNV(byval program as GLuint, byval programInterface as GLenum, byval index as GLuint, byval propCount as GLsizei, byval props as const GLenum ptr, byval bufSize as GLsizei, byval length as GLsizei ptr, byval params as GLfloat ptr)
+	declare sub glPathColorGenNV(byval color as GLenum, byval genMode as GLenum, byval colorFormat as GLenum, byval coeffs as const GLfloat ptr)
+	declare sub glPathTexGenNV(byval texCoordSet as GLenum, byval genMode as GLenum, byval components as GLint, byval coeffs as const GLfloat ptr)
+	declare sub glPathFogGenNV(byval genMode as GLenum)
+	declare sub glGetPathColorGenivNV(byval color as GLenum, byval pname as GLenum, byval value as GLint ptr)
+	declare sub glGetPathColorGenfvNV(byval color as GLenum, byval pname as GLenum, byval value as GLfloat ptr)
+	declare sub glGetPathTexGenivNV(byval texCoordSet as GLenum, byval pname as GLenum, byval value as GLint ptr)
+	declare sub glGetPathTexGenfvNV(byval texCoordSet as GLenum, byval pname as GLenum, byval value as GLfloat ptr)
+#endif
+
 const GL_NV_path_rendering_shared_edge = 1
 const GL_SHARED_EDGE_NV = &hC0
 const GL_NV_pixel_data_range = 1
@@ -5815,12 +8405,24 @@ const GL_WRITE_PIXEL_DATA_RANGE_POINTER_NV = &h887C
 const GL_READ_PIXEL_DATA_RANGE_POINTER_NV = &h887D
 type PFNGLPIXELDATARANGENVPROC as sub(byval target as GLenum, byval length as GLsizei, byval pointer as const any ptr)
 type PFNGLFLUSHPIXELDATARANGENVPROC as sub(byval target as GLenum)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glPixelDataRangeNV(byval target as GLenum, byval length as GLsizei, byval pointer as const any ptr)
+	declare sub glFlushPixelDataRangeNV(byval target as GLenum)
+#endif
+
 const GL_NV_point_sprite = 1
 const GL_POINT_SPRITE_NV = &h8861
 const GL_COORD_REPLACE_NV = &h8862
 const GL_POINT_SPRITE_R_MODE_NV = &h8863
 type PFNGLPOINTPARAMETERINVPROC as sub(byval pname as GLenum, byval param as GLint)
 type PFNGLPOINTPARAMETERIVNVPROC as sub(byval pname as GLenum, byval params as const GLint ptr)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glPointParameteriNV(byval pname as GLenum, byval param as GLint)
+	declare sub glPointParameterivNV(byval pname as GLenum, byval params as const GLint ptr)
+#endif
+
 const GL_NV_present_video = 1
 const GL_FRAME_NV = &h8E26
 const GL_FIELDS_NV = &h8E27
@@ -5836,11 +8438,26 @@ type PFNGLGETVIDEOUIVNVPROC as sub(byval video_slot as GLuint, byval pname as GL
 type PFNGLGETVIDEOI64VNVPROC as sub(byval video_slot as GLuint, byval pname as GLenum, byval params as GLint64EXT ptr)
 type PFNGLGETVIDEOUI64VNVPROC as sub(byval video_slot as GLuint, byval pname as GLenum, byval params as GLuint64EXT ptr)
 
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glPresentFrameKeyedNV(byval video_slot as GLuint, byval minPresentTime as GLuint64EXT, byval beginPresentTimeId as GLuint, byval presentDurationId as GLuint, byval type as GLenum, byval target0 as GLenum, byval fill0 as GLuint, byval key0 as GLuint, byval target1 as GLenum, byval fill1 as GLuint, byval key1 as GLuint)
+	declare sub glPresentFrameDualFillNV(byval video_slot as GLuint, byval minPresentTime as GLuint64EXT, byval beginPresentTimeId as GLuint, byval presentDurationId as GLuint, byval type as GLenum, byval target0 as GLenum, byval fill0 as GLuint, byval target1 as GLenum, byval fill1 as GLuint, byval target2 as GLenum, byval fill2 as GLuint, byval target3 as GLenum, byval fill3 as GLuint)
+	declare sub glGetVideoivNV(byval video_slot as GLuint, byval pname as GLenum, byval params as GLint ptr)
+	declare sub glGetVideouivNV(byval video_slot as GLuint, byval pname as GLenum, byval params as GLuint ptr)
+	declare sub glGetVideoi64vNV(byval video_slot as GLuint, byval pname as GLenum, byval params as GLint64EXT ptr)
+	declare sub glGetVideoui64vNV(byval video_slot as GLuint, byval pname as GLenum, byval params as GLuint64EXT ptr)
+#endif
+
 const GL_NV_primitive_restart = 1
 const GL_PRIMITIVE_RESTART_NV = &h8558
 const GL_PRIMITIVE_RESTART_INDEX_NV = &h8559
 type PFNGLPRIMITIVERESTARTNVPROC as sub()
 type PFNGLPRIMITIVERESTARTINDEXNVPROC as sub(byval index as GLuint)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glPrimitiveRestartNV()
+	declare sub glPrimitiveRestartIndexNV(byval index as GLuint)
+#endif
+
 const GL_NV_register_combiners = 1
 const GL_REGISTER_COMBINERS_NV = &h8522
 const GL_VARIABLE_A_NV = &h8523
@@ -5905,10 +8522,32 @@ type PFNGLGETCOMBINEROUTPUTPARAMETERFVNVPROC as sub(byval stage as GLenum, byval
 type PFNGLGETCOMBINEROUTPUTPARAMETERIVNVPROC as sub(byval stage as GLenum, byval portion as GLenum, byval pname as GLenum, byval params as GLint ptr)
 type PFNGLGETFINALCOMBINERINPUTPARAMETERFVNVPROC as sub(byval variable as GLenum, byval pname as GLenum, byval params as GLfloat ptr)
 type PFNGLGETFINALCOMBINERINPUTPARAMETERIVNVPROC as sub(byval variable as GLenum, byval pname as GLenum, byval params as GLint ptr)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glCombinerParameterfvNV(byval pname as GLenum, byval params as const GLfloat ptr)
+	declare sub glCombinerParameterfNV(byval pname as GLenum, byval param as GLfloat)
+	declare sub glCombinerParameterivNV(byval pname as GLenum, byval params as const GLint ptr)
+	declare sub glCombinerParameteriNV(byval pname as GLenum, byval param as GLint)
+	declare sub glCombinerInputNV(byval stage as GLenum, byval portion as GLenum, byval variable as GLenum, byval input as GLenum, byval mapping as GLenum, byval componentUsage as GLenum)
+	declare sub glCombinerOutputNV(byval stage as GLenum, byval portion as GLenum, byval abOutput as GLenum, byval cdOutput as GLenum, byval sumOutput as GLenum, byval scale as GLenum, byval bias as GLenum, byval abDotProduct as GLboolean, byval cdDotProduct as GLboolean, byval muxSum as GLboolean)
+	declare sub glFinalCombinerInputNV(byval variable as GLenum, byval input as GLenum, byval mapping as GLenum, byval componentUsage as GLenum)
+	declare sub glGetCombinerInputParameterfvNV(byval stage as GLenum, byval portion as GLenum, byval variable as GLenum, byval pname as GLenum, byval params as GLfloat ptr)
+	declare sub glGetCombinerInputParameterivNV(byval stage as GLenum, byval portion as GLenum, byval variable as GLenum, byval pname as GLenum, byval params as GLint ptr)
+	declare sub glGetCombinerOutputParameterfvNV(byval stage as GLenum, byval portion as GLenum, byval pname as GLenum, byval params as GLfloat ptr)
+	declare sub glGetCombinerOutputParameterivNV(byval stage as GLenum, byval portion as GLenum, byval pname as GLenum, byval params as GLint ptr)
+	declare sub glGetFinalCombinerInputParameterfvNV(byval variable as GLenum, byval pname as GLenum, byval params as GLfloat ptr)
+	declare sub glGetFinalCombinerInputParameterivNV(byval variable as GLenum, byval pname as GLenum, byval params as GLint ptr)
+#endif
+
 const GL_NV_register_combiners2 = 1
 const GL_PER_STAGE_CONSTANTS_NV = &h8535
 type PFNGLCOMBINERSTAGEPARAMETERFVNVPROC as sub(byval stage as GLenum, byval pname as GLenum, byval params as const GLfloat ptr)
 type PFNGLGETCOMBINERSTAGEPARAMETERFVNVPROC as sub(byval stage as GLenum, byval pname as GLenum, byval params as GLfloat ptr)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glCombinerStageParameterfvNV(byval stage as GLenum, byval pname as GLenum, byval params as const GLfloat ptr)
+	declare sub glGetCombinerStageParameterfvNV(byval stage as GLenum, byval pname as GLenum, byval params as GLfloat ptr)
+#endif
 
 const GL_NV_sample_locations = 1
 const GL_SAMPLE_LOCATION_SUBPIXEL_BITS_NV = &h933D
@@ -5923,6 +8562,12 @@ const GL_FRAMEBUFFER_SAMPLE_LOCATION_PIXEL_GRID_NV = &h9343
 type PFNGLFRAMEBUFFERSAMPLELOCATIONSFVNVPROC as sub(byval target as GLenum, byval start as GLuint, byval count as GLsizei, byval v as const GLfloat ptr)
 type PFNGLNAMEDFRAMEBUFFERSAMPLELOCATIONSFVNVPROC as sub(byval framebuffer as GLuint, byval start as GLuint, byval count as GLsizei, byval v as const GLfloat ptr)
 type PFNGLRESOLVEDEPTHVALUESNVPROC as sub()
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glFramebufferSampleLocationsfvNV(byval target as GLenum, byval start as GLuint, byval count as GLsizei, byval v as const GLfloat ptr)
+	declare sub glNamedFramebufferSampleLocationsfvNV(byval framebuffer as GLuint, byval start as GLuint, byval count as GLsizei, byval v as const GLfloat ptr)
+	declare sub glResolveDepthValuesNV()
+#endif
 
 const GL_NV_sample_mask_override_coverage = 1
 const GL_NV_shader_atomic_counters = 1
@@ -5948,6 +8593,22 @@ type PFNGLUNIFORMUI64VNVPROC as sub(byval location as GLint, byval count as GLsi
 type PFNGLPROGRAMUNIFORMUI64NVPROC as sub(byval program as GLuint, byval location as GLint, byval value as GLuint64EXT)
 type PFNGLPROGRAMUNIFORMUI64VNVPROC as sub(byval program as GLuint, byval location as GLint, byval count as GLsizei, byval value as const GLuint64EXT ptr)
 
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glMakeBufferResidentNV(byval target as GLenum, byval access as GLenum)
+	declare sub glMakeBufferNonResidentNV(byval target as GLenum)
+	declare function glIsBufferResidentNV(byval target as GLenum) as GLboolean
+	declare sub glMakeNamedBufferResidentNV(byval buffer as GLuint, byval access as GLenum)
+	declare sub glMakeNamedBufferNonResidentNV(byval buffer as GLuint)
+	declare function glIsNamedBufferResidentNV(byval buffer as GLuint) as GLboolean
+	declare sub glGetBufferParameterui64vNV(byval target as GLenum, byval pname as GLenum, byval params as GLuint64EXT ptr)
+	declare sub glGetNamedBufferParameterui64vNV(byval buffer as GLuint, byval pname as GLenum, byval params as GLuint64EXT ptr)
+	declare sub glGetIntegerui64vNV(byval value as GLenum, byval result as GLuint64EXT ptr)
+	declare sub glUniformui64NV(byval location as GLint, byval value as GLuint64EXT)
+	declare sub glUniformui64vNV(byval location as GLint, byval count as GLsizei, byval value as const GLuint64EXT ptr)
+	declare sub glProgramUniformui64NV(byval program as GLuint, byval location as GLint, byval value as GLuint64EXT)
+	declare sub glProgramUniformui64vNV(byval program as GLuint, byval location as GLint, byval count as GLsizei, byval value as const GLuint64EXT ptr)
+#endif
+
 const GL_NV_shader_buffer_store = 1
 const GL_SHADER_GLOBAL_ACCESS_BARRIER_BIT_NV = &h00000010
 const GL_NV_shader_storage_buffer_object = 1
@@ -5971,6 +8632,11 @@ const GL_NORMAL_MAP_NV = &h8511
 const GL_REFLECTION_MAP_NV = &h8512
 const GL_NV_texture_barrier = 1
 type PFNGLTEXTUREBARRIERNVPROC as sub()
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glTextureBarrierNV()
+#endif
+
 const GL_NV_texture_compression_vtc = 1
 const GL_NV_texture_env_combine4 = 1
 const GL_COMBINE4_NV = &h8503
@@ -5990,6 +8656,15 @@ type PFNGLTEXTUREIMAGE2DMULTISAMPLENVPROC as sub(byval texture as GLuint, byval 
 type PFNGLTEXTUREIMAGE3DMULTISAMPLENVPROC as sub(byval texture as GLuint, byval target as GLenum, byval samples as GLsizei, byval internalFormat as GLint, byval width as GLsizei, byval height as GLsizei, byval depth as GLsizei, byval fixedSampleLocations as GLboolean)
 type PFNGLTEXTUREIMAGE2DMULTISAMPLECOVERAGENVPROC as sub(byval texture as GLuint, byval target as GLenum, byval coverageSamples as GLsizei, byval colorSamples as GLsizei, byval internalFormat as GLint, byval width as GLsizei, byval height as GLsizei, byval fixedSampleLocations as GLboolean)
 type PFNGLTEXTUREIMAGE3DMULTISAMPLECOVERAGENVPROC as sub(byval texture as GLuint, byval target as GLenum, byval coverageSamples as GLsizei, byval colorSamples as GLsizei, byval internalFormat as GLint, byval width as GLsizei, byval height as GLsizei, byval depth as GLsizei, byval fixedSampleLocations as GLboolean)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glTexImage2DMultisampleCoverageNV(byval target as GLenum, byval coverageSamples as GLsizei, byval colorSamples as GLsizei, byval internalFormat as GLint, byval width as GLsizei, byval height as GLsizei, byval fixedSampleLocations as GLboolean)
+	declare sub glTexImage3DMultisampleCoverageNV(byval target as GLenum, byval coverageSamples as GLsizei, byval colorSamples as GLsizei, byval internalFormat as GLint, byval width as GLsizei, byval height as GLsizei, byval depth as GLsizei, byval fixedSampleLocations as GLboolean)
+	declare sub glTextureImage2DMultisampleNV(byval texture as GLuint, byval target as GLenum, byval samples as GLsizei, byval internalFormat as GLint, byval width as GLsizei, byval height as GLsizei, byval fixedSampleLocations as GLboolean)
+	declare sub glTextureImage3DMultisampleNV(byval texture as GLuint, byval target as GLenum, byval samples as GLsizei, byval internalFormat as GLint, byval width as GLsizei, byval height as GLsizei, byval depth as GLsizei, byval fixedSampleLocations as GLboolean)
+	declare sub glTextureImage2DMultisampleCoverageNV(byval texture as GLuint, byval target as GLenum, byval coverageSamples as GLsizei, byval colorSamples as GLsizei, byval internalFormat as GLint, byval width as GLsizei, byval height as GLsizei, byval fixedSampleLocations as GLboolean)
+	declare sub glTextureImage3DMultisampleCoverageNV(byval texture as GLuint, byval target as GLenum, byval coverageSamples as GLsizei, byval colorSamples as GLsizei, byval internalFormat as GLint, byval width as GLsizei, byval height as GLsizei, byval depth as GLsizei, byval fixedSampleLocations as GLboolean)
+#endif
 
 const GL_NV_texture_rectangle = 1
 const GL_TEXTURE_RECTANGLE_NV = &h84F5
@@ -6136,6 +8811,21 @@ type PFNGLGETACTIVEVARYINGNVPROC as sub(byval program as GLuint, byval index as 
 type PFNGLGETTRANSFORMFEEDBACKVARYINGNVPROC as sub(byval program as GLuint, byval index as GLuint, byval location as GLint ptr)
 type PFNGLTRANSFORMFEEDBACKSTREAMATTRIBSNVPROC as sub(byval count as GLsizei, byval attribs as const GLint ptr, byval nbuffers as GLsizei, byval bufstreams as const GLint ptr, byval bufferMode as GLenum)
 
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glBeginTransformFeedbackNV(byval primitiveMode as GLenum)
+	declare sub glEndTransformFeedbackNV()
+	declare sub glTransformFeedbackAttribsNV(byval count as GLsizei, byval attribs as const GLint ptr, byval bufferMode as GLenum)
+	declare sub glBindBufferRangeNV(byval target as GLenum, byval index as GLuint, byval buffer as GLuint, byval offset as GLintptr, byval size as GLsizeiptr)
+	declare sub glBindBufferOffsetNV(byval target as GLenum, byval index as GLuint, byval buffer as GLuint, byval offset as GLintptr)
+	declare sub glBindBufferBaseNV(byval target as GLenum, byval index as GLuint, byval buffer as GLuint)
+	declare sub glTransformFeedbackVaryingsNV(byval program as GLuint, byval count as GLsizei, byval locations as const GLint ptr, byval bufferMode as GLenum)
+	declare sub glActiveVaryingNV(byval program as GLuint, byval name as const zstring ptr)
+	declare function glGetVaryingLocationNV(byval program as GLuint, byval name as const zstring ptr) as GLint
+	declare sub glGetActiveVaryingNV(byval program as GLuint, byval index as GLuint, byval bufSize as GLsizei, byval length as GLsizei ptr, byval size as GLsizei ptr, byval type as GLenum ptr, byval name as zstring ptr)
+	declare sub glGetTransformFeedbackVaryingNV(byval program as GLuint, byval index as GLuint, byval location as GLint ptr)
+	declare sub glTransformFeedbackStreamAttribsNV(byval count as GLsizei, byval attribs as const GLint ptr, byval nbuffers as GLsizei, byval bufstreams as const GLint ptr, byval bufferMode as GLenum)
+#endif
+
 const GL_NV_transform_feedback2 = 1
 const GL_TRANSFORM_FEEDBACK_NV = &h8E22
 const GL_TRANSFORM_FEEDBACK_BUFFER_PAUSED_NV = &h8E23
@@ -6149,6 +8839,16 @@ type PFNGLISTRANSFORMFEEDBACKNVPROC as function(byval id as GLuint) as GLboolean
 type PFNGLPAUSETRANSFORMFEEDBACKNVPROC as sub()
 type PFNGLRESUMETRANSFORMFEEDBACKNVPROC as sub()
 type PFNGLDRAWTRANSFORMFEEDBACKNVPROC as sub(byval mode as GLenum, byval id as GLuint)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glBindTransformFeedbackNV(byval target as GLenum, byval id as GLuint)
+	declare sub glDeleteTransformFeedbacksNV(byval n as GLsizei, byval ids as const GLuint ptr)
+	declare sub glGenTransformFeedbacksNV(byval n as GLsizei, byval ids as GLuint ptr)
+	declare function glIsTransformFeedbackNV(byval id as GLuint) as GLboolean
+	declare sub glPauseTransformFeedbackNV()
+	declare sub glResumeTransformFeedbackNV()
+	declare sub glDrawTransformFeedbackNV(byval mode as GLenum, byval id as GLuint)
+#endif
 
 const GL_NV_uniform_buffer_unified_memory = 1
 const GL_UNIFORM_BUFFER_UNIFIED_NV = &h936E
@@ -6172,6 +8872,19 @@ type PFNGLVDPAUSURFACEACCESSNVPROC as sub(byval surface as GLvdpauSurfaceNV, byv
 type PFNGLVDPAUMAPSURFACESNVPROC as sub(byval numSurfaces as GLsizei, byval surfaces as const GLvdpauSurfaceNV ptr)
 type PFNGLVDPAUUNMAPSURFACESNVPROC as sub(byval numSurface as GLsizei, byval surfaces as const GLvdpauSurfaceNV ptr)
 
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glVDPAUInitNV(byval vdpDevice as const any ptr, byval getProcAddress as const any ptr)
+	declare sub glVDPAUFiniNV()
+	declare function glVDPAURegisterVideoSurfaceNV(byval vdpSurface as const any ptr, byval target as GLenum, byval numTextureNames as GLsizei, byval textureNames as const GLuint ptr) as GLvdpauSurfaceNV
+	declare function glVDPAURegisterOutputSurfaceNV(byval vdpSurface as const any ptr, byval target as GLenum, byval numTextureNames as GLsizei, byval textureNames as const GLuint ptr) as GLvdpauSurfaceNV
+	declare function glVDPAUIsSurfaceNV(byval surface as GLvdpauSurfaceNV) as GLboolean
+	declare sub glVDPAUUnregisterSurfaceNV(byval surface as GLvdpauSurfaceNV)
+	declare sub glVDPAUGetSurfaceivNV(byval surface as GLvdpauSurfaceNV, byval pname as GLenum, byval bufSize as GLsizei, byval length as GLsizei ptr, byval values as GLint ptr)
+	declare sub glVDPAUSurfaceAccessNV(byval surface as GLvdpauSurfaceNV, byval access as GLenum)
+	declare sub glVDPAUMapSurfacesNV(byval numSurfaces as GLsizei, byval surfaces as const GLvdpauSurfaceNV ptr)
+	declare sub glVDPAUUnmapSurfacesNV(byval numSurface as GLsizei, byval surfaces as const GLvdpauSurfaceNV ptr)
+#endif
+
 const GL_NV_vertex_array_range = 1
 const GL_VERTEX_ARRAY_RANGE_NV = &h851D
 const GL_VERTEX_ARRAY_RANGE_LENGTH_NV = &h851E
@@ -6180,6 +8893,12 @@ const GL_MAX_VERTEX_ARRAY_RANGE_ELEMENT_NV = &h8520
 const GL_VERTEX_ARRAY_RANGE_POINTER_NV = &h8521
 type PFNGLFLUSHVERTEXARRAYRANGENVPROC as sub()
 type PFNGLVERTEXARRAYRANGENVPROC as sub(byval length as GLsizei, byval pointer as const any ptr)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glFlushVertexArrayRangeNV()
+	declare sub glVertexArrayRangeNV(byval length as GLsizei, byval pointer as const any ptr)
+#endif
+
 const GL_NV_vertex_array_range2 = 1
 const GL_VERTEX_ARRAY_RANGE_WITHOUT_FLUSH_NV = &h8533
 const GL_NV_vertex_attrib_integer_64bit = 1
@@ -6203,6 +8922,28 @@ type PFNGLVERTEXATTRIBL4UI64VNVPROC as sub(byval index as GLuint, byval v as con
 type PFNGLGETVERTEXATTRIBLI64VNVPROC as sub(byval index as GLuint, byval pname as GLenum, byval params as GLint64EXT ptr)
 type PFNGLGETVERTEXATTRIBLUI64VNVPROC as sub(byval index as GLuint, byval pname as GLenum, byval params as GLuint64EXT ptr)
 type PFNGLVERTEXATTRIBLFORMATNVPROC as sub(byval index as GLuint, byval size as GLint, byval type as GLenum, byval stride as GLsizei)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glVertexAttribL1i64NV(byval index as GLuint, byval x as GLint64EXT)
+	declare sub glVertexAttribL2i64NV(byval index as GLuint, byval x as GLint64EXT, byval y as GLint64EXT)
+	declare sub glVertexAttribL3i64NV(byval index as GLuint, byval x as GLint64EXT, byval y as GLint64EXT, byval z as GLint64EXT)
+	declare sub glVertexAttribL4i64NV(byval index as GLuint, byval x as GLint64EXT, byval y as GLint64EXT, byval z as GLint64EXT, byval w as GLint64EXT)
+	declare sub glVertexAttribL1i64vNV(byval index as GLuint, byval v as const GLint64EXT ptr)
+	declare sub glVertexAttribL2i64vNV(byval index as GLuint, byval v as const GLint64EXT ptr)
+	declare sub glVertexAttribL3i64vNV(byval index as GLuint, byval v as const GLint64EXT ptr)
+	declare sub glVertexAttribL4i64vNV(byval index as GLuint, byval v as const GLint64EXT ptr)
+	declare sub glVertexAttribL1ui64NV(byval index as GLuint, byval x as GLuint64EXT)
+	declare sub glVertexAttribL2ui64NV(byval index as GLuint, byval x as GLuint64EXT, byval y as GLuint64EXT)
+	declare sub glVertexAttribL3ui64NV(byval index as GLuint, byval x as GLuint64EXT, byval y as GLuint64EXT, byval z as GLuint64EXT)
+	declare sub glVertexAttribL4ui64NV(byval index as GLuint, byval x as GLuint64EXT, byval y as GLuint64EXT, byval z as GLuint64EXT, byval w as GLuint64EXT)
+	declare sub glVertexAttribL1ui64vNV(byval index as GLuint, byval v as const GLuint64EXT ptr)
+	declare sub glVertexAttribL2ui64vNV(byval index as GLuint, byval v as const GLuint64EXT ptr)
+	declare sub glVertexAttribL3ui64vNV(byval index as GLuint, byval v as const GLuint64EXT ptr)
+	declare sub glVertexAttribL4ui64vNV(byval index as GLuint, byval v as const GLuint64EXT ptr)
+	declare sub glGetVertexAttribLi64vNV(byval index as GLuint, byval pname as GLenum, byval params as GLint64EXT ptr)
+	declare sub glGetVertexAttribLui64vNV(byval index as GLuint, byval pname as GLenum, byval params as GLuint64EXT ptr)
+	declare sub glVertexAttribLFormatNV(byval index as GLuint, byval size as GLint, byval type as GLenum, byval stride as GLsizei)
+#endif
 
 const GL_NV_vertex_buffer_unified_memory = 1
 const GL_VERTEX_ATTRIB_ARRAY_UNIFIED_NV = &h8F1E
@@ -6243,6 +8984,21 @@ type PFNGLFOGCOORDFORMATNVPROC as sub(byval type as GLenum, byval stride as GLsi
 type PFNGLVERTEXATTRIBFORMATNVPROC as sub(byval index as GLuint, byval size as GLint, byval type as GLenum, byval normalized as GLboolean, byval stride as GLsizei)
 type PFNGLVERTEXATTRIBIFORMATNVPROC as sub(byval index as GLuint, byval size as GLint, byval type as GLenum, byval stride as GLsizei)
 type PFNGLGETINTEGERUI64I_VNVPROC as sub(byval value as GLenum, byval index as GLuint, byval result as GLuint64EXT ptr)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glBufferAddressRangeNV(byval pname as GLenum, byval index as GLuint, byval address as GLuint64EXT, byval length as GLsizeiptr)
+	declare sub glVertexFormatNV(byval size as GLint, byval type as GLenum, byval stride as GLsizei)
+	declare sub glNormalFormatNV(byval type as GLenum, byval stride as GLsizei)
+	declare sub glColorFormatNV(byval size as GLint, byval type as GLenum, byval stride as GLsizei)
+	declare sub glIndexFormatNV(byval type as GLenum, byval stride as GLsizei)
+	declare sub glTexCoordFormatNV(byval size as GLint, byval type as GLenum, byval stride as GLsizei)
+	declare sub glEdgeFlagFormatNV(byval stride as GLsizei)
+	declare sub glSecondaryColorFormatNV(byval size as GLint, byval type as GLenum, byval stride as GLsizei)
+	declare sub glFogCoordFormatNV(byval type as GLenum, byval stride as GLsizei)
+	declare sub glVertexAttribFormatNV(byval index as GLuint, byval size as GLint, byval type as GLenum, byval normalized as GLboolean, byval stride as GLsizei)
+	declare sub glVertexAttribIFormatNV(byval index as GLuint, byval size as GLint, byval type as GLenum, byval stride as GLsizei)
+	declare sub glGetIntegerui64i_vNV(byval value as GLenum, byval index as GLuint, byval result as GLuint64EXT ptr)
+#endif
 
 const GL_NV_vertex_program = 1
 const GL_VERTEX_PROGRAM_NV = &h8620
@@ -6394,6 +9150,73 @@ type PFNGLVERTEXATTRIBS4FVNVPROC as sub(byval index as GLuint, byval count as GL
 type PFNGLVERTEXATTRIBS4SVNVPROC as sub(byval index as GLuint, byval count as GLsizei, byval v as const GLshort ptr)
 type PFNGLVERTEXATTRIBS4UBVNVPROC as sub(byval index as GLuint, byval count as GLsizei, byval v as const GLubyte ptr)
 
+#ifdef GL_GLEXT_PROTOTYPES
+	declare function glAreProgramsResidentNV(byval n as GLsizei, byval programs as const GLuint ptr, byval residences as GLboolean ptr) as GLboolean
+	declare sub glBindProgramNV(byval target as GLenum, byval id as GLuint)
+	declare sub glDeleteProgramsNV(byval n as GLsizei, byval programs as const GLuint ptr)
+	declare sub glExecuteProgramNV(byval target as GLenum, byval id as GLuint, byval params as const GLfloat ptr)
+	declare sub glGenProgramsNV(byval n as GLsizei, byval programs as GLuint ptr)
+	declare sub glGetProgramParameterdvNV(byval target as GLenum, byval index as GLuint, byval pname as GLenum, byval params as GLdouble ptr)
+	declare sub glGetProgramParameterfvNV(byval target as GLenum, byval index as GLuint, byval pname as GLenum, byval params as GLfloat ptr)
+	declare sub glGetProgramivNV(byval id as GLuint, byval pname as GLenum, byval params as GLint ptr)
+	declare sub glGetProgramStringNV(byval id as GLuint, byval pname as GLenum, byval program as GLubyte ptr)
+	declare sub glGetTrackMatrixivNV(byval target as GLenum, byval address as GLuint, byval pname as GLenum, byval params as GLint ptr)
+	declare sub glGetVertexAttribdvNV(byval index as GLuint, byval pname as GLenum, byval params as GLdouble ptr)
+	declare sub glGetVertexAttribfvNV(byval index as GLuint, byval pname as GLenum, byval params as GLfloat ptr)
+	declare sub glGetVertexAttribivNV(byval index as GLuint, byval pname as GLenum, byval params as GLint ptr)
+	declare sub glGetVertexAttribPointervNV(byval index as GLuint, byval pname as GLenum, byval pointer as any ptr ptr)
+	declare function glIsProgramNV(byval id as GLuint) as GLboolean
+	declare sub glLoadProgramNV(byval target as GLenum, byval id as GLuint, byval len as GLsizei, byval program as const GLubyte ptr)
+	declare sub glProgramParameter4dNV(byval target as GLenum, byval index as GLuint, byval x as GLdouble, byval y as GLdouble, byval z as GLdouble, byval w as GLdouble)
+	declare sub glProgramParameter4dvNV(byval target as GLenum, byval index as GLuint, byval v as const GLdouble ptr)
+	declare sub glProgramParameter4fNV(byval target as GLenum, byval index as GLuint, byval x as GLfloat, byval y as GLfloat, byval z as GLfloat, byval w as GLfloat)
+	declare sub glProgramParameter4fvNV(byval target as GLenum, byval index as GLuint, byval v as const GLfloat ptr)
+	declare sub glProgramParameters4dvNV(byval target as GLenum, byval index as GLuint, byval count as GLsizei, byval v as const GLdouble ptr)
+	declare sub glProgramParameters4fvNV(byval target as GLenum, byval index as GLuint, byval count as GLsizei, byval v as const GLfloat ptr)
+	declare sub glRequestResidentProgramsNV(byval n as GLsizei, byval programs as const GLuint ptr)
+	declare sub glTrackMatrixNV(byval target as GLenum, byval address as GLuint, byval matrix as GLenum, byval transform as GLenum)
+	declare sub glVertexAttribPointerNV(byval index as GLuint, byval fsize as GLint, byval type as GLenum, byval stride as GLsizei, byval pointer as const any ptr)
+	declare sub glVertexAttrib1dNV(byval index as GLuint, byval x as GLdouble)
+	declare sub glVertexAttrib1dvNV(byval index as GLuint, byval v as const GLdouble ptr)
+	declare sub glVertexAttrib1fNV(byval index as GLuint, byval x as GLfloat)
+	declare sub glVertexAttrib1fvNV(byval index as GLuint, byval v as const GLfloat ptr)
+	declare sub glVertexAttrib1sNV(byval index as GLuint, byval x as GLshort)
+	declare sub glVertexAttrib1svNV(byval index as GLuint, byval v as const GLshort ptr)
+	declare sub glVertexAttrib2dNV(byval index as GLuint, byval x as GLdouble, byval y as GLdouble)
+	declare sub glVertexAttrib2dvNV(byval index as GLuint, byval v as const GLdouble ptr)
+	declare sub glVertexAttrib2fNV(byval index as GLuint, byval x as GLfloat, byval y as GLfloat)
+	declare sub glVertexAttrib2fvNV(byval index as GLuint, byval v as const GLfloat ptr)
+	declare sub glVertexAttrib2sNV(byval index as GLuint, byval x as GLshort, byval y as GLshort)
+	declare sub glVertexAttrib2svNV(byval index as GLuint, byval v as const GLshort ptr)
+	declare sub glVertexAttrib3dNV(byval index as GLuint, byval x as GLdouble, byval y as GLdouble, byval z as GLdouble)
+	declare sub glVertexAttrib3dvNV(byval index as GLuint, byval v as const GLdouble ptr)
+	declare sub glVertexAttrib3fNV(byval index as GLuint, byval x as GLfloat, byval y as GLfloat, byval z as GLfloat)
+	declare sub glVertexAttrib3fvNV(byval index as GLuint, byval v as const GLfloat ptr)
+	declare sub glVertexAttrib3sNV(byval index as GLuint, byval x as GLshort, byval y as GLshort, byval z as GLshort)
+	declare sub glVertexAttrib3svNV(byval index as GLuint, byval v as const GLshort ptr)
+	declare sub glVertexAttrib4dNV(byval index as GLuint, byval x as GLdouble, byval y as GLdouble, byval z as GLdouble, byval w as GLdouble)
+	declare sub glVertexAttrib4dvNV(byval index as GLuint, byval v as const GLdouble ptr)
+	declare sub glVertexAttrib4fNV(byval index as GLuint, byval x as GLfloat, byval y as GLfloat, byval z as GLfloat, byval w as GLfloat)
+	declare sub glVertexAttrib4fvNV(byval index as GLuint, byval v as const GLfloat ptr)
+	declare sub glVertexAttrib4sNV(byval index as GLuint, byval x as GLshort, byval y as GLshort, byval z as GLshort, byval w as GLshort)
+	declare sub glVertexAttrib4svNV(byval index as GLuint, byval v as const GLshort ptr)
+	declare sub glVertexAttrib4ubNV(byval index as GLuint, byval x as GLubyte, byval y as GLubyte, byval z as GLubyte, byval w as GLubyte)
+	declare sub glVertexAttrib4ubvNV(byval index as GLuint, byval v as const GLubyte ptr)
+	declare sub glVertexAttribs1dvNV(byval index as GLuint, byval count as GLsizei, byval v as const GLdouble ptr)
+	declare sub glVertexAttribs1fvNV(byval index as GLuint, byval count as GLsizei, byval v as const GLfloat ptr)
+	declare sub glVertexAttribs1svNV(byval index as GLuint, byval count as GLsizei, byval v as const GLshort ptr)
+	declare sub glVertexAttribs2dvNV(byval index as GLuint, byval count as GLsizei, byval v as const GLdouble ptr)
+	declare sub glVertexAttribs2fvNV(byval index as GLuint, byval count as GLsizei, byval v as const GLfloat ptr)
+	declare sub glVertexAttribs2svNV(byval index as GLuint, byval count as GLsizei, byval v as const GLshort ptr)
+	declare sub glVertexAttribs3dvNV(byval index as GLuint, byval count as GLsizei, byval v as const GLdouble ptr)
+	declare sub glVertexAttribs3fvNV(byval index as GLuint, byval count as GLsizei, byval v as const GLfloat ptr)
+	declare sub glVertexAttribs3svNV(byval index as GLuint, byval count as GLsizei, byval v as const GLshort ptr)
+	declare sub glVertexAttribs4dvNV(byval index as GLuint, byval count as GLsizei, byval v as const GLdouble ptr)
+	declare sub glVertexAttribs4fvNV(byval index as GLuint, byval count as GLsizei, byval v as const GLfloat ptr)
+	declare sub glVertexAttribs4svNV(byval index as GLuint, byval count as GLsizei, byval v as const GLshort ptr)
+	declare sub glVertexAttribs4ubvNV(byval index as GLuint, byval count as GLsizei, byval v as const GLubyte ptr)
+#endif
+
 const GL_NV_vertex_program1_1 = 1
 const GL_NV_vertex_program2 = 1
 const GL_NV_vertex_program2_option = 1
@@ -6424,6 +9247,32 @@ type PFNGLVERTEXATTRIBI4USVEXTPROC as sub(byval index as GLuint, byval v as cons
 type PFNGLVERTEXATTRIBIPOINTEREXTPROC as sub(byval index as GLuint, byval size as GLint, byval type as GLenum, byval stride as GLsizei, byval pointer as const any ptr)
 type PFNGLGETVERTEXATTRIBIIVEXTPROC as sub(byval index as GLuint, byval pname as GLenum, byval params as GLint ptr)
 type PFNGLGETVERTEXATTRIBIUIVEXTPROC as sub(byval index as GLuint, byval pname as GLenum, byval params as GLuint ptr)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glVertexAttribI1iEXT(byval index as GLuint, byval x as GLint)
+	declare sub glVertexAttribI2iEXT(byval index as GLuint, byval x as GLint, byval y as GLint)
+	declare sub glVertexAttribI3iEXT(byval index as GLuint, byval x as GLint, byval y as GLint, byval z as GLint)
+	declare sub glVertexAttribI4iEXT(byval index as GLuint, byval x as GLint, byval y as GLint, byval z as GLint, byval w as GLint)
+	declare sub glVertexAttribI1uiEXT(byval index as GLuint, byval x as GLuint)
+	declare sub glVertexAttribI2uiEXT(byval index as GLuint, byval x as GLuint, byval y as GLuint)
+	declare sub glVertexAttribI3uiEXT(byval index as GLuint, byval x as GLuint, byval y as GLuint, byval z as GLuint)
+	declare sub glVertexAttribI4uiEXT(byval index as GLuint, byval x as GLuint, byval y as GLuint, byval z as GLuint, byval w as GLuint)
+	declare sub glVertexAttribI1ivEXT(byval index as GLuint, byval v as const GLint ptr)
+	declare sub glVertexAttribI2ivEXT(byval index as GLuint, byval v as const GLint ptr)
+	declare sub glVertexAttribI3ivEXT(byval index as GLuint, byval v as const GLint ptr)
+	declare sub glVertexAttribI4ivEXT(byval index as GLuint, byval v as const GLint ptr)
+	declare sub glVertexAttribI1uivEXT(byval index as GLuint, byval v as const GLuint ptr)
+	declare sub glVertexAttribI2uivEXT(byval index as GLuint, byval v as const GLuint ptr)
+	declare sub glVertexAttribI3uivEXT(byval index as GLuint, byval v as const GLuint ptr)
+	declare sub glVertexAttribI4uivEXT(byval index as GLuint, byval v as const GLuint ptr)
+	declare sub glVertexAttribI4bvEXT(byval index as GLuint, byval v as const GLbyte ptr)
+	declare sub glVertexAttribI4svEXT(byval index as GLuint, byval v as const GLshort ptr)
+	declare sub glVertexAttribI4ubvEXT(byval index as GLuint, byval v as const GLubyte ptr)
+	declare sub glVertexAttribI4usvEXT(byval index as GLuint, byval v as const GLushort ptr)
+	declare sub glVertexAttribIPointerEXT(byval index as GLuint, byval size as GLint, byval type as GLenum, byval stride as GLsizei, byval pointer as const any ptr)
+	declare sub glGetVertexAttribIivEXT(byval index as GLuint, byval pname as GLenum, byval params as GLint ptr)
+	declare sub glGetVertexAttribIuivEXT(byval index as GLuint, byval pname as GLenum, byval params as GLuint ptr)
+#endif
 
 const GL_NV_video_capture = 1
 const GL_VIDEO_BUFFER_NV = &h9020
@@ -6469,6 +9318,21 @@ type PFNGLVIDEOCAPTURESTREAMPARAMETERIVNVPROC as sub(byval video_capture_slot as
 type PFNGLVIDEOCAPTURESTREAMPARAMETERFVNVPROC as sub(byval video_capture_slot as GLuint, byval stream as GLuint, byval pname as GLenum, byval params as const GLfloat ptr)
 type PFNGLVIDEOCAPTURESTREAMPARAMETERDVNVPROC as sub(byval video_capture_slot as GLuint, byval stream as GLuint, byval pname as GLenum, byval params as const GLdouble ptr)
 
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glBeginVideoCaptureNV(byval video_capture_slot as GLuint)
+	declare sub glBindVideoCaptureStreamBufferNV(byval video_capture_slot as GLuint, byval stream as GLuint, byval frame_region as GLenum, byval offset as GLintptrARB)
+	declare sub glBindVideoCaptureStreamTextureNV(byval video_capture_slot as GLuint, byval stream as GLuint, byval frame_region as GLenum, byval target as GLenum, byval texture as GLuint)
+	declare sub glEndVideoCaptureNV(byval video_capture_slot as GLuint)
+	declare sub glGetVideoCaptureivNV(byval video_capture_slot as GLuint, byval pname as GLenum, byval params as GLint ptr)
+	declare sub glGetVideoCaptureStreamivNV(byval video_capture_slot as GLuint, byval stream as GLuint, byval pname as GLenum, byval params as GLint ptr)
+	declare sub glGetVideoCaptureStreamfvNV(byval video_capture_slot as GLuint, byval stream as GLuint, byval pname as GLenum, byval params as GLfloat ptr)
+	declare sub glGetVideoCaptureStreamdvNV(byval video_capture_slot as GLuint, byval stream as GLuint, byval pname as GLenum, byval params as GLdouble ptr)
+	declare function glVideoCaptureNV(byval video_capture_slot as GLuint, byval sequence_num as GLuint ptr, byval capture_time as GLuint64EXT ptr) as GLenum
+	declare sub glVideoCaptureStreamParameterivNV(byval video_capture_slot as GLuint, byval stream as GLuint, byval pname as GLenum, byval params as const GLint ptr)
+	declare sub glVideoCaptureStreamParameterfvNV(byval video_capture_slot as GLuint, byval stream as GLuint, byval pname as GLenum, byval params as const GLfloat ptr)
+	declare sub glVideoCaptureStreamParameterdvNV(byval video_capture_slot as GLuint, byval stream as GLuint, byval pname as GLenum, byval params as const GLdouble ptr)
+#endif
+
 const GL_NV_viewport_array2 = 1
 const GL_OML_interlace = 1
 const GL_INTERLACE_OML = &h8980
@@ -6505,6 +9369,11 @@ const GL_CLIP_FAR_HINT_PGI = &h1A221
 const GL_WIDE_LINE_HINT_PGI = &h1A222
 const GL_BACK_NORMALS_HINT_PGI = &h1A223
 type PFNGLHINTPGIPROC as sub(byval target as GLenum, byval mode as GLint)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glHintPGI(byval target as GLenum, byval mode as GLint)
+#endif
+
 const GL_PGI_vertex_hints = 1
 const GL_VERTEX_DATA_HINT_PGI = &h1A22A
 const GL_VERTEX_CONSISTENT_HINT_PGI = &h1A22B
@@ -6549,12 +9418,24 @@ const GL_DETAIL_TEXTURE_MODE_SGIS = &h809B
 const GL_DETAIL_TEXTURE_FUNC_POINTS_SGIS = &h809C
 type PFNGLDETAILTEXFUNCSGISPROC as sub(byval target as GLenum, byval n as GLsizei, byval points as const GLfloat ptr)
 type PFNGLGETDETAILTEXFUNCSGISPROC as sub(byval target as GLenum, byval points as GLfloat ptr)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glDetailTexFuncSGIS(byval target as GLenum, byval n as GLsizei, byval points as const GLfloat ptr)
+	declare sub glGetDetailTexFuncSGIS(byval target as GLenum, byval points as GLfloat ptr)
+#endif
+
 const GL_SGIS_fog_function = 1
 const GL_FOG_FUNC_SGIS = &h812A
 const GL_FOG_FUNC_POINTS_SGIS = &h812B
 const GL_MAX_FOG_FUNC_POINTS_SGIS = &h812C
 type PFNGLFOGFUNCSGISPROC as sub(byval n as GLsizei, byval points as const GLfloat ptr)
 type PFNGLGETFOGFUNCSGISPROC as sub(byval points as GLfloat ptr)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glFogFuncSGIS(byval n as GLsizei, byval points as const GLfloat ptr)
+	declare sub glGetFogFuncSGIS(byval points as GLfloat ptr)
+#endif
+
 const GL_SGIS_generate_mipmap = 1
 const GL_GENERATE_MIPMAP_SGIS = &h8191
 const GL_GENERATE_MIPMAP_HINT_SGIS = &h8192
@@ -6577,6 +9458,12 @@ const GL_SAMPLE_MASK_INVERT_SGIS = &h80AB
 const GL_SAMPLE_PATTERN_SGIS = &h80AC
 type PFNGLSAMPLEMASKSGISPROC as sub(byval value as GLclampf, byval invert as GLboolean)
 type PFNGLSAMPLEPATTERNSGISPROC as sub(byval pattern as GLenum)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glSampleMaskSGIS(byval value as GLclampf, byval invert as GLboolean)
+	declare sub glSamplePatternSGIS(byval pattern as GLenum)
+#endif
+
 const GL_SGIS_pixel_texture = 1
 const GL_PIXEL_TEXTURE_SGIS = &h8353
 const GL_PIXEL_FRAGMENT_RGB_SOURCE_SGIS = &h8354
@@ -6589,6 +9476,15 @@ type PFNGLPIXELTEXGENPARAMETERFSGISPROC as sub(byval pname as GLenum, byval para
 type PFNGLPIXELTEXGENPARAMETERFVSGISPROC as sub(byval pname as GLenum, byval params as const GLfloat ptr)
 type PFNGLGETPIXELTEXGENPARAMETERIVSGISPROC as sub(byval pname as GLenum, byval params as GLint ptr)
 type PFNGLGETPIXELTEXGENPARAMETERFVSGISPROC as sub(byval pname as GLenum, byval params as GLfloat ptr)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glPixelTexGenParameteriSGIS(byval pname as GLenum, byval param as GLint)
+	declare sub glPixelTexGenParameterivSGIS(byval pname as GLenum, byval params as const GLint ptr)
+	declare sub glPixelTexGenParameterfSGIS(byval pname as GLenum, byval param as GLfloat)
+	declare sub glPixelTexGenParameterfvSGIS(byval pname as GLenum, byval params as const GLfloat ptr)
+	declare sub glGetPixelTexGenParameterivSGIS(byval pname as GLenum, byval params as GLint ptr)
+	declare sub glGetPixelTexGenParameterfvSGIS(byval pname as GLenum, byval params as GLfloat ptr)
+#endif
 
 const GL_SGIS_point_line_texgen = 1
 const GL_EYE_DISTANCE_TO_POINT_SGIS = &h81F0
@@ -6606,6 +9502,12 @@ const GL_POINT_FADE_THRESHOLD_SIZE_SGIS = &h8128
 const GL_DISTANCE_ATTENUATION_SGIS = &h8129
 type PFNGLPOINTPARAMETERFSGISPROC as sub(byval pname as GLenum, byval param as GLfloat)
 type PFNGLPOINTPARAMETERFVSGISPROC as sub(byval pname as GLenum, byval params as const GLfloat ptr)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glPointParameterfSGIS(byval pname as GLenum, byval param as GLfloat)
+	declare sub glPointParameterfvSGIS(byval pname as GLenum, byval params as const GLfloat ptr)
+#endif
+
 const GL_SGIS_sharpen_texture = 1
 const GL_LINEAR_SHARPEN_SGIS = &h80AD
 const GL_LINEAR_SHARPEN_ALPHA_SGIS = &h80AE
@@ -6613,6 +9515,12 @@ const GL_LINEAR_SHARPEN_COLOR_SGIS = &h80AF
 const GL_SHARPEN_TEXTURE_FUNC_POINTS_SGIS = &h80B0
 type PFNGLSHARPENTEXFUNCSGISPROC as sub(byval target as GLenum, byval n as GLsizei, byval points as const GLfloat ptr)
 type PFNGLGETSHARPENTEXFUNCSGISPROC as sub(byval target as GLenum, byval points as GLfloat ptr)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glSharpenTexFuncSGIS(byval target as GLenum, byval n as GLsizei, byval points as const GLfloat ptr)
+	declare sub glGetSharpenTexFuncSGIS(byval target as GLenum, byval points as GLfloat ptr)
+#endif
+
 const GL_SGIS_texture4D = 1
 const GL_PACK_SKIP_VOLUMES_SGIS = &h8130
 const GL_PACK_IMAGE_DEPTH_SGIS = &h8131
@@ -6626,11 +9534,22 @@ const GL_MAX_4D_TEXTURE_SIZE_SGIS = &h8138
 const GL_TEXTURE_4D_BINDING_SGIS = &h814F
 type PFNGLTEXIMAGE4DSGISPROC as sub(byval target as GLenum, byval level as GLint, byval internalformat as GLenum, byval width as GLsizei, byval height as GLsizei, byval depth as GLsizei, byval size4d as GLsizei, byval border as GLint, byval format as GLenum, byval type as GLenum, byval pixels as const any ptr)
 type PFNGLTEXSUBIMAGE4DSGISPROC as sub(byval target as GLenum, byval level as GLint, byval xoffset as GLint, byval yoffset as GLint, byval zoffset as GLint, byval woffset as GLint, byval width as GLsizei, byval height as GLsizei, byval depth as GLsizei, byval size4d as GLsizei, byval format as GLenum, byval type as GLenum, byval pixels as const any ptr)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glTexImage4DSGIS(byval target as GLenum, byval level as GLint, byval internalformat as GLenum, byval width as GLsizei, byval height as GLsizei, byval depth as GLsizei, byval size4d as GLsizei, byval border as GLint, byval format as GLenum, byval type as GLenum, byval pixels as const any ptr)
+	declare sub glTexSubImage4DSGIS(byval target as GLenum, byval level as GLint, byval xoffset as GLint, byval yoffset as GLint, byval zoffset as GLint, byval woffset as GLint, byval width as GLsizei, byval height as GLsizei, byval depth as GLsizei, byval size4d as GLsizei, byval format as GLenum, byval type as GLenum, byval pixels as const any ptr)
+#endif
+
 const GL_SGIS_texture_border_clamp = 1
 const GL_CLAMP_TO_BORDER_SGIS = &h812D
 const GL_SGIS_texture_color_mask = 1
 const GL_TEXTURE_COLOR_WRITEMASK_SGIS = &h81EF
 type PFNGLTEXTURECOLORMASKSGISPROC as sub(byval red as GLboolean, byval green as GLboolean, byval blue as GLboolean, byval alpha as GLboolean)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glTextureColorMaskSGIS(byval red as GLboolean, byval green as GLboolean, byval blue as GLboolean, byval alpha as GLboolean)
+#endif
+
 const GL_SGIS_texture_edge_clamp = 1
 const GL_CLAMP_TO_EDGE_SGIS = &h812F
 const GL_SGIS_texture_filter4 = 1
@@ -6638,6 +9557,12 @@ const GL_FILTER4_SGIS = &h8146
 const GL_TEXTURE_FILTER4_SIZE_SGIS = &h8147
 type PFNGLGETTEXFILTERFUNCSGISPROC as sub(byval target as GLenum, byval filter as GLenum, byval weights as GLfloat ptr)
 type PFNGLTEXFILTERFUNCSGISPROC as sub(byval target as GLenum, byval filter as GLenum, byval n as GLsizei, byval weights as const GLfloat ptr)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glGetTexFilterFuncSGIS(byval target as GLenum, byval filter as GLenum, byval weights as GLfloat ptr)
+	declare sub glTexFilterFuncSGIS(byval target as GLenum, byval filter as GLenum, byval n as GLsizei, byval weights as const GLfloat ptr)
+#endif
+
 const GL_SGIS_texture_lod = 1
 const GL_TEXTURE_MIN_LOD_SGIS = &h813A
 const GL_TEXTURE_MAX_LOD_SGIS = &h813B
@@ -6676,6 +9601,15 @@ type PFNGLGENASYNCMARKERSSGIXPROC as function(byval range as GLsizei) as GLuint
 type PFNGLDELETEASYNCMARKERSSGIXPROC as sub(byval marker as GLuint, byval range as GLsizei)
 type PFNGLISASYNCMARKERSGIXPROC as function(byval marker as GLuint) as GLboolean
 
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glAsyncMarkerSGIX(byval marker as GLuint)
+	declare function glFinishAsyncSGIX(byval markerp as GLuint ptr) as GLint
+	declare function glPollAsyncSGIX(byval markerp as GLuint ptr) as GLint
+	declare function glGenAsyncMarkersSGIX(byval range as GLsizei) as GLuint
+	declare sub glDeleteAsyncMarkersSGIX(byval marker as GLuint, byval range as GLsizei)
+	declare function glIsAsyncMarkerSGIX(byval marker as GLuint) as GLboolean
+#endif
+
 const GL_SGIX_async_histogram = 1
 const GL_ASYNC_HISTOGRAM_SGIX = &h832C
 const GL_MAX_ASYNC_HISTOGRAM_SGIX = &h832D
@@ -6713,6 +9647,11 @@ const GL_DEPTH_COMPONENT24_SGIX = &h81A6
 const GL_DEPTH_COMPONENT32_SGIX = &h81A7
 const GL_SGIX_flush_raster = 1
 type PFNGLFLUSHRASTERSGIXPROC as sub()
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glFlushRasterSGIX()
+#endif
+
 const GL_SGIX_fog_offset = 1
 const GL_FOG_OFFSET_SGIX = &h8198
 const GL_FOG_OFFSET_VALUE_SGIX = &h8199
@@ -6757,13 +9696,44 @@ type PFNGLGETFRAGMENTMATERIALFVSGIXPROC as sub(byval face as GLenum, byval pname
 type PFNGLGETFRAGMENTMATERIALIVSGIXPROC as sub(byval face as GLenum, byval pname as GLenum, byval params as GLint ptr)
 type PFNGLLIGHTENVISGIXPROC as sub(byval pname as GLenum, byval param as GLint)
 
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glFragmentColorMaterialSGIX(byval face as GLenum, byval mode as GLenum)
+	declare sub glFragmentLightfSGIX(byval light as GLenum, byval pname as GLenum, byval param as GLfloat)
+	declare sub glFragmentLightfvSGIX(byval light as GLenum, byval pname as GLenum, byval params as const GLfloat ptr)
+	declare sub glFragmentLightiSGIX(byval light as GLenum, byval pname as GLenum, byval param as GLint)
+	declare sub glFragmentLightivSGIX(byval light as GLenum, byval pname as GLenum, byval params as const GLint ptr)
+	declare sub glFragmentLightModelfSGIX(byval pname as GLenum, byval param as GLfloat)
+	declare sub glFragmentLightModelfvSGIX(byval pname as GLenum, byval params as const GLfloat ptr)
+	declare sub glFragmentLightModeliSGIX(byval pname as GLenum, byval param as GLint)
+	declare sub glFragmentLightModelivSGIX(byval pname as GLenum, byval params as const GLint ptr)
+	declare sub glFragmentMaterialfSGIX(byval face as GLenum, byval pname as GLenum, byval param as GLfloat)
+	declare sub glFragmentMaterialfvSGIX(byval face as GLenum, byval pname as GLenum, byval params as const GLfloat ptr)
+	declare sub glFragmentMaterialiSGIX(byval face as GLenum, byval pname as GLenum, byval param as GLint)
+	declare sub glFragmentMaterialivSGIX(byval face as GLenum, byval pname as GLenum, byval params as const GLint ptr)
+	declare sub glGetFragmentLightfvSGIX(byval light as GLenum, byval pname as GLenum, byval params as GLfloat ptr)
+	declare sub glGetFragmentLightivSGIX(byval light as GLenum, byval pname as GLenum, byval params as GLint ptr)
+	declare sub glGetFragmentMaterialfvSGIX(byval face as GLenum, byval pname as GLenum, byval params as GLfloat ptr)
+	declare sub glGetFragmentMaterialivSGIX(byval face as GLenum, byval pname as GLenum, byval params as GLint ptr)
+	declare sub glLightEnviSGIX(byval pname as GLenum, byval param as GLint)
+#endif
+
 const GL_SGIX_framezoom = 1
 const GL_FRAMEZOOM_SGIX = &h818B
 const GL_FRAMEZOOM_FACTOR_SGIX = &h818C
 const GL_MAX_FRAMEZOOM_FACTOR_SGIX = &h818D
 type PFNGLFRAMEZOOMSGIXPROC as sub(byval factor as GLint)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glFrameZoomSGIX(byval factor as GLint)
+#endif
+
 const GL_SGIX_igloo_interface = 1
 type PFNGLIGLOOINTERFACESGIXPROC as sub(byval pname as GLenum, byval params as const any ptr)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glIglooInterfaceSGIX(byval pname as GLenum, byval params as const any ptr)
+#endif
+
 const GL_SGIX_instruments = 1
 const GL_INSTRUMENT_BUFFER_POINTER_SGIX = &h8180
 const GL_INSTRUMENT_MEASUREMENTS_SGIX = &h8181
@@ -6774,6 +9744,15 @@ type PFNGLPOLLINSTRUMENTSSGIXPROC as function(byval marker_p as GLint ptr) as GL
 type PFNGLREADINSTRUMENTSSGIXPROC as sub(byval marker as GLint)
 type PFNGLSTARTINSTRUMENTSSGIXPROC as sub()
 type PFNGLSTOPINSTRUMENTSSGIXPROC as sub(byval marker as GLint)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare function glGetInstrumentsSGIX() as GLint
+	declare sub glInstrumentsBufferSGIX(byval size as GLsizei, byval buffer as GLint ptr)
+	declare function glPollInstrumentsSGIX(byval marker_p as GLint ptr) as GLint
+	declare sub glReadInstrumentsSGIX(byval marker as GLint)
+	declare sub glStartInstrumentsSGIX()
+	declare sub glStopInstrumentsSGIX(byval marker as GLint)
+#endif
 
 const GL_SGIX_interlace = 1
 const GL_INTERLACE_SGIX = &h8094
@@ -6789,10 +9768,24 @@ type PFNGLLISTPARAMETERFVSGIXPROC as sub(byval list as GLuint, byval pname as GL
 type PFNGLLISTPARAMETERISGIXPROC as sub(byval list as GLuint, byval pname as GLenum, byval param as GLint)
 type PFNGLLISTPARAMETERIVSGIXPROC as sub(byval list as GLuint, byval pname as GLenum, byval params as const GLint ptr)
 
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glGetListParameterfvSGIX(byval list as GLuint, byval pname as GLenum, byval params as GLfloat ptr)
+	declare sub glGetListParameterivSGIX(byval list as GLuint, byval pname as GLenum, byval params as GLint ptr)
+	declare sub glListParameterfSGIX(byval list as GLuint, byval pname as GLenum, byval param as GLfloat)
+	declare sub glListParameterfvSGIX(byval list as GLuint, byval pname as GLenum, byval params as const GLfloat ptr)
+	declare sub glListParameteriSGIX(byval list as GLuint, byval pname as GLenum, byval param as GLint)
+	declare sub glListParameterivSGIX(byval list as GLuint, byval pname as GLenum, byval params as const GLint ptr)
+#endif
+
 const GL_SGIX_pixel_texture = 1
 const GL_PIXEL_TEX_GEN_SGIX = &h8139
 const GL_PIXEL_TEX_GEN_MODE_SGIX = &h832B
 type PFNGLPIXELTEXGENSGIXPROC as sub(byval mode as GLenum)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glPixelTexGenSGIX(byval mode as GLenum)
+#endif
+
 const GL_SGIX_pixel_tiles = 1
 const GL_PIXEL_TILE_BEST_ALIGNMENT_SGIX = &h813E
 const GL_PIXEL_TILE_CACHE_INCREMENT_SGIX = &h813F
@@ -6815,10 +9808,22 @@ type PFNGLDEFORMATIONMAP3FSGIXPROC as sub(byval target as GLenum, byval u1 as GL
 type PFNGLDEFORMSGIXPROC as sub(byval mask as GLbitfield)
 type PFNGLLOADIDENTITYDEFORMATIONMAPSGIXPROC as sub(byval mask as GLbitfield)
 
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glDeformationMap3dSGIX(byval target as GLenum, byval u1 as GLdouble, byval u2 as GLdouble, byval ustride as GLint, byval uorder as GLint, byval v1 as GLdouble, byval v2 as GLdouble, byval vstride as GLint, byval vorder as GLint, byval w1 as GLdouble, byval w2 as GLdouble, byval wstride as GLint, byval worder as GLint, byval points as const GLdouble ptr)
+	declare sub glDeformationMap3fSGIX(byval target as GLenum, byval u1 as GLfloat, byval u2 as GLfloat, byval ustride as GLint, byval uorder as GLint, byval v1 as GLfloat, byval v2 as GLfloat, byval vstride as GLint, byval vorder as GLint, byval w1 as GLfloat, byval w2 as GLfloat, byval wstride as GLint, byval worder as GLint, byval points as const GLfloat ptr)
+	declare sub glDeformSGIX(byval mask as GLbitfield)
+	declare sub glLoadIdentityDeformationMapSGIX(byval mask as GLbitfield)
+#endif
+
 const GL_SGIX_reference_plane = 1
 const GL_REFERENCE_PLANE_SGIX = &h817D
 const GL_REFERENCE_PLANE_EQUATION_SGIX = &h817E
 type PFNGLREFERENCEPLANESGIXPROC as sub(byval equation as const GLdouble ptr)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glReferencePlaneSGIX(byval equation as const GLdouble ptr)
+#endif
+
 const GL_SGIX_resample = 1
 const GL_PACK_RESAMPLE_SGIX = &h842E
 const GL_UNPACK_RESAMPLE_SGIX = &h842F
@@ -6848,6 +9853,13 @@ type PFNGLSPRITEPARAMETERFVSGIXPROC as sub(byval pname as GLenum, byval params a
 type PFNGLSPRITEPARAMETERISGIXPROC as sub(byval pname as GLenum, byval param as GLint)
 type PFNGLSPRITEPARAMETERIVSGIXPROC as sub(byval pname as GLenum, byval params as const GLint ptr)
 
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glSpriteParameterfSGIX(byval pname as GLenum, byval param as GLfloat)
+	declare sub glSpriteParameterfvSGIX(byval pname as GLenum, byval params as const GLfloat ptr)
+	declare sub glSpriteParameteriSGIX(byval pname as GLenum, byval param as GLint)
+	declare sub glSpriteParameterivSGIX(byval pname as GLenum, byval params as const GLint ptr)
+#endif
+
 const GL_SGIX_subsample = 1
 const GL_PACK_SUBSAMPLE_RATE_SGIX = &h85A0
 const GL_UNPACK_SUBSAMPLE_RATE_SGIX = &h85A1
@@ -6856,6 +9868,11 @@ const GL_PIXEL_SUBSAMPLE_2424_SGIX = &h85A3
 const GL_PIXEL_SUBSAMPLE_4242_SGIX = &h85A4
 const GL_SGIX_tag_sample_buffer = 1
 type PFNGLTAGSAMPLEBUFFERSGIXPROC as sub()
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glTagSampleBufferSGIX()
+#endif
+
 const GL_SGIX_texture_add_env = 1
 const GL_TEXTURE_ENV_BIAS_SGIX = &h80BE
 const GL_SGIX_texture_coordinate_clamp = 1
@@ -6921,6 +9938,16 @@ type PFNGLGETCOLORTABLESGIPROC as sub(byval target as GLenum, byval format as GL
 type PFNGLGETCOLORTABLEPARAMETERFVSGIPROC as sub(byval target as GLenum, byval pname as GLenum, byval params as GLfloat ptr)
 type PFNGLGETCOLORTABLEPARAMETERIVSGIPROC as sub(byval target as GLenum, byval pname as GLenum, byval params as GLint ptr)
 
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glColorTableSGI(byval target as GLenum, byval internalformat as GLenum, byval width as GLsizei, byval format as GLenum, byval type as GLenum, byval table as const any ptr)
+	declare sub glColorTableParameterfvSGI(byval target as GLenum, byval pname as GLenum, byval params as const GLfloat ptr)
+	declare sub glColorTableParameterivSGI(byval target as GLenum, byval pname as GLenum, byval params as const GLint ptr)
+	declare sub glCopyColorTableSGI(byval target as GLenum, byval internalformat as GLenum, byval x as GLint, byval y as GLint, byval width as GLsizei)
+	declare sub glGetColorTableSGI(byval target as GLenum, byval format as GLenum, byval type as GLenum, byval table as any ptr)
+	declare sub glGetColorTableParameterfvSGI(byval target as GLenum, byval pname as GLenum, byval params as GLfloat ptr)
+	declare sub glGetColorTableParameterivSGI(byval target as GLenum, byval pname as GLenum, byval params as GLint ptr)
+#endif
+
 const GL_SGI_texture_color_table = 1
 const GL_TEXTURE_COLOR_TABLE_SGI = &h80BC
 const GL_PROXY_TEXTURE_COLOR_TABLE_SGI = &h80BD
@@ -6928,6 +9955,11 @@ const GL_SUNX_constant_data = 1
 const GL_UNPACK_CONSTANT_DATA_SUNX = &h81D5
 const GL_TEXTURE_CONSTANT_DATA_SUNX = &h81D6
 type PFNGLFINISHTEXTURESUNXPROC as sub()
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glFinishTextureSUNX()
+#endif
+
 const GL_SUN_convolution_border_modes = 1
 const GL_WRAP_BORDER_SUN = &h81D4
 const GL_SUN_global_alpha = 1
@@ -6943,10 +9975,26 @@ type PFNGLGLOBALALPHAFACTORUBSUNPROC as sub(byval factor as GLubyte)
 type PFNGLGLOBALALPHAFACTORUSSUNPROC as sub(byval factor as GLushort)
 type PFNGLGLOBALALPHAFACTORUISUNPROC as sub(byval factor as GLuint)
 
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glGlobalAlphaFactorbSUN(byval factor as GLbyte)
+	declare sub glGlobalAlphaFactorsSUN(byval factor as GLshort)
+	declare sub glGlobalAlphaFactoriSUN(byval factor as GLint)
+	declare sub glGlobalAlphaFactorfSUN(byval factor as GLfloat)
+	declare sub glGlobalAlphaFactordSUN(byval factor as GLdouble)
+	declare sub glGlobalAlphaFactorubSUN(byval factor as GLubyte)
+	declare sub glGlobalAlphaFactorusSUN(byval factor as GLushort)
+	declare sub glGlobalAlphaFactoruiSUN(byval factor as GLuint)
+#endif
+
 const GL_SUN_mesh_array = 1
 const GL_QUAD_MESH_SUN = &h8614
 const GL_TRIANGLE_MESH_SUN = &h8615
 type PFNGLDRAWMESHARRAYSSUNPROC as sub(byval mode as GLenum, byval first as GLint, byval count as GLsizei, byval width as GLsizei)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glDrawMeshArraysSUN(byval mode as GLenum, byval first as GLint, byval count as GLsizei, byval width as GLsizei)
+#endif
+
 const GL_SUN_slice_accum = 1
 const GL_SLICE_ACCUM_SUN = &h85CC
 const GL_SUN_triangle_list = 1
@@ -6975,6 +10023,17 @@ type PFNGLREPLACEMENTCODEUIVSUNPROC as sub(byval code as const GLuint ptr)
 type PFNGLREPLACEMENTCODEUSVSUNPROC as sub(byval code as const GLushort ptr)
 type PFNGLREPLACEMENTCODEUBVSUNPROC as sub(byval code as const GLubyte ptr)
 type PFNGLREPLACEMENTCODEPOINTERSUNPROC as sub(byval type as GLenum, byval stride as GLsizei, byval pointer as const any ptr ptr)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glReplacementCodeuiSUN(byval code as GLuint)
+	declare sub glReplacementCodeusSUN(byval code as GLushort)
+	declare sub glReplacementCodeubSUN(byval code as GLubyte)
+	declare sub glReplacementCodeuivSUN(byval code as const GLuint ptr)
+	declare sub glReplacementCodeusvSUN(byval code as const GLushort ptr)
+	declare sub glReplacementCodeubvSUN(byval code as const GLubyte ptr)
+	declare sub glReplacementCodePointerSUN(byval type as GLenum, byval stride as GLsizei, byval pointer as const any ptr ptr)
+#endif
+
 const GL_SUN_vertex = 1
 type PFNGLCOLOR4UBVERTEX2FSUNPROC as sub(byval r as GLubyte, byval g as GLubyte, byval b as GLubyte, byval a as GLubyte, byval x as GLfloat, byval y as GLfloat)
 type PFNGLCOLOR4UBVERTEX2FVSUNPROC as sub(byval c as const GLubyte ptr, byval v as const GLfloat ptr)
@@ -7016,6 +10075,49 @@ type PFNGLREPLACEMENTCODEUITEXCOORD2FNORMAL3FVERTEX3FSUNPROC as sub(byval rc as 
 type PFNGLREPLACEMENTCODEUITEXCOORD2FNORMAL3FVERTEX3FVSUNPROC as sub(byval rc as const GLuint ptr, byval tc as const GLfloat ptr, byval n as const GLfloat ptr, byval v as const GLfloat ptr)
 type PFNGLREPLACEMENTCODEUITEXCOORD2FCOLOR4FNORMAL3FVERTEX3FSUNPROC as sub(byval rc as GLuint, byval s as GLfloat, byval t as GLfloat, byval r as GLfloat, byval g as GLfloat, byval b as GLfloat, byval a as GLfloat, byval nx as GLfloat, byval ny as GLfloat, byval nz as GLfloat, byval x as GLfloat, byval y as GLfloat, byval z as GLfloat)
 type PFNGLREPLACEMENTCODEUITEXCOORD2FCOLOR4FNORMAL3FVERTEX3FVSUNPROC as sub(byval rc as const GLuint ptr, byval tc as const GLfloat ptr, byval c as const GLfloat ptr, byval n as const GLfloat ptr, byval v as const GLfloat ptr)
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glColor4ubVertex2fSUN(byval r as GLubyte, byval g as GLubyte, byval b as GLubyte, byval a as GLubyte, byval x as GLfloat, byval y as GLfloat)
+	declare sub glColor4ubVertex2fvSUN(byval c as const GLubyte ptr, byval v as const GLfloat ptr)
+	declare sub glColor4ubVertex3fSUN(byval r as GLubyte, byval g as GLubyte, byval b as GLubyte, byval a as GLubyte, byval x as GLfloat, byval y as GLfloat, byval z as GLfloat)
+	declare sub glColor4ubVertex3fvSUN(byval c as const GLubyte ptr, byval v as const GLfloat ptr)
+	declare sub glColor3fVertex3fSUN(byval r as GLfloat, byval g as GLfloat, byval b as GLfloat, byval x as GLfloat, byval y as GLfloat, byval z as GLfloat)
+	declare sub glColor3fVertex3fvSUN(byval c as const GLfloat ptr, byval v as const GLfloat ptr)
+	declare sub glNormal3fVertex3fSUN(byval nx as GLfloat, byval ny as GLfloat, byval nz as GLfloat, byval x as GLfloat, byval y as GLfloat, byval z as GLfloat)
+	declare sub glNormal3fVertex3fvSUN(byval n as const GLfloat ptr, byval v as const GLfloat ptr)
+	declare sub glColor4fNormal3fVertex3fSUN(byval r as GLfloat, byval g as GLfloat, byval b as GLfloat, byval a as GLfloat, byval nx as GLfloat, byval ny as GLfloat, byval nz as GLfloat, byval x as GLfloat, byval y as GLfloat, byval z as GLfloat)
+	declare sub glColor4fNormal3fVertex3fvSUN(byval c as const GLfloat ptr, byval n as const GLfloat ptr, byval v as const GLfloat ptr)
+	declare sub glTexCoord2fVertex3fSUN(byval s as GLfloat, byval t as GLfloat, byval x as GLfloat, byval y as GLfloat, byval z as GLfloat)
+	declare sub glTexCoord2fVertex3fvSUN(byval tc as const GLfloat ptr, byval v as const GLfloat ptr)
+	declare sub glTexCoord4fVertex4fSUN(byval s as GLfloat, byval t as GLfloat, byval p as GLfloat, byval q as GLfloat, byval x as GLfloat, byval y as GLfloat, byval z as GLfloat, byval w as GLfloat)
+	declare sub glTexCoord4fVertex4fvSUN(byval tc as const GLfloat ptr, byval v as const GLfloat ptr)
+	declare sub glTexCoord2fColor4ubVertex3fSUN(byval s as GLfloat, byval t as GLfloat, byval r as GLubyte, byval g as GLubyte, byval b as GLubyte, byval a as GLubyte, byval x as GLfloat, byval y as GLfloat, byval z as GLfloat)
+	declare sub glTexCoord2fColor4ubVertex3fvSUN(byval tc as const GLfloat ptr, byval c as const GLubyte ptr, byval v as const GLfloat ptr)
+	declare sub glTexCoord2fColor3fVertex3fSUN(byval s as GLfloat, byval t as GLfloat, byval r as GLfloat, byval g as GLfloat, byval b as GLfloat, byval x as GLfloat, byval y as GLfloat, byval z as GLfloat)
+	declare sub glTexCoord2fColor3fVertex3fvSUN(byval tc as const GLfloat ptr, byval c as const GLfloat ptr, byval v as const GLfloat ptr)
+	declare sub glTexCoord2fNormal3fVertex3fSUN(byval s as GLfloat, byval t as GLfloat, byval nx as GLfloat, byval ny as GLfloat, byval nz as GLfloat, byval x as GLfloat, byval y as GLfloat, byval z as GLfloat)
+	declare sub glTexCoord2fNormal3fVertex3fvSUN(byval tc as const GLfloat ptr, byval n as const GLfloat ptr, byval v as const GLfloat ptr)
+	declare sub glTexCoord2fColor4fNormal3fVertex3fSUN(byval s as GLfloat, byval t as GLfloat, byval r as GLfloat, byval g as GLfloat, byval b as GLfloat, byval a as GLfloat, byval nx as GLfloat, byval ny as GLfloat, byval nz as GLfloat, byval x as GLfloat, byval y as GLfloat, byval z as GLfloat)
+	declare sub glTexCoord2fColor4fNormal3fVertex3fvSUN(byval tc as const GLfloat ptr, byval c as const GLfloat ptr, byval n as const GLfloat ptr, byval v as const GLfloat ptr)
+	declare sub glTexCoord4fColor4fNormal3fVertex4fSUN(byval s as GLfloat, byval t as GLfloat, byval p as GLfloat, byval q as GLfloat, byval r as GLfloat, byval g as GLfloat, byval b as GLfloat, byval a as GLfloat, byval nx as GLfloat, byval ny as GLfloat, byval nz as GLfloat, byval x as GLfloat, byval y as GLfloat, byval z as GLfloat, byval w as GLfloat)
+	declare sub glTexCoord4fColor4fNormal3fVertex4fvSUN(byval tc as const GLfloat ptr, byval c as const GLfloat ptr, byval n as const GLfloat ptr, byval v as const GLfloat ptr)
+	declare sub glReplacementCodeuiVertex3fSUN(byval rc as GLuint, byval x as GLfloat, byval y as GLfloat, byval z as GLfloat)
+	declare sub glReplacementCodeuiVertex3fvSUN(byval rc as const GLuint ptr, byval v as const GLfloat ptr)
+	declare sub glReplacementCodeuiColor4ubVertex3fSUN(byval rc as GLuint, byval r as GLubyte, byval g as GLubyte, byval b as GLubyte, byval a as GLubyte, byval x as GLfloat, byval y as GLfloat, byval z as GLfloat)
+	declare sub glReplacementCodeuiColor4ubVertex3fvSUN(byval rc as const GLuint ptr, byval c as const GLubyte ptr, byval v as const GLfloat ptr)
+	declare sub glReplacementCodeuiColor3fVertex3fSUN(byval rc as GLuint, byval r as GLfloat, byval g as GLfloat, byval b as GLfloat, byval x as GLfloat, byval y as GLfloat, byval z as GLfloat)
+	declare sub glReplacementCodeuiColor3fVertex3fvSUN(byval rc as const GLuint ptr, byval c as const GLfloat ptr, byval v as const GLfloat ptr)
+	declare sub glReplacementCodeuiNormal3fVertex3fSUN(byval rc as GLuint, byval nx as GLfloat, byval ny as GLfloat, byval nz as GLfloat, byval x as GLfloat, byval y as GLfloat, byval z as GLfloat)
+	declare sub glReplacementCodeuiNormal3fVertex3fvSUN(byval rc as const GLuint ptr, byval n as const GLfloat ptr, byval v as const GLfloat ptr)
+	declare sub glReplacementCodeuiColor4fNormal3fVertex3fSUN(byval rc as GLuint, byval r as GLfloat, byval g as GLfloat, byval b as GLfloat, byval a as GLfloat, byval nx as GLfloat, byval ny as GLfloat, byval nz as GLfloat, byval x as GLfloat, byval y as GLfloat, byval z as GLfloat)
+	declare sub glReplacementCodeuiColor4fNormal3fVertex3fvSUN(byval rc as const GLuint ptr, byval c as const GLfloat ptr, byval n as const GLfloat ptr, byval v as const GLfloat ptr)
+	declare sub glReplacementCodeuiTexCoord2fVertex3fSUN(byval rc as GLuint, byval s as GLfloat, byval t as GLfloat, byval x as GLfloat, byval y as GLfloat, byval z as GLfloat)
+	declare sub glReplacementCodeuiTexCoord2fVertex3fvSUN(byval rc as const GLuint ptr, byval tc as const GLfloat ptr, byval v as const GLfloat ptr)
+	declare sub glReplacementCodeuiTexCoord2fNormal3fVertex3fSUN(byval rc as GLuint, byval s as GLfloat, byval t as GLfloat, byval nx as GLfloat, byval ny as GLfloat, byval nz as GLfloat, byval x as GLfloat, byval y as GLfloat, byval z as GLfloat)
+	declare sub glReplacementCodeuiTexCoord2fNormal3fVertex3fvSUN(byval rc as const GLuint ptr, byval tc as const GLfloat ptr, byval n as const GLfloat ptr, byval v as const GLfloat ptr)
+	declare sub glReplacementCodeuiTexCoord2fColor4fNormal3fVertex3fSUN(byval rc as GLuint, byval s as GLfloat, byval t as GLfloat, byval r as GLfloat, byval g as GLfloat, byval b as GLfloat, byval a as GLfloat, byval nx as GLfloat, byval ny as GLfloat, byval nz as GLfloat, byval x as GLfloat, byval y as GLfloat, byval z as GLfloat)
+	declare sub glReplacementCodeuiTexCoord2fColor4fNormal3fVertex3fvSUN(byval rc as const GLuint ptr, byval tc as const GLfloat ptr, byval c as const GLfloat ptr, byval n as const GLfloat ptr, byval v as const GLfloat ptr)
+#endif
 
 const GL_WIN_phong_shading = 1
 const GL_PHONG_WIN = &h80EA

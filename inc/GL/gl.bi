@@ -1310,7 +1310,9 @@ type PFNGLMULTITEXCOORD4IVARBPROC as sub(byval target as GLenum, byval v as cons
 type PFNGLMULTITEXCOORD4SARBPROC as sub(byval target as GLenum, byval s as GLshort, byval t as GLshort, byval r as GLshort, byval q as GLshort)
 type PFNGLMULTITEXCOORD4SVARBPROC as sub(byval target as GLenum, byval v as const GLshort ptr)
 
-#include once "GL/glext.bi"
+#ifndef GL_GLEXT_LEGACY
+	#include once "GL/glext.bi"
+#endif
 
 const GL_MESA_packed_depth_stencil = 1
 const GL_DEPTH_STENCIL_MESA = &h8750
@@ -1324,6 +1326,12 @@ declare sub glBlendEquationSeparateATI(byval modeRGB as GLenum, byval modeA as G
 type PFNGLBLENDEQUATIONSEPARATEATIPROC as sub(byval modeRGB as GLenum, byval modeA as GLenum)
 type GLeglImageOES as any ptr
 const GL_OES_EGL_image = 1
+
+#ifdef GL_GLEXT_PROTOTYPES
+	declare sub glEGLImageTargetTexture2DOES(byval target as GLenum, byval image as GLeglImageOES)
+	declare sub glEGLImageTargetRenderbufferStorageOES(byval target as GLenum, byval image as GLeglImageOES)
+#endif
+
 type PFNGLEGLIMAGETARGETTEXTURE2DOESPROC as sub(byval target as GLenum, byval image as GLeglImageOES)
 type PFNGLEGLIMAGETARGETRENDERBUFFERSTORAGEOESPROC as sub(byval target as GLenum, byval image as GLeglImageOES)
 
