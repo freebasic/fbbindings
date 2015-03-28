@@ -347,28 +347,4 @@ declare sub glutForceJoystickFunc()
 declare function glutExtensionSupported(byval extension as const zstring ptr) as long
 declare sub glutReportErrors()
 
-#ifdef __FB_WIN32__
-	declare sub __glutInitWithExit(byval argcp as long ptr, byval argv as zstring ptr ptr, byval exitfunc as sub cdecl(byval as long))
-	declare function __glutCreateWindowWithExit(byval title as const zstring ptr, byval exitfunc as sub cdecl(byval as long)) as long
-	declare function __glutCreateMenuWithExit(byval func as sub cdecl(byval as long), byval exitfunc as sub cdecl(byval as long)) as long
-
-	private sub glutInit_ATEXIT_HACK(byval argcp as long ptr, byval argv as zstring ptr ptr)
-		__glutInitWithExit(argcp, argv, exit)
-	end sub
-
-	#define glutInit glutInit_ATEXIT_HACK
-
-	private function glutCreateWindow_ATEXIT_HACK(byval title as const zstring ptr) as long
-		return __glutCreateWindowWithExit(title, exit)
-	end function
-
-	#define glutCreateWindow glutCreateWindow_ATEXIT_HACK
-
-	private function glutCreateMenu_ATEXIT_HACK(byval func as sub cdecl(byval as long)) as long
-		return __glutCreateMenuWithExit(func, exit)
-	end function
-
-	#define glutCreateMenu glutCreateMenu_ATEXIT_HACK
-#endif
-
 end extern
