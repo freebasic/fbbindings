@@ -1,0 +1,14 @@
+-removedefine FREEGLUT_LIB_PRAGMAS
+-removedefine WIN32_LEAN_AND_MEAN
+-removedefine NOMINMAX
+-removedefine FGAPIENTRY
+-removedefine FGAPI
+
+-define FREEGLUT_LIB_PRAGMAS 1
+
+-ifdef __FB_WIN32__
+	-declarebool FREEGLUT_STATIC
+	-ifdef FREEGLUT_STATIC
+		-define FREEGLUT_STATIC 1
+	-endif
+-endif
