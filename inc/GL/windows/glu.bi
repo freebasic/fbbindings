@@ -7,7 +7,6 @@
 extern "Windows"
 
 #define __glu_h__
-#define __GLU_H__
 
 #ifdef UNICODE
 	#define gluErrorStringWIN(errCode) cast(LPCSTR, gluErrorUnicodeStringEXT(errCode))

@@ -5,7 +5,6 @@
 extern "Windows"
 
 #define __gl_h_
-#define __GL_H__
 type GLenum as ulong
 type GLboolean as ubyte
 type GLbitfield as ulong
