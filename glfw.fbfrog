@@ -1,0 +1,8 @@
+-removedefine APIENTRY
+-removedefine GL_APIENTRY_DEFINED
+-removedefine WINGDIAPI
+-removedefine GL_WINGDIAPI_DEFINED
+-removedefine CALLBACK
+-removedefine GLU_CALLBACK_DEFINED
+-removedefine GLFWAPIENTRY
+-removedefine GLFWAPI
