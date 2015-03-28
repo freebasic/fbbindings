@@ -1,5 +1,7 @@
 #pragma once
 
+#inclib "glu32"
+
 #include once "GL/gl.bi"
 
 #ifdef __FB_64BIT__

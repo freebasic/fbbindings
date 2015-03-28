@@ -1,5 +1,13 @@
 #pragma once
 
+#ifdef __FB_WIN32__
+	#inclib "glu32"
+#elseif defined(__FB_DOS__)
+	#inclib "glu"
+#else
+	#inclib "GLU"
+#endif
+
 #include once "GL/gl.bi"
 
 #ifdef __FB_WIN32__

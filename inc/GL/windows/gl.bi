@@ -1,5 +1,7 @@
 #pragma once
 
+#inclib "opengl32"
+
 #ifdef __FB_64BIT__
 	extern "C"
 #else

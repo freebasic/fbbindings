@@ -1,6 +1,14 @@
 #pragma once
 
 #ifdef __FB_WIN32__
+	#inclib "opengl32"
+#elseif defined(__FB_DOS__)
+	#inclib "gl"
+#else
+	#inclib "GL"
+#endif
+
+#ifdef __FB_WIN32__
 	extern "Windows"
 #else
 	extern "C"
