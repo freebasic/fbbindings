@@ -2,7 +2,7 @@ FBFROG := fbfrog
 
 ALL := allegro4 allegro5
 ALL += cgui clang cunit curl
-ALL += fastcgi ffi fontconfig
+ALL += fastcgi ffi fontconfig freeglut
 ALL += glut glfw
 ALL += iconv iup
 ALL += jit
@@ -233,6 +233,19 @@ fontconfig:
 		-include fcfreetype.h \
 		-emit '*/fontconfig.h' inc/fontconfig/fontconfig.bi \
 		-emit '*/fcfreetype.h' inc/fontconfig/fcfreetype.bi
+
+
+FREEGLUT_VERSION := 3.0.0
+FREEGLUT := freeglut-$(FREEGLUT_VERSION)
+freeglut:
+	./get.sh $(FREEGLUT) $(FREEGLUT).tar.gz http://sourceforge.net/projects/freeglut/files/freeglut/$(FREEGLUT_VERSION)/$(FREEGLUT).tar.gz/download
+	mkdir -p inc/GL
+	$(FBFROG) freeglut.fbfrog \
+		-incdir extracted/$(FREEGLUT)/include \
+		-include GL/freeglut.h \
+		-emit '*/GL/freeglut.h' inc/GL/freeglut.bi \
+		-emit '*/GL/freeglut_ext.h' inc/GL/freeglut_ext.bi \
+		-emit '*/GL/freeglut_std.h' inc/GL/freeglut_std.bi
 
 GLFW2_VERSION := 2.7.9
 GLFW3_VERSION := 3.1.1
