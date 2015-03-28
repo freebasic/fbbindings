@@ -23,6 +23,10 @@
 
 #define __glfw_h_
 
+#ifndef NULL
+const NULL = cptr(any ptr, 0)
+#endif
+
 #if defined(__FB_WIN32__) and defined(GLFW_DLL)
 	#define GLFWCALL stdcall
 #else
