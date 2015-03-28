@@ -237,6 +237,7 @@ const GLFW_DONT_CARE = -1
 
 type GLFWglproc as sub()
 type GLFWerrorfun as sub(byval as long, byval as const zstring ptr)
+type GLFWwindow as GLFWwindow_
 type GLFWwindowposfun as sub(byval as GLFWwindow ptr, byval as long, byval as long)
 type GLFWwindowsizefun as sub(byval as GLFWwindow ptr, byval as long, byval as long)
 type GLFWwindowclosefun as sub(byval as GLFWwindow ptr)
@@ -252,6 +253,7 @@ type GLFWkeyfun as sub(byval as GLFWwindow ptr, byval as long, byval as long, by
 type GLFWcharfun as sub(byval as GLFWwindow ptr, byval as ulong)
 type GLFWcharmodsfun as sub(byval as GLFWwindow ptr, byval as ulong, byval as long)
 type GLFWdropfun as sub(byval as GLFWwindow ptr, byval as long, byval as const zstring ptr ptr)
+type GLFWmonitor as GLFWmonitor_
 type GLFWmonitorfun as sub(byval as GLFWmonitor ptr, byval as long)
 
 type GLFWvidmode
@@ -329,6 +331,7 @@ declare function glfwGetKey(byval window as GLFWwindow ptr, byval key as long) a
 declare function glfwGetMouseButton(byval window as GLFWwindow ptr, byval button as long) as long
 declare sub glfwGetCursorPos(byval window as GLFWwindow ptr, byval xpos as double ptr, byval ypos as double ptr)
 declare sub glfwSetCursorPos(byval window as GLFWwindow ptr, byval xpos as double, byval ypos as double)
+type GLFWcursor as GLFWcursor_
 declare function glfwCreateCursor(byval image as const GLFWimage ptr, byval xhot as long, byval yhot as long) as GLFWcursor ptr
 declare function glfwCreateStandardCursor(byval shape as long) as GLFWcursor ptr
 declare sub glfwDestroyCursor(byval cursor as GLFWcursor ptr)
