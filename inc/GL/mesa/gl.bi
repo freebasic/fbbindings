@@ -1,13 +1,5 @@
 #pragma once
 
-#ifdef __FB_WIN32__
-	#inclib "opengl32"
-#elseif defined(__FB_LINUX__)
-	#inclib "GL"
-#else
-	#inclib "gl"
-#endif
-
 #include once "GL/glext.bi"
 
 #ifdef __FB_WIN32__

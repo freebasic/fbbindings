@@ -8,7 +8,7 @@ ALL += iconv iup
 ALL += jit
 ALL += llvm lua
 ALL += ncurses
-ALL += opengl
+ALL += opengl-mesa opengl-winapi
 ALL += pdcurses png png12 png14 png15 png16
 ALL += sdl sdl1 sdl2
 ALL += tre
@@ -471,35 +471,63 @@ ncurses:
 	mkdir -p inc/curses
 	$(FBFROG) ncurses.fbfrog -o inc/curses/ncurses.bi  extracted/$(NCURSES_TITLE)/include/curses.h
 
+#
+# OpenGL headers
+#
+# There are multiple possible C headers to choose from:
+#    Mesa-3D (mostly used on GNU/Linux and probably others)
+#    MinGW.org (probably Windows only)
+#    MinGW-w64 (probably Windows only)
+#    ... and probably others.
+#
+# Since we often use MinGW-w64 instead of MinGW.org for FB nowadays, the
+# MinGW.org headers can probably be ruled out (although I think fbc's old OpenGL
+# headers were based on the MinGW.org ones).
+#
+# It's not quite clear whether to choose Mesa or MinGW-w64 though. They have
+# mostly the exact same declarations, but they're also slightly different. The
+# main specialty of the Windows-specific headers is that the main GL/gl.h is
+# limited to OpenGL 1.1, and anything more recent is treated as extension in
+# GL/glext.h. With Mesa that's not the case though.
+#
+# But using fbfrog to merge the Mesa/MinGW-w64 bindings produces an ugly result,
+# because they have declarations ordered differently, so that's not a nice
+# solution.
+#
+# Solution for now:
+# Provide two OpenGL bindings, one for Mesa and one for MinGW-w64.
+#
+opengl: opengl-mesa opengl-winapi
+
 MESA_VERSION := 10.5.1
 MESA := mesa-$(MESA_VERSION)
 GLU := glu-9.0.0
-opengl:
+opengl-mesa:
 	./get.sh $(MESA) $(MESA).tar.xz ftp://ftp.freedesktop.org/pub/mesa/$(MESA_VERSION)/$(MESA).tar.xz
 	./get.sh $(GLU)  $(GLU).tar.bz2 ftp://ftp.freedesktop.org/pub/mesa/glu/$(GLU).tar.bz2
 
-	mkdir -p inc/GL
-	$(FBFROG) mesa.fbfrog \
+	mkdir -p inc/GL/mesa
+	$(FBFROG) opengl.fbfrog \
 		-incdir extracted/$(MESA)/include \
 		-incdir extracted/$(GLU)/include \
 		-include GL/gl.h \
 		-include GL/glext.h \
 		-include GL/glu.h \
-		-emit '*/GL/gl.h'    inc/GL/gl.bi \
-		-emit '*/GL/glext.h' inc/GL/glext.bi \
-		-emit '*/GL/glu.h'   inc/GL/glu.bi \
-		\
-		-select \
-		-case __FB_WIN32__ \
-			-inclib opengl32 inc/GL/gl.bi \
-			-inclib glu32    inc/GL/glu.bi \
-		-case __FB_DOS__ \
-			-inclib gl  inc/GL/gl.bi \
-			-inclib glu inc/GL/glu.bi \
-		-caseelse \
-			-inclib GL  inc/GL/gl.bi \
-			-inclib GLU inc/GL/glu.bi \
-		-endselect
+		-emit '*/GL/gl.h'    inc/GL/mesa/gl.bi \
+		-emit '*/GL/glext.h' inc/GL/mesa/glext.bi \
+		-emit '*/GL/glu.h'   inc/GL/mesa/glu.bi
+
+opengl-winapi: winapi-extract
+	mkdir -p inc/GL/windows
+	$(FBFROG) winapi.fbfrog opengl.fbfrog \
+		-incdir extracted/$(MINGWW64_TITLE)/mingw-w64-headers/crt \
+		-incdir extracted/$(MINGWW64_TITLE)/mingw-w64-headers/include \
+		-include GL/gl.h \
+		-include GL/glext.h \
+		-include GL/glu.h \
+		-emit '*/GL/gl.h'    inc/GL/windows/gl.bi \
+		-emit '*/GL/glext.h' inc/GL/windows/glext.bi \
+		-emit '*/GL/glu.h'   inc/GL/windows/glu.bi
 
 pdcurses:
 	./get.sh PDCurses-3.4 PDCurses-3.4.tar.gz "http://sourceforge.net/projects/pdcurses/files/pdcurses/3.4/PDCurses-3.4.tar.gz/download"
