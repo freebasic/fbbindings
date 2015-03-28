@@ -3,6 +3,7 @@ FBFROG := fbfrog
 ALL := allegro4 allegro5
 ALL += cgui clang cunit curl
 ALL += fastcgi ffi fontconfig
+ALL += glut
 ALL += iconv iup
 ALL += jit
 ALL += llvm lua
@@ -233,6 +234,22 @@ fontconfig:
 		-emit '*/fontconfig.h' inc/fontconfig/fontconfig.bi \
 		-emit '*/fcfreetype.h' inc/fontconfig/fcfreetype.bi
 
+GLUT := glut-3.7
+glut:
+	./get.sh $(GLUT) $(GLUT).tar.gz https://www.opengl.org/resources/libraries/glut/$(GLUT).tar.gz
+	mkdir -p inc/GL
+	$(FBFROG) glut.fbfrog \
+		extracted/$(GLUT)/include/GL/glut.h -o inc/GL/glut.bi \
+		-select \
+		-case __FB_WIN32__ \
+			-inclib glut32 \
+		-case __FB_DOS__ \
+			-inclib GLUT \
+			-inclib alleg \
+		-caseelse \
+			-inclib glut \
+		-endselect
+
 # GNU libiconv, not glibc's iconv
 ICONV := libiconv-1.14
 ICONV_SED_COMMON  := -e 's/@EILSEQ@//g'
@@ -434,22 +451,6 @@ opengl:
 		-caseelse \
 			-inclib GL  inc/GL/gl.bi \
 			-inclib GLU inc/GL/glu.bi \
-		-endselect
-
-GLUT := glut-3.7
-glut:
-	./get.sh $(GLUT) $(GLUT).tar.gz https://www.opengl.org/resources/libraries/glut/$(GLUT).tar.gz
-	mkdir -p inc/GL
-	$(FBFROG) glut.fbfrog \
-		extracted/$(GLUT)/include/GL/glut.h -o inc/GL/glut.bi \
-		-select \
-		-case __FB_WIN32__ \
-			-inclib glut32 \
-		-case __FB_DOS__ \
-			-inclib GLUT \
-			-inclib alleg \
-		-caseelse \
-			-inclib glut \
 		-endselect
 
 pdcurses:
