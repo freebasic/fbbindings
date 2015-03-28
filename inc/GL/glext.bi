@@ -152,8 +152,6 @@ type PFNGLBLENDEQUATIONPROC as sub(byval mode as GLenum)
 	declare sub glWindowPos3iv(byval v as const GLint ptr)
 	declare sub glWindowPos3s(byval x as GLshort, byval y as GLshort, byval z as GLshort)
 	declare sub glWindowPos3sv(byval v as const GLshort ptr)
-	declare sub glBlendColor(byval red as GLfloat, byval green as GLfloat, byval blue as GLfloat, byval alpha as GLfloat)
-	declare sub glBlendEquation(byval mode as GLenum)
 #endif
 
 const GL_VERSION_1_5 = 1
