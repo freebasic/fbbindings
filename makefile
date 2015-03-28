@@ -428,8 +428,19 @@ opengl:
 		-include GL/glu.h \
 		-emit '*/GL/gl.h'    inc/GL/gl.bi \
 		-emit '*/GL/glext.h' inc/GL/glext.bi \
-		-emit '*/GL/glu.h'   inc/GL/glu.bi
-
+		-emit '*/GL/glu.h'   inc/GL/glu.bi \
+		\
+		-select \
+		-case __FB_WIN32__ \
+			-inclib opengl32 inc/GL/gl.bi \
+			-inclib glu32    inc/GL/glu.bi \
+		-case __FB_DOS__ \
+			-inclib gl  inc/GL/gl.bi \
+			-inclib glu inc/GL/glu.bi \
+		-caseelse \
+			-inclib GL  inc/GL/gl.bi \
+			-inclib GLU inc/GL/glu.bi \
+		-endselect
 pdcurses:
 	./get.sh PDCurses-3.4 PDCurses-3.4.tar.gz "http://sourceforge.net/projects/pdcurses/files/pdcurses/3.4/PDCurses-3.4.tar.gz/download"
 	mkdir -p inc/curses
