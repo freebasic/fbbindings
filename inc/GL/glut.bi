@@ -17,8 +17,6 @@ extern "C"
 #define __glut_h__
 
 #ifdef __FB_WIN32__
-	type wchar_t as ushort
-
 	#inclib "winmm"
 	#inclib "opengl32"
 	#inclib "glu32"
