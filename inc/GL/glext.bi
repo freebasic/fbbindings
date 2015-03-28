@@ -1839,7 +1839,11 @@ const GL_ARB_buffer_storage = 1
 const GL_ARB_cl_event = 1
 const GL_SYNC_CL_EVENT_ARB = &h8240
 const GL_SYNC_CL_EVENT_COMPLETE_ARB = &h8241
+
+type _cl_context as _cl_context_
+type _cl_event as _cl_event_
 type PFNGLCREATESYNCFROMCLEVENTARBPROC as function(byval context as _cl_context ptr, byval event as _cl_event ptr, byval flags as GLbitfield) as GLsync
+
 const GL_ARB_clear_buffer_object = 1
 const GL_ARB_clear_texture = 1
 const GL_ARB_clip_control = 1

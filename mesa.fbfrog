@@ -8,3 +8,9 @@
 -removeinclude windows.h
 -removeinclude inttypes.h
 -removeinclude stddef.h
+
+-addforwarddecl _cl_context
+-addforwarddecl _cl_event
+-addforwarddecl GLUnurbs
+-addforwarddecl GLUquadric
+-addforwarddecl GLUtesselator

@@ -164,8 +164,11 @@ const GLU_TESS_WINDING_POSITIVE = 100132
 const GLU_TESS_WINDING_NEGATIVE = 100133
 const GLU_TESS_WINDING_ABS_GEQ_TWO = 100134
 
+type GLUnurbs as GLUnurbs_
 type GLUnurbsObj as GLUnurbs
+type GLUquadric as GLUquadric_
 type GLUquadricObj as GLUquadric
+type GLUtesselator as GLUtesselator_
 type GLUtesselatorObj as GLUtesselator
 type GLUtriangulatorObj as GLUtesselator
 const GLU_TESS_MAX_COORD = 1.0e150
