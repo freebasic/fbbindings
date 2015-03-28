@@ -1,2 +1,12 @@
 -removedefine CALLBACK
 -removedefine _WCHAR_T_DEFINED
+
+# MSVC pre-#define which GLUT checks for (not defined by fbfrog)
+-define _STDCALL_SUPPORTED 1
+-define _MSC_VER 9999999
+-ifdef __FB_64BIT__
+	-define _M_AMD64 1
+	-define _M_X64 1
+-else
+	-define _M_IX86 1
+-endif
