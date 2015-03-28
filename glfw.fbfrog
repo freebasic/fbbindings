@@ -15,3 +15,5 @@
 -ifdef GLFW_DLL
 	-define GLFW_DLL 1
 -endif
+
+-removeinclude stddef.h
