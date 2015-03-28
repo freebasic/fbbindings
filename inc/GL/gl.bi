@@ -1,7 +1,5 @@
 #pragma once
 
-#include once "GL/glext.bi"
-
 #ifdef __FB_WIN32__
 	extern "Windows"
 #else
@@ -1311,6 +1309,8 @@ type PFNGLMULTITEXCOORD4IARBPROC as sub(byval target as GLenum, byval s as GLint
 type PFNGLMULTITEXCOORD4IVARBPROC as sub(byval target as GLenum, byval v as const GLint ptr)
 type PFNGLMULTITEXCOORD4SARBPROC as sub(byval target as GLenum, byval s as GLshort, byval t as GLshort, byval r as GLshort, byval q as GLshort)
 type PFNGLMULTITEXCOORD4SVARBPROC as sub(byval target as GLenum, byval v as const GLshort ptr)
+
+#include once "GL/glext.bi"
 
 const GL_MESA_packed_depth_stencil = 1
 const GL_DEPTH_STENCIL_MESA = &h8750
