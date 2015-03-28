@@ -1319,7 +1319,7 @@ type PFNGLMULTITEXCOORD4SARBPROC as sub(byval target as GLenum, byval s as GLsho
 type PFNGLMULTITEXCOORD4SVARBPROC as sub(byval target as GLenum, byval v as const GLshort ptr)
 
 #ifndef GL_GLEXT_LEGACY
-	#include once "GL/glext.bi"
+	#include once "GL/mesa/glext.bi"
 #endif
 
 const GL_MESA_packed_depth_stencil = 1

@@ -2,7 +2,7 @@
 
 #inclib "glu32"
 
-#include once "GL/gl.bi"
+#include once "GL/windows/gl.bi"
 
 extern "Windows"
 

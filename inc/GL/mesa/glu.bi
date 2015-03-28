@@ -8,7 +8,7 @@
 	#inclib "GLU"
 #endif
 
-#include once "GL/gl.bi"
+#include once "GL/mesa/gl.bi"
 
 #ifdef __FB_WIN32__
 	extern "Windows"
