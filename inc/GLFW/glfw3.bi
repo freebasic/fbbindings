@@ -10,7 +10,6 @@
 	#inclib "glfw"
 #endif
 
-#include once "crt/stddef.bi"
 #include once "GL/gl.bi"
 
 extern "C"
