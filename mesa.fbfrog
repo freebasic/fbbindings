@@ -1,0 +1,6 @@
+-removedefine APIENTRY
+-removedefine APIENTRYP
+-removedefine GLAPI
+-removedefine GLAPIENTRY
+-removedefine GLAPIENTRYP
+-removedefine WIN32_LEAN_AND_MEAN

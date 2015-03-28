@@ -7,6 +7,7 @@ ALL += iconv iup
 ALL += jit
 ALL += llvm lua
 ALL += ncurses
+ALL += opengl
 ALL += pdcurses png png12 png14 png15 png16
 ALL += sdl sdl1 sdl2
 ALL += tre
@@ -404,6 +405,24 @@ ncurses:
 		if [ ! -f include/curses.h ]; then ./configure && cd include && make; fi
 	mkdir -p inc/curses
 	$(FBFROG) ncurses.fbfrog -o inc/curses/ncurses.bi  extracted/$(NCURSES_TITLE)/include/curses.h
+
+MESA_VERSION := 10.5.1
+MESA := mesa-$(MESA_VERSION)
+GLU := glu-9.0.0
+opengl:
+	./get.sh $(MESA) $(MESA).tar.xz ftp://ftp.freedesktop.org/pub/mesa/$(MESA_VERSION)/$(MESA).tar.xz
+	./get.sh $(GLU)  $(GLU).tar.bz2 ftp://ftp.freedesktop.org/pub/mesa/glu/$(GLU).tar.bz2
+
+	mkdir -p inc/GL
+	$(FBFROG) mesa.fbfrog \
+		-incdir extracted/$(MESA)/include \
+		-incdir extracted/$(GLU)/include \
+		-include GL/gl.h \
+		-include GL/glext.h \
+		-include GL/glu.h \
+		-emit '*/GL/gl.h'    inc/GL/gl.bi \
+		-emit '*/GL/glext.h' inc/GL/glext.bi \
+		-emit '*/GL/glu.h'   inc/GL/glu.bi
 
 pdcurses:
 	./get.sh PDCurses-3.4 PDCurses-3.4.tar.gz "http://sourceforge.net/projects/pdcurses/files/pdcurses/3.4/PDCurses-3.4.tar.gz/download"
