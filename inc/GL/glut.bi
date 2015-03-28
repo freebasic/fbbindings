@@ -2,11 +2,11 @@
 
 #ifdef __FB_WIN32__
 	#inclib "glut32"
-#elseif defined(__FB_LINUX__)
-	#inclib "glut"
-#else
+#elseif defined(__FB_DOS__)
 	#inclib "GLUT"
 	#inclib "alleg"
+#else
+	#inclib "glut"
 #endif
 
 #include once "GL/gl.bi"
