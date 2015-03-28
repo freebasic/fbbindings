@@ -140,9 +140,42 @@ allegro5:
 atk:
 	http://ftp.gnome.org/pub/gnome/sources/atk/2.14/atk-2.14.0.tar.xz
 
+# TODO:
+# cairo-deprecated.h
+# cairo-ps.h
+# cairo-pdf.h
+# cairo-svg.h
+# cairo-ft.h
+# cairo-xlib.h
+# cairo-xlib-xrender.h
+# cairo-xcb.h
+# cairo-qt.h
+# cairo-quartz.h
+# cairo-quartz-image.h
+# cairo-win32.h
+# cairo-skia.h
+# cairo-os2.h
+# cairo-beos.h
+# cairo-gl.h
+# cairo-directfb.h
+# cairo-drm.h
+# cairo-script.h
+# cairo-tee.h
+# cairo-xml.h
+# cairo-vg.h
+# cairo-cogl.h
 CAIRO := cairo-1.14.2
 cairo:
 	./get.sh $(CAIRO) $(CAIRO).tar.xz http://cairographics.org/releases/$(CAIRO).tar.xz
+
+	# Overwrite src/cairo-version.h (a place holder) with the one from toplevel (the real thing)
+	cp extracted/$(CAIRO)/cairo-version.h extracted/$(CAIRO)/src
+
+	mkdir -p inc/cairo
+	$(FBFROG) \
+		-incdir extracted/$(CAIRO)/src \
+		-include cairo.h \
+		-emit '*/cairo.h' inc/cairo/cairo.bi
 
 cgui:
 	./get.sh cgui cgui-2.0.3.tar.gz "http://sourceforge.net/projects/cgui/files/2.0.3/cgui-2.0.3.tar.gz/download"
