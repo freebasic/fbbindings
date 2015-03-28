@@ -1,5 +1,16 @@
 #pragma once
 
+#if defined(__FB_WIN32__) and defined(GLFW_DLL)
+	#inclib "glfwdll"
+#else
+	#inclib "glfw"
+#endif
+
+#if defined(__FB_WIN32__) and (not defined(GLFW_DLL))
+	#inclib "user32"
+	#inclib "gdi32"
+#endif
+
 #include once "crt/long.bi"
 #include once "GL/gl.bi"
 #include once "GL/glu.bi"
