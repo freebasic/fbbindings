@@ -5,6 +5,7 @@
 -removedefine FGAPI
 
 -define FREEGLUT_LIB_PRAGMAS 1
+-define GLUT_DISABLE_ATEXIT_HACK 1
 
 -ifdef __FB_WIN32__
 	-declarebool FREEGLUT_STATIC
