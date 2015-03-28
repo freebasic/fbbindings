@@ -6,6 +6,7 @@
 -removedefine GLU_CALLBACK_DEFINED
 -removedefine GLFWAPIENTRY
 -removedefine GLFWAPI
+-removedefine NULL
 
 -addforwarddecl GLFWwindow
 -addforwarddecl GLFWmonitor
