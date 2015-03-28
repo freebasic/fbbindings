@@ -1,10 +1,6 @@
 #pragma once
 
-#ifdef __FB_64BIT__
-	extern "C"
-#else
-	extern "Windows"
-#endif
+extern "Windows"
 
 const __glext_h_ = 1
 const GL_GLEXT_VERSION = 20130721

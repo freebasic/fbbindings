@@ -2,11 +2,7 @@
 
 #inclib "opengl32"
 
-#ifdef __FB_64BIT__
-	extern "C"
-#else
-	extern "Windows"
-#endif
+extern "Windows"
 
 #define __gl_h_
 #define __GL_H__

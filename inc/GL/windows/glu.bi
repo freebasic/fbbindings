@@ -4,11 +4,7 @@
 
 #include once "GL/gl.bi"
 
-#ifdef __FB_64BIT__
-	extern "C"
-#else
-	extern "Windows"
-#endif
+extern "Windows"
 
 #define __glu_h__
 #define __GLU_H__
