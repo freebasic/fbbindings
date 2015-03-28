@@ -1,5 +1,7 @@
 #pragma once
 
+#include once "GL/gl.bi"
+
 #ifdef __FB_WIN32__
 	extern "Windows"
 #else
