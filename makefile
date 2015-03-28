@@ -248,8 +248,32 @@ glfw:
 	./get.sh $(GLFW2) $(GLFW2).tar.bz2 http://sourceforge.net/projects/glfw/files/glfw/$(GLFW2_VERSION)/$(GLFW2).tar.bz2/download
 	./get.sh $(GLFW3) $(GLFW3).tar.bz2 http://sourceforge.net/projects/glfw/files/glfw/$(GLFW3_VERSION)/$(GLFW3).tar.bz2/download
 	mkdir -p inc/GL inc/GLFW
-	$(FBFROG) glfw.fbfrog extracted/$(GLFW2)/include/GL/glfw.h -o inc/GL/glfw.bi
-	$(FBFROG) glfw.fbfrog extracted/$(GLFW3)/include/GLFW/glfw3.h -o inc/GLFW/glfw3.bi
+
+	$(FBFROG) glfw.fbfrog extracted/$(GLFW2)/include/GL/glfw.h -o inc/GL/glfw.bi \
+		-ifdef __FB_WIN32__ \
+			-ifdef GLFW_DLL \
+				-inclib glfwdll \
+			-else \
+				-inclib glfw \
+				-inclib user32 \
+				-inclib gdi32 \
+			-endif \
+		-else \
+			-inclib glfw \
+		-endif
+
+	$(FBFROG) glfw.fbfrog extracted/$(GLFW3)/include/GLFW/glfw3.h -o inc/GLFW/glfw3.bi \
+		-ifdef __FB_WIN32__ \
+			-ifdef GLFW_DLL \
+				-inclib glfw3dll \
+			-else \
+				-inclib glfw3 \
+				-inclib user32 \
+				-inclib gdi32 \
+			-endif \
+		-else \
+			-inclib glfw \
+		-endif
 
 GLUT := glut-3.7
 glut:

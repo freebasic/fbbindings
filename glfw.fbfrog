@@ -6,3 +6,12 @@
 -removedefine GLU_CALLBACK_DEFINED
 -removedefine GLFWAPIENTRY
 -removedefine GLFWAPI
+
+-addforwarddecl GLFWwindow
+-addforwarddecl GLFWmonitor
+-addforwarddecl GLFWcursor
+
+-declarebool GLFW_DLL
+-ifdef GLFW_DLL
+	-define GLFW_DLL 1
+-endif

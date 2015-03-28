@@ -1,14 +1,35 @@
 #pragma once
 
+#if defined(__FB_WIN32__) and defined(GLFW_DLL)
+	#inclib "glfwdll"
+#else
+	#inclib "glfw"
+#endif
+
+#if defined(__FB_WIN32__) and (not defined(GLFW_DLL))
+	#inclib "user32"
+	#inclib "gdi32"
+#endif
+
 #include once "crt/long.bi"
 #include once "GL/gl.bi"
 #include once "GL/glu.bi"
 
-extern "C"
+#if defined(__FB_WIN32__) and defined(GLFW_DLL)
+	extern "Windows"
+#else
+	extern "C"
+#endif
 
 #define __glfw_h_
 const NULL = cptr(any ptr, 0)
-#define GLFWCALL cdecl
+
+#if defined(__FB_WIN32__) and defined(GLFW_DLL)
+	#define GLFWCALL stdcall
+#else
+	#define GLFWCALL cdecl
+#endif
+
 const GLFW_VERSION_MAJOR = 2
 const GLFW_VERSION_MINOR = 7
 const GLFW_VERSION_REVISION = 9
