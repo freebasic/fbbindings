@@ -1,26 +1,15 @@
 #pragma once
 
-#ifdef __FB_WIN32__
-	#include once "windows.bi"
-#endif
-
 #include once "GL/gl.bi"
 #include once "GL/glu.bi"
-#include once "crt/stdlib.bi"
 
-#if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(FREEGLUT_STATIC)) or defined(__FB_LINUX__)
-	extern "C"
-#else
+#if defined(__FB_WIN32__) and (not defined(FREEGLUT_STATIC))
 	extern "Windows"
+#else
+	extern "C"
 #endif
 
 #define __FREEGLUT_STD_H__
-
-#if defined(__FB_WIN32__) and defined(FREEGLUT_STATIC)
-	#inclib "freeglut_staticd"
-#elseif defined(__FB_WIN32__) and (not defined(FREEGLUT_STATIC))
-	#inclib "freeglutd"
-#endif
 
 #ifdef __FB_WIN32__
 	#inclib "glu32"
@@ -28,6 +17,16 @@
 	#inclib "gdi32"
 	#inclib "winmm"
 	#inclib "user32"
+	#ifdef FREEGLUT_STATIC
+		#inclib "freeglut_static"
+		#inclib "advapi32"
+	#else
+		#inclib "freeglut"
+	#endif
+#elseif defined(__FB_UNIX__)
+	#inclib "glut"
+#else
+	#inclib "freeglut"
 #endif
 
 const FREEGLUT = 1
