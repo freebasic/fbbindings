@@ -1,1 +1,4 @@
 -fbfroginclude limits.h
+
+-removedefine FT_ENC_TAG
+-removedefine FT_IMAGE_TAG

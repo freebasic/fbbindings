@@ -40,7 +40,6 @@ type FT_Face as FT_FaceRec_ ptr
 type FT_Size as FT_SizeRec_ ptr
 type FT_GlyphSlot as FT_GlyphSlotRec_ ptr
 type FT_CharMap as FT_CharMapRec_ ptr
-#define FT_ENC_TAG(value, a, b, c, d) '' TODO: value = ( ( (FT_UInt32)(a) << 24 ) | ( (FT_UInt32)(b) << 16 ) | ( (FT_UInt32)(c) << 8 ) | (FT_UInt32)(d) )
 
 type FT_Encoding_ as long
 enum

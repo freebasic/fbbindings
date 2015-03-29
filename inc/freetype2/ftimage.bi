@@ -117,7 +117,6 @@ type FT_Outline_Funcs_
 end type
 
 type FT_Outline_Funcs as FT_Outline_Funcs_
-#define FT_IMAGE_TAG(value, _x1, _x2, _x3, _x4) '' TODO: value = ( ( (unsigned long)_x1 << 24 ) | ( (unsigned long)_x2 << 16 ) | ( (unsigned long)_x3 << 8 ) | (unsigned long)_x4 )
 
 type FT_Glyph_Format_ as long
 enum
