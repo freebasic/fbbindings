@@ -2,6 +2,10 @@
 
 #include once "crt/long.bi"
 
+'' The following symbols have been renamed:
+''     #define CAIRO_VERSION => CAIRO_VERSION_
+''     #define CAIRO_VERSION_STRING => CAIRO_VERSION_STRING_
+
 extern "C"
 
 #define CAIRO_H
@@ -79,10 +83,10 @@ const CAIRO_VERSION_MICRO = 2
 #define CAIRO_END_DECLS
 #define cairo_public
 #define CAIRO_VERSION_ENCODE(major, minor, micro) ((((major) * 10000) + ((minor) * 100)) + ((micro) * 1))
-#define CAIRO_VERSION CAIRO_VERSION_ENCODE(CAIRO_VERSION_MAJOR, CAIRO_VERSION_MINOR, CAIRO_VERSION_MICRO)
+#define CAIRO_VERSION_ CAIRO_VERSION_ENCODE(CAIRO_VERSION_MAJOR, CAIRO_VERSION_MINOR, CAIRO_VERSION_MICRO)
 #define CAIRO_VERSION_STRINGIZE_(major, minor, micro) #major "." #minor "." #micro
 #define CAIRO_VERSION_STRINGIZE(major, minor, micro) CAIRO_VERSION_STRINGIZE_(major, minor, micro)
-#define CAIRO_VERSION_STRING CAIRO_VERSION_STRINGIZE(CAIRO_VERSION_MAJOR, CAIRO_VERSION_MINOR, CAIRO_VERSION_MICRO)
+#define CAIRO_VERSION_STRING_ CAIRO_VERSION_STRINGIZE(CAIRO_VERSION_MAJOR, CAIRO_VERSION_MINOR, CAIRO_VERSION_MICRO)
 declare function cairo_version() as long
 declare function cairo_version_string() as const zstring ptr
 

@@ -1,3 +1,6 @@
+-renamedefine CAIRO_VERSION CAIRO_VERSION_
+-renamedefine CAIRO_VERSION_STRING CAIRO_VERSION_STRING_
+
 # Doing cairo-features.h manually here
 -removeinclude cairo-features.h
 
