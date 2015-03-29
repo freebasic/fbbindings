@@ -1,7 +1,6 @@
 #pragma once
 
 #include once "crt/long.bi"
-#include once "cairo-features.bi"
 
 extern "C"
 
