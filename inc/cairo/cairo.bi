@@ -1,5 +1,7 @@
 #pragma once
 
+#inclib "cairo"
+
 #include once "crt/long.bi"
 
 '' The following symbols have been renamed:
