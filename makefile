@@ -624,8 +624,39 @@ opengl-winapi: winapi-extract
 		-emit '*/GL/glext.h' inc/GL/windows/glext.bi \
 		-emit '*/GL/glu.h'   inc/GL/windows/glu.bi
 
+PANGO_SERIES := 1.36
+PANGO := pango-$(PANGO_SERIES).8
 pango:
-	http://ftp.gnome.org/pub/gnome/sources/pango/1.36/pango-1.36.8.tar.xz
+	./get.sh $(PANGO) $(PANGO).tar.xz http://ftp.gnome.org/pub/gnome/sources/pango/$(PANGO_SERIES)/$(PANGO).tar.xz
+
+	mkdir -p inc/pango
+	$(FBFROG) -incdir extracted/$(PANGO) \
+		-include pango/pango.h \
+		-include pango/pangocairo.h \
+		-emit '*/pango/pango.h'            inc/pango/pango.bi \
+		-emit '*/pango/pangocairo.h'       inc/pango/pangocairo.bi \
+		-emit '*/pango/pango-attributes.h' inc/pango/pango.bi \
+		-emit '*/pango/pango-bidi-type.h'  inc/pango/pango.bi \
+		-emit '*/pango/pango-break.h'      inc/pango/pango.bi \
+		-emit '*/pango/pango-context.h'    inc/pango/pango.bi \
+		-emit '*/pango/pango-coverage.h'   inc/pango/pango.bi \
+		-emit '*/pango/pango-engine.h'     inc/pango/pango.bi \
+		-emit '*/pango/pango-enum-types.h' inc/pango/pango.bi \
+		-emit '*/pango/pango-features.h'   inc/pango/pango.bi \
+		-emit '*/pango/pango-font.h'       inc/pango/pango.bi \
+		-emit '*/pango/pango-fontmap.h'    inc/pango/pango.bi \
+		-emit '*/pango/pango-fontset.h'    inc/pango/pango.bi \
+		-emit '*/pango/pango-glyph.h'      inc/pango/pango.bi \
+		-emit '*/pango/pango-glyph-item.h' inc/pango/pango.bi \
+		-emit '*/pango/pango-gravity.h'    inc/pango/pango.bi \
+		-emit '*/pango/pango-item.h'       inc/pango/pango.bi \
+		-emit '*/pango/pango-layout.h'     inc/pango/pango.bi \
+		-emit '*/pango/pango-matrix.h'     inc/pango/pango.bi \
+		-emit '*/pango/pango-renderer.h'   inc/pango/pango.bi \
+		-emit '*/pango/pango-script.h'     inc/pango/pango.bi \
+		-emit '*/pango/pango-tabs.h'       inc/pango/pango.bi \
+		-emit '*/pango/pango-types.h'      inc/pango/pango.bi \
+		-emit '*/pango/pango-utils.h'      inc/pango/pango.bi
 
 pdcurses:
 	./get.sh PDCurses-3.4 PDCurses-3.4.tar.gz "http://sourceforge.net/projects/pdcurses/files/pdcurses/3.4/PDCurses-3.4.tar.gz/download"
