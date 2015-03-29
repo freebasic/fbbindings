@@ -3,8 +3,6 @@
 #inclib "freetype"
 
 #include once "crt/long.bi"
-#include once "ft2build.bi"
-#include once "config/ftconfig.bi"
 #include once "fttypes.bi"
 #include once "fterrors.bi"
 

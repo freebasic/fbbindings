@@ -1,8 +1,6 @@
 #pragma once
 
 #include once "crt/long.bi"
-#include once "ft2build.bi"
-#include once "config/ftconfig.bi"
 #include once "ftsystem.bi"
 #include once "ftimage.bi"
 #include once "crt/stddef.bi"

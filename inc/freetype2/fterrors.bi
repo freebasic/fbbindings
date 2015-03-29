@@ -1,7 +1,6 @@
 #pragma once
 
 #include once "ftmoderr.bi"
-#include once "fterrdef.bi"
 
 #define __FTERRORS_H__
 
