@@ -53,3 +53,9 @@
 -removedefine ft_raster_flag_aa
 -removedefine ft_raster_flag_direct
 -removedefine ft_raster_flag_clip
+
+-renamedefine FT_BOOL FT_BOOL_
+
+-removeinclude ft2build.h
+-removeinclude config/ftconfig.h
+-removeinclude fterrdef.h

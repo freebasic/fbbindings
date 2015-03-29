@@ -1,11 +1,12 @@
 #pragma once
 
 #include once "crt/long.bi"
-#include once "ft2build.bi"
-#include once "config/ftconfig.bi"
 #include once "ftsystem.bi"
 #include once "ftimage.bi"
 #include once "crt/stddef.bi"
+
+'' The following symbols have been renamed:
+''     #define FT_BOOL => FT_BOOL_
 
 extern "C"
 
@@ -81,7 +82,7 @@ end type
 
 type FT_ListRec as FT_ListRec_
 #define FT_IS_EMPTY(list) ((list).head = 0)
-#define FT_BOOL(x) cast(FT_Bool, (x))
+#define FT_BOOL_(x) cast(FT_Bool, (x))
 #define FT_ERR_XCAT(x, y) x##y
 #define FT_ERR_CAT(x, y) FT_ERR_XCAT(x, y)
 #define FT_ERR(e) FT_ERR_CAT(FT_ERR_PREFIX, e)
