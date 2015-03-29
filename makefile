@@ -172,10 +172,20 @@ cairo:
 	cp extracted/$(CAIRO)/cairo-version.h extracted/$(CAIRO)/src
 
 	mkdir -p inc/cairo
-	$(FBFROG) \
+	$(FBFROG) cairo.fbfrog \
 		-incdir extracted/$(CAIRO)/src \
-		-include cairo.h \
-		-emit '*/cairo.h' inc/cairo/cairo.bi
+		-include cairo.h       \
+		-include cairo-gl.h    \
+		-include cairo-pdf.h   \
+		-include cairo-ps.h    \
+		-include cairo-svg.h   \
+		-include cairo-win32.h \
+		-emit '*/cairo.h'       inc/cairo/cairo.bi       \
+		-emit '*/cairo-gl.h'    inc/cairo/cairo-gl.bi    \
+		-emit '*/cairo-pdf.h'   inc/cairo/cairo-pdf.bi   \
+		-emit '*/cairo-ps.h'    inc/cairo/cairo-ps.bi    \
+		-emit '*/cairo-svg.h'   inc/cairo/cairo-svg.bi   \
+		-emit '*/cairo-win32.h' inc/cairo/cairo-win32.bi
 
 cgui:
 	./get.sh cgui cgui-2.0.3.tar.gz "http://sourceforge.net/projects/cgui/files/2.0.3/cgui-2.0.3.tar.gz/download"
