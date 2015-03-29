@@ -1,0 +1,6 @@
+-ifdef __FB_WIN32__
+	-declarebool GLIB_STATIC_COMPILATION
+	-ifdef GLIB_STATIC_COMPILATION
+		-define GLIB_STATIC_COMPILATION 1
+	-endif
+-endif

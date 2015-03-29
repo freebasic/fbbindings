@@ -363,8 +363,36 @@ glfw:
 gdk-pixbuf:
 	http://ftp.gnome.org/pub/gnome/sources/gdk-pixbuf/2.30/gdk-pixbuf-2.30.8.tar.xz
 
-glib:
-	http://ftp.gnome.org/pub/gnome/sources/glib/2.42/glib-2.42.2.tar.xz
+GLIB_MAJOR := 2
+GLIB_MINOR := 42
+GLIB_MICRO := 2
+GLIB_SERIES := $(GLIB_MAJOR).$(GLIB_MINOR)
+GLIB := glib-$(GLIB_SERIES).$(GLIB_MICRO)
+SED_GLIBCONFIG := -e 's/@GLIB_MAJOR_VERSION@/$(GLIB_MAJOR)/g'
+SED_GLIBCONFIG += -e 's/@GLIB_MINOR_VERSION@/$(GLIB_MINOR)/g'
+SED_GLIBCONFIG += -e 's/@GLIB_MICRO_VERSION@/$(GLIB_MICRO)/g'
+glib-extract:
+	./get.sh $(GLIB) $(GLIB).tar.xz http://ftp.gnome.org/pub/gnome/sources/glib/$(GLIB_SERIES)/$(GLIB).tar.xz
+
+	# We'd have to run configure to get the target-specific glibconfig.h,
+	# but...
+	#  * that's somewhat unviable
+	#  * glibconfig.h is not trivial
+	#  * we want to make a glibconfig.bi anyways
+	# it looks like we have to maintain a unified copy that covers all
+	# targets.
+	sed $(SED_GLIBCONFIG) < glibconfig.h > extracted/$(GLIB)/glib/glibconfig.h
+
+glib: glib-extract
+	$(FBFROG) \
+		-incdir extracted/$(GLIB) \
+		-incdir extracted/$(GLIB)/glib \
+		-include glib/glib.h \
+		-include glib/glib-object.h \
+		-emit '*/extracted/$(GLIB)/glib/glib-object.h' inc/glib-object.bi \
+		-emit '*/extracted/$(GLIB)/gobject/*.h'        inc/glib-object.bi \
+		-emit '*/extracted/$(GLIB)/glib/glibconfig.h'  inc/glibconfig.bi \
+		-emit '*/extracted/$(GLIB)/glib/*.h'           inc/glib.bi
 
 GLUT := glut-3.7
 glut:
@@ -626,11 +654,14 @@ opengl-winapi: winapi-extract
 
 PANGO_SERIES := 1.36
 PANGO := pango-$(PANGO_SERIES).8
-pango:
+pango: glib-extract
 	./get.sh $(PANGO) $(PANGO).tar.xz http://ftp.gnome.org/pub/gnome/sources/pango/$(PANGO_SERIES)/$(PANGO).tar.xz
 
 	mkdir -p inc/pango
-	$(FBFROG) -incdir extracted/$(PANGO) \
+	$(FBFROG) \
+		-incdir extracted/$(GLIB) \
+		-incdir extracted/$(GLIB)/glib \
+		-incdir extracted/$(PANGO) \
 		-include pango/pango.h \
 		-include pango/pangocairo.h \
 		-emit '*/pango/pango.h'            inc/pango/pango.bi \
