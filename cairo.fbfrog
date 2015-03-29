@@ -1,4 +1,8 @@
-# cairo-features.h
+-renamedefine CAIRO_VERSION CAIRO_VERSION_
+-renamedefine CAIRO_VERSION_STRING CAIRO_VERSION_STRING_
+
+# Doing cairo-features.h manually here
+-removeinclude cairo-features.h
 
 -define CAIRO_HAS_GL_SURFACE 1
 -define CAIRO_HAS_PNG_FUNCTIONS 1
