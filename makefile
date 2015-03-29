@@ -1,15 +1,15 @@
 FBFROG := fbfrog
 
-ALL := allegro4 allegro5
-ALL += cgui clang cunit curl
+ALL := allegro4 allegro5 atk
+ALL += cairo cgui clang cunit curl
 ALL += fastcgi ffi fontconfig freeglut
-ALL += glut glfw
+ALL += gdk-pixbuf glib glfw glut gtk
 ALL += iconv iup
 ALL += jit
 ALL += llvm lua
 ALL += ncurses
 ALL += opengl-mesa opengl-winapi
-ALL += pdcurses png png12 png14 png15 png16
+ALL += pango pdcurses png png12 png14 png15 png16
 ALL += sdl sdl1 sdl2
 ALL += tre
 ALL += x11
@@ -143,6 +143,55 @@ allegro5:
 			-inclib allegro_ttf        inc/allegro5/allegro_ttf.bi \
 		-endif
 
+atk:
+	http://ftp.gnome.org/pub/gnome/sources/atk/2.14/atk-2.14.0.tar.xz
+
+# TODO:
+# cairo-deprecated.h
+# cairo-ps.h
+# cairo-pdf.h
+# cairo-svg.h
+# cairo-ft.h
+# cairo-xlib.h
+# cairo-xlib-xrender.h
+# cairo-xcb.h
+# cairo-qt.h
+# cairo-quartz.h
+# cairo-quartz-image.h
+# cairo-win32.h
+# cairo-skia.h
+# cairo-os2.h
+# cairo-beos.h
+# cairo-gl.h
+# cairo-directfb.h
+# cairo-drm.h
+# cairo-script.h
+# cairo-tee.h
+# cairo-xml.h
+# cairo-vg.h
+# cairo-cogl.h
+CAIRO := cairo-1.14.2
+cairo:
+	./get.sh $(CAIRO) $(CAIRO).tar.xz http://cairographics.org/releases/$(CAIRO).tar.xz
+
+	# Overwrite src/cairo-version.h (a place holder) with the one from toplevel (the real thing)
+	cp extracted/$(CAIRO)/cairo-version.h extracted/$(CAIRO)/src
+
+	mkdir -p inc/cairo
+	$(FBFROG) cairo.fbfrog \
+		-incdir extracted/$(CAIRO)/src \
+		-include cairo.h       \
+		-include cairo-gl.h    \
+		-include cairo-pdf.h   \
+		-include cairo-ps.h    \
+		-include cairo-svg.h   \
+		-include cairo-win32.h \
+		-emit '*/cairo.h'       inc/cairo/cairo.bi       \
+		-emit '*/cairo-gl.h'    inc/cairo/cairo-gl.bi    \
+		-emit '*/cairo-pdf.h'   inc/cairo/cairo-pdf.bi   \
+		-emit '*/cairo-ps.h'    inc/cairo/cairo-ps.bi    \
+		-emit '*/cairo-svg.h'   inc/cairo/cairo-svg.bi   \
+		-emit '*/cairo-win32.h' inc/cairo/cairo-win32.bi
 
 cgui:
 	./get.sh cgui cgui-2.0.3.tar.gz "http://sourceforge.net/projects/cgui/files/2.0.3/cgui-2.0.3.tar.gz/download"
@@ -288,6 +337,12 @@ glfw:
 			-inclib glfw \
 		-endif
 
+gdk-pixbuf:
+	http://ftp.gnome.org/pub/gnome/sources/gdk-pixbuf/2.30/gdk-pixbuf-2.30.8.tar.xz
+
+glib:
+	http://ftp.gnome.org/pub/gnome/sources/glib/2.42/glib-2.42.2.tar.xz
+
 GLUT := glut-3.7
 glut:
 	./get.sh $(GLUT) $(GLUT).tar.gz https://www.opengl.org/resources/libraries/glut/$(GLUT).tar.gz
@@ -303,6 +358,17 @@ glut:
 		-caseelse \
 			-inclib glut \
 		-endselect
+
+GTK_SERIES := 3.14
+GTK := gtk+-$(GTK_SERIES).10
+gtk:
+	./get.sh $(GTK) $(GTK).tar.xz http://ftp.gnome.org/pub/gnome/sources/gtk+/$(GTK_SERIES)/$(GTK).tar.xz
+	http://ftp.gnome.org/pub/gnome/sources/gtk+/2.24/gtk+-2.24.27.tar.xz
+
+	$(FBFROG) \
+		extracted/$(GTK)/gtk/gtk.h \
+		-emit '*/gtk.h' inc/gtk/gtk.bi
+		#-emit '*/atk.h' inc/atk/atk.bi
 
 # GNU libiconv, not glibc's iconv
 ICONV := libiconv-1.14
@@ -534,6 +600,9 @@ opengl-winapi: winapi-extract
 		-emit '*/GL/gl.h'    inc/GL/windows/gl.bi \
 		-emit '*/GL/glext.h' inc/GL/windows/glext.bi \
 		-emit '*/GL/glu.h'   inc/GL/windows/glu.bi
+
+pango:
+	http://ftp.gnome.org/pub/gnome/sources/pango/1.36/pango-1.36.8.tar.xz
 
 pdcurses:
 	./get.sh PDCurses-3.4 PDCurses-3.4.tar.gz "http://sourceforge.net/projects/pdcurses/files/pdcurses/3.4/PDCurses-3.4.tar.gz/download"
