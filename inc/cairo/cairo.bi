@@ -611,6 +611,8 @@ end enum
 type cairo_surface_type_t as _cairo_surface_type
 declare function cairo_surface_get_type(byval surface as cairo_surface_t ptr) as cairo_surface_type_t
 declare function cairo_surface_get_content(byval surface as cairo_surface_t ptr) as cairo_content_t
+declare function cairo_surface_write_to_png(byval surface as cairo_surface_t ptr, byval filename as const zstring ptr) as cairo_status_t
+declare function cairo_surface_write_to_png_stream(byval surface as cairo_surface_t ptr, byval write_func as cairo_write_func_t, byval closure as any ptr) as cairo_status_t
 declare function cairo_surface_get_user_data(byval surface as cairo_surface_t ptr, byval key as const cairo_user_data_key_t ptr) as any ptr
 declare function cairo_surface_set_user_data(byval surface as cairo_surface_t ptr, byval key as const cairo_user_data_key_t ptr, byval user_data as any ptr, byval destroy as cairo_destroy_func_t) as cairo_status_t
 
@@ -647,6 +649,8 @@ declare function cairo_image_surface_get_format(byval surface as cairo_surface_t
 declare function cairo_image_surface_get_width(byval surface as cairo_surface_t ptr) as long
 declare function cairo_image_surface_get_height(byval surface as cairo_surface_t ptr) as long
 declare function cairo_image_surface_get_stride(byval surface as cairo_surface_t ptr) as long
+declare function cairo_image_surface_create_from_png(byval filename as const zstring ptr) as cairo_surface_t ptr
+declare function cairo_image_surface_create_from_png_stream(byval read_func as cairo_read_func_t, byval closure as any ptr) as cairo_surface_t ptr
 declare function cairo_recording_surface_create(byval content as cairo_content_t, byval extents as const cairo_rectangle_t ptr) as cairo_surface_t ptr
 declare sub cairo_recording_surface_ink_extents(byval surface as cairo_surface_t ptr, byval x0 as double ptr, byval y0 as double ptr, byval width as double ptr, byval height as double ptr)
 declare function cairo_recording_surface_get_extents(byval surface as cairo_surface_t ptr, byval extents as cairo_rectangle_t ptr) as cairo_bool_t
