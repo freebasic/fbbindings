@@ -312,7 +312,8 @@ freetype:
 		-emit '*/ftimage.h'  inc/freetype2/ftimage.bi  \
 		-emit '*/ftmoderr.h' inc/freetype2/ftmoderr.bi \
 		-emit '*/ftsystem.h' inc/freetype2/ftsystem.bi \
-		-emit '*/fttypes.h'  inc/freetype2/fttypes.bi
+		-emit '*/fttypes.h'  inc/freetype2/fttypes.bi  \
+		-inclib freetype     inc/freetype2/freetype.bi
 
 GLFW2_VERSION := 2.7.9
 GLFW3_VERSION := 3.1.1

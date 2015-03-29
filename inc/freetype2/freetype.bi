@@ -1,5 +1,7 @@
 #pragma once
 
+#inclib "freetype"
+
 #include once "crt/long.bi"
 #include once "ft2build.bi"
 #include once "config/ftconfig.bi"
