@@ -1,5 +1,21 @@
 -fbfroginclude limits.h
 
+-removedefine FT_UNUSED
+-removedefine FT_BEGIN_STMNT
+-removedefine FT_END_STMNT
+-removedefine FT_DUMMY_STMNT
+-removedefine FT_LOCAL
+-removedefine FT_LOCAL_DEF
+-removedefine FT_LOCAL_ARRAY
+-removedefine FT_LOCAL_ARRAY_DEF
+-removedefine FT_BASE
+-removedefine FT_BASE_DEF
+-removedefine FT_EXPORT
+-removedefine FT_EXPORT_DEF
+-removedefine FT_EXPORT_VAR
+-removedefine FT_CALLBACK_DEF
+-removedefine FT_CALLBACK_TABLE
+-removedefine FT_CALLBACK_TABLE_DEF
 -removedefine FT_ENC_TAG
 -removedefine FT_IMAGE_TAG
 
@@ -57,5 +73,4 @@
 -renamedefine FT_BOOL FT_BOOL_
 
 -removeinclude ft2build.h
--removeinclude config/ftconfig.h
 -removeinclude fterrdef.h
