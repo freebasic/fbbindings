@@ -22,9 +22,14 @@ type FT_Int32 as long
 type FT_UInt32 as ulong
 type FT_Fast as long
 type FT_UFast as ulong
+#define FT_LONG64
 
-#if defined(__FB_LINUX__) and defined(__FB_64BIT__)
-	#define FT_LONG64
+#if (defined(__FB_LINUX__) and (not defined(__FB_64BIT__))) or defined(__FB_DOS__) or defined(__FB_WIN32__)
+	#define FT_INT64 longint
+	#define FT_UINT64 ulongint
+	type FT_Int64 as longint
+	type FT_UInt64 as ulongint
+#else
 	#define FT_INT64 clong
 	#define FT_UINT64 culong
 	type FT_Int64 as clong

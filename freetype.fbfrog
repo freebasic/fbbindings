@@ -1,3 +1,4 @@
+-define FT_CONFIG_OPTION_NO_ASSEMBLER 1
 -fbfroginclude limits.h
 
 -removedefine FT_UNUSED

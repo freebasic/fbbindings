@@ -3,6 +3,7 @@
 #include once "crt/long.bi"
 
 #define __FTOPTION_H__
+const FT_CONFIG_OPTION_FORCE_INT64 = 1
 #define FT_CONFIG_OPTION_INLINE_MULFIX
 #define FT_CONFIG_OPTION_USE_LZW
 #define FT_CONFIG_OPTION_USE_ZLIB
