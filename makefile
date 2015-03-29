@@ -187,7 +187,8 @@ cairo:
 		-emit '*/cairo-pdf.h'        inc/cairo/cairo-pdf.bi   \
 		-emit '*/cairo-ps.h'         inc/cairo/cairo-ps.bi    \
 		-emit '*/cairo-svg.h'        inc/cairo/cairo-svg.bi   \
-		-emit '*/cairo-win32.h'      inc/cairo/cairo-win32.bi
+		-emit '*/cairo-win32.h'      inc/cairo/cairo-win32.bi \
+		-inclib cairo inc/cairo/cairo.bi
 
 cgui:
 	./get.sh cgui cgui-2.0.3.tar.gz "http://sourceforge.net/projects/cgui/files/2.0.3/cgui-2.0.3.tar.gz/download"
