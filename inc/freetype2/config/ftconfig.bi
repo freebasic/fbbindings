@@ -4,8 +4,8 @@
 	#include once "crt/long.bi"
 #endif
 
-#include once "config/ftoption.bi"
-#include once "config/ftstdlib.bi"
+#include once "ftoption.bi"
+#include once "ftstdlib.bi"
 
 #define __FTCONFIG_H__
 #define FT_SIZEOF_INT (32 / FT_CHAR_BIT)
