@@ -38,11 +38,6 @@ enum
 end enum
 
 type FT_Pixel_Mode as FT_Pixel_Mode_
-#define ft_pixel_mode_none FT_PIXEL_MODE_NONE
-#define ft_pixel_mode_mono FT_PIXEL_MODE_MONO
-#define ft_pixel_mode_grays FT_PIXEL_MODE_GRAY
-#define ft_pixel_mode_pal2 FT_PIXEL_MODE_GRAY2
-#define ft_pixel_mode_pal4 FT_PIXEL_MODE_GRAY4
 
 type FT_Bitmap_
 	rows as ulong
@@ -78,13 +73,6 @@ const FT_OUTLINE_SMART_DROPOUTS = &h10
 const FT_OUTLINE_INCLUDE_STUBS = &h20
 const FT_OUTLINE_HIGH_PRECISION = &h100
 const FT_OUTLINE_SINGLE_PASS = &h200
-#define ft_outline_none FT_OUTLINE_NONE
-#define ft_outline_owner FT_OUTLINE_OWNER
-#define ft_outline_even_odd_fill FT_OUTLINE_EVEN_ODD_FILL
-#define ft_outline_reverse_fill FT_OUTLINE_REVERSE_FILL
-#define ft_outline_ignore_dropouts FT_OUTLINE_IGNORE_DROPOUTS
-#define ft_outline_high_precision FT_OUTLINE_HIGH_PRECISION
-#define ft_outline_single_pass FT_OUTLINE_SINGLE_PASS
 #define FT_CURVE_TAG(flag) (flag and 3)
 const FT_CURVE_TAG_ON = 1
 const FT_CURVE_TAG_CONIC = 0
@@ -93,11 +81,6 @@ const FT_CURVE_TAG_HAS_SCANMODE = 4
 const FT_CURVE_TAG_TOUCH_X = 8
 const FT_CURVE_TAG_TOUCH_Y = 16
 #define FT_CURVE_TAG_TOUCH_BOTH (FT_CURVE_TAG_TOUCH_X or FT_CURVE_TAG_TOUCH_Y)
-#define FT_Curve_Tag_On FT_CURVE_TAG_ON
-#define FT_Curve_Tag_Conic FT_CURVE_TAG_CONIC
-#define FT_Curve_Tag_Cubic FT_CURVE_TAG_CUBIC
-#define FT_Curve_Tag_Touch_X FT_CURVE_TAG_TOUCH_X
-#define FT_Curve_Tag_Touch_Y FT_CURVE_TAG_TOUCH_Y
 type FT_Outline_MoveToFunc as function(byval to as const FT_Vector ptr, byval user as any ptr) as long
 #define FT_Outline_MoveTo_Func FT_Outline_MoveToFunc
 type FT_Outline_LineToFunc as function(byval to as const FT_Vector ptr, byval user as any ptr) as long
@@ -128,11 +111,6 @@ enum
 end enum
 
 type FT_Glyph_Format as FT_Glyph_Format_
-#define ft_glyph_format_none FT_GLYPH_FORMAT_NONE
-#define ft_glyph_format_composite FT_GLYPH_FORMAT_COMPOSITE
-#define ft_glyph_format_bitmap FT_GLYPH_FORMAT_BITMAP
-#define ft_glyph_format_outline FT_GLYPH_FORMAT_OUTLINE
-#define ft_glyph_format_plotter FT_GLYPH_FORMAT_PLOTTER
 type FT_Raster as FT_RasterRec_ ptr
 
 type FT_Span_
@@ -150,10 +128,6 @@ const FT_RASTER_FLAG_DEFAULT = &h0
 const FT_RASTER_FLAG_AA = &h1
 const FT_RASTER_FLAG_DIRECT = &h2
 const FT_RASTER_FLAG_CLIP = &h4
-#define ft_raster_flag_default FT_RASTER_FLAG_DEFAULT
-#define ft_raster_flag_aa FT_RASTER_FLAG_AA
-#define ft_raster_flag_direct FT_RASTER_FLAG_DIRECT
-#define ft_raster_flag_clip FT_RASTER_FLAG_CLIP
 
 type FT_Raster_Params_
 	target as const FT_Bitmap ptr

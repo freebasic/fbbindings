@@ -67,20 +67,6 @@ enum
 end enum
 
 type FT_Encoding as FT_Encoding_
-#define ft_encoding_none FT_ENCODING_NONE
-#define ft_encoding_unicode FT_ENCODING_UNICODE
-#define ft_encoding_symbol FT_ENCODING_MS_SYMBOL
-#define ft_encoding_latin_1 FT_ENCODING_ADOBE_LATIN_1
-#define ft_encoding_latin_2 FT_ENCODING_OLD_LATIN_2
-#define ft_encoding_sjis FT_ENCODING_SJIS
-#define ft_encoding_gb2312 FT_ENCODING_GB2312
-#define ft_encoding_big5 FT_ENCODING_BIG5
-#define ft_encoding_wansung FT_ENCODING_WANSUNG
-#define ft_encoding_johab FT_ENCODING_JOHAB
-#define ft_encoding_adobe_standard FT_ENCODING_ADOBE_STANDARD
-#define ft_encoding_adobe_expert FT_ENCODING_ADOBE_EXPERT
-#define ft_encoding_adobe_custom FT_ENCODING_ADOBE_CUSTOM
-#define ft_encoding_apple_roman FT_ENCODING_APPLE_ROMAN
 
 type FT_CharMapRec_
 	face as FT_Face
@@ -216,11 +202,6 @@ const FT_OPEN_STREAM = &h2
 const FT_OPEN_PATHNAME = &h4
 const FT_OPEN_DRIVER = &h8
 const FT_OPEN_PARAMS = &h10
-#define ft_open_memory FT_OPEN_MEMORY
-#define ft_open_stream FT_OPEN_STREAM
-#define ft_open_pathname FT_OPEN_PATHNAME
-#define ft_open_driver FT_OPEN_DRIVER
-#define ft_open_params FT_OPEN_PARAMS
 
 type FT_Parameter_
 	tag as FT_ULong
@@ -316,8 +297,6 @@ enum
 end enum
 
 type FT_Render_Mode as FT_Render_Mode_
-#define ft_render_mode_normal FT_RENDER_MODE_NORMAL
-#define ft_render_mode_mono FT_RENDER_MODE_MONO
 declare function FT_Render_Glyph(byval slot as FT_GlyphSlot, byval render_mode as FT_Render_Mode) as FT_Error
 
 type FT_Kerning_Mode_ as long
@@ -328,10 +307,6 @@ enum
 end enum
 
 type FT_Kerning_Mode as FT_Kerning_Mode_
-#define ft_kerning_default FT_KERNING_DEFAULT
-#define ft_kerning_unfitted FT_KERNING_UNFITTED
-#define ft_kerning_unscaled FT_KERNING_UNSCALED
-
 declare function FT_Get_Kerning(byval face as FT_Face, byval left_glyph as FT_UInt, byval right_glyph as FT_UInt, byval kern_mode as FT_UInt, byval akerning as FT_Vector ptr) as FT_Error
 declare function FT_Get_Track_Kerning(byval face as FT_Face, byval point_size as FT_Fixed, byval degree as FT_Int, byval akerning as FT_Fixed ptr) as FT_Error
 declare function FT_Get_Glyph_Name(byval face as FT_Face, byval glyph_index as FT_UInt, byval buffer as FT_Pointer, byval buffer_max as FT_UInt) as FT_Error
