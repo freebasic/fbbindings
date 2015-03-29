@@ -303,17 +303,20 @@ FREETYPE := freetype-2.5.5
 freetype:
 	./get.sh $(FREETYPE) $(FREETYPE).tar.bz2 http://download.savannah.gnu.org/releases/freetype/$(FREETYPE).tar.bz2
 
-	mkdir -p inc/freetype2
+	mkdir -p inc/freetype2/config
 	$(FBFROG) freetype.fbfrog -incdir extracted/$(FREETYPE)/include \
 		-include ft2build.h \
 		-include freetype.h \
-		-emit '*/freetype.h' inc/freetype2/freetype.bi \
-		-emit '*/fterrors.h' inc/freetype2/fterrors.bi \
-		-emit '*/ftimage.h'  inc/freetype2/ftimage.bi  \
-		-emit '*/ftmoderr.h' inc/freetype2/ftmoderr.bi \
-		-emit '*/ftsystem.h' inc/freetype2/ftsystem.bi \
-		-emit '*/fttypes.h'  inc/freetype2/fttypes.bi  \
-		-inclib freetype     inc/freetype2/freetype.bi
+		-emit '*/freetype.h'         inc/freetype2/freetype.bi \
+		-emit '*/fterrors.h'         inc/freetype2/fterrors.bi \
+		-emit '*/ftimage.h'          inc/freetype2/ftimage.bi  \
+		-emit '*/ftmoderr.h'         inc/freetype2/ftmoderr.bi \
+		-emit '*/ftsystem.h'         inc/freetype2/ftsystem.bi \
+		-emit '*/fttypes.h'          inc/freetype2/fttypes.bi  \
+		-emit '*/config/ftconfig.h'  inc/freetype2/config/ftconfig.bi  \
+		-emit '*/config/ftoption.h'  inc/freetype2/config/ftoption.bi  \
+		-emit '*/config/ftstdlib.h'  inc/freetype2/config/ftstdlib.bi  \
+		-inclib freetype             inc/freetype2/freetype.bi
 
 GLFW2_VERSION := 2.7.9
 GLFW3_VERSION := 3.1.1
