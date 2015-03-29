@@ -309,6 +309,13 @@ FREETYPE := freetype-2.5.5
 freetype:
 	./get.sh $(FREETYPE) $(FREETYPE).tar.bz2 http://download.savannah.gnu.org/releases/freetype/$(FREETYPE).tar.bz2
 
+	cd extracted/$(FREETYPE)/include/config && \
+		if [ ! -f ftoption.h.orig ]; then \
+			mv ftoption.h ftoption.h.orig; \
+			(sed -e 's/#undef FT_CONFIG_OPTION_FORCE_INT64/#define FT_CONFIG_OPTION_FORCE_INT64 1/g' \
+				< ftoption.h.orig > ftoption.h); \
+		fi
+
 	mkdir -p inc/freetype2/config
 	$(FBFROG) freetype.fbfrog -incdir extracted/$(FREETYPE)/include \
 		-include ft2build.h \
