@@ -20,6 +20,9 @@
 -removedefine FT_ENC_TAG
 -removedefine FT_IMAGE_TAG
 
+# case-aliases
+-removedefine FT_INT64
+-removedefine FT_UINT64
 -removedefine ft_encoding_none
 -removedefine ft_encoding_unicode
 -removedefine ft_encoding_symbol
