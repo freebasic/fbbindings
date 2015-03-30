@@ -8,7 +8,7 @@
 
 #if defined(__FB_DOS__) or defined(__FB_LINUX__)
 	#include once "crt/sys/types.bi"
-	#include once "pthread.bi"
+	#include once "crt/pthread.bi"
 #endif
 
 '' The following symbols have been renamed:
