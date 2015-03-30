@@ -32,3 +32,30 @@
 
 # Prevent pid_t definition in sched.h
 -define __pid_t_defined 1
+
+# Parts of sched.h that can't easily be translated
+-removedefine CPU_AND
+-removedefine CPU_AND_S
+-removedefine CPU_CLR
+-removedefine __CPU_CLR_S
+-removedefine CPU_CLR_S
+-removedefine CPU_COUNT
+-removedefine __CPU_COUNT_S
+-removedefine CPU_COUNT_S
+-removedefine CPU_EQUAL
+-removedefine __CPU_EQUAL_S
+-removedefine CPU_EQUAL_S
+-removedefine CPU_ISSET
+-removedefine __CPU_ISSET_S
+-removedefine CPU_ISSET_S
+-removedefine __CPU_OP_S
+-removedefine CPU_OR
+-removedefine CPU_OR_S
+-removedefine CPU_SET
+-removedefine __CPU_SET_S
+-removedefine CPU_SET_S
+-removedefine CPU_XOR
+-removedefine CPU_XOR_S
+-removedefine CPU_ZERO
+-removedefine __CPU_ZERO_S
+-removedefine CPU_ZERO_S
