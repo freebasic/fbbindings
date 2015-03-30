@@ -209,16 +209,40 @@ declare function g_type_class_get_private(byval klass as GTypeClass ptr, byval p
 declare function g_type_class_get_instance_private_offset(byval g_class as gpointer) as gint
 declare sub g_type_ensure(byval type as GType)
 declare function g_type_get_type_registration_serial() as guint
+#define G_DEFINE_TYPE(TN, t_n, T_P) G_DEFINE_TYPE_EXTENDED(TN, t_n, T_P, 0, )
+#macro G_DEFINE_TYPE_WITH_CODE(TN, t_n, T_P, _C_)
+	_G_DEFINE_TYPE_EXTENDED_BEGIN(TN, t_n, T_P, 0)
+	scope
+		_C_
+	end scope
+	_G_DEFINE_TYPE_EXTENDED_END()
+#endmacro
 
-#define G_DEFINE_TYPE(TN, t_n, T_P) '' TODO: G_DEFINE_TYPE_EXTENDED (TN, t_n, T_P, 0, {})
-#define G_DEFINE_TYPE_WITH_CODE(TN, t_n, T_P, _C_) '' TODO: _G_DEFINE_TYPE_EXTENDED_BEGIN (TN, t_n, T_P, 0) {_C_;} _G_DEFINE_TYPE_EXTENDED_END()
 #define G_DEFINE_TYPE_WITH_PRIVATE(TN, t_n, T_P) G_DEFINE_TYPE_EXTENDED(TN, t_n, T_P, 0, G_ADD_PRIVATE(TN))
-#define G_DEFINE_ABSTRACT_TYPE(TN, t_n, T_P) '' TODO: G_DEFINE_TYPE_EXTENDED (TN, t_n, T_P, G_TYPE_FLAG_ABSTRACT, {})
-#define G_DEFINE_ABSTRACT_TYPE_WITH_CODE(TN, t_n, T_P, _C_) '' TODO: _G_DEFINE_TYPE_EXTENDED_BEGIN (TN, t_n, T_P, G_TYPE_FLAG_ABSTRACT) {_C_;} _G_DEFINE_TYPE_EXTENDED_END()
+#define G_DEFINE_ABSTRACT_TYPE(TN, t_n, T_P) G_DEFINE_TYPE_EXTENDED(TN, t_n, T_P, G_TYPE_FLAG_ABSTRACT, )
+#macro G_DEFINE_ABSTRACT_TYPE_WITH_CODE(TN, t_n, T_P, _C_)
+	_G_DEFINE_TYPE_EXTENDED_BEGIN(TN, t_n, T_P, G_TYPE_FLAG_ABSTRACT)
+	scope
+		_C_
+	end scope
+	_G_DEFINE_TYPE_EXTENDED_END()
+#endmacro
 #define G_DEFINE_ABSTRACT_TYPE_WITH_PRIVATE(TN, t_n, T_P) G_DEFINE_TYPE_EXTENDED(TN, t_n, T_P, G_TYPE_FLAG_ABSTRACT, G_ADD_PRIVATE(TN))
-#define G_DEFINE_TYPE_EXTENDED(TN, t_n, T_P, _f_, _C_) '' TODO: _G_DEFINE_TYPE_EXTENDED_BEGIN (TN, t_n, T_P, _f_) {_C_;} _G_DEFINE_TYPE_EXTENDED_END()
-#define G_DEFINE_INTERFACE(TN, t_n, T_P) '' TODO: G_DEFINE_INTERFACE_WITH_CODE(TN, t_n, T_P, ;)
-#define G_DEFINE_INTERFACE_WITH_CODE(TN, t_n, T_P, _C_) '' TODO: _G_DEFINE_INTERFACE_EXTENDED_BEGIN(TN, t_n, T_P) {_C_;} _G_DEFINE_INTERFACE_EXTENDED_END()
+#macro G_DEFINE_TYPE_EXTENDED(TN, t_n, T_P, _f_, _C_)
+	_G_DEFINE_TYPE_EXTENDED_BEGIN(TN, t_n, T_P, _f_)
+	scope
+		_C_
+	end scope
+	_G_DEFINE_TYPE_EXTENDED_END()
+#endmacro
+#define G_DEFINE_INTERFACE(TN, t_n, T_P) G_DEFINE_INTERFACE_WITH_CODE(TN, t_n, T_P, )
+#macro G_DEFINE_INTERFACE_WITH_CODE(TN, t_n, T_P, _C_)
+	_G_DEFINE_INTERFACE_EXTENDED_BEGIN(TN, t_n, T_P)
+	scope
+		_C_
+	end scope
+	_G_DEFINE_INTERFACE_EXTENDED_END()
+#endmacro
 #macro G_IMPLEMENT_INTERFACE(TYPE_IFACE, iface_init)
 	scope
 		dim g_implement_interface_info as const GInterfaceInfo = (cast(GInterfaceInitFunc, iface_init), NULL, NULL)
@@ -227,23 +251,119 @@ declare function g_type_get_type_registration_serial() as guint
 #endmacro
 #macro G_ADD_PRIVATE(TypeName)
 	scope
-		'' TODO: TypeName##_private_offset = g_type_add_instance_private (g_define_type_id, sizeof (TypeName##Private));
+		TypeName##_private_offset = g_type_add_instance_private(g_define_type_id, sizeof(TypeName##Private))
 	end scope
 #endmacro
 #define G_PRIVATE_OFFSET(TypeName, field) (TypeName##_private_offset + G_STRUCT_OFFSET(TypeName##Private, field))
 #define G_PRIVATE_FIELD_P(TypeName, inst, field_name) G_STRUCT_MEMBER_P(inst, G_PRIVATE_OFFSET(TypeName, field_name))
 #define G_PRIVATE_FIELD(TypeName, inst, field_type, field_name) G_STRUCT_MEMBER(field_type, inst, G_PRIVATE_OFFSET(TypeName, field_name))
-#define _G_DEFINE_TYPE_EXTENDED_CLASS_INIT(TypeName, type_name) '' TODO: static void type_name##_class_intern_init (gpointer klass){ type_name##_parent_class = g_type_class_peek_parent (klass); if (TypeName##_private_offset != 0) g_type_class_adjust_private_offset (klass, &TypeName##_private_offset); type_name##_class_init ((TypeName##Class*) klass);}
-#define _G_DEFINE_TYPE_EXTENDED_BEGIN(TypeName, type_name, TYPE_PARENT, flags) '' TODO: static void type_name##_init (TypeName *self);static void type_name##_class_init (TypeName##Class *klass);static gpointer type_name##_parent_class = NULL;static gint TypeName##_private_offset;_G_DEFINE_TYPE_EXTENDED_CLASS_INIT(TypeName, type_name)G_GNUC_UNUSED static inline gpointer type_name##_get_instance_private (TypeName *self){ return (G_STRUCT_MEMBER_P (self, TypeName##_private_offset));}GType type_name##_get_type (void){ static volatile gsize g_define_type_id__volatile = 0; if (g_once_init_enter (&g_define_type_id__volatile)) { GType g_define_type_id = g_type_register_static_simple (TYPE_PARENT, g_intern_static_string (#TypeName), sizeof (TypeName##Class), (GClassInitFunc) type_name##_class_intern_init, sizeof (TypeName), (GInstanceInitFunc) type_name##_init, (GTypeFlags) flags); {
-#define _G_DEFINE_TYPE_EXTENDED_END() '' TODO: } g_once_init_leave (&g_define_type_id__volatile, g_define_type_id); } return g_define_type_id__volatile;}
-#define _G_DEFINE_INTERFACE_EXTENDED_BEGIN(TypeName, type_name, TYPE_PREREQ) '' TODO: static void type_name##_default_init (TypeName##Interface *klass);GType type_name##_get_type (void){ static volatile gsize g_define_type_id__volatile = 0; if (g_once_init_enter (&g_define_type_id__volatile)) { GType g_define_type_id = g_type_register_static_simple (G_TYPE_INTERFACE, g_intern_static_string (#TypeName), sizeof (TypeName##Interface), (GClassInitFunc)type_name##_default_init, 0, (GInstanceInitFunc)NULL, (GTypeFlags) 0); if (TYPE_PREREQ) g_type_interface_add_prerequisite (g_define_type_id, TYPE_PREREQ); {
-#define _G_DEFINE_INTERFACE_EXTENDED_END() '' TODO: } g_once_init_leave (&g_define_type_id__volatile, g_define_type_id); } return g_define_type_id__volatile;}
-#define G_DEFINE_BOXED_TYPE(TypeName, type_name, copy_func, free_func) '' TODO: G_DEFINE_BOXED_TYPE_WITH_CODE (TypeName, type_name, copy_func, free_func, {})
-#define G_DEFINE_BOXED_TYPE_WITH_CODE(TypeName, type_name, copy_func, free_func, _C_) '' TODO: _G_DEFINE_BOXED_TYPE_BEGIN (TypeName, type_name, copy_func, free_func) {_C_;} _G_DEFINE_TYPE_EXTENDED_END()
-#define _G_DEFINE_BOXED_TYPE_BEGIN(TypeName, type_name, copy_func, free_func) '' TODO: GType type_name##_get_type (void){ static volatile gsize g_define_type_id__volatile = 0; if (g_once_init_enter (&g_define_type_id__volatile)) { GType (* _g_register_boxed) (const gchar *, union { TypeName * (*do_copy_type) (TypeName *); TypeName * (*do_const_copy_type) (const TypeName *); GBoxedCopyFunc do_copy_boxed; } __attribute__((__transparent_union__)), union { void (* do_free_type) (TypeName *); GBoxedFreeFunc do_free_boxed; } __attribute__((__transparent_union__)) ) = g_boxed_type_register_static; GType g_define_type_id = _g_register_boxed (g_intern_static_string (#TypeName), copy_func, free_func); {
-#define G_DEFINE_POINTER_TYPE(TypeName, type_name) '' TODO: G_DEFINE_POINTER_TYPE_WITH_CODE (TypeName, type_name, {})
-#define G_DEFINE_POINTER_TYPE_WITH_CODE(TypeName, type_name, _C_) '' TODO: _G_DEFINE_POINTER_TYPE_BEGIN (TypeName, type_name) {_C_;} _G_DEFINE_TYPE_EXTENDED_END()
-#define _G_DEFINE_POINTER_TYPE_BEGIN(TypeName, type_name) '' TODO: GType type_name##_get_type (void){ static volatile gsize g_define_type_id__volatile = 0; if (g_once_init_enter (&g_define_type_id__volatile)) { GType g_define_type_id = g_pointer_type_register_static (g_intern_static_string (#TypeName)); {
+#macro _G_DEFINE_TYPE_EXTENDED_CLASS_INIT(TypeName, type_name)
+	extern "C"
+		private sub type_name##_class_intern_init(byval klass as gpointer)
+			type_name##_parent_class = g_type_class_peek_parent(klass)
+			if TypeName##_private_offset <> 0 then
+				g_type_class_adjust_private_offset(klass, @TypeName##_private_offset)
+			end if
+			type_name##_class_init(cptr(TypeName##Class ptr, klass))
+		end sub
+	end extern
+#endmacro
+#macro _G_DEFINE_TYPE_EXTENDED_BEGIN(TypeName, type_name, TYPE_PARENT, flags)
+	extern "C"
+		declare sub type_name##_init(byval self as TypeName ptr)
+		declare sub type_name##_class_init(byval klass as TypeName##Class ptr)
+		dim shared as gpointer type_name##_parent_class = NULL
+		dim shared as gint TypeName##_private_offset
+		_G_DEFINE_TYPE_EXTENDED_CLASS_INIT(TypeName, type_name)
+		private function type_name##_get_instance_private(byval self as TypeName ptr) as gpointer
+			return G_STRUCT_MEMBER_P(self, TypeName##_private_offset)
+		end function
+		function type_name##_get_type() as GType
+			static as gsize g_define_type_id__volatile = 0
+			if g_once_init_enter(@g_define_type_id__volatile) then
+				var g_define_type_id = g_type_register_static_simple( _
+					TYPE_PARENT, _
+					g_intern_static_string(#TypeName), _
+					sizeof(TypeName##Class), _
+					cast(GClassInitFunc, type_name##_class_intern_init), _
+					sizeof(TypeName), _
+					cast(GInstanceInitFunc, type_name##_init), _
+					cast(GTypeFlags, flags) _
+				)
+				scope
+#endmacro
+#macro _G_DEFINE_TYPE_EXTENDED_END()
+				end scope
+				g_once_init_leave(@g_define_type_id__volatile, g_define_type_id)
+			end if
+			return g_define_type_id__volatile
+		end function
+	end extern
+#endmacro
+#macro _G_DEFINE_INTERFACE_EXTENDED_BEGIN(TypeName, type_name, TYPE_PREREQ)
+	extern "C"
+		declare sub type_name##_default_init(byval klass as TypeName##Interface ptr)
+		function type_name##_get_type() as GType
+			static as gsize g_define_type_id__volatile = 0
+			if g_once_init_enter(@g_define_type_id__volatile) then
+				var g_define_type_id = g_type_register_static_simple( _
+					G_TYPE_INTERFACE, _
+					g_intern_static_string(#TypeName), _
+					sizeof(TypeName##Interface), _
+					cast(GClassInitFunc, type_name##_default_init), _
+					0, _
+					cast(GInstanceInitFunc, NULL), _
+					cast(GTypeFlags, 0) _
+				)
+				if TYPE_PREREQ then
+					g_type_interface_add_prerequisite(g_define_type_id, TYPE_PREREQ)
+				end if
+				scope
+#endmacro
+#macro _G_DEFINE_INTERFACE_EXTENDED_END()
+				end scope
+				g_once_init_leave(@g_define_type_id__volatile, g_define_type_id)
+			end if
+			return g_define_type_id__volatile
+		end function
+	end extern
+#endmacro
+#define G_DEFINE_BOXED_TYPE(TypeName, type_name, copy_func, free_func) G_DEFINE_BOXED_TYPE_WITH_CODE(TypeName, type_name, copy_func, free_func, )
+#macro G_DEFINE_BOXED_TYPE_WITH_CODE(TypeName, type_name, copy_func, free_func, _C_)
+	_G_DEFINE_BOXED_TYPE_BEGIN(TypeName, type_name, copy_func, free_func)
+	scope
+		_C_
+	end scope
+	_G_DEFINE_TYPE_EXTENDED_END()
+#endmacro
+#macro _G_DEFINE_BOXED_TYPE_BEGIN(TypeName, type_name, copy_func, free_func)
+	extern "C"
+		function type_name##_get_type() as GType
+			static as gsize g_define_type_id__volatile = 0
+			if g_once_init_enter(@g_define_type_id__volatile) then
+				var g_define_type_id = g_boxed_type_register_static( _
+					g_intern_static_string(#TypeName), _
+					cast(GBoxedCopyFunc, copy_func), _
+					cast(GBoxedFreeFunc, free_func) _
+				)
+				scope
+#endmacro
+#define G_DEFINE_POINTER_TYPE(TypeName, type_name) G_DEFINE_POINTER_TYPE_WITH_CODE(TypeName, type_name, )
+#macro G_DEFINE_POINTER_TYPE_WITH_CODE(TypeName, type_name, _C_)
+	_G_DEFINE_POINTER_TYPE_BEGIN(TypeName, type_name)
+	scope
+		_C_
+	end scope
+	_G_DEFINE_TYPE_EXTENDED_END()
+#endmacro
+#macro _G_DEFINE_POINTER_TYPE_BEGIN(TypeName, type_name)
+	extern "C"
+		function type_name##_get_type() as GType
+			static as gsize g_define_type_id__volatile = 0
+			if g_once_init_enter(@g_define_type_id__volatile) then
+				var g_define_type_id = g_pointer_type_register_static(g_intern_static_string(#TypeName))
+				scope
+#endmacro
 
 declare function g_type_get_plugin(byval type as GType) as GTypePlugin ptr
 declare function g_type_interface_get_plugin(byval instance_type as GType, byval interface_type as GType) as GTypePlugin ptr

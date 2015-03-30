@@ -3260,21 +3260,14 @@ declare function g_test_failed() as gboolean
 declare sub g_test_set_nonfatal_assertions()
 #macro g_test_add(testpath, Fixture, tdata, fsetup, ftest, fteardown)
 	scope
-		dim add_vtable as sub cdecl( _
+		var add_vtable = cast(sub cdecl( _
 			byval as const zstring ptr, _
 			byval as gsize, _
 			byval as gconstpointer, _
 			byval as sub cdecl(byval as Fixture ptr, byval as gconstpointer), _
 			byval as sub cdecl(byval as Fixture ptr, byval as gconstpointer), _
 			byval as sub cdecl(byval as Fixture ptr, byval as gconstpointer) _
-		) = cast(sub cdecl( _
-			byval as const zstring ptr, _
-			byval as gsize, _
-			byval as gconstpointer, _
-			byval as sub cdecl(byval as Fixture ptr, byval as gconstpointer), _
-			byval as sub cdecl(byval as Fixture ptr, byval as gconstpointer), _
-			byval as sub cdecl(byval as Fixture ptr, byval as gconstpointer) _
-		), g_test_add_vtable)
+		), @g_test_add_vtable)
 		add_vtable(testpath, sizeof(Fixture), tdata, fsetup, ftest, fteardown)
 	end scope
 #endmacro
