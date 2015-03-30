@@ -72,6 +72,7 @@
 -renameproc g_atomic_pointer_and g_atomic_pointer_and_
 -renameproc g_atomic_pointer_or g_atomic_pointer_or_
 -renameproc g_atomic_pointer_xor g_atomic_pointer_xor_
+-renameproc g_source_remove g_source_remove_
 
 -removeinclude glib/gmacros.h
 -removeinclude float.h
