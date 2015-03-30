@@ -1,7 +1,7 @@
 #pragma once
 
 #include once "crt/long.bi"
-#include once "bits/wordsize.bi"
+#include once "crt/bits/wordsize.bi"
 
 const _BITS_PTHREADTYPES_H = 1
 
