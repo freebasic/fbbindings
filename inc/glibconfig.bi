@@ -4,9 +4,7 @@
 	#include once "crt/long.bi"
 #endif
 
-#include once "glib/gmacros.bi"
 #include once "crt/limits.bi"
-#include once "crt/float.bi"
 
 #define __GLIBCONFIG_H__
 #define GLIB_HAVE_ALLOCA_H

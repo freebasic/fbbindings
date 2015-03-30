@@ -3,13 +3,10 @@
 #include once "crt/long.bi"
 #include once "crt/longdouble.bi"
 #include once "glibconfig.bi"
-#include once "crt/stddef.bi"
 #include once "crt/time.bi"
 #include once "crt/stdarg.bi"
-#include once "crt/signal.bi"
 
 #if defined(__FB_DOS__) or defined(__FB_LINUX__)
-	#include once "dirent.bi"
 	#include once "crt/sys/types.bi"
 	#include once "pthread.bi"
 #endif

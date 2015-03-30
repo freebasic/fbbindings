@@ -72,3 +72,9 @@
 -renameproc g_atomic_pointer_and g_atomic_pointer_and_
 -renameproc g_atomic_pointer_or g_atomic_pointer_or_
 -renameproc g_atomic_pointer_xor g_atomic_pointer_xor_
+
+-removeinclude glib/gmacros.h
+-removeinclude float.h
+-removeinclude stddef.h
+-removeinclude signal.h
+-removeinclude dirent.h
