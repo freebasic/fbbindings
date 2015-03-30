@@ -172,7 +172,7 @@ type goffset as gint64
 #endif
 
 #define g_ATEXIT(proc) atexit(proc)
-#define g_memmove(dest, src, len) '' TODO: G_STMT_START { memmove ((dest), (src), (len)); } G_STMT_END
+#define g_memmove(dest, src, len) memmove((dest), (src), (len))
 const GLIB_MAJOR_VERSION = 2
 const GLIB_MINOR_VERSION = 42
 const GLIB_MICRO_VERSION = 2
@@ -252,12 +252,12 @@ const G_HAVE_GROWING_STACK = 0
 #endif
 
 #define G_BYTE_ORDER G_LITTLE_ENDIAN
-#define GLIB_SYSDEF_POLLIN '' TODO: =1
-#define GLIB_SYSDEF_POLLOUT '' TODO: =4
-#define GLIB_SYSDEF_POLLPRI '' TODO: =2
-#define GLIB_SYSDEF_POLLHUP '' TODO: =16
-#define GLIB_SYSDEF_POLLERR '' TODO: =8
-#define GLIB_SYSDEF_POLLNVAL '' TODO: =32
+#define GLIB_SYSDEF_POLLIN =1
+#define GLIB_SYSDEF_POLLOUT =4
+#define GLIB_SYSDEF_POLLPRI =2
+#define GLIB_SYSDEF_POLLHUP =16
+#define GLIB_SYSDEF_POLLERR =8
+#define GLIB_SYSDEF_POLLNVAL =32
 
 #ifdef __FB_WIN32__
 	#define G_MODULE_SUFFIX "dll"

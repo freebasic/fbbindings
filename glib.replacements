@@ -422,3 +422,24 @@ to fb:
 			add_vtable(testpath, sizeof(Fixture), tdata, fsetup, ftest, fteardown)
 		end scope
 	#endmacro
+
+convert c: #define g_memmove(dest, src, len) G_STMT_START { memmove((dest), (src), (len)); } G_STMT_END
+to c:      #define g_memmove(dest, src, len)                memmove((dest), (src), (len))
+
+convert c: #define GLIB_SYSDEF_POLLIN =1
+to fb:     #define GLIB_SYSDEF_POLLIN =1
+
+convert c: #define GLIB_SYSDEF_POLLOUT =4
+to fb:     #define GLIB_SYSDEF_POLLOUT =4
+
+convert c: #define GLIB_SYSDEF_POLLPRI =2
+to fb:     #define GLIB_SYSDEF_POLLPRI =2
+
+convert c: #define GLIB_SYSDEF_POLLHUP =16
+to fb:     #define GLIB_SYSDEF_POLLHUP =16
+
+convert c: #define GLIB_SYSDEF_POLLERR =8
+to fb:     #define GLIB_SYSDEF_POLLERR =8
+
+convert c: #define GLIB_SYSDEF_POLLNVAL =32
+to fb:     #define GLIB_SYSDEF_POLLNVAL =32
