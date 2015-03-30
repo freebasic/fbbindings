@@ -3134,20 +3134,105 @@ declare function g_string_chunk_insert_const(byval chunk as GStringChunk ptr, by
 type GTestFunc as sub()
 type GTestDataFunc as sub(byval user_data as gconstpointer)
 type GTestFixtureFunc as sub(byval fixture as gpointer, byval user_data as gconstpointer)
-
-#define g_assert_cmpstr(s1, cmp, s2) '' TODO: G_STMT_START { const char *__s1 = (s1), *__s2 = (s2); if (g_strcmp0 (__s1, __s2) cmp 0) ; else g_assertion_message_cmpstr (G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, #s1 " " #cmp " " #s2, __s1, #cmp, __s2); } G_STMT_END
-#define g_assert_cmpint(n1, cmp, n2) '' TODO: G_STMT_START { gint64 __n1 = (n1), __n2 = (n2); if (__n1 cmp __n2) ; else g_assertion_message_cmpnum (G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, #n1 " " #cmp " " #n2, __n1, #cmp, __n2, 'i'); } G_STMT_END
-#define g_assert_cmpuint(n1, cmp, n2) '' TODO: G_STMT_START { guint64 __n1 = (n1), __n2 = (n2); if (__n1 cmp __n2) ; else g_assertion_message_cmpnum (G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, #n1 " " #cmp " " #n2, __n1, #cmp, __n2, 'i'); } G_STMT_END
-#define g_assert_cmphex(n1, cmp, n2) '' TODO: G_STMT_START { guint64 __n1 = (n1), __n2 = (n2); if (__n1 cmp __n2) ; else g_assertion_message_cmpnum (G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, #n1 " " #cmp " " #n2, __n1, #cmp, __n2, 'x'); } G_STMT_END
-#define g_assert_cmpfloat(n1, cmp, n2) '' TODO: G_STMT_START { long double __n1 = (n1), __n2 = (n2); if (__n1 cmp __n2) ; else g_assertion_message_cmpnum (G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, #n1 " " #cmp " " #n2, __n1, #cmp, __n2, 'f'); } G_STMT_END
-#define g_assert_no_error(err) '' TODO: G_STMT_START { if (err) g_assertion_message_error (G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, #err, err, 0, 0); } G_STMT_END
-#define g_assert_error(err, dom, c) '' TODO: G_STMT_START { if (!err || (err)->domain != dom || (err)->code != c) g_assertion_message_error (G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, #err, err, dom, c); } G_STMT_END
-#define g_assert_true(expr) '' TODO: G_STMT_START { if G_LIKELY (expr) ; else g_assertion_message (G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, "'" #expr "' should be TRUE"); } G_STMT_END
-#define g_assert_false(expr) '' TODO: G_STMT_START { if G_LIKELY (!(expr)) ; else g_assertion_message (G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, "'" #expr "' should be FALSE"); } G_STMT_END
-#define g_assert_null(expr) '' TODO: G_STMT_START { if G_LIKELY ((expr) == NULL) ; else g_assertion_message (G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, "'" #expr "' should be NULL"); } G_STMT_END
-#define g_assert_nonnull(expr) '' TODO: G_STMT_START { if G_LIKELY ((expr) != NULL) ; else g_assertion_message (G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, "'" #expr "' should not be NULL"); } G_STMT_END
-#define g_assert_not_reached() '' TODO: G_STMT_START { g_assertion_message_expr (G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, NULL); } G_STMT_END
-#define g_assert(expr) '' TODO: G_STMT_START { if G_LIKELY (expr) ; else g_assertion_message_expr (G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, #expr); } G_STMT_END
+#macro g_assert_cmpstr(s1, cmp, s2)
+	scope
+		dim as const zstring ptr __s1 = (s1), __s2 = (s2)
+		if g_strcmp0(__s1, __s2) cmp 0 then
+		else
+			g_assertion_message_cmpstr(G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, #s1 " " #cmp " " #s2, __s1, #cmp, __s2)
+		end if
+	end scope
+#endmacro
+#macro g_assert_cmpint(n1, cmp, n2)
+	scope
+		dim as gint64 __n1 = (n1), __n2 = (n2)
+		if __n1 cmp __n2 then
+		else
+			g_assertion_message_cmpnum(G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, #n1 " " #cmp " " #n2, __n1, #cmp, __n2, 'i')
+		end if
+	end scope
+#macro g_assert_cmpuint(n1, cmp, n2)
+	scope
+		dim as guint64 __n1 = (n1), __n2 = (n2)
+		if __n1 cmp __n2
+		else
+			g_assertion_message_cmpnum(G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, #n1 " " #cmp " " #n2, __n1, #cmp, __n2, 'i')
+		end if
+	end scope
+#endmacro
+#macro g_assert_cmphex(n1, cmp, n2)
+	scope
+		dim as guint64 __n1 = (n1), __n2 = (n2)
+		if __n1 cmp __n2 then
+		else
+			g_assertion_message_cmpnum(G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, #n1 " " #cmp " " #n2, __n1, #cmp, __n2, 'x')
+		end if
+	end scope
+#endmacro
+#macro g_assert_cmpfloat(n1, cmp, n2)
+	scope
+		dim as double __n1 = (n1), __n2 = (n2)
+		if __n1 cmp __n2 then
+		else
+			g_assertion_message_cmpnum(G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, #n1 " " #cmp " " #n2, __n1, #cmp, __n2, 'f')
+		end if
+	end scope
+#endmacro
+#macro g_assert_no_error(err)
+	scope
+		if err then
+			g_assertion_message_error(G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, #err, err, 0, 0)
+		end if
+	end scope
+#endmacro
+#macro g_assert_error(err, dom, c)
+	scope
+		if err = 0 orelse (err)->domain <> dom orelse (err)->code <> c then
+			g_assertion_message_error(G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, #err, err, dom, c)
+		end if
+	end scope
+#endmacro
+#macro g_assert_true(expr)
+	scope
+		if G_LIKELY(expr) then
+		else
+			g_assertion_message(G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, "'" #expr "' should be TRUE")
+		end if
+	end scope
+#endmacro
+#macro g_assert_false(expr)
+	scope
+		if G_LIKELY((expr) = 0) then
+		else
+			g_assertion_message(G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, "'" #expr "' should be FALSE")
+		end if
+	end scope
+#endmacro
+#macro g_assert_null(expr)
+	scope
+		if G_LIKELY((expr) = NULL) then
+		else
+			g_assertion_message(G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, "'" #expr "' should be NULL")
+		end if
+	end scope
+#endmacro
+#macro g_assert_nonnull(expr)
+	scope
+		if G_LIKELY((expr) <> NULL) then
+		else
+			g_assertion_message(G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, "'" #expr "' should not be NULL")
+		end if
+	end scope
+#endmacro
+#define g_assert_not_reached() g_assertion_message_expr(G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, NULL)
+#macro g_assert(expr)
+	scope
+		if G_LIKELY(expr) then
+		else
+			g_assertion_message_expr(G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, #expr)
+		end if
+	end scope
+#endmacro
 
 declare function g_strcmp0(byval str1 as const zstring ptr, byval str2 as const zstring ptr) as long
 declare sub g_test_minimized_result(byval minimized_quantity as double, byval format as const zstring ptr, ...)
@@ -3173,7 +3258,26 @@ declare sub g_test_incomplete(byval msg as const zstring ptr)
 declare sub g_test_skip(byval msg as const zstring ptr)
 declare function g_test_failed() as gboolean
 declare sub g_test_set_nonfatal_assertions()
-#define g_test_add(testpath, Fixture, tdata, fsetup, ftest, fteardown) '' TODO: G_STMT_START { void (*add_vtable) (const char*, gsize, gconstpointer, void (*) (Fixture*, gconstpointer), void (*) (Fixture*, gconstpointer), void (*) (Fixture*, gconstpointer)) = (void (*) (const gchar *, gsize, gconstpointer, void (*) (Fixture*, gconstpointer), void (*) (Fixture*, gconstpointer), void (*) (Fixture*, gconstpointer))) g_test_add_vtable; add_vtable (testpath, sizeof (Fixture), tdata, fsetup, ftest, fteardown); } G_STMT_END
+#macro g_test_add(testpath, Fixture, tdata, fsetup, ftest, fteardown)
+	scope
+		dim add_vtable as sub cdecl( _
+			byval as const zstring ptr, _
+			byval as gsize, _
+			byval as gconstpointer, _
+			byval as sub cdecl(byval as Fixture ptr, byval as gconstpointer), _
+			byval as sub cdecl(byval as Fixture ptr, byval as gconstpointer), _
+			byval as sub cdecl(byval as Fixture ptr, byval as gconstpointer) _
+		) = cast(sub cdecl( _
+			byval as const zstring ptr, _
+			byval as gsize, _
+			byval as gconstpointer, _
+			byval as sub cdecl(byval as Fixture ptr, byval as gconstpointer), _
+			byval as sub cdecl(byval as Fixture ptr, byval as gconstpointer), _
+			byval as sub cdecl(byval as Fixture ptr, byval as gconstpointer) _
+		), g_test_add_vtable)
+		add_vtable(testpath, sizeof(Fixture), tdata, fsetup, ftest, fteardown)
+	end scope
+#endmacro
 declare sub g_test_message(byval format as const zstring ptr, ...)
 declare sub g_test_bug_base(byval uri_pattern as const zstring ptr)
 declare sub g_test_bug(byval bug_uri_snippet as const zstring ptr)
