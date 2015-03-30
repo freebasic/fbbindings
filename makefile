@@ -3,7 +3,7 @@ FBFROG := fbfrog
 ALL := allegro4 allegro5 atk
 ALL += cairo cgui clang cunit curl
 ALL += fastcgi ffi fontconfig freeglut freetype
-ALL += gdk-pixbuf glib glfw glut gtk
+ALL += gdk-pixbuf glib glibc glfw glut gtk
 ALL += iconv iup
 ALL += jit
 ALL += llvm lua
@@ -393,6 +393,29 @@ glib: glib-extract
 		-emit '*/extracted/$(GLIB)/gobject/*.h'        inc/glib-object.bi \
 		-emit '*/extracted/$(GLIB)/glib/glibconfig.h'  inc/glibconfig.bi \
 		-emit '*/extracted/$(GLIB)/glib/*.h'           inc/glib.bi
+
+GLIBC := glibc-2.21
+glibc:
+	./get.sh $(GLIBC) $(GLIBC).tar.xz http://ftp.gnu.org/gnu/glibc/$(GLIBC).tar.xz
+
+	cd extracted/$(GLIBC) && \
+		rm -f bits/wordsize.h bits/endian.h bits/setjmp.h
+
+	mkdir -p inc/crt/bits
+	$(FBFROG) glibc.fbfrog \
+		-ifdef __FB_64BIT__ \
+			-incdir extracted/$(GLIBC)/sysdeps/x86_64 \
+			-incdir extracted/$(GLIBC)/sysdeps/wordsize-64 \
+		-endif \
+		-incdir extracted/$(GLIBC)/sysdeps/x86 \
+		-incdir extracted/$(GLIBC)/sysdeps/nptl \
+		-incdir extracted/$(GLIBC)/include \
+		-incdir extracted/$(GLIBC) \
+		-include libc-symbols.h \
+		extracted/$(GLIBC)/sysdeps/nptl/pthread.h \
+		-emit '*/pthread.h'           inc/crt/pthread.bi \
+		-emit '*/bits/pthreadtypes.h' inc/crt/bits/pthreadtypes.bi \
+		-emit '*/bits/wordsize.h'     inc/crt/bits/wordsize.bi
 
 GLUT := glut-3.7
 glut:
