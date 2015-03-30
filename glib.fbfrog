@@ -110,10 +110,26 @@
 -renamedefine G_STATIC_RW_LOCK_INIT   G_STATIC_RW_LOCK_INIT_
 -renamedefine G_STATIC_PRIVATE_INIT   G_STATIC_PRIVATE_INIT_
 -ifdef __FB_WIN32__
-	-renameproc g_filename_to_utf8   g_filename_to_utf8_
-	-renameproc g_filename_from_utf8 g_filename_from_utf8_
-	-renameproc g_filename_from_uri  g_filename_from_uri_
-	-renameproc g_filename_to_uri    g_filename_to_uri_
+	-renameproc g_filename_to_utf8         g_filename_to_utf8_
+	-renameproc g_filename_from_utf8       g_filename_from_utf8_
+	-renameproc g_filename_from_uri        g_filename_from_uri_
+	-renameproc g_filename_to_uri          g_filename_to_uri_
+	-renameproc g_dir_open                 g_dir_open_
+	-renameproc g_dir_read_name            g_dir_read_name_
+	-renameproc g_getenv                   g_getenv_
+	-renameproc g_setenv                   g_setenv_
+	-renameproc g_unsetenv                 g_unsetenv_
+	-renameproc g_file_test                g_file_test_
+	-renameproc g_file_get_contents        g_file_get_contents_
+	-renameproc g_mkstemp                  g_mkstemp_
+	-renameproc g_file_open_tmp            g_file_open_tmp_
+	-renameproc g_get_current_dir          g_get_current_dir_
+	-renameproc g_io_channel_new_file      g_io_channel_new_file_
+	-renameproc g_spawn_async              g_spawn_async_
+	-renameproc g_spawn_async_with_pipes   g_spawn_async_with_pipes_
+	-renameproc g_spawn_sync               g_spawn_sync_
+	-renameproc g_spawn_command_line_sync  g_spawn_command_line_sync_
+	-renameproc g_spawn_command_line_async g_spawn_command_line_async_
 -endif
 
 -removeinclude glib/gmacros.h
