@@ -204,10 +204,6 @@ typedef gint64 goffset;
 	#define G_VA_COPY_AS_ARRAY 1
 #endif
 
-#define G_HAVE_INLINE 1
-#define G_HAVE___INLINE 1
-#define G_HAVE___INLINE__ 1
-#define G_CAN_INLINE 1
 #define G_HAVE_ISO_VARARGS 1
 #define G_HAVE_GNUC_VARARGS 1
 #define G_HAVE_GROWING_STACK 0

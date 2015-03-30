@@ -1922,12 +1922,6 @@ declare function g_get_system_data_dirs() as const zstring const ptr ptr
 
 #ifdef __FB_WIN32__
 	declare function g_win32_get_system_data_dirs_for_module(byval address_of_function as sub()) as const zstring const ptr ptr
-
-	private function _g_win32_get_system_data_dirs() as const zstring const ptr ptr
-		return g_win32_get_system_data_dirs_for_module(cptr(sub(), @_g_win32_get_system_data_dirs))
-	end function
-
-	#define g_get_system_data_dirs _g_win32_get_system_data_dirs
 #endif
 
 declare function g_get_system_config_dirs() as const zstring const ptr ptr
@@ -1982,38 +1976,6 @@ declare function g_bit_nth_lsf(byval mask as gulong, byval nth_bit as gint) as g
 declare function g_bit_nth_msf(byval mask as gulong, byval nth_bit as gint) as gint
 declare function g_bit_storage(byval number as gulong) as guint
 
-#if (defined(__FB_LINUX__) and (not defined(__FB_64BIT__))) or defined(__FB_DOS__) or defined(__FB_WIN32__)
-	private function g_bit_nth_lsf(byval mask as gulong, byval nth_bit as gint) as gint
-		'' TODO: if ((nth_bit < -1)) nth_bit = -1;
-		'' TODO: while (nth_bit < ((4 * 8) - 1)) { nth_bit++; if (mask & (1UL << nth_bit)) return nth_bit; }
-		return -1
-	end function
-
-	private function g_bit_nth_msf(byval mask as gulong, byval nth_bit as gint) as gint
-		'' TODO: if (nth_bit < 0 || (nth_bit > 4 * 8)) nth_bit = 4 * 8;
-		'' TODO: while (nth_bit > 0) { nth_bit--; if (mask & (1UL << nth_bit)) return nth_bit; }
-		return -1
-	end function
-#else
-	private function g_bit_nth_lsf(byval mask as gulong, byval nth_bit as gint) as gint
-		'' TODO: if ((nth_bit < -1)) nth_bit = -1;
-		'' TODO: while (nth_bit < ((8 * 8) - 1)) { nth_bit++; if (mask & (1UL << nth_bit)) return nth_bit; }
-		return -1
-	end function
-
-	private function g_bit_nth_msf(byval mask as gulong, byval nth_bit as gint) as gint
-		'' TODO: if (nth_bit < 0 || (nth_bit > 8 * 8)) nth_bit = 8 * 8;
-		'' TODO: while (nth_bit > 0) { nth_bit--; if (mask & (1UL << nth_bit)) return nth_bit; }
-		return -1
-	end function
-#endif
-
-private function g_bit_storage(byval number as gulong) as guint
-	dim n_bits as guint = 0
-	'' TODO: do { n_bits++; number >>= 1; } while (number);
-	return n_bits
-end function
-
 #ifdef __FB_WIN32__
 	#define G_WIN32_DLLMAIN_FOR_DLL_NAME(static, dll_name) '' TODO: static char *dll_name;BOOL WINAPI DllMain (HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved){ wchar_t wcbfr[1000]; char *tem; switch (fdwReason) { case DLL_PROCESS_ATTACH: GetModuleFileNameW ((HMODULE) hinstDLL, wcbfr, G_N_ELEMENTS (wcbfr)); tem = g_utf16_to_utf8 (wcbfr, -1, NULL, NULL, NULL); dll_name = g_path_get_basename (tem); g_free (tem); break; } return TRUE;}
 #else
@@ -2060,14 +2022,6 @@ declare sub g_string_printf(byval string as GString ptr, byval format as const z
 declare sub g_string_append_vprintf(byval string as GString ptr, byval format as const zstring ptr, byval args as va_list)
 declare sub g_string_append_printf(byval string as GString ptr, byval format as const zstring ptr, ...)
 declare function g_string_append_uri_escaped(byval string as GString ptr, byval unescaped as const zstring ptr, byval reserved_chars_allowed as const zstring ptr, byval allow_utf8 as gboolean) as GString ptr
-
-private function g_string_append_c_inline(byval gstring as GString ptr, byval c as byte) as GString ptr
-	'' TODO: if (gstring->len + 1 < gstring->allocated_len) { gstring->str[gstring->len++] = c; gstring->str[gstring->len] = 0; }
-	'' TODO: else g_string_insert_c (gstring, -1, c);
-	return gstring
-end function
-
-#define g_string_append_c(gstr, c) g_string_append_c_inline(gstr, c)
 declare function g_string_down(byval string as GString ptr) as GString ptr
 declare function g_string_up(byval string as GString ptr) as GString ptr
 #define g_string_sprintf g_string_printf
@@ -3379,33 +3333,6 @@ declare sub g_trash_stack_push(byval stack_p as GTrashStack ptr ptr, byval data_
 declare function g_trash_stack_pop(byval stack_p as GTrashStack ptr ptr) as gpointer
 declare function g_trash_stack_peek(byval stack_p as GTrashStack ptr ptr) as gpointer
 declare function g_trash_stack_height(byval stack_p as GTrashStack ptr ptr) as guint
-
-private sub g_trash_stack_push(byval stack_p as GTrashStack ptr ptr, byval data_p as gpointer)
-	dim data as GTrashStack ptr = cptr(GTrashStack ptr, data_p)
-	'' TODO: data->next = *stack_p;
-	'' TODO: *stack_p = data;
-end sub
-
-private function g_trash_stack_pop(byval stack_p as GTrashStack ptr ptr) as gpointer
-	dim data as GTrashStack ptr
-	'' TODO: data = *stack_p;
-	'' TODO: if (data) { *stack_p = data->next; data->next = ((void*) 0); }
-	return data
-end function
-
-private function g_trash_stack_peek(byval stack_p as GTrashStack ptr ptr) as gpointer
-	dim data as GTrashStack ptr
-	'' TODO: data = *stack_p;
-	return data
-end function
-
-private function g_trash_stack_height(byval stack_p as GTrashStack ptr ptr) as guint
-	dim data as GTrashStack ptr
-	dim i as guint = 0
-	'' TODO: for (data = *stack_p; data; data = data->next) i++;
-	return i
-end function
-
 #define __G_TREE_H__
 type GTree as _GTree
 type GTraverseFunc as function(byval key as gpointer, byval value as gpointer, byval data as gpointer) as gboolean

@@ -190,10 +190,6 @@ const GLIB_MICRO_VERSION = 2
 	const G_VA_COPY_AS_ARRAY = 1
 #endif
 
-const G_HAVE_INLINE = 1
-const G_HAVE___INLINE = 1
-const G_HAVE___INLINE__ = 1
-const G_CAN_INLINE = 1
 const G_HAVE_ISO_VARARGS = 1
 const G_HAVE_GNUC_VARARGS = 1
 const G_HAVE_GROWING_STACK = 0

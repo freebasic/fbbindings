@@ -4,3 +4,5 @@
 		-define GLIB_STATIC_COMPILATION 1
 	-endif
 -endif
+
+-removedefine inline
