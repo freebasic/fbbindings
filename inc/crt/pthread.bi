@@ -4,6 +4,7 @@
 	#include once "crt/long.bi"
 #endif
 
+#include once "crt/sched.bi"
 #include once "crt/time.bi"
 #include once "crt/bits/pthreadtypes.bi"
 #include once "crt/bits/wordsize.bi"
