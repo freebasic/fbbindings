@@ -1,3 +1,5 @@
+-replacements glib.replacements
+
 -ifdef __FB_WIN32__
 	-declarebool GLIB_STATIC_COMPILATION
 	-ifdef GLIB_STATIC_COMPILATION
@@ -32,3 +34,4 @@
 -removedefine g_pointer_bit_unlock
 -removedefine g_clear_pointer
 -removedefine G_INLINE_FUNC
+-removedefine G_STATIC_ASSERT_EXPR

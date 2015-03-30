@@ -26,9 +26,8 @@ extern "C"
 #define G_STRINGIFY_ARG(contents) #contents
 #define G_PASTE_ARGS(identifier1, identifier2) identifier1##identifier2
 #define G_PASTE(identifier1, identifier2) G_PASTE_ARGS(identifier1, identifier2)
-#define G_STATIC_ASSERT(expr) '' TODO: typedef char G_PASTE (_GStaticAssertCompileTimeAssertion_, __LINE__)[(expr) ? 1 : -1] G_GNUC_UNUSED
-#define G_STATIC_ASSERT_EXPR(expr) '' TODO: ((void) sizeof (char[(expr) ? 1 : -1]))
-#define G_STRLOC '' TODO: __FILE__ ":" G_STRINGIFY (__LINE__)
+#define G_STATIC_ASSERT(expr) #assert expr
+#define G_STRLOC __FILE__ ":" G_STRINGIFY(__LINE__)
 #define G_STRFUNC cptr(const zstring ptr, __func__)
 const NULL = cptr(any ptr, 0)
 const FALSE = 0
@@ -1041,9 +1040,9 @@ declare function g_realloc_n(byval mem as gpointer, byval n_blocks as gsize, byv
 declare function g_try_malloc_n(byval n_blocks as gsize, byval n_block_bytes as gsize) as gpointer
 declare function g_try_malloc0_n(byval n_blocks as gsize, byval n_block_bytes as gsize) as gpointer
 declare function g_try_realloc_n(byval mem as gpointer, byval n_blocks as gsize, byval n_block_bytes as gsize) as gpointer
+#define _G_NEW(struct_type, n_structs, func) cptr(struct_type ptr, g_##func##_n((n_structs), sizeof(struct_type)))
+#define _G_RENEW(struct_type, mem, n_structs, func) cptr(struct_type ptr, g_##func##_n(mem, (n_structs), sizeof(struct_type)))
 
-#define _G_NEW(struct_type, n_structs, func) '' TODO: ((struct_type *) g_##func##_n ((n_structs), sizeof (struct_type)))
-#define _G_RENEW(struct_type, mem, n_structs, func) '' TODO: ((struct_type *) g_##func##_n (mem, (n_structs), sizeof (struct_type)))
 #define g_new(struct_type, n_structs) _G_NEW(struct_type, n_structs, malloc)
 #define g_new0(struct_type, n_structs) _G_NEW(struct_type, n_structs, malloc0)
 #define g_renew(struct_type, mem, n_structs) _G_RENEW(struct_type, mem, n_structs, realloc)
@@ -1941,7 +1940,21 @@ declare function g_bit_nth_msf(byval mask as gulong, byval nth_bit as gint) as g
 declare function g_bit_storage(byval number as gulong) as guint
 
 #ifdef __FB_WIN32__
-	#define G_WIN32_DLLMAIN_FOR_DLL_NAME(static, dll_name) '' TODO: static char *dll_name;BOOL WINAPI DllMain (HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved){ wchar_t wcbfr[1000]; char *tem; switch (fdwReason) { case DLL_PROCESS_ATTACH: GetModuleFileNameW ((HMODULE) hinstDLL, wcbfr, G_N_ELEMENTS (wcbfr)); tem = g_utf16_to_utf8 (wcbfr, -1, NULL, NULL, NULL); dll_name = g_path_get_basename (tem); g_free (tem); break; } return TRUE;}
+	#macro G_WIN32_DLLMAIN_FOR_DLL_NAME(static, dll_name)
+		dim shared dll_name as zstring ptr
+		function DllMain stdcall alias "DllMain"(byval hinstDLL as HINSTANCE, byval fdwReason as DWORD, byval lpvReserved as LPVOID) as BOOL
+			dim wcbfr as wstring * 1000
+			dim tem as zstring ptr
+			select case fdwReason
+			case DLL_PROCESS_ATTACH
+				GetModuleFileNameW(cast(HMODULE, hinstDLL), wcbfr, G_N_ELEMENTS(wcbfr))
+				tem = g_utf16_to_utf8(wcbfr, -1, NULL, NULL, NULL)
+				dll_name = g_path_get_basename(tem)
+				g_free(tem)
+			end select
+			return TRUE
+		end function
+	#endmacro
 #else
 	#define G_WIN32_DLLMAIN_FOR_DLL_NAME(static, dll_name)
 #endif
@@ -2349,7 +2362,7 @@ declare sub g_warn_message(byval domain as const zstring ptr, byval file as cons
 declare sub g_assert_warning(byval log_domain as const zstring ptr, byval file as const zstring ptr, byval line as const long, byval pretty_function as const zstring ptr, byval expression as const zstring ptr)
 
 const G_LOG_DOMAIN = cptr(zstring ptr, 0)
-#define g_error(__VA_ARGS__...) '' TODO: G_STMT_START { g_log (G_LOG_DOMAIN, G_LOG_LEVEL_ERROR, __VA_ARGS__); for (;;) ; } G_STMT_END
+#define g_error(__VA_ARGS__...) g_log(G_LOG_DOMAIN, G_LOG_LEVEL_ERROR, __VA_ARGS__)
 #define g_message(__VA_ARGS__...) g_log(G_LOG_DOMAIN, G_LOG_LEVEL_MESSAGE, __VA_ARGS__)
 #define g_critical(__VA_ARGS__...) g_log(G_LOG_DOMAIN, G_LOG_LEVEL_CRITICAL, __VA_ARGS__)
 #define g_warning(__VA_ARGS__...) g_log(G_LOG_DOMAIN, G_LOG_LEVEL_WARNING, __VA_ARGS__)
@@ -2362,12 +2375,45 @@ declare function g_set_print_handler(byval func as GPrintFunc) as GPrintFunc
 declare sub g_printerr(byval format as const zstring ptr, ...)
 declare function g_set_printerr_handler(byval func as GPrintFunc) as GPrintFunc
 
-#define g_warn_if_reached() '' TODO: do { g_warn_message (G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, NULL); } while (0)
-#define g_warn_if_fail(expr) '' TODO: do { if G_LIKELY (expr) ; else g_warn_message (G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, #expr); } while (0)
-#define g_return_if_fail(expr) '' TODO: G_STMT_START{ if G_LIKELY(expr) { } else { g_return_if_fail_warning (G_LOG_DOMAIN, G_STRFUNC, #expr); return; }; }G_STMT_END
-#define g_return_val_if_fail(expr, val) '' TODO: G_STMT_START{ if G_LIKELY(expr) { } else { g_return_if_fail_warning (G_LOG_DOMAIN, G_STRFUNC, #expr); return (val); }; }G_STMT_END
-#define g_return_if_reached() '' TODO: G_STMT_START{ g_log (G_LOG_DOMAIN, G_LOG_LEVEL_CRITICAL, "file %s: line %d (%s): should not be reached", __FILE__, __LINE__, G_STRFUNC); return; }G_STMT_END
-#define g_return_val_if_reached(val) '' TODO: G_STMT_START{ g_log (G_LOG_DOMAIN, G_LOG_LEVEL_CRITICAL, "file %s: line %d (%s): should not be reached", __FILE__, __LINE__, G_STRFUNC); return (val); }G_STMT_END
+#define g_warn_if_reached() g_warn_message(G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, NULL)
+#macro g_warn_if_fail(expr)
+	scope
+		if G_LIKELY(expr) then
+		else
+			g_warn_message(G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, #expr)
+		end if
+	end scope
+#endmacro
+#macro g_return_if_fail(expr)
+	scope
+		if G_LIKELY(expr) then
+		else
+			g_return_if_fail_warning(G_LOG_DOMAIN, G_STRFUNC, #expr)
+			return
+		end if
+	end scope
+#endmacro
+#macro g_return_val_if_fail(expr, val)
+	scope
+		if G_LIKELY(expr) then
+		else
+			g_return_if_fail_warning(G_LOG_DOMAIN, G_STRFUNC, #expr)
+			return (val)
+		end if
+	end scope
+#endmacro
+#macro g_return_if_reached()
+	scope
+		g_log(G_LOG_DOMAIN, G_LOG_LEVEL_CRITICAL, "file %s: line %d (%s): should not be reached", __FILE__, __LINE__, G_STRFUNC)
+		return
+	end scope
+#endmacro
+#macro g_return_val_if_reached(val)
+	scope
+		g_log(G_LOG_DOMAIN, G_LOG_LEVEL_CRITICAL, "file %s: line %d (%s): should not be reached", __FILE__, __LINE__, G_STRFUNC)
+		return (val)
+	end scope
+#endmacro
 #define __G_OPTION_H__
 
 type GOptionContext as _GOptionContext
@@ -2827,9 +2873,9 @@ declare sub g_scanner_unexp_token(byval scanner as GScanner ptr, byval expected_
 declare sub g_scanner_error(byval scanner as GScanner ptr, byval format as const zstring ptr, ...)
 declare sub g_scanner_warn(byval scanner as GScanner ptr, byval format as const zstring ptr, ...)
 
-#define g_scanner_add_symbol(scanner, symbol, value) '' TODO: G_STMT_START { g_scanner_scope_add_symbol ((scanner), 0, (symbol), (value));} G_STMT_END
-#define g_scanner_remove_symbol(scanner, symbol) '' TODO: G_STMT_START { g_scanner_scope_remove_symbol ((scanner), 0, (symbol));} G_STMT_END
-#define g_scanner_foreach_symbol(scanner, func, data) '' TODO: G_STMT_START { g_scanner_scope_foreach_symbol ((scanner), 0, (func), (data));} G_STMT_END
+#define g_scanner_add_symbol(scanner, symbol, value) g_scanner_scope_add_symbol((scanner), 0, (symbol), (value))
+#define g_scanner_remove_symbol(scanner, symbol) g_scanner_scope_remove_symbol((scanner), 0, (symbol))
+#define g_scanner_foreach_symbol(scanner, func, data) g_scanner_scope_foreach_symbol((scanner), 0, (func), (data))
 #define g_scanner_freeze_symbol_table(scanner) 0
 #define g_scanner_thaw_symbol_table(scanner) 0
 #define __G_SEQUENCE_H__
@@ -2898,9 +2944,9 @@ declare sub g_slice_free_chain_with_offset(byval block_size as gsize, byval mem_
 
 #define g_slice_new(type) cptr(type ptr, g_slice_alloc(sizeof((type))))
 #define g_slice_new0(type) cptr(type ptr, g_slice_alloc0(sizeof((type))))
-#define g_slice_dup(type, mem) '' TODO: (1 ? (type*) g_slice_copy (sizeof (type), (mem)) : ((void) ((type*) 0 == (mem)), (type*) 0))
-#define g_slice_free(type, mem) '' TODO: G_STMT_START { if (1) g_slice_free1 (sizeof (type), (mem)); else (void) ((type*) 0 == (mem));} G_STMT_END
-#define g_slice_free_chain(type, mem_chain, next) '' TODO: G_STMT_START { if (1) g_slice_free_chain_with_offset (sizeof (type), (mem_chain), G_STRUCT_OFFSET (type, next)); else (void) ((type*) 0 == (mem_chain));} G_STMT_END
+#define g_slice_dup(type, mem) cptr(type ptr, g_slice_copy(sizeof((type)), (mem)))
+#define g_slice_free(type, mem) g_slice_free1(sizeof((type)), (mem))
+#define g_slice_free_chain(type, mem_chain, next) g_slice_free_chain_with_offset(sizeof((type)), (mem_chain), G_STRUCT_OFFSET(type, next))
 
 type GSliceConfig as long
 enum
