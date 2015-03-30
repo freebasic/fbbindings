@@ -20,12 +20,8 @@ extern "C"
 #define __G_ALLOCA_H__
 #define __G_TYPES_H__
 #define __G_MACROS_H__
-#define G_GNUC_EXTENSION __extension__
 #define G_GNUC_FUNCTION ""
 #define G_GNUC_PRETTY_FUNCTION ""
-#define __has_feature(x) 0
-const G_ANALYZER_ANALYZING = 0
-#define G_ANALYZER_NORETURN
 #define G_STRINGIFY(macro_or_string) G_STRINGIFY_ARG(macro_or_string)
 #define G_STRINGIFY_ARG(contents) #contents
 #define G_PASTE_ARGS(identifier1, identifier2) identifier1##identifier2
@@ -34,8 +30,6 @@ const G_ANALYZER_ANALYZING = 0
 #define G_STATIC_ASSERT_EXPR(expr) '' TODO: ((void) sizeof (char[(expr) ? 1 : -1]))
 #define G_STRLOC '' TODO: __FILE__ ":" G_STRINGIFY (__LINE__)
 #define G_STRFUNC cptr(const zstring ptr, __func__)
-#define G_BEGIN_DECLS
-#define G_END_DECLS
 const NULL = cptr(any ptr, 0)
 const FALSE = 0
 #define TRUE (FALSE = 0)
@@ -49,14 +43,8 @@ const FALSE = 0
 #define G_STRUCT_OFFSET(struct_type, member) cast(glong, offsetof(struct_type, member))
 #define G_STRUCT_MEMBER_P(struct_p, struct_offset) cast(gpointer, cptr(guint8 ptr, (struct_p)) + cast(glong, (struct_offset)))
 #define G_STRUCT_MEMBER(member_type, struct_p, struct_offset) (*cptr(member_type ptr, G_STRUCT_MEMBER_P((struct_p), (struct_offset))))
-#define G_STMT_START '' TODO: do
-#define G_STMT_END '' TODO: while (0)
 #define G_LIKELY(expr) (expr)
 #define G_UNLIKELY(expr) (expr)
-#define _GLIB_EXTERN '' TODO: extern
-#define GLIB_DEPRECATED G_DEPRECATED _GLIB_EXTERN
-#define GLIB_DEPRECATED_FOR(f) '' TODO: G_DEPRECATED_FOR(f) _GLIB_EXTERN
-#define GLIB_UNAVAILABLE(maj, min) '' TODO: G_UNAVAILABLE(maj,min) _GLIB_EXTERN
 #define __G_VERSION_MACROS_H__
 #define G_ENCODE_VERSION(major, minor) (((major) shl 16) or ((minor) shl 8))
 #define GLIB_VERSION_2_26 G_ENCODE_VERSION(2, 26)
@@ -222,15 +210,6 @@ type _GTimeVal
 	tv_usec as glong
 end type
 
-#if defined(__FB_WIN32__) and defined(GLIB_STATIC_COMPILATION)
-	#define GLIB_VAR '' TODO: extern
-#elseif defined(__FB_WIN32__) and (not defined(GLIB_STATIC_COMPILATION))
-	#define GLIB_VAR '' TODO: extern __declspec(dllimport)
-#else
-	#define GLIB_VAR _GLIB_EXTERN
-#endif
-
-#define alloca(size) __builtin_alloca(size)
 #define g_alloca(size) alloca(size)
 #define g_newa(struct_type, n_structs) cptr(struct_type ptr, g_alloca(sizeof((struct_type)) * cast(gsize, (n_structs))))
 #define __G_ARRAY_H__
@@ -358,7 +337,6 @@ declare function g_quark_try_string(byval string as const zstring ptr) as GQuark
 declare function g_quark_from_static_string(byval string as const zstring ptr) as GQuark
 declare function g_quark_from_string(byval string as const zstring ptr) as GQuark
 declare function g_quark_to_string(byval quark as GQuark) as const zstring ptr
-#define G_DEFINE_QUARK(QN, q_n) '' TODO: GQuark q_n##_quark (void){ static GQuark q; if G_UNLIKELY (q == 0) q = g_quark_from_static_string (#QN); return q;}
 declare function g_intern_string(byval string as const zstring ptr) as const zstring ptr
 declare function g_intern_static_string(byval string as const zstring ptr) as const zstring ptr
 type GError as _GError
@@ -441,9 +419,6 @@ type _GOnce
 end type
 
 #define G_LOCK_NAME(name) g__##name##_lock
-#define G_LOCK_DEFINE_STATIC(name) '' TODO: static G_LOCK_DEFINE (name)
-#define G_LOCK_DEFINE(name) '' TODO: GMutex G_LOCK_NAME (name)
-#define G_LOCK_EXTERN(name) '' TODO: extern GMutex G_LOCK_NAME (name)
 #define G_LOCK(name) g_mutex_lock(@G_LOCK_NAME(name))
 #define G_UNLOCK(name) g_mutex_unlock(@G_LOCK_NAME(name))
 #define G_TRYLOCK(name) g_mutex_trylock(@G_LOCK_NAME(name))
@@ -486,13 +461,9 @@ declare sub g_private_replace(byval key as GPrivate ptr, byval value as gpointer
 declare function g_once_impl(byval once as GOnce ptr, byval func as GThreadFunc, byval arg as gpointer) as gpointer
 declare function g_once_init_enter(byval location as any ptr) as gboolean
 declare sub g_once_init_leave(byval location as any ptr, byval result as gsize)
-
 #define g_once(once, func, arg) iif((once)->status = G_ONCE_STATUS_READY, (once)->retval, g_once_impl((once), (func), (arg)))
-#define g_once_init_enter(location) '' TODO: (G_GNUC_EXTENSION ({ G_STATIC_ASSERT (sizeof *(location) == sizeof (gpointer)); (void) (0 ? (gpointer) *(location) : 0); (!g_atomic_pointer_get (location) && g_once_init_enter (location)); }))
-#define g_once_init_leave(location, result) '' TODO: (G_GNUC_EXTENSION ({ G_STATIC_ASSERT (sizeof *(location) == sizeof (gpointer)); (void) (0 ? *(location) = (result) : 0); g_once_init_leave ((location), (gsize) (result)); }))
 declare function g_get_num_processors() as guint
 type GAsyncQueue as _GAsyncQueue
-
 declare function g_async_queue_new() as GAsyncQueue ptr
 declare function g_async_queue_new_full(byval item_free_func as GDestroyNotify) as GAsyncQueue ptr
 declare sub g_async_queue_lock(byval queue as GAsyncQueue ptr)
@@ -520,7 +491,6 @@ declare function g_async_queue_timed_pop_unlocked(byval queue as GAsyncQueue ptr
 #define __G_BACKTRACE_H__
 declare sub g_on_error_query(byval prg_name as const zstring ptr)
 declare sub g_on_error_stack_trace(byval prg_name as const zstring ptr)
-#define G_BREAKPOINT() '' TODO: G_STMT_START{ __asm__ __volatile__ ("int $03"); }G_STMT_END
 #define __G_BASE64_H__
 declare function g_base64_encode_step(byval in as const guchar ptr, byval len as gsize, byval break_lines as gboolean, byval out as zstring ptr, byval state as gint ptr, byval save as gint ptr) as gsize
 declare function g_base64_encode_close(byval break_lines as gboolean, byval out as zstring ptr, byval state as gint ptr, byval save as gint ptr) as gsize
@@ -535,10 +505,6 @@ declare sub g_bit_unlock(byval address as gint ptr, byval lock_bit as gint)
 declare sub g_pointer_bit_lock(byval address as any ptr, byval lock_bit as gint)
 declare function g_pointer_bit_trylock(byval address as any ptr, byval lock_bit as gint) as gboolean
 declare sub g_pointer_bit_unlock(byval address as any ptr, byval lock_bit as gint)
-
-#define g_pointer_bit_lock(address, lock_bit) '' TODO: (G_GNUC_EXTENSION ({ G_STATIC_ASSERT (sizeof *(address) == sizeof (gpointer)); g_pointer_bit_lock ((address), (lock_bit)); }))
-#define g_pointer_bit_trylock(address, lock_bit) '' TODO: (G_GNUC_EXTENSION ({ G_STATIC_ASSERT (sizeof *(address) == sizeof (gpointer)); g_pointer_bit_trylock ((address), (lock_bit)); }))
-#define g_pointer_bit_unlock(address, lock_bit) '' TODO: (G_GNUC_EXTENSION ({ G_STATIC_ASSERT (sizeof *(address) == sizeof (gpointer)); g_pointer_bit_unlock ((address), (lock_bit)); }))
 #define __G_BOOKMARK_FILE_H__
 #define G_BOOKMARK_FILE_ERROR g_bookmark_file_error_quark()
 
@@ -1076,7 +1042,6 @@ declare function g_try_malloc_n(byval n_blocks as gsize, byval n_block_bytes as 
 declare function g_try_malloc0_n(byval n_blocks as gsize, byval n_block_bytes as gsize) as gpointer
 declare function g_try_realloc_n(byval mem as gpointer, byval n_blocks as gsize, byval n_block_bytes as gsize) as gpointer
 
-#define g_clear_pointer(pp, destroy) '' TODO: G_STMT_START { G_STATIC_ASSERT (sizeof *(pp) == sizeof (gpointer)); gpointer *_pp = (gpointer *) (pp); gpointer _p; GDestroyNotify _destroy = (GDestroyNotify) (destroy); _p = *_pp; if (_p) { *_pp = NULL; _destroy (_p); } } G_STMT_END
 #define _G_NEW(struct_type, n_structs, func) '' TODO: ((struct_type *) g_##func##_n ((n_structs), sizeof (struct_type)))
 #define _G_RENEW(struct_type, mem, n_structs, func) '' TODO: ((struct_type *) g_##func##_n (mem, (n_structs), sizeof (struct_type)))
 #define g_new(struct_type, n_structs) _G_NEW(struct_type, n_structs, malloc)
@@ -1904,7 +1869,6 @@ declare function g_utf8_collate_key(byval str as const zstring ptr, byval len as
 declare function g_utf8_collate_key_for_filename(byval str as const zstring ptr, byval len as gssize) as zstring ptr
 declare function _g_utf8_make_valid(byval name as const zstring ptr) as zstring ptr
 #define __G_UTILS_H__
-#define G_INLINE_FUNC '' TODO: static __inline __attribute__ ((unused))
 declare function g_get_user_name() as const zstring ptr
 declare function g_get_real_name() as const zstring ptr
 declare function g_get_home_dir() as const zstring ptr

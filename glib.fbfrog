@@ -6,3 +6,29 @@
 -endif
 
 -removedefine inline
+-removedefine G_GNUC_EXTENSION
+-removedefine __has_feature
+-removedefine G_ANALYZER_ANALYZING
+-removedefine G_ANALYZER_NORETURN
+-removedefine G_BEGIN_DECLS
+-removedefine G_END_DECLS
+-removedefine G_STMT_START
+-removedefine G_STMT_END
+-removedefine _GLIB_EXTERN
+-removedefine GLIB_DEPRECATED
+-removedefine GLIB_DEPRECATED_FOR
+-removedefine GLIB_UNAVAILABLE
+-removedefine GLIB_VAR
+-removedefine alloca
+-removedefine G_DEFINE_QUARK
+-removedefine G_LOCK_DEFINE_STATIC
+-removedefine G_LOCK_DEFINE
+-removedefine G_LOCK_EXTERN
+-removedefine g_once_init_enter
+-removedefine g_once_init_leave
+-removedefine G_BREAKPOINT
+-removedefine g_pointer_bit_lock
+-removedefine g_pointer_bit_trylock
+-removedefine g_pointer_bit_unlock
+-removedefine g_clear_pointer
+-removedefine G_INLINE_FUNC
