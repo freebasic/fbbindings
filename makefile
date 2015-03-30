@@ -413,9 +413,11 @@ glibc:
 		-incdir extracted/$(GLIBC) \
 		-include libc-symbols.h \
 		extracted/$(GLIBC)/sysdeps/nptl/pthread.h \
-		-emit '*/pthread.h'           inc/crt/pthread.bi \
 		-emit '*/bits/pthreadtypes.h' inc/crt/bits/pthreadtypes.bi \
-		-emit '*/bits/wordsize.h'     inc/crt/bits/wordsize.bi
+		-emit '*/bits/wordsize.h'     inc/crt/bits/wordsize.bi \
+		-emit '*/bits/sched.h'        inc/crt/bits/sched.bi \
+		-emit '*/pthread.h'           inc/crt/pthread.bi \
+		-emit '*/sched.h'             inc/crt/sched.bi
 
 GLUT := glut-3.7
 glut:

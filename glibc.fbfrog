@@ -29,3 +29,6 @@
 -removedefine PTHREAD_CANCEL_DISABLE
 -removedefine PTHREAD_CANCEL_DEFERRED
 -removedefine PTHREAD_CANCEL_ASYNCHRONOUS
+
+# Prevent pid_t definition in sched.h
+-define __pid_t_defined 1
