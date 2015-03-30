@@ -397,9 +397,24 @@ declare function g_type_name_from_class(byval g_class as GTypeClass ptr) as cons
 #define _G_TYPE_IGC(ip, gt, ct) cptr(ct ptr, cptr(GTypeInstance ptr, ip)->g_class)
 #define _G_TYPE_IGI(ip, gt, ct) cptr(ct ptr, g_type_interface_peek(cptr(GTypeInstance ptr, ip)->g_class, gt))
 #define _G_TYPE_CIFT(ip, ft) g_type_check_instance_is_fundamentally_a(cptr(GTypeInstance ptr, ip), ft)
-#define _G_TYPE_CIT(ip, gt) '' TODO: (G_GNUC_EXTENSION ({ GTypeInstance *__inst = (GTypeInstance*) ip; GType __t = gt; gboolean __r; if (!__inst) __r = FALSE; else if (__inst->g_class && __inst->g_class->g_type == __t) __r = TRUE; else __r = g_type_check_instance_is_a (__inst, __t); __r;}))
-#define _G_TYPE_CCT(cp, gt) '' TODO: (G_GNUC_EXTENSION ({ GTypeClass *__class = (GTypeClass*) cp; GType __t = gt; gboolean __r; if (!__class) __r = FALSE; else if (__class->g_type == __t) __r = TRUE; else __r = g_type_check_class_is_a (__class, __t); __r;}))
-#define _G_TYPE_CVH(vl, gt) '' TODO: (G_GNUC_EXTENSION ({ GValue *__val = (GValue*) vl; GType __t = gt; gboolean __r; if (!__val) __r = FALSE; else if (__val->g_type == __t) __r = TRUE; else __r = g_type_check_value_holds (__val, __t); __r;}))
+#define _G_TYPE_CIT(ip, gt) _
+	iif(cptr(GTypeInstance ptr, ip) = 0, _
+		FALSE, _
+		iif(cptr(GTypeInstance ptr, ip)->g_class andalso cptr(GTypeInstance ptr, ip)->g_class->g_type = gt, _
+			TRUE, _
+			g_type_check_instance_is_a(cptr(GTypeInstance ptr, ip), gt)))
+#define _G_TYPE_CCT(cp, gt) _
+	iif(cptr(GTypeClass ptr, cp) = 0, _
+		FALSE, _
+		iif(cptr(GTypeClass ptr, cp)->g_type = gt, _
+			TRUE, _
+			g_type_check_class_is_a(cptr(GTypeClass ptr, cp), gt)))
+#define _G_TYPE_CVH(vl, gt) _
+	iif(cptr(GValue ptr, vl) = 0 _
+		FALSE, _
+		iif(cptr(GValue ptr, vl)->g_type = gt, _
+			TRUE, _
+			g_type_check_value_holds(cptr(GValue ptr, vl), gt)))
 #define G_TYPE_FLAG_RESERVED_ID_BIT cast(GType, 1 shl 0)
 #define __G_VALUE_H__
 #define G_TYPE_IS_VALUE(type) g_type_check_is_value_type(type)
@@ -957,7 +972,16 @@ declare sub g_object_run_dispose(byval object as GObject ptr)
 declare sub g_value_take_object(byval value as GValue ptr, byval v_object as gpointer)
 declare sub g_value_set_object_take_ownership(byval value as GValue ptr, byval v_object as gpointer)
 declare function g_object_compat_control(byval what as gsize, byval data as gpointer) as gsize
-#define G_OBJECT_WARN_INVALID_PSPEC(object, pname, property_id, pspec) '' TODO: G_STMT_START { GObject *_glib__object = (GObject*) (object); GParamSpec *_glib__pspec = (GParamSpec*) (pspec); guint _glib__property_id = (property_id); g_warning ("%s:%u: invalid %s id %u for \"%s\" of type '%s' in '%s'", __FILE__, __LINE__, (pname), _glib__property_id, _glib__pspec->name, g_type_name (G_PARAM_SPEC_TYPE (_glib__pspec)), G_OBJECT_TYPE_NAME (_glib__object));} G_STMT_END
+#macro G_OBJECT_WARN_INVALID_PSPEC(object, pname, property_id, pspec)
+	scope
+		var _glib__pspec = cptr(GParamSpec ptr, pspec)
+		dim as guint _glib__property_id = (property_id)
+		g_warning(!"%s:%u: invalid %s id %u for \"%s\" of type '%s' in '%s'", _
+			__FILE__, __LINE__, (pname), _glib__property_id, _glib__pspec->name, _
+			g_type_name(G_PARAM_SPEC_TYPE(_glib__pspec)), _
+			G_OBJECT_TYPE_NAME(cptr(GObject ptr, object)))
+	end scope
+#endmacro
 #define G_OBJECT_WARN_INVALID_PROPERTY_ID(object, property_id, pspec) G_OBJECT_WARN_INVALID_PSPEC((object), "property", (property_id), (pspec))
 declare sub g_clear_object(byval object_ptr as GObject ptr ptr)
 #define g_clear_object(object_ptr) g_clear_pointer((object_ptr), g_object_unref)
@@ -1326,10 +1350,8 @@ declare function g_param_spec_gtype(byval name as const zstring ptr, byval nick 
 declare function g_param_spec_variant(byval name as const zstring ptr, byval nick as const zstring ptr, byval blurb as const zstring ptr, byval type as const GVariantType ptr, byval default_value as GVariant ptr, byval flags as GParamFlags) as GParamSpec ptr
 
 #ifdef __FB_WIN32__
-	#define GOBJECT_VAR '' TODO: extern __declspec(dllimport)
 	extern import g_param_spec_types as GType ptr
 #else
-	#define GOBJECT_VAR _GLIB_EXTERN
 	extern g_param_spec_types as GType ptr
 #endif
 
@@ -1364,8 +1386,50 @@ type _GTypeModuleClass
 	reserved4 as sub()
 end type
 
-#define G_DEFINE_DYNAMIC_TYPE(TN, t_n, T_P) '' TODO: G_DEFINE_DYNAMIC_TYPE_EXTENDED (TN, t_n, T_P, 0, {})
-#define G_DEFINE_DYNAMIC_TYPE_EXTENDED(TypeName, type_name, TYPE_PARENT, flags, CODE) '' TODO: static void type_name##_init (TypeName *self);static void type_name##_class_init (TypeName##Class *klass);static void type_name##_class_finalize (TypeName##Class *klass);static gpointer type_name##_parent_class = NULL;static GType type_name##_type_id = 0;static gint TypeName##_private_offset;_G_DEFINE_TYPE_EXTENDED_CLASS_INIT(TypeName, type_name)static inline gpointer type_name##_get_instance_private (TypeName *self){ return (G_STRUCT_MEMBER_P (self, TypeName##_private_offset));}GType type_name##_get_type (void){ return type_name##_type_id;}static void type_name##_register_type (GTypeModule *type_module){ GType g_define_type_id G_GNUC_UNUSED; const GTypeInfo g_define_type_info = { sizeof (TypeName##Class), (GBaseInitFunc) NULL, (GBaseFinalizeFunc) NULL, (GClassInitFunc) type_name##_class_intern_init, (GClassFinalizeFunc) type_name##_class_finalize, NULL, sizeof (TypeName), 0, (GInstanceInitFunc) type_name##_init, NULL }; type_name##_type_id = g_type_module_register_type (type_module, TYPE_PARENT, #TypeName, &g_define_type_info, (GTypeFlags) flags); g_define_type_id = type_name##_type_id; { CODE ; }}
+#define G_DEFINE_DYNAMIC_TYPE(TN, t_n, T_P) G_DEFINE_DYNAMIC_TYPE_EXTENDED(TN, t_n, T_P, 0, )
+#macro G_DEFINE_DYNAMIC_TYPE_EXTENDED(TypeName, type_name, TYPE_PARENT, flags, CODE)
+	extern "C"
+		declare sub type_name##_init(byval self as TypeName ptr)
+		declare sub type_name##_class_init(byval klass as TypeName##Class ptr)
+		declare sub type_name##_class_finalize(byval klass as TypeName##Class ptr)
+		dim shared as gpointer type_name##_parent_class = NULL
+		dim shared as GType type_name##_type_id = 0
+		dim shared as gint TypeName##_private_offset
+		_G_DEFINE_TYPE_EXTENDED_CLASS_INIT(TypeName, type_name)
+		private function type_name##_get_instance_private(byval self as TypeName ptr) as gpointer
+			return G_STRUCT_MEMBER_P(self, TypeName##_private_offset)
+		end function
+		function type_name##_get_type() as GType
+			return type_name##_type_id
+		end function
+		private sub type_name##_register_type(byval type_module as GTypeModule ptr)
+			dim as GType g_define_type_id
+			dim as const GTypeInfo g_define_type_info = ( _
+				sizeof(TypeName##Class), _
+				cast(GBaseInitFunc, NULL), _
+				cast(GBaseFinalizeFunc, NULL), _
+				cast(GClassInitFunc, type_name##_class_intern_init), _
+				cast(GClassFinalizeFunc, type_name##_class_finalize), _
+				NULL, _
+				sizeof(TypeName), _
+				0, _
+				cast(GInstanceInitFunc, type_name##_init), _
+				NULL
+			)
+			type_name##_type_id = g_type_module_register_type( _
+				type_module, _
+				TYPE_PARENT, _
+				#TypeName, _
+				@g_define_type_info, _
+				cast(GTypeFlags, flags) _
+			)
+			g_define_type_id = type_name##_type_id
+			scope
+				CODE
+			end scope
+		end sub
+	end extern
+#endmacro
 #macro G_IMPLEMENT_INTERFACE_DYNAMIC(TYPE_IFACE, iface_init)
 	scope
 		dim g_implement_interface_info as const GInterfaceInfo = (cast(GInterfaceInitFunc, iface_init), NULL, NULL)
@@ -1374,10 +1438,9 @@ end type
 #endmacro
 #macro G_ADD_PRIVATE_DYNAMIC(TypeName)
 	scope
-		'' TODO: TypeName##_private_offset = sizeof (TypeName##Private);
+		TypeName##_private_offset = sizeof(TypeName##Private)
 	end scope
 #endmacro
-
 declare function g_type_module_get_type() as GType
 declare function g_type_module_use(byval module as GTypeModule ptr) as gboolean
 declare sub g_type_module_unuse(byval module as GTypeModule ptr)
@@ -1386,7 +1449,6 @@ declare function g_type_module_register_type(byval module as GTypeModule ptr, by
 declare sub g_type_module_add_interface(byval module as GTypeModule ptr, byval instance_type as GType, byval interface_type as GType, byval interface_info as const GInterfaceInfo ptr)
 declare function g_type_module_register_enum(byval module as GTypeModule ptr, byval name as const zstring ptr, byval const_static_values as const GEnumValue ptr) as GType
 declare function g_type_module_register_flags(byval module as GTypeModule ptr, byval name as const zstring ptr, byval const_static_values as const GFlagsValue ptr) as GType
-
 #define __G_TYPE_PLUGIN_H__
 #define G_TYPE_TYPE_PLUGIN g_type_plugin_get_type()
 #define G_TYPE_PLUGIN(inst) G_TYPE_CHECK_INSTANCE_CAST((inst), G_TYPE_TYPE_PLUGIN, GTypePlugin)
@@ -1394,7 +1456,6 @@ declare function g_type_module_register_flags(byval module as GTypeModule ptr, b
 #define G_IS_TYPE_PLUGIN(inst) G_TYPE_CHECK_INSTANCE_TYPE((inst), G_TYPE_TYPE_PLUGIN)
 #define G_IS_TYPE_PLUGIN_CLASS(vtable) G_TYPE_CHECK_CLASS_TYPE((vtable), G_TYPE_TYPE_PLUGIN)
 #define G_TYPE_PLUGIN_GET_CLASS(inst) G_TYPE_INSTANCE_GET_INTERFACE((inst), G_TYPE_TYPE_PLUGIN, GTypePluginClass)
-
 type GTypePluginClass as _GTypePluginClass
 type GTypePluginUse as sub(byval plugin as GTypePlugin ptr)
 type GTypePluginUnuse as sub(byval plugin as GTypePlugin ptr)

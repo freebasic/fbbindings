@@ -35,3 +35,4 @@
 -removedefine g_clear_pointer
 -removedefine G_INLINE_FUNC
 -removedefine G_STATIC_ASSERT_EXPR
+-removedefine GOBJECT_VAR
