@@ -14,6 +14,33 @@
 	#include once "pthread.bi"
 #endif
 
+'' The following symbols have been renamed:
+''     procedure g_atomic_int_get => g_atomic_int_get_
+''     procedure g_atomic_int_set => g_atomic_int_set_
+''     procedure g_atomic_int_inc => g_atomic_int_inc_
+''     procedure g_atomic_int_dec_and_test => g_atomic_int_dec_and_test_
+''     procedure g_atomic_int_compare_and_exchange => g_atomic_int_compare_and_exchange_
+''     procedure g_atomic_int_add => g_atomic_int_add_
+''     procedure g_atomic_int_and => g_atomic_int_and_
+''     procedure g_atomic_int_or => g_atomic_int_or_
+''     procedure g_atomic_int_xor => g_atomic_int_xor_
+''     procedure g_atomic_pointer_get => g_atomic_pointer_get_
+''     procedure g_atomic_pointer_set => g_atomic_pointer_set_
+''     procedure g_atomic_pointer_compare_and_exchange => g_atomic_pointer_compare_and_exchange_
+''     procedure g_atomic_pointer_add => g_atomic_pointer_add_
+''     procedure g_atomic_pointer_and => g_atomic_pointer_and_
+''     procedure g_atomic_pointer_or => g_atomic_pointer_or_
+''     procedure g_atomic_pointer_xor => g_atomic_pointer_xor_
+''     #ifdef __FB_WIN32__
+''         procedure g_atexit => g_atexit_
+''     #endif
+''     #define G_QUEUE_INIT => G_QUEUE_INIT_
+''     #define G_CSET_A_2_Z => G_CSET_A_2_Z_
+''     variable glib_major_version => glib_major_version_
+''     variable glib_minor_version => glib_minor_version_
+''     variable glib_micro_version => glib_micro_version_
+''     procedure glib_check_version => glib_check_version_
+
 extern "C"
 
 #define __G_LIB_H__
@@ -34,7 +61,6 @@ const FALSE = 0
 #define TRUE (FALSE = 0)
 #define MAX(a, b) iif((a) > (b), (a), (b))
 #define MIN(a, b) iif((a) < (b), (a), (b))
-#define ABS(a) iif((a) < 0, -(a), (a))
 #define CLAMP(x, low, high) iif((x) > (high), (high), iif((x) < (low), (low), (x)))
 #define G_N_ELEMENTS(arr) (sizeof((arr)) / sizeof((arr)[0]))
 #define GPOINTER_TO_SIZE(p) cast(gsize, (p))
@@ -294,40 +320,40 @@ declare sub g_byte_array_sort_with_data(byval array as GByteArray ptr, byval com
 #define __G_THREAD_H__
 #define __G_ATOMIC_H__
 
-declare function g_atomic_int_get(byval atomic as const gint ptr) as gint
-declare sub g_atomic_int_set(byval atomic as gint ptr, byval newval as gint)
-declare sub g_atomic_int_inc(byval atomic as gint ptr)
-declare function g_atomic_int_dec_and_test(byval atomic as gint ptr) as gboolean
-declare function g_atomic_int_compare_and_exchange(byval atomic as gint ptr, byval oldval as gint, byval newval as gint) as gboolean
-declare function g_atomic_int_add(byval atomic as gint ptr, byval val as gint) as gint
-declare function g_atomic_int_and(byval atomic as guint ptr, byval val as guint) as guint
-declare function g_atomic_int_or(byval atomic as guint ptr, byval val as guint) as guint
-declare function g_atomic_int_xor(byval atomic as guint ptr, byval val as guint) as guint
-declare function g_atomic_pointer_get(byval atomic as const any ptr) as gpointer
-declare sub g_atomic_pointer_set(byval atomic as any ptr, byval newval as gpointer)
-declare function g_atomic_pointer_compare_and_exchange(byval atomic as any ptr, byval oldval as gpointer, byval newval as gpointer) as gboolean
-declare function g_atomic_pointer_add(byval atomic as any ptr, byval val as gssize) as gssize
-declare function g_atomic_pointer_and(byval atomic as any ptr, byval val as gsize) as gsize
-declare function g_atomic_pointer_or(byval atomic as any ptr, byval val as gsize) as gsize
-declare function g_atomic_pointer_xor(byval atomic as any ptr, byval val as gsize) as gsize
+declare function g_atomic_int_get_ alias "g_atomic_int_get"(byval atomic as const gint ptr) as gint
+declare sub g_atomic_int_set_ alias "g_atomic_int_set"(byval atomic as gint ptr, byval newval as gint)
+declare sub g_atomic_int_inc_ alias "g_atomic_int_inc"(byval atomic as gint ptr)
+declare function g_atomic_int_dec_and_test_ alias "g_atomic_int_dec_and_test"(byval atomic as gint ptr) as gboolean
+declare function g_atomic_int_compare_and_exchange_ alias "g_atomic_int_compare_and_exchange"(byval atomic as gint ptr, byval oldval as gint, byval newval as gint) as gboolean
+declare function g_atomic_int_add_ alias "g_atomic_int_add"(byval atomic as gint ptr, byval val as gint) as gint
+declare function g_atomic_int_and_ alias "g_atomic_int_and"(byval atomic as guint ptr, byval val as guint) as guint
+declare function g_atomic_int_or_ alias "g_atomic_int_or"(byval atomic as guint ptr, byval val as guint) as guint
+declare function g_atomic_int_xor_ alias "g_atomic_int_xor"(byval atomic as guint ptr, byval val as guint) as guint
+declare function g_atomic_pointer_get_ alias "g_atomic_pointer_get"(byval atomic as const any ptr) as gpointer
+declare sub g_atomic_pointer_set_ alias "g_atomic_pointer_set"(byval atomic as any ptr, byval newval as gpointer)
+declare function g_atomic_pointer_compare_and_exchange_ alias "g_atomic_pointer_compare_and_exchange"(byval atomic as any ptr, byval oldval as gpointer, byval newval as gpointer) as gboolean
+declare function g_atomic_pointer_add_ alias "g_atomic_pointer_add"(byval atomic as any ptr, byval val as gssize) as gssize
+declare function g_atomic_pointer_and_ alias "g_atomic_pointer_and"(byval atomic as any ptr, byval val as gsize) as gsize
+declare function g_atomic_pointer_or_ alias "g_atomic_pointer_or"(byval atomic as any ptr, byval val as gsize) as gsize
+declare function g_atomic_pointer_xor_ alias "g_atomic_pointer_xor"(byval atomic as any ptr, byval val as gsize) as gsize
 declare function g_atomic_int_exchange_and_add(byval atomic as gint ptr, byval val as gint) as gint
 
-#define g_atomic_int_get(atomic) g_atomic_int_get(cptr(gint ptr, (atomic)))
-#define g_atomic_int_set(atomic, newval) g_atomic_int_set(cptr(gint ptr, (atomic)), cast(gint, (newval)))
-#define g_atomic_int_compare_and_exchange(atomic, oldval, newval) g_atomic_int_compare_and_exchange(cptr(gint ptr, (atomic)), (oldval), (newval))
-#define g_atomic_int_add(atomic, val) g_atomic_int_add(cptr(gint ptr, (atomic)), (val))
-#define g_atomic_int_and(atomic, val) g_atomic_int_and(cptr(guint ptr, (atomic)), (val))
-#define g_atomic_int_or(atomic, val) g_atomic_int_or(cptr(guint ptr, (atomic)), (val))
-#define g_atomic_int_xor(atomic, val) g_atomic_int_xor(cptr(guint ptr, (atomic)), (val))
-#define g_atomic_int_inc(atomic) g_atomic_int_inc(cptr(gint ptr, (atomic)))
-#define g_atomic_int_dec_and_test(atomic) g_atomic_int_dec_and_test(cptr(gint ptr, (atomic)))
-#define g_atomic_pointer_get(atomic) g_atomic_pointer_get(atomic)
-#define g_atomic_pointer_set(atomic, newval) g_atomic_pointer_set((atomic), cast(gpointer, (newval)))
-#define g_atomic_pointer_compare_and_exchange(atomic, oldval, newval) g_atomic_pointer_compare_and_exchange((atomic), cast(gpointer, (oldval)), cast(gpointer, (newval)))
-#define g_atomic_pointer_add(atomic, val) g_atomic_pointer_add((atomic), cast(gssize, (val)))
-#define g_atomic_pointer_and(atomic, val) g_atomic_pointer_and((atomic), cast(gsize, (val)))
-#define g_atomic_pointer_or(atomic, val) g_atomic_pointer_or((atomic), cast(gsize, (val)))
-#define g_atomic_pointer_xor(atomic, val) g_atomic_pointer_xor((atomic), cast(gsize, (val)))
+#define g_atomic_int_get(atomic) g_atomic_int_get_(cptr(gint ptr, (atomic)))
+#define g_atomic_int_set(atomic, newval) g_atomic_int_set_(cptr(gint ptr, (atomic)), cast(gint, (newval)))
+#define g_atomic_int_compare_and_exchange(atomic, oldval, newval) g_atomic_int_compare_and_exchange_(cptr(gint ptr, (atomic)), (oldval), (newval))
+#define g_atomic_int_add(atomic, val) g_atomic_int_add_(cptr(gint ptr, (atomic)), (val))
+#define g_atomic_int_and(atomic, val) g_atomic_int_and_(cptr(guint ptr, (atomic)), (val))
+#define g_atomic_int_or(atomic, val) g_atomic_int_or_(cptr(guint ptr, (atomic)), (val))
+#define g_atomic_int_xor(atomic, val) g_atomic_int_xor_(cptr(guint ptr, (atomic)), (val))
+#define g_atomic_int_inc(atomic) g_atomic_int_inc_(cptr(gint ptr, (atomic)))
+#define g_atomic_int_dec_and_test(atomic) g_atomic_int_dec_and_test_(cptr(gint ptr, (atomic)))
+#define g_atomic_pointer_get(atomic) g_atomic_pointer_get_(atomic)
+#define g_atomic_pointer_set(atomic, newval) g_atomic_pointer_set_((atomic), cast(gpointer, (newval)))
+#define g_atomic_pointer_compare_and_exchange(atomic, oldval, newval) g_atomic_pointer_compare_and_exchange_((atomic), cast(gpointer, (oldval)), cast(gpointer, (newval)))
+#define g_atomic_pointer_add(atomic, val) g_atomic_pointer_add_((atomic), cast(gssize, (val)))
+#define g_atomic_pointer_and(atomic, val) g_atomic_pointer_and_((atomic), cast(gsize, (val)))
+#define g_atomic_pointer_or(atomic, val) g_atomic_pointer_or_((atomic), cast(gsize, (val)))
+#define g_atomic_pointer_xor(atomic, val) g_atomic_pointer_xor_((atomic), cast(gsize, (val)))
 #define __G_ERROR_H__
 #define __G_QUARK_H__
 type GQuark as guint32
@@ -694,9 +720,9 @@ type GDate as _GDate
 
 type GDateDMY as long
 enum
-	G_DATE_DAY = 0
-	G_DATE_MONTH = 1
-	G_DATE_YEAR = 2
+	G_DATE_DAY_ = 0
+	G_DATE_MONTH_ = 1
+	G_DATE_YEAR_ = 2
 end enum
 
 type GDateWeekday as long
@@ -1927,11 +1953,12 @@ declare function g_format_size_full(byval size as guint64, byval flags as GForma
 declare function g_format_size(byval size as guint64) as zstring ptr
 declare function g_format_size_for_display(byval size as goffset) as zstring ptr
 type GVoidFunc as sub()
-#define ATEXIT(proc) g_ATEXIT(proc)
-declare sub g_atexit(byval func as GVoidFunc)
 
 #ifdef __FB_WIN32__
+	declare sub g_atexit_ alias "g_atexit"(byval func as GVoidFunc)
 	#define g_atexit(func) atexit(func)
+#else
+	declare sub g_atexit(byval func as GVoidFunc)
 #endif
 
 declare function g_find_program_in_path(byval program as const zstring ptr) as zstring ptr
@@ -2517,7 +2544,7 @@ type _GQueue
 	length as guint
 end type
 
-#define G_QUEUE_INIT (NULL, NULL, 0)
+#define G_QUEUE_INIT_ (NULL, NULL, 0)
 declare function g_queue_new() as GQueue ptr
 declare sub g_queue_free(byval queue as GQueue ptr)
 declare sub g_queue_free_full(byval queue as GQueue ptr, byval free_func as GDestroyNotify)
@@ -2736,7 +2763,7 @@ type GScannerConfig as _GScannerConfig
 type GTokenValue as _GTokenValue
 type GScannerMsgFunc as sub(byval scanner as GScanner ptr, byval message as zstring ptr, byval error as gboolean)
 
-#define G_CSET_A_2_Z "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+#define G_CSET_A_2_Z_ "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 #define G_CSET_a_2_z "abcdefghijklmnopqrstuvwxyz"
 #define G_CSET_DIGITS "0123456789"
 #define G_CSET_LATINC !"\192\193\194\195\196\197\198" !"\199\200\201\202\203\204\205\206\207\208" !"\209\210\211\212\213\214" !"\216\217\218\219\220\221\222"
@@ -3314,7 +3341,9 @@ declare function g_test_rand_int() as gint32
 declare function g_test_rand_int_range(byval begin as gint32, byval end as gint32) as gint32
 declare function g_test_rand_double() as double
 declare function g_test_rand_double_range(byval range_start as double, byval range_end as double) as double
+type GTestCase as GTestCase_
 declare function g_test_create_case(byval test_name as const zstring ptr, byval data_size as gsize, byval test_data as gconstpointer, byval data_setup as GTestFixtureFunc, byval data_test as GTestFixtureFunc, byval data_teardown as GTestFixtureFunc) as GTestCase ptr
+type GTestSuite as GTestSuite_
 declare function g_test_create_suite(byval suite_name as const zstring ptr) as GTestSuite ptr
 declare function g_test_get_root() as GTestSuite ptr
 declare sub g_test_suite_add(byval suite as GTestSuite ptr, byval test_case as GTestCase ptr)
@@ -3725,20 +3754,20 @@ declare sub g_variant_dict_unref(byval dict as GVariantDict ptr)
 #define __G_VERSION_H__
 
 #if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(GLIB_STATIC_COMPILATION)) or defined(__FB_LINUX__)
-	extern glib_major_version as const guint
-	extern glib_minor_version as const guint
-	extern glib_micro_version as const guint
+	extern glib_major_version_ alias "glib_major_version" as const guint
+	extern glib_minor_version_ alias "glib_minor_version" as const guint
+	extern glib_micro_version_ alias "glib_micro_version" as const guint
 	extern glib_interface_age as const guint
 	extern glib_binary_age as const guint
 #else
-	extern import glib_major_version as const guint
-	extern import glib_minor_version as const guint
-	extern import glib_micro_version as const guint
+	extern import glib_major_version_ alias "glib_major_version" as const guint
+	extern import glib_minor_version_ alias "glib_minor_version" as const guint
+	extern import glib_micro_version_ alias "glib_micro_version" as const guint
 	extern import glib_interface_age as const guint
 	extern import glib_binary_age as const guint
 #endif
 
-declare function glib_check_version(byval required_major as guint, byval required_minor as guint, byval required_micro as guint) as const zstring ptr
+declare function glib_check_version_ alias "glib_check_version"(byval required_major as guint, byval required_minor as guint, byval required_micro as guint) as const zstring ptr
 #define GLIB_CHECK_VERSION(major, minor, micro) (((GLIB_MAJOR_VERSION > (major)) orelse ((GLIB_MAJOR_VERSION = (major)) andalso (GLIB_MINOR_VERSION > (minor)))) orelse (((GLIB_MAJOR_VERSION = (major)) andalso (GLIB_MINOR_VERSION = (minor))) andalso (GLIB_MICRO_VERSION >= (micro))))
 
 #ifdef __FB_WIN32__

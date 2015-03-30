@@ -36,3 +36,39 @@
 -removedefine G_INLINE_FUNC
 -removedefine G_STATIC_ASSERT_EXPR
 -removedefine GOBJECT_VAR
+-removedefine g_ATEXIT
+-removedefine ATEXIT
+-removedefine ABS
+
+-addforwarddecl GTestCase
+-addforwarddecl GTestSuite
+
+-rename glib_major_version glib_major_version_
+-rename glib_minor_version glib_minor_version_
+-rename glib_micro_version glib_micro_version_
+-rename glib_check_version glib_check_version_
+-rename G_CSET_A_2_Z G_CSET_A_2_Z_
+-rename G_QUEUE_INIT G_QUEUE_INIT_
+-ifdef __FB_WIN32__
+	-renameproc g_atexit g_atexit_
+-endif
+-renameproc G_SOURCE_REMOVE G_SOURCE_REMOVE_
+-rename G_DATE_DAY G_DATE_DAY_
+-rename G_DATE_MONTH G_DATE_MONTH_
+-rename G_DATE_YEAR G_DATE_YEAR_
+-renameproc g_atomic_int_get g_atomic_int_get_
+-renameproc g_atomic_int_set g_atomic_int_set_
+-renameproc g_atomic_int_compare_and_exchange g_atomic_int_compare_and_exchange_
+-renameproc g_atomic_int_add g_atomic_int_add_
+-renameproc g_atomic_int_and g_atomic_int_and_
+-renameproc g_atomic_int_or g_atomic_int_or_
+-renameproc g_atomic_int_xor g_atomic_int_xor_
+-renameproc g_atomic_int_inc g_atomic_int_inc_
+-renameproc g_atomic_int_dec_and_test g_atomic_int_dec_and_test_
+-renameproc g_atomic_pointer_get g_atomic_pointer_get_
+-renameproc g_atomic_pointer_set g_atomic_pointer_set_
+-renameproc g_atomic_pointer_compare_and_exchange g_atomic_pointer_compare_and_exchange_
+-renameproc g_atomic_pointer_add g_atomic_pointer_add_
+-renameproc g_atomic_pointer_and g_atomic_pointer_and_
+-renameproc g_atomic_pointer_or g_atomic_pointer_or_
+-renameproc g_atomic_pointer_xor g_atomic_pointer_xor_
