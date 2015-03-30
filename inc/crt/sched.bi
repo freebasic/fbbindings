@@ -1,10 +1,9 @@
 #pragma once
 
-#include once "features.bi"
-#include once "bits/types.bi"
+#include once "crt/sys/types.bi"
 #include once "crt/stddef.bi"
 #include once "crt/time.bi"
-#include once "bits/sched.bi"
+#include once "crt/bits/sched.bi"
 
 extern "C"
 
