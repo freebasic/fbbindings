@@ -28,6 +28,12 @@
 ''     procedure g_atomic_pointer_and => g_atomic_pointer_and_
 ''     procedure g_atomic_pointer_or => g_atomic_pointer_or_
 ''     procedure g_atomic_pointer_xor => g_atomic_pointer_xor_
+''     #ifdef __FB_WIN32__
+''         procedure g_filename_to_utf8 => g_filename_to_utf8_
+''         procedure g_filename_from_utf8 => g_filename_from_utf8_
+''         procedure g_filename_from_uri => g_filename_from_uri_
+''         procedure g_filename_to_uri => g_filename_to_uri_
+''     #endif
 ''     procedure g_source_remove => g_source_remove_
 ''     #ifdef __FB_WIN32__
 ''         procedure g_atexit => g_atexit_
@@ -654,10 +660,19 @@ declare function g_convert_with_iconv(byval str as const zstring ptr, byval len 
 declare function g_convert_with_fallback(byval str as const zstring ptr, byval len as gssize, byval to_codeset as const zstring ptr, byval from_codeset as const zstring ptr, byval fallback as const zstring ptr, byval bytes_read as gsize ptr, byval bytes_written as gsize ptr, byval error as GError ptr ptr) as zstring ptr
 declare function g_locale_to_utf8(byval opsysstring as const zstring ptr, byval len as gssize, byval bytes_read as gsize ptr, byval bytes_written as gsize ptr, byval error as GError ptr ptr) as zstring ptr
 declare function g_locale_from_utf8(byval utf8string as const zstring ptr, byval len as gssize, byval bytes_read as gsize ptr, byval bytes_written as gsize ptr, byval error as GError ptr ptr) as zstring ptr
-declare function g_filename_to_utf8(byval opsysstring as const zstring ptr, byval len as gssize, byval bytes_read as gsize ptr, byval bytes_written as gsize ptr, byval error as GError ptr ptr) as zstring ptr
-declare function g_filename_from_utf8(byval utf8string as const zstring ptr, byval len as gssize, byval bytes_read as gsize ptr, byval bytes_written as gsize ptr, byval error as GError ptr ptr) as zstring ptr
-declare function g_filename_from_uri(byval uri as const zstring ptr, byval hostname as zstring ptr ptr, byval error as GError ptr ptr) as zstring ptr
-declare function g_filename_to_uri(byval filename as const zstring ptr, byval hostname as const zstring ptr, byval error as GError ptr ptr) as zstring ptr
+
+#ifdef __FB_WIN32__
+	declare function g_filename_to_utf8_ alias "g_filename_to_utf8"(byval opsysstring as const zstring ptr, byval len as gssize, byval bytes_read as gsize ptr, byval bytes_written as gsize ptr, byval error as GError ptr ptr) as zstring ptr
+	declare function g_filename_from_utf8_ alias "g_filename_from_utf8"(byval utf8string as const zstring ptr, byval len as gssize, byval bytes_read as gsize ptr, byval bytes_written as gsize ptr, byval error as GError ptr ptr) as zstring ptr
+	declare function g_filename_from_uri_ alias "g_filename_from_uri"(byval uri as const zstring ptr, byval hostname as zstring ptr ptr, byval error as GError ptr ptr) as zstring ptr
+	declare function g_filename_to_uri_ alias "g_filename_to_uri"(byval filename as const zstring ptr, byval hostname as const zstring ptr, byval error as GError ptr ptr) as zstring ptr
+#else
+	declare function g_filename_to_utf8(byval opsysstring as const zstring ptr, byval len as gssize, byval bytes_read as gsize ptr, byval bytes_written as gsize ptr, byval error as GError ptr ptr) as zstring ptr
+	declare function g_filename_from_utf8(byval utf8string as const zstring ptr, byval len as gssize, byval bytes_read as gsize ptr, byval bytes_written as gsize ptr, byval error as GError ptr ptr) as zstring ptr
+	declare function g_filename_from_uri(byval uri as const zstring ptr, byval hostname as zstring ptr ptr, byval error as GError ptr ptr) as zstring ptr
+	declare function g_filename_to_uri(byval filename as const zstring ptr, byval hostname as const zstring ptr, byval error as GError ptr ptr) as zstring ptr
+#endif
+
 declare function g_filename_display_name(byval filename as const zstring ptr) as zstring ptr
 declare function g_get_filename_charsets(byval charsets as const zstring ptr ptr ptr) as gboolean
 declare function g_filename_display_basename(byval filename as const zstring ptr) as zstring ptr

@@ -109,6 +109,12 @@
 -renamedefine G_STATIC_REC_MUTEX_INIT G_STATIC_REC_MUTEX_INIT_
 -renamedefine G_STATIC_RW_LOCK_INIT   G_STATIC_RW_LOCK_INIT_
 -renamedefine G_STATIC_PRIVATE_INIT   G_STATIC_PRIVATE_INIT_
+-ifdef __FB_WIN32__
+	-renameproc g_filename_to_utf8   g_filename_to_utf8_
+	-renameproc g_filename_from_utf8 g_filename_from_utf8_
+	-renameproc g_filename_from_uri  g_filename_from_uri_
+	-renameproc g_filename_to_uri    g_filename_to_uri_
+-endif
 
 -removeinclude glib/gmacros.h
 -removeinclude float.h
