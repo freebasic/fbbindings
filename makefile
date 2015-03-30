@@ -369,8 +369,36 @@ glfw:
 gdk-pixbuf:
 	http://ftp.gnome.org/pub/gnome/sources/gdk-pixbuf/2.30/gdk-pixbuf-2.30.8.tar.xz
 
-glib:
-	http://ftp.gnome.org/pub/gnome/sources/glib/2.42/glib-2.42.2.tar.xz
+GLIB_MAJOR := 2
+GLIB_MINOR := 42
+GLIB_MICRO := 2
+GLIB_SERIES := $(GLIB_MAJOR).$(GLIB_MINOR)
+GLIB := glib-$(GLIB_SERIES).$(GLIB_MICRO)
+SED_GLIBCONFIG := -e 's/@GLIB_MAJOR_VERSION@/$(GLIB_MAJOR)/g'
+SED_GLIBCONFIG += -e 's/@GLIB_MINOR_VERSION@/$(GLIB_MINOR)/g'
+SED_GLIBCONFIG += -e 's/@GLIB_MICRO_VERSION@/$(GLIB_MICRO)/g'
+glib-extract:
+	./get.sh $(GLIB) $(GLIB).tar.xz http://ftp.gnome.org/pub/gnome/sources/glib/$(GLIB_SERIES)/$(GLIB).tar.xz
+
+	# We'd have to run configure to get the target-specific glibconfig.h,
+	# but...
+	#  * that's somewhat unviable
+	#  * glibconfig.h is not trivial
+	#  * we want to make a glibconfig.bi anyways
+	# it looks like we have to maintain a unified copy that covers all
+	# targets.
+	sed $(SED_GLIBCONFIG) < glibconfig.h > extracted/$(GLIB)/glib/glibconfig.h
+
+glib: glib-extract
+	$(FBFROG) glib.fbfrog \
+		-incdir extracted/$(GLIB) \
+		-incdir extracted/$(GLIB)/glib \
+		-include glib/glib.h \
+		-include glib/glib-object.h \
+		-emit '*/extracted/$(GLIB)/glib/glib-object.h' inc/glib-object.bi \
+		-emit '*/extracted/$(GLIB)/gobject/*.h'        inc/glib-object.bi \
+		-emit '*/extracted/$(GLIB)/glib/glibconfig.h'  inc/glibconfig.bi \
+		-emit '*/extracted/$(GLIB)/glib/*.h'           inc/glib.bi
 
 GLUT := glut-3.7
 glut:
@@ -630,8 +658,42 @@ opengl-winapi: winapi-extract
 		-emit '*/GL/glext.h' inc/GL/windows/glext.bi \
 		-emit '*/GL/glu.h'   inc/GL/windows/glu.bi
 
-pango:
-	http://ftp.gnome.org/pub/gnome/sources/pango/1.36/pango-1.36.8.tar.xz
+PANGO_SERIES := 1.36
+PANGO := pango-$(PANGO_SERIES).8
+pango: glib-extract
+	./get.sh $(PANGO) $(PANGO).tar.xz http://ftp.gnome.org/pub/gnome/sources/pango/$(PANGO_SERIES)/$(PANGO).tar.xz
+
+	mkdir -p inc/pango
+	$(FBFROG) \
+		-incdir extracted/$(GLIB) \
+		-incdir extracted/$(GLIB)/glib \
+		-incdir extracted/$(PANGO) \
+		-include pango/pango.h \
+		-include pango/pangocairo.h \
+		-emit '*/pango/pango.h'            inc/pango/pango.bi \
+		-emit '*/pango/pangocairo.h'       inc/pango/pangocairo.bi \
+		-emit '*/pango/pango-attributes.h' inc/pango/pango.bi \
+		-emit '*/pango/pango-bidi-type.h'  inc/pango/pango.bi \
+		-emit '*/pango/pango-break.h'      inc/pango/pango.bi \
+		-emit '*/pango/pango-context.h'    inc/pango/pango.bi \
+		-emit '*/pango/pango-coverage.h'   inc/pango/pango.bi \
+		-emit '*/pango/pango-engine.h'     inc/pango/pango.bi \
+		-emit '*/pango/pango-enum-types.h' inc/pango/pango.bi \
+		-emit '*/pango/pango-features.h'   inc/pango/pango.bi \
+		-emit '*/pango/pango-font.h'       inc/pango/pango.bi \
+		-emit '*/pango/pango-fontmap.h'    inc/pango/pango.bi \
+		-emit '*/pango/pango-fontset.h'    inc/pango/pango.bi \
+		-emit '*/pango/pango-glyph.h'      inc/pango/pango.bi \
+		-emit '*/pango/pango-glyph-item.h' inc/pango/pango.bi \
+		-emit '*/pango/pango-gravity.h'    inc/pango/pango.bi \
+		-emit '*/pango/pango-item.h'       inc/pango/pango.bi \
+		-emit '*/pango/pango-layout.h'     inc/pango/pango.bi \
+		-emit '*/pango/pango-matrix.h'     inc/pango/pango.bi \
+		-emit '*/pango/pango-renderer.h'   inc/pango/pango.bi \
+		-emit '*/pango/pango-script.h'     inc/pango/pango.bi \
+		-emit '*/pango/pango-tabs.h'       inc/pango/pango.bi \
+		-emit '*/pango/pango-types.h'      inc/pango/pango.bi \
+		-emit '*/pango/pango-utils.h'      inc/pango/pango.bi
 
 pdcurses:
 	./get.sh PDCurses-3.4 PDCurses-3.4.tar.gz "http://sourceforge.net/projects/pdcurses/files/pdcurses/3.4/PDCurses-3.4.tar.gz/download"

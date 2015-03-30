@@ -1,0 +1,966 @@
+convert c:
+	#define G_STATIC_ASSERT(expr) \
+		typedef char G_PASTE (_GStaticAssertCompileTimeAssertion_, __LINE__)[(expr) ? 1 : -1] G_GNUC_UNUSED
+to fb:
+	#define G_STATIC_ASSERT(expr) #assert expr
+
+convert c: #define G_STRLOC __FILE__ ":" G_STRINGIFY (__LINE__)
+to fb:     #define G_STRLOC __FILE__ ":" G_STRINGIFY(__LINE__)
+
+convert c: #define _G_NEW(struct_type, n_structs, func)      ((struct_type *) g_##func##_n((n_structs), sizeof(struct_type)))
+to fb:     #define _G_NEW(struct_type, n_structs, func) cptr(struct_type ptr, g_##func##_n((n_structs), sizeof(struct_type)))
+
+convert c: #define _G_RENEW(struct_type, mem, n_structs, func)      ((struct_type *) g_##func##_n(mem, (n_structs), sizeof(struct_type)))
+to fb:     #define _G_RENEW(struct_type, mem, n_structs, func) cptr(struct_type ptr, g_##func##_n(mem, (n_structs), sizeof(struct_type)))
+
+convert c:
+	#define G_WIN32_DLLMAIN_FOR_DLL_NAME(static, dll_name) \
+		static char *dll_name; \
+		BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved) { \
+			wchar_t wcbfr[1000]; \
+			char *tem; \
+			switch (fdwReason) { \
+			case DLL_PROCESS_ATTACH: \
+				GetModuleFileNameW((HMODULE)hinstDLL, wcbfr, G_N_ELEMENTS(wcbfr)); \
+				tem = g_utf16_to_utf8(wcbfr, -1, NULL, NULL, NULL); \
+				dll_name = g_path_get_basename(tem); \
+				g_free(tem); \
+				break; \
+			} \
+			return TRUE; \
+		}
+to fb:
+	#macro G_WIN32_DLLMAIN_FOR_DLL_NAME(static, dll_name)
+		dim shared dll_name as zstring ptr
+		function DllMain stdcall alias "DllMain"(byval hinstDLL as HINSTANCE, byval fdwReason as DWORD, byval lpvReserved as LPVOID) as BOOL
+			dim wcbfr as wstring * 1000
+			dim tem as zstring ptr
+			select case fdwReason
+			case DLL_PROCESS_ATTACH
+				GetModuleFileNameW(cast(HMODULE, hinstDLL), wcbfr, G_N_ELEMENTS(wcbfr))
+				tem = g_utf16_to_utf8(wcbfr, -1, NULL, NULL, NULL)
+				dll_name = g_path_get_basename(tem)
+				g_free(tem)
+			end select
+			return TRUE
+		end function
+	#endmacro
+
+convert c: #define g_error(...) G_STMT_START { g_log(G_LOG_DOMAIN, G_LOG_LEVEL_ERROR, __VA_ARGS__); for (;;) ; } G_STMT_END
+to c:      #define g_error(...) g_log(G_LOG_DOMAIN, G_LOG_LEVEL_ERROR, __VA_ARGS__)
+
+convert c: #define g_warn_if_reached() do { g_warn_message(G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, NULL); } while (0)
+to c:      #define g_warn_if_reached()      g_warn_message(G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, NULL)
+
+convert c:
+	#define g_warn_if_fail(expr) \
+		do { \
+			if G_LIKELY(expr) \
+				; \
+			else \
+				g_warn_message(G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, #expr); \
+		} while (0)
+to fb:
+	#macro g_warn_if_fail(expr)
+		scope
+			if G_LIKELY(expr) then
+			else
+				g_warn_message(G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, #expr)
+			end if
+		end scope
+	#endmacro
+
+convert c:
+	#define g_return_if_fail(expr) \
+		G_STMT_START { \
+			if G_LIKELY(expr) { \
+			} else { \
+				g_return_if_fail_warning(G_LOG_DOMAIN, G_STRFUNC, #expr); \
+				return; \
+			} \
+			; \
+		} G_STMT_END
+to fb:
+	#macro g_return_if_fail(expr)
+		scope
+			if G_LIKELY(expr) then
+			else
+				g_return_if_fail_warning(G_LOG_DOMAIN, G_STRFUNC, #expr)
+				return
+			end if
+		end scope
+	#endmacro
+
+convert c:
+	#define g_return_val_if_fail(expr, val) \
+		G_STMT_START { \
+			if G_LIKELY(expr) { \
+			} else { \
+				g_return_if_fail_warning(G_LOG_DOMAIN, G_STRFUNC, #expr); \
+				return (val); \
+			} \
+			; \
+		} G_STMT_END
+to fb:
+	#macro g_return_val_if_fail(expr, val)
+		scope
+			if G_LIKELY(expr) then
+			else
+				g_return_if_fail_warning(G_LOG_DOMAIN, G_STRFUNC, #expr)
+				return (val)
+			end if
+		end scope
+	#endmacro
+
+convert c:
+	#define g_return_if_reached() \
+		G_STMT_START { \
+			g_log(G_LOG_DOMAIN, G_LOG_LEVEL_CRITICAL, "file %s: line %d (%s): should not be reached", __FILE__, __LINE__, G_STRFUNC); \
+			return; \
+		} G_STMT_END
+to fb:
+	#macro g_return_if_reached()
+		scope
+			g_log(G_LOG_DOMAIN, G_LOG_LEVEL_CRITICAL, "file %s: line %d (%s): should not be reached", __FILE__, __LINE__, G_STRFUNC)
+			return
+		end scope
+	#endmacro
+
+convert c:
+	#define g_return_val_if_reached(val) \
+		G_STMT_START { \
+			g_log(G_LOG_DOMAIN, G_LOG_LEVEL_CRITICAL, "file %s: line %d (%s): should not be reached", __FILE__, __LINE__, G_STRFUNC); \
+			return (val); \
+		} G_STMT_END
+to fb:
+	#macro g_return_val_if_reached(val)
+		scope
+			g_log(G_LOG_DOMAIN, G_LOG_LEVEL_CRITICAL, "file %s: line %d (%s): should not be reached", __FILE__, __LINE__, G_STRFUNC)
+			return (val)
+		end scope
+	#endmacro
+
+convert c: #define g_scanner_add_symbol(scanner, symbol, value) G_STMT_START { g_scanner_scope_add_symbol ((scanner), 0, (symbol), (value));} G_STMT_END
+to c:      #define g_scanner_add_symbol(scanner, symbol, value) g_scanner_scope_add_symbol((scanner), 0, (symbol), (value))
+
+convert c: #define g_scanner_remove_symbol(scanner, symbol) G_STMT_START { g_scanner_scope_remove_symbol ((scanner), 0, (symbol));} G_STMT_END
+to c:      #define g_scanner_remove_symbol(scanner, symbol) g_scanner_scope_remove_symbol((scanner), 0, (symbol))
+
+convert c: #define g_scanner_foreach_symbol(scanner, func, data) G_STMT_START { g_scanner_scope_foreach_symbol ((scanner), 0, (func), (data));} G_STMT_END
+to c:      #define g_scanner_foreach_symbol(scanner, func, data) g_scanner_scope_foreach_symbol((scanner), 0, (func), (data))
+
+convert c: #define g_slice_dup(type, mem) (1 ? (type*) g_slice_copy(sizeof(type), (mem)) : ((void) ((type*) 0 == (mem)), (type*) 0))
+to c:      #define g_slice_dup(type, mem)     ((type*) g_slice_copy(sizeof(type), (mem)))
+
+convert c: #define g_slice_free(type, mem) G_STMT_START { if (1) g_slice_free1(sizeof(type), (mem)); else (void) ((type*) 0 == (mem));} G_STMT_END
+to c:      #define g_slice_free(type, mem)                       g_slice_free1(sizeof(type), (mem))
+
+convert c: #define g_slice_free_chain(type, mem_chain, next) G_STMT_START { if (1) g_slice_free_chain_with_offset(sizeof(type), (mem_chain), G_STRUCT_OFFSET(type, next)); else (void) ((type*) 0 == (mem_chain));} G_STMT_END
+to c:      #define g_slice_free_chain(type, mem_chain, next)                       g_slice_free_chain_with_offset(sizeof(type), (mem_chain), G_STRUCT_OFFSET(type, next))
+
+convert c:
+	#define g_assert_cmpstr(s1, cmp, s2) \
+		G_STMT_START { \
+			const char *__s1 = (s1), *__s2 = (s2); \
+			if (g_strcmp0(__s1, __s2) cmp 0) \
+				; \
+			else \
+				g_assertion_message_cmpstr(G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, #s1 " " #cmp " " #s2, __s1, #cmp, __s2); \
+		} G_STMT_END
+to fb:
+	#macro g_assert_cmpstr(s1, cmp, s2)
+		scope
+			dim as const zstring ptr __s1 = (s1), __s2 = (s2)
+			if g_strcmp0(__s1, __s2) cmp 0 then
+			else
+				g_assertion_message_cmpstr(G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, #s1 " " #cmp " " #s2, __s1, #cmp, __s2)
+			end if
+		end scope
+	#endmacro
+
+convert c:
+	#define g_assert_cmpint(n1, cmp, n2) \
+		G_STMT_START { \
+			gint64 __n1 = (n1), __n2 = (n2); \
+			if (__n1 cmp __n2) \
+				; \
+			else \
+				g_assertion_message_cmpnum(G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, #n1 " " #cmp " " #n2, __n1, #cmp, __n2, 'i'); \
+		} G_STMT_END
+to fb:
+	#macro g_assert_cmpint(n1, cmp, n2)
+		scope
+			dim as gint64 __n1 = (n1), __n2 = (n2)
+			if __n1 cmp __n2 then
+			else
+				g_assertion_message_cmpnum(G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, #n1 " " #cmp " " #n2, __n1, #cmp, __n2, 'i')
+			end if
+		end scope
+
+convert c:
+	#define g_assert_cmpuint(n1, cmp, n2) \
+		G_STMT_START { \
+			guint64 __n1 = (n1), __n2 = (n2); \
+			if (__n1 cmp __n2) \
+				; \
+			else \
+				g_assertion_message_cmpnum(G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, #n1 " " #cmp " " #n2, __n1, #cmp, __n2, 'i'); \
+		} G_STMT_END
+to fb:
+	#macro g_assert_cmpuint(n1, cmp, n2)
+		scope
+			dim as guint64 __n1 = (n1), __n2 = (n2)
+			if __n1 cmp __n2
+			else
+				g_assertion_message_cmpnum(G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, #n1 " " #cmp " " #n2, __n1, #cmp, __n2, 'i')
+			end if
+		end scope
+	#endmacro
+
+convert c:
+	#define g_assert_cmphex(n1, cmp, n2) \
+		G_STMT_START { \
+			guint64 __n1 = (n1), __n2 = (n2); \
+			if (__n1 cmp __n2) \
+				; \
+			else \
+				g_assertion_message_cmpnum(G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, #n1 " " #cmp " " #n2, __n1, #cmp, __n2, 'x'); \
+		} G_STMT_END
+to fb:
+	#macro g_assert_cmphex(n1, cmp, n2)
+		scope
+			dim as guint64 __n1 = (n1), __n2 = (n2)
+			if __n1 cmp __n2 then
+			else
+				g_assertion_message_cmpnum(G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, #n1 " " #cmp " " #n2, __n1, #cmp, __n2, 'x')
+			end if
+		end scope
+	#endmacro
+
+# This one uses "long double", but I think it can be translated to just "double" just fine
+convert c:
+	#define g_assert_cmpfloat(n1, cmp, n2) \
+		G_STMT_START { \
+			long double __n1 = (n1), __n2 = (n2); \
+			if (__n1 cmp __n2) \
+				; \
+			else \
+				g_assertion_message_cmpnum(G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, #n1 " " #cmp " " #n2, __n1, #cmp, __n2, 'f'); \
+		} G_STMT_END
+to fb:
+	#macro g_assert_cmpfloat(n1, cmp, n2)
+		scope
+			dim as double __n1 = (n1), __n2 = (n2)
+			if __n1 cmp __n2 then
+			else
+				g_assertion_message_cmpnum(G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, #n1 " " #cmp " " #n2, __n1, #cmp, __n2, 'f')
+			end if
+		end scope
+	#endmacro
+
+convert c:
+	#define g_assert_no_error(err) \
+		G_STMT_START { \
+			if (err) \
+				g_assertion_message_error(G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, #err, err, 0, 0); \
+		} G_STMT_END
+to fb:
+	#macro g_assert_no_error(err)
+		scope
+			if err then
+				g_assertion_message_error(G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, #err, err, 0, 0)
+			end if
+		end scope
+	#endmacro
+
+convert c:
+	#define g_assert_error(err, dom, c) \
+		G_STMT_START { \
+			if (!err || (err)->domain != dom || (err)->code != c) \
+				g_assertion_message_error(G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, #err, err, dom, c); \
+		} G_STMT_END
+to fb:
+	#macro g_assert_error(err, dom, c)
+		scope
+			if err = 0 orelse (err)->domain <> dom orelse (err)->code <> c then
+				g_assertion_message_error(G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, #err, err, dom, c)
+			end if
+		end scope
+	#endmacro
+
+convert c:
+	#define g_assert_true(expr) \
+		G_STMT_START { \
+			if G_LIKELY(expr) \
+				; \
+			else \
+				g_assertion_message(G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, "'" #expr "' should be TRUE"); \
+		} G_STMT_END
+to fb:
+	#macro g_assert_true(expr)
+		scope
+			if G_LIKELY(expr) then
+			else
+				g_assertion_message(G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, "'" #expr "' should be TRUE")
+			end if
+		end scope
+	#endmacro
+
+convert c:
+	#define g_assert_false(expr) \
+		G_STMT_START { \
+			if G_LIKELY(!(expr)) \
+				; \
+			else \
+				g_assertion_message(G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, "'" #expr "' should be FALSE"); \
+		} G_STMT_END
+to fb:
+	#macro g_assert_false(expr)
+		scope
+			if G_LIKELY((expr) = 0) then
+			else
+				g_assertion_message(G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, "'" #expr "' should be FALSE")
+			end if
+		end scope
+	#endmacro
+
+convert c:
+	#define g_assert_null(expr) \
+		G_STMT_START { \
+			if G_LIKELY((expr) == NULL) \
+				; \
+			else \
+				g_assertion_message(G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, "'" #expr "' should be NULL"); \
+		} G_STMT_END
+to fb:
+	#macro g_assert_null(expr)
+		scope
+			if G_LIKELY((expr) = NULL) then
+			else
+				g_assertion_message(G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, "'" #expr "' should be NULL")
+			end if
+		end scope
+	#endmacro
+
+convert c:
+	#define g_assert_nonnull(expr) \
+		G_STMT_START { \
+			if G_LIKELY((expr) != NULL) \
+				; \
+			else \
+				g_assertion_message(G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, "'" #expr "' should not be NULL"); \
+		} G_STMT_END
+to fb:
+	#macro g_assert_nonnull(expr)
+		scope
+			if G_LIKELY((expr) <> NULL) then
+			else
+				g_assertion_message(G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, "'" #expr "' should not be NULL")
+			end if
+		end scope
+	#endmacro
+
+convert c: #define g_assert_not_reached() G_STMT_START { g_assertion_message_expr(G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, NULL); } G_STMT_END
+to c:      #define g_assert_not_reached()                g_assertion_message_expr(G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, NULL)
+
+convert c:
+	#define g_assert(expr) \
+		G_STMT_START { \
+			if G_LIKELY(expr) \
+				; \
+			else \
+				g_assertion_message_expr(G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, #expr); \
+		} G_STMT_END
+to fb:
+	#macro g_assert(expr)
+		scope
+			if G_LIKELY(expr) then
+			else
+				g_assertion_message_expr(G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, #expr)
+			end if
+		end scope
+	#endmacro
+
+convert c:
+	#define g_test_add(testpath, Fixture, tdata, fsetup, ftest, fteardown) \
+		G_STMT_START { \
+			void (*add_vtable)( \
+				const char*, \
+				gsize, \
+				gconstpointer, \
+				void (*)(Fixture*, gconstpointer), \
+				void (*)(Fixture*, gconstpointer), \
+				void (*)(Fixture*, gconstpointer) \
+			) = (void (*)( \
+				const gchar *, \
+				gsize, \
+				gconstpointer, \
+				void (*)(Fixture*, gconstpointer), \
+				void (*)(Fixture*, gconstpointer), \
+				void (*)(Fixture*, gconstpointer) \
+			)) g_test_add_vtable; \
+			add_vtable(testpath, sizeof (Fixture), tdata, fsetup, ftest, fteardown); \
+		} G_STMT_END
+to fb:
+	#macro g_test_add(testpath, Fixture, tdata, fsetup, ftest, fteardown)
+		scope
+			var add_vtable = cast(sub cdecl( _
+				byval as const zstring ptr, _
+				byval as gsize, _
+				byval as gconstpointer, _
+				byval as sub cdecl(byval as Fixture ptr, byval as gconstpointer), _
+				byval as sub cdecl(byval as Fixture ptr, byval as gconstpointer), _
+				byval as sub cdecl(byval as Fixture ptr, byval as gconstpointer) _
+			), @g_test_add_vtable)
+			add_vtable(testpath, sizeof(Fixture), tdata, fsetup, ftest, fteardown)
+		end scope
+	#endmacro
+
+convert c: #define g_memmove(dest, src, len) G_STMT_START { memmove((dest), (src), (len)); } G_STMT_END
+to c:      #define g_memmove(dest, src, len)                memmove((dest), (src), (len))
+
+convert c: #define GLIB_SYSDEF_POLLIN =1
+to fb:     #define GLIB_SYSDEF_POLLIN =1
+
+convert c: #define GLIB_SYSDEF_POLLOUT =4
+to fb:     #define GLIB_SYSDEF_POLLOUT =4
+
+convert c: #define GLIB_SYSDEF_POLLPRI =2
+to fb:     #define GLIB_SYSDEF_POLLPRI =2
+
+convert c: #define GLIB_SYSDEF_POLLHUP =16
+to fb:     #define GLIB_SYSDEF_POLLHUP =16
+
+convert c: #define GLIB_SYSDEF_POLLERR =8
+to fb:     #define GLIB_SYSDEF_POLLERR =8
+
+convert c: #define GLIB_SYSDEF_POLLNVAL =32
+to fb:     #define GLIB_SYSDEF_POLLNVAL =32
+
+convert c: #define G_DEFINE_TYPE(TN, t_n, T_P) G_DEFINE_TYPE_EXTENDED(TN, t_n, T_P, 0, {})
+to fb:     #define G_DEFINE_TYPE(TN, t_n, T_P) G_DEFINE_TYPE_EXTENDED(TN, t_n, T_P, 0, )
+
+convert c:
+	#define G_DEFINE_TYPE_WITH_CODE(TN, t_n, T_P, _C_)		\
+		_G_DEFINE_TYPE_EXTENDED_BEGIN(TN, t_n, T_P, 0)		\
+		{							\
+			_C_;						\
+		}							\
+		_G_DEFINE_TYPE_EXTENDED_END()
+to fb:
+	#macro G_DEFINE_TYPE_WITH_CODE(TN, t_n, T_P, _C_)
+		_G_DEFINE_TYPE_EXTENDED_BEGIN(TN, t_n, T_P, 0)
+		scope
+			_C_
+		end scope
+		_G_DEFINE_TYPE_EXTENDED_END()
+	#endmacro
+
+convert c: #define G_DEFINE_ABSTRACT_TYPE(TN, t_n, T_P) G_DEFINE_TYPE_EXTENDED(TN, t_n, T_P, G_TYPE_FLAG_ABSTRACT, {})
+to fb:     #define G_DEFINE_ABSTRACT_TYPE(TN, t_n, T_P) G_DEFINE_TYPE_EXTENDED(TN, t_n, T_P, G_TYPE_FLAG_ABSTRACT, )
+
+convert c:
+	#define G_DEFINE_ABSTRACT_TYPE_WITH_CODE(TN, t_n, T_P, _C_)			\
+		_G_DEFINE_TYPE_EXTENDED_BEGIN(TN, t_n, T_P, G_TYPE_FLAG_ABSTRACT)	\
+		{									\
+			_C_;								\
+		}									\
+		_G_DEFINE_TYPE_EXTENDED_END()
+to fb:
+	#macro G_DEFINE_ABSTRACT_TYPE_WITH_CODE(TN, t_n, T_P, _C_)
+		_G_DEFINE_TYPE_EXTENDED_BEGIN(TN, t_n, T_P, G_TYPE_FLAG_ABSTRACT)
+		scope
+			_C_
+		end scope
+		_G_DEFINE_TYPE_EXTENDED_END()
+	#endmacro
+
+convert c:
+	#define G_DEFINE_TYPE_EXTENDED(TN, t_n, T_P, _f_, _C_)		\
+		_G_DEFINE_TYPE_EXTENDED_BEGIN(TN, t_n, T_P, _f_)	\
+		{							\
+			_C_;						\
+		}							\
+		_G_DEFINE_TYPE_EXTENDED_END()
+to fb:
+	#macro G_DEFINE_TYPE_EXTENDED(TN, t_n, T_P, _f_, _C_)
+		_G_DEFINE_TYPE_EXTENDED_BEGIN(TN, t_n, T_P, _f_)
+		scope
+			_C_
+		end scope
+		_G_DEFINE_TYPE_EXTENDED_END()
+	#endmacro
+
+convert c: #define G_DEFINE_INTERFACE(TN, t_n, T_P) G_DEFINE_INTERFACE_WITH_CODE(TN, t_n, T_P, ;)
+to fb:     #define G_DEFINE_INTERFACE(TN, t_n, T_P) G_DEFINE_INTERFACE_WITH_CODE(TN, t_n, T_P, )
+
+convert c:
+	#define G_DEFINE_INTERFACE_WITH_CODE(TN, t_n, T_P, _C_)		\
+		_G_DEFINE_INTERFACE_EXTENDED_BEGIN(TN, t_n, T_P)	\
+		{							\
+			_C_;						\
+		}							\
+		_G_DEFINE_INTERFACE_EXTENDED_END()
+to fb:
+	#macro G_DEFINE_INTERFACE_WITH_CODE(TN, t_n, T_P, _C_)
+		_G_DEFINE_INTERFACE_EXTENDED_BEGIN(TN, t_n, T_P)
+		scope
+			_C_
+		end scope
+		_G_DEFINE_INTERFACE_EXTENDED_END()
+	#endmacro
+
+convert c:
+	#define G_ADD_PRIVATE(TypeName) \
+		{ \
+			TypeName##_private_offset = g_type_add_instance_private(g_define_type_id, sizeof (TypeName##Private)); \
+		}
+to fb:
+	#macro G_ADD_PRIVATE(TypeName)
+		scope
+			TypeName##_private_offset = g_type_add_instance_private(g_define_type_id, sizeof(TypeName##Private))
+		end scope
+	#endmacro
+
+convert c:
+	#define _G_DEFINE_TYPE_EXTENDED_CLASS_INIT(TypeName, type_name)						\
+			static void type_name##_class_intern_init(gpointer klass) {				\
+				type_name##_parent_class = g_type_class_peek_parent(klass);			\
+				if (TypeName##_private_offset != 0)						\
+					g_type_class_adjust_private_offset(klass, &TypeName##_private_offset);	\
+				type_name##_class_init((TypeName##Class*) klass);				\
+			}
+to fb:
+	#macro _G_DEFINE_TYPE_EXTENDED_CLASS_INIT(TypeName, type_name)
+		extern "C"
+			private sub type_name##_class_intern_init(byval klass as gpointer)
+				type_name##_parent_class = g_type_class_peek_parent(klass)
+				if TypeName##_private_offset <> 0 then
+					g_type_class_adjust_private_offset(klass, @TypeName##_private_offset)
+				end if
+				type_name##_class_init(cptr(TypeName##Class ptr, klass))
+			end sub
+		end extern
+	#endmacro
+
+convert c:
+	#define _G_DEFINE_TYPE_EXTENDED_BEGIN(TypeName, type_name, TYPE_PARENT, flags)				\
+			static void type_name##_init(TypeName *self);						\
+			static void type_name##_class_init(TypeName##Class *klass);				\
+			static gpointer type_name##_parent_class = NULL;					\
+			static gint TypeName##_private_offset;							\
+			_G_DEFINE_TYPE_EXTENDED_CLASS_INIT(TypeName, type_name)					\
+			G_GNUC_UNUSED static inline gpointer type_name##_get_instance_private(TypeName *self) {	\
+				return (G_STRUCT_MEMBER_P(self, TypeName##_private_offset));			\
+			}											\
+			GType type_name##_get_type(void) {							\
+				static volatile gsize g_define_type_id__volatile = 0;				\
+				if (g_once_init_enter(&g_define_type_id__volatile)) {				\
+					GType g_define_type_id = g_type_register_static_simple(			\
+						TYPE_PARENT,							\
+						g_intern_static_string(#TypeName),				\
+						sizeof(TypeName##Class),					\
+						(GClassInitFunc)type_name##_class_intern_init,			\
+						sizeof(TypeName),						\
+						(GInstanceInitFunc)type_name##_init,				\
+						(GTypeFlags)flags						\
+					);									\
+					{
+to fb:
+	#macro _G_DEFINE_TYPE_EXTENDED_BEGIN(TypeName, type_name, TYPE_PARENT, flags)
+		extern "C"
+			declare sub type_name##_init(byval self as TypeName ptr)
+			declare sub type_name##_class_init(byval klass as TypeName##Class ptr)
+
+			dim shared as gpointer type_name##_parent_class = NULL
+			dim shared as gint TypeName##_private_offset
+
+			_G_DEFINE_TYPE_EXTENDED_CLASS_INIT(TypeName, type_name)
+
+			private function type_name##_get_instance_private(byval self as TypeName ptr) as gpointer
+				return G_STRUCT_MEMBER_P(self, TypeName##_private_offset)
+			end function
+
+			function type_name##_get_type() as GType
+				static as gsize g_define_type_id__volatile = 0
+				if g_once_init_enter(@g_define_type_id__volatile) then
+					var g_define_type_id = g_type_register_static_simple( _
+						TYPE_PARENT, _
+						g_intern_static_string(#TypeName), _
+						sizeof(TypeName##Class), _
+						cast(GClassInitFunc, type_name##_class_intern_init), _
+						sizeof(TypeName), _
+						cast(GInstanceInitFunc, type_name##_init), _
+						cast(GTypeFlags, flags) _
+					)
+					scope
+	#endmacro
+
+convert c:
+	#define _G_DEFINE_TYPE_EXTENDED_END()									\
+					}									\
+					g_once_init_leave(&g_define_type_id__volatile, g_define_type_id);	\
+				}										\
+				return g_define_type_id__volatile;						\
+			}
+to fb:
+	#macro _G_DEFINE_TYPE_EXTENDED_END()
+					end scope
+					g_once_init_leave(@g_define_type_id__volatile, g_define_type_id)
+				end if
+				return g_define_type_id__volatile
+			end function
+		end extern
+	#endmacro
+
+convert c:
+	#define _G_DEFINE_INTERFACE_EXTENDED_BEGIN(TypeName, type_name, TYPE_PREREQ) \
+			static void type_name##_default_init(TypeName##Interface *klass); \
+			GType type_name##_get_type(void) { \
+				static volatile gsize g_define_type_id__volatile = 0; \
+				if (g_once_init_enter(&g_define_type_id__volatile)) { \
+					GType g_define_type_id = g_type_register_static_simple( \
+						G_TYPE_INTERFACE, \
+						g_intern_static_string(#TypeName), \
+						sizeof(TypeName##Interface), \
+						(GClassInitFunc)type_name##_default_init, \
+						0, \
+						(GInstanceInitFunc)NULL, \
+						(GTypeFlags)0 \
+					); \
+					if (TYPE_PREREQ) \
+						g_type_interface_add_prerequisite(g_define_type_id, TYPE_PREREQ); \
+					{
+to fb:
+	#macro _G_DEFINE_INTERFACE_EXTENDED_BEGIN(TypeName, type_name, TYPE_PREREQ)
+		extern "C"
+			declare sub type_name##_default_init(byval klass as TypeName##Interface ptr)
+			function type_name##_get_type() as GType
+				static as gsize g_define_type_id__volatile = 0
+				if g_once_init_enter(@g_define_type_id__volatile) then
+					var g_define_type_id = g_type_register_static_simple( _
+						G_TYPE_INTERFACE, _
+						g_intern_static_string(#TypeName), _
+						sizeof(TypeName##Interface), _
+						cast(GClassInitFunc, type_name##_default_init), _
+						0, _
+						cast(GInstanceInitFunc, NULL), _
+						cast(GTypeFlags, 0) _
+					)
+					if TYPE_PREREQ then
+						g_type_interface_add_prerequisite(g_define_type_id, TYPE_PREREQ)
+					end if
+					scope
+	#endmacro
+
+convert c:
+	#define _G_DEFINE_INTERFACE_EXTENDED_END() \
+					} \
+					g_once_init_leave(&g_define_type_id__volatile, g_define_type_id); \
+				} \
+				return g_define_type_id__volatile; \
+			}
+to fb:
+	#macro _G_DEFINE_INTERFACE_EXTENDED_END()
+					end scope
+					g_once_init_leave(@g_define_type_id__volatile, g_define_type_id)
+				end if
+				return g_define_type_id__volatile
+			end function
+		end extern
+	#endmacro
+
+convert c: #define G_DEFINE_BOXED_TYPE(TypeName, type_name, copy_func, free_func) G_DEFINE_BOXED_TYPE_WITH_CODE(TypeName, type_name, copy_func, free_func, {})
+to fb:     #define G_DEFINE_BOXED_TYPE(TypeName, type_name, copy_func, free_func) G_DEFINE_BOXED_TYPE_WITH_CODE(TypeName, type_name, copy_func, free_func, )
+
+convert c:
+	#define G_DEFINE_BOXED_TYPE_WITH_CODE(TypeName, type_name, copy_func, free_func, _C_) \
+		_G_DEFINE_BOXED_TYPE_BEGIN(TypeName, type_name, copy_func, free_func) \
+		{ \
+			_C_; \
+		} \
+		_G_DEFINE_TYPE_EXTENDED_END()
+to fb:
+	#macro G_DEFINE_BOXED_TYPE_WITH_CODE(TypeName, type_name, copy_func, free_func, _C_)
+		_G_DEFINE_BOXED_TYPE_BEGIN(TypeName, type_name, copy_func, free_func)
+		scope
+			_C_
+		end scope
+		_G_DEFINE_TYPE_EXTENDED_END()
+	#endmacro
+
+# The "union { ... } __attribute__((__transparent_union__))" parameters require special attention -
+# they could be translated as a parameter corresponding to the last union member (the one using the function pointer typedef).
+# This would also make _g_register_boxed's signature match that of its initializer expression.
+# But even better than that, we can just solve out _g_register_boxed completely, so the signature never has to be specified.
+convert c:
+	#define _G_DEFINE_BOXED_TYPE_BEGIN(TypeName, type_name, copy_func, free_func)				\
+			GType type_name##_get_type(void) {							\
+				static volatile gsize g_define_type_id__volatile = 0;				\
+				if (g_once_init_enter(&g_define_type_id__volatile)) {				\
+					GType (*_g_register_boxed)(						\
+						const gchar *,							\
+						union {								\
+							TypeName *(*do_copy_type)(TypeName *);			\
+							TypeName *(*do_const_copy_type)(const TypeName *);	\
+							GBoxedCopyFunc do_copy_boxed;				\
+						} __attribute__((__transparent_union__)),			\
+						union {								\
+							void (*do_free_type)(TypeName *);			\
+							GBoxedFreeFunc do_free_boxed;				\
+						} __attribute__((__transparent_union__))			\
+					) = g_boxed_type_register_static;					\
+					GType g_define_type_id = _g_register_boxed(				\
+						g_intern_static_string(#TypeName),				\
+						copy_func,							\
+						free_func							\
+					);									\
+					{
+to fb:
+	#macro _G_DEFINE_BOXED_TYPE_BEGIN(TypeName, type_name, copy_func, free_func)
+		extern "C"
+			function type_name##_get_type() as GType
+				static as gsize g_define_type_id__volatile = 0
+				if g_once_init_enter(@g_define_type_id__volatile) then
+					var g_define_type_id = g_boxed_type_register_static( _
+						g_intern_static_string(#TypeName), _
+						cast(GBoxedCopyFunc, copy_func), _
+						cast(GBoxedFreeFunc, free_func) _
+					)
+					scope
+	#endmacro
+
+convert c: #define G_DEFINE_POINTER_TYPE(TypeName, type_name) G_DEFINE_POINTER_TYPE_WITH_CODE(TypeName, type_name, {})
+to fb:     #define G_DEFINE_POINTER_TYPE(TypeName, type_name) G_DEFINE_POINTER_TYPE_WITH_CODE(TypeName, type_name, )
+
+convert c:
+	#define G_DEFINE_POINTER_TYPE_WITH_CODE(TypeName, type_name, _C_)	\
+		_G_DEFINE_POINTER_TYPE_BEGIN(TypeName, type_name)		\
+		{								\
+			_C_;							\
+		}								\
+		_G_DEFINE_TYPE_EXTENDED_END()
+to fb:
+	#macro G_DEFINE_POINTER_TYPE_WITH_CODE(TypeName, type_name, _C_)
+		_G_DEFINE_POINTER_TYPE_BEGIN(TypeName, type_name)
+		scope
+			_C_
+		end scope
+		_G_DEFINE_TYPE_EXTENDED_END()
+	#endmacro
+
+convert c:
+	#define _G_DEFINE_POINTER_TYPE_BEGIN(TypeName, type_name)									\
+			GType type_name##_get_type(void) {										\
+				static volatile gsize g_define_type_id__volatile = 0;							\
+				if (g_once_init_enter(&g_define_type_id__volatile)) {							\
+					GType g_define_type_id = g_pointer_type_register_static(g_intern_static_string(#TypeName));	\
+					{
+to fb:
+	#macro _G_DEFINE_POINTER_TYPE_BEGIN(TypeName, type_name)
+		extern "C"
+			function type_name##_get_type() as GType
+				static as gsize g_define_type_id__volatile = 0
+				if g_once_init_enter(@g_define_type_id__volatile) then
+					var g_define_type_id = g_pointer_type_register_static(g_intern_static_string(#TypeName))
+					scope
+	#endmacro
+
+convert c:
+	#define _G_TYPE_CIT(ip, gt)							\
+		(G_GNUC_EXTENSION ({							\
+			GTypeInstance *__inst = (GTypeInstance*) ip;			\
+			GType __t = gt;							\
+			gboolean __r;							\
+			if (!__inst)							\
+				__r = FALSE;						\
+			else if (__inst->g_class && __inst->g_class->g_type == __t)	\
+				__r = TRUE;						\
+			else								\
+				__r = g_type_check_instance_is_a(__inst, __t);		\
+			__r;								\
+		}))
+to fb:
+	#define _G_TYPE_CIT(ip, gt) _
+		iif(cptr(GTypeInstance ptr, ip) = 0, _
+			FALSE, _
+			iif(cptr(GTypeInstance ptr, ip)->g_class andalso cptr(GTypeInstance ptr, ip)->g_class->g_type = gt, _
+				TRUE, _
+				g_type_check_instance_is_a(cptr(GTypeInstance ptr, ip), gt)))
+
+convert c:
+	#define _G_TYPE_CCT(cp, gt)						\
+		(G_GNUC_EXTENSION ({						\
+			GTypeClass *__class = (GTypeClass*) cp;			\
+			GType __t = gt;						\
+			gboolean __r;						\
+			if (!__class)						\
+				__r = FALSE;					\
+			else if (__class->g_type == __t)			\
+				__r = TRUE;					\
+			else							\
+				__r = g_type_check_class_is_a(__class, __t);	\
+			__r;							\
+		}))
+to fb:
+	#define _G_TYPE_CCT(cp, gt) _
+		iif(cptr(GTypeClass ptr, cp) = 0, _
+			FALSE, _
+			iif(cptr(GTypeClass ptr, cp)->g_type = gt, _
+				TRUE, _
+				g_type_check_class_is_a(cptr(GTypeClass ptr, cp), gt)))
+
+convert c:
+	#define _G_TYPE_CVH(vl, gt)						\
+		(G_GNUC_EXTENSION ({						\
+			GValue *__val = (GValue*) vl;				\
+			GType __t = gt;						\
+			gboolean __r;						\
+			if (!__val)						\
+				__r = FALSE;					\
+			else if (__val->g_type == __t)				\
+				__r = TRUE;					\
+			else							\
+				__r = g_type_check_value_holds(__val, __t);	\
+			__r;							\
+		}))
+to fb:
+	#define _G_TYPE_CVH(vl, gt) _
+		iif(cptr(GValue ptr, vl) = 0 _
+			FALSE, _
+			iif(cptr(GValue ptr, vl)->g_type = gt, _
+				TRUE, _
+				g_type_check_value_holds(cptr(GValue ptr, vl), gt)))
+
+convert c:
+	#define G_OBJECT_WARN_INVALID_PSPEC(object, pname, property_id, pspec)				\
+		G_STMT_START {										\
+			GObject *_glib__object = (GObject*)(object);					\
+			GParamSpec *_glib__pspec = (GParamSpec*)(pspec);				\
+			guint _glib__property_id = (property_id);					\
+			g_warning("%s:%u: invalid %s id %u for \"%s\" of type '%s' in '%s'",		\
+				__FILE__, __LINE__, (pname), _glib__property_id, _glib__pspec->name,	\
+				g_type_name(G_PARAM_SPEC_TYPE (_glib__pspec)),				\
+				G_OBJECT_TYPE_NAME (_glib__object));					\
+		} G_STMT_END
+to fb:
+	#macro G_OBJECT_WARN_INVALID_PSPEC(object, pname, property_id, pspec)
+		scope
+			var _glib__pspec = cptr(GParamSpec ptr, pspec)
+			dim as guint _glib__property_id = (property_id)
+			g_warning(!"%s:%u: invalid %s id %u for \"%s\" of type '%s' in '%s'", _
+				__FILE__, __LINE__, (pname), _glib__property_id, _glib__pspec->name, _
+				g_type_name(G_PARAM_SPEC_TYPE(_glib__pspec)), _
+				G_OBJECT_TYPE_NAME(cptr(GObject ptr, object)))
+		end scope
+	#endmacro
+
+convert c: #define G_DEFINE_DYNAMIC_TYPE(TN, t_n, T_P) G_DEFINE_DYNAMIC_TYPE_EXTENDED(TN, t_n, T_P, 0, {})
+to fb:     #define G_DEFINE_DYNAMIC_TYPE(TN, t_n, T_P) G_DEFINE_DYNAMIC_TYPE_EXTENDED(TN, t_n, T_P, 0, )
+
+convert c:
+	#define G_DEFINE_DYNAMIC_TYPE_EXTENDED(TypeName, type_name, TYPE_PARENT, flags, CODE)	\
+			static void type_name##_init(TypeName *self);					\
+			static void type_name##_class_init(TypeName##Class *klass);			\
+			static void type_name##_class_finalize(TypeName##Class *klass);			\
+			static gpointer type_name##_parent_class = NULL;				\
+			static GType type_name##_type_id = 0;						\
+			static gint TypeName##_private_offset;						\
+			_G_DEFINE_TYPE_EXTENDED_CLASS_INIT(TypeName, type_name)				\
+			static inline gpointer type_name##_get_instance_private(TypeName *self) {	\
+				return (G_STRUCT_MEMBER_P(self, TypeName##_private_offset));		\
+			}										\
+			GType type_name##_get_type (void) {						\
+				return type_name##_type_id;						\
+			}										\
+			static void type_name##_register_type(GTypeModule *type_module) {		\
+				GType g_define_type_id G_GNUC_UNUSED;					\
+				const GTypeInfo g_define_type_info = {					\
+					sizeof(TypeName##Class),					\
+					(GBaseInitFunc)NULL,						\
+					(GBaseFinalizeFunc)NULL,					\
+					(GClassInitFunc)type_name##_class_intern_init,			\
+					(GClassFinalizeFunc)type_name##_class_finalize,			\
+					NULL,								\
+					sizeof(TypeName),						\
+					0,								\
+					(GInstanceInitFunc)type_name##_init,				\
+					NULL								\
+				};									\
+				type_name##_type_id = g_type_module_register_type(			\
+					type_module,							\
+					TYPE_PARENT,							\
+					#TypeName,							\
+					&g_define_type_info,						\
+					(GTypeFlags)flags						\
+				);									\
+				g_define_type_id = type_name##_type_id;					\
+				{									\
+					CODE;								\
+				}									\
+			}
+to fb:
+	#macro G_DEFINE_DYNAMIC_TYPE_EXTENDED(TypeName, type_name, TYPE_PARENT, flags, CODE)
+		extern "C"
+			declare sub type_name##_init(byval self as TypeName ptr)
+			declare sub type_name##_class_init(byval klass as TypeName##Class ptr)
+			declare sub type_name##_class_finalize(byval klass as TypeName##Class ptr)
+
+			dim shared as gpointer type_name##_parent_class = NULL
+			dim shared as GType type_name##_type_id = 0
+			dim shared as gint TypeName##_private_offset
+
+			_G_DEFINE_TYPE_EXTENDED_CLASS_INIT(TypeName, type_name)
+
+			private function type_name##_get_instance_private(byval self as TypeName ptr) as gpointer
+				return G_STRUCT_MEMBER_P(self, TypeName##_private_offset)
+			end function
+
+			function type_name##_get_type() as GType
+				return type_name##_type_id
+			end function
+
+			private sub type_name##_register_type(byval type_module as GTypeModule ptr)
+				dim as GType g_define_type_id
+
+				dim as const GTypeInfo g_define_type_info = ( _
+					sizeof(TypeName##Class), _
+					cast(GBaseInitFunc, NULL), _
+					cast(GBaseFinalizeFunc, NULL), _
+					cast(GClassInitFunc, type_name##_class_intern_init), _
+					cast(GClassFinalizeFunc, type_name##_class_finalize), _
+					NULL, _
+					sizeof(TypeName), _
+					0, _
+					cast(GInstanceInitFunc, type_name##_init), _
+					NULL
+				)
+
+				type_name##_type_id = g_type_module_register_type( _
+					type_module, _
+					TYPE_PARENT, _
+					#TypeName, _
+					@g_define_type_info, _
+					cast(GTypeFlags, flags) _
+				)
+
+				g_define_type_id = type_name##_type_id
+
+				scope
+					CODE
+				end scope
+			end sub
+		end extern
+	#endmacro
+
+convert c:
+	#define G_ADD_PRIVATE_DYNAMIC(TypeName)					\
+		{								\
+			TypeName##_private_offset = sizeof(TypeName##Private);	\
+		}
+to fb:
+	#macro G_ADD_PRIVATE_DYNAMIC(TypeName)
+		scope
+			TypeName##_private_offset = sizeof(TypeName##Private)
+		end scope
+	#endmacro
