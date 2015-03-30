@@ -3151,6 +3151,7 @@ type GTestFixtureFunc as sub(byval fixture as gpointer, byval user_data as gcons
 			g_assertion_message_cmpnum(G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, #n1 " " #cmp " " #n2, __n1, #cmp, __n2, 'i')
 		end if
 	end scope
+#endmacro
 #macro g_assert_cmpuint(n1, cmp, n2)
 	scope
 		dim as guint64 __n1 = (n1), __n2 = (n2)
