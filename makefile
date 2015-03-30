@@ -384,7 +384,7 @@ glib-extract:
 	sed $(SED_GLIBCONFIG) < glibconfig.h > extracted/$(GLIB)/glib/glibconfig.h
 
 glib: glib-extract
-	$(FBFROG) \
+	$(FBFROG) glib.fbfrog \
 		-incdir extracted/$(GLIB) \
 		-incdir extracted/$(GLIB)/glib \
 		-include glib/glib.h \
