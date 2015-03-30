@@ -73,6 +73,42 @@
 -renameproc g_atomic_pointer_or g_atomic_pointer_or_
 -renameproc g_atomic_pointer_xor g_atomic_pointer_xor_
 -renameproc g_source_remove g_source_remove_
+-renameproc g_type_instance_get_private g_type_instance_get_private_
+-renameproc g_type_class_get_private    g_type_class_get_private_
+-renameproc g_type_fundamental          g_type_fundamental_
+-renameproc g_type_check_instance       g_type_check_instance_
+-renameproc g_type_check_instance_cast  g_type_check_instance_cast_
+-renameproc g_type_check_class_cast     g_type_check_class_cast_
+-renameproc g_type_check_value          g_type_check_value_
+-renameproc g_value_init                g_value_init_
+-renameproc g_clear_object              g_clear_object_
+-renameproc g_param_spec_char           g_param_spec_char_
+-renameproc g_param_spec_uchar          g_param_spec_uchar_
+-renameproc g_param_spec_boolean        g_param_spec_boolean_
+-renameproc g_param_spec_int            g_param_spec_int_
+-renameproc g_param_spec_uint           g_param_spec_uint_
+-renameproc g_param_spec_long           g_param_spec_long_
+-renameproc g_param_spec_ulong          g_param_spec_ulong_
+-renameproc g_param_spec_int64          g_param_spec_int64_
+-renameproc g_param_spec_uint64         g_param_spec_uint64_
+-renameproc g_param_spec_unichar        g_param_spec_unichar_
+-renameproc g_param_spec_enum           g_param_spec_enum_
+-renameproc g_param_spec_flags          g_param_spec_flags_
+-renameproc g_param_spec_float          g_param_spec_float_
+-renameproc g_param_spec_double         g_param_spec_double_
+-renameproc g_param_spec_string         g_param_spec_string_
+-renameproc g_param_spec_param          g_param_spec_param_
+-renameproc g_param_spec_boxed          g_param_spec_boxed_
+-renameproc g_param_spec_pointer        g_param_spec_pointer_
+-renameproc g_param_spec_value_array    g_param_spec_value_array_
+-renameproc g_param_spec_object         g_param_spec_object_
+-renameproc g_param_spec_override       g_param_spec_override_
+-renameproc g_param_spec_gtype          g_param_spec_gtype_
+-renameproc g_param_spec_variant        g_param_spec_variant_
+-renamedefine G_STATIC_MUTEX_INIT     G_STATIC_MUTEX_INIT_
+-renamedefine G_STATIC_REC_MUTEX_INIT G_STATIC_REC_MUTEX_INIT_
+-renamedefine G_STATIC_RW_LOCK_INIT   G_STATIC_RW_LOCK_INIT_
+-renamedefine G_STATIC_PRIVATE_INIT   G_STATIC_PRIVATE_INIT_
 
 -removeinclude glib/gmacros.h
 -removeinclude float.h

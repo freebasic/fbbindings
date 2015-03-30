@@ -38,6 +38,10 @@
 ''     variable glib_minor_version => glib_minor_version_
 ''     variable glib_micro_version => glib_micro_version_
 ''     procedure glib_check_version => glib_check_version_
+''     #define G_STATIC_MUTEX_INIT => G_STATIC_MUTEX_INIT_
+''     #define G_STATIC_REC_MUTEX_INIT => G_STATIC_REC_MUTEX_INIT_
+''     #define G_STATIC_RW_LOCK_INIT => G_STATIC_RW_LOCK_INIT_
+''     #define G_STATIC_PRIVATE_INIT => G_STATIC_PRIVATE_INIT_
 
 extern "C"
 
@@ -3959,7 +3963,7 @@ declare function g_thread_create_full(byval func as GThreadFunc, byval data as g
 declare sub g_thread_set_priority(byval thread as GThread ptr, byval priority as GThreadPriority)
 declare sub g_thread_foreach(byval thread_func as GFunc, byval user_data as gpointer)
 #define g_static_mutex_get_mutex g_static_mutex_get_mutex_impl
-#define G_STATIC_MUTEX_INIT (NULL)
+#define G_STATIC_MUTEX_INIT_ (NULL)
 
 type GStaticMutex
 	mutex as GMutex ptr
@@ -3994,7 +3998,7 @@ type _GStaticRecMutex
 	unused as _GStaticRecMutex_unused
 end type
 
-#define G_STATIC_REC_MUTEX_INIT (G_STATIC_MUTEX_INIT)
+#define G_STATIC_REC_MUTEX_INIT_ (G_STATIC_MUTEX_INIT_)
 declare sub g_static_rec_mutex_init(byval mutex as GStaticRecMutex ptr)
 declare sub g_static_rec_mutex_lock(byval mutex as GStaticRecMutex ptr)
 declare function g_static_rec_mutex_trylock(byval mutex as GStaticRecMutex ptr) as gboolean
@@ -4014,7 +4018,7 @@ type _GStaticRWLock
 	want_to_write as guint
 end type
 
-#define G_STATIC_RW_LOCK_INIT (G_STATIC_MUTEX_INIT, NULL, NULL, 0, FALSE, 0, 0)
+#define G_STATIC_RW_LOCK_INIT_ (G_STATIC_MUTEX_INIT_, NULL, NULL, 0, FALSE, 0, 0)
 declare sub g_static_rw_lock_init(byval lock as GStaticRWLock ptr)
 declare sub g_static_rw_lock_reader_lock(byval lock as GStaticRWLock ptr)
 declare function g_static_rw_lock_reader_trylock(byval lock as GStaticRWLock ptr) as gboolean
@@ -4030,7 +4034,7 @@ type _GStaticPrivate
 	index as guint
 end type
 
-#define G_STATIC_PRIVATE_INIT (0)
+#define G_STATIC_PRIVATE_INIT_ (0)
 declare sub g_static_private_init(byval private_key as GStaticPrivate ptr)
 declare function g_static_private_get(byval private_key as GStaticPrivate ptr) as gpointer
 declare sub g_static_private_set(byval private_key as GStaticPrivate ptr, byval data as gpointer, byval notify as GDestroyNotify)
