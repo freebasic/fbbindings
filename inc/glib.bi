@@ -56,9 +56,15 @@ extern "C"
 #define G_STATIC_ASSERT(expr) #assert expr
 #define G_STRLOC __FILE__ ":" G_STRINGIFY(__LINE__)
 #define G_STRFUNC cptr(const zstring ptr, __func__)
+#ifndef NULL
 const NULL = cptr(any ptr, 0)
+#endif
+#ifndef FALSE
 const FALSE = 0
-#define TRUE (FALSE = 0)
+#endif
+#ifndef TRUE
+const TRUE = 1
+#endif
 #define MAX(a, b) iif((a) > (b), (a), (b))
 #define MIN(a, b) iif((a) < (b), (a), (b))
 #define CLAMP(x, low, high) iif((x) > (high), (high), iif((x) < (low), (low), (x)))
