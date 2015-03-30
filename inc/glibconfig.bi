@@ -171,7 +171,6 @@ type goffset as gint64
 	#define G_GUINTPTR_FORMAT "lu"
 #endif
 
-#define g_ATEXIT(proc) atexit(proc)
 #define g_memmove(dest, src, len) memmove((dest), (src), (len))
 const GLIB_MAJOR_VERSION = 2
 const GLIB_MINOR_VERSION = 42
