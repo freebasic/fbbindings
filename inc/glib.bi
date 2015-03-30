@@ -28,6 +28,7 @@
 ''     procedure g_atomic_pointer_and => g_atomic_pointer_and_
 ''     procedure g_atomic_pointer_or => g_atomic_pointer_or_
 ''     procedure g_atomic_pointer_xor => g_atomic_pointer_xor_
+''     procedure g_source_remove => g_source_remove_
 ''     #ifdef __FB_WIN32__
 ''         procedure g_atexit => g_atexit_
 ''     #endif
@@ -1557,7 +1558,7 @@ declare function g_timeout_source_new_seconds(byval interval as guint) as GSourc
 declare sub g_get_current_time(byval result as GTimeVal ptr)
 declare function g_get_monotonic_time() as gint64
 declare function g_get_real_time() as gint64
-declare function g_source_remove(byval tag as guint) as gboolean
+declare function g_source_remove_ alias "g_source_remove"(byval tag as guint) as gboolean
 declare function g_source_remove_by_user_data(byval user_data as gpointer) as gboolean
 declare function g_source_remove_by_funcs_user_data(byval funcs as GSourceFuncs ptr, byval user_data as gpointer) as gboolean
 declare function g_timeout_add_full(byval priority as gint, byval interval as guint, byval function as GSourceFunc, byval data as gpointer, byval notify as GDestroyNotify) as guint
