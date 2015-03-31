@@ -1,0 +1,6 @@
+#ifdef _WIN32
+	#define GDKGLEXT_WINDOWING_WIN32
+#else
+	#define GDKGLEXT_WINDOWING_X11
+#endif
+#define GDKGLEXT_MULTIHEAD_SUPPORT
