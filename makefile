@@ -3,7 +3,7 @@ FBFROG := fbfrog
 ALL := allegro4 allegro5 atk
 ALL += cairo cgui clang cunit curl
 ALL += fastcgi ffi fontconfig freeglut freetype
-ALL += gdk-pixbuf glib glibc glfw glut gtk
+ALL += gdkpixbuf glib glibc glfw glut gtk
 ALL += iconv iup
 ALL += jit
 ALL += llvm lua
@@ -411,8 +411,20 @@ glfw:
 			-inclib glfw \
 		-endif
 
-gdk-pixbuf:
-	http://ftp.gnome.org/pub/gnome/sources/gdk-pixbuf/2.30/gdk-pixbuf-2.30.8.tar.xz
+GDKPIXBUF_SERIES := 2.30
+GDKPIXBUF := gdk-pixbuf-$(GDKPIXBUF_SERIES).8
+gdkpixbuf-extract:
+	./get.sh $(GDKPIXBUF) $(GDKPIXBUF).tar.xz http://ftp.gnome.org/pub/gnome/sources/gdk-pixbuf/$(GDKPIXBUF_SERIES)/$(GDKPIXBUF).tar.xz
+
+gdkpixbuf: glib-extract gdkpixbuf-extract
+	mkdir -p inc/gdk-pixbuf
+	$(FBFROG) gdkpixbuf.fbfrog \
+		-incdir extracted/$(GDKPIXBUF) \
+		-incdir extracted/$(GLIB) \
+		-incdir extracted/$(GLIB)/glib \
+		-incdir extracted/$(GLIB)/gmodule \
+		-include gdk-pixbuf/gdk-pixbuf.h \
+		-emit '*/extracted/$(GDKPIXBUF)/gdk-pixbuf/*' inc/gdk-pixbuf/gdk-pixbuf.bi
 
 GLIB_MAJOR := 2
 GLIB_MINOR := 42
