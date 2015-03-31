@@ -1,5 +1,12 @@
 nodos.fbfrog
 
+-ifdef __FB_WIN32__
+	-declarebool CAIRO_WIN32_STATIC_BUILD
+	-ifdef CAIRO_WIN32_STATIC_BUILD
+		-define CAIRO_WIN32_STATIC_BUILD 1
+	-endif
+-endif
+
 -renamedefine CAIRO_VERSION CAIRO_VERSION_
 -renamedefine CAIRO_VERSION_STRING CAIRO_VERSION_STRING_
 
