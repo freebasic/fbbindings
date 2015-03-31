@@ -513,7 +513,7 @@ gtk2: glib-extract cairo-extract pango-extract atk-extract gdkpixbuf-extract
 	./get.sh $(GTK2) $(GTK2).tar.xz http://ftp.gnome.org/pub/gnome/sources/gtk+/$(GTK2_SERIES)/$(GTK2).tar.xz
 
 	# Insert our custom gdkconfig.h
-	cp gdkconfig.h extracted/$(GTK2)
+	cp gdk2config.h extracted/$(GTK2)/gdkconfig.h
 
 	mkdir -p inc/gtk inc/gdk
 	$(FBFROG) gtk.fbfrog gtk2.fbfrog \
@@ -531,13 +531,25 @@ gtk2: glib-extract cairo-extract pango-extract atk-extract gdkpixbuf-extract
 
 GTK3_SERIES := 3.14
 GTK3 := gtk+-$(GTK3_SERIES).10
-gtk3:
+gtk3: glib-extract cairo-extract pango-extract atk-extract gdkpixbuf-extract
 	./get.sh $(GTK3) $(GTK3).tar.xz http://ftp.gnome.org/pub/gnome/sources/gtk+/$(GTK3_SERIES)/$(GTK3).tar.xz
 
-	mkdir -p inc/gtk
-	$(FBFROG) \
-		extracted/$(GTK3)/gtk/gtk.h \
-		-emit '*/gtk.h' inc/gtk/gtk3.bi
+	# Insert our custom gdkconfig.h
+	cp gdk3config.h extracted/$(GTK3)/gdk/gdkconfig.h
+
+	mkdir -p inc/gtk inc/gdk
+	$(FBFROG) gtk.fbfrog gtk3.fbfrog \
+		-incdir extracted/$(GTK3) \
+		-incdir extracted/$(PANGO) \
+		-incdir extracted/$(CAIRO)/src \
+		-incdir extracted/$(GDKPIXBUF) \
+		-incdir extracted/$(ATK) \
+		-incdir extracted/$(GLIB) \
+		-incdir extracted/$(GLIB)/glib \
+		-incdir extracted/$(GLIB)/gmodule \
+		-include gtk/gtk.h \
+		-emit '*/extracted/$(GTK3)/gdk/*' inc/gdk/gdk3.bi \
+		-emit '*/extracted/$(GTK3)/gtk/*' inc/gtk/gtk3.bi
 
 # GNU libiconv, not glibc's iconv
 ICONV := libiconv-1.14
