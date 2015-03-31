@@ -683,7 +683,7 @@ pango: glib-extract
 	./get.sh $(PANGO) $(PANGO).tar.xz http://ftp.gnome.org/pub/gnome/sources/pango/$(PANGO_SERIES)/$(PANGO).tar.xz
 
 	mkdir -p inc/pango
-	$(FBFROG) \
+	$(FBFROG) pango.fbfrog \
 		-incdir extracted/$(GLIB) \
 		-incdir extracted/$(GLIB)/glib \
 		-incdir extracted/$(PANGO) \
