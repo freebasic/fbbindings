@@ -2,7 +2,6 @@
 
 #include once "gdk/gdk.bi"
 #include once "glib-object.bi"
-#include once "gdkconfig.bi"
 #include once "glib.bi"
 #include once "atk/atk.bi"
 #include once "gio/gio.bi"
