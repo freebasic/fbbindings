@@ -512,12 +512,13 @@ gtk: gtk2 gtk3
 
 GTK2_SERIES := 2.24
 GTK2 := gtk+-$(GTK2_SERIES).27
-gtk2: glib-extract cairo-extract pango-extract atk-extract gdkpixbuf-extract
+gtk2-extract: glib-extract cairo-extract pango-extract atk-extract gdkpixbuf-extract
 	./get.sh $(GTK2) $(GTK2).tar.xz http://ftp.gnome.org/pub/gnome/sources/gtk+/$(GTK2_SERIES)/$(GTK2).tar.xz
 
 	# Insert our custom gdkconfig.h
 	cp gdk2config.h extracted/$(GTK2)/gdkconfig.h
 
+gtk2: gtk2-extract
 	mkdir -p inc/gtk inc/gdk
 	$(FBFROG) gtk.fbfrog gtk2.fbfrog \
 		-incdir extracted/$(GTK2) \
@@ -562,6 +563,36 @@ gtk3: glib-extract cairo-extract pango-extract atk-extract gdkpixbuf-extract
 		-emit '*/extracted/$(GTK3)/gtk/*' inc/gtk/gtk3.bi \
 		-inclib gdk-3                     inc/gdk/gdk3.bi \
 		-inclib gtk-3                     inc/gtk/gtk3.bi
+
+GTKGLEXT := gtkglext-1.2.0
+gtkglext: glib-extract gtk2-extract
+	./get.sh $(GTKGLEXT) $(GTKGLEXT).tar.gz http://downloads.sourceforge.net/gtkglext/$(GTKGLEXT).tar.gz
+
+	# Insert our custom gdkglext-config.h
+	cp gdkglext-config.h extracted/$(GTKGLEXT)/gdkglext-config.h
+
+	mkdir -p inc/gtkgl
+	$(FBFROG) gtkglext.fbfrog \
+		-incdir extracted/$(GTKGLEXT) \
+		-incdir extracted/$(GTK2) \
+		-incdir extracted/$(PANGO) \
+		-incdir extracted/$(CAIRO)/src \
+		-incdir extracted/$(GDKPIXBUF) \
+		-incdir extracted/$(ATK) \
+		-incdir extracted/$(GLIB) \
+		-incdir extracted/$(GLIB)/glib \
+		-incdir extracted/$(GLIB)/gmodule \
+		-include gdk/gdkgl.h \
+		-include gtk/gtkgl.h \
+		-emit '*/extracted/$(GTKGLEXT)/gdk/*' inc/gtkgl/gdkglext.bi \
+		-emit '*/extracted/$(GTKGLEXT)/gtk/*' inc/gtkgl/gtkglext.bi \
+		-ifdef __FB_WIN32__ \
+			-inclib gdkglext-win32-1.0 inc/gtkgl/gdkglext.bi \
+			-inclib gtkglext-win32-1.0 inc/gtkgl/gtkglext.bi \
+		-else \
+			-inclib gdkglext-x11-1.0 inc/gtkgl/gdkglext.bi \
+			-inclib gtkglext-x11-1.0 inc/gtkgl/gtkglext.bi \
+		-endif
 
 # GNU libiconv, not glibc's iconv
 ICONV := libiconv-1.14
