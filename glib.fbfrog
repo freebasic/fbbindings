@@ -67,6 +67,8 @@ nodos.fbfrog
 -removedefine g_ATEXIT
 -removedefine ATEXIT
 -removedefine ABS
+-removedefine G_MODULE_IMPORT
+-removedefine G_MODULE_EXPORT
 
 -addforwarddecl GTestCase
 -addforwarddecl GTestSuite
