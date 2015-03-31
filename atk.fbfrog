@@ -1,0 +1,36 @@
+nodos.fbfrog
+-replacements atk.replacements
+
+-removedefine ATK_AVAILABLE_IN_2_10
+-removedefine ATK_AVAILABLE_IN_2_12
+-removedefine ATK_AVAILABLE_IN_2_14
+-removedefine ATK_AVAILABLE_IN_2_2
+-removedefine ATK_AVAILABLE_IN_2_4
+-removedefine ATK_AVAILABLE_IN_2_6
+-removedefine ATK_AVAILABLE_IN_2_8
+-removedefine ATK_AVAILABLE_IN_ALL
+-removedefine ATK_DEPRECATED
+-removedefine ATK_DEPRECATED_FOR
+-removedefine ATK_DEPRECATED_IN_2_10
+-removedefine ATK_DEPRECATED_IN_2_10_FOR
+-removedefine ATK_DEPRECATED_IN_2_12
+-removedefine ATK_DEPRECATED_IN_2_12_FOR
+-removedefine ATK_DEPRECATED_IN_2_14
+-removedefine ATK_DEPRECATED_IN_2_14_FOR
+-removedefine ATK_DEPRECATED_IN_2_2
+-removedefine ATK_DEPRECATED_IN_2_2_FOR
+-removedefine ATK_DEPRECATED_IN_2_4
+-removedefine ATK_DEPRECATED_IN_2_4_FOR
+-removedefine ATK_DEPRECATED_IN_2_6
+-removedefine ATK_DEPRECATED_IN_2_6_FOR
+-removedefine ATK_DEPRECATED_IN_2_8
+-removedefine ATK_DEPRECATED_IN_2_8_FOR
+-removedefine _ATK_EXTERN
+-removedefine ATK_VAR
+
+-ifdef __FB_WIN32__
+	-declarebool ATK_STATIC_COMPILATION
+	-ifdef ATK_STATIC_COMPILATION
+		-define ATK_STATIC_COMPILATION 1
+	-endif
+-endif

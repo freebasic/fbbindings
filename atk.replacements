@@ -1,0 +1,137 @@
+convert c: #define ATK_DEFINE_TYPE(TN, t_n, T_P) ATK_DEFINE_TYPE_EXTENDED(TN, t_n, T_P, 0, {})
+to fb:     #define ATK_DEFINE_TYPE(TN, t_n, T_P) ATK_DEFINE_TYPE_EXTENDED(TN, t_n, T_P, 0, )
+
+convert c:
+	#define ATK_DEFINE_TYPE_WITH_CODE(TN, t_n, T_P, _C_)		\
+		_ATK_DEFINE_TYPE_EXTENDED_BEGIN(TN, t_n, T_P, 0)	\
+		{							\
+			_C_;						\
+		}							\
+		_ATK_DEFINE_TYPE_EXTENDED_END()
+to fb:
+	#macro ATK_DEFINE_TYPE_WITH_CODE(TN, t_n, T_P, _C_)
+		_ATK_DEFINE_TYPE_EXTENDED_BEGIN(TN, t_n, T_P, 0)
+		scope
+			_C_
+		end scope
+		_ATK_DEFINE_TYPE_EXTENDED_END()
+	#endmacro
+
+convert c: #define ATK_DEFINE_ABSTRACT_TYPE(TN, t_n, T_P) ATK_DEFINE_TYPE_EXTENDED(TN, t_n, T_P, G_TYPE_FLAG_ABSTRACT, {})
+to fb:     #define ATK_DEFINE_ABSTRACT_TYPE(TN, t_n, T_P) ATK_DEFINE_TYPE_EXTENDED(TN, t_n, T_P, G_TYPE_FLAG_ABSTRACT, )
+
+convert c:
+	#define ATK_DEFINE_ABSTRACT_TYPE_WITH_CODE(TN, t_n, T_P, _C_)			\
+		_ATK_DEFINE_TYPE_EXTENDED_BEGIN(TN, t_n, T_P, G_TYPE_FLAG_ABSTRACT)	\
+		{									\
+			_C_;								\
+		}									\
+		_ATK_DEFINE_TYPE_EXTENDED_END()
+to fb:
+	#macro ATK_DEFINE_ABSTRACT_TYPE_WITH_CODE(TN, t_n, T_P, _C_)
+		_ATK_DEFINE_TYPE_EXTENDED_BEGIN(TN, t_n, T_P, G_TYPE_FLAG_ABSTRACT)
+		scope
+			_C_
+		end scope
+		_ATK_DEFINE_TYPE_EXTENDED_END()
+	#endmacro
+
+convert c:
+	#define ATK_DEFINE_TYPE_EXTENDED(TN, t_n, T_P, _f_, _C_)	\
+		_ATK_DEFINE_TYPE_EXTENDED_BEGIN(TN, t_n, T_P, _f_)	\
+		{							\
+			_C_;						\
+		}							\
+		_ATK_DEFINE_TYPE_EXTENDED_END()
+to fb:
+	#macro ATK_DEFINE_TYPE_EXTENDED(TN, t_n, T_P, _f_, _C_)
+		_ATK_DEFINE_TYPE_EXTENDED_BEGIN(TN, t_n, T_P, _f_)
+		scope
+			_C_
+		end scope
+		_ATK_DEFINE_TYPE_EXTENDED_END()
+	#endmacro
+
+convert c:
+	#define _ATK_DEFINE_TYPE_EXTENDED_BEGIN(TypeName, type_name, TYPE, flags)				\
+			static void type_name##_init(TypeName *self);							\
+			static void type_name##_class_init(TypeName##Class *klass);					\
+			static gpointer type_name##_parent_class = NULL;						\
+			static void type_name##_class_intern_init(gpointer klass) {					\
+				type_name##_parent_class = g_type_class_peek_parent(klass);				\
+				type_name##_class_init((TypeName##Class*) klass);					\
+			}												\
+			ATK_AVAILABLE_IN_ALL GType type_name##_get_type (void) {					\
+				static volatile gsize g_define_type_id__volatile = 0;					\
+				if (g_once_init_enter(&g_define_type_id__volatile)) {					\
+					AtkObjectFactory *factory;							\
+					GType derived_type;								\
+					GTypeQuery query;								\
+					GType derived_atk_type;								\
+					GType g_define_type_id;								\
+					derived_type = g_type_parent(TYPE);						\
+					factory = atk_registry_get_factory(atk_get_default_registry(), derived_type);	\
+					derived_atk_type = atk_object_factory_get_accessible_type(factory);		\
+					g_type_query(derived_atk_type, &query);						\
+					g_define_type_id = g_type_register_static_simple(				\
+						derived_atk_type,							\
+						g_intern_static_string(#TypeName),					\
+						query.class_size,							\
+						(GClassInitFunc)type_name##_class_intern_init,				\
+						query.instance_size,							\
+						(GInstanceInitFunc)type_name##_init,					\
+						(GTypeFlags)flags							\
+					);										\
+					{
+to fb:
+	#macro _ATK_DEFINE_TYPE_EXTENDED_BEGIN(TypeName, type_name, TYPE, flags)
+		extern "C"
+			declare sub type_name##_init(byval self as TypeName ptr)
+			declare sub type_name##_class_init(byval klass as TypeName##Class ptr)
+
+			dim shared as gpointer type_name##_parent_class = NULL
+
+			private sub type_name##_class_intern_init(byval klass as gpointer)
+				type_name##_parent_class = g_type_class_peek_parent(klass)
+				type_name##_class_init(cptr(TypeName##Class ptr, klass))
+			end sub
+
+			function type_name##_get_type() as GType
+				static as gsize g_define_type_id__volatile = 0
+
+				if g_once_init_enter(@g_define_type_id__volatile) then
+					var derived_type = g_type_parent(TYPE)
+					var factory = atk_registry_get_factory(atk_get_default_registry(), derived_type)
+					var derived_atk_type = atk_object_factory_get_accessible_type(factory)
+
+					dim as GTypeQuery query
+					g_type_query(derived_atk_type, @query)
+
+					var g_define_type_id = g_type_register_static_simple( _
+						derived_atk_type, _
+						g_intern_static_string(#TypeName), _
+						query.class_size, _
+						cast(GClassInitFunc, @type_name##_class_intern_init), _
+						query.instance_size, _
+						cast(GInstanceInitFunc, @type_name##_init), _
+						cast(GTypeFlags, flags) _
+					)
+					scope
+	#endmacro
+
+convert c:
+	#define _ATK_DEFINE_TYPE_EXTENDED_END()									\
+					}									\
+					g_once_init_leave(&g_define_type_id__volatile, g_define_type_id);	\
+				}										\
+				return g_define_type_id__volatile;						\
+			}
+to fb:
+	#macro _ATK_DEFINE_TYPE_EXTENDED_END()
+					end scope
+					g_once_init_leave(@g_define_type_id__volatile, g_define_type_id)
+				end if
+				return g_define_type_id__volatile
+			end function
+		end extern
+	#endmacro
