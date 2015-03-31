@@ -1,5 +1,7 @@
 #pragma once
 
+#inclib "gdk-3"
+
 #include once "crt/long.bi"
 #include once "glib.bi"
 #include once "gio/gio.bi"

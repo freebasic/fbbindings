@@ -1,5 +1,7 @@
 #pragma once
 
+#inclib "pangocairo-1.0"
+
 #include once "pango/pango.bi"
 #include once "cairo/cairo.bi"
 

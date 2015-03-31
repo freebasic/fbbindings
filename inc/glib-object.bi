@@ -1,5 +1,7 @@
 #pragma once
 
+#inclib "gobject-2.0"
+
 #include once "crt/long.bi"
 #include once "glib.bi"
 

@@ -1,5 +1,11 @@
 #pragma once
 
+#ifdef __FB_WIN32__
+	#inclib "gdk-win32-2.0"
+#else
+	#inclib "gdk-x11-2.0"
+#endif
+
 #include once "crt/long.bi"
 #include once "gio/gio.bi"
 #include once "cairo/cairo.bi"

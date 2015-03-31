@@ -1,5 +1,7 @@
 #pragma once
 
+#inclib "gtk-3"
+
 #include once "gdk/gdk3.bi"
 #include once "glib-object.bi"
 #include once "atk/atk.bi"

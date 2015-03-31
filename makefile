@@ -189,7 +189,8 @@ atk: glib-extract
 		-emit '*/atk/atkutil.h'              inc/atk/atk.bi \
 		-emit '*/atk/atkvalue.h'             inc/atk/atk.bi \
 		-emit '*/atk/atkversion.h'           inc/atk/atk.bi \
-		-emit '*/atk/atkwindow.h'            inc/atk/atk.bi
+		-emit '*/atk/atkwindow.h'            inc/atk/atk.bi \
+		-inclib atk-1.0                      inc/atk/atk.bi
 
 # TODO:
 # cairo-deprecated.h
@@ -425,7 +426,8 @@ gdkpixbuf: glib-extract gdkpixbuf-extract
 		-incdir extracted/$(GLIB)/glib \
 		-incdir extracted/$(GLIB)/gmodule \
 		-include gdk-pixbuf/gdk-pixbuf.h \
-		-emit '*/extracted/$(GDKPIXBUF)/gdk-pixbuf/*' inc/gdk-pixbuf/gdk-pixbuf.bi
+		-emit '*/extracted/$(GDKPIXBUF)/gdk-pixbuf/*' inc/gdk-pixbuf/gdk-pixbuf.bi \
+		-inclib gdk_pixbuf-2.0                        inc/gdk-pixbuf/gdk-pixbuf.bi
 
 GLIB_MAJOR := 2
 GLIB_MINOR := 42
@@ -462,7 +464,14 @@ glib: glib-extract
 		-emit '*/extracted/$(GLIB)/glib/glibconfig.h'  inc/glibconfig.bi \
 		-emit '*/extracted/$(GLIB)/gmodule/gmodule.h'  inc/gmodule.bi \
 		-emit '*/extracted/$(GLIB)/gio/*'              inc/gio/gio.bi \
-		-emit '*/extracted/$(GLIB)/glib/*.h'           inc/glib.bi
+		-emit '*/extracted/$(GLIB)/glib/*.h'           inc/glib.bi \
+		-inclib gio-2.0                                inc/gio/gio.bi \
+		-inclib gobject-2.0                            inc/glib-object.bi \
+		-inclib gmodule-2.0                            inc/gmodule.bi \
+		-inclib glib-2.0                               inc/glib.bi \
+		-ifdef __FB_WIN32__ \
+			-inclib gthread-2.0                    inc/glib.bi \
+		-endif
 
 GLIBC := glibc-2.21
 glibc:
@@ -527,7 +536,14 @@ gtk2: glib-extract cairo-extract pango-extract atk-extract gdkpixbuf-extract
 		-incdir extracted/$(GLIB)/gmodule \
 		-include gtk/gtk.h \
 		-emit '*/extracted/$(GTK2)/gdk/*' inc/gdk/gdk2.bi \
-		-emit '*/extracted/$(GTK2)/gtk/*' inc/gtk/gtk2.bi
+		-emit '*/extracted/$(GTK2)/gtk/*' inc/gtk/gtk2.bi \
+		-ifdef __FB_WIN32__ \
+			-inclib gdk-win32-2.0 inc/gdk/gdk2.bi \
+			-inclib gtk-win32-2.0 inc/gtk/gtk2.bi \
+		-else \
+			-inclib gdk-x11-2.0   inc/gdk/gdk2.bi \
+			-inclib gtk-x11-2.0   inc/gtk/gtk2.bi \
+		-endif
 
 GTK3_SERIES := 3.14
 GTK3 := gtk+-$(GTK3_SERIES).10
@@ -549,7 +565,9 @@ gtk3: glib-extract cairo-extract pango-extract atk-extract gdkpixbuf-extract
 		-incdir extracted/$(GLIB)/gmodule \
 		-include gtk/gtk.h \
 		-emit '*/extracted/$(GTK3)/gdk/*' inc/gdk/gdk3.bi \
-		-emit '*/extracted/$(GTK3)/gtk/*' inc/gtk/gtk3.bi
+		-emit '*/extracted/$(GTK3)/gtk/*' inc/gtk/gtk3.bi \
+		-inclib gdk-3                     inc/gdk/gdk3.bi \
+		-inclib gtk-3                     inc/gtk/gtk3.bi
 
 # GNU libiconv, not glibc's iconv
 ICONV := libiconv-1.14
@@ -820,7 +838,9 @@ pango: glib-extract cairo-extract
 		-emit '*/pango/pango-script.h'     inc/pango/pango.bi \
 		-emit '*/pango/pango-tabs.h'       inc/pango/pango.bi \
 		-emit '*/pango/pango-types.h'      inc/pango/pango.bi \
-		-emit '*/pango/pango-utils.h'      inc/pango/pango.bi
+		-emit '*/pango/pango-utils.h'      inc/pango/pango.bi \
+		-inclib pango-1.0                  inc/pango/pango.bi \
+		-inclib pangocairo-1.0             inc/pango/pangocairo.bi
 
 pdcurses:
 	./get.sh PDCurses-3.4 PDCurses-3.4.tar.gz "http://sourceforge.net/projects/pdcurses/files/pdcurses/3.4/PDCurses-3.4.tar.gz/download"

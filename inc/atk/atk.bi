@@ -1,5 +1,7 @@
 #pragma once
 
+#inclib "atk-1.0"
+
 #include once "glib-object.bi"
 #include once "glib.bi"
 

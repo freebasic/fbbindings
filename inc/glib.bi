@@ -1,5 +1,11 @@
 #pragma once
 
+#inclib "glib-2.0"
+
+#ifdef __FB_WIN32__
+	#inclib "gthread-2.0"
+#endif
+
 #include once "crt/long.bi"
 #include once "crt/longdouble.bi"
 #include once "glibconfig.bi"
