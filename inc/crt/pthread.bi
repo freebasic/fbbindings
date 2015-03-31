@@ -188,13 +188,6 @@ end type
 	declare sub __pthread_unregister_cancel(byval __buf as __pthread_unwind_buf_t ptr)
 	declare sub __pthread_register_cancel_defer(byval __buf as __pthread_unwind_buf_t ptr)
 	declare sub __pthread_unregister_cancel_restore(byval __buf as __pthread_unwind_buf_t ptr)
-	'' TODO: extern void __pthread_unwind_next (__pthread_unwind_buf_t *__buf) __attribute__ ((__noreturn__)) __attribute__ ((__weak__)) ;
-#else
-	'' TODO: extern void __pthread_register_cancel (__pthread_unwind_buf_t *__buf) __attribute__ ((__regparm__ (1)));
-	'' TODO: extern void __pthread_unregister_cancel (__pthread_unwind_buf_t *__buf) __attribute__ ((__regparm__ (1)));
-	'' TODO: extern void __pthread_register_cancel_defer (__pthread_unwind_buf_t *__buf) __attribute__ ((__regparm__ (1)));
-	'' TODO: extern void __pthread_unregister_cancel_restore (__pthread_unwind_buf_t *__buf) __attribute__ ((__regparm__ (1)));
-	'' TODO: extern void __pthread_unwind_next (__pthread_unwind_buf_t *__buf) __attribute__ ((__regparm__ (1))) __attribute__ ((__noreturn__)) __attribute__ ((__weak__)) ;
 #endif
 
 declare function pthread_mutex_init(byval __mutex as pthread_mutex_t ptr, byval __mutexattr as const pthread_mutexattr_t ptr) as long
