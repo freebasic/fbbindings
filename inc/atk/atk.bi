@@ -31,12 +31,6 @@ declare function atk_get_minor_version() as guint
 declare function atk_get_micro_version() as guint
 declare function atk_get_binary_age() as guint
 declare function atk_get_interface_age() as guint
-
-#define atk_major_version atk_get_major_version()
-#define atk_minor_version atk_get_minor_version()
-#define atk_micro_version atk_get_micro_version()
-#define atk_binary_age atk_get_binary_age()
-#define atk_interface_age atk_get_interface_age()
 #define __ATK_STATE_H__
 
 type AtkStateType as long
@@ -836,7 +830,7 @@ declare function atk_gobject_accessible_get_object(byval obj as AtkGObjectAccess
 
 type AtkHyperlinkStateFlags as long
 enum
-	ATK_HYPERLINK_IS_INLINE = 1 shl 0
+	ATK_HYPERLINK_IS_INLINE_ = 1 shl 0
 end enum
 
 #define ATK_TYPE_HYPERLINK atk_hyperlink_get_type()
