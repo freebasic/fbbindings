@@ -11,6 +11,10 @@
 #include once "gdk/gdk.bi"
 #include once "gtk/gtkwidget.bi"
 
+#ifdef __FB_WIN32__
+#pragma push(msbitfields)
+#endif
+
 extern "C"
 
 #define __GTK_GL_H__
@@ -51,3 +55,7 @@ declare function gtk_widget_get_gl_window(byval widget as GtkWidget ptr) as GdkG
 #define gtk_widget_get_gl_drawable(widget) GDK_GL_DRAWABLE(gtk_widget_get_gl_window(widget))
 
 end extern
+
+#ifdef __FB_WIN32__
+#pragma pop(msbitfields)
+#endif

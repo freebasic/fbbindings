@@ -13,6 +13,10 @@
 #include once "gdk/gdkwindow.bi"
 #include once "gdk/gdkpixmap.bi"
 
+#ifdef __FB_WIN32__
+#pragma push(msbitfields)
+#endif
+
 extern "C"
 
 #define __GDK_GL_H__
@@ -436,3 +440,7 @@ declare sub gdk_gl_draw_icosahedron(byval solid as gboolean)
 declare sub gdk_gl_draw_teapot(byval solid as gboolean, byval scale as double)
 
 end extern
+
+#ifdef __FB_WIN32__
+#pragma pop(msbitfields)
+#endif
