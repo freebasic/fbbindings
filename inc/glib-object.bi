@@ -319,9 +319,9 @@ declare function g_type_get_type_registration_serial() as guint
 					TYPE_PARENT, _
 					g_intern_static_string(#TypeName), _
 					sizeof(TypeName##Class), _
-					cast(GClassInitFunc, type_name##_class_intern_init), _
+					cast(GClassInitFunc, @type_name##_class_intern_init), _
 					sizeof(TypeName), _
-					cast(GInstanceInitFunc, type_name##_init), _
+					cast(GInstanceInitFunc, @type_name##_init), _
 					cast(GTypeFlags, flags) _
 				)
 				scope
@@ -344,7 +344,7 @@ declare function g_type_get_type_registration_serial() as guint
 					G_TYPE_INTERFACE, _
 					g_intern_static_string(#TypeName), _
 					sizeof(TypeName##Interface), _
-					cast(GClassInitFunc, type_name##_default_init), _
+					cast(GClassInitFunc, @type_name##_default_init), _
 					0, _
 					cast(GInstanceInitFunc, NULL), _
 					cast(GTypeFlags, 0) _
@@ -1442,12 +1442,12 @@ end type
 				sizeof(TypeName##Class), _
 				cast(GBaseInitFunc, NULL), _
 				cast(GBaseFinalizeFunc, NULL), _
-				cast(GClassInitFunc, type_name##_class_intern_init), _
-				cast(GClassFinalizeFunc, type_name##_class_finalize), _
+				cast(GClassInitFunc, @type_name##_class_intern_init), _
+				cast(GClassFinalizeFunc, @type_name##_class_finalize), _
 				NULL, _
 				sizeof(TypeName), _
 				0, _
-				cast(GInstanceInitFunc, type_name##_init), _
+				cast(GInstanceInitFunc, @type_name##_init), _
 				NULL
 			)
 			type_name##_type_id = g_type_module_register_type( _
