@@ -16,15 +16,9 @@ extern "C"
 #define __GDK_APP_LAUNCH_CONTEXT_H__
 #define __GDK_SCREEN_H__
 #define __GDK_TYPES_H__
-
-#ifdef __FB_WIN32__
-	#define GDKVAR '' TODO: extern __declspec(dllimport)
-#else
-	#define GDKVAR '' TODO: extern
-#endif
-
 const GDK_CURRENT_TIME = cast(clong, 0)
 const GDK_PARENT_RELATIVE = cast(clong, 1)
+
 type GdkPoint as _GdkPoint
 type GdkRectangle as _GdkRectangle
 type GdkSegment as _GdkSegment
