@@ -2,4 +2,5 @@
 	#include "glib.bi"
 	#include "glib-object.bi"
 	#include "gmodule.bi"
+	#include "gio/gio.bi"
 #endif
