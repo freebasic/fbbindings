@@ -2,7 +2,7 @@
 
 #include once "crt/long.bi"
 #include once "gio/gio.bi"
-#include once "cairo.bi"
+#include once "cairo/cairo.bi"
 #include once "glib.bi"
 #include once "pango/pango.bi"
 #include once "glib-object.bi"
