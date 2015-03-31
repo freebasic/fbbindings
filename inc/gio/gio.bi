@@ -9,6 +9,9 @@
 #include once "glib.bi"
 #include once "gmodule.bi"
 
+'' The following symbols have been renamed:
+''     procedure g_file_monitor => g_file_monitor_
+
 extern "C"
 
 #define __G_IO_H__
@@ -2525,7 +2528,7 @@ declare function g_file_eject_mountable_with_operation_finish(byval file as GFil
 declare function g_file_copy_attributes(byval source as GFile ptr, byval destination as GFile ptr, byval flags as GFileCopyFlags, byval cancellable as GCancellable ptr, byval error as GError ptr ptr) as gboolean
 declare function g_file_monitor_directory(byval file as GFile ptr, byval flags as GFileMonitorFlags, byval cancellable as GCancellable ptr, byval error as GError ptr ptr) as GFileMonitor ptr
 declare function g_file_monitor_file(byval file as GFile ptr, byval flags as GFileMonitorFlags, byval cancellable as GCancellable ptr, byval error as GError ptr ptr) as GFileMonitor ptr
-declare function g_file_monitor(byval file as GFile ptr, byval flags as GFileMonitorFlags, byval cancellable as GCancellable ptr, byval error as GError ptr ptr) as GFileMonitor ptr
+declare function g_file_monitor_ alias "g_file_monitor"(byval file as GFile ptr, byval flags as GFileMonitorFlags, byval cancellable as GCancellable ptr, byval error as GError ptr ptr) as GFileMonitor ptr
 declare function g_file_measure_disk_usage(byval file as GFile ptr, byval flags as GFileMeasureFlags, byval cancellable as GCancellable ptr, byval progress_callback as GFileMeasureProgressCallback, byval progress_data as gpointer, byval disk_usage as guint64 ptr, byval num_dirs as guint64 ptr, byval num_files as guint64 ptr, byval error as GError ptr ptr) as gboolean
 declare sub g_file_measure_disk_usage_async(byval file as GFile ptr, byval flags as GFileMeasureFlags, byval io_priority as gint, byval cancellable as GCancellable ptr, byval progress_callback as GFileMeasureProgressCallback, byval progress_data as gpointer, byval callback as GAsyncReadyCallback, byval user_data as gpointer)
 declare function g_file_measure_disk_usage_finish(byval file as GFile ptr, byval result as GAsyncResult ptr, byval disk_usage as guint64 ptr, byval num_dirs as guint64 ptr, byval num_files as guint64 ptr, byval error as GError ptr ptr) as gboolean
