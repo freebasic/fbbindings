@@ -6,7 +6,7 @@
 #include once "crt/time.bi"
 #include once "crt/stdarg.bi"
 
-#if defined(__FB_DOS__) or defined(__FB_LINUX__)
+#ifdef __FB_LINUX__
 	#include once "crt/sys/types.bi"
 	#include once "crt/pthread.bi"
 #endif
@@ -1169,7 +1169,7 @@ end type
 declare sub g_mem_set_vtable(byval vtable as GMemVTable ptr)
 declare function g_mem_is_system_malloc() as gboolean
 
-#if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(GLIB_STATIC_COMPILATION)) or defined(__FB_LINUX__)
+#if (defined(__FB_WIN32__) and defined(GLIB_STATIC_COMPILATION)) or defined(__FB_LINUX__)
 	extern g_mem_gc_friendly as gboolean
 	extern glib_mem_profiler_table as GMemVTable ptr
 #else
@@ -1620,7 +1620,7 @@ declare sub g_source_set_name_by_id(byval tag as guint, byval name as const zstr
 declare sub g_source_set_ready_time(byval source as GSource ptr, byval ready_time as gint64)
 declare function g_source_get_ready_time(byval source as GSource ptr) as gint64
 
-#if defined(__FB_DOS__) or defined(__FB_LINUX__)
+#ifdef __FB_LINUX__
 	declare function g_source_add_unix_fd(byval source as GSource ptr, byval fd as gint, byval events as GIOCondition) as gpointer
 	declare sub g_source_modify_unix_fd(byval source as GSource ptr, byval tag as gpointer, byval new_events as GIOCondition)
 	declare sub g_source_remove_unix_fd(byval source as GSource ptr, byval tag as gpointer)
@@ -1656,7 +1656,7 @@ declare function g_idle_remove_by_data(byval data as gpointer) as gboolean
 declare sub g_main_context_invoke_full(byval context as GMainContext ptr, byval priority as gint, byval function as GSourceFunc, byval data as gpointer, byval notify as GDestroyNotify)
 declare sub g_main_context_invoke(byval context as GMainContext ptr, byval function as GSourceFunc, byval data as gpointer)
 
-#if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(GLIB_STATIC_COMPILATION)) or defined(__FB_LINUX__)
+#if (defined(__FB_WIN32__) and defined(GLIB_STATIC_COMPILATION)) or defined(__FB_LINUX__)
 	extern g_timeout_funcs as GSourceFuncs
 	extern g_child_watch_funcs as GSourceFuncs
 	extern g_idle_funcs as GSourceFuncs
@@ -1666,7 +1666,7 @@ declare sub g_main_context_invoke(byval context as GMainContext ptr, byval funct
 	extern import g_idle_funcs as GSourceFuncs
 #endif
 
-#if defined(__FB_DOS__) or defined(__FB_LINUX__)
+#ifdef __FB_LINUX__
 	extern g_unix_signal_funcs as GSourceFuncs
 	extern g_unix_fd_source_funcs as GSourceFuncs
 #endif
@@ -1924,7 +1924,7 @@ const G_UNICHAR_MAX_DECOMPOSITION_LENGTH = 18
 declare sub g_unicode_canonical_ordering(byval string as gunichar ptr, byval len as gsize)
 declare function g_unicode_canonical_decomposition(byval ch as gunichar, byval result_len as gsize ptr) as gunichar ptr
 
-#if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(GLIB_STATIC_COMPILATION)) or defined(__FB_LINUX__)
+#if (defined(__FB_WIN32__) and defined(GLIB_STATIC_COMPILATION)) or defined(__FB_LINUX__)
 	extern g_utf8_skip as const zstring const ptr
 #else
 	extern import g_utf8_skip as const zstring const ptr
@@ -2246,7 +2246,7 @@ declare function g_io_channel_error_from_errno(byval en as gint) as GIOChannelEr
 declare function g_io_channel_unix_new(byval fd as long) as GIOChannel ptr
 declare function g_io_channel_unix_get_fd(byval channel as GIOChannel ptr) as gint
 
-#if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(GLIB_STATIC_COMPILATION)) or defined(__FB_LINUX__)
+#if (defined(__FB_WIN32__) and defined(GLIB_STATIC_COMPILATION)) or defined(__FB_LINUX__)
 	extern g_io_watch_funcs as GSourceFuncs
 #else
 	extern import g_io_watch_funcs as GSourceFuncs
@@ -3171,7 +3171,7 @@ enum
 	G_ASCII_XDIGIT = 1 shl 10
 end enum
 
-#if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(GLIB_STATIC_COMPILATION)) or defined(__FB_LINUX__)
+#if (defined(__FB_WIN32__) and defined(GLIB_STATIC_COMPILATION)) or defined(__FB_LINUX__)
 	extern g_ascii_table as const guint16 const ptr
 #else
 	extern import g_ascii_table as const guint16 const ptr
@@ -3463,7 +3463,7 @@ type GTestConfig
 	test_undefined as gboolean
 end type
 
-#if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(GLIB_STATIC_COMPILATION)) or defined(__FB_LINUX__)
+#if (defined(__FB_WIN32__) and defined(GLIB_STATIC_COMPILATION)) or defined(__FB_LINUX__)
 	extern g_test_config_vars as const GTestConfig const ptr
 #else
 	extern import g_test_config_vars as const GTestConfig const ptr
@@ -3850,7 +3850,7 @@ declare function g_variant_dict_ref(byval dict as GVariantDict ptr) as GVariantD
 declare sub g_variant_dict_unref(byval dict as GVariantDict ptr)
 #define __G_VERSION_H__
 
-#if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(GLIB_STATIC_COMPILATION)) or defined(__FB_LINUX__)
+#if (defined(__FB_WIN32__) and defined(GLIB_STATIC_COMPILATION)) or defined(__FB_LINUX__)
 	extern glib_major_version_ alias "glib_major_version" as const guint
 	extern glib_minor_version_ alias "glib_minor_version" as const guint
 	extern glib_micro_version_ alias "glib_micro_version" as const guint
@@ -4037,7 +4037,7 @@ type _GThreadFunctions
 	thread_equal as function(byval thread1 as gpointer, byval thread2 as gpointer) as gboolean
 end type
 
-#if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(GLIB_STATIC_COMPILATION)) or defined(__FB_LINUX__)
+#if (defined(__FB_WIN32__) and defined(GLIB_STATIC_COMPILATION)) or defined(__FB_LINUX__)
 	extern g_thread_functions_for_glib_use as GThreadFunctions
 	extern g_thread_use_default_impl as gboolean
 	extern g_thread_gettime as function() as guint64
@@ -4057,7 +4057,7 @@ declare sub g_thread_foreach(byval thread_func as GFunc, byval user_data as gpoi
 type GStaticMutex
 	mutex as GMutex ptr
 
-	#if defined(__FB_DOS__) or defined(__FB_LINUX__)
+	#ifdef __FB_LINUX__
 		unused as pthread_mutex_t
 	#endif
 end type
@@ -4133,7 +4133,7 @@ declare sub g_thread_init(byval vtable as gpointer)
 declare sub g_thread_init_with_errorcheck_mutexes(byval vtable as gpointer)
 declare function g_thread_get_initialized() as gboolean
 
-#if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(GLIB_STATIC_COMPILATION)) or defined(__FB_LINUX__)
+#if (defined(__FB_WIN32__) and defined(GLIB_STATIC_COMPILATION)) or defined(__FB_LINUX__)
 	extern g_threads_got_initialized as gboolean
 #else
 	extern import g_threads_got_initialized as gboolean
