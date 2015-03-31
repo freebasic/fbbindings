@@ -1,7 +1,7 @@
 #pragma once
 
 #include once "pango/pango.bi"
-#include once "cairo.bi"
+#include once "cairo/cairo.bi"
 
 extern "C"
 
