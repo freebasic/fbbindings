@@ -160,6 +160,8 @@ nodos.fbfrog
 	-renameproc g_spawn_sync               g_spawn_sync_
 	-renameproc g_spawn_command_line_sync  g_spawn_command_line_sync_
 	-renameproc g_spawn_command_line_async g_spawn_command_line_async_
+	-renameproc g_module_open              g_module_open_
+	-renameproc g_module_name              g_module_name_
 -endif
 
 -removeinclude glib/gmacros.h
