@@ -1,3 +1,5 @@
+-replacements gtk3.replacements
+
 -removedefine _GDK_EXTERN
 -removedefine GDK_DEPRECATED
 -removedefine GDK_DEPRECATED_FOR
