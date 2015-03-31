@@ -708,6 +708,7 @@ pango: glib-extract cairo-extract
 		-emit '*/pango/pango-glyph-item.h' inc/pango/pango.bi \
 		-emit '*/pango/pango-gravity.h'    inc/pango/pango.bi \
 		-emit '*/pango/pango-item.h'       inc/pango/pango.bi \
+		-emit '*/pango/pango-language.h'   inc/pango/pango.bi \
 		-emit '*/pango/pango-layout.h'     inc/pango/pango.bi \
 		-emit '*/pango/pango-matrix.h'     inc/pango/pango.bi \
 		-emit '*/pango/pango-renderer.h'   inc/pango/pango.bi \

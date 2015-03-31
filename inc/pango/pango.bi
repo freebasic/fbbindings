@@ -2,7 +2,6 @@
 
 #include once "glib.bi"
 #include once "glib-object.bi"
-#include once "pango/pango-language.bi"
 #include once "crt/stdio.bi"
 
 extern "C"
@@ -207,6 +206,18 @@ declare function pango_script_iter_new(byval text as const zstring ptr, byval le
 declare sub pango_script_iter_get_range(byval iter as PangoScriptIter ptr, byval start as const zstring ptr ptr, byval end as const zstring ptr ptr, byval script as PangoScript ptr)
 declare function pango_script_iter_next(byval iter as PangoScriptIter ptr) as gboolean
 declare sub pango_script_iter_free(byval iter as PangoScriptIter ptr)
+#define __PANGO_LANGUAGE_H__
+type PangoLanguage as _PangoLanguage
+#define PANGO_TYPE_LANGUAGE pango_language_get_type()
+declare function pango_language_get_type() as GType
+declare function pango_language_from_string(byval language as const zstring ptr) as PangoLanguage ptr
+declare function pango_language_to_string(byval language as PangoLanguage ptr) as const zstring ptr
+#define pango_language_to_string(language) cptr(const zstring ptr, language)
+declare function pango_language_get_sample_string(byval language as PangoLanguage ptr) as const zstring ptr
+declare function pango_language_get_default() as PangoLanguage ptr
+declare function pango_language_matches(byval language as PangoLanguage ptr, byval range_list as const zstring ptr) as gboolean
+declare function pango_language_includes_script(byval language as PangoLanguage ptr, byval script as PangoScript) as gboolean
+declare function pango_language_get_scripts(byval language as PangoLanguage ptr, byval num_scripts as long ptr) as const PangoScript ptr
 declare function pango_script_get_sample_language(byval script as PangoScript) as PangoLanguage ptr
 declare function pango_gravity_to_rotation(byval gravity as PangoGravity) as double
 declare function pango_gravity_get_for_matrix(byval matrix as const PangoMatrix ptr) as PangoGravity
