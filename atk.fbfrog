@@ -28,6 +28,14 @@ nodos.fbfrog
 -removedefine _ATK_EXTERN
 -removedefine ATK_VAR
 
+-removedefine atk_major_version
+-removedefine atk_minor_version
+-removedefine atk_micro_version
+-removedefine atk_binary_age
+-removedefine atk_interface_age
+
+-rename ATK_HYPERLINK_IS_INLINE ATK_HYPERLINK_IS_INLINE_
+
 -ifdef __FB_WIN32__
 	-declarebool ATK_STATIC_COMPILATION
 	-ifdef ATK_STATIC_COMPILATION
