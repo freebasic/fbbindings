@@ -11,7 +11,7 @@ extern "C"
 #define __PANGO_ATTRIBUTES_H__
 #define __PANGO_FONT_H__
 #define __PANGO_COVERAGE_H__
-'' TODO: G_BEGIN_DECLS typedef struct _PangoCoverage PangoCoverage;
+type PangoCoverage as _PangoCoverage
 
 type PangoCoverageLevel as long
 enum
@@ -30,9 +30,9 @@ declare sub pango_coverage_set(byval coverage as PangoCoverage ptr, byval index_
 declare sub pango_coverage_max(byval coverage as PangoCoverage ptr, byval other as PangoCoverage ptr)
 declare sub pango_coverage_to_bytes(byval coverage as PangoCoverage ptr, byval bytes as guchar ptr ptr, byval n_bytes as long ptr)
 declare function pango_coverage_from_bytes(byval bytes as guchar ptr, byval n_bytes as long) as PangoCoverage ptr
-'' TODO: G_END_DECLS G_BEGIN_DECLS typedef struct _PangoLogAttr PangoLogAttr;
 #define __PANGO_TYPES_H__
 
+type PangoLogAttr as _PangoLogAttr
 type PangoEngineLang as _PangoEngineLang
 type PangoEngineShape as _PangoEngineShape
 type PangoFont as _PangoFont
@@ -45,8 +45,8 @@ const PANGO_SCALE = 1024
 #define PANGO_PIXELS_FLOOR(d) (clng((d)) shr 10)
 #define PANGO_PIXELS_CEIL(d) ((clng((d)) + 1023) shr 10)
 #define PANGO_UNITS_ROUND(d) (((d) + (PANGO_SCALE shr 1)) and (not (PANGO_SCALE - 1)))
-'' TODO: int pango_units_from_double (double d) G_GNUC_CONST;
-'' TODO: double pango_units_to_double (int i) G_GNUC_CONST;
+declare function pango_units_from_double(byval d as double) as long
+declare function pango_units_to_double(byval i as long) as double
 
 type _PangoRectangle
 	x as long
@@ -61,7 +61,15 @@ end type
 #define PANGO_RBEARING(rect) ((rect).x + (rect).width)
 declare sub pango_extents_to_pixels(byval inclusive as PangoRectangle ptr, byval nearest as PangoRectangle ptr)
 #define __PANGO_GRAVITY_H__
-'' TODO: G_BEGIN_DECLS typedef enum { PANGO_GRAVITY_SOUTH, PANGO_GRAVITY_EAST, PANGO_GRAVITY_NORTH, PANGO_GRAVITY_WEST, PANGO_GRAVITY_AUTO} PangoGravity;
+
+type PangoGravity as long
+enum
+	PANGO_GRAVITY_SOUTH
+	PANGO_GRAVITY_EAST
+	PANGO_GRAVITY_NORTH
+	PANGO_GRAVITY_WEST
+	PANGO_GRAVITY_AUTO
+end enum
 
 type PangoGravityHint as long
 enum
@@ -73,7 +81,7 @@ end enum
 #define PANGO_GRAVITY_IS_VERTICAL(gravity) (((gravity) = PANGO_GRAVITY_EAST) orelse ((gravity) = PANGO_GRAVITY_WEST))
 #define PANGO_GRAVITY_IS_IMPROPER(gravity) (((gravity) = PANGO_GRAVITY_WEST) orelse ((gravity) = PANGO_GRAVITY_NORTH))
 #define __PANGO_MATRIX_H__
-'' TODO: G_BEGIN_DECLS typedef struct _PangoMatrix PangoMatrix;
+type PangoMatrix as _PangoMatrix
 
 type _PangoMatrix
 	xx as double
@@ -86,7 +94,7 @@ end type
 
 #define PANGO_TYPE_MATRIX pango_matrix_get_type()
 #define PANGO_MATRIX_INIT (1., 0., 0., 1., 0., 0.)
-'' TODO: GType pango_matrix_get_type (void) G_GNUC_CONST;
+declare function pango_matrix_get_type() as GType
 declare function pango_matrix_copy(byval matrix as const PangoMatrix ptr) as PangoMatrix ptr
 declare sub pango_matrix_free(byval matrix as PangoMatrix ptr)
 declare sub pango_matrix_translate(byval matrix as PangoMatrix ptr, byval tx as double, byval ty as double)
@@ -97,9 +105,9 @@ declare sub pango_matrix_transform_point(byval matrix as const PangoMatrix ptr, 
 declare sub pango_matrix_transform_distance(byval matrix as const PangoMatrix ptr, byval dx as double ptr, byval dy as double ptr)
 declare sub pango_matrix_transform_rectangle(byval matrix as const PangoMatrix ptr, byval rect as PangoRectangle ptr)
 declare sub pango_matrix_transform_pixel_rectangle(byval matrix as const PangoMatrix ptr, byval rect as PangoRectangle ptr)
-'' TODO: double pango_matrix_get_font_scale_factor (const PangoMatrix *matrix) G_GNUC_PURE;
-'' TODO: G_END_DECLS G_BEGIN_DECLS typedef struct _PangoScriptIter PangoScriptIter;
+declare function pango_matrix_get_font_scale_factor(byval matrix as const PangoMatrix ptr) as double
 #define __PANGO_SCRIPT_H__
+type PangoScriptIter as _PangoScriptIter
 
 type PangoScript as long
 enum
@@ -194,19 +202,42 @@ enum
 	PANGO_SCRIPT_TAKRI
 end enum
 
-'' TODO: PangoScript pango_script_for_unichar (gunichar ch) G_GNUC_CONST;
+declare function pango_script_for_unichar(byval ch as gunichar) as PangoScript
 declare function pango_script_iter_new(byval text as const zstring ptr, byval length as long) as PangoScriptIter ptr
 declare sub pango_script_iter_get_range(byval iter as PangoScriptIter ptr, byval start as const zstring ptr ptr, byval end as const zstring ptr ptr, byval script as PangoScript ptr)
 declare function pango_script_iter_next(byval iter as PangoScriptIter ptr) as gboolean
 declare sub pango_script_iter_free(byval iter as PangoScriptIter ptr)
-
-'' TODO: G_END_DECLS double pango_gravity_to_rotation (PangoGravity gravity) G_GNUC_CONST;
-'' TODO: PangoGravity pango_gravity_get_for_matrix (const PangoMatrix *matrix) G_GNUC_PURE;
-'' TODO: PangoGravity pango_gravity_get_for_script (PangoScript script, PangoGravity base_gravity, PangoGravityHint hint) G_GNUC_CONST;
-'' TODO: PangoGravity pango_gravity_get_for_script_and_width (PangoScript script, gboolean wide, PangoGravity base_gravity, PangoGravityHint hint) G_GNUC_CONST;
-'' TODO: G_END_DECLS G_BEGIN_DECLS typedef enum { PANGO_BIDI_TYPE_L, PANGO_BIDI_TYPE_LRE, PANGO_BIDI_TYPE_LRO, PANGO_BIDI_TYPE_R, PANGO_BIDI_TYPE_AL, PANGO_BIDI_TYPE_RLE, PANGO_BIDI_TYPE_RLO, PANGO_BIDI_TYPE_PDF, PANGO_BIDI_TYPE_EN, PANGO_BIDI_TYPE_ES, PANGO_BIDI_TYPE_ET, PANGO_BIDI_TYPE_AN, PANGO_BIDI_TYPE_CS, PANGO_BIDI_TYPE_NSM, PANGO_BIDI_TYPE_BN, PANGO_BIDI_TYPE_B, PANGO_BIDI_TYPE_S, PANGO_BIDI_TYPE_WS, PANGO_BIDI_TYPE_ON} PangoBidiType;
+declare function pango_script_get_sample_language(byval script as PangoScript) as PangoLanguage ptr
+declare function pango_gravity_to_rotation(byval gravity as PangoGravity) as double
+declare function pango_gravity_get_for_matrix(byval matrix as const PangoMatrix ptr) as PangoGravity
+declare function pango_gravity_get_for_script(byval script as PangoScript, byval base_gravity as PangoGravity, byval hint as PangoGravityHint) as PangoGravity
+declare function pango_gravity_get_for_script_and_width(byval script as PangoScript, byval wide as gboolean, byval base_gravity as PangoGravity, byval hint as PangoGravityHint) as PangoGravity
 #define __PANGO_BIDI_TYPE_H__
-'' TODO: PangoBidiType pango_bidi_type_for_unichar (gunichar ch) G_GNUC_CONST;
+
+type PangoBidiType as long
+enum
+	PANGO_BIDI_TYPE_L
+	PANGO_BIDI_TYPE_LRE
+	PANGO_BIDI_TYPE_LRO
+	PANGO_BIDI_TYPE_R
+	PANGO_BIDI_TYPE_AL
+	PANGO_BIDI_TYPE_RLE
+	PANGO_BIDI_TYPE_RLO
+	PANGO_BIDI_TYPE_PDF
+	PANGO_BIDI_TYPE_EN
+	PANGO_BIDI_TYPE_ES
+	PANGO_BIDI_TYPE_ET
+	PANGO_BIDI_TYPE_AN
+	PANGO_BIDI_TYPE_CS
+	PANGO_BIDI_TYPE_NSM
+	PANGO_BIDI_TYPE_BN
+	PANGO_BIDI_TYPE_B
+	PANGO_BIDI_TYPE_S
+	PANGO_BIDI_TYPE_WS
+	PANGO_BIDI_TYPE_ON
+end enum
+
+declare function pango_bidi_type_for_unichar(byval ch as gunichar) as PangoBidiType
 
 type PangoDirection as long
 enum
@@ -219,10 +250,10 @@ enum
 	PANGO_DIRECTION_NEUTRAL
 end enum
 
-'' TODO: PangoDirection pango_unichar_direction (gunichar ch) G_GNUC_CONST;
-declare function pango_find_base_dir(byval text as const gchar ptr, byval length as gint) as PangoDirection
-'' TODO: G_DEPRECATED_FOR(g_unichar_get_mirror_char)gboolean pango_get_mirror_char (gunichar ch, gunichar *mirrored_ch);
-'' TODO: G_END_DECLS G_END_DECLS G_BEGIN_DECLS typedef struct _PangoFontDescription PangoFontDescription;
+declare function pango_unichar_direction(byval ch as gunichar) as PangoDirection
+declare function pango_find_base_dir(byval text as const zstring ptr, byval length as gint) as PangoDirection
+declare function pango_get_mirror_char(byval ch as gunichar, byval mirrored_ch as gunichar ptr) as gboolean
+type PangoFontDescription as _PangoFontDescription
 type PangoFontMetrics as _PangoFontMetrics
 
 type PangoStyle as long
@@ -286,76 +317,79 @@ const PANGO_SCALE_LARGE = cdbl(1.2)
 const PANGO_SCALE_X_LARGE = cdbl(1.4399999999999)
 const PANGO_SCALE_XX_LARGE = cdbl(1.728)
 #define PANGO_TYPE_FONT_DESCRIPTION pango_font_description_get_type()
-'' TODO: GType pango_font_description_get_type (void) G_GNUC_CONST;
 
+declare function pango_font_description_get_type() as GType
 declare function pango_font_description_new() as PangoFontDescription ptr
 declare function pango_font_description_copy(byval desc as const PangoFontDescription ptr) as PangoFontDescription ptr
 declare function pango_font_description_copy_static(byval desc as const PangoFontDescription ptr) as PangoFontDescription ptr
-'' TODO: guint pango_font_description_hash (const PangoFontDescription *desc) G_GNUC_PURE;
-'' TODO: gboolean pango_font_description_equal (const PangoFontDescription *desc1, const PangoFontDescription *desc2) G_GNUC_PURE;
+declare function pango_font_description_hash(byval desc as const PangoFontDescription ptr) as guint
+declare function pango_font_description_equal(byval desc1 as const PangoFontDescription ptr, byval desc2 as const PangoFontDescription ptr) as gboolean
 declare sub pango_font_description_free(byval desc as PangoFontDescription ptr)
 declare sub pango_font_descriptions_free(byval descs as PangoFontDescription ptr ptr, byval n_descs as long)
 declare sub pango_font_description_set_family(byval desc as PangoFontDescription ptr, byval family as const zstring ptr)
 declare sub pango_font_description_set_family_static(byval desc as PangoFontDescription ptr, byval family as const zstring ptr)
-'' TODO: const char *pango_font_description_get_family (const PangoFontDescription *desc) G_GNUC_PURE;
+declare function pango_font_description_get_family(byval desc as const PangoFontDescription ptr) as const zstring ptr
 declare sub pango_font_description_set_style(byval desc as PangoFontDescription ptr, byval style as PangoStyle)
-'' TODO: PangoStyle pango_font_description_get_style (const PangoFontDescription *desc) G_GNUC_PURE;
+declare function pango_font_description_get_style(byval desc as const PangoFontDescription ptr) as PangoStyle
 declare sub pango_font_description_set_variant(byval desc as PangoFontDescription ptr, byval variant as PangoVariant)
-'' TODO: PangoVariant pango_font_description_get_variant (const PangoFontDescription *desc) G_GNUC_PURE;
+declare function pango_font_description_get_variant(byval desc as const PangoFontDescription ptr) as PangoVariant
 declare sub pango_font_description_set_weight(byval desc as PangoFontDescription ptr, byval weight as PangoWeight)
-'' TODO: PangoWeight pango_font_description_get_weight (const PangoFontDescription *desc) G_GNUC_PURE;
+declare function pango_font_description_get_weight(byval desc as const PangoFontDescription ptr) as PangoWeight
 declare sub pango_font_description_set_stretch(byval desc as PangoFontDescription ptr, byval stretch as PangoStretch)
-'' TODO: PangoStretch pango_font_description_get_stretch (const PangoFontDescription *desc) G_GNUC_PURE;
+declare function pango_font_description_get_stretch(byval desc as const PangoFontDescription ptr) as PangoStretch
 declare sub pango_font_description_set_size(byval desc as PangoFontDescription ptr, byval size as gint)
-'' TODO: gint pango_font_description_get_size (const PangoFontDescription *desc) G_GNUC_PURE;
+declare function pango_font_description_get_size(byval desc as const PangoFontDescription ptr) as gint
 declare sub pango_font_description_set_absolute_size(byval desc as PangoFontDescription ptr, byval size as double)
-'' TODO: gboolean pango_font_description_get_size_is_absolute (const PangoFontDescription *desc) G_GNUC_PURE;
+declare function pango_font_description_get_size_is_absolute(byval desc as const PangoFontDescription ptr) as gboolean
 declare sub pango_font_description_set_gravity(byval desc as PangoFontDescription ptr, byval gravity as PangoGravity)
-'' TODO: PangoGravity pango_font_description_get_gravity (const PangoFontDescription *desc) G_GNUC_PURE;
-'' TODO: PangoFontMask pango_font_description_get_set_fields (const PangoFontDescription *desc) G_GNUC_PURE;
+declare function pango_font_description_get_gravity(byval desc as const PangoFontDescription ptr) as PangoGravity
+declare function pango_font_description_get_set_fields(byval desc as const PangoFontDescription ptr) as PangoFontMask
 declare sub pango_font_description_unset_fields(byval desc as PangoFontDescription ptr, byval to_unset as PangoFontMask)
 declare sub pango_font_description_merge(byval desc as PangoFontDescription ptr, byval desc_to_merge as const PangoFontDescription ptr, byval replace_existing as gboolean)
 declare sub pango_font_description_merge_static(byval desc as PangoFontDescription ptr, byval desc_to_merge as const PangoFontDescription ptr, byval replace_existing as gboolean)
-'' TODO: gboolean pango_font_description_better_match (const PangoFontDescription *desc, const PangoFontDescription *old_match, const PangoFontDescription *new_match) G_GNUC_PURE;
+declare function pango_font_description_better_match(byval desc as const PangoFontDescription ptr, byval old_match as const PangoFontDescription ptr, byval new_match as const PangoFontDescription ptr) as gboolean
 declare function pango_font_description_from_string(byval str as const zstring ptr) as PangoFontDescription ptr
 declare function pango_font_description_to_string(byval desc as const PangoFontDescription ptr) as zstring ptr
 declare function pango_font_description_to_filename(byval desc as const PangoFontDescription ptr) as zstring ptr
 #define PANGO_TYPE_FONT_METRICS pango_font_metrics_get_type()
-'' TODO: GType pango_font_metrics_get_type (void) G_GNUC_CONST;
+declare function pango_font_metrics_get_type() as GType
 declare function pango_font_metrics_ref(byval metrics as PangoFontMetrics ptr) as PangoFontMetrics ptr
 declare sub pango_font_metrics_unref(byval metrics as PangoFontMetrics ptr)
-
-'' TODO: int pango_font_metrics_get_ascent (PangoFontMetrics *metrics) G_GNUC_PURE;
-'' TODO: int pango_font_metrics_get_descent (PangoFontMetrics *metrics) G_GNUC_PURE;
-'' TODO: int pango_font_metrics_get_approximate_char_width (PangoFontMetrics *metrics) G_GNUC_PURE;
-'' TODO: int pango_font_metrics_get_approximate_digit_width (PangoFontMetrics *metrics) G_GNUC_PURE;
-'' TODO: int pango_font_metrics_get_underline_position (PangoFontMetrics *metrics) G_GNUC_PURE;
-'' TODO: int pango_font_metrics_get_underline_thickness (PangoFontMetrics *metrics) G_GNUC_PURE;
-'' TODO: int pango_font_metrics_get_strikethrough_position (PangoFontMetrics *metrics) G_GNUC_PURE;
-'' TODO: int pango_font_metrics_get_strikethrough_thickness (PangoFontMetrics *metrics) G_GNUC_PURE;
+declare function pango_font_metrics_get_ascent(byval metrics as PangoFontMetrics ptr) as long
+declare function pango_font_metrics_get_descent(byval metrics as PangoFontMetrics ptr) as long
+declare function pango_font_metrics_get_approximate_char_width(byval metrics as PangoFontMetrics ptr) as long
+declare function pango_font_metrics_get_approximate_digit_width(byval metrics as PangoFontMetrics ptr) as long
+declare function pango_font_metrics_get_underline_position(byval metrics as PangoFontMetrics ptr) as long
+declare function pango_font_metrics_get_underline_thickness(byval metrics as PangoFontMetrics ptr) as long
+declare function pango_font_metrics_get_strikethrough_position(byval metrics as PangoFontMetrics ptr) as long
+declare function pango_font_metrics_get_strikethrough_thickness(byval metrics as PangoFontMetrics ptr) as long
 
 #define PANGO_TYPE_FONT_FAMILY pango_font_family_get_type()
 #define PANGO_FONT_FAMILY(object) G_TYPE_CHECK_INSTANCE_CAST((object), PANGO_TYPE_FONT_FAMILY, PangoFontFamily)
 #define PANGO_IS_FONT_FAMILY(object) G_TYPE_CHECK_INSTANCE_TYPE((object), PANGO_TYPE_FONT_FAMILY)
 type PangoFontFamily as _PangoFontFamily
 type PangoFontFace as _PangoFontFace
-'' TODO: GType pango_font_family_get_type (void) G_GNUC_CONST;
+
+declare function pango_font_family_get_type() as GType
 declare sub pango_font_family_list_faces(byval family as PangoFontFamily ptr, byval faces as PangoFontFace ptr ptr ptr, byval n_faces as long ptr)
-'' TODO: const char *pango_font_family_get_name (PangoFontFamily *family) G_GNUC_PURE;
-'' TODO: gboolean pango_font_family_is_monospace (PangoFontFamily *family) G_GNUC_PURE;
+declare function pango_font_family_get_name(byval family as PangoFontFamily ptr) as const zstring ptr
+declare function pango_font_family_is_monospace(byval family as PangoFontFamily ptr) as gboolean
+
 #define PANGO_TYPE_FONT_FACE pango_font_face_get_type()
 #define PANGO_FONT_FACE(object) G_TYPE_CHECK_INSTANCE_CAST((object), PANGO_TYPE_FONT_FACE, PangoFontFace)
 #define PANGO_IS_FONT_FACE(object) G_TYPE_CHECK_INSTANCE_TYPE((object), PANGO_TYPE_FONT_FACE)
-'' TODO: GType pango_font_face_get_type (void) G_GNUC_CONST;
+
+declare function pango_font_face_get_type() as GType
 declare function pango_font_face_describe(byval face as PangoFontFace ptr) as PangoFontDescription ptr
-'' TODO: const char *pango_font_face_get_face_name (PangoFontFace *face) G_GNUC_PURE;
+declare function pango_font_face_get_face_name(byval face as PangoFontFace ptr) as const zstring ptr
 declare sub pango_font_face_list_sizes(byval face as PangoFontFace ptr, byval sizes as long ptr ptr, byval n_sizes as long ptr)
-'' TODO: gboolean pango_font_face_is_synthesized (PangoFontFace *face) G_GNUC_PURE;
+declare function pango_font_face_is_synthesized(byval face as PangoFontFace ptr) as gboolean
+
 #define PANGO_TYPE_FONT pango_font_get_type()
 #define PANGO_FONT(object) G_TYPE_CHECK_INSTANCE_CAST((object), PANGO_TYPE_FONT, PangoFont)
 #define PANGO_IS_FONT(object) G_TYPE_CHECK_INSTANCE_TYPE((object), PANGO_TYPE_FONT)
-'' TODO: GType pango_font_get_type (void) G_GNUC_CONST;
 
+declare function pango_font_get_type() as GType
 declare function pango_font_describe(byval font as PangoFont ptr) as PangoFontDescription ptr
 declare function pango_font_describe_with_absolute_size(byval font as PangoFont ptr) as PangoFontDescription ptr
 declare function pango_font_get_coverage(byval font as PangoFont ptr, byval language as PangoLanguage ptr) as PangoCoverage ptr
@@ -368,7 +402,7 @@ declare function pango_font_get_font_map(byval font as PangoFont ptr) as PangoFo
 #define PANGO_GLYPH_INVALID_INPUT cast(PangoGlyph, &hFFFFFFFF)
 #define PANGO_GLYPH_UNKNOWN_FLAG cast(PangoGlyph, &h10000000)
 #define PANGO_GET_UNKNOWN_GLYPH(wc) (cast(PangoGlyph, (wc)) or PANGO_GLYPH_UNKNOWN_FLAG)
-'' TODO: G_END_DECLS G_BEGIN_DECLS typedef struct _PangoColor PangoColor;
+type PangoColor as _PangoColor
 
 type _PangoColor
 	red as guint16
@@ -377,11 +411,11 @@ type _PangoColor
 end type
 
 #define PANGO_TYPE_COLOR pango_color_get_type()
-'' TODO: GType pango_color_get_type (void) G_GNUC_CONST;
+declare function pango_color_get_type() as GType
 declare function pango_color_copy(byval src as const PangoColor ptr) as PangoColor ptr
 declare sub pango_color_free(byval color as PangoColor ptr)
 declare function pango_color_parse(byval color as PangoColor ptr, byval spec as const zstring ptr) as gboolean
-declare function pango_color_to_string(byval color as const PangoColor ptr) as gchar ptr
+declare function pango_color_to_string(byval color as const PangoColor ptr) as zstring ptr
 
 type PangoAttribute as _PangoAttribute
 type PangoAttrClass as _PangoAttrClass
@@ -497,12 +531,12 @@ type _PangoAttrFontDesc
 	desc as PangoFontDescription ptr
 end type
 
-declare function pango_attr_type_register(byval name as const gchar ptr) as PangoAttrType
-'' TODO: const char * pango_attr_type_get_name (PangoAttrType type) G_GNUC_CONST;
+declare function pango_attr_type_register(byval name as const zstring ptr) as PangoAttrType
+declare function pango_attr_type_get_name(byval type as PangoAttrType) as const zstring ptr
 declare sub pango_attribute_init(byval attr as PangoAttribute ptr, byval klass as const PangoAttrClass ptr)
 declare function pango_attribute_copy(byval attr as const PangoAttribute ptr) as PangoAttribute ptr
 declare sub pango_attribute_destroy(byval attr as PangoAttribute ptr)
-'' TODO: gboolean pango_attribute_equal (const PangoAttribute *attr1, const PangoAttribute *attr2) G_GNUC_PURE;
+declare function pango_attribute_equal(byval attr1 as const PangoAttribute ptr, byval attr2 as const PangoAttribute ptr) as gboolean
 declare function pango_attr_language_new(byval language as PangoLanguage ptr) as PangoAttribute ptr
 declare function pango_attr_family_new(byval family as const zstring ptr) as PangoAttribute ptr
 declare function pango_attr_foreground_new(byval red as guint16, byval green as guint16, byval blue as guint16) as PangoAttribute ptr
@@ -526,7 +560,7 @@ declare function pango_attr_shape_new(byval ink_rect as const PangoRectangle ptr
 declare function pango_attr_shape_new_with_data(byval ink_rect as const PangoRectangle ptr, byval logical_rect as const PangoRectangle ptr, byval data as gpointer, byval copy_func as PangoAttrDataCopyFunc, byval destroy_func as GDestroyNotify) as PangoAttribute ptr
 declare function pango_attr_gravity_new(byval gravity as PangoGravity) as PangoAttribute ptr
 declare function pango_attr_gravity_hint_new(byval hint as PangoGravityHint) as PangoAttribute ptr
-'' TODO: GType pango_attr_list_get_type (void) G_GNUC_CONST;
+declare function pango_attr_list_get_type() as GType
 declare function pango_attr_list_new() as PangoAttrList ptr
 declare function pango_attr_list_ref(byval list as PangoAttrList ptr) as PangoAttrList ptr
 declare sub pango_attr_list_unref(byval list as PangoAttrList ptr)
@@ -547,9 +581,9 @@ declare function pango_attr_iterator_get_attrs(byval iterator as PangoAttrIterat
 declare function pango_parse_markup(byval markup_text as const zstring ptr, byval length as long, byval accel_marker as gunichar, byval attr_list as PangoAttrList ptr ptr, byval text as zstring ptr ptr, byval accel_char as gunichar ptr, byval error as GError ptr ptr) as gboolean
 declare function pango_markup_parser_new(byval accel_marker as gunichar) as GMarkupParseContext ptr
 declare function pango_markup_parser_finish(byval context as GMarkupParseContext ptr, byval attr_list as PangoAttrList ptr ptr, byval text as zstring ptr ptr, byval accel_char as gunichar ptr, byval error as GError ptr ptr) as gboolean
-'' TODO: G_END_DECLS G_BEGIN_DECLS G_BEGIN_DECLS typedef struct _PangoAnalysis PangoAnalysis;
 #define __PANGO_BREAK_H__
 #define __PANGO_ITEM_H__
+type PangoAnalysis as _PangoAnalysis
 type PangoItem as _PangoItem
 const PANGO_ANALYSIS_FLAG_CENTERED_BASELINE = 1 shl 0
 const PANGO_ANALYSIS_FLAG_IS_ELLIPSIS = 1 shl 1
@@ -574,16 +608,31 @@ type _PangoItem
 end type
 
 #define PANGO_TYPE_ITEM pango_item_get_type()
-'' TODO: GType pango_item_get_type (void) G_GNUC_CONST;
+declare function pango_item_get_type() as GType
 declare function pango_item_new() as PangoItem ptr
 declare function pango_item_copy(byval item as PangoItem ptr) as PangoItem ptr
 declare sub pango_item_free(byval item as PangoItem ptr)
 declare function pango_item_split(byval orig as PangoItem ptr, byval split_index as long, byval split_offset as long) as PangoItem ptr
-'' TODO: G_END_DECLS struct _PangoLogAttr{ guint is_line_break : 1; guint is_mandatory_break : 1; guint is_char_break : 1; guint is_white : 1; guint is_cursor_position : 1; guint is_word_start : 1; guint is_word_end : 1; guint is_sentence_boundary : 1; guint is_sentence_start : 1; guint is_sentence_end : 1; guint backspace_deletes_character : 1; guint is_expandable_space : 1; guint is_word_boundary : 1;};
-declare sub pango_break(byval text as const gchar ptr, byval length as long, byval analysis as PangoAnalysis ptr, byval attrs as PangoLogAttr ptr, byval attrs_len as long)
-declare sub pango_find_paragraph_boundary(byval text as const gchar ptr, byval length as gint, byval paragraph_delimiter_index as gint ptr, byval next_paragraph_start as gint ptr)
+
+type _PangoLogAttr
+	is_line_break : 1 as guint
+	is_mandatory_break : 1 as guint
+	is_char_break : 1 as guint
+	is_white : 1 as guint
+	is_cursor_position : 1 as guint
+	is_word_start : 1 as guint
+	is_word_end : 1 as guint
+	is_sentence_boundary : 1 as guint
+	is_sentence_start : 1 as guint
+	is_sentence_end : 1 as guint
+	backspace_deletes_character : 1 as guint
+	is_expandable_space : 1 as guint
+	is_word_boundary : 1 as guint
+end type
+
+declare sub pango_break(byval text as const zstring ptr, byval length as long, byval analysis as PangoAnalysis ptr, byval attrs as PangoLogAttr ptr, byval attrs_len as long)
+declare sub pango_find_paragraph_boundary(byval text as const zstring ptr, byval length as gint, byval paragraph_delimiter_index as gint ptr, byval next_paragraph_start as gint ptr)
 declare sub pango_get_log_attrs(byval text as const zstring ptr, byval length as long, byval level as long, byval language as PangoLanguage ptr, byval log_attrs as PangoLogAttr ptr, byval attrs_len as long)
-'' TODO: G_END_DECLS G_BEGIN_DECLS GType pango_fontset_get_type (void) G_GNUC_CONST;
 
 #define __PANGO_CONTEXT_H__
 #define __PANGO_FONTMAP_H__
@@ -591,26 +640,27 @@ declare sub pango_get_log_attrs(byval text as const zstring ptr, byval length as
 #define PANGO_TYPE_FONTSET pango_fontset_get_type()
 #define PANGO_FONTSET(object) G_TYPE_CHECK_INSTANCE_CAST((object), PANGO_TYPE_FONTSET, PangoFontset)
 #define PANGO_IS_FONTSET(object) G_TYPE_CHECK_INSTANCE_TYPE((object), PANGO_TYPE_FONTSET)
+declare function pango_fontset_get_type() as GType
 type PangoFontset as _PangoFontset
 type PangoFontsetForeachFunc as function(byval fontset as PangoFontset ptr, byval font as PangoFont ptr, byval user_data as gpointer) as gboolean
 
 declare function pango_fontset_get_font(byval fontset as PangoFontset ptr, byval wc as guint) as PangoFont ptr
 declare function pango_fontset_get_metrics(byval fontset as PangoFontset ptr) as PangoFontMetrics ptr
 declare sub pango_fontset_foreach(byval fontset as PangoFontset ptr, byval func as PangoFontsetForeachFunc, byval data as gpointer)
-'' TODO: G_END_DECLS G_BEGIN_DECLS typedef struct _PangoContext PangoContext;
 
 #define PANGO_TYPE_FONT_MAP pango_font_map_get_type()
 #define PANGO_FONT_MAP(object) G_TYPE_CHECK_INSTANCE_CAST((object), PANGO_TYPE_FONT_MAP, PangoFontMap)
 #define PANGO_IS_FONT_MAP(object) G_TYPE_CHECK_INSTANCE_TYPE((object), PANGO_TYPE_FONT_MAP)
-'' TODO: GType pango_font_map_get_type (void) G_GNUC_CONST;
+type PangoContext as _PangoContext
 
+declare function pango_font_map_get_type() as GType
 declare function pango_font_map_create_context(byval fontmap as PangoFontMap ptr) as PangoContext ptr
 declare function pango_font_map_load_font(byval fontmap as PangoFontMap ptr, byval context as PangoContext ptr, byval desc as const PangoFontDescription ptr) as PangoFont ptr
 declare function pango_font_map_load_fontset(byval fontmap as PangoFontMap ptr, byval context as PangoContext ptr, byval desc as const PangoFontDescription ptr, byval language as PangoLanguage ptr) as PangoFontset ptr
 declare sub pango_font_map_list_families(byval fontmap as PangoFontMap ptr, byval families as PangoFontFamily ptr ptr ptr, byval n_families as long ptr)
 declare function pango_font_map_get_serial(byval fontmap as PangoFontMap ptr) as guint
 declare sub pango_font_map_changed(byval fontmap as PangoFontMap ptr)
-'' TODO: G_END_DECLS G_BEGIN_DECLS typedef struct _PangoContextClass PangoContextClass;
+type PangoContextClass as _PangoContextClass
 
 #define PANGO_TYPE_CONTEXT pango_context_get_type()
 #define PANGO_CONTEXT(object) G_TYPE_CHECK_INSTANCE_CAST((object), PANGO_TYPE_CONTEXT, PangoContext)
@@ -618,8 +668,8 @@ declare sub pango_font_map_changed(byval fontmap as PangoFontMap ptr)
 #define PANGO_IS_CONTEXT(object) G_TYPE_CHECK_INSTANCE_TYPE((object), PANGO_TYPE_CONTEXT)
 #define PANGO_IS_CONTEXT_CLASS(klass) G_TYPE_CHECK_CLASS_TYPE((klass), PANGO_TYPE_CONTEXT)
 #define PANGO_CONTEXT_GET_CLASS(obj) G_TYPE_INSTANCE_GET_CLASS((obj), PANGO_TYPE_CONTEXT, PangoContextClass)
-'' TODO: GType pango_context_get_type (void) G_GNUC_CONST;
 
+declare function pango_context_get_type() as GType
 declare function pango_context_new() as PangoContext ptr
 declare sub pango_context_changed(byval context as PangoContext ptr)
 declare sub pango_context_set_font_map(byval context as PangoContext ptr, byval font_map as PangoFontMap ptr)
@@ -644,10 +694,10 @@ declare sub pango_context_set_matrix(byval context as PangoContext ptr, byval ma
 declare function pango_context_get_matrix(byval context as PangoContext ptr) as const PangoMatrix ptr
 declare function pango_itemize(byval context as PangoContext ptr, byval text as const zstring ptr, byval start_index as long, byval length as long, byval attrs as PangoAttrList ptr, byval cached_iter as PangoAttrIterator ptr) as GList ptr
 declare function pango_itemize_with_base_dir(byval context as PangoContext ptr, byval base_dir as PangoDirection, byval text as const zstring ptr, byval start_index as long, byval length as long, byval attrs as PangoAttrList ptr, byval cached_iter as PangoAttrIterator ptr) as GList ptr
-'' TODO: G_END_DECLS G_BEGIN_DECLS typedef struct _PangoGlyphGeometry PangoGlyphGeometry;
 #define __PANGO_ENGINE_H__
 #define __PANGO_GLYPH_H__
 
+type PangoGlyphGeometry as _PangoGlyphGeometry
 type PangoGlyphVisAttr as _PangoGlyphVisAttr
 type PangoGlyphInfo as _PangoGlyphInfo
 type PangoGlyphString as _PangoGlyphString
@@ -679,7 +729,7 @@ end type
 #define PANGO_TYPE_GLYPH_STRING pango_glyph_string_get_type()
 declare function pango_glyph_string_new() as PangoGlyphString ptr
 declare sub pango_glyph_string_set_size(byval string as PangoGlyphString ptr, byval new_len as gint)
-'' TODO: GType pango_glyph_string_get_type (void) G_GNUC_CONST;
+declare function pango_glyph_string_get_type() as GType
 declare function pango_glyph_string_copy(byval string as PangoGlyphString ptr) as PangoGlyphString ptr
 declare sub pango_glyph_string_free(byval string as PangoGlyphString ptr)
 declare sub pango_glyph_string_extents(byval glyphs as PangoGlyphString ptr, byval font as PangoFont ptr, byval ink_rect as PangoRectangle ptr, byval logical_rect as PangoRectangle ptr)
@@ -688,54 +738,54 @@ declare sub pango_glyph_string_extents_range(byval glyphs as PangoGlyphString pt
 declare sub pango_glyph_string_get_logical_widths(byval glyphs as PangoGlyphString ptr, byval text as const zstring ptr, byval length as long, byval embedding_level as long, byval logical_widths as long ptr)
 declare sub pango_glyph_string_index_to_x(byval glyphs as PangoGlyphString ptr, byval text as zstring ptr, byval length as long, byval analysis as PangoAnalysis ptr, byval index_ as long, byval trailing as gboolean, byval x_pos as long ptr)
 declare sub pango_glyph_string_x_to_index(byval glyphs as PangoGlyphString ptr, byval text as zstring ptr, byval length as long, byval analysis as PangoAnalysis ptr, byval x_pos as long, byval index_ as long ptr, byval trailing as long ptr)
-declare sub pango_shape(byval text as const gchar ptr, byval length as gint, byval analysis as const PangoAnalysis ptr, byval glyphs as PangoGlyphString ptr)
-declare sub pango_shape_full(byval item_text as const gchar ptr, byval item_length as gint, byval paragraph_text as const gchar ptr, byval paragraph_length as gint, byval analysis as const PangoAnalysis ptr, byval glyphs as PangoGlyphString ptr)
+declare sub pango_shape(byval text as const zstring ptr, byval length as gint, byval analysis as const PangoAnalysis ptr, byval glyphs as PangoGlyphString ptr)
+declare sub pango_shape_full(byval item_text as const zstring ptr, byval item_length as gint, byval paragraph_text as const zstring ptr, byval paragraph_length as gint, byval analysis as const PangoAnalysis ptr, byval glyphs as PangoGlyphString ptr)
 declare function pango_reorder_items(byval logical_items as GList ptr) as GList ptr
-'' TODO: G_END_DECLS G_BEGIN_DECLS G_END_DECLS G_BEGIN_DECLS GType pango_attr_type_get_type (void) G_GNUC_CONST;
 #define __PANGO_ENUM_TYPES_H__
+declare function pango_attr_type_get_type() as GType
 #define PANGO_TYPE_ATTR_TYPE pango_attr_type_get_type()
-'' TODO: GType pango_underline_get_type (void) G_GNUC_CONST;
+declare function pango_underline_get_type() as GType
 #define PANGO_TYPE_UNDERLINE pango_underline_get_type()
-'' TODO: GType pango_bidi_type_get_type (void) G_GNUC_CONST;
+declare function pango_bidi_type_get_type() as GType
 #define PANGO_TYPE_BIDI_TYPE pango_bidi_type_get_type()
-'' TODO: GType pango_direction_get_type (void) G_GNUC_CONST;
+declare function pango_direction_get_type() as GType
 #define PANGO_TYPE_DIRECTION pango_direction_get_type()
-'' TODO: GType pango_coverage_level_get_type (void) G_GNUC_CONST;
+declare function pango_coverage_level_get_type() as GType
 #define PANGO_TYPE_COVERAGE_LEVEL pango_coverage_level_get_type()
-'' TODO: GType pango_style_get_type (void) G_GNUC_CONST;
+declare function pango_style_get_type() as GType
 #define PANGO_TYPE_STYLE pango_style_get_type()
-'' TODO: GType pango_variant_get_type (void) G_GNUC_CONST;
+declare function pango_variant_get_type() as GType
 #define PANGO_TYPE_VARIANT pango_variant_get_type()
-'' TODO: GType pango_weight_get_type (void) G_GNUC_CONST;
+declare function pango_weight_get_type() as GType
 #define PANGO_TYPE_WEIGHT pango_weight_get_type()
-'' TODO: GType pango_stretch_get_type (void) G_GNUC_CONST;
+declare function pango_stretch_get_type() as GType
 #define PANGO_TYPE_STRETCH pango_stretch_get_type()
-'' TODO: GType pango_font_mask_get_type (void) G_GNUC_CONST;
+declare function pango_font_mask_get_type() as GType
 #define PANGO_TYPE_FONT_MASK pango_font_mask_get_type()
-'' TODO: GType pango_gravity_get_type (void) G_GNUC_CONST;
+declare function pango_gravity_get_type() as GType
 #define PANGO_TYPE_GRAVITY pango_gravity_get_type()
-'' TODO: GType pango_gravity_hint_get_type (void) G_GNUC_CONST;
+declare function pango_gravity_hint_get_type() as GType
 #define PANGO_TYPE_GRAVITY_HINT pango_gravity_hint_get_type()
-'' TODO: GType pango_alignment_get_type (void) G_GNUC_CONST;
+declare function pango_alignment_get_type() as GType
 #define PANGO_TYPE_ALIGNMENT pango_alignment_get_type()
-'' TODO: GType pango_wrap_mode_get_type (void) G_GNUC_CONST;
+declare function pango_wrap_mode_get_type() as GType
 #define PANGO_TYPE_WRAP_MODE pango_wrap_mode_get_type()
-'' TODO: GType pango_ellipsize_mode_get_type (void) G_GNUC_CONST;
+declare function pango_ellipsize_mode_get_type() as GType
 #define PANGO_TYPE_ELLIPSIZE_MODE pango_ellipsize_mode_get_type()
-'' TODO: GType pango_render_part_get_type (void) G_GNUC_CONST;
+declare function pango_render_part_get_type() as GType
 #define PANGO_TYPE_RENDER_PART pango_render_part_get_type()
-'' TODO: GType pango_script_get_type (void) G_GNUC_CONST;
+declare function pango_script_get_type() as GType
 #define PANGO_TYPE_SCRIPT pango_script_get_type()
-'' TODO: GType pango_tab_align_get_type (void) G_GNUC_CONST;
-#define PANGO_TYPE_TAB_ALIGN pango_tab_align_get_type()
-'' TODO: G_END_DECLS G_BEGIN_DECLS typedef struct _PangoGlyphItem PangoGlyphItem;
+declare function pango_tab_align_get_type() as GType
 
+#define PANGO_TYPE_TAB_ALIGN pango_tab_align_get_type()
 #define PANGO_FEATURES_H
 const PANGO_VERSION_MAJOR = 1
 const PANGO_VERSION_MINOR = 36
 const PANGO_VERSION_MICRO = 8
 #define PANGO_VERSION_STRING "1.36.8"
 #define __PANGO_GLYPH_ITEM_H__
+type PangoGlyphItem as _PangoGlyphItem
 
 type _PangoGlyphItem
 	item as PangoItem ptr
@@ -743,7 +793,7 @@ type _PangoGlyphItem
 end type
 
 #define PANGO_TYPE_GLYPH_ITEM pango_glyph_item_get_type()
-'' TODO: GType pango_glyph_item_get_type (void) G_GNUC_CONST;
+declare function pango_glyph_item_get_type() as GType
 declare function pango_glyph_item_split(byval orig as PangoGlyphItem ptr, byval text as const zstring ptr, byval split_index as long) as PangoGlyphItem ptr
 declare function pango_glyph_item_copy(byval orig as PangoGlyphItem ptr) as PangoGlyphItem ptr
 declare sub pango_glyph_item_free(byval glyph_item as PangoGlyphItem ptr)
@@ -754,7 +804,7 @@ type PangoGlyphItemIter as _PangoGlyphItemIter
 
 type _PangoGlyphItemIter
 	glyph_item as PangoGlyphItem ptr
-	text as const gchar ptr
+	text as const zstring ptr
 	start_glyph as long
 	start_index as long
 	start_char as long
@@ -764,16 +814,16 @@ type _PangoGlyphItemIter
 end type
 
 #define PANGO_TYPE_GLYPH_ITEM_ITER pango_glyph_item_iter_get_type()
-'' TODO: GType pango_glyph_item_iter_get_type (void) G_GNUC_CONST;
+declare function pango_glyph_item_iter_get_type() as GType
 declare function pango_glyph_item_iter_copy(byval orig as PangoGlyphItemIter ptr) as PangoGlyphItemIter ptr
 declare sub pango_glyph_item_iter_free(byval iter as PangoGlyphItemIter ptr)
 declare function pango_glyph_item_iter_init_start(byval iter as PangoGlyphItemIter ptr, byval glyph_item as PangoGlyphItem ptr, byval text as const zstring ptr) as gboolean
 declare function pango_glyph_item_iter_init_end(byval iter as PangoGlyphItemIter ptr, byval glyph_item as PangoGlyphItem ptr, byval text as const zstring ptr) as gboolean
 declare function pango_glyph_item_iter_next_cluster(byval iter as PangoGlyphItemIter ptr) as gboolean
 declare function pango_glyph_item_iter_prev_cluster(byval iter as PangoGlyphItemIter ptr) as gboolean
-'' TODO: G_END_DECLS G_BEGIN_DECLS typedef struct _PangoTabArray PangoTabArray;
 #define __PANGO_LAYOUT_H__
 #define __PANGO_TABS_H__
+type PangoTabArray as _PangoTabArray
 
 type PangoTabAlign as long
 enum
@@ -783,7 +833,7 @@ end enum
 #define PANGO_TYPE_TAB_ARRAY pango_tab_array_get_type()
 declare function pango_tab_array_new(byval initial_size as gint, byval positions_in_pixels as gboolean) as PangoTabArray ptr
 declare function pango_tab_array_new_with_positions(byval size as gint, byval positions_in_pixels as gboolean, byval first_alignment as PangoTabAlign, byval first_position as gint, ...) as PangoTabArray ptr
-'' TODO: GType pango_tab_array_get_type (void) G_GNUC_CONST;
+declare function pango_tab_array_get_type() as GType
 declare function pango_tab_array_copy(byval src as PangoTabArray ptr) as PangoTabArray ptr
 declare sub pango_tab_array_free(byval tab_array as PangoTabArray ptr)
 declare function pango_tab_array_get_size(byval tab_array as PangoTabArray ptr) as gint
@@ -792,8 +842,8 @@ declare sub pango_tab_array_set_tab(byval tab_array as PangoTabArray ptr, byval 
 declare sub pango_tab_array_get_tab(byval tab_array as PangoTabArray ptr, byval tab_index as gint, byval alignment as PangoTabAlign ptr, byval location as gint ptr)
 declare sub pango_tab_array_get_tabs(byval tab_array as PangoTabArray ptr, byval alignments as PangoTabAlign ptr ptr, byval locations as gint ptr ptr)
 declare function pango_tab_array_get_positions_in_pixels(byval tab_array as PangoTabArray ptr) as gboolean
-'' TODO: G_END_DECLS G_BEGIN_DECLS typedef struct _PangoLayout PangoLayout;
 
+type PangoLayout as _PangoLayout
 type PangoLayoutClass as _PangoLayoutClass
 type PangoLayoutLine as _PangoLayoutLine
 type PangoLayoutRun as PangoGlyphItem
@@ -835,8 +885,8 @@ end type
 #define PANGO_IS_LAYOUT(object) G_TYPE_CHECK_INSTANCE_TYPE((object), PANGO_TYPE_LAYOUT)
 #define PANGO_IS_LAYOUT_CLASS(klass) G_TYPE_CHECK_CLASS_TYPE((klass), PANGO_TYPE_LAYOUT)
 #define PANGO_LAYOUT_GET_CLASS(obj) G_TYPE_INSTANCE_GET_CLASS((obj), PANGO_TYPE_LAYOUT, PangoLayoutClass)
-'' TODO: GType pango_layout_get_type (void) G_GNUC_CONST;
 
+declare function pango_layout_get_type() as GType
 declare function pango_layout_new(byval context as PangoContext ptr) as PangoLayout ptr
 declare function pango_layout_copy(byval src as PangoLayout ptr) as PangoLayout ptr
 declare function pango_layout_get_context(byval layout as PangoLayout ptr) as PangoContext ptr
@@ -894,7 +944,7 @@ declare function pango_layout_get_line_readonly(byval layout as PangoLayout ptr,
 declare function pango_layout_get_lines(byval layout as PangoLayout ptr) as GSList ptr
 declare function pango_layout_get_lines_readonly(byval layout as PangoLayout ptr) as GSList ptr
 #define PANGO_TYPE_LAYOUT_LINE pango_layout_line_get_type()
-'' TODO: GType pango_layout_line_get_type (void) G_GNUC_CONST;
+declare function pango_layout_line_get_type() as GType
 declare function pango_layout_line_ref(byval line as PangoLayoutLine ptr) as PangoLayoutLine ptr
 declare sub pango_layout_line_unref(byval line as PangoLayoutLine ptr)
 declare function pango_layout_line_x_to_index(byval line as PangoLayoutLine ptr, byval x_pos as long, byval index_ as long ptr, byval trailing as long ptr) as gboolean
@@ -904,7 +954,7 @@ declare sub pango_layout_line_get_extents(byval line as PangoLayoutLine ptr, byv
 declare sub pango_layout_line_get_pixel_extents(byval layout_line as PangoLayoutLine ptr, byval ink_rect as PangoRectangle ptr, byval logical_rect as PangoRectangle ptr)
 type PangoLayoutIter as _PangoLayoutIter
 #define PANGO_TYPE_LAYOUT_ITER pango_layout_iter_get_type()
-'' TODO: GType pango_layout_iter_get_type (void) G_GNUC_CONST;
+declare function pango_layout_iter_get_type() as GType
 declare function pango_layout_get_iter(byval layout as PangoLayout ptr) as PangoLayoutIter ptr
 declare function pango_layout_iter_copy(byval iter as PangoLayoutIter ptr) as PangoLayoutIter ptr
 declare sub pango_layout_iter_free(byval iter as PangoLayoutIter ptr)
@@ -926,7 +976,6 @@ declare sub pango_layout_iter_get_line_extents(byval iter as PangoLayoutIter ptr
 declare sub pango_layout_iter_get_line_yrange(byval iter as PangoLayoutIter ptr, byval y0_ as long ptr, byval y1_ as long ptr)
 declare sub pango_layout_iter_get_layout_extents(byval iter as PangoLayoutIter ptr, byval ink_rect as PangoRectangle ptr, byval logical_rect as PangoRectangle ptr)
 declare function pango_layout_iter_get_baseline(byval iter as PangoLayoutIter ptr) as long
-'' TODO: G_END_DECLS G_BEGIN_DECLS typedef struct _PangoRenderer PangoRenderer;
 
 #define __PANGO_RENDERER_H_
 #define PANGO_TYPE_RENDERER pango_renderer_get_type()
@@ -935,6 +984,8 @@ declare function pango_layout_iter_get_baseline(byval iter as PangoLayoutIter pt
 #define PANGO_RENDERER_CLASS(klass) G_TYPE_CHECK_CLASS_CAST((klass), PANGO_TYPE_RENDERER, PangoRendererClass)
 #define PANGO_IS_RENDERER_CLASS(klass) G_TYPE_CHECK_CLASS_TYPE((klass), PANGO_TYPE_RENDERER)
 #define PANGO_RENDERER_GET_CLASS(obj) G_TYPE_INSTANCE_GET_CLASS((obj), PANGO_TYPE_RENDERER, PangoRendererClass)
+
+type PangoRenderer as _PangoRenderer
 type PangoRendererClass as _PangoRendererClass
 type PangoRendererPrivate as _PangoRendererPrivate
 
@@ -973,7 +1024,7 @@ type _PangoRendererClass
 	_pango_reserved4 as sub()
 end type
 
-'' TODO: GType pango_renderer_get_type (void) G_GNUC_CONST;
+declare function pango_renderer_get_type() as GType
 declare sub pango_renderer_draw_layout(byval renderer as PangoRenderer ptr, byval layout as PangoLayout ptr, byval x as long, byval y as long)
 declare sub pango_renderer_draw_layout_line(byval renderer as PangoRenderer ptr, byval line as PangoLayoutLine ptr, byval x as long, byval y as long)
 declare sub pango_renderer_draw_glyphs(byval renderer as PangoRenderer ptr, byval font as PangoFont ptr, byval glyphs as PangoGlyphString ptr, byval x as long, byval y as long)
@@ -991,8 +1042,8 @@ declare sub pango_renderer_set_matrix(byval renderer as PangoRenderer ptr, byval
 declare function pango_renderer_get_matrix(byval renderer as PangoRenderer ptr) as const PangoMatrix ptr
 declare function pango_renderer_get_layout(byval renderer as PangoRenderer ptr) as PangoLayout ptr
 declare function pango_renderer_get_layout_line(byval renderer as PangoRenderer ptr) as PangoLayoutLine ptr
-'' TODO: G_END_DECLS G_BEGIN_DECLS char ** pango_split_file_list (const char *str);
 #define __PANGO_UTILS_H__
+declare function pango_split_file_list(byval str as const zstring ptr) as zstring ptr ptr
 declare function pango_trim_string(byval str as const zstring ptr) as zstring ptr
 declare function pango_read_line(byval stream as FILE ptr, byval str as GString ptr) as gint
 declare function pango_skip_space(byval pos as const zstring ptr ptr) as gboolean
@@ -1005,16 +1056,15 @@ declare function pango_parse_variant(byval str as const zstring ptr, byval varia
 declare function pango_parse_weight(byval str as const zstring ptr, byval weight as PangoWeight ptr, byval warn as gboolean) as gboolean
 declare function pango_parse_stretch(byval str as const zstring ptr, byval stretch as PangoStretch ptr, byval warn as gboolean) as gboolean
 declare sub pango_quantize_line_geometry(byval thickness as long ptr, byval position as long ptr)
-declare function pango_log2vis_get_embedding_levels(byval text as const gchar ptr, byval length as long, byval pbase_dir as PangoDirection ptr) as guint8 ptr
-'' TODO: gboolean pango_is_zero_width (gunichar ch) G_GNUC_CONST;
+declare function pango_log2vis_get_embedding_levels(byval text as const zstring ptr, byval length as long, byval pbase_dir as PangoDirection ptr) as guint8 ptr
+declare function pango_is_zero_width(byval ch as gunichar) as gboolean
 
 #define PANGO_VERSION_ENCODE(major, minor, micro) ((((major) * 10000) + ((minor) * 100)) + ((micro) * 1))
 #define PANGO_VERSION PANGO_VERSION_ENCODE(PANGO_VERSION_MAJOR, PANGO_VERSION_MINOR, PANGO_VERSION_MICRO)
 #define PANGO_VERSION_CHECK(major, minor, micro) (PANGO_VERSION >= PANGO_VERSION_ENCODE(major, minor, micro))
 
-'' TODO: int pango_version (void) G_GNUC_CONST;
-'' TODO: const char * pango_version_string (void) G_GNUC_CONST;
-'' TODO: const char * pango_version_check (int required_major, int required_minor, int required_micro) G_GNUC_CONST;
-'' TODO: G_END_DECLS G_BEGIN_DECLS typedef struct _PangoCairoFont PangoCairoFont;
+declare function pango_version() as long
+declare function pango_version_string() as const zstring ptr
+declare function pango_version_check(byval required_major as long, byval required_minor as long, byval required_micro as long) as const zstring ptr
 
 end extern

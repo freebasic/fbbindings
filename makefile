@@ -171,12 +171,13 @@ atk:
 # cairo-vg.h
 # cairo-cogl.h
 CAIRO := cairo-1.14.2
-cairo:
+cairo-extract:
 	./get.sh $(CAIRO) $(CAIRO).tar.xz http://cairographics.org/releases/$(CAIRO).tar.xz
 
 	# Overwrite src/cairo-version.h (a place holder) with the one from toplevel (the real thing)
 	cp extracted/$(CAIRO)/cairo-version.h extracted/$(CAIRO)/src
 
+cairo: cairo-extract
 	mkdir -p inc/cairo
 	$(FBFROG) cairo.fbfrog \
 		-incdir extracted/$(CAIRO)/src \
@@ -685,11 +686,12 @@ opengl-winapi: winapi-extract
 
 PANGO_SERIES := 1.36
 PANGO := pango-$(PANGO_SERIES).8
-pango: glib-extract
+pango: glib-extract cairo-extract
 	./get.sh $(PANGO) $(PANGO).tar.xz http://ftp.gnome.org/pub/gnome/sources/pango/$(PANGO_SERIES)/$(PANGO).tar.xz
 
 	mkdir -p inc/pango
-	$(FBFROG) \
+	$(FBFROG) pango.fbfrog \
+		-incdir extracted/$(CAIRO)/src \
 		-incdir extracted/$(GLIB) \
 		-incdir extracted/$(GLIB)/glib \
 		-incdir extracted/$(PANGO) \
