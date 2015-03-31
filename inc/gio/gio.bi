@@ -12,6 +12,10 @@
 '' The following symbols have been renamed:
 ''     procedure g_file_monitor => g_file_monitor_
 
+#ifdef __FB_WIN32__
+#pragma push(msbitfields)
+#endif
+
 extern "C"
 
 #define __G_IO_H__
@@ -5535,3 +5539,7 @@ declare sub g_notification_set_default_action_and_target(byval notification as G
 declare sub g_notification_set_default_action_and_target_value(byval notification as GNotification ptr, byval action as const zstring ptr, byval target as GVariant ptr)
 
 end extern
+
+#ifdef __FB_WIN32__
+#pragma pop(msbitfields)
+#endif

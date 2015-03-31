@@ -16,6 +16,10 @@
 ''     procedure gdk_threads_enter => gdk_threads_enter_
 ''     procedure gdk_threads_leave => gdk_threads_leave_
 
+#ifdef __FB_WIN32__
+#pragma push(msbitfields)
+#endif
+
 extern "C"
 
 #define __GDK_H__
@@ -2379,3 +2383,7 @@ declare function gdk_threads_add_timeout_seconds(byval interval as guint, byval 
 #endmacro
 
 end extern
+
+#ifdef __FB_WIN32__
+#pragma pop(msbitfields)
+#endif

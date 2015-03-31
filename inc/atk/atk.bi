@@ -3,6 +3,10 @@
 #include once "glib-object.bi"
 #include once "glib.bi"
 
+#ifdef __FB_WIN32__
+#pragma push(msbitfields)
+#endif
+
 extern "C"
 
 #define __ATK_H__
@@ -1449,3 +1453,7 @@ end type
 declare function atk_window_get_type() as GType
 
 end extern
+
+#ifdef __FB_WIN32__
+#pragma pop(msbitfields)
+#endif

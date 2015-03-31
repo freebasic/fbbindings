@@ -10,6 +10,10 @@
 ''     procedure pango_version_string => pango_version_string_
 ''     procedure pango_version_check => pango_version_check_
 
+#ifdef __FB_WIN32__
+#pragma push(msbitfields)
+#endif
+
 extern "C"
 
 #define __PANGO_H__
@@ -1085,3 +1089,7 @@ declare function pango_version_string_ alias "pango_version_string"() as const z
 declare function pango_version_check_ alias "pango_version_check"(byval required_major as long, byval required_minor as long, byval required_micro as long) as const zstring ptr
 
 end extern
+
+#ifdef __FB_WIN32__
+#pragma pop(msbitfields)
+#endif

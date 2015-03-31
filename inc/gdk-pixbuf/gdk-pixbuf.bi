@@ -9,6 +9,10 @@
 '' The following symbols have been renamed:
 ''     #define GDK_PIXBUF_VERSION => GDK_PIXBUF_VERSION_
 
+#ifdef __FB_WIN32__
+#pragma push(msbitfields)
+#endif
+
 extern "C"
 
 #define GDK_PIXBUF_H
@@ -269,3 +273,7 @@ declare function gdk_pixbuf_rotation_get_type() as GType
 #define GDK_TYPE_PIXBUF_ROTATION gdk_pixbuf_rotation_get_type()
 
 end extern
+
+#ifdef __FB_WIN32__
+#pragma pop(msbitfields)
+#endif

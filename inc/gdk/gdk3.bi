@@ -351,6 +351,10 @@
 ''     constant GDK_KEY_Ohorn => GDK_KEY_Ohorn_
 ''     constant GDK_KEY_Uhorn => GDK_KEY_Uhorn_
 
+#ifdef __FB_WIN32__
+#pragma push(msbitfields)
+#endif
+
 extern "C"
 
 #define __GDK_H__
@@ -4250,3 +4254,7 @@ declare sub gdk_visual_get_green_pixel_details(byval visual as GdkVisual ptr, by
 declare sub gdk_visual_get_blue_pixel_details(byval visual as GdkVisual ptr, byval mask as guint32 ptr, byval shift as gint ptr, byval precision as gint ptr)
 
 end extern
+
+#ifdef __FB_WIN32__
+#pragma pop(msbitfields)
+#endif

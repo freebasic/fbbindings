@@ -37,6 +37,10 @@
 ''     procedure g_param_spec_gtype => g_param_spec_gtype_
 ''     procedure g_param_spec_variant => g_param_spec_variant_
 
+#ifdef __FB_WIN32__
+#pragma push(msbitfields)
+#endif
+
 extern "C"
 
 #define __GLIB_GOBJECT_H__
@@ -1593,3 +1597,7 @@ declare sub g_value_set_string_take_ownership(byval value as GValue ptr, byval v
 type gchararray as zstring ptr
 
 end extern
+
+#ifdef __FB_WIN32__
+#pragma pop(msbitfields)
+#endif

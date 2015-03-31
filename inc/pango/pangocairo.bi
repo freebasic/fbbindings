@@ -3,6 +3,10 @@
 #include once "pango/pango.bi"
 #include once "cairo/cairo.bi"
 
+#ifdef __FB_WIN32__
+#pragma push(msbitfields)
+#endif
+
 extern "C"
 
 #define __PANGOCAIRO_H__
@@ -48,3 +52,7 @@ declare sub pango_cairo_layout_path(byval cr as cairo_t ptr, byval layout as Pan
 declare sub pango_cairo_error_underline_path(byval cr as cairo_t ptr, byval x as double, byval y as double, byval width as double, byval height as double)
 
 end extern
+
+#ifdef __FB_WIN32__
+#pragma pop(msbitfields)
+#endif

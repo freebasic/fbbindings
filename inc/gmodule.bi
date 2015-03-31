@@ -8,6 +8,10 @@
 	''     procedure g_module_name => g_module_name_
 #endif
 
+#ifdef __FB_WIN32__
+#pragma push(msbitfields)
+#endif
+
 extern "C"
 
 #define __GMODULE_H__
@@ -51,3 +55,7 @@ declare function g_module_build_path(byval directory as const zstring ptr, byval
 #endif
 
 end extern
+
+#ifdef __FB_WIN32__
+#pragma pop(msbitfields)
+#endif

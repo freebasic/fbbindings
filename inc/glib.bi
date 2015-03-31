@@ -67,6 +67,10 @@
 ''     #define G_STATIC_RW_LOCK_INIT => G_STATIC_RW_LOCK_INIT_
 ''     #define G_STATIC_PRIVATE_INIT => G_STATIC_PRIVATE_INIT_
 
+#ifdef __FB_WIN32__
+#pragma push(msbitfields)
+#endif
+
 extern "C"
 
 #define __G_LIB_H__
@@ -4120,3 +4124,7 @@ declare sub g_cond_free(byval cond as GCond ptr)
 declare function g_cond_timed_wait(byval cond as GCond ptr, byval mutex as GMutex ptr, byval timeval as GTimeVal ptr) as gboolean
 
 end extern
+
+#ifdef __FB_WIN32__
+#pragma pop(msbitfields)
+#endif

@@ -28,6 +28,10 @@
 ''     #endif
 ''     procedure gtk_stock_add => gtk_stock_add_
 
+#ifdef __FB_WIN32__
+#pragma push(msbitfields)
+#endif
+
 extern "C"
 
 #define __GTK_H__
@@ -12107,3 +12111,7 @@ declare sub gtk_tips_query_set_caller(byval tips_query as GtkTipsQuery ptr, byva
 declare sub gtk_tips_query_set_labels(byval tips_query as GtkTipsQuery ptr, byval label_inactive as const zstring ptr, byval label_no_tip as const zstring ptr)
 
 end extern
+
+#ifdef __FB_WIN32__
+#pragma pop(msbitfields)
+#endif

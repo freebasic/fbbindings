@@ -19,6 +19,10 @@
 ''     #endif
 ''     #define GTK_STOCK_ADD => GTK_STOCK_ADD_
 
+#ifdef __FB_WIN32__
+#pragma push(msbitfields)
+#endif
+
 extern "C"
 
 #define __GTK_H__
@@ -11667,3 +11671,7 @@ declare function gtk_vseparator_get_type() as GType
 declare function gtk_vseparator_new() as GtkWidget ptr
 
 end extern
+
+#ifdef __FB_WIN32__
+#pragma pop(msbitfields)
+#endif
