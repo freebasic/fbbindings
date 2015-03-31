@@ -1,3 +1,8 @@
+-removedefine GDKVAR
+-removedefine GTKMAIN_C_VAR
+
+-removeinclude gdkconfig.h
+
 -renameproc gdk_drag_status gdk_drag_status_
 -renameproc gdk_drag_motion gdk_drag_motion_
 -renameproc gdk_property_delete gdk_property_delete_
@@ -7,12 +12,7 @@
 -renameproc gtk_widget_has_default gtk_widget_has_default_
 -renameproc gtk_widget_has_grab gtk_widget_has_grab_
 -renameproc gtk_widget_is_sensitive gtk_widget_is_sensitive_
--renameproc gtk_check_version gtk_check_version_
 -renameproc gtk_stock_add gtk_stock_add_
--ifdef __FB_WIN32__
-	-renameproc gtk_init gtk_init_
-	-renameproc gtk_init_check gtk_init_check_
--endif
 
 -rename gtk_major_version gtk_major_version_
 -rename gtk_minor_version gtk_minor_version_

@@ -1,0 +1,394 @@
+-removedefine _GDK_EXTERN
+-removedefine GDK_DEPRECATED
+-removedefine GDK_DEPRECATED_FOR
+-removedefine GDK_UNAVAILABLE
+-removedefine GDK_AVAILABLE_IN_ALL
+-removedefine GDK_DEPRECATED_IN_3_0
+-removedefine GDK_DEPRECATED_IN_3_0_FOR
+-removedefine GDK_AVAILABLE_IN_3_0
+-removedefine GDK_DEPRECATED_IN_3_2
+-removedefine GDK_DEPRECATED_IN_3_2_FOR
+-removedefine GDK_AVAILABLE_IN_3_2
+-removedefine GDK_DEPRECATED_IN_3_4
+-removedefine GDK_DEPRECATED_IN_3_4_FOR
+-removedefine GDK_AVAILABLE_IN_3_4
+-removedefine GDK_DEPRECATED_IN_3_6
+-removedefine GDK_DEPRECATED_IN_3_6_FOR
+-removedefine GDK_AVAILABLE_IN_3_6
+-removedefine GDK_DEPRECATED_IN_3_8
+-removedefine GDK_DEPRECATED_IN_3_8_FOR
+-removedefine GDK_AVAILABLE_IN_3_8
+-removedefine GDK_DEPRECATED_IN_3_10
+-removedefine GDK_DEPRECATED_IN_3_10_FOR
+-removedefine GDK_AVAILABLE_IN_3_10
+-removedefine GDK_DEPRECATED_IN_3_12
+-removedefine GDK_DEPRECATED_IN_3_12_FOR
+-removedefine GDK_AVAILABLE_IN_3_12
+-removedefine GDK_DEPRECATED_IN_3_14
+-removedefine GDK_DEPRECATED_IN_3_14_FOR
+-removedefine GDK_AVAILABLE_IN_3_14
+
+-addforwarddecl GtkThemingEnginePrivate
+
+-rename GDK_DRAG_MOTION GDK_DRAG_MOTION_
+-rename GDK_DRAG_STATUS GDK_DRAG_STATUS_
+-rename GDK_PROPERTY_DELETE GDK_PROPERTY_DELETE_
+-renamedefine GTK_STOCK_ADD GTK_STOCK_ADD_
+
+-renamedefine GDK_KEY_dead_A                         GDK_KEY_dead_A_
+-renamedefine GDK_KEY_dead_E                         GDK_KEY_dead_E_
+-renamedefine GDK_KEY_dead_I                         GDK_KEY_dead_I_
+-renamedefine GDK_KEY_dead_O                         GDK_KEY_dead_O_
+-renamedefine GDK_KEY_dead_U                         GDK_KEY_dead_U_
+-renamedefine GDK_KEY_A                              GDK_KEY_A_
+-renamedefine GDK_KEY_B                              GDK_KEY_B_
+-renamedefine GDK_KEY_C                              GDK_KEY_C_
+-renamedefine GDK_KEY_D                              GDK_KEY_D_
+-renamedefine GDK_KEY_E                              GDK_KEY_E_
+-renamedefine GDK_KEY_F                              GDK_KEY_F_
+-renamedefine GDK_KEY_G                              GDK_KEY_G_
+-renamedefine GDK_KEY_H                              GDK_KEY_H_
+-renamedefine GDK_KEY_I                              GDK_KEY_I_
+-renamedefine GDK_KEY_J                              GDK_KEY_J_
+-renamedefine GDK_KEY_K                              GDK_KEY_K_
+-renamedefine GDK_KEY_L                              GDK_KEY_L_
+-renamedefine GDK_KEY_M                              GDK_KEY_M_
+-renamedefine GDK_KEY_N                              GDK_KEY_N_
+-renamedefine GDK_KEY_O                              GDK_KEY_O_
+-renamedefine GDK_KEY_P                              GDK_KEY_P_
+-renamedefine GDK_KEY_Q                              GDK_KEY_Q_
+-renamedefine GDK_KEY_R                              GDK_KEY_R_
+-renamedefine GDK_KEY_S                              GDK_KEY_S_
+-renamedefine GDK_KEY_T                              GDK_KEY_T_
+-renamedefine GDK_KEY_U                              GDK_KEY_U_
+-renamedefine GDK_KEY_V                              GDK_KEY_V_
+-renamedefine GDK_KEY_W                              GDK_KEY_W_
+-renamedefine GDK_KEY_X                              GDK_KEY_X_
+-renamedefine GDK_KEY_Y                              GDK_KEY_Y_
+-renamedefine GDK_KEY_Z                              GDK_KEY_Z_
+-renamedefine GDK_KEY_Agrave                         GDK_KEY_Agrave_
+-renamedefine GDK_KEY_Aacute                         GDK_KEY_Aacute_
+-renamedefine GDK_KEY_Acircumflex                    GDK_KEY_Acircumflex_
+-renamedefine GDK_KEY_Atilde                         GDK_KEY_Atilde_
+-renamedefine GDK_KEY_Adiaeresis                     GDK_KEY_Adiaeresis_
+-renamedefine GDK_KEY_Aring                          GDK_KEY_Aring_
+-renamedefine GDK_KEY_AE                             GDK_KEY_AE_
+-renamedefine GDK_KEY_Ccedilla                       GDK_KEY_Ccedilla_
+-renamedefine GDK_KEY_Egrave                         GDK_KEY_Egrave_
+-renamedefine GDK_KEY_Eacute                         GDK_KEY_Eacute_
+-renamedefine GDK_KEY_Ecircumflex                    GDK_KEY_Ecircumflex_
+-renamedefine GDK_KEY_Ediaeresis                     GDK_KEY_Ediaeresis_
+-renamedefine GDK_KEY_Igrave                         GDK_KEY_Igrave_
+-renamedefine GDK_KEY_Iacute                         GDK_KEY_Iacute_
+-renamedefine GDK_KEY_Icircumflex                    GDK_KEY_Icircumflex_
+-renamedefine GDK_KEY_Idiaeresis                     GDK_KEY_Idiaeresis_
+-renamedefine GDK_KEY_ETH_2                          GDK_KEY_ETH_2_
+-renamedefine GDK_KEY_Eth                            GDK_KEY_Eth_
+-renamedefine GDK_KEY_Ntilde                         GDK_KEY_Ntilde_
+-renamedefine GDK_KEY_Ograve                         GDK_KEY_Ograve_
+-renamedefine GDK_KEY_Oacute                         GDK_KEY_Oacute_
+-renamedefine GDK_KEY_Ocircumflex                    GDK_KEY_Ocircumflex_
+-renamedefine GDK_KEY_Otilde                         GDK_KEY_Otilde_
+-renamedefine GDK_KEY_Odiaeresis                     GDK_KEY_Odiaeresis_
+-renamedefine GDK_KEY_Oslash                         GDK_KEY_Oslash_
+-renamedefine GDK_KEY_Ooblique                       GDK_KEY_Ooblique_
+-renamedefine GDK_KEY_Ugrave                         GDK_KEY_Ugrave_
+-renamedefine GDK_KEY_Uacute                         GDK_KEY_Uacute_
+-renamedefine GDK_KEY_Ucircumflex                    GDK_KEY_Ucircumflex_
+-renamedefine GDK_KEY_Udiaeresis                     GDK_KEY_Udiaeresis_
+-renamedefine GDK_KEY_Yacute                         GDK_KEY_Yacute_
+-renamedefine GDK_KEY_Thorn                          GDK_KEY_Thorn_
+-renamedefine GDK_KEY_Aogonek                        GDK_KEY_Aogonek_
+-renamedefine GDK_KEY_Lstroke                        GDK_KEY_Lstroke_
+-renamedefine GDK_KEY_Lcaron                         GDK_KEY_Lcaron_
+-renamedefine GDK_KEY_Sacute                         GDK_KEY_Sacute_
+-renamedefine GDK_KEY_Scaron                         GDK_KEY_Scaron_
+-renamedefine GDK_KEY_Scedilla                       GDK_KEY_Scedilla_
+-renamedefine GDK_KEY_Tcaron                         GDK_KEY_Tcaron_
+-renamedefine GDK_KEY_Zacute                         GDK_KEY_Zacute_
+-renamedefine GDK_KEY_Zcaron                         GDK_KEY_Zcaron_
+-renamedefine GDK_KEY_Zabovedot                      GDK_KEY_Zabovedot_
+-renamedefine GDK_KEY_Racute                         GDK_KEY_Racute_
+-renamedefine GDK_KEY_Abreve                         GDK_KEY_Abreve_
+-renamedefine GDK_KEY_Lacute                         GDK_KEY_Lacute_
+-renamedefine GDK_KEY_Cacute                         GDK_KEY_Cacute_
+-renamedefine GDK_KEY_Ccaron                         GDK_KEY_Ccaron_
+-renamedefine GDK_KEY_Eogonek                        GDK_KEY_Eogonek_
+-renamedefine GDK_KEY_Ecaron                         GDK_KEY_Ecaron_
+-renamedefine GDK_KEY_Dcaron                         GDK_KEY_Dcaron_
+-renamedefine GDK_KEY_THORN_2                        GDK_KEY_THORN_2_
+-renamedefine GDK_KEY_Dstroke                        GDK_KEY_Dstroke_
+-renamedefine GDK_KEY_Nacute                         GDK_KEY_Nacute_
+-renamedefine GDK_KEY_Ncaron                         GDK_KEY_Ncaron_
+-renamedefine GDK_KEY_Odoubleacute                   GDK_KEY_Odoubleacute_
+-renamedefine GDK_KEY_Udoubleacute                   GDK_KEY_Udoubleacute_
+-renamedefine GDK_KEY_Rcaron                         GDK_KEY_Rcaron_
+-renamedefine GDK_KEY_Uring                          GDK_KEY_Uring_
+-renamedefine GDK_KEY_Tcedilla                       GDK_KEY_Tcedilla_
+-renamedefine GDK_KEY_Hstroke                        GDK_KEY_Hstroke_
+-renamedefine GDK_KEY_Hcircumflex                    GDK_KEY_Hcircumflex_
+-renamedefine GDK_KEY_Gbreve                         GDK_KEY_Gbreve_
+-renamedefine GDK_KEY_Jcircumflex                    GDK_KEY_Jcircumflex_
+-renamedefine GDK_KEY_Cabovedot                      GDK_KEY_Cabovedot_
+-renamedefine GDK_KEY_Ccircumflex                    GDK_KEY_Ccircumflex_
+-renamedefine GDK_KEY_Gabovedot                      GDK_KEY_Gabovedot_
+-renamedefine GDK_KEY_Gcircumflex                    GDK_KEY_Gcircumflex_
+-renamedefine GDK_KEY_Ubreve                         GDK_KEY_Ubreve_
+-renamedefine GDK_KEY_Scircumflex                    GDK_KEY_Scircumflex_
+-renamedefine GDK_KEY_Rcedilla                       GDK_KEY_Rcedilla_
+-renamedefine GDK_KEY_Itilde                         GDK_KEY_Itilde_
+-renamedefine GDK_KEY_Lcedilla                       GDK_KEY_Lcedilla_
+-renamedefine GDK_KEY_Emacron                        GDK_KEY_Emacron_
+-renamedefine GDK_KEY_Gcedilla                       GDK_KEY_Gcedilla_
+-renamedefine GDK_KEY_Tslash                         GDK_KEY_Tslash_
+-renamedefine GDK_KEY_ENG                            GDK_KEY_ENG_
+-renamedefine GDK_KEY_Amacron                        GDK_KEY_Amacron_
+-renamedefine GDK_KEY_Iogonek                        GDK_KEY_Iogonek_
+-renamedefine GDK_KEY_Eabovedot                      GDK_KEY_Eabovedot_
+-renamedefine GDK_KEY_Imacron                        GDK_KEY_Imacron_
+-renamedefine GDK_KEY_Ncedilla                       GDK_KEY_Ncedilla_
+-renamedefine GDK_KEY_Omacron                        GDK_KEY_Omacron_
+-renamedefine GDK_KEY_Kcedilla                       GDK_KEY_Kcedilla_
+-renamedefine GDK_KEY_Uogonek                        GDK_KEY_Uogonek_
+-renamedefine GDK_KEY_Utilde                         GDK_KEY_Utilde_
+-renamedefine GDK_KEY_Umacron                        GDK_KEY_Umacron_
+-renamedefine GDK_KEY_Babovedot                      GDK_KEY_Babovedot_
+-renamedefine GDK_KEY_Dabovedot                      GDK_KEY_Dabovedot_
+-renamedefine GDK_KEY_Fabovedot                      GDK_KEY_Fabovedot_
+-renamedefine GDK_KEY_Mabovedot                      GDK_KEY_Mabovedot_
+-renamedefine GDK_KEY_Wgrave                         GDK_KEY_Wgrave_
+-renamedefine GDK_KEY_Pabovedot                      GDK_KEY_Pabovedot_
+-renamedefine GDK_KEY_Wacute                         GDK_KEY_Wacute_
+-renamedefine GDK_KEY_Ygrave                         GDK_KEY_Ygrave_
+-renamedefine GDK_KEY_Wdiaeresis                     GDK_KEY_Wdiaeresis_
+-renamedefine GDK_KEY_Sabovedot                      GDK_KEY_Sabovedot_
+-renamedefine GDK_KEY_Wcircumflex                    GDK_KEY_Wcircumflex_
+-renamedefine GDK_KEY_Tabovedot                      GDK_KEY_Tabovedot_
+-renamedefine GDK_KEY_Ycircumflex                    GDK_KEY_Ycircumflex_
+-renamedefine GDK_KEY_OE                             GDK_KEY_OE_
+-renamedefine GDK_KEY_Ydiaeresis                     GDK_KEY_Ydiaeresis_
+-renamedefine GDK_KEY_kana_A                         GDK_KEY_kana_A_
+-renamedefine GDK_KEY_kana_I                         GDK_KEY_kana_I_
+-renamedefine GDK_KEY_kana_U                         GDK_KEY_kana_U_
+-renamedefine GDK_KEY_kana_E                         GDK_KEY_kana_E_
+-renamedefine GDK_KEY_kana_O                         GDK_KEY_kana_O_
+-renamedefine GDK_KEY_kana_TSU                       GDK_KEY_kana_TSU_
+-renamedefine GDK_KEY_kana_TU                        GDK_KEY_kana_TU_
+-renamedefine GDK_KEY_kana_YA                        GDK_KEY_kana_YA_
+-renamedefine GDK_KEY_kana_YU                        GDK_KEY_kana_YU_
+-renamedefine GDK_KEY_kana_YO                        GDK_KEY_kana_YO_
+-renamedefine GDK_KEY_Cyrillic_GHE_bar               GDK_KEY_Cyrillic_GHE_bar_
+-renamedefine GDK_KEY_Cyrillic_ZHE_descender         GDK_KEY_Cyrillic_ZHE_descender_
+-renamedefine GDK_KEY_Cyrillic_KA_descender          GDK_KEY_Cyrillic_KA_descender_
+-renamedefine GDK_KEY_Cyrillic_KA_vertstroke         GDK_KEY_Cyrillic_KA_vertstroke_
+-renamedefine GDK_KEY_Cyrillic_EN_descender          GDK_KEY_Cyrillic_EN_descender_
+-renamedefine GDK_KEY_Cyrillic_U_straight            GDK_KEY_Cyrillic_U_straight_
+-renamedefine GDK_KEY_Cyrillic_U_straight_bar        GDK_KEY_Cyrillic_U_straight_bar_
+-renamedefine GDK_KEY_Cyrillic_HA_descender          GDK_KEY_Cyrillic_HA_descender_
+-renamedefine GDK_KEY_Cyrillic_CHE_descender         GDK_KEY_Cyrillic_CHE_descender_
+-renamedefine GDK_KEY_Cyrillic_CHE_vertstroke        GDK_KEY_Cyrillic_CHE_vertstroke_
+-renamedefine GDK_KEY_Cyrillic_SHHA                  GDK_KEY_Cyrillic_SHHA_
+-renamedefine GDK_KEY_Cyrillic_SCHWA                 GDK_KEY_Cyrillic_SCHWA_
+-renamedefine GDK_KEY_Cyrillic_I_macron              GDK_KEY_Cyrillic_I_macron_
+-renamedefine GDK_KEY_Cyrillic_O_bar                 GDK_KEY_Cyrillic_O_bar_
+-renamedefine GDK_KEY_Cyrillic_U_macron              GDK_KEY_Cyrillic_U_macron_
+-renamedefine GDK_KEY_Serbian_DJE                    GDK_KEY_Serbian_DJE_
+-renamedefine GDK_KEY_Macedonia_GJE                  GDK_KEY_Macedonia_GJE_
+-renamedefine GDK_KEY_Cyrillic_IO                    GDK_KEY_Cyrillic_IO_
+-renamedefine GDK_KEY_Ukrainian_IE                   GDK_KEY_Ukrainian_IE_
+-renamedefine GDK_KEY_Ukranian_JE                    GDK_KEY_Ukranian_JE_
+-renamedefine GDK_KEY_Macedonia_DSE                  GDK_KEY_Macedonia_DSE_
+-renamedefine GDK_KEY_Ukrainian_I                    GDK_KEY_Ukrainian_I_
+-renamedefine GDK_KEY_Ukranian_I                     GDK_KEY_Ukranian_I_
+-renamedefine GDK_KEY_Ukrainian_YI                   GDK_KEY_Ukrainian_YI_
+-renamedefine GDK_KEY_Ukranian_YI                    GDK_KEY_Ukranian_YI_
+-renamedefine GDK_KEY_Cyrillic_JE                    GDK_KEY_Cyrillic_JE_
+-renamedefine GDK_KEY_Serbian_JE                     GDK_KEY_Serbian_JE_
+-renamedefine GDK_KEY_Cyrillic_LJE                   GDK_KEY_Cyrillic_LJE_
+-renamedefine GDK_KEY_Serbian_LJE                    GDK_KEY_Serbian_LJE_
+-renamedefine GDK_KEY_Cyrillic_NJE                   GDK_KEY_Cyrillic_NJE_
+-renamedefine GDK_KEY_Serbian_NJE                    GDK_KEY_Serbian_NJE_
+-renamedefine GDK_KEY_Serbian_TSHE                   GDK_KEY_Serbian_TSHE_
+-renamedefine GDK_KEY_Macedonia_KJE                  GDK_KEY_Macedonia_KJE_
+-renamedefine GDK_KEY_Ukrainian_GHE_WITH_UPTURN      GDK_KEY_Ukrainian_GHE_WITH_UPTURN_
+-renamedefine GDK_KEY_Byelorussian_SHORTU            GDK_KEY_Byelorussian_SHORTU_
+-renamedefine GDK_KEY_Cyrillic_DZHE                  GDK_KEY_Cyrillic_DZHE_
+-renamedefine GDK_KEY_Serbian_DZE                    GDK_KEY_Serbian_DZE_
+-renamedefine GDK_KEY_Cyrillic_YU                    GDK_KEY_Cyrillic_YU_
+-renamedefine GDK_KEY_Cyrillic_A                     GDK_KEY_Cyrillic_A_
+-renamedefine GDK_KEY_Cyrillic_BE                    GDK_KEY_Cyrillic_BE_
+-renamedefine GDK_KEY_Cyrillic_TSE                   GDK_KEY_Cyrillic_TSE_
+-renamedefine GDK_KEY_Cyrillic_DE                    GDK_KEY_Cyrillic_DE_
+-renamedefine GDK_KEY_Cyrillic_IE                    GDK_KEY_Cyrillic_IE_
+-renamedefine GDK_KEY_Cyrillic_EF                    GDK_KEY_Cyrillic_EF_
+-renamedefine GDK_KEY_Cyrillic_GHE                   GDK_KEY_Cyrillic_GHE_
+-renamedefine GDK_KEY_Cyrillic_HA                    GDK_KEY_Cyrillic_HA_
+-renamedefine GDK_KEY_Cyrillic_I                     GDK_KEY_Cyrillic_I_
+-renamedefine GDK_KEY_Cyrillic_SHORTI                GDK_KEY_Cyrillic_SHORTI_
+-renamedefine GDK_KEY_Cyrillic_KA                    GDK_KEY_Cyrillic_KA_
+-renamedefine GDK_KEY_Cyrillic_EL                    GDK_KEY_Cyrillic_EL_
+-renamedefine GDK_KEY_Cyrillic_EM                    GDK_KEY_Cyrillic_EM_
+-renamedefine GDK_KEY_Cyrillic_EN                    GDK_KEY_Cyrillic_EN_
+-renamedefine GDK_KEY_Cyrillic_O                     GDK_KEY_Cyrillic_O_
+-renamedefine GDK_KEY_Cyrillic_PE                    GDK_KEY_Cyrillic_PE_
+-renamedefine GDK_KEY_Cyrillic_YA                    GDK_KEY_Cyrillic_YA_
+-renamedefine GDK_KEY_Cyrillic_ER                    GDK_KEY_Cyrillic_ER_
+-renamedefine GDK_KEY_Cyrillic_ES                    GDK_KEY_Cyrillic_ES_
+-renamedefine GDK_KEY_Cyrillic_TE                    GDK_KEY_Cyrillic_TE_
+-renamedefine GDK_KEY_Cyrillic_U                     GDK_KEY_Cyrillic_U_
+-renamedefine GDK_KEY_Cyrillic_ZHE                   GDK_KEY_Cyrillic_ZHE_
+-renamedefine GDK_KEY_Cyrillic_VE                    GDK_KEY_Cyrillic_VE_
+-renamedefine GDK_KEY_Cyrillic_SOFTSIGN              GDK_KEY_Cyrillic_SOFTSIGN_
+-renamedefine GDK_KEY_Cyrillic_YERU                  GDK_KEY_Cyrillic_YERU_
+-renamedefine GDK_KEY_Cyrillic_ZE                    GDK_KEY_Cyrillic_ZE_
+-renamedefine GDK_KEY_Cyrillic_SHA                   GDK_KEY_Cyrillic_SHA_
+-renamedefine GDK_KEY_Cyrillic_E                     GDK_KEY_Cyrillic_E_
+-renamedefine GDK_KEY_Cyrillic_SHCHA                 GDK_KEY_Cyrillic_SHCHA_
+-renamedefine GDK_KEY_Cyrillic_CHE                   GDK_KEY_Cyrillic_CHE_
+-renamedefine GDK_KEY_Cyrillic_HARDSIGN              GDK_KEY_Cyrillic_HARDSIGN_
+-renamedefine GDK_KEY_Greek_ALPHAaccent              GDK_KEY_Greek_ALPHAaccent_
+-renamedefine GDK_KEY_Greek_EPSILONaccent            GDK_KEY_Greek_EPSILONaccent_
+-renamedefine GDK_KEY_Greek_ETAaccent                GDK_KEY_Greek_ETAaccent_
+-renamedefine GDK_KEY_Greek_IOTAaccent               GDK_KEY_Greek_IOTAaccent_
+-renamedefine GDK_KEY_Greek_IOTAdieresis             GDK_KEY_Greek_IOTAdieresis_
+-renamedefine GDK_KEY_Greek_OMICRONaccent            GDK_KEY_Greek_OMICRONaccent_
+-renamedefine GDK_KEY_Greek_UPSILONaccent            GDK_KEY_Greek_UPSILONaccent_
+-renamedefine GDK_KEY_Greek_UPSILONdieresis          GDK_KEY_Greek_UPSILONdieresis_
+-renamedefine GDK_KEY_Greek_OMEGAaccent              GDK_KEY_Greek_OMEGAaccent_
+-renamedefine GDK_KEY_Greek_ALPHA                    GDK_KEY_Greek_ALPHA_
+-renamedefine GDK_KEY_Greek_BETA                     GDK_KEY_Greek_BETA_
+-renamedefine GDK_KEY_Greek_GAMMA                    GDK_KEY_Greek_GAMMA_
+-renamedefine GDK_KEY_Greek_DELTA                    GDK_KEY_Greek_DELTA_
+-renamedefine GDK_KEY_Greek_EPSILON                  GDK_KEY_Greek_EPSILON_
+-renamedefine GDK_KEY_Greek_ZETA                     GDK_KEY_Greek_ZETA_
+-renamedefine GDK_KEY_Greek_ETA                      GDK_KEY_Greek_ETA_
+-renamedefine GDK_KEY_Greek_THETA                    GDK_KEY_Greek_THETA_
+-renamedefine GDK_KEY_Greek_IOTA                     GDK_KEY_Greek_IOTA_
+-renamedefine GDK_KEY_Greek_KAPPA                    GDK_KEY_Greek_KAPPA_
+-renamedefine GDK_KEY_Greek_LAMDA                    GDK_KEY_Greek_LAMDA_
+-renamedefine GDK_KEY_Greek_LAMBDA                   GDK_KEY_Greek_LAMBDA_
+-renamedefine GDK_KEY_Greek_MU                       GDK_KEY_Greek_MU_
+-renamedefine GDK_KEY_Greek_NU                       GDK_KEY_Greek_NU_
+-renamedefine GDK_KEY_Greek_XI                       GDK_KEY_Greek_XI_
+-renamedefine GDK_KEY_Greek_OMICRON                  GDK_KEY_Greek_OMICRON_
+-renamedefine GDK_KEY_Greek_PI                       GDK_KEY_Greek_PI_
+-renamedefine GDK_KEY_Greek_RHO                      GDK_KEY_Greek_RHO_
+-renamedefine GDK_KEY_Greek_SIGMA                    GDK_KEY_Greek_SIGMA_
+-renamedefine GDK_KEY_Greek_TAU                      GDK_KEY_Greek_TAU_
+-renamedefine GDK_KEY_Greek_UPSILON                  GDK_KEY_Greek_UPSILON_
+-renamedefine GDK_KEY_Greek_PHI                      GDK_KEY_Greek_PHI_
+-renamedefine GDK_KEY_Greek_CHI                      GDK_KEY_Greek_CHI_
+-renamedefine GDK_KEY_Greek_PSI                      GDK_KEY_Greek_PSI_
+-renamedefine GDK_KEY_Greek_OMEGA                    GDK_KEY_Greek_OMEGA_
+-renamedefine GDK_KEY_Armenian_AYB                   GDK_KEY_Armenian_AYB_
+-renamedefine GDK_KEY_Armenian_BEN                   GDK_KEY_Armenian_BEN_
+-renamedefine GDK_KEY_Armenian_GIM                   GDK_KEY_Armenian_GIM_
+-renamedefine GDK_KEY_Armenian_DA                    GDK_KEY_Armenian_DA_
+-renamedefine GDK_KEY_Armenian_YECH                  GDK_KEY_Armenian_YECH_
+-renamedefine GDK_KEY_Armenian_ZA                    GDK_KEY_Armenian_ZA_
+-renamedefine GDK_KEY_Armenian_E                     GDK_KEY_Armenian_E_
+-renamedefine GDK_KEY_Armenian_AT                    GDK_KEY_Armenian_AT_
+-renamedefine GDK_KEY_Armenian_TO                    GDK_KEY_Armenian_TO_
+-renamedefine GDK_KEY_Armenian_ZHE                   GDK_KEY_Armenian_ZHE_
+-renamedefine GDK_KEY_Armenian_INI                   GDK_KEY_Armenian_INI_
+-renamedefine GDK_KEY_Armenian_LYUN                  GDK_KEY_Armenian_LYUN_
+-renamedefine GDK_KEY_Armenian_KHE                   GDK_KEY_Armenian_KHE_
+-renamedefine GDK_KEY_Armenian_TSA                   GDK_KEY_Armenian_TSA_
+-renamedefine GDK_KEY_Armenian_KEN                   GDK_KEY_Armenian_KEN_
+-renamedefine GDK_KEY_Armenian_HO                    GDK_KEY_Armenian_HO_
+-renamedefine GDK_KEY_Armenian_DZA                   GDK_KEY_Armenian_DZA_
+-renamedefine GDK_KEY_Armenian_GHAT                  GDK_KEY_Armenian_GHAT_
+-renamedefine GDK_KEY_Armenian_TCHE                  GDK_KEY_Armenian_TCHE_
+-renamedefine GDK_KEY_Armenian_MEN                   GDK_KEY_Armenian_MEN_
+-renamedefine GDK_KEY_Armenian_HI                    GDK_KEY_Armenian_HI_
+-renamedefine GDK_KEY_Armenian_NU                    GDK_KEY_Armenian_NU_
+-renamedefine GDK_KEY_Armenian_SHA                   GDK_KEY_Armenian_SHA_
+-renamedefine GDK_KEY_Armenian_VO                    GDK_KEY_Armenian_VO_
+-renamedefine GDK_KEY_Armenian_CHA                   GDK_KEY_Armenian_CHA_
+-renamedefine GDK_KEY_Armenian_PE                    GDK_KEY_Armenian_PE_
+-renamedefine GDK_KEY_Armenian_JE                    GDK_KEY_Armenian_JE_
+-renamedefine GDK_KEY_Armenian_RA                    GDK_KEY_Armenian_RA_
+-renamedefine GDK_KEY_Armenian_SE                    GDK_KEY_Armenian_SE_
+-renamedefine GDK_KEY_Armenian_VEV                   GDK_KEY_Armenian_VEV_
+-renamedefine GDK_KEY_Armenian_TYUN                  GDK_KEY_Armenian_TYUN_
+-renamedefine GDK_KEY_Armenian_RE                    GDK_KEY_Armenian_RE_
+-renamedefine GDK_KEY_Armenian_TSO                   GDK_KEY_Armenian_TSO_
+-renamedefine GDK_KEY_Armenian_VYUN                  GDK_KEY_Armenian_VYUN_
+-renamedefine GDK_KEY_Armenian_PYUR                  GDK_KEY_Armenian_PYUR_
+-renamedefine GDK_KEY_Armenian_KE                    GDK_KEY_Armenian_KE_
+-renamedefine GDK_KEY_Armenian_O                     GDK_KEY_Armenian_O_
+-renamedefine GDK_KEY_Armenian_FE                    GDK_KEY_Armenian_FE_
+-renamedefine GDK_KEY_Xabovedot                      GDK_KEY_Xabovedot_
+-renamedefine GDK_KEY_Ibreve                         GDK_KEY_Ibreve_
+-renamedefine GDK_KEY_Zstroke                        GDK_KEY_Zstroke_
+-renamedefine GDK_KEY_Gcaron                         GDK_KEY_Gcaron_
+-renamedefine GDK_KEY_Ocaron                         GDK_KEY_Ocaron_
+-renamedefine GDK_KEY_Obarred                        GDK_KEY_Obarred_
+-renamedefine GDK_KEY_SCHWA                          GDK_KEY_SCHWA_
+-renamedefine GDK_KEY_Lbelowdot                      GDK_KEY_Lbelowdot_
+-renamedefine GDK_KEY_Abelowdot                      GDK_KEY_Abelowdot_
+-renamedefine GDK_KEY_Ahook                          GDK_KEY_Ahook_
+-renamedefine GDK_KEY_Acircumflexacute               GDK_KEY_Acircumflexacute_
+-renamedefine GDK_KEY_Acircumflexgrave               GDK_KEY_Acircumflexgrave_
+-renamedefine GDK_KEY_Acircumflexhook                GDK_KEY_Acircumflexhook_
+-renamedefine GDK_KEY_Acircumflextilde               GDK_KEY_Acircumflextilde_
+-renamedefine GDK_KEY_Acircumflexbelowdot            GDK_KEY_Acircumflexbelowdot_
+-renamedefine GDK_KEY_Abreveacute                    GDK_KEY_Abreveacute_
+-renamedefine GDK_KEY_Abrevegrave                    GDK_KEY_Abrevegrave_
+-renamedefine GDK_KEY_Abrevehook                     GDK_KEY_Abrevehook_
+-renamedefine GDK_KEY_Abrevetilde                    GDK_KEY_Abrevetilde_
+-renamedefine GDK_KEY_Abrevebelowdot                 GDK_KEY_Abrevebelowdot_
+-renamedefine GDK_KEY_Ebelowdot                      GDK_KEY_Ebelowdot_
+-renamedefine GDK_KEY_Ehook                          GDK_KEY_Ehook_
+-renamedefine GDK_KEY_Etilde                         GDK_KEY_Etilde_
+-renamedefine GDK_KEY_Ecircumflexacute               GDK_KEY_Ecircumflexacute_
+-renamedefine GDK_KEY_Ecircumflexgrave               GDK_KEY_Ecircumflexgrave_
+-renamedefine GDK_KEY_Ecircumflexhook                GDK_KEY_Ecircumflexhook_
+-renamedefine GDK_KEY_Ecircumflextilde               GDK_KEY_Ecircumflextilde_
+-renamedefine GDK_KEY_Ecircumflexbelowdot            GDK_KEY_Ecircumflexbelowdot_
+-renamedefine GDK_KEY_Ihook                          GDK_KEY_Ihook_
+-renamedefine GDK_KEY_Ibelowdot                      GDK_KEY_Ibelowdot_
+-renamedefine GDK_KEY_Obelowdot                      GDK_KEY_Obelowdot_
+-renamedefine GDK_KEY_Ohook                          GDK_KEY_Ohook_
+-renamedefine GDK_KEY_Ocircumflexacute               GDK_KEY_Ocircumflexacute_
+-renamedefine GDK_KEY_Ocircumflexgrave               GDK_KEY_Ocircumflexgrave_
+-renamedefine GDK_KEY_Ocircumflexhook                GDK_KEY_Ocircumflexhook_
+-renamedefine GDK_KEY_Ocircumflextilde               GDK_KEY_Ocircumflextilde_
+-renamedefine GDK_KEY_Ocircumflexbelowdot            GDK_KEY_Ocircumflexbelowdot_
+-renamedefine GDK_KEY_Ohornacute                     GDK_KEY_Ohornacute_
+-renamedefine GDK_KEY_Ohorngrave                     GDK_KEY_Ohorngrave_
+-renamedefine GDK_KEY_Ohornhook                      GDK_KEY_Ohornhook_
+-renamedefine GDK_KEY_Ohorntilde                     GDK_KEY_Ohorntilde_
+-renamedefine GDK_KEY_Ohornbelowdot                  GDK_KEY_Ohornbelowdot_
+-renamedefine GDK_KEY_Ubelowdot                      GDK_KEY_Ubelowdot_
+-renamedefine GDK_KEY_Uhook                          GDK_KEY_Uhook_
+-renamedefine GDK_KEY_Uhornacute                     GDK_KEY_Uhornacute_
+-renamedefine GDK_KEY_Uhorngrave                     GDK_KEY_Uhorngrave_
+-renamedefine GDK_KEY_Uhornhook                      GDK_KEY_Uhornhook_
+-renamedefine GDK_KEY_Uhorntilde                     GDK_KEY_Uhorntilde_
+-renamedefine GDK_KEY_Uhornbelowdot                  GDK_KEY_Uhornbelowdot_
+-renamedefine GDK_KEY_Ybelowdot                      GDK_KEY_Ybelowdot_
+-renamedefine GDK_KEY_Yhook                          GDK_KEY_Yhook_
+-renamedefine GDK_KEY_Ytilde                         GDK_KEY_Ytilde_
+-renamedefine GDK_KEY_Ohorn                          GDK_KEY_Ohorn_
+-renamedefine GDK_KEY_Uhorn                          GDK_KEY_Uhorn_
+-renamedefine GDK_KEY_Ch                             GDK_KEY_Ch_
+-renamedefine GDK_KEY_CH                             GDK_KEY_CH__
+-renamedefine GDK_KEY_C_h                            GDK_KEY_C_h_
+-renamedefine GDK_KEY_C_H                            GDK_KEY_C_H__
+-renamedefine GDK_KEY_ezh                            GDK_KEY_ezh_
+
+# case-aliases
+-removedefine GDK_KEY_ETH    # = GDK_KEY_Eth
+-removedefine GDK_KEY_THORN  # = GDK_KEY_Thorn
+
+-removedefine GDK_THREADS_ENTER
+-removedefine GDK_THREADS_LEAVE
+-removedefine gtk_major_version
+-removedefine gtk_minor_version
+-removedefine gtk_micro_version
+-removedefine gtk_binary_age
+-removedefine gtk_interface_age
+
+# Field _GtkTextAppearance.rgba conflicts with FB's rgba() macro
+-rename rgba rgba_

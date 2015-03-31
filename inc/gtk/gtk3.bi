@@ -11,6 +11,14 @@
 #include once "crt/time.bi"
 #include once "crt/stdarg.bi"
 
+'' The following symbols have been renamed:
+''     procedure gtk_check_version => gtk_check_version_
+''     #ifdef __FB_WIN32__
+''         procedure gtk_init => gtk_init_
+''         procedure gtk_init_check => gtk_init_check_
+''     #endif
+''     #define GTK_STOCK_ADD => GTK_STOCK_ADD_
+
 extern "C"
 
 #define __GTK_H__
@@ -2446,7 +2454,7 @@ type _GtkTextAppearance
 	draw_bg : 1 as guint
 	inside_selection : 1 as guint
 	is_text : 1 as guint
-	rgba(0 to 1) as GdkRGBA ptr
+	rgba_(0 to 1) as GdkRGBA ptr
 
 	#ifndef __FB_64BIT__
 		padding(0 to 1) as guint
@@ -4420,7 +4428,7 @@ declare sub gtk_cell_view_set_model(byval cell_view as GtkCellView ptr, byval mo
 declare function gtk_cell_view_get_model(byval cell_view as GtkCellView ptr) as GtkTreeModel ptr
 declare sub gtk_cell_view_set_displayed_row(byval cell_view as GtkCellView ptr, byval path as GtkTreePath ptr)
 declare function gtk_cell_view_get_displayed_row(byval cell_view as GtkCellView ptr) as GtkTreePath ptr
-declare sub gtk_cell_view_set_background_rgba(byval cell_view as GtkCellView ptr, byval rgba as const GdkRGBA ptr)
+declare sub gtk_cell_view_set_background_rgba(byval cell_view as GtkCellView ptr, byval rgba_ as const GdkRGBA ptr)
 declare function gtk_cell_view_get_draw_sensitive(byval cell_view as GtkCellView ptr) as gboolean
 declare sub gtk_cell_view_set_draw_sensitive(byval cell_view as GtkCellView ptr, byval draw_sensitive as gboolean)
 declare function gtk_cell_view_get_fit_model(byval cell_view as GtkCellView ptr) as gboolean
@@ -4666,7 +4674,7 @@ end type
 
 declare function gtk_color_button_get_type() as GType
 declare function gtk_color_button_new() as GtkWidget ptr
-declare function gtk_color_button_new_with_rgba(byval rgba as const GdkRGBA ptr) as GtkWidget ptr
+declare function gtk_color_button_new_with_rgba(byval rgba_ as const GdkRGBA ptr) as GtkWidget ptr
 declare sub gtk_color_button_set_title(byval button as GtkColorButton ptr, byval title as const zstring ptr)
 declare function gtk_color_button_get_title(byval button as GtkColorButton ptr) as const zstring ptr
 declare function gtk_color_button_new_with_color(byval color as const GdkColor ptr) as GtkWidget ptr
@@ -4676,8 +4684,8 @@ declare sub gtk_color_button_set_alpha(byval button as GtkColorButton ptr, byval
 declare function gtk_color_button_get_alpha(byval button as GtkColorButton ptr) as guint16
 declare sub gtk_color_button_set_use_alpha(byval button as GtkColorButton ptr, byval use_alpha as gboolean)
 declare function gtk_color_button_get_use_alpha(byval button as GtkColorButton ptr) as gboolean
-declare sub gtk_color_button_set_rgba(byval button as GtkColorButton ptr, byval rgba as const GdkRGBA ptr)
-declare sub gtk_color_button_get_rgba(byval button as GtkColorButton ptr, byval rgba as GdkRGBA ptr)
+declare sub gtk_color_button_set_rgba(byval button as GtkColorButton ptr, byval rgba_ as const GdkRGBA ptr)
+declare sub gtk_color_button_get_rgba(byval button as GtkColorButton ptr, byval rgba_ as GdkRGBA ptr)
 
 #define __GTK_COLOR_CHOOSER_H__
 #define GTK_TYPE_COLOR_CHOOSER gtk_color_chooser_get_type()
@@ -6715,17 +6723,17 @@ declare function gtk_get_minor_version() as guint
 declare function gtk_get_micro_version() as guint
 declare function gtk_get_binary_age() as guint
 declare function gtk_get_interface_age() as guint
-
-#define gtk_major_version gtk_get_major_version()
-#define gtk_minor_version gtk_get_minor_version()
-#define gtk_micro_version gtk_get_micro_version()
-#define gtk_binary_age gtk_get_binary_age()
-#define gtk_interface_age gtk_get_interface_age()
-
-declare function gtk_check_version(byval required_major as guint, byval required_minor as guint, byval required_micro as guint) as const zstring ptr
+declare function gtk_check_version_ alias "gtk_check_version"(byval required_major as guint, byval required_minor as guint, byval required_micro as guint) as const zstring ptr
 declare function gtk_parse_args(byval argc as long ptr, byval argv as zstring ptr ptr ptr) as gboolean
-declare sub gtk_init(byval argc as long ptr, byval argv as zstring ptr ptr ptr)
-declare function gtk_init_check(byval argc as long ptr, byval argv as zstring ptr ptr ptr) as gboolean
+
+#ifdef __FB_WIN32__
+	declare sub gtk_init_ alias "gtk_init"(byval argc as long ptr, byval argv as zstring ptr ptr ptr)
+	declare function gtk_init_check_ alias "gtk_init_check"(byval argc as long ptr, byval argv as zstring ptr ptr ptr) as gboolean
+#else
+	declare sub gtk_init(byval argc as long ptr, byval argv as zstring ptr ptr ptr)
+	declare function gtk_init_check(byval argc as long ptr, byval argv as zstring ptr ptr ptr) as gboolean
+#endif
+
 declare function gtk_init_with_args(byval argc as gint ptr, byval argv as zstring ptr ptr ptr, byval parameter_string as const zstring ptr, byval entries as const GOptionEntry ptr, byval translation_domain as const zstring ptr, byval error as GError ptr ptr) as gboolean
 declare function gtk_get_option_group(byval open_default_display as gboolean) as GOptionGroup ptr
 
@@ -10173,7 +10181,7 @@ declare sub gtk_stock_set_translate_func(byval domain as const zstring ptr, byva
 '' TODO: __attribute__((__deprecated__))typedef char * GtkStock;
 
 #define GTK_STOCK_ABOUT '' TODO: ((GtkStock)"gtk-about")
-#define GTK_STOCK_ADD '' TODO: ((GtkStock)"gtk-add")
+#define GTK_STOCK_ADD_ '' TODO: ((GtkStock)"gtk-add")
 #define GTK_STOCK_APPLY '' TODO: ((GtkStock)"gtk-apply")
 #define GTK_STOCK_BOLD '' TODO: ((GtkStock)"gtk-bold")
 #define GTK_STOCK_CANCEL '' TODO: ((GtkStock)"gtk-cancel")
@@ -10430,10 +10438,10 @@ declare sub gtk_color_selection_set_current_alpha(byval colorsel as GtkColorSele
 declare function gtk_color_selection_get_current_alpha(byval colorsel as GtkColorSelection ptr) as guint16
 declare sub gtk_color_selection_set_previous_alpha(byval colorsel as GtkColorSelection ptr, byval alpha as guint16)
 declare function gtk_color_selection_get_previous_alpha(byval colorsel as GtkColorSelection ptr) as guint16
-declare sub gtk_color_selection_set_current_rgba(byval colorsel as GtkColorSelection ptr, byval rgba as const GdkRGBA ptr)
-declare sub gtk_color_selection_get_current_rgba(byval colorsel as GtkColorSelection ptr, byval rgba as GdkRGBA ptr)
-declare sub gtk_color_selection_set_previous_rgba(byval colorsel as GtkColorSelection ptr, byval rgba as const GdkRGBA ptr)
-declare sub gtk_color_selection_get_previous_rgba(byval colorsel as GtkColorSelection ptr, byval rgba as GdkRGBA ptr)
+declare sub gtk_color_selection_set_current_rgba(byval colorsel as GtkColorSelection ptr, byval rgba_ as const GdkRGBA ptr)
+declare sub gtk_color_selection_get_current_rgba(byval colorsel as GtkColorSelection ptr, byval rgba_ as GdkRGBA ptr)
+declare sub gtk_color_selection_set_previous_rgba(byval colorsel as GtkColorSelection ptr, byval rgba_ as const GdkRGBA ptr)
+declare sub gtk_color_selection_get_previous_rgba(byval colorsel as GtkColorSelection ptr, byval rgba_ as GdkRGBA ptr)
 declare function gtk_color_selection_is_adjusting(byval colorsel as GtkColorSelection ptr) as gboolean
 declare function gtk_color_selection_palette_from_string(byval str as const zstring ptr, byval colors as GdkColor ptr ptr, byval n_colors as gint ptr) as gboolean
 declare function gtk_color_selection_palette_to_string(byval colors as const GdkColor ptr, byval n_colors as gint) as zstring ptr
@@ -11409,8 +11417,10 @@ declare function gtk_tearoff_menu_item_new() as GtkWidget ptr
 #define GTK_IS_THEMING_ENGINE(o) G_TYPE_CHECK_INSTANCE_TYPE((o), GTK_TYPE_THEMING_ENGINE)
 #define GTK_IS_THEMING_ENGINE_CLASS(c) G_TYPE_CHECK_CLASS_TYPE((c), GTK_TYPE_THEMING_ENGINE)
 #define GTK_THEMING_ENGINE_GET_CLASS(o) G_TYPE_INSTANCE_GET_CLASS((o), GTK_TYPE_THEMING_ENGINE, GtkThemingEngineClass)
+
 type GtkThemingEngine as _GtkThemingEngine
 type GtkThemingEngineClass as _GtkThemingEngineClass
+type GtkThemingEnginePrivate as GtkThemingEnginePrivate_
 
 type _GtkThemingEngine
 	parent_object as GObject
