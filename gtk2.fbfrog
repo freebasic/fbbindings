@@ -1,4 +1,7 @@
+-replacements gtk2.replacements
+
 -removedefine GDKVAR
+-removedefine GTKVAR
 -removedefine GTKMAIN_C_VAR
 
 -removeinclude gdkconfig.h

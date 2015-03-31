@@ -1,0 +1,2 @@
+convert c: __attribute__((__deprecated__)) typedef char * GtkStock;
+to c:                                      typedef char * GtkStock;
