@@ -434,9 +434,11 @@ glib: glib-extract
 		-incdir extracted/$(GLIB)/glib \
 		-include glib/glib.h \
 		-include glib/glib-object.h \
+		-include gmodule/gmodule.h \
 		-emit '*/extracted/$(GLIB)/glib/glib-object.h' inc/glib-object.bi \
 		-emit '*/extracted/$(GLIB)/gobject/*.h'        inc/glib-object.bi \
 		-emit '*/extracted/$(GLIB)/glib/glibconfig.h'  inc/glibconfig.bi \
+		-emit '*/extracted/$(GLIB)/gmodule/gmodule.h'  inc/gmodule.bi \
 		-emit '*/extracted/$(GLIB)/glib/*.h'           inc/glib.bi
 
 GLIBC := glibc-2.21
