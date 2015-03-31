@@ -1,6 +1,8 @@
 nodos.fbfrog
 
--removedefine GDKVAR
--removedefine GTKMAIN_C_VAR
+-ifdef __FB_WIN32__
+	-renameproc gtk_init gtk_init_
+	-renameproc gtk_init_check gtk_init_check_
+-endif
 
--removeinclude gdkconfig.h
+-renameproc gtk_check_version gtk_check_version_
