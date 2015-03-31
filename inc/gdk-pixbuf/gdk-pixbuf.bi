@@ -6,6 +6,9 @@
 #include once "crt/stdio.bi"
 #include once "gmodule.bi"
 
+'' The following symbols have been renamed:
+''     #define GDK_PIXBUF_VERSION => GDK_PIXBUF_VERSION_
+
 extern "C"
 
 #define GDK_PIXBUF_H
@@ -13,7 +16,7 @@ const GDK_PIXBUF_FEATURES_H = 1
 const GDK_PIXBUF_MAJOR = 2
 const GDK_PIXBUF_MINOR = 30
 const GDK_PIXBUF_MICRO = 8
-#define GDK_PIXBUF_VERSION "2.30.8"
+#define GDK_PIXBUF_VERSION_ "2.30.8"
 
 #if (defined(__FB_WIN32__) and defined(GDK_PIXBUF_STATIC_COMPILATION)) or defined(__FB_LINUX__)
 	extern gdk_pixbuf_major_version as const guint
