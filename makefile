@@ -442,16 +442,20 @@ glib-extract:
 	sed $(SED_GLIBCONFIG) < glibconfig.h > extracted/$(GLIB)/glib/glibconfig.h
 
 glib: glib-extract
+	mkdir -p inc/gio
 	$(FBFROG) glib.fbfrog \
 		-incdir extracted/$(GLIB) \
 		-incdir extracted/$(GLIB)/glib \
+		-incdir extracted/$(GLIB)/gmodule \
 		-include glib/glib.h \
 		-include glib/glib-object.h \
-		-include gmodule/gmodule.h \
+		-include gmodule.h \
+		-include gio/gio.h \
 		-emit '*/extracted/$(GLIB)/glib/glib-object.h' inc/glib-object.bi \
 		-emit '*/extracted/$(GLIB)/gobject/*.h'        inc/glib-object.bi \
 		-emit '*/extracted/$(GLIB)/glib/glibconfig.h'  inc/glibconfig.bi \
 		-emit '*/extracted/$(GLIB)/gmodule/gmodule.h'  inc/gmodule.bi \
+		-emit '*/extracted/$(GLIB)/gio/*'              inc/gio/gio.bi \
 		-emit '*/extracted/$(GLIB)/glib/*.h'           inc/glib.bi
 
 GLIBC := glibc-2.21
