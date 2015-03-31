@@ -1,5 +1,9 @@
 #pragma once
 
+#ifndef __FB_UNIX__
+	#error "target not supported; this header is for GNU/Linux glibc"
+#endif
+
 #include once "crt/long.bi"
 #include once "crt/bits/wordsize.bi"
 
