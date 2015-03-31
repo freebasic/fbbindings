@@ -9,6 +9,13 @@
 #include once "gdk-pixbuf/gdk-pixbuf.bi"
 #include once "pango/pangocairo.bi"
 
+'' The following symbols have been renamed:
+''     procedure gdk_drag_status => gdk_drag_status_
+''     procedure gdk_drag_motion => gdk_drag_motion_
+''     procedure gdk_property_delete => gdk_property_delete_
+''     procedure gdk_threads_enter => gdk_threads_enter_
+''     procedure gdk_threads_leave => gdk_threads_leave_
+
 extern "C"
 
 #define __GDK_H__
@@ -258,7 +265,7 @@ declare function gdk_drag_context_get_dest_window(byval context as GdkDragContex
 declare function gdk_drag_context_get_protocol(byval context as GdkDragContext ptr) as GdkDragProtocol
 declare sub gdk_drag_context_ref(byval context as GdkDragContext ptr)
 declare sub gdk_drag_context_unref(byval context as GdkDragContext ptr)
-declare sub gdk_drag_status(byval context as GdkDragContext ptr, byval action as GdkDragAction, byval time_ as guint32)
+declare sub gdk_drag_status_ alias "gdk_drag_status"(byval context as GdkDragContext ptr, byval action as GdkDragAction, byval time_ as guint32)
 declare sub gdk_drop_reply(byval context as GdkDragContext ptr, byval ok as gboolean, byval time_ as guint32)
 declare sub gdk_drop_finish(byval context as GdkDragContext ptr, byval success as gboolean, byval time_ as guint32)
 declare function gdk_drag_get_selection(byval context as GdkDragContext ptr) as GdkAtom
@@ -267,7 +274,7 @@ declare function gdk_drag_get_protocol_for_display(byval display as GdkDisplay p
 declare sub gdk_drag_find_window_for_screen(byval context as GdkDragContext ptr, byval drag_window as GdkWindow ptr, byval screen as GdkScreen ptr, byval x_root as gint, byval y_root as gint, byval dest_window as GdkWindow ptr ptr, byval protocol as GdkDragProtocol ptr)
 declare function gdk_drag_get_protocol(byval xid as GdkNativeWindow, byval protocol as GdkDragProtocol ptr) as GdkNativeWindow
 declare sub gdk_drag_find_window(byval context as GdkDragContext ptr, byval drag_window as GdkWindow ptr, byval x_root as gint, byval y_root as gint, byval dest_window as GdkWindow ptr ptr, byval protocol as GdkDragProtocol ptr)
-declare function gdk_drag_motion(byval context as GdkDragContext ptr, byval dest_window as GdkWindow ptr, byval protocol as GdkDragProtocol, byval x_root as gint, byval y_root as gint, byval suggested_action as GdkDragAction, byval possible_actions as GdkDragAction, byval time_ as guint32) as gboolean
+declare function gdk_drag_motion_ alias "gdk_drag_motion"(byval context as GdkDragContext ptr, byval dest_window as GdkWindow ptr, byval protocol as GdkDragProtocol, byval x_root as gint, byval y_root as gint, byval suggested_action as GdkDragAction, byval possible_actions as GdkDragAction, byval time_ as guint32) as gboolean
 declare sub gdk_drag_drop(byval context as GdkDragContext ptr, byval time_ as guint32)
 declare sub gdk_drag_abort(byval context as GdkDragContext ptr, byval time_ as guint32)
 declare function gdk_drag_drop_succeeded(byval context as GdkDragContext ptr) as gboolean
@@ -969,6 +976,7 @@ declare function gdk_screen_get_window_stack(byval screen as GdkScreen ptr) as G
 #define GDK_IS_APP_LAUNCH_CONTEXT(o) G_TYPE_CHECK_INSTANCE_TYPE((o), GDK_TYPE_APP_LAUNCH_CONTEXT)
 #define GDK_IS_APP_LAUNCH_CONTEXT_CLASS(k) G_TYPE_CHECK_CLASS_TYPE((k), GDK_TYPE_APP_LAUNCH_CONTEXT)
 #define GDK_APP_LAUNCH_CONTEXT_GET_CLASS(o) G_TYPE_INSTANCE_GET_CLASS((o), GDK_TYPE_APP_LAUNCH_CONTEXT, GdkAppLaunchContextClass)
+type GdkAppLaunchContextPrivate as GdkAppLaunchContextPrivate_
 
 type GdkAppLaunchContext
 	parent_instance as GAppLaunchContext
@@ -1789,7 +1797,7 @@ declare function gdk_atom_intern_static_string(byval atom_name as const zstring 
 declare function gdk_atom_name(byval atom as GdkAtom) as zstring ptr
 declare function gdk_property_get(byval window as GdkWindow ptr, byval property as GdkAtom, byval type as GdkAtom, byval offset as gulong, byval length as gulong, byval pdelete as gint, byval actual_property_type as GdkAtom ptr, byval actual_format as gint ptr, byval actual_length as gint ptr, byval data as guchar ptr ptr) as gboolean
 declare sub gdk_property_change(byval window as GdkWindow ptr, byval property as GdkAtom, byval type as GdkAtom, byval format as gint, byval mode as GdkPropMode, byval data as const guchar ptr, byval nelements as gint)
-declare sub gdk_property_delete(byval window as GdkWindow ptr, byval property as GdkAtom)
+declare sub gdk_property_delete_ alias "gdk_property_delete"(byval window as GdkWindow ptr, byval property as GdkAtom)
 declare function gdk_text_property_to_text_list(byval encoding as GdkAtom, byval format as gint, byval text as const guchar ptr, byval length as gint, byval list as zstring ptr ptr ptr) as gint
 declare function gdk_utf8_to_compound_text(byval str as const zstring ptr, byval encoding as GdkAtom ptr, byval format as gint ptr, byval ctext as guchar ptr ptr, byval length as gint ptr) as gboolean
 declare function gdk_string_to_compound_text(byval str as const zstring ptr, byval encoding as GdkAtom ptr, byval format as gint ptr, byval ctext as guchar ptr ptr, byval length as gint ptr) as gint
@@ -2349,8 +2357,8 @@ declare sub gdk_notify_startup_complete_with_id(byval startup_id as const zstrin
 	extern gdk_threads_unlock as GCallback
 #endif
 
-declare sub gdk_threads_enter()
-declare sub gdk_threads_leave()
+declare sub gdk_threads_enter_ alias "gdk_threads_enter"()
+declare sub gdk_threads_leave_ alias "gdk_threads_leave"()
 declare sub gdk_threads_init()
 declare sub gdk_threads_set_lock_functions(byval enter_fn as GCallback, byval leave_fn as GCallback)
 declare function gdk_threads_add_idle_full(byval priority as gint, byval function as GSourceFunc, byval data as gpointer, byval notify as GDestroyNotify) as guint

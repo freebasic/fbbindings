@@ -11,6 +11,19 @@
 #include once "crt/time.bi"
 #include once "crt/stdarg.bi"
 
+'' The following symbols have been renamed:
+''     procedure gtk_widget_has_focus => gtk_widget_has_focus_
+''     procedure gtk_widget_has_default => gtk_widget_has_default_
+''     procedure gtk_widget_has_grab => gtk_widget_has_grab_
+''     procedure gtk_widget_is_sensitive => gtk_widget_is_sensitive_
+''     variable gtk_major_version => gtk_major_version_
+''     variable gtk_minor_version => gtk_minor_version_
+''     variable gtk_micro_version => gtk_micro_version_
+''     variable gtk_binary_age => gtk_binary_age_
+''     variable gtk_interface_age => gtk_interface_age_
+''     procedure gtk_check_version => gtk_check_version_
+''     procedure gtk_stock_add => gtk_stock_add_
+
 extern "C"
 
 #define __GTK_H__
@@ -1729,23 +1742,23 @@ declare sub gtk_widget_child_notify(byval widget as GtkWidget ptr, byval child_p
 declare sub gtk_widget_thaw_child_notify(byval widget as GtkWidget ptr)
 declare sub gtk_widget_set_can_focus(byval widget as GtkWidget ptr, byval can_focus as gboolean)
 declare function gtk_widget_get_can_focus(byval widget as GtkWidget ptr) as gboolean
-declare function gtk_widget_has_focus(byval widget as GtkWidget ptr) as gboolean
+declare function gtk_widget_has_focus_ alias "gtk_widget_has_focus"(byval widget as GtkWidget ptr) as gboolean
 declare function gtk_widget_is_focus(byval widget as GtkWidget ptr) as gboolean
 declare sub gtk_widget_grab_focus(byval widget as GtkWidget ptr)
 declare sub gtk_widget_set_can_default(byval widget as GtkWidget ptr, byval can_default as gboolean)
 declare function gtk_widget_get_can_default(byval widget as GtkWidget ptr) as gboolean
-declare function gtk_widget_has_default(byval widget as GtkWidget ptr) as gboolean
+declare function gtk_widget_has_default_ alias "gtk_widget_has_default"(byval widget as GtkWidget ptr) as gboolean
 declare sub gtk_widget_grab_default(byval widget as GtkWidget ptr)
 declare sub gtk_widget_set_receives_default(byval widget as GtkWidget ptr, byval receives_default as gboolean)
 declare function gtk_widget_get_receives_default(byval widget as GtkWidget ptr) as gboolean
-declare function gtk_widget_has_grab(byval widget as GtkWidget ptr) as gboolean
+declare function gtk_widget_has_grab_ alias "gtk_widget_has_grab"(byval widget as GtkWidget ptr) as gboolean
 declare sub gtk_widget_set_name(byval widget as GtkWidget ptr, byval name as const zstring ptr)
 declare function gtk_widget_get_name(byval widget as GtkWidget ptr) as const zstring ptr
 declare sub gtk_widget_set_state(byval widget as GtkWidget ptr, byval state as GtkStateType)
 declare function gtk_widget_get_state(byval widget as GtkWidget ptr) as GtkStateType
 declare sub gtk_widget_set_sensitive(byval widget as GtkWidget ptr, byval sensitive as gboolean)
 declare function gtk_widget_get_sensitive(byval widget as GtkWidget ptr) as gboolean
-declare function gtk_widget_is_sensitive(byval widget as GtkWidget ptr) as gboolean
+declare function gtk_widget_is_sensitive_ alias "gtk_widget_is_sensitive"(byval widget as GtkWidget ptr) as gboolean
 declare sub gtk_widget_set_visible(byval widget as GtkWidget ptr, byval visible as gboolean)
 declare function gtk_widget_get_visible(byval widget as GtkWidget ptr) as gboolean
 declare sub gtk_widget_set_has_window(byval widget as GtkWidget ptr, byval has_window as gboolean)
@@ -7602,22 +7615,20 @@ declare sub gtk_link_button_set_visited(byval link_button as GtkLinkButton ptr, 
 type GtkKeySnoopFunc as function(byval grab_widget as GtkWidget ptr, byval event as GdkEventKey ptr, byval func_data as gpointer) as gint
 
 #ifdef __FB_WIN32__
-	#define GTKMAIN_C_VAR '' TODO: extern __declspec(dllimport)
-	extern import gtk_major_version as const guint
-	extern import gtk_minor_version as const guint
-	extern import gtk_micro_version as const guint
-	extern import gtk_binary_age as const guint
-	extern import gtk_interface_age as const guint
+	extern import gtk_major_version_ alias "gtk_major_version" as const guint
+	extern import gtk_minor_version_ alias "gtk_minor_version" as const guint
+	extern import gtk_micro_version_ alias "gtk_micro_version" as const guint
+	extern import gtk_binary_age_ alias "gtk_binary_age" as const guint
+	extern import gtk_interface_age_ alias "gtk_interface_age" as const guint
 #else
-	#define GTKMAIN_C_VAR '' TODO: extern
-	extern gtk_major_version as const guint
-	extern gtk_minor_version as const guint
-	extern gtk_micro_version as const guint
-	extern gtk_binary_age as const guint
-	extern gtk_interface_age as const guint
+	extern gtk_major_version_ alias "gtk_major_version" as const guint
+	extern gtk_minor_version_ alias "gtk_minor_version" as const guint
+	extern gtk_micro_version_ alias "gtk_micro_version" as const guint
+	extern gtk_binary_age_ alias "gtk_binary_age" as const guint
+	extern gtk_interface_age_ alias "gtk_interface_age" as const guint
 #endif
 
-declare function gtk_check_version(byval required_major as guint, byval required_minor as guint, byval required_micro as guint) as const zstring ptr
+declare function gtk_check_version_ alias "gtk_check_version"(byval required_major as guint, byval required_minor as guint, byval required_micro as guint) as const zstring ptr
 declare function gtk_parse_args(byval argc as long ptr, byval argv as zstring ptr ptr ptr) as gboolean
 declare sub gtk_init(byval argc as long ptr, byval argv as zstring ptr ptr ptr)
 declare function gtk_init_check(byval argc as long ptr, byval argv as zstring ptr ptr ptr) as gboolean
@@ -9697,7 +9708,7 @@ type _GtkStockItem
 	translation_domain as zstring ptr
 end type
 
-declare sub gtk_stock_add(byval items as const GtkStockItem ptr, byval n_items as guint)
+declare sub gtk_stock_add_ alias "gtk_stock_add"(byval items as const GtkStockItem ptr, byval n_items as guint)
 declare sub gtk_stock_add_static(byval items as const GtkStockItem ptr, byval n_items as guint)
 declare function gtk_stock_lookup(byval stock_id as const zstring ptr, byval item as GtkStockItem ptr) as gboolean
 declare function gtk_stock_list_ids() as GSList ptr
@@ -10137,6 +10148,7 @@ type GtkTextView as _GtkTextView
 type GtkTextViewClass as _GtkTextViewClass
 type GtkTextWindow as _GtkTextWindow
 type GtkTextPendingScroll as _GtkTextPendingScroll
+type _GtkTextLayout as _GtkTextLayout_
 
 type _GtkTextView
 	parent_instance as GtkContainer
