@@ -5,7 +5,7 @@
 #include once "gio/gio.bi"
 #include once "pango/pango.bi"
 #include once "glib-object.bi"
-#include once "cairo.bi"
+#include once "cairo/cairo.bi"
 #include once "gdk-pixbuf/gdk-pixbuf.bi"
 #include once "pango/pangocairo.bi"
 
