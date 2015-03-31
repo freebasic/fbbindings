@@ -3,7 +3,7 @@ FBFROG := fbfrog
 ALL := allegro4 allegro5 atk
 ALL += cairo cgui clang cunit curl
 ALL += fastcgi ffi fontconfig freeglut freetype
-ALL += gdkpixbuf glib glibc glfw glut gtk
+ALL += gdkpixbuf glib glibc glfw glut gtk gtk2 gtk3
 ALL += iconv iup
 ALL += jit
 ALL += llvm lua
@@ -139,9 +139,10 @@ allegro5:
 
 ATK_SERIES := 2.14
 ATK := atk-$(ATK_SERIES).0
-atk: glib-extract
+atk-extract:
 	./get.sh $(ATK) $(ATK).tar.xz http://ftp.gnome.org/pub/gnome/sources/atk/$(ATK_SERIES)/$(ATK).tar.xz
 
+atk: glib-extract
 	mkdir -p inc/atk
 	$(FBFROG) atk.fbfrog \
 		-incdir extracted/$(ATK) \
@@ -494,16 +495,36 @@ glut:
 			-inclib glut \
 		-endselect
 
-GTK_SERIES := 3.14
-GTK := gtk+-$(GTK_SERIES).10
-gtk:
-	./get.sh $(GTK) $(GTK).tar.xz http://ftp.gnome.org/pub/gnome/sources/gtk+/$(GTK_SERIES)/$(GTK).tar.xz
-	http://ftp.gnome.org/pub/gnome/sources/gtk+/2.24/gtk+-2.24.27.tar.xz
+gtk: gtk2 gtk3
 
+GTK2_SERIES := 2.24
+GTK2 := gtk+-$(GTK2_SERIES).27
+gtk2: glib-extract cairo-extract pango-extract atk-extract gdkpixbuf-extract
+	./get.sh $(GTK2) $(GTK2).tar.xz http://ftp.gnome.org/pub/gnome/sources/gtk+/$(GTK2_SERIES)/$(GTK2).tar.xz
+
+	mkdir -p inc/gtk inc/gdk
+	$(FBFROG) gtk.fbfrog gtk2.fbfrog \
+		-incdir extracted/$(GTK2) \
+		-incdir extracted/$(PANGO) \
+		-incdir extracted/$(CAIRO)/src \
+		-incdir extracted/$(GDKPIXBUF) \
+		-incdir extracted/$(ATK) \
+		-incdir extracted/$(GLIB) \
+		-incdir extracted/$(GLIB)/glib \
+		-incdir extracted/$(GLIB)/gmodule \
+		-include gtk/gtk.h \
+		-emit '*/extracted/$(GTK2)/gdk/*' inc/gdk/gdk2.bi \
+		-emit '*/extracted/$(GTK2)/gtk/*' inc/gtk/gtk2.bi
+
+GTK3_SERIES := 3.14
+GTK3 := gtk+-$(GTK3_SERIES).10
+gtk3:
+	./get.sh $(GTK3) $(GTK3).tar.xz http://ftp.gnome.org/pub/gnome/sources/gtk+/$(GTK3_SERIES)/$(GTK3).tar.xz
+
+	mkdir -p inc/gtk
 	$(FBFROG) \
-		extracted/$(GTK)/gtk/gtk.h \
-		-emit '*/gtk.h' inc/gtk/gtk.bi
-		#-emit '*/atk.h' inc/atk/atk.bi
+		extracted/$(GTK3)/gtk/gtk.h \
+		-emit '*/gtk.h' inc/gtk/gtk3.bi
 
 # GNU libiconv, not glibc's iconv
 ICONV := libiconv-1.14
@@ -738,9 +759,10 @@ opengl-winapi: winapi-extract
 
 PANGO_SERIES := 1.36
 PANGO := pango-$(PANGO_SERIES).8
-pango: glib-extract cairo-extract
+pango-extract:
 	./get.sh $(PANGO) $(PANGO).tar.xz http://ftp.gnome.org/pub/gnome/sources/pango/$(PANGO_SERIES)/$(PANGO).tar.xz
 
+pango: glib-extract cairo-extract
 	mkdir -p inc/pango
 	$(FBFROG) pango.fbfrog \
 		-incdir extracted/$(CAIRO)/src \
