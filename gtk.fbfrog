@@ -1,3 +1,4 @@
 nodos.fbfrog
 
 -removedefine GDKVAR
+-removeinclude gdkconfig.h
