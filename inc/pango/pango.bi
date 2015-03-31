@@ -4,6 +4,12 @@
 #include once "glib-object.bi"
 #include once "crt/stdio.bi"
 
+'' The following symbols have been renamed:
+''     procedure pango_language_to_string => pango_language_to_string_
+''     procedure pango_version => pango_version_
+''     procedure pango_version_string => pango_version_string_
+''     procedure pango_version_check => pango_version_check_
+
 extern "C"
 
 #define __PANGO_H__
@@ -211,7 +217,7 @@ type PangoLanguage as _PangoLanguage
 #define PANGO_TYPE_LANGUAGE pango_language_get_type()
 declare function pango_language_get_type() as GType
 declare function pango_language_from_string(byval language as const zstring ptr) as PangoLanguage ptr
-declare function pango_language_to_string(byval language as PangoLanguage ptr) as const zstring ptr
+declare function pango_language_to_string_ alias "pango_language_to_string"(byval language as PangoLanguage ptr) as const zstring ptr
 #define pango_language_to_string(language) cptr(const zstring ptr, language)
 declare function pango_language_get_sample_string(byval language as PangoLanguage ptr) as const zstring ptr
 declare function pango_language_get_default() as PangoLanguage ptr
@@ -1074,8 +1080,8 @@ declare function pango_is_zero_width(byval ch as gunichar) as gboolean
 #define PANGO_VERSION PANGO_VERSION_ENCODE(PANGO_VERSION_MAJOR, PANGO_VERSION_MINOR, PANGO_VERSION_MICRO)
 #define PANGO_VERSION_CHECK(major, minor, micro) (PANGO_VERSION >= PANGO_VERSION_ENCODE(major, minor, micro))
 
-declare function pango_version() as long
-declare function pango_version_string() as const zstring ptr
-declare function pango_version_check(byval required_major as long, byval required_minor as long, byval required_micro as long) as const zstring ptr
+declare function pango_version_ alias "pango_version"() as long
+declare function pango_version_string_ alias "pango_version_string"() as const zstring ptr
+declare function pango_version_check_ alias "pango_version_check"(byval required_major as long, byval required_minor as long, byval required_micro as long) as const zstring ptr
 
 end extern
