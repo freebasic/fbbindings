@@ -1,5 +1,7 @@
 #pragma once
 
+#inclib "gmodule-2.0"
+
 #include once "glib.bi"
 
 #ifdef __FB_WIN32__

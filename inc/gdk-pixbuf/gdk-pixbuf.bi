@@ -1,5 +1,7 @@
 #pragma once
 
+#inclib "gdk_pixbuf-2.0"
+
 #include once "glib.bi"
 #include once "glib-object.bi"
 #include once "gio/gio.bi"

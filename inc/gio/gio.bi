@@ -1,5 +1,7 @@
 #pragma once
 
+#inclib "gio-2.0"
+
 #include once "glib-object.bi"
 
 #ifdef __FB_LINUX__

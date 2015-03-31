@@ -1,5 +1,7 @@
 #pragma once
 
+#inclib "pango-1.0"
+
 #include once "glib.bi"
 #include once "glib-object.bi"
 #include once "crt/stdio.bi"

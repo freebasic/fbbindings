@@ -1,5 +1,11 @@
 #pragma once
 
+#ifdef __FB_WIN32__
+	#inclib "gtk-win32-2.0"
+#else
+	#inclib "gtk-x11-2.0"
+#endif
+
 #include once "gdk/gdk.bi"
 #include once "glib-object.bi"
 #include once "glib.bi"
