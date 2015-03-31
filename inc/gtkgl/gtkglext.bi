@@ -14,6 +14,13 @@
 #pragma push(msbitfields)
 #endif
 
+'' The following symbols have been renamed:
+''     variable gtkglext_major_version => gtkglext_major_version_
+''     variable gtkglext_minor_version => gtkglext_minor_version_
+''     variable gtkglext_micro_version => gtkglext_micro_version_
+''     variable gtkglext_interface_age => gtkglext_interface_age_
+''     variable gtkglext_binary_age => gtkglext_binary_age_
+
 extern "C"
 
 #define __GTK_GL_H__
@@ -27,17 +34,17 @@ const GTKGLEXT_BINARY_AGE = 0
 #define GTKGLEXT_CHECK_VERSION(major, minor, micro) (((GTKGLEXT_MAJOR_VERSION > (major)) orelse ((GTKGLEXT_MAJOR_VERSION = (major)) andalso (GTKGLEXT_MINOR_VERSION > (minor)))) orelse (((GTKGLEXT_MAJOR_VERSION = (major)) andalso (GTKGLEXT_MINOR_VERSION = (minor))) andalso (GTKGLEXT_MICRO_VERSION >= (micro))))
 
 #ifdef __FB_WIN32__
-	extern import gtkglext_major_version as const guint
-	extern import gtkglext_minor_version as const guint
-	extern import gtkglext_micro_version as const guint
-	extern import gtkglext_interface_age as const guint
-	extern import gtkglext_binary_age as const guint
+	extern import gtkglext_major_version_ alias "gtkglext_major_version" as const guint
+	extern import gtkglext_minor_version_ alias "gtkglext_minor_version" as const guint
+	extern import gtkglext_micro_version_ alias "gtkglext_micro_version" as const guint
+	extern import gtkglext_interface_age_ alias "gtkglext_interface_age" as const guint
+	extern import gtkglext_binary_age_ alias "gtkglext_binary_age" as const guint
 #else
-	extern gtkglext_major_version as const guint
-	extern gtkglext_minor_version as const guint
-	extern gtkglext_micro_version as const guint
-	extern gtkglext_interface_age as const guint
-	extern gtkglext_binary_age as const guint
+	extern gtkglext_major_version_ alias "gtkglext_major_version" as const guint
+	extern gtkglext_minor_version_ alias "gtkglext_minor_version" as const guint
+	extern gtkglext_micro_version_ alias "gtkglext_micro_version" as const guint
+	extern gtkglext_interface_age_ alias "gtkglext_interface_age" as const guint
+	extern gtkglext_binary_age_ alias "gtkglext_binary_age" as const guint
 #endif
 
 #define __GTK_GL_INIT_H__

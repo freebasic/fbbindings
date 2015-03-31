@@ -15,6 +15,13 @@
 #pragma push(msbitfields)
 #endif
 
+'' The following symbols have been renamed:
+''     variable gdkglext_major_version => gdkglext_major_version_
+''     variable gdkglext_minor_version => gdkglext_minor_version_
+''     variable gdkglext_micro_version => gdkglext_micro_version_
+''     variable gdkglext_interface_age => gdkglext_interface_age_
+''     variable gdkglext_binary_age => gdkglext_binary_age_
+
 extern "C"
 
 #define __GDK_GL_H__
@@ -28,17 +35,17 @@ const GDKGLEXT_BINARY_AGE = 0
 #define GDKGLEXT_CHECK_VERSION(major, minor, micro) (((GDKGLEXT_MAJOR_VERSION > (major)) orelse ((GDKGLEXT_MAJOR_VERSION = (major)) andalso (GDKGLEXT_MINOR_VERSION > (minor)))) orelse (((GDKGLEXT_MAJOR_VERSION = (major)) andalso (GDKGLEXT_MINOR_VERSION = (minor))) andalso (GDKGLEXT_MICRO_VERSION >= (micro))))
 
 #ifdef __FB_WIN32__
-	extern import gdkglext_major_version as const guint
-	extern import gdkglext_minor_version as const guint
-	extern import gdkglext_micro_version as const guint
-	extern import gdkglext_interface_age as const guint
-	extern import gdkglext_binary_age as const guint
+	extern import gdkglext_major_version_ alias "gdkglext_major_version" as const guint
+	extern import gdkglext_minor_version_ alias "gdkglext_minor_version" as const guint
+	extern import gdkglext_micro_version_ alias "gdkglext_micro_version" as const guint
+	extern import gdkglext_interface_age_ alias "gdkglext_interface_age" as const guint
+	extern import gdkglext_binary_age_ alias "gdkglext_binary_age" as const guint
 #else
-	extern gdkglext_major_version as const guint
-	extern gdkglext_minor_version as const guint
-	extern gdkglext_micro_version as const guint
-	extern gdkglext_interface_age as const guint
-	extern gdkglext_binary_age as const guint
+	extern gdkglext_major_version_ alias "gdkglext_major_version" as const guint
+	extern gdkglext_minor_version_ alias "gdkglext_minor_version" as const guint
+	extern gdkglext_micro_version_ alias "gdkglext_micro_version" as const guint
+	extern gdkglext_interface_age_ alias "gdkglext_interface_age" as const guint
+	extern gdkglext_binary_age_ alias "gdkglext_binary_age" as const guint
 #endif
 
 #define __GDK_GL_TOKENS_H__
