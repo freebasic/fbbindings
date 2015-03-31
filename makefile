@@ -137,8 +137,52 @@ allegro5:
 			-inclib allegro_ttf        inc/allegro5/allegro_ttf.bi \
 		-endif
 
-atk:
-	http://ftp.gnome.org/pub/gnome/sources/atk/2.14/atk-2.14.0.tar.xz
+ATK_SERIES := 2.14
+ATK := atk-$(ATK_SERIES).0
+atk: glib-extract
+	./get.sh $(ATK) $(ATK).tar.xz http://ftp.gnome.org/pub/gnome/sources/atk/$(ATK_SERIES)/$(ATK).tar.xz
+
+	mkdir -p inc/atk
+	$(FBFROG) atk.fbfrog \
+		-incdir extracted/$(ATK) \
+		-incdir extracted/$(GLIB) \
+		-incdir extracted/$(GLIB)/glib \
+		-include atk/atk.h \
+		-emit '*/atk/atkaction.h'            inc/atk/atk.bi \
+		-emit '*/atk/atkcomponent.h'         inc/atk/atk.bi \
+		-emit '*/atk/atkdocument.h'          inc/atk/atk.bi \
+		-emit '*/atk/atkeditabletext.h'      inc/atk/atk.bi \
+		-emit '*/atk/atk-enum-types.h'       inc/atk/atk.bi \
+		-emit '*/atk/atkgobjectaccessible.h' inc/atk/atk.bi \
+		-emit '*/atk/atk.h'                  inc/atk/atk.bi \
+		-emit '*/atk/atkhyperlink.h'         inc/atk/atk.bi \
+		-emit '*/atk/atkhyperlinkimpl.h'     inc/atk/atk.bi \
+		-emit '*/atk/atkhypertext.h'         inc/atk/atk.bi \
+		-emit '*/atk/atkimage.h'             inc/atk/atk.bi \
+		-emit '*/atk/atkmisc.h'              inc/atk/atk.bi \
+		-emit '*/atk/atknoopobjectfactory.h' inc/atk/atk.bi \
+		-emit '*/atk/atknoopobject.h'        inc/atk/atk.bi \
+		-emit '*/atk/atkobjectfactory.h'     inc/atk/atk.bi \
+		-emit '*/atk/atkobject.h'            inc/atk/atk.bi \
+		-emit '*/atk/atkplug.h'              inc/atk/atk.bi \
+		-emit '*/atk/atkprivate.h'           inc/atk/atk.bi \
+		-emit '*/atk/atkrange.h'             inc/atk/atk.bi \
+		-emit '*/atk/atkregistry.h'          inc/atk/atk.bi \
+		-emit '*/atk/atkrelation.h'          inc/atk/atk.bi \
+		-emit '*/atk/atkrelationset.h'       inc/atk/atk.bi \
+		-emit '*/atk/atkrelationtype.h'      inc/atk/atk.bi \
+		-emit '*/atk/atkselection.h'         inc/atk/atk.bi \
+		-emit '*/atk/atksocket.h'            inc/atk/atk.bi \
+		-emit '*/atk/atkstate.h'             inc/atk/atk.bi \
+		-emit '*/atk/atkstateset.h'          inc/atk/atk.bi \
+		-emit '*/atk/atkstreamablecontent.h' inc/atk/atk.bi \
+		-emit '*/atk/atktablecell.h'         inc/atk/atk.bi \
+		-emit '*/atk/atktable.h'             inc/atk/atk.bi \
+		-emit '*/atk/atktext.h'              inc/atk/atk.bi \
+		-emit '*/atk/atkutil.h'              inc/atk/atk.bi \
+		-emit '*/atk/atkvalue.h'             inc/atk/atk.bi \
+		-emit '*/atk/atkversion.h'           inc/atk/atk.bi \
+		-emit '*/atk/atkwindow.h'            inc/atk/atk.bi
 
 # TODO:
 # cairo-deprecated.h
