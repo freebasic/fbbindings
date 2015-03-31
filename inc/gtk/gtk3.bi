@@ -1,6 +1,6 @@
 #pragma once
 
-#include once "gdk/gdk.bi"
+#include once "gdk/gdk3.bi"
 #include once "glib-object.bi"
 #include once "atk/atk.bi"
 #include once "gio/gio.bi"
