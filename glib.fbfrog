@@ -163,6 +163,7 @@ nodos.fbfrog
 	-renameproc g_module_open              g_module_open_
 	-renameproc g_module_name              g_module_name_
 -endif
+-renameproc g_file_monitor g_file_monitor_
 
 -removeinclude glib/gmacros.h
 -removeinclude float.h
