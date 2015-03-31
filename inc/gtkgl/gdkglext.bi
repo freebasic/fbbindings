@@ -8,10 +8,8 @@
 
 #include once "crt/long.bi"
 #include once "glib.bi"
-#include once "gdk/gdktypes.bi"
 #include once "glib-object.bi"
-#include once "gdk/gdkwindow.bi"
-#include once "gdk/gdkpixmap.bi"
+#include once "gdk/gdk2.bi"
 
 #ifdef __FB_WIN32__
 #pragma push(msbitfields)

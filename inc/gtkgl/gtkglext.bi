@@ -6,10 +6,9 @@
 	#inclib "gtkglext-x11-1.0"
 #endif
 
-#include once "gdk/gdkgl.bi"
+#include once "gtkgl/gdkglext.bi"
 #include once "glib.bi"
-#include once "gdk/gdk.bi"
-#include once "gtk/gtkwidget.bi"
+#include once "gtk/gtk2.bi"
 
 #ifdef __FB_WIN32__
 #pragma push(msbitfields)
