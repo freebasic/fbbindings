@@ -38,7 +38,7 @@ type guint32 as ulong
 #define G_GUINT32_FORMAT "u"
 const G_HAVE_GINT64 = 1
 
-#if (defined(__FB_LINUX__) and (not defined(__FB_64BIT__))) or defined(__FB_DOS__) or defined(__FB_WIN32__)
+#if (defined(__FB_LINUX__) and (not defined(__FB_64BIT__))) or defined(__FB_WIN32__)
 	type gint64 as longint
 	type guint64 as ulongint
 	#define G_GINT64_CONSTANT(val) val##LL
@@ -59,25 +59,25 @@ const G_HAVE_GINT64 = 1
 	#define G_GUINT64_FORMAT "lu"
 #endif
 
-#if defined(__FB_64BIT__) and (defined(__FB_LINUX__) or defined(__FB_WIN32__))
+#ifdef __FB_64BIT__
 	const GLIB_SIZEOF_VOID_P = 8
-#elseif (defined(__FB_LINUX__) and (not defined(__FB_64BIT__))) or defined(__FB_DOS__)
+#elseif defined(__FB_LINUX__) and (not defined(__FB_64BIT__))
 	#define G_GINT64_MODIFIER "ll"
 	#define G_GINT64_FORMAT "lli"
 	#define G_GUINT64_FORMAT "llu"
 #endif
 
-#if defined(__FB_DOS__) or ((not defined(__FB_64BIT__)) and (defined(__FB_LINUX__) or defined(__FB_WIN32__)))
+#ifndef __FB_64BIT__
 	const GLIB_SIZEOF_VOID_P = 4
 #endif
 
-#if (defined(__FB_LINUX__) and (not defined(__FB_64BIT__))) or defined(__FB_DOS__) or defined(__FB_WIN32__)
+#if (defined(__FB_LINUX__) and (not defined(__FB_64BIT__))) or defined(__FB_WIN32__)
 	const GLIB_SIZEOF_LONG = 4
 #else
 	const GLIB_SIZEOF_LONG = 8
 #endif
 
-#if defined(__FB_64BIT__) and (defined(__FB_LINUX__) or defined(__FB_WIN32__))
+#ifdef __FB_64BIT__
 	const GLIB_SIZEOF_SIZE_T = 8
 #endif
 
@@ -91,15 +91,15 @@ const G_HAVE_GINT64 = 1
 	#define G_MAXSIZE G_MAXUINT64
 	#define G_MINSSIZE G_MININT64
 	#define G_MAXSSIZE G_MAXINT64
-#elseif defined(__FB_DOS__) or ((not defined(__FB_64BIT__)) and (defined(__FB_LINUX__) or defined(__FB_WIN32__)))
+#elseif not defined(__FB_64BIT__)
 	const GLIB_SIZEOF_SIZE_T = 4
 #endif
 
-#if (defined(__FB_LINUX__) and (not defined(__FB_64BIT__))) or defined(__FB_DOS__)
+#if defined(__FB_LINUX__) and (not defined(__FB_64BIT__))
 	const GLIB_SIZEOF_SSIZE_T = 4
 #endif
 
-#if defined(__FB_DOS__) or ((not defined(__FB_64BIT__)) and (defined(__FB_LINUX__) or defined(__FB_WIN32__)))
+#ifndef __FB_64BIT__
 	type gssize as long
 	type gsize as ulong
 	#define G_GSIZE_MODIFIER ""
@@ -144,14 +144,14 @@ type goffset as gint64
 	#define GPOINTER_TO_UINT(p) cast(guint, (p))
 	#define GINT_TO_POINTER(i) cast(gpointer, (i))
 	#define GUINT_TO_POINTER(u) cast(gpointer, (u))
-#elseif (defined(__FB_LINUX__) and (not defined(__FB_64BIT__))) or defined(__FB_DOS__)
+#elseif defined(__FB_LINUX__) and (not defined(__FB_64BIT__))
 	#define GPOINTER_TO_INT(p) cast(gint, cast(gint, (p)))
 	#define GPOINTER_TO_UINT(p) cast(guint, cast(guint, (p)))
 	#define GINT_TO_POINTER(i) cast(gpointer, cast(gint, (i)))
 	#define GUINT_TO_POINTER(u) cast(gpointer, cast(guint, (u)))
 #endif
 
-#if defined(__FB_DOS__) or ((not defined(__FB_64BIT__)) and (defined(__FB_LINUX__) or defined(__FB_WIN32__)))
+#ifndef __FB_64BIT__
 	type gintptr as long
 	type guintptr as ulong
 	#define G_GINTPTR_MODIFIER ""
@@ -219,7 +219,7 @@ const G_HAVE_GROWING_STACK = 0
 #define GINT64_TO_BE(val) cast(gint64, GUINT64_SWAP_LE_BE(val))
 #define GUINT64_TO_BE(val) GUINT64_SWAP_LE_BE(val)
 
-#if (defined(__FB_LINUX__) and (not defined(__FB_64BIT__))) or defined(__FB_DOS__) or defined(__FB_WIN32__)
+#if (defined(__FB_LINUX__) and (not defined(__FB_64BIT__))) or defined(__FB_WIN32__)
 	#define GLONG_TO_LE(val) cast(glong, GINT32_TO_LE(val))
 	#define GULONG_TO_LE(val) cast(gulong, GUINT32_TO_LE(val))
 	#define GLONG_TO_BE(val) cast(glong, GINT32_TO_BE(val))
@@ -236,7 +236,7 @@ const G_HAVE_GROWING_STACK = 0
 #define GINT_TO_BE(val) cast(gint, GINT32_TO_BE(val))
 #define GUINT_TO_BE(val) cast(guint, GUINT32_TO_BE(val))
 
-#if defined(__FB_64BIT__) and (defined(__FB_LINUX__) or defined(__FB_WIN32__))
+#ifdef __FB_64BIT__
 	#define GSIZE_TO_LE(val) cast(gsize, GUINT64_TO_LE(val))
 	#define GSSIZE_TO_LE(val) cast(gssize, GINT64_TO_LE(val))
 	#define GSIZE_TO_BE(val) cast(gsize, GUINT64_TO_BE(val))

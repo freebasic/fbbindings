@@ -1,3 +1,4 @@
+nodos.fbfrog
 -replacements glib.replacements
 
 -ifdef __FB_WIN32__
