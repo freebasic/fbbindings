@@ -526,11 +526,11 @@ type GtkAccelGroupFindFunc as function(byval key as GtkAccelKey ptr, byval closu
 
 type _GtkAccelGroup
 	parent as GObject
-	declare function GSEAL(byval as lock_count) as guint
-	declare function GSEAL(byval as modifier_mask) as GdkModifierType
-	declare function GSEAL(byval as acceleratables) as GSList ptr
-	declare function GSEAL(byval as n_accels) as guint
-	declare function GSEAL(byval as priv_accels) as GtkAccelGroupEntry ptr
+	lock_count as guint
+	modifier_mask as GdkModifierType
+	acceleratables as GSList ptr
+	n_accels as guint
+	priv_accels as GtkAccelGroupEntry ptr
 end type
 
 type _GtkAccelGroupClass
@@ -1011,7 +1011,7 @@ type GtkObjectClass as _GtkObjectClass
 
 type _GtkObject
 	parent_instance as GInitiallyUnowned
-	declare function GSEAL(byval as flags) as guint32
+	flags as guint32
 end type
 
 type _GtkObjectClass
@@ -1070,12 +1070,12 @@ type GtkAdjustmentClass as _GtkAdjustmentClass
 
 type _GtkAdjustment
 	parent_instance as GtkObject
-	declare function GSEAL(byval as lower) as gdouble
-	declare function GSEAL(byval as upper) as gdouble
-	declare function GSEAL(byval as value) as gdouble
-	declare function GSEAL(byval as step_increment) as gdouble
-	declare function GSEAL(byval as page_increment) as gdouble
-	declare function GSEAL(byval as page_size) as gdouble
+	lower as gdouble
+	upper as gdouble
+	value as gdouble
+	step_increment as gdouble
+	page_increment as gdouble
+	page_size as gdouble
 end type
 
 type _GtkAdjustmentClass
@@ -1465,10 +1465,10 @@ type GtkSettingsPropertyValue as _GtkSettingsPropertyValue
 
 type _GtkSettings
 	parent_instance as GObject
-	declare function GSEAL(byval as queued_settings) as GData ptr
-	declare function GSEAL(byval as property_values) as GtkSettingsPropertyValue ptr
-	declare function GSEAL(byval as rc_context) as GtkRcContext ptr
-	declare function GSEAL(byval as screen) as GdkScreen ptr
+	queued_settings as GData ptr
+	property_values as GtkSettingsPropertyValue ptr
+	rc_context as GtkRcContext ptr
+	screen as GdkScreen ptr
 end type
 
 type _GtkSettingsClass
@@ -1580,15 +1580,15 @@ end type
 
 type _GtkWidget
 	object as GtkObject
-	declare function GSEAL(byval as private_flags) as guint16
-	declare function GSEAL(byval as state) as guint8
-	declare function GSEAL(byval as saved_state) as guint8
-	declare function GSEAL(byval as name) as zstring ptr
-	declare function GSEAL(byval as style) as GtkStyle ptr
-	declare function GSEAL(byval as requisition) as GtkRequisition
-	declare function GSEAL(byval as allocation) as GtkAllocation
-	declare function GSEAL(byval as window) as GdkWindow ptr
-	declare function GSEAL(byval as parent) as GtkWidget ptr
+	private_flags as guint16
+	state as guint8
+	saved_state as guint8
+	name as zstring ptr
+	style as GtkStyle ptr
+	requisition as GtkRequisition
+	allocation as GtkAllocation
+	window as GdkWindow ptr
+	parent as GtkWidget ptr
 end type
 
 type _GtkWidgetClass
@@ -1897,12 +1897,12 @@ type GtkContainerClass as _GtkContainerClass
 
 type _GtkContainer
 	widget as GtkWidget
-	declare function GSEAL(byval as focus_child) as GtkWidget ptr
-	'' TODO: guint GSEAL (border_width) : 16;
-	'' TODO: guint GSEAL (need_resize) : 1;
-	'' TODO: guint GSEAL (resize_mode) : 2;
-	'' TODO: guint GSEAL (reallocate_redraws) : 1;
-	'' TODO: guint GSEAL (has_focus_chain) : 1;
+	focus_child as GtkWidget ptr
+	border_width : 16 as guint
+	need_resize : 1 as guint
+	resize_mode : 2 as guint
+	reallocate_redraws : 1 as guint
+	has_focus_chain : 1 as guint
 end type
 
 type _GtkContainerClass
@@ -1977,7 +1977,7 @@ type GtkBinClass as _GtkBinClass
 
 type _GtkBin
 	container as GtkContainer
-	declare function GSEAL(byval as child) as GtkWidget ptr
+	child as GtkWidget ptr
 end type
 
 type _GtkBinClass
@@ -2000,46 +2000,44 @@ type GtkWindowGroupClass as _GtkWindowGroupClass
 
 type _GtkWindow
 	bin as GtkBin
-	declare function GSEAL(byval as title) as zstring ptr
-	declare function GSEAL(byval as wmclass_name) as zstring ptr
-	declare function GSEAL(byval as wmclass_class) as zstring ptr
-	declare function GSEAL(byval as wm_role) as zstring ptr
-	declare function GSEAL(byval as focus_widget) as GtkWidget ptr
-	declare function GSEAL(byval as default_widget) as GtkWidget ptr
-	declare function GSEAL(byval as transient_parent) as GtkWindow ptr
-	declare function GSEAL(byval as geometry_info) as GtkWindowGeometryInfo ptr
-	declare function GSEAL(byval as frame) as GdkWindow ptr
-	declare function GSEAL(byval as group) as GtkWindowGroup ptr
-	declare function GSEAL(byval as configure_request_count) as guint16
-
-	'' TODO: guint GSEAL (allow_shrink) : 1;
-	'' TODO: guint GSEAL (allow_grow) : 1;
-	'' TODO: guint GSEAL (configure_notify_received) : 1;
-	'' TODO: guint GSEAL (need_default_position) : 1;
-	'' TODO: guint GSEAL (need_default_size) : 1;
-	'' TODO: guint GSEAL (position) : 3;
-	'' TODO: guint GSEAL (type) : 4;
-	'' TODO: guint GSEAL (has_user_ref_count) : 1;
-	'' TODO: guint GSEAL (has_focus) : 1;
-	'' TODO: guint GSEAL (modal) : 1;
-	'' TODO: guint GSEAL (destroy_with_parent) : 1;
-	'' TODO: guint GSEAL (has_frame) : 1;
-	'' TODO: guint GSEAL (iconify_initially) : 1;
-	'' TODO: guint GSEAL (stick_initially) : 1;
-	'' TODO: guint GSEAL (maximize_initially) : 1;
-	'' TODO: guint GSEAL (decorated) : 1;
-	'' TODO: guint GSEAL (type_hint) : 3;
-	'' TODO: guint GSEAL (gravity) : 5;
-	'' TODO: guint GSEAL (is_active) : 1;
-	'' TODO: guint GSEAL (has_toplevel_focus) : 1;
-
-	declare function GSEAL(byval as frame_left) as guint
-	declare function GSEAL(byval as frame_top) as guint
-	declare function GSEAL(byval as frame_right) as guint
-	declare function GSEAL(byval as frame_bottom) as guint
-	declare function GSEAL(byval as keys_changed_handler) as guint
-	declare function GSEAL(byval as mnemonic_modifier) as GdkModifierType
-	declare function GSEAL(byval as screen) as GdkScreen ptr
+	title as zstring ptr
+	wmclass_name as zstring ptr
+	wmclass_class as zstring ptr
+	wm_role as zstring ptr
+	focus_widget as GtkWidget ptr
+	default_widget as GtkWidget ptr
+	transient_parent as GtkWindow ptr
+	geometry_info as GtkWindowGeometryInfo ptr
+	frame as GdkWindow ptr
+	group as GtkWindowGroup ptr
+	configure_request_count as guint16
+	allow_shrink : 1 as guint
+	allow_grow : 1 as guint
+	configure_notify_received : 1 as guint
+	need_default_position : 1 as guint
+	need_default_size : 1 as guint
+	position : 3 as guint
+	as guint type : 4
+	has_user_ref_count : 1 as guint
+	has_focus : 1 as guint
+	modal : 1 as guint
+	destroy_with_parent : 1 as guint
+	has_frame : 1 as guint
+	iconify_initially : 1 as guint
+	stick_initially : 1 as guint
+	maximize_initially : 1 as guint
+	decorated : 1 as guint
+	type_hint : 3 as guint
+	gravity : 5 as guint
+	is_active : 1 as guint
+	has_toplevel_focus : 1 as guint
+	frame_left as guint
+	frame_top as guint
+	frame_right as guint
+	frame_bottom as guint
+	keys_changed_handler as guint
+	mnemonic_modifier as GdkModifierType
+	screen as GdkScreen ptr
 end type
 
 type _GtkWindowClass
@@ -2065,7 +2063,7 @@ end type
 
 type _GtkWindowGroup
 	parent_instance as GObject
-	declare function GSEAL(byval as grabs) as GSList ptr
+	grabs as GSList ptr
 end type
 
 type _GtkWindowGroupClass
@@ -2250,9 +2248,9 @@ type GtkDialogClass as _GtkDialogClass
 
 type _GtkDialog
 	window as GtkWindow
-	declare function GSEAL(byval as vbox) as GtkWidget ptr
-	declare function GSEAL(byval as action_area) as GtkWidget ptr
-	declare function GSEAL(byval as separator) as GtkWidget ptr
+	vbox as GtkWidget ptr
+	action_area as GtkWidget ptr
+	separator as GtkWidget ptr
 end type
 
 type _GtkDialogClass
@@ -2297,7 +2295,7 @@ type GtkAboutDialogClass as _GtkAboutDialogClass
 
 type _GtkAboutDialog
 	parent_instance as GtkDialog
-	declare function GSEAL(byval as private_data) as gpointer
+	private_data as gpointer
 end type
 
 type _GtkAboutDialogClass
@@ -2359,10 +2357,10 @@ type GtkMiscClass as _GtkMiscClass
 
 type _GtkMisc
 	widget as GtkWidget
-	declare function GSEAL(byval as xalign) as gfloat
-	declare function GSEAL(byval as yalign) as gfloat
-	declare function GSEAL(byval as xpad) as guint16
-	declare function GSEAL(byval as ypad) as guint16
+	xalign as gfloat
+	yalign as gfloat
+	xpad as guint16
+	ypad as guint16
 end type
 
 type _GtkMiscClass
@@ -2388,19 +2386,18 @@ type GtkMenuShellClass as _GtkMenuShellClass
 
 type _GtkMenuShell
 	container as GtkContainer
-	declare function GSEAL(byval as children) as GList ptr
-	declare function GSEAL(byval as active_menu_item) as GtkWidget ptr
-	declare function GSEAL(byval as parent_menu_shell) as GtkWidget ptr
-	declare function GSEAL(byval as button) as guint
-	declare function GSEAL(byval as activate_time) as guint32
-
-	'' TODO: guint GSEAL (active) : 1;
-	'' TODO: guint GSEAL (have_grab) : 1;
-	'' TODO: guint GSEAL (have_xgrab) : 1;
-	'' TODO: guint GSEAL (ignore_leave) : 1;
-	'' TODO: guint GSEAL (menu_flag) : 1;
-	'' TODO: guint GSEAL (ignore_enter) : 1;
-	'' TODO: guint GSEAL (keyboard_mode) : 1;
+	children as GList ptr
+	active_menu_item as GtkWidget ptr
+	parent_menu_shell as GtkWidget ptr
+	button as guint
+	activate_time as guint32
+	active : 1 as guint
+	have_grab : 1 as guint
+	have_xgrab : 1 as guint
+	ignore_leave : 1 as guint
+	menu_flag : 1 as guint
+	ignore_enter : 1 as guint
+	keyboard_mode : 1 as guint
 end type
 
 type _GtkMenuShellClass
@@ -2453,36 +2450,35 @@ type GtkMenuPositionFunc as sub(byval menu as GtkMenu ptr, byval x as gint ptr, 
 type GtkMenuDetachFunc as sub(byval attach_widget as GtkWidget ptr, byval menu as GtkMenu ptr)
 
 type _GtkMenu
-	declare function GSEAL(byval as menu_shell) as GtkMenuShell
-	declare function GSEAL(byval as parent_menu_item) as GtkWidget ptr
-	declare function GSEAL(byval as old_active_menu_item) as GtkWidget ptr
-	declare function GSEAL(byval as accel_group) as GtkAccelGroup ptr
-	declare function GSEAL(byval as accel_path) as zstring ptr
-	declare function GSEAL(byval as position_func) as GtkMenuPositionFunc
-	declare function GSEAL(byval as position_func_data) as gpointer
-	declare function GSEAL(byval as toggle_size) as guint
-	declare function GSEAL(byval as toplevel) as GtkWidget ptr
-	declare function GSEAL(byval as tearoff_window) as GtkWidget ptr
-	declare function GSEAL(byval as tearoff_hbox) as GtkWidget ptr
-	declare function GSEAL(byval as tearoff_scrollbar) as GtkWidget ptr
-	declare function GSEAL(byval as tearoff_adjustment) as GtkAdjustment ptr
-	declare function GSEAL(byval as view_window) as GdkWindow ptr
-	declare function GSEAL(byval as bin_window) as GdkWindow ptr
-	declare function GSEAL(byval as scroll_offset) as gint
-	declare function GSEAL(byval as saved_scroll_offset) as gint
-	declare function GSEAL(byval as scroll_step) as gint
-	declare function GSEAL(byval as timeout_id) as guint
-	declare function GSEAL(byval as navigation_region) as GdkRegion ptr
-	declare function GSEAL(byval as navigation_timeout) as guint
-
-	'' TODO: guint GSEAL (needs_destruction_ref_count) : 1;
-	'' TODO: guint GSEAL (torn_off) : 1;
-	'' TODO: guint GSEAL (tearoff_active) : 1;
-	'' TODO: guint GSEAL (scroll_fast) : 1;
-	'' TODO: guint GSEAL (upper_arrow_visible) : 1;
-	'' TODO: guint GSEAL (lower_arrow_visible) : 1;
-	'' TODO: guint GSEAL (upper_arrow_prelight) : 1;
-	'' TODO: guint GSEAL (lower_arrow_prelight) : 1;
+	menu_shell as GtkMenuShell
+	parent_menu_item as GtkWidget ptr
+	old_active_menu_item as GtkWidget ptr
+	accel_group as GtkAccelGroup ptr
+	accel_path as zstring ptr
+	position_func as GtkMenuPositionFunc
+	position_func_data as gpointer
+	toggle_size as guint
+	toplevel as GtkWidget ptr
+	tearoff_window as GtkWidget ptr
+	tearoff_hbox as GtkWidget ptr
+	tearoff_scrollbar as GtkWidget ptr
+	tearoff_adjustment as GtkAdjustment ptr
+	view_window as GdkWindow ptr
+	bin_window as GdkWindow ptr
+	scroll_offset as gint
+	saved_scroll_offset as gint
+	scroll_step as gint
+	timeout_id as guint
+	navigation_region as GdkRegion ptr
+	navigation_timeout as guint
+	needs_destruction_ref_count : 1 as guint
+	torn_off : 1 as guint
+	tearoff_active : 1 as guint
+	scroll_fast : 1 as guint
+	upper_arrow_visible : 1 as guint
+	lower_arrow_visible : 1 as guint
+	upper_arrow_prelight : 1 as guint
+	lower_arrow_prelight : 1 as guint
 end type
 
 type _GtkMenuClass
@@ -2536,27 +2532,26 @@ type GtkLabelSelectionInfo as _GtkLabelSelectionInfo
 
 type _GtkLabel
 	misc as GtkMisc
-	declare function GSEAL(byval as label) as zstring ptr
-	'' TODO: guint GSEAL (jtype) : 2;
-	'' TODO: guint GSEAL (wrap) : 1;
-	'' TODO: guint GSEAL (use_underline) : 1;
-	'' TODO: guint GSEAL (use_markup) : 1;
-	'' TODO: guint GSEAL (ellipsize) : 3;
-	'' TODO: guint GSEAL (single_line_mode) : 1;
-	'' TODO: guint GSEAL (have_transform) : 1;
-	'' TODO: guint GSEAL (in_click) : 1;
-	'' TODO: guint GSEAL (wrap_mode) : 3;
-	'' TODO: guint GSEAL (pattern_set) : 1;
-	'' TODO: guint GSEAL (track_links) : 1;
-
-	declare function GSEAL(byval as mnemonic_keyval) as guint
-	declare function GSEAL(byval as text) as zstring ptr
-	declare function GSEAL(byval as attrs) as PangoAttrList ptr
-	declare function GSEAL(byval as effective_attrs) as PangoAttrList ptr
-	declare function GSEAL(byval as layout) as PangoLayout ptr
-	declare function GSEAL(byval as mnemonic_widget) as GtkWidget ptr
-	declare function GSEAL(byval as mnemonic_window) as GtkWindow ptr
-	declare function GSEAL(byval as select_info) as GtkLabelSelectionInfo ptr
+	label as zstring ptr
+	jtype : 2 as guint
+	wrap : 1 as guint
+	use_underline : 1 as guint
+	use_markup : 1 as guint
+	ellipsize : 3 as guint
+	single_line_mode : 1 as guint
+	have_transform : 1 as guint
+	in_click : 1 as guint
+	wrap_mode : 3 as guint
+	pattern_set : 1 as guint
+	track_links : 1 as guint
+	mnemonic_keyval as guint
+	text as zstring ptr
+	attrs as PangoAttrList ptr
+	effective_attrs as PangoAttrList ptr
+	layout as PangoLayout ptr
+	mnemonic_widget as GtkWidget ptr
+	mnemonic_window as GtkWindow ptr
+	select_info as GtkLabelSelectionInfo ptr
 end type
 
 type _GtkLabelClass
@@ -2631,13 +2626,13 @@ type GtkAccelLabelClass as _GtkAccelLabelClass
 
 type _GtkAccelLabel
 	label as GtkLabel
-	declare function GSEAL(byval as gtk_reserved) as guint
-	declare function GSEAL(byval as accel_padding) as guint
-	declare function GSEAL(byval as accel_widget) as GtkWidget ptr
-	declare function GSEAL(byval as accel_closure) as GClosure ptr
-	declare function GSEAL(byval as accel_group) as GtkAccelGroup ptr
-	declare function GSEAL(byval as accel_string) as zstring ptr
-	declare function GSEAL(byval as accel_string_width) as guint16
+	gtk_reserved as guint
+	accel_padding as guint
+	accel_widget as GtkWidget ptr
+	accel_closure as GClosure ptr
+	accel_group as GtkAccelGroup ptr
+	accel_string as zstring ptr
+	accel_string_width as guint16
 end type
 
 type _GtkAccelLabelClass
@@ -2722,7 +2717,7 @@ type GtkAccessibleClass as _GtkAccessibleClass
 
 type _GtkAccessible
 	parent as AtkObject
-	declare function GSEAL(byval as widget) as GtkWidget ptr
+	widget as GtkWidget ptr
 end type
 
 type _GtkAccessibleClass
@@ -2753,7 +2748,7 @@ type GtkActionPrivate as _GtkActionPrivate
 
 type _GtkAction
 	object as GObject
-	declare function GSEAL(byval as private_data) as GtkActionPrivate ptr
+	private_data as GtkActionPrivate ptr
 end type
 
 type _GtkActionClass
@@ -2841,7 +2836,7 @@ type GtkRadioActionEntry as _GtkRadioActionEntry
 
 type _GtkActionGroup
 	parent as GObject
-	declare function GSEAL(byval as private_data) as GtkActionGroupPrivate ptr
+	private_data as GtkActionGroupPrivate ptr
 end type
 
 type _GtkActionGroupClass
@@ -2944,10 +2939,10 @@ type GtkAlignmentPrivate as _GtkAlignmentPrivate
 
 type _GtkAlignment
 	bin as GtkBin
-	declare function GSEAL(byval as xalign) as gfloat
-	declare function GSEAL(byval as yalign) as gfloat
-	declare function GSEAL(byval as xscale) as gfloat
-	declare function GSEAL(byval as yscale) as gfloat
+	xalign as gfloat
+	yalign as gfloat
+	xscale as gfloat
+	yscale as gfloat
 end type
 
 type _GtkAlignmentClass
@@ -2972,8 +2967,8 @@ type GtkArrowClass as _GtkArrowClass
 
 type _GtkArrow
 	misc as GtkMisc
-	declare function GSEAL(byval as arrow_type) as gint16
-	declare function GSEAL(byval as shadow_type) as gint16
+	arrow_type as gint16
+	shadow_type as gint16
 end type
 
 type _GtkArrowClass
@@ -2997,11 +2992,11 @@ type GtkFrameClass as _GtkFrameClass
 
 type _GtkFrame
 	bin as GtkBin
-	declare function GSEAL(byval as label_widget) as GtkWidget ptr
-	declare function GSEAL(byval as shadow_type) as gint16
-	declare function GSEAL(byval as label_xalign) as gfloat
-	declare function GSEAL(byval as label_yalign) as gfloat
-	declare function GSEAL(byval as child_allocation) as GtkAllocation
+	label_widget as GtkWidget ptr
+	shadow_type as gint16
+	label_xalign as gfloat
+	label_yalign as gfloat
+	child_allocation as GtkAllocation
 end type
 
 type _GtkFrameClass
@@ -3031,11 +3026,11 @@ type GtkAspectFrameClass as _GtkAspectFrameClass
 
 type _GtkAspectFrame
 	frame as GtkFrame
-	declare function GSEAL(byval as xalign) as gfloat
-	declare function GSEAL(byval as yalign) as gfloat
-	declare function GSEAL(byval as ratio) as gfloat
-	declare function GSEAL(byval as obey_child) as gboolean
-	declare function GSEAL(byval as center_allocation) as GtkAllocation
+	xalign as gfloat
+	yalign as gfloat
+	ratio as gfloat
+	obey_child as gboolean
+	center_allocation as GtkAllocation
 end type
 
 type _GtkAspectFrameClass
@@ -3069,13 +3064,13 @@ type GtkAssistantClass as _GtkAssistantClass
 
 type _GtkAssistant
 	parent as GtkWindow
-	declare function GSEAL(byval as cancel) as GtkWidget ptr
-	declare function GSEAL(byval as forward) as GtkWidget ptr
-	declare function GSEAL(byval as back) as GtkWidget ptr
-	declare function GSEAL(byval as apply) as GtkWidget ptr
-	declare function GSEAL(byval as close) as GtkWidget ptr
-	declare function GSEAL(byval as last) as GtkWidget ptr
-	declare function GSEAL(byval as priv) as GtkAssistantPrivate ptr
+	cancel as GtkWidget ptr
+	forward as GtkWidget ptr
+	back as GtkWidget ptr
+	apply as GtkWidget ptr
+	close as GtkWidget ptr
+	last as GtkWidget ptr
+	priv as GtkAssistantPrivate ptr
 end type
 
 type _GtkAssistantClass
@@ -3130,9 +3125,9 @@ type GtkBoxClass as _GtkBoxClass
 
 type _GtkBox
 	container as GtkContainer
-	declare function GSEAL(byval as children) as GList ptr
-	declare function GSEAL(byval as spacing) as gint16
-	'' TODO: guint GSEAL (homogeneous) : 1;
+	children as GList ptr
+	spacing as gint16
+	homogeneous : 1 as guint
 end type
 
 type _GtkBoxClass
@@ -3179,11 +3174,11 @@ type GtkButtonBoxClass as _GtkButtonBoxClass
 
 type _GtkButtonBox
 	box as GtkBox
-	declare function GSEAL(byval as child_min_width) as gint
-	declare function GSEAL(byval as child_min_height) as gint
-	declare function GSEAL(byval as child_ipad_x) as gint
-	declare function GSEAL(byval as child_ipad_y) as gint
-	declare function GSEAL(byval as layout_style) as GtkButtonBoxStyle
+	child_min_width as gint
+	child_min_height as gint
+	child_ipad_x as gint
+	child_ipad_y as gint
+	layout_style as GtkButtonBoxStyle
 end type
 
 type _GtkButtonBoxClass
@@ -3299,7 +3294,7 @@ declare function gtk_builder_error_quark() as GQuark
 
 type _GtkBuilder
 	parent_instance as GObject
-	declare function GSEAL(byval as priv) as GtkBuilderPrivate ptr
+	priv as GtkBuilderPrivate ptr
 end type
 
 type _GtkBuilderClass
@@ -3438,7 +3433,7 @@ enum
 	GTK_IMAGE_GICON
 end enum
 
-union _GtkImage_GSEAL
+union _GtkImage_data
 	pixmap as GtkImagePixmapData
 	image as GtkImageImageData
 	pixbuf as GtkImagePixbufData
@@ -3451,10 +3446,10 @@ end union
 
 type _GtkImage
 	misc as GtkMisc
-	declare function GSEAL(byval as storage_type) as GtkImageType
-	declare function GSEAL(byval as data) as _GtkImage_GSEAL
-	declare function GSEAL(byval as mask) as GdkBitmap ptr
-	declare function GSEAL(byval as icon_size) as GtkIconSize
+	storage_type as GtkImageType
+	data as _GtkImage_data
+	mask as GdkBitmap ptr
+	icon_size as GtkIconSize
 end type
 
 type _GtkImageClass
@@ -3528,19 +3523,18 @@ type GtkButtonClass as _GtkButtonClass
 
 type _GtkButton
 	bin as GtkBin
-	declare function GSEAL(byval as event_window) as GdkWindow ptr
-	declare function GSEAL(byval as label_text) as zstring ptr
-	declare function GSEAL(byval as activate_timeout) as guint
-
-	'' TODO: guint GSEAL (constructed) : 1;
-	'' TODO: guint GSEAL (in_button) : 1;
-	'' TODO: guint GSEAL (button_down) : 1;
-	'' TODO: guint GSEAL (relief) : 2;
-	'' TODO: guint GSEAL (use_underline) : 1;
-	'' TODO: guint GSEAL (use_stock) : 1;
-	'' TODO: guint GSEAL (depressed) : 1;
-	'' TODO: guint GSEAL (depress_on_activate) : 1;
-	'' TODO: guint GSEAL (focus_on_click) : 1;
+	event_window as GdkWindow ptr
+	label_text as zstring ptr
+	activate_timeout as guint
+	constructed : 1 as guint
+	in_button : 1 as guint
+	button_down : 1 as guint
+	relief : 2 as guint
+	use_underline : 1 as guint
+	use_stock : 1 as guint
+	depressed : 1 as guint
+	depress_on_activate : 1 as guint
+	focus_on_click : 1 as guint
 end type
 
 type _GtkButtonClass
@@ -3717,26 +3711,25 @@ type GtkCalendarDetailFunc as function(byval calendar as GtkCalendar ptr, byval 
 
 type _GtkCalendar
 	widget as GtkWidget
-	declare function GSEAL(byval as header_style) as GtkStyle ptr
-	declare function GSEAL(byval as label_style) as GtkStyle ptr
-	declare function GSEAL(byval as month) as gint
-	declare function GSEAL(byval as year) as gint
-	declare function GSEAL(byval as selected_day) as gint
-	declare function GSEAL(byval as day_month ptr) as gint
-	declare function GSEAL(byval as day ptr) as gint
-	declare function GSEAL(byval as num_marked_dates) as gint
-	declare function GSEAL(byval as marked_date ptr) as gint
-	declare function GSEAL(byval as display_flags) as GtkCalendarDisplayOptions
-	declare function GSEAL(byval as marked_date_color ptr) as GdkColor
-	declare function GSEAL(byval as gc) as GdkGC ptr
-	declare function GSEAL(byval as xor_gc) as GdkGC ptr
-	declare function GSEAL(byval as focus_row) as gint
-	declare function GSEAL(byval as focus_col) as gint
-	declare function GSEAL(byval as highlight_row) as gint
-	declare function GSEAL(byval as highlight_col) as gint
-	declare function GSEAL(byval as priv) as GtkCalendarPrivate ptr
-	declare function GSEAL(byval as grow_space ptr) as byte
-
+	header_style as GtkStyle ptr
+	label_style as GtkStyle ptr
+	month as gint
+	year as gint
+	selected_day as gint
+	day_month(0 to 5, 0 to 6) as gint
+	day(0 to 5, 0 to 6) as gint
+	num_marked_dates as gint
+	marked_date(0 to 30) as gint
+	display_flags as GtkCalendarDisplayOptions
+	marked_date_color(0 to 30) as GdkColor
+	gc as GdkGC ptr
+	xor_gc as GdkGC ptr
+	focus_row as gint
+	focus_col as gint
+	highlight_row as gint
+	highlight_col as gint
+	priv as GtkCalendarPrivate ptr
+	grow_space as zstring * 32
 	_gtk_reserved1 as sub()
 	_gtk_reserved2 as sub()
 	_gtk_reserved3 as sub()
@@ -3823,20 +3816,19 @@ type GtkCellRendererClass as _GtkCellRendererClass
 
 type _GtkCellRenderer
 	parent as GtkObject
-	declare function GSEAL(byval as xalign) as gfloat
-	declare function GSEAL(byval as yalign) as gfloat
-	declare function GSEAL(byval as width) as gint
-	declare function GSEAL(byval as height) as gint
-	declare function GSEAL(byval as xpad) as guint16
-	declare function GSEAL(byval as ypad) as guint16
-
-	'' TODO: guint GSEAL (mode) : 2;
-	'' TODO: guint GSEAL (visible) : 1;
-	'' TODO: guint GSEAL (is_expander) : 1;
-	'' TODO: guint GSEAL (is_expanded) : 1;
-	'' TODO: guint GSEAL (cell_background_set) : 1;
-	'' TODO: guint GSEAL (sensitive) : 1;
-	'' TODO: guint GSEAL (editing) : 1;
+	xalign as gfloat
+	yalign as gfloat
+	width as gint
+	height as gint
+	xpad as guint16
+	ypad as guint16
+	mode : 2 as guint
+	visible : 1 as guint
+	is_expander : 1 as guint
+	is_expanded : 1 as guint
+	cell_background_set : 1 as guint
+	sensitive : 1 as guint
+	editing : 1 as guint
 end type
 
 type _GtkCellRendererClass
@@ -4039,42 +4031,41 @@ type GtkTreeCellDataFunc as sub(byval tree_column as GtkTreeViewColumn ptr, byva
 
 type _GtkTreeViewColumn
 	parent as GtkObject
-	declare function GSEAL(byval as tree_view) as GtkWidget ptr
-	declare function GSEAL(byval as button) as GtkWidget ptr
-	declare function GSEAL(byval as child) as GtkWidget ptr
-	declare function GSEAL(byval as arrow) as GtkWidget ptr
-	declare function GSEAL(byval as alignment) as GtkWidget ptr
-	declare function GSEAL(byval as window) as GdkWindow ptr
-	declare function GSEAL(byval as editable_widget) as GtkCellEditable ptr
-	declare function GSEAL(byval as xalign) as gfloat
-	declare function GSEAL(byval as property_changed_signal) as guint
-	declare function GSEAL(byval as spacing) as gint
-	declare function GSEAL(byval as column_type) as GtkTreeViewColumnSizing
-	declare function GSEAL(byval as requested_width) as gint
-	declare function GSEAL(byval as button_request) as gint
-	declare function GSEAL(byval as resized_width) as gint
-	declare function GSEAL(byval as width) as gint
-	declare function GSEAL(byval as fixed_width) as gint
-	declare function GSEAL(byval as min_width) as gint
-	declare function GSEAL(byval as max_width) as gint
-	declare function GSEAL(byval as drag_x) as gint
-	declare function GSEAL(byval as drag_y) as gint
-	declare function GSEAL(byval as title) as zstring ptr
-	declare function GSEAL(byval as cell_list) as GList ptr
-	declare function GSEAL(byval as sort_clicked_signal) as guint
-	declare function GSEAL(byval as sort_column_changed_signal) as guint
-	declare function GSEAL(byval as sort_column_id) as gint
-	declare function GSEAL(byval as sort_order) as GtkSortType
-
-	'' TODO: guint GSEAL (visible) : 1;
-	'' TODO: guint GSEAL (resizable) : 1;
-	'' TODO: guint GSEAL (clickable) : 1;
-	'' TODO: guint GSEAL (dirty) : 1;
-	'' TODO: guint GSEAL (show_sort_indicator) : 1;
-	'' TODO: guint GSEAL (maybe_reordered) : 1;
-	'' TODO: guint GSEAL (reorderable) : 1;
-	'' TODO: guint GSEAL (use_resized_width) : 1;
-	'' TODO: guint GSEAL (expand) : 1;
+	tree_view as GtkWidget ptr
+	button as GtkWidget ptr
+	child as GtkWidget ptr
+	arrow as GtkWidget ptr
+	alignment as GtkWidget ptr
+	window as GdkWindow ptr
+	editable_widget as GtkCellEditable ptr
+	xalign as gfloat
+	property_changed_signal as guint
+	spacing as gint
+	column_type as GtkTreeViewColumnSizing
+	requested_width as gint
+	button_request as gint
+	resized_width as gint
+	width as gint
+	fixed_width as gint
+	min_width as gint
+	max_width as gint
+	drag_x as gint
+	drag_y as gint
+	title as zstring ptr
+	cell_list as GList ptr
+	sort_clicked_signal as guint
+	sort_column_changed_signal as guint
+	sort_column_id as gint
+	sort_order as GtkSortType
+	visible : 1 as guint
+	resizable : 1 as guint
+	clickable : 1 as guint
+	dirty : 1 as guint
+	show_sort_indicator : 1 as guint
+	maybe_reordered : 1 as guint
+	reorderable : 1 as guint
+	use_resized_width : 1 as guint
+	expand : 1 as guint
 end type
 
 type _GtkTreeViewColumnClass
@@ -4187,26 +4178,25 @@ type GtkCellRendererTextClass as _GtkCellRendererTextClass
 
 type _GtkCellRendererText
 	parent as GtkCellRenderer
-	declare function GSEAL(byval as text) as zstring ptr
-	declare function GSEAL(byval as font) as PangoFontDescription ptr
-	declare function GSEAL(byval as font_scale) as gdouble
-	declare function GSEAL(byval as foreground) as PangoColor
-	declare function GSEAL(byval as background) as PangoColor
-	declare function GSEAL(byval as extra_attrs) as PangoAttrList ptr
-	declare function GSEAL(byval as underline_style) as PangoUnderline
-	declare function GSEAL(byval as rise) as gint
-	declare function GSEAL(byval as fixed_height_rows) as gint
-
-	'' TODO: guint GSEAL (strikethrough) : 1;
-	'' TODO: guint GSEAL (editable) : 1;
-	'' TODO: guint GSEAL (scale_set) : 1;
-	'' TODO: guint GSEAL (foreground_set) : 1;
-	'' TODO: guint GSEAL (background_set) : 1;
-	'' TODO: guint GSEAL (underline_set) : 1;
-	'' TODO: guint GSEAL (rise_set) : 1;
-	'' TODO: guint GSEAL (strikethrough_set) : 1;
-	'' TODO: guint GSEAL (editable_set) : 1;
-	'' TODO: guint GSEAL (calc_fixed_height) : 1;
+	text as zstring ptr
+	font as PangoFontDescription ptr
+	font_scale as gdouble
+	foreground as PangoColor
+	background as PangoColor
+	extra_attrs as PangoAttrList ptr
+	underline_style as PangoUnderline
+	rise as gint
+	fixed_height_rows as gint
+	strikethrough : 1 as guint
+	editable : 1 as guint
+	scale_set : 1 as guint
+	foreground_set : 1 as guint
+	background_set : 1 as guint
+	underline_set : 1 as guint
+	rise_set : 1 as guint
+	strikethrough_set : 1 as guint
+	editable_set : 1 as guint
+	calc_fixed_height : 1 as guint
 end type
 
 type _GtkCellRendererTextClass
@@ -4239,13 +4229,13 @@ end enum
 
 type _GtkCellRendererAccel
 	parent as GtkCellRendererText
-	declare function GSEAL(byval as accel_key) as guint
-	declare function GSEAL(byval as accel_mods) as GdkModifierType
-	declare function GSEAL(byval as keycode) as guint
-	declare function GSEAL(byval as accel_mode) as GtkCellRendererAccelMode
-	declare function GSEAL(byval as edit_widget) as GtkWidget ptr
-	declare function GSEAL(byval as grab_widget) as GtkWidget ptr
-	declare function GSEAL(byval as sizing_label) as GtkWidget ptr
+	accel_key as guint
+	accel_mods as GdkModifierType
+	keycode as guint
+	accel_mode as GtkCellRendererAccelMode
+	edit_widget as GtkWidget ptr
+	grab_widget as GtkWidget ptr
+	sizing_label as GtkWidget ptr
 end type
 
 type _GtkCellRendererAccelClass
@@ -4273,10 +4263,10 @@ type GtkCellRendererComboClass as _GtkCellRendererComboClass
 
 type _GtkCellRendererCombo
 	parent as GtkCellRendererText
-	declare function GSEAL(byval as model) as GtkTreeModel ptr
-	declare function GSEAL(byval as text_column) as gint
-	declare function GSEAL(byval as has_entry) as gboolean
-	declare function GSEAL(byval as focus_out_id) as guint
+	model as GtkTreeModel ptr
+	text_column as gint
+	has_entry as gboolean
+	focus_out_id as guint
 end type
 
 type _GtkCellRendererComboClass
@@ -4297,9 +4287,9 @@ type GtkCellRendererPixbufClass as _GtkCellRendererPixbufClass
 
 type _GtkCellRendererPixbuf
 	parent as GtkCellRenderer
-	declare function GSEAL(byval as pixbuf) as GdkPixbuf ptr
-	declare function GSEAL(byval as pixbuf_expander_open) as GdkPixbuf ptr
-	declare function GSEAL(byval as pixbuf_expander_closed) as GdkPixbuf ptr
+	pixbuf as GdkPixbuf ptr
+	pixbuf_expander_open as GdkPixbuf ptr
+	pixbuf_expander_closed as GdkPixbuf ptr
 end type
 
 type _GtkCellRendererPixbufClass
@@ -4326,7 +4316,7 @@ type GtkCellRendererProgressPrivate as _GtkCellRendererProgressPrivate
 
 type _GtkCellRendererProgress
 	parent_instance as GtkCellRenderer
-	declare function GSEAL(byval as priv) as GtkCellRendererProgressPrivate ptr
+	priv as GtkCellRendererProgressPrivate ptr
 end type
 
 type _GtkCellRendererProgressClass
@@ -4400,9 +4390,9 @@ type GtkCellRendererToggleClass as _GtkCellRendererToggleClass
 
 type _GtkCellRendererToggle
 	parent as GtkCellRenderer
-	'' TODO: guint GSEAL (active) : 1;
-	'' TODO: guint GSEAL (activatable) : 1;
-	'' TODO: guint GSEAL (radio) : 1;
+	active : 1 as guint
+	activatable : 1 as guint
+	radio : 1 as guint
 end type
 
 type _GtkCellRendererToggleClass
@@ -4437,7 +4427,7 @@ type GtkCellViewPrivate as _GtkCellViewPrivate
 
 type _GtkCellView
 	parent_instance as GtkWidget
-	declare function GSEAL(byval as priv) as GtkCellViewPrivate ptr
+	priv as GtkCellViewPrivate ptr
 end type
 
 type _GtkCellViewClass
@@ -4470,9 +4460,9 @@ type GtkToggleButtonClass as _GtkToggleButtonClass
 
 type _GtkToggleButton
 	button as GtkButton
-	'' TODO: guint GSEAL (active) : 1;
-	'' TODO: guint GSEAL (draw_indicator) : 1;
-	'' TODO: guint GSEAL (inconsistent) : 1;
+	active : 1 as guint
+	draw_indicator : 1 as guint
+	inconsistent : 1 as guint
 end type
 
 type _GtkToggleButtonClass
@@ -4568,19 +4558,18 @@ type GtkMenuItemClass as _GtkMenuItemClass
 
 type _GtkMenuItem
 	item as GtkItem
-	declare function GSEAL(byval as submenu) as GtkWidget ptr
-	declare function GSEAL(byval as event_window) as GdkWindow ptr
-	declare function GSEAL(byval as toggle_size) as guint16
-	declare function GSEAL(byval as accelerator_width) as guint16
-	declare function GSEAL(byval as accel_path) as zstring ptr
-
-	'' TODO: guint GSEAL (show_submenu_indicator) : 1;
-	'' TODO: guint GSEAL (submenu_placement) : 1;
-	'' TODO: guint GSEAL (submenu_direction) : 1;
-	'' TODO: guint GSEAL (right_justify): 1;
-	'' TODO: guint GSEAL (timer_from_keypress) : 1;
-	'' TODO: guint GSEAL (from_menubar) : 1;
-	declare function GSEAL(byval as timer) as guint
+	submenu as GtkWidget ptr
+	event_window as GdkWindow ptr
+	toggle_size as guint16
+	accelerator_width as guint16
+	accel_path as zstring ptr
+	show_submenu_indicator : 1 as guint
+	submenu_placement : 1 as guint
+	submenu_direction : 1 as guint
+	right_justify : 1 as guint
+	timer_from_keypress : 1 as guint
+	from_menubar : 1 as guint
+	timer as guint
 end type
 
 type _GtkMenuItemClass
@@ -4633,10 +4622,10 @@ type GtkCheckMenuItemClass as _GtkCheckMenuItemClass
 
 type _GtkCheckMenuItem
 	menu_item as GtkMenuItem
-	'' TODO: guint GSEAL (active) : 1;
-	'' TODO: guint GSEAL (always_show_toggle) : 1;
-	'' TODO: guint GSEAL (inconsistent) : 1;
-	'' TODO: guint GSEAL (draw_as_radio) : 1;
+	active : 1 as guint
+	always_show_toggle : 1 as guint
+	inconsistent : 1 as guint
+	draw_as_radio : 1 as guint
 end type
 
 type _GtkCheckMenuItemClass
@@ -4684,35 +4673,34 @@ type GtkTextTagClass as _GtkTextTagClass
 
 type _GtkTextTag
 	parent_instance as GObject
-	declare function GSEAL(byval as table) as GtkTextTagTable ptr
-	declare function GSEAL(byval as name) as zstring ptr
-	declare function GSEAL(byval as priority) as long
-	declare function GSEAL(byval as values) as GtkTextAttributes ptr
-
-	'' TODO: guint GSEAL (bg_color_set) : 1;
-	'' TODO: guint GSEAL (bg_stipple_set) : 1;
-	'' TODO: guint GSEAL (fg_color_set) : 1;
-	'' TODO: guint GSEAL (scale_set) : 1;
-	'' TODO: guint GSEAL (fg_stipple_set) : 1;
-	'' TODO: guint GSEAL (justification_set) : 1;
-	'' TODO: guint GSEAL (left_margin_set) : 1;
-	'' TODO: guint GSEAL (indent_set) : 1;
-	'' TODO: guint GSEAL (rise_set) : 1;
-	'' TODO: guint GSEAL (strikethrough_set) : 1;
-	'' TODO: guint GSEAL (right_margin_set) : 1;
-	'' TODO: guint GSEAL (pixels_above_lines_set) : 1;
-	'' TODO: guint GSEAL (pixels_below_lines_set) : 1;
-	'' TODO: guint GSEAL (pixels_inside_wrap_set) : 1;
-	'' TODO: guint GSEAL (tabs_set) : 1;
-	'' TODO: guint GSEAL (underline_set) : 1;
-	'' TODO: guint GSEAL (wrap_mode_set) : 1;
-	'' TODO: guint GSEAL (bg_full_height_set) : 1;
-	'' TODO: guint GSEAL (invisible_set) : 1;
-	'' TODO: guint GSEAL (editable_set) : 1;
-	'' TODO: guint GSEAL (language_set) : 1;
-	'' TODO: guint GSEAL (pg_bg_color_set) : 1;
-	'' TODO: guint GSEAL (accumulative_margin) : 1;
-	'' TODO: guint GSEAL (pad1) : 1;
+	table as GtkTextTagTable ptr
+	name as zstring ptr
+	priority as long
+	values as GtkTextAttributes ptr
+	bg_color_set : 1 as guint
+	bg_stipple_set : 1 as guint
+	fg_color_set : 1 as guint
+	scale_set : 1 as guint
+	fg_stipple_set : 1 as guint
+	justification_set : 1 as guint
+	left_margin_set : 1 as guint
+	indent_set : 1 as guint
+	rise_set : 1 as guint
+	strikethrough_set : 1 as guint
+	right_margin_set : 1 as guint
+	pixels_above_lines_set : 1 as guint
+	pixels_below_lines_set : 1 as guint
+	pixels_inside_wrap_set : 1 as guint
+	tabs_set : 1 as guint
+	underline_set : 1 as guint
+	wrap_mode_set : 1 as guint
+	bg_full_height_set : 1 as guint
+	invisible_set : 1 as guint
+	editable_set : 1 as guint
+	language_set : 1 as guint
+	pg_bg_color_set : 1 as guint
+	accumulative_margin : 1 as guint
+	pad1 : 1 as guint
 end type
 
 type _GtkTextTagClass
@@ -4795,7 +4783,7 @@ type GtkTextChildAnchorClass as _GtkTextChildAnchorClass
 
 type _GtkTextChildAnchor
 	parent_instance as GObject
-	declare function GSEAL(byval as segment) as gpointer
+	segment as gpointer
 end type
 
 type _GtkTextChildAnchorClass
@@ -4935,13 +4923,13 @@ type GtkTargetEntry as _GtkTargetEntry
 #define GTK_TYPE_TARGET_LIST gtk_target_list_get_type()
 
 type _GtkSelectionData
-	declare function GSEAL(byval as selection) as GdkAtom
-	declare function GSEAL(byval as target) as GdkAtom
-	declare function GSEAL(byval as type) as GdkAtom
-	declare function GSEAL(byval as format) as gint
-	declare function GSEAL(byval as data) as guchar ptr
-	declare function GSEAL(byval as length) as gint
-	declare function GSEAL(byval as display) as GdkDisplay ptr
+	selection as GdkAtom
+	target as GdkAtom
+	as GdkAtom type
+	format as gint
+	data as guchar ptr
+	length as gint
+	display as GdkDisplay ptr
 end type
 
 type _GtkTargetEntry
@@ -5075,7 +5063,7 @@ type GtkColorButtonPrivate as _GtkColorButtonPrivate
 
 type _GtkColorButton
 	button as GtkButton
-	declare function GSEAL(byval as priv) as GtkColorButtonPrivate ptr
+	priv as GtkColorButtonPrivate ptr
 end type
 
 type _GtkColorButtonClass
@@ -5134,7 +5122,7 @@ type GtkColorSelectionChangePaletteWithScreenFunc as sub(byval screen as GdkScre
 
 type _GtkColorSelection
 	parent_instance as GtkVBox
-	declare function GSEAL(byval as private_data) as gpointer
+	private_data as gpointer
 end type
 
 type _GtkColorSelectionClass
@@ -5181,10 +5169,10 @@ type GtkColorSelectionDialogClass as _GtkColorSelectionDialogClass
 
 type _GtkColorSelectionDialog
 	parent_instance as GtkDialog
-	declare function GSEAL(byval as colorsel) as GtkWidget ptr
-	declare function GSEAL(byval as ok_button) as GtkWidget ptr
-	declare function GSEAL(byval as cancel_button) as GtkWidget ptr
-	declare function GSEAL(byval as help_button) as GtkWidget ptr
+	colorsel as GtkWidget ptr
+	ok_button as GtkWidget ptr
+	cancel_button as GtkWidget ptr
+	help_button as GtkWidget ptr
 end type
 
 type _GtkColorSelectionDialogClass
@@ -5411,19 +5399,19 @@ type GtkListStoreClass as _GtkListStoreClass
 
 type _GtkListStore
 	parent as GObject
-	declare function GSEAL(byval as stamp) as gint
-	declare function GSEAL(byval as seq) as gpointer
-	declare function GSEAL(byval as _gtk_reserved1) as gpointer
-	declare function GSEAL(byval as sort_list) as GList ptr
-	declare function GSEAL(byval as n_columns) as gint
-	declare function GSEAL(byval as sort_column_id) as gint
-	declare function GSEAL(byval as order) as GtkSortType
-	declare function GSEAL(byval as column_headers) as GType ptr
-	declare function GSEAL(byval as length) as gint
-	declare function GSEAL(byval as default_sort_func) as GtkTreeIterCompareFunc
-	declare function GSEAL(byval as default_sort_data) as gpointer
-	declare function GSEAL(byval as default_sort_destroy) as GDestroyNotify
-	'' TODO: guint GSEAL (columns_dirty) : 1;
+	stamp as gint
+	seq as gpointer
+	_gtk_reserved1 as gpointer
+	sort_list as GList ptr
+	n_columns as gint
+	sort_column_id as gint
+	order as GtkSortType
+	column_headers as GType ptr
+	length as gint
+	default_sort_func as GtkTreeIterCompareFunc
+	default_sort_data as gpointer
+	default_sort_destroy as GDestroyNotify
+	columns_dirty : 1 as guint
 end type
 
 type _GtkListStoreClass
@@ -5473,7 +5461,7 @@ type GtkTreeModelFilterPrivate as _GtkTreeModelFilterPrivate
 
 type _GtkTreeModelFilter
 	parent as GObject
-	declare function GSEAL(byval as priv) as GtkTreeModelFilterPrivate ptr
+	priv as GtkTreeModelFilterPrivate ptr
 end type
 
 type _GtkTreeModelFilterClass
@@ -5511,7 +5499,7 @@ type GtkEntryCompletionMatchFunc as function(byval completion as GtkEntryComplet
 
 type _GtkEntryCompletion
 	parent_instance as GObject
-	declare function GSEAL(byval as priv) as GtkEntryCompletionPrivate ptr
+	priv as GtkEntryCompletionPrivate ptr
 end type
 
 type _GtkEntryCompletionClass
@@ -5569,50 +5557,47 @@ type GtkEntryClass as _GtkEntryClass
 
 type _GtkEntry
 	widget as GtkWidget
-	declare function GSEAL(byval as text) as zstring ptr
-	'' TODO: guint GSEAL (editable) : 1;
-	'' TODO: guint GSEAL (visible) : 1;
-	'' TODO: guint GSEAL (overwrite_mode) : 1;
-	'' TODO: guint GSEAL (in_drag) : 1;
-
-	declare function GSEAL(byval as text_length) as guint16
-	declare function GSEAL(byval as text_max_length) as guint16
-	declare function GSEAL(byval as text_area) as GdkWindow ptr
-	declare function GSEAL(byval as im_context) as GtkIMContext ptr
-	declare function GSEAL(byval as popup_menu) as GtkWidget ptr
-	declare function GSEAL(byval as current_pos) as gint
-	declare function GSEAL(byval as selection_bound) as gint
-	declare function GSEAL(byval as cached_layout) as PangoLayout ptr
-
-	'' TODO: guint GSEAL (cache_includes_preedit) : 1;
-	'' TODO: guint GSEAL (need_im_reset) : 1;
-	'' TODO: guint GSEAL (has_frame) : 1;
-	'' TODO: guint GSEAL (activates_default) : 1;
-	'' TODO: guint GSEAL (cursor_visible) : 1;
-	'' TODO: guint GSEAL (in_click) : 1;
-	'' TODO: guint GSEAL (is_cell_renderer) : 1;
-	'' TODO: guint GSEAL (editing_canceled) : 1;
-	'' TODO: guint GSEAL (mouse_cursor_obscured) : 1;
-	'' TODO: guint GSEAL (select_words) : 1;
-	'' TODO: guint GSEAL (select_lines) : 1;
-	'' TODO: guint GSEAL (resolved_dir) : 4;
-	'' TODO: guint GSEAL (truncate_multiline) : 1;
-
-	declare function GSEAL(byval as button) as guint
-	declare function GSEAL(byval as blink_timeout) as guint
-	declare function GSEAL(byval as recompute_idle) as guint
-	declare function GSEAL(byval as scroll_offset) as gint
-	declare function GSEAL(byval as ascent) as gint
-	declare function GSEAL(byval as descent) as gint
-	declare function GSEAL(byval as x_text_size) as guint16
-	declare function GSEAL(byval as x_n_bytes) as guint16
-	declare function GSEAL(byval as preedit_length) as guint16
-	declare function GSEAL(byval as preedit_cursor) as guint16
-	declare function GSEAL(byval as dnd_position) as gint
-	declare function GSEAL(byval as drag_start_x) as gint
-	declare function GSEAL(byval as drag_start_y) as gint
-	declare function GSEAL(byval as invisible_char) as gunichar
-	declare function GSEAL(byval as width_chars) as gint
+	text as zstring ptr
+	editable : 1 as guint
+	visible : 1 as guint
+	overwrite_mode : 1 as guint
+	in_drag : 1 as guint
+	text_length as guint16
+	text_max_length as guint16
+	text_area as GdkWindow ptr
+	im_context as GtkIMContext ptr
+	popup_menu as GtkWidget ptr
+	current_pos as gint
+	selection_bound as gint
+	cached_layout as PangoLayout ptr
+	cache_includes_preedit : 1 as guint
+	need_im_reset : 1 as guint
+	has_frame : 1 as guint
+	activates_default : 1 as guint
+	cursor_visible : 1 as guint
+	in_click : 1 as guint
+	is_cell_renderer : 1 as guint
+	editing_canceled : 1 as guint
+	mouse_cursor_obscured : 1 as guint
+	select_words : 1 as guint
+	select_lines : 1 as guint
+	resolved_dir : 4 as guint
+	truncate_multiline : 1 as guint
+	button as guint
+	blink_timeout as guint
+	recompute_idle as guint
+	scroll_offset as gint
+	ascent as gint
+	descent as gint
+	x_text_size as guint16
+	x_n_bytes as guint16
+	preedit_length as guint16
+	preedit_cursor as guint16
+	dnd_position as gint
+	drag_start_x as gint
+	drag_start_y as gint
+	invisible_char as gunichar
+	width_chars as gint
 end type
 
 type _GtkEntryClass
@@ -5726,7 +5711,7 @@ type GtkTreeSelectionClass as _GtkTreeSelectionClass
 
 type _GtkTreeView
 	parent as GtkContainer
-	declare function GSEAL(byval as priv) as GtkTreeViewPrivate ptr
+	priv as GtkTreeViewPrivate ptr
 end type
 
 type _GtkTreeViewClass
@@ -5875,7 +5860,7 @@ type GtkComboBoxPrivate as _GtkComboBoxPrivate
 
 type _GtkComboBox
 	parent_instance as GtkBin
-	declare function GSEAL(byval as priv) as GtkComboBoxPrivate ptr
+	priv as GtkComboBoxPrivate ptr
 end type
 
 type _GtkComboBoxClass
@@ -5941,7 +5926,7 @@ type GtkComboBoxEntryPrivate as _GtkComboBoxEntryPrivate
 
 type _GtkComboBoxEntry
 	parent_instance as GtkComboBox
-	declare function GSEAL(byval as priv) as GtkComboBoxEntryPrivate ptr
+	priv as GtkComboBoxEntryPrivate ptr
 end type
 
 type _GtkComboBoxEntryClass
@@ -6005,7 +5990,7 @@ type GtkDrawingAreaClass as _GtkDrawingAreaClass
 
 type _GtkDrawingArea
 	widget as GtkWidget
-	declare function GSEAL(byval as draw_data) as gpointer
+	draw_data as gpointer
 end type
 
 type _GtkDrawingAreaClass
@@ -6059,7 +6044,7 @@ type GtkExpanderPrivate as _GtkExpanderPrivate
 
 type _GtkExpander
 	bin as GtkBin
-	declare function GSEAL(byval as priv) as GtkExpanderPrivate ptr
+	priv as GtkExpanderPrivate ptr
 end type
 
 type _GtkExpanderClass
@@ -6099,7 +6084,7 @@ type GtkFixedChild as _GtkFixedChild
 
 type _GtkFixed
 	container as GtkContainer
-	declare function GSEAL(byval as children) as GList ptr
+	children as GList ptr
 end type
 
 type _GtkFixedClass
@@ -6324,7 +6309,7 @@ type GtkFileChooserButtonClass as _GtkFileChooserButtonClass
 
 type _GtkFileChooserButton
 	parent as GtkHBox
-	declare function GSEAL(byval as priv) as GtkFileChooserButtonPrivate ptr
+	priv as GtkFileChooserButtonPrivate ptr
 end type
 
 type _GtkFileChooserButtonClass
@@ -6364,7 +6349,7 @@ type GtkFileChooserDialogClass as _GtkFileChooserDialogClass
 
 type _GtkFileChooserDialog
 	parent_instance as GtkDialog
-	declare function GSEAL(byval as priv) as GtkFileChooserDialogPrivate ptr
+	priv as GtkFileChooserDialogPrivate ptr
 end type
 
 type _GtkFileChooserDialogClass
@@ -6389,7 +6374,7 @@ type GtkFileChooserWidgetClass as _GtkFileChooserWidgetClass
 
 type _GtkFileChooserWidget
 	parent_instance as GtkVBox
-	declare function GSEAL(byval as priv) as GtkFileChooserWidgetPrivate ptr
+	priv as GtkFileChooserWidgetPrivate ptr
 end type
 
 type _GtkFileChooserWidgetClass
@@ -6414,7 +6399,7 @@ type GtkFontButtonPrivate as _GtkFontButtonPrivate
 
 type _GtkFontButton
 	button as GtkButton
-	declare function GSEAL(byval as priv) as GtkFontButtonPrivate ptr
+	priv as GtkFontButtonPrivate ptr
 end type
 
 type _GtkFontButtonClass
@@ -6463,20 +6448,20 @@ type GtkFontSelectionDialogClass as _GtkFontSelectionDialogClass
 
 type _GtkFontSelection
 	parent_instance as GtkVBox
-	declare function GSEAL(byval as font_entry) as GtkWidget ptr
-	declare function GSEAL(byval as family_list) as GtkWidget ptr
-	declare function GSEAL(byval as font_style_entry) as GtkWidget ptr
-	declare function GSEAL(byval as face_list) as GtkWidget ptr
-	declare function GSEAL(byval as size_entry) as GtkWidget ptr
-	declare function GSEAL(byval as size_list) as GtkWidget ptr
-	declare function GSEAL(byval as pixels_button) as GtkWidget ptr
-	declare function GSEAL(byval as points_button) as GtkWidget ptr
-	declare function GSEAL(byval as filter_button) as GtkWidget ptr
-	declare function GSEAL(byval as preview_entry) as GtkWidget ptr
-	declare function GSEAL(byval as family) as PangoFontFamily ptr
-	declare function GSEAL(byval as face) as PangoFontFace ptr
-	declare function GSEAL(byval as size) as gint
-	declare function GSEAL(byval as font) as GdkFont ptr
+	font_entry as GtkWidget ptr
+	family_list as GtkWidget ptr
+	font_style_entry as GtkWidget ptr
+	face_list as GtkWidget ptr
+	size_entry as GtkWidget ptr
+	size_list as GtkWidget ptr
+	pixels_button as GtkWidget ptr
+	points_button as GtkWidget ptr
+	filter_button as GtkWidget ptr
+	preview_entry as GtkWidget ptr
+	family as PangoFontFamily ptr
+	face as PangoFontFace ptr
+	size as gint
+	font as GdkFont ptr
 end type
 
 type _GtkFontSelectionClass
@@ -6489,14 +6474,14 @@ end type
 
 type _GtkFontSelectionDialog
 	parent_instance as GtkDialog
-	declare function GSEAL(byval as fontsel) as GtkWidget ptr
-	declare function GSEAL(byval as main_vbox) as GtkWidget ptr
-	declare function GSEAL(byval as action_area) as GtkWidget ptr
-	declare function GSEAL(byval as ok_button) as GtkWidget ptr
-	declare function GSEAL(byval as apply_button) as GtkWidget ptr
-	declare function GSEAL(byval as cancel_button) as GtkWidget ptr
-	declare function GSEAL(byval as dialog_width) as gint
-	declare function GSEAL(byval as auto_resize) as gboolean
+	fontsel as GtkWidget ptr
+	main_vbox as GtkWidget ptr
+	action_area as GtkWidget ptr
+	ok_button as GtkWidget ptr
+	apply_button as GtkWidget ptr
+	cancel_button as GtkWidget ptr
+	dialog_width as gint
+	auto_resize as gboolean
 end type
 
 type _GtkFontSelectionDialogClass
@@ -6549,21 +6534,19 @@ type GtkHandleBoxClass as _GtkHandleBoxClass
 
 type _GtkHandleBox
 	bin as GtkBin
-	declare function GSEAL(byval as bin_window) as GdkWindow ptr
-	declare function GSEAL(byval as float_window) as GdkWindow ptr
-	declare function GSEAL(byval as shadow_type) as GtkShadowType
-
-	'' TODO: guint GSEAL (handle_position) : 2;
-	'' TODO: guint GSEAL (float_window_mapped) : 1;
-	'' TODO: guint GSEAL (child_detached) : 1;
-	'' TODO: guint GSEAL (in_drag) : 1;
-	'' TODO: guint GSEAL (shrink_on_detach) : 1;
-	'' TODO: signed int GSEAL (snap_edge : 3);
-
-	declare function GSEAL(byval as deskoff_x) as gint
-	declare function GSEAL(byval as deskoff_y) as gint
-	declare function GSEAL(byval as attach_allocation) as GtkAllocation
-	declare function GSEAL(byval as float_allocation) as GtkAllocation
+	bin_window as GdkWindow ptr
+	float_window as GdkWindow ptr
+	shadow_type as GtkShadowType
+	handle_position : 2 as guint
+	float_window_mapped : 1 as guint
+	child_detached : 1 as guint
+	in_drag : 1 as guint
+	shrink_on_detach : 1 as guint
+	snap_edge : 3 as long
+	deskoff_x as gint
+	deskoff_y as gint
+	attach_allocation as GtkAllocation
+	float_allocation as GtkAllocation
 end type
 
 type _GtkHandleBoxClass
@@ -6627,32 +6610,30 @@ type GtkPanedPrivate as _GtkPanedPrivate
 
 type _GtkPaned
 	container as GtkContainer
-	declare function GSEAL(byval as child1) as GtkWidget ptr
-	declare function GSEAL(byval as child2) as GtkWidget ptr
-	declare function GSEAL(byval as handle) as GdkWindow ptr
-	declare function GSEAL(byval as xor_gc) as GdkGC ptr
-	declare function GSEAL(byval as cursor_type) as GdkCursorType
-	declare function GSEAL(byval as handle_pos) as GdkRectangle
-	declare function GSEAL(byval as child1_size) as gint
-	declare function GSEAL(byval as last_allocation) as gint
-	declare function GSEAL(byval as min_position) as gint
-	declare function GSEAL(byval as max_position) as gint
-
-	'' TODO: guint GSEAL (position_set) : 1;
-	'' TODO: guint GSEAL (in_drag) : 1;
-	'' TODO: guint GSEAL (child1_shrink) : 1;
-	'' TODO: guint GSEAL (child1_resize) : 1;
-	'' TODO: guint GSEAL (child2_shrink) : 1;
-	'' TODO: guint GSEAL (child2_resize) : 1;
-	'' TODO: guint GSEAL (orientation) : 1;
-	'' TODO: guint GSEAL (in_recursion) : 1;
-	'' TODO: guint GSEAL (handle_prelit) : 1;
-
-	declare function GSEAL(byval as last_child1_focus) as GtkWidget ptr
-	declare function GSEAL(byval as last_child2_focus) as GtkWidget ptr
-	declare function GSEAL(byval as priv) as GtkPanedPrivate ptr
-	declare function GSEAL(byval as drag_pos) as gint
-	declare function GSEAL(byval as original_position) as gint
+	child1 as GtkWidget ptr
+	child2 as GtkWidget ptr
+	handle as GdkWindow ptr
+	xor_gc as GdkGC ptr
+	cursor_type as GdkCursorType
+	handle_pos as GdkRectangle
+	child1_size as gint
+	last_allocation as gint
+	min_position as gint
+	max_position as gint
+	position_set : 1 as guint
+	in_drag : 1 as guint
+	child1_shrink : 1 as guint
+	child1_resize : 1 as guint
+	child2_shrink : 1 as guint
+	child2_resize : 1 as guint
+	orientation : 1 as guint
+	in_recursion : 1 as guint
+	handle_prelit : 1 as guint
+	last_child1_focus as GtkWidget ptr
+	last_child2_focus as GtkWidget ptr
+	priv as GtkPanedPrivate ptr
+	drag_pos as gint
+	original_position as gint
 end type
 
 type _GtkPanedClass
@@ -6717,16 +6698,16 @@ type GtkRulerMetric as _GtkRulerMetric
 
 type _GtkRuler
 	widget as GtkWidget
-	declare function GSEAL(byval as backing_store) as GdkPixmap ptr
-	declare function GSEAL(byval as non_gr_exp_gc) as GdkGC ptr
-	declare function GSEAL(byval as metric) as GtkRulerMetric ptr
-	declare function GSEAL(byval as xsrc) as gint
-	declare function GSEAL(byval as ysrc) as gint
-	declare function GSEAL(byval as slider_size) as gint
-	declare function GSEAL(byval as lower) as gdouble
-	declare function GSEAL(byval as upper) as gdouble
-	declare function GSEAL(byval as position) as gdouble
-	declare function GSEAL(byval as max_size) as gdouble
+	backing_store as GdkPixmap ptr
+	non_gr_exp_gc as GdkGC ptr
+	metric as GtkRulerMetric ptr
+	xsrc as gint
+	ysrc as gint
+	slider_size as gint
+	lower as gdouble
+	upper as gdouble
+	position as gdouble
+	max_size as gdouble
 end type
 
 type _GtkRulerClass
@@ -6791,31 +6772,30 @@ type GtkRangeClass as _GtkRangeClass
 
 type _GtkRange
 	widget as GtkWidget
-	declare function GSEAL(byval as adjustment) as GtkAdjustment ptr
-	declare function GSEAL(byval as update_policy) as GtkUpdateType
-	'' TODO: guint GSEAL (inverted) : 1;
-	'' TODO: guint GSEAL (flippable) : 1;
-	'' TODO: guint GSEAL (has_stepper_a) : 1;
-	'' TODO: guint GSEAL (has_stepper_b) : 1;
-	'' TODO: guint GSEAL (has_stepper_c) : 1;
-	'' TODO: guint GSEAL (has_stepper_d) : 1;
-	'' TODO: guint GSEAL (need_recalc) : 1;
-	'' TODO: guint GSEAL (slider_size_fixed) : 1;
-
-	declare function GSEAL(byval as min_slider_size) as gint
-	declare function GSEAL(byval as orientation) as GtkOrientation
-	declare function GSEAL(byval as range_rect) as GdkRectangle
-	declare function GSEAL(byval as slider_start) as gint
-	declare function GSEAL(byval as slider_end) as gint
-	declare function GSEAL(byval as round_digits) as gint
-	'' TODO: guint GSEAL (trough_click_forward) : 1;
-	'' TODO: guint GSEAL (update_pending) : 1;
-	declare function GSEAL(byval as layout) as GtkRangeLayout ptr
-	declare function GSEAL(byval as timer) as GtkRangeStepTimer ptr
-	declare function GSEAL(byval as slide_initial_slider_position) as gint
-	declare function GSEAL(byval as slide_initial_coordinate) as gint
-	declare function GSEAL(byval as update_timeout_id) as guint
-	declare function GSEAL(byval as event_window) as GdkWindow ptr
+	adjustment as GtkAdjustment ptr
+	update_policy as GtkUpdateType
+	inverted : 1 as guint
+	flippable : 1 as guint
+	has_stepper_a : 1 as guint
+	has_stepper_b : 1 as guint
+	has_stepper_c : 1 as guint
+	has_stepper_d : 1 as guint
+	need_recalc : 1 as guint
+	slider_size_fixed : 1 as guint
+	min_slider_size as gint
+	orientation as GtkOrientation
+	range_rect as GdkRectangle
+	slider_start as gint
+	slider_end as gint
+	round_digits as gint
+	trough_click_forward : 1 as guint
+	update_pending : 1 as guint
+	layout as GtkRangeLayout ptr
+	timer as GtkRangeStepTimer ptr
+	slide_initial_slider_position as gint
+	slide_initial_coordinate as gint
+	update_timeout_id as guint
+	event_window as GdkWindow ptr
 end type
 
 type _GtkRangeClass
@@ -6878,9 +6858,9 @@ type GtkScaleClass as _GtkScaleClass
 
 type _GtkScale
 	range as GtkRange
-	declare function GSEAL(byval as digits) as gint
-	'' TODO: guint GSEAL (draw_value) : 1;
-	'' TODO: guint GSEAL (value_pos) : 2;
+	digits as gint
+	draw_value : 1 as guint
+	value_pos : 2 as guint
 end type
 
 type _GtkScaleClass
@@ -7023,7 +7003,7 @@ type GtkHSVClass as _GtkHSVClass
 
 type _GtkHSV
 	parent_instance as GtkWidget
-	declare function GSEAL(byval as priv) as gpointer
+	priv as gpointer
 end type
 
 type _GtkHSVClass
@@ -7059,7 +7039,7 @@ type GtkIconFactoryClass as _GtkIconFactoryClass
 
 type _GtkIconFactory
 	parent_instance as GObject
-	declare function GSEAL(byval as icons) as GHashTable ptr
+	icons as GHashTable ptr
 end type
 
 type _GtkIconFactoryClass
@@ -7151,7 +7131,7 @@ type GtkIconThemePrivate as _GtkIconThemePrivate
 
 type _GtkIconTheme
 	parent_instance as GObject
-	declare function GSEAL(byval as priv) as GtkIconThemePrivate ptr
+	priv as GtkIconThemePrivate ptr
 end type
 
 type _GtkIconThemeClass
@@ -7284,7 +7264,7 @@ end enum
 
 type _GtkIconView
 	parent as GtkContainer
-	declare function GSEAL(byval as priv) as GtkIconViewPrivate ptr
+	priv as GtkIconViewPrivate ptr
 end type
 
 type _GtkIconViewClass
@@ -7376,7 +7356,7 @@ type GtkImageMenuItemClass as _GtkImageMenuItemClass
 
 type _GtkImageMenuItem
 	menu_item as GtkMenuItem
-	declare function GSEAL(byval as image) as GtkWidget ptr
+	image as GtkWidget ptr
 end type
 
 type _GtkImageMenuItemClass
@@ -7409,12 +7389,12 @@ const GTK_MAX_COMPOSE_LEN = 7
 
 type _GtkIMContextSimple
 	object as GtkIMContext
-	declare function GSEAL(byval as tables) as GSList ptr
-	declare function GSEAL(byval as compose_buffer ptr) as guint
-	declare function GSEAL(byval as tentative_match) as gunichar
-	declare function GSEAL(byval as tentative_match_len) as gint
-	'' TODO: guint GSEAL (in_hex_sequence) : 1;
-	'' TODO: guint GSEAL (modifiers_dropped) : 1;
+	tables as GSList ptr
+	compose_buffer(0 to (7 + 1) - 1) as guint
+	tentative_match as gunichar
+	tentative_match_len as gint
+	in_hex_sequence : 1 as guint
+	modifiers_dropped : 1 as guint
 end type
 
 type _GtkIMContextSimpleClass
@@ -7439,9 +7419,9 @@ type GtkIMMulticontextPrivate as _GtkIMMulticontextPrivate
 
 type _GtkIMMulticontext
 	object as GtkIMContext
-	declare function GSEAL(byval as slave) as GtkIMContext ptr
-	declare function GSEAL(byval as priv) as GtkIMMulticontextPrivate ptr
-	declare function GSEAL(byval as context_id) as zstring ptr
+	slave as GtkIMContext ptr
+	priv as GtkIMMulticontextPrivate ptr
+	context_id as zstring ptr
 end type
 
 type _GtkIMMulticontextClass
@@ -7513,8 +7493,8 @@ type GtkInvisibleClass as _GtkInvisibleClass
 
 type _GtkInvisible
 	widget as GtkWidget
-	declare function GSEAL(byval as has_user_ref_count) as gboolean
-	declare function GSEAL(byval as screen) as GdkScreen ptr
+	has_user_ref_count as gboolean
+	screen as GdkScreen ptr
 end type
 
 type _GtkInvisibleClass
@@ -7542,17 +7522,17 @@ type GtkLayout as _GtkLayout
 type GtkLayoutClass as _GtkLayoutClass
 
 type _GtkLayout
-	declare function GSEAL(byval as container) as GtkContainer
-	declare function GSEAL(byval as children) as GList ptr
-	declare function GSEAL(byval as width) as guint
-	declare function GSEAL(byval as height) as guint
-	declare function GSEAL(byval as hadjustment) as GtkAdjustment ptr
-	declare function GSEAL(byval as vadjustment) as GtkAdjustment ptr
-	declare function GSEAL(byval as bin_window) as GdkWindow ptr
-	declare function GSEAL(byval as visibility) as GdkVisibilityState
-	declare function GSEAL(byval as scroll_x) as gint
-	declare function GSEAL(byval as scroll_y) as gint
-	declare function GSEAL(byval as freeze_count) as guint
+	container as GtkContainer
+	children as GList ptr
+	width as guint
+	height as guint
+	hadjustment as GtkAdjustment ptr
+	vadjustment as GtkAdjustment ptr
+	bin_window as GdkWindow ptr
+	visibility as GdkVisibilityState
+	scroll_x as gint
+	scroll_y as gint
+	freeze_count as guint
 end type
 
 type _GtkLayoutClass
@@ -7593,7 +7573,7 @@ type GtkLinkButtonUriFunc as sub(byval button as GtkLinkButton ptr, byval link_ 
 
 type _GtkLinkButton
 	parent_instance as GtkButton
-	declare function GSEAL(byval as priv) as GtkLinkButtonPrivate ptr
+	priv as GtkLinkButtonPrivate ptr
 end type
 
 type _GtkLinkButtonClass
@@ -7794,12 +7774,12 @@ type GtkSizeGroupClass as _GtkSizeGroupClass
 
 type _GtkSizeGroup
 	parent_instance as GObject
-	declare function GSEAL(byval as widgets) as GSList ptr
-	declare function GSEAL(byval as mode) as guint8
-	'' TODO: guint GSEAL (have_width) : 1;
-	'' TODO: guint GSEAL (have_height) : 1;
-	'' TODO: guint GSEAL (ignore_hidden) : 1;
-	declare function GSEAL(byval as requisition) as GtkRequisition
+	widgets as GSList ptr
+	mode as guint8
+	have_width : 1 as guint
+	have_height : 1 as guint
+	ignore_hidden : 1 as guint
+	requisition as GtkRequisition
 end type
 
 type _GtkSizeGroupClass
@@ -7844,7 +7824,7 @@ type GtkToolItemPrivate as _GtkToolItemPrivate
 
 type _GtkToolItem
 	parent as GtkBin
-	declare function GSEAL(byval as priv) as GtkToolItemPrivate ptr
+	priv as GtkToolItemPrivate ptr
 end type
 
 type _GtkToolItemClass
@@ -7903,7 +7883,7 @@ type GtkToolButtonPrivate as _GtkToolButtonPrivate
 
 type _GtkToolButton
 	parent as GtkToolItem
-	declare function GSEAL(byval as priv) as GtkToolButtonPrivate ptr
+	priv as GtkToolButtonPrivate ptr
 end type
 
 type _GtkToolButtonClass
@@ -7946,7 +7926,7 @@ type GtkMenuToolButtonPrivate as _GtkMenuToolButtonPrivate
 
 type _GtkMenuToolButton
 	parent as GtkToolButton
-	declare function GSEAL(byval as priv) as GtkMenuToolButtonPrivate ptr
+	priv as GtkMenuToolButtonPrivate ptr
 end type
 
 type _GtkMenuToolButtonClass
@@ -7979,8 +7959,8 @@ type GtkMessageDialogClass as _GtkMessageDialogClass
 
 type _GtkMessageDialog
 	parent_instance as GtkDialog
-	declare function GSEAL(byval as image) as GtkWidget ptr
-	declare function GSEAL(byval as label) as GtkWidget ptr
+	image as GtkWidget ptr
+	label as GtkWidget ptr
 end type
 
 type _GtkMessageDialogClass
@@ -8071,32 +8051,31 @@ type GtkNotebookPage as _GtkNotebookPage
 
 type _GtkNotebook
 	container as GtkContainer
-	declare function GSEAL(byval as cur_page) as GtkNotebookPage ptr
-	declare function GSEAL(byval as children) as GList ptr
-	declare function GSEAL(byval as first_tab) as GList ptr
-	declare function GSEAL(byval as focus_tab) as GList ptr
-	declare function GSEAL(byval as menu) as GtkWidget ptr
-	declare function GSEAL(byval as event_window) as GdkWindow ptr
-	declare function GSEAL(byval as timer) as guint32
-	declare function GSEAL(byval as tab_hborder) as guint16
-	declare function GSEAL(byval as tab_vborder) as guint16
-
-	'' TODO: guint GSEAL (show_tabs) : 1;
-	'' TODO: guint GSEAL (homogeneous) : 1;
-	'' TODO: guint GSEAL (show_border) : 1;
-	'' TODO: guint GSEAL (tab_pos) : 2;
-	'' TODO: guint GSEAL (scrollable) : 1;
-	'' TODO: guint GSEAL (in_child) : 3;
-	'' TODO: guint GSEAL (click_child) : 3;
-	'' TODO: guint GSEAL (button) : 2;
-	'' TODO: guint GSEAL (need_timer) : 1;
-	'' TODO: guint GSEAL (child_has_focus) : 1;
-	'' TODO: guint GSEAL (have_visible_child) : 1;
-	'' TODO: guint GSEAL (focus_out) : 1;
-	'' TODO: guint GSEAL (has_before_previous) : 1;
-	'' TODO: guint GSEAL (has_before_next) : 1;
-	'' TODO: guint GSEAL (has_after_previous) : 1;
-	'' TODO: guint GSEAL (has_after_next) : 1;
+	cur_page as GtkNotebookPage ptr
+	children as GList ptr
+	first_tab as GList ptr
+	focus_tab as GList ptr
+	menu as GtkWidget ptr
+	event_window as GdkWindow ptr
+	timer as guint32
+	tab_hborder as guint16
+	tab_vborder as guint16
+	show_tabs : 1 as guint
+	homogeneous : 1 as guint
+	show_border : 1 as guint
+	tab_pos : 2 as guint
+	scrollable : 1 as guint
+	in_child : 3 as guint
+	click_child : 3 as guint
+	button : 2 as guint
+	need_timer : 1 as guint
+	child_has_focus : 1 as guint
+	have_visible_child : 1 as guint
+	focus_out : 1 as guint
+	has_before_previous : 1 as guint
+	has_before_next : 1 as guint
+	has_after_previous : 1 as guint
+	has_after_next : 1 as guint
 end type
 
 type _GtkNotebookClass
@@ -8293,22 +8272,21 @@ type GtkSocketClass as _GtkSocketClass
 
 type _GtkSocket
 	container as GtkContainer
-	declare function GSEAL(byval as request_width) as guint16
-	declare function GSEAL(byval as request_height) as guint16
-	declare function GSEAL(byval as current_width) as guint16
-	declare function GSEAL(byval as current_height) as guint16
-	declare function GSEAL(byval as plug_window) as GdkWindow ptr
-	declare function GSEAL(byval as plug_widget) as GtkWidget ptr
-	declare function GSEAL(byval as xembed_version) as gshort
-
-	'' TODO: guint GSEAL (same_app) : 1;
-	'' TODO: guint GSEAL (focus_in) : 1;
-	'' TODO: guint GSEAL (have_size) : 1;
-	'' TODO: guint GSEAL (need_map) : 1;
-	'' TODO: guint GSEAL (is_mapped) : 1;
-	'' TODO: guint GSEAL (active) : 1;
-	declare function GSEAL(byval as accel_group) as GtkAccelGroup ptr
-	declare function GSEAL(byval as toplevel) as GtkWidget ptr
+	request_width as guint16
+	request_height as guint16
+	current_width as guint16
+	current_height as guint16
+	plug_window as GdkWindow ptr
+	plug_widget as GtkWidget ptr
+	xembed_version as gshort
+	same_app : 1 as guint
+	focus_in : 1 as guint
+	have_size : 1 as guint
+	need_map : 1 as guint
+	is_mapped : 1 as guint
+	active : 1 as guint
+	accel_group as GtkAccelGroup ptr
+	toplevel as GtkWidget ptr
 end type
 
 type _GtkSocketClass
@@ -8339,11 +8317,11 @@ type GtkPlugClass as _GtkPlugClass
 
 type _GtkPlug
 	window as GtkWindow
-	declare function GSEAL(byval as socket_window) as GdkWindow ptr
-	declare function GSEAL(byval as modality_window) as GtkWidget ptr
-	declare function GSEAL(byval as modality_group) as GtkWindowGroup ptr
-	declare function GSEAL(byval as grabbed_keys) as GHashTable ptr
-	'' TODO: guint GSEAL (same_app) : 1;
+	socket_window as GdkWindow ptr
+	modality_window as GtkWidget ptr
+	modality_group as GtkWindowGroup ptr
+	grabbed_keys as GHashTable ptr
+	same_app : 1 as guint
 end type
 
 type _GtkPlugClass
@@ -8578,7 +8556,7 @@ end enum
 
 type _GtkPrintOperation
 	parent_instance as GObject
-	declare function GSEAL(byval as priv) as GtkPrintOperationPrivate ptr
+	priv as GtkPrintOperationPrivate ptr
 end type
 
 type _GtkPrintOperationClass
@@ -8722,18 +8700,17 @@ end enum
 
 type _GtkProgressBar
 	progress as GtkProgress
-	declare function GSEAL(byval as bar_style) as GtkProgressBarStyle
-	declare function GSEAL(byval as orientation) as GtkProgressBarOrientation
-	declare function GSEAL(byval as blocks) as guint
-	declare function GSEAL(byval as in_block) as gint
-	declare function GSEAL(byval as activity_pos) as gint
-	declare function GSEAL(byval as activity_step) as guint
-	declare function GSEAL(byval as activity_blocks) as guint
-	declare function GSEAL(byval as pulse_fraction) as gdouble
-
-	'' TODO: guint GSEAL (activity_dir) : 1;
-	'' TODO: guint GSEAL (ellipsize) : 3;
-	'' TODO: guint GSEAL (dirty) : 1;
+	bar_style as GtkProgressBarStyle
+	orientation as GtkProgressBarOrientation
+	blocks as guint
+	in_block as gint
+	activity_pos as gint
+	activity_step as guint
+	activity_blocks as guint
+	pulse_fraction as gdouble
+	activity_dir : 1 as guint
+	ellipsize : 3 as guint
+	dirty : 1 as guint
 end type
 
 type _GtkProgressBarClass
@@ -8779,7 +8756,7 @@ type GtkToggleActionClass as _GtkToggleActionClass
 
 type _GtkToggleAction
 	parent as GtkAction
-	declare function GSEAL(byval as private_data) as GtkToggleActionPrivate ptr
+	private_data as GtkToggleActionPrivate ptr
 end type
 
 type _GtkToggleActionClass
@@ -8812,7 +8789,7 @@ type GtkRadioActionClass as _GtkRadioActionClass
 
 type _GtkRadioAction
 	parent as GtkToggleAction
-	declare function GSEAL(byval as private_data) as GtkRadioActionPrivate ptr
+	private_data as GtkRadioActionPrivate ptr
 end type
 
 type _GtkRadioActionClass
@@ -8843,7 +8820,7 @@ type GtkRadioButtonClass as _GtkRadioButtonClass
 
 type _GtkRadioButton
 	check_button as GtkCheckButton
-	declare function GSEAL(byval as group) as GSList ptr
+	group as GSList ptr
 end type
 
 type _GtkRadioButtonClass
@@ -8877,7 +8854,7 @@ type GtkRadioMenuItemClass as _GtkRadioMenuItemClass
 
 type _GtkRadioMenuItem
 	check_menu_item as GtkCheckMenuItem
-	declare function GSEAL(byval as group) as GSList ptr
+	group as GSList ptr
 end type
 
 type _GtkRadioMenuItemClass
@@ -8914,7 +8891,7 @@ type GtkToggleToolButtonPrivate as _GtkToggleToolButtonPrivate
 
 type _GtkToggleToolButton
 	parent as GtkToolButton
-	declare function GSEAL(byval as priv) as GtkToggleToolButtonPrivate ptr
+	priv as GtkToggleToolButtonPrivate ptr
 end type
 
 type _GtkToggleToolButtonClass
@@ -8989,7 +8966,7 @@ end type
 
 type _GtkRecentManager
 	parent_instance as GObject
-	declare function GSEAL(byval as priv) as GtkRecentManagerPrivate ptr
+	priv as GtkRecentManagerPrivate ptr
 end type
 
 type _GtkRecentManagerClass
@@ -9068,7 +9045,7 @@ type GtkRecentActionClass as _GtkRecentActionClass
 
 type _GtkRecentAction
 	parent_instance as GtkAction
-	declare function GSEAL(byval as priv) as GtkRecentActionPrivate ptr
+	priv as GtkRecentActionPrivate ptr
 end type
 
 type _GtkRecentActionClass
@@ -9218,7 +9195,7 @@ type GtkRecentChooserDialogPrivate as _GtkRecentChooserDialogPrivate
 
 type _GtkRecentChooserDialog
 	parent_instance as GtkDialog
-	declare function GSEAL(byval as priv) as GtkRecentChooserDialogPrivate ptr
+	priv as GtkRecentChooserDialogPrivate ptr
 end type
 
 type _GtkRecentChooserDialogClass
@@ -9243,7 +9220,7 @@ type GtkRecentChooserMenuPrivate as _GtkRecentChooserMenuPrivate
 
 type _GtkRecentChooserMenu
 	parent_instance as GtkMenu
-	declare function GSEAL(byval as priv) as GtkRecentChooserMenuPrivate ptr
+	priv as GtkRecentChooserMenuPrivate ptr
 end type
 
 type _GtkRecentChooserMenuClass
@@ -9274,7 +9251,7 @@ type GtkRecentChooserWidgetPrivate as _GtkRecentChooserWidgetPrivate
 
 type _GtkRecentChooserWidget
 	parent_instance as GtkVBox
-	declare function GSEAL(byval as priv) as GtkRecentChooserWidgetPrivate ptr
+	priv as GtkRecentChooserWidgetPrivate ptr
 end type
 
 type _GtkRecentChooserWidgetClass
@@ -9299,9 +9276,9 @@ type GtkScaleButtonPrivate as _GtkScaleButtonPrivate
 
 type _GtkScaleButton
 	parent as GtkButton
-	declare function GSEAL(byval as plus_button) as GtkWidget ptr
-	declare function GSEAL(byval as minus_button) as GtkWidget ptr
-	declare function GSEAL(byval as priv) as GtkScaleButtonPrivate ptr
+	plus_button as GtkWidget ptr
+	minus_button as GtkWidget ptr
+	priv as GtkScaleButtonPrivate ptr
 end type
 
 type _GtkScaleButtonClass
@@ -9359,11 +9336,11 @@ type GtkViewportClass as _GtkViewportClass
 
 type _GtkViewport
 	bin as GtkBin
-	declare function GSEAL(byval as shadow_type) as GtkShadowType
-	declare function GSEAL(byval as view_window) as GdkWindow ptr
-	declare function GSEAL(byval as bin_window) as GdkWindow ptr
-	declare function GSEAL(byval as hadjustment) as GtkAdjustment ptr
-	declare function GSEAL(byval as vadjustment) as GtkAdjustment ptr
+	shadow_type as GtkShadowType
+	view_window as GdkWindow ptr
+	bin_window as GdkWindow ptr
+	hadjustment as GtkAdjustment ptr
+	vadjustment as GtkAdjustment ptr
 end type
 
 type _GtkViewportClass
@@ -9393,15 +9370,15 @@ type GtkScrolledWindowClass as _GtkScrolledWindowClass
 
 type _GtkScrolledWindow
 	container as GtkBin
-	declare function GSEAL(byval as hscrollbar) as GtkWidget ptr
-	declare function GSEAL(byval as vscrollbar) as GtkWidget ptr
-	'' TODO: guint GSEAL (hscrollbar_policy) : 2;
-	'' TODO: guint GSEAL (vscrollbar_policy) : 2;
-	'' TODO: guint GSEAL (hscrollbar_visible) : 1;
-	'' TODO: guint GSEAL (vscrollbar_visible) : 1;
-	'' TODO: guint GSEAL (window_placement) : 2;
-	'' TODO: guint GSEAL (focus_out) : 1;
-	declare function GSEAL(byval as shadow_type) as guint16
+	hscrollbar as GtkWidget ptr
+	vscrollbar as GtkWidget ptr
+	hscrollbar_policy : 2 as guint
+	vscrollbar_policy : 2 as guint
+	hscrollbar_visible : 1 as guint
+	vscrollbar_visible : 1 as guint
+	window_placement : 2 as guint
+	focus_out : 1 as guint
+	shadow_type as guint16
 end type
 
 type _GtkScrolledWindowClass
@@ -9467,7 +9444,7 @@ type GtkSeparatorToolItemPrivate as _GtkSeparatorToolItemPrivate
 
 type _GtkSeparatorToolItem
 	parent as GtkToolItem
-	declare function GSEAL(byval as priv) as GtkSeparatorToolItemPrivate ptr
+	priv as GtkSeparatorToolItemPrivate ptr
 end type
 
 type _GtkSeparatorToolItemClass
@@ -9516,22 +9493,21 @@ type GtkSpinButtonClass as _GtkSpinButtonClass
 
 type _GtkSpinButton
 	entry as GtkEntry
-	declare function GSEAL(byval as adjustment) as GtkAdjustment ptr
-	declare function GSEAL(byval as panel) as GdkWindow ptr
-	declare function GSEAL(byval as timer) as guint32
-	declare function GSEAL(byval as climb_rate) as gdouble
-	declare function GSEAL(byval as timer_step) as gdouble
-	declare function GSEAL(byval as update_policy) as GtkSpinButtonUpdatePolicy
-
-	'' TODO: guint GSEAL (in_child) : 2;
-	'' TODO: guint GSEAL (click_child) : 2;
-	'' TODO: guint GSEAL (button) : 2;
-	'' TODO: guint GSEAL (need_timer) : 1;
-	'' TODO: guint GSEAL (timer_calls) : 3;
-	'' TODO: guint GSEAL (digits) : 10;
-	'' TODO: guint GSEAL (numeric) : 1;
-	'' TODO: guint GSEAL (wrap) : 1;
-	'' TODO: guint GSEAL (snap_to_ticks) : 1;
+	adjustment as GtkAdjustment ptr
+	panel as GdkWindow ptr
+	timer as guint32
+	climb_rate as gdouble
+	timer_step as gdouble
+	update_policy as GtkSpinButtonUpdatePolicy
+	in_child : 2 as guint
+	click_child : 2 as guint
+	button : 2 as guint
+	need_timer : 1 as guint
+	timer_calls : 3 as guint
+	digits : 10 as guint
+	numeric : 1 as guint
+	wrap : 1 as guint
+	snap_to_ticks : 1 as guint
 end type
 
 type _GtkSpinButtonClass
@@ -9611,14 +9587,14 @@ type GtkStatusbarClass as _GtkStatusbarClass
 
 type _GtkStatusbar
 	parent_widget as GtkHBox
-	declare function GSEAL(byval as frame) as GtkWidget ptr
-	declare function GSEAL(byval as label) as GtkWidget ptr
-	declare function GSEAL(byval as messages) as GSList ptr
-	declare function GSEAL(byval as keys) as GSList ptr
-	declare function GSEAL(byval as seq_context_id) as guint
-	declare function GSEAL(byval as seq_message_id) as guint
-	declare function GSEAL(byval as grip_window) as GdkWindow ptr
-	'' TODO: guint GSEAL (has_resize_grip) : 1;
+	frame as GtkWidget ptr
+	label as GtkWidget ptr
+	messages as GSList ptr
+	keys as GSList ptr
+	seq_context_id as guint
+	seq_message_id as guint
+	grip_window as GdkWindow ptr
+	has_resize_grip : 1 as guint
 end type
 
 type _GtkStatusbarClass
@@ -9657,7 +9633,7 @@ type GtkStatusIconPrivate as _GtkStatusIconPrivate
 
 type _GtkStatusIcon
 	parent_instance as GObject
-	declare function GSEAL(byval as priv) as GtkStatusIconPrivate ptr
+	priv as GtkStatusIconPrivate ptr
 end type
 
 type _GtkStatusIconClass
@@ -9850,14 +9826,14 @@ type GtkTableRowCol as _GtkTableRowCol
 
 type _GtkTable
 	container as GtkContainer
-	declare function GSEAL(byval as children) as GList ptr
-	declare function GSEAL(byval as rows) as GtkTableRowCol ptr
-	declare function GSEAL(byval as cols) as GtkTableRowCol ptr
-	declare function GSEAL(byval as nrows) as guint16
-	declare function GSEAL(byval as ncols) as guint16
-	declare function GSEAL(byval as column_spacing) as guint16
-	declare function GSEAL(byval as row_spacing) as guint16
-	'' TODO: guint GSEAL (homogeneous) : 1;
+	children as GList ptr
+	rows as GtkTableRowCol ptr
+	cols as GtkTableRowCol ptr
+	nrows as guint16
+	ncols as guint16
+	column_spacing as guint16
+	row_spacing as guint16
+	homogeneous : 1 as guint
 end type
 
 type _GtkTableClass
@@ -9920,7 +9896,7 @@ type GtkTearoffMenuItemClass as _GtkTearoffMenuItemClass
 
 type _GtkTearoffMenuItem
 	menu_item as GtkMenuItem
-	'' TODO: guint GSEAL (torn_off) : 1;
+	torn_off : 1 as guint
 end type
 
 type _GtkTearoffMenuItemClass
@@ -9946,10 +9922,10 @@ type GtkTextTagTableClass as _GtkTextTagTableClass
 
 type _GtkTextTagTable
 	parent_instance as GObject
-	declare function GSEAL(byval as hash) as GHashTable ptr
-	declare function GSEAL(byval as anonymous) as GSList ptr
-	declare function GSEAL(byval as anon_count) as gint
-	declare function GSEAL(byval as buffers) as GSList ptr
+	hash as GHashTable ptr
+	anonymous as GSList ptr
+	anon_count as gint
+	buffers as GSList ptr
 end type
 
 type _GtkTextTagTableClass
@@ -9985,7 +9961,7 @@ type GtkTextMarkClass as _GtkTextMarkClass
 
 type _GtkTextMark
 	parent_instance as GObject
-	declare function GSEAL(byval as segment) as gpointer
+	segment as gpointer
 end type
 
 type _GtkTextMarkClass
@@ -10024,14 +10000,14 @@ type GtkTextBufferClass as _GtkTextBufferClass
 
 type _GtkTextBuffer
 	parent_instance as GObject
-	declare function GSEAL(byval as tag_table) as GtkTextTagTable ptr
-	declare function GSEAL(byval as btree) as GtkTextBTree ptr
-	declare function GSEAL(byval as clipboard_contents_buffers) as GSList ptr
-	declare function GSEAL(byval as selection_clipboards) as GSList ptr
-	declare function GSEAL(byval as log_attr_cache) as GtkTextLogAttrCache ptr
-	declare function GSEAL(byval as user_action_count) as guint
-	'' TODO: guint GSEAL (modified) : 1;
-	'' TODO: guint GSEAL (has_selection) : 1;
+	tag_table as GtkTextTagTable ptr
+	btree as GtkTextBTree ptr
+	clipboard_contents_buffers as GSList ptr
+	selection_clipboards as GSList ptr
+	log_attr_cache as GtkTextLogAttrCache ptr
+	user_action_count as guint
+	modified : 1 as guint
+	has_selection : 1 as guint
 end type
 
 type _GtkTextBufferClass
@@ -10165,55 +10141,53 @@ type GtkTextPendingScroll as _GtkTextPendingScroll
 
 type _GtkTextView
 	parent_instance as GtkContainer
-	declare function GSEAL(byval as layout) as _GtkTextLayout ptr
-	declare function GSEAL(byval as buffer) as GtkTextBuffer ptr
-	declare function GSEAL(byval as selection_drag_handler) as guint
-	declare function GSEAL(byval as scroll_timeout) as guint
-	declare function GSEAL(byval as pixels_above_lines) as gint
-	declare function GSEAL(byval as pixels_below_lines) as gint
-	declare function GSEAL(byval as pixels_inside_wrap) as gint
-	declare function GSEAL(byval as wrap_mode) as GtkWrapMode
-	declare function GSEAL(byval as justify) as GtkJustification
-	declare function GSEAL(byval as left_margin) as gint
-	declare function GSEAL(byval as right_margin) as gint
-	declare function GSEAL(byval as indent) as gint
-	declare function GSEAL(byval as tabs) as PangoTabArray ptr
-
-	'' TODO: guint GSEAL (editable) : 1;
-	'' TODO: guint GSEAL (overwrite_mode) : 1;
-	'' TODO: guint GSEAL (cursor_visible) : 1;
-	'' TODO: guint GSEAL (need_im_reset) : 1;
-	'' TODO: guint GSEAL (accepts_tab) : 1;
-	'' TODO: guint GSEAL (width_changed) : 1;
-	'' TODO: guint GSEAL (onscreen_validated) : 1;
-	'' TODO: guint GSEAL (mouse_cursor_obscured) : 1;
-
-	declare function GSEAL(byval as text_window) as GtkTextWindow ptr
-	declare function GSEAL(byval as left_window) as GtkTextWindow ptr
-	declare function GSEAL(byval as right_window) as GtkTextWindow ptr
-	declare function GSEAL(byval as top_window) as GtkTextWindow ptr
-	declare function GSEAL(byval as bottom_window) as GtkTextWindow ptr
-	declare function GSEAL(byval as hadjustment) as GtkAdjustment ptr
-	declare function GSEAL(byval as vadjustment) as GtkAdjustment ptr
-	declare function GSEAL(byval as xoffset) as gint
-	declare function GSEAL(byval as yoffset) as gint
-	declare function GSEAL(byval as width) as gint
-	declare function GSEAL(byval as height) as gint
-	declare function GSEAL(byval as virtual_cursor_x) as gint
-	declare function GSEAL(byval as virtual_cursor_y) as gint
-	declare function GSEAL(byval as first_para_mark) as GtkTextMark ptr
-	declare function GSEAL(byval as first_para_pixels) as gint
-	declare function GSEAL(byval as dnd_mark) as GtkTextMark ptr
-	declare function GSEAL(byval as blink_timeout) as guint
-	declare function GSEAL(byval as first_validate_idle) as guint
-	declare function GSEAL(byval as incremental_validate_idle) as guint
-	declare function GSEAL(byval as im_context) as GtkIMContext ptr
-	declare function GSEAL(byval as popup_menu) as GtkWidget ptr
-	declare function GSEAL(byval as drag_start_x) as gint
-	declare function GSEAL(byval as drag_start_y) as gint
-	declare function GSEAL(byval as children) as GSList ptr
-	declare function GSEAL(byval as pending_scroll) as GtkTextPendingScroll ptr
-	declare function GSEAL(byval as pending_place_cursor_button) as gint
+	layout as _GtkTextLayout ptr
+	buffer as GtkTextBuffer ptr
+	selection_drag_handler as guint
+	scroll_timeout as guint
+	pixels_above_lines as gint
+	pixels_below_lines as gint
+	pixels_inside_wrap as gint
+	wrap_mode as GtkWrapMode
+	justify as GtkJustification
+	left_margin as gint
+	right_margin as gint
+	indent as gint
+	tabs as PangoTabArray ptr
+	editable : 1 as guint
+	overwrite_mode : 1 as guint
+	cursor_visible : 1 as guint
+	need_im_reset : 1 as guint
+	accepts_tab : 1 as guint
+	width_changed : 1 as guint
+	onscreen_validated : 1 as guint
+	mouse_cursor_obscured : 1 as guint
+	text_window as GtkTextWindow ptr
+	left_window as GtkTextWindow ptr
+	right_window as GtkTextWindow ptr
+	top_window as GtkTextWindow ptr
+	bottom_window as GtkTextWindow ptr
+	hadjustment as GtkAdjustment ptr
+	vadjustment as GtkAdjustment ptr
+	xoffset as gint
+	yoffset as gint
+	width as gint
+	height as gint
+	virtual_cursor_x as gint
+	virtual_cursor_y as gint
+	first_para_mark as GtkTextMark ptr
+	first_para_pixels as gint
+	dnd_mark as GtkTextMark ptr
+	blink_timeout as guint
+	first_validate_idle as guint
+	incremental_validate_idle as guint
+	im_context as GtkIMContext ptr
+	popup_menu as GtkWidget ptr
+	drag_start_x as gint
+	drag_start_y as gint
+	children as GSList ptr
+	pending_scroll as GtkTextPendingScroll ptr
+	pending_place_cursor_button as gint
 end type
 
 type _GtkTextViewClass
@@ -10369,18 +10343,18 @@ type GtkToolbarPrivate as _GtkToolbarPrivate
 
 type _GtkToolbar
 	container as GtkContainer
-	declare function GSEAL(byval as num_children) as gint
-	declare function GSEAL(byval as children) as GList ptr
-	declare function GSEAL(byval as orientation) as GtkOrientation
-	declare function GSEAL(byval as style) as GtkToolbarStyle
-	declare function GSEAL(byval as icon_size) as GtkIconSize
-	declare function GSEAL(byval as tooltips) as GtkTooltips ptr
-	declare function GSEAL(byval as button_maxw) as gint
-	declare function GSEAL(byval as button_maxh) as gint
+	num_children as gint
+	children as GList ptr
+	orientation as GtkOrientation
+	style as GtkToolbarStyle
+	icon_size as GtkIconSize
+	tooltips as GtkTooltips ptr
+	button_maxw as gint
+	button_maxh as gint
 	_gtk_reserved1 as guint
 	_gtk_reserved2 as guint
-	'' TODO: guint GSEAL (style_set) : 1;
-	'' TODO: guint GSEAL (icon_size_set) : 1;
+	style_set : 1 as guint
+	icon_size_set : 1 as guint
 end type
 
 type _GtkToolbarClass
@@ -10630,22 +10604,22 @@ type GtkTreeModelSortClass as _GtkTreeModelSortClass
 
 type _GtkTreeModelSort
 	parent as GObject
-	declare function GSEAL(byval as root) as gpointer
-	declare function GSEAL(byval as stamp) as gint
-	declare function GSEAL(byval as child_flags) as guint
-	declare function GSEAL(byval as child_model) as GtkTreeModel ptr
-	declare function GSEAL(byval as zero_ref_count) as gint
-	declare function GSEAL(byval as sort_list) as GList ptr
-	declare function GSEAL(byval as sort_column_id) as gint
-	declare function GSEAL(byval as order) as GtkSortType
-	declare function GSEAL(byval as default_sort_func) as GtkTreeIterCompareFunc
-	declare function GSEAL(byval as default_sort_data) as gpointer
-	declare function GSEAL(byval as default_sort_destroy) as GDestroyNotify
-	declare function GSEAL(byval as changed_id) as guint
-	declare function GSEAL(byval as inserted_id) as guint
-	declare function GSEAL(byval as has_child_toggled_id) as guint
-	declare function GSEAL(byval as deleted_id) as guint
-	declare function GSEAL(byval as reordered_id) as guint
+	root as gpointer
+	stamp as gint
+	child_flags as guint
+	child_model as GtkTreeModel ptr
+	zero_ref_count as gint
+	sort_list as GList ptr
+	sort_column_id as gint
+	order as GtkSortType
+	default_sort_func as GtkTreeIterCompareFunc
+	default_sort_data as gpointer
+	default_sort_destroy as GDestroyNotify
+	changed_id as guint
+	inserted_id as guint
+	has_child_toggled_id as guint
+	deleted_id as guint
+	reordered_id as guint
 end type
 
 type _GtkTreeModelSortClass
@@ -10679,11 +10653,11 @@ type GtkTreeSelectionForeachFunc as sub(byval model as GtkTreeModel ptr, byval p
 
 type _GtkTreeSelection
 	parent as GObject
-	declare function GSEAL(byval as tree_view) as GtkTreeView ptr
-	declare function GSEAL(byval as type) as GtkSelectionMode
-	declare function GSEAL(byval as user_func) as GtkTreeSelectionFunc
-	declare function GSEAL(byval as user_data) as gpointer
-	declare function GSEAL(byval as destroy) as GDestroyNotify
+	tree_view as GtkTreeView ptr
+	as GtkSelectionMode type
+	user_func as GtkTreeSelectionFunc
+	user_data as gpointer
+	destroy as GDestroyNotify
 end type
 
 type _GtkTreeSelectionClass
@@ -10729,18 +10703,18 @@ type GtkTreeStoreClass as _GtkTreeStoreClass
 
 type _GtkTreeStore
 	parent as GObject
-	declare function GSEAL(byval as stamp) as gint
-	declare function GSEAL(byval as root) as gpointer
-	declare function GSEAL(byval as last) as gpointer
-	declare function GSEAL(byval as n_columns) as gint
-	declare function GSEAL(byval as sort_column_id) as gint
-	declare function GSEAL(byval as sort_list) as GList ptr
-	declare function GSEAL(byval as order) as GtkSortType
-	declare function GSEAL(byval as column_headers) as GType ptr
-	declare function GSEAL(byval as default_sort_func) as GtkTreeIterCompareFunc
-	declare function GSEAL(byval as default_sort_data) as gpointer
-	declare function GSEAL(byval as default_sort_destroy) as GDestroyNotify
-	'' TODO: guint GSEAL (columns_dirty) : 1;
+	stamp as gint
+	root as gpointer
+	last as gpointer
+	n_columns as gint
+	sort_column_id as gint
+	sort_list as GList ptr
+	order as GtkSortType
+	column_headers as GType ptr
+	default_sort_func as GtkTreeIterCompareFunc
+	default_sort_data as gpointer
+	default_sort_destroy as GDestroyNotify
+	columns_dirty : 1 as guint
 end type
 
 type _GtkTreeStoreClass
@@ -10790,7 +10764,7 @@ type GtkUIManagerPrivate as _GtkUIManagerPrivate
 
 type _GtkUIManager
 	parent as GObject
-	declare function GSEAL(byval as private_data) as GtkUIManagerPrivate ptr
+	private_data as GtkUIManagerPrivate ptr
 end type
 
 type _GtkUIManagerClass
@@ -11672,12 +11646,12 @@ type GtkGammaCurveClass as _GtkGammaCurveClass
 
 type _GtkGammaCurve
 	vbox as GtkVBox
-	declare function GSEAL(byval as table) as GtkWidget ptr
-	declare function GSEAL(byval as curve) as GtkWidget ptr
-	declare function GSEAL(byval as button ptr) as GtkWidget ptr
-	declare function GSEAL(byval as gamma) as gfloat
-	declare function GSEAL(byval as gamma_dialog) as GtkWidget ptr
-	declare function GSEAL(byval as gamma_text) as GtkWidget ptr
+	table as GtkWidget ptr
+	curve as GtkWidget ptr
+	button(0 to 4) as GtkWidget ptr
+	gamma as gfloat
+	gamma_dialog as GtkWidget ptr
+	gamma_text as GtkWidget ptr
 end type
 
 type _GtkGammaCurveClass
@@ -11702,15 +11676,15 @@ type GtkInputDialogClass as _GtkInputDialogClass
 
 type _GtkInputDialog
 	dialog as GtkDialog
-	declare function GSEAL(byval as axis_list) as GtkWidget ptr
-	declare function GSEAL(byval as axis_listbox) as GtkWidget ptr
-	declare function GSEAL(byval as mode_optionmenu) as GtkWidget ptr
-	declare function GSEAL(byval as close_button) as GtkWidget ptr
-	declare function GSEAL(byval as save_button) as GtkWidget ptr
-	declare function GSEAL(byval as axis_items ptr) as GtkWidget ptr
-	declare function GSEAL(byval as current_device) as GdkDevice ptr
-	declare function GSEAL(byval as keys_list) as GtkWidget ptr
-	declare function GSEAL(byval as keys_listbox) as GtkWidget ptr
+	axis_list as GtkWidget ptr
+	axis_listbox as GtkWidget ptr
+	mode_optionmenu as GtkWidget ptr
+	close_button as GtkWidget ptr
+	save_button as GtkWidget ptr
+	axis_items(0 to GDK_AXIS_LAST - 1) as GtkWidget ptr
+	current_device as GdkDevice ptr
+	keys_list as GtkWidget ptr
+	keys_listbox as GtkWidget ptr
 end type
 
 type _GtkInputDialogClass

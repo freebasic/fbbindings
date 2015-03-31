@@ -167,10 +167,10 @@ type GdkColormapClass as _GdkColormapClass
 
 type _GdkColormap
 	parent_instance as GObject
-	declare function GSEAL(byval as size) as gint
-	declare function GSEAL(byval as colors) as GdkColor ptr
-	declare function GSEAL(byval as visual) as GdkVisual ptr
-	declare function GSEAL(byval as windowing_data) as gpointer
+	size as gint
+	colors as GdkColor ptr
+	visual as GdkVisual ptr
+	windowing_data as gpointer
 end type
 
 type _GdkColormapClass
@@ -238,16 +238,16 @@ type GdkDragContextClass as _GdkDragContextClass
 
 type _GdkDragContext
 	parent_instance as GObject
-	declare function GSEAL(byval as protocol) as GdkDragProtocol
-	declare function GSEAL(byval as is_source) as gboolean
-	declare function GSEAL(byval as source_window) as GdkWindow ptr
-	declare function GSEAL(byval as dest_window) as GdkWindow ptr
-	declare function GSEAL(byval as targets) as GList ptr
-	declare function GSEAL(byval as actions) as GdkDragAction
-	declare function GSEAL(byval as suggested_action) as GdkDragAction
-	declare function GSEAL(byval as action) as GdkDragAction
-	declare function GSEAL(byval as start_time) as guint32
-	declare function GSEAL(byval as windowing_data) as gpointer
+	protocol as GdkDragProtocol
+	is_source as gboolean
+	source_window as GdkWindow ptr
+	dest_window as GdkWindow ptr
+	targets as GList ptr
+	actions as GdkDragAction
+	suggested_action as GdkDragAction
+	action as GdkDragAction
+	start_time as guint32
+	windowing_data as gpointer
 end type
 
 type _GdkDragContextClass
@@ -340,14 +340,14 @@ end type
 
 type _GdkDevice
 	parent_instance as GObject
-	declare function GSEAL(byval as name) as zstring ptr
-	declare function GSEAL(byval as source) as GdkInputSource
-	declare function GSEAL(byval as mode) as GdkInputMode
-	declare function GSEAL(byval as has_cursor) as gboolean
-	declare function GSEAL(byval as num_axes) as gint
-	declare function GSEAL(byval as axes) as GdkDeviceAxis ptr
-	declare function GSEAL(byval as num_keys) as gint
-	declare function GSEAL(byval as keys) as GdkDeviceKey ptr
+	name as zstring ptr
+	source as GdkInputSource
+	mode as GdkInputMode
+	has_cursor as gboolean
+	num_axes as gint
+	axes as GdkDeviceAxis ptr
+	num_keys as gint
+	keys as GdkDeviceKey ptr
 end type
 
 const GDK_MAX_TIMECOORD_AXES = 128
@@ -832,23 +832,23 @@ end type
 
 type _GdkDisplay
 	parent_instance as GObject
-	declare function GSEAL(byval as queued_events) as GList ptr
-	declare function GSEAL(byval as queued_tail) as GList ptr
-	declare function GSEAL(byval as button_click_time ptr) as guint32
-	declare function GSEAL(byval as button_window ptr) as GdkWindow ptr
-	declare function GSEAL(byval as button_number ptr) as gint
-	declare function GSEAL(byval as double_click_time) as guint
-	declare function GSEAL(byval as core_pointer) as GdkDevice ptr
-	declare function GSEAL(byval as pointer_hooks) as const GdkDisplayPointerHooks ptr
-	'' TODO: guint GSEAL (closed) : 1;
-	'' TODO: guint GSEAL (ignore_core_events) : 1;
-	declare function GSEAL(byval as double_click_distance) as guint
-	declare function GSEAL(byval as button_x ptr) as gint
-	declare function GSEAL(byval as button_y ptr) as gint
-	declare function GSEAL(byval as pointer_grabs) as GList ptr
-	declare function GSEAL(byval as keyboard_grab) as GdkKeyboardGrabInfo
-	declare function GSEAL(byval as pointer_info) as GdkPointerWindowInfo
-	declare function GSEAL(byval as last_event_time) as guint32
+	queued_events as GList ptr
+	queued_tail as GList ptr
+	button_click_time(0 to 1) as guint32
+	button_window(0 to 1) as GdkWindow ptr
+	button_number(0 to 1) as gint
+	double_click_time as guint
+	core_pointer as GdkDevice ptr
+	pointer_hooks as const GdkDisplayPointerHooks ptr
+	closed : 1 as guint
+	ignore_core_events : 1 as guint
+	double_click_distance as guint
+	button_x(0 to 1) as gint
+	button_y(0 to 1) as gint
+	pointer_grabs as GList ptr
+	keyboard_grab as GdkKeyboardGrabInfo
+	pointer_info as GdkPointerWindowInfo
+	last_event_time as guint32
 end type
 
 type _GdkDisplayClass
@@ -917,12 +917,12 @@ type GdkScreenClass as _GdkScreenClass
 
 type _GdkScreen
 	parent_instance as GObject
-	'' TODO: guint GSEAL (closed) : 1;
-	declare function GSEAL(byval as normal_gcs ptr) as GdkGC ptr
-	declare function GSEAL(byval as exposure_gcs ptr) as GdkGC ptr
-	declare function GSEAL(byval as subwindow_gcs ptr) as GdkGC ptr
-	declare function GSEAL(byval as font_options) as cairo_font_options_t ptr
-	declare function GSEAL(byval as resolution) as double
+	closed : 1 as guint
+	normal_gcs(0 to 31) as GdkGC ptr
+	exposure_gcs(0 to 31) as GdkGC ptr
+	subwindow_gcs(0 to 31) as GdkGC ptr
+	font_options as cairo_font_options_t ptr
+	resolution as double
 end type
 
 type _GdkScreenClass
@@ -1137,8 +1137,8 @@ enum
 end enum
 
 type _GdkCursor
-	declare function GSEAL(byval as type) as GdkCursorType
-	declare function GSEAL(byval as ref_count) as guint
+	as GdkCursorType type
+	ref_count as guint
 end type
 
 declare function gdk_cursor_get_type() as GType
@@ -1287,11 +1287,11 @@ end type
 
 type _GdkGC
 	parent_instance as GObject
-	declare function GSEAL(byval as clip_x_origin) as gint
-	declare function GSEAL(byval as clip_y_origin) as gint
-	declare function GSEAL(byval as ts_x_origin) as gint
-	declare function GSEAL(byval as ts_y_origin) as gint
-	declare function GSEAL(byval as colormap) as GdkColormap ptr
+	clip_x_origin as gint
+	clip_y_origin as gint
+	ts_x_origin as gint
+	ts_y_origin as gint
+	colormap as GdkColormap ptr
 end type
 
 type _GdkGCClass
@@ -1595,18 +1595,18 @@ type GdkImageClass as _GdkImageClass
 
 type _GdkImage
 	parent_instance as GObject
-	declare function GSEAL(byval as type) as GdkImageType
-	declare function GSEAL(byval as visual) as GdkVisual ptr
-	declare function GSEAL(byval as byte_order) as GdkByteOrder
-	declare function GSEAL(byval as width) as gint
-	declare function GSEAL(byval as height) as gint
-	declare function GSEAL(byval as depth) as guint16
-	declare function GSEAL(byval as bpp) as guint16
-	declare function GSEAL(byval as bpl) as guint16
-	declare function GSEAL(byval as bits_per_pixel) as guint16
-	declare function GSEAL(byval as mem) as gpointer
-	declare function GSEAL(byval as colormap) as GdkColormap ptr
-	declare function GSEAL(byval as windowing_data) as gpointer
+	as GdkImageType type
+	visual as GdkVisual ptr
+	byte_order as GdkByteOrder
+	width as gint
+	height as gint
+	depth as guint16
+	bpp as guint16
+	bpl as guint16
+	bits_per_pixel as guint16
+	mem as gpointer
+	colormap as GdkColormap ptr
+	windowing_data as gpointer
 end type
 
 type _GdkImageClass
@@ -1653,7 +1653,7 @@ type GdkKeymapClass as _GdkKeymapClass
 
 type _GdkKeymap
 	parent_instance as GObject
-	declare function GSEAL(byval as display) as GdkDisplay ptr
+	display as GdkDisplay ptr
 end type
 
 type _GdkKeymapClass
@@ -1755,8 +1755,8 @@ type GdkPixmapObjectClass as _GdkPixmapObjectClass
 
 type _GdkPixmapObject
 	parent_instance as GdkDrawable
-	declare function GSEAL(byval as impl) as GdkDrawable ptr
-	declare function GSEAL(byval as depth) as gint
+	impl as GdkDrawable ptr
+	depth as gint
 end type
 
 type _GdkPixmapObjectClass
@@ -2044,36 +2044,34 @@ type GdkWindowObjectClass as _GdkWindowObjectClass
 
 type _GdkWindowObject
 	parent_instance as GdkDrawable
-	declare function GSEAL(byval as impl) as GdkDrawable ptr
-	declare function GSEAL(byval as parent) as GdkWindowObject ptr
-	declare function GSEAL(byval as user_data) as gpointer
-	declare function GSEAL(byval as x) as gint
-	declare function GSEAL(byval as y) as gint
-	declare function GSEAL(byval as extension_events) as gint
-	declare function GSEAL(byval as filters) as GList ptr
-	declare function GSEAL(byval as children) as GList ptr
-	declare function GSEAL(byval as bg_color) as GdkColor
-	declare function GSEAL(byval as bg_pixmap) as GdkPixmap ptr
-	declare function GSEAL(byval as paint_stack) as GSList ptr
-	declare function GSEAL(byval as update_area) as GdkRegion ptr
-	declare function GSEAL(byval as update_freeze_count) as guint
-	declare function GSEAL(byval as window_type) as guint8
-	declare function GSEAL(byval as depth) as guint8
-	declare function GSEAL(byval as resize_count) as guint8
-	declare function GSEAL(byval as state) as GdkWindowState
-
-	'' TODO: guint GSEAL (guffaw_gravity) : 1;
-	'' TODO: guint GSEAL (input_only) : 1;
-	'' TODO: guint GSEAL (modal_hint) : 1;
-	'' TODO: guint GSEAL (composited) : 1;
-	'' TODO: guint GSEAL (destroyed) : 2;
-	'' TODO: guint GSEAL (accept_focus) : 1;
-	'' TODO: guint GSEAL (focus_on_map) : 1;
-	'' TODO: guint GSEAL (shaped) : 1;
-
-	declare function GSEAL(byval as event_mask) as GdkEventMask
-	declare function GSEAL(byval as update_and_descendants_freeze_count) as guint
-	declare function GSEAL(byval as redirect) as GdkWindowRedirect ptr
+	impl as GdkDrawable ptr
+	parent as GdkWindowObject ptr
+	user_data as gpointer
+	x as gint
+	y as gint
+	extension_events as gint
+	filters as GList ptr
+	children as GList ptr
+	bg_color as GdkColor
+	bg_pixmap as GdkPixmap ptr
+	paint_stack as GSList ptr
+	update_area as GdkRegion ptr
+	update_freeze_count as guint
+	window_type as guint8
+	depth as guint8
+	resize_count as guint8
+	state as GdkWindowState
+	guffaw_gravity : 1 as guint
+	input_only : 1 as guint
+	modal_hint : 1 as guint
+	composited : 1 as guint
+	destroyed : 2 as guint
+	accept_focus : 1 as guint
+	focus_on_map : 1 as guint
+	shaped : 1 as guint
+	event_mask as GdkEventMask
+	update_and_descendants_freeze_count as guint
+	redirect as GdkWindowRedirect ptr
 end type
 
 type _GdkWindowObjectClass
@@ -2263,20 +2261,20 @@ end enum
 
 type _GdkVisual
 	parent_instance as GObject
-	declare function GSEAL(byval as type) as GdkVisualType
-	declare function GSEAL(byval as depth) as gint
-	declare function GSEAL(byval as byte_order) as GdkByteOrder
-	declare function GSEAL(byval as colormap_size) as gint
-	declare function GSEAL(byval as bits_per_rgb) as gint
-	declare function GSEAL(byval as red_mask) as guint32
-	declare function GSEAL(byval as red_shift) as gint
-	declare function GSEAL(byval as red_prec) as gint
-	declare function GSEAL(byval as green_mask) as guint32
-	declare function GSEAL(byval as green_shift) as gint
-	declare function GSEAL(byval as green_prec) as gint
-	declare function GSEAL(byval as blue_mask) as guint32
-	declare function GSEAL(byval as blue_shift) as gint
-	declare function GSEAL(byval as blue_prec) as gint
+	as GdkVisualType type
+	depth as gint
+	byte_order as GdkByteOrder
+	colormap_size as gint
+	bits_per_rgb as gint
+	red_mask as guint32
+	red_shift as gint
+	red_prec as gint
+	green_mask as guint32
+	green_shift as gint
+	green_prec as gint
+	blue_mask as guint32
+	blue_shift as gint
+	blue_prec as gint
 end type
 
 declare function gdk_visual_get_type() as GType

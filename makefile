@@ -502,6 +502,9 @@ GTK2 := gtk+-$(GTK2_SERIES).27
 gtk2: glib-extract cairo-extract pango-extract atk-extract gdkpixbuf-extract
 	./get.sh $(GTK2) $(GTK2).tar.xz http://ftp.gnome.org/pub/gnome/sources/gtk+/$(GTK2_SERIES)/$(GTK2).tar.xz
 
+	# Insert our custom gdkconfig.h
+	cp gdkconfig.h extracted/$(GTK2)
+
 	mkdir -p inc/gtk inc/gdk
 	$(FBFROG) gtk.fbfrog gtk2.fbfrog \
 		-incdir extracted/$(GTK2) \
