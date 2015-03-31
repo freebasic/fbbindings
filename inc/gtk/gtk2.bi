@@ -22,6 +22,10 @@
 ''     variable gtk_binary_age => gtk_binary_age_
 ''     variable gtk_interface_age => gtk_interface_age_
 ''     procedure gtk_check_version => gtk_check_version_
+''     #ifdef __FB_WIN32__
+''         procedure gtk_init => gtk_init_
+''         procedure gtk_init_check => gtk_init_check_
+''     #endif
 ''     procedure gtk_stock_add => gtk_stock_add_
 
 extern "C"
@@ -7630,8 +7634,15 @@ type GtkKeySnoopFunc as function(byval grab_widget as GtkWidget ptr, byval event
 
 declare function gtk_check_version_ alias "gtk_check_version"(byval required_major as guint, byval required_minor as guint, byval required_micro as guint) as const zstring ptr
 declare function gtk_parse_args(byval argc as long ptr, byval argv as zstring ptr ptr ptr) as gboolean
-declare sub gtk_init(byval argc as long ptr, byval argv as zstring ptr ptr ptr)
-declare function gtk_init_check(byval argc as long ptr, byval argv as zstring ptr ptr ptr) as gboolean
+
+#ifdef __FB_WIN32__
+	declare sub gtk_init_ alias "gtk_init"(byval argc as long ptr, byval argv as zstring ptr ptr ptr)
+	declare function gtk_init_check_ alias "gtk_init_check"(byval argc as long ptr, byval argv as zstring ptr ptr ptr) as gboolean
+#else
+	declare sub gtk_init(byval argc as long ptr, byval argv as zstring ptr ptr ptr)
+	declare function gtk_init_check(byval argc as long ptr, byval argv as zstring ptr ptr ptr) as gboolean
+#endif
+
 declare function gtk_init_with_args(byval argc as long ptr, byval argv as zstring ptr ptr ptr, byval parameter_string as const zstring ptr, byval entries as GOptionEntry ptr, byval translation_domain as const zstring ptr, byval error as GError ptr ptr) as gboolean
 declare function gtk_get_option_group(byval open_default_display as gboolean) as GOptionGroup ptr
 
