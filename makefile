@@ -142,7 +142,7 @@ ATK := atk-$(ATK_SERIES).0
 atk-extract:
 	./get.sh $(ATK) $(ATK).tar.xz http://ftp.gnome.org/pub/gnome/sources/atk/$(ATK_SERIES)/$(ATK).tar.xz
 
-atk: glib-extract
+atk: atk-extract glib-extract
 	mkdir -p inc/atk
 	$(FBFROG) atk.fbfrog \
 		-incdir extracted/$(ATK) \
