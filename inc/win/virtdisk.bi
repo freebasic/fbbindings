@@ -1,3 +1,5 @@
+'' FreeBASIC binding for mingw-w64-v3.3.0
+
 #pragma once
 
 #if defined(__FB_64BIT__) and (_WIN32_WINNT = &h0602)

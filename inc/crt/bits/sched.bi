@@ -1,3 +1,5 @@
+'' FreeBASIC binding for glibc-2.21
+
 #pragma once
 
 #include once "crt/long.bi"

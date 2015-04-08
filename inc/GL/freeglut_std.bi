@@ -1,3 +1,5 @@
+'' FreeBASIC binding for freeglut-3.0.0
+
 #pragma once
 
 #ifdef __FB_WIN32__
