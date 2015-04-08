@@ -2090,4 +2090,4 @@ zip:
 ZLIB_TITLE := zlib-1.2.8
 zlib:
 	./get.sh $(ZLIB_TITLE) $(ZLIB_TITLE).tar.xz "http://zlib.net/$(ZLIB_TITLE).tar.xz"
-	$(FBFROG) zlib.fbfrog -o inc extracted/$(ZLIB_TITLE)/zlib.h $(ZLIB_TITLE)
+	$(FBFROG) zlib.fbfrog -o inc extracted/$(ZLIB_TITLE)/zlib.h -title $(ZLIB_TITLE)
