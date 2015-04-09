@@ -1,3 +1,2 @@
 #define UNICODE
-#include "win/winsock2.bi"
-#include "windows.bi"
+#include "winsock2-1.bas"

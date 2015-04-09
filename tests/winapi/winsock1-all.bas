@@ -1,3 +1,2 @@
 #define WIN_INCLUDEALL
-#include "windows.bi"
-#include "win/winsock.bi"
+#include "winsock1.bas"
