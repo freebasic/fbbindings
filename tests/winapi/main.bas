@@ -187,6 +187,9 @@
 
 #include "win/d3d9.bi"
 #include "win/d3dx9.bi"
+#include "win/dmusici.bi"
+#include "win/dmusicf.bi"
+#include "win/dmplugin.bi"
 
 #include "win/amaudio.bi"
 #include "win/amvideo.bi"
@@ -206,11 +209,8 @@
 #include "win/dls1.bi"
 #include "win/dmdls.bi"
 #include "win/dmerror.bi"
-#include "win/dmplugin.bi"
 #include "win/dmusbuff.bi"
 #include "win/dmusicc.bi"
-#include "win/dmusicf.bi"
-#include "win/dmusici.bi"
 #include "win/dmusics.bi"
 #include "win/dpaddr.bi"
 #include "win/dplay8.bi"
