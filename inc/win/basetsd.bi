@@ -169,8 +169,8 @@ type PDWORD32 as ulong ptr
 	#define PtrToShort(p) cshort(cast(LONG_PTR, (p)))
 	#define IntToPtr(i) cptr(VOID ptr, cast(INT_PTR, clng(i)))
 	#define UIntToPtr(ui) cptr(VOID ptr, cast(UINT_PTR, culng(ui)))
-	#define LongToPtr(l) cptr(VOID ptr, cast(LONG_PTR, cast(__LONG32, l)))
-	#define ULongToPtr(ul) '' TODO: ((VOID *) (ULONG_PTR) ((unsigned __LONG32) ul))
+	#define LongToPtr(l) cptr(VOID ptr, cast(LONG_PTR, clng(l)))
+	#define ULongToPtr(ul) cptr(VOID ptr, cast(ULONG_PTR, culng(ul)))
 
 	private function PtrToPtr64(byval p as const any ptr) as any ptr
 		return cptr(any ptr, cast(ULONG_PTR, p))
