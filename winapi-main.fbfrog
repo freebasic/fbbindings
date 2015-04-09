@@ -78,8 +78,8 @@
 -include dmdls.h
 -include dmerror.h
 -include dmusicc.h
--include dmusicf.h
 -include dmusici.h
+-include dmusicf.h
 -include dmusics.h
 -include dpaddr.h
 -include dplay8.h
