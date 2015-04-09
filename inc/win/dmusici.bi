@@ -493,7 +493,7 @@ type DMUS_LYRIC_PMSG as _DMUS_LYRIC_PMSG
 type LPDMUS_LYRIC_PMSG as _DMUS_LYRIC_PMSG ptr
 type DMUS_VERSION as _DMUS_VERSION
 type LPDMUS_VERSION as _DMUS_VERSION ptr
-type DMUS_TIMESIGNATURE as _DMUS_TIMESIGNATURE
+type DMUS_TIMESIGNATURE_ as _DMUS_TIMESIGNATURE
 type LPDMUS_TIMESIGNATURE as _DMUS_TIMESIGNATURE ptr
 type DMUS_VALID_START_PARAM as _DMUS_VALID_START_PARAM
 type LPDMUS_VALID_START_PARAM as _DMUS_VALID_START_PARAM ptr
@@ -511,9 +511,6 @@ type DMUS_BAND_PARAM as _DMUS_BAND_PARAM
 type LPDMUS_BAND_PARAM as _DMUS_BAND_PARAM ptr
 type DMUS_VARIATIONS_PARAM as _DMUS_VARIATIONS_PARAM
 type LPDMUS_VARIATIONS_PARAM as _DMUS_VARIATIONS_PARAM ptr
-type MUSIC_TIME as MUSIC_TIME_
-type IDirectMusicTool as IDirectMusicTool_
-type IDirectMusicGraph as IDirectMusicGraph_
 
 type _DMUS_PMSG
 	dwSize as DWORD
@@ -877,9 +874,6 @@ type IDirectMusicBand_
 	lpVtbl as IDirectMusicBandVtbl ptr
 end type
 
-type IDirectMusicSegment as IDirectMusicSegment_
-type IDirectMusicPerformance as IDirectMusicPerformance_
-
 type IDirectMusicBandVtbl_
 	QueryInterface as function(byval This as IDirectMusicBand ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IDirectMusicBand ptr) as ULONG
@@ -1010,9 +1004,6 @@ type IDirectMusicSegmentVtbl as IDirectMusicSegmentVtbl_
 type IDirectMusicSegment_
 	lpVtbl as IDirectMusicSegmentVtbl ptr
 end type
-
-type IDirectMusicTrack as IDirectMusicTrack_
-type IDirectMusicSegmentState as IDirectMusicSegmentState_
 
 type IDirectMusicSegmentVtbl_
 	QueryInterface as function(byval This as IDirectMusicSegment ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -1222,8 +1213,6 @@ type IDirectMusicPerformanceVtbl as IDirectMusicPerformanceVtbl_
 type IDirectMusicPerformance_
 	lpVtbl as IDirectMusicPerformanceVtbl ptr
 end type
-
-type DMUS_PMSG as DMUS_PMSG_
 
 type IDirectMusicPerformanceVtbl_
 	QueryInterface as function(byval This as IDirectMusicPerformance ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
