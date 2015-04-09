@@ -7,11 +7,7 @@
 #include once "crt/string.bi"
 #include once "crt/stdarg.bi"
 
-#ifdef __FB_64BIT__
-	extern "C"
-#else
-	extern "Windows"
-#endif
+extern "Windows"
 
 #define _STRSAFE_H_INCLUDED_
 const STRSAFE_MAX_CCH = 2147483647
