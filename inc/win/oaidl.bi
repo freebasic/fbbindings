@@ -243,7 +243,7 @@ type LPVARIANT as VARIANT ptr
 type VARIANTARG as VARIANT
 type LPVARIANTARG as VARIANT ptr
 #define _REFVARIANT_DEFINED
-#define REFVARIANT '' TODO: const VARIANT * __MIDL_CONST
+type REFVARIANT as const VARIANT const ptr
 
 type _wireBRECORD
 	fFlags as ULONG
