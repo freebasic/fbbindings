@@ -10,6 +10,9 @@
 #include once "crt/stdarg.bi"
 #include once "guiddef.bi"
 
+'' The following symbols have been renamed:
+''     typedef INPUT => INPUT_
+
 #ifdef __FB_64BIT__
 	extern "C"
 #else
@@ -2407,7 +2410,7 @@ type tagINPUT
 	end union
 end type
 
-type INPUT as tagINPUT
+type INPUT_ as tagINPUT
 type PINPUT as tagINPUT ptr
 type LPINPUT as tagINPUT ptr
 declare function SendInput(byval cInputs as UINT, byval pInputs as LPINPUT, byval cbSize as long) as UINT

@@ -376,6 +376,7 @@
 -removeproc WinMain
 -removeproc wWinMain
 -removeproc MemoryBarrier
+-renametypedef INPUT INPUT_
 
 -expandindefine __MINGW_NAME_AW
 -expandindefine __MINGW_NAME_AW_EXT
