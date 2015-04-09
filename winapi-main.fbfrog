@@ -77,7 +77,6 @@
 -include dls1.h
 -include dmdls.h
 -include dmerror.h
--include dmplugin.h
 -include dmusicc.h
 -include dmusicf.h
 -include dmusici.h
