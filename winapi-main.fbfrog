@@ -50,6 +50,7 @@
 -include shlwapi.h
 -include sqlext.h
 -include strmif.h
+-include strsafe.h
 -include subauth.h
 -include tlhelp32.h
 -include tmschema.h
@@ -66,6 +67,8 @@
 -include ws2spi.h
 -include ws2tcpip.h
 -include wsipx.h
+
+-include windowsx.h
 
 -include sspi.h
 -include ntsecpkg.h
@@ -273,6 +276,7 @@
 -emit '*/sspi.h'                   inc/win/sspi.bi
 -emit '*/stringapiset.h'           inc/win/winnls.bi
 -emit '*/strmif.h'                 inc/win/strmif.bi
+-emit '*/strsafe.h'                inc/win/strsafe.bi
 -emit '*/structuredquerycondition.h' inc/win/structuredquerycondition.bi
 -emit '*/subauth.h'                inc/win/subauth.bi
 -emit '*/synchapi.h'               inc/win/winbase.bi
@@ -333,6 +337,8 @@
 -emit '*/wsipx.h'                  inc/win/wsipx.bi
 -emit '*/wtypesbase.h'             inc/win/wtypesbase.bi
 -emit '*/wtypes.h'                 inc/win/wtypes.bi
+
+-emit '*/windowsx.h'               inc/win/windowsx.bi
 
 -emit '*/amaudio.h'                inc/win/amaudio.bi
 -emit '*/amvideo.h'                inc/win/amvideo.bi

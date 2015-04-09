@@ -261,6 +261,10 @@
 -removedefine STDMETHODV
 -removedefine STDMETHODV_
 -removedefine STDMETHODVCALLTYPE
+-removedefine STRSAFEAPI
+-removedefine _STRSAFE_EXTERN_C
+-removedefine STRSAFE_INLINE_API
+-removedefine __STRSAFE__NO_INLINE
 -removedefine _STRUCT_NAME
 -removedefine THEMEAPI
 -removedefine THEMEAPI_
