@@ -12,7 +12,9 @@
 extern "Windows"
 
 #define __WINE_DMUSIC_PLUGIN_H
+#define COM_NO_WINDOWS_H
 #define DMUS_REGSTR_PATH_TOOLS !"Software\\Microsoft\\DirectMusic\\Tools"
+
 extern CLSID_DirectMusicBandTrack as const GUID
 extern CLSID_DirectMusicChordTrack as const GUID
 extern CLSID_DirectMusicChordMapTrack as const GUID
@@ -41,16 +43,20 @@ type LPDIRECTMUSICTRACK as IDirectMusicTrack ptr
 type LPDIRECTMUSICTRACK8 as IDirectMusicTrack8 ptr
 type LPDIRECTMUSICTOOL as IDirectMusicTool ptr
 type LPDIRECTMUSICTOOL8 as IDirectMusicTool8 ptr
+type IDirectMusicPerformance as IDirectMusicPerformance_
 type LPDIRECTMUSICPERFORMANCE as IDirectMusicPerformance ptr
 type LPDIRECTMUSICPERFORMANCE8 as IDirectMusicPerformance8 ptr
+type IDirectMusicSegment as IDirectMusicSegment_
 type LPDIRECTMUSICSEGMENT as IDirectMusicSegment ptr
 type LPDIRECTMUSICSEGMENT8 as IDirectMusicSegment8 ptr
+type IDirectMusicSegmentState as IDirectMusicSegmentState_
 type LPDIRECTMUSICSEGMENTSTATE as IDirectMusicSegmentState ptr
 type LPDIRECTMUSICSEGMENTSTATE8 as IDirectMusicSegmentState8 ptr
+type IDirectMusicGraph as IDirectMusicGraph_
 type LPDIRECTMUSICGRAPH as IDirectMusicGraph ptr
 type IDirectMusicGraph8 as IDirectMusicGraph
 type LPDIRECTMUSICGRAPH8 as IDirectMusicGraph ptr
-type DMUS_PMSG_ as _DMUS_PMSG
+type DMUS_PMSG as _DMUS_PMSG
 type MUSIC_TIME_ as LONG
 const DMUS_TRACK_PARAMF_CLOCK = &h1
 type DMUS_TRACKF_FLAGS as enumDMUS_TRACKF_FLAGS
@@ -72,7 +78,7 @@ end enum
 
 type IDirectMusicToolVtbl as IDirectMusicToolVtbl_
 
-type IDirectMusicTool_
+type IDirectMusicTool
 	lpVtbl as IDirectMusicToolVtbl ptr
 end type
 
@@ -128,7 +134,7 @@ end type
 #define IDirectMusicTool8_Clone(p, a) (p)->lpVtbl->Clone(p, a)
 type IDirectMusicTrackVtbl as IDirectMusicTrackVtbl_
 
-type IDirectMusicTrack_
+type IDirectMusicTrack
 	lpVtbl as IDirectMusicTrackVtbl ptr
 end type
 

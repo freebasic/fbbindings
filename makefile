@@ -1274,10 +1274,15 @@ winapi: winapi-extract
 	# Direct3D 7 (?) pass
 	$(FBFROG) $(WINAPI_FLAGS) \
 		-include d3d.h \
-		-emit '*/d3d.h'      inc/win/d3d.bi     \
-		-emit '*/d3dcaps.h'  inc/win/d3dcaps.bi \
+		-include d3drm.h \
+		-emit '*/d3d.h'      inc/win/d3d.bi      \
+		-emit '*/d3dcaps.h'  inc/win/d3dcaps.bi  \
 		-emit '*/d3dtypes.h' inc/win/d3dtypes.bi \
+		-emit '*/d3drm.h'    inc/win/d3drm.bi    \
+		-emit '*/d3drmdef.h' inc/win/d3drmdef.bi \
+		-emit '*/d3drmobj.h' inc/win/d3drmobj.bi \
 		-inclib dxguid       inc/win/d3d.bi \
+		-inclib d3drm        inc/win/d3drm.bi \
 		 -title $(MINGWW64_TITLE)
 
 	# CRT intrin.h pass (separate because of -nofunctionbodies)

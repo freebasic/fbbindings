@@ -7,7 +7,6 @@
 #include once "mmsystem.bi"
 
 #define __WINE_DMUSIC_FILEFORMATS_H
-#define COM_NO_WINDOWS_H
 #define DMUS_FOURCC_GUID_CHUNK mmioFOURCC(asc("g"), asc("u"), asc("i"), asc("d"))
 #define DMUS_FOURCC_INFO_LIST mmioFOURCC(asc("I"), asc("N"), asc("F"), asc("O"))
 #define DMUS_FOURCC_UNFO_LIST mmioFOURCC(asc("U"), asc("N"), asc("F"), asc("O"))
@@ -398,6 +397,7 @@ type DSOUND_IO_DXDMO_HEADER as _DSOUND_IO_DXDMO_HEADER
 type LPDSOUND_IO_DXDMO_HEADER as _DSOUND_IO_DXDMO_HEADER ptr
 type DSOUND_IO_DXDMO_DATA as _DSOUND_IO_DXDMO_DATA
 type LPDSOUND_IO_DXDMO_DATA as _DSOUND_IO_DXDMO_DATA ptr
+type MUSIC_TIME as MUSIC_TIME_
 
 type _DMUS_IO_SEQ_ITEM
 	mtTime as MUSIC_TIME
@@ -436,6 +436,8 @@ type _DMUS_IO_SYSEX_ITEM
 	dwPChannel as DWORD
 	dwSysExLength as DWORD
 end type
+
+type DMUS_TIMESIGNATURE as DMUS_TIMESIGNATURE_
 
 type _DMUS_RHYTHM_PARAM
 	TimeSig as DMUS_TIMESIGNATURE

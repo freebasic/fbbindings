@@ -284,6 +284,7 @@
 -removedefine VFWAPI_INLINE
 -removedefine VFWAPIV
 -removedefine VIRTDISKAPI
+-removedefine VIRTUAL
 -removedefine VOL
 -removedefine __w64
 -removedefine _W64
