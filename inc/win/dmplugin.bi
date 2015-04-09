@@ -12,9 +12,7 @@
 extern "Windows"
 
 #define __WINE_DMUSIC_PLUGIN_H
-#define COM_NO_WINDOWS_H
 #define DMUS_REGSTR_PATH_TOOLS !"Software\\Microsoft\\DirectMusic\\Tools"
-
 extern CLSID_DirectMusicBandTrack as const GUID
 extern CLSID_DirectMusicChordTrack as const GUID
 extern CLSID_DirectMusicChordMapTrack as const GUID
@@ -57,7 +55,7 @@ type LPDIRECTMUSICGRAPH as IDirectMusicGraph ptr
 type IDirectMusicGraph8 as IDirectMusicGraph
 type LPDIRECTMUSICGRAPH8 as IDirectMusicGraph ptr
 type DMUS_PMSG as _DMUS_PMSG
-type MUSIC_TIME_ as LONG
+type MUSIC_TIME as LONG
 const DMUS_TRACK_PARAMF_CLOCK = &h1
 type DMUS_TRACKF_FLAGS as enumDMUS_TRACKF_FLAGS
 
