@@ -341,7 +341,7 @@
 -noexpand TranslateAccelerator
 
 -clong32
--typedefhint __LONG32
+-expandindefine __LONG32
 -renametypedef BYTE UBYTE
 -renametypedef byte ubyte
 -typedefhint LPTV_INSERTSTRUCT

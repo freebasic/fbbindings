@@ -406,7 +406,7 @@ convert c:
 	#define byte_array_from_ndr(Source,LowerIndex,UpperIndex,Target) \
 		{ \
 			NDRcopy ((((char *)(Target))+(LowerIndex)),(Source)->Buffer,(unsigned int)((UpperIndex)-(LowerIndex))); \
-			*(unsigned __LONG32 *)&(Source)->Buffer += ((UpperIndex)-(LowerIndex)); \
+			*(unsigned long *)&(Source)->Buffer += ((UpperIndex)-(LowerIndex)); \
 		}
 to fb:
 	#macro byte_array_from_ndr(Source, LowerIndex, UpperIndex, Target)
@@ -419,7 +419,7 @@ to fb:
 convert c: #define boolean_from_ndr(source,target) { *(target) = *(*(char **)&(source)->Buffer)++; }
 to c:      #define boolean_from_ndr(source,target) byte_from_ndr(source, target)
 
-convert c: #define boolean_array_from_ndr(Source,LowerIndex,UpperIndex,Target) { NDRcopy ((((char *)(Target))+(LowerIndex)),(Source)->Buffer,(unsigned int)((UpperIndex)-(LowerIndex))); *(unsigned __LONG32 *)&(Source)->Buffer += ((UpperIndex)-(LowerIndex)); }
+convert c: #define boolean_array_from_ndr(Source,LowerIndex,UpperIndex,Target) { NDRcopy ((((char *)(Target))+(LowerIndex)),(Source)->Buffer,(unsigned int)((UpperIndex)-(LowerIndex))); *(unsigned long *)&(Source)->Buffer += ((UpperIndex)-(LowerIndex)); }
 to c:      #define boolean_array_from_ndr(Source,LowerIndex,UpperIndex,Target) byte_array_from_ndr(Source, LowerIndex, UpperIndex, Target)
 
 convert c: #define small_from_ndr(source,target) { *(target) = *(*(char **)&(source)->Buffer)++; }
@@ -437,7 +437,7 @@ to fb:
 convert c:
 	#define small_array_from_ndr(Source,LowerIndex,UpperIndex,Target) { \
 		NDRcopy ((((char *)(Target))+(LowerIndex)),(Source)->Buffer,(unsigned int)((UpperIndex)-(LowerIndex))); \
-		*(unsigned __LONG32 *)&(Source)->Buffer += ((UpperIndex)-(LowerIndex)); \
+		*(unsigned long *)&(Source)->Buffer += ((UpperIndex)-(LowerIndex)); \
 	}
 to c: #define small_array_from_ndr(Source, LowerIndex, UpperIndex, Target) byte_array_from_ndr(Source, LowerIndex, UpperIndex, Target)
 
