@@ -6,7 +6,6 @@
 #include once "crt/stdio.bi"
 #include once "crt/string.bi"
 #include once "crt/stdarg.bi"
-#include once "specstrings.bi"
 
 #ifdef __FB_64BIT__
 	extern "C"
