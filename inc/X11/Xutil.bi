@@ -116,11 +116,11 @@ type XClassHint
 	res_class as zstring ptr
 end type
 
-#define XDestroyImage(ximage) '' TODO: ((*((ximage)->f.destroy_image))((ximage)))
-#define XGetPixel(ximage, x, y) '' TODO: ((*((ximage)->f.get_pixel))((ximage), (x), (y)))
-#define XPutPixel(ximage, x, y, pixel) '' TODO: ((*((ximage)->f.put_pixel))((ximage), (x), (y), (pixel)))
-#define XSubImage(ximage, x, y, width, height) '' TODO: ((*((ximage)->f.sub_image))((ximage), (x), (y), (width), (height)))
-#define XAddPixel(ximage, value) '' TODO: ((*((ximage)->f.add_pixel))((ximage), (value)))
+'' TODO: #define XDestroyImage(ximage) ((*((ximage)->f.destroy_image))((ximage)))
+'' TODO: #define XGetPixel(ximage, x, y) ((*((ximage)->f.get_pixel))((ximage), (x), (y)))
+'' TODO: #define XPutPixel(ximage, x, y, pixel) ((*((ximage)->f.put_pixel))((ximage), (x), (y), (pixel)))
+'' TODO: #define XSubImage(ximage, x, y, width, height) ((*((ximage)->f.sub_image))((ximage), (x), (y), (width), (height)))
+'' TODO: #define XAddPixel(ximage, value) ((*((ximage)->f.add_pixel))((ximage), (value)))
 
 type _XComposeStatus
 	compose_ptr as XPointer

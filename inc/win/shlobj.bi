@@ -590,7 +590,7 @@ declare function SHCreateDirectoryExW(byval hwnd as HWND, byval pszPath as LPCWS
 
 declare function SHOpenFolderAndSelectItems(byval pidlFolder as LPCITEMIDLIST, byval cidl as UINT, byval apidl as LPCITEMIDLIST ptr, byval dwFlags as DWORD) as HRESULT
 declare function SHCreateShellItem(byval pidlParent as LPCITEMIDLIST, byval psfParent as IShellFolder ptr, byval pidl as LPCITEMIDLIST, byval ppsi as IShellItem ptr ptr) as HRESULT
-#define REGSTR_PATH_SPECIAL_FOLDERS '' TODO: REGSTR_PATH_EXPLORER __TEXT("\\Shell Folders")
+'' TODO: #define REGSTR_PATH_SPECIAL_FOLDERS REGSTR_PATH_EXPLORER __TEXT("\\Shell Folders")
 const CSIDL_DESKTOP = &h0000
 const CSIDL_INTERNET = &h0001
 const CSIDL_PROGRAMS = &h0002

@@ -114,15 +114,15 @@ const NULL = cptr(any ptr, 0)
 #define SDL_memset memset
 
 #ifdef __FB_64BIT__
-	#define SDL_memset4(dst, val, len) '' TODO: do { unsigned _count = (len); unsigned _n = (_count + 3) / 4; Uint32 *_p = SDL_static_cast(Uint32 *, dst); Uint32 _val = (val); if (len == 0) break; switch (_count % 4) { case 0: do { *_p++ = _val; case 3: *_p++ = _val; case 2: *_p++ = _val; case 1: *_p++ = _val; } while ( --_n ); }} while(0)
+	'' TODO: #define SDL_memset4(dst, val, len)do { unsigned _count = (len); unsigned _n = (_count + 3) / 4; Uint32 *_p = SDL_static_cast(Uint32 *, dst); Uint32 _val = (val); if (len == 0) break; switch (_count % 4) { case 0: do { *_p++ = _val; case 3: *_p++ = _val; case 2: *_p++ = _val; case 1: *_p++ = _val; } while ( --_n ); }} while(0)
 	#define SDL_memcpy memcpy
 	#define SDL_memcpy4(dst, src, len) SDL_memcpy(dst, src, (len) shl 2)
 	declare function SDL_revcpy(byval dst as any ptr, byval src as const any ptr, byval len as uinteger) as any ptr
 #else
-	#define SDL_memset4(dst, val, len) '' TODO: do { int u0, u1, u2; __asm__ __volatile__ ( "cld\n\t" "rep ; stosl\n\t" : "=&D" (u0), "=&a" (u1), "=&c" (u2) : "0" (dst), "1" (val), "2" (SDL_static_cast(Uint32, len)) : "memory" );} while(0)
-	#define SDL_memcpy(dst, src, len) '' TODO: do { int u0, u1, u2; __asm__ __volatile__ ( "cld\n\t" "rep ; movsl\n\t" "testb $2,%b4\n\t" "je 1f\n\t" "movsw\n" "1:\ttestb $1,%b4\n\t" "je 2f\n\t" "movsb\n" "2:" : "=&c" (u0), "=&D" (u1), "=&S" (u2) : "0" (SDL_static_cast(unsigned, len)/4), "q" (len), "1" (dst),"2" (src) : "memory" );} while(0)
-	#define SDL_memcpy4(dst, src, len) '' TODO: do { int ecx, edi, esi; __asm__ __volatile__ ( "cld\n\t" "rep ; movsl" : "=&c" (ecx), "=&D" (edi), "=&S" (esi) : "0" (SDL_static_cast(unsigned, len)), "1" (dst), "2" (src) : "memory" );} while(0)
-	#define SDL_revcpy(dst, src, len) '' TODO: do { int u0, u1, u2; char *dstp = SDL_static_cast(char *, dst); char *srcp = SDL_static_cast(char *, src); int n = (len); if ( n >= 4 ) { __asm__ __volatile__ ( "std\n\t" "rep ; movsl\n\t" "cld\n\t" : "=&c" (u0), "=&D" (u1), "=&S" (u2) : "0" (n >> 2), "1" (dstp+(n-4)), "2" (srcp+(n-4)) : "memory" ); } switch (n & 3) { case 3: dstp[2] = srcp[2]; case 2: dstp[1] = srcp[1]; case 1: dstp[0] = srcp[0]; break; default: break; }} while(0)
+	'' TODO: #define SDL_memset4(dst, val, len)do { int u0, u1, u2; __asm__ __volatile__ ( "cld\n\t" "rep ; stosl\n\t" : "=&D" (u0), "=&a" (u1), "=&c" (u2) : "0" (dst), "1" (val), "2" (SDL_static_cast(Uint32, len)) : "memory" );} while(0)
+	'' TODO: #define SDL_memcpy(dst, src, len)do { int u0, u1, u2; __asm__ __volatile__ ( "cld\n\t" "rep ; movsl\n\t" "testb $2,%b4\n\t" "je 1f\n\t" "movsw\n" "1:\ttestb $1,%b4\n\t" "je 2f\n\t" "movsb\n" "2:" : "=&c" (u0), "=&D" (u1), "=&S" (u2) : "0" (SDL_static_cast(unsigned, len)/4), "q" (len), "1" (dst),"2" (src) : "memory" );} while(0)
+	'' TODO: #define SDL_memcpy4(dst, src, len)do { int ecx, edi, esi; __asm__ __volatile__ ( "cld\n\t" "rep ; movsl" : "=&c" (ecx), "=&D" (edi), "=&S" (esi) : "0" (SDL_static_cast(unsigned, len)), "1" (dst), "2" (src) : "memory" );} while(0)
+	'' TODO: #define SDL_revcpy(dst, src, len)do { int u0, u1, u2; char *dstp = SDL_static_cast(char *, dst); char *srcp = SDL_static_cast(char *, src); int n = (len); if ( n >= 4 ) { __asm__ __volatile__ ( "std\n\t" "rep ; movsl\n\t" "cld\n\t" : "=&c" (u0), "=&D" (u1), "=&S" (u2) : "0" (n >> 2), "1" (dstp+(n-4)), "2" (srcp+(n-4)) : "memory" ); } switch (n & 3) { case 3: dstp[2] = srcp[2]; case 2: dstp[1] = srcp[1]; case 1: dstp[0] = srcp[0]; break; default: break; }} while(0)
 #endif
 
 #define SDL_memmove memmove

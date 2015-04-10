@@ -43,11 +43,12 @@ type REGION as _XRegion
 		'' TODO: if((r)->y2 > (idRect)->extents.y2) (idRect)->extents.y2 = (r)->y2;
 	end scope
 #endmacro
-#define MEMCHECK(reg, rect, firstrect) '' TODO: { if ((reg)->numRects >= ((reg)->size - 1)){ BoxPtr tmpRect = Xrealloc ((firstrect), (2 * (sizeof(BOX)) * ((reg)->size))); if (tmpRect == NULL) return(0); (firstrect) = tmpRect; (reg)->size *= 2; (rect) = &(firstrect)[(reg)->numRects]; } }
+'' TODO: #define MEMCHECK(reg, rect, firstrect){ if ((reg)->numRects >= ((reg)->size - 1)){ BoxPtr tmpRect = Xrealloc ((firstrect), (2 * (sizeof(BOX)) * ((reg)->size))); if (tmpRect == NULL) return(0); (firstrect) = tmpRect; (reg)->size *= 2; (rect) = &(firstrect)[(reg)->numRects]; } }
 #define CHECK_PREVIOUS(Reg, R, Rx1, Ry1, Rx2, Ry2) (((((((Reg)->numRects > 0) andalso ((R - 1)->y1 = (Ry1))) andalso ((R - 1)->y2 = (Ry2))) andalso ((R - 1)->x1 <= (Rx1))) andalso ((R - 1)->x2 >= (Rx2))) = 0)
-#define ADDRECT(reg, r, rx1, ry1, rx2, ry2) '' TODO: { if (((rx1) < (rx2)) && ((ry1) < (ry2)) && CHECK_PREVIOUS((reg), (r), (rx1), (ry1), (rx2), (ry2))){ (r)->x1 = (rx1); (r)->y1 = (ry1); (r)->x2 = (rx2); (r)->y2 = (ry2); EXTENTS((r), (reg)); (reg)->numRects++; (r)++; } }
-#define ADDRECTNOX(reg, r, rx1, ry1, rx2, ry2) '' TODO: { if ((rx1 < rx2) && (ry1 < ry2) && CHECK_PREVIOUS((reg), (r), (rx1), (ry1), (rx2), (ry2))){ (r)->x1 = (rx1); (r)->y1 = (ry1); (r)->x2 = (rx2); (r)->y2 = (ry2); (reg)->numRects++; (r)++; } }
-#define EMPTY_REGION(pReg) '' TODO: pReg->numRects = 0
+'' TODO: #define ADDRECT(reg, r, rx1, ry1, rx2, ry2){ if (((rx1) < (rx2)) && ((ry1) < (ry2)) && CHECK_PREVIOUS((reg), (r), (rx1), (ry1), (rx2), (ry2))){ (r)->x1 = (rx1); (r)->y1 = (ry1); (r)->x2 = (rx2); (r)->y2 = (ry2); EXTENTS((r), (reg)); (reg)->numRects++; (r)++; } }
+'' TODO: #define ADDRECTNOX(reg, r, rx1, ry1, rx2, ry2){ if ((rx1 < rx2) && (ry1 < ry2) && CHECK_PREVIOUS((reg), (r), (rx1), (ry1), (rx2), (ry2))){ (r)->x1 = (rx1); (r)->y1 = (ry1); (r)->x2 = (rx2); (r)->y2 = (ry2); (reg)->numRects++; (r)++; } }
+'' TODO: #define EMPTY_REGION(pReg) pReg->numRects = 0
+
 #define REGION_NOT_EMPTY(pReg) pReg->numRects
 #define INBOX(r, x, y) (((((r).x2 > x) andalso ((r).x1 <= x)) andalso ((r).y2 > y)) andalso ((r).y1 <= y))
 const NUMPTSTOBUFFER = 200

@@ -9,7 +9,7 @@
 extern "C"
 
 #define _MULTIBUF_H_
-#define MbufGetReq(name, req, info) '' TODO: GetReq (name, req); req->reqType = info->codes->major_opcode; req->mbufReqType = X_##name;
+'' TODO: #define MbufGetReq(name,req,info) GetReq (name, req); req->reqType = info->codes->major_opcode; req->mbufReqType = X_##name;
 type Multibuffer as XID
 
 type XmbufClobberNotifyEvent

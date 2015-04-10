@@ -22,8 +22,8 @@ const XSyncCAValue = cast(clong, 1) shl 2
 const XSyncCATestType = cast(clong, 1) shl 3
 const XSyncCADelta = cast(clong, 1) shl 4
 const XSyncCAEvents = cast(clong, 1) shl 5
-#define _XSyncIntToValue(pv, i) '' TODO: ((pv)->hi=((i<0)?~0:0),(pv)->lo=(i))
-#define _XSyncIntsToValue(pv, l, h) '' TODO: ((pv)->lo = (l), (pv)->hi = (h))
+'' TODO: #define _XSyncIntToValue(pv, i) ((pv)->hi=((i<0)?~0:0),(pv)->lo=(i))
+'' TODO: #define _XSyncIntsToValue(pv, l, h) ((pv)->lo = (l), (pv)->hi = (h))
 #define _XSyncValueGreaterThan(a, b) (((a).hi > (b).hi) orelse (((a).hi = (b).hi) andalso ((a).lo > (b).lo)))
 #define _XSyncValueLessThan(a, b) (((a).hi < (b).hi) orelse (((a).hi = (b).hi) andalso ((a).lo < (b).lo)))
 #define _XSyncValueGreaterOrEqual(a, b) (((a).hi > (b).hi) orelse (((a).hi = (b).hi) andalso ((a).lo >= (b).lo)))
@@ -56,8 +56,8 @@ const XSyncCAEvents = cast(clong, 1) shl 5
 		'' TODO: *poverflow = ((signa == signb) && !(signa == XSyncValueIsNegative(*presult)));
 	end scope
 #endmacro
-#define _XSyncMaxValue(pv) '' TODO: ((pv)->hi = 0x7fffffff, (pv)->lo = 0xffffffff)
-#define _XSyncMinValue(pv) '' TODO: ((pv)->hi = 0x80000000, (pv)->lo = 0)
+'' TODO: #define _XSyncMaxValue(pv) ((pv)->hi = 0x7fffffff, (pv)->lo = 0xffffffff)
+'' TODO: #define _XSyncMinValue(pv) ((pv)->hi = 0x80000000, (pv)->lo = 0)
 
 type XSyncValueType as long
 enum

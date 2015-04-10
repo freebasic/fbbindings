@@ -52,9 +52,10 @@ end type
 	#define RASNOUSER RASNOUSERA
 #endif
 
-#define LPRASNOUSERW '' TODO: RASNOUSERW*
-#define LPRASNOUSERA '' TODO: RASNOUSERA*
-#define LPRASNOUSER '' TODO: RASNOUSER*
+'' TODO: #define LPRASNOUSERW RASNOUSERW*
+'' TODO: #define LPRASNOUSERA RASNOUSERA*
+'' TODO: #define LPRASNOUSER RASNOUSER*
+
 const RASPBDFLAG_PositionDlg = &h00000001
 const RASPBDFLAG_ForceCloseOnDial = &h00000002
 const RASPBDFLAG_NoUser = &h00000010
@@ -97,9 +98,10 @@ end type
 	#define RASPBDLGFUNC RASPBDLGFUNCA
 #endif
 
-#define LPRASPBDLGW '' TODO: RASPBDLGW*
-#define LPRASPBDLGA '' TODO: RASPBDLGA*
-#define LPRASPBDLG '' TODO: RASPBDLG*
+'' TODO: #define LPRASPBDLGW RASPBDLGW*
+'' TODO: #define LPRASPBDLGA RASPBDLGA*
+'' TODO: #define LPRASPBDLG RASPBDLG*
+
 const RASEDFLAG_PositionDlg = &h00000001
 const RASEDFLAG_NewEntry = &h00000002
 const RASEDFLAG_CloneEntry = &h00000004
@@ -145,9 +147,10 @@ end type
 	#define RASENTRYDLG RASENTRYDLGA
 #endif
 
-#define LPRASENTRYDLGW '' TODO: RASENTRYDLGW*
-#define LPRASENTRYDLGA '' TODO: RASENTRYDLGA*
-#define LPRASENTRYDLG '' TODO: RASENTRYDLG*
+'' TODO: #define LPRASENTRYDLGW RASENTRYDLGW*
+'' TODO: #define LPRASENTRYDLGA RASENTRYDLGA*
+'' TODO: #define LPRASENTRYDLG RASENTRYDLG*
+
 const RASDDFLAG_PositionDlg = &h00000001
 const RASDDFLAG_NoPrompt = &h00000002
 const RASDDFLAG_LinkFailure = &h80000000
@@ -165,7 +168,7 @@ type tagRASDIALDLG field = 4
 	reserved2 as ULONG_PTR
 end type
 
-#define LPRASDIALDLG '' TODO: RASDIALDLG*
+'' TODO: #define LPRASDIALDLG RASDIALDLG*
 type RasCustomDialDlgFn as function(byval hInstDll as HINSTANCE, byval dwFlags as DWORD, byval lpszPhonebook as LPWSTR, byval lpszEntry as LPWSTR, byval lpszPhoneNumber as LPWSTR, byval lpInfo as tagRASDIALDLG ptr, byval pvInfo as PVOID) as WINBOOL
 
 #ifdef UNICODE

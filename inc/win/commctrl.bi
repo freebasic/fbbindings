@@ -2723,7 +2723,7 @@ const LVS_EX_SIMPLESELECT = &h100000
 #endif
 
 #define LVM_GETSUBITEMRECT (LVM_FIRST + 56)
-#define ListView_GetSubItemRect(hwnd, iItem, iSubItem, code, prc) '' TODO: (WINBOOL)SNDMSG((hwnd),LVM_GETSUBITEMRECT,(WPARAM)(int)(iItem),((prc) ? ((((LPRECT)(prc))->top = iSubItem),(((LPRECT)(prc))->left = code),(LPARAM)(prc)) : (LPARAM)(LPRECT)NULL))
+'' TODO: #define ListView_GetSubItemRect(hwnd,iItem,iSubItem,code,prc) (WINBOOL)SNDMSG((hwnd),LVM_GETSUBITEMRECT,(WPARAM)(int)(iItem),((prc) ? ((((LPRECT)(prc))->top = iSubItem),(((LPRECT)(prc))->left = code),(LPARAM)(prc)) : (LPARAM)(LPRECT)NULL))
 #define LVM_SUBITEMHITTEST (LVM_FIRST + 57)
 #define ListView_SubItemHitTest(hwnd, plvhti) clng(SNDMSG((hwnd), LVM_SUBITEMHITTEST, 0, cast(LPARAM, cast(LPLVHITTESTINFO, (plvhti)))))
 #define LVM_SETCOLUMNORDERARRAY (LVM_FIRST + 58)
@@ -2982,7 +2982,7 @@ type PLVSETINFOTIP as tagLVSETINFOTIP ptr
 #define LVM_SETOUTLINECOLOR (LVM_FIRST + 177)
 #define ListView_SetOutlineColor(hwnd, color) cast(COLORREF, SNDMSG((hwnd), LVM_SETOUTLINECOLOR, cast(WPARAM, 0), cast(LPARAM, cast(COLORREF, (color)))))
 #define LVM_CANCELEDITLABEL (LVM_FIRST + 179)
-#define ListView_CancelEditLabel(hwnd) '' TODO: (VOID)SNDMSG((hwnd),LVM_CANCELEDITLABEL,(WPARAM)0,(LPARAM)0)
+'' TODO: #define ListView_CancelEditLabel(hwnd) (VOID)SNDMSG((hwnd),LVM_CANCELEDITLABEL,(WPARAM)0,(LPARAM)0)
 #define LVM_MAPINDEXTOID (LVM_FIRST + 180)
 #define ListView_MapIndexToID(hwnd, index) cast(UINT, SNDMSG((hwnd), LVM_MAPINDEXTOID, cast(WPARAM, index), cast(LPARAM, 0)))
 #define LVM_MAPIDTOINDEX (LVM_FIRST + 181)

@@ -32,7 +32,7 @@
 const ANYSIZE_ARRAY = 1
 const FALSE = 0
 const TRUE = 1
-#define NULL64 '' TODO: ((void * POINTER_64)0)
+'' TODO: #define NULL64 ((void * POINTER_64)0)
 
 #ifdef __FB_64BIT__
 	#define ALIGNMENT_MACHINE

@@ -327,7 +327,7 @@ const TM_TYPE_SEGMENT_SIZE = 16
 #define TMComplexBranchHead(tree, br) cast(TMComplexStateTree, tree)->complexBranchHeadTbl[TMBranchMore(br)]
 #define TMGetComplexBindEntry(bindData, idx) cast(TMComplexBindProcs, @cast(TMComplexBindData, bindData)->bindTbl[idx])
 #define TMGetSimpleBindEntry(bindData, idx) cast(TMSimpleBindProcs, @cast(TMSimpleBindData, bindData)->bindTbl[idx])
-#define _InitializeKeysymTables(dpy, pd) '' TODO: if (pd->keysyms == NULL) _XtBuildKeysymTables(dpy, pd)
+'' TODO: #define _InitializeKeysymTables(dpy, pd) if (pd->keysyms == NULL) _XtBuildKeysymTables(dpy, pd)
 
 declare sub _XtPopup(byval as Widget, byval as XtGrabKind, byval as byte)
 declare function _XtPrintXlations(byval as Widget, byval as XtTranslations, byval as Widget, byval as byte) as String_

@@ -123,7 +123,7 @@ type PDWORD32 as ulong ptr
 		return cptr(any ptr, cast(ULONG_PTR, ul))
 	end function
 
-	#define PtrToPtr64(p) '' TODO: ((void *POINTER_64) p)
+	'' TODO: #define PtrToPtr64(p) ((void *POINTER_64) p)
 	#define Ptr64ToPtr(p) cptr(any ptr, p)
 	#define HandleToHandle64(h) PtrToPtr64(h)
 	#define Handle64ToHandle(h) Ptr64ToPtr(h)
@@ -190,7 +190,7 @@ type PDWORD32 as ulong ptr
 
 	#define Ptr32ToPtr(p) cptr(any ptr, p)
 	#define Handle32ToHandle(h) Ptr32ToPtr(h)
-	#define PtrToPtr32(p) '' TODO: ((void *POINTER_32) p)
+	'' TODO: #define PtrToPtr32(p) ((void *POINTER_32) p)
 #endif
 
 #define HandleToHandle32(h) PtrToPtr32(h)

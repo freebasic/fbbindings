@@ -34,7 +34,7 @@ const TopLevelClassFlag = &h80
 #define XtIsManaged(object) iif(XtIsRectObj(object), (object)->core.managed, False)
 #define XtIsSensitive(object) iif(XtIsRectObj(object), -((object)->core.sensitive andalso (object)->core.ancestor_sensitive), False)
 #define _XBCOPYFUNC _XtBcopy
-#define XtMemmove(dst, src, size) '' TODO: if ((char *)(dst) != (char *)(src)) { (void) memcpy((char *) (dst), (char *) (src), (int) (size)); }
+'' TODO: #define XtMemmove(dst, src, size) if ((char *)(dst) != (char *)(src)) { (void) memcpy((char *) (dst), (char *) (src), (int) (size)); }
 #define XtBZero(dst, size) bzero(cptr(zstring ptr, (dst)), clng((size)))
 #define XtMemcmp(b1, b2, size) memcmp(cptr(zstring ptr, (b1)), cptr(zstring ptr, (b2)), clng((size)))
 #define XtStackAlloc(size, stack_cache_array) iif((size) <= sizeof((stack_cache_array)), cast(XtPointer, (stack_cache_array)), XtMalloc(culng((size))))

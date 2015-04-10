@@ -851,7 +851,7 @@ union _XEvent
 end union
 
 type XEvent as _XEvent
-#define XAllocID(dpy) '' TODO: ((*((_XPrivDisplay)dpy)->resource_alloc)((dpy)))
+'' TODO: #define XAllocID(dpy) ((*((_XPrivDisplay)dpy)->resource_alloc)((dpy)))
 
 type XCharStruct
 	lbearing as short

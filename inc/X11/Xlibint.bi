@@ -145,7 +145,7 @@ type _XDisplay_
 	cookiejar as any ptr
 end type
 
-#define XAllocIDs(dpy, ids, n) '' TODO: (*(dpy)->idlist_alloc)(dpy,ids,n)
+'' TODO: #define XAllocIDs(dpy,ids,n) (*(dpy)->idlist_alloc)(dpy,ids,n)
 
 type _XSQEvent_
 	next as _XSQEvent ptr
@@ -182,12 +182,13 @@ end type
 	extern _Xglobal_lock as LockInfoPtr
 #endif
 
-#define LockDisplay(d) '' TODO: if ((d)->lock_fns) (*(d)->lock_fns->lock_display)(d)
-#define UnlockDisplay(d) '' TODO: if ((d)->lock_fns) (*(d)->lock_fns->unlock_display)(d)
-#define _XLockMutex(lock) '' TODO: if (_XLockMutex_fn) (*_XLockMutex_fn)(lock)
-#define _XUnlockMutex(lock) '' TODO: if (_XUnlockMutex_fn) (*_XUnlockMutex_fn)(lock)
-#define _XCreateMutex(lock) '' TODO: if (_XCreateMutex_fn) (*_XCreateMutex_fn)(lock);
-#define _XFreeMutex(lock) '' TODO: if (_XFreeMutex_fn) (*_XFreeMutex_fn)(lock);
+'' TODO: #define LockDisplay(d) if ((d)->lock_fns) (*(d)->lock_fns->lock_display)(d)
+'' TODO: #define UnlockDisplay(d) if ((d)->lock_fns) (*(d)->lock_fns->unlock_display)(d)
+'' TODO: #define _XLockMutex(lock) if (_XLockMutex_fn) (*_XLockMutex_fn)(lock)
+'' TODO: #define _XUnlockMutex(lock) if (_XUnlockMutex_fn) (*_XUnlockMutex_fn)(lock)
+'' TODO: #define _XCreateMutex(lock) if (_XCreateMutex_fn) (*_XCreateMutex_fn)(lock);
+'' TODO: #define _XFreeMutex(lock) if (_XFreeMutex_fn) (*_XFreeMutex_fn)(lock);
+
 #define Xfree_(ptr) free((ptr))
 #define Xmalloc(size) malloc((size))
 #define Xrealloc(ptr, size) realloc((ptr), (size))
@@ -213,11 +214,11 @@ const XlibDisplayReply = cast(clong, 1) shl 5
 const XlibDisplayWriting = cast(clong, 1) shl 6
 const XlibDisplayDfltRMDB = cast(clong, 1) shl 7
 declare function _XGetRequest(byval dpy as Display ptr, byval type as CARD8, byval len as uinteger) as any ptr
-#define GetReqSized(name, sz, req) '' TODO: req = (x##name##Req *) _XGetRequest(dpy, X_##name, sz)
+'' TODO: #define GetReqSized(name, sz, req) req = (x##name##Req *) _XGetRequest(dpy, X_##name, sz)
 #define GetReq(name, req) GetReqSized(name, XSIZEOF(x##name##Req), req)
 #define GetReqExtra(name, n, req) GetReqSized(name, XSIZEOF(x##name##Req) + n, req)
-#define GetResReq(name, rid, req) '' TODO: req = (xResourceReq *) _XGetRequest(dpy, X_##name, SIZEOF(xResourceReq)); req->id = (rid)
-#define GetEmptyReq(name, req) '' TODO: req = (xReq *) _XGetRequest(dpy, X_##name, SIZEOF(xReq))
+'' TODO: #define GetResReq(name, rid, req) req = (xResourceReq *) _XGetRequest(dpy, X_##name, SIZEOF(xResourceReq)); req->id = (rid)
+'' TODO: #define GetEmptyReq(name, req) req = (xReq *) _XGetRequest(dpy, X_##name, SIZEOF(xReq))
 
 #ifdef __FB_64BIT__
 	#macro MakeBigReq(req, n)
@@ -245,17 +246,17 @@ declare function _XGetRequest(byval dpy as Display ptr, byval type as CARD8, byv
 	#endmacro
 #endif
 
-#define SetReqLen(req, n, badlen) '' TODO: if ((req->length + n) > (unsigned)65535) { if (dpy->bigreq_size) { MakeBigReq(req,n) } else { n = badlen; req->length += n; } } else req->length += n
-#define SyncHandle() '' TODO: if (dpy->synchandler) (*dpy->synchandler)(dpy)
+'' TODO: #define SetReqLen(req,n,badlen) if ((req->length + n) > (unsigned)65535) { if (dpy->bigreq_size) { MakeBigReq(req,n) } else { n = badlen; req->length += n; } } else req->length += n
+'' TODO: #define SyncHandle() if (dpy->synchandler) (*dpy->synchandler)(dpy)
 declare sub _XFlushGCCache(byval dpy as Display ptr, byval gc as GC)
-#define FlushGC(dpy, gc) '' TODO: if ((gc)->dirty) _XFlushGCCache((dpy), (gc))
+'' TODO: #define FlushGC(dpy, gc) if ((gc)->dirty) _XFlushGCCache((dpy), (gc))
 #macro Data_(dpy, data, len)
 	scope
 		'' TODO: if (dpy->bufptr + (len) <= dpy->bufmax) { memcpy(dpy->bufptr, data, (int)len); dpy->bufptr += ((len) + 3) & ~3; }
 		'' TODO: else _XSend(dpy, data, len);
 	end scope
 #endmacro
-#define BufAlloc(type, ptr, n) '' TODO: if (dpy->bufptr + (n) > dpy->bufmax) _XFlush (dpy); ptr = (type) dpy->bufptr; memset(ptr, '\0', n); dpy->bufptr += (n);
+'' TODO: #define BufAlloc(type, ptr, n) if (dpy->bufptr + (n) > dpy->bufmax) _XFlush (dpy); ptr = (type) dpy->bufptr; memset(ptr, '\0', n); dpy->bufptr += (n);
 #define Data16(dpy, data, len) Data_((dpy), cptr(const zstring ptr, (data)), (len))
 #define _XRead16Pad(dpy, data, len) _XReadPad((dpy), cptr(zstring ptr, (data)), (len))
 #define _XRead16(dpy, data, len) _XRead((dpy), cptr(zstring ptr, (data)), (len))
