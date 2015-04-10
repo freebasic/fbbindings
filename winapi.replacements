@@ -754,3 +754,12 @@ to fb:
 			(dec).signscale = 0
 		end scope
 	#endmacro
+
+convert c: #define NUMELMS(array) (sizeof(array) / sizeof((array)[0]))
+to fb:     #define NUMELMS(array) (ubound(array) - lbound(array) + 1)
+
+convert c: #define DEFINE_SIZEOF(Array) (sizeof(Array) / sizeof((Array)[0]))
+to fb:     #define DEFINE_SIZEOF(Array) (ubound(Array) - lbound(Array) + 1)
+
+convert c: #define RTL_NUMBER_OF_V1(A) (sizeof(A) / sizeof((A)[0]))
+to fb:     #define RTL_NUMBER_OF_V1(A) (ubound(A) - lbound(A) + 1)
