@@ -1,4 +1,5 @@
 #include "windows.bi"
+
 #include "win/accctrl.bi"
 #include "win/aclapi.bi"
 #include "win/aclui.bi"
@@ -134,6 +135,7 @@
 #include "win/sqlucode.bi"
 #include "win/sspi.bi"
 #include "win/strmif.bi"
+#include "win/strsafe.bi"
 #include "win/structuredquerycondition.bi"
 #include "win/subauth.bi"
 #include "win/tcpestats.bi"
@@ -157,6 +159,7 @@
 #include "win/wincrypt.bi"
 #include "win/windef.bi"
 #include "win/windns.bi"
+#include "win/windowsx.bi"
 #include "win/winefs.bi"
 #include "win/winerror.bi"
 #include "win/wingdi.bi"
