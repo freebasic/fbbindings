@@ -216,8 +216,8 @@ declare function StringCbVPrintfW(byval pszDest as STRSAFE_LPWSTR, byval cbDest 
 	#define StringCbVPrintf StringCbVPrintfA
 #endif
 
-declare function StringCchPrintfA(byval pszDest as STRSAFE_LPSTR, byval cchDest as uinteger, byval pszFormat as STRSAFE_LPCSTR, ...) as HRESULT
-declare function StringCchPrintfW(byval pszDest as STRSAFE_LPWSTR, byval cchDest as uinteger, byval pszFormat as STRSAFE_LPCWSTR, ...) as HRESULT
+declare function StringCchPrintfA cdecl(byval pszDest as STRSAFE_LPSTR, byval cchDest as uinteger, byval pszFormat as STRSAFE_LPCSTR, ...) as HRESULT
+declare function StringCchPrintfW cdecl(byval pszDest as STRSAFE_LPWSTR, byval cchDest as uinteger, byval pszFormat as STRSAFE_LPCWSTR, ...) as HRESULT
 
 #ifdef UNICODE
 	#define StringCchPrintf StringCchPrintfW
@@ -225,8 +225,8 @@ declare function StringCchPrintfW(byval pszDest as STRSAFE_LPWSTR, byval cchDest
 	#define StringCchPrintf StringCchPrintfA
 #endif
 
-declare function StringCbPrintfA(byval pszDest as STRSAFE_LPSTR, byval cbDest as uinteger, byval pszFormat as STRSAFE_LPCSTR, ...) as HRESULT
-declare function StringCbPrintfW(byval pszDest as STRSAFE_LPWSTR, byval cbDest as uinteger, byval pszFormat as STRSAFE_LPCWSTR, ...) as HRESULT
+declare function StringCbPrintfA cdecl(byval pszDest as STRSAFE_LPSTR, byval cbDest as uinteger, byval pszFormat as STRSAFE_LPCSTR, ...) as HRESULT
+declare function StringCbPrintfW cdecl(byval pszDest as STRSAFE_LPWSTR, byval cbDest as uinteger, byval pszFormat as STRSAFE_LPCWSTR, ...) as HRESULT
 
 #ifdef UNICODE
 	#define StringCbPrintf StringCbPrintfW
@@ -234,8 +234,8 @@ declare function StringCbPrintfW(byval pszDest as STRSAFE_LPWSTR, byval cbDest a
 	#define StringCbPrintf StringCbPrintfA
 #endif
 
-declare function StringCchPrintfExA(byval pszDest as STRSAFE_LPSTR, byval cchDest as uinteger, byval ppszDestEnd as STRSAFE_LPSTR ptr, byval pcchRemaining as uinteger ptr, byval dwFlags as ulong, byval pszFormat as STRSAFE_LPCSTR, ...) as HRESULT
-declare function StringCchPrintfExW(byval pszDest as STRSAFE_LPWSTR, byval cchDest as uinteger, byval ppszDestEnd as STRSAFE_LPWSTR ptr, byval pcchRemaining as uinteger ptr, byval dwFlags as ulong, byval pszFormat as STRSAFE_LPCWSTR, ...) as HRESULT
+declare function StringCchPrintfExA cdecl(byval pszDest as STRSAFE_LPSTR, byval cchDest as uinteger, byval ppszDestEnd as STRSAFE_LPSTR ptr, byval pcchRemaining as uinteger ptr, byval dwFlags as ulong, byval pszFormat as STRSAFE_LPCSTR, ...) as HRESULT
+declare function StringCchPrintfExW cdecl(byval pszDest as STRSAFE_LPWSTR, byval cchDest as uinteger, byval ppszDestEnd as STRSAFE_LPWSTR ptr, byval pcchRemaining as uinteger ptr, byval dwFlags as ulong, byval pszFormat as STRSAFE_LPCWSTR, ...) as HRESULT
 
 #ifdef UNICODE
 	#define StringCchPrintfEx StringCchPrintfExW
@@ -243,8 +243,8 @@ declare function StringCchPrintfExW(byval pszDest as STRSAFE_LPWSTR, byval cchDe
 	#define StringCchPrintfEx StringCchPrintfExA
 #endif
 
-declare function StringCbPrintfExA(byval pszDest as STRSAFE_LPSTR, byval cbDest as uinteger, byval ppszDestEnd as STRSAFE_LPSTR ptr, byval pcbRemaining as uinteger ptr, byval dwFlags as ulong, byval pszFormat as STRSAFE_LPCSTR, ...) as HRESULT
-declare function StringCbPrintfExW(byval pszDest as STRSAFE_LPWSTR, byval cbDest as uinteger, byval ppszDestEnd as STRSAFE_LPWSTR ptr, byval pcbRemaining as uinteger ptr, byval dwFlags as ulong, byval pszFormat as STRSAFE_LPCWSTR, ...) as HRESULT
+declare function StringCbPrintfExA cdecl(byval pszDest as STRSAFE_LPSTR, byval cbDest as uinteger, byval ppszDestEnd as STRSAFE_LPSTR ptr, byval pcbRemaining as uinteger ptr, byval dwFlags as ulong, byval pszFormat as STRSAFE_LPCSTR, ...) as HRESULT
+declare function StringCbPrintfExW cdecl(byval pszDest as STRSAFE_LPWSTR, byval cbDest as uinteger, byval ppszDestEnd as STRSAFE_LPWSTR ptr, byval pcbRemaining as uinteger ptr, byval dwFlags as ulong, byval pszFormat as STRSAFE_LPCWSTR, ...) as HRESULT
 
 #ifdef UNICODE
 	#define StringCbPrintfEx StringCbPrintfExW
