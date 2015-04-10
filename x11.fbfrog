@@ -1,5 +1,6 @@
 nodos.fbfrog
 
+-replacements x11.replacements
 -fixunsizedarrays
 
 -define FT_FREETYPE_H '"freetype.h"'

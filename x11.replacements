@@ -1,0 +1,14 @@
+convert c: #define XtSetArg(arg, n, d) ((void)( (arg).name = (n), (arg).value = (XtArgVal)(d) ))
+to fb:
+	#macro XtSetArg(arg, n, d)
+		scope
+			(arg).name = (n)
+			(arg).value = cast(XtArgVal, d)
+		end scope
+	#endmacro
+
+convert c: #define XtOffset(p_type,field) ((Cardinal) (((char *) (&(((p_type)NULL)->field))) - ((char *) NULL)))
+to fb:     #define XtOffset(p_type, field) cast(Cardinal, cptr(byte ptr, @cast(p_type, NULL)->field) - cptr(byte ptr, NULL))
+
+convert c: #define XtOffsetOf(s_type,field) XtOffset(s_type*,field)
+to fb:     #define XtOffsetOf(s_type, field) XtOffset(s_type ptr, field)
