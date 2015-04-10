@@ -3,8 +3,6 @@
 #pragma once
 
 #include once "_mingw_unicode.bi"
-#include once "crt/stdio.bi"
-#include once "crt/string.bi"
 #include once "crt/stdarg.bi"
 
 extern "Windows"
