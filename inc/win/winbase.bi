@@ -15,6 +15,8 @@
 '' The following symbols have been renamed:
 ''     procedure Sleep => Sleep_
 ''     procedure Beep => Beep_
+''     #define GHND => GHND_
+''     #define GPTR => GPTR_
 
 #ifdef __FB_64BIT__
 	extern "C"
@@ -2052,8 +2054,8 @@ const GMEM_NOTIFY = &h4000
 #define GMEM_LOWER GMEM_NOT_BANKED
 const GMEM_VALID_FLAGS = &h7f72
 const GMEM_INVALID_HANDLE = &h8000
-#define GHND (GMEM_MOVEABLE or GMEM_ZEROINIT)
-#define GPTR (GMEM_FIXED or GMEM_ZEROINIT)
+#define GHND_ (GMEM_MOVEABLE or GMEM_ZEROINIT)
+#define GPTR_ (GMEM_FIXED or GMEM_ZEROINIT)
 #define GlobalLRUNewest(h) cast(HANDLE, (h))
 #define GlobalLRUOldest(h) cast(HANDLE, (h))
 #define GlobalDiscard(h) GlobalReAlloc((h), 0, GMEM_MOVEABLE)
