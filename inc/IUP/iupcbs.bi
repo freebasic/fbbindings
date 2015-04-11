@@ -20,6 +20,7 @@ type IFni as function(byval as Ihandle ptr, byval as long) as long
 type IFnii as function(byval as Ihandle ptr, byval as long, byval as long) as long
 type IFniii as function(byval as Ihandle ptr, byval as long, byval as long, byval as long) as long
 type IFniiii as function(byval as Ihandle ptr, byval as long, byval as long, byval as long, byval as long) as long
+type _cdCanvas as _cdCanvas_
 type IFniiiiiiC as function(byval as Ihandle ptr, byval as long, byval as long, byval as long, byval as long, byval as long, byval as long, byval as _cdCanvas ptr) as long
 type IFniiiiii as function(byval as Ihandle ptr, byval as long, byval as long, byval as long, byval as long, byval as long, byval as long) as long
 type IFnff as function(byval as Ihandle ptr, byval as single, byval as single) as long
