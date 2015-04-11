@@ -111,6 +111,7 @@
 -removedefine DEFINE_WAVEFORMATEX_GUID
 -removedefine DEPRECATE_SUPPORTED
 -removedefine DMUS_PMSG_PART
+-removedefine DPAPI_IMP
 -removedefine DUMMYSTRUCTNAME
 -removedefine DUMMYSTRUCTNAME1
 -removedefine DUMMYSTRUCTNAME2

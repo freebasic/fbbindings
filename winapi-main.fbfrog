@@ -131,6 +131,7 @@
 -emit '*/dimm.h'                   inc/win/dimm.bi
 -emit '*/dlgs.h'                   inc/win/dlgs.bi
 -emit '*/docobj.h'                 inc/win/docobj.bi
+-emit '*/dpapi.h'                  inc/win/wincrypt.bi
 -emit '*/errhandlingapi.h'         inc/win/winbase.bi
 -emit '*/exdisp.h'                 inc/win/exdisp.bi
 -emit '*/fibersapi.h'              inc/win/winbase.bi

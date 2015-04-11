@@ -6,7 +6,6 @@
 #include once "_mingw_unicode.bi"
 #include once "guiddef.bi"
 #include once "winapifamily.bi"
-#include once "dpapi.bi"
 
 extern "Windows"
 
@@ -5687,6 +5686,51 @@ declare function CertRetrieveLogoOrBiometricInfo(byval pCertContext as PCCERT_CO
 	type CRYPT_OBJECT_LOCATOR_PROVIDER_TABLE as _CRYPT_OBJECT_LOCATOR_PROVIDER_TABLE
 	type PCRYPT_OBJECT_LOCATOR_PROVIDER_TABLE as _CRYPT_OBJECT_LOCATOR_PROVIDER_TABLE ptr
 	type PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_INITIALIZE as function(byval pfnFlush as PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_FLUSH, byval pContext as LPVOID, byval pdwExpectedObjectCount as DWORD ptr, byval ppFuncTable as PCRYPT_OBJECT_LOCATOR_PROVIDER_TABLE ptr, byval ppPluginContext as any ptr ptr) as WINBOOL
+#endif
+
+#define __DPAPI_H__
+#define CRYPTPROTECT_DEFAULT_PROVIDER (&hdf9d8cd0, &h1501, &h11d1, (&h8c, &h7a, &h00, &hc0, &h4f, &hc2, &h97, &heb))
+#define szFORCE_KEY_PROTECTION "ForceKeyProtection"
+const dwFORCE_KEY_PROTECTION_DISABLED = &h0
+const dwFORCE_KEY_PROTECTION_USER_SELECT = &h1
+const dwFORCE_KEY_PROTECTION_HIGH = &h2
+const CRYPTPROTECT_PROMPT_ON_UNPROTECT = &h1
+const CRYPTPROTECT_PROMPT_ON_PROTECT = &h2
+const CRYPTPROTECT_PROMPT_RESERVED = &h04
+const CRYPTPROTECT_PROMPT_STRONG = &h08
+const CRYPTPROTECT_PROMPT_REQUIRE_STRONG = &h10
+const CRYPTPROTECT_UI_FORBIDDEN = &h1
+const CRYPTPROTECT_LOCAL_MACHINE = &h4
+const CRYPTPROTECT_CRED_SYNC = &h8
+const CRYPTPROTECT_AUDIT = &h10
+const CRYPTPROTECT_NO_RECOVERY = &h20
+const CRYPTPROTECT_VERIFY_PROTECTION = &h40
+const CRYPTPROTECT_CRED_REGENERATE = &h80
+const CRYPTPROTECT_FIRST_RESERVED_FLAGVAL = &h0fffffff
+const CRYPTPROTECT_LAST_RESERVED_FLAGVAL = &hffffffff
+const CRYPTPROTECTMEMORY_BLOCK_SIZE = 16
+const CRYPTPROTECTMEMORY_SAME_PROCESS = &h0
+const CRYPTPROTECTMEMORY_CROSS_PROCESS = &h1
+const CRYPTPROTECTMEMORY_SAME_LOGON = &h2
+
+type _CRYPTPROTECT_PROMPTSTRUCT
+	cbSize as DWORD
+	dwPromptFlags as DWORD
+	hwndApp as HWND
+	szPrompt as LPCWSTR
+end type
+
+type CRYPTPROTECT_PROMPTSTRUCT as _CRYPTPROTECT_PROMPTSTRUCT
+type PCRYPTPROTECT_PROMPTSTRUCT as _CRYPTPROTECT_PROMPTSTRUCT ptr
+declare function CryptProtectData(byval pDataIn as DATA_BLOB ptr, byval szDataDescr as LPCWSTR, byval pOptionalEntropy as DATA_BLOB ptr, byval pvReserved as PVOID, byval pPromptStruct as CRYPTPROTECT_PROMPTSTRUCT ptr, byval dwFlags as DWORD, byval pDataOut as DATA_BLOB ptr) as WINBOOL
+declare function CryptUnprotectData(byval pDataIn as DATA_BLOB ptr, byval ppszDataDescr as LPWSTR ptr, byval pOptionalEntropy as DATA_BLOB ptr, byval pvReserved as PVOID, byval pPromptStruct as CRYPTPROTECT_PROMPTSTRUCT ptr, byval dwFlags as DWORD, byval pDataOut as DATA_BLOB ptr) as WINBOOL
+declare function CryptProtectMemory(byval pDataIn as LPVOID, byval cbDataIn as DWORD, byval dwFlags as DWORD) as WINBOOL
+declare function CryptUnprotectMemory(byval pDataIn as LPVOID, byval cbDataIn as DWORD, byval dwFlags as DWORD) as WINBOOL
+
+#if _WIN32_WINNT = &h0602
+	declare function CryptProtectDataNoUI(byval pDataIn as DATA_BLOB ptr, byval szDataDescr as LPCWSTR, byval pOptionalEntropy as DATA_BLOB ptr, byval pvReserved as PVOID, byval pPromptStruct as CRYPTPROTECT_PROMPTSTRUCT ptr, byval dwFlags as DWORD, byval pbOptionalPassword as const UBYTE ptr, byval cbOptionalPassword as DWORD, byval pDataOut as DATA_BLOB ptr) as WINBOOL
+	declare function CryptUnprotectDataNoUI(byval pDataIn as DATA_BLOB ptr, byval ppszDataDescr as LPWSTR ptr, byval pOptionalEntropy as DATA_BLOB ptr, byval pvReserved as PVOID, byval pPromptStruct as CRYPTPROTECT_PROMPTSTRUCT ptr, byval dwFlags as DWORD, byval pbOptionalPassword as const UBYTE ptr, byval cbOptionalPassword as DWORD, byval pDataOut as DATA_BLOB ptr) as WINBOOL
+	declare function CryptUpdateProtectedState(byval pOldSid as PSID, byval pwszOldPassword as LPCWSTR, byval dwFlags as DWORD, byval pdwSuccessCount as DWORD ptr, byval pdwFailureCount as DWORD ptr) as WINBOOL
 #endif
 
 end extern
