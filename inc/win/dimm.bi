@@ -1037,13 +1037,7 @@ declare sub IEnumRegisterWordW_Reset_Stub(byval This as IRpcStubBuffer ptr, byva
 declare function IEnumRegisterWordW_Skip_Proxy(byval This as IEnumRegisterWordW ptr, byval ulCount as ULONG) as HRESULT
 declare sub IEnumRegisterWordW_Skip_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 extern CLSID_CActiveIMM as const GUID
-declare function HWND_UserSize(byval as ULONG ptr, byval as ULONG, byval as HWND ptr) as ULONG
-declare function HWND_UserMarshal(byval as ULONG ptr, byval as ubyte ptr, byval as HWND ptr) as ubyte ptr
-declare function HWND_UserUnmarshal(byval as ULONG ptr, byval as ubyte ptr, byval as HWND ptr) as ubyte ptr
-declare sub HWND_UserFree(byval as ULONG ptr, byval as HWND ptr)
-declare function HBITMAP_UserSize(byval as ULONG ptr, byval as ULONG, byval as HBITMAP ptr) as ULONG
-declare function HBITMAP_UserMarshal(byval as ULONG ptr, byval as ubyte ptr, byval as HBITMAP ptr) as ubyte ptr
-declare function HBITMAP_UserUnmarshal(byval as ULONG ptr, byval as ubyte ptr, byval as HBITMAP ptr) as ubyte ptr
-declare sub HBITMAP_UserFree(byval as ULONG ptr, byval as HBITMAP ptr)
 
 end extern
+
+#include once "ole-common.bi"
