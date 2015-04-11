@@ -502,6 +502,7 @@
 # Unnecessary alias
 -removedefine KSDATAFORMAT_SUBTYPE_PCM
 -removedefine KSDATAFORMAT_SUBTYPE_IEEE_FLOAT
+-removedefine KSDATAFORMAT_SUBTYPE_WAVEFORMATEX
 
 -removedefine LRESULT
 -removedefine HGLOBAL
@@ -534,6 +535,9 @@
 -renamedefine GHND GHND_
 -renamedefine GPTR GPTR_
 -renamedefine FONTSIZE FONTSIZE_
+
+# Various "Delete" fields that also need updating in macro bodies
+-rename Delete Delete_
 
 # FB has these built-in
 -removedefine LOWORD
