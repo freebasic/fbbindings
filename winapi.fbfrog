@@ -530,6 +530,7 @@
 -renamedefine BITSPIXEL BITSPIXEL_
 -renamedefine PLANES PLANES_
 -renamedefine DELETE DELETE__
+-renamedefine FONTSIZE FONTSIZE_
 
 # FB has these built-in
 -removedefine LOWORD

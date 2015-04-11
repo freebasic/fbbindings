@@ -384,7 +384,7 @@ convert c: #define VarI8FromI8(in, pOut) (*(pOut) = (in))
 to fb:     #define VarI8FromI8(in, pOut) scope : *(pOut) = (in) : end scope
 
 convert c: #define FONTSIZE(n) { n##0000,0 }
-to fb:     #define FONTSIZE(n) (n##0000, 0)
+to fb:     #define FONTSIZE_(n) (n##0000, 0)
 
 convert c: #define byte_from_ndr(source,target) { *(target) = *(*(char **)&(source)->Buffer)++; }
 to fb:
