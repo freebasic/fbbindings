@@ -653,8 +653,8 @@ iconv:
 		-o inc/libiconv.bi \
 		-title $(ICONV)
 
-IUP_VERSION := 3.11.2
-IUP_TITLE := iup-3.11.2
+IUP_VERSION := 3.13
+IUP_TITLE := iup-$(IUP_VERSION)
 iup:
 	./get.sh iup $(IUP_TITLE)_Sources.tar.gz "http://sourceforge.net/projects/iup/files/$(IUP_VERSION)/Docs%20and%20Sources/$(IUP_TITLE)_Sources.tar.gz/download"
 	find extracted/iup/ -type d -exec chmod +x '{}' ';'
@@ -667,6 +667,7 @@ iup:
 		-emit '*/iupcbs.h'           inc/IUP/iupcbs.bi           \
 		-emit '*/iupcells.h'         inc/IUP/iupcells.bi         \
 		-emit '*/iupcolorbar.h'      inc/IUP/iupcolorbar.bi      \
+		-emit '*/iup_config.h'       inc/IUP/iup_config.bi       \
 		-emit '*/iupcontrols.h'      inc/IUP/iupcontrols.bi      \
 		-emit '*/iupdef.h'           inc/IUP/iupdef.bi           \
 		-emit '*/iupdial.h'          inc/IUP/iupdial.bi          \
@@ -682,6 +683,7 @@ iup:
 		-emit '*/iupmatrix.h'        inc/IUP/iupmatrix.bi        \
 		-emit '*/iup_mglplot.h'      inc/IUP/iup_mglplot.bi      \
 		-emit '*/iupole.h'           inc/IUP/iupole.bi           \
+		-emit '*/iup_plot.h'         inc/IUP/iup_plot.bi         \
 		-emit '*/iup_pplot.h'        inc/IUP/iup_pplot.bi        \
 		-emit '*/iupsbox.h'          inc/IUP/iupsbox.bi          \
 		-emit '*/iupspin.h'          inc/IUP/iupspin.bi          \
@@ -722,6 +724,7 @@ iup:
 		-emit '*/iupluamatrixex.h'   inc/IUP/iupluamatrixex.bi   \
 		-emit '*/iuplua_mglplot.h'   inc/IUP/iuplua_mglplot.bi   \
 		-emit '*/iupluaole.h'        inc/IUP/iupluaole.bi        \
+		-emit '*/iuplua_plot.h'      inc/IUP/iuplua_plot.bi      \
 		-emit '*/iuplua_pplot.h'     inc/IUP/iuplua_pplot.bi     \
 		-emit '*/iuplua_scintilla.h' inc/IUP/iuplua_scintilla.bi \
 		-emit '*/iupluatuio.h'       inc/IUP/iupluatuio.bi       \

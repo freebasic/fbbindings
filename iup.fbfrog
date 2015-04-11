@@ -57,3 +57,5 @@
 -renamedefine K_z K_z_
 -renamedefine K_Ccedilla K_Ccedilla_
 -renamedefine K_cR K_cR_
+
+-addforwarddecl _cdCanvas
