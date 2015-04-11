@@ -4232,7 +4232,7 @@ const TVSBF_YBORDER = &h2
 
 	type TVGETITEMPARTRECTINFO as tagTVGETITEMPARTRECTINFO
 	#define TVM_GETITEMPARTRECT (TV_FIRST + 72)
-	private function TreeView_GetItemPartRect(byval hwnd as HWND, byval hitem as HTREEITEM, byval prc as RECT ptr, byval partid as TVITEMPART ptr) as WINBOOL
+	private function TreeView_GetItemPartRect(byval hwnd as HWND, byval hitem as HTREEITEM, byval prc as RECT ptr, byval partid as TVITEMPART) as WINBOOL
 		dim as TVGETITEMPARTRECTINFO info
 		info.hti = hitem
 		info.prc = prc
