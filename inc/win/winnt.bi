@@ -7958,7 +7958,7 @@ end sub
 
 #ifdef __FB_64BIT__
 	private function GetCurrentFiber() as PVOID
-		return cast(PVOID, __readgsqword(cast(LONG, __builtin_offsetof(NT_TIB, FiberData))))
+		return cast(PVOID, __readgsqword(cast(LONG, offsetof(NT_TIB, FiberData))))
 	end function
 
 	private function GetFiberData() as PVOID
