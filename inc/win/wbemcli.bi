@@ -575,7 +575,7 @@ type IWbemClassObjectVtbl
 	GetQualifierSet as function(byval This as IWbemClassObject ptr, byval ppQualSet as IWbemQualifierSet ptr ptr) as HRESULT
 	Get as function(byval This as IWbemClassObject ptr, byval wszName as LPCWSTR, byval lFlags as LONG, byval pVal as VARIANT ptr, byval pType as CIMTYPE ptr, byval plFlavor as LONG ptr) as HRESULT
 	Put as function(byval This as IWbemClassObject ptr, byval wszName as LPCWSTR, byval lFlags as LONG, byval pVal as VARIANT ptr, byval Type as CIMTYPE) as HRESULT
-	Delete as function(byval This as IWbemClassObject ptr, byval wszName as LPCWSTR) as HRESULT
+	Delete_ as function(byval This as IWbemClassObject ptr, byval wszName as LPCWSTR) as HRESULT
 	GetNames as function(byval This as IWbemClassObject ptr, byval wszQualifierName as LPCWSTR, byval lFlags as LONG, byval pQualifierVal as VARIANT ptr, byval pNames as SAFEARRAY ptr ptr) as HRESULT
 	BeginEnumeration as function(byval This as IWbemClassObject ptr, byval lEnumFlags as LONG) as HRESULT
 	Next as function(byval This as IWbemClassObject ptr, byval lFlags as LONG, byval strName as BSTR ptr, byval pVal as VARIANT ptr, byval pType as CIMTYPE ptr, byval plFlavor as LONG ptr) as HRESULT
@@ -608,7 +608,7 @@ end type
 #define IWbemClassObject_GetQualifierSet(This, ppQualSet) (This)->lpVtbl->GetQualifierSet(This, ppQualSet)
 #define IWbemClassObject_Get(This, wszName, lFlags, pVal, pType, plFlavor) (This)->lpVtbl->Get(This, wszName, lFlags, pVal, pType, plFlavor)
 #define IWbemClassObject_Put(This, wszName, lFlags, pVal, Type) (This)->lpVtbl->Put(This, wszName, lFlags, pVal, Type)
-#define IWbemClassObject_Delete(This, wszName) (This)->lpVtbl->Delete(This, wszName)
+#define IWbemClassObject_Delete(This, wszName) (This)->lpVtbl->Delete_(This, wszName)
 #define IWbemClassObject_GetNames(This, wszQualifierName, lFlags, pQualifierVal, pNames) (This)->lpVtbl->GetNames(This, wszQualifierName, lFlags, pQualifierVal, pNames)
 #define IWbemClassObject_BeginEnumeration(This, lEnumFlags) (This)->lpVtbl->BeginEnumeration(This, lEnumFlags)
 #define IWbemClassObject_Next(This, lFlags, strName, pVal, pType, plFlavor) (This)->lpVtbl->Next(This, lFlags, strName, pVal, pType, plFlavor)
@@ -687,7 +687,7 @@ type IWbemQualifierSetVtbl
 	Release as function(byval This as IWbemQualifierSet ptr) as ULONG
 	Get as function(byval This as IWbemQualifierSet ptr, byval wszName as LPCWSTR, byval lFlags as LONG, byval pVal as VARIANT ptr, byval plFlavor as LONG ptr) as HRESULT
 	Put as function(byval This as IWbemQualifierSet ptr, byval wszName as LPCWSTR, byval pVal as VARIANT ptr, byval lFlavor as LONG) as HRESULT
-	Delete as function(byval This as IWbemQualifierSet ptr, byval wszName as LPCWSTR) as HRESULT
+	Delete_ as function(byval This as IWbemQualifierSet ptr, byval wszName as LPCWSTR) as HRESULT
 	GetNames as function(byval This as IWbemQualifierSet ptr, byval lFlags as LONG, byval pNames as SAFEARRAY ptr ptr) as HRESULT
 	BeginEnumeration as function(byval This as IWbemQualifierSet ptr, byval lFlags as LONG) as HRESULT
 	Next as function(byval This as IWbemQualifierSet ptr, byval lFlags as LONG, byval pstrName as BSTR ptr, byval pVal as VARIANT ptr, byval plFlavor as LONG ptr) as HRESULT
@@ -703,7 +703,7 @@ end type
 #define IWbemQualifierSet_Release(This) (This)->lpVtbl->Release(This)
 #define IWbemQualifierSet_Get(This, wszName, lFlags, pVal, plFlavor) (This)->lpVtbl->Get(This, wszName, lFlags, pVal, plFlavor)
 #define IWbemQualifierSet_Put(This, wszName, pVal, lFlavor) (This)->lpVtbl->Put(This, wszName, pVal, lFlavor)
-#define IWbemQualifierSet_Delete(This, wszName) (This)->lpVtbl->Delete(This, wszName)
+#define IWbemQualifierSet_Delete(This, wszName) (This)->lpVtbl->Delete_(This, wszName)
 #define IWbemQualifierSet_GetNames(This, lFlags, pNames) (This)->lpVtbl->GetNames(This, lFlags, pNames)
 #define IWbemQualifierSet_BeginEnumeration(This, lFlags) (This)->lpVtbl->BeginEnumeration(This, lFlags)
 #define IWbemQualifierSet_Next(This, lFlags, pstrName, pVal, plFlavor) (This)->lpVtbl->Next(This, lFlags, pstrName, pVal, plFlavor)
@@ -1107,7 +1107,7 @@ type IWbemObjectAccessVtbl
 	GetQualifierSet as function(byval This as IWbemObjectAccess ptr, byval ppQualSet as IWbemQualifierSet ptr ptr) as HRESULT
 	Get as function(byval This as IWbemObjectAccess ptr, byval wszName as LPCWSTR, byval lFlags as LONG, byval pVal as VARIANT ptr, byval pType as CIMTYPE ptr, byval plFlavor as LONG ptr) as HRESULT
 	Put as function(byval This as IWbemObjectAccess ptr, byval wszName as LPCWSTR, byval lFlags as LONG, byval pVal as VARIANT ptr, byval Type as CIMTYPE) as HRESULT
-	Delete as function(byval This as IWbemObjectAccess ptr, byval wszName as LPCWSTR) as HRESULT
+	Delete_ as function(byval This as IWbemObjectAccess ptr, byval wszName as LPCWSTR) as HRESULT
 	GetNames as function(byval This as IWbemObjectAccess ptr, byval wszQualifierName as LPCWSTR, byval lFlags as LONG, byval pQualifierVal as VARIANT ptr, byval pNames as SAFEARRAY ptr ptr) as HRESULT
 	BeginEnumeration as function(byval This as IWbemObjectAccess ptr, byval lEnumFlags as LONG) as HRESULT
 	Next as function(byval This as IWbemObjectAccess ptr, byval lFlags as LONG, byval strName as BSTR ptr, byval pVal as VARIANT ptr, byval pType as CIMTYPE ptr, byval plFlavor as LONG ptr) as HRESULT
@@ -1150,7 +1150,7 @@ end type
 #define IWbemObjectAccess_GetQualifierSet(This, ppQualSet) (This)->lpVtbl->GetQualifierSet(This, ppQualSet)
 #define IWbemObjectAccess_Get(This, wszName, lFlags, pVal, pType, plFlavor) (This)->lpVtbl->Get(This, wszName, lFlags, pVal, pType, plFlavor)
 #define IWbemObjectAccess_Put(This, wszName, lFlags, pVal, Type) (This)->lpVtbl->Put(This, wszName, lFlags, pVal, Type)
-#define IWbemObjectAccess_Delete(This, wszName) (This)->lpVtbl->Delete(This, wszName)
+#define IWbemObjectAccess_Delete(This, wszName) (This)->lpVtbl->Delete_(This, wszName)
 #define IWbemObjectAccess_GetNames(This, wszQualifierName, lFlags, pQualifierVal, pNames) (This)->lpVtbl->GetNames(This, wszQualifierName, lFlags, pQualifierVal, pNames)
 #define IWbemObjectAccess_BeginEnumeration(This, lEnumFlags) (This)->lpVtbl->BeginEnumeration(This, lEnumFlags)
 #define IWbemObjectAccess_Next(This, lFlags, strName, pVal, pType, plFlavor) (This)->lpVtbl->Next(This, lFlags, strName, pVal, pType, plFlavor)

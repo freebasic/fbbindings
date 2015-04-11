@@ -725,7 +725,7 @@ type PDNS_WINSR_DATAA as DNS_WINSR_DATAA ptr
 
 type _DnsRecordFlags
 	Section : 2 as DWORD
-	Delete : 1 as DWORD
+	Delete_ : 1 as DWORD
 	CharSet : 2 as DWORD
 	Unused : 3 as DWORD
 	Reserved : 24 as DWORD

@@ -536,6 +536,9 @@
 -renamedefine GPTR GPTR_
 -renamedefine FONTSIZE FONTSIZE_
 
+# Various "Delete" fields that also need updating in macro bodies
+-rename Delete Delete_
+
 # FB has these built-in
 -removedefine LOWORD
 -removedefine HIWORD

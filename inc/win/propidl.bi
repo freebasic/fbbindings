@@ -474,7 +474,7 @@ type IPropertySetStorageVtbl
 	Release as function(byval This as IPropertySetStorage ptr) as ULONG
 	Create as function(byval This as IPropertySetStorage ptr, byval rfmtid as const IID const ptr, byval pclsid as const CLSID ptr, byval grfFlags as DWORD, byval grfMode as DWORD, byval ppprstg as IPropertyStorage ptr ptr) as HRESULT
 	Open as function(byval This as IPropertySetStorage ptr, byval rfmtid as const IID const ptr, byval grfMode as DWORD, byval ppprstg as IPropertyStorage ptr ptr) as HRESULT
-	Delete as function(byval This as IPropertySetStorage ptr, byval rfmtid as const IID const ptr) as HRESULT
+	Delete_ as function(byval This as IPropertySetStorage ptr, byval rfmtid as const IID const ptr) as HRESULT
 	as function(byval This as IPropertySetStorage ptr, byval ppenum as IEnumSTATPROPSETSTG ptr ptr) as HRESULT Enum
 end type
 
@@ -487,7 +487,7 @@ end type
 #define IPropertySetStorage_Release(This) (This)->lpVtbl->Release(This)
 #define IPropertySetStorage_Create(This, rfmtid, pclsid, grfFlags, grfMode, ppprstg) (This)->lpVtbl->Create(This, rfmtid, pclsid, grfFlags, grfMode, ppprstg)
 #define IPropertySetStorage_Open(This, rfmtid, grfMode, ppprstg) (This)->lpVtbl->Open(This, rfmtid, grfMode, ppprstg)
-#define IPropertySetStorage_Delete(This, rfmtid) (This)->lpVtbl->Delete(This, rfmtid)
+#define IPropertySetStorage_Delete(This, rfmtid) (This)->lpVtbl->Delete_(This, rfmtid)
 #define IPropertySetStorage_Enum(This, ppenum) (This)->lpVtbl->Enum(This, ppenum)
 
 declare function IPropertySetStorage_Create_Proxy(byval This as IPropertySetStorage ptr, byval rfmtid as const IID const ptr, byval pclsid as const CLSID ptr, byval grfFlags as DWORD, byval grfMode as DWORD, byval ppprstg as IPropertyStorage ptr ptr) as HRESULT
