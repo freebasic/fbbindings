@@ -826,13 +826,13 @@ to fb:
 	end function
 
 convert c:
-	#define TreeView_GetItemPartRect(hwnd, hitem, prc, partid)
-		{
-			TVGETITEMPARTRECTINFO info;
-			info.hti = (hitem);
-			info.prc = (prc);
-			info.partID = (partid);
-			(WINBOOL)SNDMSG((hwnd), TVM_GETITEMPARTRECT, 0,(LPARAM) &info);
+	#define TreeView_GetItemPartRect(hwnd, hitem, prc, partid) \
+		{ \
+			TVGETITEMPARTRECTINFO info; \
+			info.hti = (hitem); \
+			info.prc = (prc); \
+			info.partID = (partid); \
+			(WINBOOL)SNDMSG((hwnd), TVM_GETITEMPARTRECT, 0,(LPARAM) &info); \
 		}
 to fb:
 	private function TreeView_GetItemPartRect(byval hwnd as HWND, byval hitem as HTREEITEM, byval prc as RECT ptr, byval partid as TVITEMPART ptr) as WINBOOL
@@ -850,9 +850,9 @@ to c:      #define WAVE_FORMAT_POLYCOM_G729_A 0xa114
 
 # https://sourceforge.net/p/mingw-w64/bugs/475/
 convert c: #define LIS_ENABLED 0x2#define LIS_VISITED 0x4
-to c:
-	#define LIS_ENABLED 0x2
-	#define LIS_VISITED 0x4
+to fb:
+	const LIS_ENABLED = &h2
+	const LIS_VISITED = &h4
 
 convert c: #define STATIC_KSDATAFORMAT_SUBTYPE_WAVEFORMATEX __MSABI_LONG (0x00000000), 0x0000, 0x0010, 0x80, 0x00, 0x00, 0xaa, 0x00, 0x38, 0x9b, 0x71
 to fb:     #define STATIC_KSDATAFORMAT_SUBTYPE_WAVEFORMATEX               &h00000000l, &h0000, &h0010, &h80, &h00, &h00, &haa, &h00, &h38, &h9b, &h71
@@ -873,3 +873,12 @@ to fb:
 
 convert c: #define REGSTR_PATH_RUN_POLICY REGSTR_PATH_POLICIES __TEXT("\\Explorer\\Run")
 to fb:     #define REGSTR_PATH_RUN_POLICY (REGSTR_PATH_POLICIES + __TEXT(!"\\Explorer\\Run"))
+
+convert c: #define __CRYPT32WTEXT(quote) L##quote
+to fb:     #define __CRYPT32WTEXT(quote) wstr(quote)
+
+convert c: #define szOID_CERT_PROP_ID(PropId) szOID_CERT_PROP_ID_PREFIX _szPROP_ID (PropId)
+to fb:     #define szOID_CERT_PROP_ID(PropId) szOID_CERT_PROP_ID_PREFIX _szPROP_ID(PropId)
+
+convert c: #define wszOID_CERT_PROP_ID(PropId) _CRYPT32WTEXT (szOID_CERT_PROP_ID_PREFIX) _CRYPT32WTEXT (_szPROP_ID (PropId))
+to fb:     #define wszOID_CERT_PROP_ID(PropId) (_CRYPT32WTEXT(szOID_CERT_PROP_ID_PREFIX) + _CRYPT32WTEXT(_szPROP_ID(PropId)))

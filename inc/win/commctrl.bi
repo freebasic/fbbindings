@@ -4232,15 +4232,13 @@ const TVSBF_YBORDER = &h2
 
 	type TVGETITEMPARTRECTINFO as tagTVGETITEMPARTRECTINFO
 	#define TVM_GETITEMPARTRECT (TV_FIRST + 72)
-	#macro TreeView_GetItemPartRect(hwnd, hitem, prc, partid)
-		scope
-			dim info as TVGETITEMPARTRECTINFO
-			'' TODO: info.hti = (hitem);
-			'' TODO: info.prc = (prc);
-			'' TODO: info.partID = (partid);
-			cast(WINBOOL, SNDMSG((hwnd), TVM_GETITEMPARTRECT, 0, cast(LPARAM, @info)))
-		end scope
-	#endmacro
+	private function TreeView_GetItemPartRect(byval hwnd as HWND, byval hitem as HTREEITEM, byval prc as RECT ptr, byval partid as TVITEMPART ptr) as WINBOOL
+		dim as TVGETITEMPARTRECTINFO info
+		info.hti = hitem
+		info.prc = prc
+		info.partID = partid
+		function = SNDMSG(hwnd, TVM_GETITEMPARTRECT, 0, cast(LPARAM, @info))
+	end function
 #endif
 
 type PFNTVCOMPARE as function(byval lParam1 as LPARAM, byval lParam2 as LPARAM, byval lParamSort as LPARAM) as long
@@ -5741,7 +5739,8 @@ const LIF_STATE = &h2
 const LIF_ITEMID = &h4
 const LIF_URL = &h8
 const LIS_FOCUSED = &h1
-'' TODO: #define LIS_ENABLED 0x2#define LIS_VISITED 0x4
+const LIS_ENABLED = &h2
+const LIS_VISITED = &h4
 
 #if _WIN32_WINNT = &h0602
 	const LIS_HOTTRACK = &h8
