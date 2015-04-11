@@ -3423,10 +3423,10 @@ type PLVSETINFOTIP as tagLVSETINFOTIP ptr
 		function = SNDMSG(hwnd, LVM_GETITEMINDEXRECT, cast(WPARAM, plvii), cast(LPARAM, prc))
 	end function
 	#define LVM_SETITEMINDEXSTATE (LVM_FIRST + 210)
-	private function ListView_SetItemIndexState(byval hwndLV as HWND, byval plvii as LVITEMINDEX ptr, byval data as UINT, byval mask as UINT) as HRESULT
+	private function ListView_SetItemIndexState(byval hwndLV as HWND, byval plvii as LVITEMINDEX ptr, byval data_ as UINT, byval mask as UINT) as HRESULT
 		dim as LV_ITEM _macro_lvi
 		_macro_lvi.stateMask = mask
-		_macro_lvi.state = data
+		_macro_lvi.state = data_
 		function = SNDMSG(hwndLV, LVM_SETITEMINDEXSTATE, cast(WPARAM, plvii), cast(LPARAM, @_macro_lvi))
 	end function
 	#define LVM_GETNEXTITEMINDEX (LVM_FIRST + 211)

@@ -818,10 +818,10 @@ convert c:
 			SNDMSG((hwndLV), LVM_SETITEMINDEXSTATE, (WPARAM)(LVITEMINDEX *)(plvii), (LPARAM)(LV_ITEM *)&_macro_lvi); \
 		}
 to fb:
-	private function ListView_SetItemIndexState(byval hwndLV as HWND, byval plvii as LVITEMINDEX ptr, byval data as UINT, byval mask as UINT) as HRESULT
+	private function ListView_SetItemIndexState(byval hwndLV as HWND, byval plvii as LVITEMINDEX ptr, byval data_ as UINT, byval mask as UINT) as HRESULT
 		dim as LV_ITEM _macro_lvi
 		_macro_lvi.stateMask = mask
-		_macro_lvi.state = data
+		_macro_lvi.state = data_
 		function = SNDMSG(hwndLV, LVM_SETITEMINDEXSTATE, cast(WPARAM, plvii), cast(LPARAM, @_macro_lvi))
 	end function
 
