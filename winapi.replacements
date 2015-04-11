@@ -196,13 +196,6 @@ to fb:     #define D3DSINCOSCONST1 -1.5500992e-006f, -2.1701389e-005f, 0.0026041
 convert c: #define D3DSINCOSCONST2 -0.020833334f, -0.12500000f, 1.0f, 0.50000000f
 to fb:     #define D3DSINCOSCONST2 -0.020833334f, -0.12500000f, 1.0f, 0.50000000f
 
-convert c: #define D3DRMRENDER_PHONG (D3DRMSHADE_PHONG+D3DRMLIGHT_ON+D3DRMFILL_SOLID
-to c:      #define D3DRMRENDER_PHONG (D3DRMSHADE_PHONG + D3DRMLIGHT_ON + D3DRMFILL_SOLID)
-convert c: #define ED_DEVTYPE_MIXER_VIDEO 0x000010OE
-to c:      #define ED_DEVTYPE_MIXER_VIDEO 0x0000100E
-convert c: #define ED_DEVTYPE_DVE 0x000010OF
-to c:      #define ED_DEVTYPE_DVE 0x0000100F
-
 convert c: #define DISEQUENCE_COMPARE(dwSq1, cmp, dwSq2) ((int)((dwSq1) - (dwSq2)) cmp 0)
 to fb:     #define DISEQUENCE_COMPARE(dwSq1, cmp, dwSq2) (clng((dwSq1) - (dwSq2)) cmp 0)
 
@@ -391,7 +384,7 @@ convert c: #define VarI8FromI8(in, pOut) (*(pOut) = (in))
 to fb:     #define VarI8FromI8(in, pOut) scope : *(pOut) = (in) : end scope
 
 convert c: #define FONTSIZE(n) { n##0000,0 }
-to fb:     #define FONTSIZE(n) (n##0000, 0)
+to fb:     #define FONTSIZE_(n) (n##0000, 0)
 
 convert c: #define byte_from_ndr(source,target) { *(target) = *(*(char **)&(source)->Buffer)++; }
 to fb:
@@ -763,3 +756,120 @@ to fb:     #define DEFINE_SIZEOF(Array) (ubound(Array) - lbound(Array) + 1)
 
 convert c: #define RTL_NUMBER_OF_V1(A) (sizeof(A) / sizeof((A)[0]))
 to fb:     #define RTL_NUMBER_OF_V1(A) (ubound(A) - lbound(A) + 1)
+
+convert c:
+	#define ListView_GetGroupRect(hwnd, iGroupId, type, prc) \
+		SNDMSG( \
+			(hwnd), \
+			LVM_GETGROUPRECT, \
+			(WPARAM) (iGroupId), \
+			((prc) ? (((RECT *) (prc))->top = (type)),(LPARAM) (RECT *) (prc) : (LPARAM) (RECT *)NULL) \
+		)
+to fb:
+	private function ListView_GetGroupRect(byval hwnd as HWND, byval iGroupId as long, byval type_ as LONG, byval prc as RECT ptr) as BOOL
+		if prc then
+			prc->top = type_
+		end if
+		function = SNDMSG(hwnd, LVM_GETGROUPRECT, cast(WPARAM, iGroupId), cast(LPARAM, prc))
+	end function
+
+convert c:
+	#define ListView_SetGroupState(hwnd, dwGroupId, dwMask, dwState) \
+		{ \
+			LVGROUP _macro_lvg; \
+			_macro_lvg.cbSize = sizeof(_macro_lvg); \
+			_macro_lvg.mask = LVGF_STATE; \
+			_macro_lvg.stateMask = dwMask; \
+			_macro_lvg.state = dwState; \
+			SNDMSG((hwnd), LVM_SETGROUPINFO, (WPARAM)(dwGroupId), (LPARAM)(LVGROUP *)&_macro_lvg); \
+		}
+to fb:
+	private function ListView_SetGroupState(byval hwnd as HWND, byval dwGroupId as UINT, byval dwMask as UINT, byval dwState as UINT) as LRESULT
+		dim as LVGROUP _macro_lvg
+		_macro_lvg.cbSize = sizeof(_macro_lvg)
+		_macro_lvg.mask = LVGF_STATE
+		_macro_lvg.stateMask = dwMask
+		_macro_lvg.state = dwState
+		function = SNDMSG(hwnd, LVM_SETGROUPINFO, cast(WPARAM, dwGroupId), cast(LPARAM, @_macro_lvg))
+	end function
+
+convert c:
+	#define ListView_GetItemIndexRect(hwnd, plvii, iSubItem, code, prc) \
+		(WINBOOL)SNDMSG((hwnd), LVM_GETITEMINDEXRECT, (WPARAM) (LVITEMINDEX *) (plvii), \
+			((prc) ? ((((LPRECT) (prc))->top = (iSubItem)), \
+			          (((LPRECT) (prc))->left = (code)), \
+			          (LPARAM) (prc)) : \
+			         (LPARAM) (LPRECT)NULL))
+to fb:
+	private function ListView_GetItemIndexRect(byval hwnd as HWND, byval plvii as LVITEMINDEX ptr, byval iSubItem as long, byval code as long, byval prc as LPRECT) as WINBOOL
+		if prc then
+			prc->top = iSubItem
+			prc->left = code
+		end if
+		function = SNDMSG(hwnd, LVM_GETITEMINDEXRECT, cast(WPARAM, plvii), cast(LPARAM, prc))
+	end function
+
+convert c:
+	#define ListView_SetItemIndexState(hwndLV, plvii, data, mask) \
+		{ \
+			LV_ITEM _macro_lvi; \
+			_macro_lvi.stateMask = (mask); \
+			_macro_lvi.state = (data); \
+			SNDMSG((hwndLV), LVM_SETITEMINDEXSTATE, (WPARAM)(LVITEMINDEX *)(plvii), (LPARAM)(LV_ITEM *)&_macro_lvi); \
+		}
+to fb:
+	private function ListView_SetItemIndexState(byval hwndLV as HWND, byval plvii as LVITEMINDEX ptr, byval data as UINT, byval mask as UINT) as HRESULT
+		dim as LV_ITEM _macro_lvi
+		_macro_lvi.stateMask = mask
+		_macro_lvi.state = data
+		function = SNDMSG(hwndLV, LVM_SETITEMINDEXSTATE, cast(WPARAM, plvii), cast(LPARAM, @_macro_lvi))
+	end function
+
+convert c:
+	#define TreeView_GetItemPartRect(hwnd, hitem, prc, partid)
+		{
+			TVGETITEMPARTRECTINFO info;
+			info.hti = (hitem);
+			info.prc = (prc);
+			info.partID = (partid);
+			(WINBOOL)SNDMSG((hwnd), TVM_GETITEMPARTRECT, 0,(LPARAM) &info);
+		}
+to fb:
+	private function TreeView_GetItemPartRect(byval hwnd as HWND, byval hitem as HTREEITEM, byval prc as RECT ptr, byval partid as TVITEMPART ptr) as WINBOOL
+		dim as TVGETITEMPARTRECTINFO info
+		info.hti = hitem
+		info.prc = prc
+		info.partID = partid
+		function = SNDMSG(hwnd, TVM_GETITEMPARTRECT, 0, cast(LPARAM, @info))
+	end function
+
+# https://sourceforge.net/p/mingw-w64/bugs/474/
+convert c: #define WAVE_FORMAT_POLYCOM G729_A 0xa114
+to c:      #define WAVE_FORMAT_POLYCOM_G729_A 0xa114
+#                                     ^
+
+# https://sourceforge.net/p/mingw-w64/bugs/475/
+convert c: #define LIS_ENABLED 0x2#define LIS_VISITED 0x4
+to c:
+	#define LIS_ENABLED 0x2
+	#define LIS_VISITED 0x4
+
+convert c: #define STATIC_KSDATAFORMAT_SUBTYPE_WAVEFORMATEX __MSABI_LONG (0x00000000), 0x0000, 0x0010, 0x80, 0x00, 0x00, 0xaa, 0x00, 0x38, 0x9b, 0x71
+to fb:     #define STATIC_KSDATAFORMAT_SUBTYPE_WAVEFORMATEX               &h00000000l, &h0000, &h0010, &h80, &h00, &h00, &haa, &h00, &h38, &h9b, &h71
+
+convert c:
+	#define INIT_WAVEFORMATEX_GUID(Guid,x)					\
+	{									\
+		*(Guid) = KSDATAFORMAT_SUBTYPE_WAVEFORMATEX;			\
+		(Guid)->Data1 = (USHORT)(x);					\
+	}
+to fb:
+	#macro INIT_WAVEFORMATEX_GUID(Guid, x)
+		scope
+			*(Guid) = KSDATAFORMAT_SUBTYPE_WAVEFORMATEX
+			(Guid)->Data1 = cast(USHORT, (x))
+		end scope
+	#endmacro
+
+convert c: #define REGSTR_PATH_RUN_POLICY REGSTR_PATH_POLICIES __TEXT("\\Explorer\\Run")
+to fb:     #define REGSTR_PATH_RUN_POLICY (REGSTR_PATH_POLICIES + __TEXT(!"\\Explorer\\Run"))

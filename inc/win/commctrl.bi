@@ -3211,7 +3211,12 @@ const LVGGR_HEADER = 1
 const LVGGR_LABEL = 2
 const LVGGR_SUBSETLINK = 3
 #define LVM_GETGROUPRECT (LVM_FIRST + 98)
-'' TODO: #define ListView_GetGroupRect(hwnd, iGroupId, type, prc) SNDMSG ((hwnd), LVM_GETGROUPRECT,(WPARAM) (iGroupId),((prc) ? (((RECT *) (prc))->top = (type)),(LPARAM) (RECT *) (prc) : (LPARAM) (RECT *)NULL))
+private function ListView_GetGroupRect(byval hwnd as HWND, byval iGroupId as long, byval type_ as LONG, byval prc as RECT ptr) as BOOL
+	if prc then
+		prc->top = type_
+	end if
+	function = SNDMSG(hwnd, LVM_GETGROUPRECT, cast(WPARAM, iGroupId), cast(LPARAM, prc))
+end function
 const LVGMF_NONE = &h0
 const LVGMF_BORDERSIZE = &h1
 const LVGMF_BORDERCOLOR = &h2
@@ -3258,16 +3263,14 @@ type PLVINSERTGROUPSORTED as tagLVINSERTGROUPSORTED ptr
 #define ListView_RemoveAllGroups(hwnd) SNDMSG((hwnd), LVM_REMOVEALLGROUPS, 0, 0)
 #define LVM_HASGROUP (LVM_FIRST + 161)
 #define ListView_HasGroup(hwnd, dwGroupId) SNDMSG((hwnd), LVM_HASGROUP, dwGroupId, 0)
-#macro ListView_SetGroupState(hwnd, dwGroupId, dwMask, dwState)
-	scope
-		dim _macro_lvg as LVGROUP
-		'' TODO: _macro_lvg.cbSize = sizeof (_macro_lvg);
-		'' TODO: _macro_lvg.mask = LVGF_STATE;
-		'' TODO: _macro_lvg.stateMask = dwMask;
-		'' TODO: _macro_lvg.state = dwState;
-		SNDMSG((hwnd), LVM_SETGROUPINFO, cast(WPARAM, (dwGroupId)), cast(LPARAM, cptr(LVGROUP ptr, @_macro_lvg)))
-	end scope
-#endmacro
+private function ListView_SetGroupState(byval hwnd as HWND, byval dwGroupId as UINT, byval dwMask as UINT, byval dwState as UINT) as LRESULT
+	dim as LVGROUP _macro_lvg
+	_macro_lvg.cbSize = sizeof(_macro_lvg)
+	_macro_lvg.mask = LVGF_STATE
+	_macro_lvg.stateMask = dwMask
+	_macro_lvg.state = dwState
+	function = SNDMSG(hwnd, LVM_SETGROUPINFO, cast(WPARAM, dwGroupId), cast(LPARAM, @_macro_lvg))
+end function
 #define LVM_GETGROUPSTATE (LVM_FIRST + 92)
 #define ListView_GetGroupState(hwnd, dwGroupId, dwMask) cast(UINT, SNDMSG((hwnd), LVM_GETGROUPSTATE, cast(WPARAM, (dwGroupId)), cast(LPARAM, (dwMask))))
 #define LVM_GETFOCUSEDGROUP (LVM_FIRST + 93)
@@ -3419,16 +3422,20 @@ type PLVSETINFOTIP as tagLVSETINFOTIP ptr
 	type LVITEMINDEX as tagLVITEMINDEX
 	type PLVITEMINDEX as tagLVITEMINDEX ptr
 	#define LVM_GETITEMINDEXRECT (LVM_FIRST + 209)
-	'' TODO: #define ListView_GetItemIndexRect(hwnd, plvii, iSubItem, code, prc) (WINBOOL)SNDMSG ((hwnd), LVM_GETITEMINDEXRECT,(WPARAM) (LVITEMINDEX *) (plvii),((prc) ? ((((LPRECT) (prc))->top = (iSubItem)),(((LPRECT) (prc))->left = (code)),(LPARAM) (prc)) : (LPARAM) (LPRECT)NULL))
+	private function ListView_GetItemIndexRect(byval hwnd as HWND, byval plvii as LVITEMINDEX ptr, byval iSubItem as long, byval code as long, byval prc as LPRECT) as WINBOOL
+		if prc then
+			prc->top = iSubItem
+			prc->left = code
+		end if
+		function = SNDMSG(hwnd, LVM_GETITEMINDEXRECT, cast(WPARAM, plvii), cast(LPARAM, prc))
+	end function
 	#define LVM_SETITEMINDEXSTATE (LVM_FIRST + 210)
-	#macro ListView_SetItemIndexState(hwndLV, plvii, data, mask)
-		scope
-			LV_ITEM _macro_lvi
-			'' TODO: _macro_lvi.stateMask = (mask);
-			'' TODO: _macro_lvi.state = (data);
-			SNDMSG((hwndLV), LVM_SETITEMINDEXSTATE, cast(WPARAM, cptr(LVITEMINDEX ptr, (plvii))), cast(LPARAM, cptr(LV_ITEM ptr, @_macro_lvi)))
-		end scope
-	#endmacro
+	private function ListView_SetItemIndexState(byval hwndLV as HWND, byval plvii as LVITEMINDEX ptr, byval data as UINT, byval mask as UINT) as HRESULT
+		dim as LV_ITEM _macro_lvi
+		_macro_lvi.stateMask = mask
+		_macro_lvi.state = data
+		function = SNDMSG(hwndLV, LVM_SETITEMINDEXSTATE, cast(WPARAM, plvii), cast(LPARAM, @_macro_lvi))
+	end function
 	#define LVM_GETNEXTITEMINDEX (LVM_FIRST + 211)
 	#define ListView_GetNextItemIndex(hwnd, plvii, flags) cast(WINBOOL, SNDMSG((hwnd), LVM_GETNEXTITEMINDEX, cast(WPARAM, cptr(LVITEMINDEX ptr, (plvii))), MAKELPARAM((flags), 0)))
 #endif

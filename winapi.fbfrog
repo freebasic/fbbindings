@@ -170,6 +170,7 @@
 -removedefine LWSTDAPI_
 -removedefine LWSTDAPIV
 -removedefine LWSTDAPIV_
+-removedefine MAKE_ROUTE_PROTOCOL
 -removedefine _MCRTIMP
 -removedefine __MIDL_DECLSPEC_DLLEXPORT
 -removedefine __MIDL_DECLSPEC_DLLIMPORT
@@ -529,6 +530,9 @@
 -renamedefine BITSPIXEL BITSPIXEL_
 -renamedefine PLANES PLANES_
 -renamedefine DELETE DELETE__
+-renamedefine GHND GHND_
+-renamedefine GPTR GPTR_
+-renamedefine FONTSIZE FONTSIZE_
 
 # FB has these built-in
 -removedefine LOWORD

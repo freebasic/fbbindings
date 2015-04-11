@@ -20,8 +20,6 @@ enum
 	IpDadStatePreferred
 end enum
 
-'' TODO: #define MAKE_ROUTE_PROTOCOL(N, V) MIB_IPPROTO_ ## N = V, PROTO_IP_ ## N = V
-
 type NL_ROUTE_PROTOCOL as long
 enum
 	RouteProtocolOther = 1
