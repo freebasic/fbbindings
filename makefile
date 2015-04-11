@@ -1,6 +1,7 @@
 FBFROG := fbfrog
 
 ALL := allegro4 allegro5 atk
+ALL += bzip2
 ALL += cairo cgui clang cunit curl
 ALL += fastcgi ffi fontconfig freeglut freetype
 ALL += gdkpixbuf glib glibc glfw glut gtk gtk2 gtk3 gtkglext
@@ -191,6 +192,12 @@ atk: atk-extract glib-extract
 		-emit '*/atk/atkwindow.h'            inc/atk/atk.bi \
 		-inclib atk-1.0                      inc/atk/atk.bi \
 		-title $(ATK)
+
+BZIP2_VERSION := 1.0.6
+BZIP2 := bzip2-$(BZIP2_VERSION)
+bzip2:
+	./get.sh $(BZIP2) $(BZIP2).tar.gz http://www.bzip.org/$(BZIP2_VERSION)/$(BZIP2).tar.gz
+	$(FBFROG) bzip2.fbfrog extracted/$(BZIP2)/bzlib.h -o inc -inclib bz2
 
 # TODO:
 # cairo-deprecated.h
