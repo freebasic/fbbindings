@@ -502,6 +502,7 @@
 # Unnecessary alias
 -removedefine KSDATAFORMAT_SUBTYPE_PCM
 -removedefine KSDATAFORMAT_SUBTYPE_IEEE_FLOAT
+-removedefine KSDATAFORMAT_SUBTYPE_WAVEFORMATEX
 
 -removedefine LRESULT
 -removedefine HGLOBAL
