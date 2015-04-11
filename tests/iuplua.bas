@@ -10,6 +10,7 @@
 #include "IUP/iupluamatrixex.bi"
 #include "IUP/iuplua_mglplot.bi"
 #include "IUP/iupluaole.bi"
+#include "IUP/iuplua_plot.bi"
 #include "IUP/iuplua_pplot.bi"
 #include "IUP/iuplua_scintilla.bi"
 #include "IUP/iupluatuio.bi"
