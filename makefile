@@ -1252,7 +1252,7 @@ tre:
 #   (fbfrog -clong32)
 #
 
-MINGWW64_TITLE := mingw-w64-v3.3.0
+MINGWW64_TITLE := mingw-w64-v4.0.1
 WINAPI_FLAGS := winapi.fbfrog
 WINAPI_FLAGS += -incdir extracted/$(MINGWW64_TITLE)/mingw-w64-headers/crt
 WINAPI_FLAGS += -incdir extracted/$(MINGWW64_TITLE)/mingw-w64-headers/include
