@@ -1,0 +1,5 @@
+-removedefine BZ_API
+-removedefine BZ_EXTERN
+-removedefine BZ_EXPORT
+-define WINAPI __stdcall
+-removeinclude windows.h
