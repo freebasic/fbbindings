@@ -2131,13 +2131,7 @@ declare function IDataObjectAsyncCapability_InOperation_Proxy(byval This as IDat
 declare sub IDataObjectAsyncCapability_InOperation_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IDataObjectAsyncCapability_EndOperation_Proxy(byval This as IDataObjectAsyncCapability ptr, byval hResult as HRESULT, byval pbcReserved as IBindCtx ptr, byval dwEffects as DWORD) as HRESULT
 declare sub IDataObjectAsyncCapability_EndOperation_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-declare function BSTR_UserSize(byval as ULONG ptr, byval as ULONG, byval as BSTR ptr) as ULONG
-declare function BSTR_UserMarshal(byval as ULONG ptr, byval as ubyte ptr, byval as BSTR ptr) as ubyte ptr
-declare function BSTR_UserUnmarshal(byval as ULONG ptr, byval as ubyte ptr, byval as BSTR ptr) as ubyte ptr
-declare sub BSTR_UserFree(byval as ULONG ptr, byval as BSTR ptr)
-declare function VARIANT_UserSize(byval as ULONG ptr, byval as ULONG, byval as VARIANT ptr) as ULONG
-declare function VARIANT_UserMarshal(byval as ULONG ptr, byval as ubyte ptr, byval as VARIANT ptr) as ubyte ptr
-declare function VARIANT_UserUnmarshal(byval as ULONG ptr, byval as ubyte ptr, byval as VARIANT ptr) as ubyte ptr
-declare sub VARIANT_UserFree(byval as ULONG ptr, byval as VARIANT ptr)
 
 end extern
+
+#include once "ole-common.bi"
