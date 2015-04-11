@@ -170,6 +170,7 @@
 -removedefine LWSTDAPI_
 -removedefine LWSTDAPIV
 -removedefine LWSTDAPIV_
+-removedefine MAKE_ROUTE_PROTOCOL
 -removedefine _MCRTIMP
 -removedefine __MIDL_DECLSPEC_DLLEXPORT
 -removedefine __MIDL_DECLSPEC_DLLIMPORT
