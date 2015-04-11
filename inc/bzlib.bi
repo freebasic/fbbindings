@@ -4,6 +4,10 @@
 
 #include once "crt/stdio.bi"
 
+'' The following symbols have been renamed:
+''     procedure BZ2_bzread => BZ2_bzread_
+''     procedure BZ2_bzwrite => BZ2_bzwrite_
+
 #ifdef __FB_WIN32__
 	extern "Windows"
 #else
@@ -65,8 +69,8 @@ declare function BZ2_bzBuffToBuffDecompress(byval dest as zstring ptr, byval des
 declare function BZ2_bzlibVersion() as const zstring ptr
 declare function BZ2_bzopen(byval path as const zstring ptr, byval mode as const zstring ptr) as BZFILE ptr
 declare function BZ2_bzdopen(byval fd as long, byval mode as const zstring ptr) as BZFILE ptr
-declare function BZ2_bzread(byval b as BZFILE ptr, byval buf as any ptr, byval len as long) as long
-declare function BZ2_bzwrite(byval b as BZFILE ptr, byval buf as any ptr, byval len as long) as long
+declare function BZ2_bzread_ alias "BZ2_bzread"(byval b as BZFILE ptr, byval buf as any ptr, byval len as long) as long
+declare function BZ2_bzwrite_ alias "BZ2_bzwrite"(byval b as BZFILE ptr, byval buf as any ptr, byval len as long) as long
 declare function BZ2_bzflush(byval b as BZFILE ptr) as long
 declare sub BZ2_bzclose(byval b as BZFILE ptr)
 declare function BZ2_bzerror(byval b as BZFILE ptr, byval errnum as long ptr) as const zstring ptr

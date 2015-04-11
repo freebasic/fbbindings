@@ -3,3 +3,6 @@
 -removedefine BZ_EXPORT
 -define WINAPI __stdcall
 -removeinclude windows.h
+
+-renameproc BZ2_bzread BZ2_bzread_
+-renameproc BZ2_bzwrite BZ2_bzwrite_
