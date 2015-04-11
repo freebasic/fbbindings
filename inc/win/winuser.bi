@@ -9,7 +9,6 @@
 #include once "_mingw.bi"
 #include once "crt/stdarg.bi"
 #include once "guiddef.bi"
-#include once "libloaderapi.bi"
 
 '' The following symbols have been renamed:
 ''     typedef INPUT => INPUT_
