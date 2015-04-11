@@ -6,8 +6,6 @@
 #include once "_mingw_unicode.bi"
 #include once "guiddef.bi"
 #include once "winapifamily.bi"
-#include once "bcrypt.bi"
-#include once "ncrypt.bi"
 #include once "dpapi.bi"
 
 extern "Windows"
@@ -749,6 +747,13 @@ declare function CryptDuplicateHash(byval hHash as HCRYPTHASH, byval pdwReserved
 declare function GetEncSChannel cdecl(byval pData as UBYTE ptr ptr, byval dwDecSize as DWORD ptr) as WINBOOL
 type HCRYPTPROV_OR_NCRYPT_KEY_HANDLE as ULONG_PTR
 type HCRYPTPROV_LEGACY as ULONG_PTR
+
+end extern
+
+#include once "bcrypt.bi"
+#include once "ncrypt.bi"
+
+extern "Windows"
 
 type _CRYPT_BIT_BLOB
 	cbData as DWORD
