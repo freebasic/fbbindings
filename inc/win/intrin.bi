@@ -80,7 +80,6 @@ extern "C"
 	#define __INTRINSIC_DEFINED___movsq
 #endif
 
-declare function _InterlockedAnd(byval Destination as long ptr, byval Value as long) as long
 #define __INTRINSIC_DEFINED__InterlockedAnd
 #define __INTRINSIC_DEFINED__InterlockedOr
 #define __INTRINSIC_DEFINED__InterlockedXor
