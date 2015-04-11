@@ -1,14 +1,80 @@
-'' FreeBASIC binding for mingw-w64-v3.3.0
+'' FreeBASIC binding for mingw-w64-v4.0.1
 
 #pragma once
 
 #include once "_mingw.bi"
 
 #define _INC_CRTDEFS
+const _CRT_PACKING = 8
+'' TODO: #pragma pack(push,_CRT_PACKING)
 #define _CRTNOALIAS
 #define _CRTRESTRICT
+#define _SIZE_T_DEFINED
+
+#ifdef __FB_64BIT__
+	type size_t as ulongint
+#else
+	type size_t as ulong
+#endif
+
+#define _SSIZE_T_DEFINED
+
+#ifdef __FB_64BIT__
+	type ssize_t as longint
+#else
+	type ssize_t as long
+#endif
+
 type rsize_t as uinteger
 #define _RSIZE_T_DEFINED
+#define _INTPTR_T_DEFINED
+#define __intptr_t_defined
+
+#ifdef __FB_64BIT__
+	type intptr_t as longint
+#else
+	type intptr_t as long
+#endif
+
+#define _UINTPTR_T_DEFINED
+#define __uintptr_t_defined
+
+#ifdef __FB_64BIT__
+	type uintptr_t as ulongint
+#else
+	type uintptr_t as ulong
+#endif
+
+#define _PTRDIFF_T_DEFINED
+#define _PTRDIFF_T_
+
+#ifdef __FB_64BIT__
+	type ptrdiff_t as longint
+#else
+	type ptrdiff_t as long
+#endif
+
+#define _WCHAR_T_DEFINED
+type wchar_t as ushort
+#define _WCTYPE_T_DEFINED
+#define _WINT_T
+type wint_t as ushort
+type wctype_t as ushort
+#define _ERRCODE_DEFINED
+type errno_t as long
+#define _TIME32_T_DEFINED
+type __time32_t as long
+#define _TIME64_T_DEFINED
+type __time64_t as longint
+#define _TIME_T_DEFINED
+
+#ifdef __FB_64BIT__
+	type time_t as __time64_t
+#else
+	type time_t as __time32_t
+#endif
+
+#define _CRT_SECURE_CPP_NOTHROW throw()
 #define __DEFINE_CPP_OVERLOAD_SECURE_FUNC_0_0(__ret, __func, __dsttype, __dst)
 #define __DEFINE_CPP_OVERLOAD_SECURE_FUNC_0_1(__ret, __func, __dsttype, __dst, __type1, __arg1)
 #define __DEFINE_CPP_OVERLOAD_SECURE_FUNC_0_2(__ret, __func, __dsttype, __dst, __type1, __arg1, __type2, __arg2)
@@ -21,6 +87,16 @@ type rsize_t as uinteger
 #define __DEFINE_CPP_OVERLOAD_SECURE_FUNC_0_1_ARGLIST(__ret, __func, __vfunc, __dsttype, __dst, __type1, __arg1)
 #define __DEFINE_CPP_OVERLOAD_SECURE_FUNC_0_2_ARGLIST(__ret, __func, __vfunc, __dsttype, __dst, __type1, __arg1, __type2, __arg2)
 #define __DEFINE_CPP_OVERLOAD_SECURE_FUNC_SPLITPATH(__ret, __func, __dsttype, __src)
+#define __DEFINE_CPP_OVERLOAD_STANDARD_FUNC_0_0(__ret_type, __ret_policy, __decl_spec, __name, __dst_attr, __dst_type, __dst) __DEFINE_CPP_OVERLOAD_STANDARD_FUNC_0_0_EX(__ret_type, __ret_policy, __decl_spec, __func_name, __func_name##_s, __dst_attr, __dst_type, __dst)
+#define __DEFINE_CPP_OVERLOAD_STANDARD_FUNC_0_1(__ret_type, __ret_policy, __decl_spec, __name, __dst_attr, __dst_type, __dst, __arg1_type, __arg1) __DEFINE_CPP_OVERLOAD_STANDARD_FUNC_0_2_EX(__ret_type, __ret_policy, __decl_spec, __func_name, __func_name##_s, __dst_attr, __dst_type, __dst, __arg1_type, __arg1, __arg2_type, __arg2)
+#define __DEFINE_CPP_OVERLOAD_STANDARD_FUNC_0_2(__ret_type, __ret_policy, __decl_spec, __name, __dst_attr, __dst_type, __dst, __arg1_type, __arg1, __arg2_type, __arg2) __DEFINE_CPP_OVERLOAD_STANDARD_FUNC_0_2_EX(__ret_type, __ret_policy, __decl_spec, __func_name, __func_name##_s, __dst_attr, __dst_type, __dst, __arg1_type, __arg1, __arg2_type, __arg2)
+#define __DEFINE_CPP_OVERLOAD_STANDARD_FUNC_0_3(__ret_type, __ret_policy, __decl_spec, __name, __dst_attr, __dst_type, __dst, __arg1_type, __arg1, __arg2_type, __arg2, __arg3_type, __arg3) __DEFINE_CPP_OVERLOAD_STANDARD_FUNC_0_3_EX(__ret_type, __ret_policy, __decl_spec, __func_name, __func_name##_s, __dst_attr, __dst_type, __dst, __arg1_type, __arg1, __arg2_type, __arg2, __arg3_type, __arg3)
+#define __DEFINE_CPP_OVERLOAD_STANDARD_FUNC_0_4(__ret_type, __ret_policy, __decl_spec, __name, __dst_attr, __dst_type, __dst, __arg1_type, __arg1, __arg2_type, __arg2, __arg3_type, __arg3, __arg4_type, __arg4) __DEFINE_CPP_OVERLOAD_STANDARD_FUNC_0_4_EX(__ret_type, __ret_policy, __decl_spec, __func_name, __func_name##_s, __dst_attr, __dst_type, __dst, __arg1_type, __arg1, __arg2_type, __arg2, __arg3_type, __arg3, __arg4_type, __arg4)
+#define __DEFINE_CPP_OVERLOAD_STANDARD_FUNC_0_0_EX(__ret_type, __ret_policy, __decl_spec, __name, __sec_name, __dst_attr, __dst_type, __dst)
+#define __DEFINE_CPP_OVERLOAD_STANDARD_FUNC_0_1_EX(__ret_type, __ret_policy, __decl_spec, __name, __sec_name, __dst_attr, __dst_type, __dst, __arg1_type, __arg1)
+#define __DEFINE_CPP_OVERLOAD_STANDARD_FUNC_0_2_EX(__ret_type, __ret_policy, __decl_spec, __name, __sec_name, __dst_attr, __dst_type, __dst, __arg1_type, __arg1, __arg2_type, __arg2)
+#define __DEFINE_CPP_OVERLOAD_STANDARD_FUNC_0_3_EX(__ret_type, __ret_policy, __decl_spec, __name, __sec_name, __dst_attr, __dst_type, __dst, __arg1_type, __arg1, __arg2_type, __arg2, __arg3_type, __arg3)
+#define __DEFINE_CPP_OVERLOAD_STANDARD_FUNC_0_4_EX(__ret_type, __ret_policy, __decl_spec, __name, __sec_name, __dst_attr, __dst_type, __dst, __arg1_type, __arg1, __arg2_type, __arg2, __arg3_type, __arg3, __arg4_type, __arg4)
 type pthreadlocinfo as threadlocaleinfostruct ptr
 type pthreadmbcinfo as threadmbcinfostruct ptr
 

@@ -1,4 +1,4 @@
-'' FreeBASIC binding for mingw-w64-v3.3.0
+'' FreeBASIC binding for mingw-w64-v4.0.1
 
 #pragma once
 
@@ -153,36 +153,6 @@ extern "C"
 	#define __INTRINSIC_DEFINED___movsq
 #endif
 
-declare sub __int2c()
-declare sub __int2c()
-#define __INTRINSIC_DEFINED___int2c
-declare sub __stosb(byval as ubyte ptr, byval as ubyte, byval as uinteger)
-declare sub __stosb(byval Dest as ubyte ptr, byval Data as ubyte, byval Count as uinteger)
-#define __INTRINSIC_DEFINED___stosb
-declare sub __stosw(byval as ushort ptr, byval as ushort, byval as uinteger)
-declare sub __stosw(byval Dest as ushort ptr, byval Data as ushort, byval Count as uinteger)
-#define __INTRINSIC_DEFINED___stosw
-declare sub __stosd(byval as ulong ptr, byval as ulong, byval as uinteger)
-declare sub __stosd(byval Dest as ulong ptr, byval Data as ulong, byval Count as uinteger)
-#define __INTRINSIC_DEFINED___stosd
-declare function _interlockedbittestandset(byval a as long ptr, byval b as long) as ubyte
-declare function _interlockedbittestandset(byval Base as long ptr, byval Offset as long) as ubyte
-#define __INTRINSIC_DEFINED__interlockedbittestandset
-declare function _interlockedbittestandreset(byval a as long ptr, byval b as long) as ubyte
-declare function _interlockedbittestandreset(byval Base as long ptr, byval Offset as long) as ubyte
-#define __INTRINSIC_DEFINED__interlockedbittestandreset
-declare function _interlockedbittestandcomplement(byval a as long ptr, byval b as long) as ubyte
-declare function _interlockedbittestandcomplement(byval Base as long ptr, byval Offset as long) as ubyte
-#define __INTRINSIC_DEFINED__interlockedbittestandcomplement
-declare function InterlockedBitTestAndSet(byval a as long ptr, byval b as long) as ubyte
-declare function InterlockedBitTestAndSet(byval Base as long ptr, byval Offset as long) as ubyte
-#define __INTRINSIC_DEFINED_InterlockedBitTestAndSet
-declare function InterlockedBitTestAndReset(byval a as long ptr, byval b as long) as ubyte
-declare function InterlockedBitTestAndReset(byval Base as long ptr, byval Offset as long) as ubyte
-#define __INTRINSIC_DEFINED_InterlockedBitTestAndReset
-declare function InterlockedBitTestAndComplement(byval a as long ptr, byval b as long) as ubyte
-declare function InterlockedBitTestAndComplement(byval Base as long ptr, byval Offset as long) as ubyte
-#define __INTRINSIC_DEFINED_InterlockedBitTestAndComplement
 declare function _InterlockedAnd(byval as long ptr, byval as long) as long
 declare function _InterlockedAnd(byval Destination as long ptr, byval Value as long) as long
 #define __INTRINSIC_DEFINED__InterlockedAnd
@@ -225,6 +195,36 @@ declare function _InterlockedCompareExchangePointer(byval Destination as any ptr
 declare function _InterlockedExchangePointer(byval Target as any ptr ptr, byval Value as any ptr) as any ptr
 declare function _InterlockedExchangePointer(byval Target as any ptr ptr, byval Value as any ptr) as any ptr
 #define __INTRINSIC_DEFINED__InterlockedExchangePointer
+declare sub __int2c()
+declare sub __int2c()
+#define __INTRINSIC_DEFINED___int2c
+declare sub __stosb(byval as ubyte ptr, byval as ubyte, byval as uinteger)
+declare sub __stosb(byval Dest as ubyte ptr, byval Data as ubyte, byval Count as uinteger)
+#define __INTRINSIC_DEFINED___stosb
+declare sub __stosw(byval as ushort ptr, byval as ushort, byval as uinteger)
+declare sub __stosw(byval Dest as ushort ptr, byval Data as ushort, byval Count as uinteger)
+#define __INTRINSIC_DEFINED___stosw
+declare sub __stosd(byval as ulong ptr, byval as ulong, byval as uinteger)
+declare sub __stosd(byval Dest as ulong ptr, byval Data as ulong, byval Count as uinteger)
+#define __INTRINSIC_DEFINED___stosd
+declare function _interlockedbittestandset(byval a as long ptr, byval b as long) as ubyte
+declare function _interlockedbittestandset(byval Base as long ptr, byval Offset as long) as ubyte
+#define __INTRINSIC_DEFINED__interlockedbittestandset
+declare function _interlockedbittestandreset(byval a as long ptr, byval b as long) as ubyte
+declare function _interlockedbittestandreset(byval Base as long ptr, byval Offset as long) as ubyte
+#define __INTRINSIC_DEFINED__interlockedbittestandreset
+declare function _interlockedbittestandcomplement(byval a as long ptr, byval b as long) as ubyte
+declare function _interlockedbittestandcomplement(byval Base as long ptr, byval Offset as long) as ubyte
+#define __INTRINSIC_DEFINED__interlockedbittestandcomplement
+declare function InterlockedBitTestAndSet(byval a as long ptr, byval b as long) as ubyte
+declare function InterlockedBitTestAndSet(byval Base as long ptr, byval Offset as long) as ubyte
+#define __INTRINSIC_DEFINED_InterlockedBitTestAndSet
+declare function InterlockedBitTestAndReset(byval a as long ptr, byval b as long) as ubyte
+declare function InterlockedBitTestAndReset(byval Base as long ptr, byval Offset as long) as ubyte
+#define __INTRINSIC_DEFINED_InterlockedBitTestAndReset
+declare function InterlockedBitTestAndComplement(byval a as long ptr, byval b as long) as ubyte
+declare function InterlockedBitTestAndComplement(byval Base as long ptr, byval Offset as long) as ubyte
+#define __INTRINSIC_DEFINED_InterlockedBitTestAndComplement
 declare function _BitScanForward(byval Index as ulong ptr, byval Mask as ulong) as ubyte
 declare function _BitScanForward(byval Index as ulong ptr, byval Mask as ulong) as ubyte
 #define __INTRINSIC_DEFINED__BitScanForward

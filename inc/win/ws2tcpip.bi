@@ -1,12 +1,12 @@
-'' FreeBASIC binding for mingw-w64-v3.3.0
+'' FreeBASIC binding for mingw-w64-v4.0.1
 
 #pragma once
 
 #include once "_mingw_unicode.bi"
 #include once "winsock2.bi"
+#include once "ws2ipdef.bi"
 #include once "inaddr.bi"
 #include once "winapifamily.bi"
-#include once "ws2ipdef.bi"
 #include once "mstcpip.bi"
 
 extern "C"
@@ -61,13 +61,11 @@ const UDP_NOCHECKSUM = 1
 const UDP_CHECKSUM_COVERAGE = 20
 const TCP_EXPEDITED_1122 = &h0002
 #define SS_PORT(ssp) cptr(SOCKADDR_IN ptr, (ssp))->sin_port
-#define IN6ADDR_ANY_INIT (0)
-#define IN6ADDR_LOOPBACK_INIT (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1)
+#define IN6ADDR_ANY_INIT (((0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+#define IN6ADDR_LOOPBACK_INIT (((0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1)))
 extern in6addr_any as const IN6_ADDR
 extern in6addr_loopback as const IN6_ADDR
-#define WS2TCPIP_INLINE __CRT_INLINE
 
-declare function IN6_ADDR_EQUAL(byval as const IN6_ADDR ptr, byval as const IN6_ADDR ptr) as long
 declare function IN6_IS_ADDR_UNSPECIFIED(byval as const IN6_ADDR ptr) as long
 declare function IN6_IS_ADDR_LOOPBACK(byval as const IN6_ADDR ptr) as long
 declare function IN6_IS_ADDR_MULTICAST(byval as const IN6_ADDR ptr) as long
@@ -86,10 +84,6 @@ declare sub IN6_SET_ADDR_UNSPECIFIED(byval as IN6_ADDR ptr)
 declare sub IN6_SET_ADDR_LOOPBACK(byval as IN6_ADDR ptr)
 declare sub IN6ADDR_SETANY(byval as SOCKADDR_IN6 ptr)
 declare sub IN6ADDR_SETLOOPBACK(byval as SOCKADDR_IN6 ptr)
-
-private function IN6_ADDR_EQUAL(byval a as const IN6_ADDR ptr, byval b as const IN6_ADDR ptr) as long
-	return -(memcmp(a, b, sizeof(IN6_ADDR)) = 0)
-end function
 
 private function IN6_IS_ADDR_UNSPECIFIED(byval a as const IN6_ADDR ptr) as long
 	return -((((((((a->u.Word[0] = 0) andalso (a->u.Word[1] = 0)) andalso (a->u.Word[2] = 0)) andalso (a->u.Word[3] = 0)) andalso (a->u.Word[4] = 0)) andalso (a->u.Word[5] = 0)) andalso (a->u.Word[6] = 0)) andalso (a->u.Word[7] = 0))
@@ -244,15 +238,20 @@ type PADDRINFOW as ADDRINFOW ptr
 
 type ADDRINFO as ADDRINFOA
 type LPADDRINFO as ADDRINFOA ptr
-const AI_PASSIVE = &h1
-const AI_CANONNAME = &h2
-const AI_NUMERICHOST = &h4
+const AI_PASSIVE = &h00000001
+const AI_CANONNAME = &h00000002
+const AI_NUMERICHOST = &h00000004
 
 #if _WIN32_WINNT = &h0602
-	const AI_ADDRCONFIG = &h0400
-	const AI_NON_AUTHORITATIVE = &h04000
-	const AI_SECURE = &h08000
-	const AI_RETURN_PREFERRED_NAMES = &h010000
+	const AI_NUMERICSERV = &h00000008
+	const AI_ALL = &h00000100
+	const AI_ADDRCONFIG = &h00000400
+	const AI_V4MAPPED = &h00000800
+	const AI_NON_AUTHORITATIVE = &h00004000
+	const AI_SECURE = &h00008000
+	const AI_RETURN_PREFERRED_NAMES = &h00010000
+	const AI_FQDN = &h00020000
+	const AI_FILESERVER = &h00040000
 #endif
 
 #ifdef UNICODE

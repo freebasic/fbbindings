@@ -1,9 +1,10 @@
-'' FreeBASIC binding for mingw-w64-v3.3.0
+'' FreeBASIC binding for mingw-w64-v4.0.1
 
 #pragma once
 
 #inclib "rasdlg"
 
+#include once "winapifamily.bi"
 #include once "_mingw_unicode.bi"
 #include once "ras.bi"
 
@@ -24,7 +25,6 @@ const RASPBDEVENT_EditGlobals = 5
 const RASPBDEVENT_NoUser = 6
 const RASPBDEVENT_NoUserEdit = 7
 const RASNOUSER_SmartCard = &h00000001
-#define RASNOUSERW tagRASNOUSERW
 
 type tagRASNOUSERW field = 4
 	dwSize as DWORD
@@ -34,8 +34,6 @@ type tagRASNOUSERW field = 4
 	szPassword as wstring * 256 + 1
 	szDomain as wstring * 15 + 1
 end type
-
-#define RASNOUSERA tagRASNOUSERA
 
 type tagRASNOUSERA field = 4
 	dwSize as DWORD
@@ -52,15 +50,16 @@ end type
 	#define RASNOUSER RASNOUSERA
 #endif
 
-'' TODO: #define LPRASNOUSERW RASNOUSERW*
-'' TODO: #define LPRASNOUSERA RASNOUSERA*
-'' TODO: #define LPRASNOUSER RASNOUSER*
+#define RASNOUSERW tagRASNOUSERW
+#define RASNOUSERA tagRASNOUSERA
+'' TODO: #define LPRASNOUSERW RASNOUSERW *
+'' TODO: #define LPRASNOUSERA RASNOUSERA *
+'' TODO: #define LPRASNOUSER RASNOUSER *
 
 const RASPBDFLAG_PositionDlg = &h00000001
 const RASPBDFLAG_ForceCloseOnDial = &h00000002
 const RASPBDFLAG_NoUser = &h00000010
 const RASPBDFLAG_UpdateDefaults = &h80000000
-#define RASPBDLGW tagRASPBDLGW
 
 type tagRASPBDLGW field = 4
 	dwSize as DWORD
@@ -74,8 +73,6 @@ type tagRASPBDLGW field = 4
 	reserved as ULONG_PTR
 	reserved2 as ULONG_PTR
 end type
-
-#define RASPBDLGA tagRASPBDLGA
 
 type tagRASPBDLGA field = 4
 	dwSize as DWORD
@@ -98,22 +95,34 @@ end type
 	#define RASPBDLGFUNC RASPBDLGFUNCA
 #endif
 
-'' TODO: #define LPRASPBDLGW RASPBDLGW*
-'' TODO: #define LPRASPBDLGA RASPBDLGA*
-'' TODO: #define LPRASPBDLG RASPBDLG*
-
+#define RASPBDLGW tagRASPBDLGW
+#define RASPBDLGA tagRASPBDLGA
+'' TODO: #define LPRASPBDLGW RASPBDLGW *
+'' TODO: #define LPRASPBDLGA RASPBDLGA *
+'' TODO: #define LPRASPBDLG RASPBDLG *
 const RASEDFLAG_PositionDlg = &h00000001
 const RASEDFLAG_NewEntry = &h00000002
-const RASEDFLAG_CloneEntry = &h00000004
+
+#if (_WIN32_WINNT = &h0400) or (_WIN32_WINNT = &h0502)
+	const RASEDFLAG_CloneEntry = &h00000004
+#endif
+
 const RASEDFLAG_NoRename = &h00000008
 const RASEDFLAG_ShellOwned = &h40000000
 const RASEDFLAG_NewPhoneEntry = &h00000010
 const RASEDFLAG_NewTunnelEntry = &h00000020
-const RASEDFLAG_NewDirectEntry = &h00000040
+
+#if (_WIN32_WINNT = &h0400) or (_WIN32_WINNT = &h0502)
+	const RASEDFLAG_NewDirectEntry = &h00000040
+#endif
+
 const RASEDFLAG_NewBroadbandEntry = &h00000080
 const RASEDFLAG_InternetEntry = &h00000100
 const RASEDFLAG_NAT = &h00000200
-#define RASENTRYDLGW tagRASENTRYDLGW
+
+#if _WIN32_WINNT = &h0602
+	const RASEDFLAG_IncomingConnection = &h00000400
+#endif
 
 type tagRASENTRYDLGW field = 4
 	dwSize as DWORD
@@ -126,8 +135,6 @@ type tagRASENTRYDLGW field = 4
 	reserved as ULONG_PTR
 	reserved2 as ULONG_PTR
 end type
-
-#define RASENTRYDLGA tagRASENTRYDLGA
 
 type tagRASENTRYDLGA field = 4
 	dwSize as DWORD
@@ -147,14 +154,15 @@ end type
 	#define RASENTRYDLG RASENTRYDLGA
 #endif
 
-'' TODO: #define LPRASENTRYDLGW RASENTRYDLGW*
-'' TODO: #define LPRASENTRYDLGA RASENTRYDLGA*
-'' TODO: #define LPRASENTRYDLG RASENTRYDLG*
+#define RASENTRYDLGW tagRASENTRYDLGW
+#define RASENTRYDLGA tagRASENTRYDLGA
+'' TODO: #define LPRASENTRYDLGW RASENTRYDLGW *
+'' TODO: #define LPRASENTRYDLGA RASENTRYDLGA *
+'' TODO: #define LPRASENTRYDLG RASENTRYDLG *
 
 const RASDDFLAG_PositionDlg = &h00000001
 const RASDDFLAG_NoPrompt = &h00000002
 const RASDDFLAG_LinkFailure = &h80000000
-#define RASDIALDLG tagRASDIALDLG
 
 type tagRASDIALDLG field = 4
 	dwSize as DWORD
@@ -168,7 +176,8 @@ type tagRASDIALDLG field = 4
 	reserved2 as ULONG_PTR
 end type
 
-'' TODO: #define LPRASDIALDLG RASDIALDLG*
+#define RASDIALDLG tagRASDIALDLG
+'' TODO: #define LPRASDIALDLG RASDIALDLG *
 type RasCustomDialDlgFn as function(byval hInstDll as HINSTANCE, byval dwFlags as DWORD, byval lpszPhonebook as LPWSTR, byval lpszEntry as LPWSTR, byval lpszPhoneNumber as LPWSTR, byval lpInfo as tagRASDIALDLG ptr, byval pvInfo as PVOID) as WINBOOL
 
 #ifdef UNICODE

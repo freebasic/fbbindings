@@ -1,11 +1,14 @@
-'' FreeBASIC binding for mingw-w64-v3.3.0
+'' FreeBASIC binding for mingw-w64-v4.0.1
 
 #pragma once
 
+#include once "_mingw_unicode.bi"
 #include once "winapifamily.bi"
 #include once "in6addr.bi"
 
-#define _INC_WS2IPDEF
+extern "C"
+
+#define _WS2IPDEF_
 
 type IPV6_MREQ
 	ipv6mr_multiaddr as IN6_ADDR
@@ -125,3 +128,13 @@ const IPV6_RTHDR = 32
 const IPV6_RECVRTHDR = 38
 const IPV6_TCLASS = 39
 const IPV6_RECVTCLASS = 40
+#define WS2TCPIP_INLINE __CRT_INLINE
+declare function IN6_ADDR_EQUAL(byval as const IN6_ADDR ptr, byval as const IN6_ADDR ptr) as long
+
+private function IN6_ADDR_EQUAL(byval a as const IN6_ADDR ptr, byval b as const IN6_ADDR ptr) as long
+	return -(memcmp(a, b, sizeof(IN6_ADDR)) = 0)
+end function
+
+#define IN6_ARE_ADDR_EQUAL IN6_ADDR_EQUAL
+
+end extern
