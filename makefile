@@ -284,12 +284,15 @@ CLANG_VERSION := 3.5.0
 CLANG_TITLE := cfe-$(CLANG_VERSION).src
 clang:
 	./get.sh $(CLANG_TITLE) $(CLANG_TITLE).tar.xz "http://llvm.org/releases/$(CLANG_VERSION)/$(CLANG_TITLE).tar.xz"
+
+	sed -n 4,43p extracted/$(CLANG_TITLE)/LICENSE.TXT > copy/clang.txt
+
 	$(FBFROG) -o inc/clang-c.bi \
 		extracted/$(CLANG_TITLE)/include/clang-c/Index.h \
 		extracted/$(CLANG_TITLE)/include/clang-c/CXCompilationDatabase.h \
 		-incdir extracted/$(CLANG_TITLE)/include \
 		-removedefine CINDEX_LINKAGE \
-		-title $(CLANG_TITLE)
+		-title $(CLANG_TITLE) copy/clang.txt copy/fbteam.txt
 
 CUNIT_VERSION := 2.1-3
 CUNIT_TITLE := CUnit-$(CUNIT_VERSION)
