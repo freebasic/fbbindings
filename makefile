@@ -209,7 +209,11 @@ BZIP2_VERSION := 1.0.6
 BZIP2 := bzip2-$(BZIP2_VERSION)
 bzip2:
 	./get.sh $(BZIP2) $(BZIP2).tar.gz http://www.bzip.org/$(BZIP2_VERSION)/$(BZIP2).tar.gz
-	$(FBFROG) bzip2.fbfrog extracted/$(BZIP2)/bzlib.h -o inc -inclib bz2
+
+	sed -n 4,40p extracted/$(BZIP2)/LICENSE > copy/bzip2.txt
+
+	$(FBFROG) bzip2.fbfrog extracted/$(BZIP2)/bzlib.h -o inc -inclib bz2 \
+		-title $(BZIP2) copy/bzip2.txt copy/fbteam.txt
 
 # TODO:
 # cairo-deprecated.h
