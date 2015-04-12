@@ -79,6 +79,9 @@ ALLEGRO5_LIB := -5.0.10-static-md
 ALLEGRO5_DLL := -5.0.10-md
 allegro5:
 	./get.sh $(ALLEGRO5_TITLE) $(ALLEGRO5_TITLE).tar.gz "http://sourceforge.net/projects/alleg/files/allegro/$(ALLEGRO5_VERSION)/$(ALLEGRO5_TITLE).tar.gz/download"
+
+	sed -n 1,20p extracted/$(ALLEGRO5_TITLE)/LICENSE.txt > copy/allegro5.txt
+
 	mkdir -p inc/allegro5
 	$(FBFROG) allegro5.fbfrog \
 		-incdir extracted/$(ALLEGRO5_TITLE)/include \
@@ -147,7 +150,7 @@ allegro5:
 			-inclib allegro_ttf        inc/allegro5/allegro_ttf.bi \
 		-endif \
 		\
-		-title $(ALLEGRO5_TITLE)
+		-title $(ALLEGRO5_TITLE) copy/allegro5.txt copy/fbteam.txt
 
 ATK_SERIES := 2.14
 ATK := atk-$(ATK_SERIES).0
