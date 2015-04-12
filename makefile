@@ -25,20 +25,26 @@ clean:
 
 ALLEGRO4_VERSION := 4.4.2
 ALLEGRO4_TITLE := allegro-$(ALLEGRO4_VERSION)
-ALPNG_TARBALL := tarballs/alpng13.tar.gz
+ALGIF := algif_1.3
+ALPNG := alpng13
+ALPNG_TARBALL := tarballs/$(ALPNG).tar.gz
 allegro4:
 	./get.sh $(ALLEGRO4_TITLE) $(ALLEGRO4_TITLE).tar.gz "http://cdn.allegro.cc/file/library/allegro/$(ALLEGRO4_VERSION)/$(ALLEGRO4_TITLE).tar.gz"
-	./get.sh algif_1.3 algif_1.3.zip "http://prdownloads.sourceforge.net/algif/algif_1.3.zip?download"
+	./get.sh $(ALGIF) $(ALGIF).zip "http://prdownloads.sourceforge.net/algif/$(ALGIF).zip?download"
 	if [ ! -f "$(ALPNG_TARBALL)" ]; then \
-		wget --no-verbose "http://sourceforge.net/projects/alpng/files/alpng/1.3/alpng13.tar.gz/download" -O "$(ALPNG_TARBALL)"; \
+		wget --no-verbose "http://sourceforge.net/projects/alpng/files/alpng/1.3/$(ALPNG_TARBALL)/download" -O "$(ALPNG_TARBALL)"; \
 	fi
-	if [ ! -d extracted/alpng13 ]; then \
-		mkdir -p extracted/alpng13; \
-		tar xf "$(ALPNG_TARBALL)" -C extracted/alpng13; \
+	if [ ! -d extracted/$(ALPNG) ]; then \
+		mkdir -p extracted/$(ALPNG); \
+		tar xf "$(ALPNG_TARBALL)" -C extracted/$(ALPNG); \
 	fi
+
+	sed -n 1,15p    extracted/$(ALLEGRO4_TITLE)/readme.txt | cut -c4-  > copy/allegro4.txt
+	sed -n 177,197p extracted/$(ALLEGRO4_TITLE)/readme.txt | cut -c4- >> copy/allegro4.txt
+	sed -n 412,427p extracted/$(ALGIF)/README      > copy/algif.txt
+	sed -n 2,24p    extracted/$(ALPNG)/src/alpng.h > copy/alpng.txt
 
 	mkdir -p inc/allegro
-
 	$(FBFROG) allegro4.fbfrog \
 		-incdir extracted/$(ALLEGRO4_TITLE)/include \
 		extracted/$(ALLEGRO4_TITLE)/include/allegro.h \
@@ -56,9 +62,9 @@ allegro4:
 		-undef palette inc/allegro.bi \
 		-undef rgb     inc/allegro.bi \
 		-addinclude allegro.bi inc/allegro/alpng.bi \
-		-title $(ALLEGRO4_TITLE) inc/allegro.bi \
-		-title algif_1.3         inc/allegro/algif.bi \
-		-title alpng13           inc/allegro/alpng.bi
+		-title $(ALLEGRO4_TITLE) copy/allegro4.txt copy/fbteam.txt inc/allegro.bi \
+		-title algif_1.3         copy/algif.txt    copy/fbteam.txt inc/allegro/algif.bi \
+		-title alpng13           copy/alpng.txt    copy/fbteam.txt inc/allegro/alpng.bi
 
 ALLEGRO5_VERSION := 5.0.11
 ALLEGRO5_TITLE := allegro-$(ALLEGRO5_VERSION)
