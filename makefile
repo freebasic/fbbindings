@@ -300,6 +300,9 @@ cunit:
 	./get.sh $(CUNIT_TITLE) $(CUNIT_TITLE).tar.bz2 "http://sourceforge.net/projects/cunit/files/CUnit/$(CUNIT_VERSION)/$(CUNIT_TITLE).tar.bz2/download"
 	cd extracted/$(CUNIT_TITLE)/CUnit/Headers && \
 		sed -e 's/@VERSION@-@RELEASE@/$(CUNIT_VERSION)/g' < CUnit.h.in > CUnit.h
+
+	sed -n 2,18p extracted/$(CUNIT_TITLE)/CUnit/Headers/CUnit.h | cut -c5- > copy/cunit.txt
+
 	mkdir -p inc/CUnit
 	$(FBFROG) cunit.fbfrog \
 		extracted/$(CUNIT_TITLE)/CUnit/Headers/CUnit.h \
@@ -317,7 +320,7 @@ cunit:
 		-emit '*/TestDB.h'    inc/CUnit/TestDB.bi		\
 		-emit '*/TestRun.h'   inc/CUnit/TestRun.bi		\
 		-emit '*/Util.h'      inc/CUnit/Util.bi			\
-		-title $(CUNIT_TITLE)
+		-title $(CUNIT_TITLE) copy/cunit.txt copy/fbteam.txt
 
 CURL_TITLE := curl-7.39.0
 curl:
