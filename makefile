@@ -325,11 +325,14 @@ cunit:
 CURL_TITLE := curl-7.39.0
 curl:
 	./get.sh $(CURL_TITLE) $(CURL_TITLE).tar.lzma "http://curl.haxx.se/download/$(CURL_TITLE).tar.lzma"
+
+	tail -n +3 extracted/$(CURL_TITLE)/COPYING > copy/curl.txt
+
 	$(FBFROG) curl.fbfrog \
 		extracted/$(CURL_TITLE)/include/curl/curl.h \
 		-dontemit '*/typecheck-gcc.h' \
 		-emit '*' inc/curl.bi \
-		-title $(CURL_TITLE)
+		-title $(CURL_TITLE) copy/curl.txt copy/fbteam.txt
 
 FASTCGI_TITLE := fcgi-2.4.1-SNAP-0311112127
 fastcgi:
