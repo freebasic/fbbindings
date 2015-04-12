@@ -274,7 +274,11 @@ CGUI_VERSION := 2.0.3
 CGUI := cgui-$(CGUI_VERSION)
 cgui:
 	./get.sh cgui $(CGUI).tar.gz "http://sourceforge.net/projects/cgui/files/$(CGUI_VERSION)/$(CGUI).tar.gz/download"
-	$(FBFROG) cgui.fbfrog -o inc extracted/cgui/include/cgui.h -title $(CGUI)
+
+	sed -n 2,2p extracted/cgui/readme.txt > copy/cgui.txt
+
+	$(FBFROG) cgui.fbfrog -o inc extracted/cgui/include/cgui.h \
+		-title $(CGUI) copy/cgui.txt copy/fbteam.txt
 
 CLANG_VERSION := 3.5.0
 CLANG_TITLE := cfe-$(CLANG_VERSION).src
