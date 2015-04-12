@@ -247,6 +247,9 @@ cairo-extract:
 	cp extracted/$(CAIRO)/cairo-version.h extracted/$(CAIRO)/src
 
 cairo: cairo-extract
+
+	sed -n 1,35p extracted/$(CAIRO)/src/cairo.h | cut -c4- > copy/cairo.txt
+
 	mkdir -p inc/cairo
 	$(FBFROG) cairo.fbfrog \
 		-incdir extracted/$(CAIRO)/src \
@@ -265,7 +268,7 @@ cairo: cairo-extract
 		-emit '*/cairo-svg.h'        inc/cairo/cairo-svg.bi   \
 		-emit '*/cairo-win32.h'      inc/cairo/cairo-win32.bi \
 		-inclib cairo inc/cairo/cairo.bi \
-		-title $(CAIRO)
+		-title $(CAIRO) copy/cairo.txt copy/gtk+-translators.txt
 
 CGUI_VERSION := 2.0.3
 CGUI := cgui-$(CGUI_VERSION)
