@@ -158,6 +158,9 @@ atk-extract:
 	./get.sh $(ATK) $(ATK).tar.xz http://ftp.gnome.org/pub/gnome/sources/atk/$(ATK_SERIES)/$(ATK).tar.xz
 
 atk: atk-extract glib-extract
+
+	sed -n 1,17p extracted/$(ATK)/atk/atk.h | cut -c4- > copy/atk.txt
+
 	mkdir -p inc/atk
 	$(FBFROG) atk.fbfrog \
 		-incdir extracted/$(ATK) \
@@ -200,7 +203,7 @@ atk: atk-extract glib-extract
 		-emit '*/atk/atkversion.h'           inc/atk/atk.bi \
 		-emit '*/atk/atkwindow.h'            inc/atk/atk.bi \
 		-inclib atk-1.0                      inc/atk/atk.bi \
-		-title $(ATK)
+		-title $(ATK) copy/atk.txt copy/gtk+-translators.txt
 
 BZIP2_VERSION := 1.0.6
 BZIP2 := bzip2-$(BZIP2_VERSION)

@@ -1,0 +1,2 @@
+(C) 2011, 2012 Thomas[ dot ]Freiherr[ at ]gmx[ dot ]net
+Copyright © 2015 FreeBASIC development team
