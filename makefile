@@ -354,7 +354,11 @@ fastcgi:
 		-inclib fcgi inc/fastcgi/fcgiapp.bi \
 		-title $(FASTCGI_TITLE) copy/fastcgi.txt copy/fbteam.txt
 
-FFI_TITLE := libffi-3.1
+FFI_VERSION := 3.1
+FFI_TITLE := libffi-$(FFI_VERSION)
+FFI_SED := -e 's/@HAVE_LONG_DOUBLE@/1/g'
+FFI_SED += -e 's/@FFI_EXEC_TRAMPOLINE_TABLE@/0/g'
+FFI_SED += -e 's/@VERSION@/$(FFI_VERSION)/g'
 ffi:
 	./get.sh $(FFI_TITLE) $(FFI_TITLE).tar.gz "ftp://sourceware.org/pub/libffi/$(FFI_TITLE).tar.gz"
 	# libffi's configure script generates ffi.h based on ffi.h.in (inserting @TARGET@)
@@ -363,9 +367,11 @@ ffi:
 	# we can avoid running configure for all our targets and generate the
 	# headers manually instead.
 	cd extracted/$(FFI_TITLE)/include && \
-		sed -e 's/@TARGET@/X86/g'       -e 's/@HAVE_LONG_DOUBLE@/1/g' -e 's/@FFI_EXEC_TRAMPOLINE_TABLE@/0/g' < ffi.h.in > ffi-x86.h       && \
-		sed -e 's/@TARGET@/X86_WIN32/g' -e 's/@HAVE_LONG_DOUBLE@/1/g' -e 's/@FFI_EXEC_TRAMPOLINE_TABLE@/0/g' < ffi.h.in > ffi-x86-win32.h && \
-		sed -e 's/@TARGET@/X86_WIN64/g' -e 's/@HAVE_LONG_DOUBLE@/1/g' -e 's/@FFI_EXEC_TRAMPOLINE_TABLE@/0/g' < ffi.h.in > ffi-x86-win64.h
+		sed -e 's/@TARGET@/X86/g'       $(FFI_SED) < ffi.h.in > ffi-x86.h       && \
+		sed -e 's/@TARGET@/X86_WIN32/g' $(FFI_SED) < ffi.h.in > ffi-x86-win32.h && \
+		sed -e 's/@TARGET@/X86_WIN64/g' $(FFI_SED) < ffi.h.in > ffi-x86-win64.h
+
+	sed -n 2,23p extracted/$(FFI_TITLE)/include/ffi-x86.h | cut -c4- > copy/ffi.txt
 
 	$(FBFROG) ffi.fbfrog -o inc/ffi.bi \
 		-ifdef __FB_WIN32__						\
@@ -378,7 +384,7 @@ ffi:
 			extracted/$(FFI_TITLE)/include/ffi-x86.h		\
 		-endif								\
 		-incdir extracted/$(FFI_TITLE)/src/x86				\
-		-title $(FFI_TITLE)
+		-title $(FFI_TITLE) copy/ffi.txt copy/fbteam.txt
 
 FONTCONFIG := fontconfig-2.11.1
 fontconfig:
