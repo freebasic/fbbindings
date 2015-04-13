@@ -337,6 +337,11 @@ curl:
 FASTCGI_TITLE := fcgi-2.4.1-SNAP-0311112127
 fastcgi:
 	./get.sh $(FASTCGI_TITLE) $(FASTCGI_TITLE).tar.gz "http://www.fastcgi.com/dist/fcgi.tar.gz"
+
+	sed -n 7,7p extracted/$(FASTCGI_TITLE)/include/fastcgi.h | cut -c4- > copy/fastcgi.txt
+	echo                                         >> copy/fastcgi.txt
+	cat extracted/$(FASTCGI_TITLE)/LICENSE.TERMS >> copy/fastcgi.txt
+
 	mkdir -p inc/fastcgi
 	$(FBFROG) fastcgi.fbfrog \
 		extracted/$(FASTCGI_TITLE)/include/fastcgi.h \
@@ -347,7 +352,7 @@ fastcgi:
 		-emit '*/fcgi_stdio.h' inc/fastcgi/fcgi_stdio.bi \
 		-addinclude crt.bi inc/fastcgi/fcgi_stdio.bi \
 		-inclib fcgi inc/fastcgi/fcgiapp.bi \
-		-title $(FASTCGI_TITLE)
+		-title $(FASTCGI_TITLE) copy/fastcgi.txt copy/fbteam.txt
 
 FFI_TITLE := libffi-3.1
 ffi:
