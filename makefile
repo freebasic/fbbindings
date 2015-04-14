@@ -496,6 +496,9 @@ gdkpixbuf-extract:
 	./get.sh $(GDKPIXBUF) $(GDKPIXBUF).tar.xz http://ftp.gnome.org/pub/gnome/sources/gdk-pixbuf/$(GDKPIXBUF_SERIES)/$(GDKPIXBUF).tar.xz
 
 gdkpixbuf: glib-extract gdkpixbuf-extract
+
+	sed -n 1,21p extracted/$(GDKPIXBUF)/gdk-pixbuf/gdk-pixbuf.h | cut -c4- > copy/gdkpixbuf.txt
+
 	mkdir -p inc/gdk-pixbuf
 	$(FBFROG) gdkpixbuf.fbfrog \
 		-incdir extracted/$(GDKPIXBUF) \
@@ -505,7 +508,7 @@ gdkpixbuf: glib-extract gdkpixbuf-extract
 		-include gdk-pixbuf/gdk-pixbuf.h \
 		-emit '*/extracted/$(GDKPIXBUF)/gdk-pixbuf/*' inc/gdk-pixbuf/gdk-pixbuf.bi \
 		-inclib gdk_pixbuf-2.0                        inc/gdk-pixbuf/gdk-pixbuf.bi \
-		-title $(GDKPIXBUF)
+		-title $(GDKPIXBUF) copy/gdkpixbuf.txt copy/gtk+-translators.txt
 
 GLIB_MAJOR := 2
 GLIB_MINOR := 42
