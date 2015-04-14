@@ -1090,7 +1090,13 @@ png12:
 PNG14_TITLE := libpng-1.4.16
 png14:
 	./get.sh $(PNG14_TITLE) $(PNG14_TITLE).tar.xz "http://downloads.sourceforge.net/libpng/$(PNG14_TITLE).tar.xz?download"
-	$(FBFROG) png.fbfrog png14.fbfrog -o inc/png14.bi extracted/$(PNG14_TITLE)/png.h -title $(PNG14_TITLE)
+
+	sed -n 2,16p    extracted/$(PNG14_TITLE)/png.h | cut -c4- >  copy/png14.txt
+	echo                                                      >> copy/png14.txt
+	sed -n 210,299p extracted/$(PNG14_TITLE)/png.h | cut -c4- >> copy/png14.txt
+
+	$(FBFROG) png.fbfrog png14.fbfrog -o inc/png14.bi extracted/$(PNG14_TITLE)/png.h \
+		-title $(PNG14_TITLE) copy/png14.txt copy/fbteam.txt
 
 PNG15_TITLE := libpng-1.5.21
 png15:
