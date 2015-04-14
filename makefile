@@ -737,6 +737,8 @@ iconv:
 		sed $(ICONV_SED_DEFAULT) < iconv.h.in > iconv-default.h && \
 		sed $(ICONV_SED_WINDOWS) < iconv.h.in > iconv-windows.h
 
+	sed -n 1,17p extracted/$(ICONV)/include/iconv.h.in | cut -c4- > copy/iconv.txt
+
 	$(FBFROG) \
 		-ifdef __FB_WIN32__ \
 			extracted/$(ICONV)/include/iconv-windows.h \
@@ -746,7 +748,7 @@ iconv:
 		-define EILSEQ "" \
 		-renamedefine _LIBICONV_VERSION _LIBICONV_VERSION_ \
 		-o inc/libiconv.bi \
-		-title $(ICONV)
+		-title $(ICONV) copy/iconv.txt copy/fbteam.txt
 
 IUP_VERSION := 3.13
 IUP_TITLE := iup-$(IUP_VERSION)
