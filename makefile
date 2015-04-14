@@ -1439,7 +1439,473 @@ winapi: winapi-extract
 	# Main pass - winsock2.h, windows.h, Direct3D/DirectX 9
 	# winsock2.h has to be #included before windows.h in order to override
 	# winsock.h.
-	$(FBFROG) $(WINAPI_FLAGS) winapi-main.fbfrog -title $(MINGWW64_TITLE)
+	$(FBFROG) $(WINAPI_FLAGS) -title $(MINGWW64_TITLE) \
+		-include winsock2.h \
+		\
+		-include aclapi.h \
+		-include aclui.h \
+		-include comcat.h \
+		-include control.h \
+		-include cplext.h \
+		-include cpl.h \
+		-include custcntl.h \
+		-include dbt.h \
+		-include dimm.h \
+		-include docobj.h \
+		-include exdisp.h \
+		-include gdiplus.h \
+		-include imagehlp.h \
+		-include in6addr.h \
+		-include intshcut.h \
+		-include iphlpapi.h \
+		-include ipmib.h \
+		-include lmcons.h \
+		-include mapi.h \
+		-include mgmtapi.h \
+		-include mmreg.h \
+		-include mshtmhst.h \
+		-include mshtmlc.h \
+		-include mshtml.h \
+		-include mswsock.h \
+		-include nspapi.h \
+		-include objectarray.h \
+		-include objsafe.h \
+		-include ocidl.h \
+		-include odbcinst.h \
+		-include oleacc.h \
+		-include oledlg.h \
+		-include powrprof.h \
+		-include propkeydef.h \
+		-include propsys.h \
+		-include psapi.h \
+		-include rasdlg.h \
+		-include raserror.h \
+		-include rassapi.h \
+		-include regstr.h \
+		-include richole.h \
+		-include schemadef.h \
+		-include scrnsave.h \
+		-include security.h \
+		-include setupapi.h \
+		-include shldisp.h \
+		-include shlobj.h \
+		-include shlwapi.h \
+		-include sqlext.h \
+		-include strmif.h \
+		-include strsafe.h \
+		-include subauth.h \
+		-include tlhelp32.h \
+		-include tmschema.h \
+		-include userenv.h \
+		-include uuids.h \
+		-include uxtheme.h \
+		-include vfw.h \
+		-include wbemcli.h \
+		-include winber.h \
+		-include windns.h \
+		-include wininet.h \
+		-include winldap.h \
+		-include winsnmp.h \
+		-include ws2spi.h \
+		-include ws2tcpip.h \
+		-include wsipx.h \
+		\
+		-include windowsx.h \
+		\
+		-include sspi.h \
+		-include ntsecpkg.h \
+		\
+		-include d3d9.h \
+		-include d3dx9.h \
+		-include amaudio.h \
+		-include dinput.h \
+		-include dls1.h \
+		-include dmdls.h \
+		-include dmerror.h \
+		-include dmusicc.h \
+		-include dmusici.h \
+		-include dmusicf.h \
+		-include dmusics.h \
+		-include dpaddr.h \
+		-include dplay8.h \
+		-include dplay.h \
+		-include dplobby8.h \
+		-include dplobby.h \
+		-include dshow.h \
+		-include dsound.h \
+		-include dvdevcod.h \
+		-include dxerr8.h \
+		-include dxerr9.h \
+		-include edevdefs.h \
+		-include errors.h \
+		-include vfwmsgs.h \
+		\
+		-include initguid.h \
+		\
+		-emit '*/accctrl.h'                inc/win/accctrl.bi \
+		-emit '*/aclapi.h'                 inc/win/aclapi.bi \
+		-emit '*/aclui.h'                  inc/win/aclui.bi \
+		-emit '*/adtgen.h'                 inc/win/adtgen.bi \
+		-emit '*/apiset.h'                 inc/win/apiset.bi \
+		-emit '*/audevcod.h'               inc/win/audevcod.bi \
+		-emit '*/authz.h'                  inc/win/authz.bi \
+		-emit '*/basetsd.h'                inc/win/basetsd.bi \
+		-emit '*/basetyps.h'               inc/win/basetyps.bi \
+		-emit '*/bcrypt.h'                 inc/win/bcrypt.bi \
+		-emit '*/bemapiset.h'              inc/win/winbase.bi \
+		-emit '*/_bsd_types.h'             inc/win/_bsd_types.bi \
+		-emit '*/cderr.h'                  inc/win/cderr.bi \
+		-emit '*/cguid.h'                  inc/win/cguid.bi \
+		-emit '*/combaseapi.h'             inc/win/combaseapi.bi \
+		-emit '*/comcat.h'                 inc/win/comcat.bi \
+		-emit '*/commctrl.h'               inc/win/commctrl.bi \
+		-emit '*/commdlg.h'                inc/win/commdlg.bi \
+		-emit '*/control.h'                inc/win/control.bi \
+		-emit '*/cplext.h'                 inc/win/cplext.bi \
+		-emit '*/cpl.h'                    inc/win/cpl.bi \
+		-emit '*/crtdefs.h'                inc/win/crtdefs.bi \
+		-emit '*/custcntl.h'               inc/win/custcntl.bi \
+		-emit '*/datetimeapi.h'            inc/win/winnls.bi \
+		-emit '*/dbt.h'                    inc/win/dbt.bi \
+		-emit '*/dde.h'                    inc/win/dde.bi \
+		-emit '*/ddeml.h'                  inc/win/ddeml.bi \
+		-emit '*/debugapi.h'               inc/win/winbase.bi \
+		-emit '*/dimm.h'                   inc/win/dimm.bi \
+		-emit '*/dlgs.h'                   inc/win/dlgs.bi \
+		-emit '*/docobj.h'                 inc/win/docobj.bi \
+		-emit '*/dpapi.h'                  inc/win/wincrypt.bi \
+		-emit '*/errhandlingapi.h'         inc/win/winbase.bi \
+		-emit '*/exdisp.h'                 inc/win/exdisp.bi \
+		-emit '*/fibersapi.h'              inc/win/winbase.bi \
+		-emit '*/fileapi.h'                inc/win/winbase.bi \
+		-emit '*/fltwinerror.h'            inc/win/winerror.bi \
+		-emit '*/gdiplus.h'                inc/win/gdiplus.bi \
+		-emit '*/gdiplus*.h'               inc/win/gdiplus.bi \
+		-emit '*/guiddef.h'                inc/win/guiddef.bi \
+		-emit '*/handleapi.h'              inc/win/winbase.bi \
+		-emit '*/heapapi.h'                inc/win/winbase.bi \
+		-emit '*/ifdef.h'                  inc/win/ifdef.bi \
+		-emit '*/imagehlp.h'               inc/win/imagehlp.bi \
+		-emit '*/imm.h'                    inc/win/imm.bi \
+		-emit '*/in6addr.h'                inc/win/in6addr.bi \
+		-emit '*/inaddr.h'                 inc/win/inaddr.bi \
+		-emit '*/initguid.h'               inc/win/initguid.bi \
+		-emit '*/interlockedapi.h'         inc/win/winbase.bi \
+		-emit '*/intshcut.h'               inc/win/intshcut.bi \
+		-emit '*/ioapiset.h'               inc/win/winbase.bi \
+		-emit '*/ipexport.h'               inc/win/ipexport.bi \
+		-emit '*/iphlpapi.h'               inc/win/iphlpapi.bi \
+		-emit '*/ipifcons.h'               inc/win/ipifcons.bi \
+		-emit '*/ipmib.h'                  inc/win/ipmib.bi \
+		-emit '*/iprtrmib.h'               inc/win/iprtrmib.bi \
+		-emit '*/iptypes.h'                inc/win/iptypes.bi \
+		-emit '*/isguids.h'                inc/win/isguids.bi \
+		-emit '*/jobapi.h'                 inc/win/winbase.bi \
+		-emit '*/knownfolders.h'           inc/win/knownfolders.bi \
+		-emit '*/ksuuids.h'                inc/win/uuids.bi \
+		-emit '*/ktmtypes.h'               inc/win/ktmtypes.bi \
+		-emit '*/libloaderapi.h'           inc/win/winbase.bi \
+		-emit '*/lmcons.h'                 inc/win/lmcons.bi \
+		-emit '*/lzexpand.h'               inc/win/lzexpand.bi \
+		-emit '*/mapi.h'                   inc/win/mapi.bi \
+		-emit '*/mcx.h'                    inc/win/mcx.bi \
+		-emit '*/memoryapi.h'              inc/win/winbase.bi \
+		-emit '*/mgmtapi.h'                inc/win/mgmtapi.bi \
+		-emit '*/_mingw.h'                 inc/win/_mingw.bi \
+		-emit '*/_mingw_mac.h'             inc/win/_mingw.bi \
+		-emit '*/_mingw_unicode.h'         inc/win/_mingw_unicode.bi \
+		-emit '*/minwinbase.h'             inc/win/winbase.bi \
+		-emit '*/minwindef.h'              inc/win/windef.bi \
+		-emit '*/mmreg.h'                  inc/win/mmreg.bi \
+		-emit '*/mmsystem.h'               inc/win/mmsystem.bi \
+		-emit '*/mprapi.h'                 inc/win/mprapi.bi \
+		-emit '*/msacm.h'                  inc/win/msacm.bi \
+		-emit '*/mshtmhst.h'               inc/win/mshtmhst.bi \
+		-emit '*/mshtmlc.h'                inc/win/mshtmlc.bi \
+		-emit '*/mshtml.h'                 inc/win/mshtml.bi \
+		-emit '*/mstcpip.h'                inc/win/mstcpip.bi \
+		-emit '*/mswsock.h'                inc/win/mswsock.bi \
+		-emit '*/msxml.h'                  inc/win/msxml.bi \
+		-emit '*/namedpipeapi.h'           inc/win/winbase.bi \
+		-emit '*/namespaceapi.h'           inc/win/winbase.bi \
+		-emit '*/naptypes.h'               inc/win/naptypes.bi \
+		-emit '*/nb30.h'                   inc/win/nb30.bi \
+		-emit '*/ncrypt.h'                 inc/win/ncrypt.bi \
+		-emit '*/netioapi.h'               inc/win/netioapi.bi \
+		-emit '*/nldef.h'                  inc/win/nldef.bi \
+		-emit '*/nspapi.h'                 inc/win/nspapi.bi \
+		-emit '*/ntddndis.h'               inc/win/ntddndis.bi \
+		-emit '*/ntsecapi.h'               inc/win/ntsecapi.bi \
+		-emit '*/ntsecpkg.h'               inc/win/ntsecpkg.bi \
+		-emit '*/oaidl.h'                  inc/win/oaidl.bi \
+		-emit '*/objbase.h'                inc/win/objbase.bi \
+		-emit '*/objectarray.h'            inc/win/objectarray.bi \
+		-emit '*/objidlbase.h'             inc/win/objidlbase.bi \
+		-emit '*/objidl.h'                 inc/win/objidl.bi \
+		-emit '*/objsafe.h'                inc/win/objsafe.bi \
+		-emit '*/ocidl.h'                  inc/win/ocidl.bi \
+		-emit '*/odbcinst.h'               inc/win/odbcinst.bi \
+		-emit '*/ole2.h'                   inc/win/ole2.bi \
+		-emit '*/oleacc.h'                 inc/win/oleacc.bi \
+		-emit '*/oleauto.h'                inc/win/oleauto.bi \
+		-emit '*/olectl.h'                 inc/win/olectl.bi \
+		-emit '*/olectlid.h'               inc/win/olectlid.bi \
+		-emit '*/oledlg.h'                 inc/win/oledlg.bi \
+		-emit '*/oleidl.h'                 inc/win/oleidl.bi \
+		-emit '*/powrprof.h'               inc/win/powrprof.bi \
+		-emit '*/processenv.h'             inc/win/winbase.bi \
+		-emit '*/processthreadsapi.h'      inc/win/winbase.bi \
+		-emit '*/processtopologyapi.h'     inc/win/winbase.bi \
+		-emit '*/profileapi.h'             inc/win/winbase.bi \
+		-emit '*/profinfo.h'               inc/win/profinfo.bi \
+		-emit '*/propidl.h'                inc/win/propidl.bi \
+		-emit '*/propkeydef.h'             inc/win/propkeydef.bi \
+		-emit '*/propsys.h'                inc/win/propsys.bi \
+		-emit '*/prsht.h'                  inc/win/prsht.bi \
+		-emit '*/psapi.h'                  inc/win/psapi.bi \
+		-emit '*/psdk_inc/_dbg_common.h'   inc/win/imagehlp.bi \
+		-emit '*/psdk_inc/_dbg_LOAD_IMAGE.h' inc/win/imagehlp.bi \
+		-emit '*/psdk_inc/_fd_types.h'     inc/win/winsock2.bi \
+		-emit '*/psdk_inc/_ip_mreq1.h'     inc/win/ws2tcpip.bi \
+		-emit '*/psdk_inc/_ip_types.h'     inc/win/winsock2.bi \
+		-emit '*/psdk_inc/_socket_types.h' inc/win/winsock2.bi \
+		-emit '*/psdk_inc/_ws1_undef.h'    inc/win/winsock2.bi \
+		-emit '*/psdk_inc/_wsadata.h'      inc/win/winsock2.bi \
+		-emit '*/psdk_inc/_wsa_errnos.h'   inc/win/winsock2.bi \
+		-emit '*/psdk_inc/_xmitfile.h'     inc/win/mswsock.bi \
+		-emit '*/qos.h'                    inc/win/qos.bi \
+		-emit '*/rasdlg.h'                 inc/win/rasdlg.bi \
+		-emit '*/raserror.h'               inc/win/raserror.bi \
+		-emit '*/ras.h'                    inc/win/ras.bi \
+		-emit '*/rassapi.h'                inc/win/rassapi.bi \
+		-emit '*/realtimeapiset.h'         inc/win/winbase.bi \
+		-emit '*/reason.h'                 inc/win/reason.bi \
+		-emit '*/regstr.h'                 inc/win/regstr.bi \
+		-emit '*/richedit.h'               inc/win/richedit.bi \
+		-emit '*/richole.h'                inc/win/richole.bi \
+		-emit '*/rpcasync.h'               inc/win/rpcasync.bi \
+		-emit '*/rpcdce.h'                 inc/win/rpcdce.bi \
+		-emit '*/rpcdcep.h'                inc/win/rpcdcep.bi \
+		-emit '*/rpc.h'                    inc/win/rpc.bi \
+		-emit '*/rpcndr.h'                 inc/win/rpcndr.bi \
+		-emit '*/rpcnsi.h'                 inc/win/rpcnsi.bi \
+		-emit '*/rpcnsip.h'                inc/win/rpcnsip.bi \
+		-emit '*/rpcnterr.h'               inc/win/rpcnterr.bi \
+		-emit '*/schannel.h'               inc/win/schannel.bi \
+		-emit '*/schemadef.h'              inc/win/schemadef.bi \
+		-emit '*/schnlsp.h'                inc/win/schnlsp.bi \
+		-emit '*/scrnsave.h'               inc/win/scrnsave.bi \
+		-emit '*/sdks/_mingw_ddk.h'        inc/win/_mingw.bi \
+		-emit '*/sdks/_mingw_directx.h'    inc/win/_mingw.bi \
+		-emit '*/secext.h'                 inc/win/secext.bi \
+		-emit '*/securityappcontainer.h'   inc/win/winbase.bi \
+		-emit '*/securitybaseapi.h'        inc/win/winbase.bi \
+		-emit '*/security.h'               inc/win/security.bi \
+		-emit '*/servprov.h'               inc/win/servprov.bi \
+		-emit '*/setupapi.h'               inc/win/setupapi.bi \
+		-emit '*/shellapi.h'               inc/win/shellapi.bi \
+		-emit '*/sherrors.h'               inc/win/sherrors.bi \
+		-emit '*/shldisp.h'                inc/win/shldisp.bi \
+		-emit '*/shlguid.h'                inc/win/shlguid.bi \
+		-emit '*/shlobj.h'                 inc/win/shlobj.bi \
+		-emit '*/shlwapi.h'                inc/win/shlwapi.bi \
+		-emit '*/shobjidl.h'               inc/win/shobjidl.bi \
+		-emit '*/shtypes.h'                inc/win/shtypes.bi \
+		-emit '*/snmp.h'                   inc/win/snmp.bi \
+		-emit '*/sqlext.h'                 inc/win/sqlext.bi \
+		-emit '*/sql.h'                    inc/win/sql.bi \
+		-emit '*/sqltypes.h'               inc/win/sqltypes.bi \
+		-emit '*/sqlucode.h'               inc/win/sqlucode.bi \
+		-emit '*/sspi.h'                   inc/win/sspi.bi \
+		-emit '*/stringapiset.h'           inc/win/winnls.bi \
+		-emit '*/strmif.h'                 inc/win/strmif.bi \
+		-emit '*/strsafe.h'                inc/win/strsafe.bi \
+		-emit '*/structuredquerycondition.h' inc/win/structuredquerycondition.bi \
+		-emit '*/subauth.h'                inc/win/subauth.bi \
+		-emit '*/synchapi.h'               inc/win/winbase.bi \
+		-emit '*/sysinfoapi.h'             inc/win/winbase.bi \
+		-emit '*/systemtopologyapi.h'      inc/win/winbase.bi \
+		-emit '*/tcpestats.h'              inc/win/tcpestats.bi \
+		-emit '*/tcpmib.h'                 inc/win/tcpmib.bi \
+		-emit '*/threadpoolapiset.h'       inc/win/winbase.bi \
+		-emit '*/threadpoollegacyapiset.h' inc/win/winbase.bi \
+		-emit '*/timezoneapi.h'            inc/win/winbase.bi \
+		-emit '*/tlhelp32.h'               inc/win/tlhelp32.bi \
+		-emit '*/tmschema.h'               inc/win/tmschema.bi \
+		-emit '*/tvout.h'                  inc/win/winuser.bi \
+		-emit '*/udpmib.h'                 inc/win/udpmib.bi \
+		-emit '*/unknwnbase.h'             inc/win/unknwnbase.bi \
+		-emit '*/unknwn.h'                 inc/win/unknwn.bi \
+		-emit '*/urlmon.h'                 inc/win/urlmon.bi \
+		-emit '*/userenv.h'                inc/win/userenv.bi \
+		-emit '*/utilapiset.h'             inc/win/winbase.bi \
+		-emit '*/uuids.h'                  inc/win/uuids.bi \
+		-emit '*/uxtheme.h'                inc/win/uxtheme.bi \
+		-emit '*/vfw.h'                    inc/win/vfw.bi \
+		-emit '*/virtdisk.h'               inc/win/virtdisk.bi \
+		-emit '*/wbemcli.h'                inc/win/wbemcli.bi \
+		-emit '*/winapifamily.h'           inc/win/winapifamily.bi \
+		-emit '*/winbase.h'                inc/win/winbase.bi \
+		-emit '*/winber.h'                 inc/win/winber.bi \
+		-emit '*/wincon.h'                 inc/win/wincon.bi \
+		-emit '*/wincrypt.h'               inc/win/wincrypt.bi \
+		-emit '*/windef.h'                 inc/win/windef.bi \
+		-emit '*/windns.h'                 inc/win/windns.bi \
+		-emit '*/winefs.h'                 inc/win/winefs.bi \
+		-emit '*/winerror.h'               inc/win/winerror.bi \
+		-emit '*/wingdi.h'                 inc/win/wingdi.bi \
+		-emit '*/wininet.h'                inc/win/wininet.bi \
+		-emit '*/winioctl.h'               inc/win/winioctl.bi \
+		-emit '*/winldap.h'                inc/win/winldap.bi \
+		-emit '*/winnetwk.h'               inc/win/winnetwk.bi \
+		-emit '*/winnls.h'                 inc/win/winnls.bi \
+		-emit '*/winnt.h'                  inc/win/winnt.bi \
+		-emit '*/winperf.h'                inc/win/winperf.bi \
+		-emit '*/winreg.h'                 inc/win/winreg.bi \
+		-emit '*/winscard.h'               inc/win/winscard.bi \
+		-emit '*/winsmcrd.h'               inc/win/winsmcrd.bi \
+		-emit '*/winsnmp.h'                inc/win/winsnmp.bi \
+		-emit '*/winsock2.h'               inc/win/winsock2.bi \
+		-emit '*/winspool.h'               inc/win/winspool.bi \
+		-emit '*/winsvc.h'                 inc/win/winsvc.bi \
+		-emit '*/wintrust.h'               inc/win/wintrust.bi \
+		-emit '*/winuser.h'                inc/win/winuser.bi \
+		-emit '*/winver.h'                 inc/win/winver.bi \
+		-emit '*/wnnc.h'                   inc/win/winnetwk.bi \
+		-emit '*/wow64apiset.h'            inc/win/winbase.bi \
+		-emit '*/ws2def.h'                 inc/win/ws2def.bi \
+		-emit '*/ws2ipdef.h'               inc/win/ws2ipdef.bi \
+		-emit '*/ws2spi.h'                 inc/win/ws2spi.bi \
+		-emit '*/ws2tcpip.h'               inc/win/ws2tcpip.bi \
+		-emit '*/wsipx.h'                  inc/win/wsipx.bi \
+		-emit '*/wtypesbase.h'             inc/win/wtypesbase.bi \
+		-emit '*/wtypes.h'                 inc/win/wtypes.bi \
+		\
+		-emit '*/windowsx.h'               inc/win/windowsx.bi \
+		\
+		-emit '*/amaudio.h'                inc/win/amaudio.bi \
+		-emit '*/amvideo.h'                inc/win/amvideo.bi \
+		-emit '*/d3d9.h'                   inc/win/d3d9.bi \
+		-emit '*/d3d9caps.h'               inc/win/d3d9caps.bi \
+		-emit '*/d3d9types.h'              inc/win/d3d9types.bi \
+		-emit '*/d3dx9anim.h'              inc/win/d3dx9anim.bi \
+		-emit '*/d3dx9.h'                  inc/win/d3dx9.bi \
+		-emit '*/d3dx9core.h'              inc/win/d3dx9core.bi \
+		-emit '*/d3dx9effect.h'            inc/win/d3dx9effect.bi \
+		-emit '*/d3dx9math.h'              inc/win/d3dx9math.bi \
+		-emit '*/d3dx9mesh.h'              inc/win/d3dx9mesh.bi \
+		-emit '*/d3dx9shader.h'            inc/win/d3dx9shader.bi \
+		-emit '*/d3dx9shape.h'             inc/win/d3dx9shape.bi \
+		-emit '*/d3dx9tex.h'               inc/win/d3dx9tex.bi \
+		-emit '*/d3dx9xof.h'               inc/win/d3dx9xof.bi \
+		-emit '*/ddraw.h'                  inc/win/ddraw.bi \
+		-emit '*/dinput.h'                 inc/win/dinput.bi \
+		-emit '*/dls1.h'                   inc/win/dls1.bi \
+		-emit '*/dmdls.h'                  inc/win/dmdls.bi \
+		-emit '*/dmerror.h'                inc/win/dmerror.bi \
+		-emit '*/dmplugin.h'               inc/win/dmplugin.bi \
+		-emit '*/dmusbuff.h'               inc/win/dmusbuff.bi \
+		-emit '*/dmusicc.h'                inc/win/dmusicc.bi \
+		-emit '*/dmusicf.h'                inc/win/dmusicf.bi \
+		-emit '*/dmusici.h'                inc/win/dmusici.bi \
+		-emit '*/dmusics.h'                inc/win/dmusics.bi \
+		-emit '*/dpaddr.h'                 inc/win/dpaddr.bi \
+		-emit '*/dplay8.h'                 inc/win/dplay8.bi \
+		-emit '*/dplay.h'                  inc/win/dplay.bi \
+		-emit '*/dplobby8.h'               inc/win/dplobby8.bi \
+		-emit '*/dplobby.h'                inc/win/dplobby.bi \
+		-emit '*/dshow.h'                  inc/win/dshow.bi \
+		-emit '*/dsound.h'                 inc/win/dsound.bi \
+		-emit '*/dvdevcod.h'               inc/win/dvdevcod.bi \
+		-emit '*/dxerr8.h'                 inc/win/dxerr8.bi \
+		-emit '*/dxerr9.h'                 inc/win/dxerr9.bi \
+		-emit '*/edevdefs.h'               inc/win/edevdefs.bi \
+		-emit '*/errors.h'                 inc/win/errors.bi \
+		-emit '*/evcode.h'                 inc/win/evcode.bi \
+		-emit '*/vfwmsgs.h'                inc/win/vfwmsgs.bi \
+		\
+		-inclib advapi32 inc/win/aclapi.bi \
+		-inclib aclui    inc/win/aclui.bi \
+		-inclib uuid     inc/win/cguid.bi \
+		-inclib uuid     inc/win/comcat.bi \
+		-inclib comctl32 inc/win/commctrl.bi \
+		-inclib comdlg32 inc/win/commdlg.bi \
+		-inclib dxguid   inc/win/d3d9.bi \
+		-inclib d3d9     inc/win/d3d9.bi \
+		-inclib dxguid   inc/win/d3dx9.bi \
+		-inclib d3dx9d   inc/win/d3dx9.bi \
+		-inclib ddraw    inc/win/ddraw.bi \
+		-inclib dxguid   inc/win/ddraw.bi \
+		-inclib uuid     inc/win/dinput.bi \
+		-inclib dxguid   inc/win/dmplugin.bi \
+		-inclib dxguid   inc/win/dmusicc.bi \
+		-inclib uuid     inc/win/docobj.bi \
+		-inclib dplayx   inc/win/dplay.bi \
+		-inclib dxguid   inc/win/dplay.bi \
+		-inclib dxguid   inc/win/dplay8.bi \
+		-inclib dsound   inc/win/dsound.bi \
+		-inclib uuid     inc/win/dsound.bi \
+		-inclib dxerr8   inc/win/dxerr8.bi \
+		-inclib dxerr9   inc/win/dxerr9.bi \
+		-inclib uuid     inc/win/exdisp.bi \
+		-inclib imagehlp inc/win/imagehlp.bi \
+		-inclib imm32    inc/win/imm.bi \
+		-inclib url      inc/win/intshcut.bi \
+		-inclib iphlpapi inc/win/iphlpapi.bi \
+		-inclib uuid     inc/win/isguids.bi \
+		-inclib mapi32   inc/win/mapi.bi \
+		-inclib winmm    inc/win/mmsystem.bi \
+		-inclib msacm32  inc/win/msacm.bi \
+		-inclib uuid     inc/win/mshtml.bi \
+		-inclib wsock32  inc/win/nspapi.bi \
+		-inclib advapi32 inc/win/ntsecapi.bi \
+		-inclib uuid     inc/win/oaidl.bi \
+		-inclib uuid     inc/win/objidl.bi \
+		-inclib ole32    inc/win/ole2.bi \
+		-inclib oleacc   inc/win/oleacc.bi \
+		-inclib oleaut32 inc/win/oleauto.bi \
+		-inclib oleaut32 inc/win/olectl.bi \
+		-inclib oledlg   inc/win/oledlg.bi \
+		-inclib uuid     inc/win/oleidl.bi \
+		-inclib powrprof inc/win/powrprof.bi \
+		-inclib psapi    inc/win/psapi.bi \
+		-inclib rasapi32 inc/win/ras.bi \
+		-inclib rasdlg   inc/win/rasdlg.bi \
+		-inclib mprapi   inc/win/rassapi.bi \
+		-inclib uuid     inc/win/richole.bi \
+		-inclib secur32  inc/win/security.bi \
+		-inclib setupapi inc/win/setupapi.bi \
+		-inclib shell32  inc/win/shellapi.bi \
+		-inclib uuid     inc/win/shlguid.bi \
+		-inclib shell32  inc/win/shlguid.bi \
+		-inclib shell32  inc/win/shlobj.bi \
+		-inclib shlwapi  inc/win/shlwapi.bi \
+		-inclib snmpapi  inc/win/snmp.bi \
+		-inclib igmpagnt inc/win/snmp.bi \
+		-inclib odbc32   inc/win/sql.bi \
+		-inclib strmiids inc/win/strmif.bi \
+		-inclib kernel32 inc/win/tlhelp32.bi \
+		-inclib uuid     inc/win/unknwn.bi \
+		-inclib userenv  inc/win/userenv.bi \
+		-inclib uuid     inc/win/uuids.bi \
+		-inclib dxguid   inc/win/uuids.bi \
+		-inclib uxtheme  inc/win/uxtheme.bi \
+		-inclib avifil32 inc/win/vfw.bi \
+		-inclib avicap32 inc/win/vfw.bi \
+		-inclib uuid     inc/win/vfw.bi \
+		-inclib vfw32    inc/win/vfw.bi \
+		-inclib kernel32 inc/win/winbase.bi \
+		-inclib wldap32  inc/win/winber.bi \
+		-inclib gdi32    inc/win/wingdi.bi \
+		-inclib wininet  inc/win/wininet.bi \
+		-inclib wldap32  inc/win/winldap.bi \
+		-inclib advapi32 inc/win/winreg.bi \
+		-inclib wsnmp32  inc/win/winsnmp.bi \
+		-inclib ws2_32   inc/win/winsock2.bi \
+		-inclib winspool inc/win/winspool.bi \
+		-inclib advapi32 inc/win/winsvc.bi \
+		-inclib user32   inc/win/winuser.bi \
+		-inclib version  inc/win/winver.bi \
 
 	# Direct3D 7 (?) pass
 	$(FBFROG) $(WINAPI_FLAGS) \
