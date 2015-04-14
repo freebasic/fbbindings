@@ -565,13 +565,16 @@ glib: glib-extract
 		-title $(GLIB) copy/glib-gmodule.txt copy/gtk+-translators.txt inc/gmodule.bi \
 		-title $(GLIB) copy/glib-gio.txt     copy/gtk+-translators.txt inc/gio/gio.bi
 
-
 GLIBC := glibc-2.21
 glibc:
 	./get.sh $(GLIBC) $(GLIBC).tar.xz http://ftp.gnu.org/gnu/glibc/$(GLIBC).tar.xz
 
 	cd extracted/$(GLIBC) && \
 		rm -f bits/wordsize.h bits/endian.h bits/setjmp.h
+
+	sed -n 1,16p extracted/$(GLIBC)/sysdeps/wordsize-32/bits/wordsize.h | cut -c4- > copy/glibc-wordsize.txt
+	sed -n 1,16p extracted/$(GLIBC)/sysdeps/nptl/pthread.h              | cut -c4- > copy/glibc-pthread.txt
+	sed -n 1,17p extracted/$(GLIBC)/posix/sched.h                       | cut -c4- > copy/glibc-sched.txt
 
 	mkdir -p inc/crt/bits
 	$(FBFROG) glibc.fbfrog \
@@ -590,7 +593,11 @@ glibc:
 		-emit '*/bits/sched.h'        inc/crt/bits/sched.bi \
 		-emit '*/pthread.h'           inc/crt/pthread.bi \
 		-emit '*/sched.h'             inc/crt/sched.bi \
-		-title $(GLIBC)
+		-title $(GLIBC) copy/glibc-pthread.txt    copy/fbteam.txt inc/crt/bits/pthreadtypes.bi \
+		-title $(GLIBC) copy/glibc-wordsize.txt   copy/fbteam.txt inc/crt/bits/wordsize.bi \
+		-title $(GLIBC) copy/glibc-sched.txt      copy/fbteam.txt inc/crt/bits/sched.bi \
+		-title $(GLIBC) copy/glibc-pthread.txt    copy/fbteam.txt inc/crt/pthread.bi \
+		-title $(GLIBC) copy/glibc-sched.txt      copy/fbteam.txt inc/crt/sched.bi
 
 GLUT := glut-3.7
 glut:
