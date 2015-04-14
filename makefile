@@ -389,6 +389,9 @@ ffi:
 FONTCONFIG := fontconfig-2.11.1
 fontconfig:
 	./get.sh $(FONTCONFIG) $(FONTCONFIG).tar.bz2 "http://www.freedesktop.org/software/fontconfig/release/$(FONTCONFIG).tar.bz2"
+
+	sed -n 4,22p extracted/$(FONTCONFIG)/fontconfig/fontconfig.h | cut -c4- > copy/fontconfig.txt
+
 	mkdir -p inc/fontconfig
 	$(FBFROG) fontconfig.fbfrog \
 		-incdir extracted/$(FONTCONFIG)/fontconfig \
@@ -396,8 +399,7 @@ fontconfig:
 		-include fcfreetype.h \
 		-emit '*/fontconfig.h' inc/fontconfig/fontconfig.bi \
 		-emit '*/fcfreetype.h' inc/fontconfig/fcfreetype.bi \
-		-title $(FONTCONFIG)
-
+		-title $(FONTCONFIG) copy/fontconfig.txt copy/fbteam.txt
 
 FREEGLUT_VERSION := 3.0.0
 FREEGLUT := freeglut-$(FREEGLUT_VERSION)
