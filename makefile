@@ -405,6 +405,9 @@ FREEGLUT_VERSION := 3.0.0
 FREEGLUT := freeglut-$(FREEGLUT_VERSION)
 freeglut:
 	./get.sh $(FREEGLUT) $(FREEGLUT).tar.gz http://sourceforge.net/projects/freeglut/files/freeglut/$(FREEGLUT_VERSION)/$(FREEGLUT).tar.gz/download
+
+	sed -n 9,28p extracted/$(FREEGLUT)/include/GL/freeglut_std.h | cut -c4- > copy/freeglut.txt
+
 	mkdir -p inc/GL
 	$(FBFROG) freeglut.fbfrog \
 		-incdir extracted/$(FREEGLUT)/include \
@@ -412,7 +415,7 @@ freeglut:
 		-emit '*/GL/freeglut.h' inc/GL/freeglut.bi \
 		-emit '*/GL/freeglut_ext.h' inc/GL/freeglut_ext.bi \
 		-emit '*/GL/freeglut_std.h' inc/GL/freeglut_std.bi \
-		-title $(FREEGLUT)
+		-title $(FREEGLUT) copy/freeglut.txt copy/fbteam.txt
 
 FREETYPE := freetype-2.5.5
 freetype:
