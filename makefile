@@ -428,6 +428,11 @@ freetype:
 				< ftoption.h.orig > ftoption.h); \
 		fi
 
+	# Freetype offers two licenses (its own FTL and GPL2); choosing GPL2 here
+	sed -n 5,8p     extracted/$(FREETYPE)/include/freetype.h > copy/freetype.txt
+	echo >> copy/freetype.txt
+	sed -n 296,308p extracted/$(FREETYPE)/docs/GPLv2.TXT | cut -c5- >> copy/freetype.txt
+
 	mkdir -p inc/freetype2/config
 	$(FBFROG) freetype.fbfrog -incdir extracted/$(FREETYPE)/include \
 		-include ft2build.h \
@@ -442,7 +447,7 @@ freetype:
 		-emit '*/config/ftoption.h'  inc/freetype2/config/ftoption.bi  \
 		-emit '*/config/ftstdlib.h'  inc/freetype2/config/ftstdlib.bi  \
 		-inclib freetype             inc/freetype2/freetype.bi \
-		-title $(FREETYPE)
+		-title $(FREETYPE) copy/freetype.txt copy/fbteam.txt
 
 GLFW2_VERSION := 2.7.9
 GLFW3_VERSION := 3.1.1
