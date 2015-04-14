@@ -693,6 +693,9 @@ gtkglext: glib-extract gtk2-extract
 	# Insert our custom gdkglext-config.h
 	cp gdkglext-config.h extracted/$(GTKGLEXT)/gdkglext-config.h
 
+	sed -n 1,16p extracted/$(GTKGLEXT)/gtk/gtkgl.h | cut -c4- > copy/gtkglext.txt
+	sed -n 1,16p extracted/$(GTKGLEXT)/gdk/gdkgl.h | cut -c4- > copy/gdkglext.txt
+
 	mkdir -p inc/gtkgl
 	$(FBFROG) gtkglext.fbfrog \
 		-incdir extracted/$(GTKGLEXT) \
@@ -715,7 +718,8 @@ gtkglext: glib-extract gtk2-extract
 			-inclib gdkglext-x11-1.0 inc/gtkgl/gdkglext.bi \
 			-inclib gtkglext-x11-1.0 inc/gtkgl/gtkglext.bi \
 		-endif \
-		-title $(GTKGLEXT)
+		-title $(GTKGLEXT) copy/gdkglext.txt copy/gtk+-translators.txt inc/gtkgl/gdkglext.bi \
+		-title $(GTKGLEXT) copy/gtkglext.txt copy/gtk+-translators.txt inc/gtkgl/gtkglext.bi
 
 # GNU libiconv, not glibc's iconv
 ICONV := libiconv-1.14
