@@ -755,8 +755,10 @@ IUP_TITLE := iup-$(IUP_VERSION)
 iup:
 	./get.sh iup $(IUP_TITLE)_Sources.tar.gz "http://sourceforge.net/projects/iup/files/$(IUP_VERSION)/Docs%20and%20Sources/$(IUP_TITLE)_Sources.tar.gz/download"
 	find extracted/iup/ -type d -exec chmod +x '{}' ';'
-	mkdir -p inc/IUP
 
+	sed -n 448,467p extracted/iup/include/iup.h | cut -c3- > copy/iup.txt
+
+	mkdir -p inc/IUP
 	$(FBFROG) iup.fbfrog \
 		extracted/iup/include/*.h \
 		-emit '*/iupcb.h'            inc/IUP/iupcb.bi            \
@@ -806,10 +808,10 @@ iup:
 			-inclib gmodule-2.0  inc/IUP/iup.bi              \
 			-inclib glib-2.0     inc/IUP/iup.bi              \
 		-endif                                                   \
-		-title $(IUP_TITLE)
+		-title $(IUP_TITLE) copy/iup.txt copy/fbteam.txt
 
 	$(FBFROG) iupim.fbfrog extracted/iup/include/iupim.h -o inc/IUP \
-		-title $(IUP_TITLE)
+		-title $(IUP_TITLE) copy/iup.txt copy/fbteam.txt
 
 	$(FBFROG) iuplua.fbfrog iupscintilla.fbfrog \
 		extracted/iup/include/*.h \
@@ -827,7 +829,7 @@ iup:
 		-emit '*/iupluatuio.h'       inc/IUP/iupluatuio.bi       \
 		-emit '*/iupluaweb.h'        inc/IUP/iupluaweb.bi        \
 		-emit '*/iup_scintilla.h'    inc/IUP/iup_scintilla.bi    \
-		-title $(IUP_TITLE)
+		-title $(IUP_TITLE) copy/iup.txt copy/fbteam.txt
 
 JIT_TITLE := libjit-a8293e141b79c28734a3633a81a43f92f29fc2d7
 jit:
