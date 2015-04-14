@@ -996,6 +996,10 @@ pango-extract:
 	./get.sh $(PANGO) $(PANGO).tar.xz http://ftp.gnome.org/pub/gnome/sources/pango/$(PANGO_SERIES)/$(PANGO).tar.xz
 
 pango: pango-extract glib-extract cairo-extract
+
+	sed -n 4,19p extracted/$(PANGO)/pango/pango.h      | cut -c4- > copy/pango.txt
+	sed -n 4,19p extracted/$(PANGO)/pango/pangocairo.h | cut -c4- > copy/pangocairo.txt
+
 	mkdir -p inc/pango
 	$(FBFROG) pango.fbfrog \
 		-incdir extracted/$(CAIRO)/src \
@@ -1031,7 +1035,8 @@ pango: pango-extract glib-extract cairo-extract
 		-emit '*/pango/pango-utils.h'      inc/pango/pango.bi \
 		-inclib pango-1.0                  inc/pango/pango.bi \
 		-inclib pangocairo-1.0             inc/pango/pangocairo.bi \
-		-title $(PANGO)
+		-title $(PANGO) copy/pango.txt      copy/gtk+-translators.txt inc/pango/pango.bi \
+		-title $(PANGO) copy/pangocairo.txt copy/gtk+-translators.txt inc/pango/pangocairo.bi
 
 PDCURSES_VERSION := 3.4
 PDCURSES := PDCurses-$(PDCURSES_VERSION)
