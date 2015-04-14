@@ -911,10 +911,13 @@ ncurses:
 	./get.sh $(NCURSES_TITLE) $(NCURSES_TITLE).tar.gz "http://ftp.gnu.org/pub/gnu/ncurses/$(NCURSES_TITLE).tar.gz"
 	cd extracted/$(NCURSES_TITLE) && \
 		if [ ! -f include/curses.h ]; then ./configure && cd include && make; fi
+
+	sed -n 1,27p extracted/$(NCURSES_TITLE)/include/curses.h.in > copy/ncurses.txt
+
 	mkdir -p inc/curses
 	$(FBFROG) ncurses.fbfrog -o inc/curses/ncurses.bi \
 		extracted/$(NCURSES_TITLE)/include/curses.h \
-		-title $(NCURSES_TITLE)
+		-title $(NCURSES_TITLE) copy/ncurses.txt copy/fbteam.txt
 
 #
 # OpenGL headers
