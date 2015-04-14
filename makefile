@@ -954,6 +954,10 @@ opengl-mesa:
 	./get.sh $(MESA) $(MESA).tar.xz ftp://ftp.freedesktop.org/pub/mesa/$(MESA_VERSION)/$(MESA).tar.xz
 	./get.sh $(GLU)  $(GLU).tar.bz2 ftp://ftp.freedesktop.org/pub/mesa/glu/$(GLU).tar.bz2
 
+	sed -n 2,23p extracted/$(MESA)/include/GL/gl.h    | cut -c4- > copy/mesa-gl.txt
+	sed -n 9,28p extracted/$(MESA)/include/GL/glext.h | cut -c4- > copy/mesa-glext.txt
+	sed -n 2,28p extracted/$(GLU)/include/GL/glu.h    | cut -c4- > copy/mesa-glu.txt
+
 	mkdir -p inc/GL/mesa
 	$(FBFROG) opengl.fbfrog \
 		-incdir extracted/$(MESA)/include \
@@ -964,9 +968,9 @@ opengl-mesa:
 		-emit '*/GL/gl.h'    inc/GL/mesa/gl.bi \
 		-emit '*/GL/glext.h' inc/GL/mesa/glext.bi \
 		-emit '*/GL/glu.h'   inc/GL/mesa/glu.bi \
-		-title $(MESA)       inc/GL/mesa/gl.bi \
-		-title $(MESA)       inc/GL/mesa/glext.bi \
-		-title $(GLU)        inc/GL/mesa/glu.bi
+		-title $(MESA) copy/mesa-gl.txt    copy/fbteam.txt inc/GL/mesa/gl.bi \
+		-title $(MESA) copy/mesa-glext.txt copy/fbteam.txt inc/GL/mesa/glext.bi \
+		-title $(GLU)  copy/mesa-glu.txt   copy/fbteam.txt inc/GL/mesa/glu.bi
 
 opengl-winapi: winapi-extract
 	mkdir -p inc/GL/windows
