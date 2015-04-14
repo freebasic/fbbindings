@@ -456,6 +456,10 @@ GLFW3 := glfw-$(GLFW3_VERSION)
 glfw:
 	./get.sh $(GLFW2) $(GLFW2).tar.bz2 http://sourceforge.net/projects/glfw/files/glfw/$(GLFW2_VERSION)/$(GLFW2).tar.bz2/download
 	./get.sh $(GLFW3) $(GLFW3).tar.bz2 http://sourceforge.net/projects/glfw/files/glfw/$(GLFW3_VERSION)/$(GLFW3).tar.bz2/download
+
+	sed -n 2,26p extracted/$(GLFW2)/include/GL/glfw.h    | cut -c4- > copy/glfw2.txt
+	sed -n 2,25p extracted/$(GLFW3)/include/GLFW/glfw3.h | cut -c4- > copy/glfw3.txt
+
 	mkdir -p inc/GL inc/GLFW
 
 	$(FBFROG) glfw.fbfrog extracted/$(GLFW2)/include/GL/glfw.h -o inc/GL/glfw.bi \
@@ -470,7 +474,7 @@ glfw:
 		-else \
 			-inclib glfw \
 		-endif \
-		-title $(GLFW2)
+		-title $(GLFW2) copy/glfw2.txt copy/fbteam.txt
 
 	$(FBFROG) glfw.fbfrog extracted/$(GLFW3)/include/GLFW/glfw3.h -o inc/GLFW/glfw3.bi \
 		-ifdef __FB_WIN32__ \
@@ -484,7 +488,7 @@ glfw:
 		-else \
 			-inclib glfw \
 		-endif\
-		-title $(GLFW3)
+		-title $(GLFW3) copy/glfw3.txt copy/fbteam.txt
 
 GDKPIXBUF_SERIES := 2.30
 GDKPIXBUF := gdk-pixbuf-$(GDKPIXBUF_SERIES).8
