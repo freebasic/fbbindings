@@ -1042,10 +1042,13 @@ PDCURSES_VERSION := 3.4
 PDCURSES := PDCurses-$(PDCURSES_VERSION)
 pdcurses:
 	./get.sh $(PDCURSES) $(PDCURSES).tar.gz "http://sourceforge.net/projects/pdcurses/files/pdcurses/$(PDCURSES_VERSION)/$(PDCURSES).tar.gz/download"
+
+	sed -n 15,25p extracted/$(PDCURSES)/README > copy/pdcurses.txt
+
 	mkdir -p inc/curses
 	$(FBFROG) pdcurses.fbfrog -o inc/curses/pdcurses.bi \
 		extracted/$(PDCURSES)/curses.h \
-		-title $(PDCURSES)
+		-title $(PDCURSES) copy/pdcurses.txt copy/fbteam.txt
 
 #
 # libpng:
