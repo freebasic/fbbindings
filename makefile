@@ -995,7 +995,7 @@ PANGO := pango-$(PANGO_SERIES).8
 pango-extract:
 	./get.sh $(PANGO) $(PANGO).tar.xz http://ftp.gnome.org/pub/gnome/sources/pango/$(PANGO_SERIES)/$(PANGO).tar.xz
 
-pango: glib-extract cairo-extract
+pango: pango-extract glib-extract cairo-extract
 	mkdir -p inc/pango
 	$(FBFROG) pango.fbfrog \
 		-incdir extracted/$(CAIRO)/src \
