@@ -1114,9 +1114,16 @@ png15:
 PNG16_TITLE := libpng-1.6.16
 png16:
 	./get.sh $(PNG16_TITLE) $(PNG16_TITLE).tar.xz "http://downloads.sourceforge.net/libpng/$(PNG16_TITLE).tar.xz?download"
+
 	cp extracted/$(PNG16_TITLE)/scripts/pnglibconf.h.prebuilt \
 	   extracted/$(PNG16_TITLE)/pnglibconf.h
-	$(FBFROG) png.fbfrog png16.fbfrog -o inc/png16.bi extracted/$(PNG16_TITLE)/png.h -title $(PNG16_TITLE)
+
+	sed -n 2,15p    extracted/$(PNG16_TITLE)/png.h | cut -c4- >  copy/png16.txt
+	echo                                                      >> copy/png16.txt
+	sed -n 239,328p extracted/$(PNG16_TITLE)/png.h | cut -c4- >> copy/png16.txt
+
+	$(FBFROG) png.fbfrog png16.fbfrog -o inc/png16.bi extracted/$(PNG16_TITLE)/png.h \
+		-title $(PNG16_TITLE) copy/png16.txt copy/fbteam.txt
 
 sdl: sdl1 sdl2
 
