@@ -973,6 +973,10 @@ opengl-mesa:
 		-title $(GLU)  copy/mesa-glu.txt   copy/fbteam.txt inc/GL/mesa/glu.bi
 
 opengl-winapi: winapi-extract
+
+	sed -n 2,9p  extracted/$(MINGWW64_TITLE)/DISCLAIMER.PD | cut -c4- > copy/mingw-w64-public.txt
+	sed -n 9,28p extracted/$(MINGWW64_TITLE)/mingw-w64-headers/include/GL/glext.h | cut -c4- > copy/mingw-w64-glext.txt
+
 	mkdir -p inc/GL/windows
 	$(FBFROG) winapi.fbfrog opengl.fbfrog \
 		-incdir extracted/$(MINGWW64_TITLE)/mingw-w64-headers/crt \
@@ -983,7 +987,8 @@ opengl-winapi: winapi-extract
 		-emit '*/GL/gl.h'    inc/GL/windows/gl.bi \
 		-emit '*/GL/glext.h' inc/GL/windows/glext.bi \
 		-emit '*/GL/glu.h'   inc/GL/windows/glu.bi \
-		-title $(MINGWW64_TITLE)
+		-title $(MINGWW64_TITLE) copy/mingw-w64-public.txt copy/fbteam.txt \
+		-title $(MINGWW64_TITLE) copy/mingw-w64-glext.txt  copy/fbteam.txt inc/GL/windows/glext.bi
 
 PANGO_SERIES := 1.36
 PANGO := pango-$(PANGO_SERIES).8
