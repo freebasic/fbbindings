@@ -891,6 +891,9 @@ llvm:
 LUA_TITLE := lua-5.2.3
 lua:
 	./get.sh $(LUA_TITLE) $(LUA_TITLE).tar.gz "http://www.lua.org/ftp/$(LUA_TITLE).tar.gz"
+
+	sed -n 421,440p extracted/$(LUA_TITLE)/src/lua.h | cut -c3- > copy/lua.txt
+
 	mkdir -p inc/Lua
 	$(FBFROG) lua.fbfrog \
 		extracted/$(LUA_TITLE)/src/lua.h       \
@@ -901,7 +904,7 @@ lua:
 		-emit '*/lualib.h'  inc/Lua/lualib.bi  \
 		-emit '*/lauxlib.h' inc/Lua/lauxlib.bi \
 		-inclib lua inc/Lua/lua.bi \
-		-title $(LUA_TITLE)
+		-title $(LUA_TITLE) copy/lua.txt copy/fbteam.txt
 
 NCURSES_TITLE := ncurses-5.9
 ncurses:
