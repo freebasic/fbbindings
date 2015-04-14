@@ -630,6 +630,10 @@ gtk2-extract: glib-extract cairo-extract pango-extract atk-extract gdkpixbuf-ext
 	cp gdk2config.h extracted/$(GTK2)/gdkconfig.h
 
 gtk2: gtk2-extract
+
+	sed -n 1,17p extracted/$(GTK2)/gtk/gtk.h | cut -c4- > copy/gtk2.txt
+	sed -n 1,17p extracted/$(GTK2)/gdk/gdk.h | cut -c4- > copy/gdk2.txt
+
 	mkdir -p inc/gtk inc/gdk
 	$(FBFROG) gtk.fbfrog gtk2.fbfrog \
 		-incdir extracted/$(GTK2) \
@@ -650,7 +654,8 @@ gtk2: gtk2-extract
 			-inclib gdk-x11-2.0   inc/gdk/gdk2.bi \
 			-inclib gtk-x11-2.0   inc/gtk/gtk2.bi \
 		-endif \
-		-title $(GTK2)
+		-title $(GTK2) copy/gtk2.txt copy/gtk+-translators.txt inc/gtk/gtk2.bi \
+		-title $(GTK2) copy/gdk2.txt copy/gtk+-translators.txt inc/gdk/gdk2.bi
 
 GTK3_SERIES := 3.14
 GTK3 := gtk+-$(GTK3_SERIES).10
