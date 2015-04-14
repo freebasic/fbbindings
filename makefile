@@ -867,6 +867,8 @@ llvm:
 	cd extracted/$(LLVM_TITLE) && \
 		if [ ! -f include/llvm/Config/Targets.def ]; then ./configure --prefix=/usr; fi
 
+	sed -n 4,43p extracted/$(LLVM_TITLE)/LICENSE.TXT > copy/llvm.txt
+
 	$(FBFROG) -o inc/llvm-c.bi llvm.fbfrog \
 		-incdir extracted/$(LLVM_TITLE)/include \
 		extracted/$(LLVM_TITLE)/include/llvm-c/Analysis.h		\
@@ -884,7 +886,7 @@ llvm:
 		extracted/$(LLVM_TITLE)/include/llvm-c/Support.h		\
 		extracted/$(LLVM_TITLE)/include/llvm-c/Target.h			\
 		extracted/$(LLVM_TITLE)/include/llvm-c/TargetMachine.h		\
-		-title $(LLVM_TITLE)
+		-title $(LLVM_TITLE) copy/llvm.txt copy/fbteam.txt
 
 LUA_TITLE := lua-5.2.3
 lua:
