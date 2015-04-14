@@ -1332,6 +1332,8 @@ TRE := tre-0.8.0
 tre:
 	./get.sh $(TRE) $(TRE).tar.bz2 "http://laurikari.net/tre/$(TRE).tar.bz2"
 
+	cat extracted/$(TRE)/LICENSE > copy/tre.txt
+
 	mkdir -p inc/tre
 	$(FBFROG) tre.fbfrog \
 		-incdir extracted/$(TRE)/lib \
@@ -1339,7 +1341,7 @@ tre:
 		-emit '*/tre.h'   inc/tre/tre.bi \
 		-emit '*/regex.h' inc/tre/regex.bi \
 		-inclib tre       inc/tre/tre.bi \
-		-title $(TRE)
+		-title $(TRE) copy/tre.txt copy/fbteam.txt
 
 ################################################################################
 # Windows API, based on MinGW-w64 headers
