@@ -602,6 +602,9 @@ glibc:
 GLUT := glut-3.7
 glut:
 	./get.sh $(GLUT) $(GLUT).tar.gz https://www.opengl.org/resources/libraries/glut/$(GLUT).tar.gz
+
+	sed -n 4,8p extracted/$(GLUT)/include/GL/glut.h > copy/glut.txt
+
 	mkdir -p inc/GL
 	$(FBFROG) glut.fbfrog \
 		extracted/$(GLUT)/include/GL/glut.h -o inc/GL/glut.bi \
@@ -614,7 +617,7 @@ glut:
 		-caseelse \
 			-inclib glut \
 		-endselect \
-		-title $(GLUT)
+		-title $(GLUT) copy/glut.txt copy/fbteam.txt
 
 gtk: gtk2 gtk3
 
