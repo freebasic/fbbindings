@@ -1151,6 +1151,13 @@ sdl1:
 		cp SDL_config.h.in unix/SDL_config.h
 	cat sdl-unix-config.h >> extracted/$(SDL1_MAIN)/include/unix/SDL_config.h
 
+	sed -n 2,20p extracted/$(SDL1_MAIN)/include/SDL.h      | cut -c5- > copy/sdl1.txt
+	sed -n 5,5p  extracted/$(SDL1_GFX)/SDL_gfxPrimitives.h | cut -c1- > copy/sdl1-gfx.txt
+	sed -n 2,19p extracted/$(SDL1_IMAGE)/SDL_image.h       | cut -c3- > copy/sdl1-image.txt
+	sed -n 2,19p extracted/$(SDL1_MIXER)/SDL_mixer.h       | cut -c3- > copy/sdl1-mixer.txt
+	sed -n 2,19p extracted/$(SDL1_NET)/SDL_net.h           | cut -c3- > copy/sdl1-net.txt
+	sed -n 2,19p extracted/$(SDL1_TTF)/SDL_ttf.h           | cut -c3- > copy/sdl1-ttf.txt
+
 	mkdir -p inc/SDL
 	$(FBFROG) sdl.fbfrog sdl1.fbfrog \
 		\
@@ -1207,16 +1214,16 @@ sdl1:
 		-endif \
 		-inclib SDL_ttf inc/SDL/SDL_ttf.bi \
 		\
-		-title $(SDL1_MAIN)  inc/SDL/SDL.bi \
-		-title $(SDL1_GFX)   inc/SDL/SDL_gfx_framerate.bi \
-		-title $(SDL1_GFX)   inc/SDL/SDL_gfx_imageFilter.bi \
-		-title $(SDL1_GFX)   inc/SDL/SDL_gfx_primitives.bi \
-		-title $(SDL1_GFX)   inc/SDL/SDL_gfx_primitives_font.bi \
-		-title $(SDL1_GFX)   inc/SDL/SDL_gfx_rotozoom.bi \
-		-title $(SDL1_IMAGE) inc/SDL/SDL_image.bi \
-		-title $(SDL1_MIXER) inc/SDL/SDL_mixer.bi \
-		-title $(SDL1_NET)   inc/SDL/SDL_net.bi \
-		-title $(SDL1_TTF)   inc/SDL/SDL_ttf.bi
+		-title $(SDL1_MAIN)  copy/sdl1.txt       copy/fbteam.txt inc/SDL/SDL.bi \
+		-title $(SDL1_GFX)   copy/sdl1-gfx.txt   copy/fbteam.txt inc/SDL/SDL_gfx_framerate.bi \
+		-title $(SDL1_GFX)   copy/sdl1-gfx.txt   copy/fbteam.txt inc/SDL/SDL_gfx_imageFilter.bi \
+		-title $(SDL1_GFX)   copy/sdl1-gfx.txt   copy/fbteam.txt inc/SDL/SDL_gfx_primitives.bi \
+		-title $(SDL1_GFX)   copy/sdl1-gfx.txt   copy/fbteam.txt inc/SDL/SDL_gfx_primitives_font.bi \
+		-title $(SDL1_GFX)   copy/sdl1-gfx.txt   copy/fbteam.txt inc/SDL/SDL_gfx_rotozoom.bi \
+		-title $(SDL1_IMAGE) copy/sdl1-image.txt copy/fbteam.txt inc/SDL/SDL_image.bi \
+		-title $(SDL1_MIXER) copy/sdl1-mixer.txt copy/fbteam.txt inc/SDL/SDL_mixer.bi \
+		-title $(SDL1_NET)   copy/sdl1-net.txt   copy/fbteam.txt inc/SDL/SDL_net.bi \
+		-title $(SDL1_TTF)   copy/sdl1-ttf.txt   copy/fbteam.txt inc/SDL/SDL_ttf.bi
 
 SDL2_MAIN := SDL2-2.0.3
 SDL2_IMAGE := SDL2_image-2.0.0
