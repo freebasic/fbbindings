@@ -848,6 +848,8 @@ jit:
 		cp jit-arch-x86.h    x86/jit/jit-arch.h		&& \
 		cp jit-arch-x86-64.h x86_64/jit/jit-arch.h
 
+	sed -n 4,18p extracted/$(JIT_TITLE)/include/jit/jit.h | cut -c4- > copy/jit.txt
+
 	$(FBFROG) jit.fbfrog -o inc extracted/$(JIT_TITLE)/include/jit/jit.h	\
 		-incdir extracted/$(JIT_TITLE)/include				\
 		-ifdef __FB_64BIT__						\
@@ -855,7 +857,7 @@ jit:
 		-else								\
 			-incdir extracted/$(JIT_TITLE)/include/jit/x86		\
 		-endif \
-		-title $(JIT_TITLE)
+		-title $(JIT_TITLE) copy/jit.txt copy/fbteam.txt
 
 LLVM_VERSION := 3.5.0
 LLVM_TITLE := llvm-$(LLVM_VERSION).src
