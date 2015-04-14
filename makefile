@@ -665,6 +665,9 @@ gtk3: glib-extract cairo-extract pango-extract atk-extract gdkpixbuf-extract
 	# Insert our custom gdkconfig.h
 	cp gdk3config.h extracted/$(GTK3)/gdk/gdkconfig.h
 
+	sed -n 1,15p extracted/$(GTK3)/gtk/gtk.h | cut -c4- > copy/gtk3.txt
+	sed -n 1,15p extracted/$(GTK3)/gdk/gdk.h | cut -c4- > copy/gdk3.txt
+
 	mkdir -p inc/gtk inc/gdk
 	$(FBFROG) gtk.fbfrog gtk3.fbfrog \
 		-incdir extracted/$(GTK3) \
@@ -680,7 +683,8 @@ gtk3: glib-extract cairo-extract pango-extract atk-extract gdkpixbuf-extract
 		-emit '*/extracted/$(GTK3)/gtk/*' inc/gtk/gtk3.bi \
 		-inclib gdk-3                     inc/gdk/gdk3.bi \
 		-inclib gtk-3                     inc/gtk/gtk3.bi \
-		-title $(GTK3)
+		-title $(GTK3) copy/gtk3.txt copy/gtk+-translators.txt inc/gtk/gtk3.bi \
+		-title $(GTK3) copy/gdk3.txt copy/gtk+-translators.txt inc/gdk/gdk3.bi
 
 GTKGLEXT := gtkglext-1.2.0
 gtkglext: glib-extract gtk2-extract
