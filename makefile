@@ -1520,7 +1520,6 @@ winapi: winapi-extract
 # FB. But it seems to be an internal library anyways, so it's probably not worth
 # it to make a binding.
 #
-# TODO: add -titles
 
 X11_ICE          := libICE-1.0.9
 X11_SM           := libSM-1.2.2
@@ -2256,11 +2255,16 @@ xcb:
 ZIP_TITLE := libzip-0.11.2
 zip:
 	./get.sh $(ZIP_TITLE) $(ZIP_TITLE).tar.xz "http://www.nih.at/libzip/$(ZIP_TITLE).tar.xz"
+
 	# Need to compile libzip in order to get zipconf.h
 	# (luckily it's the same for all targets)
 	cd extracted/$(ZIP_TITLE) && \
 		if [ ! -f lib/zipconf.h ]; then ./configure && make; fi
-	$(FBFROG) zip.fbfrog -o inc extracted/$(ZIP_TITLE)/lib/zip.h -title $(ZIP_TITLE)
+
+	sed -n 5,34p extracted/$(ZIP_TITLE)/lib/zip.h | cut -c3- > copy/zip.txt
+
+	$(FBFROG) zip.fbfrog -o inc extracted/$(ZIP_TITLE)/lib/zip.h \
+		-title $(ZIP_TITLE) copy/zip.txt copy/fbteam.txt
 
 ZLIB_TITLE := zlib-1.2.8
 zlib:
