@@ -531,6 +531,12 @@ glib-extract:
 	sed $(SED_GLIBCONFIG) < glibconfig.h > extracted/$(GLIB)/glib/glibconfig.h
 
 glib: glib-extract
+
+	sed -n 1,15p extracted/$(GLIB)/glib/glib.h        | cut -c4- > copy/glib.txt
+	sed -n 1,15p extracted/$(GLIB)/glib/glib-object.h | cut -c4- > copy/glib-object.txt
+	sed -n 1,15p extracted/$(GLIB)/gmodule/gmodule.h  | cut -c4- > copy/glib-gmodule.txt
+	sed -n 1,18p extracted/$(GLIB)/gio/gio.h          | cut -c4- > copy/glib-gio.txt
+
 	mkdir -p inc/gio
 	$(FBFROG) glib.fbfrog \
 		-incdir extracted/$(GLIB) \
@@ -553,7 +559,12 @@ glib: glib-extract
 		-ifdef __FB_WIN32__ \
 			-inclib gthread-2.0                    inc/glib.bi \
 		-endif \
-		-title $(GLIB)
+		-title $(GLIB) copy/glib.txt         copy/gtk+-translators.txt inc/glib.bi \
+		-title $(GLIB) copy/glib.txt         copy/gtk+-translators.txt inc/glibconfig.bi \
+		-title $(GLIB) copy/glib-object.txt  copy/gtk+-translators.txt inc/glib-object.bi \
+		-title $(GLIB) copy/glib-gmodule.txt copy/gtk+-translators.txt inc/gmodule.bi \
+		-title $(GLIB) copy/glib-gio.txt     copy/gtk+-translators.txt inc/gio/gio.bi
+
 
 GLIBC := glibc-2.21
 glibc:
