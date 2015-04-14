@@ -1249,6 +1249,13 @@ sdl2: winapi-extract
 		cp SDL_config.h.in unix/SDL_config.h
 	cat sdl-unix-config.h >> extracted/$(SDL2_MAIN)/include/unix/SDL_config.h
 
+	sed -n 2,19p extracted/$(SDL2_MAIN)/include/SDL.h       | cut -c3- > copy/sdl2.txt
+	sed -n 5,26p extracted/$(SDL2_GFX)/SDL2_gfxPrimitives.h            > copy/sdl2-gfx.txt
+	sed -n 2,19p extracted/$(SDL2_IMAGE)/SDL_image.h        | cut -c3- > copy/sdl2-image.txt
+	sed -n 2,19p extracted/$(SDL2_MIXER)/SDL_mixer.h        | cut -c3- > copy/sdl2-mixer.txt
+	sed -n 2,20p extracted/$(SDL2_NET)/SDL_net.h            | cut -c3- > copy/sdl2-net.txt
+	sed -n 2,19p extracted/$(SDL2_TTF)/SDL_ttf.h            | cut -c3- > copy/sdl2-ttf.txt
+
 	mkdir -p inc/SDL2
 	$(FBFROG) sdl.fbfrog sdl2.fbfrog \
 		\
@@ -1294,16 +1301,16 @@ sdl2: winapi-extract
 		-inclib SDL2_net   inc/SDL2/SDL_net.bi \
 		-inclib SDL2_ttf   inc/SDL2/SDL_ttf.bi \
 		\
-		-title $(SDL2_MAIN)  inc/SDL2/SDL.bi \
-		-title $(SDL2_GFX)   inc/SDL2/SDL2_gfx_framerate.bi \
-		-title $(SDL2_GFX)   inc/SDL2/SDL2_gfx_imageFilter.bi \
-		-title $(SDL2_GFX)   inc/SDL2/SDL2_gfx_primitives.bi \
-		-title $(SDL2_GFX)   inc/SDL2/SDL2_gfx_primitives_font.bi \
-		-title $(SDL2_GFX)   inc/SDL2/SDL2_gfx_rotozoom.bi \
-		-title $(SDL2_IMAGE) inc/SDL2/SDL_image.bi \
-		-title $(SDL2_MIXER) inc/SDL2/SDL_mixer.bi \
-		-title $(SDL2_NET)   inc/SDL2/SDL_net.bi \
-		-title $(SDL2_TTF)   inc/SDL2/SDL_ttf.bi
+		-title $(SDL2_MAIN)  copy/sdl2.txt       copy/fbteam.txt inc/SDL2/SDL.bi \
+		-title $(SDL2_GFX)   copy/sdl2-gfx.txt   copy/fbteam.txt inc/SDL2/SDL2_gfx_framerate.bi \
+		-title $(SDL2_GFX)   copy/sdl2-gfx.txt   copy/fbteam.txt inc/SDL2/SDL2_gfx_imageFilter.bi \
+		-title $(SDL2_GFX)   copy/sdl2-gfx.txt   copy/fbteam.txt inc/SDL2/SDL2_gfx_primitives.bi \
+		-title $(SDL2_GFX)   copy/sdl2-gfx.txt   copy/fbteam.txt inc/SDL2/SDL2_gfx_primitives_font.bi \
+		-title $(SDL2_GFX)   copy/sdl2-gfx.txt   copy/fbteam.txt inc/SDL2/SDL2_gfx_rotozoom.bi \
+		-title $(SDL2_IMAGE) copy/sdl2-image.txt copy/fbteam.txt inc/SDL2/SDL_image.bi \
+		-title $(SDL2_MIXER) copy/sdl2-mixer.txt copy/fbteam.txt inc/SDL2/SDL_mixer.bi \
+		-title $(SDL2_NET)   copy/sdl2-net.txt   copy/fbteam.txt inc/SDL2/SDL_net.bi \
+		-title $(SDL2_TTF)   copy/sdl2-ttf.txt   copy/fbteam.txt inc/SDL2/SDL_ttf.bi
 
 #
 # libtre - regex matching library, provides an implementation of the POSIX
