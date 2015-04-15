@@ -305,7 +305,7 @@ cunit:
 	./get.sh $(CUNIT_TITLE) $(CUNIT_TITLE).tar.bz2 "http://sourceforge.net/projects/cunit/files/CUnit/$(CUNIT_VERSION)/$(CUNIT_TITLE).tar.bz2/download"
 	cd extracted/$(CUNIT_TITLE)/CUnit/Headers && \
 		sed -e 's/@VERSION@-@RELEASE@/$(CUNIT_VERSION)/g' < CUnit.h.in > CUnit.h
-	sed -n 2,18p extracted/$(CUNIT_TITLE)/CUnit/Headers/CUnit.h | cut -c5- > cunit.tmp
+	$(GETCOMMENT) extracted/$(CUNIT_TITLE)/CUnit/Headers/CUnit.h > cunit.tmp
 	mkdir -p inc/CUnit
 	$(FBFROG) cunit.fbfrog \
 		extracted/$(CUNIT_TITLE)/CUnit/Headers/CUnit.h \
