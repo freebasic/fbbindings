@@ -16,12 +16,17 @@ ALL += tre
 ALL += x11
 ALL += zip zlib
 
+GETCOMMENT := ./$(shell fbc -print x getcomment.bas)
+
 .PHONY: all clean $(ALL)
 
 all: $(ALL)
 
 clean:
 	rm -rf extracted/*
+
+$(GETCOMMENT): getcomment.bas
+	fbc $< -g -exx
 
 ALLEGRO4_VERSION := 4.4.2
 ALLEGRO4_TITLE := allegro-$(ALLEGRO4_VERSION)
@@ -2471,7 +2476,7 @@ zip:
 	cd extracted/$(ZIP_TITLE) && \
 		if [ ! -f lib/zipconf.h ]; then ./configure && make; fi
 
-	sed -n 5,34p extracted/$(ZIP_TITLE)/lib/zip.h | cut -c3- > copy/zip.txt
+	$(GETCOMMENT) extracted/$(ZIP_TITLE)/lib/zip.h > copy/zip.txt
 
 	$(FBFROG) zip.fbfrog -o inc extracted/$(ZIP_TITLE)/lib/zip.h \
 		-title $(ZIP_TITLE) copy/zip.txt copy/fbteam.txt
