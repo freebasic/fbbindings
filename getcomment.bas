@@ -90,45 +90,41 @@ defineArray(string)
 
 type Comment
 	lines as Array(string)
-	declare function firstLineIs(byref s as string) as integer
-	declare function lastLineIs(byref s as string) as integer
-	declare function lineIsNonEmpty(byval i as integer) as integer
+	declare function lineIsEmpty(byval i as integer) as integer
+	declare function lineStartsWith(byval i as integer, byref s as string) as integer
 	declare function firstLineStartsWith(byref s as string) as integer
-	declare function middleLinesStartWith(byref s as string) as integer
+	declare function linesStartWith(byval first as integer, byval last as integer, byref s as string) as integer
+	declare function allLinesStartWith(byref s as string) as integer
 	declare sub dropLine(byval i as integer)
-	declare sub dropLast()
-	declare sub dropFirstAndLast()
 	declare sub cutLine(byval i as integer, byval n as integer)
-	declare sub cutFirstLine(byval n as integer)
-	declare sub cutMiddleLines(byval n as integer)
+	declare sub cutLines(byval first as integer, byval last as integer, byval n as integer)
+	declare sub cutWhiteSpace()
 	declare sub unindent()
 	declare sub emit()
 end type
 
-function Comment.firstLineIs(byref s as string) as integer
-	function = (lines.count > 0) andalso (lines.p[0] = s)
+function Comment.lineIsEmpty(byval i as integer) as integer
+	assert(lines.inRange(i))
+	function = (not strIsNonEmptyLine(lines.p[i]))
 end function
 
-function Comment.lastLineIs(byref s as string) as integer
-	function = (lines.count > 0) andalso (lines.p[lines.count-1] = s)
-end function
-
-function Comment.lineIsNonEmpty(byval i as integer) as integer
-	function = strIsNonEmptyLine(lines.p[i])
+function Comment.lineStartsWith(byval i as integer, byref s as string) as integer
+	function = lineIsEmpty(i) orelse strStartsWith(lines.p[i], s)
 end function
 
 function Comment.firstLineStartsWith(byref s as string) as integer
-	function = (lines.count > 0) andalso strStartsWith(lines.p[0], s)
+	function = lineStartsWith(0, s)
 end function
 
-function Comment.middleLinesStartWith(byref s as string) as integer
-	if lines.count <= 2 then exit function
-	for i as integer = 1 to lines.count - 2
-		if lineIsNonEmpty(i) then
-			if strStartsWith(lines.p[i], s) = FALSE then exit function
-		end if
+function Comment.linesStartWith(byval first as integer, byval last as integer, byref s as string) as integer
+	for i as integer = first to last
+		if lineStartsWith(i, s) = FALSE then exit function
 	next
 	function = TRUE
+end function
+
+function Comment.allLinesStartWith(byref s as string) as integer
+	function = linesStartWith(0, lines.count - 1, s)
 end function
 
 sub Comment.dropLine(byval i as integer)
@@ -136,15 +132,6 @@ sub Comment.dropLine(byval i as integer)
 		lines.p[i] = ""
 		lines.remove(i)
 	end if
-end sub
-
-sub Comment.dropLast()
-	dropLine(lines.count - 1)
-end sub
-
-sub Comment.dropFirstAndLast()
-	dropLine(0)
-	dropLast()
 end sub
 
 '' Remove n chars from the front of the given line
@@ -155,62 +142,60 @@ sub Comment.cutLine(byval i as integer, byval n as integer)
 	end if
 end sub
 
-sub Comment.cutFirstLine(byval n as integer)
-	cutLine(0, n)
-end sub
-
-sub Comment.cutMiddleLines(byval n as integer)
-	for i as integer = 1 to lines.count - 2
+sub Comment.cutLines(byval first as integer, byval last as integer, byval n as integer)
+	for i as integer = first to last
 		cutLine(i, n)
 	next
 end sub
 
+sub Comment.cutWhiteSpace()
+	while allLinesStartWith(" ") or allLinesStartWith(!"\t")
+		cutLines(0, lines.count - 1, 1)
+	wend
+
+	'' a       a           /* a
+	''  b  =>  b    E.g.:    b
+	''  c      c             c
+	''                     */
+	if (not lineStartsWith(0, " ")) and linesStartWith(1, lines.count - 1, " ") then
+		cutLines(1, lines.count - 1, 1)
+	end if
+end sub
+
+'' Remove extra whitespace and * chars from multi-line comments
+''
+'' /**           *
+''  * a    =>     * a    =>    a
+''  *             *
+''  */            
+''
+'' /* a           a            a
+''  * b           * b          b
+''  *      =>     *      =>
+''  * c           * c          c
+''  */
 sub Comment.unindent()
 	if lines.count < 3 then
 		exit sub
 	end if
 
-	'' /**
-	''  * Foo
-	''  */
-	if firstLineIs("* ") and middleLinesStartWith(" * ") and lastLineIs(" ") then
-		cutMiddleLines(3)
-		dropFirstAndLast()
-		exit sub
+	if lineIsEmpty(0) then
+		dropLine(0)
+	elseif firstLineStartsWith("*") then  '' /**
+		cutLine(0, 1)
 	end if
 
-	'' /*
-	'' ...
-	'' */
-	if firstLineIs("") and lastLineIs("") then
-		'' /*
-		''   foo
-		'' */
-		if middleLinesStartWith("  ") then
-			cutMiddleLines(2)
-			dropFirstAndLast()
-			exit sub
-		end if
-
-		'' /*
-		'' 	foo
-		'' */
-		if middleLinesStartWith(!"\t") then
-			cutMiddleLines(1)
-			dropFirstAndLast()
-			exit sub
-		end if
+	if lineIsEmpty(lines.count - 1) then
+		dropLine(lines.count - 1)
 	end if
 
-	'' /* foo
-	''   bar
-	'' */
-	if firstLineStartsWith(" ") and middleLinesStartWith("  ") and lastLineIs("") then
-		cutFirstLine(1)
-		cutMiddleLines(2)
-		dropLast()
-		exit sub
+	cutWhiteSpace()
+	if linesStartWith(0, lines.count - 1, "*") then
+		cutLines(0, lines.count - 1, 1)
+	elseif linesStartWith(1, lines.count - 1, "*") then
+		cutLines(1, lines.count - 1, 1)
 	end if
+	cutWhiteSpace()
 end sub
 
 sub Comment.emit()

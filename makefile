@@ -166,7 +166,7 @@ atk-extract:
 
 atk: atk-extract glib-extract
 
-	sed -n 1,17p extracted/$(ATK)/atk/atk.h | cut -c4- > atk.tmp
+	$(GETCOMMENT) extracted/$(ATK)/atk/atk.h > atk.tmp
 
 	mkdir -p inc/atk
 	$(FBFROG) atk.fbfrog \
