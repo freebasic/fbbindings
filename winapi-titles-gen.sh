@@ -8,7 +8,7 @@ outfile=winapi-titles-generated.fbfrog
 rm -f $outfile
 
 function addtitle() {
-	echo "-title $MINGWW64_TITLE $2 copy/fbteam.txt inc/win/$1.bi" >> $outfile
+	echo "-title $MINGWW64_TITLE $2 fbteam.txt inc/win/$1.bi" >> $outfile
 }
 
 function work() {
@@ -22,10 +22,10 @@ function work() {
 
 		case "$header" in
 		*DISCLAIMER\.PD*)
-			addtitle "$i" copy/mingw-w64-disclaimer-pd.txt
+			addtitle "$i" mingw-w64-disclaimer-pd.tmp
 			;;
 		*DISCLAIMER*)
-			addtitle "$i" copy/mingw-w64-disclaimer.txt
+			addtitle "$i" mingw-w64-disclaimer.tmp
 			;;
 		esac
 	done

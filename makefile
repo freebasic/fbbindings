@@ -44,10 +44,10 @@ allegro4:
 		tar xf "$(ALPNG_TARBALL)" -C extracted/$(ALPNG); \
 	fi
 
-	sed -n 1,15p    extracted/$(ALLEGRO4_TITLE)/readme.txt | cut -c4-  > copy/allegro4.txt
-	sed -n 177,197p extracted/$(ALLEGRO4_TITLE)/readme.txt | cut -c4- >> copy/allegro4.txt
-	sed -n 412,427p extracted/$(ALGIF)/README      > copy/algif.txt
-	sed -n 2,24p    extracted/$(ALPNG)/src/alpng.h > copy/alpng.txt
+	sed -n 1,15p    extracted/$(ALLEGRO4_TITLE)/readme.txt | cut -c4-  > allegro4.tmp
+	sed -n 177,197p extracted/$(ALLEGRO4_TITLE)/readme.txt | cut -c4- >> allegro4.tmp
+	sed -n 412,427p extracted/$(ALGIF)/README      > algif.tmp
+	sed -n 2,24p    extracted/$(ALPNG)/src/alpng.h > alpng.tmp
 
 	mkdir -p inc/allegro
 	$(FBFROG) allegro4.fbfrog \
@@ -67,9 +67,10 @@ allegro4:
 		-undef palette inc/allegro.bi \
 		-undef rgb     inc/allegro.bi \
 		-addinclude allegro.bi inc/allegro/alpng.bi \
-		-title $(ALLEGRO4_TITLE) copy/allegro4.txt copy/fbteam.txt inc/allegro.bi \
-		-title algif_1.3         copy/algif.txt    copy/fbteam.txt inc/allegro/algif.bi \
-		-title alpng13           copy/alpng.txt    copy/fbteam.txt inc/allegro/alpng.bi
+		-title $(ALLEGRO4_TITLE) allegro4.tmp fbteam.txt inc/allegro.bi \
+		-title algif_1.3         algif.tmp    fbteam.txt inc/allegro/algif.bi \
+		-title alpng13           alpng.tmp    fbteam.txt inc/allegro/alpng.bi
+	rm *.tmp
 
 ALLEGRO5_VERSION := 5.0.11
 ALLEGRO5_TITLE := allegro-$(ALLEGRO5_VERSION)
@@ -85,7 +86,7 @@ ALLEGRO5_DLL := -5.0.10-md
 allegro5:
 	./get.sh $(ALLEGRO5_TITLE) $(ALLEGRO5_TITLE).tar.gz "http://sourceforge.net/projects/alleg/files/allegro/$(ALLEGRO5_VERSION)/$(ALLEGRO5_TITLE).tar.gz/download"
 
-	sed -n 1,20p extracted/$(ALLEGRO5_TITLE)/LICENSE.txt > copy/allegro5.txt
+	sed -n 1,20p extracted/$(ALLEGRO5_TITLE)/LICENSE.txt > allegro5.tmp
 
 	mkdir -p inc/allegro5
 	$(FBFROG) allegro5.fbfrog \
@@ -155,7 +156,8 @@ allegro5:
 			-inclib allegro_ttf        inc/allegro5/allegro_ttf.bi \
 		-endif \
 		\
-		-title $(ALLEGRO5_TITLE) copy/allegro5.txt copy/fbteam.txt
+		-title $(ALLEGRO5_TITLE) allegro5.tmp fbteam.txt
+	rm *.tmp
 
 ATK_SERIES := 2.14
 ATK := atk-$(ATK_SERIES).0
@@ -164,7 +166,7 @@ atk-extract:
 
 atk: atk-extract glib-extract
 
-	sed -n 1,17p extracted/$(ATK)/atk/atk.h | cut -c4- > copy/atk.txt
+	sed -n 1,17p extracted/$(ATK)/atk/atk.h | cut -c4- > atk.tmp
 
 	mkdir -p inc/atk
 	$(FBFROG) atk.fbfrog \
@@ -208,17 +210,18 @@ atk: atk-extract glib-extract
 		-emit '*/atk/atkversion.h'           inc/atk/atk.bi \
 		-emit '*/atk/atkwindow.h'            inc/atk/atk.bi \
 		-inclib atk-1.0                      inc/atk/atk.bi \
-		-title $(ATK) copy/atk.txt copy/gtk+-translators.txt
+		-title $(ATK) atk.tmp gtk+-translators.txt
+	rm *.tmp
 
 BZIP2_VERSION := 1.0.6
 BZIP2 := bzip2-$(BZIP2_VERSION)
 bzip2:
 	./get.sh $(BZIP2) $(BZIP2).tar.gz http://www.bzip.org/$(BZIP2_VERSION)/$(BZIP2).tar.gz
 
-	sed -n 4,40p extracted/$(BZIP2)/LICENSE > copy/bzip2.txt
-
+	sed -n 4,40p extracted/$(BZIP2)/LICENSE > bzip2.tmp
 	$(FBFROG) bzip2.fbfrog extracted/$(BZIP2)/bzlib.h -o inc -inclib bz2 \
-		-title $(BZIP2) copy/bzip2.txt copy/fbteam.txt
+		-title $(BZIP2) bzip2.tmp fbteam.txt
+	rm *.tmp
 
 # TODO:
 # cairo-deprecated.h
@@ -252,9 +255,7 @@ cairo-extract:
 	cp extracted/$(CAIRO)/cairo-version.h extracted/$(CAIRO)/src
 
 cairo: cairo-extract
-
-	sed -n 1,35p extracted/$(CAIRO)/src/cairo.h | cut -c4- > copy/cairo.txt
-
+	sed -n 1,35p extracted/$(CAIRO)/src/cairo.h | cut -c4- > cairo.tmp
 	mkdir -p inc/cairo
 	$(FBFROG) cairo.fbfrog \
 		-incdir extracted/$(CAIRO)/src \
@@ -273,31 +274,30 @@ cairo: cairo-extract
 		-emit '*/cairo-svg.h'        inc/cairo/cairo-svg.bi   \
 		-emit '*/cairo-win32.h'      inc/cairo/cairo-win32.bi \
 		-inclib cairo inc/cairo/cairo.bi \
-		-title $(CAIRO) copy/cairo.txt copy/gtk+-translators.txt
+		-title $(CAIRO) cairo.tmp gtk+-translators.txt
+	rm *.tmp
 
 CGUI_VERSION := 2.0.3
 CGUI := cgui-$(CGUI_VERSION)
 cgui:
 	./get.sh cgui $(CGUI).tar.gz "http://sourceforge.net/projects/cgui/files/$(CGUI_VERSION)/$(CGUI).tar.gz/download"
-
-	sed -n 2,2p extracted/cgui/readme.txt > copy/cgui.txt
-
+	sed -n 2,2p extracted/cgui/readme.txt > cgui.tmp
 	$(FBFROG) cgui.fbfrog -o inc extracted/cgui/include/cgui.h \
-		-title $(CGUI) copy/cgui.txt copy/fbteam.txt
+		-title $(CGUI) cgui.tmp fbteam.txt
+	rm *.tmp
 
 CLANG_VERSION := 3.5.0
 CLANG_TITLE := cfe-$(CLANG_VERSION).src
 clang:
 	./get.sh $(CLANG_TITLE) $(CLANG_TITLE).tar.xz "http://llvm.org/releases/$(CLANG_VERSION)/$(CLANG_TITLE).tar.xz"
-
-	sed -n 4,43p extracted/$(CLANG_TITLE)/LICENSE.TXT > copy/clang.txt
-
+	sed -n 4,43p extracted/$(CLANG_TITLE)/LICENSE.TXT > clang.tmp
 	$(FBFROG) -o inc/clang-c.bi \
 		extracted/$(CLANG_TITLE)/include/clang-c/Index.h \
 		extracted/$(CLANG_TITLE)/include/clang-c/CXCompilationDatabase.h \
 		-incdir extracted/$(CLANG_TITLE)/include \
 		-removedefine CINDEX_LINKAGE \
-		-title $(CLANG_TITLE) copy/clang.txt copy/fbteam.txt
+		-title $(CLANG_TITLE) clang.tmp fbteam.txt
+	rm *.tmp
 
 CUNIT_VERSION := 2.1-3
 CUNIT_TITLE := CUnit-$(CUNIT_VERSION)
@@ -305,9 +305,7 @@ cunit:
 	./get.sh $(CUNIT_TITLE) $(CUNIT_TITLE).tar.bz2 "http://sourceforge.net/projects/cunit/files/CUnit/$(CUNIT_VERSION)/$(CUNIT_TITLE).tar.bz2/download"
 	cd extracted/$(CUNIT_TITLE)/CUnit/Headers && \
 		sed -e 's/@VERSION@-@RELEASE@/$(CUNIT_VERSION)/g' < CUnit.h.in > CUnit.h
-
-	sed -n 2,18p extracted/$(CUNIT_TITLE)/CUnit/Headers/CUnit.h | cut -c5- > copy/cunit.txt
-
+	sed -n 2,18p extracted/$(CUNIT_TITLE)/CUnit/Headers/CUnit.h | cut -c5- > cunit.tmp
 	mkdir -p inc/CUnit
 	$(FBFROG) cunit.fbfrog \
 		extracted/$(CUNIT_TITLE)/CUnit/Headers/CUnit.h \
@@ -325,28 +323,26 @@ cunit:
 		-emit '*/TestDB.h'    inc/CUnit/TestDB.bi		\
 		-emit '*/TestRun.h'   inc/CUnit/TestRun.bi		\
 		-emit '*/Util.h'      inc/CUnit/Util.bi			\
-		-title $(CUNIT_TITLE) copy/cunit.txt copy/fbteam.txt
+		-title $(CUNIT_TITLE) cunit.tmp fbteam.txt
+	rm *.tmp
 
 CURL_TITLE := curl-7.39.0
 curl:
 	./get.sh $(CURL_TITLE) $(CURL_TITLE).tar.lzma "http://curl.haxx.se/download/$(CURL_TITLE).tar.lzma"
-
-	tail -n +3 extracted/$(CURL_TITLE)/COPYING > copy/curl.txt
-
+	tail -n +3 extracted/$(CURL_TITLE)/COPYING > curl.tmp
 	$(FBFROG) curl.fbfrog \
 		extracted/$(CURL_TITLE)/include/curl/curl.h \
 		-dontemit '*/typecheck-gcc.h' \
 		-emit '*' inc/curl.bi \
-		-title $(CURL_TITLE) copy/curl.txt copy/fbteam.txt
+		-title $(CURL_TITLE) curl.tmp fbteam.txt
+	rm *.tmp
 
 FASTCGI_TITLE := fcgi-2.4.1-SNAP-0311112127
 fastcgi:
 	./get.sh $(FASTCGI_TITLE) $(FASTCGI_TITLE).tar.gz "http://www.fastcgi.com/dist/fcgi.tar.gz"
-
-	sed -n 7,7p extracted/$(FASTCGI_TITLE)/include/fastcgi.h | cut -c4- > copy/fastcgi.txt
-	echo                                         >> copy/fastcgi.txt
-	cat extracted/$(FASTCGI_TITLE)/LICENSE.TERMS >> copy/fastcgi.txt
-
+	sed -n 7,7p extracted/$(FASTCGI_TITLE)/include/fastcgi.h | cut -c4- > fastcgi.tmp
+	echo                                         >> fastcgi.tmp
+	cat extracted/$(FASTCGI_TITLE)/LICENSE.TERMS >> fastcgi.tmp
 	mkdir -p inc/fastcgi
 	$(FBFROG) fastcgi.fbfrog \
 		extracted/$(FASTCGI_TITLE)/include/fastcgi.h \
@@ -357,7 +353,8 @@ fastcgi:
 		-emit '*/fcgi_stdio.h' inc/fastcgi/fcgi_stdio.bi \
 		-addinclude crt.bi inc/fastcgi/fcgi_stdio.bi \
 		-inclib fcgi inc/fastcgi/fcgiapp.bi \
-		-title $(FASTCGI_TITLE) copy/fastcgi.txt copy/fbteam.txt
+		-title $(FASTCGI_TITLE) fastcgi.tmp fbteam.txt
+	rm *.tmp
 
 FFI_VERSION := 3.1
 FFI_TITLE := libffi-$(FFI_VERSION)
@@ -376,7 +373,7 @@ ffi:
 		sed -e 's/@TARGET@/X86_WIN32/g' $(FFI_SED) < ffi.h.in > ffi-x86-win32.h && \
 		sed -e 's/@TARGET@/X86_WIN64/g' $(FFI_SED) < ffi.h.in > ffi-x86-win64.h
 
-	sed -n 2,23p extracted/$(FFI_TITLE)/include/ffi-x86.h | cut -c4- > copy/ffi.txt
+	sed -n 2,23p extracted/$(FFI_TITLE)/include/ffi-x86.h | cut -c4- > ffi.tmp
 
 	$(FBFROG) ffi.fbfrog -o inc/ffi.bi \
 		-ifdef __FB_WIN32__						\
@@ -389,13 +386,15 @@ ffi:
 			extracted/$(FFI_TITLE)/include/ffi-x86.h		\
 		-endif								\
 		-incdir extracted/$(FFI_TITLE)/src/x86				\
-		-title $(FFI_TITLE) copy/ffi.txt copy/fbteam.txt
+		-title $(FFI_TITLE) ffi.tmp fbteam.txt
+
+	rm *.tmp
 
 FONTCONFIG := fontconfig-2.11.1
 fontconfig:
 	./get.sh $(FONTCONFIG) $(FONTCONFIG).tar.bz2 "http://www.freedesktop.org/software/fontconfig/release/$(FONTCONFIG).tar.bz2"
 
-	sed -n 4,22p extracted/$(FONTCONFIG)/fontconfig/fontconfig.h | cut -c4- > copy/fontconfig.txt
+	sed -n 4,22p extracted/$(FONTCONFIG)/fontconfig/fontconfig.h | cut -c4- > fontconfig.tmp
 
 	mkdir -p inc/fontconfig
 	$(FBFROG) fontconfig.fbfrog \
@@ -404,14 +403,16 @@ fontconfig:
 		-include fcfreetype.h \
 		-emit '*/fontconfig.h' inc/fontconfig/fontconfig.bi \
 		-emit '*/fcfreetype.h' inc/fontconfig/fcfreetype.bi \
-		-title $(FONTCONFIG) copy/fontconfig.txt copy/fbteam.txt
+		-title $(FONTCONFIG) fontconfig.tmp fbteam.txt
+
+	rm *.tmp
 
 FREEGLUT_VERSION := 3.0.0
 FREEGLUT := freeglut-$(FREEGLUT_VERSION)
 freeglut:
 	./get.sh $(FREEGLUT) $(FREEGLUT).tar.gz http://sourceforge.net/projects/freeglut/files/freeglut/$(FREEGLUT_VERSION)/$(FREEGLUT).tar.gz/download
 
-	sed -n 9,28p extracted/$(FREEGLUT)/include/GL/freeglut_std.h | cut -c4- > copy/freeglut.txt
+	sed -n 9,28p extracted/$(FREEGLUT)/include/GL/freeglut_std.h | cut -c4- > freeglut.tmp
 
 	mkdir -p inc/GL
 	$(FBFROG) freeglut.fbfrog \
@@ -420,7 +421,9 @@ freeglut:
 		-emit '*/GL/freeglut.h' inc/GL/freeglut.bi \
 		-emit '*/GL/freeglut_ext.h' inc/GL/freeglut_ext.bi \
 		-emit '*/GL/freeglut_std.h' inc/GL/freeglut_std.bi \
-		-title $(FREEGLUT) copy/freeglut.txt copy/fbteam.txt
+		-title $(FREEGLUT) freeglut.tmp fbteam.txt
+
+	rm *.tmp
 
 FREETYPE := freetype-2.5.5
 freetype:
@@ -434,9 +437,9 @@ freetype:
 		fi
 
 	# Freetype offers two licenses (its own FTL and GPL2); choosing GPL2 here
-	sed -n 5,8p     extracted/$(FREETYPE)/include/freetype.h > copy/freetype.txt
-	echo >> copy/freetype.txt
-	sed -n 296,308p extracted/$(FREETYPE)/docs/GPLv2.TXT | cut -c5- >> copy/freetype.txt
+	sed -n 5,8p     extracted/$(FREETYPE)/include/freetype.h > freetype.tmp
+	echo >> freetype.tmp
+	sed -n 296,308p extracted/$(FREETYPE)/docs/GPLv2.TXT | cut -c5- >> freetype.tmp
 
 	mkdir -p inc/freetype2/config
 	$(FBFROG) freetype.fbfrog -incdir extracted/$(FREETYPE)/include \
@@ -452,7 +455,9 @@ freetype:
 		-emit '*/config/ftoption.h'  inc/freetype2/config/ftoption.bi  \
 		-emit '*/config/ftstdlib.h'  inc/freetype2/config/ftstdlib.bi  \
 		-inclib freetype             inc/freetype2/freetype.bi \
-		-title $(FREETYPE) copy/freetype.txt copy/fbteam.txt
+		-title $(FREETYPE) freetype.tmp fbteam.txt
+
+	rm *.tmp
 
 GLFW2_VERSION := 2.7.9
 GLFW3_VERSION := 3.1.1
@@ -462,8 +467,8 @@ glfw:
 	./get.sh $(GLFW2) $(GLFW2).tar.bz2 http://sourceforge.net/projects/glfw/files/glfw/$(GLFW2_VERSION)/$(GLFW2).tar.bz2/download
 	./get.sh $(GLFW3) $(GLFW3).tar.bz2 http://sourceforge.net/projects/glfw/files/glfw/$(GLFW3_VERSION)/$(GLFW3).tar.bz2/download
 
-	sed -n 2,26p extracted/$(GLFW2)/include/GL/glfw.h    | cut -c4- > copy/glfw2.txt
-	sed -n 2,25p extracted/$(GLFW3)/include/GLFW/glfw3.h | cut -c4- > copy/glfw3.txt
+	sed -n 2,26p extracted/$(GLFW2)/include/GL/glfw.h    | cut -c4- > glfw2.tmp
+	sed -n 2,25p extracted/$(GLFW3)/include/GLFW/glfw3.h | cut -c4- > glfw3.tmp
 
 	mkdir -p inc/GL inc/GLFW
 
@@ -479,7 +484,7 @@ glfw:
 		-else \
 			-inclib glfw \
 		-endif \
-		-title $(GLFW2) copy/glfw2.txt copy/fbteam.txt
+		-title $(GLFW2) glfw2.tmp fbteam.txt
 
 	$(FBFROG) glfw.fbfrog extracted/$(GLFW3)/include/GLFW/glfw3.h -o inc/GLFW/glfw3.bi \
 		-ifdef __FB_WIN32__ \
@@ -493,7 +498,9 @@ glfw:
 		-else \
 			-inclib glfw \
 		-endif\
-		-title $(GLFW3) copy/glfw3.txt copy/fbteam.txt
+		-title $(GLFW3) glfw3.tmp fbteam.txt
+
+	rm *.tmp
 
 GDKPIXBUF_SERIES := 2.30
 GDKPIXBUF := gdk-pixbuf-$(GDKPIXBUF_SERIES).8
@@ -502,7 +509,7 @@ gdkpixbuf-extract:
 
 gdkpixbuf: glib-extract gdkpixbuf-extract
 
-	sed -n 1,21p extracted/$(GDKPIXBUF)/gdk-pixbuf/gdk-pixbuf.h | cut -c4- > copy/gdkpixbuf.txt
+	sed -n 1,21p extracted/$(GDKPIXBUF)/gdk-pixbuf/gdk-pixbuf.h | cut -c4- > gdkpixbuf.tmp
 
 	mkdir -p inc/gdk-pixbuf
 	$(FBFROG) gdkpixbuf.fbfrog \
@@ -513,7 +520,9 @@ gdkpixbuf: glib-extract gdkpixbuf-extract
 		-include gdk-pixbuf/gdk-pixbuf.h \
 		-emit '*/extracted/$(GDKPIXBUF)/gdk-pixbuf/*' inc/gdk-pixbuf/gdk-pixbuf.bi \
 		-inclib gdk_pixbuf-2.0                        inc/gdk-pixbuf/gdk-pixbuf.bi \
-		-title $(GDKPIXBUF) copy/gdkpixbuf.txt copy/gtk+-translators.txt
+		-title $(GDKPIXBUF) gdkpixbuf.tmp gtk+-translators.txt
+
+	rm *.tmp
 
 GLIB_MAJOR := 2
 GLIB_MINOR := 42
@@ -537,10 +546,10 @@ glib-extract:
 
 glib: glib-extract
 
-	sed -n 1,15p extracted/$(GLIB)/glib/glib.h        | cut -c4- > copy/glib.txt
-	sed -n 1,15p extracted/$(GLIB)/glib/glib-object.h | cut -c4- > copy/glib-object.txt
-	sed -n 1,15p extracted/$(GLIB)/gmodule/gmodule.h  | cut -c4- > copy/glib-gmodule.txt
-	sed -n 1,18p extracted/$(GLIB)/gio/gio.h          | cut -c4- > copy/glib-gio.txt
+	sed -n 1,15p extracted/$(GLIB)/glib/glib.h        | cut -c4- > glib.tmp
+	sed -n 1,15p extracted/$(GLIB)/glib/glib-object.h | cut -c4- > glib-object.tmp
+	sed -n 1,15p extracted/$(GLIB)/gmodule/gmodule.h  | cut -c4- > glib-gmodule.tmp
+	sed -n 1,18p extracted/$(GLIB)/gio/gio.h          | cut -c4- > glib-gio.tmp
 
 	mkdir -p inc/gio
 	$(FBFROG) glib.fbfrog \
@@ -564,11 +573,13 @@ glib: glib-extract
 		-ifdef __FB_WIN32__ \
 			-inclib gthread-2.0                    inc/glib.bi \
 		-endif \
-		-title $(GLIB) copy/glib.txt         copy/gtk+-translators.txt inc/glib.bi \
-		-title $(GLIB) copy/glib.txt         copy/gtk+-translators.txt inc/glibconfig.bi \
-		-title $(GLIB) copy/glib-object.txt  copy/gtk+-translators.txt inc/glib-object.bi \
-		-title $(GLIB) copy/glib-gmodule.txt copy/gtk+-translators.txt inc/gmodule.bi \
-		-title $(GLIB) copy/glib-gio.txt     copy/gtk+-translators.txt inc/gio/gio.bi
+		-title $(GLIB) glib.tmp         gtk+-translators.txt inc/glib.bi \
+		-title $(GLIB) glib.tmp         gtk+-translators.txt inc/glibconfig.bi \
+		-title $(GLIB) glib-object.tmp  gtk+-translators.txt inc/glib-object.bi \
+		-title $(GLIB) glib-gmodule.tmp gtk+-translators.txt inc/gmodule.bi \
+		-title $(GLIB) glib-gio.tmp     gtk+-translators.txt inc/gio/gio.bi
+
+	rm *.tmp
 
 GLIBC := glibc-2.21
 glibc:
@@ -577,9 +588,9 @@ glibc:
 	cd extracted/$(GLIBC) && \
 		rm -f bits/wordsize.h bits/endian.h bits/setjmp.h
 
-	sed -n 1,16p extracted/$(GLIBC)/sysdeps/wordsize-32/bits/wordsize.h | cut -c4- > copy/glibc-wordsize.txt
-	sed -n 1,16p extracted/$(GLIBC)/sysdeps/nptl/pthread.h              | cut -c4- > copy/glibc-pthread.txt
-	sed -n 1,17p extracted/$(GLIBC)/posix/sched.h                       | cut -c4- > copy/glibc-sched.txt
+	sed -n 1,16p extracted/$(GLIBC)/sysdeps/wordsize-32/bits/wordsize.h | cut -c4- > glibc-wordsize.tmp
+	sed -n 1,16p extracted/$(GLIBC)/sysdeps/nptl/pthread.h              | cut -c4- > glibc-pthread.tmp
+	sed -n 1,17p extracted/$(GLIBC)/posix/sched.h                       | cut -c4- > glibc-sched.tmp
 
 	mkdir -p inc/crt/bits
 	$(FBFROG) glibc.fbfrog \
@@ -598,17 +609,19 @@ glibc:
 		-emit '*/bits/sched.h'        inc/crt/bits/sched.bi \
 		-emit '*/pthread.h'           inc/crt/pthread.bi \
 		-emit '*/sched.h'             inc/crt/sched.bi \
-		-title $(GLIBC) copy/glibc-pthread.txt    copy/fbteam.txt inc/crt/bits/pthreadtypes.bi \
-		-title $(GLIBC) copy/glibc-wordsize.txt   copy/fbteam.txt inc/crt/bits/wordsize.bi \
-		-title $(GLIBC) copy/glibc-sched.txt      copy/fbteam.txt inc/crt/bits/sched.bi \
-		-title $(GLIBC) copy/glibc-pthread.txt    copy/fbteam.txt inc/crt/pthread.bi \
-		-title $(GLIBC) copy/glibc-sched.txt      copy/fbteam.txt inc/crt/sched.bi
+		-title $(GLIBC) glibc-pthread.tmp    fbteam.txt inc/crt/bits/pthreadtypes.bi \
+		-title $(GLIBC) glibc-wordsize.tmp   fbteam.txt inc/crt/bits/wordsize.bi \
+		-title $(GLIBC) glibc-sched.tmp      fbteam.txt inc/crt/bits/sched.bi \
+		-title $(GLIBC) glibc-pthread.tmp    fbteam.txt inc/crt/pthread.bi \
+		-title $(GLIBC) glibc-sched.tmp      fbteam.txt inc/crt/sched.bi
+
+	rm *.tmp
 
 GLUT := glut-3.7
 glut:
 	./get.sh $(GLUT) $(GLUT).tar.gz https://www.opengl.org/resources/libraries/glut/$(GLUT).tar.gz
 
-	sed -n 4,8p extracted/$(GLUT)/include/GL/glut.h > copy/glut.txt
+	sed -n 4,8p extracted/$(GLUT)/include/GL/glut.h > glut.tmp
 
 	mkdir -p inc/GL
 	$(FBFROG) glut.fbfrog \
@@ -622,7 +635,7 @@ glut:
 		-caseelse \
 			-inclib glut \
 		-endselect \
-		-title $(GLUT) copy/glut.txt copy/fbteam.txt
+		-title $(GLUT) glut.tmp fbteam.txt
 
 gtk: gtk2 gtk3
 
@@ -636,8 +649,8 @@ gtk2-extract: glib-extract cairo-extract pango-extract atk-extract gdkpixbuf-ext
 
 gtk2: gtk2-extract
 
-	sed -n 1,17p extracted/$(GTK2)/gtk/gtk.h | cut -c4- > copy/gtk2.txt
-	sed -n 1,17p extracted/$(GTK2)/gdk/gdk.h | cut -c4- > copy/gdk2.txt
+	sed -n 1,17p extracted/$(GTK2)/gtk/gtk.h | cut -c4- > gtk2.tmp
+	sed -n 1,17p extracted/$(GTK2)/gdk/gdk.h | cut -c4- > gdk2.tmp
 
 	mkdir -p inc/gtk inc/gdk
 	$(FBFROG) gtk.fbfrog gtk2.fbfrog \
@@ -659,8 +672,10 @@ gtk2: gtk2-extract
 			-inclib gdk-x11-2.0   inc/gdk/gdk2.bi \
 			-inclib gtk-x11-2.0   inc/gtk/gtk2.bi \
 		-endif \
-		-title $(GTK2) copy/gtk2.txt copy/gtk+-translators.txt inc/gtk/gtk2.bi \
-		-title $(GTK2) copy/gdk2.txt copy/gtk+-translators.txt inc/gdk/gdk2.bi
+		-title $(GTK2) gtk2.tmp gtk+-translators.txt inc/gtk/gtk2.bi \
+		-title $(GTK2) gdk2.tmp gtk+-translators.txt inc/gdk/gdk2.bi
+
+	rm *.tmp
 
 GTK3_SERIES := 3.14
 GTK3 := gtk+-$(GTK3_SERIES).10
@@ -670,8 +685,8 @@ gtk3: glib-extract cairo-extract pango-extract atk-extract gdkpixbuf-extract
 	# Insert our custom gdkconfig.h
 	cp gdk3config.h extracted/$(GTK3)/gdk/gdkconfig.h
 
-	sed -n 1,15p extracted/$(GTK3)/gtk/gtk.h | cut -c4- > copy/gtk3.txt
-	sed -n 1,15p extracted/$(GTK3)/gdk/gdk.h | cut -c4- > copy/gdk3.txt
+	sed -n 1,15p extracted/$(GTK3)/gtk/gtk.h | cut -c4- > gtk3.tmp
+	sed -n 1,15p extracted/$(GTK3)/gdk/gdk.h | cut -c4- > gdk3.tmp
 
 	mkdir -p inc/gtk inc/gdk
 	$(FBFROG) gtk.fbfrog gtk3.fbfrog \
@@ -688,8 +703,10 @@ gtk3: glib-extract cairo-extract pango-extract atk-extract gdkpixbuf-extract
 		-emit '*/extracted/$(GTK3)/gtk/*' inc/gtk/gtk3.bi \
 		-inclib gdk-3                     inc/gdk/gdk3.bi \
 		-inclib gtk-3                     inc/gtk/gtk3.bi \
-		-title $(GTK3) copy/gtk3.txt copy/gtk+-translators.txt inc/gtk/gtk3.bi \
-		-title $(GTK3) copy/gdk3.txt copy/gtk+-translators.txt inc/gdk/gdk3.bi
+		-title $(GTK3) gtk3.tmp gtk+-translators.txt inc/gtk/gtk3.bi \
+		-title $(GTK3) gdk3.tmp gtk+-translators.txt inc/gdk/gdk3.bi
+
+	rm *.tmp
 
 GTKGLEXT := gtkglext-1.2.0
 gtkglext: glib-extract gtk2-extract
@@ -698,8 +715,8 @@ gtkglext: glib-extract gtk2-extract
 	# Insert our custom gdkglext-config.h
 	cp gdkglext-config.h extracted/$(GTKGLEXT)/gdkglext-config.h
 
-	sed -n 1,16p extracted/$(GTKGLEXT)/gtk/gtkgl.h | cut -c4- > copy/gtkglext.txt
-	sed -n 1,16p extracted/$(GTKGLEXT)/gdk/gdkgl.h | cut -c4- > copy/gdkglext.txt
+	sed -n 1,16p extracted/$(GTKGLEXT)/gtk/gtkgl.h | cut -c4- > gtkglext.tmp
+	sed -n 1,16p extracted/$(GTKGLEXT)/gdk/gdkgl.h | cut -c4- > gdkglext.tmp
 
 	mkdir -p inc/gtkgl
 	$(FBFROG) gtkglext.fbfrog \
@@ -723,8 +740,10 @@ gtkglext: glib-extract gtk2-extract
 			-inclib gdkglext-x11-1.0 inc/gtkgl/gdkglext.bi \
 			-inclib gtkglext-x11-1.0 inc/gtkgl/gtkglext.bi \
 		-endif \
-		-title $(GTKGLEXT) copy/gdkglext.txt copy/gtk+-translators.txt inc/gtkgl/gdkglext.bi \
-		-title $(GTKGLEXT) copy/gtkglext.txt copy/gtk+-translators.txt inc/gtkgl/gtkglext.bi
+		-title $(GTKGLEXT) gdkglext.tmp gtk+-translators.txt inc/gtkgl/gdkglext.bi \
+		-title $(GTKGLEXT) gtkglext.tmp gtk+-translators.txt inc/gtkgl/gtkglext.bi
+
+	rm *.tmp
 
 # GNU libiconv, not glibc's iconv
 ICONV := libiconv-1.14
@@ -742,7 +761,7 @@ iconv:
 		sed $(ICONV_SED_DEFAULT) < iconv.h.in > iconv-default.h && \
 		sed $(ICONV_SED_WINDOWS) < iconv.h.in > iconv-windows.h
 
-	sed -n 1,17p extracted/$(ICONV)/include/iconv.h.in | cut -c4- > copy/iconv.txt
+	sed -n 1,17p extracted/$(ICONV)/include/iconv.h.in | cut -c4- > iconv.tmp
 
 	$(FBFROG) \
 		-ifdef __FB_WIN32__ \
@@ -753,7 +772,9 @@ iconv:
 		-define EILSEQ "" \
 		-renamedefine _LIBICONV_VERSION _LIBICONV_VERSION_ \
 		-o inc/libiconv.bi \
-		-title $(ICONV) copy/iconv.txt copy/fbteam.txt
+		-title $(ICONV) iconv.tmp fbteam.txt
+
+	rm *.tmp
 
 IUP_VERSION := 3.13
 IUP_TITLE := iup-$(IUP_VERSION)
@@ -761,7 +782,7 @@ iup:
 	./get.sh iup $(IUP_TITLE)_Sources.tar.gz "http://sourceforge.net/projects/iup/files/$(IUP_VERSION)/Docs%20and%20Sources/$(IUP_TITLE)_Sources.tar.gz/download"
 	find extracted/iup/ -type d -exec chmod +x '{}' ';'
 
-	sed -n 448,467p extracted/iup/include/iup.h | cut -c3- > copy/iup.txt
+	sed -n 448,467p extracted/iup/include/iup.h | cut -c3- > iup.tmp
 
 	mkdir -p inc/IUP
 	$(FBFROG) iup.fbfrog \
@@ -813,10 +834,10 @@ iup:
 			-inclib gmodule-2.0  inc/IUP/iup.bi              \
 			-inclib glib-2.0     inc/IUP/iup.bi              \
 		-endif                                                   \
-		-title $(IUP_TITLE) copy/iup.txt copy/fbteam.txt
+		-title $(IUP_TITLE) iup.tmp fbteam.txt
 
 	$(FBFROG) iupim.fbfrog extracted/iup/include/iupim.h -o inc/IUP \
-		-title $(IUP_TITLE) copy/iup.txt copy/fbteam.txt
+		-title $(IUP_TITLE) iup.tmp fbteam.txt
 
 	$(FBFROG) iuplua.fbfrog iupscintilla.fbfrog \
 		extracted/iup/include/*.h \
@@ -834,7 +855,9 @@ iup:
 		-emit '*/iupluatuio.h'       inc/IUP/iupluatuio.bi       \
 		-emit '*/iupluaweb.h'        inc/IUP/iupluaweb.bi        \
 		-emit '*/iup_scintilla.h'    inc/IUP/iup_scintilla.bi    \
-		-title $(IUP_TITLE) copy/iup.txt copy/fbteam.txt
+		-title $(IUP_TITLE) iup.tmp fbteam.txt
+
+	rm *.tmp
 
 JIT_TITLE := libjit-a8293e141b79c28734a3633a81a43f92f29fc2d7
 jit:
@@ -853,7 +876,7 @@ jit:
 		cp jit-arch-x86.h    x86/jit/jit-arch.h		&& \
 		cp jit-arch-x86-64.h x86_64/jit/jit-arch.h
 
-	sed -n 4,18p extracted/$(JIT_TITLE)/include/jit/jit.h | cut -c4- > copy/jit.txt
+	sed -n 4,18p extracted/$(JIT_TITLE)/include/jit/jit.h | cut -c4- > jit.tmp
 
 	$(FBFROG) jit.fbfrog -o inc extracted/$(JIT_TITLE)/include/jit/jit.h	\
 		-incdir extracted/$(JIT_TITLE)/include				\
@@ -862,7 +885,9 @@ jit:
 		-else								\
 			-incdir extracted/$(JIT_TITLE)/include/jit/x86		\
 		-endif \
-		-title $(JIT_TITLE) copy/jit.txt copy/fbteam.txt
+		-title $(JIT_TITLE) jit.tmp fbteam.txt
+
+	rm *.tmp
 
 LLVM_VERSION := 3.5.0
 LLVM_TITLE := llvm-$(LLVM_VERSION).src
@@ -872,7 +897,7 @@ llvm:
 	cd extracted/$(LLVM_TITLE) && \
 		if [ ! -f include/llvm/Config/Targets.def ]; then ./configure --prefix=/usr; fi
 
-	sed -n 4,43p extracted/$(LLVM_TITLE)/LICENSE.TXT > copy/llvm.txt
+	sed -n 4,43p extracted/$(LLVM_TITLE)/LICENSE.TXT > llvm.tmp
 
 	$(FBFROG) -o inc/llvm-c.bi llvm.fbfrog \
 		-incdir extracted/$(LLVM_TITLE)/include \
@@ -891,13 +916,15 @@ llvm:
 		extracted/$(LLVM_TITLE)/include/llvm-c/Support.h		\
 		extracted/$(LLVM_TITLE)/include/llvm-c/Target.h			\
 		extracted/$(LLVM_TITLE)/include/llvm-c/TargetMachine.h		\
-		-title $(LLVM_TITLE) copy/llvm.txt copy/fbteam.txt
+		-title $(LLVM_TITLE) llvm.tmp fbteam.txt
+
+	rm *.tmp
 
 LUA_TITLE := lua-5.2.3
 lua:
 	./get.sh $(LUA_TITLE) $(LUA_TITLE).tar.gz "http://www.lua.org/ftp/$(LUA_TITLE).tar.gz"
 
-	sed -n 421,440p extracted/$(LUA_TITLE)/src/lua.h | cut -c3- > copy/lua.txt
+	sed -n 421,440p extracted/$(LUA_TITLE)/src/lua.h | cut -c3- > lua.tmp
 
 	mkdir -p inc/Lua
 	$(FBFROG) lua.fbfrog \
@@ -909,20 +936,21 @@ lua:
 		-emit '*/lualib.h'  inc/Lua/lualib.bi  \
 		-emit '*/lauxlib.h' inc/Lua/lauxlib.bi \
 		-inclib lua inc/Lua/lua.bi \
-		-title $(LUA_TITLE) copy/lua.txt copy/fbteam.txt
+		-title $(LUA_TITLE) lua.tmp fbteam.txt
+
+	rm *.tmp
 
 NCURSES_TITLE := ncurses-5.9
 ncurses:
 	./get.sh $(NCURSES_TITLE) $(NCURSES_TITLE).tar.gz "http://ftp.gnu.org/pub/gnu/ncurses/$(NCURSES_TITLE).tar.gz"
 	cd extracted/$(NCURSES_TITLE) && \
 		if [ ! -f include/curses.h ]; then ./configure && cd include && make; fi
-
-	sed -n 1,27p extracted/$(NCURSES_TITLE)/include/curses.h.in > copy/ncurses.txt
-
+	sed -n 1,27p extracted/$(NCURSES_TITLE)/include/curses.h.in > ncurses.tmp
 	mkdir -p inc/curses
 	$(FBFROG) ncurses.fbfrog -o inc/curses/ncurses.bi \
 		extracted/$(NCURSES_TITLE)/include/curses.h \
-		-title $(NCURSES_TITLE) copy/ncurses.txt copy/fbteam.txt
+		-title $(NCURSES_TITLE) ncurses.tmp fbteam.txt
+	rm *.tmp
 
 #
 # OpenGL headers
@@ -959,9 +987,9 @@ opengl-mesa:
 	./get.sh $(MESA) $(MESA).tar.xz ftp://ftp.freedesktop.org/pub/mesa/$(MESA_VERSION)/$(MESA).tar.xz
 	./get.sh $(GLU)  $(GLU).tar.bz2 ftp://ftp.freedesktop.org/pub/mesa/glu/$(GLU).tar.bz2
 
-	sed -n 2,23p extracted/$(MESA)/include/GL/gl.h    | cut -c4- > copy/mesa-gl.txt
-	sed -n 9,28p extracted/$(MESA)/include/GL/glext.h | cut -c4- > copy/mesa-glext.txt
-	sed -n 2,28p extracted/$(GLU)/include/GL/glu.h    | cut -c4- > copy/mesa-glu.txt
+	sed -n 2,23p extracted/$(MESA)/include/GL/gl.h    | cut -c4- > mesa-gl.tmp
+	sed -n 9,28p extracted/$(MESA)/include/GL/glext.h | cut -c4- > mesa-glext.tmp
+	sed -n 2,28p extracted/$(GLU)/include/GL/glu.h    | cut -c4- > mesa-glu.tmp
 
 	mkdir -p inc/GL/mesa
 	$(FBFROG) opengl.fbfrog \
@@ -973,13 +1001,16 @@ opengl-mesa:
 		-emit '*/GL/gl.h'    inc/GL/mesa/gl.bi \
 		-emit '*/GL/glext.h' inc/GL/mesa/glext.bi \
 		-emit '*/GL/glu.h'   inc/GL/mesa/glu.bi \
-		-title $(MESA) copy/mesa-gl.txt    copy/fbteam.txt inc/GL/mesa/gl.bi \
-		-title $(MESA) copy/mesa-glext.txt copy/fbteam.txt inc/GL/mesa/glext.bi \
-		-title $(GLU)  copy/mesa-glu.txt   copy/fbteam.txt inc/GL/mesa/glu.bi
+		-title $(MESA) mesa-gl.tmp    fbteam.txt inc/GL/mesa/gl.bi \
+		-title $(MESA) mesa-glext.tmp fbteam.txt inc/GL/mesa/glext.bi \
+		-title $(GLU)  mesa-glu.tmp   fbteam.txt inc/GL/mesa/glu.bi
+
+	rm *.tmp
 
 opengl-winapi: winapi-extract
 
-	sed -n 9,28p extracted/$(MINGWW64_TITLE)/mingw-w64-headers/include/GL/glext.h | cut -c4- > copy/mingw-w64-glext.txt
+	sed -n 2,9p  extracted/$(MINGWW64_TITLE)/DISCLAIMER.PD | cut -c4- > mingw-w64-disclaimer-pd.tmp
+	sed -n 9,28p extracted/$(MINGWW64_TITLE)/mingw-w64-headers/include/GL/glext.h | cut -c4- > mingw-w64-glext.tmp
 
 	mkdir -p inc/GL/windows
 	$(FBFROG) winapi.fbfrog opengl.fbfrog \
@@ -991,8 +1022,10 @@ opengl-winapi: winapi-extract
 		-emit '*/GL/gl.h'    inc/GL/windows/gl.bi \
 		-emit '*/GL/glext.h' inc/GL/windows/glext.bi \
 		-emit '*/GL/glu.h'   inc/GL/windows/glu.bi \
-		-title $(MINGWW64_TITLE) copy/mingw-w64-disclaimer-pd.txt copy/fbteam.txt \
-		-title $(MINGWW64_TITLE) copy/mingw-w64-glext.txt copy/fbteam.txt inc/GL/windows/glext.bi
+		-title $(MINGWW64_TITLE) mingw-w64-disclaimer-pd.tmp fbteam.txt \
+		-title $(MINGWW64_TITLE) mingw-w64-glext.tmp fbteam.txt inc/GL/windows/glext.bi
+
+	rm *.tmp
 
 PANGO_SERIES := 1.36
 PANGO := pango-$(PANGO_SERIES).8
@@ -1001,8 +1034,8 @@ pango-extract:
 
 pango: pango-extract glib-extract cairo-extract
 
-	sed -n 4,19p extracted/$(PANGO)/pango/pango.h      | cut -c4- > copy/pango.txt
-	sed -n 4,19p extracted/$(PANGO)/pango/pangocairo.h | cut -c4- > copy/pangocairo.txt
+	sed -n 4,19p extracted/$(PANGO)/pango/pango.h      | cut -c4- > pango.tmp
+	sed -n 4,19p extracted/$(PANGO)/pango/pangocairo.h | cut -c4- > pangocairo.tmp
 
 	mkdir -p inc/pango
 	$(FBFROG) pango.fbfrog \
@@ -1039,20 +1072,21 @@ pango: pango-extract glib-extract cairo-extract
 		-emit '*/pango/pango-utils.h'      inc/pango/pango.bi \
 		-inclib pango-1.0                  inc/pango/pango.bi \
 		-inclib pangocairo-1.0             inc/pango/pangocairo.bi \
-		-title $(PANGO) copy/pango.txt      copy/gtk+-translators.txt inc/pango/pango.bi \
-		-title $(PANGO) copy/pangocairo.txt copy/gtk+-translators.txt inc/pango/pangocairo.bi
+		-title $(PANGO) pango.tmp      gtk+-translators.txt inc/pango/pango.bi \
+		-title $(PANGO) pangocairo.tmp gtk+-translators.txt inc/pango/pangocairo.bi
+
+	rm *.tmp
 
 PDCURSES_VERSION := 3.4
 PDCURSES := PDCurses-$(PDCURSES_VERSION)
 pdcurses:
 	./get.sh $(PDCURSES) $(PDCURSES).tar.gz "http://sourceforge.net/projects/pdcurses/files/pdcurses/$(PDCURSES_VERSION)/$(PDCURSES).tar.gz/download"
-
-	sed -n 15,25p extracted/$(PDCURSES)/README > copy/pdcurses.txt
-
+	sed -n 15,25p extracted/$(PDCURSES)/README > pdcurses.tmp
 	mkdir -p inc/curses
 	$(FBFROG) pdcurses.fbfrog -o inc/curses/pdcurses.bi \
 		extracted/$(PDCURSES)/curses.h \
-		-title $(PDCURSES) copy/pdcurses.txt copy/fbteam.txt
+		-title $(PDCURSES) pdcurses.tmp fbteam.txt
+	rm *.tmp
 
 #
 # libpng:
@@ -1083,51 +1117,46 @@ png: png12 png14 png15 png16
 PNG12_TITLE := libpng-1.2.53
 png12:
 	./get.sh $(PNG12_TITLE) $(PNG12_TITLE).tar.xz "http://downloads.sourceforge.net/libpng/$(PNG12_TITLE).tar.xz?download"
-
-	sed -n 1,14p    extracted/$(PNG12_TITLE)/png.h | cut -c4- >  copy/png12.txt
-	echo                                                      >> copy/png12.txt
-	sed -n 323,412p extracted/$(PNG12_TITLE)/png.h | cut -c4- >> copy/png12.txt
-
+	sed -n 1,14p    extracted/$(PNG12_TITLE)/png.h | cut -c4- >  png12.tmp
+	echo                                                      >> png12.tmp
+	sed -n 323,412p extracted/$(PNG12_TITLE)/png.h | cut -c4- >> png12.tmp
 	$(FBFROG) png.fbfrog png12.fbfrog -o inc/png12.bi extracted/$(PNG12_TITLE)/png.h \
-		-title $(PNG12_TITLE) copy/png12.txt copy/fbteam.txt
+		-title $(PNG12_TITLE) png12.tmp fbteam.txt
+	rm *.tmp
 
 PNG14_TITLE := libpng-1.4.16
 png14:
 	./get.sh $(PNG14_TITLE) $(PNG14_TITLE).tar.xz "http://downloads.sourceforge.net/libpng/$(PNG14_TITLE).tar.xz?download"
-
-	sed -n 2,16p    extracted/$(PNG14_TITLE)/png.h | cut -c4- >  copy/png14.txt
-	echo                                                      >> copy/png14.txt
-	sed -n 210,299p extracted/$(PNG14_TITLE)/png.h | cut -c4- >> copy/png14.txt
-
+	sed -n 2,16p    extracted/$(PNG14_TITLE)/png.h | cut -c4- >  png14.tmp
+	echo                                                      >> png14.tmp
+	sed -n 210,299p extracted/$(PNG14_TITLE)/png.h | cut -c4- >> png14.tmp
 	$(FBFROG) png.fbfrog png14.fbfrog -o inc/png14.bi extracted/$(PNG14_TITLE)/png.h \
-		-title $(PNG14_TITLE) copy/png14.txt copy/fbteam.txt
+		-title $(PNG14_TITLE) png14.tmp fbteam.txt
+	rm *.tmp
 
 PNG15_TITLE := libpng-1.5.21
 png15:
 	./get.sh $(PNG15_TITLE) $(PNG15_TITLE).tar.xz "http://downloads.sourceforge.net/libpng/$(PNG15_TITLE).tar.xz?download"
 	cp extracted/$(PNG15_TITLE)/scripts/pnglibconf.h.prebuilt \
 	   extracted/$(PNG15_TITLE)/pnglibconf.h
-
-	sed -n 2,15p    extracted/$(PNG15_TITLE)/png.h | cut -c4- >  copy/png15.txt
-	echo                                                      >> copy/png15.txt
-	sed -n 232,321p extracted/$(PNG15_TITLE)/png.h | cut -c4- >> copy/png15.txt
-
+	sed -n 2,15p    extracted/$(PNG15_TITLE)/png.h | cut -c4- >  png15.tmp
+	echo                                                      >> png15.tmp
+	sed -n 232,321p extracted/$(PNG15_TITLE)/png.h | cut -c4- >> png15.tmp
 	$(FBFROG) png.fbfrog png15.fbfrog -o inc/png15.bi extracted/$(PNG15_TITLE)/png.h \
-		-title $(PNG15_TITLE) copy/png15.txt copy/fbteam.txt
+		-title $(PNG15_TITLE) png15.tmp fbteam.txt
+	rm *.tmp
 
 PNG16_TITLE := libpng-1.6.16
 png16:
 	./get.sh $(PNG16_TITLE) $(PNG16_TITLE).tar.xz "http://downloads.sourceforge.net/libpng/$(PNG16_TITLE).tar.xz?download"
-
 	cp extracted/$(PNG16_TITLE)/scripts/pnglibconf.h.prebuilt \
 	   extracted/$(PNG16_TITLE)/pnglibconf.h
-
-	sed -n 2,15p    extracted/$(PNG16_TITLE)/png.h | cut -c4- >  copy/png16.txt
-	echo                                                      >> copy/png16.txt
-	sed -n 239,328p extracted/$(PNG16_TITLE)/png.h | cut -c4- >> copy/png16.txt
-
+	sed -n 2,15p    extracted/$(PNG16_TITLE)/png.h | cut -c4- >  png16.tmp
+	echo                                                      >> png16.tmp
+	sed -n 239,328p extracted/$(PNG16_TITLE)/png.h | cut -c4- >> png16.tmp
 	$(FBFROG) png.fbfrog png16.fbfrog -o inc/png16.bi extracted/$(PNG16_TITLE)/png.h \
-		-title $(PNG16_TITLE) copy/png16.txt copy/fbteam.txt
+		-title $(PNG16_TITLE) png16.tmp fbteam.txt
+	rm *.tmp
 
 sdl: sdl1 sdl2
 
@@ -1155,12 +1184,12 @@ sdl1:
 		cp SDL_config.h.in unix/SDL_config.h
 	cat sdl-unix-config.h >> extracted/$(SDL1_MAIN)/include/unix/SDL_config.h
 
-	sed -n 2,20p extracted/$(SDL1_MAIN)/include/SDL.h      | cut -c5- > copy/sdl1.txt
-	sed -n 5,5p  extracted/$(SDL1_GFX)/SDL_gfxPrimitives.h | cut -c1- > copy/sdl1-gfx.txt
-	sed -n 2,19p extracted/$(SDL1_IMAGE)/SDL_image.h       | cut -c3- > copy/sdl1-image.txt
-	sed -n 2,19p extracted/$(SDL1_MIXER)/SDL_mixer.h       | cut -c3- > copy/sdl1-mixer.txt
-	sed -n 2,19p extracted/$(SDL1_NET)/SDL_net.h           | cut -c3- > copy/sdl1-net.txt
-	sed -n 2,19p extracted/$(SDL1_TTF)/SDL_ttf.h           | cut -c3- > copy/sdl1-ttf.txt
+	sed -n 2,20p extracted/$(SDL1_MAIN)/include/SDL.h      | cut -c5- > sdl1.tmp
+	sed -n 5,5p  extracted/$(SDL1_GFX)/SDL_gfxPrimitives.h | cut -c1- > sdl1-gfx.tmp
+	sed -n 2,19p extracted/$(SDL1_IMAGE)/SDL_image.h       | cut -c3- > sdl1-image.tmp
+	sed -n 2,19p extracted/$(SDL1_MIXER)/SDL_mixer.h       | cut -c3- > sdl1-mixer.tmp
+	sed -n 2,19p extracted/$(SDL1_NET)/SDL_net.h           | cut -c3- > sdl1-net.tmp
+	sed -n 2,19p extracted/$(SDL1_TTF)/SDL_ttf.h           | cut -c3- > sdl1-ttf.tmp
 
 	mkdir -p inc/SDL
 	$(FBFROG) sdl.fbfrog sdl1.fbfrog \
@@ -1218,16 +1247,18 @@ sdl1:
 		-endif \
 		-inclib SDL_ttf inc/SDL/SDL_ttf.bi \
 		\
-		-title $(SDL1_MAIN)  copy/sdl1.txt       copy/fbteam.txt inc/SDL/SDL.bi \
-		-title $(SDL1_GFX)   copy/sdl1-gfx.txt   copy/fbteam.txt inc/SDL/SDL_gfx_framerate.bi \
-		-title $(SDL1_GFX)   copy/sdl1-gfx.txt   copy/fbteam.txt inc/SDL/SDL_gfx_imageFilter.bi \
-		-title $(SDL1_GFX)   copy/sdl1-gfx.txt   copy/fbteam.txt inc/SDL/SDL_gfx_primitives.bi \
-		-title $(SDL1_GFX)   copy/sdl1-gfx.txt   copy/fbteam.txt inc/SDL/SDL_gfx_primitives_font.bi \
-		-title $(SDL1_GFX)   copy/sdl1-gfx.txt   copy/fbteam.txt inc/SDL/SDL_gfx_rotozoom.bi \
-		-title $(SDL1_IMAGE) copy/sdl1-image.txt copy/fbteam.txt inc/SDL/SDL_image.bi \
-		-title $(SDL1_MIXER) copy/sdl1-mixer.txt copy/fbteam.txt inc/SDL/SDL_mixer.bi \
-		-title $(SDL1_NET)   copy/sdl1-net.txt   copy/fbteam.txt inc/SDL/SDL_net.bi \
-		-title $(SDL1_TTF)   copy/sdl1-ttf.txt   copy/fbteam.txt inc/SDL/SDL_ttf.bi
+		-title $(SDL1_MAIN)  sdl1.tmp       fbteam.txt inc/SDL/SDL.bi \
+		-title $(SDL1_GFX)   sdl1-gfx.tmp   fbteam.txt inc/SDL/SDL_gfx_framerate.bi \
+		-title $(SDL1_GFX)   sdl1-gfx.tmp   fbteam.txt inc/SDL/SDL_gfx_imageFilter.bi \
+		-title $(SDL1_GFX)   sdl1-gfx.tmp   fbteam.txt inc/SDL/SDL_gfx_primitives.bi \
+		-title $(SDL1_GFX)   sdl1-gfx.tmp   fbteam.txt inc/SDL/SDL_gfx_primitives_font.bi \
+		-title $(SDL1_GFX)   sdl1-gfx.tmp   fbteam.txt inc/SDL/SDL_gfx_rotozoom.bi \
+		-title $(SDL1_IMAGE) sdl1-image.tmp fbteam.txt inc/SDL/SDL_image.bi \
+		-title $(SDL1_MIXER) sdl1-mixer.tmp fbteam.txt inc/SDL/SDL_mixer.bi \
+		-title $(SDL1_NET)   sdl1-net.tmp   fbteam.txt inc/SDL/SDL_net.bi \
+		-title $(SDL1_TTF)   sdl1-ttf.tmp   fbteam.txt inc/SDL/SDL_ttf.bi
+
+	rm *.tmp
 
 SDL2_MAIN := SDL2-2.0.3
 SDL2_IMAGE := SDL2_image-2.0.0
@@ -1253,12 +1284,12 @@ sdl2: winapi-extract
 		cp SDL_config.h.in unix/SDL_config.h
 	cat sdl-unix-config.h >> extracted/$(SDL2_MAIN)/include/unix/SDL_config.h
 
-	sed -n 2,19p extracted/$(SDL2_MAIN)/include/SDL.h       | cut -c3- > copy/sdl2.txt
-	sed -n 5,26p extracted/$(SDL2_GFX)/SDL2_gfxPrimitives.h            > copy/sdl2-gfx.txt
-	sed -n 2,19p extracted/$(SDL2_IMAGE)/SDL_image.h        | cut -c3- > copy/sdl2-image.txt
-	sed -n 2,19p extracted/$(SDL2_MIXER)/SDL_mixer.h        | cut -c3- > copy/sdl2-mixer.txt
-	sed -n 2,20p extracted/$(SDL2_NET)/SDL_net.h            | cut -c3- > copy/sdl2-net.txt
-	sed -n 2,19p extracted/$(SDL2_TTF)/SDL_ttf.h            | cut -c3- > copy/sdl2-ttf.txt
+	sed -n 2,19p extracted/$(SDL2_MAIN)/include/SDL.h       | cut -c3- > sdl2.tmp
+	sed -n 5,26p extracted/$(SDL2_GFX)/SDL2_gfxPrimitives.h            > sdl2-gfx.tmp
+	sed -n 2,19p extracted/$(SDL2_IMAGE)/SDL_image.h        | cut -c3- > sdl2-image.tmp
+	sed -n 2,19p extracted/$(SDL2_MIXER)/SDL_mixer.h        | cut -c3- > sdl2-mixer.tmp
+	sed -n 2,20p extracted/$(SDL2_NET)/SDL_net.h            | cut -c3- > sdl2-net.tmp
+	sed -n 2,19p extracted/$(SDL2_TTF)/SDL_ttf.h            | cut -c3- > sdl2-ttf.tmp
 
 	mkdir -p inc/SDL2
 	$(FBFROG) sdl.fbfrog sdl2.fbfrog \
@@ -1305,16 +1336,18 @@ sdl2: winapi-extract
 		-inclib SDL2_net   inc/SDL2/SDL_net.bi \
 		-inclib SDL2_ttf   inc/SDL2/SDL_ttf.bi \
 		\
-		-title $(SDL2_MAIN)  copy/sdl2.txt       copy/fbteam.txt inc/SDL2/SDL.bi \
-		-title $(SDL2_GFX)   copy/sdl2-gfx.txt   copy/fbteam.txt inc/SDL2/SDL2_gfx_framerate.bi \
-		-title $(SDL2_GFX)   copy/sdl2-gfx.txt   copy/fbteam.txt inc/SDL2/SDL2_gfx_imageFilter.bi \
-		-title $(SDL2_GFX)   copy/sdl2-gfx.txt   copy/fbteam.txt inc/SDL2/SDL2_gfx_primitives.bi \
-		-title $(SDL2_GFX)   copy/sdl2-gfx.txt   copy/fbteam.txt inc/SDL2/SDL2_gfx_primitives_font.bi \
-		-title $(SDL2_GFX)   copy/sdl2-gfx.txt   copy/fbteam.txt inc/SDL2/SDL2_gfx_rotozoom.bi \
-		-title $(SDL2_IMAGE) copy/sdl2-image.txt copy/fbteam.txt inc/SDL2/SDL_image.bi \
-		-title $(SDL2_MIXER) copy/sdl2-mixer.txt copy/fbteam.txt inc/SDL2/SDL_mixer.bi \
-		-title $(SDL2_NET)   copy/sdl2-net.txt   copy/fbteam.txt inc/SDL2/SDL_net.bi \
-		-title $(SDL2_TTF)   copy/sdl2-ttf.txt   copy/fbteam.txt inc/SDL2/SDL_ttf.bi
+		-title $(SDL2_MAIN)  sdl2.tmp       fbteam.txt inc/SDL2/SDL.bi \
+		-title $(SDL2_GFX)   sdl2-gfx.tmp   fbteam.txt inc/SDL2/SDL2_gfx_framerate.bi \
+		-title $(SDL2_GFX)   sdl2-gfx.tmp   fbteam.txt inc/SDL2/SDL2_gfx_imageFilter.bi \
+		-title $(SDL2_GFX)   sdl2-gfx.tmp   fbteam.txt inc/SDL2/SDL2_gfx_primitives.bi \
+		-title $(SDL2_GFX)   sdl2-gfx.tmp   fbteam.txt inc/SDL2/SDL2_gfx_primitives_font.bi \
+		-title $(SDL2_GFX)   sdl2-gfx.tmp   fbteam.txt inc/SDL2/SDL2_gfx_rotozoom.bi \
+		-title $(SDL2_IMAGE) sdl2-image.tmp fbteam.txt inc/SDL2/SDL_image.bi \
+		-title $(SDL2_MIXER) sdl2-mixer.tmp fbteam.txt inc/SDL2/SDL_mixer.bi \
+		-title $(SDL2_NET)   sdl2-net.tmp   fbteam.txt inc/SDL2/SDL_net.bi \
+		-title $(SDL2_TTF)   sdl2-ttf.tmp   fbteam.txt inc/SDL2/SDL_ttf.bi
+
+	rm *.tmp
 
 #
 # libtre - regex matching library, provides an implementation of the POSIX
@@ -1336,7 +1369,7 @@ TRE := tre-0.8.0
 tre:
 	./get.sh $(TRE) $(TRE).tar.bz2 "http://laurikari.net/tre/$(TRE).tar.bz2"
 
-	cat extracted/$(TRE)/LICENSE > copy/tre.txt
+	cat extracted/$(TRE)/LICENSE > tre.tmp
 
 	mkdir -p inc/tre
 	$(FBFROG) tre.fbfrog \
@@ -1345,7 +1378,9 @@ tre:
 		-emit '*/tre.h'   inc/tre/tre.bi \
 		-emit '*/regex.h' inc/tre/regex.bi \
 		-inclib tre       inc/tre/tre.bi \
-		-title $(TRE) copy/tre.txt copy/fbteam.txt
+		-title $(TRE) tre.tmp fbteam.txt
+
+	rm *.tmp
 
 ################################################################################
 # Windows API, based on MinGW-w64 headers
@@ -1439,9 +1474,6 @@ winapi-extract:
 		sed -e 's/MINGW_HAS_DX$$/1/g' < sdks/_mingw_directx.h.in > sdks/_mingw_directx.h && \
 		sed -e 's/MINGW_HAS_DDK$$/1/g' < sdks/_mingw_ddk.h.in > sdks/_mingw_ddk.h
 
-	sed -n 2,42p extracted/$(MINGWW64_TITLE)/DISCLAIMER | cut -c2- > copy/mingw-w64-disclaimer.txt
-	sed -n 2,9p  extracted/$(MINGWW64_TITLE)/DISCLAIMER.PD | cut -c4- > copy/mingw-w64-disclaimer-pd.txt
-
 	./winapi-emits-gen.sh
 	./winapi-titles-gen.sh extracted/$(MINGWW64_TITLE) $(MINGWW64_TITLE)
 
@@ -1454,6 +1486,8 @@ winapi-main: winapi-extract
 	# Main pass - winsock2.h, windows.h, Direct3D/DirectX 9
 	# winsock2.h has to be #included before windows.h in order to override
 	# winsock.h.
+	sed -n 2,42p extracted/$(MINGWW64_TITLE)/DISCLAIMER    | cut -c2- > mingw-w64-disclaimer.tmp
+	sed -n 2,9p  extracted/$(MINGWW64_TITLE)/DISCLAIMER.PD | cut -c4- > mingw-w64-disclaimer-pd.tmp
 	sed -n 3,17p extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/amaudio.h     | cut -c4- > amaudio.tmp
 	sed -n 2,16p extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/amvideo.idl   | cut -c4- > amvideo.tmp
 	sed -n 3,18p extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/d3d9.h        | cut -c4- > d3d9.tmp
@@ -1600,49 +1634,53 @@ winapi-main: winapi-extract
 		winapi-emits-custom.fbfrog \
 		winapi-titles-generated.fbfrog \
 		\
-		-title $(MINGWW64_TITLE) amaudio.tmp     copy/fbteam.txt inc/win/amaudio.bi \
-		-title $(MINGWW64_TITLE) amvideo.tmp     copy/fbteam.txt inc/win/amvideo.bi \
-		-title $(MINGWW64_TITLE) d3d9.tmp        copy/fbteam.txt inc/win/d3d9.bi \
-		-title $(MINGWW64_TITLE) d3d9caps.tmp    copy/fbteam.txt inc/win/d3d9caps.bi \
-		-title $(MINGWW64_TITLE) d3d9types.tmp   copy/fbteam.txt inc/win/d3d9types.bi \
-		-title $(MINGWW64_TITLE) d3dx9anim.tmp   copy/fbteam.txt inc/win/d3dx9anim.bi \
-		-title $(MINGWW64_TITLE) d3dx9.tmp       copy/fbteam.txt inc/win/d3dx9.bi \
-		-title $(MINGWW64_TITLE) d3dx9core.tmp   copy/fbteam.txt inc/win/d3dx9core.bi \
-		-title $(MINGWW64_TITLE) d3dx9effect.tmp copy/fbteam.txt inc/win/d3dx9effect.bi \
-		-title $(MINGWW64_TITLE) d3dx9math.tmp   copy/fbteam.txt inc/win/d3dx9math.bi \
-		-title $(MINGWW64_TITLE) d3dx9mesh.tmp   copy/fbteam.txt inc/win/d3dx9mesh.bi \
-		-title $(MINGWW64_TITLE) d3dx9shader.tmp copy/fbteam.txt inc/win/d3dx9shader.bi \
-		-title $(MINGWW64_TITLE) d3dx9shape.tmp  copy/fbteam.txt inc/win/d3dx9shape.bi \
-		-title $(MINGWW64_TITLE) d3dx9tex.tmp    copy/fbteam.txt inc/win/d3dx9tex.bi \
-		-title $(MINGWW64_TITLE) d3dx9xof.tmp    copy/fbteam.txt inc/win/d3dx9xof.bi \
-		-title $(MINGWW64_TITLE) ddraw.tmp       copy/fbteam.txt inc/win/ddraw.bi \
-		-title $(MINGWW64_TITLE) dinput.tmp      copy/fbteam.txt inc/win/dinput.bi \
-		-title $(MINGWW64_TITLE) dls1.tmp        copy/fbteam.txt inc/win/dls1.bi \
-		-title $(MINGWW64_TITLE) dmdls.tmp       copy/fbteam.txt inc/win/dmdls.bi \
-		-title $(MINGWW64_TITLE) dmerror.tmp     copy/fbteam.txt inc/win/dmerror.bi \
-		-title $(MINGWW64_TITLE) dmplugin.tmp    copy/fbteam.txt inc/win/dmplugin.bi \
-		-title $(MINGWW64_TITLE) dmusbuff.tmp    copy/fbteam.txt inc/win/dmusbuff.bi \
-		-title $(MINGWW64_TITLE) dmusicc.tmp     copy/fbteam.txt inc/win/dmusicc.bi \
-		-title $(MINGWW64_TITLE) dmusicf.tmp     copy/fbteam.txt inc/win/dmusicf.bi \
-		-title $(MINGWW64_TITLE) dmusici.tmp     copy/fbteam.txt inc/win/dmusici.bi \
-		-title $(MINGWW64_TITLE) dmusics.tmp     copy/fbteam.txt inc/win/dmusics.bi \
-		-title $(MINGWW64_TITLE) dpaddr.tmp      copy/fbteam.txt inc/win/dpaddr.bi \
-		-title $(MINGWW64_TITLE) dplay8.tmp      copy/fbteam.txt inc/win/dplay8.bi \
-		-title $(MINGWW64_TITLE) dplay.tmp       copy/fbteam.txt inc/win/dplay.bi \
-		-title $(MINGWW64_TITLE) dplobby8.tmp    copy/fbteam.txt inc/win/dplobby8.bi \
-		-title $(MINGWW64_TITLE) dplobby.tmp     copy/fbteam.txt inc/win/dplobby.bi \
-		-title $(MINGWW64_TITLE) dshow.tmp       copy/fbteam.txt inc/win/dshow.bi \
-		-title $(MINGWW64_TITLE) dsound.tmp      copy/fbteam.txt inc/win/dsound.bi \
-		-title $(MINGWW64_TITLE) copy/mingw-w64-disclaimer-pd.txt copy/fbteam.txt inc/win/dvdevcod.bi \
-		-title $(MINGWW64_TITLE) dxerr8.tmp      copy/fbteam.txt inc/win/dxerr8.bi \
-		-title $(MINGWW64_TITLE) dxerr9.tmp      copy/fbteam.txt inc/win/dxerr9.bi \
-		-title $(MINGWW64_TITLE) copy/mingw-w64-disclaimer-pd.txt copy/fbteam.txt inc/win/edevdefs.bi \
-		-title $(MINGWW64_TITLE) errors.tmp      copy/fbteam.txt inc/win/errors.bi \
-		-title $(MINGWW64_TITLE) evcode.tmp      copy/fbteam.txt inc/win/evcode.bi \
-		-title $(MINGWW64_TITLE) vfwmsgs.tmp     copy/fbteam.txt inc/win/vfwmsgs.bi
+		-title $(MINGWW64_TITLE) amaudio.tmp     fbteam.txt inc/win/amaudio.bi \
+		-title $(MINGWW64_TITLE) amvideo.tmp     fbteam.txt inc/win/amvideo.bi \
+		-title $(MINGWW64_TITLE) d3d9.tmp        fbteam.txt inc/win/d3d9.bi \
+		-title $(MINGWW64_TITLE) d3d9caps.tmp    fbteam.txt inc/win/d3d9caps.bi \
+		-title $(MINGWW64_TITLE) d3d9types.tmp   fbteam.txt inc/win/d3d9types.bi \
+		-title $(MINGWW64_TITLE) d3dx9anim.tmp   fbteam.txt inc/win/d3dx9anim.bi \
+		-title $(MINGWW64_TITLE) d3dx9.tmp       fbteam.txt inc/win/d3dx9.bi \
+		-title $(MINGWW64_TITLE) d3dx9core.tmp   fbteam.txt inc/win/d3dx9core.bi \
+		-title $(MINGWW64_TITLE) d3dx9effect.tmp fbteam.txt inc/win/d3dx9effect.bi \
+		-title $(MINGWW64_TITLE) d3dx9math.tmp   fbteam.txt inc/win/d3dx9math.bi \
+		-title $(MINGWW64_TITLE) d3dx9mesh.tmp   fbteam.txt inc/win/d3dx9mesh.bi \
+		-title $(MINGWW64_TITLE) d3dx9shader.tmp fbteam.txt inc/win/d3dx9shader.bi \
+		-title $(MINGWW64_TITLE) d3dx9shape.tmp  fbteam.txt inc/win/d3dx9shape.bi \
+		-title $(MINGWW64_TITLE) d3dx9tex.tmp    fbteam.txt inc/win/d3dx9tex.bi \
+		-title $(MINGWW64_TITLE) d3dx9xof.tmp    fbteam.txt inc/win/d3dx9xof.bi \
+		-title $(MINGWW64_TITLE) ddraw.tmp       fbteam.txt inc/win/ddraw.bi \
+		-title $(MINGWW64_TITLE) dinput.tmp      fbteam.txt inc/win/dinput.bi \
+		-title $(MINGWW64_TITLE) dls1.tmp        fbteam.txt inc/win/dls1.bi \
+		-title $(MINGWW64_TITLE) dmdls.tmp       fbteam.txt inc/win/dmdls.bi \
+		-title $(MINGWW64_TITLE) dmerror.tmp     fbteam.txt inc/win/dmerror.bi \
+		-title $(MINGWW64_TITLE) dmplugin.tmp    fbteam.txt inc/win/dmplugin.bi \
+		-title $(MINGWW64_TITLE) dmusbuff.tmp    fbteam.txt inc/win/dmusbuff.bi \
+		-title $(MINGWW64_TITLE) dmusicc.tmp     fbteam.txt inc/win/dmusicc.bi \
+		-title $(MINGWW64_TITLE) dmusicf.tmp     fbteam.txt inc/win/dmusicf.bi \
+		-title $(MINGWW64_TITLE) dmusici.tmp     fbteam.txt inc/win/dmusici.bi \
+		-title $(MINGWW64_TITLE) dmusics.tmp     fbteam.txt inc/win/dmusics.bi \
+		-title $(MINGWW64_TITLE) dpaddr.tmp      fbteam.txt inc/win/dpaddr.bi \
+		-title $(MINGWW64_TITLE) dplay8.tmp      fbteam.txt inc/win/dplay8.bi \
+		-title $(MINGWW64_TITLE) dplay.tmp       fbteam.txt inc/win/dplay.bi \
+		-title $(MINGWW64_TITLE) dplobby8.tmp    fbteam.txt inc/win/dplobby8.bi \
+		-title $(MINGWW64_TITLE) dplobby.tmp     fbteam.txt inc/win/dplobby.bi \
+		-title $(MINGWW64_TITLE) dshow.tmp       fbteam.txt inc/win/dshow.bi \
+		-title $(MINGWW64_TITLE) dsound.tmp      fbteam.txt inc/win/dsound.bi \
+		-title $(MINGWW64_TITLE) mingw-w64-disclaimer-pd.tmp fbteam.txt inc/win/dvdevcod.bi \
+		-title $(MINGWW64_TITLE) dxerr8.tmp      fbteam.txt inc/win/dxerr8.bi \
+		-title $(MINGWW64_TITLE) dxerr9.tmp      fbteam.txt inc/win/dxerr9.bi \
+		-title $(MINGWW64_TITLE) mingw-w64-disclaimer-pd.tmp fbteam.txt inc/win/edevdefs.bi \
+		-title $(MINGWW64_TITLE) errors.tmp      fbteam.txt inc/win/errors.bi \
+		-title $(MINGWW64_TITLE) evcode.tmp      fbteam.txt inc/win/evcode.bi \
+		-title $(MINGWW64_TITLE) vfwmsgs.tmp     fbteam.txt inc/win/vfwmsgs.bi
+
 	rm *.tmp
 
 winapi-rest: winapi-extract
+	sed -n 2,42p extracted/$(MINGWW64_TITLE)/DISCLAIMER    | cut -c2- > mingw-w64-disclaimer.tmp
+	sed -n 2,9p  extracted/$(MINGWW64_TITLE)/DISCLAIMER.PD | cut -c4- > mingw-w64-disclaimer-pd.tmp
+
 	# Direct3D 7 (?) pass
 	sed -n 3,17p extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/d3d.h      | cut -c4- > d3d.tmp
 	sed -n 2,16p extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/d3dcaps.h  | cut -c4- > d3dcaps.tmp
@@ -1661,20 +1699,19 @@ winapi-rest: winapi-extract
 		-emit '*/d3drmobj.h' inc/win/d3drmobj.bi \
 		-inclib dxguid       inc/win/d3d.bi \
 		-inclib d3drm        inc/win/d3drm.bi \
-		-title $(MINGWW64_TITLE) d3d.tmp      copy/fbteam.txt inc/win/d3d.bi      \
-		-title $(MINGWW64_TITLE) d3dcaps.tmp  copy/fbteam.txt inc/win/d3dcaps.bi  \
-		-title $(MINGWW64_TITLE) d3dtypes.tmp copy/fbteam.txt inc/win/d3dtypes.bi \
-		-title $(MINGWW64_TITLE) d3drm.tmp    copy/fbteam.txt inc/win/d3drm.bi    \
-		-title $(MINGWW64_TITLE) d3drmdef.tmp copy/fbteam.txt inc/win/d3drmdef.bi \
-		-title $(MINGWW64_TITLE) d3drmobj.tmp copy/fbteam.txt inc/win/d3drmobj.bi
-	rm *.tmp
+		-title $(MINGWW64_TITLE) d3d.tmp      fbteam.txt inc/win/d3d.bi      \
+		-title $(MINGWW64_TITLE) d3dcaps.tmp  fbteam.txt inc/win/d3dcaps.bi  \
+		-title $(MINGWW64_TITLE) d3dtypes.tmp fbteam.txt inc/win/d3dtypes.bi \
+		-title $(MINGWW64_TITLE) d3drm.tmp    fbteam.txt inc/win/d3drm.bi    \
+		-title $(MINGWW64_TITLE) d3drmdef.tmp fbteam.txt inc/win/d3drmdef.bi \
+		-title $(MINGWW64_TITLE) d3drmobj.tmp fbteam.txt inc/win/d3drmobj.bi
 
 	# CRT intrin.h pass (separate because of -nofunctionbodies)
 	$(FBFROG) $(WINAPI_FLAGS) -nofunctionbodies \
 		-include windows.h \
 		-emit '*/intrin.h'               inc/win/intrin.bi \
 		-emit '*/psdk_inc/intrin-impl.h' inc/win/intrin.bi \
-		 -title $(MINGWW64_TITLE) copy/mingw-w64-disclaimer-pd.txt copy/fbteam.txt inc/win/intrin.bi
+		 -title $(MINGWW64_TITLE) mingw-w64-disclaimer-pd.tmp fbteam.txt inc/win/intrin.bi
 
 	# winsock.h pass (separate because it can't be used together with
 	# winsock2.h)
@@ -1689,7 +1726,7 @@ winapi-rest: winapi-extract
 		-emit '*/psdk_inc/_xmitfile.h'     inc/win/winsock.bi \
 		-emit '*/psdk_inc/_wsa_errnos.h'   inc/win/winsock.bi \
 		-inclib wsock32                    inc/win/winsock.bi \
-		 -title $(MINGWW64_TITLE) copy/mingw-w64-disclaimer-pd.txt copy/fbteam.txt inc/win/winsock.bi
+		 -title $(MINGWW64_TITLE) mingw-w64-disclaimer-pd.tmp fbteam.txt inc/win/winsock.bi
 
 	# ole.h pass (separate because it can't be #included with windows.h,
 	# even though windows.h has code to do just that, due to conflicts with
@@ -1698,7 +1735,7 @@ winapi-rest: winapi-extract
 		-include windef.h -include ole.h \
 		-emit '*/ole.h' inc/win/ole.bi \
 		-inclib ole32   inc/win/ole.bi \
-		 -title $(MINGWW64_TITLE) copy/mingw-w64-disclaimer.txt copy/fbteam.txt inc/win/ole.bi
+		 -title $(MINGWW64_TITLE) mingw-w64-disclaimer.tmp fbteam.txt inc/win/ole.bi
 
 	# windows.h pass to get windows.bi (separate because of the additional
 	# -declarebool that would only slow down the main pass)
@@ -1711,14 +1748,15 @@ winapi-rest: winapi-extract
 		\
 		-include windows.h \
 		-emit '*/windows.h' inc/windows.bi \
-		 -title $(MINGWW64_TITLE) copy/mingw-w64-disclaimer-pd.txt copy/fbteam.txt inc/windows.bi
+		 -title $(MINGWW64_TITLE) mingw-w64-disclaimer-pd.tmp fbteam.txt inc/windows.bi
 
 	# DDK pass
 	sed -n 2,17p extracted/$(MINGWW64_TITLE)/mingw-w64-headers/include/ntdef.h | cut -c4- > ntdef.tmp
 	$(FBFROG) $(WINAPI_FLAGS) \
 		-include ntdef.h \
 		-emit '*/ntdef.h' inc/win/ntdef.bi \
-		 -title $(MINGWW64_TITLE) ntdef.tmp copy/fbteam.txt inc/win/ntdef.bi
+		 -title $(MINGWW64_TITLE) ntdef.tmp fbteam.txt inc/win/ntdef.bi
+
 	rm *.tmp
 
 ################################################################################
@@ -2476,16 +2514,16 @@ zip:
 	cd extracted/$(ZIP_TITLE) && \
 		if [ ! -f lib/zipconf.h ]; then ./configure && make; fi
 
-	$(GETCOMMENT) extracted/$(ZIP_TITLE)/lib/zip.h > copy/zip.txt
-
+	$(GETCOMMENT) extracted/$(ZIP_TITLE)/lib/zip.h > zip.tmp
 	$(FBFROG) zip.fbfrog -o inc extracted/$(ZIP_TITLE)/lib/zip.h \
-		-title $(ZIP_TITLE) copy/zip.txt copy/fbteam.txt
+		-title $(ZIP_TITLE) zip.tmp fbteam.txt
+	rm *.tmp
 
 ZLIB_TITLE := zlib-1.2.8
 zlib:
 	./get.sh $(ZLIB_TITLE) $(ZLIB_TITLE).tar.xz "http://zlib.net/$(ZLIB_TITLE).tar.xz"
 
-	sed -n 1,29p extracted/$(ZLIB_TITLE)/zlib.h > copy/zlib.txt
-
+	sed -n 1,29p extracted/$(ZLIB_TITLE)/zlib.h > zlib.tmp
 	$(FBFROG) zlib.fbfrog -o inc extracted/$(ZLIB_TITLE)/zlib.h \
-		-title $(ZLIB_TITLE) copy/zlib.txt copy/fbteam.txt
+		-title $(ZLIB_TITLE) zlib.tmp fbteam.txt
+	rm *.tmp
