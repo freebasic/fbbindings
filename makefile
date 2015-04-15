@@ -974,7 +974,6 @@ opengl-mesa:
 
 opengl-winapi: winapi-extract
 
-	sed -n 2,9p  extracted/$(MINGWW64_TITLE)/DISCLAIMER.PD | cut -c4- > copy/mingw-w64-public.txt
 	sed -n 9,28p extracted/$(MINGWW64_TITLE)/mingw-w64-headers/include/GL/glext.h | cut -c4- > copy/mingw-w64-glext.txt
 
 	mkdir -p inc/GL/windows
@@ -987,8 +986,8 @@ opengl-winapi: winapi-extract
 		-emit '*/GL/gl.h'    inc/GL/windows/gl.bi \
 		-emit '*/GL/glext.h' inc/GL/windows/glext.bi \
 		-emit '*/GL/glu.h'   inc/GL/windows/glu.bi \
-		-title $(MINGWW64_TITLE) copy/mingw-w64-public.txt copy/fbteam.txt \
-		-title $(MINGWW64_TITLE) copy/mingw-w64-glext.txt  copy/fbteam.txt inc/GL/windows/glext.bi
+		-title $(MINGWW64_TITLE) copy/mingw-w64-disclaimer-pd.txt copy/fbteam.txt \
+		-title $(MINGWW64_TITLE) copy/mingw-w64-glext.txt copy/fbteam.txt inc/GL/windows/glext.bi
 
 PANGO_SERIES := 1.36
 PANGO := pango-$(PANGO_SERIES).8
@@ -1429,17 +1428,66 @@ WINAPI_FLAGS += -incdir extracted/$(MINGWW64_TITLE)/mingw-w64-headers/include
 WINAPI_FLAGS += -incdir extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include
 winapi-extract:
 	./get.sh $(MINGWW64_TITLE) $(MINGWW64_TITLE).tar.bz2 "http://sourceforge.net/projects/mingw-w64/files/mingw-w64/mingw-w64-release/$(MINGWW64_TITLE).tar.bz2/download"
+
 	cd extracted/$(MINGWW64_TITLE)/mingw-w64-headers/crt && \
 		sed -e 's/@MINGW_HAS_SECURE_API@/#define MINGW_HAS_SECURE_API 1/g' < _mingw.h.in > _mingw.h && \
 		sed -e 's/MINGW_HAS_DX$$/1/g' < sdks/_mingw_directx.h.in > sdks/_mingw_directx.h && \
 		sed -e 's/MINGW_HAS_DDK$$/1/g' < sdks/_mingw_ddk.h.in > sdks/_mingw_ddk.h
-winapi: winapi-extract
+
+	sed -n 2,42p extracted/$(MINGWW64_TITLE)/DISCLAIMER | cut -c2- > copy/mingw-w64-disclaimer.txt
+	sed -n 2,9p  extracted/$(MINGWW64_TITLE)/DISCLAIMER.PD | cut -c4- > copy/mingw-w64-disclaimer-pd.txt
+
+	./winapi-emits-gen.sh
+	./winapi-titles-gen.sh extracted/$(MINGWW64_TITLE) $(MINGWW64_TITLE)
+
 	mkdir -p inc/win
+
+winapi: winapi-main winapi-rest
+
+winapi-main: winapi-extract
 
 	# Main pass - winsock2.h, windows.h, Direct3D/DirectX 9
 	# winsock2.h has to be #included before windows.h in order to override
 	# winsock.h.
-	$(FBFROG) $(WINAPI_FLAGS) -title $(MINGWW64_TITLE) \
+	sed -n 3,17p extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/amaudio.h     | cut -c4- > amaudio.tmp
+	sed -n 2,16p extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/amvideo.idl   | cut -c4- > amvideo.tmp
+	sed -n 3,18p extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/d3d9.h        | cut -c4- > d3d9.tmp
+	sed -n 2,17p extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/d3d9caps.h    | cut -c4- > d3d9caps.tmp
+	sed -n 2,18p extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/d3d9types.h   | cut -c4- > d3d9types.tmp
+	sed -n 4,18p extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/d3dx9anim.h   | cut -c4- > d3dx9anim.tmp
+	sed -n 2,16p extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/d3dx9.h       | cut -c4- > d3dx9.tmp
+	sed -n 4,18p extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/d3dx9core.h   | cut -c4- > d3dx9core.tmp
+	sed -n 4,18p extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/d3dx9effect.h | cut -c4- > d3dx9effect.tmp
+	sed -n 3,18p extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/d3dx9math.h   | cut -c4- > d3dx9math.tmp
+	sed -n 4,19p extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/d3dx9mesh.h   | cut -c4- > d3dx9mesh.tmp
+	sed -n 4,19p extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/d3dx9shader.h | cut -c4- > d3dx9shader.tmp
+	sed -n 3,17p extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/d3dx9shape.h  | cut -c4- > d3dx9shape.tmp
+	sed -n 3,17p extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/d3dx9tex.h    | cut -c4- > d3dx9tex.tmp
+	sed -n 3,17p extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/d3dx9xof.h    | cut -c4- > d3dx9xof.tmp
+	sed -n 2,16p extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/ddraw.h       | cut -c4- > ddraw.tmp
+	sed -n 2,16p extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/dinput.h      | cut -c4- > dinput.tmp
+	sed -n 3,17p extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/dls1.h        | cut -c4- > dls1.tmp
+	sed -n 3,17p extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/dmdls.h       | cut -c4- > dmdls.tmp
+	sed -n 3,17p extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/dmerror.h     | cut -c4- > dmerror.tmp
+	sed -n 5,19p extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/dmplugin.h    | cut -c5- > dmplugin.tmp
+	sed -n 3,17p extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/dmusbuff.h    | cut -c4- > dmusbuff.tmp
+	sed -n 4,18p extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/dmusicc.h     | cut -c4- > dmusicc.tmp
+	sed -n 4,18p extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/dmusicf.h     | cut -c5- > dmusicf.tmp
+	sed -n 5,19p extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/dmusici.h     | cut -c5- > dmusici.tmp
+	sed -n 5,19p extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/dmusics.h     | cut -c5- > dmusics.tmp
+	sed -n 3,17p extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/dpaddr.h      | cut -c4- > dpaddr.tmp
+	sed -n 3,17p extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/dplay8.h      | cut -c4- > dplay8.tmp
+	sed -n 3,17p extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/dplay.h       | cut -c4- > dplay.tmp
+	sed -n 3,17p extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/dplobby8.h    | cut -c4- > dplobby8.tmp
+	sed -n 4,19p extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/dplobby.h     | cut -c4- > dplobby.tmp
+	sed -n 2,16p extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/dshow.h       | cut -c4- > dshow.tmp
+	sed -n 4,18p extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/dsound.h      | cut -c4- > dsound.tmp
+	sed -n 3,17p extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/dxerr8.h      | cut -c4- > dxerr8.tmp
+	sed -n 3,17p extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/dxerr9.h      | cut -c4- > dxerr9.tmp
+	sed -n 3,17p extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/errors.h      | cut -c4- > errors.tmp
+	sed -n 2,16p extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/evcode.h      | cut -c4- > evcode.tmp
+	sed -n 2,16p extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/vfwmsgs.h     | cut -c4- > vfwmsgs.tmp
+	$(FBFROG) $(WINAPI_FLAGS) \
 		-include winsock2.h \
 		\
 		-include aclapi.h \
@@ -1542,372 +1590,61 @@ winapi: winapi-extract
 		\
 		-include initguid.h \
 		\
-		-emit '*/accctrl.h'                inc/win/accctrl.bi \
-		-emit '*/aclapi.h'                 inc/win/aclapi.bi \
-		-emit '*/aclui.h'                  inc/win/aclui.bi \
-		-emit '*/adtgen.h'                 inc/win/adtgen.bi \
-		-emit '*/apiset.h'                 inc/win/apiset.bi \
-		-emit '*/audevcod.h'               inc/win/audevcod.bi \
-		-emit '*/authz.h'                  inc/win/authz.bi \
-		-emit '*/basetsd.h'                inc/win/basetsd.bi \
-		-emit '*/basetyps.h'               inc/win/basetyps.bi \
-		-emit '*/bcrypt.h'                 inc/win/bcrypt.bi \
-		-emit '*/bemapiset.h'              inc/win/winbase.bi \
-		-emit '*/_bsd_types.h'             inc/win/_bsd_types.bi \
-		-emit '*/cderr.h'                  inc/win/cderr.bi \
-		-emit '*/cguid.h'                  inc/win/cguid.bi \
-		-emit '*/combaseapi.h'             inc/win/combaseapi.bi \
-		-emit '*/comcat.h'                 inc/win/comcat.bi \
-		-emit '*/commctrl.h'               inc/win/commctrl.bi \
-		-emit '*/commdlg.h'                inc/win/commdlg.bi \
-		-emit '*/control.h'                inc/win/control.bi \
-		-emit '*/cplext.h'                 inc/win/cplext.bi \
-		-emit '*/cpl.h'                    inc/win/cpl.bi \
-		-emit '*/crtdefs.h'                inc/win/crtdefs.bi \
-		-emit '*/custcntl.h'               inc/win/custcntl.bi \
-		-emit '*/datetimeapi.h'            inc/win/winnls.bi \
-		-emit '*/dbt.h'                    inc/win/dbt.bi \
-		-emit '*/dde.h'                    inc/win/dde.bi \
-		-emit '*/ddeml.h'                  inc/win/ddeml.bi \
-		-emit '*/debugapi.h'               inc/win/winbase.bi \
-		-emit '*/dimm.h'                   inc/win/dimm.bi \
-		-emit '*/dlgs.h'                   inc/win/dlgs.bi \
-		-emit '*/docobj.h'                 inc/win/docobj.bi \
-		-emit '*/dpapi.h'                  inc/win/wincrypt.bi \
-		-emit '*/errhandlingapi.h'         inc/win/winbase.bi \
-		-emit '*/exdisp.h'                 inc/win/exdisp.bi \
-		-emit '*/fibersapi.h'              inc/win/winbase.bi \
-		-emit '*/fileapi.h'                inc/win/winbase.bi \
-		-emit '*/fltwinerror.h'            inc/win/winerror.bi \
-		-emit '*/gdiplus.h'                inc/win/gdiplus.bi \
-		-emit '*/gdiplus*.h'               inc/win/gdiplus.bi \
-		-emit '*/guiddef.h'                inc/win/guiddef.bi \
-		-emit '*/handleapi.h'              inc/win/winbase.bi \
-		-emit '*/heapapi.h'                inc/win/winbase.bi \
-		-emit '*/ifdef.h'                  inc/win/ifdef.bi \
-		-emit '*/imagehlp.h'               inc/win/imagehlp.bi \
-		-emit '*/imm.h'                    inc/win/imm.bi \
-		-emit '*/in6addr.h'                inc/win/in6addr.bi \
-		-emit '*/inaddr.h'                 inc/win/inaddr.bi \
-		-emit '*/initguid.h'               inc/win/initguid.bi \
-		-emit '*/interlockedapi.h'         inc/win/winbase.bi \
-		-emit '*/intshcut.h'               inc/win/intshcut.bi \
-		-emit '*/ioapiset.h'               inc/win/winbase.bi \
-		-emit '*/ipexport.h'               inc/win/ipexport.bi \
-		-emit '*/iphlpapi.h'               inc/win/iphlpapi.bi \
-		-emit '*/ipifcons.h'               inc/win/ipifcons.bi \
-		-emit '*/ipmib.h'                  inc/win/ipmib.bi \
-		-emit '*/iprtrmib.h'               inc/win/iprtrmib.bi \
-		-emit '*/iptypes.h'                inc/win/iptypes.bi \
-		-emit '*/isguids.h'                inc/win/isguids.bi \
-		-emit '*/jobapi.h'                 inc/win/winbase.bi \
-		-emit '*/knownfolders.h'           inc/win/knownfolders.bi \
-		-emit '*/ksuuids.h'                inc/win/uuids.bi \
-		-emit '*/ktmtypes.h'               inc/win/ktmtypes.bi \
-		-emit '*/libloaderapi.h'           inc/win/winbase.bi \
-		-emit '*/lmcons.h'                 inc/win/lmcons.bi \
-		-emit '*/lzexpand.h'               inc/win/lzexpand.bi \
-		-emit '*/mapi.h'                   inc/win/mapi.bi \
-		-emit '*/mcx.h'                    inc/win/mcx.bi \
-		-emit '*/memoryapi.h'              inc/win/winbase.bi \
-		-emit '*/mgmtapi.h'                inc/win/mgmtapi.bi \
-		-emit '*/_mingw.h'                 inc/win/_mingw.bi \
-		-emit '*/_mingw_mac.h'             inc/win/_mingw.bi \
-		-emit '*/_mingw_unicode.h'         inc/win/_mingw_unicode.bi \
-		-emit '*/minwinbase.h'             inc/win/winbase.bi \
-		-emit '*/minwindef.h'              inc/win/windef.bi \
-		-emit '*/mmreg.h'                  inc/win/mmreg.bi \
-		-emit '*/mmsystem.h'               inc/win/mmsystem.bi \
-		-emit '*/mprapi.h'                 inc/win/mprapi.bi \
-		-emit '*/msacm.h'                  inc/win/msacm.bi \
-		-emit '*/mshtmhst.h'               inc/win/mshtmhst.bi \
-		-emit '*/mshtmlc.h'                inc/win/mshtmlc.bi \
-		-emit '*/mshtml.h'                 inc/win/mshtml.bi \
-		-emit '*/mstcpip.h'                inc/win/mstcpip.bi \
-		-emit '*/mswsock.h'                inc/win/mswsock.bi \
-		-emit '*/msxml.h'                  inc/win/msxml.bi \
-		-emit '*/namedpipeapi.h'           inc/win/winbase.bi \
-		-emit '*/namespaceapi.h'           inc/win/winbase.bi \
-		-emit '*/naptypes.h'               inc/win/naptypes.bi \
-		-emit '*/nb30.h'                   inc/win/nb30.bi \
-		-emit '*/ncrypt.h'                 inc/win/ncrypt.bi \
-		-emit '*/netioapi.h'               inc/win/netioapi.bi \
-		-emit '*/nldef.h'                  inc/win/nldef.bi \
-		-emit '*/nspapi.h'                 inc/win/nspapi.bi \
-		-emit '*/ntddndis.h'               inc/win/ntddndis.bi \
-		-emit '*/ntsecapi.h'               inc/win/ntsecapi.bi \
-		-emit '*/ntsecpkg.h'               inc/win/ntsecpkg.bi \
-		-emit '*/oaidl.h'                  inc/win/oaidl.bi \
-		-emit '*/objbase.h'                inc/win/objbase.bi \
-		-emit '*/objectarray.h'            inc/win/objectarray.bi \
-		-emit '*/objidlbase.h'             inc/win/objidlbase.bi \
-		-emit '*/objidl.h'                 inc/win/objidl.bi \
-		-emit '*/objsafe.h'                inc/win/objsafe.bi \
-		-emit '*/ocidl.h'                  inc/win/ocidl.bi \
-		-emit '*/odbcinst.h'               inc/win/odbcinst.bi \
-		-emit '*/ole2.h'                   inc/win/ole2.bi \
-		-emit '*/oleacc.h'                 inc/win/oleacc.bi \
-		-emit '*/oleauto.h'                inc/win/oleauto.bi \
-		-emit '*/olectl.h'                 inc/win/olectl.bi \
-		-emit '*/olectlid.h'               inc/win/olectlid.bi \
-		-emit '*/oledlg.h'                 inc/win/oledlg.bi \
-		-emit '*/oleidl.h'                 inc/win/oleidl.bi \
-		-emit '*/powrprof.h'               inc/win/powrprof.bi \
-		-emit '*/processenv.h'             inc/win/winbase.bi \
-		-emit '*/processthreadsapi.h'      inc/win/winbase.bi \
-		-emit '*/processtopologyapi.h'     inc/win/winbase.bi \
-		-emit '*/profileapi.h'             inc/win/winbase.bi \
-		-emit '*/profinfo.h'               inc/win/profinfo.bi \
-		-emit '*/propidl.h'                inc/win/propidl.bi \
-		-emit '*/propkeydef.h'             inc/win/propkeydef.bi \
-		-emit '*/propsys.h'                inc/win/propsys.bi \
-		-emit '*/prsht.h'                  inc/win/prsht.bi \
-		-emit '*/psapi.h'                  inc/win/psapi.bi \
-		-emit '*/psdk_inc/_dbg_common.h'   inc/win/imagehlp.bi \
-		-emit '*/psdk_inc/_dbg_LOAD_IMAGE.h' inc/win/imagehlp.bi \
-		-emit '*/psdk_inc/_fd_types.h'     inc/win/winsock2.bi \
-		-emit '*/psdk_inc/_ip_mreq1.h'     inc/win/ws2tcpip.bi \
-		-emit '*/psdk_inc/_ip_types.h'     inc/win/winsock2.bi \
-		-emit '*/psdk_inc/_socket_types.h' inc/win/winsock2.bi \
-		-emit '*/psdk_inc/_ws1_undef.h'    inc/win/winsock2.bi \
-		-emit '*/psdk_inc/_wsadata.h'      inc/win/winsock2.bi \
-		-emit '*/psdk_inc/_wsa_errnos.h'   inc/win/winsock2.bi \
-		-emit '*/psdk_inc/_xmitfile.h'     inc/win/mswsock.bi \
-		-emit '*/qos.h'                    inc/win/qos.bi \
-		-emit '*/rasdlg.h'                 inc/win/rasdlg.bi \
-		-emit '*/raserror.h'               inc/win/raserror.bi \
-		-emit '*/ras.h'                    inc/win/ras.bi \
-		-emit '*/rassapi.h'                inc/win/rassapi.bi \
-		-emit '*/realtimeapiset.h'         inc/win/winbase.bi \
-		-emit '*/reason.h'                 inc/win/reason.bi \
-		-emit '*/regstr.h'                 inc/win/regstr.bi \
-		-emit '*/richedit.h'               inc/win/richedit.bi \
-		-emit '*/richole.h'                inc/win/richole.bi \
-		-emit '*/rpcasync.h'               inc/win/rpcasync.bi \
-		-emit '*/rpcdce.h'                 inc/win/rpcdce.bi \
-		-emit '*/rpcdcep.h'                inc/win/rpcdcep.bi \
-		-emit '*/rpc.h'                    inc/win/rpc.bi \
-		-emit '*/rpcndr.h'                 inc/win/rpcndr.bi \
-		-emit '*/rpcnsi.h'                 inc/win/rpcnsi.bi \
-		-emit '*/rpcnsip.h'                inc/win/rpcnsip.bi \
-		-emit '*/rpcnterr.h'               inc/win/rpcnterr.bi \
-		-emit '*/schannel.h'               inc/win/schannel.bi \
-		-emit '*/schemadef.h'              inc/win/schemadef.bi \
-		-emit '*/schnlsp.h'                inc/win/schnlsp.bi \
-		-emit '*/scrnsave.h'               inc/win/scrnsave.bi \
-		-emit '*/sdks/_mingw_ddk.h'        inc/win/_mingw.bi \
-		-emit '*/sdks/_mingw_directx.h'    inc/win/_mingw.bi \
-		-emit '*/secext.h'                 inc/win/secext.bi \
-		-emit '*/securityappcontainer.h'   inc/win/winbase.bi \
-		-emit '*/securitybaseapi.h'        inc/win/winbase.bi \
-		-emit '*/security.h'               inc/win/security.bi \
-		-emit '*/servprov.h'               inc/win/servprov.bi \
-		-emit '*/setupapi.h'               inc/win/setupapi.bi \
-		-emit '*/shellapi.h'               inc/win/shellapi.bi \
-		-emit '*/sherrors.h'               inc/win/sherrors.bi \
-		-emit '*/shldisp.h'                inc/win/shldisp.bi \
-		-emit '*/shlguid.h'                inc/win/shlguid.bi \
-		-emit '*/shlobj.h'                 inc/win/shlobj.bi \
-		-emit '*/shlwapi.h'                inc/win/shlwapi.bi \
-		-emit '*/shobjidl.h'               inc/win/shobjidl.bi \
-		-emit '*/shtypes.h'                inc/win/shtypes.bi \
-		-emit '*/snmp.h'                   inc/win/snmp.bi \
-		-emit '*/sqlext.h'                 inc/win/sqlext.bi \
-		-emit '*/sql.h'                    inc/win/sql.bi \
-		-emit '*/sqltypes.h'               inc/win/sqltypes.bi \
-		-emit '*/sqlucode.h'               inc/win/sqlucode.bi \
-		-emit '*/sspi.h'                   inc/win/sspi.bi \
-		-emit '*/stringapiset.h'           inc/win/winnls.bi \
-		-emit '*/strmif.h'                 inc/win/strmif.bi \
-		-emit '*/strsafe.h'                inc/win/strsafe.bi \
-		-emit '*/structuredquerycondition.h' inc/win/structuredquerycondition.bi \
-		-emit '*/subauth.h'                inc/win/subauth.bi \
-		-emit '*/synchapi.h'               inc/win/winbase.bi \
-		-emit '*/sysinfoapi.h'             inc/win/winbase.bi \
-		-emit '*/systemtopologyapi.h'      inc/win/winbase.bi \
-		-emit '*/tcpestats.h'              inc/win/tcpestats.bi \
-		-emit '*/tcpmib.h'                 inc/win/tcpmib.bi \
-		-emit '*/threadpoolapiset.h'       inc/win/winbase.bi \
-		-emit '*/threadpoollegacyapiset.h' inc/win/winbase.bi \
-		-emit '*/timezoneapi.h'            inc/win/winbase.bi \
-		-emit '*/tlhelp32.h'               inc/win/tlhelp32.bi \
-		-emit '*/tmschema.h'               inc/win/tmschema.bi \
-		-emit '*/tvout.h'                  inc/win/winuser.bi \
-		-emit '*/udpmib.h'                 inc/win/udpmib.bi \
-		-emit '*/unknwnbase.h'             inc/win/unknwnbase.bi \
-		-emit '*/unknwn.h'                 inc/win/unknwn.bi \
-		-emit '*/urlmon.h'                 inc/win/urlmon.bi \
-		-emit '*/userenv.h'                inc/win/userenv.bi \
-		-emit '*/utilapiset.h'             inc/win/winbase.bi \
-		-emit '*/uuids.h'                  inc/win/uuids.bi \
-		-emit '*/uxtheme.h'                inc/win/uxtheme.bi \
-		-emit '*/vfw.h'                    inc/win/vfw.bi \
-		-emit '*/virtdisk.h'               inc/win/virtdisk.bi \
-		-emit '*/wbemcli.h'                inc/win/wbemcli.bi \
-		-emit '*/winapifamily.h'           inc/win/winapifamily.bi \
-		-emit '*/winbase.h'                inc/win/winbase.bi \
-		-emit '*/winber.h'                 inc/win/winber.bi \
-		-emit '*/wincon.h'                 inc/win/wincon.bi \
-		-emit '*/wincrypt.h'               inc/win/wincrypt.bi \
-		-emit '*/windef.h'                 inc/win/windef.bi \
-		-emit '*/windns.h'                 inc/win/windns.bi \
-		-emit '*/winefs.h'                 inc/win/winefs.bi \
-		-emit '*/winerror.h'               inc/win/winerror.bi \
-		-emit '*/wingdi.h'                 inc/win/wingdi.bi \
-		-emit '*/wininet.h'                inc/win/wininet.bi \
-		-emit '*/winioctl.h'               inc/win/winioctl.bi \
-		-emit '*/winldap.h'                inc/win/winldap.bi \
-		-emit '*/winnetwk.h'               inc/win/winnetwk.bi \
-		-emit '*/winnls.h'                 inc/win/winnls.bi \
-		-emit '*/winnt.h'                  inc/win/winnt.bi \
-		-emit '*/winperf.h'                inc/win/winperf.bi \
-		-emit '*/winreg.h'                 inc/win/winreg.bi \
-		-emit '*/winscard.h'               inc/win/winscard.bi \
-		-emit '*/winsmcrd.h'               inc/win/winsmcrd.bi \
-		-emit '*/winsnmp.h'                inc/win/winsnmp.bi \
-		-emit '*/winsock2.h'               inc/win/winsock2.bi \
-		-emit '*/winspool.h'               inc/win/winspool.bi \
-		-emit '*/winsvc.h'                 inc/win/winsvc.bi \
-		-emit '*/wintrust.h'               inc/win/wintrust.bi \
-		-emit '*/winuser.h'                inc/win/winuser.bi \
-		-emit '*/winver.h'                 inc/win/winver.bi \
-		-emit '*/wnnc.h'                   inc/win/winnetwk.bi \
-		-emit '*/wow64apiset.h'            inc/win/winbase.bi \
-		-emit '*/ws2def.h'                 inc/win/ws2def.bi \
-		-emit '*/ws2ipdef.h'               inc/win/ws2ipdef.bi \
-		-emit '*/ws2spi.h'                 inc/win/ws2spi.bi \
-		-emit '*/ws2tcpip.h'               inc/win/ws2tcpip.bi \
-		-emit '*/wsipx.h'                  inc/win/wsipx.bi \
-		-emit '*/wtypesbase.h'             inc/win/wtypesbase.bi \
-		-emit '*/wtypes.h'                 inc/win/wtypes.bi \
+		winapi-inclibs.fbfrog \
+		winapi-emits-generated.fbfrog \
+		winapi-emits-custom.fbfrog \
+		winapi-titles-generated.fbfrog \
 		\
-		-emit '*/windowsx.h'               inc/win/windowsx.bi \
-		\
-		-emit '*/amaudio.h'                inc/win/amaudio.bi \
-		-emit '*/amvideo.h'                inc/win/amvideo.bi \
-		-emit '*/d3d9.h'                   inc/win/d3d9.bi \
-		-emit '*/d3d9caps.h'               inc/win/d3d9caps.bi \
-		-emit '*/d3d9types.h'              inc/win/d3d9types.bi \
-		-emit '*/d3dx9anim.h'              inc/win/d3dx9anim.bi \
-		-emit '*/d3dx9.h'                  inc/win/d3dx9.bi \
-		-emit '*/d3dx9core.h'              inc/win/d3dx9core.bi \
-		-emit '*/d3dx9effect.h'            inc/win/d3dx9effect.bi \
-		-emit '*/d3dx9math.h'              inc/win/d3dx9math.bi \
-		-emit '*/d3dx9mesh.h'              inc/win/d3dx9mesh.bi \
-		-emit '*/d3dx9shader.h'            inc/win/d3dx9shader.bi \
-		-emit '*/d3dx9shape.h'             inc/win/d3dx9shape.bi \
-		-emit '*/d3dx9tex.h'               inc/win/d3dx9tex.bi \
-		-emit '*/d3dx9xof.h'               inc/win/d3dx9xof.bi \
-		-emit '*/ddraw.h'                  inc/win/ddraw.bi \
-		-emit '*/dinput.h'                 inc/win/dinput.bi \
-		-emit '*/dls1.h'                   inc/win/dls1.bi \
-		-emit '*/dmdls.h'                  inc/win/dmdls.bi \
-		-emit '*/dmerror.h'                inc/win/dmerror.bi \
-		-emit '*/dmplugin.h'               inc/win/dmplugin.bi \
-		-emit '*/dmusbuff.h'               inc/win/dmusbuff.bi \
-		-emit '*/dmusicc.h'                inc/win/dmusicc.bi \
-		-emit '*/dmusicf.h'                inc/win/dmusicf.bi \
-		-emit '*/dmusici.h'                inc/win/dmusici.bi \
-		-emit '*/dmusics.h'                inc/win/dmusics.bi \
-		-emit '*/dpaddr.h'                 inc/win/dpaddr.bi \
-		-emit '*/dplay8.h'                 inc/win/dplay8.bi \
-		-emit '*/dplay.h'                  inc/win/dplay.bi \
-		-emit '*/dplobby8.h'               inc/win/dplobby8.bi \
-		-emit '*/dplobby.h'                inc/win/dplobby.bi \
-		-emit '*/dshow.h'                  inc/win/dshow.bi \
-		-emit '*/dsound.h'                 inc/win/dsound.bi \
-		-emit '*/dvdevcod.h'               inc/win/dvdevcod.bi \
-		-emit '*/dxerr8.h'                 inc/win/dxerr8.bi \
-		-emit '*/dxerr9.h'                 inc/win/dxerr9.bi \
-		-emit '*/edevdefs.h'               inc/win/edevdefs.bi \
-		-emit '*/errors.h'                 inc/win/errors.bi \
-		-emit '*/evcode.h'                 inc/win/evcode.bi \
-		-emit '*/vfwmsgs.h'                inc/win/vfwmsgs.bi \
-		\
-		-inclib advapi32 inc/win/aclapi.bi \
-		-inclib aclui    inc/win/aclui.bi \
-		-inclib uuid     inc/win/cguid.bi \
-		-inclib uuid     inc/win/comcat.bi \
-		-inclib comctl32 inc/win/commctrl.bi \
-		-inclib comdlg32 inc/win/commdlg.bi \
-		-inclib dxguid   inc/win/d3d9.bi \
-		-inclib d3d9     inc/win/d3d9.bi \
-		-inclib dxguid   inc/win/d3dx9.bi \
-		-inclib d3dx9d   inc/win/d3dx9.bi \
-		-inclib ddraw    inc/win/ddraw.bi \
-		-inclib dxguid   inc/win/ddraw.bi \
-		-inclib uuid     inc/win/dinput.bi \
-		-inclib dxguid   inc/win/dmplugin.bi \
-		-inclib dxguid   inc/win/dmusicc.bi \
-		-inclib uuid     inc/win/docobj.bi \
-		-inclib dplayx   inc/win/dplay.bi \
-		-inclib dxguid   inc/win/dplay.bi \
-		-inclib dxguid   inc/win/dplay8.bi \
-		-inclib dsound   inc/win/dsound.bi \
-		-inclib uuid     inc/win/dsound.bi \
-		-inclib dxerr8   inc/win/dxerr8.bi \
-		-inclib dxerr9   inc/win/dxerr9.bi \
-		-inclib uuid     inc/win/exdisp.bi \
-		-inclib imagehlp inc/win/imagehlp.bi \
-		-inclib imm32    inc/win/imm.bi \
-		-inclib url      inc/win/intshcut.bi \
-		-inclib iphlpapi inc/win/iphlpapi.bi \
-		-inclib uuid     inc/win/isguids.bi \
-		-inclib mapi32   inc/win/mapi.bi \
-		-inclib winmm    inc/win/mmsystem.bi \
-		-inclib msacm32  inc/win/msacm.bi \
-		-inclib uuid     inc/win/mshtml.bi \
-		-inclib wsock32  inc/win/nspapi.bi \
-		-inclib advapi32 inc/win/ntsecapi.bi \
-		-inclib uuid     inc/win/oaidl.bi \
-		-inclib uuid     inc/win/objidl.bi \
-		-inclib ole32    inc/win/ole2.bi \
-		-inclib oleacc   inc/win/oleacc.bi \
-		-inclib oleaut32 inc/win/oleauto.bi \
-		-inclib oleaut32 inc/win/olectl.bi \
-		-inclib oledlg   inc/win/oledlg.bi \
-		-inclib uuid     inc/win/oleidl.bi \
-		-inclib powrprof inc/win/powrprof.bi \
-		-inclib psapi    inc/win/psapi.bi \
-		-inclib rasapi32 inc/win/ras.bi \
-		-inclib rasdlg   inc/win/rasdlg.bi \
-		-inclib mprapi   inc/win/rassapi.bi \
-		-inclib uuid     inc/win/richole.bi \
-		-inclib secur32  inc/win/security.bi \
-		-inclib setupapi inc/win/setupapi.bi \
-		-inclib shell32  inc/win/shellapi.bi \
-		-inclib uuid     inc/win/shlguid.bi \
-		-inclib shell32  inc/win/shlguid.bi \
-		-inclib shell32  inc/win/shlobj.bi \
-		-inclib shlwapi  inc/win/shlwapi.bi \
-		-inclib snmpapi  inc/win/snmp.bi \
-		-inclib igmpagnt inc/win/snmp.bi \
-		-inclib odbc32   inc/win/sql.bi \
-		-inclib strmiids inc/win/strmif.bi \
-		-inclib kernel32 inc/win/tlhelp32.bi \
-		-inclib uuid     inc/win/unknwn.bi \
-		-inclib userenv  inc/win/userenv.bi \
-		-inclib uuid     inc/win/uuids.bi \
-		-inclib dxguid   inc/win/uuids.bi \
-		-inclib uxtheme  inc/win/uxtheme.bi \
-		-inclib avifil32 inc/win/vfw.bi \
-		-inclib avicap32 inc/win/vfw.bi \
-		-inclib uuid     inc/win/vfw.bi \
-		-inclib vfw32    inc/win/vfw.bi \
-		-inclib kernel32 inc/win/winbase.bi \
-		-inclib wldap32  inc/win/winber.bi \
-		-inclib gdi32    inc/win/wingdi.bi \
-		-inclib wininet  inc/win/wininet.bi \
-		-inclib wldap32  inc/win/winldap.bi \
-		-inclib advapi32 inc/win/winreg.bi \
-		-inclib wsnmp32  inc/win/winsnmp.bi \
-		-inclib ws2_32   inc/win/winsock2.bi \
-		-inclib winspool inc/win/winspool.bi \
-		-inclib advapi32 inc/win/winsvc.bi \
-		-inclib user32   inc/win/winuser.bi \
-		-inclib version  inc/win/winver.bi \
+		-title $(MINGWW64_TITLE) amaudio.tmp     copy/fbteam.txt inc/win/amaudio.bi \
+		-title $(MINGWW64_TITLE) amvideo.tmp     copy/fbteam.txt inc/win/amvideo.bi \
+		-title $(MINGWW64_TITLE) d3d9.tmp        copy/fbteam.txt inc/win/d3d9.bi \
+		-title $(MINGWW64_TITLE) d3d9caps.tmp    copy/fbteam.txt inc/win/d3d9caps.bi \
+		-title $(MINGWW64_TITLE) d3d9types.tmp   copy/fbteam.txt inc/win/d3d9types.bi \
+		-title $(MINGWW64_TITLE) d3dx9anim.tmp   copy/fbteam.txt inc/win/d3dx9anim.bi \
+		-title $(MINGWW64_TITLE) d3dx9.tmp       copy/fbteam.txt inc/win/d3dx9.bi \
+		-title $(MINGWW64_TITLE) d3dx9core.tmp   copy/fbteam.txt inc/win/d3dx9core.bi \
+		-title $(MINGWW64_TITLE) d3dx9effect.tmp copy/fbteam.txt inc/win/d3dx9effect.bi \
+		-title $(MINGWW64_TITLE) d3dx9math.tmp   copy/fbteam.txt inc/win/d3dx9math.bi \
+		-title $(MINGWW64_TITLE) d3dx9mesh.tmp   copy/fbteam.txt inc/win/d3dx9mesh.bi \
+		-title $(MINGWW64_TITLE) d3dx9shader.tmp copy/fbteam.txt inc/win/d3dx9shader.bi \
+		-title $(MINGWW64_TITLE) d3dx9shape.tmp  copy/fbteam.txt inc/win/d3dx9shape.bi \
+		-title $(MINGWW64_TITLE) d3dx9tex.tmp    copy/fbteam.txt inc/win/d3dx9tex.bi \
+		-title $(MINGWW64_TITLE) d3dx9xof.tmp    copy/fbteam.txt inc/win/d3dx9xof.bi \
+		-title $(MINGWW64_TITLE) ddraw.tmp       copy/fbteam.txt inc/win/ddraw.bi \
+		-title $(MINGWW64_TITLE) dinput.tmp      copy/fbteam.txt inc/win/dinput.bi \
+		-title $(MINGWW64_TITLE) dls1.tmp        copy/fbteam.txt inc/win/dls1.bi \
+		-title $(MINGWW64_TITLE) dmdls.tmp       copy/fbteam.txt inc/win/dmdls.bi \
+		-title $(MINGWW64_TITLE) dmerror.tmp     copy/fbteam.txt inc/win/dmerror.bi \
+		-title $(MINGWW64_TITLE) dmplugin.tmp    copy/fbteam.txt inc/win/dmplugin.bi \
+		-title $(MINGWW64_TITLE) dmusbuff.tmp    copy/fbteam.txt inc/win/dmusbuff.bi \
+		-title $(MINGWW64_TITLE) dmusicc.tmp     copy/fbteam.txt inc/win/dmusicc.bi \
+		-title $(MINGWW64_TITLE) dmusicf.tmp     copy/fbteam.txt inc/win/dmusicf.bi \
+		-title $(MINGWW64_TITLE) dmusici.tmp     copy/fbteam.txt inc/win/dmusici.bi \
+		-title $(MINGWW64_TITLE) dmusics.tmp     copy/fbteam.txt inc/win/dmusics.bi \
+		-title $(MINGWW64_TITLE) dpaddr.tmp      copy/fbteam.txt inc/win/dpaddr.bi \
+		-title $(MINGWW64_TITLE) dplay8.tmp      copy/fbteam.txt inc/win/dplay8.bi \
+		-title $(MINGWW64_TITLE) dplay.tmp       copy/fbteam.txt inc/win/dplay.bi \
+		-title $(MINGWW64_TITLE) dplobby8.tmp    copy/fbteam.txt inc/win/dplobby8.bi \
+		-title $(MINGWW64_TITLE) dplobby.tmp     copy/fbteam.txt inc/win/dplobby.bi \
+		-title $(MINGWW64_TITLE) dshow.tmp       copy/fbteam.txt inc/win/dshow.bi \
+		-title $(MINGWW64_TITLE) dsound.tmp      copy/fbteam.txt inc/win/dsound.bi \
+		-title $(MINGWW64_TITLE) copy/mingw-w64-disclaimer-pd.txt copy/fbteam.txt inc/win/dvdevcod.bi \
+		-title $(MINGWW64_TITLE) dxerr8.tmp      copy/fbteam.txt inc/win/dxerr8.bi \
+		-title $(MINGWW64_TITLE) dxerr9.tmp      copy/fbteam.txt inc/win/dxerr9.bi \
+		-title $(MINGWW64_TITLE) copy/mingw-w64-disclaimer-pd.txt copy/fbteam.txt inc/win/edevdefs.bi \
+		-title $(MINGWW64_TITLE) errors.tmp      copy/fbteam.txt inc/win/errors.bi \
+		-title $(MINGWW64_TITLE) evcode.tmp      copy/fbteam.txt inc/win/evcode.bi \
+		-title $(MINGWW64_TITLE) vfwmsgs.tmp     copy/fbteam.txt inc/win/vfwmsgs.bi
+	rm *.tmp
 
+winapi-rest: winapi-extract
 	# Direct3D 7 (?) pass
+	sed -n 3,17p extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/d3d.h      | cut -c4- > d3d.tmp
+	sed -n 2,16p extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/d3dcaps.h  | cut -c4- > d3dcaps.tmp
+	sed -n 2,16p extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/d3dtypes.h | cut -c4- > d3dtypes.tmp
+	sed -n 3,18p extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/d3drm.h    | cut -c4- > d3drm.tmp
+	sed -n 2,18p extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/d3drmdef.h | cut -c4- > d3drmdef.tmp
+	sed -n 3,18p extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/d3drmobj.h | cut -c4- > d3drmobj.tmp
 	$(FBFROG) $(WINAPI_FLAGS) \
 		-include d3d.h \
 		-include d3drm.h \
@@ -1919,14 +1656,20 @@ winapi: winapi-extract
 		-emit '*/d3drmobj.h' inc/win/d3drmobj.bi \
 		-inclib dxguid       inc/win/d3d.bi \
 		-inclib d3drm        inc/win/d3drm.bi \
-		 -title $(MINGWW64_TITLE)
+		-title $(MINGWW64_TITLE) d3d.tmp      copy/fbteam.txt inc/win/d3d.bi      \
+		-title $(MINGWW64_TITLE) d3dcaps.tmp  copy/fbteam.txt inc/win/d3dcaps.bi  \
+		-title $(MINGWW64_TITLE) d3dtypes.tmp copy/fbteam.txt inc/win/d3dtypes.bi \
+		-title $(MINGWW64_TITLE) d3drm.tmp    copy/fbteam.txt inc/win/d3drm.bi    \
+		-title $(MINGWW64_TITLE) d3drmdef.tmp copy/fbteam.txt inc/win/d3drmdef.bi \
+		-title $(MINGWW64_TITLE) d3drmobj.tmp copy/fbteam.txt inc/win/d3drmobj.bi
+	rm *.tmp
 
 	# CRT intrin.h pass (separate because of -nofunctionbodies)
 	$(FBFROG) $(WINAPI_FLAGS) -nofunctionbodies \
 		-include windows.h \
 		-emit '*/intrin.h'               inc/win/intrin.bi \
 		-emit '*/psdk_inc/intrin-impl.h' inc/win/intrin.bi \
-		 -title $(MINGWW64_TITLE)
+		 -title $(MINGWW64_TITLE) copy/mingw-w64-disclaimer-pd.txt copy/fbteam.txt inc/win/intrin.bi
 
 	# winsock.h pass (separate because it can't be used together with
 	# winsock2.h)
@@ -1941,8 +1684,7 @@ winapi: winapi-extract
 		-emit '*/psdk_inc/_xmitfile.h'     inc/win/winsock.bi \
 		-emit '*/psdk_inc/_wsa_errnos.h'   inc/win/winsock.bi \
 		-inclib wsock32                    inc/win/winsock.bi \
-		 -title $(MINGWW64_TITLE)
-
+		 -title $(MINGWW64_TITLE) copy/mingw-w64-disclaimer-pd.txt copy/fbteam.txt inc/win/winsock.bi
 
 	# ole.h pass (separate because it can't be #included with windows.h,
 	# even though windows.h has code to do just that, due to conflicts with
@@ -1951,7 +1693,7 @@ winapi: winapi-extract
 		-include windef.h -include ole.h \
 		-emit '*/ole.h' inc/win/ole.bi \
 		-inclib ole32   inc/win/ole.bi \
-		 -title $(MINGWW64_TITLE)
+		 -title $(MINGWW64_TITLE) copy/mingw-w64-disclaimer.txt copy/fbteam.txt inc/win/ole.bi
 
 	# windows.h pass to get windows.bi (separate because of the additional
 	# -declarebool that would only slow down the main pass)
@@ -1964,13 +1706,15 @@ winapi: winapi-extract
 		\
 		-include windows.h \
 		-emit '*/windows.h' inc/windows.bi \
-		 -title $(MINGWW64_TITLE)
+		 -title $(MINGWW64_TITLE) copy/mingw-w64-disclaimer-pd.txt copy/fbteam.txt inc/windows.bi
 
 	# DDK pass
+	sed -n 2,17p extracted/$(MINGWW64_TITLE)/mingw-w64-headers/include/ntdef.h | cut -c4- > ntdef.tmp
 	$(FBFROG) $(WINAPI_FLAGS) \
 		-include ntdef.h \
 		-emit '*/ntdef.h' inc/win/ntdef.bi \
-		 -title $(MINGWW64_TITLE)
+		 -title $(MINGWW64_TITLE) ntdef.tmp copy/fbteam.txt inc/win/ntdef.bi
+	rm *.tmp
 
 ################################################################################
 
