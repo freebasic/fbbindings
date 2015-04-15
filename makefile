@@ -643,6 +643,8 @@ glut:
 		-endselect \
 		-title $(GLUT) glut.tmp fbteam.txt
 
+	rm *.tmp
+
 gtk: gtk2 gtk3
 
 GTK2_SERIES := 2.24
