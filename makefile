@@ -414,16 +414,20 @@ FREEGLUT := freeglut-$(FREEGLUT_VERSION)
 freeglut:
 	./get.sh $(FREEGLUT) $(FREEGLUT).tar.gz http://sourceforge.net/projects/freeglut/files/freeglut/$(FREEGLUT_VERSION)/$(FREEGLUT).tar.gz/download
 
-	sed -n 9,28p extracted/$(FREEGLUT)/include/GL/freeglut_std.h | cut -c4- > freeglut.tmp
+	$(GETCOMMENT) extracted/$(FREEGLUT)/include/GL/freeglut.h     > freeglut.tmp
+	$(GETCOMMENT) extracted/$(FREEGLUT)/include/GL/freeglut_ext.h > freeglut_ext.tmp
+	$(GETCOMMENT) extracted/$(FREEGLUT)/include/GL/freeglut_std.h > freeglut_std.tmp
 
 	mkdir -p inc/GL
 	$(FBFROG) freeglut.fbfrog \
 		-incdir extracted/$(FREEGLUT)/include \
 		-include GL/freeglut.h \
-		-emit '*/GL/freeglut.h' inc/GL/freeglut.bi \
+		-emit '*/GL/freeglut.h'     inc/GL/freeglut.bi \
 		-emit '*/GL/freeglut_ext.h' inc/GL/freeglut_ext.bi \
 		-emit '*/GL/freeglut_std.h' inc/GL/freeglut_std.bi \
-		-title $(FREEGLUT) freeglut.tmp fbteam.txt
+		-title $(FREEGLUT) freeglut.tmp     fbteam.txt inc/GL/freeglut.bi \
+		-title $(FREEGLUT) freeglut_ext.tmp fbteam.txt inc/GL/freeglut_ext.bi \
+		-title $(FREEGLUT) freeglut_std.tmp fbteam.txt inc/GL/freeglut_std.bi
 
 	rm *.tmp
 

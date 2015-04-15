@@ -1,6 +1,10 @@
 '' FreeBASIC binding for freeglut-3.0.0
 ''
 '' based on the C header files:
+''   freeglut_std.h
+''
+''   The GLUT-compatible part of the freeglut library include file
+''
 ''   Copyright (c) 1999-2000 Pawel W. Olszta. All Rights Reserved.
 ''   Written by Pawel W. Olszta, <olszta@sourceforge.net>
 ''   Creation date: Thu Dec 2 1999
