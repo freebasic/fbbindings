@@ -1,6 +1,8 @@
 '' FreeBASIC binding for fontconfig-2.11.1
 ''
 '' based on the C header files:
+''   fontconfig/fontconfig/fontconfig.h
+''
 ''   Copyright © 2001 Keith Packard
 ''
 ''   Permission to use, copy, modify, distribute, and sell this software and its

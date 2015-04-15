@@ -394,7 +394,8 @@ FONTCONFIG := fontconfig-2.11.1
 fontconfig:
 	./get.sh $(FONTCONFIG) $(FONTCONFIG).tar.bz2 "http://www.freedesktop.org/software/fontconfig/release/$(FONTCONFIG).tar.bz2"
 
-	sed -n 4,22p extracted/$(FONTCONFIG)/fontconfig/fontconfig.h | cut -c4- > fontconfig.tmp
+	$(GETCOMMENT) extracted/$(FONTCONFIG)/fontconfig/fontconfig.h > fontconfig.tmp
+	$(GETCOMMENT) extracted/$(FONTCONFIG)/fontconfig/fcfreetype.h > fcfreetype.tmp
 
 	mkdir -p inc/fontconfig
 	$(FBFROG) fontconfig.fbfrog \
@@ -403,7 +404,8 @@ fontconfig:
 		-include fcfreetype.h \
 		-emit '*/fontconfig.h' inc/fontconfig/fontconfig.bi \
 		-emit '*/fcfreetype.h' inc/fontconfig/fcfreetype.bi \
-		-title $(FONTCONFIG) fontconfig.tmp fbteam.txt
+		-title $(FONTCONFIG) fontconfig.tmp fbteam.txt inc/fontconfig/fontconfig.bi \
+		-title $(FONTCONFIG) fcfreetype.tmp fbteam.txt inc/fontconfig/fcfreetype.bi
 
 	rm *.tmp
 
