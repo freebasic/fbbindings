@@ -96,7 +96,10 @@ type Comment
 	declare function firstLineStartsWith(byref s as string) as integer
 	declare function middleLinesStartWith(byref s as string) as integer
 	declare sub dropLine(byval i as integer)
+	declare sub dropLast()
 	declare sub dropFirstAndLast()
+	declare sub cutLine(byval i as integer, byval n as integer)
+	declare sub cutFirstLine(byval n as integer)
 	declare sub cutMiddleLines(byval n as integer)
 	declare sub unindent()
 	declare sub emit()
@@ -135,16 +138,30 @@ sub Comment.dropLine(byval i as integer)
 	end if
 end sub
 
-sub Comment.dropFirstAndLast()
-	dropLine(0)
+sub Comment.dropLast()
 	dropLine(lines.count - 1)
 end sub
 
-'' Remove n chars from the front of each middle line (all except first/last)
-sub Comment.cutMiddleLines(byval n as integer)
-	for i as integer = 1 to lines.count - 2
+sub Comment.dropFirstAndLast()
+	dropLine(0)
+	dropLast()
+end sub
+
+'' Remove n chars from the front of the given line
+sub Comment.cutLine(byval i as integer, byval n as integer)
+	if lines.inRange(i) then
 		dim ln as string ptr = @lines.p[i]
 		*ln = right(*ln, len(*ln) - n)
+	end if
+end sub
+
+sub Comment.cutFirstLine(byval n as integer)
+	cutLine(0, n)
+end sub
+
+sub Comment.cutMiddleLines(byval n as integer)
+	for i as integer = 1 to lines.count - 2
+		cutLine(i, n)
 	next
 end sub
 
@@ -163,20 +180,36 @@ sub Comment.unindent()
 	end if
 
 	'' /*
-	''   Foo
+	'' ...
 	'' */
 	if firstLineIs("") and lastLineIs("") then
+		'' /*
+		''   foo
+		'' */
 		if middleLinesStartWith("  ") then
 			cutMiddleLines(2)
 			dropFirstAndLast()
 			exit sub
 		end if
 
+		'' /*
+		'' 	foo
+		'' */
 		if middleLinesStartWith(!"\t") then
 			cutMiddleLines(1)
 			dropFirstAndLast()
 			exit sub
 		end if
+	end if
+
+	'' /* foo
+	''   bar
+	'' */
+	if firstLineStartsWith(" ") and middleLinesStartWith("  ") and lastLineIs("") then
+		cutFirstLine(1)
+		cutMiddleLines(2)
+		dropLast()
+		exit sub
 	end if
 end sub
 
