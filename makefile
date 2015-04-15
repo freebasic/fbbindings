@@ -1690,12 +1690,12 @@ winapi-rest: winapi-extract
 	sed -n 2,9p  extracted/$(MINGWW64_TITLE)/DISCLAIMER.PD | cut -c4- > mingw-w64-disclaimer-pd.tmp
 
 	# Direct3D 7 (?) pass
-	sed -n 3,17p extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/d3d.h      | cut -c4- > d3d.tmp
-	sed -n 2,16p extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/d3dcaps.h  | cut -c4- > d3dcaps.tmp
-	sed -n 2,16p extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/d3dtypes.h | cut -c4- > d3dtypes.tmp
-	sed -n 3,18p extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/d3drm.h    | cut -c4- > d3drm.tmp
-	sed -n 2,18p extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/d3drmdef.h | cut -c4- > d3drmdef.tmp
-	sed -n 3,18p extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/d3drmobj.h | cut -c4- > d3drmobj.tmp
+	$(GETCOMMENT) extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/d3d.h      > d3d.tmp
+	$(GETCOMMENT) extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/d3dcaps.h  > d3dcaps.tmp
+	$(GETCOMMENT) extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/d3dtypes.h > d3dtypes.tmp
+	$(GETCOMMENT) extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/d3drm.h    > d3drm.tmp
+	$(GETCOMMENT) extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/d3drmdef.h > d3drmdef.tmp
+	$(GETCOMMENT) extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/d3drmobj.h > d3drmobj.tmp
 	$(FBFROG) $(WINAPI_FLAGS) \
 		-include d3d.h \
 		-include d3drm.h \
@@ -1759,7 +1759,7 @@ winapi-rest: winapi-extract
 		 -title $(MINGWW64_TITLE) mingw-w64-disclaimer-pd.tmp fbteam.txt inc/windows.bi
 
 	# DDK pass
-	sed -n 2,17p extracted/$(MINGWW64_TITLE)/mingw-w64-headers/include/ntdef.h | cut -c4- > ntdef.tmp
+	$(GETCOMMENT) extracted/$(MINGWW64_TITLE)/mingw-w64-headers/include/ntdef.h > ntdef.tmp
 	$(FBFROG) $(WINAPI_FLAGS) \
 		-include ntdef.h \
 		-emit '*/ntdef.h' inc/win/ntdef.bi \
