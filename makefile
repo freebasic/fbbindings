@@ -515,7 +515,7 @@ gdkpixbuf-extract:
 
 gdkpixbuf: glib-extract gdkpixbuf-extract
 
-	sed -n 1,21p extracted/$(GDKPIXBUF)/gdk-pixbuf/gdk-pixbuf.h | cut -c4- > gdkpixbuf.tmp
+	$(GETCOMMENT) extracted/$(GDKPIXBUF)/gdk-pixbuf/gdk-pixbuf.h > gdkpixbuf.tmp
 
 	mkdir -p inc/gdk-pixbuf
 	$(FBFROG) gdkpixbuf.fbfrog \
@@ -552,10 +552,10 @@ glib-extract:
 
 glib: glib-extract
 
-	sed -n 1,15p extracted/$(GLIB)/glib/glib.h        | cut -c4- > glib.tmp
-	sed -n 1,15p extracted/$(GLIB)/glib/glib-object.h | cut -c4- > glib-object.tmp
-	sed -n 1,15p extracted/$(GLIB)/gmodule/gmodule.h  | cut -c4- > glib-gmodule.tmp
-	sed -n 1,18p extracted/$(GLIB)/gio/gio.h          | cut -c4- > glib-gio.tmp
+	$(GETCOMMENT) extracted/$(GLIB)/glib/glib.h        > glib.tmp
+	$(GETCOMMENT) extracted/$(GLIB)/glib/glib-object.h > glib-object.tmp
+	$(GETCOMMENT) extracted/$(GLIB)/gmodule/gmodule.h  > glib-gmodule.tmp
+	$(GETCOMMENT) extracted/$(GLIB)/gio/gio.h          > glib-gio.tmp
 
 	mkdir -p inc/gio
 	$(FBFROG) glib.fbfrog \
@@ -655,8 +655,8 @@ gtk2-extract: glib-extract cairo-extract pango-extract atk-extract gdkpixbuf-ext
 
 gtk2: gtk2-extract
 
-	sed -n 1,17p extracted/$(GTK2)/gtk/gtk.h | cut -c4- > gtk2.tmp
-	sed -n 1,17p extracted/$(GTK2)/gdk/gdk.h | cut -c4- > gdk2.tmp
+	$(GETCOMMENT) extracted/$(GTK2)/gtk/gtk.h > gtk2.tmp
+	$(GETCOMMENT) extracted/$(GTK2)/gdk/gdk.h > gdk2.tmp
 
 	mkdir -p inc/gtk inc/gdk
 	$(FBFROG) gtk.fbfrog gtk2.fbfrog \
@@ -691,8 +691,8 @@ gtk3: glib-extract cairo-extract pango-extract atk-extract gdkpixbuf-extract
 	# Insert our custom gdkconfig.h
 	cp gdk3config.h extracted/$(GTK3)/gdk/gdkconfig.h
 
-	sed -n 1,15p extracted/$(GTK3)/gtk/gtk.h | cut -c4- > gtk3.tmp
-	sed -n 1,15p extracted/$(GTK3)/gdk/gdk.h | cut -c4- > gdk3.tmp
+	$(GETCOMMENT) extracted/$(GTK3)/gtk/gtk.h > gtk3.tmp
+	$(GETCOMMENT) extracted/$(GTK3)/gdk/gdk.h > gdk3.tmp
 
 	mkdir -p inc/gtk inc/gdk
 	$(FBFROG) gtk.fbfrog gtk3.fbfrog \
@@ -721,8 +721,8 @@ gtkglext: glib-extract gtk2-extract
 	# Insert our custom gdkglext-config.h
 	cp gdkglext-config.h extracted/$(GTKGLEXT)/gdkglext-config.h
 
-	sed -n 1,16p extracted/$(GTKGLEXT)/gtk/gtkgl.h | cut -c4- > gtkglext.tmp
-	sed -n 1,16p extracted/$(GTKGLEXT)/gdk/gdkgl.h | cut -c4- > gdkglext.tmp
+	$(GETCOMMENT) extracted/$(GTKGLEXT)/gtk/gtkgl.h > gtkglext.tmp
+	$(GETCOMMENT) extracted/$(GTKGLEXT)/gdk/gdkgl.h > gdkglext.tmp
 
 	mkdir -p inc/gtkgl
 	$(FBFROG) gtkglext.fbfrog \
