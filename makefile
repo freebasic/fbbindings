@@ -594,9 +594,9 @@ glibc:
 	cd extracted/$(GLIBC) && \
 		rm -f bits/wordsize.h bits/endian.h bits/setjmp.h
 
-	sed -n 1,16p extracted/$(GLIBC)/sysdeps/wordsize-32/bits/wordsize.h | cut -c4- > glibc-wordsize.tmp
-	sed -n 1,16p extracted/$(GLIBC)/sysdeps/nptl/pthread.h              | cut -c4- > glibc-pthread.tmp
-	sed -n 1,17p extracted/$(GLIBC)/posix/sched.h                       | cut -c4- > glibc-sched.tmp
+	$(GETCOMMENT) extracted/$(GLIBC)/sysdeps/wordsize-32/bits/wordsize.h > glibc-wordsize.tmp
+	$(GETCOMMENT) extracted/$(GLIBC)/sysdeps/nptl/pthread.h              > glibc-pthread.tmp
+	$(GETCOMMENT) extracted/$(GLIBC)/posix/sched.h                       > glibc-sched.tmp
 
 	mkdir -p inc/crt/bits
 	$(FBFROG) glibc.fbfrog \
