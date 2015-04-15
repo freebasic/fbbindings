@@ -473,8 +473,8 @@ glfw:
 	./get.sh $(GLFW2) $(GLFW2).tar.bz2 http://sourceforge.net/projects/glfw/files/glfw/$(GLFW2_VERSION)/$(GLFW2).tar.bz2/download
 	./get.sh $(GLFW3) $(GLFW3).tar.bz2 http://sourceforge.net/projects/glfw/files/glfw/$(GLFW3_VERSION)/$(GLFW3).tar.bz2/download
 
-	sed -n 2,26p extracted/$(GLFW2)/include/GL/glfw.h    | cut -c4- > glfw2.tmp
-	sed -n 2,25p extracted/$(GLFW3)/include/GLFW/glfw3.h | cut -c4- > glfw3.tmp
+	$(GETCOMMENT) extracted/$(GLFW2)/include/GL/glfw.h    > glfw2.tmp
+	$(GETCOMMENT) extracted/$(GLFW3)/include/GLFW/glfw3.h > glfw3.tmp
 
 	mkdir -p inc/GL inc/GLFW
 
