@@ -995,9 +995,9 @@ opengl-mesa:
 	./get.sh $(MESA) $(MESA).tar.xz ftp://ftp.freedesktop.org/pub/mesa/$(MESA_VERSION)/$(MESA).tar.xz
 	./get.sh $(GLU)  $(GLU).tar.bz2 ftp://ftp.freedesktop.org/pub/mesa/glu/$(GLU).tar.bz2
 
-	sed -n 2,23p extracted/$(MESA)/include/GL/gl.h    | cut -c4- > mesa-gl.tmp
+	$(GETCOMMENT) extracted/$(MESA)/include/GL/gl.h    > mesa-gl.tmp
 	sed -n 9,28p extracted/$(MESA)/include/GL/glext.h | cut -c4- > mesa-glext.tmp
-	sed -n 2,28p extracted/$(GLU)/include/GL/glu.h    | cut -c4- > mesa-glu.tmp
+	$(GETCOMMENT) extracted/$(GLU)/include/GL/glu.h    > mesa-glu.tmp
 
 	mkdir -p inc/GL/mesa
 	$(FBFROG) opengl.fbfrog \
