@@ -1496,44 +1496,44 @@ winapi-main: winapi-extract
 	# winsock.h.
 	sed -n 2,42p extracted/$(MINGWW64_TITLE)/DISCLAIMER    | cut -c2- > mingw-w64-disclaimer.tmp
 	sed -n 2,9p  extracted/$(MINGWW64_TITLE)/DISCLAIMER.PD | cut -c4- > mingw-w64-disclaimer-pd.tmp
-	sed -n 3,17p extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/amaudio.h     | cut -c4- > amaudio.tmp
-	sed -n 2,16p extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/amvideo.idl   | cut -c4- > amvideo.tmp
-	sed -n 3,18p extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/d3d9.h        | cut -c4- > d3d9.tmp
-	sed -n 2,17p extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/d3d9caps.h    | cut -c4- > d3d9caps.tmp
-	sed -n 2,18p extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/d3d9types.h   | cut -c4- > d3d9types.tmp
-	sed -n 4,18p extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/d3dx9anim.h   | cut -c4- > d3dx9anim.tmp
-	sed -n 2,16p extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/d3dx9.h       | cut -c4- > d3dx9.tmp
-	sed -n 4,18p extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/d3dx9core.h   | cut -c4- > d3dx9core.tmp
-	sed -n 4,18p extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/d3dx9effect.h | cut -c4- > d3dx9effect.tmp
-	sed -n 3,18p extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/d3dx9math.h   | cut -c4- > d3dx9math.tmp
-	sed -n 4,19p extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/d3dx9mesh.h   | cut -c4- > d3dx9mesh.tmp
-	sed -n 4,19p extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/d3dx9shader.h | cut -c4- > d3dx9shader.tmp
-	sed -n 3,17p extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/d3dx9shape.h  | cut -c4- > d3dx9shape.tmp
-	sed -n 3,17p extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/d3dx9tex.h    | cut -c4- > d3dx9tex.tmp
-	sed -n 3,17p extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/d3dx9xof.h    | cut -c4- > d3dx9xof.tmp
-	sed -n 2,16p extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/ddraw.h       | cut -c4- > ddraw.tmp
-	sed -n 2,16p extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/dinput.h      | cut -c4- > dinput.tmp
-	sed -n 3,17p extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/dls1.h        | cut -c4- > dls1.tmp
-	sed -n 3,17p extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/dmdls.h       | cut -c4- > dmdls.tmp
-	sed -n 3,17p extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/dmerror.h     | cut -c4- > dmerror.tmp
-	sed -n 5,19p extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/dmplugin.h    | cut -c5- > dmplugin.tmp
-	sed -n 3,17p extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/dmusbuff.h    | cut -c4- > dmusbuff.tmp
-	sed -n 4,18p extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/dmusicc.h     | cut -c4- > dmusicc.tmp
-	sed -n 4,18p extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/dmusicf.h     | cut -c5- > dmusicf.tmp
-	sed -n 5,19p extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/dmusici.h     | cut -c5- > dmusici.tmp
-	sed -n 5,19p extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/dmusics.h     | cut -c5- > dmusics.tmp
-	sed -n 3,17p extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/dpaddr.h      | cut -c4- > dpaddr.tmp
-	sed -n 3,17p extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/dplay8.h      | cut -c4- > dplay8.tmp
-	sed -n 3,17p extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/dplay.h       | cut -c4- > dplay.tmp
-	sed -n 3,17p extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/dplobby8.h    | cut -c4- > dplobby8.tmp
-	sed -n 4,19p extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/dplobby.h     | cut -c4- > dplobby.tmp
-	sed -n 2,16p extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/dshow.h       | cut -c4- > dshow.tmp
-	sed -n 4,18p extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/dsound.h      | cut -c4- > dsound.tmp
-	sed -n 3,17p extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/dxerr8.h      | cut -c4- > dxerr8.tmp
-	sed -n 3,17p extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/dxerr9.h      | cut -c4- > dxerr9.tmp
-	sed -n 3,17p extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/errors.h      | cut -c4- > errors.tmp
-	sed -n 2,16p extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/evcode.h      | cut -c4- > evcode.tmp
-	sed -n 2,16p extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/vfwmsgs.h     | cut -c4- > vfwmsgs.tmp
+	$(GETCOMMENT) extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/amaudio.h     > amaudio.tmp
+	$(GETCOMMENT) extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/amvideo.idl   > amvideo.tmp
+	$(GETCOMMENT) extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/d3d9.h        > d3d9.tmp
+	$(GETCOMMENT) extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/d3d9caps.h    > d3d9caps.tmp
+	$(GETCOMMENT) extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/d3d9types.h   > d3d9types.tmp
+	$(GETCOMMENT) extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/d3dx9anim.h   > d3dx9anim.tmp
+	$(GETCOMMENT) extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/d3dx9.h       > d3dx9.tmp
+	$(GETCOMMENT) extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/d3dx9core.h   > d3dx9core.tmp
+	$(GETCOMMENT) extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/d3dx9effect.h > d3dx9effect.tmp
+	$(GETCOMMENT) extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/d3dx9math.h   > d3dx9math.tmp
+	$(GETCOMMENT) extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/d3dx9mesh.h   > d3dx9mesh.tmp
+	$(GETCOMMENT) extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/d3dx9shader.h > d3dx9shader.tmp
+	$(GETCOMMENT) extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/d3dx9shape.h  > d3dx9shape.tmp
+	$(GETCOMMENT) extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/d3dx9tex.h    > d3dx9tex.tmp
+	$(GETCOMMENT) extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/d3dx9xof.h    > d3dx9xof.tmp
+	$(GETCOMMENT) extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/ddraw.h       > ddraw.tmp
+	$(GETCOMMENT) extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/dinput.h      > dinput.tmp
+	$(GETCOMMENT) extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/dls1.h        > dls1.tmp
+	$(GETCOMMENT) extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/dmdls.h       > dmdls.tmp
+	$(GETCOMMENT) extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/dmerror.h     > dmerror.tmp
+	$(GETCOMMENT) extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/dmplugin.h    > dmplugin.tmp
+	$(GETCOMMENT) extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/dmusbuff.h    > dmusbuff.tmp
+	$(GETCOMMENT) extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/dmusicc.h     > dmusicc.tmp
+	$(GETCOMMENT) extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/dmusicf.h     > dmusicf.tmp
+	$(GETCOMMENT) extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/dmusici.h     > dmusici.tmp
+	$(GETCOMMENT) extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/dmusics.h     > dmusics.tmp
+	$(GETCOMMENT) extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/dpaddr.h      > dpaddr.tmp
+	$(GETCOMMENT) extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/dplay8.h      > dplay8.tmp
+	$(GETCOMMENT) extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/dplay.h       > dplay.tmp
+	$(GETCOMMENT) extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/dplobby8.h    > dplobby8.tmp
+	$(GETCOMMENT) extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/dplobby.h     > dplobby.tmp
+	$(GETCOMMENT) extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/dshow.h       > dshow.tmp
+	$(GETCOMMENT) extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/dsound.h      > dsound.tmp
+	$(GETCOMMENT) extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/dxerr8.h      > dxerr8.tmp
+	$(GETCOMMENT) extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/dxerr9.h      > dxerr9.tmp
+	$(GETCOMMENT) extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/errors.h      > errors.tmp
+	$(GETCOMMENT) extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/evcode.h      > evcode.tmp
+	$(GETCOMMENT) extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/vfwmsgs.h     > vfwmsgs.tmp
 	$(FBFROG) $(WINAPI_FLAGS) \
 		-include winsock2.h \
 		\

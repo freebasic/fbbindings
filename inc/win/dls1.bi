@@ -1,6 +1,8 @@
 '' FreeBASIC binding for mingw-w64-v4.0.1
 ''
 '' based on the C header files:
+''   Defines and Structures for Instrument Collection Form RIFF DLS1
+''
 ''   Copyright (C) 2003-2004 Rok Mandeljc
 ''
 ''   This program is free software; you can redistribute it and/or
