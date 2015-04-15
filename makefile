@@ -769,7 +769,7 @@ iconv:
 		sed $(ICONV_SED_DEFAULT) < iconv.h.in > iconv-default.h && \
 		sed $(ICONV_SED_WINDOWS) < iconv.h.in > iconv-windows.h
 
-	sed -n 1,17p extracted/$(ICONV)/include/iconv.h.in | cut -c4- > iconv.tmp
+	$(GETCOMMENT) extracted/$(ICONV)/include/iconv.h.in > iconv.tmp
 
 	$(FBFROG) \
 		-ifdef __FB_WIN32__ \
