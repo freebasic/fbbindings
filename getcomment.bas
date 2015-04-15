@@ -431,6 +431,7 @@ dim as integer rangefirst, rangelast, range_set
 
 for i as integer = 1 to __FB_ARGC__-1
 	var arg = *__FB_ARGV__[i]
+
 	if left(arg, 1) = "-" then
 		arg = right(arg, len(arg) - 1)
 
@@ -463,7 +464,7 @@ if range_set = FALSE then
 	rangelast = 0
 end if
 
-if (rangefirst <= rangelast) and (rangefirst < last) then
+if (rangefirst <= rangelast) and (rangefirst <= last) then
 	if rangelast > last then rangelast = last
 	for i as integer = rangefirst to rangelast
 		assert(comments.inRange(i))
