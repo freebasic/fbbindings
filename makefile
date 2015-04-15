@@ -1192,12 +1192,12 @@ sdl1:
 		cp SDL_config.h.in unix/SDL_config.h
 	cat sdl-unix-config.h >> extracted/$(SDL1_MAIN)/include/unix/SDL_config.h
 
-	sed -n 2,20p extracted/$(SDL1_MAIN)/include/SDL.h      | cut -c5- > sdl1.tmp
-	sed -n 5,5p  extracted/$(SDL1_GFX)/SDL_gfxPrimitives.h | cut -c1- > sdl1-gfx.tmp
-	sed -n 2,19p extracted/$(SDL1_IMAGE)/SDL_image.h       | cut -c3- > sdl1-image.tmp
-	sed -n 2,19p extracted/$(SDL1_MIXER)/SDL_mixer.h       | cut -c3- > sdl1-mixer.tmp
-	sed -n 2,19p extracted/$(SDL1_NET)/SDL_net.h           | cut -c3- > sdl1-net.tmp
-	sed -n 2,19p extracted/$(SDL1_TTF)/SDL_ttf.h           | cut -c3- > sdl1-ttf.tmp
+	$(GETCOMMENT) extracted/$(SDL1_MAIN)/include/SDL.h                 > sdl1.tmp
+	sed -n 5,5p   extracted/$(SDL1_GFX)/SDL_gfxPrimitives.h | cut -c1- > sdl1-gfx.tmp
+	$(GETCOMMENT) extracted/$(SDL1_IMAGE)/SDL_image.h                  > sdl1-image.tmp
+	$(GETCOMMENT) extracted/$(SDL1_MIXER)/SDL_mixer.h                  > sdl1-mixer.tmp
+	$(GETCOMMENT) extracted/$(SDL1_NET)/SDL_net.h                      > sdl1-net.tmp
+	$(GETCOMMENT) extracted/$(SDL1_TTF)/SDL_ttf.h                      > sdl1-ttf.tmp
 
 	mkdir -p inc/SDL
 	$(FBFROG) sdl.fbfrog sdl1.fbfrog \
@@ -1292,12 +1292,12 @@ sdl2: winapi-extract
 		cp SDL_config.h.in unix/SDL_config.h
 	cat sdl-unix-config.h >> extracted/$(SDL2_MAIN)/include/unix/SDL_config.h
 
-	sed -n 2,19p extracted/$(SDL2_MAIN)/include/SDL.h       | cut -c3- > sdl2.tmp
-	sed -n 5,26p extracted/$(SDL2_GFX)/SDL2_gfxPrimitives.h            > sdl2-gfx.tmp
-	sed -n 2,19p extracted/$(SDL2_IMAGE)/SDL_image.h        | cut -c3- > sdl2-image.tmp
-	sed -n 2,19p extracted/$(SDL2_MIXER)/SDL_mixer.h        | cut -c3- > sdl2-mixer.tmp
-	sed -n 2,20p extracted/$(SDL2_NET)/SDL_net.h            | cut -c3- > sdl2-net.tmp
-	sed -n 2,19p extracted/$(SDL2_TTF)/SDL_ttf.h            | cut -c3- > sdl2-ttf.tmp
+	$(GETCOMMENT) extracted/$(SDL2_MAIN)/include/SDL.h      > sdl2.tmp
+	sed -n 5,26p extracted/$(SDL2_GFX)/SDL2_gfxPrimitives.h > sdl2-gfx.tmp
+	$(GETCOMMENT) extracted/$(SDL2_IMAGE)/SDL_image.h       > sdl2-image.tmp
+	$(GETCOMMENT) extracted/$(SDL2_MIXER)/SDL_mixer.h       > sdl2-mixer.tmp
+	$(GETCOMMENT) extracted/$(SDL2_NET)/SDL_net.h           > sdl2-net.tmp
+	$(GETCOMMENT) extracted/$(SDL2_TTF)/SDL_ttf.h           > sdl2-ttf.tmp
 
 	mkdir -p inc/SDL2
 	$(FBFROG) sdl.fbfrog sdl2.fbfrog \
