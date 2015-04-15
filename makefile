@@ -373,7 +373,7 @@ ffi:
 		sed -e 's/@TARGET@/X86_WIN32/g' $(FFI_SED) < ffi.h.in > ffi-x86-win32.h && \
 		sed -e 's/@TARGET@/X86_WIN64/g' $(FFI_SED) < ffi.h.in > ffi-x86-win64.h
 
-	sed -n 2,23p extracted/$(FFI_TITLE)/include/ffi-x86.h | cut -c4- > ffi.tmp
+	$(GETCOMMENT) extracted/$(FFI_TITLE)/include/ffi-x86.h > ffi.tmp
 
 	$(FBFROG) ffi.fbfrog -o inc/ffi.bi \
 		-ifdef __FB_WIN32__						\

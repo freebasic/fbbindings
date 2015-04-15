@@ -1,6 +1,7 @@
 '' FreeBASIC binding for libffi-3.1
 ''
 '' based on the C header files:
+''   -----------------------------------------------------------------*-C-*-
 ''   libffi 3.1 - Copyright (c) 2011 Anthony Green
 ''                    - Copyright (c) 1996-2003, 2007, 2008 Red Hat, Inc.
 ''
@@ -23,6 +24,8 @@
 ''   WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 ''   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 ''   DEALINGS IN THE SOFTWARE.
+''
+''   ----------------------------------------------------------------------- 
 ''
 '' translated to FreeBASIC by:
 ''   Copyright © 2015 FreeBASIC development team
