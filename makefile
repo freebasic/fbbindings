@@ -1536,6 +1536,7 @@ winapi-main: winapi-extract
 	$(GETCOMMENT) extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/vfwmsgs.h     > vfwmsgs.tmp
 	$(GETCOMMENT) extracted/$(MINGWW64_TITLE)/mingw-w64-headers/include/objectarray.idl > objectarray.tmp
 	$(GETCOMMENT) extracted/$(MINGWW64_TITLE)/mingw-w64-headers/include/propkeydef.h  > propkeydef.tmp
+	sed -n 8,19p extracted/$(MINGWW64_TITLE)/mingw-w64-headers/include/gdiplus/gdiplus.h | cut -c4- > gdiplus.tmp
 	$(FBFROG) $(WINAPI_FLAGS) \
 		-include winsock2.h \
 		\
@@ -1686,6 +1687,7 @@ winapi-main: winapi-extract
 		-title $(MINGWW64_TITLE) vfwmsgs.tmp     fbteam.txt inc/win/vfwmsgs.bi \
 		-title $(MINGWW64_TITLE) objectarray.tmp fbteam.txt inc/win/objectarray.bi \
 		-title $(MINGWW64_TITLE) propkeydef.tmp  fbteam.txt inc/win/propkeydef.bi \
+		-title $(MINGWW64_TITLE) gdiplus.tmp     fbteam.txt inc/win/gdiplus.bi \
 		\
 		-title $(MINGWW64_TITLE) mingw-w64-disclaimer.tmp    fbteam.txt inc/win/comcat.bi \
 		-title $(MINGWW64_TITLE) mingw-w64-disclaimer-pd.tmp fbteam.txt inc/win/control.bi \
