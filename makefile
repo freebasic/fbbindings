@@ -1917,6 +1917,32 @@ x11:
 	cp extracted/xorg/$(X11_FIXESPROTO)/*.h       extracted/xorg/X11/extensions
 	cp extracted/xorg/$(X11_RECORDPROTO)/*.h      extracted/xorg/X11/extensions
 
+	cp extracted/xorg/$(X11_XT)/COPYING x11-CreateI.tmp
+	cp extracted/xorg/$(X11_XT)/COPYING x11-ShellI.tmp
+	cp extracted/xorg/$(X11_X11)/COPYING x11-ImUtil.tmp
+	cp extracted/xorg/$(X11_XPROTO)/COPYING x11-XF86keysym.tmp
+	cp extracted/xorg/$(X11_XPROTO)/COPYING x11-Xatom.tmp
+	cp extracted/xorg/$(X11_XPROTO)/COPYING x11-Xw32defs.tmp
+	cp extracted/xorg/$(X11_VIDEOPROTO)/COPYING x11-extensions-XvMC.tmp
+	cp extracted/xorg/$(X11_VIDEOPROTO)/COPYING x11-extensions-XvMCproto.tmp
+	$(GETCOMMENT) extracted/xorg/$(X11_XXF86DGA)/include/X11/extensions/Xxf86dga.h > x11-extensions-Xxf86dga.tmp
+	$(GETCOMMENT) extracted/xorg/$(X11_XXF86DGA)/include/X11/extensions/xf86dga1.h > x11-extensions-xf86dga1.tmp
+	cat extracted/xorg/$(X11_XXF86DGA)/COPYING                                    >> x11-extensions-Xxf86dga.tmp
+	cat extracted/xorg/$(X11_XXF86DGA)/COPYING                                    >> x11-extensions-xf86dga1.tmp
+	$(GETCOMMENT) extracted/xorg/$(X11_XF86DGAPROTO)/xf86dga1const.h > x11-extensions-xf86dga1const.tmp
+	$(GETCOMMENT) extracted/xorg/$(X11_XF86DGAPROTO)/xf86dga1proto.h > x11-extensions-xf86dga1proto.tmp
+	$(GETCOMMENT) extracted/xorg/$(X11_XF86DGAPROTO)/xf86dgaconst.h  > x11-extensions-xf86dgaconst.tmp
+	$(GETCOMMENT) extracted/xorg/$(X11_XF86DGAPROTO)/xf86dgaproto.h  > x11-extensions-xf86dgaproto.tmp
+	cat extracted/xorg/$(X11_XF86DGAPROTO)/COPYING                  >> x11-extensions-xf86dga1const.tmp
+	cat extracted/xorg/$(X11_XF86DGAPROTO)/COPYING                  >> x11-extensions-xf86dga1proto.tmp
+	cp  extracted/xorg/$(X11_XF86DGAPROTO)/COPYING                     x11-extensions-xf86dga1str.tmp
+	cat extracted/xorg/$(X11_XF86DGAPROTO)/COPYING                  >> x11-extensions-xf86dgaconst.tmp
+	cat extracted/xorg/$(X11_XF86DGAPROTO)/COPYING                  >> x11-extensions-xf86dgaproto.tmp
+	cp  extracted/xorg/$(X11_XF86DGAPROTO)/COPYING                     x11-extensions-xf86dgastr.tmp
+	cp  extracted/xorg/$(X11_XF86DGAPROTO)/COPYING                     x11-extensions-xf86dga.tmp
+	cp  extracted/xorg/$(X11_XF86VIDMODEPROTO)/COPYING                 x11-extensions-xf86vmstr.tmp
+	cp extracted/xorg/$(X11_RECORDPROTO)/COPYING x11-extensions-recordstr.tmp
+	cp extracted/xorg/$(X11_XEXTPROTO)/COPYING x11-extensions-shapestr.tmp
 	./x11-gen-legal.sh
 
 	mkdir -p inc/X11/extensions inc/X11/ICE inc/X11/SM inc/X11/Xft inc/X11/Xcursor inc/X11/Xmu inc/X11/Xtrans

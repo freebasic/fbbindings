@@ -12,21 +12,44 @@ function work() {
 		extensions/xf86vm|extensions/xf86vmode|extensions/xf86vmproto)
 			./getcomment extracted/xorg/X11/$header.h > $legal;;
 
-		CreateI|ImUtil|ShellI|X|XF86keysym|Xatom|Xcursor/Xcursor|Xft/Xft|Xproto|Xw32defs|\
+		# Some need to be created "manually" though
+		CreateI|ImUtil|ShellI|XF86keysym|Xatom|Xw32defs|\
+		extensions/recordstr|\
+		extensions/shapestr|\
+		extensions/xf86dga|\
+		extensions/xf86dga1|\
+		extensions/xf86dga1const|\
+		extensions/xf86dga1proto|\
+		extensions/xf86dga1str|\
+		extensions/xf86dgaconst|\
+		extensions/xf86dgaproto|\
+		extensions/xf86dgastr|\
+		extensions/xf86vmstr|\
 		extensions/XvMC|\
 		extensions/XvMCproto|\
-		extensions/Xxf86dga|\
+		extensions/Xxf86dga)
+			if [ ! -f "$legal" ]; then
+				echo "missing file $legal"
+			fi
+			;;
+
+		X|\
+		Xcursor/Xcursor|\
+		Xft/Xft|\
 		extensions/lbxbuf|\
 		extensions/lbxbufstr|\
 		extensions/lbxdeltastr|\
 		extensions/lbximage|\
 		extensions/lbxopts|\
 		extensions/lbxzlib|\
-		extensions/recordstr|\
-		extensions/shapestr|\
-		extensions/xf86*|\
-		extensions/xtestext1*)
-			echo TODO > $legal;;
+		extensions/xtestext1|\
+		extensions/xtestext1const|\
+		extensions/xtestext1proto)
+			./getcomment -2 extracted/xorg/X11/$header.h > $legal;;
+
+		Xproto)
+			./getcomment -3 extracted/xorg/X11/$header.h > $legal;;
+
 		*)
 			./getcomment extracted/xorg/X11/$header.h > $legal;;
 		esac
