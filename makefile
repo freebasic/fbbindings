@@ -1534,6 +1534,8 @@ winapi-main: winapi-extract
 	$(GETCOMMENT) extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/errors.h      > errors.tmp
 	$(GETCOMMENT) extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/evcode.h      > evcode.tmp
 	$(GETCOMMENT) extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/vfwmsgs.h     > vfwmsgs.tmp
+	$(GETCOMMENT) extracted/$(MINGWW64_TITLE)/mingw-w64-headers/include/objectarray.idl > objectarray.tmp
+	$(GETCOMMENT) extracted/$(MINGWW64_TITLE)/mingw-w64-headers/include/propkeydef.h  > propkeydef.tmp
 	$(FBFROG) $(WINAPI_FLAGS) \
 		-include winsock2.h \
 		\
@@ -1681,7 +1683,38 @@ winapi-main: winapi-extract
 		-title $(MINGWW64_TITLE) mingw-w64-disclaimer-pd.tmp fbteam.txt inc/win/edevdefs.bi \
 		-title $(MINGWW64_TITLE) errors.tmp      fbteam.txt inc/win/errors.bi \
 		-title $(MINGWW64_TITLE) evcode.tmp      fbteam.txt inc/win/evcode.bi \
-		-title $(MINGWW64_TITLE) vfwmsgs.tmp     fbteam.txt inc/win/vfwmsgs.bi
+		-title $(MINGWW64_TITLE) vfwmsgs.tmp     fbteam.txt inc/win/vfwmsgs.bi \
+		-title $(MINGWW64_TITLE) objectarray.tmp fbteam.txt inc/win/objectarray.bi \
+		-title $(MINGWW64_TITLE) propkeydef.tmp  fbteam.txt inc/win/propkeydef.bi \
+		\
+		-title $(MINGWW64_TITLE) mingw-w64-disclaimer.tmp    fbteam.txt inc/win/comcat.bi \
+		-title $(MINGWW64_TITLE) mingw-w64-disclaimer-pd.tmp fbteam.txt inc/win/control.bi \
+		-title $(MINGWW64_TITLE) mingw-w64-disclaimer.tmp    fbteam.txt inc/win/dimm.bi \
+		-title $(MINGWW64_TITLE) mingw-w64-disclaimer.tmp    fbteam.txt inc/win/docobj.bi \
+		-title $(MINGWW64_TITLE) mingw-w64-disclaimer.tmp    fbteam.txt inc/win/mshtmhst.bi \
+		-title $(MINGWW64_TITLE) mingw-w64-disclaimer.tmp    fbteam.txt inc/win/mshtml.bi \
+		-title $(MINGWW64_TITLE) mingw-w64-disclaimer-pd.tmp fbteam.txt inc/win/msxml.bi \
+		-title $(MINGWW64_TITLE) mingw-w64-disclaimer.tmp    fbteam.txt inc/win/naptypes.bi \
+		-title $(MINGWW64_TITLE) mingw-w64-disclaimer.tmp    fbteam.txt inc/win/oaidl.bi \
+		-title $(MINGWW64_TITLE) mingw-w64-disclaimer.tmp    fbteam.txt inc/win/objidlbase.bi \
+		-title $(MINGWW64_TITLE) mingw-w64-disclaimer.tmp    fbteam.txt inc/win/objidl.bi \
+		-title $(MINGWW64_TITLE) mingw-w64-disclaimer.tmp    fbteam.txt inc/win/ocidl.bi \
+		-title $(MINGWW64_TITLE) mingw-w64-disclaimer-pd.tmp fbteam.txt inc/win/oleacc.bi \
+		-title $(MINGWW64_TITLE) mingw-w64-disclaimer.tmp    fbteam.txt inc/win/oleidl.bi \
+		-title $(MINGWW64_TITLE) mingw-w64-disclaimer.tmp    fbteam.txt inc/win/propidl.bi \
+		-title $(MINGWW64_TITLE) mingw-w64-disclaimer.tmp    fbteam.txt inc/win/propsys.bi \
+		-title $(MINGWW64_TITLE) mingw-w64-disclaimer.tmp    fbteam.txt inc/win/servprov.bi \
+		-title $(MINGWW64_TITLE) mingw-w64-disclaimer.tmp    fbteam.txt inc/win/shldisp.bi \
+		-title $(MINGWW64_TITLE) mingw-w64-disclaimer.tmp    fbteam.txt inc/win/shobjidl.bi \
+		-title $(MINGWW64_TITLE) mingw-w64-disclaimer.tmp    fbteam.txt inc/win/shtypes.bi \
+		-title $(MINGWW64_TITLE) mingw-w64-disclaimer-pd.tmp fbteam.txt inc/win/strmif.bi \
+		-title $(MINGWW64_TITLE) mingw-w64-disclaimer.tmp    fbteam.txt inc/win/structuredquerycondition.bi \
+		-title $(MINGWW64_TITLE) mingw-w64-disclaimer.tmp    fbteam.txt inc/win/unknwnbase.bi \
+		-title $(MINGWW64_TITLE) mingw-w64-disclaimer.tmp    fbteam.txt inc/win/unknwn.bi \
+		-title $(MINGWW64_TITLE) mingw-w64-disclaimer.tmp    fbteam.txt inc/win/urlmon.bi \
+		-title $(MINGWW64_TITLE) mingw-w64-disclaimer.tmp    fbteam.txt inc/win/wbemcli.bi \
+		-title $(MINGWW64_TITLE) mingw-w64-disclaimer.tmp    fbteam.txt inc/win/wtypesbase.bi \
+		-title $(MINGWW64_TITLE) mingw-w64-disclaimer.tmp    fbteam.txt inc/win/wtypes.bi
 
 	rm *.tmp
 
