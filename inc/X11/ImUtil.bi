@@ -1,4 +1,10 @@
 '' FreeBASIC binding for libX11-1.6.3
+''
+'' based on the C header files:
+''   TODO
+''
+'' translated to FreeBASIC by:
+''   Copyright © 2015 FreeBASIC development team
 
 #pragma once
 

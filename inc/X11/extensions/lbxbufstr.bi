@@ -1,4 +1,10 @@
 '' FreeBASIC binding for liblbxutil-1.1.0
+''
+'' based on the C header files:
+''   TODO
+''
+'' translated to FreeBASIC by:
+''   Copyright © 2015 FreeBASIC development team
 
 #pragma once
 

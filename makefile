@@ -1822,6 +1822,9 @@ SED_X11_XLIBCONF := -e 's/\#undef XTHREADS/\#define XTHREADS 1/g'
 SED_X11_XLIBCONF += -e 's/\#undef XUSE_MTSAFE_API/\#define XUSE_MTSAFE_API 1/g'
 SED_X11_XPOLL := -e 's/@USE_FDS_BITS@/__fds_bits/g'
 
+include x11-titles-main-generated.mk
+include x11-titles-internal-generated.mk
+
 x11:
 	mkdir -p extracted/xorg
 	mkdir -p tarballs/xorg
@@ -1914,7 +1917,7 @@ x11:
 	cp extracted/xorg/$(X11_FIXESPROTO)/*.h       extracted/xorg/X11/extensions
 	cp extracted/xorg/$(X11_RECORDPROTO)/*.h      extracted/xorg/X11/extensions
 
-	./x11-emits-gen.sh
+	./x11-gen-legal.sh
 
 	mkdir -p inc/X11/extensions inc/X11/ICE inc/X11/SM inc/X11/Xft inc/X11/Xcursor inc/X11/Xmu inc/X11/Xtrans
 	$(FBFROG) x11.fbfrog -incdir extracted/xorg \
@@ -2075,194 +2078,7 @@ x11:
 		-endif \
 		\
 		x11-emits-main-generated.fbfrog \
-		\
-		-title $(X11_DRI2PROTO) inc/X11/extensions/dri2proto.bi \
-		-title $(X11_DRI2PROTO) inc/X11/extensions/dri2tokens.bi \
-		-title $(X11_FIXESPROTO) inc/X11/extensions/xfixesproto.bi \
-		-title $(X11_FIXESPROTO) inc/X11/extensions/xfixeswire.bi \
-		-title $(X11_ICE) inc/X11/ICE/ICE.bi \
-		-title $(X11_ICE) inc/X11/ICE/ICEconn.bi \
-		-title $(X11_ICE) inc/X11/ICE/ICElib.bi \
-		-title $(X11_ICE) inc/X11/ICE/ICEmsg.bi \
-		-title $(X11_ICE) inc/X11/ICE/ICEproto.bi \
-		-title $(X11_ICE) inc/X11/ICE/ICEutil.bi \
-		-title $(X11_INPUTPROTO) inc/X11/extensions/XI2.bi \
-		-title $(X11_INPUTPROTO) inc/X11/extensions/XI2proto.bi \
-		-title $(X11_INPUTPROTO) inc/X11/extensions/XI.bi \
-		-title $(X11_INPUTPROTO) inc/X11/extensions/XIproto.bi \
-		-title $(X11_KBPROTO) inc/X11/extensions/XKB.bi \
-		-title $(X11_KBPROTO) inc/X11/extensions/XKBgeom.bi \
-		-title $(X11_KBPROTO) inc/X11/extensions/XKBproto.bi \
-		-title $(X11_KBPROTO) inc/X11/extensions/XKBstr.bi \
-		-title $(X11_LBXUTIL) inc/X11/extensions/lbxbuf.bi \
-		-title $(X11_LBXUTIL) inc/X11/extensions/lbxbufstr.bi \
-		-title $(X11_LBXUTIL) inc/X11/extensions/lbxdeltastr.bi \
-		-title $(X11_LBXUTIL) inc/X11/extensions/lbximage.bi \
-		-title $(X11_LBXUTIL) inc/X11/extensions/lbxopts.bi \
-		-title $(X11_LBXUTIL) inc/X11/extensions/lbxzlib.bi \
-		-title $(X11_RANDRPROTO) inc/X11/extensions/randr.bi \
-		-title $(X11_RANDRPROTO) inc/X11/extensions/randrproto.bi \
-		-title $(X11_RECORDPROTO) inc/X11/extensions/recordconst.bi \
-		-title $(X11_RECORDPROTO) inc/X11/extensions/recordproto.bi \
-		-title $(X11_RECORDPROTO) inc/X11/extensions/recordstr.bi \
-		-title $(X11_RENDERPROTO) inc/X11/extensions/render.bi \
-		-title $(X11_RENDERPROTO) inc/X11/extensions/renderproto.bi \
-		-title $(X11_SM) inc/X11/SM/SM.bi \
-		-title $(X11_SM) inc/X11/SM/SMlib.bi \
-		-title $(X11_SM) inc/X11/SM/SMproto.bi \
-		-title $(X11_VIDEOPROTO) inc/X11/extensions/vldXvMC.bi \
-		-title $(X11_VIDEOPROTO) inc/X11/extensions/Xv.bi \
-		-title $(X11_VIDEOPROTO) inc/X11/extensions/XvMC.bi \
-		-title $(X11_VIDEOPROTO) inc/X11/extensions/XvMCproto.bi \
-		-title $(X11_VIDEOPROTO) inc/X11/extensions/Xvproto.bi \
-		-title $(X11_X11) inc/X11/cursorfont.bi \
-		-title $(X11_X11) inc/X11/ImUtil.bi \
-		-title $(X11_X11) inc/X11/Xcms.bi \
-		-title $(X11_X11) inc/X11/XKBlib.bi \
-		-title $(X11_X11) inc/X11/Xlib.bi \
-		-title $(X11_X11) inc/X11/XlibConf.bi \
-		-title $(X11_X11) inc/X11/Xlibint.bi \
-		-title $(X11_X11) inc/X11/Xlocale.bi \
-		-title $(X11_X11) inc/X11/Xregion.bi \
-		-title $(X11_X11) inc/X11/Xresource.bi \
-		-title $(X11_X11) inc/X11/Xutil.bi \
-		-title $(X11_XAU) inc/X11/Xauth.bi \
-		-title $(X11_XCURSOR) inc/X11/Xcursor/Xcursor.bi \
-		-title $(X11_XDMCP) inc/X11/Xdmcp.bi \
-		-title $(X11_XEXT) inc/X11/extensions/dpms.bi      \
-		-title $(X11_XEXT) inc/X11/extensions/extutil.bi   \
-		-title $(X11_XEXT) inc/X11/extensions/MITMisc.bi   \
-		-title $(X11_XEXT) inc/X11/extensions/multibuf.bi  \
-		-title $(X11_XEXT) inc/X11/extensions/security.bi  \
-		-title $(X11_XEXT) inc/X11/extensions/shape.bi     \
-		-title $(X11_XEXT) inc/X11/extensions/sync.bi      \
-		-title $(X11_XEXT) inc/X11/extensions/Xag.bi       \
-		-title $(X11_XEXT) inc/X11/extensions/Xcup.bi      \
-		-title $(X11_XEXT) inc/X11/extensions/Xdbe.bi      \
-		-title $(X11_XEXT) inc/X11/extensions/XEVI.bi      \
-		-title $(X11_XEXT) inc/X11/extensions/Xext.bi      \
-		-title $(X11_XEXT) inc/X11/extensions/Xge.bi       \
-		-title $(X11_XEXT) inc/X11/extensions/XLbx.bi      \
-		-title $(X11_XEXT) inc/X11/extensions/XShm.bi      \
-		-title $(X11_XEXT) inc/X11/extensions/xtestext1.bi \
-		-title $(X11_XEXTPROTO) inc/X11/extensions/ag.bi \
-		-title $(X11_XEXTPROTO) inc/X11/extensions/agproto.bi \
-		-title $(X11_XEXTPROTO) inc/X11/extensions/cup.bi \
-		-title $(X11_XEXTPROTO) inc/X11/extensions/cupproto.bi \
-		-title $(X11_XEXTPROTO) inc/X11/extensions/dbe.bi \
-		-title $(X11_XEXTPROTO) inc/X11/extensions/dbeproto.bi \
-		-title $(X11_XEXTPROTO) inc/X11/extensions/dpmsconst.bi \
-		-title $(X11_XEXTPROTO) inc/X11/extensions/dpmsproto.bi \
-		-title $(X11_XEXTPROTO) inc/X11/extensions/EVI.bi \
-		-title $(X11_XEXTPROTO) inc/X11/extensions/EVIproto.bi \
-		-title $(X11_XEXTPROTO) inc/X11/extensions/ge.bi \
-		-title $(X11_XEXTPROTO) inc/X11/extensions/geproto.bi \
-		-title $(X11_XEXTPROTO) inc/X11/extensions/lbx.bi \
-		-title $(X11_XEXTPROTO) inc/X11/extensions/lbxproto.bi \
-		-title $(X11_XEXTPROTO) inc/X11/extensions/mitmiscconst.bi \
-		-title $(X11_XEXTPROTO) inc/X11/extensions/mitmiscproto.bi \
-		-title $(X11_XEXTPROTO) inc/X11/extensions/multibufconst.bi \
-		-title $(X11_XEXTPROTO) inc/X11/extensions/multibufproto.bi \
-		-title $(X11_XEXTPROTO) inc/X11/extensions/secur.bi \
-		-title $(X11_XEXTPROTO) inc/X11/extensions/securproto.bi \
-		-title $(X11_XEXTPROTO) inc/X11/extensions/shapeconst.bi \
-		-title $(X11_XEXTPROTO) inc/X11/extensions/shapeproto.bi \
-		-title $(X11_XEXTPROTO) inc/X11/extensions/shapestr.bi \
-		-title $(X11_XEXTPROTO) inc/X11/extensions/shm.bi \
-		-title $(X11_XEXTPROTO) inc/X11/extensions/shmproto.bi \
-		-title $(X11_XEXTPROTO) inc/X11/extensions/shmstr.bi \
-		-title $(X11_XEXTPROTO) inc/X11/extensions/syncconst.bi \
-		-title $(X11_XEXTPROTO) inc/X11/extensions/syncproto.bi \
-		-title $(X11_XEXTPROTO) inc/X11/extensions/syncstr.bi \
-		-title $(X11_XEXTPROTO) inc/X11/extensions/xtestconst.bi \
-		-title $(X11_XEXTPROTO) inc/X11/extensions/xtestext1const.bi \
-		-title $(X11_XEXTPROTO) inc/X11/extensions/xtestext1proto.bi \
-		-title $(X11_XEXTPROTO) inc/X11/extensions/xtestproto.bi \
-		-title $(X11_XF86DGAPROTO) inc/X11/extensions/xf86dga1const.bi \
-		-title $(X11_XF86DGAPROTO) inc/X11/extensions/xf86dga1proto.bi \
-		-title $(X11_XF86DGAPROTO) inc/X11/extensions/xf86dga1str.bi \
-		-title $(X11_XF86DGAPROTO) inc/X11/extensions/xf86dga.bi \
-		-title $(X11_XF86DGAPROTO) inc/X11/extensions/xf86dgaconst.bi \
-		-title $(X11_XF86DGAPROTO) inc/X11/extensions/xf86dgaproto.bi \
-		-title $(X11_XF86DGAPROTO) inc/X11/extensions/xf86dgastr.bi \
-		-title $(X11_XF86VIDMODEPROTO) inc/X11/extensions/xf86vm.bi \
-		-title $(X11_XF86VIDMODEPROTO) inc/X11/extensions/xf86vmproto.bi \
-		-title $(X11_XF86VIDMODEPROTO) inc/X11/extensions/xf86vmstr.bi \
-		-title $(X11_XFIXES) inc/X11/extensions/Xfixes.bi \
-		-title $(X11_XFT) inc/X11/Xft/Xft.bi \
-		-title $(X11_XFT) inc/X11/Xft/XftCompat.bi \
-		-title $(X11_XI) inc/X11/extensions/XInput2.bi \
-		-title $(X11_XI) inc/X11/extensions/XInput.bi \
-		-title $(X11_XINERAMA) inc/X11/extensions/panoramiXext.bi \
-		-title $(X11_XINERAMA) inc/X11/extensions/Xinerama.bi \
-		-title $(X11_XMU) inc/X11/Xmu/Atoms.bi \
-		-title $(X11_XMU) inc/X11/Xmu/CharSet.bi \
-		-title $(X11_XMU) inc/X11/Xmu/CloseHook.bi \
-		-title $(X11_XMU) inc/X11/Xmu/Converters.bi \
-		-title $(X11_XMU) inc/X11/Xmu/CurUtil.bi \
-		-title $(X11_XMU) inc/X11/Xmu/CvtCache.bi \
-		-title $(X11_XMU) inc/X11/Xmu/DisplayQue.bi \
-		-title $(X11_XMU) inc/X11/Xmu/Drawing.bi \
-		-title $(X11_XMU) inc/X11/Xmu/Editres.bi \
-		-title $(X11_XMU) inc/X11/Xmu/EditresP.bi \
-		-title $(X11_XMU) inc/X11/Xmu/Error.bi \
-		-title $(X11_XMU) inc/X11/Xmu/ExtAgent.bi \
-		-title $(X11_XMU) inc/X11/Xmu/Initer.bi \
-		-title $(X11_XMU) inc/X11/Xmu/Lookup.bi \
-		-title $(X11_XMU) inc/X11/Xmu/Misc.bi \
-		-title $(X11_XMU) inc/X11/Xmu/StdCmap.bi \
-		-title $(X11_XMU) inc/X11/Xmu/StdSel.bi \
-		-title $(X11_XMU) inc/X11/Xmu/SysUtil.bi \
-		-title $(X11_XMU) inc/X11/Xmu/WhitePoint.bi \
-		-title $(X11_XMU) inc/X11/Xmu/WidgetNode.bi \
-		-title $(X11_XMU) inc/X11/Xmu/WinUtil.bi \
-		-title $(X11_XMU) inc/X11/Xmu/Xct.bi \
-		-title $(X11_XMU) inc/X11/Xmu/Xmu.bi \
-		-title $(X11_XPM) inc/X11/xpm.bi \
-		-title $(X11_XPROTO) inc/X11/ap_keysym.bi \
-		-title $(X11_XPROTO) inc/X11/DECkeysym.bi \
-		-title $(X11_XPROTO) inc/X11/HPkeysym.bi \
-		-title $(X11_XPROTO) inc/X11/keysym.bi \
-		-title $(X11_XPROTO) inc/X11/keysymdef.bi \
-		-title $(X11_XPROTO) inc/X11/Sunkeysym.bi \
-		-title $(X11_XPROTO) inc/X11/Xalloca.bi \
-		-title $(X11_XPROTO) inc/X11/Xarch.bi \
-		-title $(X11_XPROTO) inc/X11/Xatom.bi \
-		-title $(X11_XPROTO) inc/X11/X.bi \
-		-title $(X11_XPROTO) inc/X11/Xdefs.bi \
-		-title $(X11_XPROTO) inc/X11/XF86keysym.bi \
-		-title $(X11_XPROTO) inc/X11/Xfuncproto.bi \
-		-title $(X11_XPROTO) inc/X11/Xfuncs.bi \
-		-title $(X11_XPROTO) inc/X11/Xmd.bi \
-		-title $(X11_XPROTO) inc/X11/Xos.bi \
-		-title $(X11_XPROTO) inc/X11/Xosdefs.bi \
-		-title $(X11_XPROTO) inc/X11/Xos_r.bi \
-		-title $(X11_XPROTO) inc/X11/Xproto.bi \
-		-title $(X11_XPROTO) inc/X11/Xprotostr.bi \
-		-title $(X11_XPROTO) inc/X11/Xw32defs.bi \
-		-title $(X11_XPROTO) inc/X11/XWDFile.bi \
-		-title $(X11_XPROTO) inc/X11/Xwindows.bi \
-		-title $(X11_XPROTO) inc/X11/Xwinsock.bi \
-		-title $(X11_XRANDR) inc/X11/extensions/Xrandr.bi \
-		-title $(X11_XRENDER) inc/X11/extensions/Xrender.bi \
-		-title $(X11_XT) inc/X11/Composite.bi \
-		-title $(X11_XT) inc/X11/Constraint.bi \
-		-title $(X11_XT) inc/X11/Core.bi \
-		-title $(X11_XT) inc/X11/Intrinsic.bi \
-		-title $(X11_XT) inc/X11/Object.bi \
-		-title $(X11_XT) inc/X11/RectObj.bi \
-		-title $(X11_XT) inc/X11/Shell.bi \
-		-title $(X11_XT) inc/X11/StringDefs.bi \
-		-title $(X11_XT) inc/X11/Vendor.bi \
-		-title $(X11_XT) inc/X11/Xtos.bi \
-		-title $(X11_XTRANS) inc/X11/Xtrans/Xtrans.bi \
-		-title $(X11_XTRANS) inc/X11/Xtrans/Xtransint.bi \
-		-title $(X11_XTST) inc/X11/extensions/record.bi \
-		-title $(X11_XTST) inc/X11/extensions/XTest.bi \
-		-title $(X11_XV) inc/X11/extensions/Xvlib.bi \
-		-title $(X11_XXF86DGA) inc/X11/extensions/xf86dga1.bi \
-		-title $(X11_XXF86DGA) inc/X11/extensions/Xxf86dga.bi \
-		-title $(X11_XXF86VM) inc/X11/extensions/xf86vmode.bi
+		$(x11_titles_main)
 
 	$(FBFROG) x11.fbfrog -incdir extracted/xorg \
 		\
@@ -2276,30 +2092,9 @@ x11:
 		-include X11/SelectionI.h \
 		\
 		x11-emits-internal-generated.fbfrog \
-		\
-		-title $(X11_XT) inc/X11/CallbackI.bi \
-		-title $(X11_XT) inc/X11/CompositeP.bi \
-		-title $(X11_XT) inc/X11/ConstrainP.bi \
-		-title $(X11_XT) inc/X11/ConvertI.bi \
-		-title $(X11_XT) inc/X11/CoreP.bi \
-		-title $(X11_XT) inc/X11/CreateI.bi \
-		-title $(X11_XT) inc/X11/EventI.bi \
-		-title $(X11_XT) inc/X11/HookObjI.bi \
-		-title $(X11_XT) inc/X11/InitialI.bi \
-		-title $(X11_XT) inc/X11/IntrinsicI.bi \
-		-title $(X11_XT) inc/X11/IntrinsicP.bi \
-		-title $(X11_XT) inc/X11/ObjectP.bi \
-		-title $(X11_XT) inc/X11/PassivGraI.bi \
-		-title $(X11_XT) inc/X11/RectObjP.bi \
-		-title $(X11_XT) inc/X11/ResConfigP.bi \
-		-title $(X11_XT) inc/X11/ResourceI.bi \
-		-title $(X11_XT) inc/X11/SelectionI.bi \
-		-title $(X11_XT) inc/X11/ShellI.bi \
-		-title $(X11_XT) inc/X11/ShellP.bi \
-		-title $(X11_XT) inc/X11/ThreadsI.bi \
-		-title $(X11_XT) inc/X11/TranslateI.bi \
-		-title $(X11_XT) inc/X11/VarargsI.bi \
-		-title $(X11_XT) inc/X11/VendorP.bi
+		$(x11_titles_internal)
+
+	rm *.tmp
 
 # TODO
 xcb:

@@ -1,23 +1,23 @@
-CallbackI
-CompositeP
-ConstrainP
-ConvertI
-CoreP
-CreateI
-EventI
-HookObjI
-InitialI
-IntrinsicI
-IntrinsicP
-ObjectP
-PassivGraI
-RectObjP
-ResConfigP
-ResourceI
-SelectionI
-ShellI
-ShellP
-ThreadsI
-TranslateI
-VarargsI
-VendorP
+XT CallbackI
+XT CompositeP
+XT ConstrainP
+XT ConvertI
+XT CoreP
+XT CreateI
+XT EventI
+XT HookObjI
+XT InitialI
+XT IntrinsicI
+XT IntrinsicP
+XT ObjectP
+XT PassivGraI
+XT RectObjP
+XT ResConfigP
+XT ResourceI
+XT SelectionI
+XT ShellI
+XT ShellP
+XT ThreadsI
+XT TranslateI
+XT VarargsI
+XT VendorP

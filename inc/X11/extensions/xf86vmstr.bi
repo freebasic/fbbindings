@@ -1,4 +1,10 @@
 '' FreeBASIC binding for xf86vidmodeproto-2.3.1
+''
+'' based on the C header files:
+''   TODO
+''
+'' translated to FreeBASIC by:
+''   Copyright © 2015 FreeBASIC development team
 
 #pragma once
 

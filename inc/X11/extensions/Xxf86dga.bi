@@ -1,4 +1,10 @@
 '' FreeBASIC binding for libXxf86dga-1.1.4
+''
+'' based on the C header files:
+''   TODO
+''
+'' translated to FreeBASIC by:
+''   Copyright © 2015 FreeBASIC development team
 
 #pragma once
 
