@@ -16,12 +16,17 @@ ALL += tre
 ALL += x11
 ALL += zip zlib
 
+GETCOMMENT := ./$(shell fbc -print x getcomment.bas)
+
 .PHONY: all clean tests tests-winapi $(ALL)
 
 all: $(ALL)
 
 clean:
 	rm -rf extracted/*
+
+$(GETCOMMENT): getcomment.bas
+	fbc $< -g -exx
 
 tests:
 	lib/tests.sh
@@ -31,20 +36,26 @@ tests-winapi:
 
 ALLEGRO4_VERSION := 4.4.2
 ALLEGRO4_TITLE := allegro-$(ALLEGRO4_VERSION)
-ALPNG_TARBALL := tarballs/alpng13.tar.gz
+ALGIF := algif_1.3
+ALPNG := alpng13
+ALPNG_TARBALL := tarballs/$(ALPNG).tar.gz
 allegro4:
 	./get.sh $(ALLEGRO4_TITLE) $(ALLEGRO4_TITLE).tar.gz "http://cdn.allegro.cc/file/library/allegro/$(ALLEGRO4_VERSION)/$(ALLEGRO4_TITLE).tar.gz"
-	./get.sh algif_1.3 algif_1.3.zip "http://prdownloads.sourceforge.net/algif/algif_1.3.zip?download"
+	./get.sh $(ALGIF) $(ALGIF).zip "http://prdownloads.sourceforge.net/algif/$(ALGIF).zip?download"
 	if [ ! -f "$(ALPNG_TARBALL)" ]; then \
-		wget --no-verbose "http://sourceforge.net/projects/alpng/files/alpng/1.3/alpng13.tar.gz/download" -O "$(ALPNG_TARBALL)"; \
+		wget --no-verbose "http://sourceforge.net/projects/alpng/files/alpng/1.3/$(ALPNG_TARBALL)/download" -O "$(ALPNG_TARBALL)"; \
 	fi
-	if [ ! -d extracted/alpng13 ]; then \
-		mkdir -p extracted/alpng13; \
-		tar xf "$(ALPNG_TARBALL)" -C extracted/alpng13; \
+	if [ ! -d extracted/$(ALPNG) ]; then \
+		mkdir -p extracted/$(ALPNG); \
+		tar xf "$(ALPNG_TARBALL)" -C extracted/$(ALPNG); \
 	fi
+
+	sed -n 1,15p    extracted/$(ALLEGRO4_TITLE)/readme.txt | cut -c4-  > allegro4.tmp
+	sed -n 177,197p extracted/$(ALLEGRO4_TITLE)/readme.txt | cut -c4- >> allegro4.tmp
+	sed -n 412,427p extracted/$(ALGIF)/README      > algif.tmp
+	sed -n 2,24p    extracted/$(ALPNG)/src/alpng.h > alpng.tmp
 
 	mkdir -p inc/allegro
-
 	$(FBFROG) allegro4.fbfrog \
 		-incdir extracted/$(ALLEGRO4_TITLE)/include \
 		extracted/$(ALLEGRO4_TITLE)/include/allegro.h \
@@ -62,9 +73,10 @@ allegro4:
 		-undef palette inc/allegro.bi \
 		-undef rgb     inc/allegro.bi \
 		-addinclude allegro.bi inc/allegro/alpng.bi \
-		-title $(ALLEGRO4_TITLE) inc/allegro.bi \
-		-title algif_1.3         inc/allegro/algif.bi \
-		-title alpng13           inc/allegro/alpng.bi
+		-title $(ALLEGRO4_TITLE) allegro4.tmp fbteam.txt inc/allegro.bi \
+		-title algif_1.3         algif.tmp    fbteam.txt inc/allegro/algif.bi \
+		-title alpng13           alpng.tmp    fbteam.txt inc/allegro/alpng.bi
+	rm *.tmp
 
 ALLEGRO5_VERSION := 5.0.11
 ALLEGRO5_TITLE := allegro-$(ALLEGRO5_VERSION)
@@ -79,6 +91,9 @@ ALLEGRO5_LIB := -5.0.10-static-md
 ALLEGRO5_DLL := -5.0.10-md
 allegro5:
 	./get.sh $(ALLEGRO5_TITLE) $(ALLEGRO5_TITLE).tar.gz "http://sourceforge.net/projects/alleg/files/allegro/$(ALLEGRO5_VERSION)/$(ALLEGRO5_TITLE).tar.gz/download"
+
+	sed -n 1,20p extracted/$(ALLEGRO5_TITLE)/LICENSE.txt > allegro5.tmp
+
 	mkdir -p inc/allegro5
 	$(FBFROG) allegro5.fbfrog \
 		-incdir extracted/$(ALLEGRO5_TITLE)/include \
@@ -147,7 +162,8 @@ allegro5:
 			-inclib allegro_ttf        inc/allegro5/allegro_ttf.bi \
 		-endif \
 		\
-		-title $(ALLEGRO5_TITLE)
+		-title $(ALLEGRO5_TITLE) allegro5.tmp fbteam.txt
+	rm *.tmp
 
 ATK_SERIES := 2.14
 ATK := atk-$(ATK_SERIES).0
@@ -155,6 +171,9 @@ atk-extract:
 	./get.sh $(ATK) $(ATK).tar.xz http://ftp.gnome.org/pub/gnome/sources/atk/$(ATK_SERIES)/$(ATK).tar.xz
 
 atk: atk-extract glib-extract
+
+	$(GETCOMMENT) extracted/$(ATK)/atk/atk.h > atk.tmp
+
 	mkdir -p inc/atk
 	$(FBFROG) atk.fbfrog \
 		-incdir extracted/$(ATK) \
@@ -197,13 +216,18 @@ atk: atk-extract glib-extract
 		-emit '*/atk/atkversion.h'           inc/atk/atk.bi \
 		-emit '*/atk/atkwindow.h'            inc/atk/atk.bi \
 		-inclib atk-1.0                      inc/atk/atk.bi \
-		-title $(ATK)
+		-title $(ATK) atk.tmp gtk+-translators.txt
+	rm *.tmp
 
 BZIP2_VERSION := 1.0.6
 BZIP2 := bzip2-$(BZIP2_VERSION)
 bzip2:
 	./get.sh $(BZIP2) $(BZIP2).tar.gz http://www.bzip.org/$(BZIP2_VERSION)/$(BZIP2).tar.gz
-	$(FBFROG) bzip2.fbfrog extracted/$(BZIP2)/bzlib.h -o inc -inclib bz2
+
+	sed -n 4,40p extracted/$(BZIP2)/LICENSE > bzip2.tmp
+	$(FBFROG) bzip2.fbfrog extracted/$(BZIP2)/bzlib.h -o inc -inclib bz2 \
+		-title $(BZIP2) bzip2.tmp fbteam.txt
+	rm *.tmp
 
 # TODO:
 # cairo-deprecated.h
@@ -237,6 +261,7 @@ cairo-extract:
 	cp extracted/$(CAIRO)/cairo-version.h extracted/$(CAIRO)/src
 
 cairo: cairo-extract
+	sed -n 1,35p extracted/$(CAIRO)/src/cairo.h | cut -c4- > cairo.tmp
 	mkdir -p inc/cairo
 	$(FBFROG) cairo.fbfrog \
 		-incdir extracted/$(CAIRO)/src \
@@ -255,24 +280,30 @@ cairo: cairo-extract
 		-emit '*/cairo-svg.h'        inc/cairo/cairo-svg.bi   \
 		-emit '*/cairo-win32.h'      inc/cairo/cairo-win32.bi \
 		-inclib cairo inc/cairo/cairo.bi \
-		-title $(CAIRO)
+		-title $(CAIRO) cairo.tmp gtk+-translators.txt
+	rm *.tmp
 
 CGUI_VERSION := 2.0.3
 CGUI := cgui-$(CGUI_VERSION)
 cgui:
 	./get.sh cgui $(CGUI).tar.gz "http://sourceforge.net/projects/cgui/files/$(CGUI_VERSION)/$(CGUI).tar.gz/download"
-	$(FBFROG) cgui.fbfrog -o inc extracted/cgui/include/cgui.h -title $(CGUI)
+	sed -n 2,2p extracted/cgui/readme.txt > cgui.tmp
+	$(FBFROG) cgui.fbfrog -o inc extracted/cgui/include/cgui.h \
+		-title $(CGUI) cgui.tmp fbteam.txt
+	rm *.tmp
 
 CLANG_VERSION := 3.5.0
 CLANG_TITLE := cfe-$(CLANG_VERSION).src
 clang:
 	./get.sh $(CLANG_TITLE) $(CLANG_TITLE).tar.xz "http://llvm.org/releases/$(CLANG_VERSION)/$(CLANG_TITLE).tar.xz"
+	sed -n 4,43p extracted/$(CLANG_TITLE)/LICENSE.TXT > clang.tmp
 	$(FBFROG) -o inc/clang-c.bi \
 		extracted/$(CLANG_TITLE)/include/clang-c/Index.h \
 		extracted/$(CLANG_TITLE)/include/clang-c/CXCompilationDatabase.h \
 		-incdir extracted/$(CLANG_TITLE)/include \
 		-removedefine CINDEX_LINKAGE \
-		-title $(CLANG_TITLE)
+		-title $(CLANG_TITLE) clang.tmp fbteam.txt
+	rm *.tmp
 
 CUNIT_VERSION := 2.1-3
 CUNIT_TITLE := CUnit-$(CUNIT_VERSION)
@@ -280,6 +311,7 @@ cunit:
 	./get.sh $(CUNIT_TITLE) $(CUNIT_TITLE).tar.bz2 "http://sourceforge.net/projects/cunit/files/CUnit/$(CUNIT_VERSION)/$(CUNIT_TITLE).tar.bz2/download"
 	cd extracted/$(CUNIT_TITLE)/CUnit/Headers && \
 		sed -e 's/@VERSION@-@RELEASE@/$(CUNIT_VERSION)/g' < CUnit.h.in > CUnit.h
+	$(GETCOMMENT) extracted/$(CUNIT_TITLE)/CUnit/Headers/CUnit.h > cunit.tmp
 	mkdir -p inc/CUnit
 	$(FBFROG) cunit.fbfrog \
 		extracted/$(CUNIT_TITLE)/CUnit/Headers/CUnit.h \
@@ -297,20 +329,26 @@ cunit:
 		-emit '*/TestDB.h'    inc/CUnit/TestDB.bi		\
 		-emit '*/TestRun.h'   inc/CUnit/TestRun.bi		\
 		-emit '*/Util.h'      inc/CUnit/Util.bi			\
-		-title $(CUNIT_TITLE)
+		-title $(CUNIT_TITLE) cunit.tmp fbteam.txt
+	rm *.tmp
 
 CURL_TITLE := curl-7.39.0
 curl:
 	./get.sh $(CURL_TITLE) $(CURL_TITLE).tar.lzma "http://curl.haxx.se/download/$(CURL_TITLE).tar.lzma"
+	tail -n +3 extracted/$(CURL_TITLE)/COPYING > curl.tmp
 	$(FBFROG) curl.fbfrog \
 		extracted/$(CURL_TITLE)/include/curl/curl.h \
 		-dontemit '*/typecheck-gcc.h' \
 		-emit '*' inc/curl.bi \
-		-title $(CURL_TITLE)
+		-title $(CURL_TITLE) curl.tmp fbteam.txt
+	rm *.tmp
 
 FASTCGI_TITLE := fcgi-2.4.1-SNAP-0311112127
 fastcgi:
 	./get.sh $(FASTCGI_TITLE) $(FASTCGI_TITLE).tar.gz "http://www.fastcgi.com/dist/fcgi.tar.gz"
+	sed -n 7,7p extracted/$(FASTCGI_TITLE)/include/fastcgi.h | cut -c4- > fastcgi.tmp
+	echo                                         >> fastcgi.tmp
+	cat extracted/$(FASTCGI_TITLE)/LICENSE.TERMS >> fastcgi.tmp
 	mkdir -p inc/fastcgi
 	$(FBFROG) fastcgi.fbfrog \
 		extracted/$(FASTCGI_TITLE)/include/fastcgi.h \
@@ -321,9 +359,14 @@ fastcgi:
 		-emit '*/fcgi_stdio.h' inc/fastcgi/fcgi_stdio.bi \
 		-addinclude crt.bi inc/fastcgi/fcgi_stdio.bi \
 		-inclib fcgi inc/fastcgi/fcgiapp.bi \
-		-title $(FASTCGI_TITLE)
+		-title $(FASTCGI_TITLE) fastcgi.tmp fbteam.txt
+	rm *.tmp
 
-FFI_TITLE := libffi-3.1
+FFI_VERSION := 3.1
+FFI_TITLE := libffi-$(FFI_VERSION)
+FFI_SED := -e 's/@HAVE_LONG_DOUBLE@/1/g'
+FFI_SED += -e 's/@FFI_EXEC_TRAMPOLINE_TABLE@/0/g'
+FFI_SED += -e 's/@VERSION@/$(FFI_VERSION)/g'
 ffi:
 	./get.sh $(FFI_TITLE) $(FFI_TITLE).tar.gz "ftp://sourceware.org/pub/libffi/$(FFI_TITLE).tar.gz"
 	# libffi's configure script generates ffi.h based on ffi.h.in (inserting @TARGET@)
@@ -332,9 +375,11 @@ ffi:
 	# we can avoid running configure for all our targets and generate the
 	# headers manually instead.
 	cd extracted/$(FFI_TITLE)/include && \
-		sed -e 's/@TARGET@/X86/g'       -e 's/@HAVE_LONG_DOUBLE@/1/g' -e 's/@FFI_EXEC_TRAMPOLINE_TABLE@/0/g' < ffi.h.in > ffi-x86.h       && \
-		sed -e 's/@TARGET@/X86_WIN32/g' -e 's/@HAVE_LONG_DOUBLE@/1/g' -e 's/@FFI_EXEC_TRAMPOLINE_TABLE@/0/g' < ffi.h.in > ffi-x86-win32.h && \
-		sed -e 's/@TARGET@/X86_WIN64/g' -e 's/@HAVE_LONG_DOUBLE@/1/g' -e 's/@FFI_EXEC_TRAMPOLINE_TABLE@/0/g' < ffi.h.in > ffi-x86-win64.h
+		sed -e 's/@TARGET@/X86/g'       $(FFI_SED) < ffi.h.in > ffi-x86.h       && \
+		sed -e 's/@TARGET@/X86_WIN32/g' $(FFI_SED) < ffi.h.in > ffi-x86-win32.h && \
+		sed -e 's/@TARGET@/X86_WIN64/g' $(FFI_SED) < ffi.h.in > ffi-x86-win64.h
+
+	$(GETCOMMENT) extracted/$(FFI_TITLE)/include/ffi-x86.h > ffi.tmp
 
 	$(FBFROG) ffi.fbfrog -o inc/ffi.bi \
 		-ifdef __FB_WIN32__						\
@@ -347,11 +392,17 @@ ffi:
 			extracted/$(FFI_TITLE)/include/ffi-x86.h		\
 		-endif								\
 		-incdir extracted/$(FFI_TITLE)/src/x86				\
-		-title $(FFI_TITLE)
+		-title $(FFI_TITLE) ffi.tmp fbteam.txt
+
+	rm *.tmp
 
 FONTCONFIG := fontconfig-2.11.1
 fontconfig:
 	./get.sh $(FONTCONFIG) $(FONTCONFIG).tar.bz2 "http://www.freedesktop.org/software/fontconfig/release/$(FONTCONFIG).tar.bz2"
+
+	$(GETCOMMENT) extracted/$(FONTCONFIG)/fontconfig/fontconfig.h > fontconfig.tmp
+	$(GETCOMMENT) extracted/$(FONTCONFIG)/fontconfig/fcfreetype.h > fcfreetype.tmp
+
 	mkdir -p inc/fontconfig
 	$(FBFROG) fontconfig.fbfrog \
 		-incdir extracted/$(FONTCONFIG)/fontconfig \
@@ -359,21 +410,32 @@ fontconfig:
 		-include fcfreetype.h \
 		-emit '*/fontconfig.h' inc/fontconfig/fontconfig.bi \
 		-emit '*/fcfreetype.h' inc/fontconfig/fcfreetype.bi \
-		-title $(FONTCONFIG)
+		-title $(FONTCONFIG) fontconfig.tmp fbteam.txt inc/fontconfig/fontconfig.bi \
+		-title $(FONTCONFIG) fcfreetype.tmp fbteam.txt inc/fontconfig/fcfreetype.bi
 
+	rm *.tmp
 
 FREEGLUT_VERSION := 3.0.0
 FREEGLUT := freeglut-$(FREEGLUT_VERSION)
 freeglut:
 	./get.sh $(FREEGLUT) $(FREEGLUT).tar.gz http://sourceforge.net/projects/freeglut/files/freeglut/$(FREEGLUT_VERSION)/$(FREEGLUT).tar.gz/download
+
+	$(GETCOMMENT) extracted/$(FREEGLUT)/include/GL/freeglut.h     > freeglut.tmp
+	$(GETCOMMENT) extracted/$(FREEGLUT)/include/GL/freeglut_ext.h > freeglut_ext.tmp
+	$(GETCOMMENT) extracted/$(FREEGLUT)/include/GL/freeglut_std.h > freeglut_std.tmp
+
 	mkdir -p inc/GL
 	$(FBFROG) freeglut.fbfrog \
 		-incdir extracted/$(FREEGLUT)/include \
 		-include GL/freeglut.h \
-		-emit '*/GL/freeglut.h' inc/GL/freeglut.bi \
+		-emit '*/GL/freeglut.h'     inc/GL/freeglut.bi \
 		-emit '*/GL/freeglut_ext.h' inc/GL/freeglut_ext.bi \
 		-emit '*/GL/freeglut_std.h' inc/GL/freeglut_std.bi \
-		-title $(FREEGLUT)
+		-title $(FREEGLUT) freeglut.tmp     fbteam.txt inc/GL/freeglut.bi \
+		-title $(FREEGLUT) freeglut_ext.tmp fbteam.txt inc/GL/freeglut_ext.bi \
+		-title $(FREEGLUT) freeglut_std.tmp fbteam.txt inc/GL/freeglut_std.bi
+
+	rm *.tmp
 
 FREETYPE := freetype-2.5.5
 freetype:
@@ -385,6 +447,11 @@ freetype:
 			(sed -e 's/#undef FT_CONFIG_OPTION_FORCE_INT64/#define FT_CONFIG_OPTION_FORCE_INT64 1/g' \
 				< ftoption.h.orig > ftoption.h); \
 		fi
+
+	# Freetype offers two licenses (its own FTL and GPL2); choosing GPL2 here
+	sed -n 5,8p     extracted/$(FREETYPE)/include/freetype.h > freetype.tmp
+	echo >> freetype.tmp
+	sed -n 296,308p extracted/$(FREETYPE)/docs/GPLv2.TXT | cut -c5- >> freetype.tmp
 
 	mkdir -p inc/freetype2/config
 	$(FBFROG) freetype.fbfrog -incdir extracted/$(FREETYPE)/include \
@@ -400,7 +467,9 @@ freetype:
 		-emit '*/config/ftoption.h'  inc/freetype2/config/ftoption.bi  \
 		-emit '*/config/ftstdlib.h'  inc/freetype2/config/ftstdlib.bi  \
 		-inclib freetype             inc/freetype2/freetype.bi \
-		-title $(FREETYPE)
+		-title $(FREETYPE) freetype.tmp fbteam.txt
+
+	rm *.tmp
 
 GLFW2_VERSION := 2.7.9
 GLFW3_VERSION := 3.1.1
@@ -409,6 +478,10 @@ GLFW3 := glfw-$(GLFW3_VERSION)
 glfw:
 	./get.sh $(GLFW2) $(GLFW2).tar.bz2 http://sourceforge.net/projects/glfw/files/glfw/$(GLFW2_VERSION)/$(GLFW2).tar.bz2/download
 	./get.sh $(GLFW3) $(GLFW3).tar.bz2 http://sourceforge.net/projects/glfw/files/glfw/$(GLFW3_VERSION)/$(GLFW3).tar.bz2/download
+
+	$(GETCOMMENT) extracted/$(GLFW2)/include/GL/glfw.h    > glfw2.tmp
+	$(GETCOMMENT) extracted/$(GLFW3)/include/GLFW/glfw3.h > glfw3.tmp
+
 	mkdir -p inc/GL inc/GLFW
 
 	$(FBFROG) glfw.fbfrog extracted/$(GLFW2)/include/GL/glfw.h -o inc/GL/glfw.bi \
@@ -423,7 +496,7 @@ glfw:
 		-else \
 			-inclib glfw \
 		-endif \
-		-title $(GLFW2)
+		-title $(GLFW2) glfw2.tmp fbteam.txt
 
 	$(FBFROG) glfw.fbfrog extracted/$(GLFW3)/include/GLFW/glfw3.h -o inc/GLFW/glfw3.bi \
 		-ifdef __FB_WIN32__ \
@@ -437,7 +510,9 @@ glfw:
 		-else \
 			-inclib glfw \
 		-endif\
-		-title $(GLFW3)
+		-title $(GLFW3) glfw3.tmp fbteam.txt
+
+	rm *.tmp
 
 GDKPIXBUF_SERIES := 2.30
 GDKPIXBUF := gdk-pixbuf-$(GDKPIXBUF_SERIES).8
@@ -445,6 +520,9 @@ gdkpixbuf-extract:
 	./get.sh $(GDKPIXBUF) $(GDKPIXBUF).tar.xz http://ftp.gnome.org/pub/gnome/sources/gdk-pixbuf/$(GDKPIXBUF_SERIES)/$(GDKPIXBUF).tar.xz
 
 gdkpixbuf: glib-extract gdkpixbuf-extract
+
+	$(GETCOMMENT) extracted/$(GDKPIXBUF)/gdk-pixbuf/gdk-pixbuf.h > gdkpixbuf.tmp
+
 	mkdir -p inc/gdk-pixbuf
 	$(FBFROG) gdkpixbuf.fbfrog \
 		-incdir extracted/$(GDKPIXBUF) \
@@ -454,7 +532,9 @@ gdkpixbuf: glib-extract gdkpixbuf-extract
 		-include gdk-pixbuf/gdk-pixbuf.h \
 		-emit '*/extracted/$(GDKPIXBUF)/gdk-pixbuf/*' inc/gdk-pixbuf/gdk-pixbuf.bi \
 		-inclib gdk_pixbuf-2.0                        inc/gdk-pixbuf/gdk-pixbuf.bi \
-		-title $(GDKPIXBUF)
+		-title $(GDKPIXBUF) gdkpixbuf.tmp gtk+-translators.txt
+
+	rm *.tmp
 
 GLIB_MAJOR := 2
 GLIB_MINOR := 42
@@ -477,6 +557,12 @@ glib-extract:
 	sed $(SED_GLIBCONFIG) < glibconfig.h > extracted/$(GLIB)/glib/glibconfig.h
 
 glib: glib-extract
+
+	$(GETCOMMENT) extracted/$(GLIB)/glib/glib.h        > glib.tmp
+	$(GETCOMMENT) extracted/$(GLIB)/glib/glib-object.h > glib-object.tmp
+	$(GETCOMMENT) extracted/$(GLIB)/gmodule/gmodule.h  > glib-gmodule.tmp
+	$(GETCOMMENT) extracted/$(GLIB)/gio/gio.h          > glib-gio.tmp
+
 	mkdir -p inc/gio
 	$(FBFROG) glib.fbfrog \
 		-incdir extracted/$(GLIB) \
@@ -499,7 +585,13 @@ glib: glib-extract
 		-ifdef __FB_WIN32__ \
 			-inclib gthread-2.0                    inc/glib.bi \
 		-endif \
-		-title $(GLIB)
+		-title $(GLIB) glib.tmp         gtk+-translators.txt inc/glib.bi \
+		-title $(GLIB) glib.tmp         gtk+-translators.txt inc/glibconfig.bi \
+		-title $(GLIB) glib-object.tmp  gtk+-translators.txt inc/glib-object.bi \
+		-title $(GLIB) glib-gmodule.tmp gtk+-translators.txt inc/gmodule.bi \
+		-title $(GLIB) glib-gio.tmp     gtk+-translators.txt inc/gio/gio.bi
+
+	rm *.tmp
 
 GLIBC := glibc-2.21
 glibc:
@@ -507,6 +599,10 @@ glibc:
 
 	cd extracted/$(GLIBC) && \
 		rm -f bits/wordsize.h bits/endian.h bits/setjmp.h
+
+	$(GETCOMMENT) extracted/$(GLIBC)/sysdeps/wordsize-32/bits/wordsize.h > glibc-wordsize.tmp
+	$(GETCOMMENT) extracted/$(GLIBC)/sysdeps/nptl/pthread.h              > glibc-pthread.tmp
+	$(GETCOMMENT) extracted/$(GLIBC)/posix/sched.h                       > glibc-sched.tmp
 
 	mkdir -p inc/crt/bits
 	$(FBFROG) glibc.fbfrog \
@@ -525,11 +621,20 @@ glibc:
 		-emit '*/bits/sched.h'        inc/crt/bits/sched.bi \
 		-emit '*/pthread.h'           inc/crt/pthread.bi \
 		-emit '*/sched.h'             inc/crt/sched.bi \
-		-title $(GLIBC)
+		-title $(GLIBC) glibc-pthread.tmp    fbteam.txt inc/crt/bits/pthreadtypes.bi \
+		-title $(GLIBC) glibc-wordsize.tmp   fbteam.txt inc/crt/bits/wordsize.bi \
+		-title $(GLIBC) glibc-sched.tmp      fbteam.txt inc/crt/bits/sched.bi \
+		-title $(GLIBC) glibc-pthread.tmp    fbteam.txt inc/crt/pthread.bi \
+		-title $(GLIBC) glibc-sched.tmp      fbteam.txt inc/crt/sched.bi
+
+	rm *.tmp
 
 GLUT := glut-3.7
 glut:
 	./get.sh $(GLUT) $(GLUT).tar.gz https://www.opengl.org/resources/libraries/glut/$(GLUT).tar.gz
+
+	sed -n 4,8p extracted/$(GLUT)/include/GL/glut.h > glut.tmp
+
 	mkdir -p inc/GL
 	$(FBFROG) glut.fbfrog \
 		extracted/$(GLUT)/include/GL/glut.h -o inc/GL/glut.bi \
@@ -542,7 +647,9 @@ glut:
 		-caseelse \
 			-inclib glut \
 		-endselect \
-		-title $(GLUT)
+		-title $(GLUT) glut.tmp fbteam.txt
+
+	rm *.tmp
 
 gtk: gtk2 gtk3
 
@@ -555,6 +662,10 @@ gtk2-extract: glib-extract cairo-extract pango-extract atk-extract gdkpixbuf-ext
 	cp gdk2config.h extracted/$(GTK2)/gdkconfig.h
 
 gtk2: gtk2-extract
+
+	$(GETCOMMENT) extracted/$(GTK2)/gtk/gtk.h > gtk2.tmp
+	$(GETCOMMENT) extracted/$(GTK2)/gdk/gdk.h > gdk2.tmp
+
 	mkdir -p inc/gtk inc/gdk
 	$(FBFROG) gtk.fbfrog gtk2.fbfrog \
 		-incdir extracted/$(GTK2) \
@@ -575,7 +686,10 @@ gtk2: gtk2-extract
 			-inclib gdk-x11-2.0   inc/gdk/gdk2.bi \
 			-inclib gtk-x11-2.0   inc/gtk/gtk2.bi \
 		-endif \
-		-title $(GTK2)
+		-title $(GTK2) gtk2.tmp gtk+-translators.txt inc/gtk/gtk2.bi \
+		-title $(GTK2) gdk2.tmp gtk+-translators.txt inc/gdk/gdk2.bi
+
+	rm *.tmp
 
 GTK3_SERIES := 3.14
 GTK3 := gtk+-$(GTK3_SERIES).10
@@ -584,6 +698,9 @@ gtk3: glib-extract cairo-extract pango-extract atk-extract gdkpixbuf-extract
 
 	# Insert our custom gdkconfig.h
 	cp gdk3config.h extracted/$(GTK3)/gdk/gdkconfig.h
+
+	$(GETCOMMENT) extracted/$(GTK3)/gtk/gtk.h > gtk3.tmp
+	$(GETCOMMENT) extracted/$(GTK3)/gdk/gdk.h > gdk3.tmp
 
 	mkdir -p inc/gtk inc/gdk
 	$(FBFROG) gtk.fbfrog gtk3.fbfrog \
@@ -600,7 +717,10 @@ gtk3: glib-extract cairo-extract pango-extract atk-extract gdkpixbuf-extract
 		-emit '*/extracted/$(GTK3)/gtk/*' inc/gtk/gtk3.bi \
 		-inclib gdk-3                     inc/gdk/gdk3.bi \
 		-inclib gtk-3                     inc/gtk/gtk3.bi \
-		-title $(GTK3)
+		-title $(GTK3) gtk3.tmp gtk+-translators.txt inc/gtk/gtk3.bi \
+		-title $(GTK3) gdk3.tmp gtk+-translators.txt inc/gdk/gdk3.bi
+
+	rm *.tmp
 
 GTKGLEXT := gtkglext-1.2.0
 gtkglext: glib-extract gtk2-extract
@@ -608,6 +728,9 @@ gtkglext: glib-extract gtk2-extract
 
 	# Insert our custom gdkglext-config.h
 	cp gdkglext-config.h extracted/$(GTKGLEXT)/gdkglext-config.h
+
+	$(GETCOMMENT) extracted/$(GTKGLEXT)/gtk/gtkgl.h > gtkglext.tmp
+	$(GETCOMMENT) extracted/$(GTKGLEXT)/gdk/gdkgl.h > gdkglext.tmp
 
 	mkdir -p inc/gtkgl
 	$(FBFROG) gtkglext.fbfrog \
@@ -631,7 +754,10 @@ gtkglext: glib-extract gtk2-extract
 			-inclib gdkglext-x11-1.0 inc/gtkgl/gdkglext.bi \
 			-inclib gtkglext-x11-1.0 inc/gtkgl/gtkglext.bi \
 		-endif \
-		-title $(GTKGLEXT)
+		-title $(GTKGLEXT) gdkglext.tmp gtk+-translators.txt inc/gtkgl/gdkglext.bi \
+		-title $(GTKGLEXT) gtkglext.tmp gtk+-translators.txt inc/gtkgl/gtkglext.bi
+
+	rm *.tmp
 
 # GNU libiconv, not glibc's iconv
 ICONV := libiconv-1.14
@@ -649,6 +775,8 @@ iconv:
 		sed $(ICONV_SED_DEFAULT) < iconv.h.in > iconv-default.h && \
 		sed $(ICONV_SED_WINDOWS) < iconv.h.in > iconv-windows.h
 
+	$(GETCOMMENT) extracted/$(ICONV)/include/iconv.h.in > iconv.tmp
+
 	$(FBFROG) \
 		-ifdef __FB_WIN32__ \
 			extracted/$(ICONV)/include/iconv-windows.h \
@@ -658,15 +786,19 @@ iconv:
 		-define EILSEQ "" \
 		-renamedefine _LIBICONV_VERSION _LIBICONV_VERSION_ \
 		-o inc/libiconv.bi \
-		-title $(ICONV)
+		-title $(ICONV) iconv.tmp fbteam.txt
+
+	rm *.tmp
 
 IUP_VERSION := 3.13
 IUP_TITLE := iup-$(IUP_VERSION)
 iup:
 	./get.sh iup $(IUP_TITLE)_Sources.tar.gz "http://sourceforge.net/projects/iup/files/$(IUP_VERSION)/Docs%20and%20Sources/$(IUP_TITLE)_Sources.tar.gz/download"
 	find extracted/iup/ -type d -exec chmod +x '{}' ';'
-	mkdir -p inc/IUP
 
+	sed -n 448,467p extracted/iup/include/iup.h | cut -c3- > iup.tmp
+
+	mkdir -p inc/IUP
 	$(FBFROG) iup.fbfrog \
 		extracted/iup/include/*.h \
 		-emit '*/iupcb.h'            inc/IUP/iupcb.bi            \
@@ -716,10 +848,10 @@ iup:
 			-inclib gmodule-2.0  inc/IUP/iup.bi              \
 			-inclib glib-2.0     inc/IUP/iup.bi              \
 		-endif                                                   \
-		-title $(IUP_TITLE)
+		-title $(IUP_TITLE) iup.tmp fbteam.txt
 
 	$(FBFROG) iupim.fbfrog extracted/iup/include/iupim.h -o inc/IUP \
-		-title $(IUP_TITLE)
+		-title $(IUP_TITLE) iup.tmp fbteam.txt
 
 	$(FBFROG) iuplua.fbfrog iupscintilla.fbfrog \
 		extracted/iup/include/*.h \
@@ -737,7 +869,9 @@ iup:
 		-emit '*/iupluatuio.h'       inc/IUP/iupluatuio.bi       \
 		-emit '*/iupluaweb.h'        inc/IUP/iupluaweb.bi        \
 		-emit '*/iup_scintilla.h'    inc/IUP/iup_scintilla.bi    \
-		-title $(IUP_TITLE)
+		-title $(IUP_TITLE) iup.tmp fbteam.txt
+
+	rm *.tmp
 
 JIT_TITLE := libjit-a8293e141b79c28734a3633a81a43f92f29fc2d7
 jit:
@@ -756,6 +890,8 @@ jit:
 		cp jit-arch-x86.h    x86/jit/jit-arch.h		&& \
 		cp jit-arch-x86-64.h x86_64/jit/jit-arch.h
 
+	sed -n 4,18p extracted/$(JIT_TITLE)/include/jit/jit.h | cut -c4- > jit.tmp
+
 	$(FBFROG) jit.fbfrog -o inc extracted/$(JIT_TITLE)/include/jit/jit.h	\
 		-incdir extracted/$(JIT_TITLE)/include				\
 		-ifdef __FB_64BIT__						\
@@ -763,7 +899,9 @@ jit:
 		-else								\
 			-incdir extracted/$(JIT_TITLE)/include/jit/x86		\
 		-endif \
-		-title $(JIT_TITLE)
+		-title $(JIT_TITLE) jit.tmp fbteam.txt
+
+	rm *.tmp
 
 LLVM_VERSION := 3.5.0
 LLVM_TITLE := llvm-$(LLVM_VERSION).src
@@ -772,6 +910,8 @@ llvm:
 
 	cd extracted/$(LLVM_TITLE) && \
 		if [ ! -f include/llvm/Config/Targets.def ]; then ./configure --prefix=/usr; fi
+
+	sed -n 4,43p extracted/$(LLVM_TITLE)/LICENSE.TXT > llvm.tmp
 
 	$(FBFROG) -o inc/llvm-c.bi llvm.fbfrog \
 		-incdir extracted/$(LLVM_TITLE)/include \
@@ -790,11 +930,16 @@ llvm:
 		extracted/$(LLVM_TITLE)/include/llvm-c/Support.h		\
 		extracted/$(LLVM_TITLE)/include/llvm-c/Target.h			\
 		extracted/$(LLVM_TITLE)/include/llvm-c/TargetMachine.h		\
-		-title $(LLVM_TITLE)
+		-title $(LLVM_TITLE) llvm.tmp fbteam.txt
+
+	rm *.tmp
 
 LUA_TITLE := lua-5.2.3
 lua:
 	./get.sh $(LUA_TITLE) $(LUA_TITLE).tar.gz "http://www.lua.org/ftp/$(LUA_TITLE).tar.gz"
+
+	sed -n 421,440p extracted/$(LUA_TITLE)/src/lua.h | cut -c3- > lua.tmp
+
 	mkdir -p inc/Lua
 	$(FBFROG) lua.fbfrog \
 		extracted/$(LUA_TITLE)/src/lua.h       \
@@ -805,17 +950,21 @@ lua:
 		-emit '*/lualib.h'  inc/Lua/lualib.bi  \
 		-emit '*/lauxlib.h' inc/Lua/lauxlib.bi \
 		-inclib lua inc/Lua/lua.bi \
-		-title $(LUA_TITLE)
+		-title $(LUA_TITLE) lua.tmp fbteam.txt
+
+	rm *.tmp
 
 NCURSES_TITLE := ncurses-5.9
 ncurses:
 	./get.sh $(NCURSES_TITLE) $(NCURSES_TITLE).tar.gz "http://ftp.gnu.org/pub/gnu/ncurses/$(NCURSES_TITLE).tar.gz"
 	cd extracted/$(NCURSES_TITLE) && \
 		if [ ! -f include/curses.h ]; then ./configure && cd include && make; fi
+	sed -n 1,27p extracted/$(NCURSES_TITLE)/include/curses.h.in > ncurses.tmp
 	mkdir -p inc/curses
 	$(FBFROG) ncurses.fbfrog -o inc/curses/ncurses.bi \
 		extracted/$(NCURSES_TITLE)/include/curses.h \
-		-title $(NCURSES_TITLE)
+		-title $(NCURSES_TITLE) ncurses.tmp fbteam.txt
+	rm *.tmp
 
 #
 # OpenGL headers
@@ -852,6 +1001,10 @@ opengl-mesa:
 	./get.sh $(MESA) $(MESA).tar.xz ftp://ftp.freedesktop.org/pub/mesa/$(MESA_VERSION)/$(MESA).tar.xz
 	./get.sh $(GLU)  $(GLU).tar.bz2 ftp://ftp.freedesktop.org/pub/mesa/glu/$(GLU).tar.bz2
 
+	$(GETCOMMENT) extracted/$(MESA)/include/GL/gl.h    > mesa-gl.tmp
+	sed -n 9,28p extracted/$(MESA)/include/GL/glext.h | cut -c4- > mesa-glext.tmp
+	$(GETCOMMENT) extracted/$(GLU)/include/GL/glu.h    > mesa-glu.tmp
+
 	mkdir -p inc/GL/mesa
 	$(FBFROG) opengl.fbfrog \
 		-incdir extracted/$(MESA)/include \
@@ -862,11 +1015,17 @@ opengl-mesa:
 		-emit '*/GL/gl.h'    inc/GL/mesa/gl.bi \
 		-emit '*/GL/glext.h' inc/GL/mesa/glext.bi \
 		-emit '*/GL/glu.h'   inc/GL/mesa/glu.bi \
-		-title $(MESA)       inc/GL/mesa/gl.bi \
-		-title $(MESA)       inc/GL/mesa/glext.bi \
-		-title $(GLU)        inc/GL/mesa/glu.bi
+		-title $(MESA) mesa-gl.tmp    fbteam.txt inc/GL/mesa/gl.bi \
+		-title $(MESA) mesa-glext.tmp fbteam.txt inc/GL/mesa/glext.bi \
+		-title $(GLU)  mesa-glu.tmp   fbteam.txt inc/GL/mesa/glu.bi
+
+	rm *.tmp
 
 opengl-winapi: winapi-extract
+
+	sed -n 2,9p  extracted/$(MINGWW64_TITLE)/DISCLAIMER.PD | cut -c4- > mingw-w64-disclaimer-pd.tmp
+	sed -n 9,28p extracted/$(MINGWW64_TITLE)/mingw-w64-headers/include/GL/glext.h | cut -c4- > mingw-w64-glext.tmp
+
 	mkdir -p inc/GL/windows
 	$(FBFROG) winapi.fbfrog opengl.fbfrog \
 		-incdir extracted/$(MINGWW64_TITLE)/mingw-w64-headers/crt \
@@ -877,14 +1036,21 @@ opengl-winapi: winapi-extract
 		-emit '*/GL/gl.h'    inc/GL/windows/gl.bi \
 		-emit '*/GL/glext.h' inc/GL/windows/glext.bi \
 		-emit '*/GL/glu.h'   inc/GL/windows/glu.bi \
-		-title $(MINGWW64_TITLE)
+		-title $(MINGWW64_TITLE) mingw-w64-disclaimer-pd.tmp fbteam.txt \
+		-title $(MINGWW64_TITLE) mingw-w64-glext.tmp fbteam.txt inc/GL/windows/glext.bi
+
+	rm *.tmp
 
 PANGO_SERIES := 1.36
 PANGO := pango-$(PANGO_SERIES).8
 pango-extract:
 	./get.sh $(PANGO) $(PANGO).tar.xz http://ftp.gnome.org/pub/gnome/sources/pango/$(PANGO_SERIES)/$(PANGO).tar.xz
 
-pango: glib-extract cairo-extract
+pango: pango-extract glib-extract cairo-extract
+
+	sed -n 4,19p extracted/$(PANGO)/pango/pango.h      | cut -c4- > pango.tmp
+	sed -n 4,19p extracted/$(PANGO)/pango/pangocairo.h | cut -c4- > pangocairo.tmp
+
 	mkdir -p inc/pango
 	$(FBFROG) pango.fbfrog \
 		-incdir extracted/$(CAIRO)/src \
@@ -920,16 +1086,21 @@ pango: glib-extract cairo-extract
 		-emit '*/pango/pango-utils.h'      inc/pango/pango.bi \
 		-inclib pango-1.0                  inc/pango/pango.bi \
 		-inclib pangocairo-1.0             inc/pango/pangocairo.bi \
-		-title $(PANGO)
+		-title $(PANGO) pango.tmp      gtk+-translators.txt inc/pango/pango.bi \
+		-title $(PANGO) pangocairo.tmp gtk+-translators.txt inc/pango/pangocairo.bi
+
+	rm *.tmp
 
 PDCURSES_VERSION := 3.4
 PDCURSES := PDCurses-$(PDCURSES_VERSION)
 pdcurses:
 	./get.sh $(PDCURSES) $(PDCURSES).tar.gz "http://sourceforge.net/projects/pdcurses/files/pdcurses/$(PDCURSES_VERSION)/$(PDCURSES).tar.gz/download"
+	sed -n 15,25p extracted/$(PDCURSES)/README > pdcurses.tmp
 	mkdir -p inc/curses
 	$(FBFROG) pdcurses.fbfrog -o inc/curses/pdcurses.bi \
 		extracted/$(PDCURSES)/curses.h \
-		-title $(PDCURSES)
+		-title $(PDCURSES) pdcurses.tmp fbteam.txt
+	rm *.tmp
 
 #
 # libpng:
@@ -960,26 +1131,46 @@ png: png12 png14 png15 png16
 PNG12_TITLE := libpng-1.2.53
 png12:
 	./get.sh $(PNG12_TITLE) $(PNG12_TITLE).tar.xz "http://downloads.sourceforge.net/libpng/$(PNG12_TITLE).tar.xz?download"
-	$(FBFROG) png.fbfrog png12.fbfrog -o inc/png12.bi extracted/$(PNG12_TITLE)/png.h -title $(PNG12_TITLE)
+	sed -n 1,14p    extracted/$(PNG12_TITLE)/png.h | cut -c4- >  png12.tmp
+	echo                                                      >> png12.tmp
+	sed -n 323,412p extracted/$(PNG12_TITLE)/png.h | cut -c4- >> png12.tmp
+	$(FBFROG) png.fbfrog png12.fbfrog -o inc/png12.bi extracted/$(PNG12_TITLE)/png.h \
+		-title $(PNG12_TITLE) png12.tmp fbteam.txt
+	rm *.tmp
 
 PNG14_TITLE := libpng-1.4.16
 png14:
 	./get.sh $(PNG14_TITLE) $(PNG14_TITLE).tar.xz "http://downloads.sourceforge.net/libpng/$(PNG14_TITLE).tar.xz?download"
-	$(FBFROG) png.fbfrog png14.fbfrog -o inc/png14.bi extracted/$(PNG14_TITLE)/png.h -title $(PNG14_TITLE)
+	sed -n 2,16p    extracted/$(PNG14_TITLE)/png.h | cut -c4- >  png14.tmp
+	echo                                                      >> png14.tmp
+	sed -n 210,299p extracted/$(PNG14_TITLE)/png.h | cut -c4- >> png14.tmp
+	$(FBFROG) png.fbfrog png14.fbfrog -o inc/png14.bi extracted/$(PNG14_TITLE)/png.h \
+		-title $(PNG14_TITLE) png14.tmp fbteam.txt
+	rm *.tmp
 
 PNG15_TITLE := libpng-1.5.21
 png15:
 	./get.sh $(PNG15_TITLE) $(PNG15_TITLE).tar.xz "http://downloads.sourceforge.net/libpng/$(PNG15_TITLE).tar.xz?download"
 	cp extracted/$(PNG15_TITLE)/scripts/pnglibconf.h.prebuilt \
 	   extracted/$(PNG15_TITLE)/pnglibconf.h
-	$(FBFROG) png.fbfrog png15.fbfrog -o inc/png15.bi extracted/$(PNG15_TITLE)/png.h -title $(PNG15_TITLE)
+	sed -n 2,15p    extracted/$(PNG15_TITLE)/png.h | cut -c4- >  png15.tmp
+	echo                                                      >> png15.tmp
+	sed -n 232,321p extracted/$(PNG15_TITLE)/png.h | cut -c4- >> png15.tmp
+	$(FBFROG) png.fbfrog png15.fbfrog -o inc/png15.bi extracted/$(PNG15_TITLE)/png.h \
+		-title $(PNG15_TITLE) png15.tmp fbteam.txt
+	rm *.tmp
 
 PNG16_TITLE := libpng-1.6.16
 png16:
 	./get.sh $(PNG16_TITLE) $(PNG16_TITLE).tar.xz "http://downloads.sourceforge.net/libpng/$(PNG16_TITLE).tar.xz?download"
 	cp extracted/$(PNG16_TITLE)/scripts/pnglibconf.h.prebuilt \
 	   extracted/$(PNG16_TITLE)/pnglibconf.h
-	$(FBFROG) png.fbfrog png16.fbfrog -o inc/png16.bi extracted/$(PNG16_TITLE)/png.h -title $(PNG16_TITLE)
+	sed -n 2,15p    extracted/$(PNG16_TITLE)/png.h | cut -c4- >  png16.tmp
+	echo                                                      >> png16.tmp
+	sed -n 239,328p extracted/$(PNG16_TITLE)/png.h | cut -c4- >> png16.tmp
+	$(FBFROG) png.fbfrog png16.fbfrog -o inc/png16.bi extracted/$(PNG16_TITLE)/png.h \
+		-title $(PNG16_TITLE) png16.tmp fbteam.txt
+	rm *.tmp
 
 sdl: sdl1 sdl2
 
@@ -1006,6 +1197,13 @@ sdl1:
 		if [ -f SDL_config.h ]; then mv SDL_config.h windows; fi && \
 		cp SDL_config.h.in unix/SDL_config.h
 	cat sdl-unix-config.h >> extracted/$(SDL1_MAIN)/include/unix/SDL_config.h
+
+	$(GETCOMMENT) extracted/$(SDL1_MAIN)/include/SDL.h                 > sdl1.tmp
+	sed -n 5,5p   extracted/$(SDL1_GFX)/SDL_gfxPrimitives.h | cut -c1- > sdl1-gfx.tmp
+	$(GETCOMMENT) extracted/$(SDL1_IMAGE)/SDL_image.h                  > sdl1-image.tmp
+	$(GETCOMMENT) extracted/$(SDL1_MIXER)/SDL_mixer.h                  > sdl1-mixer.tmp
+	$(GETCOMMENT) extracted/$(SDL1_NET)/SDL_net.h                      > sdl1-net.tmp
+	$(GETCOMMENT) extracted/$(SDL1_TTF)/SDL_ttf.h                      > sdl1-ttf.tmp
 
 	mkdir -p inc/SDL
 	$(FBFROG) sdl.fbfrog sdl1.fbfrog \
@@ -1063,16 +1261,18 @@ sdl1:
 		-endif \
 		-inclib SDL_ttf inc/SDL/SDL_ttf.bi \
 		\
-		-title $(SDL1_MAIN)  inc/SDL/SDL.bi \
-		-title $(SDL1_GFX)   inc/SDL/SDL_gfx_framerate.bi \
-		-title $(SDL1_GFX)   inc/SDL/SDL_gfx_imageFilter.bi \
-		-title $(SDL1_GFX)   inc/SDL/SDL_gfx_primitives.bi \
-		-title $(SDL1_GFX)   inc/SDL/SDL_gfx_primitives_font.bi \
-		-title $(SDL1_GFX)   inc/SDL/SDL_gfx_rotozoom.bi \
-		-title $(SDL1_IMAGE) inc/SDL/SDL_image.bi \
-		-title $(SDL1_MIXER) inc/SDL/SDL_mixer.bi \
-		-title $(SDL1_NET)   inc/SDL/SDL_net.bi \
-		-title $(SDL1_TTF)   inc/SDL/SDL_ttf.bi
+		-title $(SDL1_MAIN)  sdl1.tmp       fbteam.txt inc/SDL/SDL.bi \
+		-title $(SDL1_GFX)   sdl1-gfx.tmp   fbteam.txt inc/SDL/SDL_gfx_framerate.bi \
+		-title $(SDL1_GFX)   sdl1-gfx.tmp   fbteam.txt inc/SDL/SDL_gfx_imageFilter.bi \
+		-title $(SDL1_GFX)   sdl1-gfx.tmp   fbteam.txt inc/SDL/SDL_gfx_primitives.bi \
+		-title $(SDL1_GFX)   sdl1-gfx.tmp   fbteam.txt inc/SDL/SDL_gfx_primitives_font.bi \
+		-title $(SDL1_GFX)   sdl1-gfx.tmp   fbteam.txt inc/SDL/SDL_gfx_rotozoom.bi \
+		-title $(SDL1_IMAGE) sdl1-image.tmp fbteam.txt inc/SDL/SDL_image.bi \
+		-title $(SDL1_MIXER) sdl1-mixer.tmp fbteam.txt inc/SDL/SDL_mixer.bi \
+		-title $(SDL1_NET)   sdl1-net.tmp   fbteam.txt inc/SDL/SDL_net.bi \
+		-title $(SDL1_TTF)   sdl1-ttf.tmp   fbteam.txt inc/SDL/SDL_ttf.bi
+
+	rm *.tmp
 
 SDL2_MAIN := SDL2-2.0.3
 SDL2_IMAGE := SDL2_image-2.0.0
@@ -1097,6 +1297,13 @@ sdl2: winapi-extract
 		if [ -f SDL_config.h ]; then mv SDL_config.h windows; fi && \
 		cp SDL_config.h.in unix/SDL_config.h
 	cat sdl-unix-config.h >> extracted/$(SDL2_MAIN)/include/unix/SDL_config.h
+
+	$(GETCOMMENT) extracted/$(SDL2_MAIN)/include/SDL.h      > sdl2.tmp
+	sed -n 5,26p extracted/$(SDL2_GFX)/SDL2_gfxPrimitives.h > sdl2-gfx.tmp
+	$(GETCOMMENT) extracted/$(SDL2_IMAGE)/SDL_image.h       > sdl2-image.tmp
+	$(GETCOMMENT) extracted/$(SDL2_MIXER)/SDL_mixer.h       > sdl2-mixer.tmp
+	$(GETCOMMENT) extracted/$(SDL2_NET)/SDL_net.h           > sdl2-net.tmp
+	$(GETCOMMENT) extracted/$(SDL2_TTF)/SDL_ttf.h           > sdl2-ttf.tmp
 
 	mkdir -p inc/SDL2
 	$(FBFROG) sdl.fbfrog sdl2.fbfrog \
@@ -1143,16 +1350,18 @@ sdl2: winapi-extract
 		-inclib SDL2_net   inc/SDL2/SDL_net.bi \
 		-inclib SDL2_ttf   inc/SDL2/SDL_ttf.bi \
 		\
-		-title $(SDL2_MAIN)  inc/SDL2/SDL.bi \
-		-title $(SDL2_GFX)   inc/SDL2/SDL2_gfx_framerate.bi \
-		-title $(SDL2_GFX)   inc/SDL2/SDL2_gfx_imageFilter.bi \
-		-title $(SDL2_GFX)   inc/SDL2/SDL2_gfx_primitives.bi \
-		-title $(SDL2_GFX)   inc/SDL2/SDL2_gfx_primitives_font.bi \
-		-title $(SDL2_GFX)   inc/SDL2/SDL2_gfx_rotozoom.bi \
-		-title $(SDL2_IMAGE) inc/SDL2/SDL_image.bi \
-		-title $(SDL2_MIXER) inc/SDL2/SDL_mixer.bi \
-		-title $(SDL2_NET)   inc/SDL2/SDL_net.bi \
-		-title $(SDL2_TTF)   inc/SDL2/SDL_ttf.bi
+		-title $(SDL2_MAIN)  sdl2.tmp       fbteam.txt inc/SDL2/SDL.bi \
+		-title $(SDL2_GFX)   sdl2-gfx.tmp   fbteam.txt inc/SDL2/SDL2_gfx_framerate.bi \
+		-title $(SDL2_GFX)   sdl2-gfx.tmp   fbteam.txt inc/SDL2/SDL2_gfx_imageFilter.bi \
+		-title $(SDL2_GFX)   sdl2-gfx.tmp   fbteam.txt inc/SDL2/SDL2_gfx_primitives.bi \
+		-title $(SDL2_GFX)   sdl2-gfx.tmp   fbteam.txt inc/SDL2/SDL2_gfx_primitives_font.bi \
+		-title $(SDL2_GFX)   sdl2-gfx.tmp   fbteam.txt inc/SDL2/SDL2_gfx_rotozoom.bi \
+		-title $(SDL2_IMAGE) sdl2-image.tmp fbteam.txt inc/SDL2/SDL_image.bi \
+		-title $(SDL2_MIXER) sdl2-mixer.tmp fbteam.txt inc/SDL2/SDL_mixer.bi \
+		-title $(SDL2_NET)   sdl2-net.tmp   fbteam.txt inc/SDL2/SDL_net.bi \
+		-title $(SDL2_TTF)   sdl2-ttf.tmp   fbteam.txt inc/SDL2/SDL_ttf.bi
+
+	rm *.tmp
 
 #
 # libtre - regex matching library, provides an implementation of the POSIX
@@ -1174,6 +1383,8 @@ TRE := tre-0.8.0
 tre:
 	./get.sh $(TRE) $(TRE).tar.bz2 "http://laurikari.net/tre/$(TRE).tar.bz2"
 
+	cat extracted/$(TRE)/LICENSE > tre.tmp
+
 	mkdir -p inc/tre
 	$(FBFROG) tre.fbfrog \
 		-incdir extracted/$(TRE)/lib \
@@ -1181,7 +1392,9 @@ tre:
 		-emit '*/tre.h'   inc/tre/tre.bi \
 		-emit '*/regex.h' inc/tre/regex.bi \
 		-inclib tre       inc/tre/tre.bi \
-		-title $(TRE)
+		-title $(TRE) tre.tmp fbteam.txt
+
+	rm *.tmp
 
 ################################################################################
 # Windows API, based on MinGW-w64 headers
@@ -1269,19 +1482,226 @@ WINAPI_FLAGS += -incdir extracted/$(MINGWW64_TITLE)/mingw-w64-headers/include
 WINAPI_FLAGS += -incdir extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include
 winapi-extract:
 	./get.sh $(MINGWW64_TITLE) $(MINGWW64_TITLE).tar.bz2 "http://sourceforge.net/projects/mingw-w64/files/mingw-w64/mingw-w64-release/$(MINGWW64_TITLE).tar.bz2/download"
+
 	cd extracted/$(MINGWW64_TITLE)/mingw-w64-headers/crt && \
 		sed -e 's/@MINGW_HAS_SECURE_API@/#define MINGW_HAS_SECURE_API 1/g' < _mingw.h.in > _mingw.h && \
 		sed -e 's/MINGW_HAS_DX$$/1/g' < sdks/_mingw_directx.h.in > sdks/_mingw_directx.h && \
 		sed -e 's/MINGW_HAS_DDK$$/1/g' < sdks/_mingw_ddk.h.in > sdks/_mingw_ddk.h
-winapi: winapi-extract
+
+	./winapi-emits-gen.sh
+	./winapi-titles-gen.sh extracted/$(MINGWW64_TITLE) $(MINGWW64_TITLE)
+
 	mkdir -p inc/win
+
+winapi: winapi-main winapi-rest
+
+winapi-main: winapi-extract
 
 	# Main pass - winsock2.h, windows.h, Direct3D/DirectX 9
 	# winsock2.h has to be #included before windows.h in order to override
 	# winsock.h.
-	$(FBFROG) $(WINAPI_FLAGS) winapi-main.fbfrog -title $(MINGWW64_TITLE)
+	sed -n 2,42p extracted/$(MINGWW64_TITLE)/DISCLAIMER    | cut -c2- > mingw-w64-disclaimer.tmp
+	sed -n 2,9p  extracted/$(MINGWW64_TITLE)/DISCLAIMER.PD | cut -c4- > mingw-w64-disclaimer-pd.tmp
+	$(GETCOMMENT) extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/amaudio.h     > amaudio.tmp
+	$(GETCOMMENT) extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/amvideo.idl   > amvideo.tmp
+	$(GETCOMMENT) extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/d3d9.h        > d3d9.tmp
+	$(GETCOMMENT) extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/d3d9caps.h    > d3d9caps.tmp
+	$(GETCOMMENT) extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/d3d9types.h   > d3d9types.tmp
+	$(GETCOMMENT) extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/d3dx9anim.h   > d3dx9anim.tmp
+	$(GETCOMMENT) extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/d3dx9.h       > d3dx9.tmp
+	$(GETCOMMENT) extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/d3dx9core.h   > d3dx9core.tmp
+	$(GETCOMMENT) extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/d3dx9effect.h > d3dx9effect.tmp
+	$(GETCOMMENT) extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/d3dx9math.h   > d3dx9math.tmp
+	$(GETCOMMENT) extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/d3dx9mesh.h   > d3dx9mesh.tmp
+	$(GETCOMMENT) extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/d3dx9shader.h > d3dx9shader.tmp
+	$(GETCOMMENT) extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/d3dx9shape.h  > d3dx9shape.tmp
+	$(GETCOMMENT) extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/d3dx9tex.h    > d3dx9tex.tmp
+	$(GETCOMMENT) extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/d3dx9xof.h    > d3dx9xof.tmp
+	$(GETCOMMENT) extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/ddraw.h       > ddraw.tmp
+	$(GETCOMMENT) extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/dinput.h      > dinput.tmp
+	$(GETCOMMENT) extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/dls1.h        > dls1.tmp
+	$(GETCOMMENT) extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/dmdls.h       > dmdls.tmp
+	$(GETCOMMENT) extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/dmerror.h     > dmerror.tmp
+	$(GETCOMMENT) extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/dmplugin.h    > dmplugin.tmp
+	$(GETCOMMENT) extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/dmusbuff.h    > dmusbuff.tmp
+	$(GETCOMMENT) extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/dmusicc.h     > dmusicc.tmp
+	$(GETCOMMENT) extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/dmusicf.h     > dmusicf.tmp
+	$(GETCOMMENT) extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/dmusici.h     > dmusici.tmp
+	$(GETCOMMENT) extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/dmusics.h     > dmusics.tmp
+	$(GETCOMMENT) extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/dpaddr.h      > dpaddr.tmp
+	$(GETCOMMENT) extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/dplay8.h      > dplay8.tmp
+	$(GETCOMMENT) extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/dplay.h       > dplay.tmp
+	$(GETCOMMENT) extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/dplobby8.h    > dplobby8.tmp
+	$(GETCOMMENT) extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/dplobby.h     > dplobby.tmp
+	$(GETCOMMENT) extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/dshow.h       > dshow.tmp
+	$(GETCOMMENT) extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/dsound.h      > dsound.tmp
+	$(GETCOMMENT) extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/dxerr8.h      > dxerr8.tmp
+	$(GETCOMMENT) extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/dxerr9.h      > dxerr9.tmp
+	$(GETCOMMENT) extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/errors.h      > errors.tmp
+	$(GETCOMMENT) extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/evcode.h      > evcode.tmp
+	$(GETCOMMENT) extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/vfwmsgs.h     > vfwmsgs.tmp
+	$(FBFROG) $(WINAPI_FLAGS) \
+		-include winsock2.h \
+		\
+		-include aclapi.h \
+		-include aclui.h \
+		-include comcat.h \
+		-include control.h \
+		-include cplext.h \
+		-include cpl.h \
+		-include custcntl.h \
+		-include dbt.h \
+		-include dimm.h \
+		-include docobj.h \
+		-include exdisp.h \
+		-include gdiplus.h \
+		-include imagehlp.h \
+		-include in6addr.h \
+		-include intshcut.h \
+		-include iphlpapi.h \
+		-include ipmib.h \
+		-include lmcons.h \
+		-include mapi.h \
+		-include mgmtapi.h \
+		-include mmreg.h \
+		-include mshtmhst.h \
+		-include mshtmlc.h \
+		-include mshtml.h \
+		-include mswsock.h \
+		-include nspapi.h \
+		-include objectarray.h \
+		-include objsafe.h \
+		-include ocidl.h \
+		-include odbcinst.h \
+		-include oleacc.h \
+		-include oledlg.h \
+		-include powrprof.h \
+		-include propkeydef.h \
+		-include propsys.h \
+		-include psapi.h \
+		-include rasdlg.h \
+		-include raserror.h \
+		-include rassapi.h \
+		-include regstr.h \
+		-include richole.h \
+		-include schemadef.h \
+		-include scrnsave.h \
+		-include security.h \
+		-include setupapi.h \
+		-include shldisp.h \
+		-include shlobj.h \
+		-include shlwapi.h \
+		-include sqlext.h \
+		-include strmif.h \
+		-include strsafe.h \
+		-include subauth.h \
+		-include tlhelp32.h \
+		-include tmschema.h \
+		-include userenv.h \
+		-include uuids.h \
+		-include uxtheme.h \
+		-include vfw.h \
+		-include wbemcli.h \
+		-include winber.h \
+		-include windns.h \
+		-include wininet.h \
+		-include winldap.h \
+		-include winsnmp.h \
+		-include ws2spi.h \
+		-include ws2tcpip.h \
+		-include wsipx.h \
+		\
+		-include windowsx.h \
+		\
+		-include sspi.h \
+		-include ntsecpkg.h \
+		\
+		-include d3d9.h \
+		-include d3dx9.h \
+		-include amaudio.h \
+		-include dinput.h \
+		-include dls1.h \
+		-include dmdls.h \
+		-include dmerror.h \
+		-include dmusicc.h \
+		-include dmusici.h \
+		-include dmusicf.h \
+		-include dmusics.h \
+		-include dpaddr.h \
+		-include dplay8.h \
+		-include dplay.h \
+		-include dplobby8.h \
+		-include dplobby.h \
+		-include dshow.h \
+		-include dsound.h \
+		-include dvdevcod.h \
+		-include dxerr8.h \
+		-include dxerr9.h \
+		-include edevdefs.h \
+		-include errors.h \
+		-include vfwmsgs.h \
+		\
+		-include initguid.h \
+		\
+		winapi-inclibs.fbfrog \
+		winapi-emits-generated.fbfrog \
+		winapi-emits-custom.fbfrog \
+		winapi-titles-generated.fbfrog \
+		\
+		-title $(MINGWW64_TITLE) amaudio.tmp     fbteam.txt inc/win/amaudio.bi \
+		-title $(MINGWW64_TITLE) amvideo.tmp     fbteam.txt inc/win/amvideo.bi \
+		-title $(MINGWW64_TITLE) d3d9.tmp        fbteam.txt inc/win/d3d9.bi \
+		-title $(MINGWW64_TITLE) d3d9caps.tmp    fbteam.txt inc/win/d3d9caps.bi \
+		-title $(MINGWW64_TITLE) d3d9types.tmp   fbteam.txt inc/win/d3d9types.bi \
+		-title $(MINGWW64_TITLE) d3dx9anim.tmp   fbteam.txt inc/win/d3dx9anim.bi \
+		-title $(MINGWW64_TITLE) d3dx9.tmp       fbteam.txt inc/win/d3dx9.bi \
+		-title $(MINGWW64_TITLE) d3dx9core.tmp   fbteam.txt inc/win/d3dx9core.bi \
+		-title $(MINGWW64_TITLE) d3dx9effect.tmp fbteam.txt inc/win/d3dx9effect.bi \
+		-title $(MINGWW64_TITLE) d3dx9math.tmp   fbteam.txt inc/win/d3dx9math.bi \
+		-title $(MINGWW64_TITLE) d3dx9mesh.tmp   fbteam.txt inc/win/d3dx9mesh.bi \
+		-title $(MINGWW64_TITLE) d3dx9shader.tmp fbteam.txt inc/win/d3dx9shader.bi \
+		-title $(MINGWW64_TITLE) d3dx9shape.tmp  fbteam.txt inc/win/d3dx9shape.bi \
+		-title $(MINGWW64_TITLE) d3dx9tex.tmp    fbteam.txt inc/win/d3dx9tex.bi \
+		-title $(MINGWW64_TITLE) d3dx9xof.tmp    fbteam.txt inc/win/d3dx9xof.bi \
+		-title $(MINGWW64_TITLE) ddraw.tmp       fbteam.txt inc/win/ddraw.bi \
+		-title $(MINGWW64_TITLE) dinput.tmp      fbteam.txt inc/win/dinput.bi \
+		-title $(MINGWW64_TITLE) dls1.tmp        fbteam.txt inc/win/dls1.bi \
+		-title $(MINGWW64_TITLE) dmdls.tmp       fbteam.txt inc/win/dmdls.bi \
+		-title $(MINGWW64_TITLE) dmerror.tmp     fbteam.txt inc/win/dmerror.bi \
+		-title $(MINGWW64_TITLE) dmplugin.tmp    fbteam.txt inc/win/dmplugin.bi \
+		-title $(MINGWW64_TITLE) dmusbuff.tmp    fbteam.txt inc/win/dmusbuff.bi \
+		-title $(MINGWW64_TITLE) dmusicc.tmp     fbteam.txt inc/win/dmusicc.bi \
+		-title $(MINGWW64_TITLE) dmusicf.tmp     fbteam.txt inc/win/dmusicf.bi \
+		-title $(MINGWW64_TITLE) dmusici.tmp     fbteam.txt inc/win/dmusici.bi \
+		-title $(MINGWW64_TITLE) dmusics.tmp     fbteam.txt inc/win/dmusics.bi \
+		-title $(MINGWW64_TITLE) dpaddr.tmp      fbteam.txt inc/win/dpaddr.bi \
+		-title $(MINGWW64_TITLE) dplay8.tmp      fbteam.txt inc/win/dplay8.bi \
+		-title $(MINGWW64_TITLE) dplay.tmp       fbteam.txt inc/win/dplay.bi \
+		-title $(MINGWW64_TITLE) dplobby8.tmp    fbteam.txt inc/win/dplobby8.bi \
+		-title $(MINGWW64_TITLE) dplobby.tmp     fbteam.txt inc/win/dplobby.bi \
+		-title $(MINGWW64_TITLE) dshow.tmp       fbteam.txt inc/win/dshow.bi \
+		-title $(MINGWW64_TITLE) dsound.tmp      fbteam.txt inc/win/dsound.bi \
+		-title $(MINGWW64_TITLE) mingw-w64-disclaimer-pd.tmp fbteam.txt inc/win/dvdevcod.bi \
+		-title $(MINGWW64_TITLE) dxerr8.tmp      fbteam.txt inc/win/dxerr8.bi \
+		-title $(MINGWW64_TITLE) dxerr9.tmp      fbteam.txt inc/win/dxerr9.bi \
+		-title $(MINGWW64_TITLE) mingw-w64-disclaimer-pd.tmp fbteam.txt inc/win/edevdefs.bi \
+		-title $(MINGWW64_TITLE) errors.tmp      fbteam.txt inc/win/errors.bi \
+		-title $(MINGWW64_TITLE) evcode.tmp      fbteam.txt inc/win/evcode.bi \
+		-title $(MINGWW64_TITLE) vfwmsgs.tmp     fbteam.txt inc/win/vfwmsgs.bi
+
+	rm *.tmp
+
+winapi-rest: winapi-extract
+	sed -n 2,42p extracted/$(MINGWW64_TITLE)/DISCLAIMER    | cut -c2- > mingw-w64-disclaimer.tmp
+	sed -n 2,9p  extracted/$(MINGWW64_TITLE)/DISCLAIMER.PD | cut -c4- > mingw-w64-disclaimer-pd.tmp
 
 	# Direct3D 7 (?) pass
+	$(GETCOMMENT) extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/d3d.h      > d3d.tmp
+	$(GETCOMMENT) extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/d3dcaps.h  > d3dcaps.tmp
+	$(GETCOMMENT) extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/d3dtypes.h > d3dtypes.tmp
+	$(GETCOMMENT) extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/d3drm.h    > d3drm.tmp
+	$(GETCOMMENT) extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/d3drmdef.h > d3drmdef.tmp
+	$(GETCOMMENT) extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/d3drmobj.h > d3drmobj.tmp
 	$(FBFROG) $(WINAPI_FLAGS) \
 		-include d3d.h \
 		-include d3drm.h \
@@ -1293,14 +1713,19 @@ winapi: winapi-extract
 		-emit '*/d3drmobj.h' inc/win/d3drmobj.bi \
 		-inclib dxguid       inc/win/d3d.bi \
 		-inclib d3drm        inc/win/d3drm.bi \
-		 -title $(MINGWW64_TITLE)
+		-title $(MINGWW64_TITLE) d3d.tmp      fbteam.txt inc/win/d3d.bi      \
+		-title $(MINGWW64_TITLE) d3dcaps.tmp  fbteam.txt inc/win/d3dcaps.bi  \
+		-title $(MINGWW64_TITLE) d3dtypes.tmp fbteam.txt inc/win/d3dtypes.bi \
+		-title $(MINGWW64_TITLE) d3drm.tmp    fbteam.txt inc/win/d3drm.bi    \
+		-title $(MINGWW64_TITLE) d3drmdef.tmp fbteam.txt inc/win/d3drmdef.bi \
+		-title $(MINGWW64_TITLE) d3drmobj.tmp fbteam.txt inc/win/d3drmobj.bi
 
 	# CRT intrin.h pass (separate because of -nofunctionbodies)
 	$(FBFROG) $(WINAPI_FLAGS) -nofunctionbodies \
 		-include windows.h \
 		-emit '*/intrin.h'               inc/win/intrin.bi \
 		-emit '*/psdk_inc/intrin-impl.h' inc/win/intrin.bi \
-		 -title $(MINGWW64_TITLE)
+		 -title $(MINGWW64_TITLE) mingw-w64-disclaimer-pd.tmp fbteam.txt inc/win/intrin.bi
 
 	# winsock.h pass (separate because it can't be used together with
 	# winsock2.h)
@@ -1315,8 +1740,7 @@ winapi: winapi-extract
 		-emit '*/psdk_inc/_xmitfile.h'     inc/win/winsock.bi \
 		-emit '*/psdk_inc/_wsa_errnos.h'   inc/win/winsock.bi \
 		-inclib wsock32                    inc/win/winsock.bi \
-		 -title $(MINGWW64_TITLE)
-
+		 -title $(MINGWW64_TITLE) mingw-w64-disclaimer-pd.tmp fbteam.txt inc/win/winsock.bi
 
 	# ole.h pass (separate because it can't be #included with windows.h,
 	# even though windows.h has code to do just that, due to conflicts with
@@ -1325,7 +1749,7 @@ winapi: winapi-extract
 		-include windef.h -include ole.h \
 		-emit '*/ole.h' inc/win/ole.bi \
 		-inclib ole32   inc/win/ole.bi \
-		 -title $(MINGWW64_TITLE)
+		 -title $(MINGWW64_TITLE) mingw-w64-disclaimer.tmp fbteam.txt inc/win/ole.bi
 
 	# windows.h pass to get windows.bi (separate because of the additional
 	# -declarebool that would only slow down the main pass)
@@ -1338,13 +1762,16 @@ winapi: winapi-extract
 		\
 		-include windows.h \
 		-emit '*/windows.h' inc/windows.bi \
-		 -title $(MINGWW64_TITLE)
+		 -title $(MINGWW64_TITLE) mingw-w64-disclaimer-pd.tmp fbteam.txt inc/windows.bi
 
 	# DDK pass
+	$(GETCOMMENT) extracted/$(MINGWW64_TITLE)/mingw-w64-headers/include/ntdef.h > ntdef.tmp
 	$(FBFROG) $(WINAPI_FLAGS) \
 		-include ntdef.h \
 		-emit '*/ntdef.h' inc/win/ntdef.bi \
-		 -title $(MINGWW64_TITLE)
+		 -title $(MINGWW64_TITLE) ntdef.tmp fbteam.txt inc/win/ntdef.bi
+
+	rm *.tmp
 
 ################################################################################
 
@@ -1360,7 +1787,6 @@ winapi: winapi-extract
 # FB. But it seems to be an internal library anyways, so it's probably not worth
 # it to make a binding.
 #
-# TODO: add -titles
 
 X11_ICE          := libICE-1.0.9
 X11_SM           := libSM-1.2.2
@@ -1401,6 +1827,9 @@ SED_X11_XFUNCPROTO := -e 's/\#undef NARROWPROTO/\#define NARROWPROTO 1/g'
 SED_X11_XLIBCONF := -e 's/\#undef XTHREADS/\#define XTHREADS 1/g'
 SED_X11_XLIBCONF += -e 's/\#undef XUSE_MTSAFE_API/\#define XUSE_MTSAFE_API 1/g'
 SED_X11_XPOLL := -e 's/@USE_FDS_BITS@/__fds_bits/g'
+
+include x11-titles-main-generated.mk
+include x11-titles-internal-generated.mk
 
 x11:
 	mkdir -p extracted/xorg
@@ -1482,17 +1911,45 @@ x11:
 	cp -R extracted/xorg/$(X11_XTRANS)/Xtrans.h     extracted/xorg/X11/Xtrans
 	cp -R extracted/xorg/$(X11_XTRANS)/Xtransint.h  extracted/xorg/X11/Xtrans
 
-	cp extracted/xorg/$(X11_XEXTPROTO)/*.h extracted/xorg/X11/extensions
-	cp extracted/xorg/$(X11_RENDERPROTO)/*.h extracted/xorg/X11/extensions
-	cp extracted/xorg/$(X11_RANDRPROTO)/*.h extracted/xorg/X11/extensions
-	cp extracted/xorg/$(X11_KBPROTO)/*.h extracted/xorg/X11/extensions
-	cp extracted/xorg/$(X11_INPUTPROTO)/*.h extracted/xorg/X11/extensions
-	cp extracted/xorg/$(X11_DRI2PROTO)/*.h extracted/xorg/X11/extensions
-	cp extracted/xorg/$(X11_XF86DGAPROTO)/*.h extracted/xorg/X11/extensions
+	cp extracted/xorg/$(X11_XEXTPROTO)/*.h        extracted/xorg/X11/extensions
+	cp extracted/xorg/$(X11_RENDERPROTO)/*.h      extracted/xorg/X11/extensions
+	cp extracted/xorg/$(X11_RANDRPROTO)/*.h       extracted/xorg/X11/extensions
+	cp extracted/xorg/$(X11_KBPROTO)/*.h          extracted/xorg/X11/extensions
+	cp extracted/xorg/$(X11_INPUTPROTO)/*.h       extracted/xorg/X11/extensions
+	cp extracted/xorg/$(X11_DRI2PROTO)/*.h        extracted/xorg/X11/extensions
+	cp extracted/xorg/$(X11_XF86DGAPROTO)/*.h     extracted/xorg/X11/extensions
 	cp extracted/xorg/$(X11_XF86VIDMODEPROTO)/*.h extracted/xorg/X11/extensions
-	cp extracted/xorg/$(X11_VIDEOPROTO)/*.h extracted/xorg/X11/extensions
-	cp extracted/xorg/$(X11_FIXESPROTO)/*.h extracted/xorg/X11/extensions
-	cp extracted/xorg/$(X11_RECORDPROTO)/*.h extracted/xorg/X11/extensions
+	cp extracted/xorg/$(X11_VIDEOPROTO)/*.h       extracted/xorg/X11/extensions
+	cp extracted/xorg/$(X11_FIXESPROTO)/*.h       extracted/xorg/X11/extensions
+	cp extracted/xorg/$(X11_RECORDPROTO)/*.h      extracted/xorg/X11/extensions
+
+	cp extracted/xorg/$(X11_XT)/COPYING x11-CreateI.tmp
+	cp extracted/xorg/$(X11_XT)/COPYING x11-ShellI.tmp
+	cp extracted/xorg/$(X11_X11)/COPYING x11-ImUtil.tmp
+	cp extracted/xorg/$(X11_XPROTO)/COPYING x11-XF86keysym.tmp
+	cp extracted/xorg/$(X11_XPROTO)/COPYING x11-Xatom.tmp
+	cp extracted/xorg/$(X11_XPROTO)/COPYING x11-Xw32defs.tmp
+	cp extracted/xorg/$(X11_VIDEOPROTO)/COPYING x11-extensions-XvMC.tmp
+	cp extracted/xorg/$(X11_VIDEOPROTO)/COPYING x11-extensions-XvMCproto.tmp
+	$(GETCOMMENT) extracted/xorg/$(X11_XXF86DGA)/include/X11/extensions/Xxf86dga.h > x11-extensions-Xxf86dga.tmp
+	$(GETCOMMENT) extracted/xorg/$(X11_XXF86DGA)/include/X11/extensions/xf86dga1.h > x11-extensions-xf86dga1.tmp
+	cat extracted/xorg/$(X11_XXF86DGA)/COPYING                                    >> x11-extensions-Xxf86dga.tmp
+	cat extracted/xorg/$(X11_XXF86DGA)/COPYING                                    >> x11-extensions-xf86dga1.tmp
+	$(GETCOMMENT) extracted/xorg/$(X11_XF86DGAPROTO)/xf86dga1const.h > x11-extensions-xf86dga1const.tmp
+	$(GETCOMMENT) extracted/xorg/$(X11_XF86DGAPROTO)/xf86dga1proto.h > x11-extensions-xf86dga1proto.tmp
+	$(GETCOMMENT) extracted/xorg/$(X11_XF86DGAPROTO)/xf86dgaconst.h  > x11-extensions-xf86dgaconst.tmp
+	$(GETCOMMENT) extracted/xorg/$(X11_XF86DGAPROTO)/xf86dgaproto.h  > x11-extensions-xf86dgaproto.tmp
+	cat extracted/xorg/$(X11_XF86DGAPROTO)/COPYING                  >> x11-extensions-xf86dga1const.tmp
+	cat extracted/xorg/$(X11_XF86DGAPROTO)/COPYING                  >> x11-extensions-xf86dga1proto.tmp
+	cp  extracted/xorg/$(X11_XF86DGAPROTO)/COPYING                     x11-extensions-xf86dga1str.tmp
+	cat extracted/xorg/$(X11_XF86DGAPROTO)/COPYING                  >> x11-extensions-xf86dgaconst.tmp
+	cat extracted/xorg/$(X11_XF86DGAPROTO)/COPYING                  >> x11-extensions-xf86dgaproto.tmp
+	cp  extracted/xorg/$(X11_XF86DGAPROTO)/COPYING                     x11-extensions-xf86dgastr.tmp
+	cp  extracted/xorg/$(X11_XF86DGAPROTO)/COPYING                     x11-extensions-xf86dga.tmp
+	cp  extracted/xorg/$(X11_XF86VIDMODEPROTO)/COPYING                 x11-extensions-xf86vmstr.tmp
+	cp extracted/xorg/$(X11_RECORDPROTO)/COPYING x11-extensions-recordstr.tmp
+	cp extracted/xorg/$(X11_XEXTPROTO)/COPYING x11-extensions-shapestr.tmp
+	./x11-gen-legal.sh
 
 	mkdir -p inc/X11/extensions inc/X11/ICE inc/X11/SM inc/X11/Xft inc/X11/Xcursor inc/X11/Xmu inc/X11/Xtrans
 	$(FBFROG) x11.fbfrog -incdir extracted/xorg \
@@ -1652,381 +2109,8 @@ x11:
 			-include X11/Xwinsock.h \
 		-endif \
 		\
-		-emit '*/X11/ap_keysym.h'    inc/X11/ap_keysym.bi \
-		-emit '*/X11/Composite.h'    inc/X11/Composite.bi \
-		-emit '*/X11/Constraint.h'   inc/X11/Constraint.bi \
-		-emit '*/X11/Core.h'         inc/X11/Core.bi \
-		-emit '*/X11/cursorfont.h'   inc/X11/cursorfont.bi \
-		-emit '*/X11/DECkeysym.h'    inc/X11/DECkeysym.bi \
-		-emit '*/X11/HPkeysym.h'     inc/X11/HPkeysym.bi \
-		-emit '*/X11/ICE/ICEconn.h'  inc/X11/ICE/ICEconn.bi \
-		-emit '*/X11/ICE/ICE.h'      inc/X11/ICE/ICE.bi \
-		-emit '*/X11/ICE/ICElib.h'   inc/X11/ICE/ICElib.bi \
-		-emit '*/X11/ICE/ICEmsg.h'   inc/X11/ICE/ICEmsg.bi \
-		-emit '*/X11/ICE/ICEproto.h' inc/X11/ICE/ICEproto.bi \
-		-emit '*/X11/ICE/ICEutil.h'  inc/X11/ICE/ICEutil.bi \
-		-emit '*/X11/ImUtil.h'       inc/X11/ImUtil.bi \
-		-emit '*/X11/Intrinsic.h'    inc/X11/Intrinsic.bi \
-		-emit '*/X11/Shell.h'        inc/X11/Shell.bi \
-		-emit '*/X11/StringDefs.h'   inc/X11/StringDefs.bi \
-		-emit '*/X11/keysymdef.h'    inc/X11/keysymdef.bi \
-		-emit '*/X11/keysym.h'       inc/X11/keysym.bi \
-		-emit '*/X11/Object.h'       inc/X11/Object.bi \
-		-emit '*/X11/RectObj.h'      inc/X11/RectObj.bi \
-		-emit '*/X11/SM/SM.h'        inc/X11/SM/SM.bi \
-		-emit '*/X11/SM/SMlib.h'     inc/X11/SM/SMlib.bi \
-		-emit '*/X11/SM/SMproto.h'   inc/X11/SM/SMproto.bi \
-		-emit '*/X11/Sunkeysym.h'    inc/X11/Sunkeysym.bi \
-		-emit '*/X11/Vendor.h'       inc/X11/Vendor.bi \
-		-emit '*/X11/Xalloca.h'      inc/X11/Xalloca.bi \
-		-emit '*/X11/Xarch.h'        inc/X11/Xarch.bi \
-		-emit '*/X11/Xatom.h'        inc/X11/Xatom.bi \
-		-emit '*/X11/Xauth.h'        inc/X11/Xauth.bi \
-		-emit '*/X11/Xcms.h'         inc/X11/Xcms.bi \
-		-emit '*/X11/Xdefs.h'        inc/X11/Xdefs.bi \
-		-emit '*/X11/XF86keysym.h'   inc/X11/XF86keysym.bi \
-		-emit '*/X11/Xfuncproto.h'   inc/X11/Xfuncproto.bi \
-		-emit '*/X11/Xfuncs.h'       inc/X11/Xfuncs.bi \
-		-emit '*/X11/X.h'            inc/X11/X.bi \
-		-emit '*/X11/XKBlib.h'       inc/X11/XKBlib.bi \
-		-emit '*/X11/XlibConf.h'     inc/X11/XlibConf.bi \
-		-emit '*/X11/Xlib.h'         inc/X11/Xlib.bi \
-		-emit '*/X11/Xlibint.h'      inc/X11/Xlibint.bi \
-		-emit '*/X11/Xlocale.h'      inc/X11/Xlocale.bi \
-		-emit '*/X11/Xmd.h'          inc/X11/Xmd.bi \
-		-emit '*/X11/Xosdefs.h'      inc/X11/Xosdefs.bi \
-		-emit '*/X11/Xos.h'          inc/X11/Xos.bi \
-		-emit '*/X11/Xos_r.h'        inc/X11/Xos_r.bi \
-		-emit '*/X11/Xproto.h'       inc/X11/Xproto.bi \
-		-emit '*/X11/Xprotostr.h'    inc/X11/Xprotostr.bi \
-		-emit '*/X11/Xregion.h'      inc/X11/Xregion.bi \
-		-emit '*/X11/Xresource.h'    inc/X11/Xresource.bi \
-		-emit '*/X11/Xtos.h'         inc/X11/Xtos.bi \
-		-emit '*/X11/Xutil.h'        inc/X11/Xutil.bi \
-		-emit '*/X11/Xw32defs.h'     inc/X11/Xw32defs.bi \
-		-emit '*/X11/XWDFile.h'      inc/X11/XWDFile.bi \
-		-emit '*/X11/Xwindows.h'     inc/X11/Xwindows.bi \
-		-emit '*/X11/Xwinsock.h'     inc/X11/Xwinsock.bi \
-		-emit '*/X11/extensions/Xcup.h'      inc/X11/extensions/Xcup.bi      \
-		-emit '*/X11/extensions/Xext.h'      inc/X11/extensions/Xext.bi      \
-		-emit '*/X11/extensions/Xag.h'       inc/X11/extensions/Xag.bi       \
-		-emit '*/X11/extensions/XShm.h'      inc/X11/extensions/XShm.bi      \
-		-emit '*/X11/extensions/XLbx.h'      inc/X11/extensions/XLbx.bi      \
-		-emit '*/X11/extensions/Xge.h'       inc/X11/extensions/Xge.bi       \
-		-emit '*/X11/extensions/extutil.h'   inc/X11/extensions/extutil.bi   \
-		-emit '*/X11/extensions/Xdbe.h'      inc/X11/extensions/Xdbe.bi      \
-		-emit '*/X11/extensions/xtestext1.h' inc/X11/extensions/xtestext1.bi \
-		-emit '*/X11/extensions/MITMisc.h'   inc/X11/extensions/MITMisc.bi   \
-		-emit '*/X11/extensions/multibuf.h'  inc/X11/extensions/multibuf.bi  \
-		-emit '*/X11/extensions/XEVI.h'      inc/X11/extensions/XEVI.bi      \
-		-emit '*/X11/extensions/security.h'  inc/X11/extensions/security.bi  \
-		-emit '*/X11/extensions/sync.h'      inc/X11/extensions/sync.bi      \
-		-emit '*/X11/extensions/dpms.h'      inc/X11/extensions/dpms.bi      \
-		-emit '*/X11/extensions/shape.h'     inc/X11/extensions/shape.bi     \
-		-emit '*/X11/extensions/Xrender.h'   inc/X11/extensions/Xrender.bi   \
-		-emit '*/X11/extensions/Xrandr.h'    inc/X11/extensions/Xrandr.bi    \
-		-emit '*/X11/extensions/XInput.h'    inc/X11/extensions/XInput.bi    \
-		-emit '*/X11/extensions/XInput2.h'   inc/X11/extensions/XInput2.bi   \
-		-emit '*/X11/extensions/Xxf86dga.h'  inc/X11/extensions/Xxf86dga.bi  \
-		-emit '*/X11/extensions/xf86dga1.h'  inc/X11/extensions/xf86dga1.bi  \
-		-emit '*/X11/extensions/xf86vmode.h' inc/X11/extensions/xf86vmode.bi \
-		-emit '*/X11/extensions/Xvlib.h'     inc/X11/extensions/Xvlib.bi     \
-		-emit '*/X11/extensions/ag.h'              inc/X11/extensions/ag.bi \
-		-emit '*/X11/extensions/agproto.h'         inc/X11/extensions/agproto.bi \
-		-emit '*/X11/extensions/cup.h'             inc/X11/extensions/cup.bi \
-		-emit '*/X11/extensions/cupproto.h'        inc/X11/extensions/cupproto.bi \
-		-emit '*/X11/extensions/dbe.h'             inc/X11/extensions/dbe.bi \
-		-emit '*/X11/extensions/dbeproto.h'        inc/X11/extensions/dbeproto.bi \
-		-emit '*/X11/extensions/dpmsconst.h'       inc/X11/extensions/dpmsconst.bi \
-		-emit '*/X11/extensions/dpmsproto.h'       inc/X11/extensions/dpmsproto.bi \
-		-emit '*/X11/extensions/EVI.h'             inc/X11/extensions/EVI.bi \
-		-emit '*/X11/extensions/EVIproto.h'        inc/X11/extensions/EVIproto.bi \
-		-emit '*/X11/extensions/ge.h'              inc/X11/extensions/ge.bi \
-		-emit '*/X11/extensions/geproto.h'         inc/X11/extensions/geproto.bi \
-		-emit '*/X11/extensions/lbx.h'             inc/X11/extensions/lbx.bi \
-		-emit '*/X11/extensions/lbxproto.h'        inc/X11/extensions/lbxproto.bi \
-		-emit '*/X11/extensions/mitmiscconst.h'    inc/X11/extensions/mitmiscconst.bi \
-		-emit '*/X11/extensions/mitmiscproto.h'    inc/X11/extensions/mitmiscproto.bi \
-		-emit '*/X11/extensions/multibufconst.h'   inc/X11/extensions/multibufconst.bi \
-		-emit '*/X11/extensions/multibufproto.h'   inc/X11/extensions/multibufproto.bi \
-		-emit '*/X11/extensions/secur.h'           inc/X11/extensions/secur.bi \
-		-emit '*/X11/extensions/securproto.h'      inc/X11/extensions/securproto.bi \
-		-emit '*/X11/extensions/shapeconst.h'      inc/X11/extensions/shapeconst.bi \
-		-emit '*/X11/extensions/shapeproto.h'      inc/X11/extensions/shapeproto.bi \
-		-emit '*/X11/extensions/shapestr.h'        inc/X11/extensions/shapestr.bi \
-		-emit '*/X11/extensions/shm.h'             inc/X11/extensions/shm.bi \
-		-emit '*/X11/extensions/shmproto.h'        inc/X11/extensions/shmproto.bi \
-		-emit '*/X11/extensions/shmstr.h'          inc/X11/extensions/shmstr.bi \
-		-emit '*/X11/extensions/syncconst.h'       inc/X11/extensions/syncconst.bi \
-		-emit '*/X11/extensions/syncproto.h'       inc/X11/extensions/syncproto.bi \
-		-emit '*/X11/extensions/syncstr.h'         inc/X11/extensions/syncstr.bi \
-		-emit '*/X11/extensions/xtestconst.h'      inc/X11/extensions/xtestconst.bi \
-		-emit '*/X11/extensions/xtestext1const.h'  inc/X11/extensions/xtestext1const.bi \
-		-emit '*/X11/extensions/xtestext1proto.h'  inc/X11/extensions/xtestext1proto.bi \
-		-emit '*/X11/extensions/xtestproto.h'      inc/X11/extensions/xtestproto.bi \
-		-emit '*/X11/extensions/render.h'          inc/X11/extensions/render.bi \
-		-emit '*/X11/extensions/renderproto.h'     inc/X11/extensions/renderproto.bi \
-		-emit '*/X11/extensions/randr.h'           inc/X11/extensions/randr.bi \
-		-emit '*/X11/extensions/randrproto.h'      inc/X11/extensions/randrproto.bi \
-		-emit '*/X11/extensions/XKB.h'             inc/X11/extensions/XKB.bi \
-		-emit '*/X11/extensions/XKBgeom.h'         inc/X11/extensions/XKBgeom.bi \
-		-emit '*/X11/extensions/XKBproto.h'        inc/X11/extensions/XKBproto.bi \
-		-emit '*/X11/extensions/XKBstr.h'          inc/X11/extensions/XKBstr.bi \
-		-emit '*/X11/extensions/XI.h'              inc/X11/extensions/XI.bi \
-		-emit '*/X11/extensions/XI2.h'             inc/X11/extensions/XI2.bi \
-		-emit '*/X11/extensions/XIproto.h'         inc/X11/extensions/XIproto.bi \
-		-emit '*/X11/extensions/XI2proto.h'        inc/X11/extensions/XI2proto.bi \
-		-emit '*/X11/extensions/dri2proto.h'       inc/X11/extensions/dri2proto.bi \
-		-emit '*/X11/extensions/dri2tokens.h'      inc/X11/extensions/dri2tokens.bi \
-		-emit '*/X11/extensions/xf86dga.h'         inc/X11/extensions/xf86dga.bi \
-		-emit '*/X11/extensions/xf86dga1const.h'   inc/X11/extensions/xf86dga1const.bi \
-		-emit '*/X11/extensions/xf86dga1str.h'     inc/X11/extensions/xf86dga1str.bi \
-		-emit '*/X11/extensions/xf86dga1proto.h'   inc/X11/extensions/xf86dga1proto.bi \
-		-emit '*/X11/extensions/xf86dgaconst.h'    inc/X11/extensions/xf86dgaconst.bi \
-		-emit '*/X11/extensions/xf86dgaproto.h'    inc/X11/extensions/xf86dgaproto.bi \
-		-emit '*/X11/extensions/xf86dgastr.h'      inc/X11/extensions/xf86dgastr.bi \
-		-emit '*/X11/extensions/xf86vm.h'          inc/X11/extensions/xf86vm.bi \
-		-emit '*/X11/extensions/xf86vmproto.h'     inc/X11/extensions/xf86vmproto.bi \
-		-emit '*/X11/extensions/xf86vmstr.h'       inc/X11/extensions/xf86vmstr.bi \
-		-emit '*/X11/extensions/vldXvMC.h'         inc/X11/extensions/vldXvMC.bi \
-		-emit '*/X11/extensions/Xv.h'              inc/X11/extensions/Xv.bi \
-		-emit '*/X11/extensions/XvMC.h'            inc/X11/extensions/XvMC.bi \
-		-emit '*/X11/extensions/XvMCproto.h'       inc/X11/extensions/XvMCproto.bi \
-		-emit '*/X11/extensions/Xvproto.h'         inc/X11/extensions/Xvproto.bi \
-		-emit '*/X11/extensions/XTest.h'           inc/X11/extensions/XTest.bi \
-		-emit '*/X11/extensions/record.h'          inc/X11/extensions/record.bi \
-		-emit '*/X11/extensions/recordconst.h'     inc/X11/extensions/recordconst.bi \
-		-emit '*/X11/extensions/recordproto.h'     inc/X11/extensions/recordproto.bi \
-		-emit '*/X11/extensions/recordstr.h'       inc/X11/extensions/recordstr.bi \
-		-emit '*/X11/extensions/Xfixes.h'          inc/X11/extensions/Xfixes.bi \
-		-emit '*/X11/extensions/Xinerama.h'        inc/X11/extensions/Xinerama.bi \
-		-emit '*/X11/extensions/panoramiXext.h'    inc/X11/extensions/panoramiXext.bi \
-		-emit '*/X11/extensions/lbxbuf.h'          inc/X11/extensions/lbxbuf.bi \
-		-emit '*/X11/extensions/lbxbufstr.h'       inc/X11/extensions/lbxbufstr.bi \
-		-emit '*/X11/extensions/lbxdeltastr.h'     inc/X11/extensions/lbxdeltastr.bi \
-		-emit '*/X11/extensions/lbximage.h'        inc/X11/extensions/lbximage.bi \
-		-emit '*/X11/extensions/lbxopts.h'         inc/X11/extensions/lbxopts.bi \
-		-emit '*/X11/extensions/lbxzlib.h'         inc/X11/extensions/lbxzlib.bi \
-		-emit '*/X11/extensions/xfixesproto.h'     inc/X11/extensions/xfixesproto.bi \
-		-emit '*/X11/extensions/xfixeswire.h'      inc/X11/extensions/xfixeswire.bi \
-		-emit '*/X11/Xft/Xft.h'              inc/X11/Xft/Xft.bi \
-		-emit '*/X11/Xft/XftCompat.h'        inc/X11/Xft/XftCompat.bi \
-		-emit '*/X11/Xcursor/Xcursor.h'      inc/X11/Xcursor/Xcursor.bi \
-		-emit '*/X11/Xmu/Atoms.h'            inc/X11/Xmu/Atoms.bi \
-		-emit '*/X11/Xmu/CharSet.h'          inc/X11/Xmu/CharSet.bi \
-		-emit '*/X11/Xmu/CloseHook.h'        inc/X11/Xmu/CloseHook.bi \
-		-emit '*/X11/Xmu/Converters.h'       inc/X11/Xmu/Converters.bi \
-		-emit '*/X11/Xmu/CurUtil.h'          inc/X11/Xmu/CurUtil.bi \
-		-emit '*/X11/Xmu/CvtCache.h'         inc/X11/Xmu/CvtCache.bi \
-		-emit '*/X11/Xmu/DisplayQue.h'       inc/X11/Xmu/DisplayQue.bi \
-		-emit '*/X11/Xmu/Drawing.h'          inc/X11/Xmu/Drawing.bi \
-		-emit '*/X11/Xmu/Editres.h'          inc/X11/Xmu/Editres.bi \
-		-emit '*/X11/Xmu/EditresP.h'         inc/X11/Xmu/EditresP.bi \
-		-emit '*/X11/Xmu/Error.h'            inc/X11/Xmu/Error.bi \
-		-emit '*/X11/Xmu/ExtAgent.h'         inc/X11/Xmu/ExtAgent.bi \
-		-emit '*/X11/Xmu/Initer.h'           inc/X11/Xmu/Initer.bi \
-		-emit '*/X11/Xmu/Lookup.h'           inc/X11/Xmu/Lookup.bi \
-		-emit '*/X11/Xmu/Misc.h'             inc/X11/Xmu/Misc.bi \
-		-emit '*/X11/Xmu/StdCmap.h'          inc/X11/Xmu/StdCmap.bi \
-		-emit '*/X11/Xmu/StdSel.h'           inc/X11/Xmu/StdSel.bi \
-		-emit '*/X11/Xmu/SysUtil.h'          inc/X11/Xmu/SysUtil.bi \
-		-emit '*/X11/Xmu/WhitePoint.h'       inc/X11/Xmu/WhitePoint.bi \
-		-emit '*/X11/Xmu/WidgetNode.h'       inc/X11/Xmu/WidgetNode.bi \
-		-emit '*/X11/Xmu/WinUtil.h'          inc/X11/Xmu/WinUtil.bi \
-		-emit '*/X11/Xmu/Xct.h'              inc/X11/Xmu/Xct.bi \
-		-emit '*/X11/Xmu/Xmu.h'              inc/X11/Xmu/Xmu.bi \
-		-emit '*/X11/Xtrans/Xtrans.h'        inc/X11/Xtrans/Xtrans.bi \
-		-emit '*/X11/Xtrans/Xtransint.h'     inc/X11/Xtrans/Xtransint.bi \
-		-emit '*/X11/Xdmcp.h'  inc/X11/Xdmcp.bi \
-		-emit '*/X11/xpm.h'    inc/X11/xpm.bi \
-		\
-		-title $(X11_DRI2PROTO) inc/X11/extensions/dri2proto.bi \
-		-title $(X11_DRI2PROTO) inc/X11/extensions/dri2tokens.bi \
-		-title $(X11_FIXESPROTO) inc/X11/extensions/xfixesproto.bi \
-		-title $(X11_FIXESPROTO) inc/X11/extensions/xfixeswire.bi \
-		-title $(X11_ICE) inc/X11/ICE/ICE.bi \
-		-title $(X11_ICE) inc/X11/ICE/ICEconn.bi \
-		-title $(X11_ICE) inc/X11/ICE/ICElib.bi \
-		-title $(X11_ICE) inc/X11/ICE/ICEmsg.bi \
-		-title $(X11_ICE) inc/X11/ICE/ICEproto.bi \
-		-title $(X11_ICE) inc/X11/ICE/ICEutil.bi \
-		-title $(X11_INPUTPROTO) inc/X11/extensions/XI2.bi \
-		-title $(X11_INPUTPROTO) inc/X11/extensions/XI2proto.bi \
-		-title $(X11_INPUTPROTO) inc/X11/extensions/XI.bi \
-		-title $(X11_INPUTPROTO) inc/X11/extensions/XIproto.bi \
-		-title $(X11_KBPROTO) inc/X11/extensions/XKB.bi \
-		-title $(X11_KBPROTO) inc/X11/extensions/XKBgeom.bi \
-		-title $(X11_KBPROTO) inc/X11/extensions/XKBproto.bi \
-		-title $(X11_KBPROTO) inc/X11/extensions/XKBstr.bi \
-		-title $(X11_LBXUTIL) inc/X11/extensions/lbxbuf.bi \
-		-title $(X11_LBXUTIL) inc/X11/extensions/lbxbufstr.bi \
-		-title $(X11_LBXUTIL) inc/X11/extensions/lbxdeltastr.bi \
-		-title $(X11_LBXUTIL) inc/X11/extensions/lbximage.bi \
-		-title $(X11_LBXUTIL) inc/X11/extensions/lbxopts.bi \
-		-title $(X11_LBXUTIL) inc/X11/extensions/lbxzlib.bi \
-		-title $(X11_RANDRPROTO) inc/X11/extensions/randr.bi \
-		-title $(X11_RANDRPROTO) inc/X11/extensions/randrproto.bi \
-		-title $(X11_RECORDPROTO) inc/X11/extensions/recordconst.bi \
-		-title $(X11_RECORDPROTO) inc/X11/extensions/recordproto.bi \
-		-title $(X11_RECORDPROTO) inc/X11/extensions/recordstr.bi \
-		-title $(X11_RENDERPROTO) inc/X11/extensions/render.bi \
-		-title $(X11_RENDERPROTO) inc/X11/extensions/renderproto.bi \
-		-title $(X11_SM) inc/X11/SM/SM.bi \
-		-title $(X11_SM) inc/X11/SM/SMlib.bi \
-		-title $(X11_SM) inc/X11/SM/SMproto.bi \
-		-title $(X11_VIDEOPROTO) inc/X11/extensions/vldXvMC.bi \
-		-title $(X11_VIDEOPROTO) inc/X11/extensions/Xv.bi \
-		-title $(X11_VIDEOPROTO) inc/X11/extensions/XvMC.bi \
-		-title $(X11_VIDEOPROTO) inc/X11/extensions/XvMCproto.bi \
-		-title $(X11_VIDEOPROTO) inc/X11/extensions/Xvproto.bi \
-		-title $(X11_X11) inc/X11/cursorfont.bi \
-		-title $(X11_X11) inc/X11/ImUtil.bi \
-		-title $(X11_X11) inc/X11/Xcms.bi \
-		-title $(X11_X11) inc/X11/XKBlib.bi \
-		-title $(X11_X11) inc/X11/Xlib.bi \
-		-title $(X11_X11) inc/X11/XlibConf.bi \
-		-title $(X11_X11) inc/X11/Xlibint.bi \
-		-title $(X11_X11) inc/X11/Xlocale.bi \
-		-title $(X11_X11) inc/X11/Xregion.bi \
-		-title $(X11_X11) inc/X11/Xresource.bi \
-		-title $(X11_X11) inc/X11/Xutil.bi \
-		-title $(X11_XAU) inc/X11/Xauth.bi \
-		-title $(X11_XCURSOR) inc/X11/Xcursor/Xcursor.bi \
-		-title $(X11_XDMCP) inc/X11/Xdmcp.bi \
-		-title $(X11_XEXT) inc/X11/extensions/dpms.bi      \
-		-title $(X11_XEXT) inc/X11/extensions/extutil.bi   \
-		-title $(X11_XEXT) inc/X11/extensions/MITMisc.bi   \
-		-title $(X11_XEXT) inc/X11/extensions/multibuf.bi  \
-		-title $(X11_XEXT) inc/X11/extensions/security.bi  \
-		-title $(X11_XEXT) inc/X11/extensions/shape.bi     \
-		-title $(X11_XEXT) inc/X11/extensions/sync.bi      \
-		-title $(X11_XEXT) inc/X11/extensions/Xag.bi       \
-		-title $(X11_XEXT) inc/X11/extensions/Xcup.bi      \
-		-title $(X11_XEXT) inc/X11/extensions/Xdbe.bi      \
-		-title $(X11_XEXT) inc/X11/extensions/XEVI.bi      \
-		-title $(X11_XEXT) inc/X11/extensions/Xext.bi      \
-		-title $(X11_XEXT) inc/X11/extensions/Xge.bi       \
-		-title $(X11_XEXT) inc/X11/extensions/XLbx.bi      \
-		-title $(X11_XEXT) inc/X11/extensions/XShm.bi      \
-		-title $(X11_XEXT) inc/X11/extensions/xtestext1.bi \
-		-title $(X11_XEXTPROTO) inc/X11/extensions/ag.bi \
-		-title $(X11_XEXTPROTO) inc/X11/extensions/agproto.bi \
-		-title $(X11_XEXTPROTO) inc/X11/extensions/cup.bi \
-		-title $(X11_XEXTPROTO) inc/X11/extensions/cupproto.bi \
-		-title $(X11_XEXTPROTO) inc/X11/extensions/dbe.bi \
-		-title $(X11_XEXTPROTO) inc/X11/extensions/dbeproto.bi \
-		-title $(X11_XEXTPROTO) inc/X11/extensions/dpmsconst.bi \
-		-title $(X11_XEXTPROTO) inc/X11/extensions/dpmsproto.bi \
-		-title $(X11_XEXTPROTO) inc/X11/extensions/EVI.bi \
-		-title $(X11_XEXTPROTO) inc/X11/extensions/EVIproto.bi \
-		-title $(X11_XEXTPROTO) inc/X11/extensions/ge.bi \
-		-title $(X11_XEXTPROTO) inc/X11/extensions/geproto.bi \
-		-title $(X11_XEXTPROTO) inc/X11/extensions/lbx.bi \
-		-title $(X11_XEXTPROTO) inc/X11/extensions/lbxproto.bi \
-		-title $(X11_XEXTPROTO) inc/X11/extensions/mitmiscconst.bi \
-		-title $(X11_XEXTPROTO) inc/X11/extensions/mitmiscproto.bi \
-		-title $(X11_XEXTPROTO) inc/X11/extensions/multibufconst.bi \
-		-title $(X11_XEXTPROTO) inc/X11/extensions/multibufproto.bi \
-		-title $(X11_XEXTPROTO) inc/X11/extensions/secur.bi \
-		-title $(X11_XEXTPROTO) inc/X11/extensions/securproto.bi \
-		-title $(X11_XEXTPROTO) inc/X11/extensions/shapeconst.bi \
-		-title $(X11_XEXTPROTO) inc/X11/extensions/shapeproto.bi \
-		-title $(X11_XEXTPROTO) inc/X11/extensions/shapestr.bi \
-		-title $(X11_XEXTPROTO) inc/X11/extensions/shm.bi \
-		-title $(X11_XEXTPROTO) inc/X11/extensions/shmproto.bi \
-		-title $(X11_XEXTPROTO) inc/X11/extensions/shmstr.bi \
-		-title $(X11_XEXTPROTO) inc/X11/extensions/syncconst.bi \
-		-title $(X11_XEXTPROTO) inc/X11/extensions/syncproto.bi \
-		-title $(X11_XEXTPROTO) inc/X11/extensions/syncstr.bi \
-		-title $(X11_XEXTPROTO) inc/X11/extensions/xtestconst.bi \
-		-title $(X11_XEXTPROTO) inc/X11/extensions/xtestext1const.bi \
-		-title $(X11_XEXTPROTO) inc/X11/extensions/xtestext1proto.bi \
-		-title $(X11_XEXTPROTO) inc/X11/extensions/xtestproto.bi \
-		-title $(X11_XF86DGAPROTO) inc/X11/extensions/xf86dga1const.bi \
-		-title $(X11_XF86DGAPROTO) inc/X11/extensions/xf86dga1proto.bi \
-		-title $(X11_XF86DGAPROTO) inc/X11/extensions/xf86dga1str.bi \
-		-title $(X11_XF86DGAPROTO) inc/X11/extensions/xf86dga.bi \
-		-title $(X11_XF86DGAPROTO) inc/X11/extensions/xf86dgaconst.bi \
-		-title $(X11_XF86DGAPROTO) inc/X11/extensions/xf86dgaproto.bi \
-		-title $(X11_XF86DGAPROTO) inc/X11/extensions/xf86dgastr.bi \
-		-title $(X11_XF86VIDMODEPROTO) inc/X11/extensions/xf86vm.bi \
-		-title $(X11_XF86VIDMODEPROTO) inc/X11/extensions/xf86vmproto.bi \
-		-title $(X11_XF86VIDMODEPROTO) inc/X11/extensions/xf86vmstr.bi \
-		-title $(X11_XFIXES) inc/X11/extensions/Xfixes.bi \
-		-title $(X11_XFT) inc/X11/Xft/Xft.bi \
-		-title $(X11_XFT) inc/X11/Xft/XftCompat.bi \
-		-title $(X11_XI) inc/X11/extensions/XInput2.bi \
-		-title $(X11_XI) inc/X11/extensions/XInput.bi \
-		-title $(X11_XINERAMA) inc/X11/extensions/panoramiXext.bi \
-		-title $(X11_XINERAMA) inc/X11/extensions/Xinerama.bi \
-		-title $(X11_XMU) inc/X11/Xmu/Atoms.bi \
-		-title $(X11_XMU) inc/X11/Xmu/CharSet.bi \
-		-title $(X11_XMU) inc/X11/Xmu/CloseHook.bi \
-		-title $(X11_XMU) inc/X11/Xmu/Converters.bi \
-		-title $(X11_XMU) inc/X11/Xmu/CurUtil.bi \
-		-title $(X11_XMU) inc/X11/Xmu/CvtCache.bi \
-		-title $(X11_XMU) inc/X11/Xmu/DisplayQue.bi \
-		-title $(X11_XMU) inc/X11/Xmu/Drawing.bi \
-		-title $(X11_XMU) inc/X11/Xmu/Editres.bi \
-		-title $(X11_XMU) inc/X11/Xmu/EditresP.bi \
-		-title $(X11_XMU) inc/X11/Xmu/Error.bi \
-		-title $(X11_XMU) inc/X11/Xmu/ExtAgent.bi \
-		-title $(X11_XMU) inc/X11/Xmu/Initer.bi \
-		-title $(X11_XMU) inc/X11/Xmu/Lookup.bi \
-		-title $(X11_XMU) inc/X11/Xmu/Misc.bi \
-		-title $(X11_XMU) inc/X11/Xmu/StdCmap.bi \
-		-title $(X11_XMU) inc/X11/Xmu/StdSel.bi \
-		-title $(X11_XMU) inc/X11/Xmu/SysUtil.bi \
-		-title $(X11_XMU) inc/X11/Xmu/WhitePoint.bi \
-		-title $(X11_XMU) inc/X11/Xmu/WidgetNode.bi \
-		-title $(X11_XMU) inc/X11/Xmu/WinUtil.bi \
-		-title $(X11_XMU) inc/X11/Xmu/Xct.bi \
-		-title $(X11_XMU) inc/X11/Xmu/Xmu.bi \
-		-title $(X11_XPM) inc/X11/xpm.bi \
-		-title $(X11_XPROTO) inc/X11/ap_keysym.bi \
-		-title $(X11_XPROTO) inc/X11/DECkeysym.bi \
-		-title $(X11_XPROTO) inc/X11/HPkeysym.bi \
-		-title $(X11_XPROTO) inc/X11/keysym.bi \
-		-title $(X11_XPROTO) inc/X11/keysymdef.bi \
-		-title $(X11_XPROTO) inc/X11/Sunkeysym.bi \
-		-title $(X11_XPROTO) inc/X11/Xalloca.bi \
-		-title $(X11_XPROTO) inc/X11/Xarch.bi \
-		-title $(X11_XPROTO) inc/X11/Xatom.bi \
-		-title $(X11_XPROTO) inc/X11/X.bi \
-		-title $(X11_XPROTO) inc/X11/Xdefs.bi \
-		-title $(X11_XPROTO) inc/X11/XF86keysym.bi \
-		-title $(X11_XPROTO) inc/X11/Xfuncproto.bi \
-		-title $(X11_XPROTO) inc/X11/Xfuncs.bi \
-		-title $(X11_XPROTO) inc/X11/Xmd.bi \
-		-title $(X11_XPROTO) inc/X11/Xos.bi \
-		-title $(X11_XPROTO) inc/X11/Xosdefs.bi \
-		-title $(X11_XPROTO) inc/X11/Xos_r.bi \
-		-title $(X11_XPROTO) inc/X11/Xproto.bi \
-		-title $(X11_XPROTO) inc/X11/Xprotostr.bi \
-		-title $(X11_XPROTO) inc/X11/Xw32defs.bi \
-		-title $(X11_XPROTO) inc/X11/XWDFile.bi \
-		-title $(X11_XPROTO) inc/X11/Xwindows.bi \
-		-title $(X11_XPROTO) inc/X11/Xwinsock.bi \
-		-title $(X11_XRANDR) inc/X11/extensions/Xrandr.bi \
-		-title $(X11_XRENDER) inc/X11/extensions/Xrender.bi \
-		-title $(X11_XT) inc/X11/Composite.bi \
-		-title $(X11_XT) inc/X11/Constraint.bi \
-		-title $(X11_XT) inc/X11/Core.bi \
-		-title $(X11_XT) inc/X11/Intrinsic.bi \
-		-title $(X11_XT) inc/X11/Object.bi \
-		-title $(X11_XT) inc/X11/RectObj.bi \
-		-title $(X11_XT) inc/X11/Shell.bi \
-		-title $(X11_XT) inc/X11/StringDefs.bi \
-		-title $(X11_XT) inc/X11/Vendor.bi \
-		-title $(X11_XT) inc/X11/Xtos.bi \
-		-title $(X11_XTRANS) inc/X11/Xtrans/Xtrans.bi \
-		-title $(X11_XTRANS) inc/X11/Xtrans/Xtransint.bi \
-		-title $(X11_XTST) inc/X11/extensions/record.bi \
-		-title $(X11_XTST) inc/X11/extensions/XTest.bi \
-		-title $(X11_XV) inc/X11/extensions/Xvlib.bi \
-		-title $(X11_XXF86DGA) inc/X11/extensions/xf86dga1.bi \
-		-title $(X11_XXF86DGA) inc/X11/extensions/Xxf86dga.bi \
-		-title $(X11_XXF86VM) inc/X11/extensions/xf86vmode.bi
+		x11-emits-main-generated.fbfrog \
+		$(x11_titles_main)
 
 	$(FBFROG) x11.fbfrog -incdir extracted/xorg \
 		\
@@ -2039,53 +2123,10 @@ x11:
 		-include X11/ResConfigP.h \
 		-include X11/SelectionI.h \
 		\
-		-emit '*/X11/CallbackI.h'    inc/X11/CallbackI.bi \
-		-emit '*/X11/CompositeP.h'   inc/X11/CompositeP.bi \
-		-emit '*/X11/ConstrainP.h'   inc/X11/ConstrainP.bi \
-		-emit '*/X11/ConvertI.h'     inc/X11/ConvertI.bi \
-		-emit '*/X11/CoreP.h'        inc/X11/CoreP.bi \
-		-emit '*/X11/CreateI.h'      inc/X11/CreateI.bi \
-		-emit '*/X11/EventI.h'       inc/X11/EventI.bi \
-		-emit '*/X11/HookObjI.h'     inc/X11/HookObjI.bi \
-		-emit '*/X11/InitialI.h'     inc/X11/InitialI.bi \
-		-emit '*/X11/IntrinsicI.h'   inc/X11/IntrinsicI.bi \
-		-emit '*/X11/IntrinsicP.h'   inc/X11/IntrinsicP.bi \
-		-emit '*/X11/ObjectP.h'      inc/X11/ObjectP.bi \
-		-emit '*/X11/PassivGraI.h'   inc/X11/PassivGraI.bi \
-		-emit '*/X11/RectObjP.h'     inc/X11/RectObjP.bi \
-		-emit '*/X11/ResConfigP.h'   inc/X11/ResConfigP.bi \
-		-emit '*/X11/ResourceI.h'    inc/X11/ResourceI.bi \
-		-emit '*/X11/SelectionI.h'   inc/X11/SelectionI.bi \
-		-emit '*/X11/ShellI.h'       inc/X11/ShellI.bi \
-		-emit '*/X11/ShellP.h'       inc/X11/ShellP.bi \
-		-emit '*/X11/ThreadsI.h'     inc/X11/ThreadsI.bi \
-		-emit '*/X11/TranslateI.h'   inc/X11/TranslateI.bi \
-		-emit '*/X11/VarargsI.h'     inc/X11/VarargsI.bi \
-		-emit '*/X11/VendorP.h'      inc/X11/VendorP.bi \
-		\
-		-title $(X11_XT) inc/X11/CallbackI.bi \
-		-title $(X11_XT) inc/X11/CompositeP.bi \
-		-title $(X11_XT) inc/X11/ConstrainP.bi \
-		-title $(X11_XT) inc/X11/ConvertI.bi \
-		-title $(X11_XT) inc/X11/CoreP.bi \
-		-title $(X11_XT) inc/X11/CreateI.bi \
-		-title $(X11_XT) inc/X11/EventI.bi \
-		-title $(X11_XT) inc/X11/HookObjI.bi \
-		-title $(X11_XT) inc/X11/InitialI.bi \
-		-title $(X11_XT) inc/X11/IntrinsicI.bi \
-		-title $(X11_XT) inc/X11/IntrinsicP.bi \
-		-title $(X11_XT) inc/X11/ObjectP.bi \
-		-title $(X11_XT) inc/X11/PassivGraI.bi \
-		-title $(X11_XT) inc/X11/RectObjP.bi \
-		-title $(X11_XT) inc/X11/ResConfigP.bi \
-		-title $(X11_XT) inc/X11/ResourceI.bi \
-		-title $(X11_XT) inc/X11/SelectionI.bi \
-		-title $(X11_XT) inc/X11/ShellI.bi \
-		-title $(X11_XT) inc/X11/ShellP.bi \
-		-title $(X11_XT) inc/X11/ThreadsI.bi \
-		-title $(X11_XT) inc/X11/TranslateI.bi \
-		-title $(X11_XT) inc/X11/VarargsI.bi \
-		-title $(X11_XT) inc/X11/VendorP.bi
+		x11-emits-internal-generated.fbfrog \
+		$(x11_titles_internal)
+
+	rm *.tmp
 
 # TODO
 xcb:
@@ -2096,13 +2137,22 @@ xcb:
 ZIP_TITLE := libzip-0.11.2
 zip:
 	./get.sh $(ZIP_TITLE) $(ZIP_TITLE).tar.xz "http://www.nih.at/libzip/$(ZIP_TITLE).tar.xz"
+
 	# Need to compile libzip in order to get zipconf.h
 	# (luckily it's the same for all targets)
 	cd extracted/$(ZIP_TITLE) && \
 		if [ ! -f lib/zipconf.h ]; then ./configure && make; fi
-	$(FBFROG) zip.fbfrog -o inc extracted/$(ZIP_TITLE)/lib/zip.h -title $(ZIP_TITLE)
+
+	$(GETCOMMENT) extracted/$(ZIP_TITLE)/lib/zip.h > zip.tmp
+	$(FBFROG) zip.fbfrog -o inc extracted/$(ZIP_TITLE)/lib/zip.h \
+		-title $(ZIP_TITLE) zip.tmp fbteam.txt
+	rm *.tmp
 
 ZLIB_TITLE := zlib-1.2.8
 zlib:
 	./get.sh $(ZLIB_TITLE) $(ZLIB_TITLE).tar.xz "http://zlib.net/$(ZLIB_TITLE).tar.xz"
-	$(FBFROG) zlib.fbfrog -o inc extracted/$(ZLIB_TITLE)/zlib.h -title $(ZLIB_TITLE)
+
+	$(GETCOMMENT) extracted/$(ZLIB_TITLE)/zlib.h > zlib.tmp
+	$(FBFROG) zlib.fbfrog -o inc extracted/$(ZLIB_TITLE)/zlib.h \
+		-title $(ZLIB_TITLE) zlib.tmp fbteam.txt
+	rm *.tmp

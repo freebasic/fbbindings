@@ -1,0 +1,57 @@
+-emit '*/bemapiset.h'               inc/win/winbase.bi
+-emit '*/debugapi.h'                inc/win/winbase.bi
+-emit '*/errhandlingapi.h'          inc/win/winbase.bi
+-emit '*/fibersapi.h'               inc/win/winbase.bi
+-emit '*/fileapi.h'                 inc/win/winbase.bi
+-emit '*/handleapi.h'               inc/win/winbase.bi
+-emit '*/heapapi.h'                 inc/win/winbase.bi
+-emit '*/interlockedapi.h'          inc/win/winbase.bi
+-emit '*/ioapiset.h'                inc/win/winbase.bi
+-emit '*/jobapi.h'                  inc/win/winbase.bi
+-emit '*/libloaderapi.h'            inc/win/winbase.bi
+-emit '*/memoryapi.h'               inc/win/winbase.bi
+-emit '*/minwinbase.h'              inc/win/winbase.bi
+-emit '*/namedpipeapi.h'            inc/win/winbase.bi
+-emit '*/namespaceapi.h'            inc/win/winbase.bi
+-emit '*/processenv.h'              inc/win/winbase.bi
+-emit '*/processthreadsapi.h'       inc/win/winbase.bi
+-emit '*/processtopologyapi.h'      inc/win/winbase.bi
+-emit '*/profileapi.h'              inc/win/winbase.bi
+-emit '*/realtimeapiset.h'          inc/win/winbase.bi
+-emit '*/securityappcontainer.h'    inc/win/winbase.bi
+-emit '*/securitybaseapi.h'         inc/win/winbase.bi
+-emit '*/synchapi.h'                inc/win/winbase.bi
+-emit '*/sysinfoapi.h'              inc/win/winbase.bi
+-emit '*/systemtopologyapi.h'       inc/win/winbase.bi
+-emit '*/threadpoolapiset.h'        inc/win/winbase.bi
+-emit '*/threadpoollegacyapiset.h'  inc/win/winbase.bi
+-emit '*/timezoneapi.h'             inc/win/winbase.bi
+-emit '*/utilapiset.h'              inc/win/winbase.bi
+-emit '*/wow64apiset.h'             inc/win/winbase.bi
+
+-emit '*/datetimeapi.h'  inc/win/winnls.bi
+-emit '*/stringapiset.h' inc/win/winnls.bi
+
+-emit '*/psdk_inc/_dbg_common.h'     inc/win/imagehlp.bi
+-emit '*/psdk_inc/_dbg_LOAD_IMAGE.h' inc/win/imagehlp.bi
+
+-emit '*/psdk_inc/_fd_types.h'     inc/win/winsock2.bi
+-emit '*/psdk_inc/_ip_types.h'     inc/win/winsock2.bi
+-emit '*/psdk_inc/_socket_types.h' inc/win/winsock2.bi
+-emit '*/psdk_inc/_ws1_undef.h'    inc/win/winsock2.bi
+-emit '*/psdk_inc/_wsadata.h'      inc/win/winsock2.bi
+-emit '*/psdk_inc/_wsa_errnos.h'   inc/win/winsock2.bi
+
+-emit '*/_mingw_mac.h'          inc/win/_mingw.bi
+-emit '*/sdks/_mingw_ddk.h'     inc/win/_mingw.bi
+-emit '*/sdks/_mingw_directx.h' inc/win/_mingw.bi
+
+-emit '*/tvout.h'              inc/win/winuser.bi
+-emit '*/wnnc.h'               inc/win/winnetwk.bi
+-emit '*/dpapi.h'              inc/win/wincrypt.bi
+-emit '*/fltwinerror.h'        inc/win/winerror.bi
+-emit '*/gdiplus*.h'           inc/win/gdiplus.bi
+-emit '*/ksuuids.h'            inc/win/uuids.bi
+-emit '*/minwindef.h'          inc/win/windef.bi
+-emit '*/psdk_inc/_xmitfile.h' inc/win/mswsock.bi
+-emit '*/psdk_inc/_ip_mreq1.h' inc/win/ws2tcpip.bi

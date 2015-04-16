@@ -1,5 +1,3 @@
-'' FreeBASIC binding for mingw-w64-v4.0.1
-
 #pragma once
 
 type REFPROPERTYKEY as const PROPERTYKEY const ptr
