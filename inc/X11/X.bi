@@ -70,7 +70,7 @@ type Mask as culong
 type XAtom as culong
 type VisualID as culong
 type Time as culong
-type Window as XID
+type Window as XID '' TODO
 type Drawable as XID
 #define _XTYPEDEF_FONT
 type Font as XID
