@@ -370,6 +370,16 @@
 -removeproc MemoryBarrier
 -renametypedef INPUT INPUT_
 
+# gdiplus
+-renametypedef Point Point_
+-renametypedef PointF PointF_
+-renametypedef Rect Rect_
+-renametypedef Size Size_
+-renametag Size Size_
+-renametag Point Point_
+-renametag PointF PointF_
+-renametag Rect Rect_
+
 -expandindefine __MINGW_NAME_AW
 -expandindefine __MINGW_NAME_AW_EXT
 -expandindefine __MINGW_NAME_UAW
