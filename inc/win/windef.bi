@@ -355,7 +355,7 @@ type tagPOINT
 	y as LONG
 end type
 
-type POINT as tagPOINT
+type POINT as tagPOINT '' TODO
 type PPOINT as tagPOINT ptr
 type NPPOINT as tagPOINT ptr
 type LPPOINT as tagPOINT ptr

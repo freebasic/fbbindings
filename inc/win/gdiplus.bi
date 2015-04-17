@@ -821,7 +821,7 @@ type SizeF
 	Height as REAL
 end type
 
-type Point
+type Point '' TODO
 	X as INT_
 	Y as INT_
 end type
@@ -1480,7 +1480,7 @@ enum
 	ColorChannelFlagsLast = 4
 end enum
 
-type Color
+type Color '' TODO
 	Value as ARGB
 end type
 
