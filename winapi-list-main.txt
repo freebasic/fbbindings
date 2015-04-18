@@ -21,6 +21,8 @@ custcntl
 dbt
 dde
 ddeml
+devpkey
+devpropdef
 dimm
 dlgs
 docobj
@@ -82,6 +84,8 @@ olectl
 olectlid
 oledlg
 oleidl
+pciprop
+portabledeviceconnectapi
 powrprof
 profinfo
 propidl
@@ -153,6 +157,7 @@ wincon
 wincrypt
 windef
 windns
+windot11
 windowsx
 winefs
 winerror
@@ -174,6 +179,7 @@ winsvc
 wintrust
 winuser
 winver
+wlantypes
 ws2def
 ws2ipdef
 ws2spi

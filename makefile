@@ -1535,7 +1535,8 @@ winapi-main: winapi-extract
 	$(GETCOMMENT) extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/evcode.h      > evcode.tmp
 	$(GETCOMMENT) extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include/vfwmsgs.h     > vfwmsgs.tmp
 	$(GETCOMMENT) extracted/$(MINGWW64_TITLE)/mingw-w64-headers/include/objectarray.idl > objectarray.tmp
-	$(GETCOMMENT) extracted/$(MINGWW64_TITLE)/mingw-w64-headers/include/propkeydef.h  > propkeydef.tmp
+	$(GETCOMMENT) extracted/$(MINGWW64_TITLE)/mingw-w64-headers/include/devpropdef.h > devpropdef.tmp
+	$(GETCOMMENT) extracted/$(MINGWW64_TITLE)/mingw-w64-headers/include/propkeydef.h > propkeydef.tmp
 	sed -n 8,19p extracted/$(MINGWW64_TITLE)/mingw-w64-headers/include/gdiplus/gdiplus.h | cut -c4- > gdiplus.tmp
 	$(FBFROG) $(WINAPI_FLAGS) \
 		-include winsock2.h \
@@ -1566,12 +1567,14 @@ winapi-main: winapi-extract
 		-include mshtml.h \
 		-include mswsock.h \
 		-include nspapi.h \
+		-include ntddndis.h \
 		-include objectarray.h \
 		-include objsafe.h \
 		-include ocidl.h \
 		-include odbcinst.h \
 		-include oleacc.h \
 		-include oledlg.h \
+		-include olectlid.h \
 		-include powrprof.h \
 		-include propkeydef.h \
 		-include propsys.h \
@@ -1686,6 +1689,7 @@ winapi-main: winapi-extract
 		-title $(MINGWW64_TITLE) evcode.tmp      fbteam.txt inc/win/evcode.bi \
 		-title $(MINGWW64_TITLE) vfwmsgs.tmp     fbteam.txt inc/win/vfwmsgs.bi \
 		-title $(MINGWW64_TITLE) objectarray.tmp fbteam.txt inc/win/objectarray.bi \
+		-title $(MINGWW64_TITLE) devpropdef.tmp  fbteam.txt inc/win/devpropdef.bi \
 		-title $(MINGWW64_TITLE) propkeydef.tmp  fbteam.txt inc/win/propkeydef.bi \
 		-title $(MINGWW64_TITLE) gdiplus.tmp     fbteam.txt inc/win/gdiplus.bi \
 		\
@@ -1716,7 +1720,8 @@ winapi-main: winapi-extract
 		-title $(MINGWW64_TITLE) mingw-w64-disclaimer.tmp    fbteam.txt inc/win/urlmon.bi \
 		-title $(MINGWW64_TITLE) mingw-w64-disclaimer.tmp    fbteam.txt inc/win/wbemcli.bi \
 		-title $(MINGWW64_TITLE) mingw-w64-disclaimer.tmp    fbteam.txt inc/win/wtypesbase.bi \
-		-title $(MINGWW64_TITLE) mingw-w64-disclaimer.tmp    fbteam.txt inc/win/wtypes.bi
+		-title $(MINGWW64_TITLE) mingw-w64-disclaimer.tmp    fbteam.txt inc/win/wtypes.bi \
+		-title $(MINGWW64_TITLE) mingw-w64-disclaimer.tmp    fbteam.txt inc/win/devpkey.bi
 
 	rm *.tmp
 

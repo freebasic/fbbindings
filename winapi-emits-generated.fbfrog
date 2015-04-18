@@ -25,6 +25,8 @@
 -emit '*/dbt.h' inc/win/dbt.bi
 -emit '*/dde.h' inc/win/dde.bi
 -emit '*/ddeml.h' inc/win/ddeml.bi
+-emit '*/devpkey.h' inc/win/devpkey.bi
+-emit '*/devpropdef.h' inc/win/devpropdef.bi
 -emit '*/dimm.h' inc/win/dimm.bi
 -emit '*/dlgs.h' inc/win/dlgs.bi
 -emit '*/docobj.h' inc/win/docobj.bi
@@ -86,6 +88,8 @@
 -emit '*/olectlid.h' inc/win/olectlid.bi
 -emit '*/oledlg.h' inc/win/oledlg.bi
 -emit '*/oleidl.h' inc/win/oleidl.bi
+-emit '*/pciprop.h' inc/win/pciprop.bi
+-emit '*/portabledeviceconnectapi.h' inc/win/portabledeviceconnectapi.bi
 -emit '*/powrprof.h' inc/win/powrprof.bi
 -emit '*/profinfo.h' inc/win/profinfo.bi
 -emit '*/propidl.h' inc/win/propidl.bi
@@ -157,6 +161,7 @@
 -emit '*/wincrypt.h' inc/win/wincrypt.bi
 -emit '*/windef.h' inc/win/windef.bi
 -emit '*/windns.h' inc/win/windns.bi
+-emit '*/windot11.h' inc/win/windot11.bi
 -emit '*/windowsx.h' inc/win/windowsx.bi
 -emit '*/winefs.h' inc/win/winefs.bi
 -emit '*/winerror.h' inc/win/winerror.bi
@@ -178,6 +183,7 @@
 -emit '*/wintrust.h' inc/win/wintrust.bi
 -emit '*/winuser.h' inc/win/winuser.bi
 -emit '*/winver.h' inc/win/winver.bi
+-emit '*/wlantypes.h' inc/win/wlantypes.bi
 -emit '*/ws2def.h' inc/win/ws2def.bi
 -emit '*/ws2ipdef.h' inc/win/ws2ipdef.bi
 -emit '*/ws2spi.h' inc/win/ws2spi.bi
