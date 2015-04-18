@@ -27,7 +27,7 @@ function check_bi() {
 		"'' FreeBASIC binding for "*"'' based on the C header files:")
 			;;
 		*)
-			echo $bi
+			echo "$bi: missing fbfrog title"
 			;;
 		esac
 	esac
