@@ -98,6 +98,7 @@
 -removedefine DECLSPEC_SELECTANY
 -removedefine __DECLSPEC_SUPPORTED
 -removedefine DECLSPEC_UUID
+-removedefine DEFINE_DEVPROPKEY
 -removedefine DEFINE_GUID
 -removedefine DEFINE_GUIDEX
 -removedefine DEFINE_GUIDNAMED
@@ -107,6 +108,8 @@
 -removedefine DEFINE_MMREG_MID_GUID
 -removedefine DEFINE_MMREG_PID_GUID
 -removedefine DEFINE_OLEGUID
+-removedefine DEFINE_PCI_DEVICE_DEVPKEY
+-removedefine DEFINE_PCI_ROOT_BUS_DEVPKEY
 -removedefine DEFINE_PROPERTYKEY
 -removedefine DEFINE_WAVEFORMATEX_GUID
 -removedefine DEPRECATE_SUPPORTED

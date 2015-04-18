@@ -70,6 +70,8 @@
 -title mingw-w64-v4.0.1 mingw-w64-disclaimer.tmp fbteam.txt inc/win/olectl.bi
 -title mingw-w64-v4.0.1 mingw-w64-disclaimer-pd.tmp fbteam.txt inc/win/olectlid.bi
 -title mingw-w64-v4.0.1 mingw-w64-disclaimer-pd.tmp fbteam.txt inc/win/oledlg.bi
+-title mingw-w64-v4.0.1 mingw-w64-disclaimer.tmp fbteam.txt inc/win/pciprop.bi
+-title mingw-w64-v4.0.1 mingw-w64-disclaimer-pd.tmp fbteam.txt inc/win/portabledeviceconnectapi.bi
 -title mingw-w64-v4.0.1 mingw-w64-disclaimer-pd.tmp fbteam.txt inc/win/powrprof.bi
 -title mingw-w64-v4.0.1 mingw-w64-disclaimer-pd.tmp fbteam.txt inc/win/profinfo.bi
 -title mingw-w64-v4.0.1 mingw-w64-disclaimer-pd.tmp fbteam.txt inc/win/prsht.bi
@@ -128,6 +130,7 @@
 -title mingw-w64-v4.0.1 mingw-w64-disclaimer-pd.tmp fbteam.txt inc/win/wincrypt.bi
 -title mingw-w64-v4.0.1 mingw-w64-disclaimer.tmp fbteam.txt inc/win/windef.bi
 -title mingw-w64-v4.0.1 mingw-w64-disclaimer-pd.tmp fbteam.txt inc/win/windns.bi
+-title mingw-w64-v4.0.1 mingw-w64-disclaimer.tmp fbteam.txt inc/win/windot11.bi
 -title mingw-w64-v4.0.1 mingw-w64-disclaimer-pd.tmp fbteam.txt inc/win/windowsx.bi
 -title mingw-w64-v4.0.1 mingw-w64-disclaimer-pd.tmp fbteam.txt inc/win/winefs.bi
 -title mingw-w64-v4.0.1 mingw-w64-disclaimer-pd.tmp fbteam.txt inc/win/winerror.bi
@@ -149,6 +152,7 @@
 -title mingw-w64-v4.0.1 mingw-w64-disclaimer-pd.tmp fbteam.txt inc/win/wintrust.bi
 -title mingw-w64-v4.0.1 mingw-w64-disclaimer.tmp fbteam.txt inc/win/winuser.bi
 -title mingw-w64-v4.0.1 mingw-w64-disclaimer-pd.tmp fbteam.txt inc/win/winver.bi
+-title mingw-w64-v4.0.1 mingw-w64-disclaimer.tmp fbteam.txt inc/win/wlantypes.bi
 -title mingw-w64-v4.0.1 mingw-w64-disclaimer.tmp fbteam.txt inc/win/ws2def.bi
 -title mingw-w64-v4.0.1 mingw-w64-disclaimer.tmp fbteam.txt inc/win/ws2ipdef.bi
 -title mingw-w64-v4.0.1 mingw-w64-disclaimer-pd.tmp fbteam.txt inc/win/ws2spi.bi
