@@ -171,7 +171,7 @@ end type
 
 type _XDisplay as _XDisplay_
 
-type Screen '' TODO
+type Screen
 	ext_data as XExtData ptr
 	display as _XDisplay ptr
 	root as Window

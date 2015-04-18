@@ -1483,7 +1483,7 @@ enum
 	ColorChannelFlagsLast = 4
 end enum
 
-type Color '' TODO
+type Color
 	Value as ARGB
 end type
 
