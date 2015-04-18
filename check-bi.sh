@@ -14,6 +14,12 @@ function check_bi() {
 		echo $bi
 		;;
 	esac
+
+	if grep -xq "#pragma once" "$bi"; then
+		:
+	else
+		echo "$bi: missing #pragma once"
+	fi
 }
 
 find inc -type f | sort | while read bi; do
