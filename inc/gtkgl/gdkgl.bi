@@ -11,4 +11,6 @@
 '' Lesser General Public License for more details, refer to:
 '' http://www.gnu.org/licenses/lgpl.html
 
+#pragma once
+
 #include once "gdkglext.bi"

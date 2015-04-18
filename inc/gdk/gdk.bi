@@ -12,6 +12,8 @@
 '' Lesser General Public License for more details, refer to:
 '' http://www.gnu.org/licenses/lgpl.html
 
+#pragma once
+
 #ifdef __USE_GTK3__
 	#include once "gdk3.bi"
 #else
