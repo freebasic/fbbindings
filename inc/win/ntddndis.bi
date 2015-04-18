@@ -54,7 +54,6 @@
 	#include once "ifdef.bi"
 	#include once "devpkey.bi"
 	#include once "pciprop.bi"
-	#include once "windot11.bi"
 #endif
 
 #define _NTDDNDIS_
@@ -1961,6 +1960,9 @@ type PNDIS_CO_LINK_SPEED as _NDIS_CO_LINK_SPEED ptr
 
 type NDIS_STATUS as long
 type PNDIS_STATUS as long ptr
+
+#include once "windot11.bi"
+
 const fNDIS_GUID_TO_OID = &h00000001
 const fNDIS_GUID_TO_STATUS = &h00000002
 const fNDIS_GUID_ANSI_STRING = &h00000004
