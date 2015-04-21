@@ -40,6 +40,3 @@
 #ifdef __FB_LINUX__
 	const X_LINE_MAX = 2048
 #endif
-
-#undef X_NEEDS_PWPARAMS
-#undef XTHREADS_NEEDS_BYNAMEPARAMS

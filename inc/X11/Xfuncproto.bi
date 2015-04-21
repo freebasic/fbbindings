@@ -31,9 +31,3 @@
 #pragma once
 
 #define _XFUNCPROTO_H_
-const NeedFunctionPrototypes = 1
-const NeedVarargsPrototypes = 1
-const NeedNestedPrototypes = 1
-const NARROWPROTO = 1
-#undef FUNCPROTO
-const NeedWidePrototypes = 0

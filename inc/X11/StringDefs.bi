@@ -311,6 +311,5 @@ extern __XtStrings alias "XtStrings" as const byte
 #define XtHpreGeometry cptr(zstring ptr, @XtStrings[2610])
 #define XtHpostGeometry cptr(zstring ptr, @XtStrings[2624])
 #define XtHdestroy cptr(zstring ptr, @XtStrings[2639])
-#undef _XtStringDefs_h_Const
 
 end extern
