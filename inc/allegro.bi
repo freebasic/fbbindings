@@ -60,6 +60,10 @@
 #include once "crt/time.bi"
 #include once "crt/string.bi"
 
+#ifdef __FB_WIN32__
+	#include once "crt/stdint.bi"
+#endif
+
 '' The following symbols have been renamed:
 ''     undef MID => AL_MID
 ''     #define MID => AL_MID
@@ -133,11 +137,23 @@ extern "C"
 #define ALLEGRO_COLOR24
 #define ALLEGRO_COLOR32
 
+#ifdef __FB_WIN32__
+	const ALLEGRO_MINGW32 = 1
+#elseif defined(__FB_LINUX__)
+	const ALLEGRO_UNIX = 1
+#else
+	const ALLEGRO_DJGPP = 1
+#endif
+
+#define ALLEGRO_NO_ASM
+#define ALLEGRO_USE_C
+
 #ifdef __FB_LINUX__
 	#define ALLEGRO_PLATFORM_STR "Unix"
 #elseif defined(__FB_DOS__)
 	#define ALLEGRO_PLATFORM_STR "djgpp"
 	#define ALLEGRO_DOS
+	#define ALLEGRO_I386
 	#define ALLEGRO_LITTLE_ENDIAN
 	#define ALLEGRO_GUESS_INTTYPES_OK
 #endif
@@ -148,6 +164,8 @@ extern "C"
 #endif
 
 #ifdef __FB_LINUX__
+	#define ALLEGRO_EXTRA_HEADER "allegro/platform/alunix.h"
+	#define ALLEGRO_INTERNAL_HEADER "allegro/platform/aintunix.h"
 	#undef ALLEGRO_COLOR8
 	#undef ALLEGRO_COLOR16
 	#undef ALLEGRO_COLOR24
@@ -172,6 +190,7 @@ extern "C"
 
 #ifdef __FB_WIN32__
 	#define ALLEGRO_WINDOWS
+	#define ALLEGRO_I386
 	#define ALLEGRO_LITTLE_ENDIAN
 #endif
 
@@ -181,16 +200,11 @@ extern "C"
 	const ALLEGRO_HAVE_MEMCMP = 1
 	const ALLEGRO_LITTLE_ENDIAN = 1
 	const ALLEGRO_NO_ASM = 1
-	#define RETSIGTYPE any
 #endif
 
 #if defined(__FB_WIN32__) or defined(__FB_LINUX__)
 	#define ALLEGRO_MULTITHREADED
-#endif
-
-#ifdef __FB_WIN32__
-	#define ENUM_CURRENT_SETTINGS (DWORD - 1)
-#elseif defined(__FB_DOS__)
+#else
 	declare sub _unlock_dpmi_data(byval addr as any ptr, byval size as long)
 	#define LOCK_DATA(d, s) _go32_dpmi_lock_data(cptr(any ptr, d), s)
 	#define LOCK_CODE(c, s) _go32_dpmi_lock_code(cptr(any ptr, c), s)
@@ -222,6 +236,8 @@ extern "C"
 #endif
 
 #ifdef __FB_WIN32__
+	#define ALLEGRO_EXTRA_HEADER "allegro/platform/alwin.h"
+	#define ALLEGRO_INTERNAL_HEADER "allegro/platform/aintwin.h"
 	#define ALLEGRO_ASMCAPA_HEADER "obj/mingw32/asmcapa.h"
 #elseif defined(__FB_LINUX__)
 	#define ALLEGRO_NO_STRICMP
@@ -229,14 +245,18 @@ extern "C"
 	#define ALLEGRO_NO_STRUPR
 #else
 	#define ALLEGRO_ASM_USE_FS
+	#define ALLEGRO_EXTRA_HEADER "allegro/platform/aldos.h"
+	#define ALLEGRO_INTERNAL_HEADER "allegro/platform/aintdos.h"
 	#define ALLEGRO_ASMCAPA_HEADER "obj/djgpp/asmcapa.h"
 #endif
 
 #define ASTDINT_H
+#define ALLEGRO_GCC
 
-#ifdef __FB_DOS__
-	#define int64_t longint
-	#define uint64_t ulongint
+#if defined(__FB_64BIT__) and (defined(__FB_LINUX__) or defined(__FB_WIN32__))
+	#define ALLEGRO_AMD64
+#else
+	#define ALLEGRO_I386
 #endif
 
 #macro _AL_SINCOS(x, s, c)
@@ -2965,9 +2985,7 @@ declare sub matrix_mul(byval m1 as const MATRIX ptr, byval m2 as const MATRIX pt
 declare sub matrix_mul_f(byval m1 as const MATRIX_f ptr, byval m2 as const MATRIX_f ptr, byval out as MATRIX_f ptr)
 declare sub apply_matrix_f(byval m as const MATRIX_f ptr, byval x as single, byval y as single, byval z as single, byval xout as single ptr, byval yout as single ptr, byval zout as single ptr)
 #define ALLEGRO_MATRIX_INL
-#define CALC_ROW(n) (((fixmul(x, m->v[n][0]) + fixmul(y, m->v[n][1])) + fixmul(z, m->v[n][2])) + m->t[n])
 declare sub apply_matrix(byval m as MATRIX ptr, byval x as fixed, byval y as fixed, byval z as fixed, byval xout as fixed ptr, byval yout as fixed ptr, byval zout as fixed ptr)
-#undef CALC_ROW
 #define ALLEGRO_QUAT_H
 
 type QUAT

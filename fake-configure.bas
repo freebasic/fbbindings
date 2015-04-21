@@ -20,6 +20,10 @@ sub addDefine(byref id as string, byref value as string)
 	values(ubound(values)) = value
 end sub
 
+function strStartsWith(byref s as string, byref lookfor as string) as integer
+	function = left(s, len(lookfor)) = lookfor
+end function
+
 function strSplit(byref s as string, byref delimiter as string, byref l as string, byref r as string) as integer
 	var leftlen = instr(s, delimiter) - 1
 	if leftlen > 0 then
@@ -48,20 +52,31 @@ dim ln as string
 while not eof(1)
 	line input #1, ln
 
-	'' Check for #undef <id> lines
+	'' Check for #undef|cmakedefine <id> lines
 	const undef = "#undef"
-	if left(ln, len(undef)) = undef then
-		if mid(ln, len(undef) + 1, 1) = " " then
-			var id = mid(ln, len(undef) + 2, len(ln) - len(undef) - 1)
+	const cmakedefine = "#cmakedefine"
+	dim keyword as string
+	if strStartsWith(ln, undef) then
+		keyword = undef
+	elseif strStartsWith(ln, cmakedefine) then
+		keyword = cmakedefine
+	end if
 
-			'' Like autoconf, we either turn #undefs into #defines,
-			'' or comment them out (so they won't be preserved into
-			'' the .bi by fbfrog)
-			var def = lookupDefine(id)
-			if def >= 0 then
-				ln = "#define " + id + " " + values(def)
-			else
-				ln = "/* " + ln + " */"
+	if len(keyword) > 0 then
+		'' Space behind the #keyword?
+		if mid(ln, len(keyword) + 1, 1) = " " then
+			'' Id?
+			var id = mid(ln, len(keyword) + 2, len(ln) - len(keyword) - 1)
+			if len(id) > 0 then
+				'' Like autoconf, we either turn #undefs into #defines,
+				'' or comment them out (so they won't be preserved into
+				'' the .bi by fbfrog)
+				var def = lookupDefine(id)
+				if def >= 0 then
+					ln = "#define " + id + " " + values(def)
+				else
+					ln = "/* " + ln + " */"
+				end if
 			end if
 		end if
 	end if
