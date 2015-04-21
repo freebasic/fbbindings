@@ -42,6 +42,7 @@
 
 '' The following symbols have been renamed:
 ''     #define NCURSES_BOOL => NCURSES_BOOL_
+''     undef ERR => ERR_
 ''     constant ERR => ERR_
 ''     typedef WINDOW => WINDOW_
 ''     procedure beep => beep_
@@ -161,7 +162,7 @@ extern __acs_map alias "acs_map" as chtype
 #define ACS_BSBS ACS_HLINE
 #define ACS_SBSB ACS_VLINE
 #define ACS_SSSS ACS_PLUS
-#undef ERR
+#undef ERR_
 const ERR_ = -1
 #undef OK
 const OK = 0

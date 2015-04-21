@@ -61,6 +61,7 @@
 #include once "crt/string.bi"
 
 '' The following symbols have been renamed:
+''     undef MID => AL_MID
 ''     #define MID => AL_MID
 ''     #define EMPTY_STRING => EMPTY_STRING_
 ''     #define SYSTEM_NONE => SYSTEM_NONE_
@@ -336,7 +337,7 @@ const FALSE = 0
 
 #undef MIN
 #undef MAX
-#undef MID
+#undef AL_MID
 
 #define MIN(x, y) iif((x) < (y), (x), (y))
 #define MAX(x, y) iif((x) > (y), (x), (y))
