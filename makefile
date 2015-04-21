@@ -1188,9 +1188,14 @@ sdl1:
 	# on SDL_config.h.in).
 	cd extracted/$(SDL1_MAIN)/include && \
 		mkdir -p unix windows && \
-		if [ -f SDL_config.h ]; then mv SDL_config.h windows; fi && \
-		cp SDL_config.h.in unix/SDL_config.h
-	cat sdl-unix-config.h >> extracted/$(SDL1_MAIN)/include/unix/SDL_config.h
+		if [ -f SDL_config.h ]; then mv SDL_config.h windows; fi
+	./fake-configure \
+		`cat unix-config.txt` \
+		SDL_HAS_64BIT_TYPE \
+		SDL_VIDEO_DRIVER_X11 \
+		SDL_BYTEORDER=SDL_LIL_ENDIAN \
+		< extracted/$(SDL1_MAIN)/include/SDL_config.h.in \
+		> extracted/$(SDL1_MAIN)/include/unix/SDL_config.h
 
 	$(GETCOMMENT) extracted/$(SDL1_MAIN)/include/SDL.h                 > sdl1.tmp
 	sed -n 5,5p   extracted/$(SDL1_GFX)/SDL_gfxPrimitives.h | cut -c1- > sdl1-gfx.tmp
@@ -1288,9 +1293,15 @@ sdl2: winapi-extract
 	# on SDL_config.h.in).
 	cd extracted/$(SDL2_MAIN)/include && \
 		mkdir -p unix windows && \
-		if [ -f SDL_config.h ]; then mv SDL_config.h windows; fi && \
-		cp SDL_config.h.in unix/SDL_config.h
-	cat sdl-unix-config.h >> extracted/$(SDL2_MAIN)/include/unix/SDL_config.h
+		if [ -f SDL_config.h ]; then mv SDL_config.h windows; fi
+	./fake-configure \
+		`cat unix-config.txt` \
+		SDL_HAS_64BIT_TYPE \
+		SDL_VIDEO_DRIVER_X11 \
+		SDL_BYTEORDER=SDL_LIL_ENDIAN \
+		< extracted/$(SDL2_MAIN)/include/SDL_config.h.in \
+		> extracted/$(SDL2_MAIN)/include/unix/SDL_config.h
+	echo "#define SDL_BYTEORDER SDL_LIL_ENDIAN" >> extracted/$(SDL2_MAIN)/include/unix/SDL_config.h
 
 	$(GETCOMMENT) extracted/$(SDL2_MAIN)/include/SDL.h      > sdl2.tmp
 	sed -n 5,26p extracted/$(SDL2_GFX)/SDL2_gfxPrimitives.h > sdl2-gfx.tmp
