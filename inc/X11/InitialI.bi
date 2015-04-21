@@ -67,11 +67,6 @@ extern "C"
 
 #define _XtinitialI_h
 
-#ifdef __FB_LINUX__
-	#define _POSIX_SOURCE
-	#undef _POSIX_SOURCE
-#endif
-
 type _TimerEventRec
 	te_timer_value as timeval
 	te_next as _TimerEventRec ptr

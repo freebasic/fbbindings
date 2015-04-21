@@ -33,6 +33,7 @@ nodos.fbfrog
 -removedefine MINSHORT
 -removedefine PATH_MAX
 -removedefine POINTER
+-removedefine _POSIX_SOURCE
 -removedefine sleep
 -removedefine Status
 -removedefine True
