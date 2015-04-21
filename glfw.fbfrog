@@ -1,11 +1,13 @@
 -removedefine APIENTRY
--removedefine GL_APIENTRY_DEFINED
--removedefine WINGDIAPI
--removedefine GL_WINGDIAPI_DEFINED
 -removedefine CALLBACK
--removedefine GLU_CALLBACK_DEFINED
--removedefine GLFWAPIENTRY
+-removedefine GL_APIENTRY_DEFINED
 -removedefine GLFWAPI
+-removedefine GLFWAPIENTRY
+-removedefine GLFW_CALLBACK_DEFINED
+-removedefine GLFW_WINGDIAPI_DEFINED
+-removedefine GLU_CALLBACK_DEFINED
+-removedefine GL_WINGDIAPI_DEFINED
+-removedefine WINGDIAPI
 
 -addforwarddecl GLFWwindow
 -addforwarddecl GLFWmonitor

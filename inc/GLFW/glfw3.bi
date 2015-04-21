@@ -49,12 +49,6 @@
 extern "C"
 
 #define _glfw3_h_
-
-#ifdef __FB_WIN32__
-	#define GLFW_WINGDIAPI_DEFINED
-	#define GLFW_CALLBACK_DEFINED
-#endif
-
 const GLFW_VERSION_MAJOR = 3
 const GLFW_VERSION_MINOR = 1
 const GLFW_VERSION_REVISION = 1
@@ -407,10 +401,5 @@ declare sub glfwSwapBuffers(byval window as GLFWwindow ptr)
 declare sub glfwSwapInterval(byval interval as long)
 declare function glfwExtensionSupported(byval extension as const zstring ptr) as long
 declare function glfwGetProcAddress(byval procname as const zstring ptr) as GLFWglproc
-
-#ifdef __FB_WIN32__
-	#undef GLFW_WINGDIAPI_DEFINED
-	#undef GLFW_CALLBACK_DEFINED
-#endif
 
 end extern
