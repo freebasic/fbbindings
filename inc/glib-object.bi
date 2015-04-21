@@ -65,6 +65,7 @@
 extern "C"
 
 #define __GLIB_GOBJECT_H__
+#define __GLIB_GOBJECT_H_INSIDE__
 #define __G_BINDING_H__
 #define __G_OBJECT_H__
 #define __G_TYPE_H__
@@ -1616,5 +1617,6 @@ declare function g_strdup_value_contents(byval value as const GValue ptr) as zst
 declare sub g_value_take_string(byval value as GValue ptr, byval v_string as zstring ptr)
 declare sub g_value_set_string_take_ownership(byval value as GValue ptr, byval v_string as zstring ptr)
 type gchararray as zstring ptr
+#undef __GLIB_GOBJECT_H_INSIDE__
 
 end extern

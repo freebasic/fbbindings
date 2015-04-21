@@ -33,7 +33,20 @@ const __MINGW64_VERSION_RC = 0
 #define __MINGW64_VERSION_STATE "stable"
 const __MINGW32_MAJOR_VERSION = 3
 const __MINGW32_MINOR_VERSION = 11
+
+#ifdef __FB_64BIT__
+	#undef _
+	const _ = 1
+#else
+	#undef __MINGW_USE_UNDERSCORE_PREFIX
+#endif
+
 const __MINGW_USE_UNDERSCORE_PREFIX = 1
+
+#ifdef __FB_64BIT__
+	#undef _
+#endif
+
 #define __MINGW_IMP_SYMBOL(sym) _imp__##sym
 #define __MINGW_IMP_LSYMBOL(sym) __imp__##sym
 #define __MINGW_USYMBOL(sym) _##sym
@@ -44,6 +57,7 @@ const __MINGW_HAVE_ANSI_C99_SCANF = 1
 const __MINGW_HAVE_WIDE_C99_SCANF = 1
 #define __MSABI_LONG(x) x##l
 #define __LONG32 long
+#undef __USE_CRTIMP
 const __USE_CRTIMP = 1
 const USE___UUIDOF = 0
 const __MSVCRT_VERSION__ = &h0700
@@ -76,6 +90,7 @@ const _SECURECRT_FILL_BUFFER_PATTERN = &hFD
 
 const _ARGMAX = 100
 const _TRUNCATE = cuint(-1)
+#undef _CRT_glob
 #define _CRT_glob _dowildcard
 #define __ANONYMOUS_DEFINED
 declare function __mingw_get_crt_info() as const zstring ptr

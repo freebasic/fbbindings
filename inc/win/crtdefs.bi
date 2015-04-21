@@ -18,11 +18,13 @@
 #include once "_mingw.bi"
 
 #define _INC_CRTDEFS
+#undef _CRT_PACKING
 const _CRT_PACKING = 8
 '' TODO: #pragma pack(push,_CRT_PACKING)
 #define _CRTNOALIAS
 #define _CRTRESTRICT
 #define _SIZE_T_DEFINED
+#undef size_t
 
 #ifdef __FB_64BIT__
 	type size_t as ulongint
@@ -31,6 +33,7 @@ const _CRT_PACKING = 8
 #endif
 
 #define _SSIZE_T_DEFINED
+#undef ssize_t
 
 #ifdef __FB_64BIT__
 	type ssize_t as longint
@@ -42,6 +45,7 @@ type rsize_t as uinteger
 #define _RSIZE_T_DEFINED
 #define _INTPTR_T_DEFINED
 #define __intptr_t_defined
+#undef intptr_t
 
 #ifdef __FB_64BIT__
 	type intptr_t as longint
@@ -51,6 +55,7 @@ type rsize_t as uinteger
 
 #define _UINTPTR_T_DEFINED
 #define __uintptr_t_defined
+#undef uintptr_t
 
 #ifdef __FB_64BIT__
 	type uintptr_t as ulongint
@@ -60,6 +65,7 @@ type rsize_t as uinteger
 
 #define _PTRDIFF_T_DEFINED
 #define _PTRDIFF_T_
+#undef ptrdiff_t
 
 #ifdef __FB_64BIT__
 	type ptrdiff_t as longint

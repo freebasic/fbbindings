@@ -18,6 +18,10 @@
 extern "C"
 
 #define _INTRIN_MAC_
+#define __INTRINSIC_PROLOG(name) ((defined(__INTRINSIC_DEFINED_##name) = 0) andalso ((defined(__INTRINSIC_ONLYSPECIAL) = 0) orelse (defined(__INTRINSIC_ONLYSPECIAL) andalso defined(__INTRINSIC_SPECIAL_##name))))
+#define __INTRINSICS_USEINLINE __MINGW_INTRIN_INLINE
+#undef __INTRINSIC_GROUP_WINNT
+#define __INTRINSIC_ONLYSPECIAL
 #define __INTRINSIC_SPECIAL___faststorefence
 #define __INTRINSIC_SPECIAL___int2c
 #define __INTRINSIC_SPECIAL___stosb
@@ -25,6 +29,7 @@ extern "C"
 #define __INTRINSIC_SPECIAL___stosq
 #define __INTRINSIC_SPECIAL___stosw
 #define __INTRINSIC_SPECIAL__InterlockedAnd
+#define __INTRINSIC_SPECIAL__InterlockedAnd64
 #define __INTRINSIC_SPECIAL__interlockedbittestandcomplement
 #define __INTRINSIC_SPECIAL__interlockedbittestandcomplement64
 #define __INTRINSIC_SPECIAL__interlockedbittestandreset
@@ -32,7 +37,9 @@ extern "C"
 #define __INTRINSIC_SPECIAL__interlockedbittestandset
 #define __INTRINSIC_SPECIAL__interlockedbittestandset64
 #define __INTRINSIC_SPECIAL__InterlockedOr
+#define __INTRINSIC_SPECIAL__InterlockedOr64
 #define __INTRINSIC_SPECIAL__InterlockedXor
+#define __INTRINSIC_SPECIAL__InterlockedXor64
 #define __INTRINSIC_SPECIAL_InterlockedBitTestAndComplement
 #define __INTRINSIC_SPECIAL_InterlockedBitTestAndComplement64
 #define __INTRINSIC_SPECIAL_InterlockedBitTestAndReset
@@ -42,6 +49,18 @@ extern "C"
 #define __INTRINSIC_SPECIAL__InterlockedIncrement16
 #define __INTRINSIC_SPECIAL__InterlockedDecrement16
 #define __INTRINSIC_SPECIAL__InterlockedCompareExchange16
+#define __INTRINSIC_SPECIAL__InterlockedIncrement
+#define __INTRINSIC_SPECIAL__InterlockedDecrement
+#define __INTRINSIC_SPECIAL__InterlockedExchange
+#define __INTRINSIC_SPECIAL__InterlockedExchangeAdd
+#define __INTRINSIC_SPECIAL__InterlockedCompareExchange
+#define __INTRINSIC_SPECIAL__InterlockedIncrement64
+#define __INTRINSIC_SPECIAL__InterlockedDecrement64
+#define __INTRINSIC_SPECIAL__InterlockedExchangeAdd64
+#define __INTRINSIC_SPECIAL__InterlockedExchange64
+#define __INTRINSIC_SPECIAL__InterlockedCompareExchange64
+#define __INTRINSIC_SPECIAL__InterlockedExchangePointer
+#define __INTRINSIC_SPECIAL__InterlockedCompareExchangePointer
 #define __INTRINSIC_SPECIAL___readgsbyte
 #define __INTRINSIC_SPECIAL___readgsword
 #define __INTRINSIC_SPECIAL___readgsdword
@@ -72,6 +91,8 @@ extern "C"
 #define __INTRINSIC_SPECIAL___movsw
 #define __INTRINSIC_SPECIAL___movsd
 #define __INTRINSIC_SPECIAL___movsq
+#undef _lrotl
+#undef _lrotr
 
 #ifdef __FB_64BIT__
 	declare sub __faststorefence()
@@ -287,6 +308,15 @@ declare sub __movsd(byval Destination as ulong ptr, byval Source as const ulong 
 	#define __INTRINSIC_DEFINED___writefsdword
 #endif
 
+#undef __INTRINSIC_ONLYSPECIAL
+#undef __INTRINSIC_PROLOG
+#undef __INTRINSIC_EPILOG
+#undef __INTRINSICS_USEINLINE
+#define __INTRINSIC_PROLOG(name) ((defined(__INTRINSIC_DEFINED_##name) = 0) andalso ((defined(__INTRINSIC_ONLYSPECIAL) = 0) orelse (defined(__INTRINSIC_ONLYSPECIAL) andalso defined(__INTRINSIC_SPECIAL_##name))))
+#define __INTRINSICS_USEINLINE __MINGW_INTRIN_INLINE
+#undef __INTRINSIC_GROUP_WINBASE
+
+#define __INTRINSIC_ONLYSPECIAL
 #define __INTRINSIC_SPECIAL__InterlockedIncrement
 #define __INTRINSIC_SPECIAL__InterlockedDecrement
 #define __INTRINSIC_SPECIAL__InterlockedExchange
@@ -302,5 +332,12 @@ declare sub __movsd(byval Destination as ulong ptr, byval Source as const ulong 
 #define __INTRINSIC_SPECIAL__InterlockedExchange64
 #define __INTRINSIC_SPECIAL__InterlockedExchangeAdd64
 #define __INTRINSIC_SPECIAL__InterlockedCompareExchange64
+
+#undef _lrotl
+#undef _lrotr
+#undef __INTRINSIC_ONLYSPECIAL
+#undef __INTRINSIC_PROLOG
+#undef __INTRINSIC_EPILOG
+#undef __INTRINSICS_USEINLINE
 
 end extern

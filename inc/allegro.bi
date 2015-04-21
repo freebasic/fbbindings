@@ -127,15 +127,39 @@ extern "C"
 
 #define ALLEGRO_H
 #define ALLEGRO_BASE_H
+#define ALLEGRO_COLOR8
+#define ALLEGRO_COLOR16
+#define ALLEGRO_COLOR24
+#define ALLEGRO_COLOR32
 
-#if defined(__FB_DOS__) or defined(__FB_WIN32__)
-	#define ALLEGRO_COLOR8
-	#define ALLEGRO_COLOR16
-	#define ALLEGRO_COLOR24
-	#define ALLEGRO_COLOR32
+#ifdef __FB_LINUX__
+	#define ALLEGRO_PLATFORM_STR "Unix"
+#elseif defined(__FB_DOS__)
+	#define ALLEGRO_PLATFORM_STR "djgpp"
+	#define ALLEGRO_DOS
+	#define ALLEGRO_LITTLE_ENDIAN
+	#define ALLEGRO_GUESS_INTTYPES_OK
 #endif
 
-#ifdef __FB_WIN32__
+#if defined(__FB_DOS__) or defined(__FB_LINUX__)
+	#define ALLEGRO_CONSOLE_OK
+	#define ALLEGRO_VRAM_SINGLE_SURFACE
+#endif
+
+#ifdef __FB_LINUX__
+	#undef ALLEGRO_COLOR8
+	#undef ALLEGRO_COLOR16
+	#undef ALLEGRO_COLOR24
+	#undef ALLEGRO_COLOR32
+
+	const ALLEGRO_COLOR8 = 1
+	const ALLEGRO_COLOR16 = 1
+	const ALLEGRO_COLOR24 = 1
+	const ALLEGRO_COLOR32 = 1
+	const ALLEGRO_HAVE_INTTYPES_H = 1
+#endif
+
+#if defined(__FB_WIN32__) or defined(__FB_LINUX__)
 	const ALLEGRO_HAVE_STDINT_H = 1
 #endif
 
@@ -147,26 +171,16 @@ extern "C"
 
 #ifdef __FB_WIN32__
 	#define ALLEGRO_WINDOWS
-#elseif defined(__FB_DOS__)
-	#define ALLEGRO_PLATFORM_STR "djgpp"
-	#define ALLEGRO_DOS
-#endif
-
-#if defined(__FB_DOS__) or defined(__FB_WIN32__)
 	#define ALLEGRO_LITTLE_ENDIAN
 #endif
 
-#ifdef __FB_WIN32__
+#if defined(__FB_DOS__) or defined(__FB_WIN32__)
 	#define ALLEGRO_USE_CONSTRUCTOR
-#elseif defined(__FB_LINUX__)
-	#define ALLEGRO_PLATFORM_STR "Unix"
 #else
-	#define ALLEGRO_GUESS_INTTYPES_OK
-#endif
-
-#if defined(__FB_DOS__) or defined(__FB_LINUX__)
-	#define ALLEGRO_CONSOLE_OK
-	#define ALLEGRO_VRAM_SINGLE_SURFACE
+	const ALLEGRO_HAVE_MEMCMP = 1
+	const ALLEGRO_LITTLE_ENDIAN = 1
+	const ALLEGRO_NO_ASM = 1
+	#define RETSIGTYPE any
 #endif
 
 #if defined(__FB_WIN32__) or defined(__FB_LINUX__)
@@ -176,7 +190,6 @@ extern "C"
 #ifdef __FB_WIN32__
 	#define ENUM_CURRENT_SETTINGS (DWORD - 1)
 #elseif defined(__FB_DOS__)
-	#define ALLEGRO_USE_CONSTRUCTOR
 	declare sub _unlock_dpmi_data(byval addr as any ptr, byval size as long)
 	#define LOCK_DATA(d, s) _go32_dpmi_lock_data(cptr(any ptr, d), s)
 	#define LOCK_CODE(c, s) _go32_dpmi_lock_code(cptr(any ptr, c), s)
@@ -320,6 +333,11 @@ const ALLEGRO_WIP_VERSION = 2
 const ALLEGRO_DATE = 20110519
 const TRUE = -1
 const FALSE = 0
+
+#undef MIN
+#undef MAX
+#undef MID
+
 #define MIN(x, y) iif((x) < (y), (x), (y))
 #define MAX(x, y) iif((x) > (y), (x), (y))
 #define AL_MID(x, y, z) iif((x) > (y), iif((y) > (z), (y), iif((x) > (z), (z), (x))), iif((y) > (z), iif((z) > (x), (z), (x)), (y)))
@@ -1740,10 +1758,15 @@ declare function get_display_switch_mode() as long
 declare function set_display_switch_callback(byval dir as long, byval cb as sub()) as long
 declare sub remove_display_switch_callback(byval cb as sub())
 declare sub lock_bitmap(byval bmp as BITMAP ptr)
+
 #define ALLEGRO_GFX_INL
+#define ALLEGRO_IMPORT_GFX_ASM
+#define ALLEGRO_USE_C
+#undef ALLEGRO_IMPORT_GFX_ASM
 declare function _default_ds() as long
 type _BMP_BANK_SWITCHER as function(byval bmp as BITMAP ptr, byval lyne as long) as uinteger
 type _BMP_UNBANK_SWITCHER as sub(byval bmp as BITMAP ptr)
+
 declare function bmp_write_line(byval bmp as BITMAP ptr, byval lyne as long) as uinteger
 declare function bmp_read_line(byval bmp as BITMAP ptr, byval lyne as long) as uinteger
 declare sub bmp_unwrite_line(byval bmp as BITMAP ptr)
@@ -2874,7 +2897,10 @@ declare function fixatan2(byval y as fixed, byval x as fixed) as fixed
 #endif
 
 #define ALLEGRO_FMATHS_INL
+#define ALLEGRO_IMPORT_MATH_ASM
 #define ALLEGRO_USE_C
+#undef ALLEGRO_IMPORT_MATH_ASM
+
 declare function ftofix(byval x as double) as fixed
 declare function fixtof(byval x as fixed) as double
 declare function fixadd(byval x as fixed, byval y as fixed) as fixed
@@ -2938,7 +2964,9 @@ declare sub matrix_mul(byval m1 as const MATRIX ptr, byval m2 as const MATRIX pt
 declare sub matrix_mul_f(byval m1 as const MATRIX_f ptr, byval m2 as const MATRIX_f ptr, byval out as MATRIX_f ptr)
 declare sub apply_matrix_f(byval m as const MATRIX_f ptr, byval x as single, byval y as single, byval z as single, byval xout as single ptr, byval yout as single ptr, byval zout as single ptr)
 #define ALLEGRO_MATRIX_INL
+#define CALC_ROW(n) (((fixmul(x, m->v[n][0]) + fixmul(y, m->v[n][1])) + fixmul(z, m->v[n][2])) + m->t[n])
 declare sub apply_matrix(byval m as MATRIX ptr, byval x as fixed, byval y as fixed, byval z as fixed, byval xout as fixed ptr, byval yout as fixed ptr, byval zout as fixed ptr)
+#undef CALC_ROW
 #define ALLEGRO_QUAT_H
 
 type QUAT

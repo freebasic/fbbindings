@@ -75,22 +75,137 @@ extern "C"
 #define _SDL_platform_h
 
 #ifdef __FB_WIN32__
+	#undef __WINDOWS__
 	const __WINDOWS__ = 1
+	#undef __WIN32__
 	const __WIN32__ = 1
 #else
+	#undef __LINUX__
 	const __LINUX__ = 1
 #endif
 
+#define _begin_code_h
 #define SDLCALL cdecl
-
-#ifdef __FB_LINUX__
-	const NULL = cptr(any ptr, 0)
-#endif
-
+const NULL = cptr(any ptr, 0)
 declare function SDL_GetPlatform() as const zstring ptr
+#undef _begin_code_h
 
 #ifdef __FB_WIN32__
 	#define _SDL_config_windows_h
+#else
+	#undef const
+	#undef inline
+	#undef volatile
+	#undef HAVE_GCC_ATOMICS
+	#undef HAVE_GCC_SYNC_LOCK_TEST_AND_SET
+	#undef HAVE_PTHREAD_SPINLOCK
+	#undef SDL_DEFAULT_ASSERT_LEVEL
+	#undef SDL_ATOMIC_DISABLED
+	#undef SDL_AUDIO_DISABLED
+	#undef SDL_CPUINFO_DISABLED
+	#undef SDL_EVENTS_DISABLED
+	#undef SDL_FILE_DISABLED
+	#undef SDL_HAPTIC_DISABLED
+	#undef SDL_RENDER_DISABLED
+	#undef SDL_VIDEO_DISABLED
+	#undef SDL_POWER_DISABLED
+	#undef SDL_FILESYSTEM_DISABLED
+	#undef SDL_AUDIO_DRIVER_ALSA
+	#undef SDL_AUDIO_DRIVER_ALSA_DYNAMIC
+	#undef SDL_AUDIO_DRIVER_ARTS
+	#undef SDL_AUDIO_DRIVER_ARTS_DYNAMIC
+	#undef SDL_AUDIO_DRIVER_PULSEAUDIO
+	#undef SDL_AUDIO_DRIVER_PULSEAUDIO_DYNAMIC
+	#undef SDL_AUDIO_DRIVER_HAIKU
+	#undef SDL_AUDIO_DRIVER_BSD
+	#undef SDL_AUDIO_DRIVER_COREAUDIO
+	#undef SDL_AUDIO_DRIVER_ESD
+	#undef SDL_AUDIO_DRIVER_ESD_DYNAMIC
+	#undef SDL_AUDIO_DRIVER_NAS
+	#undef SDL_AUDIO_DRIVER_NAS_DYNAMIC
+	#undef SDL_AUDIO_DRIVER_SNDIO
+	#undef SDL_AUDIO_DRIVER_SNDIO_DYNAMIC
+	#undef SDL_AUDIO_DRIVER_OSS
+	#undef SDL_AUDIO_DRIVER_OSS_SOUNDCARD_H
+	#undef SDL_AUDIO_DRIVER_PAUDIO
+	#undef SDL_AUDIO_DRIVER_QSA
+	#undef SDL_AUDIO_DRIVER_SUNAUDIO
+	#undef SDL_AUDIO_DRIVER_FUSIONSOUND
+	#undef SDL_AUDIO_DRIVER_FUSIONSOUND_DYNAMIC
+	#undef SDL_INPUT_LINUXEV
+	#undef SDL_INPUT_LINUXKD
+	#undef SDL_INPUT_TSLIB
+	#undef SDL_JOYSTICK_HAIKU
+	#undef SDL_JOYSTICK_DUMMY
+	#undef SDL_JOYSTICK_IOKIT
+	#undef SDL_JOYSTICK_LINUX
+	#undef SDL_JOYSTICK_USBHID
+	#undef SDL_JOYSTICK_USBHID_MACHINE_JOYSTICK_H
+	#undef SDL_HAPTIC_DUMMY
+	#undef SDL_HAPTIC_LINUX
+	#undef SDL_HAPTIC_IOKIT
+	#undef SDL_LOADSO_HAIKU
+	#undef SDL_LOADSO_DLOPEN
+	#undef SDL_LOADSO_DUMMY
+	#undef SDL_LOADSO_LDG
+	#undef SDL_THREAD_PTHREAD
+	#undef SDL_THREAD_PTHREAD_RECURSIVE_MUTEX
+	#undef SDL_THREAD_PTHREAD_RECURSIVE_MUTEX_NP
+	#undef SDL_TIMER_HAIKU
+	#undef SDL_TIMER_DUMMY
+	#undef SDL_TIMER_UNIX
+	#undef SDL_VIDEO_DRIVER_HAIKU
+	#undef SDL_VIDEO_DRIVER_COCOA
+	#undef SDL_VIDEO_DRIVER_DIRECTFB
+	#undef SDL_VIDEO_DRIVER_DIRECTFB_DYNAMIC
+	#undef SDL_VIDEO_DRIVER_WAYLAND
+	#undef SDL_VIDEO_DRIVER_WAYLAND_QT_TOUCH
+	#undef SDL_VIDEO_DRIVER_WAYLAND_DYNAMIC
+	#undef SDL_VIDEO_DRIVER_WAYLAND_DYNAMIC_EGL
+	#undef SDL_VIDEO_DRIVER_WAYLAND_DYNAMIC_CURSOR
+	#undef SDL_VIDEO_DRIVER_WAYLAND_DYNAMIC_XKBCOMMON
+	#undef SDL_VIDEO_DRIVER_MIR
+	#undef SDL_VIDEO_DRIVER_MIR_DYNAMIC
+	#undef SDL_VIDEO_DRIVER_MIR_DYNAMIC_XKBCOMMON
+	#undef SDL_VIDEO_DRIVER_RPI
+	#undef SDL_VIDEO_DRIVER_X11_DYNAMIC
+	#undef SDL_VIDEO_DRIVER_X11_DYNAMIC_XEXT
+	#undef SDL_VIDEO_DRIVER_X11_DYNAMIC_XCURSOR
+	#undef SDL_VIDEO_DRIVER_X11_DYNAMIC_XINERAMA
+	#undef SDL_VIDEO_DRIVER_X11_DYNAMIC_XINPUT2
+	#undef SDL_VIDEO_DRIVER_X11_DYNAMIC_XRANDR
+	#undef SDL_VIDEO_DRIVER_X11_DYNAMIC_XSS
+	#undef SDL_VIDEO_DRIVER_X11_DYNAMIC_XVIDMODE
+	#undef SDL_VIDEO_DRIVER_X11_XCURSOR
+	#undef SDL_VIDEO_DRIVER_X11_XINERAMA
+	#undef SDL_VIDEO_DRIVER_X11_XINPUT2
+	#undef SDL_VIDEO_DRIVER_X11_XINPUT2_SUPPORTS_MULTITOUCH
+	#undef SDL_VIDEO_DRIVER_X11_XRANDR
+	#undef SDL_VIDEO_DRIVER_X11_XSCRNSAVER
+	#undef SDL_VIDEO_DRIVER_X11_XSHAPE
+	#undef SDL_VIDEO_DRIVER_X11_XVIDMODE
+	#undef SDL_VIDEO_DRIVER_X11_SUPPORTS_GENERIC_EVENTS
+	#undef SDL_VIDEO_DRIVER_X11_CONST_PARAM_XDATA32
+	#undef SDL_VIDEO_DRIVER_X11_CONST_PARAM_XEXTADDDISPLAY
+	#undef SDL_VIDEO_DRIVER_X11_HAS_XKBKEYCODETOKEYSYM
+	#undef SDL_VIDEO_RENDER_OGL_ES
+	#undef SDL_VIDEO_RENDER_DIRECTFB
+	#undef SDL_VIDEO_OPENGL_ES
+	#undef SDL_VIDEO_OPENGL_BGL
+	#undef SDL_VIDEO_OPENGL_CGL
+	#undef SDL_VIDEO_OPENGL_GLX
+	#undef SDL_VIDEO_OPENGL_OSMESA
+	#undef SDL_VIDEO_OPENGL_OSMESA_DYNAMIC
+	#undef SDL_POWER_LINUX
+	#undef SDL_POWER_MACOSX
+	#undef SDL_POWER_HAIKU
+	#undef SDL_POWER_HARDWIRED
+	#undef SDL_FILESYSTEM_HAIKU
+	#undef SDL_FILESYSTEM_COCOA
+	#undef SDL_FILESYSTEM_DUMMY
+	#undef SDL_FILESYSTEM_UNIX
+	#undef SDL_ALTIVEC_BLITTERS
+	#define SDL_BYTEORDER SDL_LIL_ENDIAN
 #endif
 
 #define SDL_FOURCC(A, B, C, D) ((((cast(Uint32, cast(Uint8, (A))) shl 0) or (cast(Uint32, cast(Uint8, (B))) shl 8)) or (cast(Uint32, cast(Uint8, (C))) shl 16)) or (cast(Uint32, cast(Uint8, (D))) shl 24))
@@ -114,6 +229,8 @@ type SDL_DUMMY_ENUM as long
 enum
 	DUMMY_ENUM_VALUE
 end enum
+
+#define _begin_code_h
 
 #ifdef __FB_WIN32__
 	#define SDL_stack_alloc(type, count) cptr(type ptr, SDL_malloc(sizeof((type)) * (count)))
@@ -232,7 +349,9 @@ declare function SDL_iconv_string(byval tocode as const zstring ptr, byval fromc
 #define SDL_iconv_utf8_locale(S) SDL_iconv_string("", "UTF-8", S, SDL_strlen(S) + 1)
 #define SDL_iconv_utf8_ucs2(S) cptr(Uint16 ptr, SDL_iconv_string("UCS-2-INTERNAL", "UTF-8", S, SDL_strlen(S) + 1))
 #define SDL_iconv_utf8_ucs4(S) cptr(Uint32 ptr, SDL_iconv_string("UCS-4-INTERNAL", "UTF-8", S, SDL_strlen(S) + 1))
+#undef _begin_code_h
 declare function SDL_main(byval argc as long, byval argv as zstring ptr ptr) as long
+#define _begin_code_h
 declare sub SDL_SetMainReady()
 
 #ifdef __FB_WIN32__
@@ -240,12 +359,14 @@ declare sub SDL_SetMainReady()
 	declare sub SDL_UnregisterApp()
 #endif
 
+#undef _begin_code_h
 #define _SDL_assert_h
 
 #ifdef __FB_LINUX__
 	#define SDL_BYTEORDER SDL_LIL_ENDIAN
 #endif
 
+#define _begin_code_h
 const SDL_ASSERT_LEVEL = 2
 #define SDL_TriggerBreakpoint() asm int 3
 #define SDL_FUNCTION __FUNCTION__
@@ -300,7 +421,9 @@ declare function SDL_GetDefaultAssertionHandler() as SDL_AssertionHandler
 declare function SDL_GetAssertionHandler(byval puserdata as any ptr ptr) as SDL_AssertionHandler
 declare function SDL_GetAssertionReport() as const SDL_assert_data ptr
 declare sub SDL_ResetAssertionReport()
+#undef _begin_code_h
 #define _SDL_atomic_h_
+#define _begin_code_h
 type SDL_SpinLock as long
 declare function SDL_AtomicTryLock(byval lock as SDL_SpinLock ptr) as SDL_bool
 declare sub SDL_AtomicLock(byval lock as SDL_SpinLock ptr)
@@ -322,8 +445,12 @@ declare function SDL_AtomicAdd(byval a as SDL_atomic_t ptr, byval v as long) as 
 declare function SDL_AtomicCASPtr(byval a as any ptr ptr, byval oldval as any ptr, byval newval as any ptr) as SDL_bool
 declare function SDL_AtomicSetPtr(byval a as any ptr ptr, byval v as any ptr) as any ptr
 declare function SDL_AtomicGetPtr(byval a as any ptr ptr) as any ptr
+#undef _begin_code_h
+
 #define _SDL_audio_h
 #define _SDL_error_h
+#define _begin_code_h
+
 declare function SDL_SetError(byval fmt as const zstring ptr, ...) as long
 declare function SDL_GetError() as const zstring ptr
 declare sub SDL_ClearError()
@@ -343,6 +470,7 @@ enum
 end enum
 
 declare function SDL_Error(byval code as SDL_errorcode) as long
+#undef _begin_code_h
 #define _SDL_endian_h
 const SDL_LIL_ENDIAN = 1234
 const SDL_BIG_ENDIAN = 4321
@@ -350,6 +478,8 @@ const SDL_BIG_ENDIAN = 4321
 #ifdef __FB_WIN32__
 	#define SDL_BYTEORDER SDL_LIL_ENDIAN
 #endif
+
+#define _begin_code_h
 
 #ifdef __FB_64BIT__
 	private function SDL_Swap16(byval x as Uint16) as Uint16
@@ -412,7 +542,9 @@ end function
 #define SDL_SwapBE32(X) SDL_Swap32(X)
 #define SDL_SwapBE64(X) SDL_Swap64(X)
 #define SDL_SwapFloatBE(X) SDL_SwapFloat(X)
+#undef _begin_code_h
 #define _SDL_mutex_h
+#define _begin_code_h
 const SDL_MUTEX_TIMEDOUT = 1
 #define SDL_MUTEX_MAXWAIT (not cast(Uint32, 0))
 type SDL_mutex as SDL_mutex_
@@ -439,7 +571,9 @@ declare function SDL_CondSignal(byval cond as SDL_cond ptr) as long
 declare function SDL_CondBroadcast(byval cond as SDL_cond ptr) as long
 declare function SDL_CondWait(byval cond as SDL_cond ptr, byval mutex as SDL_mutex ptr) as long
 declare function SDL_CondWaitTimeout(byval cond as SDL_cond ptr, byval mutex as SDL_mutex ptr, byval ms as Uint32) as long
+#undef _begin_code_h
 #define _SDL_thread_h
+#define _begin_code_h
 type SDL_threadID as culong
 type SDL_TLSID as ulong
 
@@ -484,8 +618,10 @@ declare sub SDL_DetachThread(byval thread as SDL_Thread ptr)
 declare function SDL_TLSCreate() as SDL_TLSID
 declare function SDL_TLSGet(byval id as SDL_TLSID) as any ptr
 declare function SDL_TLSSet(byval id as SDL_TLSID, byval value as const any ptr, byval destructor as sub(byval as any ptr)) as long
+#undef _begin_code_h
 
 #define _SDL_rwops_h
+#define _begin_code_h
 const SDL_RWOPS_UNKNOWN = 0
 const SDL_RWOPS_WINFILE = 1
 const SDL_RWOPS_STDFILE = 2
@@ -581,6 +717,8 @@ declare function SDL_WriteLE32(byval dst as SDL_RWops ptr, byval value as Uint32
 declare function SDL_WriteBE32(byval dst as SDL_RWops ptr, byval value as Uint32) as uinteger
 declare function SDL_WriteLE64(byval dst as SDL_RWops ptr, byval value as Uint64) as uinteger
 declare function SDL_WriteBE64(byval dst as SDL_RWops ptr, byval value as Uint64) as uinteger
+#undef _begin_code_h
+#define _begin_code_h
 type SDL_AudioFormat as Uint16
 
 const SDL_AUDIO_MASK_BITSIZE = &hFF
@@ -683,12 +821,18 @@ declare sub SDL_UnlockAudio()
 declare sub SDL_UnlockAudioDevice(byval dev as SDL_AudioDeviceID)
 declare sub SDL_CloseAudio()
 declare sub SDL_CloseAudioDevice(byval dev as SDL_AudioDeviceID)
+#undef _begin_code_h
 #define _SDL_clipboard_h
+#define _begin_code_h
 declare function SDL_SetClipboardText(byval text as const zstring ptr) as long
 declare function SDL_GetClipboardText() as zstring ptr
 declare function SDL_HasClipboardText() as SDL_bool
+#undef _begin_code_h
+
 #define _SDL_cpuinfo_h
+#define _begin_code_h
 const SDL_CACHELINE_SIZE = 128
+
 declare function SDL_GetCPUCount() as long
 declare function SDL_GetCPUCacheLineSize() as long
 declare function SDL_HasRDTSC() as SDL_bool
@@ -702,10 +846,12 @@ declare function SDL_HasSSE41() as SDL_bool
 declare function SDL_HasSSE42() as SDL_bool
 declare function SDL_HasAVX() as SDL_bool
 declare function SDL_GetSystemRAM() as long
+#undef _begin_code_h
 
 #define _SDL_events_h
 #define _SDL_video_h
 #define _SDL_pixels_h
+#define _begin_code_h
 const SDL_ALPHA_OPAQUE = 255
 const SDL_ALPHA_TRANSPARENT = 0
 
@@ -867,7 +1013,9 @@ declare function SDL_MapRGBA(byval format as const SDL_PixelFormat ptr, byval r 
 declare sub SDL_GetRGB(byval pixel as Uint32, byval format as const SDL_PixelFormat ptr, byval r as Uint8 ptr, byval g as Uint8 ptr, byval b as Uint8 ptr)
 declare sub SDL_GetRGBA(byval pixel as Uint32, byval format as const SDL_PixelFormat ptr, byval r as Uint8 ptr, byval g as Uint8 ptr, byval b as Uint8 ptr, byval a as Uint8 ptr)
 declare sub SDL_CalculateGammaRamp(byval gamma as single, byval ramp as Uint16 ptr)
+#undef _begin_code_h
 #define _SDL_rect_h
+#define _begin_code_h
 
 type SDL_Point
 	x as long
@@ -894,8 +1042,11 @@ declare function SDL_IntersectRect(byval A as const SDL_Rect ptr, byval B as con
 declare sub SDL_UnionRect(byval A as const SDL_Rect ptr, byval B as const SDL_Rect ptr, byval result as SDL_Rect ptr)
 declare function SDL_EnclosePoints(byval points as const SDL_Point ptr, byval count as long, byval clip as const SDL_Rect ptr, byval result as SDL_Rect ptr) as SDL_bool
 declare function SDL_IntersectRectAndLine(byval rect as const SDL_Rect ptr, byval X1 as long ptr, byval Y1 as long ptr, byval X2 as long ptr, byval Y2 as long ptr) as SDL_bool
+#undef _begin_code_h
+
 #define _SDL_surface_h
 #define _SDL_blendmode_h
+#define _begin_code_h
 
 type SDL_BlendMode as long
 enum
@@ -905,6 +1056,8 @@ enum
 	SDL_BLENDMODE_MOD = &h00000004
 end enum
 
+#undef _begin_code_h
+#define _begin_code_h
 const SDL_SWSURFACE = 0
 const SDL_PREALLOC = &h00000001
 const SDL_RLEACCEL = &h00000002
@@ -961,6 +1114,8 @@ declare function SDL_SoftStretch(byval src as SDL_Surface ptr, byval srcrect as 
 #define SDL_BlitScaled SDL_UpperBlitScaled
 declare function SDL_UpperBlitScaled(byval src as SDL_Surface ptr, byval srcrect as const SDL_Rect ptr, byval dst as SDL_Surface ptr, byval dstrect as SDL_Rect ptr) as long
 declare function SDL_LowerBlitScaled(byval src as SDL_Surface ptr, byval srcrect as SDL_Rect ptr, byval dst as SDL_Surface ptr, byval dstrect as SDL_Rect ptr) as long
+#undef _begin_code_h
+#define _begin_code_h
 
 type SDL_DisplayMode
 	format as Uint32
@@ -1134,6 +1289,7 @@ declare function SDL_GL_SetSwapInterval(byval interval as long) as long
 declare function SDL_GL_GetSwapInterval() as long
 declare sub SDL_GL_SwapWindow(byval window as SDL_Window ptr)
 declare sub SDL_GL_DeleteContext(byval context as SDL_GLContext)
+#undef _begin_code_h
 
 #define _SDL_keyboard_h
 #define _SDL_keycode_h
@@ -1649,6 +1805,7 @@ end enum
 #define KMOD_SHIFT (KMOD_LSHIFT or KMOD_RSHIFT)
 #define KMOD_ALT (KMOD_LALT or KMOD_RALT)
 #define KMOD_GUI (KMOD_LGUI or KMOD_RGUI)
+#define _begin_code_h
 
 type SDL_Keysym
 	scancode as SDL_Scancode
@@ -1673,7 +1830,9 @@ declare sub SDL_StopTextInput()
 declare sub SDL_SetTextInputRect(byval rect as SDL_Rect ptr)
 declare function SDL_HasScreenKeyboardSupport() as SDL_bool
 declare function SDL_IsScreenKeyboardShown(byval window as SDL_Window ptr) as SDL_bool
+#undef _begin_code_h
 #define _SDL_mouse_h
+#define _begin_code_h
 
 type SDL_SystemCursor as long
 enum
@@ -1719,7 +1878,9 @@ const SDL_BUTTON_X2 = 5
 #define SDL_BUTTON_RMASK SDL_BUTTON(SDL_BUTTON_RIGHT)
 #define SDL_BUTTON_X1MASK SDL_BUTTON(SDL_BUTTON_X1)
 #define SDL_BUTTON_X2MASK SDL_BUTTON(SDL_BUTTON_X2)
+#undef _begin_code_h
 #define _SDL_joystick_h
+#define _begin_code_h
 type SDL_Joystick as _SDL_Joystick
 
 type SDL_JoystickGUID
@@ -1759,7 +1920,9 @@ declare function SDL_JoystickGetHat(byval joystick as SDL_Joystick ptr, byval ha
 declare function SDL_JoystickGetBall(byval joystick as SDL_Joystick ptr, byval ball as long, byval dx as long ptr, byval dy as long ptr) as long
 declare function SDL_JoystickGetButton(byval joystick as SDL_Joystick ptr, byval button as long) as Uint8
 declare sub SDL_JoystickClose(byval joystick as SDL_Joystick ptr)
+#undef _begin_code_h
 #define _SDL_gamecontroller_h
+#define _begin_code_h
 type SDL_GameController as _SDL_GameController
 
 type SDL_GameControllerBindType as long
@@ -1843,6 +2006,7 @@ declare function SDL_GameControllerGetStringForButton(byval button as SDL_GameCo
 declare function SDL_GameControllerGetBindForButton(byval gamecontroller as SDL_GameController ptr, byval button as SDL_GameControllerButton) as SDL_GameControllerButtonBind
 declare function SDL_GameControllerGetButton(byval gamecontroller as SDL_GameController ptr, byval button as SDL_GameControllerButton) as Uint8
 declare sub SDL_GameControllerClose(byval gamecontroller as SDL_GameController ptr)
+#undef _begin_code_h
 
 #define _SDL_quit_h
 private function SDL_QuitRequested() as SDL_bool
@@ -1851,6 +2015,7 @@ private function SDL_QuitRequested() as SDL_bool
 end function
 #define _SDL_gesture_h
 #define _SDL_touch_h
+#define _begin_code_h
 type SDL_TouchID as Sint64
 type SDL_FingerID as Sint64
 
@@ -1866,11 +2031,16 @@ declare function SDL_GetNumTouchDevices() as long
 declare function SDL_GetTouchDevice(byval index as long) as SDL_TouchID
 declare function SDL_GetNumTouchFingers(byval touchID as SDL_TouchID) as long
 declare function SDL_GetTouchFinger(byval touchID as SDL_TouchID, byval index as long) as SDL_Finger ptr
+#undef _begin_code_h
+#define _begin_code_h
 type SDL_GestureID as Sint64
 declare function SDL_RecordGesture(byval touchId as SDL_TouchID) as long
 declare function SDL_SaveAllDollarTemplates(byval dst as SDL_RWops ptr) as long
 declare function SDL_SaveDollarTemplate(byval gestureId as SDL_GestureID, byval dst as SDL_RWops ptr) as long
 declare function SDL_LoadDollarTemplates(byval touchId as SDL_TouchID, byval src as SDL_RWops ptr) as long
+#undef _begin_code_h
+
+#define _begin_code_h
 const SDL_RELEASED = 0
 const SDL_PRESSED = 1
 
@@ -2208,10 +2378,14 @@ const SDL_ENABLE = 1
 declare function SDL_EventState(byval type as Uint32, byval state as long) as Uint8
 #define SDL_GetEventState(type) SDL_EventState(type, SDL_QUERY)
 declare function SDL_RegisterEvents(byval numevents as long) as Uint32
+#undef _begin_code_h
 #define _SDL_filesystem_h
+#define _begin_code_h
 declare function SDL_GetBasePath() as zstring ptr
 declare function SDL_GetPrefPath(byval org as const zstring ptr, byval app as const zstring ptr) as zstring ptr
+#undef _begin_code_h
 #define _SDL_haptic_h
+#define _begin_code_h
 type SDL_Haptic as _SDL_Haptic
 const SDL_HAPTIC_CONSTANT = 1 shl 0
 const SDL_HAPTIC_SINE = 1 shl 1
@@ -2364,8 +2538,10 @@ declare function SDL_HapticRumbleSupported(byval haptic as SDL_Haptic ptr) as lo
 declare function SDL_HapticRumbleInit(byval haptic as SDL_Haptic ptr) as long
 declare function SDL_HapticRumblePlay(byval haptic as SDL_Haptic ptr, byval strength as single, byval length as Uint32) as long
 declare function SDL_HapticRumbleStop(byval haptic as SDL_Haptic ptr) as long
+#undef _begin_code_h
 
 #define _SDL_hints_h
+#define _begin_code_h
 #define SDL_HINT_FRAMEBUFFER_ACCELERATION "SDL_FRAMEBUFFER_ACCELERATION"
 #define SDL_HINT_RENDER_DRIVER "SDL_RENDER_DRIVER"
 #define SDL_HINT_RENDER_OPENGL_SHADERS "SDL_RENDER_OPENGL_SHADERS"
@@ -2411,11 +2587,16 @@ type SDL_HintCallback as sub(byval userdata as any ptr, byval name as const zstr
 declare sub SDL_AddHintCallback(byval name as const zstring ptr, byval callback as SDL_HintCallback, byval userdata as any ptr)
 declare sub SDL_DelHintCallback(byval name as const zstring ptr, byval callback as SDL_HintCallback, byval userdata as any ptr)
 declare sub SDL_ClearHints()
+#undef _begin_code_h
 #define _SDL_loadso_h
+#define _begin_code_h
 declare function SDL_LoadObject(byval sofile as const zstring ptr) as any ptr
 declare function SDL_LoadFunction(byval handle as any ptr, byval name as const zstring ptr) as any ptr
 declare sub SDL_UnloadObject(byval handle as any ptr)
+#undef _begin_code_h
+
 #define _SDL_log_h
+#define _begin_code_h
 const SDL_MAX_LOG_MESSAGE = 4096
 
 enum
@@ -2468,7 +2649,9 @@ declare sub SDL_LogMessageV(byval category as long, byval priority as SDL_LogPri
 type SDL_LogOutputFunction as sub(byval userdata as any ptr, byval category as long, byval priority as SDL_LogPriority, byval message as const zstring ptr)
 declare sub SDL_LogGetOutputFunction(byval callback as SDL_LogOutputFunction ptr, byval userdata as any ptr ptr)
 declare sub SDL_LogSetOutputFunction(byval callback as SDL_LogOutputFunction, byval userdata as any ptr)
+#undef _begin_code_h
 #define _SDL_messagebox_h
+#define _begin_code_h
 
 type SDL_MessageBoxFlags as long
 enum
@@ -2521,7 +2704,9 @@ end type
 
 declare function SDL_ShowMessageBox(byval messageboxdata as const SDL_MessageBoxData ptr, byval buttonid as long ptr) as long
 declare function SDL_ShowSimpleMessageBox(byval flags as Uint32, byval title as const zstring ptr, byval message as const zstring ptr, byval window as SDL_Window ptr) as long
+#undef _begin_code_h
 #define _SDL_power_h
+#define _begin_code_h
 
 type SDL_PowerState as long
 enum
@@ -2533,7 +2718,9 @@ enum
 end enum
 
 declare function SDL_GetPowerInfo(byval secs as long ptr, byval pct as long ptr) as SDL_PowerState
+#undef _begin_code_h
 #define _SDL_render_h
+#define _begin_code_h
 
 type SDL_RendererFlags as long
 enum
@@ -2628,7 +2815,9 @@ declare sub SDL_DestroyTexture(byval texture as SDL_Texture ptr)
 declare sub SDL_DestroyRenderer(byval renderer as SDL_Renderer ptr)
 declare function SDL_GL_BindTexture(byval texture as SDL_Texture ptr, byval texw as single ptr, byval texh as single ptr) as long
 declare function SDL_GL_UnbindTexture(byval texture as SDL_Texture ptr) as long
+#undef _begin_code_h
 #define _SDL_system_h
+#define _begin_code_h
 
 #ifdef __FB_WIN32__
 	declare function SDL_Direct3D9GetAdapterIndex(byval displayIndex as long) as long
@@ -2636,7 +2825,9 @@ declare function SDL_GL_UnbindTexture(byval texture as SDL_Texture ptr) as long
 	declare sub SDL_DXGIGetOutputInfo(byval displayIndex as long, byval adapterIndex as long ptr, byval outputIndex as long ptr)
 #endif
 
+#undef _begin_code_h
 #define _SDL_timer_h
+#define _begin_code_h
 declare function SDL_GetTicks() as Uint32
 #define SDL_TICKS_PASSED(A, B) (cast(Sint32, (B) - (A)) <= 0)
 declare function SDL_GetPerformanceCounter() as Uint64
@@ -2646,7 +2837,9 @@ type SDL_TimerCallback as function(byval interval as Uint32, byval param as any 
 type SDL_TimerID as long
 declare function SDL_AddTimer(byval interval as Uint32, byval callback as SDL_TimerCallback, byval param as any ptr) as SDL_TimerID
 declare function SDL_RemoveTimer(byval id as SDL_TimerID) as SDL_bool
+#undef _begin_code_h
 #define _SDL_version_h
+#define _begin_code_h
 
 type SDL_version
 	major as Uint8
@@ -2671,7 +2864,9 @@ const SDL_PATCHLEVEL = 3
 declare sub SDL_GetVersion(byval ver as SDL_version ptr)
 declare function SDL_GetRevision() as const zstring ptr
 declare function SDL_GetRevisionNumber() as long
+#undef _begin_code_h
 
+#define _begin_code_h
 const SDL_INIT_TIMER = &h00000001
 const SDL_INIT_AUDIO = &h00000010
 const SDL_INIT_VIDEO = &h00000020
@@ -2687,5 +2882,14 @@ declare function SDL_InitSubSystem(byval flags as Uint32) as long
 declare sub SDL_QuitSubSystem(byval flags as Uint32)
 declare function SDL_WasInit(byval flags as Uint32) as Uint32
 declare sub SDL_Quit()
+#undef _begin_code_h
+#define _begin_code_h
+#undef _begin_code_h
+#define _begin_code_h
+#undef _begin_code_h
+#define _begin_code_h
+#undef _begin_code_h
+#define _begin_code_h
+#undef _begin_code_h
 
 end extern

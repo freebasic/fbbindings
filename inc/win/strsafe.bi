@@ -364,54 +364,103 @@ declare function StringCbLengthW(byval psz as STRSAFE_LPCWSTR, byval cbMax as ui
 '' TODO: #define StringLengthWorkerW StringLengthWorkerW_instead_use_StringCchLengthW_or_StringCbLengthW;
 #define StringGetsExWorkerA StringGetsExWorkerA_instead_use_StringCchGetsA_or_StringCbGetsA
 #define StringGetsExWorkerW StringGetsExWorkerW_instead_use_StringCchGetsW_or_StringCbGetsW
+#undef strcpy
 '' TODO: #define strcpy strcpy_instead_use_StringCbCopyA_or_StringCchCopyA;
+#undef wcscpy
 '' TODO: #define wcscpy wcscpy_instead_use_StringCbCopyW_or_StringCchCopyW;
+#undef strcat
 '' TODO: #define strcat strcat_instead_use_StringCbCatA_or_StringCchCatA;
+#undef wcscat
 '' TODO: #define wcscat wcscat_instead_use_StringCbCatW_or_StringCchCatW;
+#undef sprintf
 '' TODO: #define sprintf sprintf_instead_use_StringCbPrintfA_or_StringCchPrintfA;
+#undef swprintf
 '' TODO: #define swprintf swprintf_instead_use_StringCbPrintfW_or_StringCchPrintfW;
+#undef vsprintf
 '' TODO: #define vsprintf vsprintf_instead_use_StringCbVPrintfA_or_StringCchVPrintfA;
+#undef vswprintf
 '' TODO: #define vswprintf vswprintf_instead_use_StringCbVPrintfW_or_StringCchVPrintfW;
+#undef _snprintf
 '' TODO: #define _snprintf _snprintf_instead_use_StringCbPrintfA_or_StringCchPrintfA;
+#undef _snwprintf
 '' TODO: #define _snwprintf _snwprintf_instead_use_StringCbPrintfW_or_StringCchPrintfW;
+#undef _vsnprintf
 '' TODO: #define _vsnprintf _vsnprintf_instead_use_StringCbVPrintfA_or_StringCchVPrintfA;
+#undef _vsnwprintf
 '' TODO: #define _vsnwprintf _vsnwprintf_instead_use_StringCbVPrintfW_or_StringCchVPrintfW;
+#undef strcpyA
 '' TODO: #define strcpyA strcpyA_instead_use_StringCbCopyA_or_StringCchCopyA;
+#undef strcpyW
 '' TODO: #define strcpyW strcpyW_instead_use_StringCbCopyW_or_StringCchCopyW;
+#undef lstrcpy
 '' TODO: #define lstrcpy lstrcpy_instead_use_StringCbCopy_or_StringCchCopy;
+#undef lstrcpyA
 '' TODO: #define lstrcpyA lstrcpyA_instead_use_StringCbCopyA_or_StringCchCopyA;
+#undef lstrcpyW
 '' TODO: #define lstrcpyW lstrcpyW_instead_use_StringCbCopyW_or_StringCchCopyW;
+#undef StrCpy
 '' TODO: #define StrCpy StrCpy_instead_use_StringCbCopy_or_StringCchCopy;
+#undef StrCpyA
 '' TODO: #define StrCpyA StrCpyA_instead_use_StringCbCopyA_or_StringCchCopyA;
+#undef StrCpyW
 '' TODO: #define StrCpyW StrCpyW_instead_use_StringCbCopyW_or_StringCchCopyW;
+#undef _tcscpy
 '' TODO: #define _tcscpy _tcscpy_instead_use_StringCbCopy_or_StringCchCopy;
+#undef _ftcscpy
 '' TODO: #define _ftcscpy _ftcscpy_instead_use_StringCbCopy_or_StringCchCopy;
+#undef lstrcat
 '' TODO: #define lstrcat lstrcat_instead_use_StringCbCat_or_StringCchCat;
+#undef lstrcatA
 '' TODO: #define lstrcatA lstrcatA_instead_use_StringCbCatA_or_StringCchCatA;
+#undef lstrcatW
 '' TODO: #define lstrcatW lstrcatW_instead_use_StringCbCatW_or_StringCchCatW;
+#undef StrCat
 '' TODO: #define StrCat StrCat_instead_use_StringCbCat_or_StringCchCat;
+#undef StrCatA
 '' TODO: #define StrCatA StrCatA_instead_use_StringCbCatA_or_StringCchCatA;
+#undef StrCatW
 '' TODO: #define StrCatW StrCatW_instead_use_StringCbCatW_or_StringCchCatW;
+#undef StrNCat
 '' TODO: #define StrNCat StrNCat_instead_use_StringCbCatN_or_StringCchCatN;
+#undef StrNCatA
 '' TODO: #define StrNCatA StrNCatA_instead_use_StringCbCatNA_or_StringCchCatNA;
+#undef StrNCatW
 '' TODO: #define StrNCatW StrNCatW_instead_use_StringCbCatNW_or_StringCchCatNW;
+#undef StrCatN
 '' TODO: #define StrCatN StrCatN_instead_use_StringCbCatN_or_StringCchCatN;
+#undef StrCatNA
 '' TODO: #define StrCatNA StrCatNA_instead_use_StringCbCatNA_or_StringCchCatNA;
+#undef StrCatNW
 '' TODO: #define StrCatNW StrCatNW_instead_use_StringCbCatNW_or_StringCchCatNW;
+#undef _tcscat
 '' TODO: #define _tcscat _tcscat_instead_use_StringCbCat_or_StringCchCat;
+#undef _ftcscat
 '' TODO: #define _ftcscat _ftcscat_instead_use_StringCbCat_or_StringCchCat;
+#undef wsprintf
 '' TODO: #define wsprintf wsprintf_instead_use_StringCbPrintf_or_StringCchPrintf;
+#undef wsprintfA
 '' TODO: #define wsprintfA wsprintfA_instead_use_StringCbPrintfA_or_StringCchPrintfA;
+#undef wsprintfW
 '' TODO: #define wsprintfW wsprintfW_instead_use_StringCbPrintfW_or_StringCchPrintfW;
+#undef wvsprintf
 '' TODO: #define wvsprintf wvsprintf_instead_use_StringCbVPrintf_or_StringCchVPrintf;
+#undef wvsprintfA
 '' TODO: #define wvsprintfA wvsprintfA_instead_use_StringCbVPrintfA_or_StringCchVPrintfA;
+#undef wvsprintfW
 '' TODO: #define wvsprintfW wvsprintfW_instead_use_StringCbVPrintfW_or_StringCchVPrintfW;
+#undef _vstprintf
 '' TODO: #define _vstprintf _vstprintf_instead_use_StringCbVPrintf_or_StringCchVPrintf;
+#undef _vsntprintf
 '' TODO: #define _vsntprintf _vsntprintf_instead_use_StringCbVPrintf_or_StringCchVPrintf;
+#undef _stprintf
 '' TODO: #define _stprintf _stprintf_instead_use_StringCbPrintf_or_StringCchPrintf;
+#undef _sntprintf
 '' TODO: #define _sntprintf _sntprintf_instead_use_StringCbPrintf_or_StringCchPrintf;
+#undef _getts
 '' TODO: #define _getts _getts_instead_use_StringCbGets_or_StringCchGets;
+#undef gets
 '' TODO: #define gets _gets_instead_use_StringCbGetsA_or_StringCchGetsA;
+#undef _getws
 '' TODO: #define _getws _getws_instead_use_StringCbGetsW_or_StringCchGetsW;
 
 end extern

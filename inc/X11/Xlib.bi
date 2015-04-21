@@ -422,6 +422,7 @@ type _0
 end type
 
 type _XPrivDisplay as _0 ptr
+#undef _XEVENT_
 
 type XKeyEvent
 	as long type

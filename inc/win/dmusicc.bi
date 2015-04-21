@@ -42,6 +42,7 @@
 #endif
 
 #define __WINE_DMUSIC_CORE_H
+#define COM_NO_WINDOWS_H
 extern CLSID_DirectMusic as const GUID
 extern CLSID_DirectMusicCollection as const GUID
 extern CLSID_DirectMusicSynth as const GUID

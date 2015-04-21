@@ -99,6 +99,7 @@
 extern "C"
 
 #define __G_LIB_H__
+#define __GLIB_H_INSIDE__
 #define __G_ALLOCA_H__
 #define __G_TYPES_H__
 #define __G_MACROS_H__
@@ -114,8 +115,11 @@ extern "C"
 const NULL = cptr(any ptr, 0)
 const FALSE = 0
 #define TRUE (FALSE = 0)
+#undef MAX
 #define MAX(a, b) iif((a) > (b), (a), (b))
+#undef MIN
 #define MIN(a, b) iif((a) < (b), (a), (b))
+#undef CLAMP
 #define CLAMP(x, low, high) iif((x) > (high), (high), iif((x) < (low), (low), (x)))
 #define G_N_ELEMENTS(arr) (sizeof((arr)) / sizeof((arr)[0]))
 #define GPOINTER_TO_SIZE(p) cast(gsize, (p))
@@ -139,6 +143,7 @@ const FALSE = 0
 #define GLIB_VERSION_CUR_STABLE G_ENCODE_VERSION(GLIB_MAJOR_VERSION, GLIB_MINOR_VERSION)
 #define GLIB_VERSION_PREV_STABLE G_ENCODE_VERSION(GLIB_MAJOR_VERSION, GLIB_MINOR_VERSION - 2)
 #define GLIB_VERSION_MIN_REQUIRED GLIB_VERSION_CUR_STABLE
+#undef GLIB_VERSION_MAX_ALLOWED
 #define GLIB_VERSION_MAX_ALLOWED GLIB_VERSION_CUR_STABLE
 #define GLIB_AVAILABLE_IN_ALL _GLIB_EXTERN
 
@@ -4141,5 +4146,6 @@ declare sub g_mutex_free(byval mutex as GMutex ptr)
 declare function g_cond_new() as GCond ptr
 declare sub g_cond_free(byval cond as GCond ptr)
 declare function g_cond_timed_wait(byval cond as GCond ptr, byval mutex as GMutex ptr, byval timeval as GTimeVal ptr) as gboolean
+#undef __GLIB_H_INSIDE__
 
 end extern

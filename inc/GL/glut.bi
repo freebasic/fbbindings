@@ -32,7 +32,16 @@
 
 #define __glut_h__
 
+#if defined(__FB_DOS__) or defined(__FB_LINUX__)
+	#define APIENTRY
+#endif
+
+#define GLUT_APIENTRY_DEFINED
+
 #ifdef __FB_WIN32__
+	#define APIENTRY __stdcall
+	#define GLUT_WINGDIAPI_DEFINED
+	#define WINGDIAPI __declspec(dllimport)
 	type wchar_t as ushort
 
 	#inclib "winmm"
@@ -94,6 +103,8 @@ const GLUT_FULLY_COVERED = 3
 const GLUT_RED = 0
 const GLUT_GREEN = 1
 const GLUT_BLUE = 2
+const GLUT_NORMAL = 0
+const GLUT_OVERLAY = 1
 
 #ifdef __FB_WIN32__
 	const GLUT_STROKE_ROMAN = cptr(any ptr, 0)
@@ -357,5 +368,12 @@ declare sub glutGameModeString(byval string as const zstring ptr)
 declare function glutEnterGameMode() as long
 declare sub glutLeaveGameMode()
 declare function glutGameModeGet(byval mode as GLenum) as long
+#undef GLUT_APIENTRY_DEFINED
+#undef APIENTRY
+
+#ifdef __FB_WIN32__
+	#undef GLUT_WINGDIAPI_DEFINED
+	#undef WINGDIAPI
+#endif
 
 end extern

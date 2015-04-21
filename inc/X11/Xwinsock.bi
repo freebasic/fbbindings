@@ -35,6 +35,39 @@
 #ifdef __FB_WIN32__
 	#include once "winsock2.bi"
 
+	#undef _XFree86Server
 	#define _NO_BOOL_TYPEDEF
+	#define BOOL WINBOOL
+	#define INT32 wINT32
+	#define ATOM wATOM
+	#define BYTE wBYTE
+	#define FreeResource wFreeResource
+
+	#undef BYTE
+	#undef BOOL
+	#undef INT32
+	#undef ATOM
+	#undef FreeResource
+	#undef CreateWindowA
+	#undef RT_FONT
+	#undef RT_CURSOR
+	#define wBOOL WINBOOL
+	#undef _XFree86Server
+
+	#define _NO_BOOL_TYPEDEF
+	#define BOOL WINBOOL
+	#define INT32 wINT32
+	#define ATOM wATOM
+	#define BYTE wBYTE
+	#define FreeResource wFreeResource
+
+	#undef BYTE
+	#undef BOOL
+	#undef INT32
+	#undef ATOM
+	#undef FreeResource
+	#undef CreateWindowA
+	#undef RT_FONT
+	#undef RT_CURSOR
 	#define wBOOL WINBOOL
 #endif

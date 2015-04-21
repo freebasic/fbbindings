@@ -36,6 +36,7 @@
 #endif
 
 #define __WINE_D3D_H
+#define COM_NO_WINDOWS_H
 extern IID_IDirect3D as const GUID
 extern IID_IDirect3D2 as const GUID
 extern IID_IDirect3D3 as const GUID

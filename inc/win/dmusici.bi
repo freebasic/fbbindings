@@ -37,6 +37,7 @@
 #endif
 
 #define __WINE_DMUSIC_PERFORMANCE_H
+#define COM_NO_WINDOWS_H
 extern CLSID_DirectMusicAudioPathConfig as const GUID
 extern CLSID_DirectMusicBand as const GUID
 extern CLSID_DirectMusicChordMap as const GUID

@@ -26,6 +26,10 @@
 #pragma once
 
 #define __FTMODERR_H__
+#undef FT_NEED_EXTERN_C
+'' TODO: #define FT_MODERRDEF( e, v, s ) FT_Mod_Err_ ## e = 0,
+'' TODO: #define FT_MODERR_START_LIST enum {
+'' TODO: #define FT_MODERR_END_LIST FT_Mod_Err_Max };
 
 enum
 	FT_Mod_Err_Base = 0
@@ -53,3 +57,8 @@ enum
 	FT_Mod_Err_GXvalid = 0
 	FT_Mod_Err_Max
 end enum
+
+#undef FT_MODERR_START_LIST
+#undef FT_MODERR_END_LIST
+#undef FT_MODERRDEF
+#undef FT_NEED_EXTERN_C

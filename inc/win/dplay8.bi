@@ -828,6 +828,7 @@ end type
 #define IDirectPlay8Peer_Release(p) (p)->lpVtbl->Release(p)
 #define IDirectPlay8Peer_Initialize(p, a, b, c) (p)->lpVtbl->Initialize(p, a, b, c)
 #define IDirectPlay8Peer_EnumServiceProviders(p, a, b, c, d, e, f) (p)->lpVtbl->EnumServiceProviders(p, a, b, c, d, e, f)
+#define IDirectPlay8Peer_EnumHosts(p, a, b, c, d, e, f, g, h, i, j, k) (p)->lpVtbl->EnumHosts(p, a, b, c, d, e, f, g, h, i, j, k)
 #define IDirectPlay8Peer_CancelAsyncOperation(p, a, b) (p)->lpVtbl->CancelAsyncOperation(p, a, b)
 #define IDirectPlay8Peer_Connect(p, a, b, c, d, e, f, g, h, i, j, k) (p)->lpVtbl->Connect(p, a, b, c, d, e, f, g, h, i, j, k)
 #define IDirectPlay8Peer_SendTo(p, a, b, c, d, e, f, g) (p)->lpVtbl->SendTo(p, a, b, c, d, e, f, g)

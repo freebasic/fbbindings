@@ -36,7 +36,9 @@
 #endif
 
 #define __DDRAW_INCLUDED__
+#define COM_NO_WINDOWS_H
 const DIRECTDRAW_VERSION = &h0700
+
 extern CLSID_DirectDraw as const GUID
 extern CLSID_DirectDraw7 as const GUID
 extern CLSID_DirectDrawClipper as const GUID
@@ -74,6 +76,8 @@ const DDENUMRET_CANCEL = 0
 const DDENUMRET_OK = 1
 #define DD_OK S_OK
 #define DD_FALSE S_FALSE
+const _FACDD = &h876
+#define MAKE_DDHRESULT(code) MAKE_HRESULT(1, _FACDD, code)
 #define DDERR_ALREADYINITIALIZED MAKE_DDHRESULT(5)
 #define DDERR_CANNOTATTACHSURFACE MAKE_DDHRESULT(10)
 #define DDERR_CANNOTDETACHSURFACE MAKE_DDHRESULT(20)

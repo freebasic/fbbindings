@@ -35,7 +35,9 @@
 #endif
 
 #define __DINPUT_INCLUDED__
+#define COM_NO_WINDOWS_H
 const DIRECTINPUT_VERSION = &h0800
+
 extern CLSID_DirectInput as const GUID
 extern CLSID_DirectInputDevice as const GUID
 extern CLSID_DirectInput8 as const GUID

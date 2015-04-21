@@ -180,6 +180,7 @@ extern __XtShellStrings alias "XtShellStrings" as const byte
 #define XtNshutdownCommand cptr(zstring ptr, @XtShellStrings[1243])
 #define XtCShutdownCommand cptr(zstring ptr, @XtShellStrings[1259])
 #define XtNerrorCallback cptr(zstring ptr, @XtShellStrings[1275])
+#undef _XtShell_h_Const
 
 type ShellWidgetClass as _ShellClassRec ptr
 type OverrideShellWidgetClass as _OverrideShellClassRec ptr

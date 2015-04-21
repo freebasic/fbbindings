@@ -523,6 +523,8 @@ end type
 '' TODO: #define LPRASSLIPA RASSLIPA*
 '' TODO: #define LPRASSLIP RASSLIP*
 
+const RASCCPCA_MPPC = &h00000006
+const RASCCPCA_STAC = &h00000005
 const RASCCPO_Compression = &h00000001
 const RASCCPO_HistoryLess = &h00000002
 const RASCCPO_Encryption56bit = &h00000010

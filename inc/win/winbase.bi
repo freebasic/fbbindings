@@ -909,6 +909,7 @@ declare function GetModuleHandleExW(byval dwFlags as DWORD, byval lpModuleName a
 	#define GetModuleFileName GetModuleFileNameW
 	#define GetModuleHandle GetModuleHandleW
 	#define LoadLibraryEx LoadLibraryExW
+	#define EnumResourceLanguages EnumResourceLanguagesW
 #else
 	#define PGET_MODULE_HANDLE_EX PGET_MODULE_HANDLE_EXA
 	#define GetModuleHandleEx GetModuleHandleExA
@@ -916,6 +917,7 @@ declare function GetModuleHandleExW(byval dwFlags as DWORD, byval lpModuleName a
 	#define GetModuleFileName GetModuleFileNameA
 	#define GetModuleHandle GetModuleHandleA
 	#define LoadLibraryEx LoadLibraryExA
+	#define EnumResourceLanguages EnumResourceLanguagesA
 #endif
 
 declare function EnumResourceLanguagesA(byval hModule as HMODULE, byval lpType as LPCSTR, byval lpName as LPCSTR, byval lpEnumFunc as ENUMRESLANGPROCA, byval lParam as LONG_PTR) as WINBOOL
@@ -1819,6 +1821,7 @@ declare function Wow64DisableWow64FsRedirection(byval OldValue as PVOID ptr) as 
 declare function Wow64RevertWow64FsRedirection(byval OlValue as PVOID) as WINBOOL
 declare function IsWow64Process(byval hProcess as HANDLE, byval Wow64Process as PBOOL) as WINBOOL
 
+#define __INTRINSIC_GROUP_WINBASE
 #define GetCurrentTime() GetTickCount()
 #define LimitEmsPages(dw)
 #define SetSwapAreaSize(w) (w)
@@ -2397,8 +2400,6 @@ type POFSTRUCT as _OFSTRUCT ptr
 	end function
 
 	#define InterlockedCompareExchangePointer(Destination, ExChange, Comperand) cast(PVOID, cast(LONG_PTR, InterlockedCompareExchange(cptr(LONG ptr, (Destination)), cast(LONG, cast(LONG_PTR, (ExChange))), cast(LONG, cast(LONG_PTR, (Comperand))))))
-	#define InterlockedDecrementAcquire InterlockedDecrement
-	#define InterlockedDecrementRelease InterlockedDecrement
 #endif
 
 #define InterlockedIncrementAcquire InterlockedIncrement
@@ -2406,11 +2407,18 @@ type POFSTRUCT as _OFSTRUCT ptr
 
 #ifdef __FB_64BIT__
 	#define InterlockedDecrement _InterlockedDecrement
-	#define InterlockedDecrementAcquire InterlockedDecrement
-	#define InterlockedDecrementRelease InterlockedDecrement
+#endif
+
+#define InterlockedDecrementAcquire InterlockedDecrement
+#define InterlockedDecrementRelease InterlockedDecrement
+
+#ifdef __FB_64BIT__
 	#define InterlockedExchange _InterlockedExchange
 	#define InterlockedExchangeAdd _InterlockedExchangeAdd
 	#define InterlockedCompareExchange _InterlockedCompareExchange
+#else
+	#define InterlockedIncrementAcquire InterlockedIncrement
+	#define InterlockedIncrementRelease InterlockedIncrement
 #endif
 
 #define InterlockedCompareExchangeAcquire InterlockedCompareExchange
@@ -2796,6 +2804,8 @@ declare function BackupWrite(byval hFile as HANDLE, byval lpBuffer as LPBYTE, by
 	#define lstrcmp lstrcmpW
 	#define lstrcmpi lstrcmpiW
 	#define lstrcpyn lstrcpynW
+	#define lstrcpy lstrcpyW
+	#define lstrcat lstrcatW
 	#define lstrlen lstrlenW
 #else
 	#define CreateMailslot CreateMailslotA
@@ -2806,6 +2816,8 @@ declare function BackupWrite(byval hFile as HANDLE, byval lpBuffer as LPBYTE, by
 	#define lstrcmp lstrcmpA
 	#define lstrcmpi lstrcmpiA
 	#define lstrcpyn lstrcpynA
+	#define lstrcpy lstrcpyA
+	#define lstrcat lstrcatA
 	#define lstrlen lstrlenA
 #endif
 
@@ -4581,6 +4593,7 @@ declare function SetXStateFeaturesMask(byval Context as PCONTEXT, byval FeatureM
 
 #define MICROSOFT_WINDOWS_WINBASE_INTERLOCKED_CPLUSPLUS_H_INCLUDED
 #define MICROSOFT_WINDOWS_WINBASE_H_DEFINE_INTERLOCKED_CPLUSPLUS_OVERLOADS ((_WIN32_WINNT >= &h0502) orelse (defined(_WINBASE_) = 0))
+#undef MICROSOFT_WINBASE_H_DEFINE_INTERLOCKED_CPLUSPLUS_OVERLOADS
 const MICROSOFT_WINBASE_H_DEFINE_INTERLOCKED_CPLUSPLUS_OVERLOADS = 0
 
 end extern

@@ -83,10 +83,147 @@ extern "C"
 #define _SDL_platform_h
 
 #ifdef __FB_WIN32__
+	#undef __WIN32__
 	const __WIN32__ = 1
 	#define _SDL_config_win32_h
 #else
+	#undef __LINUX__
 	const __LINUX__ = 1
+	#undef const
+	#undef inline
+	#undef volatile
+	#undef size_t
+	#undef int8_t
+	#undef uint8_t
+	#undef int16_t
+	#undef uint16_t
+	#undef int32_t
+	#undef uint32_t
+	#undef int64_t
+	#undef uint64_t
+	#undef uintptr_t
+	#undef SDL_BYTEORDER
+	#undef SDL_AUDIO_DISABLED
+	#undef SDL_CPUINFO_DISABLED
+	#undef SDL_EVENTS_DISABLED
+	#undef SDL_FILE_DISABLED
+	#undef SDL_VIDEO_DISABLED
+	#undef SDL_AUDIO_DRIVER_ALSA
+	#undef SDL_AUDIO_DRIVER_ALSA_DYNAMIC
+	#undef SDL_AUDIO_DRIVER_ARTS
+	#undef SDL_AUDIO_DRIVER_ARTS_DYNAMIC
+	#undef SDL_AUDIO_DRIVER_BAUDIO
+	#undef SDL_AUDIO_DRIVER_BSD
+	#undef SDL_AUDIO_DRIVER_COREAUDIO
+	#undef SDL_AUDIO_DRIVER_DART
+	#undef SDL_AUDIO_DRIVER_DC
+	#undef SDL_AUDIO_DRIVER_DMEDIA
+	#undef SDL_AUDIO_DRIVER_PULSE
+	#undef SDL_AUDIO_DRIVER_PULSE_DYNAMIC
+	#undef SDL_AUDIO_DRIVER_ESD
+	#undef SDL_AUDIO_DRIVER_ESD_DYNAMIC
+	#undef SDL_AUDIO_DRIVER_MINT
+	#undef SDL_AUDIO_DRIVER_MMEAUDIO
+	#undef SDL_AUDIO_DRIVER_NAS
+	#undef SDL_AUDIO_DRIVER_NAS_DYNAMIC
+	#undef SDL_AUDIO_DRIVER_OSS
+	#undef SDL_AUDIO_DRIVER_OSS_SOUNDCARD_H
+	#undef SDL_AUDIO_DRIVER_PAUD
+	#undef SDL_AUDIO_DRIVER_QNXNTO
+	#undef SDL_AUDIO_DRIVER_SNDMGR
+	#undef SDL_AUDIO_DRIVER_SUNAUDIO
+	#undef SDL_CDROM_AIX
+	#undef SDL_CDROM_BEOS
+	#undef SDL_CDROM_BSDI
+	#undef SDL_CDROM_DC
+	#undef SDL_CDROM_DUMMY
+	#undef SDL_CDROM_FREEBSD
+	#undef SDL_CDROM_LINUX
+	#undef SDL_CDROM_MACOS
+	#undef SDL_CDROM_MACOSX
+	#undef SDL_CDROM_MINT
+	#undef SDL_CDROM_OPENBSD
+	#undef SDL_CDROM_OS2
+	#undef SDL_CDROM_OSF
+	#undef SDL_CDROM_QNX
+	#undef SDL_INPUT_LINUXEV
+	#undef SDL_INPUT_TSLIB
+	#undef SDL_JOYSTICK_BEOS
+	#undef SDL_JOYSTICK_DC
+	#undef SDL_JOYSTICK_DUMMY
+	#undef SDL_JOYSTICK_IOKIT
+	#undef SDL_JOYSTICK_LINUX
+	#undef SDL_JOYSTICK_MACOS
+	#undef SDL_JOYSTICK_MINT
+	#undef SDL_JOYSTICK_OS2
+	#undef SDL_JOYSTICK_RISCOS
+	#undef SDL_JOYSTICK_USBHID
+	#undef SDL_JOYSTICK_USBHID_MACHINE_JOYSTICK_H
+	#undef SDL_LOADSO_BEOS
+	#undef SDL_LOADSO_DLCOMPAT
+	#undef SDL_LOADSO_DLOPEN
+	#undef SDL_LOADSO_DUMMY
+	#undef SDL_LOADSO_LDG
+	#undef SDL_LOADSO_MACOS
+	#undef SDL_LOADSO_OS2
+	#undef SDL_THREAD_BEOS
+	#undef SDL_THREAD_DC
+	#undef SDL_THREAD_OS2
+	#undef SDL_THREAD_PTH
+	#undef SDL_THREAD_PTHREAD
+	#undef SDL_THREAD_PTHREAD_RECURSIVE_MUTEX
+	#undef SDL_THREAD_PTHREAD_RECURSIVE_MUTEX_NP
+	#undef SDL_THREAD_SPROC
+	#undef SDL_TIMER_BEOS
+	#undef SDL_TIMER_DC
+	#undef SDL_TIMER_DUMMY
+	#undef SDL_TIMER_MACOS
+	#undef SDL_TIMER_MINT
+	#undef SDL_TIMER_OS2
+	#undef SDL_TIMER_RISCOS
+	#undef SDL_TIMER_UNIX
+	#undef SDL_TIMER_WINCE
+	#undef SDL_VIDEO_DRIVER_AALIB
+	#undef SDL_VIDEO_DRIVER_BWINDOW
+	#undef SDL_VIDEO_DRIVER_CACA
+	#undef SDL_VIDEO_DRIVER_DC
+	#undef SDL_VIDEO_DRIVER_DGA
+	#undef SDL_VIDEO_DRIVER_DIRECTFB
+	#undef SDL_VIDEO_DRIVER_DRAWSPROCKET
+	#undef SDL_VIDEO_DRIVER_FBCON
+	#undef SDL_VIDEO_DRIVER_GAPI
+	#undef SDL_VIDEO_DRIVER_GEM
+	#undef SDL_VIDEO_DRIVER_GGI
+	#undef SDL_VIDEO_DRIVER_IPOD
+	#undef SDL_VIDEO_DRIVER_NANOX
+	#undef SDL_VIDEO_DRIVER_OS2FS
+	#undef SDL_VIDEO_DRIVER_PHOTON
+	#undef SDL_VIDEO_DRIVER_PICOGUI
+	#undef SDL_VIDEO_DRIVER_PS2GS
+	#undef SDL_VIDEO_DRIVER_PS3
+	#undef SDL_VIDEO_DRIVER_QTOPIA
+	#undef SDL_VIDEO_DRIVER_QUARTZ
+	#undef SDL_VIDEO_DRIVER_RISCOS
+	#undef SDL_VIDEO_DRIVER_SVGALIB
+	#undef SDL_VIDEO_DRIVER_TOOLBOX
+	#undef SDL_VIDEO_DRIVER_VGL
+	#undef SDL_VIDEO_DRIVER_WSCONS
+	#undef SDL_VIDEO_DRIVER_X11_DGAMOUSE
+	#undef SDL_VIDEO_DRIVER_X11_DYNAMIC
+	#undef SDL_VIDEO_DRIVER_X11_DYNAMIC_XEXT
+	#undef SDL_VIDEO_DRIVER_X11_DYNAMIC_XRANDR
+	#undef SDL_VIDEO_DRIVER_X11_DYNAMIC_XRENDER
+	#undef SDL_VIDEO_DRIVER_X11_VIDMODE
+	#undef SDL_VIDEO_DRIVER_X11_XINERAMA
+	#undef SDL_VIDEO_DRIVER_X11_XME
+	#undef SDL_VIDEO_DRIVER_X11_XRANDR
+	#undef SDL_VIDEO_DRIVER_X11_XV
+	#undef SDL_VIDEO_DRIVER_XBIOS
+	#undef SDL_VIDEO_OPENGL_GLX
+	#undef SDL_VIDEO_OPENGL_OSMESA
+	#undef SDL_VIDEO_OPENGL_OSMESA_DYNAMIC
+	#undef SDL_HERMES_BLITTERS
+	#undef SDL_ALTIVEC_BLITTERS
 	#define SDL_BYTEORDER SDL_LIL_ENDIAN
 #endif
 
@@ -110,6 +247,7 @@ enum
 	DUMMY_ENUM_VALUE
 end enum
 
+#define _begin_code_h
 #define SDLCALL cdecl
 const NULL = cptr(any ptr, 0)
 #define SDL_malloc malloc
@@ -246,14 +384,19 @@ declare function SDL_iconv_string(byval tocode as const zstring ptr, byval fromc
 #define SDL_iconv_utf8_ucs4(S) cptr(Uint32 ptr, SDL_iconv_string("UCS-4", "UTF-8", S, SDL_strlen(S) + 1))
 
 #ifdef __FB_WIN32__
+	#undef _begin_code_h
 	declare function SDL_main(byval argc as long, byval argv as zstring ptr ptr) as long
+	#define _begin_code_h
 	declare sub SDL_SetModuleHandle(byval hInst as any ptr)
 	declare function SDL_RegisterApp(byval name as zstring ptr, byval style as Uint32, byval hInst as any ptr) as long
 	declare sub SDL_UnregisterApp()
 #endif
 
+#undef _begin_code_h
 #define _SDL_audio_h
 #define _SDL_error_h
+#define _begin_code_h
+
 declare sub SDL_SetError(byval fmt as const zstring ptr, ...)
 declare function SDL_GetError() as zstring ptr
 declare sub SDL_ClearError()
@@ -271,6 +414,7 @@ enum
 end enum
 
 declare sub SDL_Error(byval code as SDL_errorcode)
+#undef _begin_code_h
 #define _SDL_endian_h
 const SDL_LIL_ENDIAN = 1234
 const SDL_BIG_ENDIAN = 4321
@@ -278,6 +422,8 @@ const SDL_BIG_ENDIAN = 4321
 #ifdef __FB_WIN32__
 	#define SDL_BYTEORDER SDL_LIL_ENDIAN
 #endif
+
+#define _begin_code_h
 
 #ifdef __FB_64BIT__
 	private function SDL_Swap16(byval x as Uint16) as Uint16
@@ -327,7 +473,9 @@ const SDL_BIG_ENDIAN = 4321
 #define SDL_SwapBE16(X) SDL_Swap16(X)
 #define SDL_SwapBE32(X) SDL_Swap32(X)
 #define SDL_SwapBE64(X) SDL_Swap64(X)
+#undef _begin_code_h
 #define _SDL_mutex_h
+#define _begin_code_h
 const SDL_MUTEX_TIMEDOUT = 1
 #define SDL_MUTEX_MAXWAIT (not cast(Uint32, 0))
 type SDL_mutex as SDL_mutex_
@@ -353,14 +501,18 @@ declare function SDL_CondSignal(byval cond as SDL_cond ptr) as long
 declare function SDL_CondBroadcast(byval cond as SDL_cond ptr) as long
 declare function SDL_CondWait(byval cond as SDL_cond ptr, byval mut as SDL_mutex ptr) as long
 declare function SDL_CondWaitTimeout(byval cond as SDL_cond ptr, byval mutex as SDL_mutex ptr, byval ms as Uint32) as long
+#undef _begin_code_h
 #define _SDL_thread_h
+#define _begin_code_h
 type SDL_Thread as SDL_Thread_
 declare function SDL_CreateThread(byval fn as function(byval as any ptr) as long, byval data as any ptr) as SDL_Thread ptr
 declare function SDL_ThreadID() as Uint32
 declare function SDL_GetThreadID(byval thread as SDL_Thread ptr) as Uint32
 declare sub SDL_WaitThread(byval thread as SDL_Thread ptr, byval status as long ptr)
 declare sub SDL_KillThread(byval thread as SDL_Thread ptr)
+#undef _begin_code_h
 #define _SDL_rwops_h
+#define _begin_code_h
 
 #ifdef __FB_WIN32__
 	type SDL_RWops_hidden_win32io_buffer
@@ -438,6 +590,8 @@ declare function SDL_WriteLE32(byval dst as SDL_RWops ptr, byval value as Uint32
 declare function SDL_WriteBE32(byval dst as SDL_RWops ptr, byval value as Uint32) as long
 declare function SDL_WriteLE64(byval dst as SDL_RWops ptr, byval value as Uint64) as long
 declare function SDL_WriteBE64(byval dst as SDL_RWops ptr, byval value as Uint64) as long
+#undef _begin_code_h
+#define _begin_code_h
 
 type SDL_AudioSpec
 	freq as long
@@ -500,8 +654,10 @@ declare sub SDL_MixAudio(byval dst as Uint8 ptr, byval src as const Uint8 ptr, b
 declare sub SDL_LockAudio()
 declare sub SDL_UnlockAudio()
 declare sub SDL_CloseAudio()
+#undef _begin_code_h
 
 #define _SDL_cdrom_h
+#define _begin_code_h
 const SDL_MAX_TRACKS = 99
 const SDL_AUDIO_TRACK = &h00
 const SDL_DATA_TRACK = &h04
@@ -558,7 +714,9 @@ declare function SDL_CDResume(byval cdrom as SDL_CD ptr) as long
 declare function SDL_CDStop(byval cdrom as SDL_CD ptr) as long
 declare function SDL_CDEject(byval cdrom as SDL_CD ptr) as long
 declare sub SDL_CDClose(byval cdrom as SDL_CD ptr)
+#undef _begin_code_h
 #define _SDL_cpuinfo_h
+#define _begin_code_h
 declare function SDL_HasRDTSC() as SDL_bool
 declare function SDL_HasMMX() as SDL_bool
 declare function SDL_HasMMXExt() as SDL_bool
@@ -567,13 +725,16 @@ declare function SDL_Has3DNowExt() as SDL_bool
 declare function SDL_HasSSE() as SDL_bool
 declare function SDL_HasSSE2() as SDL_bool
 declare function SDL_HasAltiVec() as SDL_bool
+#undef _begin_code_h
 
 #define _SDL_events_h
 #define _SDL_active_h
+#define _begin_code_h
 const SDL_APPMOUSEFOCUS = &h01
 const SDL_APPINPUTFOCUS = &h02
 const SDL_APPACTIVE = &h04
 declare function SDL_GetAppState() as Uint8
+#undef _begin_code_h
 #define _SDL_keyboard_h
 #define _SDL_keysym_h
 
@@ -836,6 +997,7 @@ end enum
 #define KMOD_SHIFT (KMOD_LSHIFT or KMOD_RSHIFT)
 #define KMOD_ALT (KMOD_LALT or KMOD_RALT)
 #define KMOD_META (KMOD_LMETA or KMOD_RMETA)
+#define _begin_code_h
 
 type SDL_keysym
 	scancode as Uint8
@@ -854,9 +1016,11 @@ declare function SDL_GetKeyState(byval numkeys as long ptr) as Uint8 ptr
 declare function SDL_GetModState() as SDLMod
 declare sub SDL_SetModState(byval modstate as SDLMod)
 declare function SDL_GetKeyName(byval key as SDLKey) as zstring ptr
+#undef _begin_code_h
 
 #define _SDL_mouse_h
 #define _SDL_video_h
+#define _begin_code_h
 const SDL_ALPHA_OPAQUE = 255
 const SDL_ALPHA_TRANSPARENT = 0
 
@@ -1074,6 +1238,8 @@ end enum
 
 declare function SDL_WM_GrabInput(byval mode as SDL_GrabMode) as SDL_GrabMode
 declare function SDL_SoftStretch(byval src as SDL_Surface ptr, byval srcrect as SDL_Rect ptr, byval dst as SDL_Surface ptr, byval dstrect as SDL_Rect ptr) as long
+#undef _begin_code_h
+#define _begin_code_h
 type WMcursor as WMcursor_
 
 type SDL_Cursor
@@ -1108,7 +1274,9 @@ const SDL_BUTTON_X2 = 7
 #define SDL_BUTTON_RMASK SDL_BUTTON(SDL_BUTTON_RIGHT)
 #define SDL_BUTTON_X1MASK SDL_BUTTON(SDL_BUTTON_X1)
 #define SDL_BUTTON_X2MASK SDL_BUTTON(SDL_BUTTON_X2)
+#undef _begin_code_h
 #define _SDL_joystick_h
+#define _begin_code_h
 type SDL_Joystick as _SDL_Joystick
 
 declare function SDL_NumJoysticks() as long
@@ -1138,12 +1306,14 @@ declare function SDL_JoystickGetHat(byval joystick as SDL_Joystick ptr, byval ha
 declare function SDL_JoystickGetBall(byval joystick as SDL_Joystick ptr, byval ball as long, byval dx as long ptr, byval dy as long ptr) as long
 declare function SDL_JoystickGetButton(byval joystick as SDL_Joystick ptr, byval button as long) as Uint8
 declare sub SDL_JoystickClose(byval joystick as SDL_Joystick ptr)
+#undef _begin_code_h
 
 #define _SDL_quit_h
 private function SDL_QuitRequested() as SDL_bool
 	SDL_PumpEvents()
 	function = SDL_PeepEvents(NULL, 0, SDL_PEEKEVENT, SDL_QUITMASK)
 end function
+#define _begin_code_h
 const SDL_RELEASED = 0
 const SDL_PRESSED = 1
 
@@ -1331,13 +1501,17 @@ const SDL_IGNORE = 0
 const SDL_DISABLE = 0
 const SDL_ENABLE = 1
 declare function SDL_EventState(byval type as Uint8, byval state as long) as Uint8
+#undef _begin_code_h
 #define _SDL_loadso_h
+#define _begin_code_h
 
 declare function SDL_LoadObject(byval sofile as const zstring ptr) as any ptr
 declare function SDL_LoadFunction(byval handle as any ptr, byval name as const zstring ptr) as any ptr
 declare sub SDL_UnloadObject(byval handle as any ptr)
+#undef _begin_code_h
 
 #define _SDL_timer_h
+#define _begin_code_h
 const SDL_TIMESLICE = 10
 const TIMER_RESOLUTION = 10
 declare function SDL_GetTicks() as Uint32
@@ -1348,7 +1522,9 @@ type SDL_NewTimerCallback as function(byval interval as Uint32, byval param as a
 type SDL_TimerID as _SDL_TimerID ptr
 declare function SDL_AddTimer(byval interval as Uint32, byval callback as SDL_NewTimerCallback, byval param as any ptr) as SDL_TimerID
 declare function SDL_RemoveTimer(byval t as SDL_TimerID) as SDL_bool
+#undef _begin_code_h
 #define _SDL_version_h
+#define _begin_code_h
 const SDL_MAJOR_VERSION = 1
 const SDL_MINOR_VERSION = 2
 const SDL_PATCHLEVEL = 15
@@ -1370,6 +1546,8 @@ end type
 #define SDL_COMPILEDVERSION SDL_VERSIONNUM(SDL_MAJOR_VERSION, SDL_MINOR_VERSION, SDL_PATCHLEVEL)
 #define SDL_VERSION_ATLEAST(X, Y, Z) (SDL_COMPILEDVERSION >= SDL_VERSIONNUM(X, Y, Z))
 declare function SDL_Linked_Version() as const SDL_version ptr
+#undef _begin_code_h
+#define _begin_code_h
 const SDL_INIT_TIMER = &h00000001
 const SDL_INIT_AUDIO = &h00000010
 const SDL_INIT_VIDEO = &h00000020
@@ -1383,7 +1561,9 @@ declare function SDL_InitSubSystem(byval flags as Uint32) as long
 declare sub SDL_QuitSubSystem(byval flags as Uint32)
 declare function SDL_WasInit(byval flags as Uint32) as Uint32
 declare sub SDL_Quit()
+#undef _begin_code_h
 #define _SDL_syswm_h
+#define _begin_code_h
 
 #ifdef __FB_WIN32__
 	#define WIN32_LEAN_AND_MEAN
@@ -1441,5 +1621,14 @@ type SDL_SysWMinfo
 end type
 
 declare function SDL_GetWMInfo(byval info as SDL_SysWMinfo ptr) as long
+#undef _begin_code_h
+#define _begin_code_h
+#undef _begin_code_h
+#define _begin_code_h
+#undef _begin_code_h
+#define _begin_code_h
+#undef _begin_code_h
+#define _begin_code_h
+#undef _begin_code_h
 
 end extern

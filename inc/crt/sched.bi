@@ -33,7 +33,11 @@
 extern "C"
 
 const _SCHED_H = 1
+#define __need_size_t
+#define __need_time_t
+#define __need_timespec
 #define sched_priority __sched_priority
+
 declare function sched_setparam(byval __pid as __pid_t, byval __param as const sched_param ptr) as long
 declare function sched_getparam(byval __pid as __pid_t, byval __param as sched_param ptr) as long
 declare function sched_setscheduler(byval __pid as __pid_t, byval __policy as long, byval __param as const sched_param ptr) as long

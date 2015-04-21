@@ -61,6 +61,7 @@ const TRUE = 1
 	#define MAX_NATURAL_ALIGNMENT sizeof(ULONGLONG)
 	const MEMORY_ALLOCATION_ALIGNMENT = 16
 #else
+	#undef ALIGNMENT_MACHINE
 	#define MAX_NATURAL_ALIGNMENT sizeof(ULONG)
 	const MEMORY_ALLOCATION_ALIGNMENT = 8
 #endif
@@ -106,7 +107,9 @@ type SCHAR as byte
 type PSCHAR as SCHAR ptr
 #define _DEF_WINBOOL_
 type WINBOOL as long
+#undef BOOL
 type BOOL as long
+#define BOOL WINBOOL
 type PBOOL as WINBOOL ptr
 type LPBOOL as WINBOOL ptr
 #define _HRESULT_DEFINED

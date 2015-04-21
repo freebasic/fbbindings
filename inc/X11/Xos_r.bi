@@ -38,5 +38,10 @@
 #define _XOS_R_H_
 
 #ifdef __FB_LINUX__
+	#define _POSIX_SOURCE
+	#undef _POSIX_SOURCE
 	const X_LINE_MAX = 2048
 #endif
+
+#undef X_NEEDS_PWPARAMS
+#undef XTHREADS_NEEDS_BYNAMEPARAMS

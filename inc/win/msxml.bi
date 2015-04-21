@@ -30,6 +30,7 @@
 #endif
 
 #define __msxml_h__
+#undef abort
 #define __IXMLDOMImplementation_FWD_DEFINED__
 #define __IXMLDOMNode_FWD_DEFINED__
 #define __IXMLDOMDocumentFragment_FWD_DEFINED__

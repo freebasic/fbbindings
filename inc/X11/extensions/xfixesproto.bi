@@ -33,6 +33,19 @@
 #include once "X11/extensions/shapeconst.bi"
 
 #define _XFIXESPROTO_H_
+#define Window CARD32
+#define Drawable CARD32
+#define Font CARD32
+#define Pixmap CARD32
+#define Cursor CARD32
+#define Colormap CARD32
+#define GContext CARD32
+#define Atom CARD32
+#define VisualID CARD32
+#define Time CARD32
+#define KeyCode CARD8
+#define KeySym CARD32
+#define Picture CARD32
 
 type xXFixesReq
 	reqType as CARD8
@@ -150,6 +163,7 @@ type xXFixesGetCursorImageReply
 end type
 
 const sz_xXFixesGetCursorImageReply = 32
+#define Region CARD32
 
 type xXFixesCreateRegionReq
 	reqType as CARD8
@@ -464,6 +478,7 @@ type xXFixesShowCursorReq
 end type
 
 #define sz_xXFixesShowCursorReq sizeof(xXFixesShowCursorReq)
+#define Barrier CARD32
 
 type xXFixesCreatePointerBarrierReq
 	reqType as CARD8
@@ -490,3 +505,18 @@ type xXFixesDestroyPointerBarrierReq
 end type
 
 const sz_xXFixesDestroyPointerBarrierReq = 8
+#undef Barrier
+#undef Region
+#undef Picture
+#undef Window
+#undef Drawable
+#undef Font
+#undef Pixmap
+#undef Cursor
+#undef Colormap
+#undef GContext
+#undef Atom
+#undef VisualID
+#undef Time
+#undef KeyCode
+#undef KeySym
