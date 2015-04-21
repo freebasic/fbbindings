@@ -124,9 +124,6 @@ const ALLEGRO_LITTLE_ENDIAN = 1
 	const ALLEGRO_XWINDOWS_WITH_XIM = 1
 	const ALLEGRO_LINUX = 1
 	#define ALLEGRO_PLATFORM_STR "Unix"
-	#define ALLEGRO_EXTRA_HEADER "allegro5/platform/alunix.h"
-	#define ALLEGRO_INTERNAL_HEADER "allegro5/platform/aintunix.h"
-	#define ALLEGRO_INTERNAL_THREAD_HEADER "allegro5/platform/aintuthr.h"
 	const ALLEGRO_UNIX = 1
 #endif
 
@@ -195,9 +192,6 @@ const ALLEGRO_LITTLE_ENDIAN = 1
 	#define ALLEGRO_WINDOWS
 	#define ALLEGRO_I386
 	#define ALLEGRO_LITTLE_ENDIAN
-	#define ALLEGRO_EXTRA_HEADER "allegro5/platform/alwin.h"
-	#define ALLEGRO_INTERNAL_HEADER "allegro5/platform/aintwin.h"
-	#define ALLEGRO_INTERNAL_THREAD_HEADER "allegro5/platform/aintwthr.h"
 #else
 	const ALLEGRO_WITH_XWINDOWS = 1
 	const ALLEGRO_XWINDOWS_WITH_XCURSOR = 1

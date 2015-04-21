@@ -35,9 +35,13 @@
 -removedefine AL_INLINE
 -removedefine AL_INLINE_DEPRECATED
 -removedefine AL_INLINE_STATIC
+-removedefine ALLEGRO_ASMCAPA_HEADER
 -removedefine ALLEGRO_ASSERT
 -removedefine ALLEGRO_ASSERT_CONCAT
 -removedefine ALLEGRO_ASSERT_CONCAT_
+-removedefine ALLEGRO_EXTRA_HEADER
+-removedefine ALLEGRO_INTERNAL_HEADER
+-removedefine ALLEGRO_INTERNAL_THREAD_HEADER
 -removedefine ALLEGRO_STATIC_ASSERT
 -removedefine AL_METHOD
 -removedefine AL_PRINTFUNC

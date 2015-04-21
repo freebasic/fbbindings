@@ -164,8 +164,6 @@ extern "C"
 #endif
 
 #ifdef __FB_LINUX__
-	#define ALLEGRO_EXTRA_HEADER "allegro/platform/alunix.h"
-	#define ALLEGRO_INTERNAL_HEADER "allegro/platform/aintunix.h"
 	#undef ALLEGRO_COLOR8
 	#undef ALLEGRO_COLOR16
 	#undef ALLEGRO_COLOR24
@@ -233,21 +231,14 @@ extern "C"
 
 #if defined(__FB_DOS__) or defined(__FB_WIN32__)
 	#define ALLEGRO_ASM_PREFIX "_"
-#endif
-
-#ifdef __FB_WIN32__
-	#define ALLEGRO_EXTRA_HEADER "allegro/platform/alwin.h"
-	#define ALLEGRO_INTERNAL_HEADER "allegro/platform/aintwin.h"
-	#define ALLEGRO_ASMCAPA_HEADER "obj/mingw32/asmcapa.h"
-#elseif defined(__FB_LINUX__)
+#else
 	#define ALLEGRO_NO_STRICMP
 	#define ALLEGRO_NO_STRLWR
 	#define ALLEGRO_NO_STRUPR
-#else
+#endif
+
+#ifdef __FB_DOS__
 	#define ALLEGRO_ASM_USE_FS
-	#define ALLEGRO_EXTRA_HEADER "allegro/platform/aldos.h"
-	#define ALLEGRO_INTERNAL_HEADER "allegro/platform/aintdos.h"
-	#define ALLEGRO_ASMCAPA_HEADER "obj/djgpp/asmcapa.h"
 #endif
 
 #define ASTDINT_H
