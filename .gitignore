@@ -2,4 +2,6 @@
 /tarballs
 /getcomment
 /getcomment.exe
+/fake-configure
+/fake-configure.exe
 /*.tmp
