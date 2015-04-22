@@ -61,7 +61,6 @@ const LIBCURL_VERSION_NUM = &h072700
 
 #if (defined(__FB_LINUX__) and (not defined(__FB_64BIT__))) or defined(__FB_DOS__) or defined(__FB_WIN32__)
 	const CURL_SIZEOF_LONG = 4
-	#define CURL_TYPEOF_CURL_OFF_T longint
 #endif
 
 #ifdef __FB_WIN32__
@@ -70,7 +69,6 @@ const LIBCURL_VERSION_NUM = &h072700
 	#define CURL_FORMAT_OFF_T "%I64d"
 #elseif defined(__FB_LINUX__) and defined(__FB_64BIT__)
 	const CURL_SIZEOF_LONG = 8
-	#define CURL_TYPEOF_CURL_OFF_T clong
 	#define CURL_FORMAT_CURL_OFF_T "ld"
 	#define CURL_FORMAT_CURL_OFF_TU "lu"
 	#define CURL_FORMAT_OFF_T "%ld"
@@ -83,43 +81,21 @@ const LIBCURL_VERSION_NUM = &h072700
 const CURL_SIZEOF_CURL_OFF_T = 8
 #define CURL_SUFFIX_CURL_OFF_T LL
 #define CURL_SUFFIX_CURL_OFF_TU ULL
-
-#if defined(__FB_DOS__) or defined(__FB_WIN32__)
-	#define CURL_TYPEOF_CURL_SOCKLEN_T long
-#else
-	#define CURL_TYPEOF_CURL_SOCKLEN_T socklen_t
-#endif
-
 const CURL_SIZEOF_CURL_SOCKLEN_T = 4
 
 #if defined(__FB_DOS__) or defined(__FB_WIN32__)
 	type curl_socklen_t as long
 #else
-	const CURL_PULL_SYS_TYPES_H = 1
-	const CURL_PULL_SYS_SOCKET_H = 1
 	type curl_socklen_t as socklen_t
 #endif
 
 type curl_off_t as longint
 #define __CURL_CURLRULES_H
-#define CurlchkszEQ(t, s) iif(sizeof((t)) = s, 1, -1)
-#define CurlchkszGE(t1, t2) iif(sizeof((t1)) >= sizeof((t2)), 1, -1)
 #define CURL_ISOCPP
 #define __CURL_OFF_T_C_HLPR2(Val, Suffix) Val##Suffix
 #define __CURL_OFF_T_C_HLPR1(Val, Suffix) __CURL_OFF_T_C_HLPR2(Val, Suffix)
 #define CURL_OFF_T_C(Val) __CURL_OFF_T_C_HLPR1(Val, CURL_SUFFIX_CURL_OFF_T)
 #define CURL_OFF_TU_C(Val) __CURL_OFF_T_C_HLPR1(Val, CURL_SUFFIX_CURL_OFF_TU)
-
-#undef CurlchkszEQ
-#undef CurlchkszGE
-#undef CURL_PULL_WS2TCPIP_H
-#undef CURL_PULL_SYS_TYPES_H
-#undef CURL_PULL_SYS_SOCKET_H
-#undef CURL_PULL_SYS_POLL_H
-#undef CURL_PULL_STDINT_H
-#undef CURL_PULL_INTTYPES_H
-#undef CURL_TYPEOF_CURL_SOCKLEN_T
-#undef CURL_TYPEOF_CURL_OFF_T
 type CURL as any
 
 #ifdef __FB_WIN32__
@@ -873,7 +849,6 @@ end enum
 
 declare function curl_strequal(byval s1 as const zstring ptr, byval s2 as const zstring ptr) as long
 declare function curl_strnequal(byval s1 as const zstring ptr, byval s2 as const zstring ptr, byval n as uinteger) as long
-#define CFINIT(name) CURLFORM_##name
 
 type CURLformoption as long
 enum
@@ -899,8 +874,6 @@ enum
 	CURLFORM_STREAM
 	CURLFORM_LASTENTRY
 end enum
-
-#undef CFINIT
 
 type curl_forms
 	option as CURLformoption
