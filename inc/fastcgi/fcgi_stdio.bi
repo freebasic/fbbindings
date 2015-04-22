@@ -109,165 +109,124 @@ declare function FCGI_pclose(byval as FCGI_FILE ptr) as long
 #ifndef NO_FCGI_DEFINES
 	#undef FILE
 	#undef FILE
-	#undef FILE
 	#define FILE FCGI_FILE
-	#undef stdin
 	#undef stdin
 	#undef stdin
 	#define stdin FCGI_stdin_
 	#undef stdout
 	#undef stdout
-	#undef stdout
 	#define stdout FCGI_stdout_
-	#undef stderr
 	#undef stderr
 	#undef stderr
 	#define stderr FCGI_stderr_
 	#undef perror
 	#undef perror
-	#undef perror
 	#define perror FCGI_perror
-	#undef fopen
 	#undef fopen
 	#undef fopen
 	#define fopen FCGI_fopen
 	#undef fclose
 	#undef fclose
-	#undef fclose
 	#define fclose FCGI_fclose
-	#undef fflush
 	#undef fflush
 	#undef fflush
 	#define fflush FCGI_fflush
 	#undef freopen
 	#undef freopen
-	#undef freopen
 	#define freopen FCGI_freopen
-	#undef setvbuf
 	#undef setvbuf
 	#undef setvbuf
 	#define setvbuf FCGI_setvbuf
 	#undef setbuf
 	#undef setbuf
-	#undef setbuf
 	#define setbuf FCGI_setbuf
-	#undef fseek
 	#undef fseek
 	#undef fseek
 	#define fseek FCGI_fseek
 	#undef ftell
 	#undef ftell
-	#undef ftell
 	#define ftell FCGI_ftell
-	#undef rewind
 	#undef rewind
 	#undef rewind
 	#define rewind FCGI_rewind
 	#undef fgetpos
 	#undef fgetpos
-	#undef fgetpos
 	#define fgetpos FCGI_fgetpos
-	#undef fsetpos
 	#undef fsetpos
 	#undef fsetpos
 	#define fsetpos FCGI_fsetpos
 	#undef fgetc
 	#undef fgetc
-	#undef fgetc
 	#define fgetc FCGI_fgetc
-	#undef getc
 	#undef getc
 	#undef getc
 	#define getc FCGI_fgetc
 	#undef getchar
 	#undef getchar
-	#undef getchar
 	#define getchar FCGI_getchar
-	#undef ungetc
 	#undef ungetc
 	#undef ungetc
 	#define ungetc FCGI_ungetc
 	#undef fgets
 	#undef fgets
-	#undef fgets
 	#define fgets FCGI_fgets
-	#undef gets
 	#undef gets
 	#undef gets
 	#define gets FCGI_gets
 	#undef fputc
 	#undef fputc
-	#undef fputc
 	#define fputc FCGI_fputc
-	#undef putc
 	#undef putc
 	#undef putc
 	#define putc FCGI_fputc
 	#undef putchar
 	#undef putchar
-	#undef putchar
 	#define putchar FCGI_putchar
-	#undef fputs
 	#undef fputs
 	#undef fputs
 	#define fputs FCGI_fputs
 	#undef puts
 	#undef puts
-	#undef puts
 	#define puts FCGI_puts
-	#undef fprintf
 	#undef fprintf
 	#undef fprintf
 	#define fprintf FCGI_fprintf
 	#undef printf
 	#undef printf
-	#undef printf
 	#define printf FCGI_printf
-	#undef vfprintf
 	#undef vfprintf
 	#undef vfprintf
 	#define vfprintf FCGI_vfprintf
 	#undef vprintf
 	#undef vprintf
-	#undef vprintf
 	#define vprintf FCGI_vprintf
-	#undef fread
 	#undef fread
 	#undef fread
 	#define fread FCGI_fread
 	#undef fwrite
 	#undef fwrite
-	#undef fwrite
 	#define fwrite FCGI_fwrite
-	#undef feof
 	#undef feof
 	#undef feof
 	#define feof FCGI_feof
 	#undef ferror
 	#undef ferror
-	#undef ferror
 	#define ferror FCGI_ferror
-	#undef clearerr
 	#undef clearerr
 	#undef clearerr
 	#define clearerr FCGI_clearerr
 	#undef tmpfile
 	#undef tmpfile
-	#undef tmpfile
 	#define tmpfile FCGI_tmpfile
-	#undef fileno
 	#undef fileno
 	#undef fileno
 	#define fileno FCGI_fileno
 	#undef fdopen
 	#undef fdopen
-	#undef fdopen
 	#define fdopen FCGI_fdopen
 	#undef popen
 	#undef popen
-	#undef popen
 	#define popen FCGI_popen
-	#undef pclose
 	#undef pclose
 	#undef pclose
 	#define pclose FCGI_pclose
