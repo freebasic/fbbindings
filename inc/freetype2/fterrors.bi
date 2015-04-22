@@ -28,15 +28,6 @@
 #include once "ftmoderr.bi"
 
 #define __FTERRORS_H__
-#undef FT_NEED_EXTERN_C
-#define FT_ERR_PREFIX FT_Err_
-#undef FT_ERR_BASE
-const FT_ERR_BASE = 0
-'' TODO: #define FT_ERRORDEF( e, v, s ) e = v,
-'' TODO: #define FT_ERROR_START_LIST enum {
-'' TODO: #define FT_ERROR_END_LIST FT_ERR_CAT( FT_ERR_PREFIX, Max ) };
-#define FT_ERRORDEF_(e, v, s) FT_ERRORDEF(FT_ERR_CAT(FT_ERR_PREFIX, e), v + FT_ERR_BASE, s)
-#define FT_NOERRORDEF_(e, v, s) FT_ERRORDEF(FT_ERR_CAT(FT_ERR_PREFIX, e), v, s)
 
 enum
 	FT_Err_Ok = &h00
@@ -132,12 +123,3 @@ enum
 	FT_Err_Corrupted_Font_Glyphs = &hBA + 0
 	FT_Err_Max
 end enum
-
-#undef FT_ERROR_START_LIST
-#undef FT_ERROR_END_LIST
-#undef FT_ERRORDEF
-#undef FT_ERRORDEF_
-#undef FT_NOERRORDEF_
-#undef FT_NEED_EXTERN_C
-#undef FT_ERR_BASE
-#undef FT_ERR_PREFIX

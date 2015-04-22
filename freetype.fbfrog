@@ -1,24 +1,35 @@
 -define FT_CONFIG_OPTION_NO_ASSEMBLER 1
 -fbfroginclude limits.h
 
--removedefine FT_UNUSED
--removedefine FT_BEGIN_STMNT
--removedefine FT_END_STMNT
--removedefine FT_DUMMY_STMNT
--removedefine FT_LOCAL
--removedefine FT_LOCAL_DEF
--removedefine FT_LOCAL_ARRAY
--removedefine FT_LOCAL_ARRAY_DEF
 -removedefine FT_BASE
 -removedefine FT_BASE_DEF
--removedefine FT_EXPORT
--removedefine FT_EXPORT_DEF
--removedefine FT_EXPORT_VAR
+-removedefine FT_BEGIN_STMNT
 -removedefine FT_CALLBACK_DEF
 -removedefine FT_CALLBACK_TABLE
 -removedefine FT_CALLBACK_TABLE_DEF
+-removedefine FT_DUMMY_STMNT
 -removedefine FT_ENC_TAG
+-removedefine FT_END_STMNT
+-removedefine FT_ERR_BASE
+-removedefine FT_ERRORDEF
+-removedefine FT_ERRORDEF_
+-removedefine FT_ERROR_END_LIST
+-removedefine FT_ERROR_START_LIST
+-removedefine FT_ERR_PREFIX
+-removedefine FT_EXPORT
+-removedefine FT_EXPORT_DEF
+-removedefine FT_EXPORT_VAR
 -removedefine FT_IMAGE_TAG
+-removedefine FT_LOCAL
+-removedefine FT_LOCAL_ARRAY
+-removedefine FT_LOCAL_ARRAY_DEF
+-removedefine FT_LOCAL_DEF
+-removedefine FT_MODERRDEF
+-removedefine FT_MODERR_END_LIST
+-removedefine FT_MODERR_START_LIST
+-removedefine FT_NEED_EXTERN_C
+-removedefine FT_NOERRORDEF_
+-removedefine FT_UNUSED
 
 # case-aliases
 -removedefine FT_INT64
