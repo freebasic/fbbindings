@@ -4238,7 +4238,6 @@ declare sub gdk_test_render_sync(byval window as GdkWindow ptr)
 declare function gdk_test_simulate_key(byval window as GdkWindow ptr, byval x as gint, byval y as gint, byval keyval as guint, byval modifiers as GdkModifierType, byval key_pressrelease as GdkEventType) as gboolean
 declare function gdk_test_simulate_button(byval window as GdkWindow ptr, byval x as gint, byval y as gint, byval button as guint, byval modifiers as GdkModifierType, byval button_pressrelease as GdkEventType) as gboolean
 #define __GDK_THREADS_H__
-#define GDK_THREADS_DEPRECATED GDK_DEPRECATED_IN_3_6
 declare sub gdk_threads_init()
 declare sub gdk_threads_enter()
 declare sub gdk_threads_leave()
@@ -4249,7 +4248,6 @@ declare function gdk_threads_add_timeout_full(byval priority as gint, byval inte
 declare function gdk_threads_add_timeout(byval interval as guint, byval function as GSourceFunc, byval data as gpointer) as guint
 declare function gdk_threads_add_timeout_seconds_full(byval priority as gint, byval interval as guint, byval function as GSourceFunc, byval data as gpointer, byval notify as GDestroyNotify) as guint
 declare function gdk_threads_add_timeout_seconds(byval interval as guint, byval function as GSourceFunc, byval data as gpointer) as guint
-#undef GDK_THREADS_DEPRECATED
 
 #define __GDK_VISUAL_H__
 #define GDK_TYPE_VISUAL gdk_visual_get_type()
