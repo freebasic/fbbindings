@@ -669,7 +669,11 @@ glibc:
 	./get.sh $(GLIBC) $(GLIBC).tar.xz http://ftp.gnu.org/gnu/glibc/$(GLIBC).tar.xz
 
 	cd extracted/$(GLIBC) && \
-		rm -f bits/wordsize.h bits/endian.h bits/setjmp.h
+		if [ -f bits/wordsize.h ]; then \
+			rm -f bits/wordsize.h bits/endian.h bits/setjmp.h; \
+			echo "#pragma once" >> sysdeps/wordsize-64/bits/wordsize.h; \
+			echo "#pragma once" >> sysdeps/x86/bits/wordsize.h; \
+		fi
 
 	$(GETCOMMENT) extracted/$(GLIBC)/sysdeps/wordsize-32/bits/wordsize.h > glibc-wordsize.tmp
 	$(GETCOMMENT) extracted/$(GLIBC)/sysdeps/nptl/pthread.h              > glibc-pthread.tmp
