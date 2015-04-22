@@ -939,7 +939,6 @@ end enum
 
 type LLVMTargetDataRef as LLVMOpaqueTargetData ptr
 type LLVMTargetLibraryInfoRef as LLVMOpaqueTargetLibraryInfotData ptr
-'' TODO: #define LLVM_TARGET(TargetName) void LLVMInitialize##TargetName##TargetInfo(void);
 declare sub LLVMInitializeR600TargetInfo()
 declare sub LLVMInitializeSystemZTargetInfo()
 declare sub LLVMInitializeHexagonTargetInfo()
@@ -953,9 +952,6 @@ declare sub LLVMInitializeARMTargetInfo()
 declare sub LLVMInitializePowerPCTargetInfo()
 declare sub LLVMInitializeSparcTargetInfo()
 declare sub LLVMInitializeX86TargetInfo()
-#undef LLVM_TARGET
-#undef LLVM_TARGET
-'' TODO: #define LLVM_TARGET(TargetName) void LLVMInitialize##TargetName##Target(void);
 declare sub LLVMInitializeR600Target()
 declare sub LLVMInitializeSystemZTarget()
 declare sub LLVMInitializeHexagonTarget()
@@ -969,9 +965,6 @@ declare sub LLVMInitializeARMTarget()
 declare sub LLVMInitializePowerPCTarget()
 declare sub LLVMInitializeSparcTarget()
 declare sub LLVMInitializeX86Target()
-#undef LLVM_TARGET
-#undef LLVM_TARGET
-'' TODO: #define LLVM_TARGET(TargetName) void LLVMInitialize##TargetName##TargetMC(void);
 declare sub LLVMInitializeR600TargetMC()
 declare sub LLVMInitializeSystemZTargetMC()
 declare sub LLVMInitializeHexagonTargetMC()
@@ -985,9 +978,6 @@ declare sub LLVMInitializeARMTargetMC()
 declare sub LLVMInitializePowerPCTargetMC()
 declare sub LLVMInitializeSparcTargetMC()
 declare sub LLVMInitializeX86TargetMC()
-#undef LLVM_TARGET
-#undef LLVM_TARGET
-'' TODO: #define LLVM_ASM_PRINTER(TargetName) void LLVMInitialize##TargetName##AsmPrinter(void);
 declare sub LLVMInitializeR600AsmPrinter()
 declare sub LLVMInitializeSystemZAsmPrinter()
 declare sub LLVMInitializeHexagonAsmPrinter()
@@ -1000,9 +990,6 @@ declare sub LLVMInitializeARMAsmPrinter()
 declare sub LLVMInitializePowerPCAsmPrinter()
 declare sub LLVMInitializeSparcAsmPrinter()
 declare sub LLVMInitializeX86AsmPrinter()
-#undef LLVM_ASM_PRINTER
-#undef LLVM_ASM_PRINTER
-'' TODO: #define LLVM_ASM_PARSER(TargetName) void LLVMInitialize##TargetName##AsmParser(void);
 declare sub LLVMInitializeSystemZAsmParser()
 declare sub LLVMInitializeMipsAsmParser()
 declare sub LLVMInitializeAArch64AsmParser()
@@ -1010,9 +997,6 @@ declare sub LLVMInitializeARMAsmParser()
 declare sub LLVMInitializePowerPCAsmParser()
 declare sub LLVMInitializeSparcAsmParser()
 declare sub LLVMInitializeX86AsmParser()
-#undef LLVM_ASM_PARSER
-#undef LLVM_ASM_PARSER
-'' TODO: #define LLVM_DISASSEMBLER(TargetName) void LLVMInitialize##TargetName##Disassembler(void);
 declare sub LLVMInitializeSystemZDisassembler()
 declare sub LLVMInitializeXCoreDisassembler()
 declare sub LLVMInitializeMipsDisassembler()
@@ -1021,8 +1005,6 @@ declare sub LLVMInitializeARMDisassembler()
 declare sub LLVMInitializePowerPCDisassembler()
 declare sub LLVMInitializeSparcDisassembler()
 declare sub LLVMInitializeX86Disassembler()
-#undef LLVM_DISASSEMBLER
-#undef LLVM_DISASSEMBLER
 
 private sub LLVMInitializeAllTargetInfos()
 	LLVMInitializeR600TargetInfo()
@@ -1040,10 +1022,6 @@ private sub LLVMInitializeAllTargetInfos()
 	LLVMInitializeX86TargetInfo()
 end sub
 
-'' TODO: #define LLVM_TARGET(TargetName) LLVMInitialize##TargetName##TargetInfo();
-#undef LLVM_TARGET
-#undef LLVM_TARGET
-
 private sub LLVMInitializeAllTargets()
 	LLVMInitializeR600Target()
 	LLVMInitializeSystemZTarget()
@@ -1059,10 +1037,6 @@ private sub LLVMInitializeAllTargets()
 	LLVMInitializeSparcTarget()
 	LLVMInitializeX86Target()
 end sub
-
-'' TODO: #define LLVM_TARGET(TargetName) LLVMInitialize##TargetName##Target();
-#undef LLVM_TARGET
-#undef LLVM_TARGET
 
 private sub LLVMInitializeAllTargetMCs()
 	LLVMInitializeR600TargetMC()
@@ -1080,10 +1054,6 @@ private sub LLVMInitializeAllTargetMCs()
 	LLVMInitializeX86TargetMC()
 end sub
 
-'' TODO: #define LLVM_TARGET(TargetName) LLVMInitialize##TargetName##TargetMC();
-#undef LLVM_TARGET
-#undef LLVM_TARGET
-
 private sub LLVMInitializeAllAsmPrinters()
 	LLVMInitializeR600AsmPrinter()
 	LLVMInitializeSystemZAsmPrinter()
@@ -1099,10 +1069,6 @@ private sub LLVMInitializeAllAsmPrinters()
 	LLVMInitializeX86AsmPrinter()
 end sub
 
-'' TODO: #define LLVM_ASM_PRINTER(TargetName) LLVMInitialize##TargetName##AsmPrinter();
-#undef LLVM_ASM_PRINTER
-#undef LLVM_ASM_PRINTER
-
 private sub LLVMInitializeAllAsmParsers()
 	LLVMInitializeSystemZAsmParser()
 	LLVMInitializeMipsAsmParser()
@@ -1112,10 +1078,6 @@ private sub LLVMInitializeAllAsmParsers()
 	LLVMInitializeSparcAsmParser()
 	LLVMInitializeX86AsmParser()
 end sub
-
-'' TODO: #define LLVM_ASM_PARSER(TargetName) LLVMInitialize##TargetName##AsmParser();
-#undef LLVM_ASM_PARSER
-#undef LLVM_ASM_PARSER
 
 private sub LLVMInitializeAllDisassemblers()
 	LLVMInitializeSystemZDisassembler()
@@ -1127,10 +1089,6 @@ private sub LLVMInitializeAllDisassemblers()
 	LLVMInitializeSparcDisassembler()
 	LLVMInitializeX86Disassembler()
 end sub
-
-'' TODO: #define LLVM_DISASSEMBLER(TargetName) LLVMInitialize##TargetName##Disassembler();
-#undef LLVM_DISASSEMBLER
-#undef LLVM_DISASSEMBLER
 
 private function LLVMInitializeNativeTarget() as LLVMBool
 	LLVMInitializeX86TargetInfo()
