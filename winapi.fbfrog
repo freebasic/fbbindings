@@ -221,11 +221,13 @@
 -removedefine __nothrow
 -removedefine NTAPI
 -removedefine NTAPI_INLINE
+-removedefine NTSTATUS
 -removedefine NTSYSAPI
 -removedefine NTSYSCALLAPI
 -removedefine OPTIONAL
 -removedefine OUR_GUID_ENTRY
 -removedefine OUT
+-removedefine _OVERRIDE_NTSTATUS_
 -removedefine pascal
 -removedefine PASCAL
 -removedefine PROPSHEETPAGEA_V1_FIELDS
@@ -574,3 +576,7 @@
 -removedefine HIWORD
 -removedefine LOBYTE
 -removedefine HIBYTE
+
+# Redundant declarations where fbc doesn't allow it yet
+-remove1st IsEqualIID
+-remove1st IsEqualCLSID
