@@ -265,7 +265,6 @@ end type
 #define ID3DXRenderToEnvMap_Face(p, a, b) (p)->lpVtbl->Face(p, a, b)
 #define ID3DXRenderToEnvMap_End(p, a) (p)->lpVtbl->End(p, a)
 #define ID3DXRenderToEnvMap_OnLostDevice(p) (p)->lpVtbl->OnLostDevice(p)
-#define ID3DXRenderToEnvMap_OnLostDevice(p) (p)->lpVtbl->OnLostDevice(p)
 
 type _D3DXRTS_DESC
 	Width as UINT
