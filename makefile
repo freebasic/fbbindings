@@ -1,6 +1,6 @@
 FBFROG := fbfrog
 
-ALL := allegro4 allegro5 atk
+ALL := allegro allegro4 allegro5 atk
 ALL += bzip2
 ALL += cairo cgui clang cunit curl
 ALL += fastcgi ffi fontconfig freeglut freetype
@@ -28,6 +28,8 @@ clean:
 $(GETCOMMENT): getcomment.bas
 	fbc $< -g -exx
 
+allegro: allegro4 allegro5
+
 ALLEGRO4_VERSION := 4.4.2
 ALLEGRO4_TITLE := allegro-$(ALLEGRO4_VERSION)
 ALGIF := algif_1.3
@@ -44,6 +46,37 @@ allegro4:
 		tar xf "$(ALPNG_TARBALL)" -C extracted/$(ALPNG); \
 	fi
 
+	mkdir -p extracted/$(ALLEGRO4_TITLE)/include/dos/allegro/platform
+	mkdir -p extracted/$(ALLEGRO4_TITLE)/include/unix/allegro/platform
+	mkdir -p extracted/$(ALLEGRO4_TITLE)/include/windows/allegro/platform
+
+	./fake-configure ALLEGRO_DJGPP \
+		< extracted/$(ALLEGRO4_TITLE)/include/allegro/platform/alplatf.h.cmake \
+		> extracted/$(ALLEGRO4_TITLE)/include/dos/allegro/platform/alplatf.h
+
+	./fake-configure ALLEGRO_UNIX \
+		< extracted/$(ALLEGRO4_TITLE)/include/allegro/platform/alplatf.h.cmake \
+		> extracted/$(ALLEGRO4_TITLE)/include/unix/allegro/platform/alplatf.h
+
+	./fake-configure ALLEGRO_MINGW32 \
+		< extracted/$(ALLEGRO4_TITLE)/include/allegro/platform/alplatf.h.cmake \
+		> extracted/$(ALLEGRO4_TITLE)/include/windows/allegro/platform/alplatf.h
+
+	./fake-configure \
+		ALLEGRO_LITTLE_ENDIAN \
+		ALLEGRO_HAVE_INTTYPES_H \
+		ALLEGRO_HAVE_STDBOOL_H \
+		ALLEGRO_HAVE_STDINT_H \
+		ALLEGRO_HAVE_MEMCMP \
+		ALLEGRO_HAVE_SYS_TYPES_H \
+		ALLEGRO_COLOR8  \
+		ALLEGRO_COLOR16 \
+		ALLEGRO_COLOR24 \
+		ALLEGRO_COLOR32 \
+		ALLEGRO_NO_ASM \
+		< extracted/$(ALLEGRO4_TITLE)/include/allegro/platform/alunixac.h.cmake \
+		> extracted/$(ALLEGRO4_TITLE)/include/allegro/platform/alunixac.h
+
 	sed -n 1,15p    extracted/$(ALLEGRO4_TITLE)/readme.txt | cut -c4-  > allegro4.tmp
 	sed -n 177,197p extracted/$(ALLEGRO4_TITLE)/readme.txt | cut -c4- >> allegro4.tmp
 	sed -n 412,427p extracted/$(ALGIF)/README      > algif.tmp
@@ -51,13 +84,27 @@ allegro4:
 
 	mkdir -p inc/allegro
 	$(FBFROG) allegro4.fbfrog \
+		\
 		-incdir extracted/$(ALLEGRO4_TITLE)/include \
-		extracted/$(ALLEGRO4_TITLE)/include/allegro.h \
-		extracted/algif_1.3/src/algif.h \
-		extracted/alpng13/src/alpng.h \
+		-select \
+		-case __FB_DOS__ \
+			-incdir extracted/$(ALLEGRO4_TITLE)/include/dos \
+		-case __FB_WIN32__ \
+			-incdir extracted/$(ALLEGRO4_TITLE)/include/windows \
+		-caseelse \
+			-incdir extracted/$(ALLEGRO4_TITLE)/include/unix \
+		-endselect \
+		-incdir extracted/algif_1.3/src \
+		-incdir extracted/alpng13/src \
+		\
+		-include allegro.h \
+		-include algif.h \
+		-include alpng.h \
+		\
 		-emit '*/algif.h' inc/allegro/algif.bi \
 		-emit '*/alpng.h' inc/allegro/alpng.bi \
 		-emit '*'         inc/allegro.bi \
+		\
 		-inclib alleg  inc/allegro.bi \
 		-inclib algif  inc/allegro/algif.bi \
 		-inclib alpng  inc/allegro/alpng.bi \
@@ -67,9 +114,11 @@ allegro4:
 		-undef palette inc/allegro.bi \
 		-undef rgb     inc/allegro.bi \
 		-addinclude allegro.bi inc/allegro/alpng.bi \
+		\
 		-title $(ALLEGRO4_TITLE) allegro4.tmp fbteam.txt inc/allegro.bi \
 		-title algif_1.3         algif.tmp    fbteam.txt inc/allegro/algif.bi \
 		-title alpng13           alpng.tmp    fbteam.txt inc/allegro/alpng.bi
+
 	rm *.tmp
 
 ALLEGRO5_VERSION := 5.0.11
@@ -86,24 +135,51 @@ ALLEGRO5_DLL := -5.0.10-md
 allegro5:
 	./get.sh $(ALLEGRO5_TITLE) $(ALLEGRO5_TITLE).tar.gz "http://sourceforge.net/projects/alleg/files/allegro/$(ALLEGRO5_VERSION)/$(ALLEGRO5_TITLE).tar.gz/download"
 
+	mkdir -p extracted/$(ALLEGRO5_TITLE)/include/unix/allegro5/platform
+	mkdir -p extracted/$(ALLEGRO5_TITLE)/include/windows/allegro5/platform
+
+	./fake-configure ALLEGRO_UNIX `cat allegro5-config.txt` `cat allegro5-config-unix.txt` \
+		< extracted/$(ALLEGRO5_TITLE)/include/allegro5/platform/alplatf.h.cmake \
+		> extracted/$(ALLEGRO5_TITLE)/include/unix/allegro5/platform/alplatf.h
+
+	./fake-configure ALLEGRO_MINGW32 `cat allegro5-config.txt` \
+		< extracted/$(ALLEGRO5_TITLE)/include/allegro5/platform/alplatf.h.cmake \
+		> extracted/$(ALLEGRO5_TITLE)/include/windows/allegro5/platform/alplatf.h
+
 	sed -n 1,20p extracted/$(ALLEGRO5_TITLE)/LICENSE.txt > allegro5.tmp
 
 	mkdir -p inc/allegro5
 	$(FBFROG) allegro5.fbfrog \
+		\
 		-incdir extracted/$(ALLEGRO5_TITLE)/include \
+		-incdir extracted/$(ALLEGRO5_TITLE)/addons/acodec \
 		-incdir extracted/$(ALLEGRO5_TITLE)/addons/audio \
+		-incdir extracted/$(ALLEGRO5_TITLE)/addons/color \
 		-incdir extracted/$(ALLEGRO5_TITLE)/addons/font \
-		extracted/$(ALLEGRO5_TITLE)/include/allegro5/allegro.h \
-		extracted/$(ALLEGRO5_TITLE)/addons/acodec/allegro5/allegro_acodec.h \
-		extracted/$(ALLEGRO5_TITLE)/addons/audio/allegro5/allegro_audio.h \
-		extracted/$(ALLEGRO5_TITLE)/addons/color/allegro5/allegro_color.h \
-		extracted/$(ALLEGRO5_TITLE)/addons/font/allegro5/allegro_font.h \
-		extracted/$(ALLEGRO5_TITLE)/addons/image/allegro5/allegro_image.h \
-		extracted/$(ALLEGRO5_TITLE)/addons/memfile/allegro5/allegro_memfile.h \
-		extracted/$(ALLEGRO5_TITLE)/addons/native_dialog/allegro5/allegro_native_dialog.h \
-		extracted/$(ALLEGRO5_TITLE)/addons/physfs/allegro5/allegro_physfs.h \
-		extracted/$(ALLEGRO5_TITLE)/addons/primitives/allegro5/allegro_primitives.h \
-		extracted/$(ALLEGRO5_TITLE)/addons/ttf/allegro5/allegro_ttf.h \
+		-incdir extracted/$(ALLEGRO5_TITLE)/addons/image \
+		-incdir extracted/$(ALLEGRO5_TITLE)/addons/memfile \
+		-incdir extracted/$(ALLEGRO5_TITLE)/addons/native_dialog \
+		-incdir extracted/$(ALLEGRO5_TITLE)/addons/physfs \
+		-incdir extracted/$(ALLEGRO5_TITLE)/addons/primitives \
+		-incdir extracted/$(ALLEGRO5_TITLE)/addons/ttf \
+		-ifdef __FB_WIN32__ \
+			-incdir extracted/$(ALLEGRO5_TITLE)/include/windows \
+		-else \
+			-incdir extracted/$(ALLEGRO5_TITLE)/include/unix \
+		-endif \
+		\
+		-include allegro5/allegro.h \
+		-include allegro5/allegro_acodec.h \
+		-include allegro5/allegro_audio.h \
+		-include allegro5/allegro_color.h \
+		-include allegro5/allegro_font.h \
+		-include allegro5/allegro_image.h \
+		-include allegro5/allegro_memfile.h \
+		-include allegro5/allegro_native_dialog.h \
+		-include allegro5/allegro_physfs.h \
+		-include allegro5/allegro_primitives.h \
+		-include allegro5/allegro_ttf.h \
+		\
 		-emit '*/allegro_acodec.h'        inc/allegro5/allegro_acodec.bi \
 		-emit '*/allegro_audio.h'         inc/allegro5/allegro_audio.bi \
 		-emit '*/allegro_color.h'         inc/allegro5/allegro_color.bi \
@@ -157,6 +233,7 @@ allegro5:
 		-endif \
 		\
 		-title $(ALLEGRO5_TITLE) allegro5.tmp fbteam.txt
+
 	rm *.tmp
 
 ATK_SERIES := 2.14
@@ -592,7 +669,11 @@ glibc:
 	./get.sh $(GLIBC) $(GLIBC).tar.xz http://ftp.gnu.org/gnu/glibc/$(GLIBC).tar.xz
 
 	cd extracted/$(GLIBC) && \
-		rm -f bits/wordsize.h bits/endian.h bits/setjmp.h
+		if [ -f bits/wordsize.h ]; then \
+			rm -f bits/wordsize.h bits/endian.h bits/setjmp.h; \
+			echo "#pragma once" >> sysdeps/wordsize-64/bits/wordsize.h; \
+			echo "#pragma once" >> sysdeps/x86/bits/wordsize.h; \
+		fi
 
 	$(GETCOMMENT) extracted/$(GLIBC)/sysdeps/wordsize-32/bits/wordsize.h > glibc-wordsize.tmp
 	$(GETCOMMENT) extracted/$(GLIBC)/sysdeps/nptl/pthread.h              > glibc-pthread.tmp
@@ -1188,9 +1269,14 @@ sdl1:
 	# on SDL_config.h.in).
 	cd extracted/$(SDL1_MAIN)/include && \
 		mkdir -p unix windows && \
-		if [ -f SDL_config.h ]; then mv SDL_config.h windows; fi && \
-		cp SDL_config.h.in unix/SDL_config.h
-	cat sdl-unix-config.h >> extracted/$(SDL1_MAIN)/include/unix/SDL_config.h
+		if [ -f SDL_config.h ]; then mv SDL_config.h windows; fi
+	./fake-configure \
+		`cat unix-config.txt` \
+		SDL_HAS_64BIT_TYPE \
+		SDL_VIDEO_DRIVER_X11 \
+		SDL_BYTEORDER=SDL_LIL_ENDIAN \
+		< extracted/$(SDL1_MAIN)/include/SDL_config.h.in \
+		> extracted/$(SDL1_MAIN)/include/unix/SDL_config.h
 
 	$(GETCOMMENT) extracted/$(SDL1_MAIN)/include/SDL.h                 > sdl1.tmp
 	sed -n 5,5p   extracted/$(SDL1_GFX)/SDL_gfxPrimitives.h | cut -c1- > sdl1-gfx.tmp
@@ -1288,9 +1374,15 @@ sdl2: winapi-extract
 	# on SDL_config.h.in).
 	cd extracted/$(SDL2_MAIN)/include && \
 		mkdir -p unix windows && \
-		if [ -f SDL_config.h ]; then mv SDL_config.h windows; fi && \
-		cp SDL_config.h.in unix/SDL_config.h
-	cat sdl-unix-config.h >> extracted/$(SDL2_MAIN)/include/unix/SDL_config.h
+		if [ -f SDL_config.h ]; then mv SDL_config.h windows; fi
+	./fake-configure \
+		`cat unix-config.txt` \
+		SDL_HAS_64BIT_TYPE \
+		SDL_VIDEO_DRIVER_X11 \
+		SDL_BYTEORDER=SDL_LIL_ENDIAN \
+		< extracted/$(SDL2_MAIN)/include/SDL_config.h.in \
+		> extracted/$(SDL2_MAIN)/include/unix/SDL_config.h
+	echo "#define SDL_BYTEORDER SDL_LIL_ENDIAN" >> extracted/$(SDL2_MAIN)/include/unix/SDL_config.h
 
 	$(GETCOMMENT) extracted/$(SDL2_MAIN)/include/SDL.h      > sdl2.tmp
 	sed -n 5,26p extracted/$(SDL2_GFX)/SDL2_gfxPrimitives.h > sdl2-gfx.tmp

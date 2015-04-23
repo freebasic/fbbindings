@@ -39,18 +39,13 @@
 #include once "crt/long.bi"
 
 #ifdef __FB_LINUX__
-	#include once "crt/stdarg.bi"
 	#include once "crt/sys/types.bi"
 #endif
 
 #include once "crt/stdio.bi"
 #include once "crt/stdlib.bi"
 #include once "crt/stddef.bi"
-
-#ifdef __FB_WIN32__
-	#include once "crt/stdarg.bi"
-#endif
-
+#include once "crt/stdarg.bi"
 #include once "crt/string.bi"
 
 #ifdef __FB_WIN32__
@@ -83,10 +78,8 @@ extern "C"
 #define _SDL_platform_h
 
 #ifdef __FB_WIN32__
-	const __WIN32__ = 1
 	#define _SDL_config_win32_h
 #else
-	const __LINUX__ = 1
 	#define SDL_BYTEORDER SDL_LIL_ENDIAN
 #endif
 

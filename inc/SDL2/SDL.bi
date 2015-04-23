@@ -73,24 +73,14 @@ extern "C"
 #define _SDL_stdinc_h
 #define _SDL_config_h
 #define _SDL_platform_h
-
-#ifdef __FB_WIN32__
-	const __WINDOWS__ = 1
-	const __WIN32__ = 1
-#else
-	const __LINUX__ = 1
-#endif
-
 #define SDLCALL cdecl
-
-#ifdef __FB_LINUX__
-	const NULL = cptr(any ptr, 0)
-#endif
-
+const NULL = cptr(any ptr, 0)
 declare function SDL_GetPlatform() as const zstring ptr
 
 #ifdef __FB_WIN32__
 	#define _SDL_config_windows_h
+#else
+	#define SDL_BYTEORDER SDL_LIL_ENDIAN
 #endif
 
 #define SDL_FOURCC(A, B, C, D) ((((cast(Uint32, cast(Uint8, (A))) shl 0) or (cast(Uint32, cast(Uint8, (B))) shl 8)) or (cast(Uint32, cast(Uint8, (C))) shl 16)) or (cast(Uint32, cast(Uint8, (D))) shl 24))

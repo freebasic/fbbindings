@@ -47,6 +47,7 @@
 extern "C"
 
 #define __GTK_H__
+#define __GTK_H_INSIDE__
 #define __GTK_ABOUT_DIALOG_H__
 #define __GTK_DIALOG_H__
 #define __GTK_WINDOW_H__
@@ -11690,5 +11691,6 @@ end type
 
 declare function gtk_vseparator_get_type() as GType
 declare function gtk_vseparator_new() as GtkWidget ptr
+#undef __GTK_H_INSIDE__
 
 end extern

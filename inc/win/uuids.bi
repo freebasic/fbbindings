@@ -20,6 +20,8 @@
 
 extern "C"
 
+#define MEDIATYPE_NULL GUID_NULL
+#define MEDIASUBTYPE_NULL GUID_NULL
 extern MEDIASUBTYPE_None as const GUID
 extern MEDIATYPE_Video as const GUID
 extern MEDIATYPE_Audio as const GUID
@@ -81,6 +83,13 @@ extern MEDIASUBTYPE_RGB16_D3D_DX9_RT as const GUID
 extern MEDIASUBTYPE_ARGB32_D3D_DX9_RT as const GUID
 extern MEDIASUBTYPE_ARGB4444_D3D_DX9_RT as const GUID
 extern MEDIASUBTYPE_ARGB1555_D3D_DX9_RT as const GUID
+
+#define MEDIASUBTYPE_HASALPHA(mt) (((((((((((((mt).subtype = MEDIASUBTYPE_ARGB4444) orelse ((mt).subtype = MEDIASUBTYPE_ARGB32)) orelse ((mt).subtype = MEDIASUBTYPE_AYUV)) orelse ((mt).subtype = MEDIASUBTYPE_AI44)) orelse ((mt).subtype = MEDIASUBTYPE_IA44)) orelse ((mt).subtype = MEDIASUBTYPE_ARGB1555)) orelse ((mt).subtype = MEDIASUBTYPE_ARGB32_D3D_DX7_RT)) orelse ((mt).subtype = MEDIASUBTYPE_ARGB4444_D3D_DX7_RT)) orelse ((mt).subtype = MEDIASUBTYPE_ARGB1555_D3D_DX7_RT)) orelse ((mt).subtype = MEDIASUBTYPE_ARGB32_D3D_DX9_RT)) orelse ((mt).subtype = MEDIASUBTYPE_ARGB4444_D3D_DX9_RT)) orelse ((mt).subtype = MEDIASUBTYPE_ARGB1555_D3D_DX9_RT))
+#define MEDIASUBTYPE_HASALPHA7(mt) ((((mt).subtype = MEDIASUBTYPE_ARGB32_D3D_DX7_RT) orelse ((mt).subtype = MEDIASUBTYPE_ARGB4444_D3D_DX7_RT)) orelse ((mt).subtype = MEDIASUBTYPE_ARGB1555_D3D_DX7_RT))
+#define MEDIASUBTYPE_D3D_DX7_RT(mt) ((((((mt).subtype = MEDIASUBTYPE_ARGB32_D3D_DX7_RT) orelse ((mt).subtype = MEDIASUBTYPE_ARGB4444_D3D_DX7_RT)) orelse ((mt).subtype = MEDIASUBTYPE_ARGB1555_D3D_DX7_RT)) orelse ((mt).subtype = MEDIASUBTYPE_RGB32_D3D_DX7_RT)) orelse ((mt).subtype = MEDIASUBTYPE_RGB16_D3D_DX7_RT))
+#define MEDIASUBTYPE_HASALPHA9(mt) ((((mt).subtype = MEDIASUBTYPE_ARGB32_D3D_DX9_RT) orelse ((mt).subtype = MEDIASUBTYPE_ARGB4444_D3D_DX9_RT)) orelse ((mt).subtype = MEDIASUBTYPE_ARGB1555_D3D_DX9_RT))
+#define MEDIASUBTYPE_D3D_DX9_RT(mt) ((((((mt).subtype = MEDIASUBTYPE_ARGB32_D3D_DX9_RT) orelse ((mt).subtype = MEDIASUBTYPE_ARGB4444_D3D_DX9_RT)) orelse ((mt).subtype = MEDIASUBTYPE_ARGB1555_D3D_DX9_RT)) orelse ((mt).subtype = MEDIASUBTYPE_RGB32_D3D_DX9_RT)) orelse ((mt).subtype = MEDIASUBTYPE_RGB16_D3D_DX9_RT))
+
 extern MEDIASUBTYPE_YV12 as const GUID
 extern MEDIASUBTYPE_NV12 as const GUID
 extern MEDIASUBTYPE_IMC1 as const GUID

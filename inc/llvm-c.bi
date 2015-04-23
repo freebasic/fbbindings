@@ -906,7 +906,7 @@ declare function LLVMDisasmInstruction(byval DC as LLVMDisasmContextRef, byval B
 #define LLVM_C_TARGET_H
 #define LLVM_CONFIG_H
 #define LLVM_BINDIR "/usr/bin"
-#define LLVM_CONFIGTIME "Tue Apr 14 16:25:45 CEST 2015"
+#define LLVM_CONFIGTIME "Fri Apr 17 18:48:11 CEST 2015"
 #define LLVM_DATADIR "/usr/share/llvm"
 #define LLVM_DEFAULT_TARGET_TRIPLE "i686-pc-linux-gnu"
 #define LLVM_DOCSDIR "/usr/share/doc/llvm"

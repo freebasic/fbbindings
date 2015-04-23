@@ -2107,6 +2107,9 @@ const MMIOM_USER = &h8000
 #define FOURCC_LIST mmioFOURCC(asc("L"), asc("I"), asc("S"), asc("T"))
 #define FOURCC_DOS mmioFOURCC(asc("D"), asc("O"), asc("S"), asc(" "))
 #define FOURCC_MEM mmioFOURCC(asc("M"), asc("E"), asc("M"), asc(" "))
+const SEEK_SET = 0
+const SEEK_CUR = 1
+const SEEK_END = 2
 const MMIO_DEFAULTBUFFER = 8192
 #define mmioFOURCC(ch0, ch1, ch2, ch3) MAKEFOURCC(ch0, ch1, ch2, ch3)
 declare function mmioStringToFOURCCA(byval sz as LPCSTR, byval uFlags as UINT) as FOURCC

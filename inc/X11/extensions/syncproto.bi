@@ -59,6 +59,10 @@ const X_SyncResetFence = 16
 const X_SyncDestroyFence = 17
 const X_SyncQueryFence = 18
 const X_SyncAwaitFence = 19
+#define XSyncCounter CARD32
+#define XSyncAlarm CARD32
+#define XSyncFence CARD32
+#define Drawable CARD32
 
 type _xSyncInitialize
 	reqType as CARD8
@@ -427,3 +431,7 @@ type _xSyncAlarmNotifyEvent
 end type
 
 type xSyncAlarmNotifyEvent_ as _xSyncAlarmNotifyEvent
+#undef XSyncCounter
+#undef XSyncAlarm
+#undef XSyncFence
+#undef Drawable

@@ -84,3 +84,26 @@ allegro.fbfrog
 -renamedefine MOUSEDRV_LINUX_MS MOUSEDRV_LINUX_MS_
 -renamedefine MOUSEDRV_LINUX_IMS MOUSEDRV_LINUX_IMS_
 -renamedefine MOUSEDRV_LINUX_EVDEV MOUSEDRV_LINUX_EVDEV_
+
+-ifdef __FB_DOS__
+	-noexpand int8_t
+	-noexpand uint8_t
+	-noexpand int16_t
+	-noexpand uint16_t
+	-noexpand int32_t
+	-noexpand uint32_t
+	-noexpand intptr_t
+	-noexpand uintptr_t
+	-noexpand int64_t
+	-noexpand uint64_t
+	-removedefine int8_t
+	-removedefine uint8_t
+	-removedefine int16_t
+	-removedefine uint16_t
+	-removedefine int32_t
+	-removedefine uint32_t
+	-removedefine intptr_t
+	-removedefine uintptr_t
+	-removedefine int64_t
+	-removedefine uint64_t
+-endif

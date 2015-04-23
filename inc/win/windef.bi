@@ -77,6 +77,7 @@ type PUCHAR as UCHAR ptr
 type PSZ as zstring ptr
 
 const MAX_PATH = 260
+const NULL = cptr(any ptr, 0)
 const FALSE = 0
 const TRUE = 1
 #define _DEF_WINBOOL_
@@ -388,5 +389,32 @@ end type
 type POINTS as tagPOINTS
 type PPOINTS as tagPOINTS ptr
 type LPPOINTS as tagPOINTS ptr
+
+const DM_UPDATE = 1
+const DM_COPY = 2
+const DM_PROMPT = 4
+const DM_MODIFY = 8
+#define DM_IN_BUFFER DM_MODIFY
+#define DM_IN_PROMPT DM_PROMPT
+#define DM_OUT_BUFFER DM_COPY
+#define DM_OUT_DEFAULT DM_UPDATE
+const DC_FIELDS = 1
+const DC_PAPERS = 2
+const DC_PAPERSIZE = 3
+const DC_MINEXTENT = 4
+const DC_MAXEXTENT = 5
+const DC_BINS = 6
+const DC_DUPLEX = 7
+const DC_SIZE = 8
+const DC_EXTRA = 9
+const DC_VERSION = 10
+const DC_DRIVER = 11
+const DC_BINNAMES = 12
+const DC_ENUMRESOLUTIONS = 13
+const DC_FILEDEPENDENCIES = 14
+const DC_TRUETYPE = 15
+const DC_PAPERNAMES = 16
+const DC_ORIENTATION = 17
+const DC_COPIES = 18
 
 end extern

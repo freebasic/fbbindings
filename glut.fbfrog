@@ -1,5 +1,9 @@
+-removedefine APIENTRY
 -removedefine CALLBACK
+-removedefine GLUT_APIENTRY_DEFINED
+-removedefine GLUT_WINGDIAPI_DEFINED
 -removedefine _WCHAR_T_DEFINED
+-removedefine WINGDIAPI
 
 # MSVC pre-#define which GLUT checks for (not defined by fbfrog)
 -define _STDCALL_SUPPORTED 1

@@ -38,6 +38,11 @@
 ''     typedef xShmCompletionEvent => xShmCompletionEvent_
 
 #define _SHMPROTO_H_
+#define ShmSeg CARD32
+#define Drawable CARD32
+#define VisualID CARD32
+#define GContext CARD32
+#define Pixmap CARD32
 const X_ShmQueryVersion = 0
 const X_ShmAttach = 1
 const X_ShmDetach = 2
@@ -239,3 +244,8 @@ type xShmCreateSegmentReply
 end type
 
 const sz_xShmCreateSegmentReply = 32
+#undef ShmSeg
+#undef Drawable
+#undef VisualID
+#undef GContext
+#undef Pixmap

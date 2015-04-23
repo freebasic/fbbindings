@@ -54,6 +54,10 @@ const RecordMaxError = cast(clong, 256) - cast(clong, 1)
 const RecordMaxCoreRequest = cast(clong, 128) - cast(clong, 1)
 const RecordMaxExtRequest = cast(clong, 256) - cast(clong, 1)
 const RecordMinExtRequest = cast(clong, 129) - cast(clong, 1)
+#define RECORD_RC CARD32
+#define RECORD_XIDBASE CARD32
+#define RECORD_CLIENTSPEC CARD32
+#define RECORD_ELEMENT_HEADER CARD8
 type RecordClientSpec as CARD32
 type RecordClientSpecPtr as CARD32 ptr
 
@@ -249,3 +253,7 @@ type xRecordFreeContextReq
 end type
 
 const sz_xRecordFreeContextReq = 8
+#undef RECORD_RC
+#undef RECORD_XIDBASE
+#undef RECORD_ELEMENT_HEADER
+#undef RECORD_CLIENTSPEC

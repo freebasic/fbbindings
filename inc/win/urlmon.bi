@@ -2243,6 +2243,7 @@ declare sub IInternetProtocolInfo_QueryInfo_Stub(byval This as IRpcStubBuffer pt
 #define IOInetThreadSwitch IInternetThreadSwitch
 #define IOInetProtocolSinkStackable IInternetProtocolSinkStackable
 #define LPOINET LPIINTERNET
+#define LPOINETPROTOCOLINFO LPIINTERNETPROTOCOLINFO
 #define LPOINETBINDINFO LPIINTERNETBINDINFO
 #define LPOINETPROTOCOLROOT LPIINTERNETPROTOCOLROOT
 #define LPOINETPROTOCOL LPIINTERNETPROTOCOL
