@@ -107,3 +107,5 @@ allegro.fbfrog
 	-removedefine int64_t
 	-removedefine uint64_t
 -endif
+
+-remove2nd ALLEGRO_NO_ASM
