@@ -580,3 +580,10 @@
 # Redundant declarations where fbc doesn't allow it yet
 -remove1st IsEqualIID
 -remove1st IsEqualCLSID
+-remove1st MAKE_DDHRESULT
+-remove1st ID3DXRenderToEnvMap_OnLostDevice
+-remove2nd IDirectPlay8Peer_EnumHosts
+-remove2nd POLICY_AUDIT_EVENT_UNCHANGED
+-remove2nd POLICY_AUDIT_EVENT_SUCCESS
+-remove2nd POLICY_AUDIT_EVENT_FAILURE
+-remove2nd POLICY_AUDIT_EVENT_NONE

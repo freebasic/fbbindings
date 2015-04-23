@@ -849,7 +849,6 @@ end type
 #define IDirectPlay8Peer_GetPeerAddress(p, a, b, c) (p)->lpVtbl->GetPeerAddress(p, a, b, c)
 #define IDirectPlay8Peer_GetLocalHostAddresses(p, a, b, c) (p)->lpVtbl->GetLocalHostAddresses(p, a, b, c)
 #define IDirectPlay8Peer_Close(p, a) (p)->lpVtbl->Close(p, a)
-#define IDirectPlay8Peer_EnumHosts(p, a, b, c, d, e, f, g, h, i, j, k) (p)->lpVtbl->EnumHosts(p, a, b, c, d, e, f, g, h, i, j, k)
 #define IDirectPlay8Peer_DestroyPeer(p, a, b, c, d) (p)->lpVtbl->DestroyPeer(p, a, b, c, d)
 #define IDirectPlay8Peer_ReturnBuffer(p, a, b) (p)->lpVtbl->ReturnBuffer(p, a, b)
 #define IDirectPlay8Peer_GetPlayerContext(p, a, b, c) (p)->lpVtbl->GetPlayerContext(p, a, b, c)
