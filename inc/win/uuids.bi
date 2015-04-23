@@ -20,7 +20,6 @@
 
 extern "C"
 
-'' TODO: #define OUR_GUID_ENTRY(name,l,w1,w2,b1,b2,b3,b4,b5,b6,b7,b8) DEFINE_GUID(name,l,w1,w2,b1,b2,b3,b4,b5,b6,b7,b8);
 #define MEDIATYPE_NULL GUID_NULL
 #define MEDIASUBTYPE_NULL GUID_NULL
 extern MEDIASUBTYPE_None as const GUID
@@ -422,8 +421,6 @@ extern CODECAPI_SETALLDEFAULTS as const GUID
 extern CODECAPI_ALLSETTINGS as const GUID
 extern CODECAPI_SUPPORTSEVENTS as const GUID
 extern CODECAPI_CURRENTCHANGELIST as const GUID
-#undef OUR_GUID_ENTRY
-'' TODO: #define OUR_GUID_ENTRY(name,l,w1,w2,b1,b2,b3,b4,b5,b6,b7,b8) DEFINE_GUID(name,l,w1,w2,b1,b2,b3,b4,b5,b6,b7,b8);
 #define MEDIATYPE_NULL GUID_NULL
 #define MEDIASUBTYPE_NULL GUID_NULL
 extern MEDIASUBTYPE_None as const GUID
@@ -814,6 +811,5 @@ extern CLSID_TVEFilterStatsProperties as const GUID
 extern CLSID_IVideoEncoderProxy as const GUID
 extern CLSID_ICodecAPIProxy as const GUID
 extern CLSID_IVideoEncoderCodecAPIProxy as const GUID
-#undef OUR_GUID_ENTRY
 
 end extern

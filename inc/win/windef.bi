@@ -81,11 +81,9 @@ const NULL = cptr(any ptr, 0)
 const FALSE = 0
 const TRUE = 1
 #define _DEF_WINBOOL_
-type WINBOOL as long
-#undef BOOL
-type BOOL as long
-#define BOOL WINBOOL
 
+type WINBOOL as long
+type BOOL as long
 type PBOOL as WINBOOL ptr
 type LPBOOL as WINBOOL ptr
 type UBYTE as ubyte

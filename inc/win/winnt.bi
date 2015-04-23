@@ -80,7 +80,6 @@
 
 #define _WINNT_
 const ANYSIZE_ARRAY = 1
-#define __INTRINSIC_GROUP_WINNT
 
 #ifdef __FB_64BIT__
 	#define ALIGNMENT_MACHINE

@@ -37,8 +37,6 @@
 
 #define __DSOUND_INCLUDED__
 const DIRECTSOUND_VERSION = &h0900
-#define COM_NO_WINDOWS_H
-
 type D3DVALUE as single
 type LPD3DVALUE as single ptr
 type LPD3DVECTOR as D3DVECTOR ptr

@@ -1821,7 +1821,6 @@ declare function Wow64DisableWow64FsRedirection(byval OldValue as PVOID ptr) as 
 declare function Wow64RevertWow64FsRedirection(byval OlValue as PVOID) as WINBOOL
 declare function IsWow64Process(byval hProcess as HANDLE, byval Wow64Process as PBOOL) as WINBOOL
 
-#define __INTRINSIC_GROUP_WINBASE
 #define GetCurrentTime() GetTickCount()
 #define LimitEmsPages(dw)
 #define SetSwapAreaSize(w) (w)

@@ -28,7 +28,6 @@
 #endif
 
 #define _WINSOCKAPI_
-#define UNDEF_WINSOCK_API_LINKAGE
 #define ___WSA_SOCKET_TYPES_H
 type SOCKET as UINT_PTR
 #define INVALID_SOCKET cast(SOCKET, not 0)
@@ -456,6 +455,5 @@ declare sub GetAcceptExSockaddrs(byval lpOutputBuffer as PVOID, byval dwReceiveD
 #define WSAGETASYNCERROR(lParam) HIWORD(lParam)
 #define WSAGETSELECTEVENT(lParam) LOWORD(lParam)
 #define WSAGETSELECTERROR(lParam) HIWORD(lParam)
-#undef UNDEF_WINSOCK_API_LINKAGE
 
 end extern

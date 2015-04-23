@@ -23,6 +23,8 @@
 -define OEMRESOURCE 1
 -define COBJMACROS 1
 
+-removedefine _
+-removedefine abort
 -removedefine ACLUIAPI
 -removedefine ACMAPI
 -removedefine _ANONYMOUS_STRUCT
@@ -36,6 +38,7 @@
 -removedefine BEGIN_TM_PROPS
 -removedefine BEGIN_TM_SCHEMA
 -removedefine BERAPI
+-removedefine BOOL
 -removedefine BOOLAPI
 -removedefine BROWSEUIAPI
 -removedefine BROWSEUIAPI_
@@ -60,6 +63,7 @@
 -removedefine cdecl
 -removedefine CDECL
 -removedefine _COM_interface
+-removedefine COM_NO_WINDOWS_H
 -removedefine _CONST_RETURN
 -removedefine CONST_VTBL
 -removedefine _CRT_ALTERNATIVE_IMPORTED
@@ -165,6 +169,12 @@
 -removedefine INTERFACE
 -removedefine INTERNETAPI
 -removedefine INTERNETAPI_
+-removedefine __INTRINSIC_EPILOG
+-removedefine __INTRINSIC_GROUP_WINBASE
+-removedefine __INTRINSIC_GROUP_WINNT
+-removedefine __INTRINSIC_ONLYSPECIAL
+-removedefine __INTRINSIC_PROLOG
+-removedefine __INTRINSICS_USEINLINE
 -removedefine INTSHCUTAPI
 -removedefine KSDATAFORMAT_SUBTYPE_IEEE_FLOAT_
 -removedefine KSDATAFORMAT_SUBTYPE_PCM_
@@ -209,6 +219,7 @@
 -removedefine NTSYSAPI
 -removedefine NTSYSCALLAPI
 -removedefine OPTIONAL
+-removedefine OUR_GUID_ENTRY
 -removedefine OUT
 -removedefine pascal
 -removedefine PASCAL
@@ -283,6 +294,7 @@
 -removedefine __unaligned
 -removedefine UNALIGNED
 -removedefine UNALIGNED64
+-removedefine UNDEF_WINSOCK_API_LINKAGE
 -removedefine _UNION_NAME
 -removedefine UNREFERENCED_LOCAL_VARIABLE
 -removedefine UNREFERENCED_PARAMETER

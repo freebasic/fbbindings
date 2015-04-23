@@ -18,10 +18,6 @@
 extern "C"
 
 #define _INTRIN_MAC_
-#define __INTRINSIC_PROLOG(name) ((defined(__INTRINSIC_DEFINED_##name) = 0) andalso ((defined(__INTRINSIC_ONLYSPECIAL) = 0) orelse (defined(__INTRINSIC_ONLYSPECIAL) andalso defined(__INTRINSIC_SPECIAL_##name))))
-#define __INTRINSICS_USEINLINE __MINGW_INTRIN_INLINE
-#undef __INTRINSIC_GROUP_WINNT
-#define __INTRINSIC_ONLYSPECIAL
 #define __INTRINSIC_SPECIAL___faststorefence
 #define __INTRINSIC_SPECIAL___int2c
 #define __INTRINSIC_SPECIAL___stosb
@@ -308,15 +304,6 @@ declare sub __movsd(byval Destination as ulong ptr, byval Source as const ulong 
 	#define __INTRINSIC_DEFINED___writefsdword
 #endif
 
-#undef __INTRINSIC_ONLYSPECIAL
-#undef __INTRINSIC_PROLOG
-#undef __INTRINSIC_EPILOG
-#undef __INTRINSICS_USEINLINE
-#define __INTRINSIC_PROLOG(name) ((defined(__INTRINSIC_DEFINED_##name) = 0) andalso ((defined(__INTRINSIC_ONLYSPECIAL) = 0) orelse (defined(__INTRINSIC_ONLYSPECIAL) andalso defined(__INTRINSIC_SPECIAL_##name))))
-#define __INTRINSICS_USEINLINE __MINGW_INTRIN_INLINE
-#undef __INTRINSIC_GROUP_WINBASE
-
-#define __INTRINSIC_ONLYSPECIAL
 #define __INTRINSIC_SPECIAL__InterlockedIncrement
 #define __INTRINSIC_SPECIAL__InterlockedDecrement
 #define __INTRINSIC_SPECIAL__InterlockedExchange
@@ -332,12 +319,7 @@ declare sub __movsd(byval Destination as ulong ptr, byval Source as const ulong 
 #define __INTRINSIC_SPECIAL__InterlockedExchange64
 #define __INTRINSIC_SPECIAL__InterlockedExchangeAdd64
 #define __INTRINSIC_SPECIAL__InterlockedCompareExchange64
-
 #undef _lrotl
 #undef _lrotr
-#undef __INTRINSIC_ONLYSPECIAL
-#undef __INTRINSIC_PROLOG
-#undef __INTRINSIC_EPILOG
-#undef __INTRINSICS_USEINLINE
 
 end extern

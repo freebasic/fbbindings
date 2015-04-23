@@ -38,9 +38,7 @@
 #endif
 
 #define __WINE_DMUSIC_PLUGIN_H
-#define COM_NO_WINDOWS_H
 #define DMUS_REGSTR_PATH_TOOLS !"Software\\Microsoft\\DirectMusic\\Tools"
-
 extern CLSID_DirectMusicBandTrack as const GUID
 extern CLSID_DirectMusicChordTrack as const GUID
 extern CLSID_DirectMusicChordMapTrack as const GUID

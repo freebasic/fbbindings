@@ -34,19 +34,11 @@ const __MINGW64_VERSION_RC = 0
 const __MINGW32_MAJOR_VERSION = 3
 const __MINGW32_MINOR_VERSION = 11
 
-#ifdef __FB_64BIT__
-	#undef _
-	const _ = 1
-#else
+#ifndef __FB_64BIT__
 	#undef __MINGW_USE_UNDERSCORE_PREFIX
 #endif
 
 const __MINGW_USE_UNDERSCORE_PREFIX = 1
-
-#ifdef __FB_64BIT__
-	#undef _
-#endif
-
 #define __MINGW_IMP_SYMBOL(sym) _imp__##sym
 #define __MINGW_IMP_LSYMBOL(sym) __imp__##sym
 #define __MINGW_USYMBOL(sym) _##sym
