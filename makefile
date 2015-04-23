@@ -1582,8 +1582,9 @@ winapi-extract:
 		sed -e 's/MINGW_HAS_DX$$/1/g' < sdks/_mingw_directx.h.in > sdks/_mingw_directx.h && \
 		sed -e 's/MINGW_HAS_DDK$$/1/g' < sdks/_mingw_ddk.h.in > sdks/_mingw_ddk.h
 
-	cd extracted/$(MINGWW64_TITLE)/mingw-w64-headers/include && \
-		echo "#pragma once" >> uuids.h
+	cd extracted/$(MINGWW64_TITLE)/mingw-w64-headers && \
+		echo "#pragma once" >> direct-x/include/vfwmsgs.h && \
+		echo "#pragma once" >> include/uuids.h
 
 	./winapi-emits-gen.sh
 	./winapi-titles-gen.sh extracted/$(MINGWW64_TITLE) $(MINGWW64_TITLE)
