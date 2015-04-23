@@ -217,18 +217,6 @@ const sz_xGetKeyboardMappingReq = 8
 const sz_xSetModifierMappingReq = 4
 const sz_xPropIconSize = 24
 const sz_xChangeKeyboardMappingReq = 8
-#define Window CARD32
-#define Drawable CARD32
-#define Font CARD32
-#define Pixmap CARD32
-#define Cursor CARD32
-#define Colormap CARD32
-#define GContext CARD32
-#define Atom CARD32
-#define VisualID CARD32
-#define Time CARD32
-#define KeyCode CARD8
-#define KeySym CARD32
 const X_TCP_PORT = 6000
 const xTrue = 1
 const xFalse = 0
@@ -2227,16 +2215,3 @@ const X_GetPointerMapping = 117
 const X_SetModifierMapping = 118
 const X_GetModifierMapping = 119
 const X_NoOperation = 127
-
-#undef Window
-#undef Drawable
-#undef Font
-#undef Pixmap
-#undef Cursor
-#undef Colormap
-#undef GContext
-#undef Atom
-#undef VisualID
-#undef Time
-#undef KeyCode
-#undef KeySym

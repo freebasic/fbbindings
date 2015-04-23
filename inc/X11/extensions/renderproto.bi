@@ -44,22 +44,6 @@
 ''     struct xTrap => xTrap_
 
 #define _XRENDERP_H_
-#define Window CARD32
-#define Drawable CARD32
-#define Font CARD32
-#define Pixmap CARD32
-#define Cursor CARD32
-#define Colormap CARD32
-#define GContext CARD32
-#define Atom CARD32
-#define VisualID CARD32
-#define Time CARD32
-#define KeyCode CARD8
-#define KeySym CARD32
-#define Picture CARD32
-#define PictFormat CARD32
-#define Fixed INT32
-#define Glyphset CARD32
 
 type xDirectFormat
 	red as CARD16
@@ -641,19 +625,3 @@ type xRenderCreateConicalGradientReq
 end type
 
 const sz_xRenderCreateConicalGradientReq = 24
-#undef Window
-#undef Drawable
-#undef Font
-#undef Pixmap
-#undef Cursor
-#undef Colormap
-#undef GContext
-#undef Atom
-#undef VisualID
-#undef Time
-#undef KeyCode
-#undef KeySym
-#undef Picture
-#undef PictFormat
-#undef Fixed
-#undef Glyphset

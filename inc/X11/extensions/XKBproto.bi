@@ -61,11 +61,6 @@
 ''     typedef xkbEvent => xkbEvent_
 
 #define _XKBPROTO_H_
-#define Window CARD32
-#define Atom CARD32
-#define Time CARD32
-#define KeyCode CARD8
-#define KeySym CARD32
 #define XkbPaddedSize(n) culng(culng(culng(culng((n)) + 3) shr 2) shl 2)
 
 type _xkbUseExtension
@@ -1458,8 +1453,3 @@ end type
 
 type xkbEvent_ as _xkbEvent_
 const sz_xkbEvent = 32
-#undef Window
-#undef Atom
-#undef Time
-#undef KeyCode
-#undef KeySym

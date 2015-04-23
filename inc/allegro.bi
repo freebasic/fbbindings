@@ -203,7 +203,6 @@ extern "C"
 #else
 	const ALLEGRO_HAVE_MEMCMP = 1
 	const ALLEGRO_LITTLE_ENDIAN = 1
-	const ALLEGRO_NO_ASM = 1
 #endif
 
 #if defined(__FB_WIN32__) or defined(__FB_LINUX__)

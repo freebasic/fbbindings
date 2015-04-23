@@ -34,11 +34,6 @@
 #include once "crt/stdint.bi"
 
 #define _XI2PROTO_H_
-#define Window ulong
-#define Time ulong
-#define Atom ulong
-#define Cursor ulong
-#define Barrier ulong
 const X_XIQueryPointer = 40
 const X_XIWarpPointer = 41
 const X_XIChangeCursor = 42
@@ -833,9 +828,3 @@ end type
 type xXIBarrierHitEvent as xXIBarrierEvent
 type xXIBarrierPointerReleasedEvent as xXIBarrierEvent
 type xXIBarrierLeaveEvent as xXIBarrierEvent
-
-#undef Window
-#undef Time
-#undef Atom
-#undef Cursor
-#undef Barrier

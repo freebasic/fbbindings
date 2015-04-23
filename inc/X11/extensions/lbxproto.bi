@@ -72,12 +72,6 @@ const X_LbxGrabCmap = 40
 const X_LbxReleaseCmap = 41
 const X_LbxAllocColor = 42
 const X_LbxSync = 43
-#define XID CARD32
-#define Atom CARD32
-#define Colormap CARD32
-#define Drawable CARD32
-#define VisualID CARD32
-#define Window CARD32
 
 type xLbxConnSetupPrefix
 	success as XBOOL
@@ -945,10 +939,3 @@ const lbxupsz_MappingNotifyEvent = 7
 const lbxsz_ClientMessageEvent = 32
 const lbxupsz_ClientMessageEvent = 32
 const lbxsz_UnknownEvent = 32
-
-#undef XID
-#undef Atom
-#undef Colormap
-#undef Drawable
-#undef VisualID
-#undef Window
