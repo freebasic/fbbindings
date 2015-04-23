@@ -69,3 +69,5 @@ allegro.fbfrog
 -removedefine ALLEGRO_PHYSFS_FUNC
 -removedefine ALLEGRO_PRIM_FUNC
 -removedefine ALLEGRO_TTF_FUNC
+
+-remove2nd ALLEGRO_LITTLE_ENDIAN
