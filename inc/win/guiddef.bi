@@ -69,10 +69,12 @@ type LPCGUID as const GUID ptr
 type IID as GUID
 type LPIID as IID ptr
 #define IID_NULL GUID_NULL
+#define IsEqualIID(riid1, riid2) IsEqualGUID(riid1, riid2)
 #define CLSID_DEFINED
 type CLSID as GUID
 type LPCLSID as CLSID ptr
 #define CLSID_NULL GUID_NULL
+#define IsEqualCLSID(rclsid1, rclsid2) IsEqualGUID(rclsid1, rclsid2)
 type FMTID as GUID
 type LPFMTID as FMTID ptr
 #define FMTID_NULL GUID_NULL

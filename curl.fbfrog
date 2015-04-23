@@ -22,8 +22,19 @@
 -renametypedef CURLMSG CURLMSG_
 -renameproc curl_multi_socket curl_multi_socket_
 
+-removedefine CFINIT
 -removedefine CINIT
+-removedefine CurlchkszEQ
+-removedefine CurlchkszGE
 -removedefine CURL_EXTERN
+-removedefine CURL_PULL_INTTYPES_H
+-removedefine CURL_PULL_STDINT_H
+-removedefine CURL_PULL_SYS_POLL_H
+-removedefine CURL_PULL_SYS_SOCKET_H
+-removedefine CURL_PULL_SYS_TYPES_H
+-removedefine CURL_PULL_WS2TCPIP_H
+-removedefine CURL_TYPEOF_CURL_OFF_T
+-removedefine CURL_TYPEOF_CURL_SOCKLEN_T
 
 -noexpand CURLOPTTYPE_LONG
 -noexpand CURLOPTTYPE_OBJECTPOINT

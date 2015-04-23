@@ -33,6 +33,9 @@
 #include once "X11/extensions/xtestconst.bi"
 
 #define _XTESTPROTO_H_
+#define Window CARD32
+#define Time CARD32
+#define Cursor CARD32
 const X_XTestGetVersion = 0
 const X_XTestCompareCursor = 1
 const X_XTestFakeInput = 2
@@ -122,3 +125,6 @@ type xXTestGrabControlReq
 end type
 
 const sz_xXTestGrabControlReq = 8
+#undef Window
+#undef Time
+#undef Cursor

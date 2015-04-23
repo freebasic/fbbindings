@@ -40,6 +40,14 @@
 ''     struct xvEvent => xvEvent_
 
 #define XVPROTO_H
+#define XvPortID CARD32
+#define XvEncodingID CARD32
+#define ShmSeg CARD32
+#define VisualID CARD32
+#define Drawable CARD32
+#define GContext CARD32
+#define Time CARD32
+#define Atom CARD32
 
 type xvRational_
 	numerator as INT32
@@ -603,3 +611,12 @@ end union
 type xvEvent_
 	u as xvEvent_u
 end type
+
+#undef XvPortID
+#undef XvEncodingID
+#undef ShmSeg
+#undef VisualID
+#undef Drawable
+#undef GContext
+#undef Time
+#undef Atom

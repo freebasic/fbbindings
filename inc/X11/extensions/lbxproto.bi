@@ -72,6 +72,12 @@ const X_LbxGrabCmap = 40
 const X_LbxReleaseCmap = 41
 const X_LbxAllocColor = 42
 const X_LbxSync = 43
+#define XID CARD32
+#define Atom CARD32
+#define Colormap CARD32
+#define Drawable CARD32
+#define VisualID CARD32
+#define Window CARD32
 
 type xLbxConnSetupPrefix
 	success as XBOOL
@@ -662,9 +668,9 @@ type _LbxPolyText
 end type
 
 type xLbxPolyTextReq as _LbxPolyText
+const sz_xLbxPolyTextReq = 5
 type xLbxPolyText8Req as xLbxPolyTextReq
 type xLbxPolyText16Req as xLbxPolyTextReq
-
 const sz_xLbxPolyTextReq = 5
 const sz_xLbxPolyText8Req = 5
 const sz_xLbxPolyText16Req = 5
@@ -837,6 +843,7 @@ type _LbxListenToOneEvent
 end type
 
 type xLbxListenToOneEvent as _LbxListenToOneEvent
+const sz_xLbxListenToOneEvent = 32
 
 type _LbxListenToAllEvent
 	as UBYTE type
@@ -938,3 +945,10 @@ const lbxupsz_MappingNotifyEvent = 7
 const lbxsz_ClientMessageEvent = 32
 const lbxupsz_ClientMessageEvent = 32
 const lbxsz_UnknownEvent = 32
+
+#undef XID
+#undef Atom
+#undef Colormap
+#undef Drawable
+#undef VisualID
+#undef Window

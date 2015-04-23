@@ -97,6 +97,12 @@
 ''     struct devicePropertyNotify => devicePropertyNotify_
 
 #define _XIPROTO_H
+#define Window CARD32
+#define Time CARD32
+#define KeyCode CARD8
+#define Mask CARD32
+#define Atom CARD32
+#define Cursor CARD32
 const MORE_EVENTS = &h80
 const DEVICE_BITS = &h7F
 const InputClassBits = &h3F
@@ -1418,3 +1424,10 @@ type devicePropertyNotify_
 	pad4 as CARD8
 	deviceid as CARD8
 end type
+
+#undef Window
+#undef Time
+#undef KeyCode
+#undef Mask
+#undef Atom
+#undef Cursor

@@ -34,6 +34,7 @@
 #define _EVIPROTO_H_
 const X_EVIQueryVersion = 0
 const X_EVIGetVisualInfo = 1
+#define VisualID CARD32
 type VisualID32 as CARD32
 const sz_VisualID32 = 4
 
@@ -102,3 +103,4 @@ end type
 
 type xEVIGetVisualInfoReply as _XEVIGetVisualInfoReply
 const sz_xEVIGetVisualInfoReply = 32
+#undef VisualID

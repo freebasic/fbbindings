@@ -36,6 +36,10 @@
 ''     struct xMbufUpdateNotifyEvent => xMbufUpdateNotifyEvent_
 
 #define _MULTIBUFPROTO_H_
+#define Window CARD32
+#define Drawable CARD32
+#define VisualID CARD32
+#define Multibuffer CARD32
 const X_MbufGetBufferVersion = 0
 const X_MbufCreateImageBuffers = 1
 const X_MbufDestroyImageBuffers = 2
@@ -297,3 +301,7 @@ type xMbufClearImageBufferAreaReq
 end type
 
 const sz_xMbufClearImageBufferAreaReq = 20
+#undef Window
+#undef Drawable
+#undef VisualID
+#undef Multibuffer

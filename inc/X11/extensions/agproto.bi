@@ -41,6 +41,10 @@ const X_XagGetAttr = 3
 const X_XagQuery = 4
 const X_XagCreateAssoc = 5
 const X_XagDestroyAssoc = 6
+#define XAppGroup CARD32
+#define Colormap CARD32
+#define VisualID CARD32
+#define Window CARD32
 
 type _XagQueryVersion
 	reqType as CARD8
@@ -170,3 +174,7 @@ end type
 
 type xXagDestroyAssocReq as _XagDestroyAssoc
 const sz_xXagDestroyAssocReq = 8
+#undef XAppGroup
+#undef Window
+#undef Colormap
+#undef VisualID
