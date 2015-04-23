@@ -23,6 +23,11 @@
 -define OEMRESOURCE 1
 -define COBJMACROS 1
 
+# mmsystem.h provides these, but they're also defined by FB's CRT headers
+-removedefine SEEK_SET
+-removedefine SEEK_CUR
+-removedefine SEEK_END
+
 -removedefine _
 -removedefine abort
 -removedefine ACLUIAPI
