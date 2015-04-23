@@ -47,25 +47,6 @@
 ''     struct xRRResourceChangeNotifyEvent => xRRResourceChangeNotifyEvent_
 
 #define _XRANDRP_H_
-#define Window CARD32
-#define Drawable CARD32
-#define Font CARD32
-#define Pixmap CARD32
-#define Cursor CARD32
-#define Colormap CARD32
-#define GContext CARD32
-#define Atom CARD32
-#define Time CARD32
-#define KeyCode CARD8
-#define KeySym CARD32
-#define RROutput CARD32
-#define RRMode CARD32
-#define RRCrtc CARD32
-#define RRProvider CARD32
-#define RRModeFlags CARD32
-#define Rotation CARD16
-#define SizeID CARD16
-#define SubpixelOrder CARD16
 
 type xScreenSizes
 	widthInPixels as CARD16
@@ -1052,24 +1033,3 @@ type xRRSetPanningReply
 end type
 
 const sz_xRRSetPanningReply = 32
-#undef RRModeFlags
-#undef RRCrtc
-#undef RRMode
-#undef RROutput
-#undef RRMode
-#undef RRCrtc
-#undef RRProvider
-#undef Drawable
-#undef Window
-#undef Font
-#undef Pixmap
-#undef Cursor
-#undef Colormap
-#undef GContext
-#undef Atom
-#undef Time
-#undef KeyCode
-#undef KeySym
-#undef Rotation
-#undef SizeID
-#undef SubpixelOrder

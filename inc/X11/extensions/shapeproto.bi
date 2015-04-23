@@ -35,8 +35,6 @@
 #include once "X11/extensions/shapeconst.bi"
 
 #define _SHAPEPROTO_H_
-#define Window CARD32
-#define Time CARD32
 const X_ShapeQueryVersion = 0
 const X_ShapeRectangles = 1
 const X_ShapeMask = 2
@@ -252,5 +250,3 @@ type xShapeGetRectanglesReply
 end type
 
 const sz_xShapeGetRectanglesReply = 32
-#undef Window
-#undef Time
