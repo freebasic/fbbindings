@@ -147,10 +147,12 @@ allegro5:
 	./fake-configure ALLEGRO_UNIX `cat allegro5-config.txt` `cat allegro5-config-unix.txt` \
 		< extracted/$(ALLEGRO5_TITLE)/include/allegro5/platform/alplatf.h.cmake \
 		> extracted/$(ALLEGRO5_TITLE)/include/unix/allegro5/platform/alplatf.h
+	echo "#pragma once" >> extracted/$(ALLEGRO5_TITLE)/include/unix/allegro5/platform/alplatf.h
 
 	./fake-configure ALLEGRO_MINGW32 `cat allegro5-config.txt` \
 		< extracted/$(ALLEGRO5_TITLE)/include/allegro5/platform/alplatf.h.cmake \
 		> extracted/$(ALLEGRO5_TITLE)/include/windows/allegro5/platform/alplatf.h
+	echo "#pragma once" >> extracted/$(ALLEGRO5_TITLE)/include/windows/allegro5/platform/alplatf.h
 
 	sed -n 1,20p extracted/$(ALLEGRO5_TITLE)/LICENSE.txt > allegro5.tmp
 
