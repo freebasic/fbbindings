@@ -111,7 +111,23 @@ allegro4:
 		-emit '*/alpng.h' inc/allegro/alpng.bi \
 		-emit '*'         inc/allegro.bi \
 		\
-		-inclib alleg  inc/allegro.bi \
+		-select \
+		-case __FB_DOS__ \
+			-inclib alleg inc/allegro.bi \
+		-case __FB_WIN32__ \
+			-ifdef ALLEGRO_STATICLINK \
+				-inclib alleg_s inc/allegro.bi \
+			-else \
+				-inclib alleg   inc/allegro.bi \
+			-endif \
+		-caseelse \
+			-inclib alleg   inc/allegro.bi \
+			-inclib X11     inc/allegro.bi \
+			-inclib Xext    inc/allegro.bi \
+			-inclib Xpm     inc/allegro.bi \
+			-inclib Xxf86vm inc/allegro.bi \
+			-inclib Xcursor inc/allegro.bi \
+		-endselect \
 		-inclib algif  inc/allegro/algif.bi \
 		-inclib alpng  inc/allegro/alpng.bi \
 		-undef screen  inc/allegro.bi \
