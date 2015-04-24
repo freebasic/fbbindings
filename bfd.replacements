@@ -1,0 +1,234 @@
+convert c: #define bfd_set_section(x,y) ((x)->section) = (y)
+to fb:     #define bfd_set_section(x,y) scope : (x)->section = (y) : end scope
+
+convert c: #define bfd_set_section_vma(bfd, ptr, val) (((ptr)->vma = (ptr)->lma = (val)), ((ptr)->user_set_vma = TRUE), TRUE)
+to fb:
+	#macro bfd_set_section_vma(bfd, ptr, val)
+		scope
+			var __val = (val)
+			(ptr)->vma = __val
+			(ptr)->lma = __val
+			(ptr)->user_set_vma = TRUE
+		end scope
+	#endmacro
+
+convert c: #define bfd_set_section_alignment(bfd, ptr, val) (((ptr)->alignment_power = (val)),TRUE)
+to fb:     #define bfd_set_section_alignment(bfd, ptr, val) scope : (ptr)->alignment_power = (val) : end scope
+
+convert c: #define bfd_set_section_userdata(bfd, ptr, val) (((ptr)->userdata = (val)),TRUE)
+to fb:     #define bfd_set_section_userdata(bfd, ptr, val) scope : (ptr)->userdata = (val) : end scope
+
+convert c: #define bfd_read(BUF, ELTSIZE, NITEMS, ABFD) (warn_deprecated ("bfd_read", __FILE__, __LINE__, __FUNCTION__), bfd_bread ((BUF), (ELTSIZE) * (NITEMS), (ABFD)))
+to c:      #define bfd_read(BUF, ELTSIZE, NITEMS, ABFD)                                                                  bfd_bread ((BUF), (ELTSIZE) * (NITEMS), (ABFD))
+
+convert c: #define bfd_write(BUF, ELTSIZE, NITEMS, ABFD) (warn_deprecated ("bfd_write", __FILE__, __LINE__, __FUNCTION__), bfd_bwrite ((BUF), (ELTSIZE) * (NITEMS), (ABFD)))
+to c:      #define bfd_write(BUF, ELTSIZE, NITEMS, ABFD)                                                                   bfd_bwrite ((BUF), (ELTSIZE) * (NITEMS), (ABFD))
+
+convert c: #define bfd_set_cacheable(abfd,bool) (((abfd)->cacheable = bool), TRUE)
+to fb:     #define bfd_set_cacheable(abfd,bool) scope : (abfd)->cacheable = bool : end scope
+
+convert c: #define bfd_put_8(abfd, val, ptr) ((void) (*((unsigned char *) (ptr)) = (val) & 0xff))
+to fb:     #define bfd_put_8(abfd, val, ptr_) scope : *cptr(ubyte ptr, ptr_) = (val) and &hff : end scope
+
+convert c:
+	#define bfd_get(bits, abfd, ptr) \
+		((bits) == 8 ? (bfd_vma) bfd_get_8 (abfd, ptr) : \
+		 (bits) == 16 ? bfd_get_16 (abfd, ptr) : \
+		 (bits) == 32 ? bfd_get_32 (abfd, ptr) : \
+		 (bits) == 64 ? bfd_get_64 (abfd, ptr) : \
+		 (abort (), (bfd_vma) - 1))
+to fb:
+	#define bfd_get(bits, abfd, ptr) _
+		iif((bits) = 8, cast(bfd_vma, bfd_get_8(abfd, ptr)), _
+		iif((bits) = 16, bfd_get_16(abfd, ptr), _
+		iif((bits) = 32, bfd_get_32(abfd, ptr), _
+		iif((bits) = 64, bfd_get_64(abfd, ptr), _
+		cast(bfd_vma, -1)))))
+
+convert c:
+	#define bfd_put(bits, abfd, val, ptr) \
+		((bits) == 8 ? bfd_put_8 (abfd, val, ptr) : \
+		 (bits) == 16 ? bfd_put_16 (abfd, val, ptr) : \
+		 (bits) == 32 ? bfd_put_32 (abfd, val, ptr) : \
+		 (bits) == 64 ? bfd_put_64 (abfd, val, ptr) : \
+		 (abort (), (void) 0))
+to fb:
+	#macro bfd_put(bits, abfd, val, ptr)
+		select case bits
+		case 8  : bfd_put_8(abfd, val, ptr)
+		case 16 : bfd_put_16(abfd, val, ptr)
+		case 32 : bfd_put_32(abfd, val, ptr)
+		case 64 : bfd_put_64(abfd, val, ptr)
+		case else
+			abort()
+		end select
+	#endmacro
+
+convert c:
+	#define bfd_section_list_remove(ABFD, PS) \
+		do { \
+			asection **_ps = PS; \
+			asection *_s = *_ps; \
+			*_ps = _s->next; \
+			if (_s->next == NULL) \
+				(ABFD)->section_tail = _ps; \
+		} while (0)
+to fb:
+	#macro bfd_section_list_remove(ABFD, PS)
+		scope
+			dim as asection ptr ptr _ps = PS
+			dim as asection ptr _s = *_ps
+			*_ps = _s->next
+			if _s->next = NULL then
+				(ABFD)->section_tail = _ps
+			end if
+		end scope
+	#endmacro
+
+convert c:
+	#define bfd_section_list_remove(ABFD, S) \
+		do { \
+			asection *_s = S; \
+			asection *_next = _s->next; \
+			asection *_prev = _s->prev; \
+			if (_prev) \
+				_prev->next = _next; \
+			else \
+				(ABFD)->sections = _next; \
+			if (_next) \
+				_next->prev = _prev; \
+			else \
+				(ABFD)->section_last = _prev; \
+		} while (0)
+to fb:
+	#macro bfd_section_list_remove(ABFD, S)
+		scope
+			dim as asection ptr _s = S
+			dim as asection ptr _next = _s->next
+			dim as asection ptr _prev = _s->prev
+			if _prev then
+				_prev->next = _next
+			else
+				(ABFD)->sections = _next
+			end if
+			if _next then
+				_next->prev = _prev
+			else
+				(ABFD)->section_last = _prev
+			end if
+		end scope
+	#endmacro
+
+convert c:
+	#define bfd_section_list_insert(ABFD, PS, S) \
+		do { \
+			asection **_ps = PS; \
+			asection *_s = S; \
+			_s->next = *_ps; \
+			*_ps = _s; \
+			if (_s->next == NULL) \
+				(ABFD)->section_tail = &_s->next; \
+		} while (0)
+to fb:
+	#macro bfd_section_list_insert(ABFD, PS, S)
+		scope
+			dim as asection ptr ptr _ps = PS
+			dim as asection ptr _s = S
+			_s->next = *_ps
+			*_ps = _s
+			if _s->next = NULL then
+				(ABFD)->section_tail = @_s->next
+			end if
+		end scope
+	#endmacro
+
+convert c:
+	#define bfd_section_list_append(ABFD, S) \
+		do { \
+			asection *_s = S; \
+			bfd *_abfd = ABFD; \
+			_s->next = NULL; \
+			if (_abfd->section_last) { \
+				_s->prev = _abfd->section_last; \
+				_abfd->section_last->next = _s; \
+			} else { \
+				_s->prev = NULL; \
+				_abfd->sections = _s; \
+			} \
+			_abfd->section_last = _s; \
+		} while (0)
+to fb:
+	#macro bfd_section_list_append(ABFD, S)
+		scope
+			dim as asection ptr _s = S
+			dim as bfd ptr _abfd = ABFD
+			_s->next = NULL
+			if _abfd->section_last then
+				_s->prev = _abfd->section_last
+				_abfd->section_last->next = _s
+			else
+				_s->prev = NULL
+				_abfd->sections = _s
+			end if
+			_abfd->section_last = _s
+		end scope
+	#endmacro
+
+convert c:
+	#define bfd_section_list_prepend(ABFD, S) \
+		do { \
+			asection *_s = S; \
+			bfd *_abfd = ABFD; \
+			_s->prev = NULL; \
+			if (_abfd->sections) { \
+				_s->next = _abfd->sections; \
+				_abfd->sections->prev = _s; \
+			} else { \
+				_s->next = NULL; \
+				_abfd->section_last = _s; \
+			} \
+			_abfd->sections = _s; \
+		} while (0)
+to fb:
+	#macro bfd_section_list_prepend(ABFD, S)
+		scope
+			dim as asection ptr _s = S
+			dim as bfd ptr _abfd = ABFD
+			_s->prev = NULL
+			if _abfd->sections then
+				_s->next = _abfd->sections
+				_abfd->sections->prev = _s
+			else
+				_s->next = NULL
+				_abfd->section_last = _s
+			end if
+			_abfd->sections = _s
+		end scope
+	#endmacro
+
+convert c:
+	#define HOWTO_PREPARE(relocation, symbol) \
+		{ \
+			if (symbol != NULL) { \
+				if (bfd_is_com_section (symbol->section)) { \
+					relocation = 0; \
+				} else { \
+					relocation = symbol->value; \
+				} \
+			} \
+		}
+to fb:
+	#macro HOWTO_PREPARE(relocation, symbol)
+		scope
+			if symbol <> NULL then
+				if bfd_is_com_section(symbol->section) then
+					relocation = 0
+				else
+					relocation = symbol->value
+				end if
+			end if
+		end scope
+	#endmacro
+
+convert c: #define BFD_SEND_FMT(bfd, message, arglist) (((bfd)->xvec->message[(int) ((bfd)->format)]) arglist)
+to fb:     #define BFD_SEND_FMT(bfd, message, arglist) (((bfd)->xvec->message[  clng((bfd)->format)]) arglist)

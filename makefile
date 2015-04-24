@@ -1,7 +1,7 @@
 FBFROG := fbfrog
 
 ALL := allegro allegro4 allegro5 aspell atk
-ALL += bass bassmod bzip2
+ALL += bass bassmod bfd bzip2
 ALL += cairo cgui clang cunit curl
 ALL += fastcgi ffi fontconfig freeglut freetype
 ALL += gdkpixbuf glib glibc glfw glut gtk gtk2 gtk3 gtkglext
@@ -373,6 +373,50 @@ bassmod: winapi-extract
 		-inclib bassmod inc/bassmod.bi
 
 	rm *.tmp
+
+################################################################################
+# libbfd binding
+# TODO: license texts
+
+BINUTILS_216 := binutils-2.16.1
+BINUTILS_217 := binutils-2.17
+BINUTILS_218 := binutils-2.18
+BINUTILS_219 := binutils-2.19.1
+BINUTILS_220 := binutils-2.20.1
+BINUTILS_221 := binutils-2.21.1
+BINUTILS_222 := binutils-2.22
+BINUTILS_223 := binutils-2.23.2
+BINUTILS_224 := binutils-2.24
+BINUTILS_225 := binutils-2.25
+
+BINUTILS_SED := -e 's/@supports_plugins@/1/g'
+BINUTILS_SED += -e 's/@BFD_HOST_64BIT_LONG_LONG@/1/g'
+BINUTILS_SED += -e 's/@BFD_HOST_64_BIT_DEFINED@/1/g'
+BINUTILS_SED += -e 's/@BFD_HOST_64_BIT@/long long/g'
+BINUTILS_SED += -e 's/@BFD_HOST_U_64_BIT@/unsigned long long/g'
+BINUTILS_SED += -e 's/@BFD_HOST_64BIT_LONG@/0/g'
+BINUTILS_SED += -e 's/@BFD_HOST_LONG_LONG@/1/g'
+
+BINUTILS_SED_32 := $(BINUTILS_SED)
+BINUTILS_SED_32 += -e 's/@wordsize@/32/g'
+BINUTILS_SED_32 += -e 's/@bfd_default_target_size@/32/g'
+# file_ptr is 64bit even on linux-x86 and win32 (MinGW-w64 at least) because 64bit off_t/ftello is available
+BINUTILS_SED_32 += -e 's/@bfd_file_ptr@/BFD_HOST_64_BIT/g'
+
+BINUTILS_SED_64 := $(BINUTILS_SED)
+BINUTILS_SED_64 += -e 's/@wordsize@/64/g'
+BINUTILS_SED_64 += -e 's/@bfd_default_target_size@/64/g'
+BINUTILS_SED_64 += -e 's/@bfd_file_ptr@/BFD_HOST_64_BIT/g'
+
+BINUTILS_SED_DJGPP := $(BINUTILS_SED)
+BINUTILS_SED_DJGPP += -e 's/@wordsize@/32/g'
+BINUTILS_SED_DJGPP += -e 's/@bfd_default_target_size@/32/g'
+# 32bit file_ptr with DJGPP
+BINUTILS_SED_DJGPP += -e 's/@bfd_file_ptr@/long/g'
+
+include bfd.mk
+
+################################################################################
 
 BZIP2_VERSION := 1.0.6
 BZIP2 := bzip2-$(BZIP2_VERSION)

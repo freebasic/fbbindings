@@ -1,0 +1,59 @@
+-replacements bfd.replacements
+
+-convbodytokens bfd_canonicalize_dynamic_reloc
+-convbodytokens bfd_canonicalize_dynamic_symtab
+-convbodytokens bfd_canonicalize_symtab
+-convbodytokens bfd_copy_private_bfd_data
+-convbodytokens bfd_copy_private_header_data
+-convbodytokens bfd_copy_private_section_data
+-convbodytokens bfd_copy_private_symbol_data
+-convbodytokens bfd_debug_info_accumulate
+-convbodytokens bfd_discard_group
+-convbodytokens bfd_final_link
+-convbodytokens bfd_find_nearest_line
+-convbodytokens bfd_gc_sections
+-convbodytokens bfd_get_elt_at_index
+-convbodytokens bfd_get_symbol_info
+-convbodytokens bfd_get_synthetic_symtab
+-convbodytokens bfd_h_put_16
+-convbodytokens bfd_h_put_32
+-convbodytokens bfd_h_put_64
+-convbodytokens bfd_is_group_section
+-convbodytokens bfd_is_local_label_name
+-convbodytokens bfd_is_target_special_symbol
+-convbodytokens BFD_JUMP_TABLE_ARCHIVE
+-convbodytokens BFD_JUMP_TABLE_COPY
+-convbodytokens BFD_JUMP_TABLE_CORE
+-convbodytokens BFD_JUMP_TABLE_DYNAMIC
+-convbodytokens BFD_JUMP_TABLE_GENERIC
+-convbodytokens BFD_JUMP_TABLE_LINK
+-convbodytokens BFD_JUMP_TABLE_RELOCS
+-convbodytokens BFD_JUMP_TABLE_SYMBOLS
+-convbodytokens BFD_JUMP_TABLE_WRITE
+-convbodytokens bfd_link_add_symbols
+-convbodytokens bfd_link_just_syms
+-convbodytokens bfd_link_split_section
+-convbodytokens bfd_make_debug_symbol
+-convbodytokens bfd_merge_private_bfd_data
+-convbodytokens bfd_merge_sections
+-convbodytokens bfd_minisymbol_to_symbol
+-convbodytokens bfd_print_private_bfd_data
+-convbodytokens bfd_print_symbol
+-convbodytokens bfd_put_16
+-convbodytokens bfd_put_32
+-convbodytokens bfd_put_64
+-convbodytokens bfd_read_minisymbols
+-convbodytokens bfd_relax_section
+-convbodytokens bfd_section_already_linked
+-convbodytokens BFD_SEND
+-convbodytokens bfd_set_arch_mach
+-convbodytokens bfd_set_private_flags
+-convbodytokens bfd_sizeof_headers
+-convbodytokens bfd_stat_arch_elt
+
+-removedefine INLINE
+
+-renamemacroparam ptr ptr_
+
+# #defining PACKAGE to override bfd-in2.h's check for config.h
+-define PACKAGE 1
