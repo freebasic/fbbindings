@@ -9,7 +9,7 @@ ALL += iconv iup
 ALL += jit
 ALL += llvm lua
 ALL += ncurses
-ALL += opengl opengl-mesa opengl-winapi
+ALL += openal opengl opengl-mesa opengl-winapi
 ALL += pango pdcurses png png12 png14 png15 png16
 ALL += sdl sdl1 sdl2
 ALL += tre
@@ -1057,6 +1057,49 @@ ncurses:
 	$(FBFROG) ncurses.fbfrog -o inc/curses/ncurses.bi \
 		extracted/$(NCURSES_TITLE)/include/curses.h \
 		-title $(NCURSES_TITLE) ncurses.tmp fbteam.txt
+	rm *.tmp
+
+# There are 2 "versions" of OpenAL:
+#  * Creative OpenAL SDK 1.1 (no longer developed, openal.org down?)
+#     * I'm not sure whether the license allows making bindings...
+#     * has EFX-Utils header/lib
+#  * OpenAL Soft, free fork, mostly used on Linux
+# freealut seems to be unavailable currently too, as openal.org is down.
+OPENALSOFT := openal-soft-1.16.0
+FREEALUT_TAG := freealut_1_1_0
+FREEALUT := freealut-$(FREEALUT_TAG)
+openal:
+	./get.sh $(OPENALSOFT) $(OPENALSOFT).tar.bz2 http://kcat.strangesoft.net/openal-releases/$(OPENALSOFT).tar.bz2
+	# Downloading freealut from unofficial mirror
+	./get.sh $(FREEALUT) $(FREEALUT_TAG).tar.gz https://github.com/vancegroup/freealut/archive/$(FREEALUT_TAG).tar.gz
+
+	$(GETCOMMENT) extracted/$(OPENALSOFT)/include/AL/alext.h > openalsoft.tmp
+	cp extracted/$(FREEALUT)/AUTHORS freealut.tmp
+	echo >> freealut.tmp
+	cat lgpl2+.txt >> freealut.tmp
+
+	mkdir -p inc/AL
+
+	$(FBFROG) openal.fbfrog \
+		-incdir extracted/$(OPENALSOFT)/include/AL \
+		-incdir extracted/$(FREEALUT)/include/AL \
+		-include al.h \
+		-include alc.h \
+		-include alext.h \
+		-include alut.h \
+		-include efx.h \
+		-include efx-creative.h \
+		-include efx-presets.h \
+		-emit '*/AL/alc.h'           inc/AL/alc.bi \
+		-emit '*/AL/alext.h'         inc/AL/alext.bi \
+		-emit '*/AL/al.h'            inc/AL/al.bi \
+		-emit '*/AL/alut.h'          inc/AL/alut.bi \
+		-emit '*/AL/efx-creative.h'  inc/AL/efx-creative.bi \
+		-emit '*/AL/efx.h'           inc/AL/efx.bi \
+		-emit '*/AL/efx-presets.h'   inc/AL/efx-presets.bi \
+		-title $(OPENALSOFT) openalsoft.tmp fbteam.txt \
+		-title $(FREEALUT) freealut.tmp fbteam.txt inc/AL/alut.bi
+
 	rm *.tmp
 
 #
