@@ -1,6 +1,6 @@
 FBFROG := fbfrog
 
-ALL := allegro allegro4 allegro5 atk
+ALL := allegro allegro4 allegro5 aspell atk
 ALL += bzip2
 ALL += cairo cgui clang cunit curl
 ALL += fastcgi ffi fontconfig freeglut freetype
@@ -251,6 +251,32 @@ allegro5:
 		-endif \
 		\
 		-title $(ALLEGRO5_TITLE) allegro5.tmp fbteam.txt
+
+	rm *.tmp
+
+ASPELL := aspell-0.60.6.1
+aspell:
+	./get.sh $(ASPELL) $(ASPELL).tar.gz ftp://ftp.gnu.org/gnu/aspell/$(ASPELL).tar.gz
+
+	$(GETCOMMENT) -2 extracted/$(ASPELL)/interfaces/cc/aspell.h > aspell.tmp
+	$(GETCOMMENT)    extracted/$(ASPELL)/interfaces/cc/pspell.h > pspell.tmp
+
+	$(FBFROG) -replacements aspell.replacements \
+		-incdir extracted/$(ASPELL)/interfaces/cc \
+		-include aspell.h -include pspell.h \
+		-emit '*/aspell.h' inc/aspell.bi \
+		-emit '*/pspell.h' inc/pspell.bi \
+		-title $(ASPELL) aspell.tmp fbteam.txt inc/aspell.bi \
+		-title $(ASPELL) pspell.tmp fbteam.txt inc/pspell.bi \
+		-inclib aspell inc/aspell.bi \
+		-ifdef __FB_DOS__ \
+			-inclib stdcx inc/aspell.bi \
+		-else \
+			-inclib stdc++ inc/aspell.bi \
+			-ifdef __FB_WIN32__ \
+				-inclib pthread inc/aspell.bi \
+			-endif \
+		-endif
 
 	rm *.tmp
 
