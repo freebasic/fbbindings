@@ -1,7 +1,7 @@
 FBFROG := fbfrog
 
 ALL := allegro allegro4 allegro5 aspell atk
-ALL += bzip2
+ALL += bass bassmod bzip2
 ALL += cairo cgui clang cunit curl
 ALL += fastcgi ffi fontconfig freeglut freetype
 ALL += gdkpixbuf glib glibc glfw glut gtk gtk2 gtk3 gtkglext
@@ -332,6 +332,46 @@ atk: atk-extract glib-extract
 		-emit '*/atk/atkwindow.h'            inc/atk/atk.bi \
 		-inclib atk-1.0                      inc/atk/atk.bi \
 		-title $(ATK) atk.tmp gtk+-translators.txt
+	rm *.tmp
+
+BASS := bass24
+bass: winapi-extract
+	./get.sh $(BASS) $(BASS).zip http://us.un4seen.com/files/$(BASS).zip createdir
+
+	$(GETCOMMENT) extracted/$(BASS)/c/bass.h > bass.tmp
+	echo >> bass.tmp
+	sed -n 639,655p extracted/$(BASS)/bass.txt >> bass.tmp
+
+	$(FBFROG) bass.fbfrog \
+		-ifdef __FB_WIN32__ \
+			-incdir extracted/$(MINGWW64_TITLE)/mingw-w64-headers/crt \
+			-incdir extracted/$(MINGWW64_TITLE)/mingw-w64-headers/include \
+		-endif \
+		extracted/$(BASS)/c/bass.h \
+		-emit '*/bass.h' inc/bass.bi \
+		-title $(BASS) bass.tmp fbteam.txt \
+		-inclib bass
+
+	rm *.tmp
+
+BASSMOD := bassmod20
+bassmod: winapi-extract
+	./get.sh $(BASSMOD) $(BASSMOD).zip http://us.un4seen.com/files/$(BASSMOD).zip createdir
+
+	$(GETCOMMENT) extracted/$(BASSMOD)/c/bassmod.h > bassmod.tmp
+	echo >> bassmod.tmp
+	sed -n 158,175p extracted/$(BASSMOD)/BASSMOD.txt >> bassmod.tmp
+
+	$(FBFROG) bass.fbfrog \
+		-ifdef __FB_WIN32__ \
+			-incdir extracted/$(MINGWW64_TITLE)/mingw-w64-headers/crt \
+			-incdir extracted/$(MINGWW64_TITLE)/mingw-w64-headers/include \
+		-endif \
+		extracted/$(BASSMOD)/c/bassmod.h \
+		-emit '*/bassmod.h' inc/bassmod.bi \
+		-title $(BASSMOD) bassmod.tmp fbteam.txt \
+		-inclib bassmod inc/bassmod.bi
+
 	rm *.tmp
 
 BZIP2_VERSION := 1.0.6

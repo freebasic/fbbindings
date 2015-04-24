@@ -1,0 +1,13 @@
+# Like winapi, bass[mod].h have the "BYTE as ubyte" typedef
+-renametypedef BYTE UBYTE
+-remove1st BYTE
+
+-removedefine WINAPI
+-removedefine CALLBACK
+-removedefine BASSDEF
+
+# FB has these built-in
+-removedefine LOBYTE
+-removedefine HIBYTE
+-removedefine LOWORD
+-removedefine HIWORD
