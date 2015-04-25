@@ -1,0 +1,8 @@
+-ifdef __FB_WIN32__
+	-declarebool CACA_STATIC
+	-ifdef CACA_STATIC
+		-define CACA_STATIC 1
+	-endif
+-endif
+
+-removedefine __extern

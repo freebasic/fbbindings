@@ -2,7 +2,7 @@ FBFROG := fbfrog
 
 ALL := allegro allegro4 allegro5 aspell atk
 ALL += bass bassmod bfd bzip2
-ALL += cairo cgui clang cunit curl
+ALL += caca cairo cgui clang cunit curl
 ALL += fastcgi ffi fontconfig freeglut freetype
 ALL += gdkpixbuf glib glibc glfw glut gtk gtk2 gtk3 gtkglext
 ALL += iconv iup
@@ -426,6 +426,25 @@ bzip2:
 	sed -n 4,40p extracted/$(BZIP2)/LICENSE > bzip2.tmp
 	$(FBFROG) bzip2.fbfrog extracted/$(BZIP2)/bzlib.h -o inc -inclib bz2 \
 		-title $(BZIP2) bzip2.tmp fbteam.txt
+	rm *.tmp
+
+CACA := libcaca-0.99.beta19
+caca:
+	./get.sh $(CACA) $(CACA).tar.gz http://caca.zoy.org/files/libcaca/$(CACA).tar.gz
+
+	$(GETCOMMENT) extracted/$(CACA)/caca/caca.h  > caca.tmp
+	$(GETCOMMENT) extracted/$(CACA)/caca/caca0.h > caca0.tmp
+
+	$(FBFROG) caca.fbfrog \
+		-incdir extracted/$(CACA)/caca \
+		-include caca.h \
+		-include caca0.h \
+		-emit '*/caca.h'       inc/caca.bi \
+		-emit '*/caca_types.h' inc/caca.bi \
+		-emit '*/caca0.h'      inc/caca0.bi \
+		-title $(CACA) caca.tmp  fbteam.txt inc/caca.bi \
+		-title $(CACA) caca0.tmp fbteam.txt inc/caca0.bi
+
 	rm *.tmp
 
 # TODO:
