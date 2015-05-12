@@ -1184,7 +1184,8 @@ ncurses:
 	sed -n 1,27p extracted/$(NCURSES_TITLE)/include/curses.h.in > ncurses.tmp
 	mkdir -p inc/curses
 	$(FBFROG) ncurses.fbfrog -o inc/curses/ncurses.bi \
-		extracted/$(NCURSES_TITLE)/include/curses.h \
+		-incdir extracted/$(NCURSES_TITLE)/include \
+		-include curses.h \
 		-title $(NCURSES_TITLE) ncurses.tmp fbteam.txt
 	rm *.tmp
 
@@ -2464,7 +2465,9 @@ zip:
 		if [ ! -f lib/zipconf.h ]; then ./configure && make; fi
 
 	$(GETCOMMENT) extracted/$(ZIP_TITLE)/lib/zip.h > zip.tmp
-	$(FBFROG) zip.fbfrog -o inc extracted/$(ZIP_TITLE)/lib/zip.h \
+	$(FBFROG) zip.fbfrog -o inc/zip.bi \
+		-incdir extracted/$(ZIP_TITLE)/lib \
+		-include zip.h \
 		-title $(ZIP_TITLE) zip.tmp fbteam.txt
 	rm *.tmp
 
