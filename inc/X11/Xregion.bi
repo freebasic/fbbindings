@@ -110,7 +110,7 @@ type REGION as _XRegion
 				return 0
 			end if
 			(firstrect) = tmpRect
-			'' TODO: (reg)->size *= 2;
+			(reg)->size *= 2
 			(rect) = @(firstrect)[(reg)->numRects]
 		end if
 	end scope

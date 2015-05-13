@@ -354,10 +354,20 @@ declare function XkbGetIndicatorState(byval as Display ptr, byval as ulong, byva
 declare function XkbGetDeviceIndicatorState(byval as Display ptr, byval as ulong, byval as ulong, byval as ulong, byval as ulong ptr) as long
 declare function XkbGetIndicatorMap(byval as Display ptr, byval as culong, byval as XkbDescPtr) as long
 declare function XkbSetIndicatorMap(byval as Display ptr, byval as culong, byval as XkbDescPtr) as long
-'' TODO: #define XkbNoteIndicatorMapChanges(o,n,w) ((o)->map_changes|=((n)->map_changes&(w)))
-'' TODO: #define XkbNoteIndicatorStateChanges(o,n,w) ((o)->state_changes|=((n)->state_changes&(w)))
+
+#macro XkbNoteIndicatorMapChanges(o, n, w)
+	scope
+		(o)->map_changes or= (n)->map_changes and (w)
+	end scope
+#endmacro
+#macro XkbNoteIndicatorStateChanges(o, n, w)
+	scope
+		(o)->state_changes or= (n)->state_changes and (w)
+	end scope
+#endmacro
 #define XkbGetIndicatorMapChanges(d, x, c) XkbGetIndicatorMap((d), (c)->map_changes, x)
 #define XkbChangeIndicatorMaps(d, x, c) XkbSetIndicatorMap((d), (c)->map_changes, x)
+
 declare function XkbGetNamedIndicator(byval as Display ptr, byval as XAtom, byval as long ptr, byval as long ptr, byval as XkbIndicatorMapPtr, byval as long ptr) as long
 declare function XkbGetNamedDeviceIndicator(byval as Display ptr, byval as ulong, byval as ulong, byval as ulong, byval as XAtom, byval as long ptr, byval as long ptr, byval as XkbIndicatorMapPtr, byval as long ptr) as long
 declare function XkbSetNamedIndicator(byval as Display ptr, byval as XAtom, byval as long, byval as long, byval as long, byval as XkbIndicatorMapPtr) as long

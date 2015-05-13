@@ -288,7 +288,7 @@ declare sub _XFlushGCCache(byval dpy as Display ptr, byval gc as GC)
 	scope
 		if (dpy->bufptr + (len)) <= dpy->bufmax then
 			memcpy(dpy->bufptr, data, clng(len))
-			'' TODO: dpy->bufptr += ((len) + 3) & ~3;
+			dpy->bufptr += ((len) + 3) and (not 3)
 		else
 			_XSend(dpy, data, len)
 		end if
