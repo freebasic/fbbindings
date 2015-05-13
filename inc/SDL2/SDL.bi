@@ -65,6 +65,7 @@
 ''         procedure SDL_CreateThread => SDL_CreateThread_
 ''     #endif
 ''     procedure SDL_Log => SDL_Log_
+''     #define SDL_VERSION => SDL_VERSION_
 
 extern "C"
 

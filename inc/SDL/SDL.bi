@@ -68,6 +68,7 @@
 
 '' The following symbols have been renamed:
 ''     enum SDL_EventMask => SDL_EventMask_
+''     #define SDL_VERSION => SDL_VERSION_
 
 extern "C"
 
@@ -1414,6 +1415,7 @@ const SDL_INIT_JOYSTICK = &h00000200
 const SDL_INIT_NOPARACHUTE = &h00100000
 const SDL_INIT_EVENTTHREAD = &h01000000
 const SDL_INIT_EVERYTHING = &h0000FFFF
+
 declare function SDL_Init(byval flags as Uint32) as long
 declare function SDL_InitSubSystem(byval flags as Uint32) as long
 declare sub SDL_QuitSubSystem(byval flags as Uint32)
