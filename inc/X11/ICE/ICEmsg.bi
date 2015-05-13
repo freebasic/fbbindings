@@ -104,7 +104,7 @@ declare function _IcePaMagicCookie1Proc(byval as IceConn, byval as IcePointer pt
 	scope
 		if (_iceConn->outbufptr + (_bytes)) > _iceConn->outbufmax then
 			IceFlush(_iceConn)
-			_IceWrite(_iceConn, cast(culong, _bytes), _data)
+			_IceWrite(_iceConn, cast(culong, (_bytes)), _data)
 		else
 			memcpy(_iceConn->outbufptr, _data, _bytes)
 			_iceConn->outbufptr += (_bytes)
@@ -152,7 +152,7 @@ declare function _IcePaMagicCookie1Proc(byval as IceConn, byval as IcePointer pt
 	end scope
 #endmacro
 #macro IceDisposeCompleteMessage(_iceConn, _pData)
-	if cptr(any ptr, _pData) < _iceConn->inbuf orelse cptr(any ptr, _pData) >= _iceConn->inbufmax then
+	if (cptr(zstring ptr, _pData) < _iceConn->inbuf) orelse (cptr(zstring ptr, _pData) >= _iceConn->inbufmax) then
 		free(_pData)
 	end if
 #endmacro
@@ -165,7 +165,7 @@ declare function _IcePaMagicCookie1Proc(byval as IceConn, byval as IcePointer pt
 	scope
 		_IceRead(_iceConn, cast(culong, _headerSize - XSIZEOF(iceMsg)), _iceConn->inbufptr)
 		_pMsg = cptr(_msgType ptr, _iceConn->inbuf)
-		_iceConn->inbufptr += (_headerSize - XSIZEOF(iceMsg))
+		_iceConn->inbufptr += _headerSize - XSIZEOF(iceMsg)
 	end scope
 #endmacro
 #define IceReadData(_iceConn, _bytes, _pData) _IceRead(_iceConn, cast(culong, (_bytes)), cptr(zstring ptr, _pData))

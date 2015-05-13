@@ -73,54 +73,6 @@ to fb:
 	#endmacro
 
 convert c:
-	#define IceErrorHeader(_iceConn, _offendingMajorOpcode, _offendingMinorOpcode, _offendingSequenceNum, _severity, _errorClass, _dataLength) \
-		{ \
-			iceErrorMsg *_pMsg; \
-			IceGetHeader(_iceConn, _offendingMajorOpcode, ICE_Error, SIZEOF (iceErrorMsg), iceErrorMsg, _pMsg); \
-			_pMsg->length += (_dataLength); \
-			_pMsg->offendingMinorOpcode = (CARD8) _offendingMinorOpcode; \
-			_pMsg->severity = (CARD8) _severity; \
-			_pMsg->offendingSequenceNum = (CARD32) _offendingSequenceNum; \
-			_pMsg->errorClass = (CARD16) _errorClass; \
-		}
-to fb:
-	#macro IceErrorHeader(_iceConn, _offendingMajorOpcode, _offendingMinorOpcode, _offendingSequenceNum, _severity, _errorClass, _dataLength)
-		scope
-			dim _pMsg as iceErrorMsg ptr
-			IceGetHeader(_iceConn, _offendingMajorOpcode, ICE_Error, XSIZEOF(iceErrorMsg), iceErrorMsg, _pMsg)
-			_pMsg->length += (_dataLength)
-			_pMsg->offendingMinorOpcode = cast(CARD8, _offendingMinorOpcode)
-			_pMsg->severity = cast(CARD8, _severity)
-			_pMsg->offendingSequenceNum = cast(CARD32, _offendingSequenceNum)
-			_pMsg->errorClass = cast(CARD16, _errorClass)
-		end scope
-	#endmacro
-
-convert c:
-	#define IceWriteData(_iceConn, _bytes, _data) \
-		{ \
-			if ((_iceConn->outbufptr + (_bytes)) > _iceConn->outbufmax) { \
-				IceFlush (_iceConn); \
-				_IceWrite (_iceConn, (unsigned long) (_bytes), _data); \
-			} else { \
-				memcpy (_iceConn->outbufptr, _data, _bytes); \
-				_iceConn->outbufptr += (_bytes); \
-			} \
-		}
-to fb:
-	#macro IceWriteData(_iceConn, _bytes, _data)
-		scope
-			if (_iceConn->outbufptr + (_bytes)) > _iceConn->outbufmax then
-				IceFlush(_iceConn)
-				_IceWrite(_iceConn, cast(culong, _bytes), _data)
-			else
-				memcpy(_iceConn->outbufptr, _data, _bytes)
-				_iceConn->outbufptr += (_bytes)
-			end if
-		end scope
-	#endmacro
-
-convert c:
 	#define IceWritePad(_iceConn, _bytes) \
 		{ \
 			if ((_iceConn->outbufptr + (_bytes)) > _iceConn->outbufmax) { \
@@ -144,88 +96,8 @@ to fb:
 		end scope
 	#endmacro
 
-convert c:
-	#define IceReadCompleteMessage(_iceConn, _headerSize, _msgType, _pMsg, _pData) \
-		{ \
-			unsigned long _bytes; \
-			IceReadMessageHeader (_iceConn, _headerSize, _msgType, _pMsg); \
-			_bytes = (_pMsg->length << 3) - (_headerSize - SIZEOF (iceMsg)); \
-			if ((_iceConn->inbufmax - _iceConn->inbufptr) >= _bytes) { \
-				_IceRead (_iceConn, _bytes, _iceConn->inbufptr); \
-				_pData = _iceConn->inbufptr; \
-				_iceConn->inbufptr += _bytes; \
-			} else { \
-				_pData = malloc (_bytes); \
-				if (_pData) \
-					_IceRead (_iceConn, _bytes, _pData); \
-				else \
-					_IceReadSkip (_iceConn, _bytes); \
-			} \
-		}
-to fb:
-	#macro IceReadCompleteMessage(_iceConn, _headerSize, _msgType, _pMsg, _pData)
-		scope
-			dim _bytes as culong
-			IceReadMessageHeader(_iceConn, _headerSize, _msgType, _pMsg)
-			_bytes = (_pMsg->length shl 3) - (_headerSize - XSIZEOF(iceMsg))
-			if (_iceConn->inbufmax - _iceConn->inbufptr) >= _bytes then
-				_IceRead(_iceConn, _bytes, _iceConn->inbufptr)
-				_pData = _iceConn->inbufptr
-				_iceConn->inbufptr += _bytes
-			else
-				_pData = malloc(_bytes)
-				if _pData then
-					_IceRead(_iceConn, _bytes, _pData)
-				else
-					_IceReadSkip(_iceConn, _bytes)
-				end if
-			end if
-		end scope
-	#endmacro
-
-convert c:
-	#define IceDisposeCompleteMessage(_iceConn, _pData) \
-		if ((char *) _pData < _iceConn->inbuf || (char *) _pData >= _iceConn->inbufmax) \
-			free (_pData);
-to fb:
-	#macro IceDisposeCompleteMessage(_iceConn, _pData)
-		if cptr(any ptr, _pData) < _iceConn->inbuf orelse cptr(any ptr, _pData) >= _iceConn->inbufmax then
-			free(_pData)
-		end if
-	#endmacro
-
 convert c: #define IceReadSimpleMessage(_iceConn, _msgType, _pMsg) _pMsg = (_msgType *) (_iceConn->inbuf);
 to c:      #define IceReadSimpleMessage(_iceConn, _msgType, _pMsg) _pMsg = (_msgType *) (_iceConn->inbuf)
 
-convert c:
-	#define IceReadMessageHeader(_iceConn, _headerSize, _msgType, _pMsg) \
-		{ \
-			_IceRead(_iceConn, (unsigned long) (_headerSize - SIZEOF (iceMsg)), _iceConn->inbufptr); \
-			_pMsg = (_msgType *) (_iceConn->inbuf); \
-			_iceConn->inbufptr += (_headerSize - SIZEOF (iceMsg)); \
-		}
-to fb:
-	#macro IceReadMessageHeader(_iceConn, _headerSize, _msgType, _pMsg)
-		scope
-			_IceRead(_iceConn, cast(culong, _headerSize - XSIZEOF(iceMsg)), _iceConn->inbufptr)
-			_pMsg = cptr(_msgType ptr, _iceConn->inbuf)
-			_iceConn->inbufptr += (_headerSize - XSIZEOF(iceMsg))
-		end scope
-	#endmacro
-
 convert c: #define IceReadData(_iceConn, _bytes, _pData) _IceRead (_iceConn, (unsigned long) (_bytes), (char *) _pData);
 to c:      #define IceReadData(_iceConn, _bytes, _pData) _IceRead (_iceConn, (unsigned long) (_bytes), (char *) _pData)
-
-convert c:
-	#define IceReadPad(_iceConn, _bytes) \
-		{ \
-			char _dummy[7]; \
-			_IceRead(_iceConn, (unsigned long) (_bytes), _dummy); \
-		}
-to fb:
-	#macro IceReadPad(_iceConn, _bytes)
-		scope
-			dim _dummy as zstring * 7
-			_IceRead(_iceConn, cast(culong, (_bytes)), _dummy)
-		end scope
-	#endmacro
