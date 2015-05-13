@@ -121,23 +121,6 @@ to fb:
 	#endmacro
 
 convert c:
-	#define IceSendData(_iceConn, _bytes, _data) \
-		{ \
-			if (_iceConn->outbufptr > _iceConn->outbuf) \
-				IceFlush (_iceConn); \
-			_IceWrite (_iceConn, (unsigned long) (_bytes), _data); \
-		}
-to fb:
-	#macro IceSendData(_iceConn, _bytes, _data)
-		scope
-			if _iceConn->outbufptr > _iceConn->outbuf then
-				IceFlush(_iceConn)
-			end if
-			_IceWrite(_iceConn, cast(culong, _bytes), _data)
-		end scope
-	#endmacro
-
-convert c:
 	#define IceWritePad(_iceConn, _bytes) \
 		{ \
 			if ((_iceConn->outbufptr + (_bytes)) > _iceConn->outbufmax) { \
@@ -211,15 +194,8 @@ to fb:
 		end if
 	#endmacro
 
-convert c:
-	#define IceReadSimpleMessage(_iceConn, _msgType, _pMsg) \
-		_pMsg = (_msgType *) (_iceConn->inbuf);
-to fb:
-	#macro IceReadSimpleMessage(_iceConn, _msgType, _pMsg)
-		scope
-			_pMsg = cptr(_msgType ptr, _iceConn->inbuf)
-		end scope
-	#endmacro
+convert c: #define IceReadSimpleMessage(_iceConn, _msgType, _pMsg) _pMsg = (_msgType *) (_iceConn->inbuf);
+to c:      #define IceReadSimpleMessage(_iceConn, _msgType, _pMsg) _pMsg = (_msgType *) (_iceConn->inbuf)
 
 convert c:
 	#define IceReadMessageHeader(_iceConn, _headerSize, _msgType, _pMsg) \
@@ -237,37 +213,8 @@ to fb:
 		end scope
 	#endmacro
 
-convert c:
-	#define IceReadData(_iceConn, _bytes, _pData) \
-		_IceRead (_iceConn, (unsigned long) (_bytes), (char *) _pData);
-to fb:
-	#macro IceReadData(_iceConn, _bytes, _pData)
-		_IceRead(_iceConn, cast(culong, (_bytes)), cptr(any ptr, _pData))
-	#endmacro
-
-convert c:
-	#define IceReadData16(_iceConn, _swap, _bytes, _pData) \
-		{ \
-			_IceRead (_iceConn, (unsigned long) (_bytes), (char *) _pData); \
-		}
-to fb:
-	#macro IceReadData16(_iceConn, _swap, _bytes, _pData)
-		scope
-			_IceRead(_iceConn, cast(culong, (_bytes)), cptr(zstring ptr, _pData))
-		end scope
-	#endmacro
-
-convert c:
-	#define IceReadData32(_iceConn, _swap, _bytes, _pData) \
-		{ \
-			_IceRead (_iceConn, (unsigned long) (_bytes), (char *) _pData); \
-		}
-to fb:
-	#macro IceReadData32(_iceConn, _swap, _bytes, _pData)
-		scope
-			_IceRead(_iceConn, cast(culong, (_bytes)), cptr(zstring ptr, _pData))
-		end scope
-	#endmacro
+convert c: #define IceReadData(_iceConn, _bytes, _pData) _IceRead (_iceConn, (unsigned long) (_bytes), (char *) _pData);
+to c:      #define IceReadData(_iceConn, _bytes, _pData) _IceRead (_iceConn, (unsigned long) (_bytes), (char *) _pData)
 
 convert c:
 	#define IceReadPad(_iceConn, _bytes) \
