@@ -376,6 +376,8 @@
 -typedefhint PUIDLIST_RELATIVE
 -typedefhint PDNS_QUESTION
 -typedefhint WSAEVENT
+-typedefhint LV_ITEM
+-typedefhint TVITEM
 -renametypedef SSIZE_T SSIZE_T_
 -renametypedef SIZE_T SIZE_T_
 -renametypedef INT INT_

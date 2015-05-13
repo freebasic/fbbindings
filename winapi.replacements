@@ -15,32 +15,13 @@ convert c:
 		RtlZeroMemory((&_AUTH_INFO_STRUCT_), sizeof (BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO)); \
 		(_AUTH_INFO_STRUCT_).cbSize = sizeof (BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO); \
 		(_AUTH_INFO_STRUCT_).dwInfoVersion = BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO_VERSION;
-to fb:
-	#macro BCRYPT_INIT_AUTH_MODE_INFO(_AUTH_INFO_STRUCT_)
-		scope
-			RtlZeroMemory((@_AUTH_INFO_STRUCT_), sizeof(BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO))
-			(_AUTH_INFO_STRUCT_).cbSize = sizeof(BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO)
-			(_AUTH_INFO_STRUCT_).dwInfoVersion = BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO_VERSION
-		end scope
-	#endmacro
-
-convert c: #define LISet32(li, v) ((li).HighPart = ((LONG) (v)) < 0 ? -1 : 0,(li).LowPart = (v))
-to fb:
-	#macro LISet32(li, v)
-		scope
-			(li).HighPart = iif(cast(LONG, (v)) < 0, -1, 0)
-			(li).LowPart = (v)
-		end scope
-	#endmacro
-
-convert c: #define ULISet32(li, v) ((li).HighPart = 0,(li).LowPart = (v))
-to fb:
-	#macro ULISet32(li, v)
-		scope
-			(li).HighPart = 0
-			(li).LowPart = (v)
-		end scope
-	#endmacro
+to c:
+	#define BCRYPT_INIT_AUTH_MODE_INFO(_AUTH_INFO_STRUCT_) \
+		{ \
+			RtlZeroMemory((&_AUTH_INFO_STRUCT_), sizeof (BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO)); \
+			(_AUTH_INFO_STRUCT_).cbSize = sizeof (BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO); \
+			(_AUTH_INFO_STRUCT_).dwInfoVersion = BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO_VERSION; \
+		}
 
 convert c: #define HANDLE_WM_NOTIFY(hwnd, wParam, lParam, fn) (fn)((hwnd),(int)(wParam),(NMHDR *)(lParam))
 to c:      #define HANDLE_WM_NOTIFY(hwnd, wParam, lParam, fn) fn((hwnd),(int)(wParam),(NMHDR *)(lParam))
@@ -61,80 +42,6 @@ to fb:
 		end if
 		function = SNDMSG(hwnd, LVM_GETITEMRECT, cast(WPARAM, i), cast(LPARAM, prc))
 	end function
-
-convert c:
-	#define ListView_SetItemState(hwndLV,i,data,mask) \
-		{ \
-			LV_ITEM _ms_lvi; \
-			_ms_lvi.stateMask = mask; \
-			_ms_lvi.state = data; \
-			SNDMSG((hwndLV),LVM_SETITEMSTATE,(WPARAM)(i),(LPARAM)(LV_ITEM *)&_ms_lvi); \
-		}
-to fb:
-	#macro ListView_SetItemState(hwndLV, i, data, mask)
-		scope
-			dim _ms_lvi as LV_ITEM
-			_ms_lvi.stateMask = mask
-			_ms_lvi.state = data
-			SNDMSG((hwndLV), LVM_SETITEMSTATE, cast(WPARAM, (i)), cast(LPARAM, cptr(LV_ITEM ptr, @_ms_lvi)))
-		end scope
-	#endmacro
-
-convert c:
-	#define ListView_GetItemText(hwndLV,i,iSubItem_,pszText_,cchTextMax_)  \
-		{ \
-			LV_ITEM _ms_lvi; \
-			_ms_lvi.iSubItem = iSubItem_; \
-			_ms_lvi.cchTextMax = cchTextMax_; \
-			_ms_lvi.pszText = pszText_; \
-			SNDMSG((hwndLV),LVM_GETITEMTEXT,(WPARAM)(i),(LPARAM)(LV_ITEM *)&_ms_lvi); \
-		}
-to fb:
-	#macro ListView_GetItemText(hwndLV, i, iSubItem_, pszText_, cchTextMax_)
-		scope
-			dim _ms_lvi as LV_ITEM
-			_ms_lvi.iSubItem = iSubItem_
-			_ms_lvi.cchTextMax = cchTextMax_
-			_ms_lvi.pszText = pszText_
-			SNDMSG((hwndLV), LVM_GETITEMTEXT, cast(WPARAM, (i)), cast(LPARAM, cptr(LV_ITEM ptr, @_ms_lvi)))
-		end scope
-	#endmacro
-
-convert c:
-	#define ListView_SetItemText(hwndLV,i,iSubItem_,pszText_) \
-		{ \
-			LV_ITEM _ms_lvi; \
-			_ms_lvi.iSubItem = iSubItem_; \
-			_ms_lvi.pszText = pszText_; \
-			SNDMSG((hwndLV),LVM_SETITEMTEXT,(WPARAM)(i),(LPARAM)(LV_ITEM *)&_ms_lvi); \
-		}
-to fb:
-	#macro ListView_SetItemText(hwndLV, i, iSubItem_, pszText_)
-		scope
-			dim _ms_lvi as LV_ITEM
-			_ms_lvi.iSubItem = iSubItem_
-			_ms_lvi.pszText = pszText_
-			SNDMSG((hwndLV), LVM_SETITEMTEXT, cast(WPARAM, (i)), cast(LPARAM, cptr(LV_ITEM ptr, @_ms_lvi)))
-		end scope
-	#endmacro
-
-convert c:
-	#define ListView_SetItemPosition32(hwndLV,i,x0,y0) \
-		{ \
-			POINT ptNewPos; \
-			ptNewPos.x = x0; \
-			ptNewPos.y = y0; \
-			SNDMSG((hwndLV),LVM_SETITEMPOSITION32,(WPARAM)(int)(i),(LPARAM)&ptNewPos); \
-		}
-to fb:
-	#macro ListView_SetItemPosition32(hwndLV, i, x0, y0)
-		scope
-			dim ptNewPos as POINT
-			ptNewPos.x = x0
-			ptNewPos.y = y0
-			SNDMSG((hwndLV), LVM_SETITEMPOSITION32, cast(WPARAM, clng((i))), cast(LPARAM, @ptNewPos))
-		end scope
-	#endmacro
 
 convert c:
 	#define ListView_GetSubItemRect(hwnd, iItem, iSubItem, code, prc) \
@@ -162,31 +69,6 @@ to fb:
 		*cptr(HTREEITEM ptr, prc) = hitem
 		function = SNDMSG(hwnd, TVM_GETITEMRECT, cast(WPARAM, code), cast(LPARAM, prc))
 	end function
-
-convert c:
-	#define TreeView_SetItemState(hwndTV,hti,data,_mask) \
-		{ \
-			TVITEM _ms_TVi; \
-			_ms_TVi.mask = TVIF_STATE; \
-			_ms_TVi.hItem = hti; \
-			_ms_TVi.stateMask = _mask; \
-			_ms_TVi.state = data; \
-			SNDMSG((hwndTV),TVM_SETITEM,0,(LPARAM)(TV_ITEM *)&_ms_TVi); \
-		}
-to fb:
-	#macro TreeView_SetItemState(hwndTV, hti, data, _mask)
-		scope
-			dim _ms_TVi as TVITEM
-			_ms_TVi.mask = TVIF_STATE
-			_ms_TVi.hItem = hti
-			_ms_TVi.stateMask = _mask
-			_ms_TVi.state = data
-			SNDMSG((hwndTV), TVM_SETITEM, 0, cast(LPARAM, cptr(TV_ITEM ptr, @_ms_TVi)))
-		end scope
-	#endmacro
-
-convert c: #define DPA_SetPtrCount(hdpa, cItems) (*(int *)(hdpa) = (cItems))
-to fb:     #define DPA_SetPtrCount(hdpa, cItems) scope : *cptr(long ptr, (hdpa)) = (cItems) : end scope
 
 convert c: #define DPA_FastDeleteLastPtr(hdpa) (--*(int *)(hdpa))
 to fb:     #define DPA_FastDeleteLastPtr(hdpa) scope : *cptr(long ptr, (hdpa)) -= 1 : end scope
@@ -333,28 +215,6 @@ convert c: #define IS_COMPATIBLE_MMREG_PID(guid) (((((((((((((guid)->Data1 >= &h
 to fb:     #define IS_COMPATIBLE_MMREG_PID(guid) (((((((((((((guid)->Data1 >= &he36dc2ac) andalso ((guid)->Data1 < (&he36dc2ac + &hffff))) andalso ((guid)->Data2 = &h6d9a)) andalso ((guid)->Data3 = &h11d1)) andalso ((guid)->Data4(0) = &ha2)) andalso ((guid)->Data4(1) = &h1a)) andalso ((guid)->Data4(2) = &h00)) andalso ((guid)->Data4(3) = &ha0)) andalso ((guid)->Data4(4) = &hc9)) andalso ((guid)->Data4(5) = &h22)) andalso ((guid)->Data4(6) = &h31)) andalso ((guid)->Data4(7) = &h96))
 
 convert c:
-	#define InitializeObjectAttributes(p, n, a, r, s) \
-		{ \
-			(p)->Length = sizeof(OBJECT_ATTRIBUTES); \
-			(p)->RootDirectory = (r); \
-			(p)->Attributes = (a); \
-			(p)->ObjectName = (n); \
-			(p)->SecurityDescriptor = (s); \
-			(p)->SecurityQualityOfService = NULL; \
-		}
-to fb:
-	#macro InitializeObjectAttributes(p, n, a, r, s)
-		scope
-			(p)->Length = sizeof(OBJECT_ATTRIBUTES)
-			(p)->RootDirectory = (r)
-			(p)->Attributes = (a)
-			(p)->ObjectName = (n)
-			(p)->SecurityDescriptor = (s)
-			(p)->SecurityQualityOfService = NULL
-		end scope
-	#endmacro
-
-convert c:
 	#define KsecInitializeListEntry(Entry, SigValue) \
 		((PKSEC_LIST_ENTRY) Entry)->List.Flink = ((PKSEC_LIST_ENTRY) Entry)->List.Blink = NULL; \
 		((PKSEC_LIST_ENTRY) Entry)->RefCount = 1; \
@@ -370,18 +230,6 @@ to fb:
 		cast(PKSEC_LIST_ENTRY, Entry)->OwningList = NULL
 		cast(PKSEC_LIST_ENTRY, Entry)->Reserved = NULL
 	#endmacro
-
-convert c: #define VarUI4FromUI4(in, pOut) (*(pOut) = (in))
-to fb:     #define VarUI4FromUI4(in, pOut) scope : *(pOut) = (in) : end scope
-
-convert c: #define VarI4FromI4(in, pOut) (*(pOut) = (in))
-to fb:     #define VarI4FromI4(in, pOut) scope : *(pOut) = (in) : end scope
-
-convert c: #define VarUI8FromUI8(in, pOut) (*(pOut) = (in))
-to fb:     #define VarUI8FromUI8(in, pOut) scope : *(pOut) = (in) : end scope
-
-convert c: #define VarI8FromI8(in, pOut) (*(pOut) = (in))
-to fb:     #define VarI8FromI8(in, pOut) scope : *(pOut) = (in) : end scope
 
 convert c: #define FONTSIZE(n) { n##0000,0 }
 to fb:     #define FONTSIZE_(n) (n##0000, 0)
@@ -446,9 +294,6 @@ to fb:
 		end scope
 	#endmacro
 
-convert c: #define SetUrlPolicyPermissions(dw, dw2) ((dw) = ((dw) & ~(URLPOLICY_MASK_PERMISSIONS)) | (dw2))
-to fb:     #define SetUrlPolicyPermissions(dw, dw2) scope : (dw) = ((dw) and (not URLPOLICY_MASK_PERMISSIONS)) or (dw2) : end scope
-
 convert c:
 	#define ICGetDefaultQuality(hic) \
 		(ICSendMessage(hic,ICM_GETDEFAULTQUALITY,(DWORD_PTR)(LPVOID)&dwICValue,sizeof(DWORD)), \
@@ -482,73 +327,6 @@ to fb:
 		function = MCIWndPlayTo(hwnd, lEnd)
 	end function
 
-convert c: #define INLINE_WORD_FLIP(out,in) { WORD _in = (in); (out) = (_in << 8) | (_in >> 8); }
-to fb:
-	#macro INLINE_WORD_FLIP(out, in)
-		scope
-			dim _in as WORD = (in)
-			(out) = (_in shl 8) or (_in shr 8)
-		end scope
-	#endmacro
-
-convert c:
-	#define INLINE_DWORD_FLIP(out,in) { \
-		DWORD _in = (in); \
-		(out) = ((_in << 8) & 0x00ff0000) | (_in << 24) | ((_in >> 8) & 0x0000ff00) | (_in >> 24); \
-	}
-to fb:
-	#macro INLINE_DWORD_FLIP(out, in)
-		scope
-			dim _in as DWORD = (in)
-			(out) = ((_in shl 8) and &h00ff0000) or (_in shl 24) or ((_in shr 8) and &h0000ff00) or (_in shr 24)
-		end scope
-	#endmacro
-
-convert c:
-	#define DNS_RRSET_INIT(rrset) { \
-		PDNS_RRSET _prrset = &(rrset); \
-		_prrset->pFirstRR = NULL; \
-		_prrset->pLastRR = (PDNS_RECORD) &_prrset->pFirstRR; \
-	}
-to fb:
-	#macro DNS_RRSET_INIT(rrset)
-		scope
-			dim _prrset as PDNS_RRSET = @(rrset)
-			_prrset->pFirstRR = NULL
-			_prrset->pLastRR = cptr(PDNS_RECORD, @_prrset->pFirstRR)
-		end scope
-	#endmacro
-
-convert c:
-	#define DNS_RRSET_ADD(rrset,pnewRR) { \
-		PDNS_RRSET _prrset = &(rrset); \
-		PDNS_RECORD _prrnew = (pnewRR); \
-		_prrset->pLastRR->pNext = _prrnew; \
-		_prrset->pLastRR = _prrnew; \
-	}
-to fb:
-	#macro DNS_RRSET_ADD(rrset, pnewRR)
-		scope
-			dim _prrset as PDNS_RRSET = @(rrset)
-			dim _prrnew as PDNS_RECORD = (pnewRR)
-			_prrset->pLastRR->pNext = _prrnew
-			_prrset->pLastRR = _prrnew
-		end scope
-	#endmacro
-
-convert c:
-	#define DNS_RRSET_TERMINATE(rrset) { \
-		PDNS_RRSET _prrset = &(rrset);  \
-		_prrset->pLastRR->pNext = NULL;  \
-	}
-to fb:
-	#macro DNS_RRSET_TERMINATE(rrset)
-		scope
-			dim _prrset as PDNS_RRSET = @(rrset)
-			_prrset->pLastRR->pNext = NULL
-		end scope
-	#endmacro
-
 convert c:
 	#define FILTER_HRESULT_FROM_FLT_NTSTATUS(x) \
 		(NT_ASSERT((x & 0xfff0000) == 0x001c0000),
@@ -566,23 +344,6 @@ to fb:
 			Value or= cast(ULONGLONG, (*(Address) shr InstPos) and ((cast(ULONGLONG, 1) shl Size) - 1)) shl ValPos
 		end scope
 	#endmacro
-
-convert c:
-	#define INS_IMM64(Value, Address, Size, InstPos, ValPos) \
-		*(PDWORD)Address = \
-			(*(PDWORD)Address & ~(((1 << Size) - 1) << InstPos)) | \
-			((DWORD)((((ULONGLONG)Value >> ValPos) & (((ULONGLONG)1 << Size) - 1))) << InstPos)
-to fb:
-	#macro INS_IMM64(Value, Address, Size, InstPos, ValPos)
-		scope
-			*cptr(PDWORD, Address) = _
-				(*cptr(PDWORD, Address) and not (((1 shl Size) - 1) shl InstPos)) or _
-				(cast(DWORD, (cast(ULONGLONG, Value) shr ValPos) and ((cast(ULONGLONG, 1) shl Size) - 1)) shl InstPos)
-		end scope
-	#endmacro
-
-convert c: #define VER_SET_CONDITION(_m_, _t_, _c_)        ((_m_) = VerSetConditionMask((_m_), (_t_), (_c_)))
-to fb:     #define VER_SET_CONDITION(_m_, _t_, _c_) scope : (_m_) = VerSetConditionMask((_m_), (_t_), (_c_)) : end scope
 
 convert c: #define WT_SET_MAX_THREADPOOL_THREADS(Flags, Limit) ((Flags) |= (Limit) << 16)
 to fb:     #define WT_SET_MAX_THREADPOOL_THREADS(Flags, Limit) scope : (Flags) or= (Limit) shl 16 : end scope
@@ -617,14 +378,6 @@ to fb:
 				end if
 				__i += 1
 			wend
-		end scope
-	#endmacro
-
-convert c: #define FD_ZERO(set) (((fd_set *)(set))->fd_count = 0)
-to fb:
-	#macro FD_ZERO(set)
-		scope
-			cptr(fd_set ptr, set)->fd_count = 0
 		end scope
 	#endmacro
 
@@ -677,14 +430,6 @@ to fb:
 		end scope
 	#endmacro
 
-convert c: #define FD_ZERO(set) (((fd_set *)(set))->fd_count = 0)
-to fb:
-	#macro FD_ZERO(set)
-		scope
-			cptr(fd_set ptr, set)->fd_count = 0
-		end scope
-	#endmacro
-
 convert c:
 	#define FD_SET(fd, set) \
 		do { \
@@ -717,34 +462,6 @@ to fb:
 					cptr(fd_set ptr, set)->fd_count += 1
 				end if
 			end if
-		end scope
-	#endmacro
-
-convert c:
-	#define POINTSTOPOINT(pt,pts) { \
-		(pt).x = (LONG)(SHORT)LOWORD(*(LONG*)&pts); \
-		(pt).y = (LONG)(SHORT)HIWORD(*(LONG*)&pts); \
-	}
-to fb:
-	#macro POINTSTOPOINT(pt, pts)
-		scope
-			(pt).x = cast(LONG, cast(SHORT, LOWORD(*cptr(LONG ptr, @pts))))
-			(pt).y = cast(LONG, cast(SHORT, HIWORD(*cptr(LONG ptr, @pts))))
-		end scope
-	#endmacro
-
-convert c:
-	#define DECIMAL_SETZERO(dec) { \
-		(dec).Lo64 = 0; \
-		(dec).Hi32 = 0; \
-		(dec).signscale = 0; \
-	}
-to fb:
-	#macro DECIMAL_SETZERO(dec)
-		scope
-			(dec).Lo64 = 0
-			(dec).Hi32 = 0
-			(dec).signscale = 0
 		end scope
 	#endmacro
 
@@ -856,20 +573,6 @@ to fb:
 
 convert c: #define STATIC_KSDATAFORMAT_SUBTYPE_WAVEFORMATEX __MSABI_LONG (0x00000000), 0x0000, 0x0010, 0x80, 0x00, 0x00, 0xaa, 0x00, 0x38, 0x9b, 0x71
 to fb:     #define STATIC_KSDATAFORMAT_SUBTYPE_WAVEFORMATEX               &h00000000l, &h0000, &h0010, &h80, &h00, &h00, &haa, &h00, &h38, &h9b, &h71
-
-convert c:
-	#define INIT_WAVEFORMATEX_GUID(Guid,x)					\
-	{									\
-		*(Guid) = KSDATAFORMAT_SUBTYPE_WAVEFORMATEX;			\
-		(Guid)->Data1 = (USHORT)(x);					\
-	}
-to fb:
-	#macro INIT_WAVEFORMATEX_GUID(Guid, x)
-		scope
-			*(Guid) = KSDATAFORMAT_SUBTYPE_WAVEFORMATEX
-			(Guid)->Data1 = cast(USHORT, (x))
-		end scope
-	#endmacro
 
 convert c: #define REGSTR_PATH_RUN_POLICY REGSTR_PATH_POLICIES __TEXT("\\Explorer\\Run")
 to fb:     #define REGSTR_PATH_RUN_POLICY (REGSTR_PATH_POLICIES + __TEXT(!"\\Explorer\\Run"))

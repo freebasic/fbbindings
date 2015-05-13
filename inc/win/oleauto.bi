@@ -333,13 +333,29 @@ declare function VarDecFromI1(byval cIn as byte, byval pdecOut as DECIMAL ptr) a
 declare function VarDecFromUI2(byval uiIn as USHORT, byval pdecOut as DECIMAL ptr) as HRESULT
 declare function VarDecFromUI4(byval ulIn as ULONG, byval pdecOut as DECIMAL ptr) as HRESULT
 declare function VarDecFromUI8(byval ui64In as ULONG64, byval pdecOut as DECIMAL ptr) as HRESULT
-#define VarUI4FromUI4(in, pOut) scope : *(pOut) = (in) : end scope
-#define VarI4FromI4(in, pOut) scope : *(pOut) = (in) : end scope
+#macro VarUI4FromUI4(in, pOut)
+	scope
+		(*(pOut)) = (in)
+	end scope
+#endmacro
+#macro VarI4FromI4(in, pOut)
+	scope
+		(*(pOut)) = (in)
+	end scope
+#endmacro
 declare function VarI4FromI8(byval i64In as LONG64, byval plOut as LONG ptr) as HRESULT
 declare function VarI4FromUI8(byval ui64In as ULONG64, byval plOut as LONG ptr) as HRESULT
-#define VarUI8FromUI8(in, pOut) scope : *(pOut) = (in) : end scope
-#define VarI8FromI8(in, pOut) scope : *(pOut) = (in) : end scope
 
+#macro VarUI8FromUI8(in, pOut)
+	scope
+		(*(pOut)) = (in)
+	end scope
+#endmacro
+#macro VarI8FromI8(in, pOut)
+	scope
+		(*(pOut)) = (in)
+	end scope
+#endmacro
 #define VarUI1FromInt VarUI1FromI4
 #define VarUI1FromUint VarUI1FromUI4
 #define VarI2FromInt VarI2FromI4

@@ -2859,7 +2859,11 @@ const URLPOLICY_LOG_ON_ALLOW = &h40
 const URLPOLICY_LOG_ON_DISALLOW = &h80
 const URLPOLICY_MASK_PERMISSIONS = &h0f
 #define GetUrlPolicyPermissions(dw) (dw and URLPOLICY_MASK_PERMISSIONS)
-#define SetUrlPolicyPermissions(dw, dw2) scope : (dw) = ((dw) and (not URLPOLICY_MASK_PERMISSIONS)) or (dw2) : end scope
+#macro SetUrlPolicyPermissions(dw, dw2)
+	scope
+		(dw) = ((dw) and (not URLPOLICY_MASK_PERMISSIONS)) or (dw2)
+	end scope
+#endmacro
 const URLPOLICY_DONTCHECKDLGBOX = &h100
 
 #if _WIN32_WINNT = &h0602

@@ -5993,9 +5993,7 @@ const IMAGE_REL_EBC_SECREL = &h0004
 #endmacro
 #macro INS_IMM64(Value, Address, Size, InstPos, ValPos)
 	scope
-		*cptr(PDWORD, Address) = _
-			(*cptr(PDWORD, Address) and not (((1 shl Size) - 1) shl InstPos)) or _
-			(cast(DWORD, (cast(ULONGLONG, Value) shr ValPos) and ((cast(ULONGLONG, 1) shl Size) - 1)) shl InstPos)
+		(*cast(PDWORD, Address)) = ((*cast(PDWORD, Address)) and (not (((1 shl Size) - 1) shl InstPos))) or (cast(DWORD, (cast(ULONGLONG, Value) shr ValPos) and ((cast(ULONGLONG, 1) shl Size) - 1)) shl InstPos)
 	end scope
 #endmacro
 const EMARCH_ENC_I17_IMM7B_INST_WORD_X = 3
@@ -7034,7 +7032,11 @@ const VER_PLATFORM_WIN32s = 0
 const VER_PLATFORM_WIN32_WINDOWS = 1
 const VER_PLATFORM_WIN32_NT = 2
 declare function VerSetConditionMask(byval ConditionMask as ULONGLONG, byval TypeMask as DWORD, byval Condition as UBYTE) as ULONGLONG
-#define VER_SET_CONDITION(_m_, _t_, _c_) scope : (_m_) = VerSetConditionMask((_m_), (_t_), (_c_)) : end scope
+#macro VER_SET_CONDITION(_m_, _t_, _c_)
+	scope
+		(_m_) = VerSetConditionMask((_m_), (_t_), (_c_))
+	end scope
+#endmacro
 
 #if _WIN32_WINNT = &h0602
 	declare function RtlGetProductInfo(byval OSMajorVersion as DWORD, byval OSMinorVersion as DWORD, byval SpMajorVersion as DWORD, byval SpMinorVersion as DWORD, byval ReturnedProductType as PDWORD) as BOOLEAN
