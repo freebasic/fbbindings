@@ -85,66 +85,6 @@ convert c: #define CAST_MIB_INFO(X, Y, Z) Z = (Y)(X->rgbyData)
 to fb:     #define CAST_MIB_INFO(X, Y, Z) scope : Z = cast(Y, X->rgbyData) : end scope
 
 convert c:
-	#define MDM_SET_BEARERMODE(_dwOptions, _bm) \
-		(((_dwOptions) &= ~MDM_MASK_BEARERMODE), \
-		 ((_dwOptions) |= (((_bm)<<MDM_SHIFT_BEARERMODE)&MDM_MASK_BEARERMODE)))
-to fb:
-	#macro MDM_SET_BEARERMODE(_dwOptions, _bm)
-		scope
-			(_dwOptions) and= not MDM_MASK_BEARERMODE
-			(_dwOptions) or= ((_bm) shl MDM_SHIFT_BEARERMODE) and MDM_MASK_BEARERMODE
-		end scope
-	#endmacro
-
-convert c:
-	#define MDM_SET_PROTOCOLID(_dwOptions, _prot) \
-		(((_dwOptions) &= ~MDM_MASK_PROTOCOLID), \
-		 ((_dwOptions) |= (((_prot)<<MDM_SHIFT_PROTOCOLID)&MDM_MASK_PROTOCOLID)))
-to fb:
-	#macro MDM_SET_PROTOCOLID(_dwOptions, _prot)
-		scope
-			(_dwOptions) and= not MDM_MASK_PROTOCOLID
-			(_dwOptions) or= ((_prot) shl MDM_SHIFT_PROTOCOLID) and MDM_MASK_PROTOCOLID
-		end scope
-	#endmacro
-
-convert c:
-	#define MDM_SET_PROTOCOLDATA(_dwOptions, _pd) \
-		(((_dwOptions) &= ~MDM_MASK_PROTOCOLDATA), \
-		 ((_dwOptions) |= (((_pd)<<MDM_SHIFT_PROTOCOLDATA)&MDM_MASK_PROTOCOLDATA)))
-to fb:
-	#macro MDM_SET_PROTOCOLDATA(_dwOptions, _pd)
-		scope
-			(_dwOptions) and= not MDM_MASK_PROTOCOLDATA
-			(_dwOptions) or= ((_pd) shl MDM_SHIFT_PROTOCOLDATA) and MDM_MASK_PROTOCOLDATA
-		end scope
-	#endmacro
-
-convert c:
-	#define MDM_SET_PROTOCOLINFO(_dwOptions, _pinfo) \
-		(((_dwOptions) &= ~MDM_MASK_PROTOCOLINFO), \
-		 ((_dwOptions) |= ((_pinfo)&MDM_MASK_PROTOCOLINFO)))
-to fb:
-	#macro MDM_SET_PROTOCOLINFO(_dwOptions, _pinfo)
-		scope
-			(_dwOptions) and= not MDM_MASK_PROTOCOLINFO
-			(_dwOptions) or= (_pinfo) and MDM_MASK_PROTOCOLINFO
-		end scope
-	#endmacro
-
-convert c:
-	#define MDM_SET_EXTENDEDINFO(_dwOptions, _extinfo) \
-		(((_dwOptions) &= ~MDM_MASK_EXTENDEDINFO), \
-		 ((_dwOptions) |= ((_extinfo) & MDM_MASK_EXTENDEDINFO)))
-to fb:
-	#macro MDM_SET_EXTENDEDINFO(_dwOptions, _extinfo)
-		scope
-			(_dwOptions) and= notMDM_MASK_EXTENDEDINFO
-			(_dwOptions) or= (_extinfo) and MDM_MASK_EXTENDEDINFO
-		end scope
-	#endmacro
-
-convert c:
 	#define INIT_MMREG_MID(guid, id) \
 		{ \
 			(guid)->Data1 = 0xd5a47fa7 + (USHORT)(id); \
@@ -243,20 +183,6 @@ to fb:
 		end scope
 	#endmacro
 
-convert c:
-	#define byte_array_from_ndr(Source,LowerIndex,UpperIndex,Target) \
-		{ \
-			NDRcopy ((((char *)(Target))+(LowerIndex)),(Source)->Buffer,(unsigned int)((UpperIndex)-(LowerIndex))); \
-			*(unsigned long *)&(Source)->Buffer += ((UpperIndex)-(LowerIndex)); \
-		}
-to fb:
-	#macro byte_array_from_ndr(Source, LowerIndex, UpperIndex, Target)
-		scope
-			NDRcopy(cptr(zstring ptr, (Target)) + (LowerIndex), (Source)->Buffer, culng((UpperIndex) - (LowerIndex)))
-			*cptr(ulong ptr, @(Source)->Buffer) += ((UpperIndex) - (LowerIndex))
-		end scope
-	#endmacro
-
 convert c: #define boolean_from_ndr(source,target) { *(target) = *(*(char **)&(source)->Buffer)++; }
 to c:      #define boolean_from_ndr(source,target) byte_from_ndr(source, target)
 
@@ -286,13 +212,11 @@ convert c:
 	#define SecInvalidateHandle(x) \
 		((PSecHandle) x)->dwLower = ((ULONG_PTR) ((INT_PTR)-1)); \
 		((PSecHandle) x)->dwUpper = ((ULONG_PTR) ((INT_PTR)-1));
-to fb:
-	#macro SecInvalidateHandle(x)
-		scope
-			cast(PSecHandle, x)->dwLower = cast(ULONG_PTR, cast(INT_PTR, -1))
-			cast(PSecHandle, x)->dwUpper = cast(ULONG_PTR, cast(INT_PTR, -1))
-		end scope
-	#endmacro
+to c:
+	#define SecInvalidateHandle(x) { \
+		((PSecHandle) x)->dwLower = ((ULONG_PTR) ((INT_PTR)-1)); \
+		((PSecHandle) x)->dwUpper = ((ULONG_PTR) ((INT_PTR)-1)); \
+	}
 
 convert c:
 	#define ICGetDefaultQuality(hic) \
@@ -334,19 +258,6 @@ convert c:
 to c:
 	#define FILTER_HRESULT_FROM_FLT_NTSTATUS(x) \
 		(HRESULT) (((x) & 0x8000ffff) | (FACILITY_USERMODE_FILTER_MANAGER << 16))
-
-convert c:
-	#define EXT_IMM64(Value, Address, Size, InstPos, ValPos) \
-		Value |= (((ULONGLONG)((*(Address) >> InstPos) & (((ULONGLONG)1 << Size) - 1))) << ValPos)
-to fb:
-	#macro EXT_IMM64(Value, Address, Size, InstPos, ValPos)
-		scope
-			Value or= cast(ULONGLONG, (*(Address) shr InstPos) and ((cast(ULONGLONG, 1) shl Size) - 1)) shl ValPos
-		end scope
-	#endmacro
-
-convert c: #define WT_SET_MAX_THREADPOOL_THREADS(Flags, Limit) ((Flags) |= (Limit) << 16)
-to fb:     #define WT_SET_MAX_THREADPOOL_THREADS(Flags, Limit) scope : (Flags) or= (Limit) shl 16 : end scope
 
 convert c:
 	#define FD_CLR(fd, set) \

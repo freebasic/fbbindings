@@ -5988,7 +5988,7 @@ const IMAGE_REL_EBC_SECTION = &h0003
 const IMAGE_REL_EBC_SECREL = &h0004
 #macro EXT_IMM64(Value, Address, Size, InstPos, ValPos)
 	scope
-		Value or= cast(ULONGLONG, (*(Address) shr InstPos) and ((cast(ULONGLONG, 1) shl Size) - 1)) shl ValPos
+		Value or= cast(ULONGLONG, ((*(Address)) shr InstPos) and ((cast(ULONGLONG, 1) shl Size) - 1)) shl ValPos
 	end scope
 #endmacro
 #macro INS_IMM64(Value, Address, Size, InstPos, ValPos)
@@ -7167,7 +7167,11 @@ const WT_EXECUTELONGFUNCTION = &h00000010
 const WT_EXECUTEINPERSISTENTIOTHREAD = &h00000040
 const WT_EXECUTEINPERSISTENTTHREAD = &h00000080
 const WT_TRANSFER_IMPERSONATION = &h00000100
-#define WT_SET_MAX_THREADPOOL_THREADS(Flags, Limit) scope : (Flags) or= (Limit) shl 16 : end scope
+#macro WT_SET_MAX_THREADPOOL_THREADS(Flags, Limit)
+	scope
+		(Flags) or= (Limit) shl 16
+	end scope
+#endmacro
 const WT_EXECUTEDELETEWAIT = &h00000008
 const WT_EXECUTEINLONGTHREAD = &h00000010
 

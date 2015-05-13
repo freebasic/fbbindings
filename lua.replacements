@@ -1,23 +1,8 @@
-convert c: #define luai_writestringerror(s, p) (fprintf(stderr, (s), (p)), fflush(stderr))
-to fb:
-	#macro luai_writestringerror(s, p)
-		scope
-			fprintf(stderr, (s), (p))
-			fflush(stderr)
-		end scope
-	#endmacro
-
-convert c: #define lua_register(L, n, f) (lua_pushcfunction(L, (f)), lua_setglobal(L, (n)))
-to c:      #define lua_register(L, n, f) {lua_pushcfunction(L, (f)); lua_setglobal(L, (n));}
-
 convert c: #define lua_pushliteral(L, s) lua_pushlstring(L, "" s, (sizeof(s)/sizeof(char))-1)
 to fb:     #define lua_pushliteral(L, s) lua_pushlstring(L, "" s, len(s)-1)
 
 convert c: #define luaL_newlibtable(L,l) lua_createtable(L, 0, sizeof(l)/sizeof((l)[0]) - 1)
 to fb:     #define luaL_newlibtable(L, l_) lua_createtable(L, 0, (ubound(l_) - lbound(l_) + 1) - 1)
-
-convert c: #define luaL_newlib(L,l) (luaL_newlibtable(L,l), luaL_setfuncs(L,l,0))
-to c:      #define luaL_newlib(L,l) {luaL_newlibtable(L,l); luaL_setfuncs(L,l,0);}
 
 convert c: #define luaL_argcheck(L, cond,numarg,extramsg) ((void)((cond) || luaL_argerror(L, (numarg), (extramsg))))
 to fb:
@@ -33,6 +18,8 @@ to fb:
 		function = (luaL_loadfile(L, fn) orelse lua_pcall(L, 0, LUA_MULTRET, 0))
 	end function
 
+# This is a function, so it can be used as statement, ignoring the result.
+# (FB would otherwise disallow that, due to the ORELSE)
 convert c: #define luaL_dostring(L, s) (luaL_loadstring(L, s) || lua_pcall(L, 0, LUA_MULTRET, 0))
 to fb:
 	private function luaL_dostring(byval L as lua_State ptr, byval s as const zstring ptr) as long
@@ -48,6 +35,3 @@ to fb:
 		(B)->b[(B)->n] = (c)
 		(B)->n += 1
 	#endmacro
-
-convert c: #define luaL_addsize(B,s) ((B)->n += (s))
-to fb:     #define luaL_addsize(B,s) (B)->n += (s)

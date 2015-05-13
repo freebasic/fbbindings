@@ -1690,10 +1690,9 @@ const JIT_FAST_GET_CURRENT_FRAME = 1
 #define jit_get_current_frame() jit_get_frame_address(0)
 declare function _jit_get_next_frame_address(byval frame as any ptr) as any ptr
 #define jit_get_next_frame_address(frame) _jit_get_next_frame_address(frame)
-
 declare function _jit_get_return_address(byval frame as any ptr, byval frame0 as any ptr, byval return0 as any ptr) as any ptr
-#define jit_get_return_address(frame) (_jit_get_return_address((frame), 0, 0))
-#define jit_get_current_return() (jit_get_return_address(jit_get_current_frame()))
+#define jit_get_return_address(frame) _jit_get_return_address((frame), 0, 0)
+#define jit_get_current_return() jit_get_return_address(jit_get_current_frame())
 
 type jit_crawl_mark_t
 	mark as any ptr

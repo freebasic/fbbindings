@@ -17,7 +17,7 @@ convert c: #define jit_get_next_frame_address(frame) ({ void *address; _JIT_ARCH
 to c:      #define jit_get_next_frame_address(frame) _jit_get_next_frame_address(frame)
 
 convert c: #define jit_get_return_address(frame) ({ void *address; _JIT_ARCH_GET_RETURN_ADDRESS(address, (frame)); address; })
-to fb:     #define jit_get_return_address(frame) (_jit_get_return_address((frame), 0, 0))
+to c:      #define jit_get_return_address(frame) (_jit_get_return_address((frame), 0, 0))
 
 convert c: #define jit_get_current_return() ({ void *address; _JIT_ARCH_GET_CURRENT_RETURN(address); address; })
-to fb:     #define jit_get_current_return() (jit_get_return_address(jit_get_current_frame()))
+to c:      #define jit_get_current_return() (jit_get_return_address(jit_get_current_frame()))
