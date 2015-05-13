@@ -1,30 +1,6 @@
 convert c: #define bmp_write24(addr, c) ({ _farnspokew(addr, c&0xFFFF); _farnspokeb(addr+2, c>>16); })
 to c:      #define bmp_write24(addr, c)  { _farnspokew(addr, c&0xFFFF); _farnspokeb(addr+2, c>>16); }
 
-convert c: #define _AL_SINCOS(x, s, c) do { (c) = cos(x); (s) = sin(x); } while (0)
-to fb:
-	#macro _AL_SINCOS(x, s, c)
-		scope
-			(c) = cos(x)
-			(s) = sin(x)
-		end scope
-	#endmacro
-
-convert c: #define _farnspokeb(addr, val) (*((uint8_t *)(addr)) = (val))
-to fb:     #define _farnspokeb(addr, val) *cptr(ubyte ptr, (addr)) = (val)
-
-convert c: #define _farnspokew(addr, val) (*((uint16_t *)(addr)) = (val))
-to fb:     #define _farnspokew(addr, val) *cptr(ushort ptr, (addr)) = (val)
-
-convert c: #define _farnspokel(addr, val) (*((uint32_t *)(addr)) = (val))
-to fb:     #define _farnspokel(addr, val) *cptr(ulong ptr, (addr)) = (val)
-
-convert c: #define bmp_write8(addr, c)  (*((uint8_t *)(addr)) = (c))
-to fb:     #define bmp_write8(addr, c) *cptr(ubyte ptr, (addr)) = (c)
-
-convert c: #define bmp_write15(addr, c) (*((uint16_t *)(addr)) = (c))
-to fb:     #define bmp_write15(addr, c) *cptr(ushort ptr, (addr)) = (c)
-
 convert c: #define allegro_init() _install_allegro_version_check(SYSTEM_AUTODETECT, &errno, (int (*)(void (*)(void)))atexit , MAKE_VERSION(ALLEGRO_VERSION, ALLEGRO_SUB_VERSION, ALLEGRO_WIP_VERSION))
 to c:      #define allegro_init() _install_allegro_version_check(SYSTEM_AUTODETECT, &errno, (int (*)(void (*)(void)))&atexit , MAKE_VERSION(ALLEGRO_VERSION, ALLEGRO_SUB_VERSION, ALLEGRO_WIP_VERSION))
 

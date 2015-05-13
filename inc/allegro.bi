@@ -307,32 +307,57 @@ const FA_NONE = 0
 #if defined(__FB_WIN32__) or defined(__FB_LINUX__)
 	#define _video_ds() _default_ds()
 	#define _farsetsel(seg)
-	#define _farnspokeb(addr, val) *cptr(ubyte ptr, (addr)) = (val)
-	#define _farnspokew(addr, val) *cptr(ushort ptr, (addr)) = (val)
-	#define _farnspokel(addr, val) *cptr(ulong ptr, (addr)) = (val)
+	#macro _farnspokeb(addr, val)
+		scope
+			(*cptr(ubyte ptr, (addr))) = (val)
+		end scope
+	#endmacro
+	#macro _farnspokew(addr, val)
+		scope
+			(*cptr(ushort ptr, (addr))) = (val)
+		end scope
+	#endmacro
+	#macro _farnspokel(addr, val)
+		scope
+			(*cptr(ulong ptr, (addr))) = (val)
+		end scope
+	#endmacro
 	#define _farnspeekb(addr) (*cptr(ubyte ptr, (addr)))
 	#define _farnspeekw(addr) (*cptr(ushort ptr, (addr)))
 	#define _farnspeekl(addr) (*cptr(ulong ptr, (addr)))
 #endif
 
-#define READ3BYTES(p) _
-	( cptr(ubyte ptr, (p))[0]        or _
-	 (cptr(ubyte ptr, (p))[1] shl 8) or _
-	 (cptr(ubyte ptr, (p))[2] shl 16) )
+#define READ3BYTES(p) (((*cptr(ubyte ptr, (p))) or ((*(cptr(ubyte ptr, (p)) + 1)) shl 8)) or ((*(cptr(ubyte ptr, (p)) + 2)) shl 16))
 #macro WRITE3BYTES(p, c)
 	scope
-		cptr(ubyte ptr, (p))[0] = (c)
-		cptr(ubyte ptr, (p))[1] = (c) shr 8
-		cptr(ubyte ptr, (p))[2] = (c) shr 16
+		(*cptr(ubyte ptr, (p))) = (c)
+		(*(cptr(ubyte ptr, (p)) + 1)) = (c) shr 8
+		(*(cptr(ubyte ptr, (p)) + 2)) = (c) shr 16
 	end scope
 #endmacro
 
 #if defined(__FB_WIN32__) or defined(__FB_LINUX__)
 	#define bmp_select(bmp)
-	#define bmp_write8(addr, c) *cptr(ubyte ptr, (addr)) = (c)
-	#define bmp_write15(addr, c) *cptr(ushort ptr, (addr)) = (c)
-	#define bmp_write16(addr, c) *cptr(ushort ptr, (addr)) = (c)
-	#define bmp_write32(addr, c) *cptr(ulong ptr, (addr)) = (c)
+	#macro bmp_write8(addr, c)
+		scope
+			(*cptr(ubyte ptr, (addr))) = (c)
+		end scope
+	#endmacro
+	#macro bmp_write15(addr, c)
+		scope
+			(*cptr(ushort ptr, (addr))) = (c)
+		end scope
+	#endmacro
+	#macro bmp_write16(addr, c)
+		scope
+			(*cptr(ushort ptr, (addr))) = (c)
+		end scope
+	#endmacro
+	#macro bmp_write32(addr, c)
+		scope
+			(*cptr(ulong ptr, (addr))) = (c)
+		end scope
+	#endmacro
 	#define bmp_read8(addr) (*cptr(ubyte ptr, (addr)))
 	#define bmp_read15(addr) (*cptr(ushort ptr, (addr)))
 	#define bmp_read16(addr) (*cptr(ushort ptr, (addr)))
