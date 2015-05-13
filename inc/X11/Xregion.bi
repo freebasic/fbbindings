@@ -98,8 +98,11 @@ type REGION as _XRegion
 #define CHECK_PREVIOUS(Reg, R, Rx1, Ry1, Rx2, Ry2) (((((((Reg)->numRects > 0) andalso ((R - 1)->y1 = (Ry1))) andalso ((R - 1)->y2 = (Ry2))) andalso ((R - 1)->x1 <= (Rx1))) andalso ((R - 1)->x2 >= (Rx2))) = 0)
 '' TODO: #define ADDRECT(reg, r, rx1, ry1, rx2, ry2){ if (((rx1) < (rx2)) && ((ry1) < (ry2)) && CHECK_PREVIOUS((reg), (r), (rx1), (ry1), (rx2), (ry2))){ (r)->x1 = (rx1); (r)->y1 = (ry1); (r)->x2 = (rx2); (r)->y2 = (ry2); EXTENTS((r), (reg)); (reg)->numRects++; (r)++; } }
 '' TODO: #define ADDRECTNOX(reg, r, rx1, ry1, rx2, ry2){ if ((rx1 < rx2) && (ry1 < ry2) && CHECK_PREVIOUS((reg), (r), (rx1), (ry1), (rx2), (ry2))){ (r)->x1 = (rx1); (r)->y1 = (ry1); (r)->x2 = (rx2); (r)->y2 = (ry2); (reg)->numRects++; (r)++; } }
-'' TODO: #define EMPTY_REGION(pReg) pReg->numRects = 0
-
+#macro EMPTY_REGION(pReg)
+	scope
+		pReg->numRects = 0
+	end scope
+#endmacro
 #define REGION_NOT_EMPTY(pReg) pReg->numRects
 #define INBOX(r, x, y) (((((r).x2 > x) andalso ((r).x1 <= x)) andalso ((r).y2 > y)) andalso ((r).y1 <= y))
 const NUMPTSTOBUFFER = 200

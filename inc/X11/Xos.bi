@@ -71,8 +71,8 @@
 		scope
 			dim _gtodtmp as _timeb
 			_ftime(@_gtodtmp)
-			'' TODO: (t)->tv_sec = _gtodtmp.time;
-			'' TODO: (t)->tv_usec = _gtodtmp.millitm * 1000;
+			(t)->tv_sec = _gtodtmp.time
+			(t)->tv_usec = _gtodtmp.millitm * 1000
 		end scope
 	#endmacro
 	#define X_GETTIMEOFDAY(t) gettimeofday(t)

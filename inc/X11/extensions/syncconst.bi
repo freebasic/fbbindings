@@ -50,8 +50,18 @@ const XSyncCAValue = cast(clong, 1) shl 2
 const XSyncCATestType = cast(clong, 1) shl 3
 const XSyncCADelta = cast(clong, 1) shl 4
 const XSyncCAEvents = cast(clong, 1) shl 5
-'' TODO: #define _XSyncIntToValue(pv, i) ((pv)->hi=((i<0)?~0:0),(pv)->lo=(i))
-'' TODO: #define _XSyncIntsToValue(pv, l, h) ((pv)->lo = (l), (pv)->hi = (h))
+#macro _XSyncIntToValue(pv, i)
+	scope
+		(pv)->hi = iif(i < 0, not 0, 0)
+		(pv)->lo = (i)
+	end scope
+#endmacro
+#macro _XSyncIntsToValue(pv, l, h)
+	scope
+		(pv)->lo = (l)
+		(pv)->hi = (h)
+	end scope
+#endmacro
 #define _XSyncValueGreaterThan(a, b) (((a).hi > (b).hi) orelse (((a).hi = (b).hi) andalso ((a).lo > (b).lo)))
 #define _XSyncValueLessThan(a, b) (((a).hi < (b).hi) orelse (((a).hi = (b).hi) andalso ((a).lo < (b).lo)))
 #define _XSyncValueGreaterOrEqual(a, b) (((a).hi > (b).hi) orelse (((a).hi = (b).hi) andalso ((a).lo >= (b).lo)))
@@ -65,27 +75,37 @@ const XSyncCAEvents = cast(clong, 1) shl 5
 #macro _XSyncValueAdd(presult, a, b, poverflow)
 	scope
 		dim t as long = (a).lo
-		'' TODO: Bool signa = XSyncValueIsNegative(a);
-		'' TODO: Bool signb = XSyncValueIsNegative(b);
-		'' TODO: ((presult)->lo = (a).lo + (b).lo);
-		'' TODO: ((presult)->hi = (a).hi + (b).hi);
+		Bool signa = XSyncValueIsNegative(a)
+		Bool signb = XSyncValueIsNegative(b)
+		(presult)->lo = (a).lo + (b).lo
+		(presult)->hi = (a).hi + (b).hi
 		'' TODO: if (t>(presult)->lo) (presult)->hi++;
-		'' TODO: *poverflow = ((signa == signb) && !(signa == XSyncValueIsNegative(*presult)));
+		(*poverflow) = -((signa = signb) andalso ((signa = XSyncValueIsNegative(*presult)) = 0))
 	end scope
 #endmacro
 #macro _XSyncValueSubtract(presult, a, b, poverflow)
 	scope
 		dim t as long = (a).lo
-		'' TODO: Bool signa = XSyncValueIsNegative(a);
-		'' TODO: Bool signb = XSyncValueIsNegative(b);
-		'' TODO: ((presult)->lo = (a).lo - (b).lo);
-		'' TODO: ((presult)->hi = (a).hi - (b).hi);
+		Bool signa = XSyncValueIsNegative(a)
+		Bool signb = XSyncValueIsNegative(b)
+		(presult)->lo = (a).lo - (b).lo
+		(presult)->hi = (a).hi - (b).hi
 		'' TODO: if (t<(presult)->lo) (presult)->hi--;
-		'' TODO: *poverflow = ((signa == signb) && !(signa == XSyncValueIsNegative(*presult)));
+		(*poverflow) = -((signa = signb) andalso ((signa = XSyncValueIsNegative(*presult)) = 0))
 	end scope
 #endmacro
-'' TODO: #define _XSyncMaxValue(pv) ((pv)->hi = 0x7fffffff, (pv)->lo = 0xffffffff)
-'' TODO: #define _XSyncMinValue(pv) ((pv)->hi = 0x80000000, (pv)->lo = 0)
+#macro _XSyncMaxValue(pv)
+	scope
+		(pv)->hi = &h7fffffff
+		(pv)->lo = &hffffffff
+	end scope
+#endmacro
+#macro _XSyncMinValue(pv)
+	scope
+		(pv)->hi = &h80000000
+		(pv)->lo = 0
+	end scope
+#endmacro
 #define XSyncIntToValue(pv, i) _XSyncIntToValue(pv, i)
 #define XSyncIntsToValue(pv, l, h) _XSyncIntsToValue(pv, l, h)
 #define XSyncValueGreaterThan(a, b) _XSyncValueGreaterThan(a, b)

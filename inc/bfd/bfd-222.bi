@@ -700,8 +700,30 @@ extern bfd_ind_section as asection
 		_abfd->sections = _s
 	end scope
 #endmacro
-'' TODO: #define bfd_section_list_insert_after(ABFD, A, S) do { asection *_a = A; asection *_s = S; asection *_next = _a->next; _s->next = _next; _s->prev = _a; _a->next = _s; if (_next) _next->prev = _s; else (ABFD)->section_last = _s; } while (0)
-'' TODO: #define bfd_section_list_insert_before(ABFD, B, S) do { asection *_b = B; asection *_s = S; asection *_prev = _b->prev; _s->prev = _prev; _s->next = _b; _b->prev = _s; if (_prev) _prev->next = _s; else (ABFD)->sections = _s; } while (0)
+#macro bfd_section_list_insert_after(ABFD, A, S)
+	scope
+		dim _a as asection ptr = A
+		dim _s as asection ptr = S
+		dim _next as asection ptr = _a->next
+		_s->next = _next
+		_s->prev = _a
+		_a->next = _s
+		'' TODO: if (_next) _next->prev = _s;
+		'' TODO: else (ABFD)->section_last = _s;
+	end scope
+#endmacro
+#macro bfd_section_list_insert_before(ABFD, B, S)
+	scope
+		dim _b as asection ptr = B
+		dim _s as asection ptr = S
+		dim _prev as asection ptr = _b->prev
+		_s->prev = _prev
+		_s->next = _b
+		_b->prev = _s
+		'' TODO: if (_prev) _prev->next = _s;
+		'' TODO: else (ABFD)->sections = _s;
+	end scope
+#endmacro
 #define bfd_section_removed_from_list(ABFD, S) iif((S)->next = NULL, -((ABFD)->section_last <> (S)), -((S)->next->prev <> (S)))
 #define BFD_FAKE_SECTION(SEC, FLAGS, SYM, NAME, IDX) (NAME, IDX, 0, NULL, NULL, FLAGS, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, cptr(bfd_section ptr, @SEC), 0, NULL, NULL, 0, 0, 0, 0, NULL, NULL, NULL, 0, 0, NULL, 0, 0, NULL, NULL, NULL, NULL, cptr(bfd_symbol ptr, SYM), @SEC.symbol, (NULL), (NULL))
 

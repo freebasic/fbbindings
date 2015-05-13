@@ -377,7 +377,7 @@ const SDL_BIG_ENDIAN = 4321
 			u as Uint64
 		end union
 		dim v as v
-		'' TODO: v.u = x;
+		v.u = x
 		'' TODO: __asm__("bswapl %0 ; bswapl %1 ; xchgl %0,%1": "=r"(v.s.a), "=r"(v.s.b):"0"(v.s.a), "1"(v.s. b));
 		return v.u
 	end function
@@ -389,8 +389,8 @@ private function SDL_SwapFloat(byval x as single) as single
 		ui32 as Uint32
 	end union
 	dim swapper as swapper
-	'' TODO: swapper.f = x;
-	'' TODO: swapper.ui32 = SDL_Swap32(swapper.ui32);
+	swapper.f = x
+	swapper.ui32 = SDL_Swap32(swapper.ui32)
 	return swapper.f
 end function
 

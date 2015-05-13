@@ -7991,78 +7991,78 @@ type PTP_IO as _TP_IO ptr
 
 #if (_WIN32_WINNT = &h0400) or (_WIN32_WINNT = &h0502)
 	private sub TpInitializeCallbackEnviron cdecl(byval cbe as PTP_CALLBACK_ENVIRON)
-		'' TODO: cbe->Pool = ((void *)0);
-		'' TODO: cbe->CleanupGroup = ((void *)0);
-		'' TODO: cbe->CleanupGroupCancelCallback = ((void *)0);
-		'' TODO: cbe->RaceDll = ((void *)0);
-		'' TODO: cbe->ActivationContext = ((void *)0);
-		'' TODO: cbe->FinalizationCallback = ((void *)0);
-		'' TODO: cbe->u.Flags = 0;
-		'' TODO: cbe->Version = 1;
+		cbe->Pool = cptr(any ptr, 0)
+		cbe->CleanupGroup = cptr(any ptr, 0)
+		cbe->CleanupGroupCancelCallback = cptr(any ptr, 0)
+		cbe->RaceDll = cptr(any ptr, 0)
+		cbe->ActivationContext = cptr(any ptr, 0)
+		cbe->FinalizationCallback = cptr(any ptr, 0)
+		cbe->u.Flags = 0
+		cbe->Version = 1
 	end sub
 #else
 	private sub TpInitializeCallbackEnviron cdecl(byval cbe as PTP_CALLBACK_ENVIRON)
-		'' TODO: cbe->Pool = ((void *)0);
-		'' TODO: cbe->CleanupGroup = ((void *)0);
-		'' TODO: cbe->CleanupGroupCancelCallback = ((void *)0);
-		'' TODO: cbe->RaceDll = ((void *)0);
-		'' TODO: cbe->ActivationContext = ((void *)0);
-		'' TODO: cbe->FinalizationCallback = ((void *)0);
-		'' TODO: cbe->u.Flags = 0;
-		'' TODO: cbe->Version = 3;
-		'' TODO: cbe->CallbackPriority = TP_CALLBACK_PRIORITY_NORMAL;
-		'' TODO: cbe->Size = sizeof (TP_CALLBACK_ENVIRON);
+		cbe->Pool = cptr(any ptr, 0)
+		cbe->CleanupGroup = cptr(any ptr, 0)
+		cbe->CleanupGroupCancelCallback = cptr(any ptr, 0)
+		cbe->RaceDll = cptr(any ptr, 0)
+		cbe->ActivationContext = cptr(any ptr, 0)
+		cbe->FinalizationCallback = cptr(any ptr, 0)
+		cbe->u.Flags = 0
+		cbe->Version = 3
+		cbe->CallbackPriority = TP_CALLBACK_PRIORITY_NORMAL
+		cbe->Size = sizeof(TP_CALLBACK_ENVIRON)
 	end sub
 #endif
 
 private sub TpSetCallbackThreadpool cdecl(byval cbe as PTP_CALLBACK_ENVIRON, byval pool as PTP_POOL)
-	'' TODO: cbe->Pool = pool;
+	cbe->Pool = pool
 end sub
 
 private sub TpSetCallbackCleanupGroup cdecl(byval cbe as PTP_CALLBACK_ENVIRON, byval cleanup_group as PTP_CLEANUP_GROUP, byval cleanup_group_cb as PTP_CLEANUP_GROUP_CANCEL_CALLBACK)
-	'' TODO: cbe->CleanupGroup = cleanup_group;
-	'' TODO: cbe->CleanupGroupCancelCallback = cleanup_group_cb;
+	cbe->CleanupGroup = cleanup_group
+	cbe->CleanupGroupCancelCallback = cleanup_group_cb
 end sub
 
 private sub TpSetCallbackActivationContext cdecl(byval cbe as PTP_CALLBACK_ENVIRON, byval actx as _ACTIVATION_CONTEXT ptr)
-	'' TODO: cbe->ActivationContext = actx;
+	cbe->ActivationContext = actx
 end sub
 
 private sub TpSetCallbackNoActivationContext cdecl(byval cbe as PTP_CALLBACK_ENVIRON)
-	'' TODO: cbe->ActivationContext = (struct _ACTIVATION_CONTEXT *) (LONG_PTR) -1;
+	cbe->ActivationContext = cptr(_ACTIVATION_CONTEXT ptr, cast(LONG_PTR, -1))
 end sub
 
 private sub TpSetCallbackLongFunction cdecl(byval cbe as PTP_CALLBACK_ENVIRON)
-	'' TODO: cbe->u.s.LongFunction = 1;
+	cbe->u.s.LongFunction = 1
 end sub
 
 private sub TpSetCallbackRaceWithDll cdecl(byval cbe as PTP_CALLBACK_ENVIRON, byval h as PVOID)
-	'' TODO: cbe->RaceDll = h;
+	cbe->RaceDll = h
 end sub
 
 private sub TpSetCallbackFinalizationCallback cdecl(byval cbe as PTP_CALLBACK_ENVIRON, byval fini_cb as PTP_SIMPLE_CALLBACK)
-	'' TODO: cbe->FinalizationCallback = fini_cb;
+	cbe->FinalizationCallback = fini_cb
 end sub
 
 #if _WIN32_WINNT = &h0602
 	private sub TpSetCallbackPriority cdecl(byval cbe as PTP_CALLBACK_ENVIRON, byval prio as TP_CALLBACK_PRIORITY)
-		'' TODO: cbe->CallbackPriority = prio;
+		cbe->CallbackPriority = prio
 	end sub
 #endif
 
 private sub TpSetCallbackPersistent cdecl(byval cbe as PTP_CALLBACK_ENVIRON)
-	'' TODO: cbe->u.s.Persistent = 1;
+	cbe->u.s.Persistent = 1
 end sub
 
 private sub TpDestroyCallbackEnviron cdecl(byval cbe as PTP_CALLBACK_ENVIRON)
-	'' TODO: {(cbe) = (cbe);
+	cbe = cbe
 end sub
 
 #ifdef __FB_64BIT__
-	'' TODO: } struct _TEB *NtCurrentTeb(void);
+	type _TEB as _TEB_
+	declare function NtCurrentTeb() as _TEB ptr
 	declare function GetCurrentFiber() as PVOID
 	declare function GetFiberData() as PVOID
-	type _TEB as _TEB_
 
 	private function NtCurrentTeb() as _TEB ptr
 		return cptr(_TEB ptr, __readgsqword(cast(LONG, __builtin_offsetof(NT_TIB, Self))))
@@ -8075,8 +8075,6 @@ end sub
 	private function GetFiberData() as PVOID
 		return *cptr(PVOID ptr, GetCurrentFiber())
 	end function
-#else
-	'' TODO: }
 #endif
 
 #define _NTTMAPI_

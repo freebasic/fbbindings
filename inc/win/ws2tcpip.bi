@@ -160,23 +160,23 @@ end sub
 
 private sub IN6_SET_ADDR_LOOPBACK(byval a as IN6_ADDR ptr)
 	memset(a->u.Byte, 0, sizeof(IN6_ADDR))
-	'' TODO: a->u.Byte[15] = 1;
+	a->u.Byte[15] = 1
 end sub
 
 private sub IN6ADDR_SETANY(byval a as SOCKADDR_IN6 ptr)
-	'' TODO: a->sin6_family = 23;
-	'' TODO: a->sin6_port = 0;
-	'' TODO: a->sin6_flowinfo = 0;
+	a->sin6_family = 23
+	a->sin6_port = 0
+	a->sin6_flowinfo = 0
 	IN6_SET_ADDR_UNSPECIFIED(@a->sin6_addr)
-	'' TODO: a->sin6_scope_id = 0;
+	a->sin6_scope_id = 0
 end sub
 
 private sub IN6ADDR_SETLOOPBACK(byval a as SOCKADDR_IN6 ptr)
-	'' TODO: a->sin6_family = 23;
-	'' TODO: a->sin6_port = 0;
-	'' TODO: a->sin6_flowinfo = 0;
+	a->sin6_family = 23
+	a->sin6_port = 0
+	a->sin6_flowinfo = 0
 	IN6_SET_ADDR_LOOPBACK(@a->sin6_addr)
-	'' TODO: a->sin6_scope_id = 0;
+	a->sin6_scope_id = 0
 end sub
 
 type _INTERFACE_INFO_EX

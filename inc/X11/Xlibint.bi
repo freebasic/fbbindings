@@ -248,17 +248,21 @@ declare function _XGetRequest(byval dpy as Display ptr, byval type as CARD8, byv
 #define GetReq(name, req) GetReqSized(name, XSIZEOF(x##name##Req), req)
 #define GetReqExtra(name, n, req) GetReqSized(name, XSIZEOF(x##name##Req) + n, req)
 '' TODO: #define GetResReq(name, rid, req) req = (xResourceReq *) _XGetRequest(dpy, X_##name, SIZEOF(xResourceReq)); req->id = (rid)
-'' TODO: #define GetEmptyReq(name, req) req = (xReq *) _XGetRequest(dpy, X_##name, SIZEOF(xReq))
+#macro GetEmptyReq(name, req)
+	scope
+		req = cptr(xReq ptr, _XGetRequest(dpy, X_##name, XSIZEOF(xReq)))
+	end scope
+#endmacro
 
 #ifdef __FB_64BIT__
 	#macro MakeBigReq(req, n)
 		scope
 			dim _BRdat as CARD64
 			dim _BRlen as CARD32 = req->length - 1
-			'' TODO: req->length = 0;
-			'' TODO: _BRdat = ((CARD32 *)req)[_BRlen];
+			req->length = 0
+			_BRdat = cptr(CARD32 ptr, req)[_BRlen]
 			memmove(cptr(zstring ptr, req) + 8, cptr(zstring ptr, req) + 4, (_BRlen - 1) shl 2)
-			'' TODO: ((CARD32 *)req)[1] = _BRlen + n + 2;
+			cptr(CARD32 ptr, req)[1] = (_BRlen + n) + 2
 			Data32(dpy, @_BRdat, 4)
 		end scope
 	#endmacro
@@ -267,10 +271,10 @@ declare function _XGetRequest(byval dpy as Display ptr, byval type as CARD8, byv
 		scope
 			dim _BRdat as CARD32
 			dim _BRlen as CARD32 = req->length - 1
-			'' TODO: req->length = 0;
-			'' TODO: _BRdat = ((CARD32 *)req)[_BRlen];
+			req->length = 0
+			_BRdat = cptr(CARD32 ptr, req)[_BRlen]
 			memmove(cptr(zstring ptr, req) + 8, cptr(zstring ptr, req) + 4, (_BRlen - 1) shl 2)
-			'' TODO: ((CARD32 *)req)[1] = _BRlen + n + 2;
+			cptr(CARD32 ptr, req)[1] = (_BRlen + n) + 2
 			Data32(dpy, @_BRdat, 4)
 		end scope
 	#endmacro
@@ -282,8 +286,12 @@ declare sub _XFlushGCCache(byval dpy as Display ptr, byval gc as GC)
 '' TODO: #define FlushGC(dpy, gc) if ((gc)->dirty) _XFlushGCCache((dpy), (gc))
 #macro Data_(dpy, data, len)
 	scope
-		'' TODO: if (dpy->bufptr + (len) <= dpy->bufmax) { memcpy(dpy->bufptr, data, (int)len); dpy->bufptr += ((len) + 3) & ~3; }
-		'' TODO: else _XSend(dpy, data, len);
+		if (dpy->bufptr + (len)) <= dpy->bufmax then
+			memcpy(dpy->bufptr, data, clng(len))
+			'' TODO: dpy->bufptr += ((len) + 3) & ~3;
+		else
+			_XSend(dpy, data, len)
+		end if
 	end scope
 #endmacro
 '' TODO: #define BufAlloc(type, ptr, n) if (dpy->bufptr + (n) > dpy->bufmax) _XFlush (dpy); ptr = (type) dpy->bufptr; memset(ptr, '\0', n); dpy->bufptr += (n);
@@ -306,15 +314,29 @@ declare sub _XFlushGCCache(byval dpy as Display ptr, byval gc as GC)
 #define CI_NONEXISTCHAR(cs) (((cs)->width = 0) andalso (((((cs)->rbearing or (cs)->lbearing) or (cs)->ascent) or (cs)->descent) = 0))
 #macro CI_GET_CHAR_INFO_1D(fs, col, def, cs)
 	scope
-		'' TODO: cs = def;
-		'' TODO: if (col >= fs->min_char_or_byte2 && col <= fs->max_char_or_byte2) { if (fs->per_char == NULL) { cs = &fs->min_bounds; } else { cs = &fs->per_char[(col - fs->min_char_or_byte2)]; if (CI_NONEXISTCHAR(cs)) cs = def; } }
+		cs = def
+		if (col >= fs->min_char_or_byte2) andalso (col <= fs->max_char_or_byte2) then
+			if fs->per_char = NULL then
+				cs = @fs->min_bounds
+			else
+				cs = @fs->per_char[(col - fs->min_char_or_byte2)]
+				'' TODO: if (CI_NONEXISTCHAR(cs)) cs = def;
+			end if
+		end if
 	end scope
 #endmacro
 #define CI_GET_DEFAULT_INFO_1D(fs, cs) CI_GET_CHAR_INFO_1D(fs, fs->default_char, NULL, cs)
 #macro CI_GET_CHAR_INFO_2D(fs, row, col, def, cs)
 	scope
-		'' TODO: cs = def;
-		'' TODO: if (row >= fs->min_byte1 && row <= fs->max_byte1 && col >= fs->min_char_or_byte2 && col <= fs->max_char_or_byte2) { if (fs->per_char == NULL) { cs = &fs->min_bounds; } else { cs = &fs->per_char[((row - fs->min_byte1) * (fs->max_char_or_byte2 - fs->min_char_or_byte2 + 1)) + (col - fs->min_char_or_byte2)]; if (CI_NONEXISTCHAR(cs)) cs = def; } }
+		cs = def
+		if (((row >= fs->min_byte1) andalso (row <= fs->max_byte1)) andalso (col >= fs->min_char_or_byte2)) andalso (col <= fs->max_char_or_byte2) then
+			if fs->per_char = NULL then
+				cs = @fs->min_bounds
+			else
+				cs = @fs->per_char[(((row - fs->min_byte1) * ((fs->max_char_or_byte2 - fs->min_char_or_byte2) + 1)) + (col - fs->min_char_or_byte2))]
+				'' TODO: if (CI_NONEXISTCHAR(cs)) cs = def;
+			end if
+		end if
 	end scope
 #endmacro
 #macro CI_GET_DEFAULT_INFO_2D(fs, cs)
@@ -326,7 +348,7 @@ declare sub _XFlushGCCache(byval dpy as Display ptr, byval gc as GC)
 #endmacro
 #macro OneDataCard32(dpy, dstaddr, srcvar)
 	scope
-		'' TODO: *(CARD32 *)(dstaddr) = (srcvar);
+		(*cptr(CARD32 ptr, (dstaddr))) = (srcvar)
 	end scope
 #endmacro
 

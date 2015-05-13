@@ -85,13 +85,19 @@ const TopLevelClassFlag = &h80
 #define XtIsManaged(object) iif(XtIsRectObj(object), (object)->core.managed, False)
 #define XtIsSensitive(object) iif(XtIsRectObj(object), -((object)->core.sensitive andalso (object)->core.ancestor_sensitive), False)
 #define _XBCOPYFUNC _XtBcopy
-'' TODO: #define XtMemmove(dst, src, size) if ((char *)(dst) != (char *)(src)) { (void) memcpy((char *) (dst), (char *) (src), (int) (size)); }
+#macro XtMemmove(dst, src, size)
+	if cptr(zstring ptr, (dst)) <> cptr(zstring ptr, (src)) then
+		cast(any, memcpy(cptr(zstring ptr, (dst)), cptr(zstring ptr, (src)), clng((size))))
+	end if
+#endmacro
 #define XtBZero(dst, size) bzero(cptr(zstring ptr, (dst)), clng((size)))
 #define XtMemcmp(b1, b2, size) memcmp(cptr(zstring ptr, (b1)), cptr(zstring ptr, (b2)), clng((size)))
 #define XtStackAlloc(size, stack_cache_array) iif((size) <= sizeof((stack_cache_array)), cast(XtPointer, (stack_cache_array)), XtMalloc(culng((size))))
 #macro XtStackFree(pointer, stack_cache_array)
 	scope
-		'' TODO: if ((pointer) != ((XtPointer)(stack_cache_array))) XtFree(pointer);
+		if (pointer) <> cast(XtPointer, (stack_cache_array)) then
+			XtFree(pointer)
+		end if
 	end scope
 #endmacro
 #define XFILESEARCHPATHDEFAULT "/usr/lib/X11/%L/%T/%N%S:/usr/lib/X11/%l/%T/%N%S:/usr/lib/X11/%T/%N%S"

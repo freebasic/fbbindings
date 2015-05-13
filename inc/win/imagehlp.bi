@@ -323,15 +323,15 @@ type LPADDRESS64 as _tagADDRESS64 ptr
 	type LPADDRESS as _tagADDRESS ptr
 
 	private sub Address32To64 cdecl(byval a32 as LPADDRESS, byval a64 as LPADDRESS64)
-		'' TODO: a64->Offset = (ULONG64)(LONG64)(LONG)a32->Offset;
-		'' TODO: a64->Segment = a32->Segment;
-		'' TODO: a64->Mode = a32->Mode;
+		a64->Offset = cast(ULONG64, cast(LONG64, cast(LONG, a32->Offset)))
+		a64->Segment = a32->Segment
+		a64->Mode = a32->Mode
 	end sub
 
 	private sub Address64To32 cdecl(byval a64 as LPADDRESS64, byval a32 as LPADDRESS)
-		'' TODO: a32->Offset = (ULONG)a64->Offset;
-		'' TODO: a32->Segment = a64->Segment;
-		'' TODO: a32->Mode = a64->Mode;
+		a32->Offset = cast(ULONG, a64->Offset)
+		a32->Segment = a64->Segment
+		a32->Mode = a64->Mode
 	end sub
 #endif
 
@@ -376,16 +376,16 @@ type PKDHELP64 as _KDHELP64 ptr
 	type PKDHELP as _KDHELP ptr
 
 	private sub KdHelp32To64 cdecl(byval p32 as PKDHELP, byval p64 as PKDHELP64)
-		'' TODO: p64->Thread = p32->Thread;
-		'' TODO: p64->ThCallbackStack = p32->ThCallbackStack;
-		'' TODO: p64->NextCallback = p32->NextCallback;
-		'' TODO: p64->FramePointer = p32->FramePointer;
-		'' TODO: p64->KiCallUserMode = p32->KiCallUserMode;
-		'' TODO: p64->KeUserCallbackDispatcher = p32->KeUserCallbackDispatcher;
-		'' TODO: p64->SystemRangeStart = p32->SystemRangeStart;
-		'' TODO: p64->KiUserExceptionDispatcher = p32->KiUserExceptionDispatcher;
-		'' TODO: p64->StackBase = p32->StackBase;
-		'' TODO: p64->StackLimit = p32->StackLimit;
+		p64->Thread = p32->Thread
+		p64->ThCallbackStack = p32->ThCallbackStack
+		p64->NextCallback = p32->NextCallback
+		p64->FramePointer = p32->FramePointer
+		p64->KiCallUserMode = p32->KiCallUserMode
+		p64->KeUserCallbackDispatcher = p32->KeUserCallbackDispatcher
+		p64->SystemRangeStart = p32->SystemRangeStart
+		p64->KiUserExceptionDispatcher = p32->KiUserExceptionDispatcher
+		p64->StackBase = p32->StackBase
+		p64->StackLimit = p32->StackLimit
 	end sub
 #endif
 

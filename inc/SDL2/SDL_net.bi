@@ -147,11 +147,11 @@ const SDL_DATA_ALIGNED = 0
 #define SDLNet_Read32(areap) _SDLNet_Read32(areap)
 
 private sub _SDLNet_Write16(byval value as Uint16, byval areap as any ptr)
-	'' TODO: *(Uint16 *)areap = SDL_Swap16(value);
+	(*cptr(Uint16 ptr, areap)) = SDL_Swap16(value)
 end sub
 
 private sub _SDLNet_Write32(byval value as Uint32, byval areap as any ptr)
-	'' TODO: *(Uint32 *)areap = SDL_Swap32(value);
+	(*cptr(Uint32 ptr, areap)) = SDL_Swap32(value)
 end sub
 
 private function _SDLNet_Read16(byval areap as const any ptr) as Uint16

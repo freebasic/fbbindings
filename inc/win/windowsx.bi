@@ -21,8 +21,18 @@
 #define GlobalLockPtr(lp) cast(WINBOOL, GlobalLock(GlobalPtrHandle(lp)))
 #define GlobalUnlockPtr(lp) GlobalUnlock(GlobalPtrHandle(lp))
 #define GlobalAllocPtr(flags, cb) GlobalLock(GlobalAlloc((flags), (cb)))
-'' TODO: #define GlobalReAllocPtr(lp,cbNew,flags) (GlobalUnlockPtr(lp),GlobalLock(GlobalReAlloc(GlobalPtrHandle(lp) ,(cbNew),(flags))))
-'' TODO: #define GlobalFreePtr(lp) (GlobalUnlockPtr(lp),(WINBOOL)(ULONG_PTR)GlobalFree(GlobalPtrHandle(lp)))
+#macro GlobalReAllocPtr(lp, cbNew, flags)
+	scope
+		GlobalUnlockPtr(lp)
+		GlobalLock(GlobalReAlloc(GlobalPtrHandle(lp), (cbNew), (flags)))
+	end scope
+#endmacro
+#macro GlobalFreePtr(lp)
+	scope
+		GlobalUnlockPtr(lp)
+		cast(WINBOOL, cast(ULONG_PTR, GlobalFree(GlobalPtrHandle(lp))))
+	end scope
+#endmacro
 #define DeletePen(hpen) DeleteObject(cast(HGDIOBJ, cast(HPEN, (hpen))))
 #define SelectPen(hdc, hpen) cast(HPEN, SelectObject((hdc), cast(HGDIOBJ, cast(HPEN, (hpen)))))
 #define GetStockPen(i) cast(HPEN, GetStockObject(i))
@@ -64,10 +74,20 @@
 #define IsRButtonDown() (GetKeyState(VK_RBUTTON) < 0)
 #define IsMButtonDown() (GetKeyState(VK_MBUTTON) < 0)
 #define SubclassDialog(hwndDlg, lpfn) SetWindowLongPtr(hwndDlg, DWLP_DLGPROC, cast(LPARAM, (lpfn)))
-
 '' TODO: #define SetDlgMsgResult(hwnd,msg,result) (((msg)==WM_CTLCOLORMSGBOX || (msg)==WM_CTLCOLOREDIT || (msg)==WM_CTLCOLORLISTBOX || (msg)==WM_CTLCOLORBTN || (msg)==WM_CTLCOLORDLG || (msg)==WM_CTLCOLORSCROLLBAR || (msg)==WM_CTLCOLORSTATIC || (msg)==WM_COMPAREITEM || (msg)==WM_VKEYTOITEM || (msg)==WM_CHARTOITEM || (msg)==WM_QUERYDRAGICON || (msg)==WM_INITDIALOG) ? (WINBOOL)(result) : (SetWindowLongPtr((hwnd),DWLP_MSGRESULT,(LPARAM)(LRESULT)(result)),TRUE))
-'' TODO: #define DefDlgProcEx(hwnd,msg,wParam,lParam,pfRecursion) (*(pfRecursion) = TRUE,DefDlgProc(hwnd,msg,wParam,lParam))
-'' TODO: #define CheckDefDlgRecursion(pfRecursion) if (*(pfRecursion)) { *(pfRecursion) = FALSE; return FALSE; }
+#macro DefDlgProcEx(hwnd, msg, wParam, lParam, pfRecursion)
+	scope
+		(*(pfRecursion)) = TRUE
+		DefDlgProc(hwnd, msg, wParam, lParam)
+	end scope
+#endmacro
+#macro CheckDefDlgRecursion(pfRecursion)
+	if *(pfRecursion) then
+		(*(pfRecursion)) = FALSE
+		return FALSE
+	end if
+#endmacro
+
 '' TODO: #define HANDLE_MSG(hwnd,message,fn) case (message): return HANDLE_##message((hwnd),(wParam),(lParam),(fn))
 '' TODO: #define HANDLE_WM_COMPACTING(hwnd,wParam,lParam,fn) ((fn)((hwnd),(UINT)(wParam)),(LRESULT)0)
 '' TODO: #define FORWARD_WM_COMPACTING(hwnd,compactRatio,fn) (void)(fn)((hwnd),WM_COMPACTING,(WPARAM)(UINT)(compactRatio),(LPARAM)0)
@@ -365,7 +385,12 @@
 #define Edit_SetText(hwndCtl, lpsz) SetWindowText((hwndCtl), (lpsz))
 #define Edit_LimitText(hwndCtl, cchMax) SNDMSG((hwndCtl), EM_LIMITTEXT, cast(WPARAM, (cchMax)), cast(LPARAM, 0))
 #define Edit_GetLineCount(hwndCtl) clng(cast(DWORD, SNDMSG((hwndCtl), EM_GETLINECOUNT, cast(WPARAM, 0), cast(LPARAM, 0))))
-'' TODO: #define Edit_GetLine(hwndCtl,line,lpch,cchMax) ((*((int *)(lpch)) = (cchMax)),((int)(DWORD)SNDMSG((hwndCtl),EM_GETLINE,(WPARAM)(int)(line),(LPARAM)(LPTSTR)(lpch))))
+#macro Edit_GetLine(hwndCtl, line, lpch, cchMax)
+	scope
+		(*cptr(long ptr, (lpch))) = (cchMax)
+		clng(cast(DWORD, SNDMSG((hwndCtl), EM_GETLINE, cast(WPARAM, clng((line))), cast(LPARAM, cast(LPTSTR, (lpch))))))
+	end scope
+#endmacro
 #define Edit_GetRect(hwndCtl, lprc) SNDMSG((hwndCtl), EM_GETRECT, cast(LPARAM, 0), cast(LPARAM, cptr(RECT ptr, (lprc))))
 #define Edit_SetRect(hwndCtl, lprc) SNDMSG((hwndCtl), EM_SETRECT, cast(LPARAM, 0), cast(LPARAM, cptr(const RECT ptr, (lprc))))
 #define Edit_SetRectNoPaint(hwndCtl, lprc) SNDMSG((hwndCtl), EM_SETRECTNP, cast(LPARAM, 0), cast(LPARAM, cptr(const RECT ptr, (lprc))))

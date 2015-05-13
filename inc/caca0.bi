@@ -117,7 +117,13 @@ const CACA_EVENT_ANY = &hff000000
 #define caca_wait_event(x) __caca0_get_event(x, -1)
 #define caca_get_mouse_x() caca_get_mouse_x(__caca0_dp)
 #define caca_get_mouse_y() caca_get_mouse_y(__caca0_dp)
-'' TODO: #define caca_set_color(x, y) (__caca0_fg = (x), __caca0_bg = (y), caca_set_color_ansi(__caca0_cv, x, y))
+#macro caca_set_color(x, y)
+	scope
+		__caca0_fg = (x)
+		__caca0_bg = (y)
+		caca_set_color_ansi(__caca0_cv, x, y)
+	end scope
+#endmacro
 #define caca_get_fg_color() __caca0_fg
 #define caca_get_bg_color() __caca0_bg
 #define caca_get_color_name __caca0_get_color_name

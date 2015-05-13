@@ -40,8 +40,8 @@ const ZLIB_COMPRESS_FLAG = &h80
 const ZLIB_DATALEN_MASK = &h0f
 #macro ZLIB_PUT_PKTHDR(p, len, compflag)
 	scope
-		'' TODO: (p)[0] = ((unsigned)(len)) >> 8 | ((compflag) ? ZLIB_COMPRESS_FLAG : 0);
-		'' TODO: (p)[1] = (len) & 0xff;
+		(p)[0] = culng(culng(culng((len)) shr 8) or iif((compflag), ZLIB_COMPRESS_FLAG, 0))
+		(p)[1] = (len) and &hff
 	end scope
 #endmacro
 #define ZLIB_GET_DATALEN(p) culng(culng(culng((p)[0] and ZLIB_DATALEN_MASK) shl 8) or culng((p)[1]))

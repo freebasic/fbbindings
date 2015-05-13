@@ -2630,7 +2630,10 @@ declare function SHBindToParent(byval pidl as LPCITEMIDLIST, byval riid as const
 
 private function IDListContainerIsConsistent cdecl(byval p as LPCITEMIDLIST, byval sz as UINT) as WINBOOL
 	dim c as UINT = sizeof(p->mkid.cb)
-	'' TODO: while (c <= sz && p->mkid.cb >= sizeof (p->mkid.cb) && p->mkid.cb <= (sz - c)) { c += p->mkid.cb; p = ((LPITEMIDLIST)((void *) (((BYTE *) ((p)))+ (((p)->mkid.cb))))); }
+	while ((c <= sz) andalso (p->mkid.cb >= sizeof(p->mkid.cb))) andalso (p->mkid.cb <= (sz - c))
+		'' TODO: c += p->mkid.cb;
+		p = cast(LPITEMIDLIST, cptr(any ptr, cptr(UBYTE ptr, p) + p->mkid.cb))
+	wend
 	return -((c <= sz) andalso (p->mkid.cb = 0))
 end function
 

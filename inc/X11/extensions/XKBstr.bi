@@ -37,7 +37,12 @@
 
 #define _XKBSTR_H_
 #define XkbCharToInt(v) iif((v) and &h80, clng((v) or (not &hff)), clng((v) and &h7f))
-'' TODO: #define XkbIntTo2Chars(i,h,l) (((h)=((i>>8)&0xff)),((l)=((i)&0xff)))
+#macro XkbIntTo2Chars(i, h, l)
+	scope
+		(h) = (i shr 8) and &hff
+		(l) = (i) and &hff
+	end scope
+#endmacro
 #define Xkb2CharsToInt(h, l) cshort(((h) shl 8) or (l))
 
 type _XkbStateRec
@@ -129,7 +134,12 @@ end type
 
 type XkbModAction as _XkbModAction
 #define XkbModActionVMods(a) cshort(((a)->vmods1 shl 8) or (a)->vmods2)
-'' TODO: #define XkbSetModActionVMods(a,v) (((a)->vmods1=(((v)>>8)&0xff)),(a)->vmods2=((v)&0xff))
+#macro XkbSetModActionVMods(a, v)
+	scope
+		(a)->vmods1 = ((v) shr 8) and &hff
+		(a)->vmods2 = (v) and &hff
+	end scope
+#endmacro
 
 type _XkbGroupAction
 	as ubyte type
@@ -139,7 +149,11 @@ end type
 
 type XkbGroupAction as _XkbGroupAction
 #define XkbSAGroup(a) XkbCharToInt((a)->group_XXX)
-'' TODO: #define XkbSASetGroup(a,g) ((a)->group_XXX=(g))
+#macro XkbSASetGroup(a, g)
+	scope
+		(a)->group_XXX = (g)
+	end scope
+#endmacro
 
 type _XkbISOAction
 	as ubyte type
@@ -187,7 +201,11 @@ end type
 
 type XkbPtrDfltAction as _XkbPtrDfltAction
 #define XkbSAPtrDfltValue(a) XkbCharToInt((a)->valueXXX)
-'' TODO: #define XkbSASetPtrDfltValue(a,c) ((a)->valueXXX= ((c)&0xff))
+#macro XkbSASetPtrDfltValue(a, c)
+	scope
+		(a)->valueXXX = (c) and &hff
+	end scope
+#endmacro
 
 type _XkbSwitchScreenAction
 	as ubyte type
@@ -197,7 +215,11 @@ end type
 
 type XkbSwitchScreenAction as _XkbSwitchScreenAction
 #define XkbSAScreen(a) XkbCharToInt((a)->screenXXX)
-'' TODO: #define XkbSASetScreen(a,s) ((a)->screenXXX= ((s)&0xff))
+#macro XkbSASetScreen(a, s)
+	scope
+		(a)->screenXXX = (s) and &hff
+	end scope
+#endmacro
 
 type _XkbCtrlsAction
 	as ubyte type
@@ -209,7 +231,14 @@ type _XkbCtrlsAction
 end type
 
 type XkbCtrlsAction as _XkbCtrlsAction
-'' TODO: #define XkbActionSetCtrls(a,c) (((a)->ctrls3=(((c)>>24)&0xff)), ((a)->ctrls2=(((c)>>16)&0xff)), ((a)->ctrls1=(((c)>>8)&0xff)), ((a)->ctrls0=((c)&0xff)))
+#macro XkbActionSetCtrls(a, c)
+	scope
+		(a)->ctrls3 = ((c) shr 24) and &hff
+		(a)->ctrls2 = ((c) shr 16) and &hff
+		(a)->ctrls1 = ((c) shr 8) and &hff
+		(a)->ctrls0 = (c) and &hff
+	end scope
+#endmacro
 #define XkbActionCtrls(a) culng(culng(culng(culng(culng((a)->ctrls3) shl 24) or culng(culng((a)->ctrls2) shl 16)) or culng(culng((a)->ctrls1) shl 8)) or culng((a)->ctrls0))
 
 type _XkbMessageAction
@@ -233,9 +262,19 @@ end type
 
 type XkbRedirectKeyAction as _XkbRedirectKeyAction
 #define XkbSARedirectVMods(a) culng(culng(culng((a)->vmods1) shl 8) or culng((a)->vmods0))
-'' TODO: #define XkbSARedirectSetVMods(a,m) (((a)->vmods_mask1=(((m)>>8)&0xff)), ((a)->vmods_mask0=((m)&0xff)))
+#macro XkbSARedirectSetVMods(a, m)
+	scope
+		(a)->vmods_mask1 = ((m) shr 8) and &hff
+		(a)->vmods_mask0 = (m) and &hff
+	end scope
+#endmacro
 #define XkbSARedirectVModsMask(a) culng(culng(culng((a)->vmods_mask1) shl 8) or culng((a)->vmods_mask0))
-'' TODO: #define XkbSARedirectSetVModsMask(a,m) (((a)->vmods_mask1=(((m)>>8)&0xff)), ((a)->vmods_mask0=((m)&0xff)))
+#macro XkbSARedirectSetVModsMask(a, m)
+	scope
+		(a)->vmods_mask1 = ((m) shr 8) and &hff
+		(a)->vmods_mask0 = (m) and &hff
+	end scope
+#endmacro
 
 type _XkbDeviceBtnAction
 	as ubyte type

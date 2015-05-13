@@ -75,7 +75,11 @@ extern "C"
 	#define ESET(val) WSASetLastError(val)
 	#define EGET() WSAGetLastError()
 #else
-	'' TODO: # define ESET(val) errno = val
+	#macro ESET(val)
+		scope
+			errno = val
+		end scope
+	#endmacro
 	#define EGET() errno
 #endif
 

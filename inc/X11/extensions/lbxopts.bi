@@ -48,7 +48,15 @@ const LBX_OPT_EXTENSION = 255
 const LBX_OPT_SMALLLEN_SIZE = 1
 const LBX_OPT_BIGLEN_SIZE = 3
 const LBX_OPT_BIGLEN_MIN = 256
-'' TODO: #define LBX_OPT_DECODE_LEN(p, len, size) if ((p)[0]) { (len) = (p)[0]; (size) = LBX_OPT_SMALLLEN_SIZE; } else { (len) = ((LBX_OPT_BIGLEN_MIN + (p)[1]) << 8) | (p)[2]; (size) = LBX_OPT_BIGLEN_SIZE; }
+#macro LBX_OPT_DECODE_LEN(p, len, size)
+	if (p)[0] then
+		(len) = (p)[0]
+		(size) = LBX_OPT_SMALLLEN_SIZE
+	else
+		(len) = ((LBX_OPT_BIGLEN_MIN + (p)[1]) shl 8) or (p)[2]
+		(size) = LBX_OPT_BIGLEN_SIZE
+	end if
+#endmacro
 #define LBX_OPT_SMALLHDR_LEN (1 + LBX_OPT_SMALLLEN_SIZE)
 #define LBX_OPT_BIGHDR_LEN (1 + LBX_OPT_BIGLEN_SIZE)
 const LBX_OPT_DELTA_REQLEN = 6

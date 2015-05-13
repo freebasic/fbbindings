@@ -80,10 +80,21 @@ declare sub XextDestroyExtension(byval as XExtensionInfo ptr)
 declare function XextAddDisplay(byval as XExtensionInfo ptr, byval as Display ptr, byval as const zstring ptr, byval as XExtensionHooks ptr, byval as long, byval as XPointer) as XExtDisplayInfo ptr
 declare function XextRemoveDisplay(byval as XExtensionInfo ptr, byval as Display ptr) as long
 declare function XextFindDisplay(byval as XExtensionInfo ptr, byval as Display ptr) as XExtDisplayInfo ptr
-#define XextHasExtension(i) ((i) andalso (i)->codes)
 
-'' TODO: #define XextCheckExtension(dpy,i,name,val) if (!XextHasExtension(i)) { XMissingExtension (dpy, name); return val; }
-'' TODO: #define XextSimpleCheckExtension(dpy,i,name) if (!XextHasExtension(i)) { XMissingExtension (dpy, name); return; }
+#define XextHasExtension(i) ((i) andalso (i)->codes)
+#macro XextCheckExtension(dpy, i, name, val)
+	if XextHasExtension(i) = 0 then
+		XMissingExtension(dpy, name)
+		return val
+	end if
+#endmacro
+#macro XextSimpleCheckExtension(dpy, i, name)
+	if XextHasExtension(i) = 0 then
+		XMissingExtension(dpy, name)
+		'' TODO: return;
+	end if
+#endmacro
+
 '' TODO: #define XEXT_GENERATE_FIND_DISPLAY(proc,extinfo,extname,hooks,nev,data)XExtDisplayInfo *proc (Display *dpy){ XExtDisplayInfo *dpyinfo; if (!extinfo) { if (!(extinfo = XextCreateExtension())) return NULL; } if (!(dpyinfo = XextFindDisplay (extinfo, dpy))) dpyinfo = XextAddDisplay (extinfo,dpy,extname,hooks,nev,data); return dpyinfo;}
 '' TODO: #define XEXT_FIND_DISPLAY_PROTO(proc) XExtDisplayInfo *proc(Display *dpy)
 '' TODO: #define XEXT_GENERATE_CLOSE_DISPLAY(proc,extinfo)int proc (Display *dpy, XExtCodes *codes){ return XextRemoveDisplay (extinfo, dpy);}
