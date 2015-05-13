@@ -7,9 +7,6 @@ to fb:
 		end scope
 	#endmacro
 
-convert c: #define LUA_UNSIGNED unsigned LUA_INT32
-to c:      #define LUA_UNSIGNED unsigned int
-
 convert c: #define lua_register(L, n, f) (lua_pushcfunction(L, (f)), lua_setglobal(L, (n)))
 to c:      #define lua_register(L, n, f) {lua_pushcfunction(L, (f)); lua_setglobal(L, (n));}
 

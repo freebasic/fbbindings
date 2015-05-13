@@ -2,6 +2,8 @@
 
 -replacements lua.replacements
 
+-expandindefine LUA_INT32
+
 -removedefine LUA_API
 -removedefine LUALIB_API
 -removedefine LUAMOD_API
