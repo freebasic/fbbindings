@@ -101,7 +101,11 @@ type reloc_howto_type as const reloc_howto_struct
 #define BFD_NO_MORE_SYMBOLS cast(symindex, not 0)
 #define bfd_get_section(x) (x)->section
 #define bfd_get_output_section(x) (x)->section->output_section
-#define bfd_set_section(x,y) scope : (x)->section = (y) : end scope
+#macro bfd_set_section(x, y)
+	scope
+		(x)->section = (y)
+	end scope
+#endmacro
 #define bfd_asymbol_base(x) (x)->section->vma
 #define bfd_asymbol_value(x) (bfd_asymbol_base(x) + (x)->value)
 #define bfd_asymbol_name(x) (x)->name
@@ -161,8 +165,16 @@ type sec_ptr as bfd_section ptr
 		(ptr)->user_set_vma = TRUE
 	end scope
 #endmacro
-#define bfd_set_section_alignment(bfd, ptr, val) scope : (ptr)->alignment_power = (val) : end scope
-#define bfd_set_section_userdata(bfd, ptr, val) scope : (ptr)->userdata = (val) : end scope
+#macro bfd_set_section_alignment(bfd, ptr_, val)
+	scope
+		(ptr_)->alignment_power = (val)
+	end scope
+#endmacro
+#macro bfd_set_section_userdata(bfd, ptr_, val)
+	scope
+		(ptr_)->userdata = (val)
+	end scope
+#endmacro
 #define bfd_get_section_limit(bfd, sec) (iif(((bfd)->direction <> write_direction) andalso ((sec)->rawsize <> 0), (sec)->rawsize, (sec)->size) / bfd_octets_per_byte(bfd))
 #define elf_discarded_section(sec) ((((bfd_is_abs_section(sec) = 0) andalso bfd_is_abs_section((sec)->output_section)) andalso ((sec)->sec_info_type <> ELF_INFO_TYPE_MERGE)) andalso ((sec)->sec_info_type <> ELF_INFO_TYPE_JUST_SYMS))
 
@@ -257,7 +269,11 @@ declare sub warn_deprecated(byval as const zstring ptr, byval as const zstring p
 #define bfd_count_sections(abfd) (abfd)->section_count
 #define bfd_get_dynamic_symcount(abfd) (abfd)->dynsymcount
 #define bfd_get_symbol_leading_char(abfd) (abfd)->xvec->symbol_leading_char
-#define bfd_set_cacheable(abfd,bool) scope : (abfd)->cacheable = bool : end scope
+#macro bfd_set_cacheable(abfd, bool)
+	scope
+		(abfd)->cacheable = bool
+	end scope
+#endmacro
 
 declare function bfd_cache_close(byval abfd as bfd ptr) as bfd_boolean
 declare function bfd_cache_close_all() as bfd_boolean
@@ -452,8 +468,12 @@ declare function bfd_calc_gnu_debuglink_crc32(byval crc as culong, byval buf as 
 declare function bfd_follow_gnu_debuglink(byval abfd as bfd ptr, byval dir as const zstring ptr) as zstring ptr
 declare function bfd_create_gnu_debuglink_section(byval abfd as bfd ptr, byval filename as const zstring ptr) as bfd_section ptr
 declare function bfd_fill_in_gnu_debuglink_section(byval abfd as bfd ptr, byval sect as bfd_section ptr, byval filename as const zstring ptr) as bfd_boolean
-#define bfd_put_8(abfd, val, ptr_) scope : *cptr(ubyte ptr, ptr_) = (val) and &hff : end scope
 
+#macro bfd_put_8(abfd, val, ptr_)
+	scope
+		(*cptr(ubyte ptr, (ptr_))) = (val) and &hff
+	end scope
+#endmacro
 #define bfd_put_signed_8 bfd_put_8
 #define bfd_get_8(abfd, ptr_) ((*cptr(const ubyte ptr, (ptr_))) and &hff)
 #define bfd_get_signed_8(abfd, ptr_) ((((*cptr(const ubyte ptr, (ptr_))) and &hff) xor &h80) - &h80)
@@ -469,12 +489,7 @@ declare function bfd_fill_in_gnu_debuglink_section(byval abfd as bfd ptr, byval 
 #define bfd_put_signed_64 bfd_put_64
 #define bfd_get_64(abfd, ptr_) BFD_SEND(abfd, bfd_getx64, (ptr_))
 #define bfd_get_signed_64(abfd, ptr_) BFD_SEND(abfd, bfd_getx_signed_64, (ptr_))
-#define bfd_get(bits, abfd, ptr) _
-	iif((bits) = 8, cast(bfd_vma, bfd_get_8(abfd, ptr)), _
-	iif((bits) = 16, bfd_get_16(abfd, ptr), _
-	iif((bits) = 32, bfd_get_32(abfd, ptr), _
-	iif((bits) = 64, bfd_get_64(abfd, ptr), _
-	cast(bfd_vma, -1)))))
+#define bfd_get(bits, abfd, ptr_) iif((bits) = 8, cast(bfd_vma, bfd_get_8(abfd, ptr_)), iif((bits) = 16, bfd_get_16(abfd, ptr_), iif((bits) = 32, bfd_get_32(abfd, ptr_), iif((bits) = 64, bfd_get_64(abfd, ptr_), cast(bfd_vma, -1)))))
 #macro bfd_put(bits, abfd, val, ptr)
 	select case bits
 	case 8  : bfd_put_8(abfd, val, ptr)
@@ -655,9 +670,9 @@ extern bfd_ind_section as asection
 #define bfd_is_const_section(SEC) (((((SEC) = bfd_abs_section_ptr) orelse ((SEC) = bfd_und_section_ptr)) orelse ((SEC) = bfd_com_section_ptr)) orelse ((SEC) = bfd_ind_section_ptr))
 #macro bfd_section_list_remove(ABFD, S)
 	scope
-		dim as asection ptr _s = S
-		dim as asection ptr _next = _s->next
-		dim as asection ptr _prev = _s->prev
+		dim _s as asection ptr = S
+		dim _next as asection ptr = _s->next
+		dim _prev as asection ptr = _s->prev
 		if _prev then
 			_prev->next = _next
 		else
@@ -672,8 +687,8 @@ extern bfd_ind_section as asection
 #endmacro
 #macro bfd_section_list_append(ABFD, S)
 	scope
-		dim as asection ptr _s = S
-		dim as bfd ptr _abfd = ABFD
+		dim _s as asection ptr = S
+		dim _abfd as bfd ptr = ABFD
 		_s->next = NULL
 		if _abfd->section_last then
 			_s->prev = _abfd->section_last
@@ -687,8 +702,8 @@ extern bfd_ind_section as asection
 #endmacro
 #macro bfd_section_list_prepend(ABFD, S)
 	scope
-		dim as asection ptr _s = S
-		dim as bfd ptr _abfd = ABFD
+		dim _s as asection ptr = S
+		dim _abfd as bfd ptr = ABFD
 		_s->prev = NULL
 		if _abfd->sections then
 			_s->next = _abfd->sections
@@ -708,8 +723,11 @@ extern bfd_ind_section as asection
 		_s->next = _next
 		_s->prev = _a
 		_a->next = _s
-		'' TODO: if (_next) _next->prev = _s;
-		'' TODO: else (ABFD)->section_last = _s;
+		if _next then
+			_next->prev = _s
+		else
+			(ABFD)->section_last = _s
+		end if
 	end scope
 #endmacro
 #macro bfd_section_list_insert_before(ABFD, B, S)
@@ -720,8 +738,11 @@ extern bfd_ind_section as asection
 		_s->prev = _prev
 		_s->next = _b
 		_b->prev = _s
-		'' TODO: if (_prev) _prev->next = _s;
-		'' TODO: else (ABFD)->sections = _s;
+		if _prev then
+			_prev->next = _s
+		else
+			(ABFD)->sections = _s
+		end if
 	end scope
 #endmacro
 #define bfd_section_removed_from_list(ABFD, S) iif((S)->next = NULL, -((ABFD)->section_last <> (S)), -((S)->next->prev <> (S)))
