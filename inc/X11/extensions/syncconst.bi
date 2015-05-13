@@ -75,8 +75,8 @@ const XSyncCAEvents = cast(clong, 1) shl 5
 #macro _XSyncValueAdd(presult, a, b, poverflow)
 	scope
 		dim t as long = (a).lo
-		Bool signa = XSyncValueIsNegative(a)
-		Bool signb = XSyncValueIsNegative(b)
+		'' TODO: Bool signa = XSyncValueIsNegative(a);
+		'' TODO: Bool signb = XSyncValueIsNegative(b);
 		(presult)->lo = (a).lo + (b).lo
 		(presult)->hi = (a).hi + (b).hi
 		'' TODO: if (t>(presult)->lo) (presult)->hi++;
@@ -86,8 +86,8 @@ const XSyncCAEvents = cast(clong, 1) shl 5
 #macro _XSyncValueSubtract(presult, a, b, poverflow)
 	scope
 		dim t as long = (a).lo
-		Bool signa = XSyncValueIsNegative(a)
-		Bool signb = XSyncValueIsNegative(b)
+		'' TODO: Bool signa = XSyncValueIsNegative(a);
+		'' TODO: Bool signb = XSyncValueIsNegative(b);
 		(presult)->lo = (a).lo - (b).lo
 		(presult)->hi = (a).hi - (b).hi
 		'' TODO: if (t<(presult)->lo) (presult)->hi--;
