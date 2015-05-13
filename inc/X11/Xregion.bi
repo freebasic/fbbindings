@@ -88,16 +88,59 @@ type REGION as _XRegion
 #define EXTENTCHECK(r1, r2) (((((r1)->x2 > (r2)->x1) andalso ((r1)->x1 < (r2)->x2)) andalso ((r1)->y2 > (r2)->y1)) andalso ((r1)->y1 < (r2)->y2))
 #macro EXTENTS(r, idRect)
 	scope
-		'' TODO: if((r)->x1 < (idRect)->extents.x1) (idRect)->extents.x1 = (r)->x1;
-		'' TODO: if((r)->y1 < (idRect)->extents.y1) (idRect)->extents.y1 = (r)->y1;
-		'' TODO: if((r)->x2 > (idRect)->extents.x2) (idRect)->extents.x2 = (r)->x2;
-		'' TODO: if((r)->y2 > (idRect)->extents.y2) (idRect)->extents.y2 = (r)->y2;
+		if (r)->x1 < (idRect)->extents.x1 then
+			(idRect)->extents.x1 = (r)->x1
+		end if
+		if (r)->y1 < (idRect)->extents.y1 then
+			(idRect)->extents.y1 = (r)->y1
+		end if
+		if (r)->x2 > (idRect)->extents.x2 then
+			(idRect)->extents.x2 = (r)->x2
+		end if
+		if (r)->y2 > (idRect)->extents.y2 then
+			(idRect)->extents.y2 = (r)->y2
+		end if
 	end scope
 #endmacro
-'' TODO: #define MEMCHECK(reg, rect, firstrect){ if ((reg)->numRects >= ((reg)->size - 1)){ BoxPtr tmpRect = Xrealloc ((firstrect), (2 * (sizeof(BOX)) * ((reg)->size))); if (tmpRect == NULL) return(0); (firstrect) = tmpRect; (reg)->size *= 2; (rect) = &(firstrect)[(reg)->numRects]; } }
+#macro MEMCHECK(reg, rect, firstrect)
+	scope
+		if (reg)->numRects >= ((reg)->size - 1) then
+			dim tmpRect as BoxPtr = Xrealloc((firstrect), (2 * sizeof(BOX)) * (reg)->size)
+			if tmpRect = NULL then
+				return 0
+			end if
+			(firstrect) = tmpRect
+			'' TODO: (reg)->size *= 2;
+			(rect) = @(firstrect)[(reg)->numRects]
+		end if
+	end scope
+#endmacro
 #define CHECK_PREVIOUS(Reg, R, Rx1, Ry1, Rx2, Ry2) (((((((Reg)->numRects > 0) andalso ((R - 1)->y1 = (Ry1))) andalso ((R - 1)->y2 = (Ry2))) andalso ((R - 1)->x1 <= (Rx1))) andalso ((R - 1)->x2 >= (Rx2))) = 0)
-'' TODO: #define ADDRECT(reg, r, rx1, ry1, rx2, ry2){ if (((rx1) < (rx2)) && ((ry1) < (ry2)) && CHECK_PREVIOUS((reg), (r), (rx1), (ry1), (rx2), (ry2))){ (r)->x1 = (rx1); (r)->y1 = (ry1); (r)->x2 = (rx2); (r)->y2 = (ry2); EXTENTS((r), (reg)); (reg)->numRects++; (r)++; } }
-'' TODO: #define ADDRECTNOX(reg, r, rx1, ry1, rx2, ry2){ if ((rx1 < rx2) && (ry1 < ry2) && CHECK_PREVIOUS((reg), (r), (rx1), (ry1), (rx2), (ry2))){ (r)->x1 = (rx1); (r)->y1 = (ry1); (r)->x2 = (rx2); (r)->y2 = (ry2); (reg)->numRects++; (r)++; } }
+#macro ADDRECT(reg, r, rx1, ry1, rx2, ry2)
+	scope
+		if (((rx1) < (rx2)) andalso ((ry1) < (ry2))) andalso CHECK_PREVIOUS((reg), (r), (rx1), (ry1), (rx2), (ry2)) then
+			(r)->x1 = (rx1)
+			(r)->y1 = (ry1)
+			(r)->x2 = (rx2)
+			(r)->y2 = (ry2)
+			EXTENTS((r), (reg))
+			'' TODO: (reg)->numRects++;
+			'' TODO: (r)++;
+		end if
+	end scope
+#endmacro
+#macro ADDRECTNOX(reg, r, rx1, ry1, rx2, ry2)
+	scope
+		if ((rx1 < rx2) andalso (ry1 < ry2)) andalso CHECK_PREVIOUS((reg), (r), (rx1), (ry1), (rx2), (ry2)) then
+			(r)->x1 = (rx1)
+			(r)->y1 = (ry1)
+			(r)->x2 = (rx2)
+			(r)->y2 = (ry2)
+			'' TODO: (reg)->numRects++;
+			'' TODO: (r)++;
+		end if
+	end scope
+#endmacro
 #macro EMPTY_REGION(pReg)
 	scope
 		pReg->numRects = 0

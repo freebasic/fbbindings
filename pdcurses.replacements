@@ -14,11 +14,11 @@ convert c:
 		}
 to c:
 	#define getsyx(y, x) \
-		do { \
+		{ \
 			if (curscr->_leaveit) { \
 				(x) = -1; \
 				(y) = -1; \
 			} else { \
 				getyx(curscr,(y),(x)); \
 			} \
-		} while (0)
+		}

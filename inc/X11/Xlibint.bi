@@ -320,7 +320,9 @@ declare sub _XFlushGCCache(byval dpy as Display ptr, byval gc as GC)
 				cs = @fs->min_bounds
 			else
 				cs = @fs->per_char[(col - fs->min_char_or_byte2)]
-				'' TODO: if (CI_NONEXISTCHAR(cs)) cs = def;
+				if CI_NONEXISTCHAR(cs) then
+					cs = def
+				end if
 			end if
 		end if
 	end scope
@@ -334,7 +336,9 @@ declare sub _XFlushGCCache(byval dpy as Display ptr, byval gc as GC)
 				cs = @fs->min_bounds
 			else
 				cs = @fs->per_char[(((row - fs->min_byte1) * ((fs->max_char_or_byte2 - fs->min_char_or_byte2) + 1)) + (col - fs->min_char_or_byte2))]
-				'' TODO: if (CI_NONEXISTCHAR(cs)) cs = def;
+				if CI_NONEXISTCHAR(cs) then
+					cs = def
+				end if
 			end if
 		end if
 	end scope
@@ -374,8 +378,11 @@ type _XAsyncErrorState as _XAsyncEState
 declare sub _XDeqAsyncHandler(byval dpy as Display ptr, byval handler as _XAsyncHandler ptr)
 #macro DeqAsyncHandler(dpy, handler)
 	scope
-		'' TODO: if (dpy->async_handlers == (handler)) dpy->async_handlers = (handler)->next;
-		'' TODO: else _XDeqAsyncHandler(dpy, handler);
+		if dpy->async_handlers = (handler) then
+			dpy->async_handlers = (handler)->next
+		else
+			_XDeqAsyncHandler(dpy, handler)
+		end if
 	end scope
 #endmacro
 type FreeFuncType as sub(byval as Display ptr)
