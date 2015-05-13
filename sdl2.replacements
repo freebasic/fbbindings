@@ -5,6 +5,8 @@ to fb:
 		function = (SDL_PeepEvents(NULL, 0, SDL_PEEKEVENT, SDL_QUIT_, SDL_QUIT_) > 0)
 	end function
 
+# should use "-expandindefine SDL_static_cast", but fbfrog doesn't do it in this case
+# because the macro call involves macro parameters
 convert c:
 	#define SDL_FOURCC(A, B, C, D) \
 		((SDL_static_cast(Uint32, SDL_static_cast(Uint8, (A))) << 0) | \

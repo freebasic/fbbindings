@@ -5,27 +5,8 @@ to fb:
 		function = SDL_PeepEvents(NULL, 0, SDL_PEEKEVENT, SDL_QUITMASK)
 	end function
 
-convert c:
-	#define FRAMES_TO_MSF(f, M, S, F) { \
-		int value = f; \
-		*(F) = value % CD_FPS; \
-		value /= CD_FPS; \
-		*(S) = value % 60; \
-		value /= 60; \
-		*(M) = value; \
-	}
-to fb:
-	#macro FRAMES_TO_MSF(f_, M, S, F)
-		scope
-			dim value as long = f_
-			*(F) = value mod CD_FPS
-			value \= CD_FPS
-			*(S) = value mod 60
-			value \= 60
-			*(M) = value
-		end scope
-	#endmacro
-
+# should use "-expandindefine SDL_reinterpret_cast", but fbfrog doesn't do it in this case
+# because the macro call involves macro parameters
 convert c: #define SDLNet_Write16(value, areap) (*SDL_reinterpret_cast(Uint16 *, areap) = SDL_SwapBE16(value))
 to c:      #define SDLNet_Write16(value, areap) (*(Uint16 *)areap = SDL_SwapBE16(value))
 

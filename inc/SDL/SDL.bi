@@ -575,11 +575,11 @@ const CD_FPS = 75
 #macro FRAMES_TO_MSF(f_, M, S, F)
 	scope
 		dim value as long = f_
-		*(F) = value mod CD_FPS
-		value \= CD_FPS
-		*(S) = value mod 60
-		value \= 60
-		*(M) = value
+		(*(F)) = value mod CD_FPS
+		value /= CD_FPS
+		(*(S)) = value mod 60
+		value /= 60
+		(*(M)) = value
 	end scope
 #endmacro
 #define MSF_TO_FRAMES(M, S, F) (((((M) * 60) * CD_FPS) + ((S) * CD_FPS)) + (F))
