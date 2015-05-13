@@ -4,18 +4,6 @@ to fb:     #define BUTTON_STATUS(x) (Mouse_status.button((x) - 1))
 convert c: typedef unsigned long chtype;
 to c:      typedef unsigned int chtype;
 
-convert c: #define getbegyx(w, y, x) (y = getbegy(w), x = getbegx(w))
-to fb:     #define getbegyx(w, y, x) y = getbegy(w) : x = getbegx(w))
-
-convert c: #define getmaxyx(w, y, x) (y = getmaxy(w), x = getmaxx(w))
-to fb:     #define getmaxyx(w, y, x) y = getmaxy(w) : x = getmaxx(w))
-
-convert c: #define getparyx(w, y, x) (y = getpary(w), x = getparx(w))
-to fb:     #define getparyx(w, y, x) y = getpary(w) : x = getparx(w))
-
-convert c: #define getyx(w, y, x) (y = getcury(w), x = getcurx(w))
-to fb:     #define getyx(w, y, x) y = getcury(w) : x = getcurx(w))
-
 convert c:
 	#define getsyx(y, x) \
 		{ \
@@ -24,12 +12,13 @@ convert c:
 			else \
 				getyx(curscr,(y),(x)); \
 		}
-to fb:
-	#macro getsyx(y, x)
-		if (curscr->_leaveit) then
-			(y) = -1
-			(x) = -1
-		else
-			getyx(curscr, (y), (x))
-		end if
-	#endmacro
+to c:
+	#define getsyx(y, x) \
+		do { \
+			if (curscr->_leaveit) { \
+				(x) = -1; \
+				(y) = -1; \
+			} else { \
+				getyx(curscr,(y),(x)); \
+			} \
+		} while (0)
