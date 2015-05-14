@@ -11081,12 +11081,12 @@ end enum
 #define GTK_CLIST_FLAGS(clist) GTK_CLIST(clist)->flags
 #macro GTK_CLIST_SET_FLAG(clist, flag)
 	scope
-		GTK_CLIST_FLAGS(clist) or= (GTK_##flag)
+		GTK_CLIST_FLAGS(clist) or= GTK_##flag
 	end scope
 #endmacro
 #macro GTK_CLIST_UNSET_FLAG(clist, flag)
 	scope
-		GTK_CLIST_FLAGS(clist) and= not (GTK_##flag)
+		GTK_CLIST_FLAGS(clist) and= not GTK_##flag
 	end scope
 #endmacro
 #define GTK_CLIST_IN_DRAG(clist) (GTK_CLIST_FLAGS(clist) and GTK_CLIST_IN_DRAG)
