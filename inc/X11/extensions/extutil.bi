@@ -91,7 +91,7 @@ declare function XextFindDisplay(byval as XExtensionInfo ptr, byval as Display p
 #macro XextSimpleCheckExtension(dpy, i, name)
 	if XextHasExtension(i) = 0 then
 		XMissingExtension(dpy, name)
-		'' TODO: return;
+		return
 	end if
 #endmacro
 

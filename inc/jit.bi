@@ -1590,8 +1590,8 @@ declare function jit_malloc(byval size as ulong) as any ptr
 declare function jit_calloc(byval num as ulong, byval size as ulong) as any ptr
 declare function jit_realloc(byval ptr as any ptr, byval size as ulong) as any ptr
 declare sub jit_free(byval ptr as any ptr)
-#define jit_new(type) cptr(type ptr, jit_malloc(sizeof((type))))
-#define jit_cnew(type) cptr(type ptr, jit_calloc(1, sizeof((type))))
+#define jit_new(type) cptr(type ptr, jit_malloc(sizeof(type)))
+#define jit_cnew(type) cptr(type ptr, jit_calloc(1, sizeof(type)))
 declare function jit_memset(byval dest as any ptr, byval ch as long, byval len as ulong) as any ptr
 declare function jit_memcpy(byval dest as any ptr, byval src as const any ptr, byval len as ulong) as any ptr
 declare function jit_memmove(byval dest as any ptr, byval src as const any ptr, byval len as ulong) as any ptr

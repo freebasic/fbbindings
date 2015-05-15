@@ -218,7 +218,7 @@ extern "C"
 	#define LOCK_DATA(d, s) _go32_dpmi_lock_data(cptr(any ptr, d), s)
 	#define LOCK_CODE(c, s) _go32_dpmi_lock_code(cptr(any ptr, c), s)
 	#define UNLOCK_DATA(d, s) _unlock_dpmi_data(cptr(any ptr, d), s)
-	#define LOCK_VARIABLE(x) LOCK_DATA(cptr(any ptr, @x), sizeof((x)))
+	#define LOCK_VARIABLE(x) LOCK_DATA(cptr(any ptr, @x), sizeof(x))
 	#define LOCK_FUNCTION(x) LOCK_CODE(cptr(any ptr, x), cint(x##_end) - cint(x))
 	const ALLEGRO_LFN = 0
 	#define _video_ds() _dos_ds
@@ -423,8 +423,8 @@ declare sub do_uconvert(byval s as const zstring ptr, byval type as long, byval 
 declare function uconvert(byval s as const zstring ptr, byval type as long, byval buf as zstring ptr, byval newtype as long, byval size as long) as zstring ptr
 declare function uwidth_max(byval type as long) as long
 
-#define uconvert_ascii(s, buf) uconvert(s, U_ASCII, buf, U_CURRENT, sizeof((buf)))
-#define uconvert_toascii(s, buf) uconvert(s, U_CURRENT, buf, U_ASCII, sizeof((buf)))
+#define uconvert_ascii(s, buf) uconvert(s, U_ASCII, buf, U_CURRENT, sizeof(buf))
+#define uconvert_toascii(s, buf) uconvert(s, U_CURRENT, buf, U_ASCII, sizeof(buf))
 #define EMPTY_STRING_ !"\0\0\0"
 
 #if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
@@ -2815,7 +2815,7 @@ type PACKFILE_VTABLE_
 	pf_ferror as function(byval userdata as any ptr) as long
 end type
 
-#define uconvert_tofilename(s, buf) uconvert(s, U_CURRENT, buf, get_filename_encoding(), sizeof((buf)))
+#define uconvert_tofilename(s, buf) uconvert(s, U_CURRENT, buf, get_filename_encoding(), sizeof(buf))
 declare sub set_filename_encoding(byval encoding as long)
 declare function get_filename_encoding() as long
 declare sub packfile_password(byval password as const zstring ptr)

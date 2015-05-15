@@ -1067,14 +1067,12 @@ declare function PDC_save_key_modifiers(byval as bool) as long
 	end scope
 #endmacro
 #macro getsyx(y, x)
-	scope
-		if curscr->_leaveit then
-			(x) = -1
-			(y) = -1
-		else
-			getyx(curscr, (y), (x))
-		end if
-	end scope
+	if curscr->_leaveit then
+		(x) = -1
+		(y) = -1
+	else
+		getyx(curscr, (y), (x))
+	end if
 #endmacro
 const PDC_CLIP_SUCCESS = 0
 const PDC_CLIP_ACCESS_ERROR = 1

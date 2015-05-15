@@ -327,7 +327,7 @@ type PLUID as _LUID ptr
 type DWORDLONG as ULONGLONG
 type PDWORDLONG as DWORDLONG ptr
 #define Int32x32To64(a, b) (cast(LONGLONG, cast(LONG, (a))) * cast(LONGLONG, cast(LONG, (b))))
-#define UInt32x32To64(a, b) (cast(ULONGLONG, culng((a))) * cast(ULONGLONG, culng((b))))
+#define UInt32x32To64(a, b) (cast(ULONGLONG, culng(a)) * cast(ULONGLONG, culng(b)))
 #define Int64ShllMod32(a, b) (cast(ULONGLONG, (a)) shl (b))
 #define Int64ShraMod32(a, b) (cast(LONGLONG, (a)) shr (b))
 #define Int64ShrlMod32(a, b) (cast(ULONGLONG, (a)) shr (b))
@@ -428,7 +428,7 @@ const MAXDWORD = &hffffffff
 #define COMPILETIME_OR_3FLAGS(a, b, c) ((cast(UINT, (a)) or cast(UINT, (b))) or cast(UINT, (c)))
 #define COMPILETIME_OR_4FLAGS(a, b, c, d) (((cast(UINT, (a)) or cast(UINT, (b))) or cast(UINT, (c))) or cast(UINT, (d)))
 #define COMPILETIME_OR_5FLAGS(a, b, c, d, e) ((((cast(UINT, (a)) or cast(UINT, (b))) or cast(UINT, (c))) or cast(UINT, (d))) or cast(UINT, (e)))
-#define RTL_BITS_OF(sizeOfArg) (sizeof((sizeOfArg)) * 8)
+#define RTL_BITS_OF(sizeOfArg) (sizeof(sizeOfArg) * 8)
 #define RTL_BITS_OF_FIELD(type, field) RTL_BITS_OF(RTL_FIELD_TYPE(type, field))
 #define CONTAINING_RECORD(address, type, field) cptr(type ptr, cast(PCHAR, (address)) - cast(ULONG_PTR, @cptr(type ptr, 0)->field))
 #define __PEXCEPTION_ROUTINE_DEFINED

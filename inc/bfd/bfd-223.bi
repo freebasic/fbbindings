@@ -11,9 +11,9 @@ extern "C"
 #undef CONCAT4
 #define CONCAT4(a, b, c, d) XCONCAT2(CONCAT2(a, b), CONCAT2(c, d))
 '' TODO: #define STRING_COMMA_LEN(STR) (STR), (sizeof (STR) - 1)
-#define CONST_STRNEQ(STR1, STR2) (strncmp((STR1), (STR2), sizeof((STR2)) - 1) = 0)
-#define LITMEMCPY(DEST, STR2) memcpy((DEST), (STR2), sizeof((STR2)) - 1)
-#define LITSTRCPY(DEST, STR2) memcpy((DEST), (STR2), sizeof((STR2)))
+#define CONST_STRNEQ(STR1, STR2) (strncmp((STR1), (STR2), sizeof(STR2) - 1) = 0)
+#define LITMEMCPY(DEST, STR2) memcpy((DEST), (STR2), sizeof(STR2) - 1)
+#define LITSTRCPY(DEST, STR2) memcpy((DEST), (STR2), sizeof(STR2))
 const BFD_SUPPORTS_PLUGINS = 1
 
 #if defined(__FB_64BIT__) and (defined(__FB_WIN32__) or defined(__FB_LINUX__))
@@ -1277,15 +1277,13 @@ end type
 #define NEWHOWTO(FUNCTION, NAME, SIZE, REL, IN) HOWTO(0, 0, SIZE, 0, REL, 0, complain_overflow_dont, FUNCTION, NAME, FALSE, 0, 0, IN)
 #define EMPTY_HOWTO(C) HOWTO((C), 0, 0, 0, FALSE, 0, complain_overflow_dont, NULL, NULL, FALSE, 0, 0, FALSE)
 #macro HOWTO_PREPARE(relocation, symbol)
-	scope
-		if symbol <> NULL then
-			if bfd_is_com_section(symbol->section) then
-				relocation = 0
-			else
-				relocation = symbol->value
-			end if
+	if symbol <> NULL then
+		if bfd_is_com_section(symbol->section) then
+			relocation = 0
+		else
+			relocation = symbol->value
 		end if
-	end scope
+	end if
 #endmacro
 declare function bfd_get_reloc_size(byval as reloc_howto_type ptr) as ulong
 

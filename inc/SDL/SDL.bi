@@ -110,7 +110,7 @@ const NULL = cptr(any ptr, 0)
 #define SDL_calloc calloc
 #define SDL_realloc realloc
 #define SDL_free free
-#define SDL_stack_alloc(type, count) cptr(type ptr, alloca(sizeof((type)) * (count)))
+#define SDL_stack_alloc(type, count) cptr(type ptr, alloca(sizeof(type) * (count)))
 #define SDL_stack_free(data)
 
 #ifdef __FB_WIN32__
@@ -552,7 +552,7 @@ enum
 	CD_ERROR = -1
 end enum
 
-#define CD_INDRIVE(status) (clng((status)) > 0)
+#define CD_INDRIVE(status) (clng(status) > 0)
 
 type SDL_CDtrack
 	id as Uint8

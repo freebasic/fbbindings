@@ -59,7 +59,7 @@ extern "C"
 #define _XtIntrinsic_h
 const XtSpecificationRelease = 6
 type String_ as zstring ptr
-#define XtNumber(arr) cast(Cardinal, sizeof((arr)) / sizeof(arr[0]))
+#define XtNumber(arr) cast(Cardinal, sizeof(arr) / sizeof(arr[0]))
 type Widget as _WidgetRec ptr
 type WidgetList as Widget ptr
 type WidgetClass as _WidgetClassRec ptr
@@ -523,7 +523,7 @@ declare function XtCalloc(byval as Cardinal, byval as Cardinal) as zstring ptr
 declare function XtRealloc(byval as zstring ptr, byval as Cardinal) as zstring ptr
 declare sub XtFree(byval as zstring ptr)
 declare function XtAsprintf(byval new_string as String_ ptr, byval format as const zstring ptr, ...) as Cardinal
-#define XtNew(type) cptr(type ptr, XtMalloc(culng(sizeof((type)))))
+#define XtNew(type) cptr(type ptr, XtMalloc(culng(sizeof(type))))
 #undef XtNewString
 declare function XtNewString_ alias "XtNewString"(byval as String_) as String_
 #define XtNewString(str) iif((str) <> NULL, strcpy(XtMalloc(culng(culng(strlen(str)) + 1)), str), NULL)

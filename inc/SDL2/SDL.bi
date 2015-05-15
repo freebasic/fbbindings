@@ -107,10 +107,10 @@ enum
 end enum
 
 #ifdef __FB_WIN32__
-	#define SDL_stack_alloc(type, count) cptr(type ptr, SDL_malloc(sizeof((type)) * (count)))
+	#define SDL_stack_alloc(type, count) cptr(type ptr, SDL_malloc(sizeof(type) * (count)))
 	#define SDL_stack_free(data) SDL_free(data)
 #else
-	#define SDL_stack_alloc(type, count) cptr(type ptr, alloca(sizeof((type)) * (count)))
+	#define SDL_stack_alloc(type, count) cptr(type ptr, alloca(sizeof(type) * (count)))
 	#define SDL_stack_free(data)
 #endif
 
@@ -129,7 +129,7 @@ declare function SDL_isspace(byval x as long) as long
 declare function SDL_toupper(byval x as long) as long
 declare function SDL_tolower(byval x as long) as long
 declare function SDL_memset(byval dst as any ptr, byval c as long, byval len as uinteger) as any ptr
-#define SDL_zero(x) SDL_memset(@(x), 0, sizeof((x)))
+#define SDL_zero(x) SDL_memset(@(x), 0, sizeof(x))
 #define SDL_zerop(x) SDL_memset((x), 0, sizeof(*(x)))
 
 #ifdef __FB_64BIT__
@@ -137,7 +137,9 @@ declare function SDL_memset(byval dst as any ptr, byval c as long, byval len as 
 		dim _n as uinteger = (dwords + 3) / 4
 		dim _p as Uint32 ptr = cptr(Uint32 ptr, dst)
 		dim _val as Uint32 = val
-		'' TODO: if (dwords == 0) return;
+		if dwords = 0 then
+			return
+		end if
 		'' TODO: switch (dwords % 4) { case 0: do { *_p++ = _val; case 3: *_p++ = _val; case 2: *_p++ = _val; case 1: *_p++ = _val; } while ( --_n ); }
 	end sub
 #else

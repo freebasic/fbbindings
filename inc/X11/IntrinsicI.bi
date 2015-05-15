@@ -87,18 +87,16 @@ const TopLevelClassFlag = &h80
 #define _XBCOPYFUNC _XtBcopy
 #macro XtMemmove(dst, src, size)
 	if cptr(zstring ptr, (dst)) <> cptr(zstring ptr, (src)) then
-		cast(any, memcpy(cptr(zstring ptr, (dst)), cptr(zstring ptr, (src)), clng((size))))
+		cast(any, memcpy(cptr(zstring ptr, (dst)), cptr(zstring ptr, (src)), clng(size)))
 	end if
 #endmacro
-#define XtBZero(dst, size) bzero(cptr(zstring ptr, (dst)), clng((size)))
-#define XtMemcmp(b1, b2, size) memcmp(cptr(zstring ptr, (b1)), cptr(zstring ptr, (b2)), clng((size)))
-#define XtStackAlloc(size, stack_cache_array) iif((size) <= sizeof((stack_cache_array)), cast(XtPointer, (stack_cache_array)), XtMalloc(culng((size))))
+#define XtBZero(dst, size) bzero(cptr(zstring ptr, (dst)), clng(size))
+#define XtMemcmp(b1, b2, size) memcmp(cptr(zstring ptr, (b1)), cptr(zstring ptr, (b2)), clng(size))
+#define XtStackAlloc(size, stack_cache_array) iif((size) <= sizeof(stack_cache_array), cast(XtPointer, (stack_cache_array)), XtMalloc(culng(size)))
 #macro XtStackFree(pointer, stack_cache_array)
-	scope
-		if (pointer) <> cast(XtPointer, (stack_cache_array)) then
-			XtFree(pointer)
-		end if
-	end scope
+	if (pointer) <> cast(XtPointer, (stack_cache_array)) then
+		XtFree(pointer)
+	end if
 #endmacro
 #define XFILESEARCHPATHDEFAULT "/usr/lib/X11/%L/%T/%N%S:/usr/lib/X11/%l/%T/%N%S:/usr/lib/X11/%T/%N%S"
 #define XTERROR_PREFIX ""

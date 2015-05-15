@@ -121,7 +121,7 @@ const FALSE = 0
 #define MIN(a, b) iif((a) < (b), (a), (b))
 #undef CLAMP
 #define CLAMP(x, low, high) iif((x) > (high), (high), iif((x) < (low), (low), (x)))
-#define G_N_ELEMENTS(arr) (sizeof((arr)) / sizeof((arr)[0]))
+#define G_N_ELEMENTS(arr) (sizeof(arr) / sizeof((arr)[0]))
 #define GPOINTER_TO_SIZE(p) cast(gsize, (p))
 #define GSIZE_TO_POINTER(s) cast(gpointer, cast(gsize, (s)))
 #define G_STRUCT_OFFSET(struct_type, member) cast(glong, offsetof(struct_type, member))
@@ -269,7 +269,7 @@ type _GTimeVal
 end type
 
 #define g_alloca(size) alloca(size)
-#define g_newa(struct_type, n_structs) cptr(struct_type ptr, g_alloca(sizeof((struct_type)) * cast(gsize, (n_structs))))
+#define g_newa(struct_type, n_structs) cptr(struct_type ptr, g_alloca(sizeof(struct_type) * cast(gsize, (n_structs))))
 #define __G_ARRAY_H__
 
 type GBytes as _GBytes
@@ -3057,11 +3057,11 @@ declare function g_slice_copy(byval block_size as gsize, byval mem_block as gcon
 declare sub g_slice_free1(byval block_size as gsize, byval mem_block as gpointer)
 declare sub g_slice_free_chain_with_offset(byval block_size as gsize, byval mem_chain as gpointer, byval next_offset as gsize)
 
-#define g_slice_new(type) cptr(type ptr, g_slice_alloc(sizeof((type))))
-#define g_slice_new0(type) cptr(type ptr, g_slice_alloc0(sizeof((type))))
-#define g_slice_dup(type, mem) cptr(type ptr, g_slice_copy(sizeof((type)), (mem)))
-#define g_slice_free(type, mem) g_slice_free1(sizeof((type)), (mem))
-#define g_slice_free_chain(type, mem_chain, next) g_slice_free_chain_with_offset(sizeof((type)), (mem_chain), G_STRUCT_OFFSET(type, next))
+#define g_slice_new(type) cptr(type ptr, g_slice_alloc(sizeof(type)))
+#define g_slice_new0(type) cptr(type ptr, g_slice_alloc0(sizeof(type)))
+#define g_slice_dup(type, mem) cptr(type ptr, g_slice_copy(sizeof(type), (mem)))
+#define g_slice_free(type, mem) g_slice_free1(sizeof(type), (mem))
+#define g_slice_free_chain(type, mem_chain, next) g_slice_free_chain_with_offset(sizeof(type), (mem_chain), G_STRUCT_OFFSET(type, next))
 
 type GSliceConfig as long
 enum
@@ -3911,7 +3911,7 @@ const G_ALLOCATOR_NODE = 3
 #define g_chunk_new(type, chunk) cptr(type ptr, g_mem_chunk_alloc(chunk))
 #define g_chunk_new0(type, chunk) cptr(type ptr, g_mem_chunk_alloc0(chunk))
 #define g_chunk_free(mem, mem_chunk) g_mem_chunk_free(mem_chunk, mem)
-#define g_mem_chunk_create(type, x, y) g_mem_chunk_new(NULL, sizeof((type)), 0, 0)
+#define g_mem_chunk_create(type, x, y) g_mem_chunk_new(NULL, sizeof(type), 0, 0)
 
 declare function g_mem_chunk_new(byval name as const zstring ptr, byval atom_size as gint, byval area_size as gsize, byval type as gint) as GMemChunk ptr
 declare sub g_mem_chunk_destroy(byval mem_chunk as GMemChunk ptr)

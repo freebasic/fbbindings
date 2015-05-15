@@ -101,15 +101,13 @@ declare function _IcePaMagicCookie1Proc(byval as IceConn, byval as IcePointer pt
 	end scope
 #endmacro
 #macro IceWriteData(_iceConn, _bytes, _data)
-	scope
-		if (_iceConn->outbufptr + (_bytes)) > _iceConn->outbufmax then
-			IceFlush(_iceConn)
-			_IceWrite(_iceConn, cast(culong, (_bytes)), _data)
-		else
-			memcpy(_iceConn->outbufptr, _data, _bytes)
-			_iceConn->outbufptr += (_bytes)
-		end if
-	end scope
+	if (_iceConn->outbufptr + (_bytes)) > _iceConn->outbufmax then
+		IceFlush(_iceConn)
+		_IceWrite(_iceConn, cast(culong, (_bytes)), _data)
+	else
+		memcpy(_iceConn->outbufptr, _data, _bytes)
+		_iceConn->outbufptr += (_bytes)
+	end if
 #endmacro
 #define IceWriteData16(_iceConn, _bytes, _data) IceWriteData(_iceConn, _bytes, cptr(zstring ptr, _data))
 #define IceWriteData32(_iceConn, _bytes, _data) IceWriteData(_iceConn, _bytes, cptr(zstring ptr, _data))
@@ -143,7 +141,7 @@ declare function _IcePaMagicCookie1Proc(byval as IceConn, byval as IcePointer pt
 			_iceConn->inbufptr += _bytes
 		else
 			_pData = malloc(_bytes)
-			if _pData then
+			if (_pData) then
 				_IceRead(_iceConn, _bytes, _pData)
 			else
 				_IceReadSkip(_iceConn, _bytes)

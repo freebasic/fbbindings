@@ -1072,7 +1072,7 @@ end function
 #define MCIWndGetStart(hwnd) cast(LONG, MCIWndSM(hwnd, MCIWNDM_GETSTART, cast(WPARAM, 0), cast(LPARAM, 0)))
 #define MCIWndGetLength(hwnd) cast(LONG, MCIWndSM(hwnd, MCIWNDM_GETLENGTH, cast(WPARAM, 0), cast(LPARAM, 0)))
 #define MCIWndGetEnd(hwnd) cast(LONG, MCIWndSM(hwnd, MCIWNDM_GETEND, cast(WPARAM, 0), cast(LPARAM, 0)))
-#define MCIWndStep(hwnd, n) cast(LONG, MCIWndSM(hwnd, MCI_STEP, cast(WPARAM, 0), cast(LPARAM, clng((n)))))
+#define MCIWndStep(hwnd, n) cast(LONG, MCIWndSM(hwnd, MCI_STEP, cast(WPARAM, 0), cast(LPARAM, clng(n))))
 '' TODO: #define MCIWndDestroy(hwnd) (VOID)MCIWndSM(hwnd,WM_CLOSE,(WPARAM)0,(LPARAM)0)
 '' TODO: #define MCIWndSetZoom(hwnd,iZoom) (VOID)MCIWndSM(hwnd,MCIWNDM_SETZOOM,(WPARAM)0,(LPARAM)(UINT)(iZoom))
 #define MCIWndGetZoom(hwnd) cast(UINT, MCIWndSM(hwnd, MCIWNDM_GETZOOM, cast(WPARAM, 0), cast(LPARAM, 0)))

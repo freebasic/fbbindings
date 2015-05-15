@@ -285,14 +285,12 @@ declare function _XGetRequest(byval dpy as Display ptr, byval type as CARD8, byv
 declare sub _XFlushGCCache(byval dpy as Display ptr, byval gc as GC)
 '' TODO: #define FlushGC(dpy, gc) if ((gc)->dirty) _XFlushGCCache((dpy), (gc))
 #macro Data_(dpy, data, len)
-	scope
-		if (dpy->bufptr + (len)) <= dpy->bufmax then
-			memcpy(dpy->bufptr, data, clng(len))
-			dpy->bufptr += ((len) + 3) and (not 3)
-		else
-			_XSend(dpy, data, len)
-		end if
-	end scope
+	if (dpy->bufptr + (len)) <= dpy->bufmax then
+		memcpy(dpy->bufptr, data, clng(len))
+		dpy->bufptr += ((len) + 3) and (not 3)
+	else
+		_XSend(dpy, data, len)
+	end if
 #endmacro
 '' TODO: #define BufAlloc(type, ptr, n) if (dpy->bufptr + (n) > dpy->bufmax) _XFlush (dpy); ptr = (type) dpy->bufptr; memset(ptr, '\0', n); dpy->bufptr += (n);
 #define Data16(dpy, data, len) Data_((dpy), cptr(const zstring ptr, (data)), (len))
@@ -377,13 +375,11 @@ end type
 type _XAsyncErrorState as _XAsyncEState
 declare sub _XDeqAsyncHandler(byval dpy as Display ptr, byval handler as _XAsyncHandler ptr)
 #macro DeqAsyncHandler(dpy, handler)
-	scope
-		if dpy->async_handlers = (handler) then
-			dpy->async_handlers = (handler)->next
-		else
-			_XDeqAsyncHandler(dpy, handler)
-		end if
-	end scope
+	if dpy->async_handlers = (handler) then
+		dpy->async_handlers = (handler)->next
+	else
+		_XDeqAsyncHandler(dpy, handler)
+	end if
 #endmacro
 type FreeFuncType as sub(byval as Display ptr)
 type FreeModmapType as function(byval as XModifierKeymap ptr) as long

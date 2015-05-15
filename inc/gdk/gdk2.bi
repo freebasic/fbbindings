@@ -2400,14 +2400,14 @@ declare function gdk_threads_add_timeout_full(byval priority as gint, byval inte
 declare function gdk_threads_add_timeout(byval interval as guint, byval function as GSourceFunc, byval data as gpointer) as guint
 declare function gdk_threads_add_timeout_seconds_full(byval priority as gint, byval interval as guint, byval function as GSourceFunc, byval data as gpointer, byval notify as GDestroyNotify) as guint
 declare function gdk_threads_add_timeout_seconds(byval interval as guint, byval function as GSourceFunc, byval data as gpointer) as guint
-#macro GDK_THREADS_ENTER
+#macro GDK_THREADS_ENTER()
 	scope
 		if gdk_threads_lock then
 			gdk_threads_lock()
 		end if
 	end scope
 #endmacro
-#macro GDK_THREADS_LEAVE
+#macro GDK_THREADS_LEAVE()
 	scope
 		if gdk_threads_unlock then
 			gdk_threads_unlock()

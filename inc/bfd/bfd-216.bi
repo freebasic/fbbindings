@@ -988,15 +988,13 @@ end type
 #define NEWHOWTO(FUNCTION, NAME, SIZE, REL, IN) HOWTO(0, 0, SIZE, 0, REL, 0, complain_overflow_dont, FUNCTION, NAME, FALSE, 0, 0, IN)
 #define EMPTY_HOWTO(C) HOWTO((C), 0, 0, 0, FALSE, 0, complain_overflow_dont, NULL, NULL, FALSE, 0, 0, FALSE)
 #macro HOWTO_PREPARE(relocation, symbol)
-	scope
-		if symbol <> NULL then
-			if bfd_is_com_section(symbol->section) then
-				relocation = 0
-			else
-				relocation = symbol->value
-			end if
+	if symbol <> NULL then
+		if bfd_is_com_section(symbol->section) then
+			relocation = 0
+		else
+			relocation = symbol->value
 		end if
-	end scope
+	end if
 #endmacro
 declare function bfd_get_reloc_size(byval as reloc_howto_type ptr) as ulong
 
