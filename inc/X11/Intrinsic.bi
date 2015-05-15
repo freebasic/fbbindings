@@ -384,7 +384,7 @@ declare function XtGetClassExtension(byval as WidgetClass, byval as Cardinal, by
 #macro XtSetArg(arg, n, d)
 	scope
 		(arg).name = (n)
-		(arg).value = cast(XtArgVal, d)
+		(arg).value = cast(XtArgVal, (d))
 	end scope
 #endmacro
 declare function XtMergeArgLists(byval as ArgList, byval as Cardinal, byval as ArgList, byval as Cardinal) as ArgList

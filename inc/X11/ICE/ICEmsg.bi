@@ -67,11 +67,11 @@ declare function _IcePaMagicCookie1Proc(byval as IceConn, byval as IcePointer pt
 #endmacro
 #macro IceGetHeaderExtra(_iceConn, _major, _minor, _headerSize, _extra, _msgType, _pMsg, _pData)
 	scope
-		if (_iceConn->outbufptr + _headerSize + ((_extra) shl 3)) > _iceConn->outbufmax then
+		if ((_iceConn->outbufptr + _headerSize) + ((_extra) shl 3)) > _iceConn->outbufmax then
 			IceFlush(_iceConn)
 		end if
 		_pMsg = cptr(_msgType ptr, _iceConn->outbufptr)
-		if (_iceConn->outbufptr + _headerSize + ((_extra) shl 3)) <= _iceConn->outbufmax then
+		if ((_iceConn->outbufptr + _headerSize) + ((_extra) shl 3)) <= _iceConn->outbufmax then
 			_pData = cptr(any ptr, _pMsg) + _headerSize
 		else
 			_pData = NULL
@@ -79,7 +79,7 @@ declare function _IcePaMagicCookie1Proc(byval as IceConn, byval as IcePointer pt
 		_pMsg->majorOpcode = _major
 		_pMsg->minorOpcode = _minor
 		_pMsg->length = ((_headerSize - XSIZEOF(iceMsg)) shr 3) + (_extra)
-		_iceConn->outbufptr += (_headerSize + ((_extra) shl 3))
+		_iceConn->outbufptr += _headerSize + ((_extra) shl 3)
 		_iceConn->send_sequence += 1
 	end scope
 #endmacro
@@ -120,15 +120,13 @@ declare function _IcePaMagicCookie1Proc(byval as IceConn, byval as IcePointer pt
 	end scope
 #endmacro
 #macro IceWritePad(_iceConn, _bytes)
-	scope
-		if (_iceConn->outbufptr + (_bytes)) > _iceConn->outbufmax then
-			dim _dummy(0 to 6) as byte
-			IceFlush(_iceConn)
-			_IceWrite(_iceConn, cast(culong, _bytes), @_dummy(0))
-		else
-			_iceConn->outbufptr += (_bytes)
-		end if
-	end scope
+	if (_iceConn->outbufptr + (_bytes)) > _iceConn->outbufmax then
+		dim _dummy(0 to 6) as byte
+		IceFlush(_iceConn)
+		_IceWrite(_iceConn, cast(culong, (_bytes)), @_dummy(0))
+	else
+		_iceConn->outbufptr += (_bytes)
+	end if
 #endmacro
 #macro IceReadCompleteMessage(_iceConn, _headerSize, _msgType, _pMsg, _pData)
 	scope
