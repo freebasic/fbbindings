@@ -192,7 +192,11 @@ type goffset as gint64
 	#define G_GUINTPTR_FORMAT "lu"
 #endif
 
-#define g_memmove(dest, src, len) memmove((dest), (src), (len))
+#macro g_memmove(dest, src, len)
+	scope
+		memmove((dest), (src), (len))
+	end scope
+#endmacro
 const GLIB_MAJOR_VERSION = 2
 const GLIB_MINOR_VERSION = 42
 const GLIB_MICRO_VERSION = 2
