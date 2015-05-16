@@ -1,5 +1,12 @@
 -replacements openal.replacements
 
+-ifdef __FB_WIN32__
+	-declarebool AL_LIBTYPE_STATIC
+	-ifdef AL_LIBTYPE_STATIC
+		-define AL_LIBTYPE_STATIC 1
+	-endif
+-endif
+
 -removedefine ALAPI
 -removedefine AL_API
 -removedefine ALAPIENTRY
