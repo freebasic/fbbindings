@@ -1238,7 +1238,14 @@ openal:
 		-emit '*/AL/efx.h'           inc/AL/efx.bi \
 		-emit '*/AL/efx-presets.h'   inc/AL/efx-presets.bi \
 		-title $(OPENALSOFT) openalsoft.tmp fbteam.txt \
-		-title $(FREEALUT) freealut.tmp fbteam.txt inc/AL/alut.bi
+		-title $(FREEALUT) freealut.tmp fbteam.txt inc/AL/alut.bi \
+		\
+		-ifdef __FB_WIN32__ \
+			-inclib OpenAL32 inc/AL/al.bi \
+		-else \
+			-inclib openal inc/AL/al.bi \
+		-endif \
+		-inclib alut inc/AL/alut.bi
 
 	rm *.tmp
 
