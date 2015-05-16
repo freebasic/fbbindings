@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e
+set -ex
 
 dirname="extracted/$1"
 tarball="tarballs/$2"
@@ -9,7 +9,7 @@ createdir="$4"
 mkdir -p tarballs/ extracted/
 
 if [ ! -f "$tarball" ]; then
-	wget --no-verbose "$url" -O "$tarball"
+	wget "$url" -O "$tarball"
 fi
 
 if [ ! -d "$dirname" ]; then
