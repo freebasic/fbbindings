@@ -501,11 +501,11 @@ cairo: cairo-extract
 		-title $(CAIRO) cairo.tmp gtk+-translators.txt
 	rm *.tmp
 
-CGUI_VERSION := 2.0.3
+CGUI_VERSION := 2.0.4
 CGUI := cgui-$(CGUI_VERSION)
 cgui:
-	./get.sh cgui $(CGUI).tar.gz "http://sourceforge.net/projects/cgui/files/$(CGUI_VERSION)/$(CGUI).tar.gz/download"
-	sed -n 2,2p extracted/cgui/readme.txt > cgui.tmp
+	./get.sh $(CGUI) $(CGUI).tar.gz "http://cgui.cvs.sourceforge.net/viewvc/cgui/cgui/?view=tar&pathrev=Branch_CGUI_1-6-7"
+	echo "A C Graphical User Interface [add on to Allegro] by Christer Sandberg" > cgui.tmp
 	$(FBFROG) cgui.fbfrog -o inc extracted/cgui/include/cgui.h \
 		-title $(CGUI) cgui.tmp fbteam.txt
 	rm *.tmp
