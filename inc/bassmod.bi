@@ -33,7 +33,7 @@
 #inclib "bassmod"
 
 #ifdef __FB_WIN32__
-	#include once "wtypes.bi"
+	#include once "win/wtypes.bi"
 #else
 	#include once "crt/long.bi"
 #endif
