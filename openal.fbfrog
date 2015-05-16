@@ -1,3 +1,5 @@
+-replacements openal.replacements
+
 -removedefine ALAPI
 -removedefine AL_API
 -removedefine ALAPIENTRY
@@ -8,3 +10,5 @@
 -removedefine ALC_APIENTRY
 -removedefine ALUT_API
 -removedefine ALUT_APIENTRY
+
+-define ALvoid void
