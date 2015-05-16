@@ -76,19 +76,19 @@ declare function alutExit() as byte
 declare function alutGetError() as ALenum
 declare function alutGetErrorString(byval error as ALenum) as const zstring ptr
 declare function alutCreateBufferFromFile(byval fileName as const zstring ptr) as ALuint
-declare function alutCreateBufferFromFileImage(byval data as const ALvoid ptr, byval length as ALsizei) as ALuint
+declare function alutCreateBufferFromFileImage(byval data as const any ptr, byval length as ALsizei) as ALuint
 declare function alutCreateBufferHelloWorld() as ALuint
 declare function alutCreateBufferWaveform(byval waveshape as ALenum, byval frequency as ALfloat, byval phase as ALfloat, byval duration as ALfloat) as ALuint
-declare function alutLoadMemoryFromFile(byval fileName as const zstring ptr, byval format as ALenum ptr, byval size as ALsizei ptr, byval frequency as ALfloat ptr) as ALvoid ptr
-declare function alutLoadMemoryFromFileImage(byval data as const ALvoid ptr, byval length as ALsizei, byval format as ALenum ptr, byval size as ALsizei ptr, byval frequency as ALfloat ptr) as ALvoid ptr
-declare function alutLoadMemoryHelloWorld(byval format as ALenum ptr, byval size as ALsizei ptr, byval frequency as ALfloat ptr) as ALvoid ptr
-declare function alutLoadMemoryWaveform(byval waveshape as ALenum, byval frequency as ALfloat, byval phase as ALfloat, byval duration as ALfloat, byval format as ALenum ptr, byval size as ALsizei ptr, byval freq as ALfloat ptr) as ALvoid ptr
+declare function alutLoadMemoryFromFile(byval fileName as const zstring ptr, byval format as ALenum ptr, byval size as ALsizei ptr, byval frequency as ALfloat ptr) as any ptr
+declare function alutLoadMemoryFromFileImage(byval data as const any ptr, byval length as ALsizei, byval format as ALenum ptr, byval size as ALsizei ptr, byval frequency as ALfloat ptr) as any ptr
+declare function alutLoadMemoryHelloWorld(byval format as ALenum ptr, byval size as ALsizei ptr, byval frequency as ALfloat ptr) as any ptr
+declare function alutLoadMemoryWaveform(byval waveshape as ALenum, byval frequency as ALfloat, byval phase as ALfloat, byval duration as ALfloat, byval format as ALenum ptr, byval size as ALsizei ptr, byval freq as ALfloat ptr) as any ptr
 declare function alutGetMIMETypes(byval loader as ALenum) as const zstring ptr
 declare function alutGetMajorVersion() as ALint
 declare function alutGetMinorVersion() as ALint
 declare function alutSleep(byval duration as ALfloat) as byte
 declare sub alutLoadWAVFile(byval fileName as ALbyte ptr, byval format as ALenum ptr, byval data as any ptr ptr, byval size as ALsizei ptr, byval frequency as ALsizei ptr, byval loop as zstring ptr)
 declare sub alutLoadWAVMemory(byval buffer as ALbyte ptr, byval format as ALenum ptr, byval data as any ptr ptr, byval size as ALsizei ptr, byval frequency as ALsizei ptr, byval loop as zstring ptr)
-declare sub alutUnloadWAV(byval format as ALenum, byval data as ALvoid ptr, byval size as ALsizei, byval frequency as ALsizei)
+declare sub alutUnloadWAV(byval format as ALenum, byval data as any ptr, byval size as ALsizei, byval frequency as ALsizei)
 
 end extern

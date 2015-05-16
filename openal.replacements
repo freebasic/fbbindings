@@ -1,0 +1,2 @@
+convert c: typedef void void;
+to c:      typedef void ALvoid;

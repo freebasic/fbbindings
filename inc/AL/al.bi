@@ -175,7 +175,7 @@ declare sub alSourceUnqueueBuffers(byval source as ALuint, byval nb as ALsizei, 
 declare sub alGenBuffers(byval n as ALsizei, byval buffers as ALuint ptr)
 declare sub alDeleteBuffers(byval n as ALsizei, byval buffers as const ALuint ptr)
 declare function alIsBuffer(byval buffer as ALuint) as byte
-declare sub alBufferData(byval buffer as ALuint, byval format as ALenum, byval data as const ALvoid ptr, byval size as ALsizei, byval freq as ALsizei)
+declare sub alBufferData(byval buffer as ALuint, byval format as ALenum, byval data as const any ptr, byval size as ALsizei, byval freq as ALsizei)
 declare sub alBufferf(byval buffer as ALuint, byval param as ALenum, byval value as ALfloat)
 declare sub alBuffer3f(byval buffer as ALuint, byval param as ALenum, byval value1 as ALfloat, byval value2 as ALfloat, byval value3 as ALfloat)
 declare sub alBufferfv(byval buffer as ALuint, byval param as ALenum, byval values as const ALfloat ptr)
@@ -245,7 +245,7 @@ type LPALSOURCEUNQUEUEBUFFERS as sub(byval source as ALuint, byval nb as ALsizei
 type LPALGENBUFFERS as sub(byval n as ALsizei, byval buffers as ALuint ptr)
 type LPALDELETEBUFFERS as sub(byval n as ALsizei, byval buffers as const ALuint ptr)
 type LPALISBUFFER as function(byval buffer as ALuint) as byte
-type LPALBUFFERDATA as sub(byval buffer as ALuint, byval format as ALenum, byval data as const ALvoid ptr, byval size as ALsizei, byval freq as ALsizei)
+type LPALBUFFERDATA as sub(byval buffer as ALuint, byval format as ALenum, byval data as const any ptr, byval size as ALsizei, byval freq as ALsizei)
 type LPALBUFFERF as sub(byval buffer as ALuint, byval param as ALenum, byval value as ALfloat)
 type LPALBUFFER3F as sub(byval buffer as ALuint, byval param as ALenum, byval value1 as ALfloat, byval value2 as ALfloat, byval value3 as ALfloat)
 type LPALBUFFERFV as sub(byval buffer as ALuint, byval param as ALenum, byval values as const ALfloat ptr)

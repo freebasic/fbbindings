@@ -88,7 +88,7 @@ const AL_EXT_IMA4 = 1
 const AL_FORMAT_MONO_IMA4 = &h1300
 const AL_FORMAT_STEREO_IMA4 = &h1301
 const AL_EXT_STATIC_BUFFER = 1
-type PFNALBUFFERDATASTATICPROC as function(byval as const ALint, byval as ALenum, byval as ALvoid ptr, byval as ALsizei, byval as ALsizei) as ALvoid
+type PFNALBUFFERDATASTATICPROC as sub(byval as const ALint, byval as ALenum, byval as any ptr, byval as ALsizei, byval as ALsizei)
 const ALC_EXT_EFX = 1
 const ALC_EXT_disconnect = 1
 const ALC_CONNECTED = &h313
@@ -100,7 +100,7 @@ const AL_SOURCE_DISTANCE_MODEL = &h200
 const AL_SOFT_buffer_sub_data = 1
 const AL_BYTE_RW_OFFSETS_SOFT = &h1031
 const AL_SAMPLE_RW_OFFSETS_SOFT = &h1032
-type PFNALBUFFERSUBDATASOFTPROC as function(byval as ALuint, byval as ALenum, byval as const ALvoid ptr, byval as ALsizei, byval as ALsizei) as ALvoid
+type PFNALBUFFERSUBDATASOFTPROC as sub(byval as ALuint, byval as ALenum, byval as const any ptr, byval as ALsizei, byval as ALsizei)
 const AL_SOFT_loop_points = 1
 const AL_LOOP_POINTS_SOFT = &h2015
 const AL_EXT_FOLDBACK = 1
@@ -163,9 +163,9 @@ const AL_BYTE_LENGTH_SOFT = &h2009
 const AL_SAMPLE_LENGTH_SOFT = &h200A
 const AL_SEC_LENGTH_SOFT = &h200B
 
-type LPALBUFFERSAMPLESSOFT as sub(byval as ALuint, byval as ALuint, byval as ALenum, byval as ALsizei, byval as ALenum, byval as ALenum, byval as const ALvoid ptr)
-type LPALBUFFERSUBSAMPLESSOFT as sub(byval as ALuint, byval as ALsizei, byval as ALsizei, byval as ALenum, byval as ALenum, byval as const ALvoid ptr)
-type LPALGETBUFFERSAMPLESSOFT as sub(byval as ALuint, byval as ALsizei, byval as ALsizei, byval as ALenum, byval as ALenum, byval as ALvoid ptr)
+type LPALBUFFERSAMPLESSOFT as sub(byval as ALuint, byval as ALuint, byval as ALenum, byval as ALsizei, byval as ALenum, byval as ALenum, byval as const any ptr)
+type LPALBUFFERSUBSAMPLESSOFT as sub(byval as ALuint, byval as ALsizei, byval as ALsizei, byval as ALenum, byval as ALenum, byval as const any ptr)
+type LPALGETBUFFERSAMPLESSOFT as sub(byval as ALuint, byval as ALsizei, byval as ALsizei, byval as ALenum, byval as ALenum, byval as any ptr)
 type LPALISBUFFERFORMATSUPPORTEDSOFT as function(byval as ALenum) as byte
 
 const AL_SOFT_direct_channels = 1
@@ -218,8 +218,8 @@ const ALC_EXT_DEFAULT_FILTER_ORDER = 1
 const ALC_DEFAULT_FILTER_ORDER = &h1100
 const AL_SOFT_deferred_updates = 1
 const AL_DEFERRED_UPDATES_SOFT = &hC002
-type LPALDEFERUPDATESSOFT as function() as ALvoid
-type LPALPROCESSUPDATESSOFT as function() as ALvoid
+type LPALDEFERUPDATESSOFT as sub()
+type LPALPROCESSUPDATESSOFT as sub()
 const AL_SOFT_block_alignment = 1
 const AL_UNPACK_BLOCK_ALIGNMENT_SOFT = &h200C
 const AL_PACK_BLOCK_ALIGNMENT_SOFT = &h200D
