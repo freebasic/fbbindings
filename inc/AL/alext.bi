@@ -26,7 +26,6 @@
 #pragma once
 
 #include once "crt/stddef.bi"
-#include once "inttypes.bi"
 #include once "alc.bi"
 #include once "al.bi"
 #include once "efx.bi"

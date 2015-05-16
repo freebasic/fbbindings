@@ -12,3 +12,5 @@
 -removedefine ALUT_APIENTRY
 
 -define ALvoid void
+
+-removeinclude inttypes.h
