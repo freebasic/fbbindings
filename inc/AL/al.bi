@@ -25,6 +25,12 @@
 
 #pragma once
 
+#ifdef __FB_WIN32__
+	#inclib "OpenAL32"
+#else
+	#inclib "openal"
+#endif
+
 extern "C"
 
 #define AL_AL_H

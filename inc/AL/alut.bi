@@ -35,6 +35,8 @@
 
 #pragma once
 
+#inclib "alut"
+
 #include once "AL/al.bi"
 #include once "AL/alc.bi"
 
