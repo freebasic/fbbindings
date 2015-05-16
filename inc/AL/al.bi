@@ -41,7 +41,7 @@ const AL_INVALID = -1
 #define AL_VERSION_1_0
 #define AL_VERSION_1_1
 
-type ALboolean as zstring
+type ALboolean as byte
 type ALchar as zstring
 type ALbyte as byte
 type ALubyte as ubyte

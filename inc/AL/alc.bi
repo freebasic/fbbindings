@@ -33,7 +33,7 @@ const ALC_VERSION_0_1 = 1
 
 type ALCdevice as ALCdevice_struct
 type ALCcontext as ALCcontext_struct
-type ALCboolean as zstring
+type ALCboolean as byte
 type ALCchar as zstring
 type ALCbyte as byte
 type ALCubyte as ubyte
