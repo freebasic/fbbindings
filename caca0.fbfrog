@@ -1,0 +1,30 @@
+-renameproc caca_draw_box           caca1_draw_box
+-renameproc caca_draw_circle        caca1_draw_circle
+-renameproc caca_draw_ellipse       caca1_draw_ellipse
+-renameproc caca_draw_line          caca1_draw_line
+-renameproc caca_draw_polyline      caca1_draw_polyline
+-renameproc caca_draw_thin_box      caca1_draw_thin_box
+-renameproc caca_draw_thin_ellipse  caca1_draw_thin_ellipse
+-renameproc caca_draw_thin_line     caca1_draw_thin_line
+-renameproc caca_draw_thin_polyline caca1_draw_thin_polyline
+-renameproc caca_draw_thin_triangle caca1_draw_thin_triangle
+-renameproc caca_draw_triangle      caca1_draw_triangle
+-renameproc caca_fill_box           caca1_fill_box
+-renameproc caca_fill_ellipse       caca1_fill_ellipse
+-renameproc caca_fill_triangle      caca1_fill_triangle
+-renameproc caca_get_mouse_x        caca1_get_mouse_x
+-renameproc caca_get_mouse_y        caca1_get_mouse_y
+-renameproc caca_printf             caca1_printf
+-renameproc caca_rand               caca1_rand
+-renameproc caca_get_event          caca1_get_event
+
+-undefbeforedecl CACA_EVENT_NONE
+-undefbeforedecl CACA_EVENT_KEY_PRESS
+-undefbeforedecl CACA_EVENT_KEY_RELEASE
+-undefbeforedecl CACA_EVENT_MOUSE_PRESS
+-undefbeforedecl CACA_EVENT_MOUSE_RELEASE
+-undefbeforedecl CACA_EVENT_MOUSE_MOTION
+-undefbeforedecl CACA_EVENT_RESIZE
+-undefbeforedecl CACA_EVENT_ANY
+
+-renamedefine caca_dithering caca_dithering_
