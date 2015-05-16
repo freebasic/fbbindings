@@ -267,7 +267,7 @@ aspell:
 	$(GETCOMMENT) -2 extracted/$(ASPELL)/interfaces/cc/aspell.h > aspell.tmp
 	$(GETCOMMENT)    extracted/$(ASPELL)/interfaces/cc/pspell.h > pspell.tmp
 
-	$(FBFROG) -replacements aspell.replacements \
+	$(FBFROG) aspell.fbfrog \
 		-incdir extracted/$(ASPELL)/interfaces/cc \
 		-include aspell.h -include pspell.h \
 		-emit '*/aspell.h' inc/aspell.bi \

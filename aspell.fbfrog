@@ -1,0 +1,18 @@
+-replacements aspell.replacements
+
+-addforwarddecl AspellCanHaveError
+-addforwarddecl AspellConfig
+-addforwarddecl AspellDictInfoEnumeration
+-addforwarddecl AspellDictInfoList
+-addforwarddecl AspellDocumentChecker
+-addforwarddecl AspellFilter
+-addforwarddecl AspellKeyInfoEnumeration
+-addforwarddecl AspellModuleInfoEnumeration
+-addforwarddecl AspellModuleInfoList
+-addforwarddecl AspellMutableContainer
+-addforwarddecl AspellSpeller
+-addforwarddecl AspellStringEnumeration
+-addforwarddecl AspellStringList
+-addforwarddecl AspellStringMap
+-addforwarddecl AspellStringPairEnumeration
+-addforwarddecl AspellWordList
