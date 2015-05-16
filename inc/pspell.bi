@@ -12,7 +12,7 @@
 
 #pragma once
 
-#include once "../aspell.bi"
+#include once "aspell.bi"
 
 #define ASPELL_PSPELL__H
 #define PspellCanHaveError AspellCanHaveError
