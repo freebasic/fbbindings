@@ -440,7 +440,8 @@ caca:
 		-include caca.h \
 		-emit '*/caca.h'       inc/caca.bi \
 		-emit '*/caca_types.h' inc/caca.bi \
-		-title $(CACA) caca.tmp  fbteam.txt inc/caca.bi
+		-title $(CACA) caca.tmp fbteam.txt inc/caca.bi \
+		-inclib caca inc/caca.bi
 
 	$(FBFROG) caca-common.fbfrog caca0.fbfrog \
 		-incdir extracted/$(CACA)/caca \
