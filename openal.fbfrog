@@ -1,0 +1,10 @@
+-removedefine ALAPI
+-removedefine AL_API
+-removedefine ALAPIENTRY
+-removedefine AL_APIENTRY
+-removedefine ALCAPI
+-removedefine ALC_API
+-removedefine ALCAPIENTRY
+-removedefine ALC_APIENTRY
+-removedefine ALUT_API
+-removedefine ALUT_APIENTRY

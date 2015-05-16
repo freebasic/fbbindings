@@ -1,19 +1,3 @@
-# SDL 1: SDL_VERSION with upper-case X parameter...
-convert c:
-	#define SDL_VERSION(X) { \
-		(X)->major = SDL_MAJOR_VERSION; \
-		(X)->minor = SDL_MINOR_VERSION; \
-		(X)->patch = SDL_PATCHLEVEL; \
-	}
-to fb:
-	#macro SDL_VERSION_(X)
-		scope
-			(X)->major = SDL_MAJOR_VERSION
-			(X)->minor = SDL_MINOR_VERSION
-			(X)->patch = SDL_PATCHLEVEL
-		end scope
-	#endmacro
-
 convert c: #define SDL_QuitRequested() (SDL_PumpEvents(), SDL_PeepEvents(NULL, 0, SDL_PEEKEVENT, SDL_QUITMASK))
 to fb:
 	private function SDL_QuitRequested() as SDL_bool
@@ -21,32 +5,13 @@ to fb:
 		function = SDL_PeepEvents(NULL, 0, SDL_PEEKEVENT, SDL_QUITMASK)
 	end function
 
-convert c:
-	#define FRAMES_TO_MSF(f, M, S, F) { \
-		int value = f; \
-		*(F) = value % CD_FPS; \
-		value /= CD_FPS; \
-		*(S) = value % 60; \
-		value /= 60; \
-		*(M) = value; \
-	}
-to fb:
-	#macro FRAMES_TO_MSF(f_, M, S, F)
-		scope
-			dim value as long = f_
-			*(F) = value mod CD_FPS
-			value \= CD_FPS
-			*(S) = value mod 60
-			value \= 60
-			*(M) = value
-		end scope
-	#endmacro
-
+# should use "-expandindefine SDL_reinterpret_cast", but fbfrog doesn't do it in this case
+# because the macro call involves macro parameters
 convert c: #define SDLNet_Write16(value, areap) (*SDL_reinterpret_cast(Uint16 *, areap) = SDL_SwapBE16(value))
-to fb:     #define SDLNet_Write16(value, areap) scope : *cptr(Uint16 ptr, areap) = SDL_SwapBE16(value) : end scope
+to c:      #define SDLNet_Write16(value, areap) (*(Uint16 *)areap = SDL_SwapBE16(value))
 
 convert c: #define SDLNet_Write32(value, areap) *SDL_reinterpret_cast(Uint32 *, areap) = SDL_SwapBE32(value);
-to fb:     #define SDLNet_Write32(value, areap) scope : *cptr(Uint32 ptr, areap) = SDL_SwapBE32(value) : end scope
+to c:      #define SDLNet_Write32(value, areap) *(Uint32 *)areap = SDL_SwapBE32(value)
 
 convert c: #define SDLNet_Read16(areap) (SDL_SwapBE16(*SDL_reinterpret_cast(Uint16 *, areap)))
 to c:      #define SDLNet_Read16(areap) SDL_SwapBE16(*(Uint16 *)areap)

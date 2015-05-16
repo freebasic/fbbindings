@@ -8,6 +8,9 @@ nodos.fbfrog
 	-endif
 -endif
 
+-expandindefine G_STMT_START
+-expandindefine G_STMT_END
+
 -removedefine inline
 -removedefine G_GNUC_EXTENSION
 -removedefine __has_feature

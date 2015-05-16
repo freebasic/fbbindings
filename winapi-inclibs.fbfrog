@@ -71,6 +71,7 @@
 -inclib kernel32 inc/win/winbase.bi
 -inclib wldap32  inc/win/winber.bi
 -inclib gdi32    inc/win/wingdi.bi
+-inclib msimg32  inc/win/wingdi.bi
 -inclib wininet  inc/win/wininet.bi
 -inclib wldap32  inc/win/winldap.bi
 -inclib advapi32 inc/win/winreg.bi

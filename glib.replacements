@@ -46,127 +46,27 @@ to fb:
 		end function
 	#endmacro
 
-convert c: #define g_error(...) G_STMT_START { g_log(G_LOG_DOMAIN, G_LOG_LEVEL_ERROR, __VA_ARGS__); for (;;) ; } G_STMT_END
-to c:      #define g_error(...) g_log(G_LOG_DOMAIN, G_LOG_LEVEL_ERROR, __VA_ARGS__)
-
-convert c: #define g_warn_if_reached() do { g_warn_message(G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, NULL); } while (0)
-to c:      #define g_warn_if_reached()      g_warn_message(G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, NULL)
-
-convert c:
-	#define g_warn_if_fail(expr) \
-		do { \
-			if G_LIKELY(expr) \
-				; \
-			else \
-				g_warn_message(G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, #expr); \
-		} while (0)
-to fb:
-	#macro g_warn_if_fail(expr)
-		scope
-			if G_LIKELY(expr) then
-			else
-				g_warn_message(G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, #expr)
-			end if
-		end scope
-	#endmacro
-
-convert c:
-	#define g_return_if_fail(expr) \
-		G_STMT_START { \
-			if G_LIKELY(expr) { \
-			} else { \
-				g_return_if_fail_warning(G_LOG_DOMAIN, G_STRFUNC, #expr); \
-				return; \
-			} \
-			; \
-		} G_STMT_END
-to fb:
-	#macro g_return_if_fail(expr)
-		scope
-			if G_LIKELY(expr) then
-			else
-				g_return_if_fail_warning(G_LOG_DOMAIN, G_STRFUNC, #expr)
-				return
-			end if
-		end scope
-	#endmacro
-
-convert c:
-	#define g_return_val_if_fail(expr, val) \
-		G_STMT_START { \
-			if G_LIKELY(expr) { \
-			} else { \
-				g_return_if_fail_warning(G_LOG_DOMAIN, G_STRFUNC, #expr); \
-				return (val); \
-			} \
-			; \
-		} G_STMT_END
-to fb:
-	#macro g_return_val_if_fail(expr, val)
-		scope
-			if G_LIKELY(expr) then
-			else
-				g_return_if_fail_warning(G_LOG_DOMAIN, G_STRFUNC, #expr)
-				return (val)
-			end if
-		end scope
-	#endmacro
-
-convert c:
-	#define g_return_if_reached() \
-		G_STMT_START { \
-			g_log(G_LOG_DOMAIN, G_LOG_LEVEL_CRITICAL, "file %s: line %d (%s): should not be reached", __FILE__, __LINE__, G_STRFUNC); \
-			return; \
-		} G_STMT_END
-to fb:
-	#macro g_return_if_reached()
-		scope
-			g_log(G_LOG_DOMAIN, G_LOG_LEVEL_CRITICAL, "file %s: line %d (%s): should not be reached", __FILE__, __LINE__, G_STRFUNC)
-			return
-		end scope
-	#endmacro
-
-convert c:
-	#define g_return_val_if_reached(val) \
-		G_STMT_START { \
-			g_log(G_LOG_DOMAIN, G_LOG_LEVEL_CRITICAL, "file %s: line %d (%s): should not be reached", __FILE__, __LINE__, G_STRFUNC); \
-			return (val); \
-		} G_STMT_END
-to fb:
-	#macro g_return_val_if_reached(val)
-		scope
-			g_log(G_LOG_DOMAIN, G_LOG_LEVEL_CRITICAL, "file %s: line %d (%s): should not be reached", __FILE__, __LINE__, G_STRFUNC)
-			return (val)
-		end scope
-	#endmacro
-
-convert c: #define g_scanner_add_symbol(scanner, symbol, value) G_STMT_START { g_scanner_scope_add_symbol ((scanner), 0, (symbol), (value));} G_STMT_END
-to c:      #define g_scanner_add_symbol(scanner, symbol, value) g_scanner_scope_add_symbol((scanner), 0, (symbol), (value))
-
-convert c: #define g_scanner_remove_symbol(scanner, symbol) G_STMT_START { g_scanner_scope_remove_symbol ((scanner), 0, (symbol));} G_STMT_END
-to c:      #define g_scanner_remove_symbol(scanner, symbol) g_scanner_scope_remove_symbol((scanner), 0, (symbol))
-
-convert c: #define g_scanner_foreach_symbol(scanner, func, data) G_STMT_START { g_scanner_scope_foreach_symbol ((scanner), 0, (func), (data));} G_STMT_END
-to c:      #define g_scanner_foreach_symbol(scanner, func, data) g_scanner_scope_foreach_symbol((scanner), 0, (func), (data))
+convert c: #define g_error(...) do { g_log(G_LOG_DOMAIN, G_LOG_LEVEL_ERROR, __VA_ARGS__); for (;;) ; } while (0)
+to c:      #define g_error(...) do { g_log(G_LOG_DOMAIN, G_LOG_LEVEL_ERROR, __VA_ARGS__);            } while (0)
 
 convert c: #define g_slice_dup(type, mem) (1 ? (type*) g_slice_copy(sizeof(type), (mem)) : ((void) ((type*) 0 == (mem)), (type*) 0))
 to c:      #define g_slice_dup(type, mem)     ((type*) g_slice_copy(sizeof(type), (mem)))
 
-convert c: #define g_slice_free(type, mem) G_STMT_START { if (1) g_slice_free1(sizeof(type), (mem)); else (void) ((type*) 0 == (mem));} G_STMT_END
-to c:      #define g_slice_free(type, mem)                       g_slice_free1(sizeof(type), (mem))
+convert c: #define g_slice_free(type, mem) do { if (1) g_slice_free1(sizeof(type), (mem)); else (void) ((type*) 0 == (mem)); } while (0)
+to c:      #define g_slice_free(type, mem) do {        g_slice_free1(sizeof(type), (mem));                                   } while (0)
 
-convert c: #define g_slice_free_chain(type, mem_chain, next) G_STMT_START { if (1) g_slice_free_chain_with_offset(sizeof(type), (mem_chain), G_STRUCT_OFFSET(type, next)); else (void) ((type*) 0 == (mem_chain));} G_STMT_END
-to c:      #define g_slice_free_chain(type, mem_chain, next)                       g_slice_free_chain_with_offset(sizeof(type), (mem_chain), G_STRUCT_OFFSET(type, next))
+convert c: #define g_slice_free_chain(type, mem_chain, next) do { if (1) g_slice_free_chain_with_offset(sizeof(type), (mem_chain), G_STRUCT_OFFSET(type, next)); else (void) ((type*) 0 == (mem_chain)); } while (0)
+to c:      #define g_slice_free_chain(type, mem_chain, next) do {        g_slice_free_chain_with_offset(sizeof(type), (mem_chain), G_STRUCT_OFFSET(type, next));                                         } while (0)
 
 convert c:
 	#define g_assert_cmpstr(s1, cmp, s2) \
-		G_STMT_START { \
+		do { \
 			const char *__s1 = (s1), *__s2 = (s2); \
 			if (g_strcmp0(__s1, __s2) cmp 0) \
 				; \
 			else \
 				g_assertion_message_cmpstr(G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, #s1 " " #cmp " " #s2, __s1, #cmp, __s2); \
-		} G_STMT_END
+		} while (0)
 to fb:
 	#macro g_assert_cmpstr(s1, cmp, s2)
 		scope
@@ -180,13 +80,13 @@ to fb:
 
 convert c:
 	#define g_assert_cmpint(n1, cmp, n2) \
-		G_STMT_START { \
+		do { \
 			gint64 __n1 = (n1), __n2 = (n2); \
 			if (__n1 cmp __n2) \
 				; \
 			else \
 				g_assertion_message_cmpnum(G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, #n1 " " #cmp " " #n2, __n1, #cmp, __n2, 'i'); \
-		} G_STMT_END
+		} while (0)
 to fb:
 	#macro g_assert_cmpint(n1, cmp, n2)
 		scope
@@ -200,13 +100,13 @@ to fb:
 
 convert c:
 	#define g_assert_cmpuint(n1, cmp, n2) \
-		G_STMT_START { \
+		do { \
 			guint64 __n1 = (n1), __n2 = (n2); \
 			if (__n1 cmp __n2) \
 				; \
 			else \
 				g_assertion_message_cmpnum(G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, #n1 " " #cmp " " #n2, __n1, #cmp, __n2, 'i'); \
-		} G_STMT_END
+		} while (0)
 to fb:
 	#macro g_assert_cmpuint(n1, cmp, n2)
 		scope
@@ -220,13 +120,13 @@ to fb:
 
 convert c:
 	#define g_assert_cmphex(n1, cmp, n2) \
-		G_STMT_START { \
+		do { \
 			guint64 __n1 = (n1), __n2 = (n2); \
 			if (__n1 cmp __n2) \
 				; \
 			else \
 				g_assertion_message_cmpnum(G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, #n1 " " #cmp " " #n2, __n1, #cmp, __n2, 'x'); \
-		} G_STMT_END
+		} while (0)
 to fb:
 	#macro g_assert_cmphex(n1, cmp, n2)
 		scope
@@ -241,13 +141,13 @@ to fb:
 # This one uses "long double", but I think it can be translated to just "double" just fine
 convert c:
 	#define g_assert_cmpfloat(n1, cmp, n2) \
-		G_STMT_START { \
+		do { \
 			long double __n1 = (n1), __n2 = (n2); \
 			if (__n1 cmp __n2) \
 				; \
 			else \
 				g_assertion_message_cmpnum(G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, #n1 " " #cmp " " #n2, __n1, #cmp, __n2, 'f'); \
-		} G_STMT_END
+		} while (0)
 to fb:
 	#macro g_assert_cmpfloat(n1, cmp, n2)
 		scope
@@ -260,131 +160,8 @@ to fb:
 	#endmacro
 
 convert c:
-	#define g_assert_no_error(err) \
-		G_STMT_START { \
-			if (err) \
-				g_assertion_message_error(G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, #err, err, 0, 0); \
-		} G_STMT_END
-to fb:
-	#macro g_assert_no_error(err)
-		scope
-			if err then
-				g_assertion_message_error(G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, #err, err, 0, 0)
-			end if
-		end scope
-	#endmacro
-
-convert c:
-	#define g_assert_error(err, dom, c) \
-		G_STMT_START { \
-			if (!err || (err)->domain != dom || (err)->code != c) \
-				g_assertion_message_error(G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, #err, err, dom, c); \
-		} G_STMT_END
-to fb:
-	#macro g_assert_error(err, dom, c)
-		scope
-			if err = 0 orelse (err)->domain <> dom orelse (err)->code <> c then
-				g_assertion_message_error(G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, #err, err, dom, c)
-			end if
-		end scope
-	#endmacro
-
-convert c:
-	#define g_assert_true(expr) \
-		G_STMT_START { \
-			if G_LIKELY(expr) \
-				; \
-			else \
-				g_assertion_message(G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, "'" #expr "' should be TRUE"); \
-		} G_STMT_END
-to fb:
-	#macro g_assert_true(expr)
-		scope
-			if G_LIKELY(expr) then
-			else
-				g_assertion_message(G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, "'" #expr "' should be TRUE")
-			end if
-		end scope
-	#endmacro
-
-convert c:
-	#define g_assert_false(expr) \
-		G_STMT_START { \
-			if G_LIKELY(!(expr)) \
-				; \
-			else \
-				g_assertion_message(G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, "'" #expr "' should be FALSE"); \
-		} G_STMT_END
-to fb:
-	#macro g_assert_false(expr)
-		scope
-			if G_LIKELY((expr) = 0) then
-			else
-				g_assertion_message(G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, "'" #expr "' should be FALSE")
-			end if
-		end scope
-	#endmacro
-
-convert c:
-	#define g_assert_null(expr) \
-		G_STMT_START { \
-			if G_LIKELY((expr) == NULL) \
-				; \
-			else \
-				g_assertion_message(G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, "'" #expr "' should be NULL"); \
-		} G_STMT_END
-to fb:
-	#macro g_assert_null(expr)
-		scope
-			if G_LIKELY((expr) = NULL) then
-			else
-				g_assertion_message(G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, "'" #expr "' should be NULL")
-			end if
-		end scope
-	#endmacro
-
-convert c:
-	#define g_assert_nonnull(expr) \
-		G_STMT_START { \
-			if G_LIKELY((expr) != NULL) \
-				; \
-			else \
-				g_assertion_message(G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, "'" #expr "' should not be NULL"); \
-		} G_STMT_END
-to fb:
-	#macro g_assert_nonnull(expr)
-		scope
-			if G_LIKELY((expr) <> NULL) then
-			else
-				g_assertion_message(G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, "'" #expr "' should not be NULL")
-			end if
-		end scope
-	#endmacro
-
-convert c: #define g_assert_not_reached() G_STMT_START { g_assertion_message_expr(G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, NULL); } G_STMT_END
-to c:      #define g_assert_not_reached()                g_assertion_message_expr(G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, NULL)
-
-convert c:
-	#define g_assert(expr) \
-		G_STMT_START { \
-			if G_LIKELY(expr) \
-				; \
-			else \
-				g_assertion_message_expr(G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, #expr); \
-		} G_STMT_END
-to fb:
-	#macro g_assert(expr)
-		scope
-			if G_LIKELY(expr) then
-			else
-				g_assertion_message_expr(G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, #expr)
-			end if
-		end scope
-	#endmacro
-
-convert c:
 	#define g_test_add(testpath, Fixture, tdata, fsetup, ftest, fteardown) \
-		G_STMT_START { \
+		do { \
 			void (*add_vtable)( \
 				const char*, \
 				gsize, \
@@ -401,24 +178,27 @@ convert c:
 				void (*)(Fixture*, gconstpointer) \
 			)) g_test_add_vtable; \
 			add_vtable(testpath, sizeof (Fixture), tdata, fsetup, ftest, fteardown); \
-		} G_STMT_END
-to fb:
-	#macro g_test_add(testpath, Fixture, tdata, fsetup, ftest, fteardown)
-		scope
-			var add_vtable = cast(sub cdecl( _
-				byval as const zstring ptr, _
-				byval as gsize, _
-				byval as gconstpointer, _
-				byval as sub cdecl(byval as Fixture ptr, byval as gconstpointer), _
-				byval as sub cdecl(byval as Fixture ptr, byval as gconstpointer), _
-				byval as sub cdecl(byval as Fixture ptr, byval as gconstpointer) _
-			), @g_test_add_vtable)
-			add_vtable(testpath, sizeof(Fixture), tdata, fsetup, ftest, fteardown)
-		end scope
-	#endmacro
-
-convert c: #define g_memmove(dest, src, len) G_STMT_START { memmove((dest), (src), (len)); } G_STMT_END
-to c:      #define g_memmove(dest, src, len)                memmove((dest), (src), (len))
+		} while (0)
+to c:
+	#define g_test_add(testpath, Fixture, tdata, fsetup, ftest, fteardown) \
+		do { \
+			void (*add_vtable)( \
+				const char*, \
+				gsize, \
+				gconstpointer, \
+				void (*)(Fixture*, gconstpointer), \
+				void (*)(Fixture*, gconstpointer), \
+				void (*)(Fixture*, gconstpointer) \
+			) = (void (*)( \
+				const gchar *, \
+				gsize, \
+				gconstpointer, \
+				void (*)(Fixture*, gconstpointer), \
+				void (*)(Fixture*, gconstpointer), \
+				void (*)(Fixture*, gconstpointer) \
+			)) &g_test_add_vtable; \
+			add_vtable(testpath, sizeof (Fixture), tdata, fsetup, ftest, fteardown); \
+		} while (0)
 
 convert c: #define GLIB_SYSDEF_POLLIN =1
 to fb:     #define GLIB_SYSDEF_POLLIN =1
@@ -832,29 +612,6 @@ to fb:
 			iif(cptr(GValue ptr, vl)->g_type = gt, _
 				TRUE, _
 				g_type_check_value_holds(cptr(GValue ptr, vl), gt)))
-
-convert c:
-	#define G_OBJECT_WARN_INVALID_PSPEC(object, pname, property_id, pspec)				\
-		G_STMT_START {										\
-			GObject *_glib__object = (GObject*)(object);					\
-			GParamSpec *_glib__pspec = (GParamSpec*)(pspec);				\
-			guint _glib__property_id = (property_id);					\
-			g_warning("%s:%u: invalid %s id %u for \"%s\" of type '%s' in '%s'",		\
-				__FILE__, __LINE__, (pname), _glib__property_id, _glib__pspec->name,	\
-				g_type_name(G_PARAM_SPEC_TYPE (_glib__pspec)),				\
-				G_OBJECT_TYPE_NAME (_glib__object));					\
-		} G_STMT_END
-to fb:
-	#macro G_OBJECT_WARN_INVALID_PSPEC(object, pname, property_id, pspec)
-		scope
-			var _glib__pspec = cptr(GParamSpec ptr, pspec)
-			dim as guint _glib__property_id = (property_id)
-			g_warning(!"%s:%u: invalid %s id %u for \"%s\" of type '%s' in '%s'", _
-				__FILE__, __LINE__, (pname), _glib__property_id, _glib__pspec->name, _
-				g_type_name(G_PARAM_SPEC_TYPE(_glib__pspec)), _
-				G_OBJECT_TYPE_NAME(cptr(GObject ptr, object)))
-		end scope
-	#endmacro
 
 convert c: #define G_DEFINE_DYNAMIC_TYPE(TN, t_n, T_P) G_DEFINE_DYNAMIC_TYPE_EXTENDED(TN, t_n, T_P, 0, {})
 to fb:     #define G_DEFINE_DYNAMIC_TYPE(TN, t_n, T_P) G_DEFINE_DYNAMIC_TYPE_EXTENDED(TN, t_n, T_P, 0, )

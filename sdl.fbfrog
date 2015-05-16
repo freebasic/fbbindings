@@ -273,6 +273,8 @@ nodos.fbfrog
 -rename SDL_EventMask SDL_EventMask_
 -rename SDL_QUIT SDL_QUIT_
 
+-renamemacroparam f f_
+
 -renamedefine SDL_VERSION SDL_VERSION_
 
 -addforwarddecl SDL_mutex

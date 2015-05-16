@@ -1,15 +1,15 @@
 FBFROG := fbfrog
 
-ALL := allegro allegro4 allegro5 atk
-ALL += bzip2
-ALL += cairo cgui clang cunit curl
+ALL := allegro allegro4 allegro5 aspell atk
+ALL += bass bassmod bfd bzip2
+ALL += caca cairo cgui clang cunit curl
 ALL += fastcgi ffi fontconfig freeglut freetype
 ALL += gdkpixbuf glib glibc glfw glut gtk gtk2 gtk3 gtkglext
 ALL += iconv iup
 ALL += jit
 ALL += llvm lua
 ALL += ncurses
-ALL += opengl opengl-mesa opengl-winapi
+ALL += openal opengl opengl-mesa opengl-winapi
 ALL += pango pdcurses png png12 png14 png15 png16
 ALL += sdl sdl1 sdl2
 ALL += tre
@@ -260,6 +260,32 @@ allegro5:
 
 	rm *.tmp
 
+ASPELL := aspell-0.60.6.1
+aspell:
+	./get.sh $(ASPELL) $(ASPELL).tar.gz ftp://ftp.gnu.org/gnu/aspell/$(ASPELL).tar.gz
+
+	$(GETCOMMENT) -2 extracted/$(ASPELL)/interfaces/cc/aspell.h > aspell.tmp
+	$(GETCOMMENT)    extracted/$(ASPELL)/interfaces/cc/pspell.h > pspell.tmp
+
+	$(FBFROG) -replacements aspell.replacements \
+		-incdir extracted/$(ASPELL)/interfaces/cc \
+		-include aspell.h -include pspell.h \
+		-emit '*/aspell.h' inc/aspell.bi \
+		-emit '*/pspell.h' inc/pspell.bi \
+		-title $(ASPELL) aspell.tmp fbteam.txt inc/aspell.bi \
+		-title $(ASPELL) pspell.tmp fbteam.txt inc/pspell.bi \
+		-inclib aspell inc/aspell.bi \
+		-ifdef __FB_DOS__ \
+			-inclib stdcx inc/aspell.bi \
+		-else \
+			-inclib stdc++ inc/aspell.bi \
+			-ifdef __FB_WIN32__ \
+				-inclib pthread inc/aspell.bi \
+			-endif \
+		-endif
+
+	rm *.tmp
+
 ATK_SERIES := 2.14
 ATK := atk-$(ATK_SERIES).0
 atk-extract:
@@ -314,6 +340,90 @@ atk: atk-extract glib-extract
 		-title $(ATK) atk.tmp gtk+-translators.txt
 	rm *.tmp
 
+BASS := bass24
+bass: winapi-extract
+	./get.sh $(BASS) $(BASS).zip http://us.un4seen.com/files/$(BASS).zip createdir
+
+	$(GETCOMMENT) extracted/$(BASS)/c/bass.h > bass.tmp
+	echo >> bass.tmp
+	sed -n 639,655p extracted/$(BASS)/bass.txt >> bass.tmp
+
+	$(FBFROG) bass.fbfrog \
+		-ifdef __FB_WIN32__ \
+			-incdir extracted/$(MINGWW64_TITLE)/mingw-w64-headers/crt \
+			-incdir extracted/$(MINGWW64_TITLE)/mingw-w64-headers/include \
+		-endif \
+		extracted/$(BASS)/c/bass.h \
+		-emit '*/bass.h' inc/bass.bi \
+		-title $(BASS) bass.tmp fbteam.txt \
+		-inclib bass
+
+	rm *.tmp
+
+BASSMOD := bassmod20
+bassmod: winapi-extract
+	./get.sh $(BASSMOD) $(BASSMOD).zip http://us.un4seen.com/files/$(BASSMOD).zip createdir
+
+	$(GETCOMMENT) extracted/$(BASSMOD)/c/bassmod.h > bassmod.tmp
+	echo >> bassmod.tmp
+	sed -n 158,175p extracted/$(BASSMOD)/BASSMOD.txt >> bassmod.tmp
+
+	$(FBFROG) bass.fbfrog \
+		-ifdef __FB_WIN32__ \
+			-incdir extracted/$(MINGWW64_TITLE)/mingw-w64-headers/crt \
+			-incdir extracted/$(MINGWW64_TITLE)/mingw-w64-headers/include \
+		-endif \
+		extracted/$(BASSMOD)/c/bassmod.h \
+		-emit '*/bassmod.h' inc/bassmod.bi \
+		-title $(BASSMOD) bassmod.tmp fbteam.txt \
+		-inclib bassmod inc/bassmod.bi
+
+	rm *.tmp
+
+################################################################################
+# libbfd binding
+# TODO: license texts
+
+BINUTILS_216 := binutils-2.16.1
+BINUTILS_217 := binutils-2.17
+BINUTILS_218 := binutils-2.18
+BINUTILS_219 := binutils-2.19.1
+BINUTILS_220 := binutils-2.20.1
+BINUTILS_221 := binutils-2.21.1
+BINUTILS_222 := binutils-2.22
+BINUTILS_223 := binutils-2.23.2
+BINUTILS_224 := binutils-2.24
+BINUTILS_225 := binutils-2.25
+
+BINUTILS_SED := -e 's/@supports_plugins@/1/g'
+BINUTILS_SED += -e 's/@BFD_HOST_64BIT_LONG_LONG@/1/g'
+BINUTILS_SED += -e 's/@BFD_HOST_64_BIT_DEFINED@/1/g'
+BINUTILS_SED += -e 's/@BFD_HOST_64_BIT@/long long/g'
+BINUTILS_SED += -e 's/@BFD_HOST_U_64_BIT@/unsigned long long/g'
+BINUTILS_SED += -e 's/@BFD_HOST_64BIT_LONG@/0/g'
+BINUTILS_SED += -e 's/@BFD_HOST_LONG_LONG@/1/g'
+
+BINUTILS_SED_32 := $(BINUTILS_SED)
+BINUTILS_SED_32 += -e 's/@wordsize@/32/g'
+BINUTILS_SED_32 += -e 's/@bfd_default_target_size@/32/g'
+# file_ptr is 64bit even on linux-x86 and win32 (MinGW-w64 at least) because 64bit off_t/ftello is available
+BINUTILS_SED_32 += -e 's/@bfd_file_ptr@/BFD_HOST_64_BIT/g'
+
+BINUTILS_SED_64 := $(BINUTILS_SED)
+BINUTILS_SED_64 += -e 's/@wordsize@/64/g'
+BINUTILS_SED_64 += -e 's/@bfd_default_target_size@/64/g'
+BINUTILS_SED_64 += -e 's/@bfd_file_ptr@/BFD_HOST_64_BIT/g'
+
+BINUTILS_SED_DJGPP := $(BINUTILS_SED)
+BINUTILS_SED_DJGPP += -e 's/@wordsize@/32/g'
+BINUTILS_SED_DJGPP += -e 's/@bfd_default_target_size@/32/g'
+# 32bit file_ptr with DJGPP
+BINUTILS_SED_DJGPP += -e 's/@bfd_file_ptr@/long/g'
+
+include bfd.mk
+
+################################################################################
+
 BZIP2_VERSION := 1.0.6
 BZIP2 := bzip2-$(BZIP2_VERSION)
 bzip2:
@@ -322,6 +432,25 @@ bzip2:
 	sed -n 4,40p extracted/$(BZIP2)/LICENSE > bzip2.tmp
 	$(FBFROG) bzip2.fbfrog extracted/$(BZIP2)/bzlib.h -o inc -inclib bz2 \
 		-title $(BZIP2) bzip2.tmp fbteam.txt
+	rm *.tmp
+
+CACA := libcaca-0.99.beta19
+caca:
+	./get.sh $(CACA) $(CACA).tar.gz http://caca.zoy.org/files/libcaca/$(CACA).tar.gz
+
+	$(GETCOMMENT) extracted/$(CACA)/caca/caca.h  > caca.tmp
+	$(GETCOMMENT) extracted/$(CACA)/caca/caca0.h > caca0.tmp
+
+	$(FBFROG) caca.fbfrog \
+		-incdir extracted/$(CACA)/caca \
+		-include caca.h \
+		-include caca0.h \
+		-emit '*/caca.h'       inc/caca.bi \
+		-emit '*/caca_types.h' inc/caca.bi \
+		-emit '*/caca0.h'      inc/caca0.bi \
+		-title $(CACA) caca.tmp  fbteam.txt inc/caca.bi \
+		-title $(CACA) caca0.tmp fbteam.txt inc/caca0.bi
+
 	rm *.tmp
 
 # TODO:
@@ -378,11 +507,11 @@ cairo: cairo-extract
 		-title $(CAIRO) cairo.tmp gtk+-translators.txt
 	rm *.tmp
 
-CGUI_VERSION := 2.0.3
+CGUI_VERSION := 2.0.4
 CGUI := cgui-$(CGUI_VERSION)
 cgui:
-	./get.sh cgui $(CGUI).tar.gz "http://sourceforge.net/projects/cgui/files/$(CGUI_VERSION)/$(CGUI).tar.gz/download"
-	sed -n 2,2p extracted/cgui/readme.txt > cgui.tmp
+	./get.sh $(CGUI) $(CGUI).tar.gz "http://cgui.cvs.sourceforge.net/viewvc/cgui/cgui/?view=tar&pathrev=Branch_CGUI_1-6-7"
+	echo "A C Graphical User Interface [add on to Allegro] by Christer Sandberg" > cgui.tmp
 	$(FBFROG) cgui.fbfrog -o inc extracted/cgui/include/cgui.h \
 		-title $(CGUI) cgui.tmp fbteam.txt
 	rm *.tmp
@@ -1061,8 +1190,52 @@ ncurses:
 	sed -n 1,27p extracted/$(NCURSES_TITLE)/include/curses.h.in > ncurses.tmp
 	mkdir -p inc/curses
 	$(FBFROG) ncurses.fbfrog -o inc/curses/ncurses.bi \
-		extracted/$(NCURSES_TITLE)/include/curses.h \
+		-incdir extracted/$(NCURSES_TITLE)/include \
+		-include curses.h \
 		-title $(NCURSES_TITLE) ncurses.tmp fbteam.txt
+	rm *.tmp
+
+# There are 2 "versions" of OpenAL:
+#  * Creative OpenAL SDK 1.1 (no longer developed, openal.org down?)
+#     * I'm not sure whether the license allows making bindings...
+#     * has EFX-Utils header/lib
+#  * OpenAL Soft, free fork, mostly used on Linux
+# freealut seems to be unavailable currently too, as openal.org is down.
+OPENALSOFT := openal-soft-1.16.0
+FREEALUT_TAG := freealut_1_1_0
+FREEALUT := freealut-$(FREEALUT_TAG)
+openal:
+	./get.sh $(OPENALSOFT) $(OPENALSOFT).tar.bz2 http://kcat.strangesoft.net/openal-releases/$(OPENALSOFT).tar.bz2
+	# Downloading freealut from unofficial mirror
+	./get.sh $(FREEALUT) $(FREEALUT_TAG).tar.gz https://github.com/vancegroup/freealut/archive/$(FREEALUT_TAG).tar.gz
+
+	$(GETCOMMENT) extracted/$(OPENALSOFT)/include/AL/alext.h > openalsoft.tmp
+	cp extracted/$(FREEALUT)/AUTHORS freealut.tmp
+	echo >> freealut.tmp
+	cat lgpl2+.txt >> freealut.tmp
+
+	mkdir -p inc/AL
+
+	$(FBFROG) openal.fbfrog \
+		-incdir extracted/$(OPENALSOFT)/include/AL \
+		-incdir extracted/$(FREEALUT)/include/AL \
+		-include al.h \
+		-include alc.h \
+		-include alext.h \
+		-include alut.h \
+		-include efx.h \
+		-include efx-creative.h \
+		-include efx-presets.h \
+		-emit '*/AL/alc.h'           inc/AL/alc.bi \
+		-emit '*/AL/alext.h'         inc/AL/alext.bi \
+		-emit '*/AL/al.h'            inc/AL/al.bi \
+		-emit '*/AL/alut.h'          inc/AL/alut.bi \
+		-emit '*/AL/efx-creative.h'  inc/AL/efx-creative.bi \
+		-emit '*/AL/efx.h'           inc/AL/efx.bi \
+		-emit '*/AL/efx-presets.h'   inc/AL/efx-presets.bi \
+		-title $(OPENALSOFT) openalsoft.tmp fbteam.txt \
+		-title $(FREEALUT) freealut.tmp fbteam.txt inc/AL/alut.bi
+
 	rm *.tmp
 
 #
@@ -2298,7 +2471,9 @@ zip:
 		if [ ! -f lib/zipconf.h ]; then ./configure && make; fi
 
 	$(GETCOMMENT) extracted/$(ZIP_TITLE)/lib/zip.h > zip.tmp
-	$(FBFROG) zip.fbfrog -o inc extracted/$(ZIP_TITLE)/lib/zip.h \
+	$(FBFROG) zip.fbfrog -o inc/zip.bi \
+		-incdir extracted/$(ZIP_TITLE)/lib \
+		-include zip.h \
 		-title $(ZIP_TITLE) zip.tmp fbteam.txt
 	rm *.tmp
 

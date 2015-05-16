@@ -4,18 +4,6 @@ to fb:     #define NCURSES_CAST(type, value) cast(type, value)
 convert c: #define NCURSES_ACS(c) (acs_map[NCURSES_CAST(unsigned char,c)])
 to fb:     #define NCURSES_ACS(c) (acs_map(cubyte(c)))
 
-convert c: #define getyx(win,y,x) (y = getcury(win), x = getcurx(win))
-to fb:     #define getyx(win,y,x) y = getcury(win) : x = getcurx(win)
-
-convert c: #define getbegyx(win,y,x) (y = getbegy(win), x = getbegx(win))
-to fb:     #define getbegyx(win,y,x) y = getbegy(win) : x = getbegx(win)
-
-convert c: #define getmaxyx(win,y,x) (y = getmaxy(win), x = getmaxx(win))
-to fb:     #define getmaxyx(win,y,x) y = getmaxy(win) : x = getmaxx(win)
-
-convert c: #define getparyx(win,y,x) (y = getpary(win), x = getparx(win))
-to fb:     #define getparyx(win,y,x) y = getpary(win) : x = getparx(win)
-
 convert c:
 	#define getsyx(y, x) \
 		do { \
@@ -23,44 +11,21 @@ convert c:
 				if (is_leaveok(newscr)) \
 					(y) = (x) = -1; \
 				else \
-					getyx(newscr,(y), (x)); \
+					getyx(newscr, (y), (x)); \
 			} \
 		} while(0)
-to fb:
-	#macro getsyx(y, x)
-		if newscr then
-			if is_leaveok(newscr) then
-				(y) = -1
-				(x) = -1
-			else
-				getyx(newscr, (y), (x))
-			end if
-		end if
-	#endmacro
-
-convert c:
-	#define setsyx(y, x) \
+to c:
+	#define getsyx(y, x) \
 		do { \
 			if (newscr) { \
-				if ((y) == -1 && (x) == -1) \
-					leaveok(newscr, TRUE); \
-				else { \
-					leaveok(newscr, FALSE); \
-					wmove(newscr, (y), (x)); \
+				if (is_leaveok(newscr)) { \
+					(x) = -1; \
+					(y) = -1; \
+				} else { \
+					getyx(newscr, (y), (x)); \
 				} \
 			} \
 		} while(0)
-to fb:
-	#macro setsyx(y, x)
-		if newscr then
-			if (y) = -1 andalso (x) = -1 then
-				leaveok(newscr, TRUE)
-			else
-				leaveok(newscr, FALSE)
-				wmove(newscr, (y), (x))
-			end if
-		end if
-	#endmacro
 
 convert c: #define getattrs(win) NCURSES_CAST(int, (win) ? (win)->_attrs : A_NORMAL)
 to fb:     #define getattrs(win) clng(iif((win), (win)->_attrs, A_NORMAL))
@@ -77,7 +42,7 @@ convert c: #define PAIR_NUMBER(a) (NCURSES_CAST(int,((NCURSES_CAST(unsigned long
 to fb:     #define PAIR_NUMBER(a) clng((cast(culong,a) and A_COLOR) shr NCURSES_ATTR_SHIFT)
 
 convert c: #define wattr_set(win,a,p,opts) ((win)->_attrs = (((a) & ~A_COLOR) | (attr_t)COLOR_PAIR(p)), OK)
-to fb:     #define wattr_set(win,a,p,opts) (win)->_attrs = (((a) and not A_COLOR) or cast(attr_t, COLOR_PAIR(p)))
+to c:      #define wattr_set(win,a,p,opts) (win)->_attrs = (((a) & ~A_COLOR) | (attr_t)COLOR_PAIR(p))
 
 convert c:
 	#define wattr_get(win,a,p,opts) \

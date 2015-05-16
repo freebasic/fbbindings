@@ -20,8 +20,6 @@
 	-endif
 -endselect
 
--replacements allegro.replacements
-
 -removedefine ABS
 -removedefine AL_ALIAS
 -removedefine AL_ALIAS_VOID_RET

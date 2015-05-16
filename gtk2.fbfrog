@@ -1,5 +1,8 @@
 -replacements gtk2.replacements
 
+-expandindefine G_STMT_START
+-expandindefine G_STMT_END
+
 -removedefine GDKVAR
 -removedefine GTKVAR
 -removedefine GTKMAIN_C_VAR

@@ -1,0 +1,65 @@
+convert c: #define bfd_set_section_vma(bfd, ptr, val) (((ptr)->vma = (ptr)->lma = (val)), ((ptr)->user_set_vma = TRUE), TRUE)
+to fb:
+	#macro bfd_set_section_vma(bfd, ptr, val)
+		scope
+			var __val = (val)
+			(ptr)->vma = __val
+			(ptr)->lma = __val
+			(ptr)->user_set_vma = TRUE
+		end scope
+	#endmacro
+
+convert c: #define bfd_set_section_alignment(bfd, ptr, val) (((ptr)->alignment_power = (val)),TRUE)
+to c:      #define bfd_set_section_alignment(bfd, ptr, val)  ((ptr)->alignment_power = (val))
+
+convert c: #define bfd_set_section_userdata(bfd, ptr, val) (((ptr)->userdata = (val)),TRUE)
+to c:      #define bfd_set_section_userdata(bfd, ptr, val) ((ptr)->userdata = (val))
+
+convert c: #define bfd_read(BUF, ELTSIZE, NITEMS, ABFD) (warn_deprecated ("bfd_read", __FILE__, __LINE__, __FUNCTION__), bfd_bread ((BUF), (ELTSIZE) * (NITEMS), (ABFD)))
+to c:      #define bfd_read(BUF, ELTSIZE, NITEMS, ABFD)                                                                  bfd_bread ((BUF), (ELTSIZE) * (NITEMS), (ABFD))
+
+convert c: #define bfd_write(BUF, ELTSIZE, NITEMS, ABFD) (warn_deprecated ("bfd_write", __FILE__, __LINE__, __FUNCTION__), bfd_bwrite ((BUF), (ELTSIZE) * (NITEMS), (ABFD)))
+to c:      #define bfd_write(BUF, ELTSIZE, NITEMS, ABFD)                                                                   bfd_bwrite ((BUF), (ELTSIZE) * (NITEMS), (ABFD))
+
+convert c: #define bfd_set_cacheable(abfd,bool) (((abfd)->cacheable = bool), TRUE)
+to c:      #define bfd_set_cacheable(abfd,bool) ((abfd)->cacheable = bool)
+
+convert c: #define bfd_put_8(abfd, val, ptr) ((void) (*((unsigned char *) (ptr)) = (val) & 0xff))
+to c:      #define bfd_put_8(abfd, val, ptr) ((*((unsigned char *) (ptr)) = (val) & 0xff))
+
+convert c:
+	#define bfd_get(bits, abfd, ptr) \
+		((bits) == 8 ? (bfd_vma) bfd_get_8 (abfd, ptr) : \
+		 (bits) == 16 ? bfd_get_16 (abfd, ptr) : \
+		 (bits) == 32 ? bfd_get_32 (abfd, ptr) : \
+		 (bits) == 64 ? bfd_get_64 (abfd, ptr) : \
+		 (abort (), (bfd_vma) - 1))
+to c:
+	#define bfd_get(bits, abfd, ptr) \
+		((bits) == 8 ? (bfd_vma) bfd_get_8 (abfd, ptr) : \
+		 (bits) == 16 ? bfd_get_16 (abfd, ptr) : \
+		 (bits) == 32 ? bfd_get_32 (abfd, ptr) : \
+		 (bits) == 64 ? bfd_get_64 (abfd, ptr) : \
+		 (bfd_vma) - 1)
+
+convert c:
+	#define bfd_put(bits, abfd, val, ptr) \
+		((bits) == 8 ? bfd_put_8 (abfd, val, ptr) : \
+		 (bits) == 16 ? bfd_put_16 (abfd, val, ptr) : \
+		 (bits) == 32 ? bfd_put_32 (abfd, val, ptr) : \
+		 (bits) == 64 ? bfd_put_64 (abfd, val, ptr) : \
+		 (abort (), (void) 0))
+to fb:
+	#macro bfd_put(bits, abfd, val, ptr)
+		select case bits
+		case 8  : bfd_put_8(abfd, val, ptr)
+		case 16 : bfd_put_16(abfd, val, ptr)
+		case 32 : bfd_put_32(abfd, val, ptr)
+		case 64 : bfd_put_64(abfd, val, ptr)
+		case else
+			abort()
+		end select
+	#endmacro
+
+convert c: #define BFD_SEND_FMT(bfd, message, arglist) (((bfd)->xvec->message[(int) ((bfd)->format)]) arglist)
+to fb:     #define BFD_SEND_FMT(bfd, message, arglist) (((bfd)->xvec->message[  clng((bfd)->format)]) arglist)

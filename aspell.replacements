@@ -1,0 +1,2 @@
+convert c: #define PspellStringMap AspellStringMap;
+to c:      #define PspellStringMap AspellStringMap
