@@ -441,14 +441,17 @@ caca:
 	$(GETCOMMENT) extracted/$(CACA)/caca/caca.h  > caca.tmp
 	$(GETCOMMENT) extracted/$(CACA)/caca/caca0.h > caca0.tmp
 
-	$(FBFROG) caca.fbfrog \
+	$(FBFROG) caca-common.fbfrog caca.fbfrog \
 		-incdir extracted/$(CACA)/caca \
 		-include caca.h \
-		-include caca0.h \
 		-emit '*/caca.h'       inc/caca.bi \
 		-emit '*/caca_types.h' inc/caca.bi \
-		-emit '*/caca0.h'      inc/caca0.bi \
-		-title $(CACA) caca.tmp  fbteam.txt inc/caca.bi \
+		-title $(CACA) caca.tmp  fbteam.txt inc/caca.bi
+
+	$(FBFROG) caca-common.fbfrog caca0.fbfrog \
+		-incdir extracted/$(CACA)/caca \
+		-include caca0.h \
+		-emit '*/caca0.h' inc/caca0.bi \
 		-title $(CACA) caca0.tmp fbteam.txt inc/caca0.bi
 
 	rm *.tmp

@@ -20,6 +20,29 @@
 #include once "crt/stdint.bi"
 #include once "crt/stdarg.bi"
 
+#ifdef __CACA0_H__
+	'' The following symbols have been renamed:
+	''     procedure caca_rand => caca1_rand
+	''     procedure caca_printf => caca1_printf
+	''     procedure caca_draw_line => caca1_draw_line
+	''     procedure caca_draw_polyline => caca1_draw_polyline
+	''     procedure caca_draw_thin_line => caca1_draw_thin_line
+	''     procedure caca_draw_thin_polyline => caca1_draw_thin_polyline
+	''     procedure caca_draw_circle => caca1_draw_circle
+	''     procedure caca_draw_ellipse => caca1_draw_ellipse
+	''     procedure caca_draw_thin_ellipse => caca1_draw_thin_ellipse
+	''     procedure caca_fill_ellipse => caca1_fill_ellipse
+	''     procedure caca_draw_box => caca1_draw_box
+	''     procedure caca_draw_thin_box => caca1_draw_thin_box
+	''     procedure caca_fill_box => caca1_fill_box
+	''     procedure caca_draw_triangle => caca1_draw_triangle
+	''     procedure caca_draw_thin_triangle => caca1_draw_thin_triangle
+	''     procedure caca_fill_triangle => caca1_fill_triangle
+	''     procedure caca_get_event => caca1_get_event
+	''     procedure caca_get_mouse_x => caca1_get_mouse_x
+	''     procedure caca_get_mouse_y => caca1_get_mouse_y
+#endif
+
 extern "C"
 
 #define __CACA_H__
@@ -179,7 +202,13 @@ declare function caca_get_canvas_height(byval as const caca_canvas_t ptr) as lon
 declare function caca_get_canvas_chars(byval as const caca_canvas_t ptr) as const ulong ptr
 declare function caca_get_canvas_attrs(byval as const caca_canvas_t ptr) as const ulong ptr
 declare function caca_free_canvas(byval as caca_canvas_t ptr) as long
-declare function caca_rand(byval as long, byval as long) as long
+
+#ifdef __CACA0_H__
+	declare function caca1_rand alias "caca_rand"(byval as long, byval as long) as long
+#else
+	declare function caca_rand(byval as long, byval as long) as long
+#endif
+
 declare function caca_get_version() as const zstring ptr
 const CACA_MAGIC_FULLWIDTH = &h000ffffe
 declare function caca_gotoxy(byval as caca_canvas_t ptr, byval as long, byval as long) as long
@@ -188,7 +217,13 @@ declare function caca_wherey(byval as const caca_canvas_t ptr) as long
 declare function caca_put_char(byval as caca_canvas_t ptr, byval as long, byval as long, byval as ulong) as long
 declare function caca_get_char(byval as const caca_canvas_t ptr, byval as long, byval as long) as ulong
 declare function caca_put_str(byval as caca_canvas_t ptr, byval as long, byval as long, byval as const zstring ptr) as long
-declare function caca_printf(byval as caca_canvas_t ptr, byval as long, byval as long, byval as const zstring ptr, ...) as long
+
+#ifdef __CACA0_H__
+	declare function caca1_printf alias "caca_printf"(byval as caca_canvas_t ptr, byval as long, byval as long, byval as const zstring ptr, ...) as long
+#else
+	declare function caca_printf(byval as caca_canvas_t ptr, byval as long, byval as long, byval as const zstring ptr, ...) as long
+#endif
+
 declare function caca_vprintf(byval as caca_canvas_t ptr, byval as long, byval as long, byval as const zstring ptr, byval as va_list) as long
 declare function caca_clear_canvas(byval as caca_canvas_t ptr) as long
 declare function caca_set_canvas_handle(byval as caca_canvas_t ptr, byval as long, byval as long) as long
@@ -230,21 +265,45 @@ declare function caca_utf32_to_cp437(byval as ulong) as ubyte
 declare function caca_cp437_to_utf32(byval as ubyte) as ulong
 declare function caca_utf32_to_ascii(byval as ulong) as byte
 declare function caca_utf32_is_fullwidth(byval as ulong) as long
-declare function caca_draw_line(byval as caca_canvas_t ptr, byval as long, byval as long, byval as long, byval as long, byval as ulong) as long
-declare function caca_draw_polyline(byval as caca_canvas_t ptr, byval x as const long ptr, byval y as const long ptr, byval as long, byval as ulong) as long
-declare function caca_draw_thin_line(byval as caca_canvas_t ptr, byval as long, byval as long, byval as long, byval as long) as long
-declare function caca_draw_thin_polyline(byval as caca_canvas_t ptr, byval x as const long ptr, byval y as const long ptr, byval as long) as long
-declare function caca_draw_circle(byval as caca_canvas_t ptr, byval as long, byval as long, byval as long, byval as ulong) as long
-declare function caca_draw_ellipse(byval as caca_canvas_t ptr, byval as long, byval as long, byval as long, byval as long, byval as ulong) as long
-declare function caca_draw_thin_ellipse(byval as caca_canvas_t ptr, byval as long, byval as long, byval as long, byval as long) as long
-declare function caca_fill_ellipse(byval as caca_canvas_t ptr, byval as long, byval as long, byval as long, byval as long, byval as ulong) as long
-declare function caca_draw_box(byval as caca_canvas_t ptr, byval as long, byval as long, byval as long, byval as long, byval as ulong) as long
-declare function caca_draw_thin_box(byval as caca_canvas_t ptr, byval as long, byval as long, byval as long, byval as long) as long
+
+#ifdef __CACA0_H__
+	declare function caca1_draw_line alias "caca_draw_line"(byval as caca_canvas_t ptr, byval as long, byval as long, byval as long, byval as long, byval as ulong) as long
+	declare function caca1_draw_polyline alias "caca_draw_polyline"(byval as caca_canvas_t ptr, byval x as const long ptr, byval y as const long ptr, byval as long, byval as ulong) as long
+	declare function caca1_draw_thin_line alias "caca_draw_thin_line"(byval as caca_canvas_t ptr, byval as long, byval as long, byval as long, byval as long) as long
+	declare function caca1_draw_thin_polyline alias "caca_draw_thin_polyline"(byval as caca_canvas_t ptr, byval x as const long ptr, byval y as const long ptr, byval as long) as long
+	declare function caca1_draw_circle alias "caca_draw_circle"(byval as caca_canvas_t ptr, byval as long, byval as long, byval as long, byval as ulong) as long
+	declare function caca1_draw_ellipse alias "caca_draw_ellipse"(byval as caca_canvas_t ptr, byval as long, byval as long, byval as long, byval as long, byval as ulong) as long
+	declare function caca1_draw_thin_ellipse alias "caca_draw_thin_ellipse"(byval as caca_canvas_t ptr, byval as long, byval as long, byval as long, byval as long) as long
+	declare function caca1_fill_ellipse alias "caca_fill_ellipse"(byval as caca_canvas_t ptr, byval as long, byval as long, byval as long, byval as long, byval as ulong) as long
+	declare function caca1_draw_box alias "caca_draw_box"(byval as caca_canvas_t ptr, byval as long, byval as long, byval as long, byval as long, byval as ulong) as long
+	declare function caca1_draw_thin_box alias "caca_draw_thin_box"(byval as caca_canvas_t ptr, byval as long, byval as long, byval as long, byval as long) as long
+#else
+	declare function caca_draw_line(byval as caca_canvas_t ptr, byval as long, byval as long, byval as long, byval as long, byval as ulong) as long
+	declare function caca_draw_polyline(byval as caca_canvas_t ptr, byval x as const long ptr, byval y as const long ptr, byval as long, byval as ulong) as long
+	declare function caca_draw_thin_line(byval as caca_canvas_t ptr, byval as long, byval as long, byval as long, byval as long) as long
+	declare function caca_draw_thin_polyline(byval as caca_canvas_t ptr, byval x as const long ptr, byval y as const long ptr, byval as long) as long
+	declare function caca_draw_circle(byval as caca_canvas_t ptr, byval as long, byval as long, byval as long, byval as ulong) as long
+	declare function caca_draw_ellipse(byval as caca_canvas_t ptr, byval as long, byval as long, byval as long, byval as long, byval as ulong) as long
+	declare function caca_draw_thin_ellipse(byval as caca_canvas_t ptr, byval as long, byval as long, byval as long, byval as long) as long
+	declare function caca_fill_ellipse(byval as caca_canvas_t ptr, byval as long, byval as long, byval as long, byval as long, byval as ulong) as long
+	declare function caca_draw_box(byval as caca_canvas_t ptr, byval as long, byval as long, byval as long, byval as long, byval as ulong) as long
+	declare function caca_draw_thin_box(byval as caca_canvas_t ptr, byval as long, byval as long, byval as long, byval as long) as long
+#endif
+
 declare function caca_draw_cp437_box(byval as caca_canvas_t ptr, byval as long, byval as long, byval as long, byval as long) as long
-declare function caca_fill_box(byval as caca_canvas_t ptr, byval as long, byval as long, byval as long, byval as long, byval as ulong) as long
-declare function caca_draw_triangle(byval as caca_canvas_t ptr, byval as long, byval as long, byval as long, byval as long, byval as long, byval as long, byval as ulong) as long
-declare function caca_draw_thin_triangle(byval as caca_canvas_t ptr, byval as long, byval as long, byval as long, byval as long, byval as long, byval as long) as long
-declare function caca_fill_triangle(byval as caca_canvas_t ptr, byval as long, byval as long, byval as long, byval as long, byval as long, byval as long, byval as ulong) as long
+
+#ifdef __CACA0_H__
+	declare function caca1_fill_box alias "caca_fill_box"(byval as caca_canvas_t ptr, byval as long, byval as long, byval as long, byval as long, byval as ulong) as long
+	declare function caca1_draw_triangle alias "caca_draw_triangle"(byval as caca_canvas_t ptr, byval as long, byval as long, byval as long, byval as long, byval as long, byval as long, byval as ulong) as long
+	declare function caca1_draw_thin_triangle alias "caca_draw_thin_triangle"(byval as caca_canvas_t ptr, byval as long, byval as long, byval as long, byval as long, byval as long, byval as long) as long
+	declare function caca1_fill_triangle alias "caca_fill_triangle"(byval as caca_canvas_t ptr, byval as long, byval as long, byval as long, byval as long, byval as long, byval as long, byval as ulong) as long
+#else
+	declare function caca_fill_box(byval as caca_canvas_t ptr, byval as long, byval as long, byval as long, byval as long, byval as ulong) as long
+	declare function caca_draw_triangle(byval as caca_canvas_t ptr, byval as long, byval as long, byval as long, byval as long, byval as long, byval as long, byval as ulong) as long
+	declare function caca_draw_thin_triangle(byval as caca_canvas_t ptr, byval as long, byval as long, byval as long, byval as long, byval as long, byval as long) as long
+	declare function caca_fill_triangle(byval as caca_canvas_t ptr, byval as long, byval as long, byval as long, byval as long, byval as long, byval as long, byval as ulong) as long
+#endif
+
 declare function caca_fill_triangle_textured(byval cv as caca_canvas_t ptr, byval coords as long ptr, byval tex as caca_canvas_t ptr, byval uv as single ptr) as long
 declare function caca_get_frame_count(byval as const caca_canvas_t ptr) as long
 declare function caca_set_frame(byval as caca_canvas_t ptr, byval as long) as long
@@ -318,9 +377,17 @@ declare function caca_get_display_height(byval as const caca_display_t ptr) as l
 declare function caca_set_display_title(byval as caca_display_t ptr, byval as const zstring ptr) as long
 declare function caca_set_mouse(byval as caca_display_t ptr, byval as long) as long
 declare function caca_set_cursor(byval as caca_display_t ptr, byval as long) as long
-declare function caca_get_event(byval as caca_display_t ptr, byval as long, byval as caca_event_t ptr, byval as long) as long
-declare function caca_get_mouse_x(byval as const caca_display_t ptr) as long
-declare function caca_get_mouse_y(byval as const caca_display_t ptr) as long
+
+#ifdef __CACA0_H__
+	declare function caca1_get_event alias "caca_get_event"(byval as caca_display_t ptr, byval as long, byval as caca_event_t ptr, byval as long) as long
+	declare function caca1_get_mouse_x alias "caca_get_mouse_x"(byval as const caca_display_t ptr) as long
+	declare function caca1_get_mouse_y alias "caca_get_mouse_y"(byval as const caca_display_t ptr) as long
+#else
+	declare function caca_get_event(byval as caca_display_t ptr, byval as long, byval as caca_event_t ptr, byval as long) as long
+	declare function caca_get_mouse_x(byval as const caca_display_t ptr) as long
+	declare function caca_get_mouse_y(byval as const caca_display_t ptr) as long
+#endif
+
 declare function caca_get_event_type(byval as const caca_event_t ptr) as caca_event_type
 declare function caca_get_event_key_ch(byval as const caca_event_t ptr) as long
 declare function caca_get_event_key_utf32(byval as const caca_event_t ptr) as ulong
@@ -457,7 +524,7 @@ declare function cucul_free_buffer(byval as cucul_buffer_t ptr) as long
 declare function cucul_export_canvas(byval as caca_canvas_t ptr, byval as const zstring ptr) as cucul_buffer_t ptr
 declare function cucul_import_canvas(byval as cucul_buffer_t ptr, byval as const zstring ptr) as caca_canvas_t ptr
 
-#if defined(__FB_DOS__) or defined(__FB_LINUX__)
+#if defined(__FB_LINUX__) or defined(__FB_DOS__)
 	declare function caca_import_memory(byval as caca_canvas_t ptr, byval as const any ptr, byval as uinteger, byval as const zstring ptr) as integer
 	declare function caca_import_file(byval as caca_canvas_t ptr, byval as const zstring ptr, byval as const zstring ptr) as integer
 	declare function caca_export_memory(byval as const caca_canvas_t ptr, byval as const zstring ptr, byval as uinteger ptr) as any ptr
@@ -516,9 +583,17 @@ declare function cucul_get_dither_mode_list(byval as const caca_dither_t ptr) as
 #define CUCUL_BLINK CACA_BLINK
 #define caca_get_cursor_x caca_wherex
 #define caca_get_cursor_y caca_wherey
-#define cucul_draw_triangle caca_draw_triangle
-#define cucul_draw_thin_triangle caca_draw_thin_triangle
-#define cucul_fill_triangle caca_fill_triangle
+
+#ifdef __CACA0_H__
+	#define cucul_draw_triangle caca1_draw_triangle
+	#define cucul_draw_thin_triangle caca1_draw_thin_triangle
+	#define cucul_fill_triangle caca1_fill_triangle
+#else
+	#define cucul_draw_triangle caca_draw_triangle
+	#define cucul_draw_thin_triangle caca_draw_thin_triangle
+	#define cucul_fill_triangle caca_fill_triangle
+#endif
+
 #define cucul_load_font caca_load_font
 #define cucul_get_font_list caca_get_font_list
 #define cucul_get_font_width caca_get_font_width
@@ -532,7 +607,13 @@ declare function cucul_get_dither_mode_list(byval as const caca_dither_t ptr) as
 #define cucul_put_char caca_put_char
 #define cucul_get_char caca_get_char
 #define cucul_put_str caca_put_str
-#define cucul_printf caca_printf
+
+#ifdef __CACA0_H__
+	#define cucul_printf caca1_printf
+#else
+	#define cucul_printf caca_printf
+#endif
+
 #define cucul_clear_canvas caca_clear_canvas
 #define cucul_set_canvas_handle caca_set_canvas_handle
 #define cucul_get_canvas_handle_x caca_get_canvas_handle_x
@@ -551,7 +632,13 @@ declare function cucul_get_dither_mode_list(byval as const caca_dither_t ptr) as
 #define cucul_get_canvas_chars caca_get_canvas_chars
 #define cucul_get_canvas_attrs caca_get_canvas_attrs
 #define cucul_free_canvas caca_free_canvas
-#define cucul_rand caca_rand
+
+#ifdef __CACA0_H__
+	#define cucul_rand caca1_rand
+#else
+	#define cucul_rand caca_rand
+#endif
+
 #define cucul_export_memory caca_export_memory
 #define cucul_get_export_list caca_get_export_list
 #define cucul_get_version caca_get_version
@@ -561,10 +648,19 @@ declare function cucul_get_dither_mode_list(byval as const caca_dither_t ptr) as
 #define cucul_cp437_to_utf32 caca_cp437_to_utf32
 #define cucul_utf32_to_ascii caca_utf32_to_ascii
 #define cucul_utf32_is_fullwidth caca_utf32_is_fullwidth
-#define cucul_draw_circle caca_draw_circle
-#define cucul_draw_ellipse caca_draw_ellipse
-#define cucul_draw_thin_ellipse caca_draw_thin_ellipse
-#define cucul_fill_ellipse caca_fill_ellipse
+
+#ifdef __CACA0_H__
+	#define cucul_draw_circle caca1_draw_circle
+	#define cucul_draw_ellipse caca1_draw_ellipse
+	#define cucul_draw_thin_ellipse caca1_draw_thin_ellipse
+	#define cucul_fill_ellipse caca1_fill_ellipse
+#else
+	#define cucul_draw_circle caca_draw_circle
+	#define cucul_draw_ellipse caca_draw_ellipse
+	#define cucul_draw_thin_ellipse caca_draw_thin_ellipse
+	#define cucul_fill_ellipse caca_fill_ellipse
+#endif
+
 #define cucul_canvas_set_figfont caca_canvas_set_figfont
 #define cucul_put_figchar caca_put_figchar
 #define cucul_flush_figlet caca_flush_figlet
@@ -620,14 +716,31 @@ declare function cucul_get_dither_mode_list(byval as const caca_dither_t ptr) as
 #define cucul_get_dither_algorithm caca_get_dither_algorithm
 #define cucul_dither_bitmap caca_dither_bitmap
 #define cucul_free_dither caca_free_dither
-#define cucul_draw_line caca_draw_line
-#define cucul_draw_polyline caca_draw_polyline
-#define cucul_draw_thin_line caca_draw_thin_line
-#define cucul_draw_thin_polyline caca_draw_thin_polyline
-#define cucul_draw_box caca_draw_box
-#define cucul_draw_thin_box caca_draw_thin_box
+
+#ifdef __CACA0_H__
+	#define cucul_draw_line caca1_draw_line
+	#define cucul_draw_polyline caca1_draw_polyline
+	#define cucul_draw_thin_line caca1_draw_thin_line
+	#define cucul_draw_thin_polyline caca1_draw_thin_polyline
+	#define cucul_draw_box caca1_draw_box
+	#define cucul_draw_thin_box caca1_draw_thin_box
+#else
+	#define cucul_draw_line caca_draw_line
+	#define cucul_draw_polyline caca_draw_polyline
+	#define cucul_draw_thin_line caca_draw_thin_line
+	#define cucul_draw_thin_polyline caca_draw_thin_polyline
+	#define cucul_draw_box caca_draw_box
+	#define cucul_draw_thin_box caca_draw_thin_box
+#endif
+
 #define cucul_draw_cp437_box caca_draw_cp437_box
-#define cucul_fill_box caca_fill_box
+
+#ifdef __CACA0_H__
+	#define cucul_fill_box caca1_fill_box
+#else
+	#define cucul_fill_box caca_fill_box
+#endif
+
 #define cucul_get_frame_count caca_get_frame_count
 #define cucul_set_frame caca_set_frame
 #define cucul_get_frame_name caca_get_frame_name

@@ -19,6 +19,9 @@
 #include once "crt/long.bi"
 #include once "caca.bi"
 
+'' The following symbols have been renamed:
+''     #define caca_dithering => caca_dithering_
+
 extern "C"
 
 #define __CACA0_H__
@@ -86,15 +89,23 @@ const CACA_ANTIALIASING_MIN = &h21
 const CACA_ANTIALIASING_MAX = &h22
 const CACA_DITHERING_MIN = &h31
 const CACA_DITHERING_MAX = &h35
+#undef CACA_EVENT_NONE
 const CACA_EVENT_NONE = &h00000000
+#undef CACA_EVENT_KEY_PRESS
 const CACA_EVENT_KEY_PRESS = &h01000000
+#undef CACA_EVENT_KEY_RELEASE
 const CACA_EVENT_KEY_RELEASE = &h02000000
+#undef CACA_EVENT_MOUSE_PRESS
 const CACA_EVENT_MOUSE_PRESS = &h04000000
+#undef CACA_EVENT_MOUSE_RELEASE
 const CACA_EVENT_MOUSE_RELEASE = &h08000000
+#undef CACA_EVENT_MOUSE_MOTION
 const CACA_EVENT_MOUSE_MOTION = &h10000000
+#undef CACA_EVENT_RESIZE
 const CACA_EVENT_RESIZE = &h20000000
+#undef CACA_EVENT_ANY
 const CACA_EVENT_ANY = &hff000000
-#define caca_dithering caca_feature
+#define caca_dithering_ caca_feature
 #define caca_set_dithering caca_set_feature
 #define caca_get_dithering_name caca_get_feature_name
 #define CACA_DITHER_NONE CACA_DITHERING_NONE
@@ -115,8 +126,8 @@ const CACA_EVENT_ANY = &hff000000
 #define caca_end __caca0_end
 #define caca_get_event(x) __caca0_get_event(x, 0)
 #define caca_wait_event(x) __caca0_get_event(x, -1)
-#define caca_get_mouse_x() caca_get_mouse_x(__caca0_dp)
-#define caca_get_mouse_y() caca_get_mouse_y(__caca0_dp)
+#define caca_get_mouse_x() caca1_get_mouse_x(__caca0_dp)
+#define caca_get_mouse_y() caca1_get_mouse_y(__caca0_dp)
 #macro caca_set_color(x, y)
 	scope
 		__caca0_fg = (x)
@@ -129,23 +140,23 @@ const CACA_EVENT_ANY = &hff000000
 #define caca_get_color_name __caca0_get_color_name
 #define caca_putchar(x, y, c) caca_put_char(__caca0_cv, x, y, c)
 #define caca_putstr(x, y, s) caca_put_str(__caca0_cv, x, y, s)
-#define caca_printf(x, y, f...) caca_printf(__caca0_cv, x, y, f)
+#define caca_printf(x, y, f...) caca1_printf(__caca0_cv, x, y, f)
 #define caca_clear() caca_clear_canvas(__caca0_cv)
-#define caca_draw_line(x, y, z, t, c) caca_draw_line(__caca0_cv, x, y, z, t, c)
-#define caca_draw_polyline(x, y, z, c) caca_draw_polyline(__caca0_cv, x, y, z, c)
-#define caca_draw_thin_line(x, y, z, t) caca_draw_thin_line(__caca0_cv, x, y, z, t)
-#define caca_draw_thin_polyline(x, y, z) caca_draw_thin_polyline(__caca0_cv, x, y, z)
-#define caca_draw_circle(x, y, z, c) caca_draw_circle(__caca0_cv, x, y, z, c)
-#define caca_draw_ellipse(x, y, z, t, c) caca_draw_ellipse(__caca0_cv, x, y, z, t, c)
-#define caca_draw_thin_ellipse(x, y, z, t) caca_draw_thin_ellipse(__caca0_cv, x, y, z, t)
-#define caca_fill_ellipse(x, y, z, t, c) caca_fill_ellipse(__caca0_cv, x, y, z, t, c)
-#define caca_draw_box(x, y, z, t, c) caca_draw_box(__caca0_cv, x, y, z, t, c)
-#define caca_draw_thin_box(x, y, z, t) caca_draw_thin_box(__caca0_cv, x, y, z, t)
-#define caca_fill_box(x, y, z, t, c) caca_fill_box(__caca0_cv, x, y, z, t, c)
-#define caca_draw_triangle(x, y, z, t, u, v, c) caca_draw_triangle(__caca0_cv, x, y, z, t, u, v, c)
-#define caca_draw_thin_triangle(x, y, z, t, u, v) caca_draw_thin_triangle(__caca0_cv, x, y, z, t, u, v)
-#define caca_fill_triangle(x, y, z, t, u, v, c) caca_fill_triangle(__caca0_cv, x, y, z, t, u, v, c)
-#define caca_rand(a, b) caca_rand(a, (b) + 1)
+#define caca_draw_line(x, y, z, t, c) caca1_draw_line(__caca0_cv, x, y, z, t, c)
+#define caca_draw_polyline(x, y, z, c) caca1_draw_polyline(__caca0_cv, x, y, z, c)
+#define caca_draw_thin_line(x, y, z, t) caca1_draw_thin_line(__caca0_cv, x, y, z, t)
+#define caca_draw_thin_polyline(x, y, z) caca1_draw_thin_polyline(__caca0_cv, x, y, z)
+#define caca_draw_circle(x, y, z, c) caca1_draw_circle(__caca0_cv, x, y, z, c)
+#define caca_draw_ellipse(x, y, z, t, c) caca1_draw_ellipse(__caca0_cv, x, y, z, t, c)
+#define caca_draw_thin_ellipse(x, y, z, t) caca1_draw_thin_ellipse(__caca0_cv, x, y, z, t)
+#define caca_fill_ellipse(x, y, z, t, c) caca1_fill_ellipse(__caca0_cv, x, y, z, t, c)
+#define caca_draw_box(x, y, z, t, c) caca1_draw_box(__caca0_cv, x, y, z, t, c)
+#define caca_draw_thin_box(x, y, z, t) caca1_draw_thin_box(__caca0_cv, x, y, z, t)
+#define caca_fill_box(x, y, z, t, c) caca1_fill_box(__caca0_cv, x, y, z, t, c)
+#define caca_draw_triangle(x, y, z, t, u, v, c) caca1_draw_triangle(__caca0_cv, x, y, z, t, u, v, c)
+#define caca_draw_thin_triangle(x, y, z, t, u, v) caca1_draw_thin_triangle(__caca0_cv, x, y, z, t, u, v)
+#define caca_fill_triangle(x, y, z, t, u, v, c) caca1_fill_triangle(__caca0_cv, x, y, z, t, u, v, c)
+#define caca_rand(a, b) caca1_rand(a, (b) + 1)
 #define caca_sqrt __caca0_sqrt
 #define caca_sprite caca_canvas
 #define caca_load_sprite __caca0_load_sprite

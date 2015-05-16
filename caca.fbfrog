@@ -1,15 +1,4 @@
--replacements caca.replacements
-
--ifdef __FB_WIN32__
-	-declarebool CACA_STATIC
-	-ifdef CACA_STATIC
-		-define CACA_STATIC 1
-	-endif
+-declarebool __CACA0_H__
+-ifdef __CACA0_H__
+	caca0.fbfrog
 -endif
-
--removedefine __extern
-
--removeinclude unistd.h
-
--undefbeforedecl cucul_putchar
--undefbeforedecl cucul_getchar
