@@ -571,7 +571,7 @@ type TAG_BEXT field = 1
 	Version as WORD
 	UMID(0 to 63) as UBYTE
 	Reserved(0 to 189) as UBYTE
-	CodingHistory as zstring * ...
+	CodingHistory as zstring * 1
 end type
 
 type TAG_CART_TIMER
@@ -599,7 +599,7 @@ type TAG_CART
 	PostTimer(0 to 7) as TAG_CART_TIMER
 	Reserved as zstring * 276
 	URL as zstring * 1024
-	TagText as zstring * ...
+	TagText as zstring * 1
 end type
 
 type TAG_CA_CODEC

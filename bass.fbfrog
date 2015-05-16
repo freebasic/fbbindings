@@ -11,3 +11,6 @@
 -removedefine HIBYTE
 -removedefine LOWORD
 -removedefine HIWORD
+
+-setarraysize CodingHistory 1
+-setarraysize TagText 1
