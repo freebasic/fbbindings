@@ -164,7 +164,6 @@ const CACA_EVENT_ANY = &hff000000
 #define caca_get_sprite_width(c, f) caca_get_canvas_width(c)
 #define caca_get_sprite_height(c, f) caca_get_canvas_height(c)
 #define caca_get_sprite_dx(c, f) 0
-#define caca_get_sprite_dx(c, f) 0
 #define caca_draw_sprite(x, y, c, f) caca_blit(__caca0_cv, x, y, c, NULL)
 #define caca_free_sprite caca_free_canvas
 #define caca_bitmap caca_dither
