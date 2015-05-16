@@ -1,4 +1,5 @@
 -windowsms
+-replacements bass.replacements
 
 # Like winapi, bass[mod].h have the "BYTE as ubyte" typedef
 -renametypedef BYTE UBYTE
