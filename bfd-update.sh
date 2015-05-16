@@ -41,3 +41,31 @@ for v in $versions; do
 		-o inc/bfd/bfd-$v.bi
 EOF
 done
+
+cat >> bfd.mk <<EOF
+
+bfd-merged:
+	\$(FBFROG) bfd.fbfrog \\
+		-declareversions __BFD_VER__ 216 217 218 219 220 221 222 223 224 225 \\
+		-select __BFD_VER__ \\
+EOF
+
+for v in $versions; do
+	cat >> bfd.mk <<EOF
+		-case $v \\
+			-ifdef __FB_DOS__ \\
+				extracted/\$(BINUTILS_$v)/bfd/bfd-in3-djgpp.h \\
+			-else \\
+				-ifdef __FB_64BIT__ \\
+					extracted/\$(BINUTILS_$v)/bfd/bfd-in3-64.h \\
+				-else \\
+					extracted/\$(BINUTILS_$v)/bfd/bfd-in3-32.h \\
+				-endif \\
+			-endif \\
+EOF
+done
+
+cat >> bfd.mk <<EOF
+		-endselect \\
+		-o inc/bfd/bfd-merged.bi
+EOF

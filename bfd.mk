@@ -164,3 +164,110 @@ bfd:
 			-endif \
 		-endif \
 		-o inc/bfd/bfd-225.bi
+
+bfd-merged:
+	$(FBFROG) bfd.fbfrog \
+		-declareversions __BFD_VER__ 216 217 218 219 220 221 222 223 224 225 \
+		-select __BFD_VER__ \
+		-case 216 \
+			-ifdef __FB_DOS__ \
+				extracted/$(BINUTILS_216)/bfd/bfd-in3-djgpp.h \
+			-else \
+				-ifdef __FB_64BIT__ \
+					extracted/$(BINUTILS_216)/bfd/bfd-in3-64.h \
+				-else \
+					extracted/$(BINUTILS_216)/bfd/bfd-in3-32.h \
+				-endif \
+			-endif \
+		-case 217 \
+			-ifdef __FB_DOS__ \
+				extracted/$(BINUTILS_217)/bfd/bfd-in3-djgpp.h \
+			-else \
+				-ifdef __FB_64BIT__ \
+					extracted/$(BINUTILS_217)/bfd/bfd-in3-64.h \
+				-else \
+					extracted/$(BINUTILS_217)/bfd/bfd-in3-32.h \
+				-endif \
+			-endif \
+		-case 218 \
+			-ifdef __FB_DOS__ \
+				extracted/$(BINUTILS_218)/bfd/bfd-in3-djgpp.h \
+			-else \
+				-ifdef __FB_64BIT__ \
+					extracted/$(BINUTILS_218)/bfd/bfd-in3-64.h \
+				-else \
+					extracted/$(BINUTILS_218)/bfd/bfd-in3-32.h \
+				-endif \
+			-endif \
+		-case 219 \
+			-ifdef __FB_DOS__ \
+				extracted/$(BINUTILS_219)/bfd/bfd-in3-djgpp.h \
+			-else \
+				-ifdef __FB_64BIT__ \
+					extracted/$(BINUTILS_219)/bfd/bfd-in3-64.h \
+				-else \
+					extracted/$(BINUTILS_219)/bfd/bfd-in3-32.h \
+				-endif \
+			-endif \
+		-case 220 \
+			-ifdef __FB_DOS__ \
+				extracted/$(BINUTILS_220)/bfd/bfd-in3-djgpp.h \
+			-else \
+				-ifdef __FB_64BIT__ \
+					extracted/$(BINUTILS_220)/bfd/bfd-in3-64.h \
+				-else \
+					extracted/$(BINUTILS_220)/bfd/bfd-in3-32.h \
+				-endif \
+			-endif \
+		-case 221 \
+			-ifdef __FB_DOS__ \
+				extracted/$(BINUTILS_221)/bfd/bfd-in3-djgpp.h \
+			-else \
+				-ifdef __FB_64BIT__ \
+					extracted/$(BINUTILS_221)/bfd/bfd-in3-64.h \
+				-else \
+					extracted/$(BINUTILS_221)/bfd/bfd-in3-32.h \
+				-endif \
+			-endif \
+		-case 222 \
+			-ifdef __FB_DOS__ \
+				extracted/$(BINUTILS_222)/bfd/bfd-in3-djgpp.h \
+			-else \
+				-ifdef __FB_64BIT__ \
+					extracted/$(BINUTILS_222)/bfd/bfd-in3-64.h \
+				-else \
+					extracted/$(BINUTILS_222)/bfd/bfd-in3-32.h \
+				-endif \
+			-endif \
+		-case 223 \
+			-ifdef __FB_DOS__ \
+				extracted/$(BINUTILS_223)/bfd/bfd-in3-djgpp.h \
+			-else \
+				-ifdef __FB_64BIT__ \
+					extracted/$(BINUTILS_223)/bfd/bfd-in3-64.h \
+				-else \
+					extracted/$(BINUTILS_223)/bfd/bfd-in3-32.h \
+				-endif \
+			-endif \
+		-case 224 \
+			-ifdef __FB_DOS__ \
+				extracted/$(BINUTILS_224)/bfd/bfd-in3-djgpp.h \
+			-else \
+				-ifdef __FB_64BIT__ \
+					extracted/$(BINUTILS_224)/bfd/bfd-in3-64.h \
+				-else \
+					extracted/$(BINUTILS_224)/bfd/bfd-in3-32.h \
+				-endif \
+			-endif \
+		-case 225 \
+			-ifdef __FB_DOS__ \
+				extracted/$(BINUTILS_225)/bfd/bfd-in3-djgpp.h \
+			-else \
+				-ifdef __FB_64BIT__ \
+					extracted/$(BINUTILS_225)/bfd/bfd-in3-64.h \
+				-else \
+					extracted/$(BINUTILS_225)/bfd/bfd-in3-32.h \
+				-endif \
+			-endif \
+		-endselect \
+		-o inc/bfd/bfd-merged.bi
