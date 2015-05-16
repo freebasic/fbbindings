@@ -18,7 +18,6 @@
 
 #include once "crt/long.bi"
 #include once "crt/stdint.bi"
-#include once "unistd.bi"
 #include once "crt/stdarg.bi"
 
 extern "C"
@@ -439,7 +438,9 @@ declare function caca_conio_wherex() as long
 declare function caca_conio_wherey() as long
 declare sub caca_conio_window(byval left as long, byval top as long, byval right as long, byval bottom as long)
 type cucul_buffer_t as cucul_buffer
+#undef cucul_putchar
 declare function cucul_putchar(byval as caca_canvas_t ptr, byval as long, byval as long, byval as culong) as long
+#undef cucul_getchar
 declare function cucul_getchar(byval as caca_canvas_t ptr, byval as long, byval as long) as culong
 declare function cucul_putstr(byval as caca_canvas_t ptr, byval as long, byval as long, byval as const zstring ptr) as long
 declare function cucul_set_color(byval as caca_canvas_t ptr, byval as ubyte, byval as ubyte) as long
@@ -567,7 +568,9 @@ declare function cucul_get_dither_mode_list(byval as const caca_dither_t ptr) as
 #define cucul_canvas_set_figfont caca_canvas_set_figfont
 #define cucul_put_figchar caca_put_figchar
 #define cucul_flush_figlet caca_flush_figlet
+#undef cucul_putchar
 #define cucul_putchar caca_putchar
+#undef cucul_getchar
 #define cucul_getchar caca_getchar
 #define cucul_get_attr caca_get_attr
 #define cucul_set_attr caca_set_attr
