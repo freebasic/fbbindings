@@ -38,10 +38,10 @@
 	#include once "crt/long.bi"
 #endif
 
-#if (defined(__FB_LINUX__) and (not defined(__FB_64BIT__))) or defined(__FB_DOS__) or (defined(__FB_64BIT__) and (defined(__FB_WIN32__) or defined(__FB_LINUX__)))
-	extern "C"
-#else
+#ifdef __FB_WIN32__
 	extern "Windows-MS"
+#else
+	extern "C"
 #endif
 
 #define BASSMOD_H
