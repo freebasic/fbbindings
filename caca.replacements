@@ -1,0 +1,2 @@
+convert c: #define caca_printf(x, y, f, z...) caca_printf(__caca0_cv, x, y, f, ##z)
+to c:      #define caca_printf(x, y, f...)    caca_printf(__caca0_cv, x, y, f)

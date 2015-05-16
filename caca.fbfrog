@@ -1,3 +1,5 @@
+-replacements caca.replacements
+
 -ifdef __FB_WIN32__
 	-declarebool CACA_STATIC
 	-ifdef CACA_STATIC
@@ -6,3 +8,8 @@
 -endif
 
 -removedefine __extern
+
+-removeinclude unistd.h
+
+-undefbeforedecl cucul_putchar
+-undefbeforedecl cucul_getchar

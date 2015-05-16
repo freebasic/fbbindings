@@ -129,7 +129,7 @@ const CACA_EVENT_ANY = &hff000000
 #define caca_get_color_name __caca0_get_color_name
 #define caca_putchar(x, y, c) caca_put_char(__caca0_cv, x, y, c)
 #define caca_putstr(x, y, s) caca_put_str(__caca0_cv, x, y, s)
-'' TODO: #define caca_printf(x, y, f, z...) caca_printf(__caca0_cv, x, y, f, ##z)
+#define caca_printf(x, y, f...) caca_printf(__caca0_cv, x, y, f)
 #define caca_clear() caca_clear_canvas(__caca0_cv)
 #define caca_draw_line(x, y, z, t, c) caca_draw_line(__caca0_cv, x, y, z, t, c)
 #define caca_draw_polyline(x, y, z, c) caca_draw_polyline(__caca0_cv, x, y, z, c)
