@@ -158,7 +158,7 @@ const CACA_EVENT_ANY = &hff000000
 #define caca_fill_triangle(x, y, z, t, u, v, c) caca1_fill_triangle(__caca0_cv, x, y, z, t, u, v, c)
 #define caca_rand(a, b) caca1_rand(a, (b) + 1)
 #define caca_sqrt __caca0_sqrt
-#define caca_sprite caca_canvas
+#define caca_sprite caca_canvas_t
 #define caca_load_sprite __caca0_load_sprite
 #define caca_get_sprite_frames(c) 1
 #define caca_get_sprite_width(c, f) caca_get_canvas_width(c)
@@ -166,7 +166,7 @@ const CACA_EVENT_ANY = &hff000000
 #define caca_get_sprite_dx(c, f) 0
 #define caca_draw_sprite(x, y, c, f) caca_blit(__caca0_cv, x, y, c, NULL)
 #define caca_free_sprite caca_free_canvas
-#define caca_bitmap caca_dither
+#define caca_bitmap caca_dither_t
 #define caca_create_bitmap __caca0_create_bitmap
 #define caca_set_bitmap_palette caca_set_dither_palette
 #define caca_draw_bitmap(x, y, z, t, b, p) caca_dither_bitmap(__caca0_cv, x, y, z, t, b, p)
