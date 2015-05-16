@@ -17,6 +17,7 @@
 #pragma once
 
 #include once "crt/long.bi"
+#define __CACA0_H__
 #include once "caca.bi"
 
 '' The following symbols have been renamed:
@@ -24,7 +25,6 @@
 
 extern "C"
 
-#define __CACA0_H__
 declare function __caca0_init() as long
 declare sub __caca0_end()
 declare function __caca0_get_event(byval as ulong, byval as long) as ulong
