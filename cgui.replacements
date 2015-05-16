@@ -18,3 +18,6 @@ to fb: #define CGUI_ADAPTIVE 0,CGUI_AUTOINDICATOR
 
 convert c: #define FILLSCREEN 1,AUTOINDICATOR
 to fb: #define CGUI_FILLSCREEN 1,CGUI_AUTOINDICATOR
+
+convert c: #define InitCgui(w, h, bpp)  InitCguiEx(w, h, bpp, &errno, (int (*)(void (*)(void)))atexit)
+to c:      #define InitCgui(w, h, bpp)  InitCguiEx(w, h, bpp, &errno, (int (*)(void (*)(void)))&atexit)
