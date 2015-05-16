@@ -16,3 +16,30 @@
 
 -setarraysize CodingHistory 1
 -setarraysize TagText 1
+
+-convbodytokens EAX_PRESET_GENERIC
+-convbodytokens EAX_PRESET_PADDEDCELL
+-convbodytokens EAX_PRESET_ROOM
+-convbodytokens EAX_PRESET_BATHROOM
+-convbodytokens EAX_PRESET_LIVINGROOM
+-convbodytokens EAX_PRESET_STONEROOM
+-convbodytokens EAX_PRESET_AUDITORIUM
+-convbodytokens EAX_PRESET_CONCERTHALL
+-convbodytokens EAX_PRESET_CAVE
+-convbodytokens EAX_PRESET_ARENA
+-convbodytokens EAX_PRESET_HANGAR
+-convbodytokens EAX_PRESET_CARPETEDHALLWAY
+-convbodytokens EAX_PRESET_HALLWAY
+-convbodytokens EAX_PRESET_STONECORRIDOR
+-convbodytokens EAX_PRESET_ALLEY
+-convbodytokens EAX_PRESET_FOREST
+-convbodytokens EAX_PRESET_CITY
+-convbodytokens EAX_PRESET_MOUNTAINS
+-convbodytokens EAX_PRESET_QUARRY
+-convbodytokens EAX_PRESET_PLAIN
+-convbodytokens EAX_PRESET_PARKINGLOT
+-convbodytokens EAX_PRESET_SEWERPIPE
+-convbodytokens EAX_PRESET_UNDERWATER
+-convbodytokens EAX_PRESET_DRUGGED
+-convbodytokens EAX_PRESET_DIZZY
+-convbodytokens EAX_PRESET_PSYCHOTIC
