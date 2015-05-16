@@ -6002,11 +6002,7 @@ declare function DPA_GetPtr(byval hdpa as HDPA, byval i as INT_PTR) as PVOID
 declare function DPA_GetPtrIndex(byval hdpa as HDPA, byval p as const any ptr) as long
 
 #define DPA_GetPtrCount(hdpa) (*cptr(long ptr, (hdpa)))
-#macro DPA_SetPtrCount(hdpa, cItems)
-	scope
-		(*cptr(long ptr, (hdpa))) = (cItems)
-	end scope
-#endmacro
+#define DPA_SetPtrCount(hdpa, cItems) scope : (*cptr(long ptr, (hdpa))) = (cItems) : end scope
 #define DPA_FastDeleteLastPtr(hdpa) scope : *cptr(long ptr, (hdpa)) -= 1 : end scope
 #define DPA_GetPtrPtr(hdpa) (*cptr(any ptr ptr ptr, cptr(UBYTE ptr, (hdpa)) + sizeof(any ptr)))
 #define DPA_FastGetPtr(hdpa, i) DPA_GetPtrPtr(hdpa)[i]

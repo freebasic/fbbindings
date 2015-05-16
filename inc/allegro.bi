@@ -307,21 +307,9 @@ const FA_NONE = 0
 #if defined(__FB_WIN32__) or defined(__FB_LINUX__)
 	#define _video_ds() _default_ds()
 	#define _farsetsel(seg)
-	#macro _farnspokeb(addr, val)
-		scope
-			(*cptr(ubyte ptr, (addr))) = (val)
-		end scope
-	#endmacro
-	#macro _farnspokew(addr, val)
-		scope
-			(*cptr(ushort ptr, (addr))) = (val)
-		end scope
-	#endmacro
-	#macro _farnspokel(addr, val)
-		scope
-			(*cptr(ulong ptr, (addr))) = (val)
-		end scope
-	#endmacro
+	#define _farnspokeb(addr, val) scope : (*cptr(ubyte ptr, (addr))) = (val) : end scope
+	#define _farnspokew(addr, val) scope : (*cptr(ushort ptr, (addr))) = (val) : end scope
+	#define _farnspokel(addr, val) scope : (*cptr(ulong ptr, (addr))) = (val) : end scope
 	#define _farnspeekb(addr) (*cptr(ubyte ptr, (addr)))
 	#define _farnspeekw(addr) (*cptr(ushort ptr, (addr)))
 	#define _farnspeekl(addr) (*cptr(ulong ptr, (addr)))
@@ -338,26 +326,10 @@ const FA_NONE = 0
 
 #if defined(__FB_WIN32__) or defined(__FB_LINUX__)
 	#define bmp_select(bmp)
-	#macro bmp_write8(addr, c)
-		scope
-			(*cptr(ubyte ptr, (addr))) = (c)
-		end scope
-	#endmacro
-	#macro bmp_write15(addr, c)
-		scope
-			(*cptr(ushort ptr, (addr))) = (c)
-		end scope
-	#endmacro
-	#macro bmp_write16(addr, c)
-		scope
-			(*cptr(ushort ptr, (addr))) = (c)
-		end scope
-	#endmacro
-	#macro bmp_write32(addr, c)
-		scope
-			(*cptr(ulong ptr, (addr))) = (c)
-		end scope
-	#endmacro
+	#define bmp_write8(addr, c) scope : (*cptr(ubyte ptr, (addr))) = (c) : end scope
+	#define bmp_write15(addr, c) scope : (*cptr(ushort ptr, (addr))) = (c) : end scope
+	#define bmp_write16(addr, c) scope : (*cptr(ushort ptr, (addr))) = (c) : end scope
+	#define bmp_write32(addr, c) scope : (*cptr(ulong ptr, (addr))) = (c) : end scope
 	#define bmp_read8(addr) (*cptr(ubyte ptr, (addr)))
 	#define bmp_read15(addr) (*cptr(ushort ptr, (addr)))
 	#define bmp_read16(addr) (*cptr(ushort ptr, (addr)))

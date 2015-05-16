@@ -102,11 +102,7 @@ type reloc_howto_type as const reloc_howto_struct
 #define BFD_NO_MORE_SYMBOLS cast(symindex, not 0)
 #define bfd_get_section(x) (x)->section
 #define bfd_get_output_section(x) (x)->section->output_section
-#macro bfd_set_section(x, y)
-	scope
-		(x)->section = (y)
-	end scope
-#endmacro
+#define bfd_set_section(x, y) scope : (x)->section = (y) : end scope
 #define bfd_asymbol_base(x) (x)->section->vma
 #define bfd_asymbol_value(x) (bfd_asymbol_base(x) + (x)->value)
 #define bfd_asymbol_name(x) (x)->name
@@ -196,16 +192,8 @@ type sec_ptr as bfd_section ptr
 		(ptr)->user_set_vma = TRUE
 	end scope
 #endmacro
-#macro bfd_set_section_alignment(bfd, ptr_, val)
-	scope
-		(ptr_)->alignment_power = (val)
-	end scope
-#endmacro
-#macro bfd_set_section_userdata(bfd, ptr_, val)
-	scope
-		(ptr_)->userdata = (val)
-	end scope
-#endmacro
+#define bfd_set_section_alignment(bfd, ptr_, val) scope : (ptr_)->alignment_power = (val) : end scope
+#define bfd_set_section_userdata(bfd, ptr_, val) scope : (ptr_)->userdata = (val) : end scope
 #define bfd_get_section_limit(bfd, sec) (iif(((bfd)->direction <> write_direction) andalso ((sec)->rawsize <> 0), (sec)->rawsize, (sec)->size) / bfd_octets_per_byte(bfd))
 #define discarded_section(sec) ((((bfd_is_abs_section(sec) = 0) andalso bfd_is_abs_section((sec)->output_section)) andalso ((sec)->sec_info_type <> SEC_INFO_TYPE_MERGE)) andalso ((sec)->sec_info_type <> SEC_INFO_TYPE_JUST_SYMS))
 
@@ -300,11 +288,7 @@ declare sub warn_deprecated(byval as const zstring ptr, byval as const zstring p
 #define bfd_count_sections(abfd) (abfd)->section_count
 #define bfd_get_dynamic_symcount(abfd) (abfd)->dynsymcount
 #define bfd_get_symbol_leading_char(abfd) (abfd)->xvec->symbol_leading_char
-#macro bfd_set_cacheable(abfd, bool)
-	scope
-		(abfd)->cacheable = bool
-	end scope
-#endmacro
+#define bfd_set_cacheable(abfd, bool) scope : (abfd)->cacheable = bool : end scope
 
 declare function bfd_cache_close(byval abfd as bfd ptr) as bfd_boolean
 declare function bfd_cache_close_all() as bfd_boolean
@@ -522,11 +506,7 @@ declare function bfd_follow_gnu_debugaltlink(byval abfd as bfd ptr, byval dir as
 declare function bfd_create_gnu_debuglink_section(byval abfd as bfd ptr, byval filename as const zstring ptr) as bfd_section ptr
 declare function bfd_fill_in_gnu_debuglink_section(byval abfd as bfd ptr, byval sect as bfd_section ptr, byval filename as const zstring ptr) as bfd_boolean
 
-#macro bfd_put_8(abfd, val, ptr_)
-	scope
-		(*cptr(ubyte ptr, (ptr_))) = (val) and &hff
-	end scope
-#endmacro
+#define bfd_put_8(abfd, val, ptr_) scope : (*cptr(ubyte ptr, (ptr_))) = (val) and &hff : end scope
 #define bfd_put_signed_8 bfd_put_8
 #define bfd_get_8(abfd, ptr_) ((*cptr(const ubyte ptr, (ptr_))) and &hff)
 #define bfd_get_signed_8(abfd, ptr_) ((((*cptr(const ubyte ptr, (ptr_))) and &hff) xor &h80) - &h80)

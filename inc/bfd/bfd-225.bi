@@ -102,11 +102,7 @@ type reloc_howto_type as const reloc_howto_struct
 #define BFD_NO_MORE_SYMBOLS cast(symindex, not 0)
 #define bfd_get_section(x) (x)->section
 #define bfd_get_output_section(x) (x)->section->output_section
-#macro bfd_set_section(x, y)
-	scope
-		(x)->section = (y)
-	end scope
-#endmacro
+#define bfd_set_section(x, y) scope : (x)->section = (y) : end scope
 #define bfd_asymbol_base(x) (x)->section->vma
 #define bfd_asymbol_value(x) (bfd_asymbol_base(x) + (x)->value)
 #define bfd_asymbol_name(x) (x)->name
@@ -500,11 +496,7 @@ declare function bfd_follow_gnu_debugaltlink(byval abfd as bfd ptr, byval dir as
 declare function bfd_create_gnu_debuglink_section(byval abfd as bfd ptr, byval filename as const zstring ptr) as bfd_section ptr
 declare function bfd_fill_in_gnu_debuglink_section(byval abfd as bfd ptr, byval sect as bfd_section ptr, byval filename as const zstring ptr) as bfd_boolean
 
-#macro bfd_put_8(abfd, val, ptr_)
-	scope
-		(*cptr(ubyte ptr, (ptr_))) = (val) and &hff
-	end scope
-#endmacro
+#define bfd_put_8(abfd, val, ptr_) scope : (*cptr(ubyte ptr, (ptr_))) = (val) and &hff : end scope
 #define bfd_put_signed_8 bfd_put_8
 #define bfd_get_8(abfd, ptr_) ((*cptr(const ubyte ptr, (ptr_))) and &hff)
 #define bfd_get_signed_8(abfd, ptr_) ((((*cptr(const ubyte ptr, (ptr_))) and &hff) xor &h80) - &h80)

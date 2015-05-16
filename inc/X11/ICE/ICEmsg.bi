@@ -152,11 +152,7 @@ declare function _IcePaMagicCookie1Proc(byval as IceConn, byval as IcePointer pt
 		free(_pData)
 	end if
 #endmacro
-#macro IceReadSimpleMessage(_iceConn, _msgType, _pMsg)
-	scope
-		_pMsg = cptr(_msgType ptr, _iceConn->inbuf)
-	end scope
-#endmacro
+#define IceReadSimpleMessage(_iceConn, _msgType, _pMsg) scope : _pMsg = cptr(_msgType ptr, _iceConn->inbuf) : end scope
 #macro IceReadMessageHeader(_iceConn, _headerSize, _msgType, _pMsg)
 	scope
 		_IceRead(_iceConn, cast(culong, _headerSize - XSIZEOF(iceMsg)), _iceConn->inbufptr)
@@ -165,16 +161,8 @@ declare function _IcePaMagicCookie1Proc(byval as IceConn, byval as IcePointer pt
 	end scope
 #endmacro
 #define IceReadData(_iceConn, _bytes, _pData) _IceRead(_iceConn, cast(culong, (_bytes)), cptr(zstring ptr, _pData))
-#macro IceReadData16(_iceConn, _swap, _bytes, _pData)
-	scope
-		_IceRead(_iceConn, cast(culong, (_bytes)), cptr(zstring ptr, _pData))
-	end scope
-#endmacro
-#macro IceReadData32(_iceConn, _swap, _bytes, _pData)
-	scope
-		_IceRead(_iceConn, cast(culong, (_bytes)), cptr(zstring ptr, _pData))
-	end scope
-#endmacro
+#define IceReadData16(_iceConn, _swap, _bytes, _pData) scope : _IceRead(_iceConn, cast(culong, (_bytes)), cptr(zstring ptr, _pData)) : end scope
+#define IceReadData32(_iceConn, _swap, _bytes, _pData) scope : _IceRead(_iceConn, cast(culong, (_bytes)), cptr(zstring ptr, _pData)) : end scope
 #macro IceReadPad(_iceConn, _bytes)
 	scope
 		dim _dummy as zstring * 7

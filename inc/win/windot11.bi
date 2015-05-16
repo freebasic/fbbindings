@@ -2847,43 +2847,19 @@
 	#define DOT11_WFD_ADDITIONAL_IE_GET_HEADER_SIZE(ADDIE) sizeof(DOT11_WFD_ADDITIONAL_IE)
 	#define DOT11_WFD_ADDITIONAL_IE_GET_HEADER_END(ADDIE) (cast(PCHAR, (ADDIE)) + sizeof(DOT11_WFD_ADDITIONAL_IE))
 	#define DOT11_WFD_ADDITIONAL_IE_GET_BEACON_IE(ADDIE) (cast(PCHAR, (ADDIE)) + (ADDIE)->uBeaconIEsOffset)
-	#macro DOT11_WFD_ADDITIONAL_IE_SET_BEACON_IE(ADDIE, B)
-		scope
-			(ADDIE)->uBeaconIEsOffset = cast(DWORD, cast(SIZE_T_, (B)) - cast(SIZE_T_, (ADDIE)))
-		end scope
-	#endmacro
+	#define DOT11_WFD_ADDITIONAL_IE_SET_BEACON_IE(ADDIE, B) scope : (ADDIE)->uBeaconIEsOffset = cast(DWORD, cast(SIZE_T_, (B)) - cast(SIZE_T_, (ADDIE))) : end scope
 	#define DOT11_WFD_ADDITIONAL_IE_GET_BEACON_IE_SIZE(ADDIE) (ADDIE)->uBeaconIEsLength
-	#macro DOT11_WFD_ADDITIONAL_IE_SET_BEACON_IE_SIZE(ADDIE, SZ)
-		scope
-			(ADDIE)->uBeaconIEsLength = cast(DWORD, (SZ))
-		end scope
-	#endmacro
+	#define DOT11_WFD_ADDITIONAL_IE_SET_BEACON_IE_SIZE(ADDIE, SZ) scope : (ADDIE)->uBeaconIEsLength = cast(DWORD, (SZ)) : end scope
 	#define DOT11_WFD_ADDITIONAL_IE_GET_BEACON_IE_END(ADDIE) ((cast(PCHAR, (ADDIE)) + (ADDIE)->uBeaconIEsOffset) + DOT11_WFD_ADDITIONAL_IE_GET_BEACON_IE_SIZE(ADDIE))
 	#define DOT11_WFD_ADDITIONAL_IE_GET_PROBE_RESPONSE_IE(ADDIE) (cast(PCHAR, (ADDIE)) + (ADDIE)->uProbeResponseIEsOffset)
-	#macro DOT11_WFD_ADDITIONAL_IE_SET_PROBE_RESPONSE_IE(ADDIE, _response_)
-		scope
-			(ADDIE)->uProbeResponseIEsOffset = cast(DWORD, cast(SIZE_T_, (_response_)) - cast(SIZE_T_, (ADDIE)))
-		end scope
-	#endmacro
+	#define DOT11_WFD_ADDITIONAL_IE_SET_PROBE_RESPONSE_IE(ADDIE, _response_) scope : (ADDIE)->uProbeResponseIEsOffset = cast(DWORD, cast(SIZE_T_, (_response_)) - cast(SIZE_T_, (ADDIE))) : end scope
 	#define DOT11_WFD_ADDITIONAL_IE_GET_PROBE_RESPONSE_IE_SIZE(ADDIE) (ADDIE)->uProbeResponseIEsLength
-	#macro DOT11_WFD_ADDITIONAL_IE_SET_PROBE_RESPONSE_IE_SIZE(ADDIE, SZ)
-		scope
-			(ADDIE)->uProbeResponseIEsLength = cast(DWORD, (SZ))
-		end scope
-	#endmacro
+	#define DOT11_WFD_ADDITIONAL_IE_SET_PROBE_RESPONSE_IE_SIZE(ADDIE, SZ) scope : (ADDIE)->uProbeResponseIEsLength = cast(DWORD, (SZ)) : end scope
 	#define DOT11_WFD_ADDITIONAL_IE_GET_PROBE_RESPONSE_IE_END(ADDIE) ((cast(PCHAR, (ADDIE)) + (ADDIE)->uProbeResponseIEsOffset) + DOT11_WFD_ADDITIONAL_IE_GET_PROBE_RESPONSE_IE_SIZE(ADDIE))
 	#define DOT11_WFD_ADDITIONAL_IE_GET_PROBE_REQUEST_IE(ADDIE) (cast(PCHAR, (ADDIE)) + (ADDIE)->uDefaultRequestIEsOffset)
-	#macro DOT11_WFD_ADDITIONAL_IE_SET_PROBE_REQUEST_IE(ADDIE, REQ)
-		scope
-			(ADDIE)->uDefaultRequestIEsOffset = cast(DWORD, cast(SIZE_T_, (REQ)) - cast(SIZE_T_, (ADDIE)))
-		end scope
-	#endmacro
+	#define DOT11_WFD_ADDITIONAL_IE_SET_PROBE_REQUEST_IE(ADDIE, REQ) scope : (ADDIE)->uDefaultRequestIEsOffset = cast(DWORD, cast(SIZE_T_, (REQ)) - cast(SIZE_T_, (ADDIE))) : end scope
 	#define DOT11_WFD_ADDITIONAL_IE_GET_PROBE_REQUEST_IE_SIZE(ADDIE) (ADDIE)->uDefaultRequestIEsLength
-	#macro DOT11_WFD_ADDITIONAL_IE_SET_PROBE_REQUEST_IE_SIZE(ADDIE, SZ)
-		scope
-			(ADDIE)->uDefaultRequestIEsLength = cast(DWORD, (SZ))
-		end scope
-	#endmacro
+	#define DOT11_WFD_ADDITIONAL_IE_SET_PROBE_REQUEST_IE_SIZE(ADDIE, SZ) scope : (ADDIE)->uDefaultRequestIEsLength = cast(DWORD, (SZ)) : end scope
 	#define DOT11_WFD_ADDITIONAL_IE_GET_ALL_IE_SIZE(ADDIE) (((ADDIE)->uBeaconIEsLength + (ADDIE)->uProbeResponseIEsLength) + (ADDIE)->uDefaultRequestIEsLength)
 	#define DOT11_WFD_ADDITIONAL_IE_GET_TOTAL_SIZE(ADDIE) (DOT11_WFD_ADDITIONAL_IE_GET_HEADER_SIZE(ADDIE) + DOT11_WFD_ADDITIONAL_IE_GET_ALL_IE_SIZE(ADDIE))
 	#define OID_DOT11_WFD_FLUSH_DEVICE_LIST NWF_DEFINE_OID(&h09, NWF_WFD_DEVICE_OID, NWF_MANDATORY_OID)

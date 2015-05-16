@@ -2477,11 +2477,7 @@ declare sub g_warn_message(byval domain as const zstring ptr, byval file as cons
 declare sub g_assert_warning(byval log_domain as const zstring ptr, byval file as const zstring ptr, byval line as const long, byval pretty_function as const zstring ptr, byval expression as const zstring ptr)
 
 const G_LOG_DOMAIN = cptr(zstring ptr, 0)
-#macro g_error(__VA_ARGS__...)
-	scope
-		g_log(G_LOG_DOMAIN, G_LOG_LEVEL_ERROR, __VA_ARGS__)
-	end scope
-#endmacro
+#define g_error(__VA_ARGS__...) scope : g_log(G_LOG_DOMAIN, G_LOG_LEVEL_ERROR, __VA_ARGS__) : end scope
 #define g_message(__VA_ARGS__...) g_log(G_LOG_DOMAIN, G_LOG_LEVEL_MESSAGE, __VA_ARGS__)
 #define g_critical(__VA_ARGS__...) g_log(G_LOG_DOMAIN, G_LOG_LEVEL_CRITICAL, __VA_ARGS__)
 #define g_warning(__VA_ARGS__...) g_log(G_LOG_DOMAIN, G_LOG_LEVEL_WARNING, __VA_ARGS__)
@@ -2494,11 +2490,7 @@ declare function g_set_print_handler(byval func as GPrintFunc) as GPrintFunc
 declare sub g_printerr(byval format as const zstring ptr, ...)
 declare function g_set_printerr_handler(byval func as GPrintFunc) as GPrintFunc
 
-#macro g_warn_if_reached()
-	scope
-		g_warn_message(G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, NULL)
-	end scope
-#endmacro
+#define g_warn_if_reached() scope : g_warn_message(G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, NULL) : end scope
 #macro g_warn_if_fail(expr)
 	scope
 		if G_LIKELY(expr) then
@@ -2996,21 +2988,9 @@ declare sub g_scanner_unexp_token(byval scanner as GScanner ptr, byval expected_
 declare sub g_scanner_error(byval scanner as GScanner ptr, byval format as const zstring ptr, ...)
 declare sub g_scanner_warn(byval scanner as GScanner ptr, byval format as const zstring ptr, ...)
 
-#macro g_scanner_add_symbol(scanner, symbol, value)
-	scope
-		g_scanner_scope_add_symbol((scanner), 0, (symbol), (value))
-	end scope
-#endmacro
-#macro g_scanner_remove_symbol(scanner, symbol)
-	scope
-		g_scanner_scope_remove_symbol((scanner), 0, (symbol))
-	end scope
-#endmacro
-#macro g_scanner_foreach_symbol(scanner, func, data)
-	scope
-		g_scanner_scope_foreach_symbol((scanner), 0, (func), (data))
-	end scope
-#endmacro
+#define g_scanner_add_symbol(scanner, symbol, value) scope : g_scanner_scope_add_symbol((scanner), 0, (symbol), (value)) : end scope
+#define g_scanner_remove_symbol(scanner, symbol) scope : g_scanner_scope_remove_symbol((scanner), 0, (symbol)) : end scope
+#define g_scanner_foreach_symbol(scanner, func, data) scope : g_scanner_scope_foreach_symbol((scanner), 0, (func), (data)) : end scope
 #define g_scanner_freeze_symbol_table(scanner) 0
 #define g_scanner_thaw_symbol_table(scanner) 0
 #define __G_SEQUENCE_H__
@@ -3080,16 +3060,8 @@ declare sub g_slice_free_chain_with_offset(byval block_size as gsize, byval mem_
 #define g_slice_new(type) cptr(type ptr, g_slice_alloc(sizeof(type)))
 #define g_slice_new0(type) cptr(type ptr, g_slice_alloc0(sizeof(type)))
 #define g_slice_dup(type, mem) cptr(type ptr, g_slice_copy(sizeof(type), (mem)))
-#macro g_slice_free(type, mem)
-	scope
-		g_slice_free1(sizeof(type), (mem))
-	end scope
-#endmacro
-#macro g_slice_free_chain(type, mem_chain, next)
-	scope
-		g_slice_free_chain_with_offset(sizeof(type), (mem_chain), G_STRUCT_OFFSET(type, next))
-	end scope
-#endmacro
+#define g_slice_free(type, mem) scope : g_slice_free1(sizeof(type), (mem)) : end scope
+#define g_slice_free_chain(type, mem_chain, next) scope : g_slice_free_chain_with_offset(sizeof(type), (mem_chain), G_STRUCT_OFFSET(type, next)) : end scope
 
 type GSliceConfig as long
 enum
@@ -3379,11 +3351,7 @@ type GTestFixtureFunc as sub(byval fixture as gpointer, byval user_data as gcons
 		end if
 	end scope
 #endmacro
-#macro g_assert_not_reached()
-	scope
-		g_assertion_message_expr(G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, NULL)
-	end scope
-#endmacro
+#define g_assert_not_reached() scope : g_assertion_message_expr(G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, NULL) : end scope
 #macro g_assert(expr)
 	scope
 		if G_LIKELY(expr) then

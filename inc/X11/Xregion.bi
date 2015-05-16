@@ -135,11 +135,7 @@ type REGION as _XRegion
 		'' TODO: (r)++;
 	end if
 #endmacro
-#macro EMPTY_REGION(pReg)
-	scope
-		pReg->numRects = 0
-	end scope
-#endmacro
+#define EMPTY_REGION(pReg) scope : pReg->numRects = 0 : end scope
 #define REGION_NOT_EMPTY(pReg) pReg->numRects
 #define INBOX(r, x, y) (((((r).x2 > x) andalso ((r).x1 <= x)) andalso ((r).y2 > y)) andalso ((r).y1 <= y))
 const NUMPTSTOBUFFER = 200

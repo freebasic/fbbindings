@@ -5986,16 +5986,8 @@ const IMAGE_REL_EBC_ADDR32NB = &h0001
 const IMAGE_REL_EBC_REL32 = &h0002
 const IMAGE_REL_EBC_SECTION = &h0003
 const IMAGE_REL_EBC_SECREL = &h0004
-#macro EXT_IMM64(Value, Address, Size, InstPos, ValPos)
-	scope
-		Value or= cast(ULONGLONG, ((*(Address)) shr InstPos) and ((cast(ULONGLONG, 1) shl Size) - 1)) shl ValPos
-	end scope
-#endmacro
-#macro INS_IMM64(Value, Address, Size, InstPos, ValPos)
-	scope
-		(*cast(PDWORD, Address)) = ((*cast(PDWORD, Address)) and (not (((1 shl Size) - 1) shl InstPos))) or (cast(DWORD, (cast(ULONGLONG, Value) shr ValPos) and ((cast(ULONGLONG, 1) shl Size) - 1)) shl InstPos)
-	end scope
-#endmacro
+#define EXT_IMM64(Value, Address, Size, InstPos, ValPos) scope : Value or= cast(ULONGLONG, ((*(Address)) shr InstPos) and ((cast(ULONGLONG, 1) shl Size) - 1)) shl ValPos : end scope
+#define INS_IMM64(Value, Address, Size, InstPos, ValPos) scope : (*cast(PDWORD, Address)) = ((*cast(PDWORD, Address)) and (not (((1 shl Size) - 1) shl InstPos))) or (cast(DWORD, (cast(ULONGLONG, Value) shr ValPos) and ((cast(ULONGLONG, 1) shl Size) - 1)) shl InstPos) : end scope
 const EMARCH_ENC_I17_IMM7B_INST_WORD_X = 3
 const EMARCH_ENC_I17_IMM7B_SIZE_X = 7
 const EMARCH_ENC_I17_IMM7B_INST_WORD_POS_X = 4
@@ -7032,11 +7024,7 @@ const VER_PLATFORM_WIN32s = 0
 const VER_PLATFORM_WIN32_WINDOWS = 1
 const VER_PLATFORM_WIN32_NT = 2
 declare function VerSetConditionMask(byval ConditionMask as ULONGLONG, byval TypeMask as DWORD, byval Condition as UBYTE) as ULONGLONG
-#macro VER_SET_CONDITION(_m_, _t_, _c_)
-	scope
-		(_m_) = VerSetConditionMask((_m_), (_t_), (_c_))
-	end scope
-#endmacro
+#define VER_SET_CONDITION(_m_, _t_, _c_) scope : (_m_) = VerSetConditionMask((_m_), (_t_), (_c_)) : end scope
 
 #if _WIN32_WINNT = &h0602
 	declare function RtlGetProductInfo(byval OSMajorVersion as DWORD, byval OSMinorVersion as DWORD, byval SpMajorVersion as DWORD, byval SpMinorVersion as DWORD, byval ReturnedProductType as PDWORD) as BOOLEAN
@@ -7167,11 +7155,7 @@ const WT_EXECUTELONGFUNCTION = &h00000010
 const WT_EXECUTEINPERSISTENTIOTHREAD = &h00000040
 const WT_EXECUTEINPERSISTENTTHREAD = &h00000080
 const WT_TRANSFER_IMPERSONATION = &h00000100
-#macro WT_SET_MAX_THREADPOOL_THREADS(Flags, Limit)
-	scope
-		(Flags) or= (Limit) shl 16
-	end scope
-#endmacro
+#define WT_SET_MAX_THREADPOOL_THREADS(Flags, Limit) scope : (Flags) or= (Limit) shl 16 : end scope
 const WT_EXECUTEDELETEWAIT = &h00000008
 const WT_EXECUTEINLONGTHREAD = &h00000010
 
@@ -7456,11 +7440,7 @@ const APPLICATION_VERIFIER_PROBE_GUARD_PAGE = &h0605
 const APPLICATION_VERIFIER_PROBE_NULL = &h0606
 const APPLICATION_VERIFIER_PROBE_INVALID_START_OR_SIZE = &h0607
 const APPLICATION_VERIFIER_SIZE_HEAP_UNEXPECTED_EXCEPTION = &h0618
-#macro VERIFIER_STOP(Code, Msg, P1, S1, P2, S2, P3, S3, P4, S4)
-	scope
-		RtlApplicationVerifierStop((Code), (Msg), cast(ULONG_PTR, (P1)), (S1), cast(ULONG_PTR, (P2)), (S2), cast(ULONG_PTR, (P3)), (S3), cast(ULONG_PTR, (P4)), (S4))
-	end scope
-#endmacro
+#define VERIFIER_STOP(Code, Msg, P1, S1, P2, S2, P3, S3, P4, S4) scope : RtlApplicationVerifierStop((Code), (Msg), cast(ULONG_PTR, (P1)), (S1), cast(ULONG_PTR, (P2)), (S2), cast(ULONG_PTR, (P3)), (S3), cast(ULONG_PTR, (P4)), (S4)) : end scope
 
 declare sub RtlApplicationVerifierStop(byval Code as ULONG_PTR, byval Message as PSTR, byval Param1 as ULONG_PTR, byval Description1 as PSTR, byval Param2 as ULONG_PTR, byval Description2 as PSTR, byval Param3 as ULONG_PTR, byval Description3 as PSTR, byval Param4 as ULONG_PTR, byval Description4 as PSTR)
 declare function RtlSetHeapInformation(byval HeapHandle as PVOID, byval HeapInformationClass as HEAP_INFORMATION_CLASS, byval HeapInformation as PVOID, byval HeapInformationLength as SIZE_T_) as DWORD

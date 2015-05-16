@@ -263,11 +263,7 @@ declare function __WSAFDIsSet(byval as SOCKET, byval as FD_SET ptr) as long
 		wend
 	end scope
 #endmacro
-#macro FD_ZERO(set)
-	scope
-		cptr(FD_SET ptr, (set))->fd_count = 0
-	end scope
-#endmacro
+#define FD_ZERO(set) scope : cptr(FD_SET ptr, (set))->fd_count = 0 : end scope
 #define FD_ISSET(fd, set) __WSAFDIsSet(cast(SOCKET, (fd)), cptr(FD_SET ptr, (set)))
 #macro FD_SET_(fd, set)
 	scope

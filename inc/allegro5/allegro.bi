@@ -151,16 +151,8 @@ const ALLEGRO_LITTLE_ENDIAN = 1
 		(*(cptr(ubyte ptr, (p)) + 2)) = (c) shr 16
 	end scope
 #endmacro
-#macro bmp_write16(addr, c)
-	scope
-		(*cptr(ushort ptr, (addr))) = (c)
-	end scope
-#endmacro
-#macro bmp_write32(addr, c)
-	scope
-		(*cptr(ulong ptr, (addr))) = (c)
-	end scope
-#endmacro
+#define bmp_write16(addr, c) scope : (*cptr(ushort ptr, (addr))) = (c) : end scope
+#define bmp_write32(addr, c) scope : (*cptr(ulong ptr, (addr))) = (c) : end scope
 #define bmp_read16(addr) (*cptr(ushort ptr, (addr)))
 #define bmp_read32(addr) (*cptr(ulong ptr, (addr)))
 #define AL_RAND() rand()

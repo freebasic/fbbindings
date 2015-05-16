@@ -607,11 +607,7 @@ const A_NORMAL = cast(culong, 1) - cast(culong, 1)
 #define getbkgd(win) (win)->_bkgd
 #define slk_attr_off_(a, v) iif((v), ERR_, slk_attroff(a))
 #define slk_attr_on_(a, v) iif((v), ERR_, slk_attron(a))
-#macro wattr_set(win, a, p, opts)
-	scope
-		(win)->_attrs = ((a) and (not A_COLOR)) or cast(attr_t, COLOR_PAIR(p))
-	end scope
-#endmacro
+#define wattr_set(win, a, p, opts) scope : (win)->_attrs = ((a) and (not A_COLOR)) or cast(attr_t, COLOR_PAIR(p)) : end scope
 #macro wattr_get(win,a,p,opts)
 	if a then
 		*(a) = (win)->_attrs

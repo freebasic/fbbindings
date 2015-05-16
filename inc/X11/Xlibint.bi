@@ -248,11 +248,7 @@ declare function _XGetRequest(byval dpy as Display ptr, byval type as CARD8, byv
 #define GetReq(name, req) GetReqSized(name, XSIZEOF(x##name##Req), req)
 #define GetReqExtra(name, n, req) GetReqSized(name, XSIZEOF(x##name##Req) + n, req)
 '' TODO: #define GetResReq(name, rid, req) req = (xResourceReq *) _XGetRequest(dpy, X_##name, SIZEOF(xResourceReq)); req->id = (rid)
-#macro GetEmptyReq(name, req)
-	scope
-		req = cptr(xReq ptr, _XGetRequest(dpy, X_##name, XSIZEOF(xReq)))
-	end scope
-#endmacro
+#define GetEmptyReq(name, req) scope : req = cptr(xReq ptr, _XGetRequest(dpy, X_##name, XSIZEOF(xReq))) : end scope
 
 #ifdef __FB_64BIT__
 	#macro MakeBigReq(req, n)
@@ -348,11 +344,7 @@ declare sub _XFlushGCCache(byval dpy as Display ptr, byval gc as GC)
 		CI_GET_CHAR_INFO_2D(fs, r, c, NULL, cs)
 	end scope
 #endmacro
-#macro OneDataCard32(dpy, dstaddr, srcvar)
-	scope
-		(*cptr(CARD32 ptr, (dstaddr))) = (srcvar)
-	end scope
-#endmacro
+#define OneDataCard32(dpy, dstaddr, srcvar) scope : (*cptr(CARD32 ptr, (dstaddr))) = (srcvar) : end scope
 
 type _XInternalAsync_
 	next as _XInternalAsync ptr
