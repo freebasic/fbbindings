@@ -16,6 +16,8 @@
 
 #pragma once
 
+#inclib "caca"
+
 #include once "crt/long.bi"
 #include once "crt/stdint.bi"
 #include once "crt/stdarg.bi"
