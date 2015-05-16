@@ -1,3 +1,5 @@
+-windowsms
+
 # Like winapi, bass[mod].h have the "BYTE as ubyte" typedef
 -renametypedef BYTE UBYTE
 -remove1st BYTE
