@@ -28,7 +28,6 @@
 #pragma once
 
 #include once "crt/long.bi"
-#include once "cd_old.bi"
 
 extern "C"
 
@@ -464,3 +463,5 @@ enum
 end enum
 
 end extern
+
+#include once "cd_old.bi"
