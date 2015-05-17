@@ -31,7 +31,16 @@
 #include once "crt/long.bi"
 
 '' The following symbols have been renamed:
-''     constant DYNAMIC => DYNAMIC_
+''     #if ((__BFD_VER__ = 216) or (__BFD_VER__ = 217) or (__BFD_VER__ = 218)) and (defined(__FB_LINUX__) or (defined(__FB_WIN32__) or defined(__FB_DOS__)))
+''         constant DYNAMIC => DYNAMIC_
+''     #endif
+''     procedure bfd_is_local_label_name => bfd_is_local_label_name_
+''     procedure bfd_is_target_special_symbol => bfd_is_target_special_symbol_
+''     procedure bfd_copy_private_symbol_data => bfd_copy_private_symbol_data_
+''     #if ((__BFD_VER__ = 219) or (__BFD_VER__ = 220) or (__BFD_VER__ = 221) or (__BFD_VER__ = 222) or (__BFD_VER__ = 223) or (__BFD_VER__ = 224) or (__BFD_VER__ = 225)) and (defined(__FB_LINUX__) or (defined(__FB_WIN32__) or defined(__FB_DOS__)))
+''         constant DYNAMIC => DYNAMIC_
+''     #endif
+''     procedure bfd_section_already_linked => bfd_section_already_linked_
 
 extern "C"
 
@@ -437,9 +446,8 @@ declare function bfd_section_already_linked_table_init() as bfd_boolean
 declare sub bfd_section_already_linked_table_free()
 
 #if ((__BFD_VER__ = 222) or (__BFD_VER__ = 223) or (__BFD_VER__ = 224) or (__BFD_VER__ = 225)) and (defined(__FB_LINUX__) or (defined(__FB_WIN32__) or defined(__FB_DOS__)))
-	type bfd_section_already_linked as bfd_section_already_linked_
 	type bfd_link_info as bfd_link_info_
-	declare function _bfd_handle_already_linked(byval as bfd_section ptr, byval as bfd_section_already_linked ptr, byval as bfd_link_info ptr) as bfd_boolean
+	declare function _bfd_handle_already_linked(byval as bfd_section ptr, byval as bfd_section_already_linked_ ptr, byval as bfd_link_info ptr) as bfd_boolean
 #endif
 
 declare function bfd_ecoff_get_gp_value(byval abfd as bfd ptr) as bfd_vma
@@ -5039,9 +5047,9 @@ const BSF_NO_FLAGS = &h00
 
 #define bfd_get_symtab_upper_bound(abfd) BFD_SEND(abfd, _bfd_get_symtab_upper_bound, (abfd))
 declare function bfd_is_local_label(byval abfd as bfd ptr, byval sym as asymbol ptr) as bfd_boolean
-declare function bfd_is_local_label_name(byval abfd as bfd ptr, byval name as const zstring ptr) as bfd_boolean
+declare function bfd_is_local_label_name_ alias "bfd_is_local_label_name"(byval abfd as bfd ptr, byval name as const zstring ptr) as bfd_boolean
 #define bfd_is_local_label_name(abfd, name) BFD_SEND (abfd, _bfd_is_local_label_name, (abfd, name))
-declare function bfd_is_target_special_symbol(byval abfd as bfd ptr, byval sym as asymbol ptr) as bfd_boolean
+declare function bfd_is_target_special_symbol_ alias "bfd_is_target_special_symbol"(byval abfd as bfd ptr, byval sym as asymbol ptr) as bfd_boolean
 #define bfd_is_target_special_symbol(abfd, sym) BFD_SEND (abfd, _bfd_is_target_special_symbol, (abfd, sym))
 #define bfd_canonicalize_symtab(abfd, location) BFD_SEND (abfd, _bfd_canonicalize_symtab, (abfd, location))
 declare function bfd_set_symtab(byval abfd as bfd ptr, byval location as asymbol ptr ptr, byval count as ulong) as bfd_boolean
@@ -5052,7 +5060,7 @@ declare function _bfd_generic_make_empty_symbol(byval as bfd ptr) as asymbol ptr
 declare function bfd_decode_symclass(byval symbol as asymbol ptr) as long
 declare function bfd_is_undefined_symclass(byval symclass as long) as bfd_boolean
 declare sub bfd_symbol_info(byval symbol as asymbol ptr, byval ret as symbol_info ptr)
-declare function bfd_copy_private_symbol_data(byval ibfd as bfd ptr, byval isym as asymbol ptr, byval obfd as bfd ptr, byval osym as asymbol ptr) as bfd_boolean
+declare function bfd_copy_private_symbol_data_ alias "bfd_copy_private_symbol_data"(byval ibfd as bfd ptr, byval isym as asymbol ptr, byval obfd as bfd ptr, byval osym as asymbol ptr) as bfd_boolean
 #define bfd_copy_private_symbol_data(ibfd, isymbol, obfd, osymbol) BFD_SEND (obfd, _bfd_copy_private_symbol_data, (ibfd, isymbol, obfd, osymbol))
 
 type bfd_direction as long
@@ -5825,12 +5833,12 @@ declare function bfd_link_split_section(byval abfd as bfd ptr, byval sec as asec
 #define bfd_link_split_section(abfd, sec) BFD_SEND (abfd, _bfd_link_split_section, (abfd, sec))
 
 #if (__BFD_VER__ = 216) or (__BFD_VER__ = 217)
-	declare sub bfd_section_already_linked(byval abfd as bfd ptr, byval sec as asection ptr)
+	declare sub bfd_section_already_linked_ alias "bfd_section_already_linked"(byval abfd as bfd ptr, byval sec as asection ptr)
 	#define bfd_section_already_linked(abfd, sec) BFD_SEND (abfd, _section_already_linked, (abfd, sec))
 #elseif ((__BFD_VER__ = 218) or (__BFD_VER__ = 219) or (__BFD_VER__ = 220) or (__BFD_VER__ = 221)) and (defined(__FB_LINUX__) or (defined(__FB_WIN32__) or defined(__FB_DOS__)))
-	declare sub bfd_section_already_linked(byval abfd as bfd ptr, byval sec as asection ptr, byval info as bfd_link_info ptr)
+	declare sub bfd_section_already_linked_ alias "bfd_section_already_linked"(byval abfd as bfd ptr, byval sec as asection ptr, byval info as bfd_link_info ptr)
 #else
-	declare function bfd_section_already_linked(byval abfd as bfd ptr, byval sec as asection ptr, byval info as bfd_link_info ptr) as bfd_boolean
+	declare function bfd_section_already_linked_ alias "bfd_section_already_linked"(byval abfd as bfd ptr, byval sec as asection ptr, byval info as bfd_link_info ptr) as bfd_boolean
 #endif
 
 #if ((__BFD_VER__ = 218) or (__BFD_VER__ = 219) or (__BFD_VER__ = 220) or (__BFD_VER__ = 221) or (__BFD_VER__ = 222) or (__BFD_VER__ = 223) or (__BFD_VER__ = 224) or (__BFD_VER__ = 225)) and (defined(__FB_LINUX__) or (defined(__FB_WIN32__) or defined(__FB_DOS__)))
