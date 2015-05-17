@@ -27,4 +27,15 @@
 
 #pragma once
 
+#ifdef LUA_TNONE
+	extern "C"
+#endif
+
 #define __CD_LUAIM_H
+
+#ifdef LUA_TNONE
+	declare function cdluaim_open(byval L as lua_State ptr) as long
+	declare function luaopen_cdluaim(byval L as lua_State ptr) as long
+
+	end extern
+#endif

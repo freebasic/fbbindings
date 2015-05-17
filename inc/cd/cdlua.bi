@@ -27,4 +27,22 @@
 
 #pragma once
 
+extern "C"
+
 #define __CD_LUA_H
+
+#ifdef LUA_NOOBJECT
+	declare sub cdlua_open()
+	declare sub cdlua_close()
+	declare function cdlua_getcanvas() as cdCanvas ptr
+	declare function cdlua_checkcanvas(byval pos as long) as cdCanvas ptr
+	declare sub cdlua_pushcanvas(byval canvas as cdCanvas ptr)
+#else
+	declare function cdlua_open(byval L as lua_State ptr) as long
+	declare function cdlua_close(byval L as lua_State ptr) as long
+	declare function cdlua_getcanvas(byval L as lua_State ptr) as cdCanvas ptr
+	declare function cdlua_checkcanvas(byval L as lua_State ptr, byval pos as long) as cdCanvas ptr
+	declare sub cdlua_pushcanvas(byval L as lua_State ptr, byval canvas as cdCanvas ptr)
+#endif
+
+end extern

@@ -524,21 +524,37 @@ cd:
 	mkdir -p inc/cd
 	$(FBFROG) cd.fbfrog \
 		extracted/cd/include/*.h \
-		\
-		-emit '*/cdcairo.h'        inc/cd/cdcairo.bi \
-		-emit '*/cdcgm.h'          inc/cd/cdcgm.bi \
-		-emit '*/cdclipbd.h'       inc/cd/cdclipbd.bi \
-		-emit '*/cddbuf.h'         inc/cd/cddbuf.bi \
-		-emit '*/cddebug.h'        inc/cd/cddebug.bi \
-		-emit '*/cddgn.h'          inc/cd/cddgn.bi \
-		-emit '*/cddxf.h'          inc/cd/cddxf.bi \
-		-emit '*/cdemf.h'          inc/cd/cdemf.bi \
-		-emit '*/cdgdiplus.h'      inc/cd/cdgdiplus.bi \
-		-emit '*/cdgl.h'           inc/cd/cdgl.bi \
-		-emit '*/cd.h'             inc/cd/cd.bi \
-		-emit '*/cdimage.h'        inc/cd/cdimage.bi \
-		-emit '*/cdirgb.h'         inc/cd/cdirgb.bi \
-		-emit '*/cdiup.h'          inc/cd/cdiup.bi \
+		-emit '*/cdcairo.h'      inc/cd/cdcairo.bi \
+		-emit '*/cdcgm.h'        inc/cd/cdcgm.bi \
+		-emit '*/cdclipbd.h'     inc/cd/cdclipbd.bi \
+		-emit '*/cddbuf.h'       inc/cd/cddbuf.bi \
+		-emit '*/cddebug.h'      inc/cd/cddebug.bi \
+		-emit '*/cddgn.h'        inc/cd/cddgn.bi \
+		-emit '*/cddxf.h'        inc/cd/cddxf.bi \
+		-emit '*/cdemf.h'        inc/cd/cdemf.bi \
+		-emit '*/cdgdiplus.h'    inc/cd/cdgdiplus.bi \
+		-emit '*/cdgl.h'         inc/cd/cdgl.bi \
+		-emit '*/cd.h'           inc/cd/cd.bi \
+		-emit '*/cdimage.h'      inc/cd/cdimage.bi \
+		-emit '*/cdirgb.h'       inc/cd/cdirgb.bi \
+		-emit '*/cdiup.h'        inc/cd/cdiup.bi \
+		-emit '*/cdmf.h'         inc/cd/cdmf.bi \
+		-emit '*/cdmf_private.h' inc/cd/cdmf_private.bi \
+		-emit '*/cdnative.h'     inc/cd/cdnative.bi \
+		-emit '*/cd_old.h'       inc/cd/cd_old.bi \
+		-emit '*/cdpdf.h'        inc/cd/cdpdf.bi \
+		-emit '*/cdpicture.h'    inc/cd/cdpicture.bi \
+		-emit '*/cdprint.h'      inc/cd/cdprint.bi \
+		-emit '*/cd_private.h'   inc/cd/cd_private.bi \
+		-emit '*/cdps.h'         inc/cd/cdps.bi \
+		-emit '*/cdsvg.h'        inc/cd/cdsvg.bi \
+		-emit '*/cdwmf.h'        inc/cd/cdwmf.bi \
+		-emit '*/wd.h'           inc/cd/wd.bi \
+		-emit '*/wd_old.h'       inc/cd/wd_old.bi \
+		-title $(CD) cd.tmp fbteam.txt
+
+	$(FBFROG) iuplua.fbfrog \
+		extracted/cd/include/*.h \
 		-emit '*/cdlua3_private.h' inc/cd/cdlua3_private.bi \
 		-emit '*/cdlua5_private.h' inc/cd/cdlua5_private.bi \
 		-emit '*/cdluagl.h'        inc/cd/cdluagl.bi \
@@ -546,21 +562,9 @@ cd:
 		-emit '*/cdluaim.h'        inc/cd/cdluaim.bi \
 		-emit '*/cdluaiup.h'       inc/cd/cdluaiup.bi \
 		-emit '*/cdluapdf.h'       inc/cd/cdluapdf.bi \
-		-emit '*/cdmf.h'           inc/cd/cdmf.bi \
-		-emit '*/cdmf_private.h'   inc/cd/cdmf_private.bi \
-		-emit '*/cdnative.h'       inc/cd/cdnative.bi \
-		-emit '*/cd_old.h'         inc/cd/cd_old.bi \
-		-emit '*/cdpdf.h'          inc/cd/cdpdf.bi \
-		-emit '*/cdpicture.h'      inc/cd/cdpicture.bi \
-		-emit '*/cdprint.h'        inc/cd/cdprint.bi \
-		-emit '*/cd_private.h'     inc/cd/cd_private.bi \
-		-emit '*/cdps.h'           inc/cd/cdps.bi \
-		-emit '*/cdsvg.h'          inc/cd/cdsvg.bi \
-		-emit '*/cdwmf.h'          inc/cd/cdwmf.bi \
-		-emit '*/wd.h'             inc/cd/wd.bi \
-		-emit '*/wd_old.h'         inc/cd/wd_old.bi \
-		\
 		-title $(CD) cd.tmp fbteam.txt
+
+	rm *.tmp
 
 CGUI_VERSION := 2.0.4
 CGUI := cgui-$(CGUI_VERSION)

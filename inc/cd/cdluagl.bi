@@ -27,4 +27,14 @@
 
 #pragma once
 
+extern "C"
+
 #define __CD_LUAGL_H
+
+#ifdef LUA_NOOBJECT
+	declare sub cdluagl_open()
+#else
+	declare function cdluagl_open(byval L as lua_State ptr) as long
+#endif
+
+end extern
