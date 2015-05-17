@@ -28,6 +28,13 @@
 
 #pragma once
 
+#inclib "bfd"
+#inclib "iberty"
+
+#if defined(__FB_WIN32__) or defined(__FB_DOS__)
+	#inclib "intl"
+#endif
+
 #include once "crt/long.bi"
 
 '' The following symbols have been renamed:

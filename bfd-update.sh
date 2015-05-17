@@ -61,7 +61,10 @@ done
 cat >> bfd.mk <<EOF
 		-endselect \\
 		-emit '*/bfd/bfd-*.h' inc/bfd.bi \\
-		-title "$mergedtitle" bfd-$lastversion.tmp fbteam.txt inc/bfd.bi
+		-title "$mergedtitle" bfd-$lastversion.tmp fbteam.txt inc/bfd.bi \\
+		-inclib bfd -inclib iberty \\
+		-ifdef __FB_WIN32__ -inclib intl -endif \\
+		-ifdef __FB_DOS__   -inclib intl -endif
 
 	rm *.tmp
 EOF
