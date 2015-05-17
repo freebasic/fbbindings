@@ -39,6 +39,13 @@
 #print bfd.bi: warning: defaulting to bfd 2.17 header: please define __BFD_VER__
 #endif
 
+#inclib "bfd"
+#inclib "iberty"
+
+#if defined(__FB_WIN32__) or defined(__FB_DOS__)
+	#inclib "intl"
+#endif
+
 #include once "crt/long.bi"
 type stat as stat_  '' TODO: remove as soon as fbc's CRT headers define it
 

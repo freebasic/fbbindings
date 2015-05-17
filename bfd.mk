@@ -161,6 +161,9 @@ bfd:
 			-endif \
 		-endselect \
 		-emit '*/bfd/bfd-*.h' inc/bfd.bi \
-		-title "$(BINUTILS_216), $(BINUTILS_217), $(BINUTILS_218), $(BINUTILS_219), $(BINUTILS_220), $(BINUTILS_221), $(BINUTILS_222), $(BINUTILS_223), $(BINUTILS_224), $(BINUTILS_225)" bfd-225.tmp fbteam.txt inc/bfd.bi
+		-title "$(BINUTILS_216), $(BINUTILS_217), $(BINUTILS_218), $(BINUTILS_219), $(BINUTILS_220), $(BINUTILS_221), $(BINUTILS_222), $(BINUTILS_223), $(BINUTILS_224), $(BINUTILS_225)" bfd-225.tmp fbteam.txt inc/bfd.bi \
+		-inclib bfd -inclib iberty \
+		-ifdef __FB_WIN32__ -inclib intl -endif \
+		-ifdef __FB_DOS__   -inclib intl -endif
 
 	rm *.tmp
