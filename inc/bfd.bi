@@ -40,12 +40,18 @@
 #endif
 
 #include once "crt/long.bi"
-#include once "ansidecl.bi"
-#include once "symcat.bi"
 
-#if ((__BFD_VER__ = 223) or (__BFD_VER__ = 224) or (__BFD_VER__ = 225)) and (defined(__FB_LINUX__) or (defined(__FB_WIN32__) or defined(__FB_DOS__)))
-	#include once "sys/stat.bi"
-#endif
+'' The following symbols have been renamed:
+''     #if ((__BFD_VER__ = 216) or (__BFD_VER__ = 217) or (__BFD_VER__ = 218)) and (defined(__FB_LINUX__) or (defined(__FB_WIN32__) or defined(__FB_DOS__)))
+''         constant DYNAMIC => DYNAMIC_
+''     #endif
+''     procedure bfd_is_local_label_name => bfd_is_local_label_name_
+''     procedure bfd_is_target_special_symbol => bfd_is_target_special_symbol_
+''     procedure bfd_copy_private_symbol_data => bfd_copy_private_symbol_data_
+''     #if ((__BFD_VER__ = 219) or (__BFD_VER__ = 220) or (__BFD_VER__ = 221) or (__BFD_VER__ = 222) or (__BFD_VER__ = 223) or (__BFD_VER__ = 224) or (__BFD_VER__ = 225)) and (defined(__FB_LINUX__) or (defined(__FB_WIN32__) or defined(__FB_DOS__)))
+''         constant DYNAMIC => DYNAMIC_
+''     #endif
+''     procedure bfd_section_already_linked => bfd_section_already_linked_
 
 extern "C"
 
@@ -175,7 +181,7 @@ end enum
 	const HAS_DEBUG = &h08
 	const HAS_SYMS = &h10
 	const HAS_LOCALS = &h20
-	const DYNAMIC = &h40
+	const DYNAMIC_ = &h40
 	const WP_TEXT = &h80
 	const D_PAGED = &h100
 	const BFD_IS_RELAXABLE = &h200
@@ -272,8 +278,8 @@ type sec_ptr as bfd_section ptr
 			(ptr)->user_set_vma = TRUE
 		end scope
 	#endmacro
-	#define bfd_set_section_alignment(bfd, ptr_, val) scope : (ptr_)->alignment_power = (val) : end scope
-	#define bfd_set_section_userdata(bfd, ptr_, val) scope : (ptr_)->userdata = (val) : end scope
+	#define bfd_set_section_alignment(bfd, ptr_, val_) scope : (ptr_)->alignment_power = (val_) : end scope
+	#define bfd_set_section_userdata(bfd, ptr_, val_) scope : (ptr_)->userdata = (val_) : end scope
 #endif
 
 #if ((__BFD_VER__ = 216) or (__BFD_VER__ = 217) or (__BFD_VER__ = 218) or (__BFD_VER__ = 219) or (__BFD_VER__ = 220) or (__BFD_VER__ = 221)) and (defined(__FB_LINUX__) or (defined(__FB_WIN32__) or defined(__FB_DOS__)))
@@ -372,6 +378,8 @@ declare sub bfd_hash_traverse(byval as bfd_hash_table ptr, byval as function(byv
 	declare function bfd_hash_set_default_size(byval as culong) as culong
 #endif
 
+type bfd_strtab_hash as bfd_strtab_hash_
+
 type stab_info
 	strings as bfd_strtab_hash ptr
 	includes as bfd_hash_table
@@ -449,16 +457,25 @@ declare function bfd_section_already_linked_table_init() as bfd_boolean
 declare sub bfd_section_already_linked_table_free()
 
 #if ((__BFD_VER__ = 222) or (__BFD_VER__ = 223) or (__BFD_VER__ = 224) or (__BFD_VER__ = 225)) and (defined(__FB_LINUX__) or (defined(__FB_WIN32__) or defined(__FB_DOS__)))
-	declare function _bfd_handle_already_linked(byval as bfd_section ptr, byval as bfd_section_already_linked ptr, byval as bfd_link_info ptr) as bfd_boolean
+	type bfd_link_info as bfd_link_info_
+	declare function _bfd_handle_already_linked(byval as bfd_section ptr, byval as bfd_section_already_linked_ ptr, byval as bfd_link_info ptr) as bfd_boolean
 #endif
 
 declare function bfd_ecoff_get_gp_value(byval abfd as bfd ptr) as bfd_vma
 declare function bfd_ecoff_set_gp_value(byval abfd as bfd ptr, byval gp_value as bfd_vma) as bfd_boolean
 declare function bfd_ecoff_set_regmasks(byval abfd as bfd ptr, byval gprmask as culong, byval fprmask as culong, byval cprmask as culong ptr) as bfd_boolean
+type ecoff_debug_info as ecoff_debug_info_
+type ecoff_debug_swap as ecoff_debug_swap_
+
+#if ((__BFD_VER__ = 216) or (__BFD_VER__ = 217) or (__BFD_VER__ = 218) or (__BFD_VER__ = 219) or (__BFD_VER__ = 220) or (__BFD_VER__ = 221)) and (defined(__FB_LINUX__) or (defined(__FB_WIN32__) or defined(__FB_DOS__)))
+	type bfd_link_info as bfd_link_info_
+#endif
+
 declare function bfd_ecoff_debug_init(byval output_bfd as bfd ptr, byval output_debug as ecoff_debug_info ptr, byval output_swap as const ecoff_debug_swap ptr, byval as bfd_link_info ptr) as any ptr
 declare sub bfd_ecoff_debug_free(byval handle as any ptr, byval output_bfd as bfd ptr, byval output_debug as ecoff_debug_info ptr, byval output_swap as const ecoff_debug_swap ptr, byval as bfd_link_info ptr)
 declare function bfd_ecoff_debug_accumulate(byval handle as any ptr, byval output_bfd as bfd ptr, byval output_debug as ecoff_debug_info ptr, byval output_swap as const ecoff_debug_swap ptr, byval input_bfd as bfd ptr, byval input_debug as ecoff_debug_info ptr, byval input_swap as const ecoff_debug_swap ptr, byval as bfd_link_info ptr) as bfd_boolean
 declare function bfd_ecoff_debug_accumulate_other(byval handle as any ptr, byval output_bfd as bfd ptr, byval output_debug as ecoff_debug_info ptr, byval output_swap as const ecoff_debug_swap ptr, byval input_bfd as bfd ptr, byval as bfd_link_info ptr) as bfd_boolean
+type ecoff_extr as ecoff_extr_
 declare function bfd_ecoff_debug_externals(byval abfd as bfd ptr, byval debug as ecoff_debug_info ptr, byval swap as const ecoff_debug_swap ptr, byval relocatable as bfd_boolean, byval get_extr as function(byval as bfd_symbol ptr, byval as ecoff_extr ptr) as bfd_boolean, byval set_index as sub(byval as bfd_symbol ptr, byval as bfd_size_type)) as bfd_boolean
 declare function bfd_ecoff_debug_one_external(byval abfd as bfd ptr, byval debug as ecoff_debug_info ptr, byval swap as const ecoff_debug_swap ptr, byval name as const zstring ptr, byval esym as ecoff_extr ptr) as bfd_boolean
 declare function bfd_ecoff_debug_size(byval abfd as bfd ptr, byval debug as ecoff_debug_info ptr, byval swap as const ecoff_debug_swap ptr) as bfd_size_type
@@ -581,6 +598,7 @@ declare function bfd_sunos_size_dynamic_sections(byval as bfd ptr, byval as bfd_
 declare function bfd_i386linux_size_dynamic_sections(byval as bfd ptr, byval as bfd_link_info ptr) as bfd_boolean
 declare function bfd_m68klinux_size_dynamic_sections(byval as bfd ptr, byval as bfd_link_info ptr) as bfd_boolean
 declare function bfd_sparclinux_size_dynamic_sections(byval as bfd ptr, byval as bfd_link_info ptr) as bfd_boolean
+type _bfd_window_internal as _bfd_window_internal_
 type bfd_window_internal as _bfd_window_internal
 
 type _bfd_window
@@ -599,6 +617,7 @@ declare function bfd_get_file_window(byval as bfd ptr, byval as file_ptr, byval 
 	declare function bfd_xcoff_set_archive_import_path(byval as bfd_link_info ptr, byval as bfd ptr, byval as const zstring ptr) as bfd_boolean
 #endif
 
+type bfd_link_hash_entry as bfd_link_hash_entry_
 declare function bfd_xcoff_link_record_set(byval as bfd ptr, byval as bfd_link_info ptr, byval as bfd_link_hash_entry ptr, byval as bfd_size_type) as bfd_boolean
 declare function bfd_xcoff_import_symbol(byval as bfd ptr, byval as bfd_link_info ptr, byval as bfd_link_hash_entry ptr, byval as bfd_vma, byval as const zstring ptr, byval as const zstring ptr, byval as const zstring ptr, byval as ulong) as bfd_boolean
 declare function bfd_xcoff_export_symbol(byval as bfd ptr, byval as bfd_link_info ptr, byval as bfd_link_hash_entry ptr) as bfd_boolean
@@ -613,7 +632,9 @@ declare function bfd_xcoff_record_link_assignment(byval as bfd ptr, byval as bfd
 
 declare function bfd_xcoff_link_generate_rtinit(byval as bfd ptr, byval as const zstring ptr, byval as const zstring ptr, byval as bfd_boolean) as bfd_boolean
 declare function bfd_xcoff_ar_archive_set_magic(byval as bfd ptr, byval as zstring ptr) as bfd_boolean
+type internal_syment as internal_syment_
 declare function bfd_coff_get_syment(byval as bfd ptr, byval as bfd_symbol ptr, byval as internal_syment ptr) as bfd_boolean
+type internal_auxent as internal_auxent_
 declare function bfd_coff_get_auxent(byval as bfd ptr, byval as bfd_symbol ptr, byval as long, byval as internal_auxent ptr) as bfd_boolean
 declare function bfd_coff_set_symbol_class(byval as bfd ptr, byval as bfd_symbol ptr, byval as ulong) as bfd_boolean
 declare function bfd_m68k_coff_create_embedded_relocs(byval as bfd ptr, byval as bfd_link_info ptr, byval as bfd_section ptr, byval as bfd_section ptr, byval as zstring ptr ptr) as bfd_boolean
@@ -842,7 +863,7 @@ declare function bfd_follow_gnu_debuglink(byval abfd as bfd ptr, byval dir as co
 
 declare function bfd_create_gnu_debuglink_section(byval abfd as bfd ptr, byval filename as const zstring ptr) as bfd_section ptr
 declare function bfd_fill_in_gnu_debuglink_section(byval abfd as bfd ptr, byval sect as bfd_section ptr, byval filename as const zstring ptr) as bfd_boolean
-#define bfd_put_8(abfd, val, ptr_) scope : (*cptr(ubyte ptr, (ptr_))) = (val) and &hff : end scope
+#define bfd_put_8(abfd, val_, ptr_) scope : (*cptr(ubyte ptr, (ptr_))) = (val_) and &hff : end scope
 #define bfd_put_signed_8 bfd_put_8
 
 #if ((__BFD_VER__ = 216) or (__BFD_VER__ = 217) or (__BFD_VER__ = 218) or (__BFD_VER__ = 219) or (__BFD_VER__ = 220)) and (defined(__FB_LINUX__) or (defined(__FB_WIN32__) or defined(__FB_DOS__)))
@@ -853,15 +874,15 @@ declare function bfd_fill_in_gnu_debuglink_section(byval abfd as bfd ptr, byval 
 	#define bfd_get_signed_8(abfd, ptr_) ((((*cptr(const ubyte ptr, (ptr_))) and &hff) xor &h80) - &h80)
 #endif
 
-#define bfd_put_16(abfd, val, ptr_) BFD_SEND (abfd, bfd_putx16, ((val), (ptr)))
+#define bfd_put_16(abfd, val_, ptr_) BFD_SEND (abfd, bfd_putx16, ((val), (ptr)))
 #define bfd_put_signed_16 bfd_put_16
 #define bfd_get_16(abfd, ptr_) BFD_SEND(abfd, bfd_getx16, (ptr_))
 #define bfd_get_signed_16(abfd, ptr_) BFD_SEND(abfd, bfd_getx_signed_16, (ptr_))
-#define bfd_put_32(abfd, val, ptr_) BFD_SEND (abfd, bfd_putx32, ((val), (ptr)))
+#define bfd_put_32(abfd, val_, ptr_) BFD_SEND (abfd, bfd_putx32, ((val), (ptr)))
 #define bfd_put_signed_32 bfd_put_32
 #define bfd_get_32(abfd, ptr_) BFD_SEND(abfd, bfd_getx32, (ptr_))
 #define bfd_get_signed_32(abfd, ptr_) BFD_SEND(abfd, bfd_getx_signed_32, (ptr_))
-#define bfd_put_64(abfd, val, ptr_) BFD_SEND (abfd, bfd_putx64, ((val), (ptr)))
+#define bfd_put_64(abfd, val_, ptr_) BFD_SEND (abfd, bfd_putx64, ((val), (ptr)))
 #define bfd_put_signed_64 bfd_put_64
 #define bfd_get_64(abfd, ptr_) BFD_SEND(abfd, bfd_getx64, (ptr_))
 #define bfd_get_signed_64(abfd, ptr_) BFD_SEND(abfd, bfd_getx_signed_64, (ptr_))
@@ -876,19 +897,19 @@ declare function bfd_fill_in_gnu_debuglink_section(byval abfd as bfd ptr, byval 
 		abort()
 	end select
 #endmacro
-#define bfd_h_put_8(abfd, val, ptr_) bfd_put_8(abfd, val, ptr_)
-#define bfd_h_put_signed_8(abfd, val, ptr_) bfd_put_8(abfd, val, ptr_)
+#define bfd_h_put_8(abfd, val_, ptr_) bfd_put_8(abfd, val_, ptr_)
+#define bfd_h_put_signed_8(abfd, val_, ptr_) bfd_put_8(abfd, val_, ptr_)
 #define bfd_h_get_8(abfd, ptr_) bfd_get_8(abfd, ptr_)
 #define bfd_h_get_signed_8(abfd, ptr_) bfd_get_signed_8(abfd, ptr_)
-#define bfd_h_put_16(abfd, val, ptr_) BFD_SEND (abfd, bfd_h_putx16, (val, ptr))
+#define bfd_h_put_16(abfd, val_, ptr_) BFD_SEND (abfd, bfd_h_putx16, (val, ptr))
 #define bfd_h_put_signed_16 bfd_h_put_16
 #define bfd_h_get_16(abfd, ptr_) BFD_SEND(abfd, bfd_h_getx16, (ptr_))
 #define bfd_h_get_signed_16(abfd, ptr_) BFD_SEND(abfd, bfd_h_getx_signed_16, (ptr_))
-#define bfd_h_put_32(abfd, val, ptr_) BFD_SEND (abfd, bfd_h_putx32, (val, ptr))
+#define bfd_h_put_32(abfd, val_, ptr_) BFD_SEND (abfd, bfd_h_putx32, (val, ptr))
 #define bfd_h_put_signed_32 bfd_h_put_32
 #define bfd_h_get_32(abfd, ptr_) BFD_SEND(abfd, bfd_h_getx32, (ptr_))
 #define bfd_h_get_signed_32(abfd, ptr_) BFD_SEND(abfd, bfd_h_getx_signed_32, (ptr_))
-#define bfd_h_put_64(abfd, val, ptr_) BFD_SEND (abfd, bfd_h_putx64, (val, ptr))
+#define bfd_h_put_64(abfd, val_, ptr_) BFD_SEND (abfd, bfd_h_putx64, (val, ptr))
 #define bfd_h_put_signed_64 bfd_h_put_64
 #define bfd_h_get_64(abfd, ptr_) BFD_SEND(abfd, bfd_h_getx64, (ptr_))
 #define bfd_h_get_signed_64(abfd, ptr_) BFD_SEND(abfd, bfd_h_getx_signed_64, (ptr_))
@@ -923,6 +944,8 @@ declare function bfd_get_mtime(byval abfd as bfd ptr) as clong
 #endif
 
 #if ((__BFD_VER__ = 217) or (__BFD_VER__ = 218) or (__BFD_VER__ = 219) or (__BFD_VER__ = 220) or (__BFD_VER__ = 221) or (__BFD_VER__ = 222) or (__BFD_VER__ = 223) or (__BFD_VER__ = 224) or (__BFD_VER__ = 225)) and (defined(__FB_LINUX__) or (defined(__FB_WIN32__) or defined(__FB_DOS__)))
+	type bfd_link_order as bfd_link_order_
+
 	union bfd_section_map_head
 		link_order as bfd_link_order ptr
 		s as bfd_section ptr
@@ -935,6 +958,10 @@ declare function bfd_get_mtime(byval abfd as bfd ptr) as clong
 
 type reloc_cache_entry as reloc_cache_entry_
 type relent_chain as relent_chain_
+
+#if __BFD_VER__ = 216
+	type bfd_link_order as bfd_link_order_
+#endif
 
 type bfd_section_
 	name as const zstring ptr
@@ -1142,20 +1169,20 @@ const SEC_LINK_DUPLICATES_DISCARD = &h0
 #if __BFD_VER__ = 223
 	extern std_section(0 to 3) as asection
 #elseif __BFD_VER__ = 225
-	private function bfd_set_section_userdata(byval abfd as bfd ptr, byval ptr as asection ptr, byval val as any ptr) as bfd_boolean
-		ptr->userdata = val
+	private function bfd_set_section_userdata(byval abfd as bfd ptr, byval ptr_ as asection ptr, byval val_ as any ptr) as bfd_boolean
+		ptr_->userdata = val_
 		return 1
 	end function
 
-	private function bfd_set_section_vma(byval abfd as bfd ptr, byval ptr as asection ptr, byval val as bfd_vma) as bfd_boolean
-		ptr->vma = val
-		ptr->lma = val
-		ptr->user_set_vma = 1
+	private function bfd_set_section_vma(byval abfd as bfd ptr, byval ptr_ as asection ptr, byval val_ as bfd_vma) as bfd_boolean
+		ptr_->vma = val_
+		ptr_->lma = val_
+		ptr_->user_set_vma = 1
 		return 1
 	end function
 
-	private function bfd_set_section_alignment(byval abfd as bfd ptr, byval ptr as asection ptr, byval val as ulong) as bfd_boolean
-		ptr->alignment_power = val
+	private function bfd_set_section_alignment(byval abfd as bfd ptr, byval ptr_ as asection ptr, byval val_ as ulong) as bfd_boolean
+		ptr_->alignment_power = val_
 		return 1
 	end function
 #endif
@@ -1360,7 +1387,7 @@ declare function bfd_set_section_flags(byval abfd as bfd ptr, byval sec as asect
 
 declare sub bfd_map_over_sections(byval abfd as bfd ptr, byval func as sub(byval abfd as bfd ptr, byval sect as asection ptr, byval obj as any ptr), byval obj as any ptr)
 declare function bfd_sections_find_if(byval abfd as bfd ptr, byval operation as function(byval abfd as bfd ptr, byval sect as asection ptr, byval obj as any ptr) as bfd_boolean, byval obj as any ptr) as asection ptr
-declare function bfd_set_section_size(byval abfd as bfd ptr, byval sec as asection ptr, byval val as bfd_size_type) as bfd_boolean
+declare function bfd_set_section_size(byval abfd as bfd ptr, byval sec as asection ptr, byval val_ as bfd_size_type) as bfd_boolean
 declare function bfd_set_section_contents(byval abfd as bfd ptr, byval section as asection ptr, byval data as const any ptr, byval offset as file_ptr, byval count as bfd_size_type) as bfd_boolean
 declare function bfd_get_section_contents(byval abfd as bfd ptr, byval section as asection ptr, byval location as any ptr, byval offset as file_ptr, byval count as bfd_size_type) as bfd_boolean
 declare function bfd_malloc_and_get_section(byval abfd as bfd ptr, byval section as asection ptr, byval buf as bfd_byte ptr ptr) as bfd_boolean
@@ -5031,9 +5058,9 @@ const BSF_NO_FLAGS = &h00
 
 #define bfd_get_symtab_upper_bound(abfd) BFD_SEND(abfd, _bfd_get_symtab_upper_bound, (abfd))
 declare function bfd_is_local_label(byval abfd as bfd ptr, byval sym as asymbol ptr) as bfd_boolean
-declare function bfd_is_local_label_name(byval abfd as bfd ptr, byval name as const zstring ptr) as bfd_boolean
+declare function bfd_is_local_label_name_ alias "bfd_is_local_label_name"(byval abfd as bfd ptr, byval name as const zstring ptr) as bfd_boolean
 #define bfd_is_local_label_name(abfd, name) BFD_SEND (abfd, _bfd_is_local_label_name, (abfd, name))
-declare function bfd_is_target_special_symbol(byval abfd as bfd ptr, byval sym as asymbol ptr) as bfd_boolean
+declare function bfd_is_target_special_symbol_ alias "bfd_is_target_special_symbol"(byval abfd as bfd ptr, byval sym as asymbol ptr) as bfd_boolean
 #define bfd_is_target_special_symbol(abfd, sym) BFD_SEND (abfd, _bfd_is_target_special_symbol, (abfd, sym))
 #define bfd_canonicalize_symtab(abfd, location) BFD_SEND (abfd, _bfd_canonicalize_symtab, (abfd, location))
 declare function bfd_set_symtab(byval abfd as bfd ptr, byval location as asymbol ptr ptr, byval count as ulong) as bfd_boolean
@@ -5044,7 +5071,7 @@ declare function _bfd_generic_make_empty_symbol(byval as bfd ptr) as asymbol ptr
 declare function bfd_decode_symclass(byval symbol as asymbol ptr) as long
 declare function bfd_is_undefined_symclass(byval symclass as long) as bfd_boolean
 declare sub bfd_symbol_info(byval symbol as asymbol ptr, byval ret as symbol_info ptr)
-declare function bfd_copy_private_symbol_data(byval ibfd as bfd ptr, byval isym as asymbol ptr, byval obfd as bfd ptr, byval osym as asymbol ptr) as bfd_boolean
+declare function bfd_copy_private_symbol_data_ alias "bfd_copy_private_symbol_data"(byval ibfd as bfd ptr, byval isym as asymbol ptr, byval obfd as bfd ptr, byval osym as asymbol ptr) as bfd_boolean
 #define bfd_copy_private_symbol_data(ibfd, isymbol, obfd, osymbol) BFD_SEND (obfd, _bfd_copy_private_symbol_data, (ibfd, isymbol, obfd, osymbol))
 
 type bfd_direction as long
@@ -5061,6 +5088,50 @@ end enum
 		hash as bfd_link_hash_table ptr
 	end union
 #endif
+
+type aout_data_struct as aout_data_struct_
+type artdata as artdata_
+type _oasys_data as _oasys_data_
+type _oasys_ar_data as _oasys_ar_data_
+type coff_tdata as coff_tdata_
+type pe_tdata as pe_tdata_
+type xcoff_tdata as xcoff_tdata_
+type ecoff_tdata as ecoff_tdata_
+type ieee_data_struct as ieee_data_struct_
+type ieee_ar_data_struct as ieee_ar_data_struct_
+type srec_data_struct as srec_data_struct_
+
+#if ((__BFD_VER__ = 220) or (__BFD_VER__ = 221) or (__BFD_VER__ = 222) or (__BFD_VER__ = 223) or (__BFD_VER__ = 224) or (__BFD_VER__ = 225)) and (defined(__FB_LINUX__) or (defined(__FB_WIN32__) or defined(__FB_DOS__)))
+	type verilog_data_struct as verilog_data_struct_
+#endif
+
+type ihex_data_struct as ihex_data_struct_
+type tekhex_data_struct as tekhex_data_struct_
+type elf_obj_tdata as elf_obj_tdata_
+type nlm_obj_tdata as nlm_obj_tdata_
+type bout_data_struct as bout_data_struct_
+type mmo_data_struct as mmo_data_struct_
+type sun_core_struct as sun_core_struct_
+type trad_core_struct as trad_core_struct_
+type som_data_struct as som_data_struct_
+type hpux_core_struct as hpux_core_struct_
+type hppabsd_core_struct as hppabsd_core_struct_
+type sgi_core_struct as sgi_core_struct_
+type lynx_core_struct as lynx_core_struct_
+type osf_core_struct as osf_core_struct_
+type cisco_core_struct as cisco_core_struct_
+type versados_data_struct as versados_data_struct_
+type netbsd_core_struct as netbsd_core_struct_
+type mach_o_data_struct as mach_o_data_struct_
+type mach_o_fat_data_struct as mach_o_fat_data_struct_
+
+#if ((__BFD_VER__ = 220) or (__BFD_VER__ = 221) or (__BFD_VER__ = 222) or (__BFD_VER__ = 223) or (__BFD_VER__ = 224) or (__BFD_VER__ = 225)) and (defined(__FB_LINUX__) or (defined(__FB_WIN32__) or defined(__FB_DOS__)))
+	type plugin_data_struct as plugin_data_struct_
+#endif
+
+type bfd_pef_data_struct as bfd_pef_data_struct_
+type bfd_pef_xlib_data_struct as bfd_pef_xlib_data_struct_
+type bfd_sym_data_struct as bfd_sym_data_struct_
 
 union bfd_tdata
 	aout_data as aout_data_struct ptr
@@ -5259,7 +5330,7 @@ end type
 	const HAS_DEBUG = &h08
 	const HAS_SYMS = &h10
 	const HAS_LOCALS = &h20
-	const DYNAMIC = &h40
+	const DYNAMIC_ = &h40
 	const WP_TEXT = &h80
 	const D_PAGED = &h100
 	const BFD_IS_RELAXABLE = &h200
@@ -5294,8 +5365,8 @@ end type
 #endif
 
 #if __BFD_VER__ = 225
-	private function bfd_set_cacheable(byval abfd as bfd ptr, byval val as bfd_boolean) as bfd_boolean
-		abfd->cacheable = val
+	private function bfd_set_cacheable(byval abfd as bfd ptr, byval val_ as bfd_boolean) as bfd_boolean
+		abfd->cacheable = val_
 		return 1
 	end function
 #endif
@@ -5773,12 +5844,12 @@ declare function bfd_link_split_section(byval abfd as bfd ptr, byval sec as asec
 #define bfd_link_split_section(abfd, sec) BFD_SEND (abfd, _bfd_link_split_section, (abfd, sec))
 
 #if (__BFD_VER__ = 216) or (__BFD_VER__ = 217)
-	declare sub bfd_section_already_linked(byval abfd as bfd ptr, byval sec as asection ptr)
+	declare sub bfd_section_already_linked_ alias "bfd_section_already_linked"(byval abfd as bfd ptr, byval sec as asection ptr)
 	#define bfd_section_already_linked(abfd, sec) BFD_SEND (abfd, _section_already_linked, (abfd, sec))
 #elseif ((__BFD_VER__ = 218) or (__BFD_VER__ = 219) or (__BFD_VER__ = 220) or (__BFD_VER__ = 221)) and (defined(__FB_LINUX__) or (defined(__FB_WIN32__) or defined(__FB_DOS__)))
-	declare sub bfd_section_already_linked(byval abfd as bfd ptr, byval sec as asection ptr, byval info as bfd_link_info ptr)
+	declare sub bfd_section_already_linked_ alias "bfd_section_already_linked"(byval abfd as bfd ptr, byval sec as asection ptr, byval info as bfd_link_info ptr)
 #else
-	declare function bfd_section_already_linked(byval abfd as bfd ptr, byval sec as asection ptr, byval info as bfd_link_info ptr) as bfd_boolean
+	declare function bfd_section_already_linked_ alias "bfd_section_already_linked"(byval abfd as bfd ptr, byval sec as asection ptr, byval info as bfd_link_info ptr) as bfd_boolean
 #endif
 
 #if ((__BFD_VER__ = 218) or (__BFD_VER__ = 219) or (__BFD_VER__ = 220) or (__BFD_VER__ = 221) or (__BFD_VER__ = 222) or (__BFD_VER__ = 223) or (__BFD_VER__ = 224) or (__BFD_VER__ = 225)) and (defined(__FB_LINUX__) or (defined(__FB_WIN32__) or defined(__FB_DOS__)))
@@ -5801,7 +5872,7 @@ declare function bfd_simple_get_relocated_section_contents(byval abfd as bfd ptr
 	declare function bfd_uncompress_section_contents(byval buffer as bfd_byte ptr ptr, byval size as bfd_size_type ptr) as bfd_boolean
 #elseif ((__BFD_VER__ = 221) or (__BFD_VER__ = 222) or (__BFD_VER__ = 223) or (__BFD_VER__ = 224) or (__BFD_VER__ = 225)) and (defined(__FB_LINUX__) or (defined(__FB_WIN32__) or defined(__FB_DOS__)))
 	declare function bfd_compress_section_contents(byval abfd as bfd ptr, byval section as asection ptr, byval uncompressed_buffer as bfd_byte ptr, byval uncompressed_size as bfd_size_type) as bfd_boolean
-	declare function bfd_get_full_section_contents(byval abfd as bfd ptr, byval section as asection ptr, byval ptr as bfd_byte ptr ptr) as bfd_boolean
+	declare function bfd_get_full_section_contents(byval abfd as bfd ptr, byval section as asection ptr, byval ptr_ as bfd_byte ptr ptr) as bfd_boolean
 #endif
 
 #if (__BFD_VER__ = 224) or (__BFD_VER__ = 225)

@@ -1,5 +1,9 @@
 -replacements bfd.replacements
 
+-removeinclude ansidecl.h
+-removeinclude symcat.h
+-removeinclude sys/stat.h
+
 -convbodytokens bfd_canonicalize_dynamic_reloc
 -convbodytokens bfd_canonicalize_dynamic_symtab
 -convbodytokens bfd_canonicalize_symtab
@@ -65,7 +69,61 @@
 -removedefine LITMEMCPY
 -removedefine LITSTRCPY
 
--renamemacroparam ptr ptr_
+-rename DYNAMIC DYNAMIC_
+-rename ptr ptr_
+-rename val val_
+-renameproc bfd_is_local_label_name bfd_is_local_label_name_
+-renameproc bfd_is_target_special_symbol bfd_is_target_special_symbol_
+-renameproc bfd_copy_private_symbol_data bfd_copy_private_symbol_data_
+-renameproc bfd_section_already_linked bfd_section_already_linked_
 
 # #defining PACKAGE to override bfd-in2.h's check for config.h
 -define PACKAGE 1
+
+-addforwarddecl bfd_strtab_hash
+-addforwarddecl bfd_link_info
+-addforwarddecl bfd_section_already_linked
+-addforwarddecl ecoff_debug_info
+-addforwarddecl ecoff_debug_swap
+-addforwarddecl ecoff_extr
+-addforwarddecl _bfd_window_internal
+-addforwarddecl bfd_link_hash_entry
+-addforwarddecl internal_syment
+-addforwarddecl internal_auxent
+-addforwarddecl bfd_link_order
+-addforwarddecl aout_data_struct
+-addforwarddecl artdata
+-addforwarddecl bfd_pef_data_struct
+-addforwarddecl bfd_pef_xlib_data_struct
+-addforwarddecl bfd_sym_data_struct
+-addforwarddecl bout_data_struct
+-addforwarddecl cisco_core_struct
+-addforwarddecl coff_tdata
+-addforwarddecl ecoff_tdata
+-addforwarddecl elf_obj_tdata
+-addforwarddecl hppabsd_core_struct
+-addforwarddecl hpux_core_struct
+-addforwarddecl ieee_ar_data_struct
+-addforwarddecl ieee_data_struct
+-addforwarddecl ihex_data_struct
+-addforwarddecl lynx_core_struct
+-addforwarddecl mach_o_data_struct
+-addforwarddecl mach_o_fat_data_struct
+-addforwarddecl mmo_data_struct
+-addforwarddecl netbsd_core_struct
+-addforwarddecl nlm_obj_tdata
+-addforwarddecl _oasys_ar_data
+-addforwarddecl _oasys_data
+-addforwarddecl osf_core_struct
+-addforwarddecl pe_tdata
+-addforwarddecl plugin_data_struct
+-addforwarddecl sco5sco5_core_struct
+-addforwarddecl sgi_core_struct
+-addforwarddecl som_data_struct
+-addforwarddecl srec_data_struct
+-addforwarddecl sun_core_struct
+-addforwarddecl tekhex_data_struct
+-addforwarddecl trad_core_struct
+-addforwarddecl verilog_data_struct
+-addforwarddecl versados_data_struct
+-addforwarddecl xcoff_tdata
