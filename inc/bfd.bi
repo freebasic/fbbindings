@@ -1131,9 +1131,21 @@ const SEC_LINK_DUPLICATES_DISCARD = &h0
 #if __BFD_VER__ = 223
 	extern std_section(0 to 3) as asection
 #elseif __BFD_VER__ = 225
-	'' TODO: static inline bfd_boolean bfd_set_section_userdata (bfd * abfd ATTRIBUTE_UNUSED, asection * ptr, void * val){ ptr->userdata = val; return 1;}
-	'' TODO: static inline bfd_boolean bfd_set_section_vma (bfd * abfd ATTRIBUTE_UNUSED, asection * ptr, bfd_vma val){ ptr->vma = ptr->lma = val; ptr->user_set_vma = 1; return 1;}
-	'' TODO: static inline bfd_boolean bfd_set_section_alignment (bfd * abfd ATTRIBUTE_UNUSED, asection * ptr, unsigned int val){ ptr->alignment_power = val; return 1;}
+	private function bfd_set_section_userdata(byval abfd as bfd ptr, byval ptr as asection ptr, byval val as any ptr) as bfd_boolean
+		ptr->userdata = val
+		return 1
+	end function
+
+	private function bfd_set_section_vma(byval abfd as bfd ptr, byval ptr as asection ptr, byval val as bfd_vma) as bfd_boolean
+		'' TODO: ptr->vma = ptr->lma = val;
+		ptr->user_set_vma = 1
+		return 1
+	end function
+
+	private function bfd_set_section_alignment(byval abfd as bfd ptr, byval ptr as asection ptr, byval val as ulong) as bfd_boolean
+		ptr->alignment_power = val
+		return 1
+	end function
 #endif
 
 #if (__BFD_VER__ = 224) or (__BFD_VER__ = 225)
@@ -5181,8 +5193,8 @@ type bfd_
 		memory as any ptr
 	#else
 		id as ulong
-		'' TODO: ENUM_BITFIELD (bfd_format) format : 3;
-		'' TODO: ENUM_BITFIELD (bfd_direction) direction : 2;
+		format : 3 as bfd_format
+		direction : 2 as bfd_direction
 		flags : 17 as flagword
 	#endif
 

@@ -38,6 +38,7 @@ mergedtitle=""
 for v in $versions; do
 	cat >> bfd.mk <<EOF
 		-case $v \\
+			-incdir extracted/\$(BINUTILS_$v)/include \\
 			-ifdef __FB_DOS__ \\
 				extracted/\$(BINUTILS_$v)/bfd/bfd-in3-djgpp.h \\
 			-else \\
@@ -59,7 +60,7 @@ done
 
 cat >> bfd.mk <<EOF
 		-endselect \\
-		-emit '*' inc/bfd.bi \\
+		-emit '*/bfd/bfd-*.h' inc/bfd.bi \\
 		-title "$mergedtitle" bfd-$lastversion.tmp fbteam.txt inc/bfd.bi
 
 	rm *.tmp
