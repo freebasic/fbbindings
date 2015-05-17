@@ -40,6 +40,7 @@
 #endif
 
 #include once "crt/long.bi"
+type stat as stat_  '' TODO: remove as soon as fbc's CRT headers define it
 
 '' The following symbols have been renamed:
 ''     #if ((__BFD_VER__ = 216) or (__BFD_VER__ = 217) or (__BFD_VER__ = 218)) and (defined(__FB_LINUX__) or (defined(__FB_WIN32__) or defined(__FB_DOS__)))
