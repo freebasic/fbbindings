@@ -2,7 +2,7 @@ FBFROG := fbfrog
 
 ALL := allegro allegro4 allegro5 aspell atk
 ALL += bass bassmod bfd bzip2
-ALL += caca cairo cgui clang cunit curl
+ALL += caca cairo cd cgui clang cunit curl
 ALL += fastcgi ffi fontconfig freeglut freetype
 ALL += gdkpixbuf glib glibc glfw glut gtk gtk2 gtk3 gtkglext
 ALL += iconv iup
@@ -511,6 +511,56 @@ cairo: cairo-extract
 		-inclib cairo inc/cairo/cairo.bi \
 		-title $(CAIRO) cairo.tmp gtk+-translators.txt
 	rm *.tmp
+
+# Canvas Draw
+CD_VERSION := 5.8.1
+CD := cd-$(CD_VERSION)
+cd:
+	./get.sh cd $(CD)_Sources.tar.gz http://sourceforge.net/projects/canvasdraw/files/$(CD_VERSION)/Docs%20and%20Sources/$(CD)_Sources.tar.gz/download
+	find extracted/cd/ -type d -exec chmod +x '{}' ';'
+
+	sed -n 524,543p extracted/cd/include/cd.h > cd.tmp
+
+	mkdir -p inc/cd
+	$(FBFROG) cd.fbfrog \
+		extracted/cd/include/*.h \
+		\
+		-emit '*/cdcairo.h'        inc/cd/cdcairo.bi \
+		-emit '*/cdcgm.h'          inc/cd/cdcgm.bi \
+		-emit '*/cdclipbd.h'       inc/cd/cdclipbd.bi \
+		-emit '*/cddbuf.h'         inc/cd/cddbuf.bi \
+		-emit '*/cddebug.h'        inc/cd/cddebug.bi \
+		-emit '*/cddgn.h'          inc/cd/cddgn.bi \
+		-emit '*/cddxf.h'          inc/cd/cddxf.bi \
+		-emit '*/cdemf.h'          inc/cd/cdemf.bi \
+		-emit '*/cdgdiplus.h'      inc/cd/cdgdiplus.bi \
+		-emit '*/cdgl.h'           inc/cd/cdgl.bi \
+		-emit '*/cd.h'             inc/cd/cd.bi \
+		-emit '*/cdimage.h'        inc/cd/cdimage.bi \
+		-emit '*/cdirgb.h'         inc/cd/cdirgb.bi \
+		-emit '*/cdiup.h'          inc/cd/cdiup.bi \
+		-emit '*/cdlua3_private.h' inc/cd/cdlua3_private.bi \
+		-emit '*/cdlua5_private.h' inc/cd/cdlua5_private.bi \
+		-emit '*/cdluagl.h'        inc/cd/cdluagl.bi \
+		-emit '*/cdlua.h'          inc/cd/cdlua.bi \
+		-emit '*/cdluaim.h'        inc/cd/cdluaim.bi \
+		-emit '*/cdluaiup.h'       inc/cd/cdluaiup.bi \
+		-emit '*/cdluapdf.h'       inc/cd/cdluapdf.bi \
+		-emit '*/cdmf.h'           inc/cd/cdmf.bi \
+		-emit '*/cdmf_private.h'   inc/cd/cdmf_private.bi \
+		-emit '*/cdnative.h'       inc/cd/cdnative.bi \
+		-emit '*/cd_old.h'         inc/cd/cd_old.bi \
+		-emit '*/cdpdf.h'          inc/cd/cdpdf.bi \
+		-emit '*/cdpicture.h'      inc/cd/cdpicture.bi \
+		-emit '*/cdprint.h'        inc/cd/cdprint.bi \
+		-emit '*/cd_private.h'     inc/cd/cd_private.bi \
+		-emit '*/cdps.h'           inc/cd/cdps.bi \
+		-emit '*/cdsvg.h'          inc/cd/cdsvg.bi \
+		-emit '*/cdwmf.h'          inc/cd/cdwmf.bi \
+		-emit '*/wd.h'             inc/cd/wd.bi \
+		-emit '*/wd_old.h'         inc/cd/wd_old.bi \
+		\
+		-title $(CD) cd.tmp fbteam.txt
 
 CGUI_VERSION := 2.0.4
 CGUI := cgui-$(CGUI_VERSION)
