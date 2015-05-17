@@ -204,11 +204,11 @@ declare sub cdDecodeColor(byval color as clong, byval red as ubyte ptr, byval gr
 declare function cdDecodeAlpha(byval color as clong) as ubyte
 declare function cdEncodeAlpha(byval color as clong, byval alpha as ubyte) as clong
 
-#define cdAlpha(_) cubyte(not (((_) shr 24) and &hFF))
-#define cdReserved(_) cubyte(((_) shr 24) and &hFF)
-#define cdRed(_) cubyte(((_) shr 16) and &hFF)
-#define cdGreen(_) cubyte(((_) shr 8) and &hFF)
-#define cdBlue(_) cubyte(((_) shr 0) and &hFF)
+#define cdAlpha(x) cubyte(not (((x) shr 24) and &hFF))
+#define cdReserved(x) cubyte(((x) shr 24) and &hFF)
+#define cdRed(x) cubyte(((x) shr 16) and &hFF)
+#define cdGreen(x) cubyte(((x) shr 8) and &hFF)
+#define cdBlue(x) cubyte(((x) shr 0) and &hFF)
 declare sub cdRGB2Map(byval width as long, byval height as long, byval red as const ubyte ptr, byval green as const ubyte ptr, byval blue as const ubyte ptr, byval index as ubyte ptr, byval pal_size as long, byval color as clong ptr)
 const CD_QUERY = -1
 

@@ -1,1 +1,3 @@
 -replacements cd.replacements
+
+-renamemacroparam _ x
