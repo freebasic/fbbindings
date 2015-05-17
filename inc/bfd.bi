@@ -30,6 +30,9 @@
 
 #include once "crt/long.bi"
 
+'' The following symbols have been renamed:
+''     constant DYNAMIC => DYNAMIC_
+
 extern "C"
 
 #define __BFD_H_SEEN__
@@ -158,7 +161,7 @@ end enum
 	const HAS_DEBUG = &h08
 	const HAS_SYMS = &h10
 	const HAS_LOCALS = &h20
-	const DYNAMIC = &h40
+	const DYNAMIC_ = &h40
 	const WP_TEXT = &h80
 	const D_PAGED = &h100
 	const BFD_IS_RELAXABLE = &h200
@@ -255,8 +258,8 @@ type sec_ptr as bfd_section ptr
 			(ptr)->user_set_vma = TRUE
 		end scope
 	#endmacro
-	#define bfd_set_section_alignment(bfd, ptr_, val) scope : (ptr_)->alignment_power = (val) : end scope
-	#define bfd_set_section_userdata(bfd, ptr_, val) scope : (ptr_)->userdata = (val) : end scope
+	#define bfd_set_section_alignment(bfd, ptr_, val_) scope : (ptr_)->alignment_power = (val_) : end scope
+	#define bfd_set_section_userdata(bfd, ptr_, val_) scope : (ptr_)->userdata = (val_) : end scope
 #endif
 
 #if ((__BFD_VER__ = 216) or (__BFD_VER__ = 217) or (__BFD_VER__ = 218) or (__BFD_VER__ = 219) or (__BFD_VER__ = 220) or (__BFD_VER__ = 221)) and (defined(__FB_LINUX__) or (defined(__FB_WIN32__) or defined(__FB_DOS__)))
@@ -841,7 +844,7 @@ declare function bfd_follow_gnu_debuglink(byval abfd as bfd ptr, byval dir as co
 
 declare function bfd_create_gnu_debuglink_section(byval abfd as bfd ptr, byval filename as const zstring ptr) as bfd_section ptr
 declare function bfd_fill_in_gnu_debuglink_section(byval abfd as bfd ptr, byval sect as bfd_section ptr, byval filename as const zstring ptr) as bfd_boolean
-#define bfd_put_8(abfd, val, ptr_) scope : (*cptr(ubyte ptr, (ptr_))) = (val) and &hff : end scope
+#define bfd_put_8(abfd, val_, ptr_) scope : (*cptr(ubyte ptr, (ptr_))) = (val_) and &hff : end scope
 #define bfd_put_signed_8 bfd_put_8
 
 #if ((__BFD_VER__ = 216) or (__BFD_VER__ = 217) or (__BFD_VER__ = 218) or (__BFD_VER__ = 219) or (__BFD_VER__ = 220)) and (defined(__FB_LINUX__) or (defined(__FB_WIN32__) or defined(__FB_DOS__)))
@@ -852,15 +855,15 @@ declare function bfd_fill_in_gnu_debuglink_section(byval abfd as bfd ptr, byval 
 	#define bfd_get_signed_8(abfd, ptr_) ((((*cptr(const ubyte ptr, (ptr_))) and &hff) xor &h80) - &h80)
 #endif
 
-#define bfd_put_16(abfd, val, ptr_) BFD_SEND (abfd, bfd_putx16, ((val), (ptr)))
+#define bfd_put_16(abfd, val_, ptr_) BFD_SEND (abfd, bfd_putx16, ((val), (ptr)))
 #define bfd_put_signed_16 bfd_put_16
 #define bfd_get_16(abfd, ptr_) BFD_SEND(abfd, bfd_getx16, (ptr_))
 #define bfd_get_signed_16(abfd, ptr_) BFD_SEND(abfd, bfd_getx_signed_16, (ptr_))
-#define bfd_put_32(abfd, val, ptr_) BFD_SEND (abfd, bfd_putx32, ((val), (ptr)))
+#define bfd_put_32(abfd, val_, ptr_) BFD_SEND (abfd, bfd_putx32, ((val), (ptr)))
 #define bfd_put_signed_32 bfd_put_32
 #define bfd_get_32(abfd, ptr_) BFD_SEND(abfd, bfd_getx32, (ptr_))
 #define bfd_get_signed_32(abfd, ptr_) BFD_SEND(abfd, bfd_getx_signed_32, (ptr_))
-#define bfd_put_64(abfd, val, ptr_) BFD_SEND (abfd, bfd_putx64, ((val), (ptr)))
+#define bfd_put_64(abfd, val_, ptr_) BFD_SEND (abfd, bfd_putx64, ((val), (ptr)))
 #define bfd_put_signed_64 bfd_put_64
 #define bfd_get_64(abfd, ptr_) BFD_SEND(abfd, bfd_getx64, (ptr_))
 #define bfd_get_signed_64(abfd, ptr_) BFD_SEND(abfd, bfd_getx_signed_64, (ptr_))
@@ -875,19 +878,19 @@ declare function bfd_fill_in_gnu_debuglink_section(byval abfd as bfd ptr, byval 
 		abort()
 	end select
 #endmacro
-#define bfd_h_put_8(abfd, val, ptr_) bfd_put_8(abfd, val, ptr_)
-#define bfd_h_put_signed_8(abfd, val, ptr_) bfd_put_8(abfd, val, ptr_)
+#define bfd_h_put_8(abfd, val_, ptr_) bfd_put_8(abfd, val_, ptr_)
+#define bfd_h_put_signed_8(abfd, val_, ptr_) bfd_put_8(abfd, val_, ptr_)
 #define bfd_h_get_8(abfd, ptr_) bfd_get_8(abfd, ptr_)
 #define bfd_h_get_signed_8(abfd, ptr_) bfd_get_signed_8(abfd, ptr_)
-#define bfd_h_put_16(abfd, val, ptr_) BFD_SEND (abfd, bfd_h_putx16, (val, ptr))
+#define bfd_h_put_16(abfd, val_, ptr_) BFD_SEND (abfd, bfd_h_putx16, (val, ptr))
 #define bfd_h_put_signed_16 bfd_h_put_16
 #define bfd_h_get_16(abfd, ptr_) BFD_SEND(abfd, bfd_h_getx16, (ptr_))
 #define bfd_h_get_signed_16(abfd, ptr_) BFD_SEND(abfd, bfd_h_getx_signed_16, (ptr_))
-#define bfd_h_put_32(abfd, val, ptr_) BFD_SEND (abfd, bfd_h_putx32, (val, ptr))
+#define bfd_h_put_32(abfd, val_, ptr_) BFD_SEND (abfd, bfd_h_putx32, (val, ptr))
 #define bfd_h_put_signed_32 bfd_h_put_32
 #define bfd_h_get_32(abfd, ptr_) BFD_SEND(abfd, bfd_h_getx32, (ptr_))
 #define bfd_h_get_signed_32(abfd, ptr_) BFD_SEND(abfd, bfd_h_getx_signed_32, (ptr_))
-#define bfd_h_put_64(abfd, val, ptr_) BFD_SEND (abfd, bfd_h_putx64, (val, ptr))
+#define bfd_h_put_64(abfd, val_, ptr_) BFD_SEND (abfd, bfd_h_putx64, (val, ptr))
 #define bfd_h_put_signed_64 bfd_h_put_64
 #define bfd_h_get_64(abfd, ptr_) BFD_SEND(abfd, bfd_h_getx64, (ptr_))
 #define bfd_h_get_signed_64(abfd, ptr_) BFD_SEND(abfd, bfd_h_getx_signed_64, (ptr_))
@@ -1147,20 +1150,20 @@ const SEC_LINK_DUPLICATES_DISCARD = &h0
 #if __BFD_VER__ = 223
 	extern std_section(0 to 3) as asection
 #elseif __BFD_VER__ = 225
-	private function bfd_set_section_userdata(byval abfd as bfd ptr, byval ptr as asection ptr, byval val as any ptr) as bfd_boolean
-		ptr->userdata = val
+	private function bfd_set_section_userdata(byval abfd as bfd ptr, byval ptr_ as asection ptr, byval val_ as any ptr) as bfd_boolean
+		ptr_->userdata = val_
 		return 1
 	end function
 
-	private function bfd_set_section_vma(byval abfd as bfd ptr, byval ptr as asection ptr, byval val as bfd_vma) as bfd_boolean
-		ptr->vma = val
-		ptr->lma = val
-		ptr->user_set_vma = 1
+	private function bfd_set_section_vma(byval abfd as bfd ptr, byval ptr_ as asection ptr, byval val_ as bfd_vma) as bfd_boolean
+		ptr_->vma = val_
+		ptr_->lma = val_
+		ptr_->user_set_vma = 1
 		return 1
 	end function
 
-	private function bfd_set_section_alignment(byval abfd as bfd ptr, byval ptr as asection ptr, byval val as ulong) as bfd_boolean
-		ptr->alignment_power = val
+	private function bfd_set_section_alignment(byval abfd as bfd ptr, byval ptr_ as asection ptr, byval val_ as ulong) as bfd_boolean
+		ptr_->alignment_power = val_
 		return 1
 	end function
 #endif
@@ -1365,7 +1368,7 @@ declare function bfd_set_section_flags(byval abfd as bfd ptr, byval sec as asect
 
 declare sub bfd_map_over_sections(byval abfd as bfd ptr, byval func as sub(byval abfd as bfd ptr, byval sect as asection ptr, byval obj as any ptr), byval obj as any ptr)
 declare function bfd_sections_find_if(byval abfd as bfd ptr, byval operation as function(byval abfd as bfd ptr, byval sect as asection ptr, byval obj as any ptr) as bfd_boolean, byval obj as any ptr) as asection ptr
-declare function bfd_set_section_size(byval abfd as bfd ptr, byval sec as asection ptr, byval val as bfd_size_type) as bfd_boolean
+declare function bfd_set_section_size(byval abfd as bfd ptr, byval sec as asection ptr, byval val_ as bfd_size_type) as bfd_boolean
 declare function bfd_set_section_contents(byval abfd as bfd ptr, byval section as asection ptr, byval data as const any ptr, byval offset as file_ptr, byval count as bfd_size_type) as bfd_boolean
 declare function bfd_get_section_contents(byval abfd as bfd ptr, byval section as asection ptr, byval location as any ptr, byval offset as file_ptr, byval count as bfd_size_type) as bfd_boolean
 declare function bfd_malloc_and_get_section(byval abfd as bfd ptr, byval section as asection ptr, byval buf as bfd_byte ptr ptr) as bfd_boolean
@@ -5308,7 +5311,7 @@ end type
 	const HAS_DEBUG = &h08
 	const HAS_SYMS = &h10
 	const HAS_LOCALS = &h20
-	const DYNAMIC = &h40
+	const DYNAMIC_ = &h40
 	const WP_TEXT = &h80
 	const D_PAGED = &h100
 	const BFD_IS_RELAXABLE = &h200
@@ -5343,8 +5346,8 @@ end type
 #endif
 
 #if __BFD_VER__ = 225
-	private function bfd_set_cacheable(byval abfd as bfd ptr, byval val as bfd_boolean) as bfd_boolean
-		abfd->cacheable = val
+	private function bfd_set_cacheable(byval abfd as bfd ptr, byval val_ as bfd_boolean) as bfd_boolean
+		abfd->cacheable = val_
 		return 1
 	end function
 #endif
@@ -5850,7 +5853,7 @@ declare function bfd_simple_get_relocated_section_contents(byval abfd as bfd ptr
 	declare function bfd_uncompress_section_contents(byval buffer as bfd_byte ptr ptr, byval size as bfd_size_type ptr) as bfd_boolean
 #elseif ((__BFD_VER__ = 221) or (__BFD_VER__ = 222) or (__BFD_VER__ = 223) or (__BFD_VER__ = 224) or (__BFD_VER__ = 225)) and (defined(__FB_LINUX__) or (defined(__FB_WIN32__) or defined(__FB_DOS__)))
 	declare function bfd_compress_section_contents(byval abfd as bfd ptr, byval section as asection ptr, byval uncompressed_buffer as bfd_byte ptr, byval uncompressed_size as bfd_size_type) as bfd_boolean
-	declare function bfd_get_full_section_contents(byval abfd as bfd ptr, byval section as asection ptr, byval ptr as bfd_byte ptr ptr) as bfd_boolean
+	declare function bfd_get_full_section_contents(byval abfd as bfd ptr, byval section as asection ptr, byval ptr_ as bfd_byte ptr ptr) as bfd_boolean
 #endif
 
 #if (__BFD_VER__ = 224) or (__BFD_VER__ = 225)
