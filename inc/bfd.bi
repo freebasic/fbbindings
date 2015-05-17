@@ -5374,15 +5374,15 @@ declare function bfd_set_private_flags(byval abfd as bfd ptr, byval flags as fla
 #endif
 
 #if (__BFD_VER__ = 223) or (__BFD_VER__ = 224)
-	'' TODO: #define bfd_find_nearest_line_discriminator(abfd, sec, syms, off, file, func, line, disc) BFD_SEND (abfd, _bfd_find_nearest_line_discriminator, (abfd, sec, syms, off, file, func, line, disc))
+	#define bfd_find_nearest_line_discriminator(abfd, sec, syms, off, file, func, line, disc) BFD_SEND (abfd, _bfd_find_nearest_line_discriminator, (abfd, sec, syms, off, file, func, line, disc))
 #elseif __BFD_VER__ = 225
 	#define bfd_find_nearest_line(abfd, sec, syms, off, file, func, line) BFD_SEND (abfd, _bfd_find_nearest_line, (abfd, syms, sec, off, file, func, line, NULL))
-	'' TODO: #define bfd_find_nearest_line_discriminator(abfd, sec, syms, off, file, func, line, disc) BFD_SEND (abfd, _bfd_find_nearest_line, (abfd, syms, sec, off, file, func, line, disc))
+	#define bfd_find_nearest_line_discriminator(abfd, sec, syms, off, file, func, line, disc) BFD_SEND (abfd, _bfd_find_nearest_line, (abfd, syms, sec, off, file, func, line, disc))
 #endif
 
 #if ((__BFD_VER__ = 217) or (__BFD_VER__ = 218) or (__BFD_VER__ = 219) or (__BFD_VER__ = 220) or (__BFD_VER__ = 221) or (__BFD_VER__ = 222) or (__BFD_VER__ = 223) or (__BFD_VER__ = 224) or (__BFD_VER__ = 225)) and (defined(__FB_LINUX__) or (defined(__FB_WIN32__) or defined(__FB_DOS__)))
-	'' TODO: #define bfd_find_line(abfd, syms, sym, file, line) BFD_SEND (abfd, _bfd_find_line, (abfd, syms, sym, file, line))
-	'' TODO: #define bfd_find_inliner_info(abfd, file, func, line) BFD_SEND (abfd, _bfd_find_inliner_info, (abfd, file, func, line))
+	#define bfd_find_line(abfd, syms, sym, file, line) BFD_SEND (abfd, _bfd_find_line, (abfd, syms, sym, file, line))
+	#define bfd_find_inliner_info(abfd, file, func, line) BFD_SEND (abfd, _bfd_find_inliner_info, (abfd, file, func, line))
 #endif
 
 #define bfd_debug_info_start(abfd) BFD_SEND(abfd, _bfd_debug_info_start, (abfd))
@@ -5395,9 +5395,9 @@ declare function bfd_set_private_flags(byval abfd as bfd ptr, byval flags as fla
 #define bfd_gc_sections(abfd, link_info) BFD_SEND (abfd, _bfd_gc_sections, (abfd, link_info))
 
 #if __BFD_VER__ = 222
-	'' TODO: #define bfd_lookup_section_flags(link_info, flag_info) BFD_SEND (abfd, _bfd_lookup_section_flags, (link_info, flag_info))
+	#define bfd_lookup_section_flags(link_info, flag_info) BFD_SEND (abfd, _bfd_lookup_section_flags, (link_info, flag_info))
 #elseif ((__BFD_VER__ = 223) or (__BFD_VER__ = 224) or (__BFD_VER__ = 225)) and (defined(__FB_LINUX__) or (defined(__FB_WIN32__) or defined(__FB_DOS__)))
-	'' TODO: #define bfd_lookup_section_flags(link_info, flag_info, section) BFD_SEND (abfd, _bfd_lookup_section_flags, (link_info, flag_info, section))
+	#define bfd_lookup_section_flags(link_info, flag_info, section) BFD_SEND (abfd, _bfd_lookup_section_flags, (link_info, flag_info, section))
 #endif
 
 #define bfd_merge_sections(abfd, link_info) BFD_SEND (abfd, _bfd_merge_sections, (abfd, link_info))
@@ -5691,7 +5691,7 @@ end type
 	#define BFD_JUMP_TABLE_COPY(NAME) NAME##_bfd_copy_private_bfd_data, NAME##_bfd_merge_private_bfd_data, NAME##_bfd_copy_private_section_data, NAME##_bfd_copy_private_symbol_data, NAME##_bfd_copy_private_header_data, NAME##_bfd_set_private_flags, NAME##_bfd_print_private_bfd_data
 #else
 	#define BFD_JUMP_TABLE_COPY(NAME) NAME##_bfd_copy_private_bfd_data, NAME##_bfd_merge_private_bfd_data, _bfd_generic_init_private_section_data, NAME##_bfd_copy_private_section_data, NAME##_bfd_copy_private_symbol_data, NAME##_bfd_copy_private_header_data, NAME##_bfd_set_private_flags, NAME##_bfd_print_private_bfd_data
-	'' TODO: #define bfd_init_private_section_data(ibfd, isec, obfd, osec, link_info) BFD_SEND (obfd, _bfd_init_private_section_data, (ibfd, isec, obfd, osec, link_info))
+	#define bfd_init_private_section_data(ibfd, isec, obfd, osec, link_info) BFD_SEND (obfd, _bfd_init_private_section_data, (ibfd, isec, obfd, osec, link_info))
 #endif
 
 #if ((__BFD_VER__ = 216) or (__BFD_VER__ = 217) or (__BFD_VER__ = 218) or (__BFD_VER__ = 219) or (__BFD_VER__ = 220)) and (defined(__FB_LINUX__) or (defined(__FB_WIN32__) or defined(__FB_DOS__)))
@@ -5740,7 +5740,7 @@ end type
 #endif
 
 #if ((__BFD_VER__ = 221) or (__BFD_VER__ = 222) or (__BFD_VER__ = 223) or (__BFD_VER__ = 224) or (__BFD_VER__ = 225)) and (defined(__FB_LINUX__) or (defined(__FB_WIN32__) or defined(__FB_DOS__)))
-	'' TODO: #define bfd_copy_link_hash_symbol_type(b, t, f) BFD_SEND (b, _bfd_copy_link_hash_symbol_type, (b, t, f))
+	#define bfd_copy_link_hash_symbol_type(b, t, f) BFD_SEND (b, _bfd_copy_link_hash_symbol_type, (b, t, f))
 #endif
 
 #define BFD_JUMP_TABLE_DYNAMIC(NAME) NAME##_get_dynamic_symtab_upper_bound, NAME##_canonicalize_dynamic_symtab, NAME##_get_synthetic_symtab, NAME##_get_dynamic_reloc_upper_bound, NAME##_canonicalize_dynamic_reloc
@@ -5775,7 +5775,7 @@ declare function bfd_link_split_section(byval abfd as bfd ptr, byval sec as asec
 
 #if ((__BFD_VER__ = 220) or (__BFD_VER__ = 221) or (__BFD_VER__ = 222) or (__BFD_VER__ = 223) or (__BFD_VER__ = 224) or (__BFD_VER__ = 225)) and (defined(__FB_LINUX__) or (defined(__FB_WIN32__) or defined(__FB_DOS__)))
 	declare function bfd_generic_define_common_symbol(byval output_bfd as bfd ptr, byval info as bfd_link_info ptr, byval h as bfd_link_hash_entry ptr) as bfd_boolean
-	'' TODO: #define bfd_define_common_symbol(output_bfd, info, h) BFD_SEND (output_bfd, _bfd_define_common_symbol, (output_bfd, info, h))
+	#define bfd_define_common_symbol(output_bfd, info, h) BFD_SEND (output_bfd, _bfd_define_common_symbol, (output_bfd, info, h))
 	declare function bfd_find_version_for_sym(byval verdefs as bfd_elf_version_tree ptr, byval sym_name as const zstring ptr, byval hide as bfd_boolean ptr) as bfd_elf_version_tree ptr
 #endif
 

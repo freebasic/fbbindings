@@ -3,14 +3,19 @@
 -convbodytokens bfd_canonicalize_dynamic_reloc
 -convbodytokens bfd_canonicalize_dynamic_symtab
 -convbodytokens bfd_canonicalize_symtab
+-convbodytokens bfd_copy_link_hash_symbol_type
 -convbodytokens bfd_copy_private_bfd_data
 -convbodytokens bfd_copy_private_header_data
 -convbodytokens bfd_copy_private_section_data
 -convbodytokens bfd_copy_private_symbol_data
 -convbodytokens bfd_debug_info_accumulate
+-convbodytokens bfd_define_common_symbol
 -convbodytokens bfd_discard_group
 -convbodytokens bfd_final_link
+-convbodytokens bfd_find_inliner_info
+-convbodytokens bfd_find_line
 -convbodytokens bfd_find_nearest_line
+-convbodytokens bfd_find_nearest_line_discriminator
 -convbodytokens bfd_gc_sections
 -convbodytokens bfd_get_elt_at_index
 -convbodytokens bfd_get_symbol_info
@@ -18,6 +23,7 @@
 -convbodytokens bfd_h_put_16
 -convbodytokens bfd_h_put_32
 -convbodytokens bfd_h_put_64
+-convbodytokens bfd_init_private_section_data
 -convbodytokens bfd_is_group_section
 -convbodytokens bfd_is_local_label_name
 -convbodytokens bfd_is_target_special_symbol
@@ -33,6 +39,7 @@
 -convbodytokens bfd_link_add_symbols
 -convbodytokens bfd_link_just_syms
 -convbodytokens bfd_link_split_section
+-convbodytokens bfd_lookup_section_flags
 -convbodytokens bfd_make_debug_symbol
 -convbodytokens bfd_merge_private_bfd_data
 -convbodytokens bfd_merge_sections
