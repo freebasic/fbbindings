@@ -29,12 +29,6 @@
 #pragma once
 
 #include once "crt/long.bi"
-#include once "ansidecl.bi"
-#include once "symcat.bi"
-
-#if ((__BFD_VER__ = 223) or (__BFD_VER__ = 224) or (__BFD_VER__ = 225)) and (defined(__FB_LINUX__) or (defined(__FB_WIN32__) or defined(__FB_DOS__)))
-	#include once "sys/stat.bi"
-#endif
 
 extern "C"
 

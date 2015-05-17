@@ -1,5 +1,9 @@
 -replacements bfd.replacements
 
+-removeinclude ansidecl.h
+-removeinclude symcat.h
+-removeinclude sys/stat.h
+
 -convbodytokens bfd_canonicalize_dynamic_reloc
 -convbodytokens bfd_canonicalize_dynamic_symtab
 -convbodytokens bfd_canonicalize_symtab
