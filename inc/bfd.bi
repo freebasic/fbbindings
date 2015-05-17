@@ -242,30 +242,10 @@ type sec_ptr as bfd_section ptr
 	#define bfd_get_section_lma(bfd, ptr_) ((ptr_)->lma + 0)
 	#define bfd_get_section_alignment(bfd, ptr_) ((ptr_)->alignment_power + 0)
 #else
-	#macro bfd_get_section_name(bfd, ptr_)
-		scope
-			cast(any, bfd)
-			(ptr_)->name
-		end scope
-	#endmacro
-	#macro bfd_get_section_vma(bfd, ptr_)
-		scope
-			cast(any, bfd)
-			(ptr_)->vma
-		end scope
-	#endmacro
-	#macro bfd_get_section_lma(bfd, ptr_)
-		scope
-			cast(any, bfd)
-			(ptr_)->lma
-		end scope
-	#endmacro
-	#macro bfd_get_section_alignment(bfd, ptr_)
-		scope
-			cast(any, bfd)
-			(ptr_)->alignment_power
-		end scope
-	#endmacro
+	#define bfd_get_section_name(bfd, ptr_) (ptr_)->name
+	#define bfd_get_section_vma(bfd, ptr_) (ptr_)->vma
+	#define bfd_get_section_lma(bfd, ptr_) (ptr_)->lma
+	#define bfd_get_section_alignment(bfd, ptr_) (ptr_)->alignment_power
 #endif
 
 #define bfd_section_name(bfd, ptr_) (ptr_)->name
@@ -277,22 +257,11 @@ type sec_ptr as bfd_section ptr
 
 #if ((__BFD_VER__ = 216) or (__BFD_VER__ = 217) or (__BFD_VER__ = 218) or (__BFD_VER__ = 219) or (__BFD_VER__ = 220) or (__BFD_VER__ = 221) or (__BFD_VER__ = 222)) and (defined(__FB_LINUX__) or (defined(__FB_WIN32__) or defined(__FB_DOS__)))
 	#define bfd_get_section_flags(bfd, ptr_) ((ptr_)->flags + 0)
-	#define bfd_get_section_userdata(bfd, ptr_) (ptr_)->userdata
 #else
-	#macro bfd_get_section_flags(bfd, ptr_)
-		scope
-			cast(any, bfd)
-			(ptr_)->flags
-		end scope
-	#endmacro
-	#macro bfd_get_section_userdata(bfd, ptr_)
-		scope
-			cast(any, bfd)
-			(ptr_)->userdata
-		end scope
-	#endmacro
+	#define bfd_get_section_flags(bfd, ptr_) (ptr_)->flags
 #endif
 
+#define bfd_get_section_userdata(bfd, ptr_) (ptr_)->userdata
 #define bfd_is_com_section(ptr_) (((ptr_)->flags and SEC_IS_COMMON) <> 0)
 
 #if ((__BFD_VER__ = 216) or (__BFD_VER__ = 217) or (__BFD_VER__ = 218) or (__BFD_VER__ = 219) or (__BFD_VER__ = 220) or (__BFD_VER__ = 221) or (__BFD_VER__ = 222) or (__BFD_VER__ = 223) or (__BFD_VER__ = 224)) and (defined(__FB_LINUX__) or (defined(__FB_WIN32__) or defined(__FB_DOS__)))
