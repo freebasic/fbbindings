@@ -361,6 +361,8 @@ declare sub bfd_hash_traverse(byval as bfd_hash_table ptr, byval as function(byv
 	declare function bfd_hash_set_default_size(byval as culong) as culong
 #endif
 
+type bfd_strtab_hash as bfd_strtab_hash_
+
 type stab_info
 	strings as bfd_strtab_hash ptr
 	includes as bfd_hash_table
@@ -438,16 +440,26 @@ declare function bfd_section_already_linked_table_init() as bfd_boolean
 declare sub bfd_section_already_linked_table_free()
 
 #if ((__BFD_VER__ = 222) or (__BFD_VER__ = 223) or (__BFD_VER__ = 224) or (__BFD_VER__ = 225)) and (defined(__FB_LINUX__) or (defined(__FB_WIN32__) or defined(__FB_DOS__)))
+	type bfd_section_already_linked as bfd_section_already_linked_
+	type bfd_link_info as bfd_link_info_
 	declare function _bfd_handle_already_linked(byval as bfd_section ptr, byval as bfd_section_already_linked ptr, byval as bfd_link_info ptr) as bfd_boolean
 #endif
 
 declare function bfd_ecoff_get_gp_value(byval abfd as bfd ptr) as bfd_vma
 declare function bfd_ecoff_set_gp_value(byval abfd as bfd ptr, byval gp_value as bfd_vma) as bfd_boolean
 declare function bfd_ecoff_set_regmasks(byval abfd as bfd ptr, byval gprmask as culong, byval fprmask as culong, byval cprmask as culong ptr) as bfd_boolean
+type ecoff_debug_info as ecoff_debug_info_
+type ecoff_debug_swap as ecoff_debug_swap_
+
+#if ((__BFD_VER__ = 216) or (__BFD_VER__ = 217) or (__BFD_VER__ = 218) or (__BFD_VER__ = 219) or (__BFD_VER__ = 220) or (__BFD_VER__ = 221)) and (defined(__FB_LINUX__) or (defined(__FB_WIN32__) or defined(__FB_DOS__)))
+	type bfd_link_info as bfd_link_info_
+#endif
+
 declare function bfd_ecoff_debug_init(byval output_bfd as bfd ptr, byval output_debug as ecoff_debug_info ptr, byval output_swap as const ecoff_debug_swap ptr, byval as bfd_link_info ptr) as any ptr
 declare sub bfd_ecoff_debug_free(byval handle as any ptr, byval output_bfd as bfd ptr, byval output_debug as ecoff_debug_info ptr, byval output_swap as const ecoff_debug_swap ptr, byval as bfd_link_info ptr)
 declare function bfd_ecoff_debug_accumulate(byval handle as any ptr, byval output_bfd as bfd ptr, byval output_debug as ecoff_debug_info ptr, byval output_swap as const ecoff_debug_swap ptr, byval input_bfd as bfd ptr, byval input_debug as ecoff_debug_info ptr, byval input_swap as const ecoff_debug_swap ptr, byval as bfd_link_info ptr) as bfd_boolean
 declare function bfd_ecoff_debug_accumulate_other(byval handle as any ptr, byval output_bfd as bfd ptr, byval output_debug as ecoff_debug_info ptr, byval output_swap as const ecoff_debug_swap ptr, byval input_bfd as bfd ptr, byval as bfd_link_info ptr) as bfd_boolean
+type ecoff_extr as ecoff_extr_
 declare function bfd_ecoff_debug_externals(byval abfd as bfd ptr, byval debug as ecoff_debug_info ptr, byval swap as const ecoff_debug_swap ptr, byval relocatable as bfd_boolean, byval get_extr as function(byval as bfd_symbol ptr, byval as ecoff_extr ptr) as bfd_boolean, byval set_index as sub(byval as bfd_symbol ptr, byval as bfd_size_type)) as bfd_boolean
 declare function bfd_ecoff_debug_one_external(byval abfd as bfd ptr, byval debug as ecoff_debug_info ptr, byval swap as const ecoff_debug_swap ptr, byval name as const zstring ptr, byval esym as ecoff_extr ptr) as bfd_boolean
 declare function bfd_ecoff_debug_size(byval abfd as bfd ptr, byval debug as ecoff_debug_info ptr, byval swap as const ecoff_debug_swap ptr) as bfd_size_type
@@ -570,6 +582,7 @@ declare function bfd_sunos_size_dynamic_sections(byval as bfd ptr, byval as bfd_
 declare function bfd_i386linux_size_dynamic_sections(byval as bfd ptr, byval as bfd_link_info ptr) as bfd_boolean
 declare function bfd_m68klinux_size_dynamic_sections(byval as bfd ptr, byval as bfd_link_info ptr) as bfd_boolean
 declare function bfd_sparclinux_size_dynamic_sections(byval as bfd ptr, byval as bfd_link_info ptr) as bfd_boolean
+type _bfd_window_internal as _bfd_window_internal_
 type bfd_window_internal as _bfd_window_internal
 
 type _bfd_window
@@ -588,6 +601,7 @@ declare function bfd_get_file_window(byval as bfd ptr, byval as file_ptr, byval 
 	declare function bfd_xcoff_set_archive_import_path(byval as bfd_link_info ptr, byval as bfd ptr, byval as const zstring ptr) as bfd_boolean
 #endif
 
+type bfd_link_hash_entry as bfd_link_hash_entry_
 declare function bfd_xcoff_link_record_set(byval as bfd ptr, byval as bfd_link_info ptr, byval as bfd_link_hash_entry ptr, byval as bfd_size_type) as bfd_boolean
 declare function bfd_xcoff_import_symbol(byval as bfd ptr, byval as bfd_link_info ptr, byval as bfd_link_hash_entry ptr, byval as bfd_vma, byval as const zstring ptr, byval as const zstring ptr, byval as const zstring ptr, byval as ulong) as bfd_boolean
 declare function bfd_xcoff_export_symbol(byval as bfd ptr, byval as bfd_link_info ptr, byval as bfd_link_hash_entry ptr) as bfd_boolean
@@ -602,7 +616,9 @@ declare function bfd_xcoff_record_link_assignment(byval as bfd ptr, byval as bfd
 
 declare function bfd_xcoff_link_generate_rtinit(byval as bfd ptr, byval as const zstring ptr, byval as const zstring ptr, byval as bfd_boolean) as bfd_boolean
 declare function bfd_xcoff_ar_archive_set_magic(byval as bfd ptr, byval as zstring ptr) as bfd_boolean
+type internal_syment as internal_syment_
 declare function bfd_coff_get_syment(byval as bfd ptr, byval as bfd_symbol ptr, byval as internal_syment ptr) as bfd_boolean
+type internal_auxent as internal_auxent_
 declare function bfd_coff_get_auxent(byval as bfd ptr, byval as bfd_symbol ptr, byval as long, byval as internal_auxent ptr) as bfd_boolean
 declare function bfd_coff_set_symbol_class(byval as bfd ptr, byval as bfd_symbol ptr, byval as ulong) as bfd_boolean
 declare function bfd_m68k_coff_create_embedded_relocs(byval as bfd ptr, byval as bfd_link_info ptr, byval as bfd_section ptr, byval as bfd_section ptr, byval as zstring ptr ptr) as bfd_boolean
@@ -912,6 +928,8 @@ declare function bfd_get_mtime(byval abfd as bfd ptr) as clong
 #endif
 
 #if ((__BFD_VER__ = 217) or (__BFD_VER__ = 218) or (__BFD_VER__ = 219) or (__BFD_VER__ = 220) or (__BFD_VER__ = 221) or (__BFD_VER__ = 222) or (__BFD_VER__ = 223) or (__BFD_VER__ = 224) or (__BFD_VER__ = 225)) and (defined(__FB_LINUX__) or (defined(__FB_WIN32__) or defined(__FB_DOS__)))
+	type bfd_link_order as bfd_link_order_
+
 	union bfd_section_map_head
 		link_order as bfd_link_order ptr
 		s as bfd_section ptr
@@ -924,6 +942,10 @@ declare function bfd_get_mtime(byval abfd as bfd ptr) as clong
 
 type reloc_cache_entry as reloc_cache_entry_
 type relent_chain as relent_chain_
+
+#if __BFD_VER__ = 216
+	type bfd_link_order as bfd_link_order_
+#endif
 
 type bfd_section_
 	name as const zstring ptr
@@ -5050,6 +5072,50 @@ end enum
 		hash as bfd_link_hash_table ptr
 	end union
 #endif
+
+type aout_data_struct as aout_data_struct_
+type artdata as artdata_
+type _oasys_data as _oasys_data_
+type _oasys_ar_data as _oasys_ar_data_
+type coff_tdata as coff_tdata_
+type pe_tdata as pe_tdata_
+type xcoff_tdata as xcoff_tdata_
+type ecoff_tdata as ecoff_tdata_
+type ieee_data_struct as ieee_data_struct_
+type ieee_ar_data_struct as ieee_ar_data_struct_
+type srec_data_struct as srec_data_struct_
+
+#if ((__BFD_VER__ = 220) or (__BFD_VER__ = 221) or (__BFD_VER__ = 222) or (__BFD_VER__ = 223) or (__BFD_VER__ = 224) or (__BFD_VER__ = 225)) and (defined(__FB_LINUX__) or (defined(__FB_WIN32__) or defined(__FB_DOS__)))
+	type verilog_data_struct as verilog_data_struct_
+#endif
+
+type ihex_data_struct as ihex_data_struct_
+type tekhex_data_struct as tekhex_data_struct_
+type elf_obj_tdata as elf_obj_tdata_
+type nlm_obj_tdata as nlm_obj_tdata_
+type bout_data_struct as bout_data_struct_
+type mmo_data_struct as mmo_data_struct_
+type sun_core_struct as sun_core_struct_
+type trad_core_struct as trad_core_struct_
+type som_data_struct as som_data_struct_
+type hpux_core_struct as hpux_core_struct_
+type hppabsd_core_struct as hppabsd_core_struct_
+type sgi_core_struct as sgi_core_struct_
+type lynx_core_struct as lynx_core_struct_
+type osf_core_struct as osf_core_struct_
+type cisco_core_struct as cisco_core_struct_
+type versados_data_struct as versados_data_struct_
+type netbsd_core_struct as netbsd_core_struct_
+type mach_o_data_struct as mach_o_data_struct_
+type mach_o_fat_data_struct as mach_o_fat_data_struct_
+
+#if ((__BFD_VER__ = 220) or (__BFD_VER__ = 221) or (__BFD_VER__ = 222) or (__BFD_VER__ = 223) or (__BFD_VER__ = 224) or (__BFD_VER__ = 225)) and (defined(__FB_LINUX__) or (defined(__FB_WIN32__) or defined(__FB_DOS__)))
+	type plugin_data_struct as plugin_data_struct_
+#endif
+
+type bfd_pef_data_struct as bfd_pef_data_struct_
+type bfd_pef_xlib_data_struct as bfd_pef_xlib_data_struct_
+type bfd_sym_data_struct as bfd_sym_data_struct_
 
 union bfd_tdata
 	aout_data as aout_data_struct ptr
