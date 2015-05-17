@@ -455,28 +455,24 @@ const A_NORMAL = cast(culong, 1) - cast(culong, 1)
 	end scope
 #endmacro
 #macro getsyx(y, x)
-	scope
-		if newscr then
-			if is_leaveok(newscr) then
-				(x) = -1
-				(y) = -1
-			else
-				getyx(newscr, (y), (x))
-			end if
+	if newscr then
+		if is_leaveok(newscr) then
+			(x) = -1
+			(y) = -1
+		else
+			getyx(newscr, (y), (x))
 		end if
-	end scope
+	end if
 #endmacro
 #macro setsyx(y, x)
-	scope
-		if newscr then
-			if ((y) = (-1)) andalso ((x) = (-1)) then
-				leaveok(newscr, TRUE)
-			else
-				leaveok(newscr, FALSE)
-				wmove(newscr, (y), (x))
-			end if
+	if newscr then
+		if ((y) = (-1)) andalso ((x) = (-1)) then
+			leaveok(newscr, TRUE)
+		else
+			leaveok(newscr, FALSE)
+			wmove(newscr, (y), (x))
 		end if
-	end scope
+	end if
 #endmacro
 #define wgetstr(w, s) wgetnstr(w, s, -1)
 #define getnstr(s, n) wgetnstr(stdscr, s, n)
