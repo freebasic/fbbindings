@@ -86,8 +86,7 @@ type bfd_uint64_t as ulongint
 #endif
 
 #if ((__BFD_VER__ = 218) or (__BFD_VER__ = 219) or (__BFD_VER__ = 220) or (__BFD_VER__ = 221) or (__BFD_VER__ = 222) or (__BFD_VER__ = 223) or (__BFD_VER__ = 224) or (__BFD_VER__ = 225)) and (defined(__FB_LINUX__) or (defined(__FB_WIN32__) or defined(__FB_DOS__)))
-	'' TODO: #define BFD_HOSTPTR_T [TK_STRAYBYTE "@"]BFD_HOSTPTR_T[TK_STRAYBYTE "@"]
-	'' TODO: typedef [TK_STRAYBYTE "@"]BFD_HOSTPTR_T[TK_STRAYBYTE "@"] bfd_hostptr_t;
+	type bfd_hostptr_t as uinteger
 #endif
 
 type bfd_boolean as long

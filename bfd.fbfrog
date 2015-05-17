@@ -52,6 +52,7 @@
 -convbodytokens bfd_stat_arch_elt
 
 -removedefine INLINE
+-removedefine BFD_HOSTPTR_T
 
 -renamemacroparam ptr ptr_
 
