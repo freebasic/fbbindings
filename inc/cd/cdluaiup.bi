@@ -27,4 +27,14 @@
 
 #pragma once
 
+extern "C"
+
 #define __CD_LUAIUP_H
+
+#ifdef LUA_NOOBJECT
+	declare sub cdluaiup_open()
+#else
+	declare function cdluaiup_open(byval L as lua_State ptr) as long
+#endif
+
+end extern

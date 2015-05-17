@@ -27,4 +27,14 @@
 
 #pragma once
 
+extern "C"
+
 #define __CD_LUAPDF_H
+
+#ifdef LUA_NOOBJECT
+	declare sub cdluapdf_open()
+#else
+	declare function cdluapdf_open(byval L as lua_State ptr) as long
+#endif
+
+end extern
