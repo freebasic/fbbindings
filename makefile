@@ -402,6 +402,7 @@ BINUTILS_SED += -e 's/@BFD_HOST_64_BIT@/long long/g'
 BINUTILS_SED += -e 's/@BFD_HOST_U_64_BIT@/unsigned long long/g'
 BINUTILS_SED += -e 's/@BFD_HOST_64BIT_LONG@/0/g'
 BINUTILS_SED += -e 's/@BFD_HOST_LONG_LONG@/1/g'
+BINUTILS_SED += -e 's/@BFD_HOSTPTR_T@/size_t/g'
 
 BINUTILS_SED_32 := $(BINUTILS_SED)
 BINUTILS_SED_32 += -e 's/@wordsize@/32/g'

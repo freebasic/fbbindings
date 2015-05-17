@@ -9,6 +9,20 @@ to fb:
 		end scope
 	#endmacro
 
+convert c:
+	static inline bfd_boolean bfd_set_section_vma(bfd *abfd __attribute__((__unused__)), asection *ptr, bfd_vma val) { \
+		ptr->vma = ptr->lma = val; \
+		ptr->user_set_vma = 1; \
+		return 1; \
+	}
+to c:
+	static inline bfd_boolean bfd_set_section_vma(bfd *abfd __attribute__((__unused__)), asection *ptr, bfd_vma val) { \
+		ptr->vma = val; \
+		ptr->lma = val; \
+		ptr->user_set_vma = 1; \
+		return 1; \
+	}
+
 convert c: #define bfd_set_section_alignment(bfd, ptr, val) (((ptr)->alignment_power = (val)),TRUE)
 to c:      #define bfd_set_section_alignment(bfd, ptr, val)  ((ptr)->alignment_power = (val))
 
@@ -63,3 +77,21 @@ to fb:
 
 convert c: #define BFD_SEND_FMT(bfd, message, arglist) (((bfd)->xvec->message[(int) ((bfd)->format)]) arglist)
 to fb:     #define BFD_SEND_FMT(bfd, message, arglist) (((bfd)->xvec->message[  clng((bfd)->format)]) arglist)
+
+convert c: #define bfd_get_section_name(bfd, ptr) ((void) bfd, (ptr)->name)
+to c:      #define bfd_get_section_name(bfd, ptr) (            (ptr)->name)
+
+convert c: #define bfd_get_section_vma(bfd, ptr) ((void) bfd, (ptr)->vma)
+to c:      #define bfd_get_section_vma(bfd, ptr) (            (ptr)->vma)
+
+convert c: #define bfd_get_section_lma(bfd, ptr) ((void) bfd, (ptr)->lma)
+to c:      #define bfd_get_section_lma(bfd, ptr) (            (ptr)->lma)
+
+convert c: #define bfd_get_section_alignment(bfd, ptr) ((void) bfd, (ptr)->alignment_power)
+to c:      #define bfd_get_section_alignment(bfd, ptr) (            (ptr)->alignment_power)
+
+convert c: #define bfd_get_section_flags(bfd, ptr) ((void) bfd, (ptr)->flags)
+to c:      #define bfd_get_section_flags(bfd, ptr) (            (ptr)->flags)
+
+convert c: #define bfd_get_section_userdata(bfd, ptr) ((void) bfd, (ptr)->userdata)
+to c:      #define bfd_get_section_userdata(bfd, ptr) (            (ptr)->userdata)
