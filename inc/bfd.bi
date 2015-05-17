@@ -5086,6 +5086,8 @@ enum
 end enum
 
 #if __BFD_VER__ = 225
+	type bfd_link_hash_table as bfd_link_hash_table_
+
 	union bfd_link
 		next as bfd ptr
 		hash as bfd_link_hash_table ptr
@@ -5598,6 +5600,10 @@ enum
 end enum
 
 type _bfd_link_info as bfd_link_info
+
+#if ((__BFD_VER__ = 216) or (__BFD_VER__ = 217) or (__BFD_VER__ = 218) or (__BFD_VER__ = 219) or (__BFD_VER__ = 220) or (__BFD_VER__ = 221) or (__BFD_VER__ = 222) or (__BFD_VER__ = 223) or (__BFD_VER__ = 224)) and (defined(__FB_LINUX__) or (defined(__FB_WIN32__) or defined(__FB_DOS__)))
+	type bfd_link_hash_table as bfd_link_hash_table_
+#endif
 
 type bfd_target_
 	name as zstring ptr

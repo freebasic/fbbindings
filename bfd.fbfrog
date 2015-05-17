@@ -82,25 +82,24 @@
 # #defining PACKAGE to override bfd-in2.h's check for config.h
 -define PACKAGE 1
 
--addforwarddecl bfd_strtab_hash
--addforwarddecl bfd_link_info
--addforwarddecl bfd_section_already_linked_t
--addforwarddecl ecoff_debug_info
--addforwarddecl ecoff_debug_swap
--addforwarddecl ecoff_extr
--addforwarddecl _bfd_window_internal
--addforwarddecl bfd_link_hash_entry
--addforwarddecl internal_syment
--addforwarddecl internal_auxent
--addforwarddecl bfd_link_order
 -addforwarddecl aout_data_struct
 -addforwarddecl artdata
+-addforwarddecl bfd_link_hash_entry
+-addforwarddecl bfd_link_hash_table
+-addforwarddecl bfd_link_info
+-addforwarddecl bfd_link_order
 -addforwarddecl bfd_pef_data_struct
 -addforwarddecl bfd_pef_xlib_data_struct
+-addforwarddecl bfd_section_already_linked_t
+-addforwarddecl bfd_strtab_hash
 -addforwarddecl bfd_sym_data_struct
+-addforwarddecl _bfd_window_internal
 -addforwarddecl bout_data_struct
 -addforwarddecl cisco_core_struct
 -addforwarddecl coff_tdata
+-addforwarddecl ecoff_debug_info
+-addforwarddecl ecoff_debug_swap
+-addforwarddecl ecoff_extr
 -addforwarddecl ecoff_tdata
 -addforwarddecl elf_obj_tdata
 -addforwarddecl hppabsd_core_struct
@@ -108,6 +107,8 @@
 -addforwarddecl ieee_ar_data_struct
 -addforwarddecl ieee_data_struct
 -addforwarddecl ihex_data_struct
+-addforwarddecl internal_auxent
+-addforwarddecl internal_syment
 -addforwarddecl lynx_core_struct
 -addforwarddecl mach_o_data_struct
 -addforwarddecl mach_o_fat_data_struct
