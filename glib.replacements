@@ -37,7 +37,7 @@ to fb:
 			dim tem as zstring ptr
 			select case fdwReason
 			case DLL_PROCESS_ATTACH
-				GetModuleFileNameW(cast(HMODULE, hinstDLL), wcbfr, G_N_ELEMENTS(wcbfr))
+				GetModuleFileNameW(cast(HMODULE, hinstDLL), wcbfr, 1000)
 				tem = g_utf16_to_utf8(wcbfr, -1, NULL, NULL, NULL)
 				dll_name = g_path_get_basename(tem)
 				g_free(tem)
@@ -722,3 +722,6 @@ to fb:
 			TypeName##_private_offset = sizeof(TypeName##Private)
 		end scope
 	#endmacro
+
+convert c: #define G_N_ELEMENTS(arr) (sizeof(arr) / sizeof((arr)[0]))
+to fb:     #define G_N_ELEMENTS(arr) (ubound(arr)  - lbound(array) + 1)
