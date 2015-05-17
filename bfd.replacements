@@ -9,6 +9,20 @@ to fb:
 		end scope
 	#endmacro
 
+convert c:
+	static inline bfd_boolean bfd_set_section_vma(bfd *abfd __attribute__((__unused__)), asection *ptr, bfd_vma val) { \
+		ptr->vma = ptr->lma = val; \
+		ptr->user_set_vma = 1; \
+		return 1; \
+	}
+to c:
+	static inline bfd_boolean bfd_set_section_vma(bfd *abfd __attribute__((__unused__)), asection *ptr, bfd_vma val) { \
+		ptr->vma = val; \
+		ptr->lma = val; \
+		ptr->user_set_vma = 1; \
+		return 1; \
+	}
+
 convert c: #define bfd_set_section_alignment(bfd, ptr, val) (((ptr)->alignment_power = (val)),TRUE)
 to c:      #define bfd_set_section_alignment(bfd, ptr, val)  ((ptr)->alignment_power = (val))
 

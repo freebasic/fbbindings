@@ -1137,7 +1137,8 @@ const SEC_LINK_DUPLICATES_DISCARD = &h0
 	end function
 
 	private function bfd_set_section_vma(byval abfd as bfd ptr, byval ptr as asection ptr, byval val as bfd_vma) as bfd_boolean
-		'' TODO: ptr->vma = ptr->lma = val;
+		ptr->vma = val
+		ptr->lma = val
 		ptr->user_set_vma = 1
 		return 1
 	end function
