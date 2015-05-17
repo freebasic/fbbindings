@@ -27,6 +27,8 @@
 
 #pragma once
 
+#inclib "iupcd"
+
 extern "C"
 
 #define __CD_IUP_H

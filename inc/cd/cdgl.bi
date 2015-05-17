@@ -27,6 +27,8 @@
 
 #pragma once
 
+#inclib "cdgl"
+
 extern "C"
 
 #define __CD_GL_H
