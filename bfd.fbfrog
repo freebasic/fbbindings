@@ -53,6 +53,10 @@
 
 -removedefine INLINE
 -removedefine BFD_HOSTPTR_T
+-removedefine STRING_COMMA_LEN
+-removedefine CONST_STRNEQ
+-removedefine LITMEMCPY
+-removedefine LITSTRCPY
 
 -renamemacroparam ptr ptr_
 

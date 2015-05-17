@@ -42,18 +42,6 @@ extern "C"
 #undef CONCAT4
 #define CONCAT4(a, b, c, d) XCONCAT2(CONCAT2(a, b), CONCAT2(c, d))
 
-#if __BFD_VER__ = 218
-	'' TODO: #define STRING_COMMA_LEN(STR) (STR), ((STR) ? sizeof (STR) - 1 : 0)
-#elseif ((__BFD_VER__ = 219) or (__BFD_VER__ = 220) or (__BFD_VER__ = 221) or (__BFD_VER__ = 222) or (__BFD_VER__ = 223) or (__BFD_VER__ = 224) or (__BFD_VER__ = 225)) and (defined(__FB_LINUX__) or (defined(__FB_WIN32__) or defined(__FB_DOS__)))
-	'' TODO: #define STRING_COMMA_LEN(STR) (STR), (sizeof (STR) - 1)
-#endif
-
-#if ((__BFD_VER__ = 218) or (__BFD_VER__ = 219) or (__BFD_VER__ = 220) or (__BFD_VER__ = 221) or (__BFD_VER__ = 222) or (__BFD_VER__ = 223) or (__BFD_VER__ = 224) or (__BFD_VER__ = 225)) and (defined(__FB_LINUX__) or (defined(__FB_WIN32__) or defined(__FB_DOS__)))
-	#define CONST_STRNEQ(STR1, STR2) (strncmp((STR1), (STR2), sizeof(STR2) - 1) = 0)
-	#define LITMEMCPY(DEST, STR2) memcpy((DEST), (STR2), sizeof(STR2) - 1)
-	#define LITSTRCPY(DEST, STR2) memcpy((DEST), (STR2), sizeof(STR2))
-#endif
-
 #if ((__BFD_VER__ = 220) or (__BFD_VER__ = 221) or (__BFD_VER__ = 222) or (__BFD_VER__ = 223) or (__BFD_VER__ = 224) or (__BFD_VER__ = 225)) and (defined(__FB_LINUX__) or (defined(__FB_WIN32__) or defined(__FB_DOS__)))
 	const BFD_SUPPORTS_PLUGINS = 1
 #endif
