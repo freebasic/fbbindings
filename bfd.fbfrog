@@ -76,6 +76,7 @@
 -renameproc bfd_is_target_special_symbol bfd_is_target_special_symbol_
 -renameproc bfd_copy_private_symbol_data bfd_copy_private_symbol_data_
 -renameproc bfd_section_already_linked bfd_section_already_linked_
+-renameproc bfd_copy_private_section_data bfd_copy_private_section_data_
 -renametag bfd_section_already_linked bfd_section_already_linked_t
 
 # #defining PACKAGE to override bfd-in2.h's check for config.h
