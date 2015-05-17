@@ -2492,30 +2492,24 @@ declare function g_set_printerr_handler(byval func as GPrintFunc) as GPrintFunc
 
 #define g_warn_if_reached() scope : g_warn_message(G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, NULL) : end scope
 #macro g_warn_if_fail(expr)
-	scope
-		if G_LIKELY(expr) then
-		else
-			g_warn_message(G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, #expr)
-		end if
-	end scope
+	if G_LIKELY(expr) then
+	else
+		g_warn_message(G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, #expr)
+	end if
 #endmacro
 #macro g_return_if_fail(expr)
-	scope
-		if G_LIKELY(expr) then
-		else
-			g_return_if_fail_warning(G_LOG_DOMAIN, G_STRFUNC, #expr)
-			return
-		end if
-	end scope
+	if G_LIKELY(expr) then
+	else
+		g_return_if_fail_warning(G_LOG_DOMAIN, G_STRFUNC, #expr)
+		return
+	end if
 #endmacro
 #macro g_return_val_if_fail(expr, val)
-	scope
-		if G_LIKELY(expr) then
-		else
-			g_return_if_fail_warning(G_LOG_DOMAIN, G_STRFUNC, #expr)
-			return (val)
-		end if
-	end scope
+	if G_LIKELY(expr) then
+	else
+		g_return_if_fail_warning(G_LOG_DOMAIN, G_STRFUNC, #expr)
+		return (val)
+	end if
 #endmacro
 #macro g_return_if_reached()
 	scope
@@ -3306,59 +3300,45 @@ type GTestFixtureFunc as sub(byval fixture as gpointer, byval user_data as gcons
 #endmacro
 
 #macro g_assert_no_error(err)
-	scope
-		if (err) then
-			g_assertion_message_error(G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, #err, err, 0, 0)
-		end if
-	end scope
+	if (err) then
+		g_assertion_message_error(G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, #err, err, 0, 0)
+	end if
 #endmacro
 #macro g_assert_error(err, dom, c)
-	scope
-		if ((err = 0) orelse ((err)->domain <> dom)) orelse ((err)->code <> c) then
-			g_assertion_message_error(G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, #err, err, dom, c)
-		end if
-	end scope
+	if ((err = 0) orelse ((err)->domain <> dom)) orelse ((err)->code <> c) then
+		g_assertion_message_error(G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, #err, err, dom, c)
+	end if
 #endmacro
 #macro g_assert_true(expr)
-	scope
-		if G_LIKELY(expr) then
-		else
-			g_assertion_message(G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, "'" #expr "' should be TRUE")
-		end if
-	end scope
+	if G_LIKELY(expr) then
+	else
+		g_assertion_message(G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, "'" #expr "' should be TRUE")
+	end if
 #endmacro
 #macro g_assert_false(expr)
-	scope
-		if G_LIKELY(-((expr) = 0)) then
-		else
-			g_assertion_message(G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, "'" #expr "' should be FALSE")
-		end if
-	end scope
+	if G_LIKELY(-((expr) = 0)) then
+	else
+		g_assertion_message(G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, "'" #expr "' should be FALSE")
+	end if
 #endmacro
 #macro g_assert_null(expr)
-	scope
-		if G_LIKELY(-((expr) = NULL)) then
-		else
-			g_assertion_message(G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, "'" #expr "' should be NULL")
-		end if
-	end scope
+	if G_LIKELY(-((expr) = NULL)) then
+	else
+		g_assertion_message(G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, "'" #expr "' should be NULL")
+	end if
 #endmacro
 #macro g_assert_nonnull(expr)
-	scope
-		if G_LIKELY(-((expr) <> NULL)) then
-		else
-			g_assertion_message(G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, "'" #expr "' should not be NULL")
-		end if
-	end scope
+	if G_LIKELY(-((expr) <> NULL)) then
+	else
+		g_assertion_message(G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, "'" #expr "' should not be NULL")
+	end if
 #endmacro
 #define g_assert_not_reached() scope : g_assertion_message_expr(G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, NULL) : end scope
 #macro g_assert(expr)
-	scope
-		if G_LIKELY(expr) then
-		else
-			g_assertion_message_expr(G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, #expr)
-		end if
-	end scope
+	if G_LIKELY(expr) then
+	else
+		g_assertion_message_expr(G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, #expr)
+	end if
 #endmacro
 
 declare function g_strcmp0(byval str1 as const zstring ptr, byval str2 as const zstring ptr) as long
