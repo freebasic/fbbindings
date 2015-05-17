@@ -139,11 +139,6 @@ end enum
 #define CD_RIGHT_BASE CD_BASE_RIGHT
 #define CD_ITALIC_BOLD CD_BOLD_ITALIC
 #define cdScrollImage cdScrollArea
-#macro cdCanvas2Raster(x, y)
-	scope
-		cast(any, x)
-		cdUpdateYAxis(y)
-	end scope
-#endmacro
+#define cdCanvas2Raster(x, y) scope : cdUpdateYAxis(y) : end scope
 
 end extern
