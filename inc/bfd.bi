@@ -46,6 +46,7 @@ type stat as stat_  '' TODO: remove as soon as fbc's CRT headers define it
 ''     #if ((__BFD_VER__ = 216) or (__BFD_VER__ = 217) or (__BFD_VER__ = 218)) and (defined(__FB_LINUX__) or (defined(__FB_WIN32__) or defined(__FB_DOS__)))
 ''         constant DYNAMIC => DYNAMIC_
 ''     #endif
+''     procedure bfd_copy_private_section_data => bfd_copy_private_section_data_
 ''     procedure bfd_is_local_label_name => bfd_is_local_label_name_
 ''     procedure bfd_is_target_special_symbol => bfd_is_target_special_symbol_
 ''     procedure bfd_copy_private_symbol_data => bfd_copy_private_symbol_data_
@@ -1393,7 +1394,7 @@ declare function bfd_set_section_size(byval abfd as bfd ptr, byval sec as asecti
 declare function bfd_set_section_contents(byval abfd as bfd ptr, byval section as asection ptr, byval data as const any ptr, byval offset as file_ptr, byval count as bfd_size_type) as bfd_boolean
 declare function bfd_get_section_contents(byval abfd as bfd ptr, byval section as asection ptr, byval location as any ptr, byval offset as file_ptr, byval count as bfd_size_type) as bfd_boolean
 declare function bfd_malloc_and_get_section(byval abfd as bfd ptr, byval section as asection ptr, byval buf as bfd_byte ptr ptr) as bfd_boolean
-declare function bfd_copy_private_section_data(byval ibfd as bfd ptr, byval isec as asection ptr, byval obfd as bfd ptr, byval osec as asection ptr) as bfd_boolean
+declare function bfd_copy_private_section_data_ alias "bfd_copy_private_section_data"(byval ibfd as bfd ptr, byval isec as asection ptr, byval obfd as bfd ptr, byval osec as asection ptr) as bfd_boolean
 #define bfd_copy_private_section_data(ibfd, isection, obfd, osection) BFD_SEND (obfd, _bfd_copy_private_section_data, (ibfd, isection, obfd, osection))
 
 #if __BFD_VER__ = 216
