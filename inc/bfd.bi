@@ -46,6 +46,7 @@ type stat as stat_  '' TODO: remove as soon as fbc's CRT headers define it
 ''     #if ((__BFD_VER__ = 216) or (__BFD_VER__ = 217) or (__BFD_VER__ = 218)) and (defined(__FB_LINUX__) or (defined(__FB_WIN32__) or defined(__FB_DOS__)))
 ''         constant DYNAMIC => DYNAMIC_
 ''     #endif
+''     enum bfd_print_symbol => bfd_print_symbol_
 ''     procedure bfd_copy_private_section_data => bfd_copy_private_section_data_
 ''     procedure bfd_is_local_label_name => bfd_is_local_label_name_
 ''     procedure bfd_is_target_special_symbol => bfd_is_target_special_symbol_
@@ -53,6 +54,11 @@ type stat as stat_  '' TODO: remove as soon as fbc's CRT headers define it
 ''     #if ((__BFD_VER__ = 219) or (__BFD_VER__ = 220) or (__BFD_VER__ = 221) or (__BFD_VER__ = 222) or (__BFD_VER__ = 223) or (__BFD_VER__ = 224) or (__BFD_VER__ = 225)) and (defined(__FB_LINUX__) or (defined(__FB_WIN32__) or defined(__FB_DOS__)))
 ''         constant DYNAMIC => DYNAMIC_
 ''     #endif
+''     procedure bfd_copy_private_header_data => bfd_copy_private_header_data_
+''     procedure bfd_copy_private_bfd_data => bfd_copy_private_bfd_data_
+''     procedure bfd_merge_private_bfd_data => bfd_merge_private_bfd_data_
+''     procedure bfd_set_private_flags => bfd_set_private_flags_
+''     procedure bfd_link_split_section => bfd_link_split_section_
 ''     procedure bfd_section_already_linked => bfd_section_already_linked_
 
 extern "C"
@@ -300,14 +306,14 @@ type sec_ptr as bfd_section ptr
 	#define discarded_section(sec) ((((bfd_is_abs_section(sec) = 0) andalso bfd_is_abs_section((sec)->output_section)) andalso ((sec)->sec_info_type <> SEC_INFO_TYPE_MERGE)) andalso ((sec)->sec_info_type <> SEC_INFO_TYPE_JUST_SYMS))
 #endif
 
-type bfd_print_symbol as long
+type bfd_print_symbol_ as long
 enum
 	bfd_print_symbol_name
 	bfd_print_symbol_more
 	bfd_print_symbol_all
 end enum
 
-type bfd_print_symbol_type as bfd_print_symbol
+type bfd_print_symbol_type as bfd_print_symbol_
 
 type _symbol_info
 	value as symvalue
@@ -517,6 +523,10 @@ end enum
 
 declare function bfd_elf_get_needed_list(byval as bfd ptr, byval as bfd_link_info ptr) as bfd_link_needed_list ptr
 declare function bfd_elf_get_bfd_needed_list(byval as bfd ptr, byval as bfd_link_needed_list ptr ptr) as bfd_boolean
+
+#if ((__BFD_VER__ = 216) or (__BFD_VER__ = 217) or (__BFD_VER__ = 218) or (__BFD_VER__ = 219) or (__BFD_VER__ = 220) or (__BFD_VER__ = 221)) and (defined(__FB_LINUX__) or (defined(__FB_WIN32__) or defined(__FB_DOS__)))
+	type bfd_elf_version_tree as bfd_elf_version_tree_
+#endif
 
 #if ((__BFD_VER__ = 216) or (__BFD_VER__ = 217) or (__BFD_VER__ = 218) or (__BFD_VER__ = 219) or (__BFD_VER__ = 220)) and (defined(__FB_LINUX__) or (defined(__FB_WIN32__) or defined(__FB_DOS__)))
 	declare function bfd_elf_size_dynamic_sections(byval as bfd ptr, byval as const zstring ptr, byval as const zstring ptr, byval as const zstring ptr, byval as const zstring const ptr ptr, byval as bfd_link_info ptr, byval as bfd_section ptr ptr, byval as bfd_elf_version_tree ptr) as bfd_boolean
@@ -964,6 +974,8 @@ type relent_chain as relent_chain_
 
 #if __BFD_VER__ = 216
 	type bfd_link_order as bfd_link_order_
+#elseif __BFD_VER__ = 222
+	type flag_info as flag_info_
 #endif
 
 type bfd_section_
@@ -5117,6 +5129,7 @@ type nlm_obj_tdata as nlm_obj_tdata_
 type bout_data_struct as bout_data_struct_
 type mmo_data_struct as mmo_data_struct_
 type sun_core_struct as sun_core_struct_
+type sco5_core_struct as sco5_core_struct_
 type trad_core_struct as trad_core_struct_
 type som_data_struct as som_data_struct_
 type hpux_core_struct as hpux_core_struct_
@@ -5187,6 +5200,7 @@ union bfd_tdata
 end union
 
 type bfd_target as bfd_target_
+type bfd_iovec as bfd_iovec_
 
 type bfd_
 	#if ((__BFD_VER__ = 216) or (__BFD_VER__ = 217) or (__BFD_VER__ = 218) or (__BFD_VER__ = 219) or (__BFD_VER__ = 220) or (__BFD_VER__ = 221) or (__BFD_VER__ = 222) or (__BFD_VER__ = 223) or (__BFD_VER__ = 224)) and (defined(__FB_LINUX__) or (defined(__FB_WIN32__) or defined(__FB_DOS__)))
@@ -5442,13 +5456,13 @@ declare function bfd_set_start_address(byval abfd as bfd ptr, byval vma as bfd_v
 declare function bfd_get_gp_size(byval abfd as bfd ptr) as ulong
 declare sub bfd_set_gp_size(byval abfd as bfd ptr, byval i as ulong)
 declare function bfd_scan_vma(byval string as const zstring ptr, byval end as const zstring ptr ptr, byval base as long) as bfd_vma
-declare function bfd_copy_private_header_data(byval ibfd as bfd ptr, byval obfd as bfd ptr) as bfd_boolean
+declare function bfd_copy_private_header_data_ alias "bfd_copy_private_header_data"(byval ibfd as bfd ptr, byval obfd as bfd ptr) as bfd_boolean
 #define bfd_copy_private_header_data(ibfd, obfd) BFD_SEND (obfd, _bfd_copy_private_header_data, (ibfd, obfd))
-declare function bfd_copy_private_bfd_data(byval ibfd as bfd ptr, byval obfd as bfd ptr) as bfd_boolean
+declare function bfd_copy_private_bfd_data_ alias "bfd_copy_private_bfd_data"(byval ibfd as bfd ptr, byval obfd as bfd ptr) as bfd_boolean
 #define bfd_copy_private_bfd_data(ibfd, obfd) BFD_SEND (obfd, _bfd_copy_private_bfd_data, (ibfd, obfd))
-declare function bfd_merge_private_bfd_data(byval ibfd as bfd ptr, byval obfd as bfd ptr) as bfd_boolean
+declare function bfd_merge_private_bfd_data_ alias "bfd_merge_private_bfd_data"(byval ibfd as bfd ptr, byval obfd as bfd ptr) as bfd_boolean
 #define bfd_merge_private_bfd_data(ibfd, obfd) BFD_SEND (obfd, _bfd_merge_private_bfd_data, (ibfd, obfd))
-declare function bfd_set_private_flags(byval abfd as bfd ptr, byval flags as flagword) as bfd_boolean
+declare function bfd_set_private_flags_ alias "bfd_set_private_flags"(byval abfd as bfd ptr, byval flags as flagword) as bfd_boolean
 #define bfd_set_private_flags(abfd, flags) BFD_SEND (abfd, _bfd_set_private_flags, (abfd, flags))
 
 #if (__BFD_VER__ = 216) or (__BFD_VER__ = 217)
@@ -5603,6 +5617,10 @@ type _bfd_link_info as bfd_link_info
 
 #if ((__BFD_VER__ = 216) or (__BFD_VER__ = 217) or (__BFD_VER__ = 218) or (__BFD_VER__ = 219) or (__BFD_VER__ = 220) or (__BFD_VER__ = 221) or (__BFD_VER__ = 222) or (__BFD_VER__ = 223) or (__BFD_VER__ = 224)) and (defined(__FB_LINUX__) or (defined(__FB_WIN32__) or defined(__FB_DOS__)))
 	type bfd_link_hash_table as bfd_link_hash_table_
+#endif
+
+#if ((__BFD_VER__ = 223) or (__BFD_VER__ = 224) or (__BFD_VER__ = 225)) and (defined(__FB_LINUX__) or (defined(__FB_WIN32__) or defined(__FB_DOS__)))
+	type flag_info as flag_info_
 #endif
 
 type bfd_target_
@@ -5849,7 +5867,7 @@ declare function bfd_check_format(byval abfd as bfd ptr, byval format as bfd_for
 declare function bfd_check_format_matches(byval abfd as bfd ptr, byval format as bfd_format, byval matching as zstring ptr ptr ptr) as bfd_boolean
 declare function bfd_set_format(byval abfd as bfd ptr, byval format as bfd_format) as bfd_boolean
 declare function bfd_format_string(byval format as bfd_format) as const zstring ptr
-declare function bfd_link_split_section(byval abfd as bfd ptr, byval sec as asection ptr) as bfd_boolean
+declare function bfd_link_split_section_ alias "bfd_link_split_section"(byval abfd as bfd ptr, byval sec as asection ptr) as bfd_boolean
 #define bfd_link_split_section(abfd, sec) BFD_SEND (abfd, _bfd_link_split_section, (abfd, sec))
 
 #if (__BFD_VER__ = 216) or (__BFD_VER__ = 217)
@@ -5868,6 +5886,13 @@ declare function bfd_link_split_section(byval abfd as bfd ptr, byval sec as asec
 #if ((__BFD_VER__ = 220) or (__BFD_VER__ = 221) or (__BFD_VER__ = 222) or (__BFD_VER__ = 223) or (__BFD_VER__ = 224) or (__BFD_VER__ = 225)) and (defined(__FB_LINUX__) or (defined(__FB_WIN32__) or defined(__FB_DOS__)))
 	declare function bfd_generic_define_common_symbol(byval output_bfd as bfd ptr, byval info as bfd_link_info ptr, byval h as bfd_link_hash_entry ptr) as bfd_boolean
 	#define bfd_define_common_symbol(output_bfd, info, h) BFD_SEND (output_bfd, _bfd_define_common_symbol, (output_bfd, info, h))
+#endif
+
+#if ((__BFD_VER__ = 222) or (__BFD_VER__ = 223) or (__BFD_VER__ = 224) or (__BFD_VER__ = 225)) and (defined(__FB_LINUX__) or (defined(__FB_WIN32__) or defined(__FB_DOS__)))
+	type bfd_elf_version_tree as bfd_elf_version_tree_
+#endif
+
+#if ((__BFD_VER__ = 220) or (__BFD_VER__ = 221) or (__BFD_VER__ = 222) or (__BFD_VER__ = 223) or (__BFD_VER__ = 224) or (__BFD_VER__ = 225)) and (defined(__FB_LINUX__) or (defined(__FB_WIN32__) or defined(__FB_DOS__)))
 	declare function bfd_find_version_for_sym(byval verdefs as bfd_elf_version_tree ptr, byval sym_name as const zstring ptr, byval hide as bfd_boolean ptr) as bfd_elf_version_tree ptr
 #endif
 
