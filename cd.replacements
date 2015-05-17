@@ -1,2 +1,5 @@
 convert c: #define cdCanvas2Raster(x, y) {(void)x; cdUpdateYAxis(y);}
 to c:      #define cdCanvas2Raster(x, y) {         cdUpdateYAxis(y);}
+
+convert c: #define wdEnd() cdEnd();
+to c:      #define wdEnd() cdEnd()

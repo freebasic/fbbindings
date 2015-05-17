@@ -84,7 +84,7 @@ declare sub wdGetVectorTextBounds(byval s as const zstring ptr, byval x as doubl
 #define wdActivate cdActivate
 #define wdClip(mode) cdClip(mode)
 #define wdBegin(mode) cdBegin(mode)
-'' TODO: #define wdEnd() cdEnd();
+#define wdEnd() cdEnd()
 #define wdMM2Pixel(mm_dx, mm_dy, dx, dy) cdMM2Pixel(mm_dx, mm_dy, dx, dy)
 #define wdPixel2MM(dx, dy, mm_dx, mm_dy) cdPixel2MM(dx, dy, mm_dx, mm_dy)
 
