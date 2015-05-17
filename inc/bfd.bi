@@ -458,8 +458,9 @@ declare function bfd_section_already_linked_table_init() as bfd_boolean
 declare sub bfd_section_already_linked_table_free()
 
 #if ((__BFD_VER__ = 222) or (__BFD_VER__ = 223) or (__BFD_VER__ = 224) or (__BFD_VER__ = 225)) and (defined(__FB_LINUX__) or (defined(__FB_WIN32__) or defined(__FB_DOS__)))
+	type bfd_section_already_linked_t as bfd_section_already_linked_t_
 	type bfd_link_info as bfd_link_info_
-	declare function _bfd_handle_already_linked(byval as bfd_section ptr, byval as bfd_section_already_linked_ ptr, byval as bfd_link_info ptr) as bfd_boolean
+	declare function _bfd_handle_already_linked(byval as bfd_section ptr, byval as bfd_section_already_linked_t ptr, byval as bfd_link_info ptr) as bfd_boolean
 #endif
 
 declare function bfd_ecoff_get_gp_value(byval abfd as bfd ptr) as bfd_vma

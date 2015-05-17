@@ -76,13 +76,14 @@
 -renameproc bfd_is_target_special_symbol bfd_is_target_special_symbol_
 -renameproc bfd_copy_private_symbol_data bfd_copy_private_symbol_data_
 -renameproc bfd_section_already_linked bfd_section_already_linked_
+-renametag bfd_section_already_linked bfd_section_already_linked_t
 
 # #defining PACKAGE to override bfd-in2.h's check for config.h
 -define PACKAGE 1
 
 -addforwarddecl bfd_strtab_hash
 -addforwarddecl bfd_link_info
--addforwarddecl bfd_section_already_linked
+-addforwarddecl bfd_section_already_linked_t
 -addforwarddecl ecoff_debug_info
 -addforwarddecl ecoff_debug_swap
 -addforwarddecl ecoff_extr
