@@ -27,6 +27,8 @@
 
 #pragma once
 
+#inclib "cdpdf"
+
 extern "C"
 
 #define __CD_PDF_H

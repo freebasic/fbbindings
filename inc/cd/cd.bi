@@ -27,6 +27,8 @@
 
 #pragma once
 
+#inclib "cd"
+
 #include once "crt/long.bi"
 #include once "cd_old.bi"
 

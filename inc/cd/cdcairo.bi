@@ -27,6 +27,8 @@
 
 #pragma once
 
+#inclib "cdcairo"
+
 extern "C"
 
 #define __CD_CAIRO_H

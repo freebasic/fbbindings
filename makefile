@@ -545,7 +545,12 @@ cd:
 		-emit '*/cdwmf.h'        inc/cd/cdwmf.bi \
 		-emit '*/wd.h'           inc/cd/wd.bi \
 		-emit '*/wd_old.h'       inc/cd/wd_old.bi \
-		-title $(CD) cd.tmp fbteam.txt
+		-title $(CD) cd.tmp fbteam.txt \
+		-inclib cd      inc/cd/cd.bi \
+		-inclib cdcairo inc/cd/cdcairo.bi \
+		-inclib cdgl    inc/cd/cdgl.bi \
+		-inclib iupcd   inc/cd/cdiup.bi \
+		-inclib cdpdf   inc/cd/cdpdf.bi
 
 	$(FBFROG) iuplua.fbfrog \
 		extracted/cd/include/*.h \
@@ -556,7 +561,8 @@ cd:
 		-emit '*/cdluaim.h'        inc/cd/cdluaim.bi \
 		-emit '*/cdluaiup.h'       inc/cd/cdluaiup.bi \
 		-emit '*/cdluapdf.h'       inc/cd/cdluapdf.bi \
-		-title $(CD) cd.tmp fbteam.txt
+		-title $(CD) cd.tmp fbteam.txt \
+		-inclib cdlua52 inc/cd/cdlua.bi
 
 	rm *.tmp
 

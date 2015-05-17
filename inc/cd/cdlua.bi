@@ -27,6 +27,8 @@
 
 #pragma once
 
+#inclib "cdlua52"
+
 extern "C"
 
 #define __CD_LUA_H
