@@ -571,8 +571,6 @@ declare function bfd_get_elf_phdrs(byval abfd as bfd ptr, byval phdrs as any ptr
 
 #if ((__BFD_VER__ = 216) or (__BFD_VER__ = 217) or (__BFD_VER__ = 218) or (__BFD_VER__ = 219) or (__BFD_VER__ = 220) or (__BFD_VER__ = 221) or (__BFD_VER__ = 222)) and (defined(__FB_LINUX__) or (defined(__FB_WIN32__) or defined(__FB_DOS__)))
 	declare function bfd_elf_bfd_from_remote_memory(byval templ as bfd ptr, byval ehdr_vma as bfd_vma, byval loadbasep as bfd_vma ptr, byval target_read_memory as function(byval vma as bfd_vma, byval myaddr as bfd_byte ptr, byval len as long) as long) as bfd ptr
-	declare function bfd_get_arch_size(byval as bfd ptr) as long
-	declare function bfd_get_sign_extend_vma(byval as bfd ptr) as long
 #elseif (__BFD_VER__ = 223) or (__BFD_VER__ = 224)
 	declare function bfd_elf_bfd_from_remote_memory(byval templ as bfd ptr, byval ehdr_vma as bfd_vma, byval loadbasep as bfd_vma ptr, byval target_read_memory as function(byval vma as bfd_vma, byval myaddr as bfd_byte ptr, byval len as bfd_size_type) as long) as bfd ptr
 #else
