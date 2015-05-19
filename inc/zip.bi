@@ -45,6 +45,7 @@
 #include once "crt/stdint.bi"
 
 '' The following symbols have been renamed:
+''     constant ZIP_SOURCE_FREE => ZIP_SOURCE_FREE_
 ''     constant ZIP_STAT_INDEX => ZIP_STAT_INDEX_
 
 extern "C"
