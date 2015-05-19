@@ -1233,17 +1233,9 @@ type PSCOPE_TABLE_AMD64 as _SCOPE_TABLE_AMD64 ptr
 	declare function GetCurrentFiber cdecl() as PVOID
 	declare function GetFiberData cdecl() as PVOID
 
-	private function NtCurrentTeb cdecl() as _TEB ptr
-		return cptr(_TEB ptr, __readfsdword(&h18))
-	end function
-
-	private function GetCurrentFiber cdecl() as PVOID
-		return cast(PVOID, __readfsdword(&h10))
-	end function
-
-	private function GetFiberData cdecl() as PVOID
-		return *cptr(PVOID ptr, GetCurrentFiber())
-	end function
+	#define NtCurrentTeb() cptr(_TEB ptr, __readfsdword(&h18))
+	#define GetCurrentFiber() cast(PVOID, __readfsdword(&h10))
+	#define GetFiberData() cast(PVOID, *cptr(PVOID ptr, GetCurrentFiber()))
 #endif
 
 const EXCEPTION_READ_FAULT = 0
@@ -8050,17 +8042,9 @@ end sub
 	declare function GetCurrentFiber() as PVOID
 	declare function GetFiberData() as PVOID
 
-	private function NtCurrentTeb() as _TEB ptr
-		return cptr(_TEB ptr, __readgsqword(cast(LONG, __builtin_offsetof(NT_TIB, Self))))
-	end function
-
-	private function GetCurrentFiber() as PVOID
-		return cast(PVOID, __readgsqword(cast(LONG, __builtin_offsetof(NT_TIB, FiberData))))
-	end function
-
-	private function GetFiberData() as PVOID
-		return *cptr(PVOID ptr, GetCurrentFiber())
-	end function
+	#define NtCurrentTeb() cptr(_TEB ptr, __readgsqword(cast(LONG, __builtin_offsetof(NT_TIB, Self))))
+	#define GetCurrentFiber() cast(PVOID, __readgsqword(cast(LONG, __builtin_offsetof(NT_TIB, FiberData))))
+	#define GetFiberData() cast(PVOID, *cptr(PVOID ptr, GetCurrentFiber()))
 #endif
 
 #define _NTTMAPI_
