@@ -67,8 +67,8 @@
 #define FIRMWARE_PTR
 #define POINTER_SIGNED
 #define POINTER_UNSIGNED
-#define SPOINTER_32 POINTER_SIGNED POINTER_32
-#define UPOINTER_32 POINTER_UNSIGNED POINTER_32
+#define SPOINTER_32 POINTER_SIGNED
+#define UPOINTER_32 POINTER_UNSIGNED
 
 type INT8 as byte
 type PINT8 as byte ptr
@@ -125,7 +125,7 @@ type PDWORD32 as ulong ptr
 	#define UIntToPtr(ui) cptr(any ptr, cast(UINT_PTR, ui))
 	#define LongToPtr(l) cptr(any ptr, cast(LONG_PTR, l))
 	#define ULongToPtr(ul) cptr(any ptr, cast(ULONG_PTR, ul))
-	'' TODO: #define PtrToPtr64(p) ((void *POINTER_64) p)
+	#define PtrToPtr64(p) cptr(any ptr, p)
 	#define Ptr64ToPtr(p) cptr(any ptr, p)
 	#define HandleToHandle64(h) PtrToPtr64(h)
 	#define Handle64ToHandle(h) Ptr64ToPtr(h)
@@ -170,7 +170,7 @@ type PDWORD32 as ulong ptr
 	#define Handle64ToHandle(h) cptr(any ptr, cast(ULONG_PTR, h))
 	#define Ptr32ToPtr(p) cptr(any ptr, p)
 	#define Handle32ToHandle(h) Ptr32ToPtr(h)
-	'' TODO: #define PtrToPtr32(p) ((void *POINTER_32) p)
+	#define PtrToPtr32(p) cptr(any ptr, p)
 #endif
 
 #define HandleToHandle32(h) PtrToPtr32(h)
