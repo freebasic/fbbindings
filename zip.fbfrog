@@ -9,7 +9,7 @@
 -addforwarddecl zip_file
 -addforwarddecl zip_source
 
-#-rename ZIP_SOURCE_FREE ZIP_SOURCE_FREE_
+-rename ZIP_SOURCE_FREE ZIP_SOURCE_FREE_
 -renamedefine ZIP_STAT_INDEX ZIP_STAT_INDEX_
 
 -removedefine _HAD_ZIP_H
