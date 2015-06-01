@@ -367,6 +367,8 @@
 
 -clong32
 -expandindefine __LONG32
+-expandindefine POINTER_32
+-expandindefine POINTER_64
 -renametypedef BYTE UBYTE
 -renametypedef byte ubyte
 -typedefhint LPTV_INSERTSTRUCT
