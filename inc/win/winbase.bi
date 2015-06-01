@@ -772,13 +772,6 @@ declare function GetOverlappedResultEx(byval hFile as HANDLE, byval lpOverlapped
 #define _INTERLOCKAPI_H_
 
 #ifndef __FB_64BIT__
-	declare function InterlockedIncrement(byval lpAddend as LONG ptr) as LONG
-	declare function InterlockedDecrement(byval lpAddend as LONG ptr) as LONG
-	declare function InterlockedExchange(byval Target as LONG ptr, byval Value as LONG) as LONG
-	declare function InterlockedExchangeAdd(byval Addend as LONG ptr, byval Value as LONG) as LONG
-	declare function InterlockedCompareExchange(byval Destination as LONG ptr, byval Exchange as LONG, byval Comperand as LONG) as LONG
-	declare function InterlockedCompareExchange64(byval Destination as LONGLONG ptr, byval Exchange as LONGLONG, byval Comperand as LONGLONG) as LONGLONG
-
 	#define InterlockedExchangePointer(Target, Value) cast(PVOID, InterlockedExchange(cast(PLONG, (Target)), cast(LONG, cast(LONG_PTR, (Value)))))
 	#define InterlockedExchangePointerNoFence InterlockedExchangePointer
 	#define InterlockedIncrement(lpAddend) cast(LONG, _InterlockedIncrement(lpAddend))

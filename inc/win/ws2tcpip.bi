@@ -81,7 +81,6 @@ extern in6addr_loopback as const IN6_ADDR
 
 declare function IN6_IS_ADDR_UNSPECIFIED(byval as const IN6_ADDR ptr) as long
 declare function IN6_IS_ADDR_LOOPBACK(byval as const IN6_ADDR ptr) as long
-declare function IN6_IS_ADDR_MULTICAST(byval as const IN6_ADDR ptr) as long
 declare function IN6_IS_ADDR_LINKLOCAL(byval as const IN6_ADDR ptr) as long
 declare function IN6_IS_ADDR_SITELOCAL(byval as const IN6_ADDR ptr) as long
 declare function IN6_IS_ADDR_V4MAPPED(byval as const IN6_ADDR ptr) as long
