@@ -1,4 +1,4 @@
-FBFROG := fbfrog
+FBFROG_VERSION := e1dcdd6f710d0c3588357ea07324c7c74578c3fc
 
 ALL := allegro allegro4 allegro5 aspell atk
 ALL += bass bassmod bfd bzip2
@@ -16,7 +16,11 @@ ALL += tre
 ALL += x11
 ALL += zip zlib
 
-GETCOMMENT := ./$(shell fbc -print x getcomment.bas)
+EXEEXT := $(shell fbc -print x)
+LOCAL_FBFROG_DIR := extracted/fbfrog-$(FBFROG_VERSION)
+LOCAL_FBFROG := $(LOCAL_FBFROG_DIR)/fbfrog$(EXEEXT)
+FBFROG := $(LOCAL_FBFROG)
+GETCOMMENT := ./getcomment$(EXEEXT)
 
 .PHONY: all clean $(ALL)
 
@@ -25,8 +29,16 @@ all: $(ALL)
 clean:
 	rm -rf extracted/*
 
+$(LOCAL_FBFROG_DIR):
+	./get.sh fbfrog-$(FBFROG_VERSION) fbfrog-$(FBFROG_VERSION).tar.gz https://github.com/dkl/fbfrog/archive/$(FBFROG_VERSION).tar.gz
+
+$(LOCAL_FBFROG): $(wildcard $(LOCAL_FBFROG_DIR)/*.bas $(LOCAL_FBFROG_DIR)/*.bi) | $(LOCAL_FBFROG_DIR)
+	cd $(LOCAL_FBFROG_DIR) && fbc *.bas -m fbfrog
+
 $(GETCOMMENT): getcomment.bas
 	fbc $< -g -exx
+
+tools: $(LOCAL_FBFROG) $(GETCOMMENT)
 
 allegro: allegro4 allegro5
 
@@ -35,7 +47,7 @@ ALLEGRO4_TITLE := allegro-$(ALLEGRO4_VERSION)
 ALGIF := algif_1.3
 ALPNG := alpng13
 ALPNG_TARBALL := tarballs/$(ALPNG).tar.gz
-allegro4:
+allegro4: tools
 	./get.sh $(ALLEGRO4_TITLE) $(ALLEGRO4_TITLE).tar.gz "http://cdn.allegro.cc/file/library/allegro/$(ALLEGRO4_VERSION)/$(ALLEGRO4_TITLE).tar.gz"
 	./get.sh $(ALGIF) $(ALGIF).zip "http://prdownloads.sourceforge.net/algif/$(ALGIF).zip?download"
 	if [ ! -f "$(ALPNG_TARBALL)" ]; then \
@@ -148,7 +160,7 @@ ALLEGRO5_TITLE := allegro-$(ALLEGRO5_VERSION)
 # the Allegro homepage:
 ALLEGRO5_LIB := -5.0.10-static-md
 ALLEGRO5_DLL := -5.0.10-md
-allegro5:
+allegro5: tools
 	./get.sh $(ALLEGRO5_TITLE) $(ALLEGRO5_TITLE).tar.gz "http://sourceforge.net/projects/alleg/files/allegro/$(ALLEGRO5_VERSION)/$(ALLEGRO5_TITLE).tar.gz/download"
 
 	mkdir -p extracted/$(ALLEGRO5_TITLE)/include/unix/allegro5/platform
@@ -255,7 +267,7 @@ allegro5:
 	rm *.tmp
 
 ASPELL := aspell-0.60.6.1
-aspell:
+aspell: tools
 	./get.sh $(ASPELL) $(ASPELL).tar.gz ftp://ftp.gnu.org/gnu/aspell/$(ASPELL).tar.gz
 
 	$(GETCOMMENT) -2 extracted/$(ASPELL)/interfaces/cc/aspell.h > aspell.tmp
@@ -285,7 +297,7 @@ ATK := atk-$(ATK_SERIES).0
 atk-extract:
 	./get.sh $(ATK) $(ATK).tar.xz http://ftp.gnome.org/pub/gnome/sources/atk/$(ATK_SERIES)/$(ATK).tar.xz
 
-atk: atk-extract glib-extract
+atk: tools atk-extract glib-extract
 
 	$(GETCOMMENT) extracted/$(ATK)/atk/atk.h > atk.tmp
 
@@ -335,7 +347,7 @@ atk: atk-extract glib-extract
 	rm *.tmp
 
 BASS := bass24
-bass: winapi-extract
+bass: tools winapi-extract
 	./get.sh $(BASS) $(BASS).zip http://us.un4seen.com/files/$(BASS).zip createdir
 
 	$(GETCOMMENT) extracted/$(BASS)/c/bass.h > bass.tmp
@@ -355,7 +367,7 @@ bass: winapi-extract
 	rm *.tmp
 
 BASSMOD := bassmod20
-bassmod: winapi-extract
+bassmod: tools winapi-extract
 	./get.sh $(BASSMOD) $(BASSMOD).zip http://us.un4seen.com/files/$(BASSMOD).zip createdir
 
 	$(GETCOMMENT) extracted/$(BASSMOD)/c/bassmod.h > bassmod.tmp
@@ -421,7 +433,7 @@ include bfd.mk
 
 BZIP2_VERSION := 1.0.6
 BZIP2 := bzip2-$(BZIP2_VERSION)
-bzip2:
+bzip2: tools
 	./get.sh $(BZIP2) $(BZIP2).tar.gz http://www.bzip.org/$(BZIP2_VERSION)/$(BZIP2).tar.gz
 
 	sed -n 4,40p extracted/$(BZIP2)/LICENSE > bzip2.tmp
@@ -430,7 +442,7 @@ bzip2:
 	rm *.tmp
 
 CACA := libcaca-0.99.beta19
-caca:
+caca: tools
 	./get.sh $(CACA) $(CACA).tar.gz http://caca.zoy.org/files/libcaca/$(CACA).tar.gz
 
 	$(GETCOMMENT) extracted/$(CACA)/caca/caca.h  > caca.tmp
@@ -483,7 +495,7 @@ cairo-extract:
 	# Overwrite src/cairo-version.h (a place holder) with the one from toplevel (the real thing)
 	cp extracted/$(CAIRO)/cairo-version.h extracted/$(CAIRO)/src
 
-cairo: cairo-extract
+cairo: tools cairo-extract
 	sed -n 1,35p extracted/$(CAIRO)/src/cairo.h | cut -c4- > cairo.tmp
 	mkdir -p inc/cairo
 	$(FBFROG) cairo.fbfrog \
@@ -509,7 +521,7 @@ cairo: cairo-extract
 # Canvas Draw
 CD_VERSION := 5.8.1
 CD := cd-$(CD_VERSION)
-cd:
+cd: tools
 	./get.sh cd $(CD)_Sources.tar.gz http://sourceforge.net/projects/canvasdraw/files/$(CD_VERSION)/Docs%20and%20Sources/$(CD)_Sources.tar.gz/download
 	find extracted/cd/ -type d -exec chmod +x '{}' ';'
 
@@ -568,7 +580,7 @@ cd:
 
 CGUI_VERSION := 2.0.4
 CGUI := cgui-$(CGUI_VERSION)
-cgui:
+cgui: tools
 	./get.sh $(CGUI) $(CGUI).tar.gz "http://cgui.cvs.sourceforge.net/viewvc/cgui/cgui/?view=tar&pathrev=Branch_CGUI_1-6-7"
 	echo "A C Graphical User Interface [add on to Allegro] by Christer Sandberg" > cgui.tmp
 	$(FBFROG) cgui.fbfrog -o inc extracted/cgui/include/cgui.h \
@@ -577,7 +589,7 @@ cgui:
 
 CLANG_VERSION := 3.5.0
 CLANG_TITLE := cfe-$(CLANG_VERSION).src
-clang:
+clang: tools
 	./get.sh $(CLANG_TITLE) $(CLANG_TITLE).tar.xz "http://llvm.org/releases/$(CLANG_VERSION)/$(CLANG_TITLE).tar.xz"
 	sed -n 4,43p extracted/$(CLANG_TITLE)/LICENSE.TXT > clang.tmp
 	$(FBFROG) -o inc/clang-c.bi \
@@ -590,7 +602,7 @@ clang:
 
 CUNIT_VERSION := 2.1-3
 CUNIT_TITLE := CUnit-$(CUNIT_VERSION)
-cunit:
+cunit: tools
 	./get.sh $(CUNIT_TITLE) $(CUNIT_TITLE).tar.bz2 "http://sourceforge.net/projects/cunit/files/CUnit/$(CUNIT_VERSION)/$(CUNIT_TITLE).tar.bz2/download"
 	cd extracted/$(CUNIT_TITLE)/CUnit/Headers && \
 		sed -e 's/@VERSION@-@RELEASE@/$(CUNIT_VERSION)/g' < CUnit.h.in > CUnit.h
@@ -616,7 +628,7 @@ cunit:
 	rm *.tmp
 
 CURL_TITLE := curl-7.39.0
-curl:
+curl: tools
 	./get.sh $(CURL_TITLE) $(CURL_TITLE).tar.lzma "http://curl.haxx.se/download/$(CURL_TITLE).tar.lzma"
 	tail -n +3 extracted/$(CURL_TITLE)/COPYING > curl.tmp
 	$(FBFROG) curl.fbfrog \
@@ -627,7 +639,7 @@ curl:
 	rm *.tmp
 
 FASTCGI_TITLE := fcgi-2.4.1-SNAP-0311112127
-fastcgi:
+fastcgi: tools
 	./get.sh $(FASTCGI_TITLE) $(FASTCGI_TITLE).tar.gz "http://www.fastcgi.com/dist/fcgi.tar.gz"
 	sed -n 7,7p extracted/$(FASTCGI_TITLE)/include/fastcgi.h | cut -c4- > fastcgi.tmp
 	echo                                         >> fastcgi.tmp
@@ -650,7 +662,7 @@ FFI_TITLE := libffi-$(FFI_VERSION)
 FFI_SED := -e 's/@HAVE_LONG_DOUBLE@/1/g'
 FFI_SED += -e 's/@FFI_EXEC_TRAMPOLINE_TABLE@/0/g'
 FFI_SED += -e 's/@VERSION@/$(FFI_VERSION)/g'
-ffi:
+ffi: tools
 	./get.sh $(FFI_TITLE) $(FFI_TITLE).tar.gz "ftp://sourceware.org/pub/libffi/$(FFI_TITLE).tar.gz"
 	# libffi's configure script generates ffi.h based on ffi.h.in (inserting @TARGET@)
 	# and symlinks ffitarget.h to ../src/<arch>/ffitarget.h.
@@ -680,7 +692,7 @@ ffi:
 	rm *.tmp
 
 FONTCONFIG := fontconfig-2.11.1
-fontconfig:
+fontconfig: tools
 	./get.sh $(FONTCONFIG) $(FONTCONFIG).tar.bz2 "http://www.freedesktop.org/software/fontconfig/release/$(FONTCONFIG).tar.bz2"
 
 	$(GETCOMMENT) extracted/$(FONTCONFIG)/fontconfig/fontconfig.h > fontconfig.tmp
@@ -700,7 +712,7 @@ fontconfig:
 
 FREEGLUT_VERSION := 3.0.0
 FREEGLUT := freeglut-$(FREEGLUT_VERSION)
-freeglut:
+freeglut: tools
 	./get.sh $(FREEGLUT) $(FREEGLUT).tar.gz http://sourceforge.net/projects/freeglut/files/freeglut/$(FREEGLUT_VERSION)/$(FREEGLUT).tar.gz/download
 
 	$(GETCOMMENT) extracted/$(FREEGLUT)/include/GL/freeglut.h     > freeglut.tmp
@@ -721,7 +733,7 @@ freeglut:
 	rm *.tmp
 
 FREETYPE := freetype-2.5.5
-freetype:
+freetype: tools
 	./get.sh $(FREETYPE) $(FREETYPE).tar.bz2 http://download.savannah.gnu.org/releases/freetype/$(FREETYPE).tar.bz2
 
 	cd extracted/$(FREETYPE)/include/config && \
@@ -758,7 +770,7 @@ GLFW2_VERSION := 2.7.9
 GLFW3_VERSION := 3.1.1
 GLFW2 := glfw-$(GLFW2_VERSION)
 GLFW3 := glfw-$(GLFW3_VERSION)
-glfw:
+glfw: tools
 	./get.sh $(GLFW2) $(GLFW2).tar.bz2 http://sourceforge.net/projects/glfw/files/glfw/$(GLFW2_VERSION)/$(GLFW2).tar.bz2/download
 	./get.sh $(GLFW3) $(GLFW3).tar.bz2 http://sourceforge.net/projects/glfw/files/glfw/$(GLFW3_VERSION)/$(GLFW3).tar.bz2/download
 
@@ -802,7 +814,7 @@ GDKPIXBUF := gdk-pixbuf-$(GDKPIXBUF_SERIES).8
 gdkpixbuf-extract:
 	./get.sh $(GDKPIXBUF) $(GDKPIXBUF).tar.xz http://ftp.gnome.org/pub/gnome/sources/gdk-pixbuf/$(GDKPIXBUF_SERIES)/$(GDKPIXBUF).tar.xz
 
-gdkpixbuf: glib-extract gdkpixbuf-extract
+gdkpixbuf: tools glib-extract gdkpixbuf-extract
 
 	$(GETCOMMENT) extracted/$(GDKPIXBUF)/gdk-pixbuf/gdk-pixbuf.h > gdkpixbuf.tmp
 
@@ -839,7 +851,7 @@ glib-extract:
 	# targets.
 	sed $(SED_GLIBCONFIG) < glibconfig.h > extracted/$(GLIB)/glib/glibconfig.h
 
-glib: glib-extract
+glib: tools glib-extract
 
 	$(GETCOMMENT) extracted/$(GLIB)/glib/glib.h        > glib.tmp
 	$(GETCOMMENT) extracted/$(GLIB)/glib/glib-object.h > glib-object.tmp
@@ -877,7 +889,7 @@ glib: glib-extract
 	rm *.tmp
 
 GLIBC := glibc-2.21
-glibc:
+glibc: tools
 	./get.sh $(GLIBC) $(GLIBC).tar.xz http://ftp.gnu.org/gnu/glibc/$(GLIBC).tar.xz
 
 	cd extracted/$(GLIBC) && \
@@ -917,7 +929,7 @@ glibc:
 	rm *.tmp
 
 GLUT := glut-3.7
-glut:
+glut: tools
 	./get.sh $(GLUT) $(GLUT).tar.gz https://www.opengl.org/resources/libraries/glut/$(GLUT).tar.gz
 
 	sed -n 4,8p extracted/$(GLUT)/include/GL/glut.h > glut.tmp
@@ -948,7 +960,7 @@ gtk2-extract: glib-extract cairo-extract pango-extract atk-extract gdkpixbuf-ext
 	# Insert our custom gdkconfig.h
 	cp gdk2config.h extracted/$(GTK2)/gdkconfig.h
 
-gtk2: gtk2-extract
+gtk2: tools gtk2-extract
 
 	$(GETCOMMENT) extracted/$(GTK2)/gtk/gtk.h > gtk2.tmp
 	$(GETCOMMENT) extracted/$(GTK2)/gdk/gdk.h > gdk2.tmp
@@ -980,7 +992,7 @@ gtk2: gtk2-extract
 
 GTK3_SERIES := 3.14
 GTK3 := gtk+-$(GTK3_SERIES).10
-gtk3: glib-extract cairo-extract pango-extract atk-extract gdkpixbuf-extract
+gtk3: tools glib-extract cairo-extract pango-extract atk-extract gdkpixbuf-extract
 	./get.sh $(GTK3) $(GTK3).tar.xz http://ftp.gnome.org/pub/gnome/sources/gtk+/$(GTK3_SERIES)/$(GTK3).tar.xz
 
 	# Insert our custom gdkconfig.h
@@ -1010,7 +1022,7 @@ gtk3: glib-extract cairo-extract pango-extract atk-extract gdkpixbuf-extract
 	rm *.tmp
 
 GTKGLEXT := gtkglext-1.2.0
-gtkglext: glib-extract gtk2-extract
+gtkglext: tools glib-extract gtk2-extract
 	./get.sh $(GTKGLEXT) $(GTKGLEXT).tar.gz http://downloads.sourceforge.net/gtkglext/$(GTKGLEXT).tar.gz
 
 	# Insert our custom gdkglext-config.h
@@ -1055,7 +1067,7 @@ ICONV_SED_COMMON  += -e 's/@BROKEN_WCHAR_H@/0/g'
 ICONV_SED_COMMON  += -e 's/@HAVE_WCHAR_T@/1/g'
 ICONV_SED_DEFAULT := $(ICONV_SED_COMMON) -e 's/@DLL_VARIABLE@//g'
 ICONV_SED_WINDOWS := $(ICONV_SED_COMMON) -e 's/@DLL_VARIABLE@/__declspec(dllimport)/g'
-iconv:
+iconv: tools
 	./get.sh $(ICONV) $(ICONV).tar.gz "http://ftp.gnu.org/pub/gnu/libiconv/$(ICONV).tar.gz"
 
 	cd extracted/$(ICONV)/include && \
@@ -1079,7 +1091,7 @@ iconv:
 
 IUP_VERSION := 3.13
 IUP_TITLE := iup-$(IUP_VERSION)
-iup:
+iup: tools
 	./get.sh iup $(IUP_TITLE)_Sources.tar.gz "http://sourceforge.net/projects/iup/files/$(IUP_VERSION)/Docs%20and%20Sources/$(IUP_TITLE)_Sources.tar.gz/download"
 	find extracted/iup/ -type d -exec chmod +x '{}' ';'
 
@@ -1161,7 +1173,7 @@ iup:
 	rm *.tmp
 
 JIT_TITLE := libjit-a8293e141b79c28734a3633a81a43f92f29fc2d7
-jit:
+jit: tools
 	./get.sh $(JIT_TITLE) $(JIT_TITLE).tar.gz "http://git.savannah.gnu.org/cgit/libjit.git/snapshot/$(JIT_TITLE).tar.gz"
 
 	# libjit symlinks jit-arch.h to jit-arch-{x86|x86-64}.h and generates
@@ -1192,7 +1204,7 @@ jit:
 
 LLVM_VERSION := 3.5.0
 LLVM_TITLE := llvm-$(LLVM_VERSION).src
-llvm:
+llvm: tools
 	./get.sh $(LLVM_TITLE) $(LLVM_TITLE).tar.xz "http://llvm.org/releases/$(LLVM_VERSION)/$(LLVM_TITLE).tar.xz"
 
 	cd extracted/$(LLVM_TITLE) && \
@@ -1222,7 +1234,7 @@ llvm:
 	rm *.tmp
 
 LUA_TITLE := lua-5.2.3
-lua:
+lua: tools
 	./get.sh $(LUA_TITLE) $(LUA_TITLE).tar.gz "http://www.lua.org/ftp/$(LUA_TITLE).tar.gz"
 
 	sed -n 421,440p extracted/$(LUA_TITLE)/src/lua.h | cut -c3- > lua.tmp
@@ -1242,7 +1254,7 @@ lua:
 	rm *.tmp
 
 NCURSES_TITLE := ncurses-5.9
-ncurses:
+ncurses: tools
 	./get.sh $(NCURSES_TITLE) $(NCURSES_TITLE).tar.gz "http://ftp.gnu.org/pub/gnu/ncurses/$(NCURSES_TITLE).tar.gz"
 	cd extracted/$(NCURSES_TITLE) && \
 		if [ ! -f include/curses.h ]; then ./configure && cd include && make; fi
@@ -1263,7 +1275,7 @@ ncurses:
 OPENALSOFT := openal-soft-1.16.0
 FREEALUT_TAG := freealut_1_1_0
 FREEALUT := freealut-$(FREEALUT_TAG)
-openal:
+openal: tools
 	./get.sh $(OPENALSOFT) $(OPENALSOFT).tar.bz2 http://kcat.strangesoft.net/openal-releases/$(OPENALSOFT).tar.bz2
 	# Downloading freealut from unofficial mirror
 	./get.sh $(FREEALUT) $(FREEALUT_TAG).tar.gz https://github.com/vancegroup/freealut/archive/$(FREEALUT_TAG).tar.gz
@@ -1335,7 +1347,7 @@ opengl: opengl-mesa opengl-winapi
 MESA_VERSION := 10.5.1
 MESA := mesa-$(MESA_VERSION)
 GLU := glu-9.0.0
-opengl-mesa:
+opengl-mesa: tools
 	./get.sh $(MESA) $(MESA).tar.xz ftp://ftp.freedesktop.org/pub/mesa/$(MESA_VERSION)/$(MESA).tar.xz
 	./get.sh $(GLU)  $(GLU).tar.bz2 ftp://ftp.freedesktop.org/pub/mesa/glu/$(GLU).tar.bz2
 
@@ -1359,7 +1371,7 @@ opengl-mesa:
 
 	rm *.tmp
 
-opengl-winapi: winapi-extract
+opengl-winapi: tools winapi-extract
 
 	sed -n 2,9p  extracted/$(MINGWW64_TITLE)/DISCLAIMER.PD | cut -c4- > mingw-w64-disclaimer-pd.tmp
 	sed -n 9,28p extracted/$(MINGWW64_TITLE)/mingw-w64-headers/include/GL/glext.h | cut -c4- > mingw-w64-glext.tmp
@@ -1384,7 +1396,7 @@ PANGO := pango-$(PANGO_SERIES).8
 pango-extract:
 	./get.sh $(PANGO) $(PANGO).tar.xz http://ftp.gnome.org/pub/gnome/sources/pango/$(PANGO_SERIES)/$(PANGO).tar.xz
 
-pango: pango-extract glib-extract cairo-extract
+pango: tools pango-extract glib-extract cairo-extract
 
 	sed -n 4,19p extracted/$(PANGO)/pango/pango.h      | cut -c4- > pango.tmp
 	sed -n 4,19p extracted/$(PANGO)/pango/pangocairo.h | cut -c4- > pangocairo.tmp
@@ -1431,7 +1443,7 @@ pango: pango-extract glib-extract cairo-extract
 
 PDCURSES_VERSION := 3.4
 PDCURSES := PDCurses-$(PDCURSES_VERSION)
-pdcurses:
+pdcurses: tools
 	./get.sh $(PDCURSES) $(PDCURSES).tar.gz "http://sourceforge.net/projects/pdcurses/files/pdcurses/$(PDCURSES_VERSION)/$(PDCURSES).tar.gz/download"
 	sed -n 15,25p extracted/$(PDCURSES)/README > pdcurses.tmp
 	mkdir -p inc/curses
@@ -1467,7 +1479,7 @@ pdcurses:
 png: png12 png14 png15 png16
 
 PNG12_TITLE := libpng-1.2.53
-png12:
+png12: tools
 	./get.sh $(PNG12_TITLE) $(PNG12_TITLE).tar.xz "http://downloads.sourceforge.net/libpng/$(PNG12_TITLE).tar.xz?download"
 	sed -n 1,14p    extracted/$(PNG12_TITLE)/png.h | cut -c4- >  png12.tmp
 	echo                                                      >> png12.tmp
@@ -1477,7 +1489,7 @@ png12:
 	rm *.tmp
 
 PNG14_TITLE := libpng-1.4.16
-png14:
+png14: tools
 	./get.sh $(PNG14_TITLE) $(PNG14_TITLE).tar.xz "http://downloads.sourceforge.net/libpng/$(PNG14_TITLE).tar.xz?download"
 	sed -n 2,16p    extracted/$(PNG14_TITLE)/png.h | cut -c4- >  png14.tmp
 	echo                                                      >> png14.tmp
@@ -1487,7 +1499,7 @@ png14:
 	rm *.tmp
 
 PNG15_TITLE := libpng-1.5.21
-png15:
+png15: tools
 	./get.sh $(PNG15_TITLE) $(PNG15_TITLE).tar.xz "http://downloads.sourceforge.net/libpng/$(PNG15_TITLE).tar.xz?download"
 	cp extracted/$(PNG15_TITLE)/scripts/pnglibconf.h.prebuilt \
 	   extracted/$(PNG15_TITLE)/pnglibconf.h
@@ -1499,7 +1511,7 @@ png15:
 	rm *.tmp
 
 PNG16_TITLE := libpng-1.6.16
-png16:
+png16: tools
 	./get.sh $(PNG16_TITLE) $(PNG16_TITLE).tar.xz "http://downloads.sourceforge.net/libpng/$(PNG16_TITLE).tar.xz?download"
 	cp extracted/$(PNG16_TITLE)/scripts/pnglibconf.h.prebuilt \
 	   extracted/$(PNG16_TITLE)/pnglibconf.h
@@ -1518,7 +1530,7 @@ SDL1_MIXER := SDL_mixer-1.2.12
 SDL1_NET := SDL_net-1.2.8
 SDL1_TTF := SDL_ttf-2.0.11
 SDL1_GFX := SDL_gfx-2.0.13
-sdl1:
+sdl1: tools
 	./get.sh $(SDL1_MAIN)  $(SDL1_MAIN).tar.gz  "http://www.libsdl.org/release/$(SDL1_MAIN).tar.gz"
 	./get.sh $(SDL1_IMAGE) $(SDL1_IMAGE).tar.gz "http://www.libsdl.org/projects/SDL_image/release/$(SDL1_IMAGE).tar.gz"
 	./get.sh $(SDL1_MIXER) $(SDL1_MIXER).tar.gz "http://www.libsdl.org/projects/SDL_mixer/release/$(SDL1_MIXER).tar.gz"
@@ -1623,7 +1635,7 @@ SDL2_MIXER := SDL2_mixer-2.0.0
 SDL2_NET := SDL2_net-2.0.0
 SDL2_TTF := SDL2_ttf-2.0.12
 SDL2_GFX := SDL2_gfx-1.0.1
-sdl2: winapi-extract
+sdl2: tools winapi-extract
 	./get.sh $(SDL2_MAIN)  $(SDL2_MAIN).tar.gz  "http://www.libsdl.org/release/$(SDL2_MAIN).tar.gz"
 	./get.sh $(SDL2_IMAGE) $(SDL2_IMAGE).tar.gz "http://www.libsdl.org/projects/SDL_image/release/$(SDL2_IMAGE).tar.gz"
 	./get.sh $(SDL2_MIXER) $(SDL2_MIXER).tar.gz "http://www.libsdl.org/projects/SDL_mixer/release/$(SDL2_MIXER).tar.gz"
@@ -1729,7 +1741,7 @@ sdl2: winapi-extract
 # crt/regex.bi (glibc implementation), with an #ifdef for switching.
 #
 TRE := tre-0.8.0
-tre:
+tre: tools
 	./get.sh $(TRE) $(TRE).tar.bz2 "http://laurikari.net/tre/$(TRE).tar.bz2"
 
 	cat extracted/$(TRE)/LICENSE > tre.tmp
@@ -1848,7 +1860,7 @@ winapi-extract:
 
 winapi: winapi-main winapi-rest
 
-winapi-main: winapi-extract
+winapi-main: tools winapi-extract
 
 	# Main pass - winsock2.h, windows.h, Direct3D/DirectX 9
 	# winsock2.h has to be #included before windows.h in order to override
@@ -2084,7 +2096,7 @@ winapi-main: winapi-extract
 
 	rm *.tmp
 
-winapi-rest: winapi-extract
+winapi-rest: tools winapi-extract
 	sed -n 2,42p extracted/$(MINGWW64_TITLE)/DISCLAIMER    | cut -c2- > mingw-w64-disclaimer.tmp
 	sed -n 2,9p  extracted/$(MINGWW64_TITLE)/DISCLAIMER.PD | cut -c4- > mingw-w64-disclaimer-pd.tmp
 
@@ -2224,7 +2236,7 @@ SED_X11_XPOLL := -e 's/@USE_FDS_BITS@/__fds_bits/g'
 include x11-titles-main-generated.mk
 include x11-titles-internal-generated.mk
 
-x11:
+x11: tools
 	mkdir -p extracted/xorg
 	mkdir -p tarballs/xorg
 	./getxorg.sh $(X11_ICE)      $(X11_ICE).tar.bz2       "http://xorg.freedesktop.org/releases/individual/lib/$(X11_ICE).tar.bz2"
@@ -2522,13 +2534,13 @@ x11:
 	rm *.tmp
 
 # TODO
-xcb:
+xcb: tools
 	./downloadextract.sh xcb-proto-1.8          xcb-proto-1.8.tar.bz2          "http://xcb.freedesktop.org/dist/xcb-proto-1.8.tar.bz2"
 	./downloadextract.sh libpthread-stubs-0.3 libpthread-stubs-0.3.tar.bz2 "http://xcb.freedesktop.org/dist/libpthread-stubs-0.3.tar.bz2"
 	./downloadextract.sh libxcb-1.9           libxcb-1.9.tar.bz2           "http://xcb.freedesktop.org/dist/libxcb-1.9.tar.bz2"
 
 ZIP_TITLE := libzip-0.11.2
-zip:
+zip: tools
 	./get.sh $(ZIP_TITLE) $(ZIP_TITLE).tar.xz "http://www.nih.at/libzip/$(ZIP_TITLE).tar.xz"
 
 	# Need to compile libzip in order to get zipconf.h
@@ -2544,7 +2556,7 @@ zip:
 	rm *.tmp
 
 ZLIB_TITLE := zlib-1.2.8
-zlib:
+zlib: tools
 	./get.sh $(ZLIB_TITLE) $(ZLIB_TITLE).tar.xz "http://zlib.net/$(ZLIB_TITLE).tar.xz"
 
 	$(GETCOMMENT) extracted/$(ZLIB_TITLE)/zlib.h > zlib.tmp
