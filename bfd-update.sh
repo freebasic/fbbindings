@@ -2,7 +2,7 @@
 
 versions="216 217 218 219 220 221 222 223 224 225"
 
-echo "bfd:" > bfd.mk
+echo "bfd: tools" > bfd.mk
 echo >> bfd.mk
 for v in $versions; do
 	echo "	./get.sh \$(BINUTILS_$v) \$(BINUTILS_$v).tar.bz2 http://ftp.gnu.org/gnu/binutils/\$(BINUTILS_$v).tar.bz2" >> bfd.mk
