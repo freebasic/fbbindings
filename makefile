@@ -1131,12 +1131,24 @@ iup: tools
 		-emit '*/iupval.h'           inc/IUP/iupval.bi           \
 		-emit '*/iupweb.h'           inc/IUP/iupweb.bi           \
 		-inclib iup                  inc/IUP/iup.bi              \
+		-inclib iupcontrols          inc/IUP/iupcontrols.bi      \
+		-inclib iupglcontrols        inc/IUP/iupglcontrols.bi    \
+		-inclib iupgl                inc/IUP/iupgl.bi            \
+		-inclib iupmatrixex          inc/IUP/iupmatrixex.bi      \
+		-inclib iup_mglplot          inc/IUP/iup_mglplot.bi      \
+		-inclib iupole               inc/IUP/iupole.bi           \
+		-inclib iup_plot             inc/IUP/iup_plot.bi         \
+		-inclib iup_pplot            inc/IUP/iup_pplot.bi        \
+		-inclib iuptuio              inc/IUP/iuptuio.bi          \
 		-ifdef __FB_WIN32__                                      \
 			-inclib gdi32        inc/IUP/iup.bi              \
 			-inclib user32       inc/IUP/iup.bi              \
 			-inclib comdlg32     inc/IUP/iup.bi              \
 			-inclib comctl32     inc/IUP/iup.bi              \
 			-inclib ole32        inc/IUP/iup.bi              \
+			-inclib advapi32     inc/IUP/iup.bi              \
+			-inclib shell32      inc/IUP/iup.bi              \
+			-inclib uuid         inc/IUP/iup.bi              \
 		-else                                                    \
 			-inclib gtk-x11-2.0  inc/IUP/iup.bi              \
 			-inclib gdk-x11-2.0  inc/IUP/iup.bi              \
@@ -1150,6 +1162,7 @@ iup: tools
 		-title $(IUP_TITLE) iup.tmp fbteam.txt
 
 	$(FBFROG) iupim.fbfrog extracted/iup/include/iupim.h -o inc/IUP \
+		-inclib iupim \
 		-title $(IUP_TITLE) iup.tmp fbteam.txt
 
 	$(FBFROG) iuplua.fbfrog iupscintilla.fbfrog \
@@ -1168,6 +1181,7 @@ iup: tools
 		-emit '*/iupluatuio.h'       inc/IUP/iupluatuio.bi       \
 		-emit '*/iupluaweb.h'        inc/IUP/iupluaweb.bi        \
 		-emit '*/iup_scintilla.h'    inc/IUP/iup_scintilla.bi    \
+		-inclib iup_scintilla        inc/IUP/iup_scintilla.bi    \
 		-title $(IUP_TITLE) iup.tmp fbteam.txt
 
 	rm *.tmp
