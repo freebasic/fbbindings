@@ -281,3 +281,5 @@ nodos.fbfrog
 -addforwarddecl SDL_cond
 -addforwarddecl SDL_Thread
 -addforwarddecl SDL_BlitMap
+
+-ifndefdecl NULL

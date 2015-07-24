@@ -28,3 +28,6 @@
 -renameproc erase erase_
 -renameproc instr instr_
 -renameproc getmouse getmouse_
+
+-ifndefdecl TRUE
+-ifndefdecl FALSE
