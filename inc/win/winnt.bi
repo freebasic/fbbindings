@@ -97,8 +97,6 @@ type PVOID as any ptr
 type PVOID64 as any ptr
 #define VOID any
 type CHAR as zstring
-type SHORT as short
-type LONG as long
 type INT_ as long
 #define __WCHAR_DEFINED
 type WCHAR as wstring

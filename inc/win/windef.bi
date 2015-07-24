@@ -68,9 +68,7 @@
 const STRICT = 1
 #define BASETYPES
 
-type ULONG as ulong
 type PULONG as ULONG ptr
-type USHORT as ushort
 type PUSHORT as USHORT ptr
 type UCHAR as ubyte
 type PUCHAR as UCHAR ptr

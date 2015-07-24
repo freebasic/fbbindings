@@ -79,15 +79,10 @@ type HANDLE as PVOID
 type PHANDLE as HANDLE ptr
 #define VOID any
 type CHAR as zstring
-type SHORT as short
-type LONG as long
 type INT_ as long
-type DOUBLE as double
 type UCHAR as ubyte
 type PUCHAR as ubyte ptr
-type USHORT as ushort
 type PUSHORT as ushort ptr
-type ULONG as ulong
 type PULONG as ulong ptr
 type PCUCHAR as const UCHAR ptr
 type PCUSHORT as const USHORT ptr

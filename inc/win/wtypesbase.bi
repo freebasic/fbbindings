@@ -66,10 +66,6 @@ type LPOLESTR as wstring ptr
 type LPCOLESTR as const wstring ptr
 #define OLESTR(str) wstr(str)
 type UCHAR as ubyte
-type SHORT as short
-type USHORT as ushort
-type ULONG as DWORD
-type DOUBLE as double
 
 type _COAUTHIDENTITY
 	User as USHORT ptr

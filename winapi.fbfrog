@@ -580,6 +580,11 @@
 -removedefine HIWORD
 -removedefine LOBYTE
 -removedefine HIBYTE
+-remove SHORT
+-remove USHORT
+-remove LONG
+-remove ULONG
+-remove DOUBLE
 
 # Redundant declarations where fbc doesn't allow it yet
 -remove1st IsEqualIID
