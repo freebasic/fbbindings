@@ -117,7 +117,7 @@ extern "C"
 #define G_STATIC_ASSERT(expr) #assert expr
 #define G_STRLOC __FILE__ ":" G_STRINGIFY(__LINE__)
 #define G_STRFUNC cptr(const zstring ptr, __func__)
-const NULL = cptr(any ptr, 0)
+const NULL = 0
 const FALSE = 0
 #define TRUE (FALSE = 0)
 #undef MAX

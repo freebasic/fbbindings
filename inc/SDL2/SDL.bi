@@ -77,7 +77,7 @@ extern "C"
 #define _SDL_config_h
 #define _SDL_platform_h
 #define SDLCALL cdecl
-const NULL = cptr(any ptr, 0)
+const NULL = 0
 declare function SDL_GetPlatform() as const zstring ptr
 
 #ifdef __FB_WIN32__
