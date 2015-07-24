@@ -1,3 +1,5 @@
+-replacements glfw.replacements
+
 -removedefine APIENTRY
 -removedefine CALLBACK
 -removedefine GL_APIENTRY_DEFINED

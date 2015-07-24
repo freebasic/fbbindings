@@ -1,5 +1,2 @@
-convert c: #define SDLCALL
-to fb:     #define SDLCALL cdecl
-
 convert c: #define NULL ((void *)0)
 to c:      #define NULL 0

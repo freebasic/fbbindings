@@ -1,3 +1,6 @@
+convert c: #define NULL ((void *)0)
+to c:      #define NULL 0
+
 convert c:
 	#define G_STATIC_ASSERT(expr) \
 		typedef char G_PASTE (_GStaticAssertCompileTimeAssertion_, __LINE__)[(expr) ? 1 : -1] G_GNUC_UNUSED
