@@ -357,12 +357,8 @@ const ALLEGRO_WIP_VERSION = 2
 #define ALLEGRO_VERSION_STR "4.4.2"
 #define ALLEGRO_DATE_STR "2011"
 const ALLEGRO_DATE = 20110519
-#ifndef TRUE
-	const TRUE = -1
-#endif
-#ifndef FALSE
-	const FALSE = 0
-#endif
+const TRUE = -1
+const FALSE = 0
 
 #undef MIN
 #undef MAX

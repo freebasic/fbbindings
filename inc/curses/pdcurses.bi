@@ -48,12 +48,8 @@ const XOPEN = 1
 const SYSVcurses = 1
 const BSDcurses = 1
 const CHTYPE_LONG = 1
-#ifndef FALSE
-	const FALSE = 0
-#endif
-#ifndef TRUE
-	const TRUE = 1
-#endif
+const FALSE = 0
+const TRUE = 1
 const ERR_ = -1
 const OK = 0
 type bool as ubyte
