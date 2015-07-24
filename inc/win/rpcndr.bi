@@ -18,9 +18,6 @@
 #include once "basetsd.bi"
 #include once "rpcnsip.bi"
 
-'' The following symbols have been renamed:
-''     typedef BOOLEAN => WINBOOLEAN
-
 extern "Windows"
 
 const __RPCNDR_H_VERSION__ = 475
@@ -52,7 +49,6 @@ const TARGET_IS_NT40_OR_LATER = 1
 const TARGET_IS_NT351_OR_WIN95_OR_LATER = 1
 
 type cs_byte as ubyte
-type WINBOOLEAN as ubyte
 #define _HYPER_DEFINED
 #define __MIDL_user_allocate_free_DEFINED__
 declare function MIDL_user_allocate(byval as SIZE_T_) as any ptr

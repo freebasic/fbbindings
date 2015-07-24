@@ -91,6 +91,9 @@ type FCHAR as UCHAR
 type FSHORT as USHORT
 type FLONG as ULONG
 type WINBOOLEAN as UCHAR
+#ifndef BOOLEAN
+	type BOOLEAN as WINBOOLEAN
+#endif
 type PBOOLEAN as UCHAR ptr
 type LOGICAL as ULONG
 type PLOGICAL as ULONG ptr

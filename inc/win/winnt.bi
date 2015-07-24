@@ -348,6 +348,9 @@ const UNICODE_NULL = cast(wchar_t, 0)
 const UNICODE_STRING_MAX_CHARS = 32767
 #define _BOOLEAN_
 type WINBOOLEAN as UBYTE
+#ifndef BOOLEAN
+	type BOOLEAN as WINBOOLEAN
+#endif
 type PBOOLEAN as WINBOOLEAN ptr
 #define _LIST_ENTRY_DEFINED
 
