@@ -34,6 +34,7 @@
 
 '' The following symbols have been renamed:
 ''     typedef INT => INT_
+''     typedef BOOLEAN => WINBOOLEAN
 ''     typedef CSHORT => CSHORT_
 ''     typedef STRING => STRING_
 
@@ -94,7 +95,7 @@ type PCULONG as const ULONG ptr
 type FCHAR as UCHAR
 type FSHORT as USHORT
 type FLONG as ULONG
-type BOOLEAN as UCHAR
+type WINBOOLEAN as UCHAR
 type PBOOLEAN as UCHAR ptr
 type LOGICAL as ULONG
 type PLOGICAL as ULONG ptr
