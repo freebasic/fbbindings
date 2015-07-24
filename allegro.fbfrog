@@ -120,5 +120,5 @@
 # For proper translation of ENUM_CURRENT_SETTINGS
 -typedefhint DWORD
 
--ifndefdecl TRUE
--ifndefdecl FALSE
+#-ifndefdecl TRUE
+#-ifndefdecl FALSE

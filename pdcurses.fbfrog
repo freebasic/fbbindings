@@ -29,5 +29,5 @@
 -renameproc instr instr_
 -renameproc getmouse getmouse_
 
--ifndefdecl TRUE
--ifndefdecl FALSE
+#-ifndefdecl TRUE
+#-ifndefdecl FALSE
