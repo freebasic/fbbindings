@@ -112,8 +112,12 @@ type bfd_uint64_t as ulongint
 type bfd_boolean as long
 #undef FALSE
 #undef TRUE
-const FALSE = 0
-const TRUE = 1
+#ifndef FALSE
+	const FALSE = 0
+#endif
+#ifndef TRUE
+	const TRUE = 1
+#endif
 
 #if defined(__FB_64BIT__) and (defined(__FB_WIN32__) or defined(__FB_LINUX__))
 	type bfd_vma as ulongint

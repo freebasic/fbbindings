@@ -57,7 +57,6 @@
 #endif
 
 #define __glfw_h_
-
 #ifndef NULL
 	const NULL = 0
 #endif
