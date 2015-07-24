@@ -54,8 +54,12 @@ type QWORD as ulongint
 
 #if defined(__FB_DOS__) or defined(__FB_LINUX__)
 	type BOOL as long
-	const TRUE = 1
-	const FALSE = 0
+	#ifndef TRUE
+		const TRUE = 1
+	#endif
+	#ifndef FALSE
+		const FALSE = 0
+	#endif
 	#define MAKEWORD(a, b) cast(WORD, ((a) and &hff) or ((b) shl 8))
 	#define MAKELONG(a, b) cast(DWORD, ((a) and &hffff) or ((b) shl 16))
 #endif

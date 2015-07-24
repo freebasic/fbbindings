@@ -85,9 +85,13 @@ type chtype as culong
 type mmask_t as culong
 #undef NCURSES_WIDECHAR
 #undef TRUE
-const TRUE = 1
+#ifndef TRUE
+	const TRUE = 1
+#endif
 #undef FALSE
-const FALSE = 0
+#ifndef FALSE
+	const FALSE = 0
+#endif
 type NCURSES_BOOL as ubyte
 #define NCURSES_BOOL_ bool
 #define NCURSES_CAST(type, value) cast(type, value)

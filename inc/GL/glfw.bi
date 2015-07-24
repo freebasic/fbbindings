@@ -57,7 +57,9 @@
 #endif
 
 #define __glfw_h_
-const NULL = 0
+#ifndef NULL
+	const NULL = 0
+#endif
 
 #if defined(__FB_WIN32__) and defined(GLFW_DLL)
 	#define GLFWCALL __stdcall

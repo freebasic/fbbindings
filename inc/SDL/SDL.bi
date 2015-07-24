@@ -107,7 +107,9 @@ enum
 end enum
 
 #define SDLCALL cdecl
-const NULL = 0
+#ifndef NULL
+	const NULL = 0
+#endif
 #define SDL_malloc malloc
 #define SDL_calloc calloc
 #define SDL_realloc realloc

@@ -75,9 +75,15 @@ type PUCHAR as UCHAR ptr
 type PSZ as zstring ptr
 
 const MAX_PATH = 260
-const NULL = 0
-const FALSE = 0
-const TRUE = 1
+#ifndef NULL
+	const NULL = 0
+#endif
+#ifndef FALSE
+	const FALSE = 0
+#endif
+#ifndef TRUE
+	const TRUE = 1
+#endif
 #define _DEF_WINBOOL_
 
 type WINBOOL as long

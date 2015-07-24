@@ -51,8 +51,12 @@
 	type DWORD as culong
 	type BOOL as long
 
-	const TRUE = 1
-	const FALSE = 0
+	#ifndef TRUE
+		const TRUE = 1
+	#endif
+	#ifndef FALSE
+		const FALSE = 0
+	#endif
 	#define MAKELONG(a, b) cast(DWORD, ((a) and &hffff) or ((b) shl 16))
 #endif
 
