@@ -21,3 +21,5 @@
 -endif
 
 -removeinclude stddef.h
+
+-ifndefdecl NULL

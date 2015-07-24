@@ -174,3 +174,7 @@ nodos.fbfrog
 -removeinclude signal.h
 -removeinclude dirent.h
 -removeinclude unistd.h
+
+-ifndefdecl NULL
+-ifndefdecl TRUE
+-ifndefdecl FALSE

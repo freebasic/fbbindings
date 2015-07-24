@@ -44,3 +44,6 @@
 -convbodytokens EAX_PRESET_DRUGGED
 -convbodytokens EAX_PRESET_DIZZY
 -convbodytokens EAX_PRESET_PSYCHOTIC
+
+-ifndefdecl TRUE
+-ifndefdecl FALSE
