@@ -86,7 +86,7 @@ type PROPVARIANT as tagPROPVARIANT
 
 type tagCAC
 	cElems as ULONG
-	pElems as zstring ptr
+	pElems as CHAR ptr
 end type
 
 type CAC as tagCAC
@@ -251,7 +251,7 @@ type tagPROPVARIANT
 			wReserved3 as PROPVAR_PAD3
 
 			union
-				cVal as byte
+				cVal as CHAR
 				bVal as UCHAR
 				iVal as SHORT
 				uiVal as USHORT
@@ -303,7 +303,7 @@ type tagPROPVARIANT
 				calpstr as CALPSTR
 				calpwstr as CALPWSTR
 				capropvar as CAPROPVARIANT
-				pcVal as zstring ptr
+				pcVal as CHAR ptr
 				pbVal as UCHAR ptr
 				piVal as SHORT ptr
 				puiVal as USHORT ptr

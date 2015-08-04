@@ -27,8 +27,8 @@
 #define __SSPI_H__
 const ISSP_LEVEL = 32
 const ISSP_MODE = 1
-type SEC_WCHAR as wstring
-type SEC_CHAR as zstring
+type SEC_WCHAR as WCHAR
+type SEC_CHAR as CHAR
 #define SEC_TEXT TEXT
 
 #ifdef UNICODE
@@ -159,7 +159,7 @@ const SECBUFFER_RESERVED = &h60000000
 type _SEC_NEGOTIATION_INFO
 	Size as ulong
 	NameLength as ulong
-	Name as wstring ptr
+	Name as SEC_WCHAR ptr
 	Reserved as any ptr
 end type
 
