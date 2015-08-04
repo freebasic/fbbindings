@@ -19,5 +19,17 @@ to fb: #define CGUI_ADAPTIVE 0,CGUI_AUTOINDICATOR
 convert c: #define FILLSCREEN 1,AUTOINDICATOR
 to fb: #define CGUI_FILLSCREEN 1,CGUI_AUTOINDICATOR
 
+convert c: #define InitCguiLoadMode()  InitCguiEx(0, CGUI_INIT_LOAD, CGUI_INIT_CODE, &errno, (int (*)(void (*)(void)))atexit)
+to c:      #define InitCguiLoadMode()  InitCguiEx(0, CGUI_INIT_LOAD, CGUI_INIT_CODE, &errno, (int (*)(void (*)(void)))&atexit)
+
+convert c: #define InitCguiFullscreenMode()  InitCguiEx(0, CGUI_INIT_FULLSCREEN, CGUI_INIT_CODE, &errno, (int (*)(void (*)(void)))atexit)
+to c:      #define InitCguiFullscreenMode()  InitCguiEx(0, CGUI_INIT_FULLSCREEN, CGUI_INIT_CODE, &errno, (int (*)(void (*)(void)))&atexit)
+
+convert c: #define InitCguiWindowedMode()  InitCguiEx(0, CGUI_INIT_WINDOWED, CGUI_INIT_CODE, &errno, (int (*)(void (*)(void)))atexit)
+to c:      #define InitCguiWindowedMode()  InitCguiEx(0, CGUI_INIT_WINDOWED, CGUI_INIT_CODE, &errno, (int (*)(void (*)(void)))&atexit)
+
+convert c: #define InitCguiKeepCurrent()  InitCguiEx(0, CGUI_INIT_KEEP_CURRENT, CGUI_INIT_CODE, &errno, (int (*)(void (*)(void)))atexit)
+to c:      #define InitCguiKeepCurrent()  InitCguiEx(0, CGUI_INIT_KEEP_CURRENT, CGUI_INIT_CODE, &errno, (int (*)(void (*)(void)))&atexit)
+
 convert c: #define InitCgui(w, h, bpp)  InitCguiEx(w, h, bpp, &errno, (int (*)(void (*)(void)))atexit)
 to c:      #define InitCgui(w, h, bpp)  InitCguiEx(w, h, bpp, &errno, (int (*)(void (*)(void)))&atexit)
