@@ -37,32 +37,17 @@
 #endif
 
 #include once "crt/long.bi"
-
-#ifdef __FB_UNIX__
-	#include once "crt/sys/types.bi"
-#endif
-
 #include once "crt/stdio.bi"
 #include once "crt/stdlib.bi"
-#include once "crt/stddef.bi"
-#include once "crt/stdarg.bi"
 #include once "crt/string.bi"
-
-#ifdef __FB_UNIX__
-	#include once "strings.bi"
-	#include once "inttypes.bi"
-#else
-	#include once "crt/stdint.bi"
-#endif
-
 #include once "crt/ctype.bi"
 
 #ifdef __FB_UNIX__
-	#include once "iconv.bi"
-	#include once "alloca.bi"
+	#include once "crt/iconv.bi"
 	#include once "X11/Xlib.bi"
 	#include once "X11/Xatom.bi"
 #else
+	#include once "crt/stdarg.bi"
 	#include once "windows.bi"
 #endif
 
@@ -138,85 +123,21 @@ end enum
 #define SDL_toupper(X) toupper(X)
 #define SDL_tolower(X) tolower(X)
 #define SDL_memset memset
-
-#if (not defined(__FB_64BIT__)) and (defined(__FB_DARWIN__) or defined(__FB_WIN32__) or defined(__FB_CYGWIN__) or ((not defined(__FB_ARM__)) and (defined(__FB_LINUX__) or defined(__FB_FREEBSD__) or defined(__FB_OPENBSD__) or defined(__FB_NETBSD__))))
-	#macro SDL_memset4(dst, val, len)
-		scope
-			dim u0 as long
-			dim u1 as long
-			dim u2 as long
-			'' TODO: __asm__ __volatile__ ( "cld\n\t" "rep ; stosl\n\t" : "=&D" (u0), "=&a" (u1), "=&c" (u2) : "0" (dst), "1" (val), "2" (SDL_static_cast(Uint32, len)) : "memory" );
-		end scope
-	#endmacro
-#endif
-
-#if (not defined(__FB_64BIT__)) and (defined(__FB_WIN32__) or defined(__FB_CYGWIN__) or ((not defined(__FB_ARM__)) and (defined(__FB_LINUX__) or defined(__FB_FREEBSD__) or defined(__FB_OPENBSD__) or defined(__FB_NETBSD__))))
-	#macro SDL_memcpy(dst, src, len)
-		scope
-			dim u0 as long
-			dim u1 as long
-			dim u2 as long
-			'' TODO: __asm__ __volatile__ ( "cld\n\t" "rep ; movsl\n\t" "testb $2,%b4\n\t" "je 1f\n\t" "movsw\n" "1:\ttestb $1,%b4\n\t" "je 2f\n\t" "movsb\n" "2:" : "=&c" (u0), "=&D" (u1), "=&S" (u2) : "0" (SDL_static_cast(unsigned, len)/4), "q" (len), "1" (dst),"2" (src) : "memory" );
-		end scope
-	#endmacro
-	#macro SDL_memcpy4(dst, src, len)
-		scope
-			dim ecx as long
-			dim edi as long
-			dim esi as long
-			'' TODO: __asm__ __volatile__ ( "cld\n\t" "rep ; movsl" : "=&c" (ecx), "=&D" (edi), "=&S" (esi) : "0" (SDL_static_cast(unsigned, len)), "1" (dst), "2" (src) : "memory" );
-		end scope
-	#endmacro
-#elseif defined(__FB_DARWIN__) and defined(__FB_64BIT__)
-	#macro SDL_memset4(dst, val, len)
-		scope
-			dim _count as ulong = (len)
-			dim _n as ulong = (_count + 3) / 4
-			'' TODO: Uint32 *_p = SDL_static_cast(Uint32 *, dst);
-			dim _val as Uint32 = (val)
-			'' TODO: if (len == 0) break;
-			'' TODO: switch (_count % 4) { case 0: do { *_p++ = _val; case 3: *_p++ = _val; case 2: *_p++ = _val; case 1: *_p++ = _val; } while ( --_n ); }
-		end scope
-	#endmacro
-#endif
-
-#ifdef __FB_DARWIN__
-	#define SDL_memcpy(dst, src, len) memcpy(dst, src, len)
-	#define SDL_memcpy4(dst, src, len) memcpy(dst, src, (len) * 4)
-#endif
-
-#if (not defined(__FB_64BIT__)) and (defined(__FB_DARWIN__) or defined(__FB_WIN32__) or defined(__FB_CYGWIN__) or ((not defined(__FB_ARM__)) and (defined(__FB_LINUX__) or defined(__FB_FREEBSD__) or defined(__FB_OPENBSD__) or defined(__FB_NETBSD__))))
-	#macro SDL_revcpy(dst, src, len)
-		scope
-			dim u0 as long
-			dim u1 as long
-			dim u2 as long
-			'' TODO: char *dstp = SDL_static_cast(char *, dst);
-			'' TODO: char *srcp = SDL_static_cast(char *, src);
-			dim n as long = (len)
-			if n >= 4 then
-				'' TODO: __asm__ __volatile__ ( "std\n\t" "rep ; movsl\n\t" "cld\n\t" : "=&c" (u0), "=&D" (u1), "=&S" (u2) : "0" (n >> 2), "1" (dstp+(n-4)), "2" (srcp+(n-4)) : "memory" );
-			end if
-			'' TODO: switch (n & 3) { case 3: dstp[2] = srcp[2]; case 2: dstp[1] = srcp[1]; case 1: dstp[0] = srcp[0]; break; default: break; }
-		end scope
-	#endmacro
-#elseif (defined(__FB_64BIT__) and (defined(__FB_WIN32__) or defined(__FB_CYGWIN__) or defined(__FB_LINUX__) or defined(__FB_FREEBSD__) or defined(__FB_OPENBSD__) or defined(__FB_NETBSD__))) or ((not defined(__FB_64BIT__)) and defined(__FB_ARM__) and (defined(__FB_LINUX__) or defined(__FB_FREEBSD__) or defined(__FB_OPENBSD__) or defined(__FB_NETBSD__)))
-	#macro SDL_memset4(dst, val, len)
-		scope
-			dim _count as ulong = (len)
-			dim _n as ulong = (_count + 3) / 4
-			'' TODO: Uint32 *_p = SDL_static_cast(Uint32 *, dst);
-			dim _val as Uint32 = (val)
-			'' TODO: if (len == 0) break;
-			'' TODO: switch (_count % 4) { case 0: do { *_p++ = _val; case 3: *_p++ = _val; case 2: *_p++ = _val; case 1: *_p++ = _val; } while ( --_n ); }
-		end scope
-	#endmacro
-	#define SDL_memcpy memcpy
-	#define SDL_memcpy4(dst, src, len) SDL_memcpy(dst, src, (len) shl 2)
-#endif
+#define SDL_memset4(dst, val, len) SDL_memset(dst, val, (len) * 4)
+#define SDL_memcpy(dst, src, len) memcpy(dst, src, len)
+#define SDL_memcpy4(dst, src, len) SDL_memcpy(dst, src, (len) * 4)
 
 #if defined(__FB_64BIT__) or ((not defined(__FB_64BIT__)) and defined(__FB_ARM__) and (defined(__FB_LINUX__) or defined(__FB_FREEBSD__) or defined(__FB_OPENBSD__) or defined(__FB_NETBSD__)))
 	declare function SDL_revcpy(byval dst as any ptr, byval src as const any ptr, byval len as uinteger) as any ptr
+#else
+	private function SDL_revcpy(byval dst as any ptr, byval src as const any ptr, byval length as uinteger) as any ptr
+		dim as const byte ptr s = src
+		dim as byte ptr d = dst
+		for i as integer = length - 1 to 0 step -1
+			d[i] = s[i]
+		next
+		function = dst
+	end function
 #endif
 
 #define SDL_memmove memmove
@@ -352,68 +273,15 @@ const SDL_BIG_ENDIAN = 4321
 	#define SDL_BYTEORDER SDL_LIL_ENDIAN
 #endif
 
-#if (not defined(__FB_64BIT__)) and (defined(__FB_DARWIN__) or defined(__FB_WIN32__) or defined(__FB_CYGWIN__) or ((not defined(__FB_ARM__)) and (defined(__FB_LINUX__) or defined(__FB_FREEBSD__) or defined(__FB_OPENBSD__) or defined(__FB_NETBSD__))))
-	private function SDL_Swap16(byval x as Uint16) as Uint16
-		'' TODO: __asm__("xchgb %b0,%h0" : "=q" (x) : "0" (x));
-		return x
-	end function
-
-	private function SDL_Swap32(byval x as Uint32) as Uint32
-		'' TODO: __asm__("bswap %0" : "=r" (x) : "0" (x));
-		return x
-	end function
-
-	private function SDL_Swap64(byval x as Uint64) as Uint64
-		type v_s
-			a as Uint32
-			b as Uint32
-		end type
-		union v
-			s as v_s
-			u as Uint64
-		end union
-		dim v as v
-		v.u = x
-		'' TODO: __asm__("bswapl %0 ; bswapl %1 ; xchgl %0,%1" : "=r" (v.s.a), "=r" (v.s.b) : "0" (v.s.a), "1" (v.s.b));
-		return v.u
-	end function
-#elseif defined(__FB_64BIT__) and (defined(__FB_DARWIN__) or defined(__FB_WIN32__) or defined(__FB_CYGWIN__) or ((not defined(__FB_ARM__)) and (defined(__FB_LINUX__) or defined(__FB_FREEBSD__) or defined(__FB_OPENBSD__) or defined(__FB_NETBSD__))))
-	private function SDL_Swap16(byval x as Uint16) as Uint16
-		'' TODO: __asm__("xchgb %b0,%h0" : "=Q" (x) : "0" (x));
-		return x
-	end function
-
-	private function SDL_Swap32(byval x as Uint32) as Uint32
-		'' TODO: __asm__("bswapl %0" : "=r" (x) : "0" (x));
-		return x
-	end function
-
-	private function SDL_Swap64(byval x as Uint64) as Uint64
-		'' TODO: __asm__("bswapq %0" : "=r" (x) : "0" (x));
-		return x
-	end function
-#else
-	private function SDL_Swap16(byval x as Uint16) as Uint16
-		return cast(Uint16, (x shl 8) or (x shr 8))
-	end function
-
-	private function SDL_Swap32(byval x as Uint32) as Uint32
-		return cast(Uint32, (((x shl 24) or ((x shl 8) and &h00FF0000)) or ((x shr 8) and &h0000FF00)) or (x shr 24))
-	end function
-
-	private function SDL_Swap64(byval x as Uint64) as Uint64
-		dim hi as Uint32
-		dim lo as Uint32
-		lo = cast(Uint32, x and &hFFFFFFFF)
-		x shr= 32
-		hi = cast(Uint32, x and &hFFFFFFFF)
-		x = SDL_Swap32(lo)
-		x shl= 32
-		x or= SDL_Swap32(hi)
-		return x
-	end function
-#endif
-
+#define SDL_Swap16(x) cushort((cushort(x) shl 8) or (cushort(x) shr 8))
+#define SDL_Swap32(x) _
+	culng((culng(x) shl 24) or _
+	      ((culng(x) shl 8) and &h00FF0000) or _
+	      ((culng(x) shr 8) and &h0000FF00) or _
+	      (culng(x) shr 24))
+#define SDL_Swap64(x) _
+	culngint((SDL_Swap32(culngint(x) and &hFFFFFFFF) shl 32) or _
+	         SDL_Swap32(culngint(x) shr 32))
 #define SDL_SwapLE16(X) (X)
 #define SDL_SwapLE32(X) (X)
 #define SDL_SwapLE64(X) (X)
@@ -431,7 +299,6 @@ declare function SDL_mutexP(byval mutex as SDL_mutex ptr) as long
 declare function SDL_mutexV(byval mutex as SDL_mutex ptr) as long
 declare sub SDL_DestroyMutex(byval mutex as SDL_mutex ptr)
 type SDL_sem as SDL_semaphore
-
 declare function SDL_CreateSemaphore(byval initial_value as Uint32) as SDL_sem ptr
 declare sub SDL_DestroySemaphore(byval sem as SDL_sem ptr)
 declare function SDL_SemWait(byval sem as SDL_sem ptr) as long

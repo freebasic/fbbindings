@@ -29,8 +29,6 @@
 
 #include once "crt/long.bi"
 #include once "SDL.bi"
-#include once "begin_code.bi"
-#include once "close_code.bi"
 
 extern "C"
 
