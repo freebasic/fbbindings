@@ -1,5 +1,11 @@
 -replacements sdl1.replacements
 
+-iftarget windows
+	-moveabove stdarg.h windows.h
+-else
+	-removeinclude stdarg.h
+-endif
+
 # These also exists as macros
 -renameproc SDLNet_Write16 SDLNet_Write16_
 -renameproc SDLNet_Write32 SDLNet_Write32_
@@ -12,24 +18,3 @@
 -addforwarddecl private_yuvhwfuncs
 -addforwarddecl private_yuvhwdata
 -addforwarddecl WMcursor
-
--removeinclude sys/types.h
--removeinclude stddef.h
--iftarget windows
-	-moveabove stdarg.h windows.h
--else
-	-removeinclude stdarg.h
-	-rename iconv.h crt/iconv.h
--endif
--removeinclude stdint.h
--removeinclude strings.h
--removeinclude inttypes.h
--removeinclude alloca.h
-
--removeinclude begin_code.h
--removeinclude close_code.h
--removeinclude SDL_audio.h
--removeinclude SDL_endian.h
--removeinclude SDL_rwops.h
--removeinclude SDL_types.h
--removeinclude SDL_version.h

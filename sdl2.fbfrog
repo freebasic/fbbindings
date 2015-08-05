@@ -3,6 +3,13 @@
 
 -replacements sdl2.replacements
 
+-iftarget windows
+	-addinclude windows.bi inc/SDL2/SDL.bi
+	-addinclude win/d3d9.bi inc/SDL2/SDL.bi
+-else
+	-moveabove stdarg.h stdio.h
+-endif
+
 -addforwarddecl SDL_Window
 -addforwarddecl SDL_Cursor
 -addforwarddecl SDL_SysWMmsg

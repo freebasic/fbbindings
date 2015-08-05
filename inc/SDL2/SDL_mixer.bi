@@ -28,12 +28,6 @@
 #inclib "SDL2_mixer"
 
 #include once "SDL_stdinc.bi"
-#include once "SDL_rwops.bi"
-#include once "SDL_audio.bi"
-#include once "SDL_endian.bi"
-#include once "SDL_version.bi"
-#include once "begin_code.bi"
-#include once "close_code.bi"
 
 extern "C"
 

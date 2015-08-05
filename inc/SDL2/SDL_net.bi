@@ -29,10 +29,6 @@
 #inclib "SDL2_net"
 
 #include once "SDL.bi"
-#include once "SDL_endian.bi"
-#include once "SDL_version.bi"
-#include once "begin_code.bi"
-#include once "close_code.bi"
 
 extern "C"
 
@@ -162,16 +158,10 @@ declare function SDLNet_GetError() as const zstring ptr
 		return (((cast(Uint32, area[0]) shl 24) or (cast(Uint32, area[1]) shl 16)) or (cast(Uint32, area[2]) shl 8)) or cast(Uint32, area[3])
 	end function
 #else
-	private sub _SDLNet_Write16(byval value as Uint16, byval areap as any ptr)
-		(*cptr(Uint16 ptr, areap)) = SDL_Swap16(value)
-	end sub
-
-	private sub _SDLNet_Write32(byval value as Uint32, byval areap as any ptr)
-		(*cptr(Uint32 ptr, areap)) = SDL_Swap32(value)
-	end sub
-
-	#define _SDLNet_Read16(areap) cast(Uint16, SDL_Swap16(*cptr(const Uint16 ptr, (areap))))
-	#define _SDLNet_Read32(areap) cast(Uint32, SDL_Swap32(*cptr(const Uint32 ptr, (areap))))
+	#define _SDLNet_Write16(value, areap) scope : *cptr(Uint16 ptr, areap) = SDL_Swap16(value) : end sco
+	#define _SDLNet_Write32(value, areap) scope : *cptr(Uint32 ptr, areap) = SDL_Swap32(value) : end sco
+	#define _SDLNet_Read16(areap) SDL_Swap16(*cptr(const Uint16 ptr, areap))
+	#define _SDLNet_Read32(areap) SDL_Swap32(*cptr(const Uint32 ptr, areap))
 #endif
 
 end extern

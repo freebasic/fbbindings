@@ -28,38 +28,17 @@
 #inclib "SDL2"
 
 #include once "crt/long.bi"
-
-#ifdef __FB_UNIX__
-	#include once "crt/sys/types.bi"
-	#include once "crt/stdio.bi"
-	#include once "crt/stdlib.bi"
-#else
-	#include once "winapifamily.bi"
-#endif
-
-#include once "crt/stddef.bi"
 #include once "crt/stdarg.bi"
 
 #ifdef __FB_UNIX__
+	#include once "crt/stdio.bi"
 	#include once "crt/string.bi"
-	#include once "strings.bi"
-	#include once "inttypes.bi"
 	#include once "crt/ctype.bi"
 	#include once "crt/math.bi"
-	#include once "iconv.bi"
-	#include once "alloca.bi"
-#endif
-
-#if defined(__FB_64BIT__) and (defined(__FB_DARWIN__) or defined(__FB_CYGWIN__) or ((not defined(__FB_ARM__)) and (defined(__FB_LINUX__) or defined(__FB_FREEBSD__) or defined(__FB_OPENBSD__) or defined(__FB_NETBSD__))))
-	#include once "mmintrin.bi"
-	#include once "xmmintrin.bi"
-	#include once "emmintrin.bi"
-#elseif defined(__FB_ARM__) and (defined(__FB_LINUX__) or defined(__FB_FREEBSD__) or defined(__FB_OPENBSD__) or defined(__FB_NETBSD__))
-	#include once "crt/signal.bi"
-#elseif defined(__FB_WIN32__)
-	#include once "crt/stdint.bi"
-	#include once "process.bi"
-	#include once "intrin.bi"
+	#include once "crt/iconv.bi"
+#else
+	#include once "windows.bi"
+	#include once "win/d3d9.bi"
 #endif
 
 '' The following symbols have been renamed:
@@ -139,30 +118,13 @@ declare function SDL_isspace(byval x as long) as long
 declare function SDL_toupper(byval x as long) as long
 declare function SDL_tolower(byval x as long) as long
 declare function SDL_memset(byval dst as any ptr, byval c as long, byval len as uinteger) as any ptr
+
 #define SDL_zero(x) SDL_memset(@(x), 0, sizeof(x))
 #define SDL_zerop(x) SDL_memset((x), 0, sizeof(*(x)))
-
-#if defined(__FB_64BIT__) or ((not defined(__FB_64BIT__)) and defined(__FB_ARM__) and (defined(__FB_LINUX__) or defined(__FB_FREEBSD__) or defined(__FB_OPENBSD__) or defined(__FB_NETBSD__)))
-	private sub SDL_memset4(byval dst as any ptr, byval val as Uint32, byval dwords as uinteger)
-		dim _n as uinteger = (dwords + 3) / 4
-		dim _p as Uint32 ptr = cptr(Uint32 ptr, dst)
-		dim _val as Uint32 = val
-		if dwords = 0 then
-			return
-		end if
-		'' TODO: switch (dwords % 4) { case 0: do { *_p++ = _val; case 3: *_p++ = _val; case 2: *_p++ = _val; case 1: *_p++ = _val; } while ( --_n ); }
-	end sub
-#else
-	private sub SDL_memset4(byval dst as any ptr, byval val as Uint32, byval dwords as uinteger)
-		dim u0 as long
-		dim u1 as long
-		dim u2 as long
-		'' TODO: __asm__ __volatile__ ( "cld \n\t" "rep ; stosl \n\t" : "=&D" (u0), "=&a" (u1), "=&c" (u2) : "0" (dst), "1" (val), "2" (((Uint32)(dwords))) : "memory" );
-	end sub
-#endif
-
+#define SDL_memset4(dst, val, dwords) SDL_memset((dst), (val), (dwords) * 4)
 declare function SDL_memcpy(byval dst as any ptr, byval src as const any ptr, byval len as uinteger) as any ptr
-#define SDL_memcpy4(dst, src, dwords) cptr(any ptr, SDL_memcpy((dst), (src), (dwords) * 4))
+#define SDL_memcpy4(dst, src, dwords) SDL_memcpy((dst), (src), (dwords) * 4)
+
 declare function SDL_memmove(byval dst as any ptr, byval src as const any ptr, byval len as uinteger) as any ptr
 declare function SDL_memcmp(byval s1 as const any ptr, byval s2 as const any ptr, byval len as uinteger) as long
 declare function SDL_wcslen(byval wstr as const wstring ptr) as uinteger
@@ -356,67 +318,15 @@ const SDL_BIG_ENDIAN = 4321
 	#define SDL_BYTEORDER SDL_LIL_ENDIAN
 #endif
 
-#if (not defined(__FB_64BIT__)) and (defined(__FB_DARWIN__) or defined(__FB_WIN32__) or defined(__FB_CYGWIN__) or ((not defined(__FB_ARM__)) and (defined(__FB_LINUX__) or defined(__FB_FREEBSD__) or defined(__FB_OPENBSD__) or defined(__FB_NETBSD__))))
-	private function SDL_Swap16(byval x as Uint16) as Uint16
-		'' TODO: __asm__("xchgb %b0,%h0": "=q"(x):"0"(x));
-		return x
-	end function
-
-	private function SDL_Swap32(byval x as Uint32) as Uint32
-		'' TODO: __asm__("bswap %0": "=r"(x):"0"(x));
-		return x
-	end function
-
-	private function SDL_Swap64(byval x as Uint64) as Uint64
-		type v_s
-			a as Uint32
-			b as Uint32
-		end type
-		union v
-			s as v_s
-			u as Uint64
-		end union
-		dim v as v
-		v.u = x
-		'' TODO: __asm__("bswapl %0 ; bswapl %1 ; xchgl %0,%1": "=r"(v.s.a), "=r"(v.s.b):"0"(v.s.a), "1"(v.s. b));
-		return v.u
-	end function
-#elseif defined(__FB_64BIT__) and (defined(__FB_DARWIN__) or defined(__FB_WIN32__) or defined(__FB_CYGWIN__) or ((not defined(__FB_ARM__)) and (defined(__FB_LINUX__) or defined(__FB_FREEBSD__) or defined(__FB_OPENBSD__) or defined(__FB_NETBSD__))))
-	private function SDL_Swap16(byval x as Uint16) as Uint16
-		'' TODO: __asm__("xchgb %b0,%h0": "=Q"(x):"0"(x));
-		return x
-	end function
-
-	private function SDL_Swap32(byval x as Uint32) as Uint32
-		'' TODO: __asm__("bswapl %0": "=r"(x):"0"(x));
-		return x
-	end function
-
-	private function SDL_Swap64(byval x as Uint64) as Uint64
-		'' TODO: __asm__("bswapq %0": "=r"(x):"0"(x));
-		return x
-	end function
-#else
-	private function SDL_Swap16(byval x as Uint16) as Uint16
-		return cast(Uint16, (x shl 8) or (x shr 8))
-	end function
-
-	private function SDL_Swap32(byval x as Uint32) as Uint32
-		return cast(Uint32, (((x shl 24) or ((x shl 8) and &h00FF0000)) or ((x shr 8) and &h0000FF00)) or (x shr 24))
-	end function
-
-	private function SDL_Swap64(byval x as Uint64) as Uint64
-		dim hi as Uint32
-		dim lo as Uint32
-		lo = cast(Uint32, x and &hFFFFFFFF)
-		x shr= 32
-		hi = cast(Uint32, x and &hFFFFFFFF)
-		x = SDL_Swap32(lo)
-		x shl= 32
-		x or= SDL_Swap32(hi)
-		return x
-	end function
-#endif
+#define SDL_Swap16(x) cushort((cushort(x) shl 8) or (cushort(x) shr 8))
+#define SDL_Swap32(x) _
+	culng((culng(x) shl 24) or _
+	      ((culng(x) shl 8) and &h00FF0000) or _
+	      ((culng(x) shr 8) and &h0000FF00) or _
+	      (culng(x) shr 24))
+#define SDL_Swap64(x) _
+	culngint((SDL_Swap32(culngint(x) and &hFFFFFFFF) shl 32) or _
+	         SDL_Swap32(culngint(x) shr 32))
 
 private function SDL_SwapFloat(byval x as single) as single
 	union swapper
