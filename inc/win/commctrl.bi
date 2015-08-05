@@ -3068,7 +3068,13 @@ const LVS_EX_SIMPLESELECT = &h100000
 #endif
 
 #define LVM_GETSUBITEMRECT (LVM_FIRST + 56)
-'' TODO: #define ListView_GetSubItemRect(hwnd,iItem,iSubItem,code,prc) (WINBOOL)SNDMSG((hwnd),LVM_GETSUBITEMRECT,(WPARAM)(int)(iItem),((prc) ? ((((LPRECT)(prc))->top = iSubItem),(((LPRECT)(prc))->left = code),(LPARAM)(prc)) : (LPARAM)(LPRECT)NULL))
+private function ListView_GetSubItemRect(byval hwnd as HWND, byval iItem as long, byval iSubItem as long, byval code as long, byval prc as RECT ptr) as WINBOOL
+	if prc then
+		prc->top = iSubItem
+		prc->left = code
+	end if
+	function = SNDMSG(hwnd, LVM_GETSUBITEMRECT, cast(WPARAM, iItem), cast(LPARAM, prc))
+end function
 #define LVM_SUBITEMHITTEST (LVM_FIRST + 57)
 #define ListView_SubItemHitTest(hwnd, plvhti) clng(SNDMSG((hwnd), LVM_SUBITEMHITTEST, 0, cast(LPARAM, cast(LPLVHITTESTINFO, (plvhti)))))
 #define ListView_SubItemHitTestEx(hwnd, plvhti) clng(SNDMSG((hwnd), LVM_SUBITEMHITTEST, cast(WPARAM, -1), cast(LPARAM, cast(LPLVHITTESTINFO, (plvhti)))))
