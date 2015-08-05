@@ -27,7 +27,7 @@
 	#error "target not supported; this header is for GNU/Linux glibc"
 #endif
 
-#ifdef __FB_64BIT__
+#if defined(__FB_64BIT__) and (not defined(__FB_ARM__))
 	#include once "crt/long.bi"
 #endif
 
@@ -70,7 +70,7 @@ enum
 	PTHREAD_PRIO_PROTECT
 end enum
 
-#ifdef __FB_64BIT__
+#if defined(__FB_64BIT__) and (not defined(__FB_ARM__))
 	#define PTHREAD_MUTEX_INITIALIZER ((0, 0, 0, 0, 0, __PTHREAD_SPINS, (0, 0)))
 	#define PTHREAD_RECURSIVE_MUTEX_INITIALIZER_NP ((0, 0, 0, 0, PTHREAD_MUTEX_RECURSIVE_NP, __PTHREAD_SPINS, (0, 0)))
 	#define PTHREAD_ERRORCHECK_MUTEX_INITIALIZER_NP ((0, 0, 0, 0, PTHREAD_MUTEX_ERRORCHECK_NP, __PTHREAD_SPINS, (0, 0)))
@@ -92,7 +92,7 @@ end enum
 
 #define PTHREAD_RWLOCK_INITIALIZER ((0, 0, 0, 0, 0, 0, 0, 0, __PTHREAD_RWLOCK_ELISION_EXTRA, 0, 0))
 
-#ifdef __FB_64BIT__
+#if defined(__FB_64BIT__) and (not defined(__FB_ARM__))
 	#define PTHREAD_RWLOCK_WRITER_NONRECURSIVE_INITIALIZER_NP ((0, 0, 0, 0, 0, 0, 0, 0, __PTHREAD_RWLOCK_ELISION_EXTRA, 0, PTHREAD_RWLOCK_PREFER_WRITER_NONRECURSIVE_NP))
 #else
 	#define PTHREAD_RWLOCK_WRITER_NONRECURSIVE_INITIALIZER_NP ((0, 0, 0, 0, 0, 0, PTHREAD_RWLOCK_PREFER_WRITER_NONRECURSIVE_NP, 0, __PTHREAD_RWLOCK_ELISION_EXTRA, 0, 0))
@@ -186,7 +186,7 @@ declare function pthread_cancel(byval __th as pthread_t) as long
 declare sub pthread_testcancel()
 
 type __pthread_unwind_buf_t___cancel_jmp_buf
-	#ifdef __FB_64BIT__
+	#if defined(__FB_64BIT__) and (not defined(__FB_ARM__))
 		__cancel_jmp_buf(0 to 7) as clong
 	#else
 		__cancel_jmp_buf(0 to 5) as long
@@ -207,7 +207,7 @@ type __pthread_cleanup_frame
 	__cancel_type as long
 end type
 
-#ifdef __FB_64BIT__
+#if defined(__FB_64BIT__) and (not defined(__FB_ARM__))
 	declare sub __pthread_register_cancel(byval __buf as __pthread_unwind_buf_t ptr)
 	declare sub __pthread_unregister_cancel(byval __buf as __pthread_unwind_buf_t ptr)
 	declare sub __pthread_register_cancel_defer(byval __buf as __pthread_unwind_buf_t ptr)

@@ -1,4 +1,4 @@
-nodos.fbfrog
+-target nodos
 
 -replacements x11.replacements
 -fixunsizedarrays

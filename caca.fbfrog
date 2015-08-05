@@ -2,3 +2,5 @@
 -ifdef __CACA0_H__
 	caca0.fbfrog
 -endif
+
+-removedefine CACA_ALIAS

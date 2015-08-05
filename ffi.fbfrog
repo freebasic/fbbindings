@@ -1,7 +1,5 @@
 -fbfroginclude limits.h
 
-nodos.fbfrog
-
 -inclib ffi
 -removedefine FFI_EXTERN
 -noexpand FFI_TRAMPOLINE_SIZE
@@ -21,3 +19,5 @@ nodos.fbfrog
 -renamedefine FFI_TYPE_UINT64     FFI_TYPE_UINT64_
 -renamedefine FFI_TYPE_SINT64     FFI_TYPE_SINT64_
 -renamedefine FFI_TYPE_POINTER    FFI_TYPE_POINTER_
+
+-removedefine FFI_EXTRA_CIF_FIELDS

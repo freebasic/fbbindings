@@ -1,2 +1,8 @@
 convert c: #define NULL ((void *)0)
 to c:      #define NULL 0
+
+convert c: #define GLFWCALL __stdcall
+to c:      #define GLFWCALL stdcall
+
+convert c: #define GLFWCALL
+to c:      #define GLFWCALL cdecl

@@ -1,7 +1,2 @@
--declaredefines LUA_NOOBJECT LUA_TNONE
--select
--case LUA_NOOBJECT
-	-define LUA_NOOBJECT 1
--case LUA_TNONE
-	-define LUA_TNONE 1
--endselect
+-declarebool LUA_NOOBJECT -ifdef LUA_NOOBJECT -define LUA_NOOBJECT 1 -endif
+-declarebool LUA_TNONE -ifdef LUA_TNONE -define LUA_TNONE 1 -endif

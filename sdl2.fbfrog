@@ -3,6 +3,13 @@
 
 -replacements sdl2.replacements
 
+-iftarget windows
+	-addinclude windows.bi inc/SDL2/SDL.bi
+	-addinclude win/d3d9.bi inc/SDL2/SDL.bi
+-else
+	-moveabove stdarg.h stdio.h
+-endif
+
 -addforwarddecl SDL_Window
 -addforwarddecl SDL_Cursor
 -addforwarddecl SDL_SysWMmsg
@@ -12,7 +19,7 @@
 -renameproc SDL_Log SDL_Log_
 
 # For Windows, SDL2 has a SDL_CreateThread() macro that wraps the SDL_CreateThread() function
--ifdef __FB_WIN32__
+-iftarget windows
 	-renameproc SDL_CreateThread SDL_CreateThread_
 -endif
 
@@ -20,3 +27,10 @@
 -removedefine SDL2_IMAGEFILTER_SCOPE
 -removedefine SDL2_GFXPRIMITIVES_SCOPE
 -removedefine SDL2_ROTOZOOM_SCOPE
+
+-iftarget darwin
+	-define MAC_OS_X_VERSION_MIN_REQUIRED 1050
+	-define NULL "((void *)0)"
+	-removeinclude AvailabilityMacros.h
+	-removeinclude TargetConditionals.h
+-endif

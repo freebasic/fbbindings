@@ -8,9 +8,12 @@
 -define GLUT_DISABLE_ATEXIT_HACK 1
 -define NDEBUG 1
 
--ifdef __FB_WIN32__
+-iftarget windows
 	-declarebool FREEGLUT_STATIC
 	-ifdef FREEGLUT_STATIC
 		-define FREEGLUT_STATIC 1
 	-endif
 -endif
+
+-rename OpenGL/gl.h GL/gl.h
+-rename OpenGL/glu.h GL/glu.h

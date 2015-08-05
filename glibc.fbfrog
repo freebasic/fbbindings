@@ -1,9 +1,5 @@
 # GNU/Linux only - no DOS, no Windows
--nodefaultscript
--declarebool __FB_64BIT__
--ifdef __FB_64BIT__
-	-define __FBFROG_64BIT__
--endif
+-target linux-x86family
 
 -replacements glibc.replacements
 

@@ -62,3 +62,9 @@ to c:      #define SDL_FUNCTION __FUNCTION__
 
 convert c: #define SDL_CompilerBarrier() __asm__ __volatile__ ("" : : : "memory")
 to fb:     #define SDL_CompilerBarrier() asm nop
+
+convert c: #define SDL_MemoryBarrierRelease() __asm__ __volatile__ ("dmb ish" : : : "memory")
+to c:      #define SDL_MemoryBarrierRelease() SDL_CompilerBarrier()
+
+convert c: #define SDL_MemoryBarrierAcquire() __asm__ __volatile__ ("dmb ish" : : : "memory")
+to c:      #define SDL_MemoryBarrierAcquire() SDL_CompilerBarrier()

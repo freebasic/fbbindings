@@ -113,7 +113,7 @@ const GLUT_FULLY_RETAINED = &h0001
 const GLUT_PARTIALLY_RETAINED = &h0002
 const GLUT_FULLY_COVERED = &h0003
 
-#ifdef __FB_WIN32__
+#if defined(__FB_WIN32__) or defined(__FB_CYGWIN__)
 	const GLUT_STROKE_ROMAN = cptr(any ptr, &h0000)
 	const GLUT_STROKE_MONO_ROMAN = cptr(any ptr, &h0001)
 	const GLUT_BITMAP_9_BY_15 = cptr(any ptr, &h0002)

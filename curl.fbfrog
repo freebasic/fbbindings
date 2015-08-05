@@ -1,17 +1,22 @@
 -replacements curl.replacements
 -inclib curl
 
+# TODO: curl 7.39 doesn't support aarch64 yet; upgrade and enable
+-target noarm
+
 -removeinclude sys/types.h
 -removeinclude sys/socket.h
 -removeinclude sys/time.h
+-removeinclude sys/select.h
 -removeinclude time.h
 -removeinclude winsock2.h
 -removeinclude ws2tcpip.h
 -removeinclude typecheck-gcc.h
+-removeinclude osreldate.h
 
 -addinclude crt/sys/types.bi
 -addinclude crt/time.bi
--ifdef __FB_WIN32__
+-iftarget windows
 	-addinclude win/winsock2.bi
 	-addinclude win/ws2tcpip.bi
 -else

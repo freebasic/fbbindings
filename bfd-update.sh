@@ -31,7 +31,7 @@ cat >> bfd.mk <<EOF
 
 	\$(FBFROG) bfd.fbfrog \\
 		-declareversions __BFD_VER__ 216 217 218 219 220 221 222 223 224 225 \\
-		-select __BFD_VER__ \\
+		-selectversion \\
 EOF
 
 mergedtitle=""
@@ -39,15 +39,14 @@ for v in $versions; do
 	cat >> bfd.mk <<EOF
 		-case $v \\
 			-incdir extracted/\$(BINUTILS_$v)/include \\
-			-ifdef __FB_DOS__ \\
+			-selecttarget \\
+			-case dos \\
 				extracted/\$(BINUTILS_$v)/bfd/bfd-in3-djgpp.h \\
-			-else \\
-				-ifdef __FB_64BIT__ \\
-					extracted/\$(BINUTILS_$v)/bfd/bfd-in3-64.h \\
-				-else \\
-					extracted/\$(BINUTILS_$v)/bfd/bfd-in3-32.h \\
-				-endif \\
-			-endif \\
+			-case 64bit \\
+				extracted/\$(BINUTILS_$v)/bfd/bfd-in3-64.h \\
+			-caseelse \\
+				extracted/\$(BINUTILS_$v)/bfd/bfd-in3-32.h \\
+			-endselect \\
 EOF
 
 	thistitle="\$(BINUTILS_$v)"
@@ -63,8 +62,12 @@ cat >> bfd.mk <<EOF
 		-emit '*/bfd/bfd-*.h' inc/bfd.bi \\
 		-title "$mergedtitle" bfd-$lastversion.tmp fbteam.txt inc/bfd.bi \\
 		-inclib bfd -inclib iberty \\
-		-ifdef __FB_WIN32__ -inclib intl -endif \\
-		-ifdef __FB_DOS__   -inclib intl -endif
+		-selecttarget \\
+		-case windows \\
+			-inclib intl \\
+		-case dos \\
+			-inclib intl \\
+		-endselect
 
 	rm *.tmp
 EOF

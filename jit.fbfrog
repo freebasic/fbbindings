@@ -1,9 +1,12 @@
 -replacements jit.replacements
--ifdef __FB_64BIT__
-	-replacements jit-x86_64.replacements
--else
+-selecttarget
+-case x86
 	-replacements jit-x86.replacements
--endif
+-case x86_64
+	-replacements jit-x86_64.replacements
+-caseelse
+	-replacements jit-generic.replacements
+-endselect
 
 -inclib jit
 

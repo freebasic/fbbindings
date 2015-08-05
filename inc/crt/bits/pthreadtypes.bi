@@ -32,7 +32,7 @@
 
 const _BITS_PTHREADTYPES_H = 1
 
-#ifdef __FB_64BIT__
+#if defined(__FB_64BIT__) and (not defined(__FB_ARM__))
 	const __SIZEOF_PTHREAD_ATTR_T = 56
 	const __SIZEOF_PTHREAD_MUTEX_T = 40
 #else
@@ -44,7 +44,7 @@ const __SIZEOF_PTHREAD_MUTEXATTR_T = 4
 const __SIZEOF_PTHREAD_COND_T = 48
 const __SIZEOF_PTHREAD_CONDATTR_T = 4
 
-#ifdef __FB_64BIT__
+#if defined(__FB_64BIT__) and (not defined(__FB_ARM__))
 	const __SIZEOF_PTHREAD_RWLOCK_T = 56
 #else
 	const __SIZEOF_PTHREAD_RWLOCK_T = 32
@@ -52,7 +52,7 @@ const __SIZEOF_PTHREAD_CONDATTR_T = 4
 
 const __SIZEOF_PTHREAD_RWLOCKATTR_T = 8
 
-#ifdef __FB_64BIT__
+#if defined(__FB_64BIT__) and (not defined(__FB_ARM__))
 	const __SIZEOF_PTHREAD_BARRIER_T = 32
 #else
 	const __SIZEOF_PTHREAD_BARRIER_T = 20
@@ -62,7 +62,7 @@ const __SIZEOF_PTHREAD_BARRIERATTR_T = 4
 type pthread_t as culong
 
 union pthread_attr_t
-	#ifdef __FB_64BIT__
+	#if defined(__FB_64BIT__) and (not defined(__FB_ARM__))
 		__size as zstring * 56
 	#else
 		__size as zstring * 36
@@ -73,7 +73,7 @@ end union
 
 const __have_pthread_attr_t = 1
 
-#ifdef __FB_64BIT__
+#if defined(__FB_64BIT__) and (not defined(__FB_ARM__))
 	type __pthread_internal_list
 		__prev as __pthread_internal_list ptr
 		__next as __pthread_internal_list ptr
@@ -98,18 +98,19 @@ type __pthread_mutex_s
 	__count as ulong
 	__owner as long
 
-	#ifndef __FB_64BIT__
-		__kind as long
+	#if defined(__FB_64BIT__) and (not defined(__FB_ARM__))
+		__nusers as ulong
 	#endif
 
-	__nusers as ulong
+	__kind as long
 
-	#ifdef __FB_64BIT__
-		__kind as long
+	#if defined(__FB_64BIT__) and (not defined(__FB_ARM__))
 		__spins as short
 		__elision as short
 		__list as __pthread_list_t
 	#else
+		__nusers as ulong
+
 		union
 			__elision_data as pthread_mutex_t___pthread_mutex_s___elision_data
 			__list as __pthread_slist_t
@@ -120,7 +121,7 @@ end type
 union pthread_mutex_t
 	__data as __pthread_mutex_s
 
-	#ifdef __FB_64BIT__
+	#if defined(__FB_64BIT__) and (not defined(__FB_ARM__))
 		__size as zstring * 40
 	#else
 		__size as zstring * 24
@@ -129,7 +130,7 @@ union pthread_mutex_t
 	__align as clong
 end union
 
-#ifdef __FB_64BIT__
+#if defined(__FB_64BIT__) and (not defined(__FB_ARM__))
 	const __PTHREAD_MUTEX_HAVE_PREV = 1
 	#define __PTHREAD_SPINS 0, 0
 #else
@@ -176,28 +177,30 @@ type pthread_rwlock_t___data
 	__nr_readers_queued as ulong
 	__nr_writers_queued as ulong
 
-	#ifndef __FB_64BIT__
+	#if defined(__FB_64BIT__) and (not defined(__FB_ARM__))
+		__writer as long
+		__shared as long
+	#else
 		__flags as ubyte
 		__shared as ubyte
-		__rwelision as byte
-		__pad2 as ubyte
 	#endif
 
-	__writer as long
+	__rwelision as byte
 
-	#ifdef __FB_64BIT__
-		__shared as long
-		__rwelision as byte
+	#if defined(__FB_64BIT__) and (not defined(__FB_ARM__))
 		__pad1(0 to 6) as ubyte
 		__pad2 as culong
 		__flags as ulong
+	#else
+		__pad2 as ubyte
+		__writer as long
 	#endif
 end type
 
 union pthread_rwlock_t
 	__data as pthread_rwlock_t___data
 
-	#ifdef __FB_64BIT__
+	#if defined(__FB_64BIT__) and (not defined(__FB_ARM__))
 		__size as zstring * 56
 	#else
 		__size as zstring * 32
@@ -206,7 +209,7 @@ union pthread_rwlock_t
 	__align as clong
 end union
 
-#ifdef __FB_64BIT__
+#if defined(__FB_64BIT__) and (not defined(__FB_ARM__))
 	#define __PTHREAD_RWLOCK_ELISION_EXTRA 0, { 0, 0, 0, 0, 0, 0, 0 }
 	const __PTHREAD_RWLOCK_INT_FLAGS_SHARED = 1
 #else
@@ -221,7 +224,7 @@ end union
 type pthread_spinlock_t as long
 
 union pthread_barrier_t
-	#ifdef __FB_64BIT__
+	#if defined(__FB_64BIT__) and (not defined(__FB_ARM__))
 		__size as zstring * 32
 	#else
 		__size as zstring * 20

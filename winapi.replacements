@@ -54,7 +54,7 @@ convert c:
 		(WINBOOL)SNDMSG((hwnd), LVM_GETSUBITEMRECT, (WPARAM)(int)(iItem), \
 			((prc) ? \
 				((((LPRECT)(prc))->top = iSubItem), \
-				 (((LPRECT)(prc))->left = code),
+				 (((LPRECT)(prc))->left = code), \
 				 (LPARAM)(prc)) : \
 				(LPARAM)(LPRECT)NULL))
 to fb:
@@ -259,7 +259,7 @@ to fb:
 
 convert c:
 	#define FILTER_HRESULT_FROM_FLT_NTSTATUS(x) \
-		(NT_ASSERT((x & 0xfff0000) == 0x001c0000),
+		(NT_ASSERT((x & 0xfff0000) == 0x001c0000), \
 		 (HRESULT) (((x) & 0x8000ffff) | (FACILITY_USERMODE_FILTER_MANAGER << 16)))
 to c:
 	#define FILTER_HRESULT_FROM_FLT_NTSTATUS(x) \

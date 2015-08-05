@@ -1,4 +1,4 @@
-nodos.fbfrog
+-target nodos
 
 -renameproc pango_language_to_string pango_language_to_string_
 -renameproc pango_version            pango_version_

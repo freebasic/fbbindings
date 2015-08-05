@@ -1,5 +1,11 @@
 -replacements sdl1.replacements
 
+-iftarget windows
+	-moveabove stdarg.h windows.h
+-else
+	-removeinclude stdarg.h
+-endif
+
 # These also exists as macros
 -renameproc SDLNet_Write16 SDLNet_Write16_
 -renameproc SDLNet_Write32 SDLNet_Write32_

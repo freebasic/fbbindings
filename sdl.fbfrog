@@ -1,6 +1,30 @@
-nodos.fbfrog
+-target nodos
 
 -replacements sdl.replacements
+
+-rename iconv.h crt/iconv.h
+
+-removeinclude alloca.h
+-removeinclude begin_code.h
+-removeinclude close_code.h
+-removeinclude emmintrin.h
+-removeinclude intrin.h
+-removeinclude inttypes.h
+-removeinclude mmintrin.h
+-removeinclude process.h
+-removeinclude SDL_audio.h
+-removeinclude SDL_endian.h
+-removeinclude SDL_rwops.h
+-removeinclude SDL_types.h
+-removeinclude SDL_version.h
+-removeinclude signal.h
+-removeinclude stddef.h
+-removeinclude stdint.h
+-removeinclude stdlib.h
+-removeinclude strings.h
+-removeinclude sys/types.h
+-removeinclude winapifamily.h
+-removeinclude xmmintrin.h
 
 -removedefine alloca
 -removedefine _begin_code_h
@@ -8,6 +32,7 @@ nodos.fbfrog
 -removedefine const
 -removedefine DECLSPEC
 -removedefine DLLINTERFACE
+-removedefine __FREEBSD__
 -removedefine HAVE_ABS
 -removedefine HAVE_ALLOCA
 -removedefine HAVE_ALLOCA_H
@@ -81,7 +106,10 @@ nodos.fbfrog
 -removedefine int64_t
 -removedefine int8_t
 -removedefine __LINUX__
+-removedefine __MACOSX__
 -removedefine main
+-removedefine __NETBSD__
+-removedefine __OPENBSD__
 -removedefine SDL_ALTIVEC_BLITTERS
 -removedefine SDL_arraysize
 -removedefine SDL_ASSEMBLY_ROUTINES
