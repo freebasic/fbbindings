@@ -62,9 +62,9 @@
 #endif
 
 #if defined(GLFW_DLL) and (defined(__FB_WIN32__) or defined(__FB_CYGWIN__))
-	#define GLFWCALL __stdcall
+	#define GLFWCALL stdcall
 #else
-	#define GLFWCALL
+	#define GLFWCALL cdecl
 #endif
 
 const GLFW_VERSION_MAJOR = 2
