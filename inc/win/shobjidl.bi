@@ -10321,7 +10321,7 @@ extern CLSID_ExecuteFolder as const GUID
 		end if
 	end sub
 
-	#define GetContractDelegateWindow(hwndSource) cast(HWND, GetPropW(hwndSource, wstr("ContractDelegate")))
+	#define GetContractDelegateWindow(hwndSource) cast(HWND, GetPropW((hwndSource), wstr("ContractDelegate")))
 	#define __ISearchableApplication_INTERFACE_DEFINED__
 	extern IID_ISearchableApplication as const GUID
 	type ISearchableApplication as ISearchableApplication_

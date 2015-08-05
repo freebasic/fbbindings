@@ -162,7 +162,7 @@ declare function SDL_memset(byval dst as any ptr, byval c as long, byval len as 
 #endif
 
 declare function SDL_memcpy(byval dst as any ptr, byval src as const any ptr, byval len as uinteger) as any ptr
-#define SDL_memcpy4(dst, src, dwords) cptr(any ptr, SDL_memcpy(dst, src, dwords * 4))
+#define SDL_memcpy4(dst, src, dwords) cptr(any ptr, SDL_memcpy((dst), (src), (dwords) * 4))
 declare function SDL_memmove(byval dst as any ptr, byval src as const any ptr, byval len as uinteger) as any ptr
 declare function SDL_memcmp(byval s1 as const any ptr, byval s2 as const any ptr, byval len as uinteger) as long
 declare function SDL_wcslen(byval wstr as const wstring ptr) as uinteger

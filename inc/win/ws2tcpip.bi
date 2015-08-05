@@ -106,7 +106,7 @@ private function IN6_IS_ADDR_LOOPBACK(byval a as const IN6_ADDR ptr) as long
 	return -((((((((a->u.Word[0] = 0) andalso (a->u.Word[1] = 0)) andalso (a->u.Word[2] = 0)) andalso (a->u.Word[3] = 0)) andalso (a->u.Word[4] = 0)) andalso (a->u.Word[5] = 0)) andalso (a->u.Word[6] = 0)) andalso (a->u.Word[7] = &h0100))
 end function
 
-#define IN6_IS_ADDR_MULTICAST(a) clng(-(a->u.Byte[0] = &hff))
+#define IN6_IS_ADDR_MULTICAST(a) clng(-((a)->u.Byte[0] = &hff))
 
 private function IN6_IS_ADDR_LINKLOCAL(byval a as const IN6_ADDR ptr) as long
 	return -((a->u.Byte[0] = &hfe) andalso ((a->u.Byte[1] and &hc0) = &h80))

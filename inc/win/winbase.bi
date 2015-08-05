@@ -787,12 +787,12 @@ declare function GetOverlappedResultEx(byval hFile as HANDLE, byval lpOverlapped
 
 	#define InterlockedExchangePointer(Target, Value) cast(PVOID, InterlockedExchange(cast(PLONG, (Target)), cast(LONG, cast(LONG_PTR, (Value)))))
 	#define InterlockedExchangePointerNoFence InterlockedExchangePointer
-	#define InterlockedIncrement(lpAddend) cast(LONG, _InterlockedIncrement(lpAddend))
-	#define InterlockedDecrement(lpAddend) cast(LONG, _InterlockedDecrement(lpAddend))
-	#define InterlockedExchange(Target, Value) cast(LONG, _InterlockedExchange(Target, Value))
-	#define InterlockedExchangeAdd(Addend, Value) cast(LONG, _InterlockedExchangeAdd(Addend, Value))
-	#define InterlockedCompareExchange(Destination, Exchange, Comperand) cast(LONG, _InterlockedCompareExchange(Destination, Exchange, Comperand))
-	#define InterlockedCompareExchange64(Destination, Exchange, Comperand) cast(LONGLONG, _InterlockedCompareExchange64(Destination, Exchange, Comperand))
+	#define InterlockedIncrement(lpAddend) cast(LONG, _InterlockedIncrement((lpAddend)))
+	#define InterlockedDecrement(lpAddend) cast(LONG, _InterlockedDecrement((lpAddend)))
+	#define InterlockedExchange(Target, Value) cast(LONG, _InterlockedExchange((Target), (Value)))
+	#define InterlockedExchangeAdd(Addend, Value) cast(LONG, _InterlockedExchangeAdd((Addend), (Value)))
+	#define InterlockedCompareExchange(Destination, Exchange, Comperand) cast(LONG, _InterlockedCompareExchange((Destination), (Exchange), (Comperand)))
+	#define InterlockedCompareExchange64(Destination, Exchange, Comperand) cast(LONGLONG, _InterlockedCompareExchange64((Destination), (Exchange), (Comperand)))
 #endif
 
 declare sub InitializeSListHead(byval ListHead as PSLIST_HEADER)
