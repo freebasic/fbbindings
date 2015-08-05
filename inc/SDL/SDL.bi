@@ -38,7 +38,7 @@
 
 #include once "crt/long.bi"
 
-#ifdef __FB_LINUX__
+#ifdef __FB_UNIX__
 	#include once "crt/sys/types.bi"
 #endif
 
@@ -48,22 +48,22 @@
 #include once "crt/stdarg.bi"
 #include once "crt/string.bi"
 
-#ifdef __FB_WIN32__
-	#include once "crt/stdint.bi"
-#else
+#ifdef __FB_UNIX__
 	#include once "strings.bi"
 	#include once "inttypes.bi"
+#else
+	#include once "crt/stdint.bi"
 #endif
 
 #include once "crt/ctype.bi"
 
-#ifdef __FB_WIN32__
-	#include once "windows.bi"
-#else
+#ifdef __FB_UNIX__
 	#include once "iconv.bi"
 	#include once "alloca.bi"
 	#include once "X11/Xlib.bi"
 	#include once "X11/Xatom.bi"
+#else
+	#include once "windows.bi"
 #endif
 
 '' The following symbols have been renamed:
@@ -80,10 +80,10 @@ extern "C"
 #define _SDL_config_h
 #define _SDL_platform_h
 
-#ifdef __FB_WIN32__
-	#define _SDL_config_win32_h
-#else
+#ifdef __FB_UNIX__
 	#define SDL_BYTEORDER SDL_LIL_ENDIAN
+#else
+	#define _SDL_config_win32_h
 #endif
 
 type SDL_bool as long
@@ -107,9 +107,13 @@ enum
 end enum
 
 #define SDLCALL cdecl
-#ifndef NULL
-	const NULL = 0
+
+#if defined(__FB_WIN32__) or defined(__FB_CYGWIN__) or defined(__FB_LINUX__) or defined(__FB_FREEBSD__) or defined(__FB_OPENBSD__) or defined(__FB_NETBSD__)
+	#ifndef NULL
+		const NULL = 0
+	#endif
 #endif
+
 #define SDL_malloc malloc
 #define SDL_calloc calloc
 #define SDL_realloc realloc
@@ -117,12 +121,12 @@ end enum
 #define SDL_stack_alloc(type, count) cptr(type ptr, alloca(sizeof(type) * (count)))
 #define SDL_stack_free(data)
 
-#ifdef __FB_WIN32__
-	declare function SDL_getenv(byval name as const zstring ptr) as zstring ptr
-	declare function SDL_putenv(byval variable as const zstring ptr) as long
-#else
+#ifdef __FB_UNIX__
 	#define SDL_getenv getenv
 	#define SDL_putenv putenv
+#else
+	declare function SDL_getenv(byval name as const zstring ptr) as zstring ptr
+	declare function SDL_putenv(byval variable as const zstring ptr) as long
 #endif
 
 #define SDL_qsort qsort
@@ -135,21 +139,7 @@ end enum
 #define SDL_tolower(X) tolower(X)
 #define SDL_memset memset
 
-#ifdef __FB_64BIT__
-	#macro SDL_memset4(dst, val, len)
-		scope
-			dim _count as ulong = (len)
-			dim _n as ulong = (_count + 3) / 4
-			'' TODO: Uint32 *_p = SDL_static_cast(Uint32 *, dst);
-			dim _val as Uint32 = (val)
-			'' TODO: if (len == 0) break;
-			'' TODO: switch (_count % 4) { case 0: do { *_p++ = _val; case 3: *_p++ = _val; case 2: *_p++ = _val; case 1: *_p++ = _val; } while ( --_n ); }
-		end scope
-	#endmacro
-	#define SDL_memcpy memcpy
-	#define SDL_memcpy4(dst, src, len) SDL_memcpy(dst, src, (len) shl 2)
-	declare function SDL_revcpy(byval dst as any ptr, byval src as const any ptr, byval len as uinteger) as any ptr
-#else
+#if (not defined(__FB_64BIT__)) and (defined(__FB_DARWIN__) or defined(__FB_WIN32__) or defined(__FB_CYGWIN__) or ((not defined(__FB_ARM__)) and (defined(__FB_LINUX__) or defined(__FB_FREEBSD__) or defined(__FB_OPENBSD__) or defined(__FB_NETBSD__))))
 	#macro SDL_memset4(dst, val, len)
 		scope
 			dim u0 as long
@@ -158,6 +148,9 @@ end enum
 			'' TODO: __asm__ __volatile__ ( "cld\n\t" "rep ; stosl\n\t" : "=&D" (u0), "=&a" (u1), "=&c" (u2) : "0" (dst), "1" (val), "2" (SDL_static_cast(Uint32, len)) : "memory" );
 		end scope
 	#endmacro
+#endif
+
+#if (not defined(__FB_64BIT__)) and (defined(__FB_WIN32__) or defined(__FB_CYGWIN__) or ((not defined(__FB_ARM__)) and (defined(__FB_LINUX__) or defined(__FB_FREEBSD__) or defined(__FB_OPENBSD__) or defined(__FB_NETBSD__))))
 	#macro SDL_memcpy(dst, src, len)
 		scope
 			dim u0 as long
@@ -174,6 +167,25 @@ end enum
 			'' TODO: __asm__ __volatile__ ( "cld\n\t" "rep ; movsl" : "=&c" (ecx), "=&D" (edi), "=&S" (esi) : "0" (SDL_static_cast(unsigned, len)), "1" (dst), "2" (src) : "memory" );
 		end scope
 	#endmacro
+#elseif defined(__FB_DARWIN__) and defined(__FB_64BIT__)
+	#macro SDL_memset4(dst, val, len)
+		scope
+			dim _count as ulong = (len)
+			dim _n as ulong = (_count + 3) / 4
+			'' TODO: Uint32 *_p = SDL_static_cast(Uint32 *, dst);
+			dim _val as Uint32 = (val)
+			'' TODO: if (len == 0) break;
+			'' TODO: switch (_count % 4) { case 0: do { *_p++ = _val; case 3: *_p++ = _val; case 2: *_p++ = _val; case 1: *_p++ = _val; } while ( --_n ); }
+		end scope
+	#endmacro
+#endif
+
+#ifdef __FB_DARWIN__
+	#define SDL_memcpy(dst, src, len) memcpy(dst, src, len)
+	#define SDL_memcpy4(dst, src, len) memcpy(dst, src, (len) * 4)
+#endif
+
+#if (not defined(__FB_64BIT__)) and (defined(__FB_DARWIN__) or defined(__FB_WIN32__) or defined(__FB_CYGWIN__) or ((not defined(__FB_ARM__)) and (defined(__FB_LINUX__) or defined(__FB_FREEBSD__) or defined(__FB_OPENBSD__) or defined(__FB_NETBSD__))))
 	#macro SDL_revcpy(dst, src, len)
 		scope
 			dim u0 as long
@@ -188,6 +200,23 @@ end enum
 			'' TODO: switch (n & 3) { case 3: dstp[2] = srcp[2]; case 2: dstp[1] = srcp[1]; case 1: dstp[0] = srcp[0]; break; default: break; }
 		end scope
 	#endmacro
+#elseif (defined(__FB_64BIT__) and (defined(__FB_WIN32__) or defined(__FB_CYGWIN__) or defined(__FB_LINUX__) or defined(__FB_FREEBSD__) or defined(__FB_OPENBSD__) or defined(__FB_NETBSD__))) or ((not defined(__FB_64BIT__)) and defined(__FB_ARM__) and (defined(__FB_LINUX__) or defined(__FB_FREEBSD__) or defined(__FB_OPENBSD__) or defined(__FB_NETBSD__)))
+	#macro SDL_memset4(dst, val, len)
+		scope
+			dim _count as ulong = (len)
+			dim _n as ulong = (_count + 3) / 4
+			'' TODO: Uint32 *_p = SDL_static_cast(Uint32 *, dst);
+			dim _val as Uint32 = (val)
+			'' TODO: if (len == 0) break;
+			'' TODO: switch (_count % 4) { case 0: do { *_p++ = _val; case 3: *_p++ = _val; case 2: *_p++ = _val; case 1: *_p++ = _val; } while ( --_n ); }
+		end scope
+	#endmacro
+	#define SDL_memcpy memcpy
+	#define SDL_memcpy4(dst, src, len) SDL_memcpy(dst, src, (len) shl 2)
+#endif
+
+#if defined(__FB_64BIT__) or ((not defined(__FB_64BIT__)) and defined(__FB_ARM__) and (defined(__FB_LINUX__) or defined(__FB_FREEBSD__) or defined(__FB_OPENBSD__) or defined(__FB_NETBSD__)))
+	declare function SDL_revcpy(byval dst as any ptr, byval src as const any ptr, byval len as uinteger) as any ptr
 #endif
 
 #define SDL_memmove memmove
@@ -196,36 +225,36 @@ end enum
 declare function SDL_strlcpy(byval dst as zstring ptr, byval src as const zstring ptr, byval maxlen as uinteger) as uinteger
 declare function SDL_strlcat(byval dst as zstring ptr, byval src as const zstring ptr, byval maxlen as uinteger) as uinteger
 
-#ifdef __FB_WIN32__
-	declare function SDL_strdup(byval string as const zstring ptr) as zstring ptr
-	#define SDL_strrev _strrev
-	#define SDL_strupr _strupr
-	#define SDL_strlwr _strlwr
-#else
+#ifdef __FB_UNIX__
 	#define SDL_strdup strdup
 	declare function SDL_strrev(byval string as zstring ptr) as zstring ptr
 	declare function SDL_strupr(byval string as zstring ptr) as zstring ptr
 	declare function SDL_strlwr(byval string as zstring ptr) as zstring ptr
+#else
+	declare function SDL_strdup(byval string as const zstring ptr) as zstring ptr
+	#define SDL_strrev _strrev
+	#define SDL_strupr _strupr
+	#define SDL_strlwr _strlwr
 #endif
 
 #define SDL_strchr strchr
 #define SDL_strrchr strrchr
 #define SDL_strstr strstr
 
-#ifdef __FB_WIN32__
-	#define SDL_itoa itoa
-	#define SDL_ltoa _ltoa
-#else
+#ifdef __FB_UNIX__
 	#define SDL_itoa(value, string, radix) SDL_ltoa(cast(clong, value), string, radix)
 	declare function SDL_ltoa(byval value as clong, byval string as zstring ptr, byval radix as long) as zstring ptr
+#else
+	#define SDL_itoa itoa
+	#define SDL_ltoa _ltoa
 #endif
 
 #define SDL_uitoa(value, string, radix) SDL_ultoa(cast(clong, value), string, radix)
 
-#ifdef __FB_WIN32__
-	#define SDL_ultoa _ultoa
-#else
+#ifdef __FB_UNIX__
 	declare function SDL_ultoa(byval value as culong, byval string as zstring ptr, byval radix as long) as zstring ptr
+#else
+	#define SDL_ultoa _ultoa
 #endif
 
 #define SDL_strtol strtol
@@ -234,10 +263,10 @@ declare function SDL_lltoa(byval value as Sint64, byval string as zstring ptr, b
 declare function SDL_ulltoa(byval value as Uint64, byval string as zstring ptr, byval radix as long) as zstring ptr
 #define SDL_strtoll strtoll
 
-#ifdef __FB_WIN32__
-	declare function SDL_strtoull(byval string as const zstring ptr, byval endp as zstring ptr ptr, byval base as long) as Uint64
-#else
+#ifdef __FB_UNIX__
 	#define SDL_strtoull strtoull
+#else
+	declare function SDL_strtoull(byval string as const zstring ptr, byval endp as zstring ptr ptr, byval base as long) as Uint64
 #endif
 
 #define SDL_strtod strtod
@@ -246,22 +275,22 @@ declare function SDL_ulltoa(byval value as Uint64, byval string as zstring ptr, 
 #define SDL_strcmp strcmp
 #define SDL_strncmp strncmp
 
-#ifdef __FB_WIN32__
-	#define SDL_strcasecmp _stricmp
-	#define SDL_strncasecmp _strnicmp
-#else
+#ifdef __FB_UNIX__
 	#define SDL_strcasecmp strcasecmp
 	#define SDL_strncasecmp strncasecmp
+#else
+	#define SDL_strcasecmp _stricmp
+	#define SDL_strncasecmp _strnicmp
 #endif
 
 #define SDL_sscanf sscanf
 
-#ifdef __FB_WIN32__
-	declare function SDL_snprintf(byval text as zstring ptr, byval maxlen as uinteger, byval fmt as const zstring ptr, ...) as long
-	declare function SDL_vsnprintf(byval text as zstring ptr, byval maxlen as uinteger, byval fmt as const zstring ptr, byval ap as va_list) as long
-#else
+#ifdef __FB_UNIX__
 	#define SDL_snprintf snprintf
 	#define SDL_vsnprintf vsnprintf
+#else
+	declare function SDL_snprintf(byval text as zstring ptr, byval maxlen as uinteger, byval fmt as const zstring ptr, ...) as long
+	declare function SDL_vsnprintf(byval text as zstring ptr, byval maxlen as uinteger, byval fmt as const zstring ptr, byval ap as va_list) as long
 #endif
 
 const SDL_ICONV_ERROR = cuint(-1)
@@ -269,16 +298,16 @@ const SDL_ICONV_E2BIG = cuint(-2)
 const SDL_ICONV_EILSEQ = cuint(-3)
 const SDL_ICONV_EINVAL = cuint(-4)
 
-#ifdef __FB_WIN32__
-	type SDL_iconv_t as _SDL_iconv_t ptr
-	declare function SDL_iconv_open(byval tocode as const zstring ptr, byval fromcode as const zstring ptr) as SDL_iconv_t
-	declare function SDL_iconv_close(byval cd as SDL_iconv_t) as long
-	declare function SDL_iconv(byval cd as SDL_iconv_t, byval inbuf as const zstring ptr ptr, byval inbytesleft as uinteger ptr, byval outbuf as zstring ptr ptr, byval outbytesleft as uinteger ptr) as uinteger
-#else
+#ifdef __FB_UNIX__
 	#define SDL_iconv_t iconv_t
 	#define SDL_iconv_open iconv_open
 	#define SDL_iconv_close iconv_close
 	declare function SDL_iconv(byval cd as iconv_t, byval inbuf as const zstring ptr ptr, byval inbytesleft as uinteger ptr, byval outbuf as zstring ptr ptr, byval outbytesleft as uinteger ptr) as uinteger
+#else
+	type SDL_iconv_t as _SDL_iconv_t ptr
+	declare function SDL_iconv_open(byval tocode as const zstring ptr, byval fromcode as const zstring ptr) as SDL_iconv_t
+	declare function SDL_iconv_close(byval cd as SDL_iconv_t) as long
+	declare function SDL_iconv(byval cd as SDL_iconv_t, byval inbuf as const zstring ptr ptr, byval inbytesleft as uinteger ptr, byval outbuf as zstring ptr ptr, byval outbytesleft as uinteger ptr) as uinteger
 #endif
 
 declare function SDL_iconv_string(byval tocode as const zstring ptr, byval fromcode as const zstring ptr, byval inbuf as const zstring ptr, byval inbytesleft as uinteger) as zstring ptr
@@ -286,8 +315,11 @@ declare function SDL_iconv_string(byval tocode as const zstring ptr, byval fromc
 #define SDL_iconv_utf8_ucs2(S) cptr(Uint16 ptr, SDL_iconv_string("UCS-2", "UTF-8", S, SDL_strlen(S) + 1))
 #define SDL_iconv_utf8_ucs4(S) cptr(Uint32 ptr, SDL_iconv_string("UCS-4", "UTF-8", S, SDL_strlen(S) + 1))
 
-#ifdef __FB_WIN32__
+#if defined(__FB_DARWIN__) or defined(__FB_WIN32__)
 	declare function SDL_main(byval argc as long, byval argv as zstring ptr ptr) as long
+#endif
+
+#ifdef __FB_WIN32__
 	declare sub SDL_SetModuleHandle(byval hInst as any ptr)
 	declare function SDL_RegisterApp(byval name as zstring ptr, byval style as Uint32, byval hInst as any ptr) as long
 	declare sub SDL_UnregisterApp()
@@ -320,22 +352,7 @@ const SDL_BIG_ENDIAN = 4321
 	#define SDL_BYTEORDER SDL_LIL_ENDIAN
 #endif
 
-#ifdef __FB_64BIT__
-	private function SDL_Swap16(byval x as Uint16) as Uint16
-		'' TODO: __asm__("xchgb %b0,%h0" : "=Q" (x) : "0" (x));
-		return x
-	end function
-
-	private function SDL_Swap32(byval x as Uint32) as Uint32
-		'' TODO: __asm__("bswapl %0" : "=r" (x) : "0" (x));
-		return x
-	end function
-
-	private function SDL_Swap64(byval x as Uint64) as Uint64
-		'' TODO: __asm__("bswapq %0" : "=r" (x) : "0" (x));
-		return x
-	end function
-#else
+#if (not defined(__FB_64BIT__)) and (defined(__FB_DARWIN__) or defined(__FB_WIN32__) or defined(__FB_CYGWIN__) or ((not defined(__FB_ARM__)) and (defined(__FB_LINUX__) or defined(__FB_FREEBSD__) or defined(__FB_OPENBSD__) or defined(__FB_NETBSD__))))
 	private function SDL_Swap16(byval x as Uint16) as Uint16
 		'' TODO: __asm__("xchgb %b0,%h0" : "=q" (x) : "0" (x));
 		return x
@@ -359,6 +376,41 @@ const SDL_BIG_ENDIAN = 4321
 		v.u = x
 		'' TODO: __asm__("bswapl %0 ; bswapl %1 ; xchgl %0,%1" : "=r" (v.s.a), "=r" (v.s.b) : "0" (v.s.a), "1" (v.s.b));
 		return v.u
+	end function
+#elseif defined(__FB_64BIT__) and (defined(__FB_DARWIN__) or defined(__FB_WIN32__) or defined(__FB_CYGWIN__) or ((not defined(__FB_ARM__)) and (defined(__FB_LINUX__) or defined(__FB_FREEBSD__) or defined(__FB_OPENBSD__) or defined(__FB_NETBSD__))))
+	private function SDL_Swap16(byval x as Uint16) as Uint16
+		'' TODO: __asm__("xchgb %b0,%h0" : "=Q" (x) : "0" (x));
+		return x
+	end function
+
+	private function SDL_Swap32(byval x as Uint32) as Uint32
+		'' TODO: __asm__("bswapl %0" : "=r" (x) : "0" (x));
+		return x
+	end function
+
+	private function SDL_Swap64(byval x as Uint64) as Uint64
+		'' TODO: __asm__("bswapq %0" : "=r" (x) : "0" (x));
+		return x
+	end function
+#else
+	private function SDL_Swap16(byval x as Uint16) as Uint16
+		return cast(Uint16, (x shl 8) or (x shr 8))
+	end function
+
+	private function SDL_Swap32(byval x as Uint32) as Uint32
+		return cast(Uint32, (((x shl 24) or ((x shl 8) and &h00FF0000)) or ((x shr 8) and &h0000FF00)) or (x shr 24))
+	end function
+
+	private function SDL_Swap64(byval x as Uint64) as Uint64
+		dim hi as Uint32
+		dim lo as Uint32
+		lo = cast(Uint32, x and &hFFFFFFFF)
+		x shr= 32
+		hi = cast(Uint32, x and &hFFFFFFFF)
+		x = SDL_Swap32(lo)
+		x shl= 32
+		x or= SDL_Swap32(hi)
+		return x
 	end function
 #endif
 
@@ -1427,9 +1479,12 @@ declare function SDL_WasInit(byval flags as Uint32) as Uint32
 declare sub SDL_Quit()
 #define _SDL_syswm_h
 
-#ifdef __FB_WIN32__
-	#define WIN32_LEAN_AND_MEAN
-#else
+#ifdef __FB_DARWIN__
+	#define Cursor X11Cursor
+	#undef Cursor
+#endif
+
+#ifdef __FB_UNIX__
 	type SDL_SYSWM_TYPE as long
 	enum
 		SDL_SYSWM_X11
@@ -1438,23 +1493,25 @@ declare sub SDL_Quit()
 	union SDL_SysWMmsg_event
 		xevent as XEvent
 	end union
+#else
+	#define WIN32_LEAN_AND_MEAN
 #endif
 
 type SDL_SysWMmsg_
 	version as SDL_version
 
-	#ifdef __FB_WIN32__
+	#ifdef __FB_UNIX__
+		subsystem as SDL_SYSWM_TYPE
+		event as SDL_SysWMmsg_event
+	#else
 		hwnd as HWND
 		msg as UINT
 		wParam as WPARAM
 		lParam as LPARAM
-	#else
-		subsystem as SDL_SYSWM_TYPE
-		event as SDL_SysWMmsg_event
 	#endif
 end type
 
-#ifdef __FB_LINUX__
+#ifdef __FB_UNIX__
 	type SDL_SysWMinfo_info_x11
 		display as Display ptr
 		window as Window
@@ -1473,12 +1530,12 @@ end type
 type SDL_SysWMinfo
 	version as SDL_version
 
-	#ifdef __FB_WIN32__
-		window as HWND
-		hglrc as HGLRC
-	#else
+	#ifdef __FB_UNIX__
 		subsystem as SDL_SYSWM_TYPE
 		info as SDL_SysWMinfo_info
+	#else
+		window as HWND
+		hglrc as HGLRC
 	#endif
 end type
 

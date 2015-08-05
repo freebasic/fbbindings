@@ -31,6 +31,12 @@
 
 #ifdef __FB_LINUX__
 	#include once "endian.bi"
+#elseif defined(__FB_OPENBSD__) or defined(__FB_NETBSD__)
+	#include once "crt/sys/types.bi"
+#endif
+
+#if defined(__FB_DARWIN__) or defined(__FB_FREEBSD__) or defined(__FB_OPENBSD__) or defined(__FB_NETBSD__)
+	#include once "machine/endian.bi"
 #endif
 
 #define _XARCH_H_

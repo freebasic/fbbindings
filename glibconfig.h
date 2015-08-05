@@ -81,7 +81,7 @@ typedef unsigned int guint32;
 		#define G_MAXSSIZE G_MAXINT
 	#endif
 #else
-	#ifdef __x86_64__
+	#ifdef __LP64__
 		typedef signed long gint64;
 		typedef unsigned long guint64;
 		#define G_GINT64_CONSTANT(val) (val##L)
@@ -128,7 +128,6 @@ typedef unsigned int guint32;
 	#endif
 #endif
 
-
 typedef gint64 goffset;
 #define G_MINOFFSET G_MININT64
 #define G_MAXOFFSET G_MAXINT64
@@ -160,7 +159,7 @@ typedef gint64 goffset;
 		#define G_GUINTPTR_FORMAT       "u"
 	#endif
 #else
-	#ifdef __x86_64__
+	#ifdef __LP64__
 		#define GPOINTER_TO_INT(p) ((gint)  (glong) (p))
 		#define GPOINTER_TO_UINT(p) ((guint) (gulong) (p))
 		#define GINT_TO_POINTER(i) ((gpointer) (glong) (i))
@@ -192,7 +191,11 @@ typedef gint64 goffset;
 #define GLIB_MINOR_VERSION @GLIB_MINOR_VERSION@
 #define GLIB_MICRO_VERSION @GLIB_MICRO_VERSION@
 
-#ifdef _WIN32
+#ifdef __CYGWIN__
+	#define G_OS_UNIX
+	#define G_PLATFORM_WIN32
+	#define G_WITH_CYGWIN
+#elif defined _WIN32
 	#define G_OS_WIN32
 	#define G_PLATFORM_WIN32
 #else
@@ -200,7 +203,7 @@ typedef gint64 goffset;
 #endif
 
 #define G_VA_COPY	va_copy
-#if defined __x86_64__ && !defined _WIN32
+#ifdef __LP64__ // TODO: not sure whether this is correct
 	#define G_VA_COPY_AS_ARRAY 1
 #endif
 
@@ -233,7 +236,7 @@ typedef gint64 goffset;
 #define GUINT64_TO_LE(val) ((guint64) (val))
 #define GINT64_TO_BE(val) ((gint64) GUINT64_SWAP_LE_BE (val))
 #define GUINT64_TO_BE(val) (GUINT64_SWAP_LE_BE (val))
-#if defined __x86_64__ && !defined _WIN32
+#ifdef __LP64__
 	#define GLONG_TO_LE(val) ((glong) GINT64_TO_LE (val))
 	#define GULONG_TO_LE(val) ((gulong) GUINT64_TO_LE (val))
 	#define GLONG_TO_BE(val) ((glong) GINT64_TO_BE (val))
@@ -248,7 +251,7 @@ typedef gint64 goffset;
 #define GUINT_TO_LE(val) ((guint) GUINT32_TO_LE (val))
 #define GINT_TO_BE(val)  ((gint) GINT32_TO_BE (val))
 #define GUINT_TO_BE(val) ((guint) GUINT32_TO_BE (val))
-#ifdef __x86_64__
+#if defined __LP64__ || defined _WIN64
 	#define GSIZE_TO_LE(val) ((gsize) GUINT64_TO_LE (val))
 	#define GSSIZE_TO_LE(val) ((gssize) GINT64_TO_LE (val))
 	#define GSIZE_TO_BE(val) ((gsize) GUINT64_TO_BE (val))
@@ -268,7 +271,7 @@ typedef gint64 goffset;
 #define GLIB_SYSDEF_POLLERR =8
 #define GLIB_SYSDEF_POLLNVAL =32
 
-#ifdef _WIN32
+#if defined _WIN32 || defined __CYGWIN__
 	#define G_MODULE_SUFFIX "dll"
 	typedef void *GPid;
 #else
@@ -278,8 +281,14 @@ typedef gint64 goffset;
 
 #define GLIB_SYSDEF_AF_UNIX 1
 #define GLIB_SYSDEF_AF_INET 2
-#ifdef _WIN32
+#if defined _WIN32 || defined __CYGWIN__
 	#define GLIB_SYSDEF_AF_INET6 23
+#elif defined __FreeBSD__
+	#define GLIB_SYSDEF_AF_INET6 28
+#elif defined __OpenBSD__ || defined __NetBSD__
+	#define GLIB_SYSDEF_AF_INET6 24
+#elif defined __APPLE__
+	#define GLIB_SYSDEF_AF_INET6 30
 #else
 	#define GLIB_SYSDEF_AF_INET6 10
 #endif

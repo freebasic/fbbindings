@@ -55,7 +55,7 @@
 
 #include once "crt/long.bi"
 
-#ifdef __FB_LINUX__
+#ifdef __FB_UNIX__
 	#include once "crt/limits.bi"
 	#include once "sys/param.bi"
 #endif

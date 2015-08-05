@@ -6,7 +6,7 @@
 	-define PDC_WIDE 1
 -endif
 
--ifdef __FB_WIN32__
+-iftarget windows
 	-declarebool PDC_DLL_BUILD
 	-ifdef PDC_DLL_BUILD
 		-define PDC_DLL_BUILD 1

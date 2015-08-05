@@ -6,13 +6,15 @@
 -define ALLEGRO_NO_FIX_ALIASES
 -fbfroginclude allegro-helper.h
 
--select
--case __FB_LINUX__
-	-define ALLEGRO_LINUX
+-selecttarget
+-case unix
 	-define ALLEGRO_UNIX
-	-define ALLEGRO_HAVE_LINUX_JOYSTICK_H
 	-define ALLEGRO_HAVE_LIBPTHREAD
--case __FB_WIN32__
+	-iftarget linux
+		-define ALLEGRO_LINUX
+		-define ALLEGRO_HAVE_LINUX_JOYSTICK_H
+	-endif
+-case windows
 	-define ALLEGRO_MINGW32
 	-declarebool ALLEGRO_STATICLINK
 	-ifdef ALLEGRO_STATICLINK

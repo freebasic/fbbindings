@@ -27,12 +27,12 @@
 
 #pragma once
 
-#if defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)
-	#inclib "allegro-5.0.10-static-md"
-#elseif defined(__FB_WIN32__) and (not defined(ALLEGRO_STATICLINK))
-	#inclib "allegro-5.0.10-md"
-#else
+#ifdef __FB_UNIX__
 	#inclib "allegro"
+#elseif defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)
+	#inclib "allegro-5.0.10-static-md"
+#else
+	#inclib "allegro-5.0.10-md"
 #endif
 
 #include once "crt/errno.bi"
@@ -52,10 +52,10 @@ extern "C"
 #define __al_included_allegro5_allegro_h
 #define __al_included_allegro5_base_h
 
-#ifdef __FB_WIN32__
-	const ALLEGRO_MINGW32 = 1
-#else
+#ifdef __FB_UNIX__
 	const ALLEGRO_UNIX = 1
+#else
+	const ALLEGRO_MINGW32 = 1
 #endif
 
 const ALLEGRO_HAVE_DIRENT_H = 1
@@ -66,19 +66,22 @@ const ALLEGRO_HAVE_INTTYPES_H = 1
 	const ALLEGRO_HAVE_LINUX_INPUT_H = 1
 	const ALLEGRO_HAVE_LINUX_JOYSTICK_H = 1
 	const ALLEGRO_HAVE_LINUX_SOUNDCARD_H = 1
+#endif
+
+#ifdef __FB_UNIX__
 	const ALLEGRO_HAVE_SOUNDCARD_H = 1
 #endif
 
 const ALLEGRO_HAVE_STDBOOL_H = 1
 const ALLEGRO_HAVE_STDINT_H = 1
 
-#ifdef __FB_LINUX__
+#ifdef __FB_UNIX__
 	const ALLEGRO_HAVE_SV_PROCFS_H = 1
 #endif
 
 const ALLEGRO_HAVE_SYS_IO_H = 1
 
-#ifdef __FB_LINUX__
+#ifdef __FB_UNIX__
 	const ALLEGRO_HAVE_SYS_SOUNDCARD_H = 1
 #endif
 
@@ -86,13 +89,13 @@ const ALLEGRO_HAVE_SYS_STAT_H = 1
 const ALLEGRO_HAVE_SYS_TIME_H = 1
 const ALLEGRO_HAVE_TIME_H = 1
 
-#ifdef __FB_LINUX__
+#ifdef __FB_UNIX__
 	const ALLEGRO_HAVE_SYS_UTSNAME_H = 1
 #endif
 
 const ALLEGRO_HAVE_SYS_TYPES_H = 1
 
-#ifdef __FB_LINUX__
+#ifdef __FB_UNIX__
 	const ALLEGRO_HAVE_OSATOMIC_H = 1
 	const ALLEGRO_HAVE_SYS_INOTIFY_H = 1
 	const ALLEGRO_HAVE_SYS_TIMERFD_H = 1
@@ -101,7 +104,7 @@ const ALLEGRO_HAVE_SYS_TYPES_H = 1
 const ALLEGRO_HAVE_GETEXECNAME = 1
 const ALLEGRO_HAVE_MKSTEMP = 1
 
-#ifdef __FB_LINUX__
+#ifdef __FB_UNIX__
 	const ALLEGRO_HAVE_MMAP = 1
 	const ALLEGRO_HAVE_MPROTECT = 1
 	const ALLEGRO_HAVE_SCHED_YIELD = 1
@@ -113,34 +116,42 @@ const ALLEGRO_HAVE_FTELLO = 1
 const ALLEGRO_HAVE_VA_COPY = 1
 const ALLEGRO_LITTLE_ENDIAN = 1
 
-#if defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)
-	#define ALLEGRO_PLATFORM_STR "MinGW32.s"
-#elseif defined(__FB_WIN32__) and (not defined(ALLEGRO_STATICLINK))
-	#define ALLEGRO_PLATFORM_STR "MinGW32"
-#endif
-
-#ifdef __FB_WIN32__
-	#define ALLEGRO_WINDOWS
-	#define ALLEGRO_I386
-#else
+#ifdef __FB_UNIX__
 	const ALLEGRO_WITH_XWINDOWS = 1
 	const ALLEGRO_XWINDOWS_WITH_XCURSOR = 1
 	const ALLEGRO_XWINDOWS_WITH_XF86VIDMODE = 1
 	const ALLEGRO_XWINDOWS_WITH_XINERAMA = 1
 	const ALLEGRO_XWINDOWS_WITH_XRANDR = 1
 	const ALLEGRO_XWINDOWS_WITH_XIM = 1
+#endif
+
+#ifdef __FB_LINUX__
 	const ALLEGRO_LINUX = 1
+#endif
+
+#ifdef __FB_UNIX__
 	#define ALLEGRO_PLATFORM_STR "Unix"
+#elseif defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)
+	#define ALLEGRO_PLATFORM_STR "MinGW32.s"
+#else
+	#define ALLEGRO_PLATFORM_STR "MinGW32"
+#endif
+
+#ifdef __FB_WIN32__
+	#define ALLEGRO_WINDOWS
+	#define ALLEGRO_I386
 #endif
 
 #define __al_included_allegro5_astdint_h
 #define __al_included_allegro5_astdbool_h
 #define ALLEGRO_GCC
 
-#ifdef __FB_64BIT__
-	#define ALLEGRO_AMD64
-#else
+#if (not defined(__FB_64BIT__)) and (defined(__FB_DARWIN__) or defined(__FB_CYGWIN__) or ((not defined(__FB_ARM__)) and (defined(__FB_LINUX__) or defined(__FB_FREEBSD__) or defined(__FB_OPENBSD__) or defined(__FB_NETBSD__))) or defined(__FB_WIN32__))
 	#define ALLEGRO_I386
+#elseif defined(__FB_64BIT__) and (defined(__FB_DARWIN__) or defined(__FB_CYGWIN__) or ((not defined(__FB_ARM__)) and (defined(__FB_LINUX__) or defined(__FB_FREEBSD__) or defined(__FB_OPENBSD__) or defined(__FB_NETBSD__))) or defined(__FB_WIN32__))
+	#define ALLEGRO_AMD64
+#elseif (not defined(__FB_64BIT__)) and defined(__FB_ARM__) and (defined(__FB_LINUX__) or defined(__FB_FREEBSD__) or defined(__FB_OPENBSD__) or defined(__FB_NETBSD__))
+	#define ALLEGRO_ARM
 #endif
 
 #define READ3BYTES(p) (((*cptr(ubyte ptr, (p))) or ((*(cptr(ubyte ptr, (p)) + 1)) shl 8)) or ((*(cptr(ubyte ptr, (p)) + 2)) shl 16))
@@ -291,12 +302,12 @@ declare sub al_draw_tinted_scaled_rotated_bitmap_region(byval bitmap as ALLEGRO_
 #define __al_included_allegro5_file_h
 #define __al_included_allegro5_path_h
 
-#ifdef __FB_WIN32__
-	#define ALLEGRO_NATIVE_PATH_SEP asc(!"\\")
-	#define ALLEGRO_NATIVE_DRIVE_SEP asc(":")
-#else
+#ifdef __FB_UNIX__
 	#define ALLEGRO_NATIVE_PATH_SEP asc("/")
 	#define ALLEGRO_NATIVE_DRIVE_SEP asc(!"\0")
+#else
+	#define ALLEGRO_NATIVE_PATH_SEP asc(!"\\")
+	#define ALLEGRO_NATIVE_DRIVE_SEP asc(":")
 #endif
 
 type ALLEGRO_PATH as ALLEGRO_PATH_
@@ -550,10 +561,10 @@ declare sub _al_trace_suffix(byval msg as const zstring ptr, ...)
 #define ALLEGRO_WARN ALLEGRO_TRACE_LEVEL(2)
 #define ALLEGRO_ERROR ALLEGRO_TRACE_LEVEL(3)
 
-#if (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
-	extern _al_user_assert_handler as sub(byval expr as const zstring ptr, byval file as const zstring ptr, byval line as long, byval func as const zstring ptr)
-#else
+#if defined(__FB_WIN32__) and (not defined(ALLEGRO_STATICLINK))
 	extern import _al_user_assert_handler as sub(byval expr as const zstring ptr, byval file as const zstring ptr, byval line as long, byval func as const zstring ptr)
+#else
+	extern _al_user_assert_handler as sub(byval expr as const zstring ptr, byval file as const zstring ptr, byval line as long, byval func as const zstring ptr)
 #endif
 
 declare sub al_register_assert_handler(byval handler as sub(byval expr as const zstring ptr, byval file as const zstring ptr, byval line as long, byval func as const zstring ptr))
@@ -827,12 +838,12 @@ declare sub al_set_errno(byval errnum as long)
 #define __al_included_allegro5_fixed_h
 type al_fixed as long
 
-#if (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
-	extern al_fixtorad_r as const al_fixed
-	extern al_radtofix_r as const al_fixed
-#else
+#if defined(__FB_WIN32__) and (not defined(ALLEGRO_STATICLINK))
 	extern import al_fixtorad_r as const al_fixed
 	extern import al_radtofix_r as const al_fixed
+#else
+	extern al_fixtorad_r as const al_fixed
+	extern al_radtofix_r as const al_fixed
 #endif
 
 #define __al_included_allegro5_fmaths_h
@@ -842,26 +853,26 @@ declare function al_fixatan(byval x as al_fixed) as al_fixed
 declare function al_fixatan2(byval y as al_fixed, byval x as al_fixed) as al_fixed
 #define _al_fix_cos_tbl(i) ((@___al_fix_cos_tbl)[i])
 
-#if (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
-	extern ___al_fix_cos_tbl alias "_al_fix_cos_tbl" as al_fixed
-#else
+#if defined(__FB_WIN32__) and (not defined(ALLEGRO_STATICLINK))
 	extern import ___al_fix_cos_tbl alias "_al_fix_cos_tbl" as al_fixed
+#else
+	extern ___al_fix_cos_tbl alias "_al_fix_cos_tbl" as al_fixed
 #endif
 
 #define _al_fix_tan_tbl(i) ((@___al_fix_tan_tbl)[i])
 
-#if (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
-	extern ___al_fix_tan_tbl alias "_al_fix_tan_tbl" as al_fixed
-#else
+#if defined(__FB_WIN32__) and (not defined(ALLEGRO_STATICLINK))
 	extern import ___al_fix_tan_tbl alias "_al_fix_tan_tbl" as al_fixed
+#else
+	extern ___al_fix_tan_tbl alias "_al_fix_tan_tbl" as al_fixed
 #endif
 
 #define _al_fix_acos_tbl(i) ((@___al_fix_acos_tbl)[i])
 
-#if (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
-	extern ___al_fix_acos_tbl alias "_al_fix_acos_tbl" as al_fixed
-#else
+#if defined(__FB_WIN32__) and (not defined(ALLEGRO_STATICLINK))
 	extern import ___al_fix_acos_tbl alias "_al_fix_acos_tbl" as al_fixed
+#else
+	extern ___al_fix_acos_tbl alias "_al_fix_acos_tbl" as al_fixed
 #endif
 
 #define __al_included_allegro5_inline_fmaths_inl
@@ -1154,12 +1165,12 @@ declare sub al_get_keyboard_state(byval ret_state as ALLEGRO_KEYBOARD_STATE ptr)
 declare function al_key_down(byval as const ALLEGRO_KEYBOARD_STATE ptr, byval keycode as long) as byte
 declare function al_get_keyboard_event_source() as ALLEGRO_EVENT_SOURCE ptr
 
-#if (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
-	extern _al_three_finger_flag as byte
-	extern _al_key_led_flag as byte
-#else
+#if defined(__FB_WIN32__) and (not defined(ALLEGRO_STATICLINK))
 	extern import _al_three_finger_flag as byte
 	extern import _al_key_led_flag as byte
+#else
+	extern _al_three_finger_flag as byte
+	extern _al_key_led_flag as byte
 #endif
 
 #define __al_included_allegro5_memory_h

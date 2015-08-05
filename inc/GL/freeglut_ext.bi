@@ -33,10 +33,10 @@
 
 #include once "crt/stdarg.bi"
 
-#if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(FREEGLUT_STATIC)) or defined(__FB_LINUX__)
-	extern "C"
-#else
+#if defined(__FB_WIN32__) and (not defined(FREEGLUT_STATIC))
 	extern "Windows"
+#else
+	extern "C"
 #endif
 
 #define __FREEGLUT_EXT_H__

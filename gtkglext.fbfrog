@@ -1,4 +1,4 @@
-nodos.fbfrog
+-target nodos
 
 -removedefine GDK_GL_VAR
 -removedefine GTK_GL_VAR

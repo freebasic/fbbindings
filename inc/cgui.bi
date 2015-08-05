@@ -202,16 +202,16 @@ declare sub DeInitCgui()
 declare sub CguiUseUTF8()
 declare function CguiParseLabels(byval state as long) as long
 
-#if defined(CGUI_STATICLINK) or ((not defined(CGUI_STATICLINK)) and (defined(__FB_DOS__) or defined(__FB_LINUX__)))
-	extern cgui_ver as long
-	extern cgui_rev as long
-	extern cgui_minor_rev as long
-	extern cgui_release_date as long
-#else
+#if defined(__FB_WIN32__) and (not defined(CGUI_STATICLINK))
 	extern import cgui_ver as long
 	extern import cgui_rev as long
 	extern import cgui_minor_rev as long
 	extern import cgui_release_date as long
+#else
+	extern cgui_ver as long
+	extern cgui_rev as long
+	extern cgui_minor_rev as long
+	extern cgui_release_date as long
 #endif
 
 const CGUI_DIR_TOPLEFT = 1
@@ -261,10 +261,10 @@ declare sub ScrMode(byval CallBack as sub())
 declare function MkProgressWindow(byval wlabel as const zstring ptr, byval blabel as const zstring ptr, byval w as long) as long
 #define CGUI_ID_DESKTOP cgui_desktop_id
 
-#if defined(CGUI_STATICLINK) or ((not defined(CGUI_STATICLINK)) and (defined(__FB_DOS__) or defined(__FB_LINUX__)))
-	extern cgui_desktop_id as long
-#else
+#if defined(__FB_WIN32__) and (not defined(CGUI_STATICLINK))
 	extern import cgui_desktop_id as long
+#else
+	extern cgui_desktop_id as long
 #endif
 
 declare function MkMenu(byval text as const zstring ptr, byval CallBack as sub(byval as any ptr), byval data as any ptr) as long
@@ -286,10 +286,10 @@ declare function AddFlip(byval x as long, byval y as long, byval label as const 
 declare function AddDropDown(byval x as long, byval y as long, byval width as long, byval label as const zstring ptr, byval sel as long ptr, byval data as const any ptr, byval n as long, byval CallBack as sub(byval data as const any ptr, byval i as long, byval s as zstring ptr)) as long
 declare function AddDropDownS(byval x as long, byval y as long, byval width as long, byval label as const zstring ptr, byval sel as long ptr, byval strs as const zstring const ptr ptr, byval n as long) as long
 
-#if defined(CGUI_STATICLINK) or ((not defined(CGUI_STATICLINK)) and (defined(__FB_DOS__) or defined(__FB_LINUX__)))
-	extern cgui_drop_down_list_row_spacing as long
-#else
+#if defined(__FB_WIN32__) and (not defined(CGUI_STATICLINK))
 	extern import cgui_drop_down_list_row_spacing as long
+#else
+	extern cgui_drop_down_list_row_spacing as long
 #endif
 
 declare function MkRadioContainer(byval x as long, byval y as long, byval var as long ptr, byval direction as long) as long
@@ -421,10 +421,10 @@ declare sub Click(byval id as long)
 declare function GetObjectPosition(byval id as long, byval x as long ptr, byval y as long ptr, byval wx as long ptr, byval wy as long ptr) as long
 declare sub SetBlitLimit(byval x1 as long, byval y1 as long, byval x2 as long, byval y2 as long)
 
-#if defined(CGUI_STATICLINK) or ((not defined(CGUI_STATICLINK)) and (defined(__FB_DOS__) or defined(__FB_LINUX__)))
-	extern cgui_use_vsync as long
-#else
+#if defined(__FB_WIN32__) and (not defined(CGUI_STATICLINK))
 	extern import cgui_use_vsync as long
+#else
+	extern cgui_use_vsync as long
 #endif
 
 const CGUI_CT_BORDER = 1
@@ -475,17 +475,7 @@ declare sub CguiListBoxRowSetBar(byval color as long, byval percentage as double
 declare function CguiListBoxRowGetClickedColumn(byval rowid as long) as long
 declare sub CguiListBoxSetColumnSelection(byval listid as long, byval state as long)
 
-#if defined(CGUI_STATICLINK) or ((not defined(CGUI_STATICLINK)) and (defined(__FB_DOS__) or defined(__FB_LINUX__)))
-	extern cgui_list_no_multiple_row_selection as long
-	extern cgui_list_show_focused_row as long
-	extern CGUI_list_font as FONT ptr
-	extern CGUI_list_row_font as FONT ptr
-	extern CGUI_list_row_f_color as long
-	extern CGUI_list_row_b_color as long
-	extern CGUI_list_vspace as long
-	extern CGUI_list_fixfont as long
-	extern cgui_list_fix_digits as long
-#else
+#if defined(__FB_WIN32__) and (not defined(CGUI_STATICLINK))
 	extern import cgui_list_no_multiple_row_selection as long
 	extern import cgui_list_show_focused_row as long
 	extern import CGUI_list_font as FONT ptr
@@ -495,6 +485,16 @@ declare sub CguiListBoxSetColumnSelection(byval listid as long, byval state as l
 	extern import CGUI_list_vspace as long
 	extern import CGUI_list_fixfont as long
 	extern import cgui_list_fix_digits as long
+#else
+	extern cgui_list_no_multiple_row_selection as long
+	extern cgui_list_show_focused_row as long
+	extern CGUI_list_font as FONT ptr
+	extern CGUI_list_row_font as FONT ptr
+	extern CGUI_list_row_f_color as long
+	extern CGUI_list_row_b_color as long
+	extern CGUI_list_vspace as long
+	extern CGUI_list_fixfont as long
+	extern cgui_list_fix_digits as long
 #endif
 
 const CGUI_LIST_COLUMNS_ADJUSTABLE = 1 shl 0
@@ -567,10 +567,10 @@ declare function KillEvent(byval id as ulong) as long
 declare sub FlushGenEvents()
 declare sub CguiYieldTimeslice(byval state as long)
 
-#if defined(CGUI_STATICLINK) or ((not defined(CGUI_STATICLINK)) and (defined(__FB_DOS__) or defined(__FB_LINUX__)))
-	extern event_message_buffer_size as long
-#else
+#if defined(__FB_WIN32__) and (not defined(CGUI_STATICLINK))
 	extern import event_message_buffer_size as long
+#else
+	extern event_message_buffer_size as long
 #endif
 
 declare sub InstallKBHandler(byval Handler as function(byval data as any ptr, byval scan as long, byval key as long) as long, byval data as any ptr)
@@ -638,10 +638,10 @@ enum
 	NR_OF_CGUI_COLORS
 end enum
 
-#if defined(CGUI_STATICLINK) or ((not defined(CGUI_STATICLINK)) and (defined(__FB_DOS__) or defined(__FB_LINUX__)))
-	extern cgui_colors(0 to NR_OF_CGUI_COLORS - 1) as long
-#else
+#if defined(__FB_WIN32__) and (not defined(CGUI_STATICLINK))
 	extern import cgui_colors(0 to NR_OF_CGUI_COLORS - 1) as long
+#else
+	extern cgui_colors(0 to NR_OF_CGUI_COLORS - 1) as long
 #endif
 
 declare function CguiSetColor(byval color_name as long, byval r as long, byval g as long, byval b as long) as long
@@ -677,10 +677,10 @@ const CGUI_CURS_DEFAULT = 6
 declare sub CguiSetMouseInput(byval MouseInput as sub(byval x as long ptr, byval y as long ptr, byval z as long ptr, byval buttons as long ptr), byval ForcePos as sub(byval x as long, byval y as long), byval SetRange as sub(byval x as long, byval y as long, byval w as long, byval h as long))
 declare sub SetMousePos(byval x as long, byval y as long)
 
-#if defined(CGUI_STATICLINK) or ((not defined(CGUI_STATICLINK)) and (defined(__FB_DOS__) or defined(__FB_LINUX__)))
-	extern cgui_mouse_draw_in_interrupt as long
-#else
+#if defined(__FB_WIN32__) and (not defined(CGUI_STATICLINK))
 	extern import cgui_mouse_draw_in_interrupt as long
+#else
+	extern cgui_mouse_draw_in_interrupt as long
 #endif
 
 declare function LoadTexts(byval fn as const zstring ptr, byval section as const zstring ptr, byval nr as long ptr) as const zstring const ptr ptr
@@ -696,10 +696,10 @@ declare function MakeStretchable(byval id as long, byval Notify as sub(byval as 
 const CGUI_NO_VERTICAL = 1
 const CGUI_NO_HORIZONTAL = 2
 
-#if defined(CGUI_STATICLINK) or ((not defined(CGUI_STATICLINK)) and (defined(__FB_DOS__) or defined(__FB_LINUX__)))
-	extern continous_update_resize as long
-#else
+#if defined(__FB_WIN32__) and (not defined(CGUI_STATICLINK))
 	extern import continous_update_resize as long
+#else
+	extern continous_update_resize as long
 #endif
 
 #define CGUI_FRAMERAISE CGUI_TB_FRAMERAISE

@@ -1,5 +1,6 @@
-nodos.fbfrog
-allegro.fbfrog
+-target nodos
+
+@allegro.fbfrog
 
 -replacements allegro5.replacements
 

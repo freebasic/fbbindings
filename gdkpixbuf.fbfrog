@@ -1,6 +1,6 @@
-nodos.fbfrog
+-target nodos
 
--ifdef __FB_WIN32__
+-iftarget windows
 	-declarebool GDK_PIXBUF_STATIC_COMPILATION
 	-ifdef GDK_PIXBUF_STATIC_COMPILATION
 		-define GDK_PIXBUF_STATIC_COMPILATION 1

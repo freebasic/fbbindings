@@ -203,7 +203,7 @@ end type
 type NMCHAR as tagNMCHAR
 type LPNMCHAR as tagNMCHAR ptr
 
-#if (_WIN32_WINNT = &h0502) or (_WIN32_WINNT = &h0602)
+#if _WIN32_WINNT >= &h0502
 	type tagNMCUSTOMTEXT
 		hdr as NMHDR
 		hDC as HDC
@@ -729,7 +729,7 @@ const HDSIL_STATE = 1
 #define HDM_EDITFILTER (HDM_FIRST + 23)
 #define Header_EditFilter(hwnd, i, fDiscardChanges) clng(SNDMSG((hwnd), HDM_EDITFILTER, cast(WPARAM, (i)), MAKELPARAM(fDiscardChanges, 0)))
 
-#if (_WIN32_WINNT = &h0502) or (_WIN32_WINNT = &h0602)
+#if _WIN32_WINNT >= &h0502
 	#define HDM_TRANSLATEACCELERATOR CCM_TRANSLATEACCELERATOR
 #endif
 
@@ -771,7 +771,7 @@ const HDSIL_STATE = 1
 #define HDN_FILTERCHANGE culng(HDN_FIRST - 12)
 #define HDN_FILTERBTNCLICK culng(HDN_FIRST - 13)
 
-#if (_WIN32_WINNT = &h0502) or (_WIN32_WINNT = &h0602)
+#if _WIN32_WINNT >= &h0502
 	#define HDN_BEGINFILTEREDIT culng(HDN_FIRST - 14)
 	#define HDN_ENDFILTEREDIT culng(HDN_FIRST - 15)
 #endif
@@ -1700,7 +1700,7 @@ const RBSTR_CHANGERECT = &h1
 #define RB_GETBANDMARGINS (WM_USER + 40)
 #define RB_SETWINDOWTHEME CCM_SETWINDOWTHEME
 
-#if (_WIN32_WINNT = &h0502) or (_WIN32_WINNT = &h0602)
+#if _WIN32_WINNT >= &h0502
 	#define RB_SETEXTENDEDSTYLE (WM_USER + 41)
 	#define RB_GETEXTENDEDSTYLE (WM_USER + 42)
 #endif
@@ -1722,7 +1722,7 @@ const RBSTR_CHANGERECT = &h1
 #define RBN_CHILDSIZE culng(RBN_FIRST - 8)
 #define RBN_CHEVRONPUSHED culng(RBN_FIRST - 10)
 
-#if (_WIN32_WINNT = &h0502) or (_WIN32_WINNT = &h0602)
+#if _WIN32_WINNT >= &h0502
 	#define RBN_SPLITTERDRAG culng(RBN_FIRST - 11)
 #endif
 
@@ -1777,7 +1777,7 @@ end type
 type NMREBARCHEVRON as tagNMREBARCHEVRON
 type LPNMREBARCHEVRON as tagNMREBARCHEVRON ptr
 
-#if (_WIN32_WINNT = &h0502) or (_WIN32_WINNT = &h0602)
+#if _WIN32_WINNT >= &h0502
 	type tagNMREBARSPLITTER
 		hdr as NMHDR
 		rcSizing as RECT
@@ -1808,7 +1808,7 @@ const RBHT_CLIENT = &h3
 const RBHT_GRABBER = &h4
 const RBHT_CHEVRON = &h8
 
-#if (_WIN32_WINNT = &h0502) or (_WIN32_WINNT = &h0602)
+#if _WIN32_WINNT >= &h0502
 	const RBHT_SPLITTER = &h10
 #endif
 
@@ -2192,7 +2192,7 @@ const TBS_TOOLTIPS = &h100
 const TBS_REVERSED = &h200
 const TBS_DOWNISLEFT = &h400
 
-#if (_WIN32_WINNT = &h0502) or (_WIN32_WINNT = &h0602)
+#if _WIN32_WINNT >= &h0502
 	const TBS_NOTIFYBEFOREMOVE = &h800
 #endif
 
@@ -3765,7 +3765,7 @@ const LVNSCH_IGNORE = -3
 #if _WIN32_WINNT = &h0602
 	#define LVN_COLUMNDROPDOWN culng(LVN_FIRST - 64)
 	#define LVN_COLUMNOVERFLOWCLICK culng(LVN_FIRST - 66)
-#elseif (not defined(UNICODE)) and ((_WIN32_WINNT = &h0400) or (_WIN32_WINNT = &h0502))
+#elseif (not defined(UNICODE)) and (_WIN32_WINNT <= &h0502)
 	#define LVN_INCREMENTALSEARCH LVN_INCREMENTALSEARCHA
 #endif
 
@@ -3844,7 +3844,7 @@ const TVIF_SELECTEDIMAGE = &h20
 const TVIF_CHILDREN = &h40
 const TVIF_INTEGRAL = &h80
 
-#if (_WIN32_WINNT = &h0502) or (_WIN32_WINNT = &h0602)
+#if _WIN32_WINNT >= &h0502
 	const TVIF_STATEEX = &h100
 	const TVIF_EXPANDEDIMAGE = &h200
 #endif
@@ -3860,7 +3860,7 @@ const TVIS_OVERLAYMASK = &hf00
 const TVIS_STATEIMAGEMASK = &hF000
 const TVIS_USERMASK = &hF000
 
-#if (_WIN32_WINNT = &h0502) or (_WIN32_WINNT = &h0602)
+#if _WIN32_WINNT >= &h0502
 	const TVIS_EX_FLAT = &h1
 #endif
 
@@ -3868,7 +3868,7 @@ const TVIS_USERMASK = &hF000
 	const TVIS_EX_DISABLED = &h2
 #endif
 
-#if (_WIN32_WINNT = &h0502) or (_WIN32_WINNT = &h0602)
+#if _WIN32_WINNT >= &h0502
 	const TVIS_EX_ALL = &h0002
 
 	type tagNMTVSTATEIMAGECHANGING
@@ -3936,7 +3936,7 @@ type tagTVITEMEXA
 	lParam as LPARAM
 	iIntegral as long
 
-	#if (_WIN32_WINNT = &h0502) or (_WIN32_WINNT = &h0602)
+	#if _WIN32_WINNT >= &h0502
 		uStateEx as UINT
 		hwnd as HWND
 		iExpandedImage as long
@@ -3963,7 +3963,7 @@ type tagTVITEMEXW
 	lParam as LPARAM
 	iIntegral as long
 
-	#if (_WIN32_WINNT = &h0502) or (_WIN32_WINNT = &h0602)
+	#if _WIN32_WINNT >= &h0502
 		uStateEx as UINT
 		hwnd as HWND
 		iExpandedImage as long
@@ -4089,7 +4089,7 @@ const TVGN_DROPHILITE = &h8
 const TVGN_CARET = &h9
 const TVGN_LASTVISIBLE = &ha
 
-#if (_WIN32_WINNT = &h0502) or (_WIN32_WINNT = &h0602)
+#if _WIN32_WINNT >= &h0502
 	const TVGN_NEXTSELECTED = &hb
 #endif
 
@@ -4106,7 +4106,7 @@ const TVSI_NOSINGLEEXPAND = &h8000
 #define TreeView_GetRoot(hwnd) TreeView_GetNextItem(hwnd, NULL, TVGN_ROOT)
 #define TreeView_GetLastVisible(hwnd) TreeView_GetNextItem(hwnd, NULL, TVGN_LASTVISIBLE)
 
-#if (_WIN32_WINNT = &h0502) or (_WIN32_WINNT = &h0602)
+#if _WIN32_WINNT >= &h0502
 	#define TreeView_GetNextSelected(hwnd, hitem) TreeView_GetNextItem(hwnd, hitem, TVGN_NEXTSELECTED)
 #endif
 
@@ -4373,12 +4373,12 @@ type LPNMTVDISPINFOW as tagTVDISPINFOW ptr
 #ifdef UNICODE
 	#define NMTVDISPINFO NMTVDISPINFOW
 	#define LPNMTVDISPINFO LPNMTVDISPINFOW
-#elseif (not defined(UNICODE)) and ((_WIN32_WINNT = &h0502) or (_WIN32_WINNT = &h0602))
+#elseif (not defined(UNICODE)) and (_WIN32_WINNT >= &h0502)
 	#define NMTVDISPINFO NMTVDISPINFOA
 	#define LPNMTVDISPINFO LPNMTVDISPINFOA
 #endif
 
-#if (_WIN32_WINNT = &h0502) or (_WIN32_WINNT = &h0602)
+#if _WIN32_WINNT >= &h0502
 	type tagTVDISPINFOEXA
 		hdr as NMHDR
 		item as TVITEMEXA
@@ -4396,15 +4396,15 @@ type LPNMTVDISPINFOW as tagTVDISPINFOW ptr
 	type LPNMTVDISPINFOEXW as tagTVDISPINFOEXW ptr
 #endif
 
-#if defined(UNICODE) and ((_WIN32_WINNT = &h0502) or (_WIN32_WINNT = &h0602))
+#if defined(UNICODE) and (_WIN32_WINNT >= &h0502)
 	#define NMTVDISPINFOEX NMTVDISPINFOEXW
 	#define LPNMTVDISPINFOEX LPNMTVDISPINFOEXW
-#elseif (not defined(UNICODE)) and ((_WIN32_WINNT = &h0502) or (_WIN32_WINNT = &h0602))
+#elseif (not defined(UNICODE)) and (_WIN32_WINNT >= &h0502)
 	#define NMTVDISPINFOEX NMTVDISPINFOEXA
 	#define LPNMTVDISPINFOEX LPNMTVDISPINFOEXA
 #endif
 
-#if (_WIN32_WINNT = &h0502) or (_WIN32_WINNT = &h0602)
+#if _WIN32_WINNT >= &h0502
 	#define TV_DISPINFOEXA NMTVDISPINFOEXA
 	#define TV_DISPINFOEXW NMTVDISPINFOEXW
 	#define TV_DISPINFOEX NMTVDISPINFOEX
@@ -4435,7 +4435,7 @@ const TVNRET_DEFAULT = 0
 const TVNRET_SKIPOLD = 1
 const TVNRET_SKIPNEW = 2
 
-#if (_WIN32_WINNT = &h0502) or (_WIN32_WINNT = &h0602)
+#if _WIN32_WINNT >= &h0502
 	#define TVN_ITEMCHANGINGA culng(TVN_FIRST - 16)
 	#define TVN_ITEMCHANGINGW culng(TVN_FIRST - 17)
 	#define TVN_ITEMCHANGEDA culng(TVN_FIRST - 18)
@@ -4526,7 +4526,7 @@ type LPNMTVGETINFOTIPW as tagNMTVGETINFOTIPW ptr
 
 const TVCDRF_NOIMAGES = &h10000
 
-#if (_WIN32_WINNT = &h0502) or (_WIN32_WINNT = &h0602)
+#if _WIN32_WINNT >= &h0502
 	type tagTVITEMCHANGE
 		hdr as NMHDR
 		uChanged as UINT
@@ -4551,10 +4551,10 @@ const TVCDRF_NOIMAGES = &h10000
 	type NMTVASYNCDRAW as tagNMTVASYNCDRAW
 #endif
 
-#if defined(UNICODE) and ((_WIN32_WINNT = &h0502) or (_WIN32_WINNT = &h0602))
+#if defined(UNICODE) and (_WIN32_WINNT >= &h0502)
 	#define TVN_ITEMCHANGING TVN_ITEMCHANGINGW
 	#define TVN_ITEMCHANGED TVN_ITEMCHANGEDW
-#elseif (not defined(UNICODE)) and ((_WIN32_WINNT = &h0502) or (_WIN32_WINNT = &h0602))
+#elseif (not defined(UNICODE)) and (_WIN32_WINNT >= &h0502)
 	#define TVN_ITEMCHANGING TVN_ITEMCHANGINGA
 	#define TVN_ITEMCHANGED TVN_ITEMCHANGEDA
 #endif
@@ -5255,7 +5255,7 @@ const GMR_DAYSTATE = 1
 
 	type DATETIMEPICKERINFO as tagDATETIMEPICKERINFO
 	type LPDATETIMEPICKERINFO as tagDATETIMEPICKERINFO ptr
-#elseif (not defined(UNICODE)) and ((_WIN32_WINNT = &h0400) or (_WIN32_WINNT = &h0502))
+#elseif (not defined(UNICODE)) and (_WIN32_WINNT <= &h0502)
 	#define DATETIMEPICK_CLASS DATETIMEPICK_CLASSA
 #endif
 

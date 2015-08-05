@@ -12,10 +12,10 @@
 
 #pragma once
 
-#ifdef __FB_WIN32__
-	#inclib "glut32"
-#elseif defined(__FB_LINUX__)
+#ifdef __FB_UNIX__
 	#inclib "glut"
+#elseif defined(__FB_WIN32__)
+	#inclib "glut32"
 #else
 	#inclib "GLUT"
 	#inclib "alleg"

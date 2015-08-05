@@ -39,10 +39,10 @@
 #include once "GL/glu.bi"
 #include once "crt/stdlib.bi"
 
-#if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(FREEGLUT_STATIC)) or defined(__FB_LINUX__)
-	extern "C"
-#else
+#if defined(__FB_WIN32__) and (not defined(FREEGLUT_STATIC))
 	extern "Windows"
+#else
+	extern "C"
 #endif
 
 #define __FREEGLUT_STD_H__
@@ -114,7 +114,7 @@ const GLUT_FULLY_RETAINED = &h0001
 const GLUT_PARTIALLY_RETAINED = &h0002
 const GLUT_FULLY_COVERED = &h0003
 
-#ifdef __FB_WIN32__
+#if defined(__FB_WIN32__) or defined(__FB_CYGWIN__)
 	const GLUT_STROKE_ROMAN = cptr(any ptr, &h0000)
 	const GLUT_STROKE_MONO_ROMAN = cptr(any ptr, &h0001)
 	const GLUT_BITMAP_9_BY_15 = cptr(any ptr, &h0002)

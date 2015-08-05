@@ -1,4 +1,4 @@
-nodos.fbfrog
+-target nodos
 
 -replacements sdl.replacements
 
@@ -8,6 +8,7 @@ nodos.fbfrog
 -removedefine const
 -removedefine DECLSPEC
 -removedefine DLLINTERFACE
+-removedefine __FREEBSD__
 -removedefine HAVE_ABS
 -removedefine HAVE_ALLOCA
 -removedefine HAVE_ALLOCA_H
@@ -81,7 +82,10 @@ nodos.fbfrog
 -removedefine int64_t
 -removedefine int8_t
 -removedefine __LINUX__
+-removedefine __MACOSX__
 -removedefine main
+-removedefine __NETBSD__
+-removedefine __OPENBSD__
 -removedefine SDL_ALTIVEC_BLITTERS
 -removedefine SDL_arraysize
 -removedefine SDL_ASSEMBLY_ROUTINES

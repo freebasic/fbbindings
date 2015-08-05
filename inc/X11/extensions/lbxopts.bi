@@ -29,7 +29,7 @@
 
 #include once "crt/sys/types.bi"
 
-#ifdef __FB_LINUX__
+#ifdef __FB_UNIX__
 	#include once "sys/uio.bi"
 #endif
 

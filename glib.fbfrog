@@ -1,7 +1,7 @@
-nodos.fbfrog
+-target nodos
 -replacements glib.replacements
 
--ifdef __FB_WIN32__
+-iftarget windows
 	-declarebool GLIB_STATIC_COMPILATION
 	-ifdef GLIB_STATIC_COMPILATION
 		-define GLIB_STATIC_COMPILATION 1
@@ -82,7 +82,7 @@ nodos.fbfrog
 -rename glib_check_version glib_check_version_
 -rename G_CSET_A_2_Z G_CSET_A_2_Z_
 -rename G_QUEUE_INIT G_QUEUE_INIT_
--ifdef __FB_WIN32__
+-iftarget windows
 	-renameproc g_atexit g_atexit_
 -endif
 -renameproc G_SOURCE_REMOVE G_SOURCE_REMOVE_
@@ -142,7 +142,7 @@ nodos.fbfrog
 -renamedefine G_STATIC_REC_MUTEX_INIT G_STATIC_REC_MUTEX_INIT_
 -renamedefine G_STATIC_RW_LOCK_INIT   G_STATIC_RW_LOCK_INIT_
 -renamedefine G_STATIC_PRIVATE_INIT   G_STATIC_PRIVATE_INIT_
--ifdef __FB_WIN32__
+-iftarget windows
 	-renameproc g_filename_to_utf8         g_filename_to_utf8_
 	-renameproc g_filename_from_utf8       g_filename_from_utf8_
 	-renameproc g_filename_from_uri        g_filename_from_uri_

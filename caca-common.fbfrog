@@ -1,6 +1,6 @@
 -replacements caca.replacements
 
--ifdef __FB_WIN32__
+-iftarget windows
 	-declarebool CACA_STATIC
 	-ifdef CACA_STATIC
 		-define CACA_STATIC 1

@@ -1,4 +1,4 @@
-FBFROG_VERSION := 8b1edd3c1da68326589da0058a24f59e231d7205
+FBFROG_VERSION := 9736bbe8ec639837aaeca98738dfdebb42413ef4
 
 ALL := allegro allegro4 allegro5 aspell atk
 ALL += bass bassmod bfd bzip2
@@ -33,7 +33,7 @@ $(LOCAL_FBFROG_DIR):
 	./get.sh fbfrog-$(FBFROG_VERSION) fbfrog-$(FBFROG_VERSION).tar.gz https://github.com/dkl/fbfrog/archive/$(FBFROG_VERSION).tar.gz
 
 $(LOCAL_FBFROG): $(wildcard $(LOCAL_FBFROG_DIR)/*.bas $(LOCAL_FBFROG_DIR)/*.bi) | $(LOCAL_FBFROG_DIR)
-	cd $(LOCAL_FBFROG_DIR) && fbc *.bas -m fbfrog
+	cd $(LOCAL_FBFROG_DIR) && make
 
 $(GETCOMMENT): getcomment.bas
 	fbc $< -g -exx
@@ -98,10 +98,10 @@ allegro4: tools
 	$(FBFROG) allegro4.fbfrog \
 		\
 		-incdir extracted/$(ALLEGRO4_TITLE)/include \
-		-select \
-		-case __FB_DOS__ \
+		-selecttarget \
+		-case dos \
 			-incdir extracted/$(ALLEGRO4_TITLE)/include/dos \
-		-case __FB_WIN32__ \
+		-case windows \
 			-incdir extracted/$(ALLEGRO4_TITLE)/include/windows \
 		-caseelse \
 			-incdir extracted/$(ALLEGRO4_TITLE)/include/unix \
@@ -117,10 +117,10 @@ allegro4: tools
 		-emit '*/alpng.h' inc/allegro/alpng.bi \
 		-emit '*'         inc/allegro.bi \
 		\
-		-select \
-		-case __FB_DOS__ \
+		-selecttarget \
+		-case dos \
 			-inclib alleg inc/allegro.bi \
-		-case __FB_WIN32__ \
+		-case windows \
 			-ifdef ALLEGRO_STATICLINK \
 				-inclib alleg_s inc/allegro.bi \
 			-else \
@@ -164,13 +164,22 @@ allegro5: tools
 	./get.sh $(ALLEGRO5_TITLE) $(ALLEGRO5_TITLE).tar.gz "http://sourceforge.net/projects/alleg/files/allegro/$(ALLEGRO5_VERSION)/$(ALLEGRO5_TITLE).tar.gz/download"
 
 	mkdir -p extracted/$(ALLEGRO5_TITLE)/include/unix/allegro5/platform
+	mkdir -p extracted/$(ALLEGRO5_TITLE)/include/linux/allegro5/platform
 	mkdir -p extracted/$(ALLEGRO5_TITLE)/include/windows/allegro5/platform
 
-	./fake-configure ALLEGRO_UNIX `cat allegro5-config.txt` `cat allegro5-config-unix.txt` \
+	# Other Unix (BSD/Cygwin)
+	./fake-configure `cat allegro5-config.txt` `cat allegro5-config-unix.txt` \
 		< extracted/$(ALLEGRO5_TITLE)/include/allegro5/platform/alplatf.h.cmake \
 		> extracted/$(ALLEGRO5_TITLE)/include/unix/allegro5/platform/alplatf.h
 	echo "#pragma once" >> extracted/$(ALLEGRO5_TITLE)/include/unix/allegro5/platform/alplatf.h
 
+	# Linux
+	./fake-configure `cat allegro5-config.txt` `cat allegro5-config-unix.txt` `cat allegro5-config-linux.txt` \
+		< extracted/$(ALLEGRO5_TITLE)/include/allegro5/platform/alplatf.h.cmake \
+		> extracted/$(ALLEGRO5_TITLE)/include/linux/allegro5/platform/alplatf.h
+	echo "#pragma once" >> extracted/$(ALLEGRO5_TITLE)/include/linux/allegro5/platform/alplatf.h
+
+	# Windows
 	./fake-configure ALLEGRO_MINGW32 `cat allegro5-config.txt` \
 		< extracted/$(ALLEGRO5_TITLE)/include/allegro5/platform/alplatf.h.cmake \
 		> extracted/$(ALLEGRO5_TITLE)/include/windows/allegro5/platform/alplatf.h
@@ -192,11 +201,11 @@ allegro5: tools
 		-incdir extracted/$(ALLEGRO5_TITLE)/addons/physfs \
 		-incdir extracted/$(ALLEGRO5_TITLE)/addons/primitives \
 		-incdir extracted/$(ALLEGRO5_TITLE)/addons/ttf \
-		-ifdef __FB_WIN32__ \
-			-incdir extracted/$(ALLEGRO5_TITLE)/include/windows \
-		-else \
-			-incdir extracted/$(ALLEGRO5_TITLE)/include/unix \
-		-endif \
+		-selecttarget \
+		-case windows -incdir extracted/$(ALLEGRO5_TITLE)/include/windows \
+		-case linux   -incdir extracted/$(ALLEGRO5_TITLE)/include/linux \
+		-caseelse     -incdir extracted/$(ALLEGRO5_TITLE)/include/unix \
+		-endselect \
 		\
 		-include allegro5/allegro.h \
 		-include allegro5/allegro_acodec.h \
@@ -222,7 +231,7 @@ allegro5: tools
 		-emit '*/allegro_ttf.h'           inc/allegro5/allegro_ttf.bi \
 		-emit '*'                         inc/allegro5/allegro.bi \
 		\
-		-ifdef __FB_WIN32__ \
+		-iftarget windows \
 			-ifdef ALLEGRO_STATICLINK \
 				-inclib allegro$(ALLEGRO5_LIB)            inc/allegro5/allegro.bi \
 				-inclib allegro_acodec$(ALLEGRO5_LIB)     inc/allegro5/allegro_acodec.bi \
@@ -281,11 +290,11 @@ aspell: tools
 		-title $(ASPELL) aspell.tmp fbteam.txt inc/aspell.bi \
 		-title $(ASPELL) pspell.tmp fbteam.txt inc/pspell.bi \
 		-inclib aspell inc/aspell.bi \
-		-ifdef __FB_DOS__ \
+		-iftarget dos \
 			-inclib stdcx inc/aspell.bi \
 		-else \
 			-inclib stdc++ inc/aspell.bi \
-			-ifdef __FB_WIN32__ \
+			-iftarget windows \
 				-inclib pthread inc/aspell.bi \
 			-endif \
 		-endif
@@ -355,7 +364,7 @@ bass: tools winapi-extract
 	sed -n 639,655p extracted/$(BASS)/bass.txt >> bass.tmp
 
 	$(FBFROG) bass.fbfrog \
-		-ifdef __FB_WIN32__ \
+		-iftarget windows \
 			-incdir extracted/$(MINGWW64_TITLE)/mingw-w64-headers/crt \
 			-incdir extracted/$(MINGWW64_TITLE)/mingw-w64-headers/include \
 		-endif \
@@ -375,7 +384,7 @@ bassmod: tools winapi-extract
 	sed -n 158,175p extracted/$(BASSMOD)/BASSMOD.txt >> bassmod.tmp
 
 	$(FBFROG) bass.fbfrog \
-		-ifdef __FB_WIN32__ \
+		-iftarget windows \
 			-incdir extracted/$(MINGWW64_TITLE)/mingw-w64-headers/crt \
 			-incdir extracted/$(MINGWW64_TITLE)/mingw-w64-headers/include \
 		-endif \
@@ -388,7 +397,6 @@ bassmod: tools winapi-extract
 
 ################################################################################
 # libbfd binding
-# TODO: license texts
 
 BINUTILS_216 := binutils-2.16.1
 BINUTILS_217 := binutils-2.17
@@ -498,6 +506,7 @@ cairo-extract:
 cairo: tools cairo-extract
 	sed -n 1,35p extracted/$(CAIRO)/src/cairo.h | cut -c4- > cairo.tmp
 	mkdir -p inc/cairo
+
 	$(FBFROG) cairo.fbfrog \
 		-incdir extracted/$(CAIRO)/src \
 		-include cairo.h       \
@@ -505,7 +514,6 @@ cairo: tools cairo-extract
 		-include cairo-pdf.h   \
 		-include cairo-ps.h    \
 		-include cairo-svg.h   \
-		-include cairo-win32.h \
 		-emit '*/cairo.h'            inc/cairo/cairo.bi       \
 		-emit '*/cairo-version.h'    inc/cairo/cairo.bi       \
 		-emit '*/cairo-deprecated.h' inc/cairo/cairo.bi       \
@@ -513,9 +521,15 @@ cairo: tools cairo-extract
 		-emit '*/cairo-pdf.h'        inc/cairo/cairo-pdf.bi   \
 		-emit '*/cairo-ps.h'         inc/cairo/cairo-ps.bi    \
 		-emit '*/cairo-svg.h'        inc/cairo/cairo-svg.bi   \
-		-emit '*/cairo-win32.h'      inc/cairo/cairo-win32.bi \
 		-inclib cairo inc/cairo/cairo.bi \
 		-title $(CAIRO) cairo.tmp gtk+-translators.txt
+
+	$(FBFROG) cairo.fbfrog -target windows \
+		-incdir extracted/$(CAIRO)/src \
+		-include cairo-win32.h \
+		-emit '*/cairo-win32.h' inc/cairo/cairo-win32.bi \
+		-title $(CAIRO) cairo.tmp gtk+-translators.txt
+
 	rm *.tmp
 
 # Canvas Draw
@@ -659,34 +673,20 @@ fastcgi: tools
 
 FFI_VERSION := 3.1
 FFI_TITLE := libffi-$(FFI_VERSION)
-FFI_SED := -e 's/@HAVE_LONG_DOUBLE@/1/g'
-FFI_SED += -e 's/@FFI_EXEC_TRAMPOLINE_TABLE@/0/g'
-FFI_SED += -e 's/@VERSION@/$(FFI_VERSION)/g'
 ffi: tools
 	./get.sh $(FFI_TITLE) $(FFI_TITLE).tar.gz "ftp://sourceware.org/pub/libffi/$(FFI_TITLE).tar.gz"
+
 	# libffi's configure script generates ffi.h based on ffi.h.in (inserting @TARGET@)
 	# and symlinks ffitarget.h to ../src/<arch>/ffitarget.h.
-	# Both are target-specific, but since the process it's not very complex,
+	# Both are target-specific, but since the process is rather easy,
 	# we can avoid running configure for all our targets and generate the
 	# headers manually instead.
-	cd extracted/$(FFI_TITLE)/include && \
-		sed -e 's/@TARGET@/X86/g'       $(FFI_SED) < ffi.h.in > ffi-x86.h       && \
-		sed -e 's/@TARGET@/X86_WIN32/g' $(FFI_SED) < ffi.h.in > ffi-x86-win32.h && \
-		sed -e 's/@TARGET@/X86_WIN64/g' $(FFI_SED) < ffi.h.in > ffi-x86-win64.h
+	./ffi-generate-headers.sh "extracted/$(FFI_TITLE)" "$(FFI_VERSION)"
 
 	$(GETCOMMENT) extracted/$(FFI_TITLE)/include/ffi-x86.h > ffi.tmp
 
-	$(FBFROG) ffi.fbfrog -o inc/ffi.bi \
-		-ifdef __FB_WIN32__						\
-			-ifdef __FB_64BIT__					\
-				extracted/$(FFI_TITLE)/include/ffi-x86-win64.h	\
-			-else							\
-				extracted/$(FFI_TITLE)/include/ffi-x86-win32.h	\
-			-endif							\
-		-else								\
-			extracted/$(FFI_TITLE)/include/ffi-x86.h		\
-		-endif								\
-		-incdir extracted/$(FFI_TITLE)/src/x86				\
+	$(FBFROG) ffi.fbfrog -o inc/ffi.bi -target nodos \
+		`./ffi-get-target-options.sh "extracted/$(FFI_TITLE)"` \
 		-title $(FFI_TITLE) ffi.tmp fbteam.txt
 
 	rm *.tmp
@@ -780,7 +780,7 @@ glfw: tools
 	mkdir -p inc/GL inc/GLFW
 
 	$(FBFROG) glfw.fbfrog extracted/$(GLFW2)/include/GL/glfw.h -o inc/GL/glfw.bi \
-		-ifdef __FB_WIN32__ \
+		-iftarget windows \
 			-ifdef GLFW_DLL \
 				-inclib glfwdll \
 			-else \
@@ -794,7 +794,7 @@ glfw: tools
 		-title $(GLFW2) glfw2.tmp fbteam.txt
 
 	$(FBFROG) glfw.fbfrog extracted/$(GLFW3)/include/GLFW/glfw3.h -o inc/GLFW/glfw3.bi \
-		-ifdef __FB_WIN32__ \
+		-iftarget windows \
 			-ifdef GLFW_DLL \
 				-inclib glfw3dll \
 			-else \
@@ -877,7 +877,7 @@ glib: tools glib-extract
 		-inclib gobject-2.0                            inc/glib-object.bi \
 		-inclib gmodule-2.0                            inc/gmodule.bi \
 		-inclib glib-2.0                               inc/glib.bi \
-		-ifdef __FB_WIN32__ \
+		-iftarget windows \
 			-inclib gthread-2.0                    inc/glib.bi \
 		-endif \
 		-title $(GLIB) glib.tmp         gtk+-translators.txt inc/glib.bi \
@@ -905,7 +905,7 @@ glibc: tools
 
 	mkdir -p inc/crt/bits
 	$(FBFROG) glibc.fbfrog \
-		-ifdef __FB_64BIT__ \
+		-iftarget 64bit \
 			-incdir extracted/$(GLIBC)/sysdeps/x86_64 \
 			-incdir extracted/$(GLIBC)/sysdeps/wordsize-64 \
 		-endif \
@@ -937,10 +937,10 @@ glut: tools
 	mkdir -p inc/GL
 	$(FBFROG) glut.fbfrog \
 		extracted/$(GLUT)/include/GL/glut.h -o inc/GL/glut.bi \
-		-select \
-		-case __FB_WIN32__ \
+		-selecttarget \
+		-case windows \
 			-inclib glut32 \
-		-case __FB_DOS__ \
+		-case dos \
 			-inclib GLUT \
 			-inclib alleg \
 		-caseelse \
@@ -978,7 +978,7 @@ gtk2: tools gtk2-extract
 		-include gtk/gtk.h \
 		-emit '*/extracted/$(GTK2)/gdk/*' inc/gdk/gdk2.bi \
 		-emit '*/extracted/$(GTK2)/gtk/*' inc/gtk/gtk2.bi \
-		-ifdef __FB_WIN32__ \
+		-iftarget windows \
 			-inclib gdk-win32-2.0 inc/gdk/gdk2.bi \
 			-inclib gtk-win32-2.0 inc/gtk/gtk2.bi \
 		-else \
@@ -1046,7 +1046,7 @@ gtkglext: tools glib-extract gtk2-extract
 		-include gtk/gtkgl.h \
 		-emit '*/extracted/$(GTKGLEXT)/gdk/*' inc/gtkgl/gdkglext.bi \
 		-emit '*/extracted/$(GTKGLEXT)/gtk/*' inc/gtkgl/gtkglext.bi \
-		-ifdef __FB_WIN32__ \
+		-iftarget windows \
 			-inclib gdkglext-win32-1.0 inc/gtkgl/gdkglext.bi \
 			-inclib gtkglext-win32-1.0 inc/gtkgl/gtkglext.bi \
 		-else \
@@ -1077,7 +1077,7 @@ iconv: tools
 	$(GETCOMMENT) extracted/$(ICONV)/include/iconv.h.in > iconv.tmp
 
 	$(FBFROG) \
-		-ifdef __FB_WIN32__ \
+		-iftarget windows \
 			extracted/$(ICONV)/include/iconv-windows.h \
 		-else \
 			extracted/$(ICONV)/include/iconv-default.h \
@@ -1140,7 +1140,7 @@ iup: tools
 		-inclib iup_plot             inc/IUP/iup_plot.bi         \
 		-inclib iup_pplot            inc/IUP/iup_pplot.bi        \
 		-inclib iuptuio              inc/IUP/iuptuio.bi          \
-		-ifdef __FB_WIN32__                                      \
+		-iftarget windows                                        \
 			-inclib gdi32        inc/IUP/iup.bi              \
 			-inclib user32       inc/IUP/iup.bi              \
 			-inclib comdlg32     inc/IUP/iup.bi              \
@@ -1197,21 +1197,24 @@ jit: tools
 			./auto_gen.sh && ./configure && make; \
 		fi
 
-	cd extracted/$(JIT_TITLE)/include/jit			&& \
-		rm -f jit-arch.h				&& \
-		mkdir -p x86/jit x86_64/jit			&& \
-		cp jit-arch-x86.h    x86/jit/jit-arch.h		&& \
-		cp jit-arch-x86-64.h x86_64/jit/jit-arch.h
+	cd extracted/$(JIT_TITLE)/include/jit && \
+		rm -f jit-arch.h     && \
+		mkdir -p x86/jit     && \
+		mkdir -p x86_64/jit  && \
+		mkdir -p arm/jit     && \
+		cp jit-arch-x86.h         x86/jit/jit-arch.h && \
+		cp jit-arch-x86-64.h   x86_64/jit/jit-arch.h && \
+		cp jit-arch-generic.h     arm/jit/jit-arch.h
 
 	sed -n 4,18p extracted/$(JIT_TITLE)/include/jit/jit.h | cut -c4- > jit.tmp
 
-	$(FBFROG) jit.fbfrog -o inc extracted/$(JIT_TITLE)/include/jit/jit.h	\
-		-incdir extracted/$(JIT_TITLE)/include				\
-		-ifdef __FB_64BIT__						\
-			-incdir extracted/$(JIT_TITLE)/include/jit/x86_64	\
-		-else								\
-			-incdir extracted/$(JIT_TITLE)/include/jit/x86		\
-		-endif \
+	$(FBFROG) jit.fbfrog -o inc extracted/$(JIT_TITLE)/include/jit/jit.h   \
+		-incdir extracted/$(JIT_TITLE)/include                         \
+		-selecttarget                                                  \
+		-case x86    -incdir extracted/$(JIT_TITLE)/include/jit/x86    \
+		-case x86_64 -incdir extracted/$(JIT_TITLE)/include/jit/x86_64 \
+		-caseelse    -incdir extracted/$(JIT_TITLE)/include/jit/arm    \
+		-endselect                                                     \
 		-title $(JIT_TITLE) jit.tmp fbteam.txt
 
 	rm *.tmp
@@ -1321,7 +1324,7 @@ openal: tools
 		-title $(OPENALSOFT) openalsoft.tmp fbteam.txt \
 		-title $(FREEALUT) freealut.tmp fbteam.txt inc/AL/alut.bi \
 		\
-		-ifdef __FB_WIN32__ \
+		-iftarget windows \
 			-inclib OpenAL32 inc/AL/al.bi \
 		-else \
 			-inclib openal inc/AL/al.bi \
@@ -1578,7 +1581,7 @@ sdl1: tools
 	$(FBFROG) sdl.fbfrog sdl1.fbfrog \
 		\
 		-incdir extracted/$(SDL1_MAIN)/include \
-			-ifdef __FB_WIN32__ \
+			-iftarget windows \
 				-incdir extracted/$(SDL1_MAIN)/include/windows \
 			-else \
 				-incdir extracted/$(SDL1_MAIN)/include/unix \
@@ -1609,7 +1612,7 @@ sdl1: tools
 		-emit '*/extracted/$(SDL1_MAIN)/include/*' inc/SDL/SDL.bi \
 		\
 		-inclib SDL inc/SDL/SDL.bi \
-		-ifdef __FB_WIN32__ \
+		-iftarget windows \
 			-inclib gdi32    inc/SDL/SDL.bi \
 			-inclib user32   inc/SDL/SDL.bi \
 			-inclib winmm    inc/SDL/SDL.bi \
@@ -1624,7 +1627,7 @@ sdl1: tools
 		-inclib SDL_image inc/SDL/SDL_image.bi \
 		-inclib SDL_mixer inc/SDL/SDL_mixer.bi \
 		-inclib SDL_net inc/SDL/SDL_net.bi \
-		-ifdef __FB_WIN32__ \
+		-iftarget windows \
 			-inclib ws2_32   inc/SDL/SDL_net.bi \
 			-inclib iphlpapi inc/SDL/SDL_net.bi \
 		-endif \
@@ -1684,7 +1687,7 @@ sdl2: tools winapi-extract
 	$(FBFROG) sdl.fbfrog sdl2.fbfrog \
 		\
 		-incdir extracted/$(SDL2_MAIN)/include \
-			-ifdef __FB_WIN32__ \
+			-iftarget windows \
 				-incdir extracted/$(SDL2_MAIN)/include/windows \
 				-incdir extracted/$(MINGWW64_TITLE)/mingw-w64-headers/crt \
 				-incdir extracted/$(MINGWW64_TITLE)/mingw-w64-headers/include \
@@ -2522,7 +2525,7 @@ x11: tools
 		-include X11/Xtrans/Xtrans.h \
 		-include X11/Xtrans/Xtransint.h \
 		\
-		-ifdef __FB_WIN32__ \
+		-iftarget windows \
 			-include X11/Xw32defs.h \
 			-include X11/Xwindows.h \
 			-include X11/Xwinsock.h \

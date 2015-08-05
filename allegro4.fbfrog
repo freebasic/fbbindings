@@ -1,4 +1,4 @@
--ifdef __FB_DOS__
+-iftarget dos
 	-define ALLEGRO_DJGPP
 -endif
 
@@ -85,7 +85,7 @@ allegro.fbfrog
 -renamedefine MOUSEDRV_LINUX_IMS MOUSEDRV_LINUX_IMS_
 -renamedefine MOUSEDRV_LINUX_EVDEV MOUSEDRV_LINUX_EVDEV_
 
--ifdef __FB_DOS__
+-iftarget dos
 	-noexpand int8_t
 	-noexpand uint8_t
 	-noexpand int16_t

@@ -43,18 +43,18 @@
 
 #pragma once
 
-#if defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)
-	#inclib "alleg_s"
-#else
+#if defined(__FB_DOS__) or defined(__FB_DARWIN__) or (defined(__FB_WIN32__) and (not defined(ALLEGRO_STATICLINK))) or defined(__FB_CYGWIN__) or defined(__FB_LINUX__) or defined(__FB_FREEBSD__) or defined(__FB_OPENBSD__) or defined(__FB_NETBSD__)
 	#inclib "alleg"
 #endif
 
-#ifdef __FB_LINUX__
+#ifdef __FB_UNIX__
 	#inclib "X11"
 	#inclib "Xext"
 	#inclib "Xpm"
 	#inclib "Xxf86vm"
 	#inclib "Xcursor"
+#elseif defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)
+	#inclib "alleg_s"
 #endif
 
 #undef screen
@@ -90,18 +90,10 @@
 ''     #define cpu_fpu => cpu_fpu_
 ''     #define cpu_mmx => cpu_mmx_
 ''     #define cpu_3dnow => cpu_3dnow_
-''     #ifdef __FB_WIN32__
-''         #define SYSTEM_DIRECTX => SYSTEM_DIRECTX_
-''         #define GFX_DIRECTX_ACCEL => GFX_DIRECTX_ACCEL_
-''         #define GFX_DIRECTX_SAFE => GFX_DIRECTX_SAFE_
-''         #define GFX_DIRECTX_SOFT => GFX_DIRECTX_SOFT_
-''         #define GFX_DIRECTX_WIN => GFX_DIRECTX_WIN_
-''         #define GFX_DIRECTX_OVL => GFX_DIRECTX_OVL_
-''         #define GFX_GDI => GFX_GDI_
-''     #elseif defined(__FB_LINUX__)
+''     #ifdef __FB_UNIX__
 ''         #define TIMERDRV_UNIX_PTHREADS => TIMERDRV_UNIX_PTHREADS_
 ''         #define SYSTEM_LINUX => SYSTEM_LINUX_
-''     #else
+''     #elseif defined(__FB_DOS__)
 ''         #define SYSTEM_DOS => SYSTEM_DOS_
 ''         #define KEYDRV_PCDOS => KEYDRV_PCDOS_
 ''         #define TIMEDRV_FIXED_RATE => TIMEDRV_FIXED_RATE_
@@ -112,19 +104,27 @@
 ''         #define MOUSEDRV_WINNT => MOUSEDRV_WINNT_
 ''         #define MOUSEDRV_WIN2K => MOUSEDRV_WIN2K_
 ''     #endif
-''     #if defined(__FB_DOS__) or defined(__FB_LINUX__)
+''     #if defined(__FB_DOS__) or defined(__FB_UNIX__)
 ''         #define GFX_VGA => GFX_VGA_
 ''         #define GFX_MODEX => GFX_MODEX_
 ''         #define GFX_VBEAF => GFX_VBEAF_
 ''     #endif
-''     #ifdef __FB_LINUX__
+''     #ifdef __FB_UNIX__
 ''         #define MOUSEDRV_LINUX_PS2 => MOUSEDRV_LINUX_PS2_
 ''         #define MOUSEDRV_LINUX_IPS2 => MOUSEDRV_LINUX_IPS2_
 ''         #define MOUSEDRV_LINUX_GPMDATA => MOUSEDRV_LINUX_GPMDATA_
 ''         #define MOUSEDRV_LINUX_MS => MOUSEDRV_LINUX_MS_
 ''         #define MOUSEDRV_LINUX_IMS => MOUSEDRV_LINUX_IMS_
 ''         #define MOUSEDRV_LINUX_EVDEV => MOUSEDRV_LINUX_EVDEV_
-''     #elseif defined(__FB_DOS__)
+''     #elseif defined(__FB_WIN32__)
+''         #define SYSTEM_DIRECTX => SYSTEM_DIRECTX_
+''         #define GFX_DIRECTX_ACCEL => GFX_DIRECTX_ACCEL_
+''         #define GFX_DIRECTX_SAFE => GFX_DIRECTX_SAFE_
+''         #define GFX_DIRECTX_SOFT => GFX_DIRECTX_SOFT_
+''         #define GFX_DIRECTX_WIN => GFX_DIRECTX_WIN_
+''         #define GFX_DIRECTX_OVL => GFX_DIRECTX_OVL_
+''         #define GFX_GDI => GFX_GDI_
+''     #else
 ''         #define GFX_XTENDED => GFX_XTENDED_
 ''         #define DIGI_SB10 => DIGI_SB10_
 ''         #define DIGI_SB15 => DIGI_SB15_
@@ -149,10 +149,10 @@ extern "C"
 #define ALLEGRO_COLOR24
 #define ALLEGRO_COLOR32
 
-#ifdef __FB_WIN32__
-	const ALLEGRO_MINGW32 = 1
-#elseif defined(__FB_LINUX__)
+#ifdef __FB_UNIX__
 	const ALLEGRO_UNIX = 1
+#elseif defined(__FB_WIN32__)
+	const ALLEGRO_MINGW32 = 1
 #else
 	const ALLEGRO_DJGPP = 1
 #endif
@@ -160,7 +160,7 @@ extern "C"
 #define ALLEGRO_NO_ASM
 #define ALLEGRO_USE_C
 
-#ifdef __FB_LINUX__
+#ifdef __FB_UNIX__
 	#define ALLEGRO_PLATFORM_STR "Unix"
 #elseif defined(__FB_DOS__)
 	#define ALLEGRO_PLATFORM_STR "djgpp"
@@ -170,12 +170,12 @@ extern "C"
 	#define ALLEGRO_GUESS_INTTYPES_OK
 #endif
 
-#if defined(__FB_DOS__) or defined(__FB_LINUX__)
+#if defined(__FB_DOS__) or defined(__FB_UNIX__)
 	#define ALLEGRO_CONSOLE_OK
 	#define ALLEGRO_VRAM_SINGLE_SURFACE
 #endif
 
-#ifdef __FB_LINUX__
+#ifdef __FB_UNIX__
 	#undef ALLEGRO_COLOR8
 	#undef ALLEGRO_COLOR16
 	#undef ALLEGRO_COLOR24
@@ -188,11 +188,14 @@ extern "C"
 	const ALLEGRO_HAVE_INTTYPES_H = 1
 #endif
 
-#if defined(__FB_WIN32__) or defined(__FB_LINUX__)
+#if defined(__FB_DARWIN__) or defined(__FB_CYGWIN__) or defined(__FB_WIN32__) or defined(__FB_LINUX__) or defined(__FB_FREEBSD__) or defined(__FB_OPENBSD__) or defined(__FB_NETBSD__)
 	const ALLEGRO_HAVE_STDINT_H = 1
 #endif
 
-#if defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)
+#ifdef __FB_UNIX__
+	const ALLEGRO_HAVE_MEMCMP = 1
+	const ALLEGRO_LITTLE_ENDIAN = 1
+#elseif defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)
 	#define ALLEGRO_PLATFORM_STR "MinGW32.s"
 #elseif defined(__FB_WIN32__) and (not defined(ALLEGRO_STATICLINK))
 	#define ALLEGRO_PLATFORM_STR "MinGW32"
@@ -206,14 +209,17 @@ extern "C"
 
 #if defined(__FB_DOS__) or defined(__FB_WIN32__)
 	#define ALLEGRO_USE_CONSTRUCTOR
-#else
-	const ALLEGRO_HAVE_MEMCMP = 1
-	const ALLEGRO_LITTLE_ENDIAN = 1
 #endif
 
-#if defined(__FB_WIN32__) or defined(__FB_LINUX__)
+#if defined(__FB_DARWIN__) or defined(__FB_CYGWIN__) or defined(__FB_WIN32__) or defined(__FB_LINUX__) or defined(__FB_FREEBSD__) or defined(__FB_OPENBSD__) or defined(__FB_NETBSD__)
 	#define ALLEGRO_MULTITHREADED
-#else
+#endif
+
+#ifdef __FB_UNIX__
+	#define ALLEGRO_NO_STRICMP
+	#define ALLEGRO_NO_STRLWR
+	#define ALLEGRO_NO_STRUPR
+#elseif defined(__FB_DOS__)
 	declare sub _unlock_dpmi_data(byval addr as any ptr, byval size as long)
 	#define LOCK_DATA(d, s) _go32_dpmi_lock_data(cptr(any ptr, d), s)
 	#define LOCK_CODE(c, s) _go32_dpmi_lock_code(cptr(any ptr, c), s)
@@ -242,10 +248,6 @@ extern "C"
 
 #if defined(__FB_DOS__) or defined(__FB_WIN32__)
 	#define ALLEGRO_ASM_PREFIX "_"
-#else
-	#define ALLEGRO_NO_STRICMP
-	#define ALLEGRO_NO_STRLWR
-	#define ALLEGRO_NO_STRUPR
 #endif
 
 #ifdef __FB_DOS__
@@ -255,10 +257,12 @@ extern "C"
 #define ASTDINT_H
 #define ALLEGRO_GCC
 
-#if defined(__FB_64BIT__) and (defined(__FB_LINUX__) or defined(__FB_WIN32__))
-	#define ALLEGRO_AMD64
-#else
+#if defined(__FB_DOS__) or ((not defined(__FB_64BIT__)) and (defined(__FB_DARWIN__) or defined(__FB_CYGWIN__) or ((not defined(__FB_ARM__)) and (defined(__FB_LINUX__) or defined(__FB_FREEBSD__) or defined(__FB_OPENBSD__) or defined(__FB_NETBSD__))) or defined(__FB_WIN32__)))
 	#define ALLEGRO_I386
+#elseif defined(__FB_64BIT__) and (defined(__FB_DARWIN__) or defined(__FB_CYGWIN__) or ((not defined(__FB_ARM__)) and (defined(__FB_LINUX__) or defined(__FB_FREEBSD__) or defined(__FB_OPENBSD__) or defined(__FB_NETBSD__))) or defined(__FB_WIN32__))
+	#define ALLEGRO_AMD64
+#elseif (not defined(__FB_64BIT__)) and defined(__FB_ARM__) and (defined(__FB_LINUX__) or defined(__FB_FREEBSD__) or defined(__FB_OPENBSD__) or defined(__FB_NETBSD__))
+	#define ALLEGRO_ARM
 #endif
 
 #macro _AL_SINCOS(x, s, c)
@@ -269,7 +273,7 @@ extern "C"
 #endmacro
 #define END_OF_MAIN()
 
-#if defined(__FB_WIN32__) or defined(__FB_LINUX__)
+#if defined(__FB_DARWIN__) or defined(__FB_CYGWIN__) or defined(__FB_WIN32__) or defined(__FB_LINUX__) or defined(__FB_FREEBSD__) or defined(__FB_OPENBSD__) or defined(__FB_NETBSD__)
 	#define LOCK_DATA(d, s)
 	#define LOCK_CODE(c, s)
 	#define UNLOCK_DATA(d, s)
@@ -278,12 +282,12 @@ extern "C"
 	const ALLEGRO_LFN = 1
 #endif
 
-#if defined(__FB_DOS__) or defined(__FB_WIN32__)
-	#define OTHER_PATH_SEPARATOR asc(!"\\")
-	#define DEVICE_SEPARATOR asc(":")
-#else
+#ifdef __FB_UNIX__
 	#define OTHER_PATH_SEPARATOR asc("/")
 	#define DEVICE_SEPARATOR asc(!"\0")
+#else
+	#define OTHER_PATH_SEPARATOR asc(!"\\")
+	#define DEVICE_SEPARATOR asc(":")
 #endif
 
 const FA_RDONLY = 1
@@ -295,7 +299,7 @@ const FA_ARCH = 32
 const FA_NONE = 0
 #define FA_ALL (not FA_NONE)
 
-#ifdef __FB_LINUX__
+#ifdef __FB_UNIX__
 	declare function _alemu_stricmp(byval s1 as const zstring ptr, byval s2 as const zstring ptr) as long
 	#define stricmp _alemu_stricmp
 	declare function _alemu_strlwr(byval string as zstring ptr) as zstring ptr
@@ -304,7 +308,7 @@ const FA_NONE = 0
 	#define strupr _alemu_strupr
 #endif
 
-#if defined(__FB_WIN32__) or defined(__FB_LINUX__)
+#if defined(__FB_DARWIN__) or defined(__FB_CYGWIN__) or defined(__FB_WIN32__) or defined(__FB_LINUX__) or defined(__FB_FREEBSD__) or defined(__FB_OPENBSD__) or defined(__FB_NETBSD__)
 	#define _video_ds() _default_ds()
 	#define _farsetsel(seg)
 	#define _farnspokeb(addr, val) scope : (*cptr(ubyte ptr, (addr))) = (val) : end scope
@@ -324,7 +328,7 @@ const FA_NONE = 0
 	end scope
 #endmacro
 
-#if defined(__FB_WIN32__) or defined(__FB_LINUX__)
+#if defined(__FB_DARWIN__) or defined(__FB_CYGWIN__) or defined(__FB_WIN32__) or defined(__FB_LINUX__) or defined(__FB_FREEBSD__) or defined(__FB_OPENBSD__) or defined(__FB_NETBSD__)
 	#define bmp_select(bmp)
 	#define bmp_write8(addr, c) scope : (*cptr(ubyte ptr, (addr))) = (c) : end scope
 	#define bmp_write15(addr, c) scope : (*cptr(ushort ptr, (addr))) = (c) : end scope
@@ -365,10 +369,10 @@ const FALSE = 0
 const AL_PI = 3.14159265358979323846
 #define AL_ID(a, b, c, d) (((((a) shl 24) or ((b) shl 16)) or ((c) shl 8)) or (d))
 
-#if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
-	extern allegro_errno as long ptr
-#else
+#if defined(__FB_WIN32__) and (not defined(ALLEGRO_STATICLINK))
 	extern import allegro_errno as long ptr
+#else
+	extern allegro_errno as long ptr
 #endif
 
 type _DRIVER_INFO
@@ -399,16 +403,7 @@ declare function uwidth_max(byval type as long) as long
 #define uconvert_toascii(s, buf) uconvert(s, U_CURRENT, buf, U_ASCII, sizeof(buf))
 #define EMPTY_STRING_ !"\0\0\0"
 
-#if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
-	extern empty_string as zstring * 4
-	extern ugetc as function(byval s as const zstring ptr) as long
-	extern ugetx as function(byval s as zstring ptr ptr) as long
-	extern ugetxc as function(byval s as const zstring ptr ptr) as long
-	extern usetc as function(byval s as zstring ptr, byval c as long) as long
-	extern uwidth as function(byval s as const zstring ptr) as long
-	extern ucwidth as function(byval c as long) as long
-	extern uisok as function(byval c as long) as long
-#else
+#if defined(__FB_WIN32__) and (not defined(ALLEGRO_STATICLINK))
 	extern import empty_string as zstring * 4
 	extern import ugetc as function(byval s as const zstring ptr) as long
 	extern import ugetx as function(byval s as zstring ptr ptr) as long
@@ -417,6 +412,15 @@ declare function uwidth_max(byval type as long) as long
 	extern import uwidth as function(byval s as const zstring ptr) as long
 	extern import ucwidth as function(byval c as long) as long
 	extern import uisok as function(byval c as long) as long
+#else
+	extern empty_string as zstring * 4
+	extern ugetc as function(byval s as const zstring ptr) as long
+	extern ugetx as function(byval s as zstring ptr ptr) as long
+	extern ugetxc as function(byval s as const zstring ptr ptr) as long
+	extern usetc as function(byval s as zstring ptr, byval c as long) as long
+	extern uwidth as function(byval s as const zstring ptr) as long
+	extern ucwidth as function(byval c as long) as long
+	extern uisok as function(byval c as long) as long
 #endif
 
 declare function uoffset(byval s as const zstring ptr, byval idx as long) as long
@@ -491,18 +495,18 @@ declare function list_config_sections(byval names as const zstring ptr ptr ptr) 
 declare sub free_config_entries(byval names as const zstring ptr ptr ptr)
 const ALLEGRO_ERROR_SIZE = 256
 
-#if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
-	extern __allegro_id alias "allegro_id" as byte
-#else
+#if defined(__FB_WIN32__) and (not defined(ALLEGRO_STATICLINK))
 	extern import __allegro_id alias "allegro_id" as byte
+#else
+	extern __allegro_id alias "allegro_id" as byte
 #endif
 
 #define allegro_id (*cptr(zstring ptr, @__allegro_id))
 
-#if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
-	extern allegro_error as zstring * ALLEGRO_ERROR_SIZE
-#else
+#if defined(__FB_WIN32__) and (not defined(ALLEGRO_STATICLINK))
 	extern import allegro_error as zstring * ALLEGRO_ERROR_SIZE
+#else
+	extern allegro_error as zstring * ALLEGRO_ERROR_SIZE
 #endif
 
 const OSTYPE_UNKNOWN = 0
@@ -535,16 +539,16 @@ const OSTYPE_UNKNOWN = 0
 #define OSTYPE_MACOSX AL_ID(asc("M"), asc("A"), asc("C"), asc("X"))
 #define OSTYPE_PSP AL_ID(asc("K"), asc("P"), asc("S"), asc("P"))
 
-#if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
-	extern os_type as long
-	extern os_version as long
-	extern os_revision as long
-	extern os_multitasking as long
-#else
+#if defined(__FB_WIN32__) and (not defined(ALLEGRO_STATICLINK))
 	extern import os_type as long
 	extern import os_version as long
 	extern import os_revision as long
 	extern import os_multitasking as long
+#else
+	extern os_type as long
+	extern os_version as long
+	extern os_revision as long
+	extern os_multitasking as long
 #endif
 
 const SYSTEM_AUTODETECT = 0
@@ -625,16 +629,16 @@ const CPU_MODEL_POWERPC_750 = 9
 const CPU_MODEL_POWERPC_7400 = 10
 const CPU_MODEL_POWERPC_7450 = 11
 
-#if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
-	extern cpu_vendor as zstring * _AL_CPU_VENDOR_SIZE
-	extern cpu_family as long
-	extern cpu_model as long
-	extern cpu_capabilities as long
-#else
+#if defined(__FB_WIN32__) and (not defined(ALLEGRO_STATICLINK))
 	extern import cpu_vendor as zstring * _AL_CPU_VENDOR_SIZE
 	extern import cpu_family as long
 	extern import cpu_model as long
 	extern import cpu_capabilities as long
+#else
+	extern cpu_vendor as zstring * _AL_CPU_VENDOR_SIZE
+	extern cpu_family as long
+	extern cpu_model as long
+	extern cpu_capabilities as long
 #endif
 
 type BITMAP as BITMAP_
@@ -684,20 +688,20 @@ type SYSTEM_DRIVER
 	timer_drivers as function() as _DRIVER_INFO ptr
 end type
 
-#if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
-	extern system_none as SYSTEM_DRIVER
-	extern system_driver as SYSTEM_DRIVER ptr
-#else
+#if defined(__FB_WIN32__) and (not defined(ALLEGRO_STATICLINK))
 	extern import system_none as SYSTEM_DRIVER
 	extern import system_driver as SYSTEM_DRIVER ptr
+#else
+	extern system_none as SYSTEM_DRIVER
+	extern system_driver as SYSTEM_DRIVER ptr
 #endif
 
 #define _system_driver_list(i) ((@___system_driver_list)[i])
 
-#if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
-	extern ___system_driver_list alias "_system_driver_list" as _DRIVER_INFO
-#else
+#if defined(__FB_WIN32__) and (not defined(ALLEGRO_STATICLINK))
 	extern import ___system_driver_list alias "_system_driver_list" as _DRIVER_INFO
+#else
+	extern ___system_driver_list alias "_system_driver_list" as _DRIVER_INFO
 #endif
 
 #define ALLEGRO_SYSTEM_INL
@@ -732,20 +736,20 @@ type MOUSE_DRIVER
 	select_system_cursor as function(byval cursor as long) as long
 end type
 
-#if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
-	extern mousedrv_none as MOUSE_DRIVER
-	extern mouse_driver as MOUSE_DRIVER ptr
-#else
+#if defined(__FB_WIN32__) and (not defined(ALLEGRO_STATICLINK))
 	extern import mousedrv_none as MOUSE_DRIVER
 	extern import mouse_driver as MOUSE_DRIVER ptr
+#else
+	extern mousedrv_none as MOUSE_DRIVER
+	extern mouse_driver as MOUSE_DRIVER ptr
 #endif
 
 #define _mouse_driver_list(i) ((@___mouse_driver_list)[i])
 
-#if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
-	extern ___mouse_driver_list alias "_mouse_driver_list" as _DRIVER_INFO
-#else
+#if defined(__FB_WIN32__) and (not defined(ALLEGRO_STATICLINK))
 	extern import ___mouse_driver_list alias "_mouse_driver_list" as _DRIVER_INFO
+#else
+	extern ___mouse_driver_list alias "_mouse_driver_list" as _DRIVER_INFO
 #endif
 
 declare function install_mouse() as long
@@ -763,18 +767,7 @@ const MOUSE_CURSOR_QUESTION = 4
 const MOUSE_CURSOR_EDIT = 5
 const AL_NUM_MOUSE_CURSORS = 6
 
-#if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
-	extern mouse_sprite as BITMAP ptr
-	extern mouse_x_focus as long
-	extern mouse_y_focus as long
-	extern mouse_x as long
-	extern mouse_y as long
-	extern mouse_z as long
-	extern mouse_w as long
-	extern mouse_b as long
-	extern mouse_pos as long
-	extern freeze_mouse_flag as long
-#else
+#if defined(__FB_WIN32__) and (not defined(ALLEGRO_STATICLINK))
 	extern import mouse_sprite as BITMAP ptr
 	extern import mouse_x_focus as long
 	extern import mouse_y_focus as long
@@ -785,6 +778,17 @@ const AL_NUM_MOUSE_CURSORS = 6
 	extern import mouse_b as long
 	extern import mouse_pos as long
 	extern import freeze_mouse_flag as long
+#else
+	extern mouse_sprite as BITMAP ptr
+	extern mouse_x_focus as long
+	extern mouse_y_focus as long
+	extern mouse_x as long
+	extern mouse_y as long
+	extern mouse_z as long
+	extern mouse_w as long
+	extern mouse_b as long
+	extern mouse_pos as long
+	extern freeze_mouse_flag as long
 #endif
 
 const MOUSE_FLAG_MOVE = 1
@@ -797,10 +801,10 @@ const MOUSE_FLAG_MIDDLE_UP = 64
 const MOUSE_FLAG_MOVE_Z = 128
 const MOUSE_FLAG_MOVE_W = 256
 
-#if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
-	extern mouse_callback as sub(byval flags as long)
-#else
+#if defined(__FB_WIN32__) and (not defined(ALLEGRO_STATICLINK))
 	extern import mouse_callback as sub(byval flags as long)
+#else
+	extern mouse_callback as sub(byval flags as long)
 #endif
 
 declare sub show_mouse(byval bmp as BITMAP ptr)
@@ -843,18 +847,18 @@ type TIMER_DRIVER
 	rest as sub(byval tyme as ulong, byval callback as sub())
 end type
 
-#if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
-	extern timer_driver as TIMER_DRIVER ptr
-#else
+#if defined(__FB_WIN32__) and (not defined(ALLEGRO_STATICLINK))
 	extern import timer_driver as TIMER_DRIVER ptr
+#else
+	extern timer_driver as TIMER_DRIVER ptr
 #endif
 
 #define _timer_driver_list(i) ((@___timer_driver_list)[i])
 
-#if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
-	extern ___timer_driver_list alias "_timer_driver_list" as _DRIVER_INFO
-#else
+#if defined(__FB_WIN32__) and (not defined(ALLEGRO_STATICLINK))
 	extern import ___timer_driver_list alias "_timer_driver_list" as _DRIVER_INFO
+#else
+	extern ___timer_driver_list alias "_timer_driver_list" as _DRIVER_INFO
 #endif
 
 declare function install_timer() as long
@@ -866,10 +870,10 @@ declare function install_param_int_ex(byval proc as sub(byval param as any ptr),
 declare function install_param_int(byval proc as sub(byval param as any ptr), byval param as any ptr, byval speed as clong) as long
 declare sub remove_param_int(byval proc as sub(byval param as any ptr), byval param as any ptr)
 
-#if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
-	extern retrace_count as long
-#else
+#if defined(__FB_WIN32__) and (not defined(ALLEGRO_STATICLINK))
 	extern import retrace_count as long
+#else
+	extern retrace_count as long
 #endif
 
 declare sub rest(byval tyme as ulong)
@@ -893,18 +897,18 @@ type KEYBOARD_DRIVER
 	scancode_to_name as function(byval scancode as long) as const zstring ptr
 end type
 
-#if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
-	extern keyboard_driver as KEYBOARD_DRIVER ptr
-#else
+#if defined(__FB_WIN32__) and (not defined(ALLEGRO_STATICLINK))
 	extern import keyboard_driver as KEYBOARD_DRIVER ptr
+#else
+	extern keyboard_driver as KEYBOARD_DRIVER ptr
 #endif
 
 #define _keyboard_driver_list(i) ((@___keyboard_driver_list)[i])
 
-#if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
-	extern ___keyboard_driver_list alias "_keyboard_driver_list" as _DRIVER_INFO
-#else
+#if defined(__FB_WIN32__) and (not defined(ALLEGRO_STATICLINK))
 	extern import ___keyboard_driver_list alias "_keyboard_driver_list" as _DRIVER_INFO
+#else
+	extern ___keyboard_driver_list alias "_keyboard_driver_list" as _DRIVER_INFO
 #endif
 
 declare function install_keyboard() as long
@@ -912,29 +916,29 @@ declare sub remove_keyboard()
 declare function poll_keyboard() as long
 declare function keyboard_needs_poll() as long
 
-#if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
-	extern keyboard_callback as function(byval key as long) as long
-	extern keyboard_ucallback as function(byval key as long, byval scancode as long ptr) as long
-	extern keyboard_lowlevel_callback as sub(byval scancode as long)
-#else
+#if defined(__FB_WIN32__) and (not defined(ALLEGRO_STATICLINK))
 	extern import keyboard_callback as function(byval key as long) as long
 	extern import keyboard_ucallback as function(byval key as long, byval scancode as long ptr) as long
 	extern import keyboard_lowlevel_callback as sub(byval scancode as long)
+#else
+	extern keyboard_callback as function(byval key as long) as long
+	extern keyboard_ucallback as function(byval key as long, byval scancode as long ptr) as long
+	extern keyboard_lowlevel_callback as sub(byval scancode as long)
 #endif
 
 declare sub install_keyboard_hooks(byval keypressed as function() as long, byval readkey as function() as long)
 #define key(i) ((@__key)[i])
 
-#if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
-	extern __key alias "key" as byte
-	extern key_shifts as long
-	extern three_finger_flag as long
-	extern key_led_flag as long
-#else
+#if defined(__FB_WIN32__) and (not defined(ALLEGRO_STATICLINK))
 	extern import __key alias "key" as byte
 	extern import key_shifts as long
 	extern import three_finger_flag as long
 	extern import key_led_flag as long
+#else
+	extern __key alias "key" as byte
+	extern key_shifts as long
+	extern three_finger_flag as long
+	extern key_led_flag as long
 #endif
 
 declare function keypressed() as long
@@ -1286,12 +1290,12 @@ const JOYFLAG_UNSIGNED = 64
 #define JOYFLAG_CALIB_ANALOG JOYFLAG_CALIB_ANALOGUE
 #define joy(i) ((@__joy)[i])
 
-#if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
-	extern __joy alias "joy" as JOYSTICK_INFO
-	extern num_joysticks as long
-#else
+#if defined(__FB_WIN32__) and (not defined(ALLEGRO_STATICLINK))
 	extern import __joy alias "joy" as JOYSTICK_INFO
 	extern import num_joysticks as long
+#else
+	extern __joy alias "joy" as JOYSTICK_INFO
+	extern num_joysticks as long
 #endif
 
 type JOYSTICK_DRIVER
@@ -1308,20 +1312,20 @@ type JOYSTICK_DRIVER
 	calibrate as function(byval n as long) as long
 end type
 
-#if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
-	extern joystick_none as JOYSTICK_DRIVER
-	extern joystick_driver as JOYSTICK_DRIVER ptr
-#else
+#if defined(__FB_WIN32__) and (not defined(ALLEGRO_STATICLINK))
 	extern import joystick_none as JOYSTICK_DRIVER
 	extern import joystick_driver as JOYSTICK_DRIVER ptr
+#else
+	extern joystick_none as JOYSTICK_DRIVER
+	extern joystick_driver as JOYSTICK_DRIVER ptr
 #endif
 
 #define _joystick_driver_list(i) ((@___joystick_driver_list)[i])
 
-#if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
-	extern ___joystick_driver_list alias "_joystick_driver_list" as _DRIVER_INFO
-#else
+#if defined(__FB_WIN32__) and (not defined(ALLEGRO_STATICLINK))
 	extern import ___joystick_driver_list alias "_joystick_driver_list" as _DRIVER_INFO
+#else
+	extern ___joystick_driver_list alias "_joystick_driver_list" as _DRIVER_INFO
 #endif
 
 #define BEGIN_JOYSTICK_DRIVER_LIST dim as _DRIVER_INFO _joystick_driver_list(0 to ...) = {
@@ -1348,12 +1352,12 @@ const PAL_SIZE = 256
 #define ALLEGRO_FIXED_H
 type fixed as long
 
-#if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
-	extern fixtorad_r as const fixed
-	extern radtofix_r as const fixed
-#else
+#if defined(__FB_WIN32__) and (not defined(ALLEGRO_STATICLINK))
 	extern import fixtorad_r as const fixed
 	extern import radtofix_r as const fixed
+#else
+	extern fixtorad_r as const fixed
+	extern radtofix_r as const fixed
 #endif
 
 type V3D
@@ -1392,10 +1396,10 @@ const POLYTYPE_PTEX_MASK_TRANS = 14
 const POLYTYPE_MAX = 15
 const POLYTYPE_ZBUF = 16
 
-#if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
-	extern scene_gap as single
-#else
+#if defined(__FB_WIN32__) and (not defined(ALLEGRO_STATICLINK))
 	extern import scene_gap as single
+#else
+	extern scene_gap as single
 #endif
 
 declare sub _soft_polygon3d(byval bmp as BITMAP ptr, byval type as long, byval texture as BITMAP ptr, byval vc as long, byval vtx as V3D ptr ptr)
@@ -1499,18 +1503,18 @@ type GFX_DRIVER
 	windowed as long
 end type
 
-#if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
-	extern gfx_driver as GFX_DRIVER ptr
-#else
+#if defined(__FB_WIN32__) and (not defined(ALLEGRO_STATICLINK))
 	extern import gfx_driver as GFX_DRIVER ptr
+#else
+	extern gfx_driver as GFX_DRIVER ptr
 #endif
 
 #define _gfx_driver_list(i) ((@___gfx_driver_list)[i])
 
-#if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
-	extern ___gfx_driver_list alias "_gfx_driver_list" as _DRIVER_INFO
-#else
+#if defined(__FB_WIN32__) and (not defined(ALLEGRO_STATICLINK))
 	extern import ___gfx_driver_list alias "_gfx_driver_list" as _DRIVER_INFO
+#else
+	extern ___gfx_driver_list alias "_gfx_driver_list" as _DRIVER_INFO
 #endif
 
 #define BEGIN_GFX_DRIVER_LIST dim as _DRIVER_INFO _gfx_driver_list(0 to ...) = {
@@ -1543,10 +1547,10 @@ const GFX_HW_VRAM_STRETCH_BLIT_MASKED = &h01000000
 const GFX_HW_SYS_STRETCH_BLIT = &h02000000
 const GFX_HW_SYS_STRETCH_BLIT_MASKED = &h04000000
 
-#if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
-	extern gfx_capabilities as long
-#else
+#if defined(__FB_WIN32__) and (not defined(ALLEGRO_STATICLINK))
 	extern import gfx_capabilities as long
+#else
+	extern gfx_capabilities as long
 #endif
 
 type RLE_SPRITE as RLE_SPRITE_
@@ -1617,18 +1621,18 @@ type GFX_VTABLE_
 	draw_sprite_ex as sub(byval bmp as BITMAP ptr, byval sprite as BITMAP ptr, byval x as long, byval y as long, byval mode as long, byval flip as long)
 end type
 
-#if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
-	extern __linear_vtable8 as GFX_VTABLE
-	extern __linear_vtable15 as GFX_VTABLE
-	extern __linear_vtable16 as GFX_VTABLE
-	extern __linear_vtable24 as GFX_VTABLE
-	extern __linear_vtable32 as GFX_VTABLE
-#else
+#if defined(__FB_WIN32__) and (not defined(ALLEGRO_STATICLINK))
 	extern import __linear_vtable8 as GFX_VTABLE
 	extern import __linear_vtable15 as GFX_VTABLE
 	extern import __linear_vtable16 as GFX_VTABLE
 	extern import __linear_vtable24 as GFX_VTABLE
 	extern import __linear_vtable32 as GFX_VTABLE
+#else
+	extern __linear_vtable8 as GFX_VTABLE
+	extern __linear_vtable15 as GFX_VTABLE
+	extern __linear_vtable16 as GFX_VTABLE
+	extern __linear_vtable24 as GFX_VTABLE
+	extern __linear_vtable32 as GFX_VTABLE
 #endif
 
 type _VTABLE_INFO
@@ -1638,10 +1642,10 @@ end type
 
 #define _vtable_list(i) ((@___vtable_list)[i])
 
-#if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
-	extern ___vtable_list alias "_vtable_list" as _VTABLE_INFO
-#else
+#if defined(__FB_WIN32__) and (not defined(ALLEGRO_STATICLINK))
 	extern import ___vtable_list alias "_vtable_list" as _VTABLE_INFO
+#else
+	extern ___vtable_list alias "_vtable_list" as _VTABLE_INFO
 #endif
 
 #define BEGIN_COLOR_DEPTH_LIST dim as _VTABLE_INFO _vtable_list(0 to ...) = {
@@ -1681,10 +1685,10 @@ const BMP_ID_LOCKED = &h04000000
 const BMP_ID_AUTOLOCK = &h02000000
 const BMP_ID_MASK = &h01FFFFFF
 
-#if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
-	extern screen as BITMAP ptr
-#else
+#if defined(__FB_WIN32__) and (not defined(ALLEGRO_STATICLINK))
 	extern import screen as BITMAP ptr
+#else
+	extern screen as BITMAP ptr
 #endif
 
 #define SCREEN_W iif(gfx_driver, gfx_driver->w, 0)
@@ -1812,14 +1816,14 @@ declare sub set_clip_state(byval bitmap as BITMAP ptr, byval state as long)
 declare function get_clip_state(byval bitmap as BITMAP ptr) as long
 #define ALLEGRO_COLOR_H
 
-#if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
-	extern black_palette(0 to 255) as RGB
-	extern desktop_palette(0 to 255) as RGB
-	extern default_palette(0 to 255) as RGB
-#else
+#if defined(__FB_WIN32__) and (not defined(ALLEGRO_STATICLINK))
 	extern import black_palette(0 to 255) as RGB
 	extern import desktop_palette(0 to 255) as RGB
 	extern import default_palette(0 to 255) as RGB
+#else
+	extern black_palette(0 to 255) as RGB
+	extern desktop_palette(0 to 255) as RGB
+	extern default_palette(0 to 255) as RGB
 #endif
 
 type RGB_MAP
@@ -1830,24 +1834,7 @@ type COLOR_MAP
 	data(0 to 255, 0 to 255) as ubyte
 end type
 
-#if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
-	extern rgb_map as RGB_MAP ptr
-	extern color_map as COLOR_MAP ptr
-	extern _current_palette(0 to 255) as RGB
-	extern _rgb_r_shift_15 as long
-	extern _rgb_g_shift_15 as long
-	extern _rgb_b_shift_15 as long
-	extern _rgb_r_shift_16 as long
-	extern _rgb_g_shift_16 as long
-	extern _rgb_b_shift_16 as long
-	extern _rgb_r_shift_24 as long
-	extern _rgb_g_shift_24 as long
-	extern _rgb_b_shift_24 as long
-	extern _rgb_r_shift_32 as long
-	extern _rgb_g_shift_32 as long
-	extern _rgb_b_shift_32 as long
-	extern _rgb_a_shift_32 as long
-#else
+#if defined(__FB_WIN32__) and (not defined(ALLEGRO_STATICLINK))
 	extern import rgb_map as RGB_MAP ptr
 	extern import color_map as COLOR_MAP ptr
 	extern import _current_palette(0 to 255) as RGB
@@ -1864,22 +1851,39 @@ end type
 	extern import _rgb_g_shift_32 as long
 	extern import _rgb_b_shift_32 as long
 	extern import _rgb_a_shift_32 as long
+#else
+	extern rgb_map as RGB_MAP ptr
+	extern color_map as COLOR_MAP ptr
+	extern _current_palette(0 to 255) as RGB
+	extern _rgb_r_shift_15 as long
+	extern _rgb_g_shift_15 as long
+	extern _rgb_b_shift_15 as long
+	extern _rgb_r_shift_16 as long
+	extern _rgb_g_shift_16 as long
+	extern _rgb_b_shift_16 as long
+	extern _rgb_r_shift_24 as long
+	extern _rgb_g_shift_24 as long
+	extern _rgb_b_shift_24 as long
+	extern _rgb_r_shift_32 as long
+	extern _rgb_g_shift_32 as long
+	extern _rgb_b_shift_32 as long
+	extern _rgb_a_shift_32 as long
 #endif
 
 #define _rgb_scale_5(i) ((@___rgb_scale_5)[i])
 
-#if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
-	extern ___rgb_scale_5 alias "_rgb_scale_5" as long
-#else
+#if defined(__FB_WIN32__) and (not defined(ALLEGRO_STATICLINK))
 	extern import ___rgb_scale_5 alias "_rgb_scale_5" as long
+#else
+	extern ___rgb_scale_5 alias "_rgb_scale_5" as long
 #endif
 
 #define _rgb_scale_6(i) ((@___rgb_scale_6)[i])
 
-#if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
-	extern ___rgb_scale_6 alias "_rgb_scale_6" as long
-#else
+#if defined(__FB_WIN32__) and (not defined(ALLEGRO_STATICLINK))
 	extern import ___rgb_scale_6 alias "_rgb_scale_6" as long
+#else
+	extern ___rgb_scale_6 alias "_rgb_scale_6" as long
 #endif
 
 const MASK_COLOR_8 = 0
@@ -1888,10 +1892,10 @@ const MASK_COLOR_16 = &hF81F
 const MASK_COLOR_24 = &hFF00FF
 const MASK_COLOR_32 = &hFF00FF
 
-#if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
-	extern palette_color as long ptr
-#else
+#if defined(__FB_WIN32__) and (not defined(ALLEGRO_STATICLINK))
 	extern import palette_color as long ptr
+#else
+	extern palette_color as long ptr
 #endif
 
 declare sub set_color(byval idx as long, byval p as const RGB ptr)
@@ -1975,7 +1979,7 @@ declare function getg32(byval c as long) as long
 declare function getb32(byval c as long) as long
 declare function geta32(byval c as long) as long
 
-#if defined(__FB_WIN32__) or defined(__FB_LINUX__)
+#if defined(__FB_DARWIN__) or defined(__FB_CYGWIN__) or defined(__FB_WIN32__) or defined(__FB_LINUX__) or defined(__FB_FREEBSD__) or defined(__FB_OPENBSD__) or defined(__FB_NETBSD__)
 	declare sub _set_color(byval idx as long, byval p as const RGB ptr)
 #endif
 
@@ -2104,12 +2108,12 @@ declare sub draw_compiled_sprite(byval bmp as BITMAP ptr, byval sprite as const 
 #define ALLEGRO_TEXT_H
 type FONT as FONT_
 
-#if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
-	extern font as FONT ptr
-	extern allegro_404_char as long
-#else
+#if defined(__FB_WIN32__) and (not defined(ALLEGRO_STATICLINK))
 	extern import font as FONT ptr
 	extern import allegro_404_char as long
+#else
+	extern font as FONT ptr
+	extern allegro_404_char as long
 #endif
 
 declare sub textout_ex(byval bmp as BITMAP ptr, byval f as const FONT ptr, byval str as const zstring ptr, byval x as long, byval y as long, byval color as long, byval bg as long)
@@ -2175,16 +2179,7 @@ declare sub close_fli()
 declare function next_fli_frame(byval loop as long) as long
 declare sub reset_fli_variables()
 
-#if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
-	extern fli_bitmap as BITMAP ptr
-	extern fli_palette(0 to 255) as RGB
-	extern fli_bmp_dirty_from as long
-	extern fli_bmp_dirty_to as long
-	extern fli_pal_dirty_from as long
-	extern fli_pal_dirty_to as long
-	extern fli_frame as long
-	extern fli_timer as long
-#else
+#if defined(__FB_WIN32__) and (not defined(ALLEGRO_STATICLINK))
 	extern import fli_bitmap as BITMAP ptr
 	extern import fli_palette(0 to 255) as RGB
 	extern import fli_bmp_dirty_from as long
@@ -2193,6 +2188,15 @@ declare sub reset_fli_variables()
 	extern import fli_pal_dirty_to as long
 	extern import fli_frame as long
 	extern import fli_timer as long
+#else
+	extern fli_bitmap as BITMAP ptr
+	extern fli_palette(0 to 255) as RGB
+	extern fli_bmp_dirty_from as long
+	extern fli_bmp_dirty_to as long
+	extern fli_pal_dirty_from as long
+	extern fli_pal_dirty_to as long
+	extern fli_frame as long
+	extern fli_timer as long
 #endif
 
 #define ALLEGRO_GUI_H
@@ -2324,27 +2328,7 @@ declare function d_textbox_proc(byval msg as long, byval d as DIALOG ptr, byval 
 declare function d_slider_proc(byval msg as long, byval d as DIALOG ptr, byval c as long) as long
 declare function d_menu_proc(byval msg as long, byval d as DIALOG ptr, byval c as long) as long
 
-#if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
-	extern gui_shadow_box_proc as DIALOG_PROC
-	extern gui_ctext_proc as DIALOG_PROC
-	extern gui_button_proc as DIALOG_PROC
-	extern gui_edit_proc as DIALOG_PROC
-	extern gui_list_proc as DIALOG_PROC
-	extern gui_text_list_proc as DIALOG_PROC
-	extern gui_menu_draw_menu as sub(byval x as long, byval y as long, byval w as long, byval h as long)
-	extern gui_menu_draw_menu_item as sub(byval m as MENU ptr, byval x as long, byval y as long, byval w as long, byval h as long, byval bar as long, byval sel as long)
-	extern active_dialog as DIALOG ptr
-	extern active_menu as MENU ptr
-	extern gui_mouse_focus as long
-	extern gui_fg_color as long
-	extern gui_mg_color as long
-	extern gui_bg_color as long
-	extern gui_font_baseline as long
-	extern gui_mouse_x as function() as long
-	extern gui_mouse_y as function() as long
-	extern gui_mouse_z as function() as long
-	extern gui_mouse_b as function() as long
-#else
+#if defined(__FB_WIN32__) and (not defined(ALLEGRO_STATICLINK))
 	extern import gui_shadow_box_proc as DIALOG_PROC
 	extern import gui_ctext_proc as DIALOG_PROC
 	extern import gui_button_proc as DIALOG_PROC
@@ -2364,6 +2348,26 @@ declare function d_menu_proc(byval msg as long, byval d as DIALOG ptr, byval c a
 	extern import gui_mouse_y as function() as long
 	extern import gui_mouse_z as function() as long
 	extern import gui_mouse_b as function() as long
+#else
+	extern gui_shadow_box_proc as DIALOG_PROC
+	extern gui_ctext_proc as DIALOG_PROC
+	extern gui_button_proc as DIALOG_PROC
+	extern gui_edit_proc as DIALOG_PROC
+	extern gui_list_proc as DIALOG_PROC
+	extern gui_text_list_proc as DIALOG_PROC
+	extern gui_menu_draw_menu as sub(byval x as long, byval y as long, byval w as long, byval h as long)
+	extern gui_menu_draw_menu_item as sub(byval m as MENU ptr, byval x as long, byval y as long, byval w as long, byval h as long, byval bar as long, byval sel as long)
+	extern active_dialog as DIALOG ptr
+	extern active_menu as MENU ptr
+	extern gui_mouse_focus as long
+	extern gui_fg_color as long
+	extern gui_mg_color as long
+	extern gui_bg_color as long
+	extern gui_font_baseline as long
+	extern gui_mouse_x as function() as long
+	extern gui_mouse_y as function() as long
+	extern gui_mouse_z as function() as long
+	extern gui_mouse_b as function() as long
 #endif
 
 declare sub gui_set_screen(byval bmp as BITMAP ptr)
@@ -2464,25 +2468,25 @@ end type
 
 #define _digi_driver_list(i) ((@___digi_driver_list)[i])
 
-#if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
-	extern ___digi_driver_list alias "_digi_driver_list" as _DRIVER_INFO
-#else
+#if defined(__FB_WIN32__) and (not defined(ALLEGRO_STATICLINK))
 	extern import ___digi_driver_list alias "_digi_driver_list" as _DRIVER_INFO
+#else
+	extern ___digi_driver_list alias "_digi_driver_list" as _DRIVER_INFO
 #endif
 
 #define BEGIN_DIGI_DRIVER_LIST dim as _DRIVER_INFO _digi_driver_list(0 to ...) = {
 #define END_DIGI_DRIVER_LIST ( 0, NULL, 0 ) }
 
-#if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
-	extern digi_driver as DIGI_DRIVER ptr
-	extern digi_input_driver as DIGI_DRIVER ptr
-	extern digi_card as long
-	extern digi_input_card as long
-#else
+#if defined(__FB_WIN32__) and (not defined(ALLEGRO_STATICLINK))
 	extern import digi_driver as DIGI_DRIVER ptr
 	extern import digi_input_driver as DIGI_DRIVER ptr
 	extern import digi_card as long
 	extern import digi_input_card as long
+#else
+	extern digi_driver as DIGI_DRIVER ptr
+	extern digi_input_driver as DIGI_DRIVER ptr
+	extern digi_card as long
+	extern digi_input_card as long
 #endif
 
 declare function detect_digi_driver(byval driver_id as long) as long
@@ -2545,10 +2549,10 @@ declare function start_sound_input(byval rate as long, byval bits as long, byval
 declare sub stop_sound_input()
 declare function read_sound_input(byval buffer as any ptr) as long
 
-#if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
-	extern digi_recorder as sub()
-#else
+#if defined(__FB_WIN32__) and (not defined(ALLEGRO_STATICLINK))
 	extern import digi_recorder as sub()
+#else
+	extern digi_recorder as sub()
 #endif
 
 declare sub lock_sample(byval spl as SAMPLE ptr)
@@ -2615,34 +2619,25 @@ type MIDI_DRIVER
 	set_vibrato as sub(byval voice as long, byval amount as long)
 end type
 
-#if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
-	extern midi_digmid as MIDI_DRIVER
-#else
+#if defined(__FB_WIN32__) and (not defined(ALLEGRO_STATICLINK))
 	extern import midi_digmid as MIDI_DRIVER
+#else
+	extern midi_digmid as MIDI_DRIVER
 #endif
 
 #define _midi_driver_list(i) ((@___midi_driver_list)[i])
 
-#if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
-	extern ___midi_driver_list alias "_midi_driver_list" as _DRIVER_INFO
-#else
+#if defined(__FB_WIN32__) and (not defined(ALLEGRO_STATICLINK))
 	extern import ___midi_driver_list alias "_midi_driver_list" as _DRIVER_INFO
+#else
+	extern ___midi_driver_list alias "_midi_driver_list" as _DRIVER_INFO
 #endif
 
 #define BEGIN_MIDI_DRIVER_LIST dim as _DRIVER_INFO _midi_driver_list(0 to ...) = {
 #define END_MIDI_DRIVER_LIST ( 0, NULL, 0 ) }
 #define MIDI_DRIVER_DIGMID ( MIDI_DIGMID, @midi_digmid, TRUE ),
 
-#if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
-	extern midi_driver as MIDI_DRIVER ptr
-	extern midi_input_driver as MIDI_DRIVER ptr
-	extern midi_card as long
-	extern midi_input_card as long
-	extern midi_pos as clong
-	extern midi_time as clong
-	extern midi_loop_start as clong
-	extern midi_loop_end as clong
-#else
+#if defined(__FB_WIN32__) and (not defined(ALLEGRO_STATICLINK))
 	extern import midi_driver as MIDI_DRIVER ptr
 	extern import midi_input_driver as MIDI_DRIVER ptr
 	extern import midi_card as long
@@ -2651,6 +2646,15 @@ end type
 	extern import midi_time as clong
 	extern import midi_loop_start as clong
 	extern import midi_loop_end as clong
+#else
+	extern midi_driver as MIDI_DRIVER ptr
+	extern midi_input_driver as MIDI_DRIVER ptr
+	extern midi_card as long
+	extern midi_input_card as long
+	extern midi_pos as clong
+	extern midi_time as clong
+	extern midi_loop_start as clong
+	extern midi_loop_end as clong
 #endif
 
 declare function detect_midi_driver(byval driver_id as long) as long
@@ -2666,16 +2670,16 @@ declare function get_midi_length(byval midi as MIDI ptr) as long
 declare sub midi_out(byval data as ubyte ptr, byval length as long)
 declare function load_midi_patches() as long
 
-#if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
-	extern midi_msg_callback as sub(byval msg as long, byval byte1 as long, byval byte2 as long)
-	extern midi_meta_callback as sub(byval type as long, byval data as const ubyte ptr, byval length as long)
-	extern midi_sysex_callback as sub(byval data as const ubyte ptr, byval length as long)
-	extern midi_recorder as sub(byval data as ubyte)
-#else
+#if defined(__FB_WIN32__) and (not defined(ALLEGRO_STATICLINK))
 	extern import midi_msg_callback as sub(byval msg as long, byval byte1 as long, byval byte2 as long)
 	extern import midi_meta_callback as sub(byval type as long, byval data as const ubyte ptr, byval length as long)
 	extern import midi_sysex_callback as sub(byval data as const ubyte ptr, byval length as long)
 	extern import midi_recorder as sub(byval data as ubyte)
+#else
+	extern midi_msg_callback as sub(byval msg as long, byval byte1 as long, byval byte2 as long)
+	extern midi_meta_callback as sub(byval type as long, byval data as const ubyte ptr, byval length as long)
+	extern midi_sysex_callback as sub(byval data as const ubyte ptr, byval length as long)
+	extern midi_recorder as sub(byval data as ubyte)
 #endif
 
 declare sub lock_midi(byval midi as MIDI ptr)
@@ -2894,26 +2898,26 @@ declare function fixatan(byval x as fixed) as fixed
 declare function fixatan2(byval y as fixed, byval x as fixed) as fixed
 #define _cos_tbl(i) ((@___cos_tbl)[i])
 
-#if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
-	extern ___cos_tbl alias "_cos_tbl" as fixed
-#else
+#if defined(__FB_WIN32__) and (not defined(ALLEGRO_STATICLINK))
 	extern import ___cos_tbl alias "_cos_tbl" as fixed
+#else
+	extern ___cos_tbl alias "_cos_tbl" as fixed
 #endif
 
 #define _tan_tbl(i) ((@___tan_tbl)[i])
 
-#if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
-	extern ___tan_tbl alias "_tan_tbl" as fixed
-#else
+#if defined(__FB_WIN32__) and (not defined(ALLEGRO_STATICLINK))
 	extern import ___tan_tbl alias "_tan_tbl" as fixed
+#else
+	extern ___tan_tbl alias "_tan_tbl" as fixed
 #endif
 
 #define _acos_tbl(i) ((@___acos_tbl)[i])
 
-#if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
-	extern ___acos_tbl alias "_acos_tbl" as fixed
-#else
+#if defined(__FB_WIN32__) and (not defined(ALLEGRO_STATICLINK))
 	extern import ___acos_tbl alias "_acos_tbl" as fixed
+#else
+	extern ___acos_tbl alias "_acos_tbl" as fixed
 #endif
 
 #define ALLEGRO_FMATHS_INL
@@ -2948,12 +2952,12 @@ type MATRIX_f
 	t(0 to 2) as single
 end type
 
-#if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
-	extern identity_matrix as MATRIX
-	extern identity_matrix_f as MATRIX_f
-#else
+#if defined(__FB_WIN32__) and (not defined(ALLEGRO_STATICLINK))
 	extern import identity_matrix as MATRIX
 	extern import identity_matrix_f as MATRIX_f
+#else
+	extern identity_matrix as MATRIX
+	extern identity_matrix_f as MATRIX_f
 #endif
 
 declare sub get_translation_matrix(byval m as MATRIX ptr, byval x as fixed, byval y as fixed, byval z as fixed)
@@ -2994,10 +2998,10 @@ type QUAT
 	z as single
 end type
 
-#if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
-	extern identity_quat as QUAT
-#else
+#if defined(__FB_WIN32__) and (not defined(ALLEGRO_STATICLINK))
 	extern import identity_quat as QUAT
+#else
+	extern identity_quat as QUAT
 #endif
 
 declare sub quat_mul(byval p as const QUAT ptr, byval q as const QUAT ptr, byval out as QUAT ptr)
@@ -3024,16 +3028,7 @@ declare sub normalize_vector_f(byval x as single ptr, byval y as single ptr, byv
 declare sub cross_product(byval x1 as fixed, byval y_1 as fixed, byval z1 as fixed, byval x2 as fixed, byval y2 as fixed, byval z2 as fixed, byval xout as fixed ptr, byval yout as fixed ptr, byval zout as fixed ptr)
 declare sub cross_product_f(byval x1 as single, byval y_1 as single, byval z1 as single, byval x2 as single, byval y2 as single, byval z2 as single, byval xout as single ptr, byval yout as single ptr, byval zout as single ptr)
 
-#if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
-	extern _persp_xscale as fixed
-	extern _persp_yscale as fixed
-	extern _persp_xoffset as fixed
-	extern _persp_yoffset as fixed
-	extern _persp_xscale_f as single
-	extern _persp_yscale_f as single
-	extern _persp_xoffset_f as single
-	extern _persp_yoffset_f as single
-#else
+#if defined(__FB_WIN32__) and (not defined(ALLEGRO_STATICLINK))
 	extern import _persp_xscale as fixed
 	extern import _persp_yscale as fixed
 	extern import _persp_xoffset as fixed
@@ -3042,6 +3037,15 @@ declare sub cross_product_f(byval x1 as single, byval y_1 as single, byval z1 as
 	extern import _persp_yscale_f as single
 	extern import _persp_xoffset_f as single
 	extern import _persp_yoffset_f as single
+#else
+	extern _persp_xscale as fixed
+	extern _persp_yscale as fixed
+	extern _persp_xoffset as fixed
+	extern _persp_yoffset as fixed
+	extern _persp_xscale_f as single
+	extern _persp_yscale_f as single
+	extern _persp_xoffset_f as single
+	extern _persp_yoffset_f as single
 #endif
 
 declare sub set_projection_viewport(byval x as long, byval y as long, byval w as long, byval h as long)
@@ -3113,10 +3117,10 @@ declare function file_select(byval message as const zstring ptr, byval path as z
 declare function for_each_file(byval name as const zstring ptr, byval attrib as long, byval callback as sub(byval filename as const zstring ptr, byval attrib as long, byval param as long), byval param as long) as long
 declare function file_size(byval filename as const zstring ptr) as clong
 
-#if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
-	extern _textmode as long
-#else
+#if defined(__FB_WIN32__) and (not defined(ALLEGRO_STATICLINK))
 	extern import _textmode as long
+#else
+	extern _textmode as long
 #endif
 
 declare function text_mode(byval mode as long) as long
@@ -3135,10 +3139,10 @@ declare sub set_window_close_hook(byval proc as sub())
 declare sub set_clip(byval bitmap as BITMAP ptr, byval x1 as long, byval y_1 as long, byval x2 as long, byval y2 as long)
 declare sub yield_timeslice()
 
-#if defined(__FB_DOS__) or (defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)) or defined(__FB_LINUX__)
-	extern retrace_proc as sub()
-#else
+#if defined(__FB_WIN32__) and (not defined(ALLEGRO_STATICLINK))
 	extern import retrace_proc as sub()
+#else
+	extern retrace_proc as sub()
 #endif
 
 declare sub set_file_encoding(byval encoding as long)
@@ -3147,71 +3151,7 @@ declare function timer_can_simulate_retrace() as long
 declare sub timer_simulate_retrace(byval enable as long)
 declare function timer_is_using_retrace() as long
 
-#ifdef __FB_WIN32__
-	declare function _WinMain(byval _main as any ptr, byval hInst as any ptr, byval hPrev as any ptr, byval Cmd as zstring ptr, byval nShow as long) as long
-	#define SYSTEM_DIRECTX_ AL_ID(asc("D"), asc("X"), asc(" "), asc(" "))
-#endif
-
-#if defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)
-	extern system_directx as SYSTEM_DRIVER
-#elseif defined(__FB_WIN32__) and (not defined(ALLEGRO_STATICLINK))
-	extern import system_directx as SYSTEM_DRIVER
-#endif
-
-#ifdef __FB_WIN32__
-	#define TIMER_WIN32_HIGH_PERF AL_ID(asc("W"), asc("3"), asc("2"), asc("H"))
-	#define TIMER_WIN32_LOW_PERF AL_ID(asc("W"), asc("3"), asc("2"), asc("L"))
-	#define KEYBOARD_DIRECTX AL_ID(asc("D"), asc("X"), asc(" "), asc(" "))
-	#define MOUSE_DIRECTX AL_ID(asc("D"), asc("X"), asc(" "), asc(" "))
-	#define GFX_DIRECTX AL_ID(asc("D"), asc("X"), asc("A"), asc("C"))
-	#define GFX_DIRECTX_ACCEL_ AL_ID(asc("D"), asc("X"), asc("A"), asc("C"))
-	#define GFX_DIRECTX_SAFE_ AL_ID(asc("D"), asc("X"), asc("S"), asc("A"))
-	#define GFX_DIRECTX_SOFT_ AL_ID(asc("D"), asc("X"), asc("S"), asc("O"))
-	#define GFX_DIRECTX_WIN_ AL_ID(asc("D"), asc("X"), asc("W"), asc("N"))
-	#define GFX_DIRECTX_OVL_ AL_ID(asc("D"), asc("X"), asc("O"), asc("V"))
-	#define GFX_GDI_ AL_ID(asc("G"), asc("D"), asc("I"), asc("B"))
-#endif
-
-#if defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)
-	extern gfx_directx_accel as GFX_DRIVER
-	extern gfx_directx_safe as GFX_DRIVER
-	extern gfx_directx_soft as GFX_DRIVER
-	extern gfx_directx_win as GFX_DRIVER
-	extern gfx_directx_ovl as GFX_DRIVER
-	extern gfx_gdi as GFX_DRIVER
-#elseif defined(__FB_WIN32__) and (not defined(ALLEGRO_STATICLINK))
-	extern import gfx_directx_accel as GFX_DRIVER
-	extern import gfx_directx_safe as GFX_DRIVER
-	extern import gfx_directx_soft as GFX_DRIVER
-	extern import gfx_directx_win as GFX_DRIVER
-	extern import gfx_directx_ovl as GFX_DRIVER
-	extern import gfx_gdi as GFX_DRIVER
-#endif
-
-#ifdef __FB_WIN32__
-	#define GFX_DRIVER_DIRECTX ( GFX_DIRECTX_ACCEL, @gfx_directx_accel, TRUE ), ( GFX_DIRECTX_SOFT, @gfx_directx_soft, TRUE ), ( GFX_DIRECTX_SAFE, @gfx_directx_safe, TRUE ), ( GFX_DIRECTX_WIN, @gfx_directx_win, TRUE ), ( GFX_DIRECTX_OVL, @gfx_directx_ovl, TRUE ), ( GFX_GDI, @gfx_gdi, FALSE ),
-	#define DIGI_DIRECTX(n) AL_ID(asc("D"), asc("X"), asc("A") + (n), asc(" "))
-	#define DIGI_DIRECTAMX(n) AL_ID(asc("A"), asc("X"), asc("A") + (n), asc(" "))
-	#define DIGI_WAVOUTID(n) AL_ID(asc("W"), asc("O"), asc("A") + (n), asc(" "))
-	#define MIDI_WIN32MAPPER AL_ID(asc("W"), asc("3"), asc("2"), asc("M"))
-	#define MIDI_WIN32(n) AL_ID(asc("W"), asc("3"), asc("2"), asc("A") + (n))
-	#define MIDI_WIN32_IN(n) AL_ID(asc("W"), asc("3"), asc("2"), asc("A") + (n))
-	#define JOY_TYPE_DIRECTX AL_ID(asc("D"), asc("X"), asc(" "), asc(" "))
-	#define JOY_TYPE_WIN32 AL_ID(asc("W"), asc("3"), asc("2"), asc(" "))
-#endif
-
-#if defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)
-	extern joystick_directx as JOYSTICK_DRIVER
-	extern joystick_win32 as JOYSTICK_DRIVER
-#elseif defined(__FB_WIN32__) and (not defined(ALLEGRO_STATICLINK))
-	extern import joystick_directx as JOYSTICK_DRIVER
-	extern import joystick_win32 as JOYSTICK_DRIVER
-#endif
-
-#ifdef __FB_WIN32__
-	#define JOYSTICK_DRIVER_DIRECTX ( JOY_TYPE_DIRECTX, @joystick_directx, TRUE ),
-	#define JOYSTICK_DRIVER_WIN32 ( JOY_TYPE_WIN32, @joystick_win32, TRUE ),
-#elseif defined(__FB_LINUX__)
+#ifdef __FB_UNIX__
 	extern __crt0_argc as long
 	extern __crt0_argv as zstring ptr ptr
 	#define TIMERDRV_UNIX_PTHREADS_ AL_ID(asc("P"), asc("T"), asc("H"), asc("R"))
@@ -3235,7 +3175,7 @@ declare function timer_is_using_retrace() as long
 	#define GFX_XDGA2 AL_ID(asc("D"), asc("G"), asc("A"), asc("2"))
 	#define GFX_XDGA2_SOFT AL_ID(asc("D"), asc("G"), asc("A"), asc("S"))
 	#define SYSTEM_LINUX_ AL_ID(asc("L"), asc("N"), asc("X"), asc("C"))
-#else
+#elseif defined(__FB_DOS__)
 	#define SYSTEM_DOS_ AL_ID(asc("D"), asc("O"), asc("S"), asc(" "))
 	extern system_dos as SYSTEM_DRIVER
 	extern i_love_bill as long
@@ -3354,12 +3294,12 @@ declare function timer_is_using_retrace() as long
 	#define ALLEGRO_GFX_HAS_VBEAF
 #endif
 
-#if defined(__FB_DOS__) or defined(__FB_LINUX__)
+#if defined(__FB_DOS__) or defined(__FB_UNIX__)
 	#define GFX_VGA_ AL_ID(asc("V"), asc("G"), asc("A"), asc(" "))
 	#define GFX_MODEX_ AL_ID(asc("M"), asc("O"), asc("D"), asc("X"))
 #endif
 
-#ifdef __FB_LINUX__
+#ifdef __FB_UNIX__
 	#define GFX_FBCON AL_ID(asc("F"), asc("B"), asc(" "), asc(" "))
 #elseif defined(__FB_DOS__)
 	#define GFX_VESA1 AL_ID(asc("V"), asc("B"), asc("E"), asc("1"))
@@ -3368,11 +3308,11 @@ declare function timer_is_using_retrace() as long
 	#define GFX_VESA3 AL_ID(asc("V"), asc("B"), asc("E"), asc("3"))
 #endif
 
-#if defined(__FB_DOS__) or defined(__FB_LINUX__)
+#if defined(__FB_DOS__) or defined(__FB_UNIX__)
 	#define GFX_VBEAF_ AL_ID(asc("V"), asc("B"), asc("A"), asc("F"))
 #endif
 
-#ifdef __FB_LINUX__
+#ifdef __FB_UNIX__
 	#define GFX_SVGALIB AL_ID(asc("S"), asc("V"), asc("G"), asc("A"))
 	#define KEYDRV_LINUX AL_ID(asc("L"), asc("N"), asc("X"), asc("C"))
 	#define MOUSEDRV_LINUX_PS2_ AL_ID(asc("L"), asc("P"), asc("S"), asc("2"))
@@ -3382,7 +3322,9 @@ declare function timer_is_using_retrace() as long
 	#define MOUSEDRV_LINUX_IMS_ AL_ID(asc("I"), asc("M"), asc("S"), asc(" "))
 	#define MOUSEDRV_LINUX_EVDEV_ AL_ID(asc("E"), asc("V"), asc(" "), asc(" "))
 	#define JOY_TYPE_LINUX_ANALOGUE AL_ID(asc("L"), asc("N"), asc("X"), asc("A"))
+#endif
 
+#ifdef __FB_LINUX__
 	extern system_linux as SYSTEM_DRIVER
 	extern mousedrv_linux_ps2 as MOUSE_DRIVER
 	extern mousedrv_linux_ips2 as MOUSE_DRIVER
@@ -3412,9 +3354,71 @@ declare function timer_is_using_retrace() as long
 
 #if defined(__FB_DOS__) or defined(__FB_LINUX__)
 	declare sub split_modex_screen(byval lyne as long)
+#elseif defined(__FB_WIN32__)
+	declare function _WinMain(byval _main as any ptr, byval hInst as any ptr, byval hPrev as any ptr, byval Cmd as zstring ptr, byval nShow as long) as long
+	#define SYSTEM_DIRECTX_ AL_ID(asc("D"), asc("X"), asc(" "), asc(" "))
 #endif
 
-#ifdef __FB_DOS__
+#if defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)
+	extern system_directx as SYSTEM_DRIVER
+#elseif defined(__FB_WIN32__) and (not defined(ALLEGRO_STATICLINK))
+	extern import system_directx as SYSTEM_DRIVER
+#endif
+
+#ifdef __FB_WIN32__
+	#define TIMER_WIN32_HIGH_PERF AL_ID(asc("W"), asc("3"), asc("2"), asc("H"))
+	#define TIMER_WIN32_LOW_PERF AL_ID(asc("W"), asc("3"), asc("2"), asc("L"))
+	#define KEYBOARD_DIRECTX AL_ID(asc("D"), asc("X"), asc(" "), asc(" "))
+	#define MOUSE_DIRECTX AL_ID(asc("D"), asc("X"), asc(" "), asc(" "))
+	#define GFX_DIRECTX AL_ID(asc("D"), asc("X"), asc("A"), asc("C"))
+	#define GFX_DIRECTX_ACCEL_ AL_ID(asc("D"), asc("X"), asc("A"), asc("C"))
+	#define GFX_DIRECTX_SAFE_ AL_ID(asc("D"), asc("X"), asc("S"), asc("A"))
+	#define GFX_DIRECTX_SOFT_ AL_ID(asc("D"), asc("X"), asc("S"), asc("O"))
+	#define GFX_DIRECTX_WIN_ AL_ID(asc("D"), asc("X"), asc("W"), asc("N"))
+	#define GFX_DIRECTX_OVL_ AL_ID(asc("D"), asc("X"), asc("O"), asc("V"))
+	#define GFX_GDI_ AL_ID(asc("G"), asc("D"), asc("I"), asc("B"))
+#endif
+
+#if defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)
+	extern gfx_directx_accel as GFX_DRIVER
+	extern gfx_directx_safe as GFX_DRIVER
+	extern gfx_directx_soft as GFX_DRIVER
+	extern gfx_directx_win as GFX_DRIVER
+	extern gfx_directx_ovl as GFX_DRIVER
+	extern gfx_gdi as GFX_DRIVER
+#elseif defined(__FB_WIN32__) and (not defined(ALLEGRO_STATICLINK))
+	extern import gfx_directx_accel as GFX_DRIVER
+	extern import gfx_directx_safe as GFX_DRIVER
+	extern import gfx_directx_soft as GFX_DRIVER
+	extern import gfx_directx_win as GFX_DRIVER
+	extern import gfx_directx_ovl as GFX_DRIVER
+	extern import gfx_gdi as GFX_DRIVER
+#endif
+
+#ifdef __FB_WIN32__
+	#define GFX_DRIVER_DIRECTX ( GFX_DIRECTX_ACCEL, @gfx_directx_accel, TRUE ), ( GFX_DIRECTX_SOFT, @gfx_directx_soft, TRUE ), ( GFX_DIRECTX_SAFE, @gfx_directx_safe, TRUE ), ( GFX_DIRECTX_WIN, @gfx_directx_win, TRUE ), ( GFX_DIRECTX_OVL, @gfx_directx_ovl, TRUE ), ( GFX_GDI, @gfx_gdi, FALSE ),
+	#define DIGI_DIRECTX(n) AL_ID(asc("D"), asc("X"), asc("A") + (n), asc(" "))
+	#define DIGI_DIRECTAMX(n) AL_ID(asc("A"), asc("X"), asc("A") + (n), asc(" "))
+	#define DIGI_WAVOUTID(n) AL_ID(asc("W"), asc("O"), asc("A") + (n), asc(" "))
+	#define MIDI_WIN32MAPPER AL_ID(asc("W"), asc("3"), asc("2"), asc("M"))
+	#define MIDI_WIN32(n) AL_ID(asc("W"), asc("3"), asc("2"), asc("A") + (n))
+	#define MIDI_WIN32_IN(n) AL_ID(asc("W"), asc("3"), asc("2"), asc("A") + (n))
+	#define JOY_TYPE_DIRECTX AL_ID(asc("D"), asc("X"), asc(" "), asc(" "))
+	#define JOY_TYPE_WIN32 AL_ID(asc("W"), asc("3"), asc("2"), asc(" "))
+#endif
+
+#if defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)
+	extern joystick_directx as JOYSTICK_DRIVER
+	extern joystick_win32 as JOYSTICK_DRIVER
+#elseif defined(__FB_WIN32__) and (not defined(ALLEGRO_STATICLINK))
+	extern import joystick_directx as JOYSTICK_DRIVER
+	extern import joystick_win32 as JOYSTICK_DRIVER
+#endif
+
+#ifdef __FB_WIN32__
+	#define JOYSTICK_DRIVER_DIRECTX ( JOY_TYPE_DIRECTX, @joystick_directx, TRUE ),
+	#define JOYSTICK_DRIVER_WIN32 ( JOY_TYPE_WIN32, @joystick_win32, TRUE ),
+#elseif defined(__FB_DOS__)
 	declare sub _set_color(byval index as long, byval p as const RGB ptr)
 	#define DIGI_SB10_ AL_ID(asc("S"), asc("B"), asc("1"), asc("0"))
 	#define DIGI_SB15_ AL_ID(asc("S"), asc("B"), asc("1"), asc("5"))

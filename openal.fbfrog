@@ -1,6 +1,6 @@
 -replacements openal.replacements
 
--ifdef __FB_WIN32__
+-iftarget windows
 	-declarebool AL_LIBTYPE_STATIC
 	-ifdef AL_LIBTYPE_STATIC
 		-define AL_LIBTYPE_STATIC 1
@@ -21,6 +21,9 @@
 -define ALvoid void
 
 -removeinclude inttypes.h
+-rename OpenAL/al.h AL/al.h
+-rename OpenAL/alc.h AL/alc.h
+-moveabove AL/al.h AL/alc.h
 
 -nostring ALboolean
 -nostring ALCboolean

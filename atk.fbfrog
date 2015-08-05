@@ -1,4 +1,4 @@
-nodos.fbfrog
+-target nodos
 -replacements atk.replacements
 
 -removedefine ATK_AVAILABLE_IN_2_10
@@ -36,7 +36,7 @@ nodos.fbfrog
 
 -rename ATK_HYPERLINK_IS_INLINE ATK_HYPERLINK_IS_INLINE_
 
--ifdef __FB_WIN32__
+-iftarget windows
 	-declarebool ATK_STATIC_COMPILATION
 	-ifdef ATK_STATIC_COMPILATION
 		-define ATK_STATIC_COMPILATION 1

@@ -2379,7 +2379,7 @@ declare sub ReleaseBindInfo(byval pbindinfo as BINDINFO ptr)
 #define OInetGetSession CoInternetGetSession
 const PROTOCOLFLAG_NO_PICS_CHECK = &h1
 
-#if (_WIN32_WINNT = &h0400) or (_WIN32_WINNT = &h0502)
+#if _WIN32_WINNT <= &h0502
 	type IInternetSecurityManager as IInternetSecurityManager_
 #endif
 

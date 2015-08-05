@@ -126,21 +126,52 @@ declare sub SDLNet_FreeSocketSet(byval set as SDLNet_SocketSet)
 declare sub SDLNet_SetError(byval fmt as const zstring ptr, ...)
 declare function SDLNet_GetError() as const zstring ptr
 
-const SDL_DATA_ALIGNED = 0
+#if (not defined(__FB_64BIT__)) and defined(__FB_ARM__) and (defined(__FB_LINUX__) or defined(__FB_FREEBSD__) or defined(__FB_OPENBSD__) or defined(__FB_NETBSD__))
+	const SDL_DATA_ALIGNED = 1
+#else
+	const SDL_DATA_ALIGNED = 0
+#endif
+
 #define SDLNet_Write16(value, areap) _SDLNet_Write16(value, areap)
 #define SDLNet_Write32(value, areap) _SDLNet_Write32(value, areap)
 #define SDLNet_Read16(areap) _SDLNet_Read16(areap)
 #define SDLNet_Read32(areap) _SDLNet_Read32(areap)
 
-private sub _SDLNet_Write16(byval value as Uint16, byval areap as any ptr)
-	(*cptr(Uint16 ptr, areap)) = SDL_Swap16(value)
-end sub
+#if (not defined(__FB_64BIT__)) and defined(__FB_ARM__) and (defined(__FB_LINUX__) or defined(__FB_FREEBSD__) or defined(__FB_OPENBSD__) or defined(__FB_NETBSD__))
+	private sub _SDLNet_Write16(byval value as Uint16, byval areap as any ptr)
+		dim area as Uint8 ptr = cptr(Uint8 ptr, areap)
+		area[0] = (value shr 8) and &hFF
+		area[1] = value and &hFF
+	end sub
 
-private sub _SDLNet_Write32(byval value as Uint32, byval areap as any ptr)
-	(*cptr(Uint32 ptr, areap)) = SDL_Swap32(value)
-end sub
+	private sub _SDLNet_Write32(byval value as Uint32, byval areap as any ptr)
+		dim area as Uint8 ptr = cptr(Uint8 ptr, areap)
+		area[0] = (value shr 24) and &hFF
+		area[1] = (value shr 16) and &hFF
+		area[2] = (value shr 8) and &hFF
+		area[3] = value and &hFF
+	end sub
 
-#define _SDLNet_Read16(areap) cast(Uint16, SDL_Swap16(*cptr(const Uint16 ptr, areap)))
-#define _SDLNet_Read32(areap) cast(Uint32, SDL_Swap32(*cptr(const Uint32 ptr, areap)))
+	private function _SDLNet_Read16(byval areap as any ptr) as Uint16
+		dim area as Uint8 ptr = cptr(Uint8 ptr, areap)
+		return (cast(Uint16, area[0]) shl 8) or cast(Uint16, area[1])
+	end function
+
+	private function _SDLNet_Read32(byval areap as const any ptr) as Uint32
+		dim area as const Uint8 ptr = cptr(const Uint8 ptr, areap)
+		return (((cast(Uint32, area[0]) shl 24) or (cast(Uint32, area[1]) shl 16)) or (cast(Uint32, area[2]) shl 8)) or cast(Uint32, area[3])
+	end function
+#else
+	private sub _SDLNet_Write16(byval value as Uint16, byval areap as any ptr)
+		(*cptr(Uint16 ptr, areap)) = SDL_Swap16(value)
+	end sub
+
+	private sub _SDLNet_Write32(byval value as Uint32, byval areap as any ptr)
+		(*cptr(Uint32 ptr, areap)) = SDL_Swap32(value)
+	end sub
+
+	#define _SDLNet_Read16(areap) cast(Uint16, SDL_Swap16(*cptr(const Uint16 ptr, areap)))
+	#define _SDLNet_Read32(areap) cast(Uint32, SDL_Swap32(*cptr(const Uint32 ptr, areap)))
+#endif
 
 end extern

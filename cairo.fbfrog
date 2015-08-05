@@ -1,6 +1,6 @@
-nodos.fbfrog
+-target nodos
 
--ifdef __FB_WIN32__
+-iftarget windows
 	-declarebool CAIRO_WIN32_STATIC_BUILD
 	-ifdef CAIRO_WIN32_STATIC_BUILD
 		-define CAIRO_WIN32_STATIC_BUILD 1
@@ -22,7 +22,7 @@ nodos.fbfrog
 -define CAIRO_HAS_WIN32_SURFACE 1
 -define CAIRO_HAS_WIN32_FONT 1
 
--ifdef __FB_WIN32__
+-iftarget windows
 	-define CAIRO_HAS_WGL_FUNCTIONS 1
 -else
 	-define CAIRO_HAS_FC_FONT 1

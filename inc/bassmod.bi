@@ -32,21 +32,23 @@
 
 #inclib "bassmod"
 
-#ifdef __FB_WIN32__
-	#include once "wtypes.bi"
-#else
+#if defined(__FB_DOS__) or defined(__FB_UNIX__)
 	#include once "crt/long.bi"
+#elseif defined(__FB_WIN32__) and defined(__FB_64BIT__)
+	#include once "wtypes.bi"
 #endif
 
-#if (defined(__FB_LINUX__) and (not defined(__FB_64BIT__))) or defined(__FB_DOS__) or (defined(__FB_64BIT__) and (defined(__FB_WIN32__) or defined(__FB_LINUX__)))
-	extern "C"
-#else
+#if defined(__FB_WIN32__) and (not defined(__FB_64BIT__))
+	#include once "wtypes.bi"
+
 	extern "Windows-MS"
+#else
+	extern "C"
 #endif
 
 #define BASSMOD_H
 
-#if defined(__FB_DOS__) or defined(__FB_LINUX__)
+#if defined(__FB_DOS__) or defined(__FB_UNIX__)
 	type WORD as ushort
 	type DWORD as culong
 	type BOOL as long
