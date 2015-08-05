@@ -10,7 +10,7 @@ convert c:
 			: "memory" );					\
 	} while(0)
 to c:
-	#define SDL_memset4(dst, val, len) SDL_memset(dst, val, (len) * 4)
+	#define SDL_memset4(dst, val, len) SDL_memset((dst), (val), (len) * 4)
 
 convert c:
 	#define SDL_memset4(dst, val, len)		\
@@ -29,7 +29,7 @@ convert c:
 		}					\
 	} while(0)
 to c:
-	#define SDL_memset4(dst, val, len) SDL_memset(dst, val, (len) * 4)
+	#define SDL_memset4(dst, val, len) SDL_memset((dst), (val), (len) * 4)
 
 convert c:
 	#define SDL_memcpy(dst, src, len)					  \
@@ -50,10 +50,13 @@ convert c:
 			: "memory" );						  \
 	} while(0)
 to c:
-	#define SDL_memcpy(dst, src, len) memcpy(dst, src, len)
+	#define SDL_memcpy(dst, src, len) memcpy((dst), (src), (len))
 
 convert c: #define SDL_memcpy memcpy
-to c:      #define SDL_memcpy(dst, src, len) memcpy(dst, src, len)
+to c:      #define SDL_memcpy(dst, src, len) memcpy((dst), (src), (len))
+
+convert c: #define SDL_memcpy(dst, src, len) memcpy(dst, src, len)
+to c:      #define SDL_memcpy(dst, src, len) memcpy((dst), (src), (len))
 
 convert c:
 	#define SDL_memcpy4(dst, src, len)				\
@@ -67,13 +70,13 @@ convert c:
 			: "memory" );					\
 	} while(0)
 to c:
-	#define SDL_memcpy4(dst, src, len) SDL_memcpy(dst, src, (len) * 4)
+	#define SDL_memcpy4(dst, src, len) SDL_memcpy((dst), (src), (len) * 4)
 
 convert c: #define SDL_memcpy4(dst, src, len) memcpy(dst, src, (len) * 4)
-to c:      #define SDL_memcpy4(dst, src, len) SDL_memcpy(dst, src, (len) * 4)
+to c:      #define SDL_memcpy4(dst, src, len) SDL_memcpy((dst), (src), (len) * 4)
 
 convert c: #define SDL_memcpy4(dst, src, len) SDL_memcpy(dst, src, (len) << 2)
-to c:      #define SDL_memcpy4(dst, src, len) SDL_memcpy(dst, src, (len) * 4)
+to c:      #define SDL_memcpy4(dst, src, len) SDL_memcpy((dst), (src), (len) * 4)
 
 convert c:
 	#define SDL_revcpy(dst, src, len)			\

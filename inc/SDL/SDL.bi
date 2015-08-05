@@ -123,9 +123,9 @@ end enum
 #define SDL_toupper(X) toupper(X)
 #define SDL_tolower(X) tolower(X)
 #define SDL_memset memset
-#define SDL_memset4(dst, val, len) SDL_memset(dst, val, (len) * 4)
-#define SDL_memcpy(dst, src, len) memcpy(dst, src, len)
-#define SDL_memcpy4(dst, src, len) SDL_memcpy(dst, src, (len) * 4)
+#define SDL_memset4(dst, val, len) SDL_memset((dst), (val), (len) * 4)
+#define SDL_memcpy(dst, src, len) memcpy((dst), (src), (len))
+#define SDL_memcpy4(dst, src, len) SDL_memcpy((dst), (src), (len) * 4)
 
 #if defined(__FB_64BIT__) or ((not defined(__FB_64BIT__)) and defined(__FB_ARM__) and (defined(__FB_LINUX__) or defined(__FB_FREEBSD__) or defined(__FB_OPENBSD__) or defined(__FB_NETBSD__)))
 	declare function SDL_revcpy(byval dst as any ptr, byval src as const any ptr, byval len as uinteger) as any ptr
