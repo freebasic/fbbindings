@@ -1,4 +1,4 @@
--target windows
+-target windowsonly
 
 -declarebool UNICODE
 -ifdef UNICODE

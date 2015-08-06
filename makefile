@@ -1,4 +1,4 @@
-FBFROG_VERSION := f74689e3a4782e5bcadd2fbac7aae58ab4209eb9
+FBFROG_VERSION := 7c40d910c762ae90905dfc0a651a03c691942a73
 
 ALL := allegro allegro4 allegro5 aspell atk
 ALL += bass bassmod bfd bzip2
@@ -524,7 +524,7 @@ cairo: tools cairo-extract
 		-inclib cairo inc/cairo/cairo.bi \
 		-title $(CAIRO) cairo.tmp gtk+-translators.txt
 
-	$(FBFROG) cairo.fbfrog -target windows \
+	$(FBFROG) cairo.fbfrog -target windowsonly \
 		-incdir extracted/$(CAIRO)/src \
 		-include cairo-win32.h \
 		-emit '*/cairo-win32.h' inc/cairo/cairo-win32.bi \
@@ -620,7 +620,8 @@ crt: tools
 
 	cd extracted/$(GLIBC) && \
 		if [ -f bits/wordsize.h ]; then \
-			rm -f bits/wordsize.h bits/endian.h bits/setjmp.h; \
+			rm -f bits/wordsize.h bits/endian.h bits/setjmp.h bits/pthreadtypes.h; \
+			echo "#pragma once" >> sysdeps/wordsize-32/bits/wordsize.h; \
 			echo "#pragma once" >> sysdeps/wordsize-64/bits/wordsize.h; \
 			echo "#pragma once" >> sysdeps/x86/bits/wordsize.h; \
 		fi
@@ -630,13 +631,26 @@ crt: tools
 	$(GETCOMMENT) extracted/$(GLIBC)/posix/sched.h                       > glibc-sched.tmp
 
 	mkdir -p inc/crt/bits
-	$(FBFROG) glibc.fbfrog \
-		-iftarget 64bit \
+	$(FBFROG) -target linuxonly -replacements crt.replacements glibc.fbfrog \
+		-selecttarget \
+		-case x86 \
+			-incdir extracted/$(GLIBC)/sysdeps/x86 \
+			-incdir extracted/$(GLIBC)/sysdeps/wordsize-32 \
+		-case x86_64 \
 			-incdir extracted/$(GLIBC)/sysdeps/x86_64 \
 			-incdir extracted/$(GLIBC)/sysdeps/wordsize-64 \
-		-endif \
-		-incdir extracted/$(GLIBC)/sysdeps/x86 \
+			-incdir extracted/$(GLIBC)/sysdeps/x86 \
+		-case arm \
+			-incdir extracted/$(GLIBC)/sysdeps/arm \
+			-incdir extracted/$(GLIBC)/sysdeps/arm/nptl \
+			-incdir extracted/$(GLIBC)/sysdeps/wordsize-32 \
+		-case aarch64 \
+			-incdir extracted/$(GLIBC)/sysdeps/aarch64 \
+			-incdir extracted/$(GLIBC)/sysdeps/aarch64/nptl \
+			-incdir extracted/$(GLIBC)/sysdeps/wordsize-64 \
+		-endselect \
 		-incdir extracted/$(GLIBC)/sysdeps/nptl \
+		-incdir extracted/$(GLIBC)/sysdeps/generic \
 		-incdir extracted/$(GLIBC)/include \
 		-incdir extracted/$(GLIBC) \
 		-include libc-symbols.h \
