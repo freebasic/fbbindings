@@ -66,7 +66,7 @@ extern "C"
 	const BFD_SUPPORTS_PLUGINS = 1
 #endif
 
-#if defined(__FB_64BIT__) and (defined(__FB_DARWIN__) or defined(__FB_WIN32__) or defined(__FB_CYGWIN__) or defined(__FB_LINUX__) or defined(__FB_FREEBSD__) or defined(__FB_OPENBSD__) or defined(__FB_NETBSD__))
+#if defined(__FB_64BIT__) and (defined(__FB_WIN32__) or defined(__FB_UNIX__))
 	const BFD_ARCH_SIZE = 64
 	const BFD_DEFAULT_TARGET_SIZE = 64
 #else
@@ -105,17 +105,17 @@ type bfd_boolean as long
 const FALSE = 0
 const TRUE = 1
 
-#if ((not defined(__FB_64BIT__)) and (defined(__FB_DARWIN__) or defined(__FB_WIN32__) or defined(__FB_CYGWIN__) or defined(__FB_LINUX__) or defined(__FB_FREEBSD__) or defined(__FB_OPENBSD__) or defined(__FB_NETBSD__))) or defined(__FB_DOS__)
+#if ((not defined(__FB_64BIT__)) and (defined(__FB_WIN32__) or defined(__FB_UNIX__))) or defined(__FB_DOS__)
 	type bfd_vma as culong
 	type bfd_signed_vma as clong
 	type symvalue as culong
 	type bfd_size_type as culong
 #endif
 
-#if (__BFD_VER__ <= 218) and (((not defined(__FB_64BIT__)) and (defined(__FB_DARWIN__) or defined(__FB_WIN32__) or defined(__FB_CYGWIN__) or defined(__FB_LINUX__) or defined(__FB_FREEBSD__) or defined(__FB_OPENBSD__) or defined(__FB_NETBSD__))) or defined(__FB_DOS__))
+#if (__BFD_VER__ <= 218) and (((not defined(__FB_64BIT__)) and (defined(__FB_WIN32__) or defined(__FB_UNIX__))) or defined(__FB_DOS__))
 	#define fprintf_vma(s, x) fprintf(s, "%08lx", x)
 	#define sprintf_vma(s, x) sprintf(s, "%08lx", x)
-#elseif (__BFD_VER__ >= 219) and (((not defined(__FB_64BIT__)) and (defined(__FB_DARWIN__) or defined(__FB_WIN32__) or defined(__FB_CYGWIN__) or defined(__FB_LINUX__) or defined(__FB_FREEBSD__) or defined(__FB_OPENBSD__) or defined(__FB_NETBSD__))) or defined(__FB_DOS__))
+#elseif (__BFD_VER__ >= 219) and (((not defined(__FB_64BIT__)) and (defined(__FB_WIN32__) or defined(__FB_UNIX__))) or defined(__FB_DOS__))
 	#define BFD_VMA_FMT "l"
 	#define fprintf_vma(s, x) fprintf(s, "%08" BFD_VMA_FMT "x", x)
 	#define sprintf_vma(s, x) sprintf(s, "%08" BFD_VMA_FMT "x", x)
@@ -123,19 +123,19 @@ const TRUE = 1
 
 #if (__BFD_VER__ >= 217) and ((defined(__FB_LINUX__) and (not defined(__FB_64BIT__)) and (not defined(__FB_ARM__))) or defined(__FB_DOS__))
 	#define HALF_BFD_SIZE_TYPE (cast(bfd_size_type, 1) shl ((8 * sizeof(bfd_size_type)) / 2))
-#elseif defined(__FB_64BIT__) and (defined(__FB_DARWIN__) or defined(__FB_WIN32__) or defined(__FB_CYGWIN__) or defined(__FB_LINUX__) or defined(__FB_FREEBSD__) or defined(__FB_OPENBSD__) or defined(__FB_NETBSD__))
+#elseif defined(__FB_64BIT__) and (defined(__FB_WIN32__) or defined(__FB_UNIX__))
 	type bfd_vma as ulongint
 	type bfd_signed_vma as longint
 	type bfd_size_type as ulongint
 	type symvalue as ulongint
 #endif
 
-#if defined(__FB_64BIT__) and (defined(__FB_DARWIN__) or defined(__FB_WIN32__) or defined(__FB_CYGWIN__) or defined(__FB_LINUX__) or defined(__FB_FREEBSD__) or defined(__FB_OPENBSD__) or defined(__FB_NETBSD__)) and (__BFD_VER__ <= 217)
+#if defined(__FB_64BIT__) and (defined(__FB_WIN32__) or defined(__FB_UNIX__)) and (__BFD_VER__ <= 217)
 	#define _bfd_int64_low(x) cast(culong, (x) and &hffffffff)
 	#define _bfd_int64_high(x) cast(culong, ((x) shr 32) and &hffffffff)
 	#define fprintf_vma(s, x) fprintf((s), "%08lx%08lx", _bfd_int64_high(x), _bfd_int64_low(x))
 	#define sprintf_vma(s, x) sprintf((s), "%08lx%08lx", _bfd_int64_high(x), _bfd_int64_low(x))
-#elseif defined(__FB_64BIT__) and (__BFD_VER__ = 218) and (defined(__FB_DARWIN__) or defined(__FB_WIN32__) or defined(__FB_CYGWIN__) or defined(__FB_LINUX__) or defined(__FB_FREEBSD__) or defined(__FB_OPENBSD__) or defined(__FB_NETBSD__))
+#elseif defined(__FB_64BIT__) and (__BFD_VER__ = 218) and (defined(__FB_WIN32__) or defined(__FB_UNIX__))
 	#define sprintf_vma(s, x) sprintf(s, "%016llx", x)
 	#define fprintf_vma(f, x) fprintf(f, "%016llx", x)
 #elseif defined(__FB_64BIT__) and (__BFD_VER__ >= 219) and defined(__FB_UNIX__)
@@ -144,12 +144,12 @@ const TRUE = 1
 	#define BFD_VMA_FMT "I64"
 #endif
 
-#if defined(__FB_64BIT__) and (__BFD_VER__ >= 219) and (defined(__FB_DARWIN__) or defined(__FB_WIN32__) or defined(__FB_CYGWIN__) or defined(__FB_LINUX__) or defined(__FB_FREEBSD__) or defined(__FB_OPENBSD__) or defined(__FB_NETBSD__))
+#if defined(__FB_64BIT__) and (__BFD_VER__ >= 219) and (defined(__FB_WIN32__) or defined(__FB_UNIX__))
 	#define sprintf_vma(s, x) sprintf(s, "%016" BFD_VMA_FMT "x", x)
 	#define fprintf_vma(f, x) fprintf(f, "%016" BFD_VMA_FMT "x", x)
 #endif
 
-#if (__BFD_VER__ >= 217) and ((defined(__FB_64BIT__) and (defined(__FB_DARWIN__) or defined(__FB_WIN32__) or defined(__FB_CYGWIN__) or defined(__FB_LINUX__) or defined(__FB_FREEBSD__) or defined(__FB_OPENBSD__) or defined(__FB_NETBSD__))) or ((not defined(__FB_64BIT__)) and ((defined(__FB_ARM__) and (defined(__FB_LINUX__) or defined(__FB_FREEBSD__) or defined(__FB_OPENBSD__) or defined(__FB_NETBSD__))) or ((not defined(__FB_ARM__)) and (defined(__FB_FREEBSD__) or defined(__FB_OPENBSD__) or defined(__FB_NETBSD__))) or defined(__FB_DARWIN__) or defined(__FB_WIN32__) or defined(__FB_CYGWIN__))))
+#if (__BFD_VER__ >= 217) and ((defined(__FB_64BIT__) and (defined(__FB_WIN32__) or defined(__FB_UNIX__))) or ((not defined(__FB_64BIT__)) and ((defined(__FB_ARM__) and (defined(__FB_LINUX__) or defined(__FB_FREEBSD__) or defined(__FB_OPENBSD__) or defined(__FB_NETBSD__))) or ((not defined(__FB_ARM__)) and (defined(__FB_FREEBSD__) or defined(__FB_OPENBSD__) or defined(__FB_NETBSD__))) or defined(__FB_DARWIN__) or defined(__FB_WIN32__) or defined(__FB_CYGWIN__))))
 	#define HALF_BFD_SIZE_TYPE (cast(bfd_size_type, 1) shl ((8 * sizeof(bfd_size_type)) / 2))
 #endif
 
