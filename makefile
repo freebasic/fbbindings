@@ -737,7 +737,7 @@ ffi: tools
 	# headers manually instead.
 	./ffi-generate-headers.sh "extracted/$(FFI_TITLE)" "$(FFI_VERSION)"
 
-	$(GETCOMMENT) extracted/$(FFI_TITLE)/include/ffi-x86.h > ffi.tmp
+	$(GETCOMMENT) extracted/$(FFI_TITLE)/include/ffi-linux-x86.h > ffi.tmp
 
 	$(FBFROG) ffi.fbfrog -o inc/ffi.bi -target nodos \
 		`./ffi-get-target-options.sh "extracted/$(FFI_TITLE)"` \
