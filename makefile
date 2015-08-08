@@ -13,6 +13,7 @@ ALL += openal opengl opengl-mesa opengl-winapi
 ALL += pango pdcurses png png12 png14 png15 png16
 ALL += sdl sdl1 sdl2
 ALL += tre
+ALL += winapi
 ALL += x11
 ALL += zip zlib
 
