@@ -146,11 +146,11 @@ declare function SHLoadIndirectString(byval pszSource as LPCWSTR, byval pszOutBu
 	declare function StrCmpICW(byval pszStr1 as LPCWSTR, byval pszStr2 as LPCWSTR) as long
 #endif
 
-#if defined(UNICODE) and (_WIN32_WINNT = &h0602)
-	#define StrCmpIC StrCmpICW
-#endif
-
 #ifdef UNICODE
+	#if _WIN32_WINNT = &h0602
+		#define StrCmpIC StrCmpICW
+	#endif
+
 	#define StrChr StrChrW
 	#define StrRChr StrRChrW
 	#define StrChrI StrChrIW
@@ -167,13 +167,11 @@ declare function SHLoadIndirectString(byval pszSource as LPCWSTR, byval pszOutBu
 	#define StrToInt StrToIntW
 	#define StrPBrk StrPBrkW
 	#define StrToIntEx StrToIntExW
-#endif
 
-#if defined(UNICODE) and (_WIN32_WINNT >= &h0502)
-	#define StrToInt64Ex StrToInt64ExW
-#endif
+	#if _WIN32_WINNT >= &h0502
+		#define StrToInt64Ex StrToInt64ExW
+	#endif
 
-#ifdef UNICODE
 	#define StrFromTimeInterval StrFromTimeIntervalW
 	#define StrIntlEqN StrIntlEqNW
 	#define StrIntlEqNI StrIntlEqNIW
@@ -208,13 +206,11 @@ declare function SHLoadIndirectString(byval pszSource as LPCWSTR, byval pszOutBu
 	#define StrToInt StrToIntA
 	#define StrPBrk StrPBrkA
 	#define StrToIntEx StrToIntExA
-#endif
 
-#if (not defined(UNICODE)) and (_WIN32_WINNT >= &h0502)
-	#define StrToInt64Ex StrToInt64ExA
-#endif
+	#if _WIN32_WINNT >= &h0502
+		#define StrToInt64Ex StrToInt64ExA
+	#endif
 
-#ifndef UNICODE
 	#define StrFromTimeInterval StrFromTimeIntervalA
 	#define StrIntlEqN StrIntlEqNA
 	#define StrIntlEqNI StrIntlEqNIA
@@ -885,11 +881,11 @@ declare function SHSetValueW(byval hkey as HKEY, byval pszSubKey as LPCWSTR, byv
 	declare function SHRegGetValueW(byval hkey as HKEY, byval pszSubKey as LPCWSTR, byval pszValue as LPCWSTR, byval dwFlags as SRRF, byval pdwType as DWORD ptr, byval pvData as any ptr, byval pcbData as DWORD ptr) as LONG
 #endif
 
-#if defined(UNICODE) and (_WIN32_WINNT >= &h0502)
-	#define SHRegGetValue SHRegGetValueW
-#endif
-
 #ifdef UNICODE
+	#if _WIN32_WINNT >= &h0502
+		#define SHRegGetValue SHRegGetValueW
+	#endif
+
 	#define SHQueryValueEx SHQueryValueExW
 	#define SHEnumKeyEx SHEnumKeyExW
 	#define SHEnumValue SHEnumValueW

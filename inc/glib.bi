@@ -2273,15 +2273,13 @@ declare function g_io_channel_unix_get_fd(byval channel as GIOChannel ptr) as gi
 	const G_WIN32_MSG_HANDLE = 19981206
 	declare sub g_io_channel_win32_make_pollfd(byval channel as GIOChannel ptr, byval condition as GIOCondition, byval fd as GPollFD ptr)
 	declare function g_io_channel_win32_poll(byval fds as GPollFD ptr, byval n_fds as gint, byval timeout_ as gint) as gint
-#endif
 
-#if defined(__FB_WIN32__) and (not defined(__FB_64BIT__))
-	declare function g_io_channel_win32_new_messages(byval hwnd as guint) as GIOChannel ptr
-#elseif defined(__FB_WIN32__) and defined(__FB_64BIT__)
-	declare function g_io_channel_win32_new_messages(byval hwnd as gsize) as GIOChannel ptr
-#endif
+	#ifdef __FB_64BIT__
+		declare function g_io_channel_win32_new_messages(byval hwnd as gsize) as GIOChannel ptr
+	#else
+		declare function g_io_channel_win32_new_messages(byval hwnd as guint) as GIOChannel ptr
+	#endif
 
-#ifdef __FB_WIN32__
 	declare function g_io_channel_win32_new_fd(byval fd as gint) as GIOChannel ptr
 	declare function g_io_channel_win32_get_fd(byval channel as GIOChannel ptr) as gint
 	declare function g_io_channel_win32_new_socket(byval socket as gint) as GIOChannel ptr
@@ -3886,12 +3884,12 @@ declare function glib_check_version_ alias "glib_check_version"(byval required_m
 	#define G_WIN32_HAVE_WIDECHAR_API() TRUE
 #endif
 
-#if defined(__FB_WIN32__) and defined(__FB_64BIT__)
-	#define g_win32_get_package_installation_directory g_win32_get_package_installation_directory_utf8
-	#define g_win32_get_package_installation_subdirectory g_win32_get_package_installation_subdirectory_utf8
-#endif
-
 #ifdef __FB_WIN32__
+	#ifdef __FB_64BIT__
+		#define g_win32_get_package_installation_directory g_win32_get_package_installation_directory_utf8
+		#define g_win32_get_package_installation_subdirectory g_win32_get_package_installation_subdirectory_utf8
+	#endif
+
 	declare function g_win32_get_package_installation_directory_utf8(byval package as const zstring ptr, byval dll_name as const zstring ptr) as zstring ptr
 	declare function g_win32_get_package_installation_subdirectory_utf8(byval package as const zstring ptr, byval dll_name as const zstring ptr, byval subdir as const zstring ptr) as zstring ptr
 #endif

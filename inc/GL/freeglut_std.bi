@@ -47,13 +47,13 @@
 
 #define __FREEGLUT_STD_H__
 
-#if defined(__FB_WIN32__) and defined(FREEGLUT_STATIC)
-	#inclib "freeglut_static"
-#elseif defined(__FB_WIN32__) and (not defined(FREEGLUT_STATIC))
-	#inclib "freeglut"
-#endif
-
 #ifdef __FB_WIN32__
+	#ifdef FREEGLUT_STATIC
+		#inclib "freeglut_static"
+	#else
+		#inclib "freeglut"
+	#endif
+
 	#inclib "glu32"
 	#inclib "opengl32"
 	#inclib "gdi32"

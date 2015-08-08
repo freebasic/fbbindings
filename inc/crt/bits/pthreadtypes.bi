@@ -143,10 +143,12 @@ type __pthread_mutex_s
 		__nusers as ulong
 
 		union
-			#if (not defined(__FB_64BIT__)) and (not defined(__FB_ARM__))
-				__elision_data as pthread_mutex_t___pthread_mutex_s___elision_data
-			#elseif (not defined(__FB_64BIT__)) and defined(__FB_ARM__)
-				__spins as long
+			#ifndef __FB_64BIT__
+				#ifdef __FB_ARM__
+					__spins as long
+				#else
+					__elision_data as pthread_mutex_t___pthread_mutex_s___elision_data
+				#endif
 			#endif
 
 			__list as __pthread_slist_t

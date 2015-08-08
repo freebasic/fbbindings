@@ -389,15 +389,13 @@ type SDL_ThreadFunction as function(byval data as any ptr) as long
 
 #ifdef __FB_WIN32__
 	#define SDL_PASSED_BEGINTHREAD_ENDTHREAD
-#endif
 
-#if defined(__FB_WIN32__) and (not defined(__FB_64BIT__))
-	type pfnSDL_CurrentBeginThread as function(byval as any ptr, byval as ulong, byval func as function stdcall(byval as any ptr) as ulong, byval arg as any ptr, byval as ulong, byval threadID as ulong ptr) as uinteger
-#elseif defined(__FB_WIN32__) and defined(__FB_64BIT__)
-	type pfnSDL_CurrentBeginThread as function(byval as any ptr, byval as ulong, byval func as function(byval as any ptr) as ulong, byval arg as any ptr, byval as ulong, byval threadID as ulong ptr) as uinteger
-#endif
+	#ifdef __FB_64BIT__
+		type pfnSDL_CurrentBeginThread as function(byval as any ptr, byval as ulong, byval func as function(byval as any ptr) as ulong, byval arg as any ptr, byval as ulong, byval threadID as ulong ptr) as uinteger
+	#else
+		type pfnSDL_CurrentBeginThread as function(byval as any ptr, byval as ulong, byval func as function stdcall(byval as any ptr) as ulong, byval arg as any ptr, byval as ulong, byval threadID as ulong ptr) as uinteger
+	#endif
 
-#ifdef __FB_WIN32__
 	type pfnSDL_CurrentEndThread as sub(byval code as ulong)
 #endif
 

@@ -90,13 +90,11 @@ const G_HAVE_GINT64 = 1
 
 #ifndef __FB_64BIT__
 	const GLIB_SIZEOF_SIZE_T = 4
-#endif
 
-#if (not defined(__FB_64BIT__)) and defined(__FB_UNIX__)
-	const GLIB_SIZEOF_SSIZE_T = 4
-#endif
+	#ifdef __FB_UNIX__
+		const GLIB_SIZEOF_SSIZE_T = 4
+	#endif
 
-#ifndef __FB_64BIT__
 	type gssize as long
 	type gsize as ulong
 	#define G_GSIZE_MODIFIER ""

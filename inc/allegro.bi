@@ -3359,13 +3359,13 @@ declare function timer_is_using_retrace() as long
 	#define SYSTEM_DIRECTX_ AL_ID(asc("D"), asc("X"), asc(" "), asc(" "))
 #endif
 
-#if defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)
-	extern system_directx as SYSTEM_DRIVER
-#elseif defined(__FB_WIN32__) and (not defined(ALLEGRO_STATICLINK))
-	extern import system_directx as SYSTEM_DRIVER
-#endif
-
 #ifdef __FB_WIN32__
+	#ifdef ALLEGRO_STATICLINK
+		extern system_directx as SYSTEM_DRIVER
+	#else
+		extern import system_directx as SYSTEM_DRIVER
+	#endif
+
 	#define TIMER_WIN32_HIGH_PERF AL_ID(asc("W"), asc("3"), asc("2"), asc("H"))
 	#define TIMER_WIN32_LOW_PERF AL_ID(asc("W"), asc("3"), asc("2"), asc("L"))
 	#define KEYBOARD_DIRECTX AL_ID(asc("D"), asc("X"), asc(" "), asc(" "))
@@ -3377,25 +3377,23 @@ declare function timer_is_using_retrace() as long
 	#define GFX_DIRECTX_WIN_ AL_ID(asc("D"), asc("X"), asc("W"), asc("N"))
 	#define GFX_DIRECTX_OVL_ AL_ID(asc("D"), asc("X"), asc("O"), asc("V"))
 	#define GFX_GDI_ AL_ID(asc("G"), asc("D"), asc("I"), asc("B"))
-#endif
 
-#if defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)
-	extern gfx_directx_accel as GFX_DRIVER
-	extern gfx_directx_safe as GFX_DRIVER
-	extern gfx_directx_soft as GFX_DRIVER
-	extern gfx_directx_win as GFX_DRIVER
-	extern gfx_directx_ovl as GFX_DRIVER
-	extern gfx_gdi as GFX_DRIVER
-#elseif defined(__FB_WIN32__) and (not defined(ALLEGRO_STATICLINK))
-	extern import gfx_directx_accel as GFX_DRIVER
-	extern import gfx_directx_safe as GFX_DRIVER
-	extern import gfx_directx_soft as GFX_DRIVER
-	extern import gfx_directx_win as GFX_DRIVER
-	extern import gfx_directx_ovl as GFX_DRIVER
-	extern import gfx_gdi as GFX_DRIVER
-#endif
+	#ifdef ALLEGRO_STATICLINK
+		extern gfx_directx_accel as GFX_DRIVER
+		extern gfx_directx_safe as GFX_DRIVER
+		extern gfx_directx_soft as GFX_DRIVER
+		extern gfx_directx_win as GFX_DRIVER
+		extern gfx_directx_ovl as GFX_DRIVER
+		extern gfx_gdi as GFX_DRIVER
+	#else
+		extern import gfx_directx_accel as GFX_DRIVER
+		extern import gfx_directx_safe as GFX_DRIVER
+		extern import gfx_directx_soft as GFX_DRIVER
+		extern import gfx_directx_win as GFX_DRIVER
+		extern import gfx_directx_ovl as GFX_DRIVER
+		extern import gfx_gdi as GFX_DRIVER
+	#endif
 
-#ifdef __FB_WIN32__
 	#define GFX_DRIVER_DIRECTX ( GFX_DIRECTX_ACCEL, @gfx_directx_accel, TRUE ), ( GFX_DIRECTX_SOFT, @gfx_directx_soft, TRUE ), ( GFX_DIRECTX_SAFE, @gfx_directx_safe, TRUE ), ( GFX_DIRECTX_WIN, @gfx_directx_win, TRUE ), ( GFX_DIRECTX_OVL, @gfx_directx_ovl, TRUE ), ( GFX_GDI, @gfx_gdi, FALSE ),
 	#define DIGI_DIRECTX(n) AL_ID(asc("D"), asc("X"), asc("A") + (n), asc(" "))
 	#define DIGI_DIRECTAMX(n) AL_ID(asc("A"), asc("X"), asc("A") + (n), asc(" "))
@@ -3405,17 +3403,15 @@ declare function timer_is_using_retrace() as long
 	#define MIDI_WIN32_IN(n) AL_ID(asc("W"), asc("3"), asc("2"), asc("A") + (n))
 	#define JOY_TYPE_DIRECTX AL_ID(asc("D"), asc("X"), asc(" "), asc(" "))
 	#define JOY_TYPE_WIN32 AL_ID(asc("W"), asc("3"), asc("2"), asc(" "))
-#endif
 
-#if defined(__FB_WIN32__) and defined(ALLEGRO_STATICLINK)
-	extern joystick_directx as JOYSTICK_DRIVER
-	extern joystick_win32 as JOYSTICK_DRIVER
-#elseif defined(__FB_WIN32__) and (not defined(ALLEGRO_STATICLINK))
-	extern import joystick_directx as JOYSTICK_DRIVER
-	extern import joystick_win32 as JOYSTICK_DRIVER
-#endif
+	#ifdef ALLEGRO_STATICLINK
+		extern joystick_directx as JOYSTICK_DRIVER
+		extern joystick_win32 as JOYSTICK_DRIVER
+	#else
+		extern import joystick_directx as JOYSTICK_DRIVER
+		extern import joystick_win32 as JOYSTICK_DRIVER
+	#endif
 
-#ifdef __FB_WIN32__
 	#define JOYSTICK_DRIVER_DIRECTX ( JOY_TYPE_DIRECTX, @joystick_directx, TRUE ),
 	#define JOYSTICK_DRIVER_WIN32 ( JOY_TYPE_WIN32, @joystick_win32, TRUE ),
 #elseif defined(__FB_DOS__)
