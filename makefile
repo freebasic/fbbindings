@@ -656,17 +656,17 @@ CRT_WINAPI_FLAGS += -incdir extracted/$(MINGWW64_TITLE)/mingw-w64-headers/crt
 
 crt: tools winapi-extract
 	# DJGPP for DOS
-	./get.sh $(DJGPP) $(DJGPP).zip ftp://ftp.fu-berlin.de/pc/languages/djgpp/beta/v2/$(DJGPP).zip createdir
+	./get.sh $(DJGPP) $(DJGPP).zip ftp://ftp.fu-berlin.de/pc/languages/djgpp/beta/v2/$(DJGPP).zip createdir "include/* copying.dj"
 
 	# glibc for Linux
 	./get.sh $(GLIBC) $(GLIBC).tar.xz http://ftp.gnu.org/gnu/glibc/$(GLIBC).tar.xz
 
 	# *BSD
-	./get.sh $(OPENBSD)-sys $(OPENBSD)-sys.tar.gz http://ftp.openbsd.org/pub/OpenBSD/$(OPENBSD_VERSION)/sys.tar.gz createdir
-	./get.sh $(OPENBSD)-src $(OPENBSD)-src.tar.gz http://ftp.openbsd.org/pub/OpenBSD/$(OPENBSD_VERSION)/src.tar.gz createdir
-	./get.sh $(FREEBSD) $(FREEBSD).tar.xz ftp://ftp.freebsd.org/pub/FreeBSD/releases/i386/$(FREEBSD_VERSION)/src.txz createdir
-	./get.sh $(NETBSD)-src $(NETBSD)-src.tar.gz ftp://ftp.netbsd.org/pub/NetBSD/NetBSD-$(NETBSD_VERSION)/source/sets/src.tgz createdir
-	./get.sh $(NETBSD)-sys $(NETBSD)-sys.tar.gz ftp://ftp.netbsd.org/pub/NetBSD/NetBSD-$(NETBSD_VERSION)/source/sets/syssrc.tgz createdir
+	./get.sh $(OPENBSD)-sys $(OPENBSD)-sys.tar.gz http://ftp.openbsd.org/pub/OpenBSD/$(OPENBSD_VERSION)/sys.tar.gz createdir ./sys/sys
+	./get.sh $(OPENBSD)-src $(OPENBSD)-src.tar.gz http://ftp.openbsd.org/pub/OpenBSD/$(OPENBSD_VERSION)/src.tar.gz createdir ./include
+	./get.sh $(FREEBSD) $(FREEBSD).tar.xz ftp://ftp.freebsd.org/pub/FreeBSD/releases/i386/$(FREEBSD_VERSION)/src.txz createdir "usr/src/include usr/src/sys/sys"
+	./get.sh $(NETBSD)-src $(NETBSD)-src.tar.gz ftp://ftp.netbsd.org/pub/NetBSD/NetBSD-$(NETBSD_VERSION)/source/sets/src.tgz createdir usr/src/include
+	./get.sh $(NETBSD)-sys $(NETBSD)-sys.tar.gz ftp://ftp.netbsd.org/pub/NetBSD/NetBSD-$(NETBSD_VERSION)/source/sets/syssrc.tgz createdir usr/src/sys/sys
 
 	cd extracted/$(GLIBC) && \
 		if [ -f bits/wordsize.h ]; then \
@@ -1460,7 +1460,7 @@ opengl-winapi: tools winapi-extract
 	sed -n 9,28p extracted/$(MINGWW64_TITLE)/mingw-w64-headers/include/GL/glext.h | cut -c4- > mingw-w64-glext.tmp
 
 	mkdir -p inc/GL/windows
-	$(FBFROG) -target windowsonly winapi.fbfrog opengl.fbfrog \
+	$(FBFROG) winapi.fbfrog opengl.fbfrog -target windowsonly \
 		-incdir extracted/$(MINGWW64_TITLE)/mingw-w64-headers/crt \
 		-incdir extracted/$(MINGWW64_TITLE)/mingw-w64-headers/include \
 		-include GL/gl.h \
@@ -1919,12 +1919,12 @@ tre: tools
 #   (fbfrog -clong32)
 #
 
-WINAPI_FLAGS := -target windowsonly winapi.fbfrog
+WINAPI_FLAGS := winapi.fbfrog -target windowsonly
 WINAPI_FLAGS += -incdir extracted/$(MINGWW64_TITLE)/mingw-w64-headers/crt
 WINAPI_FLAGS += -incdir extracted/$(MINGWW64_TITLE)/mingw-w64-headers/include
 WINAPI_FLAGS += -incdir extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include
 winapi-extract:
-	./get.sh $(MINGWW64_TITLE) $(MINGWW64_TITLE).tar.bz2 "http://sourceforge.net/projects/mingw-w64/files/mingw-w64/mingw-w64-release/$(MINGWW64_TITLE).tar.bz2/download"
+	./get.sh $(MINGWW64_TITLE) $(MINGWW64_TITLE).tar.bz2 "http://sourceforge.net/projects/mingw-w64/files/mingw-w64/mingw-w64-release/$(MINGWW64_TITLE).tar.bz2/download" "" "$(MINGWW64_TITLE)/mingw-w64-headers $(MINGWW64_TITLE)/DISCLAIMER $(MINGWW64_TITLE)/DISCLAIMER.PD"
 
 	cd extracted/$(MINGWW64_TITLE)/mingw-w64-headers/crt && \
 		sed -e 's/@MINGW_HAS_SECURE_API@/#define MINGW_HAS_SECURE_API 1/g' < _mingw.h.in > _mingw.h && \

@@ -1,15 +1,15 @@
 bfd: tools
 
-	./get.sh $(BINUTILS_216) $(BINUTILS_216).tar.bz2 http://ftp.gnu.org/gnu/binutils/$(BINUTILS_216).tar.bz2
-	./get.sh $(BINUTILS_217) $(BINUTILS_217).tar.bz2 http://ftp.gnu.org/gnu/binutils/$(BINUTILS_217).tar.bz2
-	./get.sh $(BINUTILS_218) $(BINUTILS_218).tar.bz2 http://ftp.gnu.org/gnu/binutils/$(BINUTILS_218).tar.bz2
-	./get.sh $(BINUTILS_219) $(BINUTILS_219).tar.bz2 http://ftp.gnu.org/gnu/binutils/$(BINUTILS_219).tar.bz2
-	./get.sh $(BINUTILS_220) $(BINUTILS_220).tar.bz2 http://ftp.gnu.org/gnu/binutils/$(BINUTILS_220).tar.bz2
-	./get.sh $(BINUTILS_221) $(BINUTILS_221).tar.bz2 http://ftp.gnu.org/gnu/binutils/$(BINUTILS_221).tar.bz2
-	./get.sh $(BINUTILS_222) $(BINUTILS_222).tar.bz2 http://ftp.gnu.org/gnu/binutils/$(BINUTILS_222).tar.bz2
-	./get.sh $(BINUTILS_223) $(BINUTILS_223).tar.bz2 http://ftp.gnu.org/gnu/binutils/$(BINUTILS_223).tar.bz2
-	./get.sh $(BINUTILS_224) $(BINUTILS_224).tar.bz2 http://ftp.gnu.org/gnu/binutils/$(BINUTILS_224).tar.bz2
-	./get.sh $(BINUTILS_225) $(BINUTILS_225).tar.bz2 http://ftp.gnu.org/gnu/binutils/$(BINUTILS_225).tar.bz2
+	./get.sh $(BINUTILS_216) $(BINUTILS_216).tar.bz2 http://ftp.gnu.org/gnu/binutils/$(BINUTILS_216).tar.bz2 "" "$(BINUTILS_216)/bfd $(BINUTILS_216)/include"
+	./get.sh $(BINUTILS_217) $(BINUTILS_217).tar.bz2 http://ftp.gnu.org/gnu/binutils/$(BINUTILS_217).tar.bz2 "" "$(BINUTILS_217)/bfd $(BINUTILS_217)/include"
+	./get.sh $(BINUTILS_218) $(BINUTILS_218).tar.bz2 http://ftp.gnu.org/gnu/binutils/$(BINUTILS_218).tar.bz2 "" "$(BINUTILS_218)/bfd $(BINUTILS_218)/include"
+	./get.sh $(BINUTILS_219) $(BINUTILS_219).tar.bz2 http://ftp.gnu.org/gnu/binutils/$(BINUTILS_219).tar.bz2 "" "$(BINUTILS_219)/bfd $(BINUTILS_219)/include"
+	./get.sh $(BINUTILS_220) $(BINUTILS_220).tar.bz2 http://ftp.gnu.org/gnu/binutils/$(BINUTILS_220).tar.bz2 "" "$(BINUTILS_220)/bfd $(BINUTILS_220)/include"
+	./get.sh $(BINUTILS_221) $(BINUTILS_221).tar.bz2 http://ftp.gnu.org/gnu/binutils/$(BINUTILS_221).tar.bz2 "" "$(BINUTILS_221)/bfd $(BINUTILS_221)/include"
+	./get.sh $(BINUTILS_222) $(BINUTILS_222).tar.bz2 http://ftp.gnu.org/gnu/binutils/$(BINUTILS_222).tar.bz2 "" "$(BINUTILS_222)/bfd $(BINUTILS_222)/include"
+	./get.sh $(BINUTILS_223) $(BINUTILS_223).tar.bz2 http://ftp.gnu.org/gnu/binutils/$(BINUTILS_223).tar.bz2 "" "$(BINUTILS_223)/bfd $(BINUTILS_223)/include"
+	./get.sh $(BINUTILS_224) $(BINUTILS_224).tar.bz2 http://ftp.gnu.org/gnu/binutils/$(BINUTILS_224).tar.bz2 "" "$(BINUTILS_224)/bfd $(BINUTILS_224)/include"
+	./get.sh $(BINUTILS_225) $(BINUTILS_225).tar.bz2 http://ftp.gnu.org/gnu/binutils/$(BINUTILS_225).tar.bz2 "" "$(BINUTILS_225)/bfd $(BINUTILS_225)/include"
 
 	sed $(BINUTILS_SED_32) < extracted/$(BINUTILS_216)/bfd/bfd-in2.h > extracted/$(BINUTILS_216)/bfd/bfd-in3-32.h
 	sed $(BINUTILS_SED_32) < extracted/$(BINUTILS_217)/bfd/bfd-in2.h > extracted/$(BINUTILS_217)/bfd/bfd-in3-32.h
