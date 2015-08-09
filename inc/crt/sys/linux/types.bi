@@ -191,18 +191,15 @@ type suseconds_t as __suseconds_t
 type ulong as culong
 type ushort as ushort
 type uint as ulong
-
-'' TODO: typedef int int8_t __attribute__ ((__mode__ (__QI__)));
-'' TODO: typedef int int16_t __attribute__ ((__mode__ (__HI__)));
-'' TODO: typedef int int32_t __attribute__ ((__mode__ (__SI__)));
-'' TODO: typedef int int64_t __attribute__ ((__mode__ (__DI__)));
-'' TODO: typedef unsigned int u_int8_t __attribute__ ((__mode__ (__QI__)));
-'' TODO: typedef unsigned int u_int16_t __attribute__ ((__mode__ (__HI__)));
-'' TODO: typedef unsigned int u_int32_t __attribute__ ((__mode__ (__SI__)));
-'' TODO: typedef unsigned int u_int64_t __attribute__ ((__mode__ (__DI__)));
-'' TODO: typedef int register_t __attribute__ ((__mode__ (__word__)));
-const __BIT_TYPES_DEFINED__ = 1
-
+type int8_t as byte
+type int16_t as short
+type int32_t as long
+type int64_t as longint
+type int8_t as ubyte
+type int16_t as ushort
+type int32_t as ulong
+type int64_t as ulongint
+type register_t as uinteger
 type blksize_t as __blksize_t
 type blkcnt_t as __blkcnt_t
 type fsblkcnt_t as __fsblkcnt_t

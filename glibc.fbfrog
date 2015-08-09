@@ -1,3 +1,5 @@
+-replacements glibc.replacements
+
 # config.h
 -define HAVE_ASM_WEAK_DIRECTIVE 1
 -define HAVE_ASM_WEAKEXT_DIRECTIVE 1
@@ -57,3 +59,4 @@
 -removedefine __*_TYPE
 -removedefine __intN_t
 -removedefine __u_intN_t
+-removedefine __*_DEFINED__

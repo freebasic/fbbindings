@@ -1,7 +1,0 @@
-convert c: #define __PTHREAD_SPINS 0, 0
-to fb:     #define __PTHREAD_SPINS 0, 0
-
-# Looks like the {...} initializer here refers to the
-# pthread_rwlock_t___data.__pad1 field (64bit only), which is an array.
-convert c: #define __PTHREAD_RWLOCK_ELISION_EXTRA 0, { 0, 0, 0, 0, 0, 0, 0 }
-to fb:     #define __PTHREAD_RWLOCK_ELISION_EXTRA 0, { 0, 0, 0, 0, 0, 0, 0 }
