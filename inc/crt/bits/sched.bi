@@ -42,7 +42,6 @@ type __sched_param
 	__sched_priority as long
 end type
 
-#define __cpu_set_t_defined
 const __CPU_SETSIZE = 1024
 #define __NCPUBITS (8 * sizeof(__cpu_mask))
 type __cpu_mask as culong

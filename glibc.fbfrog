@@ -53,7 +53,7 @@
 -removedefine __CPU_ZERO_S
 -removedefine CPU_ZERO_S
 
--removedefine __need_schedparam
--removedefine __need_size_t
--removedefine __need_time_t
--removedefine __need_timespec
+-removedefine __need_*
+-removedefine __*_TYPE
+-removedefine __intN_t
+-removedefine __u_intN_t

@@ -115,11 +115,7 @@ end union
 		__espins as short
 		__elision as short
 	end type
-#elseif defined(__FB_64BIT__) and defined(__FB_ARM__)
-	#define __have_pthread_attr_t1
-#endif
-
-#ifdef __FB_64BIT__
+#elseif defined(__FB_64BIT__)
 	type __pthread_internal_list
 		__prev as __pthread_internal_list ptr
 		__next as __pthread_internal_list ptr
