@@ -1,4 +1,4 @@
-FBFROG_VERSION := b2f20139fc5fc241b018f5095986e1dc827691f0
+FBFROG_VERSION := 24c5aedeb288915724d488117366988caf814767
 
 ALL := allegro allegro4 allegro5 aspell atk
 ALL += bass bassmod bfd bzip2
@@ -508,7 +508,7 @@ cairo: tools cairo-extract
 	sed -n 1,35p extracted/$(CAIRO)/src/cairo.h | cut -c4- > cairo.tmp
 	mkdir -p inc/cairo
 
-	$(FBFROG) cairo.fbfrog \
+	$(FBFROG) -target nodos cairo.fbfrog \
 		-incdir extracted/$(CAIRO)/src \
 		-include cairo.h       \
 		-include cairo-gl.h    \
@@ -525,7 +525,7 @@ cairo: tools cairo-extract
 		-inclib cairo inc/cairo/cairo.bi \
 		-title $(CAIRO) cairo.tmp gtk+-translators.txt
 
-	$(FBFROG) cairo.fbfrog -target windowsonly \
+	$(FBFROG) -target windows cairo.fbfrog \
 		-incdir extracted/$(CAIRO)/src \
 		-include cairo-win32.h \
 		-emit '*/cairo-win32.h' inc/cairo/cairo-win32.bi \
@@ -625,9 +625,9 @@ FREEBSD := FreeBSD-$(FREEBSD_VERSION)
 NETBSD := NetBSD-$(NETBSD_VERSION)
 MINGWW64_TITLE := mingw-w64-v4.0.1
 
-CRT_DJGPP_FLAGS := djgpp.fbfrog -target dosonly -incdir extracted/$(DJGPP)/include
+CRT_DJGPP_FLAGS := -target dos djgpp.fbfrog -incdir extracted/$(DJGPP)/include
 
-CRT_GLIBC_FLAGS := glibc.fbfrog -target linuxonly
+CRT_GLIBC_FLAGS := -target linux glibc.fbfrog
 CRT_GLIBC_FLAGS += -selecttarget
 CRT_GLIBC_FLAGS += -case x86
 CRT_GLIBC_FLAGS +=     -incdir extracted/$(GLIBC)/sysdeps/x86
@@ -651,7 +651,7 @@ CRT_GLIBC_FLAGS += -incdir extracted/$(GLIBC)/include
 CRT_GLIBC_FLAGS += -incdir extracted/$(GLIBC)
 CRT_GLIBC_FLAGS += -include libc-symbols.h
 
-CRT_WINAPI_FLAGS := winapi.fbfrog -target windowsonly
+CRT_WINAPI_FLAGS := -target windows winapi.fbfrog
 CRT_WINAPI_FLAGS += -incdir extracted/$(MINGWW64_TITLE)/mingw-w64-headers/crt
 
 crt: tools winapi-extract
@@ -1460,7 +1460,7 @@ opengl-winapi: tools winapi-extract
 	sed -n 9,28p extracted/$(MINGWW64_TITLE)/mingw-w64-headers/include/GL/glext.h | cut -c4- > mingw-w64-glext.tmp
 
 	mkdir -p inc/GL/windows
-	$(FBFROG) winapi.fbfrog opengl.fbfrog -target windowsonly \
+	$(FBFROG) -target windows winapi.fbfrog opengl.fbfrog \
 		-incdir extracted/$(MINGWW64_TITLE)/mingw-w64-headers/crt \
 		-incdir extracted/$(MINGWW64_TITLE)/mingw-w64-headers/include \
 		-include GL/gl.h \
@@ -1919,7 +1919,7 @@ tre: tools
 #   (fbfrog -clong32)
 #
 
-WINAPI_FLAGS := winapi.fbfrog -target windowsonly
+WINAPI_FLAGS := -target windows winapi.fbfrog
 WINAPI_FLAGS += -incdir extracted/$(MINGWW64_TITLE)/mingw-w64-headers/crt
 WINAPI_FLAGS += -incdir extracted/$(MINGWW64_TITLE)/mingw-w64-headers/include
 WINAPI_FLAGS += -incdir extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include
