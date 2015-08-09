@@ -739,7 +739,33 @@ crt-openbsd: tools
 	rm *.tmp
 
 crt-freebsd: tools
-	./get.sh $(FREEBSD) $(FREEBSD).tar.xz ftp://ftp.freebsd.org/pub/FreeBSD/releases/i386/$(FREEBSD_VERSION)/src.txz createdir "usr/src/include usr/src/sys/sys"
+	./get.sh $(FREEBSD) $(FREEBSD).tar.xz ftp://ftp.freebsd.org/pub/FreeBSD/releases/i386/$(FREEBSD_VERSION)/src.txz createdir "usr/src/include usr/src/sys/sys usr/src/sys/i386 usr/src/sys/amd64 usr/src/sys/arm usr/src/sys/x86"
+
+	cd extracted/$(FREEBSD)/usr/src/sys && \
+		mkdir -p  i386/include/machine && cp  i386/include/*.h  i386/include/machine && \
+		mkdir -p amd64/include/machine && cp amd64/include/*.h amd64/include/machine && \
+		mkdir -p   arm/include/machine && cp   arm/include/*.h   arm/include/machine && \
+		mkdir -p   x86/include/x86     && cp   x86/include/*.h   x86/include/x86
+
+	$(GETCOMMENT) extracted/$(FREEBSD)/usr/src/sys/sys/types.h > freebsd-sys-types.tmp
+
+	mkdir -p inc/crt/sys/freebsd
+	$(FBFROG) -target freebsd crt.fbfrog -incdir extracted/$(FREEBSD)/usr/src/sys \
+		-selecttarget \
+		-case x86 \
+			-incdir extracted/$(FREEBSD)/usr/src/sys/i386/include \
+			-incdir extracted/$(FREEBSD)/usr/src/sys/x86/include \
+		-case x86_64 \
+			-incdir extracted/$(FREEBSD)/usr/src/sys/amd64/include \
+			-incdir extracted/$(FREEBSD)/usr/src/sys/x86/include \
+		-caseelse \
+			-incdir extracted/$(FREEBSD)/usr/src/sys/arm/include \
+		-endselect \
+		-include sys/types.h \
+		-emit '*/types.h' inc/crt/sys/freebsd/types.bi \
+		-emit '*/_types.h' inc/crt/sys/freebsd/types.bi \
+		-title $(FREEBSD) freebsd-sys-types.tmp fbteam.txt inc/crt/sys/freebsd/types.bi
+	rm *.tmp
 
 crt-netbsd: tools
 	./get.sh $(NETBSD)-src $(NETBSD)-src.tar.gz ftp://ftp.netbsd.org/pub/NetBSD/NetBSD-$(NETBSD_VERSION)/source/sets/src.tgz createdir usr/src/include
