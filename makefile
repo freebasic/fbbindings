@@ -728,16 +728,13 @@ crt-openbsd: tools
 	mkdir -p inc/crt/sys/openbsd
 	$(FBFROG) -target openbsd crt.fbfrog -incdir extracted/$(OPENBSD)-sys/sys \
 		-selecttarget \
-		-case x86 \
-			-incdir extracted/$(OPENBSD)-sys/sys/arch/i386/include \
-		-case x86_64 \
-			-incdir extracted/$(OPENBSD)-sys/sys/arch/amd64/include \
-		-caseelse \
-			-incdir extracted/$(OPENBSD)-sys/sys/arch/arm/include \
+		-case x86    -incdir extracted/$(OPENBSD)-sys/sys/arch/i386/include \
+		-case x86_64 -incdir extracted/$(OPENBSD)-sys/sys/arch/amd64/include \
+		-caseelse    -incdir extracted/$(OPENBSD)-sys/sys/arch/arm/include \
 		-endselect \
 		-include sys/types.h \
-		-emit '*/sys/types.h' inc/crt/sys/openbsd/types.bi \
-		-emit '*/machine/_types.h' inc/crt/sys/openbsd/types.bi \
+		-emit '*/types.h' inc/crt/sys/openbsd/types.bi \
+		-emit '*/_types.h' inc/crt/sys/openbsd/types.bi \
 		-title $(OPENBSD) openbsd-sys-types.tmp fbteam.txt inc/crt/sys/openbsd/types.bi
 	rm *.tmp
 

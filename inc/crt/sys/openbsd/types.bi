@@ -138,6 +138,41 @@ type __wint_t as long
 type __rune_t as long
 type __wctrans_t as any ptr
 type __wctype_t as any ptr
+type __blkcnt_t as __int64_t
+type __blksize_t as __int32_t
+type __clock_t as __int64_t
+type __clockid_t as __int32_t
+type __cpuid_t as culong
+type __dev_t as __int32_t
+type __fixpt_t as __uint32_t
+type __fsblkcnt_t as __uint64_t
+type __fsfilcnt_t as __uint64_t
+type __gid_t as __uint32_t
+type __id_t as __uint32_t
+type __in_addr_t as __uint32_t
+type __in_port_t as __uint16_t
+type __ino_t as __uint64_t
+type __key_t as clong
+type __mode_t as __uint32_t
+type __nlink_t as __uint32_t
+type __off_t as __int64_t
+type __pid_t as __int32_t
+type __rlim_t as __uint64_t
+type __sa_family_t as __uint8_t
+type __segsz_t as __int32_t
+type __socklen_t as __uint32_t
+type __suseconds_t as clong
+type __swblk_t as __int32_t
+type __time_t as __int64_t
+type __timer_t as __int32_t
+type __uid_t as __uint32_t
+type __useconds_t as __uint32_t
+
+union __mbstate_t
+	__mbstate8 as zstring * 128
+	__mbstateL as __int64_t
+end union
+
 type u_char as ubyte
 type u_short as ushort
 type u_int as ulong
