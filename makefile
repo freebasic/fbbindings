@@ -799,6 +799,7 @@ crt-freebsd: tools
 		-emit '*/sys/time.h'      inc/crt/sys/freebsd/time.bi \
 		-emit '*/sys/timespec.h'  inc/crt/freebsd/time.bi \
 		-emit '*/sys/_timespec.h' inc/crt/freebsd/time.bi \
+		-emit '*/sys/_timeval.h'  inc/crt/freebsd/time.bi \
 		-emit '*/time.h'          inc/crt/freebsd/time.bi \
 		-title $(FREEBSD) freebsd-sys-types.tmp fbteam.txt inc/crt/sys/freebsd/types.bi \
 		-title $(FREEBSD) freebsd-sys-time.tmp  fbteam.txt inc/crt/sys/freebsd/time.bi \

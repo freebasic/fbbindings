@@ -46,6 +46,11 @@
 
 extern "C"
 
+type timeval
+	tv_sec as time_t
+	tv_usec as suseconds_t
+end type
+
 type timespec
 	tv_sec as time_t
 	tv_nsec as clong
