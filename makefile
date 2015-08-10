@@ -660,13 +660,28 @@ crt-dos: tools
 	# DJGPP for DOS
 	./get.sh $(DJGPP) $(DJGPP).zip ftp://ftp.fu-berlin.de/pc/languages/djgpp/beta/v2/$(DJGPP).zip createdir "include/* copying.dj"
 
-	sed -n 1,7p extracted/$(DJGPP)/include/sys/types.h >  djgpp-sys-types.tmp
-	sed -n 14,32p extracted/$(DJGPP)/copying.dj        >> djgpp-sys-types.tmp
+	sed -n 14,32p extracted/$(DJGPP)/copying.dj > djgpp-copying-dj.tmp
 
-	mkdir -p inc/crt/sys/dos
-	$(FBFROG) crt.fbfrog $(CRT_DJGPP_FLAGS) -include sys/types.h \
+	sed -n 1,7p extracted/$(DJGPP)/include/sys/types.h >  djgpp-sys-types.tmp
+	cat djgpp-copying-dj.tmp                           >> djgpp-sys-types.tmp
+
+	sed -n 1,5p extracted/$(DJGPP)/include/time.h >  djgpp-time.tmp
+	cat djgpp-copying-dj.tmp                      >> djgpp-time.tmp
+
+	sed -n 1,3p extracted/$(DJGPP)/include/sys/time.h >  djgpp-sys-time.tmp
+	cat djgpp-copying-dj.tmp                          >> djgpp-sys-time.tmp
+
+	mkdir -p inc/crt/dos inc/crt/sys/dos
+	$(FBFROG) crt.fbfrog $(CRT_DJGPP_FLAGS) \
+		-include sys/types.h \
+		-include time.h \
+		-include sys/time.h \
 		-emit '*/sys/types.h' inc/crt/sys/dos/types.bi \
-		-title $(DJGPP) djgpp-sys-types.tmp fbteam.txt inc/crt/sys/dos/types.bi
+		-emit '*/sys/time.h'  inc/crt/sys/dos/time.bi \
+		-emit '*/time.h'      inc/crt/dos/time.bi \
+		-title $(DJGPP) djgpp-sys-types.tmp fbteam.txt inc/crt/sys/dos/types.bi \
+		-title $(DJGPP) djgpp-sys-time.tmp  fbteam.txt inc/crt/sys/dos/time.bi \
+		-title $(DJGPP) djgpp-time.tmp      fbteam.txt inc/crt/dos/time.bi
 	rm *.tmp
 
 crt-linux: tools
@@ -676,6 +691,8 @@ crt-linux: tools
 	$(GETCOMMENT) extracted/$(GLIBC)/sysdeps/wordsize-32/bits/wordsize.h > glibc-wordsize.tmp
 	$(GETCOMMENT) extracted/$(GLIBC)/sysdeps/nptl/pthread.h              > glibc-pthread.tmp
 	$(GETCOMMENT) extracted/$(GLIBC)/posix/sched.h                       > glibc-sched.tmp
+	$(GETCOMMENT) extracted/$(GLIBC)/time/time.h                         > glibc-time.tmp
+	$(GETCOMMENT) extracted/$(GLIBC)/time/sys/time.h                     > glibc-sys-time.tmp
 	$(GETCOMMENT) extracted/$(GLIBC)/posix/sys/types.h                   > glibc-sys-types.tmp
 
 	cd extracted/$(GLIBC) && \
@@ -686,10 +703,12 @@ crt-linux: tools
 			echo "#pragma once" >> sysdeps/x86/bits/wordsize.h; \
 		fi
 
-	mkdir -p inc/crt/bits inc/crt/sys/linux
+	mkdir -p inc/crt/bits inc/crt/linux inc/crt/sys/linux
 	$(FBFROG) crt.fbfrog $(CRT_GLIBC_FLAGS) \
 		extracted/$(GLIBC)/sysdeps/nptl/pthread.h \
 		-include sys/types.h \
+		-include time/time.h \
+		-include time/sys/time.h \
 		-emit '*/bits/types.h'        inc/crt/sys/linux/types.bi \
 		-emit '*/bits/typesizes.h'    inc/crt/sys/linux/types.bi \
 		-emit '*/sys/types.h'         inc/crt/sys/linux/types.bi \
@@ -698,11 +717,15 @@ crt-linux: tools
 		-emit '*/bits/sched.h'        inc/crt/bits/sched.bi \
 		-emit '*/pthread.h'           inc/crt/pthread.bi \
 		-emit '*/sched.h'             inc/crt/sched.bi \
+		-emit '*/sys/time.h'          inc/crt/sys/linux/time.bi \
+		-emit '*/time.h'              inc/crt/linux/time.bi \
 		-title $(GLIBC) glibc-pthread.tmp   fbteam.txt inc/crt/bits/pthreadtypes.bi \
 		-title $(GLIBC) glibc-wordsize.tmp  fbteam.txt inc/crt/bits/wordsize.bi \
 		-title $(GLIBC) glibc-sched.tmp     fbteam.txt inc/crt/bits/sched.bi \
 		-title $(GLIBC) glibc-pthread.tmp   fbteam.txt inc/crt/pthread.bi \
 		-title $(GLIBC) glibc-sched.tmp     fbteam.txt inc/crt/sched.bi \
+		-title $(GLIBC) glibc-time.tmp      fbteam.txt inc/crt/linux/time.bi \
+		-title $(GLIBC) glibc-sys-time.tmp  fbteam.txt inc/crt/sys/linux/time.bi \
 		-title $(GLIBC) glibc-sys-types.tmp fbteam.txt inc/crt/sys/linux/types.bi
 	rm *.tmp
 
@@ -716,18 +739,29 @@ crt-openbsd: tools
 		mkdir -p   arm/include/machine && cp   arm/include/*.h   arm/include/machine
 
 	$(GETCOMMENT) -3 extracted/$(OPENBSD)-sys/sys/sys/types.h > openbsd-sys-types.tmp
+	$(GETCOMMENT) -3 extracted/$(OPENBSD)-sys/sys/sys/time.h  > openbsd-sys-time.tmp
+	$(GETCOMMENT) -3 extracted/$(OPENBSD)-src/include/time.h  > openbsd-time.tmp
 
-	mkdir -p inc/crt/sys/openbsd
-	$(FBFROG) -target openbsd crt.fbfrog -incdir extracted/$(OPENBSD)-sys/sys \
+	mkdir -p inc/crt/openbsd inc/crt/sys/openbsd
+	$(FBFROG) -target openbsd crt.fbfrog \
+		-incdir extracted/$(OPENBSD)-sys/sys \
+		-incdir extracted/$(OPENBSD)-src/include \
 		-selecttarget \
 		-case x86    -incdir extracted/$(OPENBSD)-sys/sys/arch/i386/include \
 		-case x86_64 -incdir extracted/$(OPENBSD)-sys/sys/arch/amd64/include \
 		-caseelse    -incdir extracted/$(OPENBSD)-sys/sys/arch/arm/include \
 		-endselect \
 		-include sys/types.h \
-		-emit '*/types.h' inc/crt/sys/openbsd/types.bi \
-		-emit '*/_types.h' inc/crt/sys/openbsd/types.bi \
-		-title $(OPENBSD) openbsd-sys-types.tmp fbteam.txt inc/crt/sys/openbsd/types.bi
+		-include time.h \
+		-include sys/time.h \
+		-emit '*/types.h'     inc/crt/sys/openbsd/types.bi \
+		-emit '*/_types.h'    inc/crt/sys/openbsd/types.bi \
+		-emit '*/sys/time.h'  inc/crt/sys/openbsd/time.bi \
+		-emit '*/sys/_time.h' inc/crt/sys/openbsd/time.bi \
+		-emit '*/time.h'     inc/crt/openbsd/time.bi \
+		-title $(OPENBSD) openbsd-sys-types.tmp fbteam.txt inc/crt/sys/openbsd/types.bi \
+		-title $(OPENBSD) openbsd-sys-time.tmp  fbteam.txt inc/crt/sys/openbsd/time.bi \
+		-title $(OPENBSD) openbsd-time.tmp      fbteam.txt inc/crt/openbsd/time.bi
 	rm *.tmp
 
 crt-freebsd: tools
@@ -740,9 +774,13 @@ crt-freebsd: tools
 		mkdir -p   x86/include/x86     && cp   x86/include/*.h   x86/include/x86
 
 	$(GETCOMMENT) extracted/$(FREEBSD)/usr/src/sys/sys/types.h > freebsd-sys-types.tmp
+	$(GETCOMMENT) extracted/$(FREEBSD)/usr/src/sys/sys/time.h  > freebsd-sys-time.tmp
+	$(GETCOMMENT) extracted/$(FREEBSD)/usr/src/include/time.h  > freebsd-time.tmp
 
-	mkdir -p inc/crt/sys/freebsd
-	$(FBFROG) -target freebsd crt.fbfrog -incdir extracted/$(FREEBSD)/usr/src/sys \
+	mkdir -p inc/crt/freebsd inc/crt/sys/freebsd
+	$(FBFROG) -target freebsd crt.fbfrog \
+		-incdir extracted/$(FREEBSD)/usr/src/sys \
+		-incdir extracted/$(FREEBSD)/usr/src/include \
 		-selecttarget \
 		-case x86 \
 			-incdir extracted/$(FREEBSD)/usr/src/sys/i386/include \
@@ -754,9 +792,17 @@ crt-freebsd: tools
 			-incdir extracted/$(FREEBSD)/usr/src/sys/arm/include \
 		-endselect \
 		-include sys/types.h \
-		-emit '*/types.h' inc/crt/sys/freebsd/types.bi \
-		-emit '*/_types.h' inc/crt/sys/freebsd/types.bi \
-		-title $(FREEBSD) freebsd-sys-types.tmp fbteam.txt inc/crt/sys/freebsd/types.bi
+		-include time.h \
+		-include sys/time.h \
+		-emit '*/types.h'         inc/crt/sys/freebsd/types.bi \
+		-emit '*/_types.h'        inc/crt/sys/freebsd/types.bi \
+		-emit '*/sys/time.h'      inc/crt/sys/freebsd/time.bi \
+		-emit '*/sys/timespec.h'  inc/crt/freebsd/time.bi \
+		-emit '*/sys/_timespec.h' inc/crt/freebsd/time.bi \
+		-emit '*/time.h'          inc/crt/freebsd/time.bi \
+		-title $(FREEBSD) freebsd-sys-types.tmp fbteam.txt inc/crt/sys/freebsd/types.bi \
+		-title $(FREEBSD) freebsd-sys-time.tmp  fbteam.txt inc/crt/sys/freebsd/time.bi \
+		-title $(FREEBSD) freebsd-time.tmp      fbteam.txt inc/crt/freebsd/time.bi
 	rm *.tmp
 
 crt-netbsd: tools
@@ -770,10 +816,13 @@ crt-netbsd: tools
 		mkdir -p   arm/include/arm     && cp   arm/include/*.h   arm/include/arm
 
 	$(GETCOMMENT) -2 extracted/$(NETBSD)-sys/usr/src/sys/sys/types.h > netbsd-sys-types.tmp
+	$(GETCOMMENT) -2 extracted/$(NETBSD)-sys/usr/src/sys/sys/time.h  > netbsd-sys-time.tmp
+	$(GETCOMMENT) -2 extracted/$(NETBSD)-src/usr/src/include/time.h  > netbsd-time.tmp
 
-	mkdir -p inc/crt/sys/netbsd
+	mkdir -p inc/crt/netbsd inc/crt/sys/netbsd
 	$(FBFROG) -target netbsd crt.fbfrog netbsd.fbfrog \
 		-incdir extracted/$(NETBSD)-sys/usr/src/sys \
+		-incdir extracted/$(NETBSD)-src/usr/src/include \
 		-incdir extracted/$(NETBSD)-src/usr/src/lib/libpthread \
 		-selecttarget \
 		-case x86    -incdir extracted/$(NETBSD)-sys/usr/src/sys/arch/i386/include \
@@ -781,20 +830,34 @@ crt-netbsd: tools
 		-caseelse    -incdir extracted/$(NETBSD)-sys/usr/src/sys/arch/arm/include \
 		-endselect \
 		-include sys/types.h \
-		-emit '*/types.h'  inc/crt/sys/netbsd/types.bi \
+		-include time.h \
+		-include sys/time.h \
+		-emit '*/types.h'     inc/crt/sys/netbsd/types.bi \
 		-emit '*/int_types.h' inc/crt/sys/netbsd/types.bi \
-		-title $(NETBSD) netbsd-sys-types.tmp fbteam.txt inc/crt/sys/netbsd/types.bi
+		-emit '*/sys/time.h'  inc/crt/sys/netbsd/time.bi \
+		-emit '*/time.h'      inc/crt/netbsd/time.bi \
+		-title $(NETBSD) netbsd-sys-types.tmp fbteam.txt inc/crt/sys/netbsd/types.bi \
+		-title $(NETBSD) netbsd-sys-time.tmp  fbteam.txt inc/crt/sys/netbsd/time.bi \
+		-title $(NETBSD) netbsd-time.tmp      fbteam.txt inc/crt/netbsd/time.bi
 	rm *.tmp
 
 crt-winapi: tools winapi-extract
 	sed -n 2,9p extracted/$(MINGWW64_TITLE)/DISCLAIMER.PD | cut -c4- > mingw-w64-disclaimer-pd.tmp
 
-	mkdir -p inc/crt/sys/win32
+	mkdir -p inc/crt/win32 inc/crt/sys/win32
 	$(FBFROG) crt.fbfrog $(CRT_WINAPI_FLAGS) \
 		-include sys/types.h \
+		-include time.h \
+		-include sys/time.h \
 		-emit '*/sys/types.h'    inc/crt/sys/win32/types.bi \
 		-emit '*/_mingw_off_t.h' inc/crt/sys/win32/types.bi \
-		-title $(MINGWW64_TITLE) mingw-w64-disclaimer-pd.tmp fbteam.txt inc/crt/sys/win32/types.bi
+		-emit '*/sys/time.h'     inc/crt/sys/win32/time.bi \
+		-emit '*/time.h'         inc/crt/win32/time.bi \
+		-emit '*/_timeval.h'     inc/crt/win32/time.bi \
+		-emit '*/timeb.h'        inc/crt/win32/time.bi \
+		-title $(MINGWW64_TITLE) mingw-w64-disclaimer-pd.tmp fbteam.txt inc/crt/sys/win32/types.bi \
+		-title $(MINGWW64_TITLE) mingw-w64-disclaimer-pd.tmp fbteam.txt inc/crt/sys/win32/time.bi \
+		-title $(MINGWW64_TITLE) mingw-w64-disclaimer-pd.tmp fbteam.txt inc/crt/win32/time.bi
 	rm *.tmp
 
 CUNIT_VERSION := 2.1-3
