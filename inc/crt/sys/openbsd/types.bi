@@ -178,9 +178,7 @@ type u_short as ushort
 type u_int as ulong
 type u_long as culong
 type unchar as ubyte
-type ushort as ushort
 type uint as ulong
-type ulong as culong
 type cpuid_t as __cpuid_t
 type register_t as __register_t
 type int8_t as __int8_t

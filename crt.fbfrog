@@ -1,5 +1,8 @@
 -removeEmptyReservedDefines
 
+-remove ushort
+-remove ulong
+
 #-expand __*
 #-removedefine __*
 #-expandindefine __*

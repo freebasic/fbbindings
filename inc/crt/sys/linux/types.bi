@@ -188,8 +188,6 @@ type caddr_t as __caddr_t
 type key_t as __key_t
 type useconds_t as __useconds_t
 type suseconds_t as __suseconds_t
-type ulong as culong
-type ushort as ushort
 type uint as ulong
 type int8_t as byte
 type int16_t as short
