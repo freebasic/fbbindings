@@ -2,7 +2,7 @@ FBFROG_VERSION := 82df5048bc4ee78b982208dbda2a6aad9d4b8a87
 
 ALL := allegro allegro4 allegro5 aspell atk
 ALL += bass bassmod bfd bzip2
-ALL += caca cairo cd cgui clang crt cunit curl
+ALL += caca cairo cd cgui clang crt crt-dos crt-linux crt-openbsd crt-freebsd crt-netbsd crt-winapi cunit curl
 ALL += fastcgi ffi fontconfig freeglut freetype
 ALL += gdkpixbuf glib glfw glut gtk gtk2 gtk3 gtkglext
 ALL += iconv iup
@@ -653,6 +653,8 @@ CRT_GLIBC_FLAGS += -include libc-symbols.h
 
 CRT_WINAPI_FLAGS := -target windows -clong32
 CRT_WINAPI_FLAGS += -incdir extracted/$(MINGWW64_TITLE)/mingw-w64-headers/crt
+
+crt: crt-dos crt-linux crt-openbsd crt-freebsd crt-netbsd crt-winapi
 
 crt-dos: tools
 	# DJGPP for DOS
