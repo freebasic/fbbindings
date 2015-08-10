@@ -12,3 +12,5 @@
 #-expand __*
 #-removedefine __*
 #-expandindefine __*
+
+-removeinclude sys/cdefs.h

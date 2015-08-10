@@ -41,9 +41,7 @@
 #pragma once
 
 #include once "crt/long.bi"
-#include once "sys/cdefs.bi"
 #include once "sys/_types.bi"
-#include once "sys/_null.bi"
 #include once "xlocale/_time.bi"
 
 extern "C"

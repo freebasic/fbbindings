@@ -47,7 +47,6 @@
 	#include once "crt/longdouble.bi"
 #endif
 
-#include once "sys/cdefs.bi"
 #include once "sys/endian.bi"
 #include once "sys/select.bi"
 

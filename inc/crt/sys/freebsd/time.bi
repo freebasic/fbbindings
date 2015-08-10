@@ -41,7 +41,6 @@
 #include once "crt/sys/types.bi"
 #include once "sys/timespec.bi"
 #include once "crt/time.bi"
-#include once "sys/cdefs.bi"
 #include once "sys/select.bi"
 
 extern "C"

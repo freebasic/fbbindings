@@ -42,8 +42,6 @@
 #pragma once
 
 #include once "crt/long.bi"
-#include once "sys/featuretest.bi"
-#include once "sys/cdefs.bi"
 #include once "machine/ansi.bi"
 #include once "sys/ansi.bi"
 #include once "machine/endian.bi"

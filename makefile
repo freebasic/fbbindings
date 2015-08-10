@@ -778,7 +778,7 @@ crt-freebsd: tools
 	$(GETCOMMENT) extracted/$(FREEBSD)/usr/src/include/time.h  > freebsd-time.tmp
 
 	mkdir -p inc/crt/freebsd inc/crt/sys/freebsd
-	$(FBFROG) -target freebsd crt.fbfrog \
+	$(FBFROG) -target freebsd crt.fbfrog freebsd.fbfrog \
 		-incdir extracted/$(FREEBSD)/usr/src/sys \
 		-incdir extracted/$(FREEBSD)/usr/src/include \
 		-selecttarget \

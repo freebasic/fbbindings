@@ -36,10 +36,8 @@
 #pragma once
 
 #include once "crt/long.bi"
-#include once "sys/featuretest.bi"
 #include once "crt/sys/types.bi"
 #include once "sys/select.bi"
-#include once "sys/cdefs.bi"
 #include once "crt/time.bi"
 
 extern "C"

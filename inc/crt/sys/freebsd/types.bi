@@ -48,7 +48,6 @@
 	#include once "crt/longdouble.bi"
 #endif
 
-#include once "sys/cdefs.bi"
 #include once "machine/endian.bi"
 #include once "sys/_pthreadtypes.bi"
 #include once "sys/_stdint.bi"

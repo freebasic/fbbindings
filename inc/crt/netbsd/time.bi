@@ -41,10 +41,7 @@
 #pragma once
 
 #include once "crt/long.bi"
-#include once "sys/cdefs.bi"
-#include once "sys/featuretest.bi"
 #include once "machine/ansi.bi"
-#include once "sys/null.bi"
 #include once "sys/time.bi"
 
 extern "C"
