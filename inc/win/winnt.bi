@@ -6685,13 +6685,13 @@ declare function RtlCaptureStackBackTrace(byval FramesToSkip as DWORD, byval Fra
 declare sub RtlCaptureContext(byval ContextRecord as PCONTEXT)
 declare function RtlCompareMemory(byval Source1 as const any ptr, byval Source2 as const any ptr, byval Length as SIZE_T_) as SIZE_T_
 
-#if defined(__FB_64BIT__) and (_WIN32_WINNT = &h0602)
-	declare function RtlAddGrowableFunctionTable(byval DynamicTable as PVOID ptr, byval FunctionTable as PRUNTIME_FUNCTION, byval EntryCount as DWORD, byval MaximumEntryCount as DWORD, byval RangeBase as ULONG_PTR, byval RangeEnd as ULONG_PTR) as DWORD
-	declare sub RtlGrowFunctionTable(byval DynamicTable as PVOID, byval NewEntryCount as DWORD)
-	declare sub RtlDeleteGrowableFunctionTable(byval DynamicTable as PVOID)
-#endif
-
 #ifdef __FB_64BIT__
+	#if _WIN32_WINNT = &h0602
+		declare function RtlAddGrowableFunctionTable(byval DynamicTable as PVOID ptr, byval FunctionTable as PRUNTIME_FUNCTION, byval EntryCount as DWORD, byval MaximumEntryCount as DWORD, byval RangeBase as ULONG_PTR, byval RangeEnd as ULONG_PTR) as DWORD
+		declare sub RtlGrowFunctionTable(byval DynamicTable as PVOID, byval NewEntryCount as DWORD)
+		declare sub RtlDeleteGrowableFunctionTable(byval DynamicTable as PVOID)
+	#endif
+
 	declare function RtlAddFunctionTable(byval FunctionTable as PRUNTIME_FUNCTION, byval EntryCount as DWORD, byval BaseAddress as DWORD64) as WINBOOLEAN
 	declare function RtlDeleteFunctionTable(byval FunctionTable as PRUNTIME_FUNCTION) as WINBOOLEAN
 	declare function RtlInstallFunctionTableCallback(byval TableIdentifier as DWORD64, byval BaseAddress as DWORD64, byval Length as DWORD, byval Callback as PGET_RUNTIME_FUNCTION_CALLBACK, byval Context as PVOID, byval OutOfProcessCallbackDll as PCWSTR) as WINBOOLEAN

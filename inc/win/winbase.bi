@@ -1542,13 +1542,13 @@ declare sub WakeByAddressAll(byval Address as PVOID)
 	declare function CreateSemaphoreExW(byval lpSemaphoreAttributes as LPSECURITY_ATTRIBUTES, byval lInitialCount as LONG, byval lMaximumCount as LONG, byval lpName as LPCWSTR, byval dwFlags as DWORD, byval dwDesiredAccess as DWORD) as HANDLE
 #endif
 
-#if defined(UNICODE) and (_WIN32_WINNT = &h0602)
-	#define CreateMutexEx CreateMutexExW
-	#define CreateEventEx CreateEventExW
-	#define CreateSemaphoreEx CreateSemaphoreExW
-#endif
-
 #ifdef UNICODE
+	#if _WIN32_WINNT = &h0602
+		#define CreateMutexEx CreateMutexExW
+		#define CreateEventEx CreateEventExW
+		#define CreateSemaphoreEx CreateSemaphoreExW
+	#endif
+
 	#define OpenMutex OpenMutexW
 	#define OpenSemaphore OpenSemaphoreW
 	#define OpenEvent OpenEventW
@@ -3317,12 +3317,12 @@ declare function CopyFileExW(byval lpExistingFileName as LPCWSTR, byval lpNewFil
 	declare function CopyFileTransactedW(byval lpExistingFileName as LPCWSTR, byval lpNewFileName as LPCWSTR, byval lpProgressRoutine as LPPROGRESS_ROUTINE, byval lpData as LPVOID, byval pbCancel as LPBOOL, byval dwCopyFlags as DWORD, byval hTransaction as HANDLE) as WINBOOL
 #endif
 
-#if defined(UNICODE) and (_WIN32_WINNT = &h0602)
-	#define FindFirstFileTransacted FindFirstFileTransactedW
-	#define CopyFileTransacted CopyFileTransactedW
-#endif
-
 #ifdef UNICODE
+	#if _WIN32_WINNT = &h0602
+		#define FindFirstFileTransacted FindFirstFileTransactedW
+		#define CopyFileTransacted CopyFileTransactedW
+	#endif
+
 	#define CheckNameLegalDOS8Dot3 CheckNameLegalDOS8Dot3W
 	#define CopyFile CopyFileW
 	#define CopyFileEx CopyFileExW

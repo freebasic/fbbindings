@@ -1,5 +1,3 @@
--target nodos
-
 -iftarget windows
 	-declarebool CAIRO_WIN32_STATIC_BUILD
 	-ifdef CAIRO_WIN32_STATIC_BUILD

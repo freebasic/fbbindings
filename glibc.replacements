@@ -5,3 +5,30 @@ to fb:     #define __PTHREAD_SPINS 0, 0
 # pthread_rwlock_t___data.__pad1 field (64bit only), which is an array.
 convert c: #define __PTHREAD_RWLOCK_ELISION_EXTRA 0, { 0, 0, 0, 0, 0, 0, 0 }
 to fb:     #define __PTHREAD_RWLOCK_ELISION_EXTRA 0, { 0, 0, 0, 0, 0, 0, 0 }
+
+convert c: typedef int int8_t __attribute__ ((__mode__ (__QI__)));
+to c:      typedef signed char int8_t;
+
+convert c: typedef int int16_t __attribute__ ((__mode__ (__HI__)));
+to c:      typedef short int16_t;
+
+convert c: typedef int int32_t __attribute__ ((__mode__ (__SI__)));
+to c:      typedef int int32_t;
+
+convert c: typedef int int64_t __attribute__ ((__mode__ (__DI__)));
+to c:      typedef long long int64_t;
+
+convert c: typedef unsigned int u_int8_t __attribute__ ((__mode__ (__QI__)));
+to c:      typedef unsigned char int8_t;
+
+convert c: typedef unsigned int u_int16_t __attribute__ ((__mode__ (__HI__)));
+to c:      typedef unsigned short int16_t;
+
+convert c: typedef unsigned int u_int32_t __attribute__ ((__mode__ (__SI__)));
+to c:      typedef unsigned int int32_t;
+
+convert c: typedef unsigned int u_int64_t __attribute__ ((__mode__ (__DI__)));
+to c:      typedef unsigned long long int64_t;
+
+convert c: typedef int register_t __attribute__ ((__mode__ (__word__)));
+to c:      typedef size_t register_t;

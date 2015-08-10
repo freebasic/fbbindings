@@ -146,10 +146,12 @@ const FFI_CLOSURES = 1
 	#define FFI_TYPE_MS_STRUCT (FFI_TYPE_LAST + 4)
 #endif
 
-#if (not defined(__FB_64BIT__)) and (defined(__FB_DARWIN__) or ((not defined(__FB_ARM__)) and (defined(__FB_LINUX__) or defined(__FB_FREEBSD__) or defined(__FB_OPENBSD__) or defined(__FB_NETBSD__))))
-	const FFI_TRAMPOLINE_SIZE = 10
-#elseif (not defined(__FB_64BIT__)) and (defined(__FB_WIN32__) or defined(__FB_CYGWIN__))
-	const FFI_TRAMPOLINE_SIZE = 52
+#ifndef __FB_64BIT__
+	#if defined(__FB_DARWIN__) or ((not defined(__FB_ARM__)) and (defined(__FB_LINUX__) or defined(__FB_FREEBSD__) or defined(__FB_OPENBSD__) or defined(__FB_NETBSD__)))
+		const FFI_TRAMPOLINE_SIZE = 10
+	#elseif defined(__FB_WIN32__) or defined(__FB_CYGWIN__)
+		const FFI_TRAMPOLINE_SIZE = 52
+	#endif
 #endif
 
 #if (not defined(__FB_64BIT__)) and (defined(__FB_DARWIN__) or defined(__FB_WIN32__) or defined(__FB_CYGWIN__) or ((not defined(__FB_ARM__)) and (defined(__FB_LINUX__) or defined(__FB_FREEBSD__) or defined(__FB_OPENBSD__) or defined(__FB_NETBSD__))))
@@ -168,13 +170,15 @@ const FFI_CLOSURES = 1
 	const FFI_NATIVE_RAW_API = 0
 #endif
 
-#if defined(__FB_64BIT__) and defined(__FB_ARM__) and (defined(__FB_LINUX__) or defined(__FB_FREEBSD__) or defined(__FB_OPENBSD__) or defined(__FB_NETBSD__))
-	const AARCH64_FFI_WITH_V_BIT = 0
-	const AARCH64_N_XREG = 32
-	const AARCH64_N_VREG = 32
-	#define AARCH64_CALL_CONTEXT_SIZE ((AARCH64_N_XREG * 8) + (AARCH64_N_VREG * 16))
-#elseif defined(__FB_64BIT__) and (defined(__FB_WIN32__) or defined(__FB_CYGWIN__))
-	const FFI_NO_RAW_API = 1
+#ifdef __FB_64BIT__
+	#if defined(__FB_ARM__) and (defined(__FB_LINUX__) or defined(__FB_FREEBSD__) or defined(__FB_OPENBSD__) or defined(__FB_NETBSD__))
+		const AARCH64_FFI_WITH_V_BIT = 0
+		const AARCH64_N_XREG = 32
+		const AARCH64_N_VREG = 32
+		#define AARCH64_CALL_CONTEXT_SIZE ((AARCH64_N_XREG * 8) + (AARCH64_N_VREG * 16))
+	#elseif defined(__FB_WIN32__) or defined(__FB_CYGWIN__)
+		const FFI_NO_RAW_API = 1
+	#endif
 #endif
 
 const FFI_64_BIT_MAX = 9223372036854775807

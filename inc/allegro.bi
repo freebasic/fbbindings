@@ -43,7 +43,7 @@
 
 #pragma once
 
-#if defined(__FB_DOS__) or defined(__FB_DARWIN__) or (defined(__FB_WIN32__) and (not defined(ALLEGRO_STATICLINK))) or defined(__FB_CYGWIN__) or defined(__FB_LINUX__) or defined(__FB_FREEBSD__) or defined(__FB_OPENBSD__) or defined(__FB_NETBSD__)
+#if defined(__FB_DOS__) or (defined(__FB_WIN32__) and (not defined(ALLEGRO_STATICLINK))) or defined(__FB_UNIX__)
 	#inclib "alleg"
 #endif
 
@@ -194,7 +194,7 @@ extern "C"
 	const ALLEGRO_HAVE_INTTYPES_H = 1
 #endif
 
-#if defined(__FB_DARWIN__) or defined(__FB_CYGWIN__) or defined(__FB_WIN32__) or defined(__FB_LINUX__) or defined(__FB_FREEBSD__) or defined(__FB_OPENBSD__) or defined(__FB_NETBSD__)
+#if defined(__FB_WIN32__) or defined(__FB_UNIX__)
 	const ALLEGRO_HAVE_STDINT_H = 1
 #endif
 
@@ -217,7 +217,7 @@ extern "C"
 	#define ALLEGRO_USE_CONSTRUCTOR
 #endif
 
-#if defined(__FB_DARWIN__) or defined(__FB_CYGWIN__) or defined(__FB_WIN32__) or defined(__FB_LINUX__) or defined(__FB_FREEBSD__) or defined(__FB_OPENBSD__) or defined(__FB_NETBSD__)
+#if defined(__FB_WIN32__) or defined(__FB_UNIX__)
 	#define ALLEGRO_MULTITHREADED
 #endif
 
@@ -279,7 +279,7 @@ extern "C"
 #endmacro
 #define END_OF_MAIN()
 
-#if defined(__FB_DARWIN__) or defined(__FB_CYGWIN__) or defined(__FB_WIN32__) or defined(__FB_LINUX__) or defined(__FB_FREEBSD__) or defined(__FB_OPENBSD__) or defined(__FB_NETBSD__)
+#if defined(__FB_WIN32__) or defined(__FB_UNIX__)
 	#define LOCK_DATA(d, s)
 	#define LOCK_CODE(c, s)
 	#define UNLOCK_DATA(d, s)
@@ -314,7 +314,7 @@ const FA_NONE = 0
 	#define strupr _alemu_strupr
 #endif
 
-#if defined(__FB_DARWIN__) or defined(__FB_CYGWIN__) or defined(__FB_WIN32__) or defined(__FB_LINUX__) or defined(__FB_FREEBSD__) or defined(__FB_OPENBSD__) or defined(__FB_NETBSD__)
+#if defined(__FB_WIN32__) or defined(__FB_UNIX__)
 	#define _video_ds() _default_ds()
 	#define _farsetsel(seg)
 	#define _farnspokeb(addr, val) scope : (*cptr(ubyte ptr, (addr))) = (val) : end scope
@@ -334,7 +334,7 @@ const FA_NONE = 0
 	end scope
 #endmacro
 
-#if defined(__FB_DARWIN__) or defined(__FB_CYGWIN__) or defined(__FB_WIN32__) or defined(__FB_LINUX__) or defined(__FB_FREEBSD__) or defined(__FB_OPENBSD__) or defined(__FB_NETBSD__)
+#if defined(__FB_WIN32__) or defined(__FB_UNIX__)
 	#define bmp_select(bmp)
 	#define bmp_write8(addr, c) scope : (*cptr(ubyte ptr, (addr))) = (c) : end scope
 	#define bmp_write15(addr, c) scope : (*cptr(ushort ptr, (addr))) = (c) : end scope
@@ -1768,7 +1768,7 @@ declare function getg32(byval c as long) as long
 declare function getb32(byval c as long) as long
 declare function geta32(byval c as long) as long
 
-#if defined(__FB_DARWIN__) or defined(__FB_CYGWIN__) or defined(__FB_WIN32__) or defined(__FB_LINUX__) or defined(__FB_FREEBSD__) or defined(__FB_OPENBSD__) or defined(__FB_NETBSD__)
+#if defined(__FB_WIN32__) or defined(__FB_UNIX__)
 	declare sub _set_color(byval idx as long, byval p as const RGB ptr)
 #endif
 

@@ -1,10 +1,10 @@
-FBFROG_VERSION := f74689e3a4782e5bcadd2fbac7aae58ab4209eb9
+FBFROG_VERSION := 82df5048bc4ee78b982208dbda2a6aad9d4b8a87
 
 ALL := allegro allegro4 allegro5 aspell atk
 ALL += bass bassmod bfd bzip2
-ALL += caca cairo cd cgui clang cunit curl
+ALL += caca cairo cd cgui clang crt crt-dos crt-linux crt-openbsd crt-freebsd crt-netbsd crt-winapi cunit curl
 ALL += fastcgi ffi fontconfig freeglut freetype
-ALL += gdkpixbuf glib glibc glfw glut gtk gtk2 gtk3 gtkglext
+ALL += gdkpixbuf glib glfw glut gtk gtk2 gtk3 gtkglext
 ALL += iconv iup
 ALL += jit
 ALL += llvm lua
@@ -13,6 +13,7 @@ ALL += openal opengl opengl-mesa opengl-winapi
 ALL += pango pdcurses png png12 png14 png15 png16
 ALL += sdl sdl1 sdl2
 ALL += tre
+ALL += winapi
 ALL += x11
 ALL += zip zlib
 
@@ -513,7 +514,7 @@ cairo: tools cairo-extract
 	sed -n 1,35p extracted/$(CAIRO)/src/cairo.h | cut -c4- > cairo.tmp
 	mkdir -p inc/cairo
 
-	$(FBFROG) cairo.fbfrog \
+	$(FBFROG) -target nodos cairo.fbfrog \
 		-incdir extracted/$(CAIRO)/src \
 		-include cairo.h       \
 		-include cairo-gl.h    \
@@ -530,7 +531,7 @@ cairo: tools cairo-extract
 		-inclib cairo inc/cairo/cairo.bi \
 		-title $(CAIRO) cairo.tmp gtk+-translators.txt
 
-	$(FBFROG) cairo.fbfrog -target windows \
+	$(FBFROG) -target windows cairo.fbfrog \
 		-incdir extracted/$(CAIRO)/src \
 		-include cairo-win32.h \
 		-emit '*/cairo-win32.h' inc/cairo/cairo-win32.bi \
@@ -620,6 +621,188 @@ clang: tools
 		-title $(CLANG_TITLE) clang.tmp fbteam.txt
 	rm *.tmp
 
+DJGPP := djdev204
+GLIBC := glibc-2.21
+OPENBSD_VERSION := 5.7
+FREEBSD_VERSION := 10.1-RELEASE
+NETBSD_VERSION := 6.1.5
+OPENBSD := OpenBSD-$(OPENBSD_VERSION)
+FREEBSD := FreeBSD-$(FREEBSD_VERSION)
+NETBSD := NetBSD-$(NETBSD_VERSION)
+MINGWW64_TITLE := mingw-w64-v4.0.1
+
+CRT_DJGPP_FLAGS := -target dos djgpp.fbfrog -incdir extracted/$(DJGPP)/include
+
+CRT_GLIBC_FLAGS := -target linux glibc.fbfrog
+CRT_GLIBC_FLAGS += -selecttarget
+CRT_GLIBC_FLAGS += -case x86
+CRT_GLIBC_FLAGS +=     -incdir extracted/$(GLIBC)/sysdeps/x86
+CRT_GLIBC_FLAGS +=     -incdir extracted/$(GLIBC)/sysdeps/wordsize-32
+CRT_GLIBC_FLAGS += -case x86_64
+CRT_GLIBC_FLAGS +=     -incdir extracted/$(GLIBC)/sysdeps/x86_64
+CRT_GLIBC_FLAGS +=     -incdir extracted/$(GLIBC)/sysdeps/wordsize-64
+CRT_GLIBC_FLAGS +=     -incdir extracted/$(GLIBC)/sysdeps/x86
+CRT_GLIBC_FLAGS += -case arm
+CRT_GLIBC_FLAGS +=     -incdir extracted/$(GLIBC)/sysdeps/arm
+CRT_GLIBC_FLAGS +=     -incdir extracted/$(GLIBC)/sysdeps/arm/nptl
+CRT_GLIBC_FLAGS +=     -incdir extracted/$(GLIBC)/sysdeps/wordsize-32
+CRT_GLIBC_FLAGS += -case aarch64
+CRT_GLIBC_FLAGS +=     -incdir extracted/$(GLIBC)/sysdeps/aarch64
+CRT_GLIBC_FLAGS +=     -incdir extracted/$(GLIBC)/sysdeps/aarch64/nptl
+CRT_GLIBC_FLAGS +=     -incdir extracted/$(GLIBC)/sysdeps/wordsize-64
+CRT_GLIBC_FLAGS += -endselect
+CRT_GLIBC_FLAGS += -incdir extracted/$(GLIBC)/sysdeps/nptl
+CRT_GLIBC_FLAGS += -incdir extracted/$(GLIBC)/sysdeps/generic
+CRT_GLIBC_FLAGS += -incdir extracted/$(GLIBC)/include
+CRT_GLIBC_FLAGS += -incdir extracted/$(GLIBC)
+CRT_GLIBC_FLAGS += -include libc-symbols.h
+
+CRT_WINAPI_FLAGS := -target windows -clong32
+CRT_WINAPI_FLAGS += -incdir extracted/$(MINGWW64_TITLE)/mingw-w64-headers/crt
+
+crt: crt-dos crt-linux crt-openbsd crt-freebsd crt-netbsd crt-winapi
+
+crt-dos: tools
+	# DJGPP for DOS
+	./get.sh $(DJGPP) $(DJGPP).zip ftp://ftp.fu-berlin.de/pc/languages/djgpp/beta/v2/$(DJGPP).zip createdir "include/* copying.dj"
+
+	sed -n 1,7p extracted/$(DJGPP)/include/sys/types.h >  djgpp-sys-types.tmp
+	sed -n 14,32p extracted/$(DJGPP)/copying.dj        >> djgpp-sys-types.tmp
+
+	mkdir -p inc/crt/sys/dos
+	$(FBFROG) crt.fbfrog $(CRT_DJGPP_FLAGS) -include sys/types.h \
+		-emit '*/sys/types.h' inc/crt/sys/dos/types.bi \
+		-title $(DJGPP) djgpp-sys-types.tmp fbteam.txt inc/crt/sys/dos/types.bi
+	rm *.tmp
+
+crt-linux: tools
+	# glibc for Linux
+	./get.sh $(GLIBC) $(GLIBC).tar.xz http://ftp.gnu.org/gnu/glibc/$(GLIBC).tar.xz
+
+	$(GETCOMMENT) extracted/$(GLIBC)/sysdeps/wordsize-32/bits/wordsize.h > glibc-wordsize.tmp
+	$(GETCOMMENT) extracted/$(GLIBC)/sysdeps/nptl/pthread.h              > glibc-pthread.tmp
+	$(GETCOMMENT) extracted/$(GLIBC)/posix/sched.h                       > glibc-sched.tmp
+	$(GETCOMMENT) extracted/$(GLIBC)/posix/sys/types.h                   > glibc-sys-types.tmp
+
+	cd extracted/$(GLIBC) && \
+		if [ -f bits/wordsize.h ]; then \
+			rm -f bits/wordsize.h bits/endian.h bits/setjmp.h bits/pthreadtypes.h; \
+			echo "#pragma once" >> sysdeps/wordsize-32/bits/wordsize.h; \
+			echo "#pragma once" >> sysdeps/wordsize-64/bits/wordsize.h; \
+			echo "#pragma once" >> sysdeps/x86/bits/wordsize.h; \
+		fi
+
+	mkdir -p inc/crt/bits inc/crt/sys/linux
+	$(FBFROG) crt.fbfrog $(CRT_GLIBC_FLAGS) \
+		extracted/$(GLIBC)/sysdeps/nptl/pthread.h \
+		-include sys/types.h \
+		-emit '*/bits/types.h'        inc/crt/sys/linux/types.bi \
+		-emit '*/bits/typesizes.h'    inc/crt/sys/linux/types.bi \
+		-emit '*/sys/types.h'         inc/crt/sys/linux/types.bi \
+		-emit '*/bits/pthreadtypes.h' inc/crt/bits/pthreadtypes.bi \
+		-emit '*/bits/wordsize.h'     inc/crt/bits/wordsize.bi \
+		-emit '*/bits/sched.h'        inc/crt/bits/sched.bi \
+		-emit '*/pthread.h'           inc/crt/pthread.bi \
+		-emit '*/sched.h'             inc/crt/sched.bi \
+		-title $(GLIBC) glibc-pthread.tmp   fbteam.txt inc/crt/bits/pthreadtypes.bi \
+		-title $(GLIBC) glibc-wordsize.tmp  fbteam.txt inc/crt/bits/wordsize.bi \
+		-title $(GLIBC) glibc-sched.tmp     fbteam.txt inc/crt/bits/sched.bi \
+		-title $(GLIBC) glibc-pthread.tmp   fbteam.txt inc/crt/pthread.bi \
+		-title $(GLIBC) glibc-sched.tmp     fbteam.txt inc/crt/sched.bi \
+		-title $(GLIBC) glibc-sys-types.tmp fbteam.txt inc/crt/sys/linux/types.bi
+	rm *.tmp
+
+crt-openbsd: tools
+	./get.sh $(OPENBSD)-sys $(OPENBSD)-sys.tar.gz http://ftp.openbsd.org/pub/OpenBSD/$(OPENBSD_VERSION)/sys.tar.gz createdir "./sys/sys ./sys/arch"
+	./get.sh $(OPENBSD)-src $(OPENBSD)-src.tar.gz http://ftp.openbsd.org/pub/OpenBSD/$(OPENBSD_VERSION)/src.tar.gz createdir ./include
+
+	cd extracted/$(OPENBSD)-sys/sys/arch && \
+		mkdir -p  i386/include/machine && cp  i386/include/*.h  i386/include/machine && \
+		mkdir -p amd64/include/machine && cp amd64/include/*.h amd64/include/machine && \
+		mkdir -p   arm/include/machine && cp   arm/include/*.h   arm/include/machine
+
+	$(GETCOMMENT) -3 extracted/$(OPENBSD)-sys/sys/sys/types.h > openbsd-sys-types.tmp
+
+	mkdir -p inc/crt/sys/openbsd
+	$(FBFROG) -target openbsd crt.fbfrog -incdir extracted/$(OPENBSD)-sys/sys \
+		-selecttarget \
+		-case x86    -incdir extracted/$(OPENBSD)-sys/sys/arch/i386/include \
+		-case x86_64 -incdir extracted/$(OPENBSD)-sys/sys/arch/amd64/include \
+		-caseelse    -incdir extracted/$(OPENBSD)-sys/sys/arch/arm/include \
+		-endselect \
+		-include sys/types.h \
+		-emit '*/types.h' inc/crt/sys/openbsd/types.bi \
+		-emit '*/_types.h' inc/crt/sys/openbsd/types.bi \
+		-title $(OPENBSD) openbsd-sys-types.tmp fbteam.txt inc/crt/sys/openbsd/types.bi
+	rm *.tmp
+
+crt-freebsd: tools
+	./get.sh $(FREEBSD) $(FREEBSD).tar.xz ftp://ftp.freebsd.org/pub/FreeBSD/releases/i386/$(FREEBSD_VERSION)/src.txz createdir "usr/src/include usr/src/sys/sys usr/src/sys/i386 usr/src/sys/amd64 usr/src/sys/arm usr/src/sys/x86"
+
+	cd extracted/$(FREEBSD)/usr/src/sys && \
+		mkdir -p  i386/include/machine && cp  i386/include/*.h  i386/include/machine && \
+		mkdir -p amd64/include/machine && cp amd64/include/*.h amd64/include/machine && \
+		mkdir -p   arm/include/machine && cp   arm/include/*.h   arm/include/machine && \
+		mkdir -p   x86/include/x86     && cp   x86/include/*.h   x86/include/x86
+
+	$(GETCOMMENT) extracted/$(FREEBSD)/usr/src/sys/sys/types.h > freebsd-sys-types.tmp
+
+	mkdir -p inc/crt/sys/freebsd
+	$(FBFROG) -target freebsd crt.fbfrog -incdir extracted/$(FREEBSD)/usr/src/sys \
+		-selecttarget \
+		-case x86 \
+			-incdir extracted/$(FREEBSD)/usr/src/sys/i386/include \
+			-incdir extracted/$(FREEBSD)/usr/src/sys/x86/include \
+		-case x86_64 \
+			-incdir extracted/$(FREEBSD)/usr/src/sys/amd64/include \
+			-incdir extracted/$(FREEBSD)/usr/src/sys/x86/include \
+		-caseelse \
+			-incdir extracted/$(FREEBSD)/usr/src/sys/arm/include \
+		-endselect \
+		-include sys/types.h \
+		-emit '*/types.h' inc/crt/sys/freebsd/types.bi \
+		-emit '*/_types.h' inc/crt/sys/freebsd/types.bi \
+		-title $(FREEBSD) freebsd-sys-types.tmp fbteam.txt inc/crt/sys/freebsd/types.bi
+	rm *.tmp
+
+crt-netbsd: tools
+	./get.sh $(NETBSD)-src $(NETBSD)-src.tar.gz ftp://ftp.netbsd.org/pub/NetBSD/NetBSD-$(NETBSD_VERSION)/source/sets/src.tgz createdir "usr/src/include usr/src/lib/libpthread"
+	./get.sh $(NETBSD)-sys $(NETBSD)-sys.tar.gz ftp://ftp.netbsd.org/pub/NetBSD/NetBSD-$(NETBSD_VERSION)/source/sets/syssrc.tgz createdir "usr/src/sys/arch usr/src/sys/sys"
+
+	cd extracted/$(NETBSD)-sys/usr/src/sys/arch && \
+		mkdir -p  i386/include/machine && cp  i386/include/*.h  i386/include/machine && \
+		mkdir -p amd64/include/machine && cp amd64/include/*.h amd64/include/machine && \
+		mkdir -p   arm/include/machine && cp   arm/include/*.h   arm/include/machine && \
+		mkdir -p   arm/include/arm     && cp   arm/include/*.h   arm/include/arm
+
+	$(GETCOMMENT) -2 extracted/$(NETBSD)-sys/usr/src/sys/sys/types.h > netbsd-sys-types.tmp
+
+	mkdir -p inc/crt/sys/netbsd
+	$(FBFROG) -target netbsd crt.fbfrog netbsd.fbfrog \
+		-incdir extracted/$(NETBSD)-sys/usr/src/sys \
+		-incdir extracted/$(NETBSD)-src/usr/src/lib/libpthread \
+		-selecttarget \
+		-case x86    -incdir extracted/$(NETBSD)-sys/usr/src/sys/arch/i386/include \
+		-case x86_64 -incdir extracted/$(NETBSD)-sys/usr/src/sys/arch/amd64/include \
+		-caseelse    -incdir extracted/$(NETBSD)-sys/usr/src/sys/arch/arm/include \
+		-endselect \
+		-include sys/types.h \
+		-emit '*/types.h'  inc/crt/sys/netbsd/types.bi \
+		-emit '*/int_types.h' inc/crt/sys/netbsd/types.bi \
+		-title $(NETBSD) netbsd-sys-types.tmp fbteam.txt inc/crt/sys/netbsd/types.bi
+	rm *.tmp
+
+crt-winapi: tools winapi-extract
+	sed -n 2,9p extracted/$(MINGWW64_TITLE)/DISCLAIMER.PD | cut -c4- > mingw-w64-disclaimer-pd.tmp
+
+	mkdir -p inc/crt/sys/win32
+	$(FBFROG) crt.fbfrog $(CRT_WINAPI_FLAGS) \
+		-include sys/types.h \
+		-emit '*/sys/types.h'    inc/crt/sys/win32/types.bi \
+		-emit '*/_mingw_off_t.h' inc/crt/sys/win32/types.bi \
+		-title $(MINGWW64_TITLE) mingw-w64-disclaimer-pd.tmp fbteam.txt inc/crt/sys/win32/types.bi
+	rm *.tmp
+
 CUNIT_VERSION := 2.1-3
 CUNIT_TITLE := CUnit-$(CUNIT_VERSION)
 cunit: tools
@@ -689,7 +872,7 @@ ffi: tools
 	# headers manually instead.
 	./ffi-generate-headers.sh "extracted/$(FFI_TITLE)" "$(FFI_VERSION)"
 
-	$(GETCOMMENT) extracted/$(FFI_TITLE)/include/ffi-x86.h > ffi.tmp
+	$(GETCOMMENT) extracted/$(FFI_TITLE)/include/ffi-linux-x86.h > ffi.tmp
 
 	$(FBFROG) ffi.fbfrog -o inc/ffi.bi -target nodos \
 		`./ffi-get-target-options.sh "extracted/$(FFI_TITLE)"` \
@@ -891,46 +1074,6 @@ glib: tools glib-extract
 		-title $(GLIB) glib-object.tmp  gtk+-translators.txt inc/glib-object.bi \
 		-title $(GLIB) glib-gmodule.tmp gtk+-translators.txt inc/gmodule.bi \
 		-title $(GLIB) glib-gio.tmp     gtk+-translators.txt inc/gio/gio.bi
-
-	rm *.tmp
-
-GLIBC := glibc-2.21
-glibc: tools
-	./get.sh $(GLIBC) $(GLIBC).tar.xz http://ftp.gnu.org/gnu/glibc/$(GLIBC).tar.xz
-
-	cd extracted/$(GLIBC) && \
-		if [ -f bits/wordsize.h ]; then \
-			rm -f bits/wordsize.h bits/endian.h bits/setjmp.h; \
-			echo "#pragma once" >> sysdeps/wordsize-64/bits/wordsize.h; \
-			echo "#pragma once" >> sysdeps/x86/bits/wordsize.h; \
-		fi
-
-	$(GETCOMMENT) extracted/$(GLIBC)/sysdeps/wordsize-32/bits/wordsize.h > glibc-wordsize.tmp
-	$(GETCOMMENT) extracted/$(GLIBC)/sysdeps/nptl/pthread.h              > glibc-pthread.tmp
-	$(GETCOMMENT) extracted/$(GLIBC)/posix/sched.h                       > glibc-sched.tmp
-
-	mkdir -p inc/crt/bits
-	$(FBFROG) glibc.fbfrog \
-		-iftarget 64bit \
-			-incdir extracted/$(GLIBC)/sysdeps/x86_64 \
-			-incdir extracted/$(GLIBC)/sysdeps/wordsize-64 \
-		-endif \
-		-incdir extracted/$(GLIBC)/sysdeps/x86 \
-		-incdir extracted/$(GLIBC)/sysdeps/nptl \
-		-incdir extracted/$(GLIBC)/include \
-		-incdir extracted/$(GLIBC) \
-		-include libc-symbols.h \
-		extracted/$(GLIBC)/sysdeps/nptl/pthread.h \
-		-emit '*/bits/pthreadtypes.h' inc/crt/bits/pthreadtypes.bi \
-		-emit '*/bits/wordsize.h'     inc/crt/bits/wordsize.bi \
-		-emit '*/bits/sched.h'        inc/crt/bits/sched.bi \
-		-emit '*/pthread.h'           inc/crt/pthread.bi \
-		-emit '*/sched.h'             inc/crt/sched.bi \
-		-title $(GLIBC) glibc-pthread.tmp    fbteam.txt inc/crt/bits/pthreadtypes.bi \
-		-title $(GLIBC) glibc-wordsize.tmp   fbteam.txt inc/crt/bits/wordsize.bi \
-		-title $(GLIBC) glibc-sched.tmp      fbteam.txt inc/crt/bits/sched.bi \
-		-title $(GLIBC) glibc-pthread.tmp    fbteam.txt inc/crt/pthread.bi \
-		-title $(GLIBC) glibc-sched.tmp      fbteam.txt inc/crt/sched.bi
 
 	rm *.tmp
 
@@ -1400,7 +1543,7 @@ opengl-winapi: tools winapi-extract
 	sed -n 9,28p extracted/$(MINGWW64_TITLE)/mingw-w64-headers/include/GL/glext.h | cut -c4- > mingw-w64-glext.tmp
 
 	mkdir -p inc/GL/windows
-	$(FBFROG) winapi.fbfrog opengl.fbfrog \
+	$(FBFROG) -target windows winapi.fbfrog opengl.fbfrog \
 		-incdir extracted/$(MINGWW64_TITLE)/mingw-w64-headers/crt \
 		-incdir extracted/$(MINGWW64_TITLE)/mingw-w64-headers/include \
 		-include GL/gl.h \
@@ -1859,13 +2002,12 @@ tre: tools
 #   (fbfrog -clong32)
 #
 
-MINGWW64_TITLE := mingw-w64-v4.0.1
-WINAPI_FLAGS := winapi.fbfrog
+WINAPI_FLAGS := -target windows winapi.fbfrog
 WINAPI_FLAGS += -incdir extracted/$(MINGWW64_TITLE)/mingw-w64-headers/crt
 WINAPI_FLAGS += -incdir extracted/$(MINGWW64_TITLE)/mingw-w64-headers/include
 WINAPI_FLAGS += -incdir extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include
 winapi-extract:
-	./get.sh $(MINGWW64_TITLE) $(MINGWW64_TITLE).tar.bz2 "http://sourceforge.net/projects/mingw-w64/files/mingw-w64/mingw-w64-release/$(MINGWW64_TITLE).tar.bz2/download"
+	./get.sh $(MINGWW64_TITLE) $(MINGWW64_TITLE).tar.bz2 "http://sourceforge.net/projects/mingw-w64/files/mingw-w64/mingw-w64-release/$(MINGWW64_TITLE).tar.bz2/download" "" "$(MINGWW64_TITLE)/mingw-w64-headers $(MINGWW64_TITLE)/DISCLAIMER $(MINGWW64_TITLE)/DISCLAIMER.PD"
 
 	cd extracted/$(MINGWW64_TITLE)/mingw-w64-headers/crt && \
 		sed -e 's/@MINGW_HAS_SECURE_API@/#define MINGW_HAS_SECURE_API 1/g' < _mingw.h.in > _mingw.h && \

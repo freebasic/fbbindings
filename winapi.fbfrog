@@ -1,5 +1,3 @@
--target windows
-
 -declarebool UNICODE
 -ifdef UNICODE
 	-define UNICODE
