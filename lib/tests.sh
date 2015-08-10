@@ -1,28 +1,30 @@
 #!/bin/bash
 set -e
 
-source lib/tests-common.sh
+fbtargets='
+linux-x86
+linux-x86_64
+linux-arm
+linux-aarch64
+freebsd-x86
+freebsd-x86_64
+freebsd-arm
+freebsd-aarch64
+openbsd-x86
+openbsd-x86_64
+openbsd-arm
+openbsd-aarch64
+netbsd-x86
+netbsd-x86_64
+netbsd-arm
+netbsd-aarch64
+darwin-x86
+darwin-x86_64
+win32
+win64
+cygwin-x86
+cygwin-x86_64
+dos
+'
 
-run_tests tests linux-x86
-run_tests tests linux-x86_64
-run_tests tests linux-arm
-run_tests tests linux-aarch64
-run_tests tests freebsd-x86
-run_tests tests freebsd-x86_64
-run_tests tests freebsd-arm
-run_tests tests freebsd-aarch64
-run_tests tests openbsd-x86
-run_tests tests openbsd-x86_64
-run_tests tests openbsd-arm
-run_tests tests openbsd-aarch64
-run_tests tests netbsd-x86
-run_tests tests netbsd-x86_64
-run_tests tests netbsd-arm
-run_tests tests netbsd-aarch64
-run_tests tests darwin-x86
-run_tests tests darwin-x86_64
-run_tests tests win32
-run_tests tests win64
-run_tests tests cygwin-x86
-run_tests tests cygwin-x86_64
-run_tests tests dos
+lib/run-tests.sh tests "$fbtargets"
