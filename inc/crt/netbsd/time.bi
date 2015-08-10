@@ -67,55 +67,53 @@ end type
 
 declare function asctime(byval as const tm ptr) as zstring ptr
 declare function clock() as clock_t
-'' TODO: char *ctime(const time_t *) __asm("__ctime50");
-'' TODO: double difftime(time_t, time_t) __asm("__difftime50");
-'' TODO: struct tm *gmtime(const time_t *) __asm("__gmtime50");
-'' TODO: struct tm *localtime(const time_t *) __asm("__locatime50");
-'' TODO: time_t time(time_t *) __asm("__time50");
-'' TODO: time_t mktime(struct tm *) __asm("__mktime50");
+declare function ctime alias "__ctime50"(byval as const time_t ptr) as zstring ptr
+declare function difftime alias "__difftime50"(byval as time_t, byval as time_t) as double
+declare function gmtime alias "__gmtime50"(byval as const time_t ptr) as tm ptr
+declare function localtime alias "__locatime50"(byval as const time_t ptr) as tm ptr
+declare function time alias "__time50"(byval as time_t ptr) as time_t
+declare function mktime alias "__mktime50"(byval as tm ptr) as time_t
 declare function strftime(byval as zstring ptr, byval as uinteger, byval as const zstring ptr, byval as const tm ptr) as uinteger
 declare function __sysconf(byval as long) as clong
 #define CLK_TCK __sysconf(39)
 extern tzname(0 to 1) as zstring ptr
-'' TODO: void tzset(void) __asm("__tzset50");
+declare sub tzset alias "__tzset50"()
 extern daylight as long
-'' TODO: extern long int timezone __asm("__timezone13");
+extern timezone alias "__timezone13" as clong
 declare function strptime(byval as const zstring ptr, byval as const zstring ptr, byval as tm ptr) as zstring ptr
 declare function getdate(byval as const zstring ptr) as tm ptr
 extern getdate_err as long
-'' TODO: int clock_getres(clockid_t, struct timespec *) __asm("__clock_getres50");
-'' TODO: int clock_gettime(clockid_t, struct timespec *) __asm("__clock_gettime50");
-'' TODO: int clock_settime(clockid_t, const struct timespec *) __asm("__clock_settime50");
-'' TODO: int nanosleep(const struct timespec *, struct timespec *) __asm("__nanosleep50");
-'' TODO: int timer_gettime(timer_t, struct itimerspec *) __asm("__timer_gettime50");
-'' TODO: int timer_settime(timer_t, int, const struct itimerspec * restrict, struct itimerspec * restrict) __asm("__timer_settime50");
-
+declare function clock_getres alias "__clock_getres50"(byval as clockid_t, byval as timespec ptr) as long
+declare function clock_gettime alias "__clock_gettime50"(byval as clockid_t, byval as timespec ptr) as long
+declare function clock_settime alias "__clock_settime50"(byval as clockid_t, byval as const timespec ptr) as long
+declare function nanosleep alias "__nanosleep50"(byval as const timespec ptr, byval as timespec ptr) as long
+declare function timer_gettime alias "__timer_gettime50"(byval as timer_t, byval as itimerspec ptr) as long
+declare function timer_settime alias "__timer_settime50"(byval as timer_t, byval as long, byval as const itimerspec ptr, byval as itimerspec ptr) as long
 declare function timer_create(byval as clockid_t, byval as sigevent ptr, byval as timer_t ptr) as long
 declare function timer_delete(byval as timer_t) as long
 declare function timer_getoverrun(byval as timer_t) as long
 declare function asctime_r(byval as const tm ptr, byval as zstring ptr) as zstring ptr
-
-'' TODO: char *ctime_r(const time_t *, char *) __asm("__ctime_r50");
-'' TODO: struct tm *gmtime_r(const time_t * restrict, struct tm * restrict) __asm("__gmtime_r50");
-'' TODO: struct tm *localtime_r(const time_t * restrict, struct tm * restrict) __asm("__localtime_r50");
+declare function ctime_r alias "__ctime_r50"(byval as const time_t ptr, byval as zstring ptr) as zstring ptr
+declare function gmtime_r alias "__gmtime_r50"(byval as const time_t ptr, byval as tm ptr) as tm ptr
+declare function localtime_r alias "__localtime_r50"(byval as const time_t ptr, byval as tm ptr) as tm ptr
 type timezone_t as __state ptr
-'' TODO: time_t time2posix(time_t) __asm("__time2posix50");
-'' TODO: time_t posix2time(time_t) __asm("__posix2time50");
-'' TODO: time_t timegm(struct tm *) __asm("__timegm50");
-'' TODO: time_t timeoff(struct tm *, long) __asm("__timeoff50");
-'' TODO: time_t timelocal(struct tm *) __asm("__timelocal50");
-'' TODO: struct tm *offtime(const time_t *, long) __asm("__offtime50");
-'' TODO: void tzsetwall(void) __asm("__tzsetwall50");
-'' TODO: struct tm *offtime_r(const time_t *, long, struct tm *) __asm("__offtime_r50");
-'' TODO: struct tm *localtime_rz(const timezone_t, const time_t * restrict, struct tm * restrict) __asm("__localtime_rz50");
-'' TODO: char *ctime_rz(const timezone_t, const time_t *, char *) __asm("__ctime_rz50");
-'' TODO: time_t mktime_z(const timezone_t, struct tm *) __asm("__mktime_z50");
-'' TODO: time_t timelocal_z(const timezone_t, struct tm *) __asm("__timelocal_z50");
-'' TODO: time_t time2posix_z(const timezone_t, time_t) __asm("__time2posix_z50");
-'' TODO: time_t posix2time_z(const timezone_t, time_t) __asm("__posix2time_z50");
-'' TODO: timezone_t tzalloc(const char *) __asm("__tzalloc50");
-'' TODO: void tzfree(const timezone_t) __asm("__tzfree50");
-'' TODO: const char *tzgetname(const timezone_t, int) __asm("__tzgetname50");
+declare function time2posix alias "__time2posix50"(byval as time_t) as time_t
+declare function posix2time alias "__posix2time50"(byval as time_t) as time_t
+declare function timegm alias "__timegm50"(byval as tm ptr) as time_t
+declare function timeoff alias "__timeoff50"(byval as tm ptr, byval as clong) as time_t
+declare function timelocal alias "__timelocal50"(byval as tm ptr) as time_t
+declare function offtime alias "__offtime50"(byval as const time_t ptr, byval as clong) as tm ptr
+declare sub tzsetwall alias "__tzsetwall50"()
+declare function offtime_r alias "__offtime_r50"(byval as const time_t ptr, byval as clong, byval as tm ptr) as tm ptr
+declare function localtime_rz alias "__localtime_rz50"(byval as const timezone_t, byval as const time_t ptr, byval as tm ptr) as tm ptr
+declare function ctime_rz alias "__ctime_rz50"(byval as const timezone_t, byval as const time_t ptr, byval as zstring ptr) as zstring ptr
+declare function mktime_z alias "__mktime_z50"(byval as const timezone_t, byval as tm ptr) as time_t
+declare function timelocal_z alias "__timelocal_z50"(byval as const timezone_t, byval as tm ptr) as time_t
+declare function time2posix_z alias "__time2posix_z50"(byval as const timezone_t, byval as time_t) as time_t
+declare function posix2time_z alias "__posix2time_z50"(byval as const timezone_t, byval as time_t) as time_t
+declare function tzalloc alias "__tzalloc50"(byval as const zstring ptr) as timezone_t
+declare sub tzfree alias "__tzfree50"(byval as const timezone_t)
+declare function tzgetname alias "__tzgetname50"(byval as const timezone_t, byval as long) as const zstring ptr
 declare function strftime_z(byval as const timezone_t, byval as zstring ptr, byval as uinteger, byval as const zstring ptr, byval as const tm ptr) as uinteger
 
 end extern

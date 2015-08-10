@@ -190,13 +190,13 @@ const CLOCK_MONOTONIC = 3
 const TIMER_RELTIME = &h0
 const TIMER_ABSTIME = &h1
 
-'' TODO: int getitimer(int, struct itimerval *) __asm("__getitimer50");
-'' TODO: int gettimeofday(struct timeval * restrict, void *restrict) __asm("__gettimeofday50");
-'' TODO: int setitimer(int, const struct itimerval * restrict, struct itimerval * restrict) __asm("__setitimer50");
-'' TODO: int utimes(const char *, const struct timeval [2]) __asm("__utimes50");
-'' TODO: int adjtime(const struct timeval *, struct timeval *) __asm("__adjtime50");
-'' TODO: int futimes(int, const struct timeval [2]) __asm("__futimes50");
-'' TODO: int lutimes(const char *, const struct timeval [2]) __asm("__lutimes50");
-'' TODO: int settimeofday(const struct timeval * restrict, const void *restrict) __asm("__settimeofday50");
+declare function getitimer alias "__getitimer50"(byval as long, byval as itimerval ptr) as long
+declare function gettimeofday alias "__gettimeofday50"(byval as timeval ptr, byval as any ptr) as long
+declare function setitimer alias "__setitimer50"(byval as long, byval as const itimerval ptr, byval as itimerval ptr) as long
+declare function utimes alias "__utimes50"(byval as const zstring ptr, byval as const timeval ptr) as long
+declare function adjtime alias "__adjtime50"(byval as const timeval ptr, byval as timeval ptr) as long
+declare function futimes alias "__futimes50"(byval as long, byval as const timeval ptr) as long
+declare function lutimes alias "__lutimes50"(byval as const zstring ptr, byval as const timeval ptr) as long
+declare function settimeofday alias "__settimeofday50"(byval as const timeval ptr, byval as const any ptr) as long
 
 end extern
