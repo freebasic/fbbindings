@@ -1,4 +1,4 @@
-FBFROG_VERSION := 24c5aedeb288915724d488117366988caf814767
+FBFROG_VERSION := 82df5048bc4ee78b982208dbda2a6aad9d4b8a87
 
 ALL := allegro allegro4 allegro5 aspell atk
 ALL += bass bassmod bfd bzip2
@@ -715,16 +715,6 @@ crt-openbsd: tools
 
 	$(GETCOMMENT) -3 extracted/$(OPENBSD)-sys/sys/sys/types.h > openbsd-sys-types.tmp
 
-	#if [ ! -d extracted/$(OPENBSD) ]; then \
-	#	mkdir extracted/$(OPENBSD) && \
-	#	cd extracted/$(OPENBSD) && \
-	#	mkdir -p sys i386/machine amd64/machine arm/machine && \
-	#	cp ../$(OPENBSD)-sys/sys/sys/*.h . && \
-	#	cp ../$(OPENBSD)-sys/sys/arch/i386/include/*.h  i386/machine && \
-	#	cp ../$(OPENBSD)-sys/sys/arch/amd64/include/*.h amd64/machine && \
-	#	cp ../$(OPENBSD)-sys/sys/arch/arm/include/*.h   arm/machine ; \
-	#fi
-
 	mkdir -p inc/crt/sys/openbsd
 	$(FBFROG) -target openbsd crt.fbfrog -incdir extracted/$(OPENBSD)-sys/sys \
 		-selecttarget \
@@ -768,8 +758,31 @@ crt-freebsd: tools
 	rm *.tmp
 
 crt-netbsd: tools
-	./get.sh $(NETBSD)-src $(NETBSD)-src.tar.gz ftp://ftp.netbsd.org/pub/NetBSD/NetBSD-$(NETBSD_VERSION)/source/sets/src.tgz createdir usr/src/include
-	./get.sh $(NETBSD)-sys $(NETBSD)-sys.tar.gz ftp://ftp.netbsd.org/pub/NetBSD/NetBSD-$(NETBSD_VERSION)/source/sets/syssrc.tgz createdir usr/src/sys/sys
+	./get.sh $(NETBSD)-src $(NETBSD)-src.tar.gz ftp://ftp.netbsd.org/pub/NetBSD/NetBSD-$(NETBSD_VERSION)/source/sets/src.tgz createdir "usr/src/include usr/src/lib/libpthread"
+	./get.sh $(NETBSD)-sys $(NETBSD)-sys.tar.gz ftp://ftp.netbsd.org/pub/NetBSD/NetBSD-$(NETBSD_VERSION)/source/sets/syssrc.tgz createdir "usr/src/sys/arch usr/src/sys/sys"
+
+	cd extracted/$(NETBSD)-sys/usr/src/sys/arch && \
+		mkdir -p  i386/include/machine && cp  i386/include/*.h  i386/include/machine && \
+		mkdir -p amd64/include/machine && cp amd64/include/*.h amd64/include/machine && \
+		mkdir -p   arm/include/machine && cp   arm/include/*.h   arm/include/machine && \
+		mkdir -p   arm/include/arm     && cp   arm/include/*.h   arm/include/arm
+
+	$(GETCOMMENT) -2 extracted/$(NETBSD)-sys/usr/src/sys/sys/types.h > netbsd-sys-types.tmp
+
+	mkdir -p inc/crt/sys/netbsd
+	$(FBFROG) -target netbsd crt.fbfrog netbsd.fbfrog \
+		-incdir extracted/$(NETBSD)-sys/usr/src/sys \
+		-incdir extracted/$(NETBSD)-src/usr/src/lib/libpthread \
+		-selecttarget \
+		-case x86    -incdir extracted/$(NETBSD)-sys/usr/src/sys/arch/i386/include \
+		-case x86_64 -incdir extracted/$(NETBSD)-sys/usr/src/sys/arch/amd64/include \
+		-caseelse    -incdir extracted/$(NETBSD)-sys/usr/src/sys/arch/arm/include \
+		-endselect \
+		-include sys/types.h \
+		-emit '*/types.h'  inc/crt/sys/netbsd/types.bi \
+		-emit '*/int_types.h' inc/crt/sys/netbsd/types.bi \
+		-title $(NETBSD) netbsd-sys-types.tmp fbteam.txt inc/crt/sys/netbsd/types.bi
+	rm *.tmp
 
 crt-winapi: tools winapi-extract
 	sed -n 2,9p extracted/$(MINGWW64_TITLE)/DISCLAIMER.PD | cut -c4- > mingw-w64-disclaimer-pd.tmp
