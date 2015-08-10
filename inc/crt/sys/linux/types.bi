@@ -193,10 +193,10 @@ type int8_t as byte
 type int16_t as short
 type int32_t as long
 type int64_t as longint
-type int8_t as ubyte
-type int16_t as ushort
-type int32_t as ulong
-type int64_t as ulongint
+type u_int8_t as ubyte
+type u_int16_t as ushort
+type u_int32_t as ulong
+type u_int64_t as ulongint
 type register_t as uinteger
 type blksize_t as __blksize_t
 type blkcnt_t as __blkcnt_t
