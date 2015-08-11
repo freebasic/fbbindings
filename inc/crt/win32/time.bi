@@ -21,7 +21,6 @@
 
 extern "C"
 
-'' TODO: #pragma pack(push,_CRT_PACKING)
 type clock_t as long
 const NULL = cptr(any ptr, 0)
 
@@ -161,7 +160,6 @@ type timezone
 end type
 
 declare function mingw_gettimeofday(byval p as timeval ptr, byval z as timezone ptr) as long
-'' TODO: #pragma pack(push,_CRT_PACKING)
 
 type __timeb32
 	time as __time32_t
