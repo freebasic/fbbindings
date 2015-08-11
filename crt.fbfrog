@@ -1,5 +1,16 @@
 -removeEmptyReservedDefines
 
+-remove ushort
+-remove ulong
+
+#-ifndefdecl size_t
+#-ifndefdecl ssize_t
+#-ifndefdecl int8_t
+#-ifndefdecl int16_t
+#-ifndefdecl int32_t
+#-ifndefdecl int64_t
 #-expand __*
 #-removedefine __*
 #-expandindefine __*
+
+-removeinclude sys/cdefs.h

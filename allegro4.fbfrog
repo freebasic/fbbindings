@@ -109,3 +109,6 @@ allegro.fbfrog
 -endif
 
 -remove2nd ALLEGRO_NO_ASM
+
+# KEY_T constants conflicts with CRT key_t typedef
+-undefbeforedecl KEY_T

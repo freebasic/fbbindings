@@ -1,2 +1,6 @@
 -removeinclude sys/djtypes.h
 -removedefine __dj_include_sys_types_h_
+
+-remove NULL
+
+-remove2nd _rdtsc

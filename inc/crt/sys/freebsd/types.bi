@@ -48,7 +48,6 @@
 	#include once "crt/longdouble.bi"
 #endif
 
-#include once "sys/cdefs.bi"
 #include once "machine/endian.bi"
 #include once "sys/_pthreadtypes.bi"
 #include once "sys/_stdint.bi"
@@ -253,7 +252,6 @@ type u_char as ubyte
 type u_short as ushort
 type u_int as ulong
 type u_long as culong
-type ushort as ushort
 type uint as ulong
 type u_int8_t as __uint8_t
 type u_int16_t as __uint16_t

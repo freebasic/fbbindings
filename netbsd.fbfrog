@@ -1,2 +1,5 @@
 -typedefhint devmajor_t
 -typedefhint devminor_t
+
+-removeinclude sys/null.h
+-removeinclude sys/featuretest.h

@@ -1024,6 +1024,7 @@ end enum
 #define KEY_Q __allegro_KEY_Q
 #define KEY_R __allegro_KEY_R
 #define KEY_S __allegro_KEY_S
+#undef KEY_T
 #define KEY_T __allegro_KEY_T
 #define KEY_U __allegro_KEY_U
 #define KEY_V __allegro_KEY_V

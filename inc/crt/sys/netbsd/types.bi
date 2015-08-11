@@ -42,8 +42,6 @@
 #pragma once
 
 #include once "crt/long.bi"
-#include once "sys/featuretest.bi"
-#include once "sys/cdefs.bi"
 #include once "machine/ansi.bi"
 #include once "sys/ansi.bi"
 #include once "machine/endian.bi"
@@ -157,9 +155,7 @@ type u_short as ushort
 type u_int as ulong
 type u_long as culong
 type unchar as ubyte
-type ushort as ushort
 type uint as ulong
-type ulong as culong
 type u_quad_t as __uint64_t
 type quad_t as __int64_t
 type qaddr_t as quad_t ptr
