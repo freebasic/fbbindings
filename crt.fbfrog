@@ -29,3 +29,5 @@
 #-expandindefine __*
 
 -removeinclude sys/cdefs.h
+
+-renameproc time time_

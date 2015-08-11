@@ -29,6 +29,9 @@
 #include once "crt/stddef.bi"
 #include once "xlocale.bi"
 
+'' The following symbols have been renamed:
+''     procedure time => time_
+
 extern "C"
 
 const __clock_t_defined = 1
@@ -89,7 +92,7 @@ end type
 
 const TIME_UTC = 1
 declare function clock() as clock_t
-declare function time(byval __timer as time_t ptr) as time_t
+declare function time_ alias "time"(byval __timer as time_t ptr) as time_t
 declare function difftime(byval __time1 as time_t, byval __time0 as time_t) as double
 declare function mktime(byval __tp as tm ptr) as time_t
 declare function strftime(byval __s as zstring ptr, byval __maxsize as uinteger, byval __format as const zstring ptr, byval __tp as const tm ptr) as uinteger

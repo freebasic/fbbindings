@@ -44,6 +44,9 @@
 #include once "machine/ansi.bi"
 #include once "sys/time.bi"
 
+'' The following symbols have been renamed:
+''     procedure __time50 => time_
+
 extern "C"
 
 const CLOCKS_PER_SEC = 100
@@ -68,7 +71,7 @@ declare function ctime alias "__ctime50"(byval as const time_t ptr) as zstring p
 declare function difftime alias "__difftime50"(byval as time_t, byval as time_t) as double
 declare function gmtime alias "__gmtime50"(byval as const time_t ptr) as tm ptr
 declare function localtime alias "__locatime50"(byval as const time_t ptr) as tm ptr
-declare function time alias "__time50"(byval as time_t ptr) as time_t
+declare function time_ alias "__time50"(byval as time_t ptr) as time_t
 declare function mktime alias "__mktime50"(byval as tm ptr) as time_t
 declare function strftime(byval as zstring ptr, byval as uinteger, byval as const zstring ptr, byval as const tm ptr) as uinteger
 declare function __sysconf(byval as long) as clong

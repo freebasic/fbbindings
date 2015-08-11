@@ -19,6 +19,10 @@
 #include once "sec_api/sys/timeb_s.bi"
 #include once "pthread_time.bi"
 
+'' The following symbols have been renamed:
+''     procedure time => time_
+''     #define time => time_
+
 extern "C"
 
 '' TODO: #pragma pack(push,_CRT_PACKING)
@@ -116,7 +120,7 @@ declare function gmtime(byval _Time as const time_t ptr) as tm ptr
 declare function localtime(byval _Time as const time_t ptr) as tm ptr
 declare function mktime(byval _Tm as tm ptr) as time_t
 declare function _mkgmtime(byval _Tm as tm ptr) as time_t
-declare function time(byval _Time as time_t ptr) as time_t
+declare function time_ alias "time"(byval _Time as time_t ptr) as time_t
 
 #ifdef __FB_64BIT__
 	#define difftime(_Time1, _Time2) cdbl(_difftime64((_Time1), (_Time2)))
@@ -125,7 +129,7 @@ declare function time(byval _Time as time_t ptr) as time_t
 	#define localtime(_Time) cptr(tm ptr, _localtime64((_Time)))
 	#define mktime(_Tm) cast(time_t, _mktime64((_Tm)))
 	#define _mkgmtime(_Tm) cast(time_t, _mkgmtime64((_Tm)))
-	#define time(_Time) cast(time_t, _time64((_Time)))
+	#define time_(_Time) cast(time_t, _time64((_Time)))
 	#define localtime_s(_Tm, _Time) cast(errno_t, _localtime64_s((_Tm), (_Time)))
 	#define gmtime_s(_Tm, _Time) cast(errno_t, _gmtime64_s((_Tm), (_Time)))
 	#define ctime_s(_Buf, _SizeInBytes, _Time) cast(errno_t, _ctime64_s((_Buf), (_SizeInBytes), (_Time)))
@@ -136,7 +140,7 @@ declare function time(byval _Time as time_t ptr) as time_t
 	#define mktime(_Tm) cast(time_t, _mktime32((_Tm)))
 	#define gmtime(_Time) cptr(tm ptr, _gmtime32((_Time)))
 	#define _mkgmtime(_Tm) cast(time_t, _mkgmtime32((_Tm)))
-	#define time(_Time) cast(time_t, _time32((_Time)))
+	#define time_(_Time) cast(time_t, _time32((_Time)))
 	#define localtime_s(_Tm, _Time) cast(errno_t, _localtime32_s((_Tm), (_Time)))
 	#define gmtime_s(_Tm, _Time) cast(errno_t, _gmtime32_s((_Tm), (_Time)))
 	#define ctime_s(_Buf, _SizeInBytes, _Time) cast(errno_t, _ctime32_s((_Buf), (_SizeInBytes), (_Time)))

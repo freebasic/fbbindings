@@ -34,6 +34,9 @@
 #include once "crt/long.bi"
 #include once "crt/sys/types.bi"
 
+'' The following symbols have been renamed:
+''     procedure time => time_
+
 extern "C"
 
 const CLOCKS_PER_SEC = 91
@@ -61,7 +64,7 @@ declare function gmtime(byval _tod as const time_t ptr) as tm ptr
 declare function localtime(byval _tod as const time_t ptr) as tm ptr
 declare function mktime(byval _tptr as tm ptr) as time_t
 declare function strftime(byval _s as zstring ptr, byval _n as uinteger, byval _format as const zstring ptr, byval _tptr as const tm ptr) as uinteger
-declare function time(byval _tod as time_t ptr) as time_t
+declare function time_ alias "time"(byval _tod as time_t ptr) as time_t
 #define CLK_TCK CLOCKS_PER_SEC
 extern tzname(0 to 1) as zstring ptr
 declare sub tzset()
