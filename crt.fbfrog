@@ -1,3 +1,5 @@
+-replacements crt.replacements
+
 -removeEmptyReservedDefines
 
 -remove ushort
@@ -19,6 +21,8 @@
 -ifndefdecl u_int64_t
 -ifndefdecl size_t
 -ifndefdecl ssize_t
+
+-ifndefdecl NULL
 
 #-expand __*
 #-removedefine __*

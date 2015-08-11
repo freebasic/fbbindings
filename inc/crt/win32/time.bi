@@ -23,7 +23,9 @@ extern "C"
 
 '' TODO: #pragma pack(push,_CRT_PACKING)
 type clock_t as long
-const NULL = cptr(any ptr, 0)
+#ifndef NULL
+	const NULL = 0
+#endif
 
 type tm
 	tm_sec as long

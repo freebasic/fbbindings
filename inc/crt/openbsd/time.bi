@@ -47,7 +47,9 @@
 
 extern "C"
 
-const NULL = cptr(any ptr, 0)
+#ifndef NULL
+	const NULL = 0
+#endif
 const CLK_TCK = 100
 const CLOCKS_PER_SEC = 100
 
