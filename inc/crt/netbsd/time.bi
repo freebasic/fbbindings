@@ -41,8 +41,7 @@
 #pragma once
 
 #include once "crt/long.bi"
-#include once "machine/ansi.bi"
-#include once "sys/time.bi"
+#include once "crt/sys/time.bi"
 
 extern "C"
 

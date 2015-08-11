@@ -24,10 +24,7 @@
 #pragma once
 
 #include once "crt/long.bi"
-#include once "bits/types.bi"
-#include once "features.bi"
-#include once "crt/stddef.bi"
-#include once "xlocale.bi"
+#include once "crt/sys/types.bi"
 
 extern "C"
 
