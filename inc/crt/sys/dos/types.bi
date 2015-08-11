@@ -47,8 +47,12 @@ type gid_t as long
 type off_t as long
 type offset_t as longint
 type pid_t as long
-type size_t as culong
-type ssize_t as clong
+#ifndef size_t
+	type size_t as culong
+#endif
+#ifndef ssize_t
+	type ssize_t as clong
+#endif
 type uid_t as long
 const FD_SETSIZE = 256
 

@@ -182,21 +182,39 @@ type uid_t as __uid_t
 type off_t as __off_t
 type off64_t as __off64_t
 type id_t as __id_t
-type ssize_t as __ssize_t
+#ifndef ssize_t
+	type ssize_t as __ssize_t
+#endif
 type daddr_t as __daddr_t
 type caddr_t as __caddr_t
 type key_t as __key_t
 type useconds_t as __useconds_t
 type suseconds_t as __suseconds_t
 type uint as ulong
-type int8_t as byte
-type int16_t as short
-type int32_t as long
-type int64_t as longint
-type u_int8_t as ubyte
-type u_int16_t as ushort
-type u_int32_t as ulong
-type u_int64_t as ulongint
+#ifndef int8_t
+	type int8_t as byte
+#endif
+#ifndef int16_t
+	type int16_t as short
+#endif
+#ifndef int32_t
+	type int32_t as long
+#endif
+#ifndef int64_t
+	type int64_t as longint
+#endif
+#ifndef u_int8_t
+	type u_int8_t as ubyte
+#endif
+#ifndef u_int16_t
+	type u_int16_t as ushort
+#endif
+#ifndef u_int32_t
+	type u_int32_t as ulong
+#endif
+#ifndef u_int64_t
+	type u_int64_t as ulongint
+#endif
 type register_t as uinteger
 type blksize_t as __blksize_t
 type blkcnt_t as __blkcnt_t
