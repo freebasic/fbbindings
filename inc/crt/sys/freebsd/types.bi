@@ -48,11 +48,6 @@
 	#include once "crt/longdouble.bi"
 #endif
 
-#include once "machine/endian.bi"
-#include once "sys/_pthreadtypes.bi"
-#include once "sys/_stdint.bi"
-#include once "sys/select.bi"
-
 extern "C"
 
 type __int8_t as byte

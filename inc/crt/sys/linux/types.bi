@@ -24,14 +24,6 @@
 #pragma once
 
 #include once "crt/long.bi"
-#include once "features.bi"
-#include once "bits/wordsize.bi"
-#include once "crt/time.bi"
-#include once "crt/stddef.bi"
-#include once "endian.bi"
-#include once "sys/select.bi"
-#include once "sys/sysmacros.bi"
-#include once "bits/pthreadtypes.bi"
 
 const _SYS_TYPES_H = 1
 const _BITS_TYPES_H = 1

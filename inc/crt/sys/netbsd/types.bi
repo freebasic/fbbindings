@@ -42,11 +42,6 @@
 #pragma once
 
 #include once "crt/long.bi"
-#include once "machine/ansi.bi"
-#include once "sys/ansi.bi"
-#include once "machine/endian.bi"
-#include once "sys/fd_set.bi"
-#include once "pthread_types.bi"
 
 extern "C"
 

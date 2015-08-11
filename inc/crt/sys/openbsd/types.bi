@@ -47,9 +47,6 @@
 	#include once "crt/longdouble.bi"
 #endif
 
-#include once "sys/endian.bi"
-#include once "sys/select.bi"
-
 extern "C"
 
 #if defined(__FB_64BIT__) and (not defined(__FB_ARM__))

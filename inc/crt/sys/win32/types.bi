@@ -15,8 +15,6 @@
 
 #pragma once
 
-#include once "crtdefs.bi"
-
 type _ino_t as ushort
 type ino_t as ushort
 type _dev_t as ulong
