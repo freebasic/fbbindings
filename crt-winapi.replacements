@@ -1,0 +1,15 @@
+convert c:
+	extern inline __attribute__((__gnu_inline__))
+	void __attribute__((__cdecl__)) ftime(struct timeb *_Tmb) {
+		_ftime64((struct __timeb64 *)_Tmb);
+	}
+to c:
+	#define ftime(_Tmb) _ftime64((struct __timeb64 *)_Tmb)
+
+convert c:
+	extern inline __attribute__((__gnu_inline__))
+	void __attribute__((__cdecl__)) ftime(struct timeb *_Tmb) {
+		_ftime((struct __timeb32 *)_Tmb);
+	}
+to c:
+	#define ftime(_Tmb) _ftime((struct __timeb32 *)_Tmb)

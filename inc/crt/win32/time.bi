@@ -191,21 +191,11 @@ declare sub _ftime64(byval _Time as __timeb64 ptr)
 #ifdef __FB_64BIT__
 	#define _timeb __timeb64
 	declare sub _ftime(byval as __timeb64 ptr)
+	#define ftime(_Tmb) _ftime64(cptr(__timeb64 ptr, _Tmb))
 #else
 	#define _timeb __timeb32
 	declare sub _ftime(byval as __timeb32 ptr)
-#endif
-
-declare sub ftime(byval as timeb ptr)
-
-#ifdef __FB_64BIT__
-	private sub ftime(byval _Tmb as timeb ptr)
-		_ftime64(cptr(__timeb64 ptr, _Tmb))
-	end sub
-#else
-	private sub ftime(byval _Tmb as timeb ptr)
-		_ftime(cptr(__timeb32 ptr, _Tmb))
-	end sub
+	#define ftime(_Tmb) _ftime(cptr(__timeb32 ptr, _Tmb))
 #endif
 
 end extern
