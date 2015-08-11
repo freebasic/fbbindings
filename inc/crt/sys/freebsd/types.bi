@@ -248,10 +248,18 @@ type u_short as ushort
 type u_int as ulong
 type u_long as culong
 type uint as ulong
-type u_int8_t as __uint8_t
-type u_int16_t as __uint16_t
-type u_int32_t as __uint32_t
-type u_int64_t as __uint64_t
+#ifndef u_int8_t
+	type u_int8_t as __uint8_t
+#endif
+#ifndef u_int16_t
+	type u_int16_t as __uint16_t
+#endif
+#ifndef u_int32_t
+	type u_int32_t as __uint32_t
+#endif
+#ifndef u_int64_t
+	type u_int64_t as __uint64_t
+#endif
 type u_quad_t as __uint64_t
 type quad_t as __int64_t
 type qaddr_t as quad_t ptr
@@ -287,8 +295,12 @@ type register_t as __register_t
 type rlim_t as __rlim_t
 type sbintime_t as __int64_t
 type segsz_t as __segsz_t
-type size_t as __size_t
-type ssize_t as __ssize_t
+#ifndef size_t
+	type size_t as __size_t
+#endif
+#ifndef ssize_t
+	type ssize_t as __ssize_t
+#endif
 type suseconds_t as __suseconds_t
 type time_t as __time_t
 type timer_t as __timer_t

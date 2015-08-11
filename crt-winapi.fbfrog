@@ -1,0 +1,5 @@
+-clong32
+
+-replacements crt-winapi.replacements
+
+-remove1st ftime

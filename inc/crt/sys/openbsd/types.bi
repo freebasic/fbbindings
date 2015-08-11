@@ -177,18 +177,42 @@ type unchar as ubyte
 type uint as ulong
 type cpuid_t as __cpuid_t
 type register_t as __register_t
-type int8_t as __int8_t
-type uint8_t as __uint8_t
-type int16_t as __int16_t
-type uint16_t as __uint16_t
-type int32_t as __int32_t
-type uint32_t as __uint32_t
-type int64_t as __int64_t
-type uint64_t as __uint64_t
-type u_int8_t as __uint8_t
-type u_int16_t as __uint16_t
-type u_int32_t as __uint32_t
-type u_int64_t as __uint64_t
+#ifndef int8_t
+	type int8_t as __int8_t
+#endif
+#ifndef uint8_t
+	type uint8_t as __uint8_t
+#endif
+#ifndef int16_t
+	type int16_t as __int16_t
+#endif
+#ifndef uint16_t
+	type uint16_t as __uint16_t
+#endif
+#ifndef int32_t
+	type int32_t as __int32_t
+#endif
+#ifndef uint32_t
+	type uint32_t as __uint32_t
+#endif
+#ifndef int64_t
+	type int64_t as __int64_t
+#endif
+#ifndef uint64_t
+	type uint64_t as __uint64_t
+#endif
+#ifndef u_int8_t
+	type u_int8_t as __uint8_t
+#endif
+#ifndef u_int16_t
+	type u_int16_t as __uint16_t
+#endif
+#ifndef u_int32_t
+	type u_int32_t as __uint32_t
+#endif
+#ifndef u_int64_t
+	type u_int64_t as __uint64_t
+#endif
 type quad_t as __int64_t
 type u_quad_t as __uint64_t
 type qaddr_t as quad_t ptr
@@ -222,8 +246,12 @@ type in_port_t as __in_port_t
 type clock_t as __clock_t
 type clockid_t as __clockid_t
 type pid_t as __pid_t
-type size_t as __size_t
-type ssize_t as __ssize_t
+#ifndef size_t
+	type size_t as __size_t
+#endif
+#ifndef ssize_t
+	type ssize_t as __ssize_t
+#endif
 type time_t as __time_t
 type timer_t as __timer_t
 type off_t as __off_t

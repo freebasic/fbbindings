@@ -657,7 +657,7 @@ CRT_GLIBC_FLAGS += -incdir extracted/$(GLIBC)/include
 CRT_GLIBC_FLAGS += -incdir extracted/$(GLIBC)
 CRT_GLIBC_FLAGS += -include libc-symbols.h
 
-CRT_WINAPI_FLAGS := -target windows -clong32
+CRT_WINAPI_FLAGS := -target windows crt-winapi.fbfrog
 CRT_WINAPI_FLAGS += -incdir extracted/$(MINGWW64_TITLE)/mingw-w64-headers/crt
 
 crt: crt-dos crt-linux crt-openbsd crt-freebsd crt-netbsd crt-winapi

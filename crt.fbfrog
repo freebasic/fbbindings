@@ -1,14 +1,29 @@
+-replacements crt.replacements
+
 -removeEmptyReservedDefines
 
 -remove ushort
 -remove ulong
 
-#-ifndefdecl size_t
-#-ifndefdecl ssize_t
-#-ifndefdecl int8_t
-#-ifndefdecl int16_t
-#-ifndefdecl int32_t
-#-ifndefdecl int64_t
+-ifndefdecl size_t
+-ifndefdecl ssize_t
+-ifndefdecl int8_t
+-ifndefdecl int16_t
+-ifndefdecl int32_t
+-ifndefdecl int64_t
+-ifndefdecl uint8_t
+-ifndefdecl uint16_t
+-ifndefdecl uint32_t
+-ifndefdecl uint64_t
+-ifndefdecl u_int8_t
+-ifndefdecl u_int16_t
+-ifndefdecl u_int32_t
+-ifndefdecl u_int64_t
+-ifndefdecl size_t
+-ifndefdecl ssize_t
+
+-ifndefdecl NULL
+
 #-expand __*
 #-removedefine __*
 #-expandindefine __*

@@ -125,26 +125,66 @@ type vsize_t as culong
 
 const __SIMPLELOCK_LOCKED = 1
 const __SIMPLELOCK_UNLOCKED = 0
-type int8_t as __int8_t
-#define int8_t __int8_t
-type uint8_t as __uint8_t
-#define uint8_t __uint8_t
-type int16_t as __int16_t
-#define int16_t __int16_t
-type uint16_t as __uint16_t
-#define uint16_t __uint16_t
-type int32_t as __int32_t
-#define int32_t __int32_t
-type uint32_t as __uint32_t
-#define uint32_t __uint32_t
-type int64_t as __int64_t
-#define int64_t __int64_t
-type uint64_t as __uint64_t
-#define uint64_t __uint64_t
-type u_int8_t as __uint8_t
-type u_int16_t as __uint16_t
-type u_int32_t as __uint32_t
-type u_int64_t as __uint64_t
+#ifndef int8_t
+	type int8_t as __int8_t
+#endif
+#ifndef int8_t
+	#define int8_t __int8_t
+#endif
+#ifndef uint8_t
+	type uint8_t as __uint8_t
+#endif
+#ifndef uint8_t
+	#define uint8_t __uint8_t
+#endif
+#ifndef int16_t
+	type int16_t as __int16_t
+#endif
+#ifndef int16_t
+	#define int16_t __int16_t
+#endif
+#ifndef uint16_t
+	type uint16_t as __uint16_t
+#endif
+#ifndef uint16_t
+	#define uint16_t __uint16_t
+#endif
+#ifndef int32_t
+	type int32_t as __int32_t
+#endif
+#ifndef int32_t
+	#define int32_t __int32_t
+#endif
+#ifndef uint32_t
+	type uint32_t as __uint32_t
+#endif
+#ifndef uint32_t
+	#define uint32_t __uint32_t
+#endif
+#ifndef int64_t
+	type int64_t as __int64_t
+#endif
+#ifndef int64_t
+	#define int64_t __int64_t
+#endif
+#ifndef uint64_t
+	type uint64_t as __uint64_t
+#endif
+#ifndef uint64_t
+	#define uint64_t __uint64_t
+#endif
+#ifndef u_int8_t
+	type u_int8_t as __uint8_t
+#endif
+#ifndef u_int16_t
+	type u_int16_t as __uint16_t
+#endif
+#ifndef u_int32_t
+	type u_int32_t as __uint32_t
+#endif
+#ifndef u_int64_t
+	type u_int64_t as __uint64_t
+#endif
 type u_char as ubyte
 type u_short as ushort
 type u_int as ulong
@@ -212,17 +252,25 @@ const NODEVMAJOR = -1
 #undef _BSD_CLOCK_T_
 
 #if (not defined(__FB_64BIT__)) and (not defined(__FB_ARM__))
-	type size_t as ulong
+	#ifndef size_t
+		type size_t as ulong
+	#endif
 #else
-	type size_t as culong
+	#ifndef size_t
+		type size_t as culong
+	#endif
 #endif
 
 #undef _BSD_SIZE_T_
 
 #if (not defined(__FB_64BIT__)) and (not defined(__FB_ARM__))
-	type ssize_t as long
+	#ifndef ssize_t
+		type ssize_t as long
+	#endif
 #else
-	type ssize_t as clong
+	#ifndef ssize_t
+		type ssize_t as clong
+	#endif
 #endif
 
 #undef _BSD_SSIZE_T_
