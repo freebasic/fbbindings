@@ -173,6 +173,7 @@ type nlink_t as __nlink_t
 type uid_t as __uid_t
 type off_t as __off_t
 type off64_t as __off64_t
+type pid_t as __pid_t
 type id_t as __id_t
 #ifndef ssize_t
 	type ssize_t as __ssize_t
