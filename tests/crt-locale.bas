@@ -1,0 +1,1 @@
+#include "crt/locale.bi"
