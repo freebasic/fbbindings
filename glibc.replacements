@@ -32,6 +32,3 @@ to c:      typedef unsigned long long u_int64_t;
 
 convert c: typedef int register_t __attribute__ ((__mode__ (__word__)));
 to c:      typedef size_t register_t;
-
-convert c: extern __typeof (uselocale) __uselocale;
-to c:      extern __locale_t __uselocale (__locale_t __dataset);

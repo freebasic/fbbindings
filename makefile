@@ -716,8 +716,8 @@ crt-linux: tools
 		-include sys/types.h \
 		-include time/time.h \
 		-include time/sys/time.h \
-		-include locale.h \
-		-include xlocale.h \
+		-include locale/locale.h \
+		-include locale/xlocale.h \
 		extracted/$(GLIBC)/sysdeps/nptl/pthread.h \
 		-emit '*/bits/types.h'        inc/crt/sys/linux/types.bi \
 		-emit '*/bits/typesizes.h'    inc/crt/sys/linux/types.bi \
