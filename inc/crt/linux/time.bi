@@ -26,7 +26,7 @@
 #include once "crt/long.bi"
 #include once "bits/types.bi"
 #include once "crt/stddef.bi"
-#include once "xlocale.bi"
+#include once "crt/xlocale.bi"
 
 '' The following symbols have been renamed:
 ''     procedure time => time_

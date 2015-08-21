@@ -64,3 +64,4 @@
 -removedefine __*_DEFINED__
 
 -removeinclude features.h
+-rename xlocale.h crt/xlocale.h

@@ -25,7 +25,7 @@
 
 #include once "crt/long.bi"
 #include once "crt/stddef.bi"
-#include once "xlocale.bi"
+#include once "crt/xlocale.bi"
 
 extern "C"
 
