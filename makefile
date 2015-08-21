@@ -713,12 +713,12 @@ crt-linux: tools
 
 	mkdir -p inc/crt/bits inc/crt/linux inc/crt/sys/linux
 	$(FBFROG) crt.fbfrog $(CRT_GLIBC_FLAGS) \
-		extracted/$(GLIBC)/sysdeps/nptl/pthread.h \
 		-include sys/types.h \
 		-include time/time.h \
 		-include time/sys/time.h \
 		-include locale.h \
 		-include xlocale.h \
+		extracted/$(GLIBC)/sysdeps/nptl/pthread.h \
 		-emit '*/bits/types.h'        inc/crt/sys/linux/types.bi \
 		-emit '*/bits/typesizes.h'    inc/crt/sys/linux/types.bi \
 		-emit '*/sys/types.h'         inc/crt/sys/linux/types.bi \
