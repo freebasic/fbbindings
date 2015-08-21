@@ -701,6 +701,7 @@ crt-linux: tools
 	$(GETCOMMENT) extracted/$(GLIBC)/time/sys/time.h                     > glibc-sys-time.tmp
 	$(GETCOMMENT) extracted/$(GLIBC)/posix/sys/types.h                   > glibc-sys-types.tmp
 	$(GETCOMMENT) extracted/$(GLIBC)/locale/locale.h                     > glibc-locale.tmp
+	$(GETCOMMENT) extracted/$(GLIBC)/locale/xlocale.h                    > glibc-xlocale.tmp
 
 	cd extracted/$(GLIBC) && \
 		if [ -f bits/wordsize.h ]; then \
@@ -717,6 +718,7 @@ crt-linux: tools
 		-include time/time.h \
 		-include time/sys/time.h \
 		-include locale.h \
+		-include xlocale.h \
 		-emit '*/bits/types.h'        inc/crt/sys/linux/types.bi \
 		-emit '*/bits/typesizes.h'    inc/crt/sys/linux/types.bi \
 		-emit '*/sys/types.h'         inc/crt/sys/linux/types.bi \
@@ -728,6 +730,7 @@ crt-linux: tools
 		-emit '*/sys/time.h'          inc/crt/sys/linux/time.bi \
 		-emit '*/time.h'              inc/crt/linux/time.bi \
 		-emit '*/locale.h'            inc/crt/linux/locale.bi \
+		-emit '*/xlocale.h'           inc/crt/linux/xlocale.bi \
 		-title $(GLIBC) glibc-pthread.tmp   fbteam.txt inc/crt/bits/pthreadtypes.bi \
 		-title $(GLIBC) glibc-wordsize.tmp  fbteam.txt inc/crt/bits/wordsize.bi \
 		-title $(GLIBC) glibc-sched.tmp     fbteam.txt inc/crt/bits/sched.bi \
@@ -736,7 +739,8 @@ crt-linux: tools
 		-title $(GLIBC) glibc-time.tmp      fbteam.txt inc/crt/linux/time.bi \
 		-title $(GLIBC) glibc-sys-time.tmp  fbteam.txt inc/crt/sys/linux/time.bi \
 		-title $(GLIBC) glibc-sys-types.tmp fbteam.txt inc/crt/sys/linux/types.bi \
-		-title $(GLIBC) glibc-locale.tmp    fbteam.txt inc/crt/linux/locale.bi
+		-title $(GLIBC) glibc-locale.tmp    fbteam.txt inc/crt/linux/locale.bi \
+		-title $(GLIBC) glibc-xlocale.tmp   fbteam.txt inc/crt/linux/xlocale.bi
 	rm *.tmp
 
 crt-openbsd: tools
