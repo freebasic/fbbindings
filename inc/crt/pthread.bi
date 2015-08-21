@@ -27,7 +27,6 @@
 	#include once "crt/long.bi"
 #endif
 
-#include once "features.bi"
 #include once "endian.bi"
 #include once "sched.bi"
 #include once "crt/time.bi"

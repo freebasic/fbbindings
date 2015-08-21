@@ -24,7 +24,6 @@
 #pragma once
 
 #include once "crt/long.bi"
-#include once "features.bi"
 #include once "bits/wordsize.bi"
 #include once "crt/time.bi"
 #include once "crt/stddef.bi"
