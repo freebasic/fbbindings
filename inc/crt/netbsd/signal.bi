@@ -38,20 +38,6 @@
 
 #include once "crt/long.bi"
 #include once "crt/sys/types.bi"
-#include once "machine/int_types.bi"
-#include once "machine/ansi.bi"
-#include once "sys/satypes.bi"
-
-#ifndef __FB_ARM__
-	#include once "machine/trap.bi"
-#endif
-
-#if defined(__FB_64BIT__) and (not defined(__FB_ARM__))
-	#include once "machine/fpu.bi"
-	#include once "machine/mcontext.bi"
-#endif
-
-#include once "sys/ucontext.bi"
 
 extern "C"
 

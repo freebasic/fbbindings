@@ -15,9 +15,7 @@
 
 #pragma once
 
-#include once "crtdefs.bi"
-#include once "sec_api/sys/timeb_s.bi"
-#include once "pthread_time.bi"
+#include once "win/crtdefs.bi"
 
 '' The following symbols have been renamed:
 ''     procedure time => time_

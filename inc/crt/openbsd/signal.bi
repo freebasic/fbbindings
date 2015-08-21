@@ -40,7 +40,7 @@
 	#include once "crt/long.bi"
 #endif
 
-#include once "sys/time.bi"
+#include once "crt/sys/time.bi"
 #include once "crt/sys/types.bi"
 
 extern "C"

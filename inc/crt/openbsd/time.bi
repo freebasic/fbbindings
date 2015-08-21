@@ -42,8 +42,7 @@
 #pragma once
 
 #include once "crt/long.bi"
-#include once "sys/_types.bi"
-#include once "sys/_time.bi"
+#include once "crt/sys/types.bi"
 
 '' The following symbols have been renamed:
 ''     procedure time => time_

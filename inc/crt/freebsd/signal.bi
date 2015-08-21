@@ -38,12 +38,7 @@
 #pragma once
 
 #include once "crt/long.bi"
-#include once "sys/_types.bi"
-#include once "machine/_limits.bi"
-
-#ifndef __FB_ARM__
-	#include once "machine/trap.bi"
-#endif
+#include once "crt/sys/types.bi"
 
 extern "C"
 
