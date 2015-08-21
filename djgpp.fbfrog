@@ -4,3 +4,5 @@
 -remove NULL
 
 -remove2nd _rdtsc
+
+-setarraysize sys_siglist "NSIG + 1"

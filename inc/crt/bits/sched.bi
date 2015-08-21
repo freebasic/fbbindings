@@ -31,11 +31,41 @@ extern "C"
 const SCHED_OTHER = 0
 const SCHED_FIFO = 1
 const SCHED_RR = 2
+const SCHED_BATCH = 3
+const SCHED_IDLE = 5
+const SCHED_RESET_ON_FORK = &h40000000
+const CSIGNAL = &h000000ff
+const CLONE_VM = &h00000100
+const CLONE_FS = &h00000200
+const CLONE_FILES = &h00000400
+const CLONE_SIGHAND = &h00000800
+const CLONE_PTRACE = &h00002000
+const CLONE_VFORK = &h00004000
+const CLONE_PARENT = &h00008000
+const CLONE_THREAD = &h00010000
+const CLONE_NEWNS = &h00020000
+const CLONE_SYSVSEM = &h00040000
+const CLONE_SETTLS = &h00080000
+const CLONE_PARENT_SETTID = &h00100000
+const CLONE_CHILD_CLEARTID = &h00200000
+const CLONE_DETACHED = &h00400000
+const CLONE_UNTRACED = &h00800000
+const CLONE_CHILD_SETTID = &h01000000
+const CLONE_NEWUTS = &h04000000
+const CLONE_NEWIPC = &h08000000
+const CLONE_NEWUSER = &h10000000
+const CLONE_NEWPID = &h20000000
+const CLONE_NEWNET = &h40000000
+const CLONE_IO = &h80000000
 
 type sched_param
 	__sched_priority as long
 end type
 
+declare function clone(byval __fn as function(byval __arg as any ptr) as long, byval __child_stack as any ptr, byval __flags as long, byval __arg as any ptr, ...) as long
+declare function unshare(byval __flags as long) as long
+declare function sched_getcpu() as long
+declare function setns(byval __fd as long, byval __nstype as long) as long
 const __defined_schedparam = 1
 
 type __sched_param
