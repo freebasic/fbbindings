@@ -23,10 +23,7 @@
 
 #pragma once
 
-#include once "bits/types.bi"
-#include once "crt/time.bi"
-#include once "bits/time.bi"
-#include once "sys/select.bi"
+#include once "crt/sys/types.bi"
 
 extern "C"
 
