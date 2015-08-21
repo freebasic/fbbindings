@@ -43,6 +43,9 @@
 #include once "crt/long.bi"
 #include once "crt/sys/types.bi"
 
+'' The following symbols have been renamed:
+''     procedure time => time_
+
 extern "C"
 
 type timeval
@@ -115,7 +118,7 @@ declare function gmtime(byval as const time_t ptr) as tm ptr
 declare function localtime(byval as const time_t ptr) as tm ptr
 declare function mktime(byval as tm ptr) as time_t
 declare function strftime(byval as zstring ptr, byval as uinteger, byval as const zstring ptr, byval as const tm ptr) as uinteger
-declare function time(byval as time_t ptr) as time_t
+declare function time_ alias "time"(byval as time_t ptr) as time_t
 declare function timer_create(byval as clockid_t, byval as sigevent ptr, byval as timer_t ptr) as long
 declare function timer_delete(byval as timer_t) as long
 declare function timer_gettime(byval as timer_t, byval as itimerspec ptr) as long

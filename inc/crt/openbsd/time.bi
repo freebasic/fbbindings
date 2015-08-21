@@ -45,6 +45,9 @@
 #include once "sys/_types.bi"
 #include once "sys/_time.bi"
 
+'' The following symbols have been renamed:
+''     procedure time => time_
+
 extern "C"
 
 #ifndef NULL
@@ -75,7 +78,7 @@ declare function gmtime(byval as const time_t ptr) as tm ptr
 declare function localtime(byval as const time_t ptr) as tm ptr
 declare function mktime(byval as tm ptr) as time_t
 '' TODO: size_t strftime(char *__restrict, size_t, const char *__restrict, const struct tm *__restrict) __attribute__ ((__bounded__(__string__,1,2)));
-declare function time(byval as time_t ptr) as time_t
+declare function time_ alias "time"(byval as time_t ptr) as time_t
 declare function strptime(byval as const zstring ptr, byval as const zstring ptr, byval as tm ptr) as zstring ptr
 '' TODO: char *asctime_r(const struct tm *__restrict, char *__restrict) __attribute__ ((__bounded__(__minbytes__,2,26)));
 '' TODO: char *ctime_r(const time_t *, char *) __attribute__ ((__bounded__(__minbytes__,2,26)));
