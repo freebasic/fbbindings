@@ -651,6 +651,7 @@ CRT_GLIBC_FLAGS +=     -incdir extracted/$(GLIBC)/sysdeps/aarch64
 CRT_GLIBC_FLAGS +=     -incdir extracted/$(GLIBC)/sysdeps/aarch64/nptl
 CRT_GLIBC_FLAGS +=     -incdir extracted/$(GLIBC)/sysdeps/wordsize-64
 CRT_GLIBC_FLAGS += -endselect
+CRT_GLIBC_FLAGS += -incdir extracted/$(GLIBC)/sysdeps/unix/sysv/linux
 CRT_GLIBC_FLAGS += -incdir extracted/$(GLIBC)/sysdeps/nptl
 CRT_GLIBC_FLAGS += -incdir extracted/$(GLIBC)/sysdeps/generic
 CRT_GLIBC_FLAGS += -incdir extracted/$(GLIBC)/include
@@ -680,20 +681,26 @@ crt-dos: tools
 	sed -n 1,5p extracted/$(DJGPP)/include/locale.h >  djgpp-locale.tmp
 	cat djgpp-copying-dj.tmp                        >> djgpp-locale.tmp
 
+	sed -n 1,4p extracted/$(DJGPP)/include/signal.h >  djgpp-signal.tmp
+	cat djgpp-copying-dj.tmp                        >> djgpp-signal.tmp
+
 	mkdir -p inc/crt/dos inc/crt/sys/dos
 	$(FBFROG) crt.fbfrog $(CRT_DJGPP_FLAGS) \
 		-include sys/types.h \
 		-include time.h \
 		-include sys/time.h \
 		-include locale.h \
+		-include signal.h \
 		-emit '*/sys/types.h' inc/crt/sys/dos/types.bi \
 		-emit '*/sys/time.h'  inc/crt/sys/dos/time.bi \
 		-emit '*/time.h'      inc/crt/dos/time.bi \
 		-emit '*/locale.h'    inc/crt/dos/locale.bi \
+		-emit '*/signal.h'    inc/crt/dos/signal.bi \
 		-title $(DJGPP) djgpp-sys-types.tmp fbteam.txt inc/crt/sys/dos/types.bi \
 		-title $(DJGPP) djgpp-sys-time.tmp  fbteam.txt inc/crt/sys/dos/time.bi \
 		-title $(DJGPP) djgpp-time.tmp      fbteam.txt inc/crt/dos/time.bi \
-		-title $(DJGPP) djgpp-locale.tmp    fbteam.txt inc/crt/dos/locale.bi
+		-title $(DJGPP) djgpp-locale.tmp    fbteam.txt inc/crt/dos/locale.bi \
+		-title $(DJGPP) djgpp-signal.tmp    fbteam.txt inc/crt/dos/signal.bi
 	rm *.tmp
 
 crt-linux: tools
@@ -708,6 +715,7 @@ crt-linux: tools
 	$(GETCOMMENT) extracted/$(GLIBC)/posix/sys/types.h                   > glibc-sys-types.tmp
 	$(GETCOMMENT) extracted/$(GLIBC)/locale/locale.h                     > glibc-locale.tmp
 	$(GETCOMMENT) extracted/$(GLIBC)/locale/xlocale.h                    > glibc-xlocale.tmp
+	$(GETCOMMENT) extracted/$(GLIBC)/signal/signal.h                     > glibc-signal.tmp
 
 	cd extracted/$(GLIBC) && \
 		if [ -f bits/wordsize.h ]; then \
@@ -720,13 +728,22 @@ crt-linux: tools
 	mkdir -p inc/crt/bits inc/crt/linux inc/crt/sys/linux
 	$(FBFROG) crt.fbfrog $(CRT_GLIBC_FLAGS) \
 		-include sys/types.h \
+		-include signal/signal.h \
 		-include time/time.h \
 		-include time/sys/time.h \
-		-include locale.h \
-		-include xlocale.h \
+		-include locale/locale.h \
+		-include locale/xlocale.h \
 		extracted/$(GLIBC)/sysdeps/nptl/pthread.h \
 		-emit '*/bits/types.h'        inc/crt/sys/linux/types.bi \
 		-emit '*/bits/typesizes.h'    inc/crt/sys/linux/types.bi \
+		-emit '*/bits/sigset.h'       inc/crt/linux/signal.bi \
+		-emit '*/bits/signum.h'       inc/crt/linux/signal.bi \
+		-emit '*/bits/siginfo.h'      inc/crt/linux/signal.bi \
+		-emit '*/bits/sigaction.h'    inc/crt/linux/signal.bi \
+		-emit '*/bits/sigcontext.h'   inc/crt/linux/signal.bi \
+		-emit '*/bits/sigstack.h'     inc/crt/linux/signal.bi \
+		-emit '*/bits/sigthread.h'    inc/crt/linux/signal.bi \
+		-emit '*/asm/sigcontext.h'    inc/crt/linux/signal.bi \
 		-emit '*/sys/types.h'         inc/crt/sys/linux/types.bi \
 		-emit '*/bits/pthreadtypes.h' inc/crt/bits/pthreadtypes.bi \
 		-emit '*/bits/wordsize.h'     inc/crt/bits/wordsize.bi \
@@ -737,6 +754,7 @@ crt-linux: tools
 		-emit '*/time.h'              inc/crt/linux/time.bi \
 		-emit '*/locale.h'            inc/crt/linux/locale.bi \
 		-emit '*/xlocale.h'           inc/crt/linux/xlocale.bi \
+		-emit '*/signal.h'            inc/crt/linux/signal.bi \
 		-title $(GLIBC) glibc-pthread.tmp   fbteam.txt inc/crt/bits/pthreadtypes.bi \
 		-title $(GLIBC) glibc-wordsize.tmp  fbteam.txt inc/crt/bits/wordsize.bi \
 		-title $(GLIBC) glibc-sched.tmp     fbteam.txt inc/crt/bits/sched.bi \
@@ -746,7 +764,8 @@ crt-linux: tools
 		-title $(GLIBC) glibc-sys-time.tmp  fbteam.txt inc/crt/sys/linux/time.bi \
 		-title $(GLIBC) glibc-sys-types.tmp fbteam.txt inc/crt/sys/linux/types.bi \
 		-title $(GLIBC) glibc-locale.tmp    fbteam.txt inc/crt/linux/locale.bi \
-		-title $(GLIBC) glibc-xlocale.tmp   fbteam.txt inc/crt/linux/xlocale.bi
+		-title $(GLIBC) glibc-xlocale.tmp   fbteam.txt inc/crt/linux/xlocale.bi \
+		-title $(GLIBC) glibc-signal.tmp    fbteam.txt inc/crt/linux/signal.bi
 	rm *.tmp
 
 crt-openbsd: tools
@@ -762,6 +781,7 @@ crt-openbsd: tools
 	$(GETCOMMENT) -3 extracted/$(OPENBSD)-sys/sys/sys/time.h   > openbsd-sys-time.tmp
 	$(GETCOMMENT) -3 extracted/$(OPENBSD)-src/include/time.h   > openbsd-time.tmp
 	$(GETCOMMENT) -3 extracted/$(OPENBSD)-src/include/locale.h > openbsd-locale.tmp
+	$(GETCOMMENT) -3 extracted/$(OPENBSD)-src/include/signal.h > openbsd-signal.tmp
 
 	mkdir -p inc/crt/openbsd inc/crt/sys/openbsd
 	$(FBFROG) -target openbsd crt.fbfrog \
@@ -773,19 +793,23 @@ crt-openbsd: tools
 		-caseelse    -incdir extracted/$(OPENBSD)-sys/sys/arch/arm/include \
 		-endselect \
 		-include sys/types.h \
+		-include signal.h \
 		-include time.h \
 		-include sys/time.h \
 		-include locale.h \
-		-emit '*/types.h'     inc/crt/sys/openbsd/types.bi \
-		-emit '*/_types.h'    inc/crt/sys/openbsd/types.bi \
-		-emit '*/sys/time.h'  inc/crt/sys/openbsd/time.bi \
-		-emit '*/sys/_time.h' inc/crt/sys/openbsd/time.bi \
-		-emit '*/time.h'      inc/crt/openbsd/time.bi \
-		-emit '*/locale.h'    inc/crt/openbsd/locale.bi \
+		-emit '*/types.h'       inc/crt/sys/openbsd/types.bi \
+		-emit '*/_types.h'      inc/crt/sys/openbsd/types.bi \
+		-emit '*/sys/time.h'    inc/crt/sys/openbsd/time.bi \
+		-emit '*/sys/_time.h'   inc/crt/sys/openbsd/time.bi \
+		-emit '*/time.h'        inc/crt/openbsd/time.bi \
+		-emit '*/locale.h'      inc/crt/openbsd/locale.bi \
+		-emit '*/signal.h'      inc/crt/openbsd/signal.bi \
+		-emit '*/sys/siginfo.h' inc/crt/openbsd/signal.bi \
 		-title $(OPENBSD) openbsd-sys-types.tmp fbteam.txt inc/crt/sys/openbsd/types.bi \
 		-title $(OPENBSD) openbsd-sys-time.tmp  fbteam.txt inc/crt/sys/openbsd/time.bi \
 		-title $(OPENBSD) openbsd-time.tmp      fbteam.txt inc/crt/openbsd/time.bi \
-		-title $(OPENBSD) openbsd-locale.tmp    fbteam.txt inc/crt/openbsd/locale.bi
+		-title $(OPENBSD) openbsd-locale.tmp    fbteam.txt inc/crt/openbsd/locale.bi \
+		-title $(OPENBSD) openbsd-signal.tmp    fbteam.txt inc/crt/openbsd/signal.bi
 	rm *.tmp
 
 crt-freebsd: tools
@@ -801,6 +825,7 @@ crt-freebsd: tools
 	$(GETCOMMENT) extracted/$(FREEBSD)/usr/src/sys/sys/time.h   > freebsd-sys-time.tmp
 	$(GETCOMMENT) extracted/$(FREEBSD)/usr/src/include/time.h   > freebsd-time.tmp
 	$(GETCOMMENT) extracted/$(FREEBSD)/usr/src/include/locale.h > freebsd-locale.tmp
+	$(GETCOMMENT) extracted/$(FREEBSD)/usr/src/include/signal.h > freebsd-signal.tmp
 
 	mkdir -p inc/crt/freebsd inc/crt/sys/freebsd
 	$(FBFROG) -target freebsd crt.fbfrog freebsd.fbfrog \
@@ -817,6 +842,8 @@ crt-freebsd: tools
 			-incdir extracted/$(FREEBSD)/usr/src/sys/arm/include \
 		-endselect \
 		-include sys/types.h \
+		-include sys/signal.h \
+		-include signal.h \
 		-include time.h \
 		-include sys/time.h \
 		-include locale.h \
@@ -829,10 +856,14 @@ crt-freebsd: tools
 		-emit '*/time.h'          inc/crt/freebsd/time.bi \
 		-emit '*/_locale.h'       inc/crt/freebsd/locale.bi \
 		-emit '*/locale.h'        inc/crt/freebsd/locale.bi \
+		-emit '*/signal.h'        inc/crt/freebsd/signal.bi \
+		-emit '*/sys/_sigset.h'   inc/crt/freebsd/signal.bi \
+		-emit '*/sys/signal.h'    inc/crt/freebsd/signal.bi \
 		-title $(FREEBSD) freebsd-sys-types.tmp fbteam.txt inc/crt/sys/freebsd/types.bi \
 		-title $(FREEBSD) freebsd-sys-time.tmp  fbteam.txt inc/crt/sys/freebsd/time.bi \
 		-title $(FREEBSD) freebsd-time.tmp      fbteam.txt inc/crt/freebsd/time.bi \
-		-title $(FREEBSD) freebsd-locale.tmp    fbteam.txt inc/crt/freebsd/locale.bi
+		-title $(FREEBSD) freebsd-locale.tmp    fbteam.txt inc/crt/freebsd/locale.bi \
+		-title $(FREEBSD) freebsd-signal.tmp    fbteam.txt inc/crt/freebsd/signal.bi
 	rm *.tmp
 
 crt-netbsd: tools
@@ -849,6 +880,7 @@ crt-netbsd: tools
 	$(GETCOMMENT) -2 extracted/$(NETBSD)-sys/usr/src/sys/sys/time.h   > netbsd-sys-time.tmp
 	$(GETCOMMENT) -2 extracted/$(NETBSD)-src/usr/src/include/time.h   > netbsd-time.tmp
 	$(GETCOMMENT) -2 extracted/$(NETBSD)-src/usr/src/include/locale.h > netbsd-locale.tmp
+	$(GETCOMMENT) -2 extracted/$(NETBSD)-src/usr/src/include/signal.h > netbsd-signal.tmp
 
 	mkdir -p inc/crt/netbsd inc/crt/sys/netbsd
 	$(FBFROG) -target netbsd crt.fbfrog netbsd.fbfrog \
@@ -860,19 +892,24 @@ crt-netbsd: tools
 		-case x86_64 -incdir extracted/$(NETBSD)-sys/usr/src/sys/arch/amd64/include \
 		-caseelse    -incdir extracted/$(NETBSD)-sys/usr/src/sys/arch/arm/include \
 		-endselect \
+		-include signal.h \
 		-include sys/types.h \
 		-include time.h \
 		-include sys/time.h \
 		-include locale.h \
-		-emit '*/types.h'     inc/crt/sys/netbsd/types.bi \
-		-emit '*/int_types.h' inc/crt/sys/netbsd/types.bi \
-		-emit '*/sys/time.h'  inc/crt/sys/netbsd/time.bi \
-		-emit '*/time.h'      inc/crt/netbsd/time.bi \
-		-emit '*/locale.h'    inc/crt/netbsd/locale.bi \
+		-emit '*/types.h'        inc/crt/sys/netbsd/types.bi \
+		-emit '*/int_types.h'    inc/crt/sys/netbsd/types.bi \
+		-emit '*/sys/time.h'     inc/crt/sys/netbsd/time.bi \
+		-emit '*/time.h'         inc/crt/netbsd/time.bi \
+		-emit '*/locale.h'       inc/crt/netbsd/locale.bi \
+		-emit '*/signal.h'       inc/crt/netbsd/signal.bi \
+		-emit '*/sys/sigtypes.h' inc/crt/netbsd/signal.bi \
+		-emit '*/sys/siginfo.h'  inc/crt/netbsd/signal.bi \
 		-title $(NETBSD) netbsd-sys-types.tmp fbteam.txt inc/crt/sys/netbsd/types.bi \
 		-title $(NETBSD) netbsd-sys-time.tmp  fbteam.txt inc/crt/sys/netbsd/time.bi \
 		-title $(NETBSD) netbsd-time.tmp      fbteam.txt inc/crt/netbsd/time.bi \
-		-title $(NETBSD) netbsd-locale.tmp    fbteam.txt inc/crt/netbsd/locale.bi
+		-title $(NETBSD) netbsd-locale.tmp    fbteam.txt inc/crt/netbsd/locale.bi \
+		-title $(NETBSD) netbsd-signal.tmp    fbteam.txt inc/crt/netbsd/signal.bi
 	rm *.tmp
 
 crt-winapi: tools winapi-extract

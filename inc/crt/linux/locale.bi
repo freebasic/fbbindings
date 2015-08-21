@@ -107,12 +107,5 @@ declare function duplocale(byval __dataset as __locale_t) as __locale_t
 declare sub freelocale(byval __dataset as __locale_t)
 declare function uselocale(byval __dataset as __locale_t) as __locale_t
 #define LC_GLOBAL_LOCALE cast(__locale_t, -cast(clong, 1))
-declare function __uselocale(byval __dataset as __locale_t) as __locale_t
-const __LC_LAST = 13
-extern _nl_locale_file_list(0 to ...) as loaded_l10nfile ptr
-extern _nl_C_locobj as const __locale_struct
-#define _nl_C_locobj_ptr cptr(__locale_struct ptr, @_nl_C_locobj)
-declare function __localeconv() as lconv ptr
-declare function __current_locale_name(byval category as long) as const zstring ptr
 
 end extern

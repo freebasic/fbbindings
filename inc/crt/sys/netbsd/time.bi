@@ -47,7 +47,7 @@ type timeval
 	tv_usec as suseconds_t
 end type
 
-type timespec
+type timespec_
 	tv_sec as time_t
 	tv_nsec as clong
 end type
