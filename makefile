@@ -710,6 +710,7 @@ crt-linux: tools
 	$(GETCOMMENT) extracted/$(GLIBC)/locale/locale.h                     > glibc-locale.tmp
 	$(GETCOMMENT) extracted/$(GLIBC)/locale/xlocale.h                    > glibc-xlocale.tmp
 	$(GETCOMMENT) extracted/$(GLIBC)/signal/signal.h                     > glibc-signal.tmp
+	$(GETCOMMENT) extracted/$(GLIBC)/sysdeps/unix/sysv/linux/sys/timex.h > glibc-timex.tmp
 
 	cd extracted/$(GLIBC) && \
 		if [ -f bits/wordsize.h ]; then \
@@ -727,6 +728,7 @@ crt-linux: tools
 		-include time/sys/time.h \
 		-include locale/locale.h \
 		-include locale/xlocale.h \
+		-include sys/timex.h \
 		extracted/$(GLIBC)/sysdeps/nptl/pthread.h \
 		-emit '*/bits/types.h'        inc/crt/sys/linux/types.bi \
 		-emit '*/bits/typesizes.h'    inc/crt/sys/linux/types.bi \
@@ -746,6 +748,7 @@ crt-linux: tools
 		-emit '*/sched.h'             inc/crt/sched.bi \
 		-emit '*/sys/time.h'          inc/crt/sys/linux/time.bi \
 		-emit '*/time.h'              inc/crt/linux/time.bi \
+		-emit '*/timex.h'             inc/crt/linux/timex.bi \
 		-emit '*/locale.h'            inc/crt/linux/locale.bi \
 		-emit '*/xlocale.h'           inc/crt/linux/xlocale.bi \
 		-emit '*/signal.h'            inc/crt/linux/signal.bi \
@@ -755,6 +758,7 @@ crt-linux: tools
 		-title $(GLIBC) glibc-pthread.tmp   fbteam.txt inc/crt/pthread.bi \
 		-title $(GLIBC) glibc-sched.tmp     fbteam.txt inc/crt/sched.bi \
 		-title $(GLIBC) glibc-time.tmp      fbteam.txt inc/crt/linux/time.bi \
+		-title $(GLIBC) glibc-timex.tmp     fbteam.txt inc/crt/linux/timex.bi \
 		-title $(GLIBC) glibc-sys-time.tmp  fbteam.txt inc/crt/sys/linux/time.bi \
 		-title $(GLIBC) glibc-sys-types.tmp fbteam.txt inc/crt/sys/linux/types.bi \
 		-title $(GLIBC) glibc-locale.tmp    fbteam.txt inc/crt/linux/locale.bi \
