@@ -809,8 +809,8 @@ crt-openbsd: tools
 		-title $(OPENBSD) openbsd-signal.tmp    fbteam.txt inc/crt/openbsd/signal.bi
 	rm *.tmp
 
-FREEBSD := FreeBSD-$(FREEBSD_VERSION)
 FREEBSD_VERSION := 10.1-RELEASE
+FREEBSD := FreeBSD-$(FREEBSD_VERSION)
 crt-freebsd: tools
 	./get.sh $(FREEBSD) $(FREEBSD).tar.xz ftp://ftp.freebsd.org/pub/FreeBSD/releases/i386/$(FREEBSD_VERSION)/src.txz createdir "usr/src/include usr/src/sys/sys usr/src/sys/i386 usr/src/sys/amd64 usr/src/sys/arm usr/src/sys/x86"
 
@@ -865,8 +865,8 @@ crt-freebsd: tools
 		-title $(FREEBSD) freebsd-signal.tmp    fbteam.txt inc/crt/freebsd/signal.bi
 	rm *.tmp
 
-NETBSD := NetBSD-$(NETBSD_VERSION)
 NETBSD_VERSION := 6.1.5
+NETBSD := NetBSD-$(NETBSD_VERSION)
 crt-netbsd: tools
 	./get.sh $(NETBSD)-src $(NETBSD)-src.tar.gz ftp://ftp.netbsd.org/pub/NetBSD/NetBSD-$(NETBSD_VERSION)/source/sets/src.tgz createdir "usr/src/include usr/src/lib/libpthread"
 	./get.sh $(NETBSD)-sys $(NETBSD)-sys.tar.gz ftp://ftp.netbsd.org/pub/NetBSD/NetBSD-$(NETBSD_VERSION)/source/sets/syssrc.tgz createdir "usr/src/sys/arch usr/src/sys/sys"
