@@ -1,0 +1,2 @@
+-removeinclude linux/compiler.h
+-removeinclude linux/types.h

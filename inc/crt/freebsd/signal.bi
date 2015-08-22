@@ -202,10 +202,10 @@ const SIGTHR = 32
 const SIGLIBRT = 33
 const SIGRTMIN = 65
 const SIGRTMAX = 126
-#define SIG_DFL cptr(__sighandler_t ptr, 0)
-#define SIG_IGN cptr(__sighandler_t ptr, 1)
-#define SIG_ERR cptr(__sighandler_t ptr, -1)
-#define SIG_HOLD cptr(__sighandler_t ptr, 3)
+const SIG_DFL = cptr(sub(byval as long), 0)
+const SIG_IGN = cptr(sub(byval as long), 1)
+const SIG_ERR = cptr(sub(byval as long), -1)
+const SIG_HOLD = cptr(sub(byval as long), 3)
 
 union sigval
 	sival_int as long

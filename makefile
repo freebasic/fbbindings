@@ -1,4 +1,4 @@
-FBFROG_VERSION := 8a93d9a548097830bfb7c32b239ee7e7fb567b5f
+FBFROG_VERSION := 32bef937e767aedbc31b1ebb0d459ebbece4922e
 
 ALL := allegro allegro4 allegro5 aspell atk
 ALL += bass bassmod bfd bzip2
@@ -621,48 +621,9 @@ clang: tools
 		-title $(CLANG_TITLE) clang.tmp fbteam.txt
 	rm *.tmp
 
-DJGPP := djdev204
-GLIBC := glibc-2.21
-OPENBSD_VERSION := 5.7
-FREEBSD_VERSION := 10.1-RELEASE
-NETBSD_VERSION := 6.1.5
-OPENBSD := OpenBSD-$(OPENBSD_VERSION)
-FREEBSD := FreeBSD-$(FREEBSD_VERSION)
-NETBSD := NetBSD-$(NETBSD_VERSION)
-MINGWW64_TITLE := mingw-w64-v4.0.1
-
-CRT_DJGPP_FLAGS := -target dos djgpp.fbfrog -incdir extracted/$(DJGPP)/include
-
-CRT_GLIBC_FLAGS := -target linux glibc.fbfrog
-CRT_GLIBC_FLAGS += -selecttarget
-CRT_GLIBC_FLAGS += -case x86
-CRT_GLIBC_FLAGS +=     -incdir extracted/$(GLIBC)/sysdeps/x86
-CRT_GLIBC_FLAGS +=     -incdir extracted/$(GLIBC)/sysdeps/wordsize-32
-CRT_GLIBC_FLAGS += -case x86_64
-CRT_GLIBC_FLAGS +=     -incdir extracted/$(GLIBC)/sysdeps/x86_64
-CRT_GLIBC_FLAGS +=     -incdir extracted/$(GLIBC)/sysdeps/wordsize-64
-CRT_GLIBC_FLAGS +=     -incdir extracted/$(GLIBC)/sysdeps/x86
-CRT_GLIBC_FLAGS += -case arm
-CRT_GLIBC_FLAGS +=     -incdir extracted/$(GLIBC)/sysdeps/arm
-CRT_GLIBC_FLAGS +=     -incdir extracted/$(GLIBC)/sysdeps/arm/nptl
-CRT_GLIBC_FLAGS +=     -incdir extracted/$(GLIBC)/sysdeps/wordsize-32
-CRT_GLIBC_FLAGS += -case aarch64
-CRT_GLIBC_FLAGS +=     -incdir extracted/$(GLIBC)/sysdeps/aarch64
-CRT_GLIBC_FLAGS +=     -incdir extracted/$(GLIBC)/sysdeps/aarch64/nptl
-CRT_GLIBC_FLAGS +=     -incdir extracted/$(GLIBC)/sysdeps/wordsize-64
-CRT_GLIBC_FLAGS += -endselect
-CRT_GLIBC_FLAGS += -incdir extracted/$(GLIBC)/sysdeps/unix/sysv/linux
-CRT_GLIBC_FLAGS += -incdir extracted/$(GLIBC)/sysdeps/nptl
-CRT_GLIBC_FLAGS += -incdir extracted/$(GLIBC)/sysdeps/generic
-CRT_GLIBC_FLAGS += -incdir extracted/$(GLIBC)/include
-CRT_GLIBC_FLAGS += -incdir extracted/$(GLIBC)
-CRT_GLIBC_FLAGS += -include libc-symbols.h
-
-CRT_WINAPI_FLAGS := -target windows crt-winapi.fbfrog
-CRT_WINAPI_FLAGS += -incdir extracted/$(MINGWW64_TITLE)/mingw-w64-headers/crt
-
 crt: crt-dos crt-linux crt-openbsd crt-freebsd crt-netbsd crt-winapi
 
+DJGPP := djdev204
 crt-dos: tools
 	# DJGPP for DOS
 	./get.sh $(DJGPP) $(DJGPP).zip ftp://ftp.fu-berlin.de/pc/languages/djgpp/beta/v2/$(DJGPP).zip createdir "include/* copying.dj"
@@ -685,7 +646,8 @@ crt-dos: tools
 	cat djgpp-copying-dj.tmp                        >> djgpp-signal.tmp
 
 	mkdir -p inc/crt/dos inc/crt/sys/dos
-	$(FBFROG) crt.fbfrog $(CRT_DJGPP_FLAGS) \
+	$(FBFROG) -target dos crt.fbfrog djgpp.fbfrog \
+		-incdir extracted/$(DJGPP)/include \
 		-include sys/types.h \
 		-include time.h \
 		-include sys/time.h \
@@ -703,8 +665,10 @@ crt-dos: tools
 		-title $(DJGPP) djgpp-signal.tmp    fbteam.txt inc/crt/dos/signal.bi
 	rm *.tmp
 
+LINUX := linux-4.1.6
+GLIBC := glibc-2.21
 crt-linux: tools
-	# glibc for Linux
+	./get.sh $(LINUX) $(LINUX).tar.xz https://www.kernel.org/pub/linux/kernel/v4.x/$(LINUX).tar.xz
 	./get.sh $(GLIBC) $(GLIBC).tar.xz http://ftp.gnu.org/gnu/glibc/$(GLIBC).tar.xz
 
 	$(GETCOMMENT) extracted/$(GLIBC)/sysdeps/wordsize-32/bits/wordsize.h > glibc-wordsize.tmp
@@ -716,6 +680,9 @@ crt-linux: tools
 	$(GETCOMMENT) extracted/$(GLIBC)/locale/locale.h                     > glibc-locale.tmp
 	$(GETCOMMENT) extracted/$(GLIBC)/locale/xlocale.h                    > glibc-xlocale.tmp
 	$(GETCOMMENT) extracted/$(GLIBC)/signal/signal.h                     > glibc-signal.tmp
+	$(GETCOMMENT) extracted/$(GLIBC)/sysdeps/unix/sysv/linux/sys/timex.h > glibc-timex.tmp
+
+	sed -n 312,324p extracted/$(LINUX)/COPYING > linux.tmp
 
 	cd extracted/$(GLIBC) && \
 		if [ -f bits/wordsize.h ]; then \
@@ -725,14 +692,43 @@ crt-linux: tools
 			echo "#pragma once" >> sysdeps/x86/bits/wordsize.h; \
 		fi
 
-	mkdir -p inc/crt/bits inc/crt/linux inc/crt/sys/linux
-	$(FBFROG) crt.fbfrog $(CRT_GLIBC_FLAGS) \
+	mkdir -p inc/crt/bits inc/crt/linux/asm inc/crt/sys/linux
+	$(FBFROG) -target linux crt.fbfrog linux.fbfrog glibc.fbfrog \
+		-selecttarget \
+		-case x86 \
+			-incdir extracted/$(GLIBC)/sysdeps/x86 \
+			-incdir extracted/$(GLIBC)/sysdeps/wordsize-32 \
+			-incdir extracted/$(LINUX)/arch/x86/include/uapi \
+		-case x86_64 \
+			-incdir extracted/$(GLIBC)/sysdeps/x86_64 \
+			-incdir extracted/$(GLIBC)/sysdeps/wordsize-64 \
+			-incdir extracted/$(GLIBC)/sysdeps/x86 \
+			-incdir extracted/$(LINUX)/arch/x86/include/uapi \
+		-case arm \
+			-incdir extracted/$(GLIBC)/sysdeps/arm \
+			-incdir extracted/$(GLIBC)/sysdeps/arm/nptl \
+			-incdir extracted/$(GLIBC)/sysdeps/wordsize-32 \
+			-incdir extracted/$(LINUX)/arch/arm/include/uapi \
+		-case aarch64 \
+			-incdir extracted/$(GLIBC)/sysdeps/aarch64 \
+			-incdir extracted/$(GLIBC)/sysdeps/aarch64/nptl \
+			-incdir extracted/$(GLIBC)/sysdeps/wordsize-64 \
+			-incdir extracted/$(LINUX)/arch/arm64/include/uapi \
+		-endselect \
+		-incdir extracted/$(GLIBC)/sysdeps/unix/sysv/linux \
+		-incdir extracted/$(GLIBC)/sysdeps/nptl \
+		-incdir extracted/$(GLIBC)/sysdeps/generic \
+		-incdir extracted/$(GLIBC)/include \
+		-incdir extracted/$(GLIBC) \
+		-incdir extracted/$(LINUX)/include/uapi \
+		-include libc-symbols.h \
 		-include sys/types.h \
 		-include signal/signal.h \
 		-include time/time.h \
 		-include time/sys/time.h \
 		-include locale/locale.h \
 		-include locale/xlocale.h \
+		-include sys/timex.h \
 		extracted/$(GLIBC)/sysdeps/nptl/pthread.h \
 		-emit '*/bits/types.h'        inc/crt/sys/linux/types.bi \
 		-emit '*/bits/typesizes.h'    inc/crt/sys/linux/types.bi \
@@ -743,7 +739,7 @@ crt-linux: tools
 		-emit '*/bits/sigcontext.h'   inc/crt/linux/signal.bi \
 		-emit '*/bits/sigstack.h'     inc/crt/linux/signal.bi \
 		-emit '*/bits/sigthread.h'    inc/crt/linux/signal.bi \
-		-emit '*/asm/sigcontext.h'    inc/crt/linux/signal.bi \
+		-emit '*/asm/sigcontext.h'    inc/crt/linux/asm/sigcontext.bi \
 		-emit '*/sys/types.h'         inc/crt/sys/linux/types.bi \
 		-emit '*/bits/pthreadtypes.h' inc/crt/bits/pthreadtypes.bi \
 		-emit '*/bits/wordsize.h'     inc/crt/bits/wordsize.bi \
@@ -752,6 +748,7 @@ crt-linux: tools
 		-emit '*/sched.h'             inc/crt/sched.bi \
 		-emit '*/sys/time.h'          inc/crt/sys/linux/time.bi \
 		-emit '*/time.h'              inc/crt/linux/time.bi \
+		-emit '*/timex.h'             inc/crt/linux/timex.bi \
 		-emit '*/locale.h'            inc/crt/linux/locale.bi \
 		-emit '*/xlocale.h'           inc/crt/linux/xlocale.bi \
 		-emit '*/signal.h'            inc/crt/linux/signal.bi \
@@ -761,13 +758,19 @@ crt-linux: tools
 		-title $(GLIBC) glibc-pthread.tmp   fbteam.txt inc/crt/pthread.bi \
 		-title $(GLIBC) glibc-sched.tmp     fbteam.txt inc/crt/sched.bi \
 		-title $(GLIBC) glibc-time.tmp      fbteam.txt inc/crt/linux/time.bi \
+		-title $(GLIBC) glibc-timex.tmp     fbteam.txt inc/crt/linux/timex.bi \
 		-title $(GLIBC) glibc-sys-time.tmp  fbteam.txt inc/crt/sys/linux/time.bi \
 		-title $(GLIBC) glibc-sys-types.tmp fbteam.txt inc/crt/sys/linux/types.bi \
 		-title $(GLIBC) glibc-locale.tmp    fbteam.txt inc/crt/linux/locale.bi \
 		-title $(GLIBC) glibc-xlocale.tmp   fbteam.txt inc/crt/linux/xlocale.bi \
-		-title $(GLIBC) glibc-signal.tmp    fbteam.txt inc/crt/linux/signal.bi
+		-title $(GLIBC) glibc-signal.tmp    fbteam.txt inc/crt/linux/signal.bi \
+		-title $(LINUX) linux.tmp           fbteam.txt inc/crt/linux/asm/sigcontext.bi
+
 	rm *.tmp
 
+
+OPENBSD_VERSION := 5.7
+OPENBSD := OpenBSD-$(OPENBSD_VERSION)
 crt-openbsd: tools
 	./get.sh $(OPENBSD)-sys $(OPENBSD)-sys.tar.gz http://ftp.openbsd.org/pub/OpenBSD/$(OPENBSD_VERSION)/sys.tar.gz createdir "./sys/sys ./sys/arch"
 	./get.sh $(OPENBSD)-src $(OPENBSD)-src.tar.gz http://ftp.openbsd.org/pub/OpenBSD/$(OPENBSD_VERSION)/src.tar.gz createdir ./include
@@ -812,6 +815,8 @@ crt-openbsd: tools
 		-title $(OPENBSD) openbsd-signal.tmp    fbteam.txt inc/crt/openbsd/signal.bi
 	rm *.tmp
 
+FREEBSD_VERSION := 10.1-RELEASE
+FREEBSD := FreeBSD-$(FREEBSD_VERSION)
 crt-freebsd: tools
 	./get.sh $(FREEBSD) $(FREEBSD).tar.xz ftp://ftp.freebsd.org/pub/FreeBSD/releases/i386/$(FREEBSD_VERSION)/src.txz createdir "usr/src/include usr/src/sys/sys usr/src/sys/i386 usr/src/sys/amd64 usr/src/sys/arm usr/src/sys/x86"
 
@@ -866,6 +871,8 @@ crt-freebsd: tools
 		-title $(FREEBSD) freebsd-signal.tmp    fbteam.txt inc/crt/freebsd/signal.bi
 	rm *.tmp
 
+NETBSD_VERSION := 6.1.5
+NETBSD := NetBSD-$(NETBSD_VERSION)
 crt-netbsd: tools
 	./get.sh $(NETBSD)-src $(NETBSD)-src.tar.gz ftp://ftp.netbsd.org/pub/NetBSD/NetBSD-$(NETBSD_VERSION)/source/sets/src.tgz createdir "usr/src/include usr/src/lib/libpthread"
 	./get.sh $(NETBSD)-sys $(NETBSD)-sys.tar.gz ftp://ftp.netbsd.org/pub/NetBSD/NetBSD-$(NETBSD_VERSION)/source/sets/syssrc.tgz createdir "usr/src/sys/arch usr/src/sys/sys"
@@ -916,7 +923,8 @@ crt-winapi: tools winapi-extract
 	sed -n 2,9p extracted/$(MINGWW64_TITLE)/DISCLAIMER.PD | cut -c4- > mingw-w64-disclaimer-pd.tmp
 
 	mkdir -p inc/crt/win32 inc/crt/sys/win32
-	$(FBFROG) crt.fbfrog $(CRT_WINAPI_FLAGS) \
+	$(FBFROG) -target windows crt.fbfrog crt-winapi.fbfrog \
+		-incdir extracted/$(MINGWW64_TITLE)/mingw-w64-headers/crt \
 		-include sys/types.h \
 		-include time.h \
 		-include sys/time.h \
@@ -2130,6 +2138,7 @@ tre: tools
 #   (fbfrog -clong32)
 #
 
+MINGWW64_TITLE := mingw-w64-v4.0.1
 WINAPI_FLAGS := -target windows winapi.fbfrog
 WINAPI_FLAGS += -incdir extracted/$(MINGWW64_TITLE)/mingw-w64-headers/crt
 WINAPI_FLAGS += -incdir extracted/$(MINGWW64_TITLE)/mingw-w64-headers/include
