@@ -23,7 +23,7 @@
 
 #pragma once
 
-#if defined(__FB_64BIT__) and (not defined(__FB_ARM__))
+#ifdef __FB_64BIT__
 	const __WORDSIZE = 64
 #else
 	const __WORDSIZE = 32

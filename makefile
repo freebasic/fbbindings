@@ -1,10 +1,10 @@
-FBFROG_VERSION := f74689e3a4782e5bcadd2fbac7aae58ab4209eb9
+FBFROG_VERSION := 32bef937e767aedbc31b1ebb0d459ebbece4922e
 
 ALL := allegro allegro4 allegro5 aspell atk
 ALL += bass bassmod bfd bzip2
-ALL += caca cairo cd cgui clang cunit curl
+ALL += caca cairo cd cgui clang crt cunit curl
 ALL += fastcgi ffi fontconfig freeglut freetype
-ALL += gdkpixbuf glib glibc glfw glut gtk gtk2 gtk3 gtkglext
+ALL += gdkpixbuf glib glfw glut gtk gtk2 gtk3 gtkglext
 ALL += iconv iup
 ALL += jit
 ALL += llvm lua
@@ -13,6 +13,7 @@ ALL += openal opengl opengl-mesa opengl-winapi
 ALL += pango pdcurses png png12 png14 png15 png16
 ALL += sdl sdl1 sdl2
 ALL += tre
+ALL += winapi
 ALL += x11
 ALL += zip zlib
 
@@ -513,7 +514,7 @@ cairo: tools cairo-extract
 	sed -n 1,35p extracted/$(CAIRO)/src/cairo.h | cut -c4- > cairo.tmp
 	mkdir -p inc/cairo
 
-	$(FBFROG) cairo.fbfrog \
+	$(FBFROG) -target nodos cairo.fbfrog \
 		-incdir extracted/$(CAIRO)/src \
 		-include cairo.h       \
 		-include cairo-gl.h    \
@@ -530,7 +531,7 @@ cairo: tools cairo-extract
 		-inclib cairo inc/cairo/cairo.bi \
 		-title $(CAIRO) cairo.tmp gtk+-translators.txt
 
-	$(FBFROG) cairo.fbfrog -target windows \
+	$(FBFROG) -target windows cairo.fbfrog \
 		-incdir extracted/$(CAIRO)/src \
 		-include cairo-win32.h \
 		-emit '*/cairo-win32.h' inc/cairo/cairo-win32.bi \
@@ -620,6 +621,60 @@ clang: tools
 		-title $(CLANG_TITLE) clang.tmp fbteam.txt
 	rm *.tmp
 
+GLIBC := glibc-2.21
+crt: tools
+	./get.sh $(GLIBC) $(GLIBC).tar.xz http://ftp.gnu.org/gnu/glibc/$(GLIBC).tar.xz
+
+	cd extracted/$(GLIBC) && \
+		if [ -f bits/wordsize.h ]; then \
+			rm -f bits/wordsize.h bits/endian.h bits/setjmp.h bits/pthreadtypes.h; \
+			echo "#pragma once" >> sysdeps/wordsize-32/bits/wordsize.h; \
+			echo "#pragma once" >> sysdeps/wordsize-64/bits/wordsize.h; \
+			echo "#pragma once" >> sysdeps/x86/bits/wordsize.h; \
+		fi
+
+	$(GETCOMMENT) extracted/$(GLIBC)/sysdeps/wordsize-32/bits/wordsize.h > glibc-wordsize.tmp
+	$(GETCOMMENT) extracted/$(GLIBC)/sysdeps/nptl/pthread.h              > glibc-pthread.tmp
+	$(GETCOMMENT) extracted/$(GLIBC)/posix/sched.h                       > glibc-sched.tmp
+
+	mkdir -p inc/crt/bits
+	$(FBFROG) -target linux -replacements crt.replacements glibc.fbfrog \
+		-selecttarget \
+		-case x86 \
+			-incdir extracted/$(GLIBC)/sysdeps/x86 \
+			-incdir extracted/$(GLIBC)/sysdeps/wordsize-32 \
+		-case x86_64 \
+			-incdir extracted/$(GLIBC)/sysdeps/x86_64 \
+			-incdir extracted/$(GLIBC)/sysdeps/wordsize-64 \
+			-incdir extracted/$(GLIBC)/sysdeps/x86 \
+		-case arm \
+			-incdir extracted/$(GLIBC)/sysdeps/arm \
+			-incdir extracted/$(GLIBC)/sysdeps/arm/nptl \
+			-incdir extracted/$(GLIBC)/sysdeps/wordsize-32 \
+		-case aarch64 \
+			-incdir extracted/$(GLIBC)/sysdeps/aarch64 \
+			-incdir extracted/$(GLIBC)/sysdeps/aarch64/nptl \
+			-incdir extracted/$(GLIBC)/sysdeps/wordsize-64 \
+		-endselect \
+		-incdir extracted/$(GLIBC)/sysdeps/nptl \
+		-incdir extracted/$(GLIBC)/sysdeps/generic \
+		-incdir extracted/$(GLIBC)/include \
+		-incdir extracted/$(GLIBC) \
+		-include libc-symbols.h \
+		extracted/$(GLIBC)/sysdeps/nptl/pthread.h \
+		-emit '*/bits/pthreadtypes.h' inc/crt/bits/pthreadtypes.bi \
+		-emit '*/bits/wordsize.h'     inc/crt/bits/wordsize.bi \
+		-emit '*/bits/sched.h'        inc/crt/bits/sched.bi \
+		-emit '*/pthread.h'           inc/crt/pthread.bi \
+		-emit '*/sched.h'             inc/crt/sched.bi \
+		-title $(GLIBC) glibc-pthread.tmp    fbteam.txt inc/crt/bits/pthreadtypes.bi \
+		-title $(GLIBC) glibc-wordsize.tmp   fbteam.txt inc/crt/bits/wordsize.bi \
+		-title $(GLIBC) glibc-sched.tmp      fbteam.txt inc/crt/bits/sched.bi \
+		-title $(GLIBC) glibc-pthread.tmp    fbteam.txt inc/crt/pthread.bi \
+		-title $(GLIBC) glibc-sched.tmp      fbteam.txt inc/crt/sched.bi
+
+	rm *.tmp
+
 CUNIT_VERSION := 2.1-3
 CUNIT_TITLE := CUnit-$(CUNIT_VERSION)
 cunit: tools
@@ -689,7 +744,7 @@ ffi: tools
 	# headers manually instead.
 	./ffi-generate-headers.sh "extracted/$(FFI_TITLE)" "$(FFI_VERSION)"
 
-	$(GETCOMMENT) extracted/$(FFI_TITLE)/include/ffi-x86.h > ffi.tmp
+	$(GETCOMMENT) extracted/$(FFI_TITLE)/include/ffi-linux-x86.h > ffi.tmp
 
 	$(FBFROG) ffi.fbfrog -o inc/ffi.bi -target nodos \
 		`./ffi-get-target-options.sh "extracted/$(FFI_TITLE)"` \
@@ -891,46 +946,6 @@ glib: tools glib-extract
 		-title $(GLIB) glib-object.tmp  gtk+-translators.txt inc/glib-object.bi \
 		-title $(GLIB) glib-gmodule.tmp gtk+-translators.txt inc/gmodule.bi \
 		-title $(GLIB) glib-gio.tmp     gtk+-translators.txt inc/gio/gio.bi
-
-	rm *.tmp
-
-GLIBC := glibc-2.21
-glibc: tools
-	./get.sh $(GLIBC) $(GLIBC).tar.xz http://ftp.gnu.org/gnu/glibc/$(GLIBC).tar.xz
-
-	cd extracted/$(GLIBC) && \
-		if [ -f bits/wordsize.h ]; then \
-			rm -f bits/wordsize.h bits/endian.h bits/setjmp.h; \
-			echo "#pragma once" >> sysdeps/wordsize-64/bits/wordsize.h; \
-			echo "#pragma once" >> sysdeps/x86/bits/wordsize.h; \
-		fi
-
-	$(GETCOMMENT) extracted/$(GLIBC)/sysdeps/wordsize-32/bits/wordsize.h > glibc-wordsize.tmp
-	$(GETCOMMENT) extracted/$(GLIBC)/sysdeps/nptl/pthread.h              > glibc-pthread.tmp
-	$(GETCOMMENT) extracted/$(GLIBC)/posix/sched.h                       > glibc-sched.tmp
-
-	mkdir -p inc/crt/bits
-	$(FBFROG) glibc.fbfrog \
-		-iftarget 64bit \
-			-incdir extracted/$(GLIBC)/sysdeps/x86_64 \
-			-incdir extracted/$(GLIBC)/sysdeps/wordsize-64 \
-		-endif \
-		-incdir extracted/$(GLIBC)/sysdeps/x86 \
-		-incdir extracted/$(GLIBC)/sysdeps/nptl \
-		-incdir extracted/$(GLIBC)/include \
-		-incdir extracted/$(GLIBC) \
-		-include libc-symbols.h \
-		extracted/$(GLIBC)/sysdeps/nptl/pthread.h \
-		-emit '*/bits/pthreadtypes.h' inc/crt/bits/pthreadtypes.bi \
-		-emit '*/bits/wordsize.h'     inc/crt/bits/wordsize.bi \
-		-emit '*/bits/sched.h'        inc/crt/bits/sched.bi \
-		-emit '*/pthread.h'           inc/crt/pthread.bi \
-		-emit '*/sched.h'             inc/crt/sched.bi \
-		-title $(GLIBC) glibc-pthread.tmp    fbteam.txt inc/crt/bits/pthreadtypes.bi \
-		-title $(GLIBC) glibc-wordsize.tmp   fbteam.txt inc/crt/bits/wordsize.bi \
-		-title $(GLIBC) glibc-sched.tmp      fbteam.txt inc/crt/bits/sched.bi \
-		-title $(GLIBC) glibc-pthread.tmp    fbteam.txt inc/crt/pthread.bi \
-		-title $(GLIBC) glibc-sched.tmp      fbteam.txt inc/crt/sched.bi
 
 	rm *.tmp
 

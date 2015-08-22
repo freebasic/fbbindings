@@ -43,6 +43,12 @@
 #define __FREEGLUT_STD_H__
 
 #ifdef __FB_WIN32__
+	#ifdef FREEGLUT_STATIC
+		#inclib "freeglut_static"
+	#else
+		#inclib "freeglut"
+	#endif
+
 	#inclib "glu32"
 	#inclib "opengl32"
 	#inclib "gdi32"
