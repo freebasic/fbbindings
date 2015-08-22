@@ -28,7 +28,7 @@
 	#error "target not supported; this header is for GNU/Linux glibc"
 #endif
 
-#include once "crt/sys/types.bi"
+#include once "crt/bits/types.bi"
 #include once "crt/stddef.bi"
 #include once "crt/time.bi"
 #include once "crt/bits/sched.bi"

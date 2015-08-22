@@ -24,9 +24,9 @@
 #pragma once
 
 #include once "crt/long.bi"
-#include once "crt/sys/types.bi"
+#include once "crt/bits/types.bi"
 #include once "crt/stddef.bi"
-#include once "crt/sys/time.bi"
+#include once "crt/bits/time.bi"
 #include once "crt/xlocale.bi"
 #include once "crt/linux/timex.bi"
 

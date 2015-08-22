@@ -23,11 +23,7 @@
 
 #pragma once
 
-#include once "crt/long.bi"
-#include once "crt/sys/types.bi"
-#include once "crt/sys/time.bi"
-
-extern "C"
+#include once "crt/bits/types.bi"
 
 const _BITS_TIMEX_H = 1
 
@@ -106,31 +102,3 @@ const STA_NANO = &h2000
 const STA_MODE = &h4000
 const STA_CLK = &h8000
 #define STA_RONLY (((((((STA_PPSSIGNAL or STA_PPSJITTER) or STA_PPSWANDER) or STA_PPSERROR) or STA_CLOCKERR) or STA_NANO) or STA_MODE) or STA_CLK)
-const _SYS_TIMEX_H = 1
-const NTP_API = 4
-
-type ntptimeval
-	time as timeval
-	maxerror as clong
-	esterror as clong
-	tai as clong
-	__glibc_reserved1 as clong
-	__glibc_reserved2 as clong
-	__glibc_reserved3 as clong
-	__glibc_reserved4 as clong
-end type
-
-const TIME_OK = 0
-const TIME_INS = 1
-const TIME_DEL = 2
-const TIME_OOP = 3
-const TIME_WAIT = 4
-const TIME_ERROR = 5
-#define TIME_BAD TIME_ERROR
-const MAXTC = 6
-declare function __adjtimex(byval __ntx as timex ptr) as long
-declare function adjtimex(byval __ntx as timex ptr) as long
-'' TODO: extern int ntp_gettime (struct ntptimeval *__ntv) __asm__ ("" "") __attribute__ ((__nothrow__));
-declare function ntp_adjtime(byval __tntx as timex ptr) as long
-
-end extern

@@ -61,4 +61,12 @@
 -removedefine __*_DEFINED__
 
 -removeinclude features.h
--rename xlocale.h crt/xlocale.h
+-rename bits/pthreadtypes.h crt/bits/pthreadtypes.bi
+-rename bits/sched.h        crt/bits/sched.bi
+-rename bits/time.h         crt/bits/time.bi
+-rename bits/timex.h        crt/bits/timex.bi
+-rename bits/types.h        crt/bits/types.bi
+-rename bits/wordsize.h     crt/bits/wordsize.bi
+-rename sys/time.h crt/sys/time.bi
+-rename xlocale.h  crt/xlocale.bi
+-rename sched.h    crt/sched.bi
