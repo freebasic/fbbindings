@@ -1,6 +1,2 @@
-# Linux's asm/sigcontext.h does
-#   #include <linux/compiler.h>
-#   #include <linux/types.h>
-# and fbfrog's cpp expands the "linux" to "1"...
--removeinclude 1/compiler.h
--removeinclude 1/types.h
+-removeinclude linux/compiler.h
+-removeinclude linux/types.h
