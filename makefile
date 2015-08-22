@@ -659,8 +659,10 @@ crt-dos: tools
 		-title $(DJGPP) djgpp-signal.tmp    fbteam.txt inc/crt/dos/signal.bi
 	rm *.tmp
 
+LINUX := linux-4.1.6
 GLIBC := glibc-2.21
 crt-linux: tools
+	./get.sh $(LINUX) $(LINUX).tar.xz https://www.kernel.org/pub/linux/kernel/v4.x/$(LINUX).tar.xz
 	./get.sh $(GLIBC) $(GLIBC).tar.xz http://ftp.gnu.org/gnu/glibc/$(GLIBC).tar.xz
 
 	$(GETCOMMENT) extracted/$(GLIBC)/sysdeps/wordsize-32/bits/wordsize.h > glibc-wordsize.tmp
@@ -674,6 +676,8 @@ crt-linux: tools
 	$(GETCOMMENT) extracted/$(GLIBC)/signal/signal.h                     > glibc-signal.tmp
 	$(GETCOMMENT) extracted/$(GLIBC)/sysdeps/unix/sysv/linux/sys/timex.h > glibc-timex.tmp
 
+	sed -n 312,324p extracted/$(LINUX)/COPYING > linux.tmp
+
 	cd extracted/$(GLIBC) && \
 		if [ -f bits/wordsize.h ]; then \
 			rm -f bits/wordsize.h bits/endian.h bits/setjmp.h bits/pthreadtypes.h; \
@@ -682,30 +686,35 @@ crt-linux: tools
 			echo "#pragma once" >> sysdeps/x86/bits/wordsize.h; \
 		fi
 
-	mkdir -p inc/crt/bits inc/crt/linux inc/crt/sys/linux
-	$(FBFROG) -target linux crt.fbfrog glibc.fbfrog \
+	mkdir -p inc/crt/bits inc/crt/linux/asm inc/crt/sys/linux
+	$(FBFROG) -target linux crt.fbfrog linux.fbfrog glibc.fbfrog \
 		-selecttarget \
 		-case x86 \
 			-incdir extracted/$(GLIBC)/sysdeps/x86 \
 			-incdir extracted/$(GLIBC)/sysdeps/wordsize-32 \
+			-incdir extracted/$(LINUX)/arch/x86/include/uapi \
 		-case x86_64 \
 			-incdir extracted/$(GLIBC)/sysdeps/x86_64 \
 			-incdir extracted/$(GLIBC)/sysdeps/wordsize-64 \
 			-incdir extracted/$(GLIBC)/sysdeps/x86 \
+			-incdir extracted/$(LINUX)/arch/x86/include/uapi \
 		-case arm \
 			-incdir extracted/$(GLIBC)/sysdeps/arm \
 			-incdir extracted/$(GLIBC)/sysdeps/arm/nptl \
 			-incdir extracted/$(GLIBC)/sysdeps/wordsize-32 \
+			-incdir extracted/$(LINUX)/arch/arm/include/uapi \
 		-case aarch64 \
 			-incdir extracted/$(GLIBC)/sysdeps/aarch64 \
 			-incdir extracted/$(GLIBC)/sysdeps/aarch64/nptl \
 			-incdir extracted/$(GLIBC)/sysdeps/wordsize-64 \
+			-incdir extracted/$(LINUX)/arch/arm64/include/uapi \
 		-endselect \
 		-incdir extracted/$(GLIBC)/sysdeps/unix/sysv/linux \
 		-incdir extracted/$(GLIBC)/sysdeps/nptl \
 		-incdir extracted/$(GLIBC)/sysdeps/generic \
 		-incdir extracted/$(GLIBC)/include \
 		-incdir extracted/$(GLIBC) \
+		-incdir extracted/$(LINUX)/include/uapi \
 		-include libc-symbols.h \
 		-include sys/types.h \
 		-include signal/signal.h \
@@ -724,7 +733,7 @@ crt-linux: tools
 		-emit '*/bits/sigcontext.h'   inc/crt/linux/signal.bi \
 		-emit '*/bits/sigstack.h'     inc/crt/linux/signal.bi \
 		-emit '*/bits/sigthread.h'    inc/crt/linux/signal.bi \
-		-emit '*/asm/sigcontext.h'    inc/crt/linux/signal.bi \
+		-emit '*/asm/sigcontext.h'    inc/crt/linux/asm/sigcontext.bi \
 		-emit '*/sys/types.h'         inc/crt/sys/linux/types.bi \
 		-emit '*/bits/pthreadtypes.h' inc/crt/bits/pthreadtypes.bi \
 		-emit '*/bits/wordsize.h'     inc/crt/bits/wordsize.bi \
@@ -748,7 +757,9 @@ crt-linux: tools
 		-title $(GLIBC) glibc-sys-types.tmp fbteam.txt inc/crt/sys/linux/types.bi \
 		-title $(GLIBC) glibc-locale.tmp    fbteam.txt inc/crt/linux/locale.bi \
 		-title $(GLIBC) glibc-xlocale.tmp   fbteam.txt inc/crt/linux/xlocale.bi \
-		-title $(GLIBC) glibc-signal.tmp    fbteam.txt inc/crt/linux/signal.bi
+		-title $(GLIBC) glibc-signal.tmp    fbteam.txt inc/crt/linux/signal.bi \
+		-title $(LINUX) linux.tmp           fbteam.txt inc/crt/linux/asm/sigcontext.bi
+
 	rm *.tmp
 
 
