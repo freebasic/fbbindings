@@ -28,7 +28,6 @@
 #include once "crt/stddef.bi"
 #include once "crt/bits/time.bi"
 #include once "crt/xlocale.bi"
-#include once "crt/linux/timex.bi"
 
 '' The following symbols have been renamed:
 ''     procedure time => time_
