@@ -665,18 +665,19 @@ crt-linux: tools
 	./get.sh $(LINUX) $(LINUX).tar.xz https://www.kernel.org/pub/linux/kernel/v4.x/$(LINUX).tar.xz
 	./get.sh $(GLIBC) $(GLIBC).tar.xz http://ftp.gnu.org/gnu/glibc/$(GLIBC).tar.xz
 
-	$(GETCOMMENT) extracted/$(GLIBC)/sysdeps/wordsize-32/bits/wordsize.h  > glibc-wordsize.tmp
-	$(GETCOMMENT) extracted/$(GLIBC)/sysdeps/nptl/pthread.h               > glibc-pthread.tmp
-	$(GETCOMMENT) extracted/$(GLIBC)/posix/sched.h                        > glibc-sched.tmp
-	$(GETCOMMENT) extracted/$(GLIBC)/time/time.h                          > glibc-time.tmp
-	$(GETCOMMENT) extracted/$(GLIBC)/time/sys/time.h                      > glibc-sys-time.tmp
-	$(GETCOMMENT) extracted/$(GLIBC)/posix/sys/types.h                    > glibc-sys-types.tmp
+	$(GETCOMMENT) extracted/$(GLIBC)/bits/types.h                         > glibc-bits-types.tmp
 	$(GETCOMMENT) extracted/$(GLIBC)/locale/locale.h                      > glibc-locale.tmp
 	$(GETCOMMENT) extracted/$(GLIBC)/locale/xlocale.h                     > glibc-xlocale.tmp
+	$(GETCOMMENT) extracted/$(GLIBC)/posix/sched.h                        > glibc-sched.tmp
+	$(GETCOMMENT) extracted/$(GLIBC)/posix/sys/types.h                    > glibc-sys-types.tmp
 	$(GETCOMMENT) extracted/$(GLIBC)/signal/signal.h                      > glibc-signal.tmp
-	$(GETCOMMENT) extracted/$(GLIBC)/sysdeps/unix/sysv/linux/sys/timex.h  > glibc-sys-timex.tmp
+	$(GETCOMMENT) extracted/$(GLIBC)/sysdeps/nptl/pthread.h               > glibc-pthread.tmp
 	$(GETCOMMENT) extracted/$(GLIBC)/sysdeps/unix/sysv/linux/bits/time.h  > glibc-bits-time.tmp
 	$(GETCOMMENT) extracted/$(GLIBC)/sysdeps/unix/sysv/linux/bits/timex.h > glibc-bits-timex.tmp
+	$(GETCOMMENT) extracted/$(GLIBC)/sysdeps/unix/sysv/linux/sys/timex.h  > glibc-sys-timex.tmp
+	$(GETCOMMENT) extracted/$(GLIBC)/sysdeps/wordsize-32/bits/wordsize.h  > glibc-wordsize.tmp
+	$(GETCOMMENT) extracted/$(GLIBC)/time/sys/time.h                      > glibc-sys-time.tmp
+	$(GETCOMMENT) extracted/$(GLIBC)/time/time.h                          > glibc-time.tmp
 
 	sed -n 312,324p extracted/$(LINUX)/COPYING > linux.tmp
 
@@ -732,8 +733,8 @@ crt-linux: tools
 		-emit '*/bits/sig*.h'         inc/crt/linux/signal.bi \
 		-emit '*/bits/time.h'         inc/crt/bits/time.bi \
 		-emit '*/bits/timex.h'        inc/crt/bits/timex.bi \
-		-emit '*/bits/types.h'        inc/crt/sys/linux/types.bi \
-		-emit '*/bits/typesizes.h'    inc/crt/sys/linux/types.bi \
+		-emit '*/bits/types.h'        inc/crt/bits/types.bi \
+		-emit '*/bits/typesizes.h'    inc/crt/bits/types.bi \
 		-emit '*/bits/wordsize.h'     inc/crt/bits/wordsize.bi \
 		-emit '*/sys/time.h'          inc/crt/sys/linux/time.bi \
 		-emit '*/sys/timex.h'         inc/crt/sys/linux/timex.bi \
@@ -748,6 +749,7 @@ crt-linux: tools
 		-title $(GLIBC) glibc-sched.tmp      fbteam.txt inc/crt/bits/sched.bi \
 		-title $(GLIBC) glibc-bits-time.tmp  fbteam.txt inc/crt/bits/time.bi \
 		-title $(GLIBC) glibc-bits-timex.tmp fbteam.txt inc/crt/bits/timex.bi \
+		-title $(GLIBC) glibc-bits-types.tmp fbteam.txt inc/crt/bits/types.bi \
 		-title $(GLIBC) glibc-wordsize.tmp   fbteam.txt inc/crt/bits/wordsize.bi \
 		-title $(GLIBC) glibc-sys-time.tmp   fbteam.txt inc/crt/sys/linux/time.bi \
 		-title $(GLIBC) glibc-sys-timex.tmp  fbteam.txt inc/crt/sys/linux/timex.bi \
