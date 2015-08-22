@@ -679,7 +679,6 @@ crt-linux: tools
 	$(GETCOMMENT) extracted/$(GLIBC)/signal/signal.h                      > glibc-signal.tmp
 	$(GETCOMMENT) extracted/$(GLIBC)/sysdeps/nptl/pthread.h               > glibc-pthread.tmp
 	$(GETCOMMENT) extracted/$(GLIBC)/sysdeps/unix/sysv/linux/bits/time.h  > glibc-bits-time.tmp
-	$(GETCOMMENT) extracted/$(GLIBC)/sysdeps/unix/sysv/linux/bits/timex.h > glibc-bits-timex.tmp
 	$(GETCOMMENT) extracted/$(GLIBC)/sysdeps/unix/sysv/linux/sys/timex.h  > glibc-sys-timex.tmp
 	$(GETCOMMENT) extracted/$(GLIBC)/sysdeps/wordsize-32/bits/wordsize.h  > glibc-wordsize.tmp
 	$(GETCOMMENT) extracted/$(GLIBC)/time/sys/time.h                      > glibc-sys-time.tmp
@@ -738,7 +737,7 @@ crt-linux: tools
 		-emit '*/bits/sched.h'        inc/crt/bits/sched.bi \
 		-emit '*/bits/sig*.h'         inc/crt/linux/signal.bi \
 		-emit '*/bits/time.h'         inc/crt/bits/time.bi \
-		-emit '*/bits/timex.h'        inc/crt/bits/timex.bi \
+		-emit '*/bits/timex.h'        inc/crt/bits/time.bi \
 		-emit '*/bits/types.h'        inc/crt/bits/types.bi \
 		-emit '*/bits/typesizes.h'    inc/crt/bits/types.bi \
 		-emit '*/bits/wordsize.h'     inc/crt/bits/wordsize.bi \
@@ -754,7 +753,6 @@ crt-linux: tools
 		-title $(GLIBC) glibc-pthread.tmp    fbteam.txt inc/crt/bits/pthreadtypes.bi \
 		-title $(GLIBC) glibc-sched.tmp      fbteam.txt inc/crt/bits/sched.bi \
 		-title $(GLIBC) glibc-bits-time.tmp  fbteam.txt inc/crt/bits/time.bi \
-		-title $(GLIBC) glibc-bits-timex.tmp fbteam.txt inc/crt/bits/timex.bi \
 		-title $(GLIBC) glibc-bits-types.tmp fbteam.txt inc/crt/bits/types.bi \
 		-title $(GLIBC) glibc-wordsize.tmp   fbteam.txt inc/crt/bits/wordsize.bi \
 		-title $(GLIBC) glibc-sys-time.tmp   fbteam.txt inc/crt/sys/linux/time.bi \
