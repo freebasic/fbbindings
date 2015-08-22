@@ -726,13 +726,7 @@ crt-linux: tools
 		extracted/$(GLIBC)/sysdeps/nptl/pthread.h \
 		-emit '*/bits/types.h'        inc/crt/sys/linux/types.bi \
 		-emit '*/bits/typesizes.h'    inc/crt/sys/linux/types.bi \
-		-emit '*/bits/sigset.h'       inc/crt/linux/signal.bi \
-		-emit '*/bits/signum.h'       inc/crt/linux/signal.bi \
-		-emit '*/bits/siginfo.h'      inc/crt/linux/signal.bi \
-		-emit '*/bits/sigaction.h'    inc/crt/linux/signal.bi \
-		-emit '*/bits/sigcontext.h'   inc/crt/linux/signal.bi \
-		-emit '*/bits/sigstack.h'     inc/crt/linux/signal.bi \
-		-emit '*/bits/sigthread.h'    inc/crt/linux/signal.bi \
+		-emit '*/bits/sig*.h'         inc/crt/linux/signal.bi \
 		-emit '*/asm/sigcontext.h'    inc/crt/linux/asm/sigcontext.bi \
 		-emit '*/sys/types.h'         inc/crt/sys/linux/types.bi \
 		-emit '*/bits/pthreadtypes.h' inc/crt/bits/pthreadtypes.bi \
