@@ -24,8 +24,8 @@
 #pragma once
 
 #include once "crt/long.bi"
-#include once "sys/time.bi"
-#include once "bits/timex.bi"
+#include once "crt/sys/time.bi"
+#include once "crt/bits/timex.bi"
 
 extern "C"
 

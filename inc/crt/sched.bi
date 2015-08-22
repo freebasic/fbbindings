@@ -24,10 +24,10 @@
 
 #pragma once
 
-#include once "bits/types.bi"
+#include once "crt/bits/types.bi"
 #include once "crt/stddef.bi"
 #include once "crt/time.bi"
-#include once "bits/sched.bi"
+#include once "crt/bits/sched.bi"
 
 extern "C"
 

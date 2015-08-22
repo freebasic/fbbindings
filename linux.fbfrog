@@ -1,2 +1,3 @@
 -removeinclude linux/compiler.h
 -removeinclude linux/types.h
+-rename asm/sigcontext.h crt/linux/asm/sigcontext.bi

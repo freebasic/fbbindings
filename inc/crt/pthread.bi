@@ -28,11 +28,11 @@
 #endif
 
 #include once "endian.bi"
-#include once "sched.bi"
+#include once "crt/sched.bi"
 #include once "crt/time.bi"
-#include once "bits/pthreadtypes.bi"
+#include once "crt/bits/pthreadtypes.bi"
 #include once "bits/setjmp.bi"
-#include once "bits/wordsize.bi"
+#include once "crt/bits/wordsize.bi"
 
 extern "C"
 

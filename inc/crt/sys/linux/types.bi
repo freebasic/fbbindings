@@ -23,13 +23,13 @@
 
 #pragma once
 
-#include once "bits/types.bi"
+#include once "crt/bits/types.bi"
 #include once "crt/time.bi"
 #include once "crt/stddef.bi"
 #include once "endian.bi"
 #include once "sys/select.bi"
 #include once "sys/sysmacros.bi"
-#include once "bits/pthreadtypes.bi"
+#include once "crt/bits/pthreadtypes.bi"
 
 const _SYS_TYPES_H = 1
 type u_char as __u_char

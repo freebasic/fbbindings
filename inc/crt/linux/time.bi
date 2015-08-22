@@ -24,9 +24,9 @@
 #pragma once
 
 #include once "crt/long.bi"
-#include once "bits/types.bi"
+#include once "crt/bits/types.bi"
 #include once "crt/stddef.bi"
-#include once "bits/time.bi"
+#include once "crt/bits/time.bi"
 #include once "crt/xlocale.bi"
 
 '' The following symbols have been renamed:

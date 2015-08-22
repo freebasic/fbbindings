@@ -25,7 +25,7 @@
 #pragma once
 
 #include once "crt/long.bi"
-#include once "bits/wordsize.bi"
+#include once "crt/bits/wordsize.bi"
 
 const _BITS_TYPES_H = 1
 type __u_char as ubyte

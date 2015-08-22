@@ -28,7 +28,7 @@
 #ifdef __FB_ARM__
 	#include once "endian.bi"
 #else
-	#include once "bits/wordsize.bi"
+	#include once "crt/bits/wordsize.bi"
 #endif
 
 const _BITS_PTHREADTYPES_H = 1

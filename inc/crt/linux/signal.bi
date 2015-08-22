@@ -24,13 +24,13 @@
 #pragma once
 
 #include once "crt/long.bi"
-#include once "bits/types.bi"
+#include once "crt/bits/types.bi"
 #include once "crt/time.bi"
-#include once "bits/wordsize.bi"
-#include once "asm/sigcontext.bi"
+#include once "crt/bits/wordsize.bi"
+#include once "crt/linux/asm/sigcontext.bi"
 #include once "crt/stddef.bi"
 #include once "sys/ucontext.bi"
-#include once "bits/pthreadtypes.bi"
+#include once "crt/bits/pthreadtypes.bi"
 
 extern "C"
 
