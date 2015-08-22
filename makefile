@@ -1,4 +1,4 @@
-FBFROG_VERSION := 1e5cdc148fb767d02fa931d23f9c78f8ead619da
+FBFROG_VERSION := 32bef937e767aedbc31b1ebb0d459ebbece4922e
 
 ALL := allegro allegro4 allegro5 aspell atk
 ALL += bass bassmod bfd bzip2
@@ -508,7 +508,7 @@ cairo: tools cairo-extract
 	sed -n 1,35p extracted/$(CAIRO)/src/cairo.h | cut -c4- > cairo.tmp
 	mkdir -p inc/cairo
 
-	$(FBFROG) cairo.fbfrog \
+	$(FBFROG) -target nodos cairo.fbfrog \
 		-incdir extracted/$(CAIRO)/src \
 		-include cairo.h       \
 		-include cairo-gl.h    \
@@ -525,7 +525,7 @@ cairo: tools cairo-extract
 		-inclib cairo inc/cairo/cairo.bi \
 		-title $(CAIRO) cairo.tmp gtk+-translators.txt
 
-	$(FBFROG) cairo.fbfrog -target windowsonly \
+	$(FBFROG) -target windows cairo.fbfrog \
 		-incdir extracted/$(CAIRO)/src \
 		-include cairo-win32.h \
 		-emit '*/cairo-win32.h' inc/cairo/cairo-win32.bi \
@@ -632,7 +632,7 @@ crt: tools
 	$(GETCOMMENT) extracted/$(GLIBC)/posix/sched.h                       > glibc-sched.tmp
 
 	mkdir -p inc/crt/bits
-	$(FBFROG) -target linuxonly -replacements crt.replacements glibc.fbfrog \
+	$(FBFROG) -target linux -replacements crt.replacements glibc.fbfrog \
 		-selecttarget \
 		-case x86 \
 			-incdir extracted/$(GLIBC)/sysdeps/x86 \
