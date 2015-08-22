@@ -665,16 +665,18 @@ crt-linux: tools
 	./get.sh $(LINUX) $(LINUX).tar.xz https://www.kernel.org/pub/linux/kernel/v4.x/$(LINUX).tar.xz
 	./get.sh $(GLIBC) $(GLIBC).tar.xz http://ftp.gnu.org/gnu/glibc/$(GLIBC).tar.xz
 
-	$(GETCOMMENT) extracted/$(GLIBC)/sysdeps/wordsize-32/bits/wordsize.h > glibc-wordsize.tmp
-	$(GETCOMMENT) extracted/$(GLIBC)/sysdeps/nptl/pthread.h              > glibc-pthread.tmp
-	$(GETCOMMENT) extracted/$(GLIBC)/posix/sched.h                       > glibc-sched.tmp
-	$(GETCOMMENT) extracted/$(GLIBC)/time/time.h                         > glibc-time.tmp
-	$(GETCOMMENT) extracted/$(GLIBC)/time/sys/time.h                     > glibc-sys-time.tmp
-	$(GETCOMMENT) extracted/$(GLIBC)/posix/sys/types.h                   > glibc-sys-types.tmp
-	$(GETCOMMENT) extracted/$(GLIBC)/locale/locale.h                     > glibc-locale.tmp
-	$(GETCOMMENT) extracted/$(GLIBC)/locale/xlocale.h                    > glibc-xlocale.tmp
-	$(GETCOMMENT) extracted/$(GLIBC)/signal/signal.h                     > glibc-signal.tmp
-	$(GETCOMMENT) extracted/$(GLIBC)/sysdeps/unix/sysv/linux/sys/timex.h > glibc-timex.tmp
+	$(GETCOMMENT) extracted/$(GLIBC)/sysdeps/wordsize-32/bits/wordsize.h  > glibc-wordsize.tmp
+	$(GETCOMMENT) extracted/$(GLIBC)/sysdeps/nptl/pthread.h               > glibc-pthread.tmp
+	$(GETCOMMENT) extracted/$(GLIBC)/posix/sched.h                        > glibc-sched.tmp
+	$(GETCOMMENT) extracted/$(GLIBC)/time/time.h                          > glibc-time.tmp
+	$(GETCOMMENT) extracted/$(GLIBC)/time/sys/time.h                      > glibc-sys-time.tmp
+	$(GETCOMMENT) extracted/$(GLIBC)/posix/sys/types.h                    > glibc-sys-types.tmp
+	$(GETCOMMENT) extracted/$(GLIBC)/locale/locale.h                      > glibc-locale.tmp
+	$(GETCOMMENT) extracted/$(GLIBC)/locale/xlocale.h                     > glibc-xlocale.tmp
+	$(GETCOMMENT) extracted/$(GLIBC)/signal/signal.h                      > glibc-signal.tmp
+	$(GETCOMMENT) extracted/$(GLIBC)/sysdeps/unix/sysv/linux/sys/timex.h  > glibc-sys-timex.tmp
+	$(GETCOMMENT) extracted/$(GLIBC)/sysdeps/unix/sysv/linux/bits/time.h  > glibc-bits-time.tmp
+	$(GETCOMMENT) extracted/$(GLIBC)/sysdeps/unix/sysv/linux/bits/timex.h > glibc-bits-timex.tmp
 
 	sed -n 312,324p extracted/$(LINUX)/COPYING > linux.tmp
 
@@ -724,39 +726,41 @@ crt-linux: tools
 		-include locale/xlocale.h \
 		-include sys/timex.h \
 		extracted/$(GLIBC)/sysdeps/nptl/pthread.h \
+		-emit '*/asm/sigcontext.h'    inc/crt/linux/asm/sigcontext.bi \
+		-emit '*/bits/pthreadtypes.h' inc/crt/bits/pthreadtypes.bi \
+		-emit '*/bits/sched.h'        inc/crt/bits/sched.bi \
+		-emit '*/bits/sig*.h'         inc/crt/linux/signal.bi \
+		-emit '*/bits/time.h'         inc/crt/bits/time.bi \
+		-emit '*/bits/timex.h'        inc/crt/bits/timex.bi \
 		-emit '*/bits/types.h'        inc/crt/sys/linux/types.bi \
 		-emit '*/bits/typesizes.h'    inc/crt/sys/linux/types.bi \
-		-emit '*/bits/sig*.h'         inc/crt/linux/signal.bi \
-		-emit '*/asm/sigcontext.h'    inc/crt/linux/asm/sigcontext.bi \
-		-emit '*/sys/types.h'         inc/crt/sys/linux/types.bi \
-		-emit '*/bits/pthreadtypes.h' inc/crt/bits/pthreadtypes.bi \
 		-emit '*/bits/wordsize.h'     inc/crt/bits/wordsize.bi \
-		-emit '*/bits/sched.h'        inc/crt/bits/sched.bi \
+		-emit '*/sys/time.h'          inc/crt/sys/linux/time.bi \
+		-emit '*/sys/timex.h'         inc/crt/sys/linux/timex.bi \
+		-emit '*/sys/types.h'         inc/crt/sys/linux/types.bi \
+		-emit '*/locale.h'            inc/crt/linux/locale.bi \
 		-emit '*/pthread.h'           inc/crt/pthread.bi \
 		-emit '*/sched.h'             inc/crt/sched.bi \
-		-emit '*/sys/time.h'          inc/crt/sys/linux/time.bi \
-		-emit '*/bits/time.h'         inc/crt/sys/linux/time.bi \
-		-emit '*/time.h'              inc/crt/linux/time.bi \
-		-emit '*/timex.h'             inc/crt/linux/timex.bi \
-		-emit '*/locale.h'            inc/crt/linux/locale.bi \
-		-emit '*/xlocale.h'           inc/crt/linux/xlocale.bi \
 		-emit '*/signal.h'            inc/crt/linux/signal.bi \
-		-title $(GLIBC) glibc-pthread.tmp   fbteam.txt inc/crt/bits/pthreadtypes.bi \
-		-title $(GLIBC) glibc-wordsize.tmp  fbteam.txt inc/crt/bits/wordsize.bi \
-		-title $(GLIBC) glibc-sched.tmp     fbteam.txt inc/crt/bits/sched.bi \
-		-title $(GLIBC) glibc-pthread.tmp   fbteam.txt inc/crt/pthread.bi \
-		-title $(GLIBC) glibc-sched.tmp     fbteam.txt inc/crt/sched.bi \
-		-title $(GLIBC) glibc-time.tmp      fbteam.txt inc/crt/linux/time.bi \
-		-title $(GLIBC) glibc-timex.tmp     fbteam.txt inc/crt/linux/timex.bi \
-		-title $(GLIBC) glibc-sys-time.tmp  fbteam.txt inc/crt/sys/linux/time.bi \
-		-title $(GLIBC) glibc-sys-types.tmp fbteam.txt inc/crt/sys/linux/types.bi \
-		-title $(GLIBC) glibc-locale.tmp    fbteam.txt inc/crt/linux/locale.bi \
-		-title $(GLIBC) glibc-xlocale.tmp   fbteam.txt inc/crt/linux/xlocale.bi \
-		-title $(GLIBC) glibc-signal.tmp    fbteam.txt inc/crt/linux/signal.bi \
-		-title $(LINUX) linux.tmp           fbteam.txt inc/crt/linux/asm/sigcontext.bi
+		-emit '*/time.h'              inc/crt/linux/time.bi \
+		-emit '*/xlocale.h'           inc/crt/linux/xlocale.bi \
+		-title $(GLIBC) glibc-pthread.tmp    fbteam.txt inc/crt/bits/pthreadtypes.bi \
+		-title $(GLIBC) glibc-sched.tmp      fbteam.txt inc/crt/bits/sched.bi \
+		-title $(GLIBC) glibc-bits-time.tmp  fbteam.txt inc/crt/bits/time.bi \
+		-title $(GLIBC) glibc-bits-timex.tmp fbteam.txt inc/crt/bits/timex.bi \
+		-title $(GLIBC) glibc-wordsize.tmp   fbteam.txt inc/crt/bits/wordsize.bi \
+		-title $(GLIBC) glibc-sys-time.tmp   fbteam.txt inc/crt/sys/linux/time.bi \
+		-title $(GLIBC) glibc-sys-timex.tmp  fbteam.txt inc/crt/sys/linux/timex.bi \
+		-title $(GLIBC) glibc-sys-types.tmp  fbteam.txt inc/crt/sys/linux/types.bi \
+		-title $(GLIBC) glibc-locale.tmp     fbteam.txt inc/crt/linux/locale.bi \
+		-title $(GLIBC) glibc-time.tmp       fbteam.txt inc/crt/linux/time.bi \
+		-title $(GLIBC) glibc-signal.tmp     fbteam.txt inc/crt/linux/signal.bi \
+		-title $(GLIBC) glibc-xlocale.tmp    fbteam.txt inc/crt/linux/xlocale.bi \
+		-title $(GLIBC) glibc-pthread.tmp    fbteam.txt inc/crt/pthread.bi \
+		-title $(GLIBC) glibc-sched.tmp      fbteam.txt inc/crt/sched.bi \
+		-title $(LINUX) linux.tmp            fbteam.txt inc/crt/linux/asm/sigcontext.bi
 
 	rm *.tmp
-
 
 OPENBSD_VERSION := 5.7
 OPENBSD := OpenBSD-$(OPENBSD_VERSION)
