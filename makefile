@@ -718,8 +718,8 @@ crt-linux: tools
 		-include libc-symbols.h \
 		-include sys/types.h \
 		-include signal/signal.h \
-		-include time/time.h \
 		-include time/sys/time.h \
+		-include time/time.h \
 		-include locale/locale.h \
 		-include locale/xlocale.h \
 		-include sys/timex.h \
@@ -741,6 +741,7 @@ crt-linux: tools
 		-emit '*/pthread.h'           inc/crt/pthread.bi \
 		-emit '*/sched.h'             inc/crt/sched.bi \
 		-emit '*/sys/time.h'          inc/crt/sys/linux/time.bi \
+		-emit '*/bits/time.h'         inc/crt/sys/linux/time.bi \
 		-emit '*/time.h'              inc/crt/linux/time.bi \
 		-emit '*/timex.h'             inc/crt/linux/timex.bi \
 		-emit '*/locale.h'            inc/crt/linux/locale.bi \

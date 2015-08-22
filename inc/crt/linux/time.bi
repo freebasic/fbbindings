@@ -26,7 +26,7 @@
 #include once "crt/long.bi"
 #include once "bits/types.bi"
 #include once "crt/stddef.bi"
-#include once "bits/timex.bi"
+#include once "bits/time.bi"
 #include once "crt/xlocale.bi"
 
 '' The following symbols have been renamed:
@@ -51,30 +51,9 @@ type timespec
 	tv_nsec as __syscall_slong_t
 end type
 
-const _STRUCT_TIMEVAL = 1
-
-type timeval
-	tv_sec as __time_t
-	tv_usec as __suseconds_t
-end type
-
+#undef __clockid_time_t
 #undef __clockid_time_t
 const _TIME_H = 1
-const _BITS_TIME_H = 1
-#define CLOCKS_PER_SEC cast(clock_t, 1000000)
-const CLOCK_REALTIME = 0
-const CLOCK_MONOTONIC = 1
-const CLOCK_PROCESS_CPUTIME_ID = 2
-const CLOCK_THREAD_CPUTIME_ID = 3
-const CLOCK_MONOTONIC_RAW = 4
-const CLOCK_REALTIME_COARSE = 5
-const CLOCK_MONOTONIC_COARSE = 6
-const CLOCK_BOOTTIME = 7
-const CLOCK_REALTIME_ALARM = 8
-const CLOCK_BOOTTIME_ALARM = 9
-const CLOCK_TAI = 11
-const TIMER_ABSTIME = 1
-declare function clock_adjtime(byval __clock_id as __clockid_t, byval __utx as timex ptr) as long
 #undef __clockid_time_t
 
 type tm
