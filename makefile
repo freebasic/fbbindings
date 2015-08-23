@@ -310,6 +310,7 @@ atk-extract:
 atk: tools atk-extract glib-extract
 
 	$(GETCOMMENT) extracted/$(ATK)/atk/atk.h > atk.tmp
+	./fsf-address-fix.sh atk.tmp
 
 	mkdir -p inc/atk
 	$(FBFROG) atk.fbfrog \
@@ -676,6 +677,7 @@ cunit: tools
 	cd extracted/$(CUNIT_TITLE)/CUnit/Headers && \
 		sed -e 's/@VERSION@-@RELEASE@/$(CUNIT_VERSION)/g' < CUnit.h.in > CUnit.h
 	$(GETCOMMENT) extracted/$(CUNIT_TITLE)/CUnit/Headers/CUnit.h > cunit.tmp
+	./fsf-address-fix.sh cunit.tmp
 	mkdir -p inc/CUnit
 	$(FBFROG) cunit.fbfrog \
 		extracted/$(CUNIT_TITLE)/CUnit/Headers/CUnit.h \
@@ -979,6 +981,8 @@ gtk2: tools gtk2-extract
 
 	$(GETCOMMENT) extracted/$(GTK2)/gtk/gtk.h > gtk2.tmp
 	$(GETCOMMENT) extracted/$(GTK2)/gdk/gdk.h > gdk2.tmp
+	./fsf-address-fix.sh gtk2.tmp
+	./fsf-address-fix.sh gdk2.tmp
 
 	mkdir -p inc/gtk inc/gdk
 	$(FBFROG) gtk.fbfrog gtk2.fbfrog \
@@ -1045,6 +1049,8 @@ gtkglext: tools glib-extract gtk2-extract
 
 	$(GETCOMMENT) extracted/$(GTKGLEXT)/gtk/gtkgl.h > gtkglext.tmp
 	$(GETCOMMENT) extracted/$(GTKGLEXT)/gdk/gdkgl.h > gdkglext.tmp
+	./fsf-address-fix.sh gtkglext.tmp
+	./fsf-address-fix.sh gdkglext.tmp
 
 	mkdir -p inc/gtkgl
 	$(FBFROG) gtkglext.fbfrog \
@@ -1313,6 +1319,7 @@ openal: tools
 	./get.sh $(FREEALUT) $(FREEALUT_TAG).tar.gz https://github.com/vancegroup/freealut/archive/$(FREEALUT_TAG).tar.gz
 
 	$(GETCOMMENT) extracted/$(OPENALSOFT)/include/AL/alext.h > openalsoft.tmp
+	./fsf-address-fix.sh openalsoft.tmp
 	cp extracted/$(FREEALUT)/AUTHORS freealut.tmp
 	echo >> freealut.tmp
 	cat lgpl2+.txt >> freealut.tmp
@@ -1432,6 +1439,8 @@ pango: tools pango-extract glib-extract cairo-extract
 
 	sed -n 4,19p extracted/$(PANGO)/pango/pango.h      | cut -c4- > pango.tmp
 	sed -n 4,19p extracted/$(PANGO)/pango/pangocairo.h | cut -c4- > pangocairo.tmp
+	./fsf-address-fix.sh pango.tmp
+	./fsf-address-fix.sh pangocairo.tmp
 
 	mkdir -p inc/pango
 	$(FBFROG) pango.fbfrog \
