@@ -1271,11 +1271,11 @@ llvm: tools
 
 	rm *.tmp
 
-LUA_TITLE := lua-5.2.3
+LUA_TITLE := lua-5.3.1
 lua: tools
 	./get.sh $(LUA_TITLE) $(LUA_TITLE).tar.gz "http://www.lua.org/ftp/$(LUA_TITLE).tar.gz"
 
-	sed -n 421,440p extracted/$(LUA_TITLE)/src/lua.h | cut -c3- > lua.tmp
+	sed -n 463,482p extracted/$(LUA_TITLE)/src/lua.h | cut -c3- > lua.tmp
 
 	mkdir -p inc/Lua
 	$(FBFROG) lua.fbfrog \
