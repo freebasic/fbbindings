@@ -1,4 +1,4 @@
-FBFROG_VERSION := 32bef937e767aedbc31b1ebb0d459ebbece4922e
+FBFROG_VERSION := 3e729adf211f25459a6cd01707ebc8bb02455def
 
 ALL := allegro allegro4 allegro5 aspell atk
 ALL += bass bassmod bfd bzip2
@@ -1877,7 +1877,7 @@ tre: tools
 #   (fbfrog -clong32)
 #
 
-MINGWW64_TITLE := mingw-w64-v4.0.1
+MINGWW64_TITLE := mingw-w64-v4.0.4
 WINAPI_FLAGS := winapi.fbfrog
 WINAPI_FLAGS += -incdir extracted/$(MINGWW64_TITLE)/mingw-w64-headers/crt
 WINAPI_FLAGS += -incdir extracted/$(MINGWW64_TITLE)/mingw-w64-headers/include
