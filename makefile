@@ -616,7 +616,7 @@ clang: tools
 		-title $(CLANG_TITLE) clang.tmp fbteam.txt
 	rm *.tmp
 
-GLIBC := glibc-2.21
+GLIBC := glibc-2.22
 crt: tools
 	./get.sh $(GLIBC) $(GLIBC).tar.xz http://ftp.gnu.org/gnu/glibc/$(GLIBC).tar.xz
 
