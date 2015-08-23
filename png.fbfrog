@@ -13,15 +13,13 @@
 -renamedefine PNG_WRITE_TEXT_SUPPORTED PNG_WRITE_TEXT_SUPPORTED_
 -renameproc png_info_init png_info_init_
 
--removedefine FAR
--removedefine FARDATA
 -removedefine CVT_PTR
 -removedefine CVT_PTR_NOCHECK
--removedefine PNGAPI
--removedefine PNGARG
--removedefine PNGCAPI
--removedefine PNGCBAPI
+-removedefine FAR
+-removedefine FARDATA
 -removedefine PNG_ALLOCATED
+-removedefine PNG*API
+-removedefine PNGARG
 -removedefine PNG_CALLBACK
 -removedefine PNG_CONST
 -removedefine PNG_DEPRECATED
@@ -29,14 +27,12 @@
 -removedefine PNG_DLL_EXPORT
 -removedefine PNG_DLL_IMPORT
 -removedefine PNG_EMPTY
--removedefine PNG_EXPORT
--removedefine PNG_EXPORTA
--removedefine PNG_EXPORT_TYPE
--removedefine PNG_EXPORT_VAR
+-removedefine PNG_EXPORT*
 -removedefine PNG_FIXED_EXPORT
 -removedefine PNG_FP_EXPORT
 -removedefine PNG_FUNCTION
 -removedefine PNG_IMPEXP
+-removedefine PNG_LINKAGE*
 -removedefine PNG_NO_MODULEDEF
 -removedefine PNG_NORETURN
 -removedefine PNG_PRIVATE

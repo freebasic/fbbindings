@@ -1539,26 +1539,26 @@ png14: tools
 		-title $(PNG14_TITLE) png14.tmp fbteam.txt
 	rm *.tmp
 
-PNG15_TITLE := libpng-1.5.21
+PNG15_TITLE := libpng-1.5.23
 png15: tools
 	./get.sh $(PNG15_TITLE) $(PNG15_TITLE).tar.xz "http://downloads.sourceforge.net/libpng/$(PNG15_TITLE).tar.xz?download"
 	cp extracted/$(PNG15_TITLE)/scripts/pnglibconf.h.prebuilt \
 	   extracted/$(PNG15_TITLE)/pnglibconf.h
-	sed -n 2,15p    extracted/$(PNG15_TITLE)/png.h | cut -c4- >  png15.tmp
+	sed -n 2,16p    extracted/$(PNG15_TITLE)/png.h | cut -c4- >  png15.tmp
 	echo                                                      >> png15.tmp
-	sed -n 232,321p extracted/$(PNG15_TITLE)/png.h | cut -c4- >> png15.tmp
+	sed -n 239,323p extracted/$(PNG15_TITLE)/png.h | cut -c4- >> png15.tmp
 	$(FBFROG) png.fbfrog png15.fbfrog -o inc/png15.bi extracted/$(PNG15_TITLE)/png.h \
 		-title $(PNG15_TITLE) png15.tmp fbteam.txt
 	rm *.tmp
 
-PNG16_TITLE := libpng-1.6.16
+PNG16_TITLE := libpng-1.6.18
 png16: tools
 	./get.sh $(PNG16_TITLE) $(PNG16_TITLE).tar.xz "http://downloads.sourceforge.net/libpng/$(PNG16_TITLE).tar.xz?download"
 	cp extracted/$(PNG16_TITLE)/scripts/pnglibconf.h.prebuilt \
 	   extracted/$(PNG16_TITLE)/pnglibconf.h
-	sed -n 2,15p    extracted/$(PNG16_TITLE)/png.h | cut -c4- >  png16.tmp
+	sed -n 2,16p    extracted/$(PNG16_TITLE)/png.h | cut -c4- >  png16.tmp
 	echo                                                      >> png16.tmp
-	sed -n 239,328p extracted/$(PNG16_TITLE)/png.h | cut -c4- >> png16.tmp
+	sed -n 246,331p extracted/$(PNG16_TITLE)/png.h | cut -c4- >> png16.tmp
 	$(FBFROG) png.fbfrog png16.fbfrog -o inc/png16.bi extracted/$(PNG16_TITLE)/png.h \
 		-title $(PNG16_TITLE) png16.tmp fbteam.txt
 	rm *.tmp
