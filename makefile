@@ -789,7 +789,7 @@ freeglut: tools
 
 	rm *.tmp
 
-FREETYPE := freetype-2.5.5
+FREETYPE := freetype-2.6
 freetype: tools
 	./get.sh $(FREETYPE) $(FREETYPE).tar.bz2 http://download.savannah.gnu.org/releases/freetype/$(FREETYPE).tar.bz2
 

@@ -30,6 +30,7 @@
 -removedefine FT_NEED_EXTERN_C
 -removedefine FT_NOERRORDEF_
 -removedefine FT_UNUSED
+-removedefine TYPEOF
 
 # case-aliases
 -removedefine FT_INT64
