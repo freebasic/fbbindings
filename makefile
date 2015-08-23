@@ -1383,7 +1383,7 @@ openal: tools
 #
 opengl: opengl-mesa opengl-winapi
 
-MESA_VERSION := 10.5.1
+MESA_VERSION := 10.6.4
 MESA := mesa-$(MESA_VERSION)
 GLU := glu-9.0.0
 opengl-mesa: tools
