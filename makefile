@@ -541,7 +541,7 @@ cd: tools
 	./get.sh cd $(CD)_Sources.tar.gz http://sourceforge.net/projects/canvasdraw/files/$(CD_VERSION)/Docs%20and%20Sources/$(CD)_Sources.tar.gz/download
 	find extracted/cd/ -type d -exec chmod +x '{}' ';'
 
-	sed -n 524,543p extracted/cd/include/cd.h > cd.tmp
+	$(GETCOMMENT) --2 extracted/cd/include/cd.h | tail -n+2 | head -n-1 > cd.tmp
 
 	mkdir -p inc/cd
 	$(FBFROG) cd.fbfrog \
@@ -1116,7 +1116,7 @@ iup: tools
 	./get.sh iup $(IUP_TITLE)_Sources.tar.gz "http://sourceforge.net/projects/iup/files/$(IUP_VERSION)/Docs%20and%20Sources/$(IUP_TITLE)_Sources.tar.gz/download"
 	find extracted/iup/ -type d -exec chmod +x '{}' ';'
 
-	sed -n 448,467p extracted/iup/include/iup.h | cut -c3- > iup.tmp
+	$(GETCOMMENT) --1 extracted/iup/include/iup.h | tail -n+2 | head -n-1 | cut -c2- > iup.tmp
 
 	mkdir -p inc/IUP
 	$(FBFROG) iup.fbfrog \
@@ -1227,7 +1227,7 @@ jit: tools
 		cp jit-arch-x86-64.h   x86_64/jit/jit-arch.h && \
 		cp jit-arch-generic.h     arm/jit/jit-arch.h
 
-	sed -n 4,18p extracted/$(JIT_TITLE)/include/jit/jit.h | cut -c4- > jit.tmp
+	$(GETCOMMENT) extracted/$(JIT_TITLE)/include/jit/jit.h | tail -n+3 > jit.tmp
 
 	$(FBFROG) jit.fbfrog -o inc extracted/$(JIT_TITLE)/include/jit/jit.h   \
 		-incdir extracted/$(JIT_TITLE)/include                         \
@@ -1275,7 +1275,7 @@ LUA_TITLE := lua-5.3.1
 lua: tools
 	./get.sh $(LUA_TITLE) $(LUA_TITLE).tar.gz "http://www.lua.org/ftp/$(LUA_TITLE).tar.gz"
 
-	sed -n 463,482p extracted/$(LUA_TITLE)/src/lua.h | cut -c3- > lua.tmp
+	$(GETCOMMENT) --1 extracted/$(LUA_TITLE)/src/lua.h | tail -n+2 | head -n-1 | cut -c2- > lua.tmp
 
 	mkdir -p inc/Lua
 	$(FBFROG) lua.fbfrog \
@@ -1437,8 +1437,8 @@ pango-extract:
 
 pango: tools pango-extract glib-extract cairo-extract
 
-	sed -n 4,19p extracted/$(PANGO)/pango/pango.h      | cut -c4- > pango.tmp
-	sed -n 4,19p extracted/$(PANGO)/pango/pangocairo.h | cut -c4- > pangocairo.tmp
+	$(GETCOMMENT) extracted/$(PANGO)/pango/pango.h      | tail -n+4 > pango.tmp
+	$(GETCOMMENT) extracted/$(PANGO)/pango/pangocairo.h | tail -n+4 > pangocairo.tmp
 	./fsf-address-fix.sh pango.tmp
 	./fsf-address-fix.sh pangocairo.tmp
 
