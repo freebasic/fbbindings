@@ -728,7 +728,7 @@ fastcgi: tools
 		-title $(FASTCGI_TITLE) fastcgi.tmp fbteam.txt
 	rm *.tmp
 
-FFI_VERSION := 3.1
+FFI_VERSION := 3.2.1
 FFI_TITLE := libffi-$(FFI_VERSION)
 ffi: tools
 	./get.sh $(FFI_TITLE) $(FFI_TITLE).tar.gz "ftp://sourceware.org/pub/libffi/$(FFI_TITLE).tar.gz"

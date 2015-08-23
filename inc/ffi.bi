@@ -1,8 +1,8 @@
-'' FreeBASIC binding for libffi-3.1
+'' FreeBASIC binding for libffi-3.2.1
 ''
 '' based on the C header files:
 ''   -----------------------------------------------------------------*-C-*-
-''   libffi 3.1 - Copyright (c) 2011 Anthony Green
+''   libffi 3.2.1 - Copyright (c) 2011, 2014 Anthony Green
 ''                    - Copyright (c) 1996-2003, 2007, 2008 Red Hat, Inc.
 ''
 ''   Permission is hereby granted, free of charge, to any person
@@ -88,6 +88,14 @@ extern "C"
 #if defined(__FB_64BIT__) and (defined(__FB_WIN32__) or defined(__FB_CYGWIN__))
 	const FFI_SIZEOF_ARG = 8
 	const USE_BUILTIN_FFS = 0
+#endif
+
+#if ((not defined(__FB_ARM__)) and (defined(__FB_LINUX__) or defined(__FB_FREEBSD__) or defined(__FB_OPENBSD__) or defined(__FB_NETBSD__))) or defined(__FB_DARWIN__) or defined(__FB_WIN32__) or defined(__FB_CYGWIN__)
+	#define FFI_TARGET_SPECIFIC_STACK_SPACE_ALLOCATION
+	#define FFI_TARGET_HAS_COMPLEX_TYPE
+#endif
+
+#if defined(__FB_64BIT__) and (defined(__FB_WIN32__) or defined(__FB_CYGWIN__))
 	type ffi_arg as ulongint
 	type ffi_sarg as longint
 #else
@@ -116,10 +124,15 @@ enum
 
 	#if ((not defined(__FB_ARM__)) and (defined(__FB_LINUX__) or defined(__FB_FREEBSD__) or defined(__FB_OPENBSD__) or defined(__FB_NETBSD__))) or defined(__FB_DARWIN__)
 		FFI_STDCALL
-	#elseif (not defined(__FB_64BIT__)) and defined(__FB_ARM__) and (defined(__FB_LINUX__) or defined(__FB_FREEBSD__) or defined(__FB_OPENBSD__) or defined(__FB_NETBSD__))
-		FFI_VFP
 	#elseif (not defined(__FB_64BIT__)) and (defined(__FB_WIN32__) or defined(__FB_CYGWIN__))
 		FFI_MS_CDECL
+	#endif
+
+	#if (defined(__FB_DARWIN__) and defined(__FB_64BIT__)) or ((not defined(__FB_ARM__)) and (defined(__FB_LINUX__) or defined(__FB_FREEBSD__) or defined(__FB_OPENBSD__) or defined(__FB_NETBSD__))) or ((not defined(__FB_64BIT__)) and (defined(__FB_DARWIN__) or defined(__FB_WIN32__) or defined(__FB_CYGWIN__)))
+		FFI_PASCAL
+		FFI_REGISTER
+	#elseif (not defined(__FB_64BIT__)) and defined(__FB_ARM__) and (defined(__FB_LINUX__) or defined(__FB_FREEBSD__) or defined(__FB_OPENBSD__) or defined(__FB_NETBSD__))
+		FFI_VFP
 	#elseif defined(__FB_64BIT__) and (defined(__FB_WIN32__) or defined(__FB_CYGWIN__))
 		FFI_WIN64
 	#endif
@@ -226,6 +239,12 @@ extern ffi_type_float as ffi_type
 extern ffi_type_double as ffi_type
 extern ffi_type_pointer as ffi_type
 extern ffi_type_longdouble as ffi_type
+
+#if ((not defined(__FB_ARM__)) and (defined(__FB_LINUX__) or defined(__FB_FREEBSD__) or defined(__FB_OPENBSD__) or defined(__FB_NETBSD__))) or defined(__FB_DARWIN__) or defined(__FB_WIN32__) or defined(__FB_CYGWIN__)
+	extern ffi_type_complex_float as ffi_type
+	extern ffi_type_complex_double as ffi_type
+	extern ffi_type_complex_longdouble as ffi_type
+#endif
 
 type ffi_status as long
 enum
@@ -344,6 +363,7 @@ const FFI_TYPE_UINT64_ = 11
 const FFI_TYPE_SINT64_ = 12
 const FFI_TYPE_STRUCT = 13
 const FFI_TYPE_POINTER_ = 14
-#define FFI_TYPE_LAST FFI_TYPE_POINTER_
+const FFI_TYPE_COMPLEX = 15
+#define FFI_TYPE_LAST FFI_TYPE_COMPLEX
 
 end extern

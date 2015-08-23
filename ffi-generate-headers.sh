@@ -25,5 +25,6 @@ for i in `cat ffi-targets.txt`; do
 		-e 's/@HAVE_LONG_DOUBLE@/1/g' \
 		-e 's/@FFI_EXEC_TRAMPOLINE_TABLE@/0/g' \
 		-e "s/@VERSION@/$FFI_VERSION/g" \
+		-e "s/@HAVE_LONG_DOUBLE_VARIANT@/0/g" \
 		< $libffidir/include/ffi.h.in > $libffidir/include/ffi-$i.h
 done
