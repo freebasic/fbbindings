@@ -2580,7 +2580,7 @@ xcb: tools
 	./downloadextract.sh libpthread-stubs-0.3 libpthread-stubs-0.3.tar.bz2 "http://xcb.freedesktop.org/dist/libpthread-stubs-0.3.tar.bz2"
 	./downloadextract.sh libxcb-1.9           libxcb-1.9.tar.bz2           "http://xcb.freedesktop.org/dist/libxcb-1.9.tar.bz2"
 
-ZIP_TITLE := libzip-0.11.2
+ZIP_TITLE := libzip-1.0.1
 zip: tools
 	./get.sh $(ZIP_TITLE) $(ZIP_TITLE).tar.xz "http://www.nih.at/libzip/$(ZIP_TITLE).tar.xz"
 
