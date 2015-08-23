@@ -603,7 +603,7 @@ cgui: tools
 		-title $(CGUI) cgui.tmp fbteam.txt
 	rm *.tmp
 
-CLANG_VERSION := 3.5.0
+CLANG_VERSION := 3.6.2
 CLANG_TITLE := cfe-$(CLANG_VERSION).src
 clang: tools
 	./get.sh $(CLANG_TITLE) $(CLANG_TITLE).tar.xz "http://llvm.org/releases/$(CLANG_VERSION)/$(CLANG_TITLE).tar.xz"
@@ -1240,7 +1240,7 @@ jit: tools
 
 	rm *.tmp
 
-LLVM_VERSION := 3.5.0
+LLVM_VERSION := 3.6.2
 LLVM_TITLE := llvm-$(LLVM_VERSION).src
 llvm: tools
 	./get.sh $(LLVM_TITLE) $(LLVM_TITLE).tar.xz "http://llvm.org/releases/$(LLVM_VERSION)/$(LLVM_TITLE).tar.xz"
