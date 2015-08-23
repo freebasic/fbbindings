@@ -535,7 +535,7 @@ cairo: tools cairo-extract
 	rm *.tmp
 
 # Canvas Draw
-CD_VERSION := 5.8.1
+CD_VERSION := 5.8.2
 CD := cd-$(CD_VERSION)
 cd: tools
 	./get.sh cd $(CD)_Sources.tar.gz http://sourceforge.net/projects/canvasdraw/files/$(CD_VERSION)/Docs%20and%20Sources/$(CD)_Sources.tar.gz/download
@@ -1110,7 +1110,7 @@ iconv: tools
 
 	rm *.tmp
 
-IUP_VERSION := 3.13
+IUP_VERSION := 3.15
 IUP_TITLE := iup-$(IUP_VERSION)
 iup: tools
 	./get.sh iup $(IUP_TITLE)_Sources.tar.gz "http://sourceforge.net/projects/iup/files/$(IUP_VERSION)/Docs%20and%20Sources/$(IUP_TITLE)_Sources.tar.gz/download"
