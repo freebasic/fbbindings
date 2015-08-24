@@ -122,15 +122,6 @@ const LUA_FLOAT_LONGDOUBLE = 3
 #endif
 
 #define lua_number2str(s, n) sprintf((s), LUA_NUMBER_FMT, (n))
-
-private function lua_numbertointeger(byval n as LUA_NUMBER_, byval p as LUA_INTEGER_ ptr) as long
-	if (n >= cast(LUA_NUMBER_, LUA_MININTEGER)) andalso (n < (-cast(LUA_NUMBER_, LUA_MININTEGER))) then
-		(*p) = cast(LUA_INTEGER_, n)
-		return 1
-	end if
-	return 0
-end function
-
 #define LUA_INTEGER_FMT "%" LUA_INTEGER_FRMLEN "d"
 #define lua_integer2str(s, n) sprintf((s), LUA_INTEGER_FMT, (n))
 #define LUAI_UACINT LUA_INTEGER_
@@ -152,6 +143,14 @@ end function
 	#define LUA_MAXINTEGER LLONG_MAX
 	#define LUA_MININTEGER LLONG_MIN
 #endif
+
+private function lua_numbertointeger(byval n as LUA_NUMBER_, byval p as LUA_INTEGER_ ptr) as long
+	if (n >= cast(LUA_NUMBER_, LUA_MININTEGER)) andalso (n < (-cast(LUA_NUMBER_, LUA_MININTEGER))) then
+		(*p) = cast(LUA_INTEGER_, n)
+		return 1
+	end if
+	return 0
+end function
 
 #ifdef __FB_WIN32__
 	#undef l_mathop
