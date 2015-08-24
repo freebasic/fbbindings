@@ -591,8 +591,9 @@
 -remove2nd POLICY_AUDIT_EVENT_FAILURE
 -remove2nd POLICY_AUDIT_EVENT_NONE
 
+-rename TRUE CTRUE
 -ifndefdecl NULL
--ifndefdecl TRUE
+-ifndefdecl CTRUE
 -ifndefdecl FALSE
 
 # Boolean already is FB's built-in boolean type. At least winapi's BOOLEAN is

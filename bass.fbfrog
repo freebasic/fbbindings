@@ -45,5 +45,6 @@
 -convbodytokens EAX_PRESET_DIZZY
 -convbodytokens EAX_PRESET_PSYCHOTIC
 
--ifndefdecl TRUE
+-rename TRUE CTRUE
+-ifndefdecl CTRUE
 -ifndefdecl FALSE

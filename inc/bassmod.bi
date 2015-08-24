@@ -34,6 +34,8 @@
 
 #if defined(__FB_DOS__) or defined(__FB_UNIX__)
 	#include once "crt/long.bi"
+	'' The following symbols have been renamed:
+	''     constant TRUE => CTRUE
 #elseif defined(__FB_WIN32__)
 	#include once "win/wtypes.bi"
 #endif
@@ -51,8 +53,8 @@
 	type DWORD as culong
 	type BOOL as long
 
-	#ifndef TRUE
-		const TRUE = 1
+	#ifndef CTRUE
+		const CTRUE = 1
 	#endif
 	#ifndef FALSE
 		const FALSE = 0

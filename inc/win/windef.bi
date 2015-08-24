@@ -53,6 +53,7 @@
 #include once "basetsd.bi"
 
 '' The following symbols have been renamed:
+''     constant TRUE => CTRUE
 ''     typedef BYTE => UBYTE
 ''     typedef INT => INT_
 
@@ -77,8 +78,8 @@ const MAX_PATH = 260
 #ifndef FALSE
 	const FALSE = 0
 #endif
-#ifndef TRUE
-	const TRUE = 1
+#ifndef CTRUE
+	const CTRUE = 1
 #endif
 #define _DEF_WINBOOL_
 
