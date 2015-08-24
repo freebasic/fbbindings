@@ -81,6 +81,9 @@ const MAX_PATH = 260
 #ifndef CTRUE
 	const CTRUE = 1
 #endif
+#ifndef TRUE
+	const TRUE = 1
+#endif
 #define _DEF_WINBOOL_
 
 type WINBOOL as long

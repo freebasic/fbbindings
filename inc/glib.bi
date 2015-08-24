@@ -131,6 +131,9 @@ extern "C"
 #ifndef CTRUE
 	const CTRUE = 1
 #endif
+#ifndef TRUE
+	const TRUE = 1
+#endif
 #undef MAX
 #define MAX(a, b) iif((a) > (b), (a), (b))
 #undef MIN

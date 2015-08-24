@@ -55,6 +55,9 @@ const CHTYPE_LONG = 1
 #ifndef CTRUE
 	const CTRUE = 1
 #endif
+#ifndef TRUE
+	const TRUE = 1
+#endif
 const ERR_ = -1
 const OK = 0
 type bool as ubyte

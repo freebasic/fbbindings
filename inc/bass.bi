@@ -59,6 +59,9 @@ type QWORD as ulongint
 	#ifndef CTRUE
 		const CTRUE = 1
 	#endif
+	#ifndef TRUE
+		const TRUE = 1
+	#endif
 	#ifndef FALSE
 		const FALSE = 0
 	#endif

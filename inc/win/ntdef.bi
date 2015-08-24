@@ -55,6 +55,9 @@ const ANYSIZE_ARRAY = 1
 #ifndef CTRUE
 	const CTRUE = 1
 #endif
+#ifndef TRUE
+	const TRUE = 1
+#endif
 const NULL64 = 0
 
 #ifdef __FB_64BIT__

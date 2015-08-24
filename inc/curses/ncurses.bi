@@ -87,10 +87,15 @@ const NCURSES_TPARM_VARARGS = 1
 type chtype as culong
 type mmask_t as culong
 #undef NCURSES_WIDECHAR
-#undef CTRUE
-const CTRUE = 1
-#undef FALSE
-const FALSE = 0
+#ifndef CTRUE
+	const CTRUE = 1
+#endif
+#ifndef TRUE
+	const TRUE = 1
+#endif
+#ifndef FALSE
+	const FALSE = 0
+#endif
 type NCURSES_BOOL as ubyte
 #define NCURSES_BOOL_ bool
 #define NCURSES_CAST(type, value) cast(type, value)

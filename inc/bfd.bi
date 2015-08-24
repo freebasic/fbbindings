@@ -114,10 +114,15 @@ type bfd_uint64_t as ulongint
 #endif
 
 type bfd_boolean as long
-#undef FALSE
-#undef CTRUE
-const FALSE = 0
-const CTRUE = 1
+#ifndef FALSE
+	const FALSE = 0
+#endif
+#ifndef CTRUE
+	const CTRUE = 1
+#endif
+#ifndef TRUE
+	const TRUE = 1
+#endif
 
 #if ((not defined(__FB_64BIT__)) and (defined(__FB_WIN32__) or defined(__FB_UNIX__))) or defined(__FB_DOS__)
 	type bfd_vma as culong
