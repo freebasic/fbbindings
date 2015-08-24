@@ -1,8 +1,22 @@
+-declarebool LUA_32BITS
+-ifdef LUA_32BITS
+	-define LUA_32BITS 1
+-endif
+
+-declarebool LUA_C89_NUMBERS
+-ifdef LUA_C89_NUMBERS
+	-define LUA_C89_NUMBERS 1
+-endif
+
 -fbfroginclude limits.h
 
 -replacements lua.replacements
 
+-typedefhint LUA_NUMBER
+-typedefhint LUA_INTEGER
+
 -expandindefine LUA_INT32
+-expandindefine l_mathop
 
 -removedefine LUA_API
 -removedefine LUALIB_API

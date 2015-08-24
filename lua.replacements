@@ -1,14 +1,17 @@
+convert c: #define LUA_UNSIGNED unsigned LUAI_UACINT
+to c:      #define LUA_UNSIGNED lua_Unsigned
+
 convert c: #define lua_pushliteral(L, s) lua_pushlstring(L, "" s, (sizeof(s)/sizeof(char))-1)
 to fb:     #define lua_pushliteral(L, s) lua_pushlstring(L, "" s, len(s)-1)
 
 convert c: #define luaL_newlibtable(L,l) lua_createtable(L, 0, sizeof(l)/sizeof((l)[0]) - 1)
 to fb:     #define luaL_newlibtable(L, l_) lua_createtable(L, 0, (ubound(l_) - lbound(l_) + 1) - 1)
 
-convert c: #define luaL_argcheck(L, cond,numarg,extramsg) ((void)((cond) || luaL_argerror(L, (numarg), (extramsg))))
+convert c: #define luaL_argcheck(L, cond,arg,extramsg) ((void)((cond) || luaL_argerror(L, (arg), (extramsg))))
 to fb:
-	#macro luaL_argcheck(L, cond, numarg, extramsg)
+	#macro luaL_argcheck(L, cond, arg, extramsg)
 		if (cond) = 0 then
-			luaL_argerror(L, (numarg), (extramsg))
+			luaL_argerror(L, (arg), (extramsg))
 		end if
 	#endmacro
 
@@ -35,3 +38,17 @@ to fb:
 		(B)->b[(B)->n] = (c)
 		(B)->n += 1
 	#endmacro
+
+convert c:
+	#define lua_numbertointeger(n,p) \
+	  ((n) >= (LUA_NUMBER)(LUA_MININTEGER) && \
+	   (n) < -(LUA_NUMBER)(LUA_MININTEGER) && \
+	      (*(p) = (LUA_INTEGER)(n), 1))
+to c:
+	static int lua_numbertointeger(LUA_NUMBER n, LUA_INTEGER *p) {
+		if (n >= (LUA_NUMBER)LUA_MININTEGER && n < -(LUA_NUMBER)LUA_MININTEGER) {
+			*p = (LUA_INTEGER)n;
+			return 1;
+		}
+		return 0;
+	}

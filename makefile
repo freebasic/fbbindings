@@ -1,4 +1,4 @@
-FBFROG_VERSION := 32bef937e767aedbc31b1ebb0d459ebbece4922e
+FBFROG_VERSION := 3e729adf211f25459a6cd01707ebc8bb02455def
 
 ALL := allegro allegro4 allegro5 aspell atk
 ALL += bass bassmod bfd bzip2
@@ -541,13 +541,13 @@ cairo: tools cairo-extract
 	rm *.tmp
 
 # Canvas Draw
-CD_VERSION := 5.8.1
+CD_VERSION := 5.8.2
 CD := cd-$(CD_VERSION)
 cd: tools
 	./get.sh cd $(CD)_Sources.tar.gz http://sourceforge.net/projects/canvasdraw/files/$(CD_VERSION)/Docs%20and%20Sources/$(CD)_Sources.tar.gz/download
 	find extracted/cd/ -type d -exec chmod +x '{}' ';'
 
-	sed -n 524,543p extracted/cd/include/cd.h > cd.tmp
+	$(GETCOMMENT) --2 extracted/cd/include/cd.h | tail -n+2 | head -n-1 > cd.tmp
 
 	mkdir -p inc/cd
 	$(FBFROG) cd.fbfrog \
@@ -609,7 +609,7 @@ cgui: tools
 		-title $(CGUI) cgui.tmp fbteam.txt
 	rm *.tmp
 
-CLANG_VERSION := 3.5.0
+CLANG_VERSION := 3.6.2
 CLANG_TITLE := cfe-$(CLANG_VERSION).src
 clang: tools
 	./get.sh $(CLANG_TITLE) $(CLANG_TITLE).tar.xz "http://llvm.org/releases/$(CLANG_VERSION)/$(CLANG_TITLE).tar.xz"
@@ -622,7 +622,7 @@ clang: tools
 		-title $(CLANG_TITLE) clang.tmp fbteam.txt
 	rm *.tmp
 
-GLIBC := glibc-2.21
+GLIBC := glibc-2.22
 crt: tools
 	./get.sh $(GLIBC) $(GLIBC).tar.xz http://ftp.gnu.org/gnu/glibc/$(GLIBC).tar.xz
 
@@ -704,7 +704,7 @@ cunit: tools
 		-title $(CUNIT_TITLE) cunit.tmp fbteam.txt
 	rm *.tmp
 
-CURL_TITLE := curl-7.39.0
+CURL_TITLE := curl-7.44.0
 curl: tools
 	./get.sh $(CURL_TITLE) $(CURL_TITLE).tar.lzma "http://curl.haxx.se/download/$(CURL_TITLE).tar.lzma"
 	tail -n +3 extracted/$(CURL_TITLE)/COPYING > curl.tmp
@@ -734,7 +734,7 @@ fastcgi: tools
 		-title $(FASTCGI_TITLE) fastcgi.tmp fbteam.txt
 	rm *.tmp
 
-FFI_VERSION := 3.1
+FFI_VERSION := 3.2.1
 FFI_TITLE := libffi-$(FFI_VERSION)
 ffi: tools
 	./get.sh $(FFI_TITLE) $(FFI_TITLE).tar.gz "ftp://sourceware.org/pub/libffi/$(FFI_TITLE).tar.gz"
@@ -795,7 +795,7 @@ freeglut: tools
 
 	rm *.tmp
 
-FREETYPE := freetype-2.5.5
+FREETYPE := freetype-2.6
 freetype: tools
 	./get.sh $(FREETYPE) $(FREETYPE).tar.bz2 http://download.savannah.gnu.org/releases/freetype/$(FREETYPE).tar.bz2
 
@@ -1116,13 +1116,13 @@ iconv: tools
 
 	rm *.tmp
 
-IUP_VERSION := 3.13
+IUP_VERSION := 3.15
 IUP_TITLE := iup-$(IUP_VERSION)
 iup: tools
 	./get.sh iup $(IUP_TITLE)_Sources.tar.gz "http://sourceforge.net/projects/iup/files/$(IUP_VERSION)/Docs%20and%20Sources/$(IUP_TITLE)_Sources.tar.gz/download"
 	find extracted/iup/ -type d -exec chmod +x '{}' ';'
 
-	sed -n 448,467p extracted/iup/include/iup.h | cut -c3- > iup.tmp
+	$(GETCOMMENT) --1 extracted/iup/include/iup.h | tail -n+2 | head -n-1 | cut -c2- > iup.tmp
 
 	mkdir -p inc/IUP
 	$(FBFROG) iup.fbfrog \
@@ -1233,7 +1233,7 @@ jit: tools
 		cp jit-arch-x86-64.h   x86_64/jit/jit-arch.h && \
 		cp jit-arch-generic.h     arm/jit/jit-arch.h
 
-	sed -n 4,18p extracted/$(JIT_TITLE)/include/jit/jit.h | cut -c4- > jit.tmp
+	$(GETCOMMENT) extracted/$(JIT_TITLE)/include/jit/jit.h | tail -n+3 > jit.tmp
 
 	$(FBFROG) jit.fbfrog -o inc extracted/$(JIT_TITLE)/include/jit/jit.h   \
 		-incdir extracted/$(JIT_TITLE)/include                         \
@@ -1246,7 +1246,7 @@ jit: tools
 
 	rm *.tmp
 
-LLVM_VERSION := 3.5.0
+LLVM_VERSION := 3.6.2
 LLVM_TITLE := llvm-$(LLVM_VERSION).src
 llvm: tools
 	./get.sh $(LLVM_TITLE) $(LLVM_TITLE).tar.xz "http://llvm.org/releases/$(LLVM_VERSION)/$(LLVM_TITLE).tar.xz"
@@ -1277,11 +1277,11 @@ llvm: tools
 
 	rm *.tmp
 
-LUA_TITLE := lua-5.2.3
+LUA_TITLE := lua-5.3.1
 lua: tools
 	./get.sh $(LUA_TITLE) $(LUA_TITLE).tar.gz "http://www.lua.org/ftp/$(LUA_TITLE).tar.gz"
 
-	sed -n 421,440p extracted/$(LUA_TITLE)/src/lua.h | cut -c3- > lua.tmp
+	$(GETCOMMENT) --1 extracted/$(LUA_TITLE)/src/lua.h | tail -n+2 | head -n-1 | cut -c2- > lua.tmp
 
 	mkdir -p inc/Lua
 	$(FBFROG) lua.fbfrog \
@@ -1389,7 +1389,7 @@ openal: tools
 #
 opengl: opengl-mesa opengl-winapi
 
-MESA_VERSION := 10.5.1
+MESA_VERSION := 10.6.4
 MESA := mesa-$(MESA_VERSION)
 GLU := glu-9.0.0
 opengl-mesa: tools
@@ -1443,8 +1443,8 @@ pango-extract:
 
 pango: tools pango-extract glib-extract cairo-extract
 
-	sed -n 4,19p extracted/$(PANGO)/pango/pango.h      | cut -c4- > pango.tmp
-	sed -n 4,19p extracted/$(PANGO)/pango/pangocairo.h | cut -c4- > pangocairo.tmp
+	$(GETCOMMENT) extracted/$(PANGO)/pango/pango.h      | tail -n+4 > pango.tmp
+	$(GETCOMMENT) extracted/$(PANGO)/pango/pangocairo.h | tail -n+4 > pangocairo.tmp
 	./fsf-address-fix.sh pango.tmp
 	./fsf-address-fix.sh pangocairo.tmp
 
@@ -1545,26 +1545,26 @@ png14: tools
 		-title $(PNG14_TITLE) png14.tmp fbteam.txt
 	rm *.tmp
 
-PNG15_TITLE := libpng-1.5.21
+PNG15_TITLE := libpng-1.5.23
 png15: tools
 	./get.sh $(PNG15_TITLE) $(PNG15_TITLE).tar.xz "http://downloads.sourceforge.net/libpng/$(PNG15_TITLE).tar.xz?download"
 	cp extracted/$(PNG15_TITLE)/scripts/pnglibconf.h.prebuilt \
 	   extracted/$(PNG15_TITLE)/pnglibconf.h
-	sed -n 2,15p    extracted/$(PNG15_TITLE)/png.h | cut -c4- >  png15.tmp
+	sed -n 2,16p    extracted/$(PNG15_TITLE)/png.h | cut -c4- >  png15.tmp
 	echo                                                      >> png15.tmp
-	sed -n 232,321p extracted/$(PNG15_TITLE)/png.h | cut -c4- >> png15.tmp
+	sed -n 239,323p extracted/$(PNG15_TITLE)/png.h | cut -c4- >> png15.tmp
 	$(FBFROG) png.fbfrog png15.fbfrog -o inc/png15.bi extracted/$(PNG15_TITLE)/png.h \
 		-title $(PNG15_TITLE) png15.tmp fbteam.txt
 	rm *.tmp
 
-PNG16_TITLE := libpng-1.6.16
+PNG16_TITLE := libpng-1.6.18
 png16: tools
 	./get.sh $(PNG16_TITLE) $(PNG16_TITLE).tar.xz "http://downloads.sourceforge.net/libpng/$(PNG16_TITLE).tar.xz?download"
 	cp extracted/$(PNG16_TITLE)/scripts/pnglibconf.h.prebuilt \
 	   extracted/$(PNG16_TITLE)/pnglibconf.h
-	sed -n 2,15p    extracted/$(PNG16_TITLE)/png.h | cut -c4- >  png16.tmp
+	sed -n 2,16p    extracted/$(PNG16_TITLE)/png.h | cut -c4- >  png16.tmp
 	echo                                                      >> png16.tmp
-	sed -n 239,328p extracted/$(PNG16_TITLE)/png.h | cut -c4- >> png16.tmp
+	sed -n 246,331p extracted/$(PNG16_TITLE)/png.h | cut -c4- >> png16.tmp
 	$(FBFROG) png.fbfrog png16.fbfrog -o inc/png16.bi extracted/$(PNG16_TITLE)/png.h \
 		-title $(PNG16_TITLE) png16.tmp fbteam.txt
 	rm *.tmp
@@ -1883,7 +1883,7 @@ tre: tools
 #   (fbfrog -clong32)
 #
 
-MINGWW64_TITLE := mingw-w64-v4.0.1
+MINGWW64_TITLE := mingw-w64-v4.0.4
 WINAPI_FLAGS := winapi.fbfrog
 WINAPI_FLAGS += -incdir extracted/$(MINGWW64_TITLE)/mingw-w64-headers/crt
 WINAPI_FLAGS += -incdir extracted/$(MINGWW64_TITLE)/mingw-w64-headers/include
@@ -2586,7 +2586,7 @@ xcb: tools
 	./downloadextract.sh libpthread-stubs-0.3 libpthread-stubs-0.3.tar.bz2 "http://xcb.freedesktop.org/dist/libpthread-stubs-0.3.tar.bz2"
 	./downloadextract.sh libxcb-1.9           libxcb-1.9.tar.bz2           "http://xcb.freedesktop.org/dist/libxcb-1.9.tar.bz2"
 
-ZIP_TITLE := libzip-0.11.2
+ZIP_TITLE := libzip-1.0.1
 zip: tools
 	./get.sh $(ZIP_TITLE) $(ZIP_TITLE).tar.xz "http://www.nih.at/libzip/$(ZIP_TITLE).tar.xz"
 

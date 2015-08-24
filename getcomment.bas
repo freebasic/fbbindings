@@ -421,19 +421,26 @@ end sub
 
 if __FB_ARGC__ <= 1 then
 	print "extract comment text from C/C++ code"
-	print "usage: ./this [-N[-M]] files..."
+	print "usage: ./this [-[-]N[-M]] files..."
 	print "-N    extract only the N'th comment"
 	print "-N-M  extract comments N to M"
+	print "--N or --N-M to count N/M from end instead of start of file"
 	end 1
 end if
 
 dim as integer rangefirst, rangelast, range_set
+var count_reverse = FALSE
 
 for i as integer = 1 to __FB_ARGC__-1
 	var arg = *__FB_ARGV__[i]
 
 	if left(arg, 1) = "-" then
 		arg = right(arg, len(arg) - 1)
+
+		if left(arg, 1) = "-" then
+			arg = right(arg, len(arg) - 1)
+			count_reverse = TRUE
+		end if
 
 		dim as string n, m
 		strSplit(arg, "-", n, m)
@@ -464,8 +471,15 @@ if range_set = FALSE then
 	rangelast = 0
 end if
 
+if count_reverse then
+	rangefirst = last - rangefirst
+	rangelast = last - rangelast
+end if
+
+if rangefirst < 0 then rangefirst = 0
+if rangelast > last then rangelast = last
+
 if (rangefirst <= rangelast) and (rangefirst <= last) then
-	if rangelast > last then rangelast = last
 	for i as integer = rangefirst to rangelast
 		assert(comments.inRange(i))
 		comments.p[i].unindent()
