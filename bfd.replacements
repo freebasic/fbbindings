@@ -5,7 +5,7 @@ to fb:
 			var __val = (val)
 			(ptr)->vma = __val
 			(ptr)->lma = __val
-			(ptr)->user_set_vma = TRUE
+			(ptr)->user_set_vma = CTRUE
 		end scope
 	#endmacro
 

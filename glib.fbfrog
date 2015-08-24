@@ -175,6 +175,7 @@
 -removeinclude dirent.h
 -removeinclude unistd.h
 
+-rename TRUE CTRUE
 -ifndefdecl NULL
--ifndefdecl TRUE
+-ifndefdecl CTRUE
 -ifndefdecl FALSE

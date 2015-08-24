@@ -141,3 +141,5 @@
 -addforwarddecl verilog_data_struct
 -addforwarddecl versados_data_struct
 -addforwarddecl xcoff_tdata
+
+-rename TRUE CTRUE

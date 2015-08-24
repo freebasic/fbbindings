@@ -175,3 +175,5 @@
 -removeproc is_subwin
 -removeproc is_syncok
 -removeproc wgetscrreg
+
+-rename TRUE CTRUE

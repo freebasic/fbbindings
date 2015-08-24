@@ -33,6 +33,7 @@
 #include once "crt/string.bi"
 
 '' The following symbols have been renamed:
+''     constant TRUE => CTRUE
 ''     typedef INT => INT_
 ''     typedef BOOLEAN => WINBOOLEAN
 ''     typedef CSHORT => CSHORT_
@@ -56,8 +57,8 @@ const ANYSIZE_ARRAY = 1
 #ifndef FALSE
 	const FALSE = 0
 #endif
-#ifndef TRUE
-	const TRUE = 1
+#ifndef CTRUE
+	const CTRUE = 1
 #endif
 const NULL64 = 0
 

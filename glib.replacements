@@ -1,6 +1,9 @@
 convert c: #define NULL ((void *)0)
 to c:      #define NULL 0
 
+convert c: #define TRUE (!FALSE)
+to c:      #define TRUE 1
+
 convert c:
 	#define G_STATIC_ASSERT(expr) \
 		typedef char G_PASTE (_GStaticAssertCompileTimeAssertion_, __LINE__)[(expr) ? 1 : -1] G_GNUC_UNUSED
@@ -45,7 +48,7 @@ to fb:
 				dll_name = g_path_get_basename(tem)
 				g_free(tem)
 			end select
-			return TRUE
+			return CTRUE
 		end function
 	#endmacro
 
@@ -569,7 +572,7 @@ to fb:
 		iif(cptr(GTypeInstance ptr, ip) = 0, _
 			FALSE, _
 			iif(cptr(GTypeInstance ptr, ip)->g_class andalso cptr(GTypeInstance ptr, ip)->g_class->g_type = gt, _
-				TRUE, _
+				CTRUE, _
 				g_type_check_instance_is_a(cptr(GTypeInstance ptr, ip), gt)))
 
 convert c:
@@ -591,7 +594,7 @@ to fb:
 		iif(cptr(GTypeClass ptr, cp) = 0, _
 			FALSE, _
 			iif(cptr(GTypeClass ptr, cp)->g_type = gt, _
-				TRUE, _
+				CTRUE, _
 				g_type_check_class_is_a(cptr(GTypeClass ptr, cp), gt)))
 
 convert c:
@@ -613,7 +616,7 @@ to fb:
 		iif(cptr(GValue ptr, vl) = 0 _
 			FALSE, _
 			iif(cptr(GValue ptr, vl)->g_type = gt, _
-				TRUE, _
+				CTRUE, _
 				g_type_check_value_holds(cptr(GValue ptr, vl), gt)))
 
 convert c: #define G_DEFINE_DYNAMIC_TYPE(TN, t_n, T_P) G_DEFINE_DYNAMIC_TYPE_EXTENDED(TN, t_n, T_P, 0, {})
