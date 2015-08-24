@@ -54,3 +54,5 @@
 -removedefine curl_easy_getinfo
 -removedefine curl_share_setopt
 -removedefine curl_multi_setopt
+
+-addforwarddecl curl_pushheaders
