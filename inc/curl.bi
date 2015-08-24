@@ -1255,6 +1255,7 @@ declare function curl_multi_setopt(byval multi_handle as CURLM ptr, byval option
 declare function curl_multi_assign(byval multi_handle as CURLM ptr, byval sockfd as curl_socket_t, byval sockp as any ptr) as CURLMcode
 const CURL_PUSH_OK = 0
 const CURL_PUSH_DENY = 1
+type curl_pushheaders as curl_pushheaders_
 declare function curl_pushheader_bynum(byval h as curl_pushheaders ptr, byval num as uinteger) as zstring ptr
 declare function curl_pushheader_byname(byval h as curl_pushheaders ptr, byval name as const zstring ptr) as zstring ptr
 type curl_push_callback as function(byval parent as CURL ptr, byval easy as CURL ptr, byval num_headers as uinteger, byval headers as curl_pushheaders ptr, byval userp as any ptr) as long
