@@ -45,6 +45,7 @@
 ''     #define LUA_NUMBER => LUA_NUMBER_
 ''     #define LUA_UNSIGNED => LUA_UNSIGNED_
 ''     #define LUA_INTEGER => LUA_INTEGER_
+''     #define LUA_KCONTEXT => LUA_KCONTEXT_
 ''     #define LUA_VERSION => LUA_VERSION_
 ''     constant LUA_YIELD => LUA_YIELD_
 
@@ -163,7 +164,7 @@ end function
 	#define lua_number2strx(L, b, f, n) sprintf(b, f, n)
 #endif
 
-#define LUA_KCONTEXT integer
+#define LUA_KCONTEXT_ integer
 #define lua_getlocaledecpoint() localeconv()->decimal_point[0]
 const LUAI_MAXSTACK = 1000000
 #define LUA_EXTRASPACE sizeof(any ptr)
