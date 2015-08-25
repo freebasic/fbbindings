@@ -43,11 +43,11 @@
 
 '' The following symbols have been renamed:
 ''     #define LUA_NUMBER => LUA_NUMBER_
-''     #define LUA_UNSIGNED => LUA_UNSIGNED_
 ''     #define LUA_INTEGER => LUA_INTEGER_
 ''     #define LUA_KCONTEXT => LUA_KCONTEXT_
 ''     #define LUA_VERSION => LUA_VERSION_
 ''     constant LUA_YIELD => LUA_YIELD_
+''     typedef LUA_UNSIGNED => LUA_UNSIGNED_
 
 extern "C"
 
@@ -69,16 +69,16 @@ const LUA_FLOAT_DOUBLE = 2
 const LUA_FLOAT_LONGDOUBLE = 3
 
 #ifdef LUA_32BITS
-	#define LUA_INT_TYPE LUA_INT_INT
-	#define LUA_FLOAT_TYPE LUA_FLOAT_FLOAT
+	const LUA_INT_TYPE = LUA_INT_INT
+	const LUA_FLOAT_TYPE = LUA_FLOAT_FLOAT
 #elseif (not defined(LUA_32BITS)) and defined(LUA_C89_NUMBERS)
-	#define LUA_INT_TYPE LUA_INT_LONG
+	const LUA_INT_TYPE = LUA_INT_LONG
 #else
-	#define LUA_INT_TYPE LUA_INT_LONGLONG
+	const LUA_INT_TYPE = LUA_INT_LONGLONG
 #endif
 
 #ifndef LUA_32BITS
-	#define LUA_FLOAT_TYPE LUA_FLOAT_DOUBLE
+	const LUA_FLOAT_TYPE = LUA_FLOAT_DOUBLE
 #endif
 
 #define LUA_VDIR LUA_VERSION_MAJOR "." LUA_VERSION_MINOR
@@ -135,7 +135,6 @@ end function
 #define LUA_INTEGER_FMT "%" LUA_INTEGER_FRMLEN "d"
 #define lua_integer2str(s, n) sprintf((s), LUA_INTEGER_FMT, (n))
 #define LUAI_UACINT LUA_INTEGER_
-#define LUA_UNSIGNED_ lua_Unsigned
 
 #ifdef LUA_32BITS
 	#define LUA_INTEGER_ long
@@ -205,7 +204,7 @@ const LUA_NUMTAGS = 9
 const LUA_MINSTACK = 20
 const LUA_RIDX_MAINTHREAD = 1
 const LUA_RIDX_GLOBALS = 2
-#define LUA_RIDX_LAST LUA_RIDX_GLOBALS
+const LUA_RIDX_LAST = LUA_RIDX_GLOBALS
 
 #ifdef LUA_32BITS
 	type lua_Number as single
@@ -225,6 +224,7 @@ const LUA_RIDX_GLOBALS = 2
 	#endif
 #endif
 
+type LUA_UNSIGNED_ as lua_Unsigned
 type lua_KContext as integer
 type lua_State as lua_State_
 type lua_CFunction as function(byval L as lua_State ptr) as long

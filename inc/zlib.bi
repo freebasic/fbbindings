@@ -143,7 +143,7 @@ const Z_FIXED = 4
 const Z_DEFAULT_STRATEGY = 0
 const Z_BINARY = 0
 const Z_TEXT = 1
-#define Z_ASCII Z_TEXT
+const Z_ASCII = Z_TEXT
 const Z_UNKNOWN = 2
 const Z_DEFLATED = 8
 const Z_NULL = 0

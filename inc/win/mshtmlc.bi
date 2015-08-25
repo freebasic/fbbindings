@@ -582,8 +582,6 @@ extern CGID_EditStateCommands as const GUID
 extern SID_SHTMLEditHost as const GUID
 extern SID_SHTMLEditServices as const GUID
 
-#define SID_SHTMLWindow IID_IHTMLWindow2
-#define SID_SElementBehaviorFactory IID_IElementBehaviorFactory
 const COOKIEACTION_NONE = &h00000000
 const COOKIEACTION_ACCEPT = &h00000001
 const COOKIEACTION_REJECT = &h00000002
@@ -2753,6 +2751,7 @@ declare function IElementBehavior_Detach_Proxy(byval This as IElementBehavior pt
 declare sub IElementBehavior_Detach_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 #define __IElementBehaviorFactory_INTERFACE_DEFINED__
 extern IID_IElementBehaviorFactory as const IID
+extern SID_SElementBehaviorFactory alias "IID_IElementBehaviorFactory" as const IID
 type IElementBehaviorFactory as IElementBehaviorFactory_
 
 type IElementBehaviorFactoryVtbl
@@ -16681,6 +16680,7 @@ declare function IHTMLFramesCollection2_get_length_Proxy(byval This as IHTMLFram
 declare sub IHTMLFramesCollection2_get_length_Stub(byval This as IRpcStubBuffer ptr, byval _pRpcChannelBuffer as IRpcChannelBuffer ptr, byval _pRpcMessage as PRPC_MESSAGE, byval _pdwStubPhase as DWORD ptr)
 #define __IHTMLWindow2_INTERFACE_DEFINED__
 extern IID_IHTMLWindow2 as const IID
+extern SID_SHTMLWindow alias "IID_IHTMLWindow2" as const IID
 type IHTMLScreen as IHTMLScreen_
 
 type IHTMLWindow2Vtbl

@@ -112,11 +112,11 @@ declare function Process32First(byval hSnapshot as HANDLE, byval lppe as LPPROCE
 declare function Process32Next(byval hSnapshot as HANDLE, byval lppe as LPPROCESSENTRY32) as WINBOOL
 
 #ifdef UNICODE
-	#define Process32First Process32FirstW
-	#define Process32Next Process32NextW
-	#define PROCESSENTRY32 PROCESSENTRY32W
-	#define PPROCESSENTRY32 PPROCESSENTRY32W
-	#define LPPROCESSENTRY32 LPPROCESSENTRY32W
+	declare function Process32First alias "Process32FirstW"(byval hSnapshot as HANDLE, byval lppe as LPPROCESSENTRY32W) as WINBOOL
+	declare function Process32Next alias "Process32NextW"(byval hSnapshot as HANDLE, byval lppe as LPPROCESSENTRY32W) as WINBOOL
+	type PROCESSENTRY32 as PROCESSENTRY32W
+	type PPROCESSENTRY32 as PPROCESSENTRY32W
+	type LPPROCESSENTRY32 as LPPROCESSENTRY32W
 #endif
 
 type tagTHREADENTRY32
@@ -174,11 +174,11 @@ declare function Module32First(byval hSnapshot as HANDLE, byval lpme as LPMODULE
 declare function Module32Next(byval hSnapshot as HANDLE, byval lpme as LPMODULEENTRY32) as WINBOOL
 
 #ifdef UNICODE
-	#define Module32First Module32FirstW
-	#define Module32Next Module32NextW
-	#define MODULEENTRY32 MODULEENTRY32W
-	#define PMODULEENTRY32 PMODULEENTRY32W
-	#define LPMODULEENTRY32 LPMODULEENTRY32W
+	declare function Module32First alias "Module32FirstW"(byval hSnapshot as HANDLE, byval lpme as LPMODULEENTRY32W) as WINBOOL
+	declare function Module32Next alias "Module32NextW"(byval hSnapshot as HANDLE, byval lpme as LPMODULEENTRY32W) as WINBOOL
+	type MODULEENTRY32 as MODULEENTRY32W
+	type PMODULEENTRY32 as PMODULEENTRY32W
+	type LPMODULEENTRY32 as LPMODULEENTRY32W
 #endif
 
 end extern

@@ -155,6 +155,6 @@ end type
 type WidgetClassRec as _WidgetClassRec
 type CoreClassRec as _WidgetClassRec
 extern widgetClassRec as WidgetClassRec
-#define coreClassRec widgetClassRec
+extern coreClassRec alias "widgetClassRec" as WidgetClassRec
 
 end extern

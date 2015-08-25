@@ -51,31 +51,36 @@ type CCSTYLEW as tagCCSTYLEW
 type LPCCSTYLEW as tagCCSTYLEW ptr
 
 #ifdef UNICODE
-	#define CCSTYLE CCSTYLEW
-	#define LPCCSTYLE LPCCSTYLEW
-	#define LPFNCCSTYLE LPFNCCSTYLEW
-	#define LPFNCCSIZETOTEXT LPFNCCSIZETOTEXTW
-	#define CCSTYLEFLAG CCSTYLEFLAGW
-	#define LPCCSTYLEFLAG LPCCSTYLEFLAGW
-	#define CCINFO CCINFOW
-	#define LPCCINFO LPCCINFOW
-	#define LPFNCCINFO LPFNCCINFOW
+	type CCSTYLE as CCSTYLEW
+	type LPCCSTYLE as LPCCSTYLEW
 #else
-	#define CCSTYLE CCSTYLEA
-	#define LPCCSTYLE LPCCSTYLEA
-	#define LPFNCCSTYLE LPFNCCSTYLEA
-	#define LPFNCCSIZETOTEXT LPFNCCSIZETOTEXTA
-	#define CCSTYLEFLAG CCSTYLEFLAGA
-	#define LPCCSTYLEFLAG LPCCSTYLEFLAGA
-	#define CCINFO CCINFOA
-	#define LPCCINFO LPCCINFOA
-	#define LPFNCCINFO LPFNCCINFOA
+	type CCSTYLE as CCSTYLEA
+	type LPCCSTYLE as LPCCSTYLEA
 #endif
 
 type LPFNCCSTYLEA as function(byval hwndParent as HWND, byval pccs as LPCCSTYLEA) as WINBOOL
+
+#ifndef UNICODE
+	type LPFNCCSTYLE as LPFNCCSTYLEA
+#endif
+
 type LPFNCCSTYLEW as function(byval hwndParent as HWND, byval pccs as LPCCSTYLEW) as WINBOOL
+
+#ifdef UNICODE
+	type LPFNCCSTYLE as LPFNCCSTYLEW
+#endif
+
 type LPFNCCSIZETOTEXTA as function(byval flStyle as DWORD, byval flExtStyle as DWORD, byval hfont as HFONT, byval pszText as LPSTR) as INT_
+
+#ifndef UNICODE
+	type LPFNCCSIZETOTEXT as LPFNCCSIZETOTEXTA
+#endif
+
 type LPFNCCSIZETOTEXTW as function(byval flStyle as DWORD, byval flExtStyle as DWORD, byval hfont as HFONT, byval pszText as LPWSTR) as INT_
+
+#ifdef UNICODE
+	type LPFNCCSIZETOTEXT as LPFNCCSIZETOTEXTW
+#endif
 
 type tagCCSTYLEFLAGA
 	flStyle as DWORD
@@ -84,7 +89,16 @@ type tagCCSTYLEFLAGA
 end type
 
 type CCSTYLEFLAGA as tagCCSTYLEFLAGA
+
+#ifndef UNICODE
+	type CCSTYLEFLAG as CCSTYLEFLAGA
+#endif
+
 type LPCCSTYLEFLAGA as tagCCSTYLEFLAGA ptr
+
+#ifndef UNICODE
+	type LPCCSTYLEFLAG as LPCCSTYLEFLAGA
+#endif
 
 type tagCCSTYLEFLAGW
 	flStyle as DWORD
@@ -93,7 +107,17 @@ type tagCCSTYLEFLAGW
 end type
 
 type CCSTYLEFLAGW as tagCCSTYLEFLAGW
+
+#ifdef UNICODE
+	type CCSTYLEFLAG as CCSTYLEFLAGW
+#endif
+
 type LPCCSTYLEFLAGW as tagCCSTYLEFLAGW ptr
+
+#ifdef UNICODE
+	type LPCCSTYLEFLAG as LPCCSTYLEFLAGW
+#endif
+
 const CCF_NOTEXT = &h00000001
 
 type tagCCINFOA
@@ -115,7 +139,16 @@ type tagCCINFOA
 end type
 
 type CCINFOA as tagCCINFOA
+
+#ifndef UNICODE
+	type CCINFO as CCINFOA
+#endif
+
 type LPCCINFOA as tagCCINFOA ptr
+
+#ifndef UNICODE
+	type LPCCINFO as LPCCINFOA
+#endif
 
 type tagCCINFOW
 	szClass as wstring * 32
@@ -136,8 +169,27 @@ type tagCCINFOW
 end type
 
 type CCINFOW as tagCCINFOW
+
+#ifdef UNICODE
+	type CCINFO as CCINFOW
+#endif
+
 type LPCCINFOW as tagCCINFOW ptr
+
+#ifdef UNICODE
+	type LPCCINFO as LPCCINFOW
+#endif
+
 type LPFNCCINFOA as function(byval acci as LPCCINFOA) as UINT
+
+#ifndef UNICODE
+	type LPFNCCINFO as LPFNCCINFOA
+#endif
+
 type LPFNCCINFOW as function(byval acci as LPCCINFOW) as UINT
+
+#ifdef UNICODE
+	type LPFNCCINFO as LPFNCCINFOW
+#endif
 
 end extern

@@ -37,10 +37,8 @@ type SQLUINTEGER as ulong
 	type SQLTRANSID as SQLULEN
 	type SQLROWOFFSET as SQLLEN
 #else
-	#define SQLLEN SQLINTEGER
-	#define SQLULEN SQLUINTEGER
-	#define SQLSETPOSIROW SQLUSMALLINT
-
+	type SQLLEN as SQLINTEGER
+	type SQLULEN as SQLUINTEGER
 	type SQLROWCOUNT as SQLUINTEGER
 	type SQLROWSETSIZE as SQLUINTEGER
 	type SQLTRANSID as SQLUINTEGER
@@ -52,6 +50,11 @@ type SQLPOINTER as any ptr
 type SQLREAL as single
 type SQLSMALLINT as short
 type SQLUSMALLINT as ushort
+
+#ifndef __FB_64BIT__
+	type SQLSETPOSIROW as SQLUSMALLINT
+#endif
+
 type SQLTIME as ubyte
 type SQLTIMESTAMP as ubyte
 type SQLVARCHAR as ubyte

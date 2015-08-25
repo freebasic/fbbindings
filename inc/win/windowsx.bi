@@ -15,6 +15,8 @@
 
 #pragma once
 
+extern "C"
+
 #define _INC_WINDOWSX
 #define GetInstanceModule(hInstance) cast(HMODULE, (hInstance))
 #define GlobalPtrHandle(lp) cast(HGLOBAL, GlobalHandle(lp))
@@ -551,45 +553,60 @@ const WM_CTLCOLOR = &h0019
 #define GET_WM_VSCROLL_POS(wp, lp) HIWORD(wp)
 #define GET_WM_VSCROLL_HWND(wp, lp) cast(HWND, (lp))
 '' TODO: #define GET_WM_VSCROLL_MPS(code,pos,hwnd) (WPARAM)MAKELONG(code,pos),(LPARAM)(hwnd)
-#define _ncalloc calloc
-#define _nexpand _expand
-#define _ffree free
-#define _fmalloc malloc
-#define _fmemccpy _memccpy
-#define _fmemchr memchr
-#define _fmemcmp memcmp
-#define _fmemcpy memcpy
-#define _fmemicmp _memicmp
-#define _fmemmove memmove
-#define _fmemset memset
-#define _fmsize _msize
-#define _frealloc realloc
+
+declare function _ncalloc alias "calloc"(byval _NumOfElements as uinteger, byval _SizeOfElements as uinteger) as any ptr
+declare function _nexpand alias "_expand"(byval _Memory as any ptr, byval _NewSize as uinteger) as any ptr
+declare sub _ffree alias "free"(byval _Memory as any ptr)
+declare function _fmalloc alias "malloc"(byval _Size as uinteger) as any ptr
+declare function _fmemccpy alias "_memccpy"(byval _Dst as any ptr, byval _Src as const any ptr, byval _Val as long, byval _MaxCount as uinteger) as any ptr
+declare function _fmemchr alias "memchr"(byval _Buf as const any ptr, byval _Val as long, byval _MaxCount as uinteger) as any ptr
+declare function _fmemcmp alias "memcmp"(byval _Buf1 as const any ptr, byval _Buf2 as const any ptr, byval _Size as uinteger) as long
+
+#ifdef UNICODE
+	#define _fmemcpy memcpy
+#else
+	declare function _fmemcpy alias "memcpy"(byval _Dst as any ptr, byval _Src as const any ptr, byval _Size as uinteger) as any ptr
+#endif
+
+declare function _fmemicmp alias "_memicmp"(byval _Buf1 as const any ptr, byval _Buf2 as const any ptr, byval _Size as uinteger) as long
+
+#ifdef UNICODE
+	#define _fmemmove memmove
+#else
+	declare function _fmemmove alias "memmove"(byval _Dst as any ptr, byval _Src as const any ptr, byval _Size as uinteger) as any ptr
+#endif
+
+declare function _fmemset alias "memset"(byval _Dst as any ptr, byval _Val as long, byval _Size as uinteger) as any ptr
+declare function _fmsize alias "_msize"(byval _Memory as any ptr) as uinteger
+declare function _frealloc alias "realloc"(byval _Memory as any ptr, byval _NewSize as uinteger) as any ptr
 #define _fstrcat strcat
-#define _fstrchr strchr
-#define _fstrcmp strcmp
+declare function _fstrchr alias "strchr"(byval _Str as const zstring ptr, byval _Val as long) as zstring ptr
+declare function _fstrcmp alias "strcmp"(byval _Str1 as const zstring ptr, byval _Str2 as const zstring ptr) as long
 #define _fstrcpy strcpy
-#define _fstrcspn strcspn
-#define _fstrdup _strdup
-#define _fstricmp _stricmp
-#define _fstrlen strlen
-#define _fstrlwr _strlwr
-#define _fstrncat strncat
-#define _fstrncmp strncmp
-#define _fstrncpy strncpy
-#define _fstrnicmp _strnicmp
-#define _fstrnset _strnset
-#define _fstrpbrk strpbrk
-#define _fstrrchr strrchr
-#define _fstrrev _strrev
-#define _fstrset _strset
-#define _fstrspn strspn
-#define _fstrstr strstr
-#define _fstrtok strtok
-#define _fstrupr _strupr
-#define _nfree free
-#define _nmalloc malloc
-#define _nmsize _msize
-#define _nrealloc realloc
-#define _nstrdup _strdup
+declare function _fstrcspn alias "strcspn"(byval _Str as const zstring ptr, byval _Control as const zstring ptr) as uinteger
+declare function _fstrdup alias "_strdup"(byval _Src as const zstring ptr) as zstring ptr
+declare function _fstricmp alias "_stricmp"(byval _Str1 as const zstring ptr, byval _Str2 as const zstring ptr) as long
+declare function _fstrlen alias "strlen"(byval _Str as const zstring ptr) as uinteger
+declare function _fstrlwr alias "_strlwr"(byval _String as zstring ptr) as zstring ptr
+declare function _fstrncat alias "strncat"(byval _Dest as zstring ptr, byval _Source as const zstring ptr, byval _Count as uinteger) as zstring ptr
+declare function _fstrncmp alias "strncmp"(byval _Str1 as const zstring ptr, byval _Str2 as const zstring ptr, byval _MaxCount as uinteger) as long
+declare function _fstrncpy alias "strncpy"(byval _Dest as zstring ptr, byval _Source as const zstring ptr, byval _Count as uinteger) as zstring ptr
+declare function _fstrnicmp alias "_strnicmp"(byval _Str1 as const zstring ptr, byval _Str2 as const zstring ptr, byval _MaxCount as uinteger) as long
+declare function _fstrnset alias "_strnset"(byval _Str as zstring ptr, byval _Val as long, byval _MaxCount as uinteger) as zstring ptr
+declare function _fstrpbrk alias "strpbrk"(byval _Str as const zstring ptr, byval _Control as const zstring ptr) as zstring ptr
+declare function _fstrrchr alias "strrchr"(byval _Str as const zstring ptr, byval _Ch as long) as zstring ptr
+declare function _fstrrev alias "_strrev"(byval _Str as zstring ptr) as zstring ptr
+declare function _fstrset alias "_strset"(byval _Str as zstring ptr, byval _Val as long) as zstring ptr
+declare function _fstrspn alias "strspn"(byval _Str as const zstring ptr, byval _Control as const zstring ptr) as uinteger
+declare function _fstrstr alias "strstr"(byval _Str as const zstring ptr, byval _SubStr as const zstring ptr) as zstring ptr
+declare function _fstrtok alias "strtok"(byval _Str as zstring ptr, byval _Delim as const zstring ptr) as zstring ptr
+declare function _fstrupr alias "_strupr"(byval _String as zstring ptr) as zstring ptr
+declare sub _nfree alias "free"(byval _Memory as any ptr)
+declare function _nmalloc alias "malloc"(byval _Size as uinteger) as any ptr
+declare function _nmsize alias "_msize"(byval _Memory as any ptr) as uinteger
+declare function _nrealloc alias "realloc"(byval _Memory as any ptr, byval _NewSize as uinteger) as any ptr
+declare function _nstrdup alias "_strdup"(byval _Src as const zstring ptr) as zstring ptr
 #define hmemcpy MoveMemory
 #define DECLARE_HANDLE32 DECLARE_HANDLE
+
+end extern

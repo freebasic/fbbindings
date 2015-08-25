@@ -90,14 +90,18 @@ type tagRASNOUSERA field = 4
 	szDomain as zstring * 15 + 1
 end type
 
+type RASNOUSERW as tagRASNOUSERW
+
 #ifdef UNICODE
-	#define RASNOUSER RASNOUSERW
-#else
-	#define RASNOUSER RASNOUSERA
+	type RASNOUSER as RASNOUSERW
 #endif
 
-#define RASNOUSERW tagRASNOUSERW
-#define RASNOUSERA tagRASNOUSERA
+type RASNOUSERA as tagRASNOUSERA
+
+#ifndef UNICODE
+	type RASNOUSER as RASNOUSERA
+#endif
+
 '' TODO: #define LPRASNOUSERW RASNOUSERW *
 '' TODO: #define LPRASNOUSERA RASNOUSERA *
 '' TODO: #define LPRASNOUSER RASNOUSER *
@@ -134,15 +138,23 @@ type tagRASPBDLGA field = 4
 end type
 
 #ifdef UNICODE
-	#define RASPBDLG RASPBDLGW
-	#define RASPBDLGFUNC RASPBDLGFUNCW
+	type RASPBDLGFUNC as RASPBDLGFUNCW
 #else
-	#define RASPBDLG RASPBDLGA
-	#define RASPBDLGFUNC RASPBDLGFUNCA
+	type RASPBDLGFUNC as RASPBDLGFUNCA
 #endif
 
-#define RASPBDLGW tagRASPBDLGW
-#define RASPBDLGA tagRASPBDLGA
+type RASPBDLGW as tagRASPBDLGW
+
+#ifdef UNICODE
+	type RASPBDLG as RASPBDLGW
+#endif
+
+type RASPBDLGA as tagRASPBDLGA
+
+#ifndef UNICODE
+	type RASPBDLG as RASPBDLGA
+#endif
+
 '' TODO: #define LPRASPBDLGW RASPBDLGW *
 '' TODO: #define LPRASPBDLGA RASPBDLGA *
 '' TODO: #define LPRASPBDLG RASPBDLG *
@@ -194,14 +206,18 @@ type tagRASENTRYDLGA field = 4
 	reserved2 as ULONG_PTR
 end type
 
+type RASENTRYDLGW as tagRASENTRYDLGW
+
 #ifdef UNICODE
-	#define RASENTRYDLG RASENTRYDLGW
-#else
-	#define RASENTRYDLG RASENTRYDLGA
+	type RASENTRYDLG as RASENTRYDLGW
 #endif
 
-#define RASENTRYDLGW tagRASENTRYDLGW
-#define RASENTRYDLGA tagRASENTRYDLGA
+type RASENTRYDLGA as tagRASENTRYDLGA
+
+#ifndef UNICODE
+	type RASENTRYDLG as RASENTRYDLGA
+#endif
+
 '' TODO: #define LPRASENTRYDLGW RASENTRYDLGW *
 '' TODO: #define LPRASENTRYDLGA RASENTRYDLGA *
 '' TODO: #define LPRASENTRYDLG RASENTRYDLG *
@@ -222,7 +238,7 @@ type tagRASDIALDLG field = 4
 	reserved2 as ULONG_PTR
 end type
 
-#define RASDIALDLG tagRASDIALDLG
+type RASDIALDLG as tagRASDIALDLG
 '' TODO: #define LPRASDIALDLG RASDIALDLG *
 type RasCustomDialDlgFn as function(byval hInstDll as HINSTANCE, byval dwFlags as DWORD, byval lpszPhonebook as LPWSTR, byval lpszEntry as LPWSTR, byval lpszPhoneNumber as LPWSTR, byval lpInfo as tagRASDIALDLG ptr, byval pvInfo as PVOID) as WINBOOL
 
@@ -240,13 +256,13 @@ declare function RasDialDlgA(byval lpszPhonebook as LPSTR, byval lpszEntry as LP
 declare function RasDialDlgW(byval lpszPhonebook as LPWSTR, byval lpszEntry as LPWSTR, byval lpszPhoneNumber as LPWSTR, byval lpInfo as tagRASDIALDLG ptr) as WINBOOL
 
 #ifdef UNICODE
-	#define RasPhonebookDlg RasPhonebookDlgW
-	#define RasEntryDlg RasEntryDlgW
-	#define RasDialDlg RasDialDlgW
+	declare function RasPhonebookDlg alias "RasPhonebookDlgW"(byval lpszPhonebook as LPWSTR, byval lpszEntry as LPWSTR, byval lpInfo as tagRASPBDLGW ptr) as WINBOOL
+	declare function RasEntryDlg alias "RasEntryDlgW"(byval lpszPhonebook as LPWSTR, byval lpszEntry as LPWSTR, byval lpInfo as tagRASENTRYDLGW ptr) as WINBOOL
+	declare function RasDialDlg alias "RasDialDlgW"(byval lpszPhonebook as LPWSTR, byval lpszEntry as LPWSTR, byval lpszPhoneNumber as LPWSTR, byval lpInfo as tagRASDIALDLG ptr) as WINBOOL
 #else
-	#define RasPhonebookDlg RasPhonebookDlgA
-	#define RasEntryDlg RasEntryDlgA
-	#define RasDialDlg RasDialDlgA
+	declare function RasPhonebookDlg alias "RasPhonebookDlgA"(byval lpszPhonebook as LPSTR, byval lpszEntry as LPSTR, byval lpInfo as tagRASPBDLGA ptr) as WINBOOL
+	declare function RasEntryDlg alias "RasEntryDlgA"(byval lpszPhonebook as LPSTR, byval lpszEntry as LPSTR, byval lpInfo as tagRASENTRYDLGA ptr) as WINBOOL
+	declare function RasDialDlg alias "RasDialDlgA"(byval lpszPhonebook as LPSTR, byval lpszEntry as LPSTR, byval lpszPhoneNumber as LPSTR, byval lpInfo as tagRASDIALDLG ptr) as WINBOOL
 #endif
 
 end extern

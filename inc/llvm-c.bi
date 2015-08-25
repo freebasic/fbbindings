@@ -935,12 +935,6 @@ const LLVM_HAS_ATOMICS = 1
 #define LLVM_INFODIR "/usr/info"
 #define LLVM_MANDIR "/usr/man"
 #define LLVM_NATIVE_ARCH X86
-#define LLVM_NATIVE_ASMPARSER LLVMInitializeX86AsmParser
-#define LLVM_NATIVE_ASMPRINTER LLVMInitializeX86AsmPrinter
-#define LLVM_NATIVE_DISASSEMBLER LLVMInitializeX86Disassembler
-#define LLVM_NATIVE_TARGET LLVMInitializeX86Target
-#define LLVM_NATIVE_TARGETINFO LLVMInitializeX86TargetInfo
-#define LLVM_NATIVE_TARGETMC LLVMInitializeX86TargetMC
 const LLVM_ON_UNIX = 1
 #define LLVM_PREFIX "/usr"
 const LLVM_USE_INTEL_JITEVENTS = 0
@@ -971,6 +965,7 @@ declare sub LLVMInitializeARMTargetInfo()
 declare sub LLVMInitializePowerPCTargetInfo()
 declare sub LLVMInitializeSparcTargetInfo()
 declare sub LLVMInitializeX86TargetInfo()
+declare sub LLVM_NATIVE_TARGETINFO alias "LLVMInitializeX86TargetInfo"()
 declare sub LLVMInitializeR600Target()
 declare sub LLVMInitializeSystemZTarget()
 declare sub LLVMInitializeHexagonTarget()
@@ -984,6 +979,7 @@ declare sub LLVMInitializeARMTarget()
 declare sub LLVMInitializePowerPCTarget()
 declare sub LLVMInitializeSparcTarget()
 declare sub LLVMInitializeX86Target()
+declare sub LLVM_NATIVE_TARGET alias "LLVMInitializeX86Target"()
 declare sub LLVMInitializeR600TargetMC()
 declare sub LLVMInitializeSystemZTargetMC()
 declare sub LLVMInitializeHexagonTargetMC()
@@ -997,6 +993,7 @@ declare sub LLVMInitializeARMTargetMC()
 declare sub LLVMInitializePowerPCTargetMC()
 declare sub LLVMInitializeSparcTargetMC()
 declare sub LLVMInitializeX86TargetMC()
+declare sub LLVM_NATIVE_TARGETMC alias "LLVMInitializeX86TargetMC"()
 declare sub LLVMInitializeR600AsmPrinter()
 declare sub LLVMInitializeSystemZAsmPrinter()
 declare sub LLVMInitializeHexagonAsmPrinter()
@@ -1009,6 +1006,7 @@ declare sub LLVMInitializeARMAsmPrinter()
 declare sub LLVMInitializePowerPCAsmPrinter()
 declare sub LLVMInitializeSparcAsmPrinter()
 declare sub LLVMInitializeX86AsmPrinter()
+declare sub LLVM_NATIVE_ASMPRINTER alias "LLVMInitializeX86AsmPrinter"()
 declare sub LLVMInitializeR600AsmParser()
 declare sub LLVMInitializeSystemZAsmParser()
 declare sub LLVMInitializeMipsAsmParser()
@@ -1017,6 +1015,7 @@ declare sub LLVMInitializeARMAsmParser()
 declare sub LLVMInitializePowerPCAsmParser()
 declare sub LLVMInitializeSparcAsmParser()
 declare sub LLVMInitializeX86AsmParser()
+declare sub LLVM_NATIVE_ASMPARSER alias "LLVMInitializeX86AsmParser"()
 declare sub LLVMInitializeSystemZDisassembler()
 declare sub LLVMInitializeHexagonDisassembler()
 declare sub LLVMInitializeXCoreDisassembler()
@@ -1026,6 +1025,7 @@ declare sub LLVMInitializeARMDisassembler()
 declare sub LLVMInitializePowerPCDisassembler()
 declare sub LLVMInitializeSparcDisassembler()
 declare sub LLVMInitializeX86Disassembler()
+declare sub LLVM_NATIVE_DISASSEMBLER alias "LLVMInitializeX86Disassembler"()
 
 private sub LLVMInitializeAllTargetInfos()
 	LLVMInitializeR600TargetInfo()

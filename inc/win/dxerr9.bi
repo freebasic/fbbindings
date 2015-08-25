@@ -37,18 +37,18 @@ declare function DXGetErrorString9A(byval hr as HRESULT) as const zstring ptr
 declare function DXGetErrorString9W(byval hr as HRESULT) as const wstring ptr
 
 #ifdef UNICODE
-	#define DXGetErrorString9 DXGetErrorString9W
+	declare function DXGetErrorString9 alias "DXGetErrorString9W"(byval hr as HRESULT) as const wstring ptr
 #else
-	#define DXGetErrorString9 DXGetErrorString9A
+	declare function DXGetErrorString9 alias "DXGetErrorString9A"(byval hr as HRESULT) as const zstring ptr
 #endif
 
 declare function DXGetErrorDescription9A(byval hr as HRESULT) as const zstring ptr
 declare function DXGetErrorDescription9W(byval hr as HRESULT) as const wstring ptr
 
 #ifdef UNICODE
-	#define DXGetErrorDescription9 DXGetErrorDescription9W
+	declare function DXGetErrorDescription9 alias "DXGetErrorDescription9W"(byval hr as HRESULT) as const wstring ptr
 #else
-	#define DXGetErrorDescription9 DXGetErrorDescription9A
+	declare function DXGetErrorDescription9 alias "DXGetErrorDescription9A"(byval hr as HRESULT) as const zstring ptr
 #endif
 
 declare function DXTraceA(byval strFile as const zstring ptr, byval dwLine as DWORD, byval hr as HRESULT, byval strMsg as const zstring ptr, byval bPopMsgBox as WINBOOL) as HRESULT

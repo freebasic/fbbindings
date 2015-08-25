@@ -4981,8 +4981,8 @@ enum
 	BFD_RELOC_UNUSED
 end enum
 
-#define BFD_RELOC_SPARC_64 BFD_RELOC_64
-#define BFD_RELOC_SPARC_DISP64 BFD_RELOC_64_PCREL
+const BFD_RELOC_SPARC_64 = BFD_RELOC_64
+const BFD_RELOC_SPARC_DISP64 = BFD_RELOC_64_PCREL
 type bfd_reloc_code_real_type as bfd_reloc_code_real
 declare function bfd_reloc_type_lookup(byval abfd as bfd ptr, byval code as bfd_reloc_code_real_type) as reloc_howto_type ptr
 
@@ -5017,7 +5017,7 @@ const BSF_NO_FLAGS = &h00
 	const BSF_GLOBAL = 1 shl 1
 #endif
 
-#define BSF_EXPORT BSF_GLOBAL
+const BSF_EXPORT = BSF_GLOBAL
 
 #if __BFD_VER__ <= 219
 	const BSF_DEBUGGING = &h08

@@ -60,7 +60,7 @@ const __MSVCRT_VERSION__ = &h0700
 #define __int64 longint
 #define MINGW_SDK_INIT
 const __STDC_SECURE_LIB__ = cast(clong, 200411)
-#define __GOT_SECURE_LIB__ __STDC_SECURE_LIB__
+const __GOT_SECURE_LIB__ = __STDC_SECURE_LIB__
 const __MINGW_HAS_DXSDK = 1
 const MINGW_HAS_DDRAW_H = 1
 const MINGW_DDRAW_VERSION = 7
