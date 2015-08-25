@@ -1270,9 +1270,9 @@ declare function ShellMessageBoxA cdecl(byval hAppInst as HINSTANCE, byval hWnd 
 declare function ShellMessageBoxW cdecl(byval hAppInst as HINSTANCE, byval hWnd as HWND, byval lpcText as LPCWSTR, byval lpcTitle as LPCWSTR, byval fuStyle as UINT, ...) as long
 
 #ifdef UNICODE
-	declare function ShellMessageBox alias "ShellMessageBoxW" cdecl(byval hAppInst as HINSTANCE, byval hWnd as HWND, byval lpcText as LPCWSTR, byval lpcTitle as LPCWSTR, byval fuStyle as UINT, ...) as long
+	declare function ShellMessageBox cdecl alias "ShellMessageBoxW"(byval hAppInst as HINSTANCE, byval hWnd as HWND, byval lpcText as LPCWSTR, byval lpcTitle as LPCWSTR, byval fuStyle as UINT, ...) as long
 #else
-	declare function ShellMessageBox alias "ShellMessageBoxA" cdecl(byval hAppInst as HINSTANCE, byval hWnd as HWND, byval lpcText as LPCSTR, byval lpcTitle as LPCSTR, byval fuStyle as UINT, ...) as long
+	declare function ShellMessageBox cdecl alias "ShellMessageBoxA"(byval hAppInst as HINSTANCE, byval hWnd as HWND, byval lpcText as LPCSTR, byval lpcTitle as LPCSTR, byval fuStyle as UINT, ...) as long
 #endif
 
 declare function IsLFNDriveA(byval pszPath as LPCSTR) as WINBOOL

@@ -2373,7 +2373,7 @@ const JOB_ACCESS_READ = &h00000020
 #endif
 
 #if defined(UNICODE) and (_WIN32_WINNT = &h0602)
-	declare function AddPrinterConnection2 alias "AddPrinterConnection2W" cdecl(byval hWnd as HWND, byval pszName as LPCWSTR, byval dwLevel as DWORD, byval pConnectionInfo as PVOID) as WINBOOL
+	declare function AddPrinterConnection2 cdecl alias "AddPrinterConnection2W"(byval hWnd as HWND, byval pszName as LPCWSTR, byval dwLevel as DWORD, byval pConnectionInfo as PVOID) as WINBOOL
 #endif
 
 #if _WIN32_WINNT = &h0602
@@ -2381,7 +2381,7 @@ const JOB_ACCESS_READ = &h00000020
 #endif
 
 #if (not defined(UNICODE)) and (_WIN32_WINNT = &h0602)
-	declare function AddPrinterConnection2 alias "AddPrinterConnection2A" cdecl(byval hWnd as HWND, byval pszName as LPCSTR, byval dwLevel as DWORD, byval pConnectionInfo as PVOID) as WINBOOL
+	declare function AddPrinterConnection2 cdecl alias "AddPrinterConnection2A"(byval hWnd as HWND, byval pszName as LPCSTR, byval dwLevel as DWORD, byval pConnectionInfo as PVOID) as WINBOOL
 #endif
 
 #if _WIN32_WINNT = &h0602
@@ -2405,7 +2405,7 @@ const JOB_ACCESS_READ = &h00000020
 #endif
 
 #if (not defined(UNICODE)) and (_WIN32_WINNT = &h0602)
-	declare function DocumentEvent alias "DocumentEventA" cdecl(byval hPrinter as HANDLE, byval hdc as HDC, byval iEsc as INT_, byval cbIn as ULONG, byval pvIn as PVOID, byval cbOut as ULONG, byval pvOut as PVOID) as HRESULT
+	declare function DocumentEvent cdecl alias "DocumentEventA"(byval hPrinter as HANDLE, byval hdc as HDC, byval iEsc as INT_, byval cbIn as ULONG, byval pvIn as PVOID, byval cbOut as ULONG, byval pvOut as PVOID) as HRESULT
 #endif
 
 #if _WIN32_WINNT = &h0602
@@ -2413,7 +2413,7 @@ const JOB_ACCESS_READ = &h00000020
 #endif
 
 #if defined(UNICODE) and (_WIN32_WINNT = &h0602)
-	declare function DocumentEvent alias "DocumentEventW" cdecl(byval hPrinter as HANDLE, byval hdc as HDC, byval iEsc as INT_, byval cbIn as ULONG, byval pvIn as PVOID, byval cbOut as ULONG, byval pvOut as PVOID) as HRESULT
+	declare function DocumentEvent cdecl alias "DocumentEventW"(byval hPrinter as HANDLE, byval hdc as HDC, byval iEsc as INT_, byval cbIn as ULONG, byval pvIn as PVOID, byval cbOut as ULONG, byval pvOut as PVOID) as HRESULT
 #endif
 
 #if _WIN32_WINNT = &h0602

@@ -1097,15 +1097,15 @@ end type
 type MSV1_0_SUBAUTH_RESPONSE as _MSV1_0_SUBAUTH_RESPONSE
 type PMSV1_0_SUBAUTH_RESPONSE as _MSV1_0_SUBAUTH_RESPONSE ptr
 declare function SystemFunction036 cdecl(byval RandomBuffer as PVOID, byval RandomBufferLength as ULONG) as WINBOOLEAN
-declare function RtlGenRandom alias "SystemFunction036" cdecl(byval RandomBuffer as PVOID, byval RandomBufferLength as ULONG) as WINBOOLEAN
+declare function RtlGenRandom cdecl alias "SystemFunction036"(byval RandomBuffer as PVOID, byval RandomBufferLength as ULONG) as WINBOOLEAN
 const RTL_ENCRYPT_MEMORY_SIZE = 8
 const RTL_ENCRYPT_OPTION_CROSS_PROCESS = &h01
 const RTL_ENCRYPT_OPTION_SAME_LOGON = &h02
 
 declare function SystemFunction040 cdecl(byval Memory as PVOID, byval MemorySize as ULONG, byval OptionFlags as ULONG) as NTSTATUS
-declare function RtlEncryptMemory alias "SystemFunction040" cdecl(byval Memory as PVOID, byval MemorySize as ULONG, byval OptionFlags as ULONG) as NTSTATUS
+declare function RtlEncryptMemory cdecl alias "SystemFunction040"(byval Memory as PVOID, byval MemorySize as ULONG, byval OptionFlags as ULONG) as NTSTATUS
 declare function SystemFunction041 cdecl(byval Memory as PVOID, byval MemorySize as ULONG, byval OptionFlags as ULONG) as NTSTATUS
-declare function RtlDecryptMemory alias "SystemFunction041" cdecl(byval Memory as PVOID, byval MemorySize as ULONG, byval OptionFlags as ULONG) as NTSTATUS
+declare function RtlDecryptMemory cdecl alias "SystemFunction041"(byval Memory as PVOID, byval MemorySize as ULONG, byval OptionFlags as ULONG) as NTSTATUS
 
 const KERBEROS_VERSION = 5
 const KERBEROS_REVISION = 6

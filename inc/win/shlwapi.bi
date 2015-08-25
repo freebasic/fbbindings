@@ -201,7 +201,7 @@ declare function SHLoadIndirectString(byval pszSource as LPCWSTR, byval pszOutBu
 	declare function StrCatBuff alias "StrCatBuffW"(byval pszDest as LPWSTR, byval pszSrc as LPCWSTR, byval cchDestBuffSize as long) as LPWSTR
 	declare function ChrCmpI alias "ChrCmpIW"(byval w1 as WCHAR, byval w2 as WCHAR) as WINBOOL
 	declare function wvnsprintf alias "wvnsprintfW"(byval lpOut as LPWSTR, byval cchLimitIn as long, byval lpFmt as LPCWSTR, byval arglist as va_list) as long
-	declare function wnsprintf alias "wnsprintfW" cdecl(byval lpOut as LPWSTR, byval cchLimitIn as long, byval lpFmt as LPCWSTR, ...) as long
+	declare function wnsprintf cdecl alias "wnsprintfW"(byval lpOut as LPWSTR, byval cchLimitIn as long, byval lpFmt as LPCWSTR, ...) as long
 	declare function StrIsIntlEqual alias "StrIsIntlEqualW"(byval fCaseSens as WINBOOL, byval lpString1 as LPCWSTR, byval lpString2 as LPCWSTR, byval nChar as long) as WINBOOL
 	declare function StrFormatByteSize64 alias "StrFormatByteSizeW"(byval qdw as LONGLONG, byval szBuf as LPWSTR, byval uiBufSize as UINT) as LPWSTR
 #elseif (not defined(UNICODE)) and (_WIN32_WINNT = &h0602)
@@ -240,7 +240,7 @@ declare function SHLoadIndirectString(byval pszSource as LPCWSTR, byval pszOutBu
 	declare function StrCatBuff alias "StrCatBuffA"(byval pszDest as LPSTR, byval pszSrc as LPCSTR, byval cchDestBuffSize as long) as LPSTR
 	declare function ChrCmpI alias "ChrCmpIA"(byval w1 as WORD, byval w2 as WORD) as WINBOOL
 	declare function wvnsprintf alias "wvnsprintfA"(byval lpOut as LPSTR, byval cchLimitIn as long, byval lpFmt as LPCSTR, byval arglist as va_list) as long
-	declare function wnsprintf alias "wnsprintfA" cdecl(byval lpOut as LPSTR, byval cchLimitIn as long, byval lpFmt as LPCSTR, ...) as long
+	declare function wnsprintf cdecl alias "wnsprintfA"(byval lpOut as LPSTR, byval cchLimitIn as long, byval lpFmt as LPCSTR, ...) as long
 	declare function StrIsIntlEqual alias "StrIsIntlEqualA"(byval fCaseSens as WINBOOL, byval lpString1 as LPCSTR, byval lpString2 as LPCSTR, byval nChar as long) as WINBOOL
 	declare function StrFormatByteSize64 alias "StrFormatByteSize64A"(byval qdw as LONGLONG, byval szBuf as LPSTR, byval uiBufSize as UINT) as LPSTR
 #endif

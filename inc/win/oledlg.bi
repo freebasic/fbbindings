@@ -1197,9 +1197,9 @@ declare function OleUIPromptUserW cdecl(byval nTemplate as long, byval hwndParen
 declare function OleUIPromptUserA cdecl(byval nTemplate as long, byval hwndParent as HWND, ...) as long
 
 #ifdef UNICODE
-	declare function OleUIPromptUser alias "OleUIPromptUserW" cdecl(byval nTemplate as long, byval hwndParent as HWND, ...) as long
+	declare function OleUIPromptUser cdecl alias "OleUIPromptUserW"(byval nTemplate as long, byval hwndParent as HWND, ...) as long
 #else
-	declare function OleUIPromptUser alias "OleUIPromptUserA" cdecl(byval nTemplate as long, byval hwndParent as HWND, ...) as long
+	declare function OleUIPromptUser cdecl alias "OleUIPromptUserA"(byval nTemplate as long, byval hwndParent as HWND, ...) as long
 #endif
 
 declare function OleUIUpdateLinksW(byval lpOleUILinkCntr as LPOLEUILINKCONTAINERW, byval hwndParent as HWND, byval lpszTitle as LPWSTR, byval cLinks as long) as WINBOOL

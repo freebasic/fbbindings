@@ -5960,8 +5960,8 @@ private sub FreeIDListArray cdecl(byval ppidls as LPITEMIDLIST ptr, byval cItems
 	CoTaskMemFree(ppidls)
 end sub
 
-declare sub FreeIDListArrayFull alias "FreeIDListArray" cdecl(byval ppidls as LPITEMIDLIST ptr, byval cItems as UINT)
-declare sub FreeIDListArrayChild alias "FreeIDListArray" cdecl(byval ppidls as LPITEMIDLIST ptr, byval cItems as UINT)
+declare sub FreeIDListArrayFull cdecl alias "FreeIDListArray"(byval ppidls as LPITEMIDLIST ptr, byval cItems as UINT)
+declare sub FreeIDListArrayChild cdecl alias "FreeIDListArray"(byval ppidls as LPITEMIDLIST ptr, byval cItems as UINT)
 const ACDD_VISIBLE = &h1
 #define __IAutoCompleteDropDown_INTERFACE_DEFINED__
 extern IID_IAutoCompleteDropDown as const GUID

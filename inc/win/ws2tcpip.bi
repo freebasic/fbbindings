@@ -270,27 +270,27 @@ const AI_NUMERICHOST = &h00000004
 	declare function GetAddrInfoW stdcall(byval pNodeName as PCWSTR, byval pServiceName as PCWSTR, byval pHints as const ADDRINFOW ptr, byval ppResult as PADDRINFOW ptr) as long
 
 	#ifdef UNICODE
-		declare function GetAddrInfo alias "GetAddrInfoW" stdcall(byval pNodeName as PCWSTR, byval pServiceName as PCWSTR, byval pHints as const ADDRINFOW ptr, byval ppResult as PADDRINFOW ptr) as long
+		declare function GetAddrInfo stdcall alias "GetAddrInfoW"(byval pNodeName as PCWSTR, byval pServiceName as PCWSTR, byval pHints as const ADDRINFOW ptr, byval ppResult as PADDRINFOW ptr) as long
 	#endif
 
-	declare function GetAddrInfoA alias "getaddrinfo" stdcall(byval nodename as const zstring ptr, byval servname as const zstring ptr, byval hints as const addrinfo ptr, byval res as addrinfo ptr ptr) as long
+	declare function GetAddrInfoA stdcall alias "getaddrinfo"(byval nodename as const zstring ptr, byval servname as const zstring ptr, byval hints as const addrinfo ptr, byval res as addrinfo ptr ptr) as long
 
 	#ifndef UNICODE
-		declare function GetAddrInfo alias "getaddrinfo" stdcall(byval nodename as const zstring ptr, byval servname as const zstring ptr, byval hints as const addrinfo ptr, byval res as addrinfo ptr ptr) as long
+		declare function GetAddrInfo stdcall alias "getaddrinfo"(byval nodename as const zstring ptr, byval servname as const zstring ptr, byval hints as const addrinfo ptr, byval res as addrinfo ptr ptr) as long
 	#endif
 
 	declare sub freeaddrinfo stdcall(byval pAddrInfo as LPADDRINFO)
 	declare sub FreeAddrInfoW stdcall(byval pAddrInfo as PADDRINFOW)
 
 	#ifdef UNICODE
-		declare sub FreeAddrInfo alias "FreeAddrInfoW" stdcall(byval pAddrInfo as PADDRINFOW)
+		declare sub FreeAddrInfo stdcall alias "FreeAddrInfoW"(byval pAddrInfo as PADDRINFOW)
 	#endif
 
-	declare sub FreeAddrInfoA alias "freeaddrinfo" stdcall(byval pAddrInfo as LPADDRINFO)
+	declare sub FreeAddrInfoA stdcall alias "freeaddrinfo"(byval pAddrInfo as LPADDRINFO)
 #endif
 
 #if (not defined(__FB_64BIT__)) and (not defined(UNICODE))
-	declare sub FreeAddrInfo alias "freeaddrinfo" stdcall(byval pAddrInfo as LPADDRINFO)
+	declare sub FreeAddrInfo stdcall alias "freeaddrinfo"(byval pAddrInfo as LPADDRINFO)
 #elseif defined(__FB_64BIT__)
 	declare function getaddrinfo(byval nodename as const zstring ptr, byval servname as const zstring ptr, byval hints as const addrinfo ptr, byval res as addrinfo ptr ptr) as long
 	declare function GetAddrInfoW(byval pNodeName as PCWSTR, byval pServiceName as PCWSTR, byval pHints as const ADDRINFOW ptr, byval ppResult as PADDRINFOW ptr) as long
@@ -328,14 +328,14 @@ type socklen_t as long
 	declare function GetNameInfoW stdcall(byval pSockaddr as const SOCKADDR ptr, byval SockaddrLength as socklen_t, byval pNodeBuffer as PWCHAR, byval NodeBufferSize as DWORD, byval pServiceBuffer as PWCHAR, byval ServiceBufferSize as DWORD, byval Flags as INT_) as INT_
 
 	#ifdef UNICODE
-		declare function GetNameInfo alias "GetNameInfoW" stdcall(byval pSockaddr as const SOCKADDR ptr, byval SockaddrLength as socklen_t, byval pNodeBuffer as PWCHAR, byval NodeBufferSize as DWORD, byval pServiceBuffer as PWCHAR, byval ServiceBufferSize as DWORD, byval Flags as INT_) as INT_
+		declare function GetNameInfo stdcall alias "GetNameInfoW"(byval pSockaddr as const SOCKADDR ptr, byval SockaddrLength as socklen_t, byval pNodeBuffer as PWCHAR, byval NodeBufferSize as DWORD, byval pServiceBuffer as PWCHAR, byval ServiceBufferSize as DWORD, byval Flags as INT_) as INT_
 	#endif
 
-	declare function GetNameInfoA alias "getnameinfo" stdcall(byval sa as const SOCKADDR ptr, byval salen as socklen_t, byval host as zstring ptr, byval hostlen as DWORD, byval serv as zstring ptr, byval servlen as DWORD, byval flags as long) as long
+	declare function GetNameInfoA stdcall alias "getnameinfo"(byval sa as const SOCKADDR ptr, byval salen as socklen_t, byval host as zstring ptr, byval hostlen as DWORD, byval serv as zstring ptr, byval servlen as DWORD, byval flags as long) as long
 #endif
 
 #if (not defined(__FB_64BIT__)) and (not defined(UNICODE))
-	declare function GetNameInfo alias "getnameinfo" stdcall(byval sa as const SOCKADDR ptr, byval salen as socklen_t, byval host as zstring ptr, byval hostlen as DWORD, byval serv as zstring ptr, byval servlen as DWORD, byval flags as long) as long
+	declare function GetNameInfo stdcall alias "getnameinfo"(byval sa as const SOCKADDR ptr, byval salen as socklen_t, byval host as zstring ptr, byval hostlen as DWORD, byval serv as zstring ptr, byval servlen as DWORD, byval flags as long) as long
 #elseif defined(__FB_64BIT__)
 	declare function getnameinfo(byval sa as const SOCKADDR ptr, byval salen as socklen_t, byval host as zstring ptr, byval hostlen as DWORD, byval serv as zstring ptr, byval servlen as DWORD, byval flags as long) as long
 	declare function GetNameInfoW(byval pSockaddr as const SOCKADDR ptr, byval SockaddrLength as socklen_t, byval pNodeBuffer as PWCHAR, byval NodeBufferSize as DWORD, byval pServiceBuffer as PWCHAR, byval ServiceBufferSize as DWORD, byval Flags as INT_) as INT_
@@ -425,7 +425,7 @@ const NI_DGRAM = &h10
 	#endif
 
 	#if (not defined(UNICODE)) and (_WIN32_WINNT = &h0602)
-		declare function GetAddrInfoEx alias "GetAddrInfoExA" stdcall(byval pName as PCSTR, byval pServiceName as PCSTR, byval dwNameSpace as DWORD, byval lpNspId as LPGUID, byval pHints as const ADDRINFOEXA ptr, byval ppResult as PADDRINFOEXA ptr, byval timeout as PTIMEVAL, byval lpOverlapped as LPOVERLAPPED, byval lpCompletionRoutine as LPLOOKUPSERVICE_COMPLETION_ROUTINE, byval lpNameHandle as LPHANDLE) as long
+		declare function GetAddrInfoEx stdcall alias "GetAddrInfoExA"(byval pName as PCSTR, byval pServiceName as PCSTR, byval dwNameSpace as DWORD, byval lpNspId as LPGUID, byval pHints as const ADDRINFOEXA ptr, byval ppResult as PADDRINFOEXA ptr, byval timeout as PTIMEVAL, byval lpOverlapped as LPOVERLAPPED, byval lpCompletionRoutine as LPLOOKUPSERVICE_COMPLETION_ROUTINE, byval lpNameHandle as LPHANDLE) as long
 	#endif
 
 	#if _WIN32_WINNT = &h0602
@@ -433,7 +433,7 @@ const NI_DGRAM = &h10
 	#endif
 
 	#if defined(UNICODE) and (_WIN32_WINNT = &h0602)
-		declare function GetAddrInfoEx alias "GetAddrInfoExW" stdcall(byval pName as PCWSTR, byval pServiceName as PCWSTR, byval dwNameSpace as DWORD, byval lpNspId as LPGUID, byval pHints as const ADDRINFOEXW ptr, byval ppResult as PADDRINFOEXW ptr, byval timeout as PTIMEVAL, byval lpOverlapped as LPOVERLAPPED, byval lpCompletionRoutine as LPLOOKUPSERVICE_COMPLETION_ROUTINE, byval lpNameHandle as LPHANDLE) as long
+		declare function GetAddrInfoEx stdcall alias "GetAddrInfoExW"(byval pName as PCWSTR, byval pServiceName as PCWSTR, byval dwNameSpace as DWORD, byval lpNspId as LPGUID, byval pHints as const ADDRINFOEXW ptr, byval ppResult as PADDRINFOEXW ptr, byval timeout as PTIMEVAL, byval lpOverlapped as LPOVERLAPPED, byval lpCompletionRoutine as LPLOOKUPSERVICE_COMPLETION_ROUTINE, byval lpNameHandle as LPHANDLE) as long
 	#endif
 
 	#if _WIN32_WINNT = &h0602
@@ -441,7 +441,7 @@ const NI_DGRAM = &h10
 	#endif
 
 	#if (not defined(UNICODE)) and (_WIN32_WINNT = &h0602)
-		declare function SetAddrInfoEx alias "SetAddrInfoExA" stdcall(byval pName as PCSTR, byval pServiceName as PCSTR, byval pAddresses as SOCKET_ADDRESS ptr, byval dwAddressCount as DWORD, byval lpBlob as LPBLOB, byval dwFlags as DWORD, byval dwNameSpace as DWORD, byval lpNspId as LPGUID, byval timeout as PTIMEVAL, byval lpOverlapped as LPOVERLAPPED, byval lpCompletionRoutine as LPLOOKUPSERVICE_COMPLETION_ROUTINE, byval lpNameHandle as LPHANDLE) as long
+		declare function SetAddrInfoEx stdcall alias "SetAddrInfoExA"(byval pName as PCSTR, byval pServiceName as PCSTR, byval pAddresses as SOCKET_ADDRESS ptr, byval dwAddressCount as DWORD, byval lpBlob as LPBLOB, byval dwFlags as DWORD, byval dwNameSpace as DWORD, byval lpNspId as LPGUID, byval timeout as PTIMEVAL, byval lpOverlapped as LPOVERLAPPED, byval lpCompletionRoutine as LPLOOKUPSERVICE_COMPLETION_ROUTINE, byval lpNameHandle as LPHANDLE) as long
 	#endif
 
 	#if _WIN32_WINNT = &h0602
@@ -449,7 +449,7 @@ const NI_DGRAM = &h10
 	#endif
 
 	#if defined(UNICODE) and (_WIN32_WINNT = &h0602)
-		declare function SetAddrInfoEx alias "SetAddrInfoExW" stdcall(byval pName as PCWSTR, byval pServiceName as PCWSTR, byval pAddresses as SOCKET_ADDRESS ptr, byval dwAddressCount as DWORD, byval lpBlob as LPBLOB, byval dwFlags as DWORD, byval dwNameSpace as DWORD, byval lpNspId as LPGUID, byval timeout as PTIMEVAL, byval lpOverlapped as LPOVERLAPPED, byval lpCompletionRoutine as LPLOOKUPSERVICE_COMPLETION_ROUTINE, byval lpNameHandle as LPHANDLE) as long
+		declare function SetAddrInfoEx stdcall alias "SetAddrInfoExW"(byval pName as PCWSTR, byval pServiceName as PCWSTR, byval pAddresses as SOCKET_ADDRESS ptr, byval dwAddressCount as DWORD, byval lpBlob as LPBLOB, byval dwFlags as DWORD, byval dwNameSpace as DWORD, byval lpNspId as LPGUID, byval timeout as PTIMEVAL, byval lpOverlapped as LPOVERLAPPED, byval lpCompletionRoutine as LPLOOKUPSERVICE_COMPLETION_ROUTINE, byval lpNameHandle as LPHANDLE) as long
 	#endif
 
 	#if _WIN32_WINNT = &h0602
@@ -457,7 +457,7 @@ const NI_DGRAM = &h10
 	#endif
 
 	#if (not defined(UNICODE)) and (_WIN32_WINNT = &h0602)
-		declare sub FreeAddrInfoEx alias "FreeAddrInfoExA" stdcall(byval pAddrInfo as PADDRINFOEXA)
+		declare sub FreeAddrInfoEx stdcall alias "FreeAddrInfoExA"(byval pAddrInfo as PADDRINFOEXA)
 	#endif
 
 	#if _WIN32_WINNT = &h0602
@@ -465,7 +465,7 @@ const NI_DGRAM = &h10
 	#endif
 
 	#if defined(UNICODE) and (_WIN32_WINNT = &h0602)
-		declare sub FreeAddrInfoEx alias "FreeAddrInfoExW" stdcall(byval pAddrInfo as PADDRINFOEXW)
+		declare sub FreeAddrInfoEx stdcall alias "FreeAddrInfoExW"(byval pAddrInfo as PADDRINFOEXW)
 	#endif
 
 	#if _WIN32_WINNT = &h0602
@@ -476,26 +476,26 @@ const NI_DGRAM = &h10
 		declare function WSASetSocketSecurity stdcall(byval Socket as SOCKET, byval SecuritySettings as const SOCKET_SECURITY_SETTINGS ptr, byval SecuritySettingsLen as ULONG, byval Overlapped as LPWSAOVERLAPPED, byval CompletionRoutine as LPWSAOVERLAPPED_COMPLETION_ROUTINE) as long
 		declare function InetNtopW stdcall(byval Family as INT_, byval pAddr as PVOID, byval pStringBuf as LPWSTR, byval StringBufSIze as uinteger) as LPCWSTR
 		declare function inet_ntop stdcall(byval Family as INT_, byval pAddr as PVOID, byval pStringBuf as LPSTR, byval StringBufSize as uinteger) as LPCSTR
-		declare function InetNtopA alias "inet_ntop" stdcall(byval Family as INT_, byval pAddr as PVOID, byval pStringBuf as LPSTR, byval StringBufSize as uinteger) as LPCSTR
+		declare function InetNtopA stdcall alias "inet_ntop"(byval Family as INT_, byval pAddr as PVOID, byval pStringBuf as LPSTR, byval StringBufSize as uinteger) as LPCSTR
 	#endif
 
 	#if defined(UNICODE) and (_WIN32_WINNT = &h0602)
-		declare function InetNtop alias "InetNtopW" stdcall(byval Family as INT_, byval pAddr as PVOID, byval pStringBuf as LPWSTR, byval StringBufSIze as uinteger) as LPCWSTR
+		declare function InetNtop stdcall alias "InetNtopW"(byval Family as INT_, byval pAddr as PVOID, byval pStringBuf as LPWSTR, byval StringBufSIze as uinteger) as LPCWSTR
 	#elseif (not defined(UNICODE)) and (_WIN32_WINNT = &h0602)
-		declare function InetNtop alias "inet_ntop" stdcall(byval Family as INT_, byval pAddr as PVOID, byval pStringBuf as LPSTR, byval StringBufSize as uinteger) as LPCSTR
+		declare function InetNtop stdcall alias "inet_ntop"(byval Family as INT_, byval pAddr as PVOID, byval pStringBuf as LPSTR, byval StringBufSize as uinteger) as LPCSTR
 	#endif
 
 	#if _WIN32_WINNT = &h0602
 		declare function InetPtonW stdcall(byval Family as INT_, byval pStringBuf as LPCWSTR, byval pAddr as PVOID) as INT_
 		declare function inet_pton stdcall(byval Family as INT_, byval pStringBuf as LPCSTR, byval pAddr as PVOID) as INT_
-		declare function InetPtonA alias "inet_pton" stdcall(byval Family as INT_, byval pStringBuf as LPCSTR, byval pAddr as PVOID) as INT_
+		declare function InetPtonA stdcall alias "inet_pton"(byval Family as INT_, byval pStringBuf as LPCSTR, byval pAddr as PVOID) as INT_
 	#endif
 #endif
 
 #if (not defined(__FB_64BIT__)) and defined(UNICODE) and (_WIN32_WINNT = &h0602)
-	declare function InetPton alias "InetPtonW" stdcall(byval Family as INT_, byval pStringBuf as LPCWSTR, byval pAddr as PVOID) as INT_
+	declare function InetPton stdcall alias "InetPtonW"(byval Family as INT_, byval pStringBuf as LPCWSTR, byval pAddr as PVOID) as INT_
 #elseif (not defined(__FB_64BIT__)) and (not defined(UNICODE)) and (_WIN32_WINNT = &h0602)
-	declare function InetPton alias "inet_pton" stdcall(byval Family as INT_, byval pStringBuf as LPCSTR, byval pAddr as PVOID) as INT_
+	declare function InetPton stdcall alias "inet_pton"(byval Family as INT_, byval pStringBuf as LPCSTR, byval pAddr as PVOID) as INT_
 #elseif defined(__FB_64BIT__) and (_WIN32_WINNT = &h0602)
 	declare function GetAddrInfoExA(byval pName as PCSTR, byval pServiceName as PCSTR, byval dwNameSpace as DWORD, byval lpNspId as LPGUID, byval pHints as const ADDRINFOEXA ptr, byval ppResult as PADDRINFOEXA ptr, byval timeout as PTIMEVAL, byval lpOverlapped as LPOVERLAPPED, byval lpCompletionRoutine as LPLOOKUPSERVICE_COMPLETION_ROUTINE, byval lpNameHandle as LPHANDLE) as long
 #endif
