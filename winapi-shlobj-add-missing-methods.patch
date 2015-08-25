@@ -1,0 +1,363 @@
+diff --git a/mingw-w64-headers/include/shlobj.h b/mingw-w64-headers/include/shlobj.h
+index be087c4..da29543 100644
+--- a/mingw-w64-headers/include/shlobj.h
++++ b/mingw-w64-headers/include/shlobj.h
+@@ -151,6 +151,9 @@ extern "C" {
+ #undef INTERFACE
+ #define INTERFACE IExtractIconA
+   DECLARE_INTERFACE_IID_ (IExtractIconA, IUnknown, "000214eb-0000-0000-c000-000000000046") {
++    STDMETHOD(QueryInterface) (THIS_ REFIID riid, void **ppv) PURE;
++    STDMETHOD_(ULONG, AddRef) (THIS) PURE;
++    STDMETHOD_(ULONG, Release) (THIS) PURE;
+     STDMETHOD(GetIconLocation) (THIS_ UINT uFlags, PSTR pszIconFile, UINT cchMax, int *piIndex, UINT *pwFlags) PURE;
+     STDMETHOD(Extract) (THIS_ PCSTR pszFile, UINT nIconIndex, HICON *phiconLarge, HICON *phiconSmall, UINT nIconSize) PURE;
+   };
+@@ -159,6 +162,9 @@ extern "C" {
+ #undef INTERFACE
+ #define INTERFACE IExtractIconW
+   DECLARE_INTERFACE_IID_ (IExtractIconW, IUnknown, "000214fa-0000-0000-c000-000000000046") {
++    STDMETHOD(QueryInterface) (THIS_ REFIID riid, void **ppv) PURE;
++    STDMETHOD_(ULONG, AddRef) (THIS) PURE;
++    STDMETHOD_(ULONG, Release) (THIS) PURE;
+     STDMETHOD(GetIconLocation) (THIS_ UINT uFlags, PWSTR pszIconFile, UINT cchMax, int *piIndex, UINT *pwFlags) PURE;
+     STDMETHOD(Extract) (THIS_ PCWSTR pszFile, UINT nIconIndex, HICON *phiconLarge, HICON *phiconSmall, UINT nIconSize) PURE;
+   };
+@@ -171,6 +177,9 @@ extern "C" {
+ #undef INTERFACE
+ #define INTERFACE IShellIconOverlayIdentifier
+   DECLARE_INTERFACE_IID_ (IShellIconOverlayIdentifier, IUnknown, "0c6c4200-c589-11d0-999a-00c04fd655e1") {
++    STDMETHOD(QueryInterface) (THIS_ REFIID riid, void **ppv) PURE;
++    STDMETHOD_(ULONG, AddRef) (THIS) PURE;
++    STDMETHOD_(ULONG, Release) (THIS) PURE;
+     STDMETHOD(IsMemberOf) (THIS_ PCWSTR pwszPath, DWORD dwAttrib) PURE;
+     STDMETHOD(GetOverlayInfo) (THIS_ PWSTR pwszIconFile, int cchMax, int *pIndex, DWORD *pdwFlags) PURE;
+     STDMETHOD(GetPriority) (THIS_ int *pIPriority) PURE;
+@@ -182,6 +191,9 @@ extern "C" {
+ #undef INTERFACE
+ #define INTERFACE IShellIconOverlayManager
+   DECLARE_INTERFACE_IID_ (IShellIconOverlayManager, IUnknown, "f10b5e34-dd3b-42a7-aa7d-2f4ec54bb09b") {
++    STDMETHOD(QueryInterface) (THIS_ REFIID riid, void **ppv) PURE;
++    STDMETHOD_(ULONG, AddRef) (THIS) PURE;
++    STDMETHOD_(ULONG, Release) (THIS) PURE;
+     STDMETHOD(GetFileOverlayInfo) (THIS_ PCWSTR pwszPath, DWORD dwAttrib, int *pIndex, DWORD dwflags) PURE;
+     STDMETHOD(GetReservedOverlayInfo) (THIS_ PCWSTR pwszPath, DWORD dwAttrib, int *pIndex, DWORD dwflags, int iReservedID) PURE;
+     STDMETHOD(RefreshOverlayImages) (THIS_ DWORD dwFlags) PURE;
+@@ -200,6 +212,9 @@ extern "C" {
+ #undef INTERFACE
+ #define INTERFACE IShellIconOverlay
+   DECLARE_INTERFACE_IID_ (IShellIconOverlay, IUnknown, "7d688a70-c613-11d0-999b-00c04fd655e1") {
++    STDMETHOD(QueryInterface) (THIS_ REFIID riid, void **ppv) PURE;
++    STDMETHOD_(ULONG, AddRef) (THIS) PURE;
++    STDMETHOD_(ULONG, Release) (THIS) PURE;
+     STDMETHOD(GetOverlayIndex) (THIS_ PCUITEMID_CHILD pidl, int *pIndex) PURE;
+     STDMETHOD(GetOverlayIconIndex) (THIS_ PCUITEMID_CHILD pidl, int *pIconIndex) PURE;
+   };
+@@ -371,12 +386,18 @@ extern "C" {
+ #undef INTERFACE
+ #define INTERFACE IShellExecuteHookA
+   DECLARE_INTERFACE_IID_ (IShellExecuteHookA, IUnknown, "000214f5-0000-0000-c000-000000000046") {
++    STDMETHOD(QueryInterface) (THIS_ REFIID riid, void **ppv) PURE;
++    STDMETHOD_(ULONG, AddRef) (THIS) PURE;
++    STDMETHOD_(ULONG, Release) (THIS) PURE;
+     STDMETHOD(Execute) (THIS_ LPSHELLEXECUTEINFOA pei) PURE;
+   };
+ 
+ #undef INTERFACE
+ #define INTERFACE IShellExecuteHookW
+   DECLARE_INTERFACE_IID_ (IShellExecuteHookW, IUnknown, "000214fb-0000-0000-c000-000000000046") {
++    STDMETHOD(QueryInterface) (THIS_ REFIID riid, void **ppv) PURE;
++    STDMETHOD_(ULONG, AddRef) (THIS) PURE;
++    STDMETHOD_(ULONG, Release) (THIS) PURE;
+     STDMETHOD(Execute) (THIS_ LPSHELLEXECUTEINFOW pei) PURE;
+   };
+ 
+@@ -387,12 +408,18 @@ extern "C" {
+ #undef INTERFACE
+ #define INTERFACE IURLSearchHook
+   DECLARE_INTERFACE_IID_ (IURLSearchHook, IUnknown, "ac60f6a0-0fd9-11d0-99cb-00c04fd64497") {
++    STDMETHOD(QueryInterface) (THIS_ REFIID riid, void **ppv) PURE;
++    STDMETHOD_(ULONG, AddRef) (THIS) PURE;
++    STDMETHOD_(ULONG, Release) (THIS) PURE;
+     STDMETHOD(Translate) (THIS_ PWSTR pwszSearchURL, DWORD cchBufferSize) PURE;
+   };
+ 
+ #undef INTERFACE
+ #define INTERFACE ISearchContext
+   DECLARE_INTERFACE_IID_ (ISearchContext, IUnknown, "09F656A2-41AF-480C-88F7-16CC0D164615") {
++    STDMETHOD(QueryInterface) (THIS_ REFIID riid, void **ppv) PURE;
++    STDMETHOD_(ULONG, AddRef) (THIS) PURE;
++    STDMETHOD_(ULONG, Release) (THIS) PURE;
+     STDMETHOD(GetSearchUrl) (THIS_ BSTR *pbstrSearchUrl) PURE;
+     STDMETHOD(GetSearchText) (THIS_ BSTR *pbstrSearchText) PURE;
+     STDMETHOD(GetSearchStyle) (THIS_ DWORD *pdwSearchStyle) PURE;
+@@ -401,6 +428,10 @@ extern "C" {
+ #undef INTERFACE
+ #define INTERFACE IURLSearchHook2
+   DECLARE_INTERFACE_IID_ (IURLSearchHook2, IURLSearchHook, "5ee44da4-6d32-46e3-86bc-07540dedd0e0") {
++    STDMETHOD(QueryInterface) (THIS_ REFIID riid, void **ppv) PURE;
++    STDMETHOD_(ULONG, AddRef) (THIS) PURE;
++    STDMETHOD_(ULONG, Release) (THIS) PURE;
++    STDMETHOD(Translate) (THIS_ PWSTR pwszSearchURL, DWORD cchBufferSize) PURE;
+     STDMETHOD(TranslateWithSearchContext) (THIS_ PWSTR pwszSearchURL, DWORD cchBufferSize, ISearchContext *pSearchContext) PURE;
+   };
+ 
+@@ -438,6 +469,9 @@ extern "C" {
+ #undef INTERFACE
+ #define INTERFACE ICopyHookA
+   DECLARE_INTERFACE_IID_ (ICopyHookA, IUnknown, "000214EF-0000-0000-c000-000000000046") {
++    STDMETHOD(QueryInterface) (THIS_ REFIID riid, void **ppv) PURE;
++    STDMETHOD_(ULONG, AddRef) (THIS) PURE;
++    STDMETHOD_(ULONG, Release) (THIS) PURE;
+     STDMETHOD_(UINT, CopyCallback) (THIS_ HWND hwnd, UINT wFunc, UINT wFlags, PCSTR pszSrcFile, DWORD dwSrcAttribs, PCSTR pszDestFile, DWORD dwDestAttribs) PURE;
+   };
+   typedef ICopyHookA *LPCOPYHOOKA;
+@@ -445,6 +479,9 @@ extern "C" {
+ #undef INTERFACE
+ #define INTERFACE ICopyHookW
+   DECLARE_INTERFACE_IID_ (ICopyHookW, IUnknown, "000214FC-0000-0000-c000-000000000046") {
++    STDMETHOD(QueryInterface) (THIS_ REFIID riid, void **ppv) PURE;
++    STDMETHOD_(ULONG, AddRef) (THIS) PURE;
++    STDMETHOD_(ULONG, Release) (THIS) PURE;
+     STDMETHOD_(UINT, CopyCallback) (THIS_ HWND hwnd, UINT wFunc, UINT wFlags, PCWSTR pszSrcFile, DWORD dwSrcAttribs, PCWSTR pszDestFile, DWORD dwDestAttribs) PURE;
+   };
+   typedef ICopyHookW *LPCOPYHOOKW;
+@@ -457,6 +494,9 @@ extern "C" {
+ #undef INTERFACE
+ #define INTERFACE IFileViewerSite
+   DECLARE_INTERFACE_IID_ (IFileViewerSite, IUnknown, "000214f3-0000-0000-c000-000000000046") {
++    STDMETHOD(QueryInterface) (THIS_ REFIID riid, void **ppv) PURE;
++    STDMETHOD_(ULONG, AddRef) (THIS) PURE;
++    STDMETHOD_(ULONG, Release) (THIS) PURE;
+     STDMETHOD(SetPinnedWindow) (THIS_ HWND hwnd) PURE;
+     STDMETHOD(GetPinnedWindow) (THIS_ HWND *phwnd) PURE;
+   };
+@@ -482,7 +522,10 @@ extern "C" {
+ 
+ #undef INTERFACE
+ #define INTERFACE IFileViewerA
+-  DECLARE_INTERFACE_IID (IFileViewerA, "000214f0-0000-0000-c000-000000000046") {
++  DECLARE_INTERFACE_IID_ (IFileViewerA, IUnknown, "000214f0-0000-0000-c000-000000000046") {
++    STDMETHOD(QueryInterface) (THIS_ REFIID riid, void **ppv) PURE;
++    STDMETHOD_(ULONG, AddRef) (THIS) PURE;
++    STDMETHOD_(ULONG, Release) (THIS) PURE;
+     STDMETHOD(ShowInitialize) (THIS_ LPFILEVIEWERSITE lpfsi) PURE;
+     STDMETHOD(Show) (THIS_ LPFVSHOWINFO pvsi) PURE;
+     STDMETHOD(PrintTo) (THIS_ PSTR pszDriver, WINBOOL fSuppressUI) PURE;
+@@ -491,7 +534,10 @@ extern "C" {
+ 
+ #undef INTERFACE
+ #define INTERFACE IFileViewerW
+-  DECLARE_INTERFACE_IID (IFileViewerW, "000214f8-0000-0000-c000-000000000046") {
++  DECLARE_INTERFACE_IID_ (IFileViewerW, IUnknown, "000214f8-0000-0000-c000-000000000046") {
++    STDMETHOD(QueryInterface) (THIS_ REFIID riid, void **ppv) PURE;
++    STDMETHOD_(ULONG, AddRef) (THIS) PURE;
++    STDMETHOD_(ULONG, Release) (THIS) PURE;
+     STDMETHOD(ShowInitialize) (THIS_ LPFILEVIEWERSITE lpfsi) PURE;
+     STDMETHOD(Show) (THIS_ LPFVSHOWINFO pvsi) PURE;
+     STDMETHOD(PrintTo) (THIS_ PWSTR pszDriver, WINBOOL fSuppressUI) PURE;
+@@ -894,6 +940,9 @@ extern "C" {
+ #undef INTERFACE
+ #define INTERFACE IShellDetails
+   DECLARE_INTERFACE_IID_ (IShellDetails, IUnknown, "000214EC-0000-0000-c000-000000000046") {
++    STDMETHOD(QueryInterface) (THIS_ REFIID riid, void **ppv) PURE;
++    STDMETHOD_(ULONG, AddRef) (THIS) PURE;
++    STDMETHOD_(ULONG, Release) (THIS) PURE;
+     STDMETHOD(GetDetailsOf) (THIS_ PCUITEMID_CHILD pidl, UINT iColumn, SHELLDETAILS *pDetails) PURE;
+     STDMETHOD(ColumnClick) (THIS_ UINT iColumn) PURE;
+   };
+@@ -901,6 +950,9 @@ extern "C" {
+ #undef INTERFACE
+ #define INTERFACE IObjMgr
+   DECLARE_INTERFACE_IID_ (IObjMgr, IUnknown, "00BB2761-6A77-11D0-A535-00C04FD7D062") {
++    STDMETHOD(QueryInterface) (THIS_ REFIID riid, void **ppv) PURE;
++    STDMETHOD_(ULONG, AddRef) (THIS) PURE;
++    STDMETHOD_(ULONG, Release) (THIS) PURE;
+     STDMETHOD(Append) (THIS_ IUnknown *punk) PURE;
+     STDMETHOD(Remove) (THIS_ IUnknown *punk) PURE;
+   };
+@@ -908,6 +960,9 @@ extern "C" {
+ #undef INTERFACE
+ #define INTERFACE ICurrentWorkingDirectory
+   DECLARE_INTERFACE_IID_ (ICurrentWorkingDirectory, IUnknown, "91956D21-9276-11d1-921A-006097DF5BD4") {
++    STDMETHOD(QueryInterface) (THIS_ REFIID riid, void **ppv) PURE;
++    STDMETHOD_(ULONG, AddRef) (THIS) PURE;
++    STDMETHOD_(ULONG, Release) (THIS) PURE;
+     STDMETHOD(GetDirectory) (THIS_ PWSTR pwzPath, DWORD cchSize) PURE;
+     STDMETHOD(SetDirectory) (THIS_ PCWSTR pwzPath) PURE;
+   };
+@@ -915,6 +970,9 @@ extern "C" {
+ #undef INTERFACE
+ #define INTERFACE IACList
+   DECLARE_INTERFACE_IID_ (IACList, IUnknown, "77A130B0-94FD-11D0-A544-00C04FD7d062") {
++    STDMETHOD(QueryInterface) (THIS_ REFIID riid, void **ppv) PURE;
++    STDMETHOD_(ULONG, AddRef) (THIS) PURE;
++    STDMETHOD_(ULONG, Release) (THIS) PURE;
+     STDMETHOD(Expand) (THIS_ PCWSTR pszExpand) PURE;
+   };
+ 
+@@ -936,6 +994,10 @@ extern "C" {
+   } AUTOCOMPLETELISTOPTIONS;
+ 
+   DECLARE_INTERFACE_IID_ (IACList2, IACList, "470141a0-5186-11d2-bbb6-0060977b464c") {
++    STDMETHOD(QueryInterface) (THIS_ REFIID riid, void **ppv) PURE;
++    STDMETHOD_(ULONG, AddRef) (THIS) PURE;
++    STDMETHOD_(ULONG, Release) (THIS) PURE;
++    STDMETHOD(Expand) (THIS_ PCWSTR pszExpand) PURE;
+     STDMETHOD(SetOptions) (THIS_ DWORD dwFlag) PURE;
+     STDMETHOD(GetOptions) (THIS_ DWORD *pdwFlag) PURE;
+   };
+@@ -961,6 +1023,9 @@ extern "C" {
+ #undef INTERFACE
+ #define INTERFACE IProgressDialog
+   DECLARE_INTERFACE_IID_ (IProgressDialog, IUnknown, "EBBC7C04-315E-11d2-B62F-006097DF5BD4") {
++    STDMETHOD(QueryInterface) (THIS_ REFIID riid, void **ppv) PURE;
++    STDMETHOD_(ULONG, AddRef) (THIS) PURE;
++    STDMETHOD_(ULONG, Release) (THIS) PURE;
+     STDMETHOD(StartProgressDialog) (THIS_ HWND hwndParent, IUnknown *punkEnableModless, DWORD dwFlags, LPCVOID pvResevered) PURE;
+     STDMETHOD(StopProgressDialog) (THIS) PURE;
+     STDMETHOD(SetTitle) (THIS_ PCWSTR pwzTitle) PURE;
+@@ -976,6 +1041,11 @@ extern "C" {
+ #undef INTERFACE
+ #define INTERFACE IDockingWindowSite
+   DECLARE_INTERFACE_IID_ (IDockingWindowSite, IOleWindow, "2a342fc2-7b26-11d0-8ca9-00a0c92dbfe8") {
++    STDMETHOD(QueryInterface) (THIS_ REFIID riid, void **ppv) PURE;
++    STDMETHOD_(ULONG, AddRef) (THIS) PURE;
++    STDMETHOD_(ULONG, Release) (THIS) PURE;
++    STDMETHOD(GetWindow) (THIS_ HWND *phwnd) PURE;
++    STDMETHOD(ContextSensitiveHelp) (THIS_ WINBOOL fEnterMode) PURE;
+     STDMETHOD(GetBorderDW) (THIS_ IUnknown *punkObj, RECT *prcBorder) PURE;
+     STDMETHOD(RequestBorderSpaceDW) (THIS_ IUnknown *punkObj, LPCBORDERWIDTHS pbw) PURE;
+     STDMETHOD(SetBorderSpaceDW) (THIS_ IUnknown *punkObj, LPCBORDERWIDTHS pbw) PURE;
+@@ -992,6 +1062,11 @@ extern "C" {
+ #undef INTERFACE
+ #define INTERFACE IDockingWindowFrame
+   DECLARE_INTERFACE_IID_ (IDockingWindowFrame, IOleWindow, "47d2657a-7b27-11d0-8ca9-00a0c92dbfe8") {
++    STDMETHOD(QueryInterface) (THIS_ REFIID riid, void **ppv) PURE;
++    STDMETHOD_(ULONG, AddRef) (THIS) PURE;
++    STDMETHOD_(ULONG, Release) (THIS) PURE;
++    STDMETHOD(GetWindow) (THIS_ HWND *phwnd) PURE;
++    STDMETHOD(ContextSensitiveHelp) (THIS_ WINBOOL fEnterMode) PURE;
+     STDMETHOD(AddToolbar) (THIS_ IUnknown *punkSrc, PCWSTR pwszItem, DWORD dwAddFlags) PURE;
+     STDMETHOD(RemoveToolbar) (THIS_ IUnknown *punkSrc, DWORD dwRemoveFlags) PURE;
+     STDMETHOD(FindToolbar) (THIS_ PCWSTR pwszItem, REFIID riid, void **ppv) PURE;
+@@ -1000,6 +1075,9 @@ extern "C" {
+ #undef INTERFACE
+ #define INTERFACE IThumbnailCapture
+   DECLARE_INTERFACE_IID_ (IThumbnailCapture, IUnknown, "4ea39266-7211-409f-b622-f63dbd16c533") {
++    STDMETHOD(QueryInterface) (THIS_ REFIID riid, void **ppv) PURE;
++    STDMETHOD_(ULONG, AddRef) (THIS) PURE;
++    STDMETHOD_(ULONG, Release) (THIS) PURE;
+     STDMETHOD(CaptureThumbnail) (THIS_ const SIZE *pMaxSize, IUnknown *pHTMLDoc2, HBITMAP *phbmThumbnail) PURE;
+   };
+   typedef IThumbnailCapture *LPTHUMBNAILCAPTURE;
+@@ -1092,6 +1170,9 @@ extern "C" {
+ #undef INTERFACE
+ #define INTERFACE IShellFolderBand
+   DECLARE_INTERFACE_IID_ (IShellFolderBand, IUnknown, "7FE80CC8-C247-11d0-B93A-00A0C90312E1") {
++    STDMETHOD(QueryInterface) (THIS_ REFIID riid, void **ppv) PURE;
++    STDMETHOD_(ULONG, AddRef) (THIS) PURE;
++    STDMETHOD_(ULONG, Release) (THIS) PURE;
+     STDMETHOD(InitializeSFB) (THIS_ IShellFolder *psf, PCIDLIST_ABSOLUTE pidl) PURE;
+     STDMETHOD(SetBandInfoSFB) (THIS_ PBANDINFOSFB pbi) PURE;
+     STDMETHOD(GetBandInfoSFB) (THIS_ PBANDINFOSFB pbi) PURE;
+@@ -1103,6 +1184,11 @@ extern "C" {
+ #undef INTERFACE
+ #define INTERFACE IDeskBarClient
+   DECLARE_INTERFACE_IID_ (IDeskBarClient, IOleWindow, "EB0FE175-1A3A-11D0-89B3-00A0C90A90AC") {
++    STDMETHOD(QueryInterface) (THIS_ REFIID riid, void **ppv) PURE;
++    STDMETHOD_(ULONG, AddRef) (THIS) PURE;
++    STDMETHOD_(ULONG, Release) (THIS) PURE;
++    STDMETHOD(GetWindow) (THIS_ HWND *phwnd) PURE;
++    STDMETHOD(ContextSensitiveHelp) (THIS_ WINBOOL fEnterMode) PURE;
+     STDMETHOD(SetDeskBarSite) (THIS_ IUnknown *punkSite) PURE;
+     STDMETHOD(SetModeDBC) (THIS_ DWORD dwMode) PURE;
+     STDMETHOD(UIActivateDBC) (THIS_ DWORD dwState) PURE;
+@@ -1612,12 +1698,18 @@ extern "C" {
+ #undef INTERFACE
+ #define INTERFACE IShellChangeNotify
+   DECLARE_INTERFACE_IID_ (IShellChangeNotify, IUnknown, "D82BE2B1-5764-11D0-A96E-00C04FD705A2") {
++    STDMETHOD(QueryInterface) (THIS_ REFIID riid, void **ppv) PURE;
++    STDMETHOD_(ULONG, AddRef) (THIS) PURE;
++    STDMETHOD_(ULONG, Release) (THIS) PURE;
+     STDMETHOD(OnChange) (THIS_ LONG lEvent, PCIDLIST_ABSOLUTE pidl1, PCIDLIST_ABSOLUTE pidl2) PURE;
+   };
+ 
+ #undef INTERFACE
+ #define INTERFACE IQueryInfo
+   DECLARE_INTERFACE_IID_ (IQueryInfo, IUnknown, "00021500-0000-0000-c000-000000000046") {
++    STDMETHOD(QueryInterface) (THIS_ REFIID riid, void **ppv) PURE;
++    STDMETHOD_(ULONG, AddRef) (THIS) PURE;
++    STDMETHOD_(ULONG, Release) (THIS) PURE;
+     STDMETHOD(GetInfoTip) (THIS_ DWORD dwFlags, PWSTR *ppwszTip) PURE;
+     STDMETHOD(GetInfoFlags) (THIS_ DWORD *pdwFlags) PURE;
+   };
+@@ -1866,6 +1958,9 @@ extern "C" {
+ #undef INTERFACE
+ #define INTERFACE IDefViewFrame
+   DECLARE_INTERFACE_IID_ (IDefViewFrame, IUnknown, "710EB7A0-45ED-11D0-924A-0020AFC7AC4D") {
++    STDMETHOD(QueryInterface) (THIS_ REFIID riid, void **ppv) PURE;
++    STDMETHOD_(ULONG, AddRef) (THIS) PURE;
++    STDMETHOD_(ULONG, Release) (THIS) PURE;
+     STDMETHOD(GetWindowLV) (THIS_ HWND *phwnd) PURE;
+     STDMETHOD(ReleaseWindowLV) (THIS) PURE;
+     STDMETHOD(GetShellFolder) (THIS_ IShellFolder **ppsf) PURE;
+@@ -2125,6 +2220,9 @@ extern "C" {
+ #undef INTERFACE
+ #define INTERFACE IDocViewSite
+   DECLARE_INTERFACE_IID_ (IDocViewSite, IUnknown, "87D605E0-C511-11CF-89A9-00A0C9054129") {
++    STDMETHOD(QueryInterface) (THIS_ REFIID riid, void **ppv) PURE;
++    STDMETHOD_(ULONG, AddRef) (THIS) PURE;
++    STDMETHOD_(ULONG, Release) (THIS) PURE;
+     STDMETHOD(OnSetTitle) (THIS_ VARIANTARG *pvTitle) PURE;
+   };
+ 
+@@ -2185,6 +2283,9 @@ extern "C" {
+ #undef INTERFACE
+ #define INTERFACE IInitializeObject
+   DECLARE_INTERFACE_IID_ (IInitializeObject, IUnknown, "4622AD16-FF23-11d0-8D34-00A0C90F2719") {
++    STDMETHOD(QueryInterface) (THIS_ REFIID riid, void **ppv) PURE;
++    STDMETHOD_(ULONG, AddRef) (THIS) PURE;
++    STDMETHOD_(ULONG, Release) (THIS) PURE;
+     STDMETHOD(Initialize) (THIS) PURE;
+   };
+ 
+@@ -2196,6 +2297,9 @@ extern "C" {
+ #undef INTERFACE
+ #define INTERFACE IBanneredBar
+   DECLARE_INTERFACE_IID_ (IBanneredBar, IUnknown, "596A9A94-013E-11d1-8D34-00A0C90F2719") {
++    STDMETHOD(QueryInterface) (THIS_ REFIID riid, void **ppv) PURE;
++    STDMETHOD_(ULONG, AddRef) (THIS) PURE;
++    STDMETHOD_(ULONG, Release) (THIS) PURE;
+     STDMETHOD(SetIconSize) (THIS_ DWORD iIcon) PURE;
+     STDMETHOD(GetIconSize) (THIS_ DWORD *piIcon) PURE;
+     STDMETHOD(SetBitmap) (THIS_ HBITMAP hBitmap) PURE;
+@@ -2206,6 +2310,9 @@ extern "C" {
+ #undef INTERFACE
+ #define INTERFACE IShellFolderViewCB
+   DECLARE_INTERFACE_IID_ (IShellFolderViewCB, IUnknown, "2047E320-F2A9-11CE-AE65-08002B2E1262") {
++    STDMETHOD(QueryInterface) (THIS_ REFIID riid, void **ppv) PURE;
++    STDMETHOD_(ULONG, AddRef) (THIS) PURE;
++    STDMETHOD_(ULONG, Release) (THIS) PURE;
+     STDMETHOD(MessageSFVCB) (THIS_ UINT uMsg, WPARAM wParam, LPARAM lParam) PURE;
+   };
+ 
+@@ -2317,6 +2424,9 @@ extern "C" {
+ #undef INTERFACE
+ #define INTERFACE IShellFolderView
+   DECLARE_INTERFACE_IID_ (IShellFolderView, IUnknown, "37A378C0-F82D-11CE-AE65-08002B2E1262") {
++    STDMETHOD(QueryInterface) (THIS_ REFIID riid, void **ppv) PURE;
++    STDMETHOD_(ULONG, AddRef) (THIS) PURE;
++    STDMETHOD_(ULONG, Release) (THIS) PURE;
+     STDMETHOD(Rearrange) (THIS_ LPARAM lParamSort) PURE;
+     STDMETHOD(GetArrangeParam) (THIS_ LPARAM *plParamSort) PURE;
+     STDMETHOD(ArrangeGrid) (THIS) PURE;
+@@ -2685,6 +2795,9 @@ typedef struct {
+ #undef INTERFACE
+ #define INTERFACE INamedPropertyBag
+ DECLARE_INTERFACE_IID_ (INamedPropertyBag, IUnknown, "FB700430-952C-11d1-946F-000000000000") {
++  STDMETHOD(QueryInterface) (THIS_ REFIID riid, void **ppv) PURE;
++  STDMETHOD_(ULONG, AddRef) (THIS) PURE;
++  STDMETHOD_(ULONG, Release) (THIS) PURE;
+   STDMETHOD(ReadPropertyNPB) (THIS_ PCWSTR pszBagname, PCWSTR pszPropName, PROPVARIANT *pVar) PURE;
+   STDMETHOD(WritePropertyNPB) (THIS_ PCWSTR pszBagname, PCWSTR pszPropName, PROPVARIANT *pVar) PURE;
+   STDMETHOD(RemovePropertyNPB) (THIS_ PCWSTR pszBagname, PCWSTR pszPropName) PURE;

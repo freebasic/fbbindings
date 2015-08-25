@@ -1885,14 +1885,7 @@ WINAPI_FLAGS += -incdir extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/i
 winapi-extract:
 	./get.sh $(MINGWW64_TITLE) $(MINGWW64_TITLE).tar.bz2 "http://sourceforge.net/projects/mingw-w64/files/mingw-w64/mingw-w64-release/$(MINGWW64_TITLE).tar.bz2/download"
 
-	cd extracted/$(MINGWW64_TITLE)/mingw-w64-headers/crt && \
-		sed -e 's/@MINGW_HAS_SECURE_API@/#define MINGW_HAS_SECURE_API 1/g' < _mingw.h.in > _mingw.h && \
-		sed -e 's/MINGW_HAS_DX$$/1/g' < sdks/_mingw_directx.h.in > sdks/_mingw_directx.h && \
-		sed -e 's/MINGW_HAS_DDK$$/1/g' < sdks/_mingw_ddk.h.in > sdks/_mingw_ddk.h
-
-	cd extracted/$(MINGWW64_TITLE)/mingw-w64-headers && \
-		echo "#pragma once" >> direct-x/include/vfwmsgs.h && \
-		echo "#pragma once" >> include/uuids.h
+	cd extracted/$(MINGWW64_TITLE) && ../../winapi-patch.sh
 
 	./winapi-emits-gen.sh
 	./winapi-titles-gen.sh extracted/$(MINGWW64_TITLE) $(MINGWW64_TITLE)
