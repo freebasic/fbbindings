@@ -9,20 +9,6 @@
 -removedefine pthread_cleanup_push_defer_np
 -removedefine pthread_cleanup_pop_restore_np
 
-# Exact aliases
--removedefine PTHREAD_CREATE_JOINABLE
--removedefine PTHREAD_CREATE_DETACHED
--removedefine PTHREAD_INHERIT_SCHED
--removedefine PTHREAD_EXPLICIT_SCHED
--removedefine PTHREAD_SCOPE_SYSTEM
--removedefine PTHREAD_SCOPE_PROCESS
--removedefine PTHREAD_PROCESS_PRIVATE
--removedefine PTHREAD_PROCESS_SHARED
--removedefine PTHREAD_CANCEL_ENABLE
--removedefine PTHREAD_CANCEL_DISABLE
--removedefine PTHREAD_CANCEL_DEFERRED
--removedefine PTHREAD_CANCEL_ASYNCHRONOUS
-
 # Prevent pid_t definition in sched.h
 -define __pid_t_defined 1
 
