@@ -22,6 +22,6 @@
 
 #pragma once
 
-'' TODO: #define REFPROPERTYKEY const PROPERTYKEY * __MIDL_CONST
+#define REFPROPERTYKEY const PROPERTYKEY const ptr
 #define IsEqualPropertyKey(a, b) (((a).pid = (b).pid) andalso IsEqualIID(@(a).fmtid, @(b).fmtid))
 #define _PROPERTYKEY_EQUALITY_OPERATORS_

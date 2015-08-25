@@ -363,6 +363,7 @@
 -expandindefine __LONG32
 -expandindefine POINTER_32
 -expandindefine POINTER_64
+-expandindefine __MIDL_CONST
 -renametypedef BYTE UBYTE
 -renametypedef byte ubyte
 -typedefhint LPTV_INSERTSTRUCT
@@ -374,6 +375,73 @@
 -typedefhint WSAEVENT
 -typedefhint LV_ITEM
 -typedefhint TVITEM
+
+-typedefhint RASADPARAMS
+-typedefhint RASAMB
+-typedefhint RASAMBA
+-typedefhint RASAMBW
+-typedefhint RASAUTODIALENTRY
+-typedefhint RASAUTODIALENTRYA
+-typedefhint RASAUTODIALENTRYW
+-typedefhint RASCONN
+-typedefhint RASCONNA
+-typedefhint RASCONNSTATE
+-typedefhint RASCONNSTATUS
+-typedefhint RASCONNSTATUSA
+-typedefhint RASCONNSTATUSW
+-typedefhint RASCONNW
+-typedefhint RASCREDENTIALS
+-typedefhint RASCREDENTIALSA
+-typedefhint RASCREDENTIALSW
+-typedefhint RASCTRYINFO
+-typedefhint RASCTRYINFOA
+-typedefhint RASCTRYINFOW
+-typedefhint RASDEVINFO
+-typedefhint RASDEVINFOA
+-typedefhint RASDEVINFOW
+-typedefhint RASDIALDLG
+-typedefhint RASDIALEXTENSIONS
+-typedefhint RASDIALPARAMS
+-typedefhint RASDIALPARAMSA
+-typedefhint RASDIALPARAMSW
+-typedefhint RASEAPUSERIDENTITYA
+-typedefhint RASEAPUSERIDENTITYW
+-typedefhint RASENTRY
+-typedefhint RASENTRYA
+-typedefhint RASENTRYDLG
+-typedefhint RASENTRYDLGA
+-typedefhint RASENTRYDLGW
+-typedefhint RASENTRYNAME
+-typedefhint RASENTRYNAMEA
+-typedefhint RASENTRYNAMEW
+-typedefhint RASENTRYW
+-typedefhint RASNOUSER
+-typedefhint RASNOUSERA
+-typedefhint RASNOUSERW
+-typedefhint RASPBDLG
+-typedefhint RASPBDLGA
+-typedefhint RASPBDLGW
+-typedefhint RASPPPCCP
+-typedefhint RASPPPIP
+-typedefhint RASPPPIPA
+-typedefhint RASPPPIPW
+-typedefhint RASPPPIPX
+-typedefhint RASPPPIPXA
+-typedefhint RASPPPIPXW
+-typedefhint RASPPPLCP
+-typedefhint RASPPPLCPA
+-typedefhint RASPPPLCPW
+-typedefhint RASPPPNBF
+-typedefhint RASPPPNBFA
+-typedefhint RASPPPNBFW
+-typedefhint RASPROJECTION
+-typedefhint RASSLIP
+-typedefhint RASSLIPA
+-typedefhint RASSLIPW
+-typedefhint RASSUBENTRY
+-typedefhint RASSUBENTRYA
+-typedefhint RASSUBENTRYW
+
 -renametypedef SSIZE_T SSIZE_T_
 -renametypedef SIZE_T SIZE_T_
 -renametypedef INT INT_

@@ -8900,7 +8900,7 @@ declare sub IPreviewHandlerFrame_TranslateAccelerator_Stub(byval This as IRpcStu
 	declare sub IBandHost_DestroyBand_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 	extern SID_SBandHost alias "IID_IBandHost" as const GUID
 	type EXPLORERPANE as GUID
-	'' TODO: #define REFEXPLORERPANE const EXPLORERPANE * __MIDL_CONST
+	#define REFEXPLORERPANE const EXPLORERPANE const ptr
 	#define __IExplorerPaneVisibility_INTERFACE_DEFINED__
 
 	type _EXPLORERPANESTATE as long
