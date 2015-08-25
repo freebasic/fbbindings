@@ -544,14 +544,14 @@ cairo: tools cairo-extract
 CD_VERSION := 5.8.2
 CD := cd-$(CD_VERSION)
 cd: tools
-	./get.sh cd $(CD)_Sources.tar.gz http://sourceforge.net/projects/canvasdraw/files/$(CD_VERSION)/Docs%20and%20Sources/$(CD)_Sources.tar.gz/download
-	find extracted/cd/ -type d -exec chmod +x '{}' ';'
+	./get.sh $(CD) $(CD)_Sources.tar.gz http://sourceforge.net/projects/canvasdraw/files/$(CD_VERSION)/Docs%20and%20Sources/$(CD)_Sources.tar.gz/download createdir
+	find extracted/$(CD)/cd/ -type d -exec chmod +x '{}' ';'
 
-	$(GETCOMMENT) --2 extracted/cd/include/cd.h | tail -n+2 | head -n-1 > cd.tmp
+	$(GETCOMMENT) --2 extracted/$(CD)/cd/include/cd.h | tail -n+2 | head -n-1 > cd.tmp
 
 	mkdir -p inc/cd
 	$(FBFROG) cd.fbfrog \
-		extracted/cd/include/*.h \
+		extracted/$(CD)/cd/include/*.h \
 		-emit '*/cdcairo.h'      inc/cd/cdcairo.bi \
 		-emit '*/cdcgm.h'        inc/cd/cdcgm.bi \
 		-emit '*/cdclipbd.h'     inc/cd/cdclipbd.bi \
@@ -587,7 +587,7 @@ cd: tools
 		-inclib cdpdf   inc/cd/cdpdf.bi
 
 	$(FBFROG) iuplua.fbfrog \
-		extracted/cd/include/*.h \
+		extracted/$(CD)/cd/include/*.h \
 		-emit '*/cdlua3_private.h' inc/cd/cdlua3_private.bi \
 		-emit '*/cdlua5_private.h' inc/cd/cdlua5_private.bi \
 		-emit '*/cdluagl.h'        inc/cd/cdluagl.bi \
@@ -1119,14 +1119,14 @@ iconv: tools
 IUP_VERSION := 3.15
 IUP_TITLE := iup-$(IUP_VERSION)
 iup: tools
-	./get.sh iup $(IUP_TITLE)_Sources.tar.gz "http://sourceforge.net/projects/iup/files/$(IUP_VERSION)/Docs%20and%20Sources/$(IUP_TITLE)_Sources.tar.gz/download"
-	find extracted/iup/ -type d -exec chmod +x '{}' ';'
+	./get.sh $(IUP_TITLE) $(IUP_TITLE)_Sources.tar.gz "http://sourceforge.net/projects/iup/files/$(IUP_VERSION)/Docs%20and%20Sources/$(IUP_TITLE)_Sources.tar.gz/download" createdir
+	find extracted/$(IUP_TITLE)/iup/ -type d -exec chmod +x '{}' ';'
 
-	$(GETCOMMENT) --1 extracted/iup/include/iup.h | tail -n+2 | head -n-1 | cut -c2- > iup.tmp
+	$(GETCOMMENT) --1 extracted/$(IUP_TITLE)/iup/include/iup.h | tail -n+2 | head -n-1 | cut -c2- > iup.tmp
 
 	mkdir -p inc/IUP
 	$(FBFROG) iup.fbfrog \
-		extracted/iup/include/*.h \
+		extracted/$(IUP_TITLE)/iup/include/*.h \
 		-emit '*/iupcb.h'            inc/IUP/iupcb.bi            \
 		-emit '*/iupcbox.h'          inc/IUP/iupcbox.bi          \
 		-emit '*/iupcbs.h'           inc/IUP/iupcbs.bi           \
@@ -1188,12 +1188,12 @@ iup: tools
 		-endif                                                   \
 		-title $(IUP_TITLE) iup.tmp fbteam.txt
 
-	$(FBFROG) iupim.fbfrog extracted/iup/include/iupim.h -o inc/IUP \
+	$(FBFROG) iupim.fbfrog extracted/$(IUP_TITLE)/iup/include/iupim.h -o inc/IUP \
 		-inclib iupim \
 		-title $(IUP_TITLE) iup.tmp fbteam.txt
 
 	$(FBFROG) iuplua.fbfrog iupscintilla.fbfrog \
-		extracted/iup/include/*.h \
+		extracted/$(IUP_TITLE)/iup/include/*.h \
 		-emit '*/iupluacontrols.h'   inc/IUP/iupluacontrols.bi   \
 		-emit '*/iupluaglcontrols.h' inc/IUP/iupluaglcontrols.bi \
 		-emit '*/iupluagl.h'         inc/IUP/iupluagl.bi         \
