@@ -3718,6 +3718,12 @@ declare sub IDragSourceHelper_InitializeFromWindow_Stub(byval This as IRpcStubBu
 	declare sub IDragSourceHelper2_SetFlags_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 #endif
 
+#ifdef UNICODE
+	type IShellLink as IShellLinkW
+#else
+	type IShellLink as IShellLinkA
+#endif
+
 type SLR_FLAGS as long
 enum
 	SLR_NO_UI = &h1
@@ -3751,10 +3757,6 @@ extern IID_IShellLinkA as const GUID
 #endif
 
 type IShellLinkA as IShellLinkA_
-
-#ifndef UNICODE
-	type IShellLink as IShellLinkA
-#endif
 
 type IShellLinkAVtbl
 	QueryInterface as function(byval This as IShellLinkA ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -3851,10 +3853,6 @@ extern SID_LinkSite alias "IID_IShellLinkW" as const GUID
 #endif
 
 type IShellLinkW as IShellLinkW_
-
-#ifdef UNICODE
-	type IShellLink as IShellLinkW
-#endif
 
 type IShellLinkWVtbl
 	QueryInterface as function(byval This as IShellLinkW ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -8900,7 +8898,7 @@ declare sub IPreviewHandlerFrame_TranslateAccelerator_Stub(byval This as IRpcStu
 	declare sub IBandHost_DestroyBand_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 	extern SID_SBandHost alias "IID_IBandHost" as const GUID
 	type EXPLORERPANE as GUID
-	#define REFEXPLORERPANE const EXPLORERPANE const ptr
+	type REFEXPLORERPANE as const EXPLORERPANE const ptr
 	#define __IExplorerPaneVisibility_INTERFACE_DEFINED__
 
 	type _EXPLORERPANESTATE as long

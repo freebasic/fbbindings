@@ -85,9 +85,10 @@ type HRASCONN__ field = 4
 end type
 
 type HRASCONN as HRASCONN__ ptr
-#define LPHRASCONN HRASCONN ptr
+type LPHRASCONN as HRASCONN ptr
 const RASCF_AllUsers = &h00000001
 const RASCF_GlobalCreds = &h00000002
+type RASCONNW as tagRASCONNW
 
 type tagRASCONNW field = 4
 	dwSize as DWORD
@@ -102,7 +103,7 @@ type tagRASCONNW field = 4
 	luid as LUID
 end type
 
-type RASCONNW as tagRASCONNW
+type RASCONNA as tagRASCONNA
 
 type tagRASCONNA field = 4
 	dwSize as DWORD
@@ -117,19 +118,18 @@ type tagRASCONNA field = 4
 	luid as LUID
 end type
 
-type RASCONNA as tagRASCONNA
-
 #ifdef UNICODE
 	type RASCONN as RASCONNW
 #else
 	type RASCONN as RASCONNA
 #endif
 
-#define LPRASCONNW RASCONNW ptr
-#define LPRASCONNA RASCONNA ptr
-#define LPRASCONN RASCONN ptr
+type LPRASCONNW as RASCONNW ptr
+type LPRASCONNA as RASCONNA ptr
+type LPRASCONN as RASCONN ptr
 const RASCS_PAUSED = &h1000
 const RASCS_DONE = &h2000
+type RASCONNSTATE as tagRASCONNSTATE
 
 type tagRASCONNSTATE as long
 enum
@@ -166,8 +166,8 @@ enum
 	RASCS_Disconnected
 end enum
 
-type RASCONNSTATE as tagRASCONNSTATE
-#define LPRASCONNSTATE RASCONNSTATE ptr
+type LPRASCONNSTATE as RASCONNSTATE ptr
+type RASCONNSTATUSW as tagRASCONNSTATUSW
 
 type tagRASCONNSTATUSW field = 4
 	dwSize as DWORD
@@ -178,7 +178,7 @@ type tagRASCONNSTATUSW field = 4
 	szPhoneNumber as wstring * 128 + 1
 end type
 
-type RASCONNSTATUSW as tagRASCONNSTATUSW
+type RASCONNSTATUSA as tagRASCONNSTATUSA
 
 type tagRASCONNSTATUSA field = 4
 	dwSize as DWORD
@@ -189,17 +189,16 @@ type tagRASCONNSTATUSA field = 4
 	szPhoneNumber as zstring * 128 + 1
 end type
 
-type RASCONNSTATUSA as tagRASCONNSTATUSA
-
 #ifdef UNICODE
 	type RASCONNSTATUS as RASCONNSTATUSW
 #else
 	type RASCONNSTATUS as RASCONNSTATUSA
 #endif
 
-#define LPRASCONNSTATUSW RASCONNSTATUSW ptr
-#define LPRASCONNSTATUSA RASCONNSTATUSA ptr
-#define LPRASCONNSTATUS RASCONNSTATUS ptr
+type LPRASCONNSTATUSW as RASCONNSTATUSW ptr
+type LPRASCONNSTATUSA as RASCONNSTATUSA ptr
+type LPRASCONNSTATUS as RASCONNSTATUS ptr
+type RASDIALPARAMSW as tagRASDIALPARAMSW
 
 type tagRASDIALPARAMSW field = 4
 	dwSize as DWORD
@@ -217,7 +216,7 @@ type tagRASDIALPARAMSW field = 4
 	#endif
 end type
 
-type RASDIALPARAMSW as tagRASDIALPARAMSW
+type RASDIALPARAMSA as tagRASDIALPARAMSA
 
 type tagRASDIALPARAMSA field = 4
 	dwSize as DWORD
@@ -235,24 +234,23 @@ type tagRASDIALPARAMSA field = 4
 	#endif
 end type
 
-type RASDIALPARAMSA as tagRASDIALPARAMSA
-
 #ifdef UNICODE
 	type RASDIALPARAMS as RASDIALPARAMSW
 #else
 	type RASDIALPARAMS as RASDIALPARAMSA
 #endif
 
-#define LPRASDIALPARAMSW RASDIALPARAMSW ptr
-#define LPRASDIALPARAMSA RASDIALPARAMSA ptr
-#define LPRASDIALPARAMS RASDIALPARAMS ptr
+type LPRASDIALPARAMSW as RASDIALPARAMSW ptr
+type LPRASDIALPARAMSA as RASDIALPARAMSA ptr
+type LPRASDIALPARAMS as RASDIALPARAMS ptr
+type RASEAPINFO as tagRASEAPINFO
 
 type tagRASEAPINFO field = 4
 	dwSizeofEapInfo as DWORD
 	pbEapInfo as UBYTE ptr
 end type
 
-type RASEAPINFO as tagRASEAPINFO
+type RASDIALEXTENSIONS as tagRASDIALEXTENSIONS
 
 type tagRASDIALEXTENSIONS field = 4
 	dwSize as DWORD
@@ -263,8 +261,7 @@ type tagRASDIALEXTENSIONS field = 4
 	RasEapInfo as tagRASEAPINFO
 end type
 
-type RASDIALEXTENSIONS as tagRASDIALEXTENSIONS
-#define LPRASDIALEXTENSIONS RASDIALEXTENSIONS ptr
+type LPRASDIALEXTENSIONS as RASDIALEXTENSIONS ptr
 const RDEOPT_UsePrefixSuffix = &h00000001
 const RDEOPT_PausedStates = &h00000002
 const RDEOPT_IgnoreModemSpeaker = &h00000004
@@ -281,6 +278,7 @@ const RDEOPT_CustomDial = &h00001000
 const RDEOPT_UseCustomScripting = &h00002000
 const REN_User = &h00000000
 const REN_AllUsers = &h00000001
+type RASENTRYNAMEW as tagRASENTRYNAMEW
 
 type tagRASENTRYNAMEW field = 4
 	dwSize as DWORD
@@ -289,7 +287,7 @@ type tagRASENTRYNAMEW field = 4
 	szPhonebookPath as wstring * 260 + 1
 end type
 
-type RASENTRYNAMEW as tagRASENTRYNAMEW
+type RASENTRYNAMEA as tagRASENTRYNAMEA
 
 type tagRASENTRYNAMEA field = 4
 	dwSize as DWORD
@@ -298,17 +296,16 @@ type tagRASENTRYNAMEA field = 4
 	szPhonebookPath as zstring * 260 + 1
 end type
 
-type RASENTRYNAMEA as tagRASENTRYNAMEA
-
 #ifdef UNICODE
 	type RASENTRYNAME as RASENTRYNAMEW
 #else
 	type RASENTRYNAME as RASENTRYNAMEA
 #endif
 
-#define LPRASENTRYNAMEW RASENTRYNAMEW ptr
-#define LPRASENTRYNAMEA RASENTRYNAMEA ptr
-#define LPRASENTRYNAME RASENTRYNAME ptr
+type LPRASENTRYNAMEW as RASENTRYNAMEW ptr
+type LPRASENTRYNAMEA as RASENTRYNAMEA ptr
+type LPRASENTRYNAME as RASENTRYNAME ptr
+type RASPROJECTION as tagRASPROJECTION
 
 type tagRASPROJECTION as long
 enum
@@ -321,8 +318,8 @@ enum
 	RASP_Slip = &h20000
 end enum
 
-type RASPROJECTION as tagRASPROJECTION
-#define LPRASPROJECTION RASPROJECTION ptr
+type LPRASPROJECTION as RASPROJECTION ptr
+type RASAMBW as tagRASAMBW
 
 type tagRASAMBW field = 4
 	dwSize as DWORD
@@ -331,7 +328,7 @@ type tagRASAMBW field = 4
 	bLana as UBYTE
 end type
 
-type RASAMBW as tagRASAMBW
+type RASAMBA as tagRASAMBA
 
 type tagRASAMBA field = 4
 	dwSize as DWORD
@@ -340,17 +337,16 @@ type tagRASAMBA field = 4
 	bLana as UBYTE
 end type
 
-type RASAMBA as tagRASAMBA
-
 #ifdef UNICODE
 	type RASAMB as RASAMBW
 #else
 	type RASAMB as RASAMBA
 #endif
 
-#define LPRASAMBW RASAMBW ptr
-#define LPRASAMBA RASAMBA ptr
-#define LPRASAMB RASAMB ptr
+type LPRASAMBW as RASAMBW ptr
+type LPRASAMBA as RASAMBA ptr
+type LPRASAMB as RASAMB ptr
+type RASPPPNBFW as tagRASPPPNBFW
 
 type tagRASPPPNBFW field = 4
 	dwSize as DWORD
@@ -361,7 +357,7 @@ type tagRASPPPNBFW field = 4
 	bLana as UBYTE
 end type
 
-type RASPPPNBFW as tagRASPPPNBFW
+type RASPPPNBFA as tagRASPPPNBFA
 
 type tagRASPPPNBFA field = 4
 	dwSize as DWORD
@@ -372,17 +368,16 @@ type tagRASPPPNBFA field = 4
 	bLana as UBYTE
 end type
 
-type RASPPPNBFA as tagRASPPPNBFA
-
 #ifdef UNICODE
 	type RASPPPNBF as RASPPPNBFW
 #else
 	type RASPPPNBF as RASPPPNBFA
 #endif
 
-#define LPRASPPPNBFW RASPPPNBFW ptr
-#define LPRASPPPNBFA RASPPPNBFA ptr
-#define LPRASPPPNBF RASPPPNBF ptr
+type LPRASPPPNBFW as RASPPPNBFW ptr
+type LPRASPPPNBFA as RASPPPNBFA ptr
+type LPRASPPPNBF as RASPPPNBF ptr
+type RASPPPIPXW as tagRASIPXW
 
 type tagRASIPXW field = 4
 	dwSize as DWORD
@@ -390,7 +385,7 @@ type tagRASIPXW field = 4
 	szIpxAddress as wstring * 21 + 1
 end type
 
-type RASPPPIPXW as tagRASIPXW
+type RASPPPIPXA as tagRASPPPIPXA
 
 type tagRASPPPIPXA field = 4
 	dwSize as DWORD
@@ -398,18 +393,17 @@ type tagRASPPPIPXA field = 4
 	szIpxAddress as zstring * 21 + 1
 end type
 
-type RASPPPIPXA as tagRASPPPIPXA
-
 #ifdef UNICODE
 	type RASPPPIPX as RASPPPIPXW
 #else
 	type RASPPPIPX as RASPPPIPXA
 #endif
 
-#define LPRASPPPIPXW RASPPPIPXW ptr
-#define LPRASPPPIPXA RASPPPIPXA ptr
-#define LPRASPPPIPX RASPPPIPX ptr
+type LPRASPPPIPXW as RASPPPIPXW ptr
+type LPRASPPPIPXA as RASPPPIPXA ptr
+type LPRASPPPIPX as RASPPPIPX ptr
 const RASIPO_VJ = &h00000001
+type RASPPPIPW as tagRASPPPIPW
 
 type tagRASPPPIPW field = 4
 	dwSize as DWORD
@@ -420,7 +414,7 @@ type tagRASPPPIPW field = 4
 	dwServerOptions as DWORD
 end type
 
-type RASPPPIPW as tagRASPPPIPW
+type RASPPPIPA as tagRASPPPIPA
 
 type tagRASPPPIPA field = 4
 	dwSize as DWORD
@@ -431,17 +425,16 @@ type tagRASPPPIPA field = 4
 	dwServerOptions as DWORD
 end type
 
-type RASPPPIPA as tagRASPPPIPA
-
 #ifdef UNICODE
 	type RASPPPIP as RASPPPIPW
 #else
 	type RASPPPIP as RASPPPIPA
 #endif
 
-#define LPRASPPPIPW RASPPPIPW ptr
-#define LPRASPPPIPA RASPPPIPA ptr
-#define LPRASPPPIP RASPPPIP ptr
+type LPRASPPPIPW as RASPPPIPW ptr
+type LPRASPPPIPA as RASPPPIPA ptr
+type LPRASPPPIP as RASPPPIP ptr
+
 const RASLCPAP_PAP = &hC023
 const RASLCPAP_SPAP = &hC027
 const RASLCPAP_CHAP = &hC223
@@ -454,6 +447,7 @@ const RASLCPO_ACFC = &h00000002
 const RASLCPO_SSHF = &h00000004
 const RASLCPO_DES_56 = &h00000008
 const RASLCPO_3_DES = &h00000010
+type RASPPPLCPW as tagRASPPPLCPW
 
 type tagRASPPPLCPW field = 4
 	dwSize as DWORD
@@ -473,7 +467,7 @@ type tagRASPPPLCPW field = 4
 	dwServerOptions as DWORD
 end type
 
-type RASPPPLCPW as tagRASPPPLCPW
+type RASPPPLCPA as tagRASPPPLCPA
 
 type tagRASPPPLCPA field = 4
 	dwSize as DWORD
@@ -493,17 +487,16 @@ type tagRASPPPLCPA field = 4
 	dwServerOptions as DWORD
 end type
 
-type RASPPPLCPA as tagRASPPPLCPA
-
 #ifdef UNICODE
 	type RASPPPLCP as RASPPPLCPW
 #else
 	type RASPPPLCP as RASPPPLCPA
 #endif
 
-#define LPRASPPPLCPW RASPPPLCPW ptr
-#define LPRASPPPLCPA RASPPPLCPA ptr
-#define LPRASPPPLCP RASPPPLCP ptr
+type LPRASPPPLCPW as RASPPPLCPW ptr
+type LPRASPPPLCPA as RASPPPLCPA ptr
+type LPRASPPPLCP as RASPPPLCP ptr
+type RASSLIPW as tagRASSLIPW
 
 type tagRASSLIPW field = 4
 	dwSize as DWORD
@@ -511,7 +504,7 @@ type tagRASSLIPW field = 4
 	szIpAddress as wstring * 15 + 1
 end type
 
-type RASSLIPW as tagRASSLIPW
+type RASSLIPA as tagRASSLIPA
 
 type tagRASSLIPA field = 4
 	dwSize as DWORD
@@ -519,17 +512,16 @@ type tagRASSLIPA field = 4
 	szIpAddress as zstring * 15 + 1
 end type
 
-type RASSLIPA as tagRASSLIPA
-
 #ifdef UNICODE
 	type RASSLIP as RASSLIPW
 #else
 	type RASSLIP as RASSLIPA
 #endif
 
-#define LPRASSLIPW RASSLIPW ptr
-#define LPRASSLIPA RASSLIPA ptr
-#define LPRASSLIP RASSLIP ptr
+type LPRASSLIPW as RASSLIPW ptr
+type LPRASSLIPA as RASSLIPA ptr
+type LPRASSLIP as RASSLIP ptr
+
 const RASCCPCA_MPPC = &h00000006
 const RASCCPCA_STAC = &h00000005
 const RASCCPO_Compression = &h00000001
@@ -537,6 +529,7 @@ const RASCCPO_HistoryLess = &h00000002
 const RASCCPO_Encryption56bit = &h00000010
 const RASCCPO_Encryption40bit = &h00000020
 const RASCCPO_Encryption128bit = &h00000040
+type RASPPPCCP as tagRASPPPCCP
 
 type tagRASPPPCCP field = 4
 	dwSize as DWORD
@@ -547,14 +540,13 @@ type tagRASPPPCCP field = 4
 	dwServerOptions as DWORD
 end type
 
-type RASPPPCCP as tagRASPPPCCP
-#define LPRASPPPCCP RASPPPCCP ptr
+type LPRASPPPCCP as RASPPPCCP ptr
 #define RASDIALEVENT "RasDialEvent"
 const WM_RASDIALEVENT = &hCCCD
-
 type RASDIALFUNC as sub(byval as UINT, byval as tagRASCONNSTATE, byval as DWORD)
 type RASDIALFUNC1 as sub(byval as HRASCONN, byval as UINT, byval as tagRASCONNSTATE, byval as DWORD, byval as DWORD)
 type RASDIALFUNC2 as function(byval as ULONG_PTR, byval as DWORD, byval as HRASCONN, byval as UINT, byval as tagRASCONNSTATE, byval as DWORD, byval as DWORD) as DWORD
+type RASDEVINFOW as tagRASDEVINFOW
 
 type tagRASDEVINFOW field = 4
 	dwSize as DWORD
@@ -562,7 +554,7 @@ type tagRASDEVINFOW field = 4
 	szDeviceName as wstring * 128 + 1
 end type
 
-type RASDEVINFOW as tagRASDEVINFOW
+type RASDEVINFOA as tagRASDEVINFOA
 
 type tagRASDEVINFOA field = 4
 	dwSize as DWORD
@@ -570,17 +562,15 @@ type tagRASDEVINFOA field = 4
 	szDeviceName as zstring * 128 + 1
 end type
 
-type RASDEVINFOA as tagRASDEVINFOA
-
 #ifdef UNICODE
 	type RASDEVINFO as RASDEVINFOW
 #else
 	type RASDEVINFO as RASDEVINFOA
 #endif
 
-#define LPRASDEVINFOW RASDEVINFOW ptr
-#define LPRASDEVINFOA RASDEVINFOA ptr
-#define LPRASDEVINFO RASDEVINFO ptr
+type LPRASDEVINFOW as RASDEVINFOW ptr
+type LPRASDEVINFOA as RASDEVINFOA ptr
+type LPRASDEVINFO as RASDEVINFO ptr
 
 type RASCTRYINFO field = 4
 	dwSize as DWORD
@@ -592,9 +582,9 @@ end type
 
 type RASCTRYINFOW as RASCTRYINFO
 type RASCTRYINFOA as RASCTRYINFO
-#define LPRASCTRYINFOW RASCTRYINFOW ptr
-#define LPRASCTRYINFOA RASCTRYINFOW ptr
-#define LPRASCTRYINFO RASCTRYINFO ptr
+type LPRASCTRYINFOW as RASCTRYINFOW ptr
+type LPRASCTRYINFOA as RASCTRYINFOW ptr
+type LPRASCTRYINFO as RASCTRYINFO ptr
 
 type RASIPADDR field = 4
 	a as UBYTE
@@ -612,6 +602,7 @@ const VS_PptpOnly = 1
 const VS_PptpFirst = 2
 const VS_L2tpOnly = 3
 const VS_L2tpFirst = 4
+type RASENTRYA as tagRASENTRYA
 
 type tagRASENTRYA field = 4
 	dwSize as DWORD
@@ -664,7 +655,7 @@ type tagRASENTRYA field = 4
 	dwRedialPause as DWORD
 end type
 
-type RASENTRYA as tagRASENTRYA
+type RASENTRYW as tagRASENTRYW
 
 type tagRASENTRYW field = 4
 	dwSize as DWORD
@@ -717,17 +708,16 @@ type tagRASENTRYW field = 4
 	dwRedialPause as DWORD
 end type
 
-type RASENTRYW as tagRASENTRYW
-
 #ifdef UNICODE
 	type RASENTRY as RASENTRYW
 #else
 	type RASENTRY as RASENTRYA
 #endif
 
-#define LPRASENTRYW RASENTRYW ptr
-#define LPRASENTRYA RASENTRYA ptr
-#define LPRASENTRY RASENTRY ptr
+type LPRASENTRYW as RASENTRYW ptr
+type LPRASENTRYA as RASENTRYA ptr
+type LPRASENTRY as RASENTRY ptr
+
 const RASEO_UseCountryAndAreaCodes = &h00000001
 const RASEO_SpecificIpAddr = &h00000002
 const RASEO_SpecificNameServers = &h00000004
@@ -803,6 +793,7 @@ const RASEDM_DialAll = 1
 const RASEDM_DialAsNeeded = 2
 const RASIDS_Disabled = &hffffffff
 const RASIDS_UseGlobalValue = 0
+type RASADPARAMS as tagRASADPARAMS
 
 type tagRASADPARAMS field = 4
 	dwSize as DWORD
@@ -812,8 +803,7 @@ type tagRASADPARAMS field = 4
 	yDlg as LONG
 end type
 
-type RASADPARAMS as tagRASADPARAMS
-#define LPRASADPARAMS RASADPARAMS ptr
+type LPRASADPARAMS as RASADPARAMS ptr
 const RASADFLG_PositionDlg = &h00000001
 type RASADFUNCA as function(byval as LPSTR, byval as LPSTR, byval as tagRASADPARAMS ptr, byval as LPDWORD) as WINBOOL
 type RASADFUNCW as function(byval as LPWSTR, byval as LPWSTR, byval as tagRASADPARAMS ptr, byval as LPDWORD) as WINBOOL
@@ -824,6 +814,8 @@ type RASADFUNCW as function(byval as LPWSTR, byval as LPWSTR, byval as tagRASADP
 	type RASADFUNC as RASADFUNCA
 #endif
 
+type RASSUBENTRYA as tagRASSUBENTRYA
+
 type tagRASSUBENTRYA field = 4
 	dwSize as DWORD
 	dwfFlags as DWORD
@@ -833,7 +825,7 @@ type tagRASSUBENTRYA field = 4
 	dwAlternateOffset as DWORD
 end type
 
-type RASSUBENTRYA as tagRASSUBENTRYA
+type RASSUBENTRYW as tagRASSUBENTRYW
 
 type tagRASSUBENTRYW field = 4
 	dwSize as DWORD
@@ -844,17 +836,16 @@ type tagRASSUBENTRYW field = 4
 	dwAlternateOffset as DWORD
 end type
 
-type RASSUBENTRYW as tagRASSUBENTRYW
-
 #ifdef UNICODE
 	type RASSUBENTRY as RASSUBENTRYW
 #else
 	type RASSUBENTRY as RASSUBENTRYA
 #endif
 
-#define LPRASSUBENTRYW RASSUBENTRYW ptr
-#define LPRASSUBENTRYA RASSUBENTRYA ptr
-#define LPRASSUBENTRY RASSUBENTRY ptr
+type LPRASSUBENTRYW as RASSUBENTRYW ptr
+type LPRASSUBENTRYA as RASSUBENTRYA ptr
+type LPRASSUBENTRY as RASSUBENTRY ptr
+type RASCREDENTIALSA as tagRASCREDENTIALSA
 
 type tagRASCREDENTIALSA field = 4
 	dwSize as DWORD
@@ -864,7 +855,7 @@ type tagRASCREDENTIALSA field = 4
 	szDomain as zstring * 15 + 1
 end type
 
-type RASCREDENTIALSA as tagRASCREDENTIALSA
+type RASCREDENTIALSW as tagRASCREDENTIALSW
 
 type tagRASCREDENTIALSW field = 4
 	dwSize as DWORD
@@ -874,17 +865,16 @@ type tagRASCREDENTIALSW field = 4
 	szDomain as wstring * 15 + 1
 end type
 
-type RASCREDENTIALSW as tagRASCREDENTIALSW
-
 #ifdef UNICODE
 	type RASCREDENTIALS as RASCREDENTIALSW
 #else
 	type RASCREDENTIALS as RASCREDENTIALSA
 #endif
 
-#define LPRASCREDENTIALSW RASCREDENTIALSW ptr
-#define LPRASCREDENTIALSA RASCREDENTIALSA ptr
-#define LPRASCREDENTIALS RASCREDENTIALS ptr
+type LPRASCREDENTIALSW as RASCREDENTIALSW ptr
+type LPRASCREDENTIALSA as RASCREDENTIALSA ptr
+type LPRASCREDENTIALS as RASCREDENTIALS ptr
+
 const RASCM_UserName = &h00000001
 const RASCM_Password = &h00000002
 const RASCM_Domain = &h00000004
@@ -892,6 +882,7 @@ const RASCM_DefaultCreds = &h00000008
 const RASCM_PreSharedKey = &h00000010
 const RASCM_ServerPreSharedKey = &h00000020
 const RASCM_DDMPreSharedKey = &h00000040
+type RASAUTODIALENTRYA as tagRASAUTODIALENTRYA
 
 type tagRASAUTODIALENTRYA field = 4
 	dwSize as DWORD
@@ -900,7 +891,7 @@ type tagRASAUTODIALENTRYA field = 4
 	szEntry as zstring * 256 + 1
 end type
 
-type RASAUTODIALENTRYA as tagRASAUTODIALENTRYA
+type RASAUTODIALENTRYW as tagRASAUTODIALENTRYW
 
 type tagRASAUTODIALENTRYW field = 4
 	dwSize as DWORD
@@ -909,17 +900,16 @@ type tagRASAUTODIALENTRYW field = 4
 	szEntry as wstring * 256 + 1
 end type
 
-type RASAUTODIALENTRYW as tagRASAUTODIALENTRYW
-
 #ifdef UNICODE
 	type RASAUTODIALENTRY as RASAUTODIALENTRYW
 #else
 	type RASAUTODIALENTRY as RASAUTODIALENTRYA
 #endif
 
-#define LPRASAUTODIALENTRYW RASAUTODIALENTRYW ptr
-#define LPRASAUTODIALENTRYA RASAUTODIALENTRYA ptr
-#define LPRASAUTODIALENTRY RASAUTODIALENTRY ptr
+type LPRASAUTODIALENTRYW as RASAUTODIALENTRYW ptr
+type LPRASAUTODIALENTRYA as RASAUTODIALENTRYA ptr
+type LPRASAUTODIALENTRY as RASAUTODIALENTRY ptr
+
 const RASADP_DisableConnectionQuery = 0
 const RASADP_LoginSessionDisable = 1
 const RASADP_SavedAddressesLimit = 2
@@ -928,6 +918,7 @@ const RASADP_ConnectionQueryTimeout = 4
 const RASEAPF_NonInteractive = &h00000002
 const RASEAPF_Logon = &h00000004
 const RASEAPF_Preview = &h00000008
+type RASEAPUSERIDENTITYA as tagRASEAPUSERIDENTITYA
 
 type tagRASEAPUSERIDENTITYA field = 4
 	szUserName as zstring * 256 + 1
@@ -935,7 +926,7 @@ type tagRASEAPUSERIDENTITYA field = 4
 	pbEapInfo(0 to 0) as UBYTE
 end type
 
-type RASEAPUSERIDENTITYA as tagRASEAPUSERIDENTITYA
+type RASEAPUSERIDENTITYW as tagRASEAPUSERIDENTITYW
 
 type tagRASEAPUSERIDENTITYW field = 4
 	szUserName as wstring * 256 + 1
@@ -943,16 +934,14 @@ type tagRASEAPUSERIDENTITYW field = 4
 	pbEapInfo(0 to 0) as UBYTE
 end type
 
-type RASEAPUSERIDENTITYW as tagRASEAPUSERIDENTITYW
-
 #ifdef UNICODE
 	type RASEAPUSERIDENTITY as RASEAPUSERIDENTITYW
 #else
 	type RASEAPUSERIDENTITY as RASEAPUSERIDENTITYA
 #endif
 
-#define LPRASEAPUSERIDENTITYW RASEAPUSERIDENTITYW ptr
-#define LPRASEAPUSERIDENTITYA RASEAPUSERIDENTITYA ptr
+type LPRASEAPUSERIDENTITYW as RASEAPUSERIDENTITYW ptr
+type LPRASEAPUSERIDENTITYA as RASEAPUSERIDENTITYA ptr
 type PFNRASGETBUFFER as function(byval ppBuffer as PBYTE ptr, byval pdwSize as PDWORD) as DWORD
 type PFNRASFREEBUFFER as function(byval pBufer as PBYTE) as DWORD
 type PFNRASSENDBUFFER as function(byval hPort as HANDLE, byval pBuffer as PBYTE, byval dwSize as DWORD) as DWORD
@@ -965,6 +954,8 @@ type PFNRASRETRIEVEBUFFER as function(byval hPort as HANDLE, byval pBuffer as PB
 	type RasCustomScriptExecuteFn as function(byval hPort as HANDLE, byval lpszPhonebook as LPCWSTR, byval lpszEntryName as LPCWSTR, byval pfnRasGetBuffer as PFNRASGETBUFFER, byval pfnRasFreeBuffer as PFNRASFREEBUFFER, byval pfnRasSendBuffer as PFNRASSENDBUFFER, byval pfnRasReceiveBuffer as PFNRASRECEIVEBUFFER, byval pfnRasRetrieveBuffer as PFNRASRETRIEVEBUFFER, byval hWnd as HWND, byval pRasDialParams as tagRASDIALPARAMSA ptr, byval pvReserved as PVOID) as DWORD
 #endif
 
+type RASCOMMSETTINGS as tagRASCOMMSETTINGS
+
 type tagRASCOMMSETTINGS field = 4
 	dwSize as DWORD
 	bParity as UBYTE
@@ -973,15 +964,14 @@ type tagRASCOMMSETTINGS field = 4
 	bAlign as UBYTE
 end type
 
-type RASCOMMSETTINGS as tagRASCOMMSETTINGS
 type PFNRASSETCOMMSETTINGS as function(byval hPort as HANDLE, byval pRasCommSettings as tagRASCOMMSETTINGS ptr, byval pvReserved as PVOID) as DWORD
+type RASCUSTOMSCRIPTEXTENSIONS as tagRASCUSTOMSCRIPTEXTENSIONS
 
 type tagRASCUSTOMSCRIPTEXTENSIONS field = 4
 	dwSize as DWORD
 	pfnRasSetCommSettings as PFNRASSETCOMMSETTINGS
 end type
 
-type RASCUSTOMSCRIPTEXTENSIONS as tagRASCUSTOMSCRIPTEXTENSIONS
 declare function RasDialA(byval as tagRASDIALEXTENSIONS ptr, byval as LPCSTR, byval as tagRASDIALPARAMSA ptr, byval as DWORD, byval as LPVOID, byval as HRASCONN ptr) as DWORD
 declare function RasDialW(byval as tagRASDIALEXTENSIONS ptr, byval as LPCWSTR, byval as tagRASDIALPARAMSW ptr, byval as DWORD, byval as LPVOID, byval as HRASCONN ptr) as DWORD
 declare function RasEnumConnectionsA(byval as tagRASCONNA ptr, byval as LPDWORD, byval as LPDWORD) as DWORD

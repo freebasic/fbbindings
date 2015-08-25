@@ -332,7 +332,7 @@ end type
 
 type LPPROPVARIANT as tagPROPVARIANT ptr
 #define _REFPROPVARIANT_DEFINED
-#define REFPROPVARIANT const PROPVARIANT const ptr
+type REFPROPVARIANT as const PROPVARIANT const ptr
 const PID_DICTIONARY = &h0
 const PID_CODEPAGE = &h1
 const PID_FIRST_USABLE = &h2

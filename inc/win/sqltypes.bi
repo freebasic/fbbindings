@@ -39,6 +39,7 @@ type SQLUINTEGER as ulong
 #else
 	type SQLLEN as SQLINTEGER
 	type SQLULEN as SQLUINTEGER
+	type SQLSETPOSIROW as SQLUSMALLINT
 	type SQLROWCOUNT as SQLUINTEGER
 	type SQLROWSETSIZE as SQLUINTEGER
 	type SQLTRANSID as SQLUINTEGER
@@ -50,11 +51,6 @@ type SQLPOINTER as any ptr
 type SQLREAL as single
 type SQLSMALLINT as short
 type SQLUSMALLINT as ushort
-
-#ifndef __FB_64BIT__
-	type SQLSETPOSIROW as SQLUSMALLINT
-#endif
-
 type SQLTIME as ubyte
 type SQLTIMESTAMP as ubyte
 type SQLVARCHAR as ubyte
@@ -159,7 +155,7 @@ type tagSQL_INTERVAL_STRUCT
 end type
 
 type SQL_INTERVAL_STRUCT as tagSQL_INTERVAL_STRUCT
-#define ODBCINT64 longint
+type ODBCINT64 as longint
 type SQLBIGINT as longint
 type SQLUBIGINT as ulongint
 const SQL_MAX_NUMERIC_LEN = 16

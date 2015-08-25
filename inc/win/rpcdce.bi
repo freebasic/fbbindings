@@ -128,7 +128,7 @@ end type
 
 type RPC_POLICY as _RPC_POLICY
 type PRPC_POLICY as _RPC_POLICY ptr
-#define RPC_MGR_EPV any
+type RPC_MGR_EPV as any
 
 type RPC_STATS_VECTOR
 	Count as ulong

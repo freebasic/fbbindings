@@ -90,21 +90,18 @@ type tagRASNOUSERA field = 4
 	szDomain as zstring * 15 + 1
 end type
 
-type RASNOUSERW as tagRASNOUSERW
-
 #ifdef UNICODE
 	type RASNOUSER as RASNOUSERW
-#endif
-
-type RASNOUSERA as tagRASNOUSERA
-
-#ifndef UNICODE
+#else
 	type RASNOUSER as RASNOUSERA
 #endif
 
-#define LPRASNOUSERW RASNOUSERW ptr
-#define LPRASNOUSERA RASNOUSERA ptr
-#define LPRASNOUSER RASNOUSER ptr
+type RASNOUSERW as tagRASNOUSERW
+type RASNOUSERA as tagRASNOUSERA
+type LPRASNOUSERW as RASNOUSERW ptr
+type LPRASNOUSERA as RASNOUSERA ptr
+type LPRASNOUSER as RASNOUSER ptr
+
 const RASPBDFLAG_PositionDlg = &h00000001
 const RASPBDFLAG_ForceCloseOnDial = &h00000002
 const RASPBDFLAG_NoUser = &h00000010
@@ -137,26 +134,18 @@ type tagRASPBDLGA field = 4
 end type
 
 #ifdef UNICODE
+	type RASPBDLG as RASPBDLGW
 	type RASPBDLGFUNC as RASPBDLGFUNCW
 #else
+	type RASPBDLG as RASPBDLGA
 	type RASPBDLGFUNC as RASPBDLGFUNCA
 #endif
 
 type RASPBDLGW as tagRASPBDLGW
-
-#ifdef UNICODE
-	type RASPBDLG as RASPBDLGW
-#endif
-
 type RASPBDLGA as tagRASPBDLGA
-
-#ifndef UNICODE
-	type RASPBDLG as RASPBDLGA
-#endif
-
-#define LPRASPBDLGW RASPBDLGW ptr
-#define LPRASPBDLGA RASPBDLGA ptr
-#define LPRASPBDLG RASPBDLG ptr
+type LPRASPBDLGW as RASPBDLGW ptr
+type LPRASPBDLGA as RASPBDLGA ptr
+type LPRASPBDLG as RASPBDLG ptr
 const RASEDFLAG_PositionDlg = &h00000001
 const RASEDFLAG_NewEntry = &h00000002
 
@@ -205,21 +194,18 @@ type tagRASENTRYDLGA field = 4
 	reserved2 as ULONG_PTR
 end type
 
-type RASENTRYDLGW as tagRASENTRYDLGW
-
 #ifdef UNICODE
 	type RASENTRYDLG as RASENTRYDLGW
-#endif
-
-type RASENTRYDLGA as tagRASENTRYDLGA
-
-#ifndef UNICODE
+#else
 	type RASENTRYDLG as RASENTRYDLGA
 #endif
 
-#define LPRASENTRYDLGW RASENTRYDLGW ptr
-#define LPRASENTRYDLGA RASENTRYDLGA ptr
-#define LPRASENTRYDLG RASENTRYDLG ptr
+type RASENTRYDLGW as tagRASENTRYDLGW
+type RASENTRYDLGA as tagRASENTRYDLGA
+type LPRASENTRYDLGW as RASENTRYDLGW ptr
+type LPRASENTRYDLGA as RASENTRYDLGA ptr
+type LPRASENTRYDLG as RASENTRYDLG ptr
+
 const RASDDFLAG_PositionDlg = &h00000001
 const RASDDFLAG_NoPrompt = &h00000002
 const RASDDFLAG_LinkFailure = &h80000000
@@ -237,7 +223,7 @@ type tagRASDIALDLG field = 4
 end type
 
 type RASDIALDLG as tagRASDIALDLG
-#define LPRASDIALDLG RASDIALDLG ptr
+type LPRASDIALDLG as RASDIALDLG ptr
 type RasCustomDialDlgFn as function(byval hInstDll as HINSTANCE, byval dwFlags as DWORD, byval lpszPhonebook as LPWSTR, byval lpszEntry as LPWSTR, byval lpszPhoneNumber as LPWSTR, byval lpInfo as tagRASDIALDLG ptr, byval pvInfo as PVOID) as WINBOOL
 
 #ifdef UNICODE

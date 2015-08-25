@@ -110,37 +110,53 @@ type LPSYSMOUSEA as SysMouseA ptr
 
 #ifdef UNICODE
 	extern IID_IDirectInput alias "IID_IDirectInputW" as const GUID
+	type IDirectInput as IDirectInputW
 	type LPDIRECTINPUT as LPDIRECTINPUTW
 	extern IID_IDirectInput2 alias "IID_IDirectInput2W" as const GUID
+	type IDirectInput2 as IDirectInput2W
 	type LPDIRECTINPUT2 as LPDIRECTINPUT2W
 	extern IID_IDirectInput7 alias "IID_IDirectInput7W" as const GUID
+	type IDirectInput7 as IDirectInput7W
 	type LPDIRECTINPUT7 as LPDIRECTINPUT7W
 	extern IID_IDirectInput8 alias "IID_IDirectInput8W" as const GUID
+	type IDirectInput8 as IDirectInput8W
 	type LPDIRECTINPUT8 as LPDIRECTINPUT8W
 	extern IID_IDirectInputDevice alias "IID_IDirectInputDeviceW" as const GUID
+	type IDirectInputDevice as IDirectInputDeviceW
 	type LPDIRECTINPUTDEVICE as LPDIRECTINPUTDEVICEW
 	extern IID_IDirectInputDevice2 alias "IID_IDirectInputDevice2W" as const GUID
+	type IDirectInputDevice2 as IDirectInputDevice2W
 	type LPDIRECTINPUTDEVICE2 as LPDIRECTINPUTDEVICE2W
 	extern IID_IDirectInputDevice7 alias "IID_IDirectInputDevice7W" as const GUID
+	type IDirectInputDevice7 as IDirectInputDevice7W
 	type LPDIRECTINPUTDEVICE7 as LPDIRECTINPUTDEVICE7W
 	extern IID_IDirectInputDevice8 alias "IID_IDirectInputDevice8W" as const GUID
+	type IDirectInputDevice8 as IDirectInputDevice8W
 	type LPDIRECTINPUTDEVICE8 as LPDIRECTINPUTDEVICE8W
 #else
 	extern IID_IDirectInput alias "IID_IDirectInputA" as const GUID
+	type IDirectInput as IDirectInputA
 	type LPDIRECTINPUT as LPDIRECTINPUTA
 	extern IID_IDirectInput2 alias "IID_IDirectInput2A" as const GUID
+	type IDirectInput2 as IDirectInput2A
 	type LPDIRECTINPUT2 as LPDIRECTINPUT2A
 	extern IID_IDirectInput7 alias "IID_IDirectInput7A" as const GUID
+	type IDirectInput7 as IDirectInput7A
 	type LPDIRECTINPUT7 as LPDIRECTINPUT7A
 	extern IID_IDirectInput8 alias "IID_IDirectInput8A" as const GUID
+	type IDirectInput8 as IDirectInput8A
 	type LPDIRECTINPUT8 as LPDIRECTINPUT8A
 	extern IID_IDirectInputDevice alias "IID_IDirectInputDeviceA" as const GUID
+	type IDirectInputDevice as IDirectInputDeviceA
 	type LPDIRECTINPUTDEVICE as LPDIRECTINPUTDEVICEA
 	extern IID_IDirectInputDevice2 alias "IID_IDirectInputDevice2A" as const GUID
+	type IDirectInputDevice2 as IDirectInputDevice2A
 	type LPDIRECTINPUTDEVICE2 as LPDIRECTINPUTDEVICE2A
 	extern IID_IDirectInputDevice7 alias "IID_IDirectInputDevice7A" as const GUID
+	type IDirectInputDevice7 as IDirectInputDevice7A
 	type LPDIRECTINPUTDEVICE7 as LPDIRECTINPUTDEVICE7A
 	extern IID_IDirectInputDevice8 alias "IID_IDirectInputDevice8A" as const GUID
+	type IDirectInputDevice8 as IDirectInputDevice8A
 	type LPDIRECTINPUTDEVICE8 as LPDIRECTINPUTDEVICE8A
 #endif
 
@@ -1547,10 +1563,6 @@ type IDirectInputDeviceA
 	lpVtbl as IDirectInputDeviceAVtbl ptr
 end type
 
-#ifndef UNICODE
-	type IDirectInputDevice as IDirectInputDeviceA
-#endif
-
 type IDirectInputDeviceAVtbl_
 	QueryInterface as function(byval This as IDirectInputDeviceA ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IDirectInputDeviceA ptr) as ULONG
@@ -1577,10 +1589,6 @@ type IDirectInputDeviceWVtbl as IDirectInputDeviceWVtbl_
 type IDirectInputDeviceW
 	lpVtbl as IDirectInputDeviceWVtbl ptr
 end type
-
-#ifdef UNICODE
-	type IDirectInputDevice as IDirectInputDeviceW
-#endif
 
 type IDirectInputDeviceWVtbl_
 	QueryInterface as function(byval This as IDirectInputDeviceW ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -1627,10 +1635,6 @@ type IDirectInputDevice2A
 	lpVtbl as IDirectInputDevice2AVtbl ptr
 end type
 
-#ifndef UNICODE
-	type IDirectInputDevice2 as IDirectInputDevice2A
-#endif
-
 type IDirectInputDevice2AVtbl_
 	QueryInterface as function(byval This as IDirectInputDevice2A ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IDirectInputDevice2A ptr) as ULONG
@@ -1666,10 +1670,6 @@ type IDirectInputDevice2WVtbl as IDirectInputDevice2WVtbl_
 type IDirectInputDevice2W
 	lpVtbl as IDirectInputDevice2WVtbl ptr
 end type
-
-#ifdef UNICODE
-	type IDirectInputDevice2 as IDirectInputDevice2W
-#endif
 
 type IDirectInputDevice2WVtbl_
 	QueryInterface as function(byval This as IDirectInputDevice2W ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -1734,10 +1734,6 @@ type IDirectInputDevice7A
 	lpVtbl as IDirectInputDevice7AVtbl ptr
 end type
 
-#ifndef UNICODE
-	type IDirectInputDevice7 as IDirectInputDevice7A
-#endif
-
 type IDirectInputDevice7AVtbl_
 	QueryInterface as function(byval This as IDirectInputDevice7A ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IDirectInputDevice7A ptr) as ULONG
@@ -1775,10 +1771,6 @@ type IDirectInputDevice7WVtbl as IDirectInputDevice7WVtbl_
 type IDirectInputDevice7W
 	lpVtbl as IDirectInputDevice7WVtbl ptr
 end type
-
-#ifdef UNICODE
-	type IDirectInputDevice7 as IDirectInputDevice7W
-#endif
 
 type IDirectInputDevice7WVtbl_
 	QueryInterface as function(byval This as IDirectInputDevice7W ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -1847,10 +1839,6 @@ type IDirectInputDevice8A
 	lpVtbl as IDirectInputDevice8AVtbl ptr
 end type
 
-#ifndef UNICODE
-	type IDirectInputDevice8 as IDirectInputDevice8A
-#endif
-
 type IDirectInputDevice8AVtbl_
 	QueryInterface as function(byval This as IDirectInputDevice8A ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IDirectInputDevice8A ptr) as ULONG
@@ -1891,10 +1879,6 @@ type IDirectInputDevice8WVtbl as IDirectInputDevice8WVtbl_
 type IDirectInputDevice8W
 	lpVtbl as IDirectInputDevice8WVtbl ptr
 end type
-
-#ifdef UNICODE
-	type IDirectInputDevice8 as IDirectInputDevice8W
-#endif
 
 type IDirectInputDevice8WVtbl_
 	QueryInterface as function(byval This as IDirectInputDevice8W ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -2001,10 +1985,6 @@ type IDirectInputA
 	lpVtbl as IDirectInputAVtbl ptr
 end type
 
-#ifndef UNICODE
-	type IDirectInput as IDirectInputA
-#endif
-
 type IDirectInputAVtbl_
 	QueryInterface as function(byval This as IDirectInputA ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IDirectInputA ptr) as ULONG
@@ -2021,10 +2001,6 @@ type IDirectInputWVtbl as IDirectInputWVtbl_
 type IDirectInputW
 	lpVtbl as IDirectInputWVtbl ptr
 end type
-
-#ifdef UNICODE
-	type IDirectInput as IDirectInputW
-#endif
 
 type IDirectInputWVtbl_
 	QueryInterface as function(byval This as IDirectInputW ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -2051,10 +2027,6 @@ type IDirectInput2A
 	lpVtbl as IDirectInput2AVtbl ptr
 end type
 
-#ifndef UNICODE
-	type IDirectInput2 as IDirectInput2A
-#endif
-
 type IDirectInput2AVtbl_
 	QueryInterface as function(byval This as IDirectInput2A ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IDirectInput2A ptr) as ULONG
@@ -2072,10 +2044,6 @@ type IDirectInput2WVtbl as IDirectInput2WVtbl_
 type IDirectInput2W
 	lpVtbl as IDirectInput2WVtbl ptr
 end type
-
-#ifdef UNICODE
-	type IDirectInput2 as IDirectInput2W
-#endif
 
 type IDirectInput2WVtbl_
 	QueryInterface as function(byval This as IDirectInput2W ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -2104,10 +2072,6 @@ type IDirectInput7A
 	lpVtbl as IDirectInput7AVtbl ptr
 end type
 
-#ifndef UNICODE
-	type IDirectInput7 as IDirectInput7A
-#endif
-
 type IDirectInput7AVtbl_
 	QueryInterface as function(byval This as IDirectInput7A ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IDirectInput7A ptr) as ULONG
@@ -2126,10 +2090,6 @@ type IDirectInput7WVtbl as IDirectInput7WVtbl_
 type IDirectInput7W
 	lpVtbl as IDirectInput7WVtbl ptr
 end type
-
-#ifdef UNICODE
-	type IDirectInput7 as IDirectInput7W
-#endif
 
 type IDirectInput7WVtbl_
 	QueryInterface as function(byval This as IDirectInput7W ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -2160,10 +2120,6 @@ type IDirectInput8A
 	lpVtbl as IDirectInput8AVtbl ptr
 end type
 
-#ifndef UNICODE
-	type IDirectInput8 as IDirectInput8A
-#endif
-
 type IDirectInput8AVtbl_
 	QueryInterface as function(byval This as IDirectInput8A ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
 	AddRef as function(byval This as IDirectInput8A ptr) as ULONG
@@ -2183,10 +2139,6 @@ type IDirectInput8WVtbl as IDirectInput8WVtbl_
 type IDirectInput8W
 	lpVtbl as IDirectInput8WVtbl ptr
 end type
-
-#ifdef UNICODE
-	type IDirectInput8 as IDirectInput8W
-#endif
 
 type IDirectInput8WVtbl_
 	QueryInterface as function(byval This as IDirectInput8W ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT

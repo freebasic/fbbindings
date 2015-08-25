@@ -26,6 +26,13 @@
 #endif
 
 #define _PSAPI_H_
+
+#ifdef UNICODE
+	type PENUM_PAGE_FILE_CALLBACK as PENUM_PAGE_FILE_CALLBACKW
+#else
+	type PENUM_PAGE_FILE_CALLBACK as PENUM_PAGE_FILE_CALLBACKA
+#endif
+
 const LIST_MODULES_DEFAULT = &h0
 const LIST_MODULES_32BIT = &h01
 const LIST_MODULES_64BIT = &h02
@@ -184,17 +191,7 @@ end type
 type ENUM_PAGE_FILE_INFORMATION as _ENUM_PAGE_FILE_INFORMATION
 type PENUM_PAGE_FILE_INFORMATION as _ENUM_PAGE_FILE_INFORMATION ptr
 type PENUM_PAGE_FILE_CALLBACKW as function cdecl(byval pContext as LPVOID, byval pPageFileInfo as PENUM_PAGE_FILE_INFORMATION, byval lpFilename as LPCWSTR) as WINBOOL
-
-#ifdef UNICODE
-	type PENUM_PAGE_FILE_CALLBACK as PENUM_PAGE_FILE_CALLBACKW
-#endif
-
 type PENUM_PAGE_FILE_CALLBACKA as function cdecl(byval pContext as LPVOID, byval pPageFileInfo as PENUM_PAGE_FILE_INFORMATION, byval lpFilename as LPCSTR) as WINBOOL
-
-#ifndef UNICODE
-	type PENUM_PAGE_FILE_CALLBACK as PENUM_PAGE_FILE_CALLBACKA
-#endif
-
 declare function EnumPageFilesW(byval pCallBackRoutine as PENUM_PAGE_FILE_CALLBACKW, byval pContext as LPVOID) as WINBOOL
 
 #ifdef UNICODE

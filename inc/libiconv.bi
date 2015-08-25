@@ -43,8 +43,8 @@ const _LIBICONV_VERSION_ = &h010E
 #endif
 
 #undef iconv_t
-type libiconv_t as any ptr
 type iconv_t as libiconv_t
+type libiconv_t as any ptr
 declare function libiconv_open(byval tocode as const zstring ptr, byval fromcode as const zstring ptr) as libiconv_t
 declare function iconv_open alias "libiconv_open"(byval tocode as const zstring ptr, byval fromcode as const zstring ptr) as libiconv_t
 declare function libiconv(byval cd as libiconv_t, byval inbuf as const zstring ptr ptr, byval inbytesleft as uinteger ptr, byval outbuf as zstring ptr ptr, byval outbytesleft as uinteger ptr) as uinteger

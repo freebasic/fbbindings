@@ -378,8 +378,10 @@ const NI_DGRAM = &h10
 
 #if defined(UNICODE) and (_WIN32_WINNT = &h0602)
 	#define addrinfoEx addrinfoExW
+	type PADDRINFOEX as PADDRINFOEXW
 #elseif (not defined(UNICODE)) and (_WIN32_WINNT = &h0602)
 	#define addrinfoEx addrinfoExA
+	type PADDRINFOEX as PADDRINFOEXA
 #endif
 
 #if _WIN32_WINNT = &h0602
@@ -398,13 +400,7 @@ const NI_DGRAM = &h10
 	end type
 
 	type PADDRINFOEXA as ADDRINFOEXA ptr
-#endif
 
-#if (not defined(UNICODE)) and (_WIN32_WINNT = &h0602)
-	type PADDRINFOEX as PADDRINFOEXA
-#endif
-
-#if _WIN32_WINNT = &h0602
 	type ADDRINFOEXW
 		ai_flags as long
 		ai_family as long
@@ -420,13 +416,6 @@ const NI_DGRAM = &h10
 	end type
 
 	type PADDRINFOEXW as ADDRINFOEXW ptr
-#endif
-
-#if defined(UNICODE) and (_WIN32_WINNT = &h0602)
-	type PADDRINFOEX as PADDRINFOEXW
-#endif
-
-#if _WIN32_WINNT = &h0602
 	type LPLOOKUPSERVICE_COMPLETION_ROUTINE as PVOID
 #endif
 

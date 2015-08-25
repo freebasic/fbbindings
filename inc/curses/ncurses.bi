@@ -70,21 +70,21 @@ const NCURSES_MOUSE_VERSION = 1
 const NCURSES_DLL_H_incl = 1
 #undef NCURSES_DLL
 const NCURSES_ENABLE_STDBOOL_H = 1
-#define NCURSES_ATTR_T long
+type NCURSES_ATTR_T as long
 #undef NCURSES_COLOR_T
-#define NCURSES_COLOR_T short
+type NCURSES_COLOR_T as short
 const NCURSES_OPAQUE = 0
 const NCURSES_REENTRANT = 0
 #undef NCURSES_INTEROP_FUNCS
 const NCURSES_INTEROP_FUNCS = 0
 #undef NCURSES_SIZE_T
-#define NCURSES_SIZE_T short
+type NCURSES_SIZE_T as short
 #undef NCURSES_TPARM_VARARGS
 const NCURSES_TPARM_VARARGS = 1
 #undef NCURSES_CH_T
 
-type chtype as culong
 type NCURSES_CH_T as chtype
+type chtype as culong
 type mmask_t as culong
 #undef NCURSES_WIDECHAR
 #undef CTRUE

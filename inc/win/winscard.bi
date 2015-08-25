@@ -395,18 +395,15 @@ const SC_DLG_NO_UI = &h02
 const SC_DLG_FORCE_UI = &h04
 const SCERR_NOCARDNAME = &h4000
 const SCERR_NOGUIDS = &h8000
-type LPOCNCONNPROCA as function(byval as SCARDCONTEXT, byval as LPSTR, byval as LPSTR, byval as PVOID) as SCARDHANDLE
-
-#ifndef UNICODE
-	type LPOCNCONNPROC as LPOCNCONNPROCA
-#endif
-
-type LPOCNCONNPROCW as function(byval as SCARDCONTEXT, byval as LPWSTR, byval as LPWSTR, byval as PVOID) as SCARDHANDLE
 
 #ifdef UNICODE
 	type LPOCNCONNPROC as LPOCNCONNPROCW
+#else
+	type LPOCNCONNPROC as LPOCNCONNPROCA
 #endif
 
+type LPOCNCONNPROCA as function(byval as SCARDCONTEXT, byval as LPSTR, byval as LPSTR, byval as PVOID) as SCARDHANDLE
+type LPOCNCONNPROCW as function(byval as SCARDCONTEXT, byval as LPWSTR, byval as LPWSTR, byval as PVOID) as SCARDHANDLE
 type LPOCNCHKPROC as function(byval as SCARDCONTEXT, byval as SCARDHANDLE, byval as PVOID) as WINBOOL
 type LPOCNDSCPROC as sub(byval as SCARDCONTEXT, byval as SCARDHANDLE, byval as PVOID)
 

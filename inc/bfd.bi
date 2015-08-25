@@ -86,8 +86,8 @@ const BFD_HOST_64BIT_LONG = 0
 	const BFD_HOST_LONG_LONG = 1
 #endif
 
-#define BFD_HOST_64_BIT longint
-#define BFD_HOST_U_64_BIT ulongint
+type BFD_HOST_64_BIT as longint
+type BFD_HOST_U_64_BIT as ulongint
 type bfd_int64_t as longint
 type bfd_uint64_t as ulongint
 

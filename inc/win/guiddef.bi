@@ -74,16 +74,16 @@ type CLSID as GUID
 type LPCLSID as CLSID ptr
 type FMTID as GUID
 type LPFMTID as FMTID ptr
-
 #define IsEqualFMTID(rfmtid1, rfmtid2) IsEqualGUID(rfmtid1, rfmtid2)
 #define _REFGUID_DEFINED
-#define REFGUID const GUID const ptr
+type REFGUID as const GUID const ptr
 #define _REFIID_DEFINED
-#define REFIID const IID const ptr
+type REFIID as const IID const ptr
 #define _REFCLSID_DEFINED
-#define REFCLSID const IID const ptr
+type REFCLSID as const IID const ptr
 #define _REFFMTID_DEFINED
-#define REFFMTID const IID const ptr
+type REFFMTID as const IID const ptr
+
 #define _SYS_GUID_OPERATORS_
 #define InlineIsEqualGUID(rguid1, rguid2) (((((@(rguid1)->Data1)[0] = (@(rguid2)->Data1)[0]) andalso ((@(rguid1)->Data1)[1] = (@(rguid2)->Data1)[1])) andalso ((@(rguid1)->Data1)[2] = (@(rguid2)->Data1)[2])) andalso ((@(rguid1)->Data1)[3] = (@(rguid2)->Data1)[3]))
 #define IsEqualGUID(rguid1, rguid2) (memcmp(rguid1, rguid2, sizeof(GUID)) = 0)

@@ -65,8 +65,8 @@ type z_crc_t as culong
 const SEEK_SET = 0
 const SEEK_CUR = 1
 const SEEK_END = 2
-#define z_off_t clong
-#define z_off64_t z_off_t
+type z_off_t as clong
+type z_off64_t as z_off_t
 #define ZLIB_VERSION "1.2.8"
 const ZLIB_VERNUM = &h1280
 const ZLIB_VER_MAJOR = 1

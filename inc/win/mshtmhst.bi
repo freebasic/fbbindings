@@ -387,11 +387,11 @@ declare function IDocHostShowUI_ShowMessage_Proxy(byval This as IDocHostShowUI p
 declare sub IDocHostShowUI_ShowMessage_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function IDocHostShowUI_ShowHelp_Proxy(byval This as IDocHostShowUI ptr, byval hwnd as HWND, byval pszHelpFile as LPOLESTR, byval uCommand as UINT, byval dwData as DWORD, byval ptMouse as POINT, byval pDispatchObjectHit as IDispatch ptr) as HRESULT
 declare sub IDocHostShowUI_ShowHelp_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
+type IClassFactory3 as IClassFactoryEx
 #define __IClassFactoryEx_INTERFACE_DEFINED__
 extern IID_IClassFactoryEx as const GUID
 extern IID_IClassFactory3 alias "IID_IClassFactoryEx" as const GUID
 type IClassFactoryEx as IClassFactoryEx_
-type IClassFactory3 as IClassFactoryEx
 
 type IClassFactoryExVtbl
 	QueryInterface as function(byval This as IClassFactoryEx ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT

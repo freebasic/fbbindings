@@ -771,7 +771,7 @@ type IAVIPersistFileVtbl_
 end type
 
 type PAVIPERSISTFILE as IAVIPersistFile ptr
-#define PAVIFILE IAVIFile ptr
+type PAVIFILE as IAVIFile ptr
 type IAVIFileVtbl as IAVIFileVtbl_
 
 type IAVIFile
@@ -793,7 +793,7 @@ end type
 
 #undef PAVIFILE
 type PAVIFILE as IAVIFile ptr
-#define PGETFRAME IGetFrame ptr
+type PGETFRAME as IGetFrame ptr
 type IGetFrameVtbl as IGetFrameVtbl_
 
 type IGetFrame

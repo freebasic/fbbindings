@@ -96,7 +96,7 @@ const SYSTEM_CACHE_ALIGNMENT_SIZE = 64
 const PRAGMA_DEPRECATED_DDK = 0
 type PVOID as any ptr
 type PVOID64 as any ptr
-#define VOID any
+type VOID as any
 type CHAR as byte
 type INT_ as long
 #define __WCHAR_DEFINED
