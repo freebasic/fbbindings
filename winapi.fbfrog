@@ -665,18 +665,20 @@
 -ifndefdecl FALSE
 
 # Conflicts with crt/string.bi
--ifndefdecl StrCat
--ifndefdecl StrChr
--ifndefdecl StrCmp
--ifndefdecl StrCpy
--ifndefdecl StrCSpn
--ifndefdecl StrNCat
--ifndefdecl StrNCmp
--ifndefdecl StrNCpy
--ifndefdecl StrPBrk
--ifndefdecl StrRChr
--ifndefdecl StrSpn
--ifndefdecl StrStr
+# Preferring #undefs over #ifndefs because after an #include you expect to get
+# that #include's API.
+-undefbeforedecl StrCat
+-undefbeforedecl StrChr
+-undefbeforedecl StrCmp
+-undefbeforedecl StrCpy
+-undefbeforedecl StrCSpn
+-undefbeforedecl StrNCat
+-undefbeforedecl StrNCmp
+-undefbeforedecl StrNCpy
+-undefbeforedecl StrPBrk
+-undefbeforedecl StrRChr
+-undefbeforedecl StrSpn
+-undefbeforedecl StrStr
 
 # Boolean already is FB's built-in boolean type. At least winapi's BOOLEAN is
 # a ubyte, so it's mostly compatible anyways, but...
