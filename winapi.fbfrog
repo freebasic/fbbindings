@@ -664,6 +664,20 @@
 -ifndefdecl CTRUE
 -ifndefdecl FALSE
 
+# Conflicts with crt/string.bi
+-ifndefdecl StrCat
+-ifndefdecl StrChr
+-ifndefdecl StrCmp
+-ifndefdecl StrCpy
+-ifndefdecl StrCSpn
+-ifndefdecl StrNCat
+-ifndefdecl StrNCmp
+-ifndefdecl StrNCpy
+-ifndefdecl StrPBrk
+-ifndefdecl StrRChr
+-ifndefdecl StrSpn
+-ifndefdecl StrStr
+
 # Boolean already is FB's built-in boolean type. At least winapi's BOOLEAN is
 # a ubyte, so it's mostly compatible anyways, but...
 # 1. we provide WINBOOLEAN to allow using winapi's BOOLEAN next to FB's boolean
