@@ -658,6 +658,7 @@
 -remove2nd POLICY_AUDIT_EVENT_SUCCESS
 -remove2nd POLICY_AUDIT_EVENT_FAILURE
 -remove2nd POLICY_AUDIT_EVENT_NONE
+-remove2nd StrCatBuff
 
 -rename TRUE CTRUE
 -ifndefdecl NULL

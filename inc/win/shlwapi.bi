@@ -339,13 +339,6 @@ declare function StrCpyNA alias "lstrcpynA"(byval lpString1 as LPSTR, byval lpSt
 
 #undef StrNCpy
 #define StrCatN StrNCat
-
-#ifdef UNICODE
-	declare function StrCatBuff alias "StrCatBuffW"(byval pszDest as LPWSTR, byval pszSrc as LPCWSTR, byval cchDestBuffSize as long) as LPWSTR
-#else
-	declare function StrCatBuff alias "StrCatBuffA"(byval pszDest as LPSTR, byval pszSrc as LPCSTR, byval cchDestBuffSize as long) as LPSTR
-#endif
-
 #undef StrCat
 
 #ifdef UNICODE
