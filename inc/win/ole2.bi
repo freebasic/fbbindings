@@ -50,7 +50,6 @@
 
 #inclib "ole32"
 
-#include once "crt/long.bi"
 #include once "winapifamily.bi"
 #include once "winerror.bi"
 #include once "objbase.bi"
@@ -66,17 +65,17 @@
 #define _OLE2_H_
 #define E_DRAW VIEW_E_DRAW
 #define DATA_E_FORMATETC DV_E_FORMATETC
-const OLEIVERB_PRIMARY = cast(clong, 0)
-const OLEIVERB_SHOW = -cast(clong, 1)
-const OLEIVERB_OPEN = -cast(clong, 2)
-const OLEIVERB_HIDE = -cast(clong, 3)
-const OLEIVERB_UIACTIVATE = -cast(clong, 4)
-const OLEIVERB_INPLACEACTIVATE = -cast(clong, 5)
-const OLEIVERB_DISCARDUNDOSTATE = -cast(clong, 6)
-const EMBDHLP_INPROC_HANDLER = cast(clong, &h0000)
-const EMBDHLP_INPROC_SERVER = cast(clong, &h0001)
-const EMBDHLP_CREATENOW = cast(clong, &h00000000)
-const EMBDHLP_DELAYCREATE = cast(clong, &h00010000)
+const OLEIVERB_PRIMARY = 0
+const OLEIVERB_SHOW = -1
+const OLEIVERB_OPEN = -2
+const OLEIVERB_HIDE = -3
+const OLEIVERB_UIACTIVATE = -4
+const OLEIVERB_INPLACEACTIVATE = -5
+const OLEIVERB_DISCARDUNDOSTATE = -6
+const EMBDHLP_INPROC_HANDLER = &h0000
+const EMBDHLP_INPROC_SERVER = &h0001
+const EMBDHLP_CREATENOW = &h00000000
+const EMBDHLP_DELAYCREATE = &h00010000
 const OLECREATE_LEAVERUNNING = &h1
 
 declare function OleBuildVersion() as DWORD

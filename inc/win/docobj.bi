@@ -50,7 +50,6 @@
 
 #inclib "uuid"
 
-#include once "crt/long.bi"
 #include once "rpc.bi"
 #include once "rpcndr.bi"
 #include once "windows.bi"
@@ -316,7 +315,7 @@ type tagPAGESET
 end type
 
 type PAGESET as tagPAGESET
-const PAGESET_TOLASTPAGE = cast(WORD, -cast(clong, 1))
+const PAGESET_TOLASTPAGE = cast(WORD, -1)
 extern IID_IPrint as const GUID
 
 type IPrintVtbl

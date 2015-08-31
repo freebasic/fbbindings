@@ -25,7 +25,6 @@
 #inclib "ddraw"
 #inclib "dxguid"
 
-#include once "crt/long.bi"
 #include once "objbase.bi"
 #include once "_mingw_dxhelper.bi"
 
@@ -237,10 +236,10 @@ const DDFLIP_INTERVAL3 = &h03000000
 const DDFLIP_INTERVAL4 = &h04000000
 const DDGBS_CANBLT = &h00000001
 const DDGBS_ISBLTDONE = &h00000002
-const DDGFS_CANFLIP = cast(clong, 1)
-const DDGFS_ISFLIPDONE = cast(clong, 2)
-const DDSPD_IUNKNOWNPOINTER = cast(clong, 1)
-const DDSPD_VOLATILE = cast(clong, 2)
+const DDGFS_CANFLIP = 1
+const DDGFS_ISFLIPDONE = 2
+const DDSPD_IUNKNOWNPOINTER = 1
+const DDSPD_VOLATILE = 2
 const DDSCAPS_RESERVED1 = &h00000001
 const DDSCAPS_ALPHA = &h00000002
 const DDSCAPS_BACKBUFFER = &h00000004
@@ -1046,8 +1045,8 @@ type LPDIRECTDRAWENUMERATEEXW as function(byval lpCallback as LPDDENUMCALLBACKEX
 const DDENUM_ATTACHEDSECONDARYDEVICES = &h00000001
 const DDENUM_DETACHEDSECONDARYDEVICES = &h00000002
 const DDENUM_NONDISPLAYDEVICES = &h00000004
-const DDCREATE_HARDWAREONLY = cast(clong, 1)
-const DDCREATE_EMULATIONONLY = cast(clong, 2)
+const DDCREATE_HARDWAREONLY = 1
+const DDCREATE_EMULATIONONLY = 2
 
 type _DDBLTFX
 	dwSize as DWORD

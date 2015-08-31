@@ -50,7 +50,6 @@
 
 #inclib "ole32"
 
-#include once "crt/long.bi"
 #include once "winapifamily.bi"
 
 #ifdef __FB_64BIT__
@@ -61,9 +60,9 @@
 
 #define _INC_OLE
 type OLE_LPCSTR as LPCSTR
-const OT_LINK = cast(clong, 1)
-const OT_EMBEDDED = cast(clong, 2)
-const OT_STATIC = cast(clong, 3)
+const OT_LINK = 1
+const OT_EMBEDDED = 2
+const OT_STATIC = 3
 const OLEVERB_PRIMARY = 0
 
 type _OLETARGETDEVICE

@@ -15,7 +15,6 @@
 
 #pragma once
 
-#include once "crt/long.bi"
 #include once "basetsd.bi"
 #include once "rpcnsip.bi"
 #include once "rpcsal.bi"
@@ -32,17 +31,17 @@
 
 const __RPCNDR_H_VERSION__ = 475
 #define __RPCNDR_H__
-const NDR_CHAR_REP_MASK = cast(culong, &h0000000F)
-const NDR_INT_REP_MASK = cast(culong, &h000000F0)
-const NDR_FLOAT_REP_MASK = cast(culong, &h0000FF00)
-const NDR_LITTLE_ENDIAN = cast(culong, &h00000010)
-const NDR_BIG_ENDIAN = cast(culong, &h00000000)
-const NDR_IEEE_FLOAT = cast(culong, &h00000000)
-const NDR_VAX_FLOAT = cast(culong, &h00000100)
-const NDR_IBM_FLOAT = cast(culong, &h00000300)
-const NDR_ASCII_CHAR = cast(culong, &h00000000)
-const NDR_EBCDIC_CHAR = cast(culong, &h00000001)
-const NDR_LOCAL_DATA_REPRESENTATION = cast(culong, &h00000010)
+const NDR_CHAR_REP_MASK = &h0000000Fu
+const NDR_INT_REP_MASK = &h000000F0u
+const NDR_FLOAT_REP_MASK = &h0000FF00u
+const NDR_LITTLE_ENDIAN = &h00000010u
+const NDR_BIG_ENDIAN = &h00000000u
+const NDR_IEEE_FLOAT = &h00000000u
+const NDR_VAX_FLOAT = &h00000100u
+const NDR_IBM_FLOAT = &h00000300u
+const NDR_ASCII_CHAR = &h00000000u
+const NDR_EBCDIC_CHAR = &h00000001u
+const NDR_LOCAL_DATA_REPRESENTATION = &h00000010u
 const NDR_LOCAL_ENDIAN = NDR_LITTLE_ENDIAN
 
 #if _WIN32_WINNT = &h0602

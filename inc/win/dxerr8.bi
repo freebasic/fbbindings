@@ -24,7 +24,6 @@
 
 #inclib "dxerr8"
 
-#include once "crt/long.bi"
 #include once "_mingw_unicode.bi"
 
 #ifdef __FB_64BIT__
@@ -61,7 +60,7 @@ declare function DXTraceW(byval strFile as const zstring ptr, byval dwLine as DW
 	#define DXTrace DXTraceA
 #endif
 
-#define DXTRACE_MSG(str) cast(clong, 0)
+#define DXTRACE_MSG(str) 0
 #define DXTRACE_ERR(str, hr) (hr)
 #define DXTRACE_ERR_NOMSGBOX(str, hr) (hr)
 

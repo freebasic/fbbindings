@@ -48,7 +48,6 @@
 
 #pragma once
 
-#include once "crt/long.bi"
 #include once "rpc.bi"
 #include once "rpcndr.bi"
 #include once "windows.bi"
@@ -970,45 +969,45 @@ enum
 end enum
 
 type SHCONTF as DWORD
-const SHCIDS_ALLFIELDS = cast(clong, &h80000000)
-const SHCIDS_CANONICALONLY = cast(clong, &h10000000)
-const SHCIDS_BITMASK = cast(clong, &hffff0000)
-const SHCIDS_COLUMNMASK = cast(clong, &h0000ffff)
+const SHCIDS_ALLFIELDS = &h80000000
+const SHCIDS_CANONICALONLY = &h10000000
+const SHCIDS_BITMASK = &hffff0000
+const SHCIDS_COLUMNMASK = &h0000ffff
 const SFGAO_CANCOPY = DROPEFFECT_COPY
 const SFGAO_CANMOVE = DROPEFFECT_MOVE
 const SFGAO_CANLINK = DROPEFFECT_LINK
-const SFGAO_STORAGE = cast(clong, &h8)
-const SFGAO_CANRENAME = cast(clong, &h10)
-const SFGAO_CANDELETE = cast(clong, &h20)
-const SFGAO_HASPROPSHEET = cast(clong, &h40)
-const SFGAO_DROPTARGET = cast(clong, &h100)
-const SFGAO_CAPABILITYMASK = cast(clong, &h177)
-const SFGAO_SYSTEM = cast(clong, &h1000)
-const SFGAO_ENCRYPTED = cast(clong, &h2000)
-const SFGAO_ISSLOW = cast(clong, &h4000)
-const SFGAO_GHOSTED = cast(clong, &h8000)
-const SFGAO_LINK = cast(clong, &h10000)
-const SFGAO_SHARE = cast(clong, &h20000)
-const SFGAO_READONLY = cast(clong, &h40000)
-const SFGAO_HIDDEN = cast(clong, &h80000)
-const SFGAO_DISPLAYATTRMASK = cast(clong, &hfc000)
-const SFGAO_FILESYSANCESTOR = cast(clong, &h10000000)
-const SFGAO_FOLDER = cast(clong, &h20000000)
-const SFGAO_FILESYSTEM = cast(clong, &h40000000)
-const SFGAO_HASSUBFOLDER = cast(clong, &h80000000)
-const SFGAO_CONTENTSMASK = cast(clong, &h80000000)
-const SFGAO_VALIDATE = cast(clong, &h1000000)
-const SFGAO_REMOVABLE = cast(clong, &h2000000)
-const SFGAO_COMPRESSED = cast(clong, &h4000000)
-const SFGAO_BROWSABLE = cast(clong, &h8000000)
-const SFGAO_NONENUMERATED = cast(clong, &h100000)
-const SFGAO_NEWCONTENT = cast(clong, &h200000)
-const SFGAO_CANMONIKER = cast(clong, &h400000)
-const SFGAO_HASSTORAGE = cast(clong, &h400000)
-const SFGAO_STREAM = cast(clong, &h400000)
-const SFGAO_STORAGEANCESTOR = cast(clong, &h00800000)
-const SFGAO_STORAGECAPMASK = cast(clong, &h70c50008)
-const SFGAO_PKEYSFGAOMASK = cast(clong, &h81044000)
+const SFGAO_STORAGE = &h8
+const SFGAO_CANRENAME = &h10
+const SFGAO_CANDELETE = &h20
+const SFGAO_HASPROPSHEET = &h40
+const SFGAO_DROPTARGET = &h100
+const SFGAO_CAPABILITYMASK = &h177
+const SFGAO_SYSTEM = &h1000
+const SFGAO_ENCRYPTED = &h2000
+const SFGAO_ISSLOW = &h4000
+const SFGAO_GHOSTED = &h8000
+const SFGAO_LINK = &h10000
+const SFGAO_SHARE = &h20000
+const SFGAO_READONLY = &h40000
+const SFGAO_HIDDEN = &h80000
+const SFGAO_DISPLAYATTRMASK = &hfc000
+const SFGAO_FILESYSANCESTOR = &h10000000
+const SFGAO_FOLDER = &h20000000
+const SFGAO_FILESYSTEM = &h40000000
+const SFGAO_HASSUBFOLDER = &h80000000
+const SFGAO_CONTENTSMASK = &h80000000
+const SFGAO_VALIDATE = &h1000000
+const SFGAO_REMOVABLE = &h2000000
+const SFGAO_COMPRESSED = &h4000000
+const SFGAO_BROWSABLE = &h8000000
+const SFGAO_NONENUMERATED = &h100000
+const SFGAO_NEWCONTENT = &h200000
+const SFGAO_CANMONIKER = &h400000
+const SFGAO_HASSTORAGE = &h400000
+const SFGAO_STREAM = &h400000
+const SFGAO_STORAGEANCESTOR = &h00800000
+const SFGAO_STORAGECAPMASK = &h70c50008
+const SFGAO_PKEYSFGAOMASK = &h81044000
 type SFGAOF as ULONG
 #define STR_BIND_FORCE_FOLDER_SHORTCUT_RESOLVE wstr("Force Folder Shortcut Resolve")
 #define STR_AVOID_DRIVE_RESTRICTION_POLICY wstr("Avoid Drive Restriction Policy")
@@ -8750,10 +8749,10 @@ declare sub INameSpaceTreeControlCustomDraw_ItemPostPaint_Stub(byval This as IRp
 	declare sub INameSpaceTreeControlFolderCapabilities_GetFolderCapabilities_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 #endif
 
-#define E_PREVIEWHANDLER_DRM_FAIL _HRESULT_TYPEDEF_(cast(clong, &h86420001))
-#define E_PREVIEWHANDLER_NOAUTH _HRESULT_TYPEDEF_(cast(clong, &h86420002))
-#define E_PREVIEWHANDLER_NOTFOUND _HRESULT_TYPEDEF_(cast(clong, &h86420003))
-#define E_PREVIEWHANDLER_CORRUPT _HRESULT_TYPEDEF_(cast(clong, &h86420004))
+#define E_PREVIEWHANDLER_DRM_FAIL _HRESULT_TYPEDEF_(&h86420001)
+#define E_PREVIEWHANDLER_NOAUTH _HRESULT_TYPEDEF_(&h86420002)
+#define E_PREVIEWHANDLER_NOTFOUND _HRESULT_TYPEDEF_(&h86420003)
+#define E_PREVIEWHANDLER_CORRUPT _HRESULT_TYPEDEF_(&h86420004)
 #define __IPreviewHandler_INTERFACE_DEFINED__
 extern IID_IPreviewHandler as const GUID
 type IPreviewHandler as IPreviewHandler_

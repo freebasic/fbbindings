@@ -20,7 +20,6 @@
 #inclib "uuid"
 #inclib "vfw32"
 
-#include once "crt/long.bi"
 #include once "_mingw_unicode.bi"
 #include once "mmreg.bi"
 #include once "ole2.bi"
@@ -46,34 +45,34 @@ end type
 type HIC as HIC__ ptr
 const BI_1632 = &h32333631
 #define aviTWOCC(ch0, ch1) (cast(WORD, cast(UBYTE, (ch0))) or (cast(WORD, cast(UBYTE, (ch1))) shl 8))
-const ICERR_OK = cast(clong, 0)
-const ICERR_DONTDRAW = cast(clong, 1)
-const ICERR_NEWPALETTE = cast(clong, 2)
-const ICERR_GOTOKEYFRAME = cast(clong, 3)
-const ICERR_STOPDRAWING = cast(clong, 4)
-const ICERR_UNSUPPORTED = -cast(clong, 1)
-const ICERR_BADFORMAT = -cast(clong, 2)
-const ICERR_MEMORY = -cast(clong, 3)
-const ICERR_INTERNAL = -cast(clong, 4)
-const ICERR_BADFLAGS = -cast(clong, 5)
-const ICERR_BADPARAM = -cast(clong, 6)
-const ICERR_BADSIZE = -cast(clong, 7)
-const ICERR_BADHANDLE = -cast(clong, 8)
-const ICERR_CANTUPDATE = -cast(clong, 9)
-const ICERR_ABORT = -cast(clong, 10)
-const ICERR_ERROR = -cast(clong, 100)
-const ICERR_BADBITDEPTH = -cast(clong, 200)
-const ICERR_BADIMAGESIZE = -cast(clong, 201)
-const ICERR_CUSTOM = -cast(clong, 400)
+const ICERR_OK = 0
+const ICERR_DONTDRAW = 1
+const ICERR_NEWPALETTE = 2
+const ICERR_GOTOKEYFRAME = 3
+const ICERR_STOPDRAWING = 4
+const ICERR_UNSUPPORTED = -1
+const ICERR_BADFORMAT = -2
+const ICERR_MEMORY = -3
+const ICERR_INTERNAL = -4
+const ICERR_BADFLAGS = -5
+const ICERR_BADPARAM = -6
+const ICERR_BADSIZE = -7
+const ICERR_BADHANDLE = -8
+const ICERR_CANTUPDATE = -9
+const ICERR_ABORT = -10
+const ICERR_ERROR = -100
+const ICERR_BADBITDEPTH = -200
+const ICERR_BADIMAGESIZE = -201
+const ICERR_CUSTOM = -400
 const ICMODE_COMPRESS = 1
 const ICMODE_DECOMPRESS = 2
 const ICMODE_FASTDECOMPRESS = 3
 const ICMODE_QUERY = 4
 const ICMODE_FASTCOMPRESS = 5
 const ICMODE_DRAW = 8
-const AVIIF_LIST = cast(clong, &h00000001)
-const AVIIF_TWOCC = cast(clong, &h00000002)
-const AVIIF_KEYFRAME = cast(clong, &h00000010)
+const AVIIF_LIST = &h00000001
+const AVIIF_TWOCC = &h00000002
+const AVIIF_KEYFRAME = &h00000010
 const ICQUALITY_LOW = 0
 const ICQUALITY_HIGH = 10000
 const ICQUALITY_DEFAULT = -1
@@ -172,7 +171,7 @@ const VIDCF_FASTTEMPORALC = &h0020
 const VIDCF_QUALITYTIME = &h0040
 const VIDCF_FASTTEMPORALD = &h0080
 const VIDCF_FASTTEMPORAL = VIDCF_FASTTEMPORALC or VIDCF_FASTTEMPORALD
-const ICCOMPRESS_KEYFRAME = cast(clong, &h00000001)
+const ICCOMPRESS_KEYFRAME = &h00000001
 
 type ICCOMPRESS
 	dwFlags as DWORD
@@ -222,11 +221,11 @@ type ICSETSTATUSPROC
 	Status as function(byval lParam as LPARAM, byval message as UINT, byval l as LONG) as LONG
 end type
 
-const ICDECOMPRESS_HURRYUP = cast(clong, &h80000000)
-const ICDECOMPRESS_UPDATE = cast(clong, &h40000000)
-const ICDECOMPRESS_PREROLL = cast(clong, &h20000000)
-const ICDECOMPRESS_NULLFRAME = cast(clong, &h10000000)
-const ICDECOMPRESS_NOTKEYFRAME = cast(clong, &h08000000)
+const ICDECOMPRESS_HURRYUP = &h80000000
+const ICDECOMPRESS_UPDATE = &h40000000
+const ICDECOMPRESS_PREROLL = &h20000000
+const ICDECOMPRESS_NULLFRAME = &h10000000
+const ICDECOMPRESS_NOTKEYFRAME = &h08000000
 
 type ICDECOMPRESS
 	dwFlags as DWORD
@@ -253,15 +252,15 @@ type ICDECOMPRESSEX
 	dySrc as long
 end type
 
-const ICDRAW_QUERY = cast(clong, &h00000001)
-const ICDRAW_FULLSCREEN = cast(clong, &h00000002)
-const ICDRAW_HDC = cast(clong, &h00000004)
-const ICDRAW_ANIMATE = cast(clong, &h00000008)
-const ICDRAW_CONTINUE = cast(clong, &h00000010)
-const ICDRAW_MEMORYDC = cast(clong, &h00000020)
-const ICDRAW_UPDATING = cast(clong, &h00000040)
-const ICDRAW_RENDER = cast(clong, &h00000080)
-const ICDRAW_BUFFER = cast(clong, &h00000100)
+const ICDRAW_QUERY = &h00000001
+const ICDRAW_FULLSCREEN = &h00000002
+const ICDRAW_HDC = &h00000004
+const ICDRAW_ANIMATE = &h00000008
+const ICDRAW_CONTINUE = &h00000010
+const ICDRAW_MEMORYDC = &h00000020
+const ICDRAW_UPDATING = &h00000040
+const ICDRAW_RENDER = &h00000080
+const ICDRAW_BUFFER = &h00000100
 
 type ICDRAWBEGIN
 	dwFlags as DWORD
@@ -281,11 +280,11 @@ type ICDRAWBEGIN
 	dwScale as DWORD
 end type
 
-const ICDRAW_HURRYUP = cast(clong, &h80000000)
-const ICDRAW_UPDATE = cast(clong, &h40000000)
-const ICDRAW_PREROLL = cast(clong, &h20000000)
-const ICDRAW_NULLFRAME = cast(clong, &h10000000)
-const ICDRAW_NOTKEYFRAME = cast(clong, &h08000000)
+const ICDRAW_HURRYUP = &h80000000
+const ICDRAW_UPDATE = &h40000000
+const ICDRAW_PREROLL = &h20000000
+const ICDRAW_NULLFRAME = &h10000000
+const ICDRAW_NOTKEYFRAME = &h08000000
 
 type ICDRAW
 	dwFlags as DWORD
@@ -354,7 +353,7 @@ declare function ICCompress cdecl(byval hic as HIC, byval dwFlags as DWORD, byva
 #define ICCompressGetFormatSize(hic, lpbi) cast(DWORD, ICCompressGetFormat(hic, lpbi, NULL))
 #define ICCompressGetSize(hic, lpbiInput, lpbiOutput) cast(DWORD, ICSendMessage(hic, ICM_COMPRESS_GET_SIZE, cast(DWORD_PTR, cast(LPVOID, (lpbiInput))), cast(DWORD_PTR, cast(LPVOID, (lpbiOutput)))))
 #define ICCompressEnd(hic) ICSendMessage(hic, ICM_COMPRESS_END, cast(DWORD_PTR, 0), cast(DWORD_PTR, 0))
-const ICDECOMPRESS_HURRYUP = cast(clong, &h80000000)
+const ICDECOMPRESS_HURRYUP = &h80000000
 declare function ICDecompress cdecl(byval hic as HIC, byval dwFlags as DWORD, byval lpbiFormat as LPBITMAPINFOHEADER, byval lpData as LPVOID, byval lpbi as LPBITMAPINFOHEADER, byval lpBits as LPVOID) as DWORD
 #define ICDecompressBegin(hic, lpbiInput, lpbiOutput) ICSendMessage(hic, ICM_DECOMPRESS_BEGIN, cast(DWORD_PTR, cast(LPVOID, (lpbiInput))), cast(DWORD_PTR, cast(LPVOID, (lpbiOutput))))
 #define ICDecompressQuery(hic, lpbiInput, lpbiOutput) ICSendMessage(hic, ICM_DECOMPRESS_QUERY, cast(DWORD_PTR, cast(LPVOID, (lpbiInput))), cast(DWORD_PTR, cast(LPVOID, (lpbiOutput))))
@@ -364,12 +363,12 @@ declare function ICDecompress cdecl(byval hic as HIC, byval dwFlags as DWORD, by
 #define ICDecompressSetPalette(hic, lpbiPalette) ICSendMessage(hic, ICM_DECOMPRESS_SET_PALETTE, cast(DWORD_PTR, cast(LPVOID, (lpbiPalette))), cast(DWORD_PTR, 0))
 #define ICDecompressEnd(hic) ICSendMessage(hic, ICM_DECOMPRESS_END, cast(DWORD_PTR, 0), cast(DWORD_PTR, 0))
 #define ICDecompressExEnd(hic) ICSendMessage(hic, ICM_DECOMPRESSEX_END, cast(DWORD_PTR, 0), cast(DWORD_PTR, 0))
-const ICDRAW_QUERY = cast(clong, &h00000001)
-const ICDRAW_FULLSCREEN = cast(clong, &h00000002)
-const ICDRAW_HDC = cast(clong, &h00000004)
+const ICDRAW_QUERY = &h00000001
+const ICDRAW_FULLSCREEN = &h00000002
+const ICDRAW_HDC = &h00000004
 declare function ICDrawBegin cdecl(byval hic as HIC, byval dwFlags as DWORD, byval hpal as HPALETTE, byval hwnd as HWND, byval hdc as HDC, byval xDst as long, byval yDst as long, byval dxDst as long, byval dyDst as long, byval lpbi as LPBITMAPINFOHEADER, byval xSrc as long, byval ySrc as long, byval dxSrc as long, byval dySrc as long, byval dwRate as DWORD, byval dwScale as DWORD) as DWORD
-const ICDRAW_HURRYUP = cast(clong, &h80000000)
-const ICDRAW_UPDATE = cast(clong, &h40000000)
+const ICDRAW_HURRYUP = &h80000000
+const ICDRAW_UPDATE = &h40000000
 declare function ICDraw cdecl(byval hic as HIC, byval dwFlags as DWORD, byval lpFormat as LPVOID, byval lpData as LPVOID, byval cbData as DWORD, byval lTime as LONG) as DWORD
 #define ICDrawQuery(hic, lpbiInput) ICSendMessage(hic, ICM_DRAW_QUERY, cast(DWORD_PTR, cast(LPVOID, (lpbiInput))), cast(DWORD, 0))
 #define ICDrawChangePalette(hic, lpbiInput) ICSendMessage(hic, ICM_DRAW_CHANGEPALETTE, cast(DWORD_PTR, cast(LPVOID, (lpbiInput))), cast(DWORD, 0))
@@ -489,7 +488,7 @@ type TWOCC as WORD
 #define listtypeAVIMOVIE mmioFOURCC(asc("m"), asc("o"), asc("v"), asc("i"))
 #define listtypeAVIRECORD mmioFOURCC(asc("r"), asc("e"), asc("c"), asc(" "))
 #define ckidAVINEWINDEX mmioFOURCC(asc("i"), asc("d"), asc("x"), asc("1"))
-const streamtypeANY = cast(culong, 0)
+const streamtypeANY = 0u
 #define streamtypeVIDEO mmioFOURCC(asc("v"), asc("i"), asc("d"), asc("s"))
 #define streamtypeAUDIO mmioFOURCC(asc("a"), asc("u"), asc("d"), asc("s"))
 #define streamtypeMIDI mmioFOURCC(asc("m"), asc("i"), asc("d"), asc("s"))
@@ -546,13 +545,13 @@ type AVIStreamHeader
 	rcFrame as RECT
 end type
 
-const AVIIF_LIST = cast(clong, &h00000001)
-const AVIIF_KEYFRAME = cast(clong, &h00000010)
-const AVIIF_FIRSTPART = cast(clong, &h00000020)
-const AVIIF_LASTPART = cast(clong, &h00000040)
+const AVIIF_LIST = &h00000001
+const AVIIF_KEYFRAME = &h00000010
+const AVIIF_FIRSTPART = &h00000020
+const AVIIF_LASTPART = &h00000040
 const AVIIF_MIDPART = AVIIF_LASTPART or AVIIF_FIRSTPART
-const AVIIF_NOTIME = cast(clong, &h00000100)
-const AVIIF_COMPUSE = cast(clong, &h0FFF0000)
+const AVIIF_NOTIME = &h00000100
+const AVIIF_COMPUSE = &h0FFF0000
 
 type AVIINDEXENTRY
 	ckid as DWORD
@@ -894,7 +893,7 @@ declare function AVIStreamSetFormat(byval pavi as PAVISTREAM, byval lPos as LONG
 declare function AVIStreamReadData(byval pavi as PAVISTREAM, byval fcc as DWORD, byval lp as LPVOID, byval lpcb as LONG ptr) as HRESULT
 declare function AVIStreamWriteData(byval pavi as PAVISTREAM, byval fcc as DWORD, byval lp as LPVOID, byval cb as LONG) as HRESULT
 declare function AVIStreamRead(byval pavi as PAVISTREAM, byval lStart as LONG, byval lSamples as LONG, byval lpBuffer as LPVOID, byval cbBuffer as LONG, byval plBytes as LONG ptr, byval plSamples as LONG ptr) as HRESULT
-const AVISTREAMREAD_CONVENIENT = -cast(clong, 1)
+const AVISTREAMREAD_CONVENIENT = -1
 declare function AVIStreamWrite(byval pavi as PAVISTREAM, byval lStart as LONG, byval lSamples as LONG, byval lpBuffer as LPVOID, byval cbBuffer as LONG, byval dwFlags as DWORD, byval plSampWritten as LONG ptr, byval plBytesWritten as LONG ptr) as HRESULT
 declare function AVIStreamStart(byval pavi as PAVISTREAM) as LONG
 declare function AVIStreamLength(byval pavi as PAVISTREAM) as LONG
@@ -918,20 +917,20 @@ declare function AVIStreamOpenFromFileW(byval ppavi as PAVISTREAM ptr, byval szF
 #endif
 
 declare function AVIStreamCreate(byval ppavi as PAVISTREAM ptr, byval lParam1 as LONG, byval lParam2 as LONG, byval pclsidHandler as CLSID ptr) as HRESULT
-const FIND_DIR = cast(clong, &h0000000F)
-const FIND_NEXT = cast(clong, &h00000001)
-const FIND_PREV = cast(clong, &h00000004)
-const FIND_FROM_START = cast(clong, &h00000008)
-const FIND_TYPE = cast(clong, &h000000F0)
-const FIND_KEY = cast(clong, &h00000010)
-const FIND_ANY = cast(clong, &h00000020)
-const FIND_FORMAT = cast(clong, &h00000040)
-const FIND_RET = cast(clong, &h0000F000)
-const FIND_POS = cast(clong, &h00000000)
-const FIND_LENGTH = cast(clong, &h00001000)
-const FIND_OFFSET = cast(clong, &h00002000)
-const FIND_SIZE = cast(clong, &h00003000)
-const FIND_INDEX = cast(clong, &h00004000)
+const FIND_DIR = &h0000000F
+const FIND_NEXT = &h00000001
+const FIND_PREV = &h00000004
+const FIND_FROM_START = &h00000008
+const FIND_TYPE = &h000000F0
+const FIND_KEY = &h00000010
+const FIND_ANY = &h00000020
+const FIND_FORMAT = &h00000040
+const FIND_RET = &h0000F000
+const FIND_POS = &h00000000
+const FIND_LENGTH = &h00001000
+const FIND_OFFSET = &h00002000
+const FIND_SIZE = &h00003000
+const FIND_INDEX = &h00004000
 declare function AVIStreamFindKeyFrame alias "AVIStreamFindSample"(byval pavi as PAVISTREAM, byval lPos as LONG, byval lFlags as LONG) as LONG
 #define FindKeyFrame FindSample
 
@@ -1042,7 +1041,7 @@ declare function EditStreamSetInfoA(byval pavi as PAVISTREAM, byval lpInfo as LP
 	declare function EditStreamSetInfo alias "EditStreamSetInfoA"(byval pavi as PAVISTREAM, byval lpInfo as LPAVISTREAMINFOA, byval cbInfo as LONG) as HRESULT
 #endif
 
-const AVIERR_OK = cast(clong, 0)
+const AVIERR_OK = 0
 #define MAKE_AVIERR(error) MAKE_SCODE(SEVERITY_ERROR, FACILITY_ITF, &h4000 + error)
 #define AVIERR_UNSUPPORTED MAKE_AVIERR(101)
 #define AVIERR_BADFORMAT MAKE_AVIERR(102)

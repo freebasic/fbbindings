@@ -15,7 +15,6 @@
 
 #pragma once
 
-#include once "crt/long.bi"
 #include once "_mingw_secapi.bi"
 #include once "vadefs.bi"
 
@@ -61,7 +60,7 @@ type __int32 as long
 type __int64 as longint
 
 #define MINGW_SDK_INIT
-const __STDC_SECURE_LIB__ = cast(clong, 200411)
+const __STDC_SECURE_LIB__ = 200411
 const __GOT_SECURE_LIB__ = __STDC_SECURE_LIB__
 const __MINGW_HAS_DXSDK = 1
 const MINGW_HAS_DDRAW_H = 1

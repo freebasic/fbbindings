@@ -50,7 +50,6 @@
 
 #inclib "aclui"
 
-#include once "crt/long.bi"
 #include once "winapifamily.bi"
 #include once "objbase.bi"
 #include once "commctrl.bi"
@@ -76,43 +75,43 @@ end type
 
 type SI_OBJECT_INFO as _SI_OBJECT_INFO
 type PSI_OBJECT_INFO as _SI_OBJECT_INFO ptr
-const SI_EDIT_PERMS = cast(clong, &h00000000)
-const SI_EDIT_OWNER = cast(clong, &h00000001)
-const SI_EDIT_AUDITS = cast(clong, &h00000002)
-const SI_CONTAINER = cast(clong, &h00000004)
-const SI_READONLY = cast(clong, &h00000008)
-const SI_ADVANCED = cast(clong, &h00000010)
-const SI_RESET = cast(clong, &h00000020)
-const SI_OWNER_READONLY = cast(clong, &h00000040)
-const SI_EDIT_PROPERTIES = cast(clong, &h00000080)
-const SI_OWNER_RECURSE = cast(clong, &h00000100)
-const SI_NO_ACL_PROTECT = cast(clong, &h00000200)
-const SI_NO_TREE_APPLY = cast(clong, &h00000400)
-const SI_PAGE_TITLE = cast(clong, &h00000800)
-const SI_SERVER_IS_DC = cast(clong, &h00001000)
-const SI_RESET_DACL_TREE = cast(clong, &h00004000)
-const SI_RESET_SACL_TREE = cast(clong, &h00008000)
-const SI_OBJECT_GUID = cast(clong, &h00010000)
-const SI_EDIT_EFFECTIVE = cast(clong, &h00020000)
-const SI_RESET_DACL = cast(clong, &h00040000)
-const SI_RESET_SACL = cast(clong, &h00080000)
-const SI_RESET_OWNER = cast(clong, &h00100000)
-const SI_NO_ADDITIONAL_PERMISSION = cast(clong, &h00200000)
+const SI_EDIT_PERMS = &h00000000
+const SI_EDIT_OWNER = &h00000001
+const SI_EDIT_AUDITS = &h00000002
+const SI_CONTAINER = &h00000004
+const SI_READONLY = &h00000008
+const SI_ADVANCED = &h00000010
+const SI_RESET = &h00000020
+const SI_OWNER_READONLY = &h00000040
+const SI_EDIT_PROPERTIES = &h00000080
+const SI_OWNER_RECURSE = &h00000100
+const SI_NO_ACL_PROTECT = &h00000200
+const SI_NO_TREE_APPLY = &h00000400
+const SI_PAGE_TITLE = &h00000800
+const SI_SERVER_IS_DC = &h00001000
+const SI_RESET_DACL_TREE = &h00004000
+const SI_RESET_SACL_TREE = &h00008000
+const SI_OBJECT_GUID = &h00010000
+const SI_EDIT_EFFECTIVE = &h00020000
+const SI_RESET_DACL = &h00040000
+const SI_RESET_SACL = &h00080000
+const SI_RESET_OWNER = &h00100000
+const SI_NO_ADDITIONAL_PERMISSION = &h00200000
 
 #if _WIN32_WINNT = &h0602
-	const SI_VIEW_ONLY = cast(clong, &h00400000)
-	const SI_PERMS_ELEVATION_REQUIRED = cast(clong, &h01000000)
-	const SI_AUDITS_ELEVATION_REQUIRED = cast(clong, &h02000000)
-	const SI_OWNER_ELEVATION_REQUIRED = cast(clong, &h04000000)
-	const SI_SCOPE_ELEVATION_REQUIRED = cast(clong, &h08000000)
+	const SI_VIEW_ONLY = &h00400000
+	const SI_PERMS_ELEVATION_REQUIRED = &h01000000
+	const SI_AUDITS_ELEVATION_REQUIRED = &h02000000
+	const SI_OWNER_ELEVATION_REQUIRED = &h04000000
+	const SI_SCOPE_ELEVATION_REQUIRED = &h08000000
 #endif
 
-const SI_MAY_WRITE = cast(clong, &h10000000)
+const SI_MAY_WRITE = &h10000000
 
 #if _WIN32_WINNT = &h0602
-	const SI_ENABLE_EDIT_ATTRIBUTE_CONDITION = cast(clong, &h20000000)
-	const SI_ENABLE_CENTRAL_POLICY = cast(clong, &h40000000)
-	const SI_DISABLE_DENY_ACE = cast(clong, &h80000000)
+	const SI_ENABLE_EDIT_ATTRIBUTE_CONDITION = &h20000000
+	const SI_ENABLE_CENTRAL_POLICY = &h40000000
+	const SI_DISABLE_DENY_ACE = &h80000000
 #endif
 
 const SI_EDIT_ALL = (SI_EDIT_PERMS or SI_EDIT_OWNER) or SI_EDIT_AUDITS
@@ -126,10 +125,10 @@ end type
 
 type SI_ACCESS as _SI_ACCESS
 type PSI_ACCESS as _SI_ACCESS ptr
-const SI_ACCESS_SPECIFIC = cast(clong, &h00010000)
-const SI_ACCESS_GENERAL = cast(clong, &h00020000)
-const SI_ACCESS_CONTAINER = cast(clong, &h00040000)
-const SI_ACCESS_PROPERTY = cast(clong, &h00080000)
+const SI_ACCESS_SPECIFIC = &h00010000
+const SI_ACCESS_GENERAL = &h00020000
+const SI_ACCESS_CONTAINER = &h00040000
+const SI_ACCESS_PROPERTY = &h00080000
 
 type _SI_INHERIT_TYPE
 	pguid as const GUID ptr
@@ -171,11 +170,11 @@ type SI_PAGE_ACTIVATED as _SI_PAGE_ACTIVATED
 #define GET_PAGE_TYPE(X) cast(UINT, (X) and &h0000ffff)
 #define GET_ACTIVATION_TYPE(Y) cast(UINT, ((Y) shr 16) and &h0000ffff)
 #define COMBINE_PAGE_ACTIVATION(X, Y) cast(UINT, ((Y) shl 16) or X)
-const DOBJ_RES_CONT = cast(clong, &h00000001)
-const DOBJ_RES_ROOT = cast(clong, &h00000002)
-const DOBJ_VOL_NTACLS = cast(clong, &h00000004)
-const DOBJ_COND_NTACLS = cast(clong, &h00000008)
-const DOBJ_RIBBON_LAUNCH = cast(clong, &h00000010)
+const DOBJ_RES_CONT = &h00000001
+const DOBJ_RES_ROOT = &h00000002
+const DOBJ_VOL_NTACLS = &h00000004
+const DOBJ_COND_NTACLS = &h00000008
+const DOBJ_RIBBON_LAUNCH = &h00000010
 const PSPCB_SI_INITDIALOG = WM_USER + 1
 type ISecurityInformationVtbl as ISecurityInformationVtbl_
 

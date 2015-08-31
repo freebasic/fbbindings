@@ -50,14 +50,13 @@
 
 #inclib "wldap32"
 
-#include once "crt/long.bi"
 #include once "winapifamily.bi"
 
 extern "C"
 
 #define _WINBER_DEFINED_
-const LBER_ERROR = cast(clong, &hffffffff)
-const LBER_DEFAULT = cast(clong, &hffffffff)
+const LBER_ERROR = &hffffffff
+const LBER_DEFAULT = &hffffffff
 
 type ber_tag_t as ulong
 type ber_int_t as long

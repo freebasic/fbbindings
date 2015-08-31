@@ -17,7 +17,6 @@
 
 #inclib "wldap32"
 
-#include once "crt/long.bi"
 #include once "schnlsp.bi"
 
 extern "C"
@@ -38,29 +37,29 @@ const LDAP_VERSION1 = 1
 const LDAP_VERSION2 = 2
 const LDAP_VERSION3 = 3
 const LDAP_VERSION = LDAP_VERSION2
-const LDAP_BIND_CMD = cast(clong, &h60)
-const LDAP_UNBIND_CMD = cast(clong, &h42)
-const LDAP_SEARCH_CMD = cast(clong, &h63)
-const LDAP_MODIFY_CMD = cast(clong, &h66)
-const LDAP_ADD_CMD = cast(clong, &h68)
-const LDAP_DELETE_CMD = cast(clong, &h4a)
-const LDAP_MODRDN_CMD = cast(clong, &h6c)
-const LDAP_COMPARE_CMD = cast(clong, &h6e)
-const LDAP_ABANDON_CMD = cast(clong, &h50)
-const LDAP_SESSION_CMD = cast(clong, &h71)
-const LDAP_EXTENDED_CMD = cast(clong, &h77)
-const LDAP_RES_BIND = cast(clong, &h61)
-const LDAP_RES_SEARCH_ENTRY = cast(clong, &h64)
-const LDAP_RES_SEARCH_RESULT = cast(clong, &h65)
-const LDAP_RES_MODIFY = cast(clong, &h67)
-const LDAP_RES_ADD = cast(clong, &h69)
-const LDAP_RES_DELETE = cast(clong, &h6b)
-const LDAP_RES_MODRDN = cast(clong, &h6d)
-const LDAP_RES_COMPARE = cast(clong, &h6f)
-const LDAP_RES_SESSION = cast(clong, &h72)
-const LDAP_RES_REFERRAL = cast(clong, &h73)
-const LDAP_RES_EXTENDED = cast(clong, &h78)
-const LDAP_RES_ANY = -cast(clong, 1)
+const LDAP_BIND_CMD = &h60
+const LDAP_UNBIND_CMD = &h42
+const LDAP_SEARCH_CMD = &h63
+const LDAP_MODIFY_CMD = &h66
+const LDAP_ADD_CMD = &h68
+const LDAP_DELETE_CMD = &h4a
+const LDAP_MODRDN_CMD = &h6c
+const LDAP_COMPARE_CMD = &h6e
+const LDAP_ABANDON_CMD = &h50
+const LDAP_SESSION_CMD = &h71
+const LDAP_EXTENDED_CMD = &h77
+const LDAP_RES_BIND = &h61
+const LDAP_RES_SEARCH_ENTRY = &h64
+const LDAP_RES_SEARCH_RESULT = &h65
+const LDAP_RES_MODIFY = &h67
+const LDAP_RES_ADD = &h69
+const LDAP_RES_DELETE = &h6b
+const LDAP_RES_MODRDN = &h6d
+const LDAP_RES_COMPARE = &h6f
+const LDAP_RES_SESSION = &h72
+const LDAP_RES_REFERRAL = &h73
+const LDAP_RES_EXTENDED = &h78
+const LDAP_RES_ANY = -1
 const LDAP_INVALID_CMD = &hff
 const LDAP_INVALID_RES = &hff
 
@@ -131,9 +130,9 @@ enum
 	LDAP_REFERRAL_LIMIT_EXCEEDED = &h61
 end enum
 
-const LDAP_AUTH_SIMPLE = cast(clong, &h80)
-const LDAP_AUTH_SASL = cast(clong, &h83)
-const LDAP_AUTH_OTHERKIND = cast(clong, &h86)
+const LDAP_AUTH_SIMPLE = &h80
+const LDAP_AUTH_SASL = &h83
+const LDAP_AUTH_OTHERKIND = &h86
 const LDAP_AUTH_SICILY = LDAP_AUTH_OTHERKIND or &h0200
 const LDAP_AUTH_MSN = LDAP_AUTH_OTHERKIND or &h0800
 const LDAP_AUTH_NTLM = LDAP_AUTH_OTHERKIND or &h1000
@@ -152,9 +151,9 @@ const LDAP_FILTER_LE = &ha6
 const LDAP_FILTER_PRESENT = &h87
 const LDAP_FILTER_APPROX = &ha8
 const LDAP_FILTER_EXTENSIBLE = &ha9
-const LDAP_SUBSTRING_INITIAL = cast(clong, &h80)
-const LDAP_SUBSTRING_ANY = cast(clong, &h81)
-const LDAP_SUBSTRING_FINAL = cast(clong, &h82)
+const LDAP_SUBSTRING_INITIAL = &h80
+const LDAP_SUBSTRING_ANY = &h81
+const LDAP_SUBSTRING_FINAL = &h82
 const LDAP_DEREF_NEVER = 0
 const LDAP_DEREF_SEARCHING = 1
 const LDAP_DEREF_FINDING = 2

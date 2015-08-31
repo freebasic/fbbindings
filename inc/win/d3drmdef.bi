@@ -24,7 +24,6 @@
 
 #pragma once
 
-#include once "crt/long.bi"
 #include once "crt/stddef.bi"
 #include once "d3dtypes.bi"
 
@@ -399,18 +398,18 @@ const D3DRMINTERPOLATION_SPLINE = &h0008
 const D3DRMINTERPOLATION_VERTEXCOLOR = &h0040
 const D3DRMINTERPOLATION_SLERPNORMALS = &h0080
 type D3DRMLOADOPTIONS as DWORD
-const D3DRMLOAD_FROMFILE = cast(clong, &h000)
-const D3DRMLOAD_FROMRESOURCE = cast(clong, &h001)
-const D3DRMLOAD_FROMMEMORY = cast(clong, &h002)
-const D3DRMLOAD_FROMSTREAM = cast(clong, &h004)
-const D3DRMLOAD_FROMURL = cast(clong, &h008)
-const D3DRMLOAD_BYNAME = cast(clong, &h010)
-const D3DRMLOAD_BYPOSITION = cast(clong, &h020)
-const D3DRMLOAD_BYGUID = cast(clong, &h040)
-const D3DRMLOAD_FIRST = cast(clong, &h080)
-const D3DRMLOAD_INSTANCEBYREFERENCE = cast(clong, &h100)
-const D3DRMLOAD_INSTANCEBYCOPYING = cast(clong, &h200)
-const D3DRMLOAD_ASYNCHRONOUS = cast(clong, &h400)
+const D3DRMLOAD_FROMFILE = &h000
+const D3DRMLOAD_FROMRESOURCE = &h001
+const D3DRMLOAD_FROMMEMORY = &h002
+const D3DRMLOAD_FROMSTREAM = &h004
+const D3DRMLOAD_FROMURL = &h008
+const D3DRMLOAD_BYNAME = &h010
+const D3DRMLOAD_BYPOSITION = &h020
+const D3DRMLOAD_BYGUID = &h040
+const D3DRMLOAD_FIRST = &h080
+const D3DRMLOAD_INSTANCEBYREFERENCE = &h100
+const D3DRMLOAD_INSTANCEBYCOPYING = &h200
+const D3DRMLOAD_ASYNCHRONOUS = &h400
 
 type _D3DRMLOADRESOURCE
 	hModule as HMODULE

@@ -15,7 +15,6 @@
 
 #pragma once
 
-#include once "crt/long.bi"
 #include once "winapifamily.bi"
 #include once "rpc.bi"
 #include once "rpcndr.bi"
@@ -43,30 +42,30 @@ end enum
 type COINIT as tagCOINIT
 const MARSHALINTERFACE_MIN = 500
 const CWCSTORAGENAME = 32
-const STGM_DIRECT = cast(clong, &h00000000)
-const STGM_TRANSACTED = cast(clong, &h00010000)
-const STGM_SIMPLE = cast(clong, &h08000000)
-const STGM_READ = cast(clong, &h00000000)
-const STGM_WRITE = cast(clong, &h00000001)
-const STGM_READWRITE = cast(clong, &h00000002)
-const STGM_SHARE_DENY_NONE = cast(clong, &h00000040)
-const STGM_SHARE_DENY_READ = cast(clong, &h00000030)
-const STGM_SHARE_DENY_WRITE = cast(clong, &h00000020)
-const STGM_SHARE_EXCLUSIVE = cast(clong, &h00000010)
-const STGM_PRIORITY = cast(clong, &h00040000)
-const STGM_DELETEONRELEASE = cast(clong, &h04000000)
-const STGM_NOSCRATCH = cast(clong, &h00100000)
-const STGM_CREATE = cast(clong, &h00001000)
-const STGM_CONVERT = cast(clong, &h00020000)
-const STGM_FAILIFTHERE = cast(clong, &h00000000)
-const STGM_NOSNAPSHOT = cast(clong, &h00200000)
-const STGM_DIRECT_SWMR = cast(clong, &h00400000)
-const ASYNC_MODE_COMPATIBILITY = cast(clong, &h00000001)
-const ASYNC_MODE_DEFAULT = cast(clong, &h00000000)
-const STGTY_REPEAT = cast(clong, &h00000100)
-const STG_TOEND = cast(clong, &hffffffff)
-const STG_LAYOUT_SEQUENTIAL = cast(clong, &h00000000)
-const STG_LAYOUT_INTERLEAVED = cast(clong, &h00000001)
+const STGM_DIRECT = &h00000000
+const STGM_TRANSACTED = &h00010000
+const STGM_SIMPLE = &h08000000
+const STGM_READ = &h00000000
+const STGM_WRITE = &h00000001
+const STGM_READWRITE = &h00000002
+const STGM_SHARE_DENY_NONE = &h00000040
+const STGM_SHARE_DENY_READ = &h00000030
+const STGM_SHARE_DENY_WRITE = &h00000020
+const STGM_SHARE_EXCLUSIVE = &h00000010
+const STGM_PRIORITY = &h00040000
+const STGM_DELETEONRELEASE = &h04000000
+const STGM_NOSCRATCH = &h00100000
+const STGM_CREATE = &h00001000
+const STGM_CONVERT = &h00020000
+const STGM_FAILIFTHERE = &h00000000
+const STGM_NOSNAPSHOT = &h00200000
+const STGM_DIRECT_SWMR = &h00400000
+const ASYNC_MODE_COMPATIBILITY = &h00000001
+const ASYNC_MODE_DEFAULT = &h00000000
+const STGTY_REPEAT = &h00000100
+const STG_TOEND = &hffffffff
+const STG_LAYOUT_SEQUENTIAL = &h00000000
+const STG_LAYOUT_INTERLEAVED = &h00000001
 type STGFMT as DWORD
 const STGFMT_STORAGE = 0
 const STGFMT_NATIVE = 1

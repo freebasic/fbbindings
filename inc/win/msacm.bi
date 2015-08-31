@@ -17,8 +17,6 @@
 
 #inclib "msacm32"
 
-#include once "crt/long.bi"
-
 #ifdef __FB_64BIT__
 	extern "C"
 #else
@@ -100,8 +98,8 @@ const ACM_METRIC_DRIVER_SUPPORT = 100
 const ACM_METRIC_DRIVER_PRIORITY = 101
 type ACMDRIVERENUMCB as function(byval hadid as HACMDRIVERID, byval dwInstance as DWORD_PTR, byval fdwSupport as DWORD) as WINBOOL
 declare function acmDriverEnum(byval fnCallback as ACMDRIVERENUMCB, byval dwInstance as DWORD_PTR, byval fdwEnum as DWORD) as MMRESULT
-const ACM_DRIVERENUMF_NOLOCAL = cast(clong, &h40000000)
-const ACM_DRIVERENUMF_DISABLED = cast(clong, &h80000000)
+const ACM_DRIVERENUMF_NOLOCAL = &h40000000
+const ACM_DRIVERENUMF_DISABLED = &h80000000
 
 declare function acmDriverID(byval hao as HACMOBJ, byval phadid as LPHACMDRIVERID, byval fdwDriverID as DWORD) as MMRESULT
 declare function acmDriverAddA(byval phadid as LPHACMDRIVERID, byval hinstModule as HINSTANCE, byval lParam as LPARAM, byval dwPriority as DWORD, byval fdwAdd as DWORD) as MMRESULT
@@ -113,12 +111,12 @@ declare function acmDriverAddW(byval phadid as LPHACMDRIVERID, byval hinstModule
 	declare function acmDriverAdd alias "acmDriverAddA"(byval phadid as LPHACMDRIVERID, byval hinstModule as HINSTANCE, byval lParam as LPARAM, byval dwPriority as DWORD, byval fdwAdd as DWORD) as MMRESULT
 #endif
 
-const ACM_DRIVERADDF_NAME = cast(clong, &h00000001)
-const ACM_DRIVERADDF_FUNCTION = cast(clong, &h00000003)
-const ACM_DRIVERADDF_NOTIFYHWND = cast(clong, &h00000004)
-const ACM_DRIVERADDF_TYPEMASK = cast(clong, &h00000007)
-const ACM_DRIVERADDF_LOCAL = cast(clong, &h00000000)
-const ACM_DRIVERADDF_GLOBAL = cast(clong, &h00000008)
+const ACM_DRIVERADDF_NAME = &h00000001
+const ACM_DRIVERADDF_FUNCTION = &h00000003
+const ACM_DRIVERADDF_NOTIFYHWND = &h00000004
+const ACM_DRIVERADDF_TYPEMASK = &h00000007
+const ACM_DRIVERADDF_LOCAL = &h00000000
+const ACM_DRIVERADDF_GLOBAL = &h00000008
 type ACMDRIVERPROC as function(byval as DWORD_PTR, byval as HACMDRIVERID, byval as UINT, byval as LPARAM, byval as LPARAM) as LRESULT
 type LPACMDRIVERPROC as ACMDRIVERPROC ptr
 
@@ -133,12 +131,12 @@ const ACMDM_RESERVED_HIGH = DRV_USER + &h2FFF
 const ACMDM_BASE = ACMDM_RESERVED_LOW
 const ACMDM_DRIVER_ABOUT = ACMDM_BASE + 11
 declare function acmDriverPriority(byval hadid as HACMDRIVERID, byval dwPriority as DWORD, byval fdwPriority as DWORD) as MMRESULT
-const ACM_DRIVERPRIORITYF_ENABLE = cast(clong, &h00000001)
-const ACM_DRIVERPRIORITYF_DISABLE = cast(clong, &h00000002)
-const ACM_DRIVERPRIORITYF_ABLEMASK = cast(clong, &h00000003)
-const ACM_DRIVERPRIORITYF_BEGIN = cast(clong, &h00010000)
-const ACM_DRIVERPRIORITYF_END = cast(clong, &h00020000)
-const ACM_DRIVERPRIORITYF_DEFERMASK = cast(clong, &h00030000)
+const ACM_DRIVERPRIORITYF_ENABLE = &h00000001
+const ACM_DRIVERPRIORITYF_DISABLE = &h00000002
+const ACM_DRIVERPRIORITYF_ABLEMASK = &h00000003
+const ACM_DRIVERPRIORITYF_BEGIN = &h00010000
+const ACM_DRIVERPRIORITYF_END = &h00020000
+const ACM_DRIVERPRIORITYF_DEFERMASK = &h00030000
 const ACMDRIVERDETAILS_SHORTNAME_CHARS = 32
 const ACMDRIVERDETAILS_LONGNAME_CHARS = 128
 const ACMDRIVERDETAILS_COPYRIGHT_CHARS = 80
@@ -203,13 +201,13 @@ type LPACMDRIVERDETAILSW as tACMDRIVERDETAILSW ptr
 
 #define ACMDRIVERDETAILS_FCCTYPE_AUDIOCODEC mmioFOURCC(asc("a"), asc("u"), asc("d"), asc("c"))
 #define ACMDRIVERDETAILS_FCCCOMP_UNDEFINED mmioFOURCC(asc(!"\0"), asc(!"\0"), asc(!"\0"), asc(!"\0"))
-const ACMDRIVERDETAILS_SUPPORTF_CODEC = cast(clong, &h00000001)
-const ACMDRIVERDETAILS_SUPPORTF_CONVERTER = cast(clong, &h00000002)
-const ACMDRIVERDETAILS_SUPPORTF_FILTER = cast(clong, &h00000004)
-const ACMDRIVERDETAILS_SUPPORTF_HARDWARE = cast(clong, &h00000008)
-const ACMDRIVERDETAILS_SUPPORTF_ASYNC = cast(clong, &h00000010)
-const ACMDRIVERDETAILS_SUPPORTF_LOCAL = cast(clong, &h40000000)
-const ACMDRIVERDETAILS_SUPPORTF_DISABLED = cast(clong, &h80000000)
+const ACMDRIVERDETAILS_SUPPORTF_CODEC = &h00000001
+const ACMDRIVERDETAILS_SUPPORTF_CONVERTER = &h00000002
+const ACMDRIVERDETAILS_SUPPORTF_FILTER = &h00000004
+const ACMDRIVERDETAILS_SUPPORTF_HARDWARE = &h00000008
+const ACMDRIVERDETAILS_SUPPORTF_ASYNC = &h00000010
+const ACMDRIVERDETAILS_SUPPORTF_LOCAL = &h40000000
+const ACMDRIVERDETAILS_SUPPORTF_DISABLED = &h80000000
 declare function acmDriverDetailsA(byval hadid as HACMDRIVERID, byval padd as LPACMDRIVERDETAILSA, byval fdwDetails as DWORD) as MMRESULT
 declare function acmDriverDetailsW(byval hadid as HACMDRIVERID, byval padd as LPACMDRIVERDETAILSW, byval fdwDetails as DWORD) as MMRESULT
 
@@ -268,10 +266,10 @@ declare function acmFormatTagDetailsW(byval had as HACMDRIVER, byval paftd as LP
 	declare function acmFormatTagDetails alias "acmFormatTagDetailsA"(byval had as HACMDRIVER, byval paftd as LPACMFORMATTAGDETAILSA, byval fdwDetails as DWORD) as MMRESULT
 #endif
 
-const ACM_FORMATTAGDETAILSF_INDEX = cast(clong, &h00000000)
-const ACM_FORMATTAGDETAILSF_FORMATTAG = cast(clong, &h00000001)
-const ACM_FORMATTAGDETAILSF_LARGESTSIZE = cast(clong, &h00000002)
-const ACM_FORMATTAGDETAILSF_QUERYMASK = cast(clong, &h0000000F)
+const ACM_FORMATTAGDETAILSF_INDEX = &h00000000
+const ACM_FORMATTAGDETAILSF_FORMATTAG = &h00000001
+const ACM_FORMATTAGDETAILSF_LARGESTSIZE = &h00000002
+const ACM_FORMATTAGDETAILSF_QUERYMASK = &h0000000F
 type ACMFORMATTAGENUMCBA as function(byval hadid as HACMDRIVERID, byval paftd as LPACMFORMATTAGDETAILSA, byval dwInstance as DWORD_PTR, byval fdwSupport as DWORD) as WINBOOL
 type ACMFORMATTAGENUMCBW as function(byval hadid as HACMDRIVERID, byval paftd as LPACMFORMATTAGDETAILSW, byval dwInstance as DWORD_PTR, byval fdwSupport as DWORD) as WINBOOL
 declare function acmFormatTagEnumA(byval had as HACMDRIVER, byval paftd as LPACMFORMATTAGDETAILSA, byval fnCallback as ACMFORMATTAGENUMCBA, byval dwInstance as DWORD_PTR, byval fdwEnum as DWORD) as MMRESULT
@@ -334,9 +332,9 @@ declare function acmFormatDetailsW(byval had as HACMDRIVER, byval pafd as LPACMF
 	declare function acmFormatDetails alias "acmFormatDetailsA"(byval had as HACMDRIVER, byval pafd as LPACMFORMATDETAILSA, byval fdwDetails as DWORD) as MMRESULT
 #endif
 
-const ACM_FORMATDETAILSF_INDEX = cast(clong, &h00000000)
-const ACM_FORMATDETAILSF_FORMAT = cast(clong, &h00000001)
-const ACM_FORMATDETAILSF_QUERYMASK = cast(clong, &h0000000F)
+const ACM_FORMATDETAILSF_INDEX = &h00000000
+const ACM_FORMATDETAILSF_FORMAT = &h00000001
+const ACM_FORMATDETAILSF_QUERYMASK = &h0000000F
 type ACMFORMATENUMCBA as function(byval hadid as HACMDRIVERID, byval pafd as LPACMFORMATDETAILSA, byval dwInstance as DWORD_PTR, byval fdwSupport as DWORD) as WINBOOL
 type ACMFORMATENUMCBW as function(byval hadid as HACMDRIVERID, byval pafd as LPACMFORMATDETAILSW, byval dwInstance as DWORD_PTR, byval fdwSupport as DWORD) as WINBOOL
 declare function acmFormatEnumA(byval had as HACMDRIVER, byval pafd as LPACMFORMATDETAILSA, byval fnCallback as ACMFORMATENUMCBA, byval dwInstance as DWORD_PTR, byval fdwEnum as DWORD) as MMRESULT
@@ -350,21 +348,21 @@ declare function acmFormatEnumW(byval had as HACMDRIVER, byval pafd as LPACMFORM
 	declare function acmFormatEnum alias "acmFormatEnumA"(byval had as HACMDRIVER, byval pafd as LPACMFORMATDETAILSA, byval fnCallback as ACMFORMATENUMCBA, byval dwInstance as DWORD_PTR, byval fdwEnum as DWORD) as MMRESULT
 #endif
 
-const ACM_FORMATENUMF_WFORMATTAG = cast(clong, &h00010000)
-const ACM_FORMATENUMF_NCHANNELS = cast(clong, &h00020000)
-const ACM_FORMATENUMF_NSAMPLESPERSEC = cast(clong, &h00040000)
-const ACM_FORMATENUMF_WBITSPERSAMPLE = cast(clong, &h00080000)
-const ACM_FORMATENUMF_CONVERT = cast(clong, &h00100000)
-const ACM_FORMATENUMF_SUGGEST = cast(clong, &h00200000)
-const ACM_FORMATENUMF_HARDWARE = cast(clong, &h00400000)
-const ACM_FORMATENUMF_INPUT = cast(clong, &h00800000)
-const ACM_FORMATENUMF_OUTPUT = cast(clong, &h01000000)
+const ACM_FORMATENUMF_WFORMATTAG = &h00010000
+const ACM_FORMATENUMF_NCHANNELS = &h00020000
+const ACM_FORMATENUMF_NSAMPLESPERSEC = &h00040000
+const ACM_FORMATENUMF_WBITSPERSAMPLE = &h00080000
+const ACM_FORMATENUMF_CONVERT = &h00100000
+const ACM_FORMATENUMF_SUGGEST = &h00200000
+const ACM_FORMATENUMF_HARDWARE = &h00400000
+const ACM_FORMATENUMF_INPUT = &h00800000
+const ACM_FORMATENUMF_OUTPUT = &h01000000
 declare function acmFormatSuggest(byval had as HACMDRIVER, byval pwfxSrc as LPWAVEFORMATEX, byval pwfxDst as LPWAVEFORMATEX, byval cbwfxDst as DWORD, byval fdwSuggest as DWORD) as MMRESULT
-const ACM_FORMATSUGGESTF_WFORMATTAG = cast(clong, &h00010000)
-const ACM_FORMATSUGGESTF_NCHANNELS = cast(clong, &h00020000)
-const ACM_FORMATSUGGESTF_NSAMPLESPERSEC = cast(clong, &h00040000)
-const ACM_FORMATSUGGESTF_WBITSPERSAMPLE = cast(clong, &h00080000)
-const ACM_FORMATSUGGESTF_TYPEMASK = cast(clong, &h00FF0000)
+const ACM_FORMATSUGGESTF_WFORMATTAG = &h00010000
+const ACM_FORMATSUGGESTF_NCHANNELS = &h00020000
+const ACM_FORMATSUGGESTF_NSAMPLESPERSEC = &h00040000
+const ACM_FORMATSUGGESTF_WBITSPERSAMPLE = &h00080000
+const ACM_FORMATSUGGESTF_TYPEMASK = &h00FF0000
 #define ACMHELPMSGSTRINGA "acmchoose_help"
 #define ACMHELPMSGSTRINGW wstr("acmchoose_help")
 #define ACMHELPMSGCONTEXTMENUA "acmchoose_contextmenu"
@@ -452,12 +450,12 @@ type LPACMFORMATCHOOSEW as tACMFORMATCHOOSEW ptr
 	type LPACMFORMATCHOOSE as LPACMFORMATCHOOSEA
 #endif
 
-const ACMFORMATCHOOSE_STYLEF_SHOWHELP = cast(clong, &h00000004)
-const ACMFORMATCHOOSE_STYLEF_ENABLEHOOK = cast(clong, &h00000008)
-const ACMFORMATCHOOSE_STYLEF_ENABLETEMPLATE = cast(clong, &h00000010)
-const ACMFORMATCHOOSE_STYLEF_ENABLETEMPLATEHANDLE = cast(clong, &h00000020)
-const ACMFORMATCHOOSE_STYLEF_INITTOWFXSTRUCT = cast(clong, &h00000040)
-const ACMFORMATCHOOSE_STYLEF_CONTEXTHELP = cast(clong, &h00000080)
+const ACMFORMATCHOOSE_STYLEF_SHOWHELP = &h00000004
+const ACMFORMATCHOOSE_STYLEF_ENABLEHOOK = &h00000008
+const ACMFORMATCHOOSE_STYLEF_ENABLETEMPLATE = &h00000010
+const ACMFORMATCHOOSE_STYLEF_ENABLETEMPLATEHANDLE = &h00000020
+const ACMFORMATCHOOSE_STYLEF_INITTOWFXSTRUCT = &h00000040
+const ACMFORMATCHOOSE_STYLEF_CONTEXTHELP = &h00000080
 declare function acmFormatChooseA(byval pafmtc as LPACMFORMATCHOOSEA) as MMRESULT
 declare function acmFormatChooseW(byval pafmtc as LPACMFORMATCHOOSEW) as MMRESULT
 
@@ -516,10 +514,10 @@ declare function acmFilterTagDetailsW(byval had as HACMDRIVER, byval paftd as LP
 	declare function acmFilterTagDetails alias "acmFilterTagDetailsA"(byval had as HACMDRIVER, byval paftd as LPACMFILTERTAGDETAILSA, byval fdwDetails as DWORD) as MMRESULT
 #endif
 
-const ACM_FILTERTAGDETAILSF_INDEX = cast(clong, &h00000000)
-const ACM_FILTERTAGDETAILSF_FILTERTAG = cast(clong, &h00000001)
-const ACM_FILTERTAGDETAILSF_LARGESTSIZE = cast(clong, &h00000002)
-const ACM_FILTERTAGDETAILSF_QUERYMASK = cast(clong, &h0000000F)
+const ACM_FILTERTAGDETAILSF_INDEX = &h00000000
+const ACM_FILTERTAGDETAILSF_FILTERTAG = &h00000001
+const ACM_FILTERTAGDETAILSF_LARGESTSIZE = &h00000002
+const ACM_FILTERTAGDETAILSF_QUERYMASK = &h0000000F
 type ACMFILTERTAGENUMCBA as function(byval hadid as HACMDRIVERID, byval paftd as LPACMFILTERTAGDETAILSA, byval dwInstance as DWORD_PTR, byval fdwSupport as DWORD) as WINBOOL
 type ACMFILTERTAGENUMCBW as function(byval hadid as HACMDRIVERID, byval paftd as LPACMFILTERTAGDETAILSW, byval dwInstance as DWORD_PTR, byval fdwSupport as DWORD) as WINBOOL
 declare function acmFilterTagEnumA(byval had as HACMDRIVER, byval paftd as LPACMFILTERTAGDETAILSA, byval fnCallback as ACMFILTERTAGENUMCBA, byval dwInstance as DWORD_PTR, byval fdwEnum as DWORD) as MMRESULT
@@ -582,9 +580,9 @@ declare function acmFilterDetailsW(byval had as HACMDRIVER, byval pafd as LPACMF
 	declare function acmFilterDetails alias "acmFilterDetailsA"(byval had as HACMDRIVER, byval pafd as LPACMFILTERDETAILSA, byval fdwDetails as DWORD) as MMRESULT
 #endif
 
-const ACM_FILTERDETAILSF_INDEX = cast(clong, &h00000000)
-const ACM_FILTERDETAILSF_FILTER = cast(clong, &h00000001)
-const ACM_FILTERDETAILSF_QUERYMASK = cast(clong, &h0000000F)
+const ACM_FILTERDETAILSF_INDEX = &h00000000
+const ACM_FILTERDETAILSF_FILTER = &h00000001
+const ACM_FILTERDETAILSF_QUERYMASK = &h0000000F
 type ACMFILTERENUMCBA as function(byval hadid as HACMDRIVERID, byval pafd as LPACMFILTERDETAILSA, byval dwInstance as DWORD_PTR, byval fdwSupport as DWORD) as WINBOOL
 type ACMFILTERENUMCBW as function(byval hadid as HACMDRIVERID, byval pafd as LPACMFILTERDETAILSW, byval dwInstance as DWORD_PTR, byval fdwSupport as DWORD) as WINBOOL
 declare function acmFilterEnumA(byval had as HACMDRIVER, byval pafd as LPACMFILTERDETAILSA, byval fnCallback as ACMFILTERENUMCBA, byval dwInstance as DWORD_PTR, byval fdwEnum as DWORD) as MMRESULT
@@ -598,7 +596,7 @@ declare function acmFilterEnumW(byval had as HACMDRIVER, byval pafd as LPACMFILT
 	declare function acmFilterEnum alias "acmFilterEnumA"(byval had as HACMDRIVER, byval pafd as LPACMFILTERDETAILSA, byval fnCallback as ACMFILTERENUMCBA, byval dwInstance as DWORD_PTR, byval fdwEnum as DWORD) as MMRESULT
 #endif
 
-const ACM_FILTERENUMF_DWFILTERTAG = cast(clong, &h00010000)
+const ACM_FILTERENUMF_DWFILTERTAG = &h00010000
 const MM_ACM_FILTERCHOOSE = &h8000
 const FILTERCHOOSE_MESSAGE = 0
 const FILTERCHOOSE_FILTERTAG_VERIFY = FILTERCHOOSE_MESSAGE + 0
@@ -669,12 +667,12 @@ type LPACMFILTERCHOOSEW as tACMFILTERCHOOSEW ptr
 	type LPACMFILTERCHOOSE as LPACMFILTERCHOOSEA
 #endif
 
-const ACMFILTERCHOOSE_STYLEF_SHOWHELP = cast(clong, &h00000004)
-const ACMFILTERCHOOSE_STYLEF_ENABLEHOOK = cast(clong, &h00000008)
-const ACMFILTERCHOOSE_STYLEF_ENABLETEMPLATE = cast(clong, &h00000010)
-const ACMFILTERCHOOSE_STYLEF_ENABLETEMPLATEHANDLE = cast(clong, &h00000020)
-const ACMFILTERCHOOSE_STYLEF_INITTOFILTERSTRUCT = cast(clong, &h00000040)
-const ACMFILTERCHOOSE_STYLEF_CONTEXTHELP = cast(clong, &h00000080)
+const ACMFILTERCHOOSE_STYLEF_SHOWHELP = &h00000004
+const ACMFILTERCHOOSE_STYLEF_ENABLEHOOK = &h00000008
+const ACMFILTERCHOOSE_STYLEF_ENABLETEMPLATE = &h00000010
+const ACMFILTERCHOOSE_STYLEF_ENABLETEMPLATEHANDLE = &h00000020
+const ACMFILTERCHOOSE_STYLEF_INITTOFILTERSTRUCT = &h00000040
+const ACMFILTERCHOOSE_STYLEF_CONTEXTHELP = &h00000080
 declare function acmFilterChooseA(byval pafltrc as LPACMFILTERCHOOSEA) as MMRESULT
 declare function acmFilterChooseW(byval pafltrc as LPACMFILTERCHOOSEW) as MMRESULT
 
@@ -714,18 +712,18 @@ type ACMSTREAMHEADER as tACMSTREAMHEADER
 type PACMSTREAMHEADER as tACMSTREAMHEADER ptr
 type LPACMSTREAMHEADER as tACMSTREAMHEADER ptr
 
-const ACMSTREAMHEADER_STATUSF_DONE = cast(clong, &h00010000)
-const ACMSTREAMHEADER_STATUSF_PREPARED = cast(clong, &h00020000)
-const ACMSTREAMHEADER_STATUSF_INQUEUE = cast(clong, &h00100000)
+const ACMSTREAMHEADER_STATUSF_DONE = &h00010000
+const ACMSTREAMHEADER_STATUSF_PREPARED = &h00020000
+const ACMSTREAMHEADER_STATUSF_INQUEUE = &h00100000
 declare function acmStreamOpen(byval phas as LPHACMSTREAM, byval had as HACMDRIVER, byval pwfxSrc as LPWAVEFORMATEX, byval pwfxDst as LPWAVEFORMATEX, byval pwfltr as LPWAVEFILTER, byval dwCallback as DWORD_PTR, byval dwInstance as DWORD_PTR, byval fdwOpen as DWORD) as MMRESULT
 const ACM_STREAMOPENF_QUERY = &h00000001
 const ACM_STREAMOPENF_ASYNC = &h00000002
 const ACM_STREAMOPENF_NONREALTIME = &h00000004
 declare function acmStreamClose(byval has as HACMSTREAM, byval fdwClose as DWORD) as MMRESULT
 declare function acmStreamSize(byval has as HACMSTREAM, byval cbInput as DWORD, byval pdwOutputBytes as LPDWORD, byval fdwSize as DWORD) as MMRESULT
-const ACM_STREAMSIZEF_SOURCE = cast(clong, &h00000000)
-const ACM_STREAMSIZEF_DESTINATION = cast(clong, &h00000001)
-const ACM_STREAMSIZEF_QUERYMASK = cast(clong, &h0000000F)
+const ACM_STREAMSIZEF_SOURCE = &h00000000
+const ACM_STREAMSIZEF_DESTINATION = &h00000001
+const ACM_STREAMSIZEF_QUERYMASK = &h0000000F
 
 declare function acmStreamReset(byval has as HACMSTREAM, byval fdwReset as DWORD) as MMRESULT
 declare function acmStreamMessage(byval has as HACMSTREAM, byval uMsg as UINT, byval lParam1 as LPARAM, byval lParam2 as LPARAM) as MMRESULT

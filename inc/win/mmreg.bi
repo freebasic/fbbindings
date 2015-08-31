@@ -48,7 +48,6 @@
 
 #pragma once
 
-#include once "crt/long.bi"
 #include once "winapifamily.bi"
 
 extern "C"
@@ -2530,7 +2529,7 @@ type EXBMINFOHEADER as tagEXBMINFOHEADER
 #define JPEG_DIB mmioFOURCC(asc("J"), asc("P"), asc("E"), asc("G"))
 #define MJPG_DIB mmioFOURCC(asc("M"), asc("J"), asc("P"), asc("G"))
 const JPEG_PROCESS_BASELINE = 0
-const AVIIF_CONTROLFRAME = cast(clong, &h00000200)
+const AVIIF_CONTROLFRAME = &h00000200
 const JIFMK_SOF0 = &hffc0
 const JIFMK_SOF1 = &hffc1
 const JIFMK_SOF2 = &hffc2

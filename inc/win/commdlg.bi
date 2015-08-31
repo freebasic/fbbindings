@@ -50,7 +50,6 @@
 
 #inclib "comdlg32"
 
-#include once "crt/long.bi"
 #include once "winapifamily.bi"
 #include once "_mingw_unicode.bi"
 #include once "prsht.bi"
@@ -813,34 +812,34 @@ declare function ChooseFontW(byval as LPCHOOSEFONTW) as WINBOOL
 const CF_SCREENFONTS = &h1
 const CF_PRINTERFONTS = &h2
 const CF_BOTH = CF_SCREENFONTS or CF_PRINTERFONTS
-const CF_SHOWHELP = cast(clong, &h4)
-const CF_ENABLEHOOK = cast(clong, &h8)
-const CF_ENABLETEMPLATE = cast(clong, &h10)
-const CF_ENABLETEMPLATEHANDLE = cast(clong, &h20)
-const CF_INITTOLOGFONTSTRUCT = cast(clong, &h40)
-const CF_USESTYLE = cast(clong, &h80)
-const CF_EFFECTS = cast(clong, &h100)
-const CF_APPLY = cast(clong, &h200)
-const CF_ANSIONLY = cast(clong, &h400)
+const CF_SHOWHELP = &h4
+const CF_ENABLEHOOK = &h8
+const CF_ENABLETEMPLATE = &h10
+const CF_ENABLETEMPLATEHANDLE = &h20
+const CF_INITTOLOGFONTSTRUCT = &h40
+const CF_USESTYLE = &h80
+const CF_EFFECTS = &h100
+const CF_APPLY = &h200
+const CF_ANSIONLY = &h400
 const CF_SCRIPTSONLY = CF_ANSIONLY
-const CF_NOVECTORFONTS = cast(clong, &h800)
+const CF_NOVECTORFONTS = &h800
 const CF_NOOEMFONTS = CF_NOVECTORFONTS
-const CF_NOSIMULATIONS = cast(clong, &h1000)
-const CF_LIMITSIZE = cast(clong, &h2000)
-const CF_FIXEDPITCHONLY = cast(clong, &h4000)
-const CF_WYSIWYG = cast(clong, &h8000)
-const CF_FORCEFONTEXIST = cast(clong, &h10000)
-const CF_SCALABLEONLY = cast(clong, &h20000)
-const CF_TTONLY = cast(clong, &h40000)
-const CF_NOFACESEL = cast(clong, &h80000)
-const CF_NOSTYLESEL = cast(clong, &h100000)
-const CF_NOSIZESEL = cast(clong, &h200000)
-const CF_SELECTSCRIPT = cast(clong, &h400000)
-const CF_NOSCRIPTSEL = cast(clong, &h800000)
-const CF_NOVERTFONTS = cast(clong, &h1000000)
+const CF_NOSIMULATIONS = &h1000
+const CF_LIMITSIZE = &h2000
+const CF_FIXEDPITCHONLY = &h4000
+const CF_WYSIWYG = &h8000
+const CF_FORCEFONTEXIST = &h10000
+const CF_SCALABLEONLY = &h20000
+const CF_TTONLY = &h40000
+const CF_NOFACESEL = &h80000
+const CF_NOSTYLESEL = &h100000
+const CF_NOSIZESEL = &h200000
+const CF_SELECTSCRIPT = &h400000
+const CF_NOSCRIPTSEL = &h800000
+const CF_NOVERTFONTS = &h1000000
 
 #if _WIN32_WINNT = &h0602
-	const CF_INACTIVEFONTS = cast(clong, &h02000000)
+	const CF_INACTIVEFONTS = &h02000000
 #endif
 
 const SIMULATED_FONTTYPE = &h8000

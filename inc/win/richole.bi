@@ -50,7 +50,6 @@
 
 #inclib "uuid"
 
-#include once "crt/long.bi"
 #include once "richedit.bi"
 
 #ifdef __FB_64BIT__
@@ -75,40 +74,40 @@ type _reobject
 end type
 
 type REOBJECT as _reobject
-const REO_GETOBJ_NO_INTERFACES = cast(clong, &h00000000)
-const REO_GETOBJ_POLEOBJ = cast(clong, &h00000001)
-const REO_GETOBJ_PSTG = cast(clong, &h00000002)
-const REO_GETOBJ_POLESITE = cast(clong, &h00000004)
-const REO_GETOBJ_ALL_INTERFACES = cast(clong, &h00000007)
+const REO_GETOBJ_NO_INTERFACES = &h00000000
+const REO_GETOBJ_POLEOBJ = &h00000001
+const REO_GETOBJ_PSTG = &h00000002
+const REO_GETOBJ_POLESITE = &h00000004
+const REO_GETOBJ_ALL_INTERFACES = &h00000007
 #define REO_CP_SELECTION cast(ULONG, -1)
 #define REO_IOB_SELECTION cast(ULONG, -1)
 #define REO_IOB_USE_CP cast(ULONG, -2)
-const REO_NULL = cast(clong, &h00000000)
-const REO_READWRITEMASK = cast(clong, &h000007ff)
-const REO_CANROTATE = cast(clong, &h00000080)
-const REO_OWNERDRAWSELECT = cast(clong, &h00000040)
-const REO_DONTNEEDPALETTE = cast(clong, &h00000020)
-const REO_BLANK = cast(clong, &h00000010)
-const REO_DYNAMICSIZE = cast(clong, &h00000008)
-const REO_INVERTEDSELECT = cast(clong, &h00000004)
-const REO_BELOWBASELINE = cast(clong, &h00000002)
-const REO_RESIZABLE = cast(clong, &h00000001)
-const REO_USEASBACKGROUND = cast(clong, &h00000400)
-const REO_WRAPTEXTAROUND = cast(clong, &h00000200)
-const REO_ALIGNTORIGHT = cast(clong, &h00000100)
-const REO_LINK = cast(clong, &h80000000)
-const REO_STATIC = cast(clong, &h40000000)
-const REO_SELECTED = cast(clong, &h08000000)
-const REO_OPEN = cast(clong, &h04000000)
-const REO_INPLACEACTIVE = cast(clong, &h02000000)
-const REO_HILITED = cast(clong, &h01000000)
-const REO_LINKAVAILABLE = cast(clong, &h00800000)
-const REO_GETMETAFILE = cast(clong, &h00400000)
-const RECO_PASTE = cast(clong, &h00000000)
-const RECO_DROP = cast(clong, &h00000001)
-const RECO_COPY = cast(clong, &h00000002)
-const RECO_CUT = cast(clong, &h00000003)
-const RECO_DRAG = cast(clong, &h00000004)
+const REO_NULL = &h00000000
+const REO_READWRITEMASK = &h000007ff
+const REO_CANROTATE = &h00000080
+const REO_OWNERDRAWSELECT = &h00000040
+const REO_DONTNEEDPALETTE = &h00000020
+const REO_BLANK = &h00000010
+const REO_DYNAMICSIZE = &h00000008
+const REO_INVERTEDSELECT = &h00000004
+const REO_BELOWBASELINE = &h00000002
+const REO_RESIZABLE = &h00000001
+const REO_USEASBACKGROUND = &h00000400
+const REO_WRAPTEXTAROUND = &h00000200
+const REO_ALIGNTORIGHT = &h00000100
+const REO_LINK = &h80000000
+const REO_STATIC = &h40000000
+const REO_SELECTED = &h08000000
+const REO_OPEN = &h04000000
+const REO_INPLACEACTIVE = &h02000000
+const REO_HILITED = &h01000000
+const REO_LINKAVAILABLE = &h00800000
+const REO_GETMETAFILE = &h00400000
+const RECO_PASTE = &h00000000
+const RECO_DROP = &h00000001
+const RECO_COPY = &h00000002
+const RECO_CUT = &h00000003
+const RECO_DRAG = &h00000004
 type IRichEditOleVtbl as IRichEditOleVtbl_
 
 type IRichEditOle

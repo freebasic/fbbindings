@@ -15,7 +15,6 @@
 
 #pragma once
 
-#include once "crt/long.bi"
 #include once "_mingw_unicode.bi"
 
 #ifdef __FB_64BIT__
@@ -203,11 +202,11 @@ const CBF_SKIP_REGISTRATIONS = &h00080000
 const CBF_SKIP_UNREGISTRATIONS = &h00100000
 const CBF_SKIP_DISCONNECTS = &h00200000
 const CBF_SKIP_ALLNOTIFICATIONS = &h003c0000
-const APPCMD_CLIENTONLY = cast(clong, &h00000010)
-const APPCMD_FILTERINITS = cast(clong, &h00000020)
-const APPCMD_MASK = cast(clong, &h00000FF0)
-const APPCLASS_STANDARD = cast(clong, &h00000000)
-const APPCLASS_MASK = cast(clong, &h0000000F)
+const APPCMD_CLIENTONLY = &h00000010
+const APPCMD_FILTERINITS = &h00000020
+const APPCMD_MASK = &h00000FF0
+const APPCLASS_STANDARD = &h00000000
+const APPCLASS_MASK = &h0000000F
 
 declare function DdeUninitialize(byval idInst as DWORD) as WINBOOL
 declare function DdeConnectList(byval idInst as DWORD, byval hszService as HSZ, byval hszTopic as HSZ, byval hConvList as HCONVLIST, byval pCC as PCONVCONTEXT) as HCONVLIST
@@ -405,7 +404,7 @@ end type
 type MONCONVSTRUCT as tagMONCONVSTRUCT
 type PMONCONVSTRUCT as tagMONCONVSTRUCT ptr
 const MAX_MONITORS = 4
-const APPCLASS_MONITOR = cast(clong, &h00000001)
+const APPCLASS_MONITOR = &h00000001
 const XTYP_MONITOR = (&h00F0 or XCLASS_NOTIFICATION) or XTYPF_NOBLOCK
 const MF_HSZ_INFO = &h01000000
 const MF_SENDMSGS = &h02000000

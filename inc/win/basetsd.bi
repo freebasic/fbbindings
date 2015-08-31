@@ -48,10 +48,6 @@
 
 #pragma once
 
-#ifndef __FB_64BIT__
-	#include once "crt/long.bi"
-#endif
-
 #include once "_mingw.bi"
 
 '' The following symbols have been renamed:
@@ -146,7 +142,7 @@ type PDWORD32 as ulong ptr
 	type ULONG_PTR as ulong
 	type PULONG_PTR as ulong ptr
 	type __int3264 as long
-	const ADDRESS_TAG_BIT = cast(culong, &h80000000)
+	const ADDRESS_TAG_BIT = &h80000000u
 	type UHALF_PTR as ushort
 	type PUHALF_PTR as ushort ptr
 	type HALF_PTR as short

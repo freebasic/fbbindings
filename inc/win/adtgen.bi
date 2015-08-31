@@ -48,7 +48,6 @@
 
 #pragma once
 
-#include once "crt/long.bi"
 #include once "winapifamily.bi"
 
 #define _ADTGEN_H
@@ -74,13 +73,13 @@ end enum
 
 type AUDIT_PARAM_TYPE as _AUDIT_PARAM_TYPE
 const AP_ParamTypeBits = 8
-const AP_ParamTypeMask = cast(clong, &hff)
-const AP_FormatHex = cast(clong, &h1) shl AP_ParamTypeBits
-const AP_AccessMask = cast(clong, &h2) shl AP_ParamTypeBits
-const AP_Filespec = cast(clong, &h1) shl AP_ParamTypeBits
-const AP_SidAsLogonId = cast(clong, &h1) shl AP_ParamTypeBits
-const AP_PrimaryLogonId = cast(clong, &h1) shl AP_ParamTypeBits
-const AP_ClientLogonId = cast(clong, &h2) shl AP_ParamTypeBits
+const AP_ParamTypeMask = &hff
+const AP_FormatHex = &h1 shl AP_ParamTypeBits
+const AP_AccessMask = &h2 shl AP_ParamTypeBits
+const AP_Filespec = &h1 shl AP_ParamTypeBits
+const AP_SidAsLogonId = &h1 shl AP_ParamTypeBits
+const AP_PrimaryLogonId = &h1 shl AP_ParamTypeBits
+const AP_ClientLogonId = &h2 shl AP_ParamTypeBits
 #define ApExtractType(TypeFlags) cast(AUDIT_PARAM_TYPE, TypeFlags and AP_ParamTypeMask)
 #define ApExtractFlags(TypeFlags) (TypeFlags and (not AP_ParamTypeMask))
 const _AUTHZ_SS_MAXSIZE = 128

@@ -18,7 +18,6 @@
 #inclib "gdi32"
 #inclib "msimg32"
 
-#include once "crt/long.bi"
 #include once "winapifamily.bi"
 #include once "_mingw_unicode.bi"
 
@@ -77,7 +76,7 @@ const WHITENESS = cast(DWORD, &h00FF0062)
 const NOMIRRORBITMAP = cast(DWORD, &h80000000)
 const CAPTUREBLT = cast(DWORD, &h40000000)
 #define MAKEROP4(fore, back) cast(DWORD, (((back) shl 8) and &hFF000000) or (fore))
-const GDI_ERROR = cast(clong, &hFFFFFFFF)
+const GDI_ERROR = &hFFFFFFFF
 #define HGDI_ERROR LongToHandle(&hFFFFFFFF)
 const ERROR_ = 0
 const NULLREGION = 1
@@ -466,19 +465,19 @@ end type
 
 type RGBQUAD as tagRGBQUAD
 type LPRGBQUAD as RGBQUAD ptr
-const CS_ENABLE = cast(clong, &h00000001)
-const CS_DISABLE = cast(clong, &h00000002)
-const CS_DELETE_TRANSFORM = cast(clong, &h00000003)
+const CS_ENABLE = &h00000001
+const CS_DISABLE = &h00000002
+const CS_DELETE_TRANSFORM = &h00000003
 #define LCS_SIGNATURE asc("PSOC")
 #define LCS_sRGB asc("sRGB")
 #define LCS_WINDOWS_COLOR_SPACE asc("Win ")
 type LCSCSTYPE as LONG
-const LCS_CALIBRATED_RGB = cast(clong, &h00000000)
+const LCS_CALIBRATED_RGB = &h00000000
 type LCSGAMUTMATCH as LONG
-const LCS_GM_BUSINESS = cast(clong, &h00000001)
-const LCS_GM_GRAPHICS = cast(clong, &h00000002)
-const LCS_GM_IMAGES = cast(clong, &h00000004)
-const LCS_GM_ABS_COLORIMETRIC = cast(clong, &h00000008)
+const LCS_GM_BUSINESS = &h00000001
+const LCS_GM_GRAPHICS = &h00000002
+const LCS_GM_IMAGES = &h00000004
+const LCS_GM_ABS_COLORIMETRIC = &h00000008
 const CM_OUT_OF_GAMUT = 255
 const CM_IN_GAMUT = 0
 const ICM_ADDPROFILE = 1
@@ -644,12 +643,12 @@ type LPBITMAPV5HEADER as BITMAPV5HEADER ptr
 type PBITMAPV5HEADER as BITMAPV5HEADER ptr
 #define PROFILE_LINKED asc("LINK")
 #define PROFILE_EMBEDDED asc("MBED")
-const BI_RGB = cast(clong, 0)
-const BI_RLE8 = cast(clong, 1)
-const BI_RLE4 = cast(clong, 2)
-const BI_BITFIELDS = cast(clong, 3)
-const BI_JPEG = cast(clong, 4)
-const BI_PNG = cast(clong, 5)
+const BI_RGB = 0
+const BI_RLE8 = 1
+const BI_RLE4 = 2
+const BI_BITFIELDS = 3
+const BI_JPEG = 4
+const BI_PNG = 5
 
 type tagBITMAPINFO
 	bmiHeader as BITMAPINFOHEADER
@@ -876,9 +875,9 @@ type LPTEXTMETRICW as tagTEXTMETRICW ptr
 	type LPTEXTMETRIC as LPTEXTMETRICA
 #endif
 
-const NTM_REGULAR = cast(clong, &h00000040)
-const NTM_BOLD = cast(clong, &h00000020)
-const NTM_ITALIC = cast(clong, &h00000001)
+const NTM_REGULAR = &h00000040
+const NTM_BOLD = &h00000020
+const NTM_ITALIC = &h00000001
 const NTM_NONNEGATIVE_AC = &h00010000
 const NTM_PS_OPENTYPE = &h00020000
 const NTM_TT_OPENTYPE = &h00040000
@@ -1253,22 +1252,22 @@ const EASTEUROPE_CHARSET = 238
 const RUSSIAN_CHARSET = 204
 const MAC_CHARSET = 77
 const BALTIC_CHARSET = 186
-const FS_LATIN1 = cast(clong, &h00000001)
-const FS_LATIN2 = cast(clong, &h00000002)
-const FS_CYRILLIC = cast(clong, &h00000004)
-const FS_GREEK = cast(clong, &h00000008)
-const FS_TURKISH = cast(clong, &h00000010)
-const FS_HEBREW = cast(clong, &h00000020)
-const FS_ARABIC = cast(clong, &h00000040)
-const FS_BALTIC = cast(clong, &h00000080)
-const FS_VIETNAMESE = cast(clong, &h00000100)
-const FS_THAI = cast(clong, &h00010000)
-const FS_JISJAPAN = cast(clong, &h00020000)
-const FS_CHINESESIMP = cast(clong, &h00040000)
-const FS_WANSUNG = cast(clong, &h00080000)
-const FS_CHINESETRAD = cast(clong, &h00100000)
-const FS_JOHAB = cast(clong, &h00200000)
-const FS_SYMBOL = cast(clong, &h80000000)
+const FS_LATIN1 = &h00000001
+const FS_LATIN2 = &h00000002
+const FS_CYRILLIC = &h00000004
+const FS_GREEK = &h00000008
+const FS_TURKISH = &h00000010
+const FS_HEBREW = &h00000020
+const FS_ARABIC = &h00000040
+const FS_BALTIC = &h00000080
+const FS_VIETNAMESE = &h00000100
+const FS_THAI = &h00010000
+const FS_JISJAPAN = &h00020000
+const FS_CHINESESIMP = &h00040000
+const FS_WANSUNG = &h00080000
+const FS_CHINESETRAD = &h00100000
+const FS_JOHAB = &h00200000
+const FS_SYMBOL = &h80000000
 const FF_DONTCARE = 0 shl 4
 const FF_ROMAN = 1 shl 4
 const FF_SWISS = 2 shl 4
@@ -1693,7 +1692,7 @@ const SYSPAL_ERROR = 0
 const SYSPAL_STATIC = 1
 const SYSPAL_NOSTATIC = 2
 const SYSPAL_NOSTATIC256 = 3
-const CBM_INIT = cast(clong, &h04)
+const CBM_INIT = &h04
 const FLOODFILLBORDER = 0
 const FLOODFILLSURFACE = 1
 const CCHDEVICENAME = 32
@@ -1830,36 +1829,36 @@ type LPDEVMODEW as _devicemodeW ptr
 #endif
 
 const DM_SPECVERSION = &h0401
-const DM_ORIENTATION = cast(clong, &h00000001)
-const DM_PAPERSIZE = cast(clong, &h00000002)
-const DM_PAPERLENGTH = cast(clong, &h00000004)
-const DM_PAPERWIDTH = cast(clong, &h00000008)
-const DM_SCALE = cast(clong, &h00000010)
-const DM_POSITION = cast(clong, &h00000020)
-const DM_NUP = cast(clong, &h00000040)
-const DM_DISPLAYORIENTATION = cast(clong, &h00000080)
-const DM_COPIES = cast(clong, &h00000100)
-const DM_DEFAULTSOURCE = cast(clong, &h00000200)
-const DM_PRINTQUALITY = cast(clong, &h00000400)
-const DM_COLOR = cast(clong, &h00000800)
-const DM_DUPLEX = cast(clong, &h00001000)
-const DM_YRESOLUTION = cast(clong, &h00002000)
-const DM_TTOPTION = cast(clong, &h00004000)
-const DM_COLLATE = cast(clong, &h00008000)
-const DM_FORMNAME = cast(clong, &h00010000)
-const DM_LOGPIXELS = cast(clong, &h00020000)
-const DM_BITSPERPEL = cast(clong, &h00040000)
-const DM_PELSWIDTH = cast(clong, &h00080000)
-const DM_PELSHEIGHT = cast(clong, &h00100000)
-const DM_DISPLAYFLAGS = cast(clong, &h00200000)
-const DM_DISPLAYFREQUENCY = cast(clong, &h00400000)
-const DM_ICMMETHOD = cast(clong, &h00800000)
-const DM_ICMINTENT = cast(clong, &h01000000)
-const DM_MEDIATYPE = cast(clong, &h02000000)
-const DM_DITHERTYPE = cast(clong, &h04000000)
-const DM_PANNINGWIDTH = cast(clong, &h08000000)
-const DM_PANNINGHEIGHT = cast(clong, &h10000000)
-const DM_DISPLAYFIXEDOUTPUT = cast(clong, &h20000000)
+const DM_ORIENTATION = &h00000001
+const DM_PAPERSIZE = &h00000002
+const DM_PAPERLENGTH = &h00000004
+const DM_PAPERWIDTH = &h00000008
+const DM_SCALE = &h00000010
+const DM_POSITION = &h00000020
+const DM_NUP = &h00000040
+const DM_DISPLAYORIENTATION = &h00000080
+const DM_COPIES = &h00000100
+const DM_DEFAULTSOURCE = &h00000200
+const DM_PRINTQUALITY = &h00000400
+const DM_COLOR = &h00000800
+const DM_DUPLEX = &h00001000
+const DM_YRESOLUTION = &h00002000
+const DM_TTOPTION = &h00004000
+const DM_COLLATE = &h00008000
+const DM_FORMNAME = &h00010000
+const DM_LOGPIXELS = &h00020000
+const DM_BITSPERPEL = &h00040000
+const DM_PELSWIDTH = &h00080000
+const DM_PELSHEIGHT = &h00100000
+const DM_DISPLAYFLAGS = &h00200000
+const DM_DISPLAYFREQUENCY = &h00400000
+const DM_ICMMETHOD = &h00800000
+const DM_ICMINTENT = &h01000000
+const DM_MEDIATYPE = &h02000000
+const DM_DITHERTYPE = &h04000000
+const DM_PANNINGWIDTH = &h08000000
+const DM_PANNINGHEIGHT = &h10000000
+const DM_DISPLAYFIXEDOUTPUT = &h20000000
 const DMORIENT_PORTRAIT = 1
 const DMORIENT_LANDSCAPE = 2
 const DMPAPER_LETTER = 1
@@ -2617,17 +2616,17 @@ const GCP_DIACRITIC = &h0100
 const GCP_KASHIDA = &h0400
 const GCP_ERROR = &h8000
 const FLI_MASK = &h103B
-const GCP_JUSTIFY = cast(clong, &h00010000)
-const FLI_GLYPHS = cast(clong, &h00040000)
-const GCP_CLASSIN = cast(clong, &h00080000)
-const GCP_MAXEXTENT = cast(clong, &h00100000)
-const GCP_JUSTIFYIN = cast(clong, &h00200000)
-const GCP_DISPLAYZWG = cast(clong, &h00400000)
-const GCP_SYMSWAPOFF = cast(clong, &h00800000)
-const GCP_NUMERICOVERRIDE = cast(clong, &h01000000)
-const GCP_NEUTRALOVERRIDE = cast(clong, &h02000000)
-const GCP_NUMERICSLATIN = cast(clong, &h04000000)
-const GCP_NUMERICSLOCAL = cast(clong, &h08000000)
+const GCP_JUSTIFY = &h00010000
+const FLI_GLYPHS = &h00040000
+const GCP_CLASSIN = &h00080000
+const GCP_MAXEXTENT = &h00100000
+const GCP_JUSTIFYIN = &h00200000
+const GCP_DISPLAYZWG = &h00400000
+const GCP_SYMSWAPOFF = &h00800000
+const GCP_NUMERICOVERRIDE = &h01000000
+const GCP_NEUTRALOVERRIDE = &h02000000
+const GCP_NUMERICSLATIN = &h04000000
+const GCP_NUMERICSLOCAL = &h08000000
 const GCPCLASS_LATIN = 1
 const GCPCLASS_HEBREW = 2
 const GCPCLASS_ARABIC = 2
@@ -2949,10 +2948,10 @@ const DC_COLORDEVICE = 32
 const DC_NUP = 33
 const DC_MEDIATYPENAMES = 34
 const DC_MEDIATYPES = 35
-const DCTT_BITMAP = cast(clong, &h0000001)
-const DCTT_DOWNLOAD = cast(clong, &h0000002)
-const DCTT_SUBDEV = cast(clong, &h0000004)
-const DCTT_DOWNLOAD_OUTLINE = cast(clong, &h0000008)
+const DCTT_BITMAP = &h0000001
+const DCTT_DOWNLOAD = &h0000002
+const DCTT_SUBDEV = &h0000004
+const DCTT_DOWNLOAD_OUTLINE = &h0000008
 const DCBA_FACEUPNONE = &h0000
 const DCBA_FACEUPCENTER = &h0001
 const DCBA_FACEUPLEFT = &h0002

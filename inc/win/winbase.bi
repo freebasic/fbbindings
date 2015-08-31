@@ -50,7 +50,6 @@
 
 #inclib "kernel32"
 
-#include once "crt/long.bi"
 #include once "_mingw_unicode.bi"
 #include once "apisetcconv.bi"
 #include once "winapifamily.bi"
@@ -1250,7 +1249,7 @@ declare function CreateProcessAsUserW(byval hToken as HANDLE, byval lpApplicatio
 #endif
 
 #if _WIN32_WINNT = &h0602
-	const PROCESS_AFFINITY_ENABLE_AUTO_UPDATE = cast(culong, &h1)
+	const PROCESS_AFFINITY_ENABLE_AUTO_UPDATE = &h1u
 	const PROC_THREAD_ATTRIBUTE_REPLACE_VALUE = &h00000001
 	declare function GetProcessIdOfThread(byval Thread as HANDLE) as DWORD
 	declare function InitializeProcThreadAttributeList(byval lpAttributeList as LPPROC_THREAD_ATTRIBUTE_LIST, byval dwAttributeCount as DWORD, byval dwFlags as DWORD, byval lpSize as PSIZE_T) as WINBOOL
@@ -2187,7 +2186,7 @@ const DRIVE_FIXED = 3
 const DRIVE_REMOTE = 4
 const DRIVE_CDROM = 5
 const DRIVE_RAMDISK = 6
-#define GetFreeSpace(w) cast(clong, &h100000)
+#define GetFreeSpace(w) &h100000
 const FILE_TYPE_UNKNOWN = &h0
 const FILE_TYPE_DISK = &h1
 const FILE_TYPE_CHAR = &h2
@@ -3399,7 +3398,7 @@ declare function CopyFileExW(byval lpExistingFileName as LPCWSTR, byval lpNewFil
 	end enum
 
 	type COPYFILE2_COPY_PHASE as _COPYFILE2_COPY_PHASE
-	const COPYFILE2_MESSAGE_COPY_OFFLOAD = cast(clong, &h00000001)
+	const COPYFILE2_MESSAGE_COPY_OFFLOAD = &h00000001
 
 	type COPYFILE2_MESSAGE_Info_ChunkStarted
 		dwStreamNumber as DWORD

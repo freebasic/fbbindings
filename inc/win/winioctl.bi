@@ -15,8 +15,6 @@
 
 #pragma once
 
-#include once "crt/long.bi"
-
 extern "C"
 
 extern GUID_DEVINTERFACE_DISK as const GUID
@@ -163,7 +161,7 @@ type PSTORAGE_READ_CAPACITY as _STORAGE_READ_CAPACITY ptr
 	const DeviceDsmAction_Trim = 1
 	const DeviceDsmAction_Notification = 2 or DeviceDsmActionFlag_NonDestructive
 	#define IsDsmActionNonDestructive(x) cast(WINBOOLEAN, -((((x) and DeviceDsmActionFlag_NonDestructive) = 0) = 0))
-	const DEVICE_DSM_FLAG_ENTIRE_DATA_SET_RANGE = cast(clong, &h00000001)
+	const DEVICE_DSM_FLAG_ENTIRE_DATA_SET_RANGE = &h00000001
 	type DEVICE_DATA_MANAGEMENT_SET_ACTION as DWORD
 
 	type _DEVICE_MANAGE_DATA_SET_ATTRIBUTES
@@ -266,9 +264,9 @@ end type
 
 type TAPE_GET_STATISTICS as _TAPE_GET_STATISTICS
 type PTAPE_GET_STATISTICS as _TAPE_GET_STATISTICS ptr
-const TAPE_RETURN_STATISTICS = cast(clong, 0)
-const TAPE_RETURN_ENV_INFO = cast(clong, 1)
-const TAPE_RESET_STATISTICS = cast(clong, 2)
+const TAPE_RETURN_STATISTICS = 0
+const TAPE_RETURN_ENV_INFO = 1
+const TAPE_RESET_STATISTICS = 2
 
 type _STORAGE_MEDIA_TYPE as long
 enum

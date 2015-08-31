@@ -24,7 +24,6 @@
 
 #inclib "dxguid"
 
-#include once "crt/long.bi"
 #include once "crt/stdlib.bi"
 #include once "objbase.bi"
 #include once "d3dtypes.bi"
@@ -179,14 +178,14 @@ const D3D_OK = DD_OK
 #define D3DERR_INVALIDSTATEBLOCK MAKE_DDHRESULT(2100)
 #define D3DERR_INBEGINSTATEBLOCK MAKE_DDHRESULT(2101)
 #define D3DERR_NOTINBEGINSTATEBLOCK MAKE_DDHRESULT(2102)
-const D3DNEXT_NEXT = cast(clong, &h01)
-const D3DNEXT_HEAD = cast(clong, &h02)
-const D3DNEXT_TAIL = cast(clong, &h04)
-const D3DDP_WAIT = cast(clong, &h00000001)
-const D3DDP_OUTOFORDER = cast(clong, &h00000002)
-const D3DDP_DONOTCLIP = cast(clong, &h00000004)
-const D3DDP_DONOTUPDATEEXTENTS = cast(clong, &h00000008)
-const D3DDP_DONOTLIGHT = cast(clong, &h00000010)
+const D3DNEXT_NEXT = &h01
+const D3DNEXT_HEAD = &h02
+const D3DNEXT_TAIL = &h04
+const D3DDP_WAIT = &h00000001
+const D3DDP_OUTOFORDER = &h00000002
+const D3DDP_DONOTCLIP = &h00000004
+const D3DDP_DONOTUPDATEEXTENTS = &h00000008
+const D3DDP_DONOTLIGHT = &h00000010
 
 type D3DVIEWPORTHANDLE as DWORD
 type LPD3DVIEWPORTHANDLE as DWORD ptr

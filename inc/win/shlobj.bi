@@ -50,7 +50,6 @@
 
 #inclib "shell32"
 
-#include once "crt/long.bi"
 #include once "wtypesbase.bi"
 #include once "wincrypt.bi"
 #include once "winapifamily.bi"
@@ -1516,34 +1515,34 @@ const SHCNRF_InterruptLevel = &h0001
 const SHCNRF_ShellLevel = &h0002
 const SHCNRF_RecursiveInterrupt = &h1000
 const SHCNRF_NewDelivery = &h8000
-const SHCNE_RENAMEITEM = cast(clong, &h00000001)
-const SHCNE_CREATE = cast(clong, &h00000002)
-const SHCNE_DELETE = cast(clong, &h00000004)
-const SHCNE_MKDIR = cast(clong, &h00000008)
-const SHCNE_RMDIR = cast(clong, &h00000010)
-const SHCNE_MEDIAINSERTED = cast(clong, &h00000020)
-const SHCNE_MEDIAREMOVED = cast(clong, &h00000040)
-const SHCNE_DRIVEREMOVED = cast(clong, &h00000080)
-const SHCNE_DRIVEADD = cast(clong, &h00000100)
-const SHCNE_NETSHARE = cast(clong, &h00000200)
-const SHCNE_NETUNSHARE = cast(clong, &h00000400)
-const SHCNE_ATTRIBUTES = cast(clong, &h00000800)
-const SHCNE_UPDATEDIR = cast(clong, &h00001000)
-const SHCNE_UPDATEITEM = cast(clong, &h00002000)
-const SHCNE_SERVERDISCONNECT = cast(clong, &h00004000)
-const SHCNE_UPDATEIMAGE = cast(clong, &h00008000)
-const SHCNE_DRIVEADDGUI = cast(clong, &h00010000)
-const SHCNE_RENAMEFOLDER = cast(clong, &h00020000)
-const SHCNE_FREESPACE = cast(clong, &h00040000)
-const SHCNE_EXTENDED_EVENT = cast(clong, &h04000000)
-const SHCNE_ASSOCCHANGED = cast(clong, &h08000000)
-const SHCNE_DISKEVENTS = cast(clong, &h0002381f)
-const SHCNE_GLOBALEVENTS = cast(clong, &h0c0581e0)
-const SHCNE_ALLEVENTS = cast(clong, &h7fffffff)
-const SHCNE_INTERRUPT = cast(clong, &h80000000)
-const SHCNEE_ORDERCHANGED = cast(clong, 2)
-const SHCNEE_MSI_CHANGE = cast(clong, 4)
-const SHCNEE_MSI_UNINSTALL = cast(clong, 5)
+const SHCNE_RENAMEITEM = &h00000001
+const SHCNE_CREATE = &h00000002
+const SHCNE_DELETE = &h00000004
+const SHCNE_MKDIR = &h00000008
+const SHCNE_RMDIR = &h00000010
+const SHCNE_MEDIAINSERTED = &h00000020
+const SHCNE_MEDIAREMOVED = &h00000040
+const SHCNE_DRIVEREMOVED = &h00000080
+const SHCNE_DRIVEADD = &h00000100
+const SHCNE_NETSHARE = &h00000200
+const SHCNE_NETUNSHARE = &h00000400
+const SHCNE_ATTRIBUTES = &h00000800
+const SHCNE_UPDATEDIR = &h00001000
+const SHCNE_UPDATEITEM = &h00002000
+const SHCNE_SERVERDISCONNECT = &h00004000
+const SHCNE_UPDATEIMAGE = &h00008000
+const SHCNE_DRIVEADDGUI = &h00010000
+const SHCNE_RENAMEFOLDER = &h00020000
+const SHCNE_FREESPACE = &h00040000
+const SHCNE_EXTENDED_EVENT = &h04000000
+const SHCNE_ASSOCCHANGED = &h08000000
+const SHCNE_DISKEVENTS = &h0002381f
+const SHCNE_GLOBALEVENTS = &h0c0581e0
+const SHCNE_ALLEVENTS = &h7fffffff
+const SHCNE_INTERRUPT = &h80000000
+const SHCNEE_ORDERCHANGED = 2
+const SHCNEE_MSI_CHANGE = 4
+const SHCNEE_MSI_UNINSTALL = 5
 const SHCNF_IDLIST = &h0000
 const SHCNF_PATHA = &h0001
 const SHCNF_PRINTERA = &h0002
@@ -1606,16 +1605,16 @@ const QIF_DONTEXPANDFOLDER = &h00000002
 
 type SHARD as long
 enum
-	SHARD_PIDL = cast(clong, &h00000001)
-	SHARD_PATHA = cast(clong, &h00000002)
-	SHARD_PATHW = cast(clong, &h00000003)
+	SHARD_PIDL = &h00000001
+	SHARD_PATHA = &h00000002
+	SHARD_PATHW = &h00000003
 
 	#if _WIN32_WINNT = &h0602
-		SHARD_APPIDINFO = cast(clong, &h00000004)
-		SHARD_APPIDINFOIDLIST = cast(clong, &h00000005)
-		SHARD_LINK = cast(clong, &h00000006)
-		SHARD_APPIDINFOLINK = cast(clong, &h00000007)
-		SHARD_SHELLITEM = cast(clong, &h00000008)
+		SHARD_APPIDINFO = &h00000004
+		SHARD_APPIDINFOIDLIST = &h00000005
+		SHARD_LINK = &h00000006
+		SHARD_APPIDINFOLINK = &h00000007
+		SHARD_SHELLITEM = &h00000008
 	#endif
 end enum
 
@@ -1832,9 +1831,9 @@ declare function DriveType(byval iDrive as long) as long
 declare function RealDriveType(byval iDrive as long, byval fOKToHitNet as WINBOOL) as long
 declare function IsNetDrive(byval iDrive as long) as long
 
-const MM_ADDSEPARATOR = cast(clong, &h00000001)
-const MM_SUBMENUSHAVEIDS = cast(clong, &h00000002)
-const MM_DONTREMOVESEPS = cast(clong, &h00000004)
+const MM_ADDSEPARATOR = &h00000001
+const MM_SUBMENUSHAVEIDS = &h00000002
+const MM_DONTREMOVESEPS = &h00000004
 declare function Shell_MergeMenus(byval hmDst as HMENU, byval hmSrc as HMENU, byval uInsert as UINT, byval uIDAdjust as UINT, byval uIDAdjustMax as UINT, byval uFlags as ULONG) as UINT
 declare function SHObjectProperties(byval hwnd as HWND, byval shopObjectType as DWORD, byval pszObjectName as PCWSTR, byval pszPropertyPage as PCWSTR) as WINBOOL
 const SHOP_PRINTERNAME = &h00000001
@@ -1844,9 +1843,9 @@ declare function SHFormatDrive(byval hwnd as HWND, byval drive as UINT, byval fm
 const SHFMT_ID_DEFAULT = &hffff
 const SHFMT_OPT_FULL = &h0001
 const SHFMT_OPT_SYSONLY = &h0002
-const SHFMT_ERROR = cast(clong, &hffffffff)
-const SHFMT_CANCEL = cast(clong, &hfffffffe)
-const SHFMT_NOFORMAT = cast(clong, &hfffffffd)
+const SHFMT_ERROR = &hffffffff
+const SHFMT_CANCEL = &hfffffffe
+const SHFMT_NOFORMAT = &hfffffffd
 #define HPSXA_DEFINED
 
 type HPSXA__ field = 1

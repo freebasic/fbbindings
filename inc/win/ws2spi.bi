@@ -15,7 +15,6 @@
 
 #pragma once
 
-#include once "crt/long.bi"
 #include once "winsock2.bi"
 
 #ifdef __FB_64BIT__
@@ -26,7 +25,7 @@
 
 #define _WINSOCK2SPI_
 const WSPDESCRIPTION_LEN = 255
-const WSS_OPERATION_IN_PROGRESS = cast(clong, &h00000103)
+const WSS_OPERATION_IN_PROGRESS = &h00000103
 
 #ifdef __FB_64BIT__
 	type WSPDATA

@@ -50,7 +50,6 @@
 
 #inclib "comctl32"
 
-#include once "crt/long.bi"
 #include once "winapifamily.bi"
 #include once "_mingw_unicode.bi"
 #include once "prsht.bi"
@@ -332,8 +331,8 @@ end type
 type NMCUSTOMSPLITRECTINFO as tagNMCUSTOMSPLITRECTINFO
 type LPNMCUSTOMSPLITRECTINFO as tagNMCUSTOMSPLITRECTINFO ptr
 const NM_GETCUSTOMSPLITRECT = culng(BCN_FIRST + &h0003)
-const CLR_NONE = cast(clong, &hffffffff)
-const CLR_DEFAULT = cast(clong, &hff000000)
+const CLR_NONE = &hffffffff
+const CLR_DEFAULT = &hff000000
 type HIMAGELIST as _IMAGELIST ptr
 
 type _IMAGELISTDRAWPARAMS
@@ -2462,14 +2461,14 @@ const HKM_SETRULES = WM_USER + 3
 	#define HOTKEY_CLASS HOTKEY_CLASSA
 #endif
 
-const CCS_TOP = cast(clong, &h1)
-const CCS_NOMOVEY = cast(clong, &h2)
-const CCS_BOTTOM = cast(clong, &h3)
-const CCS_NORESIZE = cast(clong, &h4)
-const CCS_NOPARENTALIGN = cast(clong, &h8)
-const CCS_ADJUSTABLE = cast(clong, &h20)
-const CCS_NODIVIDER = cast(clong, &h40)
-const CCS_VERT = cast(clong, &h80)
+const CCS_TOP = &h1
+const CCS_NOMOVEY = &h2
+const CCS_BOTTOM = &h3
+const CCS_NORESIZE = &h4
+const CCS_NOPARENTALIGN = &h8
+const CCS_ADJUSTABLE = &h20
+const CCS_NODIVIDER = &h40
+const CCS_VERT = &h80
 const CCS_LEFT = CCS_VERT or CCS_TOP
 const CCS_RIGHT = CCS_VERT or CCS_BOTTOM
 const CCS_NOMOVEX = CCS_VERT or CCS_NOMOVEY
@@ -3487,7 +3486,7 @@ const LVM_ISITEMVISIBLE = LVM_FIRST + 182
 
 #if _WIN32_WINNT = &h0602
 	#define ListView_SetGroupHeaderImageList(hwnd, himl) cast(HIMAGELIST, SNDMSG((hwnd), LVM_SETIMAGELIST, cast(WPARAM, LVSIL_GROUPHEADER), cast(LPARAM, cast(HIMAGELIST, (himl)))))
-	#define ListView_GetGroupHeaderImageList(hwnd) cast(HIMAGELIST, SNDMSG((hwnd), LVM_GETIMAGELIST, cast(WPARAM, LVSIL_GROUPHEADER), cast(clong, 0)))
+	#define ListView_GetGroupHeaderImageList(hwnd) cast(HIMAGELIST, SNDMSG((hwnd), LVM_GETIMAGELIST, cast(WPARAM, LVSIL_GROUPHEADER), 0))
 	const LVM_GETEMPTYTEXT = LVM_FIRST + 204
 	#define ListView_GetEmptyText(hwnd, pszText, cchText) cast(WINBOOL, SNDMSG((hwnd), LVM_GETEMPTYTEXT, cast(WPARAM, (cchText)), cast(LPARAM, (pszText))))
 	const LVM_GETFOOTERRECT = LVM_FIRST + 205
@@ -5750,10 +5749,10 @@ const BST_HOT = &h0200
 
 #if _WIN32_WINNT = &h0602
 	const BST_DROPDOWNPUSHED = &h0400
-	const BS_SPLITBUTTON = cast(clong, &hc)
-	const BS_DEFSPLITBUTTON = cast(clong, &hd)
-	const BS_COMMANDLINK = cast(clong, &he)
-	const BS_DEFCOMMANDLINK = cast(clong, &hf)
+	const BS_SPLITBUTTON = &hc
+	const BS_DEFSPLITBUTTON = &hd
+	const BS_COMMANDLINK = &he
+	const BS_DEFCOMMANDLINK = &hf
 	const BCSIF_GLYPH = &h0001
 	const BCSIF_IMAGE = &h0002
 	const BCSIF_STYLE = &h0004
@@ -6157,19 +6156,19 @@ type PFNDPACOMPARECONST as PFNDACOMPARECONST
 declare function Str_SetPtrW(byval ppsz as LPWSTR ptr, byval psz as LPCWSTR) as WINBOOL
 declare function _TrackMouseEvent(byval lpEventTrack as LPTRACKMOUSEEVENT) as WINBOOL
 
-const WSB_PROP_CYVSCROLL = cast(clong, &h1)
-const WSB_PROP_CXHSCROLL = cast(clong, &h2)
-const WSB_PROP_CYHSCROLL = cast(clong, &h4)
-const WSB_PROP_CXVSCROLL = cast(clong, &h8)
-const WSB_PROP_CXHTHUMB = cast(clong, &h10)
-const WSB_PROP_CYVTHUMB = cast(clong, &h20)
-const WSB_PROP_VBKGCOLOR = cast(clong, &h40)
-const WSB_PROP_HBKGCOLOR = cast(clong, &h80)
-const WSB_PROP_VSTYLE = cast(clong, &h100)
-const WSB_PROP_HSTYLE = cast(clong, &h200)
-const WSB_PROP_WINSTYLE = cast(clong, &h400)
-const WSB_PROP_PALETTE = cast(clong, &h800)
-const WSB_PROP_MASK = cast(clong, &hfff)
+const WSB_PROP_CYVSCROLL = &h1
+const WSB_PROP_CXHSCROLL = &h2
+const WSB_PROP_CYHSCROLL = &h4
+const WSB_PROP_CXVSCROLL = &h8
+const WSB_PROP_CXHTHUMB = &h10
+const WSB_PROP_CYVTHUMB = &h20
+const WSB_PROP_VBKGCOLOR = &h40
+const WSB_PROP_HBKGCOLOR = &h80
+const WSB_PROP_VSTYLE = &h100
+const WSB_PROP_HSTYLE = &h200
+const WSB_PROP_WINSTYLE = &h400
+const WSB_PROP_PALETTE = &h800
+const WSB_PROP_MASK = &hfff
 const FSB_FLAT_MODE = 2
 const FSB_ENCARTA_MODE = 1
 const FSB_REGULAR_MODE = 0
