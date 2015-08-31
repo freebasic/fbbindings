@@ -50,6 +50,10 @@ extern "C"
 
 const _FCGI_STDIO = 1
 
+#ifndef NO_FCGI_DEFINES
+	type FILE as FILE_
+#endif
+
 type FCGI_FILE
 	stdio_stream as FILE ptr
 	fcgx_stream as FCGX_Stream ptr
@@ -108,7 +112,7 @@ declare function FCGI_pclose(byval as FCGI_FILE ptr) as long
 
 #ifndef NO_FCGI_DEFINES
 	#undef FILE
-	type FILE as FCGI_FILE
+	type FILE_ as FCGI_FILE
 	#undef stdin
 	#define stdin FCGI_stdin_
 	#undef stdout

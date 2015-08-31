@@ -240,7 +240,7 @@ end type
 type UNICODE_STRING as _UNICODE_STRING
 type PUNICODE_STRING as _UNICODE_STRING ptr
 type PCUNICODE_STRING as const UNICODE_STRING ptr
-#define UNICODE_NULL cast(WCHAR, 0)
+const UNICODE_NULL = cast(WCHAR, 0)
 
 type _CSTRING
 	Length as USHORT
@@ -250,7 +250,7 @@ end type
 
 type CSTRING as _CSTRING
 type PCSTRING as _CSTRING ptr
-#define ANSI_NULL cast(CHAR, 0)
+const ANSI_NULL = cast(CHAR, 0)
 #define __STRING_DEFINED
 
 type _STRING

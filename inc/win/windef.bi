@@ -329,7 +329,7 @@ end type
 
 type HUMPD as HUMPD__ ptr
 type LPCOLORREF as DWORD ptr
-#define HFILE_ERROR cast(HFILE, -1)
+const HFILE_ERROR = cast(HFILE, -1)
 
 type tagRECT
 	left as LONG

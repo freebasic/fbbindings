@@ -43,8 +43,8 @@
 
 '' The following symbols have been renamed:
 ''     typedef LUA_NUMBER => LUA_NUMBER_
-''     typedef LUA_UNSIGNED => LUA_UNSIGNED_
 ''     typedef LUA_INTEGER => LUA_INTEGER_
+''     typedef LUA_UNSIGNED => LUA_UNSIGNED_
 ''     typedef LUA_KCONTEXT => LUA_KCONTEXT_
 ''     #define LUA_VERSION => LUA_VERSION_
 ''     constant LUA_YIELD => LUA_YIELD_
@@ -123,6 +123,7 @@ type LUAI_UACNUMBER as double
 #endif
 
 #define lua_number2str(s, n) sprintf((s), LUA_NUMBER_FMT, (n))
+type LUA_INTEGER_ as LUA_INTEGER__
 
 private function lua_numbertointeger(byval n as LUA_NUMBER_, byval p as LUA_INTEGER_ ptr) as long
 	if (n >= cast(LUA_NUMBER_, LUA_MININTEGER)) andalso (n < (-cast(LUA_NUMBER_, LUA_MININTEGER))) then
@@ -138,17 +139,17 @@ type LUAI_UACINT as LUA_INTEGER_
 type LUA_UNSIGNED_ as lua_Unsigned
 
 #ifdef LUA_32BITS
-	type LUA_INTEGER_ as long
+	type LUA_INTEGER__ as long
 	#define LUA_INTEGER_FRMLEN ""
 	#define LUA_MAXINTEGER INT_MAX
 	#define LUA_MININTEGER INT_MIN
 #elseif (not defined(LUA_32BITS)) and defined(LUA_C89_NUMBERS)
-	type LUA_INTEGER_ as clong
+	type LUA_INTEGER__ as clong
 	#define LUA_INTEGER_FRMLEN "l"
 	#define LUA_MAXINTEGER LONG_MAX
 	#define LUA_MININTEGER LONG_MIN
 #else
-	type LUA_INTEGER_ as longint
+	type LUA_INTEGER__ as longint
 	#define LUA_INTEGER_FRMLEN "ll"
 	#define LUA_MAXINTEGER LLONG_MAX
 	#define LUA_MININTEGER LLONG_MIN
@@ -182,7 +183,7 @@ const LUA_VERSION_NUM = 503
 #define LUA_AUTHORS "R. Ierusalimschy, L. H. de Figueiredo, W. Celes"
 #define LUA_SIGNATURE !"\27Lua"
 const LUA_MULTRET = -1
-#define LUA_REGISTRYINDEX ((-LUAI_MAXSTACK) - 1000)
+const LUA_REGISTRYINDEX = (-LUAI_MAXSTACK) - 1000
 #define lua_upvalueindex(i) (LUA_REGISTRYINDEX - (i))
 const LUA_OK = 0
 const LUA_YIELD_ = 1
@@ -389,10 +390,10 @@ const LUA_HOOKRET = 1
 const LUA_HOOKLINE = 2
 const LUA_HOOKCOUNT = 3
 const LUA_HOOKTAILCALL = 4
-#define LUA_MASKCALL (1 shl LUA_HOOKCALL)
-#define LUA_MASKRET (1 shl LUA_HOOKRET)
-#define LUA_MASKLINE (1 shl LUA_HOOKLINE)
-#define LUA_MASKCOUNT (1 shl LUA_HOOKCOUNT)
+const LUA_MASKCALL = 1 shl LUA_HOOKCALL
+const LUA_MASKRET = 1 shl LUA_HOOKRET
+const LUA_MASKLINE = 1 shl LUA_HOOKLINE
+const LUA_MASKCOUNT = 1 shl LUA_HOOKCOUNT
 type lua_Debug as lua_Debug_
 type lua_Hook as sub(byval L as lua_State ptr, byval ar as lua_Debug ptr)
 

@@ -136,7 +136,7 @@ extern CLSID_SBS_CdlProtocol as const IID
 extern CLSID_SBS_ClassInstallFilter as const IID
 extern CLSID_SBS_InternetSecurityManager as const IID
 extern CLSID_SBS_InternetZoneManager as const IID
-#define INVALID_P_ROOT_SECURITY_ID cptr(UBYTE ptr, -1)
+const INVALID_P_ROOT_SECURITY_ID = cptr(UBYTE ptr, -1)
 extern IID_IAsyncMoniker as const IID
 extern CLSID_StdURLMoniker as const IID
 extern CLSID_HttpProtocol as const IID
@@ -1224,25 +1224,25 @@ declare sub ICodeInstall_OnCodeInstallProblem_Stub(byval This as IRpcStubBuffer 
 	declare function CreateUriWithFragment(byval pwzURI as LPCWSTR, byval pwzFragment as LPCWSTR, byval dwFlags as DWORD, byval dwReserved as DWORD_PTR, byval ppURI as IUri ptr ptr) as HRESULT
 	declare function CreateUriFromMultiByteString(byval pszANSIInputUri as LPCSTR, byval dwEncodingFlags as DWORD, byval dwCodePage as DWORD, byval dwCreateFlags as DWORD, byval dwReserved as DWORD_PTR, byval ppUri as IUri ptr ptr) as HRESULT
 
-	#define Uri_HAS_ABSOLUTE_URI (1 shl Uri_PROPERTY_ABSOLUTE_URI)
-	#define Uri_HAS_AUTHORITY (1 shl Uri_PROPERTY_AUTHORITY)
-	#define Uri_HAS_DISPLAY_URI (1 shl Uri_PROPERTY_DISPLAY_URI)
-	#define Uri_HAS_DOMAIN (1 shl Uri_PROPERTY_DOMAIN)
-	#define Uri_HAS_EXTENSION (1 shl Uri_PROPERTY_EXTENSION)
-	#define Uri_HAS_FRAGMENT (1 shl Uri_PROPERTY_FRAGMENT)
-	#define Uri_HAS_HOST (1 shl Uri_PROPERTY_HOST)
-	#define Uri_HAS_PASSWORD (1 shl Uri_PROPERTY_PASSWORD)
-	#define Uri_HAS_PATH (1 shl Uri_PROPERTY_PATH)
-	#define Uri_HAS_QUERY (1 shl Uri_PROPERTY_QUERY)
-	#define Uri_HAS_RAW_URI (1 shl Uri_PROPERTY_RAW_URI)
-	#define Uri_HAS_SCHEME_NAME (1 shl Uri_PROPERTY_SCHEME_NAME)
-	#define Uri_HAS_USER_NAME (1 shl Uri_PROPERTY_USER_NAME)
-	#define Uri_HAS_PATH_AND_QUERY (1 shl Uri_PROPERTY_PATH_AND_QUERY)
-	#define Uri_HAS_USER_INFO (1 shl Uri_PROPERTY_USER_INFO)
-	#define Uri_HAS_HOST_TYPE (1 shl Uri_PROPERTY_HOST_TYPE)
-	#define Uri_HAS_PORT (1 shl Uri_PROPERTY_PORT)
-	#define Uri_HAS_SCHEME (1 shl Uri_PROPERTY_SCHEME)
-	#define Uri_HAS_ZONE (1 shl Uri_PROPERTY_ZONE)
+	const Uri_HAS_ABSOLUTE_URI = 1 shl Uri_PROPERTY_ABSOLUTE_URI
+	const Uri_HAS_AUTHORITY = 1 shl Uri_PROPERTY_AUTHORITY
+	const Uri_HAS_DISPLAY_URI = 1 shl Uri_PROPERTY_DISPLAY_URI
+	const Uri_HAS_DOMAIN = 1 shl Uri_PROPERTY_DOMAIN
+	const Uri_HAS_EXTENSION = 1 shl Uri_PROPERTY_EXTENSION
+	const Uri_HAS_FRAGMENT = 1 shl Uri_PROPERTY_FRAGMENT
+	const Uri_HAS_HOST = 1 shl Uri_PROPERTY_HOST
+	const Uri_HAS_PASSWORD = 1 shl Uri_PROPERTY_PASSWORD
+	const Uri_HAS_PATH = 1 shl Uri_PROPERTY_PATH
+	const Uri_HAS_QUERY = 1 shl Uri_PROPERTY_QUERY
+	const Uri_HAS_RAW_URI = 1 shl Uri_PROPERTY_RAW_URI
+	const Uri_HAS_SCHEME_NAME = 1 shl Uri_PROPERTY_SCHEME_NAME
+	const Uri_HAS_USER_NAME = 1 shl Uri_PROPERTY_USER_NAME
+	const Uri_HAS_PATH_AND_QUERY = 1 shl Uri_PROPERTY_PATH_AND_QUERY
+	const Uri_HAS_USER_INFO = 1 shl Uri_PROPERTY_USER_INFO
+	const Uri_HAS_HOST_TYPE = 1 shl Uri_PROPERTY_HOST_TYPE
+	const Uri_HAS_PORT = 1 shl Uri_PROPERTY_PORT
+	const Uri_HAS_SCHEME = 1 shl Uri_PROPERTY_SCHEME
+	const Uri_HAS_ZONE = 1 shl Uri_PROPERTY_ZONE
 	const Uri_CREATE_ALLOW_RELATIVE = &h1
 	const Uri_CREATE_ALLOW_IMPLICIT_WILDCARD_SCHEME = &h2
 	const Uri_CREATE_ALLOW_IMPLICIT_FILE_SCHEME = &h4
@@ -1272,7 +1272,7 @@ declare sub ICodeInstall_OnCodeInstallProblem_Stub(byval This as IRpcStubBuffer 
 	const Uri_ENCODING_HOST_IS_PERCENT_ENCODED_CP = &h10
 	const Uri_ENCODING_QUERY_AND_FRAGMENT_IS_PERCENT_ENCODED_UTF8 = &h20
 	const Uri_ENCODING_QUERY_AND_FRAGMENT_IS_CP = &h40
-	#define Uri_ENCODING_RFC ((Uri_ENCODING_USER_INFO_AND_PATH_IS_PERCENT_ENCODED_UTF8 or Uri_ENCODING_HOST_IS_PERCENT_ENCODED_UTF8) or Uri_ENCODING_QUERY_AND_FRAGMENT_IS_PERCENT_ENCODED_UTF8)
+	const Uri_ENCODING_RFC = (Uri_ENCODING_USER_INFO_AND_PATH_IS_PERCENT_ENCODED_UTF8 or Uri_ENCODING_HOST_IS_PERCENT_ENCODED_UTF8) or Uri_ENCODING_QUERY_AND_FRAGMENT_IS_PERCENT_ENCODED_UTF8
 	const UriBuilder_USE_ORIGINAL_FLAGS = &h1
 	#define __IUriContainer_INTERFACE_DEFINED__
 	extern IID_IUriContainer as const GUID

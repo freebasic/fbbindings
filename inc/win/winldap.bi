@@ -734,7 +734,7 @@ type BerElement_
 	opaque as PCHAR
 end type
 
-#define NULLBER cptr(BerElement ptr, 0)
+const NULLBER = cptr(BerElement ptr, 0)
 declare function ldap_first_attributeW(byval ld as LDAP ptr, byval entry as LDAPMessage ptr, byval ptr as BerElement ptr ptr) as PWCHAR
 declare function ldap_first_attributeA(byval ld as LDAP ptr, byval entry as LDAPMessage ptr, byval ptr as BerElement ptr ptr) as PCHAR
 

@@ -175,7 +175,7 @@ type SI_PAGE_ACTIVATED as _SI_PAGE_ACTIVATED
 #define DOBJ_VOL_NTACLS __MSABI_LONG(&h00000004)
 #define DOBJ_COND_NTACLS __MSABI_LONG(&h00000008)
 #define DOBJ_RIBBON_LAUNCH __MSABI_LONG(&h00000010)
-#define PSPCB_SI_INITDIALOG (WM_USER + 1)
+const PSPCB_SI_INITDIALOG = WM_USER + 1
 type ISecurityInformationVtbl as ISecurityInformationVtbl_
 
 type ISecurityInformation
