@@ -488,8 +488,8 @@ to fb:
 	const LIS_ENABLED = &h2
 	const LIS_VISITED = &h4
 
-convert c: #define STATIC_KSDATAFORMAT_SUBTYPE_WAVEFORMATEX __MSABI_LONG (0x00000000), 0x0000, 0x0010, 0x80, 0x00, 0x00, 0xaa, 0x00, 0x38, 0x9b, 0x71
-to fb:     #define STATIC_KSDATAFORMAT_SUBTYPE_WAVEFORMATEX               &h00000000l, &h0000, &h0010, &h80, &h00, &h00, &haa, &h00, &h38, &h9b, &h71
+convert c: #define STATIC_KSDATAFORMAT_SUBTYPE_WAVEFORMATEX 0x00000000l, 0x0000, 0x0010, 0x80, 0x00, 0x00, 0xaa, 0x00, 0x38, 0x9b, 0x71
+to fb:     #define STATIC_KSDATAFORMAT_SUBTYPE_WAVEFORMATEX &h00000000l, &h0000, &h0010, &h80, &h00, &h00, &haa, &h00, &h38, &h9b, &h71
 
 convert c: #define REGSTR_PATH_RUN_POLICY REGSTR_PATH_POLICIES __TEXT("\\Explorer\\Run")
 to fb:     #define REGSTR_PATH_RUN_POLICY (REGSTR_PATH_POLICIES + __TEXT(!"\\Explorer\\Run"))

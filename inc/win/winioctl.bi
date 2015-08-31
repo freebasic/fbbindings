@@ -161,7 +161,7 @@ type PSTORAGE_READ_CAPACITY as _STORAGE_READ_CAPACITY ptr
 	const DeviceDsmAction_Trim = 1
 	const DeviceDsmAction_Notification = 2 or DeviceDsmActionFlag_NonDestructive
 	#define IsDsmActionNonDestructive(x) cast(WINBOOLEAN, -((((x) and DeviceDsmActionFlag_NonDestructive) = 0) = 0))
-	#define DEVICE_DSM_FLAG_ENTIRE_DATA_SET_RANGE __MSABI_LONG(&h00000001)
+	const DEVICE_DSM_FLAG_ENTIRE_DATA_SET_RANGE = &h00000001
 	type DEVICE_DATA_MANAGEMENT_SET_ACTION as DWORD
 
 	type _DEVICE_MANAGE_DATA_SET_ATTRIBUTES
@@ -264,9 +264,9 @@ end type
 
 type TAPE_GET_STATISTICS as _TAPE_GET_STATISTICS
 type PTAPE_GET_STATISTICS as _TAPE_GET_STATISTICS ptr
-#define TAPE_RETURN_STATISTICS __MSABI_LONG(0)
-#define TAPE_RETURN_ENV_INFO __MSABI_LONG(1)
-#define TAPE_RESET_STATISTICS __MSABI_LONG(2)
+const TAPE_RETURN_STATISTICS = 0
+const TAPE_RETURN_ENV_INFO = 1
+const TAPE_RESET_STATISTICS = 2
 
 type _STORAGE_MEDIA_TYPE as long
 enum

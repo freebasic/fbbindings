@@ -146,21 +146,21 @@ const DTT_GRAYED = &h1
 declare function DrawThemeText(byval hTheme as HTHEME, byval hdc as HDC, byval iPartId as long, byval iStateId as long, byval pszText as LPCWSTR, byval iCharCount as long, byval dwTextFlags as DWORD, byval dwTextFlags2 as DWORD, byval pRect as const RECT ptr) as HRESULT
 
 #if _WIN32_WINNT = &h0602
-	#define DTT_TEXTCOLOR (__MSABI_LONG(1u) shl 0)
-	#define DTT_BORDERCOLOR (__MSABI_LONG(1u) shl 1)
-	#define DTT_SHADOWCOLOR (__MSABI_LONG(1u) shl 2)
-	#define DTT_SHADOWTYPE (__MSABI_LONG(1u) shl 3)
-	#define DTT_SHADOWOFFSET (__MSABI_LONG(1u) shl 4)
-	#define DTT_BORDERSIZE (__MSABI_LONG(1u) shl 5)
-	#define DTT_FONTPROP (__MSABI_LONG(1u) shl 6)
-	#define DTT_COLORPROP (__MSABI_LONG(1u) shl 7)
-	#define DTT_STATEID (__MSABI_LONG(1u) shl 8)
-	#define DTT_CALCRECT (__MSABI_LONG(1u) shl 9)
-	#define DTT_APPLYOVERLAY (__MSABI_LONG(1u) shl 10)
-	#define DTT_GLOWSIZE (__MSABI_LONG(1u) shl 11)
-	#define DTT_CALLBACK (__MSABI_LONG(1u) shl 12)
-	#define DTT_COMPOSITED (__MSABI_LONG(1u) shl 13)
-	#define DTT_VALIDBITS ((((((((((((DTT_TEXTCOLOR or DTT_BORDERCOLOR) or DTT_SHADOWCOLOR) or DTT_SHADOWTYPE) or DTT_SHADOWOFFSET) or DTT_BORDERSIZE) or DTT_FONTPROP) or DTT_COLORPROP) or DTT_STATEID) or DTT_CALCRECT) or DTT_APPLYOVERLAY) or DTT_GLOWSIZE) or DTT_COMPOSITED)
+	const DTT_TEXTCOLOR = culng(1u shl 0)
+	const DTT_BORDERCOLOR = culng(1u shl 1)
+	const DTT_SHADOWCOLOR = culng(1u shl 2)
+	const DTT_SHADOWTYPE = culng(1u shl 3)
+	const DTT_SHADOWOFFSET = culng(1u shl 4)
+	const DTT_BORDERSIZE = culng(1u shl 5)
+	const DTT_FONTPROP = culng(1u shl 6)
+	const DTT_COLORPROP = culng(1u shl 7)
+	const DTT_STATEID = culng(1u shl 8)
+	const DTT_CALCRECT = culng(1u shl 9)
+	const DTT_APPLYOVERLAY = culng(1u shl 10)
+	const DTT_GLOWSIZE = culng(1u shl 11)
+	const DTT_CALLBACK = culng(1u shl 12)
+	const DTT_COMPOSITED = culng(1u shl 13)
+	const DTT_VALIDBITS = culng(culng(culng(culng(culng(culng(culng(culng(culng(culng(culng(culng(DTT_TEXTCOLOR or DTT_BORDERCOLOR) or DTT_SHADOWCOLOR) or DTT_SHADOWTYPE) or DTT_SHADOWOFFSET) or DTT_BORDERSIZE) or DTT_FONTPROP) or DTT_COLORPROP) or DTT_STATEID) or DTT_CALCRECT) or DTT_APPLYOVERLAY) or DTT_GLOWSIZE) or DTT_COMPOSITED)
 	type DTT_CALLBACK_PROC as function(byval hdc as HDC, byval pszText as LPWSTR, byval cchText as long, byval prc as LPRECT, byval dwFlags as UINT, byval lParam as LPARAM) as long
 
 	type _DTTOPTS

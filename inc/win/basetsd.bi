@@ -142,7 +142,7 @@ type PDWORD32 as ulong ptr
 	type ULONG_PTR as ulong
 	type PULONG_PTR as ulong ptr
 	type __int3264 as long
-	#define ADDRESS_TAG_BIT __MSABI_LONG(&h80000000u)
+	const ADDRESS_TAG_BIT = &h80000000u
 	type UHALF_PTR as ushort
 	type PUHALF_PTR as ushort ptr
 	type HALF_PTR as short
