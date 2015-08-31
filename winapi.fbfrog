@@ -162,6 +162,7 @@
 -removedefine IFACEMETHODV_
 -removedefine IMAGEAPI
 -removedefine IN
+-removedefine in_addr6 # case-alias
 -removedefine _inline
 -removedefine INSTAPI
 -removedefine interface
@@ -658,6 +659,7 @@
 -remove2nd POLICY_AUDIT_EVENT_SUCCESS
 -remove2nd POLICY_AUDIT_EVENT_FAILURE
 -remove2nd POLICY_AUDIT_EVENT_NONE
+-remove2nd StrCatBuff
 
 -rename TRUE CTRUE
 -ifndefdecl NULL
@@ -691,6 +693,7 @@
 # In general we want to translate these typedefs as byte/wchar_t,
 # instead of expanding them and translating to zstring/wstring
 -nostring CHAR
+-nostring __int8
 -nostring LPCCH
 -nostring LPCH
 -nostring LPCUWCHAR
@@ -804,10 +807,8 @@
 -string _DNS_MESSAGE_BUFFER.MessageBody
 -string DriverPath
 -string DrvDescription
--string DXGetErrorDescription8W
--string DXGetErrorDescription9W
--string DXGetErrorString8W
--string DXGetErrorString9W
+-string DXGetErrorDescription*
+-string DXGetErrorString*
 -string elfFullName
 -string elfScript
 -string elfStyle
@@ -824,7 +825,7 @@
 -string FsFormatName
 -string FullInfPath
 -string FullTargetName
--string gai_strerrorW
+-string gai_strerror*
 -string GdipAddPathString.1
 -string GdipAddPathStringI.1
 -string GdipConvertToEmfPlus.4

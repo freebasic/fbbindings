@@ -698,7 +698,7 @@ declare function IRunnableTask_IsRunning_Proxy(byval This as IRunnableTask ptr) 
 declare sub IRunnableTask_IsRunning_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 extern TOID_NULL alias "GUID_NULL" as const IID
 
-#define ITSAT_DEFAULT_LPARAM cast(DWORD_PTR, -1)
+const ITSAT_DEFAULT_LPARAM = cast(DWORD_PTR, -1)
 const ITSAT_DEFAULT_PRIORITY = &h10000000
 const ITSAT_MAX_PRIORITY = &h7fffffff
 const ITSAT_MIN_PRIORITY = &h00000000
@@ -707,7 +707,7 @@ const ITSSFLAG_KILL_ON_DESTROY = &h1
 const ITSSFLAG_FLAGS_MASK = &h3
 const ITSS_THREAD_DESTROY_DEFAULT_TIMEOUT = 10 * 1000
 const ITSS_THREAD_TERMINATE_TIMEOUT = INFINITE
-#define ITSS_THREAD_TIMEOUT_NO_CHANGE (INFINITE - 1)
+const ITSS_THREAD_TIMEOUT_NO_CHANGE = INFINITE - 1
 #define __IShellTaskScheduler_INTERFACE_DEFINED__
 extern IID_IShellTaskScheduler as const GUID
 type IShellTaskScheduler as IShellTaskScheduler_
@@ -1403,7 +1403,7 @@ enum
 	SVSI_NOTAKEFOCUS = &h40000000
 end enum
 
-#define SVSI_NOSTATECHANGE cast(UINT, &h80000000)
+const SVSI_NOSTATECHANGE = cast(UINT, &h80000000)
 type SVSIF as UINT
 
 type _SVGIO as long
@@ -1495,8 +1495,8 @@ declare sub IShellView_GetItemObject_Stub(byval This as IRpcStubBuffer ptr, byva
 type LPSHELLVIEW as IShellView ptr
 #define __IShellView2_INTERFACE_DEFINED__
 type SHELLVIEWID as GUID
-#define SV2GV_CURRENTVIEW cast(UINT, -1)
-#define SV2GV_DEFAULTVIEW cast(UINT, -2)
+const SV2GV_CURRENTVIEW = cast(UINT, -1)
+const SV2GV_DEFAULTVIEW = cast(UINT, -2)
 
 type _SV2CVW2_PARAMS
 	cbSize as DWORD
@@ -3717,8 +3717,10 @@ declare sub IDragSourceHelper_InitializeFromWindow_Stub(byval This as IRpcStubBu
 #endif
 
 #ifdef UNICODE
+	type IShellLinkW as IShellLinkW_
 	type IShellLink as IShellLinkW
 #else
+	type IShellLinkA as IShellLinkA_
 	type IShellLink as IShellLinkA
 #endif
 
@@ -3750,11 +3752,11 @@ end enum
 #define __IShellLinkA_INTERFACE_DEFINED__
 extern IID_IShellLinkA as const GUID
 
-#ifndef UNICODE
+#ifdef UNICODE
+	type IShellLinkA as IShellLinkA_
+#else
 	extern IID_IShellLink alias "IID_IShellLinkA" as const GUID
 #endif
-
-type IShellLinkA as IShellLinkA_
 
 type IShellLinkAVtbl
 	QueryInterface as function(byval This as IShellLinkA ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -3848,9 +3850,9 @@ extern SID_LinkSite alias "IID_IShellLinkW" as const GUID
 
 #ifdef UNICODE
 	extern IID_IShellLink alias "IID_IShellLinkW" as const GUID
+#else
+	type IShellLinkW as IShellLinkW_
 #endif
-
-type IShellLinkW as IShellLinkW_
 
 type IShellLinkWVtbl
 	QueryInterface as function(byval This as IShellLinkW ptr, byval riid as const IID const ptr, byval ppvObject as any ptr ptr) as HRESULT
@@ -4775,8 +4777,8 @@ enum
 	DBID_PERMITAUTOHIDE = 7
 end enum
 
-#define DBPC_SELECTFIRST cast(DWORD, -1)
-#define DBPC_SELECTLAST cast(DWORD, -2)
+const DBPC_SELECTFIRST = cast(DWORD, -1)
+const DBPC_SELECTLAST = cast(DWORD, -2)
 #define __IDeskBand_INTERFACE_DEFINED__
 extern IID_IDeskBand as const GUID
 extern CGID_DeskBand alias "IID_IDeskBand" as const GUID
@@ -7545,7 +7547,7 @@ declare sub IDelegateFolder_SetItemAlloc_Stub(byval This as IRpcStubBuffer ptr, 
 #if _WIN32_WINNT >= &h0502
 	const SMINIT_VERTICAL = &h10000000
 	const SMINIT_HORIZONTAL = &h20000000
-	#define ANCESTORDEFAULT cast(UINT, -1)
+	const ANCESTORDEFAULT = cast(UINT, -1)
 	const SMSET_TOP = &h10000000
 	const SMSET_BOTTOM = &h20000000
 	const SMSET_DONTOWN = &h00000001
@@ -8475,7 +8477,7 @@ declare function INameSpaceTreeControl2_SetControlStyle2_Proxy(byval This as INa
 declare sub INameSpaceTreeControl2_SetControlStyle2_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function INameSpaceTreeControl2_GetControlStyle2_Proxy(byval This as INameSpaceTreeControl2 ptr, byval nstcsMask as NSTCSTYLE2, byval pnstcsStyle as NSTCSTYLE2 ptr) as HRESULT
 declare sub INameSpaceTreeControl2_GetControlStyle2_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
-#define NSTCS2_ALLMASK ((NSTCS2_INTERRUPTNOTIFICATIONS or NSTCS2_SHOWNULLSPACEMENU) or NSTCS2_DISPLAYPADDING)
+const NSTCS2_ALLMASK = (NSTCS2_INTERRUPTNOTIFICATIONS or NSTCS2_SHOWNULLSPACEMENU) or NSTCS2_DISPLAYPADDING
 extern SID_SNavigationPane alias "IID_INameSpaceTreeControl" as const GUID
 
 #define ISLBUTTON(x) (NSTCECT_LBUTTON = ((x) and NSTCECT_BUTTON))
