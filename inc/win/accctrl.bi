@@ -48,6 +48,7 @@
 
 #pragma once
 
+#include once "crt/long.bi"
 #include once "_mingw_unicode.bi"
 #include once "wtypes.bi"
 #include once "winapifamily.bi"
@@ -378,12 +379,12 @@ type PACTRL_AUDITW as _ACTRL_ALISTW ptr
 	type PACTRL_AUDIT as PACTRL_AUDITA
 #endif
 
-#define TRUSTEE_ACCESS_ALLOWED __MSABI_LONG(&h1)
-#define TRUSTEE_ACCESS_READ __MSABI_LONG(&h2)
-#define TRUSTEE_ACCESS_WRITE __MSABI_LONG(&h4)
-#define TRUSTEE_ACCESS_EXPLICIT __MSABI_LONG(&h1)
-#define TRUSTEE_ACCESS_READ_WRITE (TRUSTEE_ACCESS_READ or TRUSTEE_ACCESS_WRITE)
-#define TRUSTEE_ACCESS_ALL __MSABI_LONG(&hffffffff)
+const TRUSTEE_ACCESS_ALLOWED = cast(clong, &h1)
+const TRUSTEE_ACCESS_READ = cast(clong, &h2)
+const TRUSTEE_ACCESS_WRITE = cast(clong, &h4)
+const TRUSTEE_ACCESS_EXPLICIT = cast(clong, &h1)
+const TRUSTEE_ACCESS_READ_WRITE = TRUSTEE_ACCESS_READ or TRUSTEE_ACCESS_WRITE
+const TRUSTEE_ACCESS_ALL = cast(clong, &hffffffff)
 
 type _TRUSTEE_ACCESSA
 	lpProperty as LPSTR

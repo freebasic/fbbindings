@@ -15,6 +15,7 @@
 
 #pragma once
 
+#include once "crt/long.bi"
 #include once "winapifamily.bi"
 #include once "rpc.bi"
 #include once "rpcndr.bi"
@@ -42,30 +43,30 @@ end enum
 type COINIT as tagCOINIT
 const MARSHALINTERFACE_MIN = 500
 const CWCSTORAGENAME = 32
-#define STGM_DIRECT __MSABI_LONG(&h00000000)
-#define STGM_TRANSACTED __MSABI_LONG(&h00010000)
-#define STGM_SIMPLE __MSABI_LONG(&h08000000)
-#define STGM_READ __MSABI_LONG(&h00000000)
-#define STGM_WRITE __MSABI_LONG(&h00000001)
-#define STGM_READWRITE __MSABI_LONG(&h00000002)
-#define STGM_SHARE_DENY_NONE __MSABI_LONG(&h00000040)
-#define STGM_SHARE_DENY_READ __MSABI_LONG(&h00000030)
-#define STGM_SHARE_DENY_WRITE __MSABI_LONG(&h00000020)
-#define STGM_SHARE_EXCLUSIVE __MSABI_LONG(&h00000010)
-#define STGM_PRIORITY __MSABI_LONG(&h00040000)
-#define STGM_DELETEONRELEASE __MSABI_LONG(&h04000000)
-#define STGM_NOSCRATCH __MSABI_LONG(&h00100000)
-#define STGM_CREATE __MSABI_LONG(&h00001000)
-#define STGM_CONVERT __MSABI_LONG(&h00020000)
-#define STGM_FAILIFTHERE __MSABI_LONG(&h00000000)
-#define STGM_NOSNAPSHOT __MSABI_LONG(&h00200000)
-#define STGM_DIRECT_SWMR __MSABI_LONG(&h00400000)
-#define ASYNC_MODE_COMPATIBILITY __MSABI_LONG(&h00000001)
-#define ASYNC_MODE_DEFAULT __MSABI_LONG(&h00000000)
-#define STGTY_REPEAT __MSABI_LONG(&h00000100)
-#define STG_TOEND __MSABI_LONG(&hffffffff)
-#define STG_LAYOUT_SEQUENTIAL __MSABI_LONG(&h00000000)
-#define STG_LAYOUT_INTERLEAVED __MSABI_LONG(&h00000001)
+const STGM_DIRECT = cast(clong, &h00000000)
+const STGM_TRANSACTED = cast(clong, &h00010000)
+const STGM_SIMPLE = cast(clong, &h08000000)
+const STGM_READ = cast(clong, &h00000000)
+const STGM_WRITE = cast(clong, &h00000001)
+const STGM_READWRITE = cast(clong, &h00000002)
+const STGM_SHARE_DENY_NONE = cast(clong, &h00000040)
+const STGM_SHARE_DENY_READ = cast(clong, &h00000030)
+const STGM_SHARE_DENY_WRITE = cast(clong, &h00000020)
+const STGM_SHARE_EXCLUSIVE = cast(clong, &h00000010)
+const STGM_PRIORITY = cast(clong, &h00040000)
+const STGM_DELETEONRELEASE = cast(clong, &h04000000)
+const STGM_NOSCRATCH = cast(clong, &h00100000)
+const STGM_CREATE = cast(clong, &h00001000)
+const STGM_CONVERT = cast(clong, &h00020000)
+const STGM_FAILIFTHERE = cast(clong, &h00000000)
+const STGM_NOSNAPSHOT = cast(clong, &h00200000)
+const STGM_DIRECT_SWMR = cast(clong, &h00400000)
+const ASYNC_MODE_COMPATIBILITY = cast(clong, &h00000001)
+const ASYNC_MODE_DEFAULT = cast(clong, &h00000000)
+const STGTY_REPEAT = cast(clong, &h00000100)
+const STG_TOEND = cast(clong, &hffffffff)
+const STG_LAYOUT_SEQUENTIAL = cast(clong, &h00000000)
+const STG_LAYOUT_INTERLEAVED = cast(clong, &h00000001)
 type STGFMT as DWORD
 const STGFMT_STORAGE = 0
 const STGFMT_NATIVE = 1

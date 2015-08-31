@@ -50,6 +50,7 @@
 
 #inclib "aclui"
 
+#include once "crt/long.bi"
 #include once "winapifamily.bi"
 #include once "objbase.bi"
 #include once "commctrl.bi"
@@ -75,46 +76,46 @@ end type
 
 type SI_OBJECT_INFO as _SI_OBJECT_INFO
 type PSI_OBJECT_INFO as _SI_OBJECT_INFO ptr
-#define SI_EDIT_PERMS __MSABI_LONG(&h00000000)
-#define SI_EDIT_OWNER __MSABI_LONG(&h00000001)
-#define SI_EDIT_AUDITS __MSABI_LONG(&h00000002)
-#define SI_CONTAINER __MSABI_LONG(&h00000004)
-#define SI_READONLY __MSABI_LONG(&h00000008)
-#define SI_ADVANCED __MSABI_LONG(&h00000010)
-#define SI_RESET __MSABI_LONG(&h00000020)
-#define SI_OWNER_READONLY __MSABI_LONG(&h00000040)
-#define SI_EDIT_PROPERTIES __MSABI_LONG(&h00000080)
-#define SI_OWNER_RECURSE __MSABI_LONG(&h00000100)
-#define SI_NO_ACL_PROTECT __MSABI_LONG(&h00000200)
-#define SI_NO_TREE_APPLY __MSABI_LONG(&h00000400)
-#define SI_PAGE_TITLE __MSABI_LONG(&h00000800)
-#define SI_SERVER_IS_DC __MSABI_LONG(&h00001000)
-#define SI_RESET_DACL_TREE __MSABI_LONG(&h00004000)
-#define SI_RESET_SACL_TREE __MSABI_LONG(&h00008000)
-#define SI_OBJECT_GUID __MSABI_LONG(&h00010000)
-#define SI_EDIT_EFFECTIVE __MSABI_LONG(&h00020000)
-#define SI_RESET_DACL __MSABI_LONG(&h00040000)
-#define SI_RESET_SACL __MSABI_LONG(&h00080000)
-#define SI_RESET_OWNER __MSABI_LONG(&h00100000)
-#define SI_NO_ADDITIONAL_PERMISSION __MSABI_LONG(&h00200000)
+const SI_EDIT_PERMS = cast(clong, &h00000000)
+const SI_EDIT_OWNER = cast(clong, &h00000001)
+const SI_EDIT_AUDITS = cast(clong, &h00000002)
+const SI_CONTAINER = cast(clong, &h00000004)
+const SI_READONLY = cast(clong, &h00000008)
+const SI_ADVANCED = cast(clong, &h00000010)
+const SI_RESET = cast(clong, &h00000020)
+const SI_OWNER_READONLY = cast(clong, &h00000040)
+const SI_EDIT_PROPERTIES = cast(clong, &h00000080)
+const SI_OWNER_RECURSE = cast(clong, &h00000100)
+const SI_NO_ACL_PROTECT = cast(clong, &h00000200)
+const SI_NO_TREE_APPLY = cast(clong, &h00000400)
+const SI_PAGE_TITLE = cast(clong, &h00000800)
+const SI_SERVER_IS_DC = cast(clong, &h00001000)
+const SI_RESET_DACL_TREE = cast(clong, &h00004000)
+const SI_RESET_SACL_TREE = cast(clong, &h00008000)
+const SI_OBJECT_GUID = cast(clong, &h00010000)
+const SI_EDIT_EFFECTIVE = cast(clong, &h00020000)
+const SI_RESET_DACL = cast(clong, &h00040000)
+const SI_RESET_SACL = cast(clong, &h00080000)
+const SI_RESET_OWNER = cast(clong, &h00100000)
+const SI_NO_ADDITIONAL_PERMISSION = cast(clong, &h00200000)
 
 #if _WIN32_WINNT = &h0602
-	#define SI_VIEW_ONLY __MSABI_LONG(&h00400000)
-	#define SI_PERMS_ELEVATION_REQUIRED __MSABI_LONG(&h01000000)
-	#define SI_AUDITS_ELEVATION_REQUIRED __MSABI_LONG(&h02000000)
-	#define SI_OWNER_ELEVATION_REQUIRED __MSABI_LONG(&h04000000)
-	#define SI_SCOPE_ELEVATION_REQUIRED __MSABI_LONG(&h08000000)
+	const SI_VIEW_ONLY = cast(clong, &h00400000)
+	const SI_PERMS_ELEVATION_REQUIRED = cast(clong, &h01000000)
+	const SI_AUDITS_ELEVATION_REQUIRED = cast(clong, &h02000000)
+	const SI_OWNER_ELEVATION_REQUIRED = cast(clong, &h04000000)
+	const SI_SCOPE_ELEVATION_REQUIRED = cast(clong, &h08000000)
 #endif
 
-#define SI_MAY_WRITE __MSABI_LONG(&h10000000)
+const SI_MAY_WRITE = cast(clong, &h10000000)
 
 #if _WIN32_WINNT = &h0602
-	#define SI_ENABLE_EDIT_ATTRIBUTE_CONDITION __MSABI_LONG(&h20000000)
-	#define SI_ENABLE_CENTRAL_POLICY __MSABI_LONG(&h40000000)
-	#define SI_DISABLE_DENY_ACE __MSABI_LONG(&h80000000)
+	const SI_ENABLE_EDIT_ATTRIBUTE_CONDITION = cast(clong, &h20000000)
+	const SI_ENABLE_CENTRAL_POLICY = cast(clong, &h40000000)
+	const SI_DISABLE_DENY_ACE = cast(clong, &h80000000)
 #endif
 
-#define SI_EDIT_ALL ((SI_EDIT_PERMS or SI_EDIT_OWNER) or SI_EDIT_AUDITS)
+const SI_EDIT_ALL = (SI_EDIT_PERMS or SI_EDIT_OWNER) or SI_EDIT_AUDITS
 
 type _SI_ACCESS
 	pguid as const GUID ptr
@@ -125,10 +126,10 @@ end type
 
 type SI_ACCESS as _SI_ACCESS
 type PSI_ACCESS as _SI_ACCESS ptr
-#define SI_ACCESS_SPECIFIC __MSABI_LONG(&h00010000)
-#define SI_ACCESS_GENERAL __MSABI_LONG(&h00020000)
-#define SI_ACCESS_CONTAINER __MSABI_LONG(&h00040000)
-#define SI_ACCESS_PROPERTY __MSABI_LONG(&h00080000)
+const SI_ACCESS_SPECIFIC = cast(clong, &h00010000)
+const SI_ACCESS_GENERAL = cast(clong, &h00020000)
+const SI_ACCESS_CONTAINER = cast(clong, &h00040000)
+const SI_ACCESS_PROPERTY = cast(clong, &h00080000)
 
 type _SI_INHERIT_TYPE
 	pguid as const GUID ptr
@@ -170,11 +171,11 @@ type SI_PAGE_ACTIVATED as _SI_PAGE_ACTIVATED
 #define GET_PAGE_TYPE(X) cast(UINT, (X) and &h0000ffff)
 #define GET_ACTIVATION_TYPE(Y) cast(UINT, ((Y) shr 16) and &h0000ffff)
 #define COMBINE_PAGE_ACTIVATION(X, Y) cast(UINT, ((Y) shl 16) or X)
-#define DOBJ_RES_CONT __MSABI_LONG(&h00000001)
-#define DOBJ_RES_ROOT __MSABI_LONG(&h00000002)
-#define DOBJ_VOL_NTACLS __MSABI_LONG(&h00000004)
-#define DOBJ_COND_NTACLS __MSABI_LONG(&h00000008)
-#define DOBJ_RIBBON_LAUNCH __MSABI_LONG(&h00000010)
+const DOBJ_RES_CONT = cast(clong, &h00000001)
+const DOBJ_RES_ROOT = cast(clong, &h00000002)
+const DOBJ_VOL_NTACLS = cast(clong, &h00000004)
+const DOBJ_COND_NTACLS = cast(clong, &h00000008)
+const DOBJ_RIBBON_LAUNCH = cast(clong, &h00000010)
 const PSPCB_SI_INITDIALOG = WM_USER + 1
 type ISecurityInformationVtbl as ISecurityInformationVtbl_
 

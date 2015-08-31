@@ -15,6 +15,7 @@
 
 #pragma once
 
+#include once "crt/long.bi"
 #include once "_mingw_unicode.bi"
 #include once "specstrings.bi"
 #include once "guiddef.bi"
@@ -431,10 +432,10 @@ const RPC_C_AUTHN_DPA = 17
 const RPC_C_AUTHN_MSN = 18
 const RPC_C_AUTHN_DIGEST = 21
 const RPC_C_AUTHN_MQ = 100
-#define RPC_C_AUTHN_DEFAULT __MSABI_LONG(&hFFFFFFFF)
+const RPC_C_AUTHN_DEFAULT = cast(clong, &hFFFFFFFF)
 const RPC_C_NO_CREDENTIALS = cast(RPC_AUTH_IDENTITY_HANDLE, MAXUINT_PTR)
-#define RPC_C_SECURITY_QOS_VERSION __MSABI_LONG(1)
-#define RPC_C_SECURITY_QOS_VERSION_1 __MSABI_LONG(1)
+const RPC_C_SECURITY_QOS_VERSION = cast(clong, 1)
+const RPC_C_SECURITY_QOS_VERSION_1 = cast(clong, 1)
 
 type _RPC_SECURITY_QOS
 	Version as ulong
@@ -485,7 +486,7 @@ type PSEC_WINNT_AUTH_IDENTITY_A as _SEC_WINNT_AUTH_IDENTITY_A ptr
 	type _SEC_WINNT_AUTH_IDENTITY as _SEC_WINNT_AUTH_IDENTITY_A
 #endif
 
-#define RPC_C_SECURITY_QOS_VERSION_2 __MSABI_LONG(2)
+const RPC_C_SECURITY_QOS_VERSION_2 = cast(clong, 2)
 const RPC_C_AUTHN_INFO_TYPE_HTTP = 1
 const RPC_C_HTTP_AUTHN_TARGET_SERVER = 1
 const RPC_C_HTTP_AUTHN_TARGET_PROXY = 2
@@ -554,7 +555,7 @@ end type
 
 type RPC_SECURITY_QOS_V2_A as _RPC_SECURITY_QOS_V2_A
 type PRPC_SECURITY_QOS_V2_A as _RPC_SECURITY_QOS_V2_A ptr
-#define RPC_C_SECURITY_QOS_VERSION_3 __MSABI_LONG(3)
+const RPC_C_SECURITY_QOS_VERSION_3 = cast(clong, 3)
 
 union _RPC_SECURITY_QOS_V3_W_u
 	HttpCredentials as RPC_HTTP_TRANSPORT_CREDENTIALS_W ptr

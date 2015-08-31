@@ -48,6 +48,7 @@
 
 #pragma once
 
+#include once "crt/long.bi"
 #include once "_mingw.bi"
 
 #define _API_SET_H_
@@ -58,7 +59,7 @@
 #define API_SET_SCHEMA_NAME ApiSetSchema
 #define API_SET_SECTION_NAME ".apiset"
 #define API_SET_SCHEMA_SUFFIX wstr(".sys")
-#define API_SET_SCHEMA_VERSION __MSABI_LONG(2u)
+const API_SET_SCHEMA_VERSION = cast(culong, 2)
 #define API_SET_HELPER_NAME ApiSetHelp
 const API_SET_LOAD_SCHEMA_ORDINAL = 1
 const API_SET_LOOKUP_ORDINAL = 2

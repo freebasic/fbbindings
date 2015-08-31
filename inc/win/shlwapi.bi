@@ -17,6 +17,7 @@
 
 #inclib "shlwapi"
 
+#include once "crt/long.bi"
 #include once "_mingw_unicode.bi"
 #include once "objbase.bi"
 #include once "shtypes.bi"
@@ -313,8 +314,8 @@ declare function IntlStrEqWorkerW(byval fCaseSens as WINBOOL, byval lpString1 as
 
 #define PathIsHTMLFileA(pszPath) PathIsContentTypeA(pszPath, SZ_CONTENTTYPE_HTMLA)
 #define PathIsHTMLFileW(pszPath) PathIsContentTypeW(pszPath, SZ_CONTENTTYPE_HTMLW)
-#define STIF_DEFAULT __MSABI_LONG(&h00000000)
-#define STIF_SUPPORT_HEX __MSABI_LONG(&h00000001)
+const STIF_DEFAULT = cast(clong, &h00000000)
+const STIF_SUPPORT_HEX = cast(clong, &h00000001)
 #define StrCatA lstrcatA
 declare function StrCmpA alias "lstrcmpA"(byval lpString1 as LPCSTR, byval lpString2 as LPCSTR) as long
 declare function StrCmpIA alias "lstrcmpiA"(byval lpString1 as LPCSTR, byval lpString2 as LPCSTR) as long

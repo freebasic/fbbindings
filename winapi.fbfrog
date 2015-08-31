@@ -365,6 +365,7 @@
 -expandindefine POINTER_32
 -expandindefine POINTER_64
 -expandindefine __MIDL_CONST
+-expandindefine __MSABI_LONG
 -renametypedef BYTE UBYTE
 -renametypedef byte ubyte
 -typedefhint LPTV_INSERTSTRUCT

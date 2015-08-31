@@ -15,6 +15,8 @@
 
 #pragma once
 
+#include once "crt/long.bi"
+
 #define _WINPERF_
 const PERF_DATA_VERSION = 1
 const PERF_DATA_REVISION = 1
@@ -199,7 +201,7 @@ type PPERF_COUNTER_BLOCK as _PERF_COUNTER_BLOCK ptr
 #define PERF_QUERY_OBJECTS cast(LONG, &h80000000)
 #define PERF_QUERY_GLOBAL cast(LONG, &h80000001)
 #define PERF_QUERY_COSTLY cast(LONG, &h80000002)
-#define MAX_PERF_OBJECTS_IN_QUERY_FUNCTION __MSABI_LONG(64)
+const MAX_PERF_OBJECTS_IN_QUERY_FUNCTION = cast(clong, 64)
 const WINPERF_LOG_NONE = 0
 const WINPERF_LOG_USER = 1
 const WINPERF_LOG_DEBUG = 2

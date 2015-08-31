@@ -48,6 +48,7 @@
 
 #pragma once
 
+#include once "crt/long.bi"
 #include once "rpc.bi"
 #include once "rpcndr.bi"
 #include once "windows.bi"
@@ -344,25 +345,25 @@ const PID_BEHAVIOR = &h80000003
 const PID_ILLEGAL = &hffffffff
 const PID_MIN_READONLY = &h80000000
 const PID_MAX_READONLY = &hbfffffff
-#define PIDDI_THUMBNAIL __MSABI_LONG(&h2)
-#define PIDSI_TITLE __MSABI_LONG(&h2)
-#define PIDSI_SUBJECT __MSABI_LONG(&h3)
-#define PIDSI_AUTHOR __MSABI_LONG(&h4)
-#define PIDSI_KEYWORDS __MSABI_LONG(&h5)
-#define PIDSI_COMMENTS __MSABI_LONG(&h6)
-#define PIDSI_TEMPLATE __MSABI_LONG(&h7)
-#define PIDSI_LASTAUTHOR __MSABI_LONG(&h8)
-#define PIDSI_REVNUMBER __MSABI_LONG(&h9)
-#define PIDSI_EDITTIME __MSABI_LONG(&ha)
-#define PIDSI_LASTPRINTED __MSABI_LONG(&hb)
-#define PIDSI_CREATE_DTM __MSABI_LONG(&hc)
-#define PIDSI_LASTSAVE_DTM __MSABI_LONG(&hd)
-#define PIDSI_PAGECOUNT __MSABI_LONG(&he)
-#define PIDSI_WORDCOUNT __MSABI_LONG(&hf)
-#define PIDSI_CHARCOUNT __MSABI_LONG(&h10)
-#define PIDSI_THUMBNAIL __MSABI_LONG(&h11)
-#define PIDSI_APPNAME __MSABI_LONG(&h12)
-#define PIDSI_DOC_SECURITY __MSABI_LONG(&h13)
+const PIDDI_THUMBNAIL = cast(clong, &h2)
+const PIDSI_TITLE = cast(clong, &h2)
+const PIDSI_SUBJECT = cast(clong, &h3)
+const PIDSI_AUTHOR = cast(clong, &h4)
+const PIDSI_KEYWORDS = cast(clong, &h5)
+const PIDSI_COMMENTS = cast(clong, &h6)
+const PIDSI_TEMPLATE = cast(clong, &h7)
+const PIDSI_LASTAUTHOR = cast(clong, &h8)
+const PIDSI_REVNUMBER = cast(clong, &h9)
+const PIDSI_EDITTIME = cast(clong, &ha)
+const PIDSI_LASTPRINTED = cast(clong, &hb)
+const PIDSI_CREATE_DTM = cast(clong, &hc)
+const PIDSI_LASTSAVE_DTM = cast(clong, &hd)
+const PIDSI_PAGECOUNT = cast(clong, &he)
+const PIDSI_WORDCOUNT = cast(clong, &hf)
+const PIDSI_CHARCOUNT = cast(clong, &h10)
+const PIDSI_THUMBNAIL = cast(clong, &h11)
+const PIDSI_APPNAME = cast(clong, &h12)
+const PIDSI_DOC_SECURITY = cast(clong, &h13)
 const PIDDSI_CATEGORY = &h00000002
 const PIDDSI_PRESFORMAT = &h00000003
 const PIDDSI_BYTECOUNT = &h00000004
@@ -378,16 +379,16 @@ const PIDDSI_DOCPARTS = &h0000000D
 const PIDDSI_MANAGER = &h0000000E
 const PIDDSI_COMPANY = &h0000000F
 const PIDDSI_LINKSDIRTY = &h00000010
-#define PIDMSI_EDITOR __MSABI_LONG(&h2)
-#define PIDMSI_SUPPLIER __MSABI_LONG(&h3)
-#define PIDMSI_SOURCE __MSABI_LONG(&h4)
-#define PIDMSI_SEQUENCE_NO __MSABI_LONG(&h5)
-#define PIDMSI_PROJECT __MSABI_LONG(&h6)
-#define PIDMSI_STATUS __MSABI_LONG(&h7)
-#define PIDMSI_OWNER __MSABI_LONG(&h8)
-#define PIDMSI_RATING __MSABI_LONG(&h9)
-#define PIDMSI_PRODUCTION __MSABI_LONG(&ha)
-#define PIDMSI_COPYRIGHT __MSABI_LONG(&hb)
+const PIDMSI_EDITOR = cast(clong, &h2)
+const PIDMSI_SUPPLIER = cast(clong, &h3)
+const PIDMSI_SOURCE = cast(clong, &h4)
+const PIDMSI_SEQUENCE_NO = cast(clong, &h5)
+const PIDMSI_PROJECT = cast(clong, &h6)
+const PIDMSI_STATUS = cast(clong, &h7)
+const PIDMSI_OWNER = cast(clong, &h8)
+const PIDMSI_RATING = cast(clong, &h9)
+const PIDMSI_PRODUCTION = cast(clong, &ha)
+const PIDMSI_COPYRIGHT = cast(clong, &hb)
 
 type PIDMSI_STATUS_VALUE as long
 enum

@@ -18,6 +18,7 @@
 #inclib "gdi32"
 #inclib "msimg32"
 
+#include once "crt/long.bi"
 #include once "winapifamily.bi"
 #include once "_mingw_unicode.bi"
 
@@ -76,7 +77,7 @@ const WHITENESS = cast(DWORD, &h00FF0062)
 const NOMIRRORBITMAP = cast(DWORD, &h80000000)
 const CAPTUREBLT = cast(DWORD, &h40000000)
 #define MAKEROP4(fore, back) cast(DWORD, (((back) shl 8) and &hFF000000) or (fore))
-#define GDI_ERROR __MSABI_LONG(&hFFFFFFFF)
+const GDI_ERROR = cast(clong, &hFFFFFFFF)
 #define HGDI_ERROR LongToHandle(&hFFFFFFFF)
 const ERROR_ = 0
 const NULLREGION = 1
@@ -465,19 +466,19 @@ end type
 
 type RGBQUAD as tagRGBQUAD
 type LPRGBQUAD as RGBQUAD ptr
-#define CS_ENABLE __MSABI_LONG(&h00000001)
-#define CS_DISABLE __MSABI_LONG(&h00000002)
-#define CS_DELETE_TRANSFORM __MSABI_LONG(&h00000003)
+const CS_ENABLE = cast(clong, &h00000001)
+const CS_DISABLE = cast(clong, &h00000002)
+const CS_DELETE_TRANSFORM = cast(clong, &h00000003)
 #define LCS_SIGNATURE asc("PSOC")
 #define LCS_sRGB asc("sRGB")
 #define LCS_WINDOWS_COLOR_SPACE asc("Win ")
 type LCSCSTYPE as LONG
-#define LCS_CALIBRATED_RGB __MSABI_LONG(&h00000000)
+const LCS_CALIBRATED_RGB = cast(clong, &h00000000)
 type LCSGAMUTMATCH as LONG
-#define LCS_GM_BUSINESS __MSABI_LONG(&h00000001)
-#define LCS_GM_GRAPHICS __MSABI_LONG(&h00000002)
-#define LCS_GM_IMAGES __MSABI_LONG(&h00000004)
-#define LCS_GM_ABS_COLORIMETRIC __MSABI_LONG(&h00000008)
+const LCS_GM_BUSINESS = cast(clong, &h00000001)
+const LCS_GM_GRAPHICS = cast(clong, &h00000002)
+const LCS_GM_IMAGES = cast(clong, &h00000004)
+const LCS_GM_ABS_COLORIMETRIC = cast(clong, &h00000008)
 const CM_OUT_OF_GAMUT = 255
 const CM_IN_GAMUT = 0
 const ICM_ADDPROFILE = 1
@@ -643,12 +644,12 @@ type LPBITMAPV5HEADER as BITMAPV5HEADER ptr
 type PBITMAPV5HEADER as BITMAPV5HEADER ptr
 #define PROFILE_LINKED asc("LINK")
 #define PROFILE_EMBEDDED asc("MBED")
-#define BI_RGB __MSABI_LONG(0)
-#define BI_RLE8 __MSABI_LONG(1)
-#define BI_RLE4 __MSABI_LONG(2)
-#define BI_BITFIELDS __MSABI_LONG(3)
-#define BI_JPEG __MSABI_LONG(4)
-#define BI_PNG __MSABI_LONG(5)
+const BI_RGB = cast(clong, 0)
+const BI_RLE8 = cast(clong, 1)
+const BI_RLE4 = cast(clong, 2)
+const BI_BITFIELDS = cast(clong, 3)
+const BI_JPEG = cast(clong, 4)
+const BI_PNG = cast(clong, 5)
 
 type tagBITMAPINFO
 	bmiHeader as BITMAPINFOHEADER
@@ -875,9 +876,9 @@ type LPTEXTMETRICW as tagTEXTMETRICW ptr
 	type LPTEXTMETRIC as LPTEXTMETRICA
 #endif
 
-#define NTM_REGULAR __MSABI_LONG(&h00000040)
-#define NTM_BOLD __MSABI_LONG(&h00000020)
-#define NTM_ITALIC __MSABI_LONG(&h00000001)
+const NTM_REGULAR = cast(clong, &h00000040)
+const NTM_BOLD = cast(clong, &h00000020)
+const NTM_ITALIC = cast(clong, &h00000001)
 const NTM_NONNEGATIVE_AC = &h00010000
 const NTM_PS_OPENTYPE = &h00020000
 const NTM_TT_OPENTYPE = &h00040000
@@ -1252,22 +1253,22 @@ const EASTEUROPE_CHARSET = 238
 const RUSSIAN_CHARSET = 204
 const MAC_CHARSET = 77
 const BALTIC_CHARSET = 186
-#define FS_LATIN1 __MSABI_LONG(&h00000001)
-#define FS_LATIN2 __MSABI_LONG(&h00000002)
-#define FS_CYRILLIC __MSABI_LONG(&h00000004)
-#define FS_GREEK __MSABI_LONG(&h00000008)
-#define FS_TURKISH __MSABI_LONG(&h00000010)
-#define FS_HEBREW __MSABI_LONG(&h00000020)
-#define FS_ARABIC __MSABI_LONG(&h00000040)
-#define FS_BALTIC __MSABI_LONG(&h00000080)
-#define FS_VIETNAMESE __MSABI_LONG(&h00000100)
-#define FS_THAI __MSABI_LONG(&h00010000)
-#define FS_JISJAPAN __MSABI_LONG(&h00020000)
-#define FS_CHINESESIMP __MSABI_LONG(&h00040000)
-#define FS_WANSUNG __MSABI_LONG(&h00080000)
-#define FS_CHINESETRAD __MSABI_LONG(&h00100000)
-#define FS_JOHAB __MSABI_LONG(&h00200000)
-#define FS_SYMBOL __MSABI_LONG(&h80000000)
+const FS_LATIN1 = cast(clong, &h00000001)
+const FS_LATIN2 = cast(clong, &h00000002)
+const FS_CYRILLIC = cast(clong, &h00000004)
+const FS_GREEK = cast(clong, &h00000008)
+const FS_TURKISH = cast(clong, &h00000010)
+const FS_HEBREW = cast(clong, &h00000020)
+const FS_ARABIC = cast(clong, &h00000040)
+const FS_BALTIC = cast(clong, &h00000080)
+const FS_VIETNAMESE = cast(clong, &h00000100)
+const FS_THAI = cast(clong, &h00010000)
+const FS_JISJAPAN = cast(clong, &h00020000)
+const FS_CHINESESIMP = cast(clong, &h00040000)
+const FS_WANSUNG = cast(clong, &h00080000)
+const FS_CHINESETRAD = cast(clong, &h00100000)
+const FS_JOHAB = cast(clong, &h00200000)
+const FS_SYMBOL = cast(clong, &h80000000)
 const FF_DONTCARE = 0 shl 4
 const FF_ROMAN = 1 shl 4
 const FF_SWISS = 2 shl 4
@@ -1692,7 +1693,7 @@ const SYSPAL_ERROR = 0
 const SYSPAL_STATIC = 1
 const SYSPAL_NOSTATIC = 2
 const SYSPAL_NOSTATIC256 = 3
-#define CBM_INIT __MSABI_LONG(&h04)
+const CBM_INIT = cast(clong, &h04)
 const FLOODFILLBORDER = 0
 const FLOODFILLSURFACE = 1
 const CCHDEVICENAME = 32
@@ -1829,36 +1830,36 @@ type LPDEVMODEW as _devicemodeW ptr
 #endif
 
 const DM_SPECVERSION = &h0401
-#define DM_ORIENTATION __MSABI_LONG(&h00000001)
-#define DM_PAPERSIZE __MSABI_LONG(&h00000002)
-#define DM_PAPERLENGTH __MSABI_LONG(&h00000004)
-#define DM_PAPERWIDTH __MSABI_LONG(&h00000008)
-#define DM_SCALE __MSABI_LONG(&h00000010)
-#define DM_POSITION __MSABI_LONG(&h00000020)
-#define DM_NUP __MSABI_LONG(&h00000040)
-#define DM_DISPLAYORIENTATION __MSABI_LONG(&h00000080)
-#define DM_COPIES __MSABI_LONG(&h00000100)
-#define DM_DEFAULTSOURCE __MSABI_LONG(&h00000200)
-#define DM_PRINTQUALITY __MSABI_LONG(&h00000400)
-#define DM_COLOR __MSABI_LONG(&h00000800)
-#define DM_DUPLEX __MSABI_LONG(&h00001000)
-#define DM_YRESOLUTION __MSABI_LONG(&h00002000)
-#define DM_TTOPTION __MSABI_LONG(&h00004000)
-#define DM_COLLATE __MSABI_LONG(&h00008000)
-#define DM_FORMNAME __MSABI_LONG(&h00010000)
-#define DM_LOGPIXELS __MSABI_LONG(&h00020000)
-#define DM_BITSPERPEL __MSABI_LONG(&h00040000)
-#define DM_PELSWIDTH __MSABI_LONG(&h00080000)
-#define DM_PELSHEIGHT __MSABI_LONG(&h00100000)
-#define DM_DISPLAYFLAGS __MSABI_LONG(&h00200000)
-#define DM_DISPLAYFREQUENCY __MSABI_LONG(&h00400000)
-#define DM_ICMMETHOD __MSABI_LONG(&h00800000)
-#define DM_ICMINTENT __MSABI_LONG(&h01000000)
-#define DM_MEDIATYPE __MSABI_LONG(&h02000000)
-#define DM_DITHERTYPE __MSABI_LONG(&h04000000)
-#define DM_PANNINGWIDTH __MSABI_LONG(&h08000000)
-#define DM_PANNINGHEIGHT __MSABI_LONG(&h10000000)
-#define DM_DISPLAYFIXEDOUTPUT __MSABI_LONG(&h20000000)
+const DM_ORIENTATION = cast(clong, &h00000001)
+const DM_PAPERSIZE = cast(clong, &h00000002)
+const DM_PAPERLENGTH = cast(clong, &h00000004)
+const DM_PAPERWIDTH = cast(clong, &h00000008)
+const DM_SCALE = cast(clong, &h00000010)
+const DM_POSITION = cast(clong, &h00000020)
+const DM_NUP = cast(clong, &h00000040)
+const DM_DISPLAYORIENTATION = cast(clong, &h00000080)
+const DM_COPIES = cast(clong, &h00000100)
+const DM_DEFAULTSOURCE = cast(clong, &h00000200)
+const DM_PRINTQUALITY = cast(clong, &h00000400)
+const DM_COLOR = cast(clong, &h00000800)
+const DM_DUPLEX = cast(clong, &h00001000)
+const DM_YRESOLUTION = cast(clong, &h00002000)
+const DM_TTOPTION = cast(clong, &h00004000)
+const DM_COLLATE = cast(clong, &h00008000)
+const DM_FORMNAME = cast(clong, &h00010000)
+const DM_LOGPIXELS = cast(clong, &h00020000)
+const DM_BITSPERPEL = cast(clong, &h00040000)
+const DM_PELSWIDTH = cast(clong, &h00080000)
+const DM_PELSHEIGHT = cast(clong, &h00100000)
+const DM_DISPLAYFLAGS = cast(clong, &h00200000)
+const DM_DISPLAYFREQUENCY = cast(clong, &h00400000)
+const DM_ICMMETHOD = cast(clong, &h00800000)
+const DM_ICMINTENT = cast(clong, &h01000000)
+const DM_MEDIATYPE = cast(clong, &h02000000)
+const DM_DITHERTYPE = cast(clong, &h04000000)
+const DM_PANNINGWIDTH = cast(clong, &h08000000)
+const DM_PANNINGHEIGHT = cast(clong, &h10000000)
+const DM_DISPLAYFIXEDOUTPUT = cast(clong, &h20000000)
 const DMORIENT_PORTRAIT = 1
 const DMORIENT_LANDSCAPE = 2
 const DMPAPER_LETTER = 1
@@ -2616,17 +2617,17 @@ const GCP_DIACRITIC = &h0100
 const GCP_KASHIDA = &h0400
 const GCP_ERROR = &h8000
 const FLI_MASK = &h103B
-#define GCP_JUSTIFY __MSABI_LONG(&h00010000)
-#define FLI_GLYPHS __MSABI_LONG(&h00040000)
-#define GCP_CLASSIN __MSABI_LONG(&h00080000)
-#define GCP_MAXEXTENT __MSABI_LONG(&h00100000)
-#define GCP_JUSTIFYIN __MSABI_LONG(&h00200000)
-#define GCP_DISPLAYZWG __MSABI_LONG(&h00400000)
-#define GCP_SYMSWAPOFF __MSABI_LONG(&h00800000)
-#define GCP_NUMERICOVERRIDE __MSABI_LONG(&h01000000)
-#define GCP_NEUTRALOVERRIDE __MSABI_LONG(&h02000000)
-#define GCP_NUMERICSLATIN __MSABI_LONG(&h04000000)
-#define GCP_NUMERICSLOCAL __MSABI_LONG(&h08000000)
+const GCP_JUSTIFY = cast(clong, &h00010000)
+const FLI_GLYPHS = cast(clong, &h00040000)
+const GCP_CLASSIN = cast(clong, &h00080000)
+const GCP_MAXEXTENT = cast(clong, &h00100000)
+const GCP_JUSTIFYIN = cast(clong, &h00200000)
+const GCP_DISPLAYZWG = cast(clong, &h00400000)
+const GCP_SYMSWAPOFF = cast(clong, &h00800000)
+const GCP_NUMERICOVERRIDE = cast(clong, &h01000000)
+const GCP_NEUTRALOVERRIDE = cast(clong, &h02000000)
+const GCP_NUMERICSLATIN = cast(clong, &h04000000)
+const GCP_NUMERICSLOCAL = cast(clong, &h08000000)
 const GCPCLASS_LATIN = 1
 const GCPCLASS_HEBREW = 2
 const GCPCLASS_ARABIC = 2
@@ -2948,10 +2949,10 @@ const DC_COLORDEVICE = 32
 const DC_NUP = 33
 const DC_MEDIATYPENAMES = 34
 const DC_MEDIATYPES = 35
-#define DCTT_BITMAP __MSABI_LONG(&h0000001)
-#define DCTT_DOWNLOAD __MSABI_LONG(&h0000002)
-#define DCTT_SUBDEV __MSABI_LONG(&h0000004)
-#define DCTT_DOWNLOAD_OUTLINE __MSABI_LONG(&h0000008)
+const DCTT_BITMAP = cast(clong, &h0000001)
+const DCTT_DOWNLOAD = cast(clong, &h0000002)
+const DCTT_SUBDEV = cast(clong, &h0000004)
+const DCTT_DOWNLOAD_OUTLINE = cast(clong, &h0000008)
 const DCBA_FACEUPNONE = &h0000
 const DCBA_FACEUPCENTER = &h0001
 const DCBA_FACEUPLEFT = &h0002

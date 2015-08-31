@@ -1516,34 +1516,34 @@ const SHCNRF_InterruptLevel = &h0001
 const SHCNRF_ShellLevel = &h0002
 const SHCNRF_RecursiveInterrupt = &h1000
 const SHCNRF_NewDelivery = &h8000
-#define SHCNE_RENAMEITEM __MSABI_LONG(&h00000001)
-#define SHCNE_CREATE __MSABI_LONG(&h00000002)
-#define SHCNE_DELETE __MSABI_LONG(&h00000004)
-#define SHCNE_MKDIR __MSABI_LONG(&h00000008)
-#define SHCNE_RMDIR __MSABI_LONG(&h00000010)
-#define SHCNE_MEDIAINSERTED __MSABI_LONG(&h00000020)
-#define SHCNE_MEDIAREMOVED __MSABI_LONG(&h00000040)
-#define SHCNE_DRIVEREMOVED __MSABI_LONG(&h00000080)
-#define SHCNE_DRIVEADD __MSABI_LONG(&h00000100)
-#define SHCNE_NETSHARE __MSABI_LONG(&h00000200)
-#define SHCNE_NETUNSHARE __MSABI_LONG(&h00000400)
-#define SHCNE_ATTRIBUTES __MSABI_LONG(&h00000800)
-#define SHCNE_UPDATEDIR __MSABI_LONG(&h00001000)
-#define SHCNE_UPDATEITEM __MSABI_LONG(&h00002000)
-#define SHCNE_SERVERDISCONNECT __MSABI_LONG(&h00004000)
-#define SHCNE_UPDATEIMAGE __MSABI_LONG(&h00008000)
-#define SHCNE_DRIVEADDGUI __MSABI_LONG(&h00010000)
-#define SHCNE_RENAMEFOLDER __MSABI_LONG(&h00020000)
-#define SHCNE_FREESPACE __MSABI_LONG(&h00040000)
-#define SHCNE_EXTENDED_EVENT __MSABI_LONG(&h04000000)
-#define SHCNE_ASSOCCHANGED __MSABI_LONG(&h08000000)
-#define SHCNE_DISKEVENTS __MSABI_LONG(&h0002381f)
-#define SHCNE_GLOBALEVENTS __MSABI_LONG(&h0c0581e0)
-#define SHCNE_ALLEVENTS __MSABI_LONG(&h7fffffff)
-#define SHCNE_INTERRUPT __MSABI_LONG(&h80000000)
-#define SHCNEE_ORDERCHANGED __MSABI_LONG(2)
-#define SHCNEE_MSI_CHANGE __MSABI_LONG(4)
-#define SHCNEE_MSI_UNINSTALL __MSABI_LONG(5)
+const SHCNE_RENAMEITEM = cast(clong, &h00000001)
+const SHCNE_CREATE = cast(clong, &h00000002)
+const SHCNE_DELETE = cast(clong, &h00000004)
+const SHCNE_MKDIR = cast(clong, &h00000008)
+const SHCNE_RMDIR = cast(clong, &h00000010)
+const SHCNE_MEDIAINSERTED = cast(clong, &h00000020)
+const SHCNE_MEDIAREMOVED = cast(clong, &h00000040)
+const SHCNE_DRIVEREMOVED = cast(clong, &h00000080)
+const SHCNE_DRIVEADD = cast(clong, &h00000100)
+const SHCNE_NETSHARE = cast(clong, &h00000200)
+const SHCNE_NETUNSHARE = cast(clong, &h00000400)
+const SHCNE_ATTRIBUTES = cast(clong, &h00000800)
+const SHCNE_UPDATEDIR = cast(clong, &h00001000)
+const SHCNE_UPDATEITEM = cast(clong, &h00002000)
+const SHCNE_SERVERDISCONNECT = cast(clong, &h00004000)
+const SHCNE_UPDATEIMAGE = cast(clong, &h00008000)
+const SHCNE_DRIVEADDGUI = cast(clong, &h00010000)
+const SHCNE_RENAMEFOLDER = cast(clong, &h00020000)
+const SHCNE_FREESPACE = cast(clong, &h00040000)
+const SHCNE_EXTENDED_EVENT = cast(clong, &h04000000)
+const SHCNE_ASSOCCHANGED = cast(clong, &h08000000)
+const SHCNE_DISKEVENTS = cast(clong, &h0002381f)
+const SHCNE_GLOBALEVENTS = cast(clong, &h0c0581e0)
+const SHCNE_ALLEVENTS = cast(clong, &h7fffffff)
+const SHCNE_INTERRUPT = cast(clong, &h80000000)
+const SHCNEE_ORDERCHANGED = cast(clong, 2)
+const SHCNEE_MSI_CHANGE = cast(clong, 4)
+const SHCNEE_MSI_UNINSTALL = cast(clong, 5)
 const SHCNF_IDLIST = &h0000
 const SHCNF_PATHA = &h0001
 const SHCNF_PRINTERA = &h0002
@@ -1832,9 +1832,9 @@ declare function DriveType(byval iDrive as long) as long
 declare function RealDriveType(byval iDrive as long, byval fOKToHitNet as WINBOOL) as long
 declare function IsNetDrive(byval iDrive as long) as long
 
-#define MM_ADDSEPARATOR __MSABI_LONG(&h00000001)
-#define MM_SUBMENUSHAVEIDS __MSABI_LONG(&h00000002)
-#define MM_DONTREMOVESEPS __MSABI_LONG(&h00000004)
+const MM_ADDSEPARATOR = cast(clong, &h00000001)
+const MM_SUBMENUSHAVEIDS = cast(clong, &h00000002)
+const MM_DONTREMOVESEPS = cast(clong, &h00000004)
 declare function Shell_MergeMenus(byval hmDst as HMENU, byval hmSrc as HMENU, byval uInsert as UINT, byval uIDAdjust as UINT, byval uIDAdjustMax as UINT, byval uFlags as ULONG) as UINT
 declare function SHObjectProperties(byval hwnd as HWND, byval shopObjectType as DWORD, byval pszObjectName as PCWSTR, byval pszPropertyPage as PCWSTR) as WINBOOL
 const SHOP_PRINTERNAME = &h00000001
@@ -1844,9 +1844,9 @@ declare function SHFormatDrive(byval hwnd as HWND, byval drive as UINT, byval fm
 const SHFMT_ID_DEFAULT = &hffff
 const SHFMT_OPT_FULL = &h0001
 const SHFMT_OPT_SYSONLY = &h0002
-#define SHFMT_ERROR __MSABI_LONG(&hffffffff)
-#define SHFMT_CANCEL __MSABI_LONG(&hfffffffe)
-#define SHFMT_NOFORMAT __MSABI_LONG(&hfffffffd)
+const SHFMT_ERROR = cast(clong, &hffffffff)
+const SHFMT_CANCEL = cast(clong, &hfffffffe)
+const SHFMT_NOFORMAT = cast(clong, &hfffffffd)
 #define HPSXA_DEFINED
 
 type HPSXA__ field = 1

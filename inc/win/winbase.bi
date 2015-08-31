@@ -50,6 +50,7 @@
 
 #inclib "kernel32"
 
+#include once "crt/long.bi"
 #include once "_mingw_unicode.bi"
 #include once "apisetcconv.bi"
 #include once "winapifamily.bi"
@@ -956,7 +957,7 @@ type MEMORY_RESOURCE_NOTIFICATION_TYPE as _MEMORY_RESOURCE_NOTIFICATION_TYPE
 
 const FILE_MAP_WRITE = SECTION_MAP_WRITE
 const FILE_MAP_READ = SECTION_MAP_READ
-#define FILE_MAP_ALL_ACCESS SECTION_ALL_ACCESS
+const FILE_MAP_ALL_ACCESS = SECTION_ALL_ACCESS
 const FILE_MAP_COPY = &h1
 const FILE_MAP_RESERVE = &h80000000
 
@@ -1249,7 +1250,7 @@ declare function CreateProcessAsUserW(byval hToken as HANDLE, byval lpApplicatio
 #endif
 
 #if _WIN32_WINNT = &h0602
-	#define PROCESS_AFFINITY_ENABLE_AUTO_UPDATE __MSABI_LONG(&h1u)
+	const PROCESS_AFFINITY_ENABLE_AUTO_UPDATE = cast(culong, &h1)
 	const PROC_THREAD_ATTRIBUTE_REPLACE_VALUE = &h00000001
 	declare function GetProcessIdOfThread(byval Thread as HANDLE) as DWORD
 	declare function InitializeProcThreadAttributeList(byval lpAttributeList as LPPROC_THREAD_ATTRIBUTE_LIST, byval dwAttributeCount as DWORD, byval dwFlags as DWORD, byval lpSize as PSIZE_T) as WINBOOL
@@ -1498,14 +1499,14 @@ declare function SetTokenInformation(byval TokenHandle as HANDLE, byval TokenInf
 #define _SYNCHAPI_H_
 #define SRWLOCK_INIT RTL_SRWLOCK_INIT
 #define INIT_ONCE_STATIC_INIT RTL_RUN_ONCE_INIT
-#define INIT_ONCE_CHECK_ONLY RTL_RUN_ONCE_CHECK_ONLY
-#define INIT_ONCE_ASYNC RTL_RUN_ONCE_ASYNC
-#define INIT_ONCE_INIT_FAILED RTL_RUN_ONCE_INIT_FAILED
+const INIT_ONCE_CHECK_ONLY = RTL_RUN_ONCE_CHECK_ONLY
+const INIT_ONCE_ASYNC = RTL_RUN_ONCE_ASYNC
+const INIT_ONCE_INIT_FAILED = RTL_RUN_ONCE_INIT_FAILED
 const INIT_ONCE_CTX_RESERVED_BITS = RTL_RUN_ONCE_CTX_RESERVED_BITS
 #define CONDITION_VARIABLE_INIT RTL_CONDITION_VARIABLE_INIT
 const CONDITION_VARIABLE_LOCKMODE_SHARED = RTL_CONDITION_VARIABLE_LOCKMODE_SHARED
 const MUTEX_MODIFY_STATE = MUTANT_QUERY_STATE
-#define MUTEX_ALL_ACCESS MUTANT_ALL_ACCESS
+const MUTEX_ALL_ACCESS = MUTANT_ALL_ACCESS
 
 type SRWLOCK as RTL_SRWLOCK
 type PSRWLOCK as RTL_SRWLOCK ptr
@@ -2186,7 +2187,7 @@ const DRIVE_FIXED = 3
 const DRIVE_REMOTE = 4
 const DRIVE_CDROM = 5
 const DRIVE_RAMDISK = 6
-#define GetFreeSpace(w) __MSABI_LONG(&h100000)
+#define GetFreeSpace(w) cast(clong, &h100000)
 const FILE_TYPE_UNKNOWN = &h0
 const FILE_TYPE_DISK = &h1
 const FILE_TYPE_CHAR = &h2
@@ -3398,7 +3399,7 @@ declare function CopyFileExW(byval lpExistingFileName as LPCWSTR, byval lpNewFil
 	end enum
 
 	type COPYFILE2_COPY_PHASE as _COPYFILE2_COPY_PHASE
-	#define COPYFILE2_MESSAGE_COPY_OFFLOAD __MSABI_LONG(&h00000001)
+	const COPYFILE2_MESSAGE_COPY_OFFLOAD = cast(clong, &h00000001)
 
 	type COPYFILE2_MESSAGE_Info_ChunkStarted
 		dwStreamNumber as DWORD

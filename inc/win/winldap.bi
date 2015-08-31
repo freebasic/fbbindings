@@ -17,6 +17,7 @@
 
 #inclib "wldap32"
 
+#include once "crt/long.bi"
 #include once "schnlsp.bi"
 
 extern "C"
@@ -37,29 +38,29 @@ const LDAP_VERSION1 = 1
 const LDAP_VERSION2 = 2
 const LDAP_VERSION3 = 3
 const LDAP_VERSION = LDAP_VERSION2
-#define LDAP_BIND_CMD __MSABI_LONG(&h60)
-#define LDAP_UNBIND_CMD __MSABI_LONG(&h42)
-#define LDAP_SEARCH_CMD __MSABI_LONG(&h63)
-#define LDAP_MODIFY_CMD __MSABI_LONG(&h66)
-#define LDAP_ADD_CMD __MSABI_LONG(&h68)
-#define LDAP_DELETE_CMD __MSABI_LONG(&h4a)
-#define LDAP_MODRDN_CMD __MSABI_LONG(&h6c)
-#define LDAP_COMPARE_CMD __MSABI_LONG(&h6e)
-#define LDAP_ABANDON_CMD __MSABI_LONG(&h50)
-#define LDAP_SESSION_CMD __MSABI_LONG(&h71)
-#define LDAP_EXTENDED_CMD __MSABI_LONG(&h77)
-#define LDAP_RES_BIND __MSABI_LONG(&h61)
-#define LDAP_RES_SEARCH_ENTRY __MSABI_LONG(&h64)
-#define LDAP_RES_SEARCH_RESULT __MSABI_LONG(&h65)
-#define LDAP_RES_MODIFY __MSABI_LONG(&h67)
-#define LDAP_RES_ADD __MSABI_LONG(&h69)
-#define LDAP_RES_DELETE __MSABI_LONG(&h6b)
-#define LDAP_RES_MODRDN __MSABI_LONG(&h6d)
-#define LDAP_RES_COMPARE __MSABI_LONG(&h6f)
-#define LDAP_RES_SESSION __MSABI_LONG(&h72)
-#define LDAP_RES_REFERRAL __MSABI_LONG(&h73)
-#define LDAP_RES_EXTENDED __MSABI_LONG(&h78)
-#define LDAP_RES_ANY __MSABI_LONG(-1)
+const LDAP_BIND_CMD = cast(clong, &h60)
+const LDAP_UNBIND_CMD = cast(clong, &h42)
+const LDAP_SEARCH_CMD = cast(clong, &h63)
+const LDAP_MODIFY_CMD = cast(clong, &h66)
+const LDAP_ADD_CMD = cast(clong, &h68)
+const LDAP_DELETE_CMD = cast(clong, &h4a)
+const LDAP_MODRDN_CMD = cast(clong, &h6c)
+const LDAP_COMPARE_CMD = cast(clong, &h6e)
+const LDAP_ABANDON_CMD = cast(clong, &h50)
+const LDAP_SESSION_CMD = cast(clong, &h71)
+const LDAP_EXTENDED_CMD = cast(clong, &h77)
+const LDAP_RES_BIND = cast(clong, &h61)
+const LDAP_RES_SEARCH_ENTRY = cast(clong, &h64)
+const LDAP_RES_SEARCH_RESULT = cast(clong, &h65)
+const LDAP_RES_MODIFY = cast(clong, &h67)
+const LDAP_RES_ADD = cast(clong, &h69)
+const LDAP_RES_DELETE = cast(clong, &h6b)
+const LDAP_RES_MODRDN = cast(clong, &h6d)
+const LDAP_RES_COMPARE = cast(clong, &h6f)
+const LDAP_RES_SESSION = cast(clong, &h72)
+const LDAP_RES_REFERRAL = cast(clong, &h73)
+const LDAP_RES_EXTENDED = cast(clong, &h78)
+const LDAP_RES_ANY = -cast(clong, 1)
 const LDAP_INVALID_CMD = &hff
 const LDAP_INVALID_RES = &hff
 
@@ -130,17 +131,17 @@ enum
 	LDAP_REFERRAL_LIMIT_EXCEEDED = &h61
 end enum
 
-#define LDAP_AUTH_SIMPLE __MSABI_LONG(&h80)
-#define LDAP_AUTH_SASL __MSABI_LONG(&h83)
-#define LDAP_AUTH_OTHERKIND __MSABI_LONG(&h86)
-#define LDAP_AUTH_SICILY (LDAP_AUTH_OTHERKIND or &h0200)
-#define LDAP_AUTH_MSN (LDAP_AUTH_OTHERKIND or &h0800)
-#define LDAP_AUTH_NTLM (LDAP_AUTH_OTHERKIND or &h1000)
-#define LDAP_AUTH_DPA (LDAP_AUTH_OTHERKIND or &h2000)
-#define LDAP_AUTH_NEGOTIATE (LDAP_AUTH_OTHERKIND or &h0400)
-#define LDAP_AUTH_SSPI LDAP_AUTH_NEGOTIATE
-#define LDAP_AUTH_DIGEST (LDAP_AUTH_OTHERKIND or &h4000)
-#define LDAP_AUTH_EXTERNAL (LDAP_AUTH_OTHERKIND or &h0020)
+const LDAP_AUTH_SIMPLE = cast(clong, &h80)
+const LDAP_AUTH_SASL = cast(clong, &h83)
+const LDAP_AUTH_OTHERKIND = cast(clong, &h86)
+const LDAP_AUTH_SICILY = LDAP_AUTH_OTHERKIND or &h0200
+const LDAP_AUTH_MSN = LDAP_AUTH_OTHERKIND or &h0800
+const LDAP_AUTH_NTLM = LDAP_AUTH_OTHERKIND or &h1000
+const LDAP_AUTH_DPA = LDAP_AUTH_OTHERKIND or &h2000
+const LDAP_AUTH_NEGOTIATE = LDAP_AUTH_OTHERKIND or &h0400
+const LDAP_AUTH_SSPI = LDAP_AUTH_NEGOTIATE
+const LDAP_AUTH_DIGEST = LDAP_AUTH_OTHERKIND or &h4000
+const LDAP_AUTH_EXTERNAL = LDAP_AUTH_OTHERKIND or &h0020
 const LDAP_FILTER_AND = &ha0
 const LDAP_FILTER_OR = &ha1
 const LDAP_FILTER_NOT = &ha2
@@ -151,9 +152,9 @@ const LDAP_FILTER_LE = &ha6
 const LDAP_FILTER_PRESENT = &h87
 const LDAP_FILTER_APPROX = &ha8
 const LDAP_FILTER_EXTENSIBLE = &ha9
-#define LDAP_SUBSTRING_INITIAL __MSABI_LONG(&h80)
-#define LDAP_SUBSTRING_ANY __MSABI_LONG(&h81)
-#define LDAP_SUBSTRING_FINAL __MSABI_LONG(&h82)
+const LDAP_SUBSTRING_INITIAL = cast(clong, &h80)
+const LDAP_SUBSTRING_ANY = cast(clong, &h81)
+const LDAP_SUBSTRING_FINAL = cast(clong, &h82)
 const LDAP_DEREF_NEVER = 0
 const LDAP_DEREF_SEARCHING = 1
 const LDAP_DEREF_FINDING = 2

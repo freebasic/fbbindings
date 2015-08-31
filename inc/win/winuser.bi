@@ -50,6 +50,7 @@
 
 #inclib "user32"
 
+#include once "crt/long.bi"
 #include once "winapifamily.bi"
 #include once "_mingw_unicode.bi"
 #include once "apisetcconv.bi"
@@ -762,16 +763,16 @@ declare function GetMouseMovePointsEx(byval cbSize as UINT, byval lppt as LPMOUS
 
 const GMMP_USE_DISPLAY_POINTS = 1
 const GMMP_USE_HIGH_RESOLUTION_POINTS = 2
-#define DESKTOP_READOBJECTS __MSABI_LONG(&h0001)
-#define DESKTOP_CREATEWINDOW __MSABI_LONG(&h0002)
-#define DESKTOP_CREATEMENU __MSABI_LONG(&h0004)
-#define DESKTOP_HOOKCONTROL __MSABI_LONG(&h0008)
-#define DESKTOP_JOURNALRECORD __MSABI_LONG(&h0010)
-#define DESKTOP_JOURNALPLAYBACK __MSABI_LONG(&h0020)
-#define DESKTOP_ENUMERATE __MSABI_LONG(&h0040)
-#define DESKTOP_WRITEOBJECTS __MSABI_LONG(&h0080)
-#define DESKTOP_SWITCHDESKTOP __MSABI_LONG(&h0100)
-#define DF_ALLOWOTHERACCOUNTHOOK __MSABI_LONG(&h0001)
+const DESKTOP_READOBJECTS = cast(clong, &h0001)
+const DESKTOP_CREATEWINDOW = cast(clong, &h0002)
+const DESKTOP_CREATEMENU = cast(clong, &h0004)
+const DESKTOP_HOOKCONTROL = cast(clong, &h0008)
+const DESKTOP_JOURNALRECORD = cast(clong, &h0010)
+const DESKTOP_JOURNALPLAYBACK = cast(clong, &h0020)
+const DESKTOP_ENUMERATE = cast(clong, &h0040)
+const DESKTOP_WRITEOBJECTS = cast(clong, &h0080)
+const DESKTOP_SWITCHDESKTOP = cast(clong, &h0100)
+const DF_ALLOWOTHERACCOUNTHOOK = cast(clong, &h0001)
 declare function CreateDesktopA(byval lpszDesktop as LPCSTR, byval lpszDevice as LPCSTR, byval pDevmode as LPDEVMODEA, byval dwFlags as DWORD, byval dwDesiredAccess as ACCESS_MASK, byval lpsa as LPSECURITY_ATTRIBUTES) as HDESK
 
 #ifndef UNICODE
@@ -827,18 +828,18 @@ declare function SetThreadDesktop(byval hDesktop as HDESK) as WINBOOL
 declare function CloseDesktop(byval hDesktop as HDESK) as WINBOOL
 declare function GetThreadDesktop(byval dwThreadId as DWORD) as HDESK
 
-#define WINSTA_ENUMDESKTOPS __MSABI_LONG(&h0001)
-#define WINSTA_READATTRIBUTES __MSABI_LONG(&h0002)
-#define WINSTA_ACCESSCLIPBOARD __MSABI_LONG(&h0004)
-#define WINSTA_CREATEDESKTOP __MSABI_LONG(&h0008)
-#define WINSTA_WRITEATTRIBUTES __MSABI_LONG(&h0010)
-#define WINSTA_ACCESSGLOBALATOMS __MSABI_LONG(&h0020)
-#define WINSTA_EXITWINDOWS __MSABI_LONG(&h0040)
-#define WINSTA_ENUMERATE __MSABI_LONG(&h0100)
-#define WINSTA_READSCREEN __MSABI_LONG(&h0200)
-#define WINSTA_ALL_ACCESS ((((((((WINSTA_ENUMDESKTOPS or WINSTA_READATTRIBUTES) or WINSTA_ACCESSCLIPBOARD) or WINSTA_CREATEDESKTOP) or WINSTA_WRITEATTRIBUTES) or WINSTA_ACCESSGLOBALATOMS) or WINSTA_EXITWINDOWS) or WINSTA_ENUMERATE) or WINSTA_READSCREEN)
+const WINSTA_ENUMDESKTOPS = cast(clong, &h0001)
+const WINSTA_READATTRIBUTES = cast(clong, &h0002)
+const WINSTA_ACCESSCLIPBOARD = cast(clong, &h0004)
+const WINSTA_CREATEDESKTOP = cast(clong, &h0008)
+const WINSTA_WRITEATTRIBUTES = cast(clong, &h0010)
+const WINSTA_ACCESSGLOBALATOMS = cast(clong, &h0020)
+const WINSTA_EXITWINDOWS = cast(clong, &h0040)
+const WINSTA_ENUMERATE = cast(clong, &h0100)
+const WINSTA_READSCREEN = cast(clong, &h0200)
+const WINSTA_ALL_ACCESS = (((((((WINSTA_ENUMDESKTOPS or WINSTA_READATTRIBUTES) or WINSTA_ACCESSCLIPBOARD) or WINSTA_CREATEDESKTOP) or WINSTA_WRITEATTRIBUTES) or WINSTA_ACCESSGLOBALATOMS) or WINSTA_EXITWINDOWS) or WINSTA_ENUMERATE) or WINSTA_READSCREEN
 const CWF_CREATE_ONLY = &h00000001
-#define WSF_VISIBLE __MSABI_LONG(&h0001)
+const WSF_VISIBLE = cast(clong, &h0001)
 declare function CreateWindowStationA(byval lpwinsta as LPCSTR, byval dwFlags as DWORD, byval dwDesiredAccess as ACCESS_MASK, byval lpsa as LPSECURITY_ATTRIBUTES) as HWINSTA
 
 #ifndef UNICODE
@@ -1582,64 +1583,64 @@ end type
 type TRACKMOUSEEVENT as tagTRACKMOUSEEVENT
 type LPTRACKMOUSEEVENT as tagTRACKMOUSEEVENT ptr
 declare function TrackMouseEvent(byval lpEventTrack as LPTRACKMOUSEEVENT) as WINBOOL
-#define WS_OVERLAPPED __MSABI_LONG(&h00000000)
-#define WS_POPUP __MSABI_LONG(&h80000000)
-#define WS_CHILD __MSABI_LONG(&h40000000)
-#define WS_MINIMIZE __MSABI_LONG(&h20000000)
-#define WS_VISIBLE __MSABI_LONG(&h10000000)
-#define WS_DISABLED __MSABI_LONG(&h08000000)
-#define WS_CLIPSIBLINGS __MSABI_LONG(&h04000000)
-#define WS_CLIPCHILDREN __MSABI_LONG(&h02000000)
-#define WS_MAXIMIZE __MSABI_LONG(&h01000000)
-#define WS_CAPTION __MSABI_LONG(&h00C00000)
-#define WS_BORDER __MSABI_LONG(&h00800000)
-#define WS_DLGFRAME __MSABI_LONG(&h00400000)
-#define WS_VSCROLL __MSABI_LONG(&h00200000)
-#define WS_HSCROLL __MSABI_LONG(&h00100000)
-#define WS_SYSMENU __MSABI_LONG(&h00080000)
-#define WS_THICKFRAME __MSABI_LONG(&h00040000)
-#define WS_GROUP __MSABI_LONG(&h00020000)
-#define WS_TABSTOP __MSABI_LONG(&h00010000)
-#define WS_MINIMIZEBOX __MSABI_LONG(&h00020000)
-#define WS_MAXIMIZEBOX __MSABI_LONG(&h00010000)
-#define WS_TILED WS_OVERLAPPED
-#define WS_ICONIC WS_MINIMIZE
-#define WS_SIZEBOX WS_THICKFRAME
-#define WS_TILEDWINDOW WS_OVERLAPPEDWINDOW
-#define WS_OVERLAPPEDWINDOW (((((WS_OVERLAPPED or WS_CAPTION) or WS_SYSMENU) or WS_THICKFRAME) or WS_MINIMIZEBOX) or WS_MAXIMIZEBOX)
-#define WS_POPUPWINDOW ((WS_POPUP or WS_BORDER) or WS_SYSMENU)
-#define WS_CHILDWINDOW WS_CHILD
-#define WS_EX_DLGMODALFRAME __MSABI_LONG(&h00000001)
-#define WS_EX_NOPARENTNOTIFY __MSABI_LONG(&h00000004)
-#define WS_EX_TOPMOST __MSABI_LONG(&h00000008)
-#define WS_EX_ACCEPTFILES __MSABI_LONG(&h00000010)
-#define WS_EX_TRANSPARENT __MSABI_LONG(&h00000020)
-#define WS_EX_MDICHILD __MSABI_LONG(&h00000040)
-#define WS_EX_TOOLWINDOW __MSABI_LONG(&h00000080)
-#define WS_EX_WINDOWEDGE __MSABI_LONG(&h00000100)
-#define WS_EX_CLIENTEDGE __MSABI_LONG(&h00000200)
-#define WS_EX_CONTEXTHELP __MSABI_LONG(&h00000400)
-#define WS_EX_RIGHT __MSABI_LONG(&h00001000)
-#define WS_EX_LEFT __MSABI_LONG(&h00000000)
-#define WS_EX_RTLREADING __MSABI_LONG(&h00002000)
-#define WS_EX_LTRREADING __MSABI_LONG(&h00000000)
-#define WS_EX_LEFTSCROLLBAR __MSABI_LONG(&h00004000)
-#define WS_EX_RIGHTSCROLLBAR __MSABI_LONG(&h00000000)
-#define WS_EX_CONTROLPARENT __MSABI_LONG(&h00010000)
-#define WS_EX_STATICEDGE __MSABI_LONG(&h00020000)
-#define WS_EX_APPWINDOW __MSABI_LONG(&h00040000)
-#define WS_EX_OVERLAPPEDWINDOW (WS_EX_WINDOWEDGE or WS_EX_CLIENTEDGE)
-#define WS_EX_PALETTEWINDOW ((WS_EX_WINDOWEDGE or WS_EX_TOOLWINDOW) or WS_EX_TOPMOST)
+const WS_OVERLAPPED = cast(clong, &h00000000)
+const WS_POPUP = cast(clong, &h80000000)
+const WS_CHILD = cast(clong, &h40000000)
+const WS_MINIMIZE = cast(clong, &h20000000)
+const WS_VISIBLE = cast(clong, &h10000000)
+const WS_DISABLED = cast(clong, &h08000000)
+const WS_CLIPSIBLINGS = cast(clong, &h04000000)
+const WS_CLIPCHILDREN = cast(clong, &h02000000)
+const WS_MAXIMIZE = cast(clong, &h01000000)
+const WS_CAPTION = cast(clong, &h00C00000)
+const WS_BORDER = cast(clong, &h00800000)
+const WS_DLGFRAME = cast(clong, &h00400000)
+const WS_VSCROLL = cast(clong, &h00200000)
+const WS_HSCROLL = cast(clong, &h00100000)
+const WS_SYSMENU = cast(clong, &h00080000)
+const WS_THICKFRAME = cast(clong, &h00040000)
+const WS_GROUP = cast(clong, &h00020000)
+const WS_TABSTOP = cast(clong, &h00010000)
+const WS_MINIMIZEBOX = cast(clong, &h00020000)
+const WS_MAXIMIZEBOX = cast(clong, &h00010000)
+const WS_TILED = WS_OVERLAPPED
+const WS_ICONIC = WS_MINIMIZE
+const WS_SIZEBOX = WS_THICKFRAME
+const WS_OVERLAPPEDWINDOW = ((((WS_OVERLAPPED or WS_CAPTION) or WS_SYSMENU) or WS_THICKFRAME) or WS_MINIMIZEBOX) or WS_MAXIMIZEBOX
+const WS_TILEDWINDOW = WS_OVERLAPPEDWINDOW
+const WS_POPUPWINDOW = (WS_POPUP or WS_BORDER) or WS_SYSMENU
+const WS_CHILDWINDOW = WS_CHILD
+const WS_EX_DLGMODALFRAME = cast(clong, &h00000001)
+const WS_EX_NOPARENTNOTIFY = cast(clong, &h00000004)
+const WS_EX_TOPMOST = cast(clong, &h00000008)
+const WS_EX_ACCEPTFILES = cast(clong, &h00000010)
+const WS_EX_TRANSPARENT = cast(clong, &h00000020)
+const WS_EX_MDICHILD = cast(clong, &h00000040)
+const WS_EX_TOOLWINDOW = cast(clong, &h00000080)
+const WS_EX_WINDOWEDGE = cast(clong, &h00000100)
+const WS_EX_CLIENTEDGE = cast(clong, &h00000200)
+const WS_EX_CONTEXTHELP = cast(clong, &h00000400)
+const WS_EX_RIGHT = cast(clong, &h00001000)
+const WS_EX_LEFT = cast(clong, &h00000000)
+const WS_EX_RTLREADING = cast(clong, &h00002000)
+const WS_EX_LTRREADING = cast(clong, &h00000000)
+const WS_EX_LEFTSCROLLBAR = cast(clong, &h00004000)
+const WS_EX_RIGHTSCROLLBAR = cast(clong, &h00000000)
+const WS_EX_CONTROLPARENT = cast(clong, &h00010000)
+const WS_EX_STATICEDGE = cast(clong, &h00020000)
+const WS_EX_APPWINDOW = cast(clong, &h00040000)
+const WS_EX_OVERLAPPEDWINDOW = WS_EX_WINDOWEDGE or WS_EX_CLIENTEDGE
+const WS_EX_PALETTEWINDOW = (WS_EX_WINDOWEDGE or WS_EX_TOOLWINDOW) or WS_EX_TOPMOST
 const WS_EX_LAYERED = &h00080000
-#define WS_EX_NOINHERITLAYOUT __MSABI_LONG(&h00100000)
+const WS_EX_NOINHERITLAYOUT = cast(clong, &h00100000)
 
 #if _WIN32_WINNT = &h0602
-	#define WS_EX_NOREDIRECTIONBITMAP __MSABI_LONG(&h00200000)
+	const WS_EX_NOREDIRECTIONBITMAP = cast(clong, &h00200000)
 #endif
 
-#define WS_EX_LAYOUTRTL __MSABI_LONG(&h00400000)
-#define WS_EX_COMPOSITED __MSABI_LONG(&h02000000)
-#define WS_EX_NOACTIVATE __MSABI_LONG(&h08000000)
+const WS_EX_LAYOUTRTL = cast(clong, &h00400000)
+const WS_EX_COMPOSITED = cast(clong, &h02000000)
+const WS_EX_NOACTIVATE = cast(clong, &h08000000)
 const CS_VREDRAW = &h0001
 const CS_HREDRAW = &h0002
 const CS_DBLCLKS = &h0008
@@ -1653,12 +1654,12 @@ const CS_BYTEALIGNWINDOW = &h2000
 const CS_GLOBALCLASS = &h4000
 const CS_IME = &h00010000
 const CS_DROPSHADOW = &h00020000
-#define PRF_CHECKVISIBLE __MSABI_LONG(&h00000001)
-#define PRF_NONCLIENT __MSABI_LONG(&h00000002)
-#define PRF_CLIENT __MSABI_LONG(&h00000004)
-#define PRF_ERASEBKGND __MSABI_LONG(&h00000008)
-#define PRF_CHILDREN __MSABI_LONG(&h00000010)
-#define PRF_OWNED __MSABI_LONG(&h00000020)
+const PRF_CHECKVISIBLE = cast(clong, &h00000001)
+const PRF_NONCLIENT = cast(clong, &h00000002)
+const PRF_CLIENT = cast(clong, &h00000004)
+const PRF_ERASEBKGND = cast(clong, &h00000008)
+const PRF_CHILDREN = cast(clong, &h00000010)
+const PRF_OWNED = cast(clong, &h00000020)
 const BDR_RAISEDOUTER = &h0001
 const BDR_SUNKENOUTER = &h0002
 const BDR_RAISEDINNER = &h0004
@@ -3779,35 +3780,35 @@ declare function SetMenuItemInfoW(byval hmenu as HMENU, byval item as UINT, byva
 	declare function SetMenuItemInfo alias "SetMenuItemInfoW"(byval hmenu as HMENU, byval item as UINT, byval fByPositon as WINBOOL, byval lpmii as LPCMENUITEMINFOW) as WINBOOL
 #endif
 
-#define GMDI_USEDISABLED __MSABI_LONG(&h0001)
-#define GMDI_GOINTOPOPUPS __MSABI_LONG(&h0002)
+const GMDI_USEDISABLED = cast(clong, &h0001)
+const GMDI_GOINTOPOPUPS = cast(clong, &h0002)
 declare function GetMenuDefaultItem(byval hMenu as HMENU, byval fByPos as UINT, byval gmdiFlags as UINT) as UINT
 declare function SetMenuDefaultItem(byval hMenu as HMENU, byval uItem as UINT, byval fByPos as UINT) as WINBOOL
 declare function GetMenuItemRect(byval hWnd as HWND, byval hMenu as HMENU, byval uItem as UINT, byval lprcItem as LPRECT) as WINBOOL
 declare function MenuItemFromPoint(byval hWnd as HWND, byval hMenu as HMENU, byval ptScreen as POINT) as long
 
-#define TPM_LEFTBUTTON __MSABI_LONG(&h0000)
-#define TPM_RIGHTBUTTON __MSABI_LONG(&h0002)
-#define TPM_LEFTALIGN __MSABI_LONG(&h0000)
-#define TPM_CENTERALIGN __MSABI_LONG(&h0004)
-#define TPM_RIGHTALIGN __MSABI_LONG(&h0008)
-#define TPM_TOPALIGN __MSABI_LONG(&h0000)
-#define TPM_VCENTERALIGN __MSABI_LONG(&h0010)
-#define TPM_BOTTOMALIGN __MSABI_LONG(&h0020)
-#define TPM_HORIZONTAL __MSABI_LONG(&h0000)
-#define TPM_VERTICAL __MSABI_LONG(&h0040)
-#define TPM_NONOTIFY __MSABI_LONG(&h0080)
-#define TPM_RETURNCMD __MSABI_LONG(&h0100)
-#define TPM_RECURSE __MSABI_LONG(&h0001)
-#define TPM_HORPOSANIMATION __MSABI_LONG(&h0400)
-#define TPM_HORNEGANIMATION __MSABI_LONG(&h0800)
-#define TPM_VERPOSANIMATION __MSABI_LONG(&h1000)
-#define TPM_VERNEGANIMATION __MSABI_LONG(&h2000)
-#define TPM_NOANIMATION __MSABI_LONG(&h4000)
-#define TPM_LAYOUTRTL __MSABI_LONG(&h8000)
+const TPM_LEFTBUTTON = cast(clong, &h0000)
+const TPM_RIGHTBUTTON = cast(clong, &h0002)
+const TPM_LEFTALIGN = cast(clong, &h0000)
+const TPM_CENTERALIGN = cast(clong, &h0004)
+const TPM_RIGHTALIGN = cast(clong, &h0008)
+const TPM_TOPALIGN = cast(clong, &h0000)
+const TPM_VCENTERALIGN = cast(clong, &h0010)
+const TPM_BOTTOMALIGN = cast(clong, &h0020)
+const TPM_HORIZONTAL = cast(clong, &h0000)
+const TPM_VERTICAL = cast(clong, &h0040)
+const TPM_NONOTIFY = cast(clong, &h0080)
+const TPM_RETURNCMD = cast(clong, &h0100)
+const TPM_RECURSE = cast(clong, &h0001)
+const TPM_HORPOSANIMATION = cast(clong, &h0400)
+const TPM_HORNEGANIMATION = cast(clong, &h0800)
+const TPM_VERPOSANIMATION = cast(clong, &h1000)
+const TPM_VERNEGANIMATION = cast(clong, &h2000)
+const TPM_NOANIMATION = cast(clong, &h4000)
+const TPM_LAYOUTRTL = cast(clong, &h8000)
 
 #if _WIN32_WINNT = &h0602
-	#define TPM_WORKAREA __MSABI_LONG(&h10000)
+	const TPM_WORKAREA = cast(clong, &h10000)
 #endif
 
 type tagDROPSTRUCT
@@ -3829,8 +3830,8 @@ const DOF_DIRECTORY = &h8003
 const DOF_MULTIPLE = &h8004
 const DOF_PROGMAN = &h0001
 const DOF_SHELLDATA = &h0002
-#define DO_DROPFILE __MSABI_LONG(&h454C4946)
-#define DO_PRINTFILE __MSABI_LONG(&h544E5250)
+const DO_DROPFILE = cast(clong, &h454C4946)
+const DO_PRINTFILE = cast(clong, &h544E5250)
 
 declare function DragObject(byval hwndParent as HWND, byval hwndFrom as HWND, byval fmt as UINT, byval data as ULONG_PTR, byval hcur as HCURSOR) as DWORD
 declare function DragDetect(byval hwnd as HWND, byval pt as POINT) as WINBOOL
@@ -3970,18 +3971,18 @@ const DSS_RIGHT = &h8000
 const ASFW_ANY = cast(DWORD, -1)
 const LSFW_LOCK = 1
 const LSFW_UNLOCK = 2
-#define DCX_WINDOW __MSABI_LONG(&h00000001)
-#define DCX_CACHE __MSABI_LONG(&h00000002)
-#define DCX_NORESETATTRS __MSABI_LONG(&h00000004)
-#define DCX_CLIPCHILDREN __MSABI_LONG(&h00000008)
-#define DCX_CLIPSIBLINGS __MSABI_LONG(&h00000010)
-#define DCX_PARENTCLIP __MSABI_LONG(&h00000020)
-#define DCX_EXCLUDERGN __MSABI_LONG(&h00000040)
-#define DCX_INTERSECTRGN __MSABI_LONG(&h00000080)
-#define DCX_EXCLUDEUPDATE __MSABI_LONG(&h00000100)
-#define DCX_INTERSECTUPDATE __MSABI_LONG(&h00000200)
-#define DCX_LOCKWINDOWUPDATE __MSABI_LONG(&h00000400)
-#define DCX_VALIDATE __MSABI_LONG(&h00200000)
+const DCX_WINDOW = cast(clong, &h00000001)
+const DCX_CACHE = cast(clong, &h00000002)
+const DCX_NORESETATTRS = cast(clong, &h00000004)
+const DCX_CLIPCHILDREN = cast(clong, &h00000008)
+const DCX_CLIPSIBLINGS = cast(clong, &h00000010)
+const DCX_PARENTCLIP = cast(clong, &h00000020)
+const DCX_EXCLUDERGN = cast(clong, &h00000040)
+const DCX_INTERSECTRGN = cast(clong, &h00000080)
+const DCX_EXCLUDEUPDATE = cast(clong, &h00000100)
+const DCX_INTERSECTUPDATE = cast(clong, &h00000200)
+const DCX_LOCKWINDOWUPDATE = cast(clong, &h00000400)
+const DCX_VALIDATE = cast(clong, &h00200000)
 
 declare function GetWindowDC(byval hWnd as HWND) as HDC
 declare function ReleaseDC(byval hWnd as HWND, byval hDC as HDC) as long
@@ -4156,43 +4157,43 @@ declare function GetWindowContextHelpId(byval as HWND) as DWORD
 declare function SetMenuContextHelpId(byval as HMENU, byval as DWORD) as WINBOOL
 declare function GetMenuContextHelpId(byval as HMENU) as DWORD
 
-#define MB_OK __MSABI_LONG(&h00000000)
-#define MB_OKCANCEL __MSABI_LONG(&h00000001)
-#define MB_ABORTRETRYIGNORE __MSABI_LONG(&h00000002)
-#define MB_YESNOCANCEL __MSABI_LONG(&h00000003)
-#define MB_YESNO __MSABI_LONG(&h00000004)
-#define MB_RETRYCANCEL __MSABI_LONG(&h00000005)
-#define MB_CANCELTRYCONTINUE __MSABI_LONG(&h00000006)
-#define MB_ICONHAND __MSABI_LONG(&h00000010)
-#define MB_ICONQUESTION __MSABI_LONG(&h00000020)
-#define MB_ICONEXCLAMATION __MSABI_LONG(&h00000030)
-#define MB_ICONASTERISK __MSABI_LONG(&h00000040)
-#define MB_USERICON __MSABI_LONG(&h00000080)
-#define MB_ICONWARNING MB_ICONEXCLAMATION
-#define MB_ICONERROR MB_ICONHAND
-#define MB_ICONINFORMATION MB_ICONASTERISK
-#define MB_ICONSTOP MB_ICONHAND
-#define MB_DEFBUTTON1 __MSABI_LONG(&h00000000)
-#define MB_DEFBUTTON2 __MSABI_LONG(&h00000100)
-#define MB_DEFBUTTON3 __MSABI_LONG(&h00000200)
-#define MB_DEFBUTTON4 __MSABI_LONG(&h00000300)
-#define MB_APPLMODAL __MSABI_LONG(&h00000000)
-#define MB_SYSTEMMODAL __MSABI_LONG(&h00001000)
-#define MB_TASKMODAL __MSABI_LONG(&h00002000)
-#define MB_HELP __MSABI_LONG(&h00004000)
-#define MB_NOFOCUS __MSABI_LONG(&h00008000)
-#define MB_SETFOREGROUND __MSABI_LONG(&h00010000)
-#define MB_DEFAULT_DESKTOP_ONLY __MSABI_LONG(&h00020000)
-#define MB_TOPMOST __MSABI_LONG(&h00040000)
-#define MB_RIGHT __MSABI_LONG(&h00080000)
-#define MB_RTLREADING __MSABI_LONG(&h00100000)
-#define MB_SERVICE_NOTIFICATION __MSABI_LONG(&h00200000)
-#define MB_SERVICE_NOTIFICATION_NT3X __MSABI_LONG(&h00040000)
-#define MB_TYPEMASK __MSABI_LONG(&h0000000F)
-#define MB_ICONMASK __MSABI_LONG(&h000000F0)
-#define MB_DEFMASK __MSABI_LONG(&h00000F00)
-#define MB_MODEMASK __MSABI_LONG(&h00003000)
-#define MB_MISCMASK __MSABI_LONG(&h0000C000)
+const MB_OK = cast(clong, &h00000000)
+const MB_OKCANCEL = cast(clong, &h00000001)
+const MB_ABORTRETRYIGNORE = cast(clong, &h00000002)
+const MB_YESNOCANCEL = cast(clong, &h00000003)
+const MB_YESNO = cast(clong, &h00000004)
+const MB_RETRYCANCEL = cast(clong, &h00000005)
+const MB_CANCELTRYCONTINUE = cast(clong, &h00000006)
+const MB_ICONHAND = cast(clong, &h00000010)
+const MB_ICONQUESTION = cast(clong, &h00000020)
+const MB_ICONEXCLAMATION = cast(clong, &h00000030)
+const MB_ICONASTERISK = cast(clong, &h00000040)
+const MB_USERICON = cast(clong, &h00000080)
+const MB_ICONWARNING = MB_ICONEXCLAMATION
+const MB_ICONERROR = MB_ICONHAND
+const MB_ICONINFORMATION = MB_ICONASTERISK
+const MB_ICONSTOP = MB_ICONHAND
+const MB_DEFBUTTON1 = cast(clong, &h00000000)
+const MB_DEFBUTTON2 = cast(clong, &h00000100)
+const MB_DEFBUTTON3 = cast(clong, &h00000200)
+const MB_DEFBUTTON4 = cast(clong, &h00000300)
+const MB_APPLMODAL = cast(clong, &h00000000)
+const MB_SYSTEMMODAL = cast(clong, &h00001000)
+const MB_TASKMODAL = cast(clong, &h00002000)
+const MB_HELP = cast(clong, &h00004000)
+const MB_NOFOCUS = cast(clong, &h00008000)
+const MB_SETFOREGROUND = cast(clong, &h00010000)
+const MB_DEFAULT_DESKTOP_ONLY = cast(clong, &h00020000)
+const MB_TOPMOST = cast(clong, &h00040000)
+const MB_RIGHT = cast(clong, &h00080000)
+const MB_RTLREADING = cast(clong, &h00100000)
+const MB_SERVICE_NOTIFICATION = cast(clong, &h00200000)
+const MB_SERVICE_NOTIFICATION_NT3X = cast(clong, &h00040000)
+const MB_TYPEMASK = cast(clong, &h0000000F)
+const MB_ICONMASK = cast(clong, &h000000F0)
+const MB_DEFMASK = cast(clong, &h00000F00)
+const MB_MODEMASK = cast(clong, &h00003000)
+const MB_MISCMASK = cast(clong, &h0000C000)
 declare function MessageBoxA(byval hWnd as HWND, byval lpText as LPCSTR, byval lpCaption as LPCSTR, byval uType as UINT) as long
 
 #ifndef UNICODE
@@ -4622,51 +4623,51 @@ declare function SetWindowsHookExW(byval idHook as long, byval lpfn as HOOKPROC,
 
 declare function UnhookWindowsHookEx(byval hhk as HHOOK) as WINBOOL
 declare function CallNextHookEx(byval hhk as HHOOK, byval nCode as long, byval wParam as WPARAM, byval lParam as LPARAM) as LRESULT
-#define MF_INSERT __MSABI_LONG(&h00000000)
-#define MF_CHANGE __MSABI_LONG(&h00000080)
-#define MF_APPEND __MSABI_LONG(&h00000100)
-#define MF_DELETE __MSABI_LONG(&h00000200)
-#define MF_REMOVE __MSABI_LONG(&h00001000)
-#define MF_BYCOMMAND __MSABI_LONG(&h00000000)
-#define MF_BYPOSITION __MSABI_LONG(&h00000400)
-#define MF_SEPARATOR __MSABI_LONG(&h00000800)
-#define MF_ENABLED __MSABI_LONG(&h00000000)
-#define MF_GRAYED __MSABI_LONG(&h00000001)
-#define MF_DISABLED __MSABI_LONG(&h00000002)
-#define MF_UNCHECKED __MSABI_LONG(&h00000000)
-#define MF_CHECKED __MSABI_LONG(&h00000008)
-#define MF_USECHECKBITMAPS __MSABI_LONG(&h00000200)
-#define MF_STRING __MSABI_LONG(&h00000000)
-#define MF_BITMAP __MSABI_LONG(&h00000004)
-#define MF_OWNERDRAW __MSABI_LONG(&h00000100)
-#define MF_POPUP __MSABI_LONG(&h00000010)
-#define MF_MENUBARBREAK __MSABI_LONG(&h00000020)
-#define MF_MENUBREAK __MSABI_LONG(&h00000040)
-#define MF_UNHILITE __MSABI_LONG(&h00000000)
-#define MF_HILITE __MSABI_LONG(&h00000080)
-#define MF_DEFAULT __MSABI_LONG(&h00001000)
-#define MF_SYSMENU __MSABI_LONG(&h00002000)
-#define MF_HELP __MSABI_LONG(&h00004000)
-#define MF_RIGHTJUSTIFY __MSABI_LONG(&h00004000)
-#define MF_MOUSESELECT __MSABI_LONG(&h00008000)
-#define MF_END __MSABI_LONG(&h00000080)
-#define MFT_STRING MF_STRING
-#define MFT_BITMAP MF_BITMAP
-#define MFT_MENUBARBREAK MF_MENUBARBREAK
-#define MFT_MENUBREAK MF_MENUBREAK
-#define MFT_OWNERDRAW MF_OWNERDRAW
-#define MFT_RADIOCHECK __MSABI_LONG(&h00000200)
-#define MFT_SEPARATOR MF_SEPARATOR
-#define MFT_RIGHTORDER __MSABI_LONG(&h00002000)
-#define MFT_RIGHTJUSTIFY MF_RIGHTJUSTIFY
-#define MFS_GRAYED __MSABI_LONG(&h00000003)
-#define MFS_DISABLED MFS_GRAYED
-#define MFS_CHECKED MF_CHECKED
-#define MFS_HILITE MF_HILITE
-#define MFS_ENABLED MF_ENABLED
-#define MFS_UNCHECKED MF_UNCHECKED
-#define MFS_UNHILITE MF_UNHILITE
-#define MFS_DEFAULT MF_DEFAULT
+const MF_INSERT = cast(clong, &h00000000)
+const MF_CHANGE = cast(clong, &h00000080)
+const MF_APPEND = cast(clong, &h00000100)
+const MF_DELETE = cast(clong, &h00000200)
+const MF_REMOVE = cast(clong, &h00001000)
+const MF_BYCOMMAND = cast(clong, &h00000000)
+const MF_BYPOSITION = cast(clong, &h00000400)
+const MF_SEPARATOR = cast(clong, &h00000800)
+const MF_ENABLED = cast(clong, &h00000000)
+const MF_GRAYED = cast(clong, &h00000001)
+const MF_DISABLED = cast(clong, &h00000002)
+const MF_UNCHECKED = cast(clong, &h00000000)
+const MF_CHECKED = cast(clong, &h00000008)
+const MF_USECHECKBITMAPS = cast(clong, &h00000200)
+const MF_STRING = cast(clong, &h00000000)
+const MF_BITMAP = cast(clong, &h00000004)
+const MF_OWNERDRAW = cast(clong, &h00000100)
+const MF_POPUP = cast(clong, &h00000010)
+const MF_MENUBARBREAK = cast(clong, &h00000020)
+const MF_MENUBREAK = cast(clong, &h00000040)
+const MF_UNHILITE = cast(clong, &h00000000)
+const MF_HILITE = cast(clong, &h00000080)
+const MF_DEFAULT = cast(clong, &h00001000)
+const MF_SYSMENU = cast(clong, &h00002000)
+const MF_HELP = cast(clong, &h00004000)
+const MF_RIGHTJUSTIFY = cast(clong, &h00004000)
+const MF_MOUSESELECT = cast(clong, &h00008000)
+const MF_END = cast(clong, &h00000080)
+const MFT_STRING = MF_STRING
+const MFT_BITMAP = MF_BITMAP
+const MFT_MENUBARBREAK = MF_MENUBARBREAK
+const MFT_MENUBREAK = MF_MENUBREAK
+const MFT_OWNERDRAW = MF_OWNERDRAW
+const MFT_RADIOCHECK = cast(clong, &h00000200)
+const MFT_SEPARATOR = MF_SEPARATOR
+const MFT_RIGHTORDER = cast(clong, &h00002000)
+const MFT_RIGHTJUSTIFY = MF_RIGHTJUSTIFY
+const MFS_GRAYED = cast(clong, &h00000003)
+const MFS_DISABLED = MFS_GRAYED
+const MFS_CHECKED = MF_CHECKED
+const MFS_HILITE = MF_HILITE
+const MFS_ENABLED = MF_ENABLED
+const MFS_UNCHECKED = MF_UNCHECKED
+const MFS_UNHILITE = MF_UNHILITE
+const MFS_DEFAULT = MF_DEFAULT
 declare function CheckMenuRadioItem(byval hmenu as HMENU, byval first as UINT, byval last as UINT, byval check as UINT, byval flags as UINT) as WINBOOL
 
 type MENUITEMTEMPLATEHEADER
@@ -4683,7 +4684,7 @@ type MENUITEMTEMPLATE
 end type
 
 type PMENUITEMTEMPLATE as MENUITEMTEMPLATE ptr
-#define MF_END __MSABI_LONG(&h00000080)
+const MF_END = cast(clong, &h00000080)
 const SC_SIZE = &hF000
 const SC_MOVE = &hF010
 const SC_MINIMIZE = &hF020
@@ -5012,20 +5013,20 @@ const IDHELP = 9
 const IDTRYAGAIN = 10
 const IDCONTINUE = 11
 const IDTIMEOUT = 32000
-#define ES_LEFT __MSABI_LONG(&h0000)
-#define ES_CENTER __MSABI_LONG(&h0001)
-#define ES_RIGHT __MSABI_LONG(&h0002)
-#define ES_MULTILINE __MSABI_LONG(&h0004)
-#define ES_UPPERCASE __MSABI_LONG(&h0008)
-#define ES_LOWERCASE __MSABI_LONG(&h0010)
-#define ES_PASSWORD __MSABI_LONG(&h0020)
-#define ES_AUTOVSCROLL __MSABI_LONG(&h0040)
-#define ES_AUTOHSCROLL __MSABI_LONG(&h0080)
-#define ES_NOHIDESEL __MSABI_LONG(&h0100)
-#define ES_OEMCONVERT __MSABI_LONG(&h0400)
-#define ES_READONLY __MSABI_LONG(&h0800)
-#define ES_WANTRETURN __MSABI_LONG(&h1000)
-#define ES_NUMBER __MSABI_LONG(&h2000)
+const ES_LEFT = cast(clong, &h0000)
+const ES_CENTER = cast(clong, &h0001)
+const ES_RIGHT = cast(clong, &h0002)
+const ES_MULTILINE = cast(clong, &h0004)
+const ES_UPPERCASE = cast(clong, &h0008)
+const ES_LOWERCASE = cast(clong, &h0010)
+const ES_PASSWORD = cast(clong, &h0020)
+const ES_AUTOVSCROLL = cast(clong, &h0040)
+const ES_AUTOHSCROLL = cast(clong, &h0080)
+const ES_NOHIDESEL = cast(clong, &h0100)
+const ES_OEMCONVERT = cast(clong, &h0400)
+const ES_READONLY = cast(clong, &h0800)
+const ES_WANTRETURN = cast(clong, &h1000)
+const ES_NUMBER = cast(clong, &h2000)
 const EN_SETFOCUS = &h0100
 const EN_KILLFOCUS = &h0200
 const EN_CHANGE = &h0300
@@ -5085,34 +5086,34 @@ const EM_GETIMESTATUS = &h00D9
 const WB_LEFT = 0
 const WB_RIGHT = 1
 const WB_ISDELIMITER = 2
-#define BS_PUSHBUTTON __MSABI_LONG(&h00000000)
-#define BS_DEFPUSHBUTTON __MSABI_LONG(&h00000001)
-#define BS_CHECKBOX __MSABI_LONG(&h00000002)
-#define BS_AUTOCHECKBOX __MSABI_LONG(&h00000003)
-#define BS_RADIOBUTTON __MSABI_LONG(&h00000004)
-#define BS_3STATE __MSABI_LONG(&h00000005)
-#define BS_AUTO3STATE __MSABI_LONG(&h00000006)
-#define BS_GROUPBOX __MSABI_LONG(&h00000007)
-#define BS_USERBUTTON __MSABI_LONG(&h00000008)
-#define BS_AUTORADIOBUTTON __MSABI_LONG(&h00000009)
-#define BS_PUSHBOX __MSABI_LONG(&h0000000A)
-#define BS_OWNERDRAW __MSABI_LONG(&h0000000B)
-#define BS_TYPEMASK __MSABI_LONG(&h0000000F)
-#define BS_LEFTTEXT __MSABI_LONG(&h00000020)
-#define BS_TEXT __MSABI_LONG(&h00000000)
-#define BS_ICON __MSABI_LONG(&h00000040)
-#define BS_BITMAP __MSABI_LONG(&h00000080)
-#define BS_LEFT __MSABI_LONG(&h00000100)
-#define BS_RIGHT __MSABI_LONG(&h00000200)
-#define BS_CENTER __MSABI_LONG(&h00000300)
-#define BS_TOP __MSABI_LONG(&h00000400)
-#define BS_BOTTOM __MSABI_LONG(&h00000800)
-#define BS_VCENTER __MSABI_LONG(&h00000C00)
-#define BS_PUSHLIKE __MSABI_LONG(&h00001000)
-#define BS_MULTILINE __MSABI_LONG(&h00002000)
-#define BS_NOTIFY __MSABI_LONG(&h00004000)
-#define BS_FLAT __MSABI_LONG(&h00008000)
-#define BS_RIGHTBUTTON BS_LEFTTEXT
+const BS_PUSHBUTTON = cast(clong, &h00000000)
+const BS_DEFPUSHBUTTON = cast(clong, &h00000001)
+const BS_CHECKBOX = cast(clong, &h00000002)
+const BS_AUTOCHECKBOX = cast(clong, &h00000003)
+const BS_RADIOBUTTON = cast(clong, &h00000004)
+const BS_3STATE = cast(clong, &h00000005)
+const BS_AUTO3STATE = cast(clong, &h00000006)
+const BS_GROUPBOX = cast(clong, &h00000007)
+const BS_USERBUTTON = cast(clong, &h00000008)
+const BS_AUTORADIOBUTTON = cast(clong, &h00000009)
+const BS_PUSHBOX = cast(clong, &h0000000A)
+const BS_OWNERDRAW = cast(clong, &h0000000B)
+const BS_TYPEMASK = cast(clong, &h0000000F)
+const BS_LEFTTEXT = cast(clong, &h00000020)
+const BS_TEXT = cast(clong, &h00000000)
+const BS_ICON = cast(clong, &h00000040)
+const BS_BITMAP = cast(clong, &h00000080)
+const BS_LEFT = cast(clong, &h00000100)
+const BS_RIGHT = cast(clong, &h00000200)
+const BS_CENTER = cast(clong, &h00000300)
+const BS_TOP = cast(clong, &h00000400)
+const BS_BOTTOM = cast(clong, &h00000800)
+const BS_VCENTER = cast(clong, &h00000C00)
+const BS_PUSHLIKE = cast(clong, &h00001000)
+const BS_MULTILINE = cast(clong, &h00002000)
+const BS_NOTIFY = cast(clong, &h00004000)
+const BS_FLAT = cast(clong, &h00008000)
+const BS_RIGHTBUTTON = BS_LEFTTEXT
 const BN_CLICKED = 0
 const BN_PAINT = 1
 const BN_HILITE = 2
@@ -5142,38 +5143,38 @@ const BST_CHECKED = &h0001
 const BST_INDETERMINATE = &h0002
 const BST_PUSHED = &h0004
 const BST_FOCUS = &h0008
-#define SS_LEFT __MSABI_LONG(&h00000000)
-#define SS_CENTER __MSABI_LONG(&h00000001)
-#define SS_RIGHT __MSABI_LONG(&h00000002)
-#define SS_ICON __MSABI_LONG(&h00000003)
-#define SS_BLACKRECT __MSABI_LONG(&h00000004)
-#define SS_GRAYRECT __MSABI_LONG(&h00000005)
-#define SS_WHITERECT __MSABI_LONG(&h00000006)
-#define SS_BLACKFRAME __MSABI_LONG(&h00000007)
-#define SS_GRAYFRAME __MSABI_LONG(&h00000008)
-#define SS_WHITEFRAME __MSABI_LONG(&h00000009)
-#define SS_USERITEM __MSABI_LONG(&h0000000A)
-#define SS_SIMPLE __MSABI_LONG(&h0000000B)
-#define SS_LEFTNOWORDWRAP __MSABI_LONG(&h0000000C)
-#define SS_OWNERDRAW __MSABI_LONG(&h0000000D)
-#define SS_BITMAP __MSABI_LONG(&h0000000E)
-#define SS_ENHMETAFILE __MSABI_LONG(&h0000000F)
-#define SS_ETCHEDHORZ __MSABI_LONG(&h00000010)
-#define SS_ETCHEDVERT __MSABI_LONG(&h00000011)
-#define SS_ETCHEDFRAME __MSABI_LONG(&h00000012)
-#define SS_TYPEMASK __MSABI_LONG(&h0000001F)
-#define SS_REALSIZECONTROL __MSABI_LONG(&h00000040)
-#define SS_NOPREFIX __MSABI_LONG(&h00000080)
-#define SS_NOTIFY __MSABI_LONG(&h00000100)
-#define SS_CENTERIMAGE __MSABI_LONG(&h00000200)
-#define SS_RIGHTJUST __MSABI_LONG(&h00000400)
-#define SS_REALSIZEIMAGE __MSABI_LONG(&h00000800)
-#define SS_SUNKEN __MSABI_LONG(&h00001000)
-#define SS_EDITCONTROL __MSABI_LONG(&h00002000)
-#define SS_ENDELLIPSIS __MSABI_LONG(&h00004000)
-#define SS_PATHELLIPSIS __MSABI_LONG(&h00008000)
-#define SS_WORDELLIPSIS __MSABI_LONG(&h0000C000)
-#define SS_ELLIPSISMASK __MSABI_LONG(&h0000C000)
+const SS_LEFT = cast(clong, &h00000000)
+const SS_CENTER = cast(clong, &h00000001)
+const SS_RIGHT = cast(clong, &h00000002)
+const SS_ICON = cast(clong, &h00000003)
+const SS_BLACKRECT = cast(clong, &h00000004)
+const SS_GRAYRECT = cast(clong, &h00000005)
+const SS_WHITERECT = cast(clong, &h00000006)
+const SS_BLACKFRAME = cast(clong, &h00000007)
+const SS_GRAYFRAME = cast(clong, &h00000008)
+const SS_WHITEFRAME = cast(clong, &h00000009)
+const SS_USERITEM = cast(clong, &h0000000A)
+const SS_SIMPLE = cast(clong, &h0000000B)
+const SS_LEFTNOWORDWRAP = cast(clong, &h0000000C)
+const SS_OWNERDRAW = cast(clong, &h0000000D)
+const SS_BITMAP = cast(clong, &h0000000E)
+const SS_ENHMETAFILE = cast(clong, &h0000000F)
+const SS_ETCHEDHORZ = cast(clong, &h00000010)
+const SS_ETCHEDVERT = cast(clong, &h00000011)
+const SS_ETCHEDFRAME = cast(clong, &h00000012)
+const SS_TYPEMASK = cast(clong, &h0000001F)
+const SS_REALSIZECONTROL = cast(clong, &h00000040)
+const SS_NOPREFIX = cast(clong, &h00000080)
+const SS_NOTIFY = cast(clong, &h00000100)
+const SS_CENTERIMAGE = cast(clong, &h00000200)
+const SS_RIGHTJUST = cast(clong, &h00000400)
+const SS_REALSIZEIMAGE = cast(clong, &h00000800)
+const SS_SUNKEN = cast(clong, &h00001000)
+const SS_EDITCONTROL = cast(clong, &h00002000)
+const SS_ENDELLIPSIS = cast(clong, &h00004000)
+const SS_PATHELLIPSIS = cast(clong, &h00008000)
+const SS_WORDELLIPSIS = cast(clong, &h0000C000)
+const SS_ELLIPSISMASK = cast(clong, &h0000C000)
 const STM_SETICON = &h0170
 const STM_GETICON = &h0171
 const STM_SETIMAGE = &h0172
@@ -5267,21 +5268,21 @@ declare function DlgDirSelectComboBoxExW(byval hwndDlg as HWND, byval lpString a
 	declare function DlgDirSelectComboBoxEx alias "DlgDirSelectComboBoxExW"(byval hwndDlg as HWND, byval lpString as LPWSTR, byval cchOut as long, byval idComboBox as long) as WINBOOL
 #endif
 
-#define DS_ABSALIGN __MSABI_LONG(&h01)
-#define DS_SYSMODAL __MSABI_LONG(&h02)
-#define DS_LOCALEDIT __MSABI_LONG(&h20)
-#define DS_SETFONT __MSABI_LONG(&h40)
-#define DS_MODALFRAME __MSABI_LONG(&h80)
-#define DS_NOIDLEMSG __MSABI_LONG(&h100)
-#define DS_SETFOREGROUND __MSABI_LONG(&h200)
-#define DS_3DLOOK __MSABI_LONG(&h0004)
-#define DS_FIXEDSYS __MSABI_LONG(&h0008)
-#define DS_NOFAILCREATE __MSABI_LONG(&h0010)
-#define DS_CONTROL __MSABI_LONG(&h0400)
-#define DS_CENTER __MSABI_LONG(&h0800)
-#define DS_CENTERMOUSE __MSABI_LONG(&h1000)
-#define DS_CONTEXTHELP __MSABI_LONG(&h2000)
-#define DS_SHELLFONT (DS_SETFONT or DS_FIXEDSYS)
+const DS_ABSALIGN = cast(clong, &h01)
+const DS_SYSMODAL = cast(clong, &h02)
+const DS_LOCALEDIT = cast(clong, &h20)
+const DS_SETFONT = cast(clong, &h40)
+const DS_MODALFRAME = cast(clong, &h80)
+const DS_NOIDLEMSG = cast(clong, &h100)
+const DS_SETFOREGROUND = cast(clong, &h200)
+const DS_3DLOOK = cast(clong, &h0004)
+const DS_FIXEDSYS = cast(clong, &h0008)
+const DS_NOFAILCREATE = cast(clong, &h0010)
+const DS_CONTROL = cast(clong, &h0400)
+const DS_CENTER = cast(clong, &h0800)
+const DS_CENTERMOUSE = cast(clong, &h1000)
+const DS_CONTEXTHELP = cast(clong, &h2000)
+const DS_SHELLFONT = DS_SETFONT or DS_FIXEDSYS
 const DM_GETDEFID = WM_USER + 0
 const DM_SETDEFID = WM_USER + 1
 const DM_REPOSITION = WM_USER + 2
@@ -5297,7 +5298,7 @@ const DLGC_RADIOBUTTON = &h0040
 const DLGC_WANTCHARS = &h0080
 const DLGC_STATIC = &h0100
 const DLGC_BUTTON = &h2000
-#define LB_CTLCODE __MSABI_LONG(0)
+const LB_CTLCODE = cast(clong, 0)
 const LB_OKAY = 0
 const LB_ERR = -1
 const LB_ERRSPACE = -2
@@ -5349,23 +5350,23 @@ const LB_INITSTORAGE = &h01A8
 const LB_ITEMFROMPOINT = &h01A9
 const LB_GETLISTBOXINFO = &h01B2
 const LB_MSGMAX = &h01B3
-#define LBS_NOTIFY __MSABI_LONG(&h0001)
-#define LBS_SORT __MSABI_LONG(&h0002)
-#define LBS_NOREDRAW __MSABI_LONG(&h0004)
-#define LBS_MULTIPLESEL __MSABI_LONG(&h0008)
-#define LBS_OWNERDRAWFIXED __MSABI_LONG(&h0010)
-#define LBS_OWNERDRAWVARIABLE __MSABI_LONG(&h0020)
-#define LBS_HASSTRINGS __MSABI_LONG(&h0040)
-#define LBS_USETABSTOPS __MSABI_LONG(&h0080)
-#define LBS_NOINTEGRALHEIGHT __MSABI_LONG(&h0100)
-#define LBS_MULTICOLUMN __MSABI_LONG(&h0200)
-#define LBS_WANTKEYBOARDINPUT __MSABI_LONG(&h0400)
-#define LBS_EXTENDEDSEL __MSABI_LONG(&h0800)
-#define LBS_DISABLENOSCROLL __MSABI_LONG(&h1000)
-#define LBS_NODATA __MSABI_LONG(&h2000)
-#define LBS_NOSEL __MSABI_LONG(&h4000)
-#define LBS_COMBOBOX __MSABI_LONG(&h8000)
-#define LBS_STANDARD (((LBS_NOTIFY or LBS_SORT) or WS_VSCROLL) or WS_BORDER)
+const LBS_NOTIFY = cast(clong, &h0001)
+const LBS_SORT = cast(clong, &h0002)
+const LBS_NOREDRAW = cast(clong, &h0004)
+const LBS_MULTIPLESEL = cast(clong, &h0008)
+const LBS_OWNERDRAWFIXED = cast(clong, &h0010)
+const LBS_OWNERDRAWVARIABLE = cast(clong, &h0020)
+const LBS_HASSTRINGS = cast(clong, &h0040)
+const LBS_USETABSTOPS = cast(clong, &h0080)
+const LBS_NOINTEGRALHEIGHT = cast(clong, &h0100)
+const LBS_MULTICOLUMN = cast(clong, &h0200)
+const LBS_WANTKEYBOARDINPUT = cast(clong, &h0400)
+const LBS_EXTENDEDSEL = cast(clong, &h0800)
+const LBS_DISABLENOSCROLL = cast(clong, &h1000)
+const LBS_NODATA = cast(clong, &h2000)
+const LBS_NOSEL = cast(clong, &h4000)
+const LBS_COMBOBOX = cast(clong, &h8000)
+const LBS_STANDARD = ((LBS_NOTIFY or LBS_SORT) or WS_VSCROLL) or WS_BORDER
 const CB_OKAY = 0
 const CB_ERR = -1
 const CB_ERRSPACE = -2
@@ -5380,19 +5381,19 @@ const CBN_DROPDOWN = 7
 const CBN_CLOSEUP = 8
 const CBN_SELENDOK = 9
 const CBN_SELENDCANCEL = 10
-#define CBS_SIMPLE __MSABI_LONG(&h0001)
-#define CBS_DROPDOWN __MSABI_LONG(&h0002)
-#define CBS_DROPDOWNLIST __MSABI_LONG(&h0003)
-#define CBS_OWNERDRAWFIXED __MSABI_LONG(&h0010)
-#define CBS_OWNERDRAWVARIABLE __MSABI_LONG(&h0020)
-#define CBS_AUTOHSCROLL __MSABI_LONG(&h0040)
-#define CBS_OEMCONVERT __MSABI_LONG(&h0080)
-#define CBS_SORT __MSABI_LONG(&h0100)
-#define CBS_HASSTRINGS __MSABI_LONG(&h0200)
-#define CBS_NOINTEGRALHEIGHT __MSABI_LONG(&h0400)
-#define CBS_DISABLENOSCROLL __MSABI_LONG(&h0800)
-#define CBS_UPPERCASE __MSABI_LONG(&h2000)
-#define CBS_LOWERCASE __MSABI_LONG(&h4000)
+const CBS_SIMPLE = cast(clong, &h0001)
+const CBS_DROPDOWN = cast(clong, &h0002)
+const CBS_DROPDOWNLIST = cast(clong, &h0003)
+const CBS_OWNERDRAWFIXED = cast(clong, &h0010)
+const CBS_OWNERDRAWVARIABLE = cast(clong, &h0020)
+const CBS_AUTOHSCROLL = cast(clong, &h0040)
+const CBS_OEMCONVERT = cast(clong, &h0080)
+const CBS_SORT = cast(clong, &h0100)
+const CBS_HASSTRINGS = cast(clong, &h0200)
+const CBS_NOINTEGRALHEIGHT = cast(clong, &h0400)
+const CBS_DISABLENOSCROLL = cast(clong, &h0800)
+const CBS_UPPERCASE = cast(clong, &h2000)
+const CBS_LOWERCASE = cast(clong, &h4000)
 const CB_GETEDITSEL = &h0140
 const CB_LIMITTEXT = &h0141
 const CB_SETEDITSEL = &h0142
@@ -5429,16 +5430,16 @@ const CB_SETDROPPEDWIDTH = &h0160
 const CB_INITSTORAGE = &h0161
 const CB_GETCOMBOBOXINFO = &h0164
 const CB_MSGMAX = &h0165
-#define SBS_HORZ __MSABI_LONG(&h0000)
-#define SBS_VERT __MSABI_LONG(&h0001)
-#define SBS_TOPALIGN __MSABI_LONG(&h0002)
-#define SBS_LEFTALIGN __MSABI_LONG(&h0002)
-#define SBS_BOTTOMALIGN __MSABI_LONG(&h0004)
-#define SBS_RIGHTALIGN __MSABI_LONG(&h0004)
-#define SBS_SIZEBOXTOPLEFTALIGN __MSABI_LONG(&h0002)
-#define SBS_SIZEBOXBOTTOMRIGHTALIGN __MSABI_LONG(&h0004)
-#define SBS_SIZEBOX __MSABI_LONG(&h0008)
-#define SBS_SIZEGRIP __MSABI_LONG(&h0010)
+const SBS_HORZ = cast(clong, &h0000)
+const SBS_VERT = cast(clong, &h0001)
+const SBS_TOPALIGN = cast(clong, &h0002)
+const SBS_LEFTALIGN = cast(clong, &h0002)
+const SBS_BOTTOMALIGN = cast(clong, &h0004)
+const SBS_RIGHTALIGN = cast(clong, &h0004)
+const SBS_SIZEBOXTOPLEFTALIGN = cast(clong, &h0002)
+const SBS_SIZEBOXBOTTOMRIGHTALIGN = cast(clong, &h0004)
+const SBS_SIZEBOX = cast(clong, &h0008)
+const SBS_SIZEGRIP = cast(clong, &h0010)
 const SBM_SETPOS = &h00E0
 const SBM_GETPOS = &h00E1
 const SBM_SETRANGE = &h00E2
@@ -6033,18 +6034,18 @@ type LPNONCLIENTMETRICSW as tagNONCLIENTMETRICSW ptr
 	type LPNONCLIENTMETRICS as LPNONCLIENTMETRICSA
 #endif
 
-#define ARW_BOTTOMLEFT __MSABI_LONG(&h0000)
-#define ARW_BOTTOMRIGHT __MSABI_LONG(&h0001)
-#define ARW_TOPLEFT __MSABI_LONG(&h0002)
-#define ARW_TOPRIGHT __MSABI_LONG(&h0003)
-#define ARW_STARTMASK __MSABI_LONG(&h0003)
-#define ARW_STARTRIGHT __MSABI_LONG(&h0001)
-#define ARW_STARTTOP __MSABI_LONG(&h0002)
-#define ARW_LEFT __MSABI_LONG(&h0000)
-#define ARW_RIGHT __MSABI_LONG(&h0000)
-#define ARW_UP __MSABI_LONG(&h0004)
-#define ARW_DOWN __MSABI_LONG(&h0004)
-#define ARW_HIDE __MSABI_LONG(&h0008)
+const ARW_BOTTOMLEFT = cast(clong, &h0000)
+const ARW_BOTTOMRIGHT = cast(clong, &h0001)
+const ARW_TOPLEFT = cast(clong, &h0002)
+const ARW_TOPRIGHT = cast(clong, &h0003)
+const ARW_STARTMASK = cast(clong, &h0003)
+const ARW_STARTRIGHT = cast(clong, &h0001)
+const ARW_STARTTOP = cast(clong, &h0002)
+const ARW_LEFT = cast(clong, &h0000)
+const ARW_RIGHT = cast(clong, &h0000)
+const ARW_UP = cast(clong, &h0004)
+const ARW_DOWN = cast(clong, &h0004)
+const ARW_HIDE = cast(clong, &h0008)
 
 type tagMINIMIZEDMETRICS
 	cbSize as UINT

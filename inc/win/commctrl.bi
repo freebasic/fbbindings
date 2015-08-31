@@ -50,6 +50,7 @@
 
 #inclib "comctl32"
 
+#include once "crt/long.bi"
 #include once "winapifamily.bi"
 #include once "_mingw_unicode.bi"
 #include once "prsht.bi"
@@ -331,8 +332,8 @@ end type
 type NMCUSTOMSPLITRECTINFO as tagNMCUSTOMSPLITRECTINFO
 type LPNMCUSTOMSPLITRECTINFO as tagNMCUSTOMSPLITRECTINFO ptr
 const NM_GETCUSTOMSPLITRECT = culng(BCN_FIRST + &h0003)
-#define CLR_NONE __MSABI_LONG(&hffffffff)
-#define CLR_DEFAULT __MSABI_LONG(&hff000000)
+const CLR_NONE = cast(clong, &hffffffff)
+const CLR_DEFAULT = cast(clong, &hff000000)
 type HIMAGELIST as _IMAGELIST ptr
 
 type _IMAGELISTDRAWPARAMS
@@ -406,7 +407,7 @@ const ILD_DPISCALE = &h4000
 const ILD_SELECTED = ILD_BLEND50
 const ILD_FOCUS = ILD_BLEND25
 const ILD_BLEND = ILD_BLEND50
-#define CLR_HILIGHT CLR_DEFAULT
+const CLR_HILIGHT = CLR_DEFAULT
 const ILS_NORMAL = &h0
 const ILS_GLOW = &h1
 const ILS_SHADOW = &h2
@@ -2461,17 +2462,17 @@ const HKM_SETRULES = WM_USER + 3
 	#define HOTKEY_CLASS HOTKEY_CLASSA
 #endif
 
-#define CCS_TOP __MSABI_LONG(&h1)
-#define CCS_NOMOVEY __MSABI_LONG(&h2)
-#define CCS_BOTTOM __MSABI_LONG(&h3)
-#define CCS_NORESIZE __MSABI_LONG(&h4)
-#define CCS_NOPARENTALIGN __MSABI_LONG(&h8)
-#define CCS_ADJUSTABLE __MSABI_LONG(&h20)
-#define CCS_NODIVIDER __MSABI_LONG(&h40)
-#define CCS_VERT __MSABI_LONG(&h80)
-#define CCS_LEFT (CCS_VERT or CCS_TOP)
-#define CCS_RIGHT (CCS_VERT or CCS_BOTTOM)
-#define CCS_NOMOVEX (CCS_VERT or CCS_NOMOVEY)
+const CCS_TOP = cast(clong, &h1)
+const CCS_NOMOVEY = cast(clong, &h2)
+const CCS_BOTTOM = cast(clong, &h3)
+const CCS_NORESIZE = cast(clong, &h4)
+const CCS_NOPARENTALIGN = cast(clong, &h8)
+const CCS_ADJUSTABLE = cast(clong, &h20)
+const CCS_NODIVIDER = cast(clong, &h40)
+const CCS_VERT = cast(clong, &h80)
+const CCS_LEFT = CCS_VERT or CCS_TOP
+const CCS_RIGHT = CCS_VERT or CCS_BOTTOM
+const CCS_NOMOVEX = CCS_VERT or CCS_NOMOVEY
 const INVALID_LINK_INDEX = -1
 const MAX_LINKID_TEXT = 48
 #define L_MAX_URL_LENGTH ((2048 + 32) + sizeof("://"))
@@ -3486,7 +3487,7 @@ const LVM_ISITEMVISIBLE = LVM_FIRST + 182
 
 #if _WIN32_WINNT = &h0602
 	#define ListView_SetGroupHeaderImageList(hwnd, himl) cast(HIMAGELIST, SNDMSG((hwnd), LVM_SETIMAGELIST, cast(WPARAM, LVSIL_GROUPHEADER), cast(LPARAM, cast(HIMAGELIST, (himl)))))
-	#define ListView_GetGroupHeaderImageList(hwnd) cast(HIMAGELIST, SNDMSG((hwnd), LVM_GETIMAGELIST, cast(WPARAM, LVSIL_GROUPHEADER), __MSABI_LONG(0)))
+	#define ListView_GetGroupHeaderImageList(hwnd) cast(HIMAGELIST, SNDMSG((hwnd), LVM_GETIMAGELIST, cast(WPARAM, LVSIL_GROUPHEADER), cast(clong, 0)))
 	const LVM_GETEMPTYTEXT = LVM_FIRST + 204
 	#define ListView_GetEmptyText(hwnd, pszText, cchText) cast(WINBOOL, SNDMSG((hwnd), LVM_GETEMPTYTEXT, cast(WPARAM, (cchText)), cast(LPARAM, (pszText))))
 	const LVM_GETFOOTERRECT = LVM_FIRST + 205
@@ -5749,10 +5750,10 @@ const BST_HOT = &h0200
 
 #if _WIN32_WINNT = &h0602
 	const BST_DROPDOWNPUSHED = &h0400
-	#define BS_SPLITBUTTON __MSABI_LONG(&hc)
-	#define BS_DEFSPLITBUTTON __MSABI_LONG(&hd)
-	#define BS_COMMANDLINK __MSABI_LONG(&he)
-	#define BS_DEFCOMMANDLINK __MSABI_LONG(&hf)
+	const BS_SPLITBUTTON = cast(clong, &hc)
+	const BS_DEFSPLITBUTTON = cast(clong, &hd)
+	const BS_COMMANDLINK = cast(clong, &he)
+	const BS_DEFCOMMANDLINK = cast(clong, &hf)
 	const BCSIF_GLYPH = &h0001
 	const BCSIF_IMAGE = &h0002
 	const BCSIF_STYLE = &h0004
@@ -6156,19 +6157,19 @@ type PFNDPACOMPARECONST as PFNDACOMPARECONST
 declare function Str_SetPtrW(byval ppsz as LPWSTR ptr, byval psz as LPCWSTR) as WINBOOL
 declare function _TrackMouseEvent(byval lpEventTrack as LPTRACKMOUSEEVENT) as WINBOOL
 
-#define WSB_PROP_CYVSCROLL __MSABI_LONG(&h1)
-#define WSB_PROP_CXHSCROLL __MSABI_LONG(&h2)
-#define WSB_PROP_CYHSCROLL __MSABI_LONG(&h4)
-#define WSB_PROP_CXVSCROLL __MSABI_LONG(&h8)
-#define WSB_PROP_CXHTHUMB __MSABI_LONG(&h10)
-#define WSB_PROP_CYVTHUMB __MSABI_LONG(&h20)
-#define WSB_PROP_VBKGCOLOR __MSABI_LONG(&h40)
-#define WSB_PROP_HBKGCOLOR __MSABI_LONG(&h80)
-#define WSB_PROP_VSTYLE __MSABI_LONG(&h100)
-#define WSB_PROP_HSTYLE __MSABI_LONG(&h200)
-#define WSB_PROP_WINSTYLE __MSABI_LONG(&h400)
-#define WSB_PROP_PALETTE __MSABI_LONG(&h800)
-#define WSB_PROP_MASK __MSABI_LONG(&hfff)
+const WSB_PROP_CYVSCROLL = cast(clong, &h1)
+const WSB_PROP_CXHSCROLL = cast(clong, &h2)
+const WSB_PROP_CYHSCROLL = cast(clong, &h4)
+const WSB_PROP_CXVSCROLL = cast(clong, &h8)
+const WSB_PROP_CXHTHUMB = cast(clong, &h10)
+const WSB_PROP_CYVTHUMB = cast(clong, &h20)
+const WSB_PROP_VBKGCOLOR = cast(clong, &h40)
+const WSB_PROP_HBKGCOLOR = cast(clong, &h80)
+const WSB_PROP_VSTYLE = cast(clong, &h100)
+const WSB_PROP_HSTYLE = cast(clong, &h200)
+const WSB_PROP_WINSTYLE = cast(clong, &h400)
+const WSB_PROP_PALETTE = cast(clong, &h800)
+const WSB_PROP_MASK = cast(clong, &hfff)
 const FSB_FLAT_MODE = 2
 const FSB_ENCARTA_MODE = 1
 const FSB_REGULAR_MODE = 0

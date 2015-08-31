@@ -50,6 +50,7 @@
 
 #inclib "comdlg32"
 
+#include once "crt/long.bi"
 #include once "winapifamily.bi"
 #include once "_mingw_unicode.bi"
 #include once "prsht.bi"
@@ -812,34 +813,34 @@ declare function ChooseFontW(byval as LPCHOOSEFONTW) as WINBOOL
 const CF_SCREENFONTS = &h1
 const CF_PRINTERFONTS = &h2
 const CF_BOTH = CF_SCREENFONTS or CF_PRINTERFONTS
-#define CF_SHOWHELP __MSABI_LONG(&h4)
-#define CF_ENABLEHOOK __MSABI_LONG(&h8)
-#define CF_ENABLETEMPLATE __MSABI_LONG(&h10)
-#define CF_ENABLETEMPLATEHANDLE __MSABI_LONG(&h20)
-#define CF_INITTOLOGFONTSTRUCT __MSABI_LONG(&h40)
-#define CF_USESTYLE __MSABI_LONG(&h80)
-#define CF_EFFECTS __MSABI_LONG(&h100)
-#define CF_APPLY __MSABI_LONG(&h200)
-#define CF_ANSIONLY __MSABI_LONG(&h400)
-#define CF_SCRIPTSONLY CF_ANSIONLY
-#define CF_NOVECTORFONTS __MSABI_LONG(&h800)
-#define CF_NOOEMFONTS CF_NOVECTORFONTS
-#define CF_NOSIMULATIONS __MSABI_LONG(&h1000)
-#define CF_LIMITSIZE __MSABI_LONG(&h2000)
-#define CF_FIXEDPITCHONLY __MSABI_LONG(&h4000)
-#define CF_WYSIWYG __MSABI_LONG(&h8000)
-#define CF_FORCEFONTEXIST __MSABI_LONG(&h10000)
-#define CF_SCALABLEONLY __MSABI_LONG(&h20000)
-#define CF_TTONLY __MSABI_LONG(&h40000)
-#define CF_NOFACESEL __MSABI_LONG(&h80000)
-#define CF_NOSTYLESEL __MSABI_LONG(&h100000)
-#define CF_NOSIZESEL __MSABI_LONG(&h200000)
-#define CF_SELECTSCRIPT __MSABI_LONG(&h400000)
-#define CF_NOSCRIPTSEL __MSABI_LONG(&h800000)
-#define CF_NOVERTFONTS __MSABI_LONG(&h1000000)
+const CF_SHOWHELP = cast(clong, &h4)
+const CF_ENABLEHOOK = cast(clong, &h8)
+const CF_ENABLETEMPLATE = cast(clong, &h10)
+const CF_ENABLETEMPLATEHANDLE = cast(clong, &h20)
+const CF_INITTOLOGFONTSTRUCT = cast(clong, &h40)
+const CF_USESTYLE = cast(clong, &h80)
+const CF_EFFECTS = cast(clong, &h100)
+const CF_APPLY = cast(clong, &h200)
+const CF_ANSIONLY = cast(clong, &h400)
+const CF_SCRIPTSONLY = CF_ANSIONLY
+const CF_NOVECTORFONTS = cast(clong, &h800)
+const CF_NOOEMFONTS = CF_NOVECTORFONTS
+const CF_NOSIMULATIONS = cast(clong, &h1000)
+const CF_LIMITSIZE = cast(clong, &h2000)
+const CF_FIXEDPITCHONLY = cast(clong, &h4000)
+const CF_WYSIWYG = cast(clong, &h8000)
+const CF_FORCEFONTEXIST = cast(clong, &h10000)
+const CF_SCALABLEONLY = cast(clong, &h20000)
+const CF_TTONLY = cast(clong, &h40000)
+const CF_NOFACESEL = cast(clong, &h80000)
+const CF_NOSTYLESEL = cast(clong, &h100000)
+const CF_NOSIZESEL = cast(clong, &h200000)
+const CF_SELECTSCRIPT = cast(clong, &h400000)
+const CF_NOSCRIPTSEL = cast(clong, &h800000)
+const CF_NOVERTFONTS = cast(clong, &h1000000)
 
 #if _WIN32_WINNT = &h0602
-	#define CF_INACTIVEFONTS __MSABI_LONG(&h02000000)
+	const CF_INACTIVEFONTS = cast(clong, &h02000000)
 #endif
 
 const SIMULATED_FONTTYPE = &h8000
@@ -1238,7 +1239,7 @@ const PD_CURRENTPAGE = &h400000
 const PD_NOCURRENTPAGE = &h800000
 const PD_EXCLUSIONFLAGS = &h1000000
 const PD_USELARGETEMPLATE = &h10000000
-#define PD_EXCL_COPIESANDCOLLATE (DM_COPIES or DM_COLLATE)
+const PD_EXCL_COPIESANDCOLLATE = DM_COPIES or DM_COLLATE
 const START_PAGE_GENERAL = &hffffffff
 const PD_RESULT_CANCEL = 0
 const PD_RESULT_PRINT = 1
