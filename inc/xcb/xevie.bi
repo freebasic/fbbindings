@@ -33,6 +33,13 @@
 #include once "xcb.bi"
 #include once "xcbext.bi"
 
+'' The following symbols have been renamed:
+''     constant XCB_XEVIE_QUERY_VERSION => XCB_XEVIE_QUERY_VERSION_
+''     constant XCB_XEVIE_START => XCB_XEVIE_START_
+''     constant XCB_XEVIE_END => XCB_XEVIE_END_
+''     constant XCB_XEVIE_SEND => XCB_XEVIE_SEND_
+''     constant XCB_XEVIE_SELECT_INPUT => XCB_XEVIE_SELECT_INPUT_
+
 extern "C"
 
 #define __XEVIE_H
@@ -44,7 +51,7 @@ type xcb_xevie_query_version_cookie_t
 	sequence as ulong
 end type
 
-const XCB_XEVIE_QUERY_VERSION = 0
+const XCB_XEVIE_QUERY_VERSION_ = 0
 
 type xcb_xevie_query_version_request_t
 	major_opcode as ubyte
@@ -68,7 +75,7 @@ type xcb_xevie_start_cookie_t
 	sequence as ulong
 end type
 
-const XCB_XEVIE_START = 1
+const XCB_XEVIE_START_ = 1
 
 type xcb_xevie_start_request_t
 	major_opcode as ubyte
@@ -89,7 +96,7 @@ type xcb_xevie_end_cookie_t
 	sequence as ulong
 end type
 
-const XCB_XEVIE_END = 2
+const XCB_XEVIE_END_ = 2
 
 type xcb_xevie_end_request_t
 	major_opcode as ubyte
@@ -126,7 +133,7 @@ type xcb_xevie_send_cookie_t
 	sequence as ulong
 end type
 
-const XCB_XEVIE_SEND = 3
+const XCB_XEVIE_SEND_ = 3
 
 type xcb_xevie_send_request_t
 	major_opcode as ubyte
@@ -149,7 +156,7 @@ type xcb_xevie_select_input_cookie_t
 	sequence as ulong
 end type
 
-const XCB_XEVIE_SELECT_INPUT = 4
+const XCB_XEVIE_SELECT_INPUT_ = 4
 
 type xcb_xevie_select_input_request_t
 	major_opcode as ubyte

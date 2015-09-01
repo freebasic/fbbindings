@@ -37,6 +37,14 @@
 #include once "xfixes.bi"
 #include once "xcbext.bi"
 
+'' The following symbols have been renamed:
+''     constant XCB_DAMAGE_QUERY_VERSION => XCB_DAMAGE_QUERY_VERSION_
+''     constant XCB_DAMAGE_CREATE => XCB_DAMAGE_CREATE_
+''     constant XCB_DAMAGE_DESTROY => XCB_DAMAGE_DESTROY_
+''     constant XCB_DAMAGE_SUBTRACT => XCB_DAMAGE_SUBTRACT_
+''     constant XCB_DAMAGE_ADD => XCB_DAMAGE_ADD_
+''     constant XCB_DAMAGE_NOTIFY => XCB_DAMAGE_NOTIFY_
+
 extern "C"
 
 #define __DAMAGE_H
@@ -71,7 +79,7 @@ type xcb_damage_query_version_cookie_t
 	sequence as ulong
 end type
 
-const XCB_DAMAGE_QUERY_VERSION = 0
+const XCB_DAMAGE_QUERY_VERSION_ = 0
 
 type xcb_damage_query_version_request_t
 	major_opcode as ubyte
@@ -91,7 +99,7 @@ type xcb_damage_query_version_reply_t
 	pad1(0 to 15) as ubyte
 end type
 
-const XCB_DAMAGE_CREATE = 1
+const XCB_DAMAGE_CREATE_ = 1
 
 type xcb_damage_create_request_t
 	major_opcode as ubyte
@@ -103,7 +111,7 @@ type xcb_damage_create_request_t
 	pad0(0 to 2) as ubyte
 end type
 
-const XCB_DAMAGE_DESTROY = 2
+const XCB_DAMAGE_DESTROY_ = 2
 
 type xcb_damage_destroy_request_t
 	major_opcode as ubyte
@@ -112,7 +120,7 @@ type xcb_damage_destroy_request_t
 	damage as xcb_damage_damage_t
 end type
 
-const XCB_DAMAGE_SUBTRACT = 3
+const XCB_DAMAGE_SUBTRACT_ = 3
 
 type xcb_damage_subtract_request_t
 	major_opcode as ubyte
@@ -123,7 +131,7 @@ type xcb_damage_subtract_request_t
 	parts as xcb_xfixes_region_t
 end type
 
-const XCB_DAMAGE_ADD = 4
+const XCB_DAMAGE_ADD_ = 4
 
 type xcb_damage_add_request_t
 	major_opcode as ubyte
@@ -133,7 +141,7 @@ type xcb_damage_add_request_t
 	region as xcb_xfixes_region_t
 end type
 
-const XCB_DAMAGE_NOTIFY = 0
+const XCB_DAMAGE_NOTIFY_ = 0
 
 type xcb_damage_notify_event_t
 	response_type as ubyte

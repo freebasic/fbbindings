@@ -36,6 +36,28 @@
 #include once "shm.bi"
 #include once "xcbext.bi"
 
+'' The following symbols have been renamed:
+''     constant XCB_XV_QUERY_EXTENSION => XCB_XV_QUERY_EXTENSION_
+''     constant XCB_XV_QUERY_ADAPTORS => XCB_XV_QUERY_ADAPTORS_
+''     constant XCB_XV_QUERY_ENCODINGS => XCB_XV_QUERY_ENCODINGS_
+''     constant XCB_XV_GRAB_PORT => XCB_XV_GRAB_PORT_
+''     constant XCB_XV_UNGRAB_PORT => XCB_XV_UNGRAB_PORT_
+''     constant XCB_XV_PUT_VIDEO => XCB_XV_PUT_VIDEO_
+''     constant XCB_XV_PUT_STILL => XCB_XV_PUT_STILL_
+''     constant XCB_XV_GET_VIDEO => XCB_XV_GET_VIDEO_
+''     constant XCB_XV_GET_STILL => XCB_XV_GET_STILL_
+''     constant XCB_XV_STOP_VIDEO => XCB_XV_STOP_VIDEO_
+''     constant XCB_XV_SELECT_VIDEO_NOTIFY => XCB_XV_SELECT_VIDEO_NOTIFY_
+''     constant XCB_XV_SELECT_PORT_NOTIFY => XCB_XV_SELECT_PORT_NOTIFY_
+''     constant XCB_XV_QUERY_BEST_SIZE => XCB_XV_QUERY_BEST_SIZE_
+''     constant XCB_XV_SET_PORT_ATTRIBUTE => XCB_XV_SET_PORT_ATTRIBUTE_
+''     constant XCB_XV_GET_PORT_ATTRIBUTE => XCB_XV_GET_PORT_ATTRIBUTE_
+''     constant XCB_XV_QUERY_PORT_ATTRIBUTES => XCB_XV_QUERY_PORT_ATTRIBUTES_
+''     constant XCB_XV_LIST_IMAGE_FORMATS => XCB_XV_LIST_IMAGE_FORMATS_
+''     constant XCB_XV_QUERY_IMAGE_ATTRIBUTES => XCB_XV_QUERY_IMAGE_ATTRIBUTES_
+''     constant XCB_XV_PUT_IMAGE => XCB_XV_PUT_IMAGE_
+''     constant XCB_XV_SHM_PUT_IMAGE => XCB_XV_SHM_PUT_IMAGE_
+
 extern "C"
 
 #define __XV_H
@@ -277,7 +299,7 @@ type xcb_xv_query_extension_cookie_t
 	sequence as ulong
 end type
 
-const XCB_XV_QUERY_EXTENSION = 0
+const XCB_XV_QUERY_EXTENSION_ = 0
 
 type xcb_xv_query_extension_request_t
 	major_opcode as ubyte
@@ -298,7 +320,7 @@ type xcb_xv_query_adaptors_cookie_t
 	sequence as ulong
 end type
 
-const XCB_XV_QUERY_ADAPTORS = 1
+const XCB_XV_QUERY_ADAPTORS_ = 1
 
 type xcb_xv_query_adaptors_request_t
 	major_opcode as ubyte
@@ -320,7 +342,7 @@ type xcb_xv_query_encodings_cookie_t
 	sequence as ulong
 end type
 
-const XCB_XV_QUERY_ENCODINGS = 2
+const XCB_XV_QUERY_ENCODINGS_ = 2
 
 type xcb_xv_query_encodings_request_t
 	major_opcode as ubyte
@@ -342,7 +364,7 @@ type xcb_xv_grab_port_cookie_t
 	sequence as ulong
 end type
 
-const XCB_XV_GRAB_PORT = 3
+const XCB_XV_GRAB_PORT_ = 3
 
 type xcb_xv_grab_port_request_t
 	major_opcode as ubyte
@@ -359,7 +381,7 @@ type xcb_xv_grab_port_reply_t
 	length as ulong
 end type
 
-const XCB_XV_UNGRAB_PORT = 4
+const XCB_XV_UNGRAB_PORT_ = 4
 
 type xcb_xv_ungrab_port_request_t
 	major_opcode as ubyte
@@ -369,7 +391,7 @@ type xcb_xv_ungrab_port_request_t
 	time as xcb_timestamp_t
 end type
 
-const XCB_XV_PUT_VIDEO = 5
+const XCB_XV_PUT_VIDEO_ = 5
 
 type xcb_xv_put_video_request_t
 	major_opcode as ubyte
@@ -388,7 +410,7 @@ type xcb_xv_put_video_request_t
 	drw_h as ushort
 end type
 
-const XCB_XV_PUT_STILL = 6
+const XCB_XV_PUT_STILL_ = 6
 
 type xcb_xv_put_still_request_t
 	major_opcode as ubyte
@@ -407,7 +429,7 @@ type xcb_xv_put_still_request_t
 	drw_h as ushort
 end type
 
-const XCB_XV_GET_VIDEO = 7
+const XCB_XV_GET_VIDEO_ = 7
 
 type xcb_xv_get_video_request_t
 	major_opcode as ubyte
@@ -426,7 +448,7 @@ type xcb_xv_get_video_request_t
 	drw_h as ushort
 end type
 
-const XCB_XV_GET_STILL = 8
+const XCB_XV_GET_STILL_ = 8
 
 type xcb_xv_get_still_request_t
 	major_opcode as ubyte
@@ -445,7 +467,7 @@ type xcb_xv_get_still_request_t
 	drw_h as ushort
 end type
 
-const XCB_XV_STOP_VIDEO = 9
+const XCB_XV_STOP_VIDEO_ = 9
 
 type xcb_xv_stop_video_request_t
 	major_opcode as ubyte
@@ -455,7 +477,7 @@ type xcb_xv_stop_video_request_t
 	drawable as xcb_drawable_t
 end type
 
-const XCB_XV_SELECT_VIDEO_NOTIFY = 10
+const XCB_XV_SELECT_VIDEO_NOTIFY_ = 10
 
 type xcb_xv_select_video_notify_request_t
 	major_opcode as ubyte
@@ -466,7 +488,7 @@ type xcb_xv_select_video_notify_request_t
 	pad0(0 to 2) as ubyte
 end type
 
-const XCB_XV_SELECT_PORT_NOTIFY = 11
+const XCB_XV_SELECT_PORT_NOTIFY_ = 11
 
 type xcb_xv_select_port_notify_request_t
 	major_opcode as ubyte
@@ -481,7 +503,7 @@ type xcb_xv_query_best_size_cookie_t
 	sequence as ulong
 end type
 
-const XCB_XV_QUERY_BEST_SIZE = 12
+const XCB_XV_QUERY_BEST_SIZE_ = 12
 
 type xcb_xv_query_best_size_request_t
 	major_opcode as ubyte
@@ -505,7 +527,7 @@ type xcb_xv_query_best_size_reply_t
 	actual_height as ushort
 end type
 
-const XCB_XV_SET_PORT_ATTRIBUTE = 13
+const XCB_XV_SET_PORT_ATTRIBUTE_ = 13
 
 type xcb_xv_set_port_attribute_request_t
 	major_opcode as ubyte
@@ -520,7 +542,7 @@ type xcb_xv_get_port_attribute_cookie_t
 	sequence as ulong
 end type
 
-const XCB_XV_GET_PORT_ATTRIBUTE = 14
+const XCB_XV_GET_PORT_ATTRIBUTE_ = 14
 
 type xcb_xv_get_port_attribute_request_t
 	major_opcode as ubyte
@@ -542,7 +564,7 @@ type xcb_xv_query_port_attributes_cookie_t
 	sequence as ulong
 end type
 
-const XCB_XV_QUERY_PORT_ATTRIBUTES = 15
+const XCB_XV_QUERY_PORT_ATTRIBUTES_ = 15
 
 type xcb_xv_query_port_attributes_request_t
 	major_opcode as ubyte
@@ -565,7 +587,7 @@ type xcb_xv_list_image_formats_cookie_t
 	sequence as ulong
 end type
 
-const XCB_XV_LIST_IMAGE_FORMATS = 16
+const XCB_XV_LIST_IMAGE_FORMATS_ = 16
 
 type xcb_xv_list_image_formats_request_t
 	major_opcode as ubyte
@@ -587,7 +609,7 @@ type xcb_xv_query_image_attributes_cookie_t
 	sequence as ulong
 end type
 
-const XCB_XV_QUERY_IMAGE_ATTRIBUTES = 17
+const XCB_XV_QUERY_IMAGE_ATTRIBUTES_ = 17
 
 type xcb_xv_query_image_attributes_request_t
 	major_opcode as ubyte
@@ -611,7 +633,7 @@ type xcb_xv_query_image_attributes_reply_t
 	pad1(0 to 11) as ubyte
 end type
 
-const XCB_XV_PUT_IMAGE = 18
+const XCB_XV_PUT_IMAGE_ = 18
 
 type xcb_xv_put_image_request_t
 	major_opcode as ubyte
@@ -633,7 +655,7 @@ type xcb_xv_put_image_request_t
 	height as ushort
 end type
 
-const XCB_XV_SHM_PUT_IMAGE = 19
+const XCB_XV_SHM_PUT_IMAGE_ = 19
 
 type xcb_xv_shm_put_image_request_t
 	major_opcode as ubyte

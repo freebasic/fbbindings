@@ -35,6 +35,108 @@
 #include once "xproto.bi"
 #include once "xcbext.bi"
 
+'' The following symbols have been renamed:
+''     constant XCB_GLX_RENDER => XCB_GLX_RENDER_
+''     constant XCB_GLX_RENDER_LARGE => XCB_GLX_RENDER_LARGE_
+''     constant XCB_GLX_CREATE_CONTEXT => XCB_GLX_CREATE_CONTEXT_
+''     constant XCB_GLX_DESTROY_CONTEXT => XCB_GLX_DESTROY_CONTEXT_
+''     constant XCB_GLX_MAKE_CURRENT => XCB_GLX_MAKE_CURRENT_
+''     constant XCB_GLX_IS_DIRECT => XCB_GLX_IS_DIRECT_
+''     constant XCB_GLX_QUERY_VERSION => XCB_GLX_QUERY_VERSION_
+''     constant XCB_GLX_WAIT_GL => XCB_GLX_WAIT_GL_
+''     constant XCB_GLX_WAIT_X => XCB_GLX_WAIT_X_
+''     constant XCB_GLX_COPY_CONTEXT => XCB_GLX_COPY_CONTEXT_
+''     constant XCB_GLX_SWAP_BUFFERS => XCB_GLX_SWAP_BUFFERS_
+''     constant XCB_GLX_USE_X_FONT => XCB_GLX_USE_X_FONT_
+''     constant XCB_GLX_CREATE_GLX_PIXMAP => XCB_GLX_CREATE_GLX_PIXMAP_
+''     constant XCB_GLX_GET_VISUAL_CONFIGS => XCB_GLX_GET_VISUAL_CONFIGS_
+''     constant XCB_GLX_DESTROY_GLX_PIXMAP => XCB_GLX_DESTROY_GLX_PIXMAP_
+''     constant XCB_GLX_VENDOR_PRIVATE => XCB_GLX_VENDOR_PRIVATE_
+''     constant XCB_GLX_VENDOR_PRIVATE_WITH_REPLY => XCB_GLX_VENDOR_PRIVATE_WITH_REPLY_
+''     constant XCB_GLX_QUERY_EXTENSIONS_STRING => XCB_GLX_QUERY_EXTENSIONS_STRING_
+''     constant XCB_GLX_QUERY_SERVER_STRING => XCB_GLX_QUERY_SERVER_STRING_
+''     constant XCB_GLX_CLIENT_INFO => XCB_GLX_CLIENT_INFO_
+''     constant XCB_GLX_GET_FB_CONFIGS => XCB_GLX_GET_FB_CONFIGS_
+''     constant XCB_GLX_CREATE_PIXMAP => XCB_GLX_CREATE_PIXMAP_
+''     constant XCB_GLX_DESTROY_PIXMAP => XCB_GLX_DESTROY_PIXMAP_
+''     constant XCB_GLX_CREATE_NEW_CONTEXT => XCB_GLX_CREATE_NEW_CONTEXT_
+''     constant XCB_GLX_QUERY_CONTEXT => XCB_GLX_QUERY_CONTEXT_
+''     constant XCB_GLX_MAKE_CONTEXT_CURRENT => XCB_GLX_MAKE_CONTEXT_CURRENT_
+''     constant XCB_GLX_CREATE_PBUFFER => XCB_GLX_CREATE_PBUFFER_
+''     constant XCB_GLX_DESTROY_PBUFFER => XCB_GLX_DESTROY_PBUFFER_
+''     constant XCB_GLX_GET_DRAWABLE_ATTRIBUTES => XCB_GLX_GET_DRAWABLE_ATTRIBUTES_
+''     constant XCB_GLX_CHANGE_DRAWABLE_ATTRIBUTES => XCB_GLX_CHANGE_DRAWABLE_ATTRIBUTES_
+''     constant XCB_GLX_CREATE_WINDOW => XCB_GLX_CREATE_WINDOW_
+''     constant XCB_GLX_DELETE_WINDOW => XCB_GLX_DELETE_WINDOW_
+''     constant XCB_GLX_SET_CLIENT_INFO_ARB => XCB_GLX_SET_CLIENT_INFO_ARB_
+''     constant XCB_GLX_CREATE_CONTEXT_ATTRIBS_ARB => XCB_GLX_CREATE_CONTEXT_ATTRIBS_ARB_
+''     constant XCB_GLX_SET_CLIENT_INFO_2ARB => XCB_GLX_SET_CLIENT_INFO_2ARB_
+''     constant XCB_GLX_NEW_LIST => XCB_GLX_NEW_LIST_
+''     constant XCB_GLX_END_LIST => XCB_GLX_END_LIST_
+''     constant XCB_GLX_DELETE_LISTS => XCB_GLX_DELETE_LISTS_
+''     constant XCB_GLX_GEN_LISTS => XCB_GLX_GEN_LISTS_
+''     constant XCB_GLX_FEEDBACK_BUFFER => XCB_GLX_FEEDBACK_BUFFER_
+''     constant XCB_GLX_SELECT_BUFFER => XCB_GLX_SELECT_BUFFER_
+''     constant XCB_GLX_RENDER_MODE => XCB_GLX_RENDER_MODE_
+''     constant XCB_GLX_FINISH => XCB_GLX_FINISH_
+''     constant XCB_GLX_PIXEL_STOREF => XCB_GLX_PIXEL_STOREF_
+''     constant XCB_GLX_PIXEL_STOREI => XCB_GLX_PIXEL_STOREI_
+''     constant XCB_GLX_READ_PIXELS => XCB_GLX_READ_PIXELS_
+''     constant XCB_GLX_GET_BOOLEANV => XCB_GLX_GET_BOOLEANV_
+''     constant XCB_GLX_GET_CLIP_PLANE => XCB_GLX_GET_CLIP_PLANE_
+''     constant XCB_GLX_GET_DOUBLEV => XCB_GLX_GET_DOUBLEV_
+''     constant XCB_GLX_GET_ERROR => XCB_GLX_GET_ERROR_
+''     constant XCB_GLX_GET_FLOATV => XCB_GLX_GET_FLOATV_
+''     constant XCB_GLX_GET_INTEGERV => XCB_GLX_GET_INTEGERV_
+''     constant XCB_GLX_GET_LIGHTFV => XCB_GLX_GET_LIGHTFV_
+''     constant XCB_GLX_GET_LIGHTIV => XCB_GLX_GET_LIGHTIV_
+''     constant XCB_GLX_GET_MAPDV => XCB_GLX_GET_MAPDV_
+''     constant XCB_GLX_GET_MAPFV => XCB_GLX_GET_MAPFV_
+''     constant XCB_GLX_GET_MAPIV => XCB_GLX_GET_MAPIV_
+''     constant XCB_GLX_GET_MATERIALFV => XCB_GLX_GET_MATERIALFV_
+''     constant XCB_GLX_GET_MATERIALIV => XCB_GLX_GET_MATERIALIV_
+''     constant XCB_GLX_GET_PIXEL_MAPFV => XCB_GLX_GET_PIXEL_MAPFV_
+''     constant XCB_GLX_GET_PIXEL_MAPUIV => XCB_GLX_GET_PIXEL_MAPUIV_
+''     constant XCB_GLX_GET_PIXEL_MAPUSV => XCB_GLX_GET_PIXEL_MAPUSV_
+''     constant XCB_GLX_GET_POLYGON_STIPPLE => XCB_GLX_GET_POLYGON_STIPPLE_
+''     constant XCB_GLX_GET_STRING => XCB_GLX_GET_STRING_
+''     constant XCB_GLX_GET_TEX_ENVFV => XCB_GLX_GET_TEX_ENVFV_
+''     constant XCB_GLX_GET_TEX_ENVIV => XCB_GLX_GET_TEX_ENVIV_
+''     constant XCB_GLX_GET_TEX_GENDV => XCB_GLX_GET_TEX_GENDV_
+''     constant XCB_GLX_GET_TEX_GENFV => XCB_GLX_GET_TEX_GENFV_
+''     constant XCB_GLX_GET_TEX_GENIV => XCB_GLX_GET_TEX_GENIV_
+''     constant XCB_GLX_GET_TEX_IMAGE => XCB_GLX_GET_TEX_IMAGE_
+''     constant XCB_GLX_GET_TEX_PARAMETERFV => XCB_GLX_GET_TEX_PARAMETERFV_
+''     constant XCB_GLX_GET_TEX_PARAMETERIV => XCB_GLX_GET_TEX_PARAMETERIV_
+''     constant XCB_GLX_GET_TEX_LEVEL_PARAMETERFV => XCB_GLX_GET_TEX_LEVEL_PARAMETERFV_
+''     constant XCB_GLX_GET_TEX_LEVEL_PARAMETERIV => XCB_GLX_GET_TEX_LEVEL_PARAMETERIV_
+''     constant XCB_GLX_IS_LIST => XCB_GLX_IS_LIST_
+''     constant XCB_GLX_FLUSH => XCB_GLX_FLUSH_
+''     constant XCB_GLX_ARE_TEXTURES_RESIDENT => XCB_GLX_ARE_TEXTURES_RESIDENT_
+''     constant XCB_GLX_DELETE_TEXTURES => XCB_GLX_DELETE_TEXTURES_
+''     constant XCB_GLX_GEN_TEXTURES => XCB_GLX_GEN_TEXTURES_
+''     constant XCB_GLX_IS_TEXTURE => XCB_GLX_IS_TEXTURE_
+''     constant XCB_GLX_GET_COLOR_TABLE => XCB_GLX_GET_COLOR_TABLE_
+''     constant XCB_GLX_GET_COLOR_TABLE_PARAMETERFV => XCB_GLX_GET_COLOR_TABLE_PARAMETERFV_
+''     constant XCB_GLX_GET_COLOR_TABLE_PARAMETERIV => XCB_GLX_GET_COLOR_TABLE_PARAMETERIV_
+''     constant XCB_GLX_GET_CONVOLUTION_FILTER => XCB_GLX_GET_CONVOLUTION_FILTER_
+''     constant XCB_GLX_GET_CONVOLUTION_PARAMETERFV => XCB_GLX_GET_CONVOLUTION_PARAMETERFV_
+''     constant XCB_GLX_GET_CONVOLUTION_PARAMETERIV => XCB_GLX_GET_CONVOLUTION_PARAMETERIV_
+''     constant XCB_GLX_GET_SEPARABLE_FILTER => XCB_GLX_GET_SEPARABLE_FILTER_
+''     constant XCB_GLX_GET_HISTOGRAM => XCB_GLX_GET_HISTOGRAM_
+''     constant XCB_GLX_GET_HISTOGRAM_PARAMETERFV => XCB_GLX_GET_HISTOGRAM_PARAMETERFV_
+''     constant XCB_GLX_GET_HISTOGRAM_PARAMETERIV => XCB_GLX_GET_HISTOGRAM_PARAMETERIV_
+''     constant XCB_GLX_GET_MINMAX => XCB_GLX_GET_MINMAX_
+''     constant XCB_GLX_GET_MINMAX_PARAMETERFV => XCB_GLX_GET_MINMAX_PARAMETERFV_
+''     constant XCB_GLX_GET_MINMAX_PARAMETERIV => XCB_GLX_GET_MINMAX_PARAMETERIV_
+''     constant XCB_GLX_GET_COMPRESSED_TEX_IMAGE_ARB => XCB_GLX_GET_COMPRESSED_TEX_IMAGE_ARB_
+''     constant XCB_GLX_DELETE_QUERIES_ARB => XCB_GLX_DELETE_QUERIES_ARB_
+''     constant XCB_GLX_GEN_QUERIES_ARB => XCB_GLX_GEN_QUERIES_ARB_
+''     constant XCB_GLX_IS_QUERY_ARB => XCB_GLX_IS_QUERY_ARB_
+''     constant XCB_GLX_GET_QUERYIV_ARB => XCB_GLX_GET_QUERYIV_ARB_
+''     constant XCB_GLX_GET_QUERY_OBJECTIV_ARB => XCB_GLX_GET_QUERY_OBJECTIV_ARB_
+''     constant XCB_GLX_GET_QUERY_OBJECTUIV_ARB => XCB_GLX_GET_QUERY_OBJECTUIV_ARB_
+
 extern "C"
 
 #define __GLX_H
@@ -208,7 +310,7 @@ enum
 	XCB_GLX_PBCDT_PBUFFER = 32794
 end enum
 
-const XCB_GLX_RENDER = 1
+const XCB_GLX_RENDER_ = 1
 
 type xcb_glx_render_request_t
 	major_opcode as ubyte
@@ -217,7 +319,7 @@ type xcb_glx_render_request_t
 	context_tag as xcb_glx_context_tag_t
 end type
 
-const XCB_GLX_RENDER_LARGE = 2
+const XCB_GLX_RENDER_LARGE_ = 2
 
 type xcb_glx_render_large_request_t
 	major_opcode as ubyte
@@ -229,7 +331,7 @@ type xcb_glx_render_large_request_t
 	data_len as ulong
 end type
 
-const XCB_GLX_CREATE_CONTEXT = 3
+const XCB_GLX_CREATE_CONTEXT_ = 3
 
 type xcb_glx_create_context_request_t
 	major_opcode as ubyte
@@ -243,7 +345,7 @@ type xcb_glx_create_context_request_t
 	pad0(0 to 2) as ubyte
 end type
 
-const XCB_GLX_DESTROY_CONTEXT = 4
+const XCB_GLX_DESTROY_CONTEXT_ = 4
 
 type xcb_glx_destroy_context_request_t
 	major_opcode as ubyte
@@ -256,7 +358,7 @@ type xcb_glx_make_current_cookie_t
 	sequence as ulong
 end type
 
-const XCB_GLX_MAKE_CURRENT = 5
+const XCB_GLX_MAKE_CURRENT_ = 5
 
 type xcb_glx_make_current_request_t
 	major_opcode as ubyte
@@ -280,7 +382,7 @@ type xcb_glx_is_direct_cookie_t
 	sequence as ulong
 end type
 
-const XCB_GLX_IS_DIRECT = 6
+const XCB_GLX_IS_DIRECT_ = 6
 
 type xcb_glx_is_direct_request_t
 	major_opcode as ubyte
@@ -302,7 +404,7 @@ type xcb_glx_query_version_cookie_t
 	sequence as ulong
 end type
 
-const XCB_GLX_QUERY_VERSION = 7
+const XCB_GLX_QUERY_VERSION_ = 7
 
 type xcb_glx_query_version_request_t
 	major_opcode as ubyte
@@ -322,7 +424,7 @@ type xcb_glx_query_version_reply_t
 	pad1(0 to 15) as ubyte
 end type
 
-const XCB_GLX_WAIT_GL = 8
+const XCB_GLX_WAIT_GL_ = 8
 
 type xcb_glx_wait_gl_request_t
 	major_opcode as ubyte
@@ -331,7 +433,7 @@ type xcb_glx_wait_gl_request_t
 	context_tag as xcb_glx_context_tag_t
 end type
 
-const XCB_GLX_WAIT_X = 9
+const XCB_GLX_WAIT_X_ = 9
 
 type xcb_glx_wait_x_request_t
 	major_opcode as ubyte
@@ -340,7 +442,7 @@ type xcb_glx_wait_x_request_t
 	context_tag as xcb_glx_context_tag_t
 end type
 
-const XCB_GLX_COPY_CONTEXT = 10
+const XCB_GLX_COPY_CONTEXT_ = 10
 
 type xcb_glx_copy_context_request_t
 	major_opcode as ubyte
@@ -377,7 +479,7 @@ enum
 	XCB_GLX_GC_GL_ALL_ATTRIB_BITS = 16777215
 end enum
 
-const XCB_GLX_SWAP_BUFFERS = 11
+const XCB_GLX_SWAP_BUFFERS_ = 11
 
 type xcb_glx_swap_buffers_request_t
 	major_opcode as ubyte
@@ -387,7 +489,7 @@ type xcb_glx_swap_buffers_request_t
 	drawable as xcb_glx_drawable_t
 end type
 
-const XCB_GLX_USE_X_FONT = 12
+const XCB_GLX_USE_X_FONT_ = 12
 
 type xcb_glx_use_x_font_request_t
 	major_opcode as ubyte
@@ -400,7 +502,7 @@ type xcb_glx_use_x_font_request_t
 	list_base as ulong
 end type
 
-const XCB_GLX_CREATE_GLX_PIXMAP = 13
+const XCB_GLX_CREATE_GLX_PIXMAP_ = 13
 
 type xcb_glx_create_glx_pixmap_request_t
 	major_opcode as ubyte
@@ -416,7 +518,7 @@ type xcb_glx_get_visual_configs_cookie_t
 	sequence as ulong
 end type
 
-const XCB_GLX_GET_VISUAL_CONFIGS = 14
+const XCB_GLX_GET_VISUAL_CONFIGS_ = 14
 
 type xcb_glx_get_visual_configs_request_t
 	major_opcode as ubyte
@@ -435,7 +537,7 @@ type xcb_glx_get_visual_configs_reply_t
 	pad1(0 to 15) as ubyte
 end type
 
-const XCB_GLX_DESTROY_GLX_PIXMAP = 15
+const XCB_GLX_DESTROY_GLX_PIXMAP_ = 15
 
 type xcb_glx_destroy_glx_pixmap_request_t
 	major_opcode as ubyte
@@ -444,7 +546,7 @@ type xcb_glx_destroy_glx_pixmap_request_t
 	glx_pixmap as xcb_glx_pixmap_t
 end type
 
-const XCB_GLX_VENDOR_PRIVATE = 16
+const XCB_GLX_VENDOR_PRIVATE_ = 16
 
 type xcb_glx_vendor_private_request_t
 	major_opcode as ubyte
@@ -458,7 +560,7 @@ type xcb_glx_vendor_private_with_reply_cookie_t
 	sequence as ulong
 end type
 
-const XCB_GLX_VENDOR_PRIVATE_WITH_REPLY = 17
+const XCB_GLX_VENDOR_PRIVATE_WITH_REPLY_ = 17
 
 type xcb_glx_vendor_private_with_reply_request_t
 	major_opcode as ubyte
@@ -481,7 +583,7 @@ type xcb_glx_query_extensions_string_cookie_t
 	sequence as ulong
 end type
 
-const XCB_GLX_QUERY_EXTENSIONS_STRING = 18
+const XCB_GLX_QUERY_EXTENSIONS_STRING_ = 18
 
 type xcb_glx_query_extensions_string_request_t
 	major_opcode as ubyte
@@ -504,7 +606,7 @@ type xcb_glx_query_server_string_cookie_t
 	sequence as ulong
 end type
 
-const XCB_GLX_QUERY_SERVER_STRING = 19
+const XCB_GLX_QUERY_SERVER_STRING_ = 19
 
 type xcb_glx_query_server_string_request_t
 	major_opcode as ubyte
@@ -524,7 +626,7 @@ type xcb_glx_query_server_string_reply_t
 	pad2(0 to 15) as ubyte
 end type
 
-const XCB_GLX_CLIENT_INFO = 20
+const XCB_GLX_CLIENT_INFO_ = 20
 
 type xcb_glx_client_info_request_t
 	major_opcode as ubyte
@@ -539,7 +641,7 @@ type xcb_glx_get_fb_configs_cookie_t
 	sequence as ulong
 end type
 
-const XCB_GLX_GET_FB_CONFIGS = 21
+const XCB_GLX_GET_FB_CONFIGS_ = 21
 
 type xcb_glx_get_fb_configs_request_t
 	major_opcode as ubyte
@@ -558,7 +660,7 @@ type xcb_glx_get_fb_configs_reply_t
 	pad1(0 to 15) as ubyte
 end type
 
-const XCB_GLX_CREATE_PIXMAP = 22
+const XCB_GLX_CREATE_PIXMAP_ = 22
 
 type xcb_glx_create_pixmap_request_t
 	major_opcode as ubyte
@@ -571,7 +673,7 @@ type xcb_glx_create_pixmap_request_t
 	num_attribs as ulong
 end type
 
-const XCB_GLX_DESTROY_PIXMAP = 23
+const XCB_GLX_DESTROY_PIXMAP_ = 23
 
 type xcb_glx_destroy_pixmap_request_t
 	major_opcode as ubyte
@@ -580,7 +682,7 @@ type xcb_glx_destroy_pixmap_request_t
 	glx_pixmap as xcb_glx_pixmap_t
 end type
 
-const XCB_GLX_CREATE_NEW_CONTEXT = 24
+const XCB_GLX_CREATE_NEW_CONTEXT_ = 24
 
 type xcb_glx_create_new_context_request_t
 	major_opcode as ubyte
@@ -599,7 +701,7 @@ type xcb_glx_query_context_cookie_t
 	sequence as ulong
 end type
 
-const XCB_GLX_QUERY_CONTEXT = 25
+const XCB_GLX_QUERY_CONTEXT_ = 25
 
 type xcb_glx_query_context_request_t
 	major_opcode as ubyte
@@ -621,7 +723,7 @@ type xcb_glx_make_context_current_cookie_t
 	sequence as ulong
 end type
 
-const XCB_GLX_MAKE_CONTEXT_CURRENT = 26
+const XCB_GLX_MAKE_CONTEXT_CURRENT_ = 26
 
 type xcb_glx_make_context_current_request_t
 	major_opcode as ubyte
@@ -642,7 +744,7 @@ type xcb_glx_make_context_current_reply_t
 	pad1(0 to 19) as ubyte
 end type
 
-const XCB_GLX_CREATE_PBUFFER = 27
+const XCB_GLX_CREATE_PBUFFER_ = 27
 
 type xcb_glx_create_pbuffer_request_t
 	major_opcode as ubyte
@@ -654,7 +756,7 @@ type xcb_glx_create_pbuffer_request_t
 	num_attribs as ulong
 end type
 
-const XCB_GLX_DESTROY_PBUFFER = 28
+const XCB_GLX_DESTROY_PBUFFER_ = 28
 
 type xcb_glx_destroy_pbuffer_request_t
 	major_opcode as ubyte
@@ -667,7 +769,7 @@ type xcb_glx_get_drawable_attributes_cookie_t
 	sequence as ulong
 end type
 
-const XCB_GLX_GET_DRAWABLE_ATTRIBUTES = 29
+const XCB_GLX_GET_DRAWABLE_ATTRIBUTES_ = 29
 
 type xcb_glx_get_drawable_attributes_request_t
 	major_opcode as ubyte
@@ -685,7 +787,7 @@ type xcb_glx_get_drawable_attributes_reply_t
 	pad1(0 to 19) as ubyte
 end type
 
-const XCB_GLX_CHANGE_DRAWABLE_ATTRIBUTES = 30
+const XCB_GLX_CHANGE_DRAWABLE_ATTRIBUTES_ = 30
 
 type xcb_glx_change_drawable_attributes_request_t
 	major_opcode as ubyte
@@ -695,7 +797,7 @@ type xcb_glx_change_drawable_attributes_request_t
 	num_attribs as ulong
 end type
 
-const XCB_GLX_CREATE_WINDOW = 31
+const XCB_GLX_CREATE_WINDOW_ = 31
 
 type xcb_glx_create_window_request_t
 	major_opcode as ubyte
@@ -708,7 +810,7 @@ type xcb_glx_create_window_request_t
 	num_attribs as ulong
 end type
 
-const XCB_GLX_DELETE_WINDOW = 32
+const XCB_GLX_DELETE_WINDOW_ = 32
 
 type xcb_glx_delete_window_request_t
 	major_opcode as ubyte
@@ -717,7 +819,7 @@ type xcb_glx_delete_window_request_t
 	glxwindow as xcb_glx_window_t
 end type
 
-const XCB_GLX_SET_CLIENT_INFO_ARB = 33
+const XCB_GLX_SET_CLIENT_INFO_ARB_ = 33
 
 type xcb_glx_set_client_info_arb_request_t
 	major_opcode as ubyte
@@ -730,7 +832,7 @@ type xcb_glx_set_client_info_arb_request_t
 	glx_str_len as ulong
 end type
 
-const XCB_GLX_CREATE_CONTEXT_ATTRIBS_ARB = 34
+const XCB_GLX_CREATE_CONTEXT_ATTRIBS_ARB_ = 34
 
 type xcb_glx_create_context_attribs_arb_request_t
 	major_opcode as ubyte
@@ -745,7 +847,7 @@ type xcb_glx_create_context_attribs_arb_request_t
 	num_attribs as ulong
 end type
 
-const XCB_GLX_SET_CLIENT_INFO_2ARB = 35
+const XCB_GLX_SET_CLIENT_INFO_2ARB_ = 35
 
 type xcb_glx_set_client_info_2arb_request_t
 	major_opcode as ubyte
@@ -758,7 +860,7 @@ type xcb_glx_set_client_info_2arb_request_t
 	glx_str_len as ulong
 end type
 
-const XCB_GLX_NEW_LIST = 101
+const XCB_GLX_NEW_LIST_ = 101
 
 type xcb_glx_new_list_request_t
 	major_opcode as ubyte
@@ -769,7 +871,7 @@ type xcb_glx_new_list_request_t
 	mode as ulong
 end type
 
-const XCB_GLX_END_LIST = 102
+const XCB_GLX_END_LIST_ = 102
 
 type xcb_glx_end_list_request_t
 	major_opcode as ubyte
@@ -778,7 +880,7 @@ type xcb_glx_end_list_request_t
 	context_tag as xcb_glx_context_tag_t
 end type
 
-const XCB_GLX_DELETE_LISTS = 103
+const XCB_GLX_DELETE_LISTS_ = 103
 
 type xcb_glx_delete_lists_request_t
 	major_opcode as ubyte
@@ -793,7 +895,7 @@ type xcb_glx_gen_lists_cookie_t
 	sequence as ulong
 end type
 
-const XCB_GLX_GEN_LISTS = 104
+const XCB_GLX_GEN_LISTS_ = 104
 
 type xcb_glx_gen_lists_request_t
 	major_opcode as ubyte
@@ -811,7 +913,7 @@ type xcb_glx_gen_lists_reply_t
 	ret_val as ulong
 end type
 
-const XCB_GLX_FEEDBACK_BUFFER = 105
+const XCB_GLX_FEEDBACK_BUFFER_ = 105
 
 type xcb_glx_feedback_buffer_request_t
 	major_opcode as ubyte
@@ -822,7 +924,7 @@ type xcb_glx_feedback_buffer_request_t
 	as long type
 end type
 
-const XCB_GLX_SELECT_BUFFER = 106
+const XCB_GLX_SELECT_BUFFER_ = 106
 
 type xcb_glx_select_buffer_request_t
 	major_opcode as ubyte
@@ -836,7 +938,7 @@ type xcb_glx_render_mode_cookie_t
 	sequence as ulong
 end type
 
-const XCB_GLX_RENDER_MODE = 107
+const XCB_GLX_RENDER_MODE_ = 107
 
 type xcb_glx_render_mode_request_t
 	major_opcode as ubyte
@@ -868,7 +970,7 @@ type xcb_glx_finish_cookie_t
 	sequence as ulong
 end type
 
-const XCB_GLX_FINISH = 108
+const XCB_GLX_FINISH_ = 108
 
 type xcb_glx_finish_request_t
 	major_opcode as ubyte
@@ -884,7 +986,7 @@ type xcb_glx_finish_reply_t
 	length as ulong
 end type
 
-const XCB_GLX_PIXEL_STOREF = 109
+const XCB_GLX_PIXEL_STOREF_ = 109
 
 type xcb_glx_pixel_storef_request_t
 	major_opcode as ubyte
@@ -895,7 +997,7 @@ type xcb_glx_pixel_storef_request_t
 	datum as xcb_glx_float32_t
 end type
 
-const XCB_GLX_PIXEL_STOREI = 110
+const XCB_GLX_PIXEL_STOREI_ = 110
 
 type xcb_glx_pixel_storei_request_t
 	major_opcode as ubyte
@@ -910,7 +1012,7 @@ type xcb_glx_read_pixels_cookie_t
 	sequence as ulong
 end type
 
-const XCB_GLX_READ_PIXELS = 111
+const XCB_GLX_READ_PIXELS_ = 111
 
 type xcb_glx_read_pixels_request_t
 	major_opcode as ubyte
@@ -939,7 +1041,7 @@ type xcb_glx_get_booleanv_cookie_t
 	sequence as ulong
 end type
 
-const XCB_GLX_GET_BOOLEANV = 112
+const XCB_GLX_GET_BOOLEANV_ = 112
 
 type xcb_glx_get_booleanv_request_t
 	major_opcode as ubyte
@@ -964,7 +1066,7 @@ type xcb_glx_get_clip_plane_cookie_t
 	sequence as ulong
 end type
 
-const XCB_GLX_GET_CLIP_PLANE = 113
+const XCB_GLX_GET_CLIP_PLANE_ = 113
 
 type xcb_glx_get_clip_plane_request_t
 	major_opcode as ubyte
@@ -986,7 +1088,7 @@ type xcb_glx_get_doublev_cookie_t
 	sequence as ulong
 end type
 
-const XCB_GLX_GET_DOUBLEV = 114
+const XCB_GLX_GET_DOUBLEV_ = 114
 
 type xcb_glx_get_doublev_request_t
 	major_opcode as ubyte
@@ -1011,7 +1113,7 @@ type xcb_glx_get_error_cookie_t
 	sequence as ulong
 end type
 
-const XCB_GLX_GET_ERROR = 115
+const XCB_GLX_GET_ERROR_ = 115
 
 type xcb_glx_get_error_request_t
 	major_opcode as ubyte
@@ -1032,7 +1134,7 @@ type xcb_glx_get_floatv_cookie_t
 	sequence as ulong
 end type
 
-const XCB_GLX_GET_FLOATV = 116
+const XCB_GLX_GET_FLOATV_ = 116
 
 type xcb_glx_get_floatv_request_t
 	major_opcode as ubyte
@@ -1057,7 +1159,7 @@ type xcb_glx_get_integerv_cookie_t
 	sequence as ulong
 end type
 
-const XCB_GLX_GET_INTEGERV = 117
+const XCB_GLX_GET_INTEGERV_ = 117
 
 type xcb_glx_get_integerv_request_t
 	major_opcode as ubyte
@@ -1082,7 +1184,7 @@ type xcb_glx_get_lightfv_cookie_t
 	sequence as ulong
 end type
 
-const XCB_GLX_GET_LIGHTFV = 118
+const XCB_GLX_GET_LIGHTFV_ = 118
 
 type xcb_glx_get_lightfv_request_t
 	major_opcode as ubyte
@@ -1108,7 +1210,7 @@ type xcb_glx_get_lightiv_cookie_t
 	sequence as ulong
 end type
 
-const XCB_GLX_GET_LIGHTIV = 119
+const XCB_GLX_GET_LIGHTIV_ = 119
 
 type xcb_glx_get_lightiv_request_t
 	major_opcode as ubyte
@@ -1134,7 +1236,7 @@ type xcb_glx_get_mapdv_cookie_t
 	sequence as ulong
 end type
 
-const XCB_GLX_GET_MAPDV = 120
+const XCB_GLX_GET_MAPDV_ = 120
 
 type xcb_glx_get_mapdv_request_t
 	major_opcode as ubyte
@@ -1160,7 +1262,7 @@ type xcb_glx_get_mapfv_cookie_t
 	sequence as ulong
 end type
 
-const XCB_GLX_GET_MAPFV = 121
+const XCB_GLX_GET_MAPFV_ = 121
 
 type xcb_glx_get_mapfv_request_t
 	major_opcode as ubyte
@@ -1186,7 +1288,7 @@ type xcb_glx_get_mapiv_cookie_t
 	sequence as ulong
 end type
 
-const XCB_GLX_GET_MAPIV = 122
+const XCB_GLX_GET_MAPIV_ = 122
 
 type xcb_glx_get_mapiv_request_t
 	major_opcode as ubyte
@@ -1212,7 +1314,7 @@ type xcb_glx_get_materialfv_cookie_t
 	sequence as ulong
 end type
 
-const XCB_GLX_GET_MATERIALFV = 123
+const XCB_GLX_GET_MATERIALFV_ = 123
 
 type xcb_glx_get_materialfv_request_t
 	major_opcode as ubyte
@@ -1238,7 +1340,7 @@ type xcb_glx_get_materialiv_cookie_t
 	sequence as ulong
 end type
 
-const XCB_GLX_GET_MATERIALIV = 124
+const XCB_GLX_GET_MATERIALIV_ = 124
 
 type xcb_glx_get_materialiv_request_t
 	major_opcode as ubyte
@@ -1264,7 +1366,7 @@ type xcb_glx_get_pixel_mapfv_cookie_t
 	sequence as ulong
 end type
 
-const XCB_GLX_GET_PIXEL_MAPFV = 125
+const XCB_GLX_GET_PIXEL_MAPFV_ = 125
 
 type xcb_glx_get_pixel_mapfv_request_t
 	major_opcode as ubyte
@@ -1289,7 +1391,7 @@ type xcb_glx_get_pixel_mapuiv_cookie_t
 	sequence as ulong
 end type
 
-const XCB_GLX_GET_PIXEL_MAPUIV = 126
+const XCB_GLX_GET_PIXEL_MAPUIV_ = 126
 
 type xcb_glx_get_pixel_mapuiv_request_t
 	major_opcode as ubyte
@@ -1314,7 +1416,7 @@ type xcb_glx_get_pixel_mapusv_cookie_t
 	sequence as ulong
 end type
 
-const XCB_GLX_GET_PIXEL_MAPUSV = 127
+const XCB_GLX_GET_PIXEL_MAPUSV_ = 127
 
 type xcb_glx_get_pixel_mapusv_request_t
 	major_opcode as ubyte
@@ -1339,7 +1441,7 @@ type xcb_glx_get_polygon_stipple_cookie_t
 	sequence as ulong
 end type
 
-const XCB_GLX_GET_POLYGON_STIPPLE = 128
+const XCB_GLX_GET_POLYGON_STIPPLE_ = 128
 
 type xcb_glx_get_polygon_stipple_request_t
 	major_opcode as ubyte
@@ -1361,7 +1463,7 @@ type xcb_glx_get_string_cookie_t
 	sequence as ulong
 end type
 
-const XCB_GLX_GET_STRING = 129
+const XCB_GLX_GET_STRING_ = 129
 
 type xcb_glx_get_string_request_t
 	major_opcode as ubyte
@@ -1385,7 +1487,7 @@ type xcb_glx_get_tex_envfv_cookie_t
 	sequence as ulong
 end type
 
-const XCB_GLX_GET_TEX_ENVFV = 130
+const XCB_GLX_GET_TEX_ENVFV_ = 130
 
 type xcb_glx_get_tex_envfv_request_t
 	major_opcode as ubyte
@@ -1411,7 +1513,7 @@ type xcb_glx_get_tex_enviv_cookie_t
 	sequence as ulong
 end type
 
-const XCB_GLX_GET_TEX_ENVIV = 131
+const XCB_GLX_GET_TEX_ENVIV_ = 131
 
 type xcb_glx_get_tex_enviv_request_t
 	major_opcode as ubyte
@@ -1437,7 +1539,7 @@ type xcb_glx_get_tex_gendv_cookie_t
 	sequence as ulong
 end type
 
-const XCB_GLX_GET_TEX_GENDV = 132
+const XCB_GLX_GET_TEX_GENDV_ = 132
 
 type xcb_glx_get_tex_gendv_request_t
 	major_opcode as ubyte
@@ -1463,7 +1565,7 @@ type xcb_glx_get_tex_genfv_cookie_t
 	sequence as ulong
 end type
 
-const XCB_GLX_GET_TEX_GENFV = 133
+const XCB_GLX_GET_TEX_GENFV_ = 133
 
 type xcb_glx_get_tex_genfv_request_t
 	major_opcode as ubyte
@@ -1489,7 +1591,7 @@ type xcb_glx_get_tex_geniv_cookie_t
 	sequence as ulong
 end type
 
-const XCB_GLX_GET_TEX_GENIV = 134
+const XCB_GLX_GET_TEX_GENIV_ = 134
 
 type xcb_glx_get_tex_geniv_request_t
 	major_opcode as ubyte
@@ -1515,7 +1617,7 @@ type xcb_glx_get_tex_image_cookie_t
 	sequence as ulong
 end type
 
-const XCB_GLX_GET_TEX_IMAGE = 135
+const XCB_GLX_GET_TEX_IMAGE_ = 135
 
 type xcb_glx_get_tex_image_request_t
 	major_opcode as ubyte
@@ -1545,7 +1647,7 @@ type xcb_glx_get_tex_parameterfv_cookie_t
 	sequence as ulong
 end type
 
-const XCB_GLX_GET_TEX_PARAMETERFV = 136
+const XCB_GLX_GET_TEX_PARAMETERFV_ = 136
 
 type xcb_glx_get_tex_parameterfv_request_t
 	major_opcode as ubyte
@@ -1571,7 +1673,7 @@ type xcb_glx_get_tex_parameteriv_cookie_t
 	sequence as ulong
 end type
 
-const XCB_GLX_GET_TEX_PARAMETERIV = 137
+const XCB_GLX_GET_TEX_PARAMETERIV_ = 137
 
 type xcb_glx_get_tex_parameteriv_request_t
 	major_opcode as ubyte
@@ -1597,7 +1699,7 @@ type xcb_glx_get_tex_level_parameterfv_cookie_t
 	sequence as ulong
 end type
 
-const XCB_GLX_GET_TEX_LEVEL_PARAMETERFV = 138
+const XCB_GLX_GET_TEX_LEVEL_PARAMETERFV_ = 138
 
 type xcb_glx_get_tex_level_parameterfv_request_t
 	major_opcode as ubyte
@@ -1624,7 +1726,7 @@ type xcb_glx_get_tex_level_parameteriv_cookie_t
 	sequence as ulong
 end type
 
-const XCB_GLX_GET_TEX_LEVEL_PARAMETERIV = 139
+const XCB_GLX_GET_TEX_LEVEL_PARAMETERIV_ = 139
 
 type xcb_glx_get_tex_level_parameteriv_request_t
 	major_opcode as ubyte
@@ -1651,7 +1753,7 @@ type xcb_glx_is_list_cookie_t
 	sequence as ulong
 end type
 
-const XCB_GLX_IS_LIST = 141
+const XCB_GLX_IS_LIST_ = 141
 
 type xcb_glx_is_list_request_t
 	major_opcode as ubyte
@@ -1669,7 +1771,7 @@ type xcb_glx_is_list_reply_t
 	ret_val as xcb_glx_bool32_t
 end type
 
-const XCB_GLX_FLUSH = 142
+const XCB_GLX_FLUSH_ = 142
 
 type xcb_glx_flush_request_t
 	major_opcode as ubyte
@@ -1682,7 +1784,7 @@ type xcb_glx_are_textures_resident_cookie_t
 	sequence as ulong
 end type
 
-const XCB_GLX_ARE_TEXTURES_RESIDENT = 143
+const XCB_GLX_ARE_TEXTURES_RESIDENT_ = 143
 
 type xcb_glx_are_textures_resident_request_t
 	major_opcode as ubyte
@@ -1701,7 +1803,7 @@ type xcb_glx_are_textures_resident_reply_t
 	pad1(0 to 19) as ubyte
 end type
 
-const XCB_GLX_DELETE_TEXTURES = 144
+const XCB_GLX_DELETE_TEXTURES_ = 144
 
 type xcb_glx_delete_textures_request_t
 	major_opcode as ubyte
@@ -1715,7 +1817,7 @@ type xcb_glx_gen_textures_cookie_t
 	sequence as ulong
 end type
 
-const XCB_GLX_GEN_TEXTURES = 145
+const XCB_GLX_GEN_TEXTURES_ = 145
 
 type xcb_glx_gen_textures_request_t
 	major_opcode as ubyte
@@ -1737,7 +1839,7 @@ type xcb_glx_is_texture_cookie_t
 	sequence as ulong
 end type
 
-const XCB_GLX_IS_TEXTURE = 146
+const XCB_GLX_IS_TEXTURE_ = 146
 
 type xcb_glx_is_texture_request_t
 	major_opcode as ubyte
@@ -1759,7 +1861,7 @@ type xcb_glx_get_color_table_cookie_t
 	sequence as ulong
 end type
 
-const XCB_GLX_GET_COLOR_TABLE = 147
+const XCB_GLX_GET_COLOR_TABLE_ = 147
 
 type xcb_glx_get_color_table_request_t
 	major_opcode as ubyte
@@ -1786,7 +1888,7 @@ type xcb_glx_get_color_table_parameterfv_cookie_t
 	sequence as ulong
 end type
 
-const XCB_GLX_GET_COLOR_TABLE_PARAMETERFV = 148
+const XCB_GLX_GET_COLOR_TABLE_PARAMETERFV_ = 148
 
 type xcb_glx_get_color_table_parameterfv_request_t
 	major_opcode as ubyte
@@ -1812,7 +1914,7 @@ type xcb_glx_get_color_table_parameteriv_cookie_t
 	sequence as ulong
 end type
 
-const XCB_GLX_GET_COLOR_TABLE_PARAMETERIV = 149
+const XCB_GLX_GET_COLOR_TABLE_PARAMETERIV_ = 149
 
 type xcb_glx_get_color_table_parameteriv_request_t
 	major_opcode as ubyte
@@ -1838,7 +1940,7 @@ type xcb_glx_get_convolution_filter_cookie_t
 	sequence as ulong
 end type
 
-const XCB_GLX_GET_CONVOLUTION_FILTER = 150
+const XCB_GLX_GET_CONVOLUTION_FILTER_ = 150
 
 type xcb_glx_get_convolution_filter_request_t
 	major_opcode as ubyte
@@ -1866,7 +1968,7 @@ type xcb_glx_get_convolution_parameterfv_cookie_t
 	sequence as ulong
 end type
 
-const XCB_GLX_GET_CONVOLUTION_PARAMETERFV = 151
+const XCB_GLX_GET_CONVOLUTION_PARAMETERFV_ = 151
 
 type xcb_glx_get_convolution_parameterfv_request_t
 	major_opcode as ubyte
@@ -1892,7 +1994,7 @@ type xcb_glx_get_convolution_parameteriv_cookie_t
 	sequence as ulong
 end type
 
-const XCB_GLX_GET_CONVOLUTION_PARAMETERIV = 152
+const XCB_GLX_GET_CONVOLUTION_PARAMETERIV_ = 152
 
 type xcb_glx_get_convolution_parameteriv_request_t
 	major_opcode as ubyte
@@ -1918,7 +2020,7 @@ type xcb_glx_get_separable_filter_cookie_t
 	sequence as ulong
 end type
 
-const XCB_GLX_GET_SEPARABLE_FILTER = 153
+const XCB_GLX_GET_SEPARABLE_FILTER_ = 153
 
 type xcb_glx_get_separable_filter_request_t
 	major_opcode as ubyte
@@ -1946,7 +2048,7 @@ type xcb_glx_get_histogram_cookie_t
 	sequence as ulong
 end type
 
-const XCB_GLX_GET_HISTOGRAM = 154
+const XCB_GLX_GET_HISTOGRAM_ = 154
 
 type xcb_glx_get_histogram_request_t
 	major_opcode as ubyte
@@ -1974,7 +2076,7 @@ type xcb_glx_get_histogram_parameterfv_cookie_t
 	sequence as ulong
 end type
 
-const XCB_GLX_GET_HISTOGRAM_PARAMETERFV = 155
+const XCB_GLX_GET_HISTOGRAM_PARAMETERFV_ = 155
 
 type xcb_glx_get_histogram_parameterfv_request_t
 	major_opcode as ubyte
@@ -2000,7 +2102,7 @@ type xcb_glx_get_histogram_parameteriv_cookie_t
 	sequence as ulong
 end type
 
-const XCB_GLX_GET_HISTOGRAM_PARAMETERIV = 156
+const XCB_GLX_GET_HISTOGRAM_PARAMETERIV_ = 156
 
 type xcb_glx_get_histogram_parameteriv_request_t
 	major_opcode as ubyte
@@ -2026,7 +2128,7 @@ type xcb_glx_get_minmax_cookie_t
 	sequence as ulong
 end type
 
-const XCB_GLX_GET_MINMAX = 157
+const XCB_GLX_GET_MINMAX_ = 157
 
 type xcb_glx_get_minmax_request_t
 	major_opcode as ubyte
@@ -2052,7 +2154,7 @@ type xcb_glx_get_minmax_parameterfv_cookie_t
 	sequence as ulong
 end type
 
-const XCB_GLX_GET_MINMAX_PARAMETERFV = 158
+const XCB_GLX_GET_MINMAX_PARAMETERFV_ = 158
 
 type xcb_glx_get_minmax_parameterfv_request_t
 	major_opcode as ubyte
@@ -2078,7 +2180,7 @@ type xcb_glx_get_minmax_parameteriv_cookie_t
 	sequence as ulong
 end type
 
-const XCB_GLX_GET_MINMAX_PARAMETERIV = 159
+const XCB_GLX_GET_MINMAX_PARAMETERIV_ = 159
 
 type xcb_glx_get_minmax_parameteriv_request_t
 	major_opcode as ubyte
@@ -2104,7 +2206,7 @@ type xcb_glx_get_compressed_tex_image_arb_cookie_t
 	sequence as ulong
 end type
 
-const XCB_GLX_GET_COMPRESSED_TEX_IMAGE_ARB = 160
+const XCB_GLX_GET_COMPRESSED_TEX_IMAGE_ARB_ = 160
 
 type xcb_glx_get_compressed_tex_image_arb_request_t
 	major_opcode as ubyte
@@ -2125,7 +2227,7 @@ type xcb_glx_get_compressed_tex_image_arb_reply_t
 	pad2(0 to 11) as ubyte
 end type
 
-const XCB_GLX_DELETE_QUERIES_ARB = 161
+const XCB_GLX_DELETE_QUERIES_ARB_ = 161
 
 type xcb_glx_delete_queries_arb_request_t
 	major_opcode as ubyte
@@ -2139,7 +2241,7 @@ type xcb_glx_gen_queries_arb_cookie_t
 	sequence as ulong
 end type
 
-const XCB_GLX_GEN_QUERIES_ARB = 162
+const XCB_GLX_GEN_QUERIES_ARB_ = 162
 
 type xcb_glx_gen_queries_arb_request_t
 	major_opcode as ubyte
@@ -2161,7 +2263,7 @@ type xcb_glx_is_query_arb_cookie_t
 	sequence as ulong
 end type
 
-const XCB_GLX_IS_QUERY_ARB = 163
+const XCB_GLX_IS_QUERY_ARB_ = 163
 
 type xcb_glx_is_query_arb_request_t
 	major_opcode as ubyte
@@ -2183,7 +2285,7 @@ type xcb_glx_get_queryiv_arb_cookie_t
 	sequence as ulong
 end type
 
-const XCB_GLX_GET_QUERYIV_ARB = 164
+const XCB_GLX_GET_QUERYIV_ARB_ = 164
 
 type xcb_glx_get_queryiv_arb_request_t
 	major_opcode as ubyte
@@ -2209,7 +2311,7 @@ type xcb_glx_get_query_objectiv_arb_cookie_t
 	sequence as ulong
 end type
 
-const XCB_GLX_GET_QUERY_OBJECTIV_ARB = 165
+const XCB_GLX_GET_QUERY_OBJECTIV_ARB_ = 165
 
 type xcb_glx_get_query_objectiv_arb_request_t
 	major_opcode as ubyte
@@ -2235,7 +2337,7 @@ type xcb_glx_get_query_objectuiv_arb_cookie_t
 	sequence as ulong
 end type
 
-const XCB_GLX_GET_QUERY_OBJECTUIV_ARB = 166
+const XCB_GLX_GET_QUERY_OBJECTUIV_ARB_ = 166
 
 type xcb_glx_get_query_objectuiv_arb_request_t
 	major_opcode as ubyte

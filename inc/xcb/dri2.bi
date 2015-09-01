@@ -36,6 +36,22 @@
 #include once "xproto.bi"
 #include once "xcbext.bi"
 
+'' The following symbols have been renamed:
+''     constant XCB_DRI2_QUERY_VERSION => XCB_DRI2_QUERY_VERSION_
+''     constant XCB_DRI2_CONNECT => XCB_DRI2_CONNECT_
+''     constant XCB_DRI2_AUTHENTICATE => XCB_DRI2_AUTHENTICATE_
+''     constant XCB_DRI2_CREATE_DRAWABLE => XCB_DRI2_CREATE_DRAWABLE_
+''     constant XCB_DRI2_DESTROY_DRAWABLE => XCB_DRI2_DESTROY_DRAWABLE_
+''     constant XCB_DRI2_GET_BUFFERS => XCB_DRI2_GET_BUFFERS_
+''     constant XCB_DRI2_COPY_REGION => XCB_DRI2_COPY_REGION_
+''     constant XCB_DRI2_GET_BUFFERS_WITH_FORMAT => XCB_DRI2_GET_BUFFERS_WITH_FORMAT_
+''     constant XCB_DRI2_SWAP_BUFFERS => XCB_DRI2_SWAP_BUFFERS_
+''     constant XCB_DRI2_GET_MSC => XCB_DRI2_GET_MSC_
+''     constant XCB_DRI2_WAIT_MSC => XCB_DRI2_WAIT_MSC_
+''     constant XCB_DRI2_WAIT_SBC => XCB_DRI2_WAIT_SBC_
+''     constant XCB_DRI2_SWAP_INTERVAL => XCB_DRI2_SWAP_INTERVAL_
+''     constant XCB_DRI2_GET_PARAM => XCB_DRI2_GET_PARAM_
+
 extern "C"
 
 #define __DRI2_H
@@ -100,7 +116,7 @@ type xcb_dri2_query_version_cookie_t
 	sequence as ulong
 end type
 
-const XCB_DRI2_QUERY_VERSION = 0
+const XCB_DRI2_QUERY_VERSION_ = 0
 
 type xcb_dri2_query_version_request_t
 	major_opcode as ubyte
@@ -123,7 +139,7 @@ type xcb_dri2_connect_cookie_t
 	sequence as ulong
 end type
 
-const XCB_DRI2_CONNECT = 1
+const XCB_DRI2_CONNECT_ = 1
 
 type xcb_dri2_connect_request_t
 	major_opcode as ubyte
@@ -147,7 +163,7 @@ type xcb_dri2_authenticate_cookie_t
 	sequence as ulong
 end type
 
-const XCB_DRI2_AUTHENTICATE = 2
+const XCB_DRI2_AUTHENTICATE_ = 2
 
 type xcb_dri2_authenticate_request_t
 	major_opcode as ubyte
@@ -165,7 +181,7 @@ type xcb_dri2_authenticate_reply_t
 	authenticated as ulong
 end type
 
-const XCB_DRI2_CREATE_DRAWABLE = 3
+const XCB_DRI2_CREATE_DRAWABLE_ = 3
 
 type xcb_dri2_create_drawable_request_t
 	major_opcode as ubyte
@@ -174,7 +190,7 @@ type xcb_dri2_create_drawable_request_t
 	drawable as xcb_drawable_t
 end type
 
-const XCB_DRI2_DESTROY_DRAWABLE = 4
+const XCB_DRI2_DESTROY_DRAWABLE_ = 4
 
 type xcb_dri2_destroy_drawable_request_t
 	major_opcode as ubyte
@@ -187,7 +203,7 @@ type xcb_dri2_get_buffers_cookie_t
 	sequence as ulong
 end type
 
-const XCB_DRI2_GET_BUFFERS = 5
+const XCB_DRI2_GET_BUFFERS_ = 5
 
 type xcb_dri2_get_buffers_request_t
 	major_opcode as ubyte
@@ -212,7 +228,7 @@ type xcb_dri2_copy_region_cookie_t
 	sequence as ulong
 end type
 
-const XCB_DRI2_COPY_REGION = 6
+const XCB_DRI2_COPY_REGION_ = 6
 
 type xcb_dri2_copy_region_request_t
 	major_opcode as ubyte
@@ -235,7 +251,7 @@ type xcb_dri2_get_buffers_with_format_cookie_t
 	sequence as ulong
 end type
 
-const XCB_DRI2_GET_BUFFERS_WITH_FORMAT = 7
+const XCB_DRI2_GET_BUFFERS_WITH_FORMAT_ = 7
 
 type xcb_dri2_get_buffers_with_format_request_t
 	major_opcode as ubyte
@@ -260,7 +276,7 @@ type xcb_dri2_swap_buffers_cookie_t
 	sequence as ulong
 end type
 
-const XCB_DRI2_SWAP_BUFFERS = 8
+const XCB_DRI2_SWAP_BUFFERS_ = 8
 
 type xcb_dri2_swap_buffers_request_t
 	major_opcode as ubyte
@@ -288,7 +304,7 @@ type xcb_dri2_get_msc_cookie_t
 	sequence as ulong
 end type
 
-const XCB_DRI2_GET_MSC = 9
+const XCB_DRI2_GET_MSC_ = 9
 
 type xcb_dri2_get_msc_request_t
 	major_opcode as ubyte
@@ -314,7 +330,7 @@ type xcb_dri2_wait_msc_cookie_t
 	sequence as ulong
 end type
 
-const XCB_DRI2_WAIT_MSC = 10
+const XCB_DRI2_WAIT_MSC_ = 10
 
 type xcb_dri2_wait_msc_request_t
 	major_opcode as ubyte
@@ -346,7 +362,7 @@ type xcb_dri2_wait_sbc_cookie_t
 	sequence as ulong
 end type
 
-const XCB_DRI2_WAIT_SBC = 11
+const XCB_DRI2_WAIT_SBC_ = 11
 
 type xcb_dri2_wait_sbc_request_t
 	major_opcode as ubyte
@@ -370,7 +386,7 @@ type xcb_dri2_wait_sbc_reply_t
 	sbc_lo as ulong
 end type
 
-const XCB_DRI2_SWAP_INTERVAL = 12
+const XCB_DRI2_SWAP_INTERVAL_ = 12
 
 type xcb_dri2_swap_interval_request_t
 	major_opcode as ubyte
@@ -384,7 +400,7 @@ type xcb_dri2_get_param_cookie_t
 	sequence as ulong
 end type
 
-const XCB_DRI2_GET_PARAM = 13
+const XCB_DRI2_GET_PARAM_ = 13
 
 type xcb_dri2_get_param_request_t
 	major_opcode as ubyte

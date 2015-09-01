@@ -36,6 +36,41 @@
 #include once "shape.bi"
 #include once "xcbext.bi"
 
+'' The following symbols have been renamed:
+''     constant XCB_XFIXES_QUERY_VERSION => XCB_XFIXES_QUERY_VERSION_
+''     constant XCB_XFIXES_CHANGE_SAVE_SET => XCB_XFIXES_CHANGE_SAVE_SET_
+''     constant XCB_XFIXES_SELECT_SELECTION_INPUT => XCB_XFIXES_SELECT_SELECTION_INPUT_
+''     constant XCB_XFIXES_SELECT_CURSOR_INPUT => XCB_XFIXES_SELECT_CURSOR_INPUT_
+''     constant XCB_XFIXES_GET_CURSOR_IMAGE => XCB_XFIXES_GET_CURSOR_IMAGE_
+''     constant XCB_XFIXES_CREATE_REGION => XCB_XFIXES_CREATE_REGION_
+''     constant XCB_XFIXES_CREATE_REGION_FROM_BITMAP => XCB_XFIXES_CREATE_REGION_FROM_BITMAP_
+''     constant XCB_XFIXES_CREATE_REGION_FROM_WINDOW => XCB_XFIXES_CREATE_REGION_FROM_WINDOW_
+''     constant XCB_XFIXES_CREATE_REGION_FROM_GC => XCB_XFIXES_CREATE_REGION_FROM_GC_
+''     constant XCB_XFIXES_CREATE_REGION_FROM_PICTURE => XCB_XFIXES_CREATE_REGION_FROM_PICTURE_
+''     constant XCB_XFIXES_DESTROY_REGION => XCB_XFIXES_DESTROY_REGION_
+''     constant XCB_XFIXES_SET_REGION => XCB_XFIXES_SET_REGION_
+''     constant XCB_XFIXES_COPY_REGION => XCB_XFIXES_COPY_REGION_
+''     constant XCB_XFIXES_UNION_REGION => XCB_XFIXES_UNION_REGION_
+''     constant XCB_XFIXES_INTERSECT_REGION => XCB_XFIXES_INTERSECT_REGION_
+''     constant XCB_XFIXES_SUBTRACT_REGION => XCB_XFIXES_SUBTRACT_REGION_
+''     constant XCB_XFIXES_INVERT_REGION => XCB_XFIXES_INVERT_REGION_
+''     constant XCB_XFIXES_TRANSLATE_REGION => XCB_XFIXES_TRANSLATE_REGION_
+''     constant XCB_XFIXES_REGION_EXTENTS => XCB_XFIXES_REGION_EXTENTS_
+''     constant XCB_XFIXES_FETCH_REGION => XCB_XFIXES_FETCH_REGION_
+''     constant XCB_XFIXES_SET_GC_CLIP_REGION => XCB_XFIXES_SET_GC_CLIP_REGION_
+''     constant XCB_XFIXES_SET_WINDOW_SHAPE_REGION => XCB_XFIXES_SET_WINDOW_SHAPE_REGION_
+''     constant XCB_XFIXES_SET_PICTURE_CLIP_REGION => XCB_XFIXES_SET_PICTURE_CLIP_REGION_
+''     constant XCB_XFIXES_SET_CURSOR_NAME => XCB_XFIXES_SET_CURSOR_NAME_
+''     constant XCB_XFIXES_GET_CURSOR_NAME => XCB_XFIXES_GET_CURSOR_NAME_
+''     constant XCB_XFIXES_GET_CURSOR_IMAGE_AND_NAME => XCB_XFIXES_GET_CURSOR_IMAGE_AND_NAME_
+''     constant XCB_XFIXES_CHANGE_CURSOR => XCB_XFIXES_CHANGE_CURSOR_
+''     constant XCB_XFIXES_CHANGE_CURSOR_BY_NAME => XCB_XFIXES_CHANGE_CURSOR_BY_NAME_
+''     constant XCB_XFIXES_EXPAND_REGION => XCB_XFIXES_EXPAND_REGION_
+''     constant XCB_XFIXES_HIDE_CURSOR => XCB_XFIXES_HIDE_CURSOR_
+''     constant XCB_XFIXES_SHOW_CURSOR => XCB_XFIXES_SHOW_CURSOR_
+''     constant XCB_XFIXES_CREATE_POINTER_BARRIER => XCB_XFIXES_CREATE_POINTER_BARRIER_
+''     constant XCB_XFIXES_DELETE_POINTER_BARRIER => XCB_XFIXES_DELETE_POINTER_BARRIER_
+
 extern "C"
 
 #define __XFIXES_H
@@ -47,7 +82,7 @@ type xcb_xfixes_query_version_cookie_t
 	sequence as ulong
 end type
 
-const XCB_XFIXES_QUERY_VERSION = 0
+const XCB_XFIXES_QUERY_VERSION_ = 0
 
 type xcb_xfixes_query_version_request_t
 	major_opcode as ubyte
@@ -85,7 +120,7 @@ enum
 	XCB_XFIXES_SAVE_SET_MAPPING_UNMAP = 1
 end enum
 
-const XCB_XFIXES_CHANGE_SAVE_SET = 1
+const XCB_XFIXES_CHANGE_SAVE_SET_ = 1
 
 type xcb_xfixes_change_save_set_request_t
 	major_opcode as ubyte
@@ -126,7 +161,7 @@ type xcb_xfixes_selection_notify_event_t
 	pad0(0 to 7) as ubyte
 end type
 
-const XCB_XFIXES_SELECT_SELECTION_INPUT = 2
+const XCB_XFIXES_SELECT_SELECTION_INPUT_ = 2
 
 type xcb_xfixes_select_selection_input_request_t
 	major_opcode as ubyte
@@ -160,7 +195,7 @@ type xcb_xfixes_cursor_notify_event_t
 	pad0(0 to 11) as ubyte
 end type
 
-const XCB_XFIXES_SELECT_CURSOR_INPUT = 3
+const XCB_XFIXES_SELECT_CURSOR_INPUT_ = 3
 
 type xcb_xfixes_select_cursor_input_request_t
 	major_opcode as ubyte
@@ -174,7 +209,7 @@ type xcb_xfixes_get_cursor_image_cookie_t
 	sequence as ulong
 end type
 
-const XCB_XFIXES_GET_CURSOR_IMAGE = 4
+const XCB_XFIXES_GET_CURSOR_IMAGE_ = 4
 
 type xcb_xfixes_get_cursor_image_request_t
 	major_opcode as ubyte
@@ -218,7 +253,7 @@ enum
 	XCB_XFIXES_REGION_NONE = 0
 end enum
 
-const XCB_XFIXES_CREATE_REGION = 5
+const XCB_XFIXES_CREATE_REGION_ = 5
 
 type xcb_xfixes_create_region_request_t
 	major_opcode as ubyte
@@ -227,7 +262,7 @@ type xcb_xfixes_create_region_request_t
 	region as xcb_xfixes_region_t
 end type
 
-const XCB_XFIXES_CREATE_REGION_FROM_BITMAP = 6
+const XCB_XFIXES_CREATE_REGION_FROM_BITMAP_ = 6
 
 type xcb_xfixes_create_region_from_bitmap_request_t
 	major_opcode as ubyte
@@ -237,7 +272,7 @@ type xcb_xfixes_create_region_from_bitmap_request_t
 	bitmap as xcb_pixmap_t
 end type
 
-const XCB_XFIXES_CREATE_REGION_FROM_WINDOW = 7
+const XCB_XFIXES_CREATE_REGION_FROM_WINDOW_ = 7
 
 type xcb_xfixes_create_region_from_window_request_t
 	major_opcode as ubyte
@@ -249,7 +284,7 @@ type xcb_xfixes_create_region_from_window_request_t
 	pad0(0 to 2) as ubyte
 end type
 
-const XCB_XFIXES_CREATE_REGION_FROM_GC = 8
+const XCB_XFIXES_CREATE_REGION_FROM_GC_ = 8
 
 type xcb_xfixes_create_region_from_gc_request_t
 	major_opcode as ubyte
@@ -259,7 +294,7 @@ type xcb_xfixes_create_region_from_gc_request_t
 	gc as xcb_gcontext_t
 end type
 
-const XCB_XFIXES_CREATE_REGION_FROM_PICTURE = 9
+const XCB_XFIXES_CREATE_REGION_FROM_PICTURE_ = 9
 
 type xcb_xfixes_create_region_from_picture_request_t
 	major_opcode as ubyte
@@ -269,7 +304,7 @@ type xcb_xfixes_create_region_from_picture_request_t
 	picture as xcb_render_picture_t
 end type
 
-const XCB_XFIXES_DESTROY_REGION = 10
+const XCB_XFIXES_DESTROY_REGION_ = 10
 
 type xcb_xfixes_destroy_region_request_t
 	major_opcode as ubyte
@@ -278,7 +313,7 @@ type xcb_xfixes_destroy_region_request_t
 	region as xcb_xfixes_region_t
 end type
 
-const XCB_XFIXES_SET_REGION = 11
+const XCB_XFIXES_SET_REGION_ = 11
 
 type xcb_xfixes_set_region_request_t
 	major_opcode as ubyte
@@ -287,7 +322,7 @@ type xcb_xfixes_set_region_request_t
 	region as xcb_xfixes_region_t
 end type
 
-const XCB_XFIXES_COPY_REGION = 12
+const XCB_XFIXES_COPY_REGION_ = 12
 
 type xcb_xfixes_copy_region_request_t
 	major_opcode as ubyte
@@ -297,7 +332,7 @@ type xcb_xfixes_copy_region_request_t
 	destination as xcb_xfixes_region_t
 end type
 
-const XCB_XFIXES_UNION_REGION = 13
+const XCB_XFIXES_UNION_REGION_ = 13
 
 type xcb_xfixes_union_region_request_t
 	major_opcode as ubyte
@@ -308,7 +343,7 @@ type xcb_xfixes_union_region_request_t
 	destination as xcb_xfixes_region_t
 end type
 
-const XCB_XFIXES_INTERSECT_REGION = 14
+const XCB_XFIXES_INTERSECT_REGION_ = 14
 
 type xcb_xfixes_intersect_region_request_t
 	major_opcode as ubyte
@@ -319,7 +354,7 @@ type xcb_xfixes_intersect_region_request_t
 	destination as xcb_xfixes_region_t
 end type
 
-const XCB_XFIXES_SUBTRACT_REGION = 15
+const XCB_XFIXES_SUBTRACT_REGION_ = 15
 
 type xcb_xfixes_subtract_region_request_t
 	major_opcode as ubyte
@@ -330,7 +365,7 @@ type xcb_xfixes_subtract_region_request_t
 	destination as xcb_xfixes_region_t
 end type
 
-const XCB_XFIXES_INVERT_REGION = 16
+const XCB_XFIXES_INVERT_REGION_ = 16
 
 type xcb_xfixes_invert_region_request_t
 	major_opcode as ubyte
@@ -341,7 +376,7 @@ type xcb_xfixes_invert_region_request_t
 	destination as xcb_xfixes_region_t
 end type
 
-const XCB_XFIXES_TRANSLATE_REGION = 17
+const XCB_XFIXES_TRANSLATE_REGION_ = 17
 
 type xcb_xfixes_translate_region_request_t
 	major_opcode as ubyte
@@ -352,7 +387,7 @@ type xcb_xfixes_translate_region_request_t
 	dy as short
 end type
 
-const XCB_XFIXES_REGION_EXTENTS = 18
+const XCB_XFIXES_REGION_EXTENTS_ = 18
 
 type xcb_xfixes_region_extents_request_t
 	major_opcode as ubyte
@@ -366,7 +401,7 @@ type xcb_xfixes_fetch_region_cookie_t
 	sequence as ulong
 end type
 
-const XCB_XFIXES_FETCH_REGION = 19
+const XCB_XFIXES_FETCH_REGION_ = 19
 
 type xcb_xfixes_fetch_region_request_t
 	major_opcode as ubyte
@@ -384,7 +419,7 @@ type xcb_xfixes_fetch_region_reply_t
 	pad1(0 to 15) as ubyte
 end type
 
-const XCB_XFIXES_SET_GC_CLIP_REGION = 20
+const XCB_XFIXES_SET_GC_CLIP_REGION_ = 20
 
 type xcb_xfixes_set_gc_clip_region_request_t
 	major_opcode as ubyte
@@ -396,7 +431,7 @@ type xcb_xfixes_set_gc_clip_region_request_t
 	y_origin as short
 end type
 
-const XCB_XFIXES_SET_WINDOW_SHAPE_REGION = 21
+const XCB_XFIXES_SET_WINDOW_SHAPE_REGION_ = 21
 
 type xcb_xfixes_set_window_shape_region_request_t
 	major_opcode as ubyte
@@ -410,7 +445,7 @@ type xcb_xfixes_set_window_shape_region_request_t
 	region as xcb_xfixes_region_t
 end type
 
-const XCB_XFIXES_SET_PICTURE_CLIP_REGION = 22
+const XCB_XFIXES_SET_PICTURE_CLIP_REGION_ = 22
 
 type xcb_xfixes_set_picture_clip_region_request_t
 	major_opcode as ubyte
@@ -422,7 +457,7 @@ type xcb_xfixes_set_picture_clip_region_request_t
 	y_origin as short
 end type
 
-const XCB_XFIXES_SET_CURSOR_NAME = 23
+const XCB_XFIXES_SET_CURSOR_NAME_ = 23
 
 type xcb_xfixes_set_cursor_name_request_t
 	major_opcode as ubyte
@@ -437,7 +472,7 @@ type xcb_xfixes_get_cursor_name_cookie_t
 	sequence as ulong
 end type
 
-const XCB_XFIXES_GET_CURSOR_NAME = 24
+const XCB_XFIXES_GET_CURSOR_NAME_ = 24
 
 type xcb_xfixes_get_cursor_name_request_t
 	major_opcode as ubyte
@@ -460,7 +495,7 @@ type xcb_xfixes_get_cursor_image_and_name_cookie_t
 	sequence as ulong
 end type
 
-const XCB_XFIXES_GET_CURSOR_IMAGE_AND_NAME = 25
+const XCB_XFIXES_GET_CURSOR_IMAGE_AND_NAME_ = 25
 
 type xcb_xfixes_get_cursor_image_and_name_request_t
 	major_opcode as ubyte
@@ -485,7 +520,7 @@ type xcb_xfixes_get_cursor_image_and_name_reply_t
 	pad1(0 to 1) as ubyte
 end type
 
-const XCB_XFIXES_CHANGE_CURSOR = 26
+const XCB_XFIXES_CHANGE_CURSOR_ = 26
 
 type xcb_xfixes_change_cursor_request_t
 	major_opcode as ubyte
@@ -495,7 +530,7 @@ type xcb_xfixes_change_cursor_request_t
 	destination as xcb_cursor_t
 end type
 
-const XCB_XFIXES_CHANGE_CURSOR_BY_NAME = 27
+const XCB_XFIXES_CHANGE_CURSOR_BY_NAME_ = 27
 
 type xcb_xfixes_change_cursor_by_name_request_t
 	major_opcode as ubyte
@@ -506,7 +541,7 @@ type xcb_xfixes_change_cursor_by_name_request_t
 	pad0(0 to 1) as ubyte
 end type
 
-const XCB_XFIXES_EXPAND_REGION = 28
+const XCB_XFIXES_EXPAND_REGION_ = 28
 
 type xcb_xfixes_expand_region_request_t
 	major_opcode as ubyte
@@ -520,7 +555,7 @@ type xcb_xfixes_expand_region_request_t
 	bottom as ushort
 end type
 
-const XCB_XFIXES_HIDE_CURSOR = 29
+const XCB_XFIXES_HIDE_CURSOR_ = 29
 
 type xcb_xfixes_hide_cursor_request_t
 	major_opcode as ubyte
@@ -529,7 +564,7 @@ type xcb_xfixes_hide_cursor_request_t
 	window as xcb_window_t
 end type
 
-const XCB_XFIXES_SHOW_CURSOR = 30
+const XCB_XFIXES_SHOW_CURSOR_ = 30
 
 type xcb_xfixes_show_cursor_request_t
 	major_opcode as ubyte
@@ -554,7 +589,7 @@ enum
 	XCB_XFIXES_BARRIER_DIRECTIONS_NEGATIVE_Y = 8
 end enum
 
-const XCB_XFIXES_CREATE_POINTER_BARRIER = 31
+const XCB_XFIXES_CREATE_POINTER_BARRIER_ = 31
 
 type xcb_xfixes_create_pointer_barrier_request_t
 	major_opcode as ubyte
@@ -571,7 +606,7 @@ type xcb_xfixes_create_pointer_barrier_request_t
 	num_devices as ushort
 end type
 
-const XCB_XFIXES_DELETE_POINTER_BARRIER = 32
+const XCB_XFIXES_DELETE_POINTER_BARRIER_ = 32
 
 type xcb_xfixes_delete_pointer_barrier_request_t
 	major_opcode as ubyte

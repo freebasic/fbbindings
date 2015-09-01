@@ -34,6 +34,32 @@
 #include once "xproto.bi"
 #include once "xcbext.bi"
 
+'' The following symbols have been renamed:
+''     constant XCB_XKB_USE_EXTENSION => XCB_XKB_USE_EXTENSION_
+''     constant XCB_XKB_SELECT_EVENTS => XCB_XKB_SELECT_EVENTS_
+''     constant XCB_XKB_BELL => XCB_XKB_BELL_
+''     constant XCB_XKB_GET_STATE => XCB_XKB_GET_STATE_
+''     constant XCB_XKB_LATCH_LOCK_STATE => XCB_XKB_LATCH_LOCK_STATE_
+''     constant XCB_XKB_GET_CONTROLS => XCB_XKB_GET_CONTROLS_
+''     constant XCB_XKB_SET_CONTROLS => XCB_XKB_SET_CONTROLS_
+''     constant XCB_XKB_GET_MAP => XCB_XKB_GET_MAP_
+''     constant XCB_XKB_SET_MAP => XCB_XKB_SET_MAP_
+''     constant XCB_XKB_GET_COMPAT_MAP => XCB_XKB_GET_COMPAT_MAP_
+''     constant XCB_XKB_SET_COMPAT_MAP => XCB_XKB_SET_COMPAT_MAP_
+''     constant XCB_XKB_GET_INDICATOR_STATE => XCB_XKB_GET_INDICATOR_STATE_
+''     constant XCB_XKB_GET_INDICATOR_MAP => XCB_XKB_GET_INDICATOR_MAP_
+''     constant XCB_XKB_SET_INDICATOR_MAP => XCB_XKB_SET_INDICATOR_MAP_
+''     constant XCB_XKB_GET_NAMED_INDICATOR => XCB_XKB_GET_NAMED_INDICATOR_
+''     constant XCB_XKB_SET_NAMED_INDICATOR => XCB_XKB_SET_NAMED_INDICATOR_
+''     constant XCB_XKB_GET_NAMES => XCB_XKB_GET_NAMES_
+''     constant XCB_XKB_SET_NAMES => XCB_XKB_SET_NAMES_
+''     constant XCB_XKB_PER_CLIENT_FLAGS => XCB_XKB_PER_CLIENT_FLAGS_
+''     constant XCB_XKB_LIST_COMPONENTS => XCB_XKB_LIST_COMPONENTS_
+''     constant XCB_XKB_GET_KBD_BY_NAME => XCB_XKB_GET_KBD_BY_NAME_
+''     constant XCB_XKB_GET_DEVICE_INFO => XCB_XKB_GET_DEVICE_INFO_
+''     constant XCB_XKB_SET_DEVICE_INFO => XCB_XKB_SET_DEVICE_INFO_
+''     constant XCB_XKB_SET_DEBUGGING_FLAGS => XCB_XKB_SET_DEBUGGING_FLAGS_
+
 extern "C"
 
 #define __XKB_H
@@ -1338,7 +1364,7 @@ type xcb_xkb_use_extension_cookie_t
 	sequence as ulong
 end type
 
-const XCB_XKB_USE_EXTENSION = 0
+const XCB_XKB_USE_EXTENSION_ = 0
 
 type xcb_xkb_use_extension_request_t
 	major_opcode as ubyte
@@ -1383,7 +1409,7 @@ type xcb_xkb_select_events_details_t
 	extdevDetails as ushort
 end type
 
-const XCB_XKB_SELECT_EVENTS = 1
+const XCB_XKB_SELECT_EVENTS_ = 1
 
 type xcb_xkb_select_events_request_t
 	major_opcode as ubyte
@@ -1397,7 +1423,7 @@ type xcb_xkb_select_events_request_t
 	map as ushort
 end type
 
-const XCB_XKB_BELL = 3
+const XCB_XKB_BELL_ = 3
 
 type xcb_xkb_bell_request_t
 	major_opcode as ubyte
@@ -1421,7 +1447,7 @@ type xcb_xkb_get_state_cookie_t
 	sequence as ulong
 end type
 
-const XCB_XKB_GET_STATE = 4
+const XCB_XKB_GET_STATE_ = 4
 
 type xcb_xkb_get_state_request_t
 	major_opcode as ubyte
@@ -1454,7 +1480,7 @@ type xcb_xkb_get_state_reply_t
 	pad1(0 to 5) as ubyte
 end type
 
-const XCB_XKB_LATCH_LOCK_STATE = 5
+const XCB_XKB_LATCH_LOCK_STATE_ = 5
 
 type xcb_xkb_latch_lock_state_request_t
 	major_opcode as ubyte
@@ -1476,7 +1502,7 @@ type xcb_xkb_get_controls_cookie_t
 	sequence as ulong
 end type
 
-const XCB_XKB_GET_CONTROLS = 6
+const XCB_XKB_GET_CONTROLS_ = 6
 
 type xcb_xkb_get_controls_request_t
 	major_opcode as ubyte
@@ -1521,7 +1547,7 @@ type xcb_xkb_get_controls_reply_t
 	perKeyRepeat(0 to 31) as ubyte
 end type
 
-const XCB_XKB_SET_CONTROLS = 7
+const XCB_XKB_SET_CONTROLS_ = 7
 
 type xcb_xkb_set_controls_request_t
 	major_opcode as ubyte
@@ -1564,7 +1590,7 @@ type xcb_xkb_get_map_cookie_t
 	sequence as ulong
 end type
 
-const XCB_XKB_GET_MAP = 8
+const XCB_XKB_GET_MAP_ = 8
 
 type xcb_xkb_get_map_request_t
 	major_opcode as ubyte
@@ -1653,7 +1679,7 @@ type xcb_xkb_set_map_values_t
 	vmodmap as xcb_xkb_key_v_mod_map_t ptr
 end type
 
-const XCB_XKB_SET_MAP = 9
+const XCB_XKB_SET_MAP_ = 9
 
 type xcb_xkb_set_map_request_t
 	major_opcode as ubyte
@@ -1691,7 +1717,7 @@ type xcb_xkb_get_compat_map_cookie_t
 	sequence as ulong
 end type
 
-const XCB_XKB_GET_COMPAT_MAP = 10
+const XCB_XKB_GET_COMPAT_MAP_ = 10
 
 type xcb_xkb_get_compat_map_request_t
 	major_opcode as ubyte
@@ -1717,7 +1743,7 @@ type xcb_xkb_get_compat_map_reply_t
 	pad1(0 to 15) as ubyte
 end type
 
-const XCB_XKB_SET_COMPAT_MAP = 11
+const XCB_XKB_SET_COMPAT_MAP_ = 11
 
 type xcb_xkb_set_compat_map_request_t
 	major_opcode as ubyte
@@ -1737,7 +1763,7 @@ type xcb_xkb_get_indicator_state_cookie_t
 	sequence as ulong
 end type
 
-const XCB_XKB_GET_INDICATOR_STATE = 12
+const XCB_XKB_GET_INDICATOR_STATE_ = 12
 
 type xcb_xkb_get_indicator_state_request_t
 	major_opcode as ubyte
@@ -1760,7 +1786,7 @@ type xcb_xkb_get_indicator_map_cookie_t
 	sequence as ulong
 end type
 
-const XCB_XKB_GET_INDICATOR_MAP = 13
+const XCB_XKB_GET_INDICATOR_MAP_ = 13
 
 type xcb_xkb_get_indicator_map_request_t
 	major_opcode as ubyte
@@ -1782,7 +1808,7 @@ type xcb_xkb_get_indicator_map_reply_t
 	pad0(0 to 14) as ubyte
 end type
 
-const XCB_XKB_SET_INDICATOR_MAP = 14
+const XCB_XKB_SET_INDICATOR_MAP_ = 14
 
 type xcb_xkb_set_indicator_map_request_t
 	major_opcode as ubyte
@@ -1797,7 +1823,7 @@ type xcb_xkb_get_named_indicator_cookie_t
 	sequence as ulong
 end type
 
-const XCB_XKB_GET_NAMED_INDICATOR = 15
+const XCB_XKB_GET_NAMED_INDICATOR_ = 15
 
 type xcb_xkb_get_named_indicator_request_t
 	major_opcode as ubyte
@@ -1832,7 +1858,7 @@ type xcb_xkb_get_named_indicator_reply_t
 	pad0(0 to 2) as ubyte
 end type
 
-const XCB_XKB_SET_NAMED_INDICATOR = 16
+const XCB_XKB_SET_NAMED_INDICATOR_ = 16
 
 type xcb_xkb_set_named_indicator_request_t
 	major_opcode as ubyte
@@ -1861,7 +1887,7 @@ type xcb_xkb_get_names_cookie_t
 	sequence as ulong
 end type
 
-const XCB_XKB_GET_NAMES = 17
+const XCB_XKB_GET_NAMES_ = 17
 
 type xcb_xkb_get_names_request_t
 	major_opcode as ubyte
@@ -1929,7 +1955,7 @@ type xcb_xkb_set_names_values_t
 	radioGroupNames as xcb_atom_t ptr
 end type
 
-const XCB_XKB_SET_NAMES = 18
+const XCB_XKB_SET_NAMES_ = 18
 
 type xcb_xkb_set_names_request_t
 	major_opcode as ubyte
@@ -1956,7 +1982,7 @@ type xcb_xkb_per_client_flags_cookie_t
 	sequence as ulong
 end type
 
-const XCB_XKB_PER_CLIENT_FLAGS = 21
+const XCB_XKB_PER_CLIENT_FLAGS_ = 21
 
 type xcb_xkb_per_client_flags_request_t
 	major_opcode as ubyte
@@ -1987,7 +2013,7 @@ type xcb_xkb_list_components_cookie_t
 	sequence as ulong
 end type
 
-const XCB_XKB_LIST_COMPONENTS = 22
+const XCB_XKB_LIST_COMPONENTS_ = 22
 
 type xcb_xkb_list_components_request_t
 	major_opcode as ubyte
@@ -2016,7 +2042,7 @@ type xcb_xkb_get_kbd_by_name_cookie_t
 	sequence as ulong
 end type
 
-const XCB_XKB_GET_KBD_BY_NAME = 23
+const XCB_XKB_GET_KBD_BY_NAME_ = 23
 
 type xcb_xkb_get_kbd_by_name_request_t
 	major_opcode as ubyte
@@ -2191,7 +2217,7 @@ type xcb_xkb_get_device_info_cookie_t
 	sequence as ulong
 end type
 
-const XCB_XKB_GET_DEVICE_INFO = 24
+const XCB_XKB_GET_DEVICE_INFO_ = 24
 
 type xcb_xkb_get_device_info_request_t
 	major_opcode as ubyte
@@ -2229,7 +2255,7 @@ type xcb_xkb_get_device_info_reply_t
 	nameLen as ushort
 end type
 
-const XCB_XKB_SET_DEVICE_INFO = 25
+const XCB_XKB_SET_DEVICE_INFO_ = 25
 
 type xcb_xkb_set_device_info_request_t
 	major_opcode as ubyte
@@ -2246,7 +2272,7 @@ type xcb_xkb_set_debugging_flags_cookie_t
 	sequence as ulong
 end type
 
-const XCB_XKB_SET_DEBUGGING_FLAGS = 101
+const XCB_XKB_SET_DEBUGGING_FLAGS_ = 101
 
 type xcb_xkb_set_debugging_flags_request_t
 	major_opcode as ubyte

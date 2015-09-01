@@ -40,6 +40,11 @@
 #include once "xcb.bi"
 #include once "xcbext.bi"
 
+'' The following symbols have been renamed:
+''     constant XCB_XC_MISC_GET_VERSION => XCB_XC_MISC_GET_VERSION_
+''     constant XCB_XC_MISC_GET_XID_RANGE => XCB_XC_MISC_GET_XID_RANGE_
+''     constant XCB_XC_MISC_GET_XID_LIST => XCB_XC_MISC_GET_XID_LIST_
+
 extern "C"
 
 #define __XC_MISC_H
@@ -51,7 +56,7 @@ type xcb_xc_misc_get_version_cookie_t
 	sequence as ulong
 end type
 
-const XCB_XC_MISC_GET_VERSION = 0
+const XCB_XC_MISC_GET_VERSION_ = 0
 
 type xcb_xc_misc_get_version_request_t
 	major_opcode as ubyte
@@ -74,7 +79,7 @@ type xcb_xc_misc_get_xid_range_cookie_t
 	sequence as ulong
 end type
 
-const XCB_XC_MISC_GET_XID_RANGE = 1
+const XCB_XC_MISC_GET_XID_RANGE_ = 1
 
 type xcb_xc_misc_get_xid_range_request_t
 	major_opcode as ubyte
@@ -95,7 +100,7 @@ type xcb_xc_misc_get_xid_list_cookie_t
 	sequence as ulong
 end type
 
-const XCB_XC_MISC_GET_XID_LIST = 2
+const XCB_XC_MISC_GET_XID_LIST_ = 2
 
 type xcb_xc_misc_get_xid_list_request_t
 	major_opcode as ubyte

@@ -41,6 +41,28 @@
 #include once "xproto.bi"
 #include once "xcbext.bi"
 
+'' The following symbols have been renamed:
+''     constant XCB_SYNC_INITIALIZE => XCB_SYNC_INITIALIZE_
+''     constant XCB_SYNC_LIST_SYSTEM_COUNTERS => XCB_SYNC_LIST_SYSTEM_COUNTERS_
+''     constant XCB_SYNC_CREATE_COUNTER => XCB_SYNC_CREATE_COUNTER_
+''     constant XCB_SYNC_DESTROY_COUNTER => XCB_SYNC_DESTROY_COUNTER_
+''     constant XCB_SYNC_QUERY_COUNTER => XCB_SYNC_QUERY_COUNTER_
+''     constant XCB_SYNC_AWAIT => XCB_SYNC_AWAIT_
+''     constant XCB_SYNC_CHANGE_COUNTER => XCB_SYNC_CHANGE_COUNTER_
+''     constant XCB_SYNC_SET_COUNTER => XCB_SYNC_SET_COUNTER_
+''     constant XCB_SYNC_CREATE_ALARM => XCB_SYNC_CREATE_ALARM_
+''     constant XCB_SYNC_CHANGE_ALARM => XCB_SYNC_CHANGE_ALARM_
+''     constant XCB_SYNC_DESTROY_ALARM => XCB_SYNC_DESTROY_ALARM_
+''     constant XCB_SYNC_QUERY_ALARM => XCB_SYNC_QUERY_ALARM_
+''     constant XCB_SYNC_SET_PRIORITY => XCB_SYNC_SET_PRIORITY_
+''     constant XCB_SYNC_GET_PRIORITY => XCB_SYNC_GET_PRIORITY_
+''     constant XCB_SYNC_CREATE_FENCE => XCB_SYNC_CREATE_FENCE_
+''     constant XCB_SYNC_TRIGGER_FENCE => XCB_SYNC_TRIGGER_FENCE_
+''     constant XCB_SYNC_RESET_FENCE => XCB_SYNC_RESET_FENCE_
+''     constant XCB_SYNC_DESTROY_FENCE => XCB_SYNC_DESTROY_FENCE_
+''     constant XCB_SYNC_QUERY_FENCE => XCB_SYNC_QUERY_FENCE_
+''     constant XCB_SYNC_AWAIT_FENCE => XCB_SYNC_AWAIT_FENCE_
+
 extern "C"
 
 #define __SYNC_H
@@ -175,7 +197,7 @@ type xcb_sync_initialize_cookie_t
 	sequence as ulong
 end type
 
-const XCB_SYNC_INITIALIZE = 0
+const XCB_SYNC_INITIALIZE_ = 0
 
 type xcb_sync_initialize_request_t
 	major_opcode as ubyte
@@ -199,7 +221,7 @@ type xcb_sync_list_system_counters_cookie_t
 	sequence as ulong
 end type
 
-const XCB_SYNC_LIST_SYSTEM_COUNTERS = 1
+const XCB_SYNC_LIST_SYSTEM_COUNTERS_ = 1
 
 type xcb_sync_list_system_counters_request_t
 	major_opcode as ubyte
@@ -216,7 +238,7 @@ type xcb_sync_list_system_counters_reply_t
 	pad1(0 to 19) as ubyte
 end type
 
-const XCB_SYNC_CREATE_COUNTER = 2
+const XCB_SYNC_CREATE_COUNTER_ = 2
 
 type xcb_sync_create_counter_request_t
 	major_opcode as ubyte
@@ -226,7 +248,7 @@ type xcb_sync_create_counter_request_t
 	initial_value as xcb_sync_int64_t
 end type
 
-const XCB_SYNC_DESTROY_COUNTER = 6
+const XCB_SYNC_DESTROY_COUNTER_ = 6
 
 type xcb_sync_destroy_counter_request_t
 	major_opcode as ubyte
@@ -239,7 +261,7 @@ type xcb_sync_query_counter_cookie_t
 	sequence as ulong
 end type
 
-const XCB_SYNC_QUERY_COUNTER = 5
+const XCB_SYNC_QUERY_COUNTER_ = 5
 
 type xcb_sync_query_counter_request_t
 	major_opcode as ubyte
@@ -256,7 +278,7 @@ type xcb_sync_query_counter_reply_t
 	counter_value as xcb_sync_int64_t
 end type
 
-const XCB_SYNC_AWAIT = 7
+const XCB_SYNC_AWAIT_ = 7
 
 type xcb_sync_await_request_t
 	major_opcode as ubyte
@@ -264,7 +286,7 @@ type xcb_sync_await_request_t
 	length as ushort
 end type
 
-const XCB_SYNC_CHANGE_COUNTER = 4
+const XCB_SYNC_CHANGE_COUNTER_ = 4
 
 type xcb_sync_change_counter_request_t
 	major_opcode as ubyte
@@ -274,7 +296,7 @@ type xcb_sync_change_counter_request_t
 	amount as xcb_sync_int64_t
 end type
 
-const XCB_SYNC_SET_COUNTER = 3
+const XCB_SYNC_SET_COUNTER_ = 3
 
 type xcb_sync_set_counter_request_t
 	major_opcode as ubyte
@@ -293,7 +315,7 @@ type xcb_sync_create_alarm_value_list_t
 	events as ulong
 end type
 
-const XCB_SYNC_CREATE_ALARM = 8
+const XCB_SYNC_CREATE_ALARM_ = 8
 
 type xcb_sync_create_alarm_request_t
 	major_opcode as ubyte
@@ -312,7 +334,7 @@ type xcb_sync_change_alarm_value_list_t
 	events as ulong
 end type
 
-const XCB_SYNC_CHANGE_ALARM = 9
+const XCB_SYNC_CHANGE_ALARM_ = 9
 
 type xcb_sync_change_alarm_request_t
 	major_opcode as ubyte
@@ -322,7 +344,7 @@ type xcb_sync_change_alarm_request_t
 	value_mask as ulong
 end type
 
-const XCB_SYNC_DESTROY_ALARM = 11
+const XCB_SYNC_DESTROY_ALARM_ = 11
 
 type xcb_sync_destroy_alarm_request_t
 	major_opcode as ubyte
@@ -335,7 +357,7 @@ type xcb_sync_query_alarm_cookie_t
 	sequence as ulong
 end type
 
-const XCB_SYNC_QUERY_ALARM = 10
+const XCB_SYNC_QUERY_ALARM_ = 10
 
 type xcb_sync_query_alarm_request_t
 	major_opcode as ubyte
@@ -356,7 +378,7 @@ type xcb_sync_query_alarm_reply_t
 	pad1(0 to 1) as ubyte
 end type
 
-const XCB_SYNC_SET_PRIORITY = 12
+const XCB_SYNC_SET_PRIORITY_ = 12
 
 type xcb_sync_set_priority_request_t
 	major_opcode as ubyte
@@ -370,7 +392,7 @@ type xcb_sync_get_priority_cookie_t
 	sequence as ulong
 end type
 
-const XCB_SYNC_GET_PRIORITY = 13
+const XCB_SYNC_GET_PRIORITY_ = 13
 
 type xcb_sync_get_priority_request_t
 	major_opcode as ubyte
@@ -387,7 +409,7 @@ type xcb_sync_get_priority_reply_t
 	priority as long
 end type
 
-const XCB_SYNC_CREATE_FENCE = 14
+const XCB_SYNC_CREATE_FENCE_ = 14
 
 type xcb_sync_create_fence_request_t
 	major_opcode as ubyte
@@ -398,7 +420,7 @@ type xcb_sync_create_fence_request_t
 	initially_triggered as ubyte
 end type
 
-const XCB_SYNC_TRIGGER_FENCE = 15
+const XCB_SYNC_TRIGGER_FENCE_ = 15
 
 type xcb_sync_trigger_fence_request_t
 	major_opcode as ubyte
@@ -407,7 +429,7 @@ type xcb_sync_trigger_fence_request_t
 	fence as xcb_sync_fence_t
 end type
 
-const XCB_SYNC_RESET_FENCE = 16
+const XCB_SYNC_RESET_FENCE_ = 16
 
 type xcb_sync_reset_fence_request_t
 	major_opcode as ubyte
@@ -416,7 +438,7 @@ type xcb_sync_reset_fence_request_t
 	fence as xcb_sync_fence_t
 end type
 
-const XCB_SYNC_DESTROY_FENCE = 17
+const XCB_SYNC_DESTROY_FENCE_ = 17
 
 type xcb_sync_destroy_fence_request_t
 	major_opcode as ubyte
@@ -429,7 +451,7 @@ type xcb_sync_query_fence_cookie_t
 	sequence as ulong
 end type
 
-const XCB_SYNC_QUERY_FENCE = 18
+const XCB_SYNC_QUERY_FENCE_ = 18
 
 type xcb_sync_query_fence_request_t
 	major_opcode as ubyte
@@ -447,7 +469,7 @@ type xcb_sync_query_fence_reply_t
 	pad1(0 to 22) as ubyte
 end type
 
-const XCB_SYNC_AWAIT_FENCE = 19
+const XCB_SYNC_AWAIT_FENCE_ = 19
 
 type xcb_sync_await_fence_request_t
 	major_opcode as ubyte

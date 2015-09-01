@@ -36,6 +36,48 @@
 #include once "render.bi"
 #include once "xcbext.bi"
 
+'' The following symbols have been renamed:
+''     constant XCB_RANDR_QUERY_VERSION => XCB_RANDR_QUERY_VERSION_
+''     constant XCB_RANDR_SET_SCREEN_CONFIG => XCB_RANDR_SET_SCREEN_CONFIG_
+''     constant XCB_RANDR_SELECT_INPUT => XCB_RANDR_SELECT_INPUT_
+''     constant XCB_RANDR_GET_SCREEN_INFO => XCB_RANDR_GET_SCREEN_INFO_
+''     constant XCB_RANDR_GET_SCREEN_SIZE_RANGE => XCB_RANDR_GET_SCREEN_SIZE_RANGE_
+''     constant XCB_RANDR_SET_SCREEN_SIZE => XCB_RANDR_SET_SCREEN_SIZE_
+''     constant XCB_RANDR_GET_SCREEN_RESOURCES => XCB_RANDR_GET_SCREEN_RESOURCES_
+''     constant XCB_RANDR_GET_OUTPUT_INFO => XCB_RANDR_GET_OUTPUT_INFO_
+''     constant XCB_RANDR_LIST_OUTPUT_PROPERTIES => XCB_RANDR_LIST_OUTPUT_PROPERTIES_
+''     constant XCB_RANDR_QUERY_OUTPUT_PROPERTY => XCB_RANDR_QUERY_OUTPUT_PROPERTY_
+''     constant XCB_RANDR_CONFIGURE_OUTPUT_PROPERTY => XCB_RANDR_CONFIGURE_OUTPUT_PROPERTY_
+''     constant XCB_RANDR_CHANGE_OUTPUT_PROPERTY => XCB_RANDR_CHANGE_OUTPUT_PROPERTY_
+''     constant XCB_RANDR_DELETE_OUTPUT_PROPERTY => XCB_RANDR_DELETE_OUTPUT_PROPERTY_
+''     constant XCB_RANDR_GET_OUTPUT_PROPERTY => XCB_RANDR_GET_OUTPUT_PROPERTY_
+''     constant XCB_RANDR_CREATE_MODE => XCB_RANDR_CREATE_MODE_
+''     constant XCB_RANDR_DESTROY_MODE => XCB_RANDR_DESTROY_MODE_
+''     constant XCB_RANDR_ADD_OUTPUT_MODE => XCB_RANDR_ADD_OUTPUT_MODE_
+''     constant XCB_RANDR_DELETE_OUTPUT_MODE => XCB_RANDR_DELETE_OUTPUT_MODE_
+''     constant XCB_RANDR_GET_CRTC_INFO => XCB_RANDR_GET_CRTC_INFO_
+''     constant XCB_RANDR_SET_CRTC_CONFIG => XCB_RANDR_SET_CRTC_CONFIG_
+''     constant XCB_RANDR_GET_CRTC_GAMMA_SIZE => XCB_RANDR_GET_CRTC_GAMMA_SIZE_
+''     constant XCB_RANDR_GET_CRTC_GAMMA => XCB_RANDR_GET_CRTC_GAMMA_
+''     constant XCB_RANDR_SET_CRTC_GAMMA => XCB_RANDR_SET_CRTC_GAMMA_
+''     constant XCB_RANDR_GET_SCREEN_RESOURCES_CURRENT => XCB_RANDR_GET_SCREEN_RESOURCES_CURRENT_
+''     constant XCB_RANDR_SET_CRTC_TRANSFORM => XCB_RANDR_SET_CRTC_TRANSFORM_
+''     constant XCB_RANDR_GET_CRTC_TRANSFORM => XCB_RANDR_GET_CRTC_TRANSFORM_
+''     constant XCB_RANDR_GET_PANNING => XCB_RANDR_GET_PANNING_
+''     constant XCB_RANDR_SET_PANNING => XCB_RANDR_SET_PANNING_
+''     constant XCB_RANDR_SET_OUTPUT_PRIMARY => XCB_RANDR_SET_OUTPUT_PRIMARY_
+''     constant XCB_RANDR_GET_OUTPUT_PRIMARY => XCB_RANDR_GET_OUTPUT_PRIMARY_
+''     constant XCB_RANDR_GET_PROVIDERS => XCB_RANDR_GET_PROVIDERS_
+''     constant XCB_RANDR_GET_PROVIDER_INFO => XCB_RANDR_GET_PROVIDER_INFO_
+''     constant XCB_RANDR_SET_PROVIDER_OFFLOAD_SINK => XCB_RANDR_SET_PROVIDER_OFFLOAD_SINK_
+''     constant XCB_RANDR_SET_PROVIDER_OUTPUT_SOURCE => XCB_RANDR_SET_PROVIDER_OUTPUT_SOURCE_
+''     constant XCB_RANDR_LIST_PROVIDER_PROPERTIES => XCB_RANDR_LIST_PROVIDER_PROPERTIES_
+''     constant XCB_RANDR_QUERY_PROVIDER_PROPERTY => XCB_RANDR_QUERY_PROVIDER_PROPERTY_
+''     constant XCB_RANDR_CONFIGURE_PROVIDER_PROPERTY => XCB_RANDR_CONFIGURE_PROVIDER_PROPERTY_
+''     constant XCB_RANDR_CHANGE_PROVIDER_PROPERTY => XCB_RANDR_CHANGE_PROVIDER_PROPERTY_
+''     constant XCB_RANDR_DELETE_PROVIDER_PROPERTY => XCB_RANDR_DELETE_PROVIDER_PROPERTY_
+''     constant XCB_RANDR_GET_PROVIDER_PROPERTY => XCB_RANDR_GET_PROVIDER_PROPERTY_
+
 extern "C"
 
 #define __RANDR_H
@@ -143,7 +185,7 @@ type xcb_randr_query_version_cookie_t
 	sequence as ulong
 end type
 
-const XCB_RANDR_QUERY_VERSION = 0
+const XCB_RANDR_QUERY_VERSION_ = 0
 
 type xcb_randr_query_version_request_t
 	major_opcode as ubyte
@@ -175,7 +217,7 @@ type xcb_randr_set_screen_config_cookie_t
 	sequence as ulong
 end type
 
-const XCB_RANDR_SET_SCREEN_CONFIG = 2
+const XCB_RANDR_SET_SCREEN_CONFIG_ = 2
 
 type xcb_randr_set_screen_config_request_t
 	major_opcode as ubyte
@@ -213,7 +255,7 @@ enum
 	XCB_RANDR_NOTIFY_MASK_RESOURCE_CHANGE = 64
 end enum
 
-const XCB_RANDR_SELECT_INPUT = 4
+const XCB_RANDR_SELECT_INPUT_ = 4
 
 type xcb_randr_select_input_request_t
 	major_opcode as ubyte
@@ -228,7 +270,7 @@ type xcb_randr_get_screen_info_cookie_t
 	sequence as ulong
 end type
 
-const XCB_RANDR_GET_SCREEN_INFO = 5
+const XCB_RANDR_GET_SCREEN_INFO_ = 5
 
 type xcb_randr_get_screen_info_request_t
 	major_opcode as ubyte
@@ -257,7 +299,7 @@ type xcb_randr_get_screen_size_range_cookie_t
 	sequence as ulong
 end type
 
-const XCB_RANDR_GET_SCREEN_SIZE_RANGE = 6
+const XCB_RANDR_GET_SCREEN_SIZE_RANGE_ = 6
 
 type xcb_randr_get_screen_size_range_request_t
 	major_opcode as ubyte
@@ -278,7 +320,7 @@ type xcb_randr_get_screen_size_range_reply_t
 	pad1(0 to 15) as ubyte
 end type
 
-const XCB_RANDR_SET_SCREEN_SIZE = 7
+const XCB_RANDR_SET_SCREEN_SIZE_ = 7
 
 type xcb_randr_set_screen_size_request_t
 	major_opcode as ubyte
@@ -335,7 +377,7 @@ type xcb_randr_get_screen_resources_cookie_t
 	sequence as ulong
 end type
 
-const XCB_RANDR_GET_SCREEN_RESOURCES = 8
+const XCB_RANDR_GET_SCREEN_RESOURCES_ = 8
 
 type xcb_randr_get_screen_resources_request_t
 	major_opcode as ubyte
@@ -369,7 +411,7 @@ type xcb_randr_get_output_info_cookie_t
 	sequence as ulong
 end type
 
-const XCB_RANDR_GET_OUTPUT_INFO = 9
+const XCB_RANDR_GET_OUTPUT_INFO_ = 9
 
 type xcb_randr_get_output_info_request_t
 	major_opcode as ubyte
@@ -401,7 +443,7 @@ type xcb_randr_list_output_properties_cookie_t
 	sequence as ulong
 end type
 
-const XCB_RANDR_LIST_OUTPUT_PROPERTIES = 10
+const XCB_RANDR_LIST_OUTPUT_PROPERTIES_ = 10
 
 type xcb_randr_list_output_properties_request_t
 	major_opcode as ubyte
@@ -423,7 +465,7 @@ type xcb_randr_query_output_property_cookie_t
 	sequence as ulong
 end type
 
-const XCB_RANDR_QUERY_OUTPUT_PROPERTY = 11
+const XCB_RANDR_QUERY_OUTPUT_PROPERTY_ = 11
 
 type xcb_randr_query_output_property_request_t
 	major_opcode as ubyte
@@ -444,7 +486,7 @@ type xcb_randr_query_output_property_reply_t
 	pad1(0 to 20) as ubyte
 end type
 
-const XCB_RANDR_CONFIGURE_OUTPUT_PROPERTY = 12
+const XCB_RANDR_CONFIGURE_OUTPUT_PROPERTY_ = 12
 
 type xcb_randr_configure_output_property_request_t
 	major_opcode as ubyte
@@ -457,7 +499,7 @@ type xcb_randr_configure_output_property_request_t
 	pad0(0 to 1) as ubyte
 end type
 
-const XCB_RANDR_CHANGE_OUTPUT_PROPERTY = 13
+const XCB_RANDR_CHANGE_OUTPUT_PROPERTY_ = 13
 
 type xcb_randr_change_output_property_request_t
 	major_opcode as ubyte
@@ -472,7 +514,7 @@ type xcb_randr_change_output_property_request_t
 	num_units as ulong
 end type
 
-const XCB_RANDR_DELETE_OUTPUT_PROPERTY = 14
+const XCB_RANDR_DELETE_OUTPUT_PROPERTY_ = 14
 
 type xcb_randr_delete_output_property_request_t
 	major_opcode as ubyte
@@ -486,7 +528,7 @@ type xcb_randr_get_output_property_cookie_t
 	sequence as ulong
 end type
 
-const XCB_RANDR_GET_OUTPUT_PROPERTY = 15
+const XCB_RANDR_GET_OUTPUT_PROPERTY_ = 15
 
 type xcb_randr_get_output_property_request_t
 	major_opcode as ubyte
@@ -517,7 +559,7 @@ type xcb_randr_create_mode_cookie_t
 	sequence as ulong
 end type
 
-const XCB_RANDR_CREATE_MODE = 16
+const XCB_RANDR_CREATE_MODE_ = 16
 
 type xcb_randr_create_mode_request_t
 	major_opcode as ubyte
@@ -536,7 +578,7 @@ type xcb_randr_create_mode_reply_t
 	pad1(0 to 19) as ubyte
 end type
 
-const XCB_RANDR_DESTROY_MODE = 17
+const XCB_RANDR_DESTROY_MODE_ = 17
 
 type xcb_randr_destroy_mode_request_t
 	major_opcode as ubyte
@@ -545,7 +587,7 @@ type xcb_randr_destroy_mode_request_t
 	mode as xcb_randr_mode_t
 end type
 
-const XCB_RANDR_ADD_OUTPUT_MODE = 18
+const XCB_RANDR_ADD_OUTPUT_MODE_ = 18
 
 type xcb_randr_add_output_mode_request_t
 	major_opcode as ubyte
@@ -555,7 +597,7 @@ type xcb_randr_add_output_mode_request_t
 	mode as xcb_randr_mode_t
 end type
 
-const XCB_RANDR_DELETE_OUTPUT_MODE = 19
+const XCB_RANDR_DELETE_OUTPUT_MODE_ = 19
 
 type xcb_randr_delete_output_mode_request_t
 	major_opcode as ubyte
@@ -569,7 +611,7 @@ type xcb_randr_get_crtc_info_cookie_t
 	sequence as ulong
 end type
 
-const XCB_RANDR_GET_CRTC_INFO = 20
+const XCB_RANDR_GET_CRTC_INFO_ = 20
 
 type xcb_randr_get_crtc_info_request_t
 	major_opcode as ubyte
@@ -600,7 +642,7 @@ type xcb_randr_set_crtc_config_cookie_t
 	sequence as ulong
 end type
 
-const XCB_RANDR_SET_CRTC_CONFIG = 21
+const XCB_RANDR_SET_CRTC_CONFIG_ = 21
 
 type xcb_randr_set_crtc_config_request_t
 	major_opcode as ubyte
@@ -629,7 +671,7 @@ type xcb_randr_get_crtc_gamma_size_cookie_t
 	sequence as ulong
 end type
 
-const XCB_RANDR_GET_CRTC_GAMMA_SIZE = 22
+const XCB_RANDR_GET_CRTC_GAMMA_SIZE_ = 22
 
 type xcb_randr_get_crtc_gamma_size_request_t
 	major_opcode as ubyte
@@ -651,7 +693,7 @@ type xcb_randr_get_crtc_gamma_cookie_t
 	sequence as ulong
 end type
 
-const XCB_RANDR_GET_CRTC_GAMMA = 23
+const XCB_RANDR_GET_CRTC_GAMMA_ = 23
 
 type xcb_randr_get_crtc_gamma_request_t
 	major_opcode as ubyte
@@ -669,7 +711,7 @@ type xcb_randr_get_crtc_gamma_reply_t
 	pad1(0 to 21) as ubyte
 end type
 
-const XCB_RANDR_SET_CRTC_GAMMA = 24
+const XCB_RANDR_SET_CRTC_GAMMA_ = 24
 
 type xcb_randr_set_crtc_gamma_request_t
 	major_opcode as ubyte
@@ -684,7 +726,7 @@ type xcb_randr_get_screen_resources_current_cookie_t
 	sequence as ulong
 end type
 
-const XCB_RANDR_GET_SCREEN_RESOURCES_CURRENT = 25
+const XCB_RANDR_GET_SCREEN_RESOURCES_CURRENT_ = 25
 
 type xcb_randr_get_screen_resources_current_request_t
 	major_opcode as ubyte
@@ -715,7 +757,7 @@ enum
 	XCB_RANDR_TRANSFORM_PROJECTIVE = 8
 end enum
 
-const XCB_RANDR_SET_CRTC_TRANSFORM = 26
+const XCB_RANDR_SET_CRTC_TRANSFORM_ = 26
 
 type xcb_randr_set_crtc_transform_request_t
 	major_opcode as ubyte
@@ -731,7 +773,7 @@ type xcb_randr_get_crtc_transform_cookie_t
 	sequence as ulong
 end type
 
-const XCB_RANDR_GET_CRTC_TRANSFORM = 27
+const XCB_RANDR_GET_CRTC_TRANSFORM_ = 27
 
 type xcb_randr_get_crtc_transform_request_t
 	major_opcode as ubyte
@@ -760,7 +802,7 @@ type xcb_randr_get_panning_cookie_t
 	sequence as ulong
 end type
 
-const XCB_RANDR_GET_PANNING = 28
+const XCB_RANDR_GET_PANNING_ = 28
 
 type xcb_randr_get_panning_request_t
 	major_opcode as ubyte
@@ -793,7 +835,7 @@ type xcb_randr_set_panning_cookie_t
 	sequence as ulong
 end type
 
-const XCB_RANDR_SET_PANNING = 29
+const XCB_RANDR_SET_PANNING_ = 29
 
 type xcb_randr_set_panning_request_t
 	major_opcode as ubyte
@@ -823,7 +865,7 @@ type xcb_randr_set_panning_reply_t
 	timestamp as xcb_timestamp_t
 end type
 
-const XCB_RANDR_SET_OUTPUT_PRIMARY = 30
+const XCB_RANDR_SET_OUTPUT_PRIMARY_ = 30
 
 type xcb_randr_set_output_primary_request_t
 	major_opcode as ubyte
@@ -837,7 +879,7 @@ type xcb_randr_get_output_primary_cookie_t
 	sequence as ulong
 end type
 
-const XCB_RANDR_GET_OUTPUT_PRIMARY = 31
+const XCB_RANDR_GET_OUTPUT_PRIMARY_ = 31
 
 type xcb_randr_get_output_primary_request_t
 	major_opcode as ubyte
@@ -858,7 +900,7 @@ type xcb_randr_get_providers_cookie_t
 	sequence as ulong
 end type
 
-const XCB_RANDR_GET_PROVIDERS = 32
+const XCB_RANDR_GET_PROVIDERS_ = 32
 
 type xcb_randr_get_providers_request_t
 	major_opcode as ubyte
@@ -889,7 +931,7 @@ type xcb_randr_get_provider_info_cookie_t
 	sequence as ulong
 end type
 
-const XCB_RANDR_GET_PROVIDER_INFO = 33
+const XCB_RANDR_GET_PROVIDER_INFO_ = 33
 
 type xcb_randr_get_provider_info_request_t
 	major_opcode as ubyte
@@ -913,7 +955,7 @@ type xcb_randr_get_provider_info_reply_t
 	pad0(0 to 7) as ubyte
 end type
 
-const XCB_RANDR_SET_PROVIDER_OFFLOAD_SINK = 34
+const XCB_RANDR_SET_PROVIDER_OFFLOAD_SINK_ = 34
 
 type xcb_randr_set_provider_offload_sink_request_t
 	major_opcode as ubyte
@@ -924,7 +966,7 @@ type xcb_randr_set_provider_offload_sink_request_t
 	config_timestamp as xcb_timestamp_t
 end type
 
-const XCB_RANDR_SET_PROVIDER_OUTPUT_SOURCE = 35
+const XCB_RANDR_SET_PROVIDER_OUTPUT_SOURCE_ = 35
 
 type xcb_randr_set_provider_output_source_request_t
 	major_opcode as ubyte
@@ -939,7 +981,7 @@ type xcb_randr_list_provider_properties_cookie_t
 	sequence as ulong
 end type
 
-const XCB_RANDR_LIST_PROVIDER_PROPERTIES = 36
+const XCB_RANDR_LIST_PROVIDER_PROPERTIES_ = 36
 
 type xcb_randr_list_provider_properties_request_t
 	major_opcode as ubyte
@@ -961,7 +1003,7 @@ type xcb_randr_query_provider_property_cookie_t
 	sequence as ulong
 end type
 
-const XCB_RANDR_QUERY_PROVIDER_PROPERTY = 37
+const XCB_RANDR_QUERY_PROVIDER_PROPERTY_ = 37
 
 type xcb_randr_query_provider_property_request_t
 	major_opcode as ubyte
@@ -982,7 +1024,7 @@ type xcb_randr_query_provider_property_reply_t
 	pad1(0 to 20) as ubyte
 end type
 
-const XCB_RANDR_CONFIGURE_PROVIDER_PROPERTY = 38
+const XCB_RANDR_CONFIGURE_PROVIDER_PROPERTY_ = 38
 
 type xcb_randr_configure_provider_property_request_t
 	major_opcode as ubyte
@@ -995,7 +1037,7 @@ type xcb_randr_configure_provider_property_request_t
 	pad0(0 to 1) as ubyte
 end type
 
-const XCB_RANDR_CHANGE_PROVIDER_PROPERTY = 39
+const XCB_RANDR_CHANGE_PROVIDER_PROPERTY_ = 39
 
 type xcb_randr_change_provider_property_request_t
 	major_opcode as ubyte
@@ -1010,7 +1052,7 @@ type xcb_randr_change_provider_property_request_t
 	num_items as ulong
 end type
 
-const XCB_RANDR_DELETE_PROVIDER_PROPERTY = 40
+const XCB_RANDR_DELETE_PROVIDER_PROPERTY_ = 40
 
 type xcb_randr_delete_provider_property_request_t
 	major_opcode as ubyte
@@ -1024,7 +1066,7 @@ type xcb_randr_get_provider_property_cookie_t
 	sequence as ulong
 end type
 
-const XCB_RANDR_GET_PROVIDER_PROPERTY = 41
+const XCB_RANDR_GET_PROVIDER_PROPERTY_ = 41
 
 type xcb_randr_get_provider_property_request_t
 	major_opcode as ubyte

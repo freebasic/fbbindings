@@ -35,6 +35,16 @@
 #include once "xproto.bi"
 #include once "xcbext.bi"
 
+'' The following symbols have been renamed:
+''     constant XCB_SHM_QUERY_VERSION => XCB_SHM_QUERY_VERSION_
+''     constant XCB_SHM_ATTACH => XCB_SHM_ATTACH_
+''     constant XCB_SHM_DETACH => XCB_SHM_DETACH_
+''     constant XCB_SHM_PUT_IMAGE => XCB_SHM_PUT_IMAGE_
+''     constant XCB_SHM_GET_IMAGE => XCB_SHM_GET_IMAGE_
+''     constant XCB_SHM_CREATE_PIXMAP => XCB_SHM_CREATE_PIXMAP_
+''     constant XCB_SHM_ATTACH_FD => XCB_SHM_ATTACH_FD_
+''     constant XCB_SHM_CREATE_SEGMENT => XCB_SHM_CREATE_SEGMENT_
+
 extern "C"
 
 #define __SHM_H
@@ -70,7 +80,7 @@ type xcb_shm_query_version_cookie_t
 	sequence as ulong
 end type
 
-const XCB_SHM_QUERY_VERSION = 0
+const XCB_SHM_QUERY_VERSION_ = 0
 
 type xcb_shm_query_version_request_t
 	major_opcode as ubyte
@@ -91,7 +101,7 @@ type xcb_shm_query_version_reply_t
 	pad0(0 to 14) as ubyte
 end type
 
-const XCB_SHM_ATTACH = 1
+const XCB_SHM_ATTACH_ = 1
 
 type xcb_shm_attach_request_t
 	major_opcode as ubyte
@@ -103,7 +113,7 @@ type xcb_shm_attach_request_t
 	pad0(0 to 2) as ubyte
 end type
 
-const XCB_SHM_DETACH = 2
+const XCB_SHM_DETACH_ = 2
 
 type xcb_shm_detach_request_t
 	major_opcode as ubyte
@@ -112,7 +122,7 @@ type xcb_shm_detach_request_t
 	shmseg as xcb_shm_seg_t
 end type
 
-const XCB_SHM_PUT_IMAGE = 3
+const XCB_SHM_PUT_IMAGE_ = 3
 
 type xcb_shm_put_image_request_t
 	major_opcode as ubyte
@@ -140,7 +150,7 @@ type xcb_shm_get_image_cookie_t
 	sequence as ulong
 end type
 
-const XCB_SHM_GET_IMAGE = 4
+const XCB_SHM_GET_IMAGE_ = 4
 
 type xcb_shm_get_image_request_t
 	major_opcode as ubyte
@@ -167,7 +177,7 @@ type xcb_shm_get_image_reply_t
 	size as ulong
 end type
 
-const XCB_SHM_CREATE_PIXMAP = 5
+const XCB_SHM_CREATE_PIXMAP_ = 5
 
 type xcb_shm_create_pixmap_request_t
 	major_opcode as ubyte
@@ -183,7 +193,7 @@ type xcb_shm_create_pixmap_request_t
 	offset as ulong
 end type
 
-const XCB_SHM_ATTACH_FD = 6
+const XCB_SHM_ATTACH_FD_ = 6
 
 type xcb_shm_attach_fd_request_t
 	major_opcode as ubyte
@@ -198,7 +208,7 @@ type xcb_shm_create_segment_cookie_t
 	sequence as ulong
 end type
 
-const XCB_SHM_CREATE_SEGMENT = 7
+const XCB_SHM_CREATE_SEGMENT_ = 7
 
 type xcb_shm_create_segment_request_t
 	major_opcode as ubyte

@@ -35,6 +35,14 @@
 #include once "xproto.bi"
 #include once "xcbext.bi"
 
+'' The following symbols have been renamed:
+''     constant XCB_SCREENSAVER_QUERY_VERSION => XCB_SCREENSAVER_QUERY_VERSION_
+''     constant XCB_SCREENSAVER_QUERY_INFO => XCB_SCREENSAVER_QUERY_INFO_
+''     constant XCB_SCREENSAVER_SELECT_INPUT => XCB_SCREENSAVER_SELECT_INPUT_
+''     constant XCB_SCREENSAVER_SET_ATTRIBUTES => XCB_SCREENSAVER_SET_ATTRIBUTES_
+''     constant XCB_SCREENSAVER_UNSET_ATTRIBUTES => XCB_SCREENSAVER_UNSET_ATTRIBUTES_
+''     constant XCB_SCREENSAVER_SUSPEND => XCB_SCREENSAVER_SUSPEND_
+
 extern "C"
 
 #define __SCREENSAVER_H
@@ -67,7 +75,7 @@ type xcb_screensaver_query_version_cookie_t
 	sequence as ulong
 end type
 
-const XCB_SCREENSAVER_QUERY_VERSION = 0
+const XCB_SCREENSAVER_QUERY_VERSION_ = 0
 
 type xcb_screensaver_query_version_request_t
 	major_opcode as ubyte
@@ -92,7 +100,7 @@ type xcb_screensaver_query_info_cookie_t
 	sequence as ulong
 end type
 
-const XCB_SCREENSAVER_QUERY_INFO = 1
+const XCB_SCREENSAVER_QUERY_INFO_ = 1
 
 type xcb_screensaver_query_info_request_t
 	major_opcode as ubyte
@@ -114,7 +122,7 @@ type xcb_screensaver_query_info_reply_t
 	pad0(0 to 6) as ubyte
 end type
 
-const XCB_SCREENSAVER_SELECT_INPUT = 2
+const XCB_SCREENSAVER_SELECT_INPUT_ = 2
 
 type xcb_screensaver_select_input_request_t
 	major_opcode as ubyte
@@ -124,7 +132,7 @@ type xcb_screensaver_select_input_request_t
 	event_mask as ulong
 end type
 
-const XCB_SCREENSAVER_SET_ATTRIBUTES = 3
+const XCB_SCREENSAVER_SET_ATTRIBUTES_ = 3
 
 type xcb_screensaver_set_attributes_request_t
 	major_opcode as ubyte
@@ -142,7 +150,7 @@ type xcb_screensaver_set_attributes_request_t
 	value_mask as ulong
 end type
 
-const XCB_SCREENSAVER_UNSET_ATTRIBUTES = 4
+const XCB_SCREENSAVER_UNSET_ATTRIBUTES_ = 4
 
 type xcb_screensaver_unset_attributes_request_t
 	major_opcode as ubyte
@@ -151,7 +159,7 @@ type xcb_screensaver_unset_attributes_request_t
 	drawable as xcb_drawable_t
 end type
 
-const XCB_SCREENSAVER_SUSPEND = 5
+const XCB_SCREENSAVER_SUSPEND_ = 5
 
 type xcb_screensaver_suspend_request_t
 	major_opcode as ubyte

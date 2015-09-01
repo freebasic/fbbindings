@@ -35,6 +35,14 @@
 #include once "xproto.bi"
 #include once "xcbext.bi"
 
+'' The following symbols have been renamed:
+''     constant XCB_RES_QUERY_VERSION => XCB_RES_QUERY_VERSION_
+''     constant XCB_RES_QUERY_CLIENTS => XCB_RES_QUERY_CLIENTS_
+''     constant XCB_RES_QUERY_CLIENT_RESOURCES => XCB_RES_QUERY_CLIENT_RESOURCES_
+''     constant XCB_RES_QUERY_CLIENT_PIXMAP_BYTES => XCB_RES_QUERY_CLIENT_PIXMAP_BYTES_
+''     constant XCB_RES_QUERY_CLIENT_IDS => XCB_RES_QUERY_CLIENT_IDS_
+''     constant XCB_RES_QUERY_RESOURCE_BYTES => XCB_RES_QUERY_RESOURCE_BYTES_
+
 extern "C"
 
 #define __RES_H
@@ -131,7 +139,7 @@ type xcb_res_query_version_cookie_t
 	sequence as ulong
 end type
 
-const XCB_RES_QUERY_VERSION = 0
+const XCB_RES_QUERY_VERSION_ = 0
 
 type xcb_res_query_version_request_t
 	major_opcode as ubyte
@@ -154,7 +162,7 @@ type xcb_res_query_clients_cookie_t
 	sequence as ulong
 end type
 
-const XCB_RES_QUERY_CLIENTS = 1
+const XCB_RES_QUERY_CLIENTS_ = 1
 
 type xcb_res_query_clients_request_t
 	major_opcode as ubyte
@@ -175,7 +183,7 @@ type xcb_res_query_client_resources_cookie_t
 	sequence as ulong
 end type
 
-const XCB_RES_QUERY_CLIENT_RESOURCES = 2
+const XCB_RES_QUERY_CLIENT_RESOURCES_ = 2
 
 type xcb_res_query_client_resources_request_t
 	major_opcode as ubyte
@@ -197,7 +205,7 @@ type xcb_res_query_client_pixmap_bytes_cookie_t
 	sequence as ulong
 end type
 
-const XCB_RES_QUERY_CLIENT_PIXMAP_BYTES = 3
+const XCB_RES_QUERY_CLIENT_PIXMAP_BYTES_ = 3
 
 type xcb_res_query_client_pixmap_bytes_request_t
 	major_opcode as ubyte
@@ -219,7 +227,7 @@ type xcb_res_query_client_ids_cookie_t
 	sequence as ulong
 end type
 
-const XCB_RES_QUERY_CLIENT_IDS = 4
+const XCB_RES_QUERY_CLIENT_IDS_ = 4
 
 type xcb_res_query_client_ids_request_t
 	major_opcode as ubyte
@@ -241,7 +249,7 @@ type xcb_res_query_resource_bytes_cookie_t
 	sequence as ulong
 end type
 
-const XCB_RES_QUERY_RESOURCE_BYTES = 5
+const XCB_RES_QUERY_RESOURCE_BYTES_ = 5
 
 type xcb_res_query_resource_bytes_request_t
 	major_opcode as ubyte
