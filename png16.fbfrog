@@ -6,6 +6,6 @@
 -renamedefine png_get_uint_16 PNG_get_uint_16_
 -renamedefine png_get_int_32 PNG_get_int_32_
 
--renamedefine PNG_get_uint_32 PNG_get_uint_32_
--renamedefine PNG_get_uint_16 PNG_get_uint_16_
--renamedefine PNG_get_int_32  PNG_get_int_32_
+-rename_ PNG_get_uint_32
+-rename_ PNG_get_uint_16
+-rename_ PNG_get_int_32

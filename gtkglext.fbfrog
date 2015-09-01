@@ -5,13 +5,13 @@
 
 -removeinclude gdkglext-config.h
 
--rename gdkglext_major_version gdkglext_major_version_
--rename gdkglext_minor_version gdkglext_minor_version_
--rename gdkglext_micro_version gdkglext_micro_version_
--rename gdkglext_interface_age gdkglext_interface_age_
--rename gdkglext_binary_age    gdkglext_binary_age_
--rename gtkglext_major_version gtkglext_major_version_
--rename gtkglext_minor_version gtkglext_minor_version_
--rename gtkglext_micro_version gtkglext_micro_version_
--rename gtkglext_interface_age gtkglext_interface_age_
--rename gtkglext_binary_age    gtkglext_binary_age_
+-rename_ gdkglext_major_version
+-rename_ gdkglext_minor_version
+-rename_ gdkglext_micro_version
+-rename_ gdkglext_interface_age
+-rename_ gdkglext_binary_age
+-rename_ gtkglext_major_version
+-rename_ gtkglext_minor_version
+-rename_ gtkglext_micro_version
+-rename_ gtkglext_interface_age
+-rename_ gtkglext_binary_age

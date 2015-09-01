@@ -33,12 +33,12 @@
 
 -define LUA_COMPAT_MODULE 1
 
--renamedefine LUA_INTEGER LUA_INTEGER_
--renamedefine LUA_UNSIGNED LUA_UNSIGNED_
--renamedefine LUA_VERSION LUA_VERSION_
--renamedefine LUA_YIELD LUA_YIELD_
--renamedefine LUA_NUMBER LUA_NUMBER_
--renamedefine LUA_KCONTEXT LUA_KCONTEXT_
+-rename_ LUA_INTEGER
+-rename_ LUA_UNSIGNED
+-rename_ LUA_VERSION
+-rename_ LUA_YIELD
+-rename_ LUA_NUMBER
+-rename_ LUA_KCONTEXT
 
 # Some macros have both L and l parameters (e.g. luaL_newlibtable, luaL_register)
 -renamemacroparam l l_

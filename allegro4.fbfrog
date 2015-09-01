@@ -33,57 +33,57 @@ allegro.fbfrog
 -removeinclude sys/farptr.h
 -removeinclude unistd.h
 
--renamedefine MID AL_MID
--renamedefine EMPTY_STRING EMPTY_STRING_
--renamedefine SYSTEM_NONE SYSTEM_NONE_
--renamedefine MOUSEDRV_NONE MOUSEDRV_NONE_
--renamedefine DRAW_SPRITE_H_FLIP DRAW_SPRITE_H_FLIP_
--renamedefine DRAW_SPRITE_V_FLIP DRAW_SPRITE_V_FLIP_
--renamedefine DRAW_SPRITE_VH_FLIP DRAW_SPRITE_VH_FLIP_
--renamedefine MIDI_DIGMID MIDI_DIGMID_
--renamedefine cpu_fpu cpu_fpu_
--renamedefine cpu_mmx cpu_mmx_
--renamedefine cpu_3dnow cpu_3dnow_
--renamedefine SYSTEM_DIRECTX SYSTEM_DIRECTX_
--renamedefine GFX_DIRECTX_ACCEL GFX_DIRECTX_ACCEL_
--renamedefine GFX_DIRECTX_SAFE GFX_DIRECTX_SAFE_
--renamedefine GFX_DIRECTX_SOFT GFX_DIRECTX_SOFT_
--renamedefine GFX_DIRECTX_WIN GFX_DIRECTX_WIN_
--renamedefine GFX_DIRECTX_OVL GFX_DIRECTX_OVL_
--renamedefine GFX_GDI GFX_GDI_
--renamedefine TIMERDRV_UNIX_PTHREADS TIMERDRV_UNIX_PTHREADS_
--renamedefine SYSTEM_LINUX SYSTEM_LINUX_
--renamedefine SYSTEM_DOS SYSTEM_DOS_
--renamedefine KEYDRV_PCDOS KEYDRV_PCDOS_
--renamedefine TIMEDRV_FIXED_RATE TIMEDRV_FIXED_RATE_
--renamedefine TIMEDRV_VARIABLE_RATE TIMEDRV_VARIABLE_RATE_
--renamedefine MOUSEDRV_MICKEYS MOUSEDRV_MICKEYS_
--renamedefine MOUSEDRV_INT33 MOUSEDRV_INT33_
--renamedefine MOUSEDRV_POLLING MOUSEDRV_POLLING_
--renamedefine MOUSEDRV_WINNT MOUSEDRV_WINNT_
--renamedefine MOUSEDRV_WIN2K MOUSEDRV_WIN2K_
--renamedefine GFX_VGA GFX_VGA_
--renamedefine GFX_MODEX GFX_MODEX_
--renamedefine DIGI_SB10 DIGI_SB10_
--renamedefine DIGI_SB15 DIGI_SB15_
--renamedefine DIGI_SB20 DIGI_SB20_
--renamedefine DIGI_SBPRO DIGI_SBPRO_
--renamedefine DIGI_SB16 DIGI_SB16_
--renamedefine DIGI_AUDIODRIVE DIGI_AUDIODRIVE_
--renamedefine DIGI_SOUNDSCAPE DIGI_SOUNDSCAPE_
--renamedefine MIDI_OPL2 MIDI_OPL2_
--renamedefine MIDI_2XOPL2 MIDI_2XOPL2_
--renamedefine MIDI_OPL3 MIDI_OPL3_
--renamedefine MIDI_SB_OUT MIDI_SB_OUT_
--renamedefine MIDI_AWE32 MIDI_AWE32_
--renamedefine GFX_VBEAF GFX_VBEAF_
--renamedefine GFX_XTENDED GFX_XTENDED_
--renamedefine MOUSEDRV_LINUX_PS2 MOUSEDRV_LINUX_PS2_
--renamedefine MOUSEDRV_LINUX_IPS2 MOUSEDRV_LINUX_IPS2_
--renamedefine MOUSEDRV_LINUX_GPMDATA MOUSEDRV_LINUX_GPMDATA_
--renamedefine MOUSEDRV_LINUX_MS MOUSEDRV_LINUX_MS_
--renamedefine MOUSEDRV_LINUX_IMS MOUSEDRV_LINUX_IMS_
--renamedefine MOUSEDRV_LINUX_EVDEV MOUSEDRV_LINUX_EVDEV_
+-rename MID AL_MID
+-rename_ EMPTY_STRING
+-rename_ SYSTEM_NONE
+-rename_ MOUSEDRV_NONE
+-rename_ DRAW_SPRITE_H_FLIP
+-rename_ DRAW_SPRITE_V_FLIP
+-rename_ DRAW_SPRITE_VH_FLIP
+-rename_ MIDI_DIGMID
+-rename_ cpu_fpu
+-rename_ cpu_mmx
+-rename_ cpu_3dnow
+-rename_ SYSTEM_DIRECTX
+-rename_ GFX_DIRECTX_ACCEL
+-rename_ GFX_DIRECTX_SAFE
+-rename_ GFX_DIRECTX_SOFT
+-rename_ GFX_DIRECTX_WIN
+-rename_ GFX_DIRECTX_OVL
+-rename_ GFX_GDI
+-rename_ TIMERDRV_UNIX_PTHREADS
+-rename_ SYSTEM_LINUX
+-rename_ SYSTEM_DOS
+-rename_ KEYDRV_PCDOS
+-rename_ TIMEDRV_FIXED_RATE
+-rename_ TIMEDRV_VARIABLE_RATE
+-rename_ MOUSEDRV_MICKEYS
+-rename_ MOUSEDRV_INT33
+-rename_ MOUSEDRV_POLLING
+-rename_ MOUSEDRV_WINNT
+-rename_ MOUSEDRV_WIN2K
+-rename_ GFX_VGA
+-rename_ GFX_MODEX
+-rename_ DIGI_SB10
+-rename_ DIGI_SB15
+-rename_ DIGI_SB20
+-rename_ DIGI_SBPRO
+-rename_ DIGI_SB16
+-rename_ DIGI_AUDIODRIVE
+-rename_ DIGI_SOUNDSCAPE
+-rename_ MIDI_OPL2
+-rename_ MIDI_2XOPL2
+-rename_ MIDI_OPL3
+-rename_ MIDI_SB_OUT
+-rename_ MIDI_AWE32
+-rename_ GFX_VBEAF
+-rename_ GFX_XTENDED
+-rename_ MOUSEDRV_LINUX_PS2
+-rename_ MOUSEDRV_LINUX_IPS2
+-rename_ MOUSEDRV_LINUX_GPMDATA
+-rename_ MOUSEDRV_LINUX_MS
+-rename_ MOUSEDRV_LINUX_IMS
+-rename_ MOUSEDRV_LINUX_EVDEV
 
 -iftarget dos
 	-noexpand int8_t

@@ -9,22 +9,22 @@
 
 -removeinclude gdkconfig.h
 
--renameproc gdk_drag_status gdk_drag_status_
--renameproc gdk_drag_motion gdk_drag_motion_
--renameproc gdk_property_delete gdk_property_delete_
--renameproc gdk_threads_enter gdk_threads_enter_
--renameproc gdk_threads_leave gdk_threads_leave_
--renameproc gtk_widget_has_focus gtk_widget_has_focus_
--renameproc gtk_widget_has_default gtk_widget_has_default_
--renameproc gtk_widget_has_grab gtk_widget_has_grab_
--renameproc gtk_widget_is_sensitive gtk_widget_is_sensitive_
--renameproc gtk_stock_add gtk_stock_add_
+-rename_ gdk_drag_status
+-rename_ gdk_drag_motion
+-rename_ gdk_property_delete
+-rename_ gdk_threads_enter
+-rename_ gdk_threads_leave
+-rename_ gtk_widget_has_focus
+-rename_ gtk_widget_has_default
+-rename_ gtk_widget_has_grab
+-rename_ gtk_widget_is_sensitive
+-rename_ gtk_stock_add
 
--rename gtk_major_version gtk_major_version_
--rename gtk_minor_version gtk_minor_version_
--rename gtk_micro_version gtk_micro_version_
--rename gtk_binary_age gtk_binary_age_
--rename gtk_interface_age gtk_interface_age_
+-rename_ gtk_major_version
+-rename_ gtk_minor_version
+-rename_ gtk_micro_version
+-rename_ gtk_binary_age
+-rename_ gtk_interface_age
 
 -addforwarddecl GdkAppLaunchContextPrivate
 -addforwarddecl _GtkTextLayout

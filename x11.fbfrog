@@ -162,353 +162,353 @@
 -renamedefine _SIZEOF _XSIZEOF
 -renamedefine SIZEOF XSIZEOF
 -renamedefine Data Data_
--rename new new_
--rename delete delete_
+-rename_ new
+-rename_ delete
 -renametypedef Select Select_
 
--renamedefine XK_KATAKANA XK_KATAKANA_
--renamedefine XK_CURRENCY XK_CURRENCY_
+-rename_ XK_KATAKANA
+-rename_ XK_CURRENCY
 
--renamedefine XK_dead_A XK_dead_A_
--renamedefine XK_dead_E XK_dead_E_
--renamedefine XK_dead_I XK_dead_I_
--renamedefine XK_dead_O XK_dead_O_
--renamedefine XK_dead_U XK_dead_U_
--renamedefine XK_Ch XK_Ch_
--renamedefine XK_CH XK_CH__
--renamedefine XK_C_h XK_C_h_
--renamedefine XK_C_H XK_C_H__
--renamedefine XK_a XK_a_
--renamedefine XK_b XK_b_
--renamedefine XK_c XK_c_
--renamedefine XK_d XK_d_
--renamedefine XK_e XK_e_
--renamedefine XK_f XK_f_
--renamedefine XK_g XK_g_
--renamedefine XK_h XK_h_
--renamedefine XK_i XK_i_
--renamedefine XK_j XK_j_
--renamedefine XK_k XK_k_
--renamedefine XK_l XK_l_
--renamedefine XK_m XK_m_
--renamedefine XK_n XK_n_
--renamedefine XK_o XK_o_
--renamedefine XK_p XK_p_
--renamedefine XK_q XK_q_
--renamedefine XK_r XK_r_
--renamedefine XK_s XK_s_
--renamedefine XK_t XK_t_
--renamedefine XK_u XK_u_
--renamedefine XK_v XK_v_
--renamedefine XK_w XK_w_
--renamedefine XK_x XK_x_
--renamedefine XK_y XK_y_
--renamedefine XK_z XK_z_
--renamedefine XK_agrave XK_agrave_
--renamedefine XK_aacute XK_aacute_
--renamedefine XK_acircumflex XK_acircumflex_
--renamedefine XK_atilde XK_atilde_
--renamedefine XK_adiaeresis XK_adiaeresis_
--renamedefine XK_aring XK_aring_
--renamedefine XK_ae XK_ae_
--renamedefine XK_ccedilla XK_ccedilla_
--renamedefine XK_egrave XK_egrave_
--renamedefine XK_eacute XK_eacute_
--renamedefine XK_ecircumflex XK_ecircumflex_
--renamedefine XK_ediaeresis XK_ediaeresis_
--renamedefine XK_igrave XK_igrave_
--renamedefine XK_iacute XK_iacute_
--renamedefine XK_icircumflex XK_icircumflex_
--renamedefine XK_idiaeresis XK_idiaeresis_
--renamedefine XK_eth XK_eth_
--renamedefine XK_ntilde XK_ntilde_
--renamedefine XK_ograve XK_ograve_
--renamedefine XK_oacute XK_oacute_
--renamedefine XK_ocircumflex XK_ocircumflex_
--renamedefine XK_otilde XK_otilde_
--renamedefine XK_odiaeresis XK_odiaeresis_
--renamedefine XK_oslash XK_oslash_
--renamedefine XK_ooblique XK_ooblique_
--renamedefine XK_ugrave XK_ugrave_
--renamedefine XK_uacute XK_uacute_
--renamedefine XK_ucircumflex XK_ucircumflex_
--renamedefine XK_udiaeresis XK_udiaeresis_
--renamedefine XK_yacute XK_yacute_
--renamedefine XK_thorn XK_thorn_
--renamedefine XK_aogonek XK_aogonek_
--renamedefine XK_lstroke XK_lstroke_
--renamedefine XK_lcaron XK_lcaron_
--renamedefine XK_sacute XK_sacute_
--renamedefine XK_scaron XK_scaron_
--renamedefine XK_scedilla XK_scedilla_
--renamedefine XK_tcaron XK_tcaron_
--renamedefine XK_zacute XK_zacute_
--renamedefine XK_zcaron XK_zcaron_
--renamedefine XK_zabovedot XK_zabovedot_
--renamedefine XK_racute XK_racute_
--renamedefine XK_abreve XK_abreve_
--renamedefine XK_lacute XK_lacute_
--renamedefine XK_cacute XK_cacute_
--renamedefine XK_ccaron XK_ccaron_
--renamedefine XK_eogonek XK_eogonek_
--renamedefine XK_ecaron XK_ecaron_
--renamedefine XK_dcaron XK_dcaron_
--renamedefine XK_dstroke XK_dstroke_
--renamedefine XK_nacute XK_nacute_
--renamedefine XK_ncaron XK_ncaron_
--renamedefine XK_odoubleacute XK_odoubleacute_
--renamedefine XK_rcaron XK_rcaron_
--renamedefine XK_uring XK_uring_
--renamedefine XK_udoubleacute XK_udoubleacute_
--renamedefine XK_tcedilla XK_tcedilla_
--renamedefine XK_hstroke XK_hstroke_
--renamedefine XK_hcircumflex XK_hcircumflex_
--renamedefine XK_gbreve XK_gbreve_
--renamedefine XK_jcircumflex XK_jcircumflex_
--renamedefine XK_cabovedot XK_cabovedot_
--renamedefine XK_ccircumflex XK_ccircumflex_
--renamedefine XK_gabovedot XK_gabovedot_
--renamedefine XK_gcircumflex XK_gcircumflex_
--renamedefine XK_ubreve XK_ubreve_
--renamedefine XK_scircumflex XK_scircumflex_
--renamedefine XK_rcedilla XK_rcedilla_
--renamedefine XK_itilde XK_itilde_
--renamedefine XK_lcedilla XK_lcedilla_
--renamedefine XK_emacron XK_emacron_
--renamedefine XK_gcedilla XK_gcedilla_
--renamedefine XK_tslash XK_tslash_
--renamedefine XK_eng XK_eng_
--renamedefine XK_amacron XK_amacron_
--renamedefine XK_iogonek XK_iogonek_
--renamedefine XK_eabovedot XK_eabovedot_
--renamedefine XK_imacron XK_imacron_
--renamedefine XK_ncedilla XK_ncedilla_
--renamedefine XK_omacron XK_omacron_
--renamedefine XK_kcedilla XK_kcedilla_
--renamedefine XK_uogonek XK_uogonek_
--renamedefine XK_utilde XK_utilde_
--renamedefine XK_umacron XK_umacron_
--renamedefine XK_wcircumflex XK_wcircumflex_
--renamedefine XK_ycircumflex XK_ycircumflex_
--renamedefine XK_babovedot XK_babovedot_
--renamedefine XK_dabovedot XK_dabovedot_
--renamedefine XK_fabovedot XK_fabovedot_
--renamedefine XK_mabovedot XK_mabovedot_
--renamedefine XK_pabovedot XK_pabovedot_
--renamedefine XK_sabovedot XK_sabovedot_
--renamedefine XK_tabovedot XK_tabovedot_
--renamedefine XK_wgrave XK_wgrave_
--renamedefine XK_wacute XK_wacute_
--renamedefine XK_wdiaeresis XK_wdiaeresis_
--renamedefine XK_ygrave XK_ygrave_
--renamedefine XK_oe XK_oe_
--renamedefine XK_Ydiaeresis XK_Ydiaeresis_
--renamedefine XK_kana_a XK_kana_a_
--renamedefine XK_kana_i XK_kana_i_
--renamedefine XK_kana_u XK_kana_u_
--renamedefine XK_kana_e XK_kana_e_
--renamedefine XK_kana_o XK_kana_o_
--renamedefine XK_kana_ya XK_kana_ya_
--renamedefine XK_kana_yu XK_kana_yu_
--renamedefine XK_kana_yo XK_kana_yo_
--renamedefine XK_kana_tsu XK_kana_tsu_
--renamedefine XK_kana_tu XK_kana_tu_
--renamedefine XK_Cyrillic_ghe_bar XK_Cyrillic_ghe_bar_
--renamedefine XK_Cyrillic_zhe_descender XK_Cyrillic_zhe_descender_
--renamedefine XK_Cyrillic_ka_descender XK_Cyrillic_ka_descender_
--renamedefine XK_Cyrillic_ka_vertstroke XK_Cyrillic_ka_vertstroke_
--renamedefine XK_Cyrillic_en_descender XK_Cyrillic_en_descender_
--renamedefine XK_Cyrillic_u_straight XK_Cyrillic_u_straight_
--renamedefine XK_Cyrillic_u_straight_bar XK_Cyrillic_u_straight_bar_
--renamedefine XK_Cyrillic_ha_descender XK_Cyrillic_ha_descender_
--renamedefine XK_Cyrillic_che_descender XK_Cyrillic_che_descender_
--renamedefine XK_Cyrillic_che_vertstroke XK_Cyrillic_che_vertstroke_
--renamedefine XK_Cyrillic_shha XK_Cyrillic_shha_
--renamedefine XK_Cyrillic_schwa XK_Cyrillic_schwa_
--renamedefine XK_Cyrillic_i_macron XK_Cyrillic_i_macron_
--renamedefine XK_Cyrillic_o_bar XK_Cyrillic_o_bar_
--renamedefine XK_Cyrillic_u_macron XK_Cyrillic_u_macron_
--renamedefine XK_Serbian_dje XK_Serbian_dje_
--renamedefine XK_Macedonia_gje XK_Macedonia_gje_
--renamedefine XK_Cyrillic_io XK_Cyrillic_io_
--renamedefine XK_Ukrainian_ie XK_Ukrainian_ie_
--renamedefine XK_Ukranian_je XK_Ukranian_je_
--renamedefine XK_Macedonia_dse XK_Macedonia_dse_
--renamedefine XK_Ukrainian_i XK_Ukrainian_i_
--renamedefine XK_Ukranian_i XK_Ukranian_i_
--renamedefine XK_Ukrainian_yi XK_Ukrainian_yi_
--renamedefine XK_Ukranian_yi XK_Ukranian_yi_
--renamedefine XK_Cyrillic_je XK_Cyrillic_je_
--renamedefine XK_Serbian_je XK_Serbian_je_
--renamedefine XK_Cyrillic_lje XK_Cyrillic_lje_
--renamedefine XK_Serbian_lje XK_Serbian_lje_
--renamedefine XK_Cyrillic_nje XK_Cyrillic_nje_
--renamedefine XK_Serbian_nje XK_Serbian_nje_
--renamedefine XK_Serbian_tshe XK_Serbian_tshe_
--renamedefine XK_Macedonia_kje XK_Macedonia_kje_
--renamedefine XK_Ukrainian_ghe_with_upturn XK_Ukrainian_ghe_with_upturn_
--renamedefine XK_Byelorussian_shortu XK_Byelorussian_shortu_
--renamedefine XK_Cyrillic_dzhe XK_Cyrillic_dzhe_
--renamedefine XK_Serbian_dze XK_Serbian_dze_
--renamedefine XK_Cyrillic_yu XK_Cyrillic_yu_
--renamedefine XK_Cyrillic_a XK_Cyrillic_a_
--renamedefine XK_Cyrillic_be XK_Cyrillic_be_
--renamedefine XK_Cyrillic_tse XK_Cyrillic_tse_
--renamedefine XK_Cyrillic_de XK_Cyrillic_de_
--renamedefine XK_Cyrillic_ie XK_Cyrillic_ie_
--renamedefine XK_Cyrillic_ef XK_Cyrillic_ef_
--renamedefine XK_Cyrillic_ghe XK_Cyrillic_ghe_
--renamedefine XK_Cyrillic_ha XK_Cyrillic_ha_
--renamedefine XK_Cyrillic_i XK_Cyrillic_i_
--renamedefine XK_Cyrillic_shorti XK_Cyrillic_shorti_
--renamedefine XK_Cyrillic_ka XK_Cyrillic_ka_
--renamedefine XK_Cyrillic_el XK_Cyrillic_el_
--renamedefine XK_Cyrillic_em XK_Cyrillic_em_
--renamedefine XK_Cyrillic_en XK_Cyrillic_en_
--renamedefine XK_Cyrillic_o XK_Cyrillic_o_
--renamedefine XK_Cyrillic_pe XK_Cyrillic_pe_
--renamedefine XK_Cyrillic_ya XK_Cyrillic_ya_
--renamedefine XK_Cyrillic_er XK_Cyrillic_er_
--renamedefine XK_Cyrillic_es XK_Cyrillic_es_
--renamedefine XK_Cyrillic_te XK_Cyrillic_te_
--renamedefine XK_Cyrillic_u XK_Cyrillic_u_
--renamedefine XK_Cyrillic_zhe XK_Cyrillic_zhe_
--renamedefine XK_Cyrillic_ve XK_Cyrillic_ve_
--renamedefine XK_Cyrillic_softsign XK_Cyrillic_softsign_
--renamedefine XK_Cyrillic_yeru XK_Cyrillic_yeru_
--renamedefine XK_Cyrillic_ze XK_Cyrillic_ze_
--renamedefine XK_Cyrillic_sha XK_Cyrillic_sha_
--renamedefine XK_Cyrillic_e XK_Cyrillic_e_
--renamedefine XK_Cyrillic_shcha XK_Cyrillic_shcha_
--renamedefine XK_Cyrillic_che XK_Cyrillic_che_
--renamedefine XK_Cyrillic_hardsign XK_Cyrillic_hardsign_
--renamedefine XK_Greek_alphaaccent XK_Greek_alphaaccent_
--renamedefine XK_Greek_epsilonaccent XK_Greek_epsilonaccent_
--renamedefine XK_Greek_etaaccent XK_Greek_etaaccent_
--renamedefine XK_Greek_iotaaccent XK_Greek_iotaaccent_
--renamedefine XK_Greek_iotadieresis XK_Greek_iotadieresis_
--renamedefine XK_Greek_omicronaccent XK_Greek_omicronaccent_
--renamedefine XK_Greek_upsilonaccent XK_Greek_upsilonaccent_
--renamedefine XK_Greek_upsilondieresis XK_Greek_upsilondieresis_
--renamedefine XK_Greek_omegaaccent XK_Greek_omegaaccent_
--renamedefine XK_Greek_alpha XK_Greek_alpha_
--renamedefine XK_Greek_beta XK_Greek_beta_
--renamedefine XK_Greek_gamma XK_Greek_gamma_
--renamedefine XK_Greek_delta XK_Greek_delta_
--renamedefine XK_Greek_epsilon XK_Greek_epsilon_
--renamedefine XK_Greek_zeta XK_Greek_zeta_
--renamedefine XK_Greek_eta XK_Greek_eta_
--renamedefine XK_Greek_theta XK_Greek_theta_
--renamedefine XK_Greek_iota XK_Greek_iota_
--renamedefine XK_Greek_kappa XK_Greek_kappa_
--renamedefine XK_Greek_lamda XK_Greek_lamda_
--renamedefine XK_Greek_lambda XK_Greek_lambda_
--renamedefine XK_Greek_mu XK_Greek_mu_
--renamedefine XK_Greek_nu XK_Greek_nu_
--renamedefine XK_Greek_xi XK_Greek_xi_
--renamedefine XK_Greek_omicron XK_Greek_omicron_
--renamedefine XK_Greek_pi XK_Greek_pi_
--renamedefine XK_Greek_rho XK_Greek_rho_
--renamedefine XK_Greek_sigma XK_Greek_sigma_
--renamedefine XK_Greek_tau XK_Greek_tau_
--renamedefine XK_Greek_upsilon XK_Greek_upsilon_
--renamedefine XK_Greek_phi XK_Greek_phi_
--renamedefine XK_Greek_chi XK_Greek_chi_
--renamedefine XK_Greek_psi XK_Greek_psi_
--renamedefine XK_Greek_omega XK_Greek_omega_
--renamedefine XK_Armenian_ayb XK_Armenian_ayb_
--renamedefine XK_Armenian_ben XK_Armenian_ben_
--renamedefine XK_Armenian_gim XK_Armenian_gim_
--renamedefine XK_Armenian_da XK_Armenian_da_
--renamedefine XK_Armenian_yech XK_Armenian_yech_
--renamedefine XK_Armenian_za XK_Armenian_za_
--renamedefine XK_Armenian_e XK_Armenian_e_
--renamedefine XK_Armenian_at XK_Armenian_at_
--renamedefine XK_Armenian_to XK_Armenian_to_
--renamedefine XK_Armenian_zhe XK_Armenian_zhe_
--renamedefine XK_Armenian_ini XK_Armenian_ini_
--renamedefine XK_Armenian_lyun XK_Armenian_lyun_
--renamedefine XK_Armenian_khe XK_Armenian_khe_
--renamedefine XK_Armenian_tsa XK_Armenian_tsa_
--renamedefine XK_Armenian_ken XK_Armenian_ken_
--renamedefine XK_Armenian_ho XK_Armenian_ho_
--renamedefine XK_Armenian_dza XK_Armenian_dza_
--renamedefine XK_Armenian_ghat XK_Armenian_ghat_
--renamedefine XK_Armenian_tche XK_Armenian_tche_
--renamedefine XK_Armenian_men XK_Armenian_men_
--renamedefine XK_Armenian_hi XK_Armenian_hi_
--renamedefine XK_Armenian_nu XK_Armenian_nu_
--renamedefine XK_Armenian_sha XK_Armenian_sha_
--renamedefine XK_Armenian_vo XK_Armenian_vo_
--renamedefine XK_Armenian_cha XK_Armenian_cha_
--renamedefine XK_Armenian_pe XK_Armenian_pe_
--renamedefine XK_Armenian_je XK_Armenian_je_
--renamedefine XK_Armenian_ra XK_Armenian_ra_
--renamedefine XK_Armenian_se XK_Armenian_se_
--renamedefine XK_Armenian_vev XK_Armenian_vev_
--renamedefine XK_Armenian_tyun XK_Armenian_tyun_
--renamedefine XK_Armenian_re XK_Armenian_re_
--renamedefine XK_Armenian_tso XK_Armenian_tso_
--renamedefine XK_Armenian_vyun XK_Armenian_vyun_
--renamedefine XK_Armenian_pyur XK_Armenian_pyur_
--renamedefine XK_Armenian_ke XK_Armenian_ke_
--renamedefine XK_Armenian_o XK_Armenian_o_
--renamedefine XK_Armenian_fe XK_Armenian_fe_
--renamedefine XK_xabovedot XK_xabovedot_
--renamedefine XK_ibreve XK_ibreve_
--renamedefine XK_zstroke XK_zstroke_
--renamedefine XK_gcaron XK_gcaron_
--renamedefine XK_ocaron XK_ocaron_
--renamedefine XK_obarred XK_obarred_
--renamedefine XK_schwa XK_schwa_
--renamedefine XK_ezh XK_ezh_
--renamedefine XK_lbelowdot XK_lbelowdot_
--renamedefine XK_abelowdot XK_abelowdot_
--renamedefine XK_ahook XK_ahook_
--renamedefine XK_acircumflexacute XK_acircumflexacute_
--renamedefine XK_acircumflexgrave XK_acircumflexgrave_
--renamedefine XK_acircumflexhook XK_acircumflexhook_
--renamedefine XK_acircumflextilde XK_acircumflextilde_
--renamedefine XK_acircumflexbelowdot XK_acircumflexbelowdot_
--renamedefine XK_abreveacute XK_abreveacute_
--renamedefine XK_abrevegrave XK_abrevegrave_
--renamedefine XK_abrevehook XK_abrevehook_
--renamedefine XK_abrevetilde XK_abrevetilde_
--renamedefine XK_abrevebelowdot XK_abrevebelowdot_
--renamedefine XK_ebelowdot XK_ebelowdot_
--renamedefine XK_ehook XK_ehook_
--renamedefine XK_etilde XK_etilde_
--renamedefine XK_ecircumflexacute XK_ecircumflexacute_
--renamedefine XK_ecircumflexgrave XK_ecircumflexgrave_
--renamedefine XK_ecircumflexhook XK_ecircumflexhook_
--renamedefine XK_ecircumflextilde XK_ecircumflextilde_
--renamedefine XK_ecircumflexbelowdot XK_ecircumflexbelowdot_
--renamedefine XK_ihook XK_ihook_
--renamedefine XK_ibelowdot XK_ibelowdot_
--renamedefine XK_obelowdot XK_obelowdot_
--renamedefine XK_ohook XK_ohook_
--renamedefine XK_ocircumflexacute XK_ocircumflexacute_
--renamedefine XK_ocircumflexgrave XK_ocircumflexgrave_
--renamedefine XK_ocircumflexhook XK_ocircumflexhook_
--renamedefine XK_ocircumflextilde XK_ocircumflextilde_
--renamedefine XK_ocircumflexbelowdot XK_ocircumflexbelowdot_
--renamedefine XK_ohornacute XK_ohornacute_
--renamedefine XK_ohorngrave XK_ohorngrave_
--renamedefine XK_ohornhook XK_ohornhook_
--renamedefine XK_ohorntilde XK_ohorntilde_
--renamedefine XK_ohornbelowdot XK_ohornbelowdot_
--renamedefine XK_ubelowdot XK_ubelowdot_
--renamedefine XK_uhook XK_uhook_
--renamedefine XK_uhornacute XK_uhornacute_
--renamedefine XK_uhorngrave XK_uhorngrave_
--renamedefine XK_uhornhook XK_uhornhook_
--renamedefine XK_uhorntilde XK_uhorntilde_
--renamedefine XK_uhornbelowdot XK_uhornbelowdot_
--renamedefine XK_ybelowdot XK_ybelowdot_
--renamedefine XK_yhook XK_yhook_
--renamedefine XK_ytilde XK_ytilde_
--renamedefine XK_ohorn XK_ohorn_
--renamedefine XK_uhorn XK_uhorn_
+-rename_ XK_dead_A
+-rename_ XK_dead_E
+-rename_ XK_dead_I
+-rename_ XK_dead_O
+-rename_ XK_dead_U
+-rename_ XK_Ch
+-rename XK_CH XK_CH__
+-rename_ XK_C_h
+-rename XK_C_H XK_C_H__
+-rename_ XK_a
+-rename_ XK_b
+-rename_ XK_c
+-rename_ XK_d
+-rename_ XK_e
+-rename_ XK_f
+-rename_ XK_g
+-rename_ XK_h
+-rename_ XK_i
+-rename_ XK_j
+-rename_ XK_k
+-rename_ XK_l
+-rename_ XK_m
+-rename_ XK_n
+-rename_ XK_o
+-rename_ XK_p
+-rename_ XK_q
+-rename_ XK_r
+-rename_ XK_s
+-rename_ XK_t
+-rename_ XK_u
+-rename_ XK_v
+-rename_ XK_w
+-rename_ XK_x
+-rename_ XK_y
+-rename_ XK_z
+-rename_ XK_agrave
+-rename_ XK_aacute
+-rename_ XK_acircumflex
+-rename_ XK_atilde
+-rename_ XK_adiaeresis
+-rename_ XK_aring
+-rename_ XK_ae
+-rename_ XK_ccedilla
+-rename_ XK_egrave
+-rename_ XK_eacute
+-rename_ XK_ecircumflex
+-rename_ XK_ediaeresis
+-rename_ XK_igrave
+-rename_ XK_iacute
+-rename_ XK_icircumflex
+-rename_ XK_idiaeresis
+-rename_ XK_eth
+-rename_ XK_ntilde
+-rename_ XK_ograve
+-rename_ XK_oacute
+-rename_ XK_ocircumflex
+-rename_ XK_otilde
+-rename_ XK_odiaeresis
+-rename_ XK_oslash
+-rename_ XK_ooblique
+-rename_ XK_ugrave
+-rename_ XK_uacute
+-rename_ XK_ucircumflex
+-rename_ XK_udiaeresis
+-rename_ XK_yacute
+-rename_ XK_thorn
+-rename_ XK_aogonek
+-rename_ XK_lstroke
+-rename_ XK_lcaron
+-rename_ XK_sacute
+-rename_ XK_scaron
+-rename_ XK_scedilla
+-rename_ XK_tcaron
+-rename_ XK_zacute
+-rename_ XK_zcaron
+-rename_ XK_zabovedot
+-rename_ XK_racute
+-rename_ XK_abreve
+-rename_ XK_lacute
+-rename_ XK_cacute
+-rename_ XK_ccaron
+-rename_ XK_eogonek
+-rename_ XK_ecaron
+-rename_ XK_dcaron
+-rename_ XK_dstroke
+-rename_ XK_nacute
+-rename_ XK_ncaron
+-rename_ XK_odoubleacute
+-rename_ XK_rcaron
+-rename_ XK_uring
+-rename_ XK_udoubleacute
+-rename_ XK_tcedilla
+-rename_ XK_hstroke
+-rename_ XK_hcircumflex
+-rename_ XK_gbreve
+-rename_ XK_jcircumflex
+-rename_ XK_cabovedot
+-rename_ XK_ccircumflex
+-rename_ XK_gabovedot
+-rename_ XK_gcircumflex
+-rename_ XK_ubreve
+-rename_ XK_scircumflex
+-rename_ XK_rcedilla
+-rename_ XK_itilde
+-rename_ XK_lcedilla
+-rename_ XK_emacron
+-rename_ XK_gcedilla
+-rename_ XK_tslash
+-rename_ XK_eng
+-rename_ XK_amacron
+-rename_ XK_iogonek
+-rename_ XK_eabovedot
+-rename_ XK_imacron
+-rename_ XK_ncedilla
+-rename_ XK_omacron
+-rename_ XK_kcedilla
+-rename_ XK_uogonek
+-rename_ XK_utilde
+-rename_ XK_umacron
+-rename_ XK_wcircumflex
+-rename_ XK_ycircumflex
+-rename_ XK_babovedot
+-rename_ XK_dabovedot
+-rename_ XK_fabovedot
+-rename_ XK_mabovedot
+-rename_ XK_pabovedot
+-rename_ XK_sabovedot
+-rename_ XK_tabovedot
+-rename_ XK_wgrave
+-rename_ XK_wacute
+-rename_ XK_wdiaeresis
+-rename_ XK_ygrave
+-rename_ XK_oe
+-rename_ XK_Ydiaeresis
+-rename_ XK_kana_a
+-rename_ XK_kana_i
+-rename_ XK_kana_u
+-rename_ XK_kana_e
+-rename_ XK_kana_o
+-rename_ XK_kana_ya
+-rename_ XK_kana_yu
+-rename_ XK_kana_yo
+-rename_ XK_kana_tsu
+-rename_ XK_kana_tu
+-rename_ XK_Cyrillic_ghe_bar
+-rename_ XK_Cyrillic_zhe_descender
+-rename_ XK_Cyrillic_ka_descender
+-rename_ XK_Cyrillic_ka_vertstroke
+-rename_ XK_Cyrillic_en_descender
+-rename_ XK_Cyrillic_u_straight
+-rename_ XK_Cyrillic_u_straight_bar
+-rename_ XK_Cyrillic_ha_descender
+-rename_ XK_Cyrillic_che_descender
+-rename_ XK_Cyrillic_che_vertstroke
+-rename_ XK_Cyrillic_shha
+-rename_ XK_Cyrillic_schwa
+-rename_ XK_Cyrillic_i_macron
+-rename_ XK_Cyrillic_o_bar
+-rename_ XK_Cyrillic_u_macron
+-rename_ XK_Serbian_dje
+-rename_ XK_Macedonia_gje
+-rename_ XK_Cyrillic_io
+-rename_ XK_Ukrainian_ie
+-rename_ XK_Ukranian_je
+-rename_ XK_Macedonia_dse
+-rename_ XK_Ukrainian_i
+-rename_ XK_Ukranian_i
+-rename_ XK_Ukrainian_yi
+-rename_ XK_Ukranian_yi
+-rename_ XK_Cyrillic_je
+-rename_ XK_Serbian_je
+-rename_ XK_Cyrillic_lje
+-rename_ XK_Serbian_lje
+-rename_ XK_Cyrillic_nje
+-rename_ XK_Serbian_nje
+-rename_ XK_Serbian_tshe
+-rename_ XK_Macedonia_kje
+-rename_ XK_Ukrainian_ghe_with_upturn
+-rename_ XK_Byelorussian_shortu
+-rename_ XK_Cyrillic_dzhe
+-rename_ XK_Serbian_dze
+-rename_ XK_Cyrillic_yu
+-rename_ XK_Cyrillic_a
+-rename_ XK_Cyrillic_be
+-rename_ XK_Cyrillic_tse
+-rename_ XK_Cyrillic_de
+-rename_ XK_Cyrillic_ie
+-rename_ XK_Cyrillic_ef
+-rename_ XK_Cyrillic_ghe
+-rename_ XK_Cyrillic_ha
+-rename_ XK_Cyrillic_i
+-rename_ XK_Cyrillic_shorti
+-rename_ XK_Cyrillic_ka
+-rename_ XK_Cyrillic_el
+-rename_ XK_Cyrillic_em
+-rename_ XK_Cyrillic_en
+-rename_ XK_Cyrillic_o
+-rename_ XK_Cyrillic_pe
+-rename_ XK_Cyrillic_ya
+-rename_ XK_Cyrillic_er
+-rename_ XK_Cyrillic_es
+-rename_ XK_Cyrillic_te
+-rename_ XK_Cyrillic_u
+-rename_ XK_Cyrillic_zhe
+-rename_ XK_Cyrillic_ve
+-rename_ XK_Cyrillic_softsign
+-rename_ XK_Cyrillic_yeru
+-rename_ XK_Cyrillic_ze
+-rename_ XK_Cyrillic_sha
+-rename_ XK_Cyrillic_e
+-rename_ XK_Cyrillic_shcha
+-rename_ XK_Cyrillic_che
+-rename_ XK_Cyrillic_hardsign
+-rename_ XK_Greek_alphaaccent
+-rename_ XK_Greek_epsilonaccent
+-rename_ XK_Greek_etaaccent
+-rename_ XK_Greek_iotaaccent
+-rename_ XK_Greek_iotadieresis
+-rename_ XK_Greek_omicronaccent
+-rename_ XK_Greek_upsilonaccent
+-rename_ XK_Greek_upsilondieresis
+-rename_ XK_Greek_omegaaccent
+-rename_ XK_Greek_alpha
+-rename_ XK_Greek_beta
+-rename_ XK_Greek_gamma
+-rename_ XK_Greek_delta
+-rename_ XK_Greek_epsilon
+-rename_ XK_Greek_zeta
+-rename_ XK_Greek_eta
+-rename_ XK_Greek_theta
+-rename_ XK_Greek_iota
+-rename_ XK_Greek_kappa
+-rename_ XK_Greek_lamda
+-rename_ XK_Greek_lambda
+-rename_ XK_Greek_mu
+-rename_ XK_Greek_nu
+-rename_ XK_Greek_xi
+-rename_ XK_Greek_omicron
+-rename_ XK_Greek_pi
+-rename_ XK_Greek_rho
+-rename_ XK_Greek_sigma
+-rename_ XK_Greek_tau
+-rename_ XK_Greek_upsilon
+-rename_ XK_Greek_phi
+-rename_ XK_Greek_chi
+-rename_ XK_Greek_psi
+-rename_ XK_Greek_omega
+-rename_ XK_Armenian_ayb
+-rename_ XK_Armenian_ben
+-rename_ XK_Armenian_gim
+-rename_ XK_Armenian_da
+-rename_ XK_Armenian_yech
+-rename_ XK_Armenian_za
+-rename_ XK_Armenian_e
+-rename_ XK_Armenian_at
+-rename_ XK_Armenian_to
+-rename_ XK_Armenian_zhe
+-rename_ XK_Armenian_ini
+-rename_ XK_Armenian_lyun
+-rename_ XK_Armenian_khe
+-rename_ XK_Armenian_tsa
+-rename_ XK_Armenian_ken
+-rename_ XK_Armenian_ho
+-rename_ XK_Armenian_dza
+-rename_ XK_Armenian_ghat
+-rename_ XK_Armenian_tche
+-rename_ XK_Armenian_men
+-rename_ XK_Armenian_hi
+-rename_ XK_Armenian_nu
+-rename_ XK_Armenian_sha
+-rename_ XK_Armenian_vo
+-rename_ XK_Armenian_cha
+-rename_ XK_Armenian_pe
+-rename_ XK_Armenian_je
+-rename_ XK_Armenian_ra
+-rename_ XK_Armenian_se
+-rename_ XK_Armenian_vev
+-rename_ XK_Armenian_tyun
+-rename_ XK_Armenian_re
+-rename_ XK_Armenian_tso
+-rename_ XK_Armenian_vyun
+-rename_ XK_Armenian_pyur
+-rename_ XK_Armenian_ke
+-rename_ XK_Armenian_o
+-rename_ XK_Armenian_fe
+-rename_ XK_xabovedot
+-rename_ XK_ibreve
+-rename_ XK_zstroke
+-rename_ XK_gcaron
+-rename_ XK_ocaron
+-rename_ XK_obarred
+-rename_ XK_schwa
+-rename_ XK_ezh
+-rename_ XK_lbelowdot
+-rename_ XK_abelowdot
+-rename_ XK_ahook
+-rename_ XK_acircumflexacute
+-rename_ XK_acircumflexgrave
+-rename_ XK_acircumflexhook
+-rename_ XK_acircumflextilde
+-rename_ XK_acircumflexbelowdot
+-rename_ XK_abreveacute
+-rename_ XK_abrevegrave
+-rename_ XK_abrevehook
+-rename_ XK_abrevetilde
+-rename_ XK_abrevebelowdot
+-rename_ XK_ebelowdot
+-rename_ XK_ehook
+-rename_ XK_etilde
+-rename_ XK_ecircumflexacute
+-rename_ XK_ecircumflexgrave
+-rename_ XK_ecircumflexhook
+-rename_ XK_ecircumflextilde
+-rename_ XK_ecircumflexbelowdot
+-rename_ XK_ihook
+-rename_ XK_ibelowdot
+-rename_ XK_obelowdot
+-rename_ XK_ohook
+-rename_ XK_ocircumflexacute
+-rename_ XK_ocircumflexgrave
+-rename_ XK_ocircumflexhook
+-rename_ XK_ocircumflextilde
+-rename_ XK_ocircumflexbelowdot
+-rename_ XK_ohornacute
+-rename_ XK_ohorngrave
+-rename_ XK_ohornhook
+-rename_ XK_ohorntilde
+-rename_ XK_ohornbelowdot
+-rename_ XK_ubelowdot
+-rename_ XK_uhook
+-rename_ XK_uhornacute
+-rename_ XK_uhorngrave
+-rename_ XK_uhornhook
+-rename_ XK_uhorntilde
+-rename_ XK_uhornbelowdot
+-rename_ XK_ybelowdot
+-rename_ XK_yhook
+-rename_ XK_ytilde
+-rename_ XK_ohorn
+-rename_ XK_uhorn
 
 # case-aliases
 -removedefine XK_ETH    # = XK_Eth

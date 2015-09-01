@@ -294,16 +294,16 @@
 # already defined by crt/math.bi
 -removedefine M_PI
 
--rename mod mod_
--rename unicode unicode_
+-rename_ mod
+-rename_ unicode
 
--rename SDL_UNSUPPORTED SDL_UNSUPPORTED_
--rename SDL_EventMask SDL_EventMask_
--rename SDL_QUIT SDL_QUIT_
+-rename_ SDL_UNSUPPORTED
+-rename_ SDL_EventMask
+-rename_ SDL_QUIT
 
 -renamemacroparam f f_
 
--renamedefine SDL_VERSION SDL_VERSION_
+-rename_ SDL_VERSION
 
 -addforwarddecl SDL_mutex
 -addforwarddecl SDL_cond

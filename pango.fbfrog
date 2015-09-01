@@ -1,6 +1,6 @@
 -target nodos
 
 -renameproc pango_language_to_string pango_language_to_string_
--renameproc pango_version            pango_version_
--renameproc pango_version_string     pango_version_string_
--renameproc pango_version_check      pango_version_check_
+-rename_ pango_version
+-rename_ pango_version_string
+-rename_ pango_version_check

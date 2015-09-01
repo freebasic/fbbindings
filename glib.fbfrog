@@ -76,12 +76,12 @@
 -addforwarddecl GTestCase
 -addforwarddecl GTestSuite
 
--rename glib_major_version glib_major_version_
--rename glib_minor_version glib_minor_version_
--rename glib_micro_version glib_micro_version_
--rename glib_check_version glib_check_version_
--rename G_CSET_A_2_Z G_CSET_A_2_Z_
--rename G_QUEUE_INIT G_QUEUE_INIT_
+-rename_ glib_major_version
+-rename_ glib_minor_version
+-rename_ glib_micro_version
+-rename_ glib_check_version
+-rename_ G_CSET_A_2_Z
+-rename_ G_QUEUE_INIT
 -iftarget windows
 	-renameproc g_atexit g_atexit_
 -endif

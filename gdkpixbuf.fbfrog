@@ -8,4 +8,4 @@
 -endif
 
 -removedefine GDK_PIXBUF_VAR
--renamedefine GDK_PIXBUF_VERSION GDK_PIXBUF_VERSION_
+-rename_ GDK_PIXBUF_VERSION

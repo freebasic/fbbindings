@@ -7,10 +7,10 @@
 -inclib png
 -inclib z
 
--renamedefine PNG_LIBPNG_VER PNG_LIBPNG_VER_
--renamedefine PNG_READ_TEXT_SUPPORTED PNG_READ_TEXT_SUPPORTED_
--renamedefine PNG_TEXT_SUPPORTED PNG_TEXT_SUPPORTED_
--renamedefine PNG_WRITE_TEXT_SUPPORTED PNG_WRITE_TEXT_SUPPORTED_
+-rename_ PNG_LIBPNG_VER
+-rename_ PNG_READ_TEXT_SUPPORTED
+-rename_ PNG_TEXT_SUPPORTED
+-rename_ PNG_WRITE_TEXT_SUPPORTED
 -renameproc png_info_init png_info_init_
 
 -removedefine CVT_PTR

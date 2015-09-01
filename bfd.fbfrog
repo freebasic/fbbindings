@@ -69,9 +69,9 @@
 -removedefine LITMEMCPY
 -removedefine LITSTRCPY
 
--rename DYNAMIC DYNAMIC_
--rename ptr ptr_
--rename val val_
+-rename_ DYNAMIC
+-rename_ ptr
+-rename_ val
 -renametag bfd_section_already_linked bfd_section_already_linked_t
 -renametag bfd_print_symbol bfd_print_symbol_
 

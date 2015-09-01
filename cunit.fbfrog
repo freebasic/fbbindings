@@ -2,7 +2,7 @@
 -removedefine CU_BOOL
 -removedefine CU_UNREFERENCED_PARAMETER
 
--renamedefine CU_ADD_TEST CU_ADD_TEST_
--renamedefine CU_TEST CU_TEST_
+-rename_ CU_ADD_TEST
+-rename_ CU_TEST
 
 -dropmacrobodyscopes
