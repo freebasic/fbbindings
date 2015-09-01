@@ -3525,6 +3525,7 @@ declare function xcb_setup_end(byval i as xcb_setup_iterator_t) as xcb_generic_i
 declare sub xcb_client_message_data_next(byval i as xcb_client_message_data_iterator_t ptr)
 declare function xcb_client_message_data_end(byval i as xcb_client_message_data_iterator_t) as xcb_generic_iterator_t
 declare function xcb_create_window_sizeof(byval _buffer as const any ptr) as long
+type xcb_connection_t as xcb_connection_t_
 declare function xcb_create_window_checked(byval c as xcb_connection_t ptr, byval depth as ubyte, byval wid as xcb_window_t, byval parent as xcb_window_t, byval x as short, byval y as short, byval width as ushort, byval height as ushort, byval border_width as ushort, byval _class as ushort, byval visual as xcb_visualid_t, byval value_mask as ulong, byval value_list as const ulong ptr) as xcb_void_cookie_t
 declare function xcb_create_window(byval c as xcb_connection_t ptr, byval depth as ubyte, byval wid as xcb_window_t, byval parent as xcb_window_t, byval x as short, byval y as short, byval width as ushort, byval height as ushort, byval border_width as ushort, byval _class as ushort, byval visual as xcb_visualid_t, byval value_mask as ulong, byval value_list as const ulong ptr) as xcb_void_cookie_t
 declare function xcb_change_window_attributes_sizeof(byval _buffer as const any ptr) as long

@@ -1,0 +1,1 @@
+-addforwarddecl xcb_connection_t
