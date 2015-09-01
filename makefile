@@ -14,7 +14,7 @@ ALL += pango pdcurses png png12 png14 png15 png16
 ALL += sdl sdl1 sdl2
 ALL += tre
 ALL += winapi
-ALL += x11
+ALL += x11 xcb
 ALL += zip zlib
 
 EXEEXT := $(shell fbc -print x)
@@ -2567,11 +2567,168 @@ x11: tools
 
 	rm *.tmp
 
-# TODO
+XCB_PROTO := xcb-proto-1.11
+XCB_PTHREAD_STUBS := libpthread-stubs-0.3
+XCB := libxcb-1.11
+xcbinstall := $(PWD)/extracted/xcbinstall
 xcb: tools
-	./downloadextract.sh xcb-proto-1.8          xcb-proto-1.8.tar.bz2          "http://xcb.freedesktop.org/dist/xcb-proto-1.8.tar.bz2"
-	./downloadextract.sh libpthread-stubs-0.3 libpthread-stubs-0.3.tar.bz2 "http://xcb.freedesktop.org/dist/libpthread-stubs-0.3.tar.bz2"
-	./downloadextract.sh libxcb-1.9           libxcb-1.9.tar.bz2           "http://xcb.freedesktop.org/dist/libxcb-1.9.tar.bz2"
+	./get.sh $(XCB_PROTO)         $(XCB_PROTO).tar.bz2         "http://xcb.freedesktop.org/dist/$(XCB_PROTO).tar.bz2"
+	./get.sh $(XCB_PTHREAD_STUBS) $(XCB_PTHREAD_STUBS).tar.bz2 "http://xcb.freedesktop.org/dist/$(XCB_PTHREAD_STUBS).tar.bz2"
+	./get.sh $(XCB)               $(XCB).tar.bz2               "http://xcb.freedesktop.org/dist/$(XCB).tar.bz2"
+
+	# Build libxcb and its xcb-proto dependency, to produce libxcb's headers (most of them are auto-generated)
+	mkdir -p extracted/xcbinstall
+	if [ ! -f extracted/$(XCB_PROTO)/Makefile ]; then \
+		cd extracted/$(XCB_PROTO) && \
+		PKG_CONFIG_PATH=$(xcbinstall)/lib/pkgconfig ./configure --prefix=$(xcbinstall) && \
+		make && make install; \
+	fi
+	if [ ! -f extracted/$(XCB)/Makefile ]; then \
+		cd extracted/$(XCB) && \
+		PKG_CONFIG_PATH=$(xcbinstall)/lib/pkgconfig ./configure --prefix=$(xcbinstall) && \
+		make && make install; \
+	fi
+
+	sed -n 3,26p extracted/$(XCB_PROTO)/src/bigreq.xml      > bigreq.tmp
+	sed -n 3,25p extracted/$(XCB_PROTO)/src/composite.xml   > composite.tmp
+	sed -n 3,27p extracted/$(XCB_PROTO)/src/damage.xml      > damage.tmp
+	sed -n 3,26p extracted/$(XCB_PROTO)/src/dpms.xml        > dpms.tmp
+	sed -n 3,27p extracted/$(XCB_PROTO)/src/dri2.xml        > dri2.tmp
+	sed -n 4,22p extracted/$(XCB_PROTO)/src/dri3.xml        > dri3.tmp
+	sed -n 3,25p extracted/$(XCB_PROTO)/src/ge.xml          > ge.tmp
+	sed -n 3,26p extracted/$(XCB_PROTO)/src/glx.xml         > glx.tmp
+	sed -n 3,26p extracted/$(XCB_PROTO)/src/Makefile        > Makefile
+	sed -n 3,26p extracted/$(XCB_PROTO)/src/Makefile.am     > Makefile.am
+	sed -n 3,26p extracted/$(XCB_PROTO)/src/Makefile.in     > Makefile.in
+	sed -n 4,22p extracted/$(XCB_PROTO)/src/present.xml     > present.tmp
+	sed -n 3,26p extracted/$(XCB_PROTO)/src/randr.xml       > randr.tmp
+	sed -n 3,26p extracted/$(XCB_PROTO)/src/record.xml      > record.tmp
+	sed -n 3,26p extracted/$(XCB_PROTO)/src/res.xml         > res.tmp
+	sed -n 3,26p extracted/$(XCB_PROTO)/src/screensaver.xml > screensaver.tmp
+	sed -n 3,26p extracted/$(XCB_PROTO)/src/shape.xml       > shape.tmp
+	sed -n 3,26p extracted/$(XCB_PROTO)/src/shm.xml         > shm.tmp
+	sed -n 3,25p extracted/$(XCB_PROTO)/src/xevie.xml       > xevie.tmp
+	sed -n 3,26p extracted/$(XCB_PROTO)/src/xf86dri.xml     > xf86dri.tmp
+	sed -n 3,25p extracted/$(XCB_PROTO)/src/xf86vidmode.xml > xf86vidmode.tmp
+	sed -n 3,25p extracted/$(XCB_PROTO)/src/xfixes.xml      > xfixes.tmp
+	sed -n 3,26p extracted/$(XCB_PROTO)/src/xinerama.xml    > xinerama.tmp
+	sed -n 3,27p extracted/$(XCB_PROTO)/src/xinput.xml      > xinput.tmp
+	sed -n 3,25p extracted/$(XCB_PROTO)/src/xkb.xml         > xkb.tmp
+	sed -n 3,26p extracted/$(XCB_PROTO)/src/xprint.xml      > xprint.tmp
+	sed -n 3,26p extracted/$(XCB_PROTO)/src/xproto.xml      > xproto.tmp
+	sed -n 3,23p extracted/$(XCB_PROTO)/src/xselinux.xml    > xselinux.tmp
+	sed -n 3,26p extracted/$(XCB_PROTO)/src/xtest.xml       > xtest.tmp
+	sed -n 3,26p extracted/$(XCB_PROTO)/src/xvmc.xml        > xvmc.tmp
+	sed -n 3,26p extracted/$(XCB_PROTO)/src/xv.xml          > xv.tmp
+
+	sed -n 3,3p extracted/$(XCB_PROTO)/src/render.xml      > render.tmp
+	sed -n 3,3p extracted/$(XCB_PROTO)/src/sync.xml        > sync.tmp
+	sed -n 3,3p extracted/$(XCB_PROTO)/src/xc_misc.xml     > xc_misc.tmp
+	sed -n 2,30p extracted/$(XCB_PROTO)/COPYING           >> render.tmp
+	sed -n 2,30p extracted/$(XCB_PROTO)/COPYING           >> sync.tmp
+	sed -n 2,30p extracted/$(XCB_PROTO)/COPYING           >> xc_misc.tmp
+
+	$(GETCOMMENT) extracted/xcbinstall/include/xcb/xcb.h    > xcb.tmp
+	$(GETCOMMENT) extracted/xcbinstall/include/xcb/xcbext.h > xcbext.tmp
+
+	mkdir -p inc/xcb
+	$(FBFROG) -incdir extracted/xcbinstall/include/xcb \
+		-include xcb.h \
+		\
+		-include bigreq.h \
+		-include composite.h \
+		-include damage.h \
+		-include dpms.h \
+		-include dri2.h \
+		-include dri3.h \
+		-include glx.h \
+		-include present.h \
+		-include randr.h \
+		-include record.h \
+		-include render.h \
+		-include res.h \
+		-include screensaver.h \
+		-include shape.h \
+		-include shm.h \
+		-include sync.h \
+		-include xcbext.h \
+		-include xc_misc.h \
+		-include xevie.h \
+		-include xf86dri.h \
+		-include xfixes.h \
+		-include xinerama.h \
+		-include xinput.h \
+		-include xkb.h \
+		-include xprint.h \
+		-include xproto.h \
+		-include xselinux.h \
+		-include xtest.h \
+		-include xv.h \
+		-include xvmc.h \
+		\
+		-emit '*/bigreq.h'      inc/xcb/bigreq.bi \
+		-emit '*/composite.h'   inc/xcb/composite.bi \
+		-emit '*/damage.h'      inc/xcb/damage.bi \
+		-emit '*/dpms.h'        inc/xcb/dpms.bi \
+		-emit '*/dri2.h'        inc/xcb/dri2.bi \
+		-emit '*/dri3.h'        inc/xcb/dri3.bi \
+		-emit '*/glx.h'         inc/xcb/glx.bi \
+		-emit '*/present.h'     inc/xcb/present.bi \
+		-emit '*/randr.h'       inc/xcb/randr.bi \
+		-emit '*/record.h'      inc/xcb/record.bi \
+		-emit '*/render.h'      inc/xcb/render.bi \
+		-emit '*/res.h'         inc/xcb/res.bi \
+		-emit '*/screensaver.h' inc/xcb/screensaver.bi \
+		-emit '*/shape.h'       inc/xcb/shape.bi \
+		-emit '*/shm.h'         inc/xcb/shm.bi \
+		-emit '*/sync.h'        inc/xcb/sync.bi \
+		-emit '*/xcbext.h'      inc/xcb/xcbext.bi \
+		-emit '*/xcb.h'         inc/xcb/xcb.bi \
+		-emit '*/xc_misc.h'     inc/xcb/xc_misc.bi \
+		-emit '*/xevie.h'       inc/xcb/xevie.bi \
+		-emit '*/xf86dri.h'     inc/xcb/xf86dri.bi \
+		-emit '*/xfixes.h'      inc/xcb/xfixes.bi \
+		-emit '*/xinerama.h'    inc/xcb/xinerama.bi \
+		-emit '*/xinput.h'      inc/xcb/xinput.bi \
+		-emit '*/xkb.h'         inc/xcb/xkb.bi \
+		-emit '*/xprint.h'      inc/xcb/xprint.bi \
+		-emit '*/xproto.h'      inc/xcb/xproto.bi \
+		-emit '*/xselinux.h'    inc/xcb/xselinux.bi \
+		-emit '*/xtest.h'       inc/xcb/xtest.bi \
+		-emit '*/xv.h'          inc/xcb/xv.bi \
+		-emit '*/xvmc.h'        inc/xcb/xvmc.bi \
+		\
+		-title "$(XCB), $(XCB_PROTO)" bigreq.tmp      fbteam.txt inc/xcb/bigreq.bi \
+		-title "$(XCB), $(XCB_PROTO)" composite.tmp   fbteam.txt inc/xcb/composite.bi \
+		-title "$(XCB), $(XCB_PROTO)" damage.tmp      fbteam.txt inc/xcb/damage.bi \
+		-title "$(XCB), $(XCB_PROTO)" dpms.tmp        fbteam.txt inc/xcb/dpms.bi \
+		-title "$(XCB), $(XCB_PROTO)" dri2.tmp        fbteam.txt inc/xcb/dri2.bi \
+		-title "$(XCB), $(XCB_PROTO)" dri3.tmp        fbteam.txt inc/xcb/dri3.bi \
+		-title "$(XCB), $(XCB_PROTO)" glx.tmp         fbteam.txt inc/xcb/glx.bi \
+		-title "$(XCB), $(XCB_PROTO)" present.tmp     fbteam.txt inc/xcb/present.bi \
+		-title "$(XCB), $(XCB_PROTO)" randr.tmp       fbteam.txt inc/xcb/randr.bi \
+		-title "$(XCB), $(XCB_PROTO)" record.tmp      fbteam.txt inc/xcb/record.bi \
+		-title "$(XCB), $(XCB_PROTO)" render.tmp      fbteam.txt inc/xcb/render.bi \
+		-title "$(XCB), $(XCB_PROTO)" res.tmp         fbteam.txt inc/xcb/res.bi \
+		-title "$(XCB), $(XCB_PROTO)" screensaver.tmp fbteam.txt inc/xcb/screensaver.bi \
+		-title "$(XCB), $(XCB_PROTO)" shape.tmp       fbteam.txt inc/xcb/shape.bi \
+		-title "$(XCB), $(XCB_PROTO)" shm.tmp         fbteam.txt inc/xcb/shm.bi \
+		-title "$(XCB), $(XCB_PROTO)" sync.tmp        fbteam.txt inc/xcb/sync.bi \
+		-title "$(XCB), $(XCB_PROTO)" xcbext.tmp      fbteam.txt inc/xcb/xcbext.bi \
+		-title "$(XCB), $(XCB_PROTO)" xcb.tmp         fbteam.txt inc/xcb/xcb.bi \
+		-title "$(XCB), $(XCB_PROTO)" xc_misc.tmp     fbteam.txt inc/xcb/xc_misc.bi \
+		-title "$(XCB), $(XCB_PROTO)" xevie.tmp       fbteam.txt inc/xcb/xevie.bi \
+		-title "$(XCB), $(XCB_PROTO)" xf86dri.tmp     fbteam.txt inc/xcb/xf86dri.bi \
+		-title "$(XCB), $(XCB_PROTO)" xfixes.tmp      fbteam.txt inc/xcb/xfixes.bi \
+		-title "$(XCB), $(XCB_PROTO)" xinerama.tmp    fbteam.txt inc/xcb/xinerama.bi \
+		-title "$(XCB), $(XCB_PROTO)" xinput.tmp      fbteam.txt inc/xcb/xinput.bi \
+		-title "$(XCB), $(XCB_PROTO)" xkb.tmp         fbteam.txt inc/xcb/xkb.bi \
+		-title "$(XCB), $(XCB_PROTO)" xprint.tmp      fbteam.txt inc/xcb/xprint.bi \
+		-title "$(XCB), $(XCB_PROTO)" xproto.tmp      fbteam.txt inc/xcb/xproto.bi \
+		-title "$(XCB), $(XCB_PROTO)" xselinux.tmp    fbteam.txt inc/xcb/xselinux.bi \
+		-title "$(XCB), $(XCB_PROTO)" xtest.tmp       fbteam.txt inc/xcb/xtest.bi \
+		-title "$(XCB), $(XCB_PROTO)" xv.tmp          fbteam.txt inc/xcb/xv.bi \
+		-title "$(XCB), $(XCB_PROTO)" xvmc.tmp        fbteam.txt inc/xcb/xvmc.bi
 
 ZIP_TITLE := libzip-1.0.1
 zip: tools
