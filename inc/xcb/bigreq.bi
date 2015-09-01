@@ -33,6 +33,9 @@
 
 #include once "xcb.bi"
 
+'' The following symbols have been renamed:
+''     constant XCB_BIG_REQUESTS_ENABLE => XCB_BIG_REQUESTS_ENABLE_
+
 extern "C"
 
 #define __BIGREQ_H
@@ -44,7 +47,7 @@ type xcb_big_requests_enable_cookie_t
 	sequence as ulong
 end type
 
-const XCB_BIG_REQUESTS_ENABLE = 0
+const XCB_BIG_REQUESTS_ENABLE_ = 0
 
 type xcb_big_requests_enable_request_t
 	major_opcode as ubyte
