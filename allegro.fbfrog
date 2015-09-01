@@ -117,7 +117,7 @@
 #-removedefine ALLEGRO_XWINDOWS_WITH_XINERAMA
 #-removedefine ALLEGRO_XWINDOWS_WITH_XRANDR
 
--renamedefine EOF EOF_
+-rename_ EOF
 
 # For proper translation of ENUM_CURRENT_SETTINGS
 -typedefhint DWORD

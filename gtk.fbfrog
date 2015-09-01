@@ -5,6 +5,6 @@
 	-renameproc gtk_init_check gtk_init_check_
 -endif
 
--renameproc gtk_check_version gtk_check_version_
+-rename_ gtk_check_version
 
 -rename TRUE CTRUE

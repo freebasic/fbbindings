@@ -12,19 +12,19 @@
 
 -removedefine JIT_EXPORT_DATA
 
--renamedefine JIT_TYPE_VOID JIT_TYPE_VOID_
--renamedefine JIT_TYPE_SBYTE JIT_TYPE_SBYTE_
--renamedefine JIT_TYPE_UBYTE JIT_TYPE_UBYTE_
--renamedefine JIT_TYPE_SHORT JIT_TYPE_SHORT_
--renamedefine JIT_TYPE_USHORT JIT_TYPE_USHORT_
--renamedefine JIT_TYPE_INT JIT_TYPE_INT_
--renamedefine JIT_TYPE_UINT JIT_TYPE_UINT_
--renamedefine JIT_TYPE_NINT JIT_TYPE_NINT_
--renamedefine JIT_TYPE_NUINT JIT_TYPE_NUINT_
--renamedefine JIT_TYPE_LONG JIT_TYPE_LONG_
--renamedefine JIT_TYPE_ULONG JIT_TYPE_ULONG_
--renamedefine JIT_TYPE_FLOAT32 JIT_TYPE_FLOAT32_
--renamedefine JIT_TYPE_FLOAT64 JIT_TYPE_FLOAT64_
--renamedefine JIT_TYPE_NFLOAT JIT_TYPE_NFLOAT_
+-rename_ JIT_TYPE_VOID
+-rename_ JIT_TYPE_SBYTE
+-rename_ JIT_TYPE_UBYTE
+-rename_ JIT_TYPE_SHORT
+-rename_ JIT_TYPE_USHORT
+-rename_ JIT_TYPE_INT
+-rename_ JIT_TYPE_UINT
+-rename_ JIT_TYPE_NINT
+-rename_ JIT_TYPE_NUINT
+-rename_ JIT_TYPE_LONG
+-rename_ JIT_TYPE_ULONG
+-rename_ JIT_TYPE_FLOAT32
+-rename_ JIT_TYPE_FLOAT64
+-rename_ JIT_TYPE_NFLOAT
 
 -nostring jit_sbyte

@@ -16,7 +16,7 @@
 -addforwarddecl SDL_Renderer
 -addforwarddecl SDL_Texture
 
--renameproc SDL_Log SDL_Log_
+-rename_ SDL_Log
 
 # For Windows, SDL2 has a SDL_CreateThread() macro that wraps the SDL_CreateThread() function
 -iftarget windows

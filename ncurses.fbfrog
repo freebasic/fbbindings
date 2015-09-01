@@ -11,14 +11,14 @@
 
 -addforwarddecl ldat
 -renamedefine NCURSES_BOOL NCURSES_BOOL_
--renamedefine ERR ERR_
--renameproc beep beep_
--renamedefine clear clear_
--renamedefine erase erase_
--renamedefine instr instr_
+-rename_ ERR
+-rename_ beep
+-rename_ clear
+-rename_ erase
+-rename_ instr
 -renamedefine slk_attr_off slk_attr_off_
 -renamedefine slk_attr_on slk_attr_on_
--renameproc getmouse getmouse_
+-rename_ getmouse
 -renameproc mouse_trafo mouse_trafo_
 
 -fixunsizedarrays

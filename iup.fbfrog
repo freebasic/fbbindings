@@ -1,61 +1,61 @@
--renametypedef IFnIi IFnIi_
--renametypedef IFniIIII IFniIIII_
+-rename_ IFnIi
+-rename_ IFniIIII
 
--renamedefine IUP_K_a IUP_K_a_
--renamedefine IUP_K_b IUP_K_b_
--renamedefine IUP_K_c IUP_K_c_
--renamedefine IUP_K_d IUP_K_d_
--renamedefine IUP_K_e IUP_K_e_
--renamedefine IUP_K_f IUP_K_f_
--renamedefine IUP_K_g IUP_K_g_
--renamedefine IUP_K_h IUP_K_h_
--renamedefine IUP_K_i IUP_K_i_
--renamedefine IUP_K_j IUP_K_j_
--renamedefine IUP_K_k IUP_K_k_
--renamedefine IUP_K_l IUP_K_l_
--renamedefine IUP_K_m IUP_K_m_
--renamedefine IUP_K_n IUP_K_n_
--renamedefine IUP_K_o IUP_K_o_
--renamedefine IUP_K_p IUP_K_p_
--renamedefine IUP_K_q IUP_K_q_
--renamedefine IUP_K_r IUP_K_r_
--renamedefine IUP_K_s IUP_K_s_
--renamedefine IUP_K_t IUP_K_t_
--renamedefine IUP_K_u IUP_K_u_
--renamedefine IUP_K_v IUP_K_v_
--renamedefine IUP_K_w IUP_K_w_
--renamedefine IUP_K_x IUP_K_x_
--renamedefine IUP_K_y IUP_K_y_
--renamedefine IUP_K_z IUP_K_z_
--renamedefine IUP_K_CR IUP_K_CR_
+-rename_ IUP_K_a
+-rename_ IUP_K_b
+-rename_ IUP_K_c
+-rename_ IUP_K_d
+-rename_ IUP_K_e
+-rename_ IUP_K_f
+-rename_ IUP_K_g
+-rename_ IUP_K_h
+-rename_ IUP_K_i
+-rename_ IUP_K_j
+-rename_ IUP_K_k
+-rename_ IUP_K_l
+-rename_ IUP_K_m
+-rename_ IUP_K_n
+-rename_ IUP_K_o
+-rename_ IUP_K_p
+-rename_ IUP_K_q
+-rename_ IUP_K_r
+-rename_ IUP_K_s
+-rename_ IUP_K_t
+-rename_ IUP_K_u
+-rename_ IUP_K_v
+-rename_ IUP_K_w
+-rename_ IUP_K_x
+-rename_ IUP_K_y
+-rename_ IUP_K_z
+-rename_ IUP_K_CR
 
--renamedefine K_a K_a_
--renamedefine K_b K_b_
--renamedefine K_c K_c_
--renamedefine K_d K_d_
--renamedefine K_e K_e_
--renamedefine K_f K_f_
--renamedefine K_g K_g_
--renamedefine K_h K_h_
--renamedefine K_i K_i_
--renamedefine K_j K_j_
--renamedefine K_k K_k_
--renamedefine K_l K_l_
--renamedefine K_m K_m_
--renamedefine K_n K_n_
--renamedefine K_o K_o_
--renamedefine K_p K_p_
--renamedefine K_q K_q_
--renamedefine K_r K_r_
--renamedefine K_s K_s_
--renamedefine K_t K_t_
--renamedefine K_u K_u_
--renamedefine K_v K_v_
--renamedefine K_w K_w_
--renamedefine K_x K_x_
--renamedefine K_y K_y_
--renamedefine K_z K_z_
--renamedefine K_Ccedilla K_Ccedilla_
--renamedefine K_cR K_cR_
+-rename_ K_a
+-rename_ K_b
+-rename_ K_c
+-rename_ K_d
+-rename_ K_e
+-rename_ K_f
+-rename_ K_g
+-rename_ K_h
+-rename_ K_i
+-rename_ K_j
+-rename_ K_k
+-rename_ K_l
+-rename_ K_m
+-rename_ K_n
+-rename_ K_o
+-rename_ K_p
+-rename_ K_q
+-rename_ K_r
+-rename_ K_s
+-rename_ K_t
+-rename_ K_u
+-rename_ K_v
+-rename_ K_w
+-rename_ K_x
+-rename_ K_y
+-rename_ K_z
+-rename_ K_Ccedilla
+-rename_ K_cR
 
 -addforwarddecl _cdCanvas

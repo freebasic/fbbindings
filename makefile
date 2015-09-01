@@ -1,4 +1,4 @@
-FBFROG_VERSION := a4dde58dea247e7d405fd80614aa9b4afaa88437
+FBFROG_VERSION := 3fbf24836f955183834ca99cdf60f57d08cfd6c0
 
 ALL := allegro allegro4 allegro5 aspell atk
 ALL += bass bassmod bfd bzip2
@@ -1104,7 +1104,7 @@ iconv: tools
 			extracted/$(ICONV)/include/iconv-default.h \
 		-endif \
 		-define EILSEQ "" \
-		-renamedefine _LIBICONV_VERSION _LIBICONV_VERSION_ \
+		-rename_ _LIBICONV_VERSION \
 		-o inc/libiconv.bi \
 		-title $(ICONV) iconv.tmp fbteam.txt
 

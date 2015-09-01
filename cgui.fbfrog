@@ -30,7 +30,7 @@
 -addinclude allegro.bi  # For the FONT, BITMAP, DATAFILE types
 -moveabove t_cgui_colors cgui_colors
 -setarraysize cgui_colors NR_OF_CGUI_COLORS
--renameproc Remove Remove_
+-rename_ Remove
 
 -renamedefine DIR_TOPLEFT   CGUI_DIR_TOPLEFT
 -renamedefine DIR_RIGHT     CGUI_DIR_RIGHT
