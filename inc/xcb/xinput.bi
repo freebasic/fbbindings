@@ -34,6 +34,7 @@
 
 #include once "xcb.bi"
 #include once "xfixes.bi"
+#include once "xcbext.bi"
 
 extern "C"
 

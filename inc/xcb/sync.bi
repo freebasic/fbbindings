@@ -39,6 +39,7 @@
 
 #include once "xcb.bi"
 #include once "xproto.bi"
+#include once "xcbext.bi"
 
 extern "C"
 

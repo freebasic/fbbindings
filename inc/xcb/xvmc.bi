@@ -33,6 +33,7 @@
 
 #include once "xcb.bi"
 #include once "xv.bi"
+#include once "xcbext.bi"
 
 extern "C"
 

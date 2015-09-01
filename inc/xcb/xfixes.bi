@@ -34,6 +34,7 @@
 #include once "xproto.bi"
 #include once "render.bi"
 #include once "shape.bi"
+#include once "xcbext.bi"
 
 extern "C"
 

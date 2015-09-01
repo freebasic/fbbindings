@@ -31,6 +31,7 @@
 #include once "randr.bi"
 #include once "xfixes.bi"
 #include once "sync.bi"
+#include once "xcbext.bi"
 
 extern "C"
 

@@ -32,6 +32,7 @@
 #pragma once
 
 #include once "xcb.bi"
+#include once "xcbext.bi"
 
 extern "C"
 
