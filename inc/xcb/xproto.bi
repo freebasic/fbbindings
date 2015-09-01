@@ -153,6 +153,7 @@
 ''     constant XCB_GET_POINTER_MAPPING => XCB_GET_POINTER_MAPPING_
 ''     constant XCB_SET_MODIFIER_MAPPING => XCB_SET_MODIFIER_MAPPING_
 ''     constant XCB_GET_MODIFIER_MAPPING => XCB_GET_MODIFIER_MAPPING_
+''     constant XCB_NO_OPERATION => XCB_NO_OPERATION_
 
 extern "C"
 
@@ -3552,7 +3553,7 @@ type xcb_get_modifier_mapping_reply_t
 	pad0(0 to 23) as ubyte
 end type
 
-const XCB_NO_OPERATION = 127
+const XCB_NO_OPERATION_ = 127
 
 type xcb_no_operation_request_t
 	major_opcode as ubyte
