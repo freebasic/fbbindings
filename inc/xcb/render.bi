@@ -41,11 +41,51 @@
 #include once "xproto.bi"
 #include once "xcbext.bi"
 
+'' The following symbols have been renamed:
+''     constant XCB_RENDER_MAJOR_VERSION => XCB_RENDER_MAJOR_VERSION_
+''     constant XCB_RENDER_MINOR_VERSION => XCB_RENDER_MINOR_VERSION_
+''     constant XCB_RENDER_PICT_FORMAT => XCB_RENDER_PICT_FORMAT_
+''     constant XCB_RENDER_PICTURE => XCB_RENDER_PICTURE_
+''     constant XCB_RENDER_PICT_OP => XCB_RENDER_PICT_OP_
+''     constant XCB_RENDER_GLYPH_SET => XCB_RENDER_GLYPH_SET_
+''     constant XCB_RENDER_GLYPH => XCB_RENDER_GLYPH_
+''     constant XCB_RENDER_QUERY_VERSION => XCB_RENDER_QUERY_VERSION_
+''     constant XCB_RENDER_QUERY_PICT_FORMATS => XCB_RENDER_QUERY_PICT_FORMATS_
+''     constant XCB_RENDER_QUERY_PICT_INDEX_VALUES => XCB_RENDER_QUERY_PICT_INDEX_VALUES_
+''     constant XCB_RENDER_CREATE_PICTURE => XCB_RENDER_CREATE_PICTURE_
+''     constant XCB_RENDER_CHANGE_PICTURE => XCB_RENDER_CHANGE_PICTURE_
+''     constant XCB_RENDER_SET_PICTURE_CLIP_RECTANGLES => XCB_RENDER_SET_PICTURE_CLIP_RECTANGLES_
+''     constant XCB_RENDER_FREE_PICTURE => XCB_RENDER_FREE_PICTURE_
+''     constant XCB_RENDER_COMPOSITE => XCB_RENDER_COMPOSITE_
+''     constant XCB_RENDER_TRAPEZOIDS => XCB_RENDER_TRAPEZOIDS_
+''     constant XCB_RENDER_TRIANGLES => XCB_RENDER_TRIANGLES_
+''     constant XCB_RENDER_TRI_STRIP => XCB_RENDER_TRI_STRIP_
+''     constant XCB_RENDER_TRI_FAN => XCB_RENDER_TRI_FAN_
+''     constant XCB_RENDER_CREATE_GLYPH_SET => XCB_RENDER_CREATE_GLYPH_SET_
+''     constant XCB_RENDER_REFERENCE_GLYPH_SET => XCB_RENDER_REFERENCE_GLYPH_SET_
+''     constant XCB_RENDER_FREE_GLYPH_SET => XCB_RENDER_FREE_GLYPH_SET_
+''     constant XCB_RENDER_ADD_GLYPHS => XCB_RENDER_ADD_GLYPHS_
+''     constant XCB_RENDER_FREE_GLYPHS => XCB_RENDER_FREE_GLYPHS_
+''     constant XCB_RENDER_COMPOSITE_GLYPHS_8 => XCB_RENDER_COMPOSITE_GLYPHS_8_
+''     constant XCB_RENDER_COMPOSITE_GLYPHS_16 => XCB_RENDER_COMPOSITE_GLYPHS_16_
+''     constant XCB_RENDER_COMPOSITE_GLYPHS_32 => XCB_RENDER_COMPOSITE_GLYPHS_32_
+''     constant XCB_RENDER_FILL_RECTANGLES => XCB_RENDER_FILL_RECTANGLES_
+''     constant XCB_RENDER_CREATE_CURSOR => XCB_RENDER_CREATE_CURSOR_
+''     constant XCB_RENDER_SET_PICTURE_TRANSFORM => XCB_RENDER_SET_PICTURE_TRANSFORM_
+''     constant XCB_RENDER_QUERY_FILTERS => XCB_RENDER_QUERY_FILTERS_
+''     constant XCB_RENDER_SET_PICTURE_FILTER => XCB_RENDER_SET_PICTURE_FILTER_
+''     constant XCB_RENDER_CREATE_ANIM_CURSOR => XCB_RENDER_CREATE_ANIM_CURSOR_
+''     constant XCB_RENDER_ADD_TRAPS => XCB_RENDER_ADD_TRAPS_
+''     constant XCB_RENDER_CREATE_SOLID_FILL => XCB_RENDER_CREATE_SOLID_FILL_
+''     constant XCB_RENDER_CREATE_LINEAR_GRADIENT => XCB_RENDER_CREATE_LINEAR_GRADIENT_
+''     constant XCB_RENDER_CREATE_RADIAL_GRADIENT => XCB_RENDER_CREATE_RADIAL_GRADIENT_
+''     constant XCB_RENDER_CREATE_CONICAL_GRADIENT => XCB_RENDER_CREATE_CONICAL_GRADIENT_
+
 extern "C"
 
 #define __RENDER_H
-const XCB_RENDER_MAJOR_VERSION = 0
-const XCB_RENDER_MINOR_VERSION = 11
+const XCB_RENDER_MAJOR_VERSION_ = 0
+const XCB_RENDER_MINOR_VERSION_ = 11
 extern xcb_render_id as xcb_extension_t
 
 type xcb_render_pict_type_t as long
@@ -203,7 +243,7 @@ type xcb_render_fixed_iterator_t
 	index as long
 end type
 
-const XCB_RENDER_PICT_FORMAT = 0
+const XCB_RENDER_PICT_FORMAT_ = 0
 
 type xcb_render_pict_format_error_t
 	response_type as ubyte
@@ -211,7 +251,7 @@ type xcb_render_pict_format_error_t
 	sequence as ushort
 end type
 
-const XCB_RENDER_PICTURE = 1
+const XCB_RENDER_PICTURE_ = 1
 
 type xcb_render_picture_error_t
 	response_type as ubyte
@@ -219,7 +259,7 @@ type xcb_render_picture_error_t
 	sequence as ushort
 end type
 
-const XCB_RENDER_PICT_OP = 2
+const XCB_RENDER_PICT_OP_ = 2
 
 type xcb_render_pict_op_error_t
 	response_type as ubyte
@@ -227,7 +267,7 @@ type xcb_render_pict_op_error_t
 	sequence as ushort
 end type
 
-const XCB_RENDER_GLYPH_SET = 3
+const XCB_RENDER_GLYPH_SET_ = 3
 
 type xcb_render_glyph_set_error_t
 	response_type as ubyte
@@ -235,7 +275,7 @@ type xcb_render_glyph_set_error_t
 	sequence as ushort
 end type
 
-const XCB_RENDER_GLYPH = 4
+const XCB_RENDER_GLYPH_ = 4
 
 type xcb_render_glyph_error_t
 	response_type as ubyte
@@ -403,7 +443,7 @@ type xcb_render_query_version_cookie_t
 	sequence as ulong
 end type
 
-const XCB_RENDER_QUERY_VERSION = 0
+const XCB_RENDER_QUERY_VERSION_ = 0
 
 type xcb_render_query_version_request_t
 	major_opcode as ubyte
@@ -427,7 +467,7 @@ type xcb_render_query_pict_formats_cookie_t
 	sequence as ulong
 end type
 
-const XCB_RENDER_QUERY_PICT_FORMATS = 1
+const XCB_RENDER_QUERY_PICT_FORMATS_ = 1
 
 type xcb_render_query_pict_formats_request_t
 	major_opcode as ubyte
@@ -452,7 +492,7 @@ type xcb_render_query_pict_index_values_cookie_t
 	sequence as ulong
 end type
 
-const XCB_RENDER_QUERY_PICT_INDEX_VALUES = 2
+const XCB_RENDER_QUERY_PICT_INDEX_VALUES_ = 2
 
 type xcb_render_query_pict_index_values_request_t
 	major_opcode as ubyte
@@ -470,7 +510,7 @@ type xcb_render_query_pict_index_values_reply_t
 	pad1(0 to 19) as ubyte
 end type
 
-const XCB_RENDER_CREATE_PICTURE = 4
+const XCB_RENDER_CREATE_PICTURE_ = 4
 
 type xcb_render_create_picture_request_t
 	major_opcode as ubyte
@@ -482,7 +522,7 @@ type xcb_render_create_picture_request_t
 	value_mask as ulong
 end type
 
-const XCB_RENDER_CHANGE_PICTURE = 5
+const XCB_RENDER_CHANGE_PICTURE_ = 5
 
 type xcb_render_change_picture_request_t
 	major_opcode as ubyte
@@ -492,7 +532,7 @@ type xcb_render_change_picture_request_t
 	value_mask as ulong
 end type
 
-const XCB_RENDER_SET_PICTURE_CLIP_RECTANGLES = 6
+const XCB_RENDER_SET_PICTURE_CLIP_RECTANGLES_ = 6
 
 type xcb_render_set_picture_clip_rectangles_request_t
 	major_opcode as ubyte
@@ -503,7 +543,7 @@ type xcb_render_set_picture_clip_rectangles_request_t
 	clip_y_origin as short
 end type
 
-const XCB_RENDER_FREE_PICTURE = 7
+const XCB_RENDER_FREE_PICTURE_ = 7
 
 type xcb_render_free_picture_request_t
 	major_opcode as ubyte
@@ -512,7 +552,7 @@ type xcb_render_free_picture_request_t
 	picture as xcb_render_picture_t
 end type
 
-const XCB_RENDER_COMPOSITE = 8
+const XCB_RENDER_COMPOSITE_ = 8
 
 type xcb_render_composite_request_t
 	major_opcode as ubyte
@@ -533,7 +573,7 @@ type xcb_render_composite_request_t
 	height as ushort
 end type
 
-const XCB_RENDER_TRAPEZOIDS = 10
+const XCB_RENDER_TRAPEZOIDS_ = 10
 
 type xcb_render_trapezoids_request_t
 	major_opcode as ubyte
@@ -548,7 +588,7 @@ type xcb_render_trapezoids_request_t
 	src_y as short
 end type
 
-const XCB_RENDER_TRIANGLES = 11
+const XCB_RENDER_TRIANGLES_ = 11
 
 type xcb_render_triangles_request_t
 	major_opcode as ubyte
@@ -563,7 +603,7 @@ type xcb_render_triangles_request_t
 	src_y as short
 end type
 
-const XCB_RENDER_TRI_STRIP = 12
+const XCB_RENDER_TRI_STRIP_ = 12
 
 type xcb_render_tri_strip_request_t
 	major_opcode as ubyte
@@ -578,7 +618,7 @@ type xcb_render_tri_strip_request_t
 	src_y as short
 end type
 
-const XCB_RENDER_TRI_FAN = 13
+const XCB_RENDER_TRI_FAN_ = 13
 
 type xcb_render_tri_fan_request_t
 	major_opcode as ubyte
@@ -593,7 +633,7 @@ type xcb_render_tri_fan_request_t
 	src_y as short
 end type
 
-const XCB_RENDER_CREATE_GLYPH_SET = 17
+const XCB_RENDER_CREATE_GLYPH_SET_ = 17
 
 type xcb_render_create_glyph_set_request_t
 	major_opcode as ubyte
@@ -603,7 +643,7 @@ type xcb_render_create_glyph_set_request_t
 	format as xcb_render_pictformat_t
 end type
 
-const XCB_RENDER_REFERENCE_GLYPH_SET = 18
+const XCB_RENDER_REFERENCE_GLYPH_SET_ = 18
 
 type xcb_render_reference_glyph_set_request_t
 	major_opcode as ubyte
@@ -613,7 +653,7 @@ type xcb_render_reference_glyph_set_request_t
 	existing as xcb_render_glyphset_t
 end type
 
-const XCB_RENDER_FREE_GLYPH_SET = 19
+const XCB_RENDER_FREE_GLYPH_SET_ = 19
 
 type xcb_render_free_glyph_set_request_t
 	major_opcode as ubyte
@@ -622,7 +662,7 @@ type xcb_render_free_glyph_set_request_t
 	glyphset as xcb_render_glyphset_t
 end type
 
-const XCB_RENDER_ADD_GLYPHS = 20
+const XCB_RENDER_ADD_GLYPHS_ = 20
 
 type xcb_render_add_glyphs_request_t
 	major_opcode as ubyte
@@ -632,7 +672,7 @@ type xcb_render_add_glyphs_request_t
 	glyphs_len as ulong
 end type
 
-const XCB_RENDER_FREE_GLYPHS = 22
+const XCB_RENDER_FREE_GLYPHS_ = 22
 
 type xcb_render_free_glyphs_request_t
 	major_opcode as ubyte
@@ -641,7 +681,7 @@ type xcb_render_free_glyphs_request_t
 	glyphset as xcb_render_glyphset_t
 end type
 
-const XCB_RENDER_COMPOSITE_GLYPHS_8 = 23
+const XCB_RENDER_COMPOSITE_GLYPHS_8_ = 23
 
 type xcb_render_composite_glyphs_8_request_t
 	major_opcode as ubyte
@@ -657,7 +697,7 @@ type xcb_render_composite_glyphs_8_request_t
 	src_y as short
 end type
 
-const XCB_RENDER_COMPOSITE_GLYPHS_16 = 24
+const XCB_RENDER_COMPOSITE_GLYPHS_16_ = 24
 
 type xcb_render_composite_glyphs_16_request_t
 	major_opcode as ubyte
@@ -673,7 +713,7 @@ type xcb_render_composite_glyphs_16_request_t
 	src_y as short
 end type
 
-const XCB_RENDER_COMPOSITE_GLYPHS_32 = 25
+const XCB_RENDER_COMPOSITE_GLYPHS_32_ = 25
 
 type xcb_render_composite_glyphs_32_request_t
 	major_opcode as ubyte
@@ -689,7 +729,7 @@ type xcb_render_composite_glyphs_32_request_t
 	src_y as short
 end type
 
-const XCB_RENDER_FILL_RECTANGLES = 26
+const XCB_RENDER_FILL_RECTANGLES_ = 26
 
 type xcb_render_fill_rectangles_request_t
 	major_opcode as ubyte
@@ -701,7 +741,7 @@ type xcb_render_fill_rectangles_request_t
 	color as xcb_render_color_t
 end type
 
-const XCB_RENDER_CREATE_CURSOR = 27
+const XCB_RENDER_CREATE_CURSOR_ = 27
 
 type xcb_render_create_cursor_request_t
 	major_opcode as ubyte
@@ -731,7 +771,7 @@ type xcb_render_transform_iterator_t
 	index as long
 end type
 
-const XCB_RENDER_SET_PICTURE_TRANSFORM = 28
+const XCB_RENDER_SET_PICTURE_TRANSFORM_ = 28
 
 type xcb_render_set_picture_transform_request_t
 	major_opcode as ubyte
@@ -745,7 +785,7 @@ type xcb_render_query_filters_cookie_t
 	sequence as ulong
 end type
 
-const XCB_RENDER_QUERY_FILTERS = 29
+const XCB_RENDER_QUERY_FILTERS_ = 29
 
 type xcb_render_query_filters_request_t
 	major_opcode as ubyte
@@ -764,7 +804,7 @@ type xcb_render_query_filters_reply_t
 	pad1(0 to 15) as ubyte
 end type
 
-const XCB_RENDER_SET_PICTURE_FILTER = 30
+const XCB_RENDER_SET_PICTURE_FILTER_ = 30
 
 type xcb_render_set_picture_filter_request_t
 	major_opcode as ubyte
@@ -786,7 +826,7 @@ type xcb_render_animcursorelt_iterator_t
 	index as long
 end type
 
-const XCB_RENDER_CREATE_ANIM_CURSOR = 31
+const XCB_RENDER_CREATE_ANIM_CURSOR_ = 31
 
 type xcb_render_create_anim_cursor_request_t
 	major_opcode as ubyte
@@ -818,7 +858,7 @@ type xcb_render_trap_iterator_t
 	index as long
 end type
 
-const XCB_RENDER_ADD_TRAPS = 32
+const XCB_RENDER_ADD_TRAPS_ = 32
 
 type xcb_render_add_traps_request_t
 	major_opcode as ubyte
@@ -829,7 +869,7 @@ type xcb_render_add_traps_request_t
 	y_off as short
 end type
 
-const XCB_RENDER_CREATE_SOLID_FILL = 33
+const XCB_RENDER_CREATE_SOLID_FILL_ = 33
 
 type xcb_render_create_solid_fill_request_t
 	major_opcode as ubyte
@@ -839,7 +879,7 @@ type xcb_render_create_solid_fill_request_t
 	color as xcb_render_color_t
 end type
 
-const XCB_RENDER_CREATE_LINEAR_GRADIENT = 34
+const XCB_RENDER_CREATE_LINEAR_GRADIENT_ = 34
 
 type xcb_render_create_linear_gradient_request_t
 	major_opcode as ubyte
@@ -851,7 +891,7 @@ type xcb_render_create_linear_gradient_request_t
 	num_stops as ulong
 end type
 
-const XCB_RENDER_CREATE_RADIAL_GRADIENT = 35
+const XCB_RENDER_CREATE_RADIAL_GRADIENT_ = 35
 
 type xcb_render_create_radial_gradient_request_t
 	major_opcode as ubyte
@@ -865,7 +905,7 @@ type xcb_render_create_radial_gradient_request_t
 	num_stops as ulong
 end type
 
-const XCB_RENDER_CREATE_CONICAL_GRADIENT = 36
+const XCB_RENDER_CREATE_CONICAL_GRADIENT_ = 36
 
 type xcb_render_create_conical_gradient_request_t
 	major_opcode as ubyte
