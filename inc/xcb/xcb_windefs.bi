@@ -31,12 +31,12 @@
 #pragma once
 
 #ifdef __FB_WIN32__
-	#include once "winsock2.bi"
-	#include once "ws2tcpip.bi"
-	#include once "windef.bi"
+	const WINVER = &h0501
+	#include once "win/winsock2.bi"
+	#include once "win/ws2tcpip.bi"
+	#include once "win/windef.bi"
 
 	#define _XCB_WINDEFS_H
-	const WINVER = &h0501
 
 	type iovec
 		iov_base as any ptr
