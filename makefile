@@ -2578,13 +2578,11 @@ xcb: tools
 
 	# Build libxcb and its xcb-proto dependency, to produce libxcb's headers (most of them are auto-generated)
 	mkdir -p extracted/xcbinstall
-	if [ ! -f extracted/$(XCB_PROTO)/Makefile ]; then \
-		cd extracted/$(XCB_PROTO) && \
+	cd extracted/$(XCB_PROTO) && if [ ! -f Makefile ]; then \
 		PKG_CONFIG_PATH=$(xcbinstall)/lib/pkgconfig ./configure --prefix=$(xcbinstall) && \
 		make && make install; \
 	fi
-	if [ ! -f extracted/$(XCB)/Makefile ]; then \
-		cd extracted/$(XCB) && \
+	cd extracted/$(XCB) && if [ ! -f Makefile ]; then \
 		PKG_CONFIG_PATH=$(xcbinstall)/lib/pkgconfig ./configure --prefix=$(xcbinstall) && \
 		make && make install; \
 	fi
@@ -2597,9 +2595,6 @@ xcb: tools
 	sed -n 4,22p extracted/$(XCB_PROTO)/src/dri3.xml        > dri3.tmp
 	sed -n 3,25p extracted/$(XCB_PROTO)/src/ge.xml          > ge.tmp
 	sed -n 3,26p extracted/$(XCB_PROTO)/src/glx.xml         > glx.tmp
-	sed -n 3,26p extracted/$(XCB_PROTO)/src/Makefile        > Makefile
-	sed -n 3,26p extracted/$(XCB_PROTO)/src/Makefile.am     > Makefile.am
-	sed -n 3,26p extracted/$(XCB_PROTO)/src/Makefile.in     > Makefile.in
 	sed -n 4,22p extracted/$(XCB_PROTO)/src/present.xml     > present.tmp
 	sed -n 3,26p extracted/$(XCB_PROTO)/src/randr.xml       > randr.tmp
 	sed -n 3,26p extracted/$(XCB_PROTO)/src/record.xml      > record.tmp
