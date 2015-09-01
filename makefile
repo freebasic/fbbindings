@@ -2582,7 +2582,10 @@ xcb: tools
 	./get.sh $(XCB_PTHREAD_STUBS) $(XCB_PTHREAD_STUBS).tar.bz2 "http://xcb.freedesktop.org/dist/$(XCB_PTHREAD_STUBS).tar.bz2"
 	./get.sh $(XCB)               $(XCB).tar.bz2               "http://xcb.freedesktop.org/dist/$(XCB).tar.bz2"
 
-	# Build libxcb and its xcb-proto dependency, to produce libxcb's headers (most of them are auto-generated)
+	# Build libxcb and its xcb-proto dependency, to produce libxcb's headers
+	# (most of them are auto-generated based on the xml files from xcb-proto)
+	# xcb_windefs.h is only copied by "make install" for win32, so we do it
+	# manually to get it always.
 	mkdir -p extracted/xcbinstall
 	cd extracted/$(XCB_PROTO) && if [ ! -f Makefile ]; then \
 		PKG_CONFIG_PATH=$(xcbinstall)/lib/pkgconfig ./configure --prefix=$(xcbinstall) && \
@@ -2590,7 +2593,8 @@ xcb: tools
 	fi
 	cd extracted/$(XCB) && if [ ! -f Makefile ]; then \
 		PKG_CONFIG_PATH=$(xcbinstall)/lib/pkgconfig ./configure --prefix=$(xcbinstall) && \
-		make && make install; \
+		make && make install && \
+		cp src/xcb_windefs.h $(xcbinstall)/include/xcb; \
 	fi
 
 	sed -n 3,26p extracted/$(XCB_PROTO)/src/bigreq.xml      > bigreq.tmp
@@ -2631,6 +2635,7 @@ xcb: tools
 
 	$(GETCOMMENT) extracted/xcbinstall/include/xcb/xcb.h    > xcb.tmp
 	$(GETCOMMENT) extracted/xcbinstall/include/xcb/xcbext.h > xcbext.tmp
+	$(GETCOMMENT) extracted/xcbinstall/include/xcb/xcb_windefs.h > xcb_windefs.tmp
 
 	mkdir -p inc/xcb
 	$(FBFROG) xcb.fbfrog -incdir extracted/xcbinstall/include/xcb \
@@ -2685,6 +2690,7 @@ xcb: tools
 		-emit '*/sync.h'        inc/xcb/sync.bi \
 		-emit '*/xcbext.h'      inc/xcb/xcbext.bi \
 		-emit '*/xcb.h'         inc/xcb/xcb.bi \
+		-emit '*/xcb_windefs.h' inc/xcb/xcb_windefs.bi \
 		-emit '*/xc_misc.h'     inc/xcb/xc_misc.bi \
 		-emit '*/xevie.h'       inc/xcb/xevie.bi \
 		-emit '*/xf86dri.h'     inc/xcb/xf86dri.bi \
@@ -2717,6 +2723,7 @@ xcb: tools
 		-title "$(XCB), $(XCB_PROTO)" sync.tmp        fbteam.txt inc/xcb/sync.bi \
 		-title "$(XCB), $(XCB_PROTO)" xcbext.tmp      fbteam.txt inc/xcb/xcbext.bi \
 		-title "$(XCB), $(XCB_PROTO)" xcb.tmp         fbteam.txt inc/xcb/xcb.bi \
+		-title "$(XCB), $(XCB_PROTO)" xcb_windefs.tmp fbteam.txt inc/xcb/xcb_windefs.bi \
 		-title "$(XCB), $(XCB_PROTO)" xc_misc.tmp     fbteam.txt inc/xcb/xc_misc.bi \
 		-title "$(XCB), $(XCB_PROTO)" xevie.tmp       fbteam.txt inc/xcb/xevie.bi \
 		-title "$(XCB), $(XCB_PROTO)" xf86dri.tmp     fbteam.txt inc/xcb/xf86dri.bi \
@@ -2728,8 +2735,8 @@ xcb: tools
 		-title "$(XCB), $(XCB_PROTO)" xproto.tmp      fbteam.txt inc/xcb/xproto.bi \
 		-title "$(XCB), $(XCB_PROTO)" xselinux.tmp    fbteam.txt inc/xcb/xselinux.bi \
 		-title "$(XCB), $(XCB_PROTO)" xtest.tmp       fbteam.txt inc/xcb/xtest.bi \
-		-title "$(XCB), $(XCB_PROTO)" xv.tmp          fbteam.txt inc/xcb/xv.bi \
-		-title "$(XCB), $(XCB_PROTO)" xvmc.tmp        fbteam.txt inc/xcb/xvmc.bi
+		-title "$(XCB), $(XCB_PROTO)" xvmc.tmp        fbteam.txt inc/xcb/xvmc.bi \
+		-title "$(XCB), $(XCB_PROTO)" xv.tmp          fbteam.txt inc/xcb/xv.bi
 
 ZIP_TITLE := libzip-1.0.1
 zip: tools
