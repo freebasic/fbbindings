@@ -33,6 +33,127 @@
 
 #include once "xcb.bi"
 
+'' The following symbols have been renamed:
+''     constant XCB_CREATE_WINDOW => XCB_CREATE_WINDOW_
+''     constant XCB_CHANGE_WINDOW_ATTRIBUTES => XCB_CHANGE_WINDOW_ATTRIBUTES_
+''     constant XCB_GET_WINDOW_ATTRIBUTES => XCB_GET_WINDOW_ATTRIBUTES_
+''     constant XCB_DESTROY_WINDOW => XCB_DESTROY_WINDOW_
+''     constant XCB_DESTROY_SUBWINDOWS => XCB_DESTROY_SUBWINDOWS_
+''     constant XCB_CHANGE_SAVE_SET => XCB_CHANGE_SAVE_SET_
+''     constant XCB_REPARENT_WINDOW => XCB_REPARENT_WINDOW_
+''     constant XCB_MAP_WINDOW => XCB_MAP_WINDOW_
+''     constant XCB_MAP_SUBWINDOWS => XCB_MAP_SUBWINDOWS_
+''     constant XCB_UNMAP_WINDOW => XCB_UNMAP_WINDOW_
+''     constant XCB_UNMAP_SUBWINDOWS => XCB_UNMAP_SUBWINDOWS_
+''     constant XCB_CONFIGURE_WINDOW => XCB_CONFIGURE_WINDOW_
+''     constant XCB_CIRCULATE_WINDOW => XCB_CIRCULATE_WINDOW_
+''     constant XCB_GET_GEOMETRY => XCB_GET_GEOMETRY_
+''     constant XCB_QUERY_TREE => XCB_QUERY_TREE_
+''     constant XCB_INTERN_ATOM => XCB_INTERN_ATOM_
+''     constant XCB_GET_ATOM_NAME => XCB_GET_ATOM_NAME_
+''     constant XCB_CHANGE_PROPERTY => XCB_CHANGE_PROPERTY_
+''     constant XCB_DELETE_PROPERTY => XCB_DELETE_PROPERTY_
+''     constant XCB_GET_PROPERTY => XCB_GET_PROPERTY_
+''     constant XCB_LIST_PROPERTIES => XCB_LIST_PROPERTIES_
+''     constant XCB_SET_SELECTION_OWNER => XCB_SET_SELECTION_OWNER_
+''     constant XCB_GET_SELECTION_OWNER => XCB_GET_SELECTION_OWNER_
+''     constant XCB_CONVERT_SELECTION => XCB_CONVERT_SELECTION_
+''     constant XCB_SEND_EVENT => XCB_SEND_EVENT_
+''     constant XCB_GRAB_POINTER => XCB_GRAB_POINTER_
+''     constant XCB_UNGRAB_POINTER => XCB_UNGRAB_POINTER_
+''     constant XCB_GRAB_BUTTON => XCB_GRAB_BUTTON_
+''     constant XCB_UNGRAB_BUTTON => XCB_UNGRAB_BUTTON_
+''     constant XCB_CHANGE_ACTIVE_POINTER_GRAB => XCB_CHANGE_ACTIVE_POINTER_GRAB_
+''     constant XCB_GRAB_KEYBOARD => XCB_GRAB_KEYBOARD_
+''     constant XCB_UNGRAB_KEYBOARD => XCB_UNGRAB_KEYBOARD_
+''     constant XCB_GRAB_KEY => XCB_GRAB_KEY_
+''     constant XCB_UNGRAB_KEY => XCB_UNGRAB_KEY_
+''     constant XCB_ALLOW_EVENTS => XCB_ALLOW_EVENTS_
+''     constant XCB_GRAB_SERVER => XCB_GRAB_SERVER_
+''     constant XCB_UNGRAB_SERVER => XCB_UNGRAB_SERVER_
+''     constant XCB_QUERY_POINTER => XCB_QUERY_POINTER_
+''     constant XCB_GET_MOTION_EVENTS => XCB_GET_MOTION_EVENTS_
+''     constant XCB_TRANSLATE_COORDINATES => XCB_TRANSLATE_COORDINATES_
+''     constant XCB_WARP_POINTER => XCB_WARP_POINTER_
+''     constant XCB_SET_INPUT_FOCUS => XCB_SET_INPUT_FOCUS_
+''     constant XCB_GET_INPUT_FOCUS => XCB_GET_INPUT_FOCUS_
+''     constant XCB_QUERY_KEYMAP => XCB_QUERY_KEYMAP_
+''     constant XCB_OPEN_FONT => XCB_OPEN_FONT_
+''     constant XCB_CLOSE_FONT => XCB_CLOSE_FONT_
+''     constant XCB_QUERY_FONT => XCB_QUERY_FONT_
+''     constant XCB_QUERY_TEXT_EXTENTS => XCB_QUERY_TEXT_EXTENTS_
+''     constant XCB_LIST_FONTS => XCB_LIST_FONTS_
+''     constant XCB_LIST_FONTS_WITH_INFO => XCB_LIST_FONTS_WITH_INFO_
+''     constant XCB_SET_FONT_PATH => XCB_SET_FONT_PATH_
+''     constant XCB_GET_FONT_PATH => XCB_GET_FONT_PATH_
+''     constant XCB_CREATE_PIXMAP => XCB_CREATE_PIXMAP_
+''     constant XCB_FREE_PIXMAP => XCB_FREE_PIXMAP_
+''     constant XCB_CREATE_GC => XCB_CREATE_GC_
+''     constant XCB_CHANGE_GC => XCB_CHANGE_GC_
+''     constant XCB_COPY_GC => XCB_COPY_GC_
+''     constant XCB_SET_DASHES => XCB_SET_DASHES_
+''     constant XCB_SET_CLIP_RECTANGLES => XCB_SET_CLIP_RECTANGLES_
+''     constant XCB_FREE_GC => XCB_FREE_GC_
+''     constant XCB_CLEAR_AREA => XCB_CLEAR_AREA_
+''     constant XCB_COPY_AREA => XCB_COPY_AREA_
+''     constant XCB_COPY_PLANE => XCB_COPY_PLANE_
+''     constant XCB_POLY_POINT => XCB_POLY_POINT_
+''     constant XCB_POLY_LINE => XCB_POLY_LINE_
+''     constant XCB_POLY_SEGMENT => XCB_POLY_SEGMENT_
+''     constant XCB_POLY_RECTANGLE => XCB_POLY_RECTANGLE_
+''     constant XCB_POLY_ARC => XCB_POLY_ARC_
+''     constant XCB_FILL_POLY => XCB_FILL_POLY_
+''     constant XCB_POLY_FILL_RECTANGLE => XCB_POLY_FILL_RECTANGLE_
+''     constant XCB_POLY_FILL_ARC => XCB_POLY_FILL_ARC_
+''     constant XCB_PUT_IMAGE => XCB_PUT_IMAGE_
+''     constant XCB_GET_IMAGE => XCB_GET_IMAGE_
+''     constant XCB_POLY_TEXT_8 => XCB_POLY_TEXT_8_
+''     constant XCB_POLY_TEXT_16 => XCB_POLY_TEXT_16_
+''     constant XCB_IMAGE_TEXT_8 => XCB_IMAGE_TEXT_8_
+''     constant XCB_IMAGE_TEXT_16 => XCB_IMAGE_TEXT_16_
+''     constant XCB_CREATE_COLORMAP => XCB_CREATE_COLORMAP_
+''     constant XCB_FREE_COLORMAP => XCB_FREE_COLORMAP_
+''     constant XCB_COPY_COLORMAP_AND_FREE => XCB_COPY_COLORMAP_AND_FREE_
+''     constant XCB_INSTALL_COLORMAP => XCB_INSTALL_COLORMAP_
+''     constant XCB_UNINSTALL_COLORMAP => XCB_UNINSTALL_COLORMAP_
+''     constant XCB_LIST_INSTALLED_COLORMAPS => XCB_LIST_INSTALLED_COLORMAPS_
+''     constant XCB_ALLOC_COLOR => XCB_ALLOC_COLOR_
+''     constant XCB_ALLOC_NAMED_COLOR => XCB_ALLOC_NAMED_COLOR_
+''     constant XCB_ALLOC_COLOR_CELLS => XCB_ALLOC_COLOR_CELLS_
+''     constant XCB_ALLOC_COLOR_PLANES => XCB_ALLOC_COLOR_PLANES_
+''     constant XCB_FREE_COLORS => XCB_FREE_COLORS_
+''     constant XCB_STORE_COLORS => XCB_STORE_COLORS_
+''     constant XCB_STORE_NAMED_COLOR => XCB_STORE_NAMED_COLOR_
+''     constant XCB_QUERY_COLORS => XCB_QUERY_COLORS_
+''     constant XCB_LOOKUP_COLOR => XCB_LOOKUP_COLOR_
+''     constant XCB_CREATE_CURSOR => XCB_CREATE_CURSOR_
+''     constant XCB_CREATE_GLYPH_CURSOR => XCB_CREATE_GLYPH_CURSOR_
+''     constant XCB_FREE_CURSOR => XCB_FREE_CURSOR_
+''     constant XCB_RECOLOR_CURSOR => XCB_RECOLOR_CURSOR_
+''     constant XCB_QUERY_BEST_SIZE => XCB_QUERY_BEST_SIZE_
+''     constant XCB_QUERY_EXTENSION => XCB_QUERY_EXTENSION_
+''     constant XCB_LIST_EXTENSIONS => XCB_LIST_EXTENSIONS_
+''     constant XCB_CHANGE_KEYBOARD_MAPPING => XCB_CHANGE_KEYBOARD_MAPPING_
+''     constant XCB_GET_KEYBOARD_MAPPING => XCB_GET_KEYBOARD_MAPPING_
+''     constant XCB_CHANGE_KEYBOARD_CONTROL => XCB_CHANGE_KEYBOARD_CONTROL_
+''     constant XCB_GET_KEYBOARD_CONTROL => XCB_GET_KEYBOARD_CONTROL_
+''     constant XCB_BELL => XCB_BELL_
+''     constant XCB_CHANGE_POINTER_CONTROL => XCB_CHANGE_POINTER_CONTROL_
+''     constant XCB_GET_POINTER_CONTROL => XCB_GET_POINTER_CONTROL_
+''     constant XCB_SET_SCREEN_SAVER => XCB_SET_SCREEN_SAVER_
+''     constant XCB_GET_SCREEN_SAVER => XCB_GET_SCREEN_SAVER_
+''     constant XCB_CHANGE_HOSTS => XCB_CHANGE_HOSTS_
+''     constant XCB_LIST_HOSTS => XCB_LIST_HOSTS_
+''     constant XCB_SET_ACCESS_CONTROL => XCB_SET_ACCESS_CONTROL_
+''     constant XCB_SET_CLOSE_DOWN_MODE => XCB_SET_CLOSE_DOWN_MODE_
+''     constant XCB_KILL_CLIENT => XCB_KILL_CLIENT_
+''     constant XCB_ROTATE_PROPERTIES => XCB_ROTATE_PROPERTIES_
+''     constant XCB_FORCE_SCREEN_SAVER => XCB_FORCE_SCREEN_SAVER_
+''     constant XCB_SET_POINTER_MAPPING => XCB_SET_POINTER_MAPPING_
+''     constant XCB_GET_POINTER_MAPPING => XCB_GET_POINTER_MAPPING_
+''     constant XCB_SET_MODIFIER_MAPPING => XCB_SET_MODIFIER_MAPPING_
+''     constant XCB_GET_MODIFIER_MAPPING => XCB_GET_MODIFIER_MAPPING_
+
 extern "C"
 
 #define __XPROTO_H
@@ -1101,7 +1222,7 @@ enum
 	XCB_GRAVITY_STATIC = 10
 end enum
 
-const XCB_CREATE_WINDOW = 1
+const XCB_CREATE_WINDOW_ = 1
 
 type xcb_create_window_request_t
 	major_opcode as ubyte
@@ -1119,7 +1240,7 @@ type xcb_create_window_request_t
 	value_mask as ulong
 end type
 
-const XCB_CHANGE_WINDOW_ATTRIBUTES = 2
+const XCB_CHANGE_WINDOW_ATTRIBUTES_ = 2
 
 type xcb_change_window_attributes_request_t
 	major_opcode as ubyte
@@ -1140,7 +1261,7 @@ type xcb_get_window_attributes_cookie_t
 	sequence as ulong
 end type
 
-const XCB_GET_WINDOW_ATTRIBUTES = 3
+const XCB_GET_WINDOW_ATTRIBUTES_ = 3
 
 type xcb_get_window_attributes_request_t
 	major_opcode as ubyte
@@ -1171,7 +1292,7 @@ type xcb_get_window_attributes_reply_t
 	pad0(0 to 1) as ubyte
 end type
 
-const XCB_DESTROY_WINDOW = 4
+const XCB_DESTROY_WINDOW_ = 4
 
 type xcb_destroy_window_request_t
 	major_opcode as ubyte
@@ -1180,7 +1301,7 @@ type xcb_destroy_window_request_t
 	window as xcb_window_t
 end type
 
-const XCB_DESTROY_SUBWINDOWS = 5
+const XCB_DESTROY_SUBWINDOWS_ = 5
 
 type xcb_destroy_subwindows_request_t
 	major_opcode as ubyte
@@ -1195,7 +1316,7 @@ enum
 	XCB_SET_MODE_DELETE = 1
 end enum
 
-const XCB_CHANGE_SAVE_SET = 6
+const XCB_CHANGE_SAVE_SET_ = 6
 
 type xcb_change_save_set_request_t
 	major_opcode as ubyte
@@ -1204,7 +1325,7 @@ type xcb_change_save_set_request_t
 	window as xcb_window_t
 end type
 
-const XCB_REPARENT_WINDOW = 7
+const XCB_REPARENT_WINDOW_ = 7
 
 type xcb_reparent_window_request_t
 	major_opcode as ubyte
@@ -1216,7 +1337,7 @@ type xcb_reparent_window_request_t
 	y as short
 end type
 
-const XCB_MAP_WINDOW = 8
+const XCB_MAP_WINDOW_ = 8
 
 type xcb_map_window_request_t
 	major_opcode as ubyte
@@ -1225,7 +1346,7 @@ type xcb_map_window_request_t
 	window as xcb_window_t
 end type
 
-const XCB_MAP_SUBWINDOWS = 9
+const XCB_MAP_SUBWINDOWS_ = 9
 
 type xcb_map_subwindows_request_t
 	major_opcode as ubyte
@@ -1234,7 +1355,7 @@ type xcb_map_subwindows_request_t
 	window as xcb_window_t
 end type
 
-const XCB_UNMAP_WINDOW = 10
+const XCB_UNMAP_WINDOW_ = 10
 
 type xcb_unmap_window_request_t
 	major_opcode as ubyte
@@ -1243,7 +1364,7 @@ type xcb_unmap_window_request_t
 	window as xcb_window_t
 end type
 
-const XCB_UNMAP_SUBWINDOWS = 11
+const XCB_UNMAP_SUBWINDOWS_ = 11
 
 type xcb_unmap_subwindows_request_t
 	major_opcode as ubyte
@@ -1272,7 +1393,7 @@ enum
 	XCB_STACK_MODE_OPPOSITE = 4
 end enum
 
-const XCB_CONFIGURE_WINDOW = 12
+const XCB_CONFIGURE_WINDOW_ = 12
 
 type xcb_configure_window_request_t
 	major_opcode as ubyte
@@ -1289,7 +1410,7 @@ enum
 	XCB_CIRCULATE_LOWER_HIGHEST = 1
 end enum
 
-const XCB_CIRCULATE_WINDOW = 13
+const XCB_CIRCULATE_WINDOW_ = 13
 
 type xcb_circulate_window_request_t
 	major_opcode as ubyte
@@ -1302,7 +1423,7 @@ type xcb_get_geometry_cookie_t
 	sequence as ulong
 end type
 
-const XCB_GET_GEOMETRY = 14
+const XCB_GET_GEOMETRY_ = 14
 
 type xcb_get_geometry_request_t
 	major_opcode as ubyte
@@ -1329,7 +1450,7 @@ type xcb_query_tree_cookie_t
 	sequence as ulong
 end type
 
-const XCB_QUERY_TREE = 15
+const XCB_QUERY_TREE_ = 15
 
 type xcb_query_tree_request_t
 	major_opcode as ubyte
@@ -1353,7 +1474,7 @@ type xcb_intern_atom_cookie_t
 	sequence as ulong
 end type
 
-const XCB_INTERN_ATOM = 16
+const XCB_INTERN_ATOM_ = 16
 
 type xcb_intern_atom_request_t
 	major_opcode as ubyte
@@ -1375,7 +1496,7 @@ type xcb_get_atom_name_cookie_t
 	sequence as ulong
 end type
 
-const XCB_GET_ATOM_NAME = 17
+const XCB_GET_ATOM_NAME_ = 17
 
 type xcb_get_atom_name_request_t
 	major_opcode as ubyte
@@ -1400,7 +1521,7 @@ enum
 	XCB_PROP_MODE_APPEND = 2
 end enum
 
-const XCB_CHANGE_PROPERTY = 18
+const XCB_CHANGE_PROPERTY_ = 18
 
 type xcb_change_property_request_t
 	major_opcode as ubyte
@@ -1414,7 +1535,7 @@ type xcb_change_property_request_t
 	data_len as ulong
 end type
 
-const XCB_DELETE_PROPERTY = 19
+const XCB_DELETE_PROPERTY_ = 19
 
 type xcb_delete_property_request_t
 	major_opcode as ubyte
@@ -1433,7 +1554,7 @@ type xcb_get_property_cookie_t
 	sequence as ulong
 end type
 
-const XCB_GET_PROPERTY = 20
+const XCB_GET_PROPERTY_ = 20
 
 type xcb_get_property_request_t
 	major_opcode as ubyte
@@ -1461,7 +1582,7 @@ type xcb_list_properties_cookie_t
 	sequence as ulong
 end type
 
-const XCB_LIST_PROPERTIES = 21
+const XCB_LIST_PROPERTIES_ = 21
 
 type xcb_list_properties_request_t
 	major_opcode as ubyte
@@ -1479,7 +1600,7 @@ type xcb_list_properties_reply_t
 	pad1(0 to 21) as ubyte
 end type
 
-const XCB_SET_SELECTION_OWNER = 22
+const XCB_SET_SELECTION_OWNER_ = 22
 
 type xcb_set_selection_owner_request_t
 	major_opcode as ubyte
@@ -1494,7 +1615,7 @@ type xcb_get_selection_owner_cookie_t
 	sequence as ulong
 end type
 
-const XCB_GET_SELECTION_OWNER = 23
+const XCB_GET_SELECTION_OWNER_ = 23
 
 type xcb_get_selection_owner_request_t
 	major_opcode as ubyte
@@ -1511,7 +1632,7 @@ type xcb_get_selection_owner_reply_t
 	owner as xcb_window_t
 end type
 
-const XCB_CONVERT_SELECTION = 24
+const XCB_CONVERT_SELECTION_ = 24
 
 type xcb_convert_selection_request_t
 	major_opcode as ubyte
@@ -1530,7 +1651,7 @@ enum
 	XCB_SEND_EVENT_DEST_ITEM_FOCUS = 1
 end enum
 
-const XCB_SEND_EVENT = 25
+const XCB_SEND_EVENT_ = 25
 
 type xcb_send_event_request_t
 	major_opcode as ubyte
@@ -1565,7 +1686,7 @@ type xcb_grab_pointer_cookie_t
 	sequence as ulong
 end type
 
-const XCB_GRAB_POINTER = 26
+const XCB_GRAB_POINTER_ = 26
 
 type xcb_grab_pointer_request_t
 	major_opcode as ubyte
@@ -1587,7 +1708,7 @@ type xcb_grab_pointer_reply_t
 	length as ulong
 end type
 
-const XCB_UNGRAB_POINTER = 27
+const XCB_UNGRAB_POINTER_ = 27
 
 type xcb_ungrab_pointer_request_t
 	major_opcode as ubyte
@@ -1606,7 +1727,7 @@ enum
 	XCB_BUTTON_INDEX_5 = 5
 end enum
 
-const XCB_GRAB_BUTTON = 28
+const XCB_GRAB_BUTTON_ = 28
 
 type xcb_grab_button_request_t
 	major_opcode as ubyte
@@ -1623,7 +1744,7 @@ type xcb_grab_button_request_t
 	modifiers as ushort
 end type
 
-const XCB_UNGRAB_BUTTON = 29
+const XCB_UNGRAB_BUTTON_ = 29
 
 type xcb_ungrab_button_request_t
 	major_opcode as ubyte
@@ -1634,7 +1755,7 @@ type xcb_ungrab_button_request_t
 	pad0(0 to 1) as ubyte
 end type
 
-const XCB_CHANGE_ACTIVE_POINTER_GRAB = 30
+const XCB_CHANGE_ACTIVE_POINTER_GRAB_ = 30
 
 type xcb_change_active_pointer_grab_request_t
 	major_opcode as ubyte
@@ -1650,7 +1771,7 @@ type xcb_grab_keyboard_cookie_t
 	sequence as ulong
 end type
 
-const XCB_GRAB_KEYBOARD = 31
+const XCB_GRAB_KEYBOARD_ = 31
 
 type xcb_grab_keyboard_request_t
 	major_opcode as ubyte
@@ -1670,7 +1791,7 @@ type xcb_grab_keyboard_reply_t
 	length as ulong
 end type
 
-const XCB_UNGRAB_KEYBOARD = 32
+const XCB_UNGRAB_KEYBOARD_ = 32
 
 type xcb_ungrab_keyboard_request_t
 	major_opcode as ubyte
@@ -1684,7 +1805,7 @@ enum
 	XCB_GRAB_ANY = 0
 end enum
 
-const XCB_GRAB_KEY = 33
+const XCB_GRAB_KEY_ = 33
 
 type xcb_grab_key_request_t
 	major_opcode as ubyte
@@ -1698,7 +1819,7 @@ type xcb_grab_key_request_t
 	pad0(0 to 2) as ubyte
 end type
 
-const XCB_UNGRAB_KEY = 34
+const XCB_UNGRAB_KEY_ = 34
 
 type xcb_ungrab_key_request_t
 	major_opcode as ubyte
@@ -1721,7 +1842,7 @@ enum
 	XCB_ALLOW_SYNC_BOTH = 7
 end enum
 
-const XCB_ALLOW_EVENTS = 35
+const XCB_ALLOW_EVENTS_ = 35
 
 type xcb_allow_events_request_t
 	major_opcode as ubyte
@@ -1730,7 +1851,7 @@ type xcb_allow_events_request_t
 	time as xcb_timestamp_t
 end type
 
-const XCB_GRAB_SERVER = 36
+const XCB_GRAB_SERVER_ = 36
 
 type xcb_grab_server_request_t
 	major_opcode as ubyte
@@ -1738,7 +1859,7 @@ type xcb_grab_server_request_t
 	length as ushort
 end type
 
-const XCB_UNGRAB_SERVER = 37
+const XCB_UNGRAB_SERVER_ = 37
 
 type xcb_ungrab_server_request_t
 	major_opcode as ubyte
@@ -1750,7 +1871,7 @@ type xcb_query_pointer_cookie_t
 	sequence as ulong
 end type
 
-const XCB_QUERY_POINTER = 38
+const XCB_QUERY_POINTER_ = 38
 
 type xcb_query_pointer_request_t
 	major_opcode as ubyte
@@ -1790,7 +1911,7 @@ type xcb_get_motion_events_cookie_t
 	sequence as ulong
 end type
 
-const XCB_GET_MOTION_EVENTS = 39
+const XCB_GET_MOTION_EVENTS_ = 39
 
 type xcb_get_motion_events_request_t
 	major_opcode as ubyte
@@ -1814,7 +1935,7 @@ type xcb_translate_coordinates_cookie_t
 	sequence as ulong
 end type
 
-const XCB_TRANSLATE_COORDINATES = 40
+const XCB_TRANSLATE_COORDINATES_ = 40
 
 type xcb_translate_coordinates_request_t
 	major_opcode as ubyte
@@ -1836,7 +1957,7 @@ type xcb_translate_coordinates_reply_t
 	dst_y as short
 end type
 
-const XCB_WARP_POINTER = 41
+const XCB_WARP_POINTER_ = 41
 
 type xcb_warp_pointer_request_t
 	major_opcode as ubyte
@@ -1860,7 +1981,7 @@ enum
 	XCB_INPUT_FOCUS_FOLLOW_KEYBOARD = 3
 end enum
 
-const XCB_SET_INPUT_FOCUS = 42
+const XCB_SET_INPUT_FOCUS_ = 42
 
 type xcb_set_input_focus_request_t
 	major_opcode as ubyte
@@ -1874,7 +1995,7 @@ type xcb_get_input_focus_cookie_t
 	sequence as ulong
 end type
 
-const XCB_GET_INPUT_FOCUS = 43
+const XCB_GET_INPUT_FOCUS_ = 43
 
 type xcb_get_input_focus_request_t
 	major_opcode as ubyte
@@ -1894,7 +2015,7 @@ type xcb_query_keymap_cookie_t
 	sequence as ulong
 end type
 
-const XCB_QUERY_KEYMAP = 44
+const XCB_QUERY_KEYMAP_ = 44
 
 type xcb_query_keymap_request_t
 	major_opcode as ubyte
@@ -1910,7 +2031,7 @@ type xcb_query_keymap_reply_t
 	keys(0 to 31) as ubyte
 end type
 
-const XCB_OPEN_FONT = 45
+const XCB_OPEN_FONT_ = 45
 
 type xcb_open_font_request_t
 	major_opcode as ubyte
@@ -1921,7 +2042,7 @@ type xcb_open_font_request_t
 	pad1(0 to 1) as ubyte
 end type
 
-const XCB_CLOSE_FONT = 46
+const XCB_CLOSE_FONT_ = 46
 
 type xcb_close_font_request_t
 	major_opcode as ubyte
@@ -1966,7 +2087,7 @@ type xcb_query_font_cookie_t
 	sequence as ulong
 end type
 
-const XCB_QUERY_FONT = 47
+const XCB_QUERY_FONT_ = 47
 
 type xcb_query_font_request_t
 	major_opcode as ubyte
@@ -2001,7 +2122,7 @@ type xcb_query_text_extents_cookie_t
 	sequence as ulong
 end type
 
-const XCB_QUERY_TEXT_EXTENTS = 48
+const XCB_QUERY_TEXT_EXTENTS_ = 48
 
 type xcb_query_text_extents_request_t
 	major_opcode as ubyte
@@ -2038,7 +2159,7 @@ type xcb_list_fonts_cookie_t
 	sequence as ulong
 end type
 
-const XCB_LIST_FONTS = 49
+const XCB_LIST_FONTS_ = 49
 
 type xcb_list_fonts_request_t
 	major_opcode as ubyte
@@ -2061,7 +2182,7 @@ type xcb_list_fonts_with_info_cookie_t
 	sequence as ulong
 end type
 
-const XCB_LIST_FONTS_WITH_INFO = 50
+const XCB_LIST_FONTS_WITH_INFO_ = 50
 
 type xcb_list_fonts_with_info_request_t
 	major_opcode as ubyte
@@ -2093,7 +2214,7 @@ type xcb_list_fonts_with_info_reply_t
 	replies_hint as ulong
 end type
 
-const XCB_SET_FONT_PATH = 51
+const XCB_SET_FONT_PATH_ = 51
 
 type xcb_set_font_path_request_t
 	major_opcode as ubyte
@@ -2107,7 +2228,7 @@ type xcb_get_font_path_cookie_t
 	sequence as ulong
 end type
 
-const XCB_GET_FONT_PATH = 52
+const XCB_GET_FONT_PATH_ = 52
 
 type xcb_get_font_path_request_t
 	major_opcode as ubyte
@@ -2124,7 +2245,7 @@ type xcb_get_font_path_reply_t
 	pad1(0 to 21) as ubyte
 end type
 
-const XCB_CREATE_PIXMAP = 53
+const XCB_CREATE_PIXMAP_ = 53
 
 type xcb_create_pixmap_request_t
 	major_opcode as ubyte
@@ -2136,7 +2257,7 @@ type xcb_create_pixmap_request_t
 	height as ushort
 end type
 
-const XCB_FREE_PIXMAP = 54
+const XCB_FREE_PIXMAP_ = 54
 
 type xcb_free_pixmap_request_t
 	major_opcode as ubyte
@@ -2240,7 +2361,7 @@ enum
 	XCB_ARC_MODE_PIE_SLICE = 1
 end enum
 
-const XCB_CREATE_GC = 55
+const XCB_CREATE_GC_ = 55
 
 type xcb_create_gc_request_t
 	major_opcode as ubyte
@@ -2251,7 +2372,7 @@ type xcb_create_gc_request_t
 	value_mask as ulong
 end type
 
-const XCB_CHANGE_GC = 56
+const XCB_CHANGE_GC_ = 56
 
 type xcb_change_gc_request_t
 	major_opcode as ubyte
@@ -2261,7 +2382,7 @@ type xcb_change_gc_request_t
 	value_mask as ulong
 end type
 
-const XCB_COPY_GC = 57
+const XCB_COPY_GC_ = 57
 
 type xcb_copy_gc_request_t
 	major_opcode as ubyte
@@ -2272,7 +2393,7 @@ type xcb_copy_gc_request_t
 	value_mask as ulong
 end type
 
-const XCB_SET_DASHES = 58
+const XCB_SET_DASHES_ = 58
 
 type xcb_set_dashes_request_t
 	major_opcode as ubyte
@@ -2291,7 +2412,7 @@ enum
 	XCB_CLIP_ORDERING_YX_BANDED = 3
 end enum
 
-const XCB_SET_CLIP_RECTANGLES = 59
+const XCB_SET_CLIP_RECTANGLES_ = 59
 
 type xcb_set_clip_rectangles_request_t
 	major_opcode as ubyte
@@ -2302,7 +2423,7 @@ type xcb_set_clip_rectangles_request_t
 	clip_y_origin as short
 end type
 
-const XCB_FREE_GC = 60
+const XCB_FREE_GC_ = 60
 
 type xcb_free_gc_request_t
 	major_opcode as ubyte
@@ -2311,7 +2432,7 @@ type xcb_free_gc_request_t
 	gc as xcb_gcontext_t
 end type
 
-const XCB_CLEAR_AREA = 61
+const XCB_CLEAR_AREA_ = 61
 
 type xcb_clear_area_request_t
 	major_opcode as ubyte
@@ -2324,7 +2445,7 @@ type xcb_clear_area_request_t
 	height as ushort
 end type
 
-const XCB_COPY_AREA = 62
+const XCB_COPY_AREA_ = 62
 
 type xcb_copy_area_request_t
 	major_opcode as ubyte
@@ -2341,7 +2462,7 @@ type xcb_copy_area_request_t
 	height as ushort
 end type
 
-const XCB_COPY_PLANE = 63
+const XCB_COPY_PLANE_ = 63
 
 type xcb_copy_plane_request_t
 	major_opcode as ubyte
@@ -2365,7 +2486,7 @@ enum
 	XCB_COORD_MODE_PREVIOUS = 1
 end enum
 
-const XCB_POLY_POINT = 64
+const XCB_POLY_POINT_ = 64
 
 type xcb_poly_point_request_t
 	major_opcode as ubyte
@@ -2375,7 +2496,7 @@ type xcb_poly_point_request_t
 	gc as xcb_gcontext_t
 end type
 
-const XCB_POLY_LINE = 65
+const XCB_POLY_LINE_ = 65
 
 type xcb_poly_line_request_t
 	major_opcode as ubyte
@@ -2398,7 +2519,7 @@ type xcb_segment_iterator_t
 	index as long
 end type
 
-const XCB_POLY_SEGMENT = 66
+const XCB_POLY_SEGMENT_ = 66
 
 type xcb_poly_segment_request_t
 	major_opcode as ubyte
@@ -2408,7 +2529,7 @@ type xcb_poly_segment_request_t
 	gc as xcb_gcontext_t
 end type
 
-const XCB_POLY_RECTANGLE = 67
+const XCB_POLY_RECTANGLE_ = 67
 
 type xcb_poly_rectangle_request_t
 	major_opcode as ubyte
@@ -2418,7 +2539,7 @@ type xcb_poly_rectangle_request_t
 	gc as xcb_gcontext_t
 end type
 
-const XCB_POLY_ARC = 68
+const XCB_POLY_ARC_ = 68
 
 type xcb_poly_arc_request_t
 	major_opcode as ubyte
@@ -2435,7 +2556,7 @@ enum
 	XCB_POLY_SHAPE_CONVEX = 2
 end enum
 
-const XCB_FILL_POLY = 69
+const XCB_FILL_POLY_ = 69
 
 type xcb_fill_poly_request_t
 	major_opcode as ubyte
@@ -2448,7 +2569,7 @@ type xcb_fill_poly_request_t
 	pad1(0 to 1) as ubyte
 end type
 
-const XCB_POLY_FILL_RECTANGLE = 70
+const XCB_POLY_FILL_RECTANGLE_ = 70
 
 type xcb_poly_fill_rectangle_request_t
 	major_opcode as ubyte
@@ -2458,7 +2579,7 @@ type xcb_poly_fill_rectangle_request_t
 	gc as xcb_gcontext_t
 end type
 
-const XCB_POLY_FILL_ARC = 71
+const XCB_POLY_FILL_ARC_ = 71
 
 type xcb_poly_fill_arc_request_t
 	major_opcode as ubyte
@@ -2475,7 +2596,7 @@ enum
 	XCB_IMAGE_FORMAT_Z_PIXMAP = 2
 end enum
 
-const XCB_PUT_IMAGE = 72
+const XCB_PUT_IMAGE_ = 72
 
 type xcb_put_image_request_t
 	major_opcode as ubyte
@@ -2496,7 +2617,7 @@ type xcb_get_image_cookie_t
 	sequence as ulong
 end type
 
-const XCB_GET_IMAGE = 73
+const XCB_GET_IMAGE_ = 73
 
 type xcb_get_image_request_t
 	major_opcode as ubyte
@@ -2519,7 +2640,7 @@ type xcb_get_image_reply_t
 	pad0(0 to 19) as ubyte
 end type
 
-const XCB_POLY_TEXT_8 = 74
+const XCB_POLY_TEXT_8_ = 74
 
 type xcb_poly_text_8_request_t
 	major_opcode as ubyte
@@ -2531,7 +2652,7 @@ type xcb_poly_text_8_request_t
 	y as short
 end type
 
-const XCB_POLY_TEXT_16 = 75
+const XCB_POLY_TEXT_16_ = 75
 
 type xcb_poly_text_16_request_t
 	major_opcode as ubyte
@@ -2543,7 +2664,7 @@ type xcb_poly_text_16_request_t
 	y as short
 end type
 
-const XCB_IMAGE_TEXT_8 = 76
+const XCB_IMAGE_TEXT_8_ = 76
 
 type xcb_image_text_8_request_t
 	major_opcode as ubyte
@@ -2555,7 +2676,7 @@ type xcb_image_text_8_request_t
 	y as short
 end type
 
-const XCB_IMAGE_TEXT_16 = 77
+const XCB_IMAGE_TEXT_16_ = 77
 
 type xcb_image_text_16_request_t
 	major_opcode as ubyte
@@ -2573,7 +2694,7 @@ enum
 	XCB_COLORMAP_ALLOC_ALL = 1
 end enum
 
-const XCB_CREATE_COLORMAP = 78
+const XCB_CREATE_COLORMAP_ = 78
 
 type xcb_create_colormap_request_t
 	major_opcode as ubyte
@@ -2584,7 +2705,7 @@ type xcb_create_colormap_request_t
 	visual as xcb_visualid_t
 end type
 
-const XCB_FREE_COLORMAP = 79
+const XCB_FREE_COLORMAP_ = 79
 
 type xcb_free_colormap_request_t
 	major_opcode as ubyte
@@ -2593,7 +2714,7 @@ type xcb_free_colormap_request_t
 	cmap as xcb_colormap_t
 end type
 
-const XCB_COPY_COLORMAP_AND_FREE = 80
+const XCB_COPY_COLORMAP_AND_FREE_ = 80
 
 type xcb_copy_colormap_and_free_request_t
 	major_opcode as ubyte
@@ -2603,7 +2724,7 @@ type xcb_copy_colormap_and_free_request_t
 	src_cmap as xcb_colormap_t
 end type
 
-const XCB_INSTALL_COLORMAP = 81
+const XCB_INSTALL_COLORMAP_ = 81
 
 type xcb_install_colormap_request_t
 	major_opcode as ubyte
@@ -2612,7 +2733,7 @@ type xcb_install_colormap_request_t
 	cmap as xcb_colormap_t
 end type
 
-const XCB_UNINSTALL_COLORMAP = 82
+const XCB_UNINSTALL_COLORMAP_ = 82
 
 type xcb_uninstall_colormap_request_t
 	major_opcode as ubyte
@@ -2625,7 +2746,7 @@ type xcb_list_installed_colormaps_cookie_t
 	sequence as ulong
 end type
 
-const XCB_LIST_INSTALLED_COLORMAPS = 83
+const XCB_LIST_INSTALLED_COLORMAPS_ = 83
 
 type xcb_list_installed_colormaps_request_t
 	major_opcode as ubyte
@@ -2647,7 +2768,7 @@ type xcb_alloc_color_cookie_t
 	sequence as ulong
 end type
 
-const XCB_ALLOC_COLOR = 84
+const XCB_ALLOC_COLOR_ = 84
 
 type xcb_alloc_color_request_t
 	major_opcode as ubyte
@@ -2676,7 +2797,7 @@ type xcb_alloc_named_color_cookie_t
 	sequence as ulong
 end type
 
-const XCB_ALLOC_NAMED_COLOR = 85
+const XCB_ALLOC_NAMED_COLOR_ = 85
 
 type xcb_alloc_named_color_request_t
 	major_opcode as ubyte
@@ -2705,7 +2826,7 @@ type xcb_alloc_color_cells_cookie_t
 	sequence as ulong
 end type
 
-const XCB_ALLOC_COLOR_CELLS = 86
+const XCB_ALLOC_COLOR_CELLS_ = 86
 
 type xcb_alloc_color_cells_request_t
 	major_opcode as ubyte
@@ -2730,7 +2851,7 @@ type xcb_alloc_color_planes_cookie_t
 	sequence as ulong
 end type
 
-const XCB_ALLOC_COLOR_PLANES = 87
+const XCB_ALLOC_COLOR_PLANES_ = 87
 
 type xcb_alloc_color_planes_request_t
 	major_opcode as ubyte
@@ -2756,7 +2877,7 @@ type xcb_alloc_color_planes_reply_t
 	pad2(0 to 7) as ubyte
 end type
 
-const XCB_FREE_COLORS = 88
+const XCB_FREE_COLORS_ = 88
 
 type xcb_free_colors_request_t
 	major_opcode as ubyte
@@ -2788,7 +2909,7 @@ type xcb_coloritem_iterator_t
 	index as long
 end type
 
-const XCB_STORE_COLORS = 89
+const XCB_STORE_COLORS_ = 89
 
 type xcb_store_colors_request_t
 	major_opcode as ubyte
@@ -2797,7 +2918,7 @@ type xcb_store_colors_request_t
 	cmap as xcb_colormap_t
 end type
 
-const XCB_STORE_NAMED_COLOR = 90
+const XCB_STORE_NAMED_COLOR_ = 90
 
 type xcb_store_named_color_request_t
 	major_opcode as ubyte
@@ -2826,7 +2947,7 @@ type xcb_query_colors_cookie_t
 	sequence as ulong
 end type
 
-const XCB_QUERY_COLORS = 91
+const XCB_QUERY_COLORS_ = 91
 
 type xcb_query_colors_request_t
 	major_opcode as ubyte
@@ -2848,7 +2969,7 @@ type xcb_lookup_color_cookie_t
 	sequence as ulong
 end type
 
-const XCB_LOOKUP_COLOR = 92
+const XCB_LOOKUP_COLOR_ = 92
 
 type xcb_lookup_color_request_t
 	major_opcode as ubyte
@@ -2877,7 +2998,7 @@ enum
 	XCB_PIXMAP_NONE = 0
 end enum
 
-const XCB_CREATE_CURSOR = 93
+const XCB_CREATE_CURSOR_ = 93
 
 type xcb_create_cursor_request_t
 	major_opcode as ubyte
@@ -2901,7 +3022,7 @@ enum
 	XCB_FONT_NONE = 0
 end enum
 
-const XCB_CREATE_GLYPH_CURSOR = 94
+const XCB_CREATE_GLYPH_CURSOR_ = 94
 
 type xcb_create_glyph_cursor_request_t
 	major_opcode as ubyte
@@ -2920,7 +3041,7 @@ type xcb_create_glyph_cursor_request_t
 	back_blue as ushort
 end type
 
-const XCB_FREE_CURSOR = 95
+const XCB_FREE_CURSOR_ = 95
 
 type xcb_free_cursor_request_t
 	major_opcode as ubyte
@@ -2929,7 +3050,7 @@ type xcb_free_cursor_request_t
 	cursor as xcb_cursor_t
 end type
 
-const XCB_RECOLOR_CURSOR = 96
+const XCB_RECOLOR_CURSOR_ = 96
 
 type xcb_recolor_cursor_request_t
 	major_opcode as ubyte
@@ -2955,7 +3076,7 @@ type xcb_query_best_size_cookie_t
 	sequence as ulong
 end type
 
-const XCB_QUERY_BEST_SIZE = 97
+const XCB_QUERY_BEST_SIZE_ = 97
 
 type xcb_query_best_size_request_t
 	major_opcode as ubyte
@@ -2979,7 +3100,7 @@ type xcb_query_extension_cookie_t
 	sequence as ulong
 end type
 
-const XCB_QUERY_EXTENSION = 98
+const XCB_QUERY_EXTENSION_ = 98
 
 type xcb_query_extension_request_t
 	major_opcode as ubyte
@@ -3004,7 +3125,7 @@ type xcb_list_extensions_cookie_t
 	sequence as ulong
 end type
 
-const XCB_LIST_EXTENSIONS = 99
+const XCB_LIST_EXTENSIONS_ = 99
 
 type xcb_list_extensions_request_t
 	major_opcode as ubyte
@@ -3020,7 +3141,7 @@ type xcb_list_extensions_reply_t
 	pad0(0 to 23) as ubyte
 end type
 
-const XCB_CHANGE_KEYBOARD_MAPPING = 100
+const XCB_CHANGE_KEYBOARD_MAPPING_ = 100
 
 type xcb_change_keyboard_mapping_request_t
 	major_opcode as ubyte
@@ -3035,7 +3156,7 @@ type xcb_get_keyboard_mapping_cookie_t
 	sequence as ulong
 end type
 
-const XCB_GET_KEYBOARD_MAPPING = 101
+const XCB_GET_KEYBOARD_MAPPING_ = 101
 
 type xcb_get_keyboard_mapping_request_t
 	major_opcode as ubyte
@@ -3078,7 +3199,7 @@ enum
 	XCB_AUTO_REPEAT_MODE_DEFAULT = 2
 end enum
 
-const XCB_CHANGE_KEYBOARD_CONTROL = 102
+const XCB_CHANGE_KEYBOARD_CONTROL_ = 102
 
 type xcb_change_keyboard_control_request_t
 	major_opcode as ubyte
@@ -3091,7 +3212,7 @@ type xcb_get_keyboard_control_cookie_t
 	sequence as ulong
 end type
 
-const XCB_GET_KEYBOARD_CONTROL = 103
+const XCB_GET_KEYBOARD_CONTROL_ = 103
 
 type xcb_get_keyboard_control_request_t
 	major_opcode as ubyte
@@ -3113,7 +3234,7 @@ type xcb_get_keyboard_control_reply_t
 	auto_repeats(0 to 31) as ubyte
 end type
 
-const XCB_BELL = 104
+const XCB_BELL_ = 104
 
 type xcb_bell_request_t
 	major_opcode as ubyte
@@ -3121,7 +3242,7 @@ type xcb_bell_request_t
 	length as ushort
 end type
 
-const XCB_CHANGE_POINTER_CONTROL = 105
+const XCB_CHANGE_POINTER_CONTROL_ = 105
 
 type xcb_change_pointer_control_request_t
 	major_opcode as ubyte
@@ -3138,7 +3259,7 @@ type xcb_get_pointer_control_cookie_t
 	sequence as ulong
 end type
 
-const XCB_GET_POINTER_CONTROL = 106
+const XCB_GET_POINTER_CONTROL_ = 106
 
 type xcb_get_pointer_control_request_t
 	major_opcode as ubyte
@@ -3171,7 +3292,7 @@ enum
 	XCB_EXPOSURES_DEFAULT = 2
 end enum
 
-const XCB_SET_SCREEN_SAVER = 107
+const XCB_SET_SCREEN_SAVER_ = 107
 
 type xcb_set_screen_saver_request_t
 	major_opcode as ubyte
@@ -3187,7 +3308,7 @@ type xcb_get_screen_saver_cookie_t
 	sequence as ulong
 end type
 
-const XCB_GET_SCREEN_SAVER = 108
+const XCB_GET_SCREEN_SAVER_ = 108
 
 type xcb_get_screen_saver_request_t
 	major_opcode as ubyte
@@ -3222,7 +3343,7 @@ enum
 	XCB_FAMILY_INTERNET_6 = 6
 end enum
 
-const XCB_CHANGE_HOSTS = 109
+const XCB_CHANGE_HOSTS_ = 109
 
 type xcb_change_hosts_request_t
 	major_opcode as ubyte
@@ -3249,7 +3370,7 @@ type xcb_list_hosts_cookie_t
 	sequence as ulong
 end type
 
-const XCB_LIST_HOSTS = 110
+const XCB_LIST_HOSTS_ = 110
 
 type xcb_list_hosts_request_t
 	major_opcode as ubyte
@@ -3272,7 +3393,7 @@ enum
 	XCB_ACCESS_CONTROL_ENABLE = 1
 end enum
 
-const XCB_SET_ACCESS_CONTROL = 111
+const XCB_SET_ACCESS_CONTROL_ = 111
 
 type xcb_set_access_control_request_t
 	major_opcode as ubyte
@@ -3287,7 +3408,7 @@ enum
 	XCB_CLOSE_DOWN_RETAIN_TEMPORARY = 2
 end enum
 
-const XCB_SET_CLOSE_DOWN_MODE = 112
+const XCB_SET_CLOSE_DOWN_MODE_ = 112
 
 type xcb_set_close_down_mode_request_t
 	major_opcode as ubyte
@@ -3300,7 +3421,7 @@ enum
 	XCB_KILL_ALL_TEMPORARY = 0
 end enum
 
-const XCB_KILL_CLIENT = 113
+const XCB_KILL_CLIENT_ = 113
 
 type xcb_kill_client_request_t
 	major_opcode as ubyte
@@ -3309,7 +3430,7 @@ type xcb_kill_client_request_t
 	resource as ulong
 end type
 
-const XCB_ROTATE_PROPERTIES = 114
+const XCB_ROTATE_PROPERTIES_ = 114
 
 type xcb_rotate_properties_request_t
 	major_opcode as ubyte
@@ -3326,7 +3447,7 @@ enum
 	XCB_SCREEN_SAVER_ACTIVE = 1
 end enum
 
-const XCB_FORCE_SCREEN_SAVER = 115
+const XCB_FORCE_SCREEN_SAVER_ = 115
 
 type xcb_force_screen_saver_request_t
 	major_opcode as ubyte
@@ -3345,7 +3466,7 @@ type xcb_set_pointer_mapping_cookie_t
 	sequence as ulong
 end type
 
-const XCB_SET_POINTER_MAPPING = 116
+const XCB_SET_POINTER_MAPPING_ = 116
 
 type xcb_set_pointer_mapping_request_t
 	major_opcode as ubyte
@@ -3364,7 +3485,7 @@ type xcb_get_pointer_mapping_cookie_t
 	sequence as ulong
 end type
 
-const XCB_GET_POINTER_MAPPING = 117
+const XCB_GET_POINTER_MAPPING_ = 117
 
 type xcb_get_pointer_mapping_request_t
 	major_opcode as ubyte
@@ -3396,7 +3517,7 @@ type xcb_set_modifier_mapping_cookie_t
 	sequence as ulong
 end type
 
-const XCB_SET_MODIFIER_MAPPING = 118
+const XCB_SET_MODIFIER_MAPPING_ = 118
 
 type xcb_set_modifier_mapping_request_t
 	major_opcode as ubyte
@@ -3415,7 +3536,7 @@ type xcb_get_modifier_mapping_cookie_t
 	sequence as ulong
 end type
 
-const XCB_GET_MODIFIER_MAPPING = 119
+const XCB_GET_MODIFIER_MAPPING_ = 119
 
 type xcb_get_modifier_mapping_request_t
 	major_opcode as ubyte
