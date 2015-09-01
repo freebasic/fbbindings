@@ -32,6 +32,11 @@
 #pragma once
 
 #include once "crt/long.bi"
+#ifdef __FB_WIN32__
+	#include once "xcb_windefs.bi"
+#else
+	#include once "crt/sys/uio.bi"
+#endif
 
 extern "C"
 
