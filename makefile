@@ -2638,7 +2638,7 @@ xcb: tools
 	$(GETCOMMENT) extracted/xcbinstall/include/xcb/xcbext.h > xcbext.tmp
 
 	mkdir -p inc/xcb
-	$(FBFROG) -incdir extracted/xcbinstall/include/xcb \
+	$(FBFROG) xcb.fbfrog -incdir extracted/xcbinstall/include/xcb \
 		-include xcb.h \
 		\
 		-include bigreq.h \
