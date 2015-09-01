@@ -32,17 +32,6 @@
 #pragma once
 
 #include once "crt/long.bi"
-#include once "crt/sys/types.bi"
-#include once "crt/stdint.bi"
-
-#ifdef __FB_WIN32__
-	#include once "xcb_windefs.bi"
-#else
-	#include once "sys/uio.bi"
-#endif
-
-#include once "pthread.bi"
-#include once "xproto.bi"
 
 extern "C"
 
@@ -106,6 +95,12 @@ end type
 type xcb_void_cookie_t
 	sequence as ulong
 end type
+
+end extern
+
+#include once "xproto.bi"
+
+extern "C"
 
 const XCB_NONE = cast(clong, 0)
 const XCB_COPY_FROM_PARENT = cast(clong, 0)
