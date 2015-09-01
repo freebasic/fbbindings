@@ -32,6 +32,13 @@
 #include once "xfixes.bi"
 #include once "sync.bi"
 
+'' The following symbols have been renamed:
+''     constant XCB_PRESENT_QUERY_VERSION => XCB_PRESENT_QUERY_VERSION_
+''     constant XCB_PRESENT_PIXMAP => XCB_PRESENT_PIXMAP_
+''     constant XCB_PRESENT_NOTIFY_MSC => XCB_PRESENT_NOTIFY_MSC_
+''     constant XCB_PRESENT_SELECT_INPUT => XCB_PRESENT_SELECT_INPUT_
+''     constant XCB_PRESENT_QUERY_CAPABILITIES => XCB_PRESENT_QUERY_CAPABILITIES_
+
 extern "C"
 
 #define __PRESENT_H
@@ -100,7 +107,7 @@ type xcb_present_query_version_cookie_t
 	sequence as ulong
 end type
 
-const XCB_PRESENT_QUERY_VERSION = 0
+const XCB_PRESENT_QUERY_VERSION_ = 0
 
 type xcb_present_query_version_request_t
 	major_opcode as ubyte
@@ -119,7 +126,7 @@ type xcb_present_query_version_reply_t
 	minor_version as ulong
 end type
 
-const XCB_PRESENT_PIXMAP = 1
+const XCB_PRESENT_PIXMAP_ = 1
 
 type xcb_present_pixmap_request_t
 	major_opcode as ubyte
@@ -142,7 +149,7 @@ type xcb_present_pixmap_request_t
 	remainder as ulongint
 end type
 
-const XCB_PRESENT_NOTIFY_MSC = 2
+const XCB_PRESENT_NOTIFY_MSC_ = 2
 
 type xcb_present_notify_msc_request_t
 	major_opcode as ubyte
@@ -164,7 +171,7 @@ type xcb_present_event_iterator_t
 	index as long
 end type
 
-const XCB_PRESENT_SELECT_INPUT = 3
+const XCB_PRESENT_SELECT_INPUT_ = 3
 
 type xcb_present_select_input_request_t
 	major_opcode as ubyte
@@ -179,7 +186,7 @@ type xcb_present_query_capabilities_cookie_t
 	sequence as ulong
 end type
 
-const XCB_PRESENT_QUERY_CAPABILITIES = 4
+const XCB_PRESENT_QUERY_CAPABILITIES_ = 4
 
 type xcb_present_query_capabilities_request_t
 	major_opcode as ubyte

@@ -34,6 +34,12 @@
 #include once "xcb.bi"
 #include once "xproto.bi"
 
+'' The following symbols have been renamed:
+''     constant XCB_TEST_GET_VERSION => XCB_TEST_GET_VERSION_
+''     constant XCB_TEST_COMPARE_CURSOR => XCB_TEST_COMPARE_CURSOR_
+''     constant XCB_TEST_FAKE_INPUT => XCB_TEST_FAKE_INPUT_
+''     constant XCB_TEST_GRAB_CONTROL => XCB_TEST_GRAB_CONTROL_
+
 extern "C"
 
 #define __XTEST_H
@@ -45,7 +51,7 @@ type xcb_test_get_version_cookie_t
 	sequence as ulong
 end type
 
-const XCB_TEST_GET_VERSION = 0
+const XCB_TEST_GET_VERSION_ = 0
 
 type xcb_test_get_version_request_t
 	major_opcode as ubyte
@@ -74,7 +80,7 @@ type xcb_test_compare_cursor_cookie_t
 	sequence as ulong
 end type
 
-const XCB_TEST_COMPARE_CURSOR = 1
+const XCB_TEST_COMPARE_CURSOR_ = 1
 
 type xcb_test_compare_cursor_request_t
 	major_opcode as ubyte
@@ -91,7 +97,7 @@ type xcb_test_compare_cursor_reply_t
 	length as ulong
 end type
 
-const XCB_TEST_FAKE_INPUT = 2
+const XCB_TEST_FAKE_INPUT_ = 2
 
 type xcb_test_fake_input_request_t
 	major_opcode as ubyte
@@ -109,7 +115,7 @@ type xcb_test_fake_input_request_t
 	deviceid as ubyte
 end type
 
-const XCB_TEST_GRAB_CONTROL = 3
+const XCB_TEST_GRAB_CONTROL_ = 3
 
 type xcb_test_grab_control_request_t
 	major_opcode as ubyte

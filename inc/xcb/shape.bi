@@ -34,6 +34,17 @@
 #include once "xcb.bi"
 #include once "xproto.bi"
 
+'' The following symbols have been renamed:
+''     constant XCB_SHAPE_QUERY_VERSION => XCB_SHAPE_QUERY_VERSION_
+''     constant XCB_SHAPE_RECTANGLES => XCB_SHAPE_RECTANGLES_
+''     constant XCB_SHAPE_MASK => XCB_SHAPE_MASK_
+''     constant XCB_SHAPE_COMBINE => XCB_SHAPE_COMBINE_
+''     constant XCB_SHAPE_OFFSET => XCB_SHAPE_OFFSET_
+''     constant XCB_SHAPE_QUERY_EXTENTS => XCB_SHAPE_QUERY_EXTENTS_
+''     constant XCB_SHAPE_SELECT_INPUT => XCB_SHAPE_SELECT_INPUT_
+''     constant XCB_SHAPE_INPUT_SELECTED => XCB_SHAPE_INPUT_SELECTED_
+''     constant XCB_SHAPE_GET_RECTANGLES => XCB_SHAPE_GET_RECTANGLES_
+
 extern "C"
 
 #define __SHAPE_H
@@ -92,7 +103,7 @@ type xcb_shape_query_version_cookie_t
 	sequence as ulong
 end type
 
-const XCB_SHAPE_QUERY_VERSION = 0
+const XCB_SHAPE_QUERY_VERSION_ = 0
 
 type xcb_shape_query_version_request_t
 	major_opcode as ubyte
@@ -109,7 +120,7 @@ type xcb_shape_query_version_reply_t
 	minor_version as ushort
 end type
 
-const XCB_SHAPE_RECTANGLES = 1
+const XCB_SHAPE_RECTANGLES_ = 1
 
 type xcb_shape_rectangles_request_t
 	major_opcode as ubyte
@@ -124,7 +135,7 @@ type xcb_shape_rectangles_request_t
 	y_offset as short
 end type
 
-const XCB_SHAPE_MASK = 2
+const XCB_SHAPE_MASK_ = 2
 
 type xcb_shape_mask_request_t
 	major_opcode as ubyte
@@ -139,7 +150,7 @@ type xcb_shape_mask_request_t
 	source_bitmap as xcb_pixmap_t
 end type
 
-const XCB_SHAPE_COMBINE = 3
+const XCB_SHAPE_COMBINE_ = 3
 
 type xcb_shape_combine_request_t
 	major_opcode as ubyte
@@ -155,7 +166,7 @@ type xcb_shape_combine_request_t
 	source_window as xcb_window_t
 end type
 
-const XCB_SHAPE_OFFSET = 4
+const XCB_SHAPE_OFFSET_ = 4
 
 type xcb_shape_offset_request_t
 	major_opcode as ubyte
@@ -172,7 +183,7 @@ type xcb_shape_query_extents_cookie_t
 	sequence as ulong
 end type
 
-const XCB_SHAPE_QUERY_EXTENTS = 5
+const XCB_SHAPE_QUERY_EXTENTS_ = 5
 
 type xcb_shape_query_extents_request_t
 	major_opcode as ubyte
@@ -199,7 +210,7 @@ type xcb_shape_query_extents_reply_t
 	clip_shape_extents_height as ushort
 end type
 
-const XCB_SHAPE_SELECT_INPUT = 6
+const XCB_SHAPE_SELECT_INPUT_ = 6
 
 type xcb_shape_select_input_request_t
 	major_opcode as ubyte
@@ -214,7 +225,7 @@ type xcb_shape_input_selected_cookie_t
 	sequence as ulong
 end type
 
-const XCB_SHAPE_INPUT_SELECTED = 7
+const XCB_SHAPE_INPUT_SELECTED_ = 7
 
 type xcb_shape_input_selected_request_t
 	major_opcode as ubyte
@@ -234,7 +245,7 @@ type xcb_shape_get_rectangles_cookie_t
 	sequence as ulong
 end type
 
-const XCB_SHAPE_GET_RECTANGLES = 8
+const XCB_SHAPE_GET_RECTANGLES_ = 8
 
 type xcb_shape_get_rectangles_request_t
 	major_opcode as ubyte

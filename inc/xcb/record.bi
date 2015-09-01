@@ -33,6 +33,16 @@
 
 #include once "xcb.bi"
 
+'' The following symbols have been renamed:
+''     constant XCB_RECORD_QUERY_VERSION => XCB_RECORD_QUERY_VERSION_
+''     constant XCB_RECORD_CREATE_CONTEXT => XCB_RECORD_CREATE_CONTEXT_
+''     constant XCB_RECORD_REGISTER_CLIENTS => XCB_RECORD_REGISTER_CLIENTS_
+''     constant XCB_RECORD_UNREGISTER_CLIENTS => XCB_RECORD_UNREGISTER_CLIENTS_
+''     constant XCB_RECORD_GET_CONTEXT => XCB_RECORD_GET_CONTEXT_
+''     constant XCB_RECORD_ENABLE_CONTEXT => XCB_RECORD_ENABLE_CONTEXT_
+''     constant XCB_RECORD_DISABLE_CONTEXT => XCB_RECORD_DISABLE_CONTEXT_
+''     constant XCB_RECORD_FREE_CONTEXT => XCB_RECORD_FREE_CONTEXT_
+
 extern "C"
 
 #define __RECORD_H
@@ -152,7 +162,7 @@ type xcb_record_query_version_cookie_t
 	sequence as ulong
 end type
 
-const XCB_RECORD_QUERY_VERSION = 0
+const XCB_RECORD_QUERY_VERSION_ = 0
 
 type xcb_record_query_version_request_t
 	major_opcode as ubyte
@@ -171,7 +181,7 @@ type xcb_record_query_version_reply_t
 	minor_version as ushort
 end type
 
-const XCB_RECORD_CREATE_CONTEXT = 1
+const XCB_RECORD_CREATE_CONTEXT_ = 1
 
 type xcb_record_create_context_request_t
 	major_opcode as ubyte
@@ -184,7 +194,7 @@ type xcb_record_create_context_request_t
 	num_ranges as ulong
 end type
 
-const XCB_RECORD_REGISTER_CLIENTS = 2
+const XCB_RECORD_REGISTER_CLIENTS_ = 2
 
 type xcb_record_register_clients_request_t
 	major_opcode as ubyte
@@ -197,7 +207,7 @@ type xcb_record_register_clients_request_t
 	num_ranges as ulong
 end type
 
-const XCB_RECORD_UNREGISTER_CLIENTS = 3
+const XCB_RECORD_UNREGISTER_CLIENTS_ = 3
 
 type xcb_record_unregister_clients_request_t
 	major_opcode as ubyte
@@ -211,7 +221,7 @@ type xcb_record_get_context_cookie_t
 	sequence as ulong
 end type
 
-const XCB_RECORD_GET_CONTEXT = 4
+const XCB_RECORD_GET_CONTEXT_ = 4
 
 type xcb_record_get_context_request_t
 	major_opcode as ubyte
@@ -235,7 +245,7 @@ type xcb_record_enable_context_cookie_t
 	sequence as ulong
 end type
 
-const XCB_RECORD_ENABLE_CONTEXT = 5
+const XCB_RECORD_ENABLE_CONTEXT_ = 5
 
 type xcb_record_enable_context_request_t
 	major_opcode as ubyte
@@ -258,7 +268,7 @@ type xcb_record_enable_context_reply_t
 	pad1(0 to 7) as ubyte
 end type
 
-const XCB_RECORD_DISABLE_CONTEXT = 6
+const XCB_RECORD_DISABLE_CONTEXT_ = 6
 
 type xcb_record_disable_context_request_t
 	major_opcode as ubyte
@@ -267,7 +277,7 @@ type xcb_record_disable_context_request_t
 	context as xcb_record_context_t
 end type
 
-const XCB_RECORD_FREE_CONTEXT = 7
+const XCB_RECORD_FREE_CONTEXT_ = 7
 
 type xcb_record_free_context_request_t
 	major_opcode as ubyte

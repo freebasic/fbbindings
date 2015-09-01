@@ -34,6 +34,17 @@
 #include once "xproto.bi"
 #include once "xfixes.bi"
 
+'' The following symbols have been renamed:
+''     constant XCB_COMPOSITE_QUERY_VERSION => XCB_COMPOSITE_QUERY_VERSION_
+''     constant XCB_COMPOSITE_REDIRECT_WINDOW => XCB_COMPOSITE_REDIRECT_WINDOW_
+''     constant XCB_COMPOSITE_REDIRECT_SUBWINDOWS => XCB_COMPOSITE_REDIRECT_SUBWINDOWS_
+''     constant XCB_COMPOSITE_UNREDIRECT_WINDOW => XCB_COMPOSITE_UNREDIRECT_WINDOW_
+''     constant XCB_COMPOSITE_UNREDIRECT_SUBWINDOWS => XCB_COMPOSITE_UNREDIRECT_SUBWINDOWS_
+''     constant XCB_COMPOSITE_CREATE_REGION_FROM_BORDER_CLIP => XCB_COMPOSITE_CREATE_REGION_FROM_BORDER_CLIP_
+''     constant XCB_COMPOSITE_NAME_WINDOW_PIXMAP => XCB_COMPOSITE_NAME_WINDOW_PIXMAP_
+''     constant XCB_COMPOSITE_GET_OVERLAY_WINDOW => XCB_COMPOSITE_GET_OVERLAY_WINDOW_
+''     constant XCB_COMPOSITE_RELEASE_OVERLAY_WINDOW => XCB_COMPOSITE_RELEASE_OVERLAY_WINDOW_
+
 extern "C"
 
 #define __COMPOSITE_H
@@ -51,7 +62,7 @@ type xcb_composite_query_version_cookie_t
 	sequence as ulong
 end type
 
-const XCB_COMPOSITE_QUERY_VERSION = 0
+const XCB_COMPOSITE_QUERY_VERSION_ = 0
 
 type xcb_composite_query_version_request_t
 	major_opcode as ubyte
@@ -71,7 +82,7 @@ type xcb_composite_query_version_reply_t
 	pad1(0 to 15) as ubyte
 end type
 
-const XCB_COMPOSITE_REDIRECT_WINDOW = 1
+const XCB_COMPOSITE_REDIRECT_WINDOW_ = 1
 
 type xcb_composite_redirect_window_request_t
 	major_opcode as ubyte
@@ -82,7 +93,7 @@ type xcb_composite_redirect_window_request_t
 	pad0(0 to 2) as ubyte
 end type
 
-const XCB_COMPOSITE_REDIRECT_SUBWINDOWS = 2
+const XCB_COMPOSITE_REDIRECT_SUBWINDOWS_ = 2
 
 type xcb_composite_redirect_subwindows_request_t
 	major_opcode as ubyte
@@ -93,7 +104,7 @@ type xcb_composite_redirect_subwindows_request_t
 	pad0(0 to 2) as ubyte
 end type
 
-const XCB_COMPOSITE_UNREDIRECT_WINDOW = 3
+const XCB_COMPOSITE_UNREDIRECT_WINDOW_ = 3
 
 type xcb_composite_unredirect_window_request_t
 	major_opcode as ubyte
@@ -104,7 +115,7 @@ type xcb_composite_unredirect_window_request_t
 	pad0(0 to 2) as ubyte
 end type
 
-const XCB_COMPOSITE_UNREDIRECT_SUBWINDOWS = 4
+const XCB_COMPOSITE_UNREDIRECT_SUBWINDOWS_ = 4
 
 type xcb_composite_unredirect_subwindows_request_t
 	major_opcode as ubyte
@@ -115,7 +126,7 @@ type xcb_composite_unredirect_subwindows_request_t
 	pad0(0 to 2) as ubyte
 end type
 
-const XCB_COMPOSITE_CREATE_REGION_FROM_BORDER_CLIP = 5
+const XCB_COMPOSITE_CREATE_REGION_FROM_BORDER_CLIP_ = 5
 
 type xcb_composite_create_region_from_border_clip_request_t
 	major_opcode as ubyte
@@ -125,7 +136,7 @@ type xcb_composite_create_region_from_border_clip_request_t
 	window as xcb_window_t
 end type
 
-const XCB_COMPOSITE_NAME_WINDOW_PIXMAP = 6
+const XCB_COMPOSITE_NAME_WINDOW_PIXMAP_ = 6
 
 type xcb_composite_name_window_pixmap_request_t
 	major_opcode as ubyte
@@ -139,7 +150,7 @@ type xcb_composite_get_overlay_window_cookie_t
 	sequence as ulong
 end type
 
-const XCB_COMPOSITE_GET_OVERLAY_WINDOW = 7
+const XCB_COMPOSITE_GET_OVERLAY_WINDOW_ = 7
 
 type xcb_composite_get_overlay_window_request_t
 	major_opcode as ubyte
@@ -157,7 +168,7 @@ type xcb_composite_get_overlay_window_reply_t
 	pad1(0 to 19) as ubyte
 end type
 
-const XCB_COMPOSITE_RELEASE_OVERLAY_WINDOW = 8
+const XCB_COMPOSITE_RELEASE_OVERLAY_WINDOW_ = 8
 
 type xcb_composite_release_overlay_window_request_t
 	major_opcode as ubyte

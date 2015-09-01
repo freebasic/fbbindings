@@ -34,6 +34,17 @@
 #include once "xcb.bi"
 #include once "xv.bi"
 
+'' The following symbols have been renamed:
+''     constant XCB_XVMC_QUERY_VERSION => XCB_XVMC_QUERY_VERSION_
+''     constant XCB_XVMC_LIST_SURFACE_TYPES => XCB_XVMC_LIST_SURFACE_TYPES_
+''     constant XCB_XVMC_CREATE_CONTEXT => XCB_XVMC_CREATE_CONTEXT_
+''     constant XCB_XVMC_DESTROY_CONTEXT => XCB_XVMC_DESTROY_CONTEXT_
+''     constant XCB_XVMC_CREATE_SURFACE => XCB_XVMC_CREATE_SURFACE_
+''     constant XCB_XVMC_DESTROY_SURFACE => XCB_XVMC_DESTROY_SURFACE_
+''     constant XCB_XVMC_CREATE_SUBPICTURE => XCB_XVMC_CREATE_SUBPICTURE_
+''     constant XCB_XVMC_DESTROY_SUBPICTURE => XCB_XVMC_DESTROY_SUBPICTURE_
+''     constant XCB_XVMC_LIST_SUBPICTURE_TYPES => XCB_XVMC_LIST_SUBPICTURE_TYPES_
+
 extern "C"
 
 #define __XVMC_H
@@ -86,7 +97,7 @@ type xcb_xvmc_query_version_cookie_t
 	sequence as ulong
 end type
 
-const XCB_XVMC_QUERY_VERSION = 0
+const XCB_XVMC_QUERY_VERSION_ = 0
 
 type xcb_xvmc_query_version_request_t
 	major_opcode as ubyte
@@ -107,7 +118,7 @@ type xcb_xvmc_list_surface_types_cookie_t
 	sequence as ulong
 end type
 
-const XCB_XVMC_LIST_SURFACE_TYPES = 1
+const XCB_XVMC_LIST_SURFACE_TYPES_ = 1
 
 type xcb_xvmc_list_surface_types_request_t
 	major_opcode as ubyte
@@ -129,7 +140,7 @@ type xcb_xvmc_create_context_cookie_t
 	sequence as ulong
 end type
 
-const XCB_XVMC_CREATE_CONTEXT = 2
+const XCB_XVMC_CREATE_CONTEXT_ = 2
 
 type xcb_xvmc_create_context_request_t
 	major_opcode as ubyte
@@ -154,7 +165,7 @@ type xcb_xvmc_create_context_reply_t
 	pad1(0 to 19) as ubyte
 end type
 
-const XCB_XVMC_DESTROY_CONTEXT = 3
+const XCB_XVMC_DESTROY_CONTEXT_ = 3
 
 type xcb_xvmc_destroy_context_request_t
 	major_opcode as ubyte
@@ -167,7 +178,7 @@ type xcb_xvmc_create_surface_cookie_t
 	sequence as ulong
 end type
 
-const XCB_XVMC_CREATE_SURFACE = 4
+const XCB_XVMC_CREATE_SURFACE_ = 4
 
 type xcb_xvmc_create_surface_request_t
 	major_opcode as ubyte
@@ -185,7 +196,7 @@ type xcb_xvmc_create_surface_reply_t
 	pad1(0 to 23) as ubyte
 end type
 
-const XCB_XVMC_DESTROY_SURFACE = 5
+const XCB_XVMC_DESTROY_SURFACE_ = 5
 
 type xcb_xvmc_destroy_surface_request_t
 	major_opcode as ubyte
@@ -198,7 +209,7 @@ type xcb_xvmc_create_subpicture_cookie_t
 	sequence as ulong
 end type
 
-const XCB_XVMC_CREATE_SUBPICTURE = 6
+const XCB_XVMC_CREATE_SUBPICTURE_ = 6
 
 type xcb_xvmc_create_subpicture_request_t
 	major_opcode as ubyte
@@ -224,7 +235,7 @@ type xcb_xvmc_create_subpicture_reply_t
 	pad1(0 to 11) as ubyte
 end type
 
-const XCB_XVMC_DESTROY_SUBPICTURE = 7
+const XCB_XVMC_DESTROY_SUBPICTURE_ = 7
 
 type xcb_xvmc_destroy_subpicture_request_t
 	major_opcode as ubyte
@@ -237,7 +248,7 @@ type xcb_xvmc_list_subpicture_types_cookie_t
 	sequence as ulong
 end type
 
-const XCB_XVMC_LIST_SUBPICTURE_TYPES = 8
+const XCB_XVMC_LIST_SUBPICTURE_TYPES_ = 8
 
 type xcb_xvmc_list_subpicture_types_request_t
 	major_opcode as ubyte

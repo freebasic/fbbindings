@@ -33,6 +33,20 @@
 
 #include once "xcb.bi"
 
+'' The following symbols have been renamed:
+''     constant XCB_XF86DRI_QUERY_VERSION => XCB_XF86DRI_QUERY_VERSION_
+''     constant XCB_XF86DRI_QUERY_DIRECT_RENDERING_CAPABLE => XCB_XF86DRI_QUERY_DIRECT_RENDERING_CAPABLE_
+''     constant XCB_XF86DRI_OPEN_CONNECTION => XCB_XF86DRI_OPEN_CONNECTION_
+''     constant XCB_XF86DRI_CLOSE_CONNECTION => XCB_XF86DRI_CLOSE_CONNECTION_
+''     constant XCB_XF86DRI_GET_CLIENT_DRIVER_NAME => XCB_XF86DRI_GET_CLIENT_DRIVER_NAME_
+''     constant XCB_XF86DRI_CREATE_CONTEXT => XCB_XF86DRI_CREATE_CONTEXT_
+''     constant XCB_XF86DRI_DESTROY_CONTEXT => XCB_XF86DRI_DESTROY_CONTEXT_
+''     constant XCB_XF86DRI_CREATE_DRAWABLE => XCB_XF86DRI_CREATE_DRAWABLE_
+''     constant XCB_XF86DRI_DESTROY_DRAWABLE => XCB_XF86DRI_DESTROY_DRAWABLE_
+''     constant XCB_XF86DRI_GET_DRAWABLE_INFO => XCB_XF86DRI_GET_DRAWABLE_INFO_
+''     constant XCB_XF86DRI_GET_DEVICE_INFO => XCB_XF86DRI_GET_DEVICE_INFO_
+''     constant XCB_XF86DRI_AUTH_CONNECTION => XCB_XF86DRI_AUTH_CONNECTION_
+
 extern "C"
 
 #define __XF86DRI_H
@@ -57,7 +71,7 @@ type xcb_xf86dri_query_version_cookie_t
 	sequence as ulong
 end type
 
-const XCB_XF86DRI_QUERY_VERSION = 0
+const XCB_XF86DRI_QUERY_VERSION_ = 0
 
 type xcb_xf86dri_query_version_request_t
 	major_opcode as ubyte
@@ -79,7 +93,7 @@ type xcb_xf86dri_query_direct_rendering_capable_cookie_t
 	sequence as ulong
 end type
 
-const XCB_XF86DRI_QUERY_DIRECT_RENDERING_CAPABLE = 1
+const XCB_XF86DRI_QUERY_DIRECT_RENDERING_CAPABLE_ = 1
 
 type xcb_xf86dri_query_direct_rendering_capable_request_t
 	major_opcode as ubyte
@@ -100,7 +114,7 @@ type xcb_xf86dri_open_connection_cookie_t
 	sequence as ulong
 end type
 
-const XCB_XF86DRI_OPEN_CONNECTION = 2
+const XCB_XF86DRI_OPEN_CONNECTION_ = 2
 
 type xcb_xf86dri_open_connection_request_t
 	major_opcode as ubyte
@@ -120,7 +134,7 @@ type xcb_xf86dri_open_connection_reply_t
 	pad1(0 to 11) as ubyte
 end type
 
-const XCB_XF86DRI_CLOSE_CONNECTION = 3
+const XCB_XF86DRI_CLOSE_CONNECTION_ = 3
 
 type xcb_xf86dri_close_connection_request_t
 	major_opcode as ubyte
@@ -133,7 +147,7 @@ type xcb_xf86dri_get_client_driver_name_cookie_t
 	sequence as ulong
 end type
 
-const XCB_XF86DRI_GET_CLIENT_DRIVER_NAME = 4
+const XCB_XF86DRI_GET_CLIENT_DRIVER_NAME_ = 4
 
 type xcb_xf86dri_get_client_driver_name_request_t
 	major_opcode as ubyte
@@ -158,7 +172,7 @@ type xcb_xf86dri_create_context_cookie_t
 	sequence as ulong
 end type
 
-const XCB_XF86DRI_CREATE_CONTEXT = 5
+const XCB_XF86DRI_CREATE_CONTEXT_ = 5
 
 type xcb_xf86dri_create_context_request_t
 	major_opcode as ubyte
@@ -177,7 +191,7 @@ type xcb_xf86dri_create_context_reply_t
 	hw_context as ulong
 end type
 
-const XCB_XF86DRI_DESTROY_CONTEXT = 6
+const XCB_XF86DRI_DESTROY_CONTEXT_ = 6
 
 type xcb_xf86dri_destroy_context_request_t
 	major_opcode as ubyte
@@ -191,7 +205,7 @@ type xcb_xf86dri_create_drawable_cookie_t
 	sequence as ulong
 end type
 
-const XCB_XF86DRI_CREATE_DRAWABLE = 7
+const XCB_XF86DRI_CREATE_DRAWABLE_ = 7
 
 type xcb_xf86dri_create_drawable_request_t
 	major_opcode as ubyte
@@ -209,7 +223,7 @@ type xcb_xf86dri_create_drawable_reply_t
 	hw_drawable_handle as ulong
 end type
 
-const XCB_XF86DRI_DESTROY_DRAWABLE = 8
+const XCB_XF86DRI_DESTROY_DRAWABLE_ = 8
 
 type xcb_xf86dri_destroy_drawable_request_t
 	major_opcode as ubyte
@@ -223,7 +237,7 @@ type xcb_xf86dri_get_drawable_info_cookie_t
 	sequence as ulong
 end type
 
-const XCB_XF86DRI_GET_DRAWABLE_INFO = 9
+const XCB_XF86DRI_GET_DRAWABLE_INFO_ = 9
 
 type xcb_xf86dri_get_drawable_info_request_t
 	major_opcode as ubyte
@@ -254,7 +268,7 @@ type xcb_xf86dri_get_device_info_cookie_t
 	sequence as ulong
 end type
 
-const XCB_XF86DRI_GET_DEVICE_INFO = 10
+const XCB_XF86DRI_GET_DEVICE_INFO_ = 10
 
 type xcb_xf86dri_get_device_info_request_t
 	major_opcode as ubyte
@@ -280,7 +294,7 @@ type xcb_xf86dri_auth_connection_cookie_t
 	sequence as ulong
 end type
 
-const XCB_XF86DRI_AUTH_CONNECTION = 11
+const XCB_XF86DRI_AUTH_CONNECTION_ = 11
 
 type xcb_xf86dri_auth_connection_request_t
 	major_opcode as ubyte

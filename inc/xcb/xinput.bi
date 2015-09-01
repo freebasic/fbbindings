@@ -35,6 +35,69 @@
 #include once "xcb.bi"
 #include once "xfixes.bi"
 
+'' The following symbols have been renamed:
+''     constant XCB_INPUT_GET_EXTENSION_VERSION => XCB_INPUT_GET_EXTENSION_VERSION_
+''     constant XCB_INPUT_LIST_INPUT_DEVICES => XCB_INPUT_LIST_INPUT_DEVICES_
+''     constant XCB_INPUT_OPEN_DEVICE => XCB_INPUT_OPEN_DEVICE_
+''     constant XCB_INPUT_CLOSE_DEVICE => XCB_INPUT_CLOSE_DEVICE_
+''     constant XCB_INPUT_SET_DEVICE_MODE => XCB_INPUT_SET_DEVICE_MODE_
+''     constant XCB_INPUT_SELECT_EXTENSION_EVENT => XCB_INPUT_SELECT_EXTENSION_EVENT_
+''     constant XCB_INPUT_GET_SELECTED_EXTENSION_EVENTS => XCB_INPUT_GET_SELECTED_EXTENSION_EVENTS_
+''     constant XCB_INPUT_CHANGE_DEVICE_DONT_PROPAGATE_LIST => XCB_INPUT_CHANGE_DEVICE_DONT_PROPAGATE_LIST_
+''     constant XCB_INPUT_GET_DEVICE_DONT_PROPAGATE_LIST => XCB_INPUT_GET_DEVICE_DONT_PROPAGATE_LIST_
+''     constant XCB_INPUT_GET_DEVICE_MOTION_EVENTS => XCB_INPUT_GET_DEVICE_MOTION_EVENTS_
+''     constant XCB_INPUT_CHANGE_KEYBOARD_DEVICE => XCB_INPUT_CHANGE_KEYBOARD_DEVICE_
+''     constant XCB_INPUT_CHANGE_POINTER_DEVICE => XCB_INPUT_CHANGE_POINTER_DEVICE_
+''     constant XCB_INPUT_GRAB_DEVICE => XCB_INPUT_GRAB_DEVICE_
+''     constant XCB_INPUT_UNGRAB_DEVICE => XCB_INPUT_UNGRAB_DEVICE_
+''     constant XCB_INPUT_GRAB_DEVICE_KEY => XCB_INPUT_GRAB_DEVICE_KEY_
+''     constant XCB_INPUT_UNGRAB_DEVICE_KEY => XCB_INPUT_UNGRAB_DEVICE_KEY_
+''     constant XCB_INPUT_GRAB_DEVICE_BUTTON => XCB_INPUT_GRAB_DEVICE_BUTTON_
+''     constant XCB_INPUT_UNGRAB_DEVICE_BUTTON => XCB_INPUT_UNGRAB_DEVICE_BUTTON_
+''     constant XCB_INPUT_ALLOW_DEVICE_EVENTS => XCB_INPUT_ALLOW_DEVICE_EVENTS_
+''     constant XCB_INPUT_GET_DEVICE_FOCUS => XCB_INPUT_GET_DEVICE_FOCUS_
+''     constant XCB_INPUT_SET_DEVICE_FOCUS => XCB_INPUT_SET_DEVICE_FOCUS_
+''     constant XCB_INPUT_GET_FEEDBACK_CONTROL => XCB_INPUT_GET_FEEDBACK_CONTROL_
+''     constant XCB_INPUT_CHANGE_FEEDBACK_CONTROL => XCB_INPUT_CHANGE_FEEDBACK_CONTROL_
+''     constant XCB_INPUT_GET_DEVICE_KEY_MAPPING => XCB_INPUT_GET_DEVICE_KEY_MAPPING_
+''     constant XCB_INPUT_CHANGE_DEVICE_KEY_MAPPING => XCB_INPUT_CHANGE_DEVICE_KEY_MAPPING_
+''     constant XCB_INPUT_GET_DEVICE_MODIFIER_MAPPING => XCB_INPUT_GET_DEVICE_MODIFIER_MAPPING_
+''     constant XCB_INPUT_SET_DEVICE_MODIFIER_MAPPING => XCB_INPUT_SET_DEVICE_MODIFIER_MAPPING_
+''     constant XCB_INPUT_GET_DEVICE_BUTTON_MAPPING => XCB_INPUT_GET_DEVICE_BUTTON_MAPPING_
+''     constant XCB_INPUT_SET_DEVICE_BUTTON_MAPPING => XCB_INPUT_SET_DEVICE_BUTTON_MAPPING_
+''     constant XCB_INPUT_QUERY_DEVICE_STATE => XCB_INPUT_QUERY_DEVICE_STATE_
+''     constant XCB_INPUT_SEND_EXTENSION_EVENT => XCB_INPUT_SEND_EXTENSION_EVENT_
+''     constant XCB_INPUT_DEVICE_BELL => XCB_INPUT_DEVICE_BELL_
+''     constant XCB_INPUT_SET_DEVICE_VALUATORS => XCB_INPUT_SET_DEVICE_VALUATORS_
+''     constant XCB_INPUT_GET_DEVICE_CONTROL => XCB_INPUT_GET_DEVICE_CONTROL_
+''     constant XCB_INPUT_CHANGE_DEVICE_CONTROL => XCB_INPUT_CHANGE_DEVICE_CONTROL_
+''     constant XCB_INPUT_LIST_DEVICE_PROPERTIES => XCB_INPUT_LIST_DEVICE_PROPERTIES_
+''     constant XCB_INPUT_CHANGE_DEVICE_PROPERTY => XCB_INPUT_CHANGE_DEVICE_PROPERTY_
+''     constant XCB_INPUT_DELETE_DEVICE_PROPERTY => XCB_INPUT_DELETE_DEVICE_PROPERTY_
+''     constant XCB_INPUT_GET_DEVICE_PROPERTY => XCB_INPUT_GET_DEVICE_PROPERTY_
+''     constant XCB_INPUT_XI_QUERY_POINTER => XCB_INPUT_XI_QUERY_POINTER_
+''     constant XCB_INPUT_XI_WARP_POINTER => XCB_INPUT_XI_WARP_POINTER_
+''     constant XCB_INPUT_XI_CHANGE_CURSOR => XCB_INPUT_XI_CHANGE_CURSOR_
+''     constant XCB_INPUT_XI_CHANGE_HIERARCHY => XCB_INPUT_XI_CHANGE_HIERARCHY_
+''     constant XCB_INPUT_XI_SET_CLIENT_POINTER => XCB_INPUT_XI_SET_CLIENT_POINTER_
+''     constant XCB_INPUT_XI_GET_CLIENT_POINTER => XCB_INPUT_XI_GET_CLIENT_POINTER_
+''     constant XCB_INPUT_XI_SELECT_EVENTS => XCB_INPUT_XI_SELECT_EVENTS_
+''     constant XCB_INPUT_XI_QUERY_VERSION => XCB_INPUT_XI_QUERY_VERSION_
+''     constant XCB_INPUT_XI_QUERY_DEVICE => XCB_INPUT_XI_QUERY_DEVICE_
+''     constant XCB_INPUT_XI_SET_FOCUS => XCB_INPUT_XI_SET_FOCUS_
+''     constant XCB_INPUT_XI_GET_FOCUS => XCB_INPUT_XI_GET_FOCUS_
+''     constant XCB_INPUT_XI_GRAB_DEVICE => XCB_INPUT_XI_GRAB_DEVICE_
+''     constant XCB_INPUT_XI_UNGRAB_DEVICE => XCB_INPUT_XI_UNGRAB_DEVICE_
+''     constant XCB_INPUT_XI_ALLOW_EVENTS => XCB_INPUT_XI_ALLOW_EVENTS_
+''     constant XCB_INPUT_XI_PASSIVE_GRAB_DEVICE => XCB_INPUT_XI_PASSIVE_GRAB_DEVICE_
+''     constant XCB_INPUT_XI_PASSIVE_UNGRAB_DEVICE => XCB_INPUT_XI_PASSIVE_UNGRAB_DEVICE_
+''     constant XCB_INPUT_XI_LIST_PROPERTIES => XCB_INPUT_XI_LIST_PROPERTIES_
+''     constant XCB_INPUT_XI_CHANGE_PROPERTY => XCB_INPUT_XI_CHANGE_PROPERTY_
+''     constant XCB_INPUT_XI_DELETE_PROPERTY => XCB_INPUT_XI_DELETE_PROPERTY_
+''     constant XCB_INPUT_XI_GET_PROPERTY => XCB_INPUT_XI_GET_PROPERTY_
+''     constant XCB_INPUT_XI_GET_SELECTED_EVENTS => XCB_INPUT_XI_GET_SELECTED_EVENTS_
+''     constant XCB_INPUT_XI_BARRIER_RELEASE_POINTER => XCB_INPUT_XI_BARRIER_RELEASE_POINTER_
+
 extern "C"
 
 #define __XINPUT_H
@@ -88,7 +151,7 @@ type xcb_input_get_extension_version_cookie_t
 	sequence as ulong
 end type
 
-const XCB_INPUT_GET_EXTENSION_VERSION = 1
+const XCB_INPUT_GET_EXTENSION_VERSION_ = 1
 
 type xcb_input_get_extension_version_request_t
 	major_opcode as ubyte
@@ -227,7 +290,7 @@ type xcb_input_list_input_devices_cookie_t
 	sequence as ulong
 end type
 
-const XCB_INPUT_LIST_INPUT_DEVICES = 2
+const XCB_INPUT_LIST_INPUT_DEVICES_ = 2
 
 type xcb_input_list_input_devices_request_t
 	major_opcode as ubyte
@@ -259,7 +322,7 @@ type xcb_input_open_device_cookie_t
 	sequence as ulong
 end type
 
-const XCB_INPUT_OPEN_DEVICE = 3
+const XCB_INPUT_OPEN_DEVICE_ = 3
 
 type xcb_input_open_device_request_t
 	major_opcode as ubyte
@@ -278,7 +341,7 @@ type xcb_input_open_device_reply_t
 	pad1(0 to 22) as ubyte
 end type
 
-const XCB_INPUT_CLOSE_DEVICE = 4
+const XCB_INPUT_CLOSE_DEVICE_ = 4
 
 type xcb_input_close_device_request_t
 	major_opcode as ubyte
@@ -292,7 +355,7 @@ type xcb_input_set_device_mode_cookie_t
 	sequence as ulong
 end type
 
-const XCB_INPUT_SET_DEVICE_MODE = 5
+const XCB_INPUT_SET_DEVICE_MODE_ = 5
 
 type xcb_input_set_device_mode_request_t
 	major_opcode as ubyte
@@ -312,7 +375,7 @@ type xcb_input_set_device_mode_reply_t
 	pad1(0 to 22) as ubyte
 end type
 
-const XCB_INPUT_SELECT_EXTENSION_EVENT = 6
+const XCB_INPUT_SELECT_EXTENSION_EVENT_ = 6
 
 type xcb_input_select_extension_event_request_t
 	major_opcode as ubyte
@@ -327,7 +390,7 @@ type xcb_input_get_selected_extension_events_cookie_t
 	sequence as ulong
 end type
 
-const XCB_INPUT_GET_SELECTED_EXTENSION_EVENTS = 7
+const XCB_INPUT_GET_SELECTED_EXTENSION_EVENTS_ = 7
 
 type xcb_input_get_selected_extension_events_request_t
 	major_opcode as ubyte
@@ -352,7 +415,7 @@ enum
 	XCB_INPUT_PROPAGATE_MODE_DELETE_FROM_LIST = 1
 end enum
 
-const XCB_INPUT_CHANGE_DEVICE_DONT_PROPAGATE_LIST = 8
+const XCB_INPUT_CHANGE_DEVICE_DONT_PROPAGATE_LIST_ = 8
 
 type xcb_input_change_device_dont_propagate_list_request_t
 	major_opcode as ubyte
@@ -368,7 +431,7 @@ type xcb_input_get_device_dont_propagate_list_cookie_t
 	sequence as ulong
 end type
 
-const XCB_INPUT_GET_DEVICE_DONT_PROPAGATE_LIST = 9
+const XCB_INPUT_GET_DEVICE_DONT_PROPAGATE_LIST_ = 9
 
 type xcb_input_get_device_dont_propagate_list_request_t
 	major_opcode as ubyte
@@ -400,7 +463,7 @@ type xcb_input_get_device_motion_events_cookie_t
 	sequence as ulong
 end type
 
-const XCB_INPUT_GET_DEVICE_MOTION_EVENTS = 10
+const XCB_INPUT_GET_DEVICE_MOTION_EVENTS_ = 10
 
 type xcb_input_get_device_motion_events_request_t
 	major_opcode as ubyte
@@ -426,7 +489,7 @@ type xcb_input_change_keyboard_device_cookie_t
 	sequence as ulong
 end type
 
-const XCB_INPUT_CHANGE_KEYBOARD_DEVICE = 11
+const XCB_INPUT_CHANGE_KEYBOARD_DEVICE_ = 11
 
 type xcb_input_change_keyboard_device_request_t
 	major_opcode as ubyte
@@ -449,7 +512,7 @@ type xcb_input_change_pointer_device_cookie_t
 	sequence as ulong
 end type
 
-const XCB_INPUT_CHANGE_POINTER_DEVICE = 12
+const XCB_INPUT_CHANGE_POINTER_DEVICE_ = 12
 
 type xcb_input_change_pointer_device_request_t
 	major_opcode as ubyte
@@ -474,7 +537,7 @@ type xcb_input_grab_device_cookie_t
 	sequence as ulong
 end type
 
-const XCB_INPUT_GRAB_DEVICE = 13
+const XCB_INPUT_GRAB_DEVICE_ = 13
 
 type xcb_input_grab_device_request_t
 	major_opcode as ubyte
@@ -499,7 +562,7 @@ type xcb_input_grab_device_reply_t
 	pad1(0 to 22) as ubyte
 end type
 
-const XCB_INPUT_UNGRAB_DEVICE = 14
+const XCB_INPUT_UNGRAB_DEVICE_ = 14
 
 type xcb_input_ungrab_device_request_t
 	major_opcode as ubyte
@@ -509,7 +572,7 @@ type xcb_input_ungrab_device_request_t
 	device_id as ubyte
 end type
 
-const XCB_INPUT_GRAB_DEVICE_KEY = 15
+const XCB_INPUT_GRAB_DEVICE_KEY_ = 15
 
 type xcb_input_grab_device_key_request_t
 	major_opcode as ubyte
@@ -527,7 +590,7 @@ type xcb_input_grab_device_key_request_t
 	pad0(0 to 1) as ubyte
 end type
 
-const XCB_INPUT_UNGRAB_DEVICE_KEY = 16
+const XCB_INPUT_UNGRAB_DEVICE_KEY_ = 16
 
 type xcb_input_ungrab_device_key_request_t
 	major_opcode as ubyte
@@ -540,7 +603,7 @@ type xcb_input_ungrab_device_key_request_t
 	grabbed_device as ubyte
 end type
 
-const XCB_INPUT_GRAB_DEVICE_BUTTON = 17
+const XCB_INPUT_GRAB_DEVICE_BUTTON_ = 17
 
 type xcb_input_grab_device_button_request_t
 	major_opcode as ubyte
@@ -558,7 +621,7 @@ type xcb_input_grab_device_button_request_t
 	pad0(0 to 1) as ubyte
 end type
 
-const XCB_INPUT_UNGRAB_DEVICE_BUTTON = 18
+const XCB_INPUT_UNGRAB_DEVICE_BUTTON_ = 18
 
 type xcb_input_ungrab_device_button_request_t
 	major_opcode as ubyte
@@ -581,7 +644,7 @@ enum
 	XCB_INPUT_DEVICE_INPUT_MODE_SYNC_ALL = 5
 end enum
 
-const XCB_INPUT_ALLOW_DEVICE_EVENTS = 19
+const XCB_INPUT_ALLOW_DEVICE_EVENTS_ = 19
 
 type xcb_input_allow_device_events_request_t
 	major_opcode as ubyte
@@ -596,7 +659,7 @@ type xcb_input_get_device_focus_cookie_t
 	sequence as ulong
 end type
 
-const XCB_INPUT_GET_DEVICE_FOCUS = 20
+const XCB_INPUT_GET_DEVICE_FOCUS_ = 20
 
 type xcb_input_get_device_focus_request_t
 	major_opcode as ubyte
@@ -617,7 +680,7 @@ type xcb_input_get_device_focus_reply_t
 	pad1(0 to 14) as ubyte
 end type
 
-const XCB_INPUT_SET_DEVICE_FOCUS = 21
+const XCB_INPUT_SET_DEVICE_FOCUS_ = 21
 
 type xcb_input_set_device_focus_request_t
 	major_opcode as ubyte
@@ -751,7 +814,7 @@ type xcb_input_get_feedback_control_cookie_t
 	sequence as ulong
 end type
 
-const XCB_INPUT_GET_FEEDBACK_CONTROL = 22
+const XCB_INPUT_GET_FEEDBACK_CONTROL_ = 22
 
 type xcb_input_get_feedback_control_request_t
 	major_opcode as ubyte
@@ -875,7 +938,7 @@ type xcb_input_feedback_ctl_iterator_t
 	index as long
 end type
 
-const XCB_INPUT_CHANGE_FEEDBACK_CONTROL = 23
+const XCB_INPUT_CHANGE_FEEDBACK_CONTROL_ = 23
 
 type xcb_input_change_feedback_control_request_t
 	major_opcode as ubyte
@@ -890,7 +953,7 @@ type xcb_input_get_device_key_mapping_cookie_t
 	sequence as ulong
 end type
 
-const XCB_INPUT_GET_DEVICE_KEY_MAPPING = 24
+const XCB_INPUT_GET_DEVICE_KEY_MAPPING_ = 24
 
 type xcb_input_get_device_key_mapping_request_t
 	major_opcode as ubyte
@@ -910,7 +973,7 @@ type xcb_input_get_device_key_mapping_reply_t
 	pad1(0 to 22) as ubyte
 end type
 
-const XCB_INPUT_CHANGE_DEVICE_KEY_MAPPING = 25
+const XCB_INPUT_CHANGE_DEVICE_KEY_MAPPING_ = 25
 
 type xcb_input_change_device_key_mapping_request_t
 	major_opcode as ubyte
@@ -926,7 +989,7 @@ type xcb_input_get_device_modifier_mapping_cookie_t
 	sequence as ulong
 end type
 
-const XCB_INPUT_GET_DEVICE_MODIFIER_MAPPING = 26
+const XCB_INPUT_GET_DEVICE_MODIFIER_MAPPING_ = 26
 
 type xcb_input_get_device_modifier_mapping_request_t
 	major_opcode as ubyte
@@ -949,7 +1012,7 @@ type xcb_input_set_device_modifier_mapping_cookie_t
 	sequence as ulong
 end type
 
-const XCB_INPUT_SET_DEVICE_MODIFIER_MAPPING = 27
+const XCB_INPUT_SET_DEVICE_MODIFIER_MAPPING_ = 27
 
 type xcb_input_set_device_modifier_mapping_request_t
 	major_opcode as ubyte
@@ -973,7 +1036,7 @@ type xcb_input_get_device_button_mapping_cookie_t
 	sequence as ulong
 end type
 
-const XCB_INPUT_GET_DEVICE_BUTTON_MAPPING = 28
+const XCB_INPUT_GET_DEVICE_BUTTON_MAPPING_ = 28
 
 type xcb_input_get_device_button_mapping_request_t
 	major_opcode as ubyte
@@ -996,7 +1059,7 @@ type xcb_input_set_device_button_mapping_cookie_t
 	sequence as ulong
 end type
 
-const XCB_INPUT_SET_DEVICE_BUTTON_MAPPING = 29
+const XCB_INPUT_SET_DEVICE_BUTTON_MAPPING_ = 29
 
 type xcb_input_set_device_button_mapping_request_t
 	major_opcode as ubyte
@@ -1074,7 +1137,7 @@ type xcb_input_query_device_state_cookie_t
 	sequence as ulong
 end type
 
-const XCB_INPUT_QUERY_DEVICE_STATE = 30
+const XCB_INPUT_QUERY_DEVICE_STATE_ = 30
 
 type xcb_input_query_device_state_request_t
 	major_opcode as ubyte
@@ -1093,7 +1156,7 @@ type xcb_input_query_device_state_reply_t
 	pad1(0 to 22) as ubyte
 end type
 
-const XCB_INPUT_SEND_EXTENSION_EVENT = 31
+const XCB_INPUT_SEND_EXTENSION_EVENT_ = 31
 
 type xcb_input_send_extension_event_request_t
 	major_opcode as ubyte
@@ -1107,7 +1170,7 @@ type xcb_input_send_extension_event_request_t
 	pad0(0 to 2) as ubyte
 end type
 
-const XCB_INPUT_DEVICE_BELL = 32
+const XCB_INPUT_DEVICE_BELL_ = 32
 
 type xcb_input_device_bell_request_t
 	major_opcode as ubyte
@@ -1123,7 +1186,7 @@ type xcb_input_set_device_valuators_cookie_t
 	sequence as ulong
 end type
 
-const XCB_INPUT_SET_DEVICE_VALUATORS = 33
+const XCB_INPUT_SET_DEVICE_VALUATORS_ = 33
 
 type xcb_input_set_device_valuators_request_t
 	major_opcode as ubyte
@@ -1243,7 +1306,7 @@ type xcb_input_get_device_control_cookie_t
 	sequence as ulong
 end type
 
-const XCB_INPUT_GET_DEVICE_CONTROL = 34
+const XCB_INPUT_GET_DEVICE_CONTROL_ = 34
 
 type xcb_input_get_device_control_request_t
 	major_opcode as ubyte
@@ -1354,7 +1417,7 @@ type xcb_input_change_device_control_cookie_t
 	sequence as ulong
 end type
 
-const XCB_INPUT_CHANGE_DEVICE_CONTROL = 35
+const XCB_INPUT_CHANGE_DEVICE_CONTROL_ = 35
 
 type xcb_input_change_device_control_request_t
 	major_opcode as ubyte
@@ -1378,7 +1441,7 @@ type xcb_input_list_device_properties_cookie_t
 	sequence as ulong
 end type
 
-const XCB_INPUT_LIST_DEVICE_PROPERTIES = 36
+const XCB_INPUT_LIST_DEVICE_PROPERTIES_ = 36
 
 type xcb_input_list_device_properties_request_t
 	major_opcode as ubyte
@@ -1410,7 +1473,7 @@ type xcb_input_change_device_property_items_t
 	data32 as ulong ptr
 end type
 
-const XCB_INPUT_CHANGE_DEVICE_PROPERTY = 37
+const XCB_INPUT_CHANGE_DEVICE_PROPERTY_ = 37
 
 type xcb_input_change_device_property_request_t
 	major_opcode as ubyte
@@ -1425,7 +1488,7 @@ type xcb_input_change_device_property_request_t
 	num_items as ulong
 end type
 
-const XCB_INPUT_DELETE_DEVICE_PROPERTY = 38
+const XCB_INPUT_DELETE_DEVICE_PROPERTY_ = 38
 
 type xcb_input_delete_device_property_request_t
 	major_opcode as ubyte
@@ -1440,7 +1503,7 @@ type xcb_input_get_device_property_cookie_t
 	sequence as ulong
 end type
 
-const XCB_INPUT_GET_DEVICE_PROPERTY = 39
+const XCB_INPUT_GET_DEVICE_PROPERTY_ = 39
 
 type xcb_input_get_device_property_request_t
 	major_opcode as ubyte
@@ -1510,7 +1573,7 @@ type xcb_input_xi_query_pointer_cookie_t
 	sequence as ulong
 end type
 
-const XCB_INPUT_XI_QUERY_POINTER = 40
+const XCB_INPUT_XI_QUERY_POINTER_ = 40
 
 type xcb_input_xi_query_pointer_request_t
 	major_opcode as ubyte
@@ -1539,7 +1602,7 @@ type xcb_input_xi_query_pointer_reply_t
 	group as xcb_input_group_info_t
 end type
 
-const XCB_INPUT_XI_WARP_POINTER = 41
+const XCB_INPUT_XI_WARP_POINTER_ = 41
 
 type xcb_input_xi_warp_pointer_request_t
 	major_opcode as ubyte
@@ -1557,7 +1620,7 @@ type xcb_input_xi_warp_pointer_request_t
 	pad0(0 to 1) as ubyte
 end type
 
-const XCB_INPUT_XI_CHANGE_CURSOR = 42
+const XCB_INPUT_XI_CHANGE_CURSOR_ = 42
 
 type xcb_input_xi_change_cursor_request_t
 	major_opcode as ubyte
@@ -1650,7 +1713,7 @@ type xcb_input_hierarchy_change_iterator_t
 	index as long
 end type
 
-const XCB_INPUT_XI_CHANGE_HIERARCHY = 43
+const XCB_INPUT_XI_CHANGE_HIERARCHY_ = 43
 
 type xcb_input_xi_change_hierarchy_request_t
 	major_opcode as ubyte
@@ -1660,7 +1723,7 @@ type xcb_input_xi_change_hierarchy_request_t
 	pad0(0 to 2) as ubyte
 end type
 
-const XCB_INPUT_XI_SET_CLIENT_POINTER = 44
+const XCB_INPUT_XI_SET_CLIENT_POINTER_ = 44
 
 type xcb_input_xi_set_client_pointer_request_t
 	major_opcode as ubyte
@@ -1675,7 +1738,7 @@ type xcb_input_xi_get_client_pointer_cookie_t
 	sequence as ulong
 end type
 
-const XCB_INPUT_XI_GET_CLIENT_POINTER = 45
+const XCB_INPUT_XI_GET_CLIENT_POINTER_ = 45
 
 type xcb_input_xi_get_client_pointer_request_t
 	major_opcode as ubyte
@@ -1736,7 +1799,7 @@ type xcb_input_event_mask_iterator_t
 	index as long
 end type
 
-const XCB_INPUT_XI_SELECT_EVENTS = 46
+const XCB_INPUT_XI_SELECT_EVENTS_ = 46
 
 type xcb_input_xi_select_events_request_t
 	major_opcode as ubyte
@@ -1751,7 +1814,7 @@ type xcb_input_xi_query_version_cookie_t
 	sequence as ulong
 end type
 
-const XCB_INPUT_XI_QUERY_VERSION = 47
+const XCB_INPUT_XI_QUERY_VERSION_ = 47
 
 type xcb_input_xi_query_version_request_t
 	major_opcode as ubyte
@@ -1917,7 +1980,7 @@ type xcb_input_xi_query_device_cookie_t
 	sequence as ulong
 end type
 
-const XCB_INPUT_XI_QUERY_DEVICE = 48
+const XCB_INPUT_XI_QUERY_DEVICE_ = 48
 
 type xcb_input_xi_query_device_request_t
 	major_opcode as ubyte
@@ -1936,7 +1999,7 @@ type xcb_input_xi_query_device_reply_t
 	pad1(0 to 21) as ubyte
 end type
 
-const XCB_INPUT_XI_SET_FOCUS = 49
+const XCB_INPUT_XI_SET_FOCUS_ = 49
 
 type xcb_input_xi_set_focus_request_t
 	major_opcode as ubyte
@@ -1952,7 +2015,7 @@ type xcb_input_xi_get_focus_cookie_t
 	sequence as ulong
 end type
 
-const XCB_INPUT_XI_GET_FOCUS = 50
+const XCB_INPUT_XI_GET_FOCUS_ = 50
 
 type xcb_input_xi_get_focus_request_t
 	major_opcode as ubyte
@@ -1981,7 +2044,7 @@ type xcb_input_xi_grab_device_cookie_t
 	sequence as ulong
 end type
 
-const XCB_INPUT_XI_GRAB_DEVICE = 51
+const XCB_INPUT_XI_GRAB_DEVICE_ = 51
 
 type xcb_input_xi_grab_device_request_t
 	major_opcode as ubyte
@@ -2007,7 +2070,7 @@ type xcb_input_xi_grab_device_reply_t
 	pad1(0 to 22) as ubyte
 end type
 
-const XCB_INPUT_XI_UNGRAB_DEVICE = 52
+const XCB_INPUT_XI_UNGRAB_DEVICE_ = 52
 
 type xcb_input_xi_ungrab_device_request_t
 	major_opcode as ubyte
@@ -2030,7 +2093,7 @@ enum
 	XCB_INPUT_EVENT_MODE_REJECT_TOUCH = 7
 end enum
 
-const XCB_INPUT_XI_ALLOW_EVENTS = 53
+const XCB_INPUT_XI_ALLOW_EVENTS_ = 53
 
 type xcb_input_xi_allow_events_request_t
 	major_opcode as ubyte
@@ -2081,7 +2144,7 @@ type xcb_input_xi_passive_grab_device_cookie_t
 	sequence as ulong
 end type
 
-const XCB_INPUT_XI_PASSIVE_GRAB_DEVICE = 54
+const XCB_INPUT_XI_PASSIVE_GRAB_DEVICE_ = 54
 
 type xcb_input_xi_passive_grab_device_request_t
 	major_opcode as ubyte
@@ -2110,7 +2173,7 @@ type xcb_input_xi_passive_grab_device_reply_t
 	pad1(0 to 21) as ubyte
 end type
 
-const XCB_INPUT_XI_PASSIVE_UNGRAB_DEVICE = 55
+const XCB_INPUT_XI_PASSIVE_UNGRAB_DEVICE_ = 55
 
 type xcb_input_xi_passive_ungrab_device_request_t
 	major_opcode as ubyte
@@ -2128,7 +2191,7 @@ type xcb_input_xi_list_properties_cookie_t
 	sequence as ulong
 end type
 
-const XCB_INPUT_XI_LIST_PROPERTIES = 56
+const XCB_INPUT_XI_LIST_PROPERTIES_ = 56
 
 type xcb_input_xi_list_properties_request_t
 	major_opcode as ubyte
@@ -2153,7 +2216,7 @@ type xcb_input_xi_change_property_items_t
 	data32 as ulong ptr
 end type
 
-const XCB_INPUT_XI_CHANGE_PROPERTY = 57
+const XCB_INPUT_XI_CHANGE_PROPERTY_ = 57
 
 type xcb_input_xi_change_property_request_t
 	major_opcode as ubyte
@@ -2167,7 +2230,7 @@ type xcb_input_xi_change_property_request_t
 	num_items as ulong
 end type
 
-const XCB_INPUT_XI_DELETE_PROPERTY = 58
+const XCB_INPUT_XI_DELETE_PROPERTY_ = 58
 
 type xcb_input_xi_delete_property_request_t
 	major_opcode as ubyte
@@ -2182,7 +2245,7 @@ type xcb_input_xi_get_property_cookie_t
 	sequence as ulong
 end type
 
-const XCB_INPUT_XI_GET_PROPERTY = 59
+const XCB_INPUT_XI_GET_PROPERTY_ = 59
 
 type xcb_input_xi_get_property_request_t
 	major_opcode as ubyte
@@ -2219,7 +2282,7 @@ type xcb_input_xi_get_selected_events_cookie_t
 	sequence as ulong
 end type
 
-const XCB_INPUT_XI_GET_SELECTED_EVENTS = 60
+const XCB_INPUT_XI_GET_SELECTED_EVENTS_ = 60
 
 type xcb_input_xi_get_selected_events_request_t
 	major_opcode as ubyte
@@ -2250,7 +2313,7 @@ type xcb_input_barrier_release_pointer_info_iterator_t
 	index as long
 end type
 
-const XCB_INPUT_XI_BARRIER_RELEASE_POINTER = 61
+const XCB_INPUT_XI_BARRIER_RELEASE_POINTER_ = 61
 
 type xcb_input_xi_barrier_release_pointer_request_t
 	major_opcode as ubyte

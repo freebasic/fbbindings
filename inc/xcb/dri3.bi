@@ -29,6 +29,14 @@
 #include once "xcb.bi"
 #include once "xproto.bi"
 
+'' The following symbols have been renamed:
+''     constant XCB_DRI3_QUERY_VERSION => XCB_DRI3_QUERY_VERSION_
+''     constant XCB_DRI3_OPEN => XCB_DRI3_OPEN_
+''     constant XCB_DRI3_PIXMAP_FROM_BUFFER => XCB_DRI3_PIXMAP_FROM_BUFFER_
+''     constant XCB_DRI3_BUFFER_FROM_PIXMAP => XCB_DRI3_BUFFER_FROM_PIXMAP_
+''     constant XCB_DRI3_FENCE_FROM_FD => XCB_DRI3_FENCE_FROM_FD_
+''     constant XCB_DRI3_FD_FROM_FENCE => XCB_DRI3_FD_FROM_FENCE_
+
 extern "C"
 
 #define __DRI3_H
@@ -40,7 +48,7 @@ type xcb_dri3_query_version_cookie_t
 	sequence as ulong
 end type
 
-const XCB_DRI3_QUERY_VERSION = 0
+const XCB_DRI3_QUERY_VERSION_ = 0
 
 type xcb_dri3_query_version_request_t
 	major_opcode as ubyte
@@ -63,7 +71,7 @@ type xcb_dri3_open_cookie_t
 	sequence as ulong
 end type
 
-const XCB_DRI3_OPEN = 1
+const XCB_DRI3_OPEN_ = 1
 
 type xcb_dri3_open_request_t
 	major_opcode as ubyte
@@ -81,7 +89,7 @@ type xcb_dri3_open_reply_t
 	pad0(0 to 23) as ubyte
 end type
 
-const XCB_DRI3_PIXMAP_FROM_BUFFER = 2
+const XCB_DRI3_PIXMAP_FROM_BUFFER_ = 2
 
 type xcb_dri3_pixmap_from_buffer_request_t
 	major_opcode as ubyte
@@ -101,7 +109,7 @@ type xcb_dri3_buffer_from_pixmap_cookie_t
 	sequence as ulong
 end type
 
-const XCB_DRI3_BUFFER_FROM_PIXMAP = 3
+const XCB_DRI3_BUFFER_FROM_PIXMAP_ = 3
 
 type xcb_dri3_buffer_from_pixmap_request_t
 	major_opcode as ubyte
@@ -124,7 +132,7 @@ type xcb_dri3_buffer_from_pixmap_reply_t
 	pad0(0 to 11) as ubyte
 end type
 
-const XCB_DRI3_FENCE_FROM_FD = 4
+const XCB_DRI3_FENCE_FROM_FD_ = 4
 
 type xcb_dri3_fence_from_fd_request_t
 	major_opcode as ubyte
@@ -140,7 +148,7 @@ type xcb_dri3_fd_from_fence_cookie_t
 	sequence as ulong
 end type
 
-const XCB_DRI3_FD_FROM_FENCE = 5
+const XCB_DRI3_FD_FROM_FENCE_ = 5
 
 type xcb_dri3_fd_from_fence_request_t
 	major_opcode as ubyte

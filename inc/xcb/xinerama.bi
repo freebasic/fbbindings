@@ -34,6 +34,14 @@
 #include once "xcb.bi"
 #include once "xproto.bi"
 
+'' The following symbols have been renamed:
+''     constant XCB_XINERAMA_QUERY_VERSION => XCB_XINERAMA_QUERY_VERSION_
+''     constant XCB_XINERAMA_GET_STATE => XCB_XINERAMA_GET_STATE_
+''     constant XCB_XINERAMA_GET_SCREEN_COUNT => XCB_XINERAMA_GET_SCREEN_COUNT_
+''     constant XCB_XINERAMA_GET_SCREEN_SIZE => XCB_XINERAMA_GET_SCREEN_SIZE_
+''     constant XCB_XINERAMA_IS_ACTIVE => XCB_XINERAMA_IS_ACTIVE_
+''     constant XCB_XINERAMA_QUERY_SCREENS => XCB_XINERAMA_QUERY_SCREENS_
+
 extern "C"
 
 #define __XINERAMA_H
@@ -58,7 +66,7 @@ type xcb_xinerama_query_version_cookie_t
 	sequence as ulong
 end type
 
-const XCB_XINERAMA_QUERY_VERSION = 0
+const XCB_XINERAMA_QUERY_VERSION_ = 0
 
 type xcb_xinerama_query_version_request_t
 	major_opcode as ubyte
@@ -81,7 +89,7 @@ type xcb_xinerama_get_state_cookie_t
 	sequence as ulong
 end type
 
-const XCB_XINERAMA_GET_STATE = 1
+const XCB_XINERAMA_GET_STATE_ = 1
 
 type xcb_xinerama_get_state_request_t
 	major_opcode as ubyte
@@ -102,7 +110,7 @@ type xcb_xinerama_get_screen_count_cookie_t
 	sequence as ulong
 end type
 
-const XCB_XINERAMA_GET_SCREEN_COUNT = 2
+const XCB_XINERAMA_GET_SCREEN_COUNT_ = 2
 
 type xcb_xinerama_get_screen_count_request_t
 	major_opcode as ubyte
@@ -123,7 +131,7 @@ type xcb_xinerama_get_screen_size_cookie_t
 	sequence as ulong
 end type
 
-const XCB_XINERAMA_GET_SCREEN_SIZE = 3
+const XCB_XINERAMA_GET_SCREEN_SIZE_ = 3
 
 type xcb_xinerama_get_screen_size_request_t
 	major_opcode as ubyte
@@ -148,7 +156,7 @@ type xcb_xinerama_is_active_cookie_t
 	sequence as ulong
 end type
 
-const XCB_XINERAMA_IS_ACTIVE = 4
+const XCB_XINERAMA_IS_ACTIVE_ = 4
 
 type xcb_xinerama_is_active_request_t
 	major_opcode as ubyte
@@ -168,7 +176,7 @@ type xcb_xinerama_query_screens_cookie_t
 	sequence as ulong
 end type
 
-const XCB_XINERAMA_QUERY_SCREENS = 5
+const XCB_XINERAMA_QUERY_SCREENS_ = 5
 
 type xcb_xinerama_query_screens_request_t
 	major_opcode as ubyte

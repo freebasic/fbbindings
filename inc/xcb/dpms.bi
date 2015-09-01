@@ -33,6 +33,16 @@
 
 #include once "xcb.bi"
 
+'' The following symbols have been renamed:
+''     constant XCB_DPMS_GET_VERSION => XCB_DPMS_GET_VERSION_
+''     constant XCB_DPMS_CAPABLE => XCB_DPMS_CAPABLE_
+''     constant XCB_DPMS_GET_TIMEOUTS => XCB_DPMS_GET_TIMEOUTS_
+''     constant XCB_DPMS_SET_TIMEOUTS => XCB_DPMS_SET_TIMEOUTS_
+''     constant XCB_DPMS_ENABLE => XCB_DPMS_ENABLE_
+''     constant XCB_DPMS_DISABLE => XCB_DPMS_DISABLE_
+''     constant XCB_DPMS_FORCE_LEVEL => XCB_DPMS_FORCE_LEVEL_
+''     constant XCB_DPMS_INFO => XCB_DPMS_INFO_
+
 extern "C"
 
 #define __DPMS_H
@@ -44,7 +54,7 @@ type xcb_dpms_get_version_cookie_t
 	sequence as ulong
 end type
 
-const XCB_DPMS_GET_VERSION = 0
+const XCB_DPMS_GET_VERSION_ = 0
 
 type xcb_dpms_get_version_request_t
 	major_opcode as ubyte
@@ -67,7 +77,7 @@ type xcb_dpms_capable_cookie_t
 	sequence as ulong
 end type
 
-const XCB_DPMS_CAPABLE = 1
+const XCB_DPMS_CAPABLE_ = 1
 
 type xcb_dpms_capable_request_t
 	major_opcode as ubyte
@@ -88,7 +98,7 @@ type xcb_dpms_get_timeouts_cookie_t
 	sequence as ulong
 end type
 
-const XCB_DPMS_GET_TIMEOUTS = 2
+const XCB_DPMS_GET_TIMEOUTS_ = 2
 
 type xcb_dpms_get_timeouts_request_t
 	major_opcode as ubyte
@@ -107,7 +117,7 @@ type xcb_dpms_get_timeouts_reply_t
 	pad1(0 to 17) as ubyte
 end type
 
-const XCB_DPMS_SET_TIMEOUTS = 3
+const XCB_DPMS_SET_TIMEOUTS_ = 3
 
 type xcb_dpms_set_timeouts_request_t
 	major_opcode as ubyte
@@ -118,7 +128,7 @@ type xcb_dpms_set_timeouts_request_t
 	off_timeout as ushort
 end type
 
-const XCB_DPMS_ENABLE = 4
+const XCB_DPMS_ENABLE_ = 4
 
 type xcb_dpms_enable_request_t
 	major_opcode as ubyte
@@ -126,7 +136,7 @@ type xcb_dpms_enable_request_t
 	length as ushort
 end type
 
-const XCB_DPMS_DISABLE = 5
+const XCB_DPMS_DISABLE_ = 5
 
 type xcb_dpms_disable_request_t
 	major_opcode as ubyte
@@ -142,7 +152,7 @@ enum
 	XCB_DPMS_DPMS_MODE_OFF = 3
 end enum
 
-const XCB_DPMS_FORCE_LEVEL = 6
+const XCB_DPMS_FORCE_LEVEL_ = 6
 
 type xcb_dpms_force_level_request_t
 	major_opcode as ubyte
@@ -155,7 +165,7 @@ type xcb_dpms_info_cookie_t
 	sequence as ulong
 end type
 
-const XCB_DPMS_INFO = 7
+const XCB_DPMS_INFO_ = 7
 
 type xcb_dpms_info_request_t
 	major_opcode as ubyte

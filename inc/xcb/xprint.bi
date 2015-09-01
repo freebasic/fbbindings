@@ -34,6 +34,33 @@
 #include once "xcb.bi"
 #include once "xproto.bi"
 
+'' The following symbols have been renamed:
+''     constant XCB_X_PRINT_PRINT_QUERY_VERSION => XCB_X_PRINT_PRINT_QUERY_VERSION_
+''     constant XCB_X_PRINT_PRINT_GET_PRINTER_LIST => XCB_X_PRINT_PRINT_GET_PRINTER_LIST_
+''     constant XCB_X_PRINT_PRINT_REHASH_PRINTER_LIST => XCB_X_PRINT_PRINT_REHASH_PRINTER_LIST_
+''     constant XCB_X_PRINT_CREATE_CONTEXT => XCB_X_PRINT_CREATE_CONTEXT_
+''     constant XCB_X_PRINT_PRINT_SET_CONTEXT => XCB_X_PRINT_PRINT_SET_CONTEXT_
+''     constant XCB_X_PRINT_PRINT_GET_CONTEXT => XCB_X_PRINT_PRINT_GET_CONTEXT_
+''     constant XCB_X_PRINT_PRINT_DESTROY_CONTEXT => XCB_X_PRINT_PRINT_DESTROY_CONTEXT_
+''     constant XCB_X_PRINT_PRINT_GET_SCREEN_OF_CONTEXT => XCB_X_PRINT_PRINT_GET_SCREEN_OF_CONTEXT_
+''     constant XCB_X_PRINT_PRINT_START_JOB => XCB_X_PRINT_PRINT_START_JOB_
+''     constant XCB_X_PRINT_PRINT_END_JOB => XCB_X_PRINT_PRINT_END_JOB_
+''     constant XCB_X_PRINT_PRINT_START_DOC => XCB_X_PRINT_PRINT_START_DOC_
+''     constant XCB_X_PRINT_PRINT_END_DOC => XCB_X_PRINT_PRINT_END_DOC_
+''     constant XCB_X_PRINT_PRINT_PUT_DOCUMENT_DATA => XCB_X_PRINT_PRINT_PUT_DOCUMENT_DATA_
+''     constant XCB_X_PRINT_PRINT_GET_DOCUMENT_DATA => XCB_X_PRINT_PRINT_GET_DOCUMENT_DATA_
+''     constant XCB_X_PRINT_PRINT_START_PAGE => XCB_X_PRINT_PRINT_START_PAGE_
+''     constant XCB_X_PRINT_PRINT_END_PAGE => XCB_X_PRINT_PRINT_END_PAGE_
+''     constant XCB_X_PRINT_PRINT_SELECT_INPUT => XCB_X_PRINT_PRINT_SELECT_INPUT_
+''     constant XCB_X_PRINT_PRINT_INPUT_SELECTED => XCB_X_PRINT_PRINT_INPUT_SELECTED_
+''     constant XCB_X_PRINT_PRINT_GET_ATTRIBUTES => XCB_X_PRINT_PRINT_GET_ATTRIBUTES_
+''     constant XCB_X_PRINT_PRINT_GET_ONE_ATTRIBUTES => XCB_X_PRINT_PRINT_GET_ONE_ATTRIBUTES_
+''     constant XCB_X_PRINT_PRINT_SET_ATTRIBUTES => XCB_X_PRINT_PRINT_SET_ATTRIBUTES_
+''     constant XCB_X_PRINT_PRINT_GET_PAGE_DIMENSIONS => XCB_X_PRINT_PRINT_GET_PAGE_DIMENSIONS_
+''     constant XCB_X_PRINT_PRINT_QUERY_SCREENS => XCB_X_PRINT_PRINT_QUERY_SCREENS_
+''     constant XCB_X_PRINT_PRINT_SET_IMAGE_RESOLUTION => XCB_X_PRINT_PRINT_SET_IMAGE_RESOLUTION_
+''     constant XCB_X_PRINT_PRINT_GET_IMAGE_RESOLUTION => XCB_X_PRINT_PRINT_GET_IMAGE_RESOLUTION_
+
 extern "C"
 
 #define __XPRINT_H
@@ -105,7 +132,7 @@ type xcb_x_print_print_query_version_cookie_t
 	sequence as ulong
 end type
 
-const XCB_X_PRINT_PRINT_QUERY_VERSION = 0
+const XCB_X_PRINT_PRINT_QUERY_VERSION_ = 0
 
 type xcb_x_print_print_query_version_request_t
 	major_opcode as ubyte
@@ -126,7 +153,7 @@ type xcb_x_print_print_get_printer_list_cookie_t
 	sequence as ulong
 end type
 
-const XCB_X_PRINT_PRINT_GET_PRINTER_LIST = 1
+const XCB_X_PRINT_PRINT_GET_PRINTER_LIST_ = 1
 
 type xcb_x_print_print_get_printer_list_request_t
 	major_opcode as ubyte
@@ -145,7 +172,7 @@ type xcb_x_print_print_get_printer_list_reply_t
 	pad1(0 to 19) as ubyte
 end type
 
-const XCB_X_PRINT_PRINT_REHASH_PRINTER_LIST = 20
+const XCB_X_PRINT_PRINT_REHASH_PRINTER_LIST_ = 20
 
 type xcb_x_print_print_rehash_printer_list_request_t
 	major_opcode as ubyte
@@ -153,7 +180,7 @@ type xcb_x_print_print_rehash_printer_list_request_t
 	length as ushort
 end type
 
-const XCB_X_PRINT_CREATE_CONTEXT = 2
+const XCB_X_PRINT_CREATE_CONTEXT_ = 2
 
 type xcb_x_print_create_context_request_t
 	major_opcode as ubyte
@@ -164,7 +191,7 @@ type xcb_x_print_create_context_request_t
 	localeLen as ulong
 end type
 
-const XCB_X_PRINT_PRINT_SET_CONTEXT = 3
+const XCB_X_PRINT_PRINT_SET_CONTEXT_ = 3
 
 type xcb_x_print_print_set_context_request_t
 	major_opcode as ubyte
@@ -177,7 +204,7 @@ type xcb_x_print_print_get_context_cookie_t
 	sequence as ulong
 end type
 
-const XCB_X_PRINT_PRINT_GET_CONTEXT = 4
+const XCB_X_PRINT_PRINT_GET_CONTEXT_ = 4
 
 type xcb_x_print_print_get_context_request_t
 	major_opcode as ubyte
@@ -193,7 +220,7 @@ type xcb_x_print_print_get_context_reply_t
 	context as ulong
 end type
 
-const XCB_X_PRINT_PRINT_DESTROY_CONTEXT = 5
+const XCB_X_PRINT_PRINT_DESTROY_CONTEXT_ = 5
 
 type xcb_x_print_print_destroy_context_request_t
 	major_opcode as ubyte
@@ -206,7 +233,7 @@ type xcb_x_print_print_get_screen_of_context_cookie_t
 	sequence as ulong
 end type
 
-const XCB_X_PRINT_PRINT_GET_SCREEN_OF_CONTEXT = 6
+const XCB_X_PRINT_PRINT_GET_SCREEN_OF_CONTEXT_ = 6
 
 type xcb_x_print_print_get_screen_of_context_request_t
 	major_opcode as ubyte
@@ -222,7 +249,7 @@ type xcb_x_print_print_get_screen_of_context_reply_t
 	root as xcb_window_t
 end type
 
-const XCB_X_PRINT_PRINT_START_JOB = 7
+const XCB_X_PRINT_PRINT_START_JOB_ = 7
 
 type xcb_x_print_print_start_job_request_t
 	major_opcode as ubyte
@@ -231,7 +258,7 @@ type xcb_x_print_print_start_job_request_t
 	output_mode as ubyte
 end type
 
-const XCB_X_PRINT_PRINT_END_JOB = 8
+const XCB_X_PRINT_PRINT_END_JOB_ = 8
 
 type xcb_x_print_print_end_job_request_t
 	major_opcode as ubyte
@@ -240,7 +267,7 @@ type xcb_x_print_print_end_job_request_t
 	cancel as ubyte
 end type
 
-const XCB_X_PRINT_PRINT_START_DOC = 9
+const XCB_X_PRINT_PRINT_START_DOC_ = 9
 
 type xcb_x_print_print_start_doc_request_t
 	major_opcode as ubyte
@@ -249,7 +276,7 @@ type xcb_x_print_print_start_doc_request_t
 	driver_mode as ubyte
 end type
 
-const XCB_X_PRINT_PRINT_END_DOC = 10
+const XCB_X_PRINT_PRINT_END_DOC_ = 10
 
 type xcb_x_print_print_end_doc_request_t
 	major_opcode as ubyte
@@ -258,7 +285,7 @@ type xcb_x_print_print_end_doc_request_t
 	cancel as ubyte
 end type
 
-const XCB_X_PRINT_PRINT_PUT_DOCUMENT_DATA = 11
+const XCB_X_PRINT_PRINT_PUT_DOCUMENT_DATA_ = 11
 
 type xcb_x_print_print_put_document_data_request_t
 	major_opcode as ubyte
@@ -274,7 +301,7 @@ type xcb_x_print_print_get_document_data_cookie_t
 	sequence as ulong
 end type
 
-const XCB_X_PRINT_PRINT_GET_DOCUMENT_DATA = 12
+const XCB_X_PRINT_PRINT_GET_DOCUMENT_DATA_ = 12
 
 type xcb_x_print_print_get_document_data_request_t
 	major_opcode as ubyte
@@ -295,7 +322,7 @@ type xcb_x_print_print_get_document_data_reply_t
 	pad1(0 to 11) as ubyte
 end type
 
-const XCB_X_PRINT_PRINT_START_PAGE = 13
+const XCB_X_PRINT_PRINT_START_PAGE_ = 13
 
 type xcb_x_print_print_start_page_request_t
 	major_opcode as ubyte
@@ -304,7 +331,7 @@ type xcb_x_print_print_start_page_request_t
 	window as xcb_window_t
 end type
 
-const XCB_X_PRINT_PRINT_END_PAGE = 14
+const XCB_X_PRINT_PRINT_END_PAGE_ = 14
 
 type xcb_x_print_print_end_page_request_t
 	major_opcode as ubyte
@@ -314,7 +341,7 @@ type xcb_x_print_print_end_page_request_t
 	pad0(0 to 2) as ubyte
 end type
 
-const XCB_X_PRINT_PRINT_SELECT_INPUT = 15
+const XCB_X_PRINT_PRINT_SELECT_INPUT_ = 15
 
 type xcb_x_print_print_select_input_request_t
 	major_opcode as ubyte
@@ -328,7 +355,7 @@ type xcb_x_print_print_input_selected_cookie_t
 	sequence as ulong
 end type
 
-const XCB_X_PRINT_PRINT_INPUT_SELECTED = 16
+const XCB_X_PRINT_PRINT_INPUT_SELECTED_ = 16
 
 type xcb_x_print_print_input_selected_request_t
 	major_opcode as ubyte
@@ -350,7 +377,7 @@ type xcb_x_print_print_get_attributes_cookie_t
 	sequence as ulong
 end type
 
-const XCB_X_PRINT_PRINT_GET_ATTRIBUTES = 17
+const XCB_X_PRINT_PRINT_GET_ATTRIBUTES_ = 17
 
 type xcb_x_print_print_get_attributes_request_t
 	major_opcode as ubyte
@@ -374,7 +401,7 @@ type xcb_x_print_print_get_one_attributes_cookie_t
 	sequence as ulong
 end type
 
-const XCB_X_PRINT_PRINT_GET_ONE_ATTRIBUTES = 19
+const XCB_X_PRINT_PRINT_GET_ONE_ATTRIBUTES_ = 19
 
 type xcb_x_print_print_get_one_attributes_request_t
 	major_opcode as ubyte
@@ -395,7 +422,7 @@ type xcb_x_print_print_get_one_attributes_reply_t
 	pad1(0 to 19) as ubyte
 end type
 
-const XCB_X_PRINT_PRINT_SET_ATTRIBUTES = 18
+const XCB_X_PRINT_PRINT_SET_ATTRIBUTES_ = 18
 
 type xcb_x_print_print_set_attributes_request_t
 	major_opcode as ubyte
@@ -412,7 +439,7 @@ type xcb_x_print_print_get_page_dimensions_cookie_t
 	sequence as ulong
 end type
 
-const XCB_X_PRINT_PRINT_GET_PAGE_DIMENSIONS = 21
+const XCB_X_PRINT_PRINT_GET_PAGE_DIMENSIONS_ = 21
 
 type xcb_x_print_print_get_page_dimensions_request_t
 	major_opcode as ubyte
@@ -438,7 +465,7 @@ type xcb_x_print_print_query_screens_cookie_t
 	sequence as ulong
 end type
 
-const XCB_X_PRINT_PRINT_QUERY_SCREENS = 22
+const XCB_X_PRINT_PRINT_QUERY_SCREENS_ = 22
 
 type xcb_x_print_print_query_screens_request_t
 	major_opcode as ubyte
@@ -459,7 +486,7 @@ type xcb_x_print_print_set_image_resolution_cookie_t
 	sequence as ulong
 end type
 
-const XCB_X_PRINT_PRINT_SET_IMAGE_RESOLUTION = 23
+const XCB_X_PRINT_PRINT_SET_IMAGE_RESOLUTION_ = 23
 
 type xcb_x_print_print_set_image_resolution_request_t
 	major_opcode as ubyte
@@ -481,7 +508,7 @@ type xcb_x_print_print_get_image_resolution_cookie_t
 	sequence as ulong
 end type
 
-const XCB_X_PRINT_PRINT_GET_IMAGE_RESOLUTION = 24
+const XCB_X_PRINT_PRINT_GET_IMAGE_RESOLUTION_ = 24
 
 type xcb_x_print_print_get_image_resolution_request_t
 	major_opcode as ubyte

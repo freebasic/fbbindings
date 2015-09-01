@@ -31,6 +31,31 @@
 #include once "xcb.bi"
 #include once "xproto.bi"
 
+'' The following symbols have been renamed:
+''     constant XCB_SELINUX_QUERY_VERSION => XCB_SELINUX_QUERY_VERSION_
+''     constant XCB_SELINUX_SET_DEVICE_CREATE_CONTEXT => XCB_SELINUX_SET_DEVICE_CREATE_CONTEXT_
+''     constant XCB_SELINUX_GET_DEVICE_CREATE_CONTEXT => XCB_SELINUX_GET_DEVICE_CREATE_CONTEXT_
+''     constant XCB_SELINUX_SET_DEVICE_CONTEXT => XCB_SELINUX_SET_DEVICE_CONTEXT_
+''     constant XCB_SELINUX_GET_DEVICE_CONTEXT => XCB_SELINUX_GET_DEVICE_CONTEXT_
+''     constant XCB_SELINUX_SET_WINDOW_CREATE_CONTEXT => XCB_SELINUX_SET_WINDOW_CREATE_CONTEXT_
+''     constant XCB_SELINUX_GET_WINDOW_CREATE_CONTEXT => XCB_SELINUX_GET_WINDOW_CREATE_CONTEXT_
+''     constant XCB_SELINUX_GET_WINDOW_CONTEXT => XCB_SELINUX_GET_WINDOW_CONTEXT_
+''     constant XCB_SELINUX_SET_PROPERTY_CREATE_CONTEXT => XCB_SELINUX_SET_PROPERTY_CREATE_CONTEXT_
+''     constant XCB_SELINUX_GET_PROPERTY_CREATE_CONTEXT => XCB_SELINUX_GET_PROPERTY_CREATE_CONTEXT_
+''     constant XCB_SELINUX_SET_PROPERTY_USE_CONTEXT => XCB_SELINUX_SET_PROPERTY_USE_CONTEXT_
+''     constant XCB_SELINUX_GET_PROPERTY_USE_CONTEXT => XCB_SELINUX_GET_PROPERTY_USE_CONTEXT_
+''     constant XCB_SELINUX_GET_PROPERTY_CONTEXT => XCB_SELINUX_GET_PROPERTY_CONTEXT_
+''     constant XCB_SELINUX_GET_PROPERTY_DATA_CONTEXT => XCB_SELINUX_GET_PROPERTY_DATA_CONTEXT_
+''     constant XCB_SELINUX_LIST_PROPERTIES => XCB_SELINUX_LIST_PROPERTIES_
+''     constant XCB_SELINUX_SET_SELECTION_CREATE_CONTEXT => XCB_SELINUX_SET_SELECTION_CREATE_CONTEXT_
+''     constant XCB_SELINUX_GET_SELECTION_CREATE_CONTEXT => XCB_SELINUX_GET_SELECTION_CREATE_CONTEXT_
+''     constant XCB_SELINUX_SET_SELECTION_USE_CONTEXT => XCB_SELINUX_SET_SELECTION_USE_CONTEXT_
+''     constant XCB_SELINUX_GET_SELECTION_USE_CONTEXT => XCB_SELINUX_GET_SELECTION_USE_CONTEXT_
+''     constant XCB_SELINUX_GET_SELECTION_CONTEXT => XCB_SELINUX_GET_SELECTION_CONTEXT_
+''     constant XCB_SELINUX_GET_SELECTION_DATA_CONTEXT => XCB_SELINUX_GET_SELECTION_DATA_CONTEXT_
+''     constant XCB_SELINUX_LIST_SELECTIONS => XCB_SELINUX_LIST_SELECTIONS_
+''     constant XCB_SELINUX_GET_CLIENT_CONTEXT => XCB_SELINUX_GET_CLIENT_CONTEXT_
+
 extern "C"
 
 #define __XSELINUX_H
@@ -42,7 +67,7 @@ type xcb_selinux_query_version_cookie_t
 	sequence as ulong
 end type
 
-const XCB_SELINUX_QUERY_VERSION = 0
+const XCB_SELINUX_QUERY_VERSION_ = 0
 
 type xcb_selinux_query_version_request_t
 	major_opcode as ubyte
@@ -61,7 +86,7 @@ type xcb_selinux_query_version_reply_t
 	server_minor as ushort
 end type
 
-const XCB_SELINUX_SET_DEVICE_CREATE_CONTEXT = 1
+const XCB_SELINUX_SET_DEVICE_CREATE_CONTEXT_ = 1
 
 type xcb_selinux_set_device_create_context_request_t
 	major_opcode as ubyte
@@ -74,7 +99,7 @@ type xcb_selinux_get_device_create_context_cookie_t
 	sequence as ulong
 end type
 
-const XCB_SELINUX_GET_DEVICE_CREATE_CONTEXT = 2
+const XCB_SELINUX_GET_DEVICE_CREATE_CONTEXT_ = 2
 
 type xcb_selinux_get_device_create_context_request_t
 	major_opcode as ubyte
@@ -91,7 +116,7 @@ type xcb_selinux_get_device_create_context_reply_t
 	pad1(0 to 19) as ubyte
 end type
 
-const XCB_SELINUX_SET_DEVICE_CONTEXT = 3
+const XCB_SELINUX_SET_DEVICE_CONTEXT_ = 3
 
 type xcb_selinux_set_device_context_request_t
 	major_opcode as ubyte
@@ -105,7 +130,7 @@ type xcb_selinux_get_device_context_cookie_t
 	sequence as ulong
 end type
 
-const XCB_SELINUX_GET_DEVICE_CONTEXT = 4
+const XCB_SELINUX_GET_DEVICE_CONTEXT_ = 4
 
 type xcb_selinux_get_device_context_request_t
 	major_opcode as ubyte
@@ -123,7 +148,7 @@ type xcb_selinux_get_device_context_reply_t
 	pad1(0 to 19) as ubyte
 end type
 
-const XCB_SELINUX_SET_WINDOW_CREATE_CONTEXT = 5
+const XCB_SELINUX_SET_WINDOW_CREATE_CONTEXT_ = 5
 
 type xcb_selinux_set_window_create_context_request_t
 	major_opcode as ubyte
@@ -136,7 +161,7 @@ type xcb_selinux_get_window_create_context_cookie_t
 	sequence as ulong
 end type
 
-const XCB_SELINUX_GET_WINDOW_CREATE_CONTEXT = 6
+const XCB_SELINUX_GET_WINDOW_CREATE_CONTEXT_ = 6
 
 type xcb_selinux_get_window_create_context_request_t
 	major_opcode as ubyte
@@ -157,7 +182,7 @@ type xcb_selinux_get_window_context_cookie_t
 	sequence as ulong
 end type
 
-const XCB_SELINUX_GET_WINDOW_CONTEXT = 7
+const XCB_SELINUX_GET_WINDOW_CONTEXT_ = 7
 
 type xcb_selinux_get_window_context_request_t
 	major_opcode as ubyte
@@ -187,7 +212,7 @@ type xcb_selinux_list_item_iterator_t
 	index as long
 end type
 
-const XCB_SELINUX_SET_PROPERTY_CREATE_CONTEXT = 8
+const XCB_SELINUX_SET_PROPERTY_CREATE_CONTEXT_ = 8
 
 type xcb_selinux_set_property_create_context_request_t
 	major_opcode as ubyte
@@ -200,7 +225,7 @@ type xcb_selinux_get_property_create_context_cookie_t
 	sequence as ulong
 end type
 
-const XCB_SELINUX_GET_PROPERTY_CREATE_CONTEXT = 9
+const XCB_SELINUX_GET_PROPERTY_CREATE_CONTEXT_ = 9
 
 type xcb_selinux_get_property_create_context_request_t
 	major_opcode as ubyte
@@ -217,7 +242,7 @@ type xcb_selinux_get_property_create_context_reply_t
 	pad1(0 to 19) as ubyte
 end type
 
-const XCB_SELINUX_SET_PROPERTY_USE_CONTEXT = 10
+const XCB_SELINUX_SET_PROPERTY_USE_CONTEXT_ = 10
 
 type xcb_selinux_set_property_use_context_request_t
 	major_opcode as ubyte
@@ -230,7 +255,7 @@ type xcb_selinux_get_property_use_context_cookie_t
 	sequence as ulong
 end type
 
-const XCB_SELINUX_GET_PROPERTY_USE_CONTEXT = 11
+const XCB_SELINUX_GET_PROPERTY_USE_CONTEXT_ = 11
 
 type xcb_selinux_get_property_use_context_request_t
 	major_opcode as ubyte
@@ -251,7 +276,7 @@ type xcb_selinux_get_property_context_cookie_t
 	sequence as ulong
 end type
 
-const XCB_SELINUX_GET_PROPERTY_CONTEXT = 12
+const XCB_SELINUX_GET_PROPERTY_CONTEXT_ = 12
 
 type xcb_selinux_get_property_context_request_t
 	major_opcode as ubyte
@@ -274,7 +299,7 @@ type xcb_selinux_get_property_data_context_cookie_t
 	sequence as ulong
 end type
 
-const XCB_SELINUX_GET_PROPERTY_DATA_CONTEXT = 13
+const XCB_SELINUX_GET_PROPERTY_DATA_CONTEXT_ = 13
 
 type xcb_selinux_get_property_data_context_request_t
 	major_opcode as ubyte
@@ -297,7 +322,7 @@ type xcb_selinux_list_properties_cookie_t
 	sequence as ulong
 end type
 
-const XCB_SELINUX_LIST_PROPERTIES = 14
+const XCB_SELINUX_LIST_PROPERTIES_ = 14
 
 type xcb_selinux_list_properties_request_t
 	major_opcode as ubyte
@@ -315,7 +340,7 @@ type xcb_selinux_list_properties_reply_t
 	pad1(0 to 19) as ubyte
 end type
 
-const XCB_SELINUX_SET_SELECTION_CREATE_CONTEXT = 15
+const XCB_SELINUX_SET_SELECTION_CREATE_CONTEXT_ = 15
 
 type xcb_selinux_set_selection_create_context_request_t
 	major_opcode as ubyte
@@ -328,7 +353,7 @@ type xcb_selinux_get_selection_create_context_cookie_t
 	sequence as ulong
 end type
 
-const XCB_SELINUX_GET_SELECTION_CREATE_CONTEXT = 16
+const XCB_SELINUX_GET_SELECTION_CREATE_CONTEXT_ = 16
 
 type xcb_selinux_get_selection_create_context_request_t
 	major_opcode as ubyte
@@ -345,7 +370,7 @@ type xcb_selinux_get_selection_create_context_reply_t
 	pad1(0 to 19) as ubyte
 end type
 
-const XCB_SELINUX_SET_SELECTION_USE_CONTEXT = 17
+const XCB_SELINUX_SET_SELECTION_USE_CONTEXT_ = 17
 
 type xcb_selinux_set_selection_use_context_request_t
 	major_opcode as ubyte
@@ -358,7 +383,7 @@ type xcb_selinux_get_selection_use_context_cookie_t
 	sequence as ulong
 end type
 
-const XCB_SELINUX_GET_SELECTION_USE_CONTEXT = 18
+const XCB_SELINUX_GET_SELECTION_USE_CONTEXT_ = 18
 
 type xcb_selinux_get_selection_use_context_request_t
 	major_opcode as ubyte
@@ -379,7 +404,7 @@ type xcb_selinux_get_selection_context_cookie_t
 	sequence as ulong
 end type
 
-const XCB_SELINUX_GET_SELECTION_CONTEXT = 19
+const XCB_SELINUX_GET_SELECTION_CONTEXT_ = 19
 
 type xcb_selinux_get_selection_context_request_t
 	major_opcode as ubyte
@@ -401,7 +426,7 @@ type xcb_selinux_get_selection_data_context_cookie_t
 	sequence as ulong
 end type
 
-const XCB_SELINUX_GET_SELECTION_DATA_CONTEXT = 20
+const XCB_SELINUX_GET_SELECTION_DATA_CONTEXT_ = 20
 
 type xcb_selinux_get_selection_data_context_request_t
 	major_opcode as ubyte
@@ -423,7 +448,7 @@ type xcb_selinux_list_selections_cookie_t
 	sequence as ulong
 end type
 
-const XCB_SELINUX_LIST_SELECTIONS = 21
+const XCB_SELINUX_LIST_SELECTIONS_ = 21
 
 type xcb_selinux_list_selections_request_t
 	major_opcode as ubyte
@@ -444,7 +469,7 @@ type xcb_selinux_get_client_context_cookie_t
 	sequence as ulong
 end type
 
-const XCB_SELINUX_GET_CLIENT_CONTEXT = 22
+const XCB_SELINUX_GET_CLIENT_CONTEXT_ = 22
 
 type xcb_selinux_get_client_context_request_t
 	major_opcode as ubyte
