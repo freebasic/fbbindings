@@ -5,8 +5,14 @@
 -removeinclude alloca.h
 -rename float.h crt/limits.bi
 
-# Inline function uses "len" as parameter, but it's an FB operator
+# Some inline functions have "len"/"data" parameters (FB keywords)
 -rename_ len
+-rename_ data
+
+# The cpfclamp01 inline function/macro has a parameter "f" but also contains
+# number literals like "0.0f", and fbc inserts the macro argument even into the
+# f type suffix...
+-rename_ f
 
 -removedefine CP_EXPORT
 -removedefine CP_ALLOW_PRIVATE_ACCESS

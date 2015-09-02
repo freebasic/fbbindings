@@ -30,8 +30,8 @@
 
 extern "C"
 
-type cpMarchSampleFunc as function(byval point as cpVect, byval data as any ptr) as cpFloat
-type cpMarchSegmentFunc as sub(byval v0 as cpVect, byval v1 as cpVect, byval data as any ptr)
+type cpMarchSampleFunc as function(byval point as cpVect, byval data_ as any ptr) as cpFloat
+type cpMarchSegmentFunc as sub(byval v0 as cpVect, byval v1 as cpVect, byval data_ as any ptr)
 declare sub cpMarchSoft(byval bb as cpBB, byval x_samples as culong, byval y_samples as culong, byval threshold as cpFloat, byval segment as cpMarchSegmentFunc, byval segment_data as any ptr, byval sample as cpMarchSampleFunc, byval sample_data as any ptr)
 declare sub cpMarchHard(byval bb as cpBB, byval x_samples as culong, byval y_samples as culong, byval threshold as cpFloat, byval segment as cpMarchSegmentFunc, byval segment_data as any ptr, byval sample as cpMarchSampleFunc, byval sample_data as any ptr)
 

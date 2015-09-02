@@ -76,12 +76,12 @@ private function cpfmin(byval a as cpFloat, byval b as cpFloat) as cpFloat
 	return iif(a < b, a, b)
 end function
 
-private function cpfabs(byval f as cpFloat) as cpFloat
-	return iif(f < 0, -f, f)
+private function cpfabs(byval f_ as cpFloat) as cpFloat
+	return iif(f_ < 0, -f_, f_)
 end function
 
-#define cpfclamp(f, min, max) cast(cpFloat, cpfmin(cpfmax((f), (min)), (max)))
-#define cpfclamp01(f) cast(cpFloat, cpfmax(0.0f, cpfmin((f), 1.0f)))
+#define cpfclamp(f_, min, max) cast(cpFloat, cpfmin(cpfmax((f_), (min)), (max)))
+#define cpfclamp01(f_) cast(cpFloat, cpfmax(0.0f, cpfmin((f_), 1.0f)))
 
 private function cpflerp(byval f1 as cpFloat, byval f2 as cpFloat, byval t as cpFloat) as cpFloat
 	return (f1 * (1.0f - t)) + (f2 * t)
@@ -434,9 +434,9 @@ private function cpTransformAxialScale(byval axis as cpVect, byval pivot as cpVe
 end function
 
 type cpSpatialIndexBBFunc as function(byval obj as any ptr) as cpBB
-type cpSpatialIndexIteratorFunc as sub(byval obj as any ptr, byval data as any ptr)
-type cpSpatialIndexQueryFunc as function(byval obj1 as any ptr, byval obj2 as any ptr, byval id as cpCollisionID, byval data as any ptr) as cpCollisionID
-type cpSpatialIndexSegmentQueryFunc as function(byval obj1 as any ptr, byval obj2 as any ptr, byval data as any ptr) as cpFloat
+type cpSpatialIndexIteratorFunc as sub(byval obj as any ptr, byval data_ as any ptr)
+type cpSpatialIndexQueryFunc as function(byval obj1 as any ptr, byval obj2 as any ptr, byval id as cpCollisionID, byval data_ as any ptr) as cpCollisionID
+type cpSpatialIndexSegmentQueryFunc as function(byval obj1 as any ptr, byval obj2 as any ptr, byval data_ as any ptr) as cpFloat
 type cpSpatialIndexClass as cpSpatialIndexClass_
 
 type cpSpatialIndex
@@ -465,15 +465,15 @@ declare function cpSweep1DNew(byval bbfunc as cpSpatialIndexBBFunc, byval static
 
 type cpSpatialIndexDestroyImpl as sub(byval index as cpSpatialIndex ptr)
 type cpSpatialIndexCountImpl as function(byval index as cpSpatialIndex ptr) as long
-type cpSpatialIndexEachImpl as sub(byval index as cpSpatialIndex ptr, byval func as cpSpatialIndexIteratorFunc, byval data as any ptr)
+type cpSpatialIndexEachImpl as sub(byval index as cpSpatialIndex ptr, byval func as cpSpatialIndexIteratorFunc, byval data_ as any ptr)
 type cpSpatialIndexContainsImpl as function(byval index as cpSpatialIndex ptr, byval obj as any ptr, byval hashid as cpHashValue) as cpBool
 type cpSpatialIndexInsertImpl as sub(byval index as cpSpatialIndex ptr, byval obj as any ptr, byval hashid as cpHashValue)
 type cpSpatialIndexRemoveImpl as sub(byval index as cpSpatialIndex ptr, byval obj as any ptr, byval hashid as cpHashValue)
 type cpSpatialIndexReindexImpl as sub(byval index as cpSpatialIndex ptr)
 type cpSpatialIndexReindexObjectImpl as sub(byval index as cpSpatialIndex ptr, byval obj as any ptr, byval hashid as cpHashValue)
-type cpSpatialIndexReindexQueryImpl as sub(byval index as cpSpatialIndex ptr, byval func as cpSpatialIndexQueryFunc, byval data as any ptr)
-type cpSpatialIndexQueryImpl as sub(byval index as cpSpatialIndex ptr, byval obj as any ptr, byval bb as cpBB, byval func as cpSpatialIndexQueryFunc, byval data as any ptr)
-type cpSpatialIndexSegmentQueryImpl as sub(byval index as cpSpatialIndex ptr, byval obj as any ptr, byval a as cpVect, byval b as cpVect, byval t_exit as cpFloat, byval func as cpSpatialIndexSegmentQueryFunc, byval data as any ptr)
+type cpSpatialIndexReindexQueryImpl as sub(byval index as cpSpatialIndex ptr, byval func as cpSpatialIndexQueryFunc, byval data_ as any ptr)
+type cpSpatialIndexQueryImpl as sub(byval index as cpSpatialIndex ptr, byval obj as any ptr, byval bb as cpBB, byval func as cpSpatialIndexQueryFunc, byval data_ as any ptr)
+type cpSpatialIndexSegmentQueryImpl as sub(byval index as cpSpatialIndex ptr, byval obj as any ptr, byval a as cpVect, byval b as cpVect, byval t_exit as cpFloat, byval func as cpSpatialIndexSegmentQueryFunc, byval data_ as any ptr)
 
 type cpSpatialIndexClass_
 	destroy as cpSpatialIndexDestroyImpl
@@ -490,7 +490,7 @@ type cpSpatialIndexClass_
 end type
 
 declare sub cpSpatialIndexFree(byval index as cpSpatialIndex ptr)
-declare sub cpSpatialIndexCollideStatic(byval dynamicIndex as cpSpatialIndex ptr, byval staticIndex as cpSpatialIndex ptr, byval func as cpSpatialIndexQueryFunc, byval data as any ptr)
+declare sub cpSpatialIndexCollideStatic(byval dynamicIndex as cpSpatialIndex ptr, byval staticIndex as cpSpatialIndex ptr, byval func as cpSpatialIndexQueryFunc, byval data_ as any ptr)
 
 private sub cpSpatialIndexDestroy(byval index as cpSpatialIndex ptr)
 	if index->klass then
@@ -502,8 +502,8 @@ private function cpSpatialIndexCount(byval index as cpSpatialIndex ptr) as long
 	return index->klass->count(index)
 end function
 
-private sub cpSpatialIndexEach(byval index as cpSpatialIndex ptr, byval func as cpSpatialIndexIteratorFunc, byval data as any ptr)
-	index->klass->each(index, func, data)
+private sub cpSpatialIndexEach(byval index as cpSpatialIndex ptr, byval func as cpSpatialIndexIteratorFunc, byval data_ as any ptr)
+	index->klass->each(index, func, data_)
 end sub
 
 private function cpSpatialIndexContains(byval index as cpSpatialIndex ptr, byval obj as any ptr, byval hashid as cpHashValue) as cpBool
@@ -526,16 +526,16 @@ private sub cpSpatialIndexReindexObject(byval index as cpSpatialIndex ptr, byval
 	index->klass->reindexObject(index, obj, hashid)
 end sub
 
-private sub cpSpatialIndexQuery(byval index as cpSpatialIndex ptr, byval obj as any ptr, byval bb as cpBB, byval func as cpSpatialIndexQueryFunc, byval data as any ptr)
-	index->klass->query(index, obj, bb, func, data)
+private sub cpSpatialIndexQuery(byval index as cpSpatialIndex ptr, byval obj as any ptr, byval bb as cpBB, byval func as cpSpatialIndexQueryFunc, byval data_ as any ptr)
+	index->klass->query(index, obj, bb, func, data_)
 end sub
 
-private sub cpSpatialIndexSegmentQuery(byval index as cpSpatialIndex ptr, byval obj as any ptr, byval a as cpVect, byval b as cpVect, byval t_exit as cpFloat, byval func as cpSpatialIndexSegmentQueryFunc, byval data as any ptr)
-	index->klass->segmentQuery(index, obj, a, b, t_exit, func, data)
+private sub cpSpatialIndexSegmentQuery(byval index as cpSpatialIndex ptr, byval obj as any ptr, byval a as cpVect, byval b as cpVect, byval t_exit as cpFloat, byval func as cpSpatialIndexSegmentQueryFunc, byval data_ as any ptr)
+	index->klass->segmentQuery(index, obj, a, b, t_exit, func, data_)
 end sub
 
-private sub cpSpatialIndexReindexQuery(byval index as cpSpatialIndex ptr, byval func as cpSpatialIndexQueryFunc, byval data as any ptr)
-	index->klass->reindexQuery(index, func, data)
+private sub cpSpatialIndexReindexQuery(byval index as cpSpatialIndex ptr, byval func as cpSpatialIndexQueryFunc, byval data_ as any ptr)
+	index->klass->reindexQuery(index, func, data_)
 end sub
 
 const CP_MAX_CONTACTS_PER_ARBITER = 2
@@ -647,13 +647,13 @@ declare sub cpBodyApplyImpulseAtLocalPoint(byval body as cpBody ptr, byval impul
 declare function cpBodyGetVelocityAtWorldPoint(byval body as const cpBody ptr, byval point as cpVect) as cpVect
 declare function cpBodyGetVelocityAtLocalPoint(byval body as const cpBody ptr, byval point as cpVect) as cpVect
 declare function cpBodyKineticEnergy(byval body as const cpBody ptr) as cpFloat
-type cpBodyShapeIteratorFunc as sub(byval body as cpBody ptr, byval shape as cpShape ptr, byval data as any ptr)
-declare sub cpBodyEachShape(byval body as cpBody ptr, byval func as cpBodyShapeIteratorFunc, byval data as any ptr)
+type cpBodyShapeIteratorFunc as sub(byval body as cpBody ptr, byval shape as cpShape ptr, byval data_ as any ptr)
+declare sub cpBodyEachShape(byval body as cpBody ptr, byval func as cpBodyShapeIteratorFunc, byval data_ as any ptr)
 type cpConstraint as cpConstraint_
-type cpBodyConstraintIteratorFunc as sub(byval body as cpBody ptr, byval constraint as cpConstraint ptr, byval data as any ptr)
-declare sub cpBodyEachConstraint(byval body as cpBody ptr, byval func as cpBodyConstraintIteratorFunc, byval data as any ptr)
-type cpBodyArbiterIteratorFunc as sub(byval body as cpBody ptr, byval arbiter as cpArbiter ptr, byval data as any ptr)
-declare sub cpBodyEachArbiter(byval body as cpBody ptr, byval func as cpBodyArbiterIteratorFunc, byval data as any ptr)
+type cpBodyConstraintIteratorFunc as sub(byval body as cpBody ptr, byval constraint as cpConstraint ptr, byval data_ as any ptr)
+declare sub cpBodyEachConstraint(byval body as cpBody ptr, byval func as cpBodyConstraintIteratorFunc, byval data_ as any ptr)
+type cpBodyArbiterIteratorFunc as sub(byval body as cpBody ptr, byval arbiter as cpArbiter ptr, byval data_ as any ptr)
+declare sub cpBodyEachArbiter(byval body as cpBody ptr, byval func as cpBodyArbiterIteratorFunc, byval data_ as any ptr)
 
 type cpPointQueryInfo
 	shape as const cpShape ptr
@@ -932,24 +932,24 @@ declare sub cpSpaceRemoveConstraint(byval space as cpSpace ptr, byval constraint
 declare function cpSpaceContainsShape(byval space as cpSpace ptr, byval shape as cpShape ptr) as cpBool
 declare function cpSpaceContainsBody(byval space as cpSpace ptr, byval body as cpBody ptr) as cpBool
 declare function cpSpaceContainsConstraint(byval space as cpSpace ptr, byval constraint as cpConstraint ptr) as cpBool
-type cpPostStepFunc as sub(byval space as cpSpace ptr, byval key as any ptr, byval data as any ptr)
-declare function cpSpaceAddPostStepCallback(byval space as cpSpace ptr, byval func as cpPostStepFunc, byval key as any ptr, byval data as any ptr) as cpBool
-type cpSpacePointQueryFunc as sub(byval shape as cpShape ptr, byval point as cpVect, byval distance as cpFloat, byval gradient as cpVect, byval data as any ptr)
-declare sub cpSpacePointQuery(byval space as cpSpace ptr, byval point as cpVect, byval maxDistance as cpFloat, byval filter as cpShapeFilter, byval func as cpSpacePointQueryFunc, byval data as any ptr)
+type cpPostStepFunc as sub(byval space as cpSpace ptr, byval key as any ptr, byval data_ as any ptr)
+declare function cpSpaceAddPostStepCallback(byval space as cpSpace ptr, byval func as cpPostStepFunc, byval key as any ptr, byval data_ as any ptr) as cpBool
+type cpSpacePointQueryFunc as sub(byval shape as cpShape ptr, byval point as cpVect, byval distance as cpFloat, byval gradient as cpVect, byval data_ as any ptr)
+declare sub cpSpacePointQuery(byval space as cpSpace ptr, byval point as cpVect, byval maxDistance as cpFloat, byval filter as cpShapeFilter, byval func as cpSpacePointQueryFunc, byval data_ as any ptr)
 declare function cpSpacePointQueryNearest(byval space as cpSpace ptr, byval point as cpVect, byval maxDistance as cpFloat, byval filter as cpShapeFilter, byval out as cpPointQueryInfo ptr) as cpShape ptr
-type cpSpaceSegmentQueryFunc as sub(byval shape as cpShape ptr, byval point as cpVect, byval normal as cpVect, byval alpha as cpFloat, byval data as any ptr)
-declare sub cpSpaceSegmentQuery(byval space as cpSpace ptr, byval start as cpVect, byval end as cpVect, byval radius as cpFloat, byval filter as cpShapeFilter, byval func as cpSpaceSegmentQueryFunc, byval data as any ptr)
+type cpSpaceSegmentQueryFunc as sub(byval shape as cpShape ptr, byval point as cpVect, byval normal as cpVect, byval alpha as cpFloat, byval data_ as any ptr)
+declare sub cpSpaceSegmentQuery(byval space as cpSpace ptr, byval start as cpVect, byval end as cpVect, byval radius as cpFloat, byval filter as cpShapeFilter, byval func as cpSpaceSegmentQueryFunc, byval data_ as any ptr)
 declare function cpSpaceSegmentQueryFirst(byval space as cpSpace ptr, byval start as cpVect, byval end as cpVect, byval radius as cpFloat, byval filter as cpShapeFilter, byval out as cpSegmentQueryInfo ptr) as cpShape ptr
-type cpSpaceBBQueryFunc as sub(byval shape as cpShape ptr, byval data as any ptr)
-declare sub cpSpaceBBQuery(byval space as cpSpace ptr, byval bb as cpBB, byval filter as cpShapeFilter, byval func as cpSpaceBBQueryFunc, byval data as any ptr)
-type cpSpaceShapeQueryFunc as sub(byval shape as cpShape ptr, byval points as cpContactPointSet ptr, byval data as any ptr)
-declare function cpSpaceShapeQuery(byval space as cpSpace ptr, byval shape as cpShape ptr, byval func as cpSpaceShapeQueryFunc, byval data as any ptr) as cpBool
-type cpSpaceBodyIteratorFunc as sub(byval body as cpBody ptr, byval data as any ptr)
-declare sub cpSpaceEachBody(byval space as cpSpace ptr, byval func as cpSpaceBodyIteratorFunc, byval data as any ptr)
-type cpSpaceShapeIteratorFunc as sub(byval shape as cpShape ptr, byval data as any ptr)
-declare sub cpSpaceEachShape(byval space as cpSpace ptr, byval func as cpSpaceShapeIteratorFunc, byval data as any ptr)
-type cpSpaceConstraintIteratorFunc as sub(byval constraint as cpConstraint ptr, byval data as any ptr)
-declare sub cpSpaceEachConstraint(byval space as cpSpace ptr, byval func as cpSpaceConstraintIteratorFunc, byval data as any ptr)
+type cpSpaceBBQueryFunc as sub(byval shape as cpShape ptr, byval data_ as any ptr)
+declare sub cpSpaceBBQuery(byval space as cpSpace ptr, byval bb as cpBB, byval filter as cpShapeFilter, byval func as cpSpaceBBQueryFunc, byval data_ as any ptr)
+type cpSpaceShapeQueryFunc as sub(byval shape as cpShape ptr, byval points as cpContactPointSet ptr, byval data_ as any ptr)
+declare function cpSpaceShapeQuery(byval space as cpSpace ptr, byval shape as cpShape ptr, byval func as cpSpaceShapeQueryFunc, byval data_ as any ptr) as cpBool
+type cpSpaceBodyIteratorFunc as sub(byval body as cpBody ptr, byval data_ as any ptr)
+declare sub cpSpaceEachBody(byval space as cpSpace ptr, byval func as cpSpaceBodyIteratorFunc, byval data_ as any ptr)
+type cpSpaceShapeIteratorFunc as sub(byval shape as cpShape ptr, byval data_ as any ptr)
+declare sub cpSpaceEachShape(byval space as cpSpace ptr, byval func as cpSpaceShapeIteratorFunc, byval data_ as any ptr)
+type cpSpaceConstraintIteratorFunc as sub(byval constraint as cpConstraint ptr, byval data_ as any ptr)
+declare sub cpSpaceEachConstraint(byval space as cpSpace ptr, byval func as cpSpaceConstraintIteratorFunc, byval data_ as any ptr)
 declare sub cpSpaceReindexStatic(byval space as cpSpace ptr)
 declare sub cpSpaceReindexShape(byval space as cpSpace ptr, byval shape as cpShape ptr)
 declare sub cpSpaceReindexShapesForBody(byval space as cpSpace ptr, byval body as cpBody ptr)
@@ -963,12 +963,12 @@ type cpSpaceDebugColor
 	a as single
 end type
 
-type cpSpaceDebugDrawCircleImpl as sub(byval pos as cpVect, byval angle as cpFloat, byval radius as cpFloat, byval outlineColor as cpSpaceDebugColor, byval fillColor as cpSpaceDebugColor, byval data as cpDataPointer)
-type cpSpaceDebugDrawSegmentImpl as sub(byval a as cpVect, byval b as cpVect, byval color as cpSpaceDebugColor, byval data as cpDataPointer)
-type cpSpaceDebugDrawFatSegmentImpl as sub(byval a as cpVect, byval b as cpVect, byval radius as cpFloat, byval outlineColor as cpSpaceDebugColor, byval fillColor as cpSpaceDebugColor, byval data as cpDataPointer)
-type cpSpaceDebugDrawPolygonImpl as sub(byval count as long, byval verts as const cpVect ptr, byval radius as cpFloat, byval outlineColor as cpSpaceDebugColor, byval fillColor as cpSpaceDebugColor, byval data as cpDataPointer)
-type cpSpaceDebugDrawDotImpl as sub(byval size as cpFloat, byval pos as cpVect, byval color as cpSpaceDebugColor, byval data as cpDataPointer)
-type cpSpaceDebugDrawColorForShapeImpl as function(byval shape as cpShape ptr, byval data as cpDataPointer) as cpSpaceDebugColor
+type cpSpaceDebugDrawCircleImpl as sub(byval pos as cpVect, byval angle as cpFloat, byval radius as cpFloat, byval outlineColor as cpSpaceDebugColor, byval fillColor as cpSpaceDebugColor, byval data_ as cpDataPointer)
+type cpSpaceDebugDrawSegmentImpl as sub(byval a as cpVect, byval b as cpVect, byval color as cpSpaceDebugColor, byval data_ as cpDataPointer)
+type cpSpaceDebugDrawFatSegmentImpl as sub(byval a as cpVect, byval b as cpVect, byval radius as cpFloat, byval outlineColor as cpSpaceDebugColor, byval fillColor as cpSpaceDebugColor, byval data_ as cpDataPointer)
+type cpSpaceDebugDrawPolygonImpl as sub(byval count as long, byval verts as const cpVect ptr, byval radius as cpFloat, byval outlineColor as cpSpaceDebugColor, byval fillColor as cpSpaceDebugColor, byval data_ as cpDataPointer)
+type cpSpaceDebugDrawDotImpl as sub(byval size as cpFloat, byval pos as cpVect, byval color as cpSpaceDebugColor, byval data_ as cpDataPointer)
+type cpSpaceDebugDrawColorForShapeImpl as function(byval shape as cpShape ptr, byval data_ as cpDataPointer) as cpSpaceDebugColor
 
 type cpSpaceDebugDrawFlags as long
 enum
@@ -988,7 +988,7 @@ type cpSpaceDebugDrawOptions
 	colorForShape as cpSpaceDebugDrawColorForShapeImpl
 	constraintColor as cpSpaceDebugColor
 	collisionPointColor as cpSpaceDebugColor
-	data as cpDataPointer
+	data_ as cpDataPointer
 end type
 
 declare sub cpSpaceDebugDraw(byval space as cpSpace ptr, byval options as cpSpaceDebugDrawOptions ptr)
