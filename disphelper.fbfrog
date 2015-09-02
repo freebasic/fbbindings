@@ -7,10 +7,11 @@
 
 -typedefhint BSTR
 -typedefhint IDispatch
-
 -rename objbase.h win/objbase.bi
-
 -removedefine WITH
 -removedefine FOR_EACH
+
+# using winapi binding's DATE_ typedef
+-renametypedef DATE DATE_
 
 -replacements disphelper.replacements
