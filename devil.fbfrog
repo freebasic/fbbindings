@@ -18,3 +18,7 @@
 -removedefine ILAPI
 
 -replacements devil.replacements
+
+-renamemacroparam M M_
+
+-remove2nd ilutGLSubTex
