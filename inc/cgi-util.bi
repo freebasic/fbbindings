@@ -21,6 +21,8 @@
 
 #pragma once
 
+#inclib "cgi-util"
+
 extern "C"
 
 #define CGI_UTIL_H

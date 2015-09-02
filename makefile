@@ -600,7 +600,7 @@ cgiutil: tools
 
 	$(GETCOMMENT) extracted/$(CGIUTIL)/cgi-util.h > cgiutil.tmp
 	sed -n 7,7p extracted/$(FASTCGI_TITLE)/include/fastcgi.h | cut -c4- > fastcgi.tmp
-	$(FBFROG) extracted/$(CGIUTIL)/cgi-util.h -o inc/cgi-util.bi -title $(CGIUTIL) cgiutil.tmp fbteam.txt
+	$(FBFROG) extracted/$(CGIUTIL)/cgi-util.h -o inc/cgi-util.bi -title $(CGIUTIL) cgiutil.tmp fbteam.txt -inclib cgi-util
 	rm *.tmp
 
 CGUI_VERSION := 2.0.4
