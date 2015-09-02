@@ -31,7 +31,7 @@ extern "C"
 type cpPolyline
 	count as long
 	capacity as long
-	verts(0 to ...) as cpVect
+	''verts(0 to ...) as cpVect
 end type
 
 declare sub cpPolylineFree(byval line as cpPolyline ptr)
