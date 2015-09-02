@@ -99,7 +99,7 @@ const IL_HALF = &h140B
 #define IL_MAX_UNSIGNED_SHORT USHRT_MAX
 #define IL_MAX_INT INT_MAX
 #define IL_MAX_UNSIGNED_INT UINT_MAX
-#define IL_LIMIT(x, m, M) iif(x < m, m, iif(x > M, M, x))
+#define IL_LIMIT(x, m, M_) iif(x < m, m, iif(x > M_, M_, x))
 #define IL_CLAMP(x) IL_LIMIT(x, 0, 1)
 const IL_VENDOR = &h1F00
 const IL_LOAD_EXT = &h1F01

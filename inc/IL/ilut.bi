@@ -126,7 +126,6 @@ declare function ilutRenderer(byval Renderer as ILenum) as ILboolean
 	declare function ilutGLTexImage(byval Level as GLuint) as ILboolean
 	declare function ilutGLSubTex(byval TexID as GLuint, byval XOff as ILuint, byval YOff as ILuint) as ILboolean
 	declare function ilutGLSetTex(byval TexID as GLuint) as ILboolean
-	declare function ilutGLSubTex(byval TexID as GLuint, byval XOff as ILuint, byval YOff as ILuint) as ILboolean
 	declare function ilutConvertToHBitmap(byval hDC as HDC) as HBITMAP
 	declare function ilutConvertSliceToHBitmap(byval hDC as HDC, byval slice as ILuint) as HBITMAP
 	declare sub ilutFreePaddedData(byval Data as ILubyte ptr)
