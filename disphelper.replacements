@@ -1,0 +1,185 @@
+convert c: #define DISPATCH_OBJ(objName) IDispatch * objName = NULL
+to fb:     #define DISPATCH_OBJ(objName) dim as IDispatch ptr objName = NULL
+
+convert c:
+	#define WITH0(objName, pDisp, szMember) \
+		{ \
+			DISPATCH_OBJ(objName); \
+			if (SUCCEEDED(dhGetValue(L"%o", &objName, pDisp, szMember))) {
+to fb:
+	#macro WITH0(objName, pDisp, szMember)
+		scope
+			DISPATCH_OBJ(objName)
+			if SUCCEEDED(dhGetValue(wstr("%o"), @objName, pDisp, szMember)) then
+	#endmacro
+
+convert c:
+	#define WITH1(objName, pDisp, szMember, arg1) \
+		{ \
+			DISPATCH_OBJ(objName); \
+			if (SUCCEEDED(dhGetValue(L"%o", &objName, pDisp, szMember, arg1))) {
+to fb:
+	#macro WITH1(objName, pDisp, szMember, arg1)
+		scope
+			DISPATCH_OBJ(objName)
+			if SUCCEEDED(dhGetValue(wstr("%o"), @objName, pDisp, szMember, arg1)) then
+	#endmacro
+
+convert c:
+	#define WITH2(objName, pDisp, szMember, arg1, arg2)
+		{
+			DISPATCH_OBJ(objName);
+			if (SUCCEEDED(dhGetValue(L"%o", &objName, pDisp, szMember, arg1, arg2))) {
+to fb:
+	#macro WITH2(objName, pDisp, szMember, arg1, arg2)
+		scope
+			DISPATCH_OBJ(objName)
+			if SUCCEEDED(dhGetValue(wstr("%o"), @objName, pDisp, szMember, arg1, arg2)) then
+	#endmacro
+
+convert c:
+	#define WITH3(objName, pDisp, szMember, arg1, arg2, arg3)
+		{
+			DISPATCH_OBJ(objName);
+			if (SUCCEEDED(dhGetValue(L"%o", &objName, pDisp, szMember, arg1, arg2, arg3))) {
+to fb:
+	#macro WITH3(objName, pDisp, szMember, arg1, arg2, arg3)
+		scope
+			DISPATCH_OBJ(objName)
+			if SUCCEEDED(dhGetValue(wstr("%o"), @objName, pDisp, szMember, arg1, arg2, arg3)) then
+	#endmacro
+
+convert c:
+	#define WITH4(objName, pDisp, szMember, arg1, arg2, arg3, arg4)
+		{
+			DISPATCH_OBJ(objName);
+			if (SUCCEEDED(dhGetValue(L"%o", &objName, pDisp, szMember, arg1, arg2, arg3, arg4))) {
+to fb:
+	#macro WITH4(objName, pDisp, szMember, arg1, arg2, arg3, arg4)
+		scope
+			DISPATCH_OBJ(objName)
+			if SUCCEEDED(dhGetValue(wstr("%o"), @objName, pDisp, szMember, arg1, arg2, arg3, arg4)) then
+	#endmacro
+
+convert c: #define ON_WITH_ERROR(objName) } else {
+to fb:     #define ON_WITH_ERROR(objName) else
+
+convert c: #define END_WITH(objName) } SAFE_RELEASE(objName); }
+to fb:
+	#macro END_WITH(objName)
+			end if
+			SAFE_RELEASE(objName)
+		end scope
+	#endmacro
+
+convert c:
+	#define FOR_EACH0(objName, pDisp, szMember) \
+		{ \
+			IEnumVARIANT * xx_pEnum_xx = NULL; \
+			DISPATCH_OBJ(objName); \
+			if (SUCCEEDED(dhEnumBegin(&xx_pEnum_xx, pDisp, szMember))) { \
+				while (dhEnumNextObject(xx_pEnum_xx, &objName) == NOERROR) {
+to fb:
+	#macro FOR_EACH0(objName, pDisp, szMember)
+		scope
+			dim as IEnumVARIANT ptr xx_pEnum_xx = NULL
+			DISPATCH_OBJ(objName)
+			if SUCCEEDED(dhEnumBegin(@xx_pEnum_xx, pDisp, szMember)) then
+				while dhEnumNextObject(xx_pEnum_xx, @objName) = NOERROR
+	#endmacro
+
+convert c:
+	#define FOR_EACH1(objName, pDisp, szMember, arg1) \
+		{ \
+			IEnumVARIANT * xx_pEnum_xx = NULL; \
+			DISPATCH_OBJ(objName); \
+			if (SUCCEEDED(dhEnumBegin(&xx_pEnum_xx, pDisp, szMember, arg1))) { \
+				while (dhEnumNextObject(xx_pEnum_xx, &objName) == NOERROR) {
+to fb:
+	#macro FOR_EACH1(objName, pDisp, szMember, arg1)
+		scope
+			dim as IEnumVARIANT ptr xx_pEnum_xx = NULL
+			DISPATCH_OBJ(objName)
+			if SUCCEEDED(dhEnumBegin(@xx_pEnum_xx, pDisp, szMember, arg1)) then
+				while dhEnumNextObject(xx_pEnum_xx, @objName) = NOERROR
+	#endmacro
+
+convert c:
+	#define FOR_EACH2(objName, pDisp, szMember, arg1, arg2) \
+		{ \
+			IEnumVARIANT * xx_pEnum_xx = NULL; \
+			DISPATCH_OBJ(objName); \
+			if (SUCCEEDED(dhEnumBegin(&xx_pEnum_xx, pDisp, szMember, arg1, arg2))) { \
+				while (dhEnumNextObject(xx_pEnum_xx, &objName) == NOERROR) {
+to fb:
+	#macro FOR_EACH2(objName, pDisp, szMember, arg1, arg2)
+		scope
+			dim as IEnumVARIANT ptr xx_pEnum_xx = NULL
+			DISPATCH_OBJ(objName)
+			if SUCCEEDED(dhEnumBegin(@xx_pEnum_xx, pDisp, szMember, arg1, arg2)) then
+				while dhEnumNextObject(xx_pEnum_xx, @objName) = NOERROR
+	#endmacro
+
+convert c:
+	#define FOR_EACH3(objName, pDisp, szMember, arg1, arg2, arg3) \
+		{ \
+			IEnumVARIANT * xx_pEnum_xx = NULL; \
+			DISPATCH_OBJ(objName); \
+			if (SUCCEEDED(dhEnumBegin(&xx_pEnum_xx, pDisp, szMember, arg1, arg2, arg3))) { \
+				while (dhEnumNextObject(xx_pEnum_xx, &objName) == NOERROR) {
+to fb:
+	#macro FOR_EACH3(objName, pDisp, szMember, arg1, arg2, arg3)
+		scope
+			dim as IEnumVARIANT ptr xx_pEnum_xx = NULL
+			DISPATCH_OBJ(objName)
+			if SUCCEEDED(dhEnumBegin(@xx_pEnum_xx, pDisp, szMember, arg1, arg2, arg3)) then
+				while dhEnumNextObject(xx_pEnum_xx, @objName) = NOERROR
+	#endmacro
+
+convert c:
+	#define FOR_EACH4(objName, pDisp, szMember, arg1, arg2, arg3, arg4) \
+		{ \
+			IEnumVARIANT * xx_pEnum_xx = NULL; \
+			DISPATCH_OBJ(objName); \
+			if (SUCCEEDED(dhEnumBegin(&xx_pEnum_xx, pDisp, szMember, arg1, arg2, arg3, arg4))) { \
+				while (dhEnumNextObject(xx_pEnum_xx, &objName) == NOERROR) {
+to fb:
+	#macro FOR_EACH4(objName, pDisp, szMember, arg1, arg2, arg3, arg4)
+		scope
+			dim as IEnumVARIANT ptr xx_pEnum_xx = NULL
+			DISPATCH_OBJ(objName)
+			if SUCCEEDED(dhEnumBegin(@xx_pEnum_xx, pDisp, szMember, arg1, arg2, arg3, arg4)) then
+				while dhEnumNextObject(xx_pEnum_xx, @objName) = NOERROR
+	#endmacro
+
+convert c:
+	#define ON_FOR_EACH_ERROR(objName) \
+					SAFE_RELEASE(objName); \
+				} \
+			} else { \
+				{
+to fb:
+	#macro ON_FOR_EACH_ERROR(objName)
+					SAFE_RELEASE(objName)
+				wend
+			else
+				while 0
+	#endmacro
+
+convert c:
+	#define NEXT(objName) \
+					SAFE_RELEASE(objName); \
+				} \
+			} \
+			SAFE_RELEASE(objName); \
+			SAFE_RELEASE(xx_pEnum_xx); \
+		}
+to fb:
+	#macro NEXT_(objName)
+					SAFE_RELEASE(objName)
+				wend
+			end if
+			SAFE_RELEASE(objName)
+			SAFE_RELEASE(xx_pEnum_xx)
+		end scope
+	#endmacro

@@ -3,7 +3,7 @@ FBFROG_VERSION := 96bd5c4c3e4789969a912792d72a35209db51632
 ALL := allegro allegro4 allegro5 aspell atk
 ALL += bass bassmod bfd bzip2
 ALL += caca cairo cd cgiutil cgui chipmunk clang crt cryptlib cunit curl
-ALL += devil
+ALL += devil disphelper
 ALL += fastcgi ffi fontconfig freeglut freetype
 ALL += gdkpixbuf glib glfw glut gtk gtk2 gtk3 gtkglext
 ALL += iconv iup
@@ -790,6 +790,15 @@ devil: tools
 		-title $(DEVIL_PRETTY) devil-ilu.tmp  fbteam.txt inc/IL/ilu.bi \
 		-title $(DEVIL_PRETTY) devil-ilut.tmp fbteam.txt inc/IL/ilut.bi
 	rm *.tmp
+
+disphelper: tools
+	./get.sh disphelper_081 disphelper_081.zip http://sourceforge.net/projects/disphelper/files/DispHelper/0.81/disphelper_081.zip/download createdir
+
+	mkdir -p inc/disphelper
+	$(FBFROG) disphelper.fbfrog -incdir extracted/disphelper_081/source \
+		-include disphelper.h -include convert.h \
+		-emit '*/disphelper.h' inc/disphelper/disphelper.bi \
+		-emit '*/convert.h'    inc/disphelper/convert.bi
 
 FASTCGI_TITLE := fcgi-2.4.1-SNAP-0311112127
 fastcgi: tools
