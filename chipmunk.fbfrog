@@ -1,0 +1,11 @@
+-replacements chipmunk.replacements
+
+-removeinclude TargetConditionals.h
+-removeinclude malloc.h
+-removeinclude alloca.h
+
+-removedefine CP_EXPORT
+-removedefine CP_ALLOW_PRIVATE_ACCESS
+-removedefine CP_PRIVATE
+
+-noexpand INFINITY

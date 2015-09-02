@@ -2,7 +2,7 @@ FBFROG_VERSION := 3fbf24836f955183834ca99cdf60f57d08cfd6c0
 
 ALL := allegro allegro4 allegro5 aspell atk
 ALL += bass bassmod bfd bzip2
-ALL += caca cairo cd cgui clang crt cunit curl
+ALL += caca cairo cd cgiutil cgui chipmunk clang crt cunit curl
 ALL += fastcgi ffi fontconfig freeglut freetype
 ALL += gdkpixbuf glib glfw glut gtk gtk2 gtk3 gtkglext
 ALL += iconv iup
@@ -600,6 +600,15 @@ cd: tools
 
 	rm *.tmp
 
+CGIUTIL := cgi-util-2.2.1
+cgiutil: tools
+	./get.sh $(CGIUTIL) $(CGIUTIL).tar.gz ftp://ftp.tuxpaint.org/unix/www/cgi-util/cgi-util-2.2.1.tar.gz
+
+	$(GETCOMMENT) extracted/$(CGIUTIL)/cgi-util.h > cgiutil.tmp
+	sed -n 7,7p extracted/$(FASTCGI_TITLE)/include/fastcgi.h | cut -c4- > fastcgi.tmp
+	$(FBFROG) extracted/$(CGIUTIL)/cgi-util.h -o inc/cgi-util.bi -title $(CGIUTIL) cgiutil.tmp fbteam.txt
+	rm *.tmp
+
 CGUI_VERSION := 2.0.4
 CGUI := cgui-$(CGUI_VERSION)
 cgui: tools
@@ -607,6 +616,32 @@ cgui: tools
 	echo "A C Graphical User Interface [add on to Allegro] by Christer Sandberg" > cgui.tmp
 	$(FBFROG) cgui.fbfrog -o inc extracted/cgui/include/cgui.h \
 		-title $(CGUI) cgui.tmp fbteam.txt
+	rm *.tmp
+
+CHIPMUNK := Chipmunk-7.0.1
+chipmunk: tools
+	./get.sh $(CHIPMUNK) $(CHIPMUNK).tgz http://chipmunk-physics.net/release/Chipmunk-7.x/$(CHIPMUNK).tgz
+
+	cat extracted/$(CHIPMUNK)/LICENSE.txt > chipmunk.tmp
+
+	mkdir -p inc/chipmunk
+	$(FBFROG) chipmunk.fbfrog \
+		-incdir extracted/$(CHIPMUNK)/include/chipmunk \
+		-incdir extracted/$(CHIPMUNK)/include \
+		-include chipmunk.h \
+		-include chipmunk_unsafe.h \
+		-include cpHastySpace.h \
+		-include cpMarch.h \
+		-include cpPolyline.h \
+		-include cpRobust.h \
+		-emit '*/chipmunk_unsafe.h'  inc/chipmunk/chipmunk_unsafe.bi \
+		-emit '*/cpHastySpace.h'     inc/chipmunk/cpHastySpace.bi \
+		-emit '*/cpMarch.h'          inc/chipmunk/cpMarch.bi \
+		-emit '*/cpPolyline.h'       inc/chipmunk/cpPolyline.bi \
+		-emit '*/cpRobust.h'         inc/chipmunk/cpRobust.bi \
+		-emit '*'                    inc/chipmunk/chipmunk.bi \
+		-title $(CHIPMUNK) chipmunk.tmp fbteam.txt
+
 	rm *.tmp
 
 CLANG_VERSION := 3.6.2
