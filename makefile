@@ -1,8 +1,8 @@
-FBFROG_VERSION := 9c29bd2233ba3b17e4bd3d0795711526f036cb1c
+FBFROG_VERSION := 96bd5c4c3e4789969a912792d72a35209db51632
 
 ALL := allegro allegro4 allegro5 aspell atk
 ALL += bass bassmod bfd bzip2
-ALL += caca cairo cd cgiutil cgui chipmunk clang crt cunit curl
+ALL += caca cairo cd cgiutil cgui chipmunk clang crt cryptlib cunit curl
 ALL += fastcgi ffi fontconfig freeglut freetype
 ALL += gdkpixbuf glib glfw glut gtk gtk2 gtk3 gtkglext
 ALL += iconv iup
@@ -704,6 +704,14 @@ crt: tools
 		-title $(GLIBC) glibc-pthread.tmp    fbteam.txt inc/crt/pthread.bi \
 		-title $(GLIBC) glibc-sched.tmp      fbteam.txt inc/crt/sched.bi
 
+	rm *.tmp
+
+CRYPTLIB := cl343_beta
+cryptlib: tools
+	./get.sh $(CRYPTLIB) $(CRYPTLIB).zip http://www.cypherpunks.to/~peter/$(CRYPTLIB).zip createdir
+	tail -n+7 extracted/$(CRYPTLIB)/COPYING > cryptlib.tmp
+	$(FBFROG) cryptlib.fbfrog extracted/$(CRYPTLIB)/cryptlib.h \
+		-o inc/cryptlib.bi -inclib cl -title $(CRYPTLIB) cryptlib.tmp fbteam.txt
 	rm *.tmp
 
 CUNIT_VERSION := 2.1-3
