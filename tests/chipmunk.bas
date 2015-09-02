@@ -1,0 +1,6 @@
+#include "chipmunk/chipmunk.bi"
+#include "chipmunk_unsafe.bi"
+#include "cpHastySpace.bi"
+#include "cpMarch.bi"
+#include "cpPolyline.bi"
+#include "cpRobust.bi"
