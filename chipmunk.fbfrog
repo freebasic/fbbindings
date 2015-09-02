@@ -3,9 +3,39 @@
 -removeinclude TargetConditionals.h
 -removeinclude malloc.h
 -removeinclude alloca.h
+-rename float.h crt/limits.bi
+
+# Inline function uses "len" as parameter, but it's an FB operator
+-rename_ len
 
 -removedefine CP_EXPORT
 -removedefine CP_ALLOW_PRIVATE_ACCESS
 -removedefine CP_PRIVATE
 
+# #defined to __builtin_inf(); we don't want that everywhere
+# FB's CRT headers define INFINITY already anyways...
 -noexpand INFINITY
+-removedefine INFINITY
+
+-addforwarddecl cpArray
+-addforwarddecl cpHashSet
+-addforwarddecl cpBody
+-addforwarddecl cpShape
+-addforwarddecl cpCircleShape
+-addforwarddecl cpSegmentShape
+-addforwarddecl cpPolyShape
+-addforwarddecl cpConstraint
+-addforwarddecl cpPinJoint
+-addforwarddecl cpSlideJoint
+-addforwarddecl cpPivotJoint
+-addforwarddecl cpGrooveJoint
+-addforwarddecl cpDampedSpring
+-addforwarddecl cpDampedRotarySpring
+-addforwarddecl cpRotaryLimitJoint
+-addforwarddecl cpRatchetJoint
+-addforwarddecl cpGearJoint
+-addforwarddecl cpSimpleMotorJoint
+-addforwarddecl cpCollisionHandler
+-addforwarddecl cpContactPointSet
+-addforwarddecl cpArbiter
+-addforwarddecl cpSpace
