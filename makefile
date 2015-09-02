@@ -619,7 +619,7 @@ chipmunk: tools
 	cat extracted/$(CHIPMUNK)/LICENSE.txt > chipmunk.tmp
 
 	mkdir -p inc/chipmunk
-	$(FBFROG) \
+	$(FBFROG) chipmunk.fbfrog \
 		-incdir extracted/$(CHIPMUNK)/include/chipmunk \
 		-incdir extracted/$(CHIPMUNK)/include \
 		-include chipmunk.h \

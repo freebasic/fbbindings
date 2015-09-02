@@ -28,32 +28,12 @@
 
 #include once "crt/stdlib.bi"
 #include once "crt/math.bi"
-
-#ifdef __FB_WIN32__
-	#include once "malloc.bi"
-#else
-	#include once "alloca.bi"
-#endif
-
 #include once "crt/stdint.bi"
 #include once "crt/float.bi"
-
-#ifdef __FB_DARWIN__
-	#include once "TargetConditionals.bi"
-#endif
 
 extern "C"
 
 #define CHIPMUNK_H
-
-#ifdef __FB_WIN32__
-	#define CP_EXPORT __declspec(dllexport)
-#else
-	#define CP_EXPORT
-#endif
-
-const CP_ALLOW_PRIVATE_ACCESS = 0
-#define CP_PRIVATE(__symbol__) __symbol__##_private
 declare sub cpMessage(byval condition as const zstring ptr, byval file as const zstring ptr, byval line as long, byval isError as long, byval isHardError as long, byval message as const zstring ptr, ...)
 #macro cpAssertSoft(__condition__, __VA_ARGS__...)
 	if (__condition__) = 0 then
@@ -325,13 +305,13 @@ end function
 
 private function cpBBSegmentQuery(byval bb as cpBB, byval a as cpVect, byval b as cpVect) as cpFloat
 	dim idx as cpFloat = 1.0f / (b.x - a.x)
-	dim tx1 as cpFloat = iif(bb.l = a.x, -__builtin_inf(), (bb.l - a.x) * idx)
-	dim tx2 as cpFloat = iif(bb.r = a.x, __builtin_inf(), (bb.r - a.x) * idx)
+	dim tx1 as cpFloat = iif(bb.l = a.x, -INFINITY, (bb.l - a.x) * idx)
+	dim tx2 as cpFloat = iif(bb.r = a.x, INFINITY, (bb.r - a.x) * idx)
 	dim txmin as cpFloat = cpfmin(tx1, tx2)
 	dim txmax as cpFloat = cpfmax(tx1, tx2)
 	dim idy as cpFloat = 1.0f / (b.y - a.y)
-	dim ty1 as cpFloat = iif(bb.b = a.y, -__builtin_inf(), (bb.b - a.y) * idy)
-	dim ty2 as cpFloat = iif(bb.t = a.y, __builtin_inf(), (bb.t - a.y) * idy)
+	dim ty1 as cpFloat = iif(bb.b = a.y, -INFINITY, (bb.b - a.y) * idy)
+	dim ty2 as cpFloat = iif(bb.t = a.y, INFINITY, (bb.t - a.y) * idy)
 	dim tymin as cpFloat = cpfmin(ty1, ty2)
 	dim tymax as cpFloat = cpfmax(ty1, ty2)
 	if (tymin <= txmax) andalso (txmin <= tymax) then
@@ -341,10 +321,10 @@ private function cpBBSegmentQuery(byval bb as cpBB, byval a as cpVect, byval b a
 			return cpfmax(min, 0.0)
 		end if
 	end if
-	return __builtin_inf()
+	return INFINITY
 end function
 
-#define cpBBIntersectsSegment(bb, a, b) cast(cpBool, -(cpBBSegmentQuery((bb), (a), (b)) <> __builtin_inf()))
+#define cpBBIntersectsSegment(bb, a, b) cast(cpBool, -(cpBBSegmentQuery((bb), (a), (b)) <> INFINITY))
 
 private function cpBBClampVect(byval bb as const cpBB, byval v as const cpVect) as cpVect
 	return cpv(cpfclamp(v.x, bb.l, bb.r), cpfclamp(v.y, bb.b, bb.t))
