@@ -599,7 +599,6 @@ cgiutil: tools
 	./get.sh $(CGIUTIL) $(CGIUTIL).tar.gz ftp://ftp.tuxpaint.org/unix/www/cgi-util/cgi-util-2.2.1.tar.gz
 
 	$(GETCOMMENT) extracted/$(CGIUTIL)/cgi-util.h > cgiutil.tmp
-	sed -n 7,7p extracted/$(FASTCGI_TITLE)/include/fastcgi.h | cut -c4- > fastcgi.tmp
 	$(FBFROG) extracted/$(CGIUTIL)/cgi-util.h -o inc/cgi-util.bi -title $(CGIUTIL) cgiutil.tmp fbteam.txt -inclib cgi-util
 	rm *.tmp
 
