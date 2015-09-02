@@ -1,0 +1,2 @@
+convert c: #define imemclear(x,y) memset(x,0,y);
+to c:      #define imemclear(x,y) memset(x,0,y)
