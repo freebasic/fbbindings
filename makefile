@@ -794,11 +794,18 @@ devil: tools
 disphelper: tools
 	./get.sh disphelper_081 disphelper_081.zip http://sourceforge.net/projects/disphelper/files/DispHelper/0.81/disphelper_081.zip/download createdir
 
+	$(GETCOMMENT) extracted/disphelper_081/source/disphelper.h > disphelper.tmp
+	$(GETCOMMENT) extracted/disphelper_081/source/convert.h > convert.tmp
+
 	mkdir -p inc/disphelper
 	$(FBFROG) disphelper.fbfrog -incdir extracted/disphelper_081/source \
 		-include disphelper.h -include convert.h \
 		-emit '*/disphelper.h' inc/disphelper/disphelper.bi \
-		-emit '*/convert.h'    inc/disphelper/convert.bi
+		-emit '*/convert.h'    inc/disphelper/convert.bi \
+		-title disphelper_081 disphelper.tmp fbteam.txt inc/disphelper/disphelper.bi \
+		-title disphelper_081 convert.tmp    fbteam.txt inc/disphelper/convert.bi
+
+	rm *.tmp
 
 FASTCGI_TITLE := fcgi-2.4.1-SNAP-0311112127
 fastcgi: tools
