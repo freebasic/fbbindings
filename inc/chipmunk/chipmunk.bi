@@ -29,7 +29,7 @@
 #include once "crt/stdlib.bi"
 #include once "crt/math.bi"
 #include once "crt/stdint.bi"
-#include once "crt/float.bi"
+#include once "crt/limits.bi"
 
 extern "C"
 
@@ -66,7 +66,6 @@ type cpFloat as double
 #define cpffloor floor
 #define cpfceil ceil
 #define CPFLOAT_MIN DBL_MIN
-#define INFINITY __builtin_inf()
 const CP_PI = cast(cpFloat, 3.14159265358979323846264338327950288)
 
 private function cpfmax(byval a as cpFloat, byval b as cpFloat) as cpFloat
@@ -229,8 +228,8 @@ private function cpvslerpconst(byval v1 as const cpVect, byval v2 as const cpVec
 	return cpvslerp(v1, v2, cpfmin(a, omega) / omega)
 end function
 
-private function cpvclamp(byval v as const cpVect, byval len as const cpFloat) as cpVect
-	return iif(cpvdot(v, v) > (len * len), cpvmult(cpvnormalize(v), len), v)
+private function cpvclamp(byval v as const cpVect, byval len_ as const cpFloat) as cpVect
+	return iif(cpvdot(v, v) > (len_ * len_), cpvmult(cpvnormalize(v), len_), v)
 end function
 
 private function cpvlerpconst(byval v1 as cpVect, byval v2 as cpVect, byval d as cpFloat) as cpVect
@@ -537,6 +536,7 @@ private sub cpSpatialIndexReindexQuery(byval index as cpSpatialIndex ptr, byval 
 end sub
 
 const CP_MAX_CONTACTS_PER_ARBITER = 2
+type cpArbiter as cpArbiter_
 declare function cpArbiterGetRestitution(byval arb as const cpArbiter ptr) as cpFloat
 declare sub cpArbiterSetRestitution(byval arb as cpArbiter ptr, byval restitution as cpFloat)
 declare function cpArbiterGetFriction(byval arb as const cpArbiter ptr) as cpFloat
@@ -548,8 +548,10 @@ declare sub cpArbiterSetUserData(byval arb as cpArbiter ptr, byval userData as c
 declare function cpArbiterTotalImpulse(byval arb as const cpArbiter ptr) as cpVect
 declare function cpArbiterTotalKE(byval arb as const cpArbiter ptr) as cpFloat
 declare function cpArbiterIgnore(byval arb as cpArbiter ptr) as cpBool
+type cpShape as cpShape_
 declare sub cpArbiterGetShapes(byval arb as const cpArbiter ptr, byval a as cpShape ptr ptr, byval b as cpShape ptr ptr)
 #define CP_ARBITER_GET_SHAPES(__arb__, __a__, __b__) dim as cpShape ptr __a__, __b__ : cpArbiterGetShapes(__arb__, @__a__, @__b__)
+type cpBody as cpBody_
 declare sub cpArbiterGetBodies(byval arb as const cpArbiter ptr, byval a as cpBody ptr ptr, byval b as cpBody ptr ptr)
 #define CP_ARBITER_GET_BODIES(__arb__, __a__, __b__) dim as cpBody ptr __a__, __b__ : cpArbiterGetBodies(__arb__, @__a__, @__b__)
 
@@ -574,6 +576,7 @@ declare function cpArbiterGetNormal(byval arb as const cpArbiter ptr) as cpVect
 declare function cpArbiterGetPointA(byval arb as const cpArbiter ptr, byval i as long) as cpVect
 declare function cpArbiterGetPointB(byval arb as const cpArbiter ptr, byval i as long) as cpVect
 declare function cpArbiterGetDepth(byval arb as const cpArbiter ptr, byval i as long) as cpFloat
+type cpSpace as cpSpace_
 declare function cpArbiterCallWildcardBeginA(byval arb as cpArbiter ptr, byval space as cpSpace ptr) as cpBool
 declare function cpArbiterCallWildcardBeginB(byval arb as cpArbiter ptr, byval space as cpSpace ptr) as cpBool
 declare function cpArbiterCallWildcardPreSolveA(byval arb as cpArbiter ptr, byval space as cpSpace ptr) as cpBool
@@ -643,6 +646,7 @@ declare function cpBodyGetVelocityAtLocalPoint(byval body as const cpBody ptr, b
 declare function cpBodyKineticEnergy(byval body as const cpBody ptr) as cpFloat
 type cpBodyShapeIteratorFunc as sub(byval body as cpBody ptr, byval shape as cpShape ptr, byval data as any ptr)
 declare sub cpBodyEachShape(byval body as cpBody ptr, byval func as cpBodyShapeIteratorFunc, byval data as any ptr)
+type cpConstraint as cpConstraint_
 type cpBodyConstraintIteratorFunc as sub(byval body as cpBody ptr, byval constraint as cpConstraint ptr, byval data as any ptr)
 declare sub cpBodyEachConstraint(byval body as cpBody ptr, byval func as cpBodyConstraintIteratorFunc, byval data as any ptr)
 type cpBodyArbiterIteratorFunc as sub(byval body as cpBody ptr, byval arbiter as cpArbiter ptr, byval data as any ptr)
@@ -708,11 +712,13 @@ declare function cpShapeGetCollisionType(byval shape as const cpShape ptr) as cp
 declare sub cpShapeSetCollisionType(byval shape as cpShape ptr, byval collisionType as cpCollisionType)
 declare function cpShapeGetFilter(byval shape as const cpShape ptr) as cpShapeFilter
 declare sub cpShapeSetFilter(byval shape as cpShape ptr, byval filter as cpShapeFilter)
+type cpCircleShape as cpCircleShape_
 declare function cpCircleShapeAlloc() as cpCircleShape ptr
 declare function cpCircleShapeInit(byval circle as cpCircleShape ptr, byval body as cpBody ptr, byval radius as cpFloat, byval offset as cpVect) as cpCircleShape ptr
 declare function cpCircleShapeNew(byval body as cpBody ptr, byval radius as cpFloat, byval offset as cpVect) as cpShape ptr
 declare function cpCircleShapeGetOffset(byval shape as const cpShape ptr) as cpVect
 declare function cpCircleShapeGetRadius(byval shape as const cpShape ptr) as cpFloat
+type cpSegmentShape as cpSegmentShape_
 declare function cpSegmentShapeAlloc() as cpSegmentShape ptr
 declare function cpSegmentShapeInit(byval seg as cpSegmentShape ptr, byval body as cpBody ptr, byval a as cpVect, byval b as cpVect, byval radius as cpFloat) as cpSegmentShape ptr
 declare function cpSegmentShapeNew(byval body as cpBody ptr, byval a as cpVect, byval b as cpVect, byval radius as cpFloat) as cpShape ptr
@@ -721,6 +727,7 @@ declare function cpSegmentShapeGetA(byval shape as const cpShape ptr) as cpVect
 declare function cpSegmentShapeGetB(byval shape as const cpShape ptr) as cpVect
 declare function cpSegmentShapeGetNormal(byval shape as const cpShape ptr) as cpVect
 declare function cpSegmentShapeGetRadius(byval shape as const cpShape ptr) as cpFloat
+type cpPolyShape as cpPolyShape_
 declare function cpPolyShapeAlloc() as cpPolyShape ptr
 declare function cpPolyShapeInit(byval poly as cpPolyShape ptr, byval body as cpBody ptr, byval count as long, byval verts as const cpVect ptr, byval transform as cpTransform, byval radius as cpFloat) as cpPolyShape ptr
 declare function cpPolyShapeInitRaw(byval poly as cpPolyShape ptr, byval body as cpBody ptr, byval count as long, byval verts as const cpVect ptr, byval radius as cpFloat) as cpPolyShape ptr
@@ -756,6 +763,7 @@ declare function cpConstraintGetUserData(byval constraint as const cpConstraint 
 declare sub cpConstraintSetUserData(byval constraint as cpConstraint ptr, byval userData as cpDataPointer)
 declare function cpConstraintGetImpulse(byval constraint as cpConstraint ptr) as cpFloat
 declare function cpConstraintIsPinJoint(byval constraint as const cpConstraint ptr) as cpBool
+type cpPinJoint as cpPinJoint_
 declare function cpPinJointAlloc() as cpPinJoint ptr
 declare function cpPinJointInit(byval joint as cpPinJoint ptr, byval a as cpBody ptr, byval b as cpBody ptr, byval anchorA as cpVect, byval anchorB as cpVect) as cpPinJoint ptr
 declare function cpPinJointNew(byval a as cpBody ptr, byval b as cpBody ptr, byval anchorA as cpVect, byval anchorB as cpVect) as cpConstraint ptr
@@ -766,6 +774,7 @@ declare sub cpPinJointSetAnchorB(byval constraint as cpConstraint ptr, byval anc
 declare function cpPinJointGetDist(byval constraint as const cpConstraint ptr) as cpFloat
 declare sub cpPinJointSetDist(byval constraint as cpConstraint ptr, byval dist as cpFloat)
 declare function cpConstraintIsSlideJoint(byval constraint as const cpConstraint ptr) as cpBool
+type cpSlideJoint as cpSlideJoint_
 declare function cpSlideJointAlloc() as cpSlideJoint ptr
 declare function cpSlideJointInit(byval joint as cpSlideJoint ptr, byval a as cpBody ptr, byval b as cpBody ptr, byval anchorA as cpVect, byval anchorB as cpVect, byval min as cpFloat, byval max as cpFloat) as cpSlideJoint ptr
 declare function cpSlideJointNew(byval a as cpBody ptr, byval b as cpBody ptr, byval anchorA as cpVect, byval anchorB as cpVect, byval min as cpFloat, byval max as cpFloat) as cpConstraint ptr
@@ -778,6 +787,7 @@ declare sub cpSlideJointSetMin(byval constraint as cpConstraint ptr, byval min a
 declare function cpSlideJointGetMax(byval constraint as const cpConstraint ptr) as cpFloat
 declare sub cpSlideJointSetMax(byval constraint as cpConstraint ptr, byval max as cpFloat)
 declare function cpConstraintIsPivotJoint(byval constraint as const cpConstraint ptr) as cpBool
+type cpPivotJoint as cpPivotJoint_
 declare function cpPivotJointAlloc() as cpPivotJoint ptr
 declare function cpPivotJointInit(byval joint as cpPivotJoint ptr, byval a as cpBody ptr, byval b as cpBody ptr, byval anchorA as cpVect, byval anchorB as cpVect) as cpPivotJoint ptr
 declare function cpPivotJointNew(byval a as cpBody ptr, byval b as cpBody ptr, byval pivot as cpVect) as cpConstraint ptr
@@ -787,6 +797,7 @@ declare sub cpPivotJointSetAnchorA(byval constraint as cpConstraint ptr, byval a
 declare function cpPivotJointGetAnchorB(byval constraint as const cpConstraint ptr) as cpVect
 declare sub cpPivotJointSetAnchorB(byval constraint as cpConstraint ptr, byval anchorB as cpVect)
 declare function cpConstraintIsGrooveJoint(byval constraint as const cpConstraint ptr) as cpBool
+type cpGrooveJoint as cpGrooveJoint_
 declare function cpGrooveJointAlloc() as cpGrooveJoint ptr
 declare function cpGrooveJointInit(byval joint as cpGrooveJoint ptr, byval a as cpBody ptr, byval b as cpBody ptr, byval groove_a as cpVect, byval groove_b as cpVect, byval anchorB as cpVect) as cpGrooveJoint ptr
 declare function cpGrooveJointNew(byval a as cpBody ptr, byval b as cpBody ptr, byval groove_a as cpVect, byval groove_b as cpVect, byval anchorB as cpVect) as cpConstraint ptr
@@ -798,6 +809,7 @@ declare function cpGrooveJointGetAnchorB(byval constraint as const cpConstraint 
 declare sub cpGrooveJointSetAnchorB(byval constraint as cpConstraint ptr, byval anchorB as cpVect)
 declare function cpConstraintIsDampedSpring(byval constraint as const cpConstraint ptr) as cpBool
 type cpDampedSpringForceFunc as function(byval spring as cpConstraint ptr, byval dist as cpFloat) as cpFloat
+type cpDampedSpring as cpDampedSpring_
 declare function cpDampedSpringAlloc() as cpDampedSpring ptr
 declare function cpDampedSpringInit(byval joint as cpDampedSpring ptr, byval a as cpBody ptr, byval b as cpBody ptr, byval anchorA as cpVect, byval anchorB as cpVect, byval restLength as cpFloat, byval stiffness as cpFloat, byval damping as cpFloat) as cpDampedSpring ptr
 declare function cpDampedSpringNew(byval a as cpBody ptr, byval b as cpBody ptr, byval anchorA as cpVect, byval anchorB as cpVect, byval restLength as cpFloat, byval stiffness as cpFloat, byval damping as cpFloat) as cpConstraint ptr
@@ -815,6 +827,7 @@ declare function cpDampedSpringGetSpringForceFunc(byval constraint as const cpCo
 declare sub cpDampedSpringSetSpringForceFunc(byval constraint as cpConstraint ptr, byval springForceFunc as cpDampedSpringForceFunc)
 declare function cpConstraintIsDampedRotarySpring(byval constraint as const cpConstraint ptr) as cpBool
 type cpDampedRotarySpringTorqueFunc as function(byval spring as cpConstraint ptr, byval relativeAngle as cpFloat) as cpFloat
+type cpDampedRotarySpring as cpDampedRotarySpring_
 declare function cpDampedRotarySpringAlloc() as cpDampedRotarySpring ptr
 declare function cpDampedRotarySpringInit(byval joint as cpDampedRotarySpring ptr, byval a as cpBody ptr, byval b as cpBody ptr, byval restAngle as cpFloat, byval stiffness as cpFloat, byval damping as cpFloat) as cpDampedRotarySpring ptr
 declare function cpDampedRotarySpringNew(byval a as cpBody ptr, byval b as cpBody ptr, byval restAngle as cpFloat, byval stiffness as cpFloat, byval damping as cpFloat) as cpConstraint ptr
@@ -827,6 +840,7 @@ declare sub cpDampedRotarySpringSetDamping(byval constraint as cpConstraint ptr,
 declare function cpDampedRotarySpringGetSpringTorqueFunc(byval constraint as const cpConstraint ptr) as cpDampedRotarySpringTorqueFunc
 declare sub cpDampedRotarySpringSetSpringTorqueFunc(byval constraint as cpConstraint ptr, byval springTorqueFunc as cpDampedRotarySpringTorqueFunc)
 declare function cpConstraintIsRotaryLimitJoint(byval constraint as const cpConstraint ptr) as cpBool
+type cpRotaryLimitJoint as cpRotaryLimitJoint_
 declare function cpRotaryLimitJointAlloc() as cpRotaryLimitJoint ptr
 declare function cpRotaryLimitJointInit(byval joint as cpRotaryLimitJoint ptr, byval a as cpBody ptr, byval b as cpBody ptr, byval min as cpFloat, byval max as cpFloat) as cpRotaryLimitJoint ptr
 declare function cpRotaryLimitJointNew(byval a as cpBody ptr, byval b as cpBody ptr, byval min as cpFloat, byval max as cpFloat) as cpConstraint ptr
@@ -835,6 +849,7 @@ declare sub cpRotaryLimitJointSetMin(byval constraint as cpConstraint ptr, byval
 declare function cpRotaryLimitJointGetMax(byval constraint as const cpConstraint ptr) as cpFloat
 declare sub cpRotaryLimitJointSetMax(byval constraint as cpConstraint ptr, byval max as cpFloat)
 declare function cpConstraintIsRatchetJoint(byval constraint as const cpConstraint ptr) as cpBool
+type cpRatchetJoint as cpRatchetJoint_
 declare function cpRatchetJointAlloc() as cpRatchetJoint ptr
 declare function cpRatchetJointInit(byval joint as cpRatchetJoint ptr, byval a as cpBody ptr, byval b as cpBody ptr, byval phase as cpFloat, byval ratchet as cpFloat) as cpRatchetJoint ptr
 declare function cpRatchetJointNew(byval a as cpBody ptr, byval b as cpBody ptr, byval phase as cpFloat, byval ratchet as cpFloat) as cpConstraint ptr
@@ -845,6 +860,7 @@ declare sub cpRatchetJointSetPhase(byval constraint as cpConstraint ptr, byval p
 declare function cpRatchetJointGetRatchet(byval constraint as const cpConstraint ptr) as cpFloat
 declare sub cpRatchetJointSetRatchet(byval constraint as cpConstraint ptr, byval ratchet as cpFloat)
 declare function cpConstraintIsGearJoint(byval constraint as const cpConstraint ptr) as cpBool
+type cpGearJoint as cpGearJoint_
 declare function cpGearJointAlloc() as cpGearJoint ptr
 declare function cpGearJointInit(byval joint as cpGearJoint ptr, byval a as cpBody ptr, byval b as cpBody ptr, byval phase as cpFloat, byval ratio as cpFloat) as cpGearJoint ptr
 declare function cpGearJointNew(byval a as cpBody ptr, byval b as cpBody ptr, byval phase as cpFloat, byval ratio as cpFloat) as cpConstraint ptr
