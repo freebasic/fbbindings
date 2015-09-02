@@ -16,3 +16,27 @@ to fb:
 		dim as cpVect ptr __verts_var__ = cptr(cpVect ptr, alloca(__count__ * sizeof(cpVect)))
 		dim as long __count_var__ = cpConvexHull(__count__, __verts__, __verts_var__, NULL, 0.0)
 	#endmacro
+
+convert c:
+	static inline cpBB cpBBNew(const cpFloat l, const cpFloat b, const cpFloat r, const cpFloat t) {
+		cpBB bb = {l, b, r, t};
+		return bb;
+	}
+to fb:
+	#define cpBBNew(l, b, r, t) type<cpBB>(l, b, r, t)
+
+convert c:
+	static inline cpTransform cpTransformNew(cpFloat a, cpFloat b, cpFloat c, cpFloat d, cpFloat tx, cpFloat ty) {
+		cpTransform t = {a, b, c, d, tx, ty};
+		return t;
+	}
+to fb:
+	#define cpTransformNew(a, b, c, d, tx, ty) type<cpTransform>(a, b, c, d, tx, ty)
+
+convert c:
+	static inline cpTransform cpTransformNewTranspose(cpFloat a, cpFloat c, cpFloat tx, cpFloat b, cpFloat d, cpFloat ty) {
+		cpTransform t = {a, b, c, d, tx, ty};
+		return t;
+	}
+to fb:
+	#define cpTransformNewTranspose(a, c, tx, b, d, ty) type<cpTransform>(a, b, c, d, tx, ty)
