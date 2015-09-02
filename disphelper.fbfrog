@@ -15,3 +15,5 @@
 -renametypedef DATE DATE_
 
 -replacements disphelper.replacements
+
+-inclib disphelper
