@@ -127,10 +127,6 @@ enum
 	CRYPT_MODE_LAST
 end enum
 
-#ifdef __FB_WIN32__
-	const CRYPT_MODE_ECB = 1
-#endif
-
 type CRYPT_KEYSET_TYPE as long
 enum
 	CRYPT_KEYSET_NONE
