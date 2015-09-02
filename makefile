@@ -2,7 +2,7 @@ FBFROG_VERSION := 3fbf24836f955183834ca99cdf60f57d08cfd6c0
 
 ALL := allegro allegro4 allegro5 aspell atk
 ALL += bass bassmod bfd bzip2
-ALL += caca cairo cd cgui clang crt cunit curl
+ALL += caca cairo cd cgiutil cgui clang crt cunit curl
 ALL += fastcgi ffi fontconfig freeglut freetype
 ALL += gdkpixbuf glib glfw glut gtk gtk2 gtk3 gtkglext
 ALL += iconv iup
@@ -592,6 +592,15 @@ cd: tools
 		-title $(CD) cd.tmp fbteam.txt \
 		-inclib cdlua52 inc/cd/cdlua.bi
 
+	rm *.tmp
+
+CGIUTIL := cgi-util-2.2.1
+cgiutil: tools
+	./get.sh $(CGIUTIL) $(CGIUTIL).tar.gz ftp://ftp.tuxpaint.org/unix/www/cgi-util/cgi-util-2.2.1.tar.gz
+
+	$(GETCOMMENT) extracted/$(CGIUTIL)/cgi-util.h > cgiutil.tmp
+	sed -n 7,7p extracted/$(FASTCGI_TITLE)/include/fastcgi.h | cut -c4- > fastcgi.tmp
+	$(FBFROG) extracted/$(CGIUTIL)/cgi-util.h -o inc/cgi-util.bi -title $(CGIUTIL) cgiutil.tmp fbteam.txt
 	rm *.tmp
 
 CGUI_VERSION := 2.0.4
