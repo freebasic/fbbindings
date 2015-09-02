@@ -4,6 +4,7 @@ ALL := allegro allegro4 allegro5 aspell atk
 ALL += bass bassmod bfd bzip2
 ALL += caca cairo cd cgiutil cgui chipmunk clang crt cryptlib cunit curl
 ALL += devil disphelper
+ALL += expat
 ALL += fastcgi ffi fontconfig freeglut freetype
 ALL += gdkpixbuf glib glfw glut gtk gtk2 gtk3 gtkglext
 ALL += iconv iup
@@ -800,6 +801,13 @@ disphelper: tools
 		-title disphelper_081 convert.tmp    fbteam.txt inc/disphelper/convert.bi
 
 	rm *.tmp
+
+EXPAT_VERSION := 2.1.0
+EXPAT := expat-$(EXPAT_VERSION)
+expat: tools
+	./get.sh $(EXPAT) $(EXPAT).tar.gz http://sourceforge.net/projects/expat/files/expat/$(EXPAT_VERSION)/$(EXPAT).tar.gz/download
+
+	$(FBFROG) expat.fbfrog extracted/$(EXPAT)/lib/expat.h -o inc/expat.bi
 
 FASTCGI_TITLE := fcgi-2.4.1-SNAP-0311112127
 fastcgi: tools
