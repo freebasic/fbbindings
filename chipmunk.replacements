@@ -1,0 +1,18 @@
+convert c: #define cpAssertWarn(__condition__, ...) if (!(__condition__)) cpMessage(#__condition__, __FILE__, __LINE__, 0, 0, __VA_ARGS__)
+to c:      #define cpAssertWarn(__condition__, ...) if (!(__condition__)) cpMessage(#__condition__, __FILE__, __LINE__, 0, 0, __VA_ARGS__);
+
+convert c: #define CP_ARBITER_GET_SHAPES(__arb__, __a__, __b__) cpShape *__a__, *__b__; cpArbiterGetShapes(__arb__, &__a__, &__b__);
+to fb:     #define CP_ARBITER_GET_SHAPES(__arb__, __a__, __b__) dim as cpShape ptr __a__, __b__ : cpArbiterGetShapes(__arb__, @__a__, @__b__)
+
+convert c: #define CP_ARBITER_GET_BODIES(__arb__, __a__, __b__) cpBody *__a__, *__b__; cpArbiterGetBodies(__arb__, &__a__, &__b__);
+to fb:     #define CP_ARBITER_GET_BODIES(__arb__, __a__, __b__) dim as cpBody ptr __a__, __b__ : cpArbiterGetBodies(__arb__, @__a__, @__b__)
+
+convert c:
+	#define CP_CONVEX_HULL(__count__, __verts__, __count_var__, __verts_var__) \
+		cpVect *__verts_var__ = (cpVect *)alloca(__count__*sizeof(cpVect)); \
+		int __count_var__ = cpConvexHull(__count__, __verts__, __verts_var__, NULL, 0.0);
+to fb:
+	#macro CP_CONVEX_HULL(__count__, __verts__, __count_var__, __verts_var__)
+		dim as cpVect ptr __verts_var__ = cptr(cpVect ptr, alloca(__count__ * sizeof(cpVect)))
+		dim as long __count_var__ = cpConvexHull(__count__, __verts__, __verts_var__, NULL, 0.0)
+	#endmacro

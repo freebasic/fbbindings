@@ -1,3 +1,5 @@
+-replacements chipmunk.replacements
+
 -removeinclude TargetConditionals.h
 -removeinclude malloc.h
 -removeinclude alloca.h

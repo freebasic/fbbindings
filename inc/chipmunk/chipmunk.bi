@@ -41,7 +41,11 @@ declare sub cpMessage(byval condition as const zstring ptr, byval file as const 
 		abort()
 	end if
 #endmacro
-'' TODO: #define cpAssertWarn(__condition__, ...) if(!(__condition__)) cpMessage(#__condition__, __FILE__, __LINE__, 0, 0, __VA_ARGS__)
+#macro cpAssertWarn(__condition__, __VA_ARGS__...)
+	if (__condition__) = 0 then
+		cpMessage(#__condition__, __FILE__, __LINE__, 0, 0, __VA_ARGS__)
+	end if
+#endmacro
 #macro cpAssertHard(__condition__, __VA_ARGS__...)
 	if (__condition__) = 0 then
 		cpMessage(#__condition__, __FILE__, __LINE__, 1, 1, __VA_ARGS__)
@@ -545,9 +549,9 @@ declare function cpArbiterTotalImpulse(byval arb as const cpArbiter ptr) as cpVe
 declare function cpArbiterTotalKE(byval arb as const cpArbiter ptr) as cpFloat
 declare function cpArbiterIgnore(byval arb as cpArbiter ptr) as cpBool
 declare sub cpArbiterGetShapes(byval arb as const cpArbiter ptr, byval a as cpShape ptr ptr, byval b as cpShape ptr ptr)
-'' TODO: #define CP_ARBITER_GET_SHAPES(__arb__, __a__, __b__) cpShape *__a__, *__b__; cpArbiterGetShapes(__arb__, &__a__, &__b__);
+#define CP_ARBITER_GET_SHAPES(__arb__, __a__, __b__) dim as cpShape ptr __a__, __b__ : cpArbiterGetShapes(__arb__, @__a__, @__b__)
 declare sub cpArbiterGetBodies(byval arb as const cpArbiter ptr, byval a as cpBody ptr ptr, byval b as cpBody ptr ptr)
-'' TODO: #define CP_ARBITER_GET_BODIES(__arb__, __a__, __b__) cpBody *__a__, *__b__; cpArbiterGetBodies(__arb__, &__a__, &__b__);
+#define CP_ARBITER_GET_BODIES(__arb__, __a__, __b__) dim as cpBody ptr __a__, __b__ : cpArbiterGetBodies(__arb__, @__a__, @__b__)
 
 type cpContactPointSet_points
 	pointA as cpVect
@@ -983,7 +987,10 @@ declare function cpCentroidForPoly(byval count as const long, byval verts as con
 declare function cpMomentForBox(byval m as cpFloat, byval width as cpFloat, byval height as cpFloat) as cpFloat
 declare function cpMomentForBox2(byval m as cpFloat, byval box as cpBB) as cpFloat
 declare function cpConvexHull(byval count as long, byval verts as const cpVect ptr, byval result as cpVect ptr, byval first as long ptr, byval tol as cpFloat) as long
-'' TODO: #define CP_CONVEX_HULL(__count__, __verts__, __count_var__, __verts_var__)cpVect *__verts_var__ = (cpVect *)alloca(__count__*sizeof(cpVect));int __count_var__ = cpConvexHull(__count__, __verts__, __verts_var__, NULL, 0.0);
+#macro CP_CONVEX_HULL(__count__, __verts__, __count_var__, __verts_var__)
+	dim as cpVect ptr __verts_var__ = cptr(cpVect ptr, alloca(__count__ * sizeof(cpVect)))
+	dim as long __count_var__ = cpConvexHull(__count__, __verts__, __verts_var__, NULL, 0.0)
+#endmacro
 
 private function cpClosetPointOnSegment(byval p as const cpVect, byval a as const cpVect, byval b as const cpVect) as cpVect
 	dim delta as cpVect = cpvsub(a, b)
