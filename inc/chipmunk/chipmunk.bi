@@ -446,16 +446,19 @@ type cpSpatialIndex
 	dynamicIndex as cpSpatialIndex ptr
 end type
 
+type cpSpaceHash as cpSpaceHash_
 declare function cpSpaceHashAlloc() as cpSpaceHash ptr
 declare function cpSpaceHashInit(byval hash as cpSpaceHash ptr, byval celldim as cpFloat, byval numcells as long, byval bbfunc as cpSpatialIndexBBFunc, byval staticIndex as cpSpatialIndex ptr) as cpSpatialIndex ptr
 declare function cpSpaceHashNew(byval celldim as cpFloat, byval cells as long, byval bbfunc as cpSpatialIndexBBFunc, byval staticIndex as cpSpatialIndex ptr) as cpSpatialIndex ptr
 declare sub cpSpaceHashResize(byval hash as cpSpaceHash ptr, byval celldim as cpFloat, byval numcells as long)
+type cpBBTree as cpBBTree_
 declare function cpBBTreeAlloc() as cpBBTree ptr
 declare function cpBBTreeInit(byval tree as cpBBTree ptr, byval bbfunc as cpSpatialIndexBBFunc, byval staticIndex as cpSpatialIndex ptr) as cpSpatialIndex ptr
 declare function cpBBTreeNew(byval bbfunc as cpSpatialIndexBBFunc, byval staticIndex as cpSpatialIndex ptr) as cpSpatialIndex ptr
 declare sub cpBBTreeOptimize(byval index as cpSpatialIndex ptr)
 type cpBBTreeVelocityFunc as function(byval obj as any ptr) as cpVect
 declare sub cpBBTreeSetVelocityFunc(byval index as cpSpatialIndex ptr, byval func as cpBBTreeVelocityFunc)
+type cpSweep1D as cpSweep1D_
 declare function cpSweep1DAlloc() as cpSweep1D ptr
 declare function cpSweep1DInit(byval sweep as cpSweep1D ptr, byval bbfunc as cpSpatialIndexBBFunc, byval staticIndex as cpSpatialIndex ptr) as cpSpatialIndex ptr
 declare function cpSweep1DNew(byval bbfunc as cpSpatialIndexBBFunc, byval staticIndex as cpSpatialIndex ptr) as cpSpatialIndex ptr
@@ -869,6 +872,7 @@ declare sub cpGearJointSetPhase(byval constraint as cpConstraint ptr, byval phas
 declare function cpGearJointGetRatio(byval constraint as const cpConstraint ptr) as cpFloat
 declare sub cpGearJointSetRatio(byval constraint as cpConstraint ptr, byval ratio as cpFloat)
 declare function cpConstraintIsSimpleMotor(byval constraint as const cpConstraint ptr) as cpBool
+type cpSimpleMotor as cpSimpleMotor_
 declare function cpSimpleMotorAlloc() as cpSimpleMotor ptr
 declare function cpSimpleMotorInit(byval joint as cpSimpleMotor ptr, byval a as cpBody ptr, byval b as cpBody ptr, byval rate as cpFloat) as cpSimpleMotor ptr
 declare function cpSimpleMotorNew(byval a as cpBody ptr, byval b as cpBody ptr, byval rate as cpFloat) as cpConstraint ptr
