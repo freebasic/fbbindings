@@ -1,4 +1,4 @@
-FBFROG_VERSION := 3fbf24836f955183834ca99cdf60f57d08cfd6c0
+FBFROG_VERSION := 9c29bd2233ba3b17e4bd3d0795711526f036cb1c
 
 ALL := allegro allegro4 allegro5 aspell atk
 ALL += bass bassmod bfd bzip2
@@ -606,7 +606,7 @@ cgiutil: tools
 
 	$(GETCOMMENT) extracted/$(CGIUTIL)/cgi-util.h > cgiutil.tmp
 	sed -n 7,7p extracted/$(FASTCGI_TITLE)/include/fastcgi.h | cut -c4- > fastcgi.tmp
-	$(FBFROG) extracted/$(CGIUTIL)/cgi-util.h -o inc/cgi-util.bi -title $(CGIUTIL) cgiutil.tmp fbteam.txt
+	$(FBFROG) extracted/$(CGIUTIL)/cgi-util.h -o inc/cgi-util.bi -title $(CGIUTIL) cgiutil.tmp fbteam.txt -inclib cgi-util
 	rm *.tmp
 
 CGUI_VERSION := 2.0.4
@@ -640,7 +640,8 @@ chipmunk: tools
 		-emit '*/cpPolyline.h'       inc/chipmunk/cpPolyline.bi \
 		-emit '*/cpRobust.h'         inc/chipmunk/cpRobust.bi \
 		-emit '*'                    inc/chipmunk/chipmunk.bi \
-		-title $(CHIPMUNK) chipmunk.tmp fbteam.txt
+		-title $(CHIPMUNK) chipmunk.tmp fbteam.txt \
+		-inclib "chipmunk" inc/chipmunk/chipmunk.bi
 
 	rm *.tmp
 

@@ -53,3 +53,18 @@
 -addforwarddecl cpSpatialIndex
 -addforwarddecl cpSpatialIndexClass
 -addforwarddecl cpSweep1D
+
+# Translate them as "fast" macros instead of "slow" private functions, as in
+# fbc's old headers...
+-forcefunction2macro cpBBNewForExtents
+-forcefunction2macro cpBBNewForCircle
+-forcefunction2macro cpBBIntersects
+-forcefunction2macro cpBBContainsBB
+-forcefunction2macro cpBBContainsVect
+-forcefunction2macro cpBBMerge
+-forcefunction2macro cpBBExpand
+-forcefunction2macro cpBBCenter
+-forcefunction2macro cpBBArea
+-forcefunction2macro cpBBMergedArea
+-forcefunction2macro cpBBClampVect
+-forcefunction2macro cpBBOffset

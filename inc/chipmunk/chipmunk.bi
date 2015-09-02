@@ -26,6 +26,8 @@
 
 #pragma once
 
+#inclib "chipmunk"
+
 #include once "crt/stdlib.bi"
 #include once "crt/math.bi"
 #include once "crt/stdint.bi"
@@ -261,50 +263,17 @@ type cpBB
 	t as cpFloat
 end type
 
-private function cpBBNew(byval l as const cpFloat, byval b as const cpFloat, byval r as const cpFloat, byval t as const cpFloat) as cpBB
-	dim bb as cpBB = (l, b, r, t)
-	return bb
-end function
-
-private function cpBBNewForExtents(byval c as const cpVect, byval hw as const cpFloat, byval hh as const cpFloat) as cpBB
-	return cpBBNew(c.x - hw, c.y - hh, c.x + hw, c.y + hh)
-end function
-
-private function cpBBNewForCircle(byval p as const cpVect, byval r as const cpFloat) as cpBB
-	return cpBBNewForExtents(p, r, r)
-end function
-
-private function cpBBIntersects(byval a as const cpBB, byval b as const cpBB) as cpBool
-	return -((((a.l <= b.r) andalso (b.l <= a.r)) andalso (a.b <= b.t)) andalso (b.b <= a.t))
-end function
-
-private function cpBBContainsBB(byval bb as const cpBB, byval other as const cpBB) as cpBool
-	return -((((bb.l <= other.l) andalso (bb.r >= other.r)) andalso (bb.b <= other.b)) andalso (bb.t >= other.t))
-end function
-
-private function cpBBContainsVect(byval bb as const cpBB, byval v as const cpVect) as cpBool
-	return -((((bb.l <= v.x) andalso (bb.r >= v.x)) andalso (bb.b <= v.y)) andalso (bb.t >= v.y))
-end function
-
-private function cpBBMerge(byval a as const cpBB, byval b as const cpBB) as cpBB
-	return cpBBNew(cpfmin(a.l, b.l), cpfmin(a.b, b.b), cpfmax(a.r, b.r), cpfmax(a.t, b.t))
-end function
-
-private function cpBBExpand(byval bb as const cpBB, byval v as const cpVect) as cpBB
-	return cpBBNew(cpfmin(bb.l, v.x), cpfmin(bb.b, v.y), cpfmax(bb.r, v.x), cpfmax(bb.t, v.y))
-end function
-
-private function cpBBCenter(byval bb as cpBB) as cpVect
-	return cpvlerp(cpv(bb.l, bb.b), cpv(bb.r, bb.t), 0.5f)
-end function
-
-private function cpBBArea(byval bb as cpBB) as cpFloat
-	return (bb.r - bb.l) * (bb.t - bb.b)
-end function
-
-private function cpBBMergedArea(byval a as cpBB, byval b as cpBB) as cpFloat
-	return (cpfmax(a.r, b.r) - cpfmin(a.l, b.l)) * (cpfmax(a.t, b.t) - cpfmin(a.b, b.b))
-end function
+#define cpBBNew(l, b, r, t) type<cpBB>(l, b, r, t)
+#define cpBBNewForExtents(c, hw, hh) cast(cpBB, cpBBNew((c).x - (hw), (c).y - (hh), (c).x + (hw), (c).y + (hh)))
+#define cpBBNewForCircle(p, r) cast(cpBB, cpBBNewForExtents((p), (r), (r)))
+#define cpBBIntersects(a, b) cast(cpBool, -(((((a).l <= (b).r) andalso ((b).l <= (a).r)) andalso ((a).(b) <= (b).t)) andalso ((b).(b) <= (a).t)))
+#define cpBBContainsBB(bb, other) cast(cpBool, -(((((bb).l <= (other).l) andalso ((bb).r >= (other).r)) andalso ((bb).b <= (other).b)) andalso ((bb).t >= (other).t)))
+#define cpBBContainsVect(bb, v) cast(cpBool, -(((((bb).l <= (v).x) andalso ((bb).r >= (v).x)) andalso ((bb).b <= (v).y)) andalso ((bb).t >= (v).y)))
+#define cpBBMerge(a, b) cast(cpBB, cpBBNew(cpfmin((a).l, (b).l), cpfmin((a).(b), (b).(b)), cpfmax((a).r, (b).r), cpfmax((a).t, (b).t)))
+#define cpBBExpand(bb, v) cast(cpBB, cpBBNew(cpfmin((bb).l, (v).x), cpfmin((bb).b, (v).y), cpfmax((bb).r, (v).x), cpfmax((bb).t, (v).y)))
+#define cpBBCenter(bb) cast(cpVect, cpvlerp(cpv((bb).l, (bb).b), cpv((bb).r, (bb).t), 0.5f))
+#define cpBBArea(bb) cast(cpFloat, ((bb).r - (bb).l) * ((bb).t - (bb).b))
+#define cpBBMergedArea(a, b) cast(cpFloat, (cpfmax((a).r, (b).r) - cpfmin((a).l, (b).l)) * (cpfmax((a).t, (b).t) - cpfmin((a).(b), (b).(b))))
 
 private function cpBBSegmentQuery(byval bb as cpBB, byval a as cpVect, byval b as cpVect) as cpFloat
 	dim idx as cpFloat = 1.0f / (b.x - a.x)
@@ -328,10 +297,7 @@ private function cpBBSegmentQuery(byval bb as cpBB, byval a as cpVect, byval b a
 end function
 
 #define cpBBIntersectsSegment(bb, a, b) cast(cpBool, -(cpBBSegmentQuery((bb), (a), (b)) <> INFINITY))
-
-private function cpBBClampVect(byval bb as const cpBB, byval v as const cpVect) as cpVect
-	return cpv(cpfclamp(v.x, bb.l, bb.r), cpfclamp(v.y, bb.b, bb.t))
-end function
+#define cpBBClampVect(bb, v) cast(cpVect, cpv(cpfclamp((v).x, (bb).l, (bb).r), cpfclamp((v).y, (bb).b, (bb).t)))
 
 private function cpBBWrapVect(byval bb as const cpBB, byval v as const cpVect) as cpVect
 	dim dx as cpFloat = cpfabs(bb.r - bb.l)
@@ -343,22 +309,11 @@ private function cpBBWrapVect(byval bb as const cpBB, byval v as const cpVect) a
 	return cpv(x + bb.l, y + bb.b)
 end function
 
-private function cpBBOffset(byval bb as const cpBB, byval v as const cpVect) as cpBB
-	return cpBBNew(bb.l + v.x, bb.b + v.y, bb.r + v.x, bb.t + v.y)
-end function
-
+#define cpBBOffset(bb, v) cast(cpBB, cpBBNew((bb).l + (v).x, (bb).b + (v).y, (bb).r + (v).x, (bb).t + (v).y))
 #define CHIPMUNK_TRANSFORM_H
 dim shared cpTransformIdentity as const cpTransform = (1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f)
-
-private function cpTransformNew(byval a as cpFloat, byval b as cpFloat, byval c as cpFloat, byval d as cpFloat, byval tx as cpFloat, byval ty as cpFloat) as cpTransform
-	dim t as cpTransform = (a, b, c, d, tx, ty)
-	return t
-end function
-
-private function cpTransformNewTranspose(byval a as cpFloat, byval c as cpFloat, byval tx as cpFloat, byval b as cpFloat, byval d as cpFloat, byval ty as cpFloat) as cpTransform
-	dim t as cpTransform = (a, b, c, d, tx, ty)
-	return t
-end function
+#define cpTransformNew(a, b, c, d, tx, ty) type<cpTransform>(a, b, c, d, tx, ty)
+#define cpTransformNewTranspose(a, c, tx, b, d, ty) type<cpTransform>(a, b, c, d, tx, ty)
 
 private function cpTransformInverse(byval t as cpTransform) as cpTransform
 	dim inv_det as cpFloat = 1.0 / ((t.a * t.d) - (t.c * t.b))
