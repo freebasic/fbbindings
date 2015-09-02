@@ -634,7 +634,8 @@ chipmunk: tools
 		-emit '*/cpPolyline.h'       inc/chipmunk/cpPolyline.bi \
 		-emit '*/cpRobust.h'         inc/chipmunk/cpRobust.bi \
 		-emit '*'                    inc/chipmunk/chipmunk.bi \
-		-title $(CHIPMUNK) chipmunk.tmp fbteam.txt
+		-title $(CHIPMUNK) chipmunk.tmp fbteam.txt \
+		-inclib "chipmunk" inc/chipmunk/chipmunk.bi
 
 	rm *.tmp
 

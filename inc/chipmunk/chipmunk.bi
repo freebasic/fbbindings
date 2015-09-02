@@ -26,6 +26,8 @@
 
 #pragma once
 
+#inclib "chipmunk"
+
 #include once "crt/stdlib.bi"
 #include once "crt/math.bi"
 #include once "crt/stdint.bi"
