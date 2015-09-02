@@ -1,5 +1,7 @@
 #pragma once
 
+#inclib "disphelper"
+
 #include once "win/ole2.bi"
 #include once "win/objbase.bi"
 #include once "crt/time.bi"
