@@ -26,8 +26,6 @@
 
 #pragma once
 
-#include once "chipmunk/cpVect.bi"
-
 extern "C"
 
 declare function cpCheckSignedArea(byval a as const cpVect, byval b as const cpVect, byval c as const cpVect) as cpBool
