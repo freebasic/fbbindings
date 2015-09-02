@@ -1,3 +1,6 @@
 -removedefine WIN32_LEAN_AND_MEAN
 -removedefine NOCRYPT
 -removedefine C_*
+
+# Already exists as enumconst
+-removedefine CRYPT_MODE_ECB
