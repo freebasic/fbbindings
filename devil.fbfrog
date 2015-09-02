@@ -1,0 +1,20 @@
+-inclib IL inc/IL/il.bi
+-inclib ILU inc/IL/ilu.bi
+-inclib ILUT inc/IL/ilut.bi
+
+# Dependencies for static linking
+-inclib jasper inc/IL/il.bi
+-inclib jpeg   inc/IL/il.bi
+-inclib tiff   inc/IL/il.bi
+-inclib mng    inc/IL/il.bi
+-inclib png    inc/IL/il.bi
+-inclib lzma   inc/IL/il.bi
+-inclib z      inc/IL/il.bi
+-inclib stdc++ inc/IL/il.bi
+
+-removedefine RESTRICT
+-removedefine DEPRECATED
+-removedefine ILAPIENTRY
+-removedefine ILAPI
+
+-replacements devil.replacements

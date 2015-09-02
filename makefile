@@ -3,6 +3,7 @@ FBFROG_VERSION := 96bd5c4c3e4789969a912792d72a35209db51632
 ALL := allegro allegro4 allegro5 aspell atk
 ALL += bass bassmod bfd bzip2
 ALL += caca cairo cd cgiutil cgui chipmunk clang crt cryptlib cunit curl
+ALL += devil
 ALL += fastcgi ffi fontconfig freeglut freetype
 ALL += gdkpixbuf glib glfw glut gtk gtk2 gtk3 gtkglext
 ALL += iconv iup
@@ -605,7 +606,6 @@ cgiutil: tools
 	./get.sh $(CGIUTIL) $(CGIUTIL).tar.gz ftp://ftp.tuxpaint.org/unix/www/cgi-util/cgi-util-2.2.1.tar.gz
 
 	$(GETCOMMENT) extracted/$(CGIUTIL)/cgi-util.h > cgiutil.tmp
-	sed -n 7,7p extracted/$(FASTCGI_TITLE)/include/fastcgi.h | cut -c4- > fastcgi.tmp
 	$(FBFROG) extracted/$(CGIUTIL)/cgi-util.h -o inc/cgi-util.bi -title $(CGIUTIL) cgiutil.tmp fbteam.txt -inclib cgi-util
 	rm *.tmp
 
@@ -757,6 +757,38 @@ curl: tools
 		-dontemit '*/typecheck-gcc.h' \
 		-emit '*' inc/curl.bi \
 		-title $(CURL_TITLE) curl.tmp fbteam.txt
+	rm *.tmp
+
+DEVIL_VERSION := 1.7.8
+DEVIL := devil-$(DEVIL_VERSION)
+DEVIL_PRETTY := DevIL-$(DEVIL_VERSION)
+devil: tools
+	./get.sh $(DEVIL) $(DEVIL).tar.gz http://downloads.sourceforge.net/openil/$(DEVIL_PRETTY).tar.gz
+
+	sed -n 476,488p extracted/$(DEVIL)/COPYING | cut -c5- > devil.tmp
+	$(GETCOMMENT) -3-9 extracted/$(DEVIL)/include/IL/il.h   > devil-il.tmp
+	$(GETCOMMENT) -3-9 extracted/$(DEVIL)/include/IL/ilu.h  > devil-ilu.tmp
+	$(GETCOMMENT) -3-9 extracted/$(DEVIL)/include/IL/ilut.h > devil-ilut.tmp
+	echo >> devil-il.tmp
+	echo >> devil-ilu.tmp
+	echo >> devil-ilut.tmp
+	cat devil.tmp >> devil-il.tmp
+	cat devil.tmp >> devil-ilu.tmp
+	cat devil.tmp >> devil-ilut.tmp
+	./fsf-address-fix.sh *.tmp
+
+	mkdir -p inc/IL
+	$(FBFROG) devil.fbfrog -incdir extracted/$(DEVIL)/include \
+		-include IL/il.h \
+		-include IL/ilu.h \
+		-include IL/ilut.h \
+		-emit '*/il.h'          inc/IL/il.bi \
+		-emit '*/ilu.h'         inc/IL/ilu.bi \
+		-emit '*/ilut.h'        inc/IL/ilut.bi \
+		-emit '*/ilut_config.h' inc/IL/ilut.bi \
+		-title $(DEVIL_PRETTY) devil-il.tmp   fbteam.txt inc/IL/il.bi \
+		-title $(DEVIL_PRETTY) devil-ilu.tmp  fbteam.txt inc/IL/ilu.bi \
+		-title $(DEVIL_PRETTY) devil-ilut.tmp fbteam.txt inc/IL/ilut.bi
 	rm *.tmp
 
 FASTCGI_TITLE := fcgi-2.4.1-SNAP-0311112127
