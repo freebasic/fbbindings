@@ -1,0 +1,3 @@
+-removedefine WIN32_LEAN_AND_MEAN
+-removedefine NOCRYPT
+-removedefine C_*
