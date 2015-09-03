@@ -1,10 +1,11 @@
-FBFROG_VERSION := 96bd5c4c3e4789969a912792d72a35209db51632
+FBFROG_VERSION := d83bdd0054599d7d532d4984e38894d435dfea19
 
 ALL := allegro allegro4 allegro5 aspell atk
 ALL += bass bassmod bfd bzip2
 ALL += caca cairo cd cgiutil cgui chipmunk clang crt cryptlib cunit curl
 ALL += devil disphelper
-ALL += fastcgi ffi fontconfig freeglut freetype
+ALL += expat
+ALL += fastcgi ffi flite fontconfig freeglut freetype
 ALL += gdkpixbuf glib glfw glut gtk gtk2 gtk3 gtkglext
 ALL += iconv iup
 ALL += jit
@@ -807,6 +808,13 @@ disphelper: tools
 
 	rm *.tmp
 
+EXPAT_VERSION := 2.1.0
+EXPAT := expat-$(EXPAT_VERSION)
+expat: tools
+	./get.sh $(EXPAT) $(EXPAT).tar.gz http://sourceforge.net/projects/expat/files/expat/$(EXPAT_VERSION)/$(EXPAT).tar.gz/download
+
+	$(FBFROG) expat.fbfrog extracted/$(EXPAT)/lib/expat.h -o inc/expat.bi
+
 FASTCGI_TITLE := fcgi-2.4.1-SNAP-0311112127
 fastcgi: tools
 	./get.sh $(FASTCGI_TITLE) $(FASTCGI_TITLE).tar.gz "http://www.fastcgi.com/dist/fcgi.tar.gz"
@@ -843,6 +851,19 @@ ffi: tools
 	$(FBFROG) ffi.fbfrog -o inc/ffi.bi -target nodos \
 		`./ffi-get-target-options.sh "extracted/$(FFI_TITLE)"` \
 		-title $(FFI_TITLE) ffi.tmp fbteam.txt
+
+	rm *.tmp
+
+FLITE := flite-2.0.0-release
+flite: tools
+	./get.sh $(FLITE) $(FLITE).tar.bz2 http://www.festvox.org/flite/packed/flite-2.0/$(FLITE).tar.bz2
+
+	sed -n 13,40p  extracted/$(FLITE)/COPYING > flite.tmp
+
+	mkdir -p inc/flite
+	$(FBFROG) extracted/$(FLITE)/include/*.h \
+		`./flite-fbfrog-options.sh $(FLITE)` \
+		-title $(FLITE) flite.tmp fbteam.txt
 
 	rm *.tmp
 

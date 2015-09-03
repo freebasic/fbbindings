@@ -723,6 +723,7 @@
 -nostring PUNZWCH
 -nostring PWCH
 -nostring PWCHAR
+-nostring SQLWCHAR
 -nostring TBYTE
 -nostring TCHAR
 -nostring WCHAR

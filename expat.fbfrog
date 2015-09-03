@@ -1,0 +1,9 @@
+-declarebool XML_UNICODE
+-ifdef XML_UNICODE
+	-define XML_UNICODE_WCHAR_T 1
+-endif
+
+-removedefine XMLCALL
+-removedefine XMLIMPORT
+-removedefine XMLPARSEAPI
+-removedefine XML_UNICODE
