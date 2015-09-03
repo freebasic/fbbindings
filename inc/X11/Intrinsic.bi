@@ -146,7 +146,7 @@ type XtBlockHookId as culong
 type XtBlockHookProc as sub(byval as XtPointer)
 type XtKeyProc as sub(byval as Display ptr, byval as KeyCode, byval as Modifiers, byval as Modifiers ptr, byval as KeySym ptr)
 type XtCaseProc as sub(byval as Display ptr, byval as KeySym, byval as KeySym ptr, byval as KeySym ptr)
-type XtEventHandler as sub(byval as Widget, byval as XtPointer, byval as XEvent ptr, byval as zstring ptr)
+type XtEventHandler as sub(byval as Widget, byval as XtPointer, byval as XEvent ptr, byval as Boolean ptr)
 type EventMask as culong
 
 type XtListPosition as long

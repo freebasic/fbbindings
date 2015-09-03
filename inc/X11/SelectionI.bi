@@ -173,7 +173,7 @@ type CallBackInfoRec
 	widget as Widget
 	time as Time
 	ctx as Select_
-	incremental as zstring ptr
+	incremental as Boolean ptr
 	current as long
 end type
 

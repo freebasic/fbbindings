@@ -159,7 +159,7 @@ declare function XtIsTopLevelShell(byval as Widget) as byte
 
 declare function _XtWindowedAncestor(byval as Widget) as Widget
 declare sub _XtInherit()
-declare sub _XtHandleFocus(byval as Widget, byval as XtPointer, byval as XEvent ptr, byval as zstring ptr)
+declare sub _XtHandleFocus(byval as Widget, byval as XtPointer, byval as XEvent ptr, byval as Boolean ptr)
 declare sub XtCreateWindow(byval as Widget, byval as ulong, byval as Visual ptr, byval as XtValueMask, byval as XSetWindowAttributes ptr)
 declare sub XtResizeWidget(byval as Widget, byval as Dimension, byval as Dimension, byval as Dimension)
 declare sub XtMoveWidget(byval as Widget, byval as Position, byval as Position)

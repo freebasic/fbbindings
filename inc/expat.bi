@@ -98,39 +98,16 @@ type XML_Content as XML_cp
 type XML_cp
 	as XML_Content_Type type
 	quant as XML_Content_Quant
-
-	#ifdef XML_UNICODE
-		name as wstring ptr
-	#else
-		name as zstring ptr
-	#endif
-
+	name as XML_Char ptr
 	numchildren as ulong
 	children as XML_Content ptr
 end type
 
-#ifdef XML_UNICODE
-	type XML_ElementDeclHandler as sub(byval userData as any ptr, byval name as const wstring ptr, byval model as XML_Content ptr)
-#else
-	type XML_ElementDeclHandler as sub(byval userData as any ptr, byval name as const zstring ptr, byval model as XML_Content ptr)
-#endif
-
+type XML_ElementDeclHandler as sub(byval userData as any ptr, byval name as const XML_Char ptr, byval model as XML_Content ptr)
 declare sub XML_SetElementDeclHandler(byval parser as XML_Parser, byval eldecl as XML_ElementDeclHandler)
-
-#ifdef XML_UNICODE
-	type XML_AttlistDeclHandler as sub(byval userData as any ptr, byval elname as const wstring ptr, byval attname as const wstring ptr, byval att_type as const wstring ptr, byval dflt as const wstring ptr, byval isrequired as long)
-#else
-	type XML_AttlistDeclHandler as sub(byval userData as any ptr, byval elname as const zstring ptr, byval attname as const zstring ptr, byval att_type as const zstring ptr, byval dflt as const zstring ptr, byval isrequired as long)
-#endif
-
+type XML_AttlistDeclHandler as sub(byval userData as any ptr, byval elname as const XML_Char ptr, byval attname as const XML_Char ptr, byval att_type as const XML_Char ptr, byval dflt as const XML_Char ptr, byval isrequired as long)
 declare sub XML_SetAttlistDeclHandler(byval parser as XML_Parser, byval attdecl as XML_AttlistDeclHandler)
-
-#ifdef XML_UNICODE
-	type XML_XmlDeclHandler as sub(byval userData as any ptr, byval version as const wstring ptr, byval encoding as const wstring ptr, byval standalone as long)
-#else
-	type XML_XmlDeclHandler as sub(byval userData as any ptr, byval version as const zstring ptr, byval encoding as const zstring ptr, byval standalone as long)
-#endif
-
+type XML_XmlDeclHandler as sub(byval userData as any ptr, byval version as const XML_Char ptr, byval encoding as const XML_Char ptr, byval standalone as long)
 declare sub XML_SetXmlDeclHandler(byval parser as XML_Parser, byval xmldecl as XML_XmlDeclHandler)
 
 type XML_Memory_Handling_Suite
@@ -139,72 +116,35 @@ type XML_Memory_Handling_Suite
 	free_fcn as sub(byval ptr as any ptr)
 end type
 
+declare function XML_ParserCreate(byval encoding as const XML_Char ptr) as XML_Parser
+
 #ifdef XML_UNICODE
-	declare function XML_ParserCreate(byval encoding as const wstring ptr) as XML_Parser
-	declare function XML_ParserCreateNS(byval encoding as const wstring ptr, byval namespaceSeparator as wchar_t) as XML_Parser
-	declare function XML_ParserCreate_MM(byval encoding as const wstring ptr, byval memsuite as const XML_Memory_Handling_Suite ptr, byval namespaceSeparator as const wstring ptr) as XML_Parser
-	declare function XML_ParserReset(byval parser as XML_Parser, byval encoding as const wstring ptr) as XML_Bool
-
-	type XML_StartElementHandler as sub(byval userData as any ptr, byval name as const wstring ptr, byval atts as const wstring ptr ptr)
-	type XML_EndElementHandler as sub(byval userData as any ptr, byval name as const wstring ptr)
-	type XML_CharacterDataHandler as sub(byval userData as any ptr, byval s as const wstring ptr, byval len as long)
-	type XML_ProcessingInstructionHandler as sub(byval userData as any ptr, byval target as const wstring ptr, byval data as const wstring ptr)
-	type XML_CommentHandler as sub(byval userData as any ptr, byval data as const wstring ptr)
+	declare function XML_ParserCreateNS(byval encoding as const XML_Char ptr, byval namespaceSeparator as wchar_t) as XML_Parser
 #else
-	declare function XML_ParserCreate(byval encoding as const zstring ptr) as XML_Parser
-	declare function XML_ParserCreateNS(byval encoding as const zstring ptr, byval namespaceSeparator as byte) as XML_Parser
-	declare function XML_ParserCreate_MM(byval encoding as const zstring ptr, byval memsuite as const XML_Memory_Handling_Suite ptr, byval namespaceSeparator as const zstring ptr) as XML_Parser
-	declare function XML_ParserReset(byval parser as XML_Parser, byval encoding as const zstring ptr) as XML_Bool
-
-	type XML_StartElementHandler as sub(byval userData as any ptr, byval name as const zstring ptr, byval atts as const zstring ptr ptr)
-	type XML_EndElementHandler as sub(byval userData as any ptr, byval name as const zstring ptr)
-	type XML_CharacterDataHandler as sub(byval userData as any ptr, byval s as const zstring ptr, byval len as long)
-	type XML_ProcessingInstructionHandler as sub(byval userData as any ptr, byval target as const zstring ptr, byval data as const zstring ptr)
-	type XML_CommentHandler as sub(byval userData as any ptr, byval data as const zstring ptr)
+	declare function XML_ParserCreateNS(byval encoding as const XML_Char ptr, byval namespaceSeparator as byte) as XML_Parser
 #endif
 
+declare function XML_ParserCreate_MM(byval encoding as const XML_Char ptr, byval memsuite as const XML_Memory_Handling_Suite ptr, byval namespaceSeparator as const XML_Char ptr) as XML_Parser
+declare function XML_ParserReset(byval parser as XML_Parser, byval encoding as const XML_Char ptr) as XML_Bool
+type XML_StartElementHandler as sub(byval userData as any ptr, byval name as const XML_Char ptr, byval atts as const XML_Char ptr ptr)
+type XML_EndElementHandler as sub(byval userData as any ptr, byval name as const XML_Char ptr)
+type XML_CharacterDataHandler as sub(byval userData as any ptr, byval s as const XML_Char ptr, byval len as long)
+type XML_ProcessingInstructionHandler as sub(byval userData as any ptr, byval target as const XML_Char ptr, byval data as const XML_Char ptr)
+type XML_CommentHandler as sub(byval userData as any ptr, byval data as const XML_Char ptr)
 type XML_StartCdataSectionHandler as sub(byval userData as any ptr)
 type XML_EndCdataSectionHandler as sub(byval userData as any ptr)
-
-#ifdef XML_UNICODE
-	type XML_DefaultHandler as sub(byval userData as any ptr, byval s as const wstring ptr, byval len as long)
-	type XML_StartDoctypeDeclHandler as sub(byval userData as any ptr, byval doctypeName as const wstring ptr, byval sysid as const wstring ptr, byval pubid as const wstring ptr, byval has_internal_subset as long)
-#else
-	type XML_DefaultHandler as sub(byval userData as any ptr, byval s as const zstring ptr, byval len as long)
-	type XML_StartDoctypeDeclHandler as sub(byval userData as any ptr, byval doctypeName as const zstring ptr, byval sysid as const zstring ptr, byval pubid as const zstring ptr, byval has_internal_subset as long)
-#endif
-
+type XML_DefaultHandler as sub(byval userData as any ptr, byval s as const XML_Char ptr, byval len as long)
+type XML_StartDoctypeDeclHandler as sub(byval userData as any ptr, byval doctypeName as const XML_Char ptr, byval sysid as const XML_Char ptr, byval pubid as const XML_Char ptr, byval has_internal_subset as long)
 type XML_EndDoctypeDeclHandler as sub(byval userData as any ptr)
-
-#ifdef XML_UNICODE
-	type XML_EntityDeclHandler as sub(byval userData as any ptr, byval entityName as const wstring ptr, byval is_parameter_entity as long, byval value as const wstring ptr, byval value_length as long, byval base as const wstring ptr, byval systemId as const wstring ptr, byval publicId as const wstring ptr, byval notationName as const wstring ptr)
-#else
-	type XML_EntityDeclHandler as sub(byval userData as any ptr, byval entityName as const zstring ptr, byval is_parameter_entity as long, byval value as const zstring ptr, byval value_length as long, byval base as const zstring ptr, byval systemId as const zstring ptr, byval publicId as const zstring ptr, byval notationName as const zstring ptr)
-#endif
-
+type XML_EntityDeclHandler as sub(byval userData as any ptr, byval entityName as const XML_Char ptr, byval is_parameter_entity as long, byval value as const XML_Char ptr, byval value_length as long, byval base as const XML_Char ptr, byval systemId as const XML_Char ptr, byval publicId as const XML_Char ptr, byval notationName as const XML_Char ptr)
 declare sub XML_SetEntityDeclHandler(byval parser as XML_Parser, byval handler as XML_EntityDeclHandler)
-
-#ifdef XML_UNICODE
-	type XML_UnparsedEntityDeclHandler as sub(byval userData as any ptr, byval entityName as const wstring ptr, byval base as const wstring ptr, byval systemId as const wstring ptr, byval publicId as const wstring ptr, byval notationName as const wstring ptr)
-	type XML_NotationDeclHandler as sub(byval userData as any ptr, byval notationName as const wstring ptr, byval base as const wstring ptr, byval systemId as const wstring ptr, byval publicId as const wstring ptr)
-	type XML_StartNamespaceDeclHandler as sub(byval userData as any ptr, byval prefix as const wstring ptr, byval uri as const wstring ptr)
-	type XML_EndNamespaceDeclHandler as sub(byval userData as any ptr, byval prefix as const wstring ptr)
-#else
-	type XML_UnparsedEntityDeclHandler as sub(byval userData as any ptr, byval entityName as const zstring ptr, byval base as const zstring ptr, byval systemId as const zstring ptr, byval publicId as const zstring ptr, byval notationName as const zstring ptr)
-	type XML_NotationDeclHandler as sub(byval userData as any ptr, byval notationName as const zstring ptr, byval base as const zstring ptr, byval systemId as const zstring ptr, byval publicId as const zstring ptr)
-	type XML_StartNamespaceDeclHandler as sub(byval userData as any ptr, byval prefix as const zstring ptr, byval uri as const zstring ptr)
-	type XML_EndNamespaceDeclHandler as sub(byval userData as any ptr, byval prefix as const zstring ptr)
-#endif
-
+type XML_UnparsedEntityDeclHandler as sub(byval userData as any ptr, byval entityName as const XML_Char ptr, byval base as const XML_Char ptr, byval systemId as const XML_Char ptr, byval publicId as const XML_Char ptr, byval notationName as const XML_Char ptr)
+type XML_NotationDeclHandler as sub(byval userData as any ptr, byval notationName as const XML_Char ptr, byval base as const XML_Char ptr, byval systemId as const XML_Char ptr, byval publicId as const XML_Char ptr)
+type XML_StartNamespaceDeclHandler as sub(byval userData as any ptr, byval prefix as const XML_Char ptr, byval uri as const XML_Char ptr)
+type XML_EndNamespaceDeclHandler as sub(byval userData as any ptr, byval prefix as const XML_Char ptr)
 type XML_NotStandaloneHandler as function(byval userData as any ptr) as long
-
-#ifdef XML_UNICODE
-	type XML_ExternalEntityRefHandler as function(byval parser as XML_Parser, byval context as const wstring ptr, byval base as const wstring ptr, byval systemId as const wstring ptr, byval publicId as const wstring ptr) as long
-	type XML_SkippedEntityHandler as sub(byval userData as any ptr, byval entityName as const wstring ptr, byval is_parameter_entity as long)
-#else
-	type XML_ExternalEntityRefHandler as function(byval parser as XML_Parser, byval context as const zstring ptr, byval base as const zstring ptr, byval systemId as const zstring ptr, byval publicId as const zstring ptr) as long
-	type XML_SkippedEntityHandler as sub(byval userData as any ptr, byval entityName as const zstring ptr, byval is_parameter_entity as long)
-#endif
+type XML_ExternalEntityRefHandler as function(byval parser as XML_Parser, byval context as const XML_Char ptr, byval base as const XML_Char ptr, byval systemId as const XML_Char ptr, byval publicId as const XML_Char ptr) as long
+type XML_SkippedEntityHandler as sub(byval userData as any ptr, byval entityName as const XML_Char ptr, byval is_parameter_entity as long)
 
 type XML_Encoding
 	map(0 to 255) as long
@@ -213,12 +153,7 @@ type XML_Encoding
 	release as sub(byval data as any ptr)
 end type
 
-#ifdef XML_UNICODE
-	type XML_UnknownEncodingHandler as function(byval encodingHandlerData as any ptr, byval name as const wstring ptr, byval info as XML_Encoding ptr) as long
-#else
-	type XML_UnknownEncodingHandler as function(byval encodingHandlerData as any ptr, byval name as const zstring ptr, byval info as XML_Encoding ptr) as long
-#endif
-
+type XML_UnknownEncodingHandler as function(byval encodingHandlerData as any ptr, byval name as const XML_Char ptr, byval info as XML_Encoding ptr) as long
 declare sub XML_SetElementHandler(byval parser as XML_Parser, byval start as XML_StartElementHandler, byval end as XML_EndElementHandler)
 declare sub XML_SetStartElementHandler(byval parser as XML_Parser, byval handler as XML_StartElementHandler)
 declare sub XML_SetEndElementHandler(byval parser as XML_Parser, byval handler as XML_EndElementHandler)
@@ -247,24 +182,11 @@ declare sub XML_DefaultCurrent(byval parser as XML_Parser)
 declare sub XML_SetReturnNSTriplet(byval parser as XML_Parser, byval do_nst as long)
 declare sub XML_SetUserData(byval parser as XML_Parser, byval userData as any ptr)
 #define XML_GetUserData(parser) (*cptr(any ptr ptr, (parser)))
-
-#ifdef XML_UNICODE
-	declare function XML_SetEncoding(byval parser as XML_Parser, byval encoding as const wstring ptr) as XML_Status
-#else
-	declare function XML_SetEncoding(byval parser as XML_Parser, byval encoding as const zstring ptr) as XML_Status
-#endif
-
+declare function XML_SetEncoding(byval parser as XML_Parser, byval encoding as const XML_Char ptr) as XML_Status
 declare sub XML_UseParserAsHandlerArg(byval parser as XML_Parser)
 declare function XML_UseForeignDTD(byval parser as XML_Parser, byval useDTD as XML_Bool) as XML_Error
-
-#ifdef XML_UNICODE
-	declare function XML_SetBase(byval parser as XML_Parser, byval base as const wstring ptr) as XML_Status
-	declare function XML_GetBase(byval parser as XML_Parser) as const wstring ptr
-#else
-	declare function XML_SetBase(byval parser as XML_Parser, byval base as const zstring ptr) as XML_Status
-	declare function XML_GetBase(byval parser as XML_Parser) as const zstring ptr
-#endif
-
+declare function XML_SetBase(byval parser as XML_Parser, byval base as const XML_Char ptr) as XML_Status
+declare function XML_GetBase(byval parser as XML_Parser) as const XML_Char ptr
 declare function XML_GetSpecifiedAttributeCount(byval parser as XML_Parser) as long
 declare function XML_GetIdAttributeIndex(byval parser as XML_Parser) as long
 declare function XML_Parse(byval parser as XML_Parser, byval s as const zstring ptr, byval len as long, byval isFinal as long) as XML_Status
@@ -287,12 +209,7 @@ type XML_ParsingStatus
 end type
 
 declare sub XML_GetParsingStatus(byval parser as XML_Parser, byval status as XML_ParsingStatus ptr)
-
-#ifdef XML_UNICODE
-	declare function XML_ExternalEntityParserCreate(byval parser as XML_Parser, byval context as const wstring ptr, byval encoding as const wstring ptr) as XML_Parser
-#else
-	declare function XML_ExternalEntityParserCreate(byval parser as XML_Parser, byval context as const zstring ptr, byval encoding as const zstring ptr) as XML_Parser
-#endif
+declare function XML_ExternalEntityParserCreate(byval parser as XML_Parser, byval context as const XML_Char ptr, byval encoding as const XML_Char ptr) as XML_Parser
 
 type XML_ParamEntityParsing as long
 enum
@@ -317,14 +234,8 @@ declare function XML_MemMalloc(byval parser as XML_Parser, byval size as uintege
 declare function XML_MemRealloc(byval parser as XML_Parser, byval ptr as any ptr, byval size as uinteger) as any ptr
 declare sub XML_MemFree(byval parser as XML_Parser, byval ptr as any ptr)
 declare sub XML_ParserFree(byval parser as XML_Parser)
-
-#ifdef XML_UNICODE
-	declare function XML_ErrorString(byval code as XML_Error) as const wstring ptr
-	declare function XML_ExpatVersion() as const wstring ptr
-#else
-	declare function XML_ErrorString(byval code as XML_Error) as const zstring ptr
-	declare function XML_ExpatVersion() as const zstring ptr
-#endif
+declare function XML_ErrorString(byval code as XML_Error) as const XML_LChar ptr
+declare function XML_ExpatVersion() as const XML_LChar ptr
 
 type XML_Expat_Version
 	major as long
@@ -351,13 +262,7 @@ end enum
 
 type XML_Feature
 	feature as XML_FeatureEnum
-
-	#ifdef XML_UNICODE
-		name as const wstring ptr
-	#else
-		name as const zstring ptr
-	#endif
-
+	name as const XML_LChar ptr
 	value as clong
 end type
 
