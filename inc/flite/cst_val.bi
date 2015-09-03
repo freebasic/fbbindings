@@ -40,7 +40,6 @@
 #include once "cst_error.bi"
 #include once "cst_alloc.bi"
 #include once "cst_val_defs.bi"
-#include once "cst_val_const.bi"
 
 extern "C"
 
@@ -150,6 +149,13 @@ declare function cst_utf8_chr(byval ord as const cst_val ptr) as cst_val ptr
 declare function cst_utf8_ord_string(byval utf8_char as const zstring ptr) as long
 declare function val_dec_refcount(byval b as const cst_val ptr) as long
 declare function val_inc_refcount(byval b as const cst_val ptr) as cst_val ptr
+
+end extern
+
+#include once "cst_val_const.bi"
+
+extern "C"
+
 #define cst_val_defs(i) ((@__cst_val_defs)[i])
 extern __cst_val_defs alias "cst_val_defs" as const cst_val_def
 type cst_userdata as any
