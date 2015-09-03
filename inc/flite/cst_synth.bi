@@ -83,7 +83,7 @@ type cst_synth_module_struct
 end type
 
 type cst_synth_module as cst_synth_module_struct
-declare function apply_synth_module(byval u as cst_utterance ptr, byval mod as const cst_synth_module ptr) as cst_utterance ptr
+declare function apply_synth_module(byval u as cst_utterance ptr, byval mod_ as const cst_synth_module ptr) as cst_utterance ptr
 declare function apply_synth_method(byval u as cst_utterance ptr, byval meth as const cst_synth_module ptr) as cst_utterance ptr
 
 end extern

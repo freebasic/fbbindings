@@ -38,11 +38,73 @@
 #include once "crt/stdlib.bi"
 
 #define _CST_VAL_DEFS_H__
-'' TODO: #define CST_VAL_USER_TYPE_DCLS(NAME,TYPE)extern const int cst_val_type_##NAME;TYPE *val_##NAME(const cst_val *v);cst_val *NAME##_val(const TYPE *v);
-'' TODO: #define CST_VAL_USER_FUNCPTR_DCLS(NAME,TYPE)extern const int cst_val_type_##NAME;TYPE val_##NAME(const cst_val *v);cst_val *NAME##_val(const TYPE v);
-'' TODO: #define CST_VAL_REGISTER_TYPE(NAME,TYPE)TYPE *val_##NAME(const cst_val *v){ return (TYPE *)val_generic(v,cst_val_type_##NAME,#NAME);}void val_delete_##NAME(void *v){ delete_##NAME((TYPE *)v);}cst_val *NAME##_val(const TYPE *v){ return val_new_typed(cst_val_type_##NAME, (void *)v);}
-'' TODO: #define CST_VAL_REG_TD_TYPE(NAME,TYPE,NUM)extern const int cst_val_type_##NAME;const int cst_val_type_##NAME=NUM;void val_delete_##NAME(void *v);
-'' TODO: #define CST_VAL_REGISTER_TYPE_NODEL(NAME,TYPE)TYPE *val_##NAME(const cst_val *v){ return (TYPE *)val_generic(v,cst_val_type_##NAME,#NAME);}cst_val *NAME##_val(const TYPE *v){ return val_new_typed(cst_val_type_##NAME, (void *)v);}
-'' TODO: #define CST_VAL_REG_TD_TYPE_NODEL(NAME,TYPE,NUM)extern const int cst_val_type_##NAME;const int cst_val_type_##NAME=NUM;void val_delete_##NAME(void *v) { (void)v; }
-'' TODO: #define CST_VAL_REGISTER_FUNCPTR(NAME,TYPE)TYPE val_##NAME(const cst_val *v){ return (TYPE)val_generic(v,cst_val_type_##NAME,#NAME);}cst_val *NAME##_val(const TYPE v){ return val_new_typed(cst_val_type_##NAME, (void *)v);}
-'' TODO: #define CST_VAL_REG_TD_FUNCPTR(NAME,TYPE,NUM)extern const int cst_val_type_##NAME;const int cst_val_type_##NAME=NUM;void val_delete_##NAME(void *v) { (void)v; }
+#macro CST_VAL_USER_TYPE_DCLS(NAME, TYPE)
+	extern "C"
+		extern cst_val_type_##NAME as const long
+		declare function val_##NAME(byval v as const cst_val ptr) as TYPE ptr
+		declare function NAME##_val(byval v as const TYPE ptr) as cst_val ptr
+	end extern
+#endmacro
+#macro CST_VAL_USER_FUNCPTR_DCLS(NAME, TYPE)
+	extern "C"
+		extern cst_val_type_##NAME as const long
+		declare function val_##NAME(byval v as const cst_val ptr) as TYPE
+		declare function NAME##_val(byval v as const TYPE) as cst_val ptr
+	end extern
+#endmacro
+#macro CST_VAL_REGISTER_TYPE(NAME, TYPE)
+	extern "C"
+		function val_##NAME(byval v as const cst_val ptr) as TYPE ptr
+			return cptr(TYPE ptr, val_generic(v, cst_val_type_##NAME, #NAME))
+		end function
+		sub val_delete_##NAME(byval v as any ptr)
+			delete_##NAME(cptr(TYPE ptr, v))
+		end sub
+		function NAME##_val(byval v as const TYPE ptr) as cst_val ptr
+			return val_new_typed(cst_val_type_##NAME, cptr(any ptr, v))
+		end function
+	end extern
+#endmacro
+#macro CST_VAL_REG_TD_TYPE(NAME, TYPE, NUM)
+	extern "C"
+		extern cst_val_type_##NAME as const long
+		const cst_val_type_##NAME as long = NUM
+		declare sub val_delete_##NAME(byval v as any ptr)
+	end extern
+#endmacro
+#macro CST_VAL_REGISTER_TYPE_NODEL(NAME, TYPE)
+	extern "C"
+		function val_##NAME(byval v as const cst_val ptr) as TYPE ptr
+			return cptr(TYPE ptr, val_generic(v, cst_val_type_##NAME, #NAME))
+		end function
+		function NAME##_val(byval v as const TYPE ptr) as cst_val ptr
+			return val_new_typed(cst_val_type_##NAME, cptr(any ptr, v))
+		end function
+	end extern
+#endmacro
+#macro CST_VAL_REG_TD_TYPE_NODEL(NAME, TYPE, NUM)
+	extern "C"
+		extern cst_val_type_##NAME as const long
+		const cst_val_type_##NAME as long = NUM
+		sub val_delete_##NAME(byval v as any ptr)
+		end sub
+	end extern
+#endmacro
+#macro CST_VAL_REGISTER_FUNCPTR(NAME, TYPE)
+	extern "C"
+		function val_##NAME(byval v as const cst_val ptr) as TYPE
+			return cast(TYPE, val_generic(v, cst_val_type_##NAME, #NAME))
+		end function
+		function NAME##_val(byval v as const TYPE) as cst_val ptr
+			return val_new_typed(cst_val_type_##NAME, cptr(any ptr, v))
+		end function
+	end extern
+#endmacro
+#macro CST_VAL_REG_TD_FUNCPTR(NAME, TYPE, NUM)
+	extern "C"
+		extern cst_val_type_##NAME as const long
+		const cst_val_type_##NAME as long = NUM
+		sub val_delete_##NAME(byval v as any ptr)
+		end sub
+	end extern
+#endmacro

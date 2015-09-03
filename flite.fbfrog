@@ -1,3 +1,6 @@
+# Get an easier version of cst_val_const.h
+-define NO_UNION_INITIALIZATION 1
+
 -setarraysize cst_regex_table 1
 -fixunsizedarrays
 -replacements flite.replacements
@@ -56,3 +59,5 @@
 -rename_ val_string_22
 -rename_ val_string_23
 -rename_ val_string_24
+
+-rename_ mod
