@@ -3,3 +3,27 @@ to c:      #define TRUE 1
 
 convert c: #define FALSE (1 == 0)
 to c:      #define FALSE 0
+
+convert c: #define DEF_CONST_VAL_INT(N, V) const cst_val_int N = {CST_VAL_TYPE_INT, -1, V}
+to fb:     #define DEF_CONST_VAL_INT(N, V) dim as const cst_val_int N = (CST_VAL_TYPE_INT, -1, V)
+
+convert c: #define DEF_CONST_VAL_STRING(N, S) const cst_val_void N = {CST_VAL_TYPE_STRING, -1, (void *)S}
+to fb:     #define DEF_CONST_VAL_STRING(N, S) dim as const cst_val_void N = (CST_VAL_TYPE_STRING, -1, cptr(any ptr, S))
+
+convert c: #define DEF_CONST_VAL_FLOAT(N, F) const cst_val_float N = {CST_VAL_TYPE_FLOAT, -1, (float)F}
+to fb:     #define DEF_CONST_VAL_FLOAT(N, F) dim as const cst_val_float N = (CST_VAL_TYPE_FLOAT, -1, csng(F))
+
+convert c: #define DEF_CONST_VAL_CONS(N, A, D) const cst_val_cons N = {A, D}
+to fb:     #define DEF_CONST_VAL_CONS(N, A, D) dim as const cst_val_cons N = (A, D)
+
+convert c: #define DEF_STATIC_CONST_VAL_INT(N, V) static DEF_CONST_VAL_INT(N, V)
+to fb:     #define DEF_STATIC_CONST_VAL_INT(N, V) static as const cst_val_int N = (CST_VAL_TYPE_INT, -1, V)
+
+convert c: #define DEF_STATIC_CONST_VAL_STRING(N, S) static DEF_CONST_VAL_STRING(N, S)
+to fb:     #define DEF_STATIC_CONST_VAL_STRING(N, S) static as const cst_val_void N = (CST_VAL_TYPE_STRING, -1, cptr(any ptr, S))
+
+convert c: #define DEF_STATIC_CONST_VAL_FLOAT(N, F) static DEF_CONST_VAL_FLOAT(N, F)
+to fb:     #define DEF_STATIC_CONST_VAL_FLOAT(N, F) static as const cst_val_float N = (CST_VAL_TYPE_FLOAT, -1, csng(F))
+
+convert c: #define DEF_STATIC_CONST_VAL_CONS(N, A, D) static DEF_CONST_VAL_CONS(N, A, D)
+to fb:     #define DEF_STATIC_CONST_VAL_CONS(N, A, D) static as const cst_val_cons N = (A, D)
