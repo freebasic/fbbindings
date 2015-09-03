@@ -94,7 +94,7 @@ type _SignalEventRec
 	se_closure as XtPointer
 	se_next as _SignalEventRec ptr
 	app as XtAppContext
-	se_notice as byte
+	se_notice as XBoolean
 end type
 
 type SignalEventRec as _SignalEventRec
@@ -166,10 +166,10 @@ type _XtAppStruct
 	last as short
 	input_count as short
 	input_max as short
-	sync as byte
-	being_destroyed as byte
-	error_inited as byte
-	identify_windows as byte
+	sync as XBoolean
+	being_destroyed as XBoolean
+	error_inited as XBoolean
+	identify_windows as XBoolean
 	heap as Heap
 	fallback_resources as String_ ptr
 	action_hook_list as _ActionHookRec ptr
@@ -184,8 +184,8 @@ type _XtAppStruct
 	display_name_tried as String_
 	dpy_destroy_list as Display ptr ptr
 	dpy_destroy_count as long
-	exit_flag as byte
-	rebuild_fdlist as byte
+	exit_flag as XBoolean
+	rebuild_fdlist as XBoolean
 	lock_info as LockPtr
 	lock as ThreadAppProc
 	unlock as ThreadAppProc
@@ -206,7 +206,7 @@ declare function _XtAppInit(byval as XtAppContext ptr, byval as String_, byval a
 declare sub _XtDestroyAppContexts()
 declare sub _XtCloseDisplays(byval as XtAppContext)
 extern _XtAppDestroyCount as long
-declare function _XtWaitForSomething(byval as XtAppContext, byval as byte, byval as byte, byval as byte, byval as byte, byval as byte, byval as byte, byval as culong ptr) as long
+declare function _XtWaitForSomething(byval as XtAppContext, byval as XBoolean, byval as XBoolean, byval as XBoolean, byval as XBoolean, byval as XBoolean, byval as XBoolean, byval as culong ptr) as long
 type CaseConverterPtr as _CaseConverterRec ptr
 
 type _CaseConverterRec
@@ -246,8 +246,8 @@ type _XtPerDisplayStruct
 	lock_meaning as KeySym
 	mode_switch as Modifiers
 	num_lock as Modifiers
-	being_destroyed as byte
-	rv as byte
+	being_destroyed as XBoolean
+	rv as XBoolean
 	name as XrmName
 	class as XrmClass
 	heap as Heap

@@ -644,3 +644,6 @@
 -rename ACCEPT XACCEPT
 -rename FAILED XFAILED
 -renametypedef GlyphSet XGlyphSet
+
+-renametypedef Boolean XBoolean
+-nostring XBoolean

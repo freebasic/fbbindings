@@ -38,8 +38,8 @@ extern "C"
 #define _XtThreadsI_h
 type LockPtr as _LockRec ptr
 type ThreadAppProc as sub(byval as XtAppContext)
-type ThreadAppYieldLockProc as sub(byval as XtAppContext, byval as Boolean ptr, byval as Boolean ptr, byval as long ptr)
-type ThreadAppRestoreLockProc as sub(byval as XtAppContext, byval as long, byval as Boolean ptr)
+type ThreadAppYieldLockProc as sub(byval as XtAppContext, byval as XBoolean ptr, byval as XBoolean ptr, byval as long ptr)
+type ThreadAppRestoreLockProc as sub(byval as XtAppContext, byval as long, byval as XBoolean ptr)
 
 extern _XtProcessLock as sub()
 extern _XtProcessUnlock as sub()

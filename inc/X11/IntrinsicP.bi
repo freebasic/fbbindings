@@ -85,11 +85,11 @@ const XtVersionDontCheck = 0
 type XtProc as sub()
 type XtWidgetClassProc as sub(byval as WidgetClass)
 type XtWidgetProc as sub(byval as Widget)
-type XtAcceptFocusProc as function(byval as Widget, byval as Time ptr) as byte
+type XtAcceptFocusProc as function(byval as Widget, byval as Time ptr) as XBoolean
 type XtArgsProc as sub(byval as Widget, byval as ArgList, byval as Cardinal ptr)
 type XtInitProc as sub(byval as Widget, byval as Widget, byval as ArgList, byval as Cardinal ptr)
-type XtSetValuesFunc as function(byval as Widget, byval as Widget, byval as Widget, byval as ArgList, byval as Cardinal ptr) as byte
-type XtArgsFunc as function(byval as Widget, byval as ArgList, byval as Cardinal ptr) as byte
+type XtSetValuesFunc as function(byval as Widget, byval as Widget, byval as Widget, byval as ArgList, byval as Cardinal ptr) as XBoolean
+type XtArgsFunc as function(byval as Widget, byval as ArgList, byval as Cardinal ptr) as XBoolean
 type XtAlmostProc as sub(byval as Widget, byval as Widget, byval as XtWidgetGeometry ptr, byval as XtWidgetGeometry ptr)
 type XtExposeProc as sub(byval as Widget, byval as XEvent ptr, byval as Region)
 
@@ -135,31 +135,31 @@ type XtTM as _XtTMRec ptr
 #define XtIsRealized(object) (XtWindowOfObject(object) <> None)
 #define XtParent(widget) (widget)->core.parent
 #undef XtIsRectObj
-declare function XtIsRectObj(byval as Widget) as byte
+declare function XtIsRectObj(byval as Widget) as XBoolean
 #define XtIsRectObj(obj) (cast(Object_, (obj))->object.widget_class->core_class.class_inited and &h02)
 #undef XtIsWidget
-declare function XtIsWidget(byval as Widget) as byte
+declare function XtIsWidget(byval as Widget) as XBoolean
 #define XtIsWidget(obj) (cast(Object_, (obj))->object.widget_class->core_class.class_inited and &h04)
 #undef XtIsComposite
-declare function XtIsComposite(byval as Widget) as byte
+declare function XtIsComposite(byval as Widget) as XBoolean
 #define XtIsComposite(obj) (cast(Object_, (obj))->object.widget_class->core_class.class_inited and &h08)
 #undef XtIsConstraint
-declare function XtIsConstraint(byval as Widget) as byte
+declare function XtIsConstraint(byval as Widget) as XBoolean
 #define XtIsConstraint(obj) (cast(Object_, (obj))->object.widget_class->core_class.class_inited and &h10)
 #undef XtIsShell
-declare function XtIsShell(byval as Widget) as byte
+declare function XtIsShell(byval as Widget) as XBoolean
 #define XtIsShell(obj) (cast(Object_, (obj))->object.widget_class->core_class.class_inited and &h20)
 #undef XtIsWMShell
-declare function XtIsWMShell(byval as Widget) as byte
+declare function XtIsWMShell(byval as Widget) as XBoolean
 #define XtIsWMShell(obj) (cast(Object_, (obj))->object.widget_class->core_class.class_inited and &h40)
 #undef XtIsTopLevelShell
-declare function XtIsTopLevelShell(byval as Widget) as byte
+declare function XtIsTopLevelShell(byval as Widget) as XBoolean
 #define XtIsTopLevelShell(obj) (cast(Object_, (obj))->object.widget_class->core_class.class_inited and &h80)
 #define XtCheckSubclass(w, widget_class, message)
 
 declare function _XtWindowedAncestor(byval as Widget) as Widget
 declare sub _XtInherit()
-declare sub _XtHandleFocus(byval as Widget, byval as XtPointer, byval as XEvent ptr, byval as Boolean ptr)
+declare sub _XtHandleFocus(byval as Widget, byval as XtPointer, byval as XEvent ptr, byval as XBoolean ptr)
 declare sub XtCreateWindow(byval as Widget, byval as ulong, byval as Visual ptr, byval as XtValueMask, byval as XSetWindowAttributes ptr)
 declare sub XtResizeWidget(byval as Widget, byval as Dimension, byval as Dimension, byval as Dimension)
 declare sub XtMoveWidget(byval as Widget, byval as Position, byval as Position)
