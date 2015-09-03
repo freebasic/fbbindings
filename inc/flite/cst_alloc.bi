@@ -35,11 +35,18 @@
 
 #pragma once
 
+'' The following symbols have been renamed:
+''     constant TRUE => CTRUE
+
 extern "C"
 
 #define __CST_ALLOC_H__
-const TRUE = 1 = 1
-const FALSE = 1 = 0
+#ifndef CTRUE
+	const CTRUE = 1
+#endif
+#ifndef FALSE
+	const FALSE = 0
+#endif
 
 declare function cst_safe_alloc(byval size as long) as any ptr
 declare function cst_safe_calloc(byval size as long) as any ptr

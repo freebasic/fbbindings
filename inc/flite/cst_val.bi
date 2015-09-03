@@ -150,7 +150,8 @@ declare function cst_utf8_chr(byval ord as const cst_val ptr) as cst_val ptr
 declare function cst_utf8_ord_string(byval utf8_char as const zstring ptr) as long
 declare function val_dec_refcount(byval b as const cst_val ptr) as long
 declare function val_inc_refcount(byval b as const cst_val ptr) as cst_val ptr
-extern cst_val_defs(0 to ...) as const cst_val_def
+#define cst_val_defs(i) ((@__cst_val_defs)[i])
+extern __cst_val_defs alias "cst_val_defs" as const cst_val_def
 type cst_userdata as any
 extern cst_val_type_userdata as const long
 declare function val_userdata(byval v as const cst_val ptr) as cst_userdata ptr

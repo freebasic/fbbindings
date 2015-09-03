@@ -37,6 +37,58 @@
 
 #include once "cst_val_defs.bi"
 
+'' The following symbols have been renamed:
+''     variable val_int_0 => val_int_0_
+''     variable val_int_1 => val_int_1_
+''     variable val_int_2 => val_int_2_
+''     variable val_int_3 => val_int_3_
+''     variable val_int_4 => val_int_4_
+''     variable val_int_5 => val_int_5_
+''     variable val_int_6 => val_int_6_
+''     variable val_int_7 => val_int_7_
+''     variable val_int_8 => val_int_8_
+''     variable val_int_9 => val_int_9_
+''     variable val_int_10 => val_int_10_
+''     variable val_int_11 => val_int_11_
+''     variable val_int_12 => val_int_12_
+''     variable val_int_13 => val_int_13_
+''     variable val_int_14 => val_int_14_
+''     variable val_int_15 => val_int_15_
+''     variable val_int_16 => val_int_16_
+''     variable val_int_17 => val_int_17_
+''     variable val_int_18 => val_int_18_
+''     variable val_int_19 => val_int_19_
+''     variable val_int_20 => val_int_20_
+''     variable val_int_21 => val_int_21_
+''     variable val_int_22 => val_int_22_
+''     variable val_int_23 => val_int_23_
+''     variable val_int_24 => val_int_24_
+''     variable val_string_0 => val_string_0_
+''     variable val_string_1 => val_string_1_
+''     variable val_string_2 => val_string_2_
+''     variable val_string_3 => val_string_3_
+''     variable val_string_4 => val_string_4_
+''     variable val_string_5 => val_string_5_
+''     variable val_string_6 => val_string_6_
+''     variable val_string_7 => val_string_7_
+''     variable val_string_8 => val_string_8_
+''     variable val_string_9 => val_string_9_
+''     variable val_string_10 => val_string_10_
+''     variable val_string_11 => val_string_11_
+''     variable val_string_12 => val_string_12_
+''     variable val_string_13 => val_string_13_
+''     variable val_string_14 => val_string_14_
+''     variable val_string_15 => val_string_15_
+''     variable val_string_16 => val_string_16_
+''     variable val_string_17 => val_string_17_
+''     variable val_string_18 => val_string_18_
+''     variable val_string_19 => val_string_19_
+''     variable val_string_20 => val_string_20_
+''     variable val_string_21 => val_string_21_
+''     variable val_string_22 => val_string_22_
+''     variable val_string_23 => val_string_23_
+''     variable val_string_24 => val_string_24_
+
 extern "C"
 
 #define _CST_VAL_CONSTS_H__
@@ -46,113 +98,113 @@ const CST_CONST_INT_MAX = 19
 '' TODO: #define DEF_CONST_VAL_FLOAT(N,F) const cst_val N = {{.a={.type=CST_VAL_TYPE_FLOAT,.ref_count=-1,.v={.fval=F}}}}
 '' TODO: #define DEF_CONST_VAL_CONS(N,A,D) const cst_val N = {{.cc={.car=A,.cdr=D }}}
 
-extern val_int_0 as const cst_val
-extern val_int_1 as const cst_val
-extern val_int_2 as const cst_val
-extern val_int_3 as const cst_val
-extern val_int_4 as const cst_val
-extern val_int_5 as const cst_val
-extern val_int_6 as const cst_val
-extern val_int_7 as const cst_val
-extern val_int_8 as const cst_val
-extern val_int_9 as const cst_val
-extern val_int_10 as const cst_val
-extern val_int_11 as const cst_val
-extern val_int_12 as const cst_val
-extern val_int_13 as const cst_val
-extern val_int_14 as const cst_val
-extern val_int_15 as const cst_val
-extern val_int_16 as const cst_val
-extern val_int_17 as const cst_val
-extern val_int_18 as const cst_val
-extern val_int_19 as const cst_val
-extern val_int_20 as const cst_val
-extern val_int_21 as const cst_val
-extern val_int_22 as const cst_val
-extern val_int_23 as const cst_val
-extern val_int_24 as const cst_val
-extern val_string_0 as const cst_val
-extern val_string_1 as const cst_val
-extern val_string_2 as const cst_val
-extern val_string_3 as const cst_val
-extern val_string_4 as const cst_val
-extern val_string_5 as const cst_val
-extern val_string_6 as const cst_val
-extern val_string_7 as const cst_val
-extern val_string_8 as const cst_val
-extern val_string_9 as const cst_val
-extern val_string_10 as const cst_val
-extern val_string_11 as const cst_val
-extern val_string_12 as const cst_val
-extern val_string_13 as const cst_val
-extern val_string_14 as const cst_val
-extern val_string_15 as const cst_val
-extern val_string_16 as const cst_val
-extern val_string_17 as const cst_val
-extern val_string_18 as const cst_val
-extern val_string_19 as const cst_val
-extern val_string_20 as const cst_val
-extern val_string_21 as const cst_val
-extern val_string_22 as const cst_val
-extern val_string_23 as const cst_val
-extern val_string_24 as const cst_val
+extern val_int_0_ alias "val_int_0" as const cst_val
+extern val_int_1_ alias "val_int_1" as const cst_val
+extern val_int_2_ alias "val_int_2" as const cst_val
+extern val_int_3_ alias "val_int_3" as const cst_val
+extern val_int_4_ alias "val_int_4" as const cst_val
+extern val_int_5_ alias "val_int_5" as const cst_val
+extern val_int_6_ alias "val_int_6" as const cst_val
+extern val_int_7_ alias "val_int_7" as const cst_val
+extern val_int_8_ alias "val_int_8" as const cst_val
+extern val_int_9_ alias "val_int_9" as const cst_val
+extern val_int_10_ alias "val_int_10" as const cst_val
+extern val_int_11_ alias "val_int_11" as const cst_val
+extern val_int_12_ alias "val_int_12" as const cst_val
+extern val_int_13_ alias "val_int_13" as const cst_val
+extern val_int_14_ alias "val_int_14" as const cst_val
+extern val_int_15_ alias "val_int_15" as const cst_val
+extern val_int_16_ alias "val_int_16" as const cst_val
+extern val_int_17_ alias "val_int_17" as const cst_val
+extern val_int_18_ alias "val_int_18" as const cst_val
+extern val_int_19_ alias "val_int_19" as const cst_val
+extern val_int_20_ alias "val_int_20" as const cst_val
+extern val_int_21_ alias "val_int_21" as const cst_val
+extern val_int_22_ alias "val_int_22" as const cst_val
+extern val_int_23_ alias "val_int_23" as const cst_val
+extern val_int_24_ alias "val_int_24" as const cst_val
+extern val_string_0_ alias "val_string_0" as const cst_val
+extern val_string_1_ alias "val_string_1" as const cst_val
+extern val_string_2_ alias "val_string_2" as const cst_val
+extern val_string_3_ alias "val_string_3" as const cst_val
+extern val_string_4_ alias "val_string_4" as const cst_val
+extern val_string_5_ alias "val_string_5" as const cst_val
+extern val_string_6_ alias "val_string_6" as const cst_val
+extern val_string_7_ alias "val_string_7" as const cst_val
+extern val_string_8_ alias "val_string_8" as const cst_val
+extern val_string_9_ alias "val_string_9" as const cst_val
+extern val_string_10_ alias "val_string_10" as const cst_val
+extern val_string_11_ alias "val_string_11" as const cst_val
+extern val_string_12_ alias "val_string_12" as const cst_val
+extern val_string_13_ alias "val_string_13" as const cst_val
+extern val_string_14_ alias "val_string_14" as const cst_val
+extern val_string_15_ alias "val_string_15" as const cst_val
+extern val_string_16_ alias "val_string_16" as const cst_val
+extern val_string_17_ alias "val_string_17" as const cst_val
+extern val_string_18_ alias "val_string_18" as const cst_val
+extern val_string_19_ alias "val_string_19" as const cst_val
+extern val_string_20_ alias "val_string_20" as const cst_val
+extern val_string_21_ alias "val_string_21" as const cst_val
+extern val_string_22_ alias "val_string_22" as const cst_val
+extern val_string_23_ alias "val_string_23" as const cst_val
+extern val_string_24_ alias "val_string_24" as const cst_val
 
 '' TODO: #define DEF_STATIC_CONST_VAL_INT(N,V) static DEF_CONST_VAL_INT(N,V)
 '' TODO: #define DEF_STATIC_CONST_VAL_STRING(N,S) static DEF_CONST_VAL_STRING(N,S)
 '' TODO: #define DEF_STATIC_CONST_VAL_FLOAT(N,F) static DEF_CONST_VAL_FLOAT(N,F)
 '' TODO: #define DEF_STATIC_CONST_VAL_CONS(N,A,D) static DEF_CONST_VAL_CONS(N,A,D)
 
-#define VAL_INT_0 cptr(cst_val ptr, @val_int_0)
-#define VAL_INT_1 cptr(cst_val ptr, @val_int_1)
-#define VAL_INT_2 cptr(cst_val ptr, @val_int_2)
-#define VAL_INT_3 cptr(cst_val ptr, @val_int_3)
-#define VAL_INT_4 cptr(cst_val ptr, @val_int_4)
-#define VAL_INT_5 cptr(cst_val ptr, @val_int_5)
-#define VAL_INT_6 cptr(cst_val ptr, @val_int_6)
-#define VAL_INT_7 cptr(cst_val ptr, @val_int_7)
-#define VAL_INT_8 cptr(cst_val ptr, @val_int_8)
-#define VAL_INT_9 cptr(cst_val ptr, @val_int_9)
-#define VAL_INT_10 cptr(cst_val ptr, @val_int_10)
-#define VAL_INT_11 cptr(cst_val ptr, @val_int_11)
-#define VAL_INT_12 cptr(cst_val ptr, @val_int_12)
-#define VAL_INT_13 cptr(cst_val ptr, @val_int_13)
-#define VAL_INT_14 cptr(cst_val ptr, @val_int_14)
-#define VAL_INT_15 cptr(cst_val ptr, @val_int_15)
-#define VAL_INT_16 cptr(cst_val ptr, @val_int_16)
-#define VAL_INT_17 cptr(cst_val ptr, @val_int_17)
-#define VAL_INT_18 cptr(cst_val ptr, @val_int_18)
-#define VAL_INT_19 cptr(cst_val ptr, @val_int_19)
-#define VAL_INT_20 cptr(cst_val ptr, @val_int_20)
-#define VAL_INT_21 cptr(cst_val ptr, @val_int_21)
-#define VAL_INT_22 cptr(cst_val ptr, @val_int_22)
-#define VAL_INT_23 cptr(cst_val ptr, @val_int_23)
-#define VAL_INT_24 cptr(cst_val ptr, @val_int_24)
+#define VAL_INT_0 cptr(cst_val ptr, @val_int_0_)
+#define VAL_INT_1 cptr(cst_val ptr, @val_int_1_)
+#define VAL_INT_2 cptr(cst_val ptr, @val_int_2_)
+#define VAL_INT_3 cptr(cst_val ptr, @val_int_3_)
+#define VAL_INT_4 cptr(cst_val ptr, @val_int_4_)
+#define VAL_INT_5 cptr(cst_val ptr, @val_int_5_)
+#define VAL_INT_6 cptr(cst_val ptr, @val_int_6_)
+#define VAL_INT_7 cptr(cst_val ptr, @val_int_7_)
+#define VAL_INT_8 cptr(cst_val ptr, @val_int_8_)
+#define VAL_INT_9 cptr(cst_val ptr, @val_int_9_)
+#define VAL_INT_10 cptr(cst_val ptr, @val_int_10_)
+#define VAL_INT_11 cptr(cst_val ptr, @val_int_11_)
+#define VAL_INT_12 cptr(cst_val ptr, @val_int_12_)
+#define VAL_INT_13 cptr(cst_val ptr, @val_int_13_)
+#define VAL_INT_14 cptr(cst_val ptr, @val_int_14_)
+#define VAL_INT_15 cptr(cst_val ptr, @val_int_15_)
+#define VAL_INT_16 cptr(cst_val ptr, @val_int_16_)
+#define VAL_INT_17 cptr(cst_val ptr, @val_int_17_)
+#define VAL_INT_18 cptr(cst_val ptr, @val_int_18_)
+#define VAL_INT_19 cptr(cst_val ptr, @val_int_19_)
+#define VAL_INT_20 cptr(cst_val ptr, @val_int_20_)
+#define VAL_INT_21 cptr(cst_val ptr, @val_int_21_)
+#define VAL_INT_22 cptr(cst_val ptr, @val_int_22_)
+#define VAL_INT_23 cptr(cst_val ptr, @val_int_23_)
+#define VAL_INT_24 cptr(cst_val ptr, @val_int_24_)
 declare function val_int_n(byval n as long) as const cst_val ptr
-#define VAL_STRING_0 cptr(cst_val ptr, @val_string_0)
-#define VAL_STRING_1 cptr(cst_val ptr, @val_string_1)
-#define VAL_STRING_2 cptr(cst_val ptr, @val_string_2)
-#define VAL_STRING_3 cptr(cst_val ptr, @val_string_3)
-#define VAL_STRING_4 cptr(cst_val ptr, @val_string_4)
-#define VAL_STRING_5 cptr(cst_val ptr, @val_string_5)
-#define VAL_STRING_6 cptr(cst_val ptr, @val_string_6)
-#define VAL_STRING_7 cptr(cst_val ptr, @val_string_7)
-#define VAL_STRING_8 cptr(cst_val ptr, @val_string_8)
-#define VAL_STRING_9 cptr(cst_val ptr, @val_string_9)
-#define VAL_STRING_10 cptr(cst_val ptr, @val_string_10)
-#define VAL_STRING_11 cptr(cst_val ptr, @val_string_11)
-#define VAL_STRING_12 cptr(cst_val ptr, @val_string_12)
-#define VAL_STRING_13 cptr(cst_val ptr, @val_string_13)
-#define VAL_STRING_14 cptr(cst_val ptr, @val_string_14)
-#define VAL_STRING_15 cptr(cst_val ptr, @val_string_15)
-#define VAL_STRING_16 cptr(cst_val ptr, @val_string_16)
-#define VAL_STRING_17 cptr(cst_val ptr, @val_string_17)
-#define VAL_STRING_18 cptr(cst_val ptr, @val_string_18)
-#define VAL_STRING_19 cptr(cst_val ptr, @val_string_19)
-#define VAL_STRING_20 cptr(cst_val ptr, @val_string_20)
-#define VAL_STRING_21 cptr(cst_val ptr, @val_string_21)
-#define VAL_STRING_22 cptr(cst_val ptr, @val_string_22)
-#define VAL_STRING_23 cptr(cst_val ptr, @val_string_23)
-#define VAL_STRING_24 cptr(cst_val ptr, @val_string_24)
+#define VAL_STRING_0 cptr(cst_val ptr, @val_string_0_)
+#define VAL_STRING_1 cptr(cst_val ptr, @val_string_1_)
+#define VAL_STRING_2 cptr(cst_val ptr, @val_string_2_)
+#define VAL_STRING_3 cptr(cst_val ptr, @val_string_3_)
+#define VAL_STRING_4 cptr(cst_val ptr, @val_string_4_)
+#define VAL_STRING_5 cptr(cst_val ptr, @val_string_5_)
+#define VAL_STRING_6 cptr(cst_val ptr, @val_string_6_)
+#define VAL_STRING_7 cptr(cst_val ptr, @val_string_7_)
+#define VAL_STRING_8 cptr(cst_val ptr, @val_string_8_)
+#define VAL_STRING_9 cptr(cst_val ptr, @val_string_9_)
+#define VAL_STRING_10 cptr(cst_val ptr, @val_string_10_)
+#define VAL_STRING_11 cptr(cst_val ptr, @val_string_11_)
+#define VAL_STRING_12 cptr(cst_val ptr, @val_string_12_)
+#define VAL_STRING_13 cptr(cst_val ptr, @val_string_13_)
+#define VAL_STRING_14 cptr(cst_val ptr, @val_string_14_)
+#define VAL_STRING_15 cptr(cst_val ptr, @val_string_15_)
+#define VAL_STRING_16 cptr(cst_val ptr, @val_string_16_)
+#define VAL_STRING_17 cptr(cst_val ptr, @val_string_17_)
+#define VAL_STRING_18 cptr(cst_val ptr, @val_string_18_)
+#define VAL_STRING_19 cptr(cst_val ptr, @val_string_19_)
+#define VAL_STRING_20 cptr(cst_val ptr, @val_string_20_)
+#define VAL_STRING_21 cptr(cst_val ptr, @val_string_21_)
+#define VAL_STRING_22 cptr(cst_val ptr, @val_string_22_)
+#define VAL_STRING_23 cptr(cst_val ptr, @val_string_23_)
+#define VAL_STRING_24 cptr(cst_val ptr, @val_string_24_)
 declare function val_string_n(byval n as long) as const cst_val ptr
 
 end extern
