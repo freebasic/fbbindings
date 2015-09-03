@@ -806,8 +806,10 @@ EXPAT_VERSION := 2.1.0
 EXPAT := expat-$(EXPAT_VERSION)
 expat: tools
 	./get.sh $(EXPAT) $(EXPAT).tar.gz http://sourceforge.net/projects/expat/files/expat/$(EXPAT_VERSION)/$(EXPAT).tar.gz/download
-
-	$(FBFROG) expat.fbfrog extracted/$(EXPAT)/lib/expat.h -o inc/expat.bi
+	cp extracted/$(EXPAT)/COPYING expat.tmp
+	$(FBFROG) expat.fbfrog extracted/$(EXPAT)/lib/expat.h -o inc/expat.bi \
+		-title $(EXPAT) expat.tmp fbteam.txt
+	rm *.tmp
 
 FASTCGI_TITLE := fcgi-2.4.1-SNAP-0311112127
 fastcgi: tools
