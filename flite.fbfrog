@@ -9,6 +9,10 @@
 -ifndefdecl CTRUE
 -ifndefdecl FALSE
 
+-rename_ cst_val_int
+-rename_ cst_val_float
+-rename_ cst_val_void
+
 -rename_ val_int_0
 -rename_ val_int_1
 -rename_ val_int_2

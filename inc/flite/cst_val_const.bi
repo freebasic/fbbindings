@@ -38,6 +38,9 @@
 #include once "cst_val_defs.bi"
 
 '' The following symbols have been renamed:
+''     typedef cst_val_float => cst_val_float_
+''     typedef cst_val_int => cst_val_int_
+''     typedef cst_val_void => cst_val_void_
 ''     variable val_int_0 => val_int_0_
 ''     variable val_int_1 => val_int_1_
 ''     variable val_int_2 => val_int_2_
@@ -106,7 +109,7 @@ type cst_val_atom_struct_float
 	#endif
 end type
 
-type cst_val_float as cst_val_atom_struct_float
+type cst_val_float_ as cst_val_atom_struct_float
 
 type cst_val_atom_struct_int
 	#if defined(__FB_64BIT__) and (defined(__FB_DARWIN__) or defined(__FB_WIN32__) or defined(__FB_CYGWIN__) or ((not defined(__FB_ARM__)) and (defined(__FB_LINUX__) or defined(__FB_FREEBSD__) or defined(__FB_OPENBSD__) or defined(__FB_NETBSD__))))
@@ -120,7 +123,7 @@ type cst_val_atom_struct_int
 	#endif
 end type
 
-type cst_val_int as cst_val_atom_struct_int
+type cst_val_int_ as cst_val_atom_struct_int
 
 type cst_val_atom_struct_void
 	#if defined(__FB_64BIT__) and (defined(__FB_DARWIN__) or defined(__FB_WIN32__) or defined(__FB_CYGWIN__) or ((not defined(__FB_ARM__)) and (defined(__FB_LINUX__) or defined(__FB_FREEBSD__) or defined(__FB_OPENBSD__) or defined(__FB_NETBSD__))))
@@ -134,62 +137,62 @@ type cst_val_atom_struct_void
 	vval as any ptr
 end type
 
-type cst_val_void as cst_val_atom_struct_void
+type cst_val_void_ as cst_val_atom_struct_void
 #define DEF_CONST_VAL_INT(N, V) dim as const cst_val_int N = (CST_VAL_TYPE_INT, -1, V)
 #define DEF_CONST_VAL_STRING(N, S) dim as const cst_val_void N = (CST_VAL_TYPE_STRING, -1, cptr(any ptr, S))
 #define DEF_CONST_VAL_FLOAT(N, F) dim as const cst_val_float N = (CST_VAL_TYPE_FLOAT, -1, csng(F))
 #define DEF_CONST_VAL_CONS(N, A, D) dim as const cst_val_cons N = (A, D)
 
-extern val_int_0_ alias "val_int_0" as const cst_val_int
-extern val_int_1_ alias "val_int_1" as const cst_val_int
-extern val_int_2_ alias "val_int_2" as const cst_val_int
-extern val_int_3_ alias "val_int_3" as const cst_val_int
-extern val_int_4_ alias "val_int_4" as const cst_val_int
-extern val_int_5_ alias "val_int_5" as const cst_val_int
-extern val_int_6_ alias "val_int_6" as const cst_val_int
-extern val_int_7_ alias "val_int_7" as const cst_val_int
-extern val_int_8_ alias "val_int_8" as const cst_val_int
-extern val_int_9_ alias "val_int_9" as const cst_val_int
-extern val_int_10_ alias "val_int_10" as const cst_val_int
-extern val_int_11_ alias "val_int_11" as const cst_val_int
-extern val_int_12_ alias "val_int_12" as const cst_val_int
-extern val_int_13_ alias "val_int_13" as const cst_val_int
-extern val_int_14_ alias "val_int_14" as const cst_val_int
-extern val_int_15_ alias "val_int_15" as const cst_val_int
-extern val_int_16_ alias "val_int_16" as const cst_val_int
-extern val_int_17_ alias "val_int_17" as const cst_val_int
-extern val_int_18_ alias "val_int_18" as const cst_val_int
-extern val_int_19_ alias "val_int_19" as const cst_val_int
-extern val_int_20_ alias "val_int_20" as const cst_val_int
-extern val_int_21_ alias "val_int_21" as const cst_val_int
-extern val_int_22_ alias "val_int_22" as const cst_val_int
-extern val_int_23_ alias "val_int_23" as const cst_val_int
-extern val_int_24_ alias "val_int_24" as const cst_val_int
-extern val_string_0_ alias "val_string_0" as const cst_val_void
-extern val_string_1_ alias "val_string_1" as const cst_val_void
-extern val_string_2_ alias "val_string_2" as const cst_val_void
-extern val_string_3_ alias "val_string_3" as const cst_val_void
-extern val_string_4_ alias "val_string_4" as const cst_val_void
-extern val_string_5_ alias "val_string_5" as const cst_val_void
-extern val_string_6_ alias "val_string_6" as const cst_val_void
-extern val_string_7_ alias "val_string_7" as const cst_val_void
-extern val_string_8_ alias "val_string_8" as const cst_val_void
-extern val_string_9_ alias "val_string_9" as const cst_val_void
-extern val_string_10_ alias "val_string_10" as const cst_val_void
-extern val_string_11_ alias "val_string_11" as const cst_val_void
-extern val_string_12_ alias "val_string_12" as const cst_val_void
-extern val_string_13_ alias "val_string_13" as const cst_val_void
-extern val_string_14_ alias "val_string_14" as const cst_val_void
-extern val_string_15_ alias "val_string_15" as const cst_val_void
-extern val_string_16_ alias "val_string_16" as const cst_val_void
-extern val_string_17_ alias "val_string_17" as const cst_val_void
-extern val_string_18_ alias "val_string_18" as const cst_val_void
-extern val_string_19_ alias "val_string_19" as const cst_val_void
-extern val_string_20_ alias "val_string_20" as const cst_val_void
-extern val_string_21_ alias "val_string_21" as const cst_val_void
-extern val_string_22_ alias "val_string_22" as const cst_val_void
-extern val_string_23_ alias "val_string_23" as const cst_val_void
-extern val_string_24_ alias "val_string_24" as const cst_val_void
+extern val_int_0_ alias "val_int_0" as const cst_val_int_
+extern val_int_1_ alias "val_int_1" as const cst_val_int_
+extern val_int_2_ alias "val_int_2" as const cst_val_int_
+extern val_int_3_ alias "val_int_3" as const cst_val_int_
+extern val_int_4_ alias "val_int_4" as const cst_val_int_
+extern val_int_5_ alias "val_int_5" as const cst_val_int_
+extern val_int_6_ alias "val_int_6" as const cst_val_int_
+extern val_int_7_ alias "val_int_7" as const cst_val_int_
+extern val_int_8_ alias "val_int_8" as const cst_val_int_
+extern val_int_9_ alias "val_int_9" as const cst_val_int_
+extern val_int_10_ alias "val_int_10" as const cst_val_int_
+extern val_int_11_ alias "val_int_11" as const cst_val_int_
+extern val_int_12_ alias "val_int_12" as const cst_val_int_
+extern val_int_13_ alias "val_int_13" as const cst_val_int_
+extern val_int_14_ alias "val_int_14" as const cst_val_int_
+extern val_int_15_ alias "val_int_15" as const cst_val_int_
+extern val_int_16_ alias "val_int_16" as const cst_val_int_
+extern val_int_17_ alias "val_int_17" as const cst_val_int_
+extern val_int_18_ alias "val_int_18" as const cst_val_int_
+extern val_int_19_ alias "val_int_19" as const cst_val_int_
+extern val_int_20_ alias "val_int_20" as const cst_val_int_
+extern val_int_21_ alias "val_int_21" as const cst_val_int_
+extern val_int_22_ alias "val_int_22" as const cst_val_int_
+extern val_int_23_ alias "val_int_23" as const cst_val_int_
+extern val_int_24_ alias "val_int_24" as const cst_val_int_
+extern val_string_0_ alias "val_string_0" as const cst_val_void_
+extern val_string_1_ alias "val_string_1" as const cst_val_void_
+extern val_string_2_ alias "val_string_2" as const cst_val_void_
+extern val_string_3_ alias "val_string_3" as const cst_val_void_
+extern val_string_4_ alias "val_string_4" as const cst_val_void_
+extern val_string_5_ alias "val_string_5" as const cst_val_void_
+extern val_string_6_ alias "val_string_6" as const cst_val_void_
+extern val_string_7_ alias "val_string_7" as const cst_val_void_
+extern val_string_8_ alias "val_string_8" as const cst_val_void_
+extern val_string_9_ alias "val_string_9" as const cst_val_void_
+extern val_string_10_ alias "val_string_10" as const cst_val_void_
+extern val_string_11_ alias "val_string_11" as const cst_val_void_
+extern val_string_12_ alias "val_string_12" as const cst_val_void_
+extern val_string_13_ alias "val_string_13" as const cst_val_void_
+extern val_string_14_ alias "val_string_14" as const cst_val_void_
+extern val_string_15_ alias "val_string_15" as const cst_val_void_
+extern val_string_16_ alias "val_string_16" as const cst_val_void_
+extern val_string_17_ alias "val_string_17" as const cst_val_void_
+extern val_string_18_ alias "val_string_18" as const cst_val_void_
+extern val_string_19_ alias "val_string_19" as const cst_val_void_
+extern val_string_20_ alias "val_string_20" as const cst_val_void_
+extern val_string_21_ alias "val_string_21" as const cst_val_void_
+extern val_string_22_ alias "val_string_22" as const cst_val_void_
+extern val_string_23_ alias "val_string_23" as const cst_val_void_
+extern val_string_24_ alias "val_string_24" as const cst_val_void_
 #define DEF_STATIC_CONST_VAL_INT(N, V) static as const cst_val_int N = (CST_VAL_TYPE_INT, -1, V)
 #define DEF_STATIC_CONST_VAL_STRING(N, S) static as const cst_val_void N = (CST_VAL_TYPE_STRING, -1, cptr(any ptr, S))
 #define DEF_STATIC_CONST_VAL_FLOAT(N, F) static as const cst_val_float N = (CST_VAL_TYPE_FLOAT, -1, csng(F))
