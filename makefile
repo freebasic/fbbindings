@@ -855,7 +855,7 @@ flite: tools
 	sed -n 13,40p  extracted/$(FLITE)/COPYING > flite.tmp
 
 	mkdir -p inc/flite
-	$(FBFROG) extracted/$(FLITE)/include/*.h \
+	$(FBFROG) flite.fbfrog extracted/$(FLITE)/include/*.h \
 		`./flite-fbfrog-options.sh $(FLITE)` \
 		-title $(FLITE) flite.tmp fbteam.txt
 

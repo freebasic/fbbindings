@@ -84,7 +84,7 @@ extern cst_rx_double as const cst_regex const ptr
 extern cst_rx_commaint as const cst_regex const ptr
 extern cst_rx_digits as const cst_regex const ptr
 extern cst_rx_dotted_abbrev as const cst_regex const ptr
-extern cst_regex_table(0 to ...) as const cst_regex const ptr
+extern cst_regex_table(0 to 1 - 1) as const cst_regex const ptr
 const CST_RX_dotted_abbrev_NUM = 0
 
 end extern

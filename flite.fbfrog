@@ -1,0 +1,58 @@
+-setarraysize cst_regex_table 1
+-fixunsizedarrays
+-replacements flite.replacements
+
+-rename TRUE CTRUE
+-ifndefdecl CTRUE
+-ifndefdecl FALSE
+
+-rename_ val_int_0
+-rename_ val_int_1
+-rename_ val_int_2
+-rename_ val_int_3
+-rename_ val_int_4
+-rename_ val_int_5
+-rename_ val_int_6
+-rename_ val_int_7
+-rename_ val_int_8
+-rename_ val_int_9
+-rename_ val_int_10
+-rename_ val_int_11
+-rename_ val_int_12
+-rename_ val_int_13
+-rename_ val_int_14
+-rename_ val_int_15
+-rename_ val_int_16
+-rename_ val_int_17
+-rename_ val_int_18
+-rename_ val_int_19
+-rename_ val_int_20
+-rename_ val_int_21
+-rename_ val_int_22
+-rename_ val_int_23
+-rename_ val_int_24
+-rename_ val_string_0
+-rename_ val_string_1
+-rename_ val_string_2
+-rename_ val_string_3
+-rename_ val_string_4
+-rename_ val_string_5
+-rename_ val_string_6
+-rename_ val_string_7
+-rename_ val_string_8
+-rename_ val_string_9
+-rename_ val_string_10
+-rename_ val_string_11
+-rename_ val_string_12
+-rename_ val_string_13
+-rename_ val_string_14
+-rename_ val_string_15
+-rename_ val_string_16
+-rename_ val_string_17
+-rename_ val_string_18
+-rename_ val_string_19
+-rename_ val_string_20
+-rename_ val_string_21
+-rename_ val_string_22
+-rename_ val_string_23
+-rename_ val_string_24
