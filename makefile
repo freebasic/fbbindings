@@ -5,7 +5,7 @@ ALL += bass bassmod bfd bzip2
 ALL += caca cairo cd cgiutil cgui chipmunk clang crt cryptlib cunit curl
 ALL += devil disphelper
 ALL += expat
-ALL += fastcgi ffi fontconfig freeglut freetype
+ALL += fastcgi ffi flite fontconfig freeglut freetype
 ALL += gdkpixbuf glib glfw glut gtk gtk2 gtk3 gtkglext
 ALL += iconv iup
 ALL += jit
@@ -845,6 +845,19 @@ ffi: tools
 	$(FBFROG) ffi.fbfrog -o inc/ffi.bi -target nodos \
 		`./ffi-get-target-options.sh "extracted/$(FFI_TITLE)"` \
 		-title $(FFI_TITLE) ffi.tmp fbteam.txt
+
+	rm *.tmp
+
+FLITE := flite-2.0.0-release
+flite: tools
+	./get.sh $(FLITE) $(FLITE).tar.bz2 http://www.festvox.org/flite/packed/flite-2.0/$(FLITE).tar.bz2
+
+	sed -n 13,40p  extracted/$(FLITE)/COPYING > flite.tmp
+
+	mkdir -p inc/flite
+	$(FBFROG) extracted/$(FLITE)/include/*.h \
+		`./flite-fbfrog-options.sh $(FLITE)` \
+		-title $(FLITE) flite.tmp fbteam.txt
 
 	rm *.tmp
 
