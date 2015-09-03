@@ -1,6 +1,9 @@
 -declarebool XML_UNICODE
 -ifdef XML_UNICODE
 	-define XML_UNICODE_WCHAR_T 1
+	-inclib expatw
+-else
+	-inclib expat
 -endif
 
 -removedefine XMLCALL

@@ -1,5 +1,11 @@
 #pragma once
 
+#ifdef XML_UNICODE
+	#inclib "expatw"
+#else
+	#inclib "expat"
+#endif
+
 #include once "crt/long.bi"
 #include once "crt/stdlib.bi"
 
