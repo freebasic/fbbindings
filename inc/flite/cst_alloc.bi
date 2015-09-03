@@ -44,6 +44,9 @@ extern "C"
 #ifndef CTRUE
 	const CTRUE = 1
 #endif
+#ifndef TRUE
+	const TRUE = 0
+#endif
 #ifndef FALSE
 	const FALSE = 0
 #endif
