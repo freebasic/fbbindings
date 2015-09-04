@@ -55,7 +55,7 @@ end type
 type ColorMapObject
 	ColorCount as long
 	BitsPerPixel as long
-	SortFlag as bool
+	SortFlag as byte
 	Colors as GifColorType ptr
 end type
 
@@ -64,7 +64,7 @@ type GifImageDesc
 	Top as GifWord
 	Width as GifWord
 	Height as GifWord
-	Interlace as bool
+	Interlace as byte
 	ColorMap as ColorMapObject ptr
 end type
 
@@ -120,7 +120,7 @@ type OutputFunc as function(byval as GifFileType ptr, byval as const GifByteType
 
 type GraphicsControlBlock
 	DisposalMode as long
-	UserInputFlag as bool
+	UserInputFlag as byte
 	DelayTime as long
 	TransparentColor as long
 end type
@@ -131,7 +131,7 @@ const DISPOSE_BACKGROUND = 2
 const DISPOSE_PREVIOUS = 3
 const NO_TRANSPARENT_COLOR = -1
 
-declare function EGifOpenFileName(byval GifFileName as const zstring ptr, byval GifTestExistence as const bool, byval Error as long ptr) as GifFileType ptr
+declare function EGifOpenFileName(byval GifFileName as const zstring ptr, byval GifTestExistence as const byte, byval Error as long ptr) as GifFileType ptr
 declare function EGifOpenFileHandle(byval GifFileHandle as const long, byval Error as long ptr) as GifFileType ptr
 declare function EGifOpen(byval userPtr as any ptr, byval writeFunc as OutputFunc, byval Error as long ptr) as GifFileType ptr
 declare function EGifSpew(byval GifFile as GifFileType ptr) as long
@@ -151,8 +151,8 @@ const E_GIF_ERR_CLOSE_FAILED = 9
 const E_GIF_ERR_NOT_WRITEABLE = 10
 
 declare function EGifPutScreenDesc(byval GifFile as GifFileType ptr, byval GifWidth as const long, byval GifHeight as const long, byval GifColorRes as const long, byval GifBackGround as const long, byval GifColorMap as const ColorMapObject ptr) as long
-declare function EGifPutImageDesc(byval GifFile as GifFileType ptr, byval GifLeft as const long, byval GifTop as const long, byval GifWidth as const long, byval GifHeight as const long, byval GifInterlace as const bool, byval GifColorMap as const ColorMapObject ptr) as long
-declare sub EGifSetGifVersion(byval GifFile as GifFileType ptr, byval gif89 as const bool)
+declare function EGifPutImageDesc(byval GifFile as GifFileType ptr, byval GifLeft as const long, byval GifTop as const long, byval GifWidth as const long, byval GifHeight as const long, byval GifInterlace as const byte, byval GifColorMap as const ColorMapObject ptr) as long
+declare sub EGifSetGifVersion(byval GifFile as GifFileType ptr, byval gif89 as const byte)
 declare function EGifPutLine(byval GifFile as GifFileType ptr, byval GifLine as GifPixelType ptr, byval GifLineLen as long) as long
 declare function EGifPutPixel(byval GifFile as GifFileType ptr, byval GifPixel as const GifPixelType) as long
 declare function EGifPutComment(byval GifFile as GifFileType ptr, byval GifComment as const zstring ptr) as long

@@ -1,3 +1,4 @@
+-define bool _Bool
 -removeinclude stddef.h
 -removeinclude stdbool.h
 -removedefine TRUE
