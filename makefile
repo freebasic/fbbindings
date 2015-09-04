@@ -1236,6 +1236,8 @@ grx: tools
 
 	$(GETCOMMENT) extracted/$(GRXDIR)/include/grx20.h   > grx20.tmp
 	$(GETCOMMENT) extracted/$(GRXDIR)/include/grxkeys.h > grxkeys.tmp
+	tail -n+14 extracted/$(GRXDIR)/copying.grx >> grx20.tmp
+	tail -n+14 extracted/$(GRXDIR)/copying.grx >> grxkeys.tmp
 
 	mkdir -p inc/grx
 	$(FBFROG) grx.fbfrog -incdir extracted/$(GRXDIR)/include \
