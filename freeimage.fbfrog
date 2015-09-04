@@ -1,0 +1,26 @@
+# Enables default values for parameters and gets rid of duplicate structs/typedefs
+-define __cplusplus 1
+
+-removeinclude inttypes.h
+
+-removedefine DLL_CALLCONV
+-removedefine DLL_API
+-removedefine GCC_HASCLASSVISIBILITY
+-removedefine FI_DEFAULT
+-removedefine FI_ENUM
+-removedefine FI_STRUCT
+-removedefine PLUGINS
+
+-rename TRUE CTRUE
+-ifndefdecl CTRUE
+-ifndefdecl FALSE
+-ifndefdecl NULL
+
+-ifndefdecl SEEK_SET
+-ifndefdecl SEEK_CUR
+-ifndefdecl SEEK_END
+
+# Same fix-up as for winapi
+-remove LONG
+-remove BYTE
+-renametypedef BYTE UBYTE
