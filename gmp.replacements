@@ -1,0 +1,2 @@
+convert c: #define __GMP_CAST(type, expr) ((type) (expr))
+to fb:     #define __GMP_CAST(type, expr) cast((type), (expr))
