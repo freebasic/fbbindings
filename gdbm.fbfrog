@@ -1,0 +1,2 @@
+-inclib gdbm
+-setarraysize gdbm_errlist _GDBM_MAX_ERRNO+1
