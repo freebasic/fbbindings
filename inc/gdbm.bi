@@ -5,6 +5,9 @@
 #include once "crt/long.bi"
 #include once "crt/stdio.bi"
 
+'' The following symbols have been renamed:
+''     procedure gdbm_sync => gdbm_sync_
+
 extern "C"
 
 #define _GDBM_H_
@@ -61,7 +64,7 @@ declare function gdbm_delete(byval as GDBM_FILE, byval as datum) as long
 declare function gdbm_firstkey(byval as GDBM_FILE) as datum
 declare function gdbm_nextkey(byval as GDBM_FILE, byval as datum) as datum
 declare function gdbm_reorganize(byval as GDBM_FILE) as long
-declare sub gdbm_sync(byval as GDBM_FILE)
+declare sub gdbm_sync_ alias "gdbm_sync"(byval as GDBM_FILE)
 declare function gdbm_exists(byval as GDBM_FILE, byval as datum) as long
 declare function gdbm_setopt(byval as GDBM_FILE, byval as long, byval as any ptr, byval as long) as long
 declare function gdbm_fdesc(byval as GDBM_FILE) as long
