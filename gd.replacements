@@ -1,0 +1,2 @@
+convert c: #define NULL (void *)0
+to c:      #define NULL 0

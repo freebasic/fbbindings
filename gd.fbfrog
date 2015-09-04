@@ -1,0 +1,22 @@
+-iftarget windows
+	-declarebool NONDLL
+	-ifdef NONDLL
+		-define BGDWIN32 1
+		-define NONDLL 1
+	-endif
+-endif
+
+-removedefine BGD_STDCALL
+-removedefine BGD_EXPORT_DATA_PROT
+-removedefine BGD_EXPORT_DATA_IMPL
+-removedefine BGD_DECLARE
+
+-removeinclude syslog.h
+
+-ifndefdecl NULL
+
+-replacements gd.replacements
+
+# Fix name conflicts with CRT as in fbc's old headers
+-renameproc Putword gd_Putword
+-renameproc Putchar gd_Putchar
