@@ -1,4 +1,4 @@
-FBFROG_VERSION := ae309b6f76e19305edaaff68003c979e8006c6c9
+FBFROG_VERSION := 19e073c46aa0b7d72eae5448c935f92ae92303f1
 
 ALL := allegro allegro4 allegro5 aspell atk
 ALL += bass bassmod bfd bzip2
@@ -1190,7 +1190,7 @@ glut: tools
 
 GIFLIB4 := giflib-4.2.3
 GIFLIB5 := giflib-5.1.1
-giflib:
+giflib: tools
 	./get.sh $(GIFLIB4) $(GIFLIB4).tar.bz2 http://sourceforge.net/projects/giflib/files/giflib-4.x/$(GIFLIB4).tar.bz2/download
 	./get.sh $(GIFLIB5) $(GIFLIB5).tar.bz2 http://sourceforge.net/projects/giflib/files/giflib-5.1.1.tar.bz2/download
 	cp extracted/$(GIFLIB4)/COPYING giflib4.tmp

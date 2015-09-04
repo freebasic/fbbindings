@@ -99,7 +99,7 @@ const GRAPHICS_EXT_FUNC_CODE = &hf9
 const PLAINTEXT_EXT_FUNC_CODE = &h01
 const APPLICATION_EXT_FUNC_CODE = &hff
 
-declare function EGifOpenFileName(byval GifFileName as const zstring ptr, byval GifTestExistance as bool) as GifFileType ptr
+declare function EGifOpenFileName(byval GifFileName as const zstring ptr, byval GifTestExistance as byte) as GifFileType ptr
 declare function EGifOpenFileHandle(byval GifFileHandle as long) as GifFileType ptr
 declare function EGifOpen(byval userPtr as any ptr, byval writeFunc as OutputFunc) as GifFileType ptr
 declare function EGifSpew(byval GifFile as GifFileType ptr) as long
@@ -118,7 +118,7 @@ const E_GIF_ERR_CLOSE_FAILED = 9
 const E_GIF_ERR_NOT_WRITEABLE = 10
 
 declare function EGifPutScreenDesc(byval GifFile as GifFileType ptr, byval GifWidth as long, byval GifHeight as long, byval GifColorRes as long, byval GifBackGround as long, byval GifColorMap as const ColorMapObject ptr) as long
-declare function EGifPutImageDesc(byval GifFile as GifFileType ptr, byval GifLeft as long, byval GifTop as long, byval Width as long, byval GifHeight as long, byval GifInterlace as bool, byval GifColorMap as const ColorMapObject ptr) as long
+declare function EGifPutImageDesc(byval GifFile as GifFileType ptr, byval GifLeft as long, byval GifTop as long, byval Width as long, byval GifHeight as long, byval GifInterlace as byte, byval GifColorMap as const ColorMapObject ptr) as long
 declare function EGifPutLine(byval GifFile as GifFileType ptr, byval GifLine as GifPixelType ptr, byval GifLineLen as long) as long
 declare function EGifPutPixel(byval GifFile as GifFileType ptr, byval GifPixel as GifPixelType) as long
 declare function EGifPutComment(byval GifFile as GifFileType ptr, byval GifComment as const zstring ptr) as long
@@ -189,7 +189,7 @@ declare function MakeSavedImage(byval GifFile as GifFileType ptr, byval CopyFrom
 declare sub FreeSavedImages(byval GifFile as GifFileType ptr)
 const GIF_FONT_WIDTH = 8
 const GIF_FONT_HEIGHT = 8
-extern AsciiTable(0 to ..., 0 to 7) as const ubyte
+extern AsciiTable(0 to 128 - 1, 0 to 7) as const ubyte
 
 #ifdef __FB_WIN32__
 	declare sub DrawGifText(byval Image as SavedImage ptr, byval x as const long, byval y as const long, byval legend as const zstring ptr, byval color as const long)

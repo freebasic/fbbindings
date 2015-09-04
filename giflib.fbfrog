@@ -1,4 +1,8 @@
+-define bool _Bool
 -removeinclude stddef.h
 -removeinclude stdbool.h
 -removedefine TRUE
 -removedefine FALSE
+
+-setarraysize AsciiTable 128
+-setarraysize GifAsciiTable8x8 128
