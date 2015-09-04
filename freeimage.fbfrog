@@ -22,10 +22,6 @@
 -ifndefdecl FALSE
 -ifndefdecl NULL
 
--ifndefdecl SEEK_SET
--ifndefdecl SEEK_CUR
--ifndefdecl SEEK_END
-
 # Same fix-up as for winapi
 -remove LONG
 -remove BYTE

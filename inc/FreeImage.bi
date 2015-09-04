@@ -73,15 +73,9 @@ end type
 #ifndef NULL
 	const NULL = 0
 #endif
-#ifndef SEEK_SET
-	const SEEK_SET = 0
-#endif
-#ifndef SEEK_CUR
-	const SEEK_CUR = 1
-#endif
-#ifndef SEEK_END
-	const SEEK_END = 2
-#endif
+const SEEK_SET = 0
+const SEEK_CUR = 1
+const SEEK_END = 2
 
 type BOOL as long
 type WORD as ushort
