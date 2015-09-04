@@ -23,6 +23,34 @@
 
 #pragma once
 
+'' The following symbols have been renamed:
+''     constant GrKey_a => GrKey_a_
+''     constant GrKey_b => GrKey_b_
+''     constant GrKey_c => GrKey_c_
+''     constant GrKey_d => GrKey_d_
+''     constant GrKey_e => GrKey_e_
+''     constant GrKey_f => GrKey_f_
+''     constant GrKey_g => GrKey_g_
+''     constant GrKey_h => GrKey_h_
+''     constant GrKey_i => GrKey_i_
+''     constant GrKey_j => GrKey_j_
+''     constant GrKey_k => GrKey_k_
+''     constant GrKey_l => GrKey_l_
+''     constant GrKey_m => GrKey_m_
+''     constant GrKey_n => GrKey_n_
+''     constant GrKey_o => GrKey_o_
+''     constant GrKey_p => GrKey_p_
+''     constant GrKey_q => GrKey_q_
+''     constant GrKey_r => GrKey_r_
+''     constant GrKey_s => GrKey_s_
+''     constant GrKey_t => GrKey_t_
+''     constant GrKey_u => GrKey_u_
+''     constant GrKey_v => GrKey_v_
+''     constant GrKey_w => GrKey_w_
+''     constant GrKey_x => GrKey_x_
+''     constant GrKey_y => GrKey_y_
+''     constant GrKey_z => GrKey_z_
+
 extern "C"
 
 #define __GRKEYS_H_INCLUDED__
@@ -125,32 +153,32 @@ const GrKey_RBracket = &h005d
 const GrKey_Caret = &h005e
 const GrKey_UnderScore = &h005f
 const GrKey_BackQuote = &h0060
-const GrKey_a = &h0061
-const GrKey_b = &h0062
-const GrKey_c = &h0063
-const GrKey_d = &h0064
-const GrKey_e = &h0065
-const GrKey_f = &h0066
-const GrKey_g = &h0067
-const GrKey_h = &h0068
-const GrKey_i = &h0069
-const GrKey_j = &h006a
-const GrKey_k = &h006b
-const GrKey_l = &h006c
-const GrKey_m = &h006d
-const GrKey_n = &h006e
-const GrKey_o = &h006f
-const GrKey_p = &h0070
-const GrKey_q = &h0071
-const GrKey_r = &h0072
-const GrKey_s = &h0073
-const GrKey_t = &h0074
-const GrKey_u = &h0075
-const GrKey_v = &h0076
-const GrKey_w = &h0077
-const GrKey_x = &h0078
-const GrKey_y = &h0079
-const GrKey_z = &h007a
+const GrKey_a_ = &h0061
+const GrKey_b_ = &h0062
+const GrKey_c_ = &h0063
+const GrKey_d_ = &h0064
+const GrKey_e_ = &h0065
+const GrKey_f_ = &h0066
+const GrKey_g_ = &h0067
+const GrKey_h_ = &h0068
+const GrKey_i_ = &h0069
+const GrKey_j_ = &h006a
+const GrKey_k_ = &h006b
+const GrKey_l_ = &h006c
+const GrKey_m_ = &h006d
+const GrKey_n_ = &h006e
+const GrKey_o_ = &h006f
+const GrKey_p_ = &h0070
+const GrKey_q_ = &h0071
+const GrKey_r_ = &h0072
+const GrKey_s_ = &h0073
+const GrKey_t_ = &h0074
+const GrKey_u_ = &h0075
+const GrKey_v_ = &h0076
+const GrKey_w_ = &h0077
+const GrKey_x_ = &h0078
+const GrKey_y_ = &h0079
+const GrKey_z_ = &h007a
 const GrKey_LBrace = &h007b
 const GrKey_Pipe = &h007c
 const GrKey_RBrace = &h007d
