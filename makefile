@@ -6,7 +6,7 @@ ALL += caca cairo cd cgiutil cgui chipmunk clang crt cryptlib cunit curl
 ALL += devil disphelper
 ALL += expat
 ALL += fastcgi ffi flite fontconfig freeglut freeimage freetype
-ALL += gdkpixbuf glib glfw glut gtk gtk2 gtk3 gtkglext
+ALL += gd gdkpixbuf glib glfw glut gtk gtk2 gtk3 gtkglext
 ALL += iconv iup
 ALL += jit
 ALL += llvm lua
@@ -1001,6 +1001,30 @@ glfw: tools
 		-endif\
 		-title $(GLFW3) glfw3.tmp fbteam.txt
 
+	rm *.tmp
+
+GD := gd-2.1.1
+GDDIR := libgd-$(GD)
+gd: tools
+	./get.sh $(GDDIR) $(GD).tar.gz https://github.com/libgd/libgd/archive/$(GD).tar.gz
+
+	cp extracted/$(GDDIR)/src/COPYING gd.tmp
+	$(FBFROG) gd.fbfrog -incdir extracted/$(GDDIR)/src \
+		-include gd.h \
+		-include gdfx.h \
+		-include gd_io.h \
+		-include gdcache.h \
+		-include gdfontg.h \
+		-include gdfontl.h \
+		-include gdfontmb.h \
+		-include gdfonts.h \
+		-include gdfontt.h \
+		-include entities.h \
+		-include gd_color_map.h \
+		-include gd_errors.h \
+		-include gdpp.h \
+		-o inc/gd.bi \
+		-title $(GD) gd.tmp fbteam.txt
 	rm *.tmp
 
 GDKPIXBUF_SERIES := 2.30
