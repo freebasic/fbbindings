@@ -67,9 +67,14 @@ type gdsl_compare_func_t as function(byval E as const gdsl_element_t, byval VALU
 type gdsl_write_func_t as sub(byval E as const gdsl_element_t, byval OUTPUT_FILE as FILE ptr, byval LOCATION as gdsl_location_t, byval USER_DATA as any ptr)
 
 type bool as long
-enum
-	FALSE = 0
-	TRUE = 1
-end enum
+#ifndef FALSE
+	const FALSE = 0
+#endif
+#ifndef CTRUE
+	const CTRUE = 1
+#endif
+#ifndef TRUE
+	const TRUE = 1
+#endif
 
 end extern
