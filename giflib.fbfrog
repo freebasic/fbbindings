@@ -1,0 +1,4 @@
+-removeinclude stddef.h
+-removeinclude stdbool.h
+-removedefine TRUE
+-removedefine FALSE
