@@ -6,7 +6,7 @@ ALL += caca cairo cd cgiutil cgui chipmunk clang crt cryptlib cunit curl
 ALL += devil disphelper
 ALL += expat
 ALL += fastcgi ffi flite fontconfig freeglut freeimage freetype
-ALL += gd gdbm gdkpixbuf glib glfw glut gtk gtk2 gtk3 gtkglext
+ALL += gd gdbm gdkpixbuf gdsl glib glfw glut gtk gtk2 gtk3 gtkglext
 ALL += iconv iup
 ALL += jit
 ALL += llvm lua
@@ -1057,6 +1057,56 @@ gdkpixbuf: tools glib-extract gdkpixbuf-extract
 		-title $(GDKPIXBUF) gdkpixbuf.tmp gtk+-translators.txt
 
 	rm *.tmp
+
+GDSL := gdsl-1.8
+gdsl: tools
+	./get.sh $(GDSL) $(GDSL).tar.gz http://download.gna.org/gdsl/$(GDSL).tar.gz
+	cd extracted/$(GDSL) && \
+		if [ ! -d include  ]; then \
+			mkdir -p include/gdsl && mv src/*.h include/gdsl; \
+		fi
+	sed -n 2,18p extracted/$(GDSL)/include/gdsl/gdsl.h | cut -c4- > gdsl.tmp
+	./fsf-address-fix.sh gdsl.tmp
+	mkdir -p inc/gdsl
+	$(FBFROG) -incdir extracted/$(GDSL)/include \
+			-include gdsl/gdsl.h \
+			-include gdsl/_gdsl_node.h \
+			-include gdsl/_gdsl_list.h \
+			-include gdsl/_gdsl_bintree.h \
+			-include gdsl/_gdsl_bstree.h \
+			-include gdsl/gdsl_list.h \
+			-include gdsl/gdsl_queue.h \
+			-include gdsl/gdsl_stack.h \
+			-include gdsl/gdsl_2darray.h \
+			-include gdsl/gdsl_hash.h \
+			-include gdsl/gdsl_interval_heap.h \
+			-include gdsl/gdsl_heap.h \
+			-include gdsl/gdsl_bstree.h \
+			-include gdsl/gdsl_rbtree.h \
+			-include gdsl/gdsl_perm.h \
+			-include gdsl/gdsl_types.h  \
+			-include gdsl/gdsl_macros.h \
+			-include gdsl/gdsl_sort.h \
+			-emit '*/gdsl.h'               inc/gdsl/gdsl.bi \
+			-emit '*/_gdsl_node.h'         inc/gdsl/_gdsl_node.bi \
+			-emit '*/_gdsl_list.h'         inc/gdsl/_gdsl_list.bi \
+			-emit '*/_gdsl_bintree.h'      inc/gdsl/_gdsl_bintree.bi \
+			-emit '*/_gdsl_bstree.h'       inc/gdsl/_gdsl_bstree.bi \
+			-emit '*/gdsl_list.h'          inc/gdsl/gdsl_list.bi \
+			-emit '*/gdsl_queue.h'         inc/gdsl/gdsl_queue.bi \
+			-emit '*/gdsl_stack.h'         inc/gdsl/gdsl_stack.bi \
+			-emit '*/gdsl_2darray.h'       inc/gdsl/gdsl_2darray.bi \
+			-emit '*/gdsl_hash.h'          inc/gdsl/gdsl_hash.bi \
+			-emit '*/gdsl_interval_heap.h' inc/gdsl/gdsl_interval_heap.bi \
+			-emit '*/gdsl_heap.h'          inc/gdsl/gdsl_heap.bi \
+			-emit '*/gdsl_bstree.h'        inc/gdsl/gdsl_bstree.bi \
+			-emit '*/gdsl_rbtree.h'        inc/gdsl/gdsl_rbtree.bi \
+			-emit '*/gdsl_perm.h'          inc/gdsl/gdsl_perm.bi \
+			-emit '*/gdsl_types.h'         inc/gdsl/gdsl_types.bi  \
+			-emit '*/gdsl_macros.h'        inc/gdsl/gdsl_macros.bi \
+			-emit '*/gdsl_sort.h'          inc/gdsl/gdsl_sort.bi \
+			-inclib gdsl inc/gdsl/gdsl.bi \
+			-title $(GDSL) gdsl.tmp fbteam.txt
 
 GLIB_MAJOR := 2
 GLIB_MINOR := 42
