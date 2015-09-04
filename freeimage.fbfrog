@@ -1,3 +1,9 @@
+-iftarget windows
+	-inclib FreeImage
+-else
+	-inclib freeimage
+-endif
+
 # Enables default values for parameters and gets rid of duplicate structs/typedefs
 -define __cplusplus 1
 

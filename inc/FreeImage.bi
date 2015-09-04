@@ -29,6 +29,12 @@
 
 #pragma once
 
+#ifdef __FB_WIN32__
+	#inclib "FreeImage"
+#else
+	#inclib "freeimage"
+#endif
+
 #include once "crt/long.bi"
 #include once "crt/wchar.bi"
 
