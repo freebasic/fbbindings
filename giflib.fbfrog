@@ -6,3 +6,5 @@
 
 -setarraysize AsciiTable 128
 -setarraysize GifAsciiTable8x8 128
+
+-rename_ New
