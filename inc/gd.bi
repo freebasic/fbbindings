@@ -68,6 +68,7 @@
 '' The following symbols have been renamed:
 ''     procedure Putword => gd_Putword
 ''     procedure Putchar => gd_Putchar
+''     procedure gd_error => gd_error_
 
 #ifdef __FB_WIN32__
 	extern "Windows"
@@ -738,7 +739,7 @@ const GD_NOTICE = LOG_NOTICE
 const GD_INFO = LOG_INFO
 const GD_DEBUG = LOG_DEBUG
 
-declare sub gd_error cdecl(byval format as const zstring ptr, ...)
+declare sub gd_error_ cdecl alias "gd_error"(byval format as const zstring ptr, ...)
 declare sub gd_error_ex cdecl(byval priority as long, byval format as const zstring ptr, ...)
 
 end extern
