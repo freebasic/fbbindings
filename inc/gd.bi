@@ -60,6 +60,18 @@
 
 #pragma once
 
+#if defined(__FB_DOS__) or defined(__FB_UNIX__)
+	#inclib "gd"
+#elseif defined(__FB_WIN32__) and defined(NONDLL)
+	#inclib "bgd-static"
+#else
+	#inclib "bgd"
+#endif
+
+#inclib "jpeg"
+#inclib "png"
+#inclib "z"
+
 #include once "crt/long.bi"
 #include once "crt/stdio.bi"
 #include once "crt/stdarg.bi"
