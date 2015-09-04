@@ -1,0 +1,145 @@
+convert c: #define __GMP_CAST(type, expr) ((type) (expr))
+to fb:     #define __GMP_CAST(type, expr) cast((type), (expr))
+
+convert c:
+	#define __GMPZ_FITS_UTYPE_P(z, maxval)
+		mp_size_t __gmp_n = z->_mp_size;
+		mp_ptr __gmp_p = z->_mp_d;
+		return (__gmp_n == 0 || (__gmp_n == 1 && __gmp_p[0] <= maxval));
+to fb:
+	#macro __GMPZ_FITS_UTYPE_P(z, maxval)
+		dim as mp_size_t __gmp_n = z->_mp_size
+		dim as mp_ptr __gmp_p = z->_mp_d
+		return (__gmp_n = 0 orelse (__gmp_n = 1 andalso __gmp_p[0] <= maxval))
+	#endmacro
+
+convert c:
+	#define __GMPN_AORS(cout, wp, xp, xsize, yp, ysize, FUNCTION, TEST)
+		do {
+			mp_size_t  __gmp_i;
+			mp_limb_t  __gmp_x;
+			__gmp_i = (ysize);
+			if (__gmp_i != 0) {
+				if (FUNCTION (wp, xp, yp, __gmp_i)) {
+					do {
+						if (__gmp_i >= (xsize)) {
+							(cout) = 1;
+							goto __gmp_done;
+						}
+						__gmp_x = (xp)[__gmp_i];
+					} while (TEST);
+				}
+			}
+			if ((wp) != (xp))
+				__GMPN_COPY_REST (wp, xp, xsize, __gmp_i);
+			(cout) = 0;
+			__gmp_done: ;
+		} while (0)
+to fb:
+	#macro __GMPN_AORS(cout, wp, xp, xsize, yp, ysize, FUNCTION, TEST)
+		scope
+			dim __gmp_i as mp_size_t
+			dim __gmp_x as mp_limb_t
+			__gmp_i = (ysize)
+			if __gmp_i <> 0 then
+				if FUNCTION(wp, xp, yp, __gmp_i) then
+					do
+						if __gmp_i >= (xsize) then
+							(cout) = 1
+							goto __gmp_done
+						end if
+						__gmp_x = (xp)[__gmp_i]
+					loop while (TEST)
+				end if
+			end if
+			if (wp) <> (xp) then
+				__GMPN_COPY_REST(wp, xp, xsize, __gmp_i)
+			end if
+			(cout) = 0
+			__gmp_done:
+		end scope
+	#endmacro
+
+convert c:
+	#define __GMPN_ADD(cout, wp, xp, xsize, yp, ysize)
+		__GMPN_AORS(cout, wp, xp, xsize, yp, ysize, mpn_add_n, (((wp)[__gmp_i++] = (__gmp_x + 1) & GMP_NUMB_MASK) == 0))
+to fb:
+	#macro __GMPN_ADD(cout, wp, xp, xsize, yp, ysize)
+		scope
+			dim __gmp_i as mp_size_t
+			dim __gmp_x as mp_limb_t
+			__gmp_i = (ysize)
+			if __gmp_i <> 0 then
+				if mpn_add_n(wp, xp, yp, __gmp_i) then
+					do
+						if __gmp_i >= (xsize) then
+							(cout) = 1
+							goto __gmp_done
+						end if
+						__gmp_x = (xp)[__gmp_i]
+						(wp)[__gmp_i] = (__gmp_x + 1) and GMP_NUMB_MASK
+						if (wp)[__gmp_i] then
+							__gmp_i += 1
+							exit do
+						end if
+						__gmp_i += 1
+					loop
+				end if
+			end if
+			if (wp) <> (xp) then
+				__GMPN_COPY_REST(wp, xp, xsize, __gmp_i)
+			end if
+			(cout) = 0
+			__gmp_done:
+		end scope
+	#endmacro
+
+convert c:
+	#define __GMPN_SUB(cout, wp, xp, xsize, yp, ysize)
+		__GMPN_AORS(cout, wp, xp, xsize, yp, ysize, mpn_sub_n, (((wp)[__gmp_i++] = (__gmp_x - 1) & GMP_NUMB_MASK), __gmp_x == 0))
+to fb:
+	#macro __GMPN_SUB(cout, wp, xp, xsize, yp, ysize)
+		scope
+			dim __gmp_i as mp_size_t
+			dim __gmp_x as mp_limb_t
+			__gmp_i = (ysize)
+			if __gmp_i <> 0 then
+				if mpn_sub_n(wp, xp, yp, __gmp_i) then
+					do
+						if __gmp_i >= (xsize) then
+							(cout) = 1
+							goto __gmp_done
+						end if
+						__gmp_x = (xp)[__gmp_i]
+						(wp)[__gmp_i] = (__gmp_x - 1) and GMP_NUMB_MASK
+						__gmp_i += 1
+					loop while __gmp_x = 0
+				end if
+			end if
+			if (wp) <> (xp) then
+				__GMPN_COPY_REST(wp, xp, xsize, __gmp_i)
+			end if
+			(cout) = 0
+			__gmp_done:
+		end scope
+	#endmacro
+
+convert c: #define mpz_cmp_si(Z, SI) (__builtin_constant_p((SI) >= 0) && (SI) >= 0 ? mpz_cmp_ui(Z, __GMP_CAST(unsigned long, SI)) : _mpz_cmp_si(Z, SI))
+to c:      #define mpz_cmp_si(Z, SI) _mpz_cmp_si(Z, SI)
+
+convert c: #define mpq_cmp_si(q, n, d) (__builtin_constant_p((n) >= 0) && (n) >= 0 ? mpq_cmp_ui(q, __GMP_CAST(unsigned long, n), d) : _mpq_cmp_si(q, n, d))
+to c:      #define mpq_cmp_si(q, n, d) _mpq_cmp_si(q, n, d)
+
+convert c: #define mpz_odd_p(z) (((z)->_mp_size != 0) & __GMP_CAST(int, (z)->_mp_d[0]))
+to c:      #define mpz_odd_p(z) (((z)->_mp_size != 0) & (int)(z)->_mp_d[0])
+
+convert c: #define mpz_cmp_ui(Z, UI) (__builtin_constant_p(UI) && (UI) == 0 ? mpz_sgn(Z) : _mpz_cmp_ui(Z, UI))
+to c:      #define mpz_cmp_ui(Z, UI) _mpz_cmp_ui(Z, UI)
+
+convert c:
+	#define mpq_cmp_ui(Q, NUI, DUI)
+		(__builtin_constant_p(NUI) && (NUI) == 0 ? mpq_sgn(Q)
+			: __builtin_constant_p((NUI) == (DUI)) && (NUI) == (DUI)
+				? mpz_cmp(mpq_numref(Q), mpq_denref(Q))
+				: _mpq_cmp_ui(Q, NUI, DUI))
+to c: #define mpq_cmp_ui(Q, NUI, DUI) _mpq_cmp_ui(Q, NUI, DUI)

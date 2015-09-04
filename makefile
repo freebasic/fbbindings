@@ -6,7 +6,7 @@ ALL += caca cairo cd cgiutil cgui chipmunk clang crt cryptlib cunit curl
 ALL += devil disphelper
 ALL += expat
 ALL += fastcgi ffi flite fontconfig freeglut freeimage freetype
-ALL += gd gdbm gdkpixbuf gdsl glib glfw glut gtk gtk2 gtk3 gtkglext
+ALL += gd gdbm gdkpixbuf gdsl glib glfw glut gmp gtk gtk2 gtk3 gtkglext
 ALL += iconv iup
 ALL += jit
 ALL += llvm lua
@@ -1198,6 +1198,38 @@ giflib: tools
 	$(FBFROG) giflib.fbfrog extracted/$(GIFLIB4)/lib/gif_lib.h -o inc/gif_lib4.bi -title $(GIFLIB4) giflib4.tmp fbteam.txt
 	$(FBFROG) giflib.fbfrog extracted/$(GIFLIB5)/lib/gif_lib.h -o inc/gif_lib5.bi -title $(GIFLIB5) giflib5.tmp fbteam.txt
 	rm *.tmp
+
+GMPPACKAGE := gmp-6.0.0a
+GMPDIR     := gmp-6.0.0
+GMP_SED := -e 's/@HAVE_HOST_CPU_FAMILY_power@/0/g'
+GMP_SED += -e 's/@HAVE_HOST_CPU_FAMILY_powerpc@/0/g'
+GMP_SED += -e 's/@GMP_LIMB_BITS@/8*sizeof(mp_limb_t)/g'
+GMP_SED += -e 's/@GMP_NAIL_BITS@/0/g'
+GMP_SED += -e 's,@DEFN_LONG_LONG_LIMB@,/* \#undef _LONG_LONG_LIMB */,g'
+GMP_SED += -e 's/@CC@//g'
+GMP_SED += -e 's/@CFLAGS@//g'
+GMP_SED_LIBGMP_DLL_0 := -e 's/@LIBGMP_DLL@/0/g'
+GMP_SED_LIBGMP_DLL_1 := -e 's/@LIBGMP_DLL@/1/g'
+
+gmp: tools
+	./get.sh $(GMPDIR) $(GMPPACKAGE).tar.xz https://gmplib.org/download/gmp/$(GMPPACKAGE).tar.xz
+
+	sed $(GMP_SED) $(GMP_SED_LIBGMP_DLL_0) < extracted/$(GMPDIR)/gmp-h.in > extracted/$(GMPDIR)/gmp-unix.h
+	sed $(GMP_SED) $(GMP_SED_LIBGMP_DLL_0) < extracted/$(GMPDIR)/gmp-h.in > extracted/$(GMPDIR)/gmp-win32-static.h
+	sed $(GMP_SED) $(GMP_SED_LIBGMP_DLL_1) < extracted/$(GMPDIR)/gmp-h.in > extracted/$(GMPDIR)/gmp-win32-dll.h
+
+	$(FBFROG) gmp.fbfrog \
+		-iftarget windows \
+			-declarebool LIBGMP_DLL \
+			-ifdef LIBGMP_DLL \
+				extracted/$(GMPDIR)/gmp-win32-dll.h \
+			-else \
+				extracted/$(GMPDIR)/gmp-win32-static.h \
+			-endif \
+		-else \
+			extracted/$(GMPDIR)/gmp-unix.h \
+		-endif \
+		-o inc/gmp.bi
 
 gtk: gtk2 gtk3
 

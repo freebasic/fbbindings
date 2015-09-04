@@ -1,0 +1,48 @@
+# Pretend stdio.h was #included, to get declarations using FILE
+-define _STDIO_H 1
+
+# same for va_list
+-define va_start 1
+
+# TODO: obstack.h support (FB needs to have a crt/obstack.bi first)
+#-define _OBSTACK_H 1
+
+-remove __GMP_DECLSPEC*
+-removedefine __GMP_NOTHROW
+-removedefine __GMP_EXTERN_INLINE
+-removedefine __GMP_LIKELY
+-removedefine __GMP_UNLIKELY
+-removedefine __GMP_CRAY_Pragma
+
+# Forget inline functions... libgmp provides them anyways.
+-nofunctionbodies
+-remove2nd __gmpz_abs
+-remove2nd __gmpz_fits_uint_p
+-remove2nd __gmpz_fits_ulong_p
+-remove2nd __gmpz_fits_ushort_p
+-remove2nd __gmpz_get_ui
+-remove2nd __gmpz_getlimbn
+-remove2nd __gmpz_neg
+-remove2nd __gmpz_perfect_square_p
+-remove2nd __gmpz_popcount
+-remove2nd __gmpz_set_q
+-remove2nd __gmpz_size
+-remove2nd __gmpq_abs
+-remove2nd __gmpq_neg
+-remove2nd __gmpn_add
+-remove2nd __gmpn_add_1
+-remove2nd __gmpn_cmp
+-remove2nd __gmpn_sub
+-remove2nd __gmpn_sub_1
+-remove2nd __gmpn_neg
+
+-expandindefine __MPN
+-expandindefine __GMP_CAST
+ 
+-replacements gmp.replacements
+
+# hard-to-translate macros
+-removedefine __GMPN_*
+-removedefine __GMPZ_*
+
+-inclib gmp
