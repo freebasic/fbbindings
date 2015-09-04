@@ -1212,6 +1212,8 @@ gmp: tools
 	sed $(GMP_SED) $(GMP_SED_LIBGMP_DLL_0) < extracted/$(GMPDIR)/gmp-h.in > extracted/$(GMPDIR)/gmp-win32-static.h
 	sed $(GMP_SED) $(GMP_SED_LIBGMP_DLL_1) < extracted/$(GMPDIR)/gmp-h.in > extracted/$(GMPDIR)/gmp-win32-dll.h
 
+	$(GETCOMMENT) extracted/$(GMPDIR)/gmp-h.in > gmp.tmp
+
 	$(FBFROG) gmp.fbfrog \
 		-iftarget windows \
 			-declarebool LIBGMP_DLL \
@@ -1223,7 +1225,9 @@ gmp: tools
 		-else \
 			extracted/$(GMPDIR)/gmp-unix.h \
 		-endif \
-		-o inc/gmp.bi
+		-o inc/gmp.bi -title $(GMPDIR) gmp.tmp fbteam.txt
+
+	rm *.tmp
 
 gtk: gtk2 gtk3
 
