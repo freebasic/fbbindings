@@ -182,8 +182,8 @@ type SavedImage_
 end type
 
 declare sub ApplyTranslation(byval Image as SavedImage ptr, byval Translation as GifPixelType ptr)
-declare sub MakeExtension(byval New as SavedImage ptr, byval Function as long)
-declare function AddExtensionBlock(byval New as SavedImage ptr, byval Len as long, byval ExtData as ubyte ptr) as long
+declare sub MakeExtension(byval New_ as SavedImage ptr, byval Function as long)
+declare function AddExtensionBlock(byval New_ as SavedImage ptr, byval Len as long, byval ExtData as ubyte ptr) as long
 declare sub FreeExtension(byval Image as SavedImage ptr)
 declare function MakeSavedImage(byval GifFile as GifFileType ptr, byval CopyFrom as const SavedImage ptr) as SavedImage ptr
 declare sub FreeSavedImages(byval GifFile as GifFileType ptr)
