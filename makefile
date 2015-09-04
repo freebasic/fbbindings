@@ -1024,8 +1024,11 @@ gd: tools
 GDBM := gdbm-1.11
 gdbm: tools
 	./get.sh $(GDBM) $(GDBM).tar.gz ftp://ftp.gnu.org/gnu/gdbm/$(GDBM).tar.gz
-
-	$(FBFROG) gdbm.fbfrog extracted/$(GDBM)/src/gdbm.h -o inc/gdbm.bi
+	$(GETCOMMENT) -1-2 extracted/$(GDBM)/src/gdbm.h > gdbm.tmp
+	./fsf-address-fix.sh gdbm.tmp
+	$(FBFROG) gdbm.fbfrog extracted/$(GDBM)/src/gdbm.h -o inc/gdbm.bi \
+		-title $(GDBM) gdbm.tmp fbteam.txt
+	rm *.tmp
 
 GDKPIXBUF_SERIES := 2.30
 GDKPIXBUF := gdk-pixbuf-$(GDKPIXBUF_SERIES).8
