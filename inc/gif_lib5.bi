@@ -26,6 +26,8 @@
 
 #pragma once
 
+#inclib "gif"
+
 extern "C"
 
 const _GIF_LIB_H_ = 1
