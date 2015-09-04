@@ -1,5 +1,6 @@
 # Pretend stdio.h was #included, to get declarations using FILE
 -define _STDIO_H 1
+-addinclude stdio.h
 
 # same for va_list
 -define va_start 1

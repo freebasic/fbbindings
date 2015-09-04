@@ -4,6 +4,7 @@
 
 #include once "crt/long.bi"
 #include once "crt/stddef.bi"
+#include once "crt/stdio.bi"
 
 extern "C"
 
