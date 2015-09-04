@@ -724,27 +724,19 @@ end type
 declare function gdColorMapLookup(byval color_map as const gdColorMap, byval color_name as const zstring ptr, byval r as long ptr, byval g as long ptr, byval b as long ptr) as long
 #define GD_ERRORS_H
 
-#ifdef __FB_WIN32__
-	const LOG_EMERG = 0
-	const LOG_ALERT = 1
-	const LOG_CRIT = 2
-	const LOG_ERR = 3
-	const LOG_WARNING = 4
-	const LOG_NOTICE = 5
-	const LOG_INFO = 6
-	const LOG_DEBUG = 7
-	const GD_ERROR = LOG_ERR
-	const GD_WARNING = LOG_WARNING
-	const GD_NOTICE = LOG_NOTICE
-	const GD_INFO = LOG_INFO
-	const GD_DEBUG = LOG_DEBUG
-#else
-	#define GD_ERROR LOG_ERR
-	#define GD_WARNING LOG_WARNING
-	#define GD_NOTICE LOG_NOTICE
-	#define GD_INFO LOG_INFO
-	#define GD_DEBUG LOG_DEBUG
-#endif
+const LOG_EMERG = 0
+const LOG_ALERT = 1
+const LOG_CRIT = 2
+const LOG_ERR = 3
+const LOG_WARNING = 4
+const LOG_NOTICE = 5
+const LOG_INFO = 6
+const LOG_DEBUG = 7
+const GD_ERROR = LOG_ERR
+const GD_WARNING = LOG_WARNING
+const GD_NOTICE = LOG_NOTICE
+const GD_INFO = LOG_INFO
+const GD_DEBUG = LOG_DEBUG
 
 declare sub gd_error cdecl(byval format as const zstring ptr, ...)
 declare sub gd_error_ex cdecl(byval priority as long, byval format as const zstring ptr, ...)
