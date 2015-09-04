@@ -37,5 +37,12 @@
 -remove2nd __gmpn_neg
 
 -expandindefine __MPN
+-expandindefine __GMP_CAST
  
 -replacements gmp.replacements
+
+# hard-to-translate macros
+-removedefine __GMPN_*
+-removedefine __GMPZ_*
+
+-inclib gmp

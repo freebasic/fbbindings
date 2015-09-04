@@ -1,5 +1,7 @@
 #pragma once
 
+#inclib "gmp"
+
 #include once "crt/long.bi"
 #include once "crt/stddef.bi"
 
@@ -700,10 +702,10 @@ declare function __gmpn_addmul_1(byval as mp_ptr, byval as mp_srcptr, byval as m
 declare function mpn_addmul_1 alias "__gmpn_addmul_1"(byval as mp_ptr, byval as mp_srcptr, byval as mp_size_t, byval as mp_limb_t) as mp_limb_t
 declare function __gmpn_cmp(byval as mp_srcptr, byval as mp_srcptr, byval as mp_size_t) as long
 declare function mpn_cmp alias "__gmpn_cmp"(byval as mp_srcptr, byval as mp_srcptr, byval as mp_size_t) as long
-#define mpn_divexact_by3(dst, src, size) mpn_divexact_by3c(dst, src, size, __GMP_CAST(mp_limb_t, 0))
+#define mpn_divexact_by3(dst, src, size) mpn_divexact_by3c(dst, src, size, cast(mp_limb_t, 0))
 declare function __gmpn_divexact_by3c(byval as mp_ptr, byval as mp_srcptr, byval as mp_size_t, byval as mp_limb_t) as mp_limb_t
 declare function mpn_divexact_by3c alias "__gmpn_divexact_by3c"(byval as mp_ptr, byval as mp_srcptr, byval as mp_size_t, byval as mp_limb_t) as mp_limb_t
-#define mpn_divmod_1(qp, np, nsize, dlimb) mpn_divrem_1(qp, __GMP_CAST(mp_size_t, 0), np, nsize, dlimb)
+#define mpn_divmod_1(qp, np, nsize, dlimb) mpn_divrem_1(qp, cast(mp_size_t, 0), np, nsize, dlimb)
 declare function __gmpn_divrem(byval as mp_ptr, byval as mp_size_t, byval as mp_ptr, byval as mp_size_t, byval as mp_srcptr, byval as mp_size_t) as mp_limb_t
 declare function mpn_divrem alias "__gmpn_divrem"(byval as mp_ptr, byval as mp_size_t, byval as mp_ptr, byval as mp_size_t, byval as mp_srcptr, byval as mp_size_t) as mp_limb_t
 declare function __gmpn_divrem_1(byval as mp_ptr, byval as mp_size_t, byval as mp_srcptr, byval as mp_size_t, byval as mp_limb_t) as mp_limb_t
@@ -838,84 +840,17 @@ declare function __gmpn_sec_invert(byval as mp_ptr, byval as mp_ptr, byval as mp
 declare function mpn_sec_invert alias "__gmpn_sec_invert"(byval as mp_ptr, byval as mp_ptr, byval as mp_srcptr, byval as mp_size_t, byval as mp_bitcnt_t, byval as mp_ptr) as long
 declare function __gmpn_sec_invert_itch(byval as mp_size_t) as mp_size_t
 declare function mpn_sec_invert_itch alias "__gmpn_sec_invert_itch"(byval as mp_size_t) as mp_size_t
-'' TODO: #define __GMPZ_FITS_UTYPE_P(z,maxval) mp_size_t __gmp_n = z->_mp_size; mp_ptr __gmp_p = z->_mp_d; return (__gmp_n == 0 || (__gmp_n == 1 && __gmp_p[0] <= maxval));
-#macro __GMPN_AORS(cout, wp, xp, xsize, yp, ysize, FUNCTION, TEST)
-	scope
-		dim __gmp_i as mp_size_t
-		dim __gmp_x as mp_limb_t
-		__gmp_i = (ysize)
-		if __gmp_i <> 0 then
-			if FUNCTION(wp, xp, yp, __gmp_i) then
-				do
-					if __gmp_i >= (xsize) then
-						(cout) = 1
-						'' TODO: goto __gmp_done;
-					end if
-					__gmp_x = (xp)[__gmp_i]
-				loop while (TEST)
-			end if
-		end if
-		if (wp) <> (xp) then
-			__GMPN_COPY_REST(wp, xp, xsize, __gmp_i)
-		end if
-		(cout) = 0
-		'' TODO: __gmp_done: ;
-	end scope
-#endmacro
-'' TODO: #define __GMPN_ADD(cout, wp, xp, xsize, yp, ysize) __GMPN_AORS (cout, wp, xp, xsize, yp, ysize, mpn_add_n, (((wp)[__gmp_i++] = (__gmp_x + 1) & GMP_NUMB_MASK) == 0))
-'' TODO: #define __GMPN_SUB(cout, wp, xp, xsize, yp, ysize) __GMPN_AORS (cout, wp, xp, xsize, yp, ysize, mpn_sub_n, (((wp)[__gmp_i++] = (__gmp_x - 1) & GMP_NUMB_MASK), __gmp_x == 0))
 
-#macro __GMPN_AORS_1(cout, dst, src, n, v, OP, CB)
-	scope
-		dim __gmp_i as mp_size_t
-		dim __gmp_x as mp_limb_t
-		dim __gmp_r as mp_limb_t
-		__gmp_x = (src)[0]
-		'' TODO: __gmp_r = __gmp_x OP (v);
-		(dst)[0] = __gmp_r
-		if CB(__gmp_r, __gmp_x, (v)) then
-			(cout) = 1
-			'' TODO: for (__gmp_i = 1; __gmp_i < (n);) { __gmp_x = (src)[__gmp_i]; __gmp_r = __gmp_x OP 1; (dst)[__gmp_i] = __gmp_r; ++__gmp_i; if (!CB (__gmp_r, __gmp_x, 1)) { if ((src) != (dst)) __GMPN_COPY_REST (dst, src, n, __gmp_i); (cout) = 0; break; } }
-		else
-			if (src) <> (dst) then
-				__GMPN_COPY_REST(dst, src, n, 1)
-			end if
-			(cout) = 0
-		end if
-	end scope
-#endmacro
-#define __GMPN_ADDCB(r, x, y) ((r) < (y))
-#define __GMPN_SUBCB(r, x, y) ((x) < (y))
-'' TODO: #define __GMPN_ADD_1(cout, dst, src, n, v) __GMPN_AORS_1(cout, dst, src, n, v, +, __GMPN_ADDCB)
-'' TODO: #define __GMPN_SUB_1(cout, dst, src, n, v) __GMPN_AORS_1(cout, dst, src, n, v, -, __GMPN_SUBCB)
-#macro __GMPN_CMP(result, xp, yp, size)
-	scope
-		dim __gmp_i as mp_size_t
-		dim __gmp_x as mp_limb_t
-		dim __gmp_y as mp_limb_t
-		(result) = 0
-		__gmp_i = (size)
-		'' TODO: while (--__gmp_i >= 0) { __gmp_x = (xp)[__gmp_i]; __gmp_y = (yp)[__gmp_i]; if (__gmp_x != __gmp_y) { (result) = (__gmp_x > __gmp_y ? 1 : -1); break; } }
-	end scope
-#endmacro
-#macro __GMPN_COPY_REST(dst, src, size, start)
-	scope
-		dim __gmp_j as mp_size_t
-		__GMP_CRAY_Pragma("_CRI ivdep")
-		'' TODO: for (__gmp_j = (start); __gmp_j < (size); __gmp_j++) (dst)[__gmp_j] = (src)[__gmp_j];
-	end scope
-#endmacro
-#define __GMPN_COPY(dst, src, size) __GMPN_COPY_REST(dst, src, size, 0)
 #define mpz_sgn(Z) iif((Z)->_mp_size < 0, -1, -((Z)->_mp_size > 0))
 #define mpf_sgn(F) iif((F)->_mp_size < 0, -1, -((F)->_mp_size > 0))
 #define mpq_sgn(Q) iif((Q)->_mp_num._mp_size < 0, -1, -((Q)->_mp_num._mp_size > 0))
-#define mpz_cmp_ui(Z, UI) iif(__builtin_constant_p(UI) andalso ((UI) = 0), mpz_sgn(Z), _mpz_cmp_ui(Z, UI))
-'' TODO: #define mpz_cmp_si(Z,SI) (__builtin_constant_p ((SI) >= 0) && (SI) >= 0 ? mpz_cmp_ui (Z, __GMP_CAST (unsigned long, SI)) : _mpz_cmp_si (Z,SI))
-#define mpq_cmp_ui(Q, NUI, DUI) iif(__builtin_constant_p(NUI) andalso ((NUI) = 0), mpq_sgn(Q), iif(__builtin_constant_p(-((NUI) = (DUI))) andalso ((NUI) = (DUI)), mpz_cmp(mpq_numref(Q), mpq_denref(Q)), _mpq_cmp_ui(Q, NUI, DUI)))
-'' TODO: #define mpq_cmp_si(q,n,d) (__builtin_constant_p ((n) >= 0) && (n) >= 0 ? mpq_cmp_ui (q, __GMP_CAST (unsigned long, n), d) : _mpq_cmp_si (q, n, d))
-'' TODO: #define mpz_odd_p(z) (((z)->_mp_size != 0) & __GMP_CAST (int, (z)->_mp_d[0]))
+#define mpz_cmp_ui(Z, UI) _mpz_cmp_ui(Z, UI)
+#define mpz_cmp_si(Z, SI) _mpz_cmp_si(Z, SI)
+#define mpq_cmp_ui(Q, NUI, DUI) _mpq_cmp_ui(Q, NUI, DUI)
+#define mpq_cmp_si(q, n, d) _mpq_cmp_si(q, n, d)
+#define mpz_odd_p(z) ((-((z)->_mp_size <> 0)) and clng((z)->_mp_d[0]))
 #define mpz_even_p(z) (mpz_odd_p(z) = 0)
-#define mpn_divmod(qp, np, nsize, dp, dsize) mpn_divrem(qp, __GMP_CAST(mp_size_t, 0), np, nsize, dp, dsize)
+#define mpn_divmod(qp, np, nsize, dp, dsize) mpn_divrem(qp, cast(mp_size_t, 0), np, nsize, dp, dsize)
 
 declare sub mpz_mdiv alias "__gmpz_fdiv_q"(byval as mpz_ptr, byval as mpz_srcptr, byval as mpz_srcptr)
 declare sub mpz_mdivmod alias "__gmpz_fdiv_qr"(byval as mpz_ptr, byval as mpz_ptr, byval as mpz_srcptr, byval as mpz_srcptr)
