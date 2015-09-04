@@ -1188,6 +1188,17 @@ glut: tools
 
 	rm *.tmp
 
+GIFLIB4 := giflib-4.2.3
+GIFLIB5 := giflib-5.1.1
+giflib:
+	./get.sh $(GIFLIB4) $(GIFLIB4).tar.bz2 http://sourceforge.net/projects/giflib/files/giflib-4.x/$(GIFLIB4).tar.bz2/download
+	./get.sh $(GIFLIB5) $(GIFLIB5).tar.bz2 http://sourceforge.net/projects/giflib/files/giflib-5.1.1.tar.bz2/download
+	cp extracted/$(GIFLIB4)/COPYING giflib4.tmp
+	cp extracted/$(GIFLIB5)/COPYING giflib5.tmp
+	$(FBFROG) giflib.fbfrog extracted/$(GIFLIB4)/lib/gif_lib.h -o inc/gif_lib4.bi -title $(GIFLIB4) giflib4.tmp fbteam.txt
+	$(FBFROG) giflib.fbfrog extracted/$(GIFLIB5)/lib/gif_lib.h -o inc/gif_lib5.bi -title $(GIFLIB5) giflib5.tmp fbteam.txt
+	rm *.tmp
+
 gtk: gtk2 gtk3
 
 GTK2_SERIES := 2.24
