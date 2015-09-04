@@ -76,10 +76,13 @@ end type
 #ifndef NULL
 	const NULL = 0
 #endif
+#ifndef SEEK_SET
 const SEEK_SET = 0
 const SEEK_CUR = 1
 const SEEK_END = 2
+#endif
 
+#ifndef BITMAPINFO
 type BOOL as long
 type WORD as ushort
 type DWORD as ulong
@@ -127,6 +130,7 @@ end type
 
 type BITMAPINFO as tagBITMAPINFO
 type PBITMAPINFO as tagBITMAPINFO ptr
+#endif
 
 type tagFIRGB16 field = 1
 	red as WORD
