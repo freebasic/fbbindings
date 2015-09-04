@@ -1,0 +1,11 @@
+-define GRX_SKIP_INLINES 1
+
+-inclib grx20 inc/grx/grx20.bi
+-iftarget windows
+	-inclib gdi32
+	-inclib user32
+-endif
+
+-removedefine near
+-removedefine far
+-removedefine huge

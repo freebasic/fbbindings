@@ -6,7 +6,7 @@ ALL += caca cairo cd cgiutil cgui chipmunk clang crt cryptlib cunit curl
 ALL += devil disphelper
 ALL += expat
 ALL += fastcgi ffi flite fontconfig freeglut freeimage freetype
-ALL += gd gdbm gdkpixbuf gdsl glib glfw glut gmp gtk gtk2 gtk3 gtkglext
+ALL += gd gdbm gdkpixbuf gdsl glib glfw glut gmp grx gtk gtk2 gtk3 gtkglext
 ALL += iconv iup
 ALL += jit
 ALL += llvm lua
@@ -1226,6 +1226,24 @@ gmp: tools
 			extracted/$(GMPDIR)/gmp-unix.h \
 		-endif \
 		-o inc/gmp.bi -title $(GMPDIR) gmp.tmp fbteam.txt
+
+	rm *.tmp
+
+GRX_PRETTY := "GRX 2.4.9"
+GRXDIR := grx249
+grx: tools
+	./get.sh $(GRXDIR) $(GRXDIR).tar.gz http://grx.gnu.de/download/grx249.tar.gz
+
+	$(GETCOMMENT) extracted/$(GRXDIR)/include/grx20.h   > grx20.tmp
+	$(GETCOMMENT) extracted/$(GRXDIR)/include/grxkeys.h > grxkeys.tmp
+
+	mkdir -p inc/grx
+	$(FBFROG) grx.fbfrog -incdir extracted/$(GRXDIR)/include \
+		-include grx20.h -include grxkeys.h \
+		-emit '*/grx20.h'   inc/grx/grx20.bi \
+		-emit '*/grxkeys.h' inc/grx/grxkeys.bi \
+		-title $(GRX_PRETTY) grx20.tmp   fbteam.txt inc/grx/grx20.bi \
+		-title $(GRX_PRETTY) grxkeys.tmp fbteam.txt inc/grx/grxkeys.bi
 
 	rm *.tmp
 
