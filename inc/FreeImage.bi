@@ -70,6 +70,9 @@ end type
 #ifndef CTRUE
 	const CTRUE = 1
 #endif
+#ifndef TRUE
+	const TRUE = 1
+#endif
 #ifndef NULL
 	const NULL = 0
 #endif
