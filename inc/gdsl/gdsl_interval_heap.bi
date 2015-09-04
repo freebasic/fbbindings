@@ -24,6 +24,7 @@
 
 #pragma once
 
+#include once "crt/long.bi"
 #include once "crt/stdio.bi"
 #include once "gdsl_types.bi"
 
@@ -35,8 +36,8 @@ declare function gdsl_interval_heap_alloc(byval NAME as const zstring ptr, byval
 declare sub gdsl_interval_heap_free(byval H as gdsl_interval_heap_t)
 declare sub gdsl_interval_heap_flush(byval H as gdsl_interval_heap_t)
 declare function gdsl_interval_heap_get_name(byval H as const gdsl_interval_heap_t) as const zstring ptr
-declare function gdsl_interval_heap_get_size(byval H as const gdsl_interval_heap_t) as ulong
-declare sub gdsl_interval_heap_set_max_size(byval H as const gdsl_interval_heap_t, byval size as ulong)
+declare function gdsl_interval_heap_get_size(byval H as const gdsl_interval_heap_t) as culong
+declare sub gdsl_interval_heap_set_max_size(byval H as const gdsl_interval_heap_t, byval size as culong)
 declare function gdsl_interval_heap_is_empty(byval H as const gdsl_interval_heap_t) as bool
 declare function gdsl_interval_heap_set_name(byval H as gdsl_interval_heap_t, byval NEW_NAME as const zstring ptr) as gdsl_interval_heap_t
 declare function gdsl_interval_heap_insert(byval H as gdsl_interval_heap_t, byval VALUE as any ptr) as gdsl_element_t

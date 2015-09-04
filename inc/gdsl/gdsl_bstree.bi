@@ -24,6 +24,7 @@
 
 #pragma once
 
+#include once "crt/long.bi"
 #include once "crt/stdio.bi"
 #include once "gdsl_types.bi"
 
@@ -37,8 +38,8 @@ declare sub gdsl_bstree_flush(byval T as gdsl_bstree_t)
 declare function gdsl_bstree_get_name(byval T as const gdsl_bstree_t) as const zstring ptr
 declare function gdsl_bstree_is_empty(byval T as const gdsl_bstree_t) as bool
 declare function gdsl_bstree_get_root(byval T as const gdsl_bstree_t) as gdsl_element_t
-declare function gdsl_bstree_get_size(byval T as const gdsl_bstree_t) as ulong
-declare function gdsl_bstree_get_height(byval T as const gdsl_bstree_t) as ulong
+declare function gdsl_bstree_get_size(byval T as const gdsl_bstree_t) as culong
+declare function gdsl_bstree_get_height(byval T as const gdsl_bstree_t) as culong
 declare function gdsl_bstree_set_name(byval T as gdsl_bstree_t, byval NEW_NAME as const zstring ptr) as gdsl_bstree_t
 declare function gdsl_bstree_insert(byval T as gdsl_bstree_t, byval VALUE as any ptr, byval RESULT as long ptr) as gdsl_element_t
 declare function gdsl_bstree_remove(byval T as gdsl_bstree_t, byval VALUE as any ptr) as gdsl_element_t

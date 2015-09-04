@@ -1068,7 +1068,7 @@ gdsl: tools
 	sed -n 2,18p extracted/$(GDSL)/include/gdsl/gdsl.h | cut -c4- > gdsl.tmp
 	./fsf-address-fix.sh gdsl.tmp
 	mkdir -p inc/gdsl
-	$(FBFROG) -incdir extracted/$(GDSL)/include \
+	$(FBFROG) gdsl.fbfrog -incdir extracted/$(GDSL)/include \
 			-include gdsl/gdsl.h \
 			-include gdsl/_gdsl_node.h \
 			-include gdsl/_gdsl_list.h \
@@ -1107,6 +1107,7 @@ gdsl: tools
 			-emit '*/gdsl_sort.h'          inc/gdsl/gdsl_sort.bi \
 			-inclib gdsl inc/gdsl/gdsl.bi \
 			-title $(GDSL) gdsl.tmp fbteam.txt
+	rm *.tmp
 
 GLIB_MAJOR := 2
 GLIB_MINOR := 42

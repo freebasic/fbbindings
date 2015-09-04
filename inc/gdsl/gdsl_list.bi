@@ -24,6 +24,7 @@
 
 #pragma once
 
+#include once "crt/long.bi"
 #include once "crt/stdio.bi"
 #include once "gdsl_types.bi"
 
@@ -36,7 +37,7 @@ declare function gdsl_list_alloc(byval NAME as const zstring ptr, byval ALLOC_F 
 declare sub gdsl_list_free(byval L as gdsl_list_t)
 declare sub gdsl_list_flush(byval L as gdsl_list_t)
 declare function gdsl_list_get_name(byval L as const gdsl_list_t) as const zstring ptr
-declare function gdsl_list_get_size(byval L as const gdsl_list_t) as ulong
+declare function gdsl_list_get_size(byval L as const gdsl_list_t) as culong
 declare function gdsl_list_is_empty(byval L as const gdsl_list_t) as bool
 declare function gdsl_list_get_head(byval L as const gdsl_list_t) as gdsl_element_t
 declare function gdsl_list_get_tail(byval L as const gdsl_list_t) as gdsl_element_t
@@ -50,7 +51,7 @@ declare function gdsl_list_delete_head(byval L as gdsl_list_t) as gdsl_list_t
 declare function gdsl_list_delete_tail(byval L as gdsl_list_t) as gdsl_list_t
 declare function gdsl_list_delete(byval L as gdsl_list_t, byval COMP_F as gdsl_compare_func_t, byval VALUE as const any ptr) as gdsl_list_t
 declare function gdsl_list_search(byval L as const gdsl_list_t, byval COMP_F as gdsl_compare_func_t, byval VALUE as const any ptr) as gdsl_element_t
-declare function gdsl_list_search_by_position(byval L as const gdsl_list_t, byval POS as ulong) as gdsl_element_t
+declare function gdsl_list_search_by_position(byval L as const gdsl_list_t, byval POS as culong) as gdsl_element_t
 declare function gdsl_list_search_max(byval L as const gdsl_list_t, byval COMP_F as gdsl_compare_func_t) as gdsl_element_t
 declare function gdsl_list_search_min(byval L as const gdsl_list_t, byval COMP_F as gdsl_compare_func_t) as gdsl_element_t
 declare function gdsl_list_sort(byval L as gdsl_list_t, byval COMP_F as gdsl_compare_func_t) as gdsl_list_t
@@ -64,7 +65,7 @@ declare sub gdsl_list_cursor_free(byval C as gdsl_list_cursor_t)
 declare sub gdsl_list_cursor_move_to_head(byval C as gdsl_list_cursor_t)
 declare sub gdsl_list_cursor_move_to_tail(byval C as gdsl_list_cursor_t)
 declare function gdsl_list_cursor_move_to_value(byval C as gdsl_list_cursor_t, byval COMP_F as gdsl_compare_func_t, byval VALUE as any ptr) as gdsl_element_t
-declare function gdsl_list_cursor_move_to_position(byval C as gdsl_list_cursor_t, byval POS as ulong) as gdsl_element_t
+declare function gdsl_list_cursor_move_to_position(byval C as gdsl_list_cursor_t, byval POS as culong) as gdsl_element_t
 declare sub gdsl_list_cursor_step_forward(byval C as gdsl_list_cursor_t)
 declare sub gdsl_list_cursor_step_backward(byval C as gdsl_list_cursor_t)
 declare function gdsl_list_cursor_is_on_head(byval C as const gdsl_list_cursor_t) as bool

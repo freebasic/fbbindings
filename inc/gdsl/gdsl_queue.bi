@@ -24,6 +24,7 @@
 
 #pragma once
 
+#include once "crt/long.bi"
 #include once "crt/stdio.bi"
 #include once "gdsl_types.bi"
 
@@ -35,7 +36,7 @@ declare function gdsl_queue_alloc(byval NAME as const zstring ptr, byval ALLOC_F
 declare sub gdsl_queue_free(byval Q as gdsl_queue_t)
 declare sub gdsl_queue_flush(byval Q as gdsl_queue_t)
 declare function gdsl_queue_get_name(byval Q as const gdsl_queue_t) as const zstring ptr
-declare function gdsl_queue_get_size(byval Q as const gdsl_queue_t) as ulong
+declare function gdsl_queue_get_size(byval Q as const gdsl_queue_t) as culong
 declare function gdsl_queue_is_empty(byval Q as const gdsl_queue_t) as bool
 declare function gdsl_queue_get_head(byval Q as const gdsl_queue_t) as gdsl_element_t
 declare function gdsl_queue_get_tail(byval Q as const gdsl_queue_t) as gdsl_element_t
@@ -43,7 +44,7 @@ declare function gdsl_queue_set_name(byval Q as gdsl_queue_t, byval NEW_NAME as 
 declare function gdsl_queue_insert(byval Q as gdsl_queue_t, byval VALUE as any ptr) as gdsl_element_t
 declare function gdsl_queue_remove(byval Q as gdsl_queue_t) as gdsl_element_t
 declare function gdsl_queue_search(byval Q as const gdsl_queue_t, byval COMP_F as gdsl_compare_func_t, byval VALUE as any ptr) as gdsl_element_t
-declare function gdsl_queue_search_by_position(byval Q as const gdsl_queue_t, byval POS as ulong) as gdsl_element_t
+declare function gdsl_queue_search_by_position(byval Q as const gdsl_queue_t, byval POS as culong) as gdsl_element_t
 declare function gdsl_queue_map_forward(byval Q as const gdsl_queue_t, byval MAP_F as gdsl_map_func_t, byval USER_DATA as any ptr) as gdsl_element_t
 declare function gdsl_queue_map_backward(byval Q as const gdsl_queue_t, byval MAP_F as gdsl_map_func_t, byval USER_DATA as any ptr) as gdsl_element_t
 declare sub gdsl_queue_write(byval Q as const gdsl_queue_t, byval WRITE_F as gdsl_write_func_t, byval OUTPUT_FILE as FILE ptr, byval USER_DATA as any ptr)

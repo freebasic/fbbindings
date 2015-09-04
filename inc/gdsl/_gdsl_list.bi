@@ -24,6 +24,7 @@
 
 #pragma once
 
+#include once "crt/long.bi"
 #include once "crt/stdio.bi"
 #include once "_gdsl_node.bi"
 #include once "gdsl_types.bi"
@@ -35,7 +36,7 @@ type _gdsl_list_t as _gdsl_node_t
 declare function _gdsl_list_alloc(byval E as const gdsl_element_t) as _gdsl_list_t
 declare sub _gdsl_list_free(byval L as _gdsl_list_t, byval FREE_F as const gdsl_free_func_t)
 declare function _gdsl_list_is_empty(byval L as const _gdsl_list_t) as bool
-declare function _gdsl_list_get_size(byval L as const _gdsl_list_t) as ulong
+declare function _gdsl_list_get_size(byval L as const _gdsl_list_t) as culong
 declare sub _gdsl_list_link(byval L1 as _gdsl_list_t, byval L2 as _gdsl_list_t)
 declare sub _gdsl_list_insert_after(byval L as _gdsl_list_t, byval PREV as _gdsl_list_t)
 declare sub _gdsl_list_insert_before(byval L as _gdsl_list_t, byval SUCC as _gdsl_list_t)
