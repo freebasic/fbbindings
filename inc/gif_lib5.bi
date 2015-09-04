@@ -211,7 +211,7 @@ declare function DGifSavedExtensionToGCB(byval GifFile as GifFileType ptr, byval
 declare function EGifGCBToSavedExtension(byval GCB as const GraphicsControlBlock ptr, byval GifFile as GifFileType ptr, byval ImageIndex as long) as long
 const GIF_FONT_WIDTH = 8
 const GIF_FONT_HEIGHT = 8
-extern GifAsciiTable8x8(0 to ..., 0 to 7) as const ubyte
+extern GifAsciiTable8x8(0 to 128 - 1, 0 to 7) as const ubyte
 declare sub GifDrawText8x8(byval Image as SavedImage ptr, byval x as const long, byval y as const long, byval legend as const zstring ptr, byval color as const long)
 declare sub GifDrawBox(byval Image as SavedImage ptr, byval x as const long, byval y as const long, byval w as const long, byval d as const long, byval color as const long)
 declare sub GifDrawRectangle(byval Image as SavedImage ptr, byval x as const long, byval y as const long, byval w as const long, byval d as const long, byval color as const long)

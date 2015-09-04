@@ -189,7 +189,7 @@ declare function MakeSavedImage(byval GifFile as GifFileType ptr, byval CopyFrom
 declare sub FreeSavedImages(byval GifFile as GifFileType ptr)
 const GIF_FONT_WIDTH = 8
 const GIF_FONT_HEIGHT = 8
-extern AsciiTable(0 to ..., 0 to 7) as const ubyte
+extern AsciiTable(0 to 128 - 1, 0 to 7) as const ubyte
 
 #ifdef __FB_WIN32__
 	declare sub DrawGifText(byval Image as SavedImage ptr, byval x as const long, byval y as const long, byval legend as const zstring ptr, byval color as const long)
