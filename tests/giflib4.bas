@@ -1,1 +1,1 @@
-#include "giflib4.bi"
+#include "gif_lib4.bi"
