@@ -6,7 +6,7 @@ ALL += caca cairo cd cgiutil cgui chipmunk clang crt cryptlib cunit curl
 ALL += devil disphelper
 ALL += expat
 ALL += fastcgi ffi flite fontconfig freeglut freeimage freetype
-ALL += gd gdkpixbuf glib glfw glut gtk gtk2 gtk3 gtkglext
+ALL += gd gdbm gdkpixbuf glib glfw glut gtk gtk2 gtk3 gtkglext
 ALL += iconv iup
 ALL += jit
 ALL += llvm lua
@@ -1020,6 +1020,12 @@ gd: tools
 		-o inc/gd.bi \
 		-title $(GD) gd.tmp fbteam.txt
 	rm *.tmp
+
+GDBM := gdbm-1.11
+gdbm: tools
+	./get.sh $(GDBM) $(GDBM).tar.gz ftp://ftp.gnu.org/gnu/gdbm/$(GDBM).tar.gz
+
+	$(FBFROG) gdbm.fbfrog extracted/$(GDBM)/src/gdbm.h -o inc/gdbm.bi
 
 GDKPIXBUF_SERIES := 2.30
 GDKPIXBUF := gdk-pixbuf-$(GDKPIXBUF_SERIES).8
