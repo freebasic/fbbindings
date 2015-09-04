@@ -24,6 +24,7 @@
 
 #pragma once
 
+#include once "crt/long.bi"
 #include once "crt/stdio.bi"
 #include once "gdsl_types.bi"
 #include once "gdsl_macros.bi"
@@ -47,8 +48,8 @@ declare function _gdsl_bintree_get_left(byval T as const _gdsl_bintree_t) as _gd
 declare function _gdsl_bintree_get_right(byval T as const _gdsl_bintree_t) as _gdsl_bintree_t
 declare function _gdsl_bintree_get_left_ref(byval T as const _gdsl_bintree_t) as _gdsl_bintree_t ptr
 declare function _gdsl_bintree_get_right_ref(byval T as const _gdsl_bintree_t) as _gdsl_bintree_t ptr
-declare function _gdsl_bintree_get_height(byval T as const _gdsl_bintree_t) as ulong
-declare function _gdsl_bintree_get_size(byval T as const _gdsl_bintree_t) as ulong
+declare function _gdsl_bintree_get_height(byval T as const _gdsl_bintree_t) as culong
+declare function _gdsl_bintree_get_size(byval T as const _gdsl_bintree_t) as culong
 declare sub _gdsl_bintree_set_content(byval T as _gdsl_bintree_t, byval E as const gdsl_element_t)
 declare sub _gdsl_bintree_set_parent(byval T as _gdsl_bintree_t, byval P as const _gdsl_bintree_t)
 declare sub _gdsl_bintree_set_left(byval T as _gdsl_bintree_t, byval L as const _gdsl_bintree_t)

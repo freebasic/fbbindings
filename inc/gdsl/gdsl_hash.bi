@@ -24,6 +24,7 @@
 
 #pragma once
 
+#include once "crt/long.bi"
 #include once "crt/stdio.bi"
 #include once "gdsl_types.bi"
 
@@ -32,9 +33,9 @@ extern "C"
 #define _GDSL_HASH_H_
 type gdsl_hash_t as hash_table ptr
 type gdsl_key_func_t as function(byval VALUE as any ptr) as const zstring ptr
-type gdsl_hash_func_t as function(byval KEY as const zstring ptr) as ulong
+type gdsl_hash_func_t as function(byval KEY as const zstring ptr) as culong
 
-declare function gdsl_hash(byval KEY as const zstring ptr) as ulong
+declare function gdsl_hash(byval KEY as const zstring ptr) as culong
 declare function gdsl_hash_alloc(byval NAME as const zstring ptr, byval ALLOC_F as gdsl_alloc_func_t, byval FREE_F as gdsl_free_func_t, byval KEY_F as gdsl_key_func_t, byval HASH_F as gdsl_hash_func_t, byval INITIAL_ENTRIES_NB as ushort) as gdsl_hash_t
 declare sub gdsl_hash_free(byval H as gdsl_hash_t)
 declare sub gdsl_hash_flush(byval H as gdsl_hash_t)
@@ -42,7 +43,7 @@ declare function gdsl_hash_get_name(byval H as const gdsl_hash_t) as const zstri
 declare function gdsl_hash_get_entries_number(byval H as const gdsl_hash_t) as ushort
 declare function gdsl_hash_get_lists_max_size(byval H as const gdsl_hash_t) as ushort
 declare function gdsl_hash_get_longest_list_size(byval H as const gdsl_hash_t) as ushort
-declare function gdsl_hash_get_size(byval H as const gdsl_hash_t) as ulong
+declare function gdsl_hash_get_size(byval H as const gdsl_hash_t) as culong
 declare function gdsl_hash_get_fill_factor(byval H as const gdsl_hash_t) as double
 declare function gdsl_hash_set_name(byval H as gdsl_hash_t, byval NEW_NAME as const zstring ptr) as gdsl_hash_t
 declare function gdsl_hash_insert(byval H as gdsl_hash_t, byval VALUE as any ptr) as gdsl_element_t

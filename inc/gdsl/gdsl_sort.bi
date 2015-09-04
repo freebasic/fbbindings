@@ -24,9 +24,11 @@
 
 #pragma once
 
+#include once "crt/long.bi"
+
 extern "C"
 
 #define _GDSL_SORT_H_
-declare sub gdsl_sort(byval T as gdsl_element_t ptr, byval N as ulong, byval COMP_F as const gdsl_compare_func_t)
+declare sub gdsl_sort(byval T as gdsl_element_t ptr, byval N as culong, byval COMP_F as const gdsl_compare_func_t)
 
 end extern

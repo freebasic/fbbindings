@@ -24,6 +24,7 @@
 
 #pragma once
 
+#include once "crt/long.bi"
 #include once "crt/stdio.bi"
 #include once "gdsl_types.bi"
 
@@ -35,17 +36,17 @@ declare function gdsl_stack_alloc(byval NAME as const zstring ptr, byval ALLOC_F
 declare sub gdsl_stack_free(byval S as gdsl_stack_t)
 declare sub gdsl_stack_flush(byval S as gdsl_stack_t)
 declare function gdsl_stack_get_name(byval S as const gdsl_stack_t) as const zstring ptr
-declare function gdsl_stack_get_size(byval S as const gdsl_stack_t) as ulong
-declare function gdsl_stack_get_growing_factor(byval S as const gdsl_stack_t) as ulong
+declare function gdsl_stack_get_size(byval S as const gdsl_stack_t) as culong
+declare function gdsl_stack_get_growing_factor(byval S as const gdsl_stack_t) as culong
 declare function gdsl_stack_is_empty(byval S as const gdsl_stack_t) as bool
 declare function gdsl_stack_get_top(byval S as const gdsl_stack_t) as gdsl_element_t
 declare function gdsl_stack_get_bottom(byval S as const gdsl_stack_t) as gdsl_element_t
 declare function gdsl_stack_set_name(byval S as gdsl_stack_t, byval NEW_NAME as const zstring ptr) as gdsl_stack_t
-declare sub gdsl_stack_set_growing_factor(byval S as gdsl_stack_t, byval G as ulong)
+declare sub gdsl_stack_set_growing_factor(byval S as gdsl_stack_t, byval G as culong)
 declare function gdsl_stack_insert(byval S as gdsl_stack_t, byval VALUE as any ptr) as gdsl_element_t
 declare function gdsl_stack_remove(byval S as gdsl_stack_t) as gdsl_element_t
 declare function gdsl_stack_search(byval S as const gdsl_stack_t, byval COMP_F as gdsl_compare_func_t, byval VALUE as any ptr) as gdsl_element_t
-declare function gdsl_stack_search_by_position(byval S as const gdsl_stack_t, byval POS as ulong) as gdsl_element_t
+declare function gdsl_stack_search_by_position(byval S as const gdsl_stack_t, byval POS as culong) as gdsl_element_t
 declare function gdsl_stack_map_forward(byval S as const gdsl_stack_t, byval MAP_F as gdsl_map_func_t, byval USER_DATA as any ptr) as gdsl_element_t
 declare function gdsl_stack_map_backward(byval S as const gdsl_stack_t, byval MAP_F as gdsl_map_func_t, byval USER_DATA as any ptr) as gdsl_element_t
 declare sub gdsl_stack_write(byval S as const gdsl_stack_t, byval WRITE_F as gdsl_write_func_t, byval OUTPUT_FILE as FILE ptr, byval USER_DATA as any ptr)

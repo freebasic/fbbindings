@@ -24,6 +24,7 @@
 
 #pragma once
 
+#include once "crt/long.bi"
 #include once "gdsl_types.bi"
 #include once "_gdsl_bintree.bi"
 #include once "gdsl_macros.bi"
@@ -38,8 +39,8 @@ declare sub gdsl_rbtree_flush(byval T as gdsl_rbtree_t)
 declare function gdsl_rbtree_get_name(byval T as const gdsl_rbtree_t) as zstring ptr
 declare function gdsl_rbtree_is_empty(byval T as const gdsl_rbtree_t) as bool
 declare function gdsl_rbtree_get_root(byval T as const gdsl_rbtree_t) as gdsl_element_t
-declare function gdsl_rbtree_get_size(byval T as const gdsl_rbtree_t) as ulong
-declare function gdsl_rbtree_height(byval T as const gdsl_rbtree_t) as ulong
+declare function gdsl_rbtree_get_size(byval T as const gdsl_rbtree_t) as culong
+declare function gdsl_rbtree_height(byval T as const gdsl_rbtree_t) as culong
 declare function gdsl_rbtree_set_name(byval T as gdsl_rbtree_t, byval NEW_NAME as const zstring ptr) as gdsl_rbtree_t
 declare function gdsl_rbtree_insert(byval T as gdsl_rbtree_t, byval VALUE as any ptr, byval RESULT as long ptr) as gdsl_element_t
 declare function gdsl_rbtree_remove(byval T as gdsl_rbtree_t, byval VALUE as any ptr) as gdsl_element_t

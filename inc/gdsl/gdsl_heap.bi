@@ -24,6 +24,7 @@
 
 #pragma once
 
+#include once "crt/long.bi"
 #include once "crt/stdio.bi"
 #include once "gdsl_types.bi"
 
@@ -35,7 +36,7 @@ declare function gdsl_heap_alloc(byval NAME as const zstring ptr, byval ALLOC_F 
 declare sub gdsl_heap_free(byval H as gdsl_heap_t)
 declare sub gdsl_heap_flush(byval H as gdsl_heap_t)
 declare function gdsl_heap_get_name(byval H as const gdsl_heap_t) as const zstring ptr
-declare function gdsl_heap_get_size(byval H as const gdsl_heap_t) as ulong
+declare function gdsl_heap_get_size(byval H as const gdsl_heap_t) as culong
 declare function gdsl_heap_get_top(byval H as const gdsl_heap_t) as gdsl_element_t
 declare function gdsl_heap_is_empty(byval H as const gdsl_heap_t) as bool
 declare function gdsl_heap_set_name(byval H as gdsl_heap_t, byval NEW_NAME as const zstring ptr) as gdsl_heap_t

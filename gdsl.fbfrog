@@ -1,0 +1,4 @@
+-inclib gdsl inc/gdsl/gdsl.bi
+
+-expand ulong
+-remove ushort

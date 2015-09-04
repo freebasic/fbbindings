@@ -65,8 +65,6 @@ type gdsl_copy_func_t as function(byval E as const gdsl_element_t) as gdsl_eleme
 type gdsl_map_func_t as function(byval E as const gdsl_element_t, byval LOCATION as gdsl_location_t, byval USER_DATA as any ptr) as long
 type gdsl_compare_func_t as function(byval E as const gdsl_element_t, byval VALUE as any ptr) as clong
 type gdsl_write_func_t as sub(byval E as const gdsl_element_t, byval OUTPUT_FILE as FILE ptr, byval LOCATION as gdsl_location_t, byval USER_DATA as any ptr)
-type ulong as culong
-type ushort as ushort
 
 type bool as long
 enum

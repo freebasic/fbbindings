@@ -25,6 +25,7 @@
 #pragma once
 
 #inclib "gdsl"
+#inclib "gdsl"
 
 #include once "gdsl/gdsl_types.bi"
 #include once "gdsl/gdsl_macros.bi"

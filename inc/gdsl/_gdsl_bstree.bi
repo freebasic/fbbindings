@@ -24,6 +24,7 @@
 
 #pragma once
 
+#include once "crt/long.bi"
 #include once "_gdsl_bintree.bi"
 #include once "gdsl_macros.bi"
 #include once "gdsl_types.bi"
@@ -45,8 +46,8 @@ declare function _gdsl_bstree_is_root(byval T as const _gdsl_bstree_t) as bool
 declare function _gdsl_bstree_get_parent(byval T as const _gdsl_bstree_t) as _gdsl_bstree_t
 declare function _gdsl_bstree_get_left(byval T as const _gdsl_bstree_t) as _gdsl_bstree_t
 declare function _gdsl_bstree_get_right(byval T as const _gdsl_bstree_t) as _gdsl_bstree_t
-declare function _gdsl_bstree_get_size(byval T as const _gdsl_bstree_t) as ulong
-declare function _gdsl_bstree_get_height(byval T as const _gdsl_bstree_t) as ulong
+declare function _gdsl_bstree_get_size(byval T as const _gdsl_bstree_t) as culong
+declare function _gdsl_bstree_get_height(byval T as const _gdsl_bstree_t) as culong
 declare function _gdsl_bstree_insert(byval T as _gdsl_bstree_t ptr, byval COMP_F as const gdsl_compare_func_t, byval VALUE as const gdsl_element_t, byval RESULT as long ptr) as _gdsl_bstree_t
 declare function _gdsl_bstree_remove(byval T as _gdsl_bstree_t ptr, byval COMP_F as const gdsl_compare_func_t, byval VALUE as const gdsl_element_t) as gdsl_element_t
 declare function _gdsl_bstree_search(byval T as const _gdsl_bstree_t, byval COMP_F as const gdsl_compare_func_t, byval VALUE as const gdsl_element_t) as _gdsl_bstree_t
