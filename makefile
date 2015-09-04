@@ -1,11 +1,11 @@
-FBFROG_VERSION := d83bdd0054599d7d532d4984e38894d435dfea19
+FBFROG_VERSION := ae309b6f76e19305edaaff68003c979e8006c6c9
 
 ALL := allegro allegro4 allegro5 aspell atk
 ALL += bass bassmod bfd bzip2
 ALL += caca cairo cd cgiutil cgui chipmunk clang crt cryptlib cunit curl
 ALL += devil disphelper
 ALL += expat
-ALL += fastcgi ffi flite fontconfig freeglut freetype
+ALL += fastcgi ffi flite fontconfig freeglut freeimage freetype
 ALL += gdkpixbuf glib glfw glut gtk gtk2 gtk3 gtkglext
 ALL += iconv iup
 ALL += jit
@@ -901,6 +901,22 @@ freeglut: tools
 		-title $(FREEGLUT) freeglut.tmp     fbteam.txt inc/GL/freeglut.bi \
 		-title $(FREEGLUT) freeglut_ext.tmp fbteam.txt inc/GL/freeglut_ext.bi \
 		-title $(FREEGLUT) freeglut_std.tmp fbteam.txt inc/GL/freeglut_std.bi
+
+	rm *.tmp
+
+
+FREEIMAGE := FreeImage3170
+freeimage: tools
+	./get.sh FreeImage3170 FreeImage3170.zip http://downloads.sourceforge.net/freeimage/FreeImage3170.zip createdir
+
+	# need to fix up an é from some codepage encoding to Unicode/UTF8
+	$(GETCOMMENT) -2-23 extracted/$(FREEIMAGE)/FreeImage/Source/FreeImage.h | \
+		sed -e 's/\xE9/\xC3\xA9/g' > freeimage.tmp
+
+	$(FBFROG) freeimage.fbfrog \
+		extracted/$(FREEIMAGE)/FreeImage/Source/FreeImage.h \
+		-o inc/FreeImage.bi \
+		-title $(FREEIMAGE) freeimage.tmp fbteam.txt
 
 	rm *.tmp
 
