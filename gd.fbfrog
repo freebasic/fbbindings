@@ -3,8 +3,17 @@
 	-ifdef NONDLL
 		-define BGDWIN32 1
 		-define NONDLL 1
+		-inclib bgd-static
+	-else
+		-inclib bgd
 	-endif
+-else
+	-inclib gd
 -endif
+
+-inclib jpeg
+-inclib png
+-inclib z
 
 -removedefine BGD_STDCALL
 -removedefine BGD_EXPORT_DATA_PROT
