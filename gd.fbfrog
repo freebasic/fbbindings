@@ -20,3 +20,5 @@
 # Fix name conflicts with CRT as in fbc's old headers
 -renameproc Putword gd_Putword
 -renameproc Putchar gd_Putchar
+
+-rename_ gd_error
