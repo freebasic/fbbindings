@@ -6,6 +6,9 @@
 #include once "crt/stddef.bi"
 #include once "crt/stdio.bi"
 
+'' The following symbols have been renamed:
+''     #define MPZ_ROINIT_N => MPZ_ROINIT_N_
+
 extern "C"
 
 const __GMP_HAVE_HOST_CPU_FAMILY_power = 0
@@ -490,7 +493,7 @@ declare sub __gmpz_limbs_finish(byval as mpz_ptr, byval as mp_size_t)
 declare sub mpz_limbs_finish alias "__gmpz_limbs_finish"(byval as mpz_ptr, byval as mp_size_t)
 declare function __gmpz_roinit_n(byval as mpz_ptr, byval as mp_srcptr, byval as mp_size_t) as mpz_srcptr
 declare function mpz_roinit_n alias "__gmpz_roinit_n"(byval as mpz_ptr, byval as mp_srcptr, byval as mp_size_t) as mpz_srcptr
-#define MPZ_ROINIT_N(xp, xs) ((0, (xs), (xp)))
+#define MPZ_ROINIT_N_(xp, xs) ((0, (xs), (xp)))
 declare sub __gmpq_abs(byval as mpq_ptr, byval as mpq_srcptr)
 declare sub mpq_abs alias "__gmpq_abs"(byval as mpq_ptr, byval as mpq_srcptr)
 declare sub __gmpq_add(byval as mpq_ptr, byval as mpq_srcptr, byval as mpq_srcptr)

@@ -37,6 +37,8 @@
 -remove2nd __gmpn_sub_1
 -remove2nd __gmpn_neg
 
+-rename_ MPZ_ROINIT_N
+
 -expandindefine __MPN
 -expandindefine __GMP_CAST
  
