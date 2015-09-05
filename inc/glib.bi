@@ -80,6 +80,7 @@
 ''         procedure g_file_open_tmp => g_file_open_tmp_
 ''         procedure g_get_current_dir => g_get_current_dir_
 ''     #endif
+''     procedure g_steal_pointer => g_steal_pointer_
 ''     procedure g_source_remove => g_source_remove_
 ''     #ifdef __FB_WIN32__
 ''         procedure g_io_channel_new_file => g_io_channel_new_file_
@@ -1303,7 +1304,7 @@ declare function g_try_malloc_n(byval n_blocks as gsize, byval n_block_bytes as 
 declare function g_try_malloc0_n(byval n_blocks as gsize, byval n_block_bytes as gsize) as gpointer
 declare function g_try_realloc_n(byval mem as gpointer, byval n_blocks as gsize, byval n_block_bytes as gsize) as gpointer
 
-private function g_steal_pointer(byval pp as gpointer) as gpointer
+private function g_steal_pointer_ alias "g_steal_pointer"(byval pp as gpointer) as gpointer
 	dim ptr_ as gpointer ptr = cptr(gpointer ptr, pp)
 	dim ref as gpointer
 	ref = *ptr_
@@ -1311,7 +1312,7 @@ private function g_steal_pointer(byval pp as gpointer) as gpointer
 	return ref
 end function
 
-#define g_steal_pointer(pp) iif(0, *(pp), g_steal_pointer(pp))
+#define g_steal_pointer(pp) iif(0, *(pp), g_steal_pointer_(pp))
 #define _G_NEW(struct_type, n_structs, func) cptr(struct_type ptr, g_##func##_n((n_structs), sizeof(struct_type)))
 #define _G_RENEW(struct_type, mem, n_structs, func) cptr(struct_type ptr, g_##func##_n(mem, (n_structs), sizeof(struct_type)))
 #define g_new(struct_type, n_structs) _G_NEW(struct_type, n_structs, malloc)

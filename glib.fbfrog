@@ -189,3 +189,5 @@
 -noexpand G_TYPE_CHECK_INSTANCE_TYPE
 
 -rename_ ptr
+-renameproc g_set_object g_set_object_
+-renameproc g_steal_pointer g_steal_pointer_
