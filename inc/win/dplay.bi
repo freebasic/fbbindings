@@ -34,6 +34,14 @@
 #endif
 
 #define __WINE_DPLAY_H
+type LPRGLPVOID as LPVOID ptr
+type PRGPVOID as LPRGLPVOID
+type LPRGPVOID as LPRGLPVOID
+type PRGLPVOID as LPRGLPVOID
+type PAPVOID as LPRGLPVOID
+type LPAPVOID as LPRGLPVOID
+type PALPVOID as LPRGLPVOID
+type LPALPVOID as LPRGLPVOID
 type LPVOIDV as any ptr
 extern CLSID_DirectPlay as const GUID
 extern IID_IDirectPlay as const GUID
@@ -53,6 +61,7 @@ type LPDIRECTPLAY4 as IDirectPlay4 ptr
 extern IID_IDirectPlay4A as const GUID
 type IDirectPlay4A as IDirectPlay4
 type LPDIRECTPLAY4A as IDirectPlay4 ptr
+
 extern DPSPGUID_IPX as const GUID
 extern DPSPGUID_TCPIP as const GUID
 extern DPSPGUID_SERIAL as const GUID

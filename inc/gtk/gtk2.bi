@@ -11569,7 +11569,7 @@ type _GtkCurve
 	num_points as gint
 	point as GdkPoint ptr
 	num_ctlpoints as gint
-	ctlpoint(0 to 1) as gfloat ptr
+	ctlpoint as gfloat ptr
 end type
 
 type _GtkCurveClass
