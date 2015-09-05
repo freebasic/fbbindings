@@ -8,7 +8,7 @@ ALL += expat
 ALL += fastcgi ffi flite fontconfig freeglut freeimage freetype
 ALL += gd gdbm gdkpixbuf gdsl glib glfw glut gmp grx gsl gtk gtk2 gtk3 gtkglext
 ALL += iconv im iup
-ALL += jit
+ALL += jit jpeglib
 ALL += llvm lua
 ALL += ncurses
 ALL += openal opengl opengl-mesa opengl-winapi
@@ -1613,6 +1613,37 @@ jit: tools
 		-caseelse    -incdir extracted/$(JIT_TITLE)/include/jit/arm    \
 		-endselect                                                     \
 		-title $(JIT_TITLE) jit.tmp fbteam.txt
+
+	rm *.tmp
+
+JPEGLIB_CONF := HAVE_UNSIGNED_CHAR HAVE_UNSIGNED_SHORT HAVE_PROTOTYPES HAVE_NORETURN_T
+jpeglib: tools
+	./get.sh jpeg-6b jpegsrc.v6b.tar.gz http://ijg.org/files/jpegsrc.v6b.tar.gz
+	./get.sh jpeg-7  jpegsrc.v7.tar.gz  http://ijg.org/files/jpegsrc.v7.tar.gz
+	./get.sh jpeg-8d jpegsrc.v8d.tar.gz http://ijg.org/files/jpegsrc.v8d.tar.gz
+	./get.sh jpeg-9a jpegsrc.v9a.tar.gz http://ijg.org/files/jpegsrc.v9a.tar.gz
+
+	# Generally jconfig.h doesn't do anything interesting besides defining
+	# some HAVE_* symbols (which we could do manually via jpeglib.fbfrog),
+	# but in version 9 it actually gives a special boolean typedef that
+	# matters for the library's ABI, so at least because of that it's a good
+	# idea to actually use a more-or-less proper jconfig.h.
+	cd extracted/jpeg-6b && ../../fake-configure $(JPEGLIB_CONF) < jconfig.cfg > jconfig.h
+	cd extracted/jpeg-7  && ../../fake-configure $(JPEGLIB_CONF) < jconfig.cfg > jconfig.h
+	cd extracted/jpeg-8d && ../../fake-configure $(JPEGLIB_CONF) < jconfig.cfg > jconfig.h
+	cd extracted/jpeg-9a && ../../fake-configure $(JPEGLIB_CONF) < jconfig.cfg > jconfig.h
+
+	sed -n 102,146p extracted/jpeg-9a/README > jpeglib.tmp
+
+	$(FBFROG) jpeglib.fbfrog \
+		-declareversions __JPEGLIB_VER__ 6 7 8 9 \
+		-selectversion \
+		-case 6 extracted/jpeg-6b/jpeglib.h \
+		-case 7 extracted/jpeg-7/jpeglib.h \
+		-case 8 extracted/jpeg-8d/jpeglib.h \
+		-case 9 extracted/jpeg-9a/jpeglib.h \
+		-endselect \
+		 -o inc/jpeglib.bi -title "jpeglib 6b, 7, 8, 9a" jpeglib.tmp fbteam.txt
 
 	rm *.tmp
 
