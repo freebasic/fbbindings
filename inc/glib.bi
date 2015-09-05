@@ -1304,10 +1304,10 @@ declare function g_try_malloc0_n(byval n_blocks as gsize, byval n_block_bytes as
 declare function g_try_realloc_n(byval mem as gpointer, byval n_blocks as gsize, byval n_block_bytes as gsize) as gpointer
 
 private function g_steal_pointer(byval pp as gpointer) as gpointer
-	dim ptr as gpointer ptr = cptr(gpointer ptr, pp)
+	dim ptr_ as gpointer ptr = cptr(gpointer ptr, pp)
 	dim ref as gpointer
-	ref = *ptr
-	(*ptr) = cptr(any ptr, 0)
+	ref = *ptr_
+	(*ptr_) = cptr(any ptr, 0)
 	return ref
 end function
 
