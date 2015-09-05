@@ -29,36 +29,36 @@
 extern "C"
 
 #define __GSL_STATISTICS_CHAR_H__
-declare function gsl_stats_char_mean(byval data as const zstring ptr, byval stride as const uinteger, byval n as const uinteger) as double
-declare function gsl_stats_char_variance(byval data as const zstring ptr, byval stride as const uinteger, byval n as const uinteger) as double
-declare function gsl_stats_char_sd(byval data as const zstring ptr, byval stride as const uinteger, byval n as const uinteger) as double
-declare function gsl_stats_char_variance_with_fixed_mean(byval data as const zstring ptr, byval stride as const uinteger, byval n as const uinteger, byval mean as const double) as double
-declare function gsl_stats_char_sd_with_fixed_mean(byval data as const zstring ptr, byval stride as const uinteger, byval n as const uinteger, byval mean as const double) as double
-declare function gsl_stats_char_tss(byval data as const zstring ptr, byval stride as const uinteger, byval n as const uinteger) as double
-declare function gsl_stats_char_tss_m(byval data as const zstring ptr, byval stride as const uinteger, byval n as const uinteger, byval mean as const double) as double
-declare function gsl_stats_char_absdev(byval data as const zstring ptr, byval stride as const uinteger, byval n as const uinteger) as double
-declare function gsl_stats_char_skew(byval data as const zstring ptr, byval stride as const uinteger, byval n as const uinteger) as double
-declare function gsl_stats_char_kurtosis(byval data as const zstring ptr, byval stride as const uinteger, byval n as const uinteger) as double
-declare function gsl_stats_char_lag1_autocorrelation(byval data as const zstring ptr, byval stride as const uinteger, byval n as const uinteger) as double
-declare function gsl_stats_char_covariance(byval data1 as const zstring ptr, byval stride1 as const uinteger, byval data2 as const zstring ptr, byval stride2 as const uinteger, byval n as const uinteger) as double
-declare function gsl_stats_char_correlation(byval data1 as const zstring ptr, byval stride1 as const uinteger, byval data2 as const zstring ptr, byval stride2 as const uinteger, byval n as const uinteger) as double
-declare function gsl_stats_char_spearman(byval data1 as const zstring ptr, byval stride1 as const uinteger, byval data2 as const zstring ptr, byval stride2 as const uinteger, byval n as const uinteger, byval work as double ptr) as double
-declare function gsl_stats_char_variance_m(byval data as const zstring ptr, byval stride as const uinteger, byval n as const uinteger, byval mean as const double) as double
-declare function gsl_stats_char_sd_m(byval data as const zstring ptr, byval stride as const uinteger, byval n as const uinteger, byval mean as const double) as double
-declare function gsl_stats_char_absdev_m(byval data as const zstring ptr, byval stride as const uinteger, byval n as const uinteger, byval mean as const double) as double
-declare function gsl_stats_char_skew_m_sd(byval data as const zstring ptr, byval stride as const uinteger, byval n as const uinteger, byval mean as const double, byval sd as const double) as double
-declare function gsl_stats_char_kurtosis_m_sd(byval data as const zstring ptr, byval stride as const uinteger, byval n as const uinteger, byval mean as const double, byval sd as const double) as double
-declare function gsl_stats_char_lag1_autocorrelation_m(byval data as const zstring ptr, byval stride as const uinteger, byval n as const uinteger, byval mean as const double) as double
-declare function gsl_stats_char_covariance_m(byval data1 as const zstring ptr, byval stride1 as const uinteger, byval data2 as const zstring ptr, byval stride2 as const uinteger, byval n as const uinteger, byval mean1 as const double, byval mean2 as const double) as double
-declare function gsl_stats_char_pvariance(byval data1 as const zstring ptr, byval stride1 as const uinteger, byval n1 as const uinteger, byval data2 as const zstring ptr, byval stride2 as const uinteger, byval n2 as const uinteger) as double
-declare function gsl_stats_char_ttest(byval data1 as const zstring ptr, byval stride1 as const uinteger, byval n1 as const uinteger, byval data2 as const zstring ptr, byval stride2 as const uinteger, byval n2 as const uinteger) as double
-declare function gsl_stats_char_max(byval data as const zstring ptr, byval stride as const uinteger, byval n as const uinteger) as byte
-declare function gsl_stats_char_min(byval data as const zstring ptr, byval stride as const uinteger, byval n as const uinteger) as byte
-declare sub gsl_stats_char_minmax(byval min as zstring ptr, byval max as zstring ptr, byval data as const zstring ptr, byval stride as const uinteger, byval n as const uinteger)
-declare function gsl_stats_char_max_index(byval data as const zstring ptr, byval stride as const uinteger, byval n as const uinteger) as uinteger
-declare function gsl_stats_char_min_index(byval data as const zstring ptr, byval stride as const uinteger, byval n as const uinteger) as uinteger
-declare sub gsl_stats_char_minmax_index(byval min_index as uinteger ptr, byval max_index as uinteger ptr, byval data as const zstring ptr, byval stride as const uinteger, byval n as const uinteger)
-declare function gsl_stats_char_median_from_sorted_data(byval sorted_data as const zstring ptr, byval stride as const uinteger, byval n as const uinteger) as double
-declare function gsl_stats_char_quantile_from_sorted_data(byval sorted_data as const zstring ptr, byval stride as const uinteger, byval n as const uinteger, byval f as const double) as double
+declare function gsl_stats_char_mean(byval data as const byte ptr, byval stride as const uinteger, byval n as const uinteger) as double
+declare function gsl_stats_char_variance(byval data as const byte ptr, byval stride as const uinteger, byval n as const uinteger) as double
+declare function gsl_stats_char_sd(byval data as const byte ptr, byval stride as const uinteger, byval n as const uinteger) as double
+declare function gsl_stats_char_variance_with_fixed_mean(byval data as const byte ptr, byval stride as const uinteger, byval n as const uinteger, byval mean as const double) as double
+declare function gsl_stats_char_sd_with_fixed_mean(byval data as const byte ptr, byval stride as const uinteger, byval n as const uinteger, byval mean as const double) as double
+declare function gsl_stats_char_tss(byval data as const byte ptr, byval stride as const uinteger, byval n as const uinteger) as double
+declare function gsl_stats_char_tss_m(byval data as const byte ptr, byval stride as const uinteger, byval n as const uinteger, byval mean as const double) as double
+declare function gsl_stats_char_absdev(byval data as const byte ptr, byval stride as const uinteger, byval n as const uinteger) as double
+declare function gsl_stats_char_skew(byval data as const byte ptr, byval stride as const uinteger, byval n as const uinteger) as double
+declare function gsl_stats_char_kurtosis(byval data as const byte ptr, byval stride as const uinteger, byval n as const uinteger) as double
+declare function gsl_stats_char_lag1_autocorrelation(byval data as const byte ptr, byval stride as const uinteger, byval n as const uinteger) as double
+declare function gsl_stats_char_covariance(byval data1 as const byte ptr, byval stride1 as const uinteger, byval data2 as const byte ptr, byval stride2 as const uinteger, byval n as const uinteger) as double
+declare function gsl_stats_char_correlation(byval data1 as const byte ptr, byval stride1 as const uinteger, byval data2 as const byte ptr, byval stride2 as const uinteger, byval n as const uinteger) as double
+declare function gsl_stats_char_spearman(byval data1 as const byte ptr, byval stride1 as const uinteger, byval data2 as const byte ptr, byval stride2 as const uinteger, byval n as const uinteger, byval work as double ptr) as double
+declare function gsl_stats_char_variance_m(byval data as const byte ptr, byval stride as const uinteger, byval n as const uinteger, byval mean as const double) as double
+declare function gsl_stats_char_sd_m(byval data as const byte ptr, byval stride as const uinteger, byval n as const uinteger, byval mean as const double) as double
+declare function gsl_stats_char_absdev_m(byval data as const byte ptr, byval stride as const uinteger, byval n as const uinteger, byval mean as const double) as double
+declare function gsl_stats_char_skew_m_sd(byval data as const byte ptr, byval stride as const uinteger, byval n as const uinteger, byval mean as const double, byval sd as const double) as double
+declare function gsl_stats_char_kurtosis_m_sd(byval data as const byte ptr, byval stride as const uinteger, byval n as const uinteger, byval mean as const double, byval sd as const double) as double
+declare function gsl_stats_char_lag1_autocorrelation_m(byval data as const byte ptr, byval stride as const uinteger, byval n as const uinteger, byval mean as const double) as double
+declare function gsl_stats_char_covariance_m(byval data1 as const byte ptr, byval stride1 as const uinteger, byval data2 as const byte ptr, byval stride2 as const uinteger, byval n as const uinteger, byval mean1 as const double, byval mean2 as const double) as double
+declare function gsl_stats_char_pvariance(byval data1 as const byte ptr, byval stride1 as const uinteger, byval n1 as const uinteger, byval data2 as const byte ptr, byval stride2 as const uinteger, byval n2 as const uinteger) as double
+declare function gsl_stats_char_ttest(byval data1 as const byte ptr, byval stride1 as const uinteger, byval n1 as const uinteger, byval data2 as const byte ptr, byval stride2 as const uinteger, byval n2 as const uinteger) as double
+declare function gsl_stats_char_max(byval data as const byte ptr, byval stride as const uinteger, byval n as const uinteger) as byte
+declare function gsl_stats_char_min(byval data as const byte ptr, byval stride as const uinteger, byval n as const uinteger) as byte
+declare sub gsl_stats_char_minmax(byval min as byte ptr, byval max as byte ptr, byval data as const byte ptr, byval stride as const uinteger, byval n as const uinteger)
+declare function gsl_stats_char_max_index(byval data as const byte ptr, byval stride as const uinteger, byval n as const uinteger) as uinteger
+declare function gsl_stats_char_min_index(byval data as const byte ptr, byval stride as const uinteger, byval n as const uinteger) as uinteger
+declare sub gsl_stats_char_minmax_index(byval min_index as uinteger ptr, byval max_index as uinteger ptr, byval data as const byte ptr, byval stride as const uinteger, byval n as const uinteger)
+declare function gsl_stats_char_median_from_sorted_data(byval sorted_data as const byte ptr, byval stride as const uinteger, byval n as const uinteger) as double
+declare function gsl_stats_char_quantile_from_sorted_data(byval sorted_data as const byte ptr, byval stride as const uinteger, byval n as const uinteger, byval f as const double) as double
 
 end extern

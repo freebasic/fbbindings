@@ -31,7 +31,7 @@
 extern "C"
 
 #define __GSL_PERMUTE_CHAR_H__
-declare function gsl_permute_char(byval p as const uinteger ptr, byval data as zstring ptr, byval stride as const uinteger, byval n as const uinteger) as long
-declare function gsl_permute_char_inverse(byval p as const uinteger ptr, byval data as zstring ptr, byval stride as const uinteger, byval n as const uinteger) as long
+declare function gsl_permute_char(byval p as const uinteger ptr, byval data as byte ptr, byval stride as const uinteger, byval n as const uinteger) as long
+declare function gsl_permute_char_inverse(byval p as const uinteger ptr, byval data as byte ptr, byval stride as const uinteger, byval n as const uinteger) as long
 
 end extern
