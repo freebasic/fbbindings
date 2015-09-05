@@ -80,7 +80,7 @@ enum
 	IM_ERR_COUNTER
 end enum
 
-type imFile_ as _imFile
+type imFile as _imFile
 declare function imFileOpen(byval file_name as const zstring ptr, byval error as long ptr) as imFile ptr
 declare function imFileOpenAs(byval file_name as const zstring ptr, byval format as const zstring ptr, byval error as long ptr) as imFile ptr
 declare function imFileNew(byval file_name as const zstring ptr, byval format as const zstring ptr, byval error as long ptr) as imFile ptr

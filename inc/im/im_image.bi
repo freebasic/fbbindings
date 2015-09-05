@@ -88,7 +88,6 @@ declare sub imImageSetBinary(byval image as imImage ptr)
 declare sub imImageSetGray(byval image as imImage ptr)
 declare sub imImageMakeBinary(byval image as imImage ptr)
 declare sub imImageMakeGray(byval image as imImage ptr)
-type imFile as imFile_
 declare function imFileLoadImage(byval ifile as imFile ptr, byval index as long, byval error as long ptr) as imImage ptr
 declare sub imFileLoadImageFrame(byval ifile as imFile ptr, byval index as long, byval image as imImage ptr, byval error as long ptr)
 declare function imFileLoadBitmap(byval ifile as imFile ptr, byval index as long, byval error as long ptr) as imImage ptr

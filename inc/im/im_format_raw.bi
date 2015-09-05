@@ -30,6 +30,7 @@
 extern "C"
 
 #define __IM_FORMAT_RAW_H
+type imFormat as imFormat_
 declare function imFormatInitRAW() as imFormat ptr
 declare sub imFormatFinishRAW()
 

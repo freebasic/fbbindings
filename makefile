@@ -1422,6 +1422,7 @@ im: tools
 
 	mkdir -p inc/im
 	$(FBFROG) im.fbfrog -incdir extracted/$(IM)/im/include \
+		-include im.h \
 		-include im_attrib_flat.h \
 		-include im_binfile.h \
 		-include im_capture.h \
@@ -1436,7 +1437,6 @@ im: tools
 		-include im_format_jp2.h \
 		-include im_format_raw.h \
 		-include im_format_wmv.h \
-		-include im.h \
 		-include im_image.h \
 		-include im_kernel.h \
 		-include im_lib.h \
