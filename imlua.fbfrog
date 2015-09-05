@@ -1,0 +1,2 @@
+-declarebool LUA_NOOBJECT -ifdef LUA_NOOBJECT -define LUA_NOOBJECT 1 -endif
+-declarebool LUA_TNONE -ifdef LUA_TNONE -define LUA_TNONE 1 -endif

@@ -7,7 +7,7 @@ ALL += devil disphelper
 ALL += expat
 ALL += fastcgi ffi flite fontconfig freeglut freeimage freetype
 ALL += gd gdbm gdkpixbuf gdsl glib glfw glut gmp grx gsl gtk gtk2 gtk3 gtkglext
-ALL += iconv iup
+ALL += iconv im iup
 ALL += jit
 ALL += llvm lua
 ALL += ncurses
@@ -1411,6 +1411,89 @@ iconv: tools
 		-title $(ICONV) iconv.tmp fbteam.txt
 
 	rm *.tmp
+
+IM_VERSION := 3.9.1
+IM := im-$(IM_VERSION)
+im: tools
+	./get.sh $(IM) $(IM)_Sources.tar.gz http://sourceforge.net/projects/imtoolkit/files/$(IM_VERSION)/Docs%20and%20Sources/$(IM)_Sources.tar.gz/download createdir
+	find extracted/$(IM)/im/ -type d -exec chmod +x '{}' ';'
+
+	# Headers with C++ classes/templates
+	# im_attrib.h
+	# im_color.h
+	# im_complex.h
+	# im_format.h
+	# im_math.h
+	# im_math_op.h
+	# im_plus.h
+
+	sed -n 108,127p extracted/$(IM)/im/include/im_lib.h > im.tmp
+
+	mkdir -p inc/im
+	$(FBFROG) im.fbfrog -incdir extracted/$(IM)/im/include \
+		-include im_attrib_flat.h \
+		-include im_binfile.h \
+		-include im_capture.h \
+		-include im_colorhsi.h \
+		-include im_convert.h \
+		-include im_counter.h \
+		-include im_dib.h \
+		-include im_file.h \
+		-include im_format_all.h \
+		-include im_format_avi.h \
+		-include im_format_ecw.h \
+		-include im_format_jp2.h \
+		-include im_format_raw.h \
+		-include im_format_wmv.h \
+		-include im.h \
+		-include im_image.h \
+		-include im_kernel.h \
+		-include im_lib.h \
+		-include imlua.h \
+		-include im_palette.h \
+		-include im_process_ana.h \
+		-include im_process_glo.h \
+		-include im_process.h \
+		-include im_process_loc.h \
+		-include im_process_pnt.h \
+		-include im_raw.h \
+		-include im_util.h \
+		-include old_im.h \
+		-emit '*/im_attrib_flat.h' inc/im/im_attrib_flat.bi \
+		-emit '*/im_binfile.h'     inc/im/im_binfile.bi \
+		-emit '*/im_capture.h'     inc/im/im_capture.bi \
+		-emit '*/im_colorhsi.h'    inc/im/im_colorhsi.bi \
+		-emit '*/im_convert.h'     inc/im/im_convert.bi \
+		-emit '*/im_counter.h'     inc/im/im_counter.bi \
+		-emit '*/im_dib.h'         inc/im/im_dib.bi \
+		-emit '*/im_file.h'        inc/im/im_file.bi \
+		-emit '*/im_format_all.h'  inc/im/im_format_all.bi \
+		-emit '*/im_format_avi.h'  inc/im/im_format_avi.bi \
+		-emit '*/im_format_ecw.h'  inc/im/im_format_ecw.bi \
+		-emit '*/im_format_jp2.h'  inc/im/im_format_jp2.bi \
+		-emit '*/im_format_raw.h'  inc/im/im_format_raw.bi \
+		-emit '*/im_format_wmv.h'  inc/im/im_format_wmv.bi \
+		-emit '*/im.h'             inc/im/im.bi \
+		-emit '*/im_image.h'       inc/im/im_image.bi \
+		-emit '*/im_kernel.h'      inc/im/im_kernel.bi \
+		-emit '*/im_lib.h'         inc/im/im_lib.bi \
+		-emit '*/imlua.h'          inc/im/imlua.bi \
+		-emit '*/im_palette.h'     inc/im/im_palette.bi \
+		-emit '*/im_process_ana.h' inc/im/im_process_ana.bi \
+		-emit '*/im_process_glo.h' inc/im/im_process_glo.bi \
+		-emit '*/im_process.h'     inc/im/im_process.bi \
+		-emit '*/im_process_loc.h' inc/im/im_process_loc.bi \
+		-emit '*/im_process_pnt.h' inc/im/im_process_pnt.bi \
+		-emit '*/im_raw.h'         inc/im/im_raw.bi \
+		-emit '*/im_util.h'        inc/im/im_util.bi \
+		-emit '*/old_im.h'         inc/im/old_im.bi \
+		-title $(IM) im.tmp fbteam.txt
+
+
+	$(FBFROG) imlua.fbfrog -incdir extracted/$(IM)/im/include \
+		-include imlua.h \
+		-emit '*/imlua.h' inc/im/imlua.bi \
+		-title $(IM) im.tmp fbteam.txt
 
 IUP_VERSION := 3.15
 IUP_TITLE := iup-$(IUP_VERSION)
