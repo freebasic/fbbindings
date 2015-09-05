@@ -30,7 +30,6 @@
 #inclib "im"
 
 #include once "crt/long.bi"
-#include once "old_im.bi"
 
 extern "C"
 
@@ -112,3 +111,5 @@ declare function imFormatCompressions(byval format as const zstring ptr, byval c
 declare function imFormatCanWriteImage(byval format as const zstring ptr, byval compression as const zstring ptr, byval color_mode as long, byval data_type as long) as long
 
 end extern
+
+#include once "old_im.bi"
