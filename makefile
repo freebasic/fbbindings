@@ -6,7 +6,7 @@ ALL += caca cairo cd cgiutil cgui chipmunk clang crt cryptlib cunit curl
 ALL += devil disphelper
 ALL += expat
 ALL += fastcgi ffi flite fontconfig freeglut freeimage freetype
-ALL += gd gdbm gdkpixbuf gdsl glib glfw glut gmp grx gtk gtk2 gtk3 gtkglext
+ALL += gd gdbm gdkpixbuf gdsl glib glfw glut gmp grx gsl gtk gtk2 gtk3 gtkglext
 ALL += iconv iup
 ALL += jit
 ALL += llvm lua
@@ -1248,6 +1248,17 @@ grx: tools
 		-title $(GRX_PRETTY) grxkeys.tmp fbteam.txt inc/grx/grxkeys.bi
 
 	rm *.tmp
+
+GSL := gsl-1.16
+gsl: tools
+	./get.sh $(GSL) $(GSL).tar.gz ftp://ftp.gnu.org/gnu/gsl/gsl-1.16.tar.gz
+	rm -f extracted/$(GSL)/gsl/*.h
+	cp extracted/$(GSL)/gsl*.h extracted/$(GSL)/*/gsl*.h extracted/$(GSL)/gsl
+	./gsl-gen-tmps.sh $(GSL)
+	./fsf-address-fix.sh extracted/$(GSL)/gsl/*.tmp
+	mkdir -p inc/gsl
+	$(FBFROG) gsl.fbfrog -incdir extracted/$(GSL) `./gsl-fbfrog-options.sh $(GSL)`
+	rm extracted/$(GSL)/gsl/*.tmp
 
 gtk: gtk2 gtk3
 

@@ -1,0 +1,68 @@
+convert c: #define GSL_MULTIMIN_FN_EVAL(F, x) (*((F)->f))(x, (F)->params)
+to c:      #define GSL_MULTIMIN_FN_EVAL(F_, x) ((F_)->f(x, (F_)->params))
+
+convert c: #define GSL_MULTIMIN_FN_EVAL_F(F, x) (*((F)->f))(x, (F)->params)
+to c:      #define GSL_MULTIMIN_FN_EVAL_F(F_, x) ((F_)->f(x, (F_)->params))
+
+convert c: #define GSL_MULTIMIN_FN_EVAL_DF(F, x, g) (*((F)->df))(x, (F)->params, (g))
+to c:      #define GSL_MULTIMIN_FN_EVAL_DF(F, x, g) ((F)->df(x, (F)->params, (g)))
+
+convert c: #define GSL_MULTIMIN_FN_EVAL_F_DF(F, x, y, g) (*((F)->fdf))(x, (F)->params, (y), (g))
+to c:      #define GSL_MULTIMIN_FN_EVAL_F_DF(F, x, y, g) ((F)->fdf(x, (F)->params, (y), (g)))
+
+convert c: #define GSL_ODEIV_FN_EVAL(S,t,y,f) (*((S)->function))(t,y,f,(S)->params)
+to c:      #define GSL_ODEIV_FN_EVAL(S,t,y,f) ((S)->function(t,y,f,(S)->params))
+
+convert c: #define GSL_ODEIV_JA_EVAL(S,t,y,dfdy,dfdt) (*((S)->jacobian))(t,y,dfdy,dfdt,(S)->params)
+to c:      #define GSL_ODEIV_JA_EVAL(S,t,y,dfdy,dfdt) ((S)->jacobian(t,y,dfdy,dfdt,(S)->params))
+
+convert c: #define GSL_FN_EVAL(F,x) (*((F)->function))(x,(F)->params)
+to c:      #define GSL_FN_EVAL(F,x) ((F)->function(x,(F)->params))
+
+convert c: #define GSL_FN_FDF_EVAL_F(FDF,x) (*((FDF)->f))(x,(FDF)->params)
+to c:      #define GSL_FN_FDF_EVAL_F(FDF,x) ((FDF)->f(x,(FDF)->params))
+
+convert c: #define GSL_FN_FDF_EVAL_DF(FDF,x) (*((FDF)->df))(x,(FDF)->params)
+to c:      #define GSL_FN_FDF_EVAL_DF(FDF,x) ((FDF)->df(x,(FDF)->params))
+
+convert c: #define GSL_FN_FDF_EVAL_F_DF(FDF,x,y,dy) (*((FDF)->fdf))(x,(FDF)->params,(y),(dy))
+to c:      #define GSL_FN_FDF_EVAL_F_DF(FDF_,x,y,dy) ((FDF_)->fdf(x,(FDF_)->params,(y),(dy)))
+
+convert c: #define GSL_MULTIFIT_FN_EVAL(F,x,y) (*((F)->f))(x,(F)->params,(y))
+to c:      #define GSL_MULTIFIT_FN_EVAL(F_,x,y) ((F_)->f(x,(F_)->params,(y)))
+
+convert c: #define GSL_MULTIFIT_FN_EVAL_F(F,x,y) ((*((F)->f))(x,(F)->params,(y)))
+to c:      #define GSL_MULTIFIT_FN_EVAL_F(F_,x,y) ((F_)->f(x,(F_)->params,(y)))
+
+convert c: #define GSL_MULTIFIT_FN_EVAL_DF(F,x,dy) ((*((F)->df))(x,(F)->params,(dy)))
+to c:      #define GSL_MULTIFIT_FN_EVAL_DF(F,x,dy) ((F)->df(x,(F)->params,(dy)))
+
+convert c: #define GSL_MULTIFIT_FN_EVAL_F_DF(F,x,y,dy) ((*((F)->fdf))(x,(F)->params,(y),(dy)))
+to c:      #define GSL_MULTIFIT_FN_EVAL_F_DF(F,x,y,dy) ((F)->fdf(x,(F)->params,(y),(dy)))
+
+convert c: #define GSL_STATUS_UPDATE(sp, s) do { if ((s) != GSL_SUCCESS) *(sp) = (s);} while(0)
+to fb:     #define GSL_STATUS_UPDATE(sp, s) scope : if (s) <> GSL_SUCCESS then : *(sp) = (s) : end if : end scope
+
+convert c: #define GSL_MULTIROOT_FN_EVAL(F,x,y) (*((F)->f))(x,(F)->params,(y))
+to c:      #define GSL_MULTIROOT_FN_EVAL(F_,x,y) ((F_)->f(x,(F_)->params,(y)))
+
+convert c: #define GSL_MULTIROOT_FN_EVAL_F(F,x,y) ((*((F)->f))(x,(F)->params,(y)))
+to c:      #define GSL_MULTIROOT_FN_EVAL_F(F_,x,y) ((F_)->f(x,(F_)->params,(y)))
+
+convert c: #define GSL_MULTIROOT_FN_EVAL_DF(F,x,dy) ((*((F)->df))(x,(F)->params,(dy)))
+to c:      #define GSL_MULTIROOT_FN_EVAL_DF(F,x,dy) ((F)->df(x,(F)->params,(dy)))
+
+convert c: #define GSL_MULTIROOT_FN_EVAL_F_DF(F,x,y,dy) ((*((F)->fdf))(x,(F)->params,(y),(dy)))
+to c:      #define GSL_MULTIROOT_FN_EVAL_F_DF(F,x,y,dy) ((F)->fdf(x,(F)->params,(y),(dy)))
+
+convert c: #define GSL_ODEIV_FN_EVAL(S,t,y,f) (*((S)->function))(t,y,f,(S)->params)
+to c:      #define GSL_ODEIV_FN_EVAL(S,t,y,f) ((S)->function(t,y,f,(S)->params))
+
+convert c: #define GSL_ODEIV_JA_EVAL(S,t,y,dfdy,dfdt) (*((S)->jacobian))(t,y,dfdy,dfdt,(S)->params)
+to c:      #define GSL_ODEIV_JA_EVAL(S,t,y,dfdy,dfdt) ((S)->jacobian(t,y,dfdy,dfdt,(S)->params))
+
+convert c: #define GSL_MONTE_FN_EVAL(F,x) (*((F)->f))(x,(F)->dim,(F)->params)
+to c:      #define GSL_MONTE_FN_EVAL(F_,x) ((F_)->f(x,(F_)->dim,(F_)->params))
+
+convert c: #define GSL_FN_VEC_EVAL(F,x,y) (*((F)->function))(x,y,(F)->params)
+to c:      #define GSL_FN_VEC_EVAL(F,x,y) ((F)->function(x,y,(F)->params))

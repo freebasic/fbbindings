@@ -1,0 +1,8 @@
+-define GSL_RANGE_CHECK_OFF 1
+
+-removedefine __BEGIN_DECLS
+-removedefine __END_DECLS
+-removedefine INLINE_DECL
+-removedefine GSL_VAR
+
+-replacements gsl.replacements
