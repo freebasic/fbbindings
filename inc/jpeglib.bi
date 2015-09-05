@@ -66,6 +66,7 @@
 #inclib "jpeg"
 
 #include once "crt/long.bi"
+#include once "crt/stdio.bi"
 
 '' The following symbols have been renamed:
 ''     typedef boolean => jpeg_boolean
@@ -259,6 +260,15 @@ type j_common_ptr as jpeg_common_struct ptr
 type j_compress_ptr as jpeg_compress_struct ptr
 type j_decompress_ptr as jpeg_decompress_struct ptr
 type jpeg_destination_mgr as jpeg_destination_mgr_
+type jpeg_comp_master as jpeg_comp_master_
+type jpeg_c_main_controller as jpeg_c_main_controller_
+type jpeg_c_prep_controller as jpeg_c_prep_controller_
+type jpeg_c_coef_controller as jpeg_c_coef_controller_
+type jpeg_marker_writer as jpeg_marker_writer_
+type jpeg_color_converter as jpeg_color_converter_
+type jpeg_downsampler as jpeg_downsampler_
+type jpeg_forward_dct as jpeg_forward_dct_
+type jpeg_entropy_encoder as jpeg_entropy_encoder_
 
 type jpeg_compress_struct
 	err as jpeg_error_mgr ptr
@@ -365,6 +375,17 @@ type jpeg_compress_struct
 end type
 
 type jpeg_source_mgr as jpeg_source_mgr_
+type jpeg_decomp_master as jpeg_decomp_master_
+type jpeg_d_main_controller as jpeg_d_main_controller_
+type jpeg_d_coef_controller as jpeg_d_coef_controller_
+type jpeg_d_post_controller as jpeg_d_post_controller_
+type jpeg_input_controller as jpeg_input_controller_
+type jpeg_marker_reader as jpeg_marker_reader_
+type jpeg_entropy_decoder as jpeg_entropy_decoder_
+type jpeg_inverse_dct as jpeg_inverse_dct_
+type jpeg_upsampler as jpeg_upsampler_
+type jpeg_color_deconverter as jpeg_color_deconverter_
+type jpeg_color_quantizer as jpeg_color_quantizer_
 
 type jpeg_decompress_struct
 	err as jpeg_error_mgr ptr
