@@ -24,4 +24,6 @@
 
 #pragma once
 
+#inclib "gsl"
+
 #define __GSL_TYPES_H__

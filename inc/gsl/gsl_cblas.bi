@@ -24,6 +24,8 @@
 
 #pragma once
 
+#inclib "gslcblas"
+
 #include once "crt/stddef.bi"
 
 extern "C"
