@@ -1,1 +1,3 @@
 -inclib im inc/im/im.bi
+-addforwarddecl imAttribTablePrivate
+-addforwarddecl imFormat

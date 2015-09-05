@@ -31,6 +31,7 @@ extern "C"
 
 #define __IM_ATTRIB_FLAT_H_
 type imAttribTableCallback as function(byval user_data as any ptr, byval index as long, byval name as const zstring ptr, byval data_type as long, byval count as long, byval data as const any ptr) as long
+type imAttribTablePrivate as imAttribTablePrivate_
 declare function imAttribTableCreate(byval hash_size as long) as imAttribTablePrivate ptr
 declare sub imAttribTableDestroy(byval ptable as imAttribTablePrivate ptr)
 declare function imAttribTableCount(byval ptable as imAttribTablePrivate ptr) as long
