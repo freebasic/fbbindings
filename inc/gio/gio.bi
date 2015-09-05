@@ -5629,9 +5629,9 @@ private sub glib_autoptr_cleanup_GListModel(byval _ptr as GListModel ptr ptr)
 	glib_autoptr_cleanup_GObject(cptr(GObject ptr ptr, _ptr))
 end sub
 
-#define G_LIST_MODEL(ptr) cptr(GListModel ptr, g_type_check_instance_cast_(cptr(GTypeInstance ptr, (ptr)), g_list_model_get_type()))
-#define G_IS_LIST_MODEL(ptr) cast(gboolean, G_TYPE_CHECK_INSTANCE_TYPE((ptr), g_list_model_get_type()))
-#define G_LIST_MODEL_GET_IFACE(ptr) cptr(GListModelInterface ptr, g_type_interface_peek(cptr(GTypeInstance ptr, (ptr))->g_class, g_list_model_get_type()))
+#define G_LIST_MODEL(ptr_) cptr(GListModel ptr, g_type_check_instance_cast_(cptr(GTypeInstance ptr, (ptr_)), g_list_model_get_type()))
+#define G_IS_LIST_MODEL(ptr_) cast(gboolean, G_TYPE_CHECK_INSTANCE_TYPE((ptr_), g_list_model_get_type()))
+#define G_LIST_MODEL_GET_IFACE(ptr_) cptr(GListModelInterface ptr, g_type_interface_peek(cptr(GTypeInstance ptr, (ptr_))->g_class, g_list_model_get_type()))
 
 type _GListModelInterface
 	g_iface as GTypeInterface
@@ -5660,8 +5660,8 @@ private sub glib_autoptr_cleanup_GListStore(byval _ptr as GListStore ptr ptr)
 	glib_autoptr_cleanup_GObject(cptr(GObject ptr ptr, _ptr))
 end sub
 
-#define G_LIST_STORE(ptr) cptr(GListStore ptr, g_type_check_instance_cast_(cptr(GTypeInstance ptr, (ptr)), g_list_store_get_type()))
-#define G_IS_LIST_STORE(ptr) cast(gboolean, G_TYPE_CHECK_INSTANCE_TYPE((ptr), g_list_store_get_type()))
+#define G_LIST_STORE(ptr_) cptr(GListStore ptr, g_type_check_instance_cast_(cptr(GTypeInstance ptr, (ptr_)), g_list_store_get_type()))
+#define G_IS_LIST_STORE(ptr_) cast(gboolean, G_TYPE_CHECK_INSTANCE_TYPE((ptr_), g_list_store_get_type()))
 declare function g_list_store_new(byval item_type as GType) as GListStore ptr
 declare sub g_list_store_insert(byval store as GListStore ptr, byval position as guint, byval item as gpointer)
 declare function g_list_store_insert_sorted(byval store as GListStore ptr, byval item as gpointer, byval compare_func as GCompareDataFunc, byval user_data as gpointer) as guint
