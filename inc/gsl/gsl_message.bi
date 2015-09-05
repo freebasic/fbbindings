@@ -26,11 +26,15 @@
 
 #include once "gsl/gsl_types.bi"
 
+'' The following symbols have been renamed:
+''     procedure gsl_message => gsl_message_
+''     constant GSL_MESSAGE_MASK => GSL_MESSAGE_MASK_
+
 extern "C"
 
 #define __GSL_MESSAGE_H__
-declare sub gsl_message(byval message as const zstring ptr, byval file as const zstring ptr, byval line as long, byval mask as ulong)
-const GSL_MESSAGE_MASK = &hffffffffu
+declare sub gsl_message_ alias "gsl_message"(byval message as const zstring ptr, byval file as const zstring ptr, byval line as long, byval mask as ulong)
+const GSL_MESSAGE_MASK_ = &hffffffffu
 extern gsl_message_mask as ulong
 
 enum
@@ -45,8 +49,8 @@ enum
 end enum
 
 #macro GSL_MESSAGE(message, mask)
-	if mask and GSL_MESSAGE_MASK then
-		gsl_message(message, __FILE__, __LINE__, mask)
+	if mask and GSL_MESSAGE_MASK_ then
+		gsl_message_(message, __FILE__, __LINE__, mask)
 	end if
 #endmacro
 

@@ -28,6 +28,9 @@
 #include once "crt/errno.bi"
 #include once "gsl/gsl_types.bi"
 
+'' The following symbols have been renamed:
+''     #define GSL_ERROR => GSL_ERROR_
+
 extern "C"
 
 #define __GSL_ERRNO_H__
@@ -78,7 +81,7 @@ declare function gsl_set_error_handler_off() as sub(byval reason as const zstrin
 declare function gsl_set_stream_handler(byval new_handler as sub(byval label as const zstring ptr, byval file as const zstring ptr, byval line as long, byval reason as const zstring ptr)) as sub(byval label as const zstring ptr, byval file as const zstring ptr, byval line as long, byval reason as const zstring ptr)
 declare function gsl_set_stream(byval new_stream as FILE ptr) as FILE ptr
 
-#macro GSL_ERROR(reason, gsl_errno)
+#macro GSL_ERROR_(reason, gsl_errno)
 	scope
 		gsl_error(reason, __FILE__, __LINE__, gsl_errno)
 		return gsl_errno

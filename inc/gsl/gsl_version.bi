@@ -23,10 +23,13 @@
 
 #include once "gsl/gsl_types.bi"
 
+'' The following symbols have been renamed:
+''     #define GSL_VERSION => GSL_VERSION_
+
 extern "C"
 
 #define __GSL_VERSION_H__
-#define GSL_VERSION "1.16"
+#define GSL_VERSION_ "1.16"
 const GSL_MAJOR_VERSION = 1
 const GSL_MINOR_VERSION = 16
 extern gsl_version as const zstring ptr

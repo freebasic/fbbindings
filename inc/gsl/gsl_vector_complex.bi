@@ -23,10 +23,13 @@
 
 #pragma once
 
+'' The following symbols have been renamed:
+''     #define GSL_VECTOR_COMPLEX => GSL_VECTOR_COMPLEX_
+
 #define __GSL_VECTOR_COMPLEX_H__
 #define GSL_VECTOR_REAL(z, i) (z)->data[((2 * (i)) * (z)->stride)]
 #define GSL_VECTOR_IMAG(z, i) (z)->data[(((2 * (i)) * (z)->stride) + 1)]
-#define GSL_VECTOR_COMPLEX(zv, i) (*GSL_COMPLEX_AT((zv), (i)))
+#define GSL_VECTOR_COMPLEX_(zv, i) (*GSL_COMPLEX_AT((zv), (i)))
 #define GSL_COMPLEX_AT(zv, i) cptr(gsl_complex ptr, @(zv)->data[((2 * (i)) * (zv)->stride)])
 #define GSL_COMPLEX_FLOAT_AT(zv, i) cptr(gsl_complex_float ptr, @(zv)->data[((2 * (i)) * (zv)->stride)])
 #define GSL_COMPLEX_LONG_DOUBLE_AT(zv, i) cptr(gsl_complex_long_double ptr, @(zv)->data[((2 * (i)) * (zv)->stride)])

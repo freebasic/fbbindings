@@ -31,11 +31,11 @@ extern "C"
 #define __GSL_PRECISION_H__
 type gsl_prec_t as ulong
 const _GSL_PREC_T_NUM = 3
-extern gsl_prec_eps(0 to ...) as const double
-extern gsl_prec_sqrt_eps(0 to ...) as const double
-extern gsl_prec_root3_eps(0 to ...) as const double
-extern gsl_prec_root4_eps(0 to ...) as const double
-extern gsl_prec_root5_eps(0 to ...) as const double
-extern gsl_prec_root6_eps(0 to ...) as const double
+extern gsl_prec_eps(0 to _GSL_PREC_T_NUM - 1) as const double
+extern gsl_prec_sqrt_eps(0 to _GSL_PREC_T_NUM - 1) as const double
+extern gsl_prec_root3_eps(0 to _GSL_PREC_T_NUM - 1) as const double
+extern gsl_prec_root4_eps(0 to _GSL_PREC_T_NUM - 1) as const double
+extern gsl_prec_root5_eps(0 to _GSL_PREC_T_NUM - 1) as const double
+extern gsl_prec_root6_eps(0 to _GSL_PREC_T_NUM - 1) as const double
 
 end extern

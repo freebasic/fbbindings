@@ -29,6 +29,24 @@
 #include once "gsl/gsl_precision.bi"
 #include once "gsl/gsl_sf_result.bi"
 
+'' The following symbols have been renamed:
+''     procedure gsl_sf_bessel_j0_e => gsl_sf_bessel_j0_e_
+''     procedure gsl_sf_bessel_j0 => gsl_sf_bessel_j0_
+''     procedure gsl_sf_bessel_j1_e => gsl_sf_bessel_j1_e_
+''     procedure gsl_sf_bessel_j1 => gsl_sf_bessel_j1_
+''     procedure gsl_sf_bessel_y0_e => gsl_sf_bessel_y0_e_
+''     procedure gsl_sf_bessel_y0 => gsl_sf_bessel_y0_
+''     procedure gsl_sf_bessel_y1_e => gsl_sf_bessel_y1_e_
+''     procedure gsl_sf_bessel_y1 => gsl_sf_bessel_y1_
+''     procedure gsl_sf_bessel_i0_scaled_e => gsl_sf_bessel_i0_scaled_e_
+''     procedure gsl_sf_bessel_i0_scaled => gsl_sf_bessel_i0_scaled_
+''     procedure gsl_sf_bessel_i1_scaled_e => gsl_sf_bessel_i1_scaled_e_
+''     procedure gsl_sf_bessel_i1_scaled => gsl_sf_bessel_i1_scaled_
+''     procedure gsl_sf_bessel_k0_scaled_e => gsl_sf_bessel_k0_scaled_e_
+''     procedure gsl_sf_bessel_k0_scaled => gsl_sf_bessel_k0_scaled_
+''     procedure gsl_sf_bessel_k1_scaled_e => gsl_sf_bessel_k1_scaled_e_
+''     procedure gsl_sf_bessel_k1_scaled => gsl_sf_bessel_k1_scaled_
+
 extern "C"
 
 #define __GSL_SF_BESSEL_H__
@@ -74,38 +92,38 @@ declare function gsl_sf_bessel_K1_scaled(byval x as const double) as double
 declare function gsl_sf_bessel_Kn_scaled_e(byval n as long, byval x as const double, byval result as gsl_sf_result ptr) as long
 declare function gsl_sf_bessel_Kn_scaled(byval n as const long, byval x as const double) as double
 declare function gsl_sf_bessel_Kn_scaled_array(byval nmin as const long, byval nmax as const long, byval x as const double, byval result_array as double ptr) as long
-declare function gsl_sf_bessel_j0_e(byval x as const double, byval result as gsl_sf_result ptr) as long
-declare function gsl_sf_bessel_j0(byval x as const double) as double
-declare function gsl_sf_bessel_j1_e(byval x as const double, byval result as gsl_sf_result ptr) as long
-declare function gsl_sf_bessel_j1(byval x as const double) as double
+declare function gsl_sf_bessel_j0_e_ alias "gsl_sf_bessel_j0_e"(byval x as const double, byval result as gsl_sf_result ptr) as long
+declare function gsl_sf_bessel_j0_ alias "gsl_sf_bessel_j0"(byval x as const double) as double
+declare function gsl_sf_bessel_j1_e_ alias "gsl_sf_bessel_j1_e"(byval x as const double, byval result as gsl_sf_result ptr) as long
+declare function gsl_sf_bessel_j1_ alias "gsl_sf_bessel_j1"(byval x as const double) as double
 declare function gsl_sf_bessel_j2_e(byval x as const double, byval result as gsl_sf_result ptr) as long
 declare function gsl_sf_bessel_j2(byval x as const double) as double
 declare function gsl_sf_bessel_jl_e(byval l as const long, byval x as const double, byval result as gsl_sf_result ptr) as long
 declare function gsl_sf_bessel_jl(byval l as const long, byval x as const double) as double
 declare function gsl_sf_bessel_jl_array(byval lmax as const long, byval x as const double, byval result_array as double ptr) as long
 declare function gsl_sf_bessel_jl_steed_array(byval lmax as const long, byval x as const double, byval jl_x_array as double ptr) as long
-declare function gsl_sf_bessel_y0_e(byval x as const double, byval result as gsl_sf_result ptr) as long
-declare function gsl_sf_bessel_y0(byval x as const double) as double
-declare function gsl_sf_bessel_y1_e(byval x as const double, byval result as gsl_sf_result ptr) as long
-declare function gsl_sf_bessel_y1(byval x as const double) as double
+declare function gsl_sf_bessel_y0_e_ alias "gsl_sf_bessel_y0_e"(byval x as const double, byval result as gsl_sf_result ptr) as long
+declare function gsl_sf_bessel_y0_ alias "gsl_sf_bessel_y0"(byval x as const double) as double
+declare function gsl_sf_bessel_y1_e_ alias "gsl_sf_bessel_y1_e"(byval x as const double, byval result as gsl_sf_result ptr) as long
+declare function gsl_sf_bessel_y1_ alias "gsl_sf_bessel_y1"(byval x as const double) as double
 declare function gsl_sf_bessel_y2_e(byval x as const double, byval result as gsl_sf_result ptr) as long
 declare function gsl_sf_bessel_y2(byval x as const double) as double
 declare function gsl_sf_bessel_yl_e(byval l as long, byval x as const double, byval result as gsl_sf_result ptr) as long
 declare function gsl_sf_bessel_yl(byval l as const long, byval x as const double) as double
 declare function gsl_sf_bessel_yl_array(byval lmax as const long, byval x as const double, byval result_array as double ptr) as long
-declare function gsl_sf_bessel_i0_scaled_e(byval x as const double, byval result as gsl_sf_result ptr) as long
-declare function gsl_sf_bessel_i0_scaled(byval x as const double) as double
-declare function gsl_sf_bessel_i1_scaled_e(byval x as const double, byval result as gsl_sf_result ptr) as long
-declare function gsl_sf_bessel_i1_scaled(byval x as const double) as double
+declare function gsl_sf_bessel_i0_scaled_e_ alias "gsl_sf_bessel_i0_scaled_e"(byval x as const double, byval result as gsl_sf_result ptr) as long
+declare function gsl_sf_bessel_i0_scaled_ alias "gsl_sf_bessel_i0_scaled"(byval x as const double) as double
+declare function gsl_sf_bessel_i1_scaled_e_ alias "gsl_sf_bessel_i1_scaled_e"(byval x as const double, byval result as gsl_sf_result ptr) as long
+declare function gsl_sf_bessel_i1_scaled_ alias "gsl_sf_bessel_i1_scaled"(byval x as const double) as double
 declare function gsl_sf_bessel_i2_scaled_e(byval x as const double, byval result as gsl_sf_result ptr) as long
 declare function gsl_sf_bessel_i2_scaled(byval x as const double) as double
 declare function gsl_sf_bessel_il_scaled_e(byval l as const long, byval x as double, byval result as gsl_sf_result ptr) as long
 declare function gsl_sf_bessel_il_scaled(byval l as const long, byval x as const double) as double
 declare function gsl_sf_bessel_il_scaled_array(byval lmax as const long, byval x as const double, byval result_array as double ptr) as long
-declare function gsl_sf_bessel_k0_scaled_e(byval x as const double, byval result as gsl_sf_result ptr) as long
-declare function gsl_sf_bessel_k0_scaled(byval x as const double) as double
-declare function gsl_sf_bessel_k1_scaled_e(byval x as const double, byval result as gsl_sf_result ptr) as long
-declare function gsl_sf_bessel_k1_scaled(byval x as const double) as double
+declare function gsl_sf_bessel_k0_scaled_e_ alias "gsl_sf_bessel_k0_scaled_e"(byval x as const double, byval result as gsl_sf_result ptr) as long
+declare function gsl_sf_bessel_k0_scaled_ alias "gsl_sf_bessel_k0_scaled"(byval x as const double) as double
+declare function gsl_sf_bessel_k1_scaled_e_ alias "gsl_sf_bessel_k1_scaled_e"(byval x as const double, byval result as gsl_sf_result ptr) as long
+declare function gsl_sf_bessel_k1_scaled_ alias "gsl_sf_bessel_k1_scaled"(byval x as const double) as double
 declare function gsl_sf_bessel_k2_scaled_e(byval x as const double, byval result as gsl_sf_result ptr) as long
 declare function gsl_sf_bessel_k2_scaled(byval x as const double) as double
 declare function gsl_sf_bessel_kl_scaled_e(byval l as long, byval x as const double, byval result as gsl_sf_result ptr) as long
