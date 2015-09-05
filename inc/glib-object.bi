@@ -1,4 +1,4 @@
-'' FreeBASIC binding for glib-2.42.2
+'' FreeBASIC binding for glib-2.44.1
 ''
 '' based on the C header files:
 ''   GObject - GLib Type, Object, Parameter and Signal Library
@@ -166,7 +166,8 @@ enum
 	G_TYPE_DEBUG_NONE = 0
 	G_TYPE_DEBUG_OBJECTS = 1 shl 0
 	G_TYPE_DEBUG_SIGNALS = 1 shl 1
-	G_TYPE_DEBUG_MASK = &h03
+	G_TYPE_DEBUG_INSTANCE_COUNT = 1 shl 2
+	G_TYPE_DEBUG_MASK = &h07
 end enum
 
 declare sub g_type_init()
@@ -193,6 +194,7 @@ declare function g_type_interfaces(byval type as GType, byval n_interfaces as gu
 declare sub g_type_set_qdata(byval type as GType, byval quark as GQuark, byval data as gpointer)
 declare function g_type_get_qdata(byval type as GType, byval quark as GQuark) as gpointer
 declare sub g_type_query(byval type as GType, byval query as GTypeQuery ptr)
+declare function g_type_get_instance_count(byval type as GType) as long
 
 type GBaseInitFunc as sub(byval g_class as gpointer)
 type GBaseFinalizeFunc as sub(byval g_class as gpointer)
@@ -269,6 +271,10 @@ declare function g_type_class_get_private_ alias "g_type_class_get_private"(byva
 declare function g_type_class_get_instance_private_offset(byval g_class as gpointer) as gint
 declare sub g_type_ensure(byval type as GType)
 declare function g_type_get_type_registration_serial() as guint
+
+'' TODO: #define G_DECLARE_FINAL_TYPE(ModuleObjName, module_obj_name, MODULE, OBJ_NAME, ParentName) GType module_obj_name##_get_type (void); G_GNUC_BEGIN_IGNORE_DEPRECATIONS typedef struct _##ModuleObjName ModuleObjName; typedef struct { ParentName##Class parent_class; } ModuleObjName##Class; _GLIB_DEFINE_AUTOPTR_CHAINUP (ModuleObjName, ParentName) static inline ModuleObjName * MODULE##_##OBJ_NAME (gconstpointer ptr) { return G_TYPE_CHECK_INSTANCE_CAST (ptr, module_obj_name##_get_type (), ModuleObjName); } static inline gboolean MODULE##_IS_##OBJ_NAME (gconstpointer ptr) { return G_TYPE_CHECK_INSTANCE_TYPE (ptr, module_obj_name##_get_type ()); } G_GNUC_END_IGNORE_DEPRECATIONS
+'' TODO: #define G_DECLARE_DERIVABLE_TYPE(ModuleObjName, module_obj_name, MODULE, OBJ_NAME, ParentName) GType module_obj_name##_get_type (void); G_GNUC_BEGIN_IGNORE_DEPRECATIONS typedef struct _##ModuleObjName ModuleObjName; typedef struct _##ModuleObjName##Class ModuleObjName##Class; struct _##ModuleObjName { ParentName parent_instance; }; _GLIB_DEFINE_AUTOPTR_CHAINUP (ModuleObjName, ParentName) static inline ModuleObjName * MODULE##_##OBJ_NAME (gconstpointer ptr) { return G_TYPE_CHECK_INSTANCE_CAST (ptr, module_obj_name##_get_type (), ModuleObjName); } static inline ModuleObjName##Class * MODULE##_##OBJ_NAME##_CLASS (gconstpointer ptr) { return G_TYPE_CHECK_CLASS_CAST (ptr, module_obj_name##_get_type (), ModuleObjName##Class); } static inline gboolean MODULE##_IS_##OBJ_NAME (gconstpointer ptr) { return G_TYPE_CHECK_INSTANCE_TYPE (ptr, module_obj_name##_get_type ()); } static inline gboolean MODULE##_IS_##OBJ_NAME##_CLASS (gconstpointer ptr) { return G_TYPE_CHECK_CLASS_TYPE (ptr, module_obj_name##_get_type ()); } static inline ModuleObjName##Class * MODULE##_##OBJ_NAME##_GET_CLASS (gconstpointer ptr) { return G_TYPE_INSTANCE_GET_CLASS (ptr, module_obj_name##_get_type (), ModuleObjName##Class); } G_GNUC_END_IGNORE_DEPRECATIONS
+'' TODO: #define G_DECLARE_INTERFACE(ModuleObjName, module_obj_name, MODULE, OBJ_NAME, PrerequisiteName) GType module_obj_name##_get_type (void); G_GNUC_BEGIN_IGNORE_DEPRECATIONS typedef struct _##ModuleObjName ModuleObjName; typedef struct _##ModuleObjName##Interface ModuleObjName##Interface; _GLIB_DEFINE_AUTOPTR_CHAINUP (ModuleObjName, PrerequisiteName) static inline ModuleObjName * MODULE##_##OBJ_NAME (gconstpointer ptr) { return G_TYPE_CHECK_INSTANCE_CAST (ptr, module_obj_name##_get_type (), ModuleObjName); } static inline gboolean MODULE##_IS_##OBJ_NAME (gconstpointer ptr) { return G_TYPE_CHECK_INSTANCE_TYPE (ptr, module_obj_name##_get_type ()); } static inline ModuleObjName##Interface * MODULE##_##OBJ_NAME##_GET_IFACE (gconstpointer ptr) { return G_TYPE_INSTANCE_GET_INTERFACE (ptr, module_obj_name##_get_type (), ModuleObjName##Interface); } G_GNUC_END_IGNORE_DEPRECATIONS
 #define G_DEFINE_TYPE(TN, t_n, T_P) G_DEFINE_TYPE_EXTENDED(TN, t_n, T_P, 0, )
 #macro G_DEFINE_TYPE_WITH_CODE(TN, t_n, T_P, _C_)
 	_G_DEFINE_TYPE_EXTENDED_BEGIN(TN, t_n, T_P, 0)
@@ -328,30 +334,8 @@ declare function g_type_get_type_registration_serial() as guint
 		end sub
 	end extern
 #endmacro
-#macro _G_DEFINE_TYPE_EXTENDED_BEGIN(TypeName, type_name, TYPE_PARENT, flags)
-	extern "C"
-		declare sub type_name##_init(byval self as TypeName ptr)
-		declare sub type_name##_class_init(byval klass as TypeName##Class ptr)
-		dim shared as gpointer type_name##_parent_class = NULL
-		dim shared as gint TypeName##_private_offset
-		_G_DEFINE_TYPE_EXTENDED_CLASS_INIT(TypeName, type_name)
-		private function type_name##_get_instance_private(byval self as TypeName ptr) as gpointer
-			return G_STRUCT_MEMBER_P(self, TypeName##_private_offset)
-		end function
-		function type_name##_get_type() as GType
-			static as gsize g_define_type_id__volatile = 0
-			if g_once_init_enter(@g_define_type_id__volatile) then
-				var g_define_type_id = g_type_register_static_simple( _
-					TYPE_PARENT, _
-					g_intern_static_string(#TypeName), _
-					sizeof(TypeName##Class), _
-					cast(GClassInitFunc, @type_name##_class_intern_init), _
-					sizeof(TypeName), _
-					cast(GInstanceInitFunc, @type_name##_init), _
-					cast(GTypeFlags, flags) _
-				)
-				scope
-#endmacro
+
+'' TODO: #define _G_DEFINE_TYPE_EXTENDED_BEGIN(TypeName, type_name, TYPE_PARENT, flags)static void type_name##_init (TypeName *self);static void type_name##_class_init (TypeName##Class *klass);static gpointer type_name##_parent_class = NULL;static gint TypeName##_private_offset;_G_DEFINE_TYPE_EXTENDED_CLASS_INIT(TypeName, type_name)G_GNUC_UNUSED static inline gpointer type_name##_get_instance_private (const TypeName *self){ return (G_STRUCT_MEMBER_P (self, TypeName##_private_offset));}GType type_name##_get_type (void){ static volatile gsize g_define_type_id__volatile = 0; if (g_once_init_enter (&g_define_type_id__volatile)) { GType g_define_type_id = g_type_register_static_simple (TYPE_PARENT, g_intern_static_string (#TypeName), sizeof (TypeName##Class), (GClassInitFunc) type_name##_class_intern_init, sizeof (TypeName), (GInstanceInitFunc) type_name##_init, (GTypeFlags) flags); {
 #macro _G_DEFINE_TYPE_EXTENDED_END()
 				end scope
 				g_once_init_leave(@g_define_type_id__volatile, g_define_type_id)
@@ -869,6 +853,7 @@ declare sub _g_signals_destroy(byval itype as GType)
 #define G_TYPE_MAPPED_FILE g_mapped_file_get_type()
 #define G_TYPE_THREAD g_thread_get_type()
 #define G_TYPE_CHECKSUM g_checksum_get_type()
+#define G_TYPE_OPTION_GROUP g_option_group_get_type()
 
 declare function g_date_get_type() as GType
 declare function g_strv_get_type() as GType
@@ -897,6 +882,7 @@ declare function g_thread_get_type() as GType
 declare function g_checksum_get_type() as GType
 declare function g_markup_parse_context_get_type() as GType
 declare function g_mapped_file_get_type() as GType
+declare function g_option_group_get_type() as GType
 declare function g_variant_get_gtype() as GType
 type GStrv as gchar ptr ptr
 #define G_TYPE_IS_BOXED(type) (G_TYPE_FUNDAMENTAL(type) = G_TYPE_BOXED)
@@ -1037,12 +1023,28 @@ declare function g_object_compat_control(byval what as gsize, byval data as gpoi
 		dim _glib__object as GObject ptr = cptr(GObject ptr, (object))
 		dim _glib__pspec as GParamSpec ptr = cptr(GParamSpec ptr, (pspec))
 		dim _glib__property_id as guint = (property_id)
-		g_warning("%s:%u: invalid %s id %u for ""%s"" of type '%s' in '%s'", __FILE__, __LINE__, (pname), _glib__property_id, _glib__pspec->name, g_type_name(G_PARAM_SPEC_TYPE(_glib__pspec)), G_OBJECT_TYPE_NAME(_glib__object))
+		g_warning("%s:%d: invalid %s id %u for ""%s"" of type '%s' in '%s'", __FILE__, __LINE__, (pname), _glib__property_id, _glib__pspec->name, g_type_name(G_PARAM_SPEC_TYPE(_glib__pspec)), G_OBJECT_TYPE_NAME(_glib__object))
 	end scope
 #endmacro
 #define G_OBJECT_WARN_INVALID_PROPERTY_ID(object, property_id, pspec) G_OBJECT_WARN_INVALID_PSPEC((object), "property", (property_id), (pspec))
 declare sub g_clear_object_ alias "g_clear_object"(byval object_ptr as GObject ptr ptr)
 #define g_clear_object(object_ptr) g_clear_pointer((object_ptr), g_object_unref)
+
+private function g_set_object(byval object_ptr as GObject ptr ptr, byval new_object as GObject ptr) as gboolean
+	if (*object_ptr) = new_object then
+		return 0
+	end if
+	if new_object <> cptr(any ptr, 0) then
+		g_object_ref(new_object)
+	end if
+	if (*object_ptr) <> cptr(any ptr, 0) then
+		g_object_unref(*object_ptr)
+	end if
+	(*object_ptr) = new_object
+	return -(0 = 0)
+end function
+
+'' TODO: #define g_set_object(object_ptr, new_object) ( 0 ? *(object_ptr) = (new_object), FALSE : (g_set_object) ((GObject **) (object_ptr), (GObject *) (new_object)) )
 
 union GWeakRef_priv
 	p as gpointer
@@ -1615,6 +1617,27 @@ declare function g_strdup_value_contents(byval value as const GValue ptr) as gch
 declare sub g_value_take_string(byval value as GValue ptr, byval v_string as gchar ptr)
 declare sub g_value_set_string_take_ownership(byval value as GValue ptr, byval v_string as gchar ptr)
 type gchararray as gchar ptr
+
+private sub glib_auto_cleanup_GStrv(byval _ptr as GStrv ptr)
+	'' TODO: if (*_ptr != ((void*) 0)) (g_strfreev) (*_ptr);
+end sub
+
+type GObject_autoptr as GObject ptr
+
+private sub glib_autoptr_cleanup_GObject(byval _ptr as GObject ptr ptr)
+	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+end sub
+
+type GInitiallyUnowned_autoptr as GInitiallyUnowned ptr
+
+private sub glib_autoptr_cleanup_GInitiallyUnowned(byval _ptr as GInitiallyUnowned ptr ptr)
+	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+end sub
+
+private sub glib_auto_cleanup_GValue(byval _ptr as GValue ptr)
+	'' TODO: (g_value_unset) (_ptr);
+end sub
+
 #undef __GLIB_GOBJECT_H_INSIDE__
 
 end extern
