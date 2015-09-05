@@ -1,4 +1,4 @@
-FBFROG_VERSION := 19e073c46aa0b7d72eae5448c935f92ae92303f1
+FBFROG_VERSION := 59483b938fe3e047f43400c7fe7d66f315475f47
 
 ALL := allegro allegro4 allegro5 aspell atk
 ALL += bass bassmod bfd bzip2

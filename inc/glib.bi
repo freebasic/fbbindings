@@ -1286,10 +1286,9 @@ private function g_steal_pointer(byval pp as gpointer) as gpointer
 	return ref
 end function
 
-'' TODO: #define g_steal_pointer(pp) (0 ? (*(pp)) : (g_steal_pointer) (pp))
+#define g_steal_pointer(pp) iif(0, *(pp), g_steal_pointer(pp))
 #define _G_NEW(struct_type, n_structs, func) cptr(struct_type ptr, g_##func##_n((n_structs), sizeof(struct_type)))
 #define _G_RENEW(struct_type, mem, n_structs, func) cptr(struct_type ptr, g_##func##_n(mem, (n_structs), sizeof(struct_type)))
-
 #define g_new(struct_type, n_structs) _G_NEW(struct_type, n_structs, malloc)
 #define g_new0(struct_type, n_structs) _G_NEW(struct_type, n_structs, malloc0)
 #define g_renew(struct_type, mem, n_structs) _G_RENEW(struct_type, mem, n_structs, realloc)
@@ -3353,7 +3352,7 @@ type GTestFixtureFunc as sub(byval fixture as gpointer, byval user_data as gcons
 #endmacro
 
 #macro g_assert_no_error(err)
-	if (err) then
+	if err then
 		g_assertion_message_error(G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, #err, err, 0, 0)
 	end if
 #endmacro
@@ -4205,273 +4204,357 @@ end sub
 type GAsyncQueue_autoptr as GAsyncQueue ptr
 
 private sub glib_autoptr_cleanup_GAsyncQueue(byval _ptr as GAsyncQueue ptr ptr)
-	'' TODO: if (*_ptr) (g_async_queue_unref) (*_ptr);
+	if *_ptr then
+		g_async_queue_unref(*_ptr)
+	end if
 end sub
 
 type GBookmarkFile_autoptr as GBookmarkFile ptr
 
 private sub glib_autoptr_cleanup_GBookmarkFile(byval _ptr as GBookmarkFile ptr ptr)
-	'' TODO: if (*_ptr) (g_bookmark_file_free) (*_ptr);
+	if *_ptr then
+		g_bookmark_file_free(*_ptr)
+	end if
 end sub
 
 type GBytes_autoptr as GBytes ptr
 
 private sub glib_autoptr_cleanup_GBytes(byval _ptr as GBytes ptr ptr)
-	'' TODO: if (*_ptr) (g_bytes_unref) (*_ptr);
+	if *_ptr then
+		g_bytes_unref(*_ptr)
+	end if
 end sub
 
 type GChecksum_autoptr as GChecksum ptr
 
 private sub glib_autoptr_cleanup_GChecksum(byval _ptr as GChecksum ptr ptr)
-	'' TODO: if (*_ptr) (g_checksum_free) (*_ptr);
+	if *_ptr then
+		g_checksum_free(*_ptr)
+	end if
 end sub
 
 type GDateTime_autoptr as GDateTime ptr
 
 private sub glib_autoptr_cleanup_GDateTime(byval _ptr as GDateTime ptr ptr)
-	'' TODO: if (*_ptr) (g_date_time_unref) (*_ptr);
+	if *_ptr then
+		g_date_time_unref(*_ptr)
+	end if
 end sub
 
 type GDir_autoptr as GDir ptr
 
 private sub glib_autoptr_cleanup_GDir(byval _ptr as GDir ptr ptr)
-	'' TODO: if (*_ptr) (g_dir_close) (*_ptr);
+	if *_ptr then
+		g_dir_close(*_ptr)
+	end if
 end sub
 
 type GError_autoptr as GError ptr
 
 private sub glib_autoptr_cleanup_GError(byval _ptr as GError ptr ptr)
-	'' TODO: if (*_ptr) (g_error_free) (*_ptr);
+	if *_ptr then
+		g_error_free(*_ptr)
+	end if
 end sub
 
 type GHashTable_autoptr as GHashTable ptr
 
 private sub glib_autoptr_cleanup_GHashTable(byval _ptr as GHashTable ptr ptr)
-	'' TODO: if (*_ptr) (g_hash_table_unref) (*_ptr);
+	if *_ptr then
+		g_hash_table_unref(*_ptr)
+	end if
 end sub
 
 type GHmac_autoptr as GHmac ptr
 
 private sub glib_autoptr_cleanup_GHmac(byval _ptr as GHmac ptr ptr)
-	'' TODO: if (*_ptr) (g_hmac_unref) (*_ptr);
+	if *_ptr then
+		g_hmac_unref(*_ptr)
+	end if
 end sub
 
 type GIOChannel_autoptr as GIOChannel ptr
 
 private sub glib_autoptr_cleanup_GIOChannel(byval _ptr as GIOChannel ptr ptr)
-	'' TODO: if (*_ptr) (g_io_channel_unref) (*_ptr);
+	if *_ptr then
+		g_io_channel_unref(*_ptr)
+	end if
 end sub
 
 type GKeyFile_autoptr as GKeyFile ptr
 
 private sub glib_autoptr_cleanup_GKeyFile(byval _ptr as GKeyFile ptr ptr)
-	'' TODO: if (*_ptr) (g_key_file_unref) (*_ptr);
+	if *_ptr then
+		g_key_file_unref(*_ptr)
+	end if
 end sub
 
 type GList_autoptr as GList ptr
 
 private sub glib_autoptr_cleanup_GList(byval _ptr as GList ptr ptr)
-	'' TODO: if (*_ptr) (g_list_free) (*_ptr);
+	if *_ptr then
+		g_list_free(*_ptr)
+	end if
 end sub
 
 type GArray_autoptr as GArray ptr
 
 private sub glib_autoptr_cleanup_GArray(byval _ptr as GArray ptr ptr)
-	'' TODO: if (*_ptr) (g_array_unref) (*_ptr);
+	if *_ptr then
+		g_array_unref(*_ptr)
+	end if
 end sub
 
 type GPtrArray_autoptr as GPtrArray ptr
 
 private sub glib_autoptr_cleanup_GPtrArray(byval _ptr as GPtrArray ptr ptr)
-	'' TODO: if (*_ptr) (g_ptr_array_unref) (*_ptr);
+	if *_ptr then
+		g_ptr_array_unref(*_ptr)
+	end if
 end sub
 
 type GByteArray_autoptr as GByteArray ptr
 
 private sub glib_autoptr_cleanup_GByteArray(byval _ptr as GByteArray ptr ptr)
-	'' TODO: if (*_ptr) (g_byte_array_unref) (*_ptr);
+	if *_ptr then
+		g_byte_array_unref(*_ptr)
+	end if
 end sub
 
 type GMainContext_autoptr as GMainContext ptr
 
 private sub glib_autoptr_cleanup_GMainContext(byval _ptr as GMainContext ptr ptr)
-	'' TODO: if (*_ptr) (g_main_context_unref) (*_ptr);
+	if *_ptr then
+		g_main_context_unref(*_ptr)
+	end if
 end sub
 
 type GMainLoop_autoptr as GMainLoop ptr
 
 private sub glib_autoptr_cleanup_GMainLoop(byval _ptr as GMainLoop ptr ptr)
-	'' TODO: if (*_ptr) (g_main_loop_unref) (*_ptr);
+	if *_ptr then
+		g_main_loop_unref(*_ptr)
+	end if
 end sub
 
 type GSource_autoptr as GSource ptr
 
 private sub glib_autoptr_cleanup_GSource(byval _ptr as GSource ptr ptr)
-	'' TODO: if (*_ptr) (g_source_unref) (*_ptr);
+	if *_ptr then
+		g_source_unref(*_ptr)
+	end if
 end sub
 
 type GMappedFile_autoptr as GMappedFile ptr
 
 private sub glib_autoptr_cleanup_GMappedFile(byval _ptr as GMappedFile ptr ptr)
-	'' TODO: if (*_ptr) (g_mapped_file_unref) (*_ptr);
+	if *_ptr then
+		g_mapped_file_unref(*_ptr)
+	end if
 end sub
 
 type GMarkupParseContext_autoptr as GMarkupParseContext ptr
 
 private sub glib_autoptr_cleanup_GMarkupParseContext(byval _ptr as GMarkupParseContext ptr ptr)
-	'' TODO: if (*_ptr) (g_markup_parse_context_unref) (*_ptr);
+	if *_ptr then
+		g_markup_parse_context_unref(*_ptr)
+	end if
 end sub
 
 type GNode_autoptr as GNode ptr
 
 private sub glib_autoptr_cleanup_GNode(byval _ptr as GNode ptr ptr)
-	'' TODO: if (*_ptr) (g_node_destroy) (*_ptr);
+	if *_ptr then
+		g_node_destroy(*_ptr)
+	end if
 end sub
 
 type GOptionContext_autoptr as GOptionContext ptr
 
 private sub glib_autoptr_cleanup_GOptionContext(byval _ptr as GOptionContext ptr ptr)
-	'' TODO: if (*_ptr) (g_option_context_free) (*_ptr);
+	if *_ptr then
+		g_option_context_free(*_ptr)
+	end if
 end sub
 
 type GOptionGroup_autoptr as GOptionGroup ptr
 
 private sub glib_autoptr_cleanup_GOptionGroup(byval _ptr as GOptionGroup ptr ptr)
-	'' TODO: if (*_ptr) (g_option_group_unref) (*_ptr);
+	if *_ptr then
+		g_option_group_unref(*_ptr)
+	end if
 end sub
 
 type GPatternSpec_autoptr as GPatternSpec ptr
 
 private sub glib_autoptr_cleanup_GPatternSpec(byval _ptr as GPatternSpec ptr ptr)
-	'' TODO: if (*_ptr) (g_pattern_spec_free) (*_ptr);
+	if *_ptr then
+		g_pattern_spec_free(*_ptr)
+	end if
 end sub
 
 type GQueue_autoptr as GQueue ptr
 
 private sub glib_autoptr_cleanup_GQueue(byval _ptr as GQueue ptr ptr)
-	'' TODO: if (*_ptr) (g_queue_free) (*_ptr);
+	if *_ptr then
+		g_queue_free(*_ptr)
+	end if
 end sub
 
 private sub glib_auto_cleanup_GQueue(byval _ptr as GQueue ptr)
-	'' TODO: (g_queue_clear) (_ptr);
+	g_queue_clear(_ptr)
 end sub
 
 type GRand_autoptr as GRand ptr
 
 private sub glib_autoptr_cleanup_GRand(byval _ptr as GRand ptr ptr)
-	'' TODO: if (*_ptr) (g_rand_free) (*_ptr);
+	if *_ptr then
+		g_rand_free(*_ptr)
+	end if
 end sub
 
 type GRegex_autoptr as GRegex ptr
 
 private sub glib_autoptr_cleanup_GRegex(byval _ptr as GRegex ptr ptr)
-	'' TODO: if (*_ptr) (g_regex_unref) (*_ptr);
+	if *_ptr then
+		g_regex_unref(*_ptr)
+	end if
 end sub
 
 type GMatchInfo_autoptr as GMatchInfo ptr
 
 private sub glib_autoptr_cleanup_GMatchInfo(byval _ptr as GMatchInfo ptr ptr)
-	'' TODO: if (*_ptr) (g_match_info_unref) (*_ptr);
+	if *_ptr then
+		g_match_info_unref(*_ptr)
+	end if
 end sub
 
 type GScanner_autoptr as GScanner ptr
 
 private sub glib_autoptr_cleanup_GScanner(byval _ptr as GScanner ptr ptr)
-	'' TODO: if (*_ptr) (g_scanner_destroy) (*_ptr);
+	if *_ptr then
+		g_scanner_destroy(*_ptr)
+	end if
 end sub
 
 type GSequence_autoptr as GSequence ptr
 
 private sub glib_autoptr_cleanup_GSequence(byval _ptr as GSequence ptr ptr)
-	'' TODO: if (*_ptr) (g_sequence_free) (*_ptr);
+	if *_ptr then
+		g_sequence_free(*_ptr)
+	end if
 end sub
 
 type GSList_autoptr as GSList ptr
 
 private sub glib_autoptr_cleanup_GSList(byval _ptr as GSList ptr ptr)
-	'' TODO: if (*_ptr) (g_slist_free) (*_ptr);
+	if *_ptr then
+		g_slist_free(*_ptr)
+	end if
 end sub
 
 type GStringChunk_autoptr as GStringChunk ptr
 
 private sub glib_autoptr_cleanup_GStringChunk(byval _ptr as GStringChunk ptr ptr)
-	'' TODO: if (*_ptr) (g_string_chunk_free) (*_ptr);
+	if *_ptr then
+		g_string_chunk_free(*_ptr)
+	end if
 end sub
 
 type GThread_autoptr as GThread ptr
 
 private sub glib_autoptr_cleanup_GThread(byval _ptr as GThread ptr ptr)
-	'' TODO: if (*_ptr) (g_thread_unref) (*_ptr);
+	if *_ptr then
+		g_thread_unref(*_ptr)
+	end if
 end sub
 
 private sub glib_auto_cleanup_GMutex(byval _ptr as GMutex ptr)
-	'' TODO: (g_mutex_clear) (_ptr);
+	g_mutex_clear(_ptr)
 end sub
 
 type GMutexLocker_autoptr as GMutexLocker ptr
 
 private sub glib_autoptr_cleanup_GMutexLocker(byval _ptr as GMutexLocker ptr ptr)
-	'' TODO: if (*_ptr) (g_mutex_locker_free) (*_ptr);
+	if *_ptr then
+		g_mutex_locker_free(*_ptr)
+	end if
 end sub
 
 private sub glib_auto_cleanup_GCond(byval _ptr as GCond ptr)
-	'' TODO: (g_cond_clear) (_ptr);
+	g_cond_clear(_ptr)
 end sub
 
 type GTimer_autoptr as GTimer ptr
 
 private sub glib_autoptr_cleanup_GTimer(byval _ptr as GTimer ptr ptr)
-	'' TODO: if (*_ptr) (g_timer_destroy) (*_ptr);
+	if *_ptr then
+		g_timer_destroy(*_ptr)
+	end if
 end sub
 
 type GTimeZone_autoptr as GTimeZone ptr
 
 private sub glib_autoptr_cleanup_GTimeZone(byval _ptr as GTimeZone ptr ptr)
-	'' TODO: if (*_ptr) (g_time_zone_unref) (*_ptr);
+	if *_ptr then
+		g_time_zone_unref(*_ptr)
+	end if
 end sub
 
 type GTree_autoptr as GTree ptr
 
 private sub glib_autoptr_cleanup_GTree(byval _ptr as GTree ptr ptr)
-	'' TODO: if (*_ptr) (g_tree_unref) (*_ptr);
+	if *_ptr then
+		g_tree_unref(*_ptr)
+	end if
 end sub
 
 type GVariant_autoptr as GVariant ptr
 
 private sub glib_autoptr_cleanup_GVariant(byval _ptr as GVariant ptr ptr)
-	'' TODO: if (*_ptr) (g_variant_unref) (*_ptr);
+	if *_ptr then
+		g_variant_unref(*_ptr)
+	end if
 end sub
 
 type GVariantBuilder_autoptr as GVariantBuilder ptr
 
 private sub glib_autoptr_cleanup_GVariantBuilder(byval _ptr as GVariantBuilder ptr ptr)
-	'' TODO: if (*_ptr) (g_variant_builder_unref) (*_ptr);
+	if *_ptr then
+		g_variant_builder_unref(*_ptr)
+	end if
 end sub
 
 private sub glib_auto_cleanup_GVariantBuilder(byval _ptr as GVariantBuilder ptr)
-	'' TODO: (g_variant_builder_clear) (_ptr);
+	g_variant_builder_clear(_ptr)
 end sub
 
 type GVariantIter_autoptr as GVariantIter ptr
 
 private sub glib_autoptr_cleanup_GVariantIter(byval _ptr as GVariantIter ptr ptr)
-	'' TODO: if (*_ptr) (g_variant_iter_free) (*_ptr);
+	if *_ptr then
+		g_variant_iter_free(*_ptr)
+	end if
 end sub
 
 type GVariantDict_autoptr as GVariantDict ptr
 
 private sub glib_autoptr_cleanup_GVariantDict(byval _ptr as GVariantDict ptr ptr)
-	'' TODO: if (*_ptr) (g_variant_dict_unref) (*_ptr);
+	if *_ptr then
+		g_variant_dict_unref(*_ptr)
+	end if
 end sub
 
 private sub glib_auto_cleanup_GVariantDict(byval _ptr as GVariantDict ptr)
-	'' TODO: (g_variant_dict_clear) (_ptr);
+	g_variant_dict_clear(_ptr)
 end sub
 
 type GVariantType_autoptr as GVariantType ptr
 
 private sub glib_autoptr_cleanup_GVariantType(byval _ptr as GVariantType ptr ptr)
-	'' TODO: if (*_ptr) (g_variant_type_free) (*_ptr);
+	if *_ptr then
+		g_variant_type_free(*_ptr)
+	end if
 end sub
 
 #undef __GLIB_H_INSIDE__

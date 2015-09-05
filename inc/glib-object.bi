@@ -1619,23 +1619,29 @@ declare sub g_value_set_string_take_ownership(byval value as GValue ptr, byval v
 type gchararray as gchar ptr
 
 private sub glib_auto_cleanup_GStrv(byval _ptr as GStrv ptr)
-	'' TODO: if (*_ptr != ((void*) 0)) (g_strfreev) (*_ptr);
+	if (*_ptr) <> cptr(any ptr, 0) then
+		g_strfreev(*_ptr)
+	end if
 end sub
 
 type GObject_autoptr as GObject ptr
 
 private sub glib_autoptr_cleanup_GObject(byval _ptr as GObject ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GInitiallyUnowned_autoptr as GInitiallyUnowned ptr
 
 private sub glib_autoptr_cleanup_GInitiallyUnowned(byval _ptr as GInitiallyUnowned ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 private sub glib_auto_cleanup_GValue(byval _ptr as GValue ptr)
-	'' TODO: (g_value_unset) (_ptr);
+	g_value_unset(_ptr)
 end sub
 
 #undef __GLIB_GOBJECT_H_INSIDE__

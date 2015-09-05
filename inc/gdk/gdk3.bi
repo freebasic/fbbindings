@@ -4330,97 +4330,129 @@ declare sub gdk_visual_get_blue_pixel_details(byval visual as GdkVisual ptr, byv
 type GdkAppLaunchContext_autoptr as GdkAppLaunchContext ptr
 
 private sub glib_autoptr_cleanup_GdkAppLaunchContext(byval _ptr as GdkAppLaunchContext ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GdkCursor_autoptr as GdkCursor ptr
 
 private sub glib_autoptr_cleanup_GdkCursor(byval _ptr as GdkCursor ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GdkDevice_autoptr as GdkDevice ptr
 
 private sub glib_autoptr_cleanup_GdkDevice(byval _ptr as GdkDevice ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GdkDeviceManager_autoptr as GdkDeviceManager ptr
 
 private sub glib_autoptr_cleanup_GdkDeviceManager(byval _ptr as GdkDeviceManager ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GdkDisplay_autoptr as GdkDisplay ptr
 
 private sub glib_autoptr_cleanup_GdkDisplay(byval _ptr as GdkDisplay ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GdkDisplayManager_autoptr as GdkDisplayManager ptr
 
 private sub glib_autoptr_cleanup_GdkDisplayManager(byval _ptr as GdkDisplayManager ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GdkDragContext_autoptr as GdkDragContext ptr
 
 private sub glib_autoptr_cleanup_GdkDragContext(byval _ptr as GdkDragContext ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GdkFrameClock_autoptr as GdkFrameClock ptr
 
 private sub glib_autoptr_cleanup_GdkFrameClock(byval _ptr as GdkFrameClock ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GdkGLContext_autoptr as GdkGLContext ptr
 
 private sub glib_autoptr_cleanup_GdkGLContext(byval _ptr as GdkGLContext ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GdkKeymap_autoptr as GdkKeymap ptr
 
 private sub glib_autoptr_cleanup_GdkKeymap(byval _ptr as GdkKeymap ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GdkScreen_autoptr as GdkScreen ptr
 
 private sub glib_autoptr_cleanup_GdkScreen(byval _ptr as GdkScreen ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GdkVisual_autoptr as GdkVisual ptr
 
 private sub glib_autoptr_cleanup_GdkVisual(byval _ptr as GdkVisual ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GdkWindow_autoptr as GdkWindow ptr
 
 private sub glib_autoptr_cleanup_GdkWindow(byval _ptr as GdkWindow ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GdkEvent_autoptr as GdkEvent ptr
 
 private sub glib_autoptr_cleanup_GdkEvent(byval _ptr as GdkEvent ptr ptr)
-	'' TODO: if (*_ptr) (gdk_event_free) (*_ptr);
+	if *_ptr then
+		gdk_event_free(*_ptr)
+	end if
 end sub
 
 type GdkFrameTimings_autoptr as GdkFrameTimings ptr
 
 private sub glib_autoptr_cleanup_GdkFrameTimings(byval _ptr as GdkFrameTimings ptr ptr)
-	'' TODO: if (*_ptr) (gdk_frame_timings_unref) (*_ptr);
+	if *_ptr then
+		gdk_frame_timings_unref(*_ptr)
+	end if
 end sub
 
 type GdkRGBA_autoptr as GdkRGBA ptr
 
 private sub glib_autoptr_cleanup_GdkRGBA(byval _ptr as GdkRGBA ptr ptr)
-	'' TODO: if (*_ptr) (gdk_rgba_free) (*_ptr);
+	if *_ptr then
+		gdk_rgba_free(*_ptr)
+	end if
 end sub
 
 #undef __GDK_H_INSIDE__

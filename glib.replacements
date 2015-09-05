@@ -731,3 +731,147 @@ to fb:
 
 convert c: #define G_N_ELEMENTS(arr) (sizeof(arr) / sizeof((arr)[0]))
 to fb:     #define G_N_ELEMENTS(arr) (ubound(arr)  - lbound(array) + 1)
+
+convert c:
+	#define g_warn_if_fail(expr)
+		do {
+			if G_LIKELY(expr)
+				;
+			else
+				g_warn_message(G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, #expr);
+		} while (0)
+to c:
+	#define g_warn_if_fail(expr)
+		do {
+			if (G_LIKELY(expr))
+				;
+			else
+				g_warn_message(G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, #expr);
+		} while (0)
+
+convert c:
+	#define g_return_if_fail(expr)
+		do {
+			if G_LIKELY(expr) {
+			} else {
+				g_return_if_fail_warning(G_LOG_DOMAIN, G_STRFUNC, #expr);
+				return;
+			}
+			;
+		} while (0)
+to c:
+	#define g_return_if_fail(expr)
+		do {
+			if (G_LIKELY(expr)) {
+			} else {
+				g_return_if_fail_warning(G_LOG_DOMAIN, G_STRFUNC, #expr);
+				return;
+			}
+			;
+		} while (0)
+
+convert c:
+	#define g_return_val_if_fail(expr, val)
+		do {
+			if G_LIKELY(expr) {
+			} else {
+				g_return_if_fail_warning(G_LOG_DOMAIN, G_STRFUNC, #expr);
+				return (val);
+			}
+			;
+		} while (0)
+to c:
+	#define g_return_val_if_fail(expr, val)
+		do {
+			if (G_LIKELY(expr)) {
+			} else {
+				g_return_if_fail_warning(G_LOG_DOMAIN, G_STRFUNC, #expr);
+				return (val);
+			}
+			;
+		} while (0)
+
+convert c:
+	#define g_assert_true(expr)
+		do {
+			if G_LIKELY(expr)
+				;
+			else
+				g_assertion_message(G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, "'" #expr "' should be TRUE");
+		} while (0)
+to c:
+	#define g_assert_true(expr)
+		do {
+			if (G_LIKELY(expr))
+				;
+			else
+				g_assertion_message(G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, "'" #expr "' should be TRUE");
+		} while (0)
+
+convert c:
+	#define g_assert_false(expr)
+		do {
+			if G_LIKELY(!(expr))
+				;
+			else
+				g_assertion_message(G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, "'" #expr "' should be FALSE");
+		} while (0)
+to c:
+	#define g_assert_false(expr)
+		do {
+			if (G_LIKELY(!(expr)))
+				;
+			else
+				g_assertion_message(G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, "'" #expr "' should be FALSE");
+		} while (0)
+
+convert c:
+	#define g_assert_null(expr)
+		do {
+			if G_LIKELY((expr) == NULL)
+				;
+			else
+				g_assertion_message(G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, "'" #expr "' should be NULL");
+		} while (0)
+to c:
+	#define g_assert_null(expr)
+		do {
+			if (G_LIKELY((expr) == NULL))
+				;
+			else
+				g_assertion_message(G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, "'" #expr "' should be NULL");
+		} while (0)
+
+convert c:
+	#define g_assert_nonnull(expr)
+		do {
+			if G_LIKELY((expr) != NULL)
+				;
+			else
+				g_assertion_message(G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, "'" #expr "' should not be NULL");
+		} while (0)
+to c:
+	#define g_assert_nonnull(expr)
+		do {
+			if (G_LIKELY((expr) != NULL))
+				;
+			else
+				g_assertion_message(G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, "'" #expr "' should not be NULL");
+		} while (0)
+
+convert c:
+	#define g_assert(expr)
+		do {
+			if G_LIKELY(expr)
+				;
+			else
+				g_assertion_message_expr(G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, #expr);
+		} while (0)
+to c:
+	#define g_assert(expr)
+		do {
+			if (G_LIKELY(expr))
+				;
+			else
+				g_assertion_message_expr(G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, #expr);
+		} while (0)

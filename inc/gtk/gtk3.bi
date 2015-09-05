@@ -11844,1177 +11844,1569 @@ declare function gtk_vseparator_new() as GtkWidget ptr
 type GtkAboutDialog_autoptr as GtkAboutDialog ptr
 
 private sub glib_autoptr_cleanup_GtkAboutDialog(byval _ptr as GtkAboutDialog ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkAccelGroup_autoptr as GtkAccelGroup ptr
 
 private sub glib_autoptr_cleanup_GtkAccelGroup(byval _ptr as GtkAccelGroup ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkAccelLabel_autoptr as GtkAccelLabel ptr
 
 private sub glib_autoptr_cleanup_GtkAccelLabel(byval _ptr as GtkAccelLabel ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkAccelMap_autoptr as GtkAccelMap ptr
 
 private sub glib_autoptr_cleanup_GtkAccelMap(byval _ptr as GtkAccelMap ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkAccessible_autoptr as GtkAccessible ptr
 
 private sub glib_autoptr_cleanup_GtkAccessible(byval _ptr as GtkAccessible ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkActionBar_autoptr as GtkActionBar ptr
 
 private sub glib_autoptr_cleanup_GtkActionBar(byval _ptr as GtkActionBar ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkActionable_autoptr as GtkActionable ptr
 
 private sub glib_autoptr_cleanup_GtkActionable(byval _ptr as GtkActionable ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkAdjustment_autoptr as GtkAdjustment ptr
 
 private sub glib_autoptr_cleanup_GtkAdjustment(byval _ptr as GtkAdjustment ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkAppChooser_autoptr as GtkAppChooser ptr
 
 private sub glib_autoptr_cleanup_GtkAppChooser(byval _ptr as GtkAppChooser ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkAppChooserButton_autoptr as GtkAppChooserButton ptr
 
 private sub glib_autoptr_cleanup_GtkAppChooserButton(byval _ptr as GtkAppChooserButton ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkAppChooserDialog_autoptr as GtkAppChooserDialog ptr
 
 private sub glib_autoptr_cleanup_GtkAppChooserDialog(byval _ptr as GtkAppChooserDialog ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkAppChooserWidget_autoptr as GtkAppChooserWidget ptr
 
 private sub glib_autoptr_cleanup_GtkAppChooserWidget(byval _ptr as GtkAppChooserWidget ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkApplication_autoptr as GtkApplication ptr
 
 private sub glib_autoptr_cleanup_GtkApplication(byval _ptr as GtkApplication ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkApplicationWindow_autoptr as GtkApplicationWindow ptr
 
 private sub glib_autoptr_cleanup_GtkApplicationWindow(byval _ptr as GtkApplicationWindow ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkAspectFrame_autoptr as GtkAspectFrame ptr
 
 private sub glib_autoptr_cleanup_GtkAspectFrame(byval _ptr as GtkAspectFrame ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkAssistant_autoptr as GtkAssistant ptr
 
 private sub glib_autoptr_cleanup_GtkAssistant(byval _ptr as GtkAssistant ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkBin_autoptr as GtkBin ptr
 
 private sub glib_autoptr_cleanup_GtkBin(byval _ptr as GtkBin ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkBox_autoptr as GtkBox ptr
 
 private sub glib_autoptr_cleanup_GtkBox(byval _ptr as GtkBox ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkBuildable_autoptr as GtkBuildable ptr
 
 private sub glib_autoptr_cleanup_GtkBuildable(byval _ptr as GtkBuildable ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkBuilder_autoptr as GtkBuilder ptr
 
 private sub glib_autoptr_cleanup_GtkBuilder(byval _ptr as GtkBuilder ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkButton_autoptr as GtkButton ptr
 
 private sub glib_autoptr_cleanup_GtkButton(byval _ptr as GtkButton ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkButtonBox_autoptr as GtkButtonBox ptr
 
 private sub glib_autoptr_cleanup_GtkButtonBox(byval _ptr as GtkButtonBox ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkCalendar_autoptr as GtkCalendar ptr
 
 private sub glib_autoptr_cleanup_GtkCalendar(byval _ptr as GtkCalendar ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkCellArea_autoptr as GtkCellArea ptr
 
 private sub glib_autoptr_cleanup_GtkCellArea(byval _ptr as GtkCellArea ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkCellAreaBox_autoptr as GtkCellAreaBox ptr
 
 private sub glib_autoptr_cleanup_GtkCellAreaBox(byval _ptr as GtkCellAreaBox ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkCellAreaContext_autoptr as GtkCellAreaContext ptr
 
 private sub glib_autoptr_cleanup_GtkCellAreaContext(byval _ptr as GtkCellAreaContext ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkCellEditable_autoptr as GtkCellEditable ptr
 
 private sub glib_autoptr_cleanup_GtkCellEditable(byval _ptr as GtkCellEditable ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkCellLayout_autoptr as GtkCellLayout ptr
 
 private sub glib_autoptr_cleanup_GtkCellLayout(byval _ptr as GtkCellLayout ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkCellRenderer_autoptr as GtkCellRenderer ptr
 
 private sub glib_autoptr_cleanup_GtkCellRenderer(byval _ptr as GtkCellRenderer ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkCellRendererAccel_autoptr as GtkCellRendererAccel ptr
 
 private sub glib_autoptr_cleanup_GtkCellRendererAccel(byval _ptr as GtkCellRendererAccel ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkCellRendererCombo_autoptr as GtkCellRendererCombo ptr
 
 private sub glib_autoptr_cleanup_GtkCellRendererCombo(byval _ptr as GtkCellRendererCombo ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkCellRendererPixbuf_autoptr as GtkCellRendererPixbuf ptr
 
 private sub glib_autoptr_cleanup_GtkCellRendererPixbuf(byval _ptr as GtkCellRendererPixbuf ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkCellRendererProgress_autoptr as GtkCellRendererProgress ptr
 
 private sub glib_autoptr_cleanup_GtkCellRendererProgress(byval _ptr as GtkCellRendererProgress ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkCellRendererSpin_autoptr as GtkCellRendererSpin ptr
 
 private sub glib_autoptr_cleanup_GtkCellRendererSpin(byval _ptr as GtkCellRendererSpin ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkCellRendererSpinner_autoptr as GtkCellRendererSpinner ptr
 
 private sub glib_autoptr_cleanup_GtkCellRendererSpinner(byval _ptr as GtkCellRendererSpinner ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkCellRendererText_autoptr as GtkCellRendererText ptr
 
 private sub glib_autoptr_cleanup_GtkCellRendererText(byval _ptr as GtkCellRendererText ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkCellRendererToggle_autoptr as GtkCellRendererToggle ptr
 
 private sub glib_autoptr_cleanup_GtkCellRendererToggle(byval _ptr as GtkCellRendererToggle ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkCellView_autoptr as GtkCellView ptr
 
 private sub glib_autoptr_cleanup_GtkCellView(byval _ptr as GtkCellView ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkCheckButton_autoptr as GtkCheckButton ptr
 
 private sub glib_autoptr_cleanup_GtkCheckButton(byval _ptr as GtkCheckButton ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkCheckMenuItem_autoptr as GtkCheckMenuItem ptr
 
 private sub glib_autoptr_cleanup_GtkCheckMenuItem(byval _ptr as GtkCheckMenuItem ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkClipboard_autoptr as GtkClipboard ptr
 
 private sub glib_autoptr_cleanup_GtkClipboard(byval _ptr as GtkClipboard ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkColorButton_autoptr as GtkColorButton ptr
 
 private sub glib_autoptr_cleanup_GtkColorButton(byval _ptr as GtkColorButton ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkColorChooser_autoptr as GtkColorChooser ptr
 
 private sub glib_autoptr_cleanup_GtkColorChooser(byval _ptr as GtkColorChooser ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkColorChooserDialog_autoptr as GtkColorChooserDialog ptr
 
 private sub glib_autoptr_cleanup_GtkColorChooserDialog(byval _ptr as GtkColorChooserDialog ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkColorChooserWidget_autoptr as GtkColorChooserWidget ptr
 
 private sub glib_autoptr_cleanup_GtkColorChooserWidget(byval _ptr as GtkColorChooserWidget ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkComboBox_autoptr as GtkComboBox ptr
 
 private sub glib_autoptr_cleanup_GtkComboBox(byval _ptr as GtkComboBox ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkComboBoxText_autoptr as GtkComboBoxText ptr
 
 private sub glib_autoptr_cleanup_GtkComboBoxText(byval _ptr as GtkComboBoxText ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkContainer_autoptr as GtkContainer ptr
 
 private sub glib_autoptr_cleanup_GtkContainer(byval _ptr as GtkContainer ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkCssProvider_autoptr as GtkCssProvider ptr
 
 private sub glib_autoptr_cleanup_GtkCssProvider(byval _ptr as GtkCssProvider ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkDialog_autoptr as GtkDialog ptr
 
 private sub glib_autoptr_cleanup_GtkDialog(byval _ptr as GtkDialog ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkDrawingArea_autoptr as GtkDrawingArea ptr
 
 private sub glib_autoptr_cleanup_GtkDrawingArea(byval _ptr as GtkDrawingArea ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkEditable_autoptr as GtkEditable ptr
 
 private sub glib_autoptr_cleanup_GtkEditable(byval _ptr as GtkEditable ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkEntry_autoptr as GtkEntry ptr
 
 private sub glib_autoptr_cleanup_GtkEntry(byval _ptr as GtkEntry ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkEntryBuffer_autoptr as GtkEntryBuffer ptr
 
 private sub glib_autoptr_cleanup_GtkEntryBuffer(byval _ptr as GtkEntryBuffer ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkEntryCompletion_autoptr as GtkEntryCompletion ptr
 
 private sub glib_autoptr_cleanup_GtkEntryCompletion(byval _ptr as GtkEntryCompletion ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkEventBox_autoptr as GtkEventBox ptr
 
 private sub glib_autoptr_cleanup_GtkEventBox(byval _ptr as GtkEventBox ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkEventController_autoptr as GtkEventController ptr
 
 private sub glib_autoptr_cleanup_GtkEventController(byval _ptr as GtkEventController ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkExpander_autoptr as GtkExpander ptr
 
 private sub glib_autoptr_cleanup_GtkExpander(byval _ptr as GtkExpander ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkFileChooserButton_autoptr as GtkFileChooserButton ptr
 
 private sub glib_autoptr_cleanup_GtkFileChooserButton(byval _ptr as GtkFileChooserButton ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkFileChooserDialog_autoptr as GtkFileChooserDialog ptr
 
 private sub glib_autoptr_cleanup_GtkFileChooserDialog(byval _ptr as GtkFileChooserDialog ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkFileChooserWidget_autoptr as GtkFileChooserWidget ptr
 
 private sub glib_autoptr_cleanup_GtkFileChooserWidget(byval _ptr as GtkFileChooserWidget ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkFileFilter_autoptr as GtkFileFilter ptr
 
 private sub glib_autoptr_cleanup_GtkFileFilter(byval _ptr as GtkFileFilter ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkFixed_autoptr as GtkFixed ptr
 
 private sub glib_autoptr_cleanup_GtkFixed(byval _ptr as GtkFixed ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkFlowBox_autoptr as GtkFlowBox ptr
 
 private sub glib_autoptr_cleanup_GtkFlowBox(byval _ptr as GtkFlowBox ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkFlowBoxChild_autoptr as GtkFlowBoxChild ptr
 
 private sub glib_autoptr_cleanup_GtkFlowBoxChild(byval _ptr as GtkFlowBoxChild ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkFontButton_autoptr as GtkFontButton ptr
 
 private sub glib_autoptr_cleanup_GtkFontButton(byval _ptr as GtkFontButton ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkFontChooser_autoptr as GtkFontChooser ptr
 
 private sub glib_autoptr_cleanup_GtkFontChooser(byval _ptr as GtkFontChooser ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkFontChooserDialog_autoptr as GtkFontChooserDialog ptr
 
 private sub glib_autoptr_cleanup_GtkFontChooserDialog(byval _ptr as GtkFontChooserDialog ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkFontChooserWidget_autoptr as GtkFontChooserWidget ptr
 
 private sub glib_autoptr_cleanup_GtkFontChooserWidget(byval _ptr as GtkFontChooserWidget ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkFrame_autoptr as GtkFrame ptr
 
 private sub glib_autoptr_cleanup_GtkFrame(byval _ptr as GtkFrame ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkGLArea_autoptr as GtkGLArea ptr
 
 private sub glib_autoptr_cleanup_GtkGLArea(byval _ptr as GtkGLArea ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkGesture_autoptr as GtkGesture ptr
 
 private sub glib_autoptr_cleanup_GtkGesture(byval _ptr as GtkGesture ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkGestureDrag_autoptr as GtkGestureDrag ptr
 
 private sub glib_autoptr_cleanup_GtkGestureDrag(byval _ptr as GtkGestureDrag ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkGestureLongPress_autoptr as GtkGestureLongPress ptr
 
 private sub glib_autoptr_cleanup_GtkGestureLongPress(byval _ptr as GtkGestureLongPress ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkGestureMultiPress_autoptr as GtkGestureMultiPress ptr
 
 private sub glib_autoptr_cleanup_GtkGestureMultiPress(byval _ptr as GtkGestureMultiPress ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkGesturePan_autoptr as GtkGesturePan ptr
 
 private sub glib_autoptr_cleanup_GtkGesturePan(byval _ptr as GtkGesturePan ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkGestureRotate_autoptr as GtkGestureRotate ptr
 
 private sub glib_autoptr_cleanup_GtkGestureRotate(byval _ptr as GtkGestureRotate ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkGestureSingle_autoptr as GtkGestureSingle ptr
 
 private sub glib_autoptr_cleanup_GtkGestureSingle(byval _ptr as GtkGestureSingle ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkGestureSwipe_autoptr as GtkGestureSwipe ptr
 
 private sub glib_autoptr_cleanup_GtkGestureSwipe(byval _ptr as GtkGestureSwipe ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkGestureZoom_autoptr as GtkGestureZoom ptr
 
 private sub glib_autoptr_cleanup_GtkGestureZoom(byval _ptr as GtkGestureZoom ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkGrid_autoptr as GtkGrid ptr
 
 private sub glib_autoptr_cleanup_GtkGrid(byval _ptr as GtkGrid ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkHeaderBar_autoptr as GtkHeaderBar ptr
 
 private sub glib_autoptr_cleanup_GtkHeaderBar(byval _ptr as GtkHeaderBar ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkIMContext_autoptr as GtkIMContext ptr
 
 private sub glib_autoptr_cleanup_GtkIMContext(byval _ptr as GtkIMContext ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkIMContextSimple_autoptr as GtkIMContextSimple ptr
 
 private sub glib_autoptr_cleanup_GtkIMContextSimple(byval _ptr as GtkIMContextSimple ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkIMMulticontext_autoptr as GtkIMMulticontext ptr
 
 private sub glib_autoptr_cleanup_GtkIMMulticontext(byval _ptr as GtkIMMulticontext ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkIconInfo_autoptr as GtkIconInfo ptr
 
 private sub glib_autoptr_cleanup_GtkIconInfo(byval _ptr as GtkIconInfo ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkIconTheme_autoptr as GtkIconTheme ptr
 
 private sub glib_autoptr_cleanup_GtkIconTheme(byval _ptr as GtkIconTheme ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkIconView_autoptr as GtkIconView ptr
 
 private sub glib_autoptr_cleanup_GtkIconView(byval _ptr as GtkIconView ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkImage_autoptr as GtkImage ptr
 
 private sub glib_autoptr_cleanup_GtkImage(byval _ptr as GtkImage ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkInfoBar_autoptr as GtkInfoBar ptr
 
 private sub glib_autoptr_cleanup_GtkInfoBar(byval _ptr as GtkInfoBar ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkInvisible_autoptr as GtkInvisible ptr
 
 private sub glib_autoptr_cleanup_GtkInvisible(byval _ptr as GtkInvisible ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkLabel_autoptr as GtkLabel ptr
 
 private sub glib_autoptr_cleanup_GtkLabel(byval _ptr as GtkLabel ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkLayout_autoptr as GtkLayout ptr
 
 private sub glib_autoptr_cleanup_GtkLayout(byval _ptr as GtkLayout ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkLevelBar_autoptr as GtkLevelBar ptr
 
 private sub glib_autoptr_cleanup_GtkLevelBar(byval _ptr as GtkLevelBar ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkLinkButton_autoptr as GtkLinkButton ptr
 
 private sub glib_autoptr_cleanup_GtkLinkButton(byval _ptr as GtkLinkButton ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkListBox_autoptr as GtkListBox ptr
 
 private sub glib_autoptr_cleanup_GtkListBox(byval _ptr as GtkListBox ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkListBoxRow_autoptr as GtkListBoxRow ptr
 
 private sub glib_autoptr_cleanup_GtkListBoxRow(byval _ptr as GtkListBoxRow ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkListStore_autoptr as GtkListStore ptr
 
 private sub glib_autoptr_cleanup_GtkListStore(byval _ptr as GtkListStore ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkLockButton_autoptr as GtkLockButton ptr
 
 private sub glib_autoptr_cleanup_GtkLockButton(byval _ptr as GtkLockButton ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkMenu_autoptr as GtkMenu ptr
 
 private sub glib_autoptr_cleanup_GtkMenu(byval _ptr as GtkMenu ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkMenuBar_autoptr as GtkMenuBar ptr
 
 private sub glib_autoptr_cleanup_GtkMenuBar(byval _ptr as GtkMenuBar ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkMenuButton_autoptr as GtkMenuButton ptr
 
 private sub glib_autoptr_cleanup_GtkMenuButton(byval _ptr as GtkMenuButton ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkMenuItem_autoptr as GtkMenuItem ptr
 
 private sub glib_autoptr_cleanup_GtkMenuItem(byval _ptr as GtkMenuItem ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkMenuShell_autoptr as GtkMenuShell ptr
 
 private sub glib_autoptr_cleanup_GtkMenuShell(byval _ptr as GtkMenuShell ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkMenuToolButton_autoptr as GtkMenuToolButton ptr
 
 private sub glib_autoptr_cleanup_GtkMenuToolButton(byval _ptr as GtkMenuToolButton ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkMessageDialog_autoptr as GtkMessageDialog ptr
 
 private sub glib_autoptr_cleanup_GtkMessageDialog(byval _ptr as GtkMessageDialog ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkMountOperation_autoptr as GtkMountOperation ptr
 
 private sub glib_autoptr_cleanup_GtkMountOperation(byval _ptr as GtkMountOperation ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkNotebook_autoptr as GtkNotebook ptr
 
 private sub glib_autoptr_cleanup_GtkNotebook(byval _ptr as GtkNotebook ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkOffscreenWindow_autoptr as GtkOffscreenWindow ptr
 
 private sub glib_autoptr_cleanup_GtkOffscreenWindow(byval _ptr as GtkOffscreenWindow ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkOrientable_autoptr as GtkOrientable ptr
 
 private sub glib_autoptr_cleanup_GtkOrientable(byval _ptr as GtkOrientable ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkOverlay_autoptr as GtkOverlay ptr
 
 private sub glib_autoptr_cleanup_GtkOverlay(byval _ptr as GtkOverlay ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkPageSetup_autoptr as GtkPageSetup ptr
 
 private sub glib_autoptr_cleanup_GtkPageSetup(byval _ptr as GtkPageSetup ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkPaned_autoptr as GtkPaned ptr
 
 private sub glib_autoptr_cleanup_GtkPaned(byval _ptr as GtkPaned ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkPlacesSidebar_autoptr as GtkPlacesSidebar ptr
 
 private sub glib_autoptr_cleanup_GtkPlacesSidebar(byval _ptr as GtkPlacesSidebar ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkPopover_autoptr as GtkPopover ptr
 
 private sub glib_autoptr_cleanup_GtkPopover(byval _ptr as GtkPopover ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkPopoverMenu_autoptr as GtkPopoverMenu ptr
 
 private sub glib_autoptr_cleanup_GtkPopoverMenu(byval _ptr as GtkPopoverMenu ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkPrintContext_autoptr as GtkPrintContext ptr
 
 private sub glib_autoptr_cleanup_GtkPrintContext(byval _ptr as GtkPrintContext ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkPrintOperation_autoptr as GtkPrintOperation ptr
 
 private sub glib_autoptr_cleanup_GtkPrintOperation(byval _ptr as GtkPrintOperation ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkPrintOperationPreview_autoptr as GtkPrintOperationPreview ptr
 
 private sub glib_autoptr_cleanup_GtkPrintOperationPreview(byval _ptr as GtkPrintOperationPreview ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkPrintSettings_autoptr as GtkPrintSettings ptr
 
 private sub glib_autoptr_cleanup_GtkPrintSettings(byval _ptr as GtkPrintSettings ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkProgressBar_autoptr as GtkProgressBar ptr
 
 private sub glib_autoptr_cleanup_GtkProgressBar(byval _ptr as GtkProgressBar ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkRadioButton_autoptr as GtkRadioButton ptr
 
 private sub glib_autoptr_cleanup_GtkRadioButton(byval _ptr as GtkRadioButton ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkRadioMenuItem_autoptr as GtkRadioMenuItem ptr
 
 private sub glib_autoptr_cleanup_GtkRadioMenuItem(byval _ptr as GtkRadioMenuItem ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkRadioToolButton_autoptr as GtkRadioToolButton ptr
 
 private sub glib_autoptr_cleanup_GtkRadioToolButton(byval _ptr as GtkRadioToolButton ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkRange_autoptr as GtkRange ptr
 
 private sub glib_autoptr_cleanup_GtkRange(byval _ptr as GtkRange ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkRcStyle_autoptr as GtkRcStyle ptr
 
 private sub glib_autoptr_cleanup_GtkRcStyle(byval _ptr as GtkRcStyle ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkRecentChooser_autoptr as GtkRecentChooser ptr
 
 private sub glib_autoptr_cleanup_GtkRecentChooser(byval _ptr as GtkRecentChooser ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkRecentChooserDialog_autoptr as GtkRecentChooserDialog ptr
 
 private sub glib_autoptr_cleanup_GtkRecentChooserDialog(byval _ptr as GtkRecentChooserDialog ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkRecentChooserMenu_autoptr as GtkRecentChooserMenu ptr
 
 private sub glib_autoptr_cleanup_GtkRecentChooserMenu(byval _ptr as GtkRecentChooserMenu ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkRecentChooserWidget_autoptr as GtkRecentChooserWidget ptr
 
 private sub glib_autoptr_cleanup_GtkRecentChooserWidget(byval _ptr as GtkRecentChooserWidget ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkRecentFilter_autoptr as GtkRecentFilter ptr
 
 private sub glib_autoptr_cleanup_GtkRecentFilter(byval _ptr as GtkRecentFilter ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkRecentManager_autoptr as GtkRecentManager ptr
 
 private sub glib_autoptr_cleanup_GtkRecentManager(byval _ptr as GtkRecentManager ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkRevealer_autoptr as GtkRevealer ptr
 
 private sub glib_autoptr_cleanup_GtkRevealer(byval _ptr as GtkRevealer ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkScale_autoptr as GtkScale ptr
 
 private sub glib_autoptr_cleanup_GtkScale(byval _ptr as GtkScale ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkScaleButton_autoptr as GtkScaleButton ptr
 
 private sub glib_autoptr_cleanup_GtkScaleButton(byval _ptr as GtkScaleButton ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkScrollable_autoptr as GtkScrollable ptr
 
 private sub glib_autoptr_cleanup_GtkScrollable(byval _ptr as GtkScrollable ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkScrollbar_autoptr as GtkScrollbar ptr
 
 private sub glib_autoptr_cleanup_GtkScrollbar(byval _ptr as GtkScrollbar ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkScrolledWindow_autoptr as GtkScrolledWindow ptr
 
 private sub glib_autoptr_cleanup_GtkScrolledWindow(byval _ptr as GtkScrolledWindow ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkSearchBar_autoptr as GtkSearchBar ptr
 
 private sub glib_autoptr_cleanup_GtkSearchBar(byval _ptr as GtkSearchBar ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkSearchEntry_autoptr as GtkSearchEntry ptr
 
 private sub glib_autoptr_cleanup_GtkSearchEntry(byval _ptr as GtkSearchEntry ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkSeparator_autoptr as GtkSeparator ptr
 
 private sub glib_autoptr_cleanup_GtkSeparator(byval _ptr as GtkSeparator ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkSeparatorMenuItem_autoptr as GtkSeparatorMenuItem ptr
 
 private sub glib_autoptr_cleanup_GtkSeparatorMenuItem(byval _ptr as GtkSeparatorMenuItem ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkSeparatorToolItem_autoptr as GtkSeparatorToolItem ptr
 
 private sub glib_autoptr_cleanup_GtkSeparatorToolItem(byval _ptr as GtkSeparatorToolItem ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkSettings_autoptr as GtkSettings ptr
 
 private sub glib_autoptr_cleanup_GtkSettings(byval _ptr as GtkSettings ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkStackSidebar_autoptr as GtkStackSidebar ptr
 
 private sub glib_autoptr_cleanup_GtkStackSidebar(byval _ptr as GtkStackSidebar ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkSizeGroup_autoptr as GtkSizeGroup ptr
 
 private sub glib_autoptr_cleanup_GtkSizeGroup(byval _ptr as GtkSizeGroup ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkSpinButton_autoptr as GtkSpinButton ptr
 
 private sub glib_autoptr_cleanup_GtkSpinButton(byval _ptr as GtkSpinButton ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkSpinner_autoptr as GtkSpinner ptr
 
 private sub glib_autoptr_cleanup_GtkSpinner(byval _ptr as GtkSpinner ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkStack_autoptr as GtkStack ptr
 
 private sub glib_autoptr_cleanup_GtkStack(byval _ptr as GtkStack ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkStackSwitcher_autoptr as GtkStackSwitcher ptr
 
 private sub glib_autoptr_cleanup_GtkStackSwitcher(byval _ptr as GtkStackSwitcher ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkStatusbar_autoptr as GtkStatusbar ptr
 
 private sub glib_autoptr_cleanup_GtkStatusbar(byval _ptr as GtkStatusbar ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkStyle_autoptr as GtkStyle ptr
 
 private sub glib_autoptr_cleanup_GtkStyle(byval _ptr as GtkStyle ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkStyleContext_autoptr as GtkStyleContext ptr
 
 private sub glib_autoptr_cleanup_GtkStyleContext(byval _ptr as GtkStyleContext ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkStyleProperties_autoptr as GtkStyleProperties ptr
 
 private sub glib_autoptr_cleanup_GtkStyleProperties(byval _ptr as GtkStyleProperties ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkStyleProvider_autoptr as GtkStyleProvider ptr
 
 private sub glib_autoptr_cleanup_GtkStyleProvider(byval _ptr as GtkStyleProvider ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkSwitch_autoptr as GtkSwitch ptr
 
 private sub glib_autoptr_cleanup_GtkSwitch(byval _ptr as GtkSwitch ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkTextBuffer_autoptr as GtkTextBuffer ptr
 
 private sub glib_autoptr_cleanup_GtkTextBuffer(byval _ptr as GtkTextBuffer ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkTextChildAnchor_autoptr as GtkTextChildAnchor ptr
 
 private sub glib_autoptr_cleanup_GtkTextChildAnchor(byval _ptr as GtkTextChildAnchor ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkTextMark_autoptr as GtkTextMark ptr
 
 private sub glib_autoptr_cleanup_GtkTextMark(byval _ptr as GtkTextMark ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkTextTag_autoptr as GtkTextTag ptr
 
 private sub glib_autoptr_cleanup_GtkTextTag(byval _ptr as GtkTextTag ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkTextTagTable_autoptr as GtkTextTagTable ptr
 
 private sub glib_autoptr_cleanup_GtkTextTagTable(byval _ptr as GtkTextTagTable ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkTextView_autoptr as GtkTextView ptr
 
 private sub glib_autoptr_cleanup_GtkTextView(byval _ptr as GtkTextView ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkToggleButton_autoptr as GtkToggleButton ptr
 
 private sub glib_autoptr_cleanup_GtkToggleButton(byval _ptr as GtkToggleButton ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkToggleToolButton_autoptr as GtkToggleToolButton ptr
 
 private sub glib_autoptr_cleanup_GtkToggleToolButton(byval _ptr as GtkToggleToolButton ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkToolButton_autoptr as GtkToolButton ptr
 
 private sub glib_autoptr_cleanup_GtkToolButton(byval _ptr as GtkToolButton ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkToolItem_autoptr as GtkToolItem ptr
 
 private sub glib_autoptr_cleanup_GtkToolItem(byval _ptr as GtkToolItem ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkToolItemGroup_autoptr as GtkToolItemGroup ptr
 
 private sub glib_autoptr_cleanup_GtkToolItemGroup(byval _ptr as GtkToolItemGroup ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkToolPalette_autoptr as GtkToolPalette ptr
 
 private sub glib_autoptr_cleanup_GtkToolPalette(byval _ptr as GtkToolPalette ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkToolShell_autoptr as GtkToolShell ptr
 
 private sub glib_autoptr_cleanup_GtkToolShell(byval _ptr as GtkToolShell ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkToolbar_autoptr as GtkToolbar ptr
 
 private sub glib_autoptr_cleanup_GtkToolbar(byval _ptr as GtkToolbar ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkTooltip_autoptr as GtkTooltip ptr
 
 private sub glib_autoptr_cleanup_GtkTooltip(byval _ptr as GtkTooltip ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkTreeDragDest_autoptr as GtkTreeDragDest ptr
 
 private sub glib_autoptr_cleanup_GtkTreeDragDest(byval _ptr as GtkTreeDragDest ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkTreeDragSource_autoptr as GtkTreeDragSource ptr
 
 private sub glib_autoptr_cleanup_GtkTreeDragSource(byval _ptr as GtkTreeDragSource ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkTreeModel_autoptr as GtkTreeModel ptr
 
 private sub glib_autoptr_cleanup_GtkTreeModel(byval _ptr as GtkTreeModel ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkTreeModelFilter_autoptr as GtkTreeModelFilter ptr
 
 private sub glib_autoptr_cleanup_GtkTreeModelFilter(byval _ptr as GtkTreeModelFilter ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkTreeModelSort_autoptr as GtkTreeModelSort ptr
 
 private sub glib_autoptr_cleanup_GtkTreeModelSort(byval _ptr as GtkTreeModelSort ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkTreeSelection_autoptr as GtkTreeSelection ptr
 
 private sub glib_autoptr_cleanup_GtkTreeSelection(byval _ptr as GtkTreeSelection ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkTreeSortable_autoptr as GtkTreeSortable ptr
 
 private sub glib_autoptr_cleanup_GtkTreeSortable(byval _ptr as GtkTreeSortable ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkTreeStore_autoptr as GtkTreeStore ptr
 
 private sub glib_autoptr_cleanup_GtkTreeStore(byval _ptr as GtkTreeStore ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkTreeView_autoptr as GtkTreeView ptr
 
 private sub glib_autoptr_cleanup_GtkTreeView(byval _ptr as GtkTreeView ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkTreeViewColumn_autoptr as GtkTreeViewColumn ptr
 
 private sub glib_autoptr_cleanup_GtkTreeViewColumn(byval _ptr as GtkTreeViewColumn ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkViewport_autoptr as GtkViewport ptr
 
 private sub glib_autoptr_cleanup_GtkViewport(byval _ptr as GtkViewport ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkVolumeButton_autoptr as GtkVolumeButton ptr
 
 private sub glib_autoptr_cleanup_GtkVolumeButton(byval _ptr as GtkVolumeButton ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkWidget_autoptr as GtkWidget ptr
 
 private sub glib_autoptr_cleanup_GtkWidget(byval _ptr as GtkWidget ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkWindow_autoptr as GtkWindow ptr
 
 private sub glib_autoptr_cleanup_GtkWindow(byval _ptr as GtkWindow ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkWindowGroup_autoptr as GtkWindowGroup ptr
 
 private sub glib_autoptr_cleanup_GtkWindowGroup(byval _ptr as GtkWindowGroup ptr ptr)
-	'' TODO: if (*_ptr) (g_object_unref) (*_ptr);
+	if *_ptr then
+		g_object_unref(*_ptr)
+	end if
 end sub
 
 type GtkBorder_autoptr as GtkBorder ptr
 
 private sub glib_autoptr_cleanup_GtkBorder(byval _ptr as GtkBorder ptr ptr)
-	'' TODO: if (*_ptr) (gtk_border_free) (*_ptr);
+	if *_ptr then
+		gtk_border_free(*_ptr)
+	end if
 end sub
 
 type GtkPaperSize_autoptr as GtkPaperSize ptr
 
 private sub glib_autoptr_cleanup_GtkPaperSize(byval _ptr as GtkPaperSize ptr ptr)
-	'' TODO: if (*_ptr) (gtk_paper_size_free) (*_ptr);
+	if *_ptr then
+		gtk_paper_size_free(*_ptr)
+	end if
 end sub
 
 type GtkRequisition_autoptr as GtkRequisition ptr
 
 private sub glib_autoptr_cleanup_GtkRequisition(byval _ptr as GtkRequisition ptr ptr)
-	'' TODO: if (*_ptr) (gtk_requisition_free) (*_ptr);
+	if *_ptr then
+		gtk_requisition_free(*_ptr)
+	end if
 end sub
 
 type GtkSelectionData_autoptr as GtkSelectionData ptr
 
 private sub glib_autoptr_cleanup_GtkSelectionData(byval _ptr as GtkSelectionData ptr ptr)
-	'' TODO: if (*_ptr) (gtk_selection_data_free) (*_ptr);
+	if *_ptr then
+		gtk_selection_data_free(*_ptr)
+	end if
 end sub
 
 type GtkTargetList_autoptr as GtkTargetList ptr
 
 private sub glib_autoptr_cleanup_GtkTargetList(byval _ptr as GtkTargetList ptr ptr)
-	'' TODO: if (*_ptr) (gtk_target_list_unref) (*_ptr);
+	if *_ptr then
+		gtk_target_list_unref(*_ptr)
+	end if
 end sub
 
 type GtkTextAttributes_autoptr as GtkTextAttributes ptr
 
 private sub glib_autoptr_cleanup_GtkTextAttributes(byval _ptr as GtkTextAttributes ptr ptr)
-	'' TODO: if (*_ptr) (gtk_text_attributes_unref) (*_ptr);
+	if *_ptr then
+		gtk_text_attributes_unref(*_ptr)
+	end if
 end sub
 
 type GtkTextIter_autoptr as GtkTextIter ptr
 
 private sub glib_autoptr_cleanup_GtkTextIter(byval _ptr as GtkTextIter ptr ptr)
-	'' TODO: if (*_ptr) (gtk_text_iter_free) (*_ptr);
+	if *_ptr then
+		gtk_text_iter_free(*_ptr)
+	end if
 end sub
 
 type GtkTreeIter_autoptr as GtkTreeIter ptr
 
 private sub glib_autoptr_cleanup_GtkTreeIter(byval _ptr as GtkTreeIter ptr ptr)
-	'' TODO: if (*_ptr) (gtk_tree_iter_free) (*_ptr);
+	if *_ptr then
+		gtk_tree_iter_free(*_ptr)
+	end if
 end sub
 
 type GtkTreeRowReference_autoptr as GtkTreeRowReference ptr
 
 private sub glib_autoptr_cleanup_GtkTreeRowReference(byval _ptr as GtkTreeRowReference ptr ptr)
-	'' TODO: if (*_ptr) (gtk_tree_row_reference_free) (*_ptr);
+	if *_ptr then
+		gtk_tree_row_reference_free(*_ptr)
+	end if
 end sub
 
 type GtkWidgetPath_autoptr as GtkWidgetPath ptr
 
 private sub glib_autoptr_cleanup_GtkWidgetPath(byval _ptr as GtkWidgetPath ptr ptr)
-	'' TODO: if (*_ptr) (gtk_widget_path_unref) (*_ptr);
+	if *_ptr then
+		gtk_widget_path_unref(*_ptr)
+	end if
 end sub
 
 #undef __GTK_H_INSIDE__
