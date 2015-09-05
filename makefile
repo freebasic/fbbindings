@@ -1495,6 +1495,9 @@ im: tools
 		-emit '*/imlua.h' inc/im/imlua.bi \
 		-title $(IM) im.tmp fbteam.txt
 
+im-update-test:
+	ls inc/im/*.bi | sed -e 's,^inc/,#include ",g' -e 's,$$,",g' > tests/im.bas
+
 IUP_VERSION := 3.15
 IUP_TITLE := iup-$(IUP_VERSION)
 iup: tools
