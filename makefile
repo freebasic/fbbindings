@@ -1266,6 +1266,9 @@ gsl: tools
 	$(FBFROG) gsl.fbfrog -incdir extracted/$(GSL) `./gsl-fbfrog-options.sh $(GSL)`
 	rm extracted/$(GSL)/gsl/*.tmp
 
+gsl-update-test:
+	ls inc/gsl/*.bi | sed -e 's,^inc/,#include ",g' -e 's,$$,",g' > tests/gsl.bas
+
 gtk: gtk2 gtk3
 
 GTK2_SERIES := 2.24
