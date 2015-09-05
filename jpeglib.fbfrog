@@ -13,6 +13,7 @@
 -removedefine FAR
 -removedefine jpeg_common_fields
 -removedefine HAVE_*
+-removedefine JPP
 
 -inclib jpeg
 

@@ -427,7 +427,7 @@ type jpeg_decompress_struct
 	input_iMCU_row as JDIMENSION
 	output_scan_number as long
 	output_iMCU_row as JDIMENSION
-	coef_bits(0 to 63) as long ptr
+	coef_bits as long ptr
 	quant_tbl_ptrs(0 to 3) as JQUANT_TBL ptr
 	dc_huff_tbl_ptrs(0 to 3) as JHUFF_TBL ptr
 	ac_huff_tbl_ptrs(0 to 3) as JHUFF_TBL ptr
@@ -576,7 +576,6 @@ type jpeg_memory_mgr_
 end type
 
 type jpeg_marker_parser_method as function(byval cinfo as j_decompress_ptr) as jpeg_boolean
-#define JPP(arglist) arglist
 declare function jpeg_std_error(byval err as jpeg_error_mgr ptr) as jpeg_error_mgr ptr
 #define jpeg_create_compress(cinfo) jpeg_CreateCompress((cinfo), JPEG_LIB_VERSION, cuint(sizeof(jpeg_compress_struct)))
 #define jpeg_create_decompress(cinfo) jpeg_CreateDecompress((cinfo), JPEG_LIB_VERSION, cuint(sizeof(jpeg_decompress_struct)))

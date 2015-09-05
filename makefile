@@ -1,4 +1,4 @@
-FBFROG_VERSION := 59483b938fe3e047f43400c7fe7d66f315475f47
+FBFROG_VERSION := 5974a3ce246b038a4f37efe282e0c61f3624ddfe
 
 ALL := allegro allegro4 allegro5 aspell atk
 ALL += bass bassmod bfd bzip2
@@ -1628,6 +1628,7 @@ jit: tools
 
 	rm *.tmp
 
+# TODO: use jpeglib-turbo (alternative implementation) instead?
 JPEGLIB_CONF := HAVE_UNSIGNED_CHAR HAVE_UNSIGNED_SHORT HAVE_PROTOTYPES HAVE_NORETURN_T
 jpeglib: tools
 	./get.sh jpeg-6b jpegsrc.v6b.tar.gz http://ijg.org/files/jpegsrc.v6b.tar.gz
