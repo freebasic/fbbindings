@@ -144,15 +144,40 @@ extern "C"
 #define _GLIB_AUTOPTR_FUNC_NAME(TypeName) glib_autoptr_cleanup_##TypeName
 #define _GLIB_AUTOPTR_TYPENAME(TypeName) TypeName##_autoptr
 #define _GLIB_AUTO_FUNC_NAME(TypeName) glib_auto_cleanup_##TypeName
-
-'' TODO: #define _GLIB_DEFINE_AUTOPTR_CHAINUP(ModuleObjName, ParentName) typedef ModuleObjName *_GLIB_AUTOPTR_TYPENAME(ModuleObjName); static inline void _GLIB_AUTOPTR_FUNC_NAME(ModuleObjName) (ModuleObjName **_ptr) { _GLIB_AUTOPTR_FUNC_NAME(ParentName) ((ParentName **) _ptr); }
-'' TODO: #define G_DEFINE_AUTOPTR_CLEANUP_FUNC(TypeName, func) typedef TypeName *_GLIB_AUTOPTR_TYPENAME(TypeName); G_GNUC_BEGIN_IGNORE_DEPRECATIONS static inline void _GLIB_AUTOPTR_FUNC_NAME(TypeName) (TypeName **_ptr) { if (*_ptr) (func) (*_ptr); } G_GNUC_END_IGNORE_DEPRECATIONS
-'' TODO: #define G_DEFINE_AUTO_CLEANUP_CLEAR_FUNC(TypeName, func) G_GNUC_BEGIN_IGNORE_DEPRECATIONS static inline void _GLIB_AUTO_FUNC_NAME(TypeName) (TypeName *_ptr) { (func) (_ptr); } G_GNUC_END_IGNORE_DEPRECATIONS
-'' TODO: #define G_DEFINE_AUTO_CLEANUP_FREE_FUNC(TypeName, func, none) G_GNUC_BEGIN_IGNORE_DEPRECATIONS static inline void _GLIB_AUTO_FUNC_NAME(TypeName) (TypeName *_ptr) { if (*_ptr != none) (func) (*_ptr); } G_GNUC_END_IGNORE_DEPRECATIONS
-'' TODO: #define g_autoptr(TypeName) _GLIB_CLEANUP(_GLIB_AUTOPTR_FUNC_NAME(TypeName)) _GLIB_AUTOPTR_TYPENAME(TypeName)
-'' TODO: #define g_auto(TypeName) _GLIB_CLEANUP(_GLIB_AUTO_FUNC_NAME(TypeName)) TypeName
-
-#define g_autofree _GLIB_CLEANUP(g_autoptr_cleanup_generic_gfree)
+#macro _GLIB_DEFINE_AUTOPTR_CHAINUP(ModuleObjName, ParentName)
+	extern "C"
+		type _GLIB_AUTOPTR_TYPENAME(ModuleObjName) as ModuleObjName ptr
+		private sub _GLIB_AUTOPTR_FUNC_NAME(ModuleObjName)(byval _ptr as ModuleObjName ptr ptr)
+			_GLIB_AUTOPTR_FUNC_NAME(ParentName)(cptr(ParentName ptr ptr, _ptr))
+		end sub
+	end extern
+#endmacro
+#macro G_DEFINE_AUTOPTR_CLEANUP_FUNC(TypeName, func)
+	extern "C"
+		type _GLIB_AUTOPTR_TYPENAME(TypeName) as TypeName ptr
+		private sub _GLIB_AUTOPTR_FUNC_NAME(TypeName)(byval _ptr as TypeName ptr ptr)
+			if *_ptr then
+				func(*_ptr)
+			end if
+		end sub
+	end extern
+#endmacro
+#macro G_DEFINE_AUTO_CLEANUP_CLEAR_FUNC(TypeName, func)
+	extern "C"
+		private sub _GLIB_AUTO_FUNC_NAME(TypeName)(byval _ptr as TypeName ptr)
+			func(_ptr)
+		end sub
+	end extern
+#endmacro
+#macro G_DEFINE_AUTO_CLEANUP_FREE_FUNC(TypeName, func, none)
+	extern "C"
+		private sub _GLIB_AUTO_FUNC_NAME(TypeName)(byval _ptr as TypeName ptr)
+			if *_ptr <> none
+				func(*_ptr)
+			end if
+		end sub
+	end extern
+#endmacro
 #define __G_VERSION_MACROS_H__
 #define G_ENCODE_VERSION(major, minor) (((major) shl 16) or ((minor) shl 8))
 #define GLIB_VERSION_2_26 G_ENCODE_VERSION(2, 26)

@@ -337,7 +337,7 @@ convert c:
 			static gpointer type_name##_parent_class = NULL;					\
 			static gint TypeName##_private_offset;							\
 			_G_DEFINE_TYPE_EXTENDED_CLASS_INIT(TypeName, type_name)					\
-			G_GNUC_UNUSED static inline gpointer type_name##_get_instance_private(TypeName *self) {	\
+			G_GNUC_UNUSED static inline gpointer type_name##_get_instance_private(const TypeName *self) {	\
 				return (G_STRUCT_MEMBER_P(self, TypeName##_private_offset));			\
 			}											\
 			GType type_name##_get_type(void) {							\
@@ -364,7 +364,7 @@ to fb:
 
 			_G_DEFINE_TYPE_EXTENDED_CLASS_INIT(TypeName, type_name)
 
-			private function type_name##_get_instance_private(byval self as TypeName ptr) as gpointer
+			private function type_name##_get_instance_private(byval self as const TypeName ptr) as gpointer
 				return G_STRUCT_MEMBER_P(self, TypeName##_private_offset)
 			end function
 
@@ -875,3 +875,188 @@ to c:
 			else
 				g_assertion_message_expr(G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, #expr);
 		} while (0)
+
+convert c:
+	#define _GLIB_DEFINE_AUTOPTR_CHAINUP(ModuleObjName, ParentName)
+		typedef ModuleObjName *_GLIB_AUTOPTR_TYPENAME(ModuleObjName);
+		static inline void _GLIB_AUTOPTR_FUNC_NAME(ModuleObjName)(ModuleObjName **_ptr) {
+			_GLIB_AUTOPTR_FUNC_NAME(ParentName)((ParentName **) _ptr);
+		}
+to fb:
+	#macro _GLIB_DEFINE_AUTOPTR_CHAINUP(ModuleObjName, ParentName)
+		extern "C"
+			type _GLIB_AUTOPTR_TYPENAME(ModuleObjName) as ModuleObjName ptr
+			private sub _GLIB_AUTOPTR_FUNC_NAME(ModuleObjName)(byval _ptr as ModuleObjName ptr ptr)
+				_GLIB_AUTOPTR_FUNC_NAME(ParentName)(cptr(ParentName ptr ptr, _ptr))
+			end sub
+		end extern
+	#endmacro
+
+convert c:
+	#define G_DEFINE_AUTOPTR_CLEANUP_FUNC(TypeName, func)
+		typedef TypeName *_GLIB_AUTOPTR_TYPENAME(TypeName);
+		G_GNUC_BEGIN_IGNORE_DEPRECATIONS
+		static inline void _GLIB_AUTOPTR_FUNC_NAME(TypeName)(TypeName **_ptr) {
+			if (*_ptr)
+				(func)(*_ptr);
+		}
+		G_GNUC_END_IGNORE_DEPRECATIONS
+to fb:
+	#macro G_DEFINE_AUTOPTR_CLEANUP_FUNC(TypeName, func)
+		extern "C"
+			type _GLIB_AUTOPTR_TYPENAME(TypeName) as TypeName ptr
+			private sub _GLIB_AUTOPTR_FUNC_NAME(TypeName)(byval _ptr as TypeName ptr ptr)
+				if *_ptr then
+					func(*_ptr)
+				end if
+			end sub
+		end extern
+	#endmacro
+
+convert c:
+	#define G_DEFINE_AUTO_CLEANUP_CLEAR_FUNC(TypeName, func)
+		G_GNUC_BEGIN_IGNORE_DEPRECATIONS
+		static inline void _GLIB_AUTO_FUNC_NAME(TypeName)(TypeName *_ptr) {
+			(func)(_ptr);
+		}
+		G_GNUC_END_IGNORE_DEPRECATIONS
+to fb:
+	#macro G_DEFINE_AUTO_CLEANUP_CLEAR_FUNC(TypeName, func)
+		extern "C"
+			private sub _GLIB_AUTO_FUNC_NAME(TypeName)(byval _ptr as TypeName ptr)
+				func(_ptr)
+			end sub
+		end extern
+	#endmacro
+
+convert c:
+	#define G_DEFINE_AUTO_CLEANUP_FREE_FUNC(TypeName, func, none)
+		G_GNUC_BEGIN_IGNORE_DEPRECATIONS
+		static inline void _GLIB_AUTO_FUNC_NAME(TypeName)(TypeName *_ptr) {
+			if (*_ptr != none)
+				(func)(*_ptr);
+		}
+		G_GNUC_END_IGNORE_DEPRECATIONS
+to fb:
+	#macro G_DEFINE_AUTO_CLEANUP_FREE_FUNC(TypeName, func, none)
+		extern "C"
+			private sub _GLIB_AUTO_FUNC_NAME(TypeName)(byval _ptr as TypeName ptr)
+				if *_ptr <> none
+					func(*_ptr)
+				end if
+			end sub
+		end extern
+	#endmacro
+
+convert c:
+	#define G_DECLARE_FINAL_TYPE(ModuleObjName, module_obj_name, MODULE, OBJ_NAME, ParentName)
+		GType module_obj_name##_get_type(void);
+		G_GNUC_BEGIN_IGNORE_DEPRECATIONS
+		typedef struct _##ModuleObjName ModuleObjName;
+		typedef struct {
+			ParentName##Class parent_class;
+		} ModuleObjName##Class;
+		_GLIB_DEFINE_AUTOPTR_CHAINUP(ModuleObjName, ParentName)
+		static inline ModuleObjName *MODULE##_##OBJ_NAME(gconstpointer ptr) {
+			return G_TYPE_CHECK_INSTANCE_CAST(ptr, module_obj_name##_get_type(), ModuleObjName);
+		}
+		static inline gboolean MODULE##_IS_##OBJ_NAME(gconstpointer ptr) {
+			return G_TYPE_CHECK_INSTANCE_TYPE(ptr, module_obj_name##_get_type());
+		}
+		G_GNUC_END_IGNORE_DEPRECATIONS
+to fb:
+	#macro G_DECLARE_FINAL_TYPE(ModuleObjName, module_obj_name, MODULE, OBJ_NAME, ParentName)
+		extern "C"
+			declare function module_obj_name##_get_type() as GType
+			type ModuleObjName as _##ModuleObjName
+			type ModuleObjName##Class
+				parent_class as ParentName##Class
+			end type
+			_GLIB_DEFINE_AUTOPTR_CHAINUP(ModuleObjName, ParentName)
+			#define MODULE##_##OBJ_NAME(ptr_) cptr(ModuleObjName ptr, G_TYPE_CHECK_INSTANCE_CAST(ptr_, module_obj_name##_get_type(), ModuleObjName))
+			#define MODULE##_IS_##OBJ_NAME(ptr_) cast(gboolean, G_TYPE_CHECK_INSTANCE_TYPE(ptr_, module_obj_name##_get_type()))
+		end extern
+	#endmacro
+
+convert c:
+	#define G_DECLARE_DERIVABLE_TYPE(ModuleObjName, module_obj_name, MODULE, OBJ_NAME, ParentName)
+		GType module_obj_name##_get_type(void);
+		G_GNUC_BEGIN_IGNORE_DEPRECATIONS
+		typedef struct _##ModuleObjName ModuleObjName;
+		typedef struct _##ModuleObjName##Class ModuleObjName##Class;
+		struct _##ModuleObjName {
+			ParentName parent_instance;
+		};
+		_GLIB_DEFINE_AUTOPTR_CHAINUP(ModuleObjName, ParentName)
+		static inline ModuleObjName *MODULE##_##OBJ_NAME(gconstpointer ptr) {
+			return G_TYPE_CHECK_INSTANCE_CAST(ptr, module_obj_name##_get_type(), ModuleObjName);
+		}
+		static inline ModuleObjName##Class *MODULE##_##OBJ_NAME##_CLASS(gconstpointer ptr) {
+			return G_TYPE_CHECK_CLASS_CAST(ptr, module_obj_name##_get_type(), ModuleObjName##Class);
+		}
+		static inline gboolean MODULE##_IS_##OBJ_NAME(gconstpointer ptr) {
+			return G_TYPE_CHECK_INSTANCE_TYPE(ptr, module_obj_name##_get_type());
+		}
+		static inline gboolean MODULE##_IS_##OBJ_NAME##_CLASS(gconstpointer ptr) {
+			return G_TYPE_CHECK_CLASS_TYPE(ptr, module_obj_name##_get_type());
+		}
+		static inline ModuleObjName##Class *MODULE##_##OBJ_NAME##_GET_CLASS(gconstpointer ptr) {
+			return G_TYPE_INSTANCE_GET_CLASS(ptr, module_obj_name##_get_type(), ModuleObjName##Class);
+		}
+		G_GNUC_END_IGNORE_DEPRECATIONS
+to fb:
+	#macro G_DECLARE_DERIVABLE_TYPE(ModuleObjName, module_obj_name, MODULE, OBJ_NAME, ParentName)
+		extern "C"
+			declare function module_obj_name##_get_type() as GType
+			type ModuleObjName as _##ModuleObjName
+			type ModuleObjName##Class as _##ModuleObjName##Class
+			type _##ModuleObjName
+				parent_instance as ParentName
+			end type
+			_GLIB_DEFINE_AUTOPTR_CHAINUP(ModuleObjName, ParentName)
+			#define MODULE##_##OBJ_NAME(ptr_) cptr(ModuleObjName ptr, G_TYPE_CHECK_INSTANCE_CAST(ptr_, module_obj_name##_get_type(), ModuleObjName))
+			#define MODULE##_##OBJ_NAME##_CLASS(ptr_) cptr(ModuleObjName##Class ptr, G_TYPE_CHECK_CLASS_CAST(ptr_, module_obj_name##_get_type(), ModuleObjName##Class))
+			#define MODULE##_IS_##OBJ_NAME(ptr_) cast(gboolean, G_TYPE_CHECK_INSTANCE_TYPE(ptr_, module_obj_name##_get_type()))
+			#define MODULE##_IS_##OBJ_NAME##_CLASS(ptr_) cast(gboolean, G_TYPE_CHECK_CLASS_TYPE(ptr_, module_obj_name##_get_type()))
+			#define MODULE##_##OBJ_NAME##_GET_CLASS(ptr_) cptr(ModuleObjName##Class ptr, G_TYPE_INSTANCE_GET_CLASS(ptr_, module_obj_name##_get_type(), ModuleObjName##Class))
+		end extern
+	#endmacro
+
+convert c:
+	#define G_DECLARE_INTERFACE(ModuleObjName, module_obj_name, MODULE, OBJ_NAME, PrerequisiteName)
+		GType module_obj_name##_get_type(void);
+		G_GNUC_BEGIN_IGNORE_DEPRECATIONS
+		typedef struct _##ModuleObjName ModuleObjName;
+		typedef struct _##ModuleObjName##Interface ModuleObjName##Interface;
+		_GLIB_DEFINE_AUTOPTR_CHAINUP(ModuleObjName, PrerequisiteName)
+		static inline ModuleObjName *MODULE##_##OBJ_NAME(gconstpointer ptr) {
+			return G_TYPE_CHECK_INSTANCE_CAST(ptr, module_obj_name##_get_type(), ModuleObjName);
+		}
+		static inline gboolean MODULE##_IS_##OBJ_NAME(gconstpointer ptr) {
+			return G_TYPE_CHECK_INSTANCE_TYPE(ptr, module_obj_name##_get_type());
+		}
+		static inline ModuleObjName##Interface *MODULE##_##OBJ_NAME##_GET_IFACE(gconstpointer ptr) {
+			return G_TYPE_INSTANCE_GET_INTERFACE(ptr, module_obj_name##_get_type(), ModuleObjName##Interface);
+		}
+		G_GNUC_END_IGNORE_DEPRECATIONS
+to fb:
+	#macro G_DECLARE_INTERFACE(ModuleObjName, module_obj_name, MODULE, OBJ_NAME, PrerequisiteName)
+		extern "C"
+			declare function module_obj_name##_get_type() as GType
+			type ModuleObjName as _##ModuleObjName
+			type ModuleObjName##Interface as _##ModuleObjName##Interface
+			_GLIB_DEFINE_AUTOPTR_CHAINUP(ModuleObjName, PrerequisiteName)
+			#define MODULE##_##OBJ_NAME(ptr_) cptr(ModuleObjName ptr, G_TYPE_CHECK_INSTANCE_CAST(ptr_, module_obj_name##_get_type(), ModuleObjName))
+			#define MODULE##_IS_##OBJ_NAME(ptr_) cast(gboolean, G_TYPE_CHECK_INSTANCE_TYPE(ptr_, module_obj_name##_get_type()))
+			#define MODULE##_##OBJ_NAME##_GET_IFACE(ptr_) cptr(ModuleObjName##Interface ptr, G_TYPE_INSTANCE_GET_INTERFACE(ptr_, module_obj_name##_get_type(), ModuleObjName##Interface))
+		end extern
+	#endmacro
+
+convert c:
+	#define g_set_object(object_ptr, new_object)
+		( 0 ?
+			*(object_ptr) = (new_object), FALSE :
+			(g_set_object)((GObject **)(object_ptr), (GObject *)(new_object)) )
+to c:
+	#define g_set_object(object_ptr, new_object)
+		( (g_set_object)((GObject **)(object_ptr), (GObject *)(new_object)) )

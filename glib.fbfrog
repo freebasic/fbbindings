@@ -179,3 +179,11 @@
 -ifndefdecl NULL
 -ifndefdecl CTRUE
 -ifndefdecl FALSE
+
+# glib auto clean-up depends on gcc's __attribute__((__cleanup__(functionname)))
+# variable attribute which doesn't exist in FB yet.
+-removedefine g_autoptr
+-removedefine g_auto
+-removedefine g_autofree
+
+-noexpand G_TYPE_CHECK_INSTANCE_TYPE
