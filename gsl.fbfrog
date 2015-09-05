@@ -1,3 +1,6 @@
+-inclib gsl      inc/gsl/gsl_types.bi
+-inclib gslcblas inc/gsl/gsl_cblas.bi
+
 -define GSL_RANGE_CHECK_OFF 1
 
 -removedefine __BEGIN_DECLS
