@@ -5,7 +5,6 @@
 #include "im/im_colorhsi.bi"
 #include "im/im_convert.bi"
 #include "im/im_counter.bi"
-#include "im/im_dib.bi"
 #include "im/im_file.bi"
 #include "im/im_format_all.bi"
 #include "im/im_format_avi.bi"
@@ -26,3 +25,8 @@
 #include "im/im_raw.bi"
 #include "im/im_util.bi"
 #include "im/old_im.bi"
+
+#ifdef __FB_WIN32__
+	#include "windows.bi"
+	#include "im/im_dib.bi"
+#endif
