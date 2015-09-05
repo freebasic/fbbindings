@@ -52,6 +52,17 @@
 
 #pragma once
 
+'' By default, the jpeglib 9 API is used, but __JPEGLIB_VER__ can be #defined to 6,
+'' 7, 8 or 9 to select a specific version, should that be necessary to match the
+'' version of the libjpeg binary. Background: Due to changes to fields of the
+'' jpeg_compress_struct and jpeg_decompress_struct structures, the different
+'' jpeglib versions are ABI incompatible.
+
+'' Default to jpeglib 9
+#ifndef __JPEGLIB_VER__
+#define __JPEGLIB_VER__ 9
+#endif
+
 #inclib "jpeg"
 
 #include once "crt/long.bi"
@@ -108,6 +119,8 @@ const JPEG_MAX_DIMENSION = cast(clong, 65500)
 	const JPEG_LIB_VERSION = 90
 	const JPEG_LIB_VERSION_MAJOR = 9
 	const JPEG_LIB_VERSION_MINOR = 1
+#else
+	#error "unsupported __JPEGLIB_VER__ value (it may be one of 6,7,8,9)"
 #endif
 
 const DCTSIZE = 8
