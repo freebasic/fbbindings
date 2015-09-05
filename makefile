@@ -8,7 +8,7 @@ ALL += expat
 ALL += fastcgi ffi flite fontconfig freeglut freeimage freetype
 ALL += gd gdbm gdkpixbuf gdsl glib glfw glut gmp grx gsl gtk gtk2 gtk3 gtkglext
 ALL += iconv im iup
-ALL += jit jpeglib
+ALL += jit jpeglib jsonc
 ALL += llvm lua
 ALL += ncurses
 ALL += openal opengl opengl-mesa opengl-winapi
@@ -1659,6 +1659,23 @@ jpeglib: tools
 		 -o inc/jpeglib.bi -title "jpeglib 6b, 7, 8, 9a" jpeglib.tmp fbteam.txt
 
 	rm *.tmp
+
+JSONC := json-c-0.12-20140410
+JSONCDIR := json-c-$(JSONC)
+jsonc: tools
+	./get.sh $(JSONCDIR) $(JSONC).tar.gz https://github.com/json-c/json-c/archive/$(JSONC).tar.gz
+
+	./fake-configure JSON_C_HAVE_INTTYPES_H \
+		< extracted/$(JSONCDIR)/json_config.h.in \
+		> extracted/$(JSONCDIR)/json_config.h
+
+	./jsonc-tmps.sh "$(JSONCDIR)"
+
+	mkdir -p inc/json-c
+	$(FBFROG) jsonc.fbfrog -incdir extracted/$(JSONCDIR) \
+		`./jsonc-fbfrog-options.sh "$(JSONC)" "$(JSONCDIR)"`
+
+	rm extracted/$(JSONCDIR)/*.tmp
 
 LLVM_VERSION := 3.6.2
 LLVM_TITLE := llvm-$(LLVM_VERSION).src

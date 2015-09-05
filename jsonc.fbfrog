@@ -1,0 +1,17 @@
+-removedefine lh_foreach
+-removedefine lh_foreach_safe
+-removedefine THIS_FUNCTION_IS_DEPRECATED
+-removedefine json_object_object_foreach
+-removedefine json_object_object_foreachC
+
+-renametag data json_object_data
+
+-removeinclude json_inttypes.h
+
+-remove1st TRUE
+-remove1st FALSE
+-ifndefdecl CTRUE
+-ifndefdecl FALSE
+-rename TRUE CTRUE
+
+-replacements jsonc.replacements
