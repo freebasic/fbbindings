@@ -1616,6 +1616,7 @@ jit: tools
 
 	rm *.tmp
 
+# TODO: use jpeglib-turbo (alternative implementation) instead?
 JPEGLIB_CONF := HAVE_UNSIGNED_CHAR HAVE_UNSIGNED_SHORT HAVE_PROTOTYPES HAVE_NORETURN_T
 jpeglib: tools
 	./get.sh jpeg-6b jpegsrc.v6b.tar.gz http://ijg.org/files/jpegsrc.v6b.tar.gz

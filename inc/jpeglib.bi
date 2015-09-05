@@ -574,7 +574,6 @@ type jpeg_memory_mgr_
 end type
 
 type jpeg_marker_parser_method as function(byval cinfo as j_decompress_ptr) as jpeg_boolean
-#define JPP(arglist) arglist
 declare function jpeg_std_error(byval err as jpeg_error_mgr ptr) as jpeg_error_mgr ptr
 #define jpeg_create_compress(cinfo) jpeg_CreateCompress((cinfo), JPEG_LIB_VERSION, cuint(sizeof(jpeg_compress_struct)))
 #define jpeg_create_decompress(cinfo) jpeg_CreateDecompress((cinfo), JPEG_LIB_VERSION, cuint(sizeof(jpeg_decompress_struct)))
