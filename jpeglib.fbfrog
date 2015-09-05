@@ -1,0 +1,25 @@
+-define HAVE_UNSIGNED_CHAR 1
+-define HAVE_UNSIGNED_SHORT 1
+-define HAVE_PROTOTYPES 1
+-define HAVE_NORETURN_T 1
+-define noreturn_t void
+
+-removedefine METHODDEF
+-removedefine LOCAL
+-removedefine GLOBAL
+-removedefine EXTERN
+-removedefine JMETHOD
+-remove noreturn_t
+-removedefine FAR
+-removedefine jpeg_common_fields
+-removedefine HAVE_*
+
+-inclib jpeg
+
+-rename TRUE CTRUE
+-renametypedef boolean jpeg_boolean
+-ifndefdecl CTRUE
+-ifndefdecl FALSE
+-moveabove jpeg_boolean JPEG_LIB_VERSION
+-moveabove CTRUE JPEG_LIB_VERSION
+-moveabove FALSE JPEG_LIB_VERSION
