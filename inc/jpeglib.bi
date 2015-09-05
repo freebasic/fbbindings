@@ -57,11 +57,7 @@
 #include once "crt/long.bi"
 
 '' The following symbols have been renamed:
-''     #if (__JPEGLIB_VER__ = 9) and (defined(__FB_DOS__) or defined(__FB_UNIX__))
-''         enum boolean => jpeg_boolean
-''     #else
-''         typedef boolean => jpeg_boolean
-''     #endif
+''     typedef boolean => jpeg_boolean
 ''     constant TRUE => CTRUE
 
 extern "C"
@@ -84,19 +80,20 @@ type INT32 as clong
 type JDIMENSION as ulong
 const JPEG_MAX_DIMENSION = cast(clong, 65500)
 
-#if (defined(__FB_WIN32__) and (__JPEGLIB_VER__ <= 7)) or ((__JPEGLIB_VER__ <= 8) and (defined(__FB_DOS__) or defined(__FB_UNIX__)))
-	type jpeg_boolean as long
-#elseif defined(__FB_WIN32__) and (__JPEGLIB_VER__ >= 8)
+#if defined(__FB_WIN32__) and (__JPEGLIB_VER__ >= 8)
 	type jpeg_boolean as ubyte
+#else
+	type jpeg_boolean as long
 #endif
 
-#if defined(__FB_WIN32__) or ((__JPEGLIB_VER__ <= 8) and (defined(__FB_DOS__) or defined(__FB_UNIX__)))
-	#ifndef CTRUE
-		const CTRUE = 1
-	#endif
-	#ifndef FALSE
-		const FALSE = 0
-	#endif
+#ifndef CTRUE
+	const CTRUE = 1
+#endif
+#ifndef TRUE
+	const TRUE = 1
+#endif
+#ifndef FALSE
+	const FALSE = 0
 #endif
 
 #if __JPEGLIB_VER__ = 6
@@ -107,15 +104,7 @@ const JPEG_MAX_DIMENSION = cast(clong, 65500)
 	const JPEG_LIB_VERSION = 80
 	const JPEG_LIB_VERSION_MAJOR = 8
 	const JPEG_LIB_VERSION_MINOR = 4
-#elseif (__JPEGLIB_VER__ = 9) and (defined(__FB_DOS__) or defined(__FB_UNIX__))
-	type jpeg_boolean as long
-	enum
-		FALSE = 0
-		CTRUE = 1
-	end enum
-#endif
-
-#if __JPEGLIB_VER__ = 9
+#elseif __JPEGLIB_VER__ = 9
 	const JPEG_LIB_VERSION = 90
 	const JPEG_LIB_VERSION_MAJOR = 9
 	const JPEG_LIB_VERSION_MINOR = 1
