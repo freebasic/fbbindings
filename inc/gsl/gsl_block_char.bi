@@ -33,7 +33,7 @@ extern "C"
 
 type gsl_block_char_struct
 	size as uinteger
-	data as zstring ptr
+	data as byte ptr
 end type
 
 type gsl_block_char as gsl_block_char_struct
@@ -44,11 +44,11 @@ declare function gsl_block_char_fread(byval stream as FILE ptr, byval b as gsl_b
 declare function gsl_block_char_fwrite(byval stream as FILE ptr, byval b as const gsl_block_char ptr) as long
 declare function gsl_block_char_fscanf(byval stream as FILE ptr, byval b as gsl_block_char ptr) as long
 declare function gsl_block_char_fprintf(byval stream as FILE ptr, byval b as const gsl_block_char ptr, byval format as const zstring ptr) as long
-declare function gsl_block_char_raw_fread(byval stream as FILE ptr, byval b as zstring ptr, byval n as const uinteger, byval stride as const uinteger) as long
-declare function gsl_block_char_raw_fwrite(byval stream as FILE ptr, byval b as const zstring ptr, byval n as const uinteger, byval stride as const uinteger) as long
-declare function gsl_block_char_raw_fscanf(byval stream as FILE ptr, byval b as zstring ptr, byval n as const uinteger, byval stride as const uinteger) as long
-declare function gsl_block_char_raw_fprintf(byval stream as FILE ptr, byval b as const zstring ptr, byval n as const uinteger, byval stride as const uinteger, byval format as const zstring ptr) as long
+declare function gsl_block_char_raw_fread(byval stream as FILE ptr, byval b as byte ptr, byval n as const uinteger, byval stride as const uinteger) as long
+declare function gsl_block_char_raw_fwrite(byval stream as FILE ptr, byval b as const byte ptr, byval n as const uinteger, byval stride as const uinteger) as long
+declare function gsl_block_char_raw_fscanf(byval stream as FILE ptr, byval b as byte ptr, byval n as const uinteger, byval stride as const uinteger) as long
+declare function gsl_block_char_raw_fprintf(byval stream as FILE ptr, byval b as const byte ptr, byval n as const uinteger, byval stride as const uinteger, byval format as const zstring ptr) as long
 declare function gsl_block_char_size(byval b as const gsl_block_char ptr) as uinteger
-declare function gsl_block_char_data(byval b as const gsl_block_char ptr) as zstring ptr
+declare function gsl_block_char_data(byval b as const gsl_block_char ptr) as byte ptr
 
 end extern

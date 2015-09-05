@@ -38,7 +38,7 @@ extern "C"
 type gsl_vector_char
 	size as uinteger
 	stride as uinteger
-	data as zstring ptr
+	data as byte ptr
 	block as gsl_block_char ptr
 	owner as long
 end type
@@ -60,9 +60,9 @@ declare function gsl_vector_char_alloc_from_block(byval b as gsl_block_char ptr,
 declare function gsl_vector_char_alloc_from_vector(byval v as gsl_vector_char ptr, byval offset as const uinteger, byval n as const uinteger, byval stride as const uinteger) as gsl_vector_char ptr
 declare sub gsl_vector_char_free(byval v as gsl_vector_char ptr)
 declare function gsl_vector_char_view_array(byval v as zstring ptr, byval n as uinteger) as _gsl_vector_char_view
-declare function gsl_vector_char_view_array_with_stride(byval base as zstring ptr, byval stride as uinteger, byval n as uinteger) as _gsl_vector_char_view
+declare function gsl_vector_char_view_array_with_stride(byval base as byte ptr, byval stride as uinteger, byval n as uinteger) as _gsl_vector_char_view
 declare function gsl_vector_char_const_view_array(byval v as const zstring ptr, byval n as uinteger) as _gsl_vector_char_const_view
-declare function gsl_vector_char_const_view_array_with_stride(byval base as const zstring ptr, byval stride as uinteger, byval n as uinteger) as _gsl_vector_char_const_view
+declare function gsl_vector_char_const_view_array_with_stride(byval base as const byte ptr, byval stride as uinteger, byval n as uinteger) as _gsl_vector_char_const_view
 declare function gsl_vector_char_subvector(byval v as gsl_vector_char ptr, byval i as uinteger, byval n as uinteger) as _gsl_vector_char_view
 declare function gsl_vector_char_subvector_with_stride(byval v as gsl_vector_char ptr, byval i as uinteger, byval stride as uinteger, byval n as uinteger) as _gsl_vector_char_view
 declare function gsl_vector_char_const_subvector(byval v as const gsl_vector_char ptr, byval i as uinteger, byval n as uinteger) as _gsl_vector_char_const_view
@@ -80,7 +80,7 @@ declare function gsl_vector_char_swap(byval v as gsl_vector_char ptr, byval w as
 declare function gsl_vector_char_swap_elements(byval v as gsl_vector_char ptr, byval i as const uinteger, byval j as const uinteger) as long
 declare function gsl_vector_char_max(byval v as const gsl_vector_char ptr) as byte
 declare function gsl_vector_char_min(byval v as const gsl_vector_char ptr) as byte
-declare sub gsl_vector_char_minmax(byval v as const gsl_vector_char ptr, byval min_out as zstring ptr, byval max_out as zstring ptr)
+declare sub gsl_vector_char_minmax(byval v as const gsl_vector_char ptr, byval min_out as byte ptr, byval max_out as byte ptr)
 declare function gsl_vector_char_max_index(byval v as const gsl_vector_char ptr) as uinteger
 declare function gsl_vector_char_min_index(byval v as const gsl_vector_char ptr) as uinteger
 declare sub gsl_vector_char_minmax_index(byval v as const gsl_vector_char ptr, byval imin as uinteger ptr, byval imax as uinteger ptr)

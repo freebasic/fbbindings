@@ -35,8 +35,8 @@ extern "C"
 declare sub gsl_sort_vector_char(byval v as gsl_vector_char ptr)
 declare sub gsl_sort_vector2_char(byval v1 as gsl_vector_char ptr, byval v2 as gsl_vector_char ptr)
 declare function gsl_sort_vector_char_index(byval p as gsl_permutation ptr, byval v as const gsl_vector_char ptr) as long
-declare function gsl_sort_vector_char_smallest(byval dest as zstring ptr, byval k as const uinteger, byval v as const gsl_vector_char ptr) as long
-declare function gsl_sort_vector_char_largest(byval dest as zstring ptr, byval k as const uinteger, byval v as const gsl_vector_char ptr) as long
+declare function gsl_sort_vector_char_smallest(byval dest as byte ptr, byval k as const uinteger, byval v as const gsl_vector_char ptr) as long
+declare function gsl_sort_vector_char_largest(byval dest as byte ptr, byval k as const uinteger, byval v as const gsl_vector_char ptr) as long
 declare function gsl_sort_vector_char_smallest_index(byval p as uinteger ptr, byval k as const uinteger, byval v as const gsl_vector_char ptr) as long
 declare function gsl_sort_vector_char_largest_index(byval p as uinteger ptr, byval k as const uinteger, byval v as const gsl_vector_char ptr) as long
 

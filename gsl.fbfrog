@@ -52,3 +52,20 @@
 -rename float.h crt/math.bi
 
 -ifndefdecl M_*
+
+-nostring data
+-nostring data1
+-nostring data2
+-nostring sorted_data
+-nostring base
+-nostring min_out
+-nostring max_out
+-nostring gsl_block_char_raw_f*.b
+-nostring gsl_block_char_data
+-nostring gsl_matrix_char_ptr
+-nostring gsl_matrix_char_const_ptr
+-nostring gsl_sort_vector_char_*.dest
+-nostring gsl_sort_char_*.dest
+-nostring gsl_sort_char_*.src
+-nostring gsl_stats_char_minmax.min
+-nostring gsl_stats_char_minmax.max

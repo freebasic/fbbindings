@@ -39,7 +39,7 @@ type gsl_matrix_char
 	size1 as uinteger
 	size2 as uinteger
 	tda as uinteger
-	data as zstring ptr
+	data as byte ptr
 	block as gsl_block_char ptr
 	owner as long
 end type
@@ -70,8 +70,8 @@ declare function gsl_matrix_char_subdiagonal(byval m as gsl_matrix_char ptr, byv
 declare function gsl_matrix_char_superdiagonal(byval m as gsl_matrix_char ptr, byval k as const uinteger) as _gsl_vector_char_view
 declare function gsl_matrix_char_subrow(byval m as gsl_matrix_char ptr, byval i as const uinteger, byval offset as const uinteger, byval n as const uinteger) as _gsl_vector_char_view
 declare function gsl_matrix_char_subcolumn(byval m as gsl_matrix_char ptr, byval j as const uinteger, byval offset as const uinteger, byval n as const uinteger) as _gsl_vector_char_view
-declare function gsl_matrix_char_view_array(byval base as zstring ptr, byval n1 as const uinteger, byval n2 as const uinteger) as _gsl_matrix_char_view
-declare function gsl_matrix_char_view_array_with_tda(byval base as zstring ptr, byval n1 as const uinteger, byval n2 as const uinteger, byval tda as const uinteger) as _gsl_matrix_char_view
+declare function gsl_matrix_char_view_array(byval base as byte ptr, byval n1 as const uinteger, byval n2 as const uinteger) as _gsl_matrix_char_view
+declare function gsl_matrix_char_view_array_with_tda(byval base as byte ptr, byval n1 as const uinteger, byval n2 as const uinteger, byval tda as const uinteger) as _gsl_matrix_char_view
 declare function gsl_matrix_char_view_vector(byval v as gsl_vector_char ptr, byval n1 as const uinteger, byval n2 as const uinteger) as _gsl_matrix_char_view
 declare function gsl_matrix_char_view_vector_with_tda(byval v as gsl_vector_char ptr, byval n1 as const uinteger, byval n2 as const uinteger, byval tda as const uinteger) as _gsl_matrix_char_view
 declare function gsl_matrix_char_const_submatrix(byval m as const gsl_matrix_char ptr, byval i as const uinteger, byval j as const uinteger, byval n1 as const uinteger, byval n2 as const uinteger) as _gsl_matrix_char_const_view
@@ -82,8 +82,8 @@ declare function gsl_matrix_char_const_subdiagonal(byval m as const gsl_matrix_c
 declare function gsl_matrix_char_const_superdiagonal(byval m as const gsl_matrix_char ptr, byval k as const uinteger) as _gsl_vector_char_const_view
 declare function gsl_matrix_char_const_subrow(byval m as const gsl_matrix_char ptr, byval i as const uinteger, byval offset as const uinteger, byval n as const uinteger) as _gsl_vector_char_const_view
 declare function gsl_matrix_char_const_subcolumn(byval m as const gsl_matrix_char ptr, byval j as const uinteger, byval offset as const uinteger, byval n as const uinteger) as _gsl_vector_char_const_view
-declare function gsl_matrix_char_const_view_array(byval base as const zstring ptr, byval n1 as const uinteger, byval n2 as const uinteger) as _gsl_matrix_char_const_view
-declare function gsl_matrix_char_const_view_array_with_tda(byval base as const zstring ptr, byval n1 as const uinteger, byval n2 as const uinteger, byval tda as const uinteger) as _gsl_matrix_char_const_view
+declare function gsl_matrix_char_const_view_array(byval base as const byte ptr, byval n1 as const uinteger, byval n2 as const uinteger) as _gsl_matrix_char_const_view
+declare function gsl_matrix_char_const_view_array_with_tda(byval base as const byte ptr, byval n1 as const uinteger, byval n2 as const uinteger, byval tda as const uinteger) as _gsl_matrix_char_const_view
 declare function gsl_matrix_char_const_view_vector(byval v as const gsl_vector_char ptr, byval n1 as const uinteger, byval n2 as const uinteger) as _gsl_matrix_char_const_view
 declare function gsl_matrix_char_const_view_vector_with_tda(byval v as const gsl_vector_char ptr, byval n1 as const uinteger, byval n2 as const uinteger, byval tda as const uinteger) as _gsl_matrix_char_const_view
 declare sub gsl_matrix_char_set_zero(byval m as gsl_matrix_char ptr)
@@ -102,7 +102,7 @@ declare function gsl_matrix_char_transpose(byval m as gsl_matrix_char ptr) as lo
 declare function gsl_matrix_char_transpose_memcpy(byval dest as gsl_matrix_char ptr, byval src as const gsl_matrix_char ptr) as long
 declare function gsl_matrix_char_max(byval m as const gsl_matrix_char ptr) as byte
 declare function gsl_matrix_char_min(byval m as const gsl_matrix_char ptr) as byte
-declare sub gsl_matrix_char_minmax(byval m as const gsl_matrix_char ptr, byval min_out as zstring ptr, byval max_out as zstring ptr)
+declare sub gsl_matrix_char_minmax(byval m as const gsl_matrix_char ptr, byval min_out as byte ptr, byval max_out as byte ptr)
 declare sub gsl_matrix_char_max_index(byval m as const gsl_matrix_char ptr, byval imax as uinteger ptr, byval jmax as uinteger ptr)
 declare sub gsl_matrix_char_min_index(byval m as const gsl_matrix_char ptr, byval imin as uinteger ptr, byval jmin as uinteger ptr)
 declare sub gsl_matrix_char_minmax_index(byval m as const gsl_matrix_char ptr, byval imin as uinteger ptr, byval jmin as uinteger ptr, byval imax as uinteger ptr, byval jmax as uinteger ptr)
@@ -124,7 +124,7 @@ declare function gsl_matrix_char_set_row(byval m as gsl_matrix_char ptr, byval i
 declare function gsl_matrix_char_set_col(byval m as gsl_matrix_char ptr, byval j as const uinteger, byval v as const gsl_vector_char ptr) as long
 declare function gsl_matrix_char_get(byval m as const gsl_matrix_char ptr, byval i as const uinteger, byval j as const uinteger) as byte
 declare sub gsl_matrix_char_set(byval m as gsl_matrix_char ptr, byval i as const uinteger, byval j as const uinteger, byval x as const byte)
-declare function gsl_matrix_char_ptr(byval m as gsl_matrix_char ptr, byval i as const uinteger, byval j as const uinteger) as zstring ptr
-declare function gsl_matrix_char_const_ptr(byval m as const gsl_matrix_char ptr, byval i as const uinteger, byval j as const uinteger) as const zstring ptr
+declare function gsl_matrix_char_ptr(byval m as gsl_matrix_char ptr, byval i as const uinteger, byval j as const uinteger) as byte ptr
+declare function gsl_matrix_char_const_ptr(byval m as const gsl_matrix_char ptr, byval i as const uinteger, byval j as const uinteger) as const byte ptr
 
 end extern

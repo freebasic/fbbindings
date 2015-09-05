@@ -31,12 +31,12 @@
 extern "C"
 
 #define __GSL_SORT_CHAR_H__
-declare sub gsl_sort_char(byval data as zstring ptr, byval stride as const uinteger, byval n as const uinteger)
-declare sub gsl_sort2_char(byval data1 as zstring ptr, byval stride1 as const uinteger, byval data2 as zstring ptr, byval stride2 as const uinteger, byval n as const uinteger)
-declare sub gsl_sort_char_index(byval p as uinteger ptr, byval data as const zstring ptr, byval stride as const uinteger, byval n as const uinteger)
-declare function gsl_sort_char_smallest(byval dest as zstring ptr, byval k as const uinteger, byval src as const zstring ptr, byval stride as const uinteger, byval n as const uinteger) as long
-declare function gsl_sort_char_smallest_index(byval p as uinteger ptr, byval k as const uinteger, byval src as const zstring ptr, byval stride as const uinteger, byval n as const uinteger) as long
-declare function gsl_sort_char_largest(byval dest as zstring ptr, byval k as const uinteger, byval src as const zstring ptr, byval stride as const uinteger, byval n as const uinteger) as long
-declare function gsl_sort_char_largest_index(byval p as uinteger ptr, byval k as const uinteger, byval src as const zstring ptr, byval stride as const uinteger, byval n as const uinteger) as long
+declare sub gsl_sort_char(byval data as byte ptr, byval stride as const uinteger, byval n as const uinteger)
+declare sub gsl_sort2_char(byval data1 as byte ptr, byval stride1 as const uinteger, byval data2 as byte ptr, byval stride2 as const uinteger, byval n as const uinteger)
+declare sub gsl_sort_char_index(byval p as uinteger ptr, byval data as const byte ptr, byval stride as const uinteger, byval n as const uinteger)
+declare function gsl_sort_char_smallest(byval dest as byte ptr, byval k as const uinteger, byval src as const byte ptr, byval stride as const uinteger, byval n as const uinteger) as long
+declare function gsl_sort_char_smallest_index(byval p as uinteger ptr, byval k as const uinteger, byval src as const byte ptr, byval stride as const uinteger, byval n as const uinteger) as long
+declare function gsl_sort_char_largest(byval dest as byte ptr, byval k as const uinteger, byval src as const byte ptr, byval stride as const uinteger, byval n as const uinteger) as long
+declare function gsl_sort_char_largest_index(byval p as uinteger ptr, byval k as const uinteger, byval src as const byte ptr, byval stride as const uinteger, byval n as const uinteger) as long
 
 end extern
