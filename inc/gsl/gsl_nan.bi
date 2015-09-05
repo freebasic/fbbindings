@@ -25,8 +25,5 @@
 #pragma once
 
 #define __GSL_NAN_H__
-#define GSL_POSINF gsl_posinf()
-#define GSL_NEGINF gsl_neginf()
-#define GSL_NAN gsl_nan()
 #define GSL_POSZERO (+0.0)
 const GSL_NEGZERO = -0.0

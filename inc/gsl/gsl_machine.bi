@@ -23,7 +23,7 @@
 #pragma once
 
 #include once "crt/limits.bi"
-#include once "crt/float.bi"
+#include once "crt/math.bi"
 
 #define __GSL_MACHINE_H__
 const GSL_DBL_EPSILON = 2.2204460492503131e-16

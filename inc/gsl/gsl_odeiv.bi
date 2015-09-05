@@ -40,9 +40,6 @@ type gsl_odeiv_system
 	params as any ptr
 end type
 
-#define GSL_ODEIV_FN_EVAL(S, t, y, f) (S)->function(t, y, f, (S)->params)
-#define GSL_ODEIV_JA_EVAL(S, t, y, dfdy, dfdt) (S)->jacobian(t, y, dfdy, dfdt, (S)->params)
-
 type gsl_odeiv_step_type
 	name as const zstring ptr
 	can_use_dydt_in as long

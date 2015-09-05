@@ -26,18 +26,22 @@
 
 #include once "gsl/gsl_inline.bi"
 
+'' The following symbols have been renamed:
+''     #define GSL_MAX => GSL_MAX_
+''     #define GSL_MIN => GSL_MIN_
+
 extern "C"
 
 #define __GSL_MINMAX_H__
-#define GSL_MAX(a, b) iif((a) > (b), (a), (b))
-#define GSL_MIN(a, b) iif((a) < (b), (a), (b))
+#define GSL_MAX_(a, b) iif((a) > (b), (a), (b))
+#define GSL_MIN_(a, b) iif((a) < (b), (a), (b))
 declare function gsl_max(byval a as double, byval b as double) as double
 declare function gsl_min(byval a as double, byval b as double) as double
-#define GSL_MAX_INT(a, b) GSL_MAX(a, b)
-#define GSL_MIN_INT(a, b) GSL_MIN(a, b)
-#define GSL_MAX_DBL(a, b) GSL_MAX(a, b)
-#define GSL_MIN_DBL(a, b) GSL_MIN(a, b)
-#define GSL_MAX_LDBL(a, b) GSL_MAX(a, b)
-#define GSL_MIN_LDBL(a, b) GSL_MIN(a, b)
+#define GSL_MAX_INT(a, b) GSL_MAX_(a, b)
+#define GSL_MIN_INT(a, b) GSL_MIN_(a, b)
+#define GSL_MAX_DBL(a, b) GSL_MAX_(a, b)
+#define GSL_MIN_DBL(a, b) GSL_MIN_(a, b)
+#define GSL_MAX_LDBL(a, b) GSL_MAX_(a, b)
+#define GSL_MIN_LDBL(a, b) GSL_MIN_(a, b)
 
 end extern

@@ -6,3 +6,46 @@
 -removedefine GSL_VAR
 
 -replacements gsl.replacements
+
+-rename_ GSL_ERROR
+-rename_ gsl_message
+-rename_ GSL_MESSAGE_MASK
+-rename_ GSL_MAX
+-rename_ GSL_MIN
+-rename_ gsl_sf_bessel_j0_e
+-rename_ gsl_sf_bessel_j0
+-rename_ gsl_sf_bessel_j1_e
+-rename_ gsl_sf_bessel_j1
+-rename_ gsl_sf_bessel_y0_e
+-rename_ gsl_sf_bessel_y0
+-rename_ gsl_sf_bessel_y1_e
+-rename_ gsl_sf_bessel_y1
+-rename_ gsl_sf_bessel_i0_scaled_e
+-rename_ gsl_sf_bessel_i0_scaled
+-rename_ gsl_sf_bessel_i1_scaled_e
+-rename_ gsl_sf_bessel_i1_scaled
+-rename_ gsl_sf_bessel_k0_scaled_e
+-rename_ gsl_sf_bessel_k0_scaled
+-rename_ gsl_sf_bessel_k1_scaled_e
+-rename_ gsl_sf_bessel_k1_scaled
+-rename_ GSL_VECTOR_COMPLEX
+-rename_ GSL_VERSION
+
+# case-aliases
+-removedefine GSL_POSINF
+-removedefine GSL_NEGINF
+-removedefine GSL_NAN
+
+-remove2nd GSL_ODEIV_FN_EVAL
+-remove2nd GSL_ODEIV_JA_EVAL
+
+-setarraysize gsl_prec_eps _GSL_PREC_T_NUM
+-setarraysize gsl_prec_sqrt_eps _GSL_PREC_T_NUM
+-setarraysize gsl_prec_root3_eps _GSL_PREC_T_NUM
+-setarraysize gsl_prec_root4_eps _GSL_PREC_T_NUM
+-setarraysize gsl_prec_root5_eps _GSL_PREC_T_NUM
+-setarraysize gsl_prec_root6_eps _GSL_PREC_T_NUM
+
+-rename float.h crt/math.bi
+
+-ifndefdecl M_*
