@@ -1,0 +1,5 @@
+convert c: #define FALSE ((json_bool)0)
+to c:      #define FALSE 0
+
+convert c: #define TRUE ((json_bool)1)
+to c:      #define TRUE 1
