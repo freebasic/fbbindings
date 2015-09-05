@@ -38,6 +38,7 @@
 ''     procedure g_type_check_value => g_type_check_value_
 ''     procedure g_value_init => g_value_init_
 ''     procedure g_clear_object => g_clear_object_
+''     procedure g_set_object => g_set_object_
 ''     procedure g_param_spec_char => g_param_spec_char_
 ''     procedure g_param_spec_uchar => g_param_spec_uchar_
 ''     procedure g_param_spec_boolean => g_param_spec_boolean_
@@ -1091,7 +1092,7 @@ declare function g_object_compat_control(byval what as gsize, byval data as gpoi
 declare sub g_clear_object_ alias "g_clear_object"(byval object_ptr as GObject ptr ptr)
 #define g_clear_object(object_ptr) g_clear_pointer((object_ptr), g_object_unref)
 
-private function g_set_object(byval object_ptr as GObject ptr ptr, byval new_object as GObject ptr) as gboolean
+private function g_set_object_ alias "g_set_object"(byval object_ptr as GObject ptr ptr, byval new_object as GObject ptr) as gboolean
 	if (*object_ptr) = new_object then
 		return 0
 	end if
@@ -1105,7 +1106,7 @@ private function g_set_object(byval object_ptr as GObject ptr ptr, byval new_obj
 	return -(0 = 0)
 end function
 
-#define g_set_object(object_ptr, new_object) g_set_object(cptr(GObject ptr ptr, (object_ptr)), cptr(GObject ptr, (new_object)))
+#define g_set_object(object_ptr, new_object) g_set_object_(cptr(GObject ptr ptr, (object_ptr)), cptr(GObject ptr, (new_object)))
 
 union GWeakRef_priv
 	p as gpointer
