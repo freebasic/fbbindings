@@ -1,4 +1,4 @@
-FBFROG_VERSION := 19e073c46aa0b7d72eae5448c935f92ae92303f1
+FBFROG_VERSION := 59483b938fe3e047f43400c7fe7d66f315475f47
 
 ALL := allegro allegro4 allegro5 aspell atk
 ALL += bass bassmod bfd bzip2
@@ -310,7 +310,7 @@ aspell: tools
 
 	rm *.tmp
 
-ATK_SERIES := 2.14
+ATK_SERIES := 2.16
 ATK := atk-$(ATK_SERIES).0
 atk-extract:
 	./get.sh $(ATK) $(ATK).tar.xz http://ftp.gnome.org/pub/gnome/sources/atk/$(ATK_SERIES)/$(ATK).tar.xz
@@ -1110,8 +1110,8 @@ gdsl: tools
 	rm *.tmp
 
 GLIB_MAJOR := 2
-GLIB_MINOR := 42
-GLIB_MICRO := 2
+GLIB_MINOR := 44
+GLIB_MICRO := 1
 GLIB_SERIES := $(GLIB_MAJOR).$(GLIB_MINOR)
 GLIB := glib-$(GLIB_SERIES).$(GLIB_MICRO)
 SED_GLIBCONFIG := -e 's/@GLIB_MAJOR_VERSION@/$(GLIB_MAJOR)/g'
@@ -1272,7 +1272,7 @@ gsl-update-test:
 gtk: gtk2 gtk3
 
 GTK2_SERIES := 2.24
-GTK2 := gtk+-$(GTK2_SERIES).27
+GTK2 := gtk+-$(GTK2_SERIES).28
 gtk2-extract: glib-extract cairo-extract pango-extract atk-extract gdkpixbuf-extract
 	./get.sh $(GTK2) $(GTK2).tar.xz http://ftp.gnome.org/pub/gnome/sources/gtk+/$(GTK2_SERIES)/$(GTK2).tar.xz
 
@@ -1311,8 +1311,8 @@ gtk2: tools gtk2-extract
 
 	rm *.tmp
 
-GTK3_SERIES := 3.14
-GTK3 := gtk+-$(GTK3_SERIES).10
+GTK3_SERIES := 3.16
+GTK3 := gtk+-$(GTK3_SERIES).6
 gtk3: tools glib-extract cairo-extract pango-extract atk-extract gdkpixbuf-extract
 	./get.sh $(GTK3) $(GTK3).tar.xz http://ftp.gnome.org/pub/gnome/sources/gtk+/$(GTK3_SERIES)/$(GTK3).tar.xz
 
