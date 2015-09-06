@@ -42,9 +42,9 @@
 -removedefine XSLTPUBFUN
 -removedefine XSLTPUBVAR
 
--setarraysize xmlStringText len("text")+1
--setarraysize xmlStringTextNoenc len("textnoenc")+1
--setarraysize xmlStringComment len("comment")+1
+-setarraysize xmlStringText 'len("text")+1'
+-setarraysize xmlStringTextNoenc 'len("textnoenc")+1'
+-setarraysize xmlStringComment 'len("comment")+1'
 
 -rename_ errNo
 -rename_ xmlBufferWriteChar
@@ -53,3 +53,4 @@
 -string xmlStringTextNoenc
 -string xmlStringComment
 #-string xml*Str*
+#-string str
