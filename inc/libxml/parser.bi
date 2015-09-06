@@ -140,7 +140,7 @@ type _xmlParserCtxt
 	nodeTab as xmlNodePtr ptr
 	record_info as long
 	node_seq as xmlParserNodeInfoSeq
-	errNo as long
+	errNo_ as long
 	hasExternalSubset as long
 	hasPErefs as long
 	external as long

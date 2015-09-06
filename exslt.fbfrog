@@ -5,10 +5,4 @@
 	-endif
 -endif
 
--define _POSIX_C_SOURCE 999999L
-
--removedefine EXSLTPUBFUN
--removedefine EXSLTPUBVAR
--removedefine EXSLTCALL
--removedefine EXSLTCDECL
--removedefine LIBEXSLT_PUBLIC
+xml2-common.fbfrog

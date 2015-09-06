@@ -1,5 +1,3 @@
--replacements xslt.replacements
-
 -iftarget windows
 	-declarebool LIBXSLT_STATIC
 	-ifdef LIBXSLT_STATIC
@@ -7,30 +5,4 @@
 	-endif
 -endif
 
--define _POSIX_C_SOURCE 999999L
-
--removedefine LIBXSLT_PUBLIC
--removedefine TRIO_ARGS1
--removedefine TRIO_ARGS2
--removedefine TRIO_ARGS3
--removedefine TRIO_ARGS4
--removedefine TRIO_ARGS5
--removedefine TRIO_ARGS6
--removedefine TRIO_INLINE
--removedefine TRIO_NOARGS
--removedefine TRIO_PRIVATE
--removedefine TRIO_PROTO
--removedefine TRIO_PUBLIC
--removedefine TRIO_SIGNED
--removedefine TRIO_VA_DECL
--removedefine TRIO_VA_END
--removedefine TRIO_VARGS2
--removedefine TRIO_VARGS3
--removedefine TRIO_VARGS4
--removedefine TRIO_VARGS5
--removedefine TRIO_VA_START
--removedefine TRIO_VOLATILE
--removedefine XSLTCALL
--removedefine XSLTCDECL
--removedefine XSLTPUBFUN
--removedefine XSLTPUBVAR
+xml2-common.fbfrog

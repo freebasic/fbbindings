@@ -1,0 +1,55 @@
+-replacements xml2.replacements
+
+-iftarget windows -replacements xml2-windows.replacements -endif
+-iftarget cygwin  -replacements xml2-windows.replacements -endif
+
+-define _POSIX_C_SOURCE 999999L
+
+-removedefine BAD_CAST
+-removedefine EXSLTCALL
+-removedefine EXSLTCDECL
+-removedefine EXSLTPUBFUN
+-removedefine EXSLTPUBVAR
+-removedefine LIBEXSLT_PUBLIC
+-removedefine LIBXML_DLL_IMPORT
+-removedefine LIBXSLT_PUBLIC
+-removedefine TRIO_ARGS1
+-removedefine TRIO_ARGS2
+-removedefine TRIO_ARGS3
+-removedefine TRIO_ARGS4
+-removedefine TRIO_ARGS5
+-removedefine TRIO_ARGS6
+-removedefine TRIO_INLINE
+-removedefine TRIO_NOARGS
+-removedefine TRIO_PRIVATE
+-removedefine TRIO_PROTO
+-removedefine TRIO_PUBLIC
+-removedefine TRIO_SIGNED
+-removedefine TRIO_VA_DECL
+-removedefine TRIO_VA_END
+-removedefine TRIO_VARGS2
+-removedefine TRIO_VARGS3
+-removedefine TRIO_VARGS4
+-removedefine TRIO_VARGS5
+-removedefine TRIO_VA_START
+-removedefine TRIO_VOLATILE
+-removedefine XMLCALL
+-removedefine XMLCDECL
+-removedefine XMLPUBFUN
+-removedefine XMLPUBVAR
+-removedefine XSLTCALL
+-removedefine XSLTCDECL
+-removedefine XSLTPUBFUN
+-removedefine XSLTPUBVAR
+
+-setarraysize xmlStringText len("text")+1
+-setarraysize xmlStringTextNoenc len("textnoenc")+1
+-setarraysize xmlStringComment len("comment")+1
+
+-rename_ errNo
+-rename_ xmlBufferWriteChar
+
+-string xmlStringText
+-string xmlStringTextNoenc
+-string xmlStringComment
+#-string xml*Str*
