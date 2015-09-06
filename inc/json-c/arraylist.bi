@@ -20,7 +20,7 @@ extern "C"
 #define _arraylist_h_
 const ARRAY_LIST_DEFAULT_SIZE = 32
 
-type array_list
+type array_list_
 	array as any ptr ptr
 	length as long
 	size as long

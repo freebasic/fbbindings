@@ -76,6 +76,7 @@ declare function json_object_object_get(byval obj as json_object ptr, byval key 
 declare function json_object_object_get_ex(byval obj as json_object ptr, byval key as const zstring ptr, byval value as json_object ptr ptr) as json_bool
 declare sub json_object_object_del(byval obj as json_object ptr, byval key as const zstring ptr)
 declare function json_object_new_array() as json_object ptr
+type array_list as array_list_
 declare function json_object_get_array(byval obj as json_object ptr) as array_list ptr
 declare function json_object_array_length(byval obj as json_object ptr) as long
 declare sub json_object_array_sort(byval jso as json_object ptr, byval sort_fn as function(byval as const any ptr, byval as const any ptr) as long)
