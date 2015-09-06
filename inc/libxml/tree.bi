@@ -34,6 +34,9 @@
 #include once "libxml/xmlregexp.bi"
 #include once "libxml/xmlmemory.bi"
 
+'' The following symbols have been renamed:
+''     procedure xmlBufferWriteChar => xmlBufferWriteChar_
+
 extern "C"
 
 #define __XML_TREE_H__
@@ -513,7 +516,7 @@ declare function xmlRemoveProp(byval cur as xmlAttrPtr) as long
 declare function xmlUnsetNsProp(byval node as xmlNodePtr, byval ns as xmlNsPtr, byval name as const xmlChar ptr) as long
 declare function xmlUnsetProp(byval node as xmlNodePtr, byval name as const xmlChar ptr) as long
 declare sub xmlBufferWriteCHAR(byval buf as xmlBufferPtr, byval string as const xmlChar ptr)
-declare sub xmlBufferWriteChar(byval buf as xmlBufferPtr, byval string as const zstring ptr)
+declare sub xmlBufferWriteChar_ alias "xmlBufferWriteChar"(byval buf as xmlBufferPtr, byval string as const zstring ptr)
 declare sub xmlBufferWriteQuotedString(byval buf as xmlBufferPtr, byval string as const xmlChar ptr)
 declare sub xmlAttrSerializeTxtContent(byval buf as xmlBufferPtr, byval doc as xmlDocPtr, byval attr as xmlAttrPtr, byval string as const xmlChar ptr)
 declare function xmlReconciliateNs(byval doc as xmlDocPtr, byval tree as xmlNodePtr) as long
