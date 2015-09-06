@@ -30,7 +30,7 @@
 #include once "libxml/xmlversion.bi"
 
 #ifdef __FB_WIN32__
-	#include once "winsock2.bi"
+	#include once "win/winsock2.bi"
 #endif
 
 extern "C"
