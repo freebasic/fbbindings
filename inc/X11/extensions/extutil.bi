@@ -95,11 +95,11 @@ declare function XextFindDisplay(byval as XExtensionInfo ptr, byval as Display p
 	end if
 #endmacro
 
-'' TODO: #define XEXT_GENERATE_FIND_DISPLAY(proc,extinfo,extname,hooks,nev,data)XExtDisplayInfo *proc (Display *dpy){ XExtDisplayInfo *dpyinfo; if (!extinfo) { if (!(extinfo = XextCreateExtension())) return NULL; } if (!(dpyinfo = XextFindDisplay (extinfo, dpy))) dpyinfo = XextAddDisplay (extinfo,dpy,extname,hooks,nev,data); return dpyinfo;}
+'' TODO: #define XEXT_GENERATE_FIND_DISPLAY(proc,extinfo,extname,hooks,nev,data) XExtDisplayInfo *proc (Display *dpy) { XExtDisplayInfo *dpyinfo; if (!extinfo) { if (!(extinfo = XextCreateExtension())) return NULL; } if (!(dpyinfo = XextFindDisplay (extinfo, dpy))) dpyinfo = XextAddDisplay (extinfo,dpy,extname,hooks,nev,data); return dpyinfo; }
 '' TODO: #define XEXT_FIND_DISPLAY_PROTO(proc) XExtDisplayInfo *proc(Display *dpy)
-'' TODO: #define XEXT_GENERATE_CLOSE_DISPLAY(proc,extinfo)int proc (Display *dpy, XExtCodes *codes){ return XextRemoveDisplay (extinfo, dpy);}
+'' TODO: #define XEXT_GENERATE_CLOSE_DISPLAY(proc,extinfo) int proc (Display *dpy, XExtCodes *codes) { return XextRemoveDisplay (extinfo, dpy); }
 '' TODO: #define XEXT_CLOSE_DISPLAY_PROTO(proc) int proc(Display *dpy, XExtCodes *codes)
-'' TODO: #define XEXT_GENERATE_ERROR_STRING(proc,extname,nerr,errl)char *proc (Display *dpy, int code, XExtCodes *codes, char *buf, int n){ code -= codes->first_error; if (code >= 0 && code < nerr) { char tmp[256]; snprintf (tmp, sizeof(tmp), "%s.%d", extname, code); XGetErrorDatabaseText (dpy, "XProtoError", tmp, errl[code], buf, n); return buf; } return (char *)0;}
+'' TODO: #define XEXT_GENERATE_ERROR_STRING(proc,extname,nerr,errl) char *proc (Display *dpy, int code, XExtCodes *codes, char *buf, int n) { code -= codes->first_error; if (code >= 0 && code < nerr) { char tmp[256]; snprintf (tmp, sizeof(tmp), "%s.%d", extname, code); XGetErrorDatabaseText (dpy, "XProtoError", tmp, errl[code], buf, n); return buf; } return (char *)0; }
 '' TODO: #define XEXT_ERROR_STRING_PROTO(proc) char *proc(Display *dpy, int code, XExtCodes *codes, char *buf, int n)
 
 end extern
