@@ -27,7 +27,7 @@
 #pragma once
 
 #include once "libxml/xmlversion.bi"
-#include once "iconv.bi"
+#include once "libiconv.bi"
 #include once "libxml/tree.bi"
 
 extern "C"

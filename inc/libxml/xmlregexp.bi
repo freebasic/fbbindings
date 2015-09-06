@@ -27,8 +27,6 @@
 #pragma once
 
 #include once "libxml/xmlversion.bi"
-#include once "libxml/tree.bi"
-#include once "libxml/dict.bi"
 
 extern "C"
 
@@ -37,6 +35,13 @@ type xmlRegexp as _xmlRegexp
 type xmlRegexpPtr as xmlRegexp ptr
 type xmlRegExecCtxt as _xmlRegExecCtxt
 type xmlRegExecCtxtPtr as xmlRegExecCtxt ptr
+
+end extern
+
+#include once "libxml/tree.bi"
+#include once "libxml/dict.bi"
+
+extern "C"
 
 declare function xmlRegexpCompile(byval regexp as const xmlChar ptr) as xmlRegexpPtr
 declare sub xmlRegFreeRegexp(byval regexp as xmlRegexpPtr)

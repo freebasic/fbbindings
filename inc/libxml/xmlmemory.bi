@@ -29,8 +29,6 @@
 #include once "crt/long.bi"
 #include once "crt/stdio.bi"
 #include once "libxml/xmlversion.bi"
-#include once "libxml/threads.bi"
-#include once "libxml/globals.bi"
 
 extern "C"
 
@@ -62,3 +60,6 @@ declare function xmlMallocAtomicLoc(byval size as uinteger, byval file as const 
 declare function xmlMemStrdupLoc(byval str as const zstring ptr, byval file as const zstring ptr, byval line as long) as zstring ptr
 
 end extern
+
+#include once "libxml/threads.bi"
+#include once "libxml/globals.bi"

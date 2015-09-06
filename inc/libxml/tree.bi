@@ -31,8 +31,6 @@
 #include once "crt/limits.bi"
 #include once "libxml/xmlversion.bi"
 #include once "libxml/xmlstring.bi"
-#include once "libxml/xmlregexp.bi"
-#include once "libxml/xmlmemory.bi"
 
 extern "C"
 
@@ -212,6 +210,12 @@ enum
 	XML_ELEMENT_TYPE_ELEMENT
 end enum
 
+end extern
+
+#include once "libxml/xmlregexp.bi"
+
+extern "C"
+
 type xmlElement as _xmlElement
 type xmlElementPtr as xmlElement ptr
 
@@ -370,7 +374,7 @@ type _xmlDoc_
 	refs as any ptr
 	URL as const xmlChar ptr
 	charset as long
-	dict as _xmlDict ptr
+	dict as xmlDict ptr
 	psvi as any ptr
 	parseFlags as long
 	properties as long
@@ -551,3 +555,5 @@ declare function xmlLastElementChild(byval parent as xmlNodePtr) as xmlNodePtr
 declare function xmlPreviousElementSibling(byval node as xmlNodePtr) as xmlNodePtr
 
 end extern
+
+#include once "libxml/xmlmemory.bi"

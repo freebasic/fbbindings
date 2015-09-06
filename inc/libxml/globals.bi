@@ -32,7 +32,6 @@
 #include once "libxml/SAX.bi"
 #include once "libxml/SAX2.bi"
 #include once "libxml/xmlmemory.bi"
-#include once "libxml/threads.bi"
 
 extern "C"
 
@@ -117,6 +116,12 @@ type _xmlGlobalState
 	xmlOutputBufferCreateFilenameValue as xmlOutputBufferCreateFilenameFunc
 	xmlStructuredErrorContext as any ptr
 end type
+
+end extern
+
+#include once "libxml/threads.bi"
+
+extern "C"
 
 declare sub xmlInitializeGlobalState(byval gs as xmlGlobalStatePtr)
 declare sub xmlThrDefSetGenericErrorFunc(byval ctx as any ptr, byval handler as xmlGenericErrorFunc)
