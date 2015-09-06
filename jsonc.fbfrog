@@ -20,3 +20,6 @@
 -removedefine MC_*
 -removedefine JASSERT
 -removedefine __STRING
+
+-rename_ JSON_C_VERSION
+-rename_ JSON_C_VERSION_NUM
