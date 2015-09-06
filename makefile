@@ -3158,13 +3158,34 @@ xcb: tools
 		-title "$(XCB), $(XCB_PROTO)" xv.tmp          fbteam.txt inc/xcb/xv.bi
 
 XML2 := libxml2-2.9.2
+XSLT := libxslt-1.1.28
 xml2: tools
 	./get.sh $(XML2) $(XML2).tar.gz ftp://xmlsoft.org/libxml2/$(XML2).tar.gz
-	sed -n 5,23p extracted/$(XML2)/Copyright > xml2.tmp
-	mkdir -p inc/libxml
+	./get.sh $(XSLT) $(XSLT).tar.gz ftp://xmlsoft.org/libxml2/$(XSLT).tar.gz
+
+	sed -n 5,23p  extracted/$(XML2)/Copyright > xml2.tmp
+	sed -n 3,24p  extracted/$(XSLT)/Copyright > xslt.tmp
+	sed -n 30,52p extracted/$(XSLT)/Copyright > exslt.tmp
+
+	mkdir -p inc/libxml inc/libxslt inc/libexslt
+
 	$(FBFROG) xml2.fbfrog -incdir extracted/$(XML2)/include \
 		-include libxml/xmlversion.h \
 		`./xml2-fbfrog-options.sh $(XML2)`
+
+	$(FBFROG) xslt.fbfrog \
+		-incdir extracted/$(XML2)/include \
+		-incdir extracted/$(XSLT) \
+		-incdir extracted/$(XSLT)/libxslt \
+		`./xslt-fbfrog-options.sh $(XSLT)`
+
+	$(FBFROG) exslt.fbfrog \
+		-incdir extracted/$(XML2)/include \
+		-incdir extracted/$(XSLT) \
+		-incdir extracted/$(XSLT)/libxslt \
+		-incdir extracted/$(XSLT)/libexslt \
+		`./exslt-fbfrog-options.sh $(XSLT)`
+
 	rm *.tmp
 
 ZIP_TITLE := libzip-1.0.1

@@ -1,0 +1,14 @@
+-iftarget windows
+	-declarebool LIBEXSLT_STATIC
+	-ifdef LIBEXSLT_STATIC
+		-define LIBEXSLT_STATIC 1
+	-endif
+-endif
+
+-define _POSIX_C_SOURCE 999999L
+
+-removedefine EXSLTPUBFUN
+-removedefine EXSLTPUBVAR
+-removedefine EXSLTCALL
+-removedefine EXSLTCDECL
+-removedefine LIBEXSLT_PUBLIC
