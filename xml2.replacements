@@ -1,0 +1,74 @@
+convert c:
+	#define SKIP_EOL(p)
+		if (*(p) == 0x13) {
+			p++;
+			if (*(p) == 0x10)
+				p++;
+		}
+		if (*(p) == 0x10) {
+			p++;
+			if (*(p) == 0x13)
+				p++;
+		}
+to c:
+	#define SKIP_EOL(p) {
+		if (*(p) == 0x13) {
+			p += 1;
+			if (*(p) == 0x10)
+				p += 1;
+		}
+		if (*(p) == 0x10) {
+			p += 1;
+			if (*(p) == 0x13)
+				p += 1;
+		}
+	}
+
+convert c:
+	#define MOVETO_ENDTAG(p)
+		while ((*p) && (*(p) != '>'))
+			(p)++
+to c:
+	#define MOVETO_ENDTAG(p)
+		while ((*p) && (*(p) != '>'))
+			(p) += 1;
+
+convert c:
+	#define MOVETO_STARTTAG(p)
+		while ((*p) && (*(p) != '<'))
+			(p)++
+to c:
+	#define MOVETO_STARTTAG(p)
+		while ((*p) && (*(p) != '<'))
+			(p) += 1;
+
+convert c: #define LIBXML_TEST_VERSION xmlCheckVersion(20902);
+to c:      #define LIBXML_TEST_VERSION xmlCheckVersion(20902)
+
+convert c:
+	#define xmlXPathEmptyNodeSet(ns) {
+		while ((ns)->nodeNr > 0)
+			(ns)->nodeTab[(ns)->nodeNr--] = NULL;
+	}
+to c:
+	#define xmlXPathEmptyNodeSet(ns) {
+		while ((ns)->nodeNr > 0) {
+			(ns)->nodeTab[(ns)->nodeNr] = NULL;
+			(ns)->nodeNr -= 1;
+		}
+	}
+
+convert c: #define CHECK_ERROR if (ctxt->error != XPATH_EXPRESSION_OK) return
+to c:      #define CHECK_ERROR if (ctxt->error != XPATH_EXPRESSION_OK) return;
+
+convert c: #define CHECK_ERROR0 if (ctxt->error != XPATH_EXPRESSION_OK) return(0)
+to c:      #define CHECK_ERROR0 if (ctxt->error != XPATH_EXPRESSION_OK) return(0);
+
+convert c: #define CHECK_TYPE(typeval) if ((ctxt->value == NULL) || (ctxt->value->type != typeval)) XP_ERROR(XPATH_INVALID_TYPE)
+to c:      #define CHECK_TYPE(typeval) if ((ctxt->value == NULL) || (ctxt->value->type != typeval)) XP_ERROR(XPATH_INVALID_TYPE);
+
+convert c: #define CHECK_TYPE0(typeval) if ((ctxt->value == NULL) || (ctxt->value->type != typeval)) XP_ERROR0(XPATH_INVALID_TYPE)
+to c:      #define CHECK_TYPE0(typeval) if ((ctxt->value == NULL) || (ctxt->value->type != typeval)) XP_ERROR0(XPATH_INVALID_TYPE);
+
+convert c: #define CHECK_ARITY(x)   if (ctxt == NULL) return; if (nargs != (x)) XP_ERROR(XPATH_INVALID_ARITY); if (ctxt->valueNr < ctxt->valueFrame + (x)) XP_ERROR(XPATH_STACK_ERROR);
+to c:      #define CHECK_ARITY(x) { if (ctxt == NULL) return; if (nargs != (x)) XP_ERROR(XPATH_INVALID_ARITY); if (ctxt->valueNr < ctxt->valueFrame + (x)) XP_ERROR(XPATH_STACK_ERROR); }

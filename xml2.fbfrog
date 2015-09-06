@@ -1,0 +1,20 @@
+-replacements xml2.replacements
+
+-iftarget windows -replacements xml2-windows.replacements -endif
+-iftarget cygwin  -replacements xml2-windows.replacements -endif
+
+-iftarget windows
+	-declarebool LIBXML_STATIC
+	-ifdef LIBXML_STATIC
+		-define LIBXML_STATIC 1
+	-endif
+-endif
+
+-define _POSIX_C_SOURCE 999999L
+
+-removedefine XMLPUBFUN
+-removedefine XMLPUBVAR
+-removedefine XMLCALL
+-removedefine XMLCDECL
+-removedefine LIBXML_DLL_IMPORT
+-removedefine BAD_CAST

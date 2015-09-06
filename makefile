@@ -16,7 +16,7 @@ ALL += pango pdcurses png png12 png14 png15 png16
 ALL += sdl sdl1 sdl2
 ALL += tre
 ALL += winapi
-ALL += x11 xcb
+ALL += x11 xcb xml2
 ALL += zip zlib
 
 EXEEXT := $(shell fbc -print x)
@@ -3156,6 +3156,16 @@ xcb: tools
 		-title "$(XCB), $(XCB_PROTO)" xtest.tmp       fbteam.txt inc/xcb/xtest.bi \
 		-title "$(XCB), $(XCB_PROTO)" xvmc.tmp        fbteam.txt inc/xcb/xvmc.bi \
 		-title "$(XCB), $(XCB_PROTO)" xv.tmp          fbteam.txt inc/xcb/xv.bi
+
+XML2 := libxml2-2.9.2
+xml2: tools
+	./get.sh $(XML2) $(XML2).tar.gz ftp://xmlsoft.org/libxml2/$(XML2).tar.gz
+	sed -n 5,23p extracted/$(XML2)/Copyright > xml2.tmp
+	mkdir -p inc/libxml
+	$(FBFROG) xml2.fbfrog -incdir extracted/$(XML2)/include \
+		-include libxml/xmlversion.h \
+		`./xml2-fbfrog-options.sh $(XML2)`
+	rm *.tmp
 
 ZIP_TITLE := libzip-1.0.1
 zip: tools
