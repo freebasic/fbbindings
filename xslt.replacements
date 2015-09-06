@@ -1,0 +1,97 @@
+convert c: #define XSLT_REGISTER_FUNCTION_LOOKUP(ctxt) xmlXPathRegisterFuncLookup((ctxt)->xpathCtxt, (xmlXPathFuncLookupFunc)  xsltXPathFunctionLookup, (void *)(ctxt->xpathCtxt));
+to c:      #define XSLT_REGISTER_FUNCTION_LOOKUP(ctxt) xmlXPathRegisterFuncLookup((ctxt)->xpathCtxt, (xmlXPathFuncLookupFunc) &xsltXPathFunctionLookup, (void *)(ctxt->xpathCtxt))
+
+convert c:
+	#define XSLT_REGISTER_VARIABLE_LOOKUP(ctxt)
+		xmlXPathRegisterVariableLookup((ctxt)->xpathCtxt, xsltXPathVariableLookup, (void *)(ctxt));
+		xsltRegisterAllFunctions((ctxt)->xpathCtxt);
+		xsltRegisterAllElement(ctxt);
+		(ctxt)->xpathCtxt->extra = ctxt
+to c:
+	#define XSLT_REGISTER_VARIABLE_LOOKUP(ctxt) {
+		xmlXPathRegisterVariableLookup((ctxt)->xpathCtxt, &xsltXPathVariableLookup, (void *)(ctxt));
+		xsltRegisterAllFunctions((ctxt)->xpathCtxt);
+		xsltRegisterAllElement(ctxt);
+		(ctxt)->xpathCtxt->extra = ctxt;
+	}
+
+convert c:
+	#define XSLT_GET_IMPORT_PTR(res, style, name) {
+		xsltStylesheetPtr st = style;
+		res = NULL;
+		while (st != NULL) {
+			if (st->name != NULL) {
+				res = st->name;
+				break;
+			}
+			st = xsltNextImport(st);
+		}
+	}
+to fb:
+	#macro XSLT_GET_IMPORT_PTR(res, style, name)
+		scope
+			dim st as xsltStylesheetPtr = style
+			res = NULL
+			while st <> NULL
+				if st->name <> NULL then
+					res = st->name
+					exit while
+				end if
+				st = xsltNextImport(st)
+			wend
+		end scope
+	#endmacro
+
+convert c:
+	#define XSLT_GET_IMPORT_INT(res, style, name) {
+		xsltStylesheetPtr st = style;
+		res = -1;
+		while (st != NULL) {
+			if (st->name != -1) {
+				res = st->name;
+				break;
+			}
+			st = xsltNextImport(st);
+		}
+	}
+to fb:
+	#macro XSLT_GET_IMPORT_INT(res, style, name)
+		scope
+			dim st as xsltStylesheetPtr = style
+			res = -1
+			while st <> NULL
+				if st->name <> (-1) then
+					res = st->name
+					exit while
+				end if
+				st = xsltNextImport(st)
+			wend
+		end scope
+	#endmacro
+
+convert c:
+	#define XSLT_MARK_RES_TREE_FRAG(n)
+		(n)->name = (char *) xmlStrdup(BAD_CAST " fake node libxslt");
+to c:
+	#define XSLT_MARK_RES_TREE_FRAG(n)
+		(n)->name = (char *) xmlStrdup(" fake node libxslt")
+
+convert c:
+	#define CHECK_STOPPEDE
+		if (ctxt->state == XSLT_STATE_STOPPED)
+			goto error;
+to fb:
+	#macro CHECK_STOPPEDE
+		if ctxt->state = XSLT_STATE_STOPPED then
+			goto error
+		end if
+	#endmacro
+
+convert c: #define XSLT_TODO xsltGenericError(xsltGenericErrorContext, "Unimplemented block at %s:%d\n", __FILE__, __LINE__);
+to c:      #define XSLT_TODO xsltGenericError(xsltGenericErrorContext, "Unimplemented block at %s:%d\n", __FILE__, __LINE__)
+
+convert c: #define XSLT_STRANGE xsltGenericError(xsltGenericErrorContext, "Internal error at %s:%d\n", __FILE__, __LINE__);
+to c:      #define XSLT_STRANGE xsltGenericError(xsltGenericErrorContext, "Internal error at %s:%d\n", __FILE__, __LINE__)
+
+convert c: #define XSLT_TRACE(ctxt, code, call) if (ctxt->traceCode && (*(ctxt->traceCode) & code)) call
+to c:      #define XSLT_TRACE(ctxt, code, call) if (ctxt->traceCode && (*(ctxt->traceCode) & code)) call;

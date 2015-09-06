@@ -1,4 +1,4 @@
-FBFROG_VERSION := 5974a3ce246b038a4f37efe282e0c61f3624ddfe
+FBFROG_VERSION := 10af779a868a5059b680987d9e7138f71e41be14
 
 ALL := allegro allegro4 allegro5 aspell atk
 ALL += bass bassmod bfd bzip2
@@ -16,7 +16,7 @@ ALL += pango pdcurses png png12 png14 png15 png16
 ALL += sdl sdl1 sdl2
 ALL += tre
 ALL += winapi
-ALL += x11 xcb
+ALL += x11 xcb xml2
 ALL += zip zlib
 
 EXEEXT := $(shell fbc -print x)
@@ -3168,6 +3168,37 @@ xcb: tools
 		-title "$(XCB), $(XCB_PROTO)" xtest.tmp       fbteam.txt inc/xcb/xtest.bi \
 		-title "$(XCB), $(XCB_PROTO)" xvmc.tmp        fbteam.txt inc/xcb/xvmc.bi \
 		-title "$(XCB), $(XCB_PROTO)" xv.tmp          fbteam.txt inc/xcb/xv.bi
+
+XML2 := libxml2-2.9.2
+XSLT := libxslt-1.1.28
+xml2: tools
+	./get.sh $(XML2) $(XML2).tar.gz ftp://xmlsoft.org/libxml2/$(XML2).tar.gz
+	./get.sh $(XSLT) $(XSLT).tar.gz ftp://xmlsoft.org/libxml2/$(XSLT).tar.gz
+
+	sed -n 5,23p  extracted/$(XML2)/Copyright > xml2.tmp
+	sed -n 3,24p  extracted/$(XSLT)/Copyright > xslt.tmp
+	sed -n 30,52p extracted/$(XSLT)/Copyright > exslt.tmp
+
+	mkdir -p inc/libxml inc/libxslt inc/libexslt
+
+	$(FBFROG) xml2.fbfrog -incdir extracted/$(XML2)/include \
+		-include libxml/xmlversion.h \
+		`./xml2-fbfrog-options.sh $(XML2)`
+
+	$(FBFROG) xslt.fbfrog \
+		-incdir extracted/$(XML2)/include \
+		-incdir extracted/$(XSLT) \
+		-incdir extracted/$(XSLT)/libxslt \
+		`./xslt-fbfrog-options.sh $(XSLT)`
+
+	$(FBFROG) exslt.fbfrog \
+		-incdir extracted/$(XML2)/include \
+		-incdir extracted/$(XSLT) \
+		-incdir extracted/$(XSLT)/libxslt \
+		-incdir extracted/$(XSLT)/libexslt \
+		`./exslt-fbfrog-options.sh $(XSLT)`
+
+	rm *.tmp
 
 ZIP_TITLE := libzip-1.0.1
 zip: tools

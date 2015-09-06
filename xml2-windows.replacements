@@ -1,0 +1,2 @@
+convert c: #define LIBXML_MODULE_EXTENSION ".so"
+to c:      #define LIBXML_MODULE_EXTENSION ".dll"
