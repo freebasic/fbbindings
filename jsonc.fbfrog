@@ -15,3 +15,8 @@
 -rename TRUE CTRUE
 
 -replacements jsonc.replacements
+
+# Disabled macros from debug.h, probably useless as far as public API is concerned...
+-removedefine MC_*
+-removedefine JASSERT
+-removedefine __STRING
