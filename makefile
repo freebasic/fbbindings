@@ -3200,6 +3200,11 @@ xml2: tools
 
 	rm *.tmp
 
+xml2-update-test:
+	ls inc/libxml/*.bi   | sed -e 's,^inc/,#include ",g' -e 's,$$,",g' > tests/xml2.bas
+	ls inc/libxslt/*.bi  | sed -e 's,^inc/,#include ",g' -e 's,$$,",g' > tests/xslt.bas
+	ls inc/libexslt/*.bi | sed -e 's,^inc/,#include ",g' -e 's,$$,",g' > tests/exslt.bas
+
 ZIP_TITLE := libzip-1.0.1
 zip: tools
 	./get.sh $(ZIP_TITLE) $(ZIP_TITLE).tar.xz "http://www.nih.at/libzip/$(ZIP_TITLE).tar.xz"
