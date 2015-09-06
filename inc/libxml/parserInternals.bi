@@ -94,13 +94,13 @@ const INPUT_CHUNK = 250
 #endmacro
 
 #if defined(__FB_WIN32__) and (not defined(LIBXML_STATIC))
-	extern import xmlStringText as const zstring * len(text)+1
-	extern import xmlStringTextNoenc as const zstring * len(textnoenc)+1
-	extern import xmlStringComment as const zstring * len(comment)+1
+	extern import xmlStringText as const zstring * len("text")+1
+	extern import xmlStringTextNoenc as const zstring * len("textnoenc")+1
+	extern import xmlStringComment as const zstring * len("comment")+1
 #else
-	extern xmlStringText as const zstring * len(text)+1
-	extern xmlStringTextNoenc as const zstring * len(textnoenc)+1
-	extern xmlStringComment as const zstring * len(comment)+1
+	extern xmlStringText as const zstring * len("text")+1
+	extern xmlStringTextNoenc as const zstring * len("textnoenc")+1
+	extern xmlStringComment as const zstring * len("comment")+1
 #endif
 
 declare function xmlIsLetter(byval c as long) as long
