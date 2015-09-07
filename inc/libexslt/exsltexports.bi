@@ -30,4 +30,6 @@
 
 #pragma once
 
+#inclib "exslt"
+
 #define __EXSLT_EXPORTS_H__
