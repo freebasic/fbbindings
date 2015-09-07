@@ -10,3 +10,10 @@
 
 -rename_ LZMA_VERSION_STRING
 -rename_ LZMA_GET_CHECK
+
+-fbfroginclude limits.h
+-removedefine UINT32_C
+-removedefine UINT64_C
+-removedefine UINT32_MAX
+-removedefine UINT64_MAX
+-addinclude stdint.h inc/lzma.bi

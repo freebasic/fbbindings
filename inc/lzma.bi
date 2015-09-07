@@ -35,6 +35,7 @@
 
 #include once "crt/stddef.bi"
 #include once "crt/limits.bi"
+#include once "crt/stdint.bi"
 
 '' The following symbols have been renamed:
 ''     #define LZMA_VERSION_STRING => LZMA_VERSION_STRING_
@@ -43,10 +44,6 @@
 extern "C"
 
 #define LZMA_H
-#define UINT32_C(n) n##U
-#define UINT64_C(n) n##UL
-#define UINT32_MAX UINT32_C(4294967295)
-#define UINT64_MAX UINT64_C(18446744073709551615)
 const LZMA_VERSION_MAJOR = 5
 const LZMA_VERSION_MINOR = 2
 const LZMA_VERSION_PATCH = 1
