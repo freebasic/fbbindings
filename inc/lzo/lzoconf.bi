@@ -39,12 +39,17 @@
 #include once "crt/stddef.bi"
 #include once "lzo/lzodefs.bi"
 
+'' The following symbols have been renamed:
+''     constant LZO_VERSION => LZO_VERSION_
+''     #define LZO_VERSION_STRING => LZO_VERSION_STRING_
+''     #define LZO_VERSION_DATE => LZO_VERSION_DATE_
+
 extern "C"
 
 const __LZOCONF_H_INCLUDED = 1
-const LZO_VERSION = &h2090
-#define LZO_VERSION_STRING "2.09"
-#define LZO_VERSION_DATE "Feb 04 2015"
+const LZO_VERSION_ = &h2090
+#define LZO_VERSION_STRING_ "2.09"
+#define LZO_VERSION_DATE_ "Feb 04 2015"
 
 #if defined(__FB_WIN32__) and defined(__FB_64BIT__)
 	type lzo_uint as ulongint
@@ -119,7 +124,7 @@ const LZO_E_INVALID_ALIGNMENT = -11
 const LZO_E_OUTPUT_NOT_CONSUMED = -12
 const LZO_E_INTERNAL_ERROR = -99
 #define lzo_sizeof_dict_t culng(sizeof(lzo_bytep))
-#define lzo_init() __lzo_init_v2(LZO_VERSION, clng(sizeof(short)), clng(sizeof(long)), clng(sizeof(clong)), clng(sizeof(lzo_uint32_t)), clng(sizeof(lzo_uint)), clng(lzo_sizeof_dict_t), clng(sizeof(zstring ptr)), clng(sizeof(lzo_voidp)), clng(sizeof(lzo_callback_t)))
+#define lzo_init() __lzo_init_v2(LZO_VERSION_, clng(sizeof(short)), clng(sizeof(long)), clng(sizeof(clong)), clng(sizeof(lzo_uint32_t)), clng(sizeof(lzo_uint)), clng(lzo_sizeof_dict_t), clng(sizeof(zstring ptr)), clng(sizeof(lzo_voidp)), clng(sizeof(lzo_callback_t)))
 
 declare function __lzo_init_v2(byval as ulong, byval as long, byval as long, byval as long, byval as long, byval as long, byval as long, byval as long, byval as long, byval as long) as long
 declare function lzo_version() as ulong
