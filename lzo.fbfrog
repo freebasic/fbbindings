@@ -78,3 +78,7 @@
 -noexpand lzo_int64_t
 -noexpand lzo_uint64_t
 -noexpand lzo_uintptr_t
+
+-rename_ LZO_VERSION
+-rename_ LZO_VERSION_STRING
+-rename_ LZO_VERSION_DATE
