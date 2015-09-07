@@ -16,7 +16,7 @@ ALL += pango pdcurses png png12 png14 png15 png16
 ALL += sdl sdl1 sdl2
 ALL += tre
 ALL += winapi
-ALL += x11 xcb xml2
+ALL += x11 xcb xml2 xz
 ALL += zip zlib
 
 EXEEXT := $(shell fbc -print x)
@@ -3205,6 +3205,14 @@ xml2-update-test:
 	ls inc/libxml/*.bi   | sed -e 's,^inc/,#include ",g' -e 's,$$,",g' > tests/xml2.bas
 	ls inc/libxslt/*.bi  | sed -e 's,^inc/,#include ",g' -e 's,$$,",g' > tests/xslt.bas
 	ls inc/libexslt/*.bi | sed -e 's,^inc/,#include ",g' -e 's,$$,",g' > tests/exslt.bas
+
+XZ := xz-5.2.1
+xz: tools
+	./get.sh $(XZ) $(XZ).tar.xz http://tukaani.org/xz/$(XZ).tar.xz
+	$(GETCOMMENT) -1-2 extracted/$(XZ)/src/liblzma/api/lzma.h > lzma.tmp
+	$(FBFROG) lzma.fbfrog extracted/$(XZ)/src/liblzma/api/lzma.h -o inc/lzma.bi \
+		-inclib lzma -title $(XZ) lzma.tmp fbteam.txt
+	rm *.tmp
 
 ZIP_TITLE := libzip-1.0.1
 zip: tools

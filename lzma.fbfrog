@@ -1,0 +1,11 @@
+-removeinclude inttypes.h
+
+-removedefine LZMA_API_CALL
+-removedefine LZMA_API_IMPORT
+-removedefine LZMA_API
+-removedefine lzma_attr_pure
+-removedefine lzma_attr_const
+-removedefine lzma_attr_warn_unused_result
+-removedefine LZMA_H_INTERNAL
+
+-rename_ LZMA_VERSION_STRING
