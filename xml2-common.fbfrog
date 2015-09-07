@@ -41,6 +41,9 @@
 -removedefine XSLTCDECL
 -removedefine XSLTPUBFUN
 -removedefine XSLTPUBVAR
+-removedefine mkdir
+-removedefine snprintf
+-removedefine vsnprintf
 
 -removeinclude config.h
 -removeinclude io.h
@@ -55,6 +58,8 @@
 
 -rename_ errNo
 -rename_ xmlBufferWriteChar
+#-renamevar val val_
+#-rename2nd LIBXSLT_VERSION_EXTRA LIBXSLT_VERSION_EXTRA_WIN32
 
 -string xmlStringText
 -string xmlStringTextNoenc

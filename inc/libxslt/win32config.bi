@@ -53,9 +53,6 @@ const HAVE_FCNTL_H = 1
 #ifdef __FB_WIN32__
 	#define isinf(d) iif(_fpclass(d) = _FPCLASS_PINF, 1, iif(_fpclass(d) = _FPCLASS_NINF, -1, 0))
 	#define isnan(d) _isnan(d)
-	#define mkdir(p, m) _mkdir(p)
-	#define snprintf _snprintf
-	#define vsnprintf(b, c, f, a) _vsnprintf(b, c, f, a)
 #else
 	private function isinf(byval d as double) as long
 		dim expon as long = 0
