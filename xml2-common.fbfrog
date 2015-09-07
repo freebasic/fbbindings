@@ -47,6 +47,8 @@
 -removeinclude direct.h
 -removeinclude float.h
 
+-addforwarddecl _xsltCompMatch
+
 -setarraysize xmlStringText 'len("text")+1'
 -setarraysize xmlStringTextNoenc 'len("textnoenc")+1'
 -setarraysize xmlStringComment 'len("comment")+1'
