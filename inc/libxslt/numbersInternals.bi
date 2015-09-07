@@ -35,6 +35,7 @@
 #define __XML_XSLT_NUMBERSINTERNALS_H__
 type xsltNumberData as _xsltNumberData
 type xsltNumberDataPtr as xsltNumberData ptr
+type _xsltCompMatch as _xsltCompMatch_
 
 type _xsltNumberData
 	level as const xmlChar ptr

@@ -29,7 +29,6 @@
 
 #pragma once
 
-#include once "config.bi"
 #include once "libxslt/xsltconfig.bi"
 #include once "libxml/xmlversion.bi"
 
