@@ -42,6 +42,11 @@
 -removedefine XSLTPUBFUN
 -removedefine XSLTPUBVAR
 
+-removeinclude config.h
+-removeinclude io.h
+-removeinclude direct.h
+-removeinclude float.h
+
 -setarraysize xmlStringText 'len("text")+1'
 -setarraysize xmlStringTextNoenc 'len("textnoenc")+1'
 -setarraysize xmlStringComment 'len("comment")+1'

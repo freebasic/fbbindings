@@ -29,14 +29,7 @@
 
 #pragma once
 
-#include once "io.bi"
 #include once "crt/math.bi"
-
-#ifdef __FB_WIN32__
-	#include once "crt/float.bi"
-#endif
-
-#include once "direct.bi"
 #include once "libxml/xmlversion.bi"
 
 #if defined(__FB_DOS__) or defined(__FB_UNIX__)
