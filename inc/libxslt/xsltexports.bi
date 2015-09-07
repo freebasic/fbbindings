@@ -29,4 +29,6 @@
 
 #pragma once
 
+#inclib "xslt"
+
 #define __XSLT_EXPORTS_H__

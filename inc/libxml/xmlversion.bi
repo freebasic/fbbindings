@@ -26,6 +26,8 @@
 
 #pragma once
 
+#inclib "xml2"
+
 #include once "libxml/xmlexports.bi"
 
 extern "C"

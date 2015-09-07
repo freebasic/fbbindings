@@ -6,3 +6,5 @@
 -endif
 
 xml2-common.fbfrog
+
+-inclib xslt inc/libxslt/xsltexports.bi
