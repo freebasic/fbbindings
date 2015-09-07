@@ -56,11 +56,11 @@ const HAVE_FCNTL_H = 1
 #else
 	private function isinf(byval d as double) as long
 		dim expon as long = 0
-		dim val as double = frexp(d, @expon)
+		dim val_ as double = frexp(d, @expon)
 		if expon = 1025 then
-			if val = 0.5 then
+			if val_ = 0.5 then
 				return 1
-			elseif val = (-0.5) then
+			elseif val_ = (-0.5) then
 				return -1
 			else
 				return 0
@@ -72,11 +72,11 @@ const HAVE_FCNTL_H = 1
 
 	private function isnan(byval d as double) as long
 		dim expon as long = 0
-		dim val as double = frexp(d, @expon)
+		dim val_ as double = frexp(d, @expon)
 		if expon = 1025 then
-			if val = 0.5 then
+			if val_ = 0.5 then
 				return 0
-			elseif val = (-0.5) then
+			elseif val_ = (-0.5) then
 				return 0
 			else
 				return 1
