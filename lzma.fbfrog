@@ -9,3 +9,4 @@
 -removedefine LZMA_H_INTERNAL
 
 -rename_ LZMA_VERSION_STRING
+-rename_ LZMA_GET_CHECK

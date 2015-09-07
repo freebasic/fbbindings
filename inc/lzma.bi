@@ -38,6 +38,7 @@
 
 '' The following symbols have been renamed:
 ''     #define LZMA_VERSION_STRING => LZMA_VERSION_STRING_
+''     constant LZMA_GET_CHECK => LZMA_GET_CHECK_
 
 extern "C"
 
@@ -74,7 +75,7 @@ enum
 	LZMA_STREAM_END = 1
 	LZMA_NO_CHECK = 2
 	LZMA_UNSUPPORTED_CHECK = 3
-	LZMA_GET_CHECK = 4
+	LZMA_GET_CHECK_ = 4
 	LZMA_MEM_ERROR = 5
 	LZMA_MEMLIMIT_ERROR = 6
 	LZMA_FORMAT_ERROR = 7
