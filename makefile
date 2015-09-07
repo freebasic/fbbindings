@@ -1716,6 +1716,15 @@ lua: tools
 
 	rm *.tmp
 
+LZO := lzo-2.09
+lzo: tools
+	./get.sh $(LZO) $(LZO).tar.gz http://www.oberhumer.com/opensource/lzo/download/$(LZO).tar.gz
+	./lzo-gen-tmps.sh "$(LZO)"
+	mkdir -p inc/lzo
+	$(FBFROG) lzo.fbfrog -incdir extracted/$(LZO)/include \
+		`./lzo-fbfrog-options.sh "$(LZO)"`
+	rm extracted/$(LZO)/include/lzo/*.tmp
+
 NCURSES_TITLE := ncurses-5.9
 ncurses: tools
 	./get.sh $(NCURSES_TITLE) $(NCURSES_TITLE).tar.gz "http://ftp.gnu.org/pub/gnu/ncurses/$(NCURSES_TITLE).tar.gz"

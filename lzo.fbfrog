@@ -1,0 +1,64 @@
+-fbfroginclude limits.h
+-iftarget dos
+	-define __cdecl
+-endif
+
+-inclib lzo2 inc/lzo/lzoconf.bi
+
+-removedefine LZO_EXTERN_*
+-removedefine LZO_*CAST
+-removedefine LZO_*CAST2
+-removedefine __lzo_gnuc_extension__
+-removedefine LZO_CFG_USE_NEW_STYLE_CASTS
+-removedefine lzo_has_*
+-removedefine LZO_ICONV
+-removedefine LZO_ITRUNC
+-removedefine __lzo_*
+-removedefine LZO_BLOCK_*
+-removedefine LZO_UNUSED*
+-removedefine LZO_DEFINE_*
+-removedefine LZO_CFG_USE_COUNTER
+-removedefine __LZO_MMODEL
+-removedefine lzo_unused_funcs_impl
+-removedefine __LZO_CTA_NAME
+-removedefine LZO_COMPILE_TIME_ASSERT
+-removedefine __LZO_EXTERN_C
+-removedefine __LZO_CDECL
+-removedefine __LZO_EXPORT*
+-removedefine LZO_PUBLIC
+-removedefine LZO_EXTERN
+-removedefine LZO_PRIVATE
+
+# LZO's compile-time assertions produce lots of extern variable declarations
+# named via __LINE__, but fbfrog doesn't expand __LINE__...
+-remove lzo_cta_*
+-removedefine LZO_COMPILE_TIME_ASSERT_*
+
+-define __int64 "long long"
+-expandindefine __LZO_MMODEL
+-expandindefine __SIZEOF_*__
+
+-typedefhint lzo_xint
+-typedefhint lzo_voidp
+-typedefhint lzo_bytep
+-typedefhint lzo_int8_t
+-typedefhint lzo_uint8_t
+-typedefhint lzo_int16_t
+-typedefhint lzo_uint16_t
+-typedefhint lzo_int32_t
+-typedefhint lzo_uint32_t
+-typedefhint lzo_int64_t
+-typedefhint lzo_uint64_t
+
+-noexpand lzo_xint
+-noexpand lzo_voidp
+-noexpand lzo_bytep
+-noexpand lzo_int8_t
+-noexpand lzo_uint8_t
+-noexpand lzo_int16_t
+-noexpand lzo_uint16_t
+-noexpand lzo_int32_t
+-noexpand lzo_uint32_t
+-noexpand lzo_int64_t
+-noexpand lzo_uint64_t
+-noexpand lzo_uintptr_t
