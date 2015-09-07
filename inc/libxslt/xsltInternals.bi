@@ -154,9 +154,9 @@ type _xsltKeyTable
 end type
 
 type xsltStylesheet as _xsltStylesheet
-type xsltStylesheetPtr_ as xsltStylesheet ptr
+type xsltStylesheetPtr as xsltStylesheet ptr
 type xsltTransformContext as _xsltTransformContext
-type xsltTransformContextPtr_ as xsltTransformContext ptr
+type xsltTransformContextPtr as xsltTransformContext ptr
 type xsltElemPreComp as _xsltElemPreComp
 type xsltElemPreCompPtr as xsltElemPreComp ptr
 type xsltTransformFunction as sub(byval ctxt as xsltTransformContextPtr, byval node as xmlNodePtr, byval inst as xmlNodePtr, byval comp as xsltElemPreCompPtr)

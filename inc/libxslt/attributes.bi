@@ -35,10 +35,8 @@
 extern "C"
 
 #define __XML_XSLT_ATTRIBUTES_H__
-type xsltStylesheetPtr as xsltStylesheetPtr_
 declare sub xsltParseStylesheetAttributeSet(byval style as xsltStylesheetPtr, byval cur as xmlNodePtr)
 declare sub xsltFreeAttributeSetsHashes(byval style as xsltStylesheetPtr)
-type xsltTransformContextPtr as xsltTransformContextPtr_
 declare sub xsltApplyAttributeSet(byval ctxt as xsltTransformContextPtr, byval node as xmlNodePtr, byval inst as xmlNodePtr, byval attributes as const xmlChar ptr)
 declare sub xsltResolveStylesheetAttributeSet(byval style as xsltStylesheetPtr)
 
