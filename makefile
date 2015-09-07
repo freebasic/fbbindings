@@ -3189,6 +3189,7 @@ xml2: tools
 		-incdir extracted/$(XML2)/include \
 		-incdir extracted/$(XSLT) \
 		-incdir extracted/$(XSLT)/libxslt \
+		-include xsltInternals.h \
 		`./xslt-fbfrog-options.sh $(XSLT)`
 
 	$(FBFROG) exslt.fbfrog \
