@@ -5,6 +5,22 @@
 
 -inclib lzo2 inc/lzo/lzoconf.bi
 
+# Every lzo*.h (except lzoconf.h/lzodefs.h) #includes lzoconf.h, but guarded
+# by an #ifndef __LZOCONF_H_INCLUDED check. So we add these back manually to
+# allow #including each .bi on its own...
+# TODO: perhaps it'd be better to translate each .h with a separate fbfrog call?
+-addinclude lzo/lzoconf.h inc/lzo/lzo1a.bi
+-addinclude lzo/lzoconf.h inc/lzo/lzo1b.bi
+-addinclude lzo/lzoconf.h inc/lzo/lzo1.bi
+-addinclude lzo/lzoconf.h inc/lzo/lzo1c.bi
+-addinclude lzo/lzoconf.h inc/lzo/lzo1f.bi
+-addinclude lzo/lzoconf.h inc/lzo/lzo1x.bi
+-addinclude lzo/lzoconf.h inc/lzo/lzo1y.bi
+-addinclude lzo/lzoconf.h inc/lzo/lzo1z.bi
+-addinclude lzo/lzoconf.h inc/lzo/lzo2a.bi
+-addinclude lzo/lzoconf.h inc/lzo/lzo_asm.bi
+-addinclude lzo/lzoconf.h inc/lzo/lzoutil.bi
+
 -removedefine LZO_EXTERN_*
 -removedefine LZO_*CAST
 -removedefine LZO_*CAST2

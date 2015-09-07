@@ -32,6 +32,8 @@
 
 #pragma once
 
+#include once "lzo/lzoconf.bi"
+
 extern "C"
 
 const __LZO_ASM_H_INCLUDED = 1
