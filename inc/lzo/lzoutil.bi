@@ -32,6 +32,8 @@
 
 #pragma once
 
+#include once "lzo/lzoconf.bi"
+
 const __LZOUTIL_H_INCLUDED = 1
 #define lzo_alloc(a, b) malloc((a) * (b))
 #define lzo_malloc(a) malloc(a)

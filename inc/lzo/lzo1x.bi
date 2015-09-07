@@ -33,6 +33,7 @@
 #pragma once
 
 #include once "crt/long.bi"
+#include once "lzo/lzoconf.bi"
 
 extern "C"
 
