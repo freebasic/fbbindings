@@ -1,0 +1,7 @@
+-iftarget windows
+	-declarebool MODPLUG_STATIC
+	-ifdef MODPLUG_STATIC
+		-define MODPLUG_STATIC 1
+	-endif
+-endif
+-removedefine MODPLUG_EXPORT

@@ -10,7 +10,7 @@ ALL += gd gdbm gdkpixbuf gdsl glib glfw glut gmp grx gsl gtk gtk2 gtk3 gtkglext
 ALL += iconv im iup
 ALL += jit jpeglib jsonc
 ALL += llvm lua
-ALL += mediainfo
+ALL += mediainfo modplug
 ALL += ncurses
 ALL += openal opengl opengl-mesa opengl-winapi
 ALL += pango pdcurses png png12 png14 png15 png16
@@ -1734,6 +1734,14 @@ mediainfo: tools
 	$(FBFROG) mediainfo.fbfrog extracted/$(MEDIAINFO)/MediaInfoLib/Source/MediaInfoDLL/MediaInfoDLL_Static.h \
 		-o inc/MediaInfo.bi -title $(MEDIAINFO) mediainfo.tmp fbteam.txt
 	rm *.tmp
+
+MODPLUG_VERSION := 0.8.8.5
+MODPLUG := libmodplug-$(MODPLUG_VERSION)
+modplug: tools
+	./get.sh $(MODPLUG) $(MODPLUG).tar.gz http://sourceforge.net/projects/modplug-xmms/files/libmodplug/$(MODPLUG_VERSION)/$(MODPLUG).tar.gz/download
+	$(GETCOMMENT) extracted/$(MODPLUG)/src/modplug.h > modplug.tmp
+	$(FBFROG) modplug.fbfrog extracted/$(MODPLUG)/src/modplug.h \
+		-o inc/modplug.bi -title $(MODPLUG) modplug.tmp fbteam.txt
 
 NCURSES_TITLE := ncurses-5.9
 ncurses: tools
