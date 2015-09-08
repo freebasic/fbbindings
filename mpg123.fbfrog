@@ -1,0 +1,10 @@
+-iftarget windows
+	-declarebool LINK_MPG123_DLL
+	-ifdef LINK_MPG123_DLL
+		-define LINK_MPG123_DLL 1
+	-endif
+-endif
+
+-inclib mpg123
+
+-removedefine MPG123_EXPORT
