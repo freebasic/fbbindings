@@ -10,7 +10,7 @@ ALL += gd gdbm gdkpixbuf gdsl glib glfw glut gmp grx gsl gtk gtk2 gtk3 gtkglext
 ALL += iconv im iup
 ALL += jit jpeglib jsonc
 ALL += llvm lua
-ALL += mediainfo modplug
+ALL += mediainfo modplug mpg123
 ALL += ncurses
 ALL += openal opengl opengl-mesa opengl-winapi
 ALL += pango pdcurses png png12 png14 png15 png16
@@ -1754,6 +1754,23 @@ modplug: tools
 	$(GETCOMMENT) extracted/$(MODPLUG)/src/modplug.h > modplug.tmp
 	$(FBFROG) modplug.fbfrog extracted/$(MODPLUG)/src/modplug.h \
 		-o inc/modplug.bi -title $(MODPLUG) modplug.tmp fbteam.txt
+	rm *.tmp
+
+MPG123_VERSION := 1.22.4
+MPG123 := mpg123-$(MPG123_VERSION)
+mpg123: tools
+	./get.sh $(MPG123) $(MPG123).tar.bz2 http://sourceforge.net/projects/mpg123/files/mpg123/$(MPG123_VERSION)/$(MPG123).tar.bz2/download
+	sed -n 13,13p extracted/$(MPG123)/configure.ac | sed -e 's/API_VERSION=//g' > mpg123-apiversion.tmp
+	sed \
+		-e 's/@PACKAGE_VERSION@/$(MPG123_VERSION)/g' \
+		-e "s/@API_VERSION@/`cat mpg123-apiversion.tmp`/g" \
+		-e 's/@INCLUDE_STDLIB_H@//g' \
+		-e 's/@INCLUDE_SYS_TYPE_H@//g' \
+		< extracted/$(MPG123)/src/libmpg123/mpg123.h.in \
+		> extracted/$(MPG123)/src/libmpg123/mpg123.h
+	$(GETCOMMENT) extracted/$(MPG123)/src/libmpg123/mpg123.h > mpg123.tmp
+	$(FBFROG) mpg123.fbfrog extracted/$(MPG123)/src/libmpg123/mpg123.h \
+		-o inc/mpg123.bi -title $(MPG123) mpg123.tmp fbteam.txt
 	rm *.tmp
 
 NCURSES_TITLE := ncurses-5.9
