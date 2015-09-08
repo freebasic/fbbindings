@@ -1,0 +1,21 @@
+-target nodos
+
+-declarebool UNICODE
+-ifdef UNICODE
+	-define UNICODE 1
+-endif
+
+-fbfroginclude limits.h
+
+-removedefine UNIX
+-removedefine _UNIX
+-removedefine __UNIX__
+-removedefine MACOSX
+-removedefine _MACOSX
+-removedefine __MACOSX__
+-removedefine WINDOWS
+-removedefine _WINDOWS
+-removedefine __WINDOWS__
+-removedefine MEDIAINFO_EXP
+-removedefine __stdcall
+-removedefine MAXTYPE_INT

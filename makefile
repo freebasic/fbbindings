@@ -10,6 +10,7 @@ ALL += gd gdbm gdkpixbuf gdsl glib glfw glut gmp grx gsl gtk gtk2 gtk3 gtkglext
 ALL += iconv im iup
 ALL += jit jpeglib jsonc
 ALL += llvm lua
+ALL += mediainfo
 ALL += ncurses
 ALL += openal opengl opengl-mesa opengl-winapi
 ALL += pango pdcurses png png12 png14 png15 png16
@@ -1736,6 +1737,15 @@ lzo: tools
 	$(FBFROG) lzo.fbfrog -incdir extracted/$(LZO)/include \
 		`./lzo-fbfrog-options.sh "$(LZO)"`
 	rm extracted/$(LZO)/include/lzo/*.tmp
+
+MEDIAINFO_VERSION := 0.7.77
+MEDIAINFO := libmediainfo_$(MEDIAINFO_VERSION)
+mediainfo: tools
+	./get.sh $(MEDIAINFO) $(MEDIAINFO).tar.xz http://mediaarea.net/download/source/libmediainfo/$(MEDIAINFO_VERSION)/$(MEDIAINFO).tar.xz createdir
+	sed -n 11,35p extracted/$(MEDIAINFO)/MediaInfoLib/License.html | cut -c5- | lynx -stdin -force_html -dump -nolist > mediainfo.tmp
+	$(FBFROG) mediainfo.fbfrog extracted/$(MEDIAINFO)/MediaInfoLib/Source/MediaInfoDLL/MediaInfoDLL_Static.h \
+		-o inc/MediaInfo.bi -title $(MEDIAINFO) mediainfo.tmp fbteam.txt
+	rm *.tmp
 
 NCURSES_TITLE := ncurses-5.9
 ncurses: tools
