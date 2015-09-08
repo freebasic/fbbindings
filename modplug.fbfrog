@@ -4,4 +4,5 @@
 		-define MODPLUG_STATIC 1
 	-endif
 -endif
+-inclib modplug
 -removedefine MODPLUG_EXPORT
