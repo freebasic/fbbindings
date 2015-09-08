@@ -40,6 +40,9 @@
 
 #pragma once
 
+#inclib "pthread"
+#inclib "mxml"
+
 #include once "crt/stdio.bi"
 #include once "crt/stdlib.bi"
 #include once "crt/string.bi"

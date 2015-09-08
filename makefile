@@ -1779,7 +1779,7 @@ mxml: tools
 	$(GETCOMMENT) extracted/$(MXML)/mxml.h > mxml.tmp
 	echo >> mxml.tmp
 	sed -n 5,23p extracted/$(MXML)/COPYING >> mxml.tmp
-	$(FBFROG) extracted/$(MXML)/mxml.h \
+	$(FBFROG) extracted/$(MXML)/mxml.h -inclib pthread -inclib mxml \
 		-o inc/mxml.bi -title $(MXML) mxml.tmp fbteam.txt
 	rm *.tmp
 
