@@ -10,7 +10,7 @@ ALL += gd gdbm gdkpixbuf gdsl glib glfw glut gmp grx gsl gtk gtk2 gtk3 gtkglext
 ALL += iconv im iup
 ALL += jit jpeglib jsonc
 ALL += llvm lua
-ALL += mediainfo modplug mpg123
+ALL += mediainfo modplug mpg123 mxml
 ALL += ncurses
 ALL += openal opengl opengl-mesa opengl-winapi
 ALL += pango pdcurses png png12 png14 png15 png16
@@ -1771,6 +1771,16 @@ mpg123: tools
 	$(GETCOMMENT) extracted/$(MPG123)/src/libmpg123/mpg123.h > mpg123.tmp
 	$(FBFROG) mpg123.fbfrog extracted/$(MPG123)/src/libmpg123/mpg123.h \
 		-o inc/mpg123.bi -title $(MPG123) mpg123.tmp fbteam.txt
+	rm *.tmp
+
+MXML := mxml-2.9
+mxml: tools
+	./get.sh $(MXML) $(MXML).tar.gz http://www.msweet.org/files/project3/$(MXML).tar.gz
+	$(GETCOMMENT) extracted/$(MXML)/mxml.h > mxml.tmp
+	echo >> mxml.tmp
+	sed -n 5,23p extracted/$(MXML)/COPYING >> mxml.tmp
+	$(FBFROG) extracted/$(MXML)/mxml.h \
+		-o inc/mxml.bi -title $(MXML) mxml.tmp fbteam.txt
 	rm *.tmp
 
 NCURSES_TITLE := ncurses-5.9
