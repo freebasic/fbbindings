@@ -10,6 +10,8 @@
 
 #pragma once
 
+#inclib "modplug"
+
 #include once "crt/long.bi"
 
 extern "C"

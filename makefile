@@ -1742,6 +1742,7 @@ modplug: tools
 	$(GETCOMMENT) extracted/$(MODPLUG)/src/modplug.h > modplug.tmp
 	$(FBFROG) modplug.fbfrog extracted/$(MODPLUG)/src/modplug.h \
 		-o inc/modplug.bi -title $(MODPLUG) modplug.tmp fbteam.txt
+	rm *.tmp
 
 NCURSES_TITLE := ncurses-5.9
 ncurses: tools
