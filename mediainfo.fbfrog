@@ -1,5 +1,7 @@
 -target nodos
 
+-inclib MediaInfo
+
 -declarebool UNICODE
 -ifdef UNICODE
 	-define UNICODE 1

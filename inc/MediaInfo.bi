@@ -30,6 +30,8 @@
 
 #pragma once
 
+#inclib "MediaInfo"
+
 #include once "crt/limits.bi"
 
 #ifdef __FB_UNIX__
