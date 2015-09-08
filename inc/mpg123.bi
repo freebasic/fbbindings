@@ -14,6 +14,11 @@
 #inclib "mpg123"
 
 #include once "crt/long.bi"
+#include once "crt/sys/types.bi"
+
+'' The following symbols have been renamed:
+''     constant MPG123_ID3 => MPG123_ID3_
+''     constant MPG123_ICY => MPG123_ICY_
 
 extern "C"
 
@@ -410,9 +415,9 @@ type mpg123_id3v1
 	genre as ubyte
 end type
 
-const MPG123_ID3 = &h3
+const MPG123_ID3_ = &h3
 const MPG123_NEW_ID3 = &h1
-const MPG123_ICY = &hc
+const MPG123_ICY_ = &hc
 const MPG123_NEW_ICY = &h4
 
 declare function mpg123_meta_check(byval mh as mpg123_handle ptr) as long

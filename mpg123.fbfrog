@@ -6,5 +6,8 @@
 -endif
 
 -inclib mpg123
+-addinclude sys/types.h
 
 -removedefine MPG123_EXPORT
+-rename_ MPG123_ID3
+-rename_ MPG123_ICY
