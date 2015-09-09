@@ -14,7 +14,7 @@ ALL += mediainfo modplug mpg123 mxml
 ALL += ncurses
 ALL += openal opengl opengl-mesa opengl-winapi
 ALL += pango pdcurses png png12 png14 png15 png16
-ALL += sdl sdl1 sdl2
+ALL += sdl sdl1 sdl2 sqlite
 ALL += tre
 ALL += winapi
 ALL += x11 xcb xml2 xz
@@ -2242,6 +2242,37 @@ sdl2: tools winapi-extract
 		-title $(SDL2_MIXER) sdl2-mixer.tmp fbteam.txt inc/SDL2/SDL_mixer.bi \
 		-title $(SDL2_NET)   sdl2-net.tmp   fbteam.txt inc/SDL2/SDL_net.bi \
 		-title $(SDL2_TTF)   sdl2-ttf.tmp   fbteam.txt inc/SDL2/SDL_ttf.bi
+
+	rm *.tmp
+
+SQLITE3_PRETTY := "SQLite 3.8.11.1"
+SQLITE3 := sqlite-amalgamation-3081101
+SQLITE2 := SQLite-47fee16b
+sqlite: tools
+	./get.sh $(SQLITE3) $(SQLITE3).zip http://sqlite.org/2015/$(SQLITE3).zip
+	./get.sh $(SQLITE2) $(SQLITE2).tar.gz "http://www.sqlite.org/src/tarball/$(SQLITE2).tar.gz?uuid=47fee16ba9bd8ab2820fe97e89480528114825cd"
+
+	cd extracted/$(SQLITE2)/src && \
+		sed \
+			-e "s/--VERS--/`cat ../VERSION`/" \
+			-e "s/--ENCODING--/ISO8859/" \
+			< sqlite.h.in > sqlite.h
+
+	$(GETCOMMENT) extracted/$(SQLITE2)/src/sqlite.h > sqlite2.tmp
+	$(GETCOMMENT) extracted/$(SQLITE3)/sqlite3.h > sqlite3.tmp
+	$(GETCOMMENT) extracted/$(SQLITE3)/sqlite3ext.h > sqlite3ext.tmp
+
+	$(FBFROG) sqlite2.fbfrog extracted/$(SQLITE2)/src/sqlite.h -o inc/sqlite2.bi \
+		-title "SQLite `cat extracted/$(SQLITE2)/VERSION`" sqlite2.tmp fbteam.txt
+
+	$(FBFROG) sqlite3.fbfrog -incdir extracted/$(SQLITE3) \
+		-include sqlite3.h \
+		-include sqlite3ext.h \
+		-emit '*/sqlite3.h'    inc/sqlite3.bi \
+		-emit '*/sqlite3ext.h' inc/sqlite3ext.bi \
+		-title $(SQLITE3_PRETTY) sqlite3.tmp    fbteam.txt inc/sqlite3.bi \
+		-title $(SQLITE3_PRETTY) sqlite3ext.tmp fbteam.txt inc/sqlite3ext.bi \
+		-inclib sqlite3 inc/sqlite3.bi
 
 	rm *.tmp
 

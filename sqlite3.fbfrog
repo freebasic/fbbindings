@@ -1,0 +1,10 @@
+-removedefine SQLITE_EXTERN
+-removedefine SQLITE_API
+-removedefine SQLITE_CDECL
+-removedefine SQLITE_STDCALL
+-removedefine SQLITE_DEPRECATED
+-removedefine SQLITE_EXPERIMENTAL
+
+-fixunsizedarrays
+
+-replacements sqlite3.replacements

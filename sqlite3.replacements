@@ -1,0 +1,8 @@
+convert c: #define SQLITE_EXTENSION_INIT1 const sqlite3_api_routines *sqlite3_api=0;
+to fb:     #define SQLITE_EXTENSION_INIT1 dim shared as const sqlite3_api_routines ptr sqlite3_api = 0
+
+convert c: #define SQLITE_EXTENSION_INIT2(v) sqlite3_api=v;
+to fb:     #define SQLITE_EXTENSION_INIT2(v) sqlite3_api = v
+
+convert c: #define SQLITE_EXTENSION_INIT3 extern const sqlite3_api_routines *sqlite3_api;
+to fb:     #define SQLITE_EXTENSION_INIT3 extern as const sqlite3_api_routines ptr sqlite3_api
