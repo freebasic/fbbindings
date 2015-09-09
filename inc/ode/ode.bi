@@ -44,8 +44,10 @@
 #include once "crt/stdarg.bi"
 #include once "crt/math.bi"
 #include once "crt/string.bi"
-#include once "crt/float.bi"
 #include once "crt/time.bi"
+
+'' The following symbols have been renamed:
+''     procedure dDot => dDot_
 
 extern "C"
 
@@ -94,9 +96,15 @@ declare sub dError(byval num as long, byval msg as const zstring ptr, ...)
 declare sub dDebug(byval num as long, byval msg as const zstring ptr, ...)
 declare sub dMessage(byval num as long, byval msg as const zstring ptr, ...)
 
-#define M_PI REAL(3.1415926535897932384626433832795029)
-#define M_PI_2 REAL(1.5707963267948966192313216916398)
-#define M_SQRT1_2 REAL(0.7071067811865475244008443621048490)
+#ifndef M_PI
+	#define M_PI REAL(3.1415926535897932384626433832795029)
+#endif
+#ifndef M_PI_2
+	#define M_PI_2 REAL(1.5707963267948966192313216916398)
+#endif
+#ifndef M_SQRT1_2
+	#define M_SQRT1_2 REAL(0.7071067811865475244008443621048490)
+#endif
 
 #ifdef dDOUBLE
 	type dReal as double
@@ -804,18 +812,6 @@ end function
 		(A)[2*(skip)+1] = plus (a_)[0]
 	end scope
 #endmacro
-#define dMULTIPLY0_331(A, B, C) dMultiply0_331(A, B, C)
-#define dMULTIPLY1_331(A, B, C) dMultiply1_331(A, B, C)
-#define dMULTIPLY0_133(A, B, C) dMultiply0_133(A, B, C)
-#define dMULTIPLY0_333(A, B, C) dMultiply0_333(A, B, C)
-#define dMULTIPLY1_333(A, B, C) dMultiply1_333(A, B, C)
-#define dMULTIPLY2_333(A, B, C) dMultiply2_333(A, B, C)
-#define dMULTIPLYADD0_331(A, B, C) dMultiplyAdd0_331(A, B, C)
-#define dMULTIPLYADD1_331(A, B, C) dMultiplyAdd1_331(A, B, C)
-#define dMULTIPLYADD0_133(A, B, C) dMultiplyAdd0_133(A, B, C)
-#define dMULTIPLYADD0_333(A, B, C) dMultiplyAdd0_333(A, B, C)
-#define dMULTIPLYADD1_333(A, B, C) dMultiplyAdd1_333(A, B, C)
-#define dMULTIPLYADD2_333(A, B, C) dMultiplyAdd2_333(A, B, C)
 
 declare function dSafeNormalize3(byval a as dReal ptr) as long
 declare function dSafeNormalize4(byval a as dReal ptr) as long
@@ -826,7 +822,7 @@ declare sub dOrthogonalizeR(byval m as dReal ptr)
 #define _ODE_MATRIX_H_
 declare sub dSetZero(byval a as dReal ptr, byval n as long)
 declare sub dSetValue(byval a as dReal ptr, byval n as long, byval value as dReal)
-declare function dDot(byval a as const dReal ptr, byval b as const dReal ptr, byval n as long) as dReal
+declare function dDot_ alias "dDot"(byval a as const dReal ptr, byval b as const dReal ptr, byval n as long) as dReal
 declare sub dMultiply0(byval A as dReal ptr, byval B as const dReal ptr, byval C as const dReal ptr, byval p as long, byval q as long, byval r as long)
 declare sub dMultiply1(byval A as dReal ptr, byval B as const dReal ptr, byval C as const dReal ptr, byval p as long, byval q as long, byval r as long)
 declare sub dMultiply2(byval A as dReal ptr, byval B as const dReal ptr, byval C as const dReal ptr, byval p as long, byval q as long, byval r as long)
