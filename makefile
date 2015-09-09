@@ -1995,10 +1995,24 @@ pcre: tools
 	$(GETCOMMENT) -2 extracted/$(PCRE2)/src/pcre2.h      > pcre2.tmp
 	$(GETCOMMENT) -2 extracted/$(PCRE2)/src/pcre2posix.h > pcre2posix.tmp
 
-	$(FBFROG) pcre1.fbfrog extracted/$(PCRE1)/pcre.h           -o inc/pcre.bi       -title $(PCRE1) pcre1.tmp      fbteam.txt
-	$(FBFROG) pcre1.fbfrog extracted/$(PCRE1)/pcreposix.h      -o inc/pcreposix.bi  -title $(PCRE1) pcre1posix.tmp fbteam.txt
-	$(FBFROG) pcre2.fbfrog extracted/$(PCRE2)/src/pcre2.h      -o inc/pcre2.bi      -title $(PCRE2) pcre2.tmp      fbteam.txt
-	$(FBFROG) pcre2.fbfrog extracted/$(PCRE2)/src/pcre2posix.h -o inc/pcre2posix.bi -title $(PCRE2) pcre2posix.tmp fbteam.txt
+	$(FBFROG) pcre1.fbfrog extracted/$(PCRE1)/pcre.h \
+		-o inc/pcre.bi -title $(PCRE1) pcre1.tmp fbteam.txt
+
+	$(FBFROG) pcre1.fbfrog extracted/$(PCRE1)/pcreposix.h \
+		-o inc/pcreposix.bi -title $(PCRE1) pcre1posix.tmp fbteam.txt \
+		-inclib pcreposix
+
+	$(FBFROG) pcre2.fbfrog extracted/$(PCRE2)/src/pcre2.h \
+		-o inc/pcre2.bi -title $(PCRE2) pcre2.tmp fbteam.txt \
+		-selectversion \
+		-case 8  -inclib pcre2-8 \
+		-case 16 -inclib pcre2-16 \
+		-case 32 -inclib pcre2-32 \
+		-endselect
+
+	$(FBFROG) pcre2.fbfrog extracted/$(PCRE2)/src/pcre2posix.h \
+		-o inc/pcre2posix.bi -title $(PCRE2) pcre2posix.tmp fbteam.txt \
+		-inclib pcre2-8 -inclib pcre2-posix
 
 	rm *.tmp
 

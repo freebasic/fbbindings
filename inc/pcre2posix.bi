@@ -41,6 +41,9 @@
 
 #pragma once
 
+#inclib "pcre2-8"
+#inclib "pcre2-posix"
+
 #include once "crt/stdlib.bi"
 
 extern "C"
