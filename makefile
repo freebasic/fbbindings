@@ -2109,7 +2109,8 @@ postgresql: tools
 		-include libpq-fe.h \
 		-emit '*/libpq-fe.h'     inc/postgresql/libpq-fe.bi \
 		-emit '*/postgres_ext.h' inc/postgresql/postgres_ext.bi \
-		-title $(POSTGRESQL) postgresql.tmp fbteam.txt
+		-title $(POSTGRESQL) postgresql.tmp fbteam.txt \
+		-inclib pq inc/postgresql/libpq-fe.bi
 	rm *.tmp
 
 sdl: sdl1 sdl2
