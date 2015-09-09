@@ -2277,14 +2277,13 @@ sqlite: tools
 	$(FBFROG) sqlite2.fbfrog extracted/$(SQLITE2)/src/sqlite.h -o inc/sqlite2.bi \
 		-title "SQLite `cat extracted/$(SQLITE2)/VERSION`" sqlite2.tmp fbteam.txt
 
-	$(FBFROG) sqlite3.fbfrog -incdir extracted/$(SQLITE3) \
-		-include sqlite3.h \
+	$(FBFROG) sqlite3.fbfrog extracted/$(SQLITE3)/sqlite3.h -o inc/sqlite3.bi \
+		-title $(SQLITE3_PRETTY) sqlite3.tmp fbteam.txt -inclib sqlite3
+
+	$(FBFROG) sqlite3ext.fbfrog -incdir extracted/$(SQLITE3) \
 		-include sqlite3ext.h \
-		-emit '*/sqlite3.h'    inc/sqlite3.bi \
 		-emit '*/sqlite3ext.h' inc/sqlite3ext.bi \
-		-title $(SQLITE3_PRETTY) sqlite3.tmp    fbteam.txt inc/sqlite3.bi \
-		-title $(SQLITE3_PRETTY) sqlite3ext.tmp fbteam.txt inc/sqlite3ext.bi \
-		-inclib sqlite3 inc/sqlite3.bi
+		-title $(SQLITE3_PRETTY) sqlite3ext.tmp fbteam.txt
 
 	rm *.tmp
 

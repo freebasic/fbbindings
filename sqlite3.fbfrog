@@ -4,7 +4,14 @@
 -removedefine SQLITE_STDCALL
 -removedefine SQLITE_DEPRECATED
 -removedefine SQLITE_EXPERIMENTAL
-
+-addforwarddecl sqlite3
+-addforwarddecl sqlite3_stmt
+-addforwarddecl sqlite3_context
+-addforwarddecl sqlite3_blob
+-addforwarddecl sqlite3_mutex
+-addforwarddecl sqlite3_pcache
+-addforwarddecl sqlite3_backup
+-addforwarddecl sqlite3_aggregate_context
 -fixunsizedarrays
 
 -replacements sqlite3.replacements

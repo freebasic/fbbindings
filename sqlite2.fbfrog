@@ -1,3 +1,7 @@
 -inclib sqlite
 -fixunsizedarrays
 -rename_ sqlite_version
+-rename_ sqlite_interrupt
+-addforwarddecl sqlite
+-addforwarddecl sqlite_func
+-addforwarddecl sqlite_vm

@@ -61,6 +61,7 @@ type sqlite_int64 as longint
 type sqlite_uint64 as ulongint
 type sqlite3_int64 as sqlite_int64
 type sqlite3_uint64 as sqlite_uint64
+type sqlite3 as sqlite3_
 declare function sqlite3_close(byval as sqlite3 ptr) as long
 declare function sqlite3_close_v2(byval as sqlite3 ptr) as long
 type sqlite3_callback as function(byval as any ptr, byval as long, byval as zstring ptr ptr, byval as zstring ptr ptr) as long
@@ -421,6 +422,7 @@ const SQLITE_LIMIT_LIKE_PATTERN_LENGTH = 8
 const SQLITE_LIMIT_VARIABLE_NUMBER = 9
 const SQLITE_LIMIT_TRIGGER_DEPTH = 10
 const SQLITE_LIMIT_WORKER_THREADS = 11
+type sqlite3_stmt as sqlite3_stmt_
 
 declare function sqlite3_prepare(byval db as sqlite3 ptr, byval zSql as const zstring ptr, byval nByte as long, byval ppStmt as sqlite3_stmt ptr ptr, byval pzTail as const zstring ptr ptr) as long
 declare function sqlite3_prepare_v2(byval db as sqlite3 ptr, byval zSql as const zstring ptr, byval nByte as long, byval ppStmt as sqlite3_stmt ptr ptr, byval pzTail as const zstring ptr ptr) as long
@@ -479,6 +481,7 @@ declare function sqlite3_column_type(byval as sqlite3_stmt ptr, byval iCol as lo
 declare function sqlite3_column_value(byval as sqlite3_stmt ptr, byval iCol as long) as sqlite3_value ptr
 declare function sqlite3_finalize(byval pStmt as sqlite3_stmt ptr) as long
 declare function sqlite3_reset(byval pStmt as sqlite3_stmt ptr) as long
+type sqlite3_context as sqlite3_context_
 declare function sqlite3_create_function(byval db as sqlite3 ptr, byval zFunctionName as const zstring ptr, byval nArg as long, byval eTextRep as long, byval pApp as any ptr, byval xFunc as sub(byval as sqlite3_context ptr, byval as long, byval as sqlite3_value ptr ptr), byval xStep as sub(byval as sqlite3_context ptr, byval as long, byval as sqlite3_value ptr ptr), byval xFinal as sub(byval as sqlite3_context ptr)) as long
 declare function sqlite3_create_function16(byval db as sqlite3 ptr, byval zFunctionName as const any ptr, byval nArg as long, byval eTextRep as long, byval pApp as any ptr, byval xFunc as sub(byval as sqlite3_context ptr, byval as long, byval as sqlite3_value ptr ptr), byval xStep as sub(byval as sqlite3_context ptr, byval as long, byval as sqlite3_value ptr ptr), byval xFinal as sub(byval as sqlite3_context ptr)) as long
 declare function sqlite3_create_function_v2(byval db as sqlite3 ptr, byval zFunctionName as const zstring ptr, byval nArg as long, byval eTextRep as long, byval pApp as any ptr, byval xFunc as sub(byval as sqlite3_context ptr, byval as long, byval as sqlite3_value ptr ptr), byval xStep as sub(byval as sqlite3_context ptr, byval as long, byval as sqlite3_value ptr ptr), byval xFinal as sub(byval as sqlite3_context ptr), byval xDestroy as sub(byval as any ptr)) as long
@@ -648,6 +651,7 @@ end type
 
 declare function sqlite3_declare_vtab(byval as sqlite3 ptr, byval zSQL as const zstring ptr) as long
 declare function sqlite3_overload_function(byval as sqlite3 ptr, byval zFuncName as const zstring ptr, byval nArg as long) as long
+type sqlite3_blob as sqlite3_blob_
 declare function sqlite3_blob_open(byval as sqlite3 ptr, byval zDb as const zstring ptr, byval zTable as const zstring ptr, byval zColumn as const zstring ptr, byval iRow as sqlite3_int64, byval flags as long, byval ppBlob as sqlite3_blob ptr ptr) as long
 declare function sqlite3_blob_reopen(byval as sqlite3_blob ptr, byval as sqlite3_int64) as long
 declare function sqlite3_blob_close(byval as sqlite3_blob ptr) as long
@@ -657,6 +661,7 @@ declare function sqlite3_blob_write(byval as sqlite3_blob ptr, byval z as const 
 declare function sqlite3_vfs_find(byval zVfsName as const zstring ptr) as sqlite3_vfs ptr
 declare function sqlite3_vfs_register(byval as sqlite3_vfs ptr, byval makeDflt as long) as long
 declare function sqlite3_vfs_unregister(byval as sqlite3_vfs ptr) as long
+type sqlite3_mutex as sqlite3_mutex_
 declare function sqlite3_mutex_alloc(byval as long) as sqlite3_mutex ptr
 declare sub sqlite3_mutex_free(byval as sqlite3_mutex ptr)
 declare sub sqlite3_mutex_enter(byval as sqlite3_mutex ptr)
@@ -757,6 +762,8 @@ type sqlite3_pcache_page
 	pExtra as any ptr
 end type
 
+type sqlite3_pcache as sqlite3_pcache_
+
 type sqlite3_pcache_methods2
 	iVersion as long
 	pArg as any ptr
@@ -787,6 +794,7 @@ type sqlite3_pcache_methods
 	xDestroy as sub(byval as sqlite3_pcache ptr)
 end type
 
+type sqlite3_backup as sqlite3_backup_
 declare function sqlite3_backup_init(byval pDest as sqlite3 ptr, byval zDestName as const zstring ptr, byval pSource as sqlite3 ptr, byval zSourceName as const zstring ptr) as sqlite3_backup ptr
 declare function sqlite3_backup_step(byval p as sqlite3_backup ptr, byval nPage as long) as long
 declare function sqlite3_backup_finish(byval p as sqlite3_backup ptr) as long

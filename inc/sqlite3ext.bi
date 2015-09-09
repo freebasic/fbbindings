@@ -239,215 +239,425 @@ type sqlite3_api_routines
 	bind_zeroblob64 as function(byval as sqlite3_stmt ptr, byval as long, byval as sqlite3_uint64) as long
 end type
 
+#undef sqlite3_aggregate_context
 #define sqlite3_aggregate_context sqlite3_api->aggregate_context
+#undef sqlite3_aggregate_count
 #define sqlite3_aggregate_count sqlite3_api->aggregate_count
+#undef sqlite3_bind_blob
 #define sqlite3_bind_blob sqlite3_api->bind_blob
+#undef sqlite3_bind_double
 #define sqlite3_bind_double sqlite3_api->bind_double
+#undef sqlite3_bind_int
 #define sqlite3_bind_int sqlite3_api->bind_int
+#undef sqlite3_bind_int64
 #define sqlite3_bind_int64 sqlite3_api->bind_int64
+#undef sqlite3_bind_null
 #define sqlite3_bind_null sqlite3_api->bind_null
+#undef sqlite3_bind_parameter_count
 #define sqlite3_bind_parameter_count sqlite3_api->bind_parameter_count
+#undef sqlite3_bind_parameter_index
 #define sqlite3_bind_parameter_index sqlite3_api->bind_parameter_index
+#undef sqlite3_bind_parameter_name
 #define sqlite3_bind_parameter_name sqlite3_api->bind_parameter_name
+#undef sqlite3_bind_text
 #define sqlite3_bind_text sqlite3_api->bind_text
+#undef sqlite3_bind_text16
 #define sqlite3_bind_text16 sqlite3_api->bind_text16
+#undef sqlite3_bind_value
 #define sqlite3_bind_value sqlite3_api->bind_value
+#undef sqlite3_busy_handler
 #define sqlite3_busy_handler sqlite3_api->busy_handler
+#undef sqlite3_busy_timeout
 #define sqlite3_busy_timeout sqlite3_api->busy_timeout
+#undef sqlite3_changes
 #define sqlite3_changes sqlite3_api->changes
+#undef sqlite3_close
 #define sqlite3_close sqlite3_api->close
+#undef sqlite3_collation_needed
 #define sqlite3_collation_needed sqlite3_api->collation_needed
+#undef sqlite3_collation_needed16
 #define sqlite3_collation_needed16 sqlite3_api->collation_needed16
+#undef sqlite3_column_blob
 #define sqlite3_column_blob sqlite3_api->column_blob
+#undef sqlite3_column_bytes
 #define sqlite3_column_bytes sqlite3_api->column_bytes
+#undef sqlite3_column_bytes16
 #define sqlite3_column_bytes16 sqlite3_api->column_bytes16
+#undef sqlite3_column_count
 #define sqlite3_column_count sqlite3_api->column_count
+#undef sqlite3_column_database_name
 #define sqlite3_column_database_name sqlite3_api->column_database_name
+#undef sqlite3_column_database_name16
 #define sqlite3_column_database_name16 sqlite3_api->column_database_name16
+#undef sqlite3_column_decltype
 #define sqlite3_column_decltype sqlite3_api->column_decltype
+#undef sqlite3_column_decltype16
 #define sqlite3_column_decltype16 sqlite3_api->column_decltype16
+#undef sqlite3_column_double
 #define sqlite3_column_double sqlite3_api->column_double
+#undef sqlite3_column_int
 #define sqlite3_column_int sqlite3_api->column_int
+#undef sqlite3_column_int64
 #define sqlite3_column_int64 sqlite3_api->column_int64
+#undef sqlite3_column_name
 #define sqlite3_column_name sqlite3_api->column_name
+#undef sqlite3_column_name16
 #define sqlite3_column_name16 sqlite3_api->column_name16
+#undef sqlite3_column_origin_name
 #define sqlite3_column_origin_name sqlite3_api->column_origin_name
+#undef sqlite3_column_origin_name16
 #define sqlite3_column_origin_name16 sqlite3_api->column_origin_name16
+#undef sqlite3_column_table_name
 #define sqlite3_column_table_name sqlite3_api->column_table_name
+#undef sqlite3_column_table_name16
 #define sqlite3_column_table_name16 sqlite3_api->column_table_name16
+#undef sqlite3_column_text
 #define sqlite3_column_text sqlite3_api->column_text
+#undef sqlite3_column_text16
 #define sqlite3_column_text16 sqlite3_api->column_text16
+#undef sqlite3_column_type
 #define sqlite3_column_type sqlite3_api->column_type
+#undef sqlite3_column_value
 #define sqlite3_column_value sqlite3_api->column_value
+#undef sqlite3_commit_hook
 #define sqlite3_commit_hook sqlite3_api->commit_hook
+#undef sqlite3_complete
 #define sqlite3_complete sqlite3_api->complete
+#undef sqlite3_complete16
 #define sqlite3_complete16 sqlite3_api->complete16
+#undef sqlite3_create_collation
 #define sqlite3_create_collation sqlite3_api->create_collation
+#undef sqlite3_create_collation16
 #define sqlite3_create_collation16 sqlite3_api->create_collation16
+#undef sqlite3_create_function
 #define sqlite3_create_function sqlite3_api->create_function
+#undef sqlite3_create_function16
 #define sqlite3_create_function16 sqlite3_api->create_function16
+#undef sqlite3_create_module
 #define sqlite3_create_module sqlite3_api->create_module
+#undef sqlite3_create_module_v2
 #define sqlite3_create_module_v2 sqlite3_api->create_module_v2
+#undef sqlite3_data_count
 #define sqlite3_data_count sqlite3_api->data_count
+#undef sqlite3_db_handle
 #define sqlite3_db_handle sqlite3_api->db_handle
+#undef sqlite3_declare_vtab
 #define sqlite3_declare_vtab sqlite3_api->declare_vtab
+#undef sqlite3_enable_shared_cache
 #define sqlite3_enable_shared_cache sqlite3_api->enable_shared_cache
+#undef sqlite3_errcode
 #define sqlite3_errcode sqlite3_api->errcode
+#undef sqlite3_errmsg
 #define sqlite3_errmsg sqlite3_api->errmsg
+#undef sqlite3_errmsg16
 #define sqlite3_errmsg16 sqlite3_api->errmsg16
+#undef sqlite3_exec
 #define sqlite3_exec sqlite3_api->exec
+#undef sqlite3_expired
 #define sqlite3_expired sqlite3_api->expired
+#undef sqlite3_finalize
 #define sqlite3_finalize sqlite3_api->finalize
+#undef sqlite3_free
 #define sqlite3_free sqlite3_api->free
+#undef sqlite3_free_table
 #define sqlite3_free_table sqlite3_api->free_table
+#undef sqlite3_get_autocommit
 #define sqlite3_get_autocommit sqlite3_api->get_autocommit
+#undef sqlite3_get_auxdata
 #define sqlite3_get_auxdata sqlite3_api->get_auxdata
+#undef sqlite3_get_table
 #define sqlite3_get_table sqlite3_api->get_table
+#undef sqlite3_global_recover
 #define sqlite3_global_recover sqlite3_api->global_recover
+#undef sqlite3_interrupt
 #define sqlite3_interrupt sqlite3_api->interruptx
+#undef sqlite3_last_insert_rowid
 #define sqlite3_last_insert_rowid sqlite3_api->last_insert_rowid
+#undef sqlite3_libversion
 #define sqlite3_libversion sqlite3_api->libversion
+#undef sqlite3_libversion_number
 #define sqlite3_libversion_number sqlite3_api->libversion_number
+#undef sqlite3_malloc
 #define sqlite3_malloc sqlite3_api->malloc
+#undef sqlite3_mprintf
 #define sqlite3_mprintf sqlite3_api->mprintf
+#undef sqlite3_open
 #define sqlite3_open sqlite3_api->open
+#undef sqlite3_open16
 #define sqlite3_open16 sqlite3_api->open16
+#undef sqlite3_prepare
 #define sqlite3_prepare sqlite3_api->prepare
+#undef sqlite3_prepare16
 #define sqlite3_prepare16 sqlite3_api->prepare16
+#undef sqlite3_prepare_v2
 #define sqlite3_prepare_v2 sqlite3_api->prepare_v2
+#undef sqlite3_prepare16_v2
 #define sqlite3_prepare16_v2 sqlite3_api->prepare16_v2
+#undef sqlite3_profile
 #define sqlite3_profile sqlite3_api->profile
+#undef sqlite3_progress_handler
 #define sqlite3_progress_handler sqlite3_api->progress_handler
+#undef sqlite3_realloc
 #define sqlite3_realloc sqlite3_api->realloc
+#undef sqlite3_reset
 #define sqlite3_reset sqlite3_api->reset
+#undef sqlite3_result_blob
 #define sqlite3_result_blob sqlite3_api->result_blob
+#undef sqlite3_result_double
 #define sqlite3_result_double sqlite3_api->result_double
+#undef sqlite3_result_error
 #define sqlite3_result_error sqlite3_api->result_error
+#undef sqlite3_result_error16
 #define sqlite3_result_error16 sqlite3_api->result_error16
+#undef sqlite3_result_int
 #define sqlite3_result_int sqlite3_api->result_int
+#undef sqlite3_result_int64
 #define sqlite3_result_int64 sqlite3_api->result_int64
+#undef sqlite3_result_null
 #define sqlite3_result_null sqlite3_api->result_null
+#undef sqlite3_result_text
 #define sqlite3_result_text sqlite3_api->result_text
+#undef sqlite3_result_text16
 #define sqlite3_result_text16 sqlite3_api->result_text16
+#undef sqlite3_result_text16be
 #define sqlite3_result_text16be sqlite3_api->result_text16be
+#undef sqlite3_result_text16le
 #define sqlite3_result_text16le sqlite3_api->result_text16le
+#undef sqlite3_result_value
 #define sqlite3_result_value sqlite3_api->result_value
+#undef sqlite3_rollback_hook
 #define sqlite3_rollback_hook sqlite3_api->rollback_hook
+#undef sqlite3_set_authorizer
 #define sqlite3_set_authorizer sqlite3_api->set_authorizer
+#undef sqlite3_set_auxdata
 #define sqlite3_set_auxdata sqlite3_api->set_auxdata
+#undef sqlite3_snprintf
 #define sqlite3_snprintf sqlite3_api->snprintf
+#undef sqlite3_step
 #define sqlite3_step sqlite3_api->step
+#undef sqlite3_table_column_metadata
 #define sqlite3_table_column_metadata sqlite3_api->table_column_metadata
+#undef sqlite3_thread_cleanup
 #define sqlite3_thread_cleanup sqlite3_api->thread_cleanup
+#undef sqlite3_total_changes
 #define sqlite3_total_changes sqlite3_api->total_changes
+#undef sqlite3_trace
 #define sqlite3_trace sqlite3_api->trace
+#undef sqlite3_transfer_bindings
 #define sqlite3_transfer_bindings sqlite3_api->transfer_bindings
+#undef sqlite3_update_hook
 #define sqlite3_update_hook sqlite3_api->update_hook
+#undef sqlite3_user_data
 #define sqlite3_user_data sqlite3_api->user_data
+#undef sqlite3_value_blob
 #define sqlite3_value_blob sqlite3_api->value_blob
+#undef sqlite3_value_bytes
 #define sqlite3_value_bytes sqlite3_api->value_bytes
+#undef sqlite3_value_bytes16
 #define sqlite3_value_bytes16 sqlite3_api->value_bytes16
+#undef sqlite3_value_double
 #define sqlite3_value_double sqlite3_api->value_double
+#undef sqlite3_value_int
 #define sqlite3_value_int sqlite3_api->value_int
+#undef sqlite3_value_int64
 #define sqlite3_value_int64 sqlite3_api->value_int64
+#undef sqlite3_value_numeric_type
 #define sqlite3_value_numeric_type sqlite3_api->value_numeric_type
+#undef sqlite3_value_text
 #define sqlite3_value_text sqlite3_api->value_text
+#undef sqlite3_value_text16
 #define sqlite3_value_text16 sqlite3_api->value_text16
+#undef sqlite3_value_text16be
 #define sqlite3_value_text16be sqlite3_api->value_text16be
+#undef sqlite3_value_text16le
 #define sqlite3_value_text16le sqlite3_api->value_text16le
+#undef sqlite3_value_type
 #define sqlite3_value_type sqlite3_api->value_type
+#undef sqlite3_vmprintf
 #define sqlite3_vmprintf sqlite3_api->vmprintf
+#undef sqlite3_overload_function
 #define sqlite3_overload_function sqlite3_api->overload_function
+#undef sqlite3_prepare_v2
 #define sqlite3_prepare_v2 sqlite3_api->prepare_v2
+#undef sqlite3_prepare16_v2
 #define sqlite3_prepare16_v2 sqlite3_api->prepare16_v2
+#undef sqlite3_clear_bindings
 #define sqlite3_clear_bindings sqlite3_api->clear_bindings
+#undef sqlite3_bind_zeroblob
 #define sqlite3_bind_zeroblob sqlite3_api->bind_zeroblob
+#undef sqlite3_blob_bytes
 #define sqlite3_blob_bytes sqlite3_api->blob_bytes
+#undef sqlite3_blob_close
 #define sqlite3_blob_close sqlite3_api->blob_close
+#undef sqlite3_blob_open
 #define sqlite3_blob_open sqlite3_api->blob_open
+#undef sqlite3_blob_read
 #define sqlite3_blob_read sqlite3_api->blob_read
+#undef sqlite3_blob_write
 #define sqlite3_blob_write sqlite3_api->blob_write
+#undef sqlite3_create_collation_v2
 #define sqlite3_create_collation_v2 sqlite3_api->create_collation_v2
+#undef sqlite3_file_control
 #define sqlite3_file_control sqlite3_api->file_control
+#undef sqlite3_memory_highwater
 #define sqlite3_memory_highwater sqlite3_api->memory_highwater
+#undef sqlite3_memory_used
 #define sqlite3_memory_used sqlite3_api->memory_used
+#undef sqlite3_mutex_alloc
 #define sqlite3_mutex_alloc sqlite3_api->mutex_alloc
+#undef sqlite3_mutex_enter
 #define sqlite3_mutex_enter sqlite3_api->mutex_enter
+#undef sqlite3_mutex_free
 #define sqlite3_mutex_free sqlite3_api->mutex_free
+#undef sqlite3_mutex_leave
 #define sqlite3_mutex_leave sqlite3_api->mutex_leave
+#undef sqlite3_mutex_try
 #define sqlite3_mutex_try sqlite3_api->mutex_try
+#undef sqlite3_open_v2
 #define sqlite3_open_v2 sqlite3_api->open_v2
+#undef sqlite3_release_memory
 #define sqlite3_release_memory sqlite3_api->release_memory
+#undef sqlite3_result_error_nomem
 #define sqlite3_result_error_nomem sqlite3_api->result_error_nomem
+#undef sqlite3_result_error_toobig
 #define sqlite3_result_error_toobig sqlite3_api->result_error_toobig
+#undef sqlite3_sleep
 #define sqlite3_sleep sqlite3_api->sleep
+#undef sqlite3_soft_heap_limit
 #define sqlite3_soft_heap_limit sqlite3_api->soft_heap_limit
+#undef sqlite3_vfs_find
 #define sqlite3_vfs_find sqlite3_api->vfs_find
+#undef sqlite3_vfs_register
 #define sqlite3_vfs_register sqlite3_api->vfs_register
+#undef sqlite3_vfs_unregister
 #define sqlite3_vfs_unregister sqlite3_api->vfs_unregister
+#undef sqlite3_threadsafe
 #define sqlite3_threadsafe sqlite3_api->xthreadsafe
+#undef sqlite3_result_zeroblob
 #define sqlite3_result_zeroblob sqlite3_api->result_zeroblob
+#undef sqlite3_result_error_code
 #define sqlite3_result_error_code sqlite3_api->result_error_code
+#undef sqlite3_test_control
 #define sqlite3_test_control sqlite3_api->test_control
+#undef sqlite3_randomness
 #define sqlite3_randomness sqlite3_api->randomness
+#undef sqlite3_context_db_handle
 #define sqlite3_context_db_handle sqlite3_api->context_db_handle
+#undef sqlite3_extended_result_codes
 #define sqlite3_extended_result_codes sqlite3_api->extended_result_codes
+#undef sqlite3_limit
 #define sqlite3_limit sqlite3_api->limit
+#undef sqlite3_next_stmt
 #define sqlite3_next_stmt sqlite3_api->next_stmt
+#undef sqlite3_sql
 #define sqlite3_sql sqlite3_api->sql
+#undef sqlite3_status
 #define sqlite3_status sqlite3_api->status
+#undef sqlite3_backup_finish
 #define sqlite3_backup_finish sqlite3_api->backup_finish
+#undef sqlite3_backup_init
 #define sqlite3_backup_init sqlite3_api->backup_init
+#undef sqlite3_backup_pagecount
 #define sqlite3_backup_pagecount sqlite3_api->backup_pagecount
+#undef sqlite3_backup_remaining
 #define sqlite3_backup_remaining sqlite3_api->backup_remaining
+#undef sqlite3_backup_step
 #define sqlite3_backup_step sqlite3_api->backup_step
+#undef sqlite3_compileoption_get
 #define sqlite3_compileoption_get sqlite3_api->compileoption_get
+#undef sqlite3_compileoption_used
 #define sqlite3_compileoption_used sqlite3_api->compileoption_used
+#undef sqlite3_create_function_v2
 #define sqlite3_create_function_v2 sqlite3_api->create_function_v2
+#undef sqlite3_db_config
 #define sqlite3_db_config sqlite3_api->db_config
+#undef sqlite3_db_mutex
 #define sqlite3_db_mutex sqlite3_api->db_mutex
+#undef sqlite3_db_status
 #define sqlite3_db_status sqlite3_api->db_status
+#undef sqlite3_extended_errcode
 #define sqlite3_extended_errcode sqlite3_api->extended_errcode
+#undef sqlite3_log
 #define sqlite3_log sqlite3_api->log
+#undef sqlite3_soft_heap_limit64
 #define sqlite3_soft_heap_limit64 sqlite3_api->soft_heap_limit64
+#undef sqlite3_sourceid
 #define sqlite3_sourceid sqlite3_api->sourceid
+#undef sqlite3_stmt_status
 #define sqlite3_stmt_status sqlite3_api->stmt_status
+#undef sqlite3_strnicmp
 #define sqlite3_strnicmp sqlite3_api->strnicmp
+#undef sqlite3_unlock_notify
 #define sqlite3_unlock_notify sqlite3_api->unlock_notify
+#undef sqlite3_wal_autocheckpoint
 #define sqlite3_wal_autocheckpoint sqlite3_api->wal_autocheckpoint
+#undef sqlite3_wal_checkpoint
 #define sqlite3_wal_checkpoint sqlite3_api->wal_checkpoint
+#undef sqlite3_wal_hook
 #define sqlite3_wal_hook sqlite3_api->wal_hook
+#undef sqlite3_blob_reopen
 #define sqlite3_blob_reopen sqlite3_api->blob_reopen
+#undef sqlite3_vtab_config
 #define sqlite3_vtab_config sqlite3_api->vtab_config
+#undef sqlite3_vtab_on_conflict
 #define sqlite3_vtab_on_conflict sqlite3_api->vtab_on_conflict
+#undef sqlite3_close_v2
 #define sqlite3_close_v2 sqlite3_api->close_v2
+#undef sqlite3_db_filename
 #define sqlite3_db_filename sqlite3_api->db_filename
+#undef sqlite3_db_readonly
 #define sqlite3_db_readonly sqlite3_api->db_readonly
+#undef sqlite3_db_release_memory
 #define sqlite3_db_release_memory sqlite3_api->db_release_memory
+#undef sqlite3_errstr
 #define sqlite3_errstr sqlite3_api->errstr
+#undef sqlite3_stmt_busy
 #define sqlite3_stmt_busy sqlite3_api->stmt_busy
+#undef sqlite3_stmt_readonly
 #define sqlite3_stmt_readonly sqlite3_api->stmt_readonly
+#undef sqlite3_stricmp
 #define sqlite3_stricmp sqlite3_api->stricmp
+#undef sqlite3_uri_boolean
 #define sqlite3_uri_boolean sqlite3_api->uri_boolean
+#undef sqlite3_uri_int64
 #define sqlite3_uri_int64 sqlite3_api->uri_int64
+#undef sqlite3_uri_parameter
 #define sqlite3_uri_parameter sqlite3_api->uri_parameter
+#undef sqlite3_uri_vsnprintf
 #define sqlite3_uri_vsnprintf sqlite3_api->vsnprintf
+#undef sqlite3_wal_checkpoint_v2
 #define sqlite3_wal_checkpoint_v2 sqlite3_api->wal_checkpoint_v2
+#undef sqlite3_auto_extension
 #define sqlite3_auto_extension sqlite3_api->auto_extension
+#undef sqlite3_bind_blob64
 #define sqlite3_bind_blob64 sqlite3_api->bind_blob64
+#undef sqlite3_bind_text64
 #define sqlite3_bind_text64 sqlite3_api->bind_text64
+#undef sqlite3_cancel_auto_extension
 #define sqlite3_cancel_auto_extension sqlite3_api->cancel_auto_extension
+#undef sqlite3_load_extension
 #define sqlite3_load_extension sqlite3_api->load_extension
+#undef sqlite3_malloc64
 #define sqlite3_malloc64 sqlite3_api->malloc64
+#undef sqlite3_msize
 #define sqlite3_msize sqlite3_api->msize
+#undef sqlite3_realloc64
 #define sqlite3_realloc64 sqlite3_api->realloc64
+#undef sqlite3_reset_auto_extension
 #define sqlite3_reset_auto_extension sqlite3_api->reset_auto_extension
+#undef sqlite3_result_blob64
 #define sqlite3_result_blob64 sqlite3_api->result_blob64
+#undef sqlite3_result_text64
 #define sqlite3_result_text64 sqlite3_api->result_text64
+#undef sqlite3_strglob
 #define sqlite3_strglob sqlite3_api->strglob
+#undef sqlite3_value_dup
 #define sqlite3_value_dup sqlite3_api->value_dup
+#undef sqlite3_value_free
 #define sqlite3_value_free sqlite3_api->value_free
+#undef sqlite3_result_zeroblob64
 #define sqlite3_result_zeroblob64 sqlite3_api->result_zeroblob64
+#undef sqlite3_bind_zeroblob64
 #define sqlite3_bind_zeroblob64 sqlite3_api->bind_zeroblob64
 #define SQLITE_EXTENSION_INIT1 dim shared as const sqlite3_api_routines ptr sqlite3_api = 0
 #define SQLITE_EXTENSION_INIT2(v) sqlite3_api = v
