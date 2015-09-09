@@ -27,6 +27,7 @@
 
 '' The following symbols have been renamed:
 ''     #define sqlite_version => sqlite_version_
+''     procedure sqlite_interrupt => sqlite_interrupt_
 
 extern "C"
 
@@ -37,6 +38,7 @@ extern __sqlite_version_ alias "sqlite_version" as const byte
 const SQLITE_ISO8859 = 1
 extern __sqlite_encoding alias "sqlite_encoding" as const byte
 #define sqlite_encoding (*cptr(const zstring ptr, @__sqlite_encoding))
+type sqlite as sqlite_
 declare function sqlite_open(byval filename as const zstring ptr, byval mode as long, byval errmsg as zstring ptr ptr) as sqlite ptr
 declare sub sqlite_close(byval as sqlite ptr)
 type sqlite_callback as function(byval as any ptr, byval as long, byval as zstring ptr ptr, byval as zstring ptr ptr) as long
@@ -76,7 +78,7 @@ declare function sqlite_changes(byval as sqlite ptr) as long
 declare function sqlite_last_statement_changes(byval as sqlite ptr) as long
 declare function sqlite_error_string(byval as long) as const zstring ptr
 declare function sqliteErrStr alias "sqlite_error_string"(byval as long) as const zstring ptr
-declare sub sqlite_interrupt(byval as sqlite ptr)
+declare sub sqlite_interrupt_ alias "sqlite_interrupt"(byval as sqlite ptr)
 declare function sqlite_complete(byval sql as const zstring ptr) as long
 declare sub sqlite_busy_handler(byval as sqlite ptr, byval as function(byval as any ptr, byval as const zstring ptr, byval as long) as long, byval as any ptr)
 declare sub sqlite_busy_timeout(byval as sqlite ptr, byval ms as long)
@@ -91,6 +93,7 @@ declare function sqlite_vmprintf(byval as const zstring ptr, byval as va_list) a
 declare sub sqlite_freemem(byval p as any ptr)
 declare function sqlite_libversion() as const zstring ptr
 declare function sqlite_libencoding() as const zstring ptr
+type sqlite_func as sqlite_func_
 declare function sqlite_create_function(byval as sqlite ptr, byval zName as const zstring ptr, byval nArg as long, byval xFunc as sub(byval as sqlite_func ptr, byval as long, byval as const zstring ptr ptr), byval pUserData as any ptr) as long
 declare function sqlite_create_aggregate(byval as sqlite ptr, byval zName as const zstring ptr, byval nArg as long, byval xStep as sub(byval as sqlite_func ptr, byval as long, byval as const zstring ptr ptr), byval xFinalize as sub(byval as sqlite_func ptr), byval pUserData as any ptr) as long
 declare function sqlite_function_type(byval db as sqlite ptr, byval zName as const zstring ptr, byval datatype as long) as long
@@ -137,8 +140,9 @@ const SQLITE_ATTACH = 24
 const SQLITE_DETACH = 25
 const SQLITE_DENY = 1
 const SQLITE_IGNORE = 2
-
 declare function sqlite_trace(byval as sqlite ptr, byval xTrace as sub(byval as any ptr, byval as const zstring ptr), byval as any ptr) as any ptr
+type sqlite_vm as sqlite_vm_
+
 declare function sqlite_compile(byval db as sqlite ptr, byval zSql as const zstring ptr, byval pzTail as const zstring ptr ptr, byval ppVm as sqlite_vm ptr ptr, byval pzErrmsg as zstring ptr ptr) as long
 declare function sqlite_step(byval pVm as sqlite_vm ptr, byval pN as long ptr, byval pazValue as const zstring ptr ptr ptr, byval pazColName as const zstring ptr ptr ptr) as long
 declare function sqlite_finalize(byval as sqlite_vm ptr, byval pzErrMsg as zstring ptr ptr) as long
