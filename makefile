@@ -16,6 +16,7 @@ ALL += ogg openal opengl opengl-mesa opengl-winapi
 ALL += pango pcre pdcurses png png12 png14 png15 png16 postgresql
 ALL += sdl sdl1 sdl2 sqlite
 ALL += tre
+ALL += vorbis
 ALL += winapi
 ALL += x11 xcb xml2 xz
 ALL += zip zlib
@@ -1785,9 +1786,8 @@ ncurses: tools
 	rm *.tmp
 
 OGG := libogg-1.3.2
-ogg: tools
+ogg-extract: tools
 	./get.sh $(OGG) $(OGG).tar.xz http://downloads.xiph.org/releases/ogg/$(OGG).tar.xz
-
 	cd extracted/$(OGG)/include/ogg && \
 		sed \
 			-e 's/@INCLUDE_INTTYPES_H@/0/g' \
@@ -1800,12 +1800,15 @@ ogg: tools
 			-e 's/@SIZE64@/long long/g' \
 			< config_types.h.in > config_types.h
 
+ogg: ogg-extract
 	cp extracted/$(OGG)/COPYING ogg.tmp
 
 	mkdir -p inc/ogg
 	$(FBFROG) ogg.fbfrog -incdir extracted/$(OGG)/include \
 		-include ogg/ogg.h \
 		-o inc/ogg/ogg.bi -inclib ogg -title $(OGG) ogg.tmp fbteam.txt
+
+	rm *.tmp
 
 # There are 2 "versions" of OpenAL:
 #  * Creative OpenAL SDK 1.1 (no longer developed, openal.org down?)
@@ -2387,6 +2390,25 @@ tre: tools
 		-inclib tre       inc/tre/tre.bi \
 		-title $(TRE) tre.tmp fbteam.txt
 
+	rm *.tmp
+
+VORBIS := libvorbis-1.3.5
+vorbis: ogg-extract
+	./get.sh $(VORBIS) $(VORBIS).tar.xz http://downloads.xiph.org/releases/vorbis/$(VORBIS).tar.xz
+	cp extracted/$(VORBIS)/COPYING vorbis.tmp
+	mkdir -p inc/vorbis
+	$(FBFROG) vorbis.fbfrog \
+		-incdir extracted/$(VORBIS)/include/vorbis \
+		-incdir extracted/$(OGG)/include \
+		-include codec.h \
+		-include vorbisenc.h \
+		-include vorbisfile.h \
+		-emit '*/codec.h'      inc/vorbis/codec.bi \
+		-emit '*/vorbisenc.h'  inc/vorbis/vorbisenc.bi \
+		-emit '*/vorbisfile.h' inc/vorbis/vorbisfile.bi \
+		-title $(VORBIS) vorbis.tmp fbteam.txt \
+		-inclib vorbisenc  inc/vorbis/vorbisenc.bi \
+		-inclib vorbisfile inc/vorbis/vorbisfile.bi
 	rm *.tmp
 
 ################################################################################
