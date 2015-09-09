@@ -1,0 +1,2 @@
+-define OV_EXCLUDE_STATIC_CALLBACKS 1
+-replacements vorbis.replacements
