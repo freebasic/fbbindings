@@ -1,0 +1,35 @@
+-declareversions PCRE2_CODE_UNIT_WIDTH 0 8 16 32
+-selectversion
+-case 0 -define PCRE2_CODE_UNIT_WIDTH 0
+-case 8 -define PCRE2_CODE_UNIT_WIDTH 8
+-case 16 -define PCRE2_CODE_UNIT_WIDTH 16
+-case 32 -define PCRE2_CODE_UNIT_WIDTH 32
+-endselect
+
+-iftarget windows
+	-declarebool PCRE2_STATIC
+	-ifdef PCRE2_STATIC
+		-define PCRE2_STATIC 1
+	-endif
+-endif
+
+-removedefine PCRE2_EXP_DECL
+-removedefine PCRE2POSIX_EXP_DECL
+-removedefine PCRE2POSIX_EXP_DEFN
+-removedefine PCRE2_TYPES_LIST
+-removedefine PCRE2_STRUCTURE_LIST
+-removedefine PCRE2_GENERAL_INFO_FUNCTIONS
+-removedefine PCRE2_GENERAL_CONTEXT_FUNCTIONS
+-removedefine PCRE2_COMPILE_CONTEXT_FUNCTIONS
+-removedefine PCRE2_MATCH_CONTEXT_FUNCTIONS
+-removedefine PCRE2_COMPILE_FUNCTIONS
+-removedefine PCRE2_PATTERN_INFO_FUNCTIONS
+-removedefine PCRE2_MATCH_FUNCTIONS
+-removedefine PCRE2_SUBSTRING_FUNCTIONS
+-removedefine PCRE2_SERIALIZE_FUNCTIONS
+-removedefine PCRE2_SUBSTITUTE_FUNCTION
+-removedefine PCRE2_JIT_FUNCTIONS
+-removedefine PCRE2_OTHER_FUNCTIONS
+-removedefine PCRE2_TYPES_STRUCTURES_AND_FUNCTIONS
+
+-typedefhint PCRE2_SIZE

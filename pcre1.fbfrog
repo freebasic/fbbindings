@@ -1,0 +1,10 @@
+-iftarget windows
+	-declarebool PCRE_STATIC
+	-ifdef PCRE_STATIC
+		-define PCRE_STATIC 1
+	-endif
+-endif
+
+-removedefine PCRE_EXP_DECL
+-removedefine PCREPOSIX_EXP_DECL
+-removedefine PCREPOSIX_EXP_DEFN

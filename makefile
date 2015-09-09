@@ -1,4 +1,4 @@
-FBFROG_VERSION := 7dc704b407da2adfe24f201139476db52e1269f3
+FBFROG_VERSION := fe1dfb57b7f32511dd87c3f65818a9e450870689
 
 ALL := allegro allegro4 allegro5 aspell atk
 ALL += bass bassmod bfd bzip2
@@ -13,7 +13,7 @@ ALL += llvm lua
 ALL += mediainfo modplug mpg123 mxml
 ALL += ncurses
 ALL += openal opengl opengl-mesa opengl-winapi
-ALL += pango pdcurses png png12 png14 png15 png16
+ALL += pango pcre pdcurses png png12 png14 png15 png16
 ALL += sdl sdl1 sdl2 sqlite
 ALL += tre
 ALL += winapi
@@ -1959,6 +1959,34 @@ pango: tools pango-extract glib-extract cairo-extract
 		-inclib pangocairo-1.0             inc/pango/pangocairo.bi \
 		-title $(PANGO) pango.tmp      gtk+-translators.txt inc/pango/pango.bi \
 		-title $(PANGO) pangocairo.tmp gtk+-translators.txt inc/pango/pangocairo.bi
+
+	rm *.tmp
+
+PCRE1_VERSION := 8.37
+PCRE1 := pcre-$(PCRE1_VERSION)
+PCRE2_VERSION := 10.20
+PCRE2 := pcre2-$(PCRE2_VERSION)
+pcre: tools
+	./get.sh $(PCRE1) $(PCRE1).tar.bz2 http://sourceforge.net/projects/pcre/files/pcre/$(PCRE1_VERSION)/$(PCRE1).tar.bz2/download
+	./get.sh $(PCRE2) $(PCRE2).tar.bz2 http://sourceforge.net/projects/pcre/files/pcre2/$(PCRE2_VERSION)/$(PCRE2).tar.bz2/download
+
+	cd extracted/$(PCRE1) && \
+		cp config.h.generic config.h && \
+		cp pcre.h.generic pcre.h
+
+	cd extracted/$(PCRE2)/src && \
+		cp config.h.generic config.h && \
+		cp pcre2.h.generic pcre2.h
+
+	$(GETCOMMENT) -2 extracted/$(PCRE1)/pcre.h           > pcre1.tmp
+	$(GETCOMMENT) -2 extracted/$(PCRE1)/pcreposix.h      > pcre1posix.tmp
+	$(GETCOMMENT) -2 extracted/$(PCRE2)/src/pcre2.h      > pcre2.tmp
+	$(GETCOMMENT) -2 extracted/$(PCRE2)/src/pcre2posix.h > pcre2posix.tmp
+
+	$(FBFROG) pcre1.fbfrog extracted/$(PCRE1)/pcre.h           -o inc/pcre.bi       -title $(PCRE1) pcre1.tmp      fbteam.txt
+	$(FBFROG) pcre1.fbfrog extracted/$(PCRE1)/pcreposix.h      -o inc/pcreposix.bi  -title $(PCRE1) pcre1posix.tmp fbteam.txt
+	$(FBFROG) pcre2.fbfrog extracted/$(PCRE2)/src/pcre2.h      -o inc/pcre2.bi      -title $(PCRE2) pcre2.tmp      fbteam.txt
+	$(FBFROG) pcre2.fbfrog extracted/$(PCRE2)/src/pcre2posix.h -o inc/pcre2posix.bi -title $(PCRE2) pcre2posix.tmp fbteam.txt
 
 	rm *.tmp
 
