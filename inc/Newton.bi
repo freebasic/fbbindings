@@ -293,7 +293,7 @@ type NewtonUserBilateralCallback as sub(byval userJoint as const NewtonJoint con
 type NewtonUserBilateralGetInfoCallback as sub(byval userJoint as const NewtonJoint const ptr, byval info as NewtonJointRecord const ptr)
 type NewtonConstraintDestructor as sub(byval me as const NewtonJoint const ptr)
 type NewtonJobTask as sub(byval world as NewtonWorld const ptr, byval userData as any const ptr, byval threadIndex as long)
-type NewtonReportProgress as function(byval normalizedProgressPercent as dFloat, byval userData as any const ptr) as bool
+type NewtonReportProgress as function(byval normalizedProgressPercent as dFloat, byval userData as any const ptr) as byte
 
 declare function NewtonWorldGetVersion() as long
 declare function NewtonWorldFloatSize() as long
