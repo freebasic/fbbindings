@@ -1,0 +1,9 @@
+-removeinclude inttypes.h
+-removeinclude sys/types.h
+-removeinclude stdint.h
+
+-removedefine __CONFIG_TYPES_H__
+-removedefine _OS_TYPES_H
+-removedefine INCLUDE_INTTYPES_H
+-removedefine INCLUDE_STDINT_H
+-removedefine INCLUDE_SYS_TYPES_H
