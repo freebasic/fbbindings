@@ -1,0 +1,125 @@
+convert c:
+	#define dOP(a,op,b,c) do {
+		(a)[0] = ((b)[0]) op ((c)[0]);
+		(a)[1] = ((b)[1]) op ((c)[1]);
+		(a)[2] = ((b)[2]) op ((c)[2]);
+	} while (0)
+to fb:
+	#macro dOP(a, op, b, c)
+		scope
+			(a)[0] = ((b)[0]) op ((c)[0])
+			(a)[1] = ((b)[1]) op ((c)[1])
+			(a)[2] = ((b)[2]) op ((c)[2])
+		end scope
+	#endmacro
+
+convert c:
+	#define dOPC(a,op,b,c) do {
+		(a)[0] = ((b)[0]) op (c);
+		(a)[1] = ((b)[1]) op (c);
+		(a)[2] = ((b)[2]) op (c);
+	} while (0)
+to fb:
+	#macro dOPC(a, op, b, c)
+		scope
+			(a)[0] = ((b)[0]) op (c)
+			(a)[1] = ((b)[1]) op (c)
+			(a)[2] = ((b)[2]) op (c)
+		end scope
+	#endmacro
+
+convert c:
+	#define dOPE(a, op, b) do {
+		(a)[0] op ((b)[0]);
+		(a)[1] op ((b)[1]);
+		(a)[2] op ((b)[2]);
+	} while (0)
+to fb:
+	#macro dOPE(a, op, b)
+		scope
+			(a)[0] op ((b)[0])
+			(a)[1] op ((b)[1])
+			(a)[2] op ((b)[2])
+		end scope
+	#endmacro
+
+convert c:
+	#define dOPEC(a,op,c) do {
+		(a)[0] op (c);
+		(a)[1] op (c);
+		(a)[2] op (c);
+	} while (0)
+to fb:
+	#macro dOPEC(a, op, c)
+		scope
+			(a)[0] op (c)
+			(a)[1] op (c)
+			(a)[2] op (c)
+		end scope
+	#endmacro
+
+convert c:
+	#define dOPE2(a,op1,b,op2,c) do {
+		(a)[0] op1 ((b)[0]) op2 ((c)[0]);
+		(a)[1] op1 ((b)[1]) op2 ((c)[1]);
+		(a)[2] op1 ((b)[2]) op2 ((c)[2]);
+	} while (0)
+to fb:
+	#macro dOPE2(a, op1, b, op2, c)
+		scope
+			(a)[0] op1 ((b)[0]) op2 ((c)[0])
+			(a)[1] op1 ((b)[1]) op2 ((c)[1])
+			(a)[2] op1 ((b)[2]) op2 ((c)[2])
+		end scope
+	#endmacro
+
+convert c:
+	#define dCROSS(a,op,b,c) do {
+		(a)[0] op ((b)[1]*(c)[2] - (b)[2]*(c)[1]);
+		(a)[1] op ((b)[2]*(c)[0] - (b)[0]*(c)[2]);
+		(a)[2] op ((b)[0]*(c)[1] - (b)[1]*(c)[0]);
+	} while(0)
+to fb:
+	#macro dCROSS(a, op, b, c)
+		scope
+			(a)[0] op ((b)[1]*(c)[2] - (b)[2]*(c)[1])
+			(a)[1] op ((b)[2]*(c)[0] - (b)[0]*(c)[2])
+			(a)[2] op ((b)[0]*(c)[1] - (b)[1]*(c)[0])
+		end scope
+	#endmacro
+
+convert c:
+	#define dCROSSpqr(a,op,b,c,p,q,r) do {
+		(a)[  0] op ((b)[  q]*(c)[2*r] - (b)[2*q]*(c)[  r]);
+		(a)[  p] op ((b)[2*q]*(c)[  0] - (b)[  0]*(c)[2*r]);
+		(a)[2*p] op ((b)[  0]*(c)[  r] - (b)[  q]*(c)[  0]);
+	} while(0)
+to fb:
+	#macro dCROSSpqr(a, op, b, c, p, q, r)
+		scope
+			(a)[  0] op ((b)[  q]*(c)[2*r] - (b)[2*q]*(c)[  r])
+			(a)[  p] op ((b)[2*q]*(c)[  0] - (b)[  0]*(c)[2*r])
+			(a)[2*p] op ((b)[  0]*(c)[  r] - (b)[  q]*(c)[  0])
+		end scope
+	#endmacro
+
+convert c:
+	#define dCROSSMAT(A,a,skip,plus,minus) do {
+		(A)[1] = minus (a)[2];
+		(A)[2] = plus (a)[1];
+		(A)[(skip)+0] = plus (a)[2];
+		(A)[(skip)+2] = minus (a)[0];
+		(A)[2*(skip)+0] = minus (a)[1];
+		(A)[2*(skip)+1] = plus (a)[0];
+	} while(0)
+to fb:
+	#macro dCROSSMAT(A, a_, skip, plus, minus)
+		scope
+			(A)[1] = minus (a_)[2]
+			(A)[2] = plus (a_)[1]
+			(A)[(skip)+0] = plus (a_)[2]
+			(A)[(skip)+2] = minus (a_)[0]
+			(A)[2*(skip)+0] = minus (a_)[1]
+			(A)[2*(skip)+1] = plus (a_)[0]
+		end scope
+	#endmacro
