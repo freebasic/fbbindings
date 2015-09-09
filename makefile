@@ -12,7 +12,7 @@ ALL += jit jpeglib jsonc
 ALL += llvm lua
 ALL += mediainfo modplug mpg123 mxml
 ALL += ncurses
-ALL += openal opengl opengl-mesa opengl-winapi
+ALL += ogg openal opengl opengl-mesa opengl-winapi
 ALL += pango pcre pdcurses png png12 png14 png15 png16 postgresql
 ALL += sdl sdl1 sdl2 sqlite
 ALL += tre
@@ -1795,6 +1795,29 @@ ncurses: tools
 		-include curses.h \
 		-title $(NCURSES_TITLE) ncurses.tmp fbteam.txt
 	rm *.tmp
+
+OGG := libogg-1.3.2
+ogg: tools
+	./get.sh $(OGG) $(OGG).tar.xz http://downloads.xiph.org/releases/ogg/$(OGG).tar.xz
+
+	cd extracted/$(OGG)/include/ogg && \
+		sed \
+			-e 's/@INCLUDE_INTTYPES_H@/0/g' \
+			-e 's/@INCLUDE_STDINT_H@/0/g' \
+			-e 's/@INCLUDE_SYS_TYPES_H@/0/g' \
+			-e 's/@SIZE16@/short/g' \
+			-e 's/@USIZE16@/unsigned short/g' \
+			-e 's/@SIZE32@/int/g' \
+			-e 's/@USIZE32@/unsigned int/g' \
+			-e 's/@SIZE64@/long long/g' \
+			< config_types.h.in > config_types.h
+
+	cp extracted/$(OGG)/COPYING ogg.tmp
+
+	mkdir -p inc/ogg
+	$(FBFROG) ogg.fbfrog -incdir extracted/$(OGG)/include \
+		-include ogg/ogg.h \
+		-o inc/ogg/ogg.bi -inclib ogg -title $(OGG) ogg.tmp fbteam.txt
 
 # There are 2 "versions" of OpenAL:
 #  * Creative OpenAL SDK 1.1 (no longer developed, openal.org down?)
