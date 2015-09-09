@@ -1,0 +1,26 @@
+convert c: typedef struct NewtonMesh{} NewtonMesh;
+to c:      typedef struct NewtonMesh   NewtonMesh;
+
+convert c: typedef struct NewtonBody{} NewtonBody;
+to c:      typedef struct NewtonBody   NewtonBody;
+
+convert c: typedef struct NewtonWorld{} NewtonWorld;
+to c:      typedef struct NewtonWorld   NewtonWorld;
+
+convert c: typedef struct NewtonJoint{} NewtonJoint;
+to c:      typedef struct NewtonJoint   NewtonJoint;
+
+convert c: typedef struct NewtonMaterial{} NewtonMaterial;
+to c:      typedef struct NewtonMaterial   NewtonMaterial;
+
+convert c: typedef struct NewtonCollision{} NewtonCollision;
+to c:      typedef struct NewtonCollision   NewtonCollision;
+
+convert c: typedef struct NewtonAcyclicArticulation{} NewtonAcyclicArticulation;
+to c:      typedef struct NewtonAcyclicArticulation   NewtonAcyclicArticulation;
+
+convert c: typedef struct NewtonDeformableMeshSegment{} NewtonDeformableMeshSegment;
+to c:      typedef struct NewtonDeformableMeshSegment   NewtonDeformableMeshSegment;
+
+convert c: typedef struct NewtonFracturedCompoundMeshPart{} NewtonFracturedCompoundMeshPart;
+to c:      typedef struct NewtonFracturedCompoundMeshPart   NewtonFracturedCompoundMeshPart;

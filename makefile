@@ -11,7 +11,7 @@ ALL += iconv im iup
 ALL += jit jpeglib jsonc
 ALL += llvm lua
 ALL += mediainfo modplug mpg123 mxml
-ALL += ncurses
+ALL += ncurses newton
 ALL += ogg openal opengl opengl-mesa opengl-winapi
 ALL += pango pcre pdcurses png png12 png14 png15 png16 postgresql
 ALL += sdl sdl1 sdl2 sqlite
@@ -1783,6 +1783,15 @@ ncurses: tools
 		-incdir extracted/$(NCURSES_TITLE)/include \
 		-include curses.h \
 		-title $(NCURSES_TITLE) ncurses.tmp fbteam.txt
+	rm *.tmp
+
+NEWTON := newton-3.13
+NEWTONDIR := newton-dynamics-$(NEWTON)
+newton: tools
+	./get.sh $(NEWTONDIR) $(NEWTON).tar.gz https://github.com/MADEAPPS/newton-dynamics/archive/$(NEWTON).tar.gz
+	cp extracted/$(NEWTONDIR)/LICENSE newton.tmp
+	$(FBFROG) newton.fbfrog extracted/$(NEWTONDIR)/coreLibrary_300/source/newton/Newton.h \
+		-o inc/Newton.bi -inclib Newton -title $(NEWTON) newton.tmp fbteam.txt
 	rm *.tmp
 
 OGG := libogg-1.3.2
