@@ -40,6 +40,8 @@
 
 #pragma once
 
+#inclib "pcreposix"
+
 #include once "crt/stdlib.bi"
 
 extern "C"

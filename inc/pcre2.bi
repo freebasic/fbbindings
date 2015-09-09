@@ -39,6 +39,14 @@
 
 #pragma once
 
+#if PCRE2_CODE_UNIT_WIDTH = 8
+	#inclib "pcre2-8"
+#elseif PCRE2_CODE_UNIT_WIDTH = 16
+	#inclib "pcre2-16"
+#elseif PCRE2_CODE_UNIT_WIDTH = 32
+	#inclib "pcre2-32"
+#endif
+
 #include once "crt/limits.bi"
 #include once "crt/stdlib.bi"
 #include once "crt/stdint.bi"
