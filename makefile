@@ -13,7 +13,7 @@ ALL += llvm lua
 ALL += mediainfo modplug mpg123 mxml
 ALL += ncurses
 ALL += openal opengl opengl-mesa opengl-winapi
-ALL += pango pcre pdcurses png png12 png14 png15 png16
+ALL += pango pcre pdcurses png png12 png14 png15 png16 postgresql
 ALL += sdl sdl1 sdl2 sqlite
 ALL += tre
 ALL += winapi
@@ -2096,6 +2096,18 @@ png16: tools
 	$(FBFROG) png.fbfrog png16.fbfrog -o inc/png16.bi extracted/$(PNG16_TITLE)/png.h \
 		-title $(PNG16_TITLE) png16.tmp fbteam.txt
 	rm *.tmp
+
+POSTGRESQL_VERSION := 9.4.4
+POSTGRESQL := postgresql-$(POSTGRESQL_VERSION)
+postgresql: tools
+	./get.sh $(POSTGRESQL) $(POSTGRESQL).tar.bz2 https://ftp.postgresql.org/pub/source/v$(POSTGRESQL_VERSION)/$(POSTGRESQL).tar.bz2
+	mkdir -p inc/postgresql
+	$(FBFROG) postgresql.fbfrog \
+		-incdir extracted/$(POSTGRESQL)/src/interfaces/libpq \
+		-incdir extracted/$(POSTGRESQL)/src/include \
+		-include libpq-fe.h \
+		-emit '*/libpq-fe.h'     inc/postgresql/libpq-fe.bi \
+		-emit '*/postgres_ext.h' inc/postgresql/postgres_ext.bi
 
 sdl: sdl1 sdl2
 

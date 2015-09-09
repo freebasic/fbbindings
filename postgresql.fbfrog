@@ -1,0 +1,2 @@
+-define PG_INT64_TYPE "long long"
+-removeinclude pg_config_ext.h
