@@ -1,0 +1,3 @@
+-inclib sqlite
+-fixunsizedarrays
+-rename_ sqlite_version
