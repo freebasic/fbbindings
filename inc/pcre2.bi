@@ -39,6 +39,10 @@
 
 #pragma once
 
+#ifndef PCRE2_CODE_UNIT_WIDTH
+	#error PCRE2_CODE_UNIT_WIDTH must be defined before including pcre2.bi. Use 8, 16, or 32; or 0 for a multi-width application.
+#endif
+
 #if PCRE2_CODE_UNIT_WIDTH = 8
 	#inclib "pcre2-8"
 #elseif PCRE2_CODE_UNIT_WIDTH = 16
