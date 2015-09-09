@@ -1,0 +1,42 @@
+-declarebool dDOUBLE
+-ifdef dDOUBLE
+	-define dDOUBLE 1
+-else
+	-define dSINGLE 1
+-endif
+
+-iftarget windows
+	-declarebool ODE_LIB
+	-ifdef ODE_LIB
+		-define ODE_LIB 1
+	-endif
+	-ifdef dDOUBLE
+		-inclib ode_double
+	-else
+		-inclib ode_single
+	-endif
+-else
+	-inclib ode
+-endif
+
+-replacements ode.replacements
+
+-addforwarddecl dxWorld
+-addforwarddecl dxSpace
+-addforwarddecl dxBody
+-addforwarddecl dxGeom
+-addforwarddecl dxJoint
+-addforwarddecl dxJointNode
+-addforwarddecl dxJointGroup
+-addforwarddecl dxWorldProcessThreadingManager
+
+-removeinclude ode/precision.h
+
+-removedefine __ODE__
+-removedefine ODE_DLL_API
+-removedefine ODE_API
+-removedefine ODE_PURE_INLINE
+-removedefine ODE_INLINE
+-removedefine ODE_EXTERN_C
+-removedefine D_ALL_PARAM_NAMES
+-removedefine D_ALL_PARAM_NAMES_X

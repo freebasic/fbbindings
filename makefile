@@ -1806,6 +1806,16 @@ newton: tools
 		-o inc/Newton.bi -inclib Newton -title $(NEWTON) newton.tmp fbteam.txt
 	rm *.tmp
 
+ODE := ode-0.13.1
+ode: tools
+	./get.sh $(ODE) $(ODE).tar.gz https://bitbucket.org/odedevs/ode/downloads/$(ODE).tar.gz
+	rm -f extracted/$(ODE)/include/ode/precision.h
+	$(GETCOMMENT) extracted/$(ODE)/include/ode/ode.h > ode.tmp
+	mkdir -p inc/ode
+	$(FBFROG) ode.fbfrog -incdir extracted/$(ODE)/include -include ode/ode.h \
+		-o inc/ode/ode.bi -title $(ODE) ode.tmp fbteam.txt
+	rm *.tmp
+
 OGG := libogg-1.3.2
 ogg-extract: tools
 	./get.sh $(OGG) $(OGG).tar.xz http://downloads.xiph.org/releases/ogg/$(OGG).tar.xz
