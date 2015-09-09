@@ -31,6 +31,7 @@
 -addforwarddecl dxWorldProcessThreadingManager
 
 -removeinclude ode/precision.h
+-removeinclude float.h
 
 -removedefine __ODE__
 -removedefine ODE_DLL_API
@@ -40,3 +41,23 @@
 -removedefine ODE_EXTERN_C
 -removedefine D_ALL_PARAM_NAMES
 -removedefine D_ALL_PARAM_NAMES_X
+
+# case-aliases
+-removedefine dMULTIPLY0_331
+-removedefine dMULTIPLY1_331
+-removedefine dMULTIPLY0_133
+-removedefine dMULTIPLY0_333
+-removedefine dMULTIPLY1_333
+-removedefine dMULTIPLY2_333
+-removedefine dMULTIPLYADD0_331
+-removedefine dMULTIPLYADD1_331
+-removedefine dMULTIPLYADD0_133
+-removedefine dMULTIPLYADD0_333
+-removedefine dMULTIPLYADD1_333
+-removedefine dMULTIPLYADD2_333
+
+-ifndefdecl M_PI
+-ifndefdecl M_PI_2
+-ifndefdecl M_SQRT1_2
+
+-renameproc dDot dDot_
