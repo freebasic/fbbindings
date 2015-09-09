@@ -2101,13 +2101,16 @@ POSTGRESQL_VERSION := 9.4.4
 POSTGRESQL := postgresql-$(POSTGRESQL_VERSION)
 postgresql: tools
 	./get.sh $(POSTGRESQL) $(POSTGRESQL).tar.bz2 https://ftp.postgresql.org/pub/source/v$(POSTGRESQL_VERSION)/$(POSTGRESQL).tar.bz2
+	cp extracted/$(POSTGRESQL)/COPYRIGHT postgresql.tmp
 	mkdir -p inc/postgresql
 	$(FBFROG) postgresql.fbfrog \
 		-incdir extracted/$(POSTGRESQL)/src/interfaces/libpq \
 		-incdir extracted/$(POSTGRESQL)/src/include \
 		-include libpq-fe.h \
 		-emit '*/libpq-fe.h'     inc/postgresql/libpq-fe.bi \
-		-emit '*/postgres_ext.h' inc/postgresql/postgres_ext.bi
+		-emit '*/postgres_ext.h' inc/postgresql/postgres_ext.bi \
+		-title $(POSTGRESQL) postgresql.tmp fbteam.txt
+	rm *.tmp
 
 sdl: sdl1 sdl2
 
