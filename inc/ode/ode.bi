@@ -528,14 +528,14 @@ end sub
 
 private sub dAddVectorCross3(byval res as dReal ptr, byval a as const dReal ptr, byval b as const dReal ptr)
 	dim tmp(0 to 2) as dReal
-	dCalcVectorCross3(tmp, a, b)
-	dAddVectors3(res, res, tmp)
+	dCalcVectorCross3(@tmp(0), a, b)
+	dAddVectors3(res, res, @tmp(0))
 end sub
 
 private sub dSubtractVectorCross3(byval res as dReal ptr, byval a as const dReal ptr, byval b as const dReal ptr)
 	dim tmp(0 to 2) as dReal
-	dCalcVectorCross3(tmp, a, b)
-	dSubtractVectors3(res, res, tmp)
+	dCalcVectorCross3(@tmp(0), a, b)
+	dSubtractVectors3(res, res, @tmp(0))
 end sub
 
 private sub dSetCrossMatrixPlus(byval res as dReal ptr, byval a as const dReal ptr, byval skip as ulong)
@@ -565,8 +565,8 @@ end sub
 private function dCalcPointsDistance3(byval a as const dReal ptr, byval b as const dReal ptr) as dReal
 	dim res as dReal
 	dim tmp(0 to 2) as dReal
-	dSubtractVectors3(tmp, a, b)
-	res = dCalcVectorLength3(tmp)
+	dSubtractVectors3(@tmp(0), a, b)
+	res = dCalcVectorLength3(@tmp(0))
 	return res
 end function
 
@@ -633,50 +633,50 @@ end sub
 
 private sub dMultiplyAdd0_331(byval res as dReal ptr, byval a as const dReal ptr, byval b as const dReal ptr)
 	dim tmp(0 to 2) as dReal
-	dMultiplyHelper0_331(tmp, a, b)
-	dAddVectors3(res, res, tmp)
+	dMultiplyHelper0_331(@tmp(0), a, b)
+	dAddVectors3(res, res, @tmp(0))
 end sub
 
 private sub dMultiplyAdd1_331(byval res as dReal ptr, byval a as const dReal ptr, byval b as const dReal ptr)
 	dim tmp(0 to 2) as dReal
-	dMultiplyHelper1_331(tmp, a, b)
-	dAddVectors3(res, res, tmp)
+	dMultiplyHelper1_331(@tmp(0), a, b)
+	dAddVectors3(res, res, @tmp(0))
 end sub
 
 private sub dMultiplyAdd0_133(byval res as dReal ptr, byval a as const dReal ptr, byval b as const dReal ptr)
 	dim tmp(0 to 2) as dReal
-	dMultiplyHelper0_133(tmp, a, b)
-	dAddVectors3(res, res, tmp)
+	dMultiplyHelper0_133(@tmp(0), a, b)
+	dAddVectors3(res, res, @tmp(0))
 end sub
 
 private sub dMultiplyAdd0_333(byval res as dReal ptr, byval a as const dReal ptr, byval b as const dReal ptr)
 	dim tmp(0 to 2) as dReal
-	dMultiplyHelper0_133(tmp, a + 0, b)
-	dAddVectors3(res + 0, res + 0, tmp)
-	dMultiplyHelper0_133(tmp, a + 4, b)
-	dAddVectors3(res + 4, res + 4, tmp)
-	dMultiplyHelper0_133(tmp, a + 8, b)
-	dAddVectors3(res + 8, res + 8, tmp)
+	dMultiplyHelper0_133(@tmp(0), a + 0, b)
+	dAddVectors3(res + 0, res + 0, @tmp(0))
+	dMultiplyHelper0_133(@tmp(0), a + 4, b)
+	dAddVectors3(res + 4, res + 4, @tmp(0))
+	dMultiplyHelper0_133(@tmp(0), a + 8, b)
+	dAddVectors3(res + 8, res + 8, @tmp(0))
 end sub
 
 private sub dMultiplyAdd1_333(byval res as dReal ptr, byval a as const dReal ptr, byval b as const dReal ptr)
 	dim tmp(0 to 2) as dReal
-	dMultiplyHelper1_133(tmp, b, a + 0)
-	dAddVectors3(res + 0, res + 0, tmp)
-	dMultiplyHelper1_133(tmp, b, a + 1)
-	dAddVectors3(res + 4, res + 4, tmp)
-	dMultiplyHelper1_133(tmp, b, a + 2)
-	dAddVectors3(res + 8, res + 8, tmp)
+	dMultiplyHelper1_133(@tmp(0), b, a + 0)
+	dAddVectors3(res + 0, res + 0, @tmp(0))
+	dMultiplyHelper1_133(@tmp(0), b, a + 1)
+	dAddVectors3(res + 4, res + 4, @tmp(0))
+	dMultiplyHelper1_133(@tmp(0), b, a + 2)
+	dAddVectors3(res + 8, res + 8, @tmp(0))
 end sub
 
 private sub dMultiplyAdd2_333(byval res as dReal ptr, byval a as const dReal ptr, byval b as const dReal ptr)
 	dim tmp(0 to 2) as dReal
-	dMultiplyHelper0_331(tmp, b, a + 0)
-	dAddVectors3(res + 0, res + 0, tmp)
-	dMultiplyHelper0_331(tmp, b, a + 4)
-	dAddVectors3(res + 4, res + 4, tmp)
-	dMultiplyHelper0_331(tmp, b, a + 8)
-	dAddVectors3(res + 8, res + 8, tmp)
+	dMultiplyHelper0_331(@tmp(0), b, a + 0)
+	dAddVectors3(res + 0, res + 0, @tmp(0))
+	dMultiplyHelper0_331(@tmp(0), b, a + 4)
+	dAddVectors3(res + 4, res + 4, @tmp(0))
+	dMultiplyHelper0_331(@tmp(0), b, a + 8)
+	dAddVectors3(res + 8, res + 8, @tmp(0))
 end sub
 
 private function dCalcMatrix3Det(byval mat as const dReal ptr) as dReal
