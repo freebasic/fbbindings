@@ -28,3 +28,5 @@
 
 -rename_ constructor
 -rename_ destructor
+
+-define bool _Bool
