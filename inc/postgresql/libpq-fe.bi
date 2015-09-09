@@ -30,6 +30,8 @@
 
 #pragma once
 
+#inclib "pq"
+
 #include once "crt/stdio.bi"
 #include once "postgres_ext.bi"
 
