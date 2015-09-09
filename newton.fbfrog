@@ -1,0 +1,30 @@
+-iftarget windows
+	-declarebool _NEWTON_STATIC_LIB
+	-ifdef _NEWTON_STATIC_LIB
+		-define _NEWTON_STATIC_LIB 1
+	-endif
+-endif
+
+-declarebool __USE_DOUBLE_PRECISION__
+-ifdef __USE_DOUBLE_PRECISION__
+	-define _NEWTON_USE_DOUBLE 1
+-endif
+
+-removedefine NEWTON_API
+
+-replacements newton.replacements
+
+-addforwarddecl NewtonMesh
+-addforwarddecl NewtonBody
+-addforwarddecl NewtonWorld
+-addforwarddecl NewtonJoint
+-addforwarddecl NewtonMaterial
+-addforwarddecl NewtonCollision
+-addforwarddecl NewtonAcyclicArticulation
+-addforwarddecl NewtonDeformableMeshSegment
+-addforwarddecl NewtonFracturedCompoundMeshPart
+
+-noexpand dFloat
+
+-rename_ constructor
+-rename_ destructor
