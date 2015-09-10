@@ -1,0 +1,9 @@
+-removedefine ZMQ_EXPORT
+-rename_ _
+
+-iftarget windows
+	-declarebool ZMQ_STATIC
+	-ifdef ZMQ_STATIC
+		-define ZMQ_STATIC 1
+	-endif
+-endif

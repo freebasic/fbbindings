@@ -21,7 +21,7 @@ ALL += uuid
 ALL += vorbis
 ALL += winapi
 ALL += x11 xcb xml2 xmp xz
-ALL += zip zlib
+ALL += zip zlib zmq
 
 EXEEXT := $(shell fbc -print x)
 LOCAL_FBFROG_DIR := extracted/fbfrog-$(FBFROG_VERSION)
@@ -3490,4 +3490,13 @@ zlib: tools
 	$(GETCOMMENT) extracted/$(ZLIB_TITLE)/zlib.h > zlib.tmp
 	$(FBFROG) zlib.fbfrog -o inc extracted/$(ZLIB_TITLE)/zlib.h \
 		-title $(ZLIB_TITLE) zlib.tmp fbteam.txt
+	rm *.tmp
+
+ZMQ := zeromq-4.1.3
+zmq: tools
+	./get.sh $(ZMQ) $(ZMQ).tar.gz http://download.zeromq.org/$(ZMQ).tar.gz
+	$(GETCOMMENT) extracted/$(ZMQ)/include/zmq.h > zmq.tmp
+	mkdir -p inc/zmq
+	$(FBFROG) zmq.fbfrog extracted/$(ZMQ)/include/zmq.h -o inc/zmq/zmq.bi \
+		-inclib zmq -title $(ZMQ) zmq.tmp fbteam.txt
 	rm *.tmp
