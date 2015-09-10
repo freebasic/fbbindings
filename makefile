@@ -14,7 +14,7 @@ ALL += mediainfo modplug mpg123 mxml
 ALL += ncurses newton
 ALL += ogg openal opengl opengl-mesa opengl-winapi
 ALL += pango pcre pdcurses png png12 png14 png15 png16 portaudio postgresql
-ALL += sdl sdl1 sdl2 sqlite
+ALL += sdl sdl1 sdl2 sndfile sqlite
 ALL += tre
 ALL += vorbis
 ALL += winapi
@@ -2357,6 +2357,21 @@ sdl2: tools winapi-extract
 		-title $(SDL2_NET)   sdl2-net.tmp   fbteam.txt inc/SDL2/SDL_net.bi \
 		-title $(SDL2_TTF)   sdl2-ttf.tmp   fbteam.txt inc/SDL2/SDL_ttf.bi
 
+	rm *.tmp
+
+SNDFILE := libsndfile-1.0.25
+sndfile: tools
+	./get.sh $(SNDFILE) $(SNDFILE).tar.gz http://www.mega-nerd.com/libsndfile/files/$(SNDFILE).tar.gz
+	sed \
+		-e 's/@TYPEOF_SF_COUNT_T@/long long/g' \
+		-e 's/@SF_COUNT_MAX@/0x7FFFFFFFFFFFFFFFLL/g' \
+		< extracted/$(SNDFILE)/src/sndfile.h.in \
+		> extracted/$(SNDFILE)/src/sndfile.h
+	$(GETCOMMENT) extracted/$(SNDFILE)/src/sndfile.h > sndfile.tmp
+	$(FBFROG) sndfile.fbfrog extracted/$(SNDFILE)/src/sndfile.h \
+		-o inc/sndfile.bi \
+		-inclib sndfile \
+		-title $(SNDFILE) sndfile.tmp fbteam.txt
 	rm *.tmp
 
 SQLITE3_PRETTY := "SQLite 3.8.11.1"
