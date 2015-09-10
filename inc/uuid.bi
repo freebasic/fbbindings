@@ -41,11 +41,7 @@
 #inclib "uuid"
 
 #include once "crt/sys/types.bi"
-
-#if defined(__FB_DOS__) or defined(__FB_UNIX__)
-	#include once "crt/sys/time.bi"
-#endif
-
+#include once "crt/sys/time.bi"
 #include once "crt/time.bi"
 
 extern "C"
