@@ -14,8 +14,10 @@ ALL += mediainfo modplug mpg123 mxml
 ALL += ncurses newton
 ALL += ogg openal opengl opengl-mesa opengl-winapi
 ALL += pango pcre pdcurses png png12 png14 png15 png16 portaudio postgresql
-ALL += sdl sdl1 sdl2 sndfile sqlite
+ALL += quicklz
+ALL += sdl sdl1 sdl2 sndfile spidermonkey sqlite
 ALL += tre
+ALL += uuid
 ALL += vorbis
 ALL += winapi
 ALL += x11 xcb xml2 xz
@@ -2169,6 +2171,16 @@ postgresql: tools
 		-inclib pq inc/postgresql/libpq-fe.bi
 	rm *.tmp
 
+quicklz: tools
+	if [ ! -d extracted/quicklz ]; then \
+		mkdir -p extracted/quicklz && \
+		wget http://www.quicklz.com/quicklz.h -O extracted/quicklz/quicklz.h; \
+	fi
+	$(GETCOMMENT) -1-14 extracted/quicklz/quicklz.h > quicklz.tmp
+	#$(FBFROG) quicklz.fbfrog extracted/quicklz/quicklz.h -o inc/quicklz.bi \
+	#	-inclib quicklz -title QuickLZ quicklz.tmp fbteam.txt
+	rm *.tmp
+
 sdl: sdl1 sdl2
 
 SDL1_MAIN := SDL-1.2.15
@@ -2387,6 +2399,10 @@ sndfile: tools
 		-title $(SNDFILE) sndfile.tmp fbteam.txt
 	rm *.tmp
 
+SPIDERMONKEY := mozjs-31.2.0
+spidermonkey: tools
+	./get.sh $(SPIDERMONKEY) $(SPIDERMONKEY).rc0.tar.bz2 https://people.mozilla.org/~sstangl/$(SPIDERMONKEY).rc0.tar.bz2
+
 SQLITE3_PRETTY := "SQLite 3.8.11.1"
 SQLITE3 := sqlite-amalgamation-3081101
 SQLITE2 := SQLite-47fee16b
@@ -2448,6 +2464,16 @@ tre: tools
 		-inclib tre       inc/tre/tre.bi \
 		-title $(TRE) tre.tmp fbteam.txt
 
+	rm *.tmp
+
+E2FSPROGS_VERSION := 1.42.13
+E2FSPROGS := e2fsprogs-libs-$(E2FSPROGS_VERSION)
+uuid: tools
+	./get.sh $(E2FSPROGS) $(E2FSPROGS).tar.xz https://www.kernel.org/pub/linux/kernel/people/tytso/e2fsprogs/v$(E2FSPROGS_VERSION)/$(E2FSPROGS).tar.xz
+	cd extracted/$(E2FSPROGS)/lib/uuid && cp uuid.h.in uuid.h
+	$(GETCOMMENT) extracted/$(E2FSPROGS)/lib/uuid/uuid.h > uuid.tmp
+	$(FBFROG) uuid.fbfrog extracted/$(E2FSPROGS)/lib/uuid/uuid.h -o inc/uuid.bi \
+		-inclib uuid -title $(E2FSPROGS) uuid.tmp fbteam.txt
 	rm *.tmp
 
 VORBIS := libvorbis-1.3.5

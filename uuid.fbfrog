@@ -1,0 +1,2 @@
+-rename sys/time.h crt/sys/time.bi
+-replacements uuid.replacements
