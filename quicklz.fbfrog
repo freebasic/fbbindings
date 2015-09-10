@@ -1,0 +1,8 @@
+-declareversions QLZ_COMPRESSION_LEVEL 1 2 3
+-selectversion
+-case 1 -define QLZ_COMPRESSION_LEVEL 1
+-case 2 -define QLZ_COMPRESSION_LEVEL 2
+-case 3 -define QLZ_COMPRESSION_LEVEL 3
+-endselect
+
+# TODO: should QLZ_STREAMING_BUFFER be handled this way too?

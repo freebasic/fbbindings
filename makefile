@@ -14,6 +14,7 @@ ALL += mediainfo modplug mpg123 mxml
 ALL += ncurses newton
 ALL += ogg openal opengl opengl-mesa opengl-winapi
 ALL += pango pcre pdcurses png png12 png14 png15 png16 portaudio postgresql
+ALL += quicklz
 ALL += sdl sdl1 sdl2 sndfile spidermonkey sqlite
 ALL += tre
 ALL += vorbis
@@ -2155,6 +2156,16 @@ postgresql: tools
 		-emit '*/postgres_ext.h' inc/postgresql/postgres_ext.bi \
 		-title $(POSTGRESQL) postgresql.tmp fbteam.txt \
 		-inclib pq inc/postgresql/libpq-fe.bi
+	rm *.tmp
+
+quicklz: tools
+	if [ ! -d extracted/quicklz ]; then \
+		mkdir -p extracted/quicklz && \
+		wget http://www.quicklz.com/quicklz.h -O extracted/quicklz/quicklz.h; \
+	fi
+	$(GETCOMMENT) -1-14 extracted/quicklz/quicklz.h > quicklz.tmp
+	#$(FBFROG) quicklz.fbfrog extracted/quicklz/quicklz.h -o inc/quicklz.bi \
+	#	-inclib quicklz -title QuickLZ quicklz.tmp fbteam.txt
 	rm *.tmp
 
 sdl: sdl1 sdl2
