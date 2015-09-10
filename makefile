@@ -20,7 +20,7 @@ ALL += tre
 ALL += uuid
 ALL += vorbis
 ALL += winapi
-ALL += x11 xcb xml2 xz
+ALL += x11 xcb xml2 xmp xz
 ALL += zip zlib
 
 EXEEXT := $(shell fbc -print x)
@@ -3465,6 +3465,16 @@ xml2-update-test:
 	ls inc/libxml/*.bi   | sed -e 's,^inc/,#include ",g' -e 's,$$,",g' > tests/xml2.bas
 	ls inc/libxslt/*.bi  | sed -e 's,^inc/,#include ",g' -e 's,$$,",g' > tests/xslt.bas
 	ls inc/libexslt/*.bi | sed -e 's,^inc/,#include ",g' -e 's,$$,",g' > tests/exslt.bas
+
+XMP_VERSION := 4.3.9
+XMP := libxmp-$(XMP_VERSION)
+xmp: tools
+	./get.sh $(XMP) $(XMP).tar.gz http://sourceforge.net/projects/xmp/files/libxmp/$(XMP_VERSION)/$(XMP).tar.gz/download
+	sed -n 57,67p extracted/$(XMP)/README > xmp.tmp
+	./fsf-address-fix.sh xmp.tmp
+	$(FBFROG) xmp.fbfrog extracted/$(XMP)/include/xmp.h -o inc/xmp.bi \
+		-inclib xmp -title $(XMP) xmp.tmp fbteam.txt
+	rm *.tmp
 
 XZ := xz-5.2.1
 xz: tools

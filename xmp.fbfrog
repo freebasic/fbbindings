@@ -1,0 +1,8 @@
+-iftarget windows
+	-declarebool BUILDING_STATIC
+	-ifdef BUILDING_STATIC
+		-define BUILDING_STATIC 1
+	-endif
+-endif
+
+-removedefine EXPORT
