@@ -2482,7 +2482,8 @@ vlc: tools
 	$(FBFROG) vlc.fbfrog -incdir extracted/$(VLC)/include \
 		-include vlc/vlc.h \
 		-include vlc/libvlc.h \
-		`./vlc-fbfrog-options.sh $(VLC)`
+		`./vlc-fbfrog-options.sh $(VLC)` \
+		-inclib vlc inc/vlc/vlc.bi
 	rm extracted/$(VLC)/include/vlc/*.tmp
 
 VORBIS := libvorbis-1.3.5
