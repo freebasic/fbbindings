@@ -2380,6 +2380,7 @@ sndfile: tools
 		< extracted/$(SNDFILE)/src/sndfile.h.in \
 		> extracted/$(SNDFILE)/src/sndfile.h
 	$(GETCOMMENT) extracted/$(SNDFILE)/src/sndfile.h > sndfile.tmp
+	./fsf-address-fix.sh sndfile.tmp
 	$(FBFROG) sndfile.fbfrog extracted/$(SNDFILE)/src/sndfile.h \
 		-o inc/sndfile.bi \
 		-inclib sndfile \
