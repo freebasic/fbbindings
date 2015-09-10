@@ -13,7 +13,7 @@ ALL += llvm lua
 ALL += mediainfo modplug mpg123 mxml
 ALL += ncurses newton
 ALL += ogg openal opengl opengl-mesa opengl-winapi
-ALL += pango pcre pdcurses png png12 png14 png15 png16 postgresql
+ALL += pango pcre pdcurses png png12 png14 png15 png16 portaudio postgresql
 ALL += sdl sdl1 sdl2 sqlite
 ALL += tre
 ALL += vorbis
@@ -2140,6 +2140,17 @@ png16: tools
 	sed -n 246,331p extracted/$(PNG16_TITLE)/png.h | cut -c4- >> png16.tmp
 	$(FBFROG) png.fbfrog png16.fbfrog -o inc/png16.bi extracted/$(PNG16_TITLE)/png.h \
 		-title $(PNG16_TITLE) png16.tmp fbteam.txt
+	rm *.tmp
+
+PORTAUDIO := pa_stable_v19_20140130
+portaudio: tools
+	./get.sh $(PORTAUDIO) $(PORTAUDIO).tgz http://www.portaudio.com/archives/pa_stable_v19_20140130.tgz createdir
+	$(GETCOMMENT) -1 extracted/$(PORTAUDIO)/portaudio/include/portaudio.h > portaudio.tmp
+	echo >> portaudio.tmp
+	$(GETCOMMENT) -2 extracted/$(PORTAUDIO)/portaudio/include/portaudio.h >> portaudio.tmp
+	$(FBFROG) extracted/$(PORTAUDIO)/portaudio/include/portaudio.h \
+		-o inc/portaudio.bi -inclib portaudio \
+		-title $(PORTAUDIO) portaudio.tmp fbteam.txt
 	rm *.tmp
 
 POSTGRESQL_VERSION := 9.4.4
