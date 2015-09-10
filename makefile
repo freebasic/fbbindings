@@ -17,6 +17,7 @@ ALL += pango pcre pdcurses png png12 png14 png15 png16 portaudio postgresql
 ALL += quicklz
 ALL += sdl sdl1 sdl2 sndfile spidermonkey sqlite
 ALL += tre
+ALL += uuid
 ALL += vorbis
 ALL += winapi
 ALL += x11 xcb xml2 xz
@@ -2451,6 +2452,16 @@ tre: tools
 		-inclib tre       inc/tre/tre.bi \
 		-title $(TRE) tre.tmp fbteam.txt
 
+	rm *.tmp
+
+E2FSPROGS_VERSION := 1.42.13
+E2FSPROGS := e2fsprogs-libs-$(E2FSPROGS_VERSION)
+uuid: tools
+	./get.sh $(E2FSPROGS) $(E2FSPROGS).tar.xz https://www.kernel.org/pub/linux/kernel/people/tytso/e2fsprogs/v$(E2FSPROGS_VERSION)/$(E2FSPROGS).tar.xz
+	cd extracted/$(E2FSPROGS)/lib/uuid && cp uuid.h.in uuid.h
+	$(GETCOMMENT) extracted/$(E2FSPROGS)/lib/uuid/uuid.h > uuid.tmp
+	$(FBFROG) uuid.fbfrog extracted/$(E2FSPROGS)/lib/uuid/uuid.h -o inc/uuid.bi \
+		-inclib uuid -title $(E2FSPROGS) uuid.tmp fbteam.txt
 	rm *.tmp
 
 VORBIS := libvorbis-1.3.5
