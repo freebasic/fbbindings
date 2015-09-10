@@ -6,3 +6,7 @@
 -endif
 
 -removedefine EXPORT
+-rename_ mod
+-rename_ XMP_VERSION
+-rename_ XMP_VERCODE
+-rename_ XMP_CHANNEL_MUTE

@@ -22,11 +22,16 @@
 
 #include once "crt/long.bi"
 
+'' The following symbols have been renamed:
+''     #define XMP_VERSION => XMP_VERSION_
+''     constant XMP_VERCODE => XMP_VERCODE_
+''     constant XMP_CHANNEL_MUTE => XMP_CHANNEL_MUTE_
+
 extern "C"
 
 #define XMP_H
-#define XMP_VERSION "4.3.9"
-const XMP_VERCODE = &h040309
+#define XMP_VERSION_ "4.3.9"
+const XMP_VERCODE_ = &h040309
 const XMP_VER_MAJOR = 4
 const XMP_VER_MINOR = 3
 const XMP_VER_RELEASE = 9
@@ -84,7 +89,7 @@ type xmp_channel
 end type
 
 const XMP_CHANNEL_SYNTH = 1 shl 0
-const XMP_CHANNEL_MUTE = 1 shl 1
+const XMP_CHANNEL_MUTE_ = 1 shl 1
 const XMP_CHANNEL_SPLIT = 1 shl 2
 const XMP_CHANNEL_SURROUND = 1 shl 4
 
@@ -228,7 +233,7 @@ const XMP_PERIOD_BASE = 6847
 type xmp_module_info
 	md5(0 to 15) as ubyte
 	vol_base as long
-	mod as xmp_module ptr
+	mod_ as xmp_module ptr
 	comment as zstring ptr
 	num_sequences as long
 	seq_data as xmp_sequence ptr
