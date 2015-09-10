@@ -75,6 +75,7 @@
 -removedefine __CRT_INLINE
 -removedefine __CRT_STRINGIZE
 -removedefine _CRT_STRINGIZE
+-removedefine __crt_typefix
 -removedefine _CRT_UNUSED
 -removedefine __CRT_UUID_DECL
 -removedefine __CRT_WIDE
@@ -337,6 +338,7 @@
 -removedefine WINSHELLAPI
 -removedefine WINSOCK_API_LINKAGE
 -removedefine WINSPOOLAPI
+-removedefine WS2TCPIP_INLINE
 -removedefine WSAAPI
 
 -replacements winapi.replacements
