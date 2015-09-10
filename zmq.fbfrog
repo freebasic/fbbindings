@@ -1,9 +1,13 @@
--removedefine ZMQ_EXPORT
--rename_ _
-
 -iftarget windows
 	-declarebool ZMQ_STATIC
 	-ifdef ZMQ_STATIC
 		-define ZMQ_STATIC 1
 	-endif
 -endif
+
+-addinclude crt/sys/uio.bi
+-rename winsock2.h win/winsock2.bi
+
+-removedefine ZMQ_EXPORT
+-rename_ _
+-rename_ ZMQ_VERSION
