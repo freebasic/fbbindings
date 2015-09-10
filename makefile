@@ -20,7 +20,7 @@ ALL += tre
 ALL += uuid
 ALL += vorbis
 ALL += winapi
-ALL += x11 xcb xml2 xz
+ALL += x11 xcb xml2 xmp xz
 ALL += zip zlib
 
 EXEEXT := $(shell fbc -print x)
@@ -3447,6 +3447,16 @@ xml2: tools
 		-incdir extracted/$(XSLT)/libexslt \
 		`./exslt-fbfrog-options.sh $(XSLT)`
 
+	rm *.tmp
+
+XMP_VERSION := 4.3.9
+XMP := libxmp-$(XMP_VERSION)
+xmp: tools
+	./get.sh $(XMP) $(XMP).tar.gz http://sourceforge.net/projects/xmp/files/libxmp/$(XMP_VERSION)/$(XMP).tar.gz/download
+	sed -n 57,67p extracted/$(XMP)/README > xmp.tmp
+	./fsf-address-fix.sh xmp.tmp
+	$(FBFROG) xmp.fbfrog extracted/$(XMP)/include/xmp.h -o inc/xmp.bi \
+		-inclib xmp -title $(XMP) xmp.tmp fbteam.txt
 	rm *.tmp
 
 XZ := xz-5.2.1
