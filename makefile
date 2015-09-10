@@ -18,7 +18,7 @@ ALL += quicklz
 ALL += sdl sdl1 sdl2 sndfile spidermonkey sqlite
 ALL += tre
 ALL += uuid
-ALL += vorbis
+ALL += vlc vorbis
 ALL += winapi
 ALL += x11 xcb xml2 xmp xz
 ALL += zip zlib zmq
@@ -2475,6 +2475,27 @@ uuid: tools
 	$(FBFROG) uuid.fbfrog extracted/$(E2FSPROGS)/lib/uuid/uuid.h -o inc/uuid.bi \
 		-inclib uuid -title $(E2FSPROGS) uuid.tmp fbteam.txt
 	rm *.tmp
+
+VLC_MAJOR := 2
+VLC_MINOR := 2
+VLC_REV := 1
+VLC_VERSION := $(VLC_MAJOR).$(VLC_MINOR).$(VLC_REV)
+VLC := vlc-$(VLC_VERSION)
+vlc: tools
+	./get.sh $(VLC) $(VLC).tar.xz http://get.videolan.org/vlc/$(VLC_VERSION)/$(VLC).tar.xz
+	cd extracted/$(VLC)/include/vlc && \
+		sed \
+			-e 's/@VERSION_MAJOR@/$(VLC_MAJOR)/g' \
+			-e 's/@VERSION_MINOR@/$(VLC_MINOR)/g' \
+			-e 's/@VERSION_REVISION@/$(VLC_REV)/g' \
+			< libvlc_version.h.in > libvlc_version.h
+	./vlc-gen-tmps.sh $(VLC)
+	mkdir -p inc/vlc
+	$(FBFROG) vlc.fbfrog -incdir extracted/$(VLC)/include \
+		-include vlc/vlc.h \
+		-include vlc/libvlc.h \
+		`./vlc-fbfrog-options.sh $(VLC)`
+	rm extracted/$(VLC)/include/vlc/*.tmp
 
 VORBIS := libvorbis-1.3.5
 vorbis: ogg-extract
