@@ -14,7 +14,7 @@ ALL += mediainfo modplug mpg123 mxml
 ALL += ncurses newton
 ALL += ogg openal opengl opengl-mesa opengl-winapi
 ALL += pango pcre pdcurses png png12 png14 png15 png16 portaudio postgresql
-ALL += sdl sdl1 sdl2 sndfile sqlite
+ALL += sdl sdl1 sdl2 sndfile spidermonkey sqlite
 ALL += tre
 ALL += vorbis
 ALL += winapi
@@ -2374,6 +2374,10 @@ sndfile: tools
 		-inclib sndfile \
 		-title $(SNDFILE) sndfile.tmp fbteam.txt
 	rm *.tmp
+
+SPIDERMONKEY := mozjs-31.2.0
+spidermonkey: tools
+	./get.sh $(SPIDERMONKEY) $(SPIDERMONKEY).rc0.tar.bz2 https://people.mozilla.org/~sstangl/$(SPIDERMONKEY).rc0.tar.bz2
 
 SQLITE3_PRETTY := "SQLite 3.8.11.1"
 SQLITE3 := sqlite-amalgamation-3081101
