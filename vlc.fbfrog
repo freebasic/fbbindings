@@ -1,1 +1,17 @@
 -removedefine VLC_FORWARD_DECLARE_OBJECT
+
+-addforwarddecl libvlc_instance_t
+-addforwarddecl libvlc_event_manager_t
+-addforwarddecl libvlc_log_iterator_t
+-addforwarddecl libvlc_media_t
+-addforwarddecl libvlc_media_list_t
+-addforwarddecl libvlc_media_player_t
+-addforwarddecl libvlc_equalizer_t
+-addforwarddecl libvlc_media_list_player_t
+-addforwarddecl libvlc_media_library_t
+-addforwarddecl libvlc_media_discoverer_t
+
+-rename_ LIBVLC_ERROR
+
+-removeinclude stdbool.h
+-define bool _Bool

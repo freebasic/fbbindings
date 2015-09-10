@@ -34,6 +34,7 @@
 extern "C"
 
 const VLC_LIBVLC_MEDIA_LIBRARY_H = 1
+type libvlc_media_library_t as libvlc_media_library_t_
 declare function libvlc_media_library_new(byval p_instance as libvlc_instance_t ptr) as libvlc_media_library_t ptr
 declare sub libvlc_media_library_release(byval p_mlib as libvlc_media_library_t ptr)
 declare sub libvlc_media_library_retain(byval p_mlib as libvlc_media_library_t ptr)

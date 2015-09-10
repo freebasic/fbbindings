@@ -40,6 +40,7 @@ enum
 	libvlc_playback_mode_repeat
 end enum
 
+type libvlc_media_list_player_t as libvlc_media_list_player_t_
 declare function libvlc_media_list_player_new(byval p_instance as libvlc_instance_t ptr) as libvlc_media_list_player_t ptr
 declare sub libvlc_media_list_player_release(byval p_mlp as libvlc_media_list_player_t ptr)
 declare sub libvlc_media_list_player_retain(byval p_mlp as libvlc_media_list_player_t ptr)

@@ -33,6 +33,8 @@
 
 #pragma once
 
+#inclib "vlc"
+
 #include once "vlc/libvlc_structures.bi"
 #include once "vlc/libvlc.bi"
 #include once "vlc/libvlc_media.bi"

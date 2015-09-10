@@ -166,6 +166,7 @@ type libvlc_media_track_t
 	psz_description as zstring ptr
 end type
 
+type libvlc_media_t as libvlc_media_t_
 declare function libvlc_media_new_location(byval p_instance as libvlc_instance_t ptr, byval psz_mrl as const zstring ptr) as libvlc_media_t ptr
 declare function libvlc_media_new_path(byval p_instance as libvlc_instance_t ptr, byval path as const zstring ptr) as libvlc_media_t ptr
 declare function libvlc_media_new_fd(byval p_instance as libvlc_instance_t ptr, byval fd as long) as libvlc_media_t ptr
@@ -181,6 +182,7 @@ declare sub libvlc_media_set_meta(byval p_md as libvlc_media_t ptr, byval e_meta
 declare function libvlc_media_save_meta(byval p_md as libvlc_media_t ptr) as long
 declare function libvlc_media_get_state(byval p_md as libvlc_media_t ptr) as libvlc_state_t
 declare function libvlc_media_get_stats(byval p_md as libvlc_media_t ptr, byval p_stats as libvlc_media_stats_t ptr) as long
+type libvlc_media_list_t as libvlc_media_list_t_
 declare function libvlc_media_subitems(byval p_md as libvlc_media_t ptr) as libvlc_media_list_t ptr
 declare function libvlc_media_event_manager(byval p_md as libvlc_media_t ptr) as libvlc_event_manager_t ptr
 declare function libvlc_media_get_duration(byval p_md as libvlc_media_t ptr) as libvlc_time_t

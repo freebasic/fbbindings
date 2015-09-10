@@ -34,6 +34,7 @@
 extern "C"
 
 const VLC_LIBVLC_MEDIA_DISCOVERER_H = 1
+type libvlc_media_discoverer_t as libvlc_media_discoverer_t_
 declare function libvlc_media_discoverer_new_from_name(byval p_inst as libvlc_instance_t ptr, byval psz_name as const zstring ptr) as libvlc_media_discoverer_t ptr
 declare sub libvlc_media_discoverer_release(byval p_mdis as libvlc_media_discoverer_t ptr)
 declare function libvlc_media_discoverer_localized_name(byval p_mdis as libvlc_media_discoverer_t ptr) as zstring ptr
