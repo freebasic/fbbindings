@@ -39,10 +39,14 @@
 #include once "crt/stdio.bi"
 
 #ifdef __FB_WIN32__
-	#include once "winsock2.bi"
+	#include once "win/winsock2.bi"
 #endif
 
 #include once "crt/stdint.bi"
+#include once "crt/sys/uio.bi"
+
+'' The following symbols have been renamed:
+''     #define ZMQ_VERSION => ZMQ_VERSION_
 
 extern "C"
 
@@ -51,7 +55,7 @@ const ZMQ_VERSION_MAJOR = 4
 const ZMQ_VERSION_MINOR = 1
 const ZMQ_VERSION_PATCH = 3
 #define ZMQ_MAKE_VERSION(major, minor, patch) ((((major) * 10000) + ((minor) * 100)) + (patch))
-#define ZMQ_VERSION ZMQ_MAKE_VERSION(ZMQ_VERSION_MAJOR, ZMQ_VERSION_MINOR, ZMQ_VERSION_PATCH)
+#define ZMQ_VERSION_ ZMQ_MAKE_VERSION(ZMQ_VERSION_MAJOR, ZMQ_VERSION_MINOR, ZMQ_VERSION_PATCH)
 const ZMQ_DEFINED_STDINT = 1
 const ZMQ_HAUSNUMERO = 156384712
 const ENOTSUP = ZMQ_HAUSNUMERO + 1
