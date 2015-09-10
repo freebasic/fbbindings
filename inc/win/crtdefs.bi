@@ -169,4 +169,3 @@ type threadlocaleinfostruct
 end type
 
 type threadlocinfo as threadlocaleinfostruct
-#define __crt_typefix(ctype)

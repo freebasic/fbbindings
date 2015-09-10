@@ -174,7 +174,6 @@ const IPV6_RTHDR = 32
 const IPV6_RECVRTHDR = 38
 const IPV6_TCLASS = 39
 const IPV6_RECVTCLASS = 40
-#define WS2TCPIP_INLINE __CRT_INLINE
 declare function IN6_ADDR_EQUAL(byval as const IN6_ADDR ptr, byval as const IN6_ADDR ptr) as long
 #define IN6_ADDR_EQUAL(a, b) clng(-(memcmp((a), (b), sizeof(IN6_ADDR)) = 0))
 #define IN6_ARE_ADDR_EQUAL IN6_ADDR_EQUAL
