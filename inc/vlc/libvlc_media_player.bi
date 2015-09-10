@@ -31,8 +31,6 @@
 
 #pragma once
 
-#include once "stdbool.bi"
-
 extern "C"
 
 const VLC_LIBVLC_MEDIA_PLAYER_H = 1
@@ -99,6 +97,7 @@ enum
 	libvlc_position_bottom_right
 end enum
 
+type libvlc_media_player_t as libvlc_media_player_t_
 declare function libvlc_media_player_new(byval p_libvlc_instance as libvlc_instance_t ptr) as libvlc_media_player_t ptr
 declare function libvlc_media_player_new_from_media(byval p_md as libvlc_media_t ptr) as libvlc_media_player_t ptr
 declare sub libvlc_media_player_release(byval p_mi as libvlc_media_player_t ptr)
@@ -135,7 +134,7 @@ type libvlc_audio_pause_cb as sub(byval data as any ptr, byval pts as longint)
 type libvlc_audio_resume_cb as sub(byval data as any ptr, byval pts as longint)
 type libvlc_audio_flush_cb as sub(byval data as any ptr, byval pts as longint)
 type libvlc_audio_drain_cb as sub(byval data as any ptr)
-type libvlc_audio_set_volume_cb as sub(byval data as any ptr, byval volume as single, byval mute as bool)
+type libvlc_audio_set_volume_cb as sub(byval data as any ptr, byval volume as single, byval mute as byte)
 declare sub libvlc_audio_set_callbacks(byval mp as libvlc_media_player_t ptr, byval play as libvlc_audio_play_cb, byval pause as libvlc_audio_pause_cb, byval resume as libvlc_audio_resume_cb, byval flush as libvlc_audio_flush_cb, byval drain as libvlc_audio_drain_cb, byval opaque as any ptr)
 declare sub libvlc_audio_set_volume_callback(byval mp as libvlc_media_player_t ptr, byval set_volume as libvlc_audio_set_volume_cb)
 type libvlc_audio_setup_cb as function(byval data as any ptr ptr, byval format as zstring ptr, byval rate as ulong ptr, byval channels as ulong ptr) as long
@@ -292,6 +291,7 @@ declare function libvlc_audio_equalizer_get_preset_count() as ulong
 declare function libvlc_audio_equalizer_get_preset_name(byval u_index as ulong) as const zstring ptr
 declare function libvlc_audio_equalizer_get_band_count() as ulong
 declare function libvlc_audio_equalizer_get_band_frequency(byval u_index as ulong) as single
+type libvlc_equalizer_t as libvlc_equalizer_t_
 declare function libvlc_audio_equalizer_new() as libvlc_equalizer_t ptr
 declare function libvlc_audio_equalizer_new_from_preset(byval u_index as ulong) as libvlc_equalizer_t ptr
 declare sub libvlc_audio_equalizer_release(byval p_equalizer as libvlc_equalizer_t ptr)

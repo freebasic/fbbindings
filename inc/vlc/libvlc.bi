@@ -35,6 +35,9 @@
 #include once "crt/stdarg.bi"
 #include once "vlc/libvlc_structures.bi"
 
+'' The following symbols have been renamed:
+''     constant LIBVLC_ERROR => LIBVLC_ERROR_
+
 extern "C"
 
 const VLC_LIBVLC_H = 1
@@ -42,6 +45,7 @@ declare function libvlc_errmsg() as const zstring ptr
 declare sub libvlc_clearerr()
 declare function libvlc_vprinterr(byval fmt as const zstring ptr, byval ap as va_list) as const zstring ptr
 declare function libvlc_printerr(byval fmt as const zstring ptr, ...) as const zstring ptr
+type libvlc_instance_t as libvlc_instance_t_
 declare function libvlc_new(byval argc as long, byval argv as const zstring const ptr ptr) as libvlc_instance_t ptr
 declare sub libvlc_release(byval p_instance as libvlc_instance_t ptr)
 declare sub libvlc_retain(byval p_instance as libvlc_instance_t ptr)
@@ -58,6 +62,7 @@ declare sub libvlc_free(byval ptr as any ptr)
 type libvlc_event_type_t as long
 type libvlc_event_t as libvlc_event_t_
 type libvlc_callback_t as sub(byval as const libvlc_event_t ptr, byval as any ptr)
+type libvlc_event_manager_t as libvlc_event_manager_t_
 
 declare function libvlc_event_attach(byval p_event_manager as libvlc_event_manager_t ptr, byval i_event_type as libvlc_event_type_t, byval f_callback as libvlc_callback_t, byval user_data as any ptr) as long
 declare sub libvlc_event_detach(byval p_event_manager as libvlc_event_manager_t ptr, byval i_event_type as libvlc_event_type_t, byval f_callback as libvlc_callback_t, byval p_user_data as any ptr)
@@ -68,7 +73,7 @@ enum
 	LIBVLC_DEBUG = 0
 	LIBVLC_NOTICE = 2
 	LIBVLC_WARNING = 3
-	LIBVLC_ERROR = 4
+	LIBVLC_ERROR_ = 4
 end enum
 
 type libvlc_log_t as vlc_log_t
@@ -84,6 +89,7 @@ declare function libvlc_log_open(byval p_instance as libvlc_instance_t ptr) as l
 declare sub libvlc_log_close(byval p_log as libvlc_log_t ptr)
 declare function libvlc_log_count(byval p_log as const libvlc_log_t ptr) as ulong
 declare sub libvlc_log_clear(byval p_log as libvlc_log_t ptr)
+type libvlc_log_iterator_t as libvlc_log_iterator_t_
 declare function libvlc_log_get_iterator(byval p_log as const libvlc_log_t ptr) as libvlc_log_iterator_t ptr
 declare sub libvlc_log_iterator_free(byval p_iter as libvlc_log_iterator_t ptr)
 declare function libvlc_log_iterator_has_next(byval p_iter as const libvlc_log_iterator_t ptr) as long
