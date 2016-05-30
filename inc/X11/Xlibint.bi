@@ -240,8 +240,8 @@ const XlibDisplayWriting = cast(clong, 1) shl 6
 const XlibDisplayDfltRMDB = cast(clong, 1) shl 7
 declare function _XGetRequest(byval dpy as Display ptr, byval type as CARD8, byval len as uinteger) as any ptr
 '' TODO: #define GetReqSized(name, sz, req) req = (x##name##Req *) _XGetRequest(dpy, X_##name, sz)
-#define GetReq(name, req) GetReqSized(name, XSIZEOF(x##name##Req), req)
-#define GetReqExtra(name, n, req) GetReqSized(name, XSIZEOF(x##name##Req) + n, req)
+#define GetReq(name, req_) GetReqSized(name, XSIZEOF(x##name##Req), req_)
+#define GetReqExtra(name, n, req_) GetReqSized(name, XSIZEOF(x##name##Req) + n, req_)
 '' TODO: #define GetResReq(name, rid, req) req = (xResourceReq *) _XGetRequest(dpy, X_##name, SIZEOF(xResourceReq)); req->id = (rid)
 #define GetEmptyReq(name, req) scope : req = cptr(xReq ptr, _XGetRequest(dpy, X_##name, XSIZEOF(xReq))) : end scope
 
